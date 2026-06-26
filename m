@@ -1,391 +1,161 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010066.outbound.protection.outlook.com [52.101.69.66])
+Received: from sender-op-o11.zoho.in (sender-op-o11.zoho.in [103.117.158.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2118C3DCD97;
-	Fri, 26 Jun 2026 09:49:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECEE3EB0E6
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 09:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=103.117.158.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782467349; cv=fail; b=Q5SqXBr+beBLVYmZNH3rrVtwP7LpLa73xmYiOxTcLKvLj/Um0cjNjNhlueHXdvrsFrfTunwT5RIG1kXTDCBuYDq9vOxZun/ccU+7HS41B/TXBCnOqdrHW2NSkV20xMlsNR+x26G2IAniM3+wRsqDh+gr84m0KONtgmnoSa+S3bk=
+	t=1782467525; cv=pass; b=FEUNBYj3WaMdji1xGD/VPWRInQ1QvmKX7QpOZlw6kwIe9KALuAXIFpSrtBsJm/EX/dIOm2011pXZG/wmz5J0mfuRBxwxXyBgfwCqhCfV38YfVd1C4nYnyExJKpNmVP5yfTubAHQBRgrzqEoUSWTtn8MEQSa/f75T6qighc5X7zI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782467349; c=relaxed/simple;
-	bh=Hy6snx12XvWox3b/krxD4cHwhSRZxujpcabHQch6AT8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=sUnVCckck4szbM/e39QZwaydVk2ecGnqqaOxNllkAkNWsm8g5G2zRwCCmQP8zGFsydOZjpw7SA5F8oi+jWhpfz+Xa1B7xs7FPGQ1TVGoLWbTHXu/QIK8Ov//rDl2AnRmjwp5Eab0PpO3krP54ti38B3NXffKKWmwsL6Wz+Yqu7U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=KxqYUvof; arc=fail smtp.client-ip=52.101.69.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	s=arc-20240116; t=1782467525; c=relaxed/simple;
+	bh=VV1ECIiTGBJeT4pimv/oANtMZNOmdEG0BsS8lZxXOYs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hmp/jAttefpgp7sE5u4G7tmQhgmLzY6w2GS++aGRyi1ZmbO4cpXRYHxXRmmBhEnStTl7bgHjzPbPFNUiiT5VFg/Y4krdGigDd98etH3Z4+zTh+ittd8AGVmrWQnT3hkKCIwkRnRju6r6ULUS+ByxYSfwLjppgGyeuc5O3oSj0IA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rebhu.com; spf=pass smtp.mailfrom=rebhu.com; dkim=pass (1024-bit key) header.d=rebhu.com header.i=shubham@rebhu.com header.b=rgjH7fgq; arc=pass smtp.client-ip=103.117.158.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rebhu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rebhu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="KxqYUvof"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DIq2hdDp4FxfTwxT2yD9DIA+0SLHAyQ+bQGxWoUe1lZKO3IPNQZfoqrfTEMuTPrrm2l8DdVWCFa6XFrhml52OZ7FlakHHfbZKwJxwaCaKk+YUgvMWupnBtqqGAILvdJ966cJBlrrs6zL40KFWaNl5oZtnwIxO+14tz689ndi3UC58NShUZHxQEU/N/dbucQukelD1iTcl4JwoIREZgN9dVIAPL2EXLrt85j2oThapb+ZolemzyxHq0vXOnqsPsF3orV8BL1+GdwgnGZGoXtrnr0UTsOfOWG8AyWT5VmXUgQ//0b5OEW6oi2NkOiXT6xF20MU5Ogl9w+ZX4hFXeFrOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xe1w7B7bTJ0gvi6jTtu62v+Z2gwkGO/K2TkJOS7u59o=;
- b=tZurAgJ4/T4NayehkzBCWPm7uyF9iuGMUji3c4DrFhpby7pT5wgNl4pJ02cbtVJ2Mr0ABFZpg1nBkoLf0QrzO7mlKIZ9qfKSiPi4i1juggPEZeUUoQoapxJJD1ww9VKTyLOHR1BaW0SS5vgf3x5fti6l/N3tRyHl0ed9n5BuRdBsyjPM845QA1VKAOzTj5mrKSRhKhhRdEaZmIbCIWTQZEQLC4syMjYwuUGdcSy7mJPPKjT86+My2h9y0Hq7qnq9PbRW7us5vPXbemdDK1RJNRUUzhQRBXkVX1FmT+qd38piQOUApIU0pFKmKKwWMNkOed38wJjpGDbe/DlchrTKsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xe1w7B7bTJ0gvi6jTtu62v+Z2gwkGO/K2TkJOS7u59o=;
- b=KxqYUvofPXfA01xEESipjsKJibmOuwcw3dG0cIOXkf5CjGlfcT07QdFXu2j3zk7XMcXWQidnqTmKYjSlcSmr8pXgIZBobpPI1jDLY4orVUT/XxWqsqrQFz6p0IIJmUNCMgzFDaqzdvMdhae/I42f1QbyaiDm3/v0Q9/4Nj5N9Vs28SvQ7batUSxmr2vgaEoMS7iVzSJEQfZ0Yz2KreZistjCkDqOGJPdNFPTfmggEGCrvbVbiUKJkDK5wm2U0mPyvkqsRWkpyJpshOFiaTqBHI0FZeunKibsKvPdIYSHgrvK8/5IbUfWAbSXrtoDAV21xrzAz+guOR1dNwyv1CHefA==
-Received: from CWLP123CA0193.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:19c::18)
- by AS2PR10MB6445.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:558::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Fri, 26 Jun
- 2026 09:49:01 +0000
-Received: from AM3PEPF0000A79A.eurprd04.prod.outlook.com
- (2603:10a6:400:19c:cafe::38) by CWLP123CA0193.outlook.office365.com
- (2603:10a6:400:19c::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.17 via Frontend Transport; Fri,
- 26 Jun 2026 09:49:01 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AM3PEPF0000A79A.mail.protection.outlook.com (10.167.16.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Fri, 26 Jun 2026 09:49:01 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 26 Jun
- 2026 11:53:42 +0200
-Received: from [10.252.24.187] (10.252.24.187) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 26 Jun
- 2026 11:49:00 +0200
-Message-ID: <b2649f69-6182-4530-97cc-5619cd9f3ccc@foss.st.com>
-Date: Fri, 26 Jun 2026 11:49:00 +0200
+	dkim=pass (1024-bit key) header.d=rebhu.com header.i=shubham@rebhu.com header.b="rgjH7fgq"
+ARC-Seal: i=1; a=rsa-sha256; t=1782467420; cv=none; 
+	d=zohomail.in; s=zohoarc; 
+	b=RmUS6VC7km4sAsheGaE+ETBO5oS5aEH3fyaG7G5XXqDm6F/nVQXeqA1+ozTMeVgDMeWJLnCpoXpafGaTvClsKckdqSQvPyYAWyPKqg9sALGq5vR5bWvqPRiCrugMYQgX7eqn89vVD4mYbsajEg4UgOFzQ3peVPwGd48hXs7g+PI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
+	t=1782467420; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=sET9CEszVQFsTQEBjINbwDd749FE6ul7+R4eIg2DXlM=; 
+	b=H0ln0DFzGyDl1PwJVQeaqazdV4RPBFG94KffCC5PSOsSHdNJA3xdkNF86TY1PlzeYO0q9gEsKiu2sXhUPgVWtaHdG2cpZB5GST/zMRVfwnxzNxNpFolNbc2y5RiXfc/tqKr+G3WYG/p7lF8LEEKUsiyKdbCBp/f0CbiXpZ5wz3g=
+ARC-Authentication-Results: i=1; mx.zohomail.in;
+	dkim=pass  header.i=rebhu.com;
+	spf=pass  smtp.mailfrom=shubham@rebhu.com;
+	dmarc=pass header.from=<shubham@rebhu.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782467420;
+	s=zmail; d=rebhu.com; i=shubham@rebhu.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=sET9CEszVQFsTQEBjINbwDd749FE6ul7+R4eIg2DXlM=;
+	b=rgjH7fgq2WWXDhMRgQ7nf556xTWh9TOcZXvObvzfQS/RHC/8i47lyXDxJoWnCtlr
+	JcEgRfDQvSj+iRbzKGAVR1BCp3Q/oYfzoZ/zdAzMKHWWprmq+yURG0Aw6G0yTEMkeAZ
+	6AXj2FxvOsFtLsTFwWnWOU6ikQbtdLBdcvC77Jzk=
+Received: by mx.zoho.in with SMTPS id 1782467418005855.6222380842893;
+	Fri, 26 Jun 2026 15:20:18 +0530 (IST)
+From: Shubham <shubham@rebhu.com>
+To: tomi.valkeinen@ideasonboard.com
+Cc: a-bhatia1@ti.com,
+	afd@ti.com,
+	airlied@gmail.com,
+	aradhya.bhatia@linux.dev,
+	conor+dt@kernel.org,
+	devarsht@ti.com,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	j-choudhary@ti.com,
+	krzk+dt@kernel.org,
+	lee@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	louis.chauvet@bootlin.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	nm@ti.com,
+	robertcnelson@gmail.com,
+	robh@kernel.org,
+	s-jain1@ti.com,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	vigneshr@ti.com
+Subject: Re: [PATCH v3 00/15] drm/tidss: Add BeagleY-AI display support (and some more)
+Date: Fri, 26 Jun 2026 15:19:56 +0530
+Message-ID: <20260626094956.243978-1-shubham@rebhu.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
+References: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] media: i2c: vd55g1: Add support for vd55g4
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-CC: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
-	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<devicetree@vger.kernel.org>
-References: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
- <20260428-vd55g4_and_fixes-v1-4-4f745a83b87e@foss.st.com>
- <ajkKkSeDNoijIsub@zed> <68d276f9-e688-4736-a296-f56c5aaa4b77@foss.st.com>
- <aj4xDDy0UubUzCVx@zed>
-Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <aj4xDDy0UubUzCVx@zed>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM3PEPF0000A79A:EE_|AS2PR10MB6445:EE_
-X-MS-Office365-Filtering-Correlation-Id: e50969e5-d030-45c4-577d-08ded36826dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|36860700016|376014|82310400026|7416014|18002099003|11063799006|56012099006|5023799004|3023799007|4143699003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	NeKkhDnK7NkqgNkoHhuboMJTkY1S83Ty9aKDzQE4sKHVFeA66ysL0czFRw06NLwv6WuCS5a7UFwJuL6M6uCnO0Cjchpbw2UM7wGG+PZJZkPoRhTxZpe2tmaAU8OCl3QI4EpRWo2COpuAKnCz3wD9sGdhNKLJf4S55THH6FKLcJkw4nhIkE4L07w23DIrYnJP51PKo5wBck4wgqoQRe8Qcg5RymrN6pnxJ7I+5PdO8CgYb0BxiywFRYc4m7AvYp9lphbVKED/yflg/6rLwKI2FrKtZBr+j/Of3D7HtXaXb4Dy/gHbzHz6zL4QM8IJh0+a6Gm5A7cB3gMgItZnGOzwnA0z6g8W4n/VDczMBHT6uorLkugAxdfjsd5o6RloGhWksakokVjhWvnwLAFJWAiEFFiVabSiy6fRUv7rzTetoDLBeME6EMVSB/G/RxF4sT4VQBOrCm9g2rkjio1Rw21s9PT6TVwBVQ9ahpt998gfUbHKzFRTeZyQzScb7uiV5OCT+5fnqROelvBERZ65VpLVBkjMQrEx8n3F0JJw8+HI2pqyFirAubehzMkpZkESMkvKkF+PWGZKtb6b5Dcu90QDQFJurSSlE+p8Tj1wlvN8Tm6hwcCZxYaYf/E0KyTX3trvOgyVlF9zfdZ6Ip8xlHC38NlD6+Lv2LnJhrajH4/BXBBaCFKn1I0m13C8clTndW7ocH8kgcBoNpC4w4Tmp4k23Q==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(36860700016)(376014)(82310400026)(7416014)(18002099003)(11063799006)(56012099006)(5023799004)(3023799007)(4143699003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	X8bWjWRO2nRWmrT0NA2E6SXnzSVjR7KkuJUhRkVGzg7I+3VQG8gbNGZ9Egt5tVXM0kD7XcMR/j7Q3rHlqO+UFquXSsf8enJD8Okl0xQKwgt1kkIo+AgvOcLzLHikHEA9e9B0XhA8yvJd9OLQ0GbC9PnGrKd/Zr+lDZpDncxM09Z4Q++y6yr91ul4D4mUhz0Fe2B9BCpKLUiTAmKVjh1J3YaJNRR2qt1npKEGke+xjRc/cx2nvA4njrF7pq//Ddh0xivOUxUuySjFdwXHkkKNhQjqb0bn8u5GHUw8N2rSJBISqF53diV4ujQcQpOYU/+jif2UdNJ6BDcg3xHawrwHl8wLv3pZ/konZ4NMwn6A4/0d1AIYtauaC6F7aqPlbPpDcIlubWAXQaasaNBKKjvecjaoIKjeRBoVzgD/Y2Zxb/FDqfKjALsKq67Ox/1r6usr
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 09:49:01.4429
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e50969e5-d030-45c4-577d-08ded36826dd
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM3PEPF0000A79A.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB6445
+X-ZohoMailClient: External
 
-Hi Jacopo,
+Hi Tomi,
 
-Le 26/06/2026 à 09:58, Jacopo Mondi a écrit :
-> Hi Benjamin
-> 
-> On Thu, Jun 25, 2026 at 01:41:56PM +0200, Benjamin Mugnier wrote:
->> Hi Jacopo,
->>
->> Le 22/06/2026 à 12:16, Jacopo Mondi a écrit :
->>> Hi Benjamin
->>>
->>> On Tue, Apr 28, 2026 at 10:40:58AM +0200, Benjamin Mugnier wrote:
->>>> vd55g4 is the same device as vd65g4 but outputs in monochrome instead of
->>>> RGB. Adapt the driver structure according to this new variant, and add
->>>> its support.
->>>>
->>>> Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
->>>> ---
->>>>  drivers/media/i2c/vd55g1.c | 110 ++++++++++++++++++++++++++++++---------------
->>>>  1 file changed, 74 insertions(+), 36 deletions(-)
->>>>
->>>> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
->>>> index 2c962fcb41d2..9f62fc0428a1 100644
->>>> --- a/drivers/media/i2c/vd55g1.c
->>>> +++ b/drivers/media/i2c/vd55g1.c
->>>> @@ -29,11 +29,7 @@
->>>>
->>>>  /* Register Map */
->>>>  #define VD55G1_REG_MODEL_ID				CCI_REG32_LE(0x0000)
->>>> -#define VD55G1_MODEL_ID_VD55G1				0x53354731 /* Mono */
->>>> -#define VD55G1_MODEL_ID_VD65G4				0x53354733 /* RGB */
->>>> -#define VD55G1_REG_REVISION				CCI_REG16_LE(0x0004)
->>>> -#define VD55G1_REVISION_CCB				0x2020
->>>> -#define VD55G1_REVISION_BAYER				0x3030
->>>> +#define VD55G1_REG_COLOR_VERSION			CCI_REG32_LE(0x0670)
->>>>  #define VD55G1_REG_FWPATCH_REVISION			CCI_REG16_LE(0x0012)
->>>>  #define VD55G1_REG_FWPATCH_START_ADDR			CCI_REG8(0x2000)
->>>>  #define VD55G1_REG_SYSTEM_FSM				CCI_REG8(0x001c)
->>>> @@ -138,8 +134,39 @@
->>>>  #define VD55G1_MIPI_RATE_MIN				(250 * MEGA)
->>>>  #define VD55G1_MIPI_RATE_MAX				(1200 * MEGA)
->>>>
->>>> -#define VD55G1_MODEL_ID_NAME(id) \
->>>> -	((id) == VD55G1_MODEL_ID_VD55G1 ? "vd55g1" : "vd65g4")
->>>> +enum vd55g1_model_id {
->>>> +	VD55G1_MODEL_ID_2 = 0x53354731,
->>>> +	VD55G1_MODEL_ID_3 = 0x53354733,
->>>> +};
->>>> +
->>>> +enum vd55g1_color_version {
->>>> +	VD55G1_COLOR_VERSION_MONO = 0x0,
->>>> +	VD55G1_COLOR_VERSION_BAYER = 0x1,
->>>
->>> nit: you don't need to initialize the enum members here
->>
->> Thank you, will do.
->>
->>>
->>>> +};
->>>> +
->>>> +struct vd55g1_version {
->>>> +	char *name;
->>>> +	enum vd55g1_model_id id;
->>>> +	enum vd55g1_color_version color;
->>>> +};
->>>> +
->>>> +static const struct vd55g1_version vd55g1_versions[] = {
->>>> +	{
->>>> +		.name  = "vd55g1",
->>>> +		.id    = VD55G1_MODEL_ID_2,
->>>> +		.color = VD55G1_COLOR_VERSION_MONO,
->>>> +	},
->>>> +	{
->>>> +		.name  = "vd55g4",
->>>> +		.id    = VD55G1_MODEL_ID_3,
->>>> +		.color = VD55G1_COLOR_VERSION_MONO,
->>>> +	},
->>>> +	{
->>>> +		.name  = "vd65g4",
->>>> +		.id    = VD55G1_MODEL_ID_3,
->>>> +		.color = VD55G1_COLOR_VERSION_BAYER,
->>>> +	},
->>>> +};
->>>>
->>>>  static const u8 vd55g1_patch_array[] = {
->>>>  	0x44, 0x03, 0x09, 0x02, 0xe6, 0x01, 0x42, 0x00, 0xea, 0x01, 0x42, 0x00,
->>>> @@ -535,7 +562,7 @@ struct vd55g1_vblank_limits {
->>>>
->>>>  struct vd55g1 {
->>>>  	struct device *dev;
->>>> -	unsigned int id;
->>>> +	const struct vd55g1_version *version;
->>>>  	struct v4l2_subdev sd;
->>>>  	struct media_pad pad;
->>>>  	struct regulator_bulk_data supplies[ARRAY_SIZE(vd55g1_supply_name)];
->>>> @@ -628,7 +655,7 @@ static u32 vd55g1_get_fmt_code(struct vd55g1 *sensor, u32 code)
->>>>  {
->>>>  	unsigned int i, j;
->>>>
->>>> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
->>>> +	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER)
->>>>  		return code;
->>>
->>> As pointed out in the previous patch, you seem to have 2 mono formats.
->>> Is this still ok ?
->>>
->>>>
->>>>  	for (i = 0; i < ARRAY_SIZE(vd55g1_mbus_formats_bayer); i++) {
->>>> @@ -1183,8 +1210,8 @@ static int vd55g1_patch(struct vd55g1 *sensor)
->>>>  	u64 patch;
->>>>  	int ret = 0;
->>>>
->>>> -	/* vd55g1 needs a patch while vd65g4 does not */
->>>> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1) {
->>>> +	/* Version 2 needs a patch while version 3 does not */
->>>> +	if (sensor->version->id == VD55G1_MODEL_ID_2) {
->>>>  		vd55g1_write_array(sensor, VD55G1_REG_FWPATCH_START_ADDR,
->>>>  				   sizeof(vd55g1_patch_array),
->>>>  				   vd55g1_patch_array, &ret);
->>>
->>> You might want to consider renaming vd55g1_patch_array ?
->>
->> It doesn't really patch an array, it writes an array of values into
-> 
-> My only point here was that it has 'vd55g1' in the name.
+A big update on the Raspberry Pi Touch Display 2 (5-inch, native ILI9881C
+MIPI-DSI, 720x1280, 2 lanes) bring-up on BeagleY-AI (AM67A/J722S), still on
+Robert's v7.0.x-arm64-k3 tree (7.0.11-arm64-k3-r20): tidss + cdns-dsi +
+cdns-dphy, DSS = ti,am62p-dss (dispc_am625_feats).
 
-Sorry I thought you were talking about vd55g1_write_array() and not
-vd55g1_patch_array for some reason.
+The earlier "tidss comes up before the DSI bridge is added" problem is
+resolved (cdns-dsi now adds its input bridge in probe, so tidss attaches it),
+and after fixing two more issues the panel is now alive -- but I'm stuck on
+one last step and would value your read.
 
-My rule of thumb is that a static global variable must always be
-prefixed by the driver name to avoid collisions. What rename are you
-thinking about ?
+What is now confirmed working
+-----------------------------
 
-> 
->> continuous i2c registers. Just like before converting to cci_write() I
->> used to have a vd55g1_write() function to write a register, I derived a
->> vd55g1_write_array() function. Here it happens to be a firmware patch,
->> but it could be anything you want ;)
->>
->>>
->>>> @@ -1256,7 +1283,7 @@ static int vd55g1_enum_mbus_code(struct v4l2_subdev *sd,
->>>>  	struct vd55g1 *sensor = to_vd55g1(sd);
->>>>  	u32 base_code;
->>>>
->>>> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1) {
->>>> +	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER) {
->>>>  		if (code->index >= ARRAY_SIZE(vd55g1_mbus_formats_mono))
->>>>  			return -EINVAL;
->>>>  		base_code = vd55g1_mbus_formats_mono[code->index];
->>>> @@ -1372,7 +1399,7 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
->>>>  	if (ret)
->>>>  		return ret;
->>>>
->>>> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
->>>> +	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER)
->>>>  		code = vd55g1_mbus_formats_mono[VD55G1_MBUS_CODE_IDX_DEF];
->>>>  	else
->>>>  		code = vd55g1_mbus_formats_bayer[VD55G1_MBUS_CODE_IDX_DEF][0];
->>>> @@ -1659,38 +1686,48 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
->>>>  	return ret;
->>>>  }
->>>>
->>>> +static const struct vd55g1_version *
->>>> +	vd55g1_get_version(enum vd55g1_model_id id,
->>>> +			   enum vd55g1_color_version color)
->>>
->>> Should you indent one tab left ?
->>>
->>
->> checkpatch.pl is fine with both. I can indent left, it looks cleaner.
->>
->>>> +{
->>>> +	unsigned int i;
->>>> +
->>>> +	for (i = 0; i < ARRAY_SIZE(vd55g1_versions); i++) {
->>>
->>> You can declare i inside the for loop
->>>
->>
->> Yes, thank you.
->>
->>>> +		if (vd55g1_versions[i].id == id &&
->>>> +		    vd55g1_versions[i].color == color)
->>>> +			return &vd55g1_versions[i];
->>>> +	}
->>>> +
->>>> +	return NULL;
->>>> +}
->>>> +
->>>>  static int vd55g1_detect(struct vd55g1 *sensor)
->>>>  {
->>>> -	unsigned int dt_id = (uintptr_t)device_get_match_data(sensor->dev);
->>>> -	u64 rev, id;
->>>> -	int ret;
->>>> +	const struct vd55g1_version *dt_version =
->>>> +		device_get_match_data(sensor->dev);
->>>> +	const struct vd55g1_version *version;
->>>> +	u64 color, id;
->>>> +	int ret = 0;
->>>>
->>>> -	ret = vd55g1_read(sensor, VD55G1_REG_MODEL_ID, &id, NULL);
->>>> +	vd55g1_read(sensor, VD55G1_REG_MODEL_ID, &id, &ret);
->>>> +	vd55g1_read(sensor, VD55G1_REG_COLOR_VERSION, &color, &ret);
->>>>  	if (ret)
->>>>  		return ret;
->>>>
->>>> -	if (id != VD55G1_MODEL_ID_VD55G1 && id != VD55G1_MODEL_ID_VD65G4) {
->>>> -		dev_warn(sensor->dev, "Unsupported sensor id 0x%x\n",
->>>> -			 (u32)id);
->>>> +	version = vd55g1_get_version(id, color);
->>>> +	if (!version) {
->>>> +		dev_warn(sensor->dev, "Unsupported sensor version, expected %s\n",
->>>> +			 dt_version->name);
->>>>  		return -ENODEV;
->>>>  	}
->>>> -	if (id != dt_id) {
->>>> -		dev_err(sensor->dev, "Probed sensor %s and device tree definition (%s) mismatch",
->>>> -			VD55G1_MODEL_ID_NAME(id), VD55G1_MODEL_ID_NAME(dt_id));
->>>> +	if (version->id != dt_version->id ||
->>>> +	    version->color != dt_version->color) {
->>>> +		dev_err(sensor->dev, "Probed sensor version %s and device tree definition %s mismatch",
->>>> +			version->name, dt_version->name);
->>>>  		return -ENODEV;
->>>>  	}
->>>> -	sensor->id = id;
->>>>
->>>> -	ret = vd55g1_read(sensor, VD55G1_REG_REVISION, &rev, NULL);
->>>> -	if (ret)
->>>> -		return ret;
->>>> -
->>>> -	if ((id == VD55G1_MODEL_ID_VD55G1 && rev != VD55G1_REVISION_CCB) &&
->>>> -	    (id == VD55G1_MODEL_ID_VD65G4 && rev != VD55G1_REVISION_BAYER)) {
->>>> -		dev_err(sensor->dev, "Unsupported sensor revision 0x%x for sensor %s\n",
->>>> -			(u16)rev, VD55G1_MODEL_ID_NAME(id));
->>>> -		return -ENODEV;
->>>> -	}
->>>> +	sensor->version = version;
->>>>
->>>>  	return 0;
->>>>  }
->>>> @@ -2048,8 +2085,9 @@ static void vd55g1_remove(struct i2c_client *client)
->>>>  }
->>>>
->>>>  static const struct of_device_id vd55g1_dt_ids[] = {
->>>> -	{ .compatible = "st,vd55g1", .data = (void *)VD55G1_MODEL_ID_VD55G1 },
->>>> -	{ .compatible = "st,vd65g4", .data = (void *)VD55G1_MODEL_ID_VD65G4 },
->>>> +	{ .compatible = "st,vd55g1", .data = (void *)&vd55g1_versions[0] },
->>>> +	{ .compatible = "st,vd55g4", .data = (void *)&vd55g1_versions[1] },
->>>> +	{ .compatible = "st,vd65g4", .data = (void *)&vd55g1_versions[2] },
->>>>  	{ /* sentinel */ }
->>>>  };
->>>
->>> All minors
->>> Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
->>>
->>> Thanks
->>>   j
->>>
->>>>  MODULE_DEVICE_TABLE(of, vd55g1_dt_ids);
->>>>
->>>> --
->>>> 2.43.0
->>>>
->>>>
->>
->> --
->> Regards,
->> Benjamin
->>
+  - DSI-1 connector is created, tidss initializes, no probe errors, nothing
+    left in /sys/kernel/debug/devices_deferred.
+  - The panel is ALIVE and initialized: a DCS read of GET_POWER_MODE (0x0A)
+    returns 0x9c (booster on, sleep-out, display-on). So the LP command path
+    over the cdns works and the ILI9881C processed its init sequence.
+  - cdns-dsi looks healthy while a test pattern streams:
+      MCTL_MAIN_STS = 0x0000000F  (PLL_LOCKED + CLK_LANE_RDY + DATA_LANE_RDY 0/1)
+      MCTL_DPHY_ERR = 0x00000000  (no D-PHY errors)
+      VID_MODE_STS  = 0x00000001  (VSG_RUNNING, no error bits)
+      MCTL_LANE_STS -> clock lane in HS
+      VID_MAIN_CTL  = 0x80A0FE00  (RGB888, packed-pixel DT 0x3E)
+      VID_HSIZE2 hact = 2160 (720*3), VID_VSIZE2 vact = 1280
+    cdns-dphy PLL locks (no "Failed to lock PLL").
+  - The DSS is scanning out:
+      modetest -M tidss -s <dsi>@<crtc>:720x1280 -v  ->  steady 60.01 Hz.
 
--- 
-Regards,
-Benjamin
+(For reference, the two fixes that got the panel this far were: nesting the
+DSS port@1 under the controller's "ports" node in my overlay, and correcting
+the BeagleY-AI MIPI mux OE polarity -- it is active-low, and the data-lane
+mux had been left disabled while i2c still worked through a separate path.)
 
+The problem: cdns data lanes never transmit
+-------------------------------------------
+
+Sampling MCTL_LANE_STS 20000 times while the pattern is actively streaming
+(modetest -v at 60 Hz, from a second session):
+
+  DATA0 states: {'IDLE': 20000}
+  DATA1 states: {'IDLE': 20000}
+
+So the clock lane is in HS and the VSG reports "running", but the data lanes
+are 100% IDLE -- the cdns is in video mode yet never emits pixel packets.
+The DSS VP does not appear to feed the cdns DPI input even though the VP
+timing generator runs at 60 Hz, and the panel (correctly initialized) just
+shows backlight, no image.
+
+What I have ruled out
+---------------------
+
+  - Videoport selection: I tried the DSI on DSS port@1 (VP2 = DISPC_VP_DPI)
+    and on DSS port@0 (VP1 = DISPC_VP_INTERNAL). Identical result, data lanes
+    IDLE in both.
+  - tidss correctly treats the cdns as internal: the bridge of_node
+    compatible "ti,j721e-dsi" is in tidss_internal_bridge_compatibles[], so
+    dpi_output is false and it does not touch ti,am625-dss-dpi0-clk-ctrl for
+    this videoport.
+  - Overlay/graph: cdns DSI_OUTPUT_PORT=0 (panel) / DSI_INPUT_PORT=1 (DSS)
+    wired accordingly; panel attaches; no -ENODEV; VID timing is correct.
+
+Questions
+---------
+
+  1. On AM67A/J722S, what internally connects a DSS video port's DPI to the
+     cdns-dsi DPI input, and is there a clock/enable/routing step (beyond the
+     DT graph and dpi0-clk-ctrl, which tidss skips for the internal path)
+     required for the DSS to actually feed the cdns?
+  2. Which DSS VP is wired to the internal DSI on this SoC (VP1/INTERNAL vs
+     VP2/DPI), and does the DISPC_VP_INTERNAL path need any handling that the
+     DISPC_VP_DPI path does not get?
+  3. Any reason the cdns VSG would report VSG_RUNNING with the clock lane in
+     HS and both data lanes "ready", yet never drive the data lanes (no pixel
+     packets) while the DSS VP is visibly scanning at 60 Hz?
+
+I'm happy to share the full overlay, dmesg and register dumps, and to test
+patches.
+
+Thanks,
+Shubham
