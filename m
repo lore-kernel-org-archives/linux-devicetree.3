@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A443A0E81
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 21:17:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE92E19995E
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 21:18:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782508670; cv=none; b=hro0LL8kxD8jziR/6aY2XIPrvKcA6qeNrgMx4vyYYGD8icW6sKoF0vFGdBopV4ghjiFXad9r/M8W+YLowWoQy1FAAJPPKm7VoXUF/dk8kJ6Wrr14BCXgMhYKdbYZ+MPRvT90ljX10uj3UWYcHuBPmhDcwPXHvvkJODlVR6dH+Jo=
+	t=1782508726; cv=none; b=mN2XLoDc6zsovQZQ40sWRY/rsq8u4ARAnp7MutkPjmxn7fL9xeZZ6pOfHgmCXmWPugZGdetlTBKw5jZqjg4jTIegibThwhKvblcvGXSanb9Boj9caCViwelA9UfNCJTOvj1/VNiX3FOeAJn2beW8lQMQCHObwEDhvncyZ0hEbFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782508670; c=relaxed/simple;
-	bh=BTlu3F9lPw0wqV2ccWKUd40pZHNMzoH3KD4mfxaYc2k=;
+	s=arc-20240116; t=1782508726; c=relaxed/simple;
+	bh=7qsi23xPPPgb3GCPYzKVCotbjRoQitja/bwrveBgw1U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nzACCImyTfvGd7weuOYv+UDwHxIWv+yBMWqNbdsAUfkINMIKo+ew450Wp6Ke7KeWPogzAQ7JmObx8wbYMg0wdQziTakzUJij8Yo5elc+m8W6umqJG6tf7aW8XeLVYgLdQ9P8SZDNnyMzW7zeXuz+wfjLQpYZeVi5lYlxlK7czCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MMUW4Ef6; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=GedafYjtLX05SJbCeQsaDo8M7TneXOeRRcbhcoog1oeB+Gb3skvHkbahVXB8hKOi0ztyklIUzeqYQrLEwW0V5FxOG0xmZh4qK+rKTyEjIijIBoeQL4xRYOC02IgmlmHXKin3ESUP1q9S2NZ1ZEtPUrTbrk7hTvaigiAuGX3+DRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9Acj8kI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MMUW4Ef6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF691F000E9;
-	Fri, 26 Jun 2026 21:17:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9Acj8kI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182AD1F000E9;
+	Fri, 26 Jun 2026 21:18:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782508668;
-	bh=m0dy4UkM4Vp8svrKYfbkw79OIu4z8Qbu6Ly7oV7dbpo=;
+	s=k20260515; t=1782508725;
+	bh=kJDWhwpIegHAhg50uijjwBHDJLTPo5vc4osFFAqo36E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MMUW4Ef6sL+xomGVarpWj6e0ZiSMekL1pKSC+71R0VsQq7kbAJQvzI+rKutcaQs79
-	 e3UnphhBUlVuowqqgxyT7IrMOfIzUdvHWOCSpCiGpwRUE1dry43UYjSQalP9MzekZF
-	 xBdovrwAQKiO1y+9++U+knUnqm0m+TrrYpcLGe1FZPb7y4KWa1gGTy3baPskr5OitA
-	 S1RnCWZSZco/M6VmYZpgvb94d7Um2UjOZYLwkq9iQijrq0YRfa18JPSGjkmr1jd1JX
-	 7xwuHrHm9q2VmptsxCllW8x1j4c5Vw2mM+pe0b7yjFdoTPiPMc9rexXmvMtQiPY82l
-	 d5gtSkKSddINg==
+	b=G9Acj8kINyLKX5gQ/grqaH68ZQdbEScJHvXourk4J+0OvTKUb7zZ2lMWLNnVcb2SX
+	 gDq1V5hkXbCRD0izCi8cZBbKPk8nn1TfoW1CYhojv6KAk7kcgGVionJSEJyttI+nij
+	 zYDCad1E+UEWR5lFD1ATbp4S3KBwT31iBc+UEwucrqvsLjYiSzyekH6ghMXV5mJgnA
+	 mq3qMXks9ZcLGHJzlUXuCyfPy4TEPTAtfkVOVjn4bzv94gtJZBeHoBu8UMvwHVizCY
+	 ufyySeCMtHl64jW3XUJkJkF98w7a0mzpC6+o7GtBdytXOxoSWR6n+dijCVzferx11V
+	 QYZPisp7D7Eow==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 24/29] phy: rockchip: usbdp: Support going from
- DP-only mode to USB mode
+Subject: Re: [PATCH v8 20/29] phy: rockchip: usbdp: Re-init the PHY on
+ orientation change
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, linux-phy@lists.infradead.org
-In-Reply-To: <20260626-rockchip-usbdp-cleanup-v8-24-47f682987895@collabora.com>
+Cc: linux-phy@lists.infradead.org, vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com
+In-Reply-To: <20260626-rockchip-usbdp-cleanup-v8-20-47f682987895@collabora.com>
 References: <20260626-rockchip-usbdp-cleanup-v8-0-47f682987895@collabora.com>
- <20260626-rockchip-usbdp-cleanup-v8-24-47f682987895@collabora.com>
+ <20260626-rockchip-usbdp-cleanup-v8-20-47f682987895@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 21:17:47 +0000
-Message-Id: <20260626211748.4DF691F000E9@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 21:18:44 +0000
+Message-Id: <20260626211845.182AD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,71 +47,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The logic introduced to restore USB functionality fails on subsequ=
-ent adapter replugs because `udphy->status` permanently retains the `UDPHY_=
-MODE_USB` flag.
+
+Pre-existing issues:
+- [High] Hardware lane muxing is never actively updated for USB-only device=
+s upon replug or orientation change, breaking USB SuperSpeed in reverse ori=
+entation on ports that do not power-cycle the PHY.
 --
 
-commit b83098c186ec9041e5338df8dff07f7fa436a60c
+commit 52b656ef41c03fa9932c56f88505027225e05d96
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-phy: rockchip: usbdp: Support going from DP-only mode to USB mode
+phy: rockchip: usbdp: Re-init the PHY on orientation change
 
-When a USB-C adapter, which maps all Superspeed lanes to DP is plugged
-in, the USB support is disabled in the PHY. When the adapter is
-unplugged and a different adapter with USB functionality is plugged in
-afterwards, USB functionality is not restored as the USB controller
-keeps the PHY enabled for the entire time.
+This commit updates the driver to record cable orientation changes and set =
+the
+phy_needs_reinit flag. It aims to fix DP functionality breaking when the ca=
+ble
+is re-plugged with a swapped orientation.
 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
 chip/phy-rockchip-usbdp.c
-> index 837a4cb3e4b60..4566822d70c4a 100644
+> index 1bb22fc18c9f9..3d222768dc3c9 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-
-[ ... ]
-
-> @@ -1347,6 +1362,17 @@ static int rk_udphy_typec_mux_set(struct typec_mux=
-_dev *mux,
+> @@ -626,6 +626,7 @@ static int rk_udphy_orien_sw_set(struct typec_switch_=
+dev *sw,
+>  				 enum typec_orientation orien)
+>  {
+>  	struct rk_udphy *udphy =3D typec_switch_get_drvdata(sw);
+> +	bool flipped =3D orien =3D=3D TYPEC_ORIENTATION_REVERSE;
 > =20
->  	rk_udphy_set_typec_state(udphy, state->mode);
+>  	mutex_lock(&udphy->mutex);
 > =20
-> +	/*
-> +	 * If the new mode includes USB, but it has not yet been powered
-> +	 * (because the previous mode was DP-only) and the USB PHY was
-> +	 * already initialized by the USB controller, we need to power on
-> +	 * the USB side now since no subsequent phy_init call will come
-> +	 * from the controller.
-> +	 */
-> +	if ((udphy->mode & UDPHY_MODE_USB) && !(udphy->status & UDPHY_MODE_USB)=
- &&
-> +	    udphy->usb_in_use && !udphy->hs)
-> +		return rk_udphy_power_on(udphy, UDPHY_MODE_USB);
+> @@ -637,7 +638,10 @@ static int rk_udphy_orien_sw_set(struct typec_switch=
+_dev *sw,
+>  		goto unlock_ret;
+>  	}
+> =20
+> -	udphy->flip =3D orien =3D=3D TYPEC_ORIENTATION_REVERSE;
+> +	if (udphy->flip !=3D flipped)
+> +		udphy->phy_needs_reinit =3D true;
+> +
+> +	udphy->flip =3D flipped;
 
 [Severity: High]
-Does this logic handle subsequent replugs correctly if a USB device is plug=
-ged
-in first?
+This is a pre-existing issue, but does this actually flush the re-initializ=
+ation
+to the hardware if the USB PHY is already running?
 
-Since the USB controller keeps the PHY enabled during hotplug (as noted in =
-the
-commit message), the UDPHY_MODE_USB flag in udphy->status is not cleared.
+When a user replugs a USB-only Type-C device in reverse orientation on a po=
+rt
+where the USB controller does not power-cycle the PHY on unplug, for exampl=
+e in
+host mode, rk_udphy_orien_sw_set() notes the orientation change and sets
+udphy->phy_needs_reinit =3D true.
 
-If the user then plugs in a DP-only adapter, the PHY is reinitialized for DP
-and physically disables the USB3 port.
+However, because the USB controller keeps the PHY powered on,
+udphy->status & UDPHY_MODE_USB remains true.
 
-If the user later unplugs the DP-only adapter and plugs in a USB-only adapt=
-er,
-won't !(udphy->status & UDPHY_MODE_USB) evaluate to false because the flag =
-was
-never cleared? It seems this would skip the call to rk_udphy_power_on() and
-leave the USB3 port disabled.
+When rk_udphy_typec_mux_set() is called later to handle the mux event, it
+appears to skip actively re-initializing the PHY if the USB mode is already
+active:
 
-> +
->  	return 0;
->  }
->
+    if ((udphy->mode & UDPHY_MODE_USB) && !(udphy->status & UDPHY_MODE_USB)=
+ &&
+        udphy->usb_in_use && !udphy->hs)
+        return rk_udphy_power_on(udphy, UDPHY_MODE_USB);
+
+    return 0;
+
+Could this leave the hardware stuck in the old orientation state and break =
+USB
+SuperSpeed, causing it to fall back to USB 2.0 upon reverse replug?
+
+>  	rk_udphy_set_typec_default_mapping(udphy);
+>  	rk_udphy_usb_bvalid_enable(udphy, true);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-rockchip-u=
-sbdp-cleanup-v8-0-47f682987895@collabora.com?part=3D24
+sbdp-cleanup-v8-0-47f682987895@collabora.com?part=3D20
