@@ -1,114 +1,67 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFB335AC12
-	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 12:20:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD17032B99E;
+	Sat, 27 Jun 2026 12:21:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782562832; cv=none; b=L9UQepKd3MKImXLI47E6M/6kr1gIY0diAjjp7vEIE754JM1WeeJwcrF5FU5ODzdcE7uYt9RQ9l+TcS1LJVNz15SUhvbLWhpZTClLuDyWruWlPxGS9muYwNq62yF1EEGojQZ4GcXe3CMdDdb6QpG/NWyj/uCJWfvmGB8GRVlQxYs=
+	t=1782562865; cv=none; b=MF2034YOQiaAO0NHqOA5BDeQyvF8v0uHaljpbTh0MM3C4SL8wnGE5Hu88vUVqR2SBOmgZy9gqrM6C8TaGv6rDRfdUd7nHLEIpbXxEaMztFLCjbDsIdX9JALWIqwP1eGU6oTOrgfAj6DdXZbTxbdt6wp083DKnR/LVteUIy3X17o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782562832; c=relaxed/simple;
-	bh=t8dpMT17hkzMMN+PsIDonumo4SS2Hi0jPaf3p9pBhvk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h3IgGX7RFchb7M5jnPMe7IVZqpslXteUvWJsSQC8LF/QjRVH8UJ8gdHTO7clmgpTxlebxSQ4vp0PI132VOB2dTnl2210aTLiOnEucGqokutR3uLiBFeXV2rxojzMQSpiiDDJl8qyTLziFbeLawDlrlTtAAUu0Jg8/w0vdqbnhME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.254.200.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpsz4t1782562789t7a7c9406
-X-QQ-Originating-IP: MMcO3H5Updz/13KjiVzaiYci4ttABBAs/FU7yjHTTeM=
-Received: from [127.0.0.1] ( [119.98.234.251])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sat, 27 Jun 2026 20:19:47 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 16511041071073179787
-Message-ID: <B5AFFA6368F94E1A+32e72222-ece6-42bf-8191-518165c1ae0d@radxa.com>
-Date: Sat, 27 Jun 2026 20:19:46 +0800
+	s=arc-20240116; t=1782562865; c=relaxed/simple;
+	bh=KFIx2AFZiyI2r3T4lqAhFm7Upb8SELASR8MR+gwoP5w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nifRXULlM6HVmyufR+ARgRJ+/ibCaI3GEFguveV61IiLJOvBC2DdGpSZAnk7Dh/DaFM5SrpaaF5w1PxVwVbC/vdL4NzeJgewV0lUdRooz3M74rxRt1/S/VgXnVg0hWqcBsi/Lp7fXB7g4bOJ78GPIWuevMeaZhcqq8D7gMu/tzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RtGOFbz/; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RtGOFbz/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 130191F000E9;
+	Sat, 27 Jun 2026 12:21:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782562864;
+	bh=KFIx2AFZiyI2r3T4lqAhFm7Upb8SELASR8MR+gwoP5w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RtGOFbz/byLs7OfhVFW3cV0WKsm+1hQKS7mbFewzBpZovj3a8uIY5KOLwfo8S/GHq
+	 W6xLrz/hATWZUGXgTgzXM0YjD4ut+C/cPMpomTtfIw2U06MwuiT7R/uDE9HvRRXxWs
+	 qiH2pmGWsCJv0KBpZT0lh0ztYqWY6xY7IrgEzoHD0HPLuKQyXUKaSv5KilnVZgR7z3
+	 EURPQQp4o12Rrodh4HdmaHjmUWaIbFWnxw9tzeV2VxL4PWBzgUfJddlpOZQcm3fTgf
+	 V6ahRYdZEQ1NmntK2Al8VvhTlRsW0ctx+NrGT+t1OIm2BC2U0zlY3/J3EovN3FWTpF
+	 /humIpEO2E0AQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/4] dt-bindings: PCI: mediatek-gen3: Split Airoha
+ schema and document 2-lanes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260627121450.3529133-4-ansuelsmth@gmail.com>
+References: <20260627121450.3529133-1-ansuelsmth@gmail.com>
+ <20260627121450.3529133-4-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 27 Jun 2026 12:21:03 +0000
+Message-Id: <20260627122104.130191F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: Fix DWC3 core register size
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Johan Hovold <johan+linaro@kernel.org>,
- Krishna Kurapati <quic_kriskura@quicinc.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260626-sc8280xp-fix-dwc3-reg-size-v1-1-ddcba897b19d@radxa.com>
- <f07dce35-f807-48bd-a04d-76d69ae74f37@oss.qualcomm.com>
-Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <f07dce35-f807-48bd-a04d-76d69ae74f37@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: ODcDgdcDagQKAUGgH8xVs5EPOWfVBa42H9jVm8PBJ1UVDTs9f6i1LRpw
-	qt+jxElA/yhygPMeoqoO/15yNYCZgAE+2y68p70MoDf7LhOchrV20Nk55sLh+7Z9aZLf3M0
-	NcNYou4a164GvpGc3mMoHjrqnFkPvVx/TGcTe12EF3xf7YivnNGO2quaLYN11D5/kOjIxcp
-	jl7egI9aLUwR1RNkvXG2UxujND3IOQ81BkXZQyunNJvPQ4+SaOOsK5J8rWynTWU+1cTF9KT
-	PnGnJ10xEh1F8Ub4tlgHiSA/mvXNtD3kh2PKLN4xC97pmT9ZWOqrYV1zaF74Uy65/I6h3QA
-	uVEyIeGCp6KnxOrwfjXW+HBzg5kV7CnfdhOy6EMda8KxmRedK4B6YXAwQJdLZ7XIxnRz9r3
-	TEAConU28nlxeZzQxqh+huXom8rJ6uEq0gM2mRSNPqSgyBhknMnlqoFZTq5UEC5g7tq+YhK
-	SxCGHRUGvtCMf4NK5CPWsXLzBkOHeNGqnCbkC1Uk5Cwj6HgYz+YzTbCRtHTOGjQ2R5DWKn1
-	J9dmDM4sW65Zg3IM/woYcBZAehpmX4NhW+JFdeb2xLTed5cQHE/AsH7lJJnik7UaMCn0rLL
-	sZTWebH+JClWVfz/zIplT0ylqPKD2iPWXntECGJ4zuaupZvBQN3623T9XjJB2z1AWIvj4+X
-	Gc4LikN6l5r+c+e4eVjM7OYkxcEBpOdPVikp4Cc3yVEm+z10RQskJHCQQtFpQNf0KO6AvfU
-	+Mj3pxP+9QDKjSPAybdRKqX+Yl8GkEwzdNx+pK7YZrMl4uH2cNFXy0nQhNSawcpFjKAaC0p
-	wdbyfHy8Th6R0aIyKhFjbAIHypi88YZuvYf88suPPvRqgKIfqT5dTZg0V1n/xCp8OXto5kE
-	D1K0/q2sKWqSIe9Gx+pE6ud10PL70+8OB0Ri+0IkEinVcDrFHQmKhY6d/KJ1taJICZcDjts
-	nm/4u/S4XQsepYOZp2jiGOxiZchhhu9KzlOMowh2fjBmXAuBo4SGqg/BBQNMp2JqKuA0XSK
-	+k+/eqMZHUbj64OqB+J+84AGe5UYLUBLFcDW4au2JNI/MNq9E3CeYrslfhpUY=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
 
-On 6/26/2026 11:21 PM, Konrad Dybcio wrote:
-> On 6/26/26 5:07 PM, Xilin Wu wrote:
->> The SC8280XP DWC3 core register regions are currently described as 0xcd00
->> bytes, but the hardware register block extends further. In particular, the
->> DWC_usb31 LLUCTL registers start at 0xd024 and are accessed by the DWC3
->> driver when a controller is limited to SuperSpeed using
->> maximum-speed = "super-speed".
->>
->> With the shorter resource, probing such a controller can fault when the
->> driver programs LLUCTL.FORCE_GEN1. Use the correct 0xd950-byte register
->> size for all SC8280XP DWC3 core instances.
->>
->> Fixes: 152d1faf1e2f ("arm64: dts: qcom: add SC8280XP platform")
->> Fixes: 3170a2c906c6 ("arm64: dts: qcom: sc8280xp: Add USB DWC3 Multiport controller")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Xilin Wu <sophon@radxa.com>
->> ---
->>   arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 6 +++---
->>   1 file changed, 3 insertions(+), 3 deletions(-)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
->> index a2bd6b10e475..d06f79b7680c 100644
->> --- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
->> @@ -4034,7 +4034,7 @@ usb_2: usb@a4f8800 {
->>   
->>   			usb_2_dwc3: usb@a400000 {
->>   				compatible = "snps,dwc3";
->> -				reg = <0 0x0a400000 0 0xcd00>;
->> +				reg = <0 0x0a400000 0 0xd950>;
-> 
-> Let's do 0xfc100, the QC glue driver already does out-of-bounds
-> accesses into the base+0xfxxx space..
-> 
-> Konrad
-> 
+> To permit proper documentation of required property to support PCIe
+> configured for 2-lanes mode, split the Airoha schema part from the
+> mediatek-gen3 schema to a dedicated schema.
+>=20
+> A PCIe configured for 2-lanes mode require an additional reg for the
+> secondary PCIe to be configured and the airoha,scu phandle to correctly
+> configure the PCIe MUX.
+>=20
+> Rework the mediatek-gen3 schema to drop any redundant constraint previsou=
+ly
+> introduced for Airoha PCIe properties.
+>=20
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
-sc8280xp dwc3 doesn't use the flattened binding. Using 0xfc100 would 
-make it overlap with the parent glue resource.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
--- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627121450.3529=
+133-1-ansuelsmth@gmail.com?part=3D3
+
