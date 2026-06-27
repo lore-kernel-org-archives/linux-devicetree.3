@@ -1,126 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662311D5ADE;
-	Sat, 27 Jun 2026 22:10:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20DA349CD6
+	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 22:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782598207; cv=none; b=d6u7xfK598nHgtl8M0mSBZGM/LxwiZBLUaIv6+cIxtR9mc4ZG3N6YYjjMvKYqUeGuT8ggPLtLzIp72FdhfXTLg0BBGSOOpWd+nLtontzo/2Wj1hAde0ZmktbPOY8hSkbt8WndJjkyvuoLcxusgFZwcjopjPsAZVSYOD/wmMajNU=
+	t=1782599490; cv=none; b=BNcI9gRsmVFBemSEGZNdq7U6OGYCkS/ER1rJWS01ExlhjiedJRDvmZ5aHK7yHVBvt9NUNVpy3cvpnQNcsJZLC2skvQJrAt5ZfhmC8N0rWR+V8xBkFh3FyoX3abC54eKIGKZ8IS8bmDRPYeXSYN0Wx6HgX7bUdTZtu7yrzObUZHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782598207; c=relaxed/simple;
-	bh=d9G+ljKEjOva0maSSJ1JxkRDkBP2lZWCTnWq49qSDUY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hM+tHbctEhiwyMfkcrMuXm5tKe5ANPrqGcDW+SE8L/Vn0GHwjA5sSkVpS3XlWmeSa2+uU+jPD77nMNY1ZlwZx/zFQ+ef4honbRtPXbw3gDNVARbBMZS3G7Zo8Em6WkkzESX0p6KhFEJIqIom6RjRUd3HjUdt3LYzxkD5LsncrbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KwNrxQgJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782599490; c=relaxed/simple;
+	bh=tOP/ncqJR9tQ1Kpjwwjs1DsUnFQQsFsCKUquXTGz2FE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OjMCwBn19pPliJsa3Lxd3vFkSJkKhaIWuSSslSafEwdvkDsaZOsVclxxZ33n64FU58SYfhru7cOoMwsqIumOHasJgeIwS11dWNnzTY87LQlhLruj1zXdnJKIRfGROdKWEWRTD9KuOYwSsWpp9F6X7mXA6A1lPFDOmPn9wl+ZLOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LgYv+/Ym; arc=none smtp.client-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KwNrxQgJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93C491F000E9;
-	Sat, 27 Jun 2026 22:10:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782598206;
-	bh=hXk/3wj9lPuJCQvYpjGC/6+kjVjcs5SuF2pwhCfblgk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KwNrxQgJVN8O/LbbNanheVHNF4seUkCijI6JBEHt+/pVyaoyi8GHna1M8j9Q8rFwy
-	 vjYXsheeYMBZZBM4h46nutz/29QBslwVDHlDG8v14K9zWPf8u3Q0TsPvzEpqNPULIy
-	 Ka+qEUM7TFWkIGMxpp+GaHihtgYKrWsLDXEZx7dizRfq9smMXkoYJR6bCLe6nSuNeo
-	 +kUpVcIbVWV/WYRzdY/1rCdNllhLfi+cVc+AVILwSEZ7UXYXPTaq9jk7fhok7zkKiY
-	 12B+J7VadfIPGgB4GEVSueOD6eHRiMYmLCCaiWUf6BRtOeLtSgLeXhN11rAr22sK93
-	 rFkVT4B/TcJCg==
-Date: Sat, 27 Jun 2026 15:10:04 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: yunhui cui <cuiyunhui@bytedance.com>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Atish Kumar Patra <atishp@rivosinc.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>,
-	Fenghua Yu <fenghua.yu@intel.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Tony Luck <tony.luck@intel.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	x86@kernel.org, devicetree@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
-Subject: Re: [External] [PATCH v2 4/8] riscv_cbqri: Add capacity controller
- probe and allocation device ops
-Message-ID: <akBKPFPi5213WgYX@x1>
-References: <20260624-dfustini-atl-sc-cbqri-dt-v2-0-2f8049fd902b@kernel.org>
- <20260624-dfustini-atl-sc-cbqri-dt-v2-4-2f8049fd902b@kernel.org>
- <CAEEQ3w=ZVtHPdLfN0tTzG8AACu+rjhEFWY5pCg+uxvmr7ofqfA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LgYv+/Ym"
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7e6b554044fso1925866a34.0
+        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 15:31:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1782599487; x=1783204287; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=b/hsn5oXO1Y2F7PgZaWccBbIlkiaMD42rC1dxoRTlLw=;
+        b=LgYv+/Ym15oHC//cSW2LfJNH1Ubfm3aUOwTB4okduiBf9SGpuKhaLgUz7Y36jtTkt+
+         ezbp8ZrLhbIr1ImStGlUe9Tv4a+w82A3uzBwz2oOj0dSkpZaYHyq9t6ADlF21DjuX7+Q
+         FYB2mzPljP1wCnCtqZIURZU8zj0AdrLRsWX6v+8ormaR5zWwmaZAN+FLdxP+/UNfLivM
+         6DznYiwJTUX9+7/ntnRaB8p+HFaAScRWAB/lPM9SQiWQ9NIgrgj5NMwmX/6q/nyjeUeG
+         eDILeng3rQg7kEOHCGWSB6iJeqdFJbYkNW+szDLyMsLRwbTTS/YlRSFAdZMCh1ARoO7G
+         dzJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782599487; x=1783204287;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=b/hsn5oXO1Y2F7PgZaWccBbIlkiaMD42rC1dxoRTlLw=;
+        b=WM5n4jJBJh/sbuv7yl678k+D1lg6TuxmIs4D+HYSK+hPB2PduNAY46EiQ7Mb/OYtCW
+         ZfcBQY7bhz6PghwBq8/AKlVX6s/Wyy24djq0w/ZjTmf804Yuzw1oATX9SaON0onjvM01
+         VK6dWSMFGQsLU24JzBHTzaW7Ozo0gxRCwUDzyhD93CAUrkENVt7rSTnHKsWJhuIUTQM4
+         FTlzqpJUkGosktj1v3sIgBiy73jlSv/xgoPXa5lPa4YJAC1AZavUippt45OMbROk358l
+         /Et+ooVA1aF/Mczep1OtvdU/LVU3qHFEe88X7Le4C4lsepzMYezGh1B+ZZ4+1CT0JwUu
+         4xDg==
+X-Forwarded-Encrypted: i=1; AFNElJ+KYirpSpNZuteTl2+Jxfzau+WBxY0tfqOF3ewScsN4buTIafD87/Y8z32TxjjBFVZXUGx8jbNHvNjn@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+QhPBCjbwmcKl7k8jzilYNdDgDLJGlVJMkchZuR+aHvhlbhbI
+	P19lhATdOccNXChnU92kGQ0+JGxWTWSAy9gQlRw+lmZA7n72jHszUNGm6K0yAkdyaiA=
+X-Gm-Gg: AfdE7clY4h5Akes1J5N8yz/QrxEqKwNAhbilIlhoEW2tje9mbjtowDZnm+GSI/9q0HB
+	BC9yVQgc6Cf0k9uU41V8T05IrQ4Mr8EM95t80xXeQO9JhphFxIJ4EHKGvJXnGqK3jLyz1KppQ3K
+	G7/av0B623qZTeE2XhF8yDR4t8dWHiQP2eUEqOMNZkUXW6SPtvTqVZzZXYPFr/4nqbXV/hU6pTJ
+	5F2n+1QqVpBTweAEuh+cU8aLve6dyZia2J62mjFPquaeW056A74d2F3+itQUbKL008SFC/EVsWz
+	NKCmbMyiQanIf2h45MhgcMHq/UmsBx8wZo0LQKtOssheWKNsl/2hOQWiwyo2532ajSPtwv0DFIo
+	cCo2at7ddHhOSiW9xa9e2KmPOSXkl4l+N0QfUWOFrnALnOQaEnJ9JAV/Wz4Kl1SNrKQXLrN7vh6
+	QMo3lo4DQ3nwuKNt4bxfZLWfRUhc9TgAoOpRe6gNqDIqgoXMNQLf7AMeiWJhdSUGEAHlLe3V64w
+	Q==
+X-Received: by 2002:a05:6830:6d52:b0:7e6:ef1d:4aeb with SMTP id 46e09a7af769-7e99c208aabmr10277232a34.15.1782599486759;
+        Sat, 27 Jun 2026 15:31:26 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:f242:ecd6:f61e:d764? ([2600:8803:e7e4:500:f242:ecd6:f61e:d764])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9b292029dsm3805497a34.22.2026.06.27.15.31.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 27 Jun 2026 15:31:25 -0700 (PDT)
+Message-ID: <5e96801b-50dc-4752-8e00-1a80984ed997@baylibre.com>
+Date: Sat, 27 Jun 2026 17:31:24 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEEQ3w=ZVtHPdLfN0tTzG8AACu+rjhEFWY5pCg+uxvmr7ofqfA@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] iio: adc: Fix incorrect reading when datarate
+ changed in single mode
+To: Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org
+Cc: andy@kernel.org, antoniu.miclaus@analog.com, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, duje@dujemihanovic.xyz, jic23@kernel.org,
+ jishnu.prakash@oss.qualcomm.com, jorge.marques@analog.com,
+ joshua.crofts1@gmail.com, krzk+dt@kernel.org, linusw@kernel.org,
+ linux-kernel@vger.kernel.org, marcelo.schmitt@analog.com,
+ mazziesaccount@gmail.com, mike.looijmans@topic.nl, nuno.sa@analog.com,
+ robh@kernel.org, sakari.ailus@linux.intel.com, wens@kernel.org
+References: <20260622221550.374235-1-jakubszczudlo40@gmail.com>
+ <20260622221550.374235-2-jakubszczudlo40@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260622221550.374235-2-jakubszczudlo40@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Jun 27, 2026 at 05:31:03PM +0800, yunhui cui wrote:
-> Hi Drew,
+On 6/22/26 5:15 PM, Jakub Szczudlo wrote:
+> When device is suspended and it is in single mode then changing
+> datarate doesn't make it actual wait for new measurement, so to
+> be sure that read after change is correct functions that changes
+> datarate and gain will wait for new data.
 > 
-> On Thu, Jun 25, 2026 at 9:41 AM Drew Fustini <fustini@kernel.org> wrote:
-> >
-> > Add support for the RISC-V CBQRI capacity controller. A platform driver
-> > passes a cbqri_controller_info descriptor together with the cache level
-> > to riscv_cbqri_register_cc_dt(), which probes the controller and adds it
-> > to the controller list.
-> >
-> > Assisted-by: Claude:claude-opus-4-7
-> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Drew Fustini <fustini@kernel.org>
-[..]
-> > diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devices.c
-> > new file mode 100644
-> > index 0000000000000000000000000000000000000000..8ad9df404f65d5d82722cf8b78f02936c489ca6d
-> > --- /dev/null
-> > +++ b/drivers/resctrl/cbqri_devices.c
-[..]
-> > +
-> > +/* Set capacity block mask (cc_block_mask) */
-> > +static void cbqri_set_cbm(struct cbqri_controller *ctrl, u64 cbm)
-> > +{
-> > +       iowrite64(cbm, ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
+> Fixes: 541880542f2b ("iio: adc: Add TI ADS1100 and ADS1000")
+> Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+> ---
+>  drivers/iio/adc/ti-ads1100.c | 74 ++++++++++++++++++++++++++++++++++--
+>  1 file changed, 70 insertions(+), 4 deletions(-)
 > 
-> The CBQRI spec allows naturally aligned 4-byte accesses and only guarantees
-> atomicity for 4-byte accesses; 8-byte atomicity is unspecified.
-> 
-> Would 32-bit split accesses be preferable here instead of relying on
-> ioread64/iowrite64? This may also make the driver less dependent on native
-> 64-bit MMIO support.
+> diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
+> index 9fe8d54cce83..e3c801381434 100644
+> --- a/drivers/iio/adc/ti-ads1100.c
+> +++ b/drivers/iio/adc/ti-ads1100.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/module.h>
+>  #include <linux/init.h>
+>  #include <linux/i2c.h>
+> +#include <linux/iopoll.h>
+>  #include <linux/mutex.h>
+>  #include <linux/property.h>
+>  #include <linux/pm_runtime.h>
+> @@ -43,6 +44,9 @@
+>  static const int ads1100_data_rate[] = { 128, 32, 16, 8 };
+>  static const int ads1100_data_rate_bits[] = { 12, 14, 15, 16 };
+>  
+> +/* Timeout based on the minimum sample rate of 8 SPS (7.5s) */
+> +#define ADS1100_MAX_DRDY_TIMEOUT_US	7500000
+> +
+>  struct ads1100_data {
+>  	struct i2c_client *client;
+>  	struct regulator *reg_vdd;
+> @@ -123,10 +127,49 @@ static int ads1100_get_adc_result(struct ads1100_data *data, int chan, int *val)
+>  	return 0;
+>  }
+>  
+> +static bool ads1100_new_data_not_ready(struct ads1100_data *data)
+> +{
+> +	int ret;
+> +	u8 buffer[3];
+> +
+> +	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
 
-I suppose there could be systems that are RV64 but do 4-byte access for
-the CBQRI registers. You are right the spec only guarantees atomicity
-for naturally aligned 4-byte accesses and leaves 8-byte atomicity
-unspecified.
+Do we actually need the cast here? char * is like void * and should not need it.
 
-I will switch the controller register accesses to 32-bit reads and
-writes. The driver rejects ncblks > 32, so cc_block_mask only uses its
-low 32 bits. For cc_alloc_ctl, the writable fields all sit in the low
-word while the status and busy bits are read-only in the high word. A
-read can reconstruct the value from two 32-bit reads and a write only
-needs the low word. 
+> +	if (ret < 0) {
+> +		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
+> +		return true;
+> +	} else if (ret < 3) {
 
-Thanks,
-Drew
+I don't think it is possible to return anything other than 3 or error.
+In other words, short read without error is not possible.
+
+> +		dev_err(&data->client->dev, "Short I2C read\n");
+> +		return true;
+> +	}
+> +
+> +	return FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
+> +}
+> +
+> +static int ads1100_poll_data_ready(struct ads1100_data *data)
+> +{
+> +	int ret;
+> +	u8 buffer[3];
+> +	bool data_ready;
+> +	int datarate = ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK, data->config)];
+> +	/* To be sure we wait 5 times more than datarate */
+> +	unsigned long wait_time = DIV_ROUND_CLOSEST(MICRO, 5 * datarate);
+
+This is a bit dense making it hard to read.
+
+Also, it's always helpful to include units in variable names. wait_time_us?
+data_rate_hz?
+
+> +
+> +	/* To be sure that polled value will have value after config change */
+> +	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
+> +	if (ret < 0) {
+> +		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	return read_poll_timeout(ads1100_new_data_not_ready, data_ready,
+> +				 !data_ready, wait_time,
+> +				 ADS1100_MAX_DRDY_TIMEOUT_US, false, data);
+> +}
+> +
