@@ -1,251 +1,116 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29D01A6813
-	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 12:33:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827C61C5D72;
+	Sat, 27 Jun 2026 14:03:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782563606; cv=none; b=hO/eAquC3DTYVbIvRBgMMPsfwDs4hplLJcm67W+BEVAnNzBthRpkmCKovjs+D7J0YD2yvIhhOBZsaqheGzcEzfsY/wbJGkWsQRGkJzXFFe4pABBr+UALTBnF6dSqFwHqZER7JEn1br2c8tk7SRFrbpZ80/tMXgxtwTbw5dj48ks=
+	t=1782569015; cv=none; b=HpICElIx240lX2oRSvhHYGHJC9ETloJ7lnO08QkPYMEqWkqS8xm3BFSV/u/gMoANvm2rnGG/x3YZE0m4CqhHSA6fvlA0V+mmWfeptoO5WvWZsfUiTBfTOfyX274GZWY1cFaSHRtkaoec2srM8al+qOjhX6W/8CRTLVmar/bexHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782563606; c=relaxed/simple;
-	bh=xbxEDsydXJAiVLZ5Cf6Ao9KnDZgjCNf+AXTfOmlvxNE=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uzd3PCnFV0mP+Fj984zyIImLyDv1Mqpn967UJgf1m3YXWxmODOOmRpWNf1OOcxKeHkqHI69Xq04RbqSZmg1nHLoUKal1VenFnqBW3b/5R8Wx7ZL+TM1dPr/ZIdGVSef8ixFFIdbLFOjd938UvvjlREvb4lO/4bxxiEsk+jVvwrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AgyuloEC; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782569015; c=relaxed/simple;
+	bh=2jp4dUgNN7qxpz2GlUubMNn0MTODUMmhv6mJ1wohE0U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MEDdE7F2t9mbQehCz2dgy84ocEp8d3V6jqQ0wzh6EZ26qdRqZPBEQCcGBtycQH15Bz3fi7qnHfL/2V/zTUDx5ZXnhZ2lvHr4HCNsIL2zq3zmtwBnR99rhPEmln5tTeHP8aGjgt92DyaYkeAw2PLpU/lraWFNK3GdfiCrCzUHVxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=igug3ZAI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AgyuloEC"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso9013055e9.1
-        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 05:33:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782563603; x=1783168403; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3PtIUvxIw7trdusrNOr6fjoOoHqmRqU46S4I9pGH/As=;
-        b=AgyuloECDvljj+zNbL0P+qIrINEor1sZ9+0/a9u0sgF7Dleosnhz7g+jY7RDhcH6ti
-         gExi1fpzghcXdeNihRErkiGHyr/xSKc5pI7t03RIKm7Xf+Gyn46IPGP9q3+SW4fokK+B
-         Ufvz9/f6O2WzYnOwdpFOOiDtcuPRNJiXef3uJUbxwoY6XMRidJNuM+Pv+t/lcffz80DX
-         cr4PFnkzY0Nf0RbvzwP58Lrj05sXlXdzNyfLLFCPmtXQ+q+N/3skOSBiAdDlbGJQgCwt
-         awiTfNImWQ8DU6Q446B+CtywAf2tTl4w/F5cu/2CQoBZG/5W+Mshbv0BBMPdW0WdJrN4
-         D86A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782563603; x=1783168403;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3PtIUvxIw7trdusrNOr6fjoOoHqmRqU46S4I9pGH/As=;
-        b=d+7ObVECb0EE99m0G67VsZYtXrUeEEbWNjV46sWQhJXa3chhVSSNwSlTcm8vrsenQi
-         cJDuQBXtq2dlj89W7mP4jxSVg8122jJvNu6HeSRsW2jJpnQQ2a4meSXKCCx2w6fq8meB
-         VCGojCq6Uiscb/zbqNolXPU8ANPe5lkGS5vuCuTTrzh7+Mh9+eRhOQObU5a1n5WIzJeG
-         Nk9r8nMAMMpkU+OA6698Ngbg3t4oIJssDRUv6CDeRBNDrm6OaksJWckLSsxc0QOYGYt6
-         O+xJAnoCRXihyHIbHZIE2ySZXQcGbhIys3+6EkTR0tbiYKZlQVjXwGQR+FVngSVAP4XQ
-         G0ew==
-X-Forwarded-Encrypted: i=1; AFNElJ+nMF95sPD8UeQOERtQ0PrOPr0TpRcqnLju2JQ5Qa+IjR4xBwkjU3hxQwcogeKTWt6b1T9cZWwAfnie@vger.kernel.org
-X-Gm-Message-State: AOJu0YyShgEtcmwKSMZ5zKbaUvPEsi+1q4y44OR7E073NKX0ulhLc2xD
-	otLD53ayhwUxCFX/IX86JpDC7awKI7bEhd4/hojzhP4lyN8Rz1gw3JCa
-X-Gm-Gg: AfdE7cl2qFBRt4lOG0NXGI+1EkUwU6X7BCMcQEcRlFtl6AYvZc6/MWtR0lrT6wenUth
-	68VS1nx1WqX0RmRQWRwlLdjFxKuEnCEyRvY+/qWglhPPX7GtHK3Pctwa9yjocvISLg0vjLXEqvG
-	yFgms2cxsJ8shwacJnF/AqVU+tn0xCeCkT5KQfNFy3oMyUCeJu1o9hz6vAcDfkJuELXWABIbdg7
-	fNYjwnWhEVmUVDuGDlG66oJxsoEdSXFl9YekTS2/FzMDpGPhVaIPguODPTe0bJZZCmYtvT6OttW
-	+BbYZlXt1vUhV7evWk+90LVcaj48mcpkNnLHEdWuCStxNlrTupLVpc9LydfAEdpoZkv+F01HZBU
-	0oYkhLNe3hQHqWnupOmp8UaJ+3F/1Dj42+71ADFOtjqcaZx4O9TK1PuWFG1ExV2KkxxoiJOQ7oq
-	3CE4OYJOpPmQKv5em9AhBTxoEfbo8qjy/ML07BLRs+NhG6
-X-Received: by 2002:a05:600c:81c5:b0:492:4ff5:fb9e with SMTP id 5b1f17b1804b1-4926fcade65mr62722535e9.37.1782563603146;
-        Sat, 27 Jun 2026 05:33:23 -0700 (PDT)
-Received: from Ansuel-XPS. (93-34-89-195.ip49.fastwebnet.it. [93.34.89.195])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492690a1a85sm271536875e9.15.2026.06.27.05.33.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 27 Jun 2026 05:33:22 -0700 (PDT)
-Message-ID: <6a3fc312.6161eb1e.3441bb.c0de@mx.google.com>
-X-Google-Original-Message-ID: <aj_DD_djHkw7CLZ4@Ansuel-XPS.>
-Date: Sat, 27 Jun 2026 14:33:19 +0200
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="igug3ZAI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C381F000E9;
+	Sat, 27 Jun 2026 14:03:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782569014;
+	bh=9mCDnmGglO2sIeCdvnxemRXH84TvTrXTDYrvwilcTY0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=igug3ZAIsoMLorqrCWKf6R3eZ6aVNgYxZIs6W4ojHX0Hps5V/wB3ef52NoUDS4Bfs
+	 sHeL9YnpsVALScg+Norm49emNg1gr5W8PJeDxsr/pdQNy6d++j4CbfQqbpM8aVDnoR
+	 A9J7GOeYtYc8Ooo1L59GRbfVih0XY8nCy9e1MQvDd+eCu1lrhnfYSakZ0/bbhb4VRd
+	 8PMnXm9ptN5oRKI+NwnbWD2mCTktqjrPO57O+bq48VRXa/ID40zG3N8ioKJqtfObuB
+	 vfxh7RVDDlRrshc4aAq+ghcUBn5cQRmBhajoTfZa/XMsCuz0yjsb4j48oVnSz+d8UL
+	 VNKAjSAL2sQJw==
+Date: Sat, 27 Jun 2026 15:03:29 +0100
+From: Conor Dooley <conor@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
-Subject: Re: [RFC PATCH net-next v8 03/12] net: phylink: add
- phylink_release_pcs() to externally release a PCS
-References: <20260618125752.1223-1-ansuelsmth@gmail.com>
- <20260618125752.1223-4-ansuelsmth@gmail.com>
- <a271385e-302d-45c7-a1df-aebd380b427b@bootlin.com>
+	Conor Dooley <conor+dt@kernel.org>, Chris Hall <c-hall@ti.com>,
+	Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
+	Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 5/8] dt-bindings: iio: adc: add ti,ads122c14
+Message-ID: <20260627-corridor-word-0fbe89fd2294@spud>
+References: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
+ <20260625-iio-adc-ti-ads122c14-v2-5-ceb9b0b561cb@baylibre.com>
+ <20260626-rising-legged-dea08bb68bfe@spud>
+ <82294468-c4cf-4003-93f1-31a113c79979@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cPC/5N2jzs1o5Frl"
+Content-Disposition: inline
+In-Reply-To: <82294468-c4cf-4003-93f1-31a113c79979@baylibre.com>
+
+--cPC/5N2jzs1o5Frl
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <a271385e-302d-45c7-a1df-aebd380b427b@bootlin.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 25, 2026 at 04:13:14PM +0200, Maxime Chevallier wrote:
-> Hello Christian,
-> 
-> On 6/18/26 14:57, Christian Marangi wrote:
-> > Add phylink_release_pcs() to externally release a PCS from a phylink
-> > instance. This can be used to handle case when a single PCS needs to be
-> > removed and the phylink instance needs to be refreshed.
-> > 
-> > On calling phylink_release_pcs(), the PCS will be removed from the
-> > phylink internal PCS list and the phylink supported_interfaces value is
-> > reparsed with the remaining PCS interfaces.
-> > 
-> > Also a phylink resolve is triggered to handle the PCS removal.
-> > 
-> > The flag force_major_config is set to make phylink resolve reconfigure
-> > the interface (even if it didn't change).
-> > This is needed to handle the special case when the current PCS used
-> > by phylink is removed and a major_config is needed to propagae the
-> > configuration change. With this option enabled we also force mac_config
-> > even if the PHY link is not up for the in-band case.
-> > 
-> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> > ---
-> >  drivers/net/phy/phylink.c | 56 +++++++++++++++++++++++++++++++++++++++
-> >  include/linux/phylink.h   |  2 ++
-> >  2 files changed, 58 insertions(+)
-> > 
-> > diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> > index c38bcd43b8c8..064d6f5a06da 100644
-> > --- a/drivers/net/phy/phylink.c
-> > +++ b/drivers/net/phy/phylink.c
-> > @@ -158,6 +158,8 @@ static const phy_interface_t phylink_sfp_interface_preference[] = {
-> >  static DECLARE_PHY_INTERFACE_MASK(phylink_sfp_interfaces);
-> >  
-> >  static void phylink_run_resolve(struct phylink *pl);
-> > +static void phylink_link_down(struct phylink *pl);
-> > +static void phylink_pcs_disable(struct phylink_pcs *pcs);
-> >  
-> >  /**
-> >   * phylink_set_port_modes() - set the port type modes in the ethtool mask
-> > @@ -918,6 +920,60 @@ static void phylink_resolve_an_pause(struct phylink_link_state *state)
-> >  	}
-> >  }
-> >  
-> > +/**
-> > + * phylink_release_pcs - Removes a PCS from the phylink PCS available list
-> > + * @pcs: a pointer to the phylink_pcs struct to be released
-> > + *
-> > + * This function release a PCS from the phylink PCS available list if
-> > + * actually in use. It also refreshes the supported interfaces of the
-> > + * phylink instance by copying the supported interfaces from the phylink
-> > + * conf and merging the supported interfaces of the remaining available PCS
-> > + * in the list and trigger a resolve.
-> > + */
-> > +void phylink_release_pcs(struct phylink_pcs *pcs)
-> > +{
-> > +	struct phylink *pl;
-> > +
-> > +	ASSERT_RTNL();
-> > +
-> > +	pl = pcs->phylink;
-> > +	if (!pl)
-> > +		return;
-> > +
-> > +	mutex_lock(&pl->state_mutex);
-> > +
-> > +	list_del(&pcs->list);
-> > +	pcs->phylink = NULL;
-> > +
-> > +	/*
-> > +	 * Check if we are removing the PCS currently
-> > +	 * in use by phylink. If this is the case, tear down
-> > +	 * the link, force phylink resolve to reconfigure the
-> > +	 * interface mode, disable the current PCS and set the
-> > +	 * phylink PCS to NULL.
-> > +	 */
-> > +	if (pl->pcs == pcs) {
-> > +		phylink_link_down(pl);
-> > +		phylink_pcs_disable(pl->pcs);
-> > +
-> > +		pl->force_major_config = true;
-> > +		pl->pcs = NULL;
-> > +	}
-> > +
-> > +	mutex_unlock(&pl->state_mutex);
-> > +
-> > +	/* Refresh supported interfaces */
-> > +	phy_interface_copy(pl->supported_interfaces,
-> > +			   pl->config->supported_interfaces);
-> > +	list_for_each_entry(pcs, &pl->pcs_list, list)
-> > +		phy_interface_or(pl->supported_interfaces,
-> > +				 pl->supported_interfaces,
-> > +				 pcs->supported_interfaces);
-> 
-> I've given more thought to that 'supported_interfaces' thing. This
-> patchset redefines the meaning of
-> 
->   pl->config->supported_interfaces
-> 
-> Currently, it's filled by the MAC driver and means "Every interface
-> we can support, including the ones provided by PCSs that we can use
-> with this MAC".
-> 
-> It now becomes "Every interface we support without needing a PCS", at
-> least the way I understand that.
->
+On Fri, Jun 26, 2026 at 01:35:22PM -0500, David Lechner wrote:
 
-Wait but with the current code using the OR logic, it still follows
-"Every interface we can support...". The modes that needs a PCS are
-specificed with the pcs_interfaces mask in phylink_config.
+> >> +required:
+> >> +  - compatible
+> >=20
+> > reg?
+>=20
+> I thought reg being required by i2c-controller.yaml was already good enou=
+gh.
+>=20
+> https://github.com/devicetree-org/dt-schema/blob/2203c1720f4ebeebd7f8d10e=
+9dc1812993482fab/dtschema/schemas/i2c/i2c-controller.yaml#L219
 
-The late add and release operates on the phylink supported_interfaces ONLY
-when the MAC didn't specify support for it (by removing it as only the PCS
-will declare support for it)
+Nothing mandates that this is a device on a bus at all without requiring
+reg, since that's a schema applied by the parent.
+It's unlikely that that will actually occur, but I think properties
+mandated by schema that are not referenced in a binding should be
+required by the binding.
 
-The confusion is present because everything is validated later on
-major_config so those supported_interfaces are just an HINT that are later
-verified with get_caps and with the pcs_validate OPs.
+>=20
+> >=20
+> >> +  - avdd-supply
+> >> +  - dvdd-supply
+> >> +
+> >> +dependencies:
+> >> +  refn-supply: [ refp-supply ]
+> >> +
+> >> +oneOf:
+> >> +  - required: [ refp-supply ]
+> >> +  - required: [ "ti,refp-refn-resistor-ohms" ]
+> >> +  - properties:
+> >> +      refp-supply: false
+> >> +      refn-supply: false
+> >> +      ti,refp-refn-resistor-ohms: false
+> >=20
+> > I assume you've tested this to make sure it enforces the behaviour that
+> > you want?
+>=20
+>=20
+> yes
 
-Adding the supported_interfaces to phylink is really to keep an original
-reference of the value. This is to address a pattern I have notice where
-the MAC driver always OR the interfaces with the one supported by the PCS.
-(I remember it was pointed out by Russell)
+:)=20
 
-But I'm more than open to discussion as this is something marginal to the
-whole implementation, I'm also questioning if this OR is actually useful to
-anything on the nth tought on this.
+--cPC/5N2jzs1o5Frl
+Content-Type: application/pgp-signature; name=signature.asc
 
-One thing that I notice is that parsing this early with AND might be
-problematic at phylink_create, but I still have to evaluate that.
+-----BEGIN PGP SIGNATURE-----
 
-My take is that would be good to have some review also on the other logic
-as I think I reached a point where Sashiko starts to comments on more or
-less unreal problem.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaj/YMQAKCRB4tDGHoIJi
+0hkDAP0fT+KcpXeoZEwFJKmE0QbRfiO7M+R1m+EzEjRU5i4NegD/StMTfqxIlFFQ
+QfFYwRqT3ot3StMAeHG4I9X2WnKIsg0=
+=NIhp
+-----END PGP SIGNATURE-----
 
-> It's not an error in your code, but I think this is worth documenting
-> somewhere as this changes one the things that's already fairly
-> error-prone in new drivers.
-> 
-> I don't know to what extent people use that, be we have a porting guide
-> that explains how to use phylink in a MAC driver, maybe an update in there
-> would be nice as well :
-> 
-> https://docs.kernel.org/networking/sfp-phylink.html#rough-guide-to-converting-a-network-driver-to-sfp-phylink
-> 
-> Maxime
-> 
-> 
-
--- 
-	Ansuel
+--cPC/5N2jzs1o5Frl--
