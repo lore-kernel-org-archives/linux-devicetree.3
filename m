@@ -1,110 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5925227EA4;
-	Sat, 27 Jun 2026 17:50:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA7C30F806
+	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 18:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782582618; cv=none; b=NYZ/zyUyz/tgSVr6afYFZUXlutJClbQIceHvEgrQMV61iH6zjBLXEl8WJHTluvHRbyXXzZ6SuDqVQh13sjWNCvnmgINkAzhU5b13EXIa3LcNelZQrLzHy6gjdr4TTflauy+4DUZjYd23I+0Y/o63u3mLDppA15nKDP9G0Ow/aOc=
+	t=1782585014; cv=none; b=nltebDxmq6L1IDYvtZQ+RVT/ViEnHL1K/kRSSXvGYw5x6hLGAB7bHcUWsfkXFtjxWizj5I2xLUPLp8DQNhn8vWCSRS/zOeiAttTEBXQLWSOg6mSxIDHaFJAYxebQLGADSdyf8AtcmJGoWy6uo+4LYY5O4ww3TeagPuQYzB8rJVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782582618; c=relaxed/simple;
-	bh=95sjByJ6X23yxLI1fA+uCFQUlNcIkNioqSp6CoX9/vY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BZPVeM0SMY4cUOuCjLqtrdI50pN54wM6bmXxsbMkESzSAWqhsLWrVbOTL7ygFd0tKI416p7GIinTbuk7ZVKX80cTT46r95NDTHC7HRk1QBMg2Slyr3bzEeS5ndNKhxhjrLGa9PMcclfvtxlwQ3h/HTZpVx+1h4crlgrs+z148Xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CP7O+euk; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1782585014; c=relaxed/simple;
+	bh=pC8fa4X+KpaN8K12A60eHy8/3aNwxEawC4NV5EKQasE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Lc5xFZBVrRVUXN0s+ALQOyB26N6IlmPscNpVV/gU87FYRwDQODu/kGqBOeg21q81Sw4qVCzXpx31qmhJ0rAshTH+6DgUDEFOCyV80XalM7o4FaB22lyaPgqt1fczIrVg4jRTP34C+su93uGEDBDjOZBJc8s895yjRhDZbF6Wibc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=BXDLkK27; arc=none smtp.client-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CP7O+euk"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6550CC2BCB7;
-	Sat, 27 Jun 2026 17:50:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782582618;
-	bh=95sjByJ6X23yxLI1fA+uCFQUlNcIkNioqSp6CoX9/vY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=CP7O+euk8D3ibFJqAGFPapE7l/OhiPqa2f1X3De2yT2vWAnHW+9Ns2mvitpe0bdDc
-	 tw4wY5lSrsqi3N8Tv/vYbz1OL0PeNNWeYlqtWRxP+z6k7jpkSvFlaD5UkHKATZYzNf
-	 kxW3Q06IC4JBXyoUc3cjwZmX80QgB+cL2jNhsOBL0YydaAC3sQDYGHLwKMkCAKu7ha
-	 QBonhfg6ZyL/z49wp3WRHXQkbuzFNS1LAC3OqMhdTLD2PkqqAHbFQ2oqSSCdMJpdW8
-	 75ASPch9r9Fn7AsVHPpPqcZRLaDfE3QsmMcv1wlIA4euM1xQteZgYUUrfMjvEUJk4P
-	 n/qblQU+TA7kg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 53015C43327;
-	Sat, 27 Jun 2026 17:50:18 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sat, 27 Jun 2026 19:50:15 +0200
-Subject: [PATCH v2 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for
- Snapdragon SDM 850
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="BXDLkK27"
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7e94c26f9e0so905566a34.1
+        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 11:30:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1782585012; x=1783189812; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xwOhfje936cydMDnrwerRTqSDQiNMF3yBn9vwrjGE2I=;
+        b=BXDLkK27ip3mhkfvOrg0LB/S+puU+Q/Rw9XCsakriOOqwOVP/wftQ6McILZj0Egpcv
+         inxj50Sgkl4T51ENM40gsE/Tdp4KNq2fsEJO6pPX/KoMI+/CwtiE2ocJGA9THfJNrpAI
+         d8BHi9dK60Uj29A7lVO+BauEcolebKTCAl5WH65dVcnz/AhGAGgWGGo6bOouW3qofYxa
+         IFtS3Ot8EKREZQzi84a7kGqdxFp9Wirg37oWA4u+p8lvJDv3WHWba2CunFa3q9qX2P6f
+         24daYbjq9PPsemWAQRTMbJHD3zWKTGRaQn0zoYa+eUJBql5cm4mcCVqdMSCKGedKjE2N
+         gB9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782585012; x=1783189812;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xwOhfje936cydMDnrwerRTqSDQiNMF3yBn9vwrjGE2I=;
+        b=Xr8lvC+fvE+tpMrnX/EwOo/QDWyQsfbaJ1cHlrYvaO6VtGYHkFsz7+1ra98tYnwNwF
+         Tq2XgA/l+L2U2ve8r9EJvDHA07SQTJZw1No342y8s3g2Fc9m33h8gEyn+7VfC/m/BwUo
+         9yuo8Z+ey9nu9ql39QW74CkMqfMwb4ZYXwxgI5ataTbi73C38oG9cEApDdZEXK/K51oI
+         iZ2IkdQf6j5HWt8x+LyuozhVLncVnzb/UBChz48mWbzGlK/zgfxBJJ5qqOslFWhUd2FX
+         m+t2PSpp7+S4K/9nEacZ9isjZ5eecGWrBr3KxxjcmHfSTuUcfmJczsFvYVWGz321q7Za
+         hdnA==
+X-Forwarded-Encrypted: i=1; AFNElJ9sMr11gZVOZRcwJT/A+RFpy8A0s8ANdy7I08WJOv4VCBSQwtoImTVc7pkC0G/DXsvUXPBIORa8rWs5@vger.kernel.org
+X-Gm-Message-State: AOJu0YzN25L57rFtuRU6JV4xuS8AZXcDHawe+D8nUcJ/KfCXrLHGvoxH
+	AXZOf+e5bDWzKi0KzegDImTLqGc2GL8QDsQB265oe/UI+aqqgnDEyKuUjeiTYBuJeKw=
+X-Gm-Gg: AfdE7cmoWXxyF/XlK/iUxt844gz4kRVNB6pBiMJzFVeXM5RdgWi4Fr2y8zJqA1msh7b
+	VIOB+egxQkTef6o6v9gPA4UPcn/voNy89FeIr202j+1v/r2vnYRAp6pYtKstFIGCHNd2F8f50iI
+	wV7RkpHw4iERr1VhOPTFI7za7Yv6ouoUPI55tmtl7XbFU5IxoTMv9rqZ7fEX0oXhT9qmgq4jlOK
+	WoOwhwDcCLbX7YB1sI0mnCWoatFkm0YE+Ca/E4qSGTc7uUs0U6v1qbPhvYO0oUx4NkBQwnWJJkb
+	1VEQDYdUkJoK13Ca4lCPzS065hSkKk+yuHeEUclPHbuFUAw/Bd5lqmWTsiQ3OBgx3NhTgMpDI87
+	PRt4g6vVGda3+YDV0XqbXQwK6y7iAA0e+giYqhFC/X2MLFIECiz528PpcLHPnfpAe0Ef3MwK7qt
+	9iHGfVlhVLXSLHgeeeie84mjDKuErfvBKFCm5iY6GWoZen9/SEeSnbnUwj3qr7qp4=
+X-Received: by 2002:a05:6830:4119:b0:7e6:e0ab:416c with SMTP id 46e09a7af769-7e99c19229dmr10659662a34.16.1782585012056;
+        Sat, 27 Jun 2026 11:30:12 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:47b8:1bb2:ed26:1150? ([2600:8803:e7e4:500:47b8:1bb2:ed26:1150])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9aa5d4a4bsm4618913a34.10.2026.06.27.11.30.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 27 Jun 2026 11:30:11 -0700 (PDT)
+Message-ID: <7dd221e7-07de-4922-a2fd-87a865558a87@baylibre.com>
+Date: Sat, 27 Jun 2026 13:30:10 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] iio: magnetometer: add support for Melexis
+ MLX90393
+To: Nikhil Gautam <nikhilgtr@gmail.com>, linux-iio@vger.kernel.org
+Cc: jic23@kernel.org, nuno.sa@analog.com, andy@kernel.org,
+ u.kleine-koenig@baylibre.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260627005843.7786-1-nikhilgtr@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260627005843.7786-1-nikhilgtr@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260627-sda850-v2-1-44bf46ade42e@ixit.cz>
-References: <20260627-sda850-v2-0-44bf46ade42e@ixit.cz>
-In-Reply-To: <20260627-sda850-v2-0-44bf46ade42e@ixit.cz>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=959; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=Bm10A2IWOMTZFdIbMpHs4iv+z7ELDsn9bEjGsrnPnhg=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqQA1ZEz5uBgL6oDUKQ7CKCqw/mHk4X73KlID2T
- 11ntBZO48qJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCakANWQAKCRBgAj/E00kg
- cskcD/9BkgBphaSEH16x9zs+K/eXAf+cGtnNMb0LtrQdHt8j2Q+1ilCvKnRRyBNSKA2WRpm6PNL
- UXLzwIMiSLnlOsISfXT2knEdXk35Ot+SKCN4oQpy8VK0lJtdQ4r8FfKNFW19efDv7eqdJqONkDJ
- U2IQF33e9W1NDOmRoLzfMp8VVOCbQkEx9yswpgiu9T32IfuUD5ZviWpj/ARBrioQ7F4VM5RT3Uc
- LUZPnlvRWUzPoJURtb02vKIXF6U30jjrNPGNDGFOM614Wa1AAoqQXCWfbu7HYHPHB8oaq3lc90r
- kDqdLFmGQLp2rQU3dcet4oOF88pvd3WIvhv0iSpPxelXZ7rczsduV/k3XhKx1o75l7gBsvW20h5
- u7edyTSU34CSu1IHv6gu5sKNo96g/uoj/3mADsX7Lm2OOD2B6rEJHIW8fJuWD+gU+4A8sa2yZqO
- K8Enb4QfcGf2DnmgYXQ6bu/kWzSfrIJgCxsFfcGt8b4mHYPjIYaqoTbEJyUadBfIGSiMiJZewft
- Pr+OpZ9Uh1xtuQ3JVYCpfjXAQxAav0VjqUIuYg7F3QSFC+bzE0GaQD53hJyZFjQe6i0HWjW6sPb
- MN3i1L+G+AnT6yUdAsmiPNiNJ24+B02UGWjYmb2pXz3RFiAH54qILs8QMxsnZVKlCNKUHWTQi76
- TpYR4GzQZK+sJkg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
 
-From: David Heidelberg <david@ixit.cz>
-
-Add SoC ID for Qualcomm Snapdragon SDM850.
-
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- include/dt-bindings/arm/qcom,ids.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/include/dt-bindings/arm/qcom,ids.h b/include/dt-bindings/arm/qcom,ids.h
-index 1af73c0ad41cd..2cf433f61d5e7 100644
---- a/include/dt-bindings/arm/qcom,ids.h
-+++ b/include/dt-bindings/arm/qcom,ids.h
-@@ -179,16 +179,17 @@
- #define QCOM_ID_SDM450			338
- #define QCOM_ID_SM8150			339
- #define QCOM_ID_SDA845			341
- #define QCOM_ID_IPQ8072			342
- #define QCOM_ID_IPQ8076			343
- #define QCOM_ID_IPQ8078			344
- #define QCOM_ID_SDM636			345
- #define QCOM_ID_SDA636			346
-+#define QCOM_ID_SDM850			348
- #define QCOM_ID_SDM632			349
- #define QCOM_ID_SDA632			350
- #define QCOM_ID_SDA450			351
- #define QCOM_ID_SDM439			353
- #define QCOM_ID_SDM429			354
- #define QCOM_ID_SM8250			356
- #define QCOM_ID_SA8155			362
- #define QCOM_ID_SDA439			363
-
--- 
-2.53.0
-
-
+On 6/26/26 7:58 PM, Nikhil Gautam wrote:
+> Subject: [PATCH v3 0/2] iio: magnetometer: add support for Melexis MLX90393
+> 
+It is best not to manually edit the emails before sending. Somehow the
+subject ended up in the email body.
