@@ -1,294 +1,251 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02ED4288D0;
-	Sat, 27 Jun 2026 12:30:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29D01A6813
+	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 12:33:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782563437; cv=none; b=hsrNRCmy+KQ3P1cTS095Ex+fvaRLMVb/MFAcYH1ONfOxfXijI/d7suQKl3ogZEUU45hpmL35ImFIcneQ3GRLF4E8kCWxLjTAjLB+XTzCyXERDaM3oiyilC2ZcFSyat1TMDYpxv/CzgL4fKef2IIM05T/DWjauvl1kWahpgQ+U6c=
+	t=1782563606; cv=none; b=hO/eAquC3DTYVbIvRBgMMPsfwDs4hplLJcm67W+BEVAnNzBthRpkmCKovjs+D7J0YD2yvIhhOBZsaqheGzcEzfsY/wbJGkWsQRGkJzXFFe4pABBr+UALTBnF6dSqFwHqZER7JEn1br2c8tk7SRFrbpZ80/tMXgxtwTbw5dj48ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782563437; c=relaxed/simple;
-	bh=hGap/kpCPZMvIo40ktmWy1wFYpPyhAZMbmUJ3ZYEmmk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JU//pxj88evc0p8scNSBAQxNfROmI2kPVl4e7ucHXGCerL8hQV8iJ81HZr36Nsq8YgxGJr+03hxLj5cAud9fs8dR6OnvO4Cg7whDFircFWh0bOl5MY0Dwa6AxplhaspgrBL5n9kdPLN2oddXnTo4ruarqXqzetHgtB5XjfXFc5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CUkHy3wh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782563606; c=relaxed/simple;
+	bh=xbxEDsydXJAiVLZ5Cf6Ao9KnDZgjCNf+AXTfOmlvxNE=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Uzd3PCnFV0mP+Fj984zyIImLyDv1Mqpn967UJgf1m3YXWxmODOOmRpWNf1OOcxKeHkqHI69Xq04RbqSZmg1nHLoUKal1VenFnqBW3b/5R8Wx7ZL+TM1dPr/ZIdGVSef8ixFFIdbLFOjd938UvvjlREvb4lO/4bxxiEsk+jVvwrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AgyuloEC; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CUkHy3wh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40EE61F000E9;
-	Sat, 27 Jun 2026 12:30:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782563435;
-	bh=/DS6B2lidGFFhUdzPhiRiwXH58GSMkLpkOHs0LP3wM0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CUkHy3whUtLlY1Ii9Opd2fWqyQYEztFmDwF25A+znb7cECrO3yUOPF5pLM37bDwEZ
-	 EDf6F2+rUVyM8qM8rtZCQDWotJdchkT8FjfTj9h3lqr8YxFIbJQSmv6cfnz4Eqd7Ok
-	 Xdue9kuHSdz4TC6sv0n6c6VYSEYHEQImZt+2DRbJHnMldwHWfMKW0505UFuMfP7mvg
-	 GS60UCDkWcmH5/QA+5nl92LKEOv/OpBTpGDyM+u4T0LtLf9UobJI6q3x7eWBV1wjfa
-	 /Sty5dgQpnzj00iupQ2eHSQPWMqkKQJuk2oiPLg2gNCgzp3CPplJ1CuP3pFeHgUA7J
-	 rwAmyUhj0b1oQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] PCI: mediatek-gen3: Add 2-lanes mode support for
- Airoha AN7581
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260627121450.3529133-5-ansuelsmth@gmail.com>
-References: <20260627121450.3529133-1-ansuelsmth@gmail.com>
- <20260627121450.3529133-5-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 12:30:34 +0000
-Message-Id: <20260627123035.40EE61F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AgyuloEC"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso9013055e9.1
+        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 05:33:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782563603; x=1783168403; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=3PtIUvxIw7trdusrNOr6fjoOoHqmRqU46S4I9pGH/As=;
+        b=AgyuloECDvljj+zNbL0P+qIrINEor1sZ9+0/a9u0sgF7Dleosnhz7g+jY7RDhcH6ti
+         gExi1fpzghcXdeNihRErkiGHyr/xSKc5pI7t03RIKm7Xf+Gyn46IPGP9q3+SW4fokK+B
+         Ufvz9/f6O2WzYnOwdpFOOiDtcuPRNJiXef3uJUbxwoY6XMRidJNuM+Pv+t/lcffz80DX
+         cr4PFnkzY0Nf0RbvzwP58Lrj05sXlXdzNyfLLFCPmtXQ+q+N/3skOSBiAdDlbGJQgCwt
+         awiTfNImWQ8DU6Q446B+CtywAf2tTl4w/F5cu/2CQoBZG/5W+Mshbv0BBMPdW0WdJrN4
+         D86A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782563603; x=1783168403;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3PtIUvxIw7trdusrNOr6fjoOoHqmRqU46S4I9pGH/As=;
+        b=d+7ObVECb0EE99m0G67VsZYtXrUeEEbWNjV46sWQhJXa3chhVSSNwSlTcm8vrsenQi
+         cJDuQBXtq2dlj89W7mP4jxSVg8122jJvNu6HeSRsW2jJpnQQ2a4meSXKCCx2w6fq8meB
+         VCGojCq6Uiscb/zbqNolXPU8ANPe5lkGS5vuCuTTrzh7+Mh9+eRhOQObU5a1n5WIzJeG
+         Nk9r8nMAMMpkU+OA6698Ngbg3t4oIJssDRUv6CDeRBNDrm6OaksJWckLSsxc0QOYGYt6
+         O+xJAnoCRXihyHIbHZIE2ySZXQcGbhIys3+6EkTR0tbiYKZlQVjXwGQR+FVngSVAP4XQ
+         G0ew==
+X-Forwarded-Encrypted: i=1; AFNElJ+nMF95sPD8UeQOERtQ0PrOPr0TpRcqnLju2JQ5Qa+IjR4xBwkjU3hxQwcogeKTWt6b1T9cZWwAfnie@vger.kernel.org
+X-Gm-Message-State: AOJu0YyShgEtcmwKSMZ5zKbaUvPEsi+1q4y44OR7E073NKX0ulhLc2xD
+	otLD53ayhwUxCFX/IX86JpDC7awKI7bEhd4/hojzhP4lyN8Rz1gw3JCa
+X-Gm-Gg: AfdE7cl2qFBRt4lOG0NXGI+1EkUwU6X7BCMcQEcRlFtl6AYvZc6/MWtR0lrT6wenUth
+	68VS1nx1WqX0RmRQWRwlLdjFxKuEnCEyRvY+/qWglhPPX7GtHK3Pctwa9yjocvISLg0vjLXEqvG
+	yFgms2cxsJ8shwacJnF/AqVU+tn0xCeCkT5KQfNFy3oMyUCeJu1o9hz6vAcDfkJuELXWABIbdg7
+	fNYjwnWhEVmUVDuGDlG66oJxsoEdSXFl9YekTS2/FzMDpGPhVaIPguODPTe0bJZZCmYtvT6OttW
+	+BbYZlXt1vUhV7evWk+90LVcaj48mcpkNnLHEdWuCStxNlrTupLVpc9LydfAEdpoZkv+F01HZBU
+	0oYkhLNe3hQHqWnupOmp8UaJ+3F/1Dj42+71ADFOtjqcaZx4O9TK1PuWFG1ExV2KkxxoiJOQ7oq
+	3CE4OYJOpPmQKv5em9AhBTxoEfbo8qjy/ML07BLRs+NhG6
+X-Received: by 2002:a05:600c:81c5:b0:492:4ff5:fb9e with SMTP id 5b1f17b1804b1-4926fcade65mr62722535e9.37.1782563603146;
+        Sat, 27 Jun 2026 05:33:23 -0700 (PDT)
+Received: from Ansuel-XPS. (93-34-89-195.ip49.fastwebnet.it. [93.34.89.195])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492690a1a85sm271536875e9.15.2026.06.27.05.33.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 27 Jun 2026 05:33:22 -0700 (PDT)
+Message-ID: <6a3fc312.6161eb1e.3441bb.c0de@mx.google.com>
+X-Google-Original-Message-ID: <aj_DD_djHkw7CLZ4@Ansuel-XPS.>
+Date: Sat, 27 Jun 2026 14:33:19 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
+Subject: Re: [RFC PATCH net-next v8 03/12] net: phylink: add
+ phylink_release_pcs() to externally release a PCS
+References: <20260618125752.1223-1-ansuelsmth@gmail.com>
+ <20260618125752.1223-4-ansuelsmth@gmail.com>
+ <a271385e-302d-45c7-a1df-aebd380b427b@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a271385e-302d-45c7-a1df-aebd380b427b@bootlin.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Thu, Jun 25, 2026 at 04:13:14PM +0200, Maxime Chevallier wrote:
+> Hello Christian,
+> 
+> On 6/18/26 14:57, Christian Marangi wrote:
+> > Add phylink_release_pcs() to externally release a PCS from a phylink
+> > instance. This can be used to handle case when a single PCS needs to be
+> > removed and the phylink instance needs to be refreshed.
+> > 
+> > On calling phylink_release_pcs(), the PCS will be removed from the
+> > phylink internal PCS list and the phylink supported_interfaces value is
+> > reparsed with the remaining PCS interfaces.
+> > 
+> > Also a phylink resolve is triggered to handle the PCS removal.
+> > 
+> > The flag force_major_config is set to make phylink resolve reconfigure
+> > the interface (even if it didn't change).
+> > This is needed to handle the special case when the current PCS used
+> > by phylink is removed and a major_config is needed to propagae the
+> > configuration change. With this option enabled we also force mac_config
+> > even if the PHY link is not up for the in-band case.
+> > 
+> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> > ---
+> >  drivers/net/phy/phylink.c | 56 +++++++++++++++++++++++++++++++++++++++
+> >  include/linux/phylink.h   |  2 ++
+> >  2 files changed, 58 insertions(+)
+> > 
+> > diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> > index c38bcd43b8c8..064d6f5a06da 100644
+> > --- a/drivers/net/phy/phylink.c
+> > +++ b/drivers/net/phy/phylink.c
+> > @@ -158,6 +158,8 @@ static const phy_interface_t phylink_sfp_interface_preference[] = {
+> >  static DECLARE_PHY_INTERFACE_MASK(phylink_sfp_interfaces);
+> >  
+> >  static void phylink_run_resolve(struct phylink *pl);
+> > +static void phylink_link_down(struct phylink *pl);
+> > +static void phylink_pcs_disable(struct phylink_pcs *pcs);
+> >  
+> >  /**
+> >   * phylink_set_port_modes() - set the port type modes in the ethtool mask
+> > @@ -918,6 +920,60 @@ static void phylink_resolve_an_pause(struct phylink_link_state *state)
+> >  	}
+> >  }
+> >  
+> > +/**
+> > + * phylink_release_pcs - Removes a PCS from the phylink PCS available list
+> > + * @pcs: a pointer to the phylink_pcs struct to be released
+> > + *
+> > + * This function release a PCS from the phylink PCS available list if
+> > + * actually in use. It also refreshes the supported interfaces of the
+> > + * phylink instance by copying the supported interfaces from the phylink
+> > + * conf and merging the supported interfaces of the remaining available PCS
+> > + * in the list and trigger a resolve.
+> > + */
+> > +void phylink_release_pcs(struct phylink_pcs *pcs)
+> > +{
+> > +	struct phylink *pl;
+> > +
+> > +	ASSERT_RTNL();
+> > +
+> > +	pl = pcs->phylink;
+> > +	if (!pl)
+> > +		return;
+> > +
+> > +	mutex_lock(&pl->state_mutex);
+> > +
+> > +	list_del(&pcs->list);
+> > +	pcs->phylink = NULL;
+> > +
+> > +	/*
+> > +	 * Check if we are removing the PCS currently
+> > +	 * in use by phylink. If this is the case, tear down
+> > +	 * the link, force phylink resolve to reconfigure the
+> > +	 * interface mode, disable the current PCS and set the
+> > +	 * phylink PCS to NULL.
+> > +	 */
+> > +	if (pl->pcs == pcs) {
+> > +		phylink_link_down(pl);
+> > +		phylink_pcs_disable(pl->pcs);
+> > +
+> > +		pl->force_major_config = true;
+> > +		pl->pcs = NULL;
+> > +	}
+> > +
+> > +	mutex_unlock(&pl->state_mutex);
+> > +
+> > +	/* Refresh supported interfaces */
+> > +	phy_interface_copy(pl->supported_interfaces,
+> > +			   pl->config->supported_interfaces);
+> > +	list_for_each_entry(pcs, &pl->pcs_list, list)
+> > +		phy_interface_or(pl->supported_interfaces,
+> > +				 pl->supported_interfaces,
+> > +				 pcs->supported_interfaces);
+> 
+> I've given more thought to that 'supported_interfaces' thing. This
+> patchset redefines the meaning of
+> 
+>   pl->config->supported_interfaces
+> 
+> Currently, it's filled by the MAC driver and means "Every interface
+> we can support, including the ones provided by PCSs that we can use
+> with this MAC".
+> 
+> It now becomes "Every interface we support without needing a PCS", at
+> least the way I understand that.
+>
 
-New issues:
-- [Critical] Modifying the `SCU_PCIC` register via syscon regmap replaces u=
-nrelated bits (unintentionally asserting device resets) and races with the =
-clock driver's raw memory accesses.
-- [High] The dedicated PERSTOUT resets (perstout_resets) are never asserted=
- during device teardown, leaving PCIe endpoints out of reset.
+Wait but with the current code using the OR logic, it still follows
+"Every interface we can support...". The modes that needs a PCS are
+specificed with the pcs_interfaces mask in phylink_config.
 
-Pre-existing issues:
-- [High] The return value of `pm_runtime_get_sync()` is ignored, potentiall=
-y leading to hardware access on a suspended device.
-- [High] Early returns in `mtk_pcie_en7581_power_up()` leak the `phy_resets=
-` deassert count, permanently breaking hardware initialization on probe ret=
-ry.
---
+The late add and release operates on the phylink supported_interfaces ONLY
+when the MAC didn't specify support for it (by removing it as only the PCS
+will declare support for it)
 
-commit 13851a15e592cd94ee574eb5716be89f2a065bba
-Author: Christian Marangi <ansuelsmth@gmail.com>
-Subject: PCI: mediatek-gen3: Add 2-lanes mode support for Airoha AN7581
+The confusion is present because everything is validated later on
+major_config so those supported_interfaces are just an HINT that are later
+verified with get_caps and with the pcs_validate OPs.
 
-The Airoha AN7581 SoC supports configuring the first PCIe0 lane to 2-lanes
-mode by bonding it with the second PCIe lane. This change configures the
-PCIe MUX in the SCU register and adds logic to assert and deassert the
-PERSTOUT resets.
+Adding the supported_interfaces to phylink is really to keep an original
+reference of the value. This is to address a pattern I have notice where
+the MAC driver always OR the interfaces with the one supported by the PCS.
+(I remember it was pointed out by Russell)
 
-> diff --git a/drivers/pci/controller/pcie-mediatek-gen3.c b/drivers/pci/co=
-ntroller/pcie-mediatek-gen3.c
-> index b0accd8285892..ba28d95e5d44b 100644
-> --- a/drivers/pci/controller/pcie-mediatek-gen3.c
-> +++ b/drivers/pci/controller/pcie-mediatek-gen3.c
+But I'm more than open to discussion as this is something marginal to the
+whole implementation, I'm also questioning if this OR is actually useful to
+anything on the nth tought on this.
 
-[ ... ]
+One thing that I notice is that parsing this early with AND might be
+problematic at phylink_create, but I still have to evaluate that.
 
-> @@ -949,18 +965,38 @@ static int mtk_pcie_parse_port(struct mtk_gen3_pcie=
- *pcie)
->  			pcie->num_lanes =3D num_lanes;
->  	}
-> =20
-> +	/* Map secondary PCIe for 2-lanes mode for EN7581 */
-> +	if (pcie->num_lanes =3D=3D 2 && device_is_compatible(dev, "airoha,en758=
-1-pcie")) {
-> +		regs =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "sec-pcie-=
-mac");
-> +		if (!regs)
-> +			return -EINVAL;
-> +		pcie->sec_base =3D devm_ioremap_resource(dev, regs);
-> +		if (IS_ERR(pcie->sec_base))
-> +			return dev_err_probe(dev, PTR_ERR(pcie->sec_base), "failed to map sec=
-ondary register base\n");
-> +	}
-> +
->  	return 0;
->  }
-> =20
->  static int mtk_pcie_en7581_power_up(struct mtk_gen3_pcie *pcie)
->  {
->  	struct pci_host_bridge *host =3D pci_host_bridge_from_priv(pcie);
-> +	unsigned int num_lanes =3D max(1, pcie->num_lanes);
-> +	struct regmap *pbus_regmap, *scu;
->  	struct device *dev =3D pcie->dev;
->  	struct resource_entry *entry;
-> -	struct regmap *pbus_regmap;
->  	u32 val, args[2], size;
->  	resource_size_t addr;
-> -	int err;
-> +	int i, err;
-> +
-> +	if (num_lanes > 2)
-> +		return dev_err_probe(dev, -EINVAL, "unsupported num-lanes, maximum 2 l=
-anes supported\n");
-> +
-> +	if (num_lanes =3D=3D 2) {
-> +		scu =3D syscon_regmap_lookup_by_phandle(dev->of_node, "airoha,scu");
-> +		if (IS_ERR(scu))
-> +			return dev_err_probe(dev, PTR_ERR(scu), "failed to map SCU regmap\n");
-> +	}
+My take is that would be good to have some review also on the other logic
+as I think I reached a point where Sashiko starts to comments on more or
+less unreal problem.
 
-[Severity: High]
-This is a pre-existing issue, but do these early returns leak the
-phy_resets deassert count?
+> It's not an error in your code, but I think this is worth documenting
+> somewhere as this changes one the things that's already fairly
+> error-prone in new drivers.
+> 
+> I don't know to what extent people use that, be we have a porting guide
+> that explains how to use phylink in a MAC driver, maybe an update in there
+> would be nice as well :
+> 
+> https://docs.kernel.org/networking/sfp-phylink.html#rough-guide-to-converting-a-network-driver-to-sfp-phylink
+> 
+> Maxime
+> 
+> 
 
-If syscon_regmap_lookup_by_phandle() returns -EPROBE_DEFER, or if num_lanes
-is greater than 2, this function returns directly to mtk_pcie_setup().
-
-mtk_pcie_setup() does an initial deassert before calling power_up:
-
-mtk_pcie_setup() {
-    reset_control_bulk_deassert(pcie->soc->phy_resets.num_resets, pcie->phy=
-_resets);
-    ...
-    err =3D pcie->soc->power_up(pcie);
-    if (err)
-        return err;
-}
-
-Since the error path in mtk_pcie_setup() returns without asserting the rese=
-ts
-again, does this leaked reset deassert count on shared resets prevent the
-reset controller from physically asserting the line on subsequent probe
-attempts, permanently breaking hardware initialization on probe retry?
-
-> =20
->  	/*
->  	 * The controller may have been left out of reset by the bootloader
-> @@ -992,6 +1028,19 @@ static int mtk_pcie_en7581_power_up(struct mtk_gen3=
-_pcie *pcie)
->  	size =3D lower_32_bits(resource_size(entry->res));
->  	regmap_write(pbus_regmap, args[1], GENMASK(31, __fls(size)));
-> =20
-> +	/* Assert PERSTOUT for all relevant lines */
-> +	err =3D reset_control_bulk_assert(MAX_NUM_PERSTOUT_RESETS,
-> +					pcie->perstout_resets);
-> +	if (err) {
-> +		dev_err(dev, "failed to assert PERSTOUTs\n");
-> +		return err;
-> +	}
-> +
-> +	/* Configure SCU MUX to disable PCIE1 for 2 lines mode */
-> +	if (num_lanes =3D=3D 2)
-> +		regmap_update_bits(scu, SCU_PCIC, SCU_PCIC_PCIE_CTRL,
-> +				   FIELD_PREP(SCU_PCIC_PCIE_CTRL, BIT(1)));
-
-[Severity: Critical]
-Does this regmap_update_bits() call on SCU_PCIC clear unrelated bits and
-unintentionally assert device resets?
-
-By using SCU_PCIC_PCIE_CTRL (GENMASK(7, 0)) as the mask to write BIT(1),
-this forces bits 0 and 2-7 to 0. Since the clock/reset driver for this SoC
-uses this same register to control device resets with inverted logic
-(0 =3D assert, 1 =3D deassert), does this unintentionally assert the reset =
-for
-the PCIE0 controller itself and other peripherals?
-
-Also, since the clock driver uses raw readl()/writel() without a shared
-lock, does this introduce a data race that could corrupt the register state?
-
-> +
->  	/*
->  	 * Unlike the other MediaTek Gen3 controllers, the Airoha EN7581
->  	 * requires PHY initialization and power-on before PHY reset deassert.
-> @@ -1024,18 +1073,6 @@ static int mtk_pcie_en7581_power_up(struct mtk_gen=
-3_pcie *pcie)
->  	pm_runtime_enable(dev);
->  	pm_runtime_get_sync(dev);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is it safe to ignore the
-return value of pm_runtime_get_sync() here?
-
-If runtime PM fails to resume the device and returns a negative error code,
-this unconditionally proceeds to enable clocks and access hardware register=
-s.
-Can accessing registers of a suspended device cause synchronous external
-aborts or bus faults resulting in a kernel panic?
-
-> =20
-> -	val =3D FIELD_PREP(PCIE_VAL_LN0_DOWNSTREAM, 0x47) |
-> -	      FIELD_PREP(PCIE_VAL_LN1_DOWNSTREAM, 0x47) |
-> -	      FIELD_PREP(PCIE_VAL_LN0_UPSTREAM, 0x41) |
-> -	      FIELD_PREP(PCIE_VAL_LN1_UPSTREAM, 0x41);
-> -	writel_relaxed(val, pcie->base + PCIE_EQ_PRESET_01_REG);
-> -
-> -	val =3D PCIE_K_PHYPARAM_QUERY | PCIE_K_QUERY_TIMEOUT |
-> -	      FIELD_PREP(PCIE_K_PRESET_TO_USE_16G, 0x80) |
-> -	      FIELD_PREP(PCIE_K_PRESET_TO_USE, 0x2) |
-> -	      FIELD_PREP(PCIE_K_FINETUNE_MAX, 0xf);
-> -	writel_relaxed(val, pcie->base + PCIE_PIPE4_PIE8_REG);
-> -
->  	err =3D clk_bulk_prepare_enable(pcie->num_clks, pcie->clks);
->  	if (err) {
->  		dev_err(dev, "failed to prepare clock\n");
-> @@ -1043,14 +1080,47 @@ static int mtk_pcie_en7581_power_up(struct mtk_ge=
-n3_pcie *pcie)
->  	}
-> =20
->  	/*
-> -	 * Airoha EN7581 performs PCIe reset via clk callbacks since it has a
-> -	 * hw issue with PCIE_PE_RSTB signal. Add wait for the time needed to
-> -	 * complete the PCIe reset.
-> +	 * Old Airoha EN7581 clock driver performed PCIe reset via
-> +	 * clk callbacks since it has a hw issue with PCIE_PE_RSTB signal.
-> +	 * This is now handled by dedicated PERSTOUT resets with clk
-> +	 * driver only enabling the refclk.
-> +	 *
-> +	 * Wait is still needed for refclk to stabilize
->  	 */
->  	msleep(PCIE_T_PVPERL_MS);
-> =20
-> +	/* Configure all the lines to the same EQ config */
-> +	for (i =3D 0; i < num_lanes; i++) {
-> +		void __iomem *base =3D pcie->base;
-> +
-> +		if (i =3D=3D 1)
-> +			base =3D pcie->sec_base;
-> +
-> +		val =3D FIELD_PREP(PCIE_VAL_LN0_DOWNSTREAM, 0x47) |
-> +			FIELD_PREP(PCIE_VAL_LN1_DOWNSTREAM, 0x47) |
-> +			FIELD_PREP(PCIE_VAL_LN0_UPSTREAM, 0x41) |
-> +			FIELD_PREP(PCIE_VAL_LN1_UPSTREAM, 0x41);
-> +		writel_relaxed(val, base + PCIE_EQ_PRESET_01_REG);
-> +
-> +		val =3D PCIE_K_PHYPARAM_QUERY | PCIE_K_QUERY_TIMEOUT |
-> +			FIELD_PREP(PCIE_K_PRESET_TO_USE_16G, 0x80) |
-> +			FIELD_PREP(PCIE_K_PRESET_TO_USE, 0x2) |
-> +			FIELD_PREP(PCIE_K_FINETUNE_MAX, 0xf);
-> +		writel_relaxed(val, base + PCIE_PIPE4_PIE8_REG);
-> +	}
-> +
-> +	/* Deassert PERSTOUT for all relevant lines */
-> +	err =3D reset_control_bulk_deassert(MAX_NUM_PERSTOUT_RESETS,
-> +					  pcie->perstout_resets);
-
-[Severity: High]
-Are the perstout_resets missing from the teardown path?
-
-Since they are asserted and deasserted during power up, does the endpoint
-remain fully powered on and out of reset while the host controller's PHYs
-and clocks are disabled during mtk_pcie_power_down()?
-
-mtk_pcie_power_down() {
-    clk_bulk_disable_unprepare(pcie->num_clks, pcie->clks);
-    pm_runtime_put_sync(pcie->dev);
-    ...
-    phy_power_off(pcie->phy);
-    phy_exit(pcie->phy);
-    ...
-}
-
-This might violate the PCIe specification and leave endpoints active, which
-could lead to spurious DMA, fatal bus errors, and system lockups when
-unbinding the driver or suspending.
-
-> +	if (err) {
-> +		dev_err(dev, "failed to deassert PERSTOUTs\n");
-> +		goto err_perstout_deassert;
-> +	}
-> +
->  	return 0;
-> =20
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627121450.3529=
-133-1-ansuelsmth@gmail.com?part=3D4
+-- 
+	Ansuel
