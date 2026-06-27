@@ -1,135 +1,197 @@
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F34E1C2324
-	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 23:07:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A1C334681
+	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 23:08:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782601674; cv=none; b=nw/GH4FC1vawJmsNlWp25zQP7rjaR4se5nw4oGloGnCUbze6c8P4CLdmos9HsoCI5hIm+EX8qwZ3ZDaNUuTfmRNfXEvZXIPnfTv0uvf9jEu4mfgq+ZS//e/2F0RqPqbHY0gJ3Ne3xTClvXbY4YeP5XVj3blZmySZ20mNqN4/lAE=
+	t=1782601702; cv=none; b=iHG+rvoWZCK4bRJGZfUQpPBP2fhDeZTb/bSArY4AtSLX6kzOaocUTsOK9o1uRLF0wFnPm4h8U9F2Xgvp7OfRZ4yAaGHeqvA0FdNOYB/0+bpZvNWipU/kVuQrbMyrUKF1H4OSCUWHf4aM7tDVfkfn6HNpyf0uggOp/PYU5F64vak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782601674; c=relaxed/simple;
-	bh=VQ44ILHIV2O85VTtEGTGB7wZvz2epBn0TnEyzRRxmQs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KcOUUpXR45dwbKpfYWT91X3DsHYl+b99twGXc6M8y549TnH7k1Ht9+a8j2zyeJubnSiQGae8cZKigU2Q0mGctvAGErP8X2fFj+tX8miIIItLl3AcgmNw6TIAyIX3lvkiHdqFcNgTKDmNL1X+wbvpsDSZbAQ8BAOtDlyo3PQFHJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LzCivVRc; arc=none smtp.client-ip=209.85.210.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1782601702; c=relaxed/simple;
+	bh=bYQjAsH2p6L64KkEBBwrlucAnzDGDEYqkuDyR4Z3P+Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=b7/8UTwsrzdyD7bJzdSydnRdcpGQeNnKgyxuu6qJZq3/IUzQ+AVABxYlB4V7l7Odk3yPumP1SA0OqTJCPbkru5IdV7Lf9LvPuTJhf3MEo/yPwx1pLlkq7k+5K7gXtnH0cc0/Nd0iwsROIVu4gikd0ppikMSjC8w2n0yYmXH7thA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lYNwfnfD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LzCivVRc"
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7e6b5737bb2so2451354a34.1
-        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 16:07:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782601671; x=1783206471; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Sc0LVF54eIDE0MT2UAxiqee+b3f/jtlBzR5Bzv0cEZU=;
-        b=LzCivVRc+N/RTK7U5Hnt/1q8otnrXAcPDZZwYQjOVs2F7xHIje97lyjvvavT5czD8Z
-         omgFpwF8kxgUYKqMB4wyZaTJdI8aqeGMrvVUipysLVTThe6NTE5j8qyLy1R/QtLh5jCF
-         4uYUkY5XvsfQFCI1NIY67OzlAT3X/UaI3K2O8fn/4q3ia4vvHfqjqevL9GpNyMz03srS
-         kfsnjr9HJhTaAjlCAQF/tTFaGk0tN5RvAP7HIC7pkGEsz1MrK9G2Z04p4Bvok0bZh5tG
-         uAyC+pot8Fy+8cugOMcBUqTbmWuem7vkqB3kejXdgnGklaR+ofCTsCt5Uz9MV4t/MUAz
-         oWlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782601671; x=1783206471;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Sc0LVF54eIDE0MT2UAxiqee+b3f/jtlBzR5Bzv0cEZU=;
-        b=bspJKJ/DXuwrgkEDj6PBC8Qy39pcgYT2RB432xq2x+Ufszu1rfU2lew4D9mdKzpdZU
-         LkkutBPKfjeOvqesRLnBMpm1A/RSx0fjLJWwKOd17fGqxINOqr9KRynzjdpn4IVEVeNM
-         9ILi9LBdPUMtYRlMguQ+AuvN+aonr/Y3NsChZ8swNllDgyQMXiFTE9a1t9qZHXRuvKuf
-         8aw+Nq4W0HPr6nLWzfTBRE3kttMb94anSe2LorFiIQ3QazuI+irG83UAPQJFxs+rfMmr
-         CMprCYchwo+I5UodUxt6FBSM8JQoz1zQcnXFIfI7MYP+8XdaKBorUKjWQ4jcgA7jH/PO
-         E+kQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/caEEo2mGD4Q3YeMg5mDOLwAYF1DBokX09RxI19K0Xxd4Ahk/QDTL7/SFTuaPOUxc4msk5ZECIdJlq@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx1L02QbfW34dE82AQRgXejpq2jbT3fyKGZt3cfYOddq8crNjO1
-	n9atOJEGAxj8XyRqgJPsy4mq84Tkzg4F5fqvTsri/lnFuAwVtF9FPRVWrRXfRnmORtQ=
-X-Gm-Gg: AfdE7cnOtfe+GgagZwzQ1t88vtBeta0eV9vOOhht2JVvGYY8p+X61S6NVj0aY9UrfDV
-	livZHQ9PuwJ2kQKepXhWacMqQIQhgMM9ImAw/8CWM63SxA2/6WZlPiu+Zq+3DV78dBozfpQEydz
-	V5oQQ96MDH6Ry/X7o2RxMlQV3aiKBXATbh7atEFwVcG+3k8YujrewxAokZI0QfeYztJtGuh5lAQ
-	yBOqkqT9PagjqeQc8iz9ptN+PNaan3JNJo44yiMPNYAERAgWwakMZvmnp16CoLpU+H7/1SsYg06
-	hXsFhWTO72eQ8/IQGIiVKKHQWPT2/j1m44JndJaq3Dx9xDMwIaKn/G2UWJ+lM24xW/s+3S/O7Hc
-	kHmfCPwpA5vsL5L1yds0usMDPEWFBQz643HLaqalFCyWWirwoE2RS0a+ayKHpM3smjKOzhhuwBI
-	3ZWKFtcz1zD3Y0mmXh7lv4r0jpYxbX95mmpzvYyY5Ryl73zgT7Z8A7gIEa9b4b3gk=
-X-Received: by 2002:a05:6830:349f:b0:7e5:f957:a61f with SMTP id 46e09a7af769-7e99c268898mr11379368a34.18.1782601671671;
-        Sat, 27 Jun 2026 16:07:51 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:f242:ecd6:f61e:d764? ([2600:8803:e7e4:500:f242:ecd6:f61e:d764])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9b292029dsm3861948a34.22.2026.06.27.16.07.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 27 Jun 2026 16:07:50 -0700 (PDT)
-Message-ID: <6770a7af-06cc-4240-9b20-c299e7080ab1@baylibre.com>
-Date: Sat, 27 Jun 2026 18:07:49 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lYNwfnfD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C6AA1F000E9;
+	Sat, 27 Jun 2026 23:08:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782601700;
+	bh=fYIjqcyrqNfiBrJWD68tl3GQOzFbK7JvWYTITHTo0f8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lYNwfnfDCzZIc6HQkaG7EtTv9QN4JMfmIBUnsEb9Bvbd2/4tqVaukOjJoIzaSs+/Q
+	 F5OKp5c3ymnEOJxAeDA9nGMsJhcSqxJQg5A1eB5CkiDJ7q0RFQL6zrwB11mXR5rn4b
+	 QtAAXjkYeCDEV5Tj35obuFKyMqf8AOVJP6hTrditAl6+AnSb3eHSPfWof8KEcCAmhf
+	 Ndb6G9mvWzoSTshxB7s3f5hLh34RewGMD3BRzu7AiHntj/Kej6x8ZOTZfWt0iMqgkm
+	 5JjFrCRgBqWyHqQdbl402yEkm7j5Zdl1eTlViIuqyQVWFLKOOvU+wlz5QQ3idUefCm
+	 DrqINBaBEYVTw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] arm64: dts: rockchip: Add devicetree for the
+ Graperain G3568 v2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Coia Prant" <coiaprant@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260627225755.1710837-6-coiaprant@gmail.com>
+References: <20260627225755.1710837-2-coiaprant@gmail.com>
+ <20260627225755.1710837-6-coiaprant@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 27 Jun 2026 23:08:20 +0000
+Message-Id: <20260627230820.8C6AA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] iio: adc: add Axiado SARADC driver
-To: Petar Stepanovic <pstepanovic@axiado.com>, Akhila Kavi
- <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
- Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260622-axiado-ax3000-ax3005-saradc-v3-0-e57c7c7ae675@axiado.com>
- <20260622-axiado-ax3000-ax3005-saradc-v3-2-e57c7c7ae675@axiado.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260622-axiado-ax3000-ax3005-saradc-v3-2-e57c7c7ae675@axiado.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 6/22/26 2:47 AM, Petar Stepanovic wrote:
-> Add support for the SARADC controller found on Axiado AX3000 and
-> AX3005 SoCs.
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Medium] Incorrect `press-threshold-microvolt` values in `adc-keys` use b=
+oundary midpoints instead of nominal voltages, causing the MENU button to m=
+isregister as ESC.
+- [Medium] The WiFi SDIO interface specifies `keep-power-in-suspend`, but i=
+ts I/O voltage supply (`vcc_1v8`) is configured to turn off in suspend, bre=
+aking Wake-on-WLAN.
+- [Medium] The AP6356S Bluetooth UART is missing hardware flow control prop=
+erties and the required Bluetooth child node.
+- [Low] The deprecated `gpio` property is used instead of `gpios` in fixed =
+regulator nodes.
+--
 
-...
+commit 13181564cb78799e1d57eb0995588d8e839f22a5
+Author: Coia Prant <coiaprant@gmail.com>
+arm64: dts: rockchip: Add devicetree for the Graperain G3568 v2
 
-> +#define AX_SARADC_CH(_index, _id)                                       \
-> +	{                                                               \
-> +		.type = IIO_VOLTAGE,                                    \
-> +		.indexed = 1,                                           \
-> +		.channel = (_index),                                    \
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),           \
-> +		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),   \
-> +		.datasheet_name = (_id),                                \
+This patch introduces the device tree for the Graperain G3568 v2, an RK3568
+based development board. It configures the hardware peripherals including
+ethernet, storage, wireless, and power regulators.
 
-This could probably be:
+Link: https://image.chukouplus.com/upload/C_153/product_file/20211022/6dadd=
+ec9e400458816dd4c57ba807fc3.pdf
+Link: https://blog.gov.cooking/archives/research-graperain-g3568-v2-and-fla=
+sh.html
 
-		.datasheet_name = "adc" #_index,
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-graperain-g3568-v2.dts b=
+/arch/arm64/boot/dts/rockchip/rk3568-graperain-g3568-v2.dts
+> new file mode 100644
+> index 0000000000000..221992d6c6003
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3568-graperain-g3568-v2.dts
+> @@ -0,0 +1,894 @@
 
-and avoid the need for _id.
+[ ... ]
 
-> +	}
+> +	adc-keys {
+> +		compatible =3D "adc-keys";
+> +		io-channels =3D <&saradc 0>;
+> +		io-channel-names =3D "buttons";
+> +		keyup-threshold-microvolt =3D <1800000>;
+> +		poll-interval =3D <100>;
 > +
-> +static const struct iio_chan_spec axiado_saradc_iio_channels[] = {
-> +	AX_SARADC_CH(0, "adc0"),   AX_SARADC_CH(1, "adc1"),
-> +	AX_SARADC_CH(2, "adc2"),   AX_SARADC_CH(3, "adc3"),
-> +	AX_SARADC_CH(4, "adc4"),   AX_SARADC_CH(5, "adc5"),
-> +	AX_SARADC_CH(6, "adc6"),   AX_SARADC_CH(7, "adc7"),
-> +	AX_SARADC_CH(8, "adc8"),   AX_SARADC_CH(9, "adc9"),
-> +	AX_SARADC_CH(10, "adc10"), AX_SARADC_CH(11, "adc11"),
-> +	AX_SARADC_CH(12, "adc12"), AX_SARADC_CH(13, "adc13"),
-> +	AX_SARADC_CH(14, "adc14"), AX_SARADC_CH(15, "adc15"),
+> +		button-esc {
+> +			label =3D "esc";
+> +			linux,code =3D <KEY_ESC>;
+> +			press-threshold-microvolt =3D <1250000>;
+> +		};
+> +
+> +		button-menu {
+> +			label =3D "menu";
+> +			linux,code =3D <KEY_MENU>;
+> +			press-threshold-microvolt =3D <1600000>;
 
-Two columns looks a bit odd.
+[Severity: Medium]
+Will this cause the menu button to misregister as esc?
 
+The adc-keys driver uses a nearest-neighbor algorithm to match the ADC
+reading to the button. Since the commit message indicates the nominal
+voltages are 1.1V for ESC and 1.4V for MENU, an ADC reading of 1.4V from
+pressing MENU is closer to the ESC threshold of 1.25V (0.15V difference)
+than the MENU threshold of 1.6V (0.2V difference).
+
+Could we use the exact expected nominal voltages here instead of the
+boundary midpoints?
+
+[ ... ]
+
+> +	vcc5v0_usb_host: regulator-vcc5v0-usb-host {
+> +		compatible =3D "regulator-fixed";
+> +		enable-active-high;
+> +		gpio =3D <&gpio0 RK_PA6 GPIO_ACTIVE_HIGH>;
+
+[Severity: Low]
+Is this using the deprecated gpio property?=20
+
+The standard regulator-fixed binding expects gpios instead of gpio, which
+can cause device tree schema validation warnings.
+
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&vcc5v0_usb_host_en>;
+> +		regulator-name =3D "vcc5v0_usb_host";
+> +		regulator-min-microvolt =3D <5000000>;
+> +		regulator-max-microvolt =3D <5000000>;
+> +		vin-supply =3D <&vcc5v0_usb>;
+> +	};
+> +
+> +	vcc5v0_usb_otg: regulator-vcc5v0-usb-otg {
+> +		compatible =3D "regulator-fixed";
+> +		enable-active-high;
+> +		gpio =3D <&gpio0 RK_PA5 GPIO_ACTIVE_HIGH>;
+
+[Severity: Low]
+Would it be better to use the gpios property here as well to match the
+regulator-fixed device tree binding schema?
+
+[ ... ]
+
+> +/* used for AP6356S WiFi */
+> +&sdmmc2 {
+> +	bus-width =3D <4>;
+> +	cap-sd-highspeed;
+> +	cap-sdio-irq;
+> +	keep-power-in-suspend;
+> +	mmc-pwrseq =3D <&sdio_pwrseq>;
+> +	non-removable;
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&sdmmc2m0_bus4 &sdmmc2m0_cmd &sdmmc2m0_clk>;
+> +	sd-uhs-sdr104;
+> +	vmmc-supply =3D <&vcc3v3_sys>;
+> +	vqmmc-supply =3D <&vcc_1v8>;
+
+[Severity: Medium]
+Will this configuration break Wake-on-WLAN and SDIO communication on resume?
+
+This node specifies keep-power-in-suspend, but the vqmmc-supply is set to
+vcc_1v8. Looking at the vcc_1v8 regulator definition (DCDC_REG5) earlier in
+the file, it is configured with regulator-off-in-suspend.
+
+Cutting power to the SDIO I/O domain during suspend violates the power
+sequencing for keep-power-in-suspend and prevents out-of-band wake interrup=
+ts
+from signaling the host.
+
+[ ... ]
+
+> +/* used for WiFi/BT AP6356S */
+> +&uart8 {
+> +	pinctrl-0 =3D <&uart8m0_xfer &uart8m0_ctsn>;
+> +	status =3D "okay";
 > +};
-> +
-> +static void axiado_saradc_disable(void *data)
-> +{
-> +	struct axiado_saradc *info = data;
-> +
-> +	writel(AX_SARADC_GLOBAL_CTRL_PD, info->regs + AX_SARADC_GLOBAL_CTRL_REG);
 
-People usual make read and write wrappers or use regmap to avoid having
-to write `info->regs + AX_SARADC_GLOBAL_CTRL_REG` so many times.
+[Severity: Medium]
+Does this Bluetooth UART configuration need hardware flow control and a
+device child node?
 
-> +}
+High-speed Bluetooth modules like the AP6356S generally rely on RTS/CTS to
+prevent buffer overflows, but the uart-has-rtscts property and the
+uart8m0_rtsn pin configuration are missing here.
+
+Additionally, without a bluetooth child node (such as compatible =3D
+"brcm,bcm4345c5"), the kernel's HCI UART driver might not be able to probe
+and initialize the module automatically.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627225755.1710=
+837-2-coiaprant@gmail.com?part=3D3
