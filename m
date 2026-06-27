@@ -1,160 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CE0BE63;
-	Sat, 27 Jun 2026 14:13:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A68E70836
+	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 14:46:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782569589; cv=none; b=rNP/F/vjoSNzObeiUN03vJUyp8/AxXfgm1R37fYUE6yvjnmcZDJ7383kIPaKwZma5zowLSnyxQ776IgDRWlpz3TkNtQ9jgk2KFBAMhekyWXjtprRUPUaecLfHSFMnGw4sAE2tYJ5kDjE4XOZ35wNX353YXeuq/C37hVCLKfCnz4=
+	t=1782571588; cv=none; b=n8vEVTgFrJZyEMLEnmXW7T47YBsVD4cdIApr3brcgXwiJtfpInyazCIBC4TWriitUkSghL3WSHkwpiF3F+VXDY0dn6htx0qxFmRpBZxAsQU2gQytLEpCj0nEcPw97vrs5DYeZQVP6F9iAbPPugpfLRpd/P3+MqRtYLAQ1Hebozg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782569589; c=relaxed/simple;
-	bh=g4koX41JGn64lh65JFCkF5PrPq+J6QkdQJejseRwjPQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GFBC9bZhFF+m26rj2IHmcL2EJa+PGepQVUbWB5bUJh1w+vn03Un+prRfRlaXxJB9pubYOFb+GD6xxFh64H+xWpI6AjOEKZWZxBlHoyV2f0G5FWIITWQRJfmoUyYwl/ZPc73fCh43+BPPDZJEWcD6vqwRV8sun4aPey9PsPShUKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JnpZG/ZV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782571588; c=relaxed/simple;
+	bh=oOPF8wGesowHZTwgzTTwlv6PG/+pRbuklz/XtIB7O/k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GKfu/VgNybxPJV8uvuQegAOyL1JSJnOUJ9gDhbIlGEBRI8peI1+J1RM+l3JYnnSoUzC9naVhTdrp1fwizFgZdFlJeKK3LT96x2MkckHKiXCgkB1L71sD5OS8hz9AAAt38EfHrNaSF09vhcyGi67SerFK0YecvJlu3/FwfuZ8syk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XOU4h+qu; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JnpZG/ZV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 888B71F000E9;
-	Sat, 27 Jun 2026 14:13:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782569588;
-	bh=Gzh2plBXJ+V5rVAo9UH0lZu//mdnWSb19kyOOoCk0VM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JnpZG/ZVd5B/C2reKUrIBHrC31EZoCUQUouaF9Ti+GxmZecEzJJ3lo6HKvTt6qIXS
-	 1BCW73i///CgG0wfzEpeWf51FQIchi9EBBDoz7e2TMfWH1NG+PZv3asA4GxL7B6yxv
-	 PKCtNi1c8JgcvT1P+ynkE1VIrs/F530SdF2umAJ9jXYo2M6g9+EjbDsW44W1CLlL2Q
-	 L0tSq4H+6nyJDpny9Nw2VWZTtB5kdnSPKtXNH6FGohGVvFerRyEiv1TkInjmV13ZAl
-	 eW3q2xtQyszuvO+iSuJueq80I2LSLdYsknrVGo2dbvk9R1NAeOD7v31kw2DdiYgYOk
-	 fap6XfIkbWYxA==
-Date: Sat, 27 Jun 2026 15:13:02 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XOU4h+qu"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49249707788so15349685e9.2
+        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 07:46:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782571586; x=1783176386; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=HBg/7OCyilKcHeMXMdL3WuPjtAWiZJrGkie7U7w+6JM=;
+        b=XOU4h+quX5ih1T7B94efGI1rwQI0n8nt5wE5iN1iqGb5/3tzpdFR1S4AjHoyxFCGjf
+         3a5PZGZINsFCpTO0hl1Js1b9Z0T8mpP4iPdW/s1fCWlyHMcmhLjuDkSjTLobh+RzDQcu
+         +oa81x0/qqJv1CP4o7H0/3CL0yLEqXiP6XOhb8ulY8IJbYwZ2bPxV73eCCiFNsLs4fKt
+         isnxqHJVCMyzXl5HPMj92tDa9Vxl3XbvovS7fsbaTUOVvF4C4YEbEpz0z/rgjFUoMVqx
+         +UznI2hQmZnwpglVRPvcKGt1qT+nFWpDKpn7D83B7O8kejdzpZUDbWeISpoi4CVzvelm
+         euOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782571586; x=1783176386;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HBg/7OCyilKcHeMXMdL3WuPjtAWiZJrGkie7U7w+6JM=;
+        b=jTK7hRG5SLkXhdcxlkzr93mpcG4WRTv81e2fnULNDNoufHO5ewFP/etVik+z985Y9Z
+         S2qn4x/I0Y9umqc2kHN6giQVuI8AF5fMShabtE+SN0Vpioob7sWhA7cmCNJTdqASJjZZ
+         YbWYhkF1kvlFi5PEIiQ5RMqp5ew6hQgH/jNlZwO7vJhossFqYbXuefB3zQ5o0pq0dMfr
+         mixpvYdkL7QZRnD8fzhcFqtJ2U9xKsollwhe5RUcDmeXusgd58x7ET4EKEQ9mqQy/RW+
+         efni/NsJzWh3KuTrjnp87mteG7sFzsb29bwfuAs4BX9iyCJSASU29h1WzqbPLA9GfMI6
+         Njrg==
+X-Forwarded-Encrypted: i=1; AFNElJ+CXIfh7hw4Iogy5ZVAbApHcb9q3jHzGK/X/kZOfK2PS0Jt2/BNG2CuBu9h9xglVsF1MIYTrQKYZRqZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwzXFsGon/NiVaRs0ytQLslemp4F3HEu+KXeUVx7BfrFauFimi6
+	oUBkQvTQ3s/fdA2rtpT9hye29/grvzJ8tGC/Bjysb5sUw8s/22Oh+Wxv
+X-Gm-Gg: AfdE7ckKtm6ntdYfvFuG68a0jPXY50CJQIswZCfaMKLNli6Q5QO4fR6NpiFoBJKsFck
+	O8qKDUxLfN70mlQutuV0DBAqA+HWtvpXyFiUe3dAvFbT5kAac9mCPO46UTzeEOoZaFCYgw3Mr67
+	w93y/XSzsADdBomE299q5JCY1fmywBbxu+DPpZdbA75nREBjadfc7UU9BszJHTWdf0LKKIShK5C
+	qD22fgfiJAicTPLUJ1Wl3CV8nJphTTKZ3OaCzoLCRAaIz2wDCzkYVGwDjW686X4Dx7D35c6saVE
+	/h/6De7Phci+auFrpiRUNyW21MG13wZmftziS1so+4xzg133JLfQp/6ftmEsjvV0TFYJMU5XV5a
+	LaOexFYxxTfyfjlxUYw/4yI1nIlRXy4CktBtN1ddd4pIaC1e9OOymwCiVusPfcf/ifGw5gExj8l
+	K6KTOy0rd8I56ANXor7A+Olvq1APx4hRO2NuUvSb6r4pwM1zUxwi12DqDtnR1o8MKhl62eLCnYv
+	QJJ4MYeOJ3BPN9Y7Ni9dr/mGxQ=
+X-Received: by 2002:a05:600c:c4a3:b0:490:d354:bd00 with SMTP id 5b1f17b1804b1-4926fc8822cmr82329145e9.25.1782571585491;
+        Sat, 27 Jun 2026 07:46:25 -0700 (PDT)
+Received: from Lord-Beerus.station (net-93-144-65-248.cust.vodafonedsl.it. [93.144.65.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4927038578bsm98709035e9.4.2026.06.27.07.46.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 27 Jun 2026 07:46:24 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	MyungJoo Ham <myungjoo.ham@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Dmitry Osipenko <digetx@gmail.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	Amir Vajid <amir.vajid@oss.qualcomm.com>,
-	Ramakrishna Gottimukkula <ramakrishna.gottimukkula@oss.qualcomm.com>
-Subject: Re: [PATCH RFC v7 0/9] firmware: arm_scmi: vendors: Qualcomm Generic
- Vendor Extensions
-Message-ID: <20260625-metal-chachalaca-of-fascination-eabc0f@sudeepholla>
-References: <20260610-rfc_v7_scmi_memlat-v7-0-f3f68c608f25@oss.qualcomm.com>
- <20260616-responsible-junglefowl-of-chaos-7eda7d@sudeepholla>
- <8725caf9-cebb-49ce-b2c8-4960a6073322@oss.qualcomm.com>
- <20260623-busy-beautiful-trout-8cc2ea@sudeepholla>
- <ea9d0c11-e110-4d13-b165-1548875ef9cd@oss.qualcomm.com>
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Subject: [PATCH v2 0/3] Add support for Variscite DART-MX8M-MINI and Sonata board
+Date: Sat, 27 Jun 2026 16:46:10 +0200
+Message-ID: <cover.1782571383.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ea9d0c11-e110-4d13-b165-1548875ef9cd@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 25, 2026 at 10:57:40AM +0530, Pragnesh Papaniya wrote:
-> 
-> 
-> On 23-Jun-26 2:17 PM, Sudeep Holla wrote:
-> > On Fri, Jun 19, 2026 at 06:01:23PM +0530, Pragnesh Papaniya wrote:
-> >>
-> >> On 16-Jun-26 1:57 PM, Sudeep Holla wrote:
-> >>
-> >>> Not sure if it was discussed in the previous versions or not, it would be
-> >>> good if you can capture why some of bus scaling doesn't work with the existing
-> >>> SCMI performance protocol and the monitors don't fit the MPAM mode.
-> >>>
-> >>> Please capture them in 1/9 as a motivation for this vendor protocol. It will
-> >>> then help to understand it better as I am still struggling to. Sorry for that.
-> >>
-> >> Thanks for the input!
-> >>
-> >> SCMI perf protocol exports perf domains to kernel where kernel can set
-> >> the frequency but here the scaling governor runs on the SCP while kernel
-> >> just observes frequency changes made by remote governor.
-> > 
-> > OK if it is sort of read-only w.r.t kernel, why not perf domain notifications
-> > work to consume the change done by the SCMI platform.
-> > 
-> > And why do you have set operations in the vendor protocol being proposed then.
-> > It all looks like something just cooked up to make things work. I need
-> > detailed reasoning as why the existing perf protocol can't work considering
-> > all the existing notifications in place.
-> 
-> Please do take another look at the documentation and driver changes to see
-> how it all comes together, since it's apparent that we use SET operation for
-> a ton of things. Taking another stab at explaining how the MEMLAT uses all
-> the ops exposed by the vendor protocol.
-> 
+This patch series adds support for the Variscite DART-MX8M-MINI
+system on module and the Sonata carrier board.
 
-Sure I will have a look at the documentation again and sorry if I missed
-anything. But in general I would expect the document to be self-explanatory
-and not having to look at the driver on how it is used to understand the
-firmware interface. Please make sure of that if not already.
+The series includes:
+- SOM device tree with on-module peripherals
+- Sonata carrier board device tree with board-specific features
 
-> We use the SET operation to pass on various tuneables (IPM CEIL, stall floors,
-> write-back filter, freq-scale params, adaptive low/high freq, sample ms),
-> the core-freq -> mem-freq map, and min/max clamps) required to run the
-> MEMLAT algorithm on the SCP. You might ask why can't we have these values
-> stored somewhere on the SCP itself?
+The implementation follows the standard SOM + carrier board pattern
+where the SOM dtsi contains only peripherals mounted on the module,
+while carrier-specific interfaces are enabled in the board dts.
 
-Exactly, thanks for saving a round trip.
+v1->v2:
+ - Remove HDMI from commit message
+ - Fixed eth regulator
 
-> We would like to but all of these are tuneable values, that can change for
-> various boards for the same SoC.
-> 
+Stefano Radaelli (3):
+  dt-bindings: arm: fsl: add Variscite DART-MX8M-MINI Boards
+  arm64: dts: freescale: Add support for Variscite DART-MX8M-MINI
+  arm64: dts: imx8mm-var-dart: Add support for Variscite Sonata board
 
-Sure and where do these boards get these values from ? I assume device tree ?
-If so, are the fixed and can be done once at boot ?
+ .../devicetree/bindings/arm/fsl.yaml          |   6 +
+ arch/arm64/boot/dts/freescale/Makefile        |   1 +
+ .../dts/freescale/imx8mm-var-dart-sonata.dts  | 517 ++++++++++++++++
+ .../boot/dts/freescale/imx8mm-var-dart.dtsi   | 558 ++++++++++++++++++
+ 4 files changed, 1082 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mm-var-dart.dtsi
 
-> The START/STOP operations are meant to start/stop the algorithm, in this case
-> the bus scaling algorithm.
-> 
 
-Yes you need to add more details on that algorithm. Can firmware take random
-strings as input. I guess not. Please list the valid strings and explain them.
-Filter invalid strings in the driver if only handful of values are valid.
-
-> We use the GET operation to get the current frequency of memory that we
-> are trying to scale. It can be also used to read back all the parameters
-> that we are trying to set. Another thing to note is that exposing the current
-> frequency to the userspace was something that the community wanted.
-> 
-
-More fun, user ABI involved, so the firmware interface needs to be as clear
-as possible.
-
-> With all of ^^ in mind, re-using the perf protocol becomes impossible.
-> 
-> https://lore.kernel.org/lkml/k4lpzxtrq3x6riyv6etxiobn7nbpczf2bp3m4oc752nhjknlit@uo53kbppzim7/
-> https://lore.kernel.org/lkml/20241115003809epcms1p518df149458f3023d33ec6d87a315e8f6@epcms1p5/
-> 
-
-It is good to capture summary of these old discussions if they are relevant.
-
-> We'll add more call flow diagrams as part of the documentation for the next
-> re-spin to make reviews a bit more easier.
-> 
-
-Anything that improves and helps in understanding this is always welcome.
-
+base-commit: 23a7098c710673ce8f245af317903ae46325a694
 -- 
-Regards,
-Sudeep
+2.47.3
+
