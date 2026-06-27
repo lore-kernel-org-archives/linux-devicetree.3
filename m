@@ -1,156 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCB737DEBE;
-	Sat, 27 Jun 2026 21:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37668233D9E
+	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 21:24:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782595322; cv=none; b=H8O42TNMe/dxLUlEbamrQs4mYYUjwQKgnc7lh44wuaBjkTAlJxjqY/Vg5ibnWj9lMC0j53DIUXQrFOZrQOPVJcCgHJMeup1v0JkX2tbSBEqgO0xscApr1taGqGRC+pevc0PS6jq7Vo1oj5+mmRE/ZOEqK5XcH2AibUMdd6KqO5E=
+	t=1782595477; cv=none; b=UvQ49l3Qzc+ZA1cXchrVroeUlbGgNQU2aRFSx0suZjK/IcI0hQOvPoS7d0WMGnMFpbEpdSLbr5L2PpoyE25nGS2ZQAbWnW/h6z+357iQBRwrF/6b9ri4qTnnoBrNUKj3Ef4QfgruT8E5y2zthBcVWizQE1fLaAGI6iIE4knK2K8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782595322; c=relaxed/simple;
-	bh=Fi1sJsXvDdbr5TiNG1ZQ0mwkB/0WBJXhm5w8HcQsOfI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WYPpdDxpecR3W2amPq3TdTarpKhruyUxKpoSnAWisLcs9Z5hi2W99CrOPbJ+1+QP1PKL5ymsqh/OxTe0nrU1nhnEzIgwj8Smo/jI+oQeLNe4bGwWea4Pv3w3R7ZVcI1XT99MnpOA+dSQANRWxCi0u6z2Re4wGQgz4MwhHjGshFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTcZyUvM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782595477; c=relaxed/simple;
+	bh=/ZjeGJ/bIA564jdCVSzFiyPxI844EbgOUogGjeVY0oo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gT5jyoZ9Ga9jlW+NeC+yxeLY5gdzu5zPTfTkJrZC1+MJhA/sRXreFDKFqK2o7Hd9Llph6IyUqDOPm/o0ciOibC9M3M2QMWFhAe713HuXM0S7OqnkYv/Xu5uVGc2JxHy2B4yU2kXi4kyoa8WS+XYisESxMX0uY1uPpV5Bkgw5JHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=BxsW+YcD; arc=none smtp.client-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTcZyUvM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C3C1F000E9;
-	Sat, 27 Jun 2026 21:22:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782595320;
-	bh=Bcf86Hzsw/x7zxg/mG4FuMFcMosZF81My9ebts7C9Hw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CTcZyUvM1WqqdEtdr8HrkviG3NtbpPcdxP47O3QVTacavefegL7LP8NkHspwoFLfL
-	 T8a4v2JX7sIJn4HOPhOZASVjttgmPzFsahuUoF86QaYBWsEk1sSo4fJ/SG2dIpYd6p
-	 +pz2SmAI2INhq96GbGD7lJUah2mxAVBEZpSAYNPMOJ7fb8Q2SeeA4xf1H3vypuYk1Z
-	 SYBbVPQQ1IfbyMoUo6X+QmblfYx8X9AVqsFVZLUGlajPhmRbxFSE62cfdMcdKMxNeF
-	 /tK6duY4N5hrKCjUZlBDr6Y7cameZE9PSYnvNwn48iqGWSxxARkVHsqqsfOWARFZd2
-	 bB3qj15cXuR3Q==
-Date: Sat, 27 Jun 2026 14:21:59 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: yunhui cui <cuiyunhui@bytedance.com>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Atish Kumar Patra <atishp@rivosinc.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>,
-	Fenghua Yu <fenghua.yu@intel.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Tony Luck <tony.luck@intel.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	x86@kernel.org, devicetree@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
-Subject: Re: [External] [PATCH v2 3/8] riscv: Add support for srmcfg CSR from
- Ssqosid extension
-Message-ID: <akA+95cvpOPc2XOG@x1>
-References: <20260624-dfustini-atl-sc-cbqri-dt-v2-0-2f8049fd902b@kernel.org>
- <20260624-dfustini-atl-sc-cbqri-dt-v2-3-2f8049fd902b@kernel.org>
- <CAEEQ3w=ZLnW-Wz_=PcUQTN8q0wxUq1_epCs0B+v=sSug+OHD=Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="BxsW+YcD"
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6a14d52e72cso1036774eaf.0
+        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 14:24:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1782595473; x=1783200273; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=s4jIJTVXYnKYZ9qZqfum56MRXesVpvMmgXXybijGVXk=;
+        b=BxsW+YcDMse3LD+buzs64R3PbYgSW5+f9IQ+d+XKoQnKmvceuUf4l9bqM8NpRSDM0f
+         UEpI1zq8m5V9K7pV62P3PeokmS3DtZMfvw/ygELDXOyEikK8JHy87pctkt3NZCoz600z
+         uFIyPEys1DtMlnpoDFVJONbAZcXWoR0Y1a1iOzza4amN/Q33F4NohPuIUytWQ96LLWCS
+         yvfr4pbNoqgUOFdjrweHPTtL8DrpMYpphwLfrTFv/uzTE7clpvz7VnubnAAwOlaO0gux
+         ZfZezzc/mntJ6Tpal2B3G8DAw59FGBTrfiDBQHMXiXnDrbp2n3mEq5HWy1oIBYhB46Kx
+         dYYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782595473; x=1783200273;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=s4jIJTVXYnKYZ9qZqfum56MRXesVpvMmgXXybijGVXk=;
+        b=l3RYsYRVEO9QYxGDe3J7mDUpuCpIfoRV3JnhNeyeP0WQa6JZ6VJnJtGun3PhNC5BMZ
+         e8iZcPylFZ+FqMafs6MSsFxywRvO+uqsXDeoEY4xzVyDjEg0VauC6+nj8HWZ6SptptA4
+         2XCB4jmmIfF64jsgD2UZNDK3w4ebpW/QpLzf1PImqhgKa6BQrQANogTRXNzHyUhpI79w
+         UaQsBUVnWS54UaadnA6OHa/EA6rDyr6g+TuKThi777buZeOGY4SGAaZ5axvoBW5lQQAC
+         y8Jsnym9OM4Ypvrl66nwSSM5eulg0lOjPlPXi8pOw1Wv+OGtUMG+/xh3E7GwGNG865Zq
+         yWoA==
+X-Forwarded-Encrypted: i=1; AFNElJ9aHLMEOQ1lcipBJiKm6KAOkc90fZe41jf1MYlosx2HKIBojons9tJILhS2wEDb3kFJGHoD+TUuY8gN@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqZSi1DO59nBs6Eufz9VYqwg65PWBrrRNDZtIh3RTC01b3s4GA
+	jBhF4nc1/Fx58NEF0t8jBfYLWGbUj4qGFG/X16FEJt+fkbI8pvYxuLoBqvtOxHHjsGU=
+X-Gm-Gg: AfdE7cmaBiW0dvuh6X23nZqHo6lSWwuTR02loKY40Zf1/14hU8D4kG1jbnMUtXj8rfw
+	FIsNKkhc1htAaY4/4O+29wnARxRl5+pvQ176g/i3foJbp2nTN/TaP0yDjA1qUrydwwHip2fRIBB
+	3B+F2KuqUBTaICk2Fnu+JQn0JOUUlWBY7qQ82FiTQKAOIM2LN/HhgOhy+YXOgyGg9RdldwsljDE
+	/cJK7PXDzudYHIJ8Mewxf1dTBFcDh47LKnPUDDr592KCbIjioo5XkeuyIjD3Aamf/XDU9Rrdhdo
+	7mL8imXkPFX7PhTVA0QEvg/YDpmHZjVfmBCWbxnATzu/Gl+P1IfkKJkhcvgPs9G1vfHqMCqg9tt
+	5AJ81vVYjkCs9U4/6qkl90hITg76C9NOvWpiCBeO71Tb7wV+PZu3BNOTfz0rcOKc+imyScqlOMS
+	LxN9RAEPq7/OcKkJ/mVmcR+pDtKsW/BGNcuKmEssjKRtCOQ2uUDyeofJwji4TNKKI=
+X-Received: by 2002:a05:6820:1608:b0:6a0:b54b:a1ef with SMTP id 006d021491bc7-6a13517f731mr8946039eaf.11.1782595473208;
+        Sat, 27 Jun 2026 14:24:33 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:f242:ecd6:f61e:d764? ([2600:8803:e7e4:500:f242:ecd6:f61e:d764])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4487291914asm1472012fac.7.2026.06.27.14.24.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 27 Jun 2026 14:24:32 -0700 (PDT)
+Message-ID: <9c6e0a74-c9c5-43ee-8eca-ae1667c51c32@baylibre.com>
+Date: Sat, 27 Jun 2026 16:24:31 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEEQ3w=ZLnW-Wz_=PcUQTN8q0wxUq1_epCs0B+v=sSug+OHD=Q@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/4] iio: adc: ltc2378: Add support for LTC2378-20 and
+ similar ADCs
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+ andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ julianbraha@gmail.com, marcelo.schmitt1@gmail.com
+References: <cover.1782397418.git.marcelo.schmitt@analog.com>
+ <0abf862eeb277ae82262d09b11b1446f04c47be7.1782397418.git.marcelo.schmitt@analog.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <0abf862eeb277ae82262d09b11b1446f04c47be7.1782397418.git.marcelo.schmitt@analog.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Jun 27, 2026 at 05:11:11PM +0800, yunhui cui wrote:
-> Hi Drew,
+On 6/25/26 9:35 AM, Marcelo Schmitt wrote:
+> Support for LTC2378-20 and similar analog-to-digital converters.
 
-Hi, thanks for the reviews.
+This should mention that it contains some future prep for offloading.
+(Although would be a bit easier to review if we deferred adding the
+offload stuff).
 
 > 
-> On Thu, Jun 25, 2026 at 9:40 AM Drew Fustini <fustini@kernel.org> wrote:
-> >
-> > Add support for the srmcfg CSR defined in the Ssqosid ISA extension.
-> > The CSR contains two fields:
-> >
-> >   - Resource Control ID (RCID) for resource allocation
-> >   - Monitoring Counter ID (MCID) for tracking resource usage
-> >
-> > Requests from a hart to shared resources are tagged with these IDs,
-> > allowing resource usage to be associated with the running task.
-> >
-> > Add a srmcfg field to thread_struct with the same format as the CSR so
-> > the scheduler can set the RCID and MCID for each task on context
-> > switch. A per-cpu cpu_srmcfg variable mirrors the CSR state to avoid
-> > redundant writes. L1D-hot memory access is faster than a CSR read and
-> > avoids traps under virtualization.
-> >
-> > A per-cpu cpu_srmcfg_default holds the default srmcfg for each CPU as
-> > set by resctrl CPU group assignment. On context switch, RCID and MCID
-> > inherit from the CPU default independently: a task whose thread RCID
-> > field is zero takes the CPU default's RCID, and likewise for MCID.
-> >
-> > Link: https://github.com/riscv/riscv-ssqosid/releases/tag/v1.0
-> > Assisted-by: Claude:claude-opus-4-7
-> > Co-developed-by: Kornel Dulęba <mindal@semihalf.com>
-> > Signed-off-by: Kornel Dulęba <mindal@semihalf.com>
-> > Signed-off-by: Drew Fustini <fustini@kernel.org>
-[..]
-> > diff --git a/arch/riscv/include/asm/qos.h b/arch/riscv/include/asm/qos.h
-> > new file mode 100644
-> > index 0000000000000000000000000000000000000000..e9e1d69f3797be5f89785a9b3aa7d9d51c476a8a
-> > --- /dev/null
-> > +++ b/arch/riscv/include/asm/qos.h
-[..]
-> > +static inline void __switch_to_srmcfg(struct task_struct *next)
-> > +{
-[..]
-> > +       if (thread_srmcfg != __this_cpu_read(cpu_srmcfg)) {
-> > +               /*
-> > +                * Drain stores from the outgoing task before the CSR write
-> > +                * so they retain the previous RCID/MCID tag at the cache
-> > +                * interconnect.
-> > +                */
-> > +               RISCV_FENCE(rw, o);
-> > +
-> > +               __this_cpu_write(cpu_srmcfg, thread_srmcfg);
-> > +               csr_write(CSR_SRMCFG, thread_srmcfg);
-> > +               /*
-> > +                * Order the csrw before the new task's loads/stores so they
-> > +                * pick up the new tag. Zicsr 6.1.1 makes CSR writes weakly
-> > +                * ordered (device-output) vs memory ops. Ssqosid v1.0 is
-> > +                * silent so honor the general CSR rule.
-> > +                */
-> > +               RISCV_FENCE(o, rw);
+> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> ---
+> Change log v3 -> v4:
+> - Reworked the driver to make IIO channels static according to v3 feedback.
+> - Updated to use default 8 bits_per_word for non-offloaded transfers.
+> - Handled refin voltage reference supply for LTC2338.
+> - Used spi_bpw_to_bytes() where applicable.
 > 
-> This is in the context-switch path and may be expensive in practice. Even if
-> the target workload is pinned and grouped, unpinned/default-group tasks or
-> kworkers may still run on those CPUs, causing frequent SRMCFG transitions and
-> paying two fences each time.
+>  MAINTAINERS               |   1 +
+>  drivers/iio/adc/Kconfig   |  12 ++
+>  drivers/iio/adc/Makefile  |   1 +
+>  drivers/iio/adc/ltc2378.c | 395 ++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 409 insertions(+)
+>  create mode 100644 drivers/iio/adc/ltc2378.c
 > 
-> Is this strict ordering required by the Ssqosid spec or known hardware? If
-> not, can we make this a trade-off and avoid the fences by default, accepting a
-> small QoS-tagging inaccuracy around the context-switch boundary?
 
-These fences were introduced based on Sashiko feedback on the RFC
-series. You make a good point that this may be too conservative and some
-inaccuracy probably would be acceptable. I would be okay with dropping
-them, and we can reevaluate once more hardware implementations with
-Ssqosid become public.
+...
 
-Thanks,
-Drew
+> diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
+> new file mode 100644
+> index 000000000000..9a9f32e4989b
+> --- /dev/null
+> +++ b/drivers/iio/adc/ltc2378.c
+> @@ -0,0 +1,395 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Analog Devices LTC2378 ADC series driver
+> + *
+> + * Copyright (C) 2026 Analog Devices Inc.
+> + * Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> + */
+> +
+> +#include <linux/bitops.h>
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/delay.h>
+> +#include <linux/err.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/spi/spi.h>
+> +#include <linux/types.h>
+> +#include <linux/units.h>
+> +
+> +#include <linux/iio/iio.h>
+> +#include <linux/iio/types.h>
+> +
+> +#define __LTC2378_DIFF_CHANNEL(_sign, _real_bits, _storage_bits, _offl)\
+
+Why the leading underscores? I don't see a conflicting name.
+
+> +{										\
+> +	.type = IIO_VOLTAGE,							\
+> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |				\
+> +			      BIT(IIO_CHAN_INFO_SCALE) |			\
+> +			      (_offl ? BIT(IIO_CHAN_INFO_SAMP_FREQ) : 0),	\
+> +	.info_mask_separate_available = _offl ? BIT(IIO_CHAN_INFO_SAMP_FREQ) : 0,\
+> +	.scan_index = 0,							\
+> +	.scan_type = {								\
+> +		.format = _sign ? IIO_SCAN_FORMAT_SIGNED_INT :			\
+> +				  IIO_SCAN_FORMAT_UNSIGNED_INT,			\
+> +		.realbits = _real_bits,						\
+> +		.storagebits = _storage_bits,					\
+> +		.shift = (_offl ? 0 : _storage_bits - _real_bits),		\
+> +		.endianness = _offl ? IIO_CPU : IIO_BE				\
+> +	},									\
+> +}
+> +
+> +#define LTC2378_BIPOLAR_DIFF_CHANNEL(_real_bits)				\
+> +	__LTC2378_DIFF_CHANNEL(1, _real_bits, (((_real_bits) > 16) ? 32 : 16), 0)
+> +
+> +#define LTC2378_UNIPOLAR_DIFF_CHANNEL(_real_bits)				\
+> +	__LTC2378_DIFF_CHANNEL(0, _real_bits, (((_real_bits) > 16) ? 32 : 16), 0)
+
+Why not move the (((_real_bits) > 16) ? 32 : 16) into the __LTC2378_DIFF_CHANNEL()
+macro to avoid repeating it?
+
+> +
+> +struct ltc2378_chip_info {
+> +	const char *name;
+> +	unsigned int internal_ref_uv;
+
+_uV (to be consistent)
+
+> +	struct iio_chan_spec chan;
+> +};
+> +
+
+...
+
+> +static int ltc2378_regulator_setup(struct device *dev, struct ltc2378_state *st)
+> +{
+> +	int ret;
+> +
+> +	ret = devm_regulator_get_enable_read_voltage(dev, "refin");
+> +	if (ret < 0 && ret != -ENODEV) {
+> +		return dev_err_probe(dev, ret, "failed to read refin regulator\n");
+> +	} else if (ret > 0) {
+
+Else is not needed here.
+
+> +		st->ref_uV = ret;
+> +		return 0;
+> +	}
+> +
+> +	if (st->info->internal_ref_uv) {
+> +		st->ref_uV = st->info->internal_ref_uv;
+> +		return 0;
+> +	}
+
+I would be tempted to have two separate functions here and only call one depending
+on the chip. Otherwise, it allows incorrect devicetree.
+
+> +
+> +	ret = devm_regulator_get_enable_read_voltage(dev, "ref");
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "failed to read ref regulator\n");
+> +
+> +	st->ref_uV = ret;
+> +
+> +	return 0;
+> +}
+> +
