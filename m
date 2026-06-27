@@ -1,230 +1,155 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010011.outbound.protection.outlook.com [52.101.193.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0BA175A9F
-	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 20:05:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782590739; cv=none; b=Cy0V81m5Lw66K6WrK15BTILoqZKP5KLWcKqDOGBddPyrbPRZWCPnDVTkDFKCQnIaa4CMUTzP+F34+9haDCOHWZLm5sIIEFzq5e5eYsQrOq8V+1byqHf5Yo9jwCs3NJBa6Aq5pstucP6+KGOkl6Nidf3sjYpfg755eKUW4vRFjF0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782590739; c=relaxed/simple;
-	bh=Fti5RitrHgLtVut0VLG1wOwpVmHHhems5mNTGTJkbvc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gh4YN1ceH6uPFcZ3menJbW23XkhHiGG+srnyJLm+BsvxZjVbCwulcI0xViXdqUD7JBbbwkF8nsJL2LwURTgy/HpotAkpZ34ZDlQq560I/snInbxeTg14VhWzREl4IOl4oG8hLoOcF5GFXl0KRA0/raNnrYrTyRVSA8xZmZ8nANw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=dqJ5Vgei; arc=none smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55E71A3165;
+	Sat, 27 Jun 2026 20:15:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782591334; cv=fail; b=uifOgV6jdAEs1FTER2yNhq7qRWsQrjKhSGIgbq8y55XY2vxFwHG/ipKOzgZu0oJKQUUxqXHp56CczBU1c+SdJ5Irz1hQCZPZsZse97E799VmaDRvN5zeoSQ0DnFKoFbxxMIepHr8T2I3MspN79s1cb58158S5BhlUyi79B+mX2E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782591334; c=relaxed/simple;
+	bh=fNpVCV78XBeliKfoI5PN5UX+pBxqCd7w9lZtddV4bEQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cku/+e+e6TW3SsnmmDmPUtbr24FB65lKGzj4qNvBuzmGn4akUH4zejPZcE8AooJ9O9DJuXDEtnMbWeYyLR2YK2PdTOouRBtfkCpUHyqx3ZuU3uNhI0gRaEDc98e2UHVfLxwBBMtU/DGVP+3IPcE1ITAyAsWXP2VL88jiq974E+4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=fdSsO4PF; arc=fail smtp.client-ip=52.101.193.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="dqJ5Vgei"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7e943356247so1649490a34.2
-        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 13:05:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782590736; x=1783195536; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zw1XUzdKzMRddxWO66mJGTZ0Kc7t/mjGgrDQTnuQhzo=;
-        b=dqJ5VgeiVW+VNgepryL07DXiYEdZKcw69DH+6Wr/Y1CuL5TtRqO8BvryhyJbjM41OG
-         DT0OIlSfp/7VkBx5KvpIDfVxX8L+D8wFL2J+PrRPJaSOLiMUp0dpQGQGFKWcplb0KfKy
-         Da06ToWdMp3sXAkj2IYRCwXKQPj0QeBN+ycdZHCd/3KFPNjZQNwRruajhD9L2BTT41pZ
-         L+Xo9rk1hI5rm0+2scA2n1hs2RoQsEwwxYhwhogtb9YyiCFtq0nV7pebJAN3KDUMZub5
-         qbC/CiuKacOo3lXadNVlsqbMJgLTgvzOxWQkMwcqhuCWOSEr1F0Jw4bciG8VXLxP4D6a
-         VQ6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782590736; x=1783195536;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zw1XUzdKzMRddxWO66mJGTZ0Kc7t/mjGgrDQTnuQhzo=;
-        b=M9TdLSGvhWdteZYfJwAWFENO0A/F6t9qw0PPxCfywUlvtRUCiSLYc0jIdYz00xyXr0
-         vLtujtSZVODvxknunIOuMoV8CAFUxNAAyzc5OZc45pKZWegKpCSmorHSafyvB2R7F9o0
-         gNZl6A/TNJtX9AF67LmlTvYjcvl2rwIFWV4uBE3e+YHBJEpiABbkReAb1ghSJo4KV+cG
-         ldcy1m3989fV+2akfEqsS34CplzbZir9D4paYIiXZtyLYL268TNIE8bFsPCkT7E7TF2k
-         9pyEuNn39Kp3X/eAFywylRkj1pYz+ddn5SPghNVFnEa83PfM1IjG1JUANqAAIs+ixc1e
-         1wyg==
-X-Forwarded-Encrypted: i=1; AFNElJ8z1QBQvikCXej03YhDwy3/Ep8gfsqY3k7a9IOckn6lPq84sqYS3xEaLZv78vm29ccHIuVkWg6KaBtt@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy7s3rlfBFfsFy62GBhjrpckZKRVuW/uDApWElrivOQH57djnei
-	7+WOZNbyWZ5JdQRKfoYh/xvbD7CKpiKtKGUeMiQ5Aix7GWDVmNorDUvFYjaNXo2grO4=
-X-Gm-Gg: AfdE7clgY4LJ2ytv1mpWmDL3Sir0j9mXoLFeN7463reof5BfJnVHPssGOPtaDvXgrdj
-	voWU4xVTSAGghuv2//lZmNbkiKkfPklw4txkN3JtlNJoqSCWPm44z64uc8ppFxrUVsSuRapubLU
-	44N24bdxWBv7PqxtrCG4NHWWKHK+XwVcPFRdfuIWnGujDUPGdQ9GZVvQWTBF4a1w2lI2HGN3Ht5
-	vgqWn7wbOf344amw4yF2ikQIEOBZMEYYxVWB1o4z1t4HwHcPBU5SaJroM7g6XyilhJ7+wdrqxT7
-	xE8BOJvwU8zqZjWdP9EvnDhxy/1H00HueIuIzcjTW0q4pQ32IA1py75HpwjEGfsCwVW9gYL5GXc
-	wqsiR/JlxS/2iE4GIEhRLa8QC2t8zGmlVo7NE2YGtA77y9M26qn9z58U0BdnjOqRpywpdSOrrgz
-	QeSWqhwZRIA385LI3MvumQIisc/V5kreIhybK+vogZj9jtJDbMTo6M9+RvXyJyVmM=
-X-Received: by 2002:a05:6830:a0ca:10b0:7e9:b34c:ce3d with SMTP id 46e09a7af769-7e9b34cd128mr2742074a34.18.1782590736281;
-        Sat, 27 Jun 2026 13:05:36 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:f242:ecd6:f61e:d764? ([2600:8803:e7e4:500:f242:ecd6:f61e:d764])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9aa57a229sm4889712a34.4.2026.06.27.13.05.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 27 Jun 2026 13:05:35 -0700 (PDT)
-Message-ID: <40485b4e-6585-42a1-9b84-3019328574c5@baylibre.com>
-Date: Sat, 27 Jun 2026 15:05:34 -0500
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="fdSsO4PF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BYH9yT0VgXdXcGJDlQ4psIBktpAQi/i8MFYiH5SxGZy04wlFV0KTQJBtmJUFCfsjqH2kgCv7xGjGL3tSeUiSY1k9Ucgn6VpdWy5XW9u6ZvmE9LiBfh7GvszYeSt52/HI1OxVa6nHAPayqfx/5M9cF9auDKhCpXQ3Br07coWRhpfbnPOpl6PRiZR8MwOBNItKUhgyI3V8/m23tHKhbRxpzwnC1aF9RWSZjrXLNKp+DHUZEjNQf7vF7gWH4tOA+WNk6CsQykIZljUJ4j14lAcD+xGigMGnnZUHsOpEwVIrWuJHVu9VLDUiCbIQdb7qHW2ecXML7LQYEgdqux+DAn+Fag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aVUl07ExKTTWhRl8eI6l4RtqvGpOUY5YwEJHu3+S87Q=;
+ b=fT6nnoobHxzYvFuryCOmgtSAHoHHlWH4JAYysceuhZ/iijRfFiQ6m1jDClv6cvY98sOXMtEENFKLFWORwxNvGeQjw/nydwjckPhzVz6Co1ntwbpMApflZUo+sw99hkjdmEHUe9RJ+uexkextpK1svgpHvqdVUZ002XPJqA+Pos4HseUlX7HVZUp9dG20ARr97xA4LbNyRCOXlrN3qIEnNfhjMGiNo9GMhBU1xNineXhVsuE8WdCdpcJjnhVNAdnyzDUEQ8MmAqaUKp3LHqvvbTGkZ1d5apHDWi3UyJP5ZiD1n8TrhYF5p6mLhz2wJOU64992Gd1h/mkHUsBiqn/iSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aVUl07ExKTTWhRl8eI6l4RtqvGpOUY5YwEJHu3+S87Q=;
+ b=fdSsO4PFe7TpEkLQ80N1ld2OKP0YGX7YcARF5r0KJRGmW3cy/9qUbJ3H08xQkmcYLSNsJfml6f/Dsown1RbDaewxwkuUfuUziA7huOu64NFvgx1EiphhUPxuqwXPoJtuL4a4rlbtZEtvZFqNghWwajhV/zdiZ+zFpoVagkI7pAsnx1o7J8wi/LH0ofxzcjrAUDNlGRWmtLinnfS1KiKgx2Zow/IlUxJRzDPskMytSonIZY35Y3RyWvJoP/BuMFg6Vr3SOF4demwmNdgi07CE7Kt7vaKB+hOwMqgsbY+hvtSzYB2ephvelFoCVDHXEAU+pwB2i9HNM44ypGO5OW180g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com (2603:10b6:5:39c::19)
+ by SJ0PR03MB5837.namprd03.prod.outlook.com (2603:10b6:a03:2df::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Sat, 27 Jun
+ 2026 20:15:27 +0000
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04]) by DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04%3]) with mapi id 15.21.0159.018; Sat, 27 Jun 2026
+ 20:15:27 +0000
+From: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+To: linux-mmc@vger.kernel.org
+Cc: ulf.hansson@linaro.org,
+	Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/9] dt-bindings: reset: altr: add COMBOPHY_RESET for Agilex5
+Date: Sat, 27 Jun 2026 13:14:46 -0700
+Message-ID: <20260627201457.12318-2-tanmay.kathpalia@altera.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260627201457.12318-1-tanmay.kathpalia@altera.com>
+References: <20260627201457.12318-1-tanmay.kathpalia@altera.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BY3PR05CA0058.namprd05.prod.outlook.com
+ (2603:10b6:a03:39b::33) To DM4PR03MB6208.namprd03.prod.outlook.com
+ (2603:10b6:5:39c::19)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: Add Nuvoton MA35D1 EADC
-To: Chi-Wen Weng <cwweng.linux@gmail.com>, jic23@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: nuno.sa@analog.com, andy@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-References: <20260625110638.38438-1-cwweng.linux@gmail.com>
- <20260625110638.38438-2-cwweng.linux@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260625110638.38438-2-cwweng.linux@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR03MB6208:EE_|SJ0PR03MB5837:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2811b753-646f-4916-79ce-08ded488d3e5
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|56012099006|11063799006|18002099003|22082099003|55112099003;
+X-Microsoft-Antispam-Message-Info:
+	p6OSRCmJ0EdzMynubxiM4KrF+9PpFcYMlPov0l/Mikr1K4y4YtePrWMbEW89bBjXi8ksUZU/JoaQBvhlUxG5uw2fpRGptRxHiI+up3wl5yn4mrNKJ/I8euDdGTl7yohmxNyYphwqV9AncKiFb6lOtO1dGAz49uFUxA0GGcpbzXc+cSlg4znvccqO+RfK0a4tiCxv0XjGhuGrtnqyQ5xD+laxz4qmT3dsg1Pfa0luy/3tdUIoBEIt+wMLs+dSrV65sYOGcg/K81JhKLSCoO+oAIZ14PyqfvsVCjznQ9AJqUoQQh9jPH7tzoP7tZQ4npCWrIrmabJD8g59ktUOiSLjXJsFd6jDIHpaHebIFlpG2HRMKemTOnk8FE3BOJLW/tvN6Z/4LZfePq11ZoyWzvuD+2gNkggPWBA9Av8WR59XrZNt8euwXrD9vEFujLEiOHNJgOlWGIuD6ObYb+Rg7boJU17743FLzQynYqVYC1uTYmEs5anQz0oBZkHcmkR4pQMwrkLJte8t/fBioWExCw2yWkEJb533lY31KnYffNAy1GsT49/+GXMnuvEYCiM4zOm3AHq1trSAm41EN+adymxR5lYtD4lsN3HuDbKsm3PDn1BOpeaCJbgWhsRCrDHVrkXCfICQBL5YzH1tY+kq3BBcYCFeZ+PDghdSFSajUlRj6xE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(18002099003)(22082099003)(55112099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?3kFSjI8abKMq1O4XTY7r/3UosbuSlbgqTmxvU3PWkXnheE56Ac4xd7X9g7dC?=
+ =?us-ascii?Q?7S4adN+qowOLSB4U6S6/nxRyy1RK7yV2LTfW9GAPzQzKE3ddKn8LjB8LhnDb?=
+ =?us-ascii?Q?kP/sqEn5rEgnbI2SHVNaYjxej/PSulHWgA+cb/og8s0KmYzfWRjLLIc3sTlF?=
+ =?us-ascii?Q?FbUhZYpYAKS8ixjOn77yQ/ztbuliGpXTwr0P537APfM0JLynKYok5T4OAEtc?=
+ =?us-ascii?Q?A6mkTsW5SHScNELtKNTEGA/+4iifPQ7S3TsASm0JNR4xjkKSgZ2gIB07NqKr?=
+ =?us-ascii?Q?z+3AGDWENsqe+pCDBMQjQJ+/tUd+UmJjhoJWF8t+9sQoCG977fWEmQzR46gk?=
+ =?us-ascii?Q?ucj5PkVOgqMpu3bNZY1Pk3cXm+FzZKa2G/ue88cE4nbnrit6vsEaN8JUdhFo?=
+ =?us-ascii?Q?VB88wPlyic5cm3WiUUirClaJt+SZS4LBSx0JI99+Oi6yHb8KJKmx3qPloEVO?=
+ =?us-ascii?Q?IfhHSADYRFOpNFbPY4YqDK8617NMVAQTtKXc5Txm8MmA1o3lULqG9mZt11Y/?=
+ =?us-ascii?Q?00xw9ETE/XLdrDvou9HfkkktTCBfTt/HRRL0WgvSLodyuCtsyNufGOGxkWwi?=
+ =?us-ascii?Q?0XhqXlD8hzbxTi2W8GEmnus27+no0pffDzq/fHqeMlIF64ik3rlSHPhJJFyJ?=
+ =?us-ascii?Q?YfvUlwvpddKAFffDx3eTYS3dtS/UZBTcOTQu0vLAsJqPnxX3S3JKuIvmI1DI?=
+ =?us-ascii?Q?OPFwDgOz9y+0QUzjh3pD9En4DYNYFWezR9XBz3VSHgIKfXi94aBS6mYLRPA3?=
+ =?us-ascii?Q?6FNk296VGImz6tXZBTww+UodANgXdxiSWKlagQKWizF6qdlr9N9kpijbB8FA?=
+ =?us-ascii?Q?3YdjD+1y1oTgUaAikaO9NGWW8HNN+RsDf9L6Q31gMS+Lcr3PkI1fLOIOv0/V?=
+ =?us-ascii?Q?HQ23My4cpCjYmn4bWRkxxhytG1JdzSS7ugeJ/0u+Uvhbja78nl9w3TxGu2L6?=
+ =?us-ascii?Q?26yHE1GiWoPXeAyUt6dBTEHiG125zsuYb29DbEmS9Cpza16w5Bsx68SNuPZP?=
+ =?us-ascii?Q?tLZvx+8Mzby0JD4hWCTp+rRl0xVJMJorcE52zK0raK87TpO39ma6zPTwQ8RD?=
+ =?us-ascii?Q?D40tKxx1bjXEmer5DK8Drcj7317IlPsHl+gAp9i5PPyd/n3lBFzX4QGtlYwY?=
+ =?us-ascii?Q?mg2h3nJdJxlvCKllPFC3gXlmH/KqLfBbU55RmW+TqFTunc5EvgbsdRi9PqIO?=
+ =?us-ascii?Q?0zXa5hA4ecrNGb+vHq8S94YDCX+oZkJWS9hFvdeauzQtjROoxqxhjQ5aT2qt?=
+ =?us-ascii?Q?edFYd/CJ36f8z0eA2FOvlXe3FsozEQJyruNOX2LgGBPN5YnNloPm6IFsuE+p?=
+ =?us-ascii?Q?CnP9fuIFnDZrDVrGLPTA+r75LmRPOOlLIvlcuXM5hkJtqFtu7jEKUoZZLA+O?=
+ =?us-ascii?Q?YCV9JGYujPF3A0XCdzIRa6brsYmRnAGtMoxepTFrUBUD6CN7rD+2mWSnitXz?=
+ =?us-ascii?Q?1ed+lGXL8MQJ0mkRTNFE6fbxERJvPUJB46j+c8deSelnnczPs4pUi6oRTtNA?=
+ =?us-ascii?Q?hGqPmO/z/wWaHmxkc5xt0DrW2WcWdVBEJlmeWTwEVkywhRmrObqQgpEXlpvt?=
+ =?us-ascii?Q?JO/TcXXERuxitkvJMqCOEvnA+5ZptmI+TEq7ltMaeh3g7HrrcjH7gCPV4fbo?=
+ =?us-ascii?Q?cmrvn8jGX9pC50shXrG70GztgxJBUScaUiBupUXdcoV72YxEYpHSqlyAPJ3L?=
+ =?us-ascii?Q?w7SigzgCHMOqVrJYGrRMqK4qbi1AHlCBmg6lERNF7aOnu5e221ojYpQmJHP1?=
+ =?us-ascii?Q?rEdtGdFpDjIEeOcQluJWNDqephTIG6E=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2811b753-646f-4916-79ce-08ded488d3e5
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2026 20:15:27.0707
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6Rh/YOmuXdyCHtnBJJ4ry/lou5hQUfsmrMltghWt/If5JniRfwWTsgxLWEX6cLRPZw+9eNKEgYkTDnKmdZW8Cpc1xouM13FW89R7AacStSA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5837
 
-On 6/25/26 6:06 AM, Chi-Wen Weng wrote:
-> From: Chi-Wen Weng <cwweng@nuvoton.com>
-> 
-> Add devicetree binding for the Enhanced ADC controller found on
-> Nuvoton MA35D1 SoCs.
-> 
-> The controller has one register region, one interrupt and one functional
-> clock. ADC inputs are described using standard channel child nodes,
-> including optional differential channel pairs.
-> 
-> Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
-> ---
->  .../bindings/iio/adc/nuvoton,ma35d1-eadc.yaml | 100 ++++++++++++++++++
->  1 file changed, 100 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml b/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
-> new file mode 100644
-> index 000000000000..ae7ad0f7689a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
-> @@ -0,0 +1,100 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/nuvoton,ma35d1-eadc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Nuvoton MA35D1 Enhanced Analog to Digital Converter
-> +
-> +maintainers:
-> +  - Chi-Wen Weng <cwweng@nuvoton.com>
-> +
-> +description: |
-> +  The Nuvoton MA35D1 Enhanced Analog to Digital Converter (EADC) is a
-> +  12-bit ADC controller integrated in the MA35D1 SoC. Each enabled ADC
-> +  input is described by a child channel node.
-> +
-> +properties:
-> +  compatible:
-> +    const: nuvoton,ma35d1-eadc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
+Add COMBOPHY_RESET definition at index 38 for the combo PHY reset
+control on Altera Agilex5 SoCs. This reset is used by peripherals
+such as the SD/eMMC controller that share the combo PHY.
 
-Datasheet says there are 4 interrupts.
+Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+---
+ include/dt-bindings/reset/altr,rst-mgr-s10.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> +
-> +  clocks:
-> +    maxItems: 1
-
-Should there be an optional vref-supply for the V_REF pin?
-
-Should there be a dmas property? Datasheet says it supports
-PDMA transfer.
-
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +patternProperties:
-> +  '^channel@[0-8]$':
-> +    type: object
-> +    $ref: adc.yaml
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      reg:
-> +        minimum: 0
-> +        maximum: 8
-
-I assume 8 is for the internal batter voltage channel? Often, we don't
-include fixed internal channels like this in the devicetree since they
-are always the same and don't depend on external wiring.
-
-> +
-> +      diff-channels:
-> +        minItems: 2
-> +        maxItems: 2
-
-adc.yaml already specifies minItems and maxItems, so we don't need to repeat it.
-
-> +        items:
-> +          minimum: 0
-> +          maximum: 8
-
-This (and reg) are uint32, so don't really need minimum: 0.
-
-Also, I assume that 8 is for the internal battery voltage channel, which
-wouldn't make sense as part of a differential input.
-
-> +
-> +    required:
-> +      - reg
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - '#address-cells'
-> +  - '#size-cells'
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    soc {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-> +        adc@40430000 {
-> +            compatible = "nuvoton,ma35d1-eadc";
-> +            reg = <0x0 0x40430000 0x0 0x10000>;
-> +            interrupts = <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>;
-> +            clocks = <&clk EADC_GATE>;
-> +
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            channel@0 {
-> +                reg = <0>;
-> +            };
-> +
-> +            channel@1 {
-> +                reg = <1>;
-> +            };
-> +
-> +            channel@2 {
-> +                reg = <2>;
-> +                diff-channels = <2 3>;
-> +            };
-> +        };
-> +    };
-> +...
+diff --git a/include/dt-bindings/reset/altr,rst-mgr-s10.h b/include/dt-bindings/reset/altr,rst-mgr-s10.h
+index 04c4d0c6fd34..c2505b9eb63e 100644
+--- a/include/dt-bindings/reset/altr,rst-mgr-s10.h
++++ b/include/dt-bindings/reset/altr,rst-mgr-s10.h
+@@ -22,7 +22,7 @@
+ #define USB0_RESET		35
+ #define USB1_RESET		36
+ #define NAND_RESET		37
+-/* 38 is empty */
++#define COMBOPHY_RESET		38
+ #define SDMMC_RESET		39
+ #define EMAC0_OCP_RESET		40
+ #define EMAC1_OCP_RESET		41
+-- 
+2.43.7
 
