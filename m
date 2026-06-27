@@ -1,140 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 729C72EFDA6
-	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 17:06:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A253112BD;
+	Sat, 27 Jun 2026 17:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782579974; cv=none; b=JZqEZX4jNuKT6oYccnlKtQmHEM1FJvPTFkt9DtMJnKsIVR0Q1N2v+Bagyk1EFM8kRIgxNmxXp4MQHmCVTdJXM4U78Ev5z0tGsWqGRNLGpV1H30ahzAZYDkYzv/J9RadnUwBv3hbF+JEfI/y322L7n12phup5M+KpuT8hhHVdepY=
+	t=1782582618; cv=none; b=eAAeIGq7Xy6uzjwu8r7x4vGCByuUYOStDx1bUoAEBKPAS686wKPeKdlMXGC4bYtlPhPtDZvJBznoB+ng8Hn7lz6WfvdiKiRhJgysnIOBVwu1A6GxWcGKmU1qGy2deyk2NRatX6msTWxlXOUWMlzODeBsGGp/11j+u4LFYZy5gqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782579974; c=relaxed/simple;
-	bh=M9L7AXXhJgQLTz5NpAwi7LaclsewlY8QyWJg7WtnVi4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CIIfVjD01GGvaxurH5C53SduiGpXEKkor0Y1W9J+uAOrY+ZLUdA3T9d7NsYa/WfaRnNtlG0u5ixmAr5LQsYcUGnA2Il17/q56v4EozSeVSvWJJj967szyjdTD8K3Mpvlxcvl/pIJLxSrPy+iiBZXntZQ0eoos1KRM7k41k3SDOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m4plowG3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782582618; c=relaxed/simple;
+	bh=I3bvbarQGG1JG360vnVYjew40hnVIm2x4NllJX1eEF8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QSIaUpP//YpQB4AC9Dvkt9czIqfadKk83X0Myt1w6Qhp12IHFUXdQkJG3vMgcTlfbfC8C/IhLNnm6Zk35DMS7Ddw6WqENN7SxvIdlkKm0k708pE64CK29c5TNiQ/4SSDk+gcWOiDFbwwmYn3j2+i9TsNnuopfMRV3lBMfoxOwz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oMZ39IuF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m4plowG3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDCFA1F000E9;
-	Sat, 27 Jun 2026 17:06:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782579973;
-	bh=kTlZBBiVMZn6SswD0xhgS1f2XNydaojBH23tbMcp6B8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=m4plowG3qKHA8VDOCpneaTyGsvKlNo5xIyfSwMx72Mv0Jc56iy5UPzTKDUww5ldoW
-	 Vmr6//yb2KbVBJX67Oj1eNJEpKcCmYD6LW2LXCNgrnVSC/APT7MuoOZuWugS4PVrFw
-	 +3GDI+4i65MrpfjpilWS1y/ENy+y6t9Y8gDxUG73cwBfyGotEKjJxu2I5sBiwI/hnZ
-	 O8YP0/l7nICFiDWXzPdVGAg9HrERp7peZAGJDPjc+Vn9kR5bbMjByZ7Us5PF712i4d
-	 wxVOK8HpaWnyTzH28m+q6N+lYqvO0YIoosWUeAWflWTt10J2gkts7EGUn/wbjaC7MO
-	 b6WuY3rrf1rEQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/6] arm64: dts: exynos: add initial support for
- Samsung Exynos8855 smdk
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alim Akhtar" <alim.akhtar@samsung.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260627171228.2687857-6-alim.akhtar@samsung.com>
-References: <20260627171228.2687857-1-alim.akhtar@samsung.com>
- <CGME20260627165422epcas5p4e4c6bce0e2daa6d08a9ec18afde9ce0e@epcas5p4.samsung.com>
- <20260627171228.2687857-6-alim.akhtar@samsung.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 17:06:12 +0000
-Message-Id: <20260627170612.BDCFA1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oMZ39IuF"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5C406C2BCB3;
+	Sat, 27 Jun 2026 17:50:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1782582618;
+	bh=I3bvbarQGG1JG360vnVYjew40hnVIm2x4NllJX1eEF8=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=oMZ39IuFSYd2MaFVv2vdzVEtNC5InwOYoAaXUXWDfLdZ3NFbS8X27lB0O46gWTr5/
+	 upcESnnojgL3NbeHQ1D0nOBIcTdTgvsDCN6+FBoU0ws856rrimmbeU3neXGRvzk+Fv
+	 ml8SWfBAkDIRKTQCo/vTA6TLLbRYW3Jw3n5ZgTtrBB04L51x+bdw5l/OoEW9cWXYUI
+	 lb+j/sNz4jZbA+xtd8Yi7Yz+QqBUFzbDkLJ3khqB9mw5hi90yqmB7duGAxxZsITYyR
+	 VF0hat0WD4jg+LBZB1jWVSNdVDmVOz/mUqScWIypYibBCjLwWSdU2S85V34w0PNqZp
+	 IroHL3+OshHBw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 426F5C43458;
+	Sat, 27 Jun 2026 17:50:18 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v2 0/2] Recognize Snapdragon SDM850
+Date: Sat, 27 Jun 2026 19:50:14 +0200
+Message-Id: <20260627-sda850-v2-0-44bf46ade42e@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFYNQGoC/2XMQQ6CMBCF4auQWTumLbRpXHkPwgI7o8wGTEsal
+ PTuFrYu/5eXb4fEUTjBrdkhcpYky1zDXBoI0zi/GIVqg1HGKWdaTDR6q9A9bNDcdc6ZAPX8jvy
+ U7YT6ofYkaV3i53SzPtY/ImvUSESeq+Et+btssl7DF4ZSyg+ZKh5kmgAAAA==
+X-Change-ID: 20260623-sda850-6b5c1e44662c
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=766; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=I3bvbarQGG1JG360vnVYjew40hnVIm2x4NllJX1eEF8=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqQA1YK8glQipsbPDu59baTNOyWXpD07/knJtmu
+ 1MsIYw1FFqJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCakANWAAKCRBgAj/E00kg
+ cghdEAC3bJd1iiMqAS4n+igQBHlJZI6soKc3516kYlKVnjZjAS6lTiFzcRyjs5Q2tlv71lyybdw
+ 8a6eh4b8oKwocHHvgkJtpQKIU3UatIi7qUNwqrVXDJQ0XxQHvHa8AvlscO3qseB/b8XRmY5JuMf
+ CkHzbkfdXpEP3dB1b6xlxHbhiHWmMQ+tE7gMxUXVgiuXdi3wjWMJD2T7Hy8AsNk0mjUI9oxe2zZ
+ rCPQACacNgu9ufz1KkbyKjHCUfq3EZKuAM2happ7qGBKLjsbyywZIzRqkBoKFlfVngfHhHV7SLH
+ xkeliIp1PURR4huylAXI5kcLzA+VTy4WOjbjlKuIlFuTArT2tkj8lA2nFJvjOPBV6XchzC5pmJf
+ dV7xn8Q3ntyqWO6LUXlZPTTC3L2DAiRuimMLZeqZfLJS5thZYAlJYketE3EJ8wqQHLssm3BQRtW
+ mWUyGF4IHIHUOCIo7kLrTuajEjrXYwhpD98BYy25fClteKTKoT3y17RcgKaCfjcDa/jE3WBCSz4
+ seKvgG7vB0asSR72ttZfQRDnA26WHlMDafMOYktOcvofpNaqVFLj6HiEARSo7aw6/v8+KNfwIDP
+ nBPYZUPidt0rkqnbgCQQoh2iN3efM+sg/xGmekgCvqSrpE/dpZAKropGCdlZkrRxXfryfUCN7h0
+ PQDKiKARvKHRVnQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The pinctrl_cmgp controller and its first child bank gpm0 both cla=
-im the exact same GIC interrupt (SPI 114), and the driver configuration is =
-fundamentally broken for CMGP interrupts.
-- [Medium] The asymmetric big.LITTLE CPU topology (Cortex-A520 and Cortex-A=
-720) is missing CPU capacity definitions.
---
+Useful for sdm850 devices in tree and also will be used by Comma AI comma three
 
-commit 46c39da58bc865179bf89eb7be4c747cacdd7227
-Author: Alim Akhtar <alim.akhtar@samsung.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v2:
+- It's not SDA850, but classic SDM850. (Konrad)
+- Add consumer of the define (socinfo). (Krzysztof)
+- Link to v1: https://lore.kernel.org/r/20260623-sda850-v1-1-ddd8e62c85d8@ixit.cz
 
-arm64: dts: exynos: add initial support for Samsung Exynos8855 smdk
+---
+David Heidelberg (2):
+      dt-bindings: arm: qcom,ids: Add SoC ID for Snapdragon SDM 850
+      soc: qcom: socinfo: Add SoC ID for SDM850
 
-This commit adds initial devicetree support for the Samsung SMDK board using
-the Exynos8855 SoC. The SoC features an Octa-core CPU with a tri-cluster
-architecture, a custom GPU, and an NPU supporting up to 14.7 TOPS.
+ drivers/soc/qcom/socinfo.c         | 1 +
+ include/dt-bindings/arm/qcom,ids.h | 1 +
+ 2 files changed, 2 insertions(+)
+---
+base-commit: 948efecf22e49aa4bf55bb73ec79a0ddcfd38571
+change-id: 20260623-sda850-6b5c1e44662c
 
-Link: https://semiconductor.samsung.com/processor/mobile-processor/exynos-1=
-580/
+Best regards,
+-- 
+David Heidelberg <david@ixit.cz>
 
-> diff --git a/arch/arm64/boot/dts/exynos/exynos8855-pinctrl.dtsi b/arch/ar=
-m64/boot/dts/exynos/exynos8855-pinctrl.dtsi
-> new file mode 100644
-> index 0000000000000..b65f1698cd74a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/exynos/exynos8855-pinctrl.dtsi
-[ ... ]
-> +&pinctrl_cmgp {
-> +	gpm0: gpm0-gpio-bank {
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
-> +
-> +		interrupt-controller;
-> +		#interrupt-cells =3D <2>;
-> +		interrupt-parent =3D <&gic>;
-> +		interrupts =3D <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>;
-> +	};
 
-[Severity: High]
-Does this child bank gpm0 claim the exact same SPI 114 interrupt as its
-parent pinctrl_cmgp node?
-
-If the child explicitly requests SPI 114 here, it might create an IRQ
-resource conflict with the parent.
-
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/exynos/exynos8855.dtsi b/arch/arm64/boot=
-/dts/exynos/exynos8855.dtsi
-> new file mode 100644
-> index 0000000000000..9d82fceb5130a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
-[ ... ]
-> +	cpus {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-
-[Severity: Medium]
-Will the Energy Aware Scheduler function properly without the
-capacity-dmips-mhz property defined here for the asymmetric Cortex-A520 and
-Cortex-A720 nodes?
-
-Without this property and lacking OPP tables, the scheduler might assume a
-symmetric topology, which could cause it to schedule heavy tasks on the
-small A520 cores or background tasks on the big A720 cores.
-
-[ ... ]
-> +		pinctrl_cmgp: pinctrl@12030000 {
-> +			compatible =3D "samsung,exynos8855-pinctrl";
-> +			reg =3D <0x12030000 0x1000>;
-> +			interrupts =3D <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>;
-> +		};
-
-[Severity: High]
-Could claiming GIC_SPI 114 here in the parent node lead to initialization
-failures for CMGP interrupts?
-
-The Exynos driver configures CMGP to use exynos_eint_gpio_init, which
-expects a single demultiplexed IRQ on the parent. However, the gpm banks
-are Wakeup EINTs with direct per-bank GIC interrupts (like the SPI 114
-requested by gpm0).
-
-Because exynos_eint_gpio_init skips EINT_TYPE_WKUP banks, the parent
-successfully claims SPI 114 for a non-functional demux handler, blocking
-gpm0. Any peripheral attempting to map an interrupt from a CMGP bank might
-fail to probe. Should this instead have a wakeup-interrupt-controller
-child node without claiming a parent interrupt?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627171228.2687=
-857-1-alim.akhtar@samsung.com?part=3D5
