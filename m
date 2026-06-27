@@ -1,96 +1,128 @@
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5564735DA40
-	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 21:39:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893C7273D9F;
+	Sat, 27 Jun 2026 21:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782596377; cv=none; b=T6tnu69f/2GT5gMM94/lMtfT3zolzq2dPTtkz9CsMONyF76qrig8aQWFD1TyhdQiuLJF85lyu3J5hkpjAc7gSH/bhMIZDTTEav2AwjGDKo6nnKiewi2BTS7GA9gySRcKIDWK40FqN/fqQMPPPdDC9NGjUMGdmh8RipeLd4BpNmA=
+	t=1782596748; cv=none; b=MCmDYAJLbh30UUvPFVFIY02DblfmG1hlw3G9DYrBDPJa+hTG+Q202RFuD8CeWGLr5zYiuPFQEAWaY+8KvLgXXsCKxrlFjdql2RJKXuUVNY78TYk8sfYm7IA0uUkiT6Jmer/ozZXJ3GxZl81PON+5VHwHsD/vvYr019i07j/nJVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782596377; c=relaxed/simple;
-	bh=Jrw43e9my7yjDySFOHdkZacbQ+d1cBOiqQNFbZ/fcC4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vCH75ll3+B4LsSXpHfX1ElGESrNxkwDHLrHVdnNgMB/yMuF2Wjc3pKd/g8wVWFz3RTIiBMVO81ktnzeV7+xRFg0zR8Ym4XtcPl0BVjofwHpaWTSxySUznHPDW41ft7pfWbZtVV3MVE9MdFZqfj2saGtp/YQ63/uKvNrZIHBfX4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=lwaDr6K7; arc=none smtp.client-ip=209.85.167.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1782596748; c=relaxed/simple;
+	bh=oCfQpjZ269Bt9n6+wLPESthTEOvQtXcyGv20NZ2euOY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mYxkX14HIDRFVTohroY/2+yuWm7tdk/8B1ihlzHwtBQ39+aw3rUK4pAOdsTOtRjX4PlgQOCmEf9M+tDACncAS4ARKAy+O8WUeAiruNTa8gJDCVXMQGpLXttg/HbafKD2pJFRoWe0ZP4ym3fYljo8whplo9Rpgjyt/sSMDnyLFbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TWJCahDr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="lwaDr6K7"
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-491bc1d4e6bso1621397b6e.0
-        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 14:39:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782596374; x=1783201174; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Mi58OHINH72wJR2vpcoc/xSWHNR4hKCJuepbJpQnH/0=;
-        b=lwaDr6K7ErXT/qBQqketc+6HyPzQo76+PWB2I5vtxG/oEYY+KiCG3YgrWgSi4QA31d
-         o1p8T52d2btzdSk642f6zYAlqgXJuFl7NGU5YUI6DONsIVrVbDxISOawk8o9EJ3Myp37
-         W3jywzlHPQWTxm1KwHpXDq7H/U6OIbv2oL6Gxn8cHg5C6b2dG9h+dVBM+fZ7kU9281OZ
-         ZwL36uSeqCcbQWVVggWr0HTlQkmLpEms4SU1Yo1phV9JQI+rMRY7Yhukk/1RcxtXMLD3
-         zZe/WrGF825v69KlAnIlHE5UjZf+FOgqgKsCUFJCuMwf8UkZQlrqBXbba/njOQ2UoXUp
-         lfmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782596374; x=1783201174;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Mi58OHINH72wJR2vpcoc/xSWHNR4hKCJuepbJpQnH/0=;
-        b=XPufzN4jISsmXzQtH3bwhK7vTNv2eXWfH7BYG+bzVAZTaQh1WNX2JZZz5vvz+Hjo/v
-         gHNUgUhJ1/eKUjrNXEyEfskh1rrMXKsDlZsf8Sao4iixttKiORt4NCDisourDqB6T1Ze
-         KEeIJnXt5a/AnH7n1NyxmiyHGWEhkNPRx3OaLac/BJQePcU3qDZd8D5WF/D8f23HNmWx
-         t3eXbwHdvnqRJ+EvsTaCDLdYQj2+vIOm/k86LCs3n5ZCTdgZL/1jZrKac388LQPx606y
-         MRogeSoU6s3RB0pV4vYQpoyRBVBxSPVetYUQuy4pwsGr/1bYcT/7xgkW62J8WnZbyV9O
-         d2cg==
-X-Forwarded-Encrypted: i=1; AFNElJ8V0OHBtPHI4kRa2dkLcONTW8HhkTs/PMtQxwfeK5JdyRHsCbQnPEM8LiIQi6Y+mTT5zfLzEBbWncSS@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZHRIJWAmHRt2ING8zyC5gYiOTT8/pBgVbcmGNpRiPXmr9ugLT
-	iPN9a9jaQiA1ui89WOm/q6I810EGzGpMHm8bw3PRexTXD561AeVeZek2+VkuaF62Cg8=
-X-Gm-Gg: AfdE7clRCDQXjTHGXD9TWpCcAe9qJbR58tBDZPf39srFgXsULPAUoA4m2+FhYzfG6rM
-	or3vup6IqW+GGMOOnUjEb2FPq+DYGfG/bYI868OSW0QG4Jwq4eidILMVUN86SA8u1r66mS2S5bG
-	4Pm+/Nhe+dL8qyjDysEWL8h9cd0vuq86bddKMzD57cXfZ+D60lyv8TUJtytrRZhVfEey6X5DaIK
-	OXsr7pppuA70nGUSl2MDuN/sc4YNnoBbw+S0KUAxU6TFoLb84APh10JMitAd0xv3CAmZvkrGblc
-	HszG99nk/nmxyRi7dJj6i3usBjursAhPdNfPb9kumEp/EaTf9Hu8MCfwkNBO7eLlvWecouBQVih
-	sw4XhpabKLTvieNmTQMt9rCQn0XDv+kDHS+x86St3rITUcWf0/DaJ62JntMNpjmKP2x2F7nGZ2y
-	PFgy3W9ARHm5pzu+kpainE3w+kirgOoJjmJGrrDmPJMZmlPHP/ODVdltYvkVDTPFuicKMicDj8X
-	g==
-X-Received: by 2002:a05:6808:3442:b0:495:af31:c66a with SMTP id 5614622812f47-495af31ddc8mr752314b6e.15.1782596374257;
-        Sat, 27 Jun 2026 14:39:34 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:f242:ecd6:f61e:d764? ([2600:8803:e7e4:500:f242:ecd6:f61e:d764])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-49352b057dasm3927523b6e.6.2026.06.27.14.39.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 27 Jun 2026 14:39:33 -0700 (PDT)
-Message-ID: <a2fa4d9b-1f09-4226-8f06-371bd11ef919@baylibre.com>
-Date: Sat, 27 Jun 2026 16:39:32 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TWJCahDr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A85D81F000E9;
+	Sat, 27 Jun 2026 21:45:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782596747;
+	bh=hbIDoQbCyu+48Gjf06/wa5e+SiS3vEWCbdZXylWTfw0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TWJCahDrcCyZy6Ld4YajnQr3ObTtrwXv54paCbdwkHGVoiL986RIWLDH3z5A2gHA/
+	 hw22lHVKi9Rm9qVdXq+5M+PnAUifHeIAulwJoFYi3ccYKngRY4O3kEUs0UOiOrLFgw
+	 3oROqrZoW5tCqxyVDYSk8mTkuQRWaHhyb0MUl8vhswZCL5Ls4TObx9KMCM85+7aDzJ
+	 PWCt9DWc59aswLUNEbb8McPmIAcaJzrl1ASwByufNk+t78YaGF9Ye6/HSAhsLqtAzq
+	 hYlM76Bey3YSGFAaNjftYugXBDGQ3XvHnt1ACu+feeKxeaqQlv3pZN5kbMgH0ya5lG
+	 8FK8PrhKO302g==
+Date: Sat, 27 Jun 2026 14:45:45 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: yunhui cui <cuiyunhui@bytedance.com>
+Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Atish Kumar Patra <atishp@rivosinc.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Dave Martin <Dave.Martin@arm.com>,
+	Fenghua Yu <fenghua.yu@intel.com>,
+	Gong Shuai <gong.shuai@sanechips.com.cn>,
+	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
+	James Morse <james.morse@arm.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Peter Newman <peternewman@google.com>,
+	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Tony Luck <tony.luck@intel.com>,
+	Vasudevan Srinivasan <vasu@rivosinc.com>,
+	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	x86@kernel.org, devicetree@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
+Subject: Re: [External] [PATCH v2 4/8] riscv_cbqri: Add capacity controller
+ probe and allocation device ops
+Message-ID: <akBEiXiiSPVnUWXM@x1>
+References: <20260624-dfustini-atl-sc-cbqri-dt-v2-0-2f8049fd902b@kernel.org>
+ <20260624-dfustini-atl-sc-cbqri-dt-v2-4-2f8049fd902b@kernel.org>
+ <CAEEQ3w=n6L3ugSL6_LTCQcw0CyUSSxpfEVV0Dp-CpQ_XkLUXPQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/4] iio: adc: Add support for LTC2378 and similar ADCs
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
- andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- julianbraha@gmail.com, marcelo.schmitt1@gmail.com
-References: <cover.1782397418.git.marcelo.schmitt@analog.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <cover.1782397418.git.marcelo.schmitt@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAEEQ3w=n6L3ugSL6_LTCQcw0CyUSSxpfEVV0Dp-CpQ_XkLUXPQ@mail.gmail.com>
 
-On 6/25/26 9:34 AM, Marcelo Schmitt wrote:
-> This patch series adds support for LTC2378 and similar low noise, low power,
-> high speed, successive approximation register (SAR) ADCs. These ADCs are similar
-> among each other, varying mainly on the amount of precision bits, maximum sample
-> rate, and input configuration (either fully differential or pseudo-differential).
+On Sat, Jun 27, 2026 at 05:19:44PM +0800, yunhui cui wrote:
+> Hi Drew,
 > 
-I had a few minor comments and I suspect Sashiko found a few legitimate
-things. But this is looking really nice now.
+> On Thu, Jun 25, 2026 at 9:41 AM Drew Fustini <fustini@kernel.org> wrote:
+> >
+> > Add support for the RISC-V CBQRI capacity controller. A platform driver
+> > passes a cbqri_controller_info descriptor together with the cache level
+> > to riscv_cbqri_register_cc_dt(), which probes the controller and adds it
+> > to the controller list.
+> >
+> > Assisted-by: Claude:claude-opus-4-7
+> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Drew Fustini <fustini@kernel.org>
+> > ---
+> >  MAINTAINERS                      |   3 +
+> >  drivers/resctrl/Kconfig          |  13 +
+> >  drivers/resctrl/Makefile         |   3 +
+> >  drivers/resctrl/cbqri_devices.c  | 520 +++++++++++++++++++++++++++++++++++++++
+> >  drivers/resctrl/cbqri_internal.h | 107 ++++++++
+> >  include/linux/riscv_cbqri.h      |  47 ++++
+> >  6 files changed, 693 insertions(+)
+[..]
+> > +int cbqri_apply_cache_config(struct cbqri_controller *ctrl, u32 closid,
+> > +                            const struct cbqri_cc_config *cfg)
+> > +{
+[..]
+> > +
+> > +       /* Set capacity block mask (cc_block_mask) */
+> > +       cbqri_set_cbm(ctrl, cfg->cbm);
+> > +
+> > +       /* Capacity config limit operation for the AT half implied by cfg->at */
+> > +       err = cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_CONFIG_LIMIT,
+> > +                               closid, cfg->at);
+> > +       if (err < 0)
+> > +               goto out;
+> 
+> When CUNITS=1, CONFIG_LIMIT also consumes cc_cunits. If resctrl does not
+> expose unit limits, the driver should still write cc_cunits=0 before
+> CONFIG_LIMIT to avoid a hidden stale/implementation-defined unit limit.
+> 
+> Should we handle cc_cunits here?
 
-Reviewed-by: David Lechner <dlechner@baylibre.com>
+That is a good that cc_units should be handled even though we can't yet
+expose it to resctrl. I will change the code to set cc_cunits to 0
+before a config limit operation on controllers that support capacity
+units, so a stale unit limit does not constrain block-mask allocation.
 
-
+Thanks,
+Drew
