@@ -1,134 +1,144 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A2A3A8738
-	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 11:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782560781; cv=pass; b=WnhAjxC72iJRoJXrIW91wRVxHk057Op9tDDFxCuVwr5XqF46eragub1DxNKQ3n2S07ZixqK1WFxym5vxw1cnLVrrjopHznzIaJcbdvvXG0uWk9DP+cTaFxJ6PlirNlQMg9dyqQM3NvZtZ5YQTY0SZvnslzm0A7Vd70JFpUm9U/8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782560781; c=relaxed/simple;
-	bh=8En6EBLgZ/7Y9RpK8TSKSbvJhwFJjH5l3CmH25wjlz4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=E4TxhsXjmoyO+gT6ngAOA1JAdiRoRDjoMODX8BdFqKHoorU6x0peNCkNbvn3gkGuxQQqIA0ZJ5TKnfV52eH487Z01THyaBg4YXHwgLs4Y6EM3WVuM34lwpNHP+STDuWebnwclvNvHA27wPVK2N3DgGX6LFv43lnhTFEIwwGaKyM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JxcvuWdJ; arc=pass smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423B73AE193
+	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 12:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782562502; cv=none; b=PdIEjd2HsknWOXdoYk2tpxVdVfTvpZg55JAhJpI2yBCYw8m23bjD4LoMAgYLkoV070VjwzPDsJh50tBi0vLzYPCE2O7jVTSVTNn385HOw1cEeiUEmVbUK6HGSN+9DB06rnz4vCgqi/U8ftkdsKGVpt9s31e9SNfkOIneviE1s6U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782562502; c=relaxed/simple;
+	bh=iOqbzTOr7Al7FRgdDYfrfx6rKgnAR26rPeCHRKlIgiM=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=f+FJlPm1Cz/Cz/6dPH8Bu0uSUM1Q65Ro/X0+ZzdGtut2Rks8TlLd7LueZB/h50LTXlUQYFXsq9p+9fcOKyhcAlhb+YuZ67kxV/3m5V5IOenQZiLmZm2XMhO//6Y8DgRPnRdwmBzJmWCRXCsGYVcE2Yj2JKVs5P07mmjQ2gvRU2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c+F7+STo; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JxcvuWdJ"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-519e7faecf1so27481621cf.0
-        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 04:46:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782560778; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CGaJo8SX3Ih5VfFbV20t+y6xa9vs/iSnrd1l73fyi8LvWd/AtL2sQbLXZ5s1wjD4kZ
-         NBHxPSrvULUjZy7nxBlaWyNW1XxjfnoTOUAEAeoNjisyRBJAd65AIPRzFQIiy23mIVao
-         o0N7yCeFCYadFabwCov/POR/BXWGRNLJn98tEy2zTluAi0sevKp2cjd143NqmoBDoHJ0
-         SoUlSySkTs8DltjtPWA9aEsi3nSXzurBGzagaZCXazTquOnXBwKuhFxMNGKLRonN5Fli
-         j0kur4YTo++BHVS0CDlYBA+Qe3NkExCQH07ICKSBkrtumEbEzTtzsK8WbuSksddN7EN5
-         z5Kg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :dkim-signature;
-        bh=MwgmP+AIkwRVqsKscXw1JvJ/gpEoo8Dz+/YrGyTigaI=;
-        fh=wyj0XRMCAI5JnE4nazGqGqRd0a5W/PTYe6eZSac/jCQ=;
-        b=dm7c829/ZFeQxON8DuLkkgSvCGsCFtmfZPPBDImAUcFfS9KzNB32zO57rNvCKX6kAN
-         BpXvjRwBUX6iAJv72rjZsfrGi0EnuaskDeqzOgUxr4clRI5micJW1L8CpaCiLW5ySL8Q
-         OPtX6+sCGZoZWarC6OnHWhVK0RDfcAy+2GvuIPgfQkXHceogITCHJZ3R6vRvYZDa1Ekh
-         6P/52Av0v35sBEhe1sDI3WMuPK7YeDu3GWZkHfeG/RahTTXDztNNkBzFvT2aeC0m6o0B
-         q/U8QW4iAtmWXVRWtvXifElKtm8OeqTvvozWqCgtZ1pLznn98jeV8/QMMFZhTMRLZ4Sx
-         OwqQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c+F7+STo"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49258ac7294so13275615e9.0
+        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 05:15:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782560778; x=1783165578; darn=vger.kernel.org;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=MwgmP+AIkwRVqsKscXw1JvJ/gpEoo8Dz+/YrGyTigaI=;
-        b=JxcvuWdJwbH60EE0DX+qlY1haRVHiUaE3g7jNcU2S3O5Im0stTOFu3wEmH6kZea8Az
-         pXsu8ZPzWsjcqEM0QXIkpIn2kTaF+ujdokGlWZ95wp8xwJ2h8GTLcIgT+bgbVqlYQjv8
-         ogWVBN7Je8XOnk5gnCdvyD0OMX86Fc9Q+m7syncRkruK2gMI0oxz/0ZhbpSff4LTWdz7
-         u7o8cMNWL3+DFI+QtuE9J0s07tgTl9oEDIyFy2kZTXsbBXfIQ6uxmiWLr3WMCD28gug4
-         DjdrA4qtfgtFJUP+nkyp4tBgRJ/wUW9s8UOQURxT/rnyK/Amgjr4D41jLzuwAkDcpxM8
-         XAvQ==
+        d=gmail.com; s=20251104; t=1782562500; x=1783167300; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ENGLhUzySY12FfgNeO/39C61qpfSr8IVf4djxpXqVbg=;
+        b=c+F7+SToXKOjitreIm7Brg6kMOEXdrDcrlPQ8e+9oH9P0hN2Az6Wy5jZgzkT8q9cgT
+         w3yvycvwwY1BXhEx3dc+HulQ0pOa1jSPttpInRZfEFARoeTvdHPDAt7iJNwBv9NJfewq
+         QjTlhHXgrpI9dBSNIuFdSZKZGn3tjsWmWNJKfnOv/0XxP/RDlMhmYsUSIxfGTK5hapvG
+         DPA9jWk87QLmNqtgYWkoGHIxEUV2+F5FyD5hMpLUBQmmTgmrn0ojnylWud1o2EJQX7qh
+         0NnQw5MyyOzqkRg3xuCjXoCMniWGc2NaTiO/lHWQTdHXbwQzrzHJqdqycA9l2CcDFAHC
+         1iSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782560778; x=1783165578;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20251104; t=1782562500; x=1783167300;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=MwgmP+AIkwRVqsKscXw1JvJ/gpEoo8Dz+/YrGyTigaI=;
-        b=a7Ze3UeUX+IXj+LaLb2M9ITMoWJlD4aGwofxZqbkwsIR+gpqIZNtXLNgeiLaJhM0HS
-         R1h6y49sLl6Sss4lEi0i6aXsZTO2EPYMZS4Yvlm3JjSKPgBy+LqV3phaDcUKwWD+4hd0
-         RSZt1N8WvR/AiRcdujYeNkpn246p+TtKDlY5zI4f+CmwKzZWuzdn9BCQYYK4RX8jkP8W
-         noqxO/TQfDzWBZhiMGMCkSy7EVvQId2lkQHuB9t/61BRUbp99VBpKIPs0GlSfx3x8Z/W
-         puFHNMLrYWuEO3oAVuvTGerQWZzRAR1sEUsUjIYX9ojaqsHWmmNvGhM1+UPNsPjLV+kK
-         II2A==
-X-Forwarded-Encrypted: i=1; AFNElJ/MRergah4E/dKLsbcyp3xB3ZFBMjDpICB6oUmEDIMbaOFRUrT49SYJN1TbXCmcSPWt0sK/AZNQK17N@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJrZHJK2GfG6HZV/fLQh8lViIrWOYEtnq1/0LL0zsGZDfS+dh4
-	vgIkq/tumwJcHQjNiRXcYQRtBbuPxALq6vPgeBJ9MPRuZTSzGTK4YhexJz/MpsW20KO7GiaW0Gt
-	QK5GrjTMJRzozGLi9Yj50cjzeJb1h1SA=
-X-Gm-Gg: AfdE7clAqaEGcmWEb34EjB8BKU9aByLIvrRGTzsRsldZNvnikQV8mETwJQeeI3V4/67
-	3LsE7sYf6KIMufBQ4ugvbTKfXoBG8QQkqyA96nJ8MgVyP42mNJvMiuQukfG6DB6sBjB+J9F4bhj
-	dPxrzi4iV9iuOh3l1Q4AiBP/lQp6pG+5ZA8mXi5NJjrVy7PlUUFHXydM85CY9vgEpwCfAc/NUm/
-	9ekgHOslpsFqNVXVEdIvwchcoAoct7m1WbyP8KwPBImKbupu9jhCUriTjg8dSSw5XDDHzQ=
-X-Received: by 2002:a05:622a:15d3:b0:517:6804:3732 with SMTP id
- d75a77b69052e-51a727f36e7mr140180601cf.55.1782560778293; Sat, 27 Jun 2026
- 04:46:18 -0700 (PDT)
+        bh=ENGLhUzySY12FfgNeO/39C61qpfSr8IVf4djxpXqVbg=;
+        b=eKuzUQUuAGwzaqEENUGexVVZL60SW36zexNYvQMha0IPuExLupkJpz22G24rnt580s
+         8y01VA1V8aLwJeJ7bYOstwu5mt5shmyJ101EvcMSuEMfh0uJ2ojdaxkuMn77Hq/N90Wg
+         FHMu86qyFoDdKk8T50WPVEFfk2WmKo1zHVjTUhMWziJIS+bKpYSF/m/txlRdW+mP0dNy
+         XKyW0ZwARk6YR+8U6RkltmYvKnlE2BlSI+k+15fEqqecgjti+aHo+rYBA+TSBR+4YFHT
+         G4Dy1p/IIQDnDMxPxRwcJ7ACwEW7q8wCF4hcCMecYmoqyIELDeRq2Q+E0oazRI9tQnUN
+         OuNQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+7m1utS6kkO3JkxmkvYjo0tuu32ncnBebOLK3wHmuo6yDPnuY6tvGUnEPJTxRoRyKGlOmgZSvfgipy@vger.kernel.org
+X-Gm-Message-State: AOJu0YxtXpnMysZUJZUHQRr8qwg6JG54yQmHqyF7xIFZYf7alMXPzmu2
+	B+hfppdC7Ild+4edmYVHsWCDkXLAhyMHCCqzm4OrCjrCjOE63/U0TkzB
+X-Gm-Gg: AfdE7cmuuxrnNIRuURwrc56Ua96FiCqSwOBCAP7iXwHmxldxUbc66rOx2JH9+1k4quW
+	Am0Yr4qyYn+7NPu48WIdJrL2UQXE4USRlpsL3POpXQrqtCWZTYuWtVfEdHBHlm+hh7nrclBor9G
+	jDZMTZ93u81ACBhJzl0BGtXnhcSkE3yKkyBowYqBH7n9xPiw7jyU+tjSchG45QKEdzNW1/MQJNs
+	uYZENATMtNAjb+aANU52G7aXqfUKsJ+Lj3MFNS93kUNdV9USIUzw+WVn1T38yDwVqachUsbfz10
+	B+oXve00esk4BH82Dw23BTD2gJNxhwyrkCtkAJl0eQYZ0AuPwZBXxPHuOoh5l/GReZAyMTIWP4R
+	KDZ8mdBkicBKoWQFA7ixDre90hZb++5dZiTnrkOtb+h3ThPHqz2ZJoCz6s5NLOp5JPTqkK0IogW
+	4ias21f0YBQ1OFuXOxT7Oqr3dbeO1wRR20XF8QfbAzz/tdhvxV62J/J3WuHoIqrA==
+X-Received: by 2002:a05:600c:3f06:b0:492:33a8:5499 with SMTP id 5b1f17b1804b1-492668858a8mr160407315e9.17.1782562499407;
+        Sat, 27 Jun 2026 05:14:59 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (93-34-89-195.ip49.fastwebnet.it. [93.34.89.195])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49269002511sm149028265e9.8.2026.06.27.05.14.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 27 Jun 2026 05:14:59 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Jianjun Wang <jianjun.wang@mediatek.com>,
+	linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v3 0/4] CI: mediatek-gen3: Add 2-lanes mode support + clock
+Date: Sat, 27 Jun 2026 14:14:41 +0200
+Message-ID: <20260627121450.3529133-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260520155525.22239-1-ansuelsmth@gmail.com>
-In-Reply-To: <20260520155525.22239-1-ansuelsmth@gmail.com>
-From: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-Date: Sat, 27 Jun 2026 13:46:05 +0200
-X-Gm-Features: AVVi8Cf_0TYEuahTO65ACteREkW6yB49hgA0BclLT9szcFa1Y79hU8GGc7i-Jso
-Message-ID: <CA+_ehUy0tbLR+dt2QQAj94AYCnSvmUgY7OEV9a+ums7WrGe5pA@mail.gmail.com>
-Subject: Re: [PATCH v5 0/7] thermal/drivers: airoha: Add support for AN7583
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Christian Marangi <ansuelsmth@gmail.com>, 
-	Lorenzo Bianconi <lorenzo@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Il giorno mer 20 mag 2026 alle ore 17:55 Christian Marangi
-<ansuelsmth@gmail.com> ha scritto:
->
-> This small series implement all the required changes to
-> support Airoha AN7583 Thermal Sensor.
->
-> The SoC dropped the Monitor subsystem and only provide
-> temperature reading. Some generalization was required
-> to at least save the common code with also the help of
-> reg field API.
->
-> Changes v5:
-> - Fix alpabetical order in Documentation patch
-> - Address suggested change by AI Bot
-> Changes v4:
-> - Rebase on top of linux-next
-> Changes v3:
-> - Property use chip-scu for thermal sensor
-> Changes v2:
-> - Update DT schema patch to implement dedicated schema
->
-> Christian Marangi (7):
->   thermal/drivers: airoha: fix copy paste error on clamp_t low temp
->   thermal/drivers: airoha: fix copy paste error for sen internal
->   thermal/drivers: airoha: Convert to regmap API
->   thermal/drivers: airoha: Generalize probe function
->   thermal/drivers: airoha: Generalize get_thermal_ADC and set_mux
->     function
->   dt-bindings: arm: airoha: Add the chip-scu node for AN7583 SoC
->   thermal/drivers: airoha: Add support for AN7583 Thermal Sensor
->
->  .../bindings/arm/airoha,en7581-chip-scu.yaml  |  14 +
->  drivers/thermal/airoha_thermal.c              | 380 +++++++++++++++---
->  2 files changed, 327 insertions(+), 67 deletions(-)
->
+This small series introduce support for 2-lanes mode for Airoha AN7581
+SoC. This is needed for correctly functionality of Eagle WiFi Card
+normally attached to this SoC that require a 2-line PCIe card to
+correctly work (and give the proper performance)
 
-Any news for this series? Can someone check it? Every patch have
-a tag.
+The first 2 patch address a limitation of the PCIe implementation
+where the PERSTOUT reset were indirectly asserted and deasserted
+all at the same time (for all the 3 PCIe card) with PCIe
+enable and disable.
+The 2 patch address this and introduce correct reset to control
+reset line for the relevant PCIe line.
+
+The last 2 patch add additional logic and support to assert
+and deassert the PERSTOUT and also apply the required configuration
+for 2-lanes mode.
+
+2-lanes mode is implemented in DT by adding the required property
+and by defining the "num-lanes" to 2.
+
+Changes v3:
+- Add Ack from Krzysztof
+- Improve commit description of PCIe patch
+- Use pcie->num_lanes instead of possible uninit variable num_lanes
+Changes v2:
+- Address typo regs -> reg in Documentation
+- Address typo lan -> lane in Documentation
+- Apply a suggested fix from Airoha for PCIe MUX configuration
+  before PHY init
+- Parse secondary reg in probe
+- Add missing reset_status handling for inverted bits
+- Move SCU to local handling in power_up
+- Add check for max num-lanes for EN7581
+
+Christian Marangi (4):
+  dt-bindings: clock: airoha: Add additional reset for PCIe PERSTOUT
+  clk: en7523: add support for dedicated PCIe PERSTOUT reset
+  dt-bindings: PCI: mediatek-gen3: Split Airoha schema and document
+    2-lanes
+  PCI: mediatek-gen3: Add 2-lanes mode support for Airoha AN7581
+
+ .../bindings/pci/airoha,en7581-pcie.yaml      | 251 ++++++++++++++++++
+ .../bindings/pci/mediatek-pcie-gen3.yaml      |  77 +-----
+ drivers/clk/clk-en7523.c                      |  39 ++-
+ drivers/pci/controller/pcie-mediatek-gen3.c   | 104 ++++++--
+ .../dt-bindings/reset/airoha,en7581-reset.h   |   4 +
+ 5 files changed, 375 insertions(+), 100 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/pci/airoha,en7581-pcie.yaml
+
+-- 
+2.53.0
+
