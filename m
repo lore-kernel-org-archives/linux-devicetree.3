@@ -1,1038 +1,130 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F031F1EEA54
-	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 00:59:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AA752F84F
+	for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 01:04:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782521944; cv=none; b=XUXoUvxGOG518rd3HRlrXTe3bzEKOL+f+YudejHZthzK2m+akrv8uPJmgBdLBUXokQaODk3TqmZmcUWkgIz4IIZXIoo2dOtTfE3zCgD9xhv7mbmsi8T6hU8mX1CC/4jVU18GniTK7ckehkDxtb6a54Qo+xtcTBDrK7KbrYOXwwY=
+	t=1782522256; cv=none; b=WPW2JwO9jCXxYo//r6wTezDMAGM0CuImXNNWH5WC4lH/jfE6BD0OabnomBtz9YYaLwWIXdGryYjYAHlB830hbPOnlRK+maTIC41BUZnIP/MFg3GPTv+kENEe7QmEME2gFPDvDpjoOZl6q50VAXhOpTYwofjWy8aZ3gPqNNpwCOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782521944; c=relaxed/simple;
-	bh=2rZQIfnuskofIdQln1c76Ry2Eh8bv2ZRolh7ecHPij4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=PJ/MaQgnnrjCsv/vRLrvMbajcCIAMc2IzZza3kpP3xAtjFMGeGFIdxeVti8x9MStwKJ503SrdVxzz5jJ2/oImDQ098R9q68NYYb7+UIiL0ZpQjiQ3tDQGno/v9NJ9BfIx3dJFDTqzaYHVAZAVovxcYCfAwDWhwiNDpu1BFOTQY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aBAsVgWp; arc=none smtp.client-ip=74.125.82.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782522256; c=relaxed/simple;
+	bh=k7fsWatdOPMLrp/iB+dUHOjxnR08jEzJ5D1DHn4bdiI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=vBmLYCANh+TzY6WYYjMOEoewSLX28pBITFqAhVs+Q8AP+k9eqt+txqkkL1oMDeqXbmmjHrDTOAI6FW+Phs17nwSjxsbx0HpxDCJ/+x9TNGV3XnN4gTgaoRtf3lVO2wfUpI4f2VlTIWwjPAJVwO9WwkCMYQlwDq2UaQJ0hMcDn/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J3vfGYVO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aBAsVgWp"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-139eea1aeb0so1065293c88.0
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 17:59:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782521941; x=1783126741; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CvmN+bamG+mon9UZzkNNZKBoY3ALO7sSyJ9z5dZo9gE=;
-        b=aBAsVgWpDHEolhsrXlaNvPr6UA4JeOEv2e5A9chT50IkSPZTN/HkPopDttWQgs2IN5
-         JhoEBD9Y2lwuOlVh2nLmaambvs8ek1E3jr/SSe9Sv8eBm/Tl6UpK1XgSY/xbeAF38q/l
-         8xT6xvBrEAFua5elZdMAK263u58gaWLhPy3WRJzzkBbBLVNa0XuCh0cxwypi5stMs4Kw
-         3eEZ7dngyLiu8w7d8t4JdeZpZaiOpTn1h53/Bi5YPs6AopZgl2pRlio3Cpwkzf/Fbsvl
-         V3W39CISXGzitvSWBJwZIJxEHDOIw2SqEzk39kmTE0JWEimzfyZiPnQcKf6cXz9pJb4X
-         SA1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782521941; x=1783126741;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=CvmN+bamG+mon9UZzkNNZKBoY3ALO7sSyJ9z5dZo9gE=;
-        b=ZHP5FqyqJqwEnNd5x3xZPN0gG8J0banmOX1cYI/W4x2bhdAMKG/UnvNIAuNdLde5YM
-         N3DJyaDCjEjs5W7aa5r6s71/GqMSoVd+3TYAFUe8zfGfZIMn/puzbQx9kyfHSQa0LnwL
-         O8CsmU4yScCMVLU8vgPfZKnxrlkYy1qKwuXyJQAI4KEXpP2AaLo5VasI+J0BmTz43lOb
-         SgNtjOu0oid0GJfKMr9R03xb/Tr8ppBhNEiz4DUiED+ev0p0KEDPa8NSNAsZ9XCmudvt
-         2jMR2JizSDCptsc+aIt3pV+oT8mi51srB0a705VJxLSxIRi1pNypM67vTPF9HWrL4h2H
-         x2HQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8sPR9yKDDuxYbGrW02KB/7gdRdB07Dq8f5oB0FsmAVCrCUTrv5pBlvCMjP4jSXJav0PsRrBmh3xBuV@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzs/I+he9ix1jcMzmZPRNO1CmsAjoeVMELHyU4hjFWCO19A443y
-	HJMPo0DmndCIw8fLoqwjSSIdCqqqb0bcaNx/bw/02XZFfa2ei20OaMY=
-X-Gm-Gg: AfdE7cmvKmRoT2l1oFlHI7kwQpC6qZK1trbnrsEwor0mvtO8vDuqJrCIwkb/xErBmPp
-	aIrkgpwo9WGKQXor0M4fN66SCqlI8BgnP/AqAcDiMRGTtUVq2blDpAjK7/5qTwAbcISKY20f131
-	srpAGMEXKmFlD9969fuMZxX4SW5nNy3G5t2gQxzCZ3T3b1D6f+7sMkkPZOHt8RBUfAjeFvlayuQ
-	tcrDCWxd/f4kWiHBp+8C2hKUR5Nt+S074g6iyMOgH/K8YzOrmhfDMQ8jXW0XKVNPqDV5et5BykW
-	DMnvhqF7F4BpQ6mOTJiqkDAvkcGDULYVgYj/nr634CVedJTBxnGU5xKBaz8/pUPw3BL42vy+u9f
-	yYaNDeYLKdZrIE16pJITDVMYkLAGH4G0F4v1YoVFIvaMlvo7XiNZMrWfJi5+hncF8y5C1iZ5uMJ
-	+alB0FD8ufx1h1K1eqsXtGcimRNy1VRVc1QZorf4wR0RDD0ZhJNSXv
-X-Received: by 2002:a05:7022:671e:b0:139:ed59:4b7f with SMTP id a92af1059eb24-139ed594c18mr1378981c88.47.1782521940841;
-        Fri, 26 Jun 2026 17:59:00 -0700 (PDT)
-Received: from localhost.localdomain ([101.0.63.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-139d8f6d2e4sm22387112c88.7.2026.06.26.17.58.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 17:59:00 -0700 (PDT)
-From: Nikhil Gautam <nikhilgtr@gmail.com>
-To: linux-iio@vger.kernel.org
-Cc: jic23@kernel.org,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	u.kleine-koenig@baylibre.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nikhil Gautam <nikhilgtr@gmail.com>
-Subject: [PATCH v3 2/2] iio: magnetometer: add support for Melexis MLX90393
-Date: Sat, 27 Jun 2026 06:28:43 +0530
-Message-Id: <20260627005843.7786-3-nikhilgtr@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260627005843.7786-1-nikhilgtr@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J3vfGYVO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95DE51F000E9;
+	Sat, 27 Jun 2026 01:04:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782522254;
+	bh=iFRbdWBD1Dx6EVhzLSeoPw6xBYqKgcC+jqRljnOXaP4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=J3vfGYVORJ5E//FVq/4tiEsdq8CP9koEc4SgiQp/j8b0NPqYhUHY3q6PUMStxJmQg
+	 Pr5BOwtTGSbOJFh1lCzGqSw+Kkn0Ur2oPreqJL0F6wMqyWPhSQPpCYYTBwfNCgRT1V
+	 pNYG0eSZxWObU8s4pzFGfDad/5tFbDE52gbuLOrWTQ7XNvt9fR1NWtTClN2721QNCE
+	 fjyKidhsuYTO2W5Y9LMjLAo9YJRAjPCa1E5F7IAhcH9NZX2KS+gAt0IsLvkEzeF+68
+	 kUcw8l+trkEYsPqKdPiPPfepGcqdc3zXERQxn5Quzst6syr/BWfR8ceL8KKuO71aOd
+	 yUU+la3a5CLqQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: magnetometer: add Melexis
+ MLX90393
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nikhil Gautam" <nikhilgtr@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260627005843.7786-2-nikhilgtr@gmail.com>
 References: <20260627005843.7786-1-nikhilgtr@gmail.com>
+ <20260627005843.7786-2-nikhilgtr@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 27 Jun 2026 01:04:14 +0000
+Message-Id: <20260627010414.95DE51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add Industrial I/O subsystem support for the Melexis
-MLX90393 3-axis magnetometer and temperature sensor.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The required properties `vdd-supply` and `vddio-supply` are omitted=
+ from the `properties:` block and missing from the `examples:` node, causin=
+g schema validation failures.
+--
 
-The driver currently supports:
+commit c1fe5f8c39a4b8113c50e154a6674ac296637f70
+Author: Nikhil Gautam <nikhilgtr@gmail.com>
 
-raw magnetic field measurements
-raw temperature measurements
-configurable gain/scale selection
-configurable oversampling ratio
-direct mode operation
+dt-bindings: iio: magnetometer: add Melexis MLX90393
 
-The MLX90393 supports both I2C and SPI interfaces. This
-initial implementation adds support for the I2C interface.
+Add devicetree bindings for the Melexis MLX90393 3-axis magnetometer and
+temperature sensor.
 
-The device uses a command-based communication protocol
-rather than a conventional register-addressed interface.
-A small transport abstraction layer is therefore used
-instead of regmap to share the common sensor logic
-between the current I2C implementation and future SPI
-support without duplicating code.
+> diff --git a/Documentation/devicetree/bindings/iio/magnetometer/melexis,m=
+lx90393.yaml b/Documentation/devicetree/bindings/iio/magnetometer/melexis,m=
+lx90393.yaml
+> new file mode 100644
+> index 0000000000000..33ab0be663450
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/magnetometer/melexis,mlx90393=
+.yaml
 
-Signed-off-by: Nikhil Gautam <nikhilgtr@gmail.com>
----
- MAINTAINERS                              |   1 +
- drivers/iio/magnetometer/Kconfig         |  10 +
- drivers/iio/magnetometer/Makefile        |   2 +
- drivers/iio/magnetometer/mlx90393.h      |  73 +++
- drivers/iio/magnetometer/mlx90393_core.c | 701 +++++++++++++++++++++++
- drivers/iio/magnetometer/mlx90393_i2c.c  |  76 +++
- 6 files changed, 863 insertions(+)
- create mode 100644 drivers/iio/magnetometer/mlx90393.h
- create mode 100644 drivers/iio/magnetometer/mlx90393_core.c
- create mode 100644 drivers/iio/magnetometer/mlx90393_i2c.c
+[ ... ]
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 469ae3f9aa0f..177dda261801 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15506,6 +15506,7 @@ M:	Nikhil Gautam <nikhilgtr@gmail.com>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/magnetometer/melexis,mlx90393.yaml
-+F:	drivers/iio/magnetometer/mlx90393*
- 
- MELEXIS MLX90614 DRIVER
- M:	Crt Mori <cmo@melexis.com>
-diff --git a/drivers/iio/magnetometer/Kconfig b/drivers/iio/magnetometer/Kconfig
-index 3debf1320ad1..e6b74e7e3317 100644
---- a/drivers/iio/magnetometer/Kconfig
-+++ b/drivers/iio/magnetometer/Kconfig
-@@ -128,6 +128,16 @@ config HID_SENSOR_MAGNETOMETER_3D
- 	  Say yes here to build support for the HID SENSOR
- 	  Magnetometer 3D.
- 
-+config MLX90393
-+	tristate "MELEXIS MLX90393 3-axis magnetometer sensor"
-+	depends on I2C
-+	help
-+	  Say yes here to build support for the MELEXIS MLX90393 3-axis
-+	  magnetometer.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called mlx90393.
-+
- config MMC35240
- 	tristate "MEMSIC MMC35240 3-axis magnetic sensor"
- 	select REGMAP_I2C
-diff --git a/drivers/iio/magnetometer/Makefile b/drivers/iio/magnetometer/Makefile
-index 9297723a97d8..542c89d38a59 100644
---- a/drivers/iio/magnetometer/Makefile
-+++ b/drivers/iio/magnetometer/Makefile
-@@ -14,6 +14,8 @@ obj-$(CONFIG_BMC150_MAGN_SPI) += bmc150_magn_spi.o
- 
- obj-$(CONFIG_MAG3110)	+= mag3110.o
- obj-$(CONFIG_HID_SENSOR_MAGNETOMETER_3D) += hid-sensor-magn-3d.o
-+obj-$(CONFIG_MLX90393)		+= mlx90393_core.o
-+obj-$(CONFIG_MLX90393)		+= mlx90393_i2c.o
- obj-$(CONFIG_MMC35240)	+= mmc35240.o
- 
- obj-$(CONFIG_IIO_ST_MAGN_3AXIS) += st_magn.o
-diff --git a/drivers/iio/magnetometer/mlx90393.h b/drivers/iio/magnetometer/mlx90393.h
-new file mode 100644
-index 000000000000..6a646ac05198
---- /dev/null
-+++ b/drivers/iio/magnetometer/mlx90393.h
-@@ -0,0 +1,73 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * MLX90393 magnetometer & temperature sensor driver
-+ *
-+ * Copyright (c) 2026 Nikhil Gautam <nikhilgtr@gmail.com>
-+ */
-+
-+#ifndef MLX90393_H
-+#define MLX90393_H
-+
-+#include <linux/bits.h>
-+#include <linux/types.h>
-+
-+#define MLX90393_AXIS_MAX		2
-+#define MLX90393_GAIN_MAX		8
-+#define MLX90393_RES_MAX		4
-+#define MLX90393_OSR2_MAX		4
-+#define MLX90393_OSR_MAX		4
-+
-+#define MLX90393_CMD_MASK        GENMASK(7, 4)
-+
-+/* Commands (datasheet, Table 11 - Command List) */
-+#define MLX90393_CMD_SB        0x10	/* Start Burst Mode */
-+#define MLX90393_CMD_SW        0x20	/* Start Wake-up on Change Mode */
-+#define MLX90393_CMD_SM        0x30	/* Start Single Measurement Mode */
-+#define MLX90393_CMD_RM        0x40	/* Read Measurement */
-+#define MLX90393_CMD_RR        0x50	/* Read Register */
-+#define MLX90393_CMD_WR        0x60	/* Write Register */
-+#define MLX90393_CMD_EX        0x80	/* Exit Mode */
-+#define MLX90393_CMD_HR        0xD0	/* Memory Recall */
-+#define MLX90393_CMD_HS        0xE0	/* Memory Store */
-+#define MLX90393_CMD_RT        0xF0	/* Reset Device */
-+
-+#define MLX90393_MEASURE_Z    BIT(0)
-+#define MLX90393_MEASURE_Y    BIT(1)
-+#define MLX90393_MEASURE_X    BIT(2)
-+#define MLX90393_MEASURE_TEMP BIT(3)
-+
-+#define MLX90393_MEASURE_ALL	(MLX90393_MEASURE_TEMP | \
-+		MLX90393_MEASURE_X | MLX90393_MEASURE_Y | MLX90393_MEASURE_Z)
-+
-+#define MLX90393_NUM_CHANNELS	4
-+
-+#define MLX90393_STATUS_RESP    GENMASK(1, 0)
-+#define MLX90393_STATUS_RT	BIT(2)
-+#define MLX90393_STATUS_ERROR   BIT(4)
-+
-+#define MLX90393_REG_CONF1          0x00
-+#define MLX90393_REG_CONF2          0x01
-+#define MLX90393_REG_CONF3          0x02
-+#define MLX90393_REG_CONF4          0x03
-+
-+#define MLX90393_CONF1_GAIN_SEL     GENMASK(6, 4)
-+#define MLX90393_CONF1_HALLCONF     GENMASK(3, 0)
-+
-+#define MLX90393_CONF3_OSR        GENMASK(1, 0)
-+#define MLX90393_CONF3_DIG_FILT   GENMASK(4, 2)
-+#define MLX90393_CONF3_RES_X      GENMASK(6, 5)
-+#define MLX90393_CONF3_RES_Y      GENMASK(8, 7)
-+#define MLX90393_CONF3_RES_Z      GENMASK(10, 9)
-+#define MLX90393_CONF3_OSR2       GENMASK(12, 11)
-+
-+struct device;
-+
-+struct mlx90393_transfer_ops {
-+	int (*xfer)(void *context, const u8 *tx, int tx_len, u8 *rx, int rx_len);
-+};
-+
-+int mlx90393_core_probe(struct device *dev,
-+			const struct mlx90393_transfer_ops *ops,
-+			void *context);
-+
-+#endif
-diff --git a/drivers/iio/magnetometer/mlx90393_core.c b/drivers/iio/magnetometer/mlx90393_core.c
-new file mode 100644
-index 000000000000..78fcab8a2b56
---- /dev/null
-+++ b/drivers/iio/magnetometer/mlx90393_core.c
-@@ -0,0 +1,701 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * MLX90393 magnetometer & temperature sensor driver
-+ *
-+ * Copyright (c) 2026 Nikhil Gautam <nikhilgtr@gmail.com>
-+ *
-+ * Datasheet: https://media.melexis.com/-/media/files/documents/datasheets/mlx90393-datasheet-melexis.pdf
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bitops.h>
-+#include <linux/errno.h>
-+#include <linux/delay.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/types.h>
-+#include <linux/time64.h>
-+#include <linux/unaligned.h>
-+#include <linux/units.h>
-+
-+#include <linux/iio/iio.h>
-+
-+#include "mlx90393.h"
-+
-+struct mlx90393_data {
-+	/* Protects sensor configuration and measurement operations */
-+	struct mutex lock;
-+	struct device *dev;
-+	void *bus_context;
-+	const struct mlx90393_transfer_ops *ops;
-+	u8 gain_sel;
-+	u8 hallconf;
-+
-+	u8 res_xy;
-+	u8 res_z;
-+
-+	u8 dig_filt;
-+	u8 osr;
-+	u8 osr2;
-+};
-+
-+enum mlx90393_channels {
-+	MLX90393_CHAN_X,
-+	MLX90393_CHAN_Y,
-+	MLX90393_CHAN_Z,
-+	MLX90393_CHAN_TEMP,
-+};
-+
-+enum mlx90393_axis_type {
-+	MLX90393_AXIS_TYPE_XY,
-+	MLX90393_AXIS_TYPE_Z,
-+};
-+
-+/* Datasheet: Table no.17 */
-+static const int mlx90393_scale_table[MLX90393_AXIS_MAX][MLX90393_GAIN_MAX]
-+				      [MLX90393_RES_MAX] = {
-+	/* XY axis */
-+	{
-+		{ 751, 1502, 3004, 6009},
-+		{ 601, 1202, 2403, 4840},
-+		{ 451, 901, 1803, 3605},
-+		{ 376, 751, 1502, 3004},
-+		{ 300, 601, 1202, 2403},
-+		{ 250, 501, 1001, 2003},
-+		{ 200, 401, 801, 1602},
-+		{ 150, 300, 601, 1202},
-+	},
-+	/* Z axis */
-+	{
-+		{ 1210, 2420, 4840, 9680},
-+		{ 968, 1936, 3872, 7744},
-+		{ 726, 1452, 2904, 5808},
-+		{ 605, 1210, 2420, 4840},
-+		{ 484, 968, 1936, 3872},
-+		{ 403, 807, 1613, 3227},
-+		{ 323, 645, 1291, 2581},
-+		{ 242, 484, 968, 1936},
-+	}
-+};
-+
-+static const int mlx90393_osr2_avail[MLX90393_OSR2_MAX] = {
-+	0, 1, 2, 3,
-+};
-+
-+static const int mlx90393_osr_avail[MLX90393_OSR_MAX] = {
-+	1, 2, 4, 8,
-+};
-+
-+#define MLX90393_CHAN(idx, axis, addr) { \
-+	.type = IIO_MAGN, \
-+	.modified = 1, \
-+	.channel = idx, \
-+	.address = addr, \
-+	.channel2 = IIO_MOD_##axis, \
-+	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |	\
-+		BIT(IIO_CHAN_INFO_SCALE), \
-+	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),\
-+	.info_mask_separate_available = \
-+		BIT(IIO_CHAN_INFO_SCALE),  \
-+	.info_mask_shared_by_type_available = \
-+		BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO), \
-+}
-+
-+static const struct iio_chan_spec mlx90393_channels[] = {
-+	MLX90393_CHAN(0, X, MLX90393_CHAN_X),
-+	MLX90393_CHAN(1, Y, MLX90393_CHAN_Y),
-+	MLX90393_CHAN(2, Z, MLX90393_CHAN_Z),
-+	{
-+		.type = IIO_TEMP,
-+		.address = MLX90393_CHAN_TEMP,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+			BIT(IIO_CHAN_INFO_OFFSET) |
-+			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.info_mask_separate_available =
-+			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
-+		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),
-+	},
-+};
-+
-+/*
-+ * Calculate total conversion time in microseconds.
-+ *
-+ * Formula derived from datasheet timing equations.
-+ * Datasheet: Table 8, Page no. 12
-+ *
-+ * Abbreviations:
-+ * TCONVM	-> Single Magnetic axis conversion time
-+ * TCONVT	-> Temperature conversion time
-+ * TSTBY	-> Time from IDLE to STANDBY
-+ * TACTIVE	-> Time from STBY to ACTIVE
-+ * TCONV_END	-> Time to end analog active mode
-+ */
-+static int mlx90393_get_tconv_us(struct mlx90393_data *data)
-+{
-+	const int osr = data->osr;
-+	const int osr2 = data->osr2;
-+	const int df = data->dig_filt;
-+
-+	int tconvm;
-+	int tconvt;
-+
-+	int m = 3; /* X,Y,Z */
-+
-+	/*
-+	 * TCONVM = 67 + 64 * 2^OSR * (2 + 2^DIG_FILT)
-+	 */
-+	tconvm = 67 + (64 * BIT(osr) * (2 + BIT(df)));
-+
-+	/*
-+	 * TCONVT = 67 + 192 * 2^OSR2
-+	 */
-+	tconvt = 67 + (192 * BIT(osr2));
-+	/*
-+	 * Total conversion time:
-+	 * TSTBY + TACTIVE + m * TCONVM + TCONVT + TCONV_END
-+	 */
-+	return 220 + 360 + (m * tconvm) + tconvt + 120;
-+}
-+
-+static int mlx90393_xfer(struct mlx90393_data *data,
-+			 const u8 *tx, int tx_len,
-+			 u8 *rx, int rx_len)
-+{
-+	return data->ops->xfer(data->bus_context, tx, tx_len, rx, rx_len);
-+}
-+
-+static int mlx90393_check_status(u8 cmd, u8 status)
-+{
-+	/* Datasheet: Table 12: Status byte definition */
-+
-+	/* Always validate error bit */
-+	if (status & MLX90393_STATUS_ERROR)
-+		return -EIO;
-+
-+	switch (cmd & MLX90393_CMD_MASK) {
-+	case MLX90393_CMD_RM:
-+		/*
-+		 * D1:D0 indicates response availability
-+		 * 00 means invalid/no measurement
-+		 */
-+		if ((status & MLX90393_STATUS_RESP) == 0)
-+			return -EIO;
-+		return 0;
-+	case MLX90393_CMD_RT:
-+		/* Reset acknowledge */
-+		if ((status & MLX90393_STATUS_RT) == 0)
-+			return -EIO;
-+		return 0;
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static int mlx90393_write_cmd(struct mlx90393_data *data, u8 cmd)
-+{
-+	u8 status;
-+	int ret;
-+
-+	ret = mlx90393_xfer(data, &cmd, 1, &status, 1);
-+	if (ret)
-+		return ret;
-+
-+	return mlx90393_check_status(cmd, status);
-+}
-+
-+static int mlx90393_read_cmd(struct mlx90393_data *data, u8 cmd, u8 *rx,
-+			     int rx_len)
-+{
-+	int ret;
-+
-+	ret = mlx90393_xfer(data, &cmd, 1, rx, rx_len);
-+	if (ret)
-+		return ret;
-+
-+	return mlx90393_check_status(cmd, rx[0]);
-+}
-+
-+static int mlx90393_read_reg(struct mlx90393_data *data, u8 reg, u16 *val)
-+{
-+	u8 tx[2];
-+	u8 rx[3];
-+	int ret;
-+
-+	tx[0] = MLX90393_CMD_RR;
-+	/* Register address is encoded in bits [7:2] */
-+	tx[1] = reg << 2;
-+
-+	ret = mlx90393_xfer(data, tx, sizeof(tx), rx, sizeof(rx));
-+	if (ret)
-+		return ret;
-+
-+	ret = mlx90393_check_status(tx[0], rx[0]);
-+	if (ret)
-+		return ret;
-+
-+	*val = get_unaligned_be16(&rx[1]);
-+
-+	return 0;
-+}
-+
-+static int mlx90393_write_reg(struct mlx90393_data *data, u8 reg, u16 val)
-+{
-+	u8 tx[4];
-+	u8 status;
-+	int ret;
-+
-+	tx[0] = MLX90393_CMD_WR;
-+	put_unaligned_be16(val, &tx[1]);
-+	/* Register address is encoded in bits [7:2] */
-+	tx[3] = reg << 2;
-+
-+	ret = mlx90393_xfer(data, tx, sizeof(tx), &status, 1);
-+	if (ret)
-+		return ret;
-+
-+	return mlx90393_check_status(tx[0], status);
-+}
-+
-+static int mlx90393_update_bits(struct mlx90393_data *data, u8 reg,
-+				u16 mask, u16 val)
-+{
-+	u16 reg_val;
-+	int ret;
-+
-+	ret = mlx90393_read_reg(data, reg, &reg_val);
-+	if (ret)
-+		return ret;
-+
-+	reg_val &= ~mask;
-+	reg_val |= (val << __ffs(mask)) & mask;
-+
-+	return mlx90393_write_reg(data, reg, reg_val);
-+}
-+
-+static int mlx90393_read_measurement(struct mlx90393_data *data,
-+				     enum mlx90393_channels chan, int *val)
-+{
-+	u8 rx[9];
-+	int ret;
-+
-+	/* Start measurement */
-+	ret = mlx90393_write_cmd(data, MLX90393_CMD_SM | MLX90393_MEASURE_ALL);
-+	if (ret)
-+		return ret;
-+
-+	/* Wait conversion */
-+	fsleep(mlx90393_get_tconv_us(data));
-+
-+	/* Read measurement */
-+	ret = mlx90393_read_cmd(data, MLX90393_CMD_RM | MLX90393_MEASURE_ALL,
-+				rx, sizeof(rx));
-+	if (ret)
-+		return ret;
-+	/*
-+	 * Measurement response layout:
-+	 * [status][temp][x][y][z]
-+	 */
-+
-+	switch (chan) {
-+	case MLX90393_CHAN_TEMP:
-+		*val = get_unaligned_be16(&rx[1]);
-+		return 0;
-+
-+	case MLX90393_CHAN_X:
-+		*val = sign_extend32(get_unaligned_be16(&rx[3]), 15);
-+		return 0;
-+
-+	case MLX90393_CHAN_Y:
-+		*val = sign_extend32(get_unaligned_be16(&rx[5]), 15);
-+		return 0;
-+
-+	case MLX90393_CHAN_Z:
-+		*val = sign_extend32(get_unaligned_be16(&rx[7]), 15);
-+		return 0;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int mlx90393_get_scale(struct mlx90393_data *data,
-+			      const struct iio_chan_spec *chan,
-+			      int *val, int *val2)
-+{
-+	enum mlx90393_axis_type axis;
-+	u8 res;
-+
-+	if (chan->channel2 == IIO_MOD_Z) {
-+		axis = MLX90393_AXIS_TYPE_Z;
-+		res = data->res_z;
-+	} else {
-+		axis = MLX90393_AXIS_TYPE_XY;
-+		res = data->res_xy;
-+	}
-+
-+	*val = 0;
-+	*val2 = mlx90393_scale_table[axis][data->gain_sel][res];
-+
-+	return IIO_VAL_INT_PLUS_NANO;
-+}
-+
-+static int mlx90393_find_scale(struct mlx90393_data *data, bool z_axis,
-+			       int val, int val2,
-+			       int *gain)
-+{
-+	u8 res;
-+	enum mlx90393_axis_type axis;
-+
-+	if (z_axis) {
-+		axis = MLX90393_AXIS_TYPE_Z;
-+		res = data->res_z;
-+	} else {
-+		axis = MLX90393_AXIS_TYPE_XY;
-+		res = data->res_xy;
-+	}
-+
-+	if (val != 0)
-+		return -EINVAL;
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(mlx90393_scale_table[0]); i++) {
-+		if (mlx90393_scale_table[axis][i][res] == val2) {
-+			*gain = i;
-+			return 0;
-+		}
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int mlx90393_set_scale(struct mlx90393_data *data,
-+			      const struct iio_chan_spec *chan,
-+			      int val, int val2)
-+{
-+	bool z_axis;
-+	int gain;
-+	int ret;
-+
-+	z_axis = chan->channel2 == IIO_MOD_Z;
-+
-+	ret = mlx90393_find_scale(data, z_axis, val, val2, &gain);
-+	if (ret)
-+		return ret;
-+
-+	ret = mlx90393_update_bits(data, MLX90393_REG_CONF1, MLX90393_CONF1_GAIN_SEL,
-+				   gain);
-+	if (ret)
-+		return ret;
-+
-+	data->gain_sel = gain;
-+	return 0;
-+}
-+
-+static int mlx90393_get_osr(struct mlx90393_data *data, int *val)
-+{
-+	*val = mlx90393_osr_avail[data->osr];
-+	return IIO_VAL_INT;
-+}
-+
-+static int mlx90393_find_osr(int val, int *osr)
-+{
-+	for (unsigned int i = 0; i < MLX90393_OSR_MAX;  i++) {
-+		if (mlx90393_osr_avail[i] == val) {
-+			*osr = i;
-+			return 0;
-+		}
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int mlx90393_get_temp_osr2(struct mlx90393_data *data, int *val)
-+{
-+	*val = mlx90393_osr2_avail[data->osr2];
-+	return IIO_VAL_INT;
-+}
-+
-+static int mlx90393_set_osr(struct mlx90393_data *data, int val)
-+{
-+	int osr;
-+	int ret;
-+
-+	ret = mlx90393_find_osr(val, &osr);
-+	if (ret)
-+		return ret;
-+
-+	if (osr == data->osr)
-+		return 0;
-+
-+	ret = mlx90393_update_bits(data, MLX90393_REG_CONF3, MLX90393_CONF3_OSR,
-+				   osr);
-+	if (ret)
-+		return ret;
-+
-+	data->osr = osr;
-+	return 0;
-+}
-+
-+static int mlx90393_set_temp_osr2(struct mlx90393_data *data, int val)
-+{
-+	int ret;
-+
-+	if (val < 0 || val >= MLX90393_OSR2_MAX)
-+		return -EINVAL;
-+
-+	if (val == data->osr2)
-+		return 0;
-+
-+	ret = mlx90393_update_bits(data, MLX90393_REG_CONF3, MLX90393_CONF3_OSR2,
-+				   val);
-+	if (ret)
-+		return ret;
-+
-+	data->osr2 = val;
-+
-+	return 0;
-+}
-+
-+static int mlx90393_write_raw_get_fmt(struct iio_dev *indio_dev,
-+				      struct iio_chan_spec const *chan,
-+				      long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		return IIO_VAL_INT_PLUS_NANO;
-+
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		return IIO_VAL_INT;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int mlx90393_write_raw(struct iio_dev *indio_dev,
-+			      const struct iio_chan_spec *chan,
-+			      int val, int val2,
-+			      long mask)
-+{
-+	struct mlx90393_data *data = iio_priv(indio_dev);
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE: {
-+		guard(mutex)(&data->lock);
-+		return mlx90393_set_scale(data, chan, val, val2);
-+	}
-+
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
-+		guard(mutex)(&data->lock);
-+		switch (chan->type) {
-+		case IIO_TEMP:
-+			return mlx90393_set_temp_osr2(data, val);
-+
-+		case IIO_MAGN:
-+			return mlx90393_set_osr(data, val);
-+
-+		default:
-+			return -EINVAL;
-+		}
-+	}
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int mlx90393_read_raw(struct iio_dev *indio_dev,
-+			     const struct iio_chan_spec *chan,
-+			     int *val, int *val2, long mask)
-+{
-+	struct mlx90393_data *data = iio_priv(indio_dev);
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW: {
-+		guard(mutex)(&data->lock);
-+		ret = mlx90393_read_measurement(data, chan->address, val);
-+		if (ret)
-+			return ret;
-+
-+		return IIO_VAL_INT;
-+		}
-+	case IIO_CHAN_INFO_SCALE:
-+		switch (chan->type) {
-+		case IIO_MAGN:
-+			return mlx90393_get_scale(data, chan, val, val2);
-+
-+		case IIO_TEMP:
-+			/*
-+			 * Datasheet Table 7: Thermal Specification
-+			 */
-+			*val = 0;
-+			*val2 = 22124;
-+			return IIO_VAL_INT_PLUS_MICRO;
-+
-+		default:
-+			return -EINVAL;
-+		}
-+
-+	case IIO_CHAN_INFO_OFFSET:
-+		if (chan->type != IIO_TEMP)
-+			return -EINVAL;
-+		/*
-+		 * Datasheet Table 7: Thermal Specification
-+		 */
-+
-+		*val = -45114;
-+		return IIO_VAL_INT;
-+
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		switch (chan->type) {
-+		case IIO_TEMP:
-+			return mlx90393_get_temp_osr2(data, val);
-+		case IIO_MAGN:
-+			return mlx90393_get_osr(data, val);
-+		default:
-+			return -EINVAL;
-+		}
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int mlx90393_read_avail(struct iio_dev *indio_dev,
-+			       const struct iio_chan_spec *chan,
-+			       const int **vals,
-+			       int *type,
-+			       int *length,
-+			       long mask)
-+{
-+	struct mlx90393_data *data = iio_priv(indio_dev);
-+	static int scale_avail[MLX90393_GAIN_MAX][MLX90393_AXIS_MAX];
-+	enum mlx90393_axis_type axis;
-+	u8 res;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE: {
-+		guard(mutex)(&data->lock);
-+		axis = chan->channel2 == IIO_MOD_Z;
-+		res = axis ? data->res_z : data->res_xy;
-+
-+		for (unsigned int i = 0; i < MLX90393_GAIN_MAX; i++) {
-+			scale_avail[i][0] = 0;
-+			scale_avail[i][1] =
-+				mlx90393_scale_table[axis][i][res];
-+		}
-+
-+		*vals = &scale_avail[0][0];
-+		*type = IIO_VAL_INT_PLUS_NANO;
-+		*length = MLX90393_GAIN_MAX * MLX90393_AXIS_MAX;
-+		return IIO_AVAIL_LIST;
-+	}
-+
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		if (chan->type == IIO_TEMP) {
-+			*vals = mlx90393_osr2_avail;
-+			*type = IIO_VAL_INT;
-+			*length = MLX90393_OSR2_MAX;
-+		} else {
-+			*vals = mlx90393_osr_avail;
-+			*type = IIO_VAL_INT;
-+			*length = MLX90393_OSR_MAX;
-+		}
-+		return IIO_AVAIL_LIST;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const struct iio_info mlx90393_info = {
-+	.read_raw = mlx90393_read_raw,
-+	.write_raw = mlx90393_write_raw,
-+	.read_avail = mlx90393_read_avail,
-+	.write_raw_get_fmt = mlx90393_write_raw_get_fmt,
-+};
-+
-+static int mlx90393_init(struct mlx90393_data *data)
-+{
-+	int ret;
-+	u16 reg;
-+
-+	/* Exit mode */
-+	ret = mlx90393_write_cmd(data, MLX90393_CMD_EX);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Datasheet section 15.4.1.2 (RT command), Figure 16:
-+	 * Wait 1 ms after EX command before issuing RT.
-+	 */
-+	fsleep(1 * USEC_PER_MSEC);
-+
-+	/* Reset device */
-+	ret = mlx90393_write_cmd(data, MLX90393_CMD_RT);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Datasheet section 15.4.1.2 (RT command), Figure 16:
-+	 * Wait 1.5 ms for the start-up sequence to complete.
-+	 */
-+	fsleep(1.5 * USEC_PER_MSEC);
-+
-+	ret = mlx90393_read_reg(data, MLX90393_REG_CONF1, &reg);
-+	if (ret)
-+		return ret;
-+
-+	data->gain_sel = FIELD_GET(MLX90393_CONF1_GAIN_SEL, reg);
-+	data->hallconf = FIELD_GET(MLX90393_CONF1_HALLCONF, reg);
-+
-+	ret = mlx90393_read_reg(data, MLX90393_REG_CONF3, &reg);
-+	if (ret)
-+		return ret;
-+
-+	data->res_xy = FIELD_GET(MLX90393_CONF3_RES_X, reg);
-+	data->res_z = FIELD_GET(MLX90393_CONF3_RES_Z, reg);
-+	data->dig_filt = FIELD_GET(MLX90393_CONF3_DIG_FILT, reg);
-+	data->osr = FIELD_GET(MLX90393_CONF3_OSR, reg);
-+	data->osr2 = FIELD_GET(MLX90393_CONF3_OSR2, reg);
-+
-+	return 0;
-+}
-+
-+int mlx90393_core_probe(struct device *dev,
-+			const struct mlx90393_transfer_ops *ops,
-+			void *context)
-+{
-+	struct iio_dev *indio_dev;
-+	struct mlx90393_data *data;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	data = iio_priv(indio_dev);
-+	ret = devm_mutex_init(dev, &data->lock);
-+	if (ret)
-+		return ret;
-+
-+	data->dev = dev;
-+	data->ops = ops;
-+	data->bus_context = context;
-+
-+	indio_dev->name = "mlx90393";
-+	indio_dev->info = &mlx90393_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+	indio_dev->channels = mlx90393_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(mlx90393_channels);
-+
-+	ret = mlx90393_init(data);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to initialize device\n");
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+EXPORT_SYMBOL_NS_GPL(mlx90393_core_probe, "IIO_MLX90393");
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Nikhil Gautam <nikhilgtr@gmail.com>");
-+MODULE_DESCRIPTION("MLX90393 magnetometer sensor driver");
-diff --git a/drivers/iio/magnetometer/mlx90393_i2c.c b/drivers/iio/magnetometer/mlx90393_i2c.c
-new file mode 100644
-index 000000000000..a9f0a40d15e8
---- /dev/null
-+++ b/drivers/iio/magnetometer/mlx90393_i2c.c
-@@ -0,0 +1,76 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <linux/array_size.h>
-+#include <linux/errno.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/mod_devicetable.h>
-+
-+#include "mlx90393.h"
-+
-+/*
-+ * MLX90393 commands use repeated-start transfers where
-+ * every command is followed by a status/data response.
-+ */
-+static int mlx90393_i2c_xfer(void *context,
-+			     const u8 *tx, int tx_len,
-+			     u8 *rx, int rx_len)
-+{
-+	struct i2c_client *client = context;
-+	int ret;
-+	struct i2c_msg msgs[2] = {
-+		[0] = {
-+			.addr = client->addr,
-+			.len = tx_len,
-+			.buf = (u8 *)tx,
-+		},
-+		[1] = {
-+			.addr = client->addr,
-+			.flags = I2C_M_RD,
-+			.len = rx_len,
-+			.buf = rx,
-+		},
-+	};
-+
-+	ret = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
-+	if (ret != ARRAY_SIZE(msgs))
-+		return ret < 0 ? ret : -EIO;
-+
-+	return 0;
-+}
-+
-+static const struct mlx90393_transfer_ops mlx90393_i2c_ops = {
-+	.xfer = mlx90393_i2c_xfer,
-+};
-+
-+static int mlx90393_i2c_probe(struct i2c_client *client)
-+{
-+	return mlx90393_core_probe(&client->dev, &mlx90393_i2c_ops, client);
-+}
-+
-+static const struct i2c_device_id mlx90393_id[] = {
-+	{ .name = "mlx90393" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, mlx90393_id);
-+
-+static const struct of_device_id mlx90393_of_match[] = {
-+	{ .compatible = "melexis,mlx90393" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, mlx90393_of_match);
-+
-+static struct i2c_driver mlx90393_i2c_driver = {
-+	.driver = {
-+		.name = "mlx90393",
-+		.of_match_table = mlx90393_of_match,
-+	},
-+	.probe = mlx90393_i2c_probe,
-+	.id_table = mlx90393_id,
-+};
-+
-+module_i2c_driver(mlx90393_i2c_driver);
-+
-+MODULE_IMPORT_NS("IIO_MLX90393");
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Nikhil Gautam <nikhilgtr@gmail.com>");
-+MODULE_DESCRIPTION("MLX90393 magnetometer sensor driver");
--- 
-2.39.5
+> +properties:
+> +  compatible:
+> +    const: melexis,mlx90393
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  trigger-gpios:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+> +  - vddio-supply
+> +
+> +additionalProperties: false
 
+[Severity: Low]
+Will this binding fail schema validation when running dt_binding_check?
+
+The vdd-supply and vddio-supply properties are listed as required, but
+they are not defined in the properties block.
+
+Because additionalProperties is set to false, wouldn't the schema reject
+these supply properties during validation?
+
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        magnetometer@c {
+> +            compatible =3D "melexis,mlx90393";
+> +            reg =3D <0x0c>;
+> +
+> +            interrupt-parent =3D <&gpio>;
+> +            interrupts =3D <17 IRQ_TYPE_EDGE_RISING>;
+> +
+> +            trigger-gpios =3D <&gpio 18 GPIO_ACTIVE_HIGH>;
+> +        };
+> +    };
+
+[Severity: Low]
+Does this example node need to include the vdd-supply and vddio-supply
+properties to pass validation, since they are marked as required above?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627005843.7786=
+-1-nikhilgtr@gmail.com?part=3D1
