@@ -1,63 +1,63 @@
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DF6361DBE
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 23:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30622F8E90
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 23:00:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782687653; cv=none; b=s493K904eFcfQyh/zE5vCKsJpzE7R8SrkwG2WJV2iyC3d9I9cPZUoPSMLiKP6JTld5nkTzlurmtJ7cC27UrKB7gMTU1K2V9M+padpn8NuHmnoP8kI4/hTpqQm4X2cR2qavTA3K07d6W9UeiTMGRaIW54Ina93WvSYQdfEo14jpY=
+	t=1782687656; cv=none; b=Kg3sF+oV9gKfw0S1DANwWXWKK2bzIqdPffUOZboxvwVnJzV8VwkyDIbqF9G2Z2LOa7yIl+MOiBo1hKdk2PZluLob7xZLlwU7ABqY5sargxbM/XKttNA0ju1c2CXyZoBLYuvVj6jNdGPzrTeIR4Ho+bXLL7PFGxk6xZ3xy+eJVN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782687653; c=relaxed/simple;
-	bh=jKxDiwh75tOZpGErzg0ad1TGbOClT0Pp9mWtIM0LDLA=;
+	s=arc-20240116; t=1782687656; c=relaxed/simple;
+	bh=gfzQySmyxR4zsn5JgrqEnK4WXKFeGgtwZZcH3DkW71g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NOBhHVFwrLRLSFdbg0zE074TLqmYqgS4gh6Jpl2uKjm8nQ4I0VRRzZMo2sOEqcMnbQLPqxjlp8ejAgwk2wyxYCtCm78Wid05mPb5lfJDmB1NL2ilS+Dj8qzHZsgSZ8GupK69EWpC1LRLS4sH7NMKOyWD/gdcpgZjcnrOvoKYX6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kazBMPuZ; arc=none smtp.client-ip=74.125.82.46
+	 MIME-Version; b=nWAq1YcjafuiD+6vRCRWDYkZPFHb4PnVrSMql8hfxWOuEii46N+3Z/iTnnZ0Nc+Is3dji2DaBMVb8LQ7z/5teeyqOmX05+YpBqgeGPi+HM2ywlgWrTBvC3JCtzH6uSdtiADKiQJfE682DwkUQHxlStPc3IZqa/SBJPzg7N7cRKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tmq2PWcm; arc=none smtp.client-ip=74.125.82.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kazBMPuZ"
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-139edc6bfc0so4533780c88.1
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 16:00:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tmq2PWcm"
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1384ebe7a10so5148251c88.1
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 16:00:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782687650; x=1783292450; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782687652; x=1783292452; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Fy+qb/ZkQcIV3HZAbLA2s/xGRr97lh54TOzRicHKOHk=;
-        b=kazBMPuZklGHNuNSB9VvFIiFv/bM9QgPz/iUcH5H7Hu00L+ggsUveE+xduMY52vYYp
-         jDA1asf7kKxCoNBM8EhsWvfXY2qNhiFzoB0vLv4YV+PoUgqKpMGe5Ta9kjnoyKi+UhHy
-         lBuTG+QLwAn0T9G2VsLdG3R4u6gwmmFW5u4btFFDxcAFhYJWlTEWSj1H6c+5p0CM9b5K
-         QM4lbY3ssvA14BSCjEKsAdgo7Ui2/S8+gg+LAEmDJaGJpqqRznVy1mUvPDBcNehhPj4e
-         AbCGP88WibvgEy2+XfqX7rTzrDnclnbQNF/M2BGUzmCngrMr6vsVDz3FoKQRe4zWzYTD
-         p4fQ==
+        bh=SxbKV8/skOsXsZRqmSrDPZIzaZs8hTaFDlWnRA4ZiJM=;
+        b=Tmq2PWcmV8xXA/F2B4f9rho0NuyhTXnnjKBNPs6Cw41Q1PqFLeWRNUk0V2RSPrXqgv
+         HNn2OqsKkf9QQUqsiE9XvmM7iSWqZiWrE06pp9DICaTwcULzCrjy8h0YEfSegFY1wmiv
+         NYMF8DEyMWot8ENMF5tdEHs5Hw5vTyLuo+fhyDZLXosP3d/2MxigtbmMw1RV1R38Glae
+         PnZlrVto77NogMeNnkbpGz9qILbg+7XtzbA9ujE66I9O/K4iRFb2OcPT87YsYCb1jXX6
+         ToJVET5lztpt8LwlOhpVOJbfkTJ5JLjgQpKgxYaV0U9rhf//+BfNruQMor3jU3tubUZb
+         ByDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782687650; x=1783292450;
+        d=1e100.net; s=20251104; t=1782687652; x=1783292452;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=Fy+qb/ZkQcIV3HZAbLA2s/xGRr97lh54TOzRicHKOHk=;
-        b=TIxcpoefTnu9Lf1FFoTcZr99rd8p2QXtcfu6r7NQEZF0oztqAxRIA1odI0Aa4ugDlz
-         SUxQURxX8GSTV+FH5RrGv0BRSpblBYuXg+BYbfpz6B0NVAiIXKM+qo3SYBoWh+JPpkBN
-         8l2UbvpUSWTzHtuutcSj0FjWM6ORGlo20uu9wBpE8cClsxW8o5NI742/Aw38T5d4Wnkp
-         qel8BTu9XQ7UB9QObhOmq4Vnog+XyoDGgrbCpPd3Mg78qVVp2cRxzddxVZosjNszOXmf
-         5uwBRq09pcpSGIahBsO+ZItd3sLyG84aNUy2Lo0YvnOu7HZUdut6qATBf3+o+bHO6gOA
-         miWw==
-X-Gm-Message-State: AOJu0Yx/Ejrz016zjIsK4llyaE9rAWYzwYipmDUPOPrQiDTXeRbFpJtk
-	zoF+nSC8DKhFdHZDtaItLG6SFRMqPqSiR3RplwAg9D8Dm+KPqMIJAq+amDni6g==
-X-Gm-Gg: AfdE7cmH1ykiolCWFJ7mkwjUTySKxq8/XnCteLc2ssn8z3z2KQXRzsM+6NgvMvvxzSv
-	xlzCkDnnsgQwcfL2PFTaV+V8aQeu7tygWBvbAzEHzshMoqqojwNpR4eg0IJs9o9I9Pnmcr9RJjX
-	3ax/pf4tCEZZCDlT6G197WMQDVU73QdPho8UJmrHXdL+OqaodCJoOMacenT2M//QlkE3zObyV+J
-	IYohsbu2BVMzuNKtx4LNstUh9R/kZf0gT+TB+eahhY9tkuoMAQr3mKSQ+Q0jaL+UiwVpQVXCfHh
-	Xt0p/FB9TFZ+O61NH6hBr/4gWPRF/IbCuLL95TDjlZ9S/FG9yYHCU0KXu8Fm+ZeAz0Aoh5rkREG
-	4HPpQlssubuwQ3W8mFJJdz0DgbwIgBBgLNFJGN/gjSVqJqJTcx+F4RuV70zMI2cIPUp0u4WHWV2
-	+W7viJkfkXI6gpM7GbMmdD18GNJkcDL9uevT0pnq07q/yuJKT377ys7qdU3alugcpFW033XGnyf
-	OponTR44A==
-X-Received: by 2002:a05:7022:790:b0:139:ed59:4b7d with SMTP id a92af1059eb24-139ed594cafmr6888379c88.45.1782687648121;
-        Sun, 28 Jun 2026 16:00:48 -0700 (PDT)
+        bh=SxbKV8/skOsXsZRqmSrDPZIzaZs8hTaFDlWnRA4ZiJM=;
+        b=PK4dYL9LOY43YCh/9JsNQiB4KMQ2aZA8zp6ZLlpxNMvnnm1u9XINscDyY/b00ocVyF
+         nEJcdAD2Vub6FQKVU7VclV5c5JS75HgF2UVLuDxc78I+OgUhkkhvMJgtX/YUBju/vti0
+         cEWxWgGBtIBAFVY0WCFUT2f3mwRDpIY67ukrDi7iVovM5jKlMw427bXRZnMDM6rXseJX
+         TiL2wSNSu1Mw0bfuiYwrtliisZ9172Q3eQ0qFonQZYdFqFktAaXFSh8jN78dbKURv7cr
+         u9e/9sYCLMSG3TG0d0FTzPkDWlfQa4UJh4Ibc43AoT1iYhO8N/Y2F978LE5M8YadzLGx
+         aCiA==
+X-Gm-Message-State: AOJu0YxhTdSYPEuMe3n73MaT/4d0fXVXY6UZzT3DILdUQ130Fspby3QQ
+	wv3uisakqavZeda9ZGPtS9HkiHkSZM7LbSOjXcT3L+Sm1U2hew4OQJbkwno9aA==
+X-Gm-Gg: AfdE7cnb5CpXDRsxIn82UkZnSsyiWLxJNZftMrEz7k0ijywTR90t/qAbnIjCAr2weD5
+	RV8NAMlej4oiD5hizQkiEO1pWzGCCzXEP/3MxlH5J3p13hZClzrIM24JqMmZAMJsV0jwnvST6c6
+	bDLk9YVB642sFu0j/rjIf6bosoL/ggvCnqf8l5EkkXhegomtWsqsu1Nfmdqc0tlVjndugopAnrY
+	uELuOc8Lu+yGsCf/B71lPGMtWVTxvuRlDtCV1VDVtVd0tgNRnumoAsrsuwzUd9p1kcCbmZ5wJEb
+	rG3IKmzkJEknQSfVKY1BBQIXvAG1waq/mHQIcHU6Z8z/2htZzJ8cLxpuwHdZB8GGj4wP62TwY/F
+	yzqBmdrhsDZ+R2SSua0WSaKw2F50/Eb1Gdss9dOrtsPmrhXFREsriZo5gvr0NBfP33aJjVuadeg
+	Fh+k1NP//sYxlaEuER5zFAgsnEYH4CWeSXXZlGxOK8J4PF9/gzw06xHpFvfJVIz/NlGY+wibfcg
+	8dIog4dtTB+rpCVTSGJ
+X-Received: by 2002:a05:7022:79a:b0:12d:ff1b:92f5 with SMTP id a92af1059eb24-139dbb6ab18mr12709829c88.28.1782687651819;
+        Sun, 28 Jun 2026 16:00:51 -0700 (PDT)
 Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-139d8f318e7sm41359030c88.3.2026.06.28.16.00.45
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-139d8f318e7sm41359030c88.3.2026.06.28.16.00.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 16:00:46 -0700 (PDT)
+        Sun, 28 Jun 2026 16:00:51 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
 To: devicetree@vger.kernel.org
 Cc: Andrew Lunn <andrew@lunn.ch>,
@@ -69,9 +69,9 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
 	Dennis Gilmore <dennis@ausil.us>,
 	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...),
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 2/4] ARM: dts: helios4: add vcc-supply to GPIO expander
-Date: Sun, 28 Jun 2026 16:00:40 -0700
-Message-ID: <20260628230042.1204293-3-rosenp@gmail.com>
+Subject: [PATCH 4/4] ARM: dts: helios4: wire LM75 into a thermal zone with fan cooling
+Date: Sun, 28 Jun 2026 16:00:42 -0700
+Message-ID: <20260628230042.1204293-5-rosenp@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260628230042.1204293-1-rosenp@gmail.com>
 References: <20260628230042.1204293-1-rosenp@gmail.com>
@@ -83,32 +83,88 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The pca953x driver requests a 'vcc' supply, producing:
-  pca953x 0-0020: supply vcc not found, using dummy regulator
+The LM75 temperature sensor on i2c0 creates a hwmon interface but was
+not referenced by any thermal zone, producing:
+  hwmon hwmon0: temp1_input not attached to any thermal zone
 
-The PCA9655 (PCA9555-compatible) expander is powered by the same
-always-on 3.3V rail as the other I2C devices on the bus.  Add
-vcc-supply = <&reg_3p3v> to silence the warning.
-
-Fixes: ced8025b569e ("ARM: dts: armada388-helios4")
 Assisted-by: opencode:big-pickle
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- arch/arm/boot/dts/marvell/armada-388-helios4.dts | 1 +
- 1 file changed, 1 insertion(+)
+ .../boot/dts/marvell/armada-388-helios4.dts   | 33 +++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
 diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-index 05540b8012c2..cf0432a0e71a 100644
+index 626a7339a5d0..6e0452217265 100644
 --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
 +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-@@ -169,6 +169,7 @@ expander0: gpio-expander@20 {
- 					gpio-controller;
- 					#gpio-cells = <2>;
- 					reg = <0x20>;
-+					vcc-supply = <&reg_3p3v>;
- 					pinctrl-names = "default";
- 					pinctrl-0 = <&pca0_pins>;
- 					interrupt-parent = <&gpio0>;
+@@ -8,6 +8,7 @@
+  */
+ 
+ /dts-v1/;
++#include <dt-bindings/thermal/thermal.h>
+ #include "armada-388.dtsi"
+ #include "armada-38x-solidrun-microsom.dtsi"
+ 
+@@ -68,6 +69,35 @@ reg_5p0v_usb: regulator-5v-usb {
+ 		vin-supply = <&reg_12v>;
+ 	};
+ 
++	thermal-zones {
++		board-thermal {
++			polling-delay-passive = <2000>;
++			polling-delay = <10000>;
++			thermal-sensors = <&temp_sensor>;
++
++			trips {
++				board_alert: board-alert {
++					temperature = <55000>;
++					hysteresis = <5000>;
++					type = "passive";
++				};
++				board_crit: board-crit {
++					temperature = <85000>;
++					hysteresis = <2000>;
++					type = "critical";
++				};
++			};
++
++			cooling-maps {
++				map0 {
++					trip = <&board_alert>;
++					cooling-device = <&fan1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++							 <&fan2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
++		};
++	};
++
+ 	system-leds {
+ 		compatible = "gpio-leds";
+ 		pinctrl-names = "default";
+@@ -129,6 +159,7 @@ fan1: j10-pwm {
+ 		pwms = <&gpio1 9 40000>;	/* Target freq:25 kHz */
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&helios_fan1_pins>;
++		#cooling-cells = <2>;
+ 	};
+ 
+ 	fan2: j17-pwm {
+@@ -136,6 +167,7 @@ fan2: j17-pwm {
+ 		pwms = <&gpio1 23 40000>;	/* Target freq:25 kHz */
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&helios_fan2_pins>;
++		#cooling-cells = <2>;
+ 	};
+ 
+ 	usb2_phy: usb2-phy {
+@@ -201,6 +233,7 @@ temp_sensor: temp@4c {
+ 					compatible = "ti,lm75";
+ 					reg = <0x4c>;
+ 					vcc-supply = <&reg_3p3v>;
++					#thermal-sensor-cells = <0>;
+ 				};
+ 
+ 				eeprom@53 {
 -- 
 2.54.0
 
