@@ -1,31 +1,31 @@
-Received: from outbound.ci.icloud.com (ci-2005c-snip4-11.eps.apple.com [57.103.89.161])
+Received: from outbound.ci.icloud.com (ci-2005c-snip4-2.eps.apple.com [57.103.89.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECB7351C30
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 09:41:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.89.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B7F318EDF
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 09:41:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.89.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782639678; cv=none; b=PqkVRkiOYg2jpgD5wYJgc54zlb4Wd3C0DB4rLM9AW+OSrji+Q7xcVI2ray9Wla1t3hPhVoFZLMb3c2HiCYffUKh3FgLQvX5fogphqqKF+QYzK60p1R/ibAdj6Fphs5gBv2V7JlXMLKyfwbSsVEoDCXLf0heEckw6OUPsnhL0eUc=
+	t=1782639683; cv=none; b=qpOWde1tNnaGTd7v9a54Obss6lElryopLo3S9FRStj6gFwIG8x8MukCmav6EHg5J3jCoFtm9tVP0SHrri+ldR7ue9Md7CVEfU0xB7rl93ywRsYYUOV14i2BxKWzl9yS/uDNSheTHfVbwYpucJZkFSDDSGCsPbnBaFnP2HWy/YzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782639678; c=relaxed/simple;
-	bh=l9QTiFilDIn7JPYkYIDGEiNlq34X6Ld96R9qDh1I9No=;
+	s=arc-20240116; t=1782639683; c=relaxed/simple;
+	bh=Spdbueyfuz8uMNAHc3aXLkzTXslDIABc7BDDWY7Qdlk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YbuIfLqur3bkbap4ZOgEToGKCIWNrxcQ0kVAbo64ecPxOR2cg1XcGh5o02WXFBN0qRfRzGlM5Hd+iVPzAfToWYBBDeCofgpIeNpa3qX4YjJB/ISzGvz16BflmQdOostqRky+R5p9gJEN+7Sda4sUoLMu13UI68jmlpwFGZ2RqyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etehtsea.me; spf=pass smtp.mailfrom=etehtsea.me; dkim=pass (2048-bit key) header.d=etehtsea.me header.i=@etehtsea.me header.b=IFYEf1o7; arc=none smtp.client-ip=57.103.89.161
+	 MIME-Version; b=RRFmBIvY6buQ+W7NEH4otxNdQe8p+Mx93CB1vaXsauTyZFDOrXy9GJvR4tVp5CZpNaj8QiqMDVLLYl848fG9JHuvULIgXo02QVGceK+RgDRAi/CVgOlW+D4SVgPa58b7JvlGA3XC5kqXCHUR3Pkup82J8Kw7kQCMJGu9BWImf3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etehtsea.me; spf=pass smtp.mailfrom=etehtsea.me; dkim=pass (2048-bit key) header.d=etehtsea.me header.i=@etehtsea.me header.b=irli87Rh; arc=none smtp.client-ip=57.103.89.153
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etehtsea.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etehtsea.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=etehtsea.me header.i=@etehtsea.me header.b="IFYEf1o7"
+	dkim=pass (2048-bit key) header.d=etehtsea.me header.i=@etehtsea.me header.b="irli87Rh"
 Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-central-1k-10-percent-2 (Postfix) with ESMTPS id 7939B180015A;
-	Sun, 28 Jun 2026 09:41:12 +0000 (UTC)
-X-ICL-RepId: 019f0d9a-bc6f-7514-aea1-dcf2ef09c5e8
-X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQtJBEMGXAVeDU8dXA9fEhVdRV4MXgdyFU0dWxlEDlNeVB0TC1NWVwRcEEceUgocHVxYQQ4KWgJQUR1fAgoERwRbF0YDU0VRGRcRUAFYHlZeWhdeTUcfQE1iSQFaGVscQBdKbk1TDw8VTR1bGUQOU15UHRMAXg8PTAtIAVsHXQBICUEHXQRaHEUNTAZfGlkfHVgRXy1SH1cYTQtWDBkGV04ZDEodUlZRBUoMXABoD10dWBFd
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etehtsea.me; s=sig1; t=1782639673; x=1785231673; bh=8qhWEmWa9c5bN8gZc9nJPSieeNw3dWEH3UMfOnNnQEU=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=IFYEf1o77uDAtNPaaxsTnNmGMnnq2KiiRLeZQYi0VfdH+R++bUM8byRWJDfmtOX8qLiSTupJdF9UM9yGsqb4UttIOT/cxEQbfmzwOWLpOIElCBgtWZPVThT6PUkpwF2+0Krjz4i4yDsBJ8wTZTM3dmroHQP4qedqNrBHr8qqni+b+aQDTtpJ721Ja28ms386w2YF+URP4b11xllxZkV7rGMKLI+bd2WGz5A9jNWTrhK1IW23d4g0Kv2j2X/bP0udmx+jWZlZLYX675+8lX362ltRWau/QDEZ3G2NvOMGwM6wo75D5YyWkwjow9IgE8nD5cLraFV7AiVsvcTAaU3I2Q==
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-6 (Postfix) with ESMTPS id 3084918000B0;
+	Sun, 28 Jun 2026 09:41:19 +0000 (UTC)
+X-ICL-RepId: 019f0d9a-d68a-7924-b09f-559281c82f80
+X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQtJBEMGXAVeDU8dXA9fEhVdRV4MXgdyFU0dWxlEDlNeVB0TC1NWVwRcEEceUgocHVxYQQ4KWgJQUR1fAgoERwRbF0YDU0VRGRcRUAFYHlZeWhdeTUcfQE1iSQFaGVscQBdKbk1TDw8VTR1bGUQOU15UHRMAXg8PTAtIAVsHXQBICUEHXQRaHEUNTAZfGlgfHVgRXy1SH1cYTQtWDBkGV04ZDEodUlZRBUoMXABoD10dWBFd
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etehtsea.me; s=sig1; t=1782639681; x=1785231681; bh=qXFGG5ROoxDwgg8Mh3+2KsIvg+hDI0p5sUvKNQ3jUYM=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=irli87RhEVcc/niGegSLny0Www47g3xCxr22cLTNXjkZ/HS5uOyNHp3J+3i4TQ3a0sQvd4hMPj8+q8as6mKJO5eQq6iv1i1S2c73hNUUyHtrWQkRjpR/GiSNPxuOqFlRVAzmBOmO51xIo2ryAiK7vqvsJfynK/RhYIaAfvoO1ulCXHtTZ6K0CBO78V0fHufipiZ5L2Hpbba7N5mbB3YLVwl295G3Is0jOcVhpW7Aqjs6MtT1S7Yx8lss9oNSs8vdojbaeIaM08qLAjYV4/HrYfZaYBhkt6fqwPk8HLi08lxmbLSvwuluqchfuXqWojnKqHh7CW81oEbhZm8g+veX1g==
 mail-alias-created-date: 1634905887181
 Received: from localhost (unknown [17.57.156.36])
-	by p00-icloudmta-asmtp-us-central-1k-10-percent-2 (Postfix) with ESMTPSA id 7D4E41800161;
-	Sun, 28 Jun 2026 09:41:11 +0000 (UTC)
+	by p00-icloudmta-asmtp-us-central-1k-100-percent-6 (Postfix) with ESMTPSA id E1B711800100;
+	Sun, 28 Jun 2026 09:41:17 +0000 (UTC)
 From: Konstantin Shabanov <mail@etehtsea.me>
 To: andersson@kernel.org,
 	konradybcio@kernel.org,
@@ -37,9 +37,9 @@ Cc: linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	valentin.manea@mrs.ro,
 	Konstantin Shabanov <mail@etehtsea.me>
-Subject: [PATCH v4 1/4] dt-bindings: vendor-prefixes: Add HONOR
-Date: Sun, 28 Jun 2026 16:40:28 +0700
-Message-ID: <20260628094031.54452-2-mail@etehtsea.me>
+Subject: [PATCH v4 2/4] dt-bindings: arm: qcom: Add HONOR MagicBook Art 14
+Date: Sun, 28 Jun 2026 16:40:29 +0700
+Message-ID: <20260628094031.54452-3-mail@etehtsea.me>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260628094031.54452-1-mail@etehtsea.me>
 References: <20260628094031.54452-1-mail@etehtsea.me>
@@ -50,37 +50,35 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: INDOAom25ajsNpJTRY2fbBA8bG-BHvnV
-X-Proofpoint-ORIG-GUID: INDOAom25ajsNpJTRY2fbBA8bG-BHvnV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI4MDA4NCBTYWx0ZWRfX3x8iDoYlQzd1
- BGtkPenKRl0WK92olxfqTExMPtLAMlB/5Jd9d2F0+Opv0ueOjsXPlDZzeIfWuVQrj+ceuyoX4dE
- pjzVTHLrt0Y7UxPWMtA5APSEME1ds4ZcjzLi/iQBidyGOutOk5IQ+CDQiNbkHOhTvWwDodSc+Ma
- HUnh3jswTR4/ZZACPkUIeSBEBtlck1/NmXTl9xh1U35oK9fAUG6J5CVtGwTY+5LydifGpQIxRFM
- zZIZZCMjg1eTv8Ukr7kQOMloPEakCU1HMWkDjJAo0QDuFnpw6f0AxxmvYxKoOIicDZSiP6TkivF
- Ch2UOsMrcw9xdxCcRLk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI4MDA4NCBTYWx0ZWRfX6RPYQsVPRxIE
+ y3UpU4wPbHKtIthNwLu1Dvg9P6JF1sLttzKRzsljT1h8aCc8384jmS/M0GnfRqNa0kWR7w4srCO
+ /tmORRFoVlEJ1+Tmqu8lLgkJG7YJROnbTf+wyaBxcHuQmkDrexSAceNf+/fihNR+xXMa5fBI2z4
+ 1QmZvKVx094YNoQ3ViGdeA1V+EVVK4YLM3f8RKUToOSqsL9CxQO7v97kxgjIBzzENg0aQ6FUhxo
+ xWOCtjtP5WlUM1PpZe/bEbJ8Mt0iev57fvxG5Gwcu2suaH5LcZYeAyAiHZSbCJGmFl4I7QVR3lj
+ I2TjRbZiqIM1GxInNeR
+X-Proofpoint-GUID: zo3rwByfKe7T2VEsvGZAigdbq372_uir
+X-Proofpoint-ORIG-GUID: zo3rwByfKe7T2VEsvGZAigdbq372_uir
 
-Add vendor prefix for Honor Device Co., Ltd.
-Link: https://www.honor.com/
+Document the X1E-80-100 variant of the HONOR MagicBook Art 14.
 
 Signed-off-by: Konstantin Shabanov <mail@etehtsea.me>
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 396044f368e7..9ca2508f531f 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -735,6 +735,8 @@ patternProperties:
-     description: Honestar Technologies Co., Ltd.
-   "^honeywell,.*":
-     description: Honeywell
-+  "^honor,.*":
-+    description: Honor Device Co., Ltd.
-   "^hoperf,.*":
-     description: Shenzhen Hope Microelectronics Co., Ltd.
-   "^hoperun,.*":
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 50cc18a6ec5e..fd985f8adb0e 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1160,6 +1160,7 @@ properties:
+               - dell,inspiron-14-plus-7441
+               - dell,latitude-7455
+               - dell,xps13-9345
++              - honor,magicbook-art-14-snapdragon
+               - hp,elitebook-ultra-g1q
+               - hp,omnibook-x14
+               - lenovo,ideacentre-mini-01q8x10
 -- 
 2.54.0
 
