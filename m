@@ -1,86 +1,86 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77AB6304BDF
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 18:24:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099B03033E8
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 18:25:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782671100; cv=none; b=hnaBSI5qMQzRXtjOLDca/2TocuaQvB+Pt3DUU225cYkv/Kdk5xNFIRYNqlRiSQMiOT2gO01Q8jl5tIDK753BcC93/d4XPnq1nHDBdfu43YpMX5uBr5a/1wcYbbEdCAwwstYWhJ0lxjBVnK83+yVy5sVt94Ur8ivSYfGD8PSwWNc=
+	t=1782671109; cv=none; b=Z4ZCY5WQgJ3ZnS42uoil/S13zj4aGC+RIelGi/C1UH4BNacybJwFInhDtP4XvUoJuxpBwSrpp3TP2CQyLzUPLeeH+qQ/0zN1reBwziPeEc4rLmfjtk8VNdNmcYIZOJ7TbiliuZUiIVso6RAb4pprpfs+xD7ya0NfszzdpFlvm0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782671100; c=relaxed/simple;
-	bh=1o26QioJ+NgDK7fmYrSsNAyclYExqimllpZCk7ntDfI=;
+	s=arc-20240116; t=1782671109; c=relaxed/simple;
+	bh=KiQ1l1ncgJCQ6Ugven9VjtURkvNuqAo8RkZ5Qz1K/48=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bEoEFtM9zjpDxebsQGDgLK9HEJxm+BBHmgHHAQqH4DfReUeOgEcDZeg02IhRE9CWBJ4Um2W0l785Yhmy7UCSuNykM1PKQzxP2L1RTD2lMP6BABSc3yFht0G+G40hRxfV3xS3VvCyBQcBdAL7HOPdH1apHRnAjwretQRx+a9+934=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Zg8G6Q8u; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dBdPIMz8; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=VcO8iVN6Z1XbfjdlMUODfGugkYPD8JG92BlkGKDOkEdS+/xRVDLNJ8RyNhMiVc90EuoLbNs6mWXrIEOF3/5ICsbhd1ShJbMzh/KO23LcdUtI+adaO+iMbEgEexzjvLyliV5EZAFCu7AoKS7PqBMDHPyDn/ylHl35fdZsmQ7prd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OZgboEVu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AVLYAdG+; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zg8G6Q8u";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dBdPIMz8"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65SHjjKK450915
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 18:24:58 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OZgboEVu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AVLYAdG+"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65SHj27v425714
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 18:25:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IbMc4RrsOe+03o+lMwLAkg8XuHYRC2BTwKASC1wJIhk=; b=Zg8G6Q8uUhjfLb0o
-	vSZ9rn1P2sClR3oBYHSJinWJLHh2+8T/RztbOSNnC2SP9lPyxeLZ4MNt4qxvvEjL
-	EP7+gwI5auQ8Pb9RIebe5+pxKFrIfaN7s1PR62XM4DW5MPuBQy/MGkCvRtHEHbpv
-	4WBY0SXRDlgDMzdIHUctpX2Cophcr/VSKzTihjpfb7/OFZ/RtXTEK6/0BKnEPWGb
-	FKi4xsVDVy0pVXtlgrgMHKhh1EQ12Gp7XH3In3b+6X51t5k5pIxpCRd3TvUK4U0B
-	p2qeg+y6Frqsevq7Voxl2i6UQVUsHU5+jjbbTxSItKbCJdN8g/yOr7R4pZPRzQOT
-	BZbSjg==
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f26x8kext-1
+	tZWd8W5XX7/HLNdwSpAX6KBOEbdxtoiIAFwHFv69UFQ=; b=OZgboEVuxMcDN85i
+	Y5Ji1oWho8PfMGeIZdEbxjJ5YhcbiRGlx1BYYIadY0gw1ON+y14UyGDxP9tbV0PK
+	HQi5qL1YHZkIr7FkYaTYWSeNBj3qEUFlot/67+zbO8oIxIVTMh9LdMwOu9rEElbq
+	ikEo/IyDHF8/heK0jFMc6LViM6UUyaTbh8LxyQ/4NTmczhRH5Ry/8SRzS9TH+uVS
+	NML3evCLmknzYfoGaM3xtTyHWe9PRWKTydf7LxMGmXTnO6pBar/pudLP74K3sO06
+	d1eiWBjT06OBmioiovGWr0jppBEvimC0TBPwiNqkR1O9ObmskJ2f2ljbZFoInebQ
+	FD0Keg==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f27333e8h-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 18:24:58 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1394c3ee7f2so10331485c88.1
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 11:24:58 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 18:25:06 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30e85f5bc9eso4247469eec.1
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 11:25:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782671097; x=1783275897; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1782671106; x=1783275906; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=IbMc4RrsOe+03o+lMwLAkg8XuHYRC2BTwKASC1wJIhk=;
-        b=dBdPIMz8cSFHuDUa9oGG0PPbmkWLB6P25ieCjc9ha+7QvVLwcsTZK8/8OnYiUUzzDa
-         AL7NV/qeR3T8USgRCuTOw/Vj+myHZeeSXjkyAScofwLMOVZicDleAowYkmlc1wbg/xrk
-         D5K948WTsdif3yjf8rs6OoRTyYGayntlVrWVavsvSJ3Xo2oxMyS4khMPny3VWL6WOG09
-         BRdqasEfH1YKqnMpaymatJhAumKwX7j5CY3ZPKsZrvDClr2/DZsXHDTag6fYXZBrFSBS
-         ofedgFFowxZhdn9+/v9gctRLefA4hnOU3YDomgAM92XXdREAua+ZEmUG9Dd1OQ78/Shm
-         SoYg==
+        bh=tZWd8W5XX7/HLNdwSpAX6KBOEbdxtoiIAFwHFv69UFQ=;
+        b=AVLYAdG+l+hnfyDfPguuNxI4VDW2rxQPFzPFCl7TQdYZvJ+2XYDyCCTCpFEoWh0Iua
+         8tkIf7qGl4ntzBz7vULepY+xWE4Q6shfAvc/MmnUvewzxXZ79JnOx4bRsBDk0oeF8nGM
+         8+G832F84X8kVU/XBnaoTWSPWL0ay282X7491SsATSfK0ntqvhv4fAUYccq2YxhSb2Cm
+         0Vgb12y+6rI+EFETEf1TYcgq9aHb/ZM+9Zcu/K6c5kkmsi81bgqfgoM4fhFVBiI0Dzm2
+         Yeql++ys5zSyqFOBax27P9mm61K94yr7AlrEfAbsG2tU4Yo7di08e6CaZv8Wmn0aj0w+
+         Zj+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782671097; x=1783275897;
+        d=1e100.net; s=20251104; t=1782671106; x=1783275906;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=IbMc4RrsOe+03o+lMwLAkg8XuHYRC2BTwKASC1wJIhk=;
-        b=nH52sdNEISwfBuJbepIQg7+FxydkER066cpV3O8YdPi7Oghg0aqZ9mH+UpHfUVv3M2
-         9JUT9YLxAUf9hzUWTdRPmu62MslRe4HhCYmUQyKIBMzYGkm8lj5lXOYWHNnA+/YlA//K
-         4llemVGTOI+Sb7BmN3tOSEiR9X2jTM7lPQhMM6DKGdgnUBixGYogg5g1fXaJwNPt7VQn
-         KImtlWKwSgeMKKwzgFY7kBmKr2f3zwTXOhbHfKFcnWJncCZ2/wldBHTRyEolsoIPEKz3
-         zJjN3LpXJZxi5MbDbnWjSo9KDgCRtembHs5YprONIx/LEHdtJ7PhEAs3P3flA3wYnMBw
-         WNEw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp3V4Kng1Ga1gnwgHEPbK2KDcTnR1ZTnSMBsoL260gnI6Q0tOZhrqWhqkBkJPg+shd16r/S1nhE/B10@vger.kernel.org
-X-Gm-Message-State: AOJu0YzW/fuHQLlLnSwnyG+J1M3s0ddarkEzPiqKEVzigdqMwnZuj5db
-	IMOaItz7bnIJtllBCvnGnqX5sK/rJpKpUYeVd+DpWV6gvXax5+i/70Pi4lE7jKgRmHv9ut1KXjw
-	HNjV6hCnFcNZRbWRy+K5EYEQ9B0xvNbfxs0Meg7Ua+P9mkBIq/LziFzTKguoIlovU
-X-Gm-Gg: AfdE7cmHzewQzBXLLumPoOaGn000pg8SL8hP4Yp6UxzzCPJeOAGfoc6Sqb58wfqv25/
-	8WcobU7jRUmULhrISZ77LsYcQitto6ByuAsdb5s4lAVY6Jx5LPVkjPQV7UKwwbxHP6aoEeR9UVt
-	n77g+56AcNUsjLm4qAWU9Ihy916WugJwtBZp75Bxs56zLbFXUog0K6A+TwCP1zNh4ZnIQIlteLU
-	FNGtKT5Ghfsufm9Sipl/2gPgJwNrsLQxqpAHen3J9wc1Y3okyintGZOoS2ZvgpvmC4t/1UkIltJ
-	zYdTEjNmPRNtnGDXL5AkDFvWEI7dt2ioXsoaE6A1O7s09iO8EcTxe6hiR0CSO00nW3Zou67DpkB
-	6HnhifDlZ4O/3OThMXIJVZrgBahLwLC+eQcs=
-X-Received: by 2002:a05:7300:5bac:b0:30c:1b22:646b with SMTP id 5a478bee46e88-30c84dad33fmr14207339eec.19.1782671097426;
-        Sun, 28 Jun 2026 11:24:57 -0700 (PDT)
-X-Received: by 2002:a05:7300:5bac:b0:30c:1b22:646b with SMTP id 5a478bee46e88-30c84dad33fmr14207304eec.19.1782671096877;
-        Sun, 28 Jun 2026 11:24:56 -0700 (PDT)
+        bh=tZWd8W5XX7/HLNdwSpAX6KBOEbdxtoiIAFwHFv69UFQ=;
+        b=kkhk/K3qUcdG963XAs7DQFJpgzxuq9x90m5LANOkDPc0bhOgrSYHdcFCcks/3RN2hK
+         QqcN97DAOqRSyR69oZumVPHJEwz6wO2iedlGhTrSr/bFUrG+1D0eu5hci8wwJNHk1JYT
+         q1N6tKig7XtFyARaDf989SYWq7c49JL1UwtYSZiL+hSls6QEvgrF3rlwsEINwoO3ou95
+         d1sj1NCbBpHq/ezkHzyqmBvta10u4Faxhfw/lZbMhyF3OGYw8vxf52sBeJJW4nahpqfV
+         qSp7grzWydnOhOqVsr1oMSLzeDXS05QdZkQu26RmsCxA+BLcuNFeTNrENIWOVd4H/41R
+         m+zg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro4pv+nt11gDq6nH2p3hL3PWgIABvnNDZFzHDAkIoHX0EZ6jI7r59MiH+vxDoV3FmQpOVUXCIz2Pobn@vger.kernel.org
+X-Gm-Message-State: AOJu0YwsVVr1kPmqsNU7/M0ZU61n0e3VY7zsfK+R/7V7Gq5+ftw7+t51
+	IC9VNFQOdEbkImg61a4qD0QDdxMfK5yb073PCBjjk6WlHEGw9cpSnshR3s69XYEgZbrAyu33FDI
+	Llv2oJO2/Wk1EQlpbJd1hsEE4Nqp001zdQ8QCdChJE3qP55whJev6cEbWeWug0tLU
+X-Gm-Gg: AfdE7clE+2tEHR75QMBLRAcopaaDuCS/vOpsVZS7tnldomB1MArmDV0N7mkvX+TC5HT
+	afY2dhmzyo00GEXebyLFXkYL7X/2DOUKHP7KmeqeUwtvB9eatuN3noXNNJ1kaNm1v8zHD1RRrdG
+	tLGTne0n1hFceaOfb/L4nYWz0PoonQRWTE+37bgKvSKD6woHhHsV8xJjOBOpoHuJw0EbaoCdzPB
+	rmC5SVV8fs+cVAcrH+MghJ12wOOlwZDspWrE8uC+lVJpKtqHohBthZHQ69NIUe14xmPBfVi8LZz
+	3jX2m7tMrETyIN5IXHeVGsX5by+iDN01mnNByP5znpps/fTmE2h1Bfg72m1PtXE6RTJG0D25VF8
+	75cBAqO3xedCoDTtHcv2ZfXInw/gdZ2nWJoc=
+X-Received: by 2002:a05:693c:6383:10b0:30e:c2c0:a7ea with SMTP id 5a478bee46e88-30ec2c0b39fmr1605937eec.41.1782671106002;
+        Sun, 28 Jun 2026 11:25:06 -0700 (PDT)
+X-Received: by 2002:a05:693c:6383:10b0:30e:c2c0:a7ea with SMTP id 5a478bee46e88-30ec2c0b39fmr1605909eec.41.1782671105369;
+        Sun, 28 Jun 2026 11:25:05 -0700 (PDT)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c7c8b1a75sm37508218eec.19.2026.06.28.11.24.48
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c7c8b1a75sm37508218eec.19.2026.06.28.11.24.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 11:24:56 -0700 (PDT)
+        Sun, 28 Jun 2026 11:25:05 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Sun, 28 Jun 2026 23:53:57 +0530
-Subject: [PATCH v3 4/8] arm64: dts: qcom: shikra: Add Adreno SMMU node
+Date: Sun, 28 Jun 2026 23:53:58 +0530
+Subject: [PATCH v3 5/8] arm64: dts: qcom: shikra: Add A704 GPU support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,7 +89,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260628-shikra-gpu-v3-4-9b28a3b167e1@oss.qualcomm.com>
+Message-Id: <20260628-shikra-gpu-v3-5-9b28a3b167e1@oss.qualcomm.com>
 References: <20260628-shikra-gpu-v3-0-9b28a3b167e1@oss.qualcomm.com>
 In-Reply-To: <20260628-shikra-gpu-v3-0-9b28a3b167e1@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
@@ -112,96 +112,163 @@ Cc: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
         freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
         iommu@lists.linux.dev, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+        Aditya Sherawat <asherawa@qti.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782671052; l=1886;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782671052; l=3396;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=G5KnzOKbF9FC9XZVD3H/X6wimGnOXvf0oUqbBl4LZbE=;
- b=tUNf9WGYMJjAdYic1WiMT87XqmIviOCldRCxeamUi7NGV4ape07i3r+B/0zrufi/pAMBdRgfw
- 9nDbsKCIYIfCh5m3IYARovqRiiL0W/Bm4G8HRkLexLCQvUv65gCf+n/
+ bh=esFO/JAL5nI43vIKxxFbdEl/5ME/PRB6OGuZfuTuB+I=;
+ b=cVh4g1YdCpiwy7z9vQ1tG/9H+36qvoH8yaJMvnRIf/86r21odJv0LC0eJ6esfGD/OIpgsy8dl
+ bSGuHuQPLv5CJuKWNam17yWd+3YB9Sd4PLC20Ocorpubqx9Ndcb9TJy
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI4MDE2NSBTYWx0ZWRfXw8dM/vhsNlEV
- mrNxQ0JhiUHC3k7avAnn2d4XzgInsMAmA9BtghZXIAutUjVlhzwktPMPGGyHN0b+BsICq/SBerV
- 3NjDi0Nob3j+j7e6oUiOsoIVT2RLhkI=
-X-Authority-Analysis: v=2.4 cv=D+N37PRj c=1 sm=1 tr=0 ts=6a4166fa cx=c_pps
- a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Authority-Analysis: v=2.4 cv=F+FnsKhN c=1 sm=1 tr=0 ts=6a416702 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=zTWU315qYGxAnKAOPQ0A:9 a=QEXdDO2ut3YA:10
- a=Fk4IpSoW4aLDllm1B1p-:22
-X-Proofpoint-GUID: BDZmBgd8DqHxINNJScK7BducDSDbdoUm
-X-Proofpoint-ORIG-GUID: BDZmBgd8DqHxINNJScK7BducDSDbdoUm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI4MDE2NSBTYWx0ZWRfXwdDbTd7OgNle
- r8UJhL0un6mhobp3uoO+ZnWVdyJNuAG6t2mbYfczmuWa9OMQDPDbcXd6PAI+xtXbQJ9XrdnaMs5
- tza8bcOC5mZ/3sFgw5Z2I5cevzIAVDF7ND9FTJlieB9bLgp1XDHqLFNdORNzCe0sQoLZkTf90NW
- prvTiTXMCofJoZjUz8oPZk6eVeSEQHRWKKH5MYOgezB/KwFugFUFTD6CsuRQxPRe6SgPDyvqLkq
- LTjwE3H8is29R4ypYAK1SdcVXDUzja/pi6Fj83E+nENuLsFWoX5r7bQATM8VXD9xGDqPZwQRoYo
- jNWEGUba+VIVPFGrxPfciySFVLhFf1I74smUvlQ+1HIr0JMb38x9k8EdD3ZBOdGFjrX+1PmYqjv
- g9DLmClY9jrqytYgcsrCMG2vBQMQTX8akq53/qwqpSNmv64bqUnAGMCbsVIfZO9bEkvJYmKexwu
- jT/kLay9HO8V5mRwODA==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=jWRUczSHPS-Ra7sZ8p8A:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-GUID: P09mrtQmScYO9WBT4FXtqN5pYNwsSrUi
+X-Proofpoint-ORIG-GUID: P09mrtQmScYO9WBT4FXtqN5pYNwsSrUi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI4MDE2NSBTYWx0ZWRfX/2HRmwM1YlG9
+ 7Ndk6zz3h55y9idnGSI7F5VPVkOh/2LusFJPF7fBV+9jF8TfnaSlhIijFB88DDh2bsHLb39CP+h
+ y8ZT83GmFweRL/9Nos+112m2gQ0rBqp3SRnaTxqEdwUgI5gIoP+oXpw3wuv7kYP/09Kli3MEI9e
+ Xsa1o9uzJ7nXoMwT/QEH/D57Cy5dljmBL+BFZh/S3Aasz6ERuLg1/kWrIQyNUeyP/9lUAuyYpMQ
+ NuVQKfqtrk2QRVOsnSKbXe8K1K8hGhQ1Dqowu4aTjnu9tRkmmrvZX42krHz0MHLjI+6NxAsv2iU
+ gRtalZcxmWMktyNg5P54omDH45xuzoETYLDPrWp+mmQKRkMZP6j/SKwBihrGn18uQ3+6WV5I5u5
+ ayRnSEBt7cLHLJDz6le21lp716SCsJitbP8+Ho99doWPizdoCK/l9jx9wOxprRHN3eEZBXw4oug
+ /F4UuHioAi5CJg9AFAw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI4MDE2NSBTYWx0ZWRfXyYXa7UgTfwv8
+ fXLhaVL6utWuSo2MugxRXmaYcphMfRrcQ9ND8DRnyQ9eztLA0ijfvNpmg7vXTekTt8FG37mcbdQ
+ g5YipbHtjwXiKZaZyYnMfOoDFMbJiQE=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-28_05,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 suspectscore=0 bulkscore=0 impostorscore=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 phishscore=0
+ bulkscore=0 spamscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 suspectscore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606280165
 
-From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+From: Aditya Sherawat <asherawa@qti.qualcomm.com>
 
-Add the Adreno GPU IOMMU (adreno_smmu) node for the Shikra SoC.
+Add the A704 GPU and GMU wrapper nodes with register maps, clocks,
+interconnects, IOMMU, OPP table and the zap-shader region.
 
-Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Signed-off-by: Aditya Sherawat <asherawa@qti.qualcomm.com>
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/shikra.dtsi | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ arch/arm64/boot/dts/qcom/shikra.dtsi | 98 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 98 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-index 1ccb0f1419aa..398cb1a4dc86 100644
+index 398cb1a4dc86..89cc5dc767e2 100644
 --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
 +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-@@ -655,6 +655,35 @@ gpucc: clock-controller@5990000 {
- 			#power-domain-cells = <1>;
+@@ -642,6 +642,104 @@ &clk_virt SLAVE_QUP_CORE_0 RPM_ALWAYS_TAG>,
+ 			};
  		};
  
-+		adreno_smmu: iommu@59a0000 {
-+			compatible = "qcom,shikra-smmu-500", "qcom,adreno-smmu",
-+				     "qcom,smmu-500", "arm,mmu-500";
-+			reg = <0x0 0x059a0000 0x0 0x10000>;
-+			#iommu-cells = <2>;
-+			#global-interrupts = <1>;
++		gpu: gpu@5900000 {
++			compatible = "qcom,adreno-07000400", "qcom,adreno";
++			reg = <0x0 0x05900000 0x0 0x40000>,
++			      <0x0 0x0599e000 0x0 0x1000>,
++			      <0x0 0x05961000 0x0 0x800>;
++			reg-names = "kgsl_3d0_reg_memory",
++				    "cx_mem",
++				    "cx_dbgc";
 +
-+			interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 167 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 169 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 170 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 171 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 172 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 173 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH 0>;
++			interrupts = <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH 0>;
 +
-+			clocks = <&gpucc GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK>,
++			clocks = <&gpucc GPU_CC_GX_GFX3D_CLK>,
++				 <&gpucc GPU_CC_AHB_CLK>,
++				 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
 +				 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
-+				 <&gcc GCC_GPU_SNOC_DVM_GFX_CLK>,
-+				 <&gpucc GPU_CC_AHB_CLK>;
-+			clock-names = "hlos",
-+				      "bus",
++				 <&gpucc GPU_CC_CX_GMU_CLK>,
++				 <&gpucc GPU_CC_CXO_CLK>;
++			clock-names = "core",
 +				      "iface",
-+				      "ahb";
++				      "mem_iface",
++				      "alt_mem_iface",
++				      "gmu",
++				      "xo";
 +
-+			power-domains = <&gpucc GPU_CX_GDSC>;
++			interconnects = <&mem_noc MASTER_GRAPHICS_3D RPM_ALWAYS_TAG
++					 &mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>;
++			interconnect-names = "gfx-mem";
++
++			iommus = <&adreno_smmu 0 1>;
++			operating-points-v2 = <&gpu_opp_table>;
++			power-domains = <&rpmpd RPMPD_VDDCX>;
++			qcom,gmu = <&gmu_wrapper>;
++
++			#cooling-cells = <2>;
++
++			status = "disabled";
++
++			gpu_zap_shader: zap-shader {
++				memory-region = <&gpu_micro_code_mem>;
++			};
++
++			gpu_opp_table: opp-table {
++				compatible = "operating-points-v2";
++
++				opp-1142400000 {
++					opp-hz = /bits/ 64 <1142400000>;
++					required-opps = <&rpmpd_opp_turbo_plus>;
++					opp-peak-kBps = <8171875>;
++				};
++
++				opp-1017600000 {
++					opp-hz = /bits/ 64 <1017600000>;
++					required-opps = <&rpmpd_opp_turbo>;
++					opp-peak-kBps = <8171875>;
++				};
++
++				opp-921600000 {
++					opp-hz = /bits/ 64 <921600000>;
++					required-opps = <&rpmpd_opp_nom_plus>;
++					opp-peak-kBps = <7046875>;
++				};
++
++				opp-844800000 {
++					opp-hz = /bits/ 64 <844800000>;
++					required-opps = <&rpmpd_opp_nom>;
++					opp-peak-kBps = <6074218>;
++				};
++
++				opp-672000000 {
++					opp-hz = /bits/ 64 <672000000>;
++					required-opps = <&rpmpd_opp_svs_plus>;
++					opp-peak-kBps = <5285156>;
++				};
++
++				opp-537600000 {
++					opp-hz = /bits/ 64 <537600000>;
++					required-opps = <&rpmpd_opp_svs>;
++					opp-peak-kBps = <3972656>;
++				};
++
++				opp-355200000 {
++					opp-hz = /bits/ 64 <355200000>;
++					required-opps = <&rpmpd_opp_low_svs>;
++					opp-peak-kBps = <2136718>;
++				};
++			};
 +		};
 +
- 		dispcc: clock-controller@5f00000 {
- 			compatible = "qcom,shikra-dispcc", "qcom,qcm2290-dispcc";
- 			reg = <0x0 0x05f00000 0x0 0x20000>;
++		gmu_wrapper: gmu@596a000 {
++			compatible = "qcom,adreno-gmu-wrapper";
++			reg = <0x0 0x0596a000 0x0 0x30000>;
++			reg-names = "gmu";
++			power-domains = <&gpucc GPU_CX_GDSC>,
++					<&gpucc GPU_GX_GDSC>;
++			power-domain-names = "cx",
++					     "gx";
++		};
++
+ 		gpucc: clock-controller@5990000 {
+ 			compatible = "qcom,shikra-gpucc";
+ 			reg = <0x0 0x05990000 0x0 0x9000>;
 
 -- 
 2.51.0
