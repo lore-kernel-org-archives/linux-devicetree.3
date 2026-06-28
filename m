@@ -1,121 +1,1510 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F253285CBC
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 17:15:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D68A24E4C6
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 17:15:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782666914; cv=none; b=lUqMdmb6fs+VnrdlYEveKdiUv8K61VW2pfXzrFgi2MUypZnW+mk7ncabmpwGjvG60n1PR5BRcj5z6TlrQu30gRzLvy5Peht6zM8BF7UNw/P8qugCZ9jk/ybIpNDl5qSbwtFgsNZtM+EoL+da3xpumKB06U3LBmw2Y6lq02d4GD8=
+	t=1782666935; cv=none; b=CTwaoF7zS0mAT8+2BeBHWVOz+h+Op8U0Kz1NkRhulBQ2ou0beXhfHSYPxBRjCQCUNCKcNS7liig2xE2uEug2jfd7iTTBCcu9ImhUWS1b7r/RbJMeDIVsF9xWGgvvGLRuV+s2j6V2KgwJM+SFhFkNuHsQhhtq8q5g8bRlTG+n+vU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782666914; c=relaxed/simple;
-	bh=FftHzX3H0UlPJiDm12C8XDevWKILfdbOzut1acLUMcU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lwGNBDosQiKzl7UEGdh28CGJkyG0h6M0Bc1Bz3Q/9HcQRs8AFc3NIUbv51JOP2ORzBeBGBk7G4Tjg3yism8Wf7aU6YR5GJ4zbToe1N+xa29ljwAlki1CphnD6pqgU3XJzNJMn4aSaYBVvCLtnLaHUi9fgOWeiv1bzApwhAX2Rno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mpOIITdY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782666935; c=relaxed/simple;
+	bh=JnKD0xGjf+n2qGIpBycWe/TFR1cNLOQtKP0yCd41Eko=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NpaBfJHpLIa4AJrEOlDrrlNt1TcKLDwf7XbA8/9hAPi5eZLTJ0izSZMZgzfjk/el3KCry8nJ3XX1o4/1YPGWMKiO+kmuw2q/OE4X9QXrp/Tl0gpOCtgJsWAW79RgpbyLws6k5QKfm9GbQBvypMD9I3diiXn7H6i5hS4TZzkHP0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=AkVYaFyQ; arc=none smtp.client-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mpOIITdY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9929A1F000E9;
-	Sun, 28 Jun 2026 17:15:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782666912;
-	bh=jbTcFVwnwa9YXNRRwKK4Ss5TJkGwUvhc8sGSVW9x6/M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mpOIITdY8T5dVAHLFzwuGhZ/q9vc54UtghVZ681iIX/liGcvh/0QjpJ1Uf5kDE7r0
-	 iWDpQS2AoV2jwupV2fAdaoNRQMtD+k+L81XAGzyvpyHcR9fZHQYSD7vDKD+eGEwsZQ
-	 Ao2nzYSuXuPlX/TSGLSby1dSM5Nx6ECUv4UZdAAyFqHY78TlwWEcRFHkOYr7Ut1HH5
-	 jmgyihVRSdFxckqQXbR6NNbCXhv+BvYJ+XXphAZJFwzbyKVKtwGle/ZO55RYFNwFAA
-	 U9vlbKtsYIRkVf9WVt0BmPsqRUv7QeGPJAY0bCX61Ms+glbSbh/2FF9eGwqkdtiwMA
-	 SJfDic7JPoXRw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/4] arm64: dts: ti: var-som-am62p: update audio
- codec configuration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <d59a4590cab14865f5caa5249c4c6ec7632f7d5f.1782665899.git.stefano.r@variscite.com>
-References: <cover.1782665899.git.stefano.r@variscite.com>
- <d59a4590cab14865f5caa5249c4c6ec7632f7d5f.1782665899.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 28 Jun 2026 17:15:12 +0000
-Message-Id: <20260628171512.9929A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="AkVYaFyQ"
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7e9cb0e594bso266927a34.3
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 10:15:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1782666930; x=1783271730; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jS6K+R5PHTe6jJE5Hi3gqMxmdLgmVTRj0mFHNzkuk6o=;
+        b=AkVYaFyQTQ2BeMRWxYYXYY18HykYkbl8loPXKf6gBj8VgAjqYr61ivMroE5BlH/8Jl
+         TThcXoq/1KFHavkysHbxU9ALkAegBSOdmCkQ8rv+7wLf4Dgmy0COxIaoqXLaqwrdMpkB
+         8vUW6t0BVGokRhvMBy5iRlE6e3D48njl9G33hC28JHB3NaNpTXvLKCe3uroVjCvYs3Uy
+         f/lpnCPRg6VqGqtxao1ZYIWtaRhqXulCCBaJCci5xHrH86qP6rh8yiH8MPUJYSVwvd9A
+         E2mVX+zFQufV2arQdcDkSXVfJiRjsQQJ/8iaOPA0FH6pCAdkniMcNhCNsu0k0mYdQ4z3
+         Az/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782666930; x=1783271730;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=jS6K+R5PHTe6jJE5Hi3gqMxmdLgmVTRj0mFHNzkuk6o=;
+        b=LU9H2hArVuWWWLvmk8tcXe/0jDpRcPrgvgjUkCdIUxI1d4TFVqwI759x0RXPELvNsX
+         qEF3Q8J4MHwXpQnkTVFfFL7s7y42eStTdm4cnY3ITJ90VVV/NvRbG9ZNhiUtd/xICjwv
+         hIkl/wvPNGdgXVcV0AHMrmFQ5qpbahHBEKgajalwg1xLsIav5JAd2UDu45hKE4E8A/99
+         cetzR8iFlWAnlM4shAALMHf3TV8MFKvFV7bqiAlWEU8EaVcvgxl8AHsxJKBA/DIhGhsV
+         tKQbRImBUVcVrXclRW0miwgRbei21IFwFMFpyMZ9JkY1MLShiYaJCE1XKdGAbi14+A13
+         gtLg==
+X-Forwarded-Encrypted: i=1; AFNElJ8XOM0e6DPO2ihERx0B1KfADAFlIFm7gmKDYiTRrOt+hPIXbeR+9XmiIJKah8FXDF4ksK1+M17SPTpV@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7ZWzvAZQzZAozXHM0jc/GKb7Q8oXlTOKTxWyWAbD3NwxS4XFE
+	5W/ceoIMliM3nmfqpF8ofe9M8l9U/kHYDzRj7OVEv78rlMHuXxuD8WHVQzMNJUt1tnE=
+X-Gm-Gg: AfdE7ckrFnAiQGnatn3nBrAXGsxJUibNYbhFSzJDu3dHWEle5mRGmHBzyC/8VnUE/qH
+	oaCwYMLXKip/UXTe/7MrmcHkkRCpde4lmv168SRrjSLAKDODvQFhbZKu/5hWMZBYAYKuNg11ZDi
+	kSVAiffyyv2YiJNYMsOwou3idlQmPnIUude9otLLESf5arIWvzMnO6l0vpJssRHX1jDpAEHn539
+	fLUTTtLis1wszpAEfuhj7thjMw4lEoFHNb0o/+BIwgUmGxpg99XHAJT1ZlOKlAY85Ywa04IAc44
+	XVQO5UyJJ/G58+pCiVEt0ISZJiwLDAH08DWM+pod1QRdUIV1Kx3gqXv+DuU96braNriaxww4mFc
+	WiPecsjipOrcU8OG3M1CPXhKthtIC5EdaI0zSg/SqdZ/w8PzkZJHzJYbF3bVUGQ4F3redzKFUQ0
+	KDLU9x5afG/eX4XLSQLIJCpSeYf+/IY1vpg/9+DCZ1NhhDqAfo7SZ/eW6wInz68qw=
+X-Received: by 2002:a05:6830:6084:b0:7e9:8867:cb23 with SMTP id 46e09a7af769-7e99c257361mr12993649a34.16.1782666929856;
+        Sun, 28 Jun 2026 10:15:29 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:f242:ecd6:f61e:d764? ([2600:8803:e7e4:500:f242:ecd6:f61e:d764])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9c4844deesm3494090a34.12.2026.06.28.10.15.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 28 Jun 2026 10:15:29 -0700 (PDT)
+Message-ID: <0d7a5a3b-dc11-472f-a09a-44df887d5147@baylibre.com>
+Date: Sun, 28 Jun 2026 12:15:28 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/7] iio: adc: Add ti-ads1262 driver
+To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260628-ads126x-v2-0-4b1b231325ba@gmail.com>
+ <20260628-ads126x-v2-2-4b1b231325ba@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260628-ads126x-v2-2-4b1b231325ba@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incomplete device tree audio routing configuration for the new D=
-MIC on IN1L.
---
+On 6/28/26 12:36 AM, Kurt Borja wrote:
+> Add the ti-ads1262 driver with initial support for the primary ADC
+> (ADC1). The ADS1263 auxiliary ADC (ADC2) is handled by a separate driver
+> and interoperability considerations were taken into account.
+> 
+> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+> ---
+>  MAINTAINERS                  |    1 +
+>  drivers/iio/adc/Kconfig      |   13 +
+>  drivers/iio/adc/Makefile     |    1 +
+>  drivers/iio/adc/ti-ads1262.c | 1206 ++++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 1221 insertions(+)
 
-commit 7dd222d83843c4dcd6d8e965ee097f2c019186e6
-Author: Stefano Radaelli <stefano.r@variscite.com>
+Ideally, an intial patch would be 1/2 this size. Over 1000 lines in
+a single patch make it take more than twice as long to review as
+if it was split into two patches (or you just don't get a detailed
+review). For example, sample rate and gain can be split out into
+seprate patches.
 
-arm64: dts: ti: var-som-am62p: update audio codec configuration
+I certainly don't have time to revew this plus an additonal 1000
+lines of more patches on top of it in a week.
 
-Update the WM8904 audio codec configuration on the VAR-SOM-AM62P.
-Set the audio reference clock rate to 12 MHz and add the codec DRC, GPIO
-and DMIC configuration required by the board.
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 9b83d294734b574d..d868b25f2c65bcd9 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -26928,6 +26928,7 @@ M:	Kurt Borja <kuurtb@gmail.com>
+>  L:	linux-iio@vger.kernel.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml
+> +F:	drivers/iio/adc/ti-ads1262.c
+>  
+>  TI ADS7924 ADC DRIVER
+>  M:	Hugo Villeneuve <hvilleneuve@dimonoff.com>
+> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+> index 5845db2011fb5be1..6051092c20b96731 100644
+> --- a/drivers/iio/adc/Kconfig
+> +++ b/drivers/iio/adc/Kconfig
+> @@ -1811,6 +1811,19 @@ config TI_ADS124S08
+>  	  This driver can also be built as a module. If so, the module will be
+>  	  called ti-ads124s08.
+>  
+> +config TI_ADS1262
+> +	tristate "Texas Instruments ADS1262"
+> +	depends on SPI
+> +	select REGMAP
+> +	select IIO_BUFFER
+> +	select IIO_TRIGGERED_BUFFER
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi b/arch/arm64/b=
-oot/dts/ti/k3-am62p5-var-som.dtsi
-> index be19cbaffc4b0..9440891339b3a 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
+Buffer support isn't added until a later patch.
 
-[ ... ]
+> +	help
+> +	  If you say yes here you get support for Texas Instruments ADS1262 and
+> +	  ADS1263 ADC chips.
+> +
+> +	  This driver can also be built as a module. If so, the module will be
+> +	  called ti-ads1262.
+> +
+>  config TI_ADS1298
+>  	tristate "Texas Instruments ADS1298"
+>  	depends on SPI
+> diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
+> index 72f4c6b33ca87b3f..4b1f89a2317a35f7 100644
+> --- a/drivers/iio/adc/Makefile
+> +++ b/drivers/iio/adc/Makefile
+> @@ -155,6 +155,7 @@ obj-$(CONFIG_TI_ADS1100) += ti-ads1100.o
+>  obj-$(CONFIG_TI_ADS1119) += ti-ads1119.o
+>  obj-$(CONFIG_TI_ADS112C14) += ti-ads112c14.o
+>  obj-$(CONFIG_TI_ADS124S08) += ti-ads124s08.o
+> +obj-$(CONFIG_TI_ADS1262) += ti-ads1262.o
+>  obj-$(CONFIG_TI_ADS1298) += ti-ads1298.o
+>  obj-$(CONFIG_TI_ADS131E08) += ti-ads131e08.o
+>  obj-$(CONFIG_TI_ADS131M02) += ti-ads131m02.o
+> diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
+> new file mode 100644
+> index 0000000000000000..6103cf5a2d1624a9
+> --- /dev/null
+> +++ b/drivers/iio/adc/ti-ads1262.c
+> @@ -0,0 +1,1206 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Texas Instruments ADS1262 ADC driver
+> + *
+> + * Copyright (C) 2025 Kurt Borja <kuurtb@gmail.com>
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/align.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bitmap.h>
+> +#include <linux/bitops.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/clk.h>
+> +#include <linux/completion.h>
+> +#include <linux/compiler_attributes.h>
+> +#include <linux/compiler_types.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/lockdep.h>
+> +#include <linux/math.h>
+> +#include <linux/math64.h>
+> +#include <linux/module.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/mutex.h>
+> +#include <linux/overflow.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/spi/spi.h>
+> +#include <linux/string.h>
+> +#include <linux/time.h>
+> +#include <linux/types.h>
+> +#include <linux/units.h>
+> +
+> +#include <asm/byteorder.h>
+> +
+> +#include <linux/iio/iio.h>
+> +
+> +#define ADS1262_OPCODE_NOP			0x00
+> +#define ADS1262_OPCODE_RESET			0x06
+> +#define ADS1262_OPCODE_START1			0x08
+> +#define ADS1262_OPCODE_STOP1			0x0A
+> +#define ADS1262_OPCODE_START2			0x0C
+> +#define ADS1262_OPCODE_STOP2			0x0E
+> +#define ADS1262_OPCODE_RDATA1			0x12
+> +#define ADS1262_OPCODE_RDATA2			0x14
+> +#define ADS1262_OPCODE_SYOCAL1			0x16
+> +#define ADS1262_OPCODE_SYGCAL1			0x17
+> +#define ADS1262_OPCODE_SFOCAL1			0x19
+> +#define ADS1262_OPCODE_SYOCAL2			0x1B
+> +#define ADS1262_OPCODE_SYGCAL2			0x1C
+> +#define ADS1262_OPCODE_SFOCAL2			0x1E
+> +#define ADS1262_OPCODE_RREG			0x20
+> +#define ADS1262_OPCODE_WREG			0x40
+> +
+> +#define ADS1262_ID_REG				0x00
+> +#define   ADS1262_DEV_ID_MASK			GENMASK(7, 5)
+> +#define   ADS1262_REV_ID_MASK			GENMASK(4, 0)
+> +
+> +#define ADS1262_POWER_REG			0x01
+> +#define   ADS1262_POWER_RESET_MASK		BIT(4)
+> +#define   ADS1262_POWER_VBIAS_MASK		BIT(1)
+> +#define   ADS1262_POWER_INTREF_MASK		BIT(0)
+> +
+> +#define ADS1262_INTERFACE_REG			0x02
+> +#define   ADS1262_INTERFACE_TIMEOUT_MASK	BIT(3)
+> +#define   ADS1262_INTERFACE_STATUS_MASK		BIT(2)
+> +#define   ADS1262_INTERFACE_CRC_MASK		GENMASK(1, 0)
+> +
+> +#define ADS1262_MODE0_REG			0x03
+> +#define   ADS1262_MODE0_REFREV_MASK		BIT(7)
+> +#define   ADS1262_MODE0_RUNMODE_MASK		BIT(6)
+> +#define   ADS1262_MODE0_IDAC_CHOP_MASK		BIT(5)
+> +#define   ADS1262_MODE0_INPUT_CHOP_MASK		BIT(4)
+> +#define   ADS1262_MODE0_DELAY_MASK		GENMASK(3, 0)
+> +
+> +#define ADS1262_MODE1_REG			0x04
+> +#define   ADS1262_MODE1_FILTER_MASK		GENMASK(7, 5)
+> +#define   ADS1262_MODE1_SBADC_MASK		BIT(4)
+> +#define   ADS1262_MODE1_SBPOL_MASK		BIT(3)
+> +#define   ADS1262_MODE1_SBMAG_MASK		GENMASK(2, 0)
+> +
+> +#define ADS1262_MODE2_REG			0x05
+> +#define   ADS1262_MODE2_BYPASS_MASK		BIT(7)
+> +#define   ADS1262_MODE2_GAIN_MASK		GENMASK(6, 4)
+> +#define   ADS1262_MODE2_DR_MASK			GENMASK(3, 0)
+> +
+> +#define ADS1262_INPMUX_REG			0x06
+> +#define   ADS1262_INPMUX_MUXP_MASK		GENMASK(7, 4)
+> +#define   ADS1262_INPMUX_MUXN_MASK		GENMASK(3, 0)
+> +
+> +#define ADS1262_OFCAL0_REG			0x07
+> +#define ADS1262_OFCAL1_REG			0x08
+> +#define ADS1262_OFCAL2_REG			0x09
+> +#define ADS1262_FSCAL0_REG			0x0A
+> +#define ADS1262_FSCAL1_REG			0x0B
+> +#define ADS1262_FSCAL2_REG			0x0C
+> +
+> +#define ADS1262_IDACMUX_REG			0x0D
+> +#define   ADS1262_IDACMUX_MUX2_MASK		GENMASK(7, 4)
+> +#define   ADS1262_IDACMUX_MUX1_MASK		GENMASK(3, 0)
+> +
+> +#define ADS1262_IDACMAG_REG			0x0E
+> +#define   ADS1262_IDACMAG_MAG2_MASK		GENMASK(7, 4)
+> +#define   ADS1262_IDACMAG_MAG1_MASK		GENMASK(3, 0)
+> +
+> +#define ADS1262_REFMUX_REG			0x0F
+> +#define   ADS1262_REFMUX_RMUXP_MASK		GENMASK(5, 3)
+> +#define   ADS1262_REFMUX_RMUXN_MASK		GENMASK(2, 0)
+> +
+> +#define ADS1262_TDACP_REG			0x10
+> +#define   ADS1262_TDACP_OUTP_MASK		BIT(7)
+> +#define   ADS1262_TDACP_MAGP_MASK		GENMASK(4, 0)
+> +
+> +#define ADS1262_TDACN_REG			0x11
+> +#define   ADS1262_TDACN_OUTN_MASK		BIT(7)
+> +#define   ADS1262_TDACN_MAGN_MASK		GENMASK(4, 0)
+> +
+> +#define ADS1262_GPIOCON_REG			0x12
+> +#define ADS1262_GPIODIR_REG			0x13
+> +#define ADS1262_GPIODAT_REG			0x14
+> +
+> +#define ADS1262_ADC2CFG_REG			0x15
+> +#define   ADS1262_ADC2CFG_DR2_MASK		GENMASK(7, 6)
+> +#define   ADS1262_ADC2CFG_REF2_MASK		GENMASK(5, 3)
+> +#define   ADS1262_ADC2CFG_GAIN2_MASK		GENMASK(2, 0)
+> +
+> +#define ADS1262_ADC2MUX_REG			0x16
+> +#define   ADS1262_ADC2MUX_MUXP2_MASK		GENMASK(7, 4)
+> +#define   ADS1262_ADC2MUX_MUXN2_MASK		GENMASK(3, 0)
+> +
+> +#define ADS1262_ADC2OFC0_REG			0x17
+> +#define ADS1262_ADC2OFC1_REG			0x18
+> +#define ADS1262_ADC2FSC0_REG			0x19
+> +#define ADS1262_ADC2FSC1_REG			0x1A
+> +#define ADS1262_REG_COUNT			0x1B
+> +
+> +#define ADS1262_MAX_CHANNEL_COUNT		16
+> +#define ADS1262_XFER_BUFFER_SZ			11
+> +
+> +enum {
+> +	ADS1262_RUNMODE_CONTINUOUS,
+> +	ADS1262_RUNMODE_PULSE,
+> +};
+> +
+> +enum {
+> +	ADS1262_DR_2_5_SPS,
+> +	ADS1262_DR_5_SPS,
+> +	ADS1262_DR_10_SPS,
+> +	ADS1262_DR_16_6_SPS,
+> +	ADS1262_DR_20_SPS,
+> +	ADS1262_DR_50_SPS,
+> +	ADS1262_DR_60_SPS,
+> +	ADS1262_DR_100_SPS,
+> +	ADS1262_DR_400_SPS,
+> +	ADS1262_DR_1200_SPS,
+> +	ADS1262_DR_2400_SPS,
+> +	ADS1262_DR_4800_SPS,
+> +	ADS1262_DR_7200_SPS,
+> +	ADS1262_DR_14400_SPS,
+> +	ADS1262_DR_19200_SPS,
+> +	ADS1262_DR_38400_SPS,
+> +};
+> +
+> +enum {
+> +	ADS1262_INPMUX_AIN0,
+> +	ADS1262_INPMUX_AIN1,
+> +	ADS1262_INPMUX_AIN2,
+> +	ADS1262_INPMUX_AIN3,
+> +	ADS1262_INPMUX_AIN4,
+> +	ADS1262_INPMUX_AIN5,
+> +	ADS1262_INPMUX_AIN6,
+> +	ADS1262_INPMUX_AIN7,
+> +	ADS1262_INPMUX_AIN8,
+> +	ADS1262_INPMUX_AIN9,
+> +	ADS1262_INPMUX_AINCOM,
+> +	ADS1262_INPMUX_TEMP,
+> +	ADS1262_INPMUX_AVDD,
+> +	ADS1262_INPMUX_DVDD,
+> +	ADS1262_INPMUX_TDAC,
+> +	ADS1262_INPMUX_FLOAT,
+> +	ADS1262_INPMUX_LAST
+> +};
+> +
+> +enum {
+> +	ADS1262_REFMUX_INTERNAL,
+> +	ADS1262_REFMUX_AIN0_AIN1,
+> +	ADS1262_REFMUX_AIN2_AIN3,
+> +	ADS1262_REFMUX_AIN4_AIN5,
+> +	ADS1262_REFMUX_AVDD_AVSS,
+> +	ADS1262_REFMUX_LAST
+> +};
+> +
+> +struct ads1262_chip_info {
+> +	const char *name;
+> +	bool has_aux_adc;
+> +};
+> +
+> +struct ads1262_channel {
+> +	u8 input[2];
 
-> @@ -204,6 +204,25 @@ wm8904: audio-codec@1a {
->  		DBVDD-supply =3D <&reg_3v3>;
->  		DCVDD-supply =3D <&reg_1v8>;
->  		MICVDD-supply =3D <&reg_1v8>;
-> +		wlf,drc-cfg-names =3D "default", "peaklimiter", "tradition",
-> +				    "soft", "music";
-> +		/*
-> +		 * Config registers per name, respectively:
-> +		 * KNEE_IP =3D 0,   KNEE_OP =3D 0,     HI_COMP =3D 1,   LO_COMP =3D 1
-> +		 * KNEE_IP =3D -24, KNEE_OP =3D -6,    HI_COMP =3D 1/4, LO_COMP =3D 1
-> +		 * KNEE_IP =3D -42, KNEE_OP =3D -3,    HI_COMP =3D 0,   LO_COMP =3D 1
-> +		 * KNEE_IP =3D -45, KNEE_OP =3D -9,    HI_COMP =3D 1/8, LO_COMP =3D 1
-> +		 * KNEE_IP =3D -30, KNEE_OP =3D -10.5, HI_COMP =3D 1/4, LO_COMP =3D 1
-> +		 */
-> +		wlf,drc-cfg-regs =3D /bits/ 16 <0x01af 0x3248 0x0000 0x0000>,
-> +				   /bits/ 16 <0x04af 0x324b 0x0010 0x0408>,
-> +				   /bits/ 16 <0x04af 0x324b 0x0028 0x0704>,
-> +				   /bits/ 16 <0x04af 0x324b 0x0018 0x078c>,
-> +				   /bits/ 16 <0x04af 0x324b 0x0010 0x050e>;
-> +		/* GPIO1 =3D DMIC_CLK, don't touch others */
-> +		wlf,gpio-cfg =3D <0x0018>, <0xffff>, <0xffff>, <0xffff>;
-> +		/* DMIC is connected to IN1L */
-> +		wlf,in1l-as-dmicdat1;
+Since this is already stored in channel and channel2, we don't really need
+to repeat the same thing here.
 
-[Severity: Medium]
-Does this new DMIC configuration conflict with the existing simple-audio-ca=
-rd
-routing?
+> +	u8 gain;
+> +	u8 data_rate;
+> +	u8 reference[3];
 
-Earlier in the file, the ALSA DAPM audio routing maps IN1L to an external
-analog microphone jack:
+I would just make 3 fields for this. We never pass a variable
+value for the index, so would be easier to understand if we
+give it proper names.
 
-	sound {
-		...
-		simple-audio-card,routing =3D
-			...
-			"IN1L", "Microphone Jack",
-			"IN1R", "Microphone Jack";
+> +	u8 pga_bypass:1;
+> +	u8 ref_reversal:1;
+> +	u8 input_chop:1;
+> +	u8 idac_chop:1;
 
-Since IN1L is now configured as a digital microphone (DMIC), should the rou=
-ting
-be updated so ALSA DAPM doesn't incorrectly couple the DMIC's power sequenc=
-ing
-and userspace representation with a physical analog jack widget?
+Just make these bool instead of bitfields.
 
->  	};
->  };
+> +};
+> +
+> +struct ads1262 {
+> +	struct spi_device *spi;
+> +	const struct ads1262_chip_info *info;
+> +	struct regmap *regmap;
+> +	struct iio_dev *indio_dev;
+> +	struct gpio_desc *reset_gpiod;
+> +	struct gpio_desc *start_gpiod;
+> +
+> +	/* Protects channel state */
+> +	struct mutex chan_lock;
+> +	unsigned int num_channels;
+> +	struct ads1262_channel *channels;
+> +	struct completion drdy;
+> +
+> +	int refp_uV;
+> +	int refn_uV;
+> +	int avdd_uV;
+> +
+> +	/* Protects transfer buffers and concurrent SPI transfers */
+> +	struct mutex xfer_lock;
+> +
+> +	u8 tx[ADS1262_XFER_BUFFER_SZ] __aligned(IIO_DMA_MINALIGN);
+> +	u8 rx[ADS1262_XFER_BUFFER_SZ] __aligned(IIO_DMA_MINALIGN);
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1782665899.gi=
-t.stefano.r@variscite.com?part=3D2
+2nd one doesn't need __aligned(IIO_DMA_MINALIGN). They are never used at
+the same time by different DMA operations.
+
+> +};
+> +
+> +static const int ads1262_data_rate_avail[][2] = {
+> +	[ADS1262_DR_2_5_SPS]	= { 2,		500000 },
+> +	[ADS1262_DR_5_SPS]	= { 5,		0 },
+> +	[ADS1262_DR_10_SPS]	= { 10,		0 },
+> +	[ADS1262_DR_16_6_SPS]	= { 16,		666667 },
+> +	[ADS1262_DR_20_SPS]	= { 20,		0 },
+> +	[ADS1262_DR_50_SPS]	= { 50,		0 },
+> +	[ADS1262_DR_60_SPS]	= { 60,		0 },
+> +	[ADS1262_DR_100_SPS]	= { 100,	0 },
+> +	[ADS1262_DR_400_SPS]	= { 400,	0 },
+> +	[ADS1262_DR_1200_SPS]	= { 1200,	0 },
+> +	[ADS1262_DR_2400_SPS]	= { 2400,	0 },
+> +	[ADS1262_DR_4800_SPS]	= { 4800,	0 },
+> +	[ADS1262_DR_7200_SPS]	= { 7200,	0 },
+> +	[ADS1262_DR_14400_SPS]	= { 14400,	0 },
+> +	[ADS1262_DR_19200_SPS]	= { 19200,	0 },
+> +	[ADS1262_DR_38400_SPS]	= { 38400,	0 },
+> +};
+> +
+> +static const int ads1262_pga_gain_avail[] = {
+> +	1, 2, 4, 8, 16, 32
+> +};
+> +
+> +#define ads1262_find_one(_arr, _val)					\
+> +({									\
+> +	int _i;								\
+> +	for (_i = 0; _i < ARRAY_SIZE(_arr); _i++) {			\
+> +		if ((_val) == _arr[_i])					\
+> +			break;						\
+> +	}								\
+> +	if (_i == ARRAY_SIZE(_arr))					\
+> +		_i = -EINVAL;						\
+> +	_i;								\
+> +})
+> +
+> +#define ads1262_find_two(_arr, _val, _val2)				\
+> +({									\
+> +	int _i;								\
+> +	for (_i = 0; _i < ARRAY_SIZE(_arr); _i++) {			\
+> +		if ((_val) == _arr[_i][0] && (_val2) == _arr[_i][1])	\
+> +			break;						\
+> +	}								\
+> +	if (_i == ARRAY_SIZE(_arr))					\
+> +		_i = -EINVAL;						\
+> +	_i;								\
+> +})
+
+It looks like these are only used once, so not much point in making it
+a macro.
+
+> +
+> +#define ads1262_find_string(_arr, _str)					\
+
+Isn't this the same as match_string()?
+
+> +({									\
+> +	int _i;								\
+> +	for (_i = 0; _i < ARRAY_SIZE(_arr); _i++) {			\
+> +		if (!strcmp(_arr[_i], _str))				\
+> +			break;						\
+> +	}								\
+> +	if (_i == ARRAY_SIZE(_arr))					\
+> +		_i = -EINVAL;						\
+> +	_i;								\
+> +})
+> +
+> +static int ads1262_dev_cmd(struct ads1262 *st, u8 opcode)
+> +{
+> +	guard(mutex)(&st->xfer_lock);
+> +
+> +	return spi_write_then_read(st->spi, &opcode, sizeof(opcode), NULL, 0);
+> +}
+> +
+> +static int ads1262_dev_reset(struct ads1262 *st)
+
+I would call this soft_reset since there is also a hardware reset pin.
+
+Or also add the hardware reset here.
+
+> +{
+> +	int ret;
+> +
+> +	ret = ads1262_dev_cmd(st, ADS1262_OPCODE_RESET);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* RESET command timing requirement is 1.085 usecs (Table 9-32) */
+> +	fsleep(2);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ads1262_dev_start(struct ads1262 *st)
+> +{
+> +	int ret;
+> +
+> +	if (st->start_gpiod)
+> +		ret = gpiod_set_value_cansleep(st->start_gpiod, 1);
+> +	else
+> +		ret = ads1262_dev_cmd(st, ADS1262_OPCODE_START1);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ads1262_dev_stop(struct ads1262 *st)
+> +{
+> +	int ret;
+> +
+> +	if (st->start_gpiod)
+> +		ret = gpiod_set_value_cansleep(st->start_gpiod, 0);
+> +	else
+> +		ret = ads1262_dev_cmd(st, ADS1262_OPCODE_STOP1);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ads1262_dev_start_one(struct ads1262 *st, u8 runmode)
+> +{
+> +	int ret;
+> +
+> +	ret = ads1262_dev_start(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (runmode == ADS1262_RUNMODE_CONTINUOUS)
+
+Why would we not just put the device in single-shot mode to start
+a single conversion?
+
+OK, anwsered later.
+
+> +		return ads1262_dev_stop(st);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ads1262_calculate_scale(struct ads1262 *st, u8 realbits, u8 gain,
+> +				   u8 pos_ref, u8 neg_ref, int *val, int *val2)
+> +{
+> +	u64 divd, divr, tmp, rem;
+> +	int pos_uV, neg_uV;
+> +
+> +	switch (pos_ref) {
+> +	case ADS1262_REFMUX_INTERNAL:
+> +		/* Internal voltage reference is 2.5 V */
+> +		pos_uV = 2500000;
+> +		break;
+> +	case ADS1262_REFMUX_AIN0_AIN1...ADS1262_REFMUX_AIN4_AIN5:
+> +		pos_uV = st->refp_uV;
+
+I don't think it is safe to assume the same reference is wired to all of these.
+
+> +		break;
+> +	case ADS1262_REFMUX_AVDD_AVSS:
+> +		pos_uV = st->avdd_uV;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	switch (neg_ref) {
+> +	case ADS1262_REFMUX_INTERNAL:
+> +		neg_uV = 0;
+> +		break;
+> +	case ADS1262_REFMUX_AIN0_AIN1...ADS1262_REFMUX_AIN4_AIN5:
+> +		neg_uV = st->refn_uV == -ENODEV ? 0 : st->refn_uV;
+
+Why not just store 0 in refn_uV directly?
+
+> +		break;
+> +	case ADS1262_REFMUX_AVDD_AVSS:
+> +		neg_uV = 0;
+> +		break;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+
+Could use a comment to explain why pos would ever be less than negative.
+
+> +	if (pos_uV < neg_uV)
+
+Why not checking chan->ref_reversal?
+
+> +		divd = neg_uV - pos_uV;
+> +	else
+> +		divd = pos_uV - neg_uV;
+
+Why not just use abs()?
+
+> +	divr = BIT_ULL(gain + realbits - 1) * 1000;
+> +	tmp = div64_u64(divd * NANO, divr);
+
+Not a fan of variables named tmp. Would prefer a meaningful name like scale_nano.
+
+> +
+> +	*val = div64_u64_rem(tmp, NANO, &rem);
+> +	*val2 = rem;
+> +
+> +	return 0;
+> +}
+> +
+> +static int ads1262_channel_get_scale(struct ads1262 *st,
+> +				     struct iio_chan_spec const *chan, int *val,
+> +				     int *val2)
+> +{
+> +	struct ads1262_channel *chan_data = &st->channels[chan->scan_index];
+> +
+> +	return ads1262_calculate_scale(st, chan->scan_type.realbits, chan_data->gain,
+> +				       chan_data->reference[0], chan_data->reference[1],
+> +				       val, val2);
+> +}
+> +
+> +static long ads1262_wait_for_conversion(struct ads1262 *st)
+> +{
+> +	/*
+> +	 * The first conversion latency is affected by the channel's data rate,
+> +	 * filter, the configurable conversion delay and whether chop mode
+> +	 * and/or IDAC rotation mode are enabled.
+> +	 *
+> +	 * The worst possible latency is calculated by taking the lowest data
+> +	 * rate (2.5 SPS) and the sinc4 filter. This gives a latency of 1600 ms
+> +	 * (Table 9-13). Then add the slowest configurable conversion delay
+> +	 * (9 ms) and multiply by 4 to account for chop and IDAC rotation modes
+> +	 * (Equation 20).
+> +	 *
+> +	 * Final result is 4 * (1600 ms + 9 ms) = 6436.
+> +	 */
+> +	return wait_for_completion_interruptible_timeout(&st->drdy, msecs_to_jiffies(6436));
+> +}
+> +
+> +static int ads1262_dev_read_by_cmd(struct ads1262 *st, u8 cmd, __be32 *val)
+
+Would be more logical to put this right after ads1262_dev_cmd().
+
+> +{
+> +	guard(mutex)(&st->xfer_lock);
+> +
+> +	return spi_write_then_read(st->spi, &cmd, sizeof(cmd), val, sizeof(*val));
+> +}
+> +
+> +static int ads1262_channel_enable(struct ads1262 *st,
+> +				  struct ads1262_channel *chan)
+> +{
+> +	u8 mode0, mode2, inpmux, refmux;
+> +	int ret;
+> +
+> +	/* Avoid using guard() here to mitigate AB/BA deadlock warning */
+> +	mutex_lock(&st->chan_lock);
+> +	mode0 = FIELD_PREP(ADS1262_MODE0_INPUT_CHOP_MASK, chan->input_chop) |
+> +		FIELD_PREP(ADS1262_MODE0_IDAC_CHOP_MASK, chan->idac_chop) |
+> +		FIELD_PREP(ADS1262_MODE0_REFREV_MASK, chan->ref_reversal);
+> +	mode2 = FIELD_PREP(ADS1262_MODE2_DR_MASK, chan->data_rate) |
+> +		FIELD_PREP(ADS1262_MODE2_GAIN_MASK, chan->gain) |
+> +		FIELD_PREP(ADS1262_MODE2_BYPASS_MASK, chan->pga_bypass);
+> +	inpmux = FIELD_PREP(ADS1262_INPMUX_MUXN_MASK, chan->input[1]) |
+> +		 FIELD_PREP(ADS1262_INPMUX_MUXP_MASK, chan->input[0]);
+> +	refmux = FIELD_PREP(ADS1262_REFMUX_RMUXN_MASK, chan->reference[1]) |
+> +		 FIELD_PREP(ADS1262_REFMUX_RMUXP_MASK, chan->reference[0]);
+> +	mutex_unlock(&st->chan_lock);
+
+Why does lock not also include actually writing the bits?
+
+> +
+> +	ret = regmap_update_bits(st->regmap, ADS1262_MODE0_REG,
+> +				 ADS1262_MODE0_INPUT_CHOP_MASK |
+> +				 ADS1262_MODE0_IDAC_CHOP_MASK |
+> +				 ADS1262_MODE0_REFREV_MASK, mode0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(st->regmap, ADS1262_MODE2_REG,
+> +				 ADS1262_MODE2_DR_MASK |
+> +				 ADS1262_MODE2_GAIN_MASK |
+> +				 ADS1262_MODE2_BYPASS_MASK, mode2);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(st->regmap, ADS1262_INPMUX_REG,
+> +				 ADS1262_INPMUX_MUXN_MASK |
+> +				 ADS1262_INPMUX_MUXP_MASK, inpmux);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_update_bits(st->regmap, ADS1262_REFMUX_REG,
+> +				  ADS1262_REFMUX_RMUXN_MASK |
+> +				  ADS1262_REFMUX_RMUXP_MASK, refmux);
+> +}
+> +
+> +static int ads1262_set_runmode(struct ads1262 *st, u8 runmode)
+> +{
+> +	return regmap_update_bits(st->regmap, ADS1262_MODE0_REG,
+> +				  ADS1262_MODE0_RUNMODE_MASK,
+> +				  FIELD_PREP(ADS1262_MODE0_RUNMODE_MASK, runmode));
+> +}
+> +
+> +static int ads1262_channel_read(struct ads1262 *st,
+> +				struct ads1262_channel *chan_data, __be32 *val)
+> +{
+> +	u8 runmode;
+> +	int ret;
+> +
+> +	IIO_DEV_ACQUIRE_DIRECT_MODE(st->indio_dev, claim);
+> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +		return -EBUSY;
+> +
+> +	/*
+> +	 * When a channel has chop mode or IDAC rotation mode, the first
+> +	 * conversion is always withheld so the datasheet suggests using the
+> +	 * CONTINUOUS mode and briefly starting and stopping conversions to
+> +	 * achieve the same effect (Section 9.4.1.2).
+> +	 */
+> +	if (chan_data->input_chop || chan_data->idac_chop)
+> +		runmode = ADS1262_RUNMODE_CONTINUOUS;
+> +	else
+> +		runmode = ADS1262_RUNMODE_PULSE;
+> +
+> +	ret = ads1262_set_runmode(st, runmode);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ads1262_channel_enable(st, chan_data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	reinit_completion(&st->drdy);
+> +
+> +	ret = ads1262_dev_start_one(st, runmode);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ads1262_wait_for_conversion(st);
+
+This can timeout, so would expect to check return value here.
+
+> +
+> +	return ads1262_dev_read_by_cmd(st, ADS1262_OPCODE_RDATA1, val);
+> +}
+> +
+> +static int ads1262_read_raw(struct iio_dev *indio_dev,
+> +			    struct iio_chan_spec const *chan, int *val,
+> +			    int *val2, long mask)
+> +{
+> +	struct ads1262 *st = iio_priv(indio_dev);
+> +	struct ads1262_channel *chan_data = &st->channels[chan->scan_index];
+> +	u8 realbits = chan->scan_type.realbits;
+> +	__be32 raw;
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		ret = ads1262_channel_read(st, chan_data, &raw);
+> +		if (ret)
+> +			return ret;
+> +		*val = sign_extend32(be32_to_cpu(raw), realbits - 1);
+> +
+> +		return IIO_VAL_INT;
+> +
+> +	case IIO_CHAN_INFO_SCALE: {
+> +		guard(mutex)(&st->chan_lock);
+> +
+> +		ret = ads1262_channel_get_scale(st, chan, val, val2);
+> +		if (ret)
+> +			return ret;
+> +
+> +		return IIO_VAL_INT_PLUS_NANO;
+> +	}
+> +
+> +	case IIO_CHAN_INFO_HARDWAREGAIN: {
+
+There is only one other ADC that uses "hardwaregain". Usually, we just make
+scale writeable to control the gain. I don't remember what the rules for
+that attribute are. Using it for in_voltage is not documented in the ABI.
+
+> +		guard(mutex)(&st->chan_lock);
+> +
+> +		*val = ads1262_pga_gain_avail[chan_data->gain];
+> +
+> +		return IIO_VAL_INT;
+> +	}
+> +
+> +	case IIO_CHAN_INFO_SAMP_FREQ: {
+> +		guard(mutex)(&st->chan_lock);
+> +
+> +		*val = ads1262_data_rate_avail[chan_data->data_rate][0];
+> +		*val2 = ads1262_data_rate_avail[chan_data->data_rate][1];
+> +
+> +		return IIO_VAL_INT_PLUS_MICRO;
+> +	}
+> +
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +}
+> +
+> +static int ads1262_read_avail(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan, const int **vals,
+> +			      int *type, int *length, long mask)
+> +{
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		*type = IIO_VAL_INT_PLUS_MICRO;
+> +		*vals = (const int *)ads1262_data_rate_avail;
+> +		*length = ARRAY_SIZE(ads1262_data_rate_avail) * 2;
+> +		return IIO_AVAIL_LIST;
+> +
+> +	case IIO_CHAN_INFO_HARDWAREGAIN:
+> +		*type = IIO_VAL_INT;
+> +		*vals = ads1262_pga_gain_avail;
+> +		*length = ARRAY_SIZE(ads1262_pga_gain_avail);
+> +		return IIO_AVAIL_LIST;
+> +
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +}
+> +
+> +static int ads1262_write_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan, int val,
+> +			     int val2, long mask)
+> +{
+> +	struct ads1262 *st = iio_priv(indio_dev);
+> +	struct ads1262_channel *chan_data;
+> +	int i;
+> +
+> +	chan_data = &st->channels[chan->scan_index];
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ: {
+> +		i = ads1262_find_two(ads1262_data_rate_avail, val, val2);
+> +		if (i < 0)
+> +			return i;
+> +
+> +		guard(mutex)(&st->chan_lock);
+> +		chan_data->data_rate = i;
+> +
+> +		break;
+> +	}
+> +
+> +	case IIO_CHAN_INFO_HARDWAREGAIN: {
+> +		i = ads1262_find_one(ads1262_pga_gain_avail, val);
+> +		if (i < 0)
+> +			return i;
+> +
+> +		guard(mutex)(&st->chan_lock);
+> +		chan_data->gain = i;
+> +
+> +		break;
+> +	}
+> +
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int ads1262_write_raw_get_fmt(struct iio_dev *indio_dev,
+> +				     struct iio_chan_spec const *chan, long mask)
+> +{
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_CONVDELAY:
+
+Looks like this belongs in a later patch.
+
+> +		return IIO_VAL_INT_PLUS_NANO;
+> +	default:
+> +		return IIO_VAL_INT_PLUS_MICRO;
+> +	}
+> +}
+> +
+> +static int ads1262_debugfs_reg_access(struct iio_dev *indio_dev, unsigned int reg,
+> +				      unsigned int writeval, unsigned int *readval)
+> +{
+> +	struct ads1262 *st = iio_priv(indio_dev);
+> +
+> +	if (readval)
+> +		return regmap_read_bypassed(st->regmap, reg, readval);
+> +
+> +	return regmap_write(st->regmap, reg, writeval);
+> +}
+> +
+> +static const struct iio_info ads1262_iio_info = {
+> +	.read_raw = ads1262_read_raw,
+> +	.read_avail = ads1262_read_avail,
+> +	.write_raw = ads1262_write_raw,
+> +	.write_raw_get_fmt = ads1262_write_raw_get_fmt,
+> +	.debugfs_reg_access = ads1262_debugfs_reg_access,
+> +};
+> +
+> +static irqreturn_t ads1262_irq_handler(int irq, void *dev_id)
+> +{
+> +	struct ads1262 *st = dev_id;
+> +
+> +	complete(&st->drdy);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int ads1262_alloc_channels(struct ads1262 *st,
+> +				  struct iio_chan_spec **channels)
+> +{
+> +	struct device *dev = &st->spi->dev;
+> +	struct ads1262_channel *chan_data;
+> +	struct iio_chan_spec *chans;
+> +	unsigned int i, num_channels;
+> +
+> +	/* Account for the timestamp channel */
+> +	num_channels = st->num_channels + 1;
+> +	chans = devm_kcalloc(dev, num_channels, sizeof(*chans), GFP_KERNEL);
+> +	if (!chans)
+> +		return -ENOMEM;
+> +
+> +	for (i = 0; i < st->num_channels; i++) {
+> +		chan_data = &st->channels[i];
+> +		chans[i] = (struct iio_chan_spec) {
+> +			.type = IIO_VOLTAGE,
+> +			.channel = chan_data->input[0],
+> +			.channel2 = chan_data->input[1],
+> +			.scan_index = i,
+> +			.scan_type = {
+> +				.format = IIO_SCAN_FORMAT_SIGNED_INT,
+> +				.realbits = 32,
+> +				.storagebits = 32,
+> +				.endianness = IIO_BE,
+> +			},
+> +			.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +					      BIT(IIO_CHAN_INFO_SCALE) |
+> +					      BIT(IIO_CHAN_INFO_HARDWAREGAIN) |
+> +					      BIT(IIO_CHAN_INFO_SAMP_FREQ),
+> +			.info_mask_shared_by_type_available =
+> +				BIT(IIO_CHAN_INFO_HARDWAREGAIN) |
+
+Gain available might make more sense as separate if there are restrictions
+on gain allowed due to other conditions. 
+
+> +				BIT(IIO_CHAN_INFO_SAMP_FREQ),
+
+Could be the same case with sampling frequency if filters can affect that.
+
+> +			.indexed = true,
+> +			.differential = true,
+
+These two make more sense closer to the top since they affect the
+channel naming along with type and channel.
+
+> +		};
+> +	}
+
+As mentioned in the DT bindings review, I would make the diagnostic
+channels fixed so that they don't have to be always specified in
+the devicetree.
+
+> +
+> +	chans[i] = IIO_CHAN_SOFT_TIMESTAMP(i);
+> +
+> +	*channels = chans;
+> +
+> +	return num_channels;
+> +}
+> +
+> +static int ads1262_dev_configure(struct ads1262 *st)
+> +{
+> +	struct device *dev = &st->spi->dev;
+> +	int ret;
+> +
+> +	ret = ads1262_dev_reset(st);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to reset device\n");
+> +
+> +	ret = regmap_clear_bits(st->regmap, ADS1262_POWER_REG,
+> +				ADS1262_POWER_RESET_MASK);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_clear_bits(st->regmap, ADS1262_INTERFACE_REG,
+> +				ADS1262_INTERFACE_STATUS_MASK |
+> +				ADS1262_INTERFACE_CRC_MASK);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (device_property_present(dev, "ti,vbias")) {
+> +		ret = regmap_set_bits(st->regmap, ADS1262_POWER_REG,
+> +				      ADS1262_POWER_VBIAS_MASK);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct regmap_range ads1262_read_write_range[] = {
+> +	regmap_reg_range(ADS1262_ID_REG, ADS1262_ADC2FSC1_REG),
+> +};
+> +
+> +static const struct regmap_range ads1262_read_only_range[] = {
+> +	regmap_reg_range(ADS1262_ID_REG, ADS1262_ID_REG),
+> +};
+> +
+> +static const struct regmap_access_table ads1262_wr_table = {
+> +	.yes_ranges = ads1262_read_write_range,
+> +	.n_yes_ranges = ARRAY_SIZE(ads1262_read_write_range),
+> +	.no_ranges = ads1262_read_only_range,
+> +	.n_no_ranges = ARRAY_SIZE(ads1262_read_only_range),
+> +};
+> +
+> +static const struct regmap_access_table ads1262_rd_table = {
+> +	.yes_ranges = ads1262_read_write_range,
+> +	.n_yes_ranges = ARRAY_SIZE(ads1262_read_write_range),
+> +};
+> +
+> +static const struct reg_default ads1262_reg_defaults[] = {
+> +	{ ADS1262_POWER_REG,		0x11 },
+> +	{ ADS1262_INTERFACE_REG,	0x05 },
+> +	{ ADS1262_MODE0_REG,		0x00 },
+> +	{ ADS1262_MODE1_REG,		0x80 },
+> +	{ ADS1262_MODE2_REG,		0x04 },
+> +	{ ADS1262_INPMUX_REG,		0x01 },
+> +	{ ADS1262_OFCAL0_REG,		0x00 },
+> +	{ ADS1262_OFCAL1_REG,		0x00 },
+> +	{ ADS1262_OFCAL2_REG,		0x00 },
+> +	{ ADS1262_FSCAL0_REG,		0x00 },
+> +	{ ADS1262_FSCAL1_REG,		0x00 },
+> +	{ ADS1262_FSCAL2_REG,		0x40 },
+> +	{ ADS1262_IDACMUX_REG,		0xBB },
+> +	{ ADS1262_IDACMAG_REG,		0x00 },
+> +	{ ADS1262_REFMUX_REG,		0x00 },
+> +	{ ADS1262_TDACP_REG,		0x00 },
+> +	{ ADS1262_TDACN_REG,		0x00 },
+> +	{ ADS1262_GPIOCON_REG,		0x00 },
+> +	{ ADS1262_GPIODIR_REG,		0x00 },
+> +	{ ADS1262_GPIODAT_REG,		0x00 },
+> +	{ ADS1262_ADC2CFG_REG,		0x00 },
+> +	{ ADS1262_ADC2MUX_REG,		0x01 },
+> +	{ ADS1262_ADC2OFC0_REG,		0x00 },
+> +	{ ADS1262_ADC2OFC1_REG,		0x00 },
+> +	{ ADS1262_ADC2FSC0_REG,		0x00 },
+> +	{ ADS1262_ADC2FSC1_REG,		0x40 },
+> +};
+
+Jonathan says he prefers to spell out the default values (e.g.
+with FIELD_PREP_CONST()) it it isn't too messy.
+
+> +
+> +static const struct regmap_config ads1262_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.wr_table = &ads1262_wr_table,
+> +	.rd_table = &ads1262_rd_table,
+> +	.reg_defaults = ads1262_reg_defaults,
+> +	.num_reg_defaults = ARRAY_SIZE(ads1262_reg_defaults),
+> +	.max_register = ADS1262_ADC2FSC1_REG,
+> +	.read_flag_mask = ADS1262_OPCODE_RREG,
+> +	.write_flag_mask = ADS1262_OPCODE_WREG,
+> +	.can_sleep = true,
+> +	.cache_type = REGCACHE_MAPLE,
+
+Need to define volatile registers in order for cache to work correctly.
+
+> +};
+> +
+> +static int ads1262_regmap_read(void *context, const void *reg_buf,
+> +			       size_t reg_size, void *val_buf, size_t val_size)
+> +{
+> +	struct ads1262 *st = context;
+> +	struct spi_transfer xfer = {
+> +		.tx_buf = st->tx,
+> +		.rx_buf = st->rx,
+> +		.len = reg_size + 1 + val_size,
+> +	};
+> +	int ret;
+> +
+> +	guard(mutex)(&st->xfer_lock);
+
+SPI bus and regmap both already have their own locking, so putting a lock
+here seems out of place. Instead, the lock should be for higher-level
+operations where there are mulitple register access in a single operation.
+
+> +
+> +	memset(st->tx, 0, reg_size + 1 + val_size);
+> +
+> +	memcpy(&st->tx[0], reg_buf, 1);
+> +	st->tx[1] = val_size - 1;
+> +
+> +	ret = spi_sync_transfer(st->spi, &xfer, 1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	memcpy(val_buf, &st->rx[2], val_size);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ads1262_regmap_gather_write(void *context, const void *reg_buf,
+> +				       size_t reg_size, const void *val_buf,
+> +				       size_t val_size)
+> +{
+> +	struct ads1262 *st = context;
+> +	struct spi_transfer xfer = {
+> +		.tx_buf = st->tx,
+> +		.rx_buf = st->rx,
+> +		.len = reg_size + 1 + val_size,
+> +	};
+> +
+> +	guard(mutex)(&st->xfer_lock);
+> +
+> +	memset(st->tx, 0, reg_size + 1 + val_size);
+> +
+> +	memcpy(&st->tx[0], reg_buf, 1);
+> +	st->tx[1] = val_size - 1;
+> +	memcpy(&st->tx[2], val_buf, val_size);
+> +
+> +	return spi_sync_transfer(st->spi, &xfer, 1);
+> +}
+> +
+> +static int ads1262_regmap_write(void *context, const void *data, size_t count)
+> +{
+> +	return ads1262_regmap_gather_write(context, data, 1, data + 1,
+> +					   count - 1);
+> +}
+> +
+> +static const struct regmap_bus ads1262_regmap_bus = {
+> +	.read = ads1262_regmap_read,
+> +	.gather_write = ads1262_regmap_gather_write,
+> +	.write = ads1262_regmap_write,
+> +	.reg_format_endian_default = REGMAP_ENDIAN_BIG,
+> +	.val_format_endian_default = REGMAP_ENDIAN_BIG,
+> +	/* The first two bytes of the buffer are reserved for the protocol */
+> +	.max_raw_read = ADS1262_XFER_BUFFER_SZ - 2,
+> +	.max_raw_write = ADS1262_XFER_BUFFER_SZ - 2,
+> +};
+
+Why do we need our own bus instead of using REGMAP_SPI?
+
+> +
+> +static int ads1262_channel_sanity_check(struct ads1262 *st,
+> +					struct ads1262_channel *chan)
+> +{
+> +	struct device *dev = &st->spi->dev;
+> +	int pos_uV, neg_uV;
+> +
+> +	/* Positive reference */
+> +	switch (chan->reference[0]) {
+> +	case ADS1262_REFMUX_INTERNAL:
+> +		/* Internal voltage reference is 2.5 V */
+> +		pos_uV = 2500000;
+> +		break;
+> +	case ADS1262_REFMUX_AIN0_AIN1...ADS1262_REFMUX_AIN4_AIN5:
+> +		if (st->refp_uV == -ENODEV)
+> +			return dev_err_probe(dev, -ENODEV, "refp-supply not found\n");
+> +		pos_uV = st->refp_uV;
+> +		break;
+> +	case ADS1262_REFMUX_AVDD_AVSS:
+> +		pos_uV = st->avdd_uV;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* Negative reference */
+> +	switch (chan->reference[1]) {
+> +	case ADS1262_REFMUX_INTERNAL:
+> +		neg_uV = 0;
+> +		break;
+> +	case ADS1262_REFMUX_AIN0_AIN1...ADS1262_REFMUX_AIN4_AIN5:
+> +		neg_uV = st->refn_uV == -ENODEV ? 0 : st->refn_uV;
+> +		break;
+> +	case ADS1262_REFMUX_AVDD_AVSS:
+> +		neg_uV = 0;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* If the positive reference is bellow the negative, reverse it */
+
+s/bellow/below/
+
+> +	if (pos_uV < neg_uV)
+> +		chan->ref_reversal = 1;
+> +
+> +	/* ADC2 reference */
+> +	switch (chan->reference[2]) {
+> +	case ADS1262_REFMUX_AIN0_AIN1...ADS1262_REFMUX_AIN4_AIN5:
+> +		if (st->refp_uV == -ENODEV)
+> +			return dev_err_probe(dev, -ENODEV, "refp-supply not found\n");
+> +		pos_uV = st->refp_uV;
+> +		neg_uV = st->refn_uV == -ENODEV ? 0 : st->refn_uV;
+> +
+> +		/* We can't reverse ADC2 reference */
+> +		if (pos_uV < neg_uV && st->info->has_aux_adc)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "ADC2 doesn't support negative reference voltage\n");
+> +
+> +		break;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const char * const ads1262_ref_sources_positive[] = {
+> +	[ADS1262_REFMUX_INTERNAL] = "internal",
+> +	[ADS1262_REFMUX_AIN0_AIN1] = "ain0",
+> +	[ADS1262_REFMUX_AIN2_AIN3] = "ain2",
+> +	[ADS1262_REFMUX_AIN4_AIN5] = "ain4",
+> +	[ADS1262_REFMUX_AVDD_AVSS] = "avdd"
+> +};
+> +
+> +static const char * const ads1262_ref_sources_negative[] = {
+> +	[ADS1262_REFMUX_INTERNAL] = "internal",
+> +	[ADS1262_REFMUX_AIN0_AIN1] = "ain1",
+> +	[ADS1262_REFMUX_AIN2_AIN3] = "ain3",
+> +	[ADS1262_REFMUX_AIN4_AIN5] = "ain5",
+> +	[ADS1262_REFMUX_AVDD_AVSS] = "avss"
+> +};
+> +
+> +static const char * const ads1262_ref_sources_adc2[] = {
+> +	[ADS1262_REFMUX_INTERNAL] = "internal",
+> +	[ADS1262_REFMUX_AIN0_AIN1] = "ain0-ain1",
+> +	[ADS1262_REFMUX_AIN2_AIN3] = "ain2-ain3",
+> +	[ADS1262_REFMUX_AIN4_AIN5] = "ain4-ain5",
+> +	[ADS1262_REFMUX_AVDD_AVSS] = "avdd-avss"
+> +};
+> +
+> +static int ads1262_parse_channel_node(struct ads1262 *st,
+> +				      struct ads1262_channel *chan,
+> +				      struct fwnode_handle *node)
+> +{
+> +	struct device *dev = &st->spi->dev;
+> +	const char *ref_sources[3] = {};
+
+IIO style is with space between `{ }`.
+
+> +	u32 pins[2];
+> +	int ret;
+> +
+> +	/* Write non-zero default configuration values */
+> +	chan->data_rate = ADS1262_DR_20_SPS;
+> +
+> +	ret = fwnode_property_read_u32_array(node, "diff-channels", pins, ARRAY_SIZE(pins));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "%s: Failed to read diff-channels\n",
+> +				     fwnode_get_name(node));
+> +	if (pins[0] >= ADS1262_INPMUX_LAST || pins[1] >= ADS1262_INPMUX_LAST)
+> +		return dev_err_probe(dev, -EINVAL, "%s: input channels not in range\n",
+> +				     fwnode_get_name(node));
+> +	chan->input[0] = pins[0];
+> +	chan->input[1] = pins[1];
+> +
+> +	if (fwnode_property_present(node, "reference-sources")) {
+> +		ret = fwnode_property_read_string_array(node, "reference-sources", ref_sources,
+> +							st->info->has_aux_adc ? 3 : 2);
+> +		if (ret < 0)
+> +			return dev_err_probe(dev, ret, "%s: Failed to read reference-sources\n",
+> +					     fwnode_get_name(node));
+> +
+> +		ret = ads1262_find_string(ads1262_ref_sources_positive, ref_sources[0]);
+> +		if (ret < 0)
+> +			return dev_err_probe(dev, ret, "%s: Invalid positive reference\n",
+> +					     fwnode_get_name(node));
+> +		chan->reference[0] = ret;
+> +
+> +		ret = ads1262_find_string(ads1262_ref_sources_negative, ref_sources[1]);
+> +		if (ret < 0)
+> +			return dev_err_probe(dev, ret, "%s: Invalid negative reference\n",
+> +					     fwnode_get_name(node));
+> +		chan->reference[1] = ret;
+> +
+> +		if (st->info->has_aux_adc) {
+> +			ret = ads1262_find_string(ads1262_ref_sources_adc2, ref_sources[2]);
+> +			if (ret < 0)
+> +				return dev_err_probe(dev, ret, "%s: Invalid ADC2 reference\n",
+> +						     fwnode_get_name(node));
+> +			chan->reference[2] = ret;
+> +		}
+> +	}
+> +
+> +	if (fwnode_property_present(node, "ti,pga-bypass"))
+> +		chan->pga_bypass = 1;
+
+These can be one-line:
+
+	chan->pga_bypass = fwnode_property_read_bool(node, "ti,pga-bypass");
+
+> +
+> +	if (fwnode_property_present(node, "input-chopping"))
+> +		chan->input_chop = 1;
+> +
+> +	if (fwnode_property_present(node, "ti,idac-chopping"))
+> +		chan->idac_chop = 1;
+> +
+> +	return ads1262_channel_sanity_check(st, chan);
+> +}
+> +
+> +static int ads1262_parse_firmware(struct ads1262 *st)
+> +{
+> +	struct device *dev = &st->spi->dev;
+> +	struct clk *clk;
+> +	u32 reg;
+> +	int ret;
+> +
+> +	/* Set the nominal clock frequency */
+> +	clk = devm_clk_get_optional_enabled_with_rate(dev, NULL, 7372800);
+
+This is quite unusual. Usually an external clock would be a fixed clock
+and therefore can't be set.
+
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk),
+> +				     "Failed to get external clock\n");
+> +
+> +	ret = devm_regulator_get_enable(dev, "dvdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get dvdd regulator\n");
+> +
+> +	st->avdd_uV = devm_regulator_get_enable_read_voltage(dev, "avdd");
+
+We only need the voltage of avdd if it is actually used as a reference, which
+is probably quite rare. Not all regulators provide a voltage value.
+
+> +	if (st->avdd_uV < 0)
+> +		return dev_err_probe(dev, st->avdd_uV, "Failed to get avdd regulator\n");
+> +
+> +	st->refp_uV = devm_regulator_get_enable_read_voltage(dev, "refp");
+> +	if (st->refp_uV < 0 && st->refp_uV != -ENODEV)
+> +		return dev_err_probe(dev, st->refp_uV, "Failed to get refp regulator\n");
+> +
+> +	st->refn_uV = devm_regulator_get_enable_read_voltage(dev, "refn");
+> +	if (st->refn_uV < 0 && st->refn_uV != -ENODEV)
+> +		return dev_err_probe(dev, st->refn_uV, "Failed to get refn regulator\n");
+> +
+> +	st->start_gpiod = devm_gpiod_get_optional(dev, "start", GPIOD_OUT_LOW);
+> +	if (IS_ERR(st->start_gpiod))
+> +		return dev_err_probe(dev, PTR_ERR(st->start_gpiod),
+> +				     "Failed to get start GPIO\n");
+> +
+> +	st->reset_gpiod = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(st->reset_gpiod))
+> +		return dev_err_probe(dev, PTR_ERR(st->reset_gpiod),
+> +				     "Failed to get reset GPIO\n");
+
+This is currently never used.
+
+> +
+> +	st->num_channels = device_get_named_child_node_count(dev, "channel");
+> +	if (!st->num_channels)
+> +		return dev_err_probe(dev, -ENXIO,
+> +				     "No 'channel' nodes configured\n");
+> +	if (st->num_channels > ADS1262_MAX_CHANNEL_COUNT)
+> +		return dev_err_probe(dev, -EINVAL, "Too many channels\n");
+> +
+> +	st->channels = devm_kcalloc(dev, st->num_channels, sizeof(*st->channels),
+> +				    GFP_KERNEL);
+> +	if (!st->channels)
+> +		return -ENOMEM;
+> +
+> +	device_for_each_named_child_node_scoped(dev, node, "channel") {
+> +		ret = fwnode_property_read_u32(node, "reg", &reg);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "%s: Failed to read channel reg\n",
+> +					     fwnode_get_name(node));
+> +		if (reg >= st->num_channels)
+> +			return dev_err_probe(dev, -EINVAL, "%s: reg out of range\n",
+> +					     fwnode_get_name(node));
+
+If reg is going to be the channel index, then we need to make sure there are
+no gaps in the array as well.
+
+> +
+> +		ret = ads1262_parse_channel_node(st, &st->channels[reg], node);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int ads1262_spi_probe(struct spi_device *spi)
+> +{
+> +	const struct ads1262_chip_info *info;
+> +	struct iio_chan_spec *channels;
+> +	struct device *dev = &spi->dev;
+> +	struct iio_dev *indio_dev;
+> +	struct ads1262 *st;
+> +	int num_channels;
+> +	int ret;
+> +
+> +	info = spi_get_device_match_data(spi);
+> +	if (!info)
+> +		return -EINVAL;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	st = iio_priv(indio_dev);
+> +	st->spi = spi;
+> +	st->indio_dev = indio_dev;
+
+It is quite rare to need a circular reference between indio_dev and private
+data. We can eliminate it by passing indio_dev to ads1262_channel_read().
+
+> +	st->info = info;
+> +	init_completion(&st->drdy);
+> +	dev_set_drvdata(dev, st);
+
+We never get this, so don't need to set it.
+
+> +
+> +	ret = devm_mutex_init(dev, &st->chan_lock);
+> +	if (ret)
+> +		return ret;
+> +	ret = devm_mutex_init(dev, &st->xfer_lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ads1262_parse_firmware(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->regmap = devm_regmap_init(dev, &ads1262_regmap_bus, st,
+> +				      &ads1262_regmap_config);
+> +	if (IS_ERR(st->regmap))
+> +		return PTR_ERR(st->regmap);
+> +
+> +	ret = ads1262_dev_configure(st);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to configure device\n");
+> +
+> +	num_channels = ads1262_alloc_channels(st, &channels);
+> +	if (num_channels < 0)
+> +		return num_channels;
+> +	indio_dev->name = info->name;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->info = &ads1262_iio_info;
+> +	indio_dev->channels = channels;
+> +	indio_dev->num_channels = num_channels;
+> +
+> +	if (spi->irq > 0) {
+> +		ret = devm_request_irq(dev, spi->irq, ads1262_irq_handler,
+> +				       IRQF_NO_THREAD, info->name, st);
+> +		if (ret)
+> +			return ret;
+
+It seems like the driver would not work without an interrupt currently
+so this should not be optional.
+
+> +	}
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+> +
+> +static const struct ads1262_chip_info ads1262_chip_info = {
+> +	.name = "ads1262",
+> +	.has_aux_adc = false,
+> +};
+> +
+> +static const struct ads1262_chip_info ads1263_chip_info = {
+> +	.name = "ads1263",
+> +	.has_aux_adc = true,
+> +};
+> +
+> +static const struct of_device_id ads1262_of_match[] = {
+> +	{ .compatible = "ti,ads1263", .data = &ads1263_chip_info },
+> +	{ .compatible = "ti,ads1262", .data = &ads1262_chip_info },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ads1262_of_match);
+> +
+> +static const struct spi_device_id ads1262_spi_match[] = {
+> +	{ .name = "ads1263", .driver_data = (kernel_ulong_t)&ads1263_chip_info },
+> +	{ .name = "ads1262", .driver_data = (kernel_ulong_t)&ads1262_chip_info },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(spi, ads1262_spi_match);
+> +
+> +static struct spi_driver ads1262_spi_driver = {
+> +	.driver = {
+> +		.name = "ads1262",
+> +		.of_match_table = ads1262_of_match,
+> +	},
+> +	.probe = ads1262_spi_probe,
+> +	.id_table = ads1262_spi_match,
+> +};
+> +module_spi_driver(ads1262_spi_driver);
+> +
+> +MODULE_DESCRIPTION("Texas Instruments ADS1262 ADC driver");
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Kurt Borja <kuurtb@gmail.com>");
+> 
+
