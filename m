@@ -1,194 +1,164 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012041.outbound.protection.outlook.com [40.107.209.41])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93A634E74D
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 09:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782640568; cv=fail; b=abtPUJFLfQPnl6edZho9LRzMGjKvlL+ATT1wTgfX21EfMY2P+/yzLT+xMnz+F0H3FrN+1h5NbjH2ZWNeLCpDxbAW4/pbqMca2a/gMcw/l+HWKZDOZqvzc1Jfp1DcXk5DtViv/IBaNyKemI5pUhtPUK4sSIaR/7Cdi65c/R7RldI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782640568; c=relaxed/simple;
-	bh=dGxKuzyoyIKftY8T9rcVhKkeIWarbAL/tEuxRtmRt5M=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=gER5XJCB0eRLWn6LtUCTVVlx7Xd2NORqHOS47rT92JjnaW0EYb4yLFN+f/cVKtojHmcg2yGX3IMWNb9Vp+f/sAP468ZYInKAalMVcIDAxjBDvoPQJxJxCr+eiKFG1tiGW0HXosZfRqM+QhMn0dZu1zSmkTWEpZN85J66AJpXg4o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=cmquV5Hg; arc=fail smtp.client-ip=40.107.209.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2A33446CA;
+	Sun, 28 Jun 2026 10:22:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782642155; cv=none; b=dwCFvA0N10BLN37XalzKFGLE4p4X9d8SX0kBp0WL+sU7Lb96ZpgB8W6uGcNiqB2GAoGWJYsrAsVZDg6YYUB70ontyvPnYkDWDi9L1q5kQ+soSXAPunXbRlqpgepVK8w0gmSYp4JIHFWu20gq/yV8SbKh5dppEme/Lj+nJjrZXSo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782642155; c=relaxed/simple;
+	bh=pSsloNoctZ8KZdtQMoBMTiphM6yVThkqQuPMFzEH2PI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=icfBhVIYSBzoi8MEyixIOJRDJhOry5Wm2tw0+i45GOl2MtyklmDKUJYGi6irlSjprQdsdnPxFzI32funoe9iedoY7a17IBnXOdCzHW3160WfkooXf6dagZuXy2xcnhz087sJiDjUiIKz1H0VO0MszHBUZBf2XWQZ3yEZUMYn8Cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=p+0kMGCB; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="cmquV5Hg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=efmUmozvqSRSJPdRGkXCGuuyf0QXGPapUG29oIKrWYBz+pj300rQUsQ/620RKhg+2omXkn2ik4gtaFTB3AidioWvX++6z5Qh/rsuP8q017yc76xKTaqf/91YeSZT7psAWosVpNaUaxuzWNmt6W/jWAdlVE9SMlVGHeOQvpGc6WzkgOWh6XLYMsoiSXHNWnO/rf3R2LxEfcxexvyn60qVeiH52xm2aIb4xWbi91WMjWUwZvEZUp8ZEmQJ+Fj8s6aLb5cSN9KvmYpLYRC3wC+VkCcI06mfjyjhoLhLoRKxsJIukarBHGHXwRAXWvriux+1vke6JGJx1KP0BhyIS+jbxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OnY87Ts9sW4l/tZl8pVdwiYnmXSQERvq2ud+Bt9Ccak=;
- b=D+HdthPp4boh1lTm6c9dCQgWsSgXXDHy9Q+K3c9Awmc+VmM1WIkWaA/B93qcJxyUxylgo/mVHk//5T5fYVm4X2eXHaUf4MOKyfhHXQ4zwHvz+CYggXjAZdd4hFc2jS8Q/M1X+rzJuRfiD0n2Pn5mTMKNB43fSnRTp+cVk7f3KSDgUXeQ76wn9JoZxKlGJnlPd9evkby1biQqq7pUtvX9xHcaTIpktmhX7aIf65vyCiyR7NbzcfA45Iv30UgxbazrcOEG5JAgXdJOfb/zm8STqUAcutGDD5tE856V/ZZne1Xws+27n94KGwSht1mBh2Rspm242WslBBaJTpQLfgieQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OnY87Ts9sW4l/tZl8pVdwiYnmXSQERvq2ud+Bt9Ccak=;
- b=cmquV5HgPHbyCBmC+s7czg6/MNkxD8R5EE///EZk7kYsLJQMjdM90UE7h2jc3++d/5Pny+IgI98SghUTCEcDJQLpd4bHJetySYYlDpxHsAfO+9d3kf0QMKl0ozcrVOSliaxmUQc4mZJuRyDoych9COdv8W8bt2jf+c+Q/qTWvd7Z0EuhYoamPkc2ErKDJ57395gmj0KlZJti36EG9RLkM379X3aYGEa5/Z2BaE15DQ3yKDTFJgKwIzkyuIEntAKuqXbMY9nekPNjPiyb/xjNlSNMSYkWaJTSyZdgybnhAnrpJNa8o3vEPzWsGGtJ/SizBTvg+aOITPCIW89l2gX8iA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from BN9PR03MB6204.namprd03.prod.outlook.com (2603:10b6:408:101::21)
- by PH8PR03MB989117.namprd03.prod.outlook.com (2603:10b6:510:3a9::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Sun, 28 Jun
- 2026 09:56:04 +0000
-Received: from BN9PR03MB6204.namprd03.prod.outlook.com
- ([fe80::47fd:71fd:88fe:6fe4]) by BN9PR03MB6204.namprd03.prod.outlook.com
- ([fe80::47fd:71fd:88fe:6fe4%5]) with mapi id 15.21.0159.018; Sun, 28 Jun 2026
- 09:56:03 +0000
-Message-ID: <7e839ba2-8ad3-40ff-bbff-b697b358dafd@altera.com>
-Date: Sun, 28 Jun 2026 15:25:39 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/9] arm64: dts: agilex5: add Cadence SD6HC controller
- and SOCDK enablement
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-References: <20260627201457.12318-1-tanmay.kathpalia@altera.com>
- <20260627201457.12318-4-tanmay.kathpalia@altera.com>
- <20260627202457.5A3931F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>
-In-Reply-To: <20260627202457.5A3931F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0001.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:174::14) To DM4PR03MB6208.namprd03.prod.outlook.com
- (2603:10b6:5:39c::19)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="p+0kMGCB"
+Received: from ping.linuxembedded.co.uk (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 394B134;
+	Sun, 28 Jun 2026 12:21:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1782642098;
+	bh=pSsloNoctZ8KZdtQMoBMTiphM6yVThkqQuPMFzEH2PI=;
+	h=From:Subject:Date:To:Cc:From;
+	b=p+0kMGCBDHSdrMRCTYhGwKrbD/lVOCLOVqbLnE/Z8+r4xy36LIXysHfmItF+k60Nu
+	 grjX8hLayTsJT7xg1Tm+ykqzPWkvNDNSUz6SvkXezHR2t1L1Bl18OxNsCDb0DySnis
+	 0aXBROKTASUubfqalaG1RQhwnEvUtpRe8sgYywvI=
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Subject: [PATCH v3 0/7] dt-bindings: Orientation defines
+Date: Sun, 28 Jun 2026 11:22:15 +0100
+Message-Id: <20260628-kbingham-orientation-v3-0-4ed92968aff8@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR03MB6204:EE_|PH8PR03MB989117:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d230df5-a45d-494f-fd8c-08ded4fb6de8
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|11063799006|4143699003|22082099003|18002099003|55112099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	DrFI90OXPrA8IRUmkOeja7Dcqtui3TwpacZvHiCTkUCVRvkf3KFsrUPlOUXUDfYcyqRYz1QLoJfvgWd5lJYETKsYjSBj1wvqZo0n27WwaNn6uq8byZMetLHK6Twaavrf+lMyDeJlQ2wQvXWx7jsgK9CHWOCZdNQyyv0FDN4oDtVnejG0DQeHZOSnufxpv6ZTr+EXaiLoyWyqTc4Ha02Rfbmuc+7x7Df27YHcyp5ht/AoGg7kz5z0eCQDHv+JftiQCAIwc3AyEbAqkkOjpPGT91kiaBKx6WhT6yTDkqoYp0NN0AG7iaG0EynJJ4BKdEqbfLCI4pHSUS7bs+Rx8UoeZd2DXuaaZDYmLAqOUypb2foEP/GYBtLbItDeJiDQ71LXCyl/PlABu3iWojJkcjU0tCoXuO8mwtKmFGQoxaSpZ826k3pXaAhrqrK2wIJlJ/FZcCEZyj5Lj3VUmL/19J/nOUZgfkCbnsD0mvhS9k73Rl0KLvVGJidjeldjiZXJhZ4N17b6EfdS3jNiGgr/0MaByBqwlcBMMHXzPQRBaUWjQTrz+V3tGY7V7JLchNk+j4E2C6UO3n6YcLuUMDLrQwt4Om0cZpWDS/HvLp3N7hgLr+BMIXdBt2tU6tw+c2BhvqHZ1vjvuNX7KFnioazI2wVq8BtZGwNBRn+j1zomct/d+Jg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR03MB6204.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(11063799006)(4143699003)(22082099003)(18002099003)(55112099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q3NCOVVZcVI4a1NVWGQvUk1VKzlrOHNMTzhzNlVCK2tOV2N5WG9pU2JobEFE?=
- =?utf-8?B?eGlBUmxXdjVkLzJWYWtvOHhkR0NBZGtwbmpJQzNNcTVNSkM5VHlOL0JCSkk4?=
- =?utf-8?B?RG9NWFV6dm9FSHFmS29vSUZiQkNpR2liY05kc1lCdm5CVS9Od1lXVTc3TExR?=
- =?utf-8?B?ejdES2lCbzBFZk96L0lCMWR2ekhSRHBuNHRrTFZGUmk0dllOM1piSVZhdllF?=
- =?utf-8?B?TXU3UnFzcURHNVpqa3d3dEpySStBRUtCWHJmbVozMm1SeG1JOEVTM3R6TXdu?=
- =?utf-8?B?VTJFZGpFcVF6QnJBZTFnZ3k4ZUR2U2FZUy9Ed0VIc20vRW9oMCtxbjNuYTUw?=
- =?utf-8?B?c3RoS004eVBueW9WMWkvM2JSTWZ4amFvS014Y1VuRW53UnlUcHczZVhhVlJa?=
- =?utf-8?B?bGxoVzFaVjczV1h4aFJaNS9SbW1QTk1nRk9sb2crR2s1S0V2dmN2cmpFcVZ6?=
- =?utf-8?B?LzVaZlN0UlhNZlE3QkxjYlQwOEtwZ1ZvUFhsRWN1NTc3dFN2WGJUbkNINHB3?=
- =?utf-8?B?NFBBc3pndzBaQWcxQmkxVU1kTlJ5cXdmQSs3emd4QVk5K2RrMS9wcVJrUEti?=
- =?utf-8?B?NmpoZ1VHVThZdHBHeVpBcFlCVXdwVk5PVk9LTlJGaDllZis5blphMTZKekEy?=
- =?utf-8?B?QWNWOXNYajRPaXdJTC9YdTFaWGRQNlhyc1hoRUxBYlpFUGhyRU5ITlBqMlBU?=
- =?utf-8?B?SXZEaGtnSExiVERMRDJNeXg5K2VlQ3NOZWpseW1YdFFQUW9oaEtKZlMvMXgw?=
- =?utf-8?B?eDM3UERtOFBSSTdYVlNMK3F2VHk4dmUrYkc1VkJaeUZHRWlRNzdVcUtiMmJm?=
- =?utf-8?B?dDh6dWFMa2ZUWFdab1VuRnNFbGd2QkNqVk5YejN4MlVuRUxZTFZqbWtrK2F3?=
- =?utf-8?B?S3Rmc1p5WlFQU05UazlCVGc0Tm0wZEhRTTZNeEswdVMrTGdHaWk1QTVleCtJ?=
- =?utf-8?B?dHlQQUg0UUpWZTlkVmJwZ3dHemdkS2JTcExGaDlQckw3bThuM0RxRDhFV25h?=
- =?utf-8?B?NFlQeFIzcEwzRVQxQmdkbU1lWjJ4TlRIeTZUeUliVHlpSEtDQTVyQ2IwalRy?=
- =?utf-8?B?cG4zSmVWS2ZvY2VmZ0g0SDhOaEhkNks5UkIrNEZ4UlRNeVdIZ0phWEk3dEV0?=
- =?utf-8?B?aFRDb0djZ0tVZkU3dVN2MUVXNFY2ajNRRVM4cUZQTjI0MTNHMmJVMVlHV2lS?=
- =?utf-8?B?MGVXRnhmYnlKQWVvMU1sZEQrZmlTVml6aktnRzBiQ3ZUVWdmd2w3L1dmK2lt?=
- =?utf-8?B?NjZVazVJRDRoOHZVQ0xUdDBEc3FyejM4Vy85Uml3ZHhvS0toRk42SXptVndP?=
- =?utf-8?B?TWhEZXROd29WbmE0V0tLakxYekF6STdtN3JCYXc2YlFtK25ta3Z6Mjc0T0RR?=
- =?utf-8?B?bmlKR2l0TWxPUGgzQ2hpRUZyQytheWUxVVF1MGc5bVJTYXNSWDJBTWVnb25M?=
- =?utf-8?B?YjhRTnFRUDMrYUxGYkQ2c2RzUTBqRElIdGtXNnB0Rmk0NkdtNjNEVXRGMkdh?=
- =?utf-8?B?T3liOEtQMHFpM3dqQzluV1RNNlI4cndiY00vbzVOZkViSjhOUTdDVDdTS1U3?=
- =?utf-8?B?a3FtYXhseWNjTFA3WW4wK3E1K21pc3BwNHhrOXdoaXpDU2wyckVETnYxMnFS?=
- =?utf-8?B?dmV5Y0pMS2hDZWxXVDRWbXIycmxTYjgyb2ltYTE5V2M0Smt1Q29xbWdmTm5W?=
- =?utf-8?B?Sm43WDVZVHNJZE1RWnN2MUVHcm4vbnBXN2xHN2VRNzIxVHJWTmlJbUJybEsw?=
- =?utf-8?B?dGtiNFNqUEJEZDB2enloaVppNFpkdy9XdXpNSUt0ekdGd3FjcUZrMmp4QWFC?=
- =?utf-8?B?NDZFeUxQdERNZDNnQzIrMDYvYUFKRTRnd0dDcVRVYThITmVLQnhjUUJUL0VJ?=
- =?utf-8?B?ZDRUZ01yZU9xdDBsd1AyOC9Uc29uRDFBd1JCYklDcWZFTVNuaUlsMHZFUDFk?=
- =?utf-8?B?ZVBUZktBZEZQRmhWMVFGQ1g2cFZEQWVCSGNQbURsUUcvV09ua29PakVpbmdM?=
- =?utf-8?B?QW1seHdBcTdtMkZvRzBOWEhrNVNHNitoS3MweCtnUFhnSm4xby9BVnhuNHZH?=
- =?utf-8?B?U1NPWGNnKzlWdXR1L0tmaWZBUGRabUpVYk9XM29QNmpIYkxEMHdJWUZGaGc5?=
- =?utf-8?B?SWFZRElvL3A0djQ5NkQ0bUJVWWRnck9WaFpqUmhDMUtKZFAyZ3NGMnVvenBr?=
- =?utf-8?B?RGJoZ1hneDA1RFNESmxZQmNGNERhMGpueTFyRUQvSmxuaWhjOXZOMXZSL1RJ?=
- =?utf-8?B?MUhYVy9XMk5TL0RZb1BlWVRQQ01lTzBrNGh1bldXQjBsMmNaby9qaEIvMWRK?=
- =?utf-8?B?UWhIamRORU45aVE2KzFzOVhzd0FOeldVL2x2TUgyOHlvZ0hlOFhPTktpL3JQ?=
- =?utf-8?Q?pa1ImbGdX0oUPQCg=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d230df5-a45d-494f-fd8c-08ded4fb6de8
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2026 09:56:03.7278
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qe4dCbzrlYgwy0lo8IGHRRd9P5Bc7/BGUnc0ioN/bsV3KxyJ3HhLVMY+Kz6jbbnPnyZyh+iIN0QCsgpjOR0KL8qUWTyQgMKcp9ZiMx8bYFo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR03MB989117
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANf1QGoC/22NQQ6CMBBFr0JmbU0dsQVX3sOwaMsAE0Nr2oZoC
+ He3Epcu30/e+yskikwJrtUKkRZOHHyB86ECNxk/kuC+MKBEJZVsxMOyHyczi1A8n00ugkBpBic
+ Hq9qLhqI+Iw382rP3rvDEKYf43l8W/K6/IKr/wQWFFLU+6cZSi9rWN+7JpOBtMLE/ujBDt23bB
+ 4DwALO/AAAA
+X-Change-ID: 20260608-kbingham-orientation-20afc0fb6957
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
+ Matthias Fend <matthias.fend@emfend.at>, 
+ Mikhail Rudenko <mike.rudenko@gmail.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Michael Riesch <michael.riesch@collabora.com>, 
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+ Sylvain Petinot <sylvain.petinot@foss.st.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Paul Elder <paul.elder@ideasonboard.com>, 
+ Martin Kepplinger <martin.kepplinger@puri.sm>, 
+ Quentin Schulz <quentin.schulz@theobroma-systems.com>, 
+ Tommaso Merciai <tomm.merciai@gmail.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux@ew.tq-group.com, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782642139; l=3899;
+ i=kieran.bingham@ideasonboard.com; s=20260207; h=from:subject:message-id;
+ bh=pSsloNoctZ8KZdtQMoBMTiphM6yVThkqQuPMFzEH2PI=;
+ b=0aU7sZbphb8cHLIWND7oWOf664qmdxaVArY7DgYx+/th2NpgB+11g+VRfyLA43pZiNPFZd0I0
+ xjGy3mD/gx+AtmBrOqJFLbLyrMn835bR+0ScSwTXbvUDKlwj/UYe6H6
+X-Developer-Key: i=kieran.bingham@ideasonboard.com; a=ed25519;
+ pk=FVXKN7YuwHc6UtbRUeTMAmranfsQomA+vnilfglWdaY=
 
+Add a new dt-bindings/media/video-interface-devices.h header that
+initially supports the Orientation types and convert existing users
+throughout the code base.
 
-On 6/28/2026 1:54 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] The GPIO-controlled I/O regulator (vqmmc-io) initializes to 1.8V instead of the required 3.3V at boot due to missing `gpios-states` property.
-> --
->
-> commit d6ddf71779dce5e00733c866f08e72b6d91c3a47
-> Author: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
->
-> arm64: dts: agilex5: add Cadence SD6HC controller and SOCDK enablement
->
-> This commit adds the Cadence SD6HC controller node to the Agilex5 SoC DTSI
-> and enables it for the SOCDK board. It configures the controller for SD-only
-> operation with a fixed 3.3V card power regulator and a GPIO-controlled I/O
-> voltage regulator.
->
->> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
->> index 262bb3e8e5c72..c56f46721bb06 100644
->> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
->> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
-> [ ... ]
->
->> @@ -34,6 +34,24 @@ memory@80000000 {
->>   		/* We expect the bootloader to fill in the reg */
->>   		reg = <0x0 0x80000000 0x0 0x0>;
->>   	};
->> +
->> +	vmmc_reg: regulator-fixed-3p3v {
->> +		compatible = "regulator-fixed";
->> +		regulator-name = "vcc-sd";
->> +		regulator-min-microvolt = <3300000>;
->> +		regulator-max-microvolt = <3300000>;
->> +		regulator-always-on;
->> +	};
->> +
->> +	vqmmc_io_reg: regulator-1p8v {
->> +		compatible = "regulator-gpio";
->> +		regulator-name = "vqmmc-io";
->> +		regulator-min-microvolt = <1800000>;
->> +		regulator-max-microvolt = <3300000>;
->> +		states =	<1800000 0x1>,
->> +				<3300000 0x0>;
->> +		gpios = <&portb 3 GPIO_ACTIVE_HIGH>;
->> +	};
-> [Severity: High]
-> Does this missing gpios-states property cause the regulator to initialize
-> incorrectly at boot?
->
-> In drivers/regulator/gpio-regulator.c, when gpios-states is omitted,
-> of_get_gpio_regulator_config() defaults the GPIO to GPIOD_OUT_HIGH. Based
-> on the states array here, a high state (0x1) selects 1.8V instead of the
-> standard 3.3V required for initial SD card operation.
->
-> Could this violate SD card power sequencing by supplying 1.8V to the I/O
-> lines while VDD is 3.3V, potentially causing enumeration failures or
-> electrical damage?
+v3 collects tags, and fixes the typo, but drops all hunks that do not
+apply on the media-next tree so that these changes can be merged. Once
+the core feature is accepted a second sweep will convert remaining (new)
+additions of the orientation field.
 
-Correct. Will add gpios-states = <0>; to initialize at 3.3V and fold it into
-v3 with any other feedback.
+v2:
+ - Now expands from the original v1 "dt-bindings: media: Add macros for
+   video interface devices" to update
+   Documentation/devicetree/bindings/media/video-interface-devices.yaml
+   and extend to actually change all users to the new types.
+ - Link to v2: https://lore.kernel.org/r/20260626-kbingham-orientation-v2-0-47178be927b4@ideasonboard.com
+
+v3:
+ - Fix the arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi 
+   MEDIA_ORIENTATION_REAR to MEDIA_ORIENTATION_BACK
+   - Though this patch is dropped from this series to post the main
+     integration through the media tree.
+ - Drop (temporarily) changes to:
+    - arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
+    - arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+    - arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso
+    - arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso
+ - Non applying changes will be re-posted after the core feature
+   lands in linux-next, or after those changes appear in media-next.
+
+---
+Kieran Bingham (7):
+      dt-bindings: media: Add macros for video interface devices
+      media: dt-bindings: video-interface-devices: add video-interface-devices.h references
+      dt-bindings: media: i2c: Utilise video-interface-devices enums
+      arm64: dts: freescale: Convert to new media orientation definitions
+      arm64: dts: qcom: Convert to new media orientation definitions
+      arm64: dts: renesas: Convert to new media orientation definitions
+      arm64: dts: rockchip: Convert to new media orientation definitions
+
+ .../devicetree/bindings/media/i2c/hynix,hi846.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov08d10.yaml     |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov4689.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov5675.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov5693.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov64a40.yaml     |  3 ++-
+ .../devicetree/bindings/media/i2c/sony,imx111.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/sony,imx355.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/sony,imx415.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/st,vd55g1.yaml        |  3 ++-
+ .../devicetree/bindings/media/i2c/st,vd56g3.yaml        |  3 ++-
+ .../devicetree/bindings/media/i2c/thine,thp7312.yaml    |  3 ++-
+ .../bindings/media/video-interface-devices.yaml         | 17 +++++++++++------
+ .../imx8mp-tqma8mpql-mba8mp-ras314-imx219.dtso          |  3 ++-
+ arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi       |  3 ++-
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts      |  3 ++-
+ .../boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts     |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso |  3 ++-
+ arch/arm64/boot/dts/rockchip/px30-pp1516.dtsi           |  3 ++-
+ .../dts/rockchip/px30-ringneck-haikou-video-demo.dtso   |  3 ++-
+ arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts   |  5 +++--
+ include/dt-bindings/media/video-interface-devices.h     | 13 +++++++++++++
+ 25 files changed, 71 insertions(+), 30 deletions(-)
+---
+base-commit: 06cb687a5132fcffe624c0070576ab852ac6b568
+change-id: 20260608-kbingham-orientation-20afc0fb6957
+
+Best regards,
+-- 
+--
+Kieran
 
