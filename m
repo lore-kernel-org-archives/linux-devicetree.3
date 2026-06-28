@@ -1,187 +1,182 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BA2340A62
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 19:57:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8AF3AE6FC
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 19:57:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782676634; cv=none; b=spBtfYj5GRhVQhceNVeX9iyL+2VxVf2h6xQi4eAnLctIxxiVlPPEKViVmOFuhGNo56r10Qh4uvIV49SFFdaLOzOjiYfDorwrFWiFxrAgL5+B/NaB+d4izfNlCU6mN1/hQTEst7+J+OOLR6UsTcD2S68fJBMBuRsAUct3oLUge4I=
+	t=1782676639; cv=none; b=hRFIIfGBbAsxFcPCjxBnQ3vlOetWQ6QdiumtwJKRuSeIda9TMRhNu65cqPk9hDI5z5QQytWo3xTHBzEzlJH/N7RGna2HizYeHL0n0OTB75HvgoekIn/gkfbMa1YTFdXeRxVZC7nF0eMPuUfH600hnR1rh5kL2rUQ0fcclMgxNf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782676634; c=relaxed/simple;
-	bh=qfccdv0s6bQHcVOFzLYHMfPWQd51a2HMGHnUn1uaVNc=;
+	s=arc-20240116; t=1782676639; c=relaxed/simple;
+	bh=F5HG0My1rdu4TJF4O/ebPwVUJ3XRsOc6zgK6lxBMrLU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=H6UvawqZJdyN5D8AwK1o+Bc+40lBageB1x4lBc0Ci6LDdJ0e9mCeXgcomgvQPeKhtFjQVP116EUTSMjKhZYus+4jBfuZrUA8QxfRT3YsiDkai/b4MVx7yc+NCfBauTLhdigiLOvLtuRzLtu9suM4YtShBWi11vDiyhAv+SwZXCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ha1g3rhD; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YAVztQV/xhBN9drVdYWcAupoah/SjQE+wt07/Tc3M1wt+PU118yRsBSz0JHzFcI/52Zuq/sZvJtahwkoeWhA8mZ1TI4L9ODWGQh5Kx2kagr44HPMd8zeFbc5lpUbadMWB85ztl9gL6ciScGpcjUEI/4qM18+RdA5v1U7cDF8t2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U/tdOyw6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ha1g3rhD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5C341F000E9;
-	Sun, 28 Jun 2026 19:57:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U/tdOyw6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68B641F000E9;
+	Sun, 28 Jun 2026 19:57:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782676632;
-	bh=8lLVf4fwpseE+3YM+47gboBV5/2d+4wBLiKReDLDQgw=;
+	s=k20260515; t=1782676638;
+	bh=QeDRBrREy/v0cf15edqu4bcjx7RXVefFJvWbLcftm8Q=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ha1g3rhDqSSRacRnuqLdyjbxq4YkIkFYTBlfYwdEE965/s+3MNygrf7yJi460ltPF
-	 n0jbiCA/XMNc4LOsMXv/Xqapq+YiuHqJqyfDDGp8Ync6R1Qv+X6OhtbTili0mwqg2N
-	 Na3HkftaTIztnlNwVaxjUBvfU/g0I0ognAGVScVIuLKTRzQ1fsIKOMq13E21cyjBic
-	 LKb+mGyxbtbOEfQk5jULARQS5VoydaASZ+3e1pzUaJ9JlQilh4XYAr7tuKlI69TGEU
-	 i4T26oley+3GEwu2VqxwLGHyX7doAz7F8Q0q8faL+6/xzgjSzAGUTDxKGTwo3yX8/+
-	 upplOWZySoXKg==
+	b=U/tdOyw6gQtJuCrfO6CwumeCaSxMFo1XHatDx1vQUv4wZ57RiKWROUah5tpHzRe09
+	 Q4xbPhiyzhJAmVChaKYRewrs3vfCJJ0J2Vbv5bF4PFTSmYN9M+tDsagZNFqPVEthPm
+	 PSaOkEu0vXYMHdHI7MVeoVX5rt3gtuX+KzXF2lLszPE02fRauA0cehOVHXgfvJ7Abl
+	 s9vfaJwWEuNMJFKsfpKrG4njxnReUTzavplaAWVq9FJflDpJIFtGmwCTyK4XJvG76Z
+	 1vOYmp+zi7UgaaR7cK4XFQbc9RQMmzvPfxa4KO928AkuIvIAWCdOc4eetiXuxZR0AB
+	 0WEDCM3ZtuahA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/3] iio: adc: Fix incorrect reading when datarate
- changed in single mode
+Subject: Re: [PATCH v5 3/3] iio: adc: Add ti-ads1110 support to ti-ads1100
+ driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jakub Szczudlo" <jakubszczudlo40@gmail.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260628194341.66752-2-jakubszczudlo40@gmail.com>
+In-Reply-To: <20260628194341.66752-4-jakubszczudlo40@gmail.com>
 References: <20260628194341.66752-1-jakubszczudlo40@gmail.com>
- <20260628194341.66752-2-jakubszczudlo40@gmail.com>
+ <20260628194341.66752-4-jakubszczudlo40@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 28 Jun 2026 19:57:12 +0000
-Message-Id: <20260628195712.A5C341F000E9@smtp.kernel.org>
+Date: Sun, 28 Jun 2026 19:57:18 +0000
+Message-Id: <20260628195718.68B641F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] The loop in `ads1100_set_data_rate` completely ignores the request=
-ed rate and unconditionally configures the device to the first data rate in=
- the array.
-- [High] The polling loop in `ads1100_poll_data_ready` uses an inverted bre=
-ak condition and polls a bit that never clears in continuous mode, causing =
-it to return success immediately when the device is busy.
-- [High] I2C read failures in the polling helper are silently masked and fa=
-lsely reported as readiness.
+
+New issues:
+- [Medium] The IIO device name is hardcoded to 'ads1100', ignoring the dyna=
+mically added configuration name.
+- [Medium] The polling timeout calculation ignores the device-specific data=
+ rates and always uses the ADS1100 data rates, leading to excessive sleep t=
+imes for the ADS1110.
+
+Pre-existing issues:
+- [High] The `ads1100_set_data_rate()` function completely ignores the user=
+-requested rate and always applies the maximum data rate.
+- [High] Driver removal while the device is in runtime suspend causes I2C t=
+imeouts and an unbalanced regulator disable.
 --
 
-commit 94cd92aafbd37136e109b12cbe69b760dcdb10a5
+commit 97f3fd71176aef31ec01d7462b178bf5156c7ab6
 Author: Jakub Szczudlo <jakubszczudlo40@gmail.com>
 
-iio: adc: Fix incorrect reading when datarate changed in single mode
+iio: adc: Add ti-ads1110 support to ti-ads1100 driver
 
-This patch aims to fix incorrect readings after changing the datarate or
-gain in single mode. It introduces a polling mechanism to wait for new
-data to be ready before proceeding.
+Add ADS1110 support that have faster datarate than ADS1100, it also uses
+internal voltage reference of 2.048V for measurement.
 
 > diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
-> index 9fe8d54cce83c..71b31adeba3c6 100644
+> index 71b31adeba3c6..c937e00e0a407 100644
 > --- a/drivers/iio/adc/ti-ads1100.c
 > +++ b/drivers/iio/adc/ti-ads1100.c
 [ ... ]
-> @@ -123,10 +128,46 @@ static int ads1100_get_adc_result(struct ads1100_da=
-ta *data, int chan, int *val)
->  	return 0;
->  }
+> @@ -41,20 +41,44 @@
+>  #define	ADS1100_SINGLESHOT	ADS1100_CFG_SC
 > =20
-> +static bool ads1100_new_data_not_ready(struct ads1100_data *data)
-> +{
-> +	u8 buffer[3];
-> +	int ret;
-> +
-> +	ret =3D i2c_master_recv(data->client, buffer, sizeof(buffer));
-> +	if (ret < 0) {
-> +		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
-> +		return true;
+>  #define ADS1100_SLEEP_DELAY_MS	2000
+> +#define ADS1110_INTERNAL_REF_mV 2048
+> =20
+>  static const int ads1100_data_rate[] =3D { 128, 32, 16, 8 };
+> +static const int ads1110_data_rate[] =3D { 240, 60, 30, 15 };
 
-[Severity: High]
-Does returning true here mask the I2C communication failure?
+[Severity: Medium]
+Does this new data rate array also need to be used in
+ads1100_poll_data_ready()?
 
-Because readx_poll_timeout terminates when its condition is true, returning
-true on an I2C error causes the polling loop in ads1100_poll_data_ready
-to immediately break and return 0 to the caller, completely hiding the actu=
-al
-communication error code.
+Looking at that function, it still calculates the wait time using the origi=
+nal
+ads1100_data_rate array:
 
-> +	}
-> +
-> +	return FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
-> +}
-> +
-> +static int ads1100_poll_data_ready(struct ads1100_data *data)
-> +{
-> +	int data_rate_hz =3D ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK, data-=
+    int data_rate_hz =3D ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK, data-=
 >config)];
-> +	/* To be sure we wait 5 times more than data rate */
-> +	unsigned long wait_time_us =3D DIV_ROUND_CLOSEST(USEC_PER_SEC, 5 * data=
-_rate_hz);
-> +	bool data_ready;
-> +	u8 buffer[3];
-> +	int ret;
-> +
-> +	/* To be sure that polled value will have value after config change */
-> +	ret =3D i2c_master_recv(data->client, buffer, sizeof(buffer));
-> +	if (ret < 0) {
-> +		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return readx_poll_timeout(ads1100_new_data_not_ready, data,
-> +				 data_ready, data_ready !=3D 0, wait_time_us,
-> +				 ADS1100_MAX_DRDY_TIMEOUT_US);
 
-[Severity: High]
-Is the break condition data_ready !=3D 0 inverted here?
+If an ADS1110 is used, won't this result in calculating the timeout based on
+the slower ADS1100 sample rates instead of the device's actual rate?
 
-The helper ads1100_new_data_not_ready returns 1 when the device is busy.
-Because the condition checks for data_ready !=3D 0, the loop breaks immedia=
-tely
-while the device is still busy, defeating the intended delay.
+>  static const int ads1100_data_rate_bits[] =3D { 12, 14, 15, 16 };
+> =20
+>  /* Timeout based on the minimum sample rate of 8 SPS (7500ms) */
+>  #define ADS1100_MAX_DRDY_TIMEOUT_US	(7500 * USEC_PER_MSEC)
+> =20
+> +struct ads1100_config {
+> +	const char *name;
+> +	const int *available_data_rate_hz;
+> +	const int data_rate_count;
+> +	bool has_internal_vref_only;
+> +};
 
-Also, since the PM runtime resume callback places the device in Continuous
-Conversion mode before this poll, does the ST/BSY bit ever clear? If the
-condition were corrected to !data_ready, would this cause a 7.5-second hang
-on every configuration change?
+[Severity: Medium]
+Is the name field in this struct intended to be used for the IIO device nam=
+e?
 
-> +}
+Looking at ads1100_probe(), it appears the device name remains hardcoded:
+
+    indio_dev->name =3D "ads1100";
+
+Will the ADS1110 device be incorrectly exposed as "ads1100" in sysfs because
+it ignores this new configuration name?
+
 [ ... ]
-> @@ -149,19 +195,31 @@ static int ads1100_set_scale(struct ads1100_data *d=
-ata, int val, int val2)
->  static int ads1100_set_data_rate(struct ads1100_data *data, int chan, in=
-t rate)
->  {
->  	unsigned int i;
+> @@ -204,7 +242,7 @@ static int ads1100_set_data_rate(struct ads1100_data =
+*data, int chan, int rate)
 >  	unsigned int size;
-> +	int ret;
+>  	int ret;
 > =20
->  	size =3D data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
+> -	size =3D data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
+> +	size =3D data->supports_data_rate ? data->ads_config->data_rate_count :=
+ 1;
 >  	for (i =3D 0; i < size; i++) {
-> -		if (ads1100_data_rate[i] =3D=3D rate)
-> -			return ads1100_set_config_bits(data, ADS1100_DR_MASK,
-> -						       FIELD_PREP(ADS1100_DR_MASK, i));
-> +		if (i =3D=3D size)
-> +			return -EINVAL;
-> +
-> +		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(&data->client->dev, pm);
-> +		ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret =3D ads1100_set_config_bits(data, ADS1100_DR_MASK,
-> +					      FIELD_PREP(ADS1100_DR_MASK, i));
-> +		if (ret)
-> +			return ret;
-> +
-> +		return ads1100_poll_data_ready(data);
+>  		if (i =3D=3D size)
+>  			return -EINVAL;
+> @@ -225,14 +263,9 @@ static int ads1100_set_data_rate(struct ads1100_data=
+ *data, int chan, int rate)
+>  		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(&data->client->dev, pm);
+>  		ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
+>  		if (ret)
+>  			return ret;
+> =20
+>  		ret =3D ads1100_set_config_bits(data, ADS1100_DR_MASK,
+>  					      FIELD_PREP(ADS1100_DR_MASK, i));
+>  		if (ret)
+>  			return ret;
+> =20
+>  		return ads1100_poll_data_ready(data);
+>  	}
 
 [Severity: High]
-Does this loop completely ignore the requested rate parameter?
+This is a pre-existing issue, but the loop in ads1100_set_data_rate() lacks
+any condition to check if the requested rate matches the available rates.
 
-The original code checked if ads1100_data_rate[i] =3D=3D rate, but this pat=
-ch
-replaces it with if (i =3D=3D size). Since i < size is the loop condition,
-i =3D=3D size is never true.=20
+It seems the loop will always apply i =3D 0 on the first iteration and retu=
+rn.
+Does this silently force the hardware to its maximum rate regardless of user
+input?
 
-This causes the loop to unconditionally apply the configuration for i =3D 0
-and return immediately, preventing userspace from selecting any other
-data rate.
+[ ... ]
+> @@ -458,16 +497,18 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ads1100_pm_ops,
+>  				 ads1100_runtime_suspend,
+>  				 ads1100_runtime_resume,
+>  				 NULL);
 
->  	}
-> =20
->  	return -EINVAL;
+[Severity: High]
+This is a pre-existing issue, but does driver removal while the device is in
+runtime suspend cause teardown issues?
+
+During driver unbind, the I2C core executes removal without automatically
+resuming the device. Because there is no .remove callback to call
+pm_runtime_get_sync() before teardown, devres will execute
+ads1100_disable_continuous() followed by ads1100_reg_disable().
+
+Since ads1100_runtime_suspend() already disabled the regulator, won't this
+lead to an I2C timeout when trying to write to the unpowered device, follow=
+ed
+by an unbalanced regulator disable?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628194341.6675=
-2-1-jakubszczudlo40@gmail.com?part=3D1
+2-1-jakubszczudlo40@gmail.com?part=3D3
