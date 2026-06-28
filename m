@@ -1,118 +1,160 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010045.outbound.protection.outlook.com [52.101.69.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167013BBA0D
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 21:59:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782684001; cv=none; b=p9Md5JbU8RKrb81zxhrzvDq1I0oF12P+/zg+ANa4GG4iAcsk+Ce2Op0OV1i52cXh1Z+ounhfjdakH+8PCfJcKkiXpcvTq291VR4/YgmdnYCtkpoC/3NifFyddR0ijvq17Gn5Xb98dsm95CIvph0Ce/Nok8/FQ/vy1hGGn+RuxPs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782684001; c=relaxed/simple;
-	bh=uk95VwGs9WQK1gVzsUnLfuwM7OLrJAtdHN8wEaZdAXA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bV+FnVMBUmmuFvplO6s310V5rpyU6m9ltbZGhiZ1ug3BSKDevcCaE7y71k2GY+nFldByeDhkJrcyb4ezdyzLHPHX5ETbgCJwyeKQtSKS9k3fAgJ6ebKJ/zNPPVKZvWpAkKAFVYPqNrAe87shpRtKI9483LBUKwgJDDWygg9mtAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=osNBj4JU; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738312E7377;
+	Sun, 28 Jun 2026 22:01:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782684085; cv=fail; b=bOqY3ka5PxZaNEtL/ii99kBC7jrFcIAoF4d/R2Dc0rTt9jIM9cKie5BseFEGLY/j0BYCOnOaRMtRaGdg39kXkPNLGfcqths9JgYNdAgLpAfezzy+/PGSiy/Ia+bBacl9Lh7BzU6JoVz6R7nCD2XnCJvNfEKYABEozyUWJDjr1ro=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782684085; c=relaxed/simple;
+	bh=vDNb7BLswjeNns9h/BKhZtdYzn41HHLxfExXq6Yo9sQ=;
+	h=From:To:CC:Subject:Message-ID:Date:MIME-Version:Content-Type; b=T8/sGj2GECrdKx8D2v7zzVh9HzegMuTpCObYD1T1niQIydwKz3Z5lZynpBbUSpTJhNL2ZiB8WVXpUnsavxWgMboMHDWSJuiXNqdEtIOvLmksRmmps/sCvEJoWbbeMzU+WOldc7APjxziqOtC0losJMDuBFU3l+uX/OZOnwq9YQA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=eeuasa6v; arc=fail smtp.client-ip=52.101.69.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="osNBj4JU"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so19058095e9.1
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 14:59:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782683997; x=1783288797; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SBpy8579NAN+gLyiVLL7RVHF+KuyRakjt9rrb/r+QbU=;
-        b=osNBj4JUew6nT8Tn93t5ZyPR4c9mlnVImJDRLD5B67JEXprcghMqYWXAtEKXdeHJgW
-         uKOVBloFm+MolcVHXR2Pr6xtrcS0OVlJpJUvlHheOdaOeyaKwOfKV8zDiPZWjb0XT2sm
-         RsRvrd0XAqMJrcMwS0zeJB+8he5jhUpYpg2keCk9B8PiH6WNn1KLC7CuYVBPNTWR/bh0
-         5nXR8ENmdVnwC4OliFTAh3KrWCbTzjhtGVtpfd1VDCBpUzNDvIMbQVP/jRHqa8j5/dUW
-         e4OyIck5U1q5g2jRCphD2vzQfPG85E515JTBc7avJ1xokPC0/XsifnnyHXuapTntm8ct
-         biWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782683997; x=1783288797;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=SBpy8579NAN+gLyiVLL7RVHF+KuyRakjt9rrb/r+QbU=;
-        b=rJgzt/0L57gKjfj9Q7KMG95LcSvyZvMhkChLRds/qpQMJ+oUejEOf6cRWcyPvPPdk5
-         f8hrrlnTJsR1bJXM1BbZ4VXAlUmZERqEuY7xEYPGQZPL1qHXLysPFnVMs3PRiG/9ZQU/
-         Dz+3ZyW52dWl1ewWYyKSRe2jypRAFmFDTH0yAk8qf4SVrdpqHU5E34UuCJNo/SPlaGBM
-         e1OReDs7jZ/2rofe5qkNQp9M9+6y8N0eRWnkXR32zoyqAqciW8n49jDYOx9y+9M30eJn
-         kd4xWvd4n4SD4R4S8m0lEfJrBIiKIx09T2cpoTNSDo+7wbkNx5ILkclrSb8W8rVyXfNd
-         vnvw==
-X-Forwarded-Encrypted: i=1; AFNElJ88HaRQEykAPOjJ50jIV7+qIYqGEYmUou1Q6poHZbxddfwL7oL0AyprRUxlspJO+PIQknwBfqON0wAA@vger.kernel.org
-X-Gm-Message-State: AOJu0YxO6G0jcPulgFN8aOELa93uow8fVK7wEtCWQ8g6b/9dZxdRslDB
-	pl26kIGCgYroNU4qHCuGtw+jOKXa7l6INXLBjOH8jbukYoeHI/+qEX3QEi5YHHDa+h4=
-X-Gm-Gg: AfdE7ckRG0eRpo/Cp9m8cHv1qUIWP01KNX/D7nPPpl7QU4wn8280o+C7ojXHkoSMBvy
-	6dePUw3qDL+1qSTt697hzsa6NH96emQOkD3ys76Q0T0DZNmZRgOuwIqSKgBtFoNC9sOpjQoZnPU
-	FPXQXb6eJMZIJs86wI4XjtZVr09OrnbnbqFTZucVoKMfTN5mngWfknb0S3bZLmJw4PfpHUMTTTs
-	sUewexBezgDzkDI6yhpXuXggXWI8k2sFh8z5epsAvQ5CiKGD/4QkVf1Z/uQJUW8RW8IzBUyYaJa
-	t0go9qjQ6eKv9719fjhrbEbFasFOHvkrccJn1SO/+PtUfbQJSO/ih2Wg4jtCClP7KsLHl01Gd2j
-	foPd7LdZCri5HD68qChK4E95HGqeYPSaB0fu5J2YF1coolu95KnbRsNCsYpqHLfJx5DKRNrSB76
-	eE370EU7GsOId8VBoz8A==
-X-Received: by 2002:a05:600c:5296:b0:493:a938:7884 with SMTP id 5b1f17b1804b1-493a9387c2dmr42740895e9.22.1782683997622;
-        Sun, 28 Jun 2026 14:59:57 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:559d:eec2:887f:c200])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49268f7670bsm258950955e9.0.2026.06.28.14.59.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 14:59:57 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH v3 07/16] of: Explicitly include <linux/types.h> and <linux/err.h>
-Date: Sun, 28 Jun 2026 23:58:42 +0200
-Message-ID:  <b6783e713ecf3d15ee9ca261c24b53e18d4bbfba.1782682124.git.ukleinek@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1782682124.git.ukleinek@kernel.org>
-References: <cover.1782682124.git.ukleinek@kernel.org>
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="eeuasa6v"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l+A3hHBjTusX5odvfUcpITXdOmj1cm0E0SlHmsGR6hrfrdkGlfGcEzr7vMqvUI0FyfsBOS+D1Cc8PPBAXZE3qqUNKlTsVKvkX6tLUh2uUU3J1sCJKJTO5Cp3F8BaJ0X4dqhgwvRwWTVqgne4sZ7aVDp1uWvpgC85oeIKXJ7ADsocxoLmXBDoACXT4yA1sDid3UCaDGQjvQUHbBIV4FM+tTCDFc2BQYFK07+ox2ubFsrI6RSILKKJwqU/p9277upHq425QWKXwOmqT4q7VIDNRbE1TL0hzkiATAs0xfkE6uCoPNZ1VdaVJd1vFbYsSuJPauP6BfVrDPN7ZZqwHUi6Hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Wqbnirpec3NiA2n/qCEnQo5a/2GMoYWy8kdmbsF8niM=;
+ b=x2onOGrvB7DJQVGb+wytoKkXVE08diJ+1P+tCrZXgMpwNhUNN16IFN2eztv0Cabra7J2SwqTdNr+TZSWdBDlNTWOCMBPxagyJ1XQ7dZBlXzFz+g93U2hI17clZ/YTkt1cIde6rTqU7OsVKYaykqaCV8ockcGVqTarMjBzxg46eP/IQzLpkohfCNNhjYsAEUllIAYFBazvPLmtzMBRkLtEJSPfMWOTdrWgQw8jgKmHgfUvlN1IiyNpBqUAXgBr3IoRUgeIZpFbWaFLi1jj12TrqUHINo4nAuPxNbFCg6BVaM8jcGn9IkY3GamYrqrPFUA1sqLtNmdVb6vEW+8dvcHrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=axis.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wqbnirpec3NiA2n/qCEnQo5a/2GMoYWy8kdmbsF8niM=;
+ b=eeuasa6vfxYbPMR1Trf2DCL+eDX5K4G8v0FlU/MI0oaj9YW9HCUV1hW4+h0n3ABBOjrp+WJAh4/VL7s44zBEzJFt/7aAxw1zXeJeIhYTXYSajfpg8LS0yNb7LoSbeZbOOazjQNZKQUyyM/klrbu1o8VxKXkHebeBtboeYcKAShE=
+Received: from AS4P191CA0003.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:5d5::18)
+ by DB9PR02MB8322.eurprd02.prod.outlook.com (2603:10a6:10:395::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Sun, 28 Jun
+ 2026 22:01:19 +0000
+Received: from AM3PEPF00009BA2.eurprd04.prod.outlook.com
+ (2603:10a6:20b:5d5:cafe::77) by AS4P191CA0003.outlook.office365.com
+ (2603:10a6:20b:5d5::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Sun,
+ 28 Jun 2026 22:01:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 195.60.68.100)
+ smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ AM3PEPF00009BA2.mail.protection.outlook.com (10.167.16.27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Sun, 28 Jun 2026 22:01:19 +0000
+Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Mon, 29 Jun
+ 2026 00:01:18 +0200
+From: Waqar Hameed <waqar.hameed@axis.com>
+To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <kernel@axis.com>, <linux-kernel@vger.kernel.org>,
+	<linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: [PATCH v3 0/2] Add driver for TI BQ25630 charger
+User-Agent: a.out
+Message-ID: <cover.1782683551.git.waqar.hameed@axis.com>
+Date: Mon, 29 Jun 2026 00:01:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1100; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=uk95VwGs9WQK1gVzsUnLfuwM7OLrJAtdHN8wEaZdAXA=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqQZkeD8K+LEDVtRC+aeuBruaoLkuastqtMzcSq RHVKpjIguOJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCakGZHgAKCRCPgPtYfRL+ TknACACO0UXdV+goovUo2i8VjUHsKK5ZYlkUhAhu88qcSoqlj8PeQ4/tUnUbVeqwQLTLmKJ97Zk syzQ38SHGU3+/Zl5OY6PKDZqq4B9Rn7Q1Pio6tGyF9MEIQYpipuQA/V0r2xT/O/0GjwhJhlXAG0 DRYU8b0lORI2A3IUWxYtOtdeiPFuANKylZSSOY1fkk2ckFx9eQUaELUJ0wlGnMCdJs1ozhiZtsv pkkcmFR8RfacDpkSRneKgG4LWeS1SXJo9KH9CcJQc0W1ucyh+0jlSARHTbyPT0BScaQN7ZvKTSf 7WgxFwlNjeZTeZVvghHZP9+gO7A/IkMdHnQadLNFTtrVnrv7
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: se-mail10w.axis.com (10.20.40.10) To se-mail10w.axis.com
+ (10.20.40.10)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM3PEPF00009BA2:EE_|DB9PR02MB8322:EE_
+X-MS-Office365-Filtering-Correlation-Id: 044c3808-2c9a-4ccb-49dd-08ded560c8ed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|376014|23010399003|6133799003|13003099007|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	uyDoKcuieP6dJBATsqgwp9xyVYSlWxbMb26VrnysL8AkbjnQyQ5DInRoy5T037YEKMzJNcP8umvmvpLGbd6jUG93/vKaFSbMI4XD9TGMxDSsSCArFHue/MnmJJKFriOe247ZoeJ4bxcxbpNuJA8cj0jUwwOcQwhblf8ypLz/do3V4vYBCARatCcl51XYKLVGiwaI6qn95pXVc6rQTMreznZqoJjkU7rRDN2VLXTeU6/LwaidvF+8rV9caf1TNeVmI0AAjuHzSN1fTCMpjNlvVabrbF3gCHzdBZWNUzefHUccjn18iznM2H65urd2OY0nvobXDYWYWqXiVdtwPWvZr5d6xVR7l56RJMe2Q+hsIeLj23HVS5QIUlAoM8XO0zjGLSClGuXJKVFqLxZfpiZdeGKVSQA1HBwnSrMrp7YUhG3PWK7FiRO/OV/0b6UYc5hs00E3q3/Pa0XWMTqYhvOExkXMXQvgG4Pk0QeUjujNbxFweuGvtS3UEG77SfpzQI5g8qYInDHARpPX7UYR/oLgJjk/1LORp/OnrYX6vbmcVRTpgvai2+E66bFZ9aow5Ea7bEVTkAsUGRV+8r9FaiiLqFGVIy2/ALjggA6IvC7kT5yuZri8L4+tkBc394o7ukV+/ajsRZZYO/lQaeogCggpyu6n15xxKo3abG01qfi7CtsnwW/C4/7TE3eLMlqcxPCayAHAR4zs8aqKIB1+cDplFA==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(23010399003)(6133799003)(13003099007)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	6jjFCtipFdj/dG+6mtzSJkwBF761wKKRSEmUnrfJfYccXJ2f9EpY/DZxCy79Mtk8u75DdN/CO0Sf0LWvl5bcvOhHb82cEz7HKFCphLGIgf2ixaworTiGZTiSwHugHTsEvpZnzlqSfJOVu862t64NFGDO0fwaxpva5gJNaXP0x3kG6J1NnU84FIHewAdunWHjIs2YjO3a0lA4Zvw6iUKYau4KkkaPmiNe3sM8COpDn/U5Xab/fRkRmOBQrFROZImKSe6Vbo21NGuH2cGTkHD0i/JLLhtswBTj3x+mJ69pX67wGKCxzKTeKckRHFYWxj7rNwCHcK+mda5UTbdCUhbacC3FbMnsn66SGIz38X23Sil5XVekBzcOsEbSQ6pX1eJqlB1SBvVCbQkKKlmwo/RcQYoS4jtfFtTluB4szADDNeKxtfwNB+nN1+x2GuvMZxY7
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2026 22:01:19.7384
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 044c3808-2c9a-4ccb-49dd-08ded560c8ed
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM3PEPF00009BA2.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR02MB8322
 
-<linux/of_platform.h> uses resource_size_t and relies on the transitive
-include <linux/mod_devicetable.h> -> <linux/types.h>. It also uses error
-constants and thus relying on the include chain
-<linux/mod_devicetable.h> -> <linux/uuid.h> -> <linux/string.h> ->
-<linux/err.h>.
+This patch series contains a fully working driver for the basic
+functionality for the new TI BQ25630 charger (see datasheet [1]). The
+other "advanced" functionalities such as USB OTG, BATFET control and
+liquid detection, will be handled in separate patches (after necessary
+framework changes) according to the design discussions in the first RFC
+version.
 
-With the plan to split <linux/mod_devicetable.h> per subsystem and then
-only letting of_platform.h include the of-specific bits (which don't
-require these two headers), add the needed includes explicitly to keep
-the header self-contained.
+[1] https://www.ti.com/lit/gpn/bq25630
 
-Acked-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
----
- include/linux/of_platform.h | 2 ++
- 1 file changed, 2 insertions(+)
+Changes in v3:
 
-diff --git a/include/linux/of_platform.h b/include/linux/of_platform.h
-index 17471ef8e092..48f73af88dd7 100644
---- a/include/linux/of_platform.h
-+++ b/include/linux/of_platform.h
-@@ -6,6 +6,8 @@
-  *			 <benh@kernel.crashing.org>
-  */
- 
-+#include <linux/types.h>
-+#include <linux/err.h>
- #include <linux/mod_devicetable.h>
- 
- struct device;
+[power]
+* Sort variable declarations in reverse x-mas tree order in read/write
+  property functions.
+
+[dt-bindings]
+* Drop `description` for property `reg`.
+* Remove `|` in `description` for property `interrupts`.
+* Remove `monitored-battery` from `properties`.
+* Use `unevaluatedProperties: false` instead of 
+  `additionalProperties: false`.
+
+Link to v2: https://lore.kernel.org/lkml/cover.1781789320.git.waqarh@axis.com/
+
+Changes in v2:
+
+[power]
+* Fix return value check for `data->regmap16be` initialization in probe
+  (check was wrongly for `data->regmap16le`).
+* Remove TODO-comment about BATFET `sysfs` ABI (we will add a new sysfs
+  ABI entry in the framework for this).
+* Check registers `BQ25630_REG_CHARGER_STATUS_X` as well in IRQ handler.
+  Because there might be changes that is not necessarily *only*
+  triggered from hardware faults. For example, manually
+  enabling/disabling with `echo 0 > /online`.
+
+[dt-bindings]
+* Rename file with `ti,` prefix.
+* Remove battery-node in example.
+
+Link to v1: https://lore.kernel.org/lkml/cover.1772201049.git.waqar.hameed@axis.com/
+
+Waqar Hameed (2):
+  dt-bindings: power: supply: Add TI BQ25630 charger
+  power: supply: Add driver for TI BQ25630 charger
+
+ .../bindings/power/supply/ti,bq25630.yaml     |   55 +
+ drivers/power/supply/Kconfig                  |    7 +
+ drivers/power/supply/Makefile                 |    1 +
+ drivers/power/supply/bq25630_charger.c        | 1073 +++++++++++++++++
+ 4 files changed, 1136 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/power/supply/ti,bq25630.yaml
+ create mode 100644 drivers/power/supply/bq25630_charger.c
+
+
+base-commit: ab9de95c9cf952332ab79453b4b5d1bfca8e514f
 -- 
-2.47.3
+2.43.0
 
