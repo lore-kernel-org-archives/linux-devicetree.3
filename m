@@ -1,72 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0219D314D18;
-	Sun, 28 Jun 2026 15:12:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A32234C9AD
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 15:43:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782659535; cv=none; b=bi4O2h3//AaJJVh6gLZMrdUpQq9X0wMS6gsX18gQEtHD+TQzQ8yEbJuCj9H7Cg8RRVgRnewQ+ug1egxIf3avKhT+XwDo9bxS+KLbeRy8arbQr0w2BkVffwbpC0aW9fIKG7bQ226BKy9zbuUraAGCq45oRP8gsJ16GeeX/00Y0wc=
+	t=1782661431; cv=none; b=m/98xosztd0+/q/v2BGKKRblBvnUbaUnkxFkZORpu49EW/LttVqK2hkTN28I5AvIXzA2TI1bNdy0iz9KRO24+kZ5EvVGzW8X67I7OKz3o0IReT0xmn6PYW5LBf0UHnHfRSh2/exNhT3tLpouuxfq2fH4OD0K8hrb4DLsZ5Jf0CA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782659535; c=relaxed/simple;
-	bh=JXG9DjGZ6oGtt1EaRNoGFQ0OigtdXWJrFt5FoD7YP0c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=itbGzYpXsbsZIE/96gLLdzBKgciG8P1ZaZChU4sNP9d2aVFhsHFViSugONrrNCM0aq8RZh4E0OQZFQwaj5pUXdPw66aJiB6L96LegAKPJ58L44OdCTKcIRMc/KszFGszjLo2iVQKPUZ4vyq7jndYm6FfLFv+xKtAnLAOYImHjFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DjYlZILd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782661431; c=relaxed/simple;
+	bh=40arCt8NqhJaNl0q9UQATGJjGRq/MsPHGOmI0715nXg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CiO08o5+/d4ZylSFgHBV995b1bxqh9dNecmKN9YsK0pmNaIITABhFyyzeBfKC4wNvKzsvdmn/2ritiZnjoHV+ujRKstTOqrWG3q1Gi6TEBFHSHP/3cLf3gBkehJyBBrmppnEG17kWjyFctf5E1GzLADLMRrKt0B1FqvVZ1x4UvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kdbx36tl; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DjYlZILd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1641F000E9;
-	Sun, 28 Jun 2026 15:12:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782659534;
-	bh=IWgs1+Oej+M+5T80/lrO8pmr74UWry80sNFnJC69qUE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DjYlZILdsJkXbUs9Juc6LyF6htc2aN3ikOWOkVingxSEPdI1VnJCwjiyYTVW7vN4E
-	 oQprx1s++vtyNyItD9QcMXSis8FIMO+W8ixmNRF49ozRr2x24ylcsCYOGqTD6XWj6r
-	 /74wzmHQx5WL68//XeQfZ7ty/4CQVHOkOtMSqLmQnD8k50Xr7JBiEdeE6+mBBYN2Bf
-	 pDBT4XE2tB+Cb4ZOE55I6876ueo+0VA78jY42QiHAHYTuphw5KjpUHlDEhZ0r/vV+Q
-	 YPAlRajzoehv8476UZuo5YjKvpqbAuNQgnpwRLVy6qJmUN9RrL8wEYMd2dsvIqzXav
-	 R8xlbCYhebLzg==
-Date: Sun, 28 Jun 2026 17:12:10 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nikhil Gautam <nikhilgtr@gmail.com>
-Cc: linux-iio@vger.kernel.org, jic23@kernel.org, dlechner@baylibre.com, 
-	nuno.sa@analog.com, andy@kernel.org, u.kleine-koenig@baylibre.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: iio: magnetometer: add Melexis
- MLX90393
-Message-ID: <20260628-strict-armored-asp-572d82@quoll>
-References: <20260627095519.8377-1-nikhilgtr@gmail.com>
- <20260627095519.8377-2-nikhilgtr@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kdbx36tl"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49395888c7bso14895785e9.0
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 08:43:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782661429; x=1783266229; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=D+OMJP0P0VJX23QejDNAiRcdNcoGaSYxL+867MSgbJA=;
+        b=kdbx36tlfNDxUQBxYZ1/cmzaiRwCp/ZIpHKSdSXAJ6tqDYDHOdNCC2eulwTFf5IDyo
+         WLZ1g9mKmXj07fKfQgcLRQCKlWcPf/74SLBGgGwoVBhZ/zP7G9PZeXAI77QbrFw3SJlF
+         yAiajpBNSEHlJxVULNOGR/kzX0zQvliIWvsxLmmNn1DI/7EX5yDnP7Af5QR+nRSqwwJL
+         QiNYXZsw0xv9wxeFJFpeWPHMsE44izZrCQtEl6rOsvFph9uQ+beN8Ue2xhM2vtO7mgvf
+         z7ndX0OffxkjaGqFKz27+rkmbZ0ShszXCUQS++/khpIRLPwXNYt9RCWvRXhMPIzLeaLb
+         iuJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782661429; x=1783266229;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=D+OMJP0P0VJX23QejDNAiRcdNcoGaSYxL+867MSgbJA=;
+        b=nvEMO2BqKPrj8QJ+7KL1W5uzHCjggM4F8LWdaqDLU2hZvtRUoIkrzEU70Rgz4fDOjw
+         5n8W2X5jFaGzHN02ab2XjPPfN/TwYPemYnx0gzaC8Jtjzd7VCz98o3Rg88Nib2y1NILc
+         mfaFKvbEX+KrqozrvPbGQAggkQs2ZGaejTu8tv9hBwQZ0iigMkm/GYqhWy/AoN99/wFm
+         mZVPLW4gRb2DILzhVOCiB2gGjiCIn1RKpo/k6ckWJmrFylo0gZLkluVyc22Abk2TjV0w
+         sdOmg3hSpeD4CeDHSbop90ddRZwZT0iz+byP3qMU0lwkDYRuqeCLsVfLaafulxkaobH7
+         z76A==
+X-Forwarded-Encrypted: i=1; AFNElJ/5EYssx9f7QBsfOl19buiNY3dkK9T0EvFn8nbQbrI9TD0SGw5Yctms+EZT405ZQqC+kPkrZNtuXfKt@vger.kernel.org
+X-Gm-Message-State: AOJu0YxL/IGeRdY4SeMCDgsqh4UgFC8M+yJCZp+nE2GkBv64fnMHSfyA
+	r+8e+npc0rUVDZZ4Bl80FIc56/0RHycHFJ7Xbw+GW8eqZb6N9Dx1NyvN
+X-Gm-Gg: AfdE7cn1lRXnt10jqRzZZcpRxvXG7PXXRyMgDztNxUcLO6/dDoHY0Hu5E2xkIKawsJr
+	2U1rtGlsUTzZfcc1reN4dKBJs3RkGdde6UOJSVviPt03DVQdcxCq0M8qL+BF3cwxgL9AKKkXvpH
+	U4ThpiXY7TuCr2FJp3vz6xPwjm1Oz8KQkgdyLcXh0ssspRSslpCr4rOLMMv0GGdyOFEm9naGSZG
+	iWHJtFhTd87p+zyDyrfSMW+i0gRAmxQTd1HdZHuRJwpblPFS/SNAI025LCikfh7cvNgu4XVsMaR
+	n3LiAY17bb+Xc7NxoyF78xzxZIL+EViXMhKaFRqvh0Kbkr6E/z8Ab6MNN+rD7FfpHA7XF0Et7Du
+	KqoEzYIKred4BhkD07dhCV2NH63XwNOXk/QJV98M7MhOfbg/1/YmDYZTxx+UHXccm91oohz8kqy
+	vZDdXvSr//jKK26USmtaod9xEVzoA=
+X-Received: by 2002:a05:600c:3e19:b0:492:4c5d:4db3 with SMTP id 5b1f17b1804b1-492668322camr202514645e9.5.1782661428588;
+        Sun, 28 Jun 2026 08:43:48 -0700 (PDT)
+Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46f8d6f10absm32384608f8f.5.2026.06.28.08.43.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 28 Jun 2026 08:43:48 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: andriy.shevchenko@intel.com
+Cc: airlied@gmail.com,
+	amit.barzilai22@gmail.com,
+	andy@kernel.org,
+	azuddinadam@gmail.com,
+	chintanlike@gmail.com,
+	conor+dt@kernel.org,
+	deller@gmx.de,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	gregkh@linuxfoundation.org,
+	javierm@redhat.com,
+	krzk+dt@kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	robh@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de
+Subject: Re: [PATCH v2 3/4] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
+Date: Sun, 28 Jun 2026 18:43:12 +0300
+Message-ID: <20260628154312.46185-1-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <ajpLyronl7a-yxh-@ashevche-desk.local>
+References: <ajpLyronl7a-yxh-@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260627095519.8377-2-nikhilgtr@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Jun 27, 2026 at 03:25:18PM +0530, Nikhil Gautam wrote:
-> Add devicetree bindings for the Melexis MLX90393
-> 3-axis magnetometer and temperature sensor.
+Firstly, I'd like to thank you for the review.
+
+On Tue, 23 Jun 2026 12:37:31 +0300, Andy Shevchenko wrote:
+> While it's not a problem _in this case_, the rule of thumb is always to have a
+> trailing comma for non-terminator entry.
+
+This was a repeating comment in the review of this patch.
+I will be sending a v3 for this series, I will fix this point in
+each location you mentioned in your reviews. This also covers the plane-helper
+and encoder-helper arrays and the SSD133X_FAMILY enum entry. The terminator
+entries (NR_SSD130X_VARIANTS and the trailing 0 in the command arrays) will be
+left without a trailing comma.
+
+>>  /*
+>>   * Helper to write data (SSD13XX_DATA) to the device.
+>>   */
+>> -static int ssd130x_write_data(struct ssd130x_device *ssd130x, u8 *values, int count)
+>> +static int ssd130x_write_data(struct ssd130x_device *ssd130x, const u8 *values, int count)
+>>  {
+>>  	return regmap_bulk_write(ssd130x->regmap, SSD13XX_DATA, values, count);
+>>  }
+>
+> Stray change. If needed, either explain in the commit message or create
+> a separate patch (depending on the dependencies).
+
+The SSD135X branch I add in ssd130x_write_cmds() passes its const u8 *cmd buffer
+to ssd130x_write_data(), which took a non-const u8 *. Rather than cast away const
+at the call site, I propagated it into ssd130x_write_data(). I will explain this
+in the commit message in v3.
+
+>>  	unsigned int i;
+>>  	int ret;
+>>  
+>> +	/*
+>> +	 * The SSD135X family latches command parameters with D/C# HIGH (i.e.
+>> +	 * clocked in as data), unlike the other families where the opcode and
+>> +	 * all of its parameters are sent as commands (D/C# LOW). Send the
+>> +	 * opcode as a command and any following parameter bytes as data.
+>> +	 */
+>> +	if (ssd130x->device_info->family_id == SSD135X_FAMILY) {
+>> +		if (len == 0)
+>> +			return 0;
+>> +		ret = regmap_write(ssd130x->regmap, SSD13XX_COMMAND, cmd[0]);
+>> +		if (ret || len == 1)
+>> +			return ret;
+>> +
+>> +		return ssd130x_write_data(ssd130x, cmd + 1, len - 1);
+>> +	}
+>
+>>  	for (i = 0; i < len; i++) {
+>
+> This loop seems for the len, so it will be the same for both devices as far as
+> I can see the context. I can't find this piece in the original driver, perhaps
+> it's some dependency?
+
+Correct, it's a dependency. The for loop is unchanged context, not added by this
+patch. ssd130x_write_cmds() was introduced in commit 208211646fb3 ("drm/solomon: add
+ssd130x_run_cmd_seq() for batch command execution"). It is in drm-misc-next,
+but not yet in the mainline.
+That loop is the existing command path used by every family except SSD135X:
+it clocks each byte out as a command (D/C# LOW). This patch only adds the SSD135X
+branch above it, which returns early, so for SSD135X the loop is never reached.
+
+The v3 cover letter will explicitly state that this series is based on drm-misc-next,
+hopefully avoiding any future confusion.
+
+>> +/*
+>> + * Variadic wrapper around ssd130x_write_cmds(). The first variadic argument is
+>> + * the command opcode and the following ones are its options/parameters.
+>> + */
+>> +static int ssd130x_write_cmd(struct ssd130x_device *ssd130x, int count,
+>> +			     /* u8 cmd, u8 option, ... */...)
+>> +{
+>> +	u8 buf[8];
+>> +	va_list ap;
+>> +	int i;
+>> +
+>> +	if (count > ARRAY_SIZE(buf))
+>> +		return -EINVAL;
+>> +
+>> +	va_start(ap, count);
+>
+>> +	for (i = 0; i < count; i++)
+>
+> Can be
 > 
-> The device supports magnetic field and temperature
-> measurements over I2C and SPI interfaces.
+> 	for (int i = 0; i < count; i++)
+
+Fixed in v3.
+
+
+>> +	const u8 cmds[] = {
+>
+> Why not static?
+
+This array can't be made static. It is initialised with runtime values
+(ssd130x->width - 1 and ssd130x->height - 1), so it is not a compile-time
+constant and a static/file-scope definition wouldn't compile.
+The other ssd13xx_init() functions are non-static for exactly the same
+reason.
+
+>> +		4, SSD135X_SET_CONTRAST, 0xc8, 0x80, 0xc8,
+>> +		2, SSD135X_SET_CONTRAST_MASTER, 0x0f,
+>> +		2, SSD135X_SET_PRECHARGE2, 0x01,
+>> +		1, SSD135X_SET_DISPLAY_NORMAL,
+>> +		2, SSD13XX_SET_SEG_REMAP, remap,
+>
+>> +		0,
+>
+> No trailing comma for the terminator entry.
+
+Removing it in v3. The other init arrays in drm-misc-next still carry the
+terminator comma, but that's pre-existing code outside this series -- I've left
+it alone to avoid unrelated churn. Happy to send a separate cleanup if you'd
+prefer.
+
+>> +	};
+>> +
+>> +	/*
+>> +	 * ssd130x_power_on() issues a short reset pulse, but the SSD1351 is not
+>> +	 * ready to accept commands immediately afterwards. Give the controller
+>> +	 * time to settle before sending the init sequence.
+>> +	 */
+>
+> Any reference to the datasheet?
+
+It's not a datasheet figure. fb_ssd1351 doesn't do it in init_display() either;
+it inherits it from the shared fbtft_reset() helper, which deasserts reset and
+then does msleep(120) before any command is sent. The 120 ms is a generic fbtft
+blanket value, not an SSD1351 number -- the SSD1351 datasheet's reset timing is
+microsecond-scale.
+
+I removed the msleep() and retested this on the hardware. The panel still 
+initialises reliably.
+I'll drop the msleep() in v3.
+
+>> +		int ret = ssd130x_write_cmd(ssd130x, 1, SSD135X_WRITE_RAM);
+>> +
+>> +		if (ret < 0)
+>> +			return ret;
+>
+> This style is discouraged as it's harder to maintain. Better to split
+> assignment and definition
 > 
-> This initial binding documents the I2C interface.
+> 		int ret;
 > 
-> Signed-off-by: Nikhil Gautam <nikhilgtr@gmail.com>
+> 		ret = ssd130x_write_cmd(ssd130x, 1, SSD135X_WRITE_RAM);
+> 		if (ret < 0)
+> 			return ret;
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Noted. Will fix for v3.
 
-If you are going to send any new version, then fix wrapping in commit
-msg:
-Please wrap commit message according to Linux coding style / submission
-process (neither too early nor over the limit):
-https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
 
-Best regards,
-Krzysztof
 
+-- 
+Thanks,
+Amit
