@@ -1,526 +1,186 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2ADD3A9D9B
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 15:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC5C287268
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 16:29:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782661526; cv=none; b=UzIEMFTBDx2G0ESseeQV055oib0sHPI7Ct79YMl7eWiFNdErKuPs4JAMxgtcn3ehYBf3B4w+hgpQJeW+Q3gm2Zh1CYDG5uyuG/gFy1g5n7WZ+XWv7lxWkzqWO1zBvI0VH5Kxkd43HbCktlKoYRtltUAi0Cjnxj4MN48jc2BoCFw=
+	t=1782664159; cv=none; b=oacStnxLD82w5jyAcnPryV3anedyEf2XBqtYPYCQ6DRqgAMR/v18I9DpNYAY1e2afHCcjUnRlkRcNGNR/AfAr3TohtAhzukst7mdFwqUtnPU8HFpY0JEklNA5mfjB9UigcXtGVTVBO5u/IZxmEAUPrqZgkO5qRD9ZqQwpXRP2iY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782661526; c=relaxed/simple;
-	bh=+H0yKek5K0Khqt7YK1gSWtncaria+1vViN2GnCBEh5Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Pu4Hzp1MeRKtyB8H2Jw8wHnsI2FqXsguKq2NhP2MfFUBhGyy0z6gRoDFUWZfGyBpitiBdkiWMELqOVrv+i2Ng+HrQe7ARxVBky2AZNMEkxHmcmnLdWnAgRNCcibX+Z5tsjUItA8hKp0TZjUlTNhG2SOP5Q1qZ5NAKx/ka56hRHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=nEVqfxBQ; arc=none smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1782664159; c=relaxed/simple;
+	bh=4NSxC6Mn34yMci20ZTuvINbSgGpx57EckysY0lZLfXA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NgGkIw9aZAh+KVUlXjExvQxjIMir6BboKWbgj3GprJ0610soYy7OJqqYKLAp3PziLOXRYiR8K7qdu75G1Mv5UvaYdyfvxUxAsqDNyXqaMi74Hly7eMHvZG6Qzt+FXSBvJJyM4skcyJgaUSTBz8Qh8AJsMJyncHc8PV0P2kf+rGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oP2KKzmi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cAdi97ra; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="nEVqfxBQ"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7e9beead38fso995901a34.2
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 08:45:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oP2KKzmi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cAdi97ra"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65SESadx018374
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 16:29:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=2xTfgdKMxe+
+	lI5WKe3eni3EOigd5d95Lc7bPDZrpB20=; b=oP2KKzmiFF01pM0QuyaGZPqYqH/
+	QkOytiQj/Gi+4UWpXH+36Iafkf9AvMHUa9dck2aqGPoJSl5OGmoL9t7k+N6RhoFR
+	wf1vkmaeXOhYKVo83oVuNo6HwA0c2lxwiab9NdH9AIuW+R6fchBGCoA3JgloxxEF
+	8v16F2OhUf0ZigOQA+YubaT6K+I4poc4w9fy7igiwsbF+Rrm8Mmo3Ig7LU9UplSO
+	QqI/yTEd6pHjI7VKmdt5nyRKY3J2AxJ5rF2QHxDpc9M3hZnyhvraBk2KGPt7NFgN
+	sNAdVYP4vgD9OyWGexn/ZZKh/ZwWuGZjrIxD/FnnmqaxyMpLqpLqjJb4xWA==
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f2734b8kj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 16:29:17 +0000 (GMT)
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-808a9e5182bso48882567b3.1
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 09:29:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782661522; x=1783266322; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=B2K7USod4RXr86t8YidbbXA5K/zjp7bYDsDgqEvwk0g=;
-        b=nEVqfxBQ513EQV7RksntUzUCdfZcFOju8FOu75tulEFL9f2C/MiDyCCqF4SHr0u4XF
-         pw5sVBqrYh9nHIuXidPwiK14+M+1pE5420Jyh1+GJMSzevVQsfQdZLlQ55VZRQ9jztUi
-         W1cv+akvBuFQxvK8w+1HNU0Y+8WMCwe3yZnlUIAKbTbKGjFh0KWpdhzbqYufUNOOiYsH
-         +Rf/+kBiqlvrukAaPkyiVgpCAG5c/CTgsJ0s/ODjhddutnw4c3y+oizdrUG5gfgvo/j9
-         FTzoLny/uccUSXuXCM4i//JkKEFOpeWOSom2q6j2E9Vo65Ysf8ilejnRt2+8b/3AbG59
-         YVfA==
+        d=oss.qualcomm.com; s=google; t=1782664157; x=1783268957; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2xTfgdKMxe+lI5WKe3eni3EOigd5d95Lc7bPDZrpB20=;
+        b=cAdi97raZUAITIX9UM2mv8AGN0Z6CG12bRoRUDSNRMhMCMSBmWvey2hYOy445LxhKV
+         o6fv6qfyC0Orl3te+Tm3ObpKSttA0juh0dMXaZpaNbqgxwoPwOXiDSg49r11PslT53Jy
+         9FlMlRNaXJwm1E98WjCqk1LFnxqD7wXXhokOX62oJ7BJAgfEs2/YfDQJLEgleo9bdV9/
+         qNMZGwKbtVdjUI85qlojFq2Qg09TH/hajWQmAImPdUU6LDL8Pec12vNMeCObTfzTK7a3
+         vjMDHxIQuQAE3/ZpIyS+2xTFKP34Cz2eRdtuJXJAP+DAnfwoGr2bl/UnVk2AYghim/Qb
+         r9GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782661522; x=1783266322;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=B2K7USod4RXr86t8YidbbXA5K/zjp7bYDsDgqEvwk0g=;
-        b=NDGAuMWFpE3/zG1UpnWzAuJRnv7OS6i1DCZikOJm0uqQyUc/8wODNPIEeh7baA5rTC
-         BjbaiLo9wT0OJXWStsAflu+PMc0LH6T+dHziz/b2a6vmTAYU12dQa8bbLkMm4t7iqAEV
-         0M9IOu8r+FCl6aYOx07J9Ae9opFdrBxM0OM0TAQqr9/fIAKfMVEPhXgaJDGyD99QYboi
-         BYmO0n5sBhS02ZOYwgmzsTVYWB7YKdX+U7Bo5UL8rX/+e46ebOlRbvcjFkpNF++Vik02
-         YUJhVraiJCKK/yLVuXP4qRfxWybNM8ANzax7APWQPnmbbvaR+WnJ6ivflDy3Ftkfu6xi
-         4XBQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9dC5kO5cFq/NCm60Z6btAU6DD9rtoWBOB325Xsg7ADqDVIjVpTR0wov1yH80UIgkyk5nbwEgZNmBSR@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+wxx33wtCfAu2l2c9PkO4++75BxCZgXpceOqaiZuuR8rsek0T
-	VG5WMR7RyZHkj2ZkKKH6bIMAjDdbFnMBFXL5PXoxoRrrWDX5VoYwujg3da7C+aMGSBk=
-X-Gm-Gg: AfdE7clYnE359YBg8FOYd4TlDZFpVZXCL5Nj7yvVyFjeHLUP4+qmpxpic4T1y6mfVZn
-	YPHKsnfnq4y5o37UUYvmfaSPmR4etop/RlDUOhp9FoJpm1K6Ix8HshWyY6mtEg+SgsWaCy+hTE2
-	S1O45fOVn917qy5GR++YS8fO7y+nd2Fxj/JKL6B3QNO2LdxNqK/j3t+EeaPwC3fCpnKMGAoDekq
-	Mv+074afWzzGDMFnVOE/G6hMIneYIeGE9HHTbJ9FbnqsDPBS5MTduAaOPKq1m2lgHQYLBBiu0so
-	+3ruWUV6qyNadvWOSgILxKX+T7Q6NTjYNyk0Ir0JgFAjs1tz//nxoF5qN5g0jWT7KxTXuFDEV9a
-	0uNsmOZd41i5eU2JVChdB3Logkxlif3hNCN0o+Xp554zk4LQO368e14jPIyxLPuxqtbj5ILMMpb
-	y4BtLF2Vr7Qr/vmxo5pXXAOqfmjkyJMi9g9CenCng8XJiSExmfYEtxdgyqzH7erxs=
-X-Received: by 2002:a05:6830:25d0:b0:7dc:4a43:fb5c with SMTP id 46e09a7af769-7e99c35dc5amr13720497a34.11.1782661521763;
-        Sun, 28 Jun 2026 08:45:21 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:f242:ecd6:f61e:d764? ([2600:8803:e7e4:500:f242:ecd6:f61e:d764])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9b0f726e9sm5522893a34.26.2026.06.28.08.45.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 28 Jun 2026 08:45:21 -0700 (PDT)
-Message-ID: <946a30c9-01e9-42f1-bd2b-b7934fda85cf@baylibre.com>
-Date: Sun, 28 Jun 2026 10:45:20 -0500
+        d=1e100.net; s=20251104; t=1782664157; x=1783268957;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=2xTfgdKMxe+lI5WKe3eni3EOigd5d95Lc7bPDZrpB20=;
+        b=NPzr307doLS2HhS+Xjpjs0YCfV/GAqu5Mc2V1wQBCH4FCsqrGfXEs/dfsDLCXJxVSa
+         3kbYr4F+V2B3+QxnDNTcXd78u4BneD/5i6zVVaRSZktTljkuL6a/pZq0zpLMb+UuQz6n
+         UsNkzEv8cgPMd51gNaDv8H+3dPMm8+lWxQcGEtLYca2g0vCgNKYU7QsSJoosmjgJHyCt
+         m/mVsvqjjJi02UTx9S6lYEEWUXL8JWt86oiQXJUydbEUEr88uQzBGch2GK0I94Hrslth
+         tPX+2jhvYc9FdJRu1X1BrZfysxW960I+JrkRrJbI8glUda+wSCKA1b1cw3gsy7KpH263
+         gDXA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1te4MD41CijDqum6sJTufAA4tEqMGJsPim4qt2SvmqK0+pGl4IhXB0/CM/7OqDeIwyNYag2IuHcHA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyrqcz5S61Sk+uXRDcqRo8fL+57er31XK23ZjLo7PwKSRxXrgT4
+	Nqtu3hPO7ctSGE4OtDXEelNN7NT00FHpzeyhGFHVfZTtAOf0Yl96aMf29ampkQX81ym9cQ/RcFz
+	tO9XVeNemaAxOye3I/vhhExnX2/fdEHueqAoV5Le7DqbKtNI/7rQkFC4xRDDbKVmjD4XECjSW
+X-Gm-Gg: AfdE7clmPQwvR9ulG0HlJaSVTB3ZlF4lICk/vMVieKvWjuNWzMZTHRyIe6Wj6+MKSWz
+	AGgxTfx1K5ysnHu+fryL09B9ob24JMGA/vDEqzI9qwHh3kWw5bbeK4A9IH4nq+9k7yFfHADkz+i
+	xQpOSzRYVtLuC8NzZZdlf8i13S3Y45jMYCshToqx6Iw93rsklSj3mBKmFkp2t16DClKtrnJu5fj
+	Atss+C3GA874yREjnM/B3rSvLtN5wGgrIPNFYQ5NEtd0N5ujDyNMf1iv1zqv3pm9EcxWTLalai3
+	LNcUoXA9tugeMs2qEnSuLyFoa2eQDqSp/C3mtanhUF8+l+SItSp9uIUJSY1gdCsKRmJfatb6bVe
+	XNMf84kyDMh15arvOoR1sQyvXAMeKlWKHRsni18/aylrbAJf7xGh0S7CtVZIVH3bQE4E7byfSUT
+	hoAdF4FHvfjg0X5YbBQXiFLoODUSHv8A==
+X-Received: by 2002:a05:690c:7246:b0:80c:85e5:8753 with SMTP id 00721157ae682-80c85e58ad1mr79835737b3.60.1782664156920;
+        Sun, 28 Jun 2026 09:29:16 -0700 (PDT)
+X-Received: by 2002:a05:690c:7246:b0:80c:85e5:8753 with SMTP id 00721157ae682-80c85e58ad1mr79835587b3.60.1782664156328;
+        Sun, 28 Jun 2026 09:29:16 -0700 (PDT)
+Received: from localhost.localdomain (108-89-202-162.lightspeed.sndgca.sbcglobal.net. [108.89.202.162])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-80ec6c724ffsm5417197b3.18.2026.06.28.09.29.14
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 28 Jun 2026 09:29:15 -0700 (PDT)
+From: Jason Pettit <jason.pettit@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Jason Pettit <jason.pettit@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Ananthu C V <ananthu.cv@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: Add HP EliteBook X G2q 14 AI
+Date: Sun, 28 Jun 2026 09:29:13 -0700
+Message-ID: <20260628162913.66306-1-jason.pettit@oss.qualcomm.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <e7bal26fyufjh2f4j6rh57bcdvubp3qqydk4pjagq3qjdz3ywz@wtfsiff726zx>
+References: <20260625-glymur-send-v2-0-00905324ffbf@oss.qualcomm.com> <20260625-glymur-send-v2-2-00905324ffbf@oss.qualcomm.com> <c6966f05-b1bb-4b71-8373-c90995ab4cc3@oss.qualcomm.com> <20260627190612.27271-1-jason.pettit@oss.qualcomm.com> <e7bal26fyufjh2f4j6rh57bcdvubp3qqydk4pjagq3qjdz3ywz@wtfsiff726zx>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] dt-bindings: iio: adc: Add TI ADS126x ADC family
-To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260628-ads126x-v2-0-4b1b231325ba@gmail.com>
- <20260628-ads126x-v2-1-4b1b231325ba@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260628-ads126x-v2-1-4b1b231325ba@gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: L3CV_9Ij4uoyA0ydSeZUDFoocPAeIBwu
+X-Proofpoint-ORIG-GUID: L3CV_9Ij4uoyA0ydSeZUDFoocPAeIBwu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI4MDE0NyBTYWx0ZWRfX+W57T7gmOBW8
+ AgQqN8NWrmJCwJ3Aika2tHiTQUxnAisZzjBw0/6/CgeWE8ipjV+2IVQkt9QK+JtpFek4yIqEJWf
+ g8n7zGvgyiBFiPZ++Zq1YFuET1QG21o=
+X-Authority-Analysis: v=2.4 cv=HYokiCE8 c=1 sm=1 tr=0 ts=6a414bdd cx=c_pps
+ a=72HoHk1woDtn7btP4rdmlg==:117 a=AgdIAmbgiPN5lz+IpyuXaA==:17
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=njTJukhxh3FpIjYFatEA:9
+ a=kA6IBgd4cpdPkAWqgNAz:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI4MDE0NyBTYWx0ZWRfX9OYObOjZlMqP
+ 3TA8xl9dz9rf8J5O9GK1NN6ri9rN53Z5zx8x3OjLgvIkBVSXU3jk33ywv8XNr4QGGCRRpFoUiHC
+ oIWorFaEgvD6yFv6k6R5iiFIgnobYmQtOJxe7pvUEIT8nXGYBur5PrNHruUKWPuRfadGv7Xi5cT
+ /h6XTYaWPZNBMqdwFAeqacW4ztR0Q4PpXftHoUVK+Q+PrwG2PF9Fw0CTZ0vGB/qPlJs4j3ybcAi
+ iCD5lm0XDbOCRrwFRh+HPzpRB/6Bn9jPs6gsGqi0u9SH3mn6S19du9Yv/ZR8P8o2vHEIM6vpIxF
+ TOXJwFh2YBiREl3m/AcAkCiaSdHjLOBkecvz3zPdOlmePGxfDGTSgXQ02GQq7qcsZSt5vOwss7u
+ XB1RfTcE34g5FWI6ExkOrJTEgk/R9qOP2AmVFPQO/mBwoM4R2GuwNHmhAXAP0ccM2jJ6DZ/HFqh
+ BgYlSEz1vUhLFSQSh7g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-28_04,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 impostorscore=0 spamscore=0 malwarescore=0 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606280147
 
-On 6/28/26 12:36 AM, Kurt Borja wrote:
-> The ADS1262 and ADS1263 are 32-bit, 38.4-kSPS delta-sigma ADCs with an
-> integrated PGA, internal reference, excitation and burn-out current
-> sources for sensor biasing and diagnostics. The ADS1263 adds a second,
-> 24-bit delta-sigma ADC (ADC2) for background measurements.
-> 
-> Each can configure it's own voltage reference source, the two excitation
-> current sources (IDAC), plus input and excitation channels rotation for
-> offset and IDAC mismatch cancellation. This lets the device drive and
-> ratiometrically measure RTDs and other resistive sensors.
-> 
-> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
-> ---
->  .../devicetree/bindings/iio/adc/ti,ads1262.yaml    | 309 +++++++++++++++++++++
->  MAINTAINERS                                        |   6 +
->  2 files changed, 315 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml
-> new file mode 100644
-> index 0000000000000000..2f4e812ae2af135a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml
-> @@ -0,0 +1,309 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/ti,ads1262.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TI ADS1262/ADS1263 analog to digital converter
-> +
-> +maintainers:
-> +  - Kurt Borja <kuurtb@gmail.com>
-> +
-> +description: |
-> +  The ADS1262 and ADS1263 are 38.4-kSPS, delta-sigma (ΔΣ) ADCs with an
-> +  integrated PGA, reference, and internal fault monitors. The ADS1263 integrates
-> +  an auxiliary, 24-bit, ΔΣ ADC intended for background measurements.
-> +
-> +  Datasheets:
-> +    - ADS126x: https://www.ti.com/lit/ds/symlink/ads1262.pdf
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ti,ads1262
-> +      - items:
-> +          - const: ti,ads1263
-> +          - const: ti,ads1262
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +  spi-max-frequency:
-> +    maximum: 8000000
-> +
-> +  spi-cpha: true
-> +
-> +  interrupts:
-> +    description: Data ready (DRDY) interrupt line.
-> +    maxItems: 1
+On Sun, 28 Jun 2026 16:02:24 +0300, Dmitry Baryshkov wrote:
+> This is very surprising. Can you check, is it actually the DWC3 or is it
+> some power supply that is being toggled by the USB controller? In the
+> former case it would mean that we miss some bits of PHY programming and
+> still depend on the USB host / USB part of the PHY.
 
-Technically, there are two pins with the DRDY signal, so we should have
-two interrupts in order to be able to tell which one is wired up.
+I tried to check this. I am fairly new to this, so I mostly poked at it on
+the hardware. Here is what I did and what I saw, and you can probably read
+more into it than I can.
 
-> +
-> +  start-gpios:
-> +    description: Start conversion control.
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +
-> +  dvdd-supply:
-> +    description: Digital power supply.
-> +
-> +  avdd-supply:
-> +    description: Analog power supply.
-> +
-> +  refp-supply:
-> +    description: External positive voltage reference.
-> +
-> +  refn-supply:
-> +    description: External negative voltage reference.
-> +
+1. First, with &usb_2 (the dwc3, HS-only) and &usb_2_hsphy enabled, HDMI
+   works. I looked at the power state on that boot to see if the dwc3 turns
+   on anything the DP side might also need. As far as I can tell they are
+   separate. The combo PHY, the dwc3, and the DP controller are each in a
+   different power domain, and the PHY's regulators show up under the PHY,
+   not the dwc3:
 
-Which pins are these? I see 4 possible external reference sources,
-but all go through the AINx pins. So I would expect:
+     gcc_usb_2_phy_gdsc    on
+         88e1000.phy                       active   (the combo PHY)
+     gcc_usb30_tert_gdsc   on
+         a000000.usb                       active   (the dwc3)
+     mmcx                  on
+         af64000.displayport-controller    active   (mdss_dp2)
 
-	refp1-supply, refn1-supply, refp2-supply, refn2-supply,
-	refp3-supply, refn3-supply, refp4-supply, refn4-supply
+     vreg_l2f_e0_0p94 -> 88e1000.phy-refgen
+     vreg_l3f_e0_0p91 -> 88e1000.phy-vdda-pll
+     vreg_l4h_e0_1p2  -> 88e1000.phy-vdda-phy
 
-Also, similar to the chip I am working on, I expect that these pins
-could be connected to a resistor rather than a voltage source, so
-could use additional bindings for that.
+   So I did not find a rail or GDSC that the dwc3 owns and the PHY needs.
 
+2. Then I removed &usb_2 and &usb_2_hsphy, rebuilt, and rebooted. mdss_dp2
+   still binds:
 
-> +  ti,vbias:
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +    description: Enables the level-shift voltage on the AINCOM pin.
+     msm_dpu ae01000.display-controller: bound af64000.displayport-controller
 
-VBIAS is a voltage source, so I would expect that to be modeled
-as a regulator provider. (If we do that REFOUT should be included
-as well.)
+   and HDMI-A-1 still reads connected, so the PHY seems powered and the AUX
+   side is working, but there is no picture on the monitor.
 
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  '#io-channel-cells':
-> +    minimum: 1
-> +    maximum: 2
-> +
-> +  '#gpio-cells':
-> +    const: 2
-> +
-> +  gpio-controller: true
-> +
-> +patternProperties:
-> +  "^channel@[0-9]+$":
-> +    $ref: /schemas/iio/adc/adc.yaml#
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +
+3. Putting the two nodes back makes the picture come back, and the PHY's
+   supplies look the same either way.
 
-If we want to allow single-ended/pseudo-differential inputs, then we should
-also allow single-channel (positive pin) and common-mode-channel (negative
-pin) properties.
+So from what I can see the power is not the thing being toggled. The PHY
+stays powered without the dwc3, but DP still has no image. That seems to
+line up with your first option, that something on the USB side of the PHY
+still has to be brought up.
 
-This will also require additional common-mode-<N>-supply properties to allow
-for the negative pin connected to something other than GND.
+For now I have kept the dwc3 enabled as a workaround. If this is a driver
+issue and someone has a fix or a pointer, I am happy to test it on the
+hardware.
 
-> +      diff-channels:
-> +        description: |
-> +          Selects the analog input configuration for this channel. The first
-> +          value is the positive input and the second is the negative input.
-> +          The following values are available:
-> +          0: AIN0 pin
-> +          1: AIN1 pin
-> +          2: AIN2 pin
-> +          3: AIN3 pin
-> +          4: AIN4 pin
-> +          5: AIN5 pin
-> +          6: AIN6 pin
-> +          7: AIN7 pin
-> +          8: AIN8 pin
-> +          9: AIN9 pin
-> +          10: AINCOM pin
-
-> +          11: Temperature sensor monitor
-> +          12: Analog power supply monitor
-> +          13: Digital power supply monitor
-> +          14: TDAC test signal
-
-These are all internal signals, so not sure it makes sense to have
-them in the devicetree. It would make more sense to have fixed
-channels defined in the driver for these since they are always there.
-
-We probably also need a separate property (a bool/flag?) to say that
-this channel is a TDAC output rather than an analog input. Although
-that is for testing, so maybe something to omit for now until we
-actually have an application that uses it (to make sure we get it
-right)?
-
-
-> +          15: Float (open connection)
-
-How could we have a differential input with one or both pins open?
-Likely this will just be the setting for pins not specified as something
-else in the devicetree.
-
-> +        items:
-> +          minimum: 0
-> +          maximum: 15
-> +
-> +      reference-sources:
-> +        minItems: 2
-> +        description:
-> +          Indicates the reference sources for this channel. The first and second
-> +          items are the positive and negative sources of the main ADC (ADC1).
-> +          The third item is the reference source of the secondary ADC (ADC2).
-> +        items:
-> +          - enum: [internal, ain0, ain2, ain4, avdd]
-> +          - enum: [internal, ain1, ain3, ain5, avss]
-> +          - enum: [internal, ain0-ain1, ain2-ain3, ain4-ain5, avdd-avss]
-> +
-> +      excitation-channels:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        minItems: 2
-
-minItems should be 1 since there are applications that only use one
-current source.
-
-> +        maxItems: 2
-> +        description: |
-> +          Selects pins for the IDAC sources from the following options:
-> +            0: AIN0
-> +            1: AIN1
-> +            2: AIN2
-> +            3: AIN3
-> +            4: AIN4
-> +            5: AIN5
-> +            6: AIN6
-> +            7: AIN7
-> +            8: AIN8
-> +            9: AIN9
-> +            10: AINCOM
-> +            11: No Connection
-
-Having a value for "no connection" doesn't make sense. We would just omit the
-property or only have one item in the array.
-
-> +          The first value corresponds to IDAC1 and the second to IDAC2.
-> +        items:
-> +          minimum: 0
-> +          maximum: 11
-> +
-> +      excitation-current-nanoamp:
-> +        minItems: 2
-> +        maxItems: 2
-> +        description:
-> +          The first value corresponds to IDAC1 and the second to IDAC2.
-> +        items:
-> +          enum: [0, 50000, 100000, 250000, 500000, 750000, 1000000, 1500000,
-> +                 2000000, 2500000, 3000000]
-
-In the chip I am working on, I left out 0 with the intention that we
-would just omit the property in that case. If we do include 0, then we
-should also have `default: 0`. Not sure which way would be preferred by
-others though.
-
-> +
-> +      burn-out-current-nanoamp:
-> +        description:
-> +          The ADC incorporates a sensor bias current source that can be used to
-> +          apply a small test current to diagnose broken sensor leads or problems
-> +          existing in the sensor.
-
-This description doesn't add anything that adc.yaml doesn't already say, so can
-be omitted.
-
-> +        enum: [0, 500, 2000, 10000, 50000, 200000]
-
-Same thing here about 0 value.
-
-> +
-> +      ti,burn-out-resistor:
-> +        $ref: /schemas/types.yaml#/definitions/flag
-> +        description: |
-
-Don't see a reason to need | here.
-
-> +          Instead of a fixed current, the sensor bias (burn-out) current source
-> +          can be pulled using an internal 10 MΩ resistor.
-> +
-> +      ti,burn-out-polarity:
-> +        $ref: /schemas/types.yaml#/definitions/string
-> +        description:
-> +          The sensor bias can be configured to either pull-up or pull-down mode.
-> +          In pull-up mode, the current flows into the positive input and flows
-> +          out of the negative input. In pull-down mode, the polarities are
-> +          reversed.
-> +        enum: [pull-up, pull-down]
-
-Needs a default.
-
-> +
-> +      input-chopping:
-> +        $ref: /schemas/types.yaml#/definitions/flag
-> +        description:
-> +          When enabled, the ADC performs two internal conversions to cancel the
-> +          input offset voltage. The first conversion is taken with normal input
-> +          polarity. The ADC reverses the internal input polarity for the second
-> +          conversion. The difference of the two conversions is computed to yield
-> +          the final corrected result with the offset voltage removed.
-> +
-> +      ti,idac-chopping:
-
-I would call this ti,excitation-channel-chopping to match the excitation-channel
-property. Or since this isn't a generic property, call it ti,idac-rotation to
-match the datasheet.
-
-> +        $ref: /schemas/types.yaml#/definitions/flag
-> +        description:
-> +          Automatically swap the IDAC1 and IDAC2 connections of alternate
-> +          conversions. The ADC averages the alternate conversions to eliminate
-> +          IDAC mismatch.
-> +
-> +      ti,pga-bypass:
-> +        $ref: /schemas/types.yaml#/definitions/flag
-> +        description: Bypass the Programmable Gain Amplifier (PGA).
-
-Why would this need to be a DT property? I didn't read this datasheet
-too much, but in other chips I have seen there are usually rules that
-PGA has to be bypassed under certain conditions, but not others, so
-this seems like something for the driver to handle rather than the
-devicetree.
-
-> +
-> +    dependencies:
-> +      excitation-channels: [excitation-current-nanoamp]
-> +      excitation-current-nanoamp: [excitation-channels]
-> +      burn-out-current-nanoamp:
-> +        not:
-> +          required:
-> +            - ti,burn-out-resistor
-> +
-> +    required:
-> +      - reg
-> +
-> +dependencies:
-> +  refn-supply: [refp-supply]
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - avdd-supply
-> +  - dvdd-supply
-> +  - '#address-cells'
-> +  - '#size-cells'
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ti,ads1263
-> +    then:
-> +      properties:
-> +        '#io-channel-cells':
-> +          const: 2
-> +      patternProperties:
-> +        "^channel@[0-9]+$":
-> +          properties:
-> +            reference-sources:
-> +              minItems: 3
-> +    else:
-> +      properties:
-> +        '#io-channel-cells':
-> +          const: 1
-> +      patternProperties:
-> +        "^channel@[0-9]+$":
-> +          properties:
-> +            reference-sources:
-> +              maxItems: 2
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    spi {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        adc@0 {
-> +            compatible = "ti,ads1262";
-> +            reg = <0>;
-> +            spi-max-frequency = <8000000>;
-> +            spi-cpha;
-> +            avdd-supply = <&avdd>;
-> +            dvdd-supply = <&dvdd>;
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            reset-gpios = <&gpio 18 GPIO_ACTIVE_LOW>;
-> +            interrupts-extended = <&gpio 10 IRQ_TYPE_EDGE_FALLING>;
-> +
-> +            channel@0 {
-> +                reg = <0>;
-> +                diff-channels = <0x0 0xA>;
-
-I would just use decimal instead of hex for these. That is how they are
-listed in the description anyway.
-
-> +            };
-> +        };
-> +    };
-> +
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    spi {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        adc@0 {
-> +            compatible = "ti,ads1263", "ti,ads1262";
-> +            reg = <0>;
-> +            spi-max-frequency = <8000000>;
-> +            spi-cpha;
-> +            avdd-supply = <&avdd>;
-> +            dvdd-supply = <&dvdd>;
-> +            refp-supply = <&refp>;
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            reset-gpios = <&gpio 18 GPIO_ACTIVE_LOW>;
-> +            interrupts-extended = <&gpio 10 IRQ_TYPE_EDGE_FALLING>;
-> +
-> +            channel@0 {
-> +                reg = <0>;
-> +                diff-channels = <0x4 0x5>;
-> +                reference-sources = "ain2", "ain3", "ain2-ain3";
-> +                excitation-channels = <0x1 0x6>;
-> +                excitation-current-nanoamp = <500000 500000>;
-> +            };
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 6c0471487974f145..9b83d294734b574d 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -26923,6 +26923,12 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/adc/ti,ads1018.yaml
->  F:	drivers/iio/adc/ti-ads1018.c
->  
-> +TI ADS1262 ADC DRIVER
-> +M:	Kurt Borja <kuurtb@gmail.com>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml
-> +
->  TI ADS7924 ADC DRIVER
->  M:	Hugo Villeneuve <hvilleneuve@dimonoff.com>
->  L:	linux-iio@vger.kernel.org
-> 
-
+Thanks,
+Jason
