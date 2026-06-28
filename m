@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16112F0C62;
-	Sun, 28 Jun 2026 08:42:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D13B305057;
+	Sun, 28 Jun 2026 08:44:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782636122; cv=none; b=LzRAAJ0ZhnVYiZHXR3YWFpa2oQkTDp/Cfqvl32LYM03G1QNiVG9wYLZqKYzN0J/gEFRWkbs1FwnwfH9CQ/B1sQzxRkewXIqbxEbVDJr0nv0nvbzkkr5U0EjhWa+2lhF4KK29WkMZgWp9IwcZmWEKrWqhXy1eLSsR0vdKWzEaYrU=
+	t=1782636257; cv=none; b=qGp0cxLwSpKEKQ3v4RX+jifSyR6z5jrbUSEmwglQVxgzRkkOhu36EEU4x9MZZPTKtnyuYFBAnR06To+s1/heXwlcVN2bHD250VrqOJs1VBJIS4CWTwsz3p+/4PYg1pNYtQRGdvRVhqKSQAOxXVGQEV6fxVY/EVYUPWKp2bped1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782636122; c=relaxed/simple;
-	bh=dw/lGv1u3Lv5xeoGtgMzlxFSTqpFonsNuG+PhX1LHdQ=;
+	s=arc-20240116; t=1782636257; c=relaxed/simple;
+	bh=laWz/PWzk7WsqKDkxiCO/3cJBC7ORlLSKlI/yWMEuqs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HId+zOCy8cHyUIm+mDwctHabfzOnbcvcOKigiZg1DN7oCp8bckefHjbNtvo980smtarjQSQvcJzAZW9uzG3GRTbKhwYVs30KUyOxSK6Yj7BYQvijyCzWiXAn0CNIvGJNQQOmPI9sC5wXvUbTdrYXl9m1zVoDGmedci1LeMmpPCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=afEyoG7H; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=WbSQcTT9A1FC/4jlDqdy/yq9eNsiEkipfG2Tpp2hyuKFA4NVQooivFJnlqvJLer0hpiF2SfYHmxfJGxrfhHiI4RDMJurgLgDuEh8fymnYM1AfXmnrM+GTo2sJNugJB8c+QIjGTJ5XTc6kY6NiLwUsepJE2SY8Vk8Ac/SQYieEDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MLqXu9oG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="afEyoG7H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59D7B1F000E9;
-	Sun, 28 Jun 2026 08:41:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MLqXu9oG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C10791F000E9;
+	Sun, 28 Jun 2026 08:44:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782636121;
-	bh=bCKnwMfrXZz+g37EJ+TFMnIZa/Yzua6c1+9WVaqAyf0=;
+	s=k20260515; t=1782636255;
+	bh=FBoMAHCtH8Ri/28sMpEUa1oUvQsHO1sXb4qphcRiN9k=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=afEyoG7HoZ5pCVWP3Gd2mvK4Y5ZjixxblF89Psqh5ydny60oHAbYGwqM6DNkeC1Bl
-	 cYsVK9ijvei7VNM5K/KenAFrklEwX+GHOyqGQjymKMHX88X3PtfQZozJ91FR1sBrp3
-	 8GUUVQRK9yQeGCLswvHuH/49SV+faPfb8XYgJxb8QZuLp4w7zbS5n4s4DIa7KFwcHD
-	 oy2qnvjLzYJEUjdws5Y+FI6HZTbnnzcjlJyXp8Xa7U9DZMtQ/DY7x6pQoBpPx+3n22
-	 75eo2ylbBOvERcS1V7Sj/Cpncx99wySS2/f95WDJFVGWldSms+TOn6xQCY0Xlwt7E+
-	 zF1SfLtxYNRfg==
-Message-ID: <1594185d-130d-467e-8061-8cd888f0d3b8@kernel.org>
-Date: Sun, 28 Jun 2026 10:41:43 +0200
+	b=MLqXu9oGFic/n+k6lkp9XZMETh6J2KGZeS3Ueiro7ME6Fg8TAaXTAorn74/Y2M5DR
+	 y2N3Sq6n8DkjZbmuXIwNsXVQWKWylO13iGSDY2q7RAjaif5Oo2umqzOuTEvuZrObpC
+	 8Kmci3Tx/026HwS9hiDUy3F9EY6YmCS1gRmfiXu5vRYfduzaRIDDeblCItlW8s+HeT
+	 82GsHMjX8YKhNkztLsy2frpWMT3yljpUQ8IM8RtxXj2eXFjgangyUzxWl/AzssU6Es
+	 G82Rs4m5J3JeofsaZv4R6Yv6GGkGFoWqSZ48pyhlrEBlqcE00fDmnBrEN2q6fhX5hO
+	 slAP1tE8gtD3A==
+Message-ID: <cfb45d95-7bf1-47dc-96f2-2ea4e9be9e70@kernel.org>
+Date: Sun, 28 Jun 2026 10:44:04 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,30 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 19/19] MAINTAINERS: add Rambus CryptoManager Hub (CMH)
-To: "Krishnamoorthy, Saravanakrishnan" <skrishnamoorthy@rambus.com>
-Cc: Albert Ou <aou@eecs.berkeley.edu>,
- "Ousherovitch, Alex" <aousherovitch@rambus.com>,
- Conor Dooley <conor+dt@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Herbert Xu <herbert@gondor.apana.org.au>, Jonathan Corbet <corbet@lwn.net>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
- Rob Herring <robh@kernel.org>, Shuah Khan <shuah@kernel.org>,
- Alexandre Ghiti <alex@ghiti.fr>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "Wittenauer, Joel" <Joel.Wittenauer@cryptography.com>,
- "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
- "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
- "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
- Shuah Khan <skhan@linuxfoundation.org>, SIPSupport <sipsupport@rambus.com>,
- "Nguyen, Thi" <thin@rambus.com>
-References: <20260625173328.1140487-1-skrishnamoorthy@rambus.com>
- <20260625173328.1140487-20-skrishnamoorthy@rambus.com>
- <20260626-lush-eel-of-election-5fcbde@quoll>
- <SA1PR04MB985196991689AF3F3DCD349BC2EB2@SA1PR04MB9851.namprd04.prod.outlook.com>
+Subject: Re: [PATCH 3/5] arm64: defconfig: Enable ILI7807S DSI panel driver
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, arpit.saini@oss.qualcomm.com,
+ mohit.dsor@oss.qualcomm.com
+References: <20260627-shikra-dt-changes-v1-0-449a402673d0@oss.qualcomm.com>
+ <20260627-shikra-dt-changes-v1-3-449a402673d0@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -104,22 +90,24 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <SA1PR04MB985196991689AF3F3DCD349BC2EB2@SA1PR04MB9851.namprd04.prod.outlook.com>
+In-Reply-To: <20260627-shikra-dt-changes-v1-3-449a402673d0@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26/06/2026 19:22, Krishnamoorthy, Saravanakrishnan wrote:
-> Hi Krzysztof,
+On 27/06/2026 12:01, Nabige Aala wrote:
+> From: Arpit Saini <arpit.saini@oss.qualcomm.com>
 > 
-> Thanks for the review - all fair, and we'll fix them in v2:
-> 
-> Drop L: sipsupport@rambus.com (keeping only linux-crypto).
-> Drop the T: line - we don't maintain a tree; the driver will go through the crypto tree.
-> 
-> Yes, Joel and Thi reviewed and acknowledged with the statement of oversight.
+> Enable the ILI7807S 1080x1920 video-mode DSI panel driver as a module,
+> used on the Shikra board.
 
+So that's a v4, no changelog, tags ignored, comments not responded and
+also ignored.
 
-Do not top post, please.
+You got yourself one NAK, now second:
+
+NAK
+
+Address the comments before you send the next version.
 
 Best regards,
 Krzysztof
