@@ -1,111 +1,126 @@
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDF0313E07
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 20:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6D1313E07
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 20:09:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782677332; cv=none; b=SVsfONrY0iYsv4Av1+6uks6C2JKGfgueXhkpUIkVCRdfFTxADKZwir3vyxigLfQRZ10z6B9zFnOCPnjzJ8LGJnvQtXxSpP1WwChnS0aHW8Pf8ykIe8Mzn/PXviTE1G4N65tMdrND58mcvtMGdW2D78cnVnwAeAf4DVYSQcKU9vE=
+	t=1782677369; cv=none; b=cWPwRFQu3jZSUFDzkckv1dpT/1vCqfPfC8GErYMTKlESqY01Ub5p+LUH/0OZeUyOi0/7+lhvP3vh+QDAWk5+Zoh9dhZpAng1TZuDjphbsGVyjdfP6hpUsCPNP/EUgzYdj3Cb3j6blkzxn5qn43CyUrOqRY3bAyp6IHG2DtGTbIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782677332; c=relaxed/simple;
-	bh=mmds2X2Em6lCz3bqq0WzaqRt2V3pOeaMlOXBTMEKAwM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=akttolrpOVvQIVW3o3BRzVz5/w7KeTL+6xtiwnyOfU+CDydHPfWhpt0Wme5K1iS0hudaX+UXPwsDqwANbXKPgJ6+gEH2S2BBuPeN0G7LPQJcWMQWx/23udT1Q6P5AEPBwpZYwXN41+GzsgRPZGUX4tYAqtczgn25/smGEyJq+kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rq6rg1wN; arc=none smtp.client-ip=209.85.217.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782677369; c=relaxed/simple;
+	bh=ExBl3oKhjiF4kmX6AH+YrEGLqgFtSM7lqD7zFBPISAw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=f3P+8KnKO5f9bxXzmOpC1jhbT9+hbVhmfVBT2Tu84r/n/ge6JEED78FkPzBM7Ser/DZ20LaxGL+C0M73JaR3BRpj/PgSEQYdDDTfih9Ndyom4+qMx0NYR0vA6cv5L2W36hLBqqOnZPS9koT+72I5TpCeF7temEkQMo0fvbX6Vj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DKlCMYFH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rq6rg1wN"
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-73503bd83b0so1555720137.0
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 13:08:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782677330; x=1783282130; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mmds2X2Em6lCz3bqq0WzaqRt2V3pOeaMlOXBTMEKAwM=;
-        b=Rq6rg1wN/+Z44xsstj9trPKJSqx4zm72BFWAOasbkCuHpXm76pCm/pKTL5DDmf2sT1
-         ae613HUUTMVTtrnFetB99eyev6EjF9llqYo1qWcNNQGBMOX9aSDLIx0MZwdA1vq2zXD4
-         bkx+94pMcbRT1Wb5ARK9havml/7MpqHzwsKQOAqpcPLOPnMVapC0GGqS0bcHj5KAWuc1
-         uI6HKNqxWND6xKj5Flz+6MPLf0kbVxqTL2oBjrkJWeRaUv0xMKmDblhN69q3YEaYpXcZ
-         Q/5J5RMvJ8vB5+D/T5K7k0z7DQDTYbts1mVqlHcbIxHVKL+KnExKp6H3xKiFC19lmIKg
-         q2jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782677330; x=1783282130;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=mmds2X2Em6lCz3bqq0WzaqRt2V3pOeaMlOXBTMEKAwM=;
-        b=F4CRG5hpy+Y0+vvwHXYG+t+szh3v8KhEDMljcjIo5U8rQQOW0KOH3NAZDwsxYYuzWg
-         Ps/LKCW023Ore2xt3YyJOfORWanLr26oSHBTtnm0jG9YFaW+dFISQU0tbkzD2XTiD4oI
-         buApa/qstiURpgcfBHMiLpZEFvz6A4o3yF/XSYRqDfuxsKbl6jQoouqtFjO9vCsic5HQ
-         ph5hp80HD7o2adZibOMsfYdVsdFxPh/MRVvNtZhncb5fMrakaaQPEWQWlFqfQ6JbPzqV
-         uxyQe6NFS9Xb/LHXhDRwE2pq+yPAs8ygvtKesR9KPZsjWlaQCM505DkTv0kO0jvnt1x7
-         1Y+g==
-X-Forwarded-Encrypted: i=1; AHgh+RrFTumIbkn5QrI1MEieKzWQW0e2cVGEKCdOTZTf9xkmJefrHWFsODcrT7wXkMpHPC9WSQDLJaQMoW+C@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUWD7KuQ4g8Y554Fn0JzdvWsEZQOtdOVBNrswPKhNWKQasS5of
-	wfdNi+/NM6ZouuK/GtKT3YDYy3UsdrsLTcIV1nVmSVGCUAgkrJXt8PqPnYQmqg==
-X-Gm-Gg: AfdE7cnx9j9tYHdxrFKzfmOjls5cpI8n6twtl/V44++tTK/qjqzqPfjBwaykMWp5DYt
-	eKnZdeDDd3196DqyDLdGzdfjm6UBsbjIWgBZDIEN5PVM1MmtvyePcSnJw6Q6tjwKy+k7ei06UOQ
-	uMJbZHUCthTizlUGX9xJ8Eij/3G7Efl1BDCCvkHNNqAzkAj9GyEe14pFgd0hfsb6hBshDkU8VR7
-	ezFu9DaPsQGs46RAO/VgFA/TtKyoARXSc6go4M4u80+DrzlvpHPb1ZeEz3hdL3Yo3vdVHN54z5T
-	LdZCgC/rYWLujBJDjpZ3GA/pBcYj6a0z48Y31bjFxXDIk/peErDvjQxiv7L+qZzGsU0qwVRaRqZ
-	xwLDpqJNa4V1sEtd7x9ZpMUXL4f12FxDdq48ZNSm57IZMuxKFU3lvTMBNVRXgaCVBn6QCdm6OaV
-	+CpgYVNdA40nUQuw==
-X-Received: by 2002:a05:6102:c4b:b0:738:9c79:750c with SMTP id ada2fe7eead31-7389c797932mr573999137.15.1782677329944;
-        Sun, 28 Jun 2026 13:08:49 -0700 (PDT)
-Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9691f84fc71sm3745321241.8.2026.06.28.13.08.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 28 Jun 2026 13:08:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DKlCMYFH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 238901F000E9;
+	Sun, 28 Jun 2026 20:09:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782677368;
+	bh=0WJk51zGt01iwqpTZfHpeo0lZvikWq1zITCdKsA5apk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DKlCMYFHFRt8Owg2Ut+KqjbehG2OEjUu9hF24ODN3BFLxnmOaxx9QLYNlngbZIhlL
+	 uaPJ8MzfzSGRGDgFiVLEjqmWtD1y32emAMZ8yV+juDIqRTBJ+j3oB1z5O0P84earQm
+	 g/mDoRCZHzUnb2WhobLWBV37GkRDQN3OhzGCt5jIUKXohOHnLA86MacO+nc4CwBApU
+	 Fc/h0aa01JklbzSqShKAyvzY2g7eel0Jscn9qFEc5vV6Vu4XR63GNVuhR426GPBo8b
+	 EaORcwHN5OC+Xse4ABcEFKrQsEeSowpz6gA679+6cgTSkbJrJTi9GSjXbf88nUqwQE
+	 YwuokcxI5u2/Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v5 02/12] dt-bindings: soc: zte: Add zx297520v3
+ matrix clock and reset bindings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260628-zx29clk-v5-2-79ff044e4192@gmail.com>
+References: <20260628-zx29clk-v5-0-79ff044e4192@gmail.com>
+ <20260628-zx29clk-v5-2-79ff044e4192@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 28 Jun 2026 20:09:26 +0000
+Message-Id: <20260628200928.238901F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 28 Jun 2026 15:08:41 -0500
-Message-Id: <DJKYDBR2CR3V.JU80TA4QDQLT@gmail.com>
-Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
- <andy@kernel.org>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 7/7] iio: adc: Add ti-ads1263-adc2 driver
-From: "Kurt Borja" <kuurtb@gmail.com>
-To: "David Lechner" <dlechner@baylibre.com>, "Kurt Borja"
- <kuurtb@gmail.com>, "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260628-ads126x-v2-0-4b1b231325ba@gmail.com>
- <20260628-ads126x-v2-7-4b1b231325ba@gmail.com>
- <caf89e08-6ce1-4dbb-adc1-7fbb2a60fd7b@baylibre.com>
-In-Reply-To: <caf89e08-6ce1-4dbb-adc1-7fbb2a60fd7b@baylibre.com>
 
-On Sun Jun 28, 2026 at 12:22 PM -05, David Lechner wrote:
-> On 6/28/26 12:36 AM, Kurt Borja wrote:
->> The TI ADS1263 embeds a second 24-bit delta-sigma ADC (ADC2) with its
->> own input mux, reference, gain and sample-rate selection.
->>=20
->> Model ADC2 as a separate IIO device on the auxiliary bus: the ti-ads1262
->> SPI driver instantiates the auxiliary device and exports a small set of
->> TI_ADS1262-namespaced helpers for the conversion and register accesses
->> that must go through the shared bus. ADC2 channels are derived from the
->> parent's configured channels.
->>=20
-> Can these just be additional channels in the main iio device rather
-> than a separate iio device?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The dt-bindings headers for the new matrixcrm clocks and resets reu=
+se the exact same indices and generic prefix (`ZX297520V3_`) as the existin=
+g topcrm clocks and resets, creating a risk of silent device tree misconfig=
+urations.
+--
 
-I guess we can do it, but wouldn't it be quite a mess? I think doing it
-that way adds a lot of complexity: channel naming, available scan masks
-(because both ADCs can be sampled at the same time), optimized software
-sequencing would only work in ADC1 channels, ADC2 doesn't have a DRDY
-IRQ, etc.
+commit 5a96f2683fa1c9255c9f0d3649cfb566a763da11
+Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
 
-IMO separating both drivers makes everything simpler, easier to
-understand and easier to maintain in the future.
+dt-bindings: soc: zte: Add zx297520v3 matrix clock and reset bindings
+
+This adds the device tree binding schema for the ZTE zx297520v3 matrix clock
+and reset controller. It describes the clock inputs, subdivisions, and hard=
+ware
+spinlocks. It also appends the new clock and reset indices to the correspon=
+ding
+dt-binding headers.
+
+> diff --git a/include/dt-bindings/clock/zte,zx297520v3-clk.h b/include/dt-=
+bindings/clock/zte,zx297520v3-clk.h
+> index de1c08b6a5a9f..8a6aa456a7089 100644
+> --- a/include/dt-bindings/clock/zte,zx297520v3-clk.h
+> +++ b/include/dt-bindings/clock/zte,zx297520v3-clk.h
+
+[ ... ]
+
+> @@ -94,4 +94,41 @@
+>  #define ZX297520V3_HSIC_WCLK			86
+>  #define ZX297520V3_HSIC_PCLK			87
+> =20
+> +#define ZX297520V3_CPU_WCLK			1
+> +#define ZX297520V3_CPU_PCLK			2
+
+[Severity: Low]
+Is there a risk of silent device tree misconfigurations by reusing the exact
+same generic ZX297520V3_ prefix for these new matrixcrm clocks?
+
+Since they restart the index values at 1, they overlap with the existing to=
+pcrm
+clock macros. If a device tree author mistakenly uses a phandle to topcrm w=
+ith
+one of these matrixcrm macros like <&topcrm ZX297520V3_CPU_WCLK>, it will
+silently compile to <&topcrm 1>, which configures a completely different
+hardware clock at runtime without any warning.
+
+Would it be safer to use a distinct prefix like ZX297520V3_MATRIX_ for these
+new macros to prevent mixing them up with the topcrm ones?
+
+[ ... ]
+
+> diff --git a/include/dt-bindings/reset/zte,zx297520v3-reset.h b/include/d=
+t-bindings/reset/zte,zx297520v3-reset.h
+> index 43db72bb59de0..81ffc8bc34c5c 100644
+> --- a/include/dt-bindings/reset/zte,zx297520v3-reset.h
+> +++ b/include/dt-bindings/reset/zte,zx297520v3-reset.h
+
+[ ... ]
+
+> @@ -29,4 +29,14 @@
+>  #define ZX297520V3_HSIC_PHY_RESET		20
+>  #define ZX297520V3_HSIC_RESET			21
+> =20
+> +#define ZX297520V3_CPU_RESET			0
+> +#define ZX297520V3_EDCP_RESET			1
+
+[Severity: Low]
+Does this have the same overlapping index issue as the clocks above?
+
+These resets also use the generic ZX297520V3_ prefix while starting over at
+index 0, creating a similar risk where a device tree author might accidenta=
+lly
+mix macros from different reset controllers without getting any compiler
+warnings.
 
 --=20
-Thanks,
- ~ Kurt
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628-zx29clk-v5=
+-0-79ff044e4192@gmail.com?part=3D2
