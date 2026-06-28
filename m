@@ -1,323 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC5E3A7F66;
-	Sun, 28 Jun 2026 13:50:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39BE361DBC
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 13:58:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782654642; cv=none; b=lsMjVrQ8CXUhQahK9gLq0hmFS6KJDPaBlnoXmUJO0k1sf2HKe5ahAVLdQx79c9rSyhP/FNWkbkWZvciS4d/FfhkvActwxe1C9hWReEl63bQo0E5Qjd7EDrJBsYsPAq1MjlFQ2ExkISNgFWfXbULiFJGV0jH3uU7fDnngVlTia5k=
+	t=1782655122; cv=none; b=pKhB+H8sGbC5VhyWrmAZjenrfBPTzW3PiXwI5TH180cxqdYy4UCSqcXPEkWWrSs4Cl9rmrZeo1b8gBAQd3/dAnl6xI4POzbj0GAPGvEtgCIV0AIPDI8MaKcHGaQltpSEYL0/9YeG2TB4SqUpW/abC4gvndxrMjY/mWurTflQfFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782654642; c=relaxed/simple;
-	bh=24czFDNexFqMTV9H7FJ9X6RRb8NwHRNjErZxoVFkYyI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YoiPJM+PnYdPpODkFkNDoFGcVfEmkCbmms3oMsOMVGNIp5UgwtdCHetd+JpsIPlWhS4LaAKD20ynxGqYD+cyWadNdX4Wfr/+QHmMbDrECox+8sHjmCEq0UG7Rc5Baz+rmciIWMiMbvuuiOgdLWaj0Dgkg6jKP9z+5tmHLPjVjKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WnItMHFJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782655122; c=relaxed/simple;
+	bh=i43OM9QKvL5rNvINUoEKawD34vomI+7S+PPoUhnrPZo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n/mrPPkLI/UmhhF2tm0SxH3/h6V08kKiYvWDVMUs6ngHw3TI0stuOca52Jx2nUJqk157WiNhw5tsVT0aBM0F65szGhO/efRypwAjd5fd9ky8u1PCM5V/ufGKK7XJ8s0Eky2PeJF4+v4MfRtEah5m7RHOlf7yfjpe0SxeOqmnM6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p+1ITpIQ; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WnItMHFJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9FCC1F000E9;
-	Sun, 28 Jun 2026 13:50:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782654638;
-	bh=xlQc4S5S+9+7oM3k3C085Mj7tgc995soVZru600tbR4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WnItMHFJAHtjmWZhO48zXDsStZ3cBBFzCsGUaN+Y1rhBt+sz8K3qpjo1+gn45q29p
-	 Bra7CK/JyNtor0zhjodF9pEofqvJz7gEoixlGZCMrYFpbKnKHOOoO+Hr/HaM2XqcNU
-	 yyP5Jq4LMO0gHKSeTlu/NLN1NjXhQlX55NzL/7vp/DphM+gJ1lKIOLP+ulE4khTmvE
-	 /0Dqt6ciI0bzixdTsiBHOJ0fL1Mf6qXOV2+v5KeEEL0cVKF7zn5nJ7nohhYRxtJfrb
-	 V38GDp2vSbrO32TA3ktx5A711z2uSxPnNaPJ+UvrlBnoU1aisf3Jswuax9xey1HCFT
-	 y4RGKp13Dq67Q==
-Received: by venus (Postfix, from userid 1000)
-	id 79AFD1806EB; Sun, 28 Jun 2026 15:50:36 +0200 (CEST)
-Date: Sun, 28 Jun 2026 15:50:36 +0200
-From: Sebastian Reichel <sre@kernel.org>
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: hansg@kernel.org, ilpo.jarvinen@linux.intel.com, linux@roeck-us.net, 
-	andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, bryan.odonoghue@linaro.org, platform-driver-x86@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v1 1/3] drivers/platform: lenovo-t14s-ec: Add hwmon
- support for temperatures and fan speed
-Message-ID: <akEj6XEByCOkuJaY@venus>
-References: <20260624210825.264454-1-daniel.lezcano@oss.qualcomm.com>
- <20260624210825.264454-2-daniel.lezcano@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p+1ITpIQ"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-845b733e82cso1502327b3a.2
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 06:58:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782655120; x=1783259920; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ij65SijD3TAjZdNPDp/lCaocyGnY8KRthDqQSOYaHw0=;
+        b=p+1ITpIQWMweFy6fAXQu2g6Z/FvcJEy3AJmFIq4BtQfnxwsTVI/YJoRhx/Hu/nVJir
+         poM7a0nI4LvoovBFflmrBGzPY7cdL72nSLUfAmXilAJkLxfyNMZyGd49X43Dr3REywiW
+         qJNj8X3BysnH966yb0zlieAK9j6jIyv26zvc7guSK44mVcGsWLEj9gbkp8mANm44A1Mr
+         RGfHlemujsq6QaHWPLwKzPfH3uD9NZLM5VBjauzWx3GPaiaRIwjly0HYZ0VzRaKLyrV4
+         /AauR7NnYanU+wvhdJcnCeaUhB7HOJGGe7jjRNo27i2wlcMtlJncz7DBViHGqyqOHapq
+         Tjsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782655120; x=1783259920;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Ij65SijD3TAjZdNPDp/lCaocyGnY8KRthDqQSOYaHw0=;
+        b=mazWZoyg+gJdHfvBjn2VpUIinrgOLuGBqOkyZIK4hg96jR8T8um0vzy8Ds4Qfd0KJF
+         /uufq9Q/RB3iltVNzMVORRNFyciByKnNqCB6CH3X0yJsjusKaR2hyMTI4Xe2AKoCXrPh
+         WNyNlFXDzb1CpjYcyzYBsckZYn4f3s5VGNNEOsfJ88qMT/xyxp8oecQV8bdkJ3Zx8unq
+         ROlroPLEffCUzDPnIWxhIihO29Nf7/a/6prjlP1xhCUOrYQCouYSdnmfCpdcrS8lS3cm
+         2Nq0QDxT5iWoGHaOpnEch1Hg2xL6m4x617Y13iFcL7VHWIU7HcL+ANHzEgGbFn4oUie/
+         H0LA==
+X-Forwarded-Encrypted: i=1; AFNElJ9w0OAjsOyZThqK0K5TJDcQ8Kp3vFxdONVC84g0e5O4Pgkg9wRIjuulChhIqWRGJF7w/GHxinRL9kf8@vger.kernel.org
+X-Gm-Message-State: AOJu0YyolWvz4oBAGErPMKXbz3tTDrntaqubP9uumHcxervPOKYHtiNk
+	BjxK+AP9KaJsKMC1pLAHnWX5LK4cOVsHg4sS4gg/UWCtiGXYaiqN4Tdj1bOLm8WM
+X-Gm-Gg: AfdE7cmw9Nxbf5IpZ6osrCyogqRmp9j0JObKZK5GsehuorupPqDMyXCJvUoJjxl9SKJ
+	nIL/PQqdLci11ILXSwYoo7awTB/hCGIfskfMZ8XIQMmZcF4Q0tQztWDrIR4DcJHFyRB6TM8JOu+
+	71pR+hau96njd62VhGbNtpHFqhyUqZouz/9AZQcWviD8goyGN7kPriaeOPfxnx86Y9H7IZgW8yc
+	Hn6wN65/aGNaTsaX5NWZR15G4JYZBDA1eEEYS+5DofWde3Vd5ntPwSR0dehnG608WP1M8lJ/5fK
+	/OVhQpv5QtAR75QXbDf9PGdojunKH3+t66sz2ZeiVk5a+b81CJ66pr1fKHopY0QIPmNt+7u2Hjy
+	KyH1i+tsNbv4YwRrRWqzcuUInOhCYeEH+7HS6M07f7UnbbmQ2Cwo1cL7ayV5PmSoocusSqKmrvc
+	BmWDYzgWA=
+X-Received: by 2002:a05:6a00:3e03:b0:845:d1fe:9cd0 with SMTP id d2e1a72fcca58-845d1fea7c0mr6017737b3a.0.1782655120131;
+        Sun, 28 Jun 2026 06:58:40 -0700 (PDT)
+Received: from ubuntu.. ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-845a40d23d7sm10041108b3a.30.2026.06.28.06.58.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 28 Jun 2026 06:58:39 -0700 (PDT)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Borislav Petkov <bp@alien8.de>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Sang-Heon Jeon <ekffu200098@gmail.com>,
+	devicetree@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Len Brown <lenb@kernel.org>,
+	linux-acpi@vger.kernel.org,
+	linux-mm@kvack.org,
+	loongarch@lists.linux.dev,
+	WANG Xuerui <kernel@xen0n.name>,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/9] treewide, numa_memblks: remove redundant work during NUMA init
+Date: Sun, 28 Jun 2026 22:58:14 +0900
+Message-ID: <20260628135828.1393120-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eicngpqne546liam"
-Content-Disposition: inline
-In-Reply-To: <20260624210825.264454-2-daniel.lezcano@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
+Every existing numa_add_memblk() caller passes a valid node id and
+separately marks that node in numa_nodes_parsed with node_set(). In
+addition, numa_nodemask_from_meminfo() recomputes the same "nodes that own
+memory" set from numa_meminfo, which numa_nodes_parsed already contains.
 
---eicngpqne546liam
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 1/3] drivers/platform: lenovo-t14s-ec: Add hwmon
- support for temperatures and fan speed
-MIME-Version: 1.0
+This redundancy implicitly depends on the callers' node_set(). So, before
+removing the redundancy, make numa_add_memblk() set the node in
+numa_nodes_parsed explicitly. Then remove the per-caller node_set() and
+numa_nodemask_from_meminfo().
 
-Hi,
+Also, since the generic numa_register_meminfo() already sets
+node_possible_map to numa_nodes_parsed, remove the duplicate assignment in
+arch_numa's numa_register_nodes().
 
-On Wed, Jun 24, 2026 at 11:08:23PM +0200, Daniel Lezcano wrote:
-> Expose the Lenovo ThinkPad T14s EC environmental sensors through
-> the hwmon subsystem.
->=20
-> The driver now registers a hwmon device providing access to six EC
-> temperature sensors corresponding to the SoC, keyboard area, base
-> cover, PMIC/charging circuitry, QTM module and SSD. Sensor labels
-> are exported to allow user space to identify each measurement.
->=20
-> Additionally, expose the system fan speed by reading the fan RPM
-> registers from the embedded controller.
->=20
-> This allows standard monitoring tools such as lm-sensors to report
-> platform temperatures and fan speed.
->=20
-> Signed-off-by: Daniel Lezcano daniel.lezcano@oss.qualcomm.com
-> ---
+Patch 1 adds the node_set() to numa_add_memblk() itself, so every memblk's
+node is set in numa_nodes_parsed on add.
 
-I gave this a try and for me the fan data is always 65535 (i.e. -1):
+Patches 2-6 depend on patch 1 and remove the redundant per-caller node_set()
+from all callers.
 
-$ cat /sys/class/hwmon/hwmon66/{name,fan1_input}
-t14s_ec
-65535
+Patch 7 removes both numa_nodemask_from_meminfo() call sites and the unused
+function itself.
 
-This is with the fan running:
+Patch 8 removes the duplicate node_possible_map assignment in arch_numa.
 
-$ cat /sys/class/hwmon/hwmon57/{name,fan1_input}
-fan-controller
-2564
+Patch 9 is a minor cleanup, using the existing numa_add_reserved_memblk()
+wrapper in numa_cleanup_meminfo().
 
-The thermal data looks good.
+No functional change.
 
-Greetings,
+Sang-Heon Jeon (9):
+  mm: numa_memblks: set numa_nodes_parsed in numa_add_memblk()
+  ACPI: NUMA: remove redundant numa_nodes_parsed node_set()
+  of/numa: remove redundant numa_nodes_parsed node_set()
+  x86/numa: remove redundant numa_nodes_parsed node_set()
+  arch_numa: remove redundant numa_nodes_parsed node_set()
+  LoongArch: remove redundant numa_nodes_parsed node_set()
+  mm: numa_memblks: remove redundant numa_nodemask_from_meminfo()
+  arch_numa: remove redundant node_possible_map assignment
+  mm: numa_memblks: use numa_add_reserved_memblk() in
+    numa_cleanup_meminfo()
 
--- Sebastian
+ arch/loongarch/kernel/numa.c |  1 -
+ arch/x86/mm/amdtopology.c    |  1 -
+ arch/x86/mm/numa.c           |  1 -
+ drivers/acpi/numa/srat.c     |  2 --
+ drivers/base/arch_numa.c     |  4 ----
+ drivers/of/of_numa.c         |  5 +----
+ mm/numa_memblks.c            | 41 +++++++++++++++---------------------
+ 7 files changed, 18 insertions(+), 37 deletions(-)
 
->  drivers/platform/arm64/lenovo-thinkpad-t14s.c | 147 ++++++++++++++++++
->  1 file changed, 147 insertions(+)
->=20
-> diff --git a/drivers/platform/arm64/lenovo-thinkpad-t14s.c b/drivers/plat=
-form/arm64/lenovo-thinkpad-t14s.c
-> index 5590302a5694..142464623f0e 100644
-> --- a/drivers/platform/arm64/lenovo-thinkpad-t14s.c
-> +++ b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
-> @@ -11,6 +11,7 @@
->  #include <linux/delay.h>
->  #include <linux/dev_printk.h>
->  #include <linux/err.h>
-> +#include <linux/hwmon.h>
->  #include <linux/i2c.h>
->  #include <linux/input.h>
->  #include <linux/input/sparse-keymap.h>
-> @@ -67,6 +68,16 @@
->  #define T14S_EC_EVT_KEY_FN_F11			0x7a
->  #define T14S_EC_EVT_KEY_FN_G			0x7e
-> =20
-> +#define T14S_EC_SYS_THERM0 0x78 /* SoC (CPU+GPU)  */
-> +#define T14S_EC_SYS_THERM1 0x79 /* Keyboard       */
-> +#define T14S_EC_SYS_THERM2 0x7a /* Back cover     */
-> +#define T14S_EC_SYS_THERM3 0x7b /* Charger / PMIC */
-> +#define T14S_EC_SYS_THERM6 0x7c /* QTM West       */
-> +#define T14S_EC_SYS_THERM7 0x7d /* SSD            */
-> +
-> +#define T14S_EC_FAN_RPM_LSB 0x84
-> +#define T14S_EC_FAN_RPM_MSB 0x85
-> +
->  /* Hardware LED blink rate is 1 Hz (500ms off, 500ms on) */
->  #define T14S_EC_BLINK_RATE_ON_OFF_MS		500
-> =20
-> @@ -93,9 +104,19 @@ struct t14s_ec_led_classdev {
->  	struct t14s_ec *ec;
->  };
-> =20
-> +struct t14s_ec_hwmon_sys_thermx {
-> +	const char *label;
-> +	int reg;
-> +};
-> +
-> +struct t14s_ec_hwmon {
-> +	struct t14s_ec_hwmon_sys_thermx *sys_thermx;
-> +};
-> +
->  struct t14s_ec {
->  	struct regmap *regmap;
->  	struct device *dev;
-> +	struct t14s_ec_hwmon ec_hwmon;
->  	struct t14s_ec_led_classdev led_pwr_btn;
->  	struct t14s_ec_led_classdev led_chrg_orange;
->  	struct t14s_ec_led_classdev led_chrg_white;
-> @@ -555,6 +576,128 @@ static irqreturn_t t14s_ec_irq_handler(int irq, voi=
-d *data)
->  	return IRQ_HANDLED;
->  }
-> =20
-> +static umode_t t14s_ec_hwmon_is_visible(const void *drvdata,
-> +					enum hwmon_sensor_types type,
-> +					u32 attr, int channel)
-> +{
-> +	switch (type) {
-> +	case hwmon_temp:
-> +		return 0444;
-> +	case hwmon_fan:
-> +		return 0444;
-> +	default:
-> +		return 0;
-> +	}
-> +}
-> +
-> +static int t14s_ec_hwmon_read_string(struct device *dev, enum hwmon_sens=
-or_types type,
-> +				     u32 attr, int channel, const char **str)
-> +{
-> +	struct t14s_ec *ec =3D dev_get_drvdata(dev);
-> +	switch (type) {
-> +	case hwmon_temp:
-> +		if (attr =3D=3D hwmon_temp_label) {
-> +			*str =3D ec->ec_hwmon.sys_thermx[channel].label;
-> +			return 0;
-> +		}
-> +		break;
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +
-> +	return -EOPNOTSUPP;
-> +}
-> +
-> +static int t14s_ec_hwmon_read(struct device *dev, enum hwmon_sensor_type=
-s type,
-> +			      u32 attr, int channel, long *val)
-> +{
-> +	struct t14s_ec *ec =3D dev_get_drvdata(dev);
-> +	unsigned int value;
-> +	int ret;
-> +
-> +	switch (type) {
-> +	case hwmon_temp:
-> +		if (attr =3D=3D hwmon_temp_input) {
-> +			ret =3D t14s_ec_read(ec, ec->ec_hwmon.sys_thermx[channel].reg, &value=
-);
-> +			if (ret)
-> +				return ret;
-> +			*val =3D value * 1000;
-> +
-> +			return 0;
-> +		}
-> +		break;
-> +
-> +	case hwmon_fan:
-> +		if (attr =3D=3D hwmon_fan_input) {
-> +			int lsb, msb;
-> +			ret =3D t14s_ec_read(ec, T14S_EC_FAN_RPM_LSB, &lsb);
-> +			if (ret)
-> +				return ret;
-> +
-> +			ret =3D t14s_ec_read(ec, T14S_EC_FAN_RPM_MSB, &msb);
-> +			if (ret)
-> +				return ret;
-> +
-> +			*val =3D 0;
-> +			*val =3D lsb + (msb << 8);
-> +
-> +			return 0;
-> +		}
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	return -EOPNOTSUPP;
-> +}
-> +
-> +static const struct hwmon_ops t14s_ec_hwmon_ops =3D {
-> +	.is_visible =3D t14s_ec_hwmon_is_visible,
-> +	.read =3D t14s_ec_hwmon_read,
-> +	.read_string =3D t14s_ec_hwmon_read_string,
-> +};
-> +
-> +static const struct hwmon_channel_info *t14s_ec_hwmon_info[] =3D {
-> +	HWMON_CHANNEL_INFO(temp,
-> +			   HWMON_T_INPUT | HWMON_T_LABEL,
-> +			   HWMON_T_INPUT | HWMON_T_LABEL,
-> +			   HWMON_T_INPUT | HWMON_T_LABEL,
-> +			   HWMON_T_INPUT | HWMON_T_LABEL,
-> +			   HWMON_T_INPUT | HWMON_T_LABEL,
-> +			   HWMON_T_INPUT | HWMON_T_LABEL),
-> +	HWMON_CHANNEL_INFO(fan, HWMON_F_INPUT),
-> +	NULL
-> +};
-> +
-> +static const struct hwmon_chip_info t14s_ec_chip_info =3D {
-> +	.ops =3D &t14s_ec_hwmon_ops,
-> +	.info =3D t14s_ec_hwmon_info,
-> +};
-> +
-> +static int t14s_ec_hwmon_probe(struct t14s_ec *ec)
-> +{
-> +	struct device *dev;
-> +	struct t14s_ec_hwmon_sys_thermx sys_thermx[] =3D {
-> +		{ T14S_EC_SYS_THERM0, "soc" },
-> +		{ T14S_EC_SYS_THERM1, "keyboard" },
-> +		{ T14S_EC_SYS_THERM2, "base" },
-> +		{ T14S_EC_SYS_THERM3, "pmbm" },
-> +		{ T14S_EC_SYS_THERM6, "qtm" },
-> +		{ T14S_EC_SYS_THERM7, "ssd" },
-> +	};
-> +
-> +	ec->ec_hwmon.sys_thermx =3D devm_kmemdup_array(ec->dev, sys_thermx,
-> +						     ARRAY_SIZE(sys_thermx),
-> +						     sizeof(sys_thermx[0]), GFP_KERNEL);
-> +	if (!ec->ec_hwmon.sys_thermx)
-> +		return -ENOMEM;
-> +
-> +	dev =3D devm_hwmon_device_register_with_info(ec->dev, "t14s_ec", ec,
-> +						   &t14s_ec_chip_info, NULL);
-> +
-> +	return PTR_ERR_OR_ZERO(dev);
-> +}
-> +
->  static int t14s_ec_probe(struct i2c_client *client)
->  {
->  	struct device *dev =3D &client->dev;
-> @@ -590,6 +733,10 @@ static int t14s_ec_probe(struct i2c_client *client)
->  	if (ret < 0)
->  		return ret;
-> =20
-> +	ret =3D t14s_ec_hwmon_probe(ec);
-> +	if (ret < 0)
-> +		return ret;
-> +
->  	ret =3D devm_request_threaded_irq(dev, client->irq, NULL,
->  					t14s_ec_irq_handler,
->  					IRQF_ONESHOT, dev_name(dev), ec);
-> --=20
-> 2.53.0
->=20
+-- 
+2.43.0
 
---eicngpqne546liam
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpBJqUACgkQ2O7X88g7
-+ppHLw/+KxjxxxXrhvZJHN8tV3E92FRDa4fXs+Rvpp5uHpbmxHLBIZ0Pc2PuX1JD
-2DHnkJstJl0kfKJdZ+A6Vel/GDni1sJgWSLl7XnZOzF/RBznz2wUZL9DwJBnyeNl
-RzgOOrPPB7NPDeMH6tiTt09SNOfI2971nxMLItx4RKozkbJM41yVt8H13mnSIRgY
-F8xpa1Zcv6DZ6u7q8DkHT4+238QsH2iToNxf16qI6QsbzAyMVfE8RSNDgLrCwe3M
-ez+lm1uJl4nOHMUlUsyBGJEnwOGJt6S7e6A3UlWJaWWVyOnXGm1Cf862GT0VyNgd
-BAMnABwn1VLzoMjWhzbQ/ZPGNkMoAYxERy0QLqRsaa/cvO1enWKySm7HQii5Z063
-djpjU7YJ9sjojdingAML7dbeARuqPH7a4Oa6JiugsAUf3l3o7w+HllfnlAdOOrR3
-Wh+vXB24ZlSvoqIeSuzCotOGrTfnmcD84CyIfXFSLnckoEJ48wv6I6vmFlgyQ2SS
-Y4bSiQh8+y8XQnX/jDtO8YbXW1oQ2B4J0L2v7okQFYkMfKZH/vP2T4qOVSYLstdw
-YBDpCjWSYr+nWEqSg1fvHOThTGlDmWFadtpa4OTOW4ScXAnU6Qfl2MXiDsrwu4xt
-k4NeTt3t7ESVQc/Wp9RO3HSUqGu1WCpMvvzXwvWFV7sdZ4R3lt0=
-=gklp
------END PGP SIGNATURE-----
-
---eicngpqne546liam--
