@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FAA11E2858;
-	Sun, 28 Jun 2026 08:45:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E45379C2C
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 08:46:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782636347; cv=none; b=P8wuVaIRJVtvsT/5NdMr98JOm2KW7e5LHeQu2DRiyuapWOyCKa9/zMDT/poAaK6Eb0dEifo607/owbvFmfy2CdfcWcnR69WXWoJWBDtk/8wW9vXSvlOCa74n6xyO+9rjR3eBFSNxOMxyQPIFIac0/kbHEA6R4R1Qnvc0+yGNRPk=
+	t=1782636413; cv=none; b=Nfk8KJh8aOR5EKpi/RKefAaQ1kBtrCprgkYsxLBb3fRCxfoNdJSNB/HK6UL6EnDtt/cycxMSKM584f6lH/jSn0B8UCogCOUjQxaHoSOXz69mESOjmpXkngtYacARWg8jMyo4lBWqvLlu6pTpA06tUYLzjuKE2biOMOcAb20FPVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782636347; c=relaxed/simple;
-	bh=8K/Y+isCMCpGMTTeb5Jd88PLMFBCOm0Gc9gZjA5lvuk=;
+	s=arc-20240116; t=1782636413; c=relaxed/simple;
+	bh=jARy9M7XwF3OVpEqzivqxGUA8L1K/J9rNJZWALic1Qw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tm25OzWd1zgtCkRAKskOHMHlxYURrq9e2UlPMUUW8zKPD/5TU9k16pf1qa/a4SSqrH2DLyP5mulj2AQU+p1Ho9mZJHt/dDViOTFsrYW5gX7bpWT0ptbovS8JW2y6NS574k8EPoqw/5Ncs1OjGQaag/DR1wyqoz64NsP8RNSc63E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEtlk9Tq; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=h7j5Wmbh0mHJGRBWyrnNzxQkM5bM0Y9iL5pN8U+hRzE/HsUihUVf4q/jhwK6AkowcZ9koLnb5UhDPjoFvIYfqPOWiWHRMWNEKW2GYnLe1jmCJEt5heH2a3wi4jPLTYWzaDJj5cZIScHZefx6g6We1Kq9S9EGkRo1UnWPl4UJO8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EICHjm3Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEtlk9Tq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F51E1F000E9;
-	Sun, 28 Jun 2026 08:45:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EICHjm3Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A651F000E9;
+	Sun, 28 Jun 2026 08:46:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782636346;
-	bh=+O8UYxz1/OaYR+z9/Aria6UaSuFLU3u3GO6D8wdpVP4=;
+	s=k20260515; t=1782636410;
+	bh=/bSaU5OuKgHhezwV3ILE92+oLeVCb5Yp9lxcOqIFV7M=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WEtlk9TqxqGeTFKiTZJfRB7ubSBZFpc2Rk9tg39MlumCNUAx2wG3sRKNoBLg7amul
-	 IJTqaGYiqtUIeb7t0iYJJ1e533X8MM2f5PU5NxU8uUgdxfuqP41YufVWgv5+wVluI0
-	 67bWOs/qQkH9aIpi+E+5GNS1aysfsYXWtDm/Nr3YTLAdnK+2OTR2A6IXQQStld2JjK
-	 Wo2VrwdP2HxMxIGNZsdkksFwDUrY84JmgK1qn0MbHmcao8s+qnGdzr8gGvsis4UyG7
-	 JRrT9MdRqRNX3xlD+uPHUpfbTRy91F0NxZFhJKwj1PU2gzmz4LJ6FaNXExPZOsRLVT
-	 eO2Aj8qXfzJ5A==
-Message-ID: <39b4dd07-d0f5-458e-8739-0572b5d50870@kernel.org>
-Date: Sun, 28 Jun 2026 10:45:39 +0200
+	b=EICHjm3QHR/SkVnJJP5qP/9Z6u9OmEU7HIgTspOk5+5t2SX5rMRR355uinvwUZAHU
+	 Sl7hWaWwaHOiWMY/w9opjKt9bAuYYSOiMYItRgCXJai3QrjPF2Gh3K6Ar3AjCGQ00D
+	 6T+rZG0EW6jL+dEHwxy5hSUma+3joFuPCqY45/pxdNKwCoVOLH5Bgy6m2Y0qO7t5JG
+	 NoBMUo/ObAC+qBh6hfJfH72drrF8jDEkujFLdkeY7TbhyJ+o19wbBr1m/y31jdbvLc
+	 JvLNjkyWiuo+rGVR+2KQj4QVkgz7yxFKgPXyvw18ya6J6MeoytSSHTg+azRuuBgml6
+	 CQtosV8ZA9g7w==
+Message-ID: <6179de74-5c78-467a-b07e-1dbfb0bf2e01@kernel.org>
+Date: Sun, 28 Jun 2026 10:46:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,16 +35,13 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] arm64: dts: qcom: Shikra LT9611UXD support
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, arpit.saini@oss.qualcomm.com,
- mohit.dsor@oss.qualcomm.com
-References: <20260627-shikra-dt-changes-v1-0-449a402673d0@oss.qualcomm.com>
- <20260627-shikra-dt-changes-v1-5-449a402673d0@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: rockchip: add Firefly AIO-3588L board
+To: zhao xinchao <ChrisXinchao@outlook.com>, "heiko@sntech.de"
+ <heiko@sntech.de>
+Cc: "linux-rockchip@lists.infradead.org"
+ <linux-rockchip@lists.infradead.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+References: <SA0PR19MB4572AB455CF87D8BB3CFEE6EC5E92@SA0PR19MB4572.namprd19.prod.outlook.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,40 +87,23 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260627-shikra-dt-changes-v1-5-449a402673d0@oss.qualcomm.com>
+In-Reply-To: <SA0PR19MB4572AB455CF87D8BB3CFEE6EC5E92@SA0PR19MB4572.namprd19.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27/06/2026 12:01, Nabige Aala wrote:
-> From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> 
-> Device tree changes to support lt9611uxd hdmi-dsi driver.
-> 
-> Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-
-Incomplete DCO
-
-...
-
-> +
->  	vreg_wcn_3p3: regulator-wcn-3p3 {
->  		compatible = "regulator-fixed";
->  		regulator-name = "wcn_3p3";
-> @@ -68,6 +98,78 @@ vreg_pmu_ch1: ldo4 {
->  	};
->  };
->  
-> +&i2c4 {
+On 28/06/2026 02:52, zhao xinchao wrote:
+> +&spi1 {
 > +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&spi1m2_cs0 &spi1m2_pins>;
+> +	num-cs = <1>;
+> +	max-freq = <50000000>;
 > +
-> +	lt9611uxd: lt9611uxd@41 {
+> +	spidev: spi@0 {
+> +		compatible = "rohm,dh2228fv";
 
-No. Nice try. Instead of fixing broken driver (I reported this), you
-send broken workaround which is in clear violations of coding style and
-DT spec.
-
-That's a poor way to upstream things. Just throwing the code over the wall.
-
+NAK, fake hardware, you do not have such device. Otherwise please
+explain me how did could you possible buy dh2228fv?
 
 Best regards,
 Krzysztof
