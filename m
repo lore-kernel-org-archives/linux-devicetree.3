@@ -1,214 +1,209 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012057.outbound.protection.outlook.com [52.101.53.57])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61BB913B293
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 09:47:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782640034; cv=fail; b=mxgrbWElRsuPFBvu0vo9A0DxfVVZwjiEcj1VUdzaPkvrbSyT3ZhtZVJZ8pghAqQf+bT8cffIvBQAZ+vhS+VH9vtWLjfCPvAd6H33lM/KzpDbzAnUy8uC2C+kdUgZTwSG279qMpTWgT5lZTrOcP/NoLzpx/n3SGFijpWqejEMXlQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782640034; c=relaxed/simple;
-	bh=X5uhV+SMMIw+8LZ2cCHak92nyU4pV/W8mm+5WNDWUsQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=OOStyG6oA578btepc3qL3JqCYgmiKFy6OrHI7wbKz+6Li85LfSZ/0biHZa0usUTYb4pNvBh67oebZA5wSoYjhQ6hloEQc3eMjd7Ti9UeY0KWxoa3nnPB1j+VhtErLd9PsQONS64sxwddSIVKQFYZrekfThlCzZyofQr0Tkr1dus=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=dKSh2zVx; arc=fail smtp.client-ip=52.101.53.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED8E13B293
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 09:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782640462; cv=none; b=paBxun04vnmIBRn1pWtsmUurpg5JPsXhZPUGSOfbaBilYqmuqbXQWmdJMhKs6xi42Yp9nhltlowA4yIThIQ6qAIxO9FZDI1VkZ3uGhYzpAewGLQ8zGqks9dThN2INVoOwJ3lcLkQclFPa+YKX9qtMLc3JQadTKfpjZkNSi9LTek=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782640462; c=relaxed/simple;
+	bh=VKG2LTyNWHPsuXAnVR/OH4qbydOIehYZyPJ53WQabQ0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TKQjs0MBJNQ3BuWdC57LApG0ZldnsdXBB1l6Uiwzi4neGKtUdAnTYr8P+fZ7pCozTXOa/4elEcf7uIpVz4AjN9/Nk6oAlRy8KDpMtl05oSVCVOur2D0+KztLEbadelSEw+CccKz0+gBP1rGVNRmLWLZYBe5lhlKc9GNzbxunhoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mzd+Tp4D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="dKSh2zVx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P4MFhzmBCfTdr87TYfVjD+tQvxDcpBcnTgRigoG+I1Xz0S/q+htwTjobi6Oqyz3y+w7ErrMUsv+Tf5HjiBen8JW0CAyq7AO6DqJLzWet81IQWXSAaOJVNu7qMJdvNlkOcpeOaaK0UVDdhyHTU9nCG/03kV1RbbcPYDfELCkKixzC5rIYXwLy919ecd6og/ar+xEVS7uXumKqOf4WE2Rai55oRKlSMaQn0LrnhYRy4JPcibZ8CxKG+cyXodZdGKdV5VerlR1fvh3QdyqI5HAI2gMiVCAJ8wyYkRX7hVDBcKK0mK3LRflgET8YUPiDx2Ha3FPiOaP9zPEUxwalTPnO7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z6RhbT27cudJAReHilpmV6ZGym5tcVJUs6teWcgugbA=;
- b=u7CSfV7tbAJBjBmrTRqciBBkyDQRGWWCY7a4K+OQ51Yp9+JWfvFx0mMH37h+6vHb+Uudo9/GKOb3mSTBaq+1EQtzCcXJjMczFnsUEpiY1h24PiQ7YIxfpCf6tpKkP35xnaM7X6ehJFbNtDSiZ40lQx0wlMVWE01mjagfYW2jsz64ZCTjb3AnckkUnWnCmhctklVkKJHkDS1NC/cXtZ3YJAIw89PzuxwMC0NijC+lBv0uHWKH7czftFPwPOQQoPNzqlIvKI8yzRAWiwS/QelAoj2f4ERGXoT0fUg87Wd229FHmwct3sNVZRrL2iop3uXVE1MGCXndJKC8A1zpRdALmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z6RhbT27cudJAReHilpmV6ZGym5tcVJUs6teWcgugbA=;
- b=dKSh2zVxBQE2HEsp7h46kkgzYGT6PHdfIpMuMBxSQw0Rm/IHu5n6mR9MFiCzWrKjD7kvFsGAg9nJmqbK3+5otUaFARdP45Xf5VuqeOyuYTWGDcw9+gZLmEnA5/E4fwvnGsFW5KNwCPsP7nTHF7W6I0xebie6GG8QwGD1u7Zx8Im8/KjAi8rEPuHVvh4YnSyASxuqHqf8llRaK//sRwjMrXVGHr2Z0ZAo5tyueneOnIMCVaCbpXHhrl8YdQaJ0MkstfeM8xBAd8Sy2HbManEaE7g2bXjtVMfTQ3c5xaiuPN7RVM29R4WCy4MhYm8wLumSZ1b1Z1hg2icrLZ/0yXDZHA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from BN9PR03MB6204.namprd03.prod.outlook.com (2603:10b6:408:101::21)
- by PH0PR03MB7113.namprd03.prod.outlook.com (2603:10b6:510:298::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.15; Sun, 28 Jun
- 2026 09:47:09 +0000
-Received: from BN9PR03MB6204.namprd03.prod.outlook.com
- ([fe80::47fd:71fd:88fe:6fe4]) by BN9PR03MB6204.namprd03.prod.outlook.com
- ([fe80::47fd:71fd:88fe:6fe4%5]) with mapi id 15.21.0159.018; Sun, 28 Jun 2026
- 09:47:09 +0000
-Message-ID: <e263a768-24d2-4529-bd8b-0068b9b87f8d@altera.com>
-Date: Sun, 28 Jun 2026 15:16:59 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/9] dt-bindings: mmc: cdns,sdhci: add SD6HC support
- and PHY properties
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20260627201457.12318-1-tanmay.kathpalia@altera.com>
- <20260627201457.12318-3-tanmay.kathpalia@altera.com>
- <20260627202618.8C77D1F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>
-In-Reply-To: <20260627202618.8C77D1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0011.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:174::17) To DM4PR03MB6208.namprd03.prod.outlook.com
- (2603:10b6:5:39c::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mzd+Tp4D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A7751F000E9;
+	Sun, 28 Jun 2026 09:54:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782640460;
+	bh=ENf0mPe0yNUM9dnrmy8ZsdpsfXeW6P2IURf27LmX1ag=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mzd+Tp4DiRVUHaI19F7SOXvmpP0MTXGqeVqtwVXDGAvXWAjCDSdmpMwZfPzV7+Bef
+	 XRyia0H7ZChVGN2K63LqpqF+anvX2XC7rDiJnw/xcU7pg1V6xme5nJPP/9RuZdlgKt
+	 JhUbZk5skHDYRCe1RZECFCGrIBquxzzHmle0YKcV7TLeqsTeCCU7r1JmX9YzxNF6Bi
+	 KVa87ER0Ne7YrWs5ZzVBFHkKSy/OxDweV7zY+Ku7ZbYl+JO8dTIRy9dbNHLNNCWbZ3
+	 zGIlgN9iAcANvb/Ib7WR9D883C7CUhwH55skYyACAy88C28kHVff4WqjQxJlVXKU+n
+	 KNG0jEV+/0OSg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/4] arm64: dts: qcom: Add HONOR MagicBook Art 14
+ device tree
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Konstantin Shabanov" <mail@etehtsea.me>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260628094031.54452-4-mail@etehtsea.me>
+References: <20260628094031.54452-1-mail@etehtsea.me>
+ <20260628094031.54452-4-mail@etehtsea.me>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 28 Jun 2026 09:54:19 +0000
+Message-Id: <20260628095420.4A7751F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR03MB6204:EE_|PH0PR03MB7113:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0a60d06c-9f98-4065-1145-08ded4fa3729
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|55112099003|6133799003|18002099003|3023799007|22082099003|56012099006|5023799004|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	8iZmeWdApOVBtSKLvq7sujGOUYI/PtsQEY0CIvnZBFp9bI0+nF/Gp74U+SIQqv18onxbuw1/Bs8xVpj/FXPoAsWKu3WEXUjPwKXajQF81klZx6ePXJ0cRHvLlB3qNkYiabGY+r73IluIgKeILkfk6PN9F2kCJFMHC3SpX9lzzYJm3cjYTX9wTiI4ev0q1gTeQTeIRN8BVpeLtSIH4vuPuEWsAk3k2d6i76qYtE64K1G6gxti/9Fl0QryZaGeY5cIoAeM5yM8WH6vl5M5iVvPYfseIic64sPu9nVHXWBOiSSQbNl4zi/gutVk6ZHz8QW9OLGOrayR/2gQtUl31vvJ4t/8j4NJWRJntYGKaognJKLDfOSm1OQl91QjSJmaLp8aR9WdIV/qjpY0KLzLP6PLe5TtiMoNHE+2G81Ie/AD3SW3oqvgunOVgZxoOqSvi1O9kotWo2srfzjEi3LmW2b77fMCVj9fZJvvud16+lhy2AwQtSrCpuz5y2XGmzYy1f6gqMtwMQinXfmo27U1d7Qd+hvTy7Uds642b1nYjSNG/PZvAN+yyUSh3SPPVMEB1xYxYNfkogBV2X/s/ioCP7n6E/wL5ptH6CKseaOHAN2+DDx2o7TscE+qGn0IPRsf62QumdkI4zhY2dnt41B9bvFuftffYSifea4xn/8o1D0F70w=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR03MB6204.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(55112099003)(6133799003)(18002099003)(3023799007)(22082099003)(56012099006)(5023799004)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SXgvQ21uS1JuOHBEcFhsVm5BQTROaHVFcG9kcExScDJNVm5QeW8vTm9hQ3NV?=
- =?utf-8?B?WlRrMngvMUltSXRscWxOaWFHK0Z4QzNBb1F1SVNoN216dmJ6QnVGaFcxeEsy?=
- =?utf-8?B?Z0VZbHVjMVZXbXlCeHNMU0dIMGMzTFdMVTZJYTd6eFZ4Y2Jha2J2c0ExUEo3?=
- =?utf-8?B?ZUlCdWdNNkZ3V0EzOEJZK1RUbkgwS0FleUtSUWZMdmp4L2hkMXcvcTNhSVBi?=
- =?utf-8?B?VURoM1J5WklLNG1VMVlLSnJFdXlHdURNbXRROXRGVDNZelJBZTUweUNHK3hS?=
- =?utf-8?B?ZFpaZitlc2U2b1d6MGFKWVlyem9WWnIzVGZsemo3Ly9vcFNRR0JneUc4OURp?=
- =?utf-8?B?SnBYRko1ai9hakIzQnd3SS96Q0ZIRTNEU3QzVXFwVVgwZS9qL0Y1a09CL3N4?=
- =?utf-8?B?bTF4bk5yejFsOHdPelZRVDE0b0IyaFNybkk5MndIWGZ5OC9KQUlPb0t1d0JY?=
- =?utf-8?B?bktJUDVCOUZpTmRpNUlXWllnWng0SnpyZ3hqUERTVkcwN29kNjhUWFl5TzFa?=
- =?utf-8?B?UW53ZVk0NTJsVytvYVNqUVVvTUI1VGtUSDZXMTdJNzNuNzVUa05MWlQwdnY2?=
- =?utf-8?B?SGxwcWJFeEk2QlFwNFpDTTRvOWlJamI1MXhvKzVsbmZsUU1LWTlXd0xOQzQr?=
- =?utf-8?B?NGVocGpsaWkyL2Z0VlhlSGRCTEErSzJKNW1lMlp0MWgrakt0dUYwRythZ1dP?=
- =?utf-8?B?cE5Jb3JWaGdLK0JkVHJvZXJTUWdzZEVOWkhJNEIrU0tWekdra20xZVlBbFpU?=
- =?utf-8?B?dmlYK0lzNXRmUG0ya1pRSm9IVDZtR0pQK1pPd1BBMDhjVVhXZ1VNN21tS1Jk?=
- =?utf-8?B?Zll4L1ZXWklrL3lYanNXOTdFV3U0cm51eXNHNytsTElncU9YSEk5Ry92czMy?=
- =?utf-8?B?aTBjb05RM1Q5RHBkWmxKcG40V051aWFoa2hEN2FFZjY5bXZwTG43TVdsZGtw?=
- =?utf-8?B?dzVYWjVGdnlEUElwYXpYQ1pVSGcyTU8wY3BLWVhkbVJwMDNMMG1HNXk1S2tm?=
- =?utf-8?B?eWY1Tk9Ec08vcXhRRm1nZHcvZ0dKMXRqTXN3OG5ORlJ1Nk5mc3Y3ak5XRllE?=
- =?utf-8?B?NkxNZllKZE5EenlkYmZzQzBjbWd5dHl1MHZIOU5rTWYrVHJzSmdzV2JrbVc4?=
- =?utf-8?B?NGlpTXBZejhBenB3aEc2V0tzREQvWjVSWm9FMExuangvNjllT1dYVUYxTlox?=
- =?utf-8?B?Zmc4QjRZd0VHQlExeE5BVjUyRE5NanNQODdJOExEOVNDeExsUUNLRTZPOVhi?=
- =?utf-8?B?S2V3eVJKN0RqN3FacTdBK3J3amRyV2VrQnRzVGFNbXRmaFFjcm16VWFXMmRu?=
- =?utf-8?B?R1BiRk9TSTg5UDJnaXA4d1hPVWx3VlpESUM1cGJoWmpUOXViRmN5US9aVGRP?=
- =?utf-8?B?TFQzRFRsUnZ6UkVCQkR5azJrc3FQd0hxOEF4S2I3SE9zSThGOTNTaTJNTDFm?=
- =?utf-8?B?R0N4RVhlNk1ybnN3UmI3bnRBZGFtQ1ZOTm9WQ3lyeVVzam5IMi8zSlBWN1Uw?=
- =?utf-8?B?dUlhQUNLd2I4SEJvaXRmVVlhQ2p3L2p4d0FIaWxjZEU2NGk5WWxhbFRBeTZL?=
- =?utf-8?B?L3g0c0dMd0xPU3h5VXBQVWhmL2RZSzJkdEVwd0loUmJNWnd4UmpaeldWSmpC?=
- =?utf-8?B?TjJCSCtLVDNjSzlqUUNnZFQ4ZlY2eTVTbE1QSmpOZG8zamFXcFlRNTFsWnBl?=
- =?utf-8?B?WUorK20rL2FhRUtXRlMyRnBRMkpUUXROWi9UTDU1OWJGQzlGK2tkR1d0Sm5W?=
- =?utf-8?B?NzZnUnFESGFsTzNrSWVCWFk2WndiQitPZ2NqZEh5STRhSE4wck9NOHYwYXdX?=
- =?utf-8?B?UEhYZWxSdkRxSUM3ei9vdDZKdmpid3dyTVdLNVBVYzVsckRBcGVlRGM2VmFz?=
- =?utf-8?B?bi82Y2pldU00emtPelVsdGhrWFVrTkFnbzJDMVF5bkEwT2pjeFh3UlFuQWtQ?=
- =?utf-8?B?QnRZYVd1Nlh2SzhLV0RieE92QlBmamEyakpCS2o3L1VRRG9YeDByVE5ldm1x?=
- =?utf-8?B?M1pYZ0R0SGxPbEJEYWJqOFZmUC9sRExLcHQvRFZYUmVLM3g0b09xN0dUekVy?=
- =?utf-8?B?dXlWczFTV2poOVl0Mkt1VXk2RFBEaXFzaGo3NUZ0RmpWbXYzaUorMnZDVFkr?=
- =?utf-8?B?RFo4S0hQVTJYVVhsaU1SWXZHSFdPaUF3UHR1TEdKcDR0U3Faa0VZQ3hFSHB2?=
- =?utf-8?B?WmZMYy9GdDRBYWwzc2xIV1pFZEJtNm9sek5qYzAzaTNZcTVxcmZUQ08zb1FB?=
- =?utf-8?B?T3lMVGo0ODB2aWE0dFNLVUgzckdHbGVHZXV1ZndTQ0p1UWcvUStGdktkakZ1?=
- =?utf-8?B?K2krbldEWHNhTGdmY1A2d1NXelhURWlwVWhZUS94RE5GQ1B1c2ZvMTN0Wm5V?=
- =?utf-8?Q?LVpfKBZdzDibmF1Y=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a60d06c-9f98-4065-1145-08ded4fa3729
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2026 09:47:09.0440
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RSiK3Ppj0+vG6ZCtMdQWxB3CKIFzcVwOcit1b5pXpjI71w4QlW+KHm9/A0R1pLLXKfEkuf5kFyK9PjcuYyV4g+AeqCAHbddRFXGT+gUCG8U=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB7113
 
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Mismatch between touchpad interrupt GPIO and its pinctrl configura=
+tion.
+- [Medium] Type-C SBU (Sideband Use) routing is omitted from the USB-C conn=
+ectors in `pmic-glink`, breaking the DisplayPort Alt Mode AUX channel.
+- [Medium] QMP DisplayPort PHY is directly connected to `hdmi-connector` wi=
+thout an intervening DP-to-HDMI bridge node.
+- [Medium] Both WooferRight and TweeterRight are routed to the same 'WSA2 W=
+SA_SPK2 OUT' source widget.
+- [Medium] The touchscreen reset pin (gpio48) is configured in pinctrl but =
+never driven to an active output state.
+--
 
-On 6/28/2026 1:56 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] Device tree schema guideline violation: standard properties are defined solely within conditional blocks.
-> --
->
-> commit e277493647bd6915b90ee32b253e1cb7514a8c5f
-> Author: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
->
-> dt-bindings: mmc: cdns,sdhci: add SD6HC support and PHY properties
->
-> Extend the Cadence SDHCI binding to support the sixth-generation SD6HC
-> controller. Add the cdns,sd6hc and altr,agilex5-sd6hc compatible strings
-> along with variant constraints.
->
->> diff --git a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
->> index 6c7317d13aa6c..edd96e1d2bdcd 100644
->> --- a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
->> +++ b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
-> [ ... ]
->
->> @@ -139,6 +168,77 @@ allOf:
->>           reg:
->>             maxItems: 1
->>   
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: cdns,sd6hc
->> +    then:
->> +      description: SD6HC variant - use IO-cell and delay element properties
->> +      properties:
->> +        clocks:
->> +          minItems: 2
->> +          maxItems: 2
->> +        clock-names:
->> +          items:
->> +            - const: ciu
->> +            - const: biu
->> +        dma-coherent: true
->> +        iommus:
->> +          maxItems: 1
-> [Severity: Low]
-> This isn't a bug, but should clock-names, dma-coherent, and iommus be
-> declared in the top-level properties block instead of solely within this
-> conditional?
->
-> The dt-schema guidelines suggest defining properties with their broadest
-> constraints at the top level rather than entirely within if:then blocks, to
-> ensure proper documentation generation and tooling compatibility.
+commit 856d8e361f3fb8f4f8c9dce853782183cccf8f2e
+Author: Konstantin Shabanov <mail@etehtsea.me>
 
-These properties are intentionally declared only within the if:/then:
-block because they are exclusively valid for cdns,sd6hc hardware,
-they are not applicable to cdns,sd4hc or other variants.
+arm64: dts: qcom: Add HONOR MagicBook Art 14 device tree
+   =20
+Introduce support for the HONOR MagicBook Art 14 laptop.
+This version is based on the initial work by Kirill A. Korinsky
+and Valentin Manea.
 
->
-> [ ... ]
->
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: altr,agilex5-sd6hc
->> +    then:
->> +      properties:
->> +        resets:
->> +          minItems: 3
->> +          maxItems: 3
->> +        reset-names:
->> +          items:
->> +            - const: sdhc-reset
->> +            - const: combophy
->> +            - const: sdmmc-ocp
-> [Severity: Low]
-> Similar to the clock-names property, should reset-names also be declared at
-> the top level rather than being exclusively defined in this conditional block?
-Same reasoning as above - the three reset names (sdhc-reset,
-combophy, sdmmc-ocp) are specific to the altr,agilex5-sd6hc
-integration.
+Link: https://lore.kernel.org/all/871px910m1.wl-kirill@korins.ky/
+Link: https://github.com/vamanea/linux-magicbook/blob/x1e80100-magicbook-6.=
+19/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts
+Link: https://github.com/alsa-project/alsa-ucm-conf/pull/755
+
+> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts=
+ b/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts
+> new file mode 100644
+> index 0000000000000..b3113a0ee9283
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts
+[ ... ]
+> +	hdmi-connector {
+> +		compatible =3D "hdmi-connector";
+> +		type =3D "a";
+> +
+> +		pinctrl-0 =3D <&hdmi_hpd_default>;
+> +		pinctrl-names =3D "default";
+> +
+> +		port {
+> +			hdmi_con: endpoint {
+> +				remote-endpoint =3D <&usb_1_ss2_qmpphy_out_dp>;
+> +			};
+> +		};
+> +	};
+
+[Severity: Medium]
+Is this missing an active DP-to-HDMI bridge node? The Snapdragon QMP DP PHY
+outputs native DisplayPort signaling, but the remote-endpoint is directly
+connected to an hdmi-connector node here.
+
+Because the SoC does not support native TMDS (HDMI) output, this bypasses t=
+he
+necessary hardware bridge, which can leave the bridge unmanaged by the kern=
+el.
+
+[ ... ]
+> +	pmic-glink {
+> +		compatible =3D "qcom,x1e80100-pmic-glink",
+[ ... ]
+> +		/* Left-side port, closer to the screen */
+> +		connector@0 {
+> +			compatible =3D "usb-c-connector";
+> +			reg =3D <0>;
+> +			power-role =3D "dual";
+> +			data-role =3D "dual";
+> +
+> +			ports {
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +
+> +				port@0 {
+[ ... ]
+> +				port@1 {
+[ ... ]
+> +			};
+> +		};
+
+[Severity: Medium]
+Does this routing omit the Type-C SBU (Sideband Use) ports? DisplayPort Alt
+Mode requires the SBU lines for the AUX channel.
+
+Without a port@2 node for SBU routing, the orientation switch cannot correc=
+tly
+flip the AUX channel lines, which will likely break DisplayPort link traini=
+ng.
+
+[ ... ]
+> +	sound {
+> +		compatible =3D "qcom,x1e80100-sndcard";
+> +		model =3D "X1E80100-HONOR-MagicBook-Art-14-Snapdragon";
+> +		audio-routing =3D "WooferLeft IN", "WSA WSA_SPK1 OUT",
+> +				"TweeterLeft IN", "WSA WSA_SPK2 OUT",
+> +				"WooferRight IN", "WSA2 WSA_SPK2 OUT",
+> +				"TweeterRight IN", "WSA2 WSA_SPK2 OUT",
+
+[Severity: Medium]
+Are both the WooferRight and TweeterRight meant to map to the exact same
+output source widget (WSA2 WSA_SPK2 OUT)? This leaves WSA2 WSA_SPK1 OUT
+unused and might prevent the right audio channels from mixing and playing
+properly.
+
+[ ... ]
+> +&i2c1 {
+> +	clock-frequency =3D <400000>;
+> +
+> +	status =3D "okay";
+> +
+> +	touchpad@5d {
+> +		compatible =3D "hid-over-i2c";
+> +		reg =3D <0x5d>;
+> +
+> +		hid-descr-addr =3D <0x1>;
+> +		interrupts-extended =3D <&tlmm 24 IRQ_TYPE_LEVEL_LOW>;
+[ ... ]
+> +		pinctrl-0 =3D <&tpad_default>;
+> +		pinctrl-names =3D "default";
+
+[Severity: High]
+Could there be a mismatch between the interrupt GPIO and the pinctrl
+configuration here?
+
+The interrupts-extended property declares the interrupt on gpio24, but the
+tpad_default node configured below targets gpio3:
+
+[ ... ]
+> +&tlmm {
+[ ... ]
+> +	tpad_default: tpad-default-state {
+> +		pins =3D "gpio3";
+> +		function =3D "gpio";
+> +		bias-disable;
+> +	};
+
+This might lead to an improperly biased interrupt line for the touchpad,
+resulting in spurious interrupts or failure of touchpad input.
+
+[ ... ]
+> +	ts0_default: ts0-default-state {
+> +		reset-n-pins {
+> +			pins =3D "gpio48";
+> +			function =3D "gpio";
+> +			drive-strength =3D <16>;
+> +		};
+
+[Severity: Medium]
+Should this reset pin be actively driven high, or managed by the hid-over-i=
+2c
+touchscreen driver?
+
+The pin is configured in pinctrl but lacks an explicit state (like output-h=
+igh)
+and is not assigned to a reset-gpios property in the touchscreen node. This
+could leave the GPIO floating or in a bootloader-assigned state, potentially
+causing the touchscreen to fail initialization or sporadically reset.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628094031.5445=
+2-1-mail@etehtsea.me?part=3D3
