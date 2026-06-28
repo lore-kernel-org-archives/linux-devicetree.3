@@ -1,64 +1,64 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA792DC765
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 17:07:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155192E0B5C
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 17:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782666424; cv=none; b=m/L+0BVMaHnN44qebFaGNFMuHrIQO7sK+H7YyJjdA/wf5QO2T+mLIEztoXsb+3vLOwo6MV1/dB+ajz2LCyPgE9qGrJT6KW8+ZfXHfPLJW3Z7eDgMYC6F9eTExzvhwFMPFsxCEAaCKQcxTy35NBZzIbSY3JX5WCWFpFUIWExDxwQ=
+	t=1782666425; cv=none; b=ELtHi1iNq3xvkLDcRDQqoT01lnk4IJViqSzJtUeEWo7f7ptJX01fZSrrhogAjCHDKodnF24su9TEmmI8IS/e6GeitBoJ6B4x7aatOANNGlAzfoar3MBI28pZQOgpACocHehYKbT05Ui+KHLYfK+5d+eiGPpKmnDI12BbjF6TBjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782666424; c=relaxed/simple;
-	bh=9W6n/WmcyY1zipRiiew+pW85ZVLeHbYsn5+LHDFiG+E=;
+	s=arc-20240116; t=1782666425; c=relaxed/simple;
+	bh=DzA4G1y5Qr64H0YZa7V7mNtDvYRatP/4Nwj2bwqCK8g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nBLxNAOMRl6tQKM/Gc6D3P+sWOeTuTqkjXKSwVzuCuyyfvi/09FadHLsKzSPYVdlacRwEMY9c5hNgjJPJYbaeHJHjUMQBJawHGeaS+6tyJF5bEKVa4raGg6e7RoitRWMht1bp+nWhplmSEvBdq2T/XhvceOidp5pUb4tVr+b1CU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gkx4uphS; arc=none smtp.client-ip=209.85.128.50
+	 MIME-Version; b=q60q/rJxWi9bWqJz3DGn329bMpj9PJPcbvgNR89VKDkaLyzs2Pe76QDBM2vPtJ+ntubSer8HS9iTdx1v/0iEu7ltakoR9DJgDHeKTW3hVMND7+q6MY17Tq+aREXUpVB9iyYbISs1OGM9I3mAfGX7AEFZ7OGUk7rbEpiNFEyw+oE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jYBOZuwl; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gkx4uphS"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-493a440bc10so5019185e9.1
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 10:07:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jYBOZuwl"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493a613571eso5442005e9.3
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 10:07:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782666421; x=1783271221; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782666422; x=1783271222; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qvJsYiQM+mJGanwjIrW9x1n983u+zy15a4QrJmtJhu0=;
-        b=Gkx4uphSrZe+WAd9bbwkwox5AD0thgoeqyKkbp51vE+jibQtkw9HKBUCaCnrZBhEyB
-         8+erLKrn+TxHpUq5fDBrXxiuhUoEYYXLk8yEWCWU9VS4W/MvQeHwcAMfDpWdNgQGI2/s
-         +CHWoTdIUlIAbIN2pImhZJ9DUdkY3NHK9m2vDK2Rb5WZZzeuDhmvO234B2Lt+sxIOiow
-         SsxmAoE4Fe0tgELVUnqMJj7By0KJTu1q86xI+v2oJ2AKiJDk9jrURUBiqnodri8XrVZn
-         xgA74pPWWi6fCiGhpd9G59gHxw22CKdyPYt7SXI8SPY7V41BBoLush+I3u/JnAe2KVp/
-         Y63w==
+        bh=F6EXA0Eq4U3xfkyZSos69NYqUAWxpb1BwEfcIVdoTYs=;
+        b=jYBOZuwl5atZWi9BkDePmzcsjmAoKI2Nbkkvr43xa6Ba5WzD4xQklHgN2cMdFjqDYe
+         ub9OopPEtbDyClE4jooGokhoPSgLRJ//nO0GvwkRa6H4GvvZ+6J58FDyfuKx+/urbcbJ
+         kHNAyPTXcydXc/pqgQ8JorNSvXl5UpymMoHT3GfMQmnwwVtf9AU2N5a/0LXSW7q+LOSd
+         jQshOhaIIaYYPrC33l8vcfNYpxnG3JQDFQ+I378MpyeU/RKwY5d+jF08B+yC8wO6zKAG
+         N8pIMu1DCmJf8mwyWrFyBjOdz8xUkyZCZKnZ70OmYI/OL+EQE+w5wLopsYaf+h1mXjL9
+         dELw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782666421; x=1783271221;
+        d=1e100.net; s=20251104; t=1782666422; x=1783271222;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=qvJsYiQM+mJGanwjIrW9x1n983u+zy15a4QrJmtJhu0=;
-        b=N61shrbf+6lJGMxRhKD7phKRP5qYVpvm6BG9nmjIZzvJeTJviJN9BOlVAaCNlzXo8s
-         fFnO3ECEeeSOp54a5L+DmPJrAKrIcdUZZGjIhVWAxwKU1FvFw1KG3Fo0RO3e3HGuvNXq
-         DxUW7t3OfOsneUx2Y+y9/zO6xmv7ZCQ1USSn0ZibnlCePzJp79ycr8ZEQCPDkDs2oSTm
-         wSP0yqXfDVjUfSXpXUO5QFdhTbmuIIexshvSAdhYEQ6aEKCg8km34YDH1YOkmWuMXJoX
-         lsvtnmveH7M3MppFinj6KTMAQRPw0zlDzYlmBbsLrw2YbtjvN0Z0J3lL64pobibIPTgz
-         v2Jw==
-X-Forwarded-Encrypted: i=1; AFNElJ88FAEUEqdN/8MI5x3z+zKYhOVNsAx3Cmvrl59bFbrCQM7aKVLQVkZMZg9YC+HccQcs5EJux2zQuTWs@vger.kernel.org
-X-Gm-Message-State: AOJu0YwGhotiqG2C9AKrxwm8Ea73fXNTaZ5SH6IiLfBK1kpB2QVrWzP8
-	govNscN7/tunKXi5cYkyVDrSESlaS5pe7LC7ie1aQu3G0HfYtdO1FcQV
-X-Gm-Gg: AfdE7cl4wa7O3ailpfsKESliPZMcRSZb8k7cE4grY59zWgyZfIrc7knlpK3tWzIcuxM
-	GD88LN2eOwL0Ejuu8etKG7uR5iTmJU8/+sLwcUTb6mcC5J2UaB2dfaWWRZfywUlLSV4920ZVZfV
-	bkGUQiCFQUezRoWbLCM80kbHqmFa97Z9eeNspgPzIRShVu2TAae02jgMkb1v/VnuOcagTv3aAn3
-	e8o8hymRbkSbvf2/T7rAj8BR9T86CKY7dVZea5aIwPWGTVYCRMaoWiuYudAgjF/569kwO2Lu2/u
-	Oelix7k/vvhxHyNHlsWVAan/9C1TwOMxhblhCKLLARDz7p317Btjp9d49MyFe7tZbqBRJvZChXr
-	LnlpGjuwM05us04Hinwxp4deEbb5HKUjjp8N6Z71NxQaGr67CIFCNknqGq8R1PEja6/xRWHfWvx
-	dm87zuMgxRsTyuwXulDAVbN/gqKzKEcpyuKJMr0l4vOmPLue24a7UbHODHPXBUyWzR2GUFSlSbX
-	8cXccKKfOzHbtPDnT4CITBtvw==
-X-Received: by 2002:a05:600c:4f8f:b0:490:c2a3:3302 with SMTP id 5b1f17b1804b1-492668b7599mr219013735e9.35.1782666421372;
-        Sun, 28 Jun 2026 10:07:01 -0700 (PDT)
+        bh=F6EXA0Eq4U3xfkyZSos69NYqUAWxpb1BwEfcIVdoTYs=;
+        b=ov7laqptIYD0NcAR8tWdlkz54B+sWopbAgX+lZQsoIrcGLQrTokoY9cRde4cRFCCQp
+         VMZtC14I78TX30lzagYSslsoZEqCxkYWJ8++LuIMjUXXGYZ3Rco6JEpg1BvSlrcXUn9g
+         7kZedb95G4+t0dxrfjEDlAoNaaBWULeOiWBAZN3qxlQjjVaEcT3hJ/z/NOapIrwMyIFi
+         US6Xr19c0+fzcUbNKRZ1dp11o1IFFcFOAgWRCMiU5rahKsb0ixFnpIlhCiBZJlNxYOpM
+         6XeXZu4HNo6B0fhhjj64vMOjqIdagz+Zg7IvmhXyXRcUGUCz2eJAfOKrAu83tvvB8o91
+         DJtw==
+X-Forwarded-Encrypted: i=1; AFNElJ8gyf6U96CpjPORxMbv0+GcVY2ejTcn9KN828VV8bA1kmNX+Hw3HhX3f2kTcebbmOiNHRa90uwQLNS1@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKiWHRH1OLItnwuGaC9dzdCoQMIXCX0ZsjemsfLgeJAVcQiOVB
+	pM0vO9BM6Fg2VdGIRd0fkNAXZ4GpoxvgwLnt9eITwLLggusPrW913Kw/
+X-Gm-Gg: AfdE7clh/lxQLtPYTFc/Iz2KaaJ1HYjPuIsi+gdoDf8SJoiGJdwqJdi51GRzFB1nIod
+	0prT0hemlvW6zRhBucAfP+ffMFOFAbOOSlcxGBrSl37aHiz7//+bbyTmcfbZDNIcouUpaF0iS76
+	ahWgHoLGgXRyMYWL1pvUuyfDlArZqkr89jba0TZ69qSyKn0ly5TipntpHbwdUwv2fLTqtn/32dl
+	r/I8SN3Zjz5hmmX4GcEeProyytN0LhZqgINSxF7LnOg7IALVeQLBo4zSO9wvarmzbK02Gk+W7/E
+	TCohDqqBCtgpgToI8PmHWgtCdjeEwn4Ne1KfdYaqEHB316DA9ev+V6cm/X0IvNJculZSleOrTBX
+	G6FZK6VuRDoQGmfJpozkQrdPn2iKi+FV68lwctlIXoDEJPazSjCl8mCCQKKowuR8viLM29+TR6z
+	HGGy0izrIhlVfq8hNSMPoVKsvNzoch89iwTkG/TTMQ4cH8TRlZCKgErL0MtzT4Vu8m9VLXZo/X3
+	jmXVa3kRoAxQx7mt9QlYv5lTg==
+X-Received: by 2002:a05:600c:3e8d:b0:493:a5d4:3798 with SMTP id 5b1f17b1804b1-493a5d438e1mr51953535e9.1.1782666422446;
+        Sun, 28 Jun 2026 10:07:02 -0700 (PDT)
 Received: from Lord-Beerus.station (net-93-144-65-248.cust.dsl.teletu.it. [93.144.65.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493a7fd1b0fsm54217195e9.1.2026.06.28.10.07.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493a7fd1b0fsm54217195e9.1.2026.06.28.10.07.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 10:07:00 -0700 (PDT)
+        Sun, 28 Jun 2026 10:07:01 -0700 (PDT)
 From: Stefano Radaelli <stefano.radaelli21@gmail.com>
 X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
 To: linux-kernel@vger.kernel.org,
@@ -73,9 +73,9 @@ Cc: pierluigi.p@variscite.com,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>
-Subject: [PATCH v1 1/4] arm64: dts: ti: var-som-am62p: fix Ethernet PHY configuration
-Date: Sun, 28 Jun 2026 19:06:46 +0200
-Message-ID: <d89ea82a4bbba9b97c7128b4a1c0e5b857a921ed.1782665899.git.stefano.r@variscite.com>
+Subject: [PATCH v1 2/4] arm64: dts: ti: var-som-am62p: update audio codec configuration
+Date: Sun, 28 Jun 2026 19:06:47 +0200
+Message-ID: <d59a4590cab14865f5caa5249c4c6ec7632f7d5f.1782665899.git.stefano.r@variscite.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1782665899.git.stefano.r@variscite.com>
 References: <cover.1782665899.git.stefano.r@variscite.com>
@@ -87,56 +87,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix the Ethernet device tree description on the VAR-SOM-AM62P.
+Update the WM8904 audio codec configuration on the VAR-SOM-AM62P.
 
-Enable the CPSW Ethernet controller and correct the Ethernet PHY
-description by modelling the PHY power supply and adding the required
-board-specific PHY properties.
+Set the audio reference clock rate to 12 MHz and add the codec DRC, GPIO
+and DMIC configuration required by the board.
 
 Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
 ---
- arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi | 21 ++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi b/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
-index fc5a3942cde0..be19cbaffc4b 100644
+index be19cbaffc4b..9440891339b3 100644
 --- a/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
 +++ b/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
-@@ -113,6 +113,15 @@ reg_3v3_phy: regulator-3v3-phy {
- 		regulator-always-on;
- 	};
- 
-+	reg_eth_phy_vdd: regulator-eth-vdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "reg_eth_phy_vdd";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpio = <&main_gpio0 46 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
- 	sound {
- 		compatible = "simple-audio-card";
- 		simple-audio-card,bitclock-master = <&codec_dai>;
-@@ -149,6 +158,7 @@ &audio_refclk1 {
- &cpsw3g {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_rgmii1>;
-+	status = "okay";
+@@ -152,7 +152,7 @@ simple-audio-card,cpu {
  };
  
- &cpsw3g_mdio {
-@@ -159,9 +169,10 @@ &cpsw3g_mdio {
- 	cpsw3g_phy0: ethernet-phy@4 {
- 		compatible = "ethernet-phy-id0283.bc30";
- 		reg = <4>;
--		reset-gpios = <&main_gpio0 46 GPIO_ACTIVE_LOW>;
--		reset-assert-us = <10000>;
--		reset-deassert-us = <100000>;
-+		bootph-all;
-+		enet-phy-lane-no-swap;
-+		vdd-supply = <&reg_eth_phy_vdd>;
-+		ti,min-output-impedance;
+ &audio_refclk1 {
+-	assigned-clock-rates = <100000000>;
++	assigned-clock-rates = <12000000>;
+ };
+ 
+ &cpsw3g {
+@@ -204,6 +204,25 @@ wm8904: audio-codec@1a {
+ 		DBVDD-supply = <&reg_3v3>;
+ 		DCVDD-supply = <&reg_1v8>;
+ 		MICVDD-supply = <&reg_1v8>;
++		wlf,drc-cfg-names = "default", "peaklimiter", "tradition",
++				    "soft", "music";
++		/*
++		 * Config registers per name, respectively:
++		 * KNEE_IP = 0,   KNEE_OP = 0,     HI_COMP = 1,   LO_COMP = 1
++		 * KNEE_IP = -24, KNEE_OP = -6,    HI_COMP = 1/4, LO_COMP = 1
++		 * KNEE_IP = -42, KNEE_OP = -3,    HI_COMP = 0,   LO_COMP = 1
++		 * KNEE_IP = -45, KNEE_OP = -9,    HI_COMP = 1/8, LO_COMP = 1
++		 * KNEE_IP = -30, KNEE_OP = -10.5, HI_COMP = 1/4, LO_COMP = 1
++		 */
++		wlf,drc-cfg-regs = /bits/ 16 <0x01af 0x3248 0x0000 0x0000>,
++				   /bits/ 16 <0x04af 0x324b 0x0010 0x0408>,
++				   /bits/ 16 <0x04af 0x324b 0x0028 0x0704>,
++				   /bits/ 16 <0x04af 0x324b 0x0018 0x078c>,
++				   /bits/ 16 <0x04af 0x324b 0x0010 0x050e>;
++		/* GPIO1 = DMIC_CLK, don't touch others */
++		wlf,gpio-cfg = <0x0018>, <0xffff>, <0xffff>, <0xffff>;
++		/* DMIC is connected to IN1L */
++		wlf,in1l-as-dmicdat1;
  	};
  };
  
