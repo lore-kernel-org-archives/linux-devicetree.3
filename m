@@ -1,149 +1,123 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5328F1632DD
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 16:30:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5F523ED5B;
+	Sun, 28 Jun 2026 16:49:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782664231; cv=none; b=cYfbfjtkDqsmHYe5bJsOakPDcYsfmern+++WDknJCKoae1bhtrt77IDx28osDqW/8HgBNv1AQKx2wWEtPgez5mTKH22GsPDtJV6IRenKyGhAS3UGev7vtn4ExQqnSfhMdrwsD8kqcUyU9cS//B7EINIXaXYDsZjgwxH3M3i5/6I=
+	t=1782665402; cv=none; b=H+D2F1jgwPiJV1KfOLkTMTr/DQUU0frcDYaqJjHzUkvex0wkAwrS+jCD7tYFA16/SL02O2VxNT8bG25g072y4dS5xeQRPLgaYwTbKnFYF8dAgFJQCSj8etGL7YWoXTAvU7gLg88V4+K7nmFku8uVhP9b8BqHcZGg+D7kbSm97zI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782664231; c=relaxed/simple;
-	bh=AwLmTjHbrcU+SOVQa01R8c+bODe7xXJZIanI/IfDJtA=;
+	s=arc-20240116; t=1782665402; c=relaxed/simple;
+	bh=se2niBpMSNOX2w1eFlrVb4amVz3TmX71rPzQ8ZOg80g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RzJN1/rryqOVgAuygEvUhEPjM9bpS3kAXcGVZ4biuZL5TMD/GIiAD9UgG2U95+tN1d69PWld7/OxTgOJaJcAmMKi5uT9nkjY10RW4JiJGJ2Nq/q74llrj5qEdfkTn+vVtr5cUK/dROPDm4Ws5hv2mkabOv/QibyTylhsMmpKoDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qAslV0OY; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version:Content-Type; b=U4lnBOHgHe9fc9nK8xjWah1aAlJHiP52RJxlT2YoKTTWXTf+d4875K4cxgkaMWT6LJRG/Ciu1us1/mHtM/vQdyq7FNl97oscvnF2/Onc/K8AMCQO+SJ105Le/Sn85Ru+ieAvFHsl8SKFCOFWUx81LcXd7fZYrZHrf9UvUfUCgo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=whynothugo.nl; spf=pass smtp.mailfrom=whynothugo.nl; dkim=pass (2048-bit key) header.d=whynothugo.nl header.i=@whynothugo.nl header.b=vNZdivUQ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fS0ankCn; arc=none smtp.client-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=whynothugo.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=whynothugo.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qAslV0OY"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4926ee9e8d9so10156825e9.0
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 09:30:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782664229; x=1783269029; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fMnBtmnHmhK3jg0PxdbXqkHYJjM0gMd6xqD4YPFeDWU=;
-        b=qAslV0OY1RR3QE+/3XPt75MHqz4pqPi8eBz4uS1tY1L/9Azg8W3mQpmKYOskpIYkgm
-         2JYcfhArOkkD5+wB3fQ5wMGajEVb6lUjMkpD1UN1x4wh7dd88SCj0NkUB8e7Zf8AXp2M
-         Jqv9gQtG9nDLNzKFOpTDS/BS1Y0THgyk45zNdkHWe75AVt3dlt43m1D7qjFfB3wpuji1
-         YPXwuxeKHsEf5e3byYQiNS9psCJOwWLF7rrqVL+GGig1D0ElNSeA/yaDApTxCy222Zxg
-         I+Ls3E/3QyFJsD8fIPAFBdiNgPqttJThO/Z/V9Lb4Rz63xDjR0qgZNQLeOKKKsVEG3/1
-         +ENw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782664229; x=1783269029;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=fMnBtmnHmhK3jg0PxdbXqkHYJjM0gMd6xqD4YPFeDWU=;
-        b=iDarGW7z66wqhBISePVWmY3BF+1EryHBsXzt/AGq916O1fjXnVIG3I27jRp2D2Y9vs
-         XKPFPmcEBF2Va2Q1VAA+4xfPbuB4FdapQg7kn/IeHRrjjxRZE/sWRiLlxqbWfYemV1wo
-         DJHYfDnzA6fJ1eGspm5lsjFLWM+yv0GUsh57AgwvRtxfQ0jwS33m7oQa5fyIluLhux3/
-         HkQMkWjUNLmhoVdYTocYeiEFbQT3sUbJ0sqEfi9/aUGzcaN62h9sMqjsbXJH8n1phB/e
-         dVgBw97i12bMadRlNHQ49IWU/W75lcoMaRAvhqmeCacrhogzYz9cCpMxdrEDjzyxYavS
-         7Mmw==
-X-Forwarded-Encrypted: i=1; AFNElJ9lGSh4IaZAADC4WDjeDVSum8KAobyu12QnEM0eGQHOsE6/uD8ZmelYPgAEoxvKuzKvlgOrb5LqVYoG@vger.kernel.org
-X-Gm-Message-State: AOJu0YySBXxiGmR7xgpCHn69JYZOgSsmKqbsW4oOnFmwUSPbhACaO7/B
-	hiEHgg3d7K9AXJDdaqOFU8nTOwVHYaNJeMZ1MgEV9CWYPBH9LYwXN3Hf
-X-Gm-Gg: AfdE7cmrBrLdZi8OL1eLNApbMOW2Dpwd89pfR3BmzjEAx5Ru+NR6xI2FGVTQlKs/ms4
-	Vv+UHdfiWH7pV5BxhV+8LmkPZmViEE1n4liBe7rbGiwjoZsxuerG+IAwWFD1q/64aLL5Pa1gzUL
-	iITlKwQ2me4iUtzQ0YZDRPKa45lAYVbs1a2nHi4Od4uN/JprtNdHmwP4b25KpU15GpD7S74vVJj
-	RFsOj2Y0TLz4ACqo120ulPaVcqquW2shd2zwTVSONwZmsqDwXK3V3DikVXTz/gCeUenEufFxbyS
-	j/Co8OenHNVIzAxPpYCIJCdGz3WX/SI5tpc0u70G/bxTVkWD3NZ5SXVU6zZGYvsRsDt9I7g5/da
-	qqzL+ziZVsHk7fEqEKpV+K+J/itQ/HHFl8BVahiWpjvszfjHGzHKYmB9mIJrAcoVTZFx6JEQixf
-	0+xOsnMlyMkCsctcZeXs5FxIV3h5Y=
-X-Received: by 2002:a05:600c:e54a:20b0:492:3fb5:3a17 with SMTP id 5b1f17b1804b1-492663f5bc7mr127559565e9.2.1782664228533;
-        Sun, 28 Jun 2026 09:30:28 -0700 (PDT)
-Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49268fde98csm261474625e9.6.2026.06.28.09.30.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 09:30:26 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: andriy.shevchenko@intel.com
-Cc: airlied@gmail.com,
-	andy@kernel.org,
-	azuddinadam@gmail.com,
-	chintanlike@gmail.com,
-	conor+dt@kernel.org,
-	deller@gmx.de,
+	dkim=pass (2048-bit key) header.d=whynothugo.nl header.i=@whynothugo.nl header.b="vNZdivUQ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fS0ankCn"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 5FE1B14000CF;
+	Sun, 28 Jun 2026 12:49:59 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-09.internal (MEProxy); Sun, 28 Jun 2026 12:49:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=whynothugo.nl;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm2;
+	 t=1782665399; x=1782751799; bh=Aohqya3n72C0oN4pVy1jddVD2mFgIBs/
+	95yy3WBT8uM=; b=vNZdivUQUf0S2oi/m9rguxFNKfdxC2dqHGwLRpykUFIHxcJI
+	BSHXHW1j+stbhxxB+hZ12oDAHr68WDGsErdBPfEfqJLNHwRdHwp46PsPowA7jevF
+	llMdWfFfILQM0drZ229psH/sJP0ACO4dEkeRfTK7Ot7mMgvDYpHyrMwC92/E+xRO
+	zDbAAyaSqQfUquk7LhjUsEdlqBJloJrGEn+5vR4m9rMbZDNx/mJBJofhvPr7tG+a
+	IHIL7gsSiA1sn16SwxsdXy1KuafrNGR5XNZnvGKiqGZhm4lJIFkdOzAkr+37tsoW
+	YFoa7os/zfzNxbrC7eY48xV1nCvQF3CVzoQxPg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782665399; x=
+	1782751799; bh=Aohqya3n72C0oN4pVy1jddVD2mFgIBs/95yy3WBT8uM=; b=f
+	S0ankCnmwof63CZrx3OptVM9V+gFy/wdGyseFLr9oC/PYyhGn44xXdeUzEenORP7
+	D6S4S4Nhy05CEuh65u6CrmdxzUcnW5frq10psfSuOmmwuArH9b7ncO7lkm9bCPTQ
+	2Oq8slHDirnn6BVAji/KbgBpYyAX56EEGa+OsfXB+IhQ4bm3pEOPKI//OPs9fNWI
+	e4JYMYv1r4FPjJ9sKfBiM+ORvl2RH1yq4N3cqa7UExOYRS2ksbgo3MOiwhNCYREi
+	M5cNe+ZTlt5O7zMMTom2vAGwzQgdrx0xmAJTk41nVGVCbE8JG8CiE7uMnLefWdl/
+	vU7HlEYGeh/SRcUGdzhxg==
+X-ME-Sender: <xms:tlBBavK29PZEWFlUAQ4sY7uv1T7T-WmGj1gcfJt-UNdhSJoLwgIUMg>
+    <xme:tlBBapLIqV5VJVaIaZOOBZxorYvHAdfSvIAL56Q8ew0T3ajbwea2PXoSkXSiT5XDu
+    AG-DZQoz5bzo5r9MBoA3lkc3qnj7U0yJoR7dk0g2GpIbTTOQfGOhcw>
+X-ME-Received: <xmr:tlBBaij71e4MX7cKEAt2GabyEmASvWUSmwm3EOgInfdx_wzlf3nL2bJ5d2rC5gy6jAqGABTSP1tGvE89Gfc>
+X-ME-Proxy-Cause: dmFkZTFp9IbH9HW8AM1WkjtDh10e0B9qAsYtq8Fa5LLnzibcJRuNnSNfvU/9juu0zMrz7A
+    EpTAA4Dz3EOdt4AcVxP9MX+os7lOdQ/rPqezIH42Mr6r5BybTap6TUPZ6pSgDuNvTZS0x8
+    xrpluk3gnwLPMKcHedfHX23k0nGVD5mUPZi9tOgI9IlWqhUIMbFvs9jHd2xr3YkufQOo7c
+    Ez/MBS/iqlYN9RigZ0L8N/x0omSVSp1HlFJS2qsdFYcJFTZkHyfbyCTNPOcsoPTb1DzxEZ
+    iGYbt4acO/BWW4RkMZuVtuc0Qd5E2i5LeUtg9wVYqfen5wyl6WH341NgISRh/8kbqYFMdD
+    yi1EeFZDIMW2ci6gkpD5TSta5Fx4qPFBQHNDlk05cKtm7AvZph7xUMLrY8z2QgfIwEs9Oa
+    rE+WyL0LG4v4Ewin0loP0GdJThiMa6OSnoQkPRx21aA1u1YP/36HQFWYUsoJmEYDb1onr3
+    wN4qgf4Zs/XYCBlFnymGn8+LFoXQj5ZUWm5PjblT1yh3vluOdlSDa2IMx+QDUdkh7cPs3L
+    U7UyYYqacYK+dNWqgAQD+CWKX1dutDOwt2GpO2NCfDDs7QhJ0pSh8QxFCmmtmET3gjMctF
+    GxLRV34LPh0W8IMDV+z+qbskVPSW6j9+1rkzFJ1wG5wjpjIMxM/ry+61hXZQ
+X-ME-Proxy: <xmx:tlBBarPwE-x2ZlMJSJCjZexv68kWzwiVFNIEUJwPim8J_Mh5gqGLKg>
+    <xmx:tlBBaloQPRe7K5ln_sD77v08LU-tHNExL82E2sJadNxpanhP1y4foQ>
+    <xmx:tlBBal5YIUNsPt_h5Jc2Dmjo3mPpopEIo-_blq6FqmAHX0GqaJUcew>
+    <xmx:tlBBarhXjXwKsfYu_bl4D-k4cRT80deXcJP0lvPMg9JqGjzUqVJLnA>
+    <xmx:t1BBar5TcN1gZYdXvx805me_cNTLMy1vAZkJw4PtQEBag92m5572aLZw>
+Feedback-ID: ib8c04050:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 28 Jun 2026 12:49:57 -0400 (EDT)
+From: Hugo Osvaldo Barrera <hugo@whynothugo.nl>
+To: hugo@whynothugo.nl
+Cc: conor+dt@kernel.org,
 	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	gregkh@linuxfoundation.org,
-	javierm@redhat.com,
 	krzk+dt@kernel.org,
-	linux-fbdev@vger.kernel.org,
+	linusw@kernel.org,
+	linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	robh@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de
-Subject: Re: [PATCH v2 2/4] drm/ssd130x: Add RGB565 support to SSD133X family
-Date: Sun, 28 Jun 2026 19:30:02 +0300
-Message-ID: <20260628163002.56829-1-amit.barzilai22@gmail.com>
+	luiz.dentz@gmail.com,
+	marcel@holtmann.org,
+	robh@kernel.org
+Subject: Re: [PATCH 2/2] dt-bindings: bluetooth: broadcom: add BCM43752
+Date: Sun, 28 Jun 2026 18:49:13 +0200
+Message-ID: <20260628164915.19580-2-hugo@whynothugo.nl>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <ajpLyronl7a-yxh-@ashevche-desk.local>
-References: <ajpLyronl7a-yxh-@ashevche-desk.local>
+In-Reply-To: <20260628095500.29810-2-hugo@whynothugo.nl>
+References: <20260628095500.29810-2-hugo@whynothugo.nl>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Thanks for the review.
+On Sun, 28 Jun 2026, at 13:57, bluez.test.bot@gmail.com wrote:
+> […]
+> ##############################
+> Test: SubjectPrefix - FAIL
+> Desc: Check subject contains "Bluetooth" prefix
+> Output:
+> "Bluetooth: " prefix is not specified in the subject
 
-On Tue, 23 Jun 2026 12:03:06 +0300, Andy Shevchenko wrote:
->> + * Each Segment holds one pixel and each Common output has a row
->> + * of pixels. A pixel is 8 bits (one byte) in the 256 color
->> + * (RGB332) format or 16 bits (two bytes) in the 65k color
->> + * (RGB565) format. When using the (default) horizontal address
->> + * increment mode, the pixel data is sent Segment by Segment
->> + * (e.g: SEG0 first).
->>   *
->>   * When using the 256 color depth format, each pixel contains 3
->>   * sub-pixels for color A, B and C. These have 3 bit, 3 bit and
->>   * 2 bits respectively.
+I followed the style of previous patches introducing
+similar changes to this same file. Should I include
+this prefix for this patch too?
+
+> ##############################
+> Test: TestRunner_mgmt-tester - FAIL
+> Desc: Run mgmt-tester with test-runner
+> Output:
+> Total: 494, Passed: 489 (99.0%), Failed: 1, Not Run: 4
 >
-> Something wrong with the plural. There is a difference between "3-bit" and
-> "3 bits", but "3 bit" is odd.
+> Failed Test Cases
+> Read Exp Feature - Success                           Failed       0.257 seconds
 
-You're right. This is pre-existing context, but since I'm reworking the block
-I'll fix it. In v3 it will read:
+I can't find any reference of "mgmt-tester" anywhere
+in the repo. Is this failure unrelated to my changes?
 
-	 * These have 3, 3 and 2 bits respectively.
+-- 
+Hugo
 
->> + *
->> + * When using the 65k color depth format, each pixel contains 3
->> + * sub-pixels for color A, B and C. These have 5 bit, 6 bit and
->> + * 5 bits respectively.
->
-> Same mistake is repeated here.
-
-Fixing it the same way in v3:
-
-	 * These have 5, 6 and 5 bits respectively.
-
->> +/*
->> + * Per-variant output format selector for the SSD133X data path. The
->> + * hardware can drive the panel in RGB332 (1 byte/pixel) or RGB565
->> + * (2 bytes/pixel); this is a policy choice per variant, not a
->
-> In other comments it was spelled fully, be consistent "1 byte per pixel",
-> "2 bytes per pixel".
-
-Good catch. Rather than spell it out, I'll switch to "bpp" (bits per pixel),
-which is more concise and matches the wording already used in the commit
-message. For consistency I'll update both this comment and the
-ssd133x_format_info() one in ssd130x.c. In v3:
-
-	 * hardware can drive the panel in RGB332 (8bpp) or RGB565 (16bpp);
-	 * this is a policy choice per variant, not a
-
-
-
---
-Thanks,
-Amit
