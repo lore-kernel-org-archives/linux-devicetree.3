@@ -1,60 +1,62 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A62833343B
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 21:02:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB8D9378825
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 21:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782680575; cv=none; b=n1OSEN4sRTIA4769N3q+VrudUQzVhRK/cXXhRgNRi9Pmj3/4Ae+pmcQpiCZQMOrJN6heCvmmLD5TrwzW7cp5mCYN5P/LIewAfFto8ymMNPKfk+pLmaDnD7gVleQ9TQax8Qbwivk8YDzf9JDVAvFHNDhIGarYAnJPlYBRtya2bgk=
+	t=1782680577; cv=none; b=awXhVNwfzX7ALU4T6Iw4hD0ykkvt4VUOl7Em35Sx1Po9B29e3O+uZ1mcInq+hL2Y1VQiaQGtCGzSdHAjprx/uY+iwSoYFY1zcs5QwEvFKINVBInY3y3WUmw1RmJ9UJdpH9ItwfVrlNrCDmvi4fSNIgvzOzw06JZz3pZETpNrI8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782680575; c=relaxed/simple;
-	bh=ZDPsWmwXD2dOb/MsrbNbzt8kYng76STy90w28jpNGkU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MGEOfQsRluJJMTdJfmjW3igvfTRdlgvvJPffHnSafX5OG0+Fyja6to6RoVC/cmQBjecyRQ/mGH0zBmOKyrKCqW3x98jTt+oEW9jZDRmqxPHvgb694I04wzIcXKX3IC94uwMbYqNxi4nAEjbnqZ2WDBhdPL3Bs3AmWs4TthcW9tA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RSqlt9P9; arc=none smtp.client-ip=209.85.208.43
+	s=arc-20240116; t=1782680577; c=relaxed/simple;
+	bh=EoXg8YRSGFrNb62Ri3nWJRasxX45nsi+d1TAdqBr9is=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rfrpvF35hpvaNgXD0dLEl6VcnHYV+uwxbv5zNhSgeWRIfp2t5UOjqT49FlgDRnIZ/5fdma64Xl78JhV/JKYmSvx0WfRP8aFbvo7ya3OZPvePiif6SJPTVxafysOpfDJDzQaCJDJHg2Uqqgegect40GaNXcEz+gospNlw30ay3w8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DaYSadsg; arc=none smtp.client-ip=209.85.208.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RSqlt9P9"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-691c5776f95so4594270a12.3
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 14:02:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DaYSadsg"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6983f5c1c52so2367441a12.1
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 14:02:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782680572; x=1783285372; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=geX/7Dwx4QSAMTBDt1s9/g30v9NQSBsduKeMF7ycvVs=;
-        b=RSqlt9P9LvU8IMJ22cd4dxwHHDTW1/4K9d9Lk2FoaISjgRjtfmFUmN0KzpcBFH5oN1
-         8j5ew9IHZbtT8a7Ar2SDLOA7xZ6o9w84ahst1C/fE8Xb3DQRv3m0hl8sUcqjt1qOEjgt
-         KWoUNP11jVYDWJeU4g1dqcNptvS12WAEOSDTreWnymAQHDJ5QcFT68J2Vws1DIgppcxE
-         x97QNbic/D1dF9SbDogm2VULJ6boeu3eUzCiCNs775WxrAbglhXElAo6rTO6fsmnxP5M
-         bTFUqMZE4x+ZF5cejtzR00WwTW8uDoKt8Q5HrJq3iAHVrQghdceXsc6rurg1tMe/AhmS
-         0aGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782680572; x=1783285372;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1782680574; x=1783285374; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=geX/7Dwx4QSAMTBDt1s9/g30v9NQSBsduKeMF7ycvVs=;
-        b=UWNuXplMi5jKFo1DXGWT9kNoLsdYW1RZ59ykdxFToeO/wD41pVIKgReN3JuojKsHF2
-         AmHwoydV5+8LRJGbadQir4AM5w37rLnw1l9o5zxui6Ejw97gwhzINRwr4iGi+CZk0CcZ
-         W0hvKerBqpSBCPERizJEslZpLOgBCXCFnC06tBHSDbc9EguZKVkkJBU5lad7DY2lVntB
-         DewMTxGWMP4YODeGhq4hijDBr8nXGMem65mD5OEGTiNjb4nlRzVj6FygyslPr8UiUScK
-         d+y7NHFRBL0s+LC9MR25+F1eL8nYfzHfwzQi75QotPIfqskjp+HzLqXO7BnnspNi7+0J
-         wamQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrvZQmuktjV3KnerNFxewxk24kKDnaYikQr8MWsRzBAE1JdiAIFhC6y5LGVmRUFDSjVRxcirBCHEbOW@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZoAI06wjQJqAxOj1BqSeX7F8r92u0nLuS0wAhfrt+51Ueuq3R
-	fYSRFaMFCMT9c7oksSZwE5ysfDe3/i8vehKNkS7Gto+FoH8H/1WJV9+8Qdpk0NU0
-X-Gm-Gg: AfdE7cndVaKNHsBEa++JS9JMil2NnKhIvsz0Xmv/WLeJi5IPOQHFHoAjsjCT0H6HvEk
-	SZbiAVAvTSwKxZbeiQ8RLXPRE1MBGQS1cd6CWnOjoqQIWFIKj2nWtFnFcGBpleDl9f8JD+zOe/u
-	6Ml2AmQRuLrIUddnR5VjsNPfY3tFA8PltyGJWNOVxmedAcxGlwy0GHvkoPNJDCvhgTP5cFzMD6P
-	PlwwtwJw7MS2mmxVadq7ub1CcaoN9PKwiCGHWJsY/zkguJPEMH2qKZ4qc9wCmQV05YT6YQvWGKr
-	N7i/qQjHjlkaCzqpFUV3EQzCVjkJAGmREYsGL9fIeuL5bGUKsaJ9B/MMgxhEdUCZsCQJCZQHa76
-	zSLFazWrPT2EoZx/Qj2HOrO91c/tlW9/b4yEuniteGA/ttAsKQNwT4rVnGL3RcwQCBPGi4Q==
-X-Received: by 2002:a05:6402:540a:b0:697:bd1d:116d with SMTP id 4fb4d7f45d1cf-69810af0831mr4974930a12.27.1782680572387;
-        Sun, 28 Jun 2026 14:02:52 -0700 (PDT)
+        bh=7vh2WKONUS0wyNpH+ymwwTp/zqPOZYSgw0F9CWH+S7A=;
+        b=DaYSadsgOamxCWXic2oOBm66cnTzPE++vD7w6j/Du2Gzm6uIWcxZf+6HQ7z7Vo1TRP
+         YO1N9lVRHWOHp0iyzE8UFhD9C7zDUSecv2a6qOkT10hlt5vuj28HgjqpRWlNGP0RfCqT
+         QrPfaVrGrNxUOVe4n8hVcYwVyFumqpmHhH5s+X5dq9v4h6/cXsdvxxwcyGKvZLiRKHlC
+         xX5QxIcrmANGWFKLR/ArWXoBr5Dar5AyuqSyzgWOPfMwAyo6sCssQh8hi8VRVYsAgVpk
+         iZd2pfeurDZJXgZLgtVJw+QtcC9jpcY87f60U7IcCWrwPAjbfXMREEiPtVa3kEcUdKqB
+         LuqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782680574; x=1783285374;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=7vh2WKONUS0wyNpH+ymwwTp/zqPOZYSgw0F9CWH+S7A=;
+        b=AuFoLEDPHA3l4w93gEl1ljvwwOAzuBmiKUJEslXmurc+nGgkE5PAZqe+jXBZaSPF5b
+         AKqsEQTrAKDimn4u3RVf96BxP0D2d1swN4Vpf81rYpnKOQNd24HVCMxz2UUQzX7TbWkK
+         gHjLNvmFCN0Cp1/MdlyftqmTbqNh9NHFDQeO/hT3+VUiAYbiZY7VncNc/DuBlVPFhm/M
+         Cv+mCs3WEdjTk4MtkJsbH+xxsw20tlEWdohkvHqob27/Ss2z2dFDypOc2AcHd1Mv9VbU
+         XE4su1qr7tXNNpEvKkaH3WbZzsTzj1gVOV5aqJS6lWYsvHomonkKIFfUx/ttZJ+U+evi
+         yd+g==
+X-Forwarded-Encrypted: i=1; AHgh+Rq4by6GS7CjpI35cP//GVm7s/F8M7FFhpgiI8PdWCIXYXuiOAkd3q4+p8OJscULQ99HJ8Q6ZILCEG97@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1ZKO51LtnaEsKyZ/Def1AFSF1wYb+bEcSnpCGP/v9YjOpCONP
+	JTg30LRJzmYG8Z8z7HmgH8wYS6lqbPKXP0YkDbC+jeb24aSqt1bLh+Wi
+X-Gm-Gg: AfdE7cl/e7ZobJ7/eN+AcfUriJAr2LhzBW+0os3JykRrAcUOhA3K0QbE2QMABVpQyv0
+	Wnhe/2O8myIyXrnRYXucTXRdcNiLNmYZj6tqDhcGxoAwRw7amgfWCy4IDcMxM9A9UPnVhcbIC12
+	De/NjXkpotGqIByEUaGKlqzwr8cco+yBHdPpTSLyKW9HUBiy8V5f9mU/BZXeMaPDgwgoRKsx0IQ
+	u8k06rBmu67KbNP41M8gpQ3P1i4Eu1a/ki1BJPIRVjqfAUizE2+wj/Chus1jjn0KXKxNWIlcv6Q
+	g4/6jUaWGEAsemIs1pFRz4X5RtsjuNoFuA1UpiFl6jGj8Pz89nbxO/SDSkP9EzJLhUePA8eYCtO
+	7FwjBI7nmg3CBaJjMZmDiByX0TVWEW3mffxC978rEK+WzIF9Se538bv0uHrqaoMW5o03OnA==
+X-Received: by 2002:a05:6402:254e:b0:698:6f16:2290 with SMTP id 4fb4d7f45d1cf-6986f162860mr84807a12.23.1782680574152;
+        Sun, 28 Jun 2026 14:02:54 -0700 (PDT)
 Received: from sefo-laptop ([2a02:8071:50c5:5c0::361b])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69848e5ebc0sm2205656a12.3.2026.06.28.14.02.50
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69848e5ebc0sm2205656a12.3.2026.06.28.14.02.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 14:02:51 -0700 (PDT)
+        Sun, 28 Jun 2026 14:02:53 -0700 (PDT)
 From: Wadim Mueller <wafgo01@gmail.com>
 To: wbg@kernel.org
 Cc: krzk+dt@kernel.org,
@@ -66,10 +68,12 @@ Cc: krzk+dt@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wadim Mueller <wafgo01@gmail.com>,
 	kernel@pengutronix.de
-Subject: [PATCH v6 0/3] counter: add GPIO-based counter driver
-Date: Sun, 28 Jun 2026 23:02:38 +0200
-Message-ID: <20260628210241.119825-1-wafgo01@gmail.com>
+Subject: [PATCH v6 1/3] dt-bindings: counter: add gpio-counter binding
+Date: Sun, 28 Jun 2026 23:02:39 +0200
+Message-ID: <20260628210241.119825-2-wafgo01@gmail.com>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260628210241.119825-1-wafgo01@gmail.com>
+References: <20260628210241.119825-1-wafgo01@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,76 +82,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds a counter subsystem driver that does quadrature
-encoder position tracking with plain GPIO pins and edge interrupts.
-Compared to interrupt-cnt.c (pulse-only) it provides full A/B/Index
-decoding and exposes the counter sysfs ABI.  Target hardware is
-low- to medium-speed rotary encoders on SoCs without a free eQEP /
-FTM / etc.  Benchmark rig: github.com/wafgo/qenc-bench.
+Add a binding for a generic GPIO-based counter. Two GPIOs (signal-a,
+signal-b) drive two Counts; optional index GPIOs load a preset. The
+counter function (quadrature, pulse-direction, increase/decrease) is
+selected at runtime via the counter sysfs interface.
 
-Following William's v5 review [1][2] the driver now exposes two
-Counts on the same wires:
-
-  Count 1: Synapses on A and B (+ optional Index 1). Supports
-           QUADRATURE_X1_{A,B} / X2_{A,B} / X4, PULSE_DIRECTION,
-           INCREASE and DECREASE.
-  Count 2: Synapse on B (+ optional Index 2). INCREASE / DECREASE.
-
-== Changes in v6 ==
-
-Driver:
-  - Two-Count layout with per-Count state struct
-    (gpio_counter_count_priv) so future per-Count features can
-    be added without parallel arrays.
-  - ISR rewrite: STATE_CHANGED check used in all quadrature modes
-    (not only X4); the *_delta helpers are gone.
-  - INCREASE / DECREASE now count on both edges of their input
-    (A for Count 1, B for Count 2).
-  - PULSE_DIRECTION: direction is sampled in the B-ISR, the A-ISR
-    only steps the value.
-  - direction is initialised in function_write so the first read
-    after a mode switch returns a defined value.
-  - enable_write: added enable_lock mutex and reordered the
-    enable/disable sequence so the spinlock is dropped before
-    disable_irq() (which can sleep). irq_b is shared by Count 1
-    and Count 2, so it is refcounted; the per-Count irqs (A,
-    Index 1, Index 2) are toggled directly.
-
-Binding:
-  - index-gpios takes 1..2 entries: Index for Count 1, optional
-    Index for Count 2.
-  - Description and Counts wording updated for the two-Count
-    layout.
-  - signal-b stays required.  The single-line case is already
-    covered by interrupt-cnt.  Oleksij suggested [3] extending
-    interrupt-cnt with a multi-line variant; I kept this as its
-    own driver because the Generic Counter ABI (Counts /
-    Synapses / Signals, ceiling, preset, action) does not fit
-    interrupt-cnt's pulse hot path well.
-  - Conor's v5 Acked-by [4] is dropped because of the binding
-    changes -- a fresh Ack would be appreciated.
-
-[1] https://lore.kernel.org/all/20260617074929.333876-1-wbg@kernel.org/
-[2] https://lore.kernel.org/all/20260623053800.120909-1-wbg@kernel.org/
-[3] https://lore.kernel.org/all/ajoXoYc1CYKZyQ5l@pengutronix.de/
-[4] https://lore.kernel.org/all/20260525-register-bogus-b198545b69a8@spud/
-
-Wadim Mueller (3):
-  dt-bindings: counter: add gpio-counter binding
-  counter: add GPIO-based counter driver
-  MAINTAINERS: add entry for GPIO counter driver
-
- .../bindings/counter/gpio-counter.yaml        |  59 ++
- MAINTAINERS                                   |   7 +
- drivers/counter/Kconfig                       |  17 +
- drivers/counter/Makefile                      |   1 +
- drivers/counter/gpio-counter.c                | 983 ++++++++++++++++++
- 5 files changed, 1067 insertions(+)
+Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
+---
+ .../bindings/counter/gpio-counter.yaml        | 59 +++++++++++++++++++
+ 1 file changed, 59 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/counter/gpio-counter.yaml
- create mode 100644 drivers/counter/gpio-counter.c
 
-
-base-commit: 3cd8b194bf3428dfa53120fee47e827a7c495815
+diff --git a/Documentation/devicetree/bindings/counter/gpio-counter.yaml b/Documentation/devicetree/bindings/counter/gpio-counter.yaml
+new file mode 100644
+index 000000000..79b7afd7d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/counter/gpio-counter.yaml
+@@ -0,0 +1,59 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/counter/gpio-counter.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: GPIO-based Counter
++
++maintainers:
++  - Wadim Mueller <wafgo01@gmail.com>
++
++description: |
++  GPIO-based software counter with two Counts:
++    * Count 1: A + B. Quadrature X1/X2/X4, pulse-direction, inc/dec.
++    * Count 2: B. Inc / dec.
++  The function is selected at runtime via the counter sysfs ABI. Each
++  Count has an optional Index (Z) that loads its preset on rising edge.
++
++properties:
++  compatible:
++    const: gpio-counter
++
++  signal-a-gpios:
++    maxItems: 1
++    description: Signal A (phase A; pulse input in pulse-direction/inc/dec).
++
++  signal-b-gpios:
++    maxItems: 1
++    description:
++      Signal B (phase B; direction in pulse-direction; pulse input for
++      Count 2).
++
++  index-gpios:
++    minItems: 1
++    maxItems: 2
++    description:
++      Optional Index (Z) inputs. First entry indexes Count 1, second
++      (optional) indexes Count 2.
++
++required:
++  - compatible
++  - signal-a-gpios
++  - signal-b-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    counter {
++        compatible = "gpio-counter";
++        signal-a-gpios = <&gpio0 10 GPIO_ACTIVE_LOW>;
++        signal-b-gpios = <&gpio0 11 GPIO_ACTIVE_LOW>;
++        index-gpios = <&gpio0 12 GPIO_ACTIVE_LOW>,
++                      <&gpio0 13 GPIO_ACTIVE_LOW>;
++    };
++
++...
 -- 
 2.52.0
 
