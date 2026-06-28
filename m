@@ -1,107 +1,160 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.qs.icloud.com (qs-2003k-snip4-11.eps.apple.com [57.103.86.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB8C40D599
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 17:34:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3BC2D73B9
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 17:36:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.86.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782668065; cv=none; b=bKt3qbGicE/GvVyP9MSW3U/7f0vir1qdr6SvQdNh9xOGW7WL0EAA740HLQF8tXTk6IVam5V/6jTN6NQTu1HT8o3MOovPkA8clwaisj80neYTaZedtUdc2sJDaX2SMCOO6TSgaLa7/UezEyz+2KyzBGvMX/dyoVrr7ers9dMDn4E=
+	t=1782668194; cv=none; b=ryH94UFBRPPi3sSjNPlnWu5vbUYqrIFBZoZ6EBHqK8dSu69V/m0Au8QBJ7TEH0Cjq0Qi6imwutdfNZrtaCjPQhbEXrth6tofBO4ues6bdkIufOT3yb3oe/lAlxLjohlvrchvk+Ay8GtDTihKAEJp/z/2KT1BK/vhuwj8iEfX5R8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782668065; c=relaxed/simple;
-	bh=09qQqVCweaC9dVWudIvU863DvaxZKCbR+wzGTDCknJA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=V0aONIO2NHtuOBDE3fftknvlbxGD76QnlSLZfAdapInsG0PJn6ZSZWrVpAinVOuYz7jnRAD3zt4qnh2FHN8B3dz02jp+bxbz0pu3wRI2v5LYDtpMmmWtoEJ8yfp9WlSAKGrhAx56Lc9W6Y5sPaUmKeWMVQneN0vMc2gDmdSB+fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=aEiq2nHt; arc=none smtp.client-ip=209.85.210.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1782668194; c=relaxed/simple;
+	bh=PaEV54u0UzWf/ynqUPT5fv2DRmlgWpcqPkgfIe9cPnY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p8sKFQ0MWsuFyLieYZhuMyzlwat+mkg1Alc8OOyKx8OaXbAD/DbTDiU9W9VJWOm0VVif7hrheAl3C2U0cF7TXqKckcorerMtldmyxLSedx29NILPDMuI7g97oziV95MLgkYE5aHIneoYAe5ZOY5TrlRR5esKUt1P0l51KIVK0Ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etehtsea.me; spf=pass smtp.mailfrom=etehtsea.me; dkim=pass (2048-bit key) header.d=etehtsea.me header.i=@etehtsea.me header.b=cj5wzwPu; arc=none smtp.client-ip=57.103.86.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etehtsea.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etehtsea.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="aEiq2nHt"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7e9cb0e594bso269554a34.3
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 10:34:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782668061; x=1783272861; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=IvP5EC4HPkXdnPkEEbC3Vgbr3RX7xQ2s7hFuOh57p+w=;
-        b=aEiq2nHtruIAs36argjAXLAQ2Zs2qpELM5zcGghUisCzW08kPoZjn/XnuiIj3La+el
-         5VOPwpwsYPxuHJwGlIWOWLpiqydLIAPNF32PQEUNaTzhuq5IVyYyDzzPPA/Cxs/POpyY
-         WJamjqYaNNZtfdNvhEk64f3r20SjFiTBaEQiprFqhfUvamFCEzAl3HFKuC/AFB6E8T6b
-         B7Cf2Lra+boplDe7+7rY0lVr03BvIF86FIErAvPjKERC08JRKNqu1TrMGnNLYrTYJnQY
-         lzbVI5cnnBVIsHTfAsStaPoMOpAB6ICFiivYAsyJomBVVVwV/9+GkfLgTyxfOacHbJTc
-         NJRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782668061; x=1783272861;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=IvP5EC4HPkXdnPkEEbC3Vgbr3RX7xQ2s7hFuOh57p+w=;
-        b=jMQJj4rxRKZ+xwx8LQdAy38MfMdxKIJUOX0uX1cuQdthDLlZkuKu4IU9l83lyvOtT9
-         /aMFSKBuRO9Uch3GqcsxRUobB2V1wye5skl3xZCpjWKmkJmHpcc2NHm0PqXiMRfpNvvF
-         Q5fc+Gs+684ZX8V4wPgGGkED0y+Y2NysZGNBE/OprOYHs8wiwG3z9VLlq7YWhZTI4+9s
-         oOQUFRPbiO1pD9BtsJQVjqVO0DIX4zyxFP2EH+cP6VlPuJj8vJLG4Bpx2x2osqkUfn83
-         l7ogacChJRs5q1iHoZ/ulydtrUDe2MOdtYtv698NpHwVL7wSnOAfTJNjiD4lBZ1bFx5z
-         OpZQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8iE7rdH9jj8mNk+/XHrzslobIOiFZlPB64QCJbgykW53yUkLtYUpvMAwwM8ETmXPFJ23LdsKkNXbb1@vger.kernel.org
-X-Gm-Message-State: AOJu0YxzC1ndeetYTl1ywbohaQg+ph1illEwusQsAhE29g50S7sty2NX
-	p1CAEC0vksFpLtsE/qvDnaaxQK4NOO4lpYEBHm5lg6WS+WB+ol9vriVXFcBA7Sm6y+I=
-X-Gm-Gg: AfdE7cltLlkoAK7gMFkkzzqvBegw/9csJmdw/eBh16XIju35X54khh5PajTaJpfSUU6
-	ek8IVVu8eDRJ9Q7e/JVYCXfPOtyxaHen0NX6FGlsNopOfnbLJATKdfyVrjGwtgxNhVNcGH1r6/Z
-	/b2eoFwosyLcRGZ255Cx3O7gVVqe5KVB98s1We/1aRKn/myMCVWG1wil8Spi5nD4WuaS9K8WXc6
-	i/gUtLN7joHeBvA2XuVhZm5kFr5Jvv1HXCC4Kd8sw1v235JTSQLlgpHZ+2paBTTwBNE7FAY+ASx
-	k24YlmFteITOxd4PSgaumvzYkXsh6XTRw/l2M/xc/VSZer0iD4S4mqfTn/6TkgDXmtEDBlbwZBH
-	g2tIwIZpt5+45rbMTGSabWBri+PfhviGDSj79brV5wRfDGaPvvAoe/Q+AlWr4+A3e0Yxl/zbTcu
-	VUb9nsrbX8ikV6nkHPYFoWnjwJklX4ODsvDe9P+YYeuMOCTz3iWombJUXzL4YLjfI=
-X-Received: by 2002:a05:6830:4998:b0:7e6:f083:130e with SMTP id 46e09a7af769-7e99bfef82bmr13002333a34.4.1782668061288;
-        Sun, 28 Jun 2026 10:34:21 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:f242:ecd6:f61e:d764? ([2600:8803:e7e4:500:f242:ecd6:f61e:d764])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9aa7eb558sm6725566a34.24.2026.06.28.10.34.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 28 Jun 2026 10:34:20 -0700 (PDT)
-Message-ID: <3f914030-44e8-4f63-ae72-7fde7d843325@baylibre.com>
-Date: Sun, 28 Jun 2026 12:34:20 -0500
+	dkim=pass (2048-bit key) header.d=etehtsea.me header.i=@etehtsea.me header.b="cj5wzwPu"
+Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-2d-60-percent-1 (Postfix) with ESMTPS id 150EE1800F83;
+	Sun, 28 Jun 2026 17:36:27 +0000 (UTC)
+X-ICL-RepId: 019f0f4d-d914-7901-a730-5b052ff0d8a0
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQtJBEMGXAVeDU8dXA9fEhVdRV4MXgdyFU0dWxlEDlNeVB0TC1NWVwRcEEceUgocHVxYQQ4KWgJQUR1fAgoERwRbF0YDU0VDAxcRUAFYHlZeWhdeTUcfQE1iSQFaGVscQBdKbk1TDw8VTR1bGUQOU15UHRMAXg8PTAtIAVsHXQBICE8BWwNbHEIKSQVaGlofHVgRXy1SH1cYTQtWDBkGV04ZDEodUlZRBUoMXABoD10dWBFd
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etehtsea.me; s=sig1; t=1782668191; x=1785260191; bh=e1rpYzzmHerF+0vitXqtGeA4NeV4/a9bvahmDR6kY7M=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=cj5wzwPuXhzkkxraFmg013wG9s3NwQ+0d62GuCDRxgn5AyVxKkGhS/4OkiglsEkOlUxId5gRBIUj4sVZ6h0pW+BWTUKuTbhPgekw3PmtqWqiRhmOEXE/Yhkqj/A+KDaTV8Ey8shMhMgp98eiKoO3hlQapOFZqVTOaXztyTXneT2InulHRYYmosGx5hIhaOMihj84oPbEKfoNpbFUtM34fiCUEr1H6ymwVMc8zOlmUx5H44dvwfpFU2DFtmDk6ItFz1HTFy01Fpk58uMM2lZM4cgSEWkPSoXZJFqHRszAvt/CS6UF0eoFbr7SHLyitRoxHiQ4w+XH1YfwE7oW5LOlKQ==
+mail-alias-created-date: 1634905887181
+Received: from localhost (unknown [17.57.155.37])
+	by p00-icloudmta-asmtp-us-east-2d-60-percent-1 (Postfix) with ESMTPSA id 61BC6180016A;
+	Sun, 28 Jun 2026 17:36:26 +0000 (UTC)
+From: Konstantin Shabanov <mail@etehtsea.me>
+To: andersson@kernel.org,
+	konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	valentin.manea@mrs.ro,
+	Konstantin Shabanov <mail@etehtsea.me>
+Subject: [PATCH v5 0/4] Introduce HONOR MagicBook Art 14 Snapdragon device tree
+Date: Mon, 29 Jun 2026 00:26:36 +0700
+Message-ID: <20260628172640.23167-1-mail@etehtsea.me>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/4] AUXADC driver for the MediaTek mt6323 PMIC
-To: rva333@protonmail.com, Jonathan Cameron <jic23@kernel.org>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Lee Jones <lee@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, Ben Grisdale <bengris32@protonmail.ch>,
- Conor Dooley <conor.dooley@microchip.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>
-References: <20260623-mt6323-adc-v4-0-299680ad3194@protonmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260623-mt6323-adc-v4-0-299680ad3194@protonmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: XOddrQ2xrhJS-unZnGe4krZp_6Fts2-e
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI4MDE1NyBTYWx0ZWRfXw1RUHV0fK3NC
+ gBebpK3X3CZ0QBKxPbrqP1XYbivVFY+RACUOvIT0xlulf7y3rs90Rc9aALBp5vQ4WdQfBygBUAk
+ ngfUz6h3YPFC2ZTUqxx8uvYIQ/Tb2DHFWNRTGEcMOUytv8j+6Nu2xzRgIng3krjwRNeOZ+7cm/Q
+ akxlEZ0qT6tuemmdsle2V27UTS+vkqAMoZk0NIQ+ahnZa1bOW/sDM6WoF1U7rC0msVCJWMD0xiE
+ nCVgNqe58Sz1hga3APwSAoAIsCWCfZ29X9334xXEcsIZGA7pjjc8IzysO9C1NuVj01hRoZvobD9
+ ZdsMzyzV2MXf3pHpgbF
+X-Proofpoint-GUID: XOddrQ2xrhJS-unZnGe4krZp_6Fts2-e
 
-On 6/23/26 3:16 AM, Roman Vivchar via B4 Relay wrote:
-> This series adds support for the 15-bit AUXADC hardware block found on
-> the MediaTek mt6323 PMIC.
-> 
-> The previous version of the series for all AUXADC, EFUSE and thermal
-> drivers was split after Krzysztof's comment [1].
-> 
-> Tested on the MediaTek mt6572 and mt8163 SoCs (Ben), both paired with a
-> mt6323.
-> 
-> [1]: https://lore.kernel.org/linux-mediatek/20260504-mt6323-v1-0-799b58b355ff@protonmail.com/T/#med30fad67a090be35f549231336b2dec295233f6
-> 
-> Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> ---
-Reviewed-by: David Lechner <dlechner@baylibre.com>
+Introduce support for the HONOR MagicBook Art 14 Snapdragon laptop.
+This version is based on the initial work by Kirill A. Korinsky [1]
+and Valentin Manea [2].
 
+I'm using it with two external displays connected to the HDMI port and
+DP<->USB-C (over external hub) as a daily driver.
+
+eDP support is disabled and hopefully will be addressed in
+the follow-up [1]. I can confirm that the RFC patch by the link fixes
+output corruption (thanks Valentin!). Though, I have a suspicion that
+the issue can be resolved w/o introducing the panel driver as the very
+same panel seems to work out of the box in x86 version of
+the laptop [7].
+
+Another caveat is USB-C orientation as I could boot from an external SSD
+only with specific cable orientation. I've tried the patch [8] but got
+some instabilities (last checked before v4 submission) , so put it
+out of scope for the initial submission.
+
+Supported:
+
+- Sound (with alsa-ucm-conf config [5])
+  - Speakers
+  - Headphone jack
+- Bluetooth
+- Battery
+- HDMI
+- DP over USB-C
+- Touchpad
+- Keyboard (with backlight)
+- Touchscreen
+- WiFi
+- USB-C ports
+- USB-A port
+- UFS
+- H/W accel
+
+Untested:
+
+- Camera
+- Fingerprint reader
+- Sleep/Suspend
+
+Disabled:
+
+- eDP
+
+ACPI dumps are available in aarch64-laptops repo [3].
+HWids in dtbloader repo [4].
+
+[1]: https://lore.kernel.org/all/871px910m1.wl-kirill@korins.ky/
+[2]: https://github.com/vamanea/linux-magicbook/blob/qcom-x1e-7.0/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts
+[3]: https://github.com/aarch64-laptops/build/tree/master/misc/honor-magicbook-art-14/acpi
+[4]: https://github.com/TravMurav/dtbloader/blob/main/src/devices/honor_magicbook_art_14.c
+[5]: https://github.com/alsa-project/alsa-ucm-conf/pull/755
+[6]: https://lore.kernel.org/linux-arm-msm/2095cb86-6729-41f3-a0f3-b806d6acafd3@mrs.ro/
+[7]: https://linux-hardware.org/?id=eisa:edo-edo4179
+[8]: https://github.com/vamanea/linux-magicbook/commit/b855efb02268677d84dac4b9e27b1c5c9425d81d.patch
+---
+Changes in v5:
+- Added hdmi-bridge definition compatible with simple-bridge
+- Link to v4: https://lore.kernel.org/linux-arm-msm/20260628094031.54452-1-mail@etehtsea.me
+
+Changes in v4:
+- Dropped output-foo properties from TLMM pins
+- Sorted pins by their index
+- Dropped data-lanes from mdss_dpX to use the default (4-lane)
+- Added a space before the opening bracket in the comment
+- Link to v3: https://lore.kernel.org/linux-arm-msm/20260620175210.19563-1-mail@etehtsea.me
+
+Changes in v3:
+- Update sound model to the board's name
+- Dropped unnecessary output-foo properties as they are controlled by the driver
+- Reordered properties alphabetically where needed
+- Updated mdss_dp0_out from 2 to 4 data lanes
+- Dropped extraneous USB related comments
+- Link to v2: https://lore.kernel.org/linux-arm-msm/20260515172926.16597-1-mail@etehtsea.me
+
+Changes in v2:
+- Disabled eDP;
+- Dropped displayport dai links (they weren't tested);
+- Dropped SBU MUXes as they make DP over USB-C unreliable;
+- Link to v1: https://lore.kernel.org/linux-arm-msm/20260501155612.5490-1-mail@etehtsea.me
+---
+Konstantin Shabanov (4):
+  dt-bindings: vendor-prefixes: Add HONOR
+  dt-bindings: arm: qcom: Add HONOR MagicBook Art 14
+  arm64: dts: qcom: Add HONOR MagicBook Art 14 device tree
+  firmware: qcom: scm: Allow QSEECOM on Honor Magicbook Art 14
+
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |    2 +
+ arch/arm64/boot/dts/qcom/Makefile             |    2 +
+ .../qcom/x1e80100-honor-magicbook-art-14.dts  | 1330 +++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              |    1 +
+ 5 files changed, 1336 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts
+
+
+base-commit: 4edcdefd4083ae04b1a5656f4be6cd83ae919ef4
+--
+2.54.0
