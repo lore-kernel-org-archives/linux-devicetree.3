@@ -1,94 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718EE2FFDE3;
-	Sun, 28 Jun 2026 20:51:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1579833343B
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 20:56:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782679891; cv=none; b=LzMNSBD0KgsjMXPVCYJfuexlTGQGlYEB50eVxPUmV9iXSavK2mBserFPGQr5CkKk0eT3Yi+9w6t9KB3uMoxammbX27qU2LfjBawD+2dg67Uhz9SuO4XGs0akWE629amrxmAElGBuj6MWoatwU3wr22Fi6IhdutS+m1+4Y0WH1wA=
+	t=1782680182; cv=none; b=GxLpi7qGxp7NX4c4A2xGXXhCntsK4PzhDVB4RBy/3ZHsO539meSCqPk1NnrmLiX1+iRuUBvEB1+zQQlFw146PoMjVI+mygHYfhGdu6lwrzzSMtajjXK/HDc+WvD4S/OVq6NCCIoSIEne0IG7R9M1iQVypMC2rG0a83r9R2ZPdBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782679891; c=relaxed/simple;
-	bh=/Psvts4bK0De9buR/Tb14Gff3P1NfGViWnpQhQj3bbg=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=tbcR/WgD+sYtJrBXQZmTLuabxesVTMcD8jnY07bnhwX+bIs1DQclbaWLHYFfergdMKbCaEcaT/ZYqkBexa38yeH68FZTdEHXk+fEYXc+8j1lx6y6yamQ+1aR+fUKXkOJquOkgJpNU+FDN1CoZc9ZQVeXNXeALYkKYIDpm4C/G+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H11eCqCw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782680182; c=relaxed/simple;
+	bh=I/uGtthAET1zDD+aWXG33eE0xJwbGBNamNrg8HbvBjQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qJhy5REPUu7rcopHJpKyovOwQSWdsF5+U7vw85LEey8Pqw++wWabwsQKx09NET0f9ZxlqNzEJ+pIP4sOyMCqV5exeNd5wcabQT/3BdGOYNbGkJ1S77r6+2su0B5HuMrZRxfIbTSMX3FMWYV+j7fWylSHrJxRsejY4ggXiuY0z98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IasWJfOu; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H11eCqCw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF13A1F00A3A;
-	Sun, 28 Jun 2026 20:51:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782679890;
-	bh=cV5nLM46V6v/htc0lFctV0QauB6Y72+YuHxfHLCch3w=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=H11eCqCwY1jc/+hlN4DaU9CVWUaM5QBNrKK6D7zyITL8TzgdMVTvM0Ta6kjU13c/Q
-	 KRKDZe7OQZytTmS/I/KD7V+2XB4+E7+PIMzEtHhgQOqwMZ0HMWA60f8gJTHng+35Rh
-	 aX/qNg9SuiN7MYnS+etDBgMXQ2UnxFiPNOQoxb8gd7Wrmxnf9seeiaHRvwCGkMOoiQ
-	 yB0gVqIqI7vKsh8FKItB0VepxKqaM+BzKpWvmyQynuLdef30/6KnQKoT4SnC0eUjtJ
-	 EdDIXkD/lgjHGy6hQ8OBBgsHeLlpzTbZI55P64RAFovUc1OzIKpEi1jkE3kGkQIC36
-	 tEPq2zOItg+BA==
-Date: Sun, 28 Jun 2026 15:51:29 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IasWJfOu"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-4624c1409c9so1373633f8f.3
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 13:56:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782680179; x=1783284979; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uYbNSlbXzmZdo+QTPpl+J2/pMoMtbvzd1t0gafKRqIs=;
+        b=IasWJfOuz9gJ0VmGvvShK2BV/F0ktEcD/Xjc0hA445bE1aNUQyXjd0VY3jr/9MohyS
+         4fWJBuKqjI1l7SwzxSWItdVEs8vTVjuIKl5o0hOGz7BAsEhYDxC8LO+8Il4KXraEuY67
+         vmovhnb2WBS13OS5EsldDS3qTybfdZbhOt67l4UePwUuQYBri5BARJTUe4Q0ABN2HM5s
+         uv/sYaX3lHpZls5osTyxepueecUTu+slYA1GFWFZ/+D4tmln2ds0jvfFSgET9LkpXUcJ
+         mnojSxMZLFtfRYvqGQykdCl8t8zs2rBXTYWhqHdwDT5t/ZJH+zyYa+L1bZPZ2IzYnZb0
+         5U0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782680179; x=1783284979;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=uYbNSlbXzmZdo+QTPpl+J2/pMoMtbvzd1t0gafKRqIs=;
+        b=X58MAExQI24KBokp8ZdDN8MDkKTQAr1ARoX7jHypSjHma7VXaDHfVLB6GIBWlNSw4l
+         DQqt7Kzv2sy+oyc7JqHtREGiYKlguUjV1sdbPX0jgdWSZtLoW9RvmQIsBjo+tSbM1UxL
+         /mzu3NefFOyfbyLlpGMvNYOt6y3bLiY1AdYCO9vpn8G6NX71E7B3QsKaC2oahgf/FEOP
+         kDJOQw9bvyvZ2v6Ma7QtOoO4CK7fqtG7CzKaDhisQwLrhvBsgLQHMjIURdRQ88HqxsgK
+         CT2i0osommI7+d9KEhwsxpUil5OPlocrgsj2UTLJBgNwqJVXSfLzJTszndd2Z7HvTJ2M
+         KhKA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr56zF0qs/XTW4qkw7s5fD0JQv6iLqHXhyf1Z8SNM2/oUI+nQgaXODGabho2IU97dObgddBLedke8/8@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw5JdJssJPPOIeu6qRRf/qY0LHtcg7iRdQTtFsDEI9gOLOr1jUi
+	Z5HF5TG8fpRmgwzw+oUnOPD6WkyvRNJ0z2RrvVD3qz6JPlssP7EdJ1s9
+X-Gm-Gg: AfdE7clReVwTvAThMlVcm2NsEJZv6bQO7lCaIqtPl36IVLFi5WoE1z5bf7NzCi7WviC
+	kWikIVuw9PKkqEAeD07utqkn6V2GwqUryUfFOjpox6ZQaXlnDHMWqFTP/qEmi5blswPVH319W/h
+	nCnNbVNUhH8nMKnAtidR30gC8GTgjJXXNPqXOoxnnS9yjoxgeTNzlMOoynl7jQ9pJ0sSyFg+rRy
+	/FCu0CBxcD4GcpCKs6axHx3RyYRt80E8wokTvEAx6gdvL8lsqCyylFsge2fvRvkn3AKkeOVoM0b
+	k+0qZLbPPyi0zM5IbSvODugBDIfSdPIpSK5oQje/fNhCGXpDdZQNnIKGvCzjCPiQhLbvVltnQ55
+	K986D6IJetoQlHbbtu8q70pMna301kyrpAXKaw3Q0muxj4FIZKvKjzR0A+dJ718EkUDRZW/7vKX
+	lv9bxPNwL+LlPJ7/bTtuRc/XDI9vyuLxauvqBKa7mCyWn478lWx2gn3MZBetnygaFKha1MXBacW
+	yoUeV6ZyekMKToy+dKd1/nKqg==
+X-Received: by 2002:a05:6000:2f83:b0:460:3233:beee with SMTP id ffacd0b85a97d-46fb9453004mr14202865f8f.42.1782680179266;
+        Sun, 28 Jun 2026 13:56:19 -0700 (PDT)
+Received: from Lord-Beerus.station (net-93-144-65-248.cust.dsl.teletu.it. [93.144.65.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46f86c34d76sm19448910f8f.3.2026.06.28.13.56.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 28 Jun 2026 13:56:18 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	matthias.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: [PATCH v2 1/4] arm64: dts: ti: var-som-am62p: fix Ethernet PHY configuration
+Date: Sun, 28 Jun 2026 22:56:05 +0200
+Message-ID: <4d1ba0d1b9bd4957224213cf17dca93392788e03.1782680023.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1782680023.git.stefano.r@variscite.com>
+References: <cover.1782680023.git.stefano.r@variscite.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Matheus Sampaio Queiroga <srherobrine20@gmail.com>, 
- devicetree@vger.kernel.org, Benjamin Larsson <benjamin.larsson@genexis.eu>, 
- Christian Marangi <ansuelsmth@gmail.com>, 
- Conor Dooley <conor+dt@kernel.org>, linux-mediatek@lists.infradead.org, 
- Markus Gothe <markus.gothe@genexis.eu>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Lorenzo Bianconi <lorenzo@kernel.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Linus Walleij <linusw@kernel.org>
-To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-In-Reply-To: <20260628143733.273651-16-mikhail.kshevetskiy@iopsys.eu>
-References: <20260628143733.273651-1-mikhail.kshevetskiy@iopsys.eu>
- <20260628143733.273651-16-mikhail.kshevetskiy@iopsys.eu>
-Message-Id: <178267988796.4168242.2437491560145176405.robh@kernel.org>
-Subject: Re: [PATCH v6 15/17] pinctrl: airoha: add support of en7523 SoC
+Content-Transfer-Encoding: 8bit
 
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-On Sun, 28 Jun 2026 17:37:31 +0300, Mikhail Kshevetskiy wrote:
-> This patch adds support of Airoha en7523 SoC pin controller.
-> Also it adds corresponding device tree binding schema.
-> 
-> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-> ---
->  .../pinctrl/airoha,en7523-pinctrl.yaml        |  375 ++++++
->  drivers/pinctrl/airoha/Kconfig                |    6 +
->  drivers/pinctrl/airoha/Makefile               |    1 +
->  drivers/pinctrl/airoha/pinctrl-en7523.c       | 1124 +++++++++++++++++
->  4 files changed, 1506 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.yaml
->  create mode 100644 drivers/pinctrl/airoha/pinctrl-en7523.c
-> 
+Fix the Ethernet device tree description on the VAR-SOM-AM62P.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Enable the CPSW Ethernet controller and correct the Ethernet PHY
+description by modelling the PHY power supply and adding the required
+board-specific PHY properties.
 
-yamllint warnings/errors:
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+---
+v1->v2:
+ - Remove unused eth property
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.example.dtb: /example-0/pinctrl: failed to match any schema with compatible: ['airoha,en7521-pinctrl']
+ arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260628143733.273651-16-mikhail.kshevetskiy@iopsys.eu
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+diff --git a/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi b/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
+index fc5a3942cde0..ca2483a04b9d 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
+@@ -113,6 +113,15 @@ reg_3v3_phy: regulator-3v3-phy {
+ 		regulator-always-on;
+ 	};
+ 
++	reg_eth_phy_vdd: regulator-eth-vdd {
++		compatible = "regulator-fixed";
++		regulator-name = "reg_eth_phy_vdd";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&main_gpio0 46 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
+ 	sound {
+ 		compatible = "simple-audio-card";
+ 		simple-audio-card,bitclock-master = <&codec_dai>;
+@@ -149,6 +158,7 @@ &audio_refclk1 {
+ &cpsw3g {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_rgmii1>;
++	status = "okay";
+ };
+ 
+ &cpsw3g_mdio {
+@@ -159,9 +169,9 @@ &cpsw3g_mdio {
+ 	cpsw3g_phy0: ethernet-phy@4 {
+ 		compatible = "ethernet-phy-id0283.bc30";
+ 		reg = <4>;
+-		reset-gpios = <&main_gpio0 46 GPIO_ACTIVE_LOW>;
+-		reset-assert-us = <10000>;
+-		reset-deassert-us = <100000>;
++		bootph-all;
++		enet-phy-lane-no-swap;
++		vdd-supply = <&reg_eth_phy_vdd>;
+ 	};
+ };
+ 
+-- 
+2.47.3
 
