@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A349126BF1
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 14:57:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690243AE19B
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 14:57:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782658625; cv=none; b=hZgrBAsD9bBFVbmZ97wcQjigX8toH05g6mPGN6OWk5Ms1sxZiJB60zS52IzeJ5EsGcQc19sXFtw+GkIloJlYVeiqFvsMXlGKiF5o5njtEi1BplfOVLsUqgiHD8t0L4AhO5XFuToYXjiw+k4nbztoV3XrManet7muGqP62I3Cn+c=
+	t=1782658662; cv=none; b=OF3sFzEmg/NkUDNxK2zczu8PPzC0jl5KM7YHw8TirGwWBT8Flb+s0O9enWf0fX3R/AhH+gDEkzrI+9DzotjEvo69wzmsgKbA6i+tg/dQCipH6846hymesVFQmCYxcnA8GJRRhjv7wBmPjZxGH+SUgO+ZcNqu0crWNBknbbITRgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782658625; c=relaxed/simple;
-	bh=yZVmV5uVWujE3Vz6TiUlps2d8hiteBYyjII95qCP3PU=;
+	s=arc-20240116; t=1782658662; c=relaxed/simple;
+	bh=wg/GMt5GrwIi9KzyRz2npzFtSpFFsK7wNcvupb7Pl40=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GsugTqHQhj/J8MhS2u/v8Pu0+iyXxQH1Ogg1aEFgJz6hGkKExxSTncFHKKT0u1O/Ss25iRaXe0cb4/NyBU52+fUPdShJ2+PxA85n1o0GUqmFube22a1gJP7qmnMmnxGejaZNHypeUdV7TU2UwvQilACu2EvKFy6hrd8In5rJ5Sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IT9WaV9g; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=mlbPEey65TZWWVpaImFLSqCQJz5QLlRsZXqDXffuAUf5zrFPYKi5+Rpmn4pXuXPzpTqDBDydhJEXBsPH6RxzsN7P9KF1JU/tE7rmFCGy/M/2lXOhOYeT4pOT+pbcuXuih+HOdjS0zSyPPoW1q6Tyd0i9//rdrau0qY6Y1A8UVQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HI+0x98V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IT9WaV9g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2CA81F000E9;
-	Sun, 28 Jun 2026 14:57:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HI+0x98V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C14051F000E9;
+	Sun, 28 Jun 2026 14:57:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782658624;
-	bh=v4cE4llI//5Yo17hBq8fyXwjewmbllFyys/urSlBMOs=;
+	s=k20260515; t=1782658661;
+	bh=GRyjqh/ycWetuJS5GRpDxch/VkdX28IDNYHy3x6kmsc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IT9WaV9gIk55w8c4QDRV9UhVoOPBHOUr2WHERm0GdnaWISwVtJ1nLaQfZgI4oRaTH
-	 /DDuaN/MzMwbrgs/frdruTIq8dBcNx+opxuA0+drDFv8UyuQqoM3ARRMFwP0KTkbAL
-	 XQG6lKnn/09Bd3xxM5xWWmiGPdf/9nix3Y9rAmZ9Acmr5/jVISEj50TLqQ9WNBOMOS
-	 x2fYkqtbSFALE0GFbr25RjzXLtlJSslmlP1z6gIUXzSVa95YUTzcCycKTAHstT5pbn
-	 lH3KXL+3kks10mPyExqyHCM2Zv/c0G62opPpRzJV3BNWI+TelkrAECwc3qFSbagRZI
-	 FXIX4XwYbKzUQ==
+	b=HI+0x98VfQzXZsn1E19b927M6BLRB5pWqaaA7AoPMxwuQteuVU7RFo0pnZ55KCz7v
+	 O0271KFP31zH2Pq5O3Li0BtTVqEie144/NwP35Iy8KlsV5JhJIcRKJONP8Gml2vzFb
+	 CxTGQcL93LoS1KGCyHyhKov69qR1AzKUIfUmmAiKZ6V9j7dEP+Fz3VH0yueo92e+v/
+	 Xjd9bkZEVbDZST2L8jLMedaYvqLGLvHcZL8OoPUpHeuP5IHgcm5TR52CnQLH/q0H4M
+	 Dk7okwuTCCUiWCUMdsiTcIjGwLoyPpm1OZEOAM52L320FrOix0huQ+B1I1xcRm1GQV
+	 jvhrxdNx2pFgg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 08/17] pinctrl: airoha: split driver on shared code
- and SoC specific drivers
+Subject: Re: [PATCH v6 15/17] pinctrl: airoha: add support of en7523 SoC
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260628143733.273651-9-mikhail.kshevetskiy@iopsys.eu>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260628143733.273651-16-mikhail.kshevetskiy@iopsys.eu>
 References: <20260628143733.273651-1-mikhail.kshevetskiy@iopsys.eu>
- <20260628143733.273651-9-mikhail.kshevetskiy@iopsys.eu>
+ <20260628143733.273651-16-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 28 Jun 2026 14:57:03 +0000
-Message-Id: <20260628145703.B2CA81F000E9@smtp.kernel.org>
+Date: Sun, 28 Jun 2026 14:57:40 +0000
+Message-Id: <20260628145740.C14051F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,111 +48,118 @@ Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Dynamic allocation of `irq_chip` violates `IRQCHIP_IMMUTABLE` W^X =
-protection and lacks `GPIOCHIP_IRQ_RESOURCE_HELPERS`.
+- [High] Missing and incorrect electrical configuration (pull-up, pull-down=
+, drive strength, open-drain) mappings for dedicated IO pins.
+- [Low] The device tree binding example violates the schema's `const` const=
+raint by using an incorrect compatible string.
 
 Pre-existing issues:
-- [High] Race condition and Use-After-Free during teardown due to early `de=
-vm_request_irq()` registration.
-- [High] Missing `gpiochip_disable_irq()` and `gpiochip_enable_irq()` calls=
- in `irq_chip` callbacks breaks pin locking.
+- [High] Use-After-Free (UAF) of irq_domain in the interrupt handler on dri=
+ver unbind due to incorrect devm registration order.
 --
 
-commit 39c02a07ea03e1c882e3d925b659bdbc86446b63
+commit 11bb118efd0b8683f86390269dd15e4752a654e8
 Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Subject: pinctrl: airoha: add support of en7523 SoC
 
-pinctrl: airoha: split driver on shared code and SoC specific drivers
+This patch adds support for the Airoha EN7523 SoC pin controller and its
+corresponding device tree binding schema.
 
-Split combined an7581/an7583 source file into shared pinctrl code and SoC
-specific pinctrl drivers. The initialization code was adapted to work prope=
-rly
-for shared and SoC specific cases.
-
-> diff --git a/drivers/pinctrl/airoha/airoha-common.h b/drivers/pinctrl/air=
-oha/airoha-common.h
-> index bff162062b066..9a202d5bb4b13 100644
-> --- a/drivers/pinctrl/airoha/airoha-common.h
-> +++ b/drivers/pinctrl/airoha/airoha-common.h
-> @@ -150,9 +150,12 @@ struct airoha_pinctrl {
->  	struct regmap *regmap;
-> =20
->  	struct airoha_pinctrl_gpiochip gpiochip;
-> +	struct irq_chip gpio_irq_chip;
->  };
-
-[Severity: High]
-Does dynamically allocating the irq_chip struct here defeat the purpose of
-IRQCHIP_IMMUTABLE?
-
-By dynamically allocating the irq_chip structure within airoha_pinctrl, it
-resides in writable heap memory rather than read-only .rodata, which bypass=
-es
-the W^X protection.
-
-> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
-roha/pinctrl-airoha.c
-> index e67c19df9f457..543475d23fde3 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+> diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinc=
+trl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.=
+yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.yaml
 [ ... ]
-> @@ -2552,9 +256,16 @@ static int airoha_pinctrl_add_gpiochip(struct airoh=
-a_pinctrl *pinctrl,
->  	gc->base =3D -1;
->  	gc->ngpio =3D AIROHA_NUM_PINS;
-> =20
-> +	irq_chip->name =3D "airoha-gpio-irq";
-> +	irq_chip->irq_unmask =3D airoha_irq_unmask;
-
-[Severity: High]
-This is a pre-existing issue, but does airoha_irq_unmask() fail to invoke
-gpiochip_enable_irq()?
-
-When using IRQCHIP_IMMUTABLE, airoha_irq_unmask() must manually call
-gpiochip_enable_irq() and airoha_irq_mask() must call gpiochip_disable_irq(=
-).
-
-Without these calls, gpiolib never sets the GPIOD_FLAG_IRQ_IS_ENABLED bit.
-Because this bit is missing, gpiod_direction_output() will not realize the =
-pin
-is actively used as an interrupt, allowing it to be successfully reconfigur=
-ed
-into an output pin, which can cause a hardware short-circuit.
-
-> +	irq_chip->irq_mask =3D airoha_irq_mask;
-> +	irq_chip->irq_mask_ack =3D airoha_irq_mask;
-> +	irq_chip->irq_set_type =3D airoha_irq_type;
-> +	irq_chip->flags =3D IRQCHIP_SET_TYPE_MASKED | IRQCHIP_IMMUTABLE;
-
-[Severity: High]
-Should GPIOCHIP_IRQ_RESOURCE_HELPERS be included here?
-
-Without hooking .irq_request_resources, gpiolib cannot set
-GPIOD_FLAG_USED_AS_IRQ. This breaks pin direction locking and can allow
-userspace or another driver to reconfigure an active IRQ pin as an output,
-potentially causing a hardware short-circuit.
-
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
 > +
->  	girq->default_type =3D IRQ_TYPE_NONE;
->  	girq->handler =3D handle_simple_irq;
-> -	gpio_irq_chip_set_chip(girq, &airoha_gpio_irq_chip);
-> +	gpio_irq_chip_set_chip(girq, irq_chip);
-> =20
->  	irq =3D platform_get_irq(pdev, 0);
->  	if (irq < 0)
+> +    pinctrl {
+> +      compatible =3D "airoha,en7521-pinctrl";
+
+[Severity: Low]
+Does this compatible string match the schema's const constraint? The binding
+definition specifies "airoha,en7523-pinctrl", so it seems this will cause a
+dt_binding_check validation failure on the example block.
+
+> diff --git a/drivers/pinctrl/airoha/pinctrl-en7523.c b/drivers/pinctrl/ai=
+roha/pinctrl-en7523.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/pinctrl/airoha/pinctrl-en7523.c
+[ ... ]
+> +static const struct airoha_pinctrl_conf pinctrl_pullup_conf[] =3D {
+> +	PINCTRL_CONF_DESC(12, REG_GPIO_L_PU, BIT(0)),
+> +	PINCTRL_CONF_DESC(13, REG_GPIO_L_PU, BIT(1)),
+[ ... ]
+> +	PINCTRL_CONF_DESC(40, REG_GPIO_L_PU, BIT(28)),
+> +	PINCTRL_CONF_DESC(41, REG_GPIO_L_PU, BIT(29)),
+> +};
 
 [Severity: High]
-This is a pre-existing issue, but can the sequence of allocations here cause
-a use-after-free during teardown?
+Are we missing electrical configuration mappings for pins 2-9 here?
 
-Since devm_request_irq() is called with IRQF_SHARED before adding the
-gpiochip and its irqdomain later in airoha_pinctrl_add_gpiochip(), the devm
-cleanup will destroy the gpiochip and irqdomain before unhooking the
-interrupt.
+Also, are pins 40-41 being mapped to the wrong hardware registers? They app=
+ear
+to be mapped to REG_GPIO_L_PU instead of their dedicated hardware registers
+(e.g., REG_I2C_SDA_PU).
 
-If a shared interrupt fires from another device on the same IRQ line during
-removal or probe failure, airoha_irq_handler() will dereference girq->domain
-after it has been freed.
+[ ... ]
+> +static const struct airoha_pinctrl_match_data pinctrl_match_data =3D {
+> +	.pinctrl_name =3D KBUILD_MODNAME,
+> +	.pinctrl_owner =3D THIS_MODULE,
+> +	.pins =3D pinctrl_pins,
+[ ... ]
+> +	.confs_info =3D {
+> +		[AIROHA_PINCTRL_CONFS_PULLUP] =3D {
+> +			.confs =3D pinctrl_pullup_conf,
+> +			.num_confs =3D ARRAY_SIZE(pinctrl_pullup_conf),
+> +		},
+[ ... ]
+> +		[AIROHA_PINCTRL_CONFS_DRIVE_E4] =3D {
+> +			.confs =3D pinctrl_drive_e4_conf,
+> +			.num_confs =3D ARRAY_SIZE(pinctrl_drive_e4_conf),
+> +		},
+> +	},
+> +};
+
+[Severity: High]
+Should AIROHA_PINCTRL_CONFS_PCIE_RST_OD be included in this initialization?
+
+Without it, applying standard device tree pin configurations (such as
+drive-open-drain on PCIe resets) will fail with -EINVAL, causing driver
+probe failures for dependent hardware like PCIe.
+
+[ ... ]
+> +static struct platform_driver airoha_pinctrl_driver =3D {
+> +	.probe =3D airoha_pinctrl_probe,
+> +	.driver =3D {
+> +		.name =3D "pinctrl-airoha-en7523",
+> +		.of_match_table =3D airoha_pinctrl_of_match,
+> +	},
+> +};
+
+[Severity: High]
+This is a pre-existing issue, but looking at how airoha_pinctrl_probe()
+operates in the shared drivers/pinctrl/airoha/pinctrl-airoha.c:
+
+drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_pinctrl_add_gpiochip() {
+    err =3D devm_request_irq(dev, irq, airoha_irq_handler, IRQF_SHARED,
+                           dev_name(dev), pinctrl);
+    ...
+    return devm_gpiochip_add_data(dev, gc, pinctrl);
+}
+
+Does this lifecycle teardown sequence create a use-after-free on module unb=
+ind?
+
+Because devres frees in reverse order, devm_gpiochip_add_data() is undone
+first (freeing the irq_domain), and the irq handler is freed second. If an
+interrupt fires in this window, airoha_irq_handler() will dereference the
+freed girq->domain via irq_find_mapping(), leading to a kernel crash.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628143733.2736=
-51-1-mikhail.kshevetskiy@iopsys.eu?part=3D8
+51-1-mikhail.kshevetskiy@iopsys.eu?part=3D15
