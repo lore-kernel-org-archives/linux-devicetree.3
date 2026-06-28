@@ -1,120 +1,144 @@
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806E532470E
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 05:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B498B227EA4
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 07:02:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782625505; cv=pass; b=pGt9vYh/+RM2SM78FBi5t9NW538qx72wh+yWHwQ5ak664aW5Sz8fqOI89TPKivFrluojuPQiYBHlnwFJVGvKCd4mhdOGUgYkrMNkHDd1ZpRLSzaH4ZiCejL8LBLTADF28oO6SkEgF58Co+gONPkhh9TVm5IDkREJhScEH5wMFZA=
+	t=1782630122; cv=pass; b=Zj2U+vp347nqe2sGyiGOhOzqD1Fk/v1I2q1A7etAZGTES9Ryi1TW4cCjmLyM1L3EoG66PpA/dB2jWn1iQuPwjV5HRIPQjD4IYaE8EKiqhkliPoMmCUDaG86gZnGqoDGkJIWcwOVi/QwroQpXcViFi+z2IAe1NyX+0vFJIeSRjtA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782625505; c=relaxed/simple;
-	bh=CsDlGDJgdQwZg4iSP3PqY+AnJT9xfkmZeW218TPXTxI=;
+	s=arc-20240116; t=1782630122; c=relaxed/simple;
+	bh=GY4pj5xmpcn7UP2PeAYAwybK3ew5+HG7uoyXdtWG2wA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LrCZu4IGoCfp/8KmbbDdEeFLiC4WjTBo4K7siWB6RxMezV6o+Qi2XeudjdbKFdtJRvsleCM9RsSR0K8uu7/vrICJ9Yv1pd+ZA87ib05hvlBGWW+GJ5a9yWC6XVa/JebvFOgaUA9QEgdH4hIKnREVjnI9FuouWO2MD54nkfFfkRs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp; spf=pass smtp.mailfrom=0x0f.com; dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b=KRPI3ToS; arc=pass smtp.client-ip=74.125.82.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
+	 To:Cc:Content-Type; b=CZALddbmV9IfodmAmNRvmNJta0ziePTuFgv9SVsTGhAG9Grj5FuNfQU/i9bY/r8e3RZpQysmTfYjDL3TE3bQjNsWZB2VkELH9pm4QdVstEJhDO6Etx4kxxZViXQv76Hs/cBes8SxkTl0iSkYcL85gCuG0y4ZLzCP6nkx0g9zINA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AQkNl8rg; arc=pass smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b="KRPI3ToS"
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-139f1dfc9faso1043180c88.0
-        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 22:45:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782625502; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AQkNl8rg"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-664c4a04081so163110d50.2
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 00:02:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782630120; cv=none;
         d=google.com; s=arc-20260327;
-        b=X6gyDKa6CEta8NVqKQIG3uerhpqx5cjUrV9UUAhctAACvwZVWvT+Gv+otWQAcz5HDx
-         2vC5UU1iFdqhruq1m/AEac+TW4tJX0YhSa4VpJB/Jkg91JkkKP28jyU1mkDixFZDQr3l
-         CRJbVMBxCp2rR67hahGesWDQnaMVzJCGuqOmoJsUu1OQsc4nVdyML00VPkdF1XwSv4fo
-         WSQmUfYkz3L7ofypkjMbUL1Ok6tBs2oSp9u5EBftXspcDYJ3i8AnKGmNLcNz7auZTJpa
-         sjC0OV26ATLiMx2LPIi9LneJtfcqn/UEYCGJnP5z5RQx4R1dDBdkJfPV81+/acJP0AaG
-         4c/A==
+        b=kEhKlb7Ud/wuDJlIRjSP/I/3Xf3wgVW122y6LfONGKbI0ZEfSaCoaQ+0EiQdSiaaz+
+         FBz1dV7sYL0FiEHWKInENWieyg4S9RSLctnGimfuSDD9bJxsHyTHz3nU2HFi48+1BPKG
+         LNhw9rO8kfmZtIac7+8kUbqe+Dj3kprlvTkrmoOm6iWoXs19zag7dGVkNkaYNbfaEQm/
+         cBnKcdnGnPhgZiLOcXWmLx1IUn6zie4RQmuXrk/Z3E4yCPOGCfO6Fq+5bBz6DHWDXiCK
+         3Aya9Rs3QAP6iGRti9+qeIhrkIjGA5e3TRmnsZNa41GfBsBac+VoG4mziFNF3m0CsiQx
+         fcqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=CsDlGDJgdQwZg4iSP3PqY+AnJT9xfkmZeW218TPXTxI=;
-        fh=1MrTf7L7R0msRRR6eaO3hdmMOv9OfzjcUDAEr2VmJck=;
-        b=MDc3ATj6OJURmwXvqQTrmEulNMGBwrMVy911gqvVJgoMZYWNr8J/XI8ePH9oDOyG02
-         KXe0pIF7EO2v+HAdIj8Rhu45H8oywibyzMQm3klBxjkRP/kvSNXKvDnsuxBLFzHRBTfX
-         JfCbiUuv8B2SCN3w6WISawgwUdOFyxhKGMc8cnKbUzYN9IUCSh02eBjySBOEHeUwwtI7
-         I2tZNaGB27SNYTs4AAqezGrhyPVYTNzAhzBK7XiMfeUrftkkJRebXYAeyRSAEdMB2IxH
-         uAqT+O7U6wqxJA7pV/atuQgphGjCyELUmq1Q0mzFE17bpkjgXAB1mekWjm3cYGNN09ih
-         42Rg==;
+        bh=+OId4Ok77F5YJbguyUedoxMERWa5HS2eOIQ/JijyeTg=;
+        fh=YRP3OMBhNnemj+ET/KogRHjY0ZJubPGoKgzxX4d4bjU=;
+        b=aMfYK0SDOeltfwwAlBgdbI+YJqherPVPfS81Xyi0OXvfKpcvlK4e9iEMRdlbsGTE7J
+         WIHKl3sJav6CrYTsatcYVvCkuNVP6uiTrxrge83wwGcBuT7AkNdRwBRjC2dMPrR+d3PC
+         A1liCrtvbdLIHUrvLXkAvHpNUAxinCsdheOh0MAliwhNvn6eEYR/rjwso8TkoPJ6JL/9
+         16fh9F8Fl5TuQEEb4qXC5ujY2JT6+0FMXqHZGkFEj25YKtxDojNnwJXMGZfUSw0HWhtn
+         ODqoQi8/+ModsO4eILB8ntpXW54CgBPS9rmW1FJKyqAtxPjYG0zluqJlTkxlOfZuiPnx
+         n29w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thingy.jp; s=google; t=1782625502; x=1783230302; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782630120; x=1783234920; darn=vger.kernel.org;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=CsDlGDJgdQwZg4iSP3PqY+AnJT9xfkmZeW218TPXTxI=;
-        b=KRPI3ToSY9J/75pVPke1p0Vbe/jQtAAXKBIa1B0htu18b0SMCo/EI29SbX6IzqUHDh
-         zCqRbLBIe9VjQl80cm2pi+D1xElMASDiCjKxpBcq3OExoqGyGikBPriUU02BVzki6aJH
-         NCvhS7284QDnRTxvjaJDkufOqzekLwpfJxgi8=
+        bh=+OId4Ok77F5YJbguyUedoxMERWa5HS2eOIQ/JijyeTg=;
+        b=AQkNl8rgTfKxMVSAtCN89DB2I0uds+ZfyykkNh1FuW4Ha5PIzi23m2zOXzdbZhISH5
+         FcpHniGTt2t3q/3TrJ4X2gm7PAb27vsh1fSoJS6YkXMslsLjixrG4uZxCOFPtA0tUprO
+         Ju0XmD8lPhg1zFVyCSP4ocqLTnEeUKwNxg/62T2vL4rT4E+/6cMTRc8BVaP18729+c/0
+         mmU11K1CEfk3MyD8w/n+J7rh31HGnPbHPAnGLcM0UYmcFFl9N5I+hVPCu65ALWh7bPUr
+         2MTbU4dGBzEAZexxx/dgk1vDRDCJUdrEcEgHcfvm/zQ6daWHpPzgpuVXjNWwFkSHZ0d5
+         prYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782625502; x=1783230302;
+        d=1e100.net; s=20251104; t=1782630120; x=1783234920;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CsDlGDJgdQwZg4iSP3PqY+AnJT9xfkmZeW218TPXTxI=;
-        b=ZDl0wKHXL7XQ4gP3cuJIuUpn3T+2ctF2cg7Yl3z1727AQ5+MzM3Ijrvu1asNAKKnRC
-         CzOPcpYU/BJCf7Te4DzXuJ7Sy8pqkzY+0powtgT19X4QAad0gvTssa+kA+YCKk9KscT3
-         LC6eIuTWEb51sFPBsnO+9rwDxyNPYuzwQmmYRUCk2bn34Gy3ihYGLwvcBLZjQkN4mIWR
-         nfYK5vYfuxvTyLH5dBr2JhlZyksasMCYyKev3ifd72n/4GuMoOKBp8OLt0YcnatHQBol
-         doSh+xfzKCbNTT+MDv9JnYScextj8fznqO2qiYqbHNmSLIvWl+OzPjG40e2zWdftA84n
-         KZnw==
-X-Gm-Message-State: AOJu0YzlMs41SOhPBn6lirqSYngk5ejTHHciP8HD7V3N2Ah1/pVzmGsm
-	4Iq6+9hMyG2yiBhecM9rPQNJZui9CLixGbyh1L2fbxzBBUs0YcN5LoYQ4RsY4VowldfyFNC3HTa
-	44KOEE+0aYiHs3Dn9JA+/+ir8QDqLl/zAIA/iQMtpCg==
-X-Gm-Gg: AfdE7ckbSGkVmUQgslUks19t86TWefTJ1yVplpsERACptCtHSDNKmltZe3TggPl7Uvh
-	7x+qdwIJ6KQOkS6vKoMCYOr34bg/7seyiEc5sAuP0LiHBFE6pVWGSXBESUBFAKWYRzV8w1OLd+M
-	8VjZmUPoavwnNutsFU237XnVpgAFivUZRANiF4H0DvjlxXxOtedMsPhioZqicTps7+FRVSHFn1X
-	7XA6g1omw7AFAxDC3UDbn1sOCp3UqO3P/ZAiRfpdJtSmOkJuLlhuwu+WSREgRojw1hjekis
-X-Received: by 2002:a05:7022:f10e:b0:137:ed3b:e543 with SMTP id
- a92af1059eb24-139dba0a6e0mr9857693c88.9.1782625502400; Sat, 27 Jun 2026
- 22:45:02 -0700 (PDT)
+        bh=+OId4Ok77F5YJbguyUedoxMERWa5HS2eOIQ/JijyeTg=;
+        b=oRFmXpdnq5t3KNvSpe3iHjgUBr/6FVhHCCL8NtL7SHBUfnJWok4JIIOhzoa+SrY/oz
+         tcCObmRQuqrmDcu5+owm2ld0/8dEKMP+Uwf1+jc2QCZJ4a3OrR1oQzyyZ0tDbtAswHwV
+         1ILrPiHru7G7nAvF22CHN2AUZRm8WcE1gisQOQVKknekHqB3YWkQOYjA9NPlimo5/y37
+         jCU6pPztRD8WVRyqAFlivbhnmZzNQu1dMSiufkkrnx1tn7n9E58q5S3J1Mqh1QUe03JD
+         tHwtjmWJCn6dcla3k/UO097fUKufZ9xXFpDRDSTfA5bX7hSzHpUuHTQgr9HraD73FTar
+         t42A==
+X-Forwarded-Encrypted: i=1; AHgh+RrJJncdNeQFyFiMKvSRFkF6IiTEOOLCp6GYgsogSS5N8Jf5PjcEiNzWyicMeBGM6A+n/fIJHa4ZHyO8@vger.kernel.org
+X-Gm-Message-State: AOJu0YyOcdIDFA0AcSAyZmKkHIgD1bQbziz6SdL7n2wrL8iT1wE3LjCA
+	GrkU1L1FfEap1QjmByve1kCkCTsSZYqni9uIjkPHkh5eMt4v9P2OIur5cXwH9F81vECcIz9fHYl
+	b4fsMzsFE2z9TJFec9936tY0QbFQAFHI=
+X-Gm-Gg: AfdE7cm7w5Xwc14H9w6S4QpqhJNcdNKfx30h9FZRVdheZq4XOHHfab/UxaGuZJ2MhL+
+	UcudJ6u/NajKqj4GcAM9M4E2JZPfknhrDtA0IyootHvDXl3p1lc7btK2F2pEutBt3RKn4vItUmB
+	MI3Lz7DaqIBznpDL8vDXAvLjRdYoQhheCSC/73WzlJS/FFcXba/vtkfA/lfmRwZJx3JAdVqjFKM
+	hGneVI9i8W3zU4p96m5fYaI7jkTZ4TjUiyQtaT+SBxE9TXe9QBHnaD2QFGBaKQYomG3X1/FGw==
+X-Received: by 2002:a05:690e:4384:b0:65c:4b71:e6b4 with SMTP id
+ 956f58d0204a3-66488152a26mr8488609d50.20.1782630119792; Sun, 28 Jun 2026
+ 00:01:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260626171906.476688-1-daniel@thingy.jp>
-In-Reply-To: <20260626171906.476688-1-daniel@thingy.jp>
-From: Daniel Palmer <daniel@thingy.jp>
-Date: Sun, 28 Jun 2026 14:44:51 +0900
-X-Gm-Features: AVVi8Cf9VZiPipBvaLrFiXp_JfX9GcL7q5z7yoikT1xWvcXXLK7nKbMp5RnrY_E
-Message-ID: <CAFr9PXmAtnLSzA3GLb4qKvrs1X6aD+DNPSoEBXhSzkL7oPHBig@mail.gmail.com>
-Subject: Re: [PATCH] of/address: Drop ISA parts when !CONFIG_ISA
-To: robh@kernel.org, saravanak@kernel.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260622083046.3189603-1-tmaimon77@gmail.com> <20260622083046.3189603-2-tmaimon77@gmail.com>
+ <20260623-ochre-spoonbill-of-security-a4bc42@quoll>
+In-Reply-To: <20260623-ochre-spoonbill-of-security-a4bc42@quoll>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Sun, 28 Jun 2026 10:01:49 +0300
+X-Gm-Features: AVVi8CfRBhsj1pRWdOM2CE0sqTqASlUrWhsQBJl0HJjSQATVDmJtM7eZQvBwA6g
+Message-ID: <CAP6Zq1g-dBdt=cgqfxn=8qVX=UBs5-w09YqDvHfi1y=h4H9DKA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: watchdog: npcm: add GCR syscon property
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: andrew@codeconstruct.com.au, wim@linux-watchdog.org, linux@roeck-us.net, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	openbmc@lists.ozlabs.org, linux-watchdog@vger.kernel.org, 
+	linux-doc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, avifishman70@gmail.com, tali.perry1@gmail.com, 
+	venture@google.com, yuenn@google.com, benjaminfair@google.com, corbet@lwn.net, 
+	skhan@linuxfoundation.org, joel@jms.id.au
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Daniel, (Replying to myself..)
+Hi Krzysztof,
 
-On Sat, 27 Jun 2026 at 02:19, Daniel Palmer <daniel@thingy.jp> wrote:
+On Tue, 23 Jun 2026 at 11:05, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 >
-> The PCI parts are already wrapped in #ifdef CONFIG_PCI
-> so it seems sensible to add #ifdef CONFIG_ISA around the ISA
-> parts.
+> On Mon, Jun 22, 2026 at 11:30:44AM +0300, Tomer Maimon wrote:
+> > Describe syscon property that handles general control registers (GCR) in
+> > Nuvoton BMC NPCM watchdog driver.
 >
-> This reduces the code/data size a bit on configs with !CONFIG_ISA.
+> Why? Well, you try to answer by saying something about driver, but we do
+> not add bindings for drivers. Instead hardware should be the reason.
 >
-> Signed-off-by: Daniel Palmer <daniel@thingy.jp>
-> ---
+> Anyway, why is this needed now?
+It is needed for accessing the reset indication registers. I would
+mention it in the commit message.
 >
-> Sorry for the spam, somehow I botched sending a patch..
+> >
+> > Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> > ---
+> >  .../devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml   | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
+> > index 7aa30f5b5c49..4f00f099b2d2 100644
+> > --- a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
+> > +++ b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
+> > @@ -40,6 +40,12 @@ properties:
+> >    clock-frequency:
+> >      description: Frequency in Hz of the clock that drives the NPCM timer.
+> >
+> > +  nuvoton,sysgcr:
+> > +    $ref: /schemas/types.yaml#/definitions/phandle
+> > +    description:
+> > +      a phandle to access GCR registers on NPCM750 and NPCM845 watchdog
+> > +      instances.
 >
-> I thought about making this RFC as I'm a bit unsure if machines
-> that need this ISA stuff actually select CONFIG_ISA or not.
+> Here you write also for what purpose.
+>
+>
+> Best regards,
+> Krzysztof
+>
 
-So sashiko worked out what is going on here. A few machines have
-things connected via an LPC bus that is derived from ISA and needs the
-code to parse those nodes but those machines don't select CONFIG_ISA.
-There seem to be ~15 devicetrees in total that actually need it (1 in
-x86, 1 in arm64, a few in mips/loongson for loongson machines, and
-then a few in ppc).
+Thanks,
 
-I made a series that adds CONFIG_OF_ISA to enable this code, selects
-it in the places that needs it, and then does the original part of
-disabling the code if not needed. I will wait a bit before sending.
-The reason to do this is I am using devicetree to boot a machine with
-4MB of RAM and a 7MHz CPU. Removing dead code/data like this helps.
-
-Cheers!
+Tomer
