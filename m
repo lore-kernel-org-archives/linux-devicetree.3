@@ -1,113 +1,163 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D644372EC0
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 23:11:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED656372EF1
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 23:13:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782688320; cv=none; b=FEc3+S3LMrdh7sCKxganztz+abXfnhuO2RhDYxflNoEufRU8iuTFYb2rcjIHR6SHzg/MMv7CUlf3j5pVOtCcbeBOlz5rRanfO0h4xtouIdFf0Uj5twuY7x6oHgCX7kMsrcssY6O8vTb3zwC4Kar4qhppoJWZdn1YzteofnLM6Mk=
+	t=1782688400; cv=none; b=Fzpo0mSMeESP8YPhaTZNPSFM3diFUe41/htSrN56HHvysnOxnBfXKI/9QOptuN/GWNkgUcy6PXwKuRqHtO+1IO4GMqfvM7GLDpxMaM2qJ+IeuxjC7lgKWih3IXsh4jNX5+OWVIiHT3jxPxw0EGNmpZdWdkdeb3EjkpJs42rAcOg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782688320; c=relaxed/simple;
-	bh=CvHPMDa7QE/yHwktpTxBRGqeWFMmQqfmtrdztWRRuvA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ngoZUyMQSfz2jFDn09XyuZrV8ct33aQMGT2tOtBVw2+zcWNKXFXMcF3aaIKTbn5/+nKlVaoGTMVV5C6NOlUcZzpQr2Wddt9n5Ut6Ekt0spK8YDMNY8zIKZgoJZjy8WX6OePvBKBYPlEhoGBD/tjGweeJUv9kdQfP1We/5bxpTW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jgiTZzpT; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782688400; c=relaxed/simple;
+	bh=Qj62mRbm4qQ/1qnvsZXC/OBopg/w+e/h1DeVAp8VNwY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jtb9Q0CkQebMNeKvZxTeQi0KsSizNmt0ngqrnfnLwpFJ3eL991OBIhpZ5/bZiCx9xq4UcSt2+ggVg42y7lk5YZ/BwRFDWphebJJNhP6s4xmK2y8pXWT/Pvhmsmq86WkSNvwEw01iXd7Puab0nrxgfJBqNLcRYwJ7N1pdzbrI+7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nzIuSKK7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jgiTZzpT"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84780c95e2eso175952b3a.3
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 16:11:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782688319; x=1783293119; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=HBzVoiVEKC6YZTZ3TI4LBB+zvfVWnbKnaW6nuLVCnqQ=;
-        b=jgiTZzpTh7yPALwYj+Zody76pGsWBO9on7JwJMPWyJ5ytptVTtvTQDceRExb5T1K59
-         tD3/7kH5eQwv441LBAQqEQgMHSY/Y1Cc0Pk7iTjY/uzs5w/Uy6X33rDrkrfMjSfin5kq
-         Hgx9trQBRGmtd8HG7tffsiELLsJEmxO1gn2+e8q9bUIv/Z8LvNbOpAI9CjFNMSI5vQHF
-         VoNNaUoPNaBpnD4hVLIQX7ugkkqtbQ6UUpSBtSPvFKLv6qb74TAfkaXGZTNcymFEL3Lm
-         j/QknfK6CD4zzvbz+epydo6LcyV8GhvvrdgeyEPkuwKNuMedptYWGnXYTekyF/tsbE/t
-         SI2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782688319; x=1783293119;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HBzVoiVEKC6YZTZ3TI4LBB+zvfVWnbKnaW6nuLVCnqQ=;
-        b=SXQGRKVU5sZNaNpU3SqgVe5m2l26iou1IXwd0Sc9jBWDMu3vl1xfLRn7QYuYzkezw0
-         hffJQ/6kgQgDq7uILQ0hZ0JxWWTHrWsbQd+CdrEgTYPCZi0HXtlG5nXN5ZdrB6ZRHaAG
-         PFtc6dokmbhi13NYLOb///yum7eHYoePpHho07J8X96KvdANIRYE17HEoWbQaZH20oPL
-         BwNcpsyo5O+EOnG9VG0XxGTD6uIujrVX5akaeqqXGaV2jk3aEOK8sQ7uVI0Z9dCsN5Gj
-         9N+LQ4JuN2dxHHemfoKi/2BqoszeGeN1fUh62WqExG508flrJnWfw8KLKhrtbdAluGMa
-         CQKA==
-X-Gm-Message-State: AOJu0YxPRcoCiJj8iKCGMbCBGFSDzmsDdozRvCNb8afAZAjIaLDX4ys7
-	OEp2ZoxDnvlOxTzu2AMX2c2IVSHgX1jnGe9FKgOkNIVtLWo2aU0xY+ug7Eiq5A==
-X-Gm-Gg: AfdE7clw2tfYeE7q/TQWqfSeCafcMC5EFDJOHy7iDMOOESHHEIs6CxD4zqkhMCNheF0
-	pQuujhqxpEBlYEjc+BUfd4rkvFzudN9V8MNDKLFPsbHefKqxydeAXDCpibalFk8v1wc8o9Pe4Uu
-	75YW0Joz0gSDSw2IrMgz1ufUTioriXlzLTEzBt3YgMJZMuxVwjAiN1ZTrteKrI02qdPw37zKfby
-	B0vVo+Z0xy97cU2iwI3ophukBbOZOsab1n0uUdH8buLy6H1z2GEpVRTUqxu2mfUtKZzZVI0KXzV
-	dYmhBKDyc0oBUoBUQOft0RLWEdv6TbxV4Fa7KEhqxiwyWvILnbOXJVzgFf4K8cshRjmaSDgsIqb
-	KT6lCVD+SRPufjEAT1zmite1CTYVV8bcKVBHGD8QpE2iJaUxJoEs4TXD92EaMr/Dyw/5hXSEmAj
-	/0e+zZsmGs+HYu4YXpOXPcYiD5c7td8PNUgU5xmYRz+t7w8toqwmr5yeoW0Rc2WCRhLgpPEXi/x
-	yIkUEnLNA==
-X-Received: by 2002:a05:6a00:b90:b0:846:f517:ba5a with SMTP id d2e1a72fcca58-846f517fca4mr2671001b3a.28.1782688318921;
-        Sun, 28 Jun 2026 16:11:58 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-845a3fec0f7sm10450263b3a.22.2026.06.28.16.11.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 16:11:57 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] ARM: dts: BCM5301X: drop extra AXI bus ranges that break PCIe
-Date: Sun, 28 Jun 2026 16:11:56 -0700
-Message-ID: <20260628231156.1254012-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nzIuSKK7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6736C1F000E9;
+	Sun, 28 Jun 2026 23:13:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782688398;
+	bh=8Zej5PyS48mH1lD3PtCr+68NhM0IBhScBgxSrw9R2m8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nzIuSKK7hOWQGEpwXVSH4WIIuBwTv2lm2nzNkS6huE6li662sgX7PbcHfyTdvpW7G
+	 oI9+dDUVZD2MuOlTXXwwLHYSrhHOWKpfNKP9cZPwus/Lfmm608NpaAjNHIADFv07sE
+	 m6Begnjf+l336s8G+M/71xr2J0OYm9cCPxMgG3ncQlT2R43SZIXuxRaN8xB9RzW4QF
+	 n7tu5rs5yIfgh4WJ8wkv0hcIZL4BJK7vuTqZxDeuHmaH3LspOoKrpHVzn3ir3oGKyg
+	 YE7IB/BT4dR+3Ntm68ACSnlNLKju2r/bi7vKlAImAtHlwAHybbDNcOK16jptOQMOkk
+	 HHcojkIZ/h7cA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/4] ARM: dts: helios4: wire LM75 into a thermal zone
+ with fan cooling
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rosen Penev" <rosenp@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260628230042.1204293-5-rosenp@gmail.com>
+References: <20260628230042.1204293-1-rosenp@gmail.com>
+ <20260628230042.1204293-5-rosenp@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 28 Jun 2026 23:13:17 +0000
+Message-Id: <20260628231318.6736C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-These addresses overlap with DRAM on BCM5301X/BCM470X SoCs, causing the OF
-address translation code to route PCIe MMIO accesses through the AXI bus
-space instead of directly to memory, breaking PCIe. Remove the extra
-ranges to restore the original single-entry mapping that only covers the
-AXI peripheral register space.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The `pwm-fan` nodes (`fan1` and `fan2`) are missing the `cooling-l=
+evels` property, rendering the dynamic thermal fan cooling entirely non-fun=
+ctional.
+- [Low] The `#thermal-sensor-cells` property is added to the LM75 node with=
+out documenting it in the `lm75.yaml` DT binding schema.
+- [Low] The `board_alert` trip point incorrectly uses `type =3D "passive"` =
+for active cooling fans.
+--
 
-Assisted-by: opencode:big-pickle
-Fixes: 767012397976 ("ARM: dts: BCM5301X: Describe PCIe controllers fully")
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- arch/arm/boot/dts/broadcom/bcm-ns.dtsi | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+commit 1aed98d24fa9eab58f80e2422b885b0e44e17d12
+Author: Rosen Penev <rosenp@gmail.com>
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm-ns.dtsi b/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
-index bd52de0faa3e..27a97c8122de 100644
---- a/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
-@@ -95,10 +95,7 @@ L2: cache-controller@22000 {
- 	axi@18000000 {
- 		compatible = "brcm,bus-axi";
- 		reg = <0x18000000 0x1000>;
--		ranges = <0x00000000 0x18000000 0x00100000>,
--			 <0x08000000 0x08000000 0x08000000>,
--			 <0x20000000 0x20000000 0x08000000>,
--			 <0x28000000 0x28000000 0x08000000>;
-+		ranges = <0x00000000 0x18000000 0x00100000>;
- 		#address-cells = <1>;
- 		#size-cells = <1>;
- 
--- 
-2.54.0
+ARM: dts: helios4: wire LM75 into a thermal zone with fan cooling
 
+The LM75 temperature sensor on i2c0 creates a hwmon interface but was
+not referenced by any thermal zone. This patch wires it into a thermal
+zone with fan cooling maps.
+
+> diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/=
+boot/dts/marvell/armada-388-helios4.dts
+> index 003b0708e9656..51675646ec397 100644
+> --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+> +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+
+[ ... ]
+
+> @@ -68,6 +69,35 @@ reg_5p0v_usb: regulator-5v-usb {
+>  		vin-supply =3D <&reg_12v>;
+>  	};
+> =20
+> +	thermal-zones {
+> +		board-thermal {
+> +			polling-delay-passive =3D <2000>;
+> +			polling-delay =3D <10000>;
+> +			thermal-sensors =3D <&temp_sensor>;
+> +
+> +			trips {
+> +				board_alert: board-alert {
+> +					temperature =3D <55000>;
+> +					hysteresis =3D <5000>;
+> +					type =3D "passive";
+
+[Severity: Low]
+Does this trip type match the intended use for active cooling fans?
+
+The thermal-zones.yaml device tree binding explicitly designates type =3D a=
+ctive
+for fans and type =3D passive for CPU throttling. By using passive, the the=
+rmal
+framework will use polling-delay-passive intervals instead of standard acti=
+ve
+cooling intervals.
+
+> +				};
+
+[ ... ]
+
+> @@ -129,6 +159,7 @@ fan1: j10-pwm {
+>  		pwms =3D <&gpio1 9 40000>;	/* Target freq:25 kHz */
+>  		pinctrl-names =3D "default";
+>  		pinctrl-0 =3D <&helios_fan1_pins>;
+> +		#cooling-cells =3D <2>;
+
+[Severity: High]
+Is the required cooling-levels property missing from this fan node?
+
+Without cooling-levels defined in the pwm-fan nodes, the driver's
+pwm_fan_get_cooling_data() in drivers/hwmon/pwm-fan.c returns early.
+
+This leaves pwm_fan_max_state at 0, causing the driver to set the fans to a
+100% duty cycle and register the cooling device with a max state of 0. When
+the thermal governor attempts to change the state, it can only request state
+0, leaving the fan permanently at full speed.
+
+>  	};
+> =20
+>  	fan2: j17-pwm {
+> @@ -136,6 +167,7 @@ fan2: j17-pwm {
+>  		pwms =3D <&gpio1 23 40000>;	/* Target freq:25 kHz */
+>  		pinctrl-names =3D "default";
+>  		pinctrl-0 =3D <&helios_fan2_pins>;
+> +		#cooling-cells =3D <2>;
+
+[Severity: High]
+Will this fan also need the cooling-levels property to be controlled by the
+thermal zone?
+
+Without the property, the same issue as above will prevent the thermal
+governor from adjusting this fan's speed.
+
+>  	};
+
+[ ... ]
+
+> @@ -201,6 +233,7 @@ temp_sensor: temp@4c {
+>  					compatible =3D "ti,lm75";
+>  					reg =3D <0x4c>;
+>  					vcc-supply =3D <&reg_3p3v>;
+> +					#thermal-sensor-cells =3D <0>;
+
+[Severity: Low]
+Should the LM75 device tree binding schema be updated to document this new
+provider capability?
+
+Adding an undocumented capability causes dtbs_check schema validation errors
+or warnings. The Documentation/devicetree/bindings/hwmon/lm75.yaml file nee=
+ds
+to be updated to include #thermal-sensor-cells.
+
+>  				};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628230042.1204=
+293-1-rosenp@gmail.com?part=3D4
