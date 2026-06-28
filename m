@@ -1,268 +1,444 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 759BB3B42CC
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 20:00:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202EC32E151
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 20:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782676806; cv=none; b=G7C9dlCdmit2uAcRGQ07BXLyO+8MBX9UoXPXIvhAtHk9tV55fEKel6OCqlUBLcgkwC5MWS820S3Yq0dqNSXsRpWJV9aTmCwV/l8/7T124AyHICeo6YJzyjGVqa8cQ0sSoMUS+bJZe5b+eUhLSE/le1E6Nk9ujRS81QUx9jZ5nj4=
+	t=1782676833; cv=none; b=GKOsefTpki7l5JxyR3g7td5TI7C0xhPRvgzrVWX5nBn13M9WOis3ET7sPwepWNQtxnXMmRCJCF94vI6/U2cIcj+4S1dODAZzNi5VHLliGuAQ/Iy8uF+epJ92N6HuvQKNBrFOqN6izLmhYEd2l7pTntjhYVgme86oN0yQBd/jrhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782676806; c=relaxed/simple;
-	bh=yZupSlYaBF96l0nMGSeEbOxCyUX4xyQ8RZvaSmIUkDc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FYvD/mXmsIfRKxCzNXWKKbwF7mlTP7hxsb+zZfEs/4ClDetD9T4ZkRIDamlB0co1PvHEzi3YXeZk5Jlh4FwRb4fkb56eH1LfBGzh6yvn2VJdzB/BzW8HnxUod02+cjsoLc30KNWnAxUrc4wTOSwHmkJxM8ayMkXVNAiclhsk0pU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z2lwSwHr; arc=none smtp.client-ip=209.85.128.47
+	s=arc-20240116; t=1782676833; c=relaxed/simple;
+	bh=HNrLiwMj1ncdw9jIk/Fn3qDd4sl+SaP9oKzUmXn8gXU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=gPDiXP7TFCT5UZn0al3TIDJHKbPqCGeRUx1I8VRoNNDCsFeSTzI8gqGEln1KiZDTEAz/mqD7Zoly0V3qnxPSYGkSmElVq/v72lxYwFEkmRipzN2OmMr9NZxilH8+1aLfy3aSEDaPobRssIefGHooGGdWV74q+AxEAvKXwU9hPOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nUGEtgJN; arc=none smtp.client-ip=209.85.217.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z2lwSwHr"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49241dbf9c1so23811035e9.2
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 13:00:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nUGEtgJN"
+Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7348dc69800so887691137.0
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 13:00:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782676803; x=1783281603; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ve6ycQgrO4HeOCYbZzMNkFtrxZ2ddrP8G6fNlKk1+AU=;
-        b=Z2lwSwHrjwE6kcexX1xgxCNRAGknVqahfG3ksub9c4+1Du+CLeINo6WxboRIoxgtpz
-         DRyEKlpf0iY6rXESceTNqMcT4Wuokly/YKhJ8z8ykEA2AlxbFo+uSK1FGaL5zLK8FMpH
-         kR9U469maeAd7DZieQUhGfmE2CnSA4ULlnR0wvw/LcDQnzWNI9nAVyBffe1ssNFvr9aB
-         wgLXaK7HMTz2ersgo2M4Ro3fIiG39cI0ggN+gwEYN0JtxdSobr2ap4E9B4crkTBVxtBJ
-         Mrxzj8qNdxXdJAoijIzGbx4HrYkfFcOEpHpZnj/zBLi+M21uXNkYtSOTrkx9WRn4P14K
-         sVtQ==
+        d=gmail.com; s=20251104; t=1782676829; x=1783281629; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GJwRQGwvDEEvRXQsqTjFz9nKmAwUGnsyRjXWuMSZBlY=;
+        b=nUGEtgJNr8MqUiyd581aftI3pC2ntgvW2lALP00lXgVDyoY1XJi95E/voX6NkKQhnq
+         gBqGPmzaGoeGyZnrulonv7MZeIbj6askzVSgG9BnVHyzqihFyb7aBOxPCH5fkXtE/JEZ
+         xGGFD/Kb5jAtMkKmGAl1UnKJX6ZuqKBt21c3/XGUZy2RtHjfNNMsZX8OLx4iDdq91KwN
+         S05Qm8dDO3blTzO2jFOXzGxONclbDISbChO+igY6gQOIYVc7SKLD6r9uuZW57VR3eEVa
+         GV1fwB7bSigObcET7ybHqU7CW0GhUEBu90qwtIWgOhp3d6AeOIIZuiY8bdDgxBgbGTM4
+         QMZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782676803; x=1783281603;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Ve6ycQgrO4HeOCYbZzMNkFtrxZ2ddrP8G6fNlKk1+AU=;
-        b=Kvty5tbM9Lwdg/f0FersX0L/T/IBHGz+tsEy9CuY3ntin8O4vp5ivuq2PPjOzKijU0
-         6PwXoIxChGpzBJAiPj2cR3wYEhsARLG0UbyC0+kabMHl9ozOVUpS9tBqClK7IMKO/LUt
-         QTRzh5FEZM34TCOw5/w63S/nfSS5nm0FCWT9dMkb7DaV4P2MjIZbgCo61tYSFqKoKqSG
-         VLbWN2HRR7NV2k0ERVsMjEOmXB+ILB+chSeENv66hZJisybsjhYI4xroWPvov9XwfcFv
-         ZYt9Lu49KyC5M8KLR8dH+7pwQ9boJEejIJoGBSSvvCvNdt1K7iwopKwH8+dmZ6l02+6O
-         op2g==
-X-Forwarded-Encrypted: i=1; AFNElJ+5RT0wCtgANss1asA84cexS1PoYHk6CtryVwpIG0hSpCn7vueVdbbgSI27Nln83GWBd9yCzwEu1FfY@vger.kernel.org
-X-Gm-Message-State: AOJu0YxwBfoGc4+Nzcr6J7c3vbTj35ObTsJSScaHrQAcRjEB4CVAtc1C
-	+OpRKkvkG/EyDQ4szcEcdLTBcFbH0Pg7xFB5fyNR1mRQxO2+5SDHFTaB
-X-Gm-Gg: AfdE7clogJPlaHIVOz7MpacEInOjj8sREhm94/7BTw66Ii59ej0OkSmceuaIHFCT2aY
-	Y2nuXOvvOiLcLx66jvnxQxnBfGKxm6jC0dXJnHa5tKiucgo9fjg9ld5CupYdBFXMiA8p1ZglVGJ
-	4rah+yX3rdZg8Xkx2VAPgMnimVV4RUmpvJrCZ28XKF8g+np8ozeOk7clbCO+D9XtVdKMVqrH3PW
-	wFNVZzEwG6arukyfBz4jhKnazA8cb7X/2vjSY83o1r7wsalf7waQsWA4llECOU6mJZGbfyJsZyM
-	jXOz5OnHpqJD+yw/O2DV5pHG02nDdeyoH6E8eTzIEL3M6fpiwPWrMZzd4w338RvB/7AjKanAfCZ
-	kVz7/uLqHxfxozlEOKwGmbNnUaPPtQlH2uhTXhThUBogdxMCvbGgpRAMv/JKPx7uXgPLrbtlDud
-	0p6IDzLOayNWlMxSU+ZTF17jk=
-X-Received: by 2002:a05:600c:8b13:b0:492:3316:4b34 with SMTP id 5b1f17b1804b1-492668554afmr215573395e9.2.1782676802578;
-        Sun, 28 Jun 2026 13:00:02 -0700 (PDT)
-Received: from [192.168.0.2] ([197.250.51.120])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493ae96c85fsm15133505e9.5.2026.06.28.12.59.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 13:00:02 -0700 (PDT)
-From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Date: Sun, 28 Jun 2026 22:59:07 +0300
-Subject: [PATCH RFC v5 12/12] ARM: dts: zte: Declare zx297520v3 CRM device
- nodes
+        d=1e100.net; s=20251104; t=1782676829; x=1783281629;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=GJwRQGwvDEEvRXQsqTjFz9nKmAwUGnsyRjXWuMSZBlY=;
+        b=W0nFlkDn1gBNbWCkugB7W5UZALweXlGXzw68n0Huku1Pm0HO0EwKFPf8p1GCOCjL4j
+         cvhkJC+HABWacmAWVzkpMJD4AIanXCV9R1gRCEq0p6NOzbyO8aZ3GMJQ1lNIrNJN5ZRb
+         n16n3r6ZCKIfJEeDiBQPdzSqRLXw/ggsUdEAN17FfxgqcYTdNd62liAbeUDrf5JXf55k
+         jMPvQg+uHdz/kpxFplmIG9EwIghOjrBClq31Zig/9JoQcka9lVT5JUqnVxKdmtLu95p/
+         kDfv1tZpLmNn0KrKZVbf31nUA4T1Bg0gRQfGWpoKmoMAz7drV+at2dkZIrf2nCdbqv/x
+         8q7g==
+X-Forwarded-Encrypted: i=1; AHgh+Ro4boBU1z5e+S23RfR1KTY+d6gleiJJfz55wiCzvoXtTnYRcDxKudKnZg1QEj95ltw9vmUUjb46GQfz@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrzsqnDSyngRuAyYAOoWnHW0phyi4LLPALMuej/GP8hyPxRabd
+	F2YduWBSKfSxJOd0kDHOzTI1atuapToJyrJI0+y3wfKPNO1Kek9ThnkQ7mbCUg==
+X-Gm-Gg: AfdE7cnGYbCoaPgTCgBiKnN+9rSAM/eqUM5a+C3HaCupDFIapJ9ERkHdP2UEYzC6Jou
+	6RKBgxIh7eJyIsE85VvKSJEWNuYOVHmzy9zNLYjIdh3aToUJroOWo0JNGNuZ6liC4zeU/oKMZer
+	zjtlCia9rsxGLrsT45tf5mclyxfqX484GpYwH1OFXboPx8v3WiHxg44h1/qUFvfMw4LBy6A6g0M
+	mlsVohUu7Adonj/kpqbp5uSFNr71/ZudKu3ijwMPANJt78Mqb+RJ/nJI51lShx3NqB6Q9ILBndq
+	M/JU/J4Yi+Koq+QzPBgAEwLoRywSWXhYzpy1emk98IQmFwmnm3NKaK5I37KT0/A1TMoZqCEPY8q
+	TwpTHkx7j8nKvdY9XXvhr4spYITpGlgbvM497l8uW8vSMgc/4zk33mTXwI+3Wxs1iCGNcBTWHDr
+	1IePU=
+X-Received: by 2002:a05:6102:2b95:b0:728:68cf:c76 with SMTP id ada2fe7eead31-734364ba1e6mr6471180137.23.1782676828907;
+        Sun, 28 Jun 2026 13:00:28 -0700 (PDT)
+Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-738f72b4cf2sm181543137.7.2026.06.28.13.00.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 28 Jun 2026 13:00:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260628-zx29clk-v5-12-79ff044e4192@gmail.com>
-References: <20260628-zx29clk-v5-0-79ff044e4192@gmail.com>
-In-Reply-To: <20260628-zx29clk-v5-0-79ff044e4192@gmail.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Brian Masney <bmasney@redhat.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5977;
- i=stefandoesinger@gmail.com; h=from:subject:message-id;
- bh=yZupSlYaBF96l0nMGSeEbOxCyUX4xyQ8RZvaSmIUkDc=;
- b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBqQX0UvdGJ9CmBOwRNtJEXpIKLgNC7poT5oFUiI
- TiabV8KmJyJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCakF9FBsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiKArg//RadVWBZNwbVkd4kayIvg35Jj5OC1Z46
- 9NEgARBDbpqLs5gvIFJ/5oeQ1YizYlG5T2+Lpf/119n3hkOu/xNxdUFcVyh8m0I5Gh8eANvyLWk
- LIJuoKqMB3rz7MedQg6PVeib2MVcPd7sn803dRraNC2oDfWJVEhSmgQtcfkE8acHrLRVgtuXqtd
- aq9gx4mW1P/SdmhK9iYCjeFELVgSkUxYLqRR4NMni9euhtHBVmdcW9RsvVBwfqzrv95fDK8VsL4
- jwp0lYt/gke+FLxlHuiGnBLv0RgOf1tT6Va039NMHE5yEJsqy63uSzewwjJmmLdL+IKbZttu590
- so5pi2gY/qNK03Fbzw0nkJNbCwGRTqJuo1oO+f6xWirgBxVqOWFel2wHD83YAQuTYMggfvxVEcB
- 1JMoj9318cBhF5l4sg8ivsDwS2lFHNWEwTleO0tbavhLs7U/ko95YhKIdR6vfRs9A5A86rH4BFx
- LFJeyWGm/X/zUC8u6mUZAdAwlkolPdEXQg3u1RARIPrtKrfVI9QeCZ6k9xy2/N6nEDpIdI2we5a
- CfcBclpco0eUzWu6cnZRMCt0IhGZp2mCvByTc9OhJTR2KaO2djrK2OC3mGXkG+K/EgZpB9XOOYL
- uILZbq6Yw2Wzm2Z6SR25J6tnW8gaZKSu4mD/hd13rtDmMg6GXSd0=
-X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
- fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 28 Jun 2026 15:00:18 -0500
+Message-Id: <DJKY6WN6KS2R.2ZF2TTJU7LBE3@gmail.com>
+From: "Kurt Borja" <kuurtb@gmail.com>
+To: "David Lechner" <dlechner@baylibre.com>, "Kurt Borja"
+ <kuurtb@gmail.com>, "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>
+Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/7] iio: adc: Add ti-ads1262 driver
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260628-ads126x-v2-0-4b1b231325ba@gmail.com>
+ <20260628-ads126x-v2-2-4b1b231325ba@gmail.com>
+ <0d7a5a3b-dc11-472f-a09a-44df887d5147@baylibre.com>
+In-Reply-To: <0d7a5a3b-dc11-472f-a09a-44df887d5147@baylibre.com>
 
-This makes use of the driver added in the previous patches. It wires up
-the uart clocks and resets and allows getting rid of the placeholder
-uartclk node.
+On Sun Jun 28, 2026 at 12:15 PM -05, David Lechner wrote:
+> On 6/28/26 12:36 AM, Kurt Borja wrote:
+>> Add the ti-ads1262 driver with initial support for the primary ADC
+>> (ADC1). The ADS1263 auxiliary ADC (ADC2) is handled by a separate driver
+>> and interoperability considerations were taken into account.
+>>=20
+>> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+>> ---
+>>  MAINTAINERS                  |    1 +
+>>  drivers/iio/adc/Kconfig      |   13 +
+>>  drivers/iio/adc/Makefile     |    1 +
+>>  drivers/iio/adc/ti-ads1262.c | 1206 +++++++++++++++++++++++++++++++++++=
++++++++
+>>  4 files changed, 1221 insertions(+)
+>
+> Ideally, an intial patch would be 1/2 this size. Over 1000 lines in
+> a single patch make it take more than twice as long to review as
+> if it was split into two patches (or you just don't get a detailed
+> review). For example, sample rate and gain can be split out into
+> seprate patches.
+>
+> I certainly don't have time to revew this plus an additonal 1000
+> lines of more patches on top of it in a week.
 
-Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
+Sure, I'll split it even more.
 
----
+[...]
 
-Version 5:
-Re-name from *clk to *crm
-Add the syscon-reboot node here because the binding requires it
-Re-add accidentally dropped uart2 IRQ
----
- arch/arm/boot/dts/zte/zx297520v3.dtsi | 97 ++++++++++++++++++++++++++++++++---
- 1 file changed, 89 insertions(+), 8 deletions(-)
+>> +static int ads1262_calculate_scale(struct ads1262 *st, u8 realbits, u8 =
+gain,
+>> +				   u8 pos_ref, u8 neg_ref, int *val, int *val2)
+>> +{
+>> +	u64 divd, divr, tmp, rem;
+>> +	int pos_uV, neg_uV;
+>> +
+>> +	switch (pos_ref) {
+>> +	case ADS1262_REFMUX_INTERNAL:
+>> +		/* Internal voltage reference is 2.5 V */
+>> +		pos_uV =3D 2500000;
+>> +		break;
+>> +	case ADS1262_REFMUX_AIN0_AIN1...ADS1262_REFMUX_AIN4_AIN5:
+>> +		pos_uV =3D st->refp_uV;
+>
+> I don't think it is safe to assume the same reference is wired to all of =
+these.
 
-diff --git a/arch/arm/boot/dts/zte/zx297520v3.dtsi b/arch/arm/boot/dts/zte/zx297520v3.dtsi
-index a16c30a164bb..2ae6b78bc034 100644
---- a/arch/arm/boot/dts/zte/zx297520v3.dtsi
-+++ b/arch/arm/boot/dts/zte/zx297520v3.dtsi
-@@ -4,6 +4,8 @@
-  */
- 
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/reset/zte,zx297520v3-reset.h>
-+#include <dt-bindings/clock/zte,zx297520v3-clk.h>
- 
- / {
- 	#address-cells = <1>;
-@@ -20,13 +22,16 @@ cpu@0 {
- 		};
- 	};
- 
--	/* Base bus clock and default for the UART. It will be replaced once a clock driver has
--	 * been added.
--	 */
--	uartclk: uartclk-26000000 {
--		#clock-cells = <0>;
-+	osc26m: osc26m {
- 		compatible = "fixed-clock";
- 		clock-frequency = <26000000>;
-+		#clock-cells = <0>;
-+	};
-+
-+	osc32k: osc32k {
-+		compatible = "fixed-clock";
-+		clock-frequency = <32768>;
-+		#clock-cells = <0>;
- 	};
- 
- 	timer {
-@@ -70,13 +75,87 @@ gic: interrupt-controller@f2000000 {
- 			      <0xf2040000 0x20000>;
- 		};
- 
-+		topcrm: syscon@13b000 {
-+			compatible = "zte,zx297520v3-topcrm", "syscon";
-+			reg = <0x0013b000 0x400>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			clocks = <&osc26m>, <&osc32k>;
-+			clock-names = "osc26m", "osc32k";
-+
-+			syscon-reboot {
-+				compatible = "syscon-reboot";
-+				offset = <0x0>;
-+				mask = <0x1>;
-+			};
-+		};
-+
-+		matrixcrm: syscon@1306000 {
-+			compatible = "zte,zx297520v3-matrixcrm";
-+			reg = <0x01306000 0x400>;
-+			clocks = <&osc26m>, <&osc32k>,
-+				 <&topcrm ZX297520V3_MPLL>, <&topcrm ZX297520V3_MPLL_D2>,
-+				 <&topcrm ZX297520V3_MPLL_D3>, <&topcrm ZX297520V3_MPLL_D4>,
-+				 <&topcrm ZX297520V3_MPLL_D5>, <&topcrm ZX297520V3_MPLL_D6>,
-+				 <&topcrm ZX297520V3_MPLL_D8>, <&topcrm ZX297520V3_MPLL_D12>,
-+				 <&topcrm ZX297520V3_MPLL_D16>, <&topcrm ZX297520V3_MPLL_D26>,
-+				 <&topcrm ZX297520V3_UPLL>, <&topcrm ZX297520V3_UPLL_D2>,
-+				 <&topcrm ZX297520V3_UPLL_D3>, <&topcrm ZX297520V3_UPLL_D4>,
-+				 <&topcrm ZX297520V3_UPLL_D5>, <&topcrm ZX297520V3_UPLL_D6>,
-+				 <&topcrm ZX297520V3_UPLL_D8>, <&topcrm ZX297520V3_UPLL_D12>,
-+				 <&topcrm ZX297520V3_UPLL_D16>,
-+				 <&topcrm ZX297520V3_DPLL>, <&topcrm ZX297520V3_DPLL_D2>,
-+				 <&topcrm ZX297520V3_DPLL_D3>, <&topcrm ZX297520V3_DPLL_D4>,
-+				 <&topcrm ZX297520V3_DPLL_D5>, <&topcrm ZX297520V3_DPLL_D6>,
-+				 <&topcrm ZX297520V3_DPLL_D8>, <&topcrm ZX297520V3_DPLL_D12>,
-+				 <&topcrm ZX297520V3_DPLL_D16>,
-+				 <&topcrm ZX297520V3_GPLL>, <&topcrm ZX297520V3_GPLL_D2>,
-+				 <&topcrm ZX297520V3_GPLL_D3>, <&topcrm ZX297520V3_GPLL_D4>,
-+				 <&topcrm ZX297520V3_GPLL_D5>, <&topcrm ZX297520V3_GPLL_D6>,
-+				 <&topcrm ZX297520V3_GPLL_D8>, <&topcrm ZX297520V3_GPLL_D12>,
-+				 <&topcrm ZX297520V3_GPLL_D16>;
-+			clock-names = "osc26m", "osc32k", "mpll", "mpll_d2", "mpll_d3", "mpll_d4",
-+				      "mpll_d5", "mpll_d6", "mpll_d8", "mpll_d12", "mpll_d16",
-+				      "mpll_d26", "upll", "upll_d2", "upll_d3", "upll_d4",
-+				      "upll_d5", "upll_d6", "upll_d8", "upll_d12", "upll_d16",
-+				      "dpll", "dpll_d2", "dpll_d3", "dpll_d4", "dpll_d5", "dpll_d6",
-+				      "dpll_d8", "dpll_d12", "dpll_d16", "gpll", "gpll_d2",
-+				      "gpll_d3", "gpll_d4", "gpll_d5", "gpll_d6", "gpll_d8",
-+				      "gpll_d12", "gpll_d16";
-+			#clock-cells = <1>;
-+			#hwlock-cells = <1>;
-+			#reset-cells = <1>;
-+		};
-+
-+		lspcrm: clock-controller@1400000 {
-+			compatible = "zte,zx297520v3-lspcrm";
-+			reg = <0x01400000 0x100>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+
-+			clocks = <&matrixcrm ZX297520V3_LSP_MPLL_D5_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_MPLL_D4_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_MPLL_D6_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_MPLL_D8_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_MPLL_D12_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_OSC26M_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_OSC32K_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_PCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_TDM_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_DPLL_D4_WCLK>;
-+			clock-names = "mpll_d5", "mpll_d4", "mpll_d6", "mpll_d8", "mpll_d12",
-+				      "osc26m", "osc32k", "pclk", "tdm_wclk", "dpll_d4";
-+		};
-+
-+
- 		uart0: serial@131000 {
- 			compatible = "arm,pl011", "arm,primecell";
- 			arm,primecell-periphid = <0x0018c011>;
- 			reg = <0x00131000 0x1000>;
- 			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&uartclk>, <&uartclk>;
-+			clocks = <&topcrm ZX297520V3_UART0_WCLK>, <&topcrm ZX297520V3_UART0_PCLK>;
- 			clock-names = "uartclk", "apb_pclk";
-+			resets = <&topcrm ZX297520V3_UART0_RESET>;
- 			status = "disabled";
- 		};
- 
-@@ -85,8 +164,9 @@ uart1: serial@1408000 {
- 			arm,primecell-periphid = <0x0018c011>;
- 			reg = <0x01408000 0x1000>;
- 			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&uartclk>, <&uartclk>;
-+			clocks = <&lspcrm ZX297520V3_UART1_WCLK>, <&lspcrm ZX297520V3_UART1_PCLK>;
- 			clock-names = "uartclk", "apb_pclk";
-+			resets = <&lspcrm ZX297520V3_UART1_RESET>;
- 			status = "disabled";
- 		};
- 
-@@ -95,8 +175,9 @@ uart2: serial@140d000 {
- 			arm,primecell-periphid = <0x0018c011>;
- 			reg = <0x0140d000 0x1000>;
- 			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&uartclk>, <&uartclk>;
-+			clocks = <&lspcrm ZX297520V3_UART2_WCLK>, <&lspcrm ZX297520V3_UART2_PCLK>;
- 			clock-names = "uartclk", "apb_pclk";
-+			resets = <&lspcrm ZX297520V3_UART2_RESET>;
- 			status = "disabled";
- 		};
- 	};
+Yes, you're right. I'll add supplies for the other options.
 
--- 
-2.53.0
+[...]
 
+>> +static int ads1262_channel_enable(struct ads1262 *st,
+>> +				  struct ads1262_channel *chan)
+>> +{
+>> +	u8 mode0, mode2, inpmux, refmux;
+>> +	int ret;
+>> +
+>> +	/* Avoid using guard() here to mitigate AB/BA deadlock warning */
+>> +	mutex_lock(&st->chan_lock);
+>> +	mode0 =3D FIELD_PREP(ADS1262_MODE0_INPUT_CHOP_MASK, chan->input_chop) =
+|
+>> +		FIELD_PREP(ADS1262_MODE0_IDAC_CHOP_MASK, chan->idac_chop) |
+>> +		FIELD_PREP(ADS1262_MODE0_REFREV_MASK, chan->ref_reversal);
+>> +	mode2 =3D FIELD_PREP(ADS1262_MODE2_DR_MASK, chan->data_rate) |
+>> +		FIELD_PREP(ADS1262_MODE2_GAIN_MASK, chan->gain) |
+>> +		FIELD_PREP(ADS1262_MODE2_BYPASS_MASK, chan->pga_bypass);
+>> +	inpmux =3D FIELD_PREP(ADS1262_INPMUX_MUXN_MASK, chan->input[1]) |
+>> +		 FIELD_PREP(ADS1262_INPMUX_MUXP_MASK, chan->input[0]);
+>> +	refmux =3D FIELD_PREP(ADS1262_REFMUX_RMUXN_MASK, chan->reference[1]) |
+>> +		 FIELD_PREP(ADS1262_REFMUX_RMUXP_MASK, chan->reference[0]);
+>> +	mutex_unlock(&st->chan_lock);
+>
+> Why does lock not also include actually writing the bits?
+
+Because we take the xfer_lock in that path. Later in the series, I'm
+forced to take the xfer_lock first, so that would be AB/BA bug. But...
+
+See the regmap answer below.
+
+[...]
+
+>> +static int ads1262_read_raw(struct iio_dev *indio_dev,
+>> +			    struct iio_chan_spec const *chan, int *val,
+>> +			    int *val2, long mask)
+>> +{
+>> +	struct ads1262 *st =3D iio_priv(indio_dev);
+>> +	struct ads1262_channel *chan_data =3D &st->channels[chan->scan_index];
+>> +	u8 realbits =3D chan->scan_type.realbits;
+>> +	__be32 raw;
+>> +	int ret;
+>> +
+>> +	switch (mask) {
+>> +	case IIO_CHAN_INFO_RAW:
+>> +		ret =3D ads1262_channel_read(st, chan_data, &raw);
+>> +		if (ret)
+>> +			return ret;
+>> +		*val =3D sign_extend32(be32_to_cpu(raw), realbits - 1);
+>> +
+>> +		return IIO_VAL_INT;
+>> +
+>> +	case IIO_CHAN_INFO_SCALE: {
+>> +		guard(mutex)(&st->chan_lock);
+>> +
+>> +		ret =3D ads1262_channel_get_scale(st, chan, val, val2);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		return IIO_VAL_INT_PLUS_NANO;
+>> +	}
+>> +
+>> +	case IIO_CHAN_INFO_HARDWAREGAIN: {
+>
+> There is only one other ADC that uses "hardwaregain". Usually, we just ma=
+ke
+> scale writeable to control the gain. I don't remember what the rules for
+> that attribute are. Using it for in_voltage is not documented in the ABI.
+
+I went with hardwaregain because the scale loses too many significant
+digits at high gain. With the internal reference and gain =3D 1, the scale
+is at 0.000001164; then at gain =3D 32, the scale is at 0.000000036.
+
+In this case I expect users to just calculate the scale themselves based
+on the hardwaregain. Is this acceptable? If not I'll go with
+scale_available.
+
+[...]
+
+>> +static int ads1262_alloc_channels(struct ads1262 *st,
+>> +				  struct iio_chan_spec **channels)
+>> +{
+>> +	struct device *dev =3D &st->spi->dev;
+>> +	struct ads1262_channel *chan_data;
+>> +	struct iio_chan_spec *chans;
+>> +	unsigned int i, num_channels;
+>> +
+>> +	/* Account for the timestamp channel */
+>> +	num_channels =3D st->num_channels + 1;
+>> +	chans =3D devm_kcalloc(dev, num_channels, sizeof(*chans), GFP_KERNEL);
+>> +	if (!chans)
+>> +		return -ENOMEM;
+>> +
+>> +	for (i =3D 0; i < st->num_channels; i++) {
+>> +		chan_data =3D &st->channels[i];
+>> +		chans[i] =3D (struct iio_chan_spec) {
+>> +			.type =3D IIO_VOLTAGE,
+>> +			.channel =3D chan_data->input[0],
+>> +			.channel2 =3D chan_data->input[1],
+>> +			.scan_index =3D i,
+>> +			.scan_type =3D {
+>> +				.format =3D IIO_SCAN_FORMAT_SIGNED_INT,
+>> +				.realbits =3D 32,
+>> +				.storagebits =3D 32,
+>> +				.endianness =3D IIO_BE,
+>> +			},
+>> +			.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+>> +					      BIT(IIO_CHAN_INFO_SCALE) |
+>> +					      BIT(IIO_CHAN_INFO_HARDWAREGAIN) |
+>> +					      BIT(IIO_CHAN_INFO_SAMP_FREQ),
+>> +			.info_mask_shared_by_type_available =3D
+>> +				BIT(IIO_CHAN_INFO_HARDWAREGAIN) |
+>
+> Gain available might make more sense as separate if there are restriction=
+s
+> on gain allowed due to other conditions.=20
+>
+>> +				BIT(IIO_CHAN_INFO_SAMP_FREQ),
+>
+> Could be the same case with sampling frequency if filters can affect that=
+.
+
+Actually, sampling frequency takes precedence over the filter
+configuration. Some rates cause the chip to ignore the filter
+configuration.
+
+>
+>> +			.indexed =3D true,
+>> +			.differential =3D true,
+>
+> These two make more sense closer to the top since they affect the
+> channel naming along with type and channel.
+>
+>> +		};
+>> +	}
+>
+> As mentioned in the DT bindings review, I would make the diagnostic
+> channels fixed so that they don't have to be always specified in
+> the devicetree.
+
+I agree. I'll add the monitors here.
+
+[...]
+
+>> +static int ads1262_regmap_read(void *context, const void *reg_buf,
+>> +			       size_t reg_size, void *val_buf, size_t val_size)
+>> +{
+>> +	struct ads1262 *st =3D context;
+>> +	struct spi_transfer xfer =3D {
+>> +		.tx_buf =3D st->tx,
+>> +		.rx_buf =3D st->rx,
+>> +		.len =3D reg_size + 1 + val_size,
+>> +	};
+>> +	int ret;
+>> +
+>> +	guard(mutex)(&st->xfer_lock);
+>
+> SPI bus and regmap both already have their own locking, so putting a lock
+> here seems out of place. Instead, the lock should be for higher-level
+> operations where there are mulitple register access in a single operation=
+.
+
+I agree. I can definitely move this one to a "higher level". But IMO,
+because this also protects tx and rx buffers, it makes sense to have it
+here too.
+
+>
+>> +
+>> +	memset(st->tx, 0, reg_size + 1 + val_size);
+>> +
+>> +	memcpy(&st->tx[0], reg_buf, 1);
+>> +	st->tx[1] =3D val_size - 1;
+>> +
+>> +	ret =3D spi_sync_transfer(st->spi, &xfer, 1);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	memcpy(val_buf, &st->rx[2], val_size);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int ads1262_regmap_gather_write(void *context, const void *reg_b=
+uf,
+>> +				       size_t reg_size, const void *val_buf,
+>> +				       size_t val_size)
+>> +{
+>> +	struct ads1262 *st =3D context;
+>> +	struct spi_transfer xfer =3D {
+>> +		.tx_buf =3D st->tx,
+>> +		.rx_buf =3D st->rx,
+>> +		.len =3D reg_size + 1 + val_size,
+>> +	};
+>> +
+>> +	guard(mutex)(&st->xfer_lock);
+>> +
+>> +	memset(st->tx, 0, reg_size + 1 + val_size);
+>> +
+>> +	memcpy(&st->tx[0], reg_buf, 1);
+>> +	st->tx[1] =3D val_size - 1;
+>> +	memcpy(&st->tx[2], val_buf, val_size);
+>> +
+>> +	return spi_sync_transfer(st->spi, &xfer, 1);
+>> +}
+>> +
+>> +static int ads1262_regmap_write(void *context, const void *data, size_t=
+ count)
+>> +{
+>> +	return ads1262_regmap_gather_write(context, data, 1, data + 1,
+>> +					   count - 1);
+>> +}
+>> +
+>> +static const struct regmap_bus ads1262_regmap_bus =3D {
+>> +	.read =3D ads1262_regmap_read,
+>> +	.gather_write =3D ads1262_regmap_gather_write,
+>> +	.write =3D ads1262_regmap_write,
+>> +	.reg_format_endian_default =3D REGMAP_ENDIAN_BIG,
+>> +	.val_format_endian_default =3D REGMAP_ENDIAN_BIG,
+>> +	/* The first two bytes of the buffer are reserved for the protocol */
+>> +	.max_raw_read =3D ADS1262_XFER_BUFFER_SZ - 2,
+>> +	.max_raw_write =3D ADS1262_XFER_BUFFER_SZ - 2,
+>> +};
+>
+> Why do we need our own bus instead of using REGMAP_SPI?
+
+Because the protocol is different. Read/write protocol for this chip is
+
+	first reg + command | number of regs - 1 | reg values
+
+while regmap_spi is
+
+	first reg | reg values
+
+I had a comment explaining this, but I forgot to restore it.
+
+[...]
+
+>> +static int ads1262_parse_firmware(struct ads1262 *st)
+>> +{
+>> +	struct device *dev =3D &st->spi->dev;
+>> +	struct clk *clk;
+>> +	u32 reg;
+>> +	int ret;
+>> +
+>> +	/* Set the nominal clock frequency */
+>> +	clk =3D devm_clk_get_optional_enabled_with_rate(dev, NULL, 7372800);
+>
+> This is quite unusual. Usually an external clock would be a fixed clock
+> and therefore can't be set.
+
+Really? It can be a crystal of course, but it also can be anything else.
+Shouldn't I be trying to set the clock frequency in that case?
+
+>
+>> +	if (IS_ERR(clk))
+>> +		return dev_err_probe(dev, PTR_ERR(clk),
+>> +				     "Failed to get external clock\n");
+>> +
+>> +	ret =3D devm_regulator_get_enable(dev, "dvdd");
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to get dvdd regulator\n");
+>> +
+>> +	st->avdd_uV =3D devm_regulator_get_enable_read_voltage(dev, "avdd");
+>
+> We only need the voltage of avdd if it is actually used as a reference, w=
+hich
+> is probably quite rare. Not all regulators provide a voltage value.
+
+Then I should just check for ENODEV here.
+
+>
+>> +	if (st->avdd_uV < 0)
+>> +		return dev_err_probe(dev, st->avdd_uV, "Failed to get avdd regulator\=
+n");
+>> +
+>> +	st->refp_uV =3D devm_regulator_get_enable_read_voltage(dev, "refp");
+>> +	if (st->refp_uV < 0 && st->refp_uV !=3D -ENODEV)
+>> +		return dev_err_probe(dev, st->refp_uV, "Failed to get refp regulator\=
+n");
+>> +
+>> +	st->refn_uV =3D devm_regulator_get_enable_read_voltage(dev, "refn");
+>> +	if (st->refn_uV < 0 && st->refn_uV !=3D -ENODEV)
+>> +		return dev_err_probe(dev, st->refn_uV, "Failed to get refn regulator\=
+n");
+>> +
+>> +	st->start_gpiod =3D devm_gpiod_get_optional(dev, "start", GPIOD_OUT_LO=
+W);
+>> +	if (IS_ERR(st->start_gpiod))
+>> +		return dev_err_probe(dev, PTR_ERR(st->start_gpiod),
+>> +				     "Failed to get start GPIO\n");
+>> +
+>> +	st->reset_gpiod =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LO=
+W);
+>> +	if (IS_ERR(st->reset_gpiod))
+>> +		return dev_err_probe(dev, PTR_ERR(st->reset_gpiod),
+>> +				     "Failed to get reset GPIO\n");
+>
+> This is currently never used.
+
+It has to be de-asserted for the chip to be in an active state though.
+
+[...]
+
+>> +MODULE_DESCRIPTION("Texas Instruments ADS1262 ADC driver");
+>> +MODULE_LICENSE("GPL");
+>> +MODULE_AUTHOR("Kurt Borja <kuurtb@gmail.com>");
+
+I agree with all other comments. Thanks a lot for the review!
+
+--=20
+Thanks,
+ ~ Kurt
