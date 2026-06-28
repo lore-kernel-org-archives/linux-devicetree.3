@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D13B305057;
-	Sun, 28 Jun 2026 08:44:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FAA11E2858;
+	Sun, 28 Jun 2026 08:45:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782636257; cv=none; b=qGp0cxLwSpKEKQ3v4RX+jifSyR6z5jrbUSEmwglQVxgzRkkOhu36EEU4x9MZZPTKtnyuYFBAnR06To+s1/heXwlcVN2bHD250VrqOJs1VBJIS4CWTwsz3p+/4PYg1pNYtQRGdvRVhqKSQAOxXVGQEV6fxVY/EVYUPWKp2bped1c=
+	t=1782636347; cv=none; b=P8wuVaIRJVtvsT/5NdMr98JOm2KW7e5LHeQu2DRiyuapWOyCKa9/zMDT/poAaK6Eb0dEifo607/owbvFmfy2CdfcWcnR69WXWoJWBDtk/8wW9vXSvlOCa74n6xyO+9rjR3eBFSNxOMxyQPIFIac0/kbHEA6R4R1Qnvc0+yGNRPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782636257; c=relaxed/simple;
-	bh=laWz/PWzk7WsqKDkxiCO/3cJBC7ORlLSKlI/yWMEuqs=;
+	s=arc-20240116; t=1782636347; c=relaxed/simple;
+	bh=8K/Y+isCMCpGMTTeb5Jd88PLMFBCOm0Gc9gZjA5lvuk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WbSQcTT9A1FC/4jlDqdy/yq9eNsiEkipfG2Tpp2hyuKFA4NVQooivFJnlqvJLer0hpiF2SfYHmxfJGxrfhHiI4RDMJurgLgDuEh8fymnYM1AfXmnrM+GTo2sJNugJB8c+QIjGTJ5XTc6kY6NiLwUsepJE2SY8Vk8Ac/SQYieEDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MLqXu9oG; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Tm25OzWd1zgtCkRAKskOHMHlxYURrq9e2UlPMUUW8zKPD/5TU9k16pf1qa/a4SSqrH2DLyP5mulj2AQU+p1Ho9mZJHt/dDViOTFsrYW5gX7bpWT0ptbovS8JW2y6NS574k8EPoqw/5Ncs1OjGQaag/DR1wyqoz64NsP8RNSc63E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEtlk9Tq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MLqXu9oG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C10791F000E9;
-	Sun, 28 Jun 2026 08:44:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEtlk9Tq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F51E1F000E9;
+	Sun, 28 Jun 2026 08:45:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782636255;
-	bh=FBoMAHCtH8Ri/28sMpEUa1oUvQsHO1sXb4qphcRiN9k=;
+	s=k20260515; t=1782636346;
+	bh=+O8UYxz1/OaYR+z9/Aria6UaSuFLU3u3GO6D8wdpVP4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MLqXu9oGFic/n+k6lkp9XZMETh6J2KGZeS3Ueiro7ME6Fg8TAaXTAorn74/Y2M5DR
-	 y2N3Sq6n8DkjZbmuXIwNsXVQWKWylO13iGSDY2q7RAjaif5Oo2umqzOuTEvuZrObpC
-	 8Kmci3Tx/026HwS9hiDUy3F9EY6YmCS1gRmfiXu5vRYfduzaRIDDeblCItlW8s+HeT
-	 82GsHMjX8YKhNkztLsy2frpWMT3yljpUQ8IM8RtxXj2eXFjgangyUzxWl/AzssU6Es
-	 G82Rs4m5J3JeofsaZv4R6Yv6GGkGFoWqSZ48pyhlrEBlqcE00fDmnBrEN2q6fhX5hO
-	 slAP1tE8gtD3A==
-Message-ID: <cfb45d95-7bf1-47dc-96f2-2ea4e9be9e70@kernel.org>
-Date: Sun, 28 Jun 2026 10:44:04 +0200
+	b=WEtlk9TqxqGeTFKiTZJfRB7ubSBZFpc2Rk9tg39MlumCNUAx2wG3sRKNoBLg7amul
+	 IJTqaGYiqtUIeb7t0iYJJ1e533X8MM2f5PU5NxU8uUgdxfuqP41YufVWgv5+wVluI0
+	 67bWOs/qQkH9aIpi+E+5GNS1aysfsYXWtDm/Nr3YTLAdnK+2OTR2A6IXQQStld2JjK
+	 Wo2VrwdP2HxMxIGNZsdkksFwDUrY84JmgK1qn0MbHmcao8s+qnGdzr8gGvsis4UyG7
+	 JRrT9MdRqRNX3xlD+uPHUpfbTRy91F0NxZFhJKwj1PU2gzmz4LJ6FaNXExPZOsRLVT
+	 eO2Aj8qXfzJ5A==
+Message-ID: <39b4dd07-d0f5-458e-8739-0572b5d50870@kernel.org>
+Date: Sun, 28 Jun 2026 10:45:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,7 +35,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] arm64: defconfig: Enable ILI7807S DSI panel driver
+Subject: Re: [PATCH 5/5] arm64: dts: qcom: Shikra LT9611UXD support
 To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -44,7 +44,7 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, arpit.saini@oss.qualcomm.com,
  mohit.dsor@oss.qualcomm.com
 References: <20260627-shikra-dt-changes-v1-0-449a402673d0@oss.qualcomm.com>
- <20260627-shikra-dt-changes-v1-3-449a402673d0@oss.qualcomm.com>
+ <20260627-shikra-dt-changes-v1-5-449a402673d0@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,24 +90,40 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260627-shikra-dt-changes-v1-3-449a402673d0@oss.qualcomm.com>
+In-Reply-To: <20260627-shikra-dt-changes-v1-5-449a402673d0@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 27/06/2026 12:01, Nabige Aala wrote:
-> From: Arpit Saini <arpit.saini@oss.qualcomm.com>
+> From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 > 
-> Enable the ILI7807S 1080x1920 video-mode DSI panel driver as a module,
-> used on the Shikra board.
+> Device tree changes to support lt9611uxd hdmi-dsi driver.
+> 
+> Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 
-So that's a v4, no changelog, tags ignored, comments not responded and
-also ignored.
+Incomplete DCO
 
-You got yourself one NAK, now second:
+...
 
-NAK
+> +
+>  	vreg_wcn_3p3: regulator-wcn-3p3 {
+>  		compatible = "regulator-fixed";
+>  		regulator-name = "wcn_3p3";
+> @@ -68,6 +98,78 @@ vreg_pmu_ch1: ldo4 {
+>  	};
+>  };
+>  
+> +&i2c4 {
+> +	status = "okay";
+> +
+> +	lt9611uxd: lt9611uxd@41 {
 
-Address the comments before you send the next version.
+No. Nice try. Instead of fixing broken driver (I reported this), you
+send broken workaround which is in clear violations of coding style and
+DT spec.
+
+That's a poor way to upstream things. Just throwing the code over the wall.
+
 
 Best regards,
 Krzysztof
