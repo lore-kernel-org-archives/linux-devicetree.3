@@ -1,136 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE9D3A2549
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 20:24:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85AD740D59D
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 20:28:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782678245; cv=none; b=GtMTglQFUQiCOW2lmEJa6swgWjahoMs+AnttFLGMRU+5Q6B9HZjDVZaImBbAfs8fCiJ8oeA+C/Kq5BIDrn2H7EQu6ackocUNZwAio4uInVvkQRmnlwPAucq7G2ShuoQxf67vFVDoxqgJjB5dCbzCl8smxC4KYlGsMC61hORrjas=
+	t=1782678498; cv=none; b=lizwOmJ9+03+++gFussM7YrjeqV/U5y4hjYLEqnuw3H/FJ8hp7bTouipInVfdsL8QAOshscxwUp2nQgQfnUAE/B3SN8VSzDsoZFcy2hHFtya4FxJyMejYmFBw/1LnlwlfEdSJ84/xMDKGa91/Yp9OtSPmJxJ4AMD6iNag18ilVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782678245; c=relaxed/simple;
-	bh=J+EtlgeQFHl/nWsWbKn3kXmKZUyGn9tY50hcIYk5nVQ=;
+	s=arc-20240116; t=1782678498; c=relaxed/simple;
+	bh=JbXhaCZ7pMUbiSwammhtSP5eGKjtUrdgmAsGTTBu+d4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rdMEfUrG0ysZk82GjYu/tMHwa8yw5X4Xi5e0Z/BhtAuWGzMC7lVzlosg1VgFhhB6IxSO9VajJLSAaibUaag15oBWJkcKobXXI+OdQeJbcdKiNJ9MDrtVVfqbZlii0jmY1fvgkTKWwRQxI/oAVkM+TAA3fyxIIXe6sK+THdx7gII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 616361F000E9;
-	Sun, 28 Jun 2026 20:24:04 +0000 (UTC)
+	 Message-Id; b=XFnEAVF19mMI7XtmZSpOtn1yabGtNjhC/x9qamQht9/Tz0HM6YNZ5RI7a0Ot2A/3ao2jaJ7y+kSfjd5bKSPQ1appH8IFEigs78jAzEcNhIj5c3DUaHSBKfF8pgBnqoQEVoXFCs4hCiViURl8LUeS6GAfMp0SdrpHLD53D5iMajY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MGwETKLq; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MGwETKLq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF51E1F000E9;
+	Sun, 28 Jun 2026 20:28:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782678497;
+	bh=pcMbRG7vma1ZBpvNW8y/0sNoSAcP4Pu8pdE+Zvn7cFw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MGwETKLqCzn8HwhmU49leEZrLFPpVfoKa1fPbJ8U+ZnJPxg9Q74mb4fRTApoXJOrW
+	 vSLt9mD2Lo0sXyIqY9vThPNGjdzi+YneyR1bcmHLDV9cGHYuuWM8uiIkeuU7znQDmz
+	 QTFj3Mc6uEUIzTEpn0r7D04ejaxjIlNlZoCji+nzPuz1hJ6Ghss8atULWILMkeY7Wp
+	 yBGDYG4JwJn4PNRU3wjUV0IdCoF/HH0lx8C384ZLvUamGRoobP1SqHk+wtBRGmwz+r
+	 ip5YkqHWLy7zVmPy1azom57JPKrbqX8Qn851L1lHkId4/X3wkGcLpcowJEAMZPmHEX
+	 YTMt8deIH+G7w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v5 11/12] reset: zte: Add a zx297520v3 reset driver
+Subject: Re: [PATCH RFC v5 07/12] clk: zte: Add regmap based clocks
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260628-zx29clk-v5-11-79ff044e4192@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260628-zx29clk-v5-7-79ff044e4192@gmail.com>
 References: <20260628-zx29clk-v5-0-79ff044e4192@gmail.com>
- <20260628-zx29clk-v5-11-79ff044e4192@gmail.com>
+ <20260628-zx29clk-v5-7-79ff044e4192@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 28 Jun 2026 20:23:55 +0000
-Message-Id: <20260628202404.616361F000E9@smtp.kernel.org>
+Date: Sun, 28 Jun 2026 20:28:16 +0000
+Message-Id: <20260628202816.DF51E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Missing `MODULE_ALIAS` for the platform drivers prevents module =
-autoloading if the auxiliary device is not present.
-- [Medium] The Kconfig entry `RESET_ZTE_ZX297520V3` fails to `select MFD_SY=
-SCON` or `depends on MFD_SYSCON`.
-- [Low] The driver is missing the `#include <linux/module.h>` header, leadi=
-ng to a build failure.
+- [Low] Trailing semicolon at the end of the `zte_clk_regmap_div_set_rate` =
+function definition.
 --
 
-commit 2568a484547168ba23bd6f47affd8cc3aa186393
+commit 4685e6891643c422560d2af4689a1b287aa1ac18
 Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
 
-reset: zte: Add a zx297520v3 reset driver
+clk: zte: Add regmap based clocks
 
-This commit adds a reset driver for ZTE zx297520v3 SoCs. It registers two
-platform drivers and one auxiliary driver to handle resets across different
-hardware blocks.
+This commit introduces regmap-based gate, divider, and mux clock
+implementations for ZTE devices. It adds helper functions to register
+these clocks using regmap structures and descriptions.
 
-> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-> index d009eb0849a3b..116dd23f1b8e3 100644
-> --- a/drivers/reset/Kconfig
-> +++ b/drivers/reset/Kconfig
+> diff --git a/drivers/clk/zte/clk-regmap.c b/drivers/clk/zte/clk-regmap.c
+> index 7908f1562f639..903998ca95082 100644
+> --- a/drivers/clk/zte/clk-regmap.c
+> +++ b/drivers/clk/zte/clk-regmap.c
 [ ... ]
-> @@ -404,6 +404,17 @@ config RESET_UNIPHIER_GLUE
->  	  on UniPhier SoCs. Say Y if you want to control reset signals
->  	  provided by the glue layer.
-> =20
-> +config RESET_ZTE_ZX297520V3
-> +	tristate "ZTE zx297520v3 Reset Driver"
-> +	depends on (ARCH_ZTE || COMPILE_TEST)
-> +	default CLK_ZTE_ZX297520V3
-> +	select AUXILIARY_BUS
-
-[Severity: Medium]
-Since this driver uses device_node_to_regmap() to acquire the parent syscon
-regmap, should this config also select or depend on MFD_SYSCON?=20
-
-If MFD_SYSCON is disabled, device_node_to_regmap() acts as a stub returning
--ENOTSUPP, which will cause the reset driver to unconditionally fail to pro=
-be.
-
-> +	help
-> +	  This enables the reset controller for ZTE zx297520v3 SoCs. The reset
-> +	  controller is part of the clock controller on this SoC. This driver
-> +	  operates on an auxiliary device exposed by the clock driver. Enable
-> +	  this driver if you plan to boot the kernel on a zx297520v3 based SoC.
+> +static int zte_clk_regmap_div_set_rate(struct clk_hw *hw, unsigned long =
+rate,
+> +				   unsigned long parent_rate)
+> +{
+> +	struct zte_clk_regmap *clk =3D to_zte_clk_regmap(hw);
+> +	unsigned int val;
+> +	int ret;
 > +
->  config RESET_ZYNQ
->  	bool "ZYNQ Reset Driver" if COMPILE_TEST
->  	default ARCH_ZYNQ
-
-> diff --git a/drivers/reset/reset-zte-zx297520v3.c b/drivers/reset/reset-z=
-te-zx297520v3.c
-> new file mode 100644
-> index 0000000000000..8ef4349042308
-> --- /dev/null
-> +++ b/drivers/reset/reset-zte-zx297520v3.c
-[ ... ]
-> +static struct platform_driver * const reset_zx297520v3_mfddrv[] =3D {
-> +	&reset_zx297520v3_top,
-> +	&reset_zx297520v3_matrix,
+> +	ret =3D divider_get_val(rate, parent_rate, NULL, clk->size, 0);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	val =3D (unsigned int)ret << clk->shift;
+> +	return regmap_update_bits(clk->map, clk->reg, clk_div_mask(clk->size) <=
+< clk->shift, val);
 > +};
 
-[Severity: Medium]
-Since these platform drivers do not have an .of_match_table and match purel=
-y by
-name, do they need explicit MODULE_ALIAS declarations (such as
-MODULE_ALIAS("platform:zx297520v3-toprst")) for proper udev module autoload=
-ing?
-
-Without these aliases, the module might only autoload when the auxiliary de=
-vice
-appears, creating a dependency on the LSP clock driver being loaded first.
-
-[ ... ]
-> +static void __exit reset_zx297520v3_exit(void)
-> +{
-> +	platform_unregister_drivers(reset_zx297520v3_mfddrv,
-> +				    ARRAY_SIZE(reset_zx297520v3_mfddrv));
-> +	auxiliary_driver_unregister(&reset_zx297520v3_auxdrv);
-> +}
-> +
-> +module_init(reset_zx297520v3_init);
-> +module_exit(reset_zx297520v3_exit);
-
 [Severity: Low]
-Does this file need to include <linux/module.h>?=20
-
-Without it, building this as a loadable module could fail because macros li=
-ke
-module_init, module_exit, MODULE_AUTHOR, and MODULE_DESCRIPTION are not
-provided by the other included headers.
-
-> +
-> +MODULE_AUTHOR("Stefan D=C3=B6singer <stefandoesinger@gmail.com>");
-> +MODULE_DESCRIPTION("ZTE zx297520v3 reset driver");
-> +MODULE_LICENSE("GPL");
+This isn't a bug, but there is an unnecessary trailing semicolon at the end=
+ of
+this function definition.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628-zx29clk-v5=
--0-79ff044e4192@gmail.com?part=3D11
+-0-79ff044e4192@gmail.com?part=3D7
