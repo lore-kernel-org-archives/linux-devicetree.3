@@ -1,66 +1,67 @@
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627E835CB6A
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 05:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8C031194C
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 05:36:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782624994; cv=none; b=i7Xem+8VWn0s8XeQ0BHZaj+nuwJLvWDbZOruTxLKbnX35vO9SEcZb5hFkFdWDYisekRVFFPTd03GX9XFiPY14lneb/8uk7XN27Pfp7H9p14ju/n2kXQHYHs0ntLIxbWJcJqPmHKdbySajBErbiHRDPPoM2w4EctMOAyH6QFC5VQ=
+	t=1782624997; cv=none; b=acODu4B7MOYY2cVdW00GcSr4KOlMWtmobQ99Jj1TTGRrLtIc3hjHbpo2rFNtQoSLo08k8M3x8RsCnshDUb9Q3RJMMfgiZ4N4hLs9Tn8TzVe5JtU3fYiJdg9tQMevkl0KeP6oAq89TVMyMOrk5FEhH+U1zrpHQJH+hjZaqmCd0RU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782624994; c=relaxed/simple;
-	bh=ANUkdLWe+7RcLhUKloW6tdEkCtqS2AXmrjadF/8l4DQ=;
+	s=arc-20240116; t=1782624997; c=relaxed/simple;
+	bh=phGDKF/7ypWNAiTnvOwLVxua6NDi5KzvTxXMTomI5HA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rrnKb7mu5neZz0E2oOIbxeolhQyFRJMVR4WITbZJ7CFno8B9CP4jonUsASRe+b7ChKkwPw2ky7DEzIjxiWGjSV8uSrkl5ONfgJp1ujsdrWoGVAAmLdu5Vpf966tQV8YiQDzQbTb0Uj+pgpIlyCfp/D5iZCRVekmvx2MPEI2iOoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GInAjNgo; arc=none smtp.client-ip=209.85.221.180
+	 In-Reply-To:To:Cc; b=kr+1HhRJvfAy/FDDDbRVc3L54OytG8o48pkT9rHAV9IhCRze5xTZ3oihgJaTt/Atex6kbFt2hxskNeyzPZsxTkyUvyuquvz8hQu1tJxO5iu1Cw2mPZP3kf/XJCDOJxwmv01vPfJanU4WkxHZrC4lEvSrKzsw/VRD4hW1vxnDlqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r2cMMret; arc=none smtp.client-ip=209.85.221.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GInAjNgo"
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-59ebf30a91dso1085722e0c.1
-        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 22:36:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r2cMMret"
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5bbc6c99b5cso923401e0c.1
+        for <devicetree@vger.kernel.org>; Sat, 27 Jun 2026 22:36:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782624992; x=1783229792; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782624994; x=1783229794; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=2y2aGGvAdzTMZAt6XgZ667DmYPmid1iJw8FUP5rUeuY=;
-        b=GInAjNgoavZ3/BXabGebPDNk78BfUQTvVD2Gw7+cKlPxmTeVngkf7r98cXOoTHijtW
-         yMq7EJhGL+DYL9Pb3Kdd0YygPD8tJas0k+XbFhCUjMyOU52tpU/fBkaBDX8d0rg+vBrv
-         TrNe+1Q5T7pGh1CANNdgydqQmuqU0IVBfOF6LIwzRnQFpiaXwYg/7gCS1SVy/5HZO9YQ
-         tLNaIxTutkwdkOg2C5sYk7Xyn7MKeCKDyhInyKpjQ4P/B+Vzzl0kAlbSMkMrzcsxgDa5
-         +miWEJtTFkvCRKVV07XGGESwlXH5MCF02pFrout3W82f0iIkYZVqpYDWzdhSjIBodwhx
-         2Dxw==
+        bh=Z+yvCkodc+lVFLhFvxRIhqebis/f5gugGjsomvu2gcg=;
+        b=r2cMMrettXu4ro01JOVLy6LnbpCt6pG1fKpTR9FgYxRiWgcOTjkbqyKqn0rYmAk2lc
+         D9qgCpPg35xVW8dZUt5lPAmKPjAWGZdMo01+0JOYOd69QVu/hsZe9eZcNdYXTigKfeiY
+         hW9d/U4/6UP7Z5n9BxoiTgDE/2rs/3WwiycujpoiFWU0NwrtSxN00DjuySLtWZXCkzl5
+         EDaKgU/eKu1GF49PlSpE/YymVcPvSvzAOO10nhfznW+TQ4k4d0ApwKJYCT6Fc7izt4ck
+         mQie3PPJ87a50ILcq6fgtYPGdsECAuBugZrxHTQ59Eru5St2JPFg74lSUWLVg41wMQel
+         Tw8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782624992; x=1783229792;
+        d=1e100.net; s=20251104; t=1782624994; x=1783229794;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=2y2aGGvAdzTMZAt6XgZ667DmYPmid1iJw8FUP5rUeuY=;
-        b=FJm6sSJ4ZXAluchI5qTGOOc+nJPr2z1frk7eHrGvFxW0c7bqjKNXFhyCGxQjL6qWyE
-         6+cpmjb3yyRsx6qql7KjjVHi4AKHGKixikkv27ykxMgqLkzWe1lIHtatTM6CjuI1m3Au
-         BMSQMcqzItUAjUR1jlPbBNKHCtwGu3VYbWlk1PDSidMrrONLTivoXA6P6WYdSkw3TLUB
-         Lg68e0IqdUbT47jQEfcRXhGZ2WeQ+VagZ3Sq6Ovc4D6y5hmsTgWjD+xj35vQfePkCnyo
-         1+0a744La0C44b7Y/rp5x2o4EHANxKBx9PPCAqVkdStAjJUkqhyBO00739szlC/0vKkZ
-         mHoQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr1gV1RWEqW/HsvtXJafNs5YN9dEgSNh1jrkrFhV4JVh3A5J7ek7wIEW7sAPyPVpbNHoa7HvQTvJT/o@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywrk60QP1P+gggTAnZqQQ6aTN+Relv3rwrc+496wno3zD4hJWVr
-	1MGt0O9rSWg8+yK/ffqvYvMNYuEtppnurFRI9nRbX2Uk4/JoSZikxD1A
-X-Gm-Gg: AfdE7cn/2ioSTB1ALbI+J96iFlacIZKlqdj6wbs1q/rC794vOmUVVlrcbiXNgoUtS1j
-	phyJs3ZW34WE9+dykzV55MbRS7eBxeUvCulSPW/CNOVmTVdqbtcXbNBH0G/cyux7/73TnHbh57o
-	VXvGIKJW36+HMV/AQnfkffvy+GKeGXlgp7rq7u1EfarN6R77D2HdsJrMZZzKGin5XYAdEOhWfCY
-	icmKchzJ08hvmDvUDaOgoNfgIbhsOGNvSvCWsfOYH0d9Nai3ht42r3HrFVaDVerY+DC2LYYoRxJ
-	Ll4Kn/xHhNbZ0ft0w2BJfv094StkRG/nq5xtW+DBUy4zeHDUpt3Z+NtkRpzP2e0KJu2YsiLyliK
-	xEVAFItf4E0LuOToU8vtUm8p2VNelpTf4iGj2c+K4mnCLLMj/E931CIV+6GRVkmr24jSp8C4vTp
-	mpjCQ4hRs7GnILSTCY
-X-Received: by 2002:a05:6122:e46e:b0:575:29ef:7df8 with SMTP id 71dfb90a1353d-5bd69d1f795mr5165207e0c.2.1782624992499;
-        Sat, 27 Jun 2026 22:36:32 -0700 (PDT)
+        bh=Z+yvCkodc+lVFLhFvxRIhqebis/f5gugGjsomvu2gcg=;
+        b=su04+lGVgHi0ygVAPr86HYWUn6Uoz3lzkN6FNTPaPBR6HmDZjjhYLqzVZAYfOma3T6
+         CcBFgpDuV1xDb/sYkWGS2TK6X58RsEqFf/v4JAsI5u5IWq+XGBl1N+pez6oaL0mGZb/5
+         sOKSeFlT3q03c9aFTWN5VtjvcPJlZ1q1rOy60pEzbhWbXDYbDgGZ4g5Wj3EH5KhXoYGP
+         tmlgwlERmlnTdWFZk/xjHoGAQEAYumQWtK8fM0jY+0SOyiRNEpIQ+7XQjT/cKBRp9S+E
+         MXfhq+7qV7DriCsWqnhSqWwFBj4LjPs8ADQ0TdhDGBi9Kj1X9McqZXUyKAhahUji88CN
+         hc4w==
+X-Forwarded-Encrypted: i=1; AHgh+Rprb2/OUndBa8ViXWABgizCn7afVormqYHmKTS0JDlfnn5E3tIBUTlbk/GTr9hggtUeyYqxdzTHze8m@vger.kernel.org
+X-Gm-Message-State: AOJu0YyGrqHFgU8wVesMtBcWme4xsBTGlU7MmUCbzrv3KCYtEN2s8gkV
+	BDnMMCllBwHjBE+fM/nLf1ZXN9ok3+iRO0dFg+ooQUe7gaMiU3RkpLmI
+X-Gm-Gg: AfdE7cn/uAezxfYZLyVIcH8b4uzTdCX6g37Kmb1e4qxN82jzuvpQevcB2jfFvvrB9EF
+	LCvYcf0bEsDIOCJRTVsTStFyznVl5Vtc30qtyneYtocl0ExWnBI++kHZlnoESviGKnrKL5J/M+U
+	oaRkL7f6d7Cme5pOJZScPdhuWPFBrH80ytl5kwsrsF9/k3NqBIu6+I+teBIn5dqgJOiZHF5YaLd
+	PWUQd82tu0zuEZm/ckeOMeCy7lftCgzq8ZnXLbKbzwqL5HG4ZM2mNXNhTyYDci3sPRFN7CoDTKB
+	G/Kovd6bXneIDlqEPnYH43+VyVzykrwr/bTSDulUax0Ek5Biob0T4feDOviAIoQphpnfBwLreYp
+	3v/VNeVTrl1+8nGZ7j5zwc+HZqP3b6vEZBInTHySCuTyF2ICerKpLhMXGYOnXOjzosDK6Qkynob
+	okGYsyTDy8ZWTZWnin
+X-Received: by 2002:a05:6122:1d0e:b0:59e:372f:6db9 with SMTP id 71dfb90a1353d-5bd69f5a5bbmr5548366e0c.12.1782624994517;
+        Sat, 27 Jun 2026 22:36:34 -0700 (PDT)
 Received: from [192.168.100.153] ([2800:bf0:61:1127:ab87:5602:531c:8dfb])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bda2dd64c3sm229003e0c.1.2026.06.27.22.36.30
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bda2dd64c3sm229003e0c.1.2026.06.27.22.36.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 27 Jun 2026 22:36:32 -0700 (PDT)
+        Sat, 27 Jun 2026 22:36:34 -0700 (PDT)
 From: Kurt Borja <kuurtb@gmail.com>
-Date: Sun, 28 Jun 2026 00:36:04 -0500
-Subject: [PATCH v2 3/7] iio: adc: ti-ads1262: Add channel filter support
+Date: Sun, 28 Jun 2026 00:36:05 -0500
+Subject: [PATCH v2 4/7] iio: adc: ti-ads1262: Add excitation current
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260628-ads126x-v2-3-4b1b231325ba@gmail.com>
+Message-Id: <20260628-ads126x-v2-4-4b1b231325ba@gmail.com>
 References: <20260628-ads126x-v2-0-4b1b231325ba@gmail.com>
 In-Reply-To: <20260628-ads126x-v2-0-4b1b231325ba@gmail.com>
 To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
@@ -80,148 +81,161 @@ Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Jonathan Cameron <jic23@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4202; i=kuurtb@gmail.com;
- h=from:subject:message-id; bh=ANUkdLWe+7RcLhUKloW6tdEkCtqS2AXmrjadF/8l4DQ=;
- b=owGbwMvMwCUmluBs8WX+lTTG02pJDFkOm64zvNqW/qE8y33C3NzH6U/iDsqv+Fy6+veXA3zWy
- zP2S7GkdZSyMIhxMciKKbK0Jyz69igq763fgdD7MHNYmcCGcHEKwETuFTEyHG79VPz+qN1Bjhfd
- phPcbF7l/O4LzapelfLp/vWWeYfZNBj+O+x9M6/Q1+7HQyHP1WL3PXl5j0/tEl5a895ZS7psx+k
- iRgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5127; i=kuurtb@gmail.com;
+ h=from:subject:message-id; bh=phGDKF/7ypWNAiTnvOwLVxua6NDi5KzvTxXMTomI5HA=;
+ b=owGbwMvMwCUmluBs8WX+lTTG02pJDFkOm25sZW3t1VjStOD41IuRci0li1l49UJPXfPVViwx3
+ MU5LVS7o5SFQYyLQVZMkaU9YdG3R1F5b/0OhN6HmcPKBDKEgYtTACZSP5OR4fdFE4to7+NzW4yT
+ Ct5slTkYr/xnIndWUE7LbI6d62p5UhgZtvU5zI2ddEiKd+ZU01OCrzdU3MvenrG2csbxhV6uUzo
+ ecAEA
 X-Developer-Key: i=kuurtb@gmail.com; a=openpgp;
  fpr=54D3BE170AEF777983C3C63B57E3B6585920A69A
 
-Expose per-channel filter configuration through the filter_type
-attribute.
+Support the two IDAC excitation current sources. Each channel can route
+its IDAC1/IDAC2 outputs to a pin via the "excitation-channels" property
+and select a magnitude via "excitation-current-nanoamp".
 
 Signed-off-by: Kurt Borja <kuurtb@gmail.com>
 ---
- drivers/iio/adc/ti-ads1262.c | 65 +++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 64 insertions(+), 1 deletion(-)
+ drivers/iio/adc/ti-ads1262.c | 78 ++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 76 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
-index 6103cf5a2d1624a9..ece97a0c2b1304ad 100644
+index ece97a0c2b1304ad..8921eaae537f6b0a 100644
 --- a/drivers/iio/adc/ti-ads1262.c
 +++ b/drivers/iio/adc/ti-ads1262.c
-@@ -146,6 +146,14 @@ enum {
- 	ADS1262_RUNMODE_PULSE,
+@@ -193,6 +193,22 @@ enum {
+ 	ADS1262_INPMUX_LAST
  };
  
 +enum {
-+	ADS1262_FILTER_SINC1,
-+	ADS1262_FILTER_SINC2,
-+	ADS1262_FILTER_SINC3,
-+	ADS1262_FILTER_SINC4,
-+	ADS1262_FILTER_FIR,
++	ADS1262_IDACMUX_AIN0,
++	ADS1262_IDACMUX_AIN1,
++	ADS1262_IDACMUX_AIN2,
++	ADS1262_IDACMUX_AIN3,
++	ADS1262_IDACMUX_AIN4,
++	ADS1262_IDACMUX_AIN5,
++	ADS1262_IDACMUX_AIN6,
++	ADS1262_IDACMUX_AIN7,
++	ADS1262_IDACMUX_AIN8,
++	ADS1262_IDACMUX_AIN9,
++	ADS1262_IDACMUX_AINCOM,
++	ADS1262_IDACMUX_NO_CONN,
++	ADS1262_IDACMUX_LAST
 +};
 +
  enum {
- 	ADS1262_DR_2_5_SPS,
- 	ADS1262_DR_5_SPS,
-@@ -201,6 +209,7 @@ struct ads1262_chip_info {
- 
- struct ads1262_channel {
- 	u8 input[2];
-+	u8 filter;
+ 	ADS1262_REFMUX_INTERNAL,
+ 	ADS1262_REFMUX_AIN0_AIN1,
+@@ -213,6 +229,8 @@ struct ads1262_channel {
  	u8 gain;
  	u8 data_rate;
  	u8 reference[3];
-@@ -441,7 +450,7 @@ static int ads1262_dev_read_by_cmd(struct ads1262 *st, u8 cmd, __be32 *val)
++	u8 idac_mux[2];
++	u8 idac_mag[2];
+ 	u8 pga_bypass:1;
+ 	u8 ref_reversal:1;
+ 	u8 input_chop:1;
+@@ -450,7 +468,7 @@ static int ads1262_dev_read_by_cmd(struct ads1262 *st, u8 cmd, __be32 *val)
  static int ads1262_channel_enable(struct ads1262 *st,
  				  struct ads1262_channel *chan)
  {
--	u8 mode0, mode2, inpmux, refmux;
-+	u8 mode0, mode1, mode2, inpmux, refmux;
+-	u8 mode0, mode1, mode2, inpmux, refmux;
++	u8 mode0, mode1, mode2, inpmux, idacmux, idacmag, refmux;
  	int ret;
  
  	/* Avoid using guard() here to mitigate AB/BA deadlock warning */
-@@ -449,6 +458,7 @@ static int ads1262_channel_enable(struct ads1262 *st,
- 	mode0 = FIELD_PREP(ADS1262_MODE0_INPUT_CHOP_MASK, chan->input_chop) |
- 		FIELD_PREP(ADS1262_MODE0_IDAC_CHOP_MASK, chan->idac_chop) |
- 		FIELD_PREP(ADS1262_MODE0_REFREV_MASK, chan->ref_reversal);
-+	mode1 = FIELD_PREP(ADS1262_MODE1_FILTER_MASK, chan->filter);
- 	mode2 = FIELD_PREP(ADS1262_MODE2_DR_MASK, chan->data_rate) |
- 		FIELD_PREP(ADS1262_MODE2_GAIN_MASK, chan->gain) |
+@@ -464,6 +482,10 @@ static int ads1262_channel_enable(struct ads1262 *st,
  		FIELD_PREP(ADS1262_MODE2_BYPASS_MASK, chan->pga_bypass);
-@@ -465,6 +475,11 @@ static int ads1262_channel_enable(struct ads1262 *st,
+ 	inpmux = FIELD_PREP(ADS1262_INPMUX_MUXN_MASK, chan->input[1]) |
+ 		 FIELD_PREP(ADS1262_INPMUX_MUXP_MASK, chan->input[0]);
++	idacmux = FIELD_PREP(ADS1262_IDACMUX_MUX1_MASK, chan->idac_mux[0]) |
++		  FIELD_PREP(ADS1262_IDACMUX_MUX2_MASK, chan->idac_mux[1]);
++	idacmag = FIELD_PREP(ADS1262_IDACMAG_MAG1_MASK, chan->idac_mag[0]) |
++		  FIELD_PREP(ADS1262_IDACMAG_MAG2_MASK, chan->idac_mag[1]);
+ 	refmux = FIELD_PREP(ADS1262_REFMUX_RMUXN_MASK, chan->reference[1]) |
+ 		 FIELD_PREP(ADS1262_REFMUX_RMUXP_MASK, chan->reference[0]);
+ 	mutex_unlock(&st->chan_lock);
+@@ -493,6 +515,18 @@ static int ads1262_channel_enable(struct ads1262 *st,
  	if (ret)
  		return ret;
  
-+	ret = regmap_update_bits(st->regmap, ADS1262_MODE1_REG,
-+				 ADS1262_MODE1_FILTER_MASK, mode1);
++	ret = regmap_update_bits(st->regmap, ADS1262_IDACMUX_REG,
++				 ADS1262_IDACMUX_MUX1_MASK |
++				 ADS1262_IDACMUX_MUX2_MASK, idacmux);
 +	if (ret)
 +		return ret;
 +
- 	ret = regmap_update_bits(st->regmap, ADS1262_MODE2_REG,
- 				 ADS1262_MODE2_DR_MASK |
- 				 ADS1262_MODE2_GAIN_MASK |
-@@ -682,6 +697,52 @@ static irqreturn_t ads1262_irq_handler(int irq, void *dev_id)
- 	return IRQ_HANDLED;
- }
- 
-+static int ads1262_get_filter_type(struct iio_dev *indio_dev,
-+				   const struct iio_chan_spec *chan)
-+{
-+	struct ads1262 *st = iio_priv(indio_dev);
-+	struct ads1262_channel *chan_data;
++	ret = regmap_update_bits(st->regmap, ADS1262_IDACMAG_REG,
++				 ADS1262_IDACMAG_MAG1_MASK |
++				 ADS1262_IDACMAG_MAG2_MASK, idacmag);
++	if (ret)
++		return ret;
 +
-+	guard(mutex)(&st->chan_lock);
-+
-+	chan_data = &st->channels[chan->scan_index];
-+	return chan_data->filter;
-+}
-+
-+static int ads1262_set_filter_type(struct iio_dev *indio_dev,
-+				   const struct iio_chan_spec *chan,
-+				   unsigned int val)
-+{
-+	struct ads1262 *st = iio_priv(indio_dev);
-+
-+	guard(mutex)(&st->chan_lock);
-+	st->channels[chan->scan_index].filter = val;
-+
-+	return 0;
-+}
-+
-+static const char * const ads1262_filter_type_labels[] = {
-+	[ADS1262_FILTER_SINC1] = "sinc1",
-+	[ADS1262_FILTER_SINC2] = "sinc2",
-+	[ADS1262_FILTER_SINC3] = "sinc3",
-+	[ADS1262_FILTER_SINC4] = "sinc4",
-+	[ADS1262_FILTER_FIR] = "fir",
-+};
-+
-+static const struct iio_enum ads1262_filter_type_enum = {
-+	.items = ads1262_filter_type_labels,
-+	.num_items = ARRAY_SIZE(ads1262_filter_type_labels),
-+	.get = ads1262_get_filter_type,
-+	.set = ads1262_set_filter_type,
-+};
-+
-+static const struct iio_chan_spec_ext_info ads1262_ext_info[] = {
-+	IIO_ENUM("filter_type", IIO_SEPARATE, &ads1262_filter_type_enum),
-+	IIO_ENUM_AVAILABLE("filter_type", IIO_SHARED_BY_TYPE,
-+			   &ads1262_filter_type_enum),
-+	{ }
-+};
-+
- static int ads1262_alloc_channels(struct ads1262 *st,
- 				  struct iio_chan_spec **channels)
+ 	return regmap_update_bits(st->regmap, ADS1262_REFMUX_REG,
+ 				  ADS1262_REFMUX_RMUXN_MASK |
+ 				  ADS1262_REFMUX_RMUXP_MASK, refmux);
+@@ -1040,13 +1074,19 @@ static int ads1262_parse_channel_node(struct ads1262 *st,
+ 				      struct fwnode_handle *node)
  {
-@@ -718,6 +779,7 @@ static int ads1262_alloc_channels(struct ads1262 *st,
- 				BIT(IIO_CHAN_INFO_SAMP_FREQ),
- 			.indexed = true,
- 			.differential = true,
-+			.ext_info = ads1262_ext_info,
- 		};
- 	}
- 
-@@ -983,6 +1045,7 @@ static int ads1262_parse_channel_node(struct ads1262 *st,
+ 	struct device *dev = &st->spi->dev;
++	static const u32 idac_nA[] = {
++		0, 50000, 100000, 250000, 500000, 750000,
++		1000000, 1500000, 2000000, 2500000, 3000000
++	};
+ 	const char *ref_sources[3] = {};
+-	u32 pins[2];
++	u32 pins[2], mags[2];
  	int ret;
  
  	/* Write non-zero default configuration values */
-+	chan->filter = ADS1262_FILTER_FIR;
+ 	chan->filter = ADS1262_FILTER_FIR;
  	chan->data_rate = ADS1262_DR_20_SPS;
++	chan->idac_mux[0] = ADS1262_IDACMUX_NO_CONN;
++	chan->idac_mux[1] = ADS1262_IDACMUX_NO_CONN;
  
  	ret = fwnode_property_read_u32_array(node, "diff-channels", pins, ARRAY_SIZE(pins));
+ 	if (ret)
+@@ -1086,6 +1126,40 @@ static int ads1262_parse_channel_node(struct ads1262 *st,
+ 		}
+ 	}
+ 
++	if (fwnode_property_present(node, "excitation-channels")) {
++		ret = fwnode_property_read_u32_array(node, "excitation-channels",
++						     pins, ARRAY_SIZE(pins));
++		if (ret)
++			return dev_err_probe(dev, ret, "%s: Failed to read excitation-channels\n",
++					     fwnode_get_name(node));
++		if (pins[0] >= ADS1262_IDACMUX_LAST || pins[1] >= ADS1262_IDACMUX_LAST)
++			return dev_err_probe(dev, -EINVAL, "%s: excitation-channels not in range\n",
++					     fwnode_get_name(node));
++		chan->idac_mux[0] = pins[0];
++		chan->idac_mux[1] = pins[1];
++
++		ret = fwnode_property_read_u32_array(node, "excitation-current-nanoamp",
++						     mags, ARRAY_SIZE(mags));
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "%s: Failed to read excitation-current-nanoamp\n",
++					     fwnode_get_name(node));
++
++		ret = ads1262_find_one(idac_nA, mags[0]);
++		if (ret < 0)
++			return dev_err_probe(dev, ret,
++					     "%s: Invalid excitation-current-nanoamp\n",
++					     fwnode_get_name(node));
++		chan->idac_mag[0] = ret;
++
++		ret = ads1262_find_one(idac_nA, mags[1]);
++		if (ret < 0)
++			return dev_err_probe(dev, ret,
++					     "%s: Invalid excitation-current-nanoamp\n",
++					     fwnode_get_name(node));
++		chan->idac_mag[1] = ret;
++	}
++
+ 	if (fwnode_property_present(node, "ti,pga-bypass"))
+ 		chan->pga_bypass = 1;
+ 
 
 -- 
 2.54.0
