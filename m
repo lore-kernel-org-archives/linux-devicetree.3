@@ -1,143 +1,226 @@
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B498B227EA4
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 07:02:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F512045AD
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 07:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.172
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782630122; cv=pass; b=Zj2U+vp347nqe2sGyiGOhOzqD1Fk/v1I2q1A7etAZGTES9Ryi1TW4cCjmLyM1L3EoG66PpA/dB2jWn1iQuPwjV5HRIPQjD4IYaE8EKiqhkliPoMmCUDaG86gZnGqoDGkJIWcwOVi/QwroQpXcViFi+z2IAe1NyX+0vFJIeSRjtA=
+	t=1782630970; cv=pass; b=h7qVD6aKCq6X/41swgse18O8UmG6oG/dk9nI8emsCtUDUdwgAN4hRB+8PWfVmNJ9nNnsR5STE0Ua3tRnYCXSn5ufD+jBiY8YCZCYdS0nseGaD508vMHUAMn4PRweok6hbnZ7w0sOY2TVmBxWAQEvavRQKUmHioQ0ACugRGBqFYs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782630122; c=relaxed/simple;
-	bh=GY4pj5xmpcn7UP2PeAYAwybK3ew5+HG7uoyXdtWG2wA=;
+	s=arc-20240116; t=1782630970; c=relaxed/simple;
+	bh=Clnfi/kv4cLVv5dhNS8JGOOv22pyEAHj1VloGHzKTnY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CZALddbmV9IfodmAmNRvmNJta0ziePTuFgv9SVsTGhAG9Grj5FuNfQU/i9bY/r8e3RZpQysmTfYjDL3TE3bQjNsWZB2VkELH9pm4QdVstEJhDO6Etx4kxxZViXQv76Hs/cBes8SxkTl0iSkYcL85gCuG0y4ZLzCP6nkx0g9zINA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AQkNl8rg; arc=pass smtp.client-ip=74.125.224.46
+	 To:Cc:Content-Type; b=t+p0yQ4E2KJYH7mtZc5cJzbIgzDdLRYZthmOTktVXWYC9kxfcfA9VrT8Ujls9+80C4mF7sL5xekYxL+bzbBZNlL7UpcduKrPOaTaSEurPVMM+aeLNzfBa71uCe/upXZMzmOyA4SpaPVVjjOf6r9Z02hEn145Ta34C8JeP/iJGmY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MvgTQ8Vn; arc=pass smtp.client-ip=209.85.128.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AQkNl8rg"
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-664c4a04081so163110d50.2
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 00:02:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782630120; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MvgTQ8Vn"
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-80cd342a796so10174797b3.0
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 00:16:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782630968; cv=none;
         d=google.com; s=arc-20260327;
-        b=kEhKlb7Ud/wuDJlIRjSP/I/3Xf3wgVW122y6LfONGKbI0ZEfSaCoaQ+0EiQdSiaaz+
-         FBz1dV7sYL0FiEHWKInENWieyg4S9RSLctnGimfuSDD9bJxsHyTHz3nU2HFi48+1BPKG
-         LNhw9rO8kfmZtIac7+8kUbqe+Dj3kprlvTkrmoOm6iWoXs19zag7dGVkNkaYNbfaEQm/
-         cBnKcdnGnPhgZiLOcXWmLx1IUn6zie4RQmuXrk/Z3E4yCPOGCfO6Fq+5bBz6DHWDXiCK
-         3Aya9Rs3QAP6iGRti9+qeIhrkIjGA5e3TRmnsZNa41GfBsBac+VoG4mziFNF3m0CsiQx
-         fcqQ==
+        b=D5iAfm1t32WhvD9ER8ri7//rfqTBay/ZhETXowiK4ym4Y8zJmuDKNc3jGMp8Gt02I7
+         ERgxddSowe1U/lkXppTTIfs0DY7EOQk5QQ9NQAOrHP1NoVcwwvbQMDgC8D0b93sQR9n0
+         bF/X8q6tONSr46Hf8OxdU0rJDfaxYRoCSS2g9Gp3vj6XreTq9+m33jJq/INYLBYhjbOK
+         jH+gFCXcPXNWSWmH2kGWY6xYl5zykM7p/B3SyXYMclcNXc+bFQ6duXD2cXAL70JPqj8P
+         Dj8y3vZ0okYr+9xtRTEq1KP7r3SvlUnbdGT+TyJuRMG1GrZElxEsJZhsePbugDCjLOfi
+         QrKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=+OId4Ok77F5YJbguyUedoxMERWa5HS2eOIQ/JijyeTg=;
-        fh=YRP3OMBhNnemj+ET/KogRHjY0ZJubPGoKgzxX4d4bjU=;
-        b=aMfYK0SDOeltfwwAlBgdbI+YJqherPVPfS81Xyi0OXvfKpcvlK4e9iEMRdlbsGTE7J
-         WIHKl3sJav6CrYTsatcYVvCkuNVP6uiTrxrge83wwGcBuT7AkNdRwBRjC2dMPrR+d3PC
-         A1liCrtvbdLIHUrvLXkAvHpNUAxinCsdheOh0MAliwhNvn6eEYR/rjwso8TkoPJ6JL/9
-         16fh9F8Fl5TuQEEb4qXC5ujY2JT6+0FMXqHZGkFEj25YKtxDojNnwJXMGZfUSw0HWhtn
-         ODqoQi8/+ModsO4eILB8ntpXW54CgBPS9rmW1FJKyqAtxPjYG0zluqJlTkxlOfZuiPnx
-         n29w==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VYkMilNx7ZRv+pY9kOiaVDU1vZlVNUL8U5Tb17+D99Y=;
+        fh=l7naXfeMQEo9RaYW8qxWeqhttAC3Wzufq6pNZDyy/F0=;
+        b=ivZQU3avPw+8Ao6ph3knMhhpjfF0DwIENVUfrLBv9PTtyUbIhhYXCUVjkHIEgdRxeY
+         HiRYswWRfDu5lB3D4YsFglBfeuyvIl0zxRk5vHLMSgtrA8DDdUFVXLv2aakRWMR+afwc
+         ZT+C0S9jhSqeZ6iNYIfArH8JucgqH5JCViQ1lB6rL4SLDvLyUdeReTG4Bs+1dbIjNyF1
+         D+vKPPDJlpKgwRz2YW3wb/Y1THLcLGcZwbejNbIxNP57eIxjF44oxfqk6D3pL00WNG47
+         w3NvxbHHzqBu+r5BAYR2n2hAj+lrgXv5qbXAm1axw2oBJKpItfW3cVglyTCDczt4chlw
+         yt1A==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782630120; x=1783234920; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=+OId4Ok77F5YJbguyUedoxMERWa5HS2eOIQ/JijyeTg=;
-        b=AQkNl8rgTfKxMVSAtCN89DB2I0uds+ZfyykkNh1FuW4Ha5PIzi23m2zOXzdbZhISH5
-         FcpHniGTt2t3q/3TrJ4X2gm7PAb27vsh1fSoJS6YkXMslsLjixrG4uZxCOFPtA0tUprO
-         Ju0XmD8lPhg1zFVyCSP4ocqLTnEeUKwNxg/62T2vL4rT4E+/6cMTRc8BVaP18729+c/0
-         mmU11K1CEfk3MyD8w/n+J7rh31HGnPbHPAnGLcM0UYmcFFl9N5I+hVPCu65ALWh7bPUr
-         2MTbU4dGBzEAZexxx/dgk1vDRDCJUdrEcEgHcfvm/zQ6daWHpPzgpuVXjNWwFkSHZ0d5
-         prYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782630120; x=1783234920;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1782630968; x=1783235768; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+OId4Ok77F5YJbguyUedoxMERWa5HS2eOIQ/JijyeTg=;
-        b=oRFmXpdnq5t3KNvSpe3iHjgUBr/6FVhHCCL8NtL7SHBUfnJWok4JIIOhzoa+SrY/oz
-         tcCObmRQuqrmDcu5+owm2ld0/8dEKMP+Uwf1+jc2QCZJ4a3OrR1oQzyyZ0tDbtAswHwV
-         1ILrPiHru7G7nAvF22CHN2AUZRm8WcE1gisQOQVKknekHqB3YWkQOYjA9NPlimo5/y37
-         jCU6pPztRD8WVRyqAFlivbhnmZzNQu1dMSiufkkrnx1tn7n9E58q5S3J1Mqh1QUe03JD
-         tHwtjmWJCn6dcla3k/UO097fUKufZ9xXFpDRDSTfA5bX7hSzHpUuHTQgr9HraD73FTar
-         t42A==
-X-Forwarded-Encrypted: i=1; AHgh+RrJJncdNeQFyFiMKvSRFkF6IiTEOOLCp6GYgsogSS5N8Jf5PjcEiNzWyicMeBGM6A+n/fIJHa4ZHyO8@vger.kernel.org
-X-Gm-Message-State: AOJu0YyOcdIDFA0AcSAyZmKkHIgD1bQbziz6SdL7n2wrL8iT1wE3LjCA
-	GrkU1L1FfEap1QjmByve1kCkCTsSZYqni9uIjkPHkh5eMt4v9P2OIur5cXwH9F81vECcIz9fHYl
-	b4fsMzsFE2z9TJFec9936tY0QbFQAFHI=
-X-Gm-Gg: AfdE7cm7w5Xwc14H9w6S4QpqhJNcdNKfx30h9FZRVdheZq4XOHHfab/UxaGuZJ2MhL+
-	UcudJ6u/NajKqj4GcAM9M4E2JZPfknhrDtA0IyootHvDXl3p1lc7btK2F2pEutBt3RKn4vItUmB
-	MI3Lz7DaqIBznpDL8vDXAvLjRdYoQhheCSC/73WzlJS/FFcXba/vtkfA/lfmRwZJx3JAdVqjFKM
-	hGneVI9i8W3zU4p96m5fYaI7jkTZ4TjUiyQtaT+SBxE9TXe9QBHnaD2QFGBaKQYomG3X1/FGw==
-X-Received: by 2002:a05:690e:4384:b0:65c:4b71:e6b4 with SMTP id
- 956f58d0204a3-66488152a26mr8488609d50.20.1782630119792; Sun, 28 Jun 2026
- 00:01:59 -0700 (PDT)
+        bh=VYkMilNx7ZRv+pY9kOiaVDU1vZlVNUL8U5Tb17+D99Y=;
+        b=MvgTQ8VnZkfYJnspd9Q55a+i9zhmPZcZrczGz5XDGKwmdamvtWz34yhhCqSBFs6jHu
+         IoLgE8SCNiXjqXcnkZQQ3Q5KENUNccNzkcca7UA76PFzd5UrpQr6zEVdvkJk/g13B/jx
+         6qSGZto+2yzgq+cvho/ivCbqzz6NKoiEvMg4isnJoESaoedHbYlAdlRrnHYetYd6iKa2
+         uL+MXBIa9VsJNaWzdw9uCenqYLbbZCpznonTA1QwP43HPDhtUHPfeGgm7ruAaAVJRym3
+         EcKRNCOnNDObZOoCjBTuufHXHTCTPFf4sWER4FUBdTTrbp/Pz3dEqZtw0aB55Z8FrUna
+         vOvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782630968; x=1783235768;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=VYkMilNx7ZRv+pY9kOiaVDU1vZlVNUL8U5Tb17+D99Y=;
+        b=NBOEbzKQVG7inJYpG9JImscktyIql7X1QzbYaYVT7iooINhgghfJgORTs1Suymy8ms
+         GZ5zBb6ZOgunn/+phXtdwN8J+TUl9oU6f/eZscIFevbJVZ9FEbIV8gzLPRLvjJX92KSf
+         jOWXWlUoZ6Vwx4vg5j3YNI9hgXPJxrTPkz+bWvUrKX628TxzoHSezrVYPLD+MNsZdA9N
+         lpAzj9TK9uu9VvDolZtFkMZo/mGry80P8WzMXGJptwdlRSuqLG4zQrS9Rvm8xJneJfcL
+         Xh+zN+FyuA9JUnGhWNXfu7y5f4LXoGTdiX1E0iRXlJzRcSW/6xyg1YKurmuZDQ3AjIcQ
+         uatA==
+X-Gm-Message-State: AOJu0YxL/tdzqS2LhVUDgWhnUba3k41Q2t6NasJenQRoZH+ZxmYkccHf
+	HlRiClKsd3rv/G92YzcyKuJ1jC67WNfZ7p9YntR+LHJeYS5Boi7L7Rz48PDWylfqT7v/FWeh5al
+	TAzfIJwXV8VIJNkzSTvwuulqLFmB//fY=
+X-Gm-Gg: AfdE7clVD+82uY+kVjlKdQD7enqTpPrD2dLDIJQgpoS0mx7aMEvDSTbqiAc/Q0ixhSY
+	rP5f22OO0iuzuWDhzBWjDKJu4tVyRFZNotyXEe4nHd7UY/UzcCB1zAGFNxULWcBqhBq72A4edcg
+	5Q594gIqjQrHQpXwYi1V2p/8KQ5ZNHgV3aVTuh67YdtXceZIXvni8P6N1dOgF7yAFmEx5gDaFUa
+	pdS0zzlfu96DbDup9nZ8tjZJG73BZM6AApBtNSRNW6w7E5jXuFKe/fctM3T0kSQW7mrKGx0sA==
+X-Received: by 2002:a05:690c:6ac6:b0:7fe:bd7:9cae with SMTP id
+ 00721157ae682-80a6a496acamr120226927b3.44.1782630967897; Sun, 28 Jun 2026
+ 00:16:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260622083046.3189603-1-tmaimon77@gmail.com> <20260622083046.3189603-2-tmaimon77@gmail.com>
- <20260623-ochre-spoonbill-of-security-a4bc42@quoll>
-In-Reply-To: <20260623-ochre-spoonbill-of-security-a4bc42@quoll>
+References: <20260622083046.3189603-1-tmaimon77@gmail.com> <20260622083046.3189603-4-tmaimon77@gmail.com>
+ <20260622084246.D01A91F00ADF@smtp.kernel.org>
+In-Reply-To: <20260622084246.D01A91F00ADF@smtp.kernel.org>
 From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Sun, 28 Jun 2026 10:01:49 +0300
-X-Gm-Features: AVVi8CfRBhsj1pRWdOM2CE0sqTqASlUrWhsQBJl0HJjSQATVDmJtM7eZQvBwA6g
-Message-ID: <CAP6Zq1g-dBdt=cgqfxn=8qVX=UBs5-w09YqDvHfi1y=h4H9DKA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] dt-bindings: watchdog: npcm: add GCR syscon property
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: andrew@codeconstruct.com.au, wim@linux-watchdog.org, linux@roeck-us.net, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	openbmc@lists.ozlabs.org, linux-watchdog@vger.kernel.org, 
-	linux-doc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, avifishman70@gmail.com, tali.perry1@gmail.com, 
-	venture@google.com, yuenn@google.com, benjaminfair@google.com, corbet@lwn.net, 
-	skhan@linuxfoundation.org, joel@jms.id.au
+Date: Sun, 28 Jun 2026 10:15:55 +0300
+X-Gm-Features: AVVi8CfnmkRHCHwHniRXRzrKmmVWuj6G6RgacnVW4_rojVzgCVFn156J9Mj_5vA
+Message-ID: <CAP6Zq1iD2GA2Aae2Vz0UvNG5RSv2N_H-jAnfDy4Kjm6Pn1htxg@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] watchdog: npcm: add bootstatus support
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	linux-watchdog@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Krzysztof,
+Hi,
 
-On Tue, 23 Jun 2026 at 11:05, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+Thanks for the comments.
+
+On Mon, 22 Jun 2026 at 11:42, <sashiko-bot@kernel.org> wrote:
 >
-> On Mon, Jun 22, 2026 at 11:30:44AM +0300, Tomer Maimon wrote:
-> > Describe syscon property that handles general control registers (GCR) in
-> > Nuvoton BMC NPCM watchdog driver.
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] The first watchdog instance on NPCM750 clears the global RESSR r=
+egister without caching it, causing subsequent watchdog instances to perman=
+ently lose their reset status.
+> - [High] Non-atomic read-modify-write of the shared INTCR2 register clobb=
+ers concurrent modifications and incorrectly handles W1C semantics.
+> --
 >
-> Why? Well, you try to answer by saying something about driver, but we do
-> not add bindings for drivers. Instead hardware should be the reason.
+> commit dafe1267618ef0158376caf5f3acee9d7fe7b1b7
+> Author: Tomer Maimon <tmaimon77@gmail.com>
 >
-> Anyway, why is this needed now?
-It is needed for accessing the reset indication registers. I would
-mention it in the commit message.
+> watchdog: npcm: add bootstatus support
 >
+> The NPCM750 uses RESSR and the NPCM845 uses INTCR2 to latch reset
+> indications. Read those bits during probe and map them into watchdog
+> bootstatus flags.
+>
+> > diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
+> > index e62ea054bc618..98660419ec3f0 100644
+> > --- a/drivers/watchdog/npcm_wdt.c
+> > +++ b/drivers/watchdog/npcm_wdt.c
+> [ ... ]
+> > @@ -169,6 +250,92 @@ static bool npcm_is_running(struct watchdog_device=
+ *wdd)
+> >       return readl(wdt->reg) & NPCM_WTE;
+> >  }
 > >
-> > Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> > ---
-> >  .../devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml   | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
-> > index 7aa30f5b5c49..4f00f099b2d2 100644
-> > --- a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
-> > +++ b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
-> > @@ -40,6 +40,12 @@ properties:
-> >    clock-frequency:
-> >      description: Frequency in Hz of the clock that drives the NPCM timer.
-> >
-> > +  nuvoton,sysgcr:
-> > +    $ref: /schemas/types.yaml#/definitions/phandle
-> > +    description:
-> > +      a phandle to access GCR registers on NPCM750 and NPCM845 watchdog
-> > +      instances.
+> > +static void npcm_get_reset_status(struct npcm_wdt *wdt, struct device =
+*dev,
+> > +                               const struct npcm_wdt_data *data,
+> > +                               resource_size_t start)
+> > +{
+> [ ... ]
+> > +     if (of_device_is_compatible(dev->of_node, "nuvoton,npcm845-wdt"))=
+ {
+> > +             ret =3D regmap_read(gcr_regmap, NPCM_INTCR2_OFFSET, &rstv=
+al);
+> > +             if (ret) {
+> > +                     dev_warn(dev, "Failed to read INTCR2 reset status=
+: %d\n",
+> > +                              ret);
+> > +                     return;
+> > +             }
+> > +
+> > +             if (rstval & NPCM8XX_RST) {
+> > +                     ret =3D regmap_write(gcr_regmap, NPCM_INTCR2_OFFS=
+ET,
+> > +                                        rstval & ~NPCM8XX_RST);
 >
-> Here you write also for what purpose.
+> [Severity: High]
+> Does this non-atomic read-modify-write risk clobbering concurrent modific=
+ations
+> to the shared INTCR2 register?
+No, the INTCR2 is accessed only by the WD driver, and reads occur only
+during the WD probe.
 >
+> Since INTCR2 is a shared global control register accessed by multiple dri=
+vers,
+> using regmap_read() followed by regmap_write() drops the regmap lock betw=
+een
+> operations. Any concurrent modifications to INTCR2 by other drivers could=
+ be
+> overwritten.
 >
-> Best regards,
-> Krzysztof
+> Also, if INTCR2 contains Write-1-to-Clear (W1C) status bits, writing
+> `rstval & ~NPCM8XX_RST` might incorrectly write 1s to all other active bi=
+ts
+> (clearing them) and 0s to the watchdog bits.
+the INTCR2 is not contains Write-1-to-Clear (W1C) status bits.
 >
+> Could regmap_update_bits() or a W1C-safe write be used here instead?
+It is not needed here.
+>
+> > +                     if (ret) {
+> > +                             dev_warn(dev,
+> > +                                      "Failed to clear INTCR2 reset st=
+atus: %d\n",
+> > +                                      ret);
+> > +                             return;
+> > +                     }
+> [ ... ]
+> > +             }
+> > +     } else if (of_device_is_compatible(dev->of_node, "nuvoton,npcm750=
+-wdt")) {
+> > +             ret =3D regmap_read(gcr_regmap, NPCM_RESSR_OFFSET, &rstva=
+l);
+> > +             if (ret) {
+> > +                     dev_warn(dev, "Failed to read RESSR reset status:=
+ %d\n",
+> > +                              ret);
+> > +                     return;
+> > +             }
+> > +
+> > +             ret =3D regmap_write(gcr_regmap, NPCM_RESSR_OFFSET, rstva=
+l);
+>
+> [Severity: High]
+> Will the first watchdog instance on NPCM750 clear the global RESSR regist=
+er
+> without caching it, causing subsequent instances to lose their reset stat=
+us?
+>
+> The NPCM750 SoC has three watchdog instances that share the global RESSR
+> register. When the first watchdog probes, it reads RESSR and immediately
+> clears it by writing the value back. Because the value is not cached
+> (unlike the SCRPAD10 mechanism used for NPCM845), when the remaining
+> watchdogs probe, they will read 0 from RESSR and permanently lose their
+> boot status indications.
+Will be change in V3
+>
+> > +             if (ret) {
+> > +                     dev_warn(dev, "Failed to clear RESSR reset status=
+: %d\n",
+> > +                              ret);
+> > +                     return;
+> > +             }
+> > +     }
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622083046.31=
+89603-1-tmaimon77@gmail.com?part=3D3
 
 Thanks,
 
