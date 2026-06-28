@@ -1,61 +1,61 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF463559F8
-	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 23:10:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D644372EC0
+	for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 23:11:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782688253; cv=none; b=WtAkVpCY/KC92FbGy4uDzEpbWGO16w7B8Vq6IdIZqapMn2VH5TKL8Nit3YE8DcgPbBg06kZzl5pUN51+dQrytU+AiDGPeZDP9aUZow1+1tjZrWmvsFiIw96OEwqmsscpIgCjGc760kfFqDMbBViUFqa8yNaI6bhndUpJBfEBDtc=
+	t=1782688320; cv=none; b=FEc3+S3LMrdh7sCKxganztz+abXfnhuO2RhDYxflNoEufRU8iuTFYb2rcjIHR6SHzg/MMv7CUlf3j5pVOtCcbeBOlz5rRanfO0h4xtouIdFf0Uj5twuY7x6oHgCX7kMsrcssY6O8vTb3zwC4Kar4qhppoJWZdn1YzteofnLM6Mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782688253; c=relaxed/simple;
-	bh=y9/4AxteBtQzJzdaF3W3RoLrtwd6cFsBj60iIV20PEo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GDoiHBE+YIrRkWjSBXEnoed6NigIrO8nct4oXmuxdMH8nR1vaDvucy8HrmJnebU2ZrjufyAsWoleReZrY/vPfgxYj7/k2OgV6EVN9gr5pMuIj3+NSmuDMZ0ykTYbFezwQAgSkbkSY2jGiLG93ORUb47eyRlTXbM/C9tGZEw/Lvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bIGbXV2o; arc=none smtp.client-ip=209.85.214.171
+	s=arc-20240116; t=1782688320; c=relaxed/simple;
+	bh=CvHPMDa7QE/yHwktpTxBRGqeWFMmQqfmtrdztWRRuvA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ngoZUyMQSfz2jFDn09XyuZrV8ct33aQMGT2tOtBVw2+zcWNKXFXMcF3aaIKTbn5/+nKlVaoGTMVV5C6NOlUcZzpQr2Wddt9n5Ut6Ekt0spK8YDMNY8zIKZgoJZjy8WX6OePvBKBYPlEhoGBD/tjGweeJUv9kdQfP1We/5bxpTW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jgiTZzpT; arc=none smtp.client-ip=209.85.210.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bIGbXV2o"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2c6bb8a5980so21080515ad.2
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 16:10:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jgiTZzpT"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84780c95e2eso175952b3a.3
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 16:11:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782688251; x=1783293051; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782688319; x=1783293119; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=jxRo8SI92NrIJkPLXL6SLhpmiCKCo8TNk+32dpKenYo=;
-        b=bIGbXV2oJuQ59NHt6XqEEVJEsyJGCJodMltefhqsKflMiipHCwG0askKpVzZwMGBkz
-         MVIyOeOkN+B0Wb6ThAylJ25qpxvGfUvoJ8p2x1womlpvYzCCDTIyH4x3nxxWfoqzOZKU
-         i21vr1fLCI/6XdxEFgjDENGgDqLUGZD3MToVz5AXkAjmeqauJejiCSMmTIgZesnl7RnX
-         sRVKjXFP6j8b9dGUu/RycESB0GtbSwr03yTEQt1oaSM2if0VoJtVyqDfr6fEfhiNtj+u
-         ARVqgUFDd27f1z8YPOkxpCZlHiaIE4jjJ6F4j3gE3xkySkreMOKln0k7j9ndAfBXa7i7
-         nofQ==
+        bh=HBzVoiVEKC6YZTZ3TI4LBB+zvfVWnbKnaW6nuLVCnqQ=;
+        b=jgiTZzpTh7yPALwYj+Zody76pGsWBO9on7JwJMPWyJ5ytptVTtvTQDceRExb5T1K59
+         tD3/7kH5eQwv441LBAQqEQgMHSY/Y1Cc0Pk7iTjY/uzs5w/Uy6X33rDrkrfMjSfin5kq
+         Hgx9trQBRGmtd8HG7tffsiELLsJEmxO1gn2+e8q9bUIv/Z8LvNbOpAI9CjFNMSI5vQHF
+         VoNNaUoPNaBpnD4hVLIQX7ugkkqtbQ6UUpSBtSPvFKLv6qb74TAfkaXGZTNcymFEL3Lm
+         j/QknfK6CD4zzvbz+epydo6LcyV8GhvvrdgeyEPkuwKNuMedptYWGnXYTekyF/tsbE/t
+         SI2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782688251; x=1783293051;
+        d=1e100.net; s=20251104; t=1782688319; x=1783293119;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jxRo8SI92NrIJkPLXL6SLhpmiCKCo8TNk+32dpKenYo=;
-        b=j6qI+XWTsaEKIMNaip3fqO90EPDb0mOdMizXFLJcMqbZWvqX9j8BctP89s/v5bivIt
-         8WsCiiFwbA8Q2T6U8Q9zDs0CW87msP3fO07ZI5zjc+AHqY9IkVV23GAw78nmNbjeW0F9
-         pxyvenEcUwT/SfKa3gzUTxsPrh78LQ4CMx0ML6cezXmmcf1QHx3+SvLB4rWvYy+hrQId
-         a71hXFbnsbw/cNSfoZQvODg6w9nPCItCwvp4HrGoAEgcaONPGcEewsz9WfyaQBuzjqqO
-         +hXVFskkBkxN7k+pazSiZlsl5tN7XIS533fJ0fS0qiYIaWAjTWFjxUzzpSLGKGe9UAtp
-         Weqw==
-X-Gm-Message-State: AOJu0YwIVVF8eryTW2eVx77LgKotzNWLRB1g+JyxjXSg4n1GhlpIsOsi
-	cRfYEkwNNtdERaDMG453Ccg3FN1r6+AhEFtXMwXd/PxxikCoM9e2FcfEtzLZXg==
-X-Gm-Gg: AfdE7cnTIAcDl/Aqtg9Q53x0T4MkYbTo61GjRUaLRvXXVw0TW+Is5uL5bFdFtb15XoV
-	b2kCbn/V/jtFPxNWRL9+thmDnKUvxPGV/JiKtCp1t6JW5SyDP6DjP8PqjxEqDYuReJi030qsqEl
-	OMOK3L8QjNlmlvPK+NPtHWGOQfaGysjEcIUzST+rWKewMo4zgExIz2xacAHfpJU5U5Bfmgi4tij
-	6mkMS4ZN8lgNoSoUbzHkdeQ+G9qCqzcnBxrlKY3s4UcX5qfh5B8Sp4TdqpD8/35/cM3/G5Dz2Wo
-	6Bn9jszqOVR7v7KG+fMtSjY43aQsLZ+KhOZWkWAHMx9LjU2N+fu3vIFrFFaDN4O7CHVjomigxSX
-	ZiAwNjILeDdEeTsE0MyzDZ6chmfeywdwdyfwqvMQkxtqFVJmBvaG2CI1VTRoIJtAJBnsaOF6vSF
-	avO6kcHZMFj492WRMq1P8Rfu4YxW25E+IUpRtegWJR/yJBnE3+3tO5TSEMcyUKxFF+6K9vN4Omb
-	sLxAAZuDJkwManqgp1X
-X-Received: by 2002:a17:903:22c4:b0:2c9:c6f3:457a with SMTP id d9443c01a7336-2c9c6f3463dmr42101555ad.31.1782688251186;
-        Sun, 28 Jun 2026 16:10:51 -0700 (PDT)
+        bh=HBzVoiVEKC6YZTZ3TI4LBB+zvfVWnbKnaW6nuLVCnqQ=;
+        b=SXQGRKVU5sZNaNpU3SqgVe5m2l26iou1IXwd0Sc9jBWDMu3vl1xfLRn7QYuYzkezw0
+         hffJQ/6kgQgDq7uILQ0hZ0JxWWTHrWsbQd+CdrEgTYPCZi0HXtlG5nXN5ZdrB6ZRHaAG
+         PFtc6dokmbhi13NYLOb///yum7eHYoePpHho07J8X96KvdANIRYE17HEoWbQaZH20oPL
+         BwNcpsyo5O+EOnG9VG0XxGTD6uIujrVX5akaeqqXGaV2jk3aEOK8sQ7uVI0Z9dCsN5Gj
+         9N+LQ4JuN2dxHHemfoKi/2BqoszeGeN1fUh62WqExG508flrJnWfw8KLKhrtbdAluGMa
+         CQKA==
+X-Gm-Message-State: AOJu0YxPRcoCiJj8iKCGMbCBGFSDzmsDdozRvCNb8afAZAjIaLDX4ys7
+	OEp2ZoxDnvlOxTzu2AMX2c2IVSHgX1jnGe9FKgOkNIVtLWo2aU0xY+ug7Eiq5A==
+X-Gm-Gg: AfdE7clw2tfYeE7q/TQWqfSeCafcMC5EFDJOHy7iDMOOESHHEIs6CxD4zqkhMCNheF0
+	pQuujhqxpEBlYEjc+BUfd4rkvFzudN9V8MNDKLFPsbHefKqxydeAXDCpibalFk8v1wc8o9Pe4Uu
+	75YW0Joz0gSDSw2IrMgz1ufUTioriXlzLTEzBt3YgMJZMuxVwjAiN1ZTrteKrI02qdPw37zKfby
+	B0vVo+Z0xy97cU2iwI3ophukBbOZOsab1n0uUdH8buLy6H1z2GEpVRTUqxu2mfUtKZzZVI0KXzV
+	dYmhBKDyc0oBUoBUQOft0RLWEdv6TbxV4Fa7KEhqxiwyWvILnbOXJVzgFf4K8cshRjmaSDgsIqb
+	KT6lCVD+SRPufjEAT1zmite1CTYVV8bcKVBHGD8QpE2iJaUxJoEs4TXD92EaMr/Dyw/5hXSEmAj
+	/0e+zZsmGs+HYu4YXpOXPcYiD5c7td8PNUgU5xmYRz+t7w8toqwmr5yeoW0Rc2WCRhLgpPEXi/x
+	yIkUEnLNA==
+X-Received: by 2002:a05:6a00:b90:b0:846:f517:ba5a with SMTP id d2e1a72fcca58-846f517fca4mr2671001b3a.28.1782688318921;
+        Sun, 28 Jun 2026 16:11:58 -0700 (PDT)
 Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c9dbe5c5b6sm19461565ad.65.2026.06.28.16.10.49
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-845a3fec0f7sm10450263b3a.22.2026.06.28.16.11.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Jun 2026 16:10:50 -0700 (PDT)
+        Sun, 28 Jun 2026 16:11:57 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
 To: devicetree@vger.kernel.org
 Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
@@ -67,9 +67,9 @@ Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
 	Conor Dooley <conor+dt@kernel.org>,
 	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] ARM: dts: BCM5301X: EA9200: fix nvram size
-Date: Sun, 28 Jun 2026 16:10:49 -0700
-Message-ID: <20260628231049.1248899-1-rosenp@gmail.com>
+Subject: [PATCH] ARM: dts: BCM5301X: drop extra AXI bus ranges that break PCIe
+Date: Sun, 28 Jun 2026 16:11:56 -0700
+Message-ID: <20260628231156.1254012-1-rosenp@gmail.com>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -79,29 +79,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fixes:
+These addresses overlap with DRAM on BCM5301X/BCM470X SoCs, causing the OF
+address translation code to route PCIe MMIO accesses through the AXI bus
+space instead of directly to memory, breaking PCIe. Remove the extra
+ranges to restore the original single-entry mapping that only covers the
+AXI peripheral register space.
 
-[ 0.182121] WARNING: CPU: 0 PID: 1 at drivers/nvmem/brcm_nvram.c:85 brcm_nvram_probe+0x400/0x480
-[ 0.182159] Unexpected (big) NVRAM size: 1056112 B
-
+Assisted-by: opencode:big-pickle
+Fixes: 767012397976 ("ARM: dts: BCM5301X: Describe PCIe controllers fully")
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm/boot/dts/broadcom/bcm-ns.dtsi | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts b/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts
-index af411679a14a..37593e7582ba 100644
---- a/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts
-@@ -26,7 +26,7 @@ memory@0 {
+diff --git a/arch/arm/boot/dts/broadcom/bcm-ns.dtsi b/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
+index bd52de0faa3e..27a97c8122de 100644
+--- a/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
++++ b/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
+@@ -95,10 +95,7 @@ L2: cache-controller@22000 {
+ 	axi@18000000 {
+ 		compatible = "brcm,bus-axi";
+ 		reg = <0x18000000 0x1000>;
+-		ranges = <0x00000000 0x18000000 0x00100000>,
+-			 <0x08000000 0x08000000 0x08000000>,
+-			 <0x20000000 0x20000000 0x08000000>,
+-			 <0x28000000 0x28000000 0x08000000>;
++		ranges = <0x00000000 0x18000000 0x00100000>;
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
  
- 	nvram@1c080000 {
- 		compatible = "brcm,nvram";
--		reg = <0x1c080000 0x180000>;
-+		reg = <0x1c080000 0x100000>;
- 
- 		et2macaddr: et2macaddr {
- 			#nvmem-cell-cells = <1>;
 -- 
 2.54.0
 
