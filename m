@@ -1,142 +1,168 @@
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0BE3FDC18
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 16:43:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782751417; cv=none; b=YjYYV9gYQmhX7rzGVAP6Vbpjpm29TxhO7+vXRicyDV3G12ckYpUROztmS3H+yG1OLc5UsdTWcnIMClOBgyW86LXJB/pXBXEq0m4QflFU73cE7bCDrhhQRTVzPbtuLa9NGtN5p8lByssNzpKwbMt+JxbKRycUJKjUBSb0nOzsDFg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782751417; c=relaxed/simple;
-	bh=vxgWNm6c6XS24fJJWzeNDYRc/XdpjG0nw4Melt6OckA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QiTqGcWABs4Y/uvnvqHAEj/1Xj9KEBOzoN70Ysv9TyAKy3mIiby3eW6aUgxVcrw1JxBfiI8DcUtuIUT1rZ9AT4ZDJoCuqs0YYSLajIeRnXqvkAW/Ma1jF2Au2lNZKzPqmHCzsCoRemDqtcnvOO9izC+JCvozVHzQYndR1o9gJrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gsPtN8LV; arc=none smtp.client-ip=209.85.161.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441F14657F1
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 16:47:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782751657; cv=pass; b=nR/Is3N9uIbPsEQr56MtfUCTw2GZ1h8FpVSNuhq6RTtXnOf3/dJL6S+aT/n6Pgi6B77LfGaK4q/SR04crmx2B2pdlLVE5MXQmE+081kb9bR1Q5TDWRXBO5Acj1jQZ0SfR2ptR11kBd6sX7jsCbUiPZcx/EA4EXPtczFJ0zIa9dA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782751657; c=relaxed/simple;
+	bh=tBpXEs4b12PdFKZ5qWeLI8+rTNsHCCaM/hrxzWpfqDc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hVYPZ9VL/unOoObKy3SQCbU1hfdUeZBZHB7nN2a4QocbqGCfZ5MxTz5POrc9i2IahFWFsvHSDcBx1MOs6KzgXh3mPGBLXrgJ5e64iDuAWcPHl0VP/jSo84kB0D40g/PRNJI2jdlfzHJCp23jbx3dOatWYpFPwpjheONv7k9QsDs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MkHrbVgH; arc=pass smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gsPtN8LV"
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-69e1f777bcaso2173383eaf.1
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 09:43:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MkHrbVgH"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-30b9e755555so6097239eec.1
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 09:47:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782751655; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CGmVILjsMSgD/oKgks6t/bjQ26k+SHrbUueyoJPxfapdzONcOgaZcUPmsWXiAO3I5w
+         4h3ly8+V+2gIVSIQ992twQ5oyYY8oLhmctWy4r2LHl9M/PYjar5CRAoRcBEqyUOtaNo1
+         OaPE88xYosqdRvMeRcKLdfH5CPy3SacilWlRutaqb7pvBFRbue7lV9FpsqmqVzYrVMDE
+         9NbNzpQ6l9YvjHVYwdgQkU7TklCGQAG/lxX/Yvx7fCZ9rnAioXJATrT2dWyNfbCCNx1w
+         dGazsBoGgt+PAZU74VKUcgboVdQi6YWsqcxDgpiiO9bHSOsvXv/6hzyvNfdcQPHrO9kX
+         O9KQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=601baKGJW1PrXMaYCYLVau32k8IxTv3AZbP8T2S5iVI=;
+        fh=8KngWi99HLiaa2EsvLpW7nOO3mUPhroBFA0SBmCXY1M=;
+        b=I/GQftRC250bOt0ivIr40H5cQXUUP0pvb/MnL5/4SSLNS41E4L+m2joAITcOHDyndJ
+         lYs+lrme1uwpFqLqpBkblBtJ1zA59uEVSqc4QkpyJqvAfY38rbWIcOorhj6U4qExJSV3
+         ZTigsMpi0EfN9lGczQGOuD2DYVql+jOx/IMVFjFP+6AVgseXEkDF3rJwsPth+FqdeMnL
+         B3AxgXE1l/cV8IQC7aJn/zxA/ANj7N25kC2xPnbHRw0OJUHqsvnFX7AymgW1nAFFK7dC
+         RWMQzQz6uVfJ+BMW/VZIhv9UCboc+mhu5nS4MgmrBqUMm2bQzKusuWMJ/0QmOkjCCl2M
+         F/gw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782751415; x=1783356215; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Fhp4Ri8f/aMz4xwN6jjmZnklR0XbVRr7EzMCjQfIbrA=;
-        b=gsPtN8LVU0pAa7xs/1cr1qEh7sAgH7CNRUfMvZuHDO1hIietX8GEKxhdB7IJgKy4Oy
-         MZXPrsP+73ByPMUyeIgCSQQNaDhNHW9uGIAmwBsSVV8vQUv0vvDBAH/s16KOJomu4p8S
-         sMSPwT2YB+zFIkxTO/V0mKcqIGh/X5nMgyZb/SkIiRWcBHvk6AVcodolapG/ZYcp+RsC
-         Fvo0mvQtNw5KhlQOaVcNO5SpXPHzQsPtihhIJyZR5Y1n+3a7EHInmtVjcsBIFIo2o5o4
-         Z4YK/exra/vVMacNyX+CZiuhCfq3bSdkOCxaMxHCet5aXBqyEXrbZNzNDUHp3uK7ciH9
-         xobA==
+        d=gmail.com; s=20251104; t=1782751655; x=1783356455; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=601baKGJW1PrXMaYCYLVau32k8IxTv3AZbP8T2S5iVI=;
+        b=MkHrbVgHH/mcTxBUJfQDzJ5yQQqVCyTcGa8C/2GC7RiQfkS1gkrpkKKm9DTNnvVxuD
+         p97uP9jtkNKFc5HA+wkZKYEroPXwORv3Gp5lZpOYlb5TGd4dHe7LQ3D8dJDt7ZwyLSbY
+         q0uglD25mQUv1t/ejNxR6HfGKWjh6GoZsYPT0WbMnYKIa3QWX1BBhDT3wj+8YXZZCPY5
+         pU4FYEztGjD29SKfDca0Cau2jccQUvg+Y31uH3YYtkvabrN8GBG7qR8K7GJPzzltsQil
+         UWlqsRi0rGYXtuG+LI9dj/IszgF0ntRT4NR6IcyTi/Gc3wktZOY4bP28K5O+l6xv1Ksf
+         C2MQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782751415; x=1783356215;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Fhp4Ri8f/aMz4xwN6jjmZnklR0XbVRr7EzMCjQfIbrA=;
-        b=AtpS+gJ3iwSjCaEx30rHY+t38biBfNEpU50MrbPZyEUKb6U3Ih7WumZuGa1dfC6drQ
-         MN6QxWfTROhX4tr+rnLQRW2DDLj31ZsOgcrIDhnUweHckEut8gK0HIGsOPw30E0S/NEJ
-         eQH+sT6JzTDm5g7dsSkvH2TpDMClAA3x+oSz33LJT7AEDgkbQOgWRw4ZZ/iGM9DnExUV
-         34/NaGUdVtRJRLWdS1oqpwW8mFW82mdMUnu9mhaN4egxVeVomZmY99YFKjmvLH4lZvhG
-         a6l+jEvdEjQbusEc18Z17DmHq6RUYc7G4KVA2T8K7UAEY7uS/Y6GAa/6uRDXqEnzxo8L
-         +GSQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9wiH2eDU4xyPfW77Ih7aAUEVU9ukrbNrpDZ++/rUjgfLXp0ndgpaKoqvvl/PpfWkfyeDP3q11OXCRh@vger.kernel.org
-X-Gm-Message-State: AOJu0YzlWWkmOmU+M4b3Q3BYVhSYnXq3hn06Kk+FYnjBnAVImQVQGPxd
-	zQWb1n8NPets7PnGok1YZYSCllLbQLo22KJbtV7lYpQiISluzXDW7GY1Wt3MS5+pG5U=
-X-Gm-Gg: AfdE7cmCPIxiz1AFUci1kVf+f0gcvbAi+3Cvy44UBu0m8YpTeM5KBCWHJeEkOgdwGMh
-	GSmF9G/anY9fMxjOxPz8B5t8VMfo8RUxH0Zs3XpVtp65Z7OxsckcL+kz/DykcjRWOJqSfakYsj9
-	Cb/BRjmTKpDU4AA6BTEJQnzj0SUflwMiqJ6mhxXsXaaRTnN1UNydxDh9e0c+Jwamj1nQz5E+NXl
-	oXmvc0OfAqAOY0hyQP86BByQuMyxXJ8dUd+VOIIgEAdEDh0eAmufKyQkzahlu6Z9QQfRHpVLNO+
-	+Mno30sDhNyJdRwTCv+yq8YWhWi9GIxQnn2eZ8TOGjKegCiyv0Z0ld3TWzBFjfVS/xN2J3oUzSe
-	Brzll3KlxuxUkaioENi56jeQXApVMog7SmzyDe2c0RbYbwaao5HGjBdogl0vw46vaIBDe1sAsMj
-	RRooeKtRGVxyCSDOhGOT+v0wLXyCGH7syg+xPgdI1wEOSZrmI5wmuhEcjTRknDW68=
-X-Received: by 2002:a05:6820:c0cf:20b0:694:8cf6:5d44 with SMTP id 006d021491bc7-6a189c4f0dbmr93402eaf.0.1782751414866;
-        Mon, 29 Jun 2026 09:43:34 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:3533:aa22:9a69:df1c? ([2600:8803:e7e4:500:3533:aa22:9a69:df1c])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-448db93e2a4sm230186fac.3.2026.06.29.09.43.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 09:43:34 -0700 (PDT)
-Message-ID: <22e1e1c2-659c-4991-857c-b38d66769c7e@baylibre.com>
-Date: Mon, 29 Jun 2026 11:43:33 -0500
+        d=1e100.net; s=20251104; t=1782751655; x=1783356455;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=601baKGJW1PrXMaYCYLVau32k8IxTv3AZbP8T2S5iVI=;
+        b=fDnw1BEiTPt+8m2GK20+52/F/4gAnunqsqaVY8H+Kkz7hVnEdlFvpocFajoYu9ORO8
+         xM7+lobgzggB+AEeBA15VViHcPusRWTwmjxdfJwyBBg+SczRYELJ+YVJ09Pv3WXw/qNo
+         f0aeyTWBEcwushQFksr/HgOdLkPWe8Lwu+c+a2eFkTOQFGhcuzzETaAWltO8ykPNAgd3
+         ndi1EKG/91oZ56Ke7zStGrplOwTYJQegF6+Q/S/nXoog2+8Uzf+AGujxHNWGhl0rkSR4
+         3ClINsgnTpTiEwL9/wP9V8RC9nQMq1ZmQCPocc1yMM1Y5/iDk1zifieMjbW4zYjoK2hI
+         oySQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpJEjQrUwfQirbSw+j7++NRGGfItADfVWVdakoNoUmbzbUmVcFrsxmMPTf32ZrMSzooi1PMnkcUftLs@vger.kernel.org
+X-Gm-Message-State: AOJu0YxkUjYd+PWlVXYdIBfZZ5oRQdM11jkXNDqgDuq7yb+5YvhB/p7d
+	ZPHcZG0u59/yCH0QXpKcoqdY/phBxddLrD2nesJqf6bN0azm9LoWpNITLTTvupZ1s4Yq1+uR6Ve
+	/esR3UW+ph4MtnDR56425FbyJXM4r77I=
+X-Gm-Gg: AfdE7cnhq+tUv9JV+yjxKRiBNnwjuBgmrEHZb+EHn+J8u+hc5F3UQMR7EA/fZJtMyVT
+	ItWvNu24rCScwWhgk02rhFWQnRPluQyw1ujAmtXY2F3t1FG2sUKmDbKaHVZ8yGgiM5MR7tUT0gj
+	9yz13ZpKh4SUEcskoBB2mVVQd2em7QqUCaCVmCTeO8IisA6uKTfRIjlJOdTKBCSeNYXIPvjxxzp
+	IMPWtI1X/xc8SibrupAmJkEijAO9cfJmR7Zyjo2bzGcLnnYxcQKqWfJw902UCuIhqp/nyBNCa7F
+	UiHIDbVzwi5kReKX0LXMl47cCQZ+xGM0BfmJJK6qlYsxk6369g91cOEosrxe
+X-Received: by 2002:a05:7300:6404:b0:30b:9e56:e547 with SMTP id
+ 5a478bee46e88-30ee11d7ac9mr202818eec.6.1782751655331; Mon, 29 Jun 2026
+ 09:47:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] dt-bindings: iio: adc: Add TI ADS126x ADC family
-To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260628-ads126x-v2-0-4b1b231325ba@gmail.com>
- <20260628-ads126x-v2-1-4b1b231325ba@gmail.com>
- <946a30c9-01e9-42f1-bd2b-b7934fda85cf@baylibre.com>
- <DJKX600ONL4O.1YUTCD1L9FU8F@gmail.com>
- <a16f61fb-4e98-4c30-8d4f-da084e27ebeb@baylibre.com>
- <DJLOAISPZLG7.VZYX8B16QU4K@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <DJLOAISPZLG7.VZYX8B16QU4K@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260628191337.937-1-kimjinseob88@gmail.com> <9b179166-3057-4867-be04-b071a809f70f@baylibre.com>
+In-Reply-To: <9b179166-3057-4867-be04-b071a809f70f@baylibre.com>
+From: Kim Jinseob <kimjinseob88@gmail.com>
+Date: Tue, 30 Jun 2026 01:47:23 +0900
+X-Gm-Features: AVVi8Cc9YZz7_2pOlAonXf0N4-dBQu_ZF09jB20zGNo43CtfKyfG9QaFkvAGcio
+Message-ID: <CALMSewKHWfcq5D-0Bi8gAnCAUep6D1=HrgaM5WP-RucdU3fYmw@mail.gmail.com>
+Subject: Re: [PATCH RFC v6 0/5] iio: add Open Sensor Fusion IIO driver
+To: David Lechner <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 6/29/26 11:27 AM, Kurt Borja wrote:
-> On Mon Jun 29, 2026 at 9:21 AM -05, David Lechner wrote:
->> On 6/28/26 2:12 PM, Kurt Borja wrote:
->>> On Sun Jun 28, 2026 at 10:45 AM -05, David Lechner wrote:
->>>> On 6/28/26 12:36 AM, Kurt Borja wrote:
->>>>> The ADS1262 and ADS1263 are 32-bit, 38.4-kSPS delta-sigma ADCs with an
->>>>> integrated PGA, internal reference, excitation and burn-out current
->>>>> sources for sensor biasing and diagnostics. The ADS1263 adds a second,
->>>>> 24-bit delta-sigma ADC (ADC2) for background measurements.
->>>>>
->>
->> ...
->>
->>>>> +
->>>>> +patternProperties:
->>>>> +  "^channel@[0-9]+$":
->>>>> +    $ref: /schemas/iio/adc/adc.yaml#
->>>>> +    unevaluatedProperties: false
->>>>> +
->>>>> +    properties:
->>>>> +      reg:
->>>>> +        maxItems: 1
->>>>> +
->>>>
->>>> If we want to allow single-ended/pseudo-differential inputs, then we should
->>>> also allow single-channel (positive pin) and common-mode-channel (negative
->>>> pin) properties.
->>>>
->>>> This will also require additional common-mode-<N>-supply properties to allow
->>>> for the negative pin connected to something other than GND.
->>>
->>> Ah interesting. Why the N though? wouldn't a single supply connected to
->>> AINCOM be enough here?
->>
->> In theory, any AINx could be a common mode input by connecting it to
->> a constant voltage supply.
-> 
-> Technically yes, but there is a pin named AINCOM intended for this
-> purpose. Can we do a simplification here? I propose having
-> 
->   common-mode-channel:
->     /* AINCOM pin */
->     const: 10
-> 
-> That way we would only need one common-mode-supply. Would that be okay?
-> 
+Andy, you are right. I should have included the previous-version links in t=
+he
+cover letter.
 
-Ideally, we shouldn't limit how the chip can be wired up in the devicetree
-bindings. It doesn't mean that we have to implement everything in the driver
-though.
+I also did not consistently track and answer all review comments across
+revisions. I carried several comments into later revisions, but that was no=
+t
+sufficient. I should have made sure every reviewer comment was either
+addressed in the code or explicitly answered before posting the next revisi=
+on.
+
+Sorry for that.
+
+For reference, the earlier public versions are:
+
+v1:
+https://lore.kernel.org/r/20260520072843.3593-1-kimjinseob88@gmail.com
+
+v2:
+https://lore.kernel.org/r/20260524085312.15369-1-kimjinseob88@gmail.com
+
+v3:
+https://lore.kernel.org/r/20260529121005.1470-1-kimjinseob88@gmail.com
+
+v4:
+https://lore.kernel.org/r/20260607234343.22109-1-kimjinseob88@gmail.com
+
+v5:
+https://lore.kernel.org/r/20260616072242.3942-1-kimjinseob88@gmail.com
+
+v6:
+https://lore.kernel.org/r/20260628191337.937-1-kimjinseob88@gmail.com
+
+David, understood. If the next revision is just asking for normal review an=
+d
+I do not have specific open questions, I will drop the RFC tag. If I still
+mark it RFC, I will state the specific questions clearly in the cover lette=
+r.
+
+I will not post another revision until I have gone through the previous
+review comments and made sure each one is either addressed in the code or
+explicitly answered. I will also include the previous-version links in the
+next cover letter.
+
+Thanks
+
+Jinseob
 
 
-
+2026=EB=85=84 6=EC=9B=94 30=EC=9D=BC (=ED=99=94) =EC=98=A4=EC=A0=84 12:25, =
+David Lechner <dlechner@baylibre.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> On 6/28/26 2:13 PM, Jinseob Kim wrote:
+> > Open Sensor Fusion (OSF) devices expose a UART/serdev host interface
+> > for a sensor aggregation hub.  This RFC adds a Linux IIO driver that
+> > parses OSF frames and creates IIO devices at runtime from capability
+> > reports provided by the device firmware.
+> >
+> > When the corresponding capabilities are reported, the driver exposes
+> > accelerometer, gyroscope, magnetometer, and temperature data as IIO
+> > devices named osf-accel, osf-gyro, osf-magn, and osf-temp.
+> >
+> > This remains RFC while the binding, protocol subset, runtime discovery
+> > model, and driver-facing ABI are reviewed.
+>
+> If you are just looking for review and don't have specific questions,
+> then it is time to drop the RFC.
+>
