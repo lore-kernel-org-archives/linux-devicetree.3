@@ -1,133 +1,140 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0548A35A393;
-	Mon, 29 Jun 2026 10:44:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782729860; cv=none; b=anc+sSKhepdZQKXa/JHrHvqkpovTBYZzhQYNvb/RX+0L+JGiFkYCprtyhLqBhkNU7pFWceOqgyMSqzda188NVxYZZ4vnOLM/7s6uzM1Y83yyYAOOWoEMuaCQZZDiRMhMiXHrRxTqKKRgTQsp3sAEvKWsdl/Ke4sFCrtHHTWpR+4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782729860; c=relaxed/simple;
-	bh=UrkKKcK7pnTq/Fb/9UsUrAYXCMMsm0da+M9gKv9FKR8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sItR6FJJRjtQ4JVT4uCZvYdeTzlNWkMXhF5v2EkoZl7RqmSgDWnIUMQCgPnARG3lc2IxiDQw7tcVf4lK1tbSDQVBtatwCnKQpzkVrKVMHtybQo2pyBrubDYq3ZoZH+KM8/7d+9g8s67+2NlA1YxRA2FAVa8g6BVF0Kle179bFAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JKpSgQhg; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6EE43B9DBA
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782729862; cv=pass; b=hO9lnRai4aC2NFamHy9x0P1Eq4e/gTXkoQBTaL9hmN7tb2Dqa5fGrmbxAqtmsRr3cMCWZFXBwesZuVDzykeisNch5DtBLTXOyo7YCRBbOZGM7jsXvj3gQzK7labLMiuL8bkbf/544/d992HAZvqjRmKdvaM+/7A+pZUaAC/3B9E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782729862; c=relaxed/simple;
+	bh=iDO4j2JAZZI6/SJz0ZNmXzlln8bKUKTt/Dj4jurK9p0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XRmU/hqxFxO1SB1TNOmlctpGNThcPmk/t+2mjOOGQrFAfP41EOhcoAwSbrsA6gwibZ5OUqplf0JSMS7O/WTQzfDES76KK8pLUb1n6875Ny/wGx/2s+lU6q22GtsMSspDK98jukcybItpdV2m7Bp4dYtc3oiTbL3UNJ42B7Mk3UY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vYwkTSNy; arc=pass smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JKpSgQhg"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E6EC3176C;
-	Mon, 29 Jun 2026 03:44:13 -0700 (PDT)
-Received: from [10.1.37.47] (Suzukis-MBP.cambridge.arm.com [10.1.37.47])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6A29F3F836;
-	Mon, 29 Jun 2026 03:44:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1782729858; bh=UrkKKcK7pnTq/Fb/9UsUrAYXCMMsm0da+M9gKv9FKR8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JKpSgQhgh4ePCnA2/5BaQm4UuepM7qZpdL6L59co1VlGySQGcwtqbiR6eamAS1Caa
-	 nJz5RT8Te5qAKaE6MweNw1jjqJldcxWOEXrrZ8b22H5DwYNtaO7i+KPl/rVuhkyOgW
-	 IlSPL/bZJHpFP6qr96Kte3VmZkW3WPME1GY7/dAY=
-Message-ID: <ce9a2121-8f7e-4ac2-8795-5ee602966e74@arm.com>
-Date: Mon, 29 Jun 2026 11:44:14 +0100
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vYwkTSNy"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6976b0c5adbso5913113a12.2
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 03:44:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782729858; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JBHWh/G+p/Q5lTihPAkTv5saZCn2I7FteT9hoCZBokNNDItDDS9fku5WdJSrxPMoeu
+         T3k4fapOP7klgW+J17zu29aNSYfreNrhKLomuA44ScpisyyaJsrTB7WGXNWxbT4J1UP9
+         AvGcvoTN/O/NfahWrBhW2Y9LmAWX/k7gulAjAyaruKwVvUlIyk7TmvXIYPl7j9Lxo9kH
+         X6cqTEmpSFWCbr8J80y6oMiS3w4cp05xvun2oqvIs2uEYgRPZn2TfZt4g6L/63YZUyri
+         kiW7kuC6NyOtItBJB+crq3ji4FnONgrlxpVn8Mz5yKEsT0XV/pwpxokuJyH/Hdj0k8xh
+         95Ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=wmnqsRJKYkgjvaCA1bs99cASP2GQp3sADe+ZeD2I3KY=;
+        fh=edaa3W1sEXfCvX+n906TMLU2f+Hz6iujY3HbfL0ay+U=;
+        b=hNqFEPuQOLFocIaNYjZ+c6dtYb7LYa4iudFrvpluHKiiZmze6SXDFYWR8N9BQKKc+H
+         ITd95KTaXQkcYuhokfmZdp6neo4oS/P9smq3fLBkEW4RVXewyLmpx9iIAprkzqUU6wWx
+         +CcrNUWTRpAsW9wjZanwgAp+cu/DDpJUG7NzTNNIbf+4xhDs8/IeGP7cqI9wn4Tgv3WH
+         WVcp+fKfTycyiU+phYn+Tte50MuhbNct+hjP4R3I+qCSYpggKnfPQvkqxkYlTpaYrLTT
+         BdPallWGX7UqWvQqNZ2h5+55xIgwaYB82lgpF/S+gzk4YGu9Fp9rF4LiNTfsqvqoHDZi
+         gxMg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1782729858; x=1783334658; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=wmnqsRJKYkgjvaCA1bs99cASP2GQp3sADe+ZeD2I3KY=;
+        b=vYwkTSNydHDJMWhbVKWp3I0A/xVS9T1wUnB7DRi8/z1KJKysqwd0m+tNU6a7mIqter
+         81qyJTlFztmPfCOU08vBZ6TLf3KmdjYKvrh0PNSfr2FVMEpPBlvHSPjAII0F5FhongtE
+         lCLvfP+yYvcQ+KyYst5BxA5MVAeuPx9EIorhQD0rwKrduR/aEKB9/0Bjuwstj8EjVETg
+         I/vsZOnVgQxYvnhMPv0MG6WoNRUdo+TS/wTgAxNxH6TalLxH7uZsaLJ+aajCSxXgfwg+
+         htXJAluBwnzF5sQed2QkKuHsFWARL6sy1lD2FpKWCc3OYlGND1J/Swh3ME7e4cXGLQ85
+         8kKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782729858; x=1783334658;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wmnqsRJKYkgjvaCA1bs99cASP2GQp3sADe+ZeD2I3KY=;
+        b=KjIX2ZCt47LnDWwgBi+VPAMYV+Y26Q/cpqFUXJShbdXY28ojc3uE6ST4T02txHXnyi
+         nPWdswQ7zcV/4Pg4X/1wFd+7Ktxmxmxd+pHrNb6sae3klfv8gBze2A8f6X8gn3uK7DdL
+         qjviwq53vNOv7dDoDN9X3OuuDOwQHdExTgXqM0U5it5X1QW7HiFC7famEDXKIFebHu+6
+         XRD6ADC1bRxUtZ55SZI3BcTXlbofH6Y0dgy6ED2j7I0VCTS5J7Pqt8ftko7qgH+JVv5N
+         PDPXsdn5pYNQwc2by5elWSRuhTLzWHSqwc5DDOFfx82BWSl/4hymjePPH77cnSmX9dUH
+         z/2g==
+X-Forwarded-Encrypted: i=1; AHgh+RrBXaoWapc4sE3CrsxGkQqgUHOUCrGdww9Dqaio0IsFOfEaEQG6zK+OhsnWrPcen8pqLTgBCeQr+KDt@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWEe4flOlsC0/+GRaWduZYF4fbUo4yfIFdpBK2bq+GJfTRc85b
+	ssR2zCKKvCsvdoUuIzbSHTB4/tIVrQoHoBGOJJ76dr/nhDBUrpHjAzC0hI5A3GZ3uVZMBXA24wn
+	bIpsMS2FBcJJxvCr/gy/ta/BA3wxqwTbzeqnf8r1Nzw==
+X-Gm-Gg: AfdE7cmZEr8R+jMNIoBI8R522AnwcUi4tX1W2ZzsWAkQhotZc88eBqMi6gFuG1qeBb1
+	fMVDqKIGcbh3zADfWCgudK4YfybmCOJ56B/5XOV0ERLGjmLzwDakV7JC88iaRYjl/kdqfvziXqr
+	wQYoUD4SQ37ZXq/4jFA0yYB76NmcArH0koLBgJ5+zftCwE1zK/kSjxR9rc0+ZGIyIeNSHcz7r3N
+	LOjeKNaKGCohrmmXWQaJ5rJfPD2kknDSbE2sx7qM7yN361C5B9/kiwETz9QhXVJM6YWwnzWIxv2
+	yAoYXJ9RZ8vuNvasLZWij/iFevS2tQ==
+X-Received: by 2002:a05:6402:400d:b0:697:8d48:7fa7 with SMTP id
+ 4fb4d7f45d1cf-69810ae01c2mr5980595a12.22.1782729858308; Mon, 29 Jun 2026
+ 03:44:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 0/7] Provide support for Trigger Generation Unit
-Content-Language: en-GB
-To: "Songwei.Chai" <songwei.chai@oss.qualcomm.com>,
- Greg KH <gregkh@linuxfoundation.org>
-Cc: andersson@kernel.org, alexander.shishkin@linux.intel.com,
- mike.leach@linaro.org, konrad.dybcio@oss.qualcomm.com, james.clark@arm.com,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- coresight@lists.linaro.org, devicetree@vger.kernel.org
-References: <20260417073336.2712426-1-songwei.chai@oss.qualcomm.com>
- <48c6abce-c492-46a6-84ef-3074983e817c@oss.qualcomm.com>
- <a36a1ed3-5194-465c-b029-0404e0f2bcee@oss.qualcomm.com>
- <2026062959-distaste-launder-e253@gregkh>
- <c09d70e1-edd6-41a8-8ab3-db353bb6f8eb@oss.qualcomm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <c09d70e1-edd6-41a8-8ab3-db353bb6f8eb@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260613-exynos990-peris-fix-v3-v3-0-2b230db78ae4@gmail.com> <20260613-exynos990-peris-fix-v3-v3-2-2b230db78ae4@gmail.com>
+In-Reply-To: <20260613-exynos990-peris-fix-v3-v3-2-2b230db78ae4@gmail.com>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Mon, 29 Jun 2026 11:44:05 +0100
+X-Gm-Features: AVVi8CdUhgADG2xSK96hAWTQ9tVWRhtK6fekJr5xsrWPfeyuxnqLTd7JZu91VDg
+Message-ID: <CADrjBPrCKS-_FSFaL+124cdRioGOEvk+6HFfrJCGt7HB983rGw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/3] clk: samsung: exynos990: Add PERIS TMU_SUB_PCLK gate
+To: Denzeel Oliva <wachiturroxd150@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+	Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+On Sat, 13 Jun 2026 at 13:36, Denzeel Oliva <wachiturroxd150@gmail.com> wrote:
+>
+> Add the missing CLK_GOUT_PERIS_TMU_SUB_PCLK gate clock for the Thermal
+> Management Unit sub-block and update CLKS_NR_PERIS accordingly.
+>
+> Signed-off-by: Denzeel Oliva <wachiturroxd150@gmail.com>
+> ---
 
-On 29/06/2026 11:17, Songwei.Chai wrote:
-> 
-> On 6/29/2026 12:22 PM, Greg KH wrote:
->> On Mon, Jun 29, 2026 at 11:03:33AM +0800, Songwei.Chai wrote:
->>> Hi Greg & Alexander,
->>>
->>> Apologies for interrupting again.
->>>
->>> As the TGU hardware plays an important role in Qualcomm tracing 
->>> design, I
->>> would greatly appreciate it if you could kindly take some time to review
->>> this at your earliest convenience.
->> The merge window _just_ closed, please give us a chance to catch up.
->>
->> Also, why us?  Surely you have other reviewers for this code, right?
-> 
-> Hi Greg,
-> 
-> Understood, thanks for letting us know.
-> 
-> Regarding your question: since this introduces a new drivers/hwtracing/ 
-> qcom directory, there is no existing maintainer for it.
-> Given your scope (and Alexander's), we believe you are the most relevant 
-> reviewers.
-> 
-> The reason for creating the qcom directory is as follows:
-> 
-> /We previously tried to upstream this driver under drivers/hwtracing/ 
-> coresight,/
-> /but it was not accepted as it is considered Qualcomm-specific and not 
-> tightly/
-> /coupled with the CoreSight subsystem. Based on this feedback, we are 
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
 
-Some clarification here: This device is not CoreSight  so we denied
-keeping this under drivers/hwtracing/coresight/ - Not because it is 
-Qualcomm specific. We have TPDM, TPDA, TnoC devices under the coresight
-subsystem, which are all Qualcomm specific for e.g.
-
-That said, there are other drivers in drivers/hwtracing/ which I usually
-merge and push to Greg, after some reviews/acks from the respective
-people (e.g., PTT HiSilicon PCIe Tune and Trace).
-
-But, your proposal was that there were other maintainers for your new 
-subtree and you were going to push this via ,linux-arm-msm ? to which I
-didn't have any objections.
-
-That said, I am fine with pushing this to Greg via the CoreSight pull
-requests (similar to Hisilicon PTT driver), but would need someone to
-Maintain/Review the driver (with entries in MAINTAINERS, similar to
-PTT).
-
-
-Thoughts ?
-
-Kind regards
-Suzuki
-
-
-
-> exploring/
-> /a dedicated drivers/hwtracing/qcom directory, similar to intel_th, to 
-> better/
-> /support this and future Qualcomm hwtracing drivers./
-> 
-> More details can be found in “[PATCH v14 0/7] -- Why we are proposing 
-> this”.
-> 
-> Thanks,
-> Songwei
-> 
->>
->> thanks,
->>
->> greg k-h
-
+>  drivers/clk/samsung/clk-exynos990.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/clk/samsung/clk-exynos990.c b/drivers/clk/samsung/clk-exynos990.c
+> index 4385c3b76dd6..ee3566b8e57c 100644
+> --- a/drivers/clk/samsung/clk-exynos990.c
+> +++ b/drivers/clk/samsung/clk-exynos990.c
+> @@ -21,7 +21,7 @@
+>  #define CLKS_NR_HSI0 (CLK_GOUT_HSI0_LHS_ACEL_D_HSI0_CLK + 1)
+>  #define CLKS_NR_PERIC0 (CLK_GOUT_PERIC0_SYSREG_PCLK + 1)
+>  #define CLKS_NR_PERIC1 (CLK_GOUT_PERIC1_XIU_P_ACLK + 1)
+> -#define CLKS_NR_PERIS (CLK_GOUT_PERIS_OTP_CON_TOP_OSCCLK + 1)
+> +#define CLKS_NR_PERIS (CLK_GOUT_PERIS_TMU_SUB_PCLK + 1)
+>
+>  /* ---- CMU_TOP ------------------------------------------------------------- */
+>
+> @@ -2619,6 +2619,10 @@ static const struct samsung_gate_clock peris_gate_clks[] __initconst = {
+>              "gout_peris_d_tzpc_peris_pclk", "mout_peris_bus_user",
+>              CLK_CON_GAT_GOUT_BLK_PERIS_UID_D_TZPC_PERIS_IPCLKPORT_PCLK,
+>              21, 0, 0),
+> +       GATE(CLK_GOUT_PERIS_TMU_SUB_PCLK,
+> +            "gout_peris_tmu_sub_pclk", "mout_peris_bus_user",
+> +            CLK_CON_GAT_GOUT_BLK_PERIS_UID_TMU_SUB_IPCLKPORT_PCLK,
+> +            21, 0, 0),
+>         GATE(CLK_GOUT_PERIS_TMU_TOP_PCLK,
+>              "gout_peris_tmu_top_pclk", "mout_peris_clk_peris_gic",
+>              CLK_CON_GAT_GOUT_BLK_PERIS_UID_TMU_TOP_IPCLKPORT_PCLK,
+>
+> --
+> 2.54.0
+>
