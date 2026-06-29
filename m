@@ -1,147 +1,137 @@
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [185.100.197.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E103F2E762C
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 17:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7482ED872;
+	Mon, 29 Jun 2026 17:55:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782755118; cv=none; b=lCaBi9BorKSH8+cEFhtXoOZkNSqqKk/8EKGIsTrCIv/Yw/GLLD55xU9BYj+EfpXxac4ffawN+gQhxjbNbi4mBOlIJgaICVXho7smeoIkz9d02DQ1Nb13EH2iomXDFz3tylU6vsbSxoyNHRe/nxAshal9E3T5GDJEUIyqV5U3H6o=
+	t=1782755713; cv=none; b=NHdKXCCCQ0q9K73YuQdDA7R3AO3/1DoLkcx7VSvenLim8GsVmPEyd21tiaDRzjbG9OWcLy7oKRP/pN2msy5w79c+6/lb4BmxpgSGwPsjxVerJefDsxqvdbG4xMmruEjKf6bduPJRo+AiQMzue8G+kGynMuTC4xP/vl/cncagHyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782755118; c=relaxed/simple;
-	bh=BiJEny0LSD1212/l0Ybzk08mrhYUdni/um4kOzIeC5U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hS58pyK/QEuV/zcT6rSofrj/eKX93Qv0/NfF1vWqzlS79FHmqXzYBIRB5J10WZiZ1zwuyUChvrPSBw1Ur7jlGaeip3MSNKWrUP8v4F79g0cqMQp81GtEG4kJEDSDsxuirFMkF6gb5H6Wa4Bwy6LGW1emqDoXzUZJKWEqeri8mG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JuobyOBI; arc=none smtp.client-ip=209.85.221.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782755713; c=relaxed/simple;
+	bh=WPp9V9rieLa0szWhakoJkRFeRxiMV0iUR0cF5Y9wGxo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NFsI1R/nvuASqiJencZgu7Y54FhPLzYU8HBIHX49UzJIx3Cm4xWWwN2oyn412nMQtpmIdKucnJpDic5HnsjWMZM88TB60TwWmgn5y856PySEvYfDc2bbkaKoIbz84VOEmuF16NpRLIPIuTzF/L9u+rQeTOIR0b+jM5VgC9EFZP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=yeemfvqO; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JuobyOBI"
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-59c9b666822so2842310e0c.3
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:45:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782755116; x=1783359916; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Twvn/bIc7PA5IV9RrXY1WwG29WqyLHjssToGt3hx7lY=;
-        b=JuobyOBIeAWPoeKZ19PcubUIHkofhtCkxbfTH9yUKd3CE0lRr5MiHpD3qysDZnro3C
-         hXfpfMSdlLFmGZuWaRoN8I/A5gXAXi0ghMX8eM2wf8EfX+LMO3fI3GwM2m1aTosFS0z3
-         F6dhFfb4dz/KTVr+ux3xB2G/UYhpODnsgxDMxG/Sp/mYQ9sLLQFc+LqanKU0g4jQGNL2
-         LkSXOG7+eIu4X0wTf9vPEV+bVFhikiqjq4N8UryTflq8KtfP/4fvjMkNUlJaCzVrT2qa
-         kkKKtnvjt4mTSS8OYEql/MVq2QO8qwUd22J80viFncOaDMC5f7zJEsdJjDw3Sq5VMC2S
-         +IqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782755116; x=1783359916;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Twvn/bIc7PA5IV9RrXY1WwG29WqyLHjssToGt3hx7lY=;
-        b=dWgxplza5XW8vAiD2iV/UvevCgGif0B5oE39TGOYvy8n27iZf0ezJrxY0cz1kgWrCu
-         voDHcC1EiDmCXG8r04+7qYn67hLoAPiT2UlkdQ0UA8uR1FcMlrZGw2D5iwGIFvdwngUS
-         XWVqFTz4Fv4RWeKtRpVMZaHP+6oJIasewvQHI621NrZa6M6EMdijd/ieyFI/HWDfyCg2
-         X9FC1RyfZ5uQlFbrk24JkU8kEmMARgfKxYzpO2LUosWttIy0zr3TuYGREDabcJWQ63zg
-         t5eGoET53QVws08eWC5p0bLkCQOL04F2TksaMpkliWgQ5pQOnoM2PxZkzvWA2L0TDG5Y
-         OJww==
-X-Forwarded-Encrypted: i=1; AHgh+RoHArKYpYS3hmSHjxUxYh21Dqs8UDHv+7BgjSrFvb2KtpPfnnUb9ACqje/6+g7dv730M6ss87tlQ0Ux@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkiaZO2vxrNr+sUMx0wMQ9mUVRl2OKYbwZpefAFiZX2uTDOfef
-	F+jy7FgTyZezDxxdiQtYLNuUZ1SlwRyYlBlZATdnpnMPighqE6j+ifeA
-X-Gm-Gg: AfdE7cmrIsCJhwkotbg5cWl+VTJbCTguDOjL1am1pBNkaZajPiXMOSttyY5/AZnsoMS
-	VM3h4muj2ZReeuvMeE0aVMaoD63li0Hvfn7kvW47sJqBpZCeCuuwes0qyPt75ilmh5UA+8BmZ8b
-	18nqGCgn/EjEP40DbhETX1OHR8Hn2qBehtI/ZWqtXj2+Z9qoqtxSrOsQEXWUeApje67LgelaWrl
-	imd3hy/psDjXlnkzLmuF1CPyU0OKB04+A92DY44GyvKaRdSMzGQ/pUjBfv/jd+JQgm7vqgu3XTL
-	0apFfdSePRWH+meTsicchyTDpZ6shO+HjwlQY4bJwolU3iovBbB/920oUNrJ4eUIVcEuDRR2X1b
-	UNMaFhVLQpExY/nVlRxdq5axbMhbK+vbZMIGwArvX3ASKaaQXVsUYdynG/tK7qG7fnRaqe7QATl
-	fBNvdKRiDz/c6Jixuh6xNk3w==
-X-Received: by 2002:a05:6122:17a2:b0:5a5:3eea:4513 with SMTP id 71dfb90a1353d-5bdbedec567mr459042e0c.12.1782755115782;
-        Mon, 29 Jun 2026 10:45:15 -0700 (PDT)
-Received: from localhost ([2804:30c:1618:8400:e838:86ad:21d4:de00])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bd78e4bf00sm5740525e0c.2.2026.06.29.10.45.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 10:45:14 -0700 (PDT)
-Date: Mon, 29 Jun 2026 14:46:00 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: David Lechner <dlechner@baylibre.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, jic23@kernel.org, nuno.sa@analog.com,
-	Michael.Hennerich@analog.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, julianbraha@gmail.com
-Subject: Re: [PATCH v4 2/4] iio: adc: ltc2378: Add support for LTC2378-20 and
- similar ADCs
-Message-ID: <akKvWOIy44jZMY_h@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1782397418.git.marcelo.schmitt@analog.com>
- <0abf862eeb277ae82262d09b11b1446f04c47be7.1782397418.git.marcelo.schmitt@analog.com>
- <9c6e0a74-c9c5-43ee-8eca-ae1667c51c32@baylibre.com>
- <akKHv7j22P6KczXb@debian-BULLSEYE-live-builder-AMD64>
- <3a96a20c-f435-4b98-9e95-26a28bd06e7b@baylibre.com>
- <akKZOq6DV5x1FvAc@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="yeemfvqO"
+Received: from [10.0.0.200] (unknown [10.88.125.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 52B0D53411D7;
+	Mon, 29 Jun 2026 19:55:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1782755702;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=j+TFjbHrHu87xxKwwVcWMdfo2sF9lRUN8NIQ1Lagubg=;
+	b=yeemfvqO1JQN6/WYseI/WDriOWpcHy2zSoQy4FTwMpfxqu435NuafGcwrsJXYVmyCqC0YT
+	K1F2OcSJGZ4w8KqgGV8kTkuRg/2jJqmEdwmxemMH41yVmMTHkEd//LgzVjpLkTRn4hunsO
+	eWI8jq+HY/y85EHvn/P0mIe+w4XLN+U=
+Message-ID: <c364a9fb-59c6-41bd-bb91-620c96e7ab8b@ixit.cz>
+Date: Mon, 29 Jun 2026 19:55:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akKZOq6DV5x1FvAc@ashevche-desk.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/4] dt-bindings: display: panel: Add documentation for
+ lg,sw49410-lh609qh1
+To: Paul Sajna <sajattack@postmarketos.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Thierry Reding
+ <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ phone-devel@vger.kernel.org, Amir Dahan <system64fumo@tuta.io>
+References: <20260614-judyln-panel-v3-0-07f4134441bd@postmarketos.org>
+ <20260614-judyln-panel-v3-2-07f4134441bd@postmarketos.org>
+ <20260615-thick-trout-of-inquire-4e4251@quoll>
+ <0ca65209-0b03-4458-a11a-24e750d10bd3@postmarketos.org>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <0ca65209-0b03-4458-a11a-24e750d10bd3@postmarketos.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> > >>> +static int ltc2378_regulator_setup(struct device *dev, struct ltc2378_state *st)
-> > >>> +{
-> > >>> +	int ret;
-> > >>> +
-> > >>> +	ret = devm_regulator_get_enable_read_voltage(dev, "refin");
-> > >>> +	if (ret < 0 && ret != -ENODEV) {
-> > >>> +		return dev_err_probe(dev, ret, "failed to read refin regulator\n");
-> > >>> +	} else if (ret > 0) {
-> > >>
-> > >> Else is not needed here.
-> > > Why not?
-> > 
-> > The if returns unconditionally, so else is not needed. This is just a general
-> > principal.
+On 28/06/2026 23:22, Paul Sajna wrote:
+> On 2026-06-14 10:38 p.m., Krzysztof Kozlowski wrote:
+>>> +properties:
+>>> +  compatible:
+>>> +    items:
+>>> +      - const: lg,sw49410
+>>> +      - const: lg,sw49410-lh609qh1
+>>
+>> This is very confusing - why two compatibles and why same devices - both
+>> sw49410 - are compatible with each other?
 > 
-> Unfortunately in this case ENODEV will go further, I don't see full context,
-> but it may lead to something unexpected.
+> Hi Krzysztof, yes they are both compatible. One with DDIC and one with
+> DDIC+Panel. David Heidelberg suggested I include the panel.
+> Is this the correct style for both compatible?
 > 
-> Personally I prefer the ladder of
+> properties:
+>    compatible:
+>      items:
+>        - enum:
+>            lg,sw49410-lh609qh1
+>        - const: lg,sw49410
 > 
-> 	if (ret == -ENODEV)
-> 		...
-> 	else if (ret < 0)
-> 		...
-> 	else
-> 		...
-> 
-After splitting regulator availability check on a chip specific basis it will
-probably simplify to something like
 
-static int ltc2378_refin_setup(struct device *dev, struct ltc2378_state *st)
-{
-	int ret;
+Better, but since `lg,sw49410` is contained in the compatible string with the 
+panel itself, I guess `lg,sw49410-lh609qh1` should be enough.
 
-	ret = devm_regulator_get_enable_read_voltage(dev, "refin");
-	if (ret == -ENODEV) /* refin is optional */
-		st->ref_uV = st->info->internal_ref_uv * 2; /* ref buf amplifies REFIN by a factor of 2 */
-	else if (ret < 0)
-		return dev_err_probe(...);
-	else
-		st->ref_uV = ret * 2; /* ref buf amplifies REFIN by a factor of 2 */
-	
-	return 0;
-}
-
-For 'ref' only parts it will probably look like previous versions
-
-static int ltc2378_ref_setup(struct device *dev, struct ltc2378_state *st)
-{
-	ret = devm_regulator_get_enable_read_voltage(dev, "ref"); /* ref is required */
-	if (ret < 0)
-		return dev_err_probe(dev, ret, "failed to read ref regulator\n");
-	
-	st->ref_uV = ret;
-
-	return 0;
-}
-
-Calling the appropriate ref setup function for each part shall then (hopefully) 
-error out incorrect device trees.
+David
