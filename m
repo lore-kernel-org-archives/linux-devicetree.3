@@ -1,484 +1,229 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2122.outbound.protection.partner.outlook.cn [139.219.146.122])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58A4315A86D;
-	Mon, 29 Jun 2026 12:12:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.122
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782735164; cv=fail; b=l22GaMa1J0N0aW/sMU3ia5Mu2Z0mcOgJpxCl+MROZduj4/xvXEu/mJHPL/D08a1+IImOZSS9CQpaWgcV6VBPMQ1V5k2XhDaE9g6MhFLc2fOEcqztq3+dKdi+FLXrFN+e0T5qGO1ZC35l05U0GMp0vUHNUQLCGAvC3tpOSKn3la8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782735164; c=relaxed/simple;
-	bh=OKeWpuhtsXOk7ZyDHUyce0J0eqM8c0PmGJGvauYO/SU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=HUONV5ihSsA1SyUrv7kMckalabbCiCLv/DaEbsa4rH4HTRNshsLKtHfL9hUsfLSFDpMrmryZ5BBP81qf/t7G25GAnT8jc82JNHz6psYDT2K+LtrC586G6jMUyvpQPr/uc3G8DFP/kglHbB+f1/enGXk2gYAVF66ihIVCk3lKgUA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YI/gMsS6mp3au90Dst2ResOGz/s388erKrjwxJ9VhATVy8Eg4V8r+Nf+e46fUUise6JrWn94rHGjA/dNz3vRIUFaeaLp9xoZs65CAiJwRInqPP1bARI2zblrujFw1+jkkqzVVtKc7tCWg1bVV1FqIknzy9K9iXrOw2mPsPfJOZuSU+VhCQx1B/FvYDUedin3I3yHdvS1+jenaMSuuCRn3UZ9MkT3KYqxkNsmZXEwmafjRHG1aXdXDbubETnd6qhDFbJ3JuqzmpjO8MU/b8nlPUxaz3TRJ189J5OrkIuDdeu3QVHDbTxJnnHgnTLtwMdw0QiErg6cyd4RQb0A0cA4mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FE/5cMUL0MkZSoxuMgE3rR9Njrk7sgGP6ob4yyxWhmU=;
- b=OzFd0yPfr9xpHgKZPshC5Jty+nBrm6PikHyd7AclOznGJJX8LuSJt6NVqSfqiSDKSkI+qMacnFKR1ji/OJKT3Lvj0KhFIGoyY1e+PlPQVAKe6JW7nrNngOZHQSZLH+z0MDKTHNAvlGkMdyjaeoan/BxapKdOnvDwF/uoMhU5KguyWuCOzvnobtsco9f04HfmHHs9JoUUIuc0K694OAGPVLse74xBEPx3Wi/iUx51HnLVzODien9HHqbZtAZLwKmxliBgOoP/b9pBeC+/yAOUmIoNrAaqYhsGRjwd073wwp9YGoy1hWQLFUQucKFY0uGiXJ4W2k6dWrnXy9jG+mbUng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:7::14) by ZQ2PR01MB1323.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:7::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.21; Mon, 29 Jun
- 2026 06:36:10 +0000
-Received: from ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
- ([fe80::4386:5cc4:3bc4:4795]) by
- ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn ([fe80::4386:5cc4:3bc4:4795%3])
- with mapi id 15.21.0139.024; Mon, 29 Jun 2026 06:36:10 +0000
-From: Hal Feng <hal.feng@starfivetech.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor@kernel.org>,
-	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: Hal Feng <hal.feng@starfivetech.com>,
-	linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v20 2/3] riscv: dts: starfive: Correct pwm nodes
-Date: Mon, 29 Jun 2026 14:36:00 +0800
-Message-ID: <20260629063601.63917-3-hal.feng@starfivetech.com>
-X-Mailer: git-send-email 2.43.2
-In-Reply-To: <20260629063601.63917-1-hal.feng@starfivetech.com>
-References: <20260629063601.63917-1-hal.feng@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZQ0PR01CA0025.CHNPR01.prod.partner.outlook.cn (10.2.0.214)
- To ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn (10.2.1.78)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C2A2F0680
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782735186; cv=none; b=GD1i7tRpNuSUFEiq4WVNgE50l/rJQRFNOI0WwDJo7pwbXC9vNkyO0J8Yx9Tp5Ezm0Eo1e8mU2dvlJ3MoAzfyoc88hBSTmukwa4mw/NIcYPra75eaNSsg/LFJTgVHxt328/+CH9j7TknXOsbnLED5SHPL3uHKp0AHoLh+jQ4k++8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782735186; c=relaxed/simple;
+	bh=WREysdBr691NZfx11yc49SQ+tj5mZqJ3+6r+Kpjn4pg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CUO9vTeLOSPTXpP8NKwrGcSgMAHC0qlnjOrRQ+jK1kzrJnq4GOSXdHKjQIuX6B8F4JkBwtQwcZ3lGbN8yR8GdjO6uyQJgD+Pz6uCupKbOJLOfsH/qTB2xtAS/Ybe2shBPS+m1sYyqhctnsSHgOaln5cySYcwT3Fmt1zhuo0YCtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=W7MgTE8u; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LW4KezON; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="W7MgTE8u";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LW4KezON"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65TASvU82603468
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:13:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6/uaS7qRJI8R12UYCfO8jKUbFRKEmIwJPtmalvvKLMs=; b=W7MgTE8u6rNvamdW
+	A9Q6ZjZIW70nDHvbbioqMu3kMg1Nd10w9gs4n4B38V5qeEwDbf8QoMD80rkx4BoA
+	AaZS7Etc6HiGsWRLDRRe7G+hUKvLSytJdLC6GQy5RQP10xZLJ3/BLsEkzAtS91vz
+	VTlwNc/XB26b8uYyNUPoaMO3maM6DbU+0JH/h50kUuL2Di58n+pfTTSej8XqXWqe
+	sBUhSfSG3pHQWCv0c4XkCS+ftNA/K6fUrRTpSSVYDq7TdGglarzwPB+IPWoT27qh
+	FI1u0Zv0+B+OhBhCk2RYfoG4vXwEIwof4zwRXLfU/mP2gb2xecp4cHbZC+gv3Cq9
+	P86IcQ==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3nq88pxm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:13:04 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5bd91d5907fso63061e0c.3
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 05:13:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782735184; x=1783339984; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6/uaS7qRJI8R12UYCfO8jKUbFRKEmIwJPtmalvvKLMs=;
+        b=LW4KezONwNMugla0YiMlrGzfjFFzK/KPGGBNgLKCQ2GoBAeiUjp+nug2LX2UIS7NI6
+         RlAx+2T6OSihHQR/XAhor8ircBZdbt/xcGpknzm9Lm+aNDWdX8z9Vru5X9r/bYlwwnH/
+         TsHbO79QZvNEIGlkxVB08fwy3YGWwh3COGSK/KqUG5j7mHAZUyGdWEKvYdHmdlDae7iX
+         MfL6aR4C+j4gQGqXZqIaO1UzljISt7++pTWDDF0vm5od3SqsSyAuXW5p1WWDg3jWRjsU
+         aFLvZ+dZ7x3zzz4UnTdRhZqokj9FVgOt0LkIgaMgc0gI741ZucQyM7m+cHvBmAcAdd6z
+         BUXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782735184; x=1783339984;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6/uaS7qRJI8R12UYCfO8jKUbFRKEmIwJPtmalvvKLMs=;
+        b=SqHKsfKO6TC8zlmgo2UaqApUNu7CJSz2LH/hVxn10Vk8loofjmID7ShT3SVZrsjYQT
+         oyId5bQGpW+o+hJfef7s+BJqzwQHZnLVmDIHkwIJzU4qpq6fXx7iwFMNpNfE8vNgjFRL
+         EXwtr/MBMBq9jSEoxeGQtPk6Oxsk0ZAmbp9gDJdyNxXyNDlPFuJb0+EAosnsNcVHpvml
+         p1R7ErljZbB+CPz6uXAXsHuhq1z9OVl6kirqEQoekebhlKgIc/6syyaztj5UixwzYgZ1
+         tkdFBLBOYj4WHV66T3wa1UIam7ACOnI3oOkIHUKNGacRQb1Jocg3z7KBigvTE1DH3hpj
+         AWFA==
+X-Forwarded-Encrypted: i=1; AHgh+RoZqI/+Nw8Jp6BhJpy+I5WocLJT4pCtymdV+iC/DFlwmhX2YeXm5cD/g/kim71EcG+SKtPmFut1YX5V@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIEqMnOHbzF+0luJFtqRasAZ4sXthkHtqfFLg4fsGjfhmnqilq
+	5HJmVicWVpQ5HntTDOdqxtJVQNEK/6vL4IzjAx6yfxtEFvR9qrYmZtYJn1vA3DimgH9e8lInoWN
+	hdNUFqNXX6U09S68v5+yKz4H5e1VFnBII+6HBTXsc8kS9oQe4QVPKkM03fphWRPhT
+X-Gm-Gg: AfdE7clgnA/prhcXvh2JJlDVrK/vNmbaiHk1EmlgGQWaApRVsbcAe45QtI818AhTr+q
+	H/uc0vSdQX3I0yK8b/BmqRD6SfClAllLthaLzKi1yVu/CwlSH4v3dHV6EtPtdap3Y1T/PckcPvb
+	yq5ZEv8hQZ6vv8raVNm5eZxaeV5jHl+8z0zbye1lNYXItpNS2dHwhGTxutE40S6BN9fWphrCB5Y
+	74Gzzk3Qc1GewvyYdlmNKWKuF22I0CMcMGZFYax8tlAlGy4Acqxwoy9K7nydhkIiBWRKjC6CPA3
+	Z1ghRpnyE64KdKcEr4eGzGtOTIi7itpRsE4YB931kjUoH+aWGsJk50AU/BbGID3oCjr8Qq9gxol
+	jO8cIGc1UqGh4Z9QQVcmI/LqQAZxbyicVmas=
+X-Received: by 2002:a05:6123:5c8:20b0:5bd:9565:2e8a with SMTP id 71dfb90a1353d-5bd95653060mr664833e0c.1.1782735183612;
+        Mon, 29 Jun 2026 05:13:03 -0700 (PDT)
+X-Received: by 2002:a05:6123:5c8:20b0:5bd:9565:2e8a with SMTP id 71dfb90a1353d-5bd95653060mr664826e0c.1.1782735183128;
+        Mon, 29 Jun 2026 05:13:03 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-697f3ac461csm6870601a12.6.2026.06.29.05.13.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 05:13:02 -0700 (PDT)
+Message-ID: <0d4fa333-df22-42b9-b9c2-ccb43ac4fac3@oss.qualcomm.com>
+Date: Mon, 29 Jun 2026 14:13:00 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ2PR01MB1307:EE_|ZQ2PR01MB1323:EE_
-X-MS-Office365-Filtering-Correlation-Id: b64d7ab6-af3d-4da6-f09e-08ded5a8b557
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|52116014|7416014|38350700014|18002099003|22082099003|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	X4ekMa4iODd08Qx5/XjP/PB1/uzgz26iQYdDnhHHheXIBj5HuCTrXoS1CQP/BuVAYc2I5fv49NUlC9LhVlrBm6TeIQVGp0A4rD1mb/XntYf/Q6eF5/4eJdxld5UltVeqicUuUJcLb/ocR53fyQnwaJkBKlXtbGQizU2wTLAyH4W09ko8BmYIHuTv00Mo43oTSoJXXhQ2ieRXsgkttcdM9/u50b8HNJprhd6aiCiV6jk94Q4Db5YsEAROTdOYkaztkESK2Rudb0WX9uyYlELTDXWmoxhXzJC1oTS7aq1nIWNvSjv5eeIbXTd1G4DSUQ77aMh7KjiB0Mfl28oJf/qF1YxS9SsLir5rTmSa098tpNzNdrXa7d6OUFrboQjFJJAq4OynYUMy8GZGZd/A3RFUbuXK30/59gESmAJH1ji5eRMvqAA2zyJXD/4D5uNZ9FEb3xn2/opiYwizk8N22CBJunrGltzNfLnA03SjGqO64xjt4StT9VFPPLlYWgJMe9Mn90Tt9wvKtxHm+9gT4sZNM6b1rTWz2mJkrp9RR+dlkkVcLW+9/H9u8YX9NooA0Mt1
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(52116014)(7416014)(38350700014)(18002099003)(22082099003)(56012099006)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?qcTbwvoMW2LmQm05p/C2bbgrzZmrjZtX3muwhAgwXRiPQcNsYSrTx8PNPgza?=
- =?us-ascii?Q?FSCgmxHOAPUtNo6+BXeb9OM0Rz6aO6yf0tCR/P/ZYycu9qZbHSDubvtMq++B?=
- =?us-ascii?Q?Tb0zvWMK7f8NbuJB78DibT6Wf2ZU/+o/9pJ5ldygZ3kc6vaPo8jipVjkwkWn?=
- =?us-ascii?Q?stqcgX9/jMiopdlV4wQs7I4Xk+qLJS3Bsqw+B0Tesa2+NwpfXEiKPcpm9VSr?=
- =?us-ascii?Q?pPcyzBBJmYsxCp9zNLE6kQ7fbt394ZE5h0fL2Me/5pgM90qU9EM/Uasb2sPK?=
- =?us-ascii?Q?x9ftplyNosSP/MX6LGq5IMlubmfNy2C4IX3ZKV3dIXTgRbjZR+Nih7R4RK3o?=
- =?us-ascii?Q?8GDDFKkrcAGJ3mCFofQgAtjvZsd6zgJk2g1tSadMntZXcXwbwzKHUXVfwhn1?=
- =?us-ascii?Q?uEPtuZ4IsEdfCqPCYJbhipAObeQLb2Iy1Nf2twEVzil63ea57xy6Mil/ndb0?=
- =?us-ascii?Q?IOnwittZ7E2AvtzYq1pm/+NfT7nH+H47VhvXkTIrTNbph1ZFIaVBcp5W5b0Z?=
- =?us-ascii?Q?sm2WvXIgOqpdwDZ+exlDmy1EhEHamjScngZXC4YCpuTS6uyAH6cr5+TqWMSm?=
- =?us-ascii?Q?todKtYqnIXk+a1DuIB0uQKM49ZA5glO3Q3ijxNXOvNXTBGO3piwmvNV91XLI?=
- =?us-ascii?Q?Kltc3PfSkGaXRQbHZVIyK/X1yHkA20+sU1m7ORvd/m77EQ7m1IeinAH2P226?=
- =?us-ascii?Q?bYpAoy8OCv/f8VOr2t1Qe3YYiPhYM4SR82jy7wd1L/vMxToRzLVBgzbhOS5V?=
- =?us-ascii?Q?R++oUgo7jckDVgnu7tK8KpO5Glk9FvS4skrgn6+9wG/xif0+Z1nEEpK9FCiI?=
- =?us-ascii?Q?n+nH+KdMJl3v7QZQecjccgFmlxgTsV3t1bsEuYx4fqJg2CR5XMVh2cUCcJco?=
- =?us-ascii?Q?OXsNTRlmTUrMd4n2ObpHCN0ba6I/5mJ86bp4keVWgPtafktWPDU+A37/Gwj1?=
- =?us-ascii?Q?W0FFxNOW7tmAFWwzidISIAc6D0emg/Sb7yHeRtTOtdf549V2qymm3UkBVU5u?=
- =?us-ascii?Q?6IgbGKn/9G4wq+VGygOp7UXJimXfnu6BSJVqdy/3qdAf3TCSzr6hZ/EI4jvy?=
- =?us-ascii?Q?RCd8y9h0QnRCAjmpSs4sn1yuhZ7JpKswPgk42Vcx7lB0fXwAq3op69iZXpTb?=
- =?us-ascii?Q?Q7uL9RqBP/Mi25q+gR0OQJyj9GdRZOch5uz5jI/67LmvbNE4C7sCUWN7MwKu?=
- =?us-ascii?Q?L3J4W83VAMcfaxz6SNAPl/FLqG0Y2rhQsjFFHflbdPJwoYisldtvPDrGxDc/?=
- =?us-ascii?Q?gs81PyqG3arH+uqbv3osmCoh7nRSa20hyZCxUO42yh4lFtBS/+xE4kOa+529?=
- =?us-ascii?Q?+eBLJ87piVJvG95MUEiK0IPS6PXfO5w74VUWnU0t7MI5ZuM9zf6HYUMpHjJm?=
- =?us-ascii?Q?xH1Ftl6MkPWaIEQwm1kLG48Fn4v1bopKro/d8KE0MmU7M8ErdxqVZS07jCfx?=
- =?us-ascii?Q?zOmgJUgNZfDUZaMGwn/X/bZkD4LEnTx29idkcfnMtxa4CwQQJrMRnpc9iQNg?=
- =?us-ascii?Q?jU8PadUttI94CTKCeBZlh/gldNEdcQ4moUcRmPh49ON78Zt6+A7HEJh5qWsd?=
- =?us-ascii?Q?BalZDM+I+3B8bBdazr0Dzw/algBrhCgdGF9qfzwTOzhxEJEzSpsb+ARdUgWZ?=
- =?us-ascii?Q?NN5PHfXZXOIxlyC1ju2CBsBRejgrX5Jl25oHQ3pDeURxOD0V1bKobUciJ5wi?=
- =?us-ascii?Q?eynxdG0vnHj25ZyoGbN69ZVWK7DEhTvoYYJsp8BKfuTgyCKDUWmk20DYi1pE?=
- =?us-ascii?Q?SxYalY3YKATg5LZIrGRHPoKYoy2gS+8=3D?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b64d7ab6-af3d-4da6-f09e-08ded5a8b557
-X-MS-Exchange-CrossTenant-AuthSource: ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 06:36:10.7893
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bKep4v3tAZwWfCEj22QnhWfFWT68QZhmy6AqZvJf8lqceXtphEhfXc08r/OtiH3LJoXhH3gTOStkbLKql2NyEYenRSciBJ+eajXItaBy6p4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ2PR01MB1323
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] regulator: qcom-rpmh: Add off-on-delay support
+To: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+Cc: Saikiran <bjsaikiran@gmail.com>, broonie@kernel.org,
+        monish.chunara@oss.qualcomm.com, jishnu.prakash@oss.qualcomm.com,
+        nitin.rawat@oss.qualcomm.com,
+        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+        lgirdwood@gmail.com, andersson@kernel.org, konrad.dybcio@kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260127190211.14312-1-bjsaikiran@gmail.com>
+ <20260515111647.qg75thdvcbvvjpoi@hu-kamalw-hyd.qualcomm.com>
+ <06a264d0-6a14-4b71-b783-82b771f04411@oss.qualcomm.com>
+ <oa3okt7mdhoqmrebwim5yswarbcacbmhpwfvqbhtv6ib3cwrwi@ddox6mw3uhmy>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <oa3okt7mdhoqmrebwim5yswarbcacbmhpwfvqbhtv6ib3cwrwi@ddox6mw3uhmy>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Y5pf5JFeafjvkkYbJqAIdqZ7qthgn6NO
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDEwMCBTYWx0ZWRfX2yIenLnNOaLl
+ 8cFXcN4KMGgMush3mvZtKoKs9pP+8wQKmkpjwnDEwJE6F+SVgfuA/7DeM0SSvNrVsV8xUL7vaZP
+ kg9+zK8bLfW5nyKdZL3afmevj7KXiFE=
+X-Proofpoint-ORIG-GUID: Y5pf5JFeafjvkkYbJqAIdqZ7qthgn6NO
+X-Authority-Analysis: v=2.4 cv=PqSjqQM3 c=1 sm=1 tr=0 ts=6a426150 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=pryAGsrBFMLCAmXlw1UA:9 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDEwMCBTYWx0ZWRfX2cQy/EedI+v0
+ t9xR7ZwUydcFgU2r6s1cvrj7cj3lSifUgmf8OVpbx5xcihmhlBfiQRl/6VqglTUo8REGOLH0H7U
+ is5aocHDNCVvg+6Rr95CMHEb0J62zgAP4JeraMCQZByQ1zzFgL6wT6aThgd4NjKXOcqSELrmSYJ
+ 6ji08GLZz3r8CdzAGmT9NRJQ2r0C0Qvu5s00zRs0xOrhD/i9F7KjVEMZExPzRnCaxevcv0Jc7O4
+ +sQcBftvvT0NHQQdpirBLbwfX+Qrk9UC8ONpfcyNaD+iwpu0zSn6myng+88XpokLxWOAYjq/Rxt
+ izt5iuMyzcK4QM/GKTjALo97TlPAaYRfN2ySpR0b36z7oyyIjO0efnTQtE0VDMBj5aHIBJFtvi4
+ ctgyXKAPuxQhygCR5rN1UMesX0bYJg7nQUFkGb1Ljafpa0O1hWhKye+YTQEtYRiw/51owT3GkZ+
+ z8fBd/zb7LzpRSMidFg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-29_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 adultscore=0 clxscore=1015
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606290100
 
-Each of the StarFive JH7100/JH7110 SoCs has 8 OpenCores PTC IP
-cores. One OpenCores PTC IP core can output one PWM channel.
-Change the register size to 0x10, since an OpenCores PTC IP
-has only 4 32-bit registers: CNTR, HRC, LRC and CTRL.
+On 6/25/26 12:16 AM, Kamal Wadhwa wrote:
+> On Tue, Jun 16, 2026 at 01:48:50PM +0200, Konrad Dybcio wrote:
+>> On 5/15/26 1:16 PM, Kamal Wadhwa wrote:
+>>> On Wed, Jan 28, 2026 at 12:32:09AM +0530, Saikiran wrote:
+>>>> This series adds support for the standard `regulator-off-on-delay-us`
+>>>> property to the Qualcomm RPMh regulator driver and updates the
+>>>> corresponding Device Tree bindings.
+>>>>
+>>>> Motivation:
+>>>> On the Lenovo Yoga Slim 7x (Snapdragon X Elite), the camera regulators
+>>>> (LDO1, LDO3, LDO7) have large bulk capacitors and rely on passive discharge.
+>>>> When these regulators are disabled, the voltage decays very slowly. If
+>>>> re-enabled too quickly, the sensor experiences a brownout and fails to
+>>>> initialize.
+>>>>
+>>>> Verification:
+>>>> I verified that the core `drivers/regulator/of_regulator.c` does not
+>>>> currently parse `regulator-off-on-delay-us` in `of_get_regulation_constraints()`.
+>>>> Therefore, the driver must parse this property explicitly and populate
+>>>> `rdesc->off_on_delay` so the regulator core can enforce the constraint.
+>>>>
+>>>> Changes in v3:
+>>>> - Added Patch 1/2: Update DT bindings to allow `regulator-off-on-delay-us`
+>>>>   for `qcom,rpmh-regulator` (Requested by Mark Brown).
+>>>> - Updated Patch 2/2: Refined commit message to explicitly mention the
+>>>>   passive discharge and bulk capacitor mechanism on the Yoga Slim 7x
+>>>>   (Requested by Mark Brown).
+>>>>
+>>>> Changes in v2:
+>>>> - Moved the motivation/context from the cover letter into the commit
+>>>>   message of the driver patch.
+>>>>
+>>>> Saikiran (2):
+>>>>   dt-bindings: regulator: qcom,rpmh: Allow regulator-off-on-delay-us
+>>>>   regulator: qcom-rpmh: Add support for regulator-off-on-delay-us
+>>>
+>>> Hi Mark, Bjorn, Konrad and all,
+>>>
+>>> We have another UFS issue on QCS8300 RB4 EVK, where it seems this patch is
+>>> helping.
+>>>
+>>> Issue is seen 2/10 reboots and it happens in the UFS probe defer path:
+>>>
+>>> 1. UFS probe takes regulator handle for VCC(vreg_l8a) of UFS host controller.
+>>> 2. UFS probe enables the regulator
+>>> 3. UFS probe defers (due to some other dependency un-related to regulator)
+>>> 4. UFS regulator disabled on probe exit
+>>> 5. UFS re-attempts probe and re-enables the regulator
+>>> 6. UFS init sequence runs -> UFS NOP OUT command failed (no shell) 
+>>>
+>>> Issue Log:
+>>>
+>>> [    6.583836] ufshcd-qcom 1d84000.ufs: ufshcd_verify_dev_init: NOP OUT failed -11
+>>> [    6.592780] ufshcd-qcom 1d84000.ufs: ufshcd_async_scan failed: -11
+>>>
+>>> NOTE
+>>> - Issue is not seen in first probe attempt, because UFS regulators are left ON
+>>>   from bootloader, which gives enough time between rail turn ON and UFS init
+>>>   sequence start.  However in issue case, it seems re-probe is happening too
+>>>   fast, which causes init sequence to fail and UFS brownouts (similar to camera
+>>>   sensor case)
+>>>
+>>> - Also, we compared this board with other RBxx EVK boards for UFS rail, it
+>>>   seems that this board has more caps on the VCC regulator, as the board is
+>>>   designed to have both EMMC and UFS, and we have DT option to pick one of them.
+>>>
+>>>   So for EMMC those extra caps were added and they are impacting rampup on VCC.
+>>>
+>>> Since this is not entirely a UFS part issue, but a board design constraint, it
+>>> seems better if we handle this in the regulator side itself, as adding it in the
+>>> UFS driver may not be acceptable from UFS reviewers.
+>>>
+>>> Please share your opinion, if this seems to be good reason to accept this patch?
+>>
+>> Is that board in production already, or is that something that can be fixed?
+> 
+> yes, it cannot be fixed in HW, as the board is already in production.
 
-Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
----
- .../boot/dts/starfive/jh7100-common.dtsi      | 28 ++++++--
- arch/riscv/boot/dts/starfive/jh7100.dtsi      | 67 ++++++++++++++++++-
- .../boot/dts/starfive/jh7110-common.dtsi      | 27 ++++++--
- .../boot/dts/starfive/jh7110-milkv-mars.dts   |  6 +-
- .../dts/starfive/jh7110-milkv-marscm.dtsi     |  6 +-
- .../dts/starfive/jh7110-pine64-star64.dts     |  6 +-
- .../jh7110-starfive-visionfive-2-lite.dtsi    |  6 +-
- .../jh7110-starfive-visionfive-2.dtsi         |  6 +-
- arch/riscv/boot/dts/starfive/jh7110.dtsi      | 67 ++++++++++++++++++-
- 9 files changed, 198 insertions(+), 21 deletions(-)
+Re-reading this thread, RobH's worry here:
 
-diff --git a/arch/riscv/boot/dts/starfive/jh7100-common.dtsi b/arch/riscv/boot/dts/starfive/jh7100-common.dtsi
-index ae1a6aeb0aea..85106545090e 100644
---- a/arch/riscv/boot/dts/starfive/jh7100-common.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jh7100-common.dtsi
-@@ -199,13 +199,23 @@ GPO_I2C2_PAD_SDA_OEN,
- 		};
- 	};
- 
--	pwm_pins: pwm-0 {
--		pwm-pins {
-+	pwm0_pins: pwm0-0 {
-+		pwm0-pins {
- 			pinmux = <GPIOMUX(7,
- 				  GPO_PWM_PAD_OUT_BIT0,
- 				  GPO_PWM_PAD_OE_N_BIT0,
--				  GPI_NONE)>,
--				 <GPIOMUX(5,
-+				  GPI_NONE)>;
-+			bias-disable;
-+			drive-strength = <35>;
-+			input-disable;
-+			input-schmitt-disable;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	pwm1_pins: pwm1-0 {
-+		pwm1-pins {
-+			pinmux =  <GPIOMUX(5,
- 				  GPO_PWM_PAD_OUT_BIT1,
- 				  GPO_PWM_PAD_OE_N_BIT1,
- 				  GPI_NONE)>;
-@@ -359,9 +369,15 @@ &osc_aud {
- 	clock-frequency = <27000000>;
- };
- 
--&pwm {
-+&pwm0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm0_pins>;
-+	status = "okay";
-+};
-+
-+&pwm1 {
- 	pinctrl-names = "default";
--	pinctrl-0 = <&pwm_pins>;
-+	pinctrl-0 = <&pwm1_pins>;
- 	status = "okay";
- };
- 
-diff --git a/arch/riscv/boot/dts/starfive/jh7100.dtsi b/arch/riscv/boot/dts/starfive/jh7100.dtsi
-index 7de0732b8eab..90438df1f74d 100644
---- a/arch/riscv/boot/dts/starfive/jh7100.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jh7100.dtsi
-@@ -360,9 +360,72 @@ watchdog@12480000 {
- 				 <&rstgen JH7100_RSTN_WDT>;
- 		};
- 
--		pwm: pwm@12490000 {
-+		pwm0: pwm@12490000 {
- 			compatible = "starfive,jh7100-pwm", "opencores,pwm-v1";
--			reg = <0x0 0x12490000 0x0 0x10000>;
-+			reg = <0x0 0x12490000 0x0 0x10>;
-+			clocks = <&clkgen JH7100_CLK_PWM_APB>;
-+			resets = <&rstgen JH7100_RSTN_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm1: pwm@12490010 {
-+			compatible = "starfive,jh7100-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x12490010 0x0 0x10>;
-+			clocks = <&clkgen JH7100_CLK_PWM_APB>;
-+			resets = <&rstgen JH7100_RSTN_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm2: pwm@12490020 {
-+			compatible = "starfive,jh7100-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x12490020 0x0 0x10>;
-+			clocks = <&clkgen JH7100_CLK_PWM_APB>;
-+			resets = <&rstgen JH7100_RSTN_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm3: pwm@12490030 {
-+			compatible = "starfive,jh7100-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x12490030 0x0 0x10>;
-+			clocks = <&clkgen JH7100_CLK_PWM_APB>;
-+			resets = <&rstgen JH7100_RSTN_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm4: pwm@12498000 {
-+			compatible = "starfive,jh7100-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x12498000 0x0 0x10>;
-+			clocks = <&clkgen JH7100_CLK_PWM_APB>;
-+			resets = <&rstgen JH7100_RSTN_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm5: pwm@12498010 {
-+			compatible = "starfive,jh7100-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x12498010 0x0 0x10>;
-+			clocks = <&clkgen JH7100_CLK_PWM_APB>;
-+			resets = <&rstgen JH7100_RSTN_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm6: pwm@12498020 {
-+			compatible = "starfive,jh7100-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x12498020 0x0 0x10>;
-+			clocks = <&clkgen JH7100_CLK_PWM_APB>;
-+			resets = <&rstgen JH7100_RSTN_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm7: pwm@12498030 {
-+			compatible = "starfive,jh7100-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x12498030 0x0 0x10>;
- 			clocks = <&clkgen JH7100_CLK_PWM_APB>;
- 			resets = <&rstgen JH7100_RSTN_PWM_APB>;
- 			#pwm-cells = <3>;
-diff --git a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
-index a7a1c09a2c90..64de468f2c31 100644
---- a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
-@@ -326,9 +326,14 @@ uboot@100000 {
- 	};
- };
- 
--&pwm {
-+&pwm0 {
- 	pinctrl-names = "default";
--	pinctrl-0 = <&pwm_pins>;
-+	pinctrl-0 = <&pwm0_pins>;
-+};
-+
-+&pwm1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm1_pins>;
- };
- 
- &spi0 {
-@@ -528,12 +533,22 @@ GPOEN_ENABLE,
- 		};
- 	};
- 
--	pwm_pins: pwm-0 {
--		pwm-pins {
-+	pwm0_pins: pwm0-0 {
-+		pwm0-pins {
- 			pinmux = <GPIOMUX(46, GPOUT_SYS_PWM_CHANNEL0,
- 					      GPOEN_SYS_PWM0_CHANNEL0,
--					      GPI_NONE)>,
--				 <GPIOMUX(59, GPOUT_SYS_PWM_CHANNEL1,
-+					      GPI_NONE)>;
-+			bias-disable;
-+			drive-strength = <12>;
-+			input-disable;
-+			input-schmitt-disable;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	pwm1_pins: pwm1-0 {
-+		pwm1-pins {
-+			pinmux = <GPIOMUX(59, GPOUT_SYS_PWM_CHANNEL1,
- 					      GPOEN_SYS_PWM0_CHANNEL1,
- 					      GPI_NONE)>;
- 			bias-disable;
-diff --git a/arch/riscv/boot/dts/starfive/jh7110-milkv-mars.dts b/arch/riscv/boot/dts/starfive/jh7110-milkv-mars.dts
-index 21873612d993..54013c70f4b4 100644
---- a/arch/riscv/boot/dts/starfive/jh7110-milkv-mars.dts
-+++ b/arch/riscv/boot/dts/starfive/jh7110-milkv-mars.dts
-@@ -68,7 +68,11 @@ &phy0 {
- 	motorcomm,tx-clk-adj-enabled;
- };
- 
--&pwm {
-+&pwm0 {
-+	status = "okay";
-+};
-+
-+&pwm1 {
- 	status = "okay";
- };
- 
-diff --git a/arch/riscv/boot/dts/starfive/jh7110-milkv-marscm.dtsi b/arch/riscv/boot/dts/starfive/jh7110-milkv-marscm.dtsi
-index 025471061d43..31afac27b86d 100644
---- a/arch/riscv/boot/dts/starfive/jh7110-milkv-marscm.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jh7110-milkv-marscm.dtsi
-@@ -87,7 +87,11 @@ &phy0 {
- 	motorcomm,tx-clk-adj-enabled;
- };
- 
--&pwm {
-+&pwm0 {
-+	status = "okay";
-+};
-+
-+&pwm1 {
- 	status = "okay";
- };
- 
-diff --git a/arch/riscv/boot/dts/starfive/jh7110-pine64-star64.dts b/arch/riscv/boot/dts/starfive/jh7110-pine64-star64.dts
-index aec7ae3d1f5b..a9e82f25efde 100644
---- a/arch/riscv/boot/dts/starfive/jh7110-pine64-star64.dts
-+++ b/arch/riscv/boot/dts/starfive/jh7110-pine64-star64.dts
-@@ -95,7 +95,11 @@ &phy1 {
- 	motorcomm,tx-clk-100-inverted;
- };
- 
--&pwm {
-+&pwm0 {
-+	status = "okay";
-+};
-+
-+&pwm1 {
- 	status = "okay";
- };
- 
-diff --git a/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2-lite.dtsi b/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2-lite.dtsi
-index f8797a666dbf..85b56a72dff7 100644
---- a/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2-lite.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2-lite.dtsi
-@@ -74,7 +74,11 @@ &phy0 {
- 	tx-internal-delay-ps = <1500>;
- };
- 
--&pwm {
-+&pwm0 {
-+	status = "okay";
-+};
-+
-+&pwm1 {
- 	status = "okay";
- };
- 
-diff --git a/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2.dtsi b/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2.dtsi
-index edc8f4588133..35208f95cd3d 100644
---- a/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2.dtsi
-@@ -73,7 +73,11 @@ &pcie1 {
- 	status = "okay";
- };
- 
--&pwm {
-+&pwm0 {
-+	status = "okay";
-+};
-+
-+&pwm1 {
- 	status = "okay";
- };
- 
-diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-index 9c3e4598747e..82ea63f715b0 100644
---- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-@@ -846,9 +846,72 @@ i2stx1: i2s@120c0000 {
- 			status = "disabled";
- 		};
- 
--		pwm: pwm@120d0000 {
-+		pwm0: pwm@120d0000 {
- 			compatible = "starfive,jh7110-pwm", "opencores,pwm-v1";
--			reg = <0x0 0x120d0000 0x0 0x10000>;
-+			reg = <0x0 0x120d0000 0x0 0x10>;
-+			clocks = <&syscrg JH7110_SYSCLK_PWM_APB>;
-+			resets = <&syscrg JH7110_SYSRST_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm1: pwm@120d0010 {
-+			compatible = "starfive,jh7110-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x120d0010 0x0 0x10>;
-+			clocks = <&syscrg JH7110_SYSCLK_PWM_APB>;
-+			resets = <&syscrg JH7110_SYSRST_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm2: pwm@120d0020 {
-+			compatible = "starfive,jh7110-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x120d0020 0x0 0x10>;
-+			clocks = <&syscrg JH7110_SYSCLK_PWM_APB>;
-+			resets = <&syscrg JH7110_SYSRST_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm3: pwm@120d0030 {
-+			compatible = "starfive,jh7110-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x120d0030 0x0 0x10>;
-+			clocks = <&syscrg JH7110_SYSCLK_PWM_APB>;
-+			resets = <&syscrg JH7110_SYSRST_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm4: pwm@120d8000 {
-+			compatible = "starfive,jh7110-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x120d8000 0x0 0x10>;
-+			clocks = <&syscrg JH7110_SYSCLK_PWM_APB>;
-+			resets = <&syscrg JH7110_SYSRST_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm5: pwm@120d8010 {
-+			compatible = "starfive,jh7110-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x120d8010 0x0 0x10>;
-+			clocks = <&syscrg JH7110_SYSCLK_PWM_APB>;
-+			resets = <&syscrg JH7110_SYSRST_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm6: pwm@120d8020 {
-+			compatible = "starfive,jh7110-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x120d8020 0x0 0x10>;
-+			clocks = <&syscrg JH7110_SYSCLK_PWM_APB>;
-+			resets = <&syscrg JH7110_SYSRST_PWM_APB>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
-+		pwm7: pwm@120d8030 {
-+			compatible = "starfive,jh7110-pwm", "opencores,pwm-v1";
-+			reg = <0x0 0x120d8030 0x0 0x10>;
- 			clocks = <&syscrg JH7110_SYSCLK_PWM_APB>;
- 			resets = <&syscrg JH7110_SYSRST_PWM_APB>;
- 			#pwm-cells = <3>;
--- 
-2.43.2
+https://lore.kernel.org/all/20260129174829.GA1324020-robh@kernel.org/
 
+seems to be misguided - AFAICU this property would be set on each
+regulator separately, not globally for all regulators under a given
+PMIC - is that right?
+
+In that case, I see no real downside in allowing that, especially given
+it would/should be used sparingly and only in cases like you mentioned
+where the board has some quirks
+
+Konrad
