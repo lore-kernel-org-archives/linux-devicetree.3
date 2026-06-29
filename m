@@ -1,134 +1,60 @@
-Received: from mail-m1973183.qiye.163.com (mail-m1973183.qiye.163.com [220.197.31.83])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173E035E92F;
-	Mon, 29 Jun 2026 03:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.83
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41A2637AA65;
+	Mon, 29 Jun 2026 03:18:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782702538; cv=none; b=VMw21sS6POQrM8OWev6tUHbV4w6OglnzpM3F6UBy5GI26Vw81t9HPD5Ax2E6G5bD78uixOdv1Q3/TlV/GEIx/BFKcAgBrlpD8KK/nVXcTF5RA9thL1+h4EHPtrLMkFJG/O2p5ia5w3ccehkoadEIaA5nJ5oCPv0NioGQWgnzKKg=
+	t=1782703134; cv=none; b=nHuywr73TMKmIEiwjHYbRwBsw7xNnRnRzr3ugVGVKsR21eaj3fk9CoEXaQI7M7suhN4qJft6KckvBsdyYlmUm4NnDIDS23yMAKKEdq6Vz5kRsypO+cobhxfTxCJtlo9kweLKFMI3N0WZi5+dvPl+kodOkIQVNgEOI3/eIcwHehA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782702538; c=relaxed/simple;
-	bh=F99FZXoLe6WSw3sG+7NTs4ty8+muEj3Q2FczZK1t5UQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MGe28Xza9BTj2TPslS/52+q53zfN/Q3ponYq/7pf4WyaA/4MepeO9FxBkIhLFYVf0dnZuK3hbc1ugUPL4oKaYwwTQ2XIUQwxxKJozYw2pXmoAMrDwzV0ZrhksysyE+o6lyL+THbWjwGUvEVdfXU4zpjbcB0vTYPkV5ZvxOjvkac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Jy7T/u28; arc=none smtp.client-ip=220.197.31.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Jy7T/u28"
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4414d26eb;
-	Mon, 29 Jun 2026 09:53:02 +0800 (GMT+08:00)
-Message-ID: <cb533b04-e550-4eb4-8a8f-6d17c3d43a48@rock-chips.com>
-Date: Mon, 29 Jun 2026 09:53:02 +0800
+	s=arc-20240116; t=1782703134; c=relaxed/simple;
+	bh=2i619orZh5e90Wzn6bgcBluE0cdAT/VejJqmigtzTTw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=BLYWSTjBB8ccKnqj8i7lcYhdjsnNC3TgIZhz9TMqV7Wrb6oiLmhRrCEh6tSlt+idV0HRKPwvAjw48BGah8Avdg61FLDl/r+Ew+3eq5BfZr8Xrcf+V5IodfCnlVQYkrk9Va65C8h1A5wEI67xe9hy1xmAaAJb9B7EViHwoxXy7yA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=4.193.249.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
+ ajax-webmail-app2 (Coremail) ; Mon, 29 Jun 2026 11:18:36 +0800 (GMT+08:00)
+Date: Mon, 29 Jun 2026 11:18:36 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
+To: "Julian Braha" <julianbraha@gmail.com>, linux@roeck-us.net,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	p.zabel@pengutronix.de, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: ningyu@eswincomputing.com, linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com, luyulin@eswincomputing.com
+Subject: Re: Re: [PATCH v8 2/2] hwmon: Add Eswin EIC7700 PVT sensor driver
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <66945d22-17e4-4856-9704-8256650c4b25@gmail.com>
+References: <20260625061049.1614-1-hehuan1@eswincomputing.com>
+ <20260625061214.1648-1-hehuan1@eswincomputing.com>
+ <66945d22-17e4-4856-9704-8256650c4b25@gmail.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/4] drm/bridge: analogix_dp: Add validation for
- samsung,lane-count property
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, dianders@chromium.org,
- m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260604085220.2862986-1-damon.ding@rock-chips.com>
- <20260604085220.2862986-4-damon.ding@rock-chips.com>
- <178249136513.1374898.11400378046460567437.b4-review@b4>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <178249136513.1374898.11400378046460567437.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f11147a4003a8kunm26f77d9422c470
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGExMVh5DSUkaHRpOSUtLT1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=Jy7T/u28jP/+4T2VA2B9kxcFXAX9Dsq0ShxLHsURI3PTBcA0yO9T5KXoRBqEUSEuSuuttXE1GmOzP+PWv7OtI23helQrMLrSBkS5sop9hRxcLvUyMJF8AERH+JkKsMXw9cy7+oLAcg8pQYGhVPkRyg/D5ZPafYOGQAK8JHC5ptI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=W782AbfO1D1R5eEJlgStJCNw/OtsvmDShB2b7uB9ZM8=;
-	h=date:mime-version:subject:message-id:from;
+Message-ID: <720f0b80.7c8d.19f1162d004.Coremail.dongxuyang@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TQJkCgAnPJ8M5EFq_MEvAA--.6523W
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAQENAmpBTKQXh
+	wABsd
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWUJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-Hi Luca,
-
-On 6/27/2026 12:29 AM, Luca Ceresoli wrote:
-> On Thu, 04 Jun 2026 16:52:19 +0800, Damon Ding <damon.ding@rock-chips.com> wrote:
-> 
-> Hello Damon,
-> 
->>
->> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> index 7a85774aaac1..e120ef3320c1 100644
->> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> @@ -1261,8 +1262,11 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
->>   		 */
->>   		of_property_read_u32(dp_node, "samsung,link-rate",
->>   				     &video_info->max_link_rate);
->> -		of_property_read_u32(dp_node, "samsung,lane-count",
->> -				     &video_info->max_lane_count);
->> +		ret = of_property_read_u32(dp_node, "samsung,lane-count",
->> +					   &video_info->max_lane_count);
->> +		if (ret || !drm_dp_lane_count_is_valid(video_info->max_lane_count))
->> +			return dev_err_probe(dp->dev, ret ? ret : -EINVAL,
->> +					     "failed to parse samsung,lane-count\n");
-> 
-> I think this report by sashiko makes sense:
-> 
->    >  sashiko-bot@kernel.org <sashiko-bot@kernel.org>:
->    >
->    >  [Severity: High]
->    >  Does this make the optional and deprecated samsung,lane-count property a
->    >  strict requirement?
->    >
->    >  If samsung,lane-count is absent from the device tree, of_property_read_u32()
->    >  returns -EINVAL. This causes the condition to evaluate to true, aborting the
->    >  probe with an error.
->    >
->    >  According to the device tree bindings
->    >  (Documentation/devicetree/bindings/display/samsung/samsung,exynos5-dp.yaml),
->    >  this property is marked as deprecated and explicitly optional because the
->    >  lane count can be read from the monitor. Does this patch break compatibility
->    >  with device trees that rightfully omit this deprecated property?
-> 
->   (via: https://patch.msgid.link/20260604090935.7FC051F00898@smtp.kernel.org)
-> 
-> Can you comment on this?
-> 
-> 
-
-I was also confused about this handling at first. From commit 
-0d0abd894ead ("drm: bridge: analogix/dp: add max link rate and lane 
-count limit for RK3288"), its commit message does not explain why 
-samsung,lane-count was changed from a mandatory to optional property.
-
-After digging into the code flow, I found that 
-analogix_dp_full_link_train() picks the smaller value between the 
-platform-supported lane count and the lane count retrieved from sink 
-DPCD for link training. If the samsung,lane-count property is 
-missing/invalid here, link training will end up using an unexpected lane 
-count configuration.
-
-Additionally, I checked Samsung’s upstream device trees that utilize 
-this DP controller, and all of them carry the lane-count property. Based 
-on this observation, I believe restoring the strict mandatory 
-requirement for this property makes sense.
-
-Should I create an independent fix patch to revert these two properties 
-to mandatory, instead of bundling the fix in this series?
-
-Best regards,
-Damon
-
+SGkgSnVsaWFuLAoKPiAKPiBPbiA2LzI1LzI2IDA3OjEyLCBoZWh1YW4xQGVzd2luY29tcHV0aW5n
+LmNvbSB3cm90ZToKPiA+ICtjb25maWcgU0VOU09SU19FSUM3NzAwX1BWVAo+ID4gKwl0cmlzdGF0
+ZSAiRXN3aW4gRUlDNzcwMCBWb2x0YWdlLCBUZW1wZXJhdHVyZSBzZW5zb3IgZHJpdmVyIgo+ID4g
+KwlkZXBlbmRzIG9uIEFSQ0hfRVNXSU4gfHwgQ09NUElMRV9URVNUCj4gPiArCWRlcGVuZHMgb24g
+SFdNT04KPiAKPiBZb3UgYWxyZWFkeSBwdXQgU0VOU09SU19FSUM3NzAwX1BWVCBpbnNpZGUgdGhl
+ICdpZiBIV01PTiAuLiBlbmRpZicsIHNvCj4geW91IGRvbid0IG5lZWQgdGhlICdkZXBlbmRzIG9u
+IEhXTU9OJy4gSXQgY3JlYXRlcyBhIGR1cGxpY2F0ZQo+IGRlcGVuZGVuY3kuCj4gCgpXaWxsIGRy
+b3AgdGhlICdkZXBlbmRzIG9uIEhXTU9OJyBpbiB0aGUgbmV4dCB2ZXJzaW9uLgoKQmVzdCByZWdh
+cmRzLApYdXlhbmcgRG9uZwoK
