@@ -1,141 +1,304 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293F43BBFC8
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:17:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51FD3C4551
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:18:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782717425; cv=none; b=hizIsUTtiiGCy76Eb5TmKaKw4oAw0vvByLyqnvOf1O4uhPl/KwD06J+mXmZ+9Lm2mjP1Yz8ty+uiaHbvYjS8P139ZMuxN0U/02IAAPOOcaj1oZDEiA8LJ8kqAlHO4Tai3JZcIcB1zVfgKWAgor6jqrED+aP42WX/gGBNWMtrS6A=
+	t=1782717492; cv=none; b=fNW5LZHlmtbLkr9zvaU/zA/0VeoDcFtUlpBMZiNoM59wqRslR8ZW5AXNkq8OT7003ZTastzKZkMEebvzFgV86c5cFoDAyzcrlBoKqgZuQBwrUyyJA3KFuyMYdh4RgZkontxs2pLMbBKELqOmwIXqlpV22mcjyLXNVjsnhBWSHMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782717425; c=relaxed/simple;
-	bh=Az+w12js3UM/C4nX/pFjWiSujPNtbITX0JumWWv9naA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fXcyWBWJ67G1dsypI5vNt6FxTFckztY90QshMgF/lSRAfqboSfy55qD8dpHUtyIb8Y/Wk/HrZQEstD8XgqH13Cw+rOfWKvc8p/X+DPHRC6jWGCuzBzC6df+odAZTR2QpnGAvd36lGYJJPXag+VBRz8iuvPYQGDbozJfBai8WQEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=URyoocbV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782717492; c=relaxed/simple;
+	bh=blN7kUYjZ29Lu9JrwtLJvpjU1Wy8lfqujnHxweqK+8c=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MyagHCB/h5ZeF/AFb3agkak2z/MeNNUW/WBHFLUo0JHZJv8XPxUi28SAHAP32XQj7zi/S15a8s2QD1cawOGdVSJEUYmJr5N0jKlcnZm24RjwJlggYWb4vvIzA16fl8tf88oSCJSiD81NOFXnspjDC23kVOBXF3zuC1UMmlZHUcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UoKebr6L; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="URyoocbV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B7431F000E9;
-	Mon, 29 Jun 2026 07:17:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782717422;
-	bh=GumMT+PHZJo9RKbX8S7HS6AFpr0qj3ijY9wXsnQyrJs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=URyoocbVkZjxWXa4TaP3kUo/RqW3PuKzY0meuOpqQN+jPSG8Cnwnszi0F5IcAm2uD
-	 C9buNjM2nqZHHpNuw3VFBxIBbSaQkPpq6KDSx566cUVbdi27KBZvBbbVwpPPRmhk26
-	 CWvJXfwB//tBgQbDNAIkPg1BTaLXUxDKR19gTG5IDenWbOOtY1aw6H258xisTsd3Wl
-	 2sr7DKKG5vqxt4C5yQJ21O0rNNyzNqQai7SVngkgJlQ4s3AuK0Y7RLhff5Tc65a1V9
-	 NamBPHtyO5L1Y684AZenA/xn6201l2U2Q6gbT1B7pHtu4drW1Y4aISA/KTsMm/UQLh
-	 Lhq+s/HLmj9Yg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] ipmi: bt-bmc: Read LPC address and SerIRQ from
- device tree
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Che Hsieh via B4 Relay" <devnull+yc_hsieh.aspeedtech.com@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260629-aspeed-bt-bmc-multichannel-v1-4-fc23ee337f7a@aspeedtech.com>
-References: <20260629-aspeed-bt-bmc-multichannel-v1-0-fc23ee337f7a@aspeedtech.com>
- <20260629-aspeed-bt-bmc-multichannel-v1-4-fc23ee337f7a@aspeedtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 07:16:52 +0000
-Message-Id: <20260629071702.5B7431F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UoKebr6L"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-472326ca506so458362f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 00:18:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782717487; x=1783322287; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=BovyFstc80MYHmYyIZVG50kULX+1YfHlAuIHPTiI6jk=;
+        b=UoKebr6L7g61S2ib1/fbHXwppvTCC1ASPVOG2gTWyXjTEcnJTr1ZZ1tFbyCkBNX28I
+         ay9ZQqGMkmaKqeiUNL1Bpy+ituRDCsTu/jrTTful/YsQ2V4upAJBk1RlUzHnFE9F7iSy
+         Js1x1pW7T8syZXAMpb57x+17cn2zG3kTfBddZIGdcHwvZHOrz7jgTy3bLZSPOWXhcwaN
+         8zc6BJLiedrnyhgzyP+TwCMskBECBxC/d3Dw7oYdqOCuPPd1d84yvCVWdq6Lx6En/Rgt
+         knW2V5g7iTNkQhlBWIoSQbBRyuezOLGGLv/URcDeJtqZD8CfouiGkrVZPu4z0tPrf6Ys
+         VK0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782717487; x=1783322287;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=BovyFstc80MYHmYyIZVG50kULX+1YfHlAuIHPTiI6jk=;
+        b=lRBujc+HYS/Lan7dTbuacxHHboe7qjnA7Yiaxp73uuk0YvFf1hvR9u4BHMf7dLAUE+
+         wKnHCwy9FYg/wiPNunXtcASw3DbUpkeZGucbcbc6HJcHMs+Q5o9umk58mmUlMKiWmySr
+         LQP/dj32IvLOCDk5I/LfDHp5zD7Y32XE3xWadoLnVoS0Lfcq2EE7imGYzLdSHd52EzzH
+         7E1tDRB2FA5Zf++l61Ai7tkxT4C+j32MJHjFmSZPCtuwC/15fjxWeqNKp3hZ6UtCrRP8
+         m7Q/B70HKsw0t0VMRDO+EfzzNODXPRVXgBCzmmuMU0iqFKSDttV8PK8J6P67OO4KDZVb
+         esaQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqo9Y547N8nd6jOrhtnu+19DvU/4+8NDH/D1Q5A28uRzcgsJJlSKP4Wot1iUlJRMjG5u7I6zlMh1tHe@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw84UAVd51zG63bTah9KQ3hMufyE/9NyyooFXWg8ZL42HPFyBjF
+	fJ+Zo+6B/OKYGrFpps8iD0He+yrylnQ1AzY1vM+anYbIODS2lBBbp0Wm
+X-Gm-Gg: AfdE7cmFfa0SodZnXZfpuj3pO2rfpJZj/iXCiT1cJAS0VzrZ/IDEbOZ40YtV14+TI7Z
+	kiKnXDv9QKY4Ieh6/YrsnypRxPzY0RA3G5eS00TB2yd5KSEgVpaEEWzUQxIwEhqycnaxYNHtkbp
+	pilhDTVFu9rjFjpow1FWRIgE1sORxDfx9gwAq+TKiSEBVgUAiA3QhwrxUnlcvqnv8rWRJg1bPwX
+	SKjEUfLFrtc35fYUc1Ru1fTcRdtnBzTZZpqXJ0Cs/uEKucvG0U4iF9kBMort+BCV1c0t2iDlJEe
+	WYba0ZlTGN9nL0+2vNK8v23OL7QK4ypd68VL3wn0nH2ogLskczzFuM029OyR9mnQdbIrsuTA4Xe
+	iRH5TrCK5A7YG5immcWpikkxTQAQkp47ExTjuffs9ezu3xX7BqGMqND8gk2ZElVQl+tNPT/o9xd
+	9Zjk2Kig7dEKCTTRojyyk6HLFevMx3H3/YSHzU0EV9qdAqCMD2OTcS33YHuEm9/izgp1o=
+X-Received: by 2002:a5d:6a48:0:b0:46d:32:3340 with SMTP id ffacd0b85a97d-46fb8d93892mr12284633f8f.36.1782717486707;
+        Mon, 29 Jun 2026 00:18:06 -0700 (PDT)
+Received: from Ansuel-XPS. (host-80-183-219-152.pool80183.interbusiness.it. [80.183.219.152])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47290ed4377sm13297042f8f.37.2026.06.29.00.18.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Jun 2026 00:18:05 -0700 (PDT)
+Message-ID: <6a421c2d.1e0bfc4f.b2eb6.06fb@mx.google.com>
+X-Google-Original-Message-ID: <akIcKbA8zsoalq-G@Ansuel-XPS.>
+Date: Mon, 29 Jun 2026 09:18:01 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
+Subject: Re: [RFC PATCH net-next v8 03/12] net: phylink: add
+ phylink_release_pcs() to externally release a PCS
+References: <20260618125752.1223-1-ansuelsmth@gmail.com>
+ <20260618125752.1223-4-ansuelsmth@gmail.com>
+ <a271385e-302d-45c7-a1df-aebd380b427b@bootlin.com>
+ <6a3fc312.6161eb1e.3441bb.c0de@mx.google.com>
+ <178defc6-8e60-4b0b-b3b0-f0f2a4003b68@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178defc6-8e60-4b0b-b3b0-f0f2a4003b68@bootlin.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Mon, Jun 29, 2026 at 09:04:49AM +0200, Maxime Chevallier wrote:
+> Hi Christian,
+> 
+> On 6/27/26 14:33, Christian Marangi wrote:
+> > On Thu, Jun 25, 2026 at 04:13:14PM +0200, Maxime Chevallier wrote:
+> >> Hello Christian,
+> >>
+> >> On 6/18/26 14:57, Christian Marangi wrote:
+> >>> Add phylink_release_pcs() to externally release a PCS from a phylink
+> >>> instance. This can be used to handle case when a single PCS needs to be
+> >>> removed and the phylink instance needs to be refreshed.
+> >>>
+> >>> On calling phylink_release_pcs(), the PCS will be removed from the
+> >>> phylink internal PCS list and the phylink supported_interfaces value is
+> >>> reparsed with the remaining PCS interfaces.
+> >>>
+> >>> Also a phylink resolve is triggered to handle the PCS removal.
+> >>>
+> >>> The flag force_major_config is set to make phylink resolve reconfigure
+> >>> the interface (even if it didn't change).
+> >>> This is needed to handle the special case when the current PCS used
+> >>> by phylink is removed and a major_config is needed to propagae the
+> >>> configuration change. With this option enabled we also force mac_config
+> >>> even if the PHY link is not up for the in-band case.
+> >>>
+> >>> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> >>> ---
+> >>>  drivers/net/phy/phylink.c | 56 +++++++++++++++++++++++++++++++++++++++
+> >>>  include/linux/phylink.h   |  2 ++
+> >>>  2 files changed, 58 insertions(+)
+> >>>
+> >>> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> >>> index c38bcd43b8c8..064d6f5a06da 100644
+> >>> --- a/drivers/net/phy/phylink.c
+> >>> +++ b/drivers/net/phy/phylink.c
+> >>> @@ -158,6 +158,8 @@ static const phy_interface_t phylink_sfp_interface_preference[] = {
+> >>>  static DECLARE_PHY_INTERFACE_MASK(phylink_sfp_interfaces);
+> >>>  
+> >>>  static void phylink_run_resolve(struct phylink *pl);
+> >>> +static void phylink_link_down(struct phylink *pl);
+> >>> +static void phylink_pcs_disable(struct phylink_pcs *pcs);
+> >>>  
+> >>>  /**
+> >>>   * phylink_set_port_modes() - set the port type modes in the ethtool mask
+> >>> @@ -918,6 +920,60 @@ static void phylink_resolve_an_pause(struct phylink_link_state *state)
+> >>>  	}
+> >>>  }
+> >>>  
+> >>> +/**
+> >>> + * phylink_release_pcs - Removes a PCS from the phylink PCS available list
+> >>> + * @pcs: a pointer to the phylink_pcs struct to be released
+> >>> + *
+> >>> + * This function release a PCS from the phylink PCS available list if
+> >>> + * actually in use. It also refreshes the supported interfaces of the
+> >>> + * phylink instance by copying the supported interfaces from the phylink
+> >>> + * conf and merging the supported interfaces of the remaining available PCS
+> >>> + * in the list and trigger a resolve.
+> >>> + */
+> >>> +void phylink_release_pcs(struct phylink_pcs *pcs)
+> >>> +{
+> >>> +	struct phylink *pl;
+> >>> +
+> >>> +	ASSERT_RTNL();
+> >>> +
+> >>> +	pl = pcs->phylink;
+> >>> +	if (!pl)
+> >>> +		return;
+> >>> +
+> >>> +	mutex_lock(&pl->state_mutex);
+> >>> +
+> >>> +	list_del(&pcs->list);
+> >>> +	pcs->phylink = NULL;
+> >>> +
+> >>> +	/*
+> >>> +	 * Check if we are removing the PCS currently
+> >>> +	 * in use by phylink. If this is the case, tear down
+> >>> +	 * the link, force phylink resolve to reconfigure the
+> >>> +	 * interface mode, disable the current PCS and set the
+> >>> +	 * phylink PCS to NULL.
+> >>> +	 */
+> >>> +	if (pl->pcs == pcs) {
+> >>> +		phylink_link_down(pl);
+> >>> +		phylink_pcs_disable(pl->pcs);
+> >>> +
+> >>> +		pl->force_major_config = true;
+> >>> +		pl->pcs = NULL;
+> >>> +	}
+> >>> +
+> >>> +	mutex_unlock(&pl->state_mutex);
+> >>> +
+> >>> +	/* Refresh supported interfaces */
+> >>> +	phy_interface_copy(pl->supported_interfaces,
+> >>> +			   pl->config->supported_interfaces);
+> >>> +	list_for_each_entry(pcs, &pl->pcs_list, list)
+> >>> +		phy_interface_or(pl->supported_interfaces,
+> >>> +				 pl->supported_interfaces,
+> >>> +				 pcs->supported_interfaces);
+> >>
+> >> I've given more thought to that 'supported_interfaces' thing. This
+> >> patchset redefines the meaning of
+> >>
+> >>   pl->config->supported_interfaces
+> >>
+> >> Currently, it's filled by the MAC driver and means "Every interface
+> >> we can support, including the ones provided by PCSs that we can use
+> >> with this MAC".
+> >>
+> >> It now becomes "Every interface we support without needing a PCS", at
+> >> least the way I understand that.
+> >>
+> > 
+> > Wait but with the current code using the OR logic, it still follows
+> > "Every interface we can support...". The modes that needs a PCS are
+> > specificed with the pcs_interfaces mask in phylink_config.
+> 
+> you current code is correct, I was mostly concerned about the doc
+> that goes along with it :)
 
-Pre-existing issues:
-- [High] Use-After-Free of `bt_bmc` structure on driver unbind due to `devm=
-` lifetime mismatch.
-- [High] Integer underflow in `bt_bmc_read` when `count` is 0 leads to copy=
-ing up to 256 bytes of kernel buffer into user space, potentially corruptin=
-g user memory.
---
+Oh yep thanks, I will update also that entry. Also maybe check the .rst
+introduced and tell me if something is confusing or badly described.
 
-commit 8f320638f39284e640c5ee9882a67005b5620ea1
-Author: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
-ipmi: bt-bmc: Read LPC address and SerIRQ from device tree
+> 
+> So in the end, we'd have something like (simplified):
+> 
+> pl->config.supported_interfaces = RGMII_xx | SGMII | 1000BaseX
+> pl->config.pcs_interfaces = SGMII | 1000BaseX
+> 
+> pcs->supported_interface = SGMII| 1000BaseX
+> 
+> correct ?
+> 
 
-This commit updates the driver to allow the host interface parameters, such
-as the LPC IO address and SerIRQ number, to be described by firmware via the
-device tree. It falls back to default values for these properties when they
-are not present.
+Correct. phylink_config describing that for SGMII and 1000BaseX a PCS is
+required and the related PCS declaring support for those modes.
 
-> diff --git a/drivers/char/ipmi/bt-bmc.c b/drivers/char/ipmi/bt-bmc.c
-> index 486ecc0b68159..6e1f941e63db8 100644
-> --- a/drivers/char/ipmi/bt-bmc.c
-> +++ b/drivers/char/ipmi/bt-bmc.c
-> @@ -65,6 +65,12 @@ struct bt_bmc {
->  	struct timer_list	poll_timer;
->  	struct mutex		mutex;
->  	atomic_t		open_count;
-> +	u32			io_addr;
-> +
-> +	struct {
-> +		u32 id;
-> +		u32 type;
-> +	} sirq;
->  };
+Code will skip searching for a PCS for RGMII.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does bt_bmc_read() have an
-integer underflow when the read count is 0?
+> > 
+> > The late add and release operates on the phylink supported_interfaces ONLY
+> > when the MAC didn't specify support for it (by removing it as only the PCS
+> > will declare support for it)
+> > 
+> > The confusion is present because everything is validated later on
+> > major_config so those supported_interfaces are just an HINT that are later
+> > verified with get_caps and with the pcs_validate OPs.
+> > 
+> > Adding the supported_interfaces to phylink is really to keep an original
+> > reference of the value. This is to address a pattern I have notice where
+> > the MAC driver always OR the interfaces with the one supported by the PCS.
+> > (I remember it was pointed out by Russell)
+> > 
+> > But I'm more than open to discussion as this is something marginal to the
+> > whole implementation, I'm also questioning if this OR is actually useful to
+> > anything on the nth tought on this.
+> > 
+> > One thing that I notice is that parsing this early with AND might be
+> > problematic at phylink_create, but I still have to evaluate that.
+> > 
+> > My take is that would be good to have some review also on the other logic
+> > as I think I reached a point where Sashiko starts to comments on more or
+> > less unreal problem.
+> 
+> True, TBH all the fwnode part is something I'm a bit less familiar with though
+> so maybe someone else can browse through that.
+> 
+> FWIW, I've tested that whole series on a board that has "legacy" PCS board
+> that has mvpp2 and 2 possible PCSs, and it seems to work fine so no regressions
+> there :)
+> 
+> A side note with the "legacy" naming, I'd rather have it called "built-in" or
+> something like that, I don't see a clear path to porting the existing code to
+> fwnode without breaking DT compat, as it's likely we'll have to remove the PCS
+> register ranges out of the MAC's range. 
 
-If a user space process calls read() with a count of 0, the size calculation
-might underflow:
+I think also built-in might be confusing as a SoC might have a PCS built-in
+but just as a separate device on a different register map.
 
-drivers/char/ipmi/bt-bmc.c:bt_bmc_read() {
-    ...
-	if (len + 1 > count)
-		len =3D count - 1;
-    ...
-}
+A better description might be "externally-managed" but that is very long...
 
-If count is 0, could len =3D count - 1 underflow and become 255 when cast to
-u8, causing the subsequent code to perform a 256-byte out-of-bounds copy to
-user space?
+Also the use of fwnode and DT is just to reference them and use the normal
+helper but the implementation is liberal on custom implementation for the
+current code.
 
-[ ... ]
+Everything is around the pcs_interface mask, num_possible_pcs and the
+fill_available_pcs.
 
-> @@ -429,6 +435,33 @@ static int bt_bmc_probe(struct platform_device *pdev)
->  	mutex_init(&bt_bmc->mutex);
->  	init_waitqueue_head(&bt_bmc->queue);
+Nobody stops from implementing custom parser in fill_available_pcs and
+return a PCS pointer created directly by the MAC. (In such case late and
+release won't be needed as everything is present when phylink_create is
+called)
 
-[Severity: High]
-This is a pre-existing issue, but could there be a use-after-free of the
-bt_bmc structure on driver unbind?
+On OpenWrt we migrated every SoC that used ""exotic"" pcs reference (Qcom,
+Realtek, MTK, Airoha) but I don't have a board that used something like the
+'pcs' property.
 
-The structure is allocated using devm_kzalloc() in bt_bmc_probe(), tying
-its lifetime to the device instead of the file descriptor's lifetime.
+> 
+> Thanks for this work anyway, this is great !
+> 
+> Maxime
 
-When the driver is unbound, bt_bmc_remove() unregisters the misc device but
-does not revoke existing file descriptors or wake up waitqueues before
-returning:
-
-drivers/char/ipmi/bt-bmc.c:bt_bmc_remove() {
-	struct bt_bmc *bt_bmc =3D dev_get_drvdata(&pdev->dev);
-
-	misc_deregister(&bt_bmc->miscdev);
-    ...
-}
-
-After bt_bmc_remove() returns, the devres framework frees the bt_bmc
-structure. If a reader is blocked in bt_bmc_read():
-
-drivers/char/ipmi/bt-bmc.c:bt_bmc_read() {
-    ...
-	if (wait_event_interruptible(bt_bmc->queue,
-				     bt_inb(bt_bmc, BT_CTRL) & BT_CTRL_H2B_ATN))
-    ...
-}
-
-Will this blocked reader wake up and access the freed waitqueue and bt_bmc
-structure?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-aspeed-bt-=
-bmc-multichannel-v1-0-fc23ee337f7a@aspeedtech.com?part=3D4
+-- 
+	Ansuel
