@@ -1,240 +1,128 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DBD3BBFAA
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:05:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC0D2DF6EA;
+	Mon, 29 Jun 2026 07:06:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782716712; cv=none; b=sLinGkVHJopJItjEhwg+ADIhkhG4dqlzjo2JKCjVqrAmaSaeI3ouwGl4MA8rFxsbWkr7RPEOa7lApyjAVOasV8QUMDyeslwM1yOkNbIpeKWBkF2o71Qxf0BBULJzQIhHkO3zZUqOr0IuAi7xOBW6tmGcNlFWYxW3k3Fk2o3Tu2Q=
+	t=1782716781; cv=none; b=cBsvt0aeybKBCcjUSUo8nc8KbeRim9KRwU42ox6l/OHF9/whI1riYEA3QIb/VsD2OZuP/HPTavBOiRatIkv4FdXvPuOsBLK/AQdMJpEI6wPc2QOgP3o1jaT9LbKQnECInp+nq1tiun+19EjYluWsMPUH+4wt/eMuzEQ7/18WhRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782716712; c=relaxed/simple;
-	bh=S1hzlPC8gANr8aZdGiGeYuKVTflE4DxyuYbmc5JiOPA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TMlwdk2GXfHCQPT4aJwbK10eHHi7vvKLmiSBh6RVh067R9jBUXC/4+4f1U8/yXTCr2NG1c7IdcX+1Ata39hHs3ENVZtnHwMgD6i6B+KQMgzSFvoBoqnd76f9Cfdp1ZV4ZhyQnmX264Bqj6uyVJsDwBh2YKMQkKN7JD+i7EiTmHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=of/X3b2p; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="of/X3b2p"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 5699B1A0CA1;
-	Mon, 29 Jun 2026 07:05:03 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2419A5FF96;
-	Mon, 29 Jun 2026 07:05:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8AF9B106F14DB;
-	Mon, 29 Jun 2026 09:04:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1782716701; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=1rsMIqeUo7w/8HQ084SMthYLAbPCuimMFz6Hr3QOyaE=;
-	b=of/X3b2pqHw09oeoNd1OvSXDh4fwfA+/kKLRQreFdmzEqIgfhOA1Qr/ndrgAS+GDHD1foq
-	YVUwy2UDChvK8VCKa8bl8WHPu/RGbgHx65vTU8qf5QhD+0SjO+EkaJQD+PiMQRKealgon9
-	TuDtgKRkFFgrshWTzAVAX0UEKPDekcNslGvvWEwSaHcY0QSWF9ruFjP5u+SRAQ0XeASqZc
-	cYPYWionzUmVuXiJgbsoK9MfyrKHSIylnjEV4Hxv2eg1bnCcvScdtVZk2m50nfz7Mpw8Ir
-	N/mi42ewOEIx03TM2HzKhOkVMoYeeWZgwbOT1qao8LyiML3z7WV7A+3DF6KRQw==
-Message-ID: <178defc6-8e60-4b0b-b3b0-f0f2a4003b68@bootlin.com>
-Date: Mon, 29 Jun 2026 09:04:49 +0200
+	s=arc-20240116; t=1782716781; c=relaxed/simple;
+	bh=/ffu7S91LDVYFDk94ULXepy5DfMjq4D77F8qd/ZSdG0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LaEacseZi+5kbgvgwirqYMvbGuIbje9UMX9IUtLiJkNPj9ih9RSN/uIaV0jGot8TVUNYRwTnHWLH+MjV1jpTI12Visf3LnFFFTp+zztAw2N7BGG+DAjrlRPbl0PSLfljaeO2alW5n+RF/of35fo2opCimSHNYllpbUbhvFqkLR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BD321F000E9;
+	Mon, 29 Jun 2026 07:06:18 +0000 (UTC)
+Date: Mon, 29 Jun 2026 09:06:13 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+Cc: linux-mmc@vger.kernel.org, ulf.hansson@linaro.org, 
+	Dinh Nguyen <dinguyen@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/9] arm64: dts: agilex5: add Cadence SD6HC controller
+ and SOCDK enablement
+Message-ID: <20260629-tireless-hippo-of-innovation-eb5e27@quoll>
+References: <20260627201457.12318-1-tanmay.kathpalia@altera.com>
+ <20260627201457.12318-4-tanmay.kathpalia@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH net-next v8 03/12] net: phylink: add
- phylink_release_pcs() to externally release a PCS
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit
- <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Saravana Kannan <saravanak@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Nathan Chancellor
- <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- llvm@lists.linux.dev
-References: <20260618125752.1223-1-ansuelsmth@gmail.com>
- <20260618125752.1223-4-ansuelsmth@gmail.com>
- <a271385e-302d-45c7-a1df-aebd380b427b@bootlin.com>
- <6a3fc312.6161eb1e.3441bb.c0de@mx.google.com>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <6a3fc312.6161eb1e.3441bb.c0de@mx.google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260627201457.12318-4-tanmay.kathpalia@altera.com>
 
-Hi Christian,
-
-On 6/27/26 14:33, Christian Marangi wrote:
-> On Thu, Jun 25, 2026 at 04:13:14PM +0200, Maxime Chevallier wrote:
->> Hello Christian,
->>
->> On 6/18/26 14:57, Christian Marangi wrote:
->>> Add phylink_release_pcs() to externally release a PCS from a phylink
->>> instance. This can be used to handle case when a single PCS needs to be
->>> removed and the phylink instance needs to be refreshed.
->>>
->>> On calling phylink_release_pcs(), the PCS will be removed from the
->>> phylink internal PCS list and the phylink supported_interfaces value is
->>> reparsed with the remaining PCS interfaces.
->>>
->>> Also a phylink resolve is triggered to handle the PCS removal.
->>>
->>> The flag force_major_config is set to make phylink resolve reconfigure
->>> the interface (even if it didn't change).
->>> This is needed to handle the special case when the current PCS used
->>> by phylink is removed and a major_config is needed to propagae the
->>> configuration change. With this option enabled we also force mac_config
->>> even if the PHY link is not up for the in-band case.
->>>
->>> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
->>> ---
->>>  drivers/net/phy/phylink.c | 56 +++++++++++++++++++++++++++++++++++++++
->>>  include/linux/phylink.h   |  2 ++
->>>  2 files changed, 58 insertions(+)
->>>
->>> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
->>> index c38bcd43b8c8..064d6f5a06da 100644
->>> --- a/drivers/net/phy/phylink.c
->>> +++ b/drivers/net/phy/phylink.c
->>> @@ -158,6 +158,8 @@ static const phy_interface_t phylink_sfp_interface_preference[] = {
->>>  static DECLARE_PHY_INTERFACE_MASK(phylink_sfp_interfaces);
->>>  
->>>  static void phylink_run_resolve(struct phylink *pl);
->>> +static void phylink_link_down(struct phylink *pl);
->>> +static void phylink_pcs_disable(struct phylink_pcs *pcs);
->>>  
->>>  /**
->>>   * phylink_set_port_modes() - set the port type modes in the ethtool mask
->>> @@ -918,6 +920,60 @@ static void phylink_resolve_an_pause(struct phylink_link_state *state)
->>>  	}
->>>  }
->>>  
->>> +/**
->>> + * phylink_release_pcs - Removes a PCS from the phylink PCS available list
->>> + * @pcs: a pointer to the phylink_pcs struct to be released
->>> + *
->>> + * This function release a PCS from the phylink PCS available list if
->>> + * actually in use. It also refreshes the supported interfaces of the
->>> + * phylink instance by copying the supported interfaces from the phylink
->>> + * conf and merging the supported interfaces of the remaining available PCS
->>> + * in the list and trigger a resolve.
->>> + */
->>> +void phylink_release_pcs(struct phylink_pcs *pcs)
->>> +{
->>> +	struct phylink *pl;
->>> +
->>> +	ASSERT_RTNL();
->>> +
->>> +	pl = pcs->phylink;
->>> +	if (!pl)
->>> +		return;
->>> +
->>> +	mutex_lock(&pl->state_mutex);
->>> +
->>> +	list_del(&pcs->list);
->>> +	pcs->phylink = NULL;
->>> +
->>> +	/*
->>> +	 * Check if we are removing the PCS currently
->>> +	 * in use by phylink. If this is the case, tear down
->>> +	 * the link, force phylink resolve to reconfigure the
->>> +	 * interface mode, disable the current PCS and set the
->>> +	 * phylink PCS to NULL.
->>> +	 */
->>> +	if (pl->pcs == pcs) {
->>> +		phylink_link_down(pl);
->>> +		phylink_pcs_disable(pl->pcs);
->>> +
->>> +		pl->force_major_config = true;
->>> +		pl->pcs = NULL;
->>> +	}
->>> +
->>> +	mutex_unlock(&pl->state_mutex);
->>> +
->>> +	/* Refresh supported interfaces */
->>> +	phy_interface_copy(pl->supported_interfaces,
->>> +			   pl->config->supported_interfaces);
->>> +	list_for_each_entry(pcs, &pl->pcs_list, list)
->>> +		phy_interface_or(pl->supported_interfaces,
->>> +				 pl->supported_interfaces,
->>> +				 pcs->supported_interfaces);
->>
->> I've given more thought to that 'supported_interfaces' thing. This
->> patchset redefines the meaning of
->>
->>   pl->config->supported_interfaces
->>
->> Currently, it's filled by the MAC driver and means "Every interface
->> we can support, including the ones provided by PCSs that we can use
->> with this MAC".
->>
->> It now becomes "Every interface we support without needing a PCS", at
->> least the way I understand that.
->>
+On Sat, Jun 27, 2026 at 01:14:48PM -0700, Tanmay Kathpalia wrote:
+> Add the Cadence SD6HC controller node to the Agilex5 SoC DTSI as a
+> shared SD/eMMC node, disabled by default. The controller integrates
+> with the system SMMU for IOMMU support and uses SDMCLK as the primary
+> clock source for PHY timing.
 > 
-> Wait but with the current code using the OR logic, it still follows
-> "Every interface we can support...". The modes that needs a PCS are
-> specificed with the pcs_interfaces mask in phylink_config.
-
-you current code is correct, I was mostly concerned about the doc
-that goes along with it :)
-
-So in the end, we'd have something like (simplified):
-
-pl->config.supported_interfaces = RGMII_xx | SGMII | 1000BaseX
-pl->config.pcs_interfaces = SGMII | 1000BaseX
-
-pcs->supported_interface = SGMII| 1000BaseX
-
-correct ?
-
+> On the SOCDK board, add a fixed 3.3V regulator for card power and a
+> GPIO-controlled regulator for I/O voltage switching between 1.8V and
+> 3.3V. Enable the controller for SD-only operation in 4-bit bus width
+> with high-speed and SDR104 UHS-I modes at 200 MHz.
 > 
-> The late add and release operates on the phylink supported_interfaces ONLY
-> when the MAC didn't specify support for it (by removing it as only the PCS
-> will declare support for it)
+> Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+> ---
+>  .../arm64/boot/dts/intel/socfpga_agilex5.dtsi | 25 +++++++++++++++
+>  .../boot/dts/intel/socfpga_agilex5_socdk.dts  | 31 +++++++++++++++++++
+>  2 files changed, 56 insertions(+)
 > 
-> The confusion is present because everything is validated later on
-> major_config so those supported_interfaces are just an HINT that are later
-> verified with get_caps and with the pcs_validate OPs.
-> 
-> Adding the supported_interfaces to phylink is really to keep an original
-> reference of the value. This is to address a pattern I have notice where
-> the MAC driver always OR the interfaces with the one supported by the PCS.
-> (I remember it was pointed out by Russell)
-> 
-> But I'm more than open to discussion as this is something marginal to the
-> whole implementation, I'm also questioning if this OR is actually useful to
-> anything on the nth tought on this.
-> 
-> One thing that I notice is that parsing this early with AND might be
-> problematic at phylink_create, but I still have to evaluate that.
-> 
-> My take is that would be good to have some review also on the other logic
-> as I think I reached a point where Sashiko starts to comments on more or
-> less unreal problem.
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> index 02e62d954e94..f552aa0c1faa 100644
+> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> @@ -300,6 +300,31 @@ portb: gpio-controller@0 {
+>  			};
+>  		};
+>  
+> +		/*
+> +		 * Shared SD/eMMC controller node. On the SOCDK OOBE daughter-card
+> +		 * this is used for SD card operation; on the SOCDK eMMC daughter-card
+> +		 * it is configured for eMMC.
+> +		 */
+> +		emmc: mmc@10808000 {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
 
-True, TBH all the fwnode part is something I'm a bit less familiar with though
-so maybe someone else can browse through that.
+Please follow DTS coding style for new code.
 
-FWIW, I've tested that whole series on a board that has "legacy" PCS board
-that has mvpp2 and 2 possible PCSs, and it seems to work fine so no regressions
-there :)
+> +			compatible = "altr,agilex5-sd6hc", "cdns,sd6hc";
+> +			reg = <0x10808000 0x1000>;
+> +			interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>;
+> +			resets = <&rst SDMMC_RESET>, <&rst COMBOPHY_RESET>, <&rst SDMMC_OCP_RESET>;
+> +			reset-names = "sdhc-reset", "combophy", "sdmmc-ocp";
+> +			/*
+> +			 * "ciu" (SDMCLK) is listed first so it is selected as the
+> +			 * primary clock by the SDHCI platform layer; the SD6HC PHY
+> +			 * timing calculations are derived from this clock rate.
+> +			 */
+> +			clocks = <&clkmgr AGILEX5_SDMCLK>, <&clkmgr AGILEX5_L4_MP_CLK>;
+> +			clock-names = "ciu", "biu";
+> +			iommus = <&smmu 5>;
+> +			dma-coherent;
+> +			status = "disabled";
+> +		};
+> +
+>  		nand: nand-controller@10b80000 {
+>  			compatible = "cdns,hp-nfc";
+>  			reg = <0x10b80000 0x10000>,
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
+> index 262bb3e8e5c7..c56f46721bb0 100644
+> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
+> @@ -34,6 +34,24 @@ memory@80000000 {
+>  		/* We expect the bootloader to fill in the reg */
+>  		reg = <0x0 0x80000000 0x0 0x0>;
+>  	};
+> +
+> +	vmmc_reg: regulator-fixed-3p3v {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc-sd";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		regulator-always-on;
+> +	};
+> +
+> +	vqmmc_io_reg: regulator-1p8v {
+> +		compatible = "regulator-gpio";
+> +		regulator-name = "vqmmc-io";
+> +		regulator-min-microvolt = <1800000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		states =	<1800000 0x1>,
 
-A side note with the "legacy" naming, I'd rather have it called "built-in" or
-something like that, I don't see a clear path to porting the existing code to
-fwnode without breaking DT compat, as it's likely we'll have to remove the PCS
-register ranges out of the MAC's range. 
+There is only one space after '='.
 
-Thanks for this work anyway, this is great !
+> +				<3300000 0x0>;
+> +		gpios = <&portb 3 GPIO_ACTIVE_HIGH>;
+> +	};
+>  };
 
-Maxime
+Best regards,
+Krzysztof
+
