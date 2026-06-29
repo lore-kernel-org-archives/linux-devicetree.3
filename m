@@ -1,154 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561E23EAC89;
-	Mon, 29 Jun 2026 15:26:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674393EF654
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 15:27:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782746809; cv=none; b=AY3rd8yiAn6nTk0dcGV41g1I9VmyRhTVONNZZYeKN2X+X6NxwRIKn4YgGUqs7KcGXnhJ1ZesaRtfPolEBIL3/ceDdRT903IPWQJUK8gWExqLVuorv8O6PbFiDSPDzrUzP5o1l3OATQLnqjvWrStQyyy+wiyGFHqFWDT6qdX9nck=
+	t=1782746827; cv=none; b=Dawo/+GCFlz3Rkdrpfr+EbHFhPiphw3XCOko1Oe1WpEi+ZCvJBLuWgpRnQ6IpwV4SYI5bHmN5y+lT6mH2I0pTtrMigrf3YV1o7G59kmnmcaboIoM5x3V5CuT/KbQrklgzp76WnjD8CPpLzoCCmcc1gp2POkSpkmHxmL1J/WM2gY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782746809; c=relaxed/simple;
-	bh=DASQGYICKZHhLoVSGta/Peqo2uesJheDohHXOfCwpys=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hc+pnyZxaVhkHFTMIUAxhoPyBPIsQo2VwHoqnp9Ut5yhRnBEsHJJwAphWRHhc/QCmH1Lz1vVojN5gvaLsgDPC9wrNkgYVCqZeDSm12LEDa6tPBfyGjNFo5jH2t2tHeL2vRN8l3ByBdhFiikn7UEyohtKg9/rnLF6jcQyJd+cz74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kIQ37Fhi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782746827; c=relaxed/simple;
+	bh=EO+7GPbDoMK9HijQwsoHg6dPkxSpORWwxrjuDEiCwXA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=qHz3nTiCFcnVVpZ7awi89lJZKgOVnrASlxD7NPI6yPJAe83gNkrhXGvHhMG5TqJXP9OLGhRqDpQUipUVKUZuE92GbCOKdl/+dHo7G8teF8+GmjLvA8CEfHTPRqMoIFa8ycZGvZyCEwWHNg5a4F33Ge2yc5ahtSe9agaKHFUR9bA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=F5SgQdsD; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kIQ37Fhi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF75A1F000E9;
-	Mon, 29 Jun 2026 15:26:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782746808;
-	bh=1DD1v7WAUfTa8LEsmdnXmo8TZcmGZDr0zVXhLE2Z5xY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kIQ37Fhi2asFeMqWXXsLFHsaVl4ib20zlyAFLNPHlXv0muZuUzgETqBfuj/Xy0YSa
-	 WJJts9i1xfRTBqy+zfHF5JnBJTN/zs0dNJNhfZhaGXZ8Z19wG+JNMOIwlQY1iqmiff
-	 PIziNckrvryuyZfyUnkqvaVrPWY2MHnD/UBExEufw9TxRtRGGQbL03J5eqvKCl69E3
-	 pDJ3L5POMusd4aiY7cHf4gavA7VhI/eO9NRlRTEBLytFyr1ZY95b2cvcTvDYFIdKTd
-	 hDbN0ncM+iPhk21ehxXhUZxcdXehe4d2QrzD7j+JKWClC5ai3hdfGDw94kMdZ2sphP
-	 o+cmD1krgsh/A==
-Date: Mon, 29 Jun 2026 16:26:43 +0100
-From: Conor Dooley <conor@kernel.org>
-To: yc_hsieh@aspeedtech.com
-Cc: Corey Minyard <corey@minyard.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	openipmi-developer@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org
-Subject: Re: [PATCH 3/4] dt-bindings: ipmi: Add optional LPC properties to
- ASPEED BT devices
-Message-ID: <20260629-bogus-vocation-db32e55a595f@spud>
-References: <20260629-aspeed-bt-bmc-multichannel-v1-0-fc23ee337f7a@aspeedtech.com>
- <20260629-aspeed-bt-bmc-multichannel-v1-3-fc23ee337f7a@aspeedtech.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="F5SgQdsD"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-490cf3000f0so28995305e9.1
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:27:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1782746824; x=1783351624; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4WTgdgx74eKSECK/LqviDIf77Rxva4Ev5PA6PkXPXgw=;
+        b=F5SgQdsD/RNNB2INKYAJoUT6u5Jk6TMG/Kes6PAAbECCxmibvY9I1kvZUOfXpzf4KA
+         YAUgnNKlg8fe7+AkGgkGCw86WbOg0dUv13ibDH1kIQ5VO7TPpmPx5xrWBQHt79yEtA20
+         la4h5xoOUm/x5BsNnUSQtN82y4Xo0DZ0EDBfxAB3tpOVhTTIH86g0F+Z4m1ry5P3B/FY
+         aK+O6sRyBVxdvYJrOmcJ/9t6q7gULGpSq8FYzXE4dmFdEivdztMWn3LX6/B8QtRgV0GD
+         xufpTf1/6lV17sXsy7JswrwoS/bvDh7kCREpCBTUdG23U3cmM3/tw0XeewCTebLVTdsV
+         wD1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782746824; x=1783351624;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=4WTgdgx74eKSECK/LqviDIf77Rxva4Ev5PA6PkXPXgw=;
+        b=AqJyIR6bmVhnxtrtbxyQZ5ktmamo74OSL2gGxlr7VTwHFQO6n4Tb8J4srHvQTeLl33
+         jHsKp9CL9t7U+/R4uPDvRomXj0h+LDdKhPOVawY2HjlvcKbDQzMytN3hKabU19nByMnn
+         1RosNzVRkvC+xNqqlNx+0xGLuYT+dQHcaDlHMJwaMCyfUUQYlDqsHIgz92vvgDGJdth4
+         z9k+0IK0wHMGY0uCkZdU0yYFMjf3ebEAAVQXVtRNjTyyL9Rd2zcWrFeXv2jV941mHxCm
+         1Cthua7RBapcy9EhM3VCR/NrZNA5jBoc0FRo0RfSy+6v3GfPT5NLLfY7MA7sBZh2wkch
+         eMeA==
+X-Forwarded-Encrypted: i=1; AFNElJ/HzMZcSZ5b+p1jb/XdJcabeBrCkz1IgKsHujsx/kEs/awpVOc50MIIgOC6u+19J3iXcUue/QUHTJyO@vger.kernel.org
+X-Gm-Message-State: AOJu0YyHnihbIeVbzFyk7eWltzPg61vuBDvv6wtmaRUHehHKB+Lv4p/e
+	6BXbO2cNs1R6MjGuP2c6EsKD/dg4wwlCtoZ9uKW0eFGXCBOY/Xd+HTYpVnDa5oMP/KI=
+X-Gm-Gg: AfdE7cn+DV1QvtasySMEuphxkhT1GB3Hyv+UAeXY3g4/ivJEXySpLsZ0+YBuL7UO6EF
+	a5JONNLr6T+SgSp4DMnglwDCAkESQXNT5PoYgNAVhEM15PpNvViTXMStawgiillPRdW9ObZBbxa
+	2Dofgkt689hab032ruyXnBu7pftJhtlr35t3btE3jqV30/KOpRrZ5x49Vw4Np5wOAleN8ARR5jA
+	v44TOtM1kmRIf/zydWnGK9/JsX3f9XkiPvEacWCsOILGTfqNy+xNzW36beQNIjej7mq4j4wITYN
+	7EhbJKAgx+yXi4/ejXRuoVdJ+PeF31ECCgp/wULEpN2bUEBSMXJurjH8dEzrCG1R2d7zzY0MFqK
+	fJq/gqTRY5OvwjEb0AMVlTb97Sb/ATf7CCy4xSZjMkbE1qRuZv1D6PCy0D7R1zY36svSutOGKd7
+	UbSDcS9YV/tsg=
+X-Received: by 2002:a05:600c:3b24:b0:493:a88d:28d2 with SMTP id 5b1f17b1804b1-493b82aeaffmr2405445e9.24.1782746823793;
+        Mon, 29 Jun 2026 08:27:03 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:1d21:f5d5:2d3c:23a7])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4932f100e4asm221440355e9.1.2026.06.29.08.27.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Jun 2026 08:27:02 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Chen-Yu Tsai <wens@kernel.org>
+Cc: Conor Dooley <conor@kernel.org>,  sashiko-bot@kernel.org,
+  sashiko-reviews@lists.linux.dev,  linux-sunxi@lists.linux.dev,
+  robh@kernel.org,  devicetree@vger.kernel.org,  conor+dt@kernel.org
+Subject: Re: [PATCH v2 1/6] dt-bindings: rtc: sun6i: add sun60i-a733 support
+In-Reply-To: <CAGb2v67QV4gt=iXvaWeRCAxcasvzSpgTPodHhspd2ka19Hgdtg@mail.gmail.com>
+	(Chen-Yu Tsai's message of "Mon, 29 Jun 2026 23:20:40 +0800")
+References: <20260629-a733-rtc-v2-0-7b72112784f8@baylibre.com>
+	<20260629-a733-rtc-v2-1-7b72112784f8@baylibre.com>
+	<20260629125305.0DF981F000E9@smtp.kernel.org>
+	<1jpl198jzk.fsf@starbuckisacylon.baylibre.com>
+	<20260629-aliens-busload-ef9178973b4f@spud>
+	<CAGb2v67QV4gt=iXvaWeRCAxcasvzSpgTPodHhspd2ka19Hgdtg@mail.gmail.com>
+User-Agent: mu4e 1.12.9; emacs 30.1
+Date: Mon, 29 Jun 2026 17:27:01 +0200
+Message-ID: <1jechp8j0a.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JftmSqqify0j7mOM"
-Content-Disposition: inline
-In-Reply-To: <20260629-aspeed-bt-bmc-multichannel-v1-3-fc23ee337f7a@aspeedtech.com>
-
---JftmSqqify0j7mOM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 29, 2026 at 02:49:00PM +0800, Yu-Che Hsieh via B4 Relay wrote:
-> From: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
->=20
-> Allocating IO and IRQ resources to LPC devices is in-theory an operation
->=20
-> for the host, however ASPEED systems describe these resources through
->=20
-> BMC-internal configuration, as already supported by the ASPEED KCS BMC
->=20
-> binding.
->=20
-> Add aspeed,lpc-io-reg and aspeed,lpc-interrupts to the ASPEED BT BMC
->=20
-> binding so firmware can describe the host LPC IO address and SerIRQ
->=20
-> configuration using the same properties as KCS devices.
->=20
-> Signed-off-by: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
-> ---
->  .../bindings/ipmi/aspeed,ast2400-ibt-bmc.yaml       | 21 +++++++++++++++=
-++++++
->  1 file changed, 21 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-ibt-bm=
-c.yaml b/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-ibt-bmc.yaml
-> index c4f7cdbbe16b..1803c6bbae93 100644
-> --- a/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-ibt-bmc.yaml
-> +++ b/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-ibt-bmc.yaml
-> @@ -25,6 +25,24 @@ properties:
->    interrupts:
->      maxItems: 1
-> =20
-> +  aspeed,lpc-io-reg:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    maxItems: 1
-> +    description: |
-> +      The host CPU LPC IO address for the BT device.
-> +
-> +  aspeed,lpc-interrupts:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 2
-> +    maxItems: 2
-> +    description: |
-> +      A 2-cell property expressing the LPC SerIRQ number and the interru=
-pt
-> +      level/sense encoding (specified in the standard fashion).
-> +
-> +      Note that the generated interrupt is issued from the BMC to the ho=
-st, and
-> +      thus the target interrupt controller is not captured by the BMC's
-> +      devicetree.
+On lun. 29 juin 2026 at 23:20, Chen-Yu Tsai <wens@kernel.org> wrote:
 
-Why can these two properties not just be an additional reg and
-interrupts entry?
+> On Mon, Jun 29, 2026 at 11:16=E2=80=AFPM Conor Dooley <conor@kernel.org> =
+wrote:
+>>
+>> On Mon, Jun 29, 2026 at 05:05:51PM +0200, Jerome Brunet wrote:
+>> > On lun. 29 juin 2026 at 12:53, sashiko-bot@kernel.org wrote:
+>> >
+>> > > Thank you for your contribution! Sashiko AI review found 1 potential=
+ issue(s) to consider:
+>> > > - [Low] The `clock-output-names` property has a global `maxItems: 3`
+>> > > constraint and a description limiting it to three clocks, which cont=
+radicts
+>> > > the new clock outputs (IDs up to 11) added for the sun60i-a733-rtc.
+>> > > --
+>> > >
+>> > > commit a1565b632e372c724867216463a453c9d1600ad2
+>> > > Author: Jerome Brunet <jbrunet@baylibre.com>
+>> > >
+>> > > dt-bindings: rtc: sun6i: add sun60i-a733 support
+>> > >
+>> > > Adds a new rtc compatible for the sun60i-a733 SoC and new IDs for the
+>> > > peripheral oscillator clock gates of this SoC.
+>> > >
+>> > >> diff --git a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-=
+a31-rtc.yaml b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rt=
+c.yaml
+>> > >> index 9df5cdb6f63f2..197a6f67b180a 100644
+>> > >> --- a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc=
+.yaml
+>> > >> +++ b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc=
+.yaml
+>> > >> @@ -33,6 +33,7 @@ properties:
+>> > >>            - enum:
+>> > >>                - allwinner,sun20i-d1-rtc
+>> > >>                - allwinner,sun55i-a523-rtc
+>> > >> +              - allwinner,sun60i-a733-rtc
+>> > >>            - const: allwinner,sun50i-r329-rtc
+>> > >
+>> > > [ ... ]
+>> > >
+>> > >> diff --git a/include/dt-bindings/clock/sun6i-rtc.h b/include/dt-bin=
+dings/clock/sun6i-rtc.h
+>> > >> index 3bd3aa3d57ce1..5132a393ca4b6 100644
+>> > >> --- a/include/dt-bindings/clock/sun6i-rtc.h
+>> > >> +++ b/include/dt-bindings/clock/sun6i-rtc.h
+>> > >> @@ -6,5 +6,9 @@
+>> > >>  #define CLK_OSC32K                0
+>> > >>  #define CLK_OSC32K_FANOUT 1
+>> > >>  #define CLK_IOSC          2
+>> > >> +#define CLK_HOSC_UFS              8
+>> > >> +#define CLK_HOSC_HDMI             9
+>> > >> +#define CLK_HOSC_SERDES0  10
+>> > >> +#define CLK_HOSC_SERDES1  11
+>> > >
+>> > > [Severity: Low]
+>> > > Will adding clock IDs up to 11 conflict with the existing clock-outp=
+ut-names
+>> > > constraint in allwinner,sun6i-a31-rtc.yaml?
+>> > >
+>> > > The clock-output-names property currently has a global maxItems cons=
+traint
+>> > > alongside its description:
+>> > >
+>> > >   clock-output-names:
+>> > >     minItems: 1
+>> > >     maxItems: 3
+>> > >     description:
+>> > >       The RTC provides up to three clocks
+>> > >
+>> > > If a device tree author attempts to define an array of clock-output-=
+names
+>> > > to document all outputs for the allwinner,sun60i-a733-rtc node, won'=
+t it fail
+>> > > dt_binding_check validation because it exceeds the maximum allowed i=
+tems?
+>> >
+>> > Not quite sure what to do with that one.
+>> >
+>> > The h616 compatible devices all exposed more than 3 clock through the
+>> > provider, even if the higher IDs did not have define.
+>> >
+>> > The clock output names for the h616 compatible device are not really
+>> > supposed to be defined through DT ... at least AFAIU ??
+>>
+>> The output names aren't even defined anyway, so the property is not
+>> really all that helpful. It's worth increasing the max to whatever is
+>> permitted now and look into the conditional sections to see if any
+>> constraints need updating.
+>
+> Or just not allow it for the newer RTC compatible? On the kernel side,
 
+I was edging toward this. Would this be acceptable to you Conor ?
+I'm thinking about disallowing it for all the h616 compatible ones, not
+just the a733.
 
-Cheers,
-Conor.
+> the sunxi-ng clk library doesn't even use the property, presumably because
+> the library mainly targets the main clock controller that has at least
+> tens of clocks. Writing clock-output-names for them isn't really scalable,
+> and sort of useless as the name can be inferred by the clock ID and
+> compatible.
+>
+>
+> ChenYu
 
-> +
->  required:
->    - compatible
->    - reg
-> @@ -35,10 +53,13 @@ additionalProperties: false
->  examples:
->    - |
->      #include <dt-bindings/clock/aspeed-clock.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> =20
->      bt@1e789140 {
->          compatible =3D "aspeed,ast2400-ibt-bmc";
->          reg =3D <0x1e789140 0x18>;
->          interrupts =3D <8>;
->          clocks =3D <&syscon ASPEED_CLK_GATE_LCLK>;
-> +        aspeed,lpc-io-reg =3D <0xe4>;
-> +        aspeed,lpc-interrupts =3D <10 IRQ_TYPE_LEVEL_LOW>;
->      };
->=20
-> --=20
-> 2.34.1
->=20
->=20
-
---JftmSqqify0j7mOM
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakKOswAKCRB4tDGHoIJi
-0psAAP9G4epdhbKfSpCHpiVzmew6DQEbokTKpL+98RgnG2LBKQD/U3BgoLrNNiQx
-n3K2bKbjCnRtMLKQG2R8sbPvLE9VbwM=
-=ygXE
------END PGP SIGNATURE-----
-
---JftmSqqify0j7mOM--
+--=20
+Jerome
