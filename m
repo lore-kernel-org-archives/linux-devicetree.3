@@ -1,42 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794923537DE;
-	Tue, 30 Jun 2026 11:16:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04FE73ED134;
+	Tue, 30 Jun 2026 11:16:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782818195; cv=none; b=X0ZVhIxi5/C1Xf+LrpqDoZcTS1ES9Wvapj+rN9lULviAg1nCtkc28THwlziU9soEXI7tU05j3BdjfXuHHjysED4wHo8z9BOlBUKwp+jqNuClxhROOMhjkrmlne4ljKMCcd+F2LkVeL2/6miL6LZYLVKUEy+y6FOF9m6/jobrIWc=
+	t=1782818216; cv=none; b=hxhAjobioVQfARU24/jh8qInOPcdkOapKZjcCAxDkAsDFaKuYZYmsw6mX1d8ymFgkL+vhUOYPt9ByrfplHvJyx7AhoELgyNoffP88ic3pS7fMA4OrO1TIkpRGN/dSsmtx34fmF5mZyrPwzucqm/cKNQwXNvZyKhYtnBipZXZ7zY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782818195; c=relaxed/simple;
-	bh=+/JESTVsFDcoGuMP/FgRRyUeBmA9JLzIgr4Vp6EzN6M=;
+	s=arc-20240116; t=1782818216; c=relaxed/simple;
+	bh=sWHuPdL4V7aEh8FugrGqBsjNaOpEn9LSPJKhiXzoATk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=HWu9zpegYHCSTufqhhfXpdFcm5W3BeJsmFz4+vr9t25EXjFpLFflh81vTDtO9uIbKSmHB5CK1m5S+yQTWplWDMfvXrPHW7W/w43hAf1+VHmC/55Z52X3rJscnd+CBgap3v2mH/TL32C5ytlKsZGrrUicBAPkq1fbl5qGobQUJiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhOHaHXd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Fa9rKDAAdSHIB8YAHb3PXcCxRgktzq8GyCRNt2fYMEYagnAAw++xEOJSvg5+YiDcw7YS9CDY3ZbKoWfdm3lWPjg1NXQap5zfHXpcuTHU5HS/LQDGoqCvl0KsgbhjSt5STsGgoZe3ru/Yn0hNJP+AAkJ1rU9+NAzOCjEaNIv2KDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UNSA3/+D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhOHaHXd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9BE1F000E9;
-	Tue, 30 Jun 2026 11:16:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UNSA3/+D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90D9C1F00A3D;
+	Tue, 30 Jun 2026 11:16:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782818194;
-	bh=gW8Bndv8QKhGjBf6SmFc2HG7s+OzjKpn0rdNZPfQmiE=;
+	s=k20260515; t=1782818214;
+	bh=dhzauwQZPbpylpGr4WGE9mMiIv1Y0Ir+oeoCGGiZuDg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=lhOHaHXdwAOtzMatMbWXvAMmH/VRdCeXIYozgkjUCTcJ5LUVIiYp6TpeA7N6nZRZC
-	 xN7bCU7e6yvghuleLbKTQcy1FCH9hKutrJou/ycDbCQFX5CeuNT7OWlkotCXl+wx/W
-	 eR+GQJArUZ1S7+Rbv8Us8rCnDgG0r+0t0a9wOi1MY79NVAMwoX7RflFgEBLjO5HHmu
-	 yR65q57af+0tItc+Cq4v1l5EsG0K7tMAK8GgHa3m5kN+uIW7mWEaPHUIFNbsXOCVLd
-	 V+tkynqWTtd91xXsMAQDn4g15zmB/jfeS0WUx6xYIltpxhr5zuoPrmZgos2gGfJQ0Q
-	 cCxDQpdK69sWQ==
+	b=UNSA3/+D4r4cXAUAKPFvhYTv+69PZbKlTh/NF3TZEpJ79O3McYU/fwKvHa8S7Au8X
+	 tX+y9qFmH6BPicNXjYYrlg/+j9DkBZTOmp5fDfF82aSx1rwaLaKKhHCs08Y9W1rNfi
+	 5Ztpl705/j5PzUbR/AowX4vMebYvQ0Xr3oTbEGjJBru5MDRRY9r6W1fMoP5Vynuukf
+	 rEq/9ouifH2RwckH0jfh6hQdqbxSSqLI992u/HezAKa/rBMHmvSyv+1x6CI8TRgk/E
+	 1Glrnw2PT127SjjgnMl8/IQ4lmL66DAjjfg1DyFlGzz0gA6ifGxBa8bG9MbsCGMIN/
+	 k9fB3VhenjZEw==
 From: Mark Brown <broonie@kernel.org>
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- david.daney@cavium.com, Ninad Naik <ninadnaik07@gmail.com>
-Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, me@brighamcampbell.com, 
- linux-kernel-mentees@lists.linux.dev, skhan@linuxfoundation.org
-In-Reply-To: <20260618180149.475658-1-ninadnaik07@gmail.com>
-References: <20260618180149.475658-1-ninadnaik07@gmail.com>
-Subject: Re: [PATCH v3] spi: dt-bindings: octeon: Convert to DT schema
-Message-Id: <178275394462.47562.15525184882513666560.b4-ty@b4>
-Date: Mon, 29 Jun 2026 18:25:44 +0100
+To: linux-mediatek@lists.infradead.org, 
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260615185810.11804-1-l.scorcia@gmail.com>
+References: <20260615185810.11804-1-l.scorcia@gmail.com>
+Subject: Re: [PATCH v4] ASoC: dt-bindings: mtk-btcvsd-snd: Convert to DT
+ Schema
+Message-Id: <178275431870.47562.12564836681670805353.b4-ty@b4>
+Date: Mon, 29 Jun 2026 18:31:58 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,29 +51,29 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1104; i=broonie@kernel.org;
- h=from:subject:message-id; bh=+/JESTVsFDcoGuMP/FgRRyUeBmA9JLzIgr4Vp6EzN6M=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqQ6WP7aX+WmRfwVyfJ8p/6OJonHaNEPMoxTTFN
- 9er12Q4w5GJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCakOljwAKCRAk1otyXVSH
- 0AgnB/9R1ftlqt+yfnfefzrGR9DVNQvDxSL4yL6muRaOrN4HzRHSkgHnNrPpnF7rtrpjzcAKwOr
- WWtFJ4WvJQH1z7ahK078iL38SowkEF9vvM1yhDAzanHaZRZRNb7jDXeSc6JWRAKXnpU7+ft48xJ
- rnP0qO/nSC9u9eU+RS1k90GgmAwjl0hrdsY2T7zQv5u2W7cWQXQkwZUx7TrCcpBa1QN3yDp4IU8
- ZLTOvSq+9lag5stqH/RBUBm7sALYiA1HsesqM5H/Z8KIm3llxDhScDEAdbPmt6s7a65fir5REcd
- nt/WSY18EaHL3AJqT2gFNbaAx7yLqXW49Ckd0qm7d1jIamSr
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1137; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=sWHuPdL4V7aEh8FugrGqBsjNaOpEn9LSPJKhiXzoATk=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqQ6WjLm2GfsXw6NKD5XVY0W5AtH6+Er1DxKMlP
+ fHioa7fM6WJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCakOlowAKCRAk1otyXVSH
+ 0LmmB/9aq99s/+8+af6mipyDDgGfYxlP702UF2VGKCa6ALZ7GWzOw8XxmiNG9hYfUhlcXMHJ5tF
+ GQlTZvXT6Sp7YyFnWHOqvKkoQafpEkiWL9d7+G1Tm73WSTgHmYFucxwOWf6KTTfdxy3ePy5q0yC
+ kB3LfDbjrhgEaO3T4VE2dZd8oc3Qw9uf7kxrYzh5BByuYO0knHFu2PLZC5AYqe2hX7qZFN+gfCF
+ IooPHITfNjS6eKssJdyR2qUzl6NGzvweMWn27In54iB5sbm/C8ZomO9s9TTti3ntJi5nMK1kVAT
+ mYJLbo8Th01HOax++kLQSM9Kvy6GUiwBhvLAcAwNgFY3R/br
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 18 Jun 2026 23:31:49 +0530, Ninad Naik wrote:
-> spi: dt-bindings: octeon: Convert to DT schema
+On Mon, 15 Jun 2026 20:57:50 +0200, Luca Leonardo Scorcia wrote:
+> ASoC: dt-bindings: mtk-btcvsd-snd: Convert to DT Schema
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
 
 Thanks!
 
-[1/1] spi: dt-bindings: octeon: Convert to DT schema
-      https://git.kernel.org/broonie/spi/c/cb8c374a632b
+[1/1] ASoC: dt-bindings: mtk-btcvsd-snd: Convert to DT Schema
+      https://git.kernel.org/broonie/sound/c/012dfa0c45ec
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
