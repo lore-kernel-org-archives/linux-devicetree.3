@@ -1,133 +1,126 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FC6404BDC
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:35:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386F42BB17
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782736502; cv=none; b=DAD1TEqw3hpapzj+e28gr7f56upRQNXqJnpxaGpeKLs6gw9/+ihKKr81D9yEV4ktMqJRIzH+3thVkIzyaaf5g+urVJdLMGkcctJglf79UB/WLo3XDxGGWtoZ2/lY5aCCSw+9WVdWVjM7IpIEDsKoXU+dh/RHLqPZHWWuPn40ml8=
+	t=1782736641; cv=none; b=mON47a3ycOEwTtMxySc2r+oabP1BpoWglPsXWyfIrnZzbTKKQWWssje6VnWslLRwcy6mItNZU6eH/oe8pmRjZR1JhGT5SsXjlAxIr7Z8g+5ZHkMDaRuddonRn+pDmDScTgfYnX8FxtijO1MwmIGfiBVSvXtFiwWoyePq/gaxMYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782736502; c=relaxed/simple;
-	bh=9FAS+mDt+OZ2wTFFclBcMONt0IaDUoeHNgfvU+Et0m8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Xa6Ca6RGKrr1st3ibG86VX4y6OzOumv4xwz/IF3xaY41nzHGsGL3oq9AQB8f7dpg6lC3dp50T9WMKr3prBY+IgJ1q0zUw/TJhE8VcUSX66sNjlghbLEG2cneVpxsv/8xFmGCndIVANIXCcuA33ReDU2TBJ6JsV6h8DSXcgQA+sg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kdOZXKmo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c1URTRvj; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782736641; c=relaxed/simple;
+	bh=AzcAQSfHg/iYcFXKIJwL6LcvzJer9F7Qkv/OnVZAoUg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=S/byM5tU2aL+lAnBNVAhht/watNPlPzcJipwU7GhpFtUI6TNa7JqnpNGbLrbORUxj0SKVL+ikOwyrUBKJ47goGDN+egHPWWdWor0k4MG5S+lTjDZ4+h8LGGMlIelKDwCimeLfBDlV4qclATyTPLlYAdfZ0H6obcp8qh6fQr0e4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WfON/Q/5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kdOZXKmo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c1URTRvj"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65TAT2cP2646837
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:35:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=9FAS+mDt+OZ
-	2wTFFclBcMONt0IaDUoeHNgfvU+Et0m8=; b=kdOZXKmocMPs8ytFWG4Wq7e8ayd
-	8TFR7kWYujCwTM2Ta5YBrDl9CxKat9xCGKHU6aLeF4APtRh1lZ23J/c7n8zoS751
-	1c362l+X/zpoAtLjgRCjAg7qaVG9dZ+EMpS6ZopqLU28nvyl8ZFHsKmL+JVA+kQo
-	5O9D9LFD5a4aepRDi8s9OG1XXBPOsYWEH7qi6rfi4zvEOZwUrLNtVRgv2f+1O1dt
-	hT7v9jdPMsesDdTCFjvWdThP/X1yut1X5jA+FhQDpvzg8IbQRIFDZoDa3Fyzi2SO
-	7gZ2b6cCxtjmUaUI9nSAygq344jDtNnZrgfC8eskxcuuX3LixQg+St2LMLQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3m4ts8n1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:35:01 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51a8b0a08d2so36579791cf.0
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 05:35:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782736500; x=1783341300; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9FAS+mDt+OZ2wTFFclBcMONt0IaDUoeHNgfvU+Et0m8=;
-        b=c1URTRvjyMgydooofsQKxu0GRiC2zFuFnaj14igWZDiHCdlFCFGeUlbuws8+q/X0k+
-         I5Nu7GJXVWaKsrGEqjTIUwSeLjxgJI1msA0MYz8fchiHXO9/XWpko8psNsTthB5g8eEc
-         aUlNz8Pptq1MDnqN9F6mujcpmHc1itzvPoBkdWXZuC1F94ekYAuMRl0HvaMkkbBYSEsk
-         GOWgonGSn5WgL9jGPSOKcl7GVTkB5PVW5jv1u1SF/1RSp28ux5N5dyowW53ydByZDDxm
-         5Sc3ZCZWVQdAl0aHv7AA8ccOWuMASSquX/RPjA322YErUuRuzmYIpRSaXgWfxFiaLxGs
-         8/Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782736500; x=1783341300;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=9FAS+mDt+OZ2wTFFclBcMONt0IaDUoeHNgfvU+Et0m8=;
-        b=goqJ4luKt/vh+SyKOT3Anj4M4sV42zlaFPpW5z7af5dSZ6rjNfDzOPtSiK7Zaw4hnd
-         LTgwIHXtoTGcAbhPOaIe3IstPNSB35dDV1bDAj7DH4yEf+vUeRgOyirwor5Sf7DMQ9Tr
-         ZP+/DD0I+AKVQdxDLOnoGc1Z8poUoi84isXOM5Isb5zVMjO5tXqth0MQWVo9a81IV2pM
-         +fESyZhR4C62z3O2ZhjS2LYz4QUc8LyrNopy2VP+y3HyN5NVAX7Zco0HctQwqrurbN4I
-         dJNMaI49I4n2d20bK9cl29rX++5gUZkbnMKU3VJRT7GdknkqS6Zc4SwvJtXdL1LOTVm7
-         uDsg==
-X-Forwarded-Encrypted: i=1; AFNElJ+VK+eqe8vEwps06D35xgtf5FxxX/K2PPKp/39rBNeAaIr2L2N3QzWpK/VRJU3v7H19zT6TX9mCfyQO@vger.kernel.org
-X-Gm-Message-State: AOJu0YwES03lv7qhe3ZV7xmaBHqoKWhhG83CjjuXWIqmKshk5+36kpZo
-	ql3dYndc3pzYa72N4C/ams7HmQLJpPDG2g4L5LHJJ6aGbj2HL1aUehYWxNqEFCo3xqd+NP2rjNS
-	y6iLUXaBGMZliTRF51CB7BoE1yAhpD1fWpgOEKvezLf4/HXH5qc1nBP+QKWMxIUi7
-X-Gm-Gg: AfdE7cnuZNMEPugFpxrhfAz+hZv2ERP9t5lSFlQUpGfqCVAn/F86qra8PauFVnQebZB
-	BCOGP80RF+jnQ2/cvLrbN1DP/zy+VDwDHLX9QRMhp10rIg8pUo0md1QtxVDzkyku0n6KRCke3AX
-	FiE5Tc4LunamSfj2jBhQ6bHrOcUEVVcQgQqkIoxfIBKV98VbXY2bVIVY63ixSIt27Qg92bd92FV
-	3eK5H+FL37qvv+eDaX3zvMAc16NsxmO1EEVLsPWJPouf02U+CCCsj02cKZIIWEpyTpVSnNdE4F3
-	id78Ops+0fNYSHoDMjvr49EWMrNWXeO4qYboinYRUOHcevwrzlr2cCs7JBYPHETnbuLFBbF/vDs
-	Rpvhtyn2x5CNzzOS3M7s3xMD4AFYYx5P/mHE=
-X-Received: by 2002:a05:620a:6499:b0:915:6a2b:6265 with SMTP id af79cd13be357-92b3e37a536mr1306143585a.44.1782736499943;
-        Mon, 29 Jun 2026 05:34:59 -0700 (PDT)
-X-Received: by 2002:a05:620a:6499:b0:915:6a2b:6265 with SMTP id af79cd13be357-92b3e37a536mr1306138385a.44.1782736499365;
-        Mon, 29 Jun 2026 05:34:59 -0700 (PDT)
-Received: from lin-0772.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c11fbbaa46asm775684066b.10.2026.06.29.05.34.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 05:34:58 -0700 (PDT)
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-To: linux-media@vger.kernel.org
-Cc: Atanas Filipov <atanas.filipov@oss.qualcomm.com>, mchehab@kernel.org,
-        robh@kernel.org, krzysztof.kozlowski+dt@linaro.org,
-        conor+dt@kernel.org, andersson@kernel.org, quic_vgarodia@quicinc.com,
-        quic_jesszhan@quicinc.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] Add Qualcomm JPEG V4L2 encoder for SM8250
-Date: Mon, 29 Jun 2026 15:33:59 +0300
-Message-Id: <20260629123359.3469724-1-atanas.filipov@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260625133828.3221781-1-atanas.filipov@oss.qualcomm.com>
-References: <20260625133828.3221781-1-atanas.filipov@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WfON/Q/5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9809E1F000E9;
+	Mon, 29 Jun 2026 12:37:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782736639;
+	bh=1vG9sjO+Tgoxlg6xgzteUnXLglOrKizQ1T8IINFD1ss=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WfON/Q/57/Qr4C3Hoov1rR0MzfZA3xLXGk35hjB7dW/zSJBuL6MKxnyj3yDe389Vk
+	 2+Y9GzJVJOVbRDrtbW31yJDvg3rqeHYUnbNlVfnRt6gZZ0QAK/Dwe4WPx3zkKIuYpS
+	 dyqqQmJlB4/VTktiTQ0E8sHF741cLgFi0ZiMo+ItoPq2bMAtHCRawP5zC2bYva8TU3
+	 CE7fIbFeu0PfFQuwAcZr2cXhpjuSP072hDpSDL83KGO5byveyzEqFiwwO2GHh5ZYhn
+	 HCGf/rCTIRYb/+BjiuHjTae7oYgIVtV0i5MKYTd++0tQgvCNT2ca7pLxdTFqb2u5g6
+	 Vj/+qI7o7o6zQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] net: ethernet: ti: am65-cpsw: Fix MAC
+ configuration for SGMII mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gokul Praveen" <g-praveen@ti.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260629102308.56616-3-g-praveen@ti.com>
+References: <20260629102308.56616-1-g-praveen@ti.com>
+ <20260629102308.56616-3-g-praveen@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 12:37:19 +0000
+Message-Id: <20260629123719.9809E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDEwMyBTYWx0ZWRfXzNO0Z3yXRsur
- 9s43obw5wqDTkHwIt1/MDg69ACpSC1NAvo7O0ZgWhXyco3YpvKxscRZWf/Nx5OjFWoL5XGnDfxf
- UyYdh4tZl6xCXaJ+I+5fK0zfKv3mOy0xwgcQckhXn0lbwqOTHXzJDfIZP+mHauBGY8ZnzagoE/P
- LFQHjN4LZiFK8HLsw7wbUsO0N5MyxeIrRGzVU5VumRzw4TpQb1UqO2BoltPdvakzK8lDUKVJuMB
- 7LsaNjddvBZEr7TB2MTRHWu5Ohqiv7oxUp0Tc35mmRMoo0ErseCtOw5rzdEa5zjlcIkEgk0GWeY
- vnVnTDY/IAuiITTwuPfUyCyQ7v35AAoDU5W698ePPdUkwiwUJi6F4FuyyuNsKtURqAlE4G7QVp+
- V3VtqJfAfDsHmf2qeqH4jgl91VtNnFGwweXaKFjYKcTy1mGMMegp9y4RNth7m6PGjeQ9MZB2YEg
- VQyHFiM84Za3hTjFB1A==
-X-Authority-Analysis: v=2.4 cv=R58z39RX c=1 sm=1 tr=0 ts=6a426675 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=IiUnP6lGiGDxgbWSFccA:9 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDEwMyBTYWx0ZWRfX3VX8I5Xqf5OJ
- NpoLHBwQnoQHGyULxArFZn7p2hbLW2stCcSdrRlgZuxIc5Mk/Yy1YdPKa0dVNcOPH90qgcXf9X8
- DxfC+PMA/Xu3dnpjjuB9v5zWX5xo18o=
-X-Proofpoint-ORIG-GUID: p30fYTDPnyUNXasF5LBAam39q8Tq75ln
-X-Proofpoint-GUID: p30fYTDPnyUNXasF5LBAam39q8Tq75ln
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-29_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 suspectscore=0 phishscore=0 clxscore=1015
- adultscore=0 malwarescore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290103
 
-v3 posted:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The MAC is unconditionally forced into SGMII MASTER mode and hardc=
+oded to advertise a 1000 Mbps Full-Duplex link, breaking 10/100 Mbps suppor=
+t and standard MAC-to-PHY connections.
+- [High] Moving the write to `AM65_CPSW_SGMII_CONTROL_REG` inside the SGMII=
+-only block inadvertently disables auto-negotiation for USXGMII and QSGMII =
+modes.
+--
 
-[PATCH v3 0/4] Add Qualcomm JPEG V4L2 encoder for SM8250
-https://lore.kernel.org/linux-media/20260629121110.3469048-1-atanas.filipov@oss.qualcomm.com/
+commit f84ed4938492bf35df72f44323de46f0c35177e0
+Author: Gokul Praveen <g-praveen@ti.com>
 
-Thanks,
-Atanas
+net: ethernet: ti: am65-cpsw: Fix MAC configuration for SGMII mode
+
+This modifies the CPSW_SGMII_MR_ADV_ABILITY_REG to update the MAC
+configuration of the CPSW Ethernet Switch in SGMII mode. It configures
+the MAC in master mode as per the CPSGMII Module specification.
+
+> diff --git a/drivers/net/ethernet/ti/am65-cpsw-nuss.c b/drivers/net/ether=
+net/ti/am65-cpsw-nuss.c
+> index 7ac75fc8cdcf4..df99a80dbfe1e 100644
+> --- a/drivers/net/ethernet/ti/am65-cpsw-nuss.c
+> +++ b/drivers/net/ethernet/ti/am65-cpsw-nuss.c
+
+[ ... ]
+
+> @@ -2063,8 +2064,10 @@ static void am65_cpsw_nuss_mac_config(struct phyli=
+nk_config *config, unsigned in
+> =20
+>  	if (common->pdata.extra_modes & BIT(state->interface)) {
+>  		if (state->interface =3D=3D PHY_INTERFACE_MODE_SGMII) {
+> -			writel(ADVERTISE_SGMII,
+> -			       port->sgmii_base + AM65_CPSW_SGMII_MR_ADV_ABILITY_REG);
+> +			writel(ADVERTISE_SGMII | LPA_SGMII_1000FULL | LPA_SGMII_LINK,
+> +				port->sgmii_base + AM65_CPSW_SGMII_MR_ADV_ABILITY_REG);
+> +			writel(AM65_CPSW_SGMII_CONTROL_MR_AN_ENABLE|AM65_CPSW_SGMII_CONTROL_M=
+ASTER,
+> +				port->sgmii_base + AM65_CPSW_SGMII_CONTROL_REG);
+
+[Severity: High]
+Does am65_cpsw_nuss_mac_config() now hardcode the SGMII advertisement to
+1000 Mbps Full-Duplex while ignoring the dynamic link parameters in
+state->speed and state->duplex?
+
+If the MAC is unconditionally forced into SGMII MASTER mode and forced to
+advertise a 1000 Mbps full-duplex link, could this break 10 Mbps and 100 Mb=
+ps
+connections, as well as standard MAC-to-PHY connections where the PHY expec=
+ts
+to be the SGMII Master?
+
+>  			cpsw_sl_ctl_set(port->slave.mac_sl, CPSW_SL_CTL_EXT_EN);
+>  		} else {
+>  			cpsw_sl_ctl_clr(port->slave.mac_sl, CPSW_SL_CTL_EXT_EN);
+> @@ -2078,8 +2081,6 @@ static void am65_cpsw_nuss_mac_config(struct phylin=
+k_config *config, unsigned in
+>  					CPSW_SL_CTL_XGIG | CPSW_SL_CTL_XGMII_EN);
+>  		}
+> =20
+> -		writel(AM65_CPSW_SGMII_CONTROL_MR_AN_ENABLE,
+> -		       port->sgmii_base + AM65_CPSW_SGMII_CONTROL_REG);
+
+[Severity: High]
+Will removing this write and moving it inside the SGMII-only block disable
+auto-negotiation for USXGMII and QSGMII modes?
+
+Since this unconditional write enabled auto-negotiation for all extra modes,
+moving it to the PHY_INTERFACE_MODE_SGMII branch means it is never configur=
+ed
+when state->interface is USXGMII or QSGMII, which might prevent link
+establishment.
+
+>  	}
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629102308.5661=
+6-1-g-praveen@ti.com?part=3D2
