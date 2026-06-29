@@ -1,112 +1,173 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940363749E4
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 06:26:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02662F7EFE;
+	Mon, 29 Jun 2026 06:32:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782714402; cv=none; b=PZVHSQIRxBzQWHj99DF2nz1L+Jqt5JUGPmVwuEjq2/71zFo8qm6URb2xfAt3ZpaXzMdj+7xTu4RSquZBJWGrbQX5VHLGQNf1yD3zjpaXuBPEml+ixU1qlMdd6I3M+TA4xwbRe53V3AC/7yXe6Mcao2oB1Xf/dMf1asS0c/WyhMQ=
+	t=1782714755; cv=none; b=bfo3BHZmYlANR+eekHQpwEdeS5W+eFzHqHrw8WsRAOP8WY3nlRkdnskmZ7nN0hmpx4Qy3KKf+c9LBexW8BbFXVea0Iw2i+2J04ZZLuHRa7cwxc1MOWjRP2qVFKGNhH/Nm1vOritLVzxpEGZW4LymlqM2j0dX5vRL4oU82fi6Ano=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782714402; c=relaxed/simple;
-	bh=CMw8IrJ8TdmR6qZMYCm3a5dWEAdS58OSC6i7cS07jjU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P/HvKR/rYzi5W/nGGZ0G8wHbLNWA9C1mT64Ezy2/W+2A6+qshNOWox+TTqSvTE5SwbJaYqdavj24nqN6m1YJB+7+p6ahG7FymR2sPjs2wmtz3CUJS9BGSKBz3C5SbQJp1B5T3iqUoPJBnzQec10x5yNTW3thONTKonOOw5C+Qew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=JZ/OjDQL; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="JZ/OjDQL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=0uAk
-	ejhgCuaMoZrshp+jK8Z0ZGAtpRWMSbgtnJiT1+o=; b=JZ/OjDQLQTXGYDrenyOz
-	4nOtaMLXCnhVkGYGM6BPN8hcdL9/edD1d+SrXyG8Tnd0LB4q/fEAuyYynkyq85ie
-	LZ4HVIu04bnhOcWLS/UZybbPnQWAG580NH/YP2X00LHTovRcW5yyKMFW+hN3GUaz
-	/hzNRjT7NlAeCQ+m3cfgmxknOAfMOuNtIoDO/Cg9VsRJuw/lVvm/njhH93aYjLX3
-	JFjtFvhZxJsw16n8fpr3++kYXmzeD2Pi9bNQigNib0PhKWGmHmss6DrgJrk5PYPp
-	Qr4lWgsHaagkapbbSp3DoT1nP5kJhwzykjorNsi1JGEEweTvpx8U4VJQ/yRKGCwE
-	0w==
-Received: (qmail 256473 invoked from network); 29 Jun 2026 08:26:30 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 29 Jun 2026 08:26:30 +0200
-X-UD-Smtp-Session: l3s3148p1@qX3wiV5VGL0ujntC
-Date: Mon, 29 Jun 2026 08:26:28 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Cc: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/3] dt-bindings: i2c: Add Qualcomm I2C slave
- controller
-Message-ID: <akIQFAX8LcZae29l@ninjato>
-References: <20260628-i2c-qcom-slave-v1-0-8b0a5c01f9f6@oss.qualcomm.com>
- <20260628-i2c-qcom-slave-v1-1-8b0a5c01f9f6@oss.qualcomm.com>
+	s=arc-20240116; t=1782714755; c=relaxed/simple;
+	bh=SPBC1SckFg3P7fL+r34FUw37UwGfVuDwCZrAHHzOLV8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uFPu/xOVTiB8Rfy87rWttkAk3UtC+VurXn/fQgff36urSaz47IMHK8RlYbz1+UWG/jgiPUdqrsJ/U/UfBDVZEJKZiHQUXxgDTAdCa9hiEiF1PJ3otD6ACv0w+uiuzRAYOcEVxLK0Ev9Iwi0W8VZWxNNFNNucfp9a2GO17XMU/mQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D50D1F000E9;
+	Mon, 29 Jun 2026 06:32:30 +0000 (UTC)
+Message-ID: <2a21f549-294e-43b4-aed6-b779d84cfd4b@kernel.org>
+Date: Mon, 29 Jun 2026 08:32:26 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r+ZUegNvxI2DW21t"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/3] dt-bindings: i2c: Add Qualcomm I2C slave
+ controller
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+ Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260628-i2c-qcom-slave-v1-0-8b0a5c01f9f6@oss.qualcomm.com>
+ <20260628-i2c-qcom-slave-v1-1-8b0a5c01f9f6@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
 In-Reply-To: <20260628-i2c-qcom-slave-v1-1-8b0a5c01f9f6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+On 28/06/2026 16:39, Viken Dadhaniya wrote:
+> +description:
+> +  The Qualcomm I2C slave controller is a dedicated hardware IP found on
+> +  Qualcomm SoCs that operates exclusively as an I2C slave device on the bus.
+> +  It supports FIFO (PIO) mode for data transfer and does not function as an
+> +  I2C master.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,i2c-slave
+
+Such compatible makes little sense in upstream. Please look at other
+bindings how to properly create a compatible. This has to be device
+specific.
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: XO clock for I2C slave
+> +      - description: AHB clock for I2C slave
+> +
+> +  clock-names:
+> +    items:
+> +      - const: sm_bus_xo_clk
+> +      - const: sm_bus_ahb_clk
+
+Look at other bindings.
+
+> +
+> +  qcom,slave-addr:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      The 7-bit I2C slave address programmed into the controller's device
+> +      address register. This controller operates exclusively as an I2C slave
+> +      and has no child nodes, so the standard 'reg' property cannot be used
+> +      to convey the I2C address (it is already used for the MMIO register
+> +      range). The address is configurable at runtime via a hardware register.
+> +    minimum: 0x08
+> +    maximum: 0x77
+> +
+> +  interconnects:
+> +    maxItems: 1
+> +
+> +  interconnect-names:
+> +    const: i2c-slave-config
+
+i2c
+
+> +
+> +  pinctrl-0: true
+> +  pinctrl-1: true
+> +
+> +  pinctrl-names:
+> +    minItems: 1
+> +    items:
+> +      - const: default
+> +      - const: sleep
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - qcom,slave-addr
+> +  - interconnects
+> +  - interconnect-names
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/qcom,qdu1000-gcc.h>
+> +    #include <dt-bindings/interconnect/qcom,qdu1000-rpmh.h>
+> +
+> +    i2c-slave@88ca000 {
+
+You need to fix your terminology everywhere...
 
 
---r+ZUegNvxI2DW21t
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-On Sun, Jun 28, 2026 at 08:09:04PM +0530, Viken Dadhaniya wrote:
-> Add a binding for the Qualcomm I2C slave controller found on QDU1000. The
-> block operates only as an I2C slave and supports FIFO/PIO transfers, so it
-> needs a binding separate from Qualcomm I2C master controllers.
-
-The official naming in I2C is now 'target' instead of 'slave'. Do you
-think you can rename that? I know the Linux I2C core has still the old
-wording in a lot of places and needs to be converted. However, if
-possible, it would be nice if not more of the old terms would be added
-which need to be converted at some point anyhow.
-
-> Document the MMIO region, interrupt, XO and AHB clocks, interconnect path,
-> and the 7-bit slave address needed to describe the controller in device
-> tree.
->=20
-> Use the 'qcom,slave-addr' property for the slave address because 'reg'
-> describes the controller MMIO range, and this slave-only controller has no
-> child node where an I2C address can be encoded.
-
-This should not be needed because the backend defines which address is
-going to be used? Can you share how you tested this?
-
-Happy hacking,
-
-   Wolfram
-
-
---r+ZUegNvxI2DW21t
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmpCEBAACgkQFA3kzBSg
-KbYpJw/+Jy6U95MRFmB6J1Zy6lGHpyDpSphYyFIl7y72sswAbF11zLbJJYfP8VZM
-1+y2qXv7VR+OGvSm72L7qCp22/ECva6pk6yVg1JFuBogRE8EskzW4qDcPYPcAkA3
-UrSPPXpfMkTkARRCL9mPheiihHxWmGq7QTDejHKw+mpFxBfF844Ch4zaoifxUpVr
-S78jmNX4kbGd36s1rqBg2V7jHKzAi6jTrtm94bp5LHLXc8Ch5clX4ZY8Ae8SV9c4
-ALbEIHZFCwy22shWoVeHyK2cJGEenzHjrPwI1Z8md1AGD21b9fwoFxoKU3s34x3E
-1jh5lAZranhaQZlv7D7R4Vij6bajyQDVcD4/nsN0qE48Bwe2ytJ3mfevI/c3zYJX
-Zqc82bBv8slMuyj3m5L3mab4DeU/lYinLqe/ABaCQnsSlFLwZNuAysiE0he8Wrxn
-y/p+rEyDyBd0/YEoYX4pW2W2xkZdQOA8Y8ft2RTa9jS77VZRGj+2H9ss8wX8mB56
-cwgNApPk04cICgu3ZC1gadxa9W8MvsD0iX1+BXLmalplGxJDp/uB58fsVlWKJgDQ
-q6kL3VMwLpiuh38VUBaolaQgILvpOuqpRotST3ihczTj/U1uYvc6sEVE7FNyQwkx
-/+UM39mRcw4KlBGLbh3TNKdaJ6h440EgQ8sdY1/176FilPUY8HU=
-=/xuL
------END PGP SIGNATURE-----
-
---r+ZUegNvxI2DW21t--
+Best regards,
+Krzysztof
