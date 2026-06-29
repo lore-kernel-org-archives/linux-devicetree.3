@@ -1,122 +1,142 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36368466B5B
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 16:40:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0BE3FDC18
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 16:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782751239; cv=none; b=RwhHRQaUVqvqYrn+WI1wpV29W2BFN2ygvCtWEOTng1uV6+uOisUOD9W0BtPan40DZTyUhGkN/dTQqDUKEvB2NcGv9TuEYhVWpBJd6q+n4+niN/ysD56O56zWMaov7+M/5+b1hcfaEVDGJFfpbOfJpR4KearvD8Poyic0ZNx0mfo=
+	t=1782751417; cv=none; b=YjYYV9gYQmhX7rzGVAP6Vbpjpm29TxhO7+vXRicyDV3G12ckYpUROztmS3H+yG1OLc5UsdTWcnIMClOBgyW86LXJB/pXBXEq0m4QflFU73cE7bCDrhhQRTVzPbtuLa9NGtN5p8lByssNzpKwbMt+JxbKRycUJKjUBSb0nOzsDFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782751239; c=relaxed/simple;
-	bh=9UPYfhc/POTDHsxHKkd/qvgqQC6aTve2NNjdEdwkeQ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k3ZpJAn6OAN3cdxL7FpmO/H2hcj0DjI34ji3MKczPw5aXEdIYuWaPfhTwE6f2lxWgoGYNxFVwA/9z+gRFsk+FIzdiOFZbJtGpoqsPnT6E6XiBA5wDReM/0qa9ahTzgxTtnuNwF2osEjTZHvkW9WYO3ew9xTyd8xh5ETe8zntfCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U+tMRYJT; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782751417; c=relaxed/simple;
+	bh=vxgWNm6c6XS24fJJWzeNDYRc/XdpjG0nw4Melt6OckA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QiTqGcWABs4Y/uvnvqHAEj/1Xj9KEBOzoN70Ysv9TyAKy3mIiby3eW6aUgxVcrw1JxBfiI8DcUtuIUT1rZ9AT4ZDJoCuqs0YYSLajIeRnXqvkAW/Ma1jF2Au2lNZKzPqmHCzsCoRemDqtcnvOO9izC+JCvozVHzQYndR1o9gJrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gsPtN8LV; arc=none smtp.client-ip=209.85.161.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U+tMRYJT"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-493a5d32e8cso18703875e9.1
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 09:40:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gsPtN8LV"
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-69e1f777bcaso2173383eaf.1
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 09:43:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782751232; x=1783356032; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=vTAqympCuHM2c/PQmqwHbJCuVDhybEJa0vtK+R7ZX2Q=;
-        b=U+tMRYJTAJFWAdLeEKMzqUagtX0rCYoWove6KnY/J0PnOtFVjMOR6o52RfxxPhsbGP
-         D5Gz56s50MfzFD634LfQfGmuRY3PfBwf1IIrzaSQ6mHa2cXlLgp2yTzE8Ym2tp8fm2L8
-         zMj+gV2m11i3KuznEmgfwo/GNyq/qOeA2/w4qwR7EqFU+T8hmIb7snyzaQEGW4vBNXZV
-         mvfDhR7fn/eCq25dh2KK/j6fszbvxoZPSTLuPtfDcK6ZbPsZgFisgz43eEsrBN0yvh9E
-         q/TFXVvNim2RqywmyTYyD9BpR5T07rZldvceplV4WXCuKORqntoIS4lxpbtchgcg1Tmd
-         R+SA==
+        d=baylibre.com; s=google; t=1782751415; x=1783356215; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Fhp4Ri8f/aMz4xwN6jjmZnklR0XbVRr7EzMCjQfIbrA=;
+        b=gsPtN8LVU0pAa7xs/1cr1qEh7sAgH7CNRUfMvZuHDO1hIietX8GEKxhdB7IJgKy4Oy
+         MZXPrsP+73ByPMUyeIgCSQQNaDhNHW9uGIAmwBsSVV8vQUv0vvDBAH/s16KOJomu4p8S
+         sMSPwT2YB+zFIkxTO/V0mKcqIGh/X5nMgyZb/SkIiRWcBHvk6AVcodolapG/ZYcp+RsC
+         Fvo0mvQtNw5KhlQOaVcNO5SpXPHzQsPtihhIJyZR5Y1n+3a7EHInmtVjcsBIFIo2o5o4
+         Z4YK/exra/vVMacNyX+CZiuhCfq3bSdkOCxaMxHCet5aXBqyEXrbZNzNDUHp3uK7ciH9
+         xobA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782751232; x=1783356032;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vTAqympCuHM2c/PQmqwHbJCuVDhybEJa0vtK+R7ZX2Q=;
-        b=Ha2QpAccpwEvWxy3UWBIDA2+te4gG1ZeGdjqccsMVbXswZrstrQotq32xt+HMxjYoZ
-         oagBqId8hxS+4/Be6WJboleTYn87WP01pdVb8Ck9/mPxEw33c4HkuYwsKK5FybBa4P5i
-         vZ9mQxYx6DlGPNNRjRS6FhBZBfQ6NjicomTDpV5EZPKJFvTBkH8QZ+AxlE53Pc/one/D
-         yjT4xYvQObXMnn9hcZwtboMJUHBdaCpgRLDIS9D6IKZu5DyEOJw8ySJtJ+fGAOqbvqgY
-         +LN5SZdi75jifU5wYOmSPvk7Ak9RdTdnrv6tLhzWnBzm2zUElXiyzYFSGW7C+jndhOrP
-         tMaA==
-X-Forwarded-Encrypted: i=1; AFNElJ+JOzpPR3G3/Ct6b7pdw7SZFCSGEK8l/ypQkyMhSkuU7P7qCPjkC4i8JsdhiQ14YPPXsw6DuHXBoD91@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVYSxQFUiMiOy7Z2M8OiVdxRd7ijWLXtp4Mu7j7uLqb2AtuNDN
-	28A/yyAVIhy4QAuaQPLx3jFtuUwUYI7ucn0VHueaWXfiKBEhv8Ph+23F
-X-Gm-Gg: AfdE7ck6lET3uGgLZFXWkHMJh0JOhQwp09RcDnay1Nm48+DZDHyH+LxJC7XHRN784K3
-	6OzePtG6EilPX0juydf+TE0zCuymQw9PG+acCrOGes/5gJnhQ/Z3I5XfsP9r1bjKeesfZu7QpWX
-	DSnV+V9hvPi7867P1mK37dl1E040hpZEIqGtXfY77NOYkDwf3+wk1y5kHSkdeWmnp8UWcOISW76
-	b/1jd6GOJ9mh1c2flVXTjUm2DOC0KJ20X3sTqTuKUJOPQJ0D8m4Epz5BtKp2tWjXgee6XTy1uak
-	1Xzya8oG/n+Si6oBr/iYpEF7QcZat0dPIYfaautNA6Wijh9jAoCiXWWHSm1VfNB+IuXtHPG9f0m
-	y2eUTDKr5trT7r0ad5MptejD5Ioqn6EG5X0Nq0VdW7mgOjSnnhzkIaBUfUkPdR1tO0mADXNsFuD
-	tdc9GOkwJm+Sw8I9Nrjg0xFNOazKegpgdZ296E6S7d5/LwWOxOMwWKyNUgfgXDIxhHd6nxhm5La
-	8lsdfGflxf/fA2+lqWm5HHI48GVpdki
-X-Received: by 2002:a05:600c:1d09:b0:493:a535:5527 with SMTP id 5b1f17b1804b1-493b82ac8d4mr6429385e9.21.1782751231985;
-        Mon, 29 Jun 2026 09:40:31 -0700 (PDT)
-Received: from Lord-Beerus.station (net-93-144-65-248.cust.dsl.teletu.it. [93.144.65.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493b8c238fasm2254645e9.0.2026.06.29.09.40.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 09:40:31 -0700 (PDT)
-Date: Mon, 29 Jun 2026 18:40:29 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Subject: Re: [PATCH v5 06/14] arm64: dts: imx8mp-var-som-symphony: enable PCIe
-Message-ID: <akKf_akO7IZ2ltHd@Lord-Beerus.station>
-References: <cover.1780929317.git.stefano.r@variscite.com>
- <26b5b602c3995a5a74f64b84576ab4d54ace23ee.1780929317.git.stefano.r@variscite.com>
- <akKdkWos2E25M_q8@lizhi-Precision-Tower-5810>
+        d=1e100.net; s=20251104; t=1782751415; x=1783356215;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Fhp4Ri8f/aMz4xwN6jjmZnklR0XbVRr7EzMCjQfIbrA=;
+        b=AtpS+gJ3iwSjCaEx30rHY+t38biBfNEpU50MrbPZyEUKb6U3Ih7WumZuGa1dfC6drQ
+         MN6QxWfTROhX4tr+rnLQRW2DDLj31ZsOgcrIDhnUweHckEut8gK0HIGsOPw30E0S/NEJ
+         eQH+sT6JzTDm5g7dsSkvH2TpDMClAA3x+oSz33LJT7AEDgkbQOgWRw4ZZ/iGM9DnExUV
+         34/NaGUdVtRJRLWdS1oqpwW8mFW82mdMUnu9mhaN4egxVeVomZmY99YFKjmvLH4lZvhG
+         a6l+jEvdEjQbusEc18Z17DmHq6RUYc7G4KVA2T8K7UAEY7uS/Y6GAa/6uRDXqEnzxo8L
+         +GSQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9wiH2eDU4xyPfW77Ih7aAUEVU9ukrbNrpDZ++/rUjgfLXp0ndgpaKoqvvl/PpfWkfyeDP3q11OXCRh@vger.kernel.org
+X-Gm-Message-State: AOJu0YzlWWkmOmU+M4b3Q3BYVhSYnXq3hn06Kk+FYnjBnAVImQVQGPxd
+	zQWb1n8NPets7PnGok1YZYSCllLbQLo22KJbtV7lYpQiISluzXDW7GY1Wt3MS5+pG5U=
+X-Gm-Gg: AfdE7cmCPIxiz1AFUci1kVf+f0gcvbAi+3Cvy44UBu0m8YpTeM5KBCWHJeEkOgdwGMh
+	GSmF9G/anY9fMxjOxPz8B5t8VMfo8RUxH0Zs3XpVtp65Z7OxsckcL+kz/DykcjRWOJqSfakYsj9
+	Cb/BRjmTKpDU4AA6BTEJQnzj0SUflwMiqJ6mhxXsXaaRTnN1UNydxDh9e0c+Jwamj1nQz5E+NXl
+	oXmvc0OfAqAOY0hyQP86BByQuMyxXJ8dUd+VOIIgEAdEDh0eAmufKyQkzahlu6Z9QQfRHpVLNO+
+	+Mno30sDhNyJdRwTCv+yq8YWhWi9GIxQnn2eZ8TOGjKegCiyv0Z0ld3TWzBFjfVS/xN2J3oUzSe
+	Brzll3KlxuxUkaioENi56jeQXApVMog7SmzyDe2c0RbYbwaao5HGjBdogl0vw46vaIBDe1sAsMj
+	RRooeKtRGVxyCSDOhGOT+v0wLXyCGH7syg+xPgdI1wEOSZrmI5wmuhEcjTRknDW68=
+X-Received: by 2002:a05:6820:c0cf:20b0:694:8cf6:5d44 with SMTP id 006d021491bc7-6a189c4f0dbmr93402eaf.0.1782751414866;
+        Mon, 29 Jun 2026 09:43:34 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:3533:aa22:9a69:df1c? ([2600:8803:e7e4:500:3533:aa22:9a69:df1c])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-448db93e2a4sm230186fac.3.2026.06.29.09.43.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 09:43:34 -0700 (PDT)
+Message-ID: <22e1e1c2-659c-4991-857c-b38d66769c7e@baylibre.com>
+Date: Mon, 29 Jun 2026 11:43:33 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akKdkWos2E25M_q8@lizhi-Precision-Tower-5810>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/7] dt-bindings: iio: adc: Add TI ADS126x ADC family
+To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260628-ads126x-v2-0-4b1b231325ba@gmail.com>
+ <20260628-ads126x-v2-1-4b1b231325ba@gmail.com>
+ <946a30c9-01e9-42f1-bd2b-b7934fda85cf@baylibre.com>
+ <DJKX600ONL4O.1YUTCD1L9FU8F@gmail.com>
+ <a16f61fb-4e98-4c30-8d4f-da084e27ebeb@baylibre.com>
+ <DJLOAISPZLG7.VZYX8B16QU4K@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <DJLOAISPZLG7.VZYX8B16QU4K@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Frank,
-
-On Mon, Jun 29, 2026 at 12:30:09PM -0400, Frank Li wrote:
+On 6/29/26 11:27 AM, Kurt Borja wrote:
+> On Mon Jun 29, 2026 at 9:21 AM -05, David Lechner wrote:
+>> On 6/28/26 2:12 PM, Kurt Borja wrote:
+>>> On Sun Jun 28, 2026 at 10:45 AM -05, David Lechner wrote:
+>>>> On 6/28/26 12:36 AM, Kurt Borja wrote:
+>>>>> The ADS1262 and ADS1263 are 32-bit, 38.4-kSPS delta-sigma ADCs with an
+>>>>> integrated PGA, internal reference, excitation and burn-out current
+>>>>> sources for sensor biasing and diagnostics. The ADS1263 adds a second,
+>>>>> 24-bit delta-sigma ADC (ADC2) for background measurements.
+>>>>>
+>>
+>> ...
+>>
+>>>>> +
+>>>>> +patternProperties:
+>>>>> +  "^channel@[0-9]+$":
+>>>>> +    $ref: /schemas/iio/adc/adc.yaml#
+>>>>> +    unevaluatedProperties: false
+>>>>> +
+>>>>> +    properties:
+>>>>> +      reg:
+>>>>> +        maxItems: 1
+>>>>> +
+>>>>
+>>>> If we want to allow single-ended/pseudo-differential inputs, then we should
+>>>> also allow single-channel (positive pin) and common-mode-channel (negative
+>>>> pin) properties.
+>>>>
+>>>> This will also require additional common-mode-<N>-supply properties to allow
+>>>> for the negative pin connected to something other than GND.
+>>>
+>>> Ah interesting. Why the N though? wouldn't a single supply connected to
+>>> AINCOM be enough here?
+>>
+>> In theory, any AINx could be a common mode input by connecting it to
+>> a constant voltage supply.
 > 
-> You have to provide all clocks, otherwise, whole clocks and clock-names will
-> by overwrite with one clock "ref".
+> Technically yes, but there is a pin named AINCOM intended for this
+> purpose. Can we do a simplification here? I propose having
 > 
-> suppose CHECK_DTBS should report warning about clocks items.
+>   common-mode-channel:
+>     /* AINCOM pin */
+>     const: 10
 > 
-> Frank
+> That way we would only need one common-mode-supply. Would that be okay?
 > 
 
-thanks for checking.
+Ideally, we shouldn't limit how the chip can be wired up in the devicetree
+bindings. It doesn't mean that we have to implement everything in the driver
+though.
 
-In this case the SoC dtsi does not provide any clocks or clock-names for
-the PCIe PHY node, so this is not overriding an existing clock list. It
-only adds the external reference clock used by the board.
 
-This follows the same pattern used by the i.MX8MP EVK, where the PCIe
-PHY node only provides the external "ref" clock together with
-fsl,refclk-pad-mode = <IMX8_PCIE_REFCLK_PAD_INPUT>.
 
-This is also why CHECK_DTBS does not report any warnings for this node.
-
-$: sed -n '/^&pcie_phy {/,/^};/p' arch/arm64/boot/dts/freescale/imx8mp-evk.dts
-&pcie_phy {
-        fsl,refclk-pad-mode = <IMX8_PCIE_REFCLK_PAD_INPUT>;
-        clocks = <&pcie0_refclk>;
-        clock-names = "ref";
-        status = "okay";
-};
-
-Thanks,
-Stefano
