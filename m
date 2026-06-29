@@ -1,41 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D202B35DA77
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 15:17:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6B535DA77;
+	Mon, 29 Jun 2026 15:17:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782746242; cv=none; b=aYsACyi4rv7N3l7xFJhOtQQfqn5PKovmratV5TXnSifDo5KDJoSC4FXv8JuElk0wApTL/cE0joTGXiytS3vuw9lk2glctSgee0PNvaUidWZgi+cC1TIf3XwSJQjiPWTAjsocCQXJYmc0c4qyPIw6IbCIwiWRnVgoWQft8pNSHBs=
+	t=1782746265; cv=none; b=K+3MXMB2quuLTVn0MPUWZyR7Z561xRliinMPA2QF2LCfLd8TQ1WuDhrs7sI9HZQn+9QmYsZCcAKjL/X6h2laQ91cmXVlVV9N50cadc4J/6ZjZ9hCpih3EG8RH6FAG+2p7UDsDLn2S25J5C/igXOPxR5RX73EASG0LeamHT1iXZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782746242; c=relaxed/simple;
-	bh=QBd2swqnv63QuswfE0YfVh14by3uz3C66W7vLs0PN/o=;
+	s=arc-20240116; t=1782746265; c=relaxed/simple;
+	bh=gIGHcKYzuDzER8PpAwFARWA0X4WwazmdTre8Vql/Zt8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hZjpozeo58TPaUmLkSKtCaowZxudsQ7s+ga1N54khf9FDdftNASblMRkOanXy8lvkTRO7LEQliTC3qh9M+61y6721FhpFizhmk7cP3GO4LIIpkwDabJNsLO1uj+bxmD8gzBiuDCMD6XXnql8SHl0SbGOwzgf+lqVWCpkxSe/Aq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQ0aBiqG; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=L6sFWDdanyR7iainGfeAmxlPPWp7mNG1BiaQehKoZ3bmtjzwDKJoxEkwee1Ow5WZAxYStFBSP6DIwFtWVwZUu8dJ5ZN916jx17la02cLsV3DBj1PqSGVS3EZ6s4awRR7A1oSu/OgVMZbXkNlCHHCW+laeRnS2ujJXRw6jhXtvgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PF4HhT5N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQ0aBiqG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435611F000E9;
-	Mon, 29 Jun 2026 15:17:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PF4HhT5N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 532681F000E9;
+	Mon, 29 Jun 2026 15:17:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782746241;
-	bh=QBd2swqnv63QuswfE0YfVh14by3uz3C66W7vLs0PN/o=;
+	s=k20260515; t=1782746264;
+	bh=gIGHcKYzuDzER8PpAwFARWA0X4WwazmdTre8Vql/Zt8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jQ0aBiqGsK1DJRJ6tRvxwdYKvctt9ev/2EM5vPw+JSuBVnxo4oibfZ/jrOLXngaNp
-	 mbmIuGTeSzCr8NJ5maD82SzHPGmsB6HDs0ckZNQS622mc8t6oYJbhNXwtCZ8Maxiqs
-	 ca5eNabjO8DphfTMBGJu8nYxrr5rxkeYsRtXKRwHb3dr6rXAICs5lPOpKwLZENUUSe
-	 RFHvTq5MJIvrcZRlNzMj7GFKcXM3/cBMs0YO0vrUXlcJe8TkjoQuQpE2N519PzOV6R
-	 Qgr9YdXqV81WLL/zY0xUbagSaIK7V1V3xGTeIakA5TBOhfMK/nZFLkwoN1UyNLk11G
-	 O0AkD/v4jDL+Q==
-Date: Mon, 29 Jun 2026 16:17:18 +0100
+	b=PF4HhT5NwMk7LWmT1kry9CbZXtpF65Fa8jSdGK6IdxwZX7dhf7/AZiwePV7ksGQPU
+	 TMa1NySiZo3pjBD2mDhvlxs2ujFYMsY+OA0yw2mZ9IN2Bqm87Lh7NUNDz6XZtRv8Pa
+	 +hXAXNOEhNwJF7F8UNff3AtfrhtCtcjXRhR8x5rwZ6HxhEHKyJ2+CwdMyyoHrcPQLj
+	 DcnsPg48DT/KD0dcyJhAsAhSaR8KjOeEAeHyhwIVHGDUJegBttMvim1AsdfjHge2Rx
+	 jJTV582Ha+yyvxnfmBpKEC4q2+CGYrdLFrH9Nz0q18mSURAnP+OCAl5cIY2F9r/Cyt
+	 MJTREeIIeqx4A==
+Date: Mon, 29 Jun 2026 16:17:40 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Dinh Nguyen <dinguyen@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	muhammad.nazim.amirul.nazle.asmade@altera.com
-Subject: Re: [PATCHv2 1/2] dt-bindings: net: altr,socfpga-stmmac: add more
- interrupts for Agilex5
-Message-ID: <20260629-applicant-expulsion-f4094fac3142@spud>
-References: <20260629114818.1746410-1-dinguyen@kernel.org>
+To: Jiqi Li <lijq9@lenovo.com>
+Cc: linux-tegra@vger.kernel.org, devicetree@vger.kernel.org,
+	robh+dt@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	jonathanh@nvidia.com, thierry.reding@gmail.com,
+	mpearson-lenovo@squebb.ca
+Subject: Re: [PATCH 1/2] dt-bindings: arm: tegra: Add lenovo,thinkedge-se70
+ compatible string
+Message-ID: <20260629-pug-hypertext-cb5ab3279e95@spud>
+References: <20260629111104.645771-1-lijq9@lenovo.com>
+ <20260629111104.645771-2-lijq9@lenovo.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,26 +45,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FHPI8YO7q+R+qDkf"
+	protocol="application/pgp-signature"; boundary="kFWmdZcdnPgoHGuw"
 Content-Disposition: inline
-In-Reply-To: <20260629114818.1746410-1-dinguyen@kernel.org>
+In-Reply-To: <20260629111104.645771-2-lijq9@lenovo.com>
 
---FHPI8YO7q+R+qDkf
+--kFWmdZcdnPgoHGuw
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---FHPI8YO7q+R+qDkf
+--kFWmdZcdnPgoHGuw
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakKMfgAKCRB4tDGHoIJi
-0hcAAP9kEYpe6JdKGvAd7J+nMUswpxenFh7GiWNkm6J6ITyv8gEA7gOMoMAXDVxE
-UTMOTGKU6X4PNDmaYs5JTxwhk3+J7QQ=
-=4N9f
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakKMlAAKCRB4tDGHoIJi
+0rX3AQDTd9JLkwCwf4y+iV0TGv3DVrHTkcZs9Todx+wFXNpDAAD+JnC/PImxSN10
+hVHnIU9RxVjsdoUDmzyE6HcTWgLT7Qw=
+=rdZf
 -----END PGP SIGNATURE-----
 
---FHPI8YO7q+R+qDkf--
+--kFWmdZcdnPgoHGuw--
