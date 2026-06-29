@@ -1,201 +1,351 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757763C988D;
-	Mon, 29 Jun 2026 07:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9BE3C8C72;
+	Mon, 29 Jun 2026 07:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782717676; cv=none; b=WSsHZHqUm1NK/tFWnPnHfcFUqDcRYAKSghKhJSWBUuTyS20EthHhfEiW3/zQqFXu0JKTSX5NRQZmZ3rmjKY3Ki3L36FSQ3H/M7OHTvge2TCHP+9EPI1LIOzRnlhZm6OcifeSKDgNVFErPm1f2BY8xsU/Z30MS4s26PQoL8BGBEU=
+	t=1782717702; cv=none; b=RUhQt3B1DvF+0k1d/aFyAVEdDSgHIRedDmnxTx05VEkh0gN9HHSngJLXfP7F4EG7aUsXdyZbIDc3/xIJRSy4i09YatI1nwDALThKxHvHjBcAcc0K48AGXX3gzhBP8YMrmJtVJkcxZse4Zkrkxp0WB3eRwKeh9SsXF/safa0kQf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782717676; c=relaxed/simple;
-	bh=5FlcyVDERtTSpIlODKLyVsLFJ7RaBMhfiwTqJFbHglc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XyO5RlnVM+AnCEi6ZUO9XrtNXSIu97XIw4+7CBJPH0MK9x3SFLux6m3kvSuIExTcNaMuv/8Y/9Ub6Ja6d/SPhGof8sxgxFt8VeviX8e5S9bMc8GkWJqjNtL2Ye8o8SwMQO1p7gXBIor790i77WU3Kt+V0EMiSk7DycUlovicNBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T74VGgT+; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T74VGgT+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782717672; x=1814253672;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5FlcyVDERtTSpIlODKLyVsLFJ7RaBMhfiwTqJFbHglc=;
-  b=T74VGgT+yLcf/IzQmvEQQWJYSSzyfwVAYgH7/UcowwYgngZbafelvykR
-   xi2j9bvWE/Fn/iY+vj9JgkEgDRD/9XU0yY1+tWMmeuYLTATjGPBiUfvU9
-   ziafuOV/jPNhL2v+xOGLHwHqS/LW9rbd9rv2888ziIIGObQg9v3BawLWh
-   5EYk1WYY+MovM03YxyGWso78gAmfz7nHWryMmKMkZONLisnomf5cugEAI
-   8r/4+2prnKAGStMU/kcMep6f/VNt63CWQvxHI1O1iAwMDID7+R7+7cRmD
-   p6lLLsIbp/Gc0W9h7YEDNCoKHuXcsXi89Jr3ExzAjxwMr9BLuYrRKlU/c
-   g==;
-X-CSE-ConnectionGUID: cmm6rKRCTQWluoe/eRuCzw==
-X-CSE-MsgGUID: 9+xq1D8eQNaO38TWv6WaOQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="87307281"
-X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
-   d="scan'208";a="87307281"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 00:21:11 -0700
-X-CSE-ConnectionGUID: xFQf5RpMT/eTxhi2+wpCag==
-X-CSE-MsgGUID: iNmOiPZISX2EkaMxk6j4FA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
-   d="scan'208";a="248515550"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.207])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 00:21:08 -0700
-Date: Mon, 29 Jun 2026 10:21:06 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
-	dlechner@baylibre.com, jic23@kernel.org,
-	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
-	krzk+dt@kernel.org, robh@kernel.org,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V15 5/9] iio: imu: inv_icm42607: Add PM support for
- icm42607
-Message-ID: <akIc4vF06qtmIHFO@ashevche-desk.local>
-References: <20260626161230.93069-1-macroalpha82@gmail.com>
- <20260626161230.93069-6-macroalpha82@gmail.com>
+	s=arc-20240116; t=1782717702; c=relaxed/simple;
+	bh=pYOxRjR3efAewFrrG/jNz9lLg8zP6RTv+PjCyJqZDUU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=T314UO9CImxgA1IThRDLzoXYSighNDD9PTTGAuNETsF9KrjonDth2stcrS7o6P8U0poz7akqzf0C9Cy0FiewNJVvkfnG1w1ej0LXoHagI1pfd1sxwqz8ZtKJbCCsQ7nObKBg24Gt6CRlX8yYLQ+FL8hsxXqpq2uOfsEYMxNUfro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC5C31F000E9;
+	Mon, 29 Jun 2026 07:21:38 +0000 (UTC)
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v26 5/7] firmware: drivers: imx: adds miscdev
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
+In-Reply-To: <20260629-imx-se-if-v26-5-146446285744@nxp.com>
+References: <20260629-imx-se-if-v26-0-146446285744@nxp.com>
+ <20260629-imx-se-if-v26-5-146446285744@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 07:21:34 +0000
+Message-Id: <20260629072138.EC5C31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260626161230.93069-6-macroalpha82@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Jun 26, 2026 at 11:12:26AM -0500, Chris Morgan wrote:
+Thank you for your contribution! Sashiko AI review found 13 potential issue=
+(s) to consider:
 
-> Add power management support for the ICM42607 device driver.
+New issues:
+- [Critical] The allocated DMA address for the encrypted `imem` buffer is d=
+iscarded, causing firmware to corrupt physical address 0x0.
+- [High] Command receiver device contexts bypass the response timeout, caus=
+ing indefinite hangs on firmware communication.
+- [High] `dlink_dev_ctx()` frees the command receiver's `rx_msg` without ho=
+lding the required synchronization lock.
+- [High] Missing `kref_init()` in `init_device_context()` causes the file c=
+ontext to be permanently leaked upon close.
+- [High] Unbinding the device or removing the module hangs indefinitely if =
+a userspace thread is blocked in `read()`.
+- [High] DMA memory is freed when a file descriptor is closed, even if the =
+firmware is still actively processing a timed-out transaction using that me=
+mory.
+- [High] Concurrent ioctls can cause multiple firmware authentications due =
+to an unprotected state variable.
+- [High] Kernel pointer leakage to userspace due to struct type confusion i=
+n `get_se_soc_id()`.
+- [High] Early return upon mailbox send failure leaves a dangling pointer i=
+n the shared response waiter state, leading to a Use-After-Free in the RX i=
+nterrupt handler.
+- [High] Invalid use of `dma_to_phys()` on a DMA address returned by `dma_a=
+lloc_coherent()`.
+- [Medium] UAPI ioctl structures use variable-sized types and pointers, bre=
+aking 32-bit userspace compatibility.
+- [Medium] Unbounded user-provided size is passed to memdup_user(), allowin=
+g potential kernel warnings and memory exhaustion.
 
-...
+Pre-existing issues:
+- [High] Misdirected signal handling in `ele_msg_rcv()` corrupts another th=
+read's state and traps daemon read threads in an uninterruptible wait.
+--
 
-> +/*
-> + * Suspend delay assumed from other icm42600 series device, not
-> + * documented in datasheet.
-> + */
-> +#define INV_ICM42607_SUSPEND_DELAY_MS			2000
+commit 17a7df5c75595fcf60d2885ef3d90c709156c8d3
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+Subject: firmware: drivers: imx: adds miscdev
 
-Perhaps (2 * MSEC_PER_SEC) ?
+This commit adds a miscdev character driver for communicating with NXP
+secure enclaves (like EdgeLock). It provides ioctls for shared memory
+management, command exchange from userspace, and firmware loading lifecycle
+management.
 
-...
+> diff --git a/include/uapi/linux/se_ioctl.h b/include/uapi/linux/se_ioctl.h
+> --- /dev/null
+> +++ b/include/uapi/linux/se_ioctl.h
+> @@ -0,0 +1,97 @@
+[ ... ]
+> +struct se_ioctl_setup_iobuf {
+> +	void __user *user_buf;
+> +	__u32 length;
+> +	__u32 flags;
+> +	__u64 ele_addr;
+> +};
 
-> +static int inv_icm42607_set_pwr_mgmt0(struct inv_icm42607_state *st,
-> +				      enum inv_icm42607_sensor_mode gyro,
-> +				      enum inv_icm42607_sensor_mode accel)
+[Severity: Medium]
+Does this struct break 32-bit userspace compatibility on 64-bit kernels?
+
+Using pointer types like void __user * changes the struct size between
+architectures. Since the ioctl uses _IOWR which encodes the size, a 32-bit
+process will have a mismatched size.
+
+> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
+_common.c
+> --- a/drivers/firmware/imx/ele_common.c
+> +++ b/drivers/firmware/imx/ele_common.c
+[ ... ]
+> +	if (dev_ctx->priv->cmd_receiver_clbk_hdl.dev_ctx !=3D dev_ctx) {
+> +		is_rsp_wait_with_timeout =3D true;
+> +		timeout_jiffies =3D msecs_to_jiffies(dev_ctx->priv->se_rcv_msg_timeout=
+_ms);
+> +		deadline_jiffies =3D jiffies + timeout_jiffies;
+> +	}
+>  	do {
+> +		if (is_rsp_wait_with_timeout) {
+
+[Severity: High]
+Does this logic correctly identify the wait context?
+
+It disables the timeout based on the file descriptor's identity as a command
+receiver rather than the type of wait being performed. If the daemon issues
+a synchronous command via SE_IOCTL_CMD_SEND_RCV_RSP, it will use
+MAX_SCHEDULE_TIMEOUT and could hang indefinitely if the firmware drops a
+response.
+
+[ ... ]
+> +		if (ret =3D=3D -ERESTARTSYS) {
+[ ... ]
+> +			if (dev_ctx->priv->waiting_rsp_clbk_hdl.dev_ctx) {
+> +				dev_ctx->priv->waiting_rsp_clbk_hdl.signal_rcvd =3D true;
+> +				wait_uninterruptible =3D true;
+> +				continue;
+> +			}
+
+[Severity: High]
+This is a pre-existing issue, but does this signal handling code modify the
+wrong thread's state?
+
+When the daemon receives a signal, the hardcoded check against
+priv->waiting_rsp_clbk_hdl could corrupt another concurrently waiting
+thread's state. Would this force the daemon read thread into an infinite
+wait_uninterruptible loop?
+
+> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
+l.c
+> --- a/drivers/firmware/imx/se_ctrl.c
+> +++ b/drivers/firmware/imx/se_ctrl.c
+[ ... ]
+> +static u32 get_se_soc_id(struct se_if_priv *priv)
 > +{
-> +	unsigned int oldaccel, oldgyro;
-
-> +	unsigned int sleepval_us = 0;
-
-It's discouraged to have assignment here, as it's too far from the actual use
-and makes code harder to maintain and prone to subtle errors. See also below.
-
-> +	unsigned int val;
-> +	s64 disable_wait;
-> +	int ret;
+> +	const struct se_soc_info *se_info =3D device_get_match_data(priv->dev);
 > +
-> +	ret = regmap_read(st->map, INV_ICM42607_REG_PWR_MGMT0, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	oldaccel = FIELD_GET(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, val);
-> +	oldgyro = FIELD_GET(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, val);
-> +
-> +	if (gyro == oldgyro && accel == oldaccel)
-> +		return 0;
-> +
-> +	/*
-> +	 * Datasheet on page 14.26 says we need to ensure the gyro sensor is on
-> +	 * for a minimum of 45ms. So if we transition from an on state to an
-> +	 * off state make sure at least 45ms have passed before power off and
-> +	 * wait if it hasn't.
-> +	 */
-> +	if (!gyro && oldgyro) {
-> +		disable_wait = ktime_us_delta(st->conf.gyro_stop,
-> +					      ktime_get());
-
-It's perfectly a single line.
-
-		disable_wait = ktime_us_delta(st->conf.gyro_stop, ktime_get());
-
-> +		disable_wait = clamp(disable_wait, 0,
-> +				     INV_ICM42607_GYRO_STOP_TIME_US);
-
-I would leave on a single line, or split logically, meaning moving 0 to the
-next line:
-
-		disable_wait = clamp(disable_wait,
-				     0, INV_ICM42607_GYRO_STOP_TIME_US);
-
-> +		fsleep(disable_wait);
-> +	}
-
-> +	val = FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, gyro);
-> +	val |= FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, accel);
-
-
-Perhaps
-
-	val = FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, gyro) |
-	      FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, accel);
-
-which is slightly better to read in my opinion.
-
-> +	ret = regmap_write(st->map, INV_ICM42607_REG_PWR_MGMT0, val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * If a state change occurs from off to on, sleep for the startup
-> +	 * time of the sensor, unless a sleep_ms is specified. Since more
-> +	 * than one sensor can be transitioned from off to on, select the
-> +	 * maximum time from each of the sensors changing from off to on.
-> +	 * The startup time for the temp sensor is considerably smaller
-> +	 * than the startup time for the other sensors and one or more are
-> +	 * required to be on for the temp sensor to function, so any start
-> +	 * delay should be enough.
-> +	 */
-
-	sleepval_us = 0;
-
-> +	if (accel && !oldaccel)
-> +		sleepval_us = max(sleepval_us, INV_ICM42607_ACCEL_STARTUP_TIME_US);
-> +
-> +	if (gyro && !oldgyro) {
-> +		sleepval_us = max(sleepval_us, INV_ICM42607_GYRO_STARTUP_TIME_US);
-> +		/* Track the earliest we can turn off the gyroscope. */
-> +		st->conf.gyro_stop = ktime_add_us(ktime_get(),
-> +						  INV_ICM42607_GYRO_STOP_TIME_US);
-> +	}
-> +
-> +	fsleep(sleepval_us);
-
-The problem is that the reaction to 0 is a gray area. Some architecture
-implementations might even complain on that.
-
-On x86, for instance, udelay(0) actually does some (supposed to be small) delay.
-
-But I think due to above check for gyro == oldgyro && accel == oldaccel this
-won't happen. Please, add a comment on top of fsleep().
-
-> +	return 0;
+> +	return se_info->soc_id;
 > +}
 
-...
+[Severity: High]
+Does this cause a struct type confusion that leaks kernel pointers to
+userspace?
 
-> +	dev_set_drvdata(dev, st);
+device_get_match_data() returns a pointer to struct se_if_node *, but this
+code mistakenly casts it to struct se_soc_info *. Reading se_info->soc_id
+will extract bits from the first member of struct se_if_node, which is a
+kernel pointer.
 
-This will require device.h to be included and hence the rest related headers
-can be dropped at the same time (like dev_printk.h).
+These bits are then exposed to userspace by the SE_IOCTL_GET_SOC_INFO ioctl.
 
--- 
-With Best Regards,
-Andy Shevchenko
+[ ... ]
+> +static int load_firmware(struct se_if_priv *priv, const u8 *se_img_file_=
+to_load)
+> +{
+[ ... ]
+> +	se_fw_buf =3D dma_alloc_coherent(priv->dev, fw->size, &se_fw_dma_addr, =
+GFP_KERNEL);
+[ ... ]
+> +	se_fw_phyaddr =3D dma_to_phys(priv->dev, se_fw_dma_addr);
+> +	ret =3D ele_fw_authenticate(priv, se_fw_phyaddr, se_fw_phyaddr);
 
+[Severity: High]
+Is it safe to use dma_to_phys() on an address returned by
+dma_alloc_coherent()?
 
+dma_alloc_coherent() returns a DMA address (IOVA on systems with an IOMMU),
+and dma_to_phys() cannot reverse an IOMMU mapping. This will result in a
+garbage physical address being passed to the firmware for authentication.
+
+[ ... ]
+> +static int se_load_firmware(struct se_if_priv *priv)
+> +{
+> +	struct se_fw_load_info *load_fw =3D get_load_fw_instance(priv);
+> +	int ret =3D 0;
+> +
+> +	if (!load_fw->is_fw_tobe_loaded)
+> +		return 0;
+
+[Severity: High]
+Is the load_fw->is_fw_tobe_loaded initialization state safe from race
+conditions?
+
+It is checked and modified here without global locking. Could concurrent
+ioctls on different file descriptors bypass the boolean check
+simultaneously, leading to duplicate memory allocations and multiple
+conflicting firmware authentication commands?
+
+[ ... ]
+> +static void cleanup_se_shared_mem(struct se_if_device_ctx *dev_ctx)
+> +{
+[ ... ]
+> +	/* Free non-secure shared buffer. */
+> +	dma_free_coherent(priv->dev, MAX_DATA_SIZE_PER_USER,
+> +			  se_shared_mem_mgmt->non_secure_mem.ptr,
+> +			  se_shared_mem_mgmt->non_secure_mem.dma_addr);
+
+[Severity: High]
+If a synchronous command sent via SE_IOCTL_CMD_SEND_RCV_RSP times out, the
+background firmware operation is not canceled.
+
+When userspace closes the file descriptor, these coherent DMA buffers are
+freed. Will the firmware eventually write its response to the freed address,
+causing kernel memory corruption?
+
+[ ... ]
+> +static void dlink_dev_ctx(struct se_if_device_ctx *dev_ctx)
+> +{
+[ ... ]
+> +	if (priv->cmd_receiver_clbk_hdl.dev_ctx =3D=3D dev_ctx) {
+> +		kfree(priv->cmd_receiver_clbk_hdl.rx_msg);
+> +		priv->cmd_receiver_clbk_hdl.rx_msg =3D NULL;
+> +		priv->cmd_receiver_clbk_hdl.dev_ctx =3D NULL;
+> +	}
+
+[Severity: High]
+Can this result in a use-after-free and data race?
+
+This frees the command receiver's rx_msg without acquiring the clbk_rx_lock.
+Concurrently, the mailbox interrupt handler se_if_rx_callback() could
+acquire the lock, observe a non-null pointer, and copy incoming firmware
+data into the freed memory.
+
+[ ... ]
+> +static void cleanup_dev_ctx(struct se_if_device_ctx *dev_ctx, bool is_fc=
+lose)
+> +{
+> +	scoped_guard(mutex, &dev_ctx->fops_lock) {
+
+[Severity: High]
+Can this cause a deadlock during device unbind or module removal?
+
+If a userspace daemon is blocked indefinitely in read() holding the
+dev_ctx->fops_lock, the teardown path unconditionally attempts to acquire t=
+he
+same fops_lock here and will hang indefinitely.
+
+[ ... ]
+> +static int init_device_context(struct se_if_priv *priv, int ch_id,
+> +			       struct se_if_device_ctx **new_dev_ctx)
+> +{
+> +	struct se_if_device_ctx *dev_ctx;
+> +	int ret =3D 0;
+> +
+> +	dev_ctx =3D kzalloc_obj(*dev_ctx, GFP_KERNEL);
+[ ... ]
+> +	mutex_init(&dev_ctx->fops_lock);
+> +	dev_ctx->priv =3D priv;
+> +	dev_ctx->cleanup_done =3D false;
+> +	INIT_LIST_HEAD(&dev_ctx->link);
+> +	*new_dev_ctx =3D dev_ctx;
+
+[Severity: High]
+Should this allocation include a call to kref_init(&dev_ctx->refcount)?
+
+Without initialization, the refcount remains at 0. When close() is called,
+kref_put() will fail, bypassing the se_if_dev_ctx_release callback and
+permanently leaking the file context.
+
+[ ... ]
+> +static int se_ioctl_cmd_snd_rcv_rsp_handler(struct se_if_device_ctx *dev=
+_ctx,
+> +					    void __user *uarg)
+> +{
+[ ... ]
+> +	struct se_api_msg *tx_msg __free(kfree) =3D
+> +		memdup_user(cmd_snd_rcv_rsp_info.tx_buf,
+> +			    cmd_snd_rcv_rsp_info.tx_buf_sz);
+
+[Severity: Medium]
+Is the tx_buf_sz parameter validated against an upper bound before calling
+memdup_user()?
+
+If a user process passes an extremely large value, could this lead to a
+local denial of service via memory exhaustion or warning spam?
+
+[ ... ]
+> +	err =3D ele_msg_send_rcv(dev_ctx, tx_msg, cmd_snd_rcv_rsp_info.tx_buf_s=
+z,
+> +			       rx_msg, cmd_snd_rcv_rsp_info.rx_buf_sz);
+
+[Severity: High]
+If ele_msg_send() fails internally within ele_msg_send_rcv(), does it leave
+a dangling pointer?
+
+If ele_msg_send_rcv() returns early on error, it does not reset the shared
+priv->waiting_rsp_clbk_hdl.rx_msg pointer to NULL. The caller then frees the
+buffer, and a late firmware response handled by se_if_rx_callback() will
+trigger a use-after-free when copying into the freed memory.
+
+[ ... ]
+> +static ssize_t se_if_fops_write(struct file *fp, const char __user *buf,
+> +				size_t size, loff_t *ppos)
+> +{
+[ ... ]
+> +		struct se_api_msg *tx_msg __free(kfree) =3D memdup_user(buf, size);
+
+[Severity: Medium]
+Is the size parameter validated against an upper bound before calling
+memdup_user() here?
+
+[ ... ]
+> +static const struct file_operations se_if_fops =3D {
+> +	.open		=3D se_if_fops_open,
+> +	.owner		=3D THIS_MODULE,
+> +	.release	=3D se_if_fops_close,
+> +	.unlocked_ioctl =3D se_ioctl,
+> +	.read		=3D se_if_fops_read,
+> +	.write		=3D se_if_fops_write,
+> +};
+
+[Severity: Medium]
+Is a .compat_ioctl handler missing here?
+
+Because the ioctl structures use pointer types, a translation handler is
+required to support 32-bit userspace binaries.
+
+[ ... ]
+> +static int se_if_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +		if (load_fw->se_fw_img_nm->prim_fw_nm_in_rfs) {
+> +			/* allocate buffer where SE store encrypted IMEM */
+> +			imem_dma_addr =3D phys_to_dma(priv->dev, load_fw->imem.phyaddr);
+> +			load_fw->imem.buf =3D dmam_alloc_coherent(priv->dev, ELE_IMEM_SIZE,
+> +								&imem_dma_addr, GFP_KERNEL);
+
+[Severity: Critical]
+Does this discard the DMA address allocated by dmam_alloc_coherent()?
+
+The function returns the IOVA in the local stack variable imem_dma_addr, but
+this address is never saved back to load_fw->imem.phyaddr, leaving it at 0.
+
+The firmware might then be instructed to use physical address 0, destroying
+data at page 0. This will also cause the cleanup path to pass 0 to
+dmam_free_coherent().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-imx-se-if-=
+v26-0-146446285744@nxp.com?part=3D5
