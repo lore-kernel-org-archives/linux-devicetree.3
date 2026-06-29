@@ -1,119 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492922D8378
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 09:46:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8354915746F
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 09:46:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782726380; cv=none; b=YSpOFJzLo9z3CODAz0dJ1k3brm3hb1CC9qnHsRxLcXqhUVFI3QHXy+K2dpLe/6Cx9bdE1dfvNe1+HctZlvDiVXEV/Hrh2dUOYcwp8NLmV9UyNrh8mfzhj1V4jOZi79HKXzgTtQj583JhyDChp/D2idhOBSaWgrMsZ2acGyhgio8=
+	t=1782726397; cv=none; b=iMbGXxphoT0Kut8dKH4wwgvMyHk/6TJUU2lVRPvKMFadW3Qc76AP/StFRlZmt776T+Mhw3FbFcrKRkw/KRFdwKAw+ny8HpweO5I2YdxOJu+kLLqih+V9F1vxIPRFwmddzCXKHRpRVJhPHQD1T7pLZM5chlYucPZYMqDo+AbR8Jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782726380; c=relaxed/simple;
-	bh=VUJY0F6TEfvmEj7MhniAxOzSwvm6T9J5HPtogoNxxAs=;
+	s=arc-20240116; t=1782726397; c=relaxed/simple;
+	bh=LYTJC+vPGauKEpp4o54N5cxjuIvuLt2BeVICg5U8E5U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BpOLVI8DqDZ4p1GRVyce+dv7xpbCP/mjjzjOfmaGd5BDMTL7gtflNE+7pCSPOowCBG5DLp/iUhDRYi96aSj3BvVEGx/Am1LHzOFZnGKUVe8WIZmpYM8REurdDMLvd8fiRBPQrAr6QE2TZspuKsU0gv1VOn8oD+tlFTlg5QWT6kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VnbyMC97; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=CRceUqCvJUHlli1ywayekunECs49ikuJ7+C/Y30JHKVAYPqpNIIlLklSW3zvAeEcVhow3YawjOKzw/kCSvUXowIZoyBV44bgDPZUXk/nsjHTpZ0Y8sK8diudIe6Snb8Vi7kZRpCn7bSfpD7iTJK9Jq77JjTPGHq0/0MreUsTTY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CI6Jp7BB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VnbyMC97"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346761F000E9;
-	Mon, 29 Jun 2026 09:46:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CI6Jp7BB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2C7C1F000E9;
+	Mon, 29 Jun 2026 09:46:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782726378;
-	bh=/qZVJxS1xQI1ZixOWHXjPSV0uCJAmkBjvOvupXcfOT0=;
+	s=k20260515; t=1782726396;
+	bh=vTfaRO0O+EoSSgx3wjKo0Drw4ZNRS7c0IZDEV4C2oW8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VnbyMC97iiQkdkMMu4WNeYpUDPsCFGe3tEXqVsEjNTf7dGn7RtgoRPRgvgivrJYTd
-	 8Q9JymjfduVp/VnaDmlEGLOCuuTQEAUA/cA5HfsiiQPq4bDW6nOEXRcsp9f7vxME6O
-	 rGe8yjQ3i89dMXIkLeb7r8KLeD2Aw0FXkeNBqtbepoCXAZov8/LB+0QEw9TnOeqSOL
-	 PbMvkJCRdEiZtjHsREPbls8L9czqxJ1/PsRwv4JYbp5w9PFKcKlF2Ne77EqkmW5uN/
-	 dwNrxhdIw4pj4ZwbwRgeBSEtc4igPxLYuqGmSjjaMYH39917wtTpOUFTMG591TIBjA
-	 lAvJKHfwl1W+g==
+	b=CI6Jp7BBoh2pKc71ItdrOaspn8n+otgS2RoZqhqOVkVKVjRP9ZVFEX4ypwltESm73
+	 SXValJYPV+7qdHZkBhg1T4n4Z3GpHaqOCVBeXlucdyRy8DVV4UjNgQPgO8ffXwDa1K
+	 ko77fuLgsnFJ5PM4O75VD1JiYtG99ykqH5u8nRl2AoRA+FXNZBPxP97uJmahvO+Ypi
+	 VUuJZdBCyDKWg2lxyO/aa77nduqXACXoTFGHXecun9d2m2//A+vk3Q6NYzo6L6qV90
+	 4YUZ6OwfFO61FK0M40DZSeAYfuhVjk6n7AfkrCRu1bHalkETZR3oYM8vDRmaHbEk6c
+	 02SdeW9nU1WGg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/4] reset: cix: add sky1 audss auxiliary reset
- driver
+Subject: Re: [PATCH 4/8] phy: tegra: xusb: Use devm_clk_get_optional to
+ fetch USB2 tracking clock
 Reply-To: sashiko-reviews@lists.linux.dev
-To: joakim.zhang@cixtech.com
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260629091500.52540-4-joakim.zhang@cixtech.com>
-References: <20260629091500.52540-1-joakim.zhang@cixtech.com>
- <20260629091500.52540-4-joakim.zhang@cixtech.com>
+To: "Wayne Chang" <waynec@nvidia.com>
+Cc: neil.armstrong@linaro.org, linux-phy@lists.infradead.org, vkoul@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260629093406.1118594-5-waynec@nvidia.com>
+References: <20260629093406.1118594-1-waynec@nvidia.com>
+ <20260629093406.1118594-5-waynec@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 09:46:17 +0000
-Message-Id: <20260629094618.346761F000E9@smtp.kernel.org>
+Date: Mon, 29 Jun 2026 09:46:35 +0000
+Message-Id: <20260629094635.B2C7C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Missing PM runtime management causes system hangs or failures when=
- accessing reset registers while the parent CRU is suspended.
+
+Pre-existing issues:
+- [High] Double free of pad allocations on `tegra_xusb_pad_init()` failure =
+due to incorrect device cleanup.
+- [High] Kernel panic due to NULL pointer dereference in `tegra_xusb_port_r=
+elease()` when port initialization fails.
 --
 
-commit 9e37ffe1b0a7e10201a5f5d87d450b05d374b858
-Author: Joakim Zhang <joakim.zhang@cixtech.com>
+commit 9a7eb66c6206c1b8eab420ee00c7a1d273a708fe
+Author: Sing-Han Chen <singhanc@nvidia.com>
+Subject: phy: tegra: xusb: Use devm_clk_get_optional to fetch USB2 tracking=
+ clock
 
-reset: cix: add sky1 audss auxiliary reset driver
+This patch switches the USB2 tracking clock retrieval to use
+devm_clk_get_optional. This allows the probe sequence to proceed safely
+when the clock is omitted from the devicetree.
 
-This commit adds an auxiliary reset controller driver for the AUDSS CRU. It
-manages sixteen software reset lines for audio subsystem peripherals via a
-single register in the CRU register map.
+> diff --git a/drivers/phy/tegra/xusb-tegra186.c b/drivers/phy/tegra/xusb-t=
+egra186.c
+> index 60156aea27071..800be0cbb3f9f 100644
+> --- a/drivers/phy/tegra/xusb-tegra186.c
+> +++ b/drivers/phy/tegra/xusb-tegra186.c
+> @@ -1045,7 +1045,7 @@ tegra186_usb2_pad_probe(struct tegra_xusb_padctl *p=
+adctl,
+>  		goto out;
+>  	}
 
-> diff --git a/drivers/reset/reset-sky1-audss.c b/drivers/reset/reset-sky1-=
-audss.c
-> new file mode 100644
-> index 0000000000000..d31d80e1251a8
-> --- /dev/null
-> +++ b/drivers/reset/reset-sky1-audss.c
+[Severity: High]
+This isn't a bug introduced by this patch, but does the error path for
+tegra_xusb_pad_init() just above this change cause a double free?
+
+Looking at tegra186_usb2_pad_probe(), if tegra_xusb_pad_init() fails, it
+calls kfree(usb2).
+
+However, inside tegra_xusb_pad_init(), an error causes it to jump to the
+unregister label and call device_unregister(&pad->dev). This drops the
+device reference and invokes the release callback tegra_xusb_pad_release(),
+which frees the pad object.
+
+When tegra_xusb_pad_init() returns the error back to the probe function, the
+explicit kfree(usb2) is executed. Could this lead to memory corruption when
+initialization fails?
+
+> =20
+> -	priv->usb2_trk_clk =3D devm_clk_get(&pad->dev, "trk");
+> +	priv->usb2_trk_clk =3D devm_clk_get_optional(&pad->dev, "trk");
+>  	if (IS_ERR(priv->usb2_trk_clk)) {
+>  		err =3D PTR_ERR(priv->usb2_trk_clk);
+>  		dev_dbg(&pad->dev, "failed to get usb2 trk clock: %d\n", err);
 
 [ ... ]
 
-> +static int sky1_audss_reset_set(struct reset_controller_dev *rcdev,
-> +				unsigned long id, bool assert)
-> +{
-> +	struct sky1_audss_reset *priv =3D to_sky1_audss_reset(rcdev);
-> +	const struct sky1_audss_reset_map *signal =3D &priv->map[id];
-> +	unsigned int value =3D assert ? 0 : signal->mask;
-> +
-> +	return regmap_update_bits(priv->regmap, signal->offset, signal->mask, v=
-alue);
-
 [Severity: High]
-Can this cause a synchronous external abort or bus hang if the parent CRU is
-currently suspended?
+This is another pre-existing issue in a related file, but does
+tegra_xusb_port_release() trigger a NULL pointer dereference on
+initialization failure?
 
-It appears sky1_audss_reset_set() accesses the parent's regmap without
-acquiring a PM runtime reference to ensure the CRU is awake. If a consumer
-device calls reset_control_assert() or reset_control_deassert() while the
-CRU is in runtime suspend, this MMIO access will hit a powered-down block.
+In drivers/phy/tegra/xusb.c:tegra_xusb_add_usb2_port(), the port is
+allocated via kzalloc() and then initialized:
 
-> +}
+    err =3D tegra_xusb_port_init(&usb2->base, padctl, np, "usb2", index);
+    if (err < 0)
+        goto out;
 
-[ ... ]
+    usb2->base.ops =3D padctl->soc->ports.usb2.ops;
 
-> +static int sky1_audss_reset_deassert(struct reset_controller_dev *rcdev,
-> +				     unsigned long id)
-> +{
-> +	int ret;
-> +
-> +	ret =3D sky1_audss_reset_set(rcdev, id, false);
+Notice that the ops pointer is assigned after initialization completes.
 
-[Severity: High]
-Because the driver does not keep a PM runtime reference while the line is
-deasserted, could the parent CRU suspend and lose the deasserted state?
+If tegra_xusb_port_init() fails, it drops the device refcount and calls
+tegra_xusb_port_release(). That release function attempts to evaluate the
+ops pointer:
 
-If a consumer deasserts its reset and then allows the subsystem to idle, the
-CRU could suspend. This would reset the block and silently lose the state of
-the AUDSS_SW_RST register when the CRU wakes back up.
+    if (port->ops->release)
+        port->ops->release(port);
 
-> +	if (ret)
-> +		return ret;
-> +
-> +	usleep_range(SKY1_RESET_SLEEP_MIN_US, SKY1_RESET_SLEEP_MAX_US);
-> +	return 0;
-> +}
+Since port->ops is not yet assigned during the init error path, it will
+still be NULL from the kzalloc() allocation. Could this cause a panic when
+initialization fails?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629091500.5254=
-0-1-joakim.zhang@cixtech.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629093406.1118=
+594-1-waynec@nvidia.com?part=3D4
