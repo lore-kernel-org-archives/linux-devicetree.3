@@ -1,162 +1,277 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9D22F4A0C
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 05:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10022389DE8;
+	Mon, 29 Jun 2026 05:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782711043; cv=none; b=DtprJx8XhpYW5DaN87HXZjhcWLeyo6F6Yu3/mTtj2EtVV73gk8g8jvZB/n7mYKA9ENFSlypsUIw0ZFy278h+1iaodWkxHH2dGboJXg3yQyq1RcVUEwXBkuXHOuAVHDMb5ml8ljtjA2rJgV+V48NLzzxXHlZ8qugryVZftkcGfUU=
+	t=1782711125; cv=none; b=JB+mSvOiLRHpp2pptz0YRQqdVjPh1mnNXJUfG7WxuizgrwRKrcMHLAxeuw877OAgKKn5Et3aGz69p6sH/Lfa165fdul7XnpD5tRRllvoXS+7US5WiB/DDzLLgWOsXQXCd5/MS2smjEtHsNqI3hrF5nY9Onm4MCU+JITElJbK6mQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782711043; c=relaxed/simple;
-	bh=BTcamW8GZ/hEv32U2vrDgn88rzWxa9uG7P/MYxGEJOk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h5AeW1T0q6kJ8OdflqYuk8JnnoKRHbBU1vBPcU6SUpSF3fPISSMqSEGrWBesktcMnuf/NoCTRQQMC/xovS0H3Wcu7mzl6cg6J36X2FLLgjROmZXSO/PvBvTfnpUV/4GOhYEA0aAXG3BkLyYVSRh3RAEQ50I27l/LB7c6iVkwSzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WcAw7rjB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ADqX+CLm; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WcAw7rjB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ADqX+CLm"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65T4NIE61730029
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 05:30:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0iYaZQiVwCPWspFjX5KeDzhs18wLFh8Mq7dB7wCjTXs=; b=WcAw7rjBzEAhOcrk
-	tHuMPqSApmwqRNWRuxLpQkzhOaqq7fAq2x1bLM3scJD+t1zfm53DCzSzrdq5VzWs
-	IoSxs9C7mXZx0hjLYOb7OAf3eLTTOtoW31w9DOzm3hHrqjJ6eNfOMrFz+1qrVU2L
-	9kwg4wc0SgJAiDBC66Ue88gQJs0a1k9uPw21NH9/BODXwOp3vWBz3oQMTCmDECXP
-	6qhcDOJhxVEsJEbHDY0xEr2OAQVrIrsHE9lkTSSW5yy+7dcrlTrkJuuLH+4i++TH
-	ZdXTnxs2ZLTuUclffiV0WYlRbuj9hl4TKnX7KoYVlAwfxDKgGftXMntZpEMDkQrj
-	vBc+cw==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f27t7vh9b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 05:30:40 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8423f1fe39eso3244266b3a.1
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 22:30:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782711040; x=1783315840; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0iYaZQiVwCPWspFjX5KeDzhs18wLFh8Mq7dB7wCjTXs=;
-        b=ADqX+CLmIsqt2lge+Zf/NgXEioh4LGeOEuqugGYRF1cpjzuI2y4Hi7EwIPt4HvLcNs
-         YbTCg0rNZVJbf159ja4Cu1Q9LkHvAJ11HQBZ9AYGTj0ocH0lxxlANNqSWc3xqVS3LtFX
-         IZPYc/wRXDc3CcygBat2K2qxNMKg+RcWGFMOxwPh1irjOUqEVLzM4Mk0VTErHAqd5fjr
-         DkRM5F3NvPipeoViEpuj9glKqEYKaf1UyF4Cvmg3eGcAj04FNspn4cW1Tq2uIHeEfB4U
-         OPnSh3rfaeGqYplD8q207Km69TfsYCLf/dYYzWzX7GrfsizrrCU0p4AcHb4HI8YPuL4B
-         QKBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782711040; x=1783315840;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0iYaZQiVwCPWspFjX5KeDzhs18wLFh8Mq7dB7wCjTXs=;
-        b=c0Ahvl2DV+BSXPz2CdRzAWW6REqS7jiT21miNyjQGA3aNPdrOzFneokjo2xd7XlWNu
-         qiS734sOvOddqtoX83XvSGfTL0QOKZKING6ub5HpcNy4AlIAHPranJ0f1flq40VK2/3h
-         k+qRBj/n5qrziIu/FflrYCAPRqp86v5dP5uibjj6YbTVnVmn6kk97z6W0a2Ve+GrJt+V
-         1tOSc+9prL0IF3Xx2XbWbng18JblNrE02N5xgKwsMCY7ylW4DiKxaJ9Ttce+Hfw4S7Gl
-         5tL75JEsxA6vof1Hv47yiXTfjWCaz9DfEeCCdQlU/G4xNj0iQfbxRVYe3O5seEbCEJ3F
-         kzCw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro/cc4M10fz6Gx2kqDhSM4Jf3EOTda0RJhWpKgo7lm8AUprnHya7kWbwpMy69p03/0vpFTYCNvh2INH@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzu7sXQCcoRp0iPyAtECrvtaMEdqeAHWqQgNAB/WbyyOFtlZc/m
-	5TwSu/2uXJUHffgMtM+4HQXuS2bPGASK7/2a5jrCY/iggA4rXqsDjwuQfu/TTgazISiA6nj3Ap3
-	B9hU8YMJSjYDtJiOMkLTKXOF2bTd2gVFAb8yvuwSYqPtij9pT4Wdy1kcsmrq+weM5NNBiz3rI
-X-Gm-Gg: AfdE7cnt3I/NZva493aUe7GG4oiELdwx/s8Lf1ruZ2aFsKfMZY46wAXfMtPUPJw9fdV
-	lNaz2NoP8bnZFHogpt0JjPc6gu8luHWkjM5FtAiM4nnVEtPq+RN6u+/vt1CuD4TcC+oa4CGuXuK
-	CBC7XmPsbBUMSnr2wvi1IDLatSSY4yy+VM6HDLNVuN3rcBMB13fnUDupk6sfqMXI1FMxahEmsHz
-	J+Gu+OlqlOznP4tiBIgPa2aYJKNgaoctFqBmZaNDMf9f6/pOrB+1CLJN+AvBOtahxFpZoGat24t
-	c1ZmZERQ8hRV5x3FTWMyznmUDEE95l/9wmN9Hi/04JbslbLEO0ZDqBVcoNzWl2mqcbMdn8KTWel
-	hnfEB4K/iC2CEbQKOAq4GxHEccEBcY04YD4jm0Ffrp0Y/YuqFnQ==
-X-Received: by 2002:a05:6a00:988:b0:845:4d71:8d15 with SMTP id d2e1a72fcca58-845b3b88d14mr16313666b3a.37.1782711040399;
-        Sun, 28 Jun 2026 22:30:40 -0700 (PDT)
-X-Received: by 2002:a05:6a00:988:b0:845:4d71:8d15 with SMTP id d2e1a72fcca58-845b3b88d14mr16313645b3a.37.1782711040031;
-        Sun, 28 Jun 2026 22:30:40 -0700 (PDT)
-Received: from [10.218.21.154] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847864a5775sm1017254b3a.48.2026.06.28.22.30.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 28 Jun 2026 22:30:39 -0700 (PDT)
-Message-ID: <03f6c057-2d67-4292-84ab-566565ee4a20@oss.qualcomm.com>
-Date: Mon, 29 Jun 2026 11:00:34 +0530
+	s=arc-20240116; t=1782711125; c=relaxed/simple;
+	bh=B8jBVRrAilY147UoMA1kmSEcJfkXMKy3BW9dVE6ORY0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=e7FcNHn6y7iKhviCdxZ0Bcm0rFxoY7G2YVA/7pERIA9A2yhczfBKY9z9gNEJAPBrMCkH0Txe3c8C4TkWwQT++YHC3gqiSzXYwlet3TAL53JC3IEQ0CgBkRkw8TG4P0XUGlcCqPbiaC0grS1b7BE+IO2Z6sN1sfYcNWTQLxzXI78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.182])
+	by APP-05 (Coremail) with SMTP id zQCowABXrdBCA0JqknDpFQ--.43857S2;
+	Mon, 29 Jun 2026 13:31:47 +0800 (CST)
+Message-ID: <80ae28925a67b7bee3b8873db3c113111437e717.camel@iscas.ac.cn>
+Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
+ for single-output variants
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, Conor Dooley
+ <conor.dooley@microchip.com>
+Cc: Conor Dooley <conor@kernel.org>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ ychuang3@nuvoton.com, 	schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, 	devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org
+Date: Mon, 29 Jun 2026 13:31:46 +0800
+In-Reply-To: <b3b7a0f8-93a8-4965-a2f3-3ca1552a25d6@gmail.com>
+References: <20260625094449.708386-1-a0987203069@gmail.com>
+	 <20260625094449.708386-2-a0987203069@gmail.com>
+	 <20260625-bobbing-annotate-d1c4d6874ee2@spud>
+	 <e3fe23ddbc504879bd797bbaa595d3653fa139ff.camel@iscas.ac.cn>
+	 <20260626-astrology-mural-853d3860e048@wendy>
+	 <c0731801729713d35f97bec40ebc21cef31b72b5.camel@iscas.ac.cn>
+	 <20260626-everybody-epilogue-8fb298a54981@wendy>
+	 <9456bde5059bea3aac1ed64355e3f017dd9bd3e5.camel@iscas.ac.cn>
+	 <b3b7a0f8-93a8-4965-a2f3-3ca1552a25d6@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 6/8] arm64: dts: qcom: shikra-cqs-evk: Enable sound
- card support
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Pratyush Meduri <mpratyus@qti.qualcomm.com>
-References: <20260616201315.2565115-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260616201315.2565115-7-mohammad.rafi.shaik@oss.qualcomm.com>
- <f92e8c9a-1f70-4f94-874b-c247f47c5af5@kernel.org>
-Content-Language: en-US
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-In-Reply-To: <f92e8c9a-1f70-4f94-874b-c247f47c5af5@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA0NCBTYWx0ZWRfXzxuffMfjifGf
- CBoM72nWJv0VcOMdD+yoc0SEChFjJIP/G99AKtkxu1lgUpcPz6oHFAVMoehWyo3VsrwJy8+/PDz
- Ck8PSNp5+DTMfLLFMFsM7KvMXANMC62eWvICilYLd5zSxLpTTX0qlZYvI4lDvAPpqXY/rx8vfcg
- T6Thf/HpSqp4JPMkPy/q/mSX4dZDGTiQApN6RGr3ReeccMoMcNK62g1NptFdf+nvRmwE1UYS0G1
- wkNNsLKWHhxPz3RizQdN+JN60kIkmDM7aldoUrKCU6Lo0HWH9kzuFU6OYl/EsiVIuZK+sczjLd8
- hdTCIiJ47PMyOxZSEY8SW/xWeUI7yetmprXATGMhkUJVI+P+4ucmWv/sIfrfPpse4ibRF73C9dh
- iJvTblAykfk9Y9ixRiTqZ3paXIqVn6kEVWcvjzvSHD9zJGt9tV1NRcfnUjJYqtoGJYAFjHrshsk
- f2ZwZ0S9M66MQpwmGrw==
-X-Proofpoint-GUID: yO78uyAXxurRjJJWmX8b-KrNmjnoIFO_
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA0NCBTYWx0ZWRfXzsdb2vYBhYGL
- DBHcU+kiYmJFIdnvK8rSZF6x4dPVzRCxM3eCdkEpum8Plf4zglFSRQ63cFf6YY/anwQb2rHNL4t
- q2Wkba7cRxt/rbrlTwPF8bicU03QGVU=
-X-Proofpoint-ORIG-GUID: yO78uyAXxurRjJJWmX8b-KrNmjnoIFO_
-X-Authority-Analysis: v=2.4 cv=BdnoFLt2 c=1 sm=1 tr=0 ts=6a420300 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VUSdPHTc8rOmLbK7xEcA:9 a=QEXdDO2ut3YA:10 a=QYH75iMubAgA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-29_01,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 clxscore=1015 suspectscore=0 bulkscore=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290044
+X-CM-TRANSID:zQCowABXrdBCA0JqknDpFQ--.43857S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxtFyUXFy8tr4UXr1fKw47twb_yoWxXFy3pF
+	ykJFW5JFWkJr1rtr1Utw18JFy2yw1UJw1UXr1kXF17JF4qqF1jgr1jgr1q9Fy8Xr4xGr1j
+	qr4jqry7Zr15AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjxUkX_TUUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
+=E5=9C=A8 2026-06-29=E4=B8=80=E7=9A=84 11:47 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+>=20
+> On 6/26/2026 5:33 PM, Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-06-26=E4=BA=94=E7=9A=84 10:26 +0100=EF=BC=8CConor Dooley=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > > On Fri, Jun 26, 2026 at 05:00:35PM +0800, Icenowy Zheng wrote:
+> > > > =E5=9C=A8 2026-06-26=E4=BA=94=E7=9A=84 08:19 +0100=EF=BC=8CConor Do=
+oley=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > On Fri, Jun 26, 2026 at 01:27:21PM +0800, Icenowy Zheng
+> > > > > wrote:
+> > > > > > =E5=9C=A8 2026-06-25=E5=9B=9B=E7=9A=84 17:33 +0100=EF=BC=8CCono=
+r Dooley=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > > > On Thu, Jun 25, 2026 at 05:44:43PM +0800, Joey Lu wrote:
+> > > > > > > > +allOf:
+> > > > > > > > +=C2=A0 - if:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 con=
+tains:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 const: thead,th1520-dc8200
+> > > > > > > > +=C2=A0=C2=A0=C2=A0 then:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 min=
+Items: 5
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 max=
+Items: 5
+> > > > > > > > +
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 min=
+Items: 5
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 max=
+Items: 5
+> > > > > > > All the maxItems here repeat the maximum constraint and
+> > > > > > > do
+> > > > > > > nothing.
+> > > > > > >=20
+> > > > > > > Since you didn't change the minimum constraint at the top
+> > > > > > > level,
+> > > > > > > your
+> > > > > > > minItems also do nothing.
+> > > > > > >=20
+> > > > > > > > +
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 min=
+Items: 3
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 max=
+Items: 3
+> > > > > > > > +
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 min=
+Items: 3
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 max=
+Items: 3
+> > > > > > > > +
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - resets
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - reset-names
+> > > > > > > Both conditional sections have this, but the original
+> > > > > > > binding
+> > > > > > > doesn't
+> > > > > > > require these for the thead device. This is a functional
+> > > > > > > change
+> > > > > > > therefore and shouldn't be in a patch calling itself
+> > > > > > > "generalise
+> > > > > > > for
+> > > > > > > single ended variants".
+> > > > > > Well yes they're required.
+> > > > > >=20
+> > > > > > Should I send a patch adding the `thead,th1520-dc8200` part
+> > > > > > of
+> > > > > > the
+> > > > > > schema?
+> > > > > If you mean the code above, no. Adding a conditional section
+> > > > > when
+> > > > > there's only that compatible doesn't make sense.
+> > > > >=20
+> > > > > What you could do is just add it at the top level though,
+> > > > > which
+> > > > > would
+> > > > > also benefit this patch since it'd not have to be
+> > > > > conditionally
+> > > > > added
+> > > > > for the new nuvoton device.
+> > > > > Just note in your commit message about what the ABI impact of
+> > > > > the
+> > > > > change
+> > > > > to required properties is (effectively nothing because it's
+> > > > > optional
+> > > > > in
+> > > > > the driver and the only user has the properties).
+> > > > Okay, I will craft such a patch and send it.
+> > > >=20
+> > > > > > > > +
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 min=
+Items: 1
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 max=
+Items: 1
+> > > > > > > > +
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ite=
+ms:
+> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 - const: core
+> > > > > > > This is just maxItems: 1.
+> > > > > > Well the implicit rules of DT binding schemas are quite
+> > > > > > weird...
+> > > > > I don't think it is that strange, as the binding has
+> > > > > =C2=A0=C2=A0 reset-names:
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
+> > > > Ah does the list constraint the order of items? If it
+> > > > constrains
+> > > > the
+> > > It does, yes.
+> > > Alternatively, using an enum permits free ordering.
+> > Ah in this case this should be converted to an enum, I think.
+> >=20
+> > Should I send a patch for converting it?
+> >=20
+> > Thanks,
+> > Icenowy
+> Thank you all for the detailed review and discussion, it really
+> helped
+> clarify the right approach.
+>=20
+> Since I will supply all four clocks with the same phandle for
+> core/axi/ahb,
+> and only one reset "core" for MA35D1, the ordering constraint in the
+> `items` list is not a problem, "core" is already the first entry.
+> There
+> is no need to convert to an enum.
+>=20
+> Regarding the clock situation for the MA35D1: I agree with supplying
+> all
+> four clocks (core, axi, ahb, pix0) in the devicetree, even though the
+> MA35D1 clock controller gates core/axi/ahb with a single bit. The DT
+> will
+> use the same clock phandle for core, axi, and ahb:
+>=20
+> =C2=A0=C2=A0 clocks =3D <&clk X>, <&clk X>, <&clk X>, <&pix_clk Y>;
+> =C2=A0=C2=A0 clock-names =3D "core", "axi", "ahb", "pix0";
+>=20
+> This correctly models the hardware topology. Since all three names
 
+No, this doesn't correctly model the hardware topology -- this will
+lead to clk_get_rate() return the rate of DC core clock when checking
+the AXI clock rate, which is problematic because both clocks are
+limiting the performance of the DC.
 
-On 6/22/2026 7:17 PM, Krzysztof Kozlowski wrote:
-> On 16/06/2026 22:13, Mohammad Rafi Shaik wrote:
->>   
->> +&i2c3 {
->> +	status = "okay";
->> +
->> +	wsa885x_i2c: speaker@c {
->> +		compatible = "qcom,wsa885x-i2c";
-> 
-> NAK.
-> 
-> There is no such compatible. And there will never be.
-> 
+> resolve
+> to the same underlying clock node, the CCF's standard enable
+> refcounting
+> handles the shared gate correctly without any custom implementation
+> needed.
+> I will also revert the change in patch 4/7 that made axi and ahb
+> clocks
+> optional, since they will now always be provided in the devicetree.
+>=20
+> Regarding moving `resets` and `reset-names` to the top-level
+> `required:`,
+> I will wait for Icenowy's patch to land before sending v6 to avoid
+> duplicating the work.
 
-Sorry about this. I will wait until the compatible gets proper approval 
-and is aligned in the driver patchset before posting an update.
+The patch is sent.
 
-Thanks & Regards,
-Rafi.
+>=20
+> In v6 I will update patch 1/7 with:
+> - Update the subject to "dt-bindings: display: verisilicon,dc: add
+> =C2=A0=C2=A0 support for nuvoton,ma35d1-dcu"
+> - Lower `clocks`/`clock-names` `minItems` to 4 at the top level
+> - Remove the `thead,th1520-dc8200` conditional block entirely
 
-> Best regards,
-> Krzysztof
+I think this conditional block will still be needed, because it will
+need to constrain the minItems to ensure all clocks / resets are
+populated.
+
+Thanks,
+Icenowy
+
+> - Keep only the `nuvoton,ma35d1-dcu` conditional block, using only
+> =C2=A0=C2=A0 `maxItems: 4` for clocks/clock-names and `maxItems: 1` for
+> =C2=A0=C2=A0 resets/reset-names to tighten the top-level constraints
+>=20
+> BR,
+> Joey
+> > > > order, it partly breaks the intention of having names; if it
+> > > > does
+> > > > not
+> > > > constrain the order, it needs to be clarified that the required
+> > > > 1
+> > > > reset
+> > > > is core instead of the other two.
+> > > Given the discussion we're having on the clocks, I wonder if this
+> > > is
+> > > also an oversimplification and the IP has three resets inputs
+> > > hooked
+> > > up
+> > > to one output of the reset controller (or 3 outputs controlled by
+> > > one
+> > > bit..).
 
