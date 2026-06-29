@@ -1,231 +1,244 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11021087.outbound.protection.outlook.com [52.101.65.87])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F80416D15;
-	Mon, 29 Jun 2026 14:37:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.87
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782743857; cv=fail; b=Qg8tdqi9eAlUno5jyo0KOMAUEuCaraYArO4lpTpDRn2SZdJ2+ncxzmSiBahBb/pWAzcEaz9cUqidMXjoW77ehPVuuoxfAYuTjfsBHEWb8EJ+E5UTt15CXtdKwwFLcA0fB0s7SWQv1xz7XjUFCwQm0SNROfA/Vc36cqMQ1AG/G1Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782743857; c=relaxed/simple;
-	bh=gMK/Kwp8CFtMZ/kjEyvHIx3PhhmBxNUmAyfMlyc6B0w=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=M/OO5Mmim0ycUfLw0oLI7saqP7QBlQ8MVUvWap/Yj7uvv9ysA+k33GwbluGrRaZwfIVa/gO889Ts/wAC8qn/BAsQzwnfimnU9O2C4T6h6zYDbehBt8p/Sr5yCd/QeLagvB5XFuK0byUwet33YGbj82ZJ1ojw8/uHAr2Vz1CtXoE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de; spf=pass smtp.mailfrom=kontron.de; dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b=dAdvFFJs; arc=fail smtp.client-ip=52.101.65.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kontron.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBC464192EF
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:38:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782743897; cv=none; b=kTpfZrz4VmRlddG9/dilqq4a0P3PUMdzFM7N0JQB+BuCcZgPkTKgeCdc7nJV4Jam5bfNcZdxGSceguqFtFtkm4PM2wHPoBuDYZ6+VmZt2XrP8ALZT+JJrSYtZJhdw2F8NKwMlsJIz6M7lgs7Y/mGczpkXl8XqK0YFXLDGpqC/q4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782743897; c=relaxed/simple;
+	bh=imD23SG8a/tCSPXtxprxTReSZHlFvtv1LiJFmM4gKKE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sRtS+QRDrUSMWTxlj4szfirkggf53wHb6TOukOxrhNdq1JEF72doxnPVZEzGxI2Z+Akyi65kYLQuDOdhGEDlIcMSoSlifQTDyyJwB6GDAgrXIBuNs89G9zLdKdzAfraMgXSLE8H6pzbbn/+LhIhPOhTHMSnCYnqWj/l3OEQF8cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=iYKJqDU+; arc=none smtp.client-ip=209.85.160.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b="dAdvFFJs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qq0Fdwbp7G5qydBzB82BGyzaiS25eA5nNWTo5qjDedEyGp54GtGJ5xNy1le9RmITTfKs1YM1j7tnRbiXRzr5WepheA2dVZShe2AF/ejM3X6FhGIjdTFUuXd29bxbJRfeB0ztxjZ+Zi2TkK2kOQo0uuxqVcBjGnz4wPQFrKa/fOdeDZMjNDYeNQYoLwY3cXx3fuiEJjrUVafAaKc32I9Gbo6Ab0CwMOIXMU3GSFp6u+YFKAY/OoQQYXOEGIYUu3XlOKpK1u6xxIsL8gKaUH4bLsy8rZ/ng2vQFOjDKjZIc6d+gnwPbJFRj2L11LbqMzRISWJ9PsolM9p6WgnzxxyceQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NpVr4e7DHXu35c5lRXcZatWWjSE9CvlTgHwQOTrBoeQ=;
- b=QXrr/JEMiOi8Y1ax2wY3geZPvAqVCV0C2bDwON5ddJ5xVyd08o1nZkejgKK+QrLzSdvILqrrIRadPF1G9onfiNYifuwx65qL43E/fucrcr+9mGQXmzFIv1erp0Le1cMs304aijL8+FP918rXEv6mGmTCUPJmEP9np4u+zkoKwWy94XWmhlICBHGynZQsCSErvEI3rPhb+Yjf43Bi2oxwdZ+ZZbUSJRFBldyFgBUQBVmJIf5nnQNX/Uu0sNK6t7g6OIbib3x6GpD9szFktUHqjbAg2hmol0JuPjSNfC0ikbAN+pvfSAVe2irR/8NKSxl8XITAIsnOPCBdrX+Y4fb9Qg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
- dkim=pass header.d=kontron.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NpVr4e7DHXu35c5lRXcZatWWjSE9CvlTgHwQOTrBoeQ=;
- b=dAdvFFJsPB86utHaxQtYClAr2TPVs5ET/NOLexrBv1FSA7SvTkksFmnR/AF+YpI5hL2/Z8ICPrwL9bSyk/gZoA3gXMj3P6l1eQByVM33/LsBRdAxigtkkWY+C8AmmgVkR7ghOxcAZnIlj+0ty55FKWXl0piWmmPXjf2XxDUibb3rS75eowCsOeeKqMqCKHEY/1LejSMEIEwpb+45c4Cmur86xpv2Gz9WIj8gQpVTo6QYvTIu2ZJxzHeiSP4qzOs8fEvWyY2ckHxcpi/z2bLs0j54D3FoOT5AV/HdTdbhC8c8QweiA7O27ooGOxl6GONUXALYO0XY9mP0+7pJhSRs7A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=kontron.de;
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
- by AM7PR10MB3557.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:131::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Mon, 29 Jun
- 2026 14:37:29 +0000
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22%3]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 14:37:28 +0000
-Message-ID: <62b2c912-abc7-41c6-8f23-c98516016431@kontron.de>
-Date: Mon, 29 Jun 2026 16:37:27 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] dt-bindings: nvmem: imx-ocotp: Add support for
- secure-enclave
-To: Krzysztof Kozlowski <krzk@kernel.org>, Frieder Schrempf <frieder@fris.de>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260616-upstreaming-next-20260609-imx-ocotp-ele-v1-0-cb7f3698c3e6@kontron.de>
- <20260616-upstreaming-next-20260609-imx-ocotp-ele-v1-1-cb7f3698c3e6@kontron.de>
- <20260617-prodigious-private-inchworm-beae1e@quoll>
- <085262ba-32e5-4011-8df3-5a677575b2db@kontron.de>
- <30e02780-52c7-4a71-9d4f-4b7a20494161@kernel.org>
-Content-Language: en-US, de-DE
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
-In-Reply-To: <30e02780-52c7-4a71-9d4f-4b7a20494161@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0144.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b8::20) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:1fb::23)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="iYKJqDU+"
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-43d3a0dabb0so2134312fac.1
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:38:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1782743895; x=1783348695; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8omXPji0y1RQcAHd6aNa0PgUMtAkZ+oZmXD1ea506h8=;
+        b=iYKJqDU+Adhy/FaYBcVOQ0MFtSqh1UWemFqmHCyEuVhshElxz6NpNQ64ah/dNkgqrT
+         utxBwShmsVBAOVBiimuP5iWPlKzN3RdiliX4P/KUdg3nr5qnKiVg/LmRvztlgP1AR0uc
+         C6CSDMNuj5hysQZn2/brdz8IfkRAyoXPZ0/eSNgVn2zC7wgqZ10VLslW/f17lJorrJJd
+         2iMjFZjO1OjTw7WzbypFOL4wvtCgnj/LhqMdnRD1jDCYnzVFrdqj/t3u/YvONneGqcuN
+         1lySpk+NN1G9XWyuKDtk7rpCKTK0+V+sxSrNmW2ygeuVw4IKh9oYtC6JrPsDebjzOIjW
+         YXeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782743895; x=1783348695;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8omXPji0y1RQcAHd6aNa0PgUMtAkZ+oZmXD1ea506h8=;
+        b=e4ipkcyt7yhmQQ8BaMLrRoX1NNv5mkV25F2Tip2hRKrzQXXdQ9LtsaxorOFQO1yhOo
+         ZjuP0bY1jU9FQ8KHangXPoovBRVid2ee+ripFZTb1hFe77odDPVcpYB/flQN+uSKm3EW
+         ShdKCFYHESps7De9mOUSuNRBWI9nkR1nhzQJyTm94U+o7Yfau7bpDvwZuiU+FsDaS1kT
+         h1m66uEVOuvfBGvF4VsYcnC6GmkR0dcXtivsNQuRubHizrC67R1O3O5vnqYUCCBBy13U
+         Q281+shQhQElJm0z9fCILbPh0Ycd0+ex3rbNMCcs4iFmUR7HZOPOhkjp00NI6vKC7LDB
+         cU3w==
+X-Forwarded-Encrypted: i=1; AHgh+RpJTRpTnyKFLJ0ONsojbDnaYtk/zg4KWovvCRcPXI8RGL5p29bWTA9+pi9tzPOoWYuQFxEssuRqesAy@vger.kernel.org
+X-Gm-Message-State: AOJu0YxBKdY1lYHJegVDZ0FautnDGlSIqL5P5fPImJz10Hc6/pryobNK
+	uOJ851Wqu8iZBjgAAl8psof3Rfgn8qPKJEsr4IAlmSYY3ikky7XXKnMZTuBswiXnA9o=
+X-Gm-Gg: AfdE7cmhpTVCb+NeLJvv5FMQJADd0EHIv4OkMgvT2/TaHjyz2O+zNO4U7AHG55YuAua
+	9uOTmvh+d5fTzmAQm/ztKDUGzl/2Lp34JMm9TyLXoJyw7rKzfb2dhk0UrsBZTPboyL4CTM91Oe9
+	Kql4aAlRpu9pLTPFK7E33xCX/Qa/l9VuQtAQbIxf2EAYFzsJ7sdKMICZLiCVR3AIyFriM/p60Tc
+	HhlvSZhmnIheZ6ffg+YSfyv2tEvp9PoGWsJOTLMxgXautjxSieR9bc3Su6tFOainPl74NSMH6Rs
+	Ws2aMa1NQM7U1WPYsiMt30GL8SDcJaHSu7ZGZTq1nfQSbJGiBpMB9LIMjHrhTDsW7kf2rWdgEKT
+	+Cci77ItkxGYD8nXyJ6pxCop9WKi7qptwMWyGZetl3C43aR+uzfDUX3K8QI3ObFu6q6K/6rBhIj
+	BeLLXdKijifyFIFdtZc06L9CgRC7k3MfYeNphPrBSeQ4MenRyhiq+TRrO7s0Vr9Ro=
+X-Received: by 2002:a05:6870:3b18:b0:448:cf96:25c7 with SMTP id 586e51a60fabf-448cf9642b8mr786761fac.17.1782743894761;
+        Mon, 29 Jun 2026 07:38:14 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:3533:aa22:9a69:df1c? ([2600:8803:e7e4:500:3533:aa22:9a69:df1c])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4472f04236fsm19516743fac.14.2026.06.29.07.38.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 07:38:14 -0700 (PDT)
+Message-ID: <dba5ef4d-57e3-4016-842c-dad6990d7207@baylibre.com>
+Date: Mon, 29 Jun 2026 09:38:13 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|AM7PR10MB3557:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35438267-a2c0-48bc-af71-08ded5ebf1e8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|3023799007|18002099003|22082099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	+FYOQZLUQtViS3g6vQSysI1lD4gzVhEM4D8QweTQNs0jorhdn0y1HAMa3zdXHlk7NsdIBE1Dj66hNI8hDF8MSuxzWJPIiO8DmDT9dXOuOrL4ZhL36Zq74cdzGgD1Zeh8zA2MC95oVLuqJaS6w1hMSLpwn0AgtLianJRLxAVXrUJS481X2tL0xzYM1fQ87x+QBiM3pfDsCTiv9lMDhq6JfZXig0gKk2ZFfP+YoQVcW5qtOWFvI7m16z4fuHKP0/4hT2Ow8kWV7CjTA1q9kNXJntsjLNiNq92sFweFG15jYeMOLLqmNodctXNnfVT+KfNF9fHDurLZ7/7e8Tvxid/5kAwaqgERULynN13pH3WGEPPNyxidkR4ubWieLpn0HA5gFTj93hz3RSX+LSR8OeDC7LtdGeLoRVeugvaIhFRsdg+QLQgQMvVre8n0JkHYCLlzGICmbdxQqJ+Y4mzjgiGaoYa8LoGsU3Xz/8GHLINtyv2vPAghUD4LvDS3lH9HrFidq1aKz7F+2UV4fJjXasm3RBZ1lgRHtB+BVdZ21zOv68Y4kdRJtr6xHqaWEQUS6UVzsY51zH6SWI4ug1GEhdzaKZq5f2PQ0rCtA6eTo3b2BxVCl+0st0hGop2Q65hHz8/q+G5LG9dhgUcndmOTh90lNT7zkYkeaGDS2QueI41HFsI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d2l1ZXZPOG9QeUNxV0t0bkI0Z0VUcE5pWlBmVmIwMDl1Mm4wUWo5Smx1V0o0?=
- =?utf-8?B?Nk5mSi9zQ3BpclRoWklQYUJOOG5YdWt4NnlDWlBBRXhTVXVYSFMvR3VRQVp6?=
- =?utf-8?B?dmlYanluMktZd0NlSHVYVll2MzlnUXhOSHJBT0xOTmFtY2RLdUIxSHFXTm8r?=
- =?utf-8?B?QkVrRWFkbFc5MTdHMUYzREhQRFVpWXdJVE5QTDZkT1l1TlRGOTlBbVBNUDRz?=
- =?utf-8?B?cG8zenRxOHZkRnkwR2hxRktXQU1jRHY5WVA2cE41ZXRKeFhTanpEN1hXMjNr?=
- =?utf-8?B?Y0FaVUNkVmFDWFM3TWRTWFJnZHFkNHlHR3M3YUt2bi9sSDAzZmVvMUJQZ1Z4?=
- =?utf-8?B?NCs2ME03V0hTSWdDRGRSeW8vT1JzaHNKLzJadGo2M2lzTGFDTEZvS1BVTVpK?=
- =?utf-8?B?RFNZZkZWOXhVRlN2RGZtb3JSMThsVDRhNU1mblFSR2JrdmF2clhiVGV0SEdS?=
- =?utf-8?B?cnVhVUwyS001TGtyWXBoOHZoeUp0aGVlSlpIcHMwWms5a1BvNy9IajBYQ0Vp?=
- =?utf-8?B?Z3pOT2RGWEpvMkFNQmt6SjRSOU9qRlRaWllmQjFLUHBOZ0RRNkg0bEFCMmln?=
- =?utf-8?B?Q0p4TUNoM2M2c3NvTjU4VEhXU2d1RStvNmdMSDYzZFBQWWh5OGRZZEpzSzFT?=
- =?utf-8?B?d3FCRzY5R1BBS0FsamNIRnhTcjNqWk1nY3hjRy9CN28wS1d6MkpROGZLRHEv?=
- =?utf-8?B?Qk53NzN3NUJiYmE1YmRxL1dsL2ExZGZUT3VNTzlrSGJhR1JsM2tSaXBjZlIz?=
- =?utf-8?B?MzRpT1N5SVU2YnV2dlBqL0JOR1BqOHVTY29tZWRGallQb2szNmNkNGhtTkRw?=
- =?utf-8?B?c2dLWGhBUGp1LzZBenQzNWNpNTVBRVdHNHVrdzdsaWhmdkMweUNCVituRS9C?=
- =?utf-8?B?ZEtNYm4rNnJFbXVMNWp3WUxuWnlCZnZ0QzdJTUNoUDl0TU9iVFNIOXZZSWQv?=
- =?utf-8?B?bUhzRWlWOE1BcnQyVVRKSTZLWDY4Q05JZFpHejN1c0pSSy9GRTlmUndKbkt6?=
- =?utf-8?B?dTdKSmYvQ2VpNk1ZeWJ4VDN5MGF3ZElmcVRlK2d5UmxTS092RFI4cXZKSmNL?=
- =?utf-8?B?N1lVak5OWndqN1VpWUlXTkF5YUNCcG0wK0twOStHd2ZDZ25CQVVlMEd0WmVT?=
- =?utf-8?B?SGk5WmdTUXdIZHdVdS94bVljT1ZnZ3dCRjR4cHIydW45NWE0WU5EaDhUaHJk?=
- =?utf-8?B?dHBOSlVVeHJYRjM5b0xCalg0T0Y5UU10Z0xHWTJsTTJGNHZ3MXZCdjUwWFRZ?=
- =?utf-8?B?TCtkNlExNFphVW9oYm5uYUtwQkJ1OGhzSjJLTXJ6M3NBSFpxd0gwazhJVGR4?=
- =?utf-8?B?Wjg1Tm5nVzI2czBaakNBUWZDK0xyRDBDYWFJSHZSZ2xDNWQ0REFjeFo3cXla?=
- =?utf-8?B?c0FxS0Z4WVRublFuUjdpVEg3a2VMa1hkNCt4WG1YS1RnQlM5U2p6YmFhREhL?=
- =?utf-8?B?MTlPY3l0RUtuVVhRc1BTajdkSy83Y09SaTZFVHAvMXNIUnNJdWZscVYvVU9l?=
- =?utf-8?B?V1FYdXdtbDN0dFJpcWErdExCUVVSdDAra25taklidkNhNzAwTXFRTG10b05B?=
- =?utf-8?B?RG80U1FHNVVHS3puWjRUQ045dGJtQ0xtNWNZLzI5VUlSN2pXN1FHOWNMdE5B?=
- =?utf-8?B?OGRwRDQvbVRBZ2hVTnphaW5rK211WVVmOFM2UDI1N1ZOYzBqVzZCaENDc1h6?=
- =?utf-8?B?MjQxNmRiN0prZ3gvUXVIWTVKMXIyRklkcGg2OElxTkx5RWxaMmpuTUVTUFBm?=
- =?utf-8?B?eXkvc00zYzVkUlYyWVZwblUzOE1vN0grNDFETVZncWE4TFhIVU9XWkFBazNE?=
- =?utf-8?B?N3hTSVIzeHBKTENvcml3YTVSWGtzSVN1b1grZWx2eVRwMEVXS3VCVTgzNzZx?=
- =?utf-8?B?L2MxdG8zbFVTQnZLdjdnVzhmV2xvSHpOT3YvbUFBQXhmdzFYRkVZSEtyWnht?=
- =?utf-8?B?UDJmeHU3SktuMHZsRmN3Mk5uRS9zOXJjaUJSSE5QTktBVGdUd3BNZ3YwK3Vy?=
- =?utf-8?B?Q1ZqMFJDN3BYR2t5MmhSN3lTdHgwMEVNU3J3YW5yRzI2WUNNRVpQTzMzSzFj?=
- =?utf-8?B?ZFB5YzMvbmJETDR2dHdqUExwRzlDYk4rNnpMeFpkcjBld3FhcmFsV2ZqU3hV?=
- =?utf-8?B?aUIwT1p4V29UWStuVGMzOG5VR0xlYXFVUGJJa3RnbVh5M2orS1NUQmZWcWor?=
- =?utf-8?B?N3NtMisxbThqRUc3YVRHMDdMWDAxajZBemxTVWVSazU1NU5PMjk4MnBXTHR2?=
- =?utf-8?B?cFpMNlR6azczL1A0azRjbTB5a1Rmdm9SSC9WOFJnMW5OMTFNRjB3MEExdDQ3?=
- =?utf-8?B?WTNpMTV2ZWtoY2d5UHYxTmZFUWdyeFZZYTZQdWdrTmZOLzVuZkNGREhJcXBD?=
- =?utf-8?Q?xt80abIq1Rl771LM=3D?=
-X-OriginatorOrg: kontron.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35438267-a2c0-48bc-af71-08ded5ebf1e8
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 14:37:28.6950
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e9VDHzFrqxuXcR31CW569VEHDMOoc9nqkS3TlNMgIql4LKSvQtEomBcNEGqreGke+aJ/Le3g+e9Hogc/oO5Kp9mKqmEsJ9MCaVTJob2giLQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3557
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/7] iio: adc: Add ti-ads1262 driver
+To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260628-ads126x-v2-0-4b1b231325ba@gmail.com>
+ <20260628-ads126x-v2-2-4b1b231325ba@gmail.com>
+ <0d7a5a3b-dc11-472f-a09a-44df887d5147@baylibre.com>
+ <DJKY6WN6KS2R.2ZF2TTJU7LBE3@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <DJKY6WN6KS2R.2ZF2TTJU7LBE3@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 22.06.26 15:12, Krzysztof Kozlowski wrote:
-> On 17/06/2026 13:36, Frieder Schrempf wrote:
->> On 17.06.26 12:49, Krzysztof Kozlowski wrote:
->>> On Tue, Jun 16, 2026 at 01:52:16PM +0200, Frieder Schrempf wrote:
->>>> From: Frieder Schrempf <frieder.schrempf@kontron.de>
->>>>
->>>> Some SoCs like the i.MX9 family allow full access to the fuses only
->>>> through the secure enclave firmware API. Add a property to reference
->>>> the secure enclave node and let the driver use the API.
->>>>
->>>> Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
->>>> ---
->>>>  Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml | 4 ++++
->>>>  1 file changed, 4 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml b/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
->>>> index a8076d0e2737..14a6429f4a4c 100644
->>>> --- a/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
->>>> +++ b/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
->>>> @@ -53,6 +53,10 @@ properties:
->>>>    reg:
->>>>      maxItems: 1
->>>>  
->>>> +  secure-enclave:
->>>> +    $ref: /schemas/types.yaml#/definitions/phandle
->>>> +    description: A phandle to the secure enclave node
+On 6/28/26 3:00 PM, Kurt Borja wrote:
+> On Sun Jun 28, 2026 at 12:15 PM -05, David Lechner wrote:
+>> On 6/28/26 12:36 AM, Kurt Borja wrote:
+>>> Add the ti-ads1262 driver with initial support for the primary ADC
+>>> (ADC1). The ADS1263 auxiliary ADC (ADC2) is handled by a separate driver
+>>> and interoperability considerations were taken into account.
 >>>
->>> Two things here:
->>> 1. Here you describe what for is that phandle, how it is used by the
->>> hardware. Currently the description repeats the property name and type,
->>> so not much useful.
->>
->> Ok, agree.
->>
->>>
->>> 2. If you access OTP via firmware, then this is completely different
->>> interface than MMIO, thus:
->>> A. reg is not appropriate
->>> B. Device is very different thus it has different compatible and I even
->>> claim should be in different binding. Devices having completely
->>> different SW interface should not be in the same binding, at least
->>> usually.
->>>
->>> If any of above is not accurate, then your commit msg should answer why
->>> and give some background.
->>
->> Thanks for the feedback!
->>
->> The driver currently uses the limited MMIO (FSB) interface to access the
->> OTPs. The intention is to support the firmware interface alongside the
->> MMIO interface so the driver can pick the interface that is available
->> (firmware might not be loaded) and fallback to MMIO.
->>
->> Following your argument would mean a driver deciding by itself which
->> interface to use at runtime is not something we want to have in general,
->> right?
-> 
-> No, the property fits DT, but above information should be in commit msg.
-> If this SoC has indeed both interfaces - MMIO and firmware calls - then
-> everything is in general fine. I assumed that is not the case and MMIO
-> is not really working.
-> 
-> What was confusing is that it feels like you are changing existing
-> interface, but why wasn't all this documented in the beginning? There is
-> imx9 in this binding already, so was it working? Was it not working at
-> all? Commit msg must clarify that.
 
-Ok, thanks for clarifying. The MMIO interface for imx9 is working just
-fine, but it's limited to access only a subset of the available OTP fuse
-register space and only provides read access. Only the firmware
-interface provides full access. I will extend the commit message
-accordingly.
+...
+
+>>> +static int ads1262_read_raw(struct iio_dev *indio_dev,
+>>> +			    struct iio_chan_spec const *chan, int *val,
+>>> +			    int *val2, long mask)
+>>> +{
+>>> +	struct ads1262 *st = iio_priv(indio_dev);
+>>> +	struct ads1262_channel *chan_data = &st->channels[chan->scan_index];
+>>> +	u8 realbits = chan->scan_type.realbits;
+>>> +	__be32 raw;
+>>> +	int ret;
+>>> +
+>>> +	switch (mask) {
+>>> +	case IIO_CHAN_INFO_RAW:
+>>> +		ret = ads1262_channel_read(st, chan_data, &raw);
+>>> +		if (ret)
+>>> +			return ret;
+>>> +		*val = sign_extend32(be32_to_cpu(raw), realbits - 1);
+>>> +
+>>> +		return IIO_VAL_INT;
+>>> +
+>>> +	case IIO_CHAN_INFO_SCALE: {
+>>> +		guard(mutex)(&st->chan_lock);
+>>> +
+>>> +		ret = ads1262_channel_get_scale(st, chan, val, val2);
+>>> +		if (ret)
+>>> +			return ret;
+>>> +
+>>> +		return IIO_VAL_INT_PLUS_NANO;
+>>> +	}
+>>> +
+>>> +	case IIO_CHAN_INFO_HARDWAREGAIN: {
+>>
+>> There is only one other ADC that uses "hardwaregain". Usually, we just make
+>> scale writeable to control the gain. I don't remember what the rules for
+>> that attribute are. Using it for in_voltage is not documented in the ABI.
+> 
+> I went with hardwaregain because the scale loses too many significant
+> digits at high gain. With the internal reference and gain = 1, the scale
+> is at 0.000001164; then at gain = 32, the scale is at 0.000000036.
+> 
+> In this case I expect users to just calculate the scale themselves based
+> on the hardwaregain. Is this acceptable? If not I'll go with
+> scale_available.
+
+I'm pretty sure there is a series floating around that has proposed
+adding new fixed-point IIO_VAL_* types that could be another solution.
+We'll see what Jonathan says about this too.
+
+
+>>> +static int ads1262_regmap_read(void *context, const void *reg_buf,
+>>> +			       size_t reg_size, void *val_buf, size_t val_size)
+>>> +{
+>>> +	struct ads1262 *st = context;
+>>> +	struct spi_transfer xfer = {
+>>> +		.tx_buf = st->tx,
+>>> +		.rx_buf = st->rx,
+>>> +		.len = reg_size + 1 + val_size,
+>>> +	};
+>>> +	int ret;
+>>> +
+>>> +	guard(mutex)(&st->xfer_lock);
+>>
+>> SPI bus and regmap both already have their own locking, so putting a lock
+>> here seems out of place. Instead, the lock should be for higher-level
+>> operations where there are mulitple register access in a single operation.
+> 
+> I agree. I can definitely move this one to a "higher level". But IMO,
+> because this also protects tx and rx buffers, it makes sense to have it
+> here too.
+
+It still seems redundant to me to have a lower-level lock if
+we have a higher-level lock that is always going to be held
+anyway. But maybe there is some case where it still makes sense?
+
+
+>>> +static int ads1262_parse_firmware(struct ads1262 *st)
+>>> +{
+>>> +	struct device *dev = &st->spi->dev;
+>>> +	struct clk *clk;
+>>> +	u32 reg;
+>>> +	int ret;
+>>> +
+>>> +	/* Set the nominal clock frequency */
+>>> +	clk = devm_clk_get_optional_enabled_with_rate(dev, NULL, 7372800);
+>>
+>> This is quite unusual. Usually an external clock would be a fixed clock
+>> and therefore can't be set.
+> 
+> Really? It can be a crystal of course, but it also can be anything else.
+> Shouldn't I be trying to set the clock frequency in that case?
+
+According to the datasheet, 7.3728 MHz is just the nominal value while
+1 to 8 MHz is allowed. So I would expect the external clock to already
+be providing the chosen design-specific rate and we should be getting
+the rate here, not setting it.
 
 > 
 >>
->> In turn this would mean we need two drivers, or at least two
->> compatibles/bindings for something that is effectively the same hardware.
+>>> +	if (IS_ERR(clk))
+>>> +		return dev_err_probe(dev, PTR_ERR(clk),
+>>> +				     "Failed to get external clock\n");
+>>> +
+>>> +	ret = devm_regulator_get_enable(dev, "dvdd");
+>>> +	if (ret)
+>>> +		return dev_err_probe(dev, ret, "Failed to get dvdd regulator\n");
+>>> +
+>>> +	st->avdd_uV = devm_regulator_get_enable_read_voltage(dev, "avdd");
+>>
+>> We only need the voltage of avdd if it is actually used as a reference, which
+>> is probably quite rare. Not all regulators provide a voltage value.
 > 
-> Driver design is orthogonal choice here.
-> 
-> It can reside in separate binding, if MMIO is still valid, but till
-> everything is not yet too complex can be also this binding file.
-> 
-> If it stays in this binding, then you need to restrict properties per
-> variant, so add if:then: block which will disallow the phandle for other
-> variants.
+> Then I should just check for ENODEV here.
 
-Of course! I totally forgot about this. I will restrict the property to
-be only valid for variants that have the ELE firmware interface.
+Except AVDD is a required supply. They way I did it in the driver I am working
+on is first parse all of the channels to see if anything is actually using AVDD
+as a reference and only call devm_regulator_get_enable_read_voltage() in that
+case, otherwise call devm_regulator_get_enable().
+
+> 
+>>
+>>> +	if (st->avdd_uV < 0)
+>>> +		return dev_err_probe(dev, st->avdd_uV, "Failed to get avdd regulator\n");
+>>> +
+>>> +	st->refp_uV = devm_regulator_get_enable_read_voltage(dev, "refp");
+>>> +	if (st->refp_uV < 0 && st->refp_uV != -ENODEV)
+>>> +		return dev_err_probe(dev, st->refp_uV, "Failed to get refp regulator\n");
+>>> +
+>>> +	st->refn_uV = devm_regulator_get_enable_read_voltage(dev, "refn");
+>>> +	if (st->refn_uV < 0 && st->refn_uV != -ENODEV)
+>>> +		return dev_err_probe(dev, st->refn_uV, "Failed to get refn regulator\n");
+>>> +
+>>> +	st->start_gpiod = devm_gpiod_get_optional(dev, "start", GPIOD_OUT_LOW);
+>>> +	if (IS_ERR(st->start_gpiod))
+>>> +		return dev_err_probe(dev, PTR_ERR(st->start_gpiod),
+>>> +				     "Failed to get start GPIO\n");
+>>> +
+>>> +	st->reset_gpiod = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
+>>> +	if (IS_ERR(st->reset_gpiod))
+>>> +		return dev_err_probe(dev, PTR_ERR(st->reset_gpiod),
+>>> +				     "Failed to get reset GPIO\n");
+>>
+>> This is currently never used.
+> 
+> It has to be de-asserted for the chip to be in an active state though.
+> 
+Usually, if we have hardware reset available, we use it to reset instead
+of writing a register to do the reset.
+
