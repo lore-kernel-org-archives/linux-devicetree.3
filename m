@@ -1,115 +1,102 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821003FF1A4
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2B6423160
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:25:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782735812; cv=none; b=IRbLQc2NrxrQNYm6hhEmm95FZIxX8v7FQ0EwLHIHJ2h3k8S6RyOUoPBWPSQUT38p7I22nSoD5NCwIlJStXFSsqyKEmZcSP4Hv6NNbCDAChmwWP2NltaUwym1SL8POc+IkQnf73teLLnvpWgk4YSgVRVRP8dPnrwJuK7/SSYAo5o=
+	t=1782735929; cv=none; b=DSr1vlQhdAUm0lLP2ZS2dCMI1yG/DF8knfTx2xSFRcSuxleLKoh+0EIULZwFT0IpB07VbyJNARUCAmb34CuD+Mh/OUN2MNHuYj0zfifEj5FqL9OcjcDW2DHVDij3bAcZ8hurYYgSCbTSoThf/NIMO0+qcJgrkAdEtLOWQbSuQag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782735812; c=relaxed/simple;
-	bh=UbhoOtGLxQ0EEf8erg+sHrzd1q+9MSLWRwQ46sOH3Rg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cC2FGPArsNaSvr6ZmfiR3EVhi5rHtDHEcfEkvSWLC6kR/kloWxAu899elLXc2177+NNXG8fIiMA81QmKgRKbH7iLizT2xBnboOJslBkMmab7NEXv78rxstkXMprOE8whrq2m9Vtbl4xI/vTOCgA4aDa72xhKZAUKx/qwzEKMP3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZOojpJAd; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782735929; c=relaxed/simple;
+	bh=x8MM4Vij8UVS2L4dzWDPxWnrGL8KF64f5uSnO3c8IZc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iof1l7obNiTAD15keNWHIN+GXD2wXLNqsQSO0WUh2IZ7oPHBURaPERDMWUoBza8QxFD9/0IrDBm/XJN1Qnorntt9co8/bsfnDiL7vsUDrWUws2vF2+aR+4JV7kMdbwkr36X68DleoAkfwFc+SFI8HPWBlIrQhpSi4nHso/Dife8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gb1zRgy8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZOojpJAd"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2c9e89fded0so9704475ad.2
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 05:23:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782735810; x=1783340610; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L6V4gGpbEy0fZNQjjmmHmHR8RvVrPmpP6jHF02hQyRM=;
-        b=ZOojpJAdwmtON9GcHedycHwtlKo+f8fepcFsk3A4jBCw6zg2n79hULvMoJjAIgVPlo
-         jsh3qvkq8xkUB2J+zI633XaJvrPXKOCFyHxpIU5QJzEHsRos+xf8oMYcjDk/TYA0juCy
-         rzyYj6IdZvV8DDQqD/KKeyuu1GASgQDz1GrYl0ks/n1GYmnHb5cdetFZ2qhhOeY1sh+s
-         O93OvvkRNGIkU5G7BHPwKrNFVGgDhRviGH+SY63bcEyPEN+jTZl7dJN5foDdonSwu4rd
-         5U05UeHTDw18gpB5EPLHNZPEIPuZux0UU0u7apq20zRrWJTqdm32zs/jTQQSaJVHcrck
-         FAcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782735810; x=1783340610;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L6V4gGpbEy0fZNQjjmmHmHR8RvVrPmpP6jHF02hQyRM=;
-        b=fAAX0Gap7ZEFNvkVEH7m70TKro+BfsvtXhT+9njAnwGw1K5D8enA7arnBta3aO18TK
-         t5TMLhwxzzaxdpOvjDnx6hNkIJ0wqCXbH67H5l8Xj2D0QObBQUabApSYlYbW3zip99DZ
-         EHZNh6tlUc9Mpyh2BjbMLwN4QtcbtPdweTK1c3ackrOZPykKwwcPabuVHHhxmFI19QRa
-         nr2YmDJObkFoIADaIcY8BlOUlN+RIHA1Unbe3pR+JtMPCJhd4xwCX1KWZWMLg+wyzFc3
-         Ab48CrdV0o0ulMx9pElSzPB3jDmteYM7ULytLwJ73P7ssrkrObZL7Di8O8gExrF9RjBS
-         JjMQ==
-X-Gm-Message-State: AOJu0YyzQr3jDAlflAVSTwYR/j1tRSloyr5uLze/jQrvf1VUjrGPSMOA
-	TLVbwi9mg1Q8EmLHa8k+LGov6l5oYORj0KEOMfmAhMHtJXv2u/MaxIcc
-X-Gm-Gg: AfdE7clqefOm6GvJtSz+mOkis+cTYqlRNNaadQLkM302buLkGy2jz+eJXesc7dpQ2F9
-	Dv5ZZOObR6tse1ysdxPWN3tfePfFJzuPFgateY1COjLIdymV2JMBrTvkNBm1PU1+nqIIfMjDl7R
-	QZ6sg3LOU0/hGB2FFB0dnKvjFqqPE40NCOP0c2KUXATuiTjZUgqTFry3wPQ1ib332N1ypABg7Sy
-	oIpY4r4TDvUEZGxzRtwdaonGM/ZW3Cm7/QUO9OZdznvCXnh7ldHvR2ga2EvKPI+aiGCV1S9jZF9
-	RrXJjXVET/UciY4oZPJ1rEO6jVbGZoxZP9/SEENfWjX1SMLXxKimtXortFmalrDAipoqt6k3DEQ
-	9zrf18caGeXpHWbR1cImwSiTuBz0XgNxwxW0pCpENuaTPCP0HMRxK2WDmFFVynsGkwn66kS1PLp
-	8yK09M9T28nZK+ZUvRVG6JW7urHMMXne4uQRdx4N+W7UGm
-X-Received: by 2002:a17:902:ecd1:b0:2c9:fa31:850c with SMTP id d9443c01a7336-2c9fa318680mr27451165ad.39.1782735809679;
-        Mon, 29 Jun 2026 05:23:29 -0700 (PDT)
-Received: from buffalo-ssd (M014013071096.v4.enabler.ne.jp. [14.13.71.96])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c89d9bdde7sm57104195ad.75.2026.06.29.05.23.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 05:23:29 -0700 (PDT)
-From: Akari Tsuyukusa <akkun11.open@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Akari Tsuyukusa <akkun11.open@gmail.com>
-Subject: [PATCH] arm: dts: mediatek: mt6589: Fix timer interrupt trigger type
-Date: Mon, 29 Jun 2026 21:22:46 +0900
-Message-ID: <20260629122246.148696-1-akkun11.open@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gb1zRgy8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CE3D1F000E9;
+	Mon, 29 Jun 2026 12:25:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782735925;
+	bh=oZq3HzBoE6H84O/7Xc4mXuUkH5xcueVnN1SS21e9Nig=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Gb1zRgy8E001F1aGXXpwrwF9OnyOHrazAH+DSp1V2pUzQyTV2Lx7aU14l/5a1k72P
+	 CzVQKp3mZQ8aG4okyTYwgpI3q/RiUBBkk4N2memcivjvWKTh+SYesSzv6j+rDg9OoA
+	 7wb7xzoDt+dDdhPKu68jbhSno3mZqwTJ+IpZHBWAQhNiQGyr0OxSEqjIORpjKjmG74
+	 LXNtHLgCrGd3NgeFifkvVT3/c6N5Mdiq232W66DTprBwVHLpG+lmQQ6TPURTz72/QJ
+	 w0oYaJiCAUUiOirBz1dbWvxGhowb5HeQ1LOW92tZqlRWE53J1VpZN/iL4qpH+UPFKJ
+	 BsmoCPNRvbKMQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/4] dt-bindings: media: qcom: Add JPEG encoder
+ binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260629121750.3469292-3-atanas.filipov@oss.qualcomm.com>
+References: <20260629121750.3469292-1-atanas.filipov@oss.qualcomm.com>
+ <20260629121750.3469292-3-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 12:25:23 +0000
+Message-Id: <20260629122525.4CE3D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-MT6589 uses IRQ_TYPE_LEVEL_LOW for arch timer, but I sent a patch using
-IRQ_TYPE_LEVEL_HIGH.
-The timer worked correctly regardless of whether IRQ_TYPE_LEVEL_LOW or
-IRQ_TYPE_LEVEL_HIGH was used in the Device Tree, therefore, there is no
-actual impact. However, this is not a correct description of the hardware
-so correct it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Device tree schema validation failure: the example uses an incom=
+plete and schema-violating parent `camss` node.
+--
 
-Fixes: 2a5d54507c68 ("arm: dts: mediatek: mt6589: Add Arm Generic Timer node")
-Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
----
- arch/arm/boot/dts/mediatek/mt6589.dtsi | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+commit 862ed8809d046c435b4cc946e8aea64e3ff8a893
+Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-diff --git a/arch/arm/boot/dts/mediatek/mt6589.dtsi b/arch/arm/boot/dts/mediatek/mt6589.dtsi
-index 46dea445742b..df3b7bfeac33 100644
---- a/arch/arm/boot/dts/mediatek/mt6589.dtsi
-+++ b/arch/arm/boot/dts/mediatek/mt6589.dtsi
-@@ -45,10 +45,10 @@ cpu@3 {
- 	timer {
- 		compatible = "arm,armv7-timer";
- 		interrupt-parent = <&gic>;
--		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIGH)>,
--			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIGH)>,
--			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIGH)>,
--			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIGH)>;
-+		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
- 		clock-frequency = <13000000>;
- 		arm,cpu-registers-not-fw-configured;
- 	};
--- 
-2.54.0
+dt-bindings: media: qcom: Add JPEG encoder binding
 
+This commit adds the device tree binding for the Qualcomm JPEG encoder
+hardware block found on SM8250 SoCs. It defines the required properties,
+clocks, and interconnects for the memory-to-memory standalone IP.
+
+> diff --git a/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.ya=
+ml b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
+> new file mode 100644
+> index 0000000000000..c8b4808054cb1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
+[ ... ]
+> +examples:
+> +  - |
+[ ... ]
+> +    soc {
+> +        #address-cells =3D <2>;
+> +        #size-cells =3D <2>;
+> +
+> +        camss@ac6a000 {
+> +            compatible =3D "qcom,sm8250-camss";
+> +            reg =3D <0 0x0ac6a000 0 0x2000>;
+> +            #address-cells =3D <2>;
+> +            #size-cells =3D <2>;
+> +            ranges;
+> +
+> +            jpeg-encoder@ac53000 {
+
+[Severity: Medium]
+Will this example cause a schema validation failure during make dt_binding_=
+check?
+
+The parent node uses the "qcom,sm8250-camss" compatible string, which means
+it will be validated against the existing camss schema. Since the camss
+schema enforces additionalProperties: false and does not permit
+#address-cells, #size-cells, ranges, or child nodes, the validation will fa=
+il.
+
+The example node also appears to be missing other required properties for t=
+he
+camss binding, such as clocks and interrupts.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629121750.3469=
+292-1-atanas.filipov@oss.qualcomm.com?part=3D2
