@@ -1,85 +1,118 @@
-Received: from outbound.st.icloud.com (p-east2-cluster1-host6-snip4-7.eps.apple.com [57.103.76.100])
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EE543637F
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 15:48:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.76.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44634266A0;
+	Mon, 29 Jun 2026 15:48:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782748135; cv=none; b=NxoKuWuFmItr6mE5/ZdWQ1vzNhxvBLCzJZnBivGdI+5roje6XfQQdqjgNP5xpxUsK5WmHyxfxnrhYossWJBqgZmD/iFOFRzVlSBqQWIUsy2G4mKTFtUMFyO8hJSMnJ16h1TpxAk0spIWcB7Ul6ZGanr70tJE4y6qQE/lPkvmm2A=
+	t=1782748135; cv=none; b=CqCG8XbtVv0UPAMHrq/ZUQA2dKYCup9Wzy7D24tXP1iFf3IABjxrgfxQILDDRukF4uJDy3GcCPz0E6X2Ckxx8x8ZnsetpFPqcUSgjAFDTNZd7NlJaGNc8lNZSlGaQdFfkBXDgAgUl2N/aYAQhLz8mtFmBYFHChc9yY7w/w7uA14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782748135; c=relaxed/simple;
-	bh=Nv2Xbmn8R223NXCsTFqI7f59JxfMT0JXaaCOOYJ2TqQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NiBBYXdwjA33llEJxuC895eCTxWiID8vDx8PRmt1X7pmYupMeUMIZL7KRtyGHimp6sK5/OnfQea9jRPFzgwqW3AlCkM+1PLw59KYc4qSFs+uV9KwjyFtQ1pImzDOVw99xzgNyKncaaBHgu1/QaFbepbgJhd/Ybr+O5sG/GN6xRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etehtsea.me; spf=pass smtp.mailfrom=etehtsea.me; dkim=pass (2048-bit key) header.d=etehtsea.me header.i=@etehtsea.me header.b=ECzdoNyV; arc=none smtp.client-ip=57.103.76.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etehtsea.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etehtsea.me
+	bh=xmCWbK3wuSCe1qafTBjyln+diU/VszgDudvxTEhocEw=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=AoWfDvpL4n6OnTe3zgqOfYTSQ0CFM4etGjYc5cX2tdRi/o2TFj2vgl6evgfUeX++Hv8tDw8q1zHLkfu4VpnGNXlfKnKwMwhiKpdfL4zkhIsAa6VVzRMsGPu+IpJBQUvvzL0M8RQkmOvbiRUwo7Wqd5/vnyInhfruBtXjp8dhZPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtcoster.net; spf=pass smtp.mailfrom=mtcoster.net; dkim=pass (2048-bit key) header.d=mtcoster.net header.i=@mtcoster.net header.b=j62z7qwA; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=GSzrox/i; arc=none smtp.client-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtcoster.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mtcoster.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=etehtsea.me header.i=@etehtsea.me header.b="ECzdoNyV"
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-6 (Postfix) with ESMTPS id 203741802091;
-	Mon, 29 Jun 2026 15:48:49 +0000 (UTC)
-X-ICL-RepId: 019f1411-aac1-7c75-9523-705f8db351fd
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQtJBEMGXAVeDU8dXA9fEhVdRV4MXgdyFU0dWxlEDlNeVB0TC1NWVwRcEEceUgocHVxYQQ4KWgNQUR1fAgoERwRbF0YDU0VBBBcRUAFYHlZeWhdeTUcfQE1iSQFaGVscQBdKbk1TDw8VTR1bGUQOU15UHRMAXg8PTAtIAVsHXQBJCE0HVQZZHEkJTgVAAkZfEVAUcwhDDloESh1SQ1oODFBNAUMICghHA00XXjJTBF8RUBY=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etehtsea.me; s=sig1; t=1782748133; x=1785340133; bh=wVm4n6U2mxb1jAMB2xT+3KE4DHy9V5nCLK9Uksr+Kr0=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=ECzdoNyV0W9I1Ui/SD0hD1vRrY0zO351vDF+5B4NdJS2qS+eVlVxZL6b6YTStAZngpL0LePM2vSA2tb4JJ0kutbM8qe+Z3okV+STnijohUeUBjRp1lRWz37raYF7srMMnug8fXQntNXrqp4lSwGKRNLWAF+RjNvCDVd8Umgq/926w+pEO6znTxNc6pvO2FpQxap4eq9nxyO6rOYq+qi8jNaHiCisbTJPa8IEAW0erOIEjpkmZgpxxLV3q/zqKsEkvWUd6yzvAmih9XgdEiS0Frv8LJn5BSl/togpCH0imJp4zEnSUNHHwEDiNf5sOr+DNjzH1x5+B1VeER0G+S7bbg==
-mail-alias-created-date: 1634905887181
-Received: from localhost (unknown [17.42.251.67])
-	by p00-icloudmta-asmtp-us-east-1a-100-percent-6 (Postfix) with ESMTPSA id 3DAE7180208F;
-	Mon, 29 Jun 2026 15:48:46 +0000 (UTC)
-From: Konstantin Shabanov <mail@etehtsea.me>
-To: andersson@kernel.org,
-	konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	valentin.manea@mrs.ro,
-	Konstantin Shabanov <mail@etehtsea.me>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v6 4/4] firmware: qcom: scm: Allow QSEECOM on Honor Magicbook Art 14
-Date: Mon, 29 Jun 2026 22:48:12 +0700
-Message-ID: <20260629154812.9066-5-mail@etehtsea.me>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260629154812.9066-1-mail@etehtsea.me>
-References: <20260629154812.9066-1-mail@etehtsea.me>
+	dkim=pass (2048-bit key) header.d=mtcoster.net header.i=@mtcoster.net header.b="j62z7qwA";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="GSzrox/i"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id E47AF1D00116;
+	Mon, 29 Jun 2026 11:48:52 -0400 (EDT)
+Received: from phl-imap-03 ([10.202.2.93])
+  by phl-compute-04.internal (MEProxy); Mon, 29 Jun 2026 11:48:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mtcoster.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1782748132;
+	 x=1782834532; bh=caj7NhxS+zfIfbXQGNobhEaj6J+GBhedpqhuGQWWRII=; b=
+	j62z7qwAllMd89cHW1sEjJdSNVBtwxRv7xjEgoA4uTGpcVSaouVCwW9iWqlmhRmf
+	F/sorL4LYU361JrhOTB7s+cTz/chpY+eu+6Onore6d7ejpBRdix/tWEjoSrKzxd+
+	250UIDBpFGfTldzxtIj3urItrxQhu7bAm/mW9Y/EbuYLaVtMHSdeRERyW7cuXwxG
+	43eXmuzitOTAIJDLarqJtreKC6J2tmL6tCW2mG+jxzEOcN3ux9Hp6cIbKzpzxP8+
+	VUCfrtVXvllsY0nvazgu8xS4SfKwvlmWuCGZqDlHTzZVq8g7KYetkBLj7bDUZQw1
+	/XGWmVipEbdLYr3e/OdynA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782748132; x=
+	1782834532; bh=caj7NhxS+zfIfbXQGNobhEaj6J+GBhedpqhuGQWWRII=; b=G
+	Szrox/iO8ycXO0ZFNudxuEjuvWMY1ouSn1vnUy8Oj1J2SJ9YDX8aNSkxhrkXNyVg
+	s7nX+QftS2FUyLy7VH7Jz8gRNbiq4S5/YRvVehDsnf+mdGhLkRRnv/R/8YsKMPUu
+	JdQMV+eUGoOnEJQ7M0aDzHYqPcNHB84KFUIjalCi/nzlKjbROMENBJmnWOB/JWkM
+	cYsq5OGKRvDErr9e9XRbTLb9zXFAMVwvloHrPvRzpB8NBFX+EuSWWQH6ohaakKsq
+	OMEuRG2/Oa3vB3uytT/tbAus61a6M1hGHWLXNS2bYF97V1V8qYbfHDxSgJoj0oiO
+	cjAnvVDjAAvxXqaGZmRMQ==
+X-ME-Sender: <xms:5JNCao_gkI21wqYj62sZkgRybKsPp8PnoSv7ot5kWty2Dkc5hafNAg>
+    <xme:5JNCarjq0lGA0SL1fcGtR_C6u0kNGt2esRihOUAxsgpKXkDyYRwjaUZDZ1WQnVhxY
+    M1P3w5SbBrouBZ2uht3EbneaqeojNn0ENNcddb-CJSTsM8Q3hRK7Tw>
+X-ME-Proxy-Cause: dmFkZTFyrGHzQxOGKuyDxh+BFBPqSEF8ztq1BPMqg2fmi80m+dqZMCnIREg7xkWG9OnWJw
+    AdShqOLjYq0LieOs6yIF9xiPBdajB36tBrcsOnz/FOs/z8q2ZIkZyqYgceNCT2airy7gNy
+    cgxX4v8hG6qJBwWak8viEQ9l4qguwcqayaa4A3qMSmRQJFQA4UwIdNjBEsHuKEtmJLXV6o
+    H862P1VSvcrKhTm/pnbAgzLz+0Q8C8bWT8lQ0x328eQGXt8hRWllEibHD7OZiegQfezkwl
+    qChWpYcnpNqVNfqRaKQ2/RrGmwMv2EaCDvqqMaY2BBu4l3RtrZ6pfIF2nT+d79cSxNzGly
+    JylbQwdbbsqVAnn0IlG/S4pRIpja7HChnkJxWsiS5RAqTOr7bAaBMlna+TYmiaF93hEA5E
+    eWq41K72xnpbi00HcG6DWW271m8dEuKF6eI9+PhavsVMj6q1n79ShDCjO23RUf9pW4DGta
+    E7uKLuOp6zPaIFMEX0+jqeqAlr7NK3XhyEAsBH6nHdHphkFlD4QVUhObE4hLyr02dcFAxI
+    dkJSQmp6vQVLkeiqZTG2CF9IxHNh6931LtL2k+LCST6b5sEsBXQXPYuqHrTgFVeU+3rvo6
+    nlcm/NVDYEuT+U3nWAKiqkCOJeN2pjFIGCrhf+FwZLv+G4nDFLcax64nrXUQ
+X-ME-Proxy: <xmx:5JNCamqxPJuv4nEc8P-pF_4LA_aU_4syiZzKLKdwBoCkwGtQpafh3A>
+    <xmx:5JNCai5MbXxvitAoROFr1xx3CIDk1RRpIow9TDy2cP4z8CtNaZS5cg>
+    <xmx:5JNCakgHsUJhB5mrDtpKR0EIlx30ylRhRup9l1sd4jqDkp9ttfKDMg>
+    <xmx:5JNCao6cL481Kw700dcsMpnZYpy1oy4elC8NYZyYM-M--jGcBRrtgA>
+    <xmx:5JNCavym-Qoo_vYLbjdlCnieU4OymZsiOfbisoiZ7l7wwqO0kdJVM9Hq>
+Feedback-ID: ia289499a:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 54B0F18E006C; Mon, 29 Jun 2026 11:48:52 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: miJks0s18T5uiqsw0EX0qlS37YyaNgEM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDEzMiBTYWx0ZWRfX+TLzV2REKoOw
- G858I/rw1+l4znWntk/bBb2YMFsOhYsleplEiPHB1RRhghq7EdfKER78oteuqfwIsovZzSEC57b
- 7A/ee19z5vylwVKtqyCedkzzdIzdLyQPDFcvMD59jTWhtixIzTKChWK5K5Jjl23Az5eR28JB1lg
- SNrC6jeaHMHblQBMCNelyZx7kt1pEodS7kKXuh7LCfdBAh6of3sBAlRAJ0OpKx7f1qpCSXvCfMz
- qK2/aPADH5XOs27aLgoKYUxsMWGvYWdFAv7qP8swCCoPVWFKNM3076wO9j962VZW63Y6LZmKvg4
- rzWlSNn5aWSClERBFe3
-X-Proofpoint-ORIG-GUID: miJks0s18T5uiqsw0EX0qlS37YyaNgEM
+Date: Mon, 29 Jun 2026 16:48:31 +0100
+From: "Matt Coster" <opensource@mtcoster.net>
+To: "Matt Coster" <matt.coster@imgtec.com>, imagination@lists.freedesktop.org
+Cc: "Alessio Belle" <alessio.belle@imgtec.com>,
+ "Luigi Santivetti" <luigi.santivetti@imgtec.com>,
+ "Frank Binns" <frank.binns@imgtec.com>,
+ "Brajesh Gupta" <brajesh.gupta@imgtec.com>,
+ "Alexandru Dadu" <alexandru.dadu@imgtec.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <272ffadb-9521-45d2-8564-024b68a94549@app.fastmail.com>
+In-Reply-To: <20260629-goodbye-v1-0-3bab53a80c53@imgtec.com>
+References: <20260629-goodbye-v1-0-3bab53a80c53@imgtec.com>
+Subject: Re: [PATCH 0/2] drm/imagination: Remove Matt Coster as maintainer
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Allow particular machine accessing eg. efivars.
+On Mon, 29 Jun 2026, at 16:47, Matt Coster wrote:
+> I'll apply this towards the end of business tomorrow; my last day.
+>
+> In case anyone reads this, I'd like to take the opportunity to thank
+> everyone who reviewed my patches, or sent patches for me to review. It's
+> been a great chapter of my life contributing to this project, and I hope
+> to cross paths with it again in the future.
+>
+> Signed-off-by: Matt Coster <matt.coster@imgtec.com>
 
-Signed-off-by: Konstantin Shabanov <mail@etehtsea.me>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/firmware/qcom/qcom_scm.c | 1 +
- 1 file changed, 1 insertion(+)
+Acked-by: Matt Coster <opensource@mtcoster.net>
 
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index 6b601a4b89db..b6f7c567d4a8 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -2295,6 +2295,7 @@ static const struct of_device_id qcom_scm_qseecom_allowlist[] __maybe_unused = {
- 	{ .compatible = "dell,latitude-7455" },
- 	{ .compatible = "dell,xps13-9345" },
- 	{ .compatible = "ecs,liva-qc710" },
-+	{ .compatible = "honor,magicbook-art-14-snapdragon" },
- 	{ .compatible = "hp,elitebook-ultra-g1q" },
- 	{ .compatible = "hp,omnibook-x14" },
- 	{ .compatible = "huawei,gaokun3" },
--- 
-2.54.0
-
+> ---
+> Matt Coster (2):
+>       MAINTAINERS, mailmap: Update address for Matt Coster
+>       dt-bindings: gpu: img,powervr-*: Remove Matt Coster as maintainer
+>
+>  .mailmap                                                     | 1 +
+>  Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml | 1 -
+>  Documentation/devicetree/bindings/gpu/img,powervr-sgx.yaml   | 1 -
+>  MAINTAINERS                                                  | 1 -
+>  4 files changed, 1 insertion(+), 3 deletions(-)
+> ---
+> base-commit: 2637cc60b0e10dbb77fbc749f5d2de10acf133f6
+> change-id: 20260629-goodbye-26468f9502b4
