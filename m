@@ -1,140 +1,153 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0A14048A3
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:15:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAF03F0AA7
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:18:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782742515; cv=none; b=B5QHuuIbPdYgj2KvQjEu4zYuBngpJXBfii8npQysy54UrMcxmY5QkyA5gXi/WBd8iRio0yQc99aPK8wtvpvZN7d3ZF3DA4sPGHDHCePuC/J5VjFXe+fOsddx5MQr9Ln4htruc4IyCd0HLx9Bpk6qm09nGU17UT9dlgVCBL16U4s=
+	t=1782742720; cv=none; b=fuflS157cLUuCvtNVWDatEbhGP1gUG370+BBn5hTArK1073MJJQDzsxjFPbgiYlXbFNWxi7gz0m3JV004Vog3QCOkiDIkhA/xnSBuxLgfppiGrWu+0TcUFz4/ISUj5RhrikYKkMBSLaV5iapgV25EhPaGhXgrGSv+EtCuaZ/BPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782742515; c=relaxed/simple;
-	bh=5p/McKl0At+a6VAzKcOjx3RuZRzgCfxMKqmXtggVLuQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=F1m1LddYE1QOFyP48Dvn1TJyqRnZ3CtxEwlaiPstjJkWqaiDdAfmz6D+V+Z6OYGG4g4rCuMHWzud8asM7le7zqT9Fs77bh9qLw9o9aGcxqkL/+w2QsyqGMtAvQARCL3CHhH0XL4hmQfobB7S7MdmcfmP6tWpLoGbnkLkLbqt0NI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=YriLaAzl; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1782742720; c=relaxed/simple;
+	bh=0bnGvHO0rg4OMO85F9ZInJ9e5FeYAfeKZbeYpeWqk+4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gGVy75J6FFRp0ma6tObfATJ/gYdyyiC4vd7CX3UZIXv0CMaMvpeKPDQvX1i2R7P9cEKNQCbUoFtSXo0CyZSRVhBC151ix3IYRrSb904a9Ii2x5mDm+9061l+leDOlFqwoNS6UEtNAE4neCvpI8eQtYPMjqCTLFWY3Mcb8s5GGHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=E0UPDdIA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Irf00Ot2; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="YriLaAzl"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-493b29be0d6so7498865e9.0
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:15:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="E0UPDdIA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Irf00Ot2"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65TATCwG2647686
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:18:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	HtzV28mhl3/Uuzr/u/bbslNE/8t349o7WhdF8PQcBC8=; b=E0UPDdIAO5w4lV+w
+	BhzfHarJ3Q7jTpWQF+9GNtQnrUPzztxeJmMgvK6QRNb1yRvOw0MlXQfgCtKHgoSC
+	ivK/6TONPp7mFqp8peTKqyTtY+TZPiB0Ykkp8Su3VeehkphlyolXhoLBkfdG+437
+	qMoXnw8GrAbvVXvvOAH65e3LRnrGNS6EYxjPpcJGlEAfJPzmkiTTV+QFe30fFJ65
+	OuzPZym4bhSzJWVG+CjtycRw7+vY6siYBvTy48F9GdSVe5o/1Mlw1MhMnXtM9ZIf
+	3mP1GlkwqcpW9PNqQOc9PgF39c3l0HA/aDEOtvLh8/eS0gx/eTpXrJrBaLX9UJuf
+	B+KD1g==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3kyjhpbn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:18:38 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-734f7d8bb37so279626137.3
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:18:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782742510; x=1783347310; darn=vger.kernel.org;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=RlSGFWS4+pKKIa8x4IUZ9wzt88PH868TUMMVsj+F2xg=;
-        b=YriLaAzlx7/8xuxqqtX5jObQuQD5HA5lIE7nD7c6SyoTonvguk1OT8gnFfJBzgEVDS
-         NRZfAr/uN9yM7JDQ5fXD0PXrlWWYp2fB2KGWuL1VE62+LYj7rk4KGESN7q7P3AuHsxBx
-         nB0tdWDOTUgcrLliCBZ5EZKPoNwNNRUIrJFZvwtNhe8HR0Qx8xVNBqQ54nmmGWpUTERS
-         anAcA+uy0BzWmaaCTQ1m6Jl3vrKShtOSgGOh4SFa45OcduGmgYWfcTWNi3J7w2SiXT0A
-         RjTKLj4XZavhzIKaO7j+IPsTwQuyo3Vuimnc0+2+AP4dGcq/qi2fZMBcqsTBYhIh/kDZ
-         Lt4g==
+        d=oss.qualcomm.com; s=google; t=1782742717; x=1783347517; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HtzV28mhl3/Uuzr/u/bbslNE/8t349o7WhdF8PQcBC8=;
+        b=Irf00Ot2RxCFbU6TVCA9sp6WncGznh1dUglCJ4lnPReV5ip+tnJ6NcmK2T0+jSWybb
+         raKLF+d5+RWonzCDDcyRr3nbGMu9dfrw7tATlsMuM5q6UIIlbuq/MhcF9C/co+kjOUbf
+         S/V12pCWFpftViuVYZsAY2NqZE/hWoefsOJggiEzGOwA/od6havGs3hO9WESuysvO2ue
+         EliVjUdiqbvujJ+3j+EWjo1N39ykm6ttpNo80diHToUI17bbGAp5VcB6Oj6EGASTXhxB
+         9PVG+kGvg9c1hreCs6QpQ34bJi0ALHqOtYfpCIlGJD0N+USMAxLvDl4rm3puzwVCdxLg
+         KTuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782742510; x=1783347310;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=RlSGFWS4+pKKIa8x4IUZ9wzt88PH868TUMMVsj+F2xg=;
-        b=qgjz9zmEyQZFUxiYTHYstxVXtE0B1PTWyr/4Rt+V2gP5ZlUwErKCPuUAiTtK5duDdp
-         MmprzDaZUB6KN+n/mVTJc96tCyX1oZF2TSQBd+M9tCtf4YT7vAVQWBheq7KCQYHVI2Qw
-         20173d8onZxHHd1guJBizIABzvRRZmZxYiZZ/XsfDyDpPoRhmvUlYZOF4uWlgernejgB
-         oyn4/w3S3pWTv1y6uszhdfUY0911CcIaY8FY9yWU7HzsMcXlMs2vd1RuXtqgWfHx4d8J
-         5bbB21Ea+9hrKCeVAXw8VkaVDil40X+4438f2R4bX/DtNIF01IVM8CAOpmX4ACWT+A+9
-         xuIA==
-X-Forwarded-Encrypted: i=1; AFNElJ/In30j29bMTbTFE4TFQW+/KrSW4pbucHSuqoTtmGjR7nylYsfD/EYpChce1/C61nBqw9V2p8q1R3MF@vger.kernel.org
-X-Gm-Message-State: AOJu0YwPnkAjew+YReh94geRQd1VJwOBfIKBZI/El2yeojH5zldGzoWj
-	LtoRX23+FEmQsZKIUI7E3W++hoTC0maSjZamM9G7d57CaxrOFLNB2A7Jicri5eQjRXE=
-X-Gm-Gg: AfdE7clp/Rr2sAPa3mBSPGIAejd7QPz78dAiDCTqAJIpvtVW4SZs+9IiW3jHX+0j69p
-	bEcXt9ZEMDFcVOJdOM0+4lpm3tHTJtv+AhfAHJdVICLP6AJQeKDtHhyotPM+ieoypnUZ6lgV4vP
-	MFmNkd+aYfXy9CHafmM/a7M1Cc3YOC1y6grBnS6h45p7eImtOO/RoL3Bxn44y2gwjMr+O3uWrJr
-	XFGw4ZmcZRGpXpHKXyiLE1bWH5Hua2RkmzLsKet0Vpgi0KHdBhj0s2cD0J86BKukN7sWWn6eQdU
-	10gC3yfS3y1NXG3Pd4wffzbEHSfI0tzXaijeKVKpl8rTGZS7gzkQiyrHM63Dudt1JlO51iOCywF
-	Xc5tLwgESFIkL0ZAFgIc+F87pyYubSZTs9bb1l9KMzk5IJppmCUUGwGcj7K822MmIXRWjG1TSRW
-	69RjCdatJ3em6Yrp6NoY2NDQ==
-X-Received: by 2002:a7b:ce19:0:b0:490:ae36:4835 with SMTP id 5b1f17b1804b1-4925a208424mr287672525e9.17.1782742510488;
-        Mon, 29 Jun 2026 07:15:10 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:1d21:f5d5:2d3c:23a7])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-46f86c34d76sm25027622f8f.3.2026.06.29.07.15.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 07:15:09 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: sashiko-bot@kernel.org
-Cc: sashiko-reviews@lists.linux.dev,  linux-sunxi@lists.linux.dev,
-  conor+dt@kernel.org,  robh@kernel.org,  devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 5/6] clk: sunxi-ng: sun6i-rtc: split main oscillator
- div and gate.
-In-Reply-To: <20260629131254.7E34C1F00A3A@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Mon, 29 Jun 2026 13:12:54
-	+0000")
-References: <20260629-a733-rtc-v2-0-7b72112784f8@baylibre.com>
-	<20260629-a733-rtc-v2-5-7b72112784f8@baylibre.com>
-	<20260629131254.7E34C1F00A3A@smtp.kernel.org>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Mon, 29 Jun 2026 16:15:08 +0200
-Message-ID: <1j7bnha0wj.fsf@starbuckisacylon.baylibre.com>
+        d=1e100.net; s=20251104; t=1782742717; x=1783347517;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HtzV28mhl3/Uuzr/u/bbslNE/8t349o7WhdF8PQcBC8=;
+        b=dlvxYIuXVddxS8ya3fakBgC3yNuW8nsviOFhq+MiMEefzSxTwmPHZqZY9+UyCOx1xE
+         24kQLJy9ytHisugeg+n9JXRsYgcPKjKacALSy7mz+Wco1MXoQCUVM43HIDuLknSHq3Zf
+         7A5XIGHTAffZkhSDOmbY/JqGX6h7VLgKZeX9U6+CQlzWgJ5WYFUeKevDYTUTFpgpv+YR
+         8DHp1ztVoxMYzgADfMwidANtRAVG29WEl7nY61PGt/hjpR8yyHS4oTsQcqA6stMqn1Vb
+         X2p/2SvDwZ2mxrTJSHkNBGtX/jSsxlIJSse8VID8JKVXonL11Dk1P/DCb4uGGGjl/UWv
+         PMHg==
+X-Forwarded-Encrypted: i=1; AHgh+RrLmJfxy93J2JrIZZrHqQ67OZHB70F6ONo9k0jEQMD4c5fV4XPACRn9jfEUUt4yjMLZkXid+Nv7WqVZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTWBd562xz0ogHzLfyzCdOth20Oc9u6xFBatn7jCqqEuUfVyDK
+	G8+nlxjzJGlt4LRrjiOMyDMAxTR1CbOccAK6dqoAgtq4YOvovJ1S54kTDteWB1r7eUKAVt9Doy1
+	5L1fla7slRIlPRSZxSlAjLkKlIlzNuslgtEeFMTvyIiLeScGNw6Pb1hEzwdWPIDNl
+X-Gm-Gg: AfdE7clVBMZeukgZ0ZTUMv7uUff1LBUgvHGJ1UbCxAU+E/wEB4d0XR8IWf2/ioZcIpW
+	0jBG4JCOiNdase6tEa7zUuSW5MQ2ZoEMMI8b8p3Yi1mPmfkRZF1m1y+xyxv5h1V3DdR4F4ugMD4
+	yf1RJJibpFLsD5o27A0PjfqYt5oY0PtJwaxmMYxd0Bipl/e9Wcn7dz8CiJ2xIqtwnBDlBf1EKdX
+	BZsPcImSmlo/FXIFK/p1VcGN4Sw7PZE5qZ5U7qH015bRSOTwfUh9bV0RJThTZP1MHyN6ksvHbaL
+	6vONFdmBgNxqcRvbQn0xk+IN2gb1d6274HKE/SMOBW+Ru2zOZZ2rKX0BI5oYIZEq5VCABNelEi1
+	IiJ79AXeu+vZ3NpGk6lJrdZOlz9b6les6I8o=
+X-Received: by 2002:a05:6102:440f:b0:633:3bf6:977c with SMTP id ada2fe7eead31-73433e2e7a8mr2478756137.1.1782742717552;
+        Mon, 29 Jun 2026 07:18:37 -0700 (PDT)
+X-Received: by 2002:a05:6102:440f:b0:633:3bf6:977c with SMTP id ada2fe7eead31-73433e2e7a8mr2478702137.1.1782742714984;
+        Mon, 29 Jun 2026 07:18:34 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6986625efc1sm1884211a12.19.2026.06.29.07.18.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 07:18:34 -0700 (PDT)
+Message-ID: <66330ed6-826a-431e-9e8e-f2998af55168@oss.qualcomm.com>
+Date: Mon, 29 Jun 2026 16:18:31 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] arm64: dts: qcom: sm8450: Add IPA support
+To: Esteban Urrutia <esteuwu@proton.me>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Alex Elder <elder@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20260622-sm8450-ipa-v1-0-532f0299f96e@proton.me>
+ <20260622-sm8450-ipa-v1-1-532f0299f96e@proton.me>
+ <806046b2-20ed-437e-a7e6-b3c0699f5a2d@oss.qualcomm.com>
+ <b1f872f5-66cc-45fc-ad42-c308f8970691@proton.me>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <b1f872f5-66cc-45fc-ad42-c308f8970691@proton.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: BJ6pNKouXs2XUlhsAl7UQHm0wAGUs0Mk
+X-Proofpoint-ORIG-GUID: BJ6pNKouXs2XUlhsAl7UQHm0wAGUs0Mk
+X-Authority-Analysis: v=2.4 cv=Ftk1OWrq c=1 sm=1 tr=0 ts=6a427ebe cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=0dHVmNKhjX53LK_pQYIA:9 a=QEXdDO2ut3YA:10 a=QYH75iMubAgA:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDExOSBTYWx0ZWRfX86FB/M9/QA5Q
+ oxTo0xsb2bcVehWh2kvg1zi+nOlqWs3bgQ5due7Usi6GXDD0DQvOct7Mnztzk3N+Ly9dziNDS0d
+ L82Q9oXXdIoypEoTYHimjQe9YsJU0QQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDExOSBTYWx0ZWRfXzdHAyOohoc06
+ ezvLnnJ12609P8uAoQMzBxtYMm1ZiFYPIIhNkT7jDBAc9yVEmcO6GAXAV77lcdu0KmSY7y/V7aT
+ St/B7o5Pv32a6t4up1ACQNXfV5cr6Gx3E9MRCABbUI6Brh2AuuEocn908PL2+b2h5do0CUTQFml
+ rTVAdx2WFLJEHrHtX14aM8gUIH8NTmGtPWAnWGD9mWWwQZiy+1yHnpjsTGloe8qUWQZqoIzLT6d
+ k9nmt0reP7YIj9va9SgIhVOjeVEjcO8IRSVLe0ZFxULwGOVVFmmGxQE6LpV8RIv6zA9EUrNR31l
+ 2fHI3GrxiOxiQ6ZpQcoQ04A6RjmdQ4FF2We8cHdjGd90483rPieaO/NwYWTb/tHip/VAaGGIeOL
+ KXpAKbi75gZrVr5rtlXLEkKe1x4cIDUHPc3+s9d7LV4xig44PHaQdOYMXuRp+hBlGbzpUpcXgbb
+ uxqUYMGkdExgo7cnyZw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-29_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290119
 
-On lun. 29 juin 2026 at 13:12, sashiko-bot@kernel.org wrote:
+On 6/24/26 3:52 AM, Esteban Urrutia wrote:
+> On 6/23/26 5:37 AM, Konrad Dybcio wrote:
+>> size = 0xb0000 for the RAM and uC regions that the driver seems
+>> to poke at (at a glance anyway..)
+> 
+> Sorry, I don't quite understand. Could you please clarify?
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
->
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but the error path
-> in `sunxi_ccu_probe` unregisters clocks using the wrong loop limit, causing
-> either memory leaks or out-of-bounds array reads depending on the struct
-> array sizes of the specific CCU driver.
-> --
->
-> commit fe4850822f9e2e522aaac703e02ecb786fb47f26
-> Author: Jerome Brunet <jbrunet@baylibre.com>
->
-> clk: sunxi-ng: sun6i-rtc: split main oscillator div and gate.
->
-> This commit splits the oscillator divider and gate into two separate clock 
-> entities to support the A733 SoC. It introduces a new read-only divider 
-> based on the oscillator rate to replace the fixed 750 divider.
->
->> diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
->> index b24c8b196e664..25dd87e78eb7a 100644
->> --- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
->> +++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
->
-> [ ... ]
->
->> @@ -286,6 +287,7 @@ static struct clk_hw_onecell_data sun6i_rtc_ccu_hw_clks = {
->>  		[CLK_EXT_OSC32K_GATE]	= &ext_osc32k_gate_clk.common.hw,
->>  		[CLK_OSC24M_32K]	= &osc24M_32k_clk.common.hw,
->>  		[CLK_RTC_32K]		= &rtc_32k_clk.common.hw,
->> +		[CLK_OSC24M_32K_DIV]	= &osc24M_32k_div_clk.hw,
->>  	},
->>  };
->
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does adding an extra clock
-> here expose an issue in the error handling path of sunxi_ccu_probe()?
->
-> In drivers/clk/sunxi-ng/ccu_common.c:sunxi_ccu_probe(), the err_clk_unreg
-> path unregisters clocks using a loop limit that appears incorrect:
->
-> err_clk_unreg:
-> 	while (--i >= 0) {
-> 		struct clk_hw *hw = desc->hw_clks->hws[i];
->
-> The variable 'i' incorrectly retains the value of 'desc->num_ccu_clks' from
-> the preceding loop, rather than using the correct bound 'desc->hw_clks->num'.
->
-> For drivers where num_ccu_clks < hw_clks->num (such as sun6i-rtc after this
-> patch), will this skip unregistering the extra clocks if probe fails? And for
-> drivers where num_ccu_clks > hw_clks->num, could this read past the end of
-> the hws array?
+Please alter the size of the register range that I mentioned this under,
+as the range is wider than what you specified - the driver takes a big
+offset from this base and accesses far outside the bounds of that range
 
-Good catch, using a different iterator should fix the problem
-
--- 
-Jerome
+Konrad
