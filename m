@@ -1,152 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E098938A718
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:48:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC43C3FFADA;
+	Mon, 29 Jun 2026 11:48:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782733704; cv=none; b=cSnyc18Yr2p2144go0u2CKI0gnK0VMvxNjgltp9nfpCcD/DPl4TQS/pU+dymPNIGJHVwj3UE/rh02UTi0f4UTBdPp81/gKksK5Vc8bLSVmMKUB7k8xDXtAUsjciXzlzY3QGrGIBimvwbcMkkJGyf34FuqRu73/Qq5nQ0Ta/0rzU=
+	t=1782733743; cv=none; b=OI+RwoTkSLqW1/03yMFX0ViXTSUp4zn/XgmB17BjPGeVrTlcgOHO7Ip8ifGEWr1HvW1ZnADAhFbdp1JUR3j14Dynra39BIMMsFNH7sbzqZFePHtGB1o7AXw/KAsk6L1+QED1tG2xLh1W533zCKUgk6w/U02zCshS8yeGvjG7eSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782733704; c=relaxed/simple;
-	bh=J00Pn5wN0uddYGojhlzaNFq+jOtgGNf2dYnkemvDAzI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xm8YN10rxjKouo0AXsrC/CCAzktfn6nJYxYVZrPNjRCa4O8ApZVAbfMhNbVd8eUU5i6odKtUc3dJzEQrKDrpF+PIwAeXZf6J85qGVpQWlRIBAHL/M9nF0PZDSJHQD3qe2zl1UQlkgg/6TPPu3NsL/zTcyIbKpXh4o5MqlbMVf/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AITq3imU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782733743; c=relaxed/simple;
+	bh=2ZcnW/p4U6kHuv2hD7F4IvxtLv4b/8wPoO0xrWapwX8=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=FYpmXGmKoAWwJaa+B4OBQBHzJSF7p8pSp0ibjMM8fx8D9xCoW+il4n/glHf5V+J9mEZKvkvC3P/SClwqPwLnWpAxi1jqctcZHLD4OEoClEswijm7/KR84bh3gCJEgv33w/nF+wDf+hQ8JCgaKuB5XhQkdY74Y+sENpkYb4e89QQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=YtO5REl4; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AITq3imU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A0D81F00A3A;
-	Mon, 29 Jun 2026 11:48:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782733703;
-	bh=esn6g84YApgt7DeO1miYz7BTaLoRhtFrbSl9Z8uqfWY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AITq3imU6OFzxhVMpRoPkfFMxIiEt3GTvcRUc/seqGGULitDiqU9uTlTA1E7aWwCC
-	 DhS24TRzGanWdXgXj+P91e4hxWOvKZ55CRWsFqZk1kOLUm+U2xATttkzHi5ESjGNUH
-	 bv9SjzUNN0pZ0siRbe/vDgV4BVssNRpxNB7sMjLlJumo7dkOq47P95oznwoXQbsNCD
-	 8yPKdG2lk654esBVsQgynUyCxm8i2Yqb49YLoV/PNSePf58lmnBThLgINQXfZ1Azht
-	 oBAbL3hYjFMrxPvRTN0SGLdmnI+w05kSm/Xk0PYQjimlN+O7K5KkN9RvtOcsh7f3UV
-	 xOZKj9neDXd5A==
-From: Dinh Nguyen <dinguyen@kernel.org>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: dinguyen@kernel.org,
-	devicetree@vger.kernel.org,
-	muhammad.nazim.amirul.nazle.asmade@altera.com
-Subject: [PATCHv2 2/2] arm64: dts: socfpga: agilex5: update channel interrupts for gmac1 and gmac2
-Date: Mon, 29 Jun 2026 06:48:18 -0500
-Message-ID: <20260629114818.1746410-2-dinguyen@kernel.org>
-X-Mailer: git-send-email 2.42.0.411.g813d9a9188
-In-Reply-To: <20260629114818.1746410-1-dinguyen@kernel.org>
-References: <20260629114818.1746410-1-dinguyen@kernel.org>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="YtO5REl4"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=KYIqSPaWrslFKWhq3eRFcveecF15aHMxW8vSfPyMtbE=;
+	b=YtO5REl43rH88w+Rl7nwaF6bOhXf/g0q57POHjsl6p4cAx75xKurJ8P6ck1yULbMEfoTSCg/I
+	NPh6iWB9/g28QpHIcg21jEODVsd1bNgl9xeE4BGR8EFboZSkyO4GCVhjbUtE+xo2rEYJ0acmKcf
+	Q/98oHtxrli5pTGHa8c0JC8=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4gpkqN4X17zpStT;
+	Mon, 29 Jun 2026 19:40:32 +0800 (CST)
+Received: from dggpemf500002.china.huawei.com (unknown [7.185.36.57])
+	by mail.maildlp.com (Postfix) with ESMTPS id 1EFEB4057D;
+	Mon, 29 Jun 2026 19:48:57 +0800 (CST)
+Received: from [10.174.179.24] (10.174.179.24) by
+ dggpemf500002.china.huawei.com (7.185.36.57) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 29 Jun 2026 19:48:56 +0800
+Subject: Re: [RFC 00/12] RFC: Devicetree-ACPI hybrid mode
+To: Hans de Goede <johannes.goede@oss.qualcomm.com>, "Rafael J . Wysocki"
+	<rafael@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+	<konradybcio@kernel.org>
+CC: Srinivas Kandagatla <srini@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, Bartosz
+ Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Abel Vesa
+	<abel.vesa@oss.qualcomm.com>, <linux-arm-msm@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-acpi@vger.kernel.org>
+References: <20260623145225.143218-1-johannes.goede@oss.qualcomm.com>
+From: Hanjun Guo <guohanjun@huawei.com>
+Message-ID: <68799102-870d-1b8e-e663-df2f053a1114@huawei.com>
+Date: Mon, 29 Jun 2026 19:48:55 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260623145225.143218-1-johannes.goede@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ dggpemf500002.china.huawei.com (7.185.36.57)
 
-Populate the gmac1 and gmac2 interrupt list to support 8 TX/RX queue
-pairs.
+Hi Hans,
 
-Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
----
-v2: no changes
----
- .../arm64/boot/dts/intel/socfpga_agilex5.dtsi | 72 +++++++++++++++++--
- 1 file changed, 68 insertions(+), 4 deletions(-)
+On 2026/6/23 22:52, Hans de Goede wrote:
+> Hi All,
+> 
+> Currently as soon as the kernel boots with a populated DT provided then
+> the arch/arm64 code sets acpi_disabled=1 and the complete ACPI subsystem
+> gets disabled. On WoA Snapdragon laptops where the factory Windows OS
+> actually boots using these tables this is not necessarily desirable.
 
-diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-index 2096decb5655..f54767d1526e 100644
---- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-+++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-@@ -702,8 +702,40 @@ gmac1: ethernet@10820000 {
- 			compatible = "altr,socfpga-stmmac-agilex5",
- 				     "snps,dwxgmac-2.10";
- 			reg = <0x10820000 0x3500>;
--			interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>;
--			interrupt-names = "macirq";
-+			interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 209 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 210 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 211 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 212 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 213 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 214 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 215 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 216 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 217 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 218 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 219 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 220 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 221 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 222 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 223 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq",
-+					  "tx-queue-0",
-+					  "tx-queue-1",
-+					  "tx-queue-2",
-+					  "tx-queue-3",
-+					  "tx-queue-4",
-+					  "tx-queue-5",
-+					  "tx-queue-6",
-+					  "tx-queue-7",
-+					  "rx-queue-0",
-+					  "rx-queue-1",
-+					  "rx-queue-2",
-+					  "rx-queue-3",
-+					  "rx-queue-4",
-+					  "rx-queue-5",
-+					  "rx-queue-6",
-+					  "rx-queue-7";
- 			resets = <&rst EMAC1_RESET>, <&rst EMAC1_OCP_RESET>;
- 			reset-names = "stmmaceth", "ahb";
- 			clocks = <&clkmgr AGILEX5_EMAC1_CLK>,
-@@ -816,8 +848,40 @@ gmac2: ethernet@10830000 {
- 			compatible = "altr,socfpga-stmmac-agilex5",
- 				     "snps,dwxgmac-2.10";
- 			reg = <0x10830000 0x3500>;
--			interrupts = <GIC_SPI 224 IRQ_TYPE_LEVEL_HIGH>;
--			interrupt-names = "macirq";
-+			interrupts = <GIC_SPI 224 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 225 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 226 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 227 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 228 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 229 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 230 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 231 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 232 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 233 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 234 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 235 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 236 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 237 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 238 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 239 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 240 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq",
-+					  "tx-queue-0",
-+					  "tx-queue-1",
-+					  "tx-queue-2",
-+					  "tx-queue-3",
-+					  "tx-queue-4",
-+					  "tx-queue-5",
-+					  "tx-queue-6",
-+					  "tx-queue-7",
-+					  "rx-queue-0",
-+					  "rx-queue-1",
-+					  "rx-queue-2",
-+					  "rx-queue-3",
-+					  "rx-queue-4",
-+					  "rx-queue-5",
-+					  "rx-queue-6",
-+					  "rx-queue-7";
- 			resets = <&rst EMAC2_RESET>, <&rst EMAC2_OCP_RESET>;
- 			reset-names = "stmmaceth", "ahb";
- 			clocks = <&clkmgr AGILEX5_EMAC2_CLK>,
--- 
-2.42.0.411.g813d9a9188
+That exactly to let us know what's missing for DT or ACPI, then we can
+identify the missing parts of the device descriptions for booting.
 
+> 
+> It might still be interesting to at least parse the ACPI tables and make
+> the ACPI fwnodes available for device-drivers to use. I call this DT-ACPI
+> hybrid mode.
+> 
+> This mainly is an experiment for now and possibly a method for accelerating
+> the ongoing effort to run Linux on currently available Snapdragon laptops.
+> 
+> On current laptops Linux cannot boot using ACPI due to some information
+> missing from the ACPI tables. People are working on changing this so that
+> for future WoA Snapdragon laptops Linux can boot using ACPI only without
+> requiring Devicetree.
+> 
+> 
+> There are a couple of scenarios where DT-ACPI hybrid mode is useful:
+> 
+> a) This leads to a populated /sys/firmware/acpi/tables allowing one to run
+> acpidump, which is useful to grab info from the ACPI tables when e.g.
+> creating a DT for a new laptop model. As a bonus /sys/firmware/acpi/bgrt
+> is also populated allowing the boot-splash to show the vendor logo.
+
+I think this is just for debug purpose, not for production.
+
+> 
+> b) It might be useful for device-drivers to be able to access ACPI data
+> for the device even when running in DT mode. 
+
+On the other hand, it will introduce confusion if we have problems to
+solve or bugs to fix, how can I quickly identify it's a ACPI table
+problem, a device tree issue, or both?
+
+[...]
+> 
+> Comments, thoughts ?
+
+Please take look at the document of ACPI for ARM64, it says:
+
+Relationship with Device Tree
+-----------------------------
+ACPI support in drivers and subsystems for Arm should never be mutually
+exclusive with DT support at compile time.
+
+*At boot time the kernel will only use one description method depending*
+*on parameters passed from the boot loader (including kernel bootargs).*
+
+Regardless of whether DT or ACPI is used, the kernel must always be
+capable of booting with either scheme (in kernels with both schemes
+enabled at compile time).
+
+So why we wrote it down when we upstream the ACPI support for ARM64?
+because ACPI is a standard and we need to make the ARM64 parts
+public available for the ACPI spec, then we add the support
+for the kernel, if not, people will hack the system to just make it
+work, it's bad for compatibility and maintainability.
+
+Thanks
+Hanjun
