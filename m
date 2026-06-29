@@ -1,120 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041D636DA1D;
-	Mon, 29 Jun 2026 12:04:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC5F3EDAAE
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782734700; cv=none; b=lOZ1NjPLBskuxOup1eQNbYd3Pu8XfM96cp9Cdts8wMcFbewW/UO61OClHybMazxe9OJuhUycb75cArC6H3Ow9HEgft+Bk3rULUEN/5ppmQe1Eoj/mLaz6H1y+Gt/AZHT6jFYRBvg81MdenqbFoEHdQCMIrcC54MhOuMJT++BzG8=
+	t=1782735008; cv=none; b=MJ1zsZLTM30wLTe0LOGtEEvER4qeL6hGUxowLB4eLHfMC1MD8wXpOsT2zbqPSY9o84eR3XEQXvqfASa9d8TKd+8SFs9+VKCBxbTOCvc/1nggzptkydEYef0U10Q0gImpmBaKdTNBC19W5s2M8ewI07Y9hAJxdsWaEy44Exv1MGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782734700; c=relaxed/simple;
-	bh=p4aiUHMFEbYpaocs+B9+YwXK87paMRi1Mwkowd0T94g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m2qhQuF+fm2u+g2Po1+ynFoKdNTO6Mw4Ruu0eT2s2ui7R9BhfiK+jlJkPMOIvAWBqVbCO4c28kRfWPp8tX0h3GANlEBXOox39x2F6ZhtayfPgBHGZvzxP42bcT91KTp0SW2mWuDD74kE3m4A9CJwloErdGs5XUbMALjE64caxuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fU/q1jKN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782735008; c=relaxed/simple;
+	bh=pVi4YsLus+sT1FC9S3DAXvp2sAOyC8lo8oxlpyDYIXQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EmUKH8H3OhLxjQQU5DEAVIx6WPM1GZYTFwDH6Fie9Kct718d0eXCYnea6lLMWbfq1qEagtb+e6gcENH6BILKX1/EtTK12+7s3A8BrAinUx8n+wiStEZJqZPSHXk6B7Tn/9gJMe4OdG5viFxTwxlal4rZu6lxZGIMWNxFBv3sRus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7cMSpbW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fU/q1jKN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31551F000E9;
-	Mon, 29 Jun 2026 12:04:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7cMSpbW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 564731F00A3D;
+	Mon, 29 Jun 2026 12:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782734699;
-	bh=3rItGf60sn2cdil399PCb/Dl+MIjDcm9TfhvcQMWjFo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fU/q1jKNNXh/AN5D4RAJiCqMc/syh8dfRrsgWXeY1Y3/Ev1hsUzqAHcKgnqWnc3q9
-	 hbMAJGOoHelH+slvrKxsL6dcp1/k+2SRTBPmVPG2SqmN2K1jolVOi7QBCm6Tdl7c+n
-	 o0jCSEAnigeljMbB4jK0ab5JBrUpC6AvU3Qcj1q4DvSqSP1W5/wcOForMbuX88niYm
-	 ZaJ1PHBYwiXPeLjDkMFfaaSqlF55TSYoRp1nFfm/T4q8Xf+tNlQ2IWWe5cmS+2S6oP
-	 8qVgyugSdsr9klhtoKSy+8mg6Pvo5Pa8KxxXmRqCb8A4uyM8M5Vs9LDAX9ZglDVZN1
-	 IriQp8K+j//Zg==
-Date: Mon, 29 Jun 2026 13:04:55 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Hugo Osvaldo Barrera <hugo@whynothugo.nl>
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, linux-bluetooth@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] dt-bindings: bluetooth: broadcom: add BCM43752
-Message-ID: <20260629-handwork-retract-224b150e5969@spud>
-References: <20260628095500.29810-1-hugo@whynothugo.nl>
- <20260628095500.29810-2-hugo@whynothugo.nl>
- <20260628-shakable-spooky-e75e410f20f5@spud>
- <91619a5a-602d-4650-99d0-326971f5e5e6@app.fastmail.com>
+	s=k20260515; t=1782735006;
+	bh=wLflOWKbIcd/EssWnFa8SVesrRfJXKq1yOHLYtW6taA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=F7cMSpbWi+c73RinQ0e7Sp0dRhJoA1dBJjBVlcZbjl2n9P9BkwGDxHQcMKhzPraUm
+	 G4nqeYyr/rQKks/daEKUz9YdMfUp5fTBbImP2fvcLiYw8WKq36GLj5DoapXc9BRcrB
+	 YpA8U3YuSuJnTQXOWjEd8TDZg5PG31E1WbiHpDOPhTlTU//opQnP2RVgJJiANV7TuY
+	 TNAIh7Cn4JVRnezEoJ1rMgAVajJ0/LzTPCI0S1nvVze4U/lAaafdnZ7RcT1PYC0Ex1
+	 YzueLa0te4aPxLZb+efZPvzLSLAy+QBb2o+uSa3gR4Cq6tRga9y6Av40G4hW1FS0Bn
+	 g68JfzlyiNAxQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCHv2 1/2] dt-bindings: net: altr,socfpga-stmmac: add more
+ interrupts for Agilex5
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dinh Nguyen" <dinguyen@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260629114818.1746410-1-dinguyen@kernel.org>
+References: <20260629114818.1746410-1-dinguyen@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 12:10:05 +0000
+Message-Id: <20260629121006.564731F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="K8OV1pfsmx2Rdbg8"
-Content-Disposition: inline
-In-Reply-To: <91619a5a-602d-4650-99d0-326971f5e5e6@app.fastmail.com>
 
---K8OV1pfsmx2Rdbg8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The schema enforces a strict minimum of 17 interrupts for the Ag=
+ilex5 compatible, breaking validation for existing in-tree device trees tha=
+t only define 1 interrupt.
+--
 
-On Mon, Jun 29, 2026 at 01:32:18PM +0200, Hugo Osvaldo Barrera wrote:
->=20
->=20
-> On Sun, 28 Jun 2026, at 21:17, Conor Dooley wrote:
-> > On Sun, Jun 28, 2026 at 11:55:00AM +0200, Hugo Osvaldo Barrera wrote:
-> >> Document the compatible string for BCM43752.
-> >>=20
-> >> Signed-off-by: Hugo Osvaldo Barrera <hugo@whynothugo.nl>
-> >> ---
-> >>  .../devicetree/bindings/net/bluetooth/brcm,bluetooth.yaml        | 1 +
-> >>  1 file changed, 1 insertion(+)
-> >>=20
-> >> diff --git a/Documentation/devicetree/bindings/net/bluetooth/brcm,blue=
-tooth.yaml b/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth=
-=2Eyaml
-> >> index 95501e858e6f..04e8a968548d 100644
-> >> --- a/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.y=
-aml
-> >> +++ b/Documentation/devicetree/bindings/net/bluetooth/brcm,bluetooth.y=
-aml
-> >> @@ -29,6 +29,7 @@ properties:
-> >>            - brcm,bcm43438-bt
-> >>            - brcm,bcm4345c5
-> >>            - brcm,bcm43540-bt
-> >> +          - brcm,bcm43752-bt
-> >
-> > This new compatible uses no match data. Why is a fallback compatible not
-> > suitable?
-> >
->=20
-> I wasn't aware that this was the preferred approach.
->=20
-> I used `compatible =3D "brcm,bcm43752-bt", "brcm,bcm43430a0-bt";`
-> in my DT and Bluetooth works equally well. Both of these patches
-> can be ignored, thanks for the review.
+commit 7df8c6aab116c93fb2cc3131f91a04fdfb5b5ecf
+Author: Dinh Nguyen <dinguyen@kernel.org>
 
-You still need to add a binding patch to document the new compatible,
-just it will permit the fallback.
+dt-bindings: net: altr,socfpga-stmmac: add more interrupts for Agilex5
+   =20
+The stmmac hardware on Agilex5 supports 8 TX/RX queue pairs and is
+dma-coherent. Update the schema to handle the hardware differences
+between SoC variants.
+   =20
+Also make 'interrupts' and 'interrupt-names' as required properties.
 
-> There are multiple compatible with no match data, and I was
-> mostly following that approach. Are they there mostly for
-> legacy reasons and adding more with no match data is discouraged?
+> diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.ya=
+ml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+> index fc445ad5a1f1a..63084f7623738 100644
+> --- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+[ ... ]
+> @@ -149,10 +167,36 @@ required:
+>    - clocks
+>    - clock-names
+>    - altr,sysmgr-syscon
+> +  - interrupts
+> +  - interrupt-names
+> =20
+>  allOf:
+>    - $ref: snps,dwmac.yaml#
+> =20
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: altr,socfpga-stmmac-agilex5
+> +    then:
+> +      properties:
+> +        interrupts:
+> +          minItems: 17
+> +
+> +        interrupt-names:
+> +          minItems: 17
 
-Correct.
+[Severity: Medium]
+Will this strict minimum break devicetree validation for existing in-tree
+device trees?
 
-Cheers,
-Conor.
+For example, in arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi, the
+existing gmac0 node only defines one interrupt:
 
---K8OV1pfsmx2Rdbg8
-Content-Type: application/pgp-signature; name=signature.asc
+    gmac0: ethernet@10810000 {
+        compatible =3D "altr,socfpga-stmmac-agilex5",
+                 "snps,dwxgmac-2.10";
+        reg =3D <0x10810000 0x3500>;
+        interrupts =3D <GIC_SPI 190 IRQ_TYPE_LEVEL_HIGH>;
+        interrupt-names =3D "macirq";
+        ...
 
------BEGIN PGP SIGNATURE-----
+If existing trees don't provide all 17 interrupts, enforcing exactly 17
+here will cause dtbs_check to fail. Could minItems be relaxed or should
+the existing device trees be updated alongside this change?
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakJfZwAKCRB4tDGHoIJi
-0lUhAP4+XCclWEulY4qjxhUNOTo4lFZxjW85r3vn+wxbHhPBdgEAuBAVFVS6LlmY
-kRP62Hbfg1tI1hAW6IgIKun+Z6BSEws=
-=yaQO
------END PGP SIGNATURE-----
+> +
+> +        dma-coherent: true
+> +    else:
+> +      properties:
+> +        interrupts:
+> +          maxItems: 1
+> +
+> +        interrupt-names:
+> +          maxItems: 1
+> +
+> +        dma-coherent: false
+> +
+>  unevaluatedProperties: false
+> =20
+>  examples:
 
---K8OV1pfsmx2Rdbg8--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629114818.1746=
+410-1-dinguyen@kernel.org?part=3D1
