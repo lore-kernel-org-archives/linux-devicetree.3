@@ -1,120 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2219A391855;
-	Mon, 29 Jun 2026 07:30:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B8933A00C
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782718246; cv=none; b=TQSslCVFm1phv+3gEtYz1WFEqrwNlIzFaC3iWVb+R9itSMvfsimw/71KfTSuyBz70YWlVx6FjdvvkyH3GIRCG0e+ZOOOP1h11zUpe8hKnrZKiLtru7BMh2rb83LRpv/v+jo81JODH9Bq6I3sONkBB04+ScXClJ5bTn5eoT8ifAg=
+	t=1782718345; cv=none; b=V4f6GZCXGnkYDR1oLzMdI0mM4oYHKtVH0tHB91VCIFB03xQgmCk6uvQL1DqtWjxUOU7DNjnFZAgpVFe2pf2OWKcRqjcXKZM2pG2KJaEs/A2pNwlrvTHtrvAx+HCscN2aC6fi1Z3W5HBh/cMO8mJHAqwQD+eXEg0jD2CzQoeAHHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782718246; c=relaxed/simple;
-	bh=6niIvsu0JkdZrV/2LrFiOXa6pCaKYbdMuqzt72NpmzA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OBDav3LcvTWN65rC3TPV1Je+kEyHM/SdIUvfARiGT+qQSNwN73XR3DRNT5n6e1zaQdbkdGzNmyorzuFEKfOBaekyGgJHfSWy8YTzgWtHtmgU7hvGaWysPXO4f/++FKYmqqHz535o4TjnuHQlE5jYb2+tRBHebpOHhmiSTk80b48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DEPVWt5t; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1782718345; c=relaxed/simple;
+	bh=24v1r1yg5d3POTn+sd/G9tlmtGCRQvJKDa689WYj7lM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=STObURYLQS9gaIRo7iBVuhavYEkXgvfP7EO66C6Rtv66VL4dP6Z2mRjmEp8ylJ9O0O7PdNKxQXcZYDt/y8Iow17Wh9eQi0Vij2QqKlosmQaaP2mNPtoNv7pU7uOQwjmyDLzWH8nuXfanOVXisdjdSB582MdK/9g8+h//evR6NE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gYJULm0Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DEPVWt5t"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782718243; x=1814254243;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6niIvsu0JkdZrV/2LrFiOXa6pCaKYbdMuqzt72NpmzA=;
-  b=DEPVWt5t7RsGefDFcypcJhVYw9ZRnPU2fHOstBRtJE/v4v9Qu5vhuiPW
-   QVSWvtOAp40bvuMZkr4qAmxem3iiVSSX2oZWnVNLYpv8TDekiDE7b9DPe
-   8Bvbxl0hS95+LyM8LiNnClyPkOCkPtqeFvlcYxZldR8gp0AZmswGiuWCn
-   FG3Vmjy/LHGzoSKsiSX94MZI++f7tzbek1zFZLgqhol6mpJsm/hlE3zqO
-   qqdoNRcv2YksaN+sU3OFEUl/XKaUUxLsmmGsGyi8FTMMlQ/WGjJemD1uR
-   EuhhpX5B0xB7w8Qz1Z+Q4Bm4ua1KHGvVQEkvW1IzHJDKn9aMkU1xoGzKk
-   A==;
-X-CSE-ConnectionGUID: H1fqH5peRmm5Lr5yc7IhAA==
-X-CSE-MsgGUID: WmOSjeVJSbyi7cOCQNa2tA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="93750656"
-X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
-   d="scan'208";a="93750656"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 00:30:43 -0700
-X-CSE-ConnectionGUID: CE+3+MbXQFy2Plx38LHSkQ==
-X-CSE-MsgGUID: 3NfcIMd2TICGldXr21Zgbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
-   d="scan'208";a="245515617"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.207])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 00:30:39 -0700
-Date: Mon, 29 Jun 2026 10:30:36 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Zijun Hu <zijun.hu@oss.qualcomm.com>
-Cc: Alban Bedel <alban.bedel@lht.dlh.de>, driver-core@lists.linux.dev,
-	devicetree@vger.kernel.org, Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v2 2/2] software node: Fix
- software_node_get_reference_args() with index -1
-Message-ID: <akIfHJd2gpLC1u5o@ashevche-desk.local>
-References: <20260618152035.1600436-1-alban.bedel@lht.dlh.de>
- <20260618152035.1600436-2-alban.bedel@lht.dlh.de>
- <85b2bac4-9882-4f35-81e4-1718a52aacc9@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gYJULm0Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CDAE1F000E9;
+	Mon, 29 Jun 2026 07:32:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782718343;
+	bh=+hoeA9Zrlr12yvQ4U2ZIOmC92zMadi05/hLtac0OJUA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gYJULm0QGbCNVAU7iveF6pLMORrzyznnsuUsT+ZOP9AwI4mYVOB6THVQhAd5+oOMs
+	 nFhqahYSih0dL3mMSXA0XWKsOzpLHxXfGxZLVMSpEYs/EIlH4tXL8HCZg/tKUypXFF
+	 cqotjtFb/+LEOlmFKZZYaTHaXztO40SL8dCFobMVDNBknVBsC3wF1cYspeytgyjz/4
+	 hcAFugqO6a3fOKdOFJo04VNQDF4lDCBtPelNMH0IGIuGaLGQwafLteCMXqLBQ/k5tl
+	 u8vGYTZq9gl0yYGGasK24h3TyDGyXE+gjO0SP2Nb6VnZImv4gNbYfX0NoNnfqPbwUP
+	 JATa+2yH0WGOw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] memory: ti-k3-fsas: Add TI FSS_FSAS driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Santhosh Kumar K" <s-k6@ti.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260629072055.896322-3-s-k6@ti.com>
+References: <20260629072055.896322-1-s-k6@ti.com>
+ <20260629072055.896322-3-s-k6@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 07:32:22 +0000
+Message-Id: <20260629073223.6CDAE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <85b2bac4-9882-4f35-81e4-1718a52aacc9@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Jun 27, 2026 at 07:50:12AM +0800, Zijun Hu wrote:
-> On 6/18/2026 11:20 PM, Alban Bedel wrote:
-> > The bounds check for the index passed to
-> > software_node_get_reference_args() was failing when passed UINT_MAX,
-> > this in turn would lead to an out of bound access in the property
-> > array. Fix the bound check to also cover the UINT_MAX case.
-> > 
-> > Fixes: 31e4e12e0e960 ("software node: Correct a OOB check in software_node_get_reference_args()")
-> 
-> i think the fix tag may not be right.
-> 
-> for original express before the fix tag: if (index * sizeof(*ref) > prop->length)
-> 
-> for UINT_MAX, multiplication overflow?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] Missing PM Runtime integration causes bus faults and silent st=
+ate loss.
+- [Critical] Lack of probe ordering guarantees between the FSAS wrapper and=
+ the OSPI driver risks DMA corruption.
+--
 
-I agree that Fixes tag may be not the best chosen.
+commit d3b703966890d77f64fc1cc0139d8a00699e6a78
+Author: Santhosh Kumar K <s-k6@ti.com>
 
-...
+memory: ti-k3-fsas: Add TI FSS_FSAS driver
 
-> > software_node_get_reference_args(const struct fwnode_handle *fwnode,
+This patch adds a platform driver for the TI Flash SubSystem Application
+Subsystem in K3 SoCs. It configures the SYSCONFIG register to disable OSPI
+XIP prefetch, preventing DMA data corruption.
 
-> >  	if (prop->is_inline)
-> >  		return -EINVAL;
-> >  
-> > -	if ((index + 1) * sizeof(*ref) > prop->length)
-> > +	if (index >= prop->length / sizeof(*ref))
-> >  		return -ENOENT;
-> >  
-> 
-> who will use UINT_MAX ?
-> 
-> This function is a interface function.  the best fix should check
-> input parameter @index and return -EINVAL if it is not expected?
+> diff --git a/drivers/memory/ti-k3-fsas.c b/drivers/memory/ti-k3-fsas.c
+> new file mode 100644
+> index 0000000000000..a5f42afc694c5
+> --- /dev/null
+> +++ b/drivers/memory/ti-k3-fsas.c
+[ ... ]
+> +static int k3_fsas_probe(struct platform_device *pdev)
+> +{
+> +	struct k3_fsas *fsas;
+> +
+> +	fsas =3D devm_kzalloc(&pdev->dev, sizeof(*fsas), GFP_KERNEL);
+> +	if (!fsas)
+> +		return -ENOMEM;
+> +
+> +	fsas->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(fsas->base))
+> +		return PTR_ERR(fsas->base);
+> +
+> +	platform_set_drvdata(pdev, fsas);
+> +
+> +	k3_fsas_disable_xip_prefetch(fsas);
 
-And how do you know which index is allowed without doing that division?
-Basically this patch does what you asked for: check input parameter for
-the allowed range (which is dynamic, depending on the property length and
-size of the reference structure.
+[Severity: Critical]
+Is it possible for the device to be unpowered when accessing the registers
+here?=20
 
+Accessing fsas->base without first calling pm_runtime_enable() and
+pm_runtime_get_sync() could cause a synchronous external abort on K3 SoCs.
 
--- 
-With Best Regards,
-Andy Shevchenko
+[Severity: Critical]
+Is there anything guaranteeing this probe finishes before the main OSPI
+controller probes?
 
+If the OSPI driver (cadence-quadspi) probes and initiates DMA transfers
+before this independent platform driver runs, the transfers could occur with
+XIP prefetch enabled, corrupting the data.
 
+> +
+> +	return 0;
+> +}
+> +
+> +static int k3_fsas_resume(struct device *dev)
+> +{
+> +	k3_fsas_disable_xip_prefetch(dev_get_drvdata(dev));
+> +	return 0;
+> +}
+> +
+> +static DEFINE_SIMPLE_DEV_PM_OPS(k3_fsas_pm_ops, NULL, k3_fsas_resume);
+
+[Severity: Critical]
+Will the hardware state be lost during runtime suspend?
+
+By using DEFINE_SIMPLE_DEV_PM_OPS without runtime PM callbacks, if the
+domain goes into runtime suspend (e.g. when the OSPI controller is idle),
+the hardware state could reset.=20
+
+Because there are no runtime_resume callbacks, the FSAS_SYSCONFIG_DISXIP
+bit will remain lost. The OSPI controller could then perform subsequent DMA
+transfers with XIP prefetch enabled, causing silent data corruption.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629072055.8963=
+22-1-s-k6@ti.com?part=3D2
