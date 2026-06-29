@@ -1,201 +1,201 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AAF53C6A51;
-	Mon, 29 Jun 2026 07:19:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757763C988D;
+	Mon, 29 Jun 2026 07:21:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782717584; cv=none; b=ofiial0rrmKvMpgFZ5X/YyJJwK1TouB7uMHhCc0+ot6DT8Hx4IvBNfgiRqNKfXc2FG6M/1XlNhH/Ke0n3xEZdTAHpkMs6Kb/0eSjikm2fgF7FUgV8ifb/XIOidLguTPTCpAh5qwNazxpE1RD4E3UwAymPLkgEv5mkkLGiZxxxNY=
+	t=1782717676; cv=none; b=WSsHZHqUm1NK/tFWnPnHfcFUqDcRYAKSghKhJSWBUuTyS20EthHhfEiW3/zQqFXu0JKTSX5NRQZmZ3rmjKY3Ki3L36FSQ3H/M7OHTvge2TCHP+9EPI1LIOzRnlhZm6OcifeSKDgNVFErPm1f2BY8xsU/Z30MS4s26PQoL8BGBEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782717584; c=relaxed/simple;
-	bh=1FKRVsBmlFd2Zs83Q6UNFb+gURlxyAz0RIeUeZ13Pqs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PgV6CZMOr5/BvUvbJUYLUirenDyVj4l5gLsSEqreKZEgYA7aMmC8FEoGTDCLERjQ2E34bLN7qGFYlDNdQ1fdaTfsMFShU1MtLWtdGsj1lzZWf/G4QTE0dio3gxDV/jASXdWeLnXhjVNC/kRjGMAMs3HOrOFwfUgsQPKXk7AZD4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eAQ3ksLI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782717676; c=relaxed/simple;
+	bh=5FlcyVDERtTSpIlODKLyVsLFJ7RaBMhfiwTqJFbHglc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XyO5RlnVM+AnCEi6ZUO9XrtNXSIu97XIw4+7CBJPH0MK9x3SFLux6m3kvSuIExTcNaMuv/8Y/9Ub6Ja6d/SPhGof8sxgxFt8VeviX8e5S9bMc8GkWJqjNtL2Ye8o8SwMQO1p7gXBIor790i77WU3Kt+V0EMiSk7DycUlovicNBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T74VGgT+; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eAQ3ksLI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28AEF1F00A3A;
-	Mon, 29 Jun 2026 07:19:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782717578;
-	bh=1f7ZQet23WlchLsx+rUJlRQbdoS7RqRZ0v9Ap3w/jTw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eAQ3ksLI8XIptrL2iGNnJGy2JSWmR8zx7v2+GrR2CL7e3JeNhAVcd3wESTnQ+b3Gk
-	 De0WBuv3ol36C6bEy6OwJI8fXkGNyJ6yywNSUBBfSVefCrw1nX7m5ganrOnp/cqRrs
-	 upNwltYaBL5HJFnoo0683Q1y85G7ZGm/xhcm+/cnbFMHe1rwl8Qv+AgKoPmbt10rKv
-	 Q1xAG4PCW1rNCF/fSiuIJUjMah9ui0bz7Jyf6B7fI6/GHOK+/ZsawGfmg9Si20r0qA
-	 McXgOvux9Y8zpgdqJL+vM+liItljMw6uiFLg6oVL/X0OllW1N+kon2FuYasFDxYyHz
-	 L6OG1X4ftEBdA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v26 4/7] firmware: imx: device context dedicated to priv
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: Frank.Li@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260629-imx-se-if-v26-4-146446285744@nxp.com>
-References: <20260629-imx-se-if-v26-0-146446285744@nxp.com>
- <20260629-imx-se-if-v26-4-146446285744@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 07:19:24 +0000
-Message-Id: <20260629071938.28AEF1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T74VGgT+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782717672; x=1814253672;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5FlcyVDERtTSpIlODKLyVsLFJ7RaBMhfiwTqJFbHglc=;
+  b=T74VGgT+yLcf/IzQmvEQQWJYSSzyfwVAYgH7/UcowwYgngZbafelvykR
+   xi2j9bvWE/Fn/iY+vj9JgkEgDRD/9XU0yY1+tWMmeuYLTATjGPBiUfvU9
+   ziafuOV/jPNhL2v+xOGLHwHqS/LW9rbd9rv2888ziIIGObQg9v3BawLWh
+   5EYk1WYY+MovM03YxyGWso78gAmfz7nHWryMmKMkZONLisnomf5cugEAI
+   8r/4+2prnKAGStMU/kcMep6f/VNt63CWQvxHI1O1iAwMDID7+R7+7cRmD
+   p6lLLsIbp/Gc0W9h7YEDNCoKHuXcsXi89Jr3ExzAjxwMr9BLuYrRKlU/c
+   g==;
+X-CSE-ConnectionGUID: cmm6rKRCTQWluoe/eRuCzw==
+X-CSE-MsgGUID: 9+xq1D8eQNaO38TWv6WaOQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="87307281"
+X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
+   d="scan'208";a="87307281"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 00:21:11 -0700
+X-CSE-ConnectionGUID: xFQf5RpMT/eTxhi2+wpCag==
+X-CSE-MsgGUID: iNmOiPZISX2EkaMxk6j4FA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
+   d="scan'208";a="248515550"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.207])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 00:21:08 -0700
+Date: Mon, 29 Jun 2026 10:21:06 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+	dlechner@baylibre.com, jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
+	krzk+dt@kernel.org, robh@kernel.org,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH V15 5/9] iio: imu: inv_icm42607: Add PM support for
+ icm42607
+Message-ID: <akIc4vF06qtmIHFO@ashevche-desk.local>
+References: <20260626161230.93069-1-macroalpha82@gmail.com>
+ <20260626161230.93069-6-macroalpha82@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260626161230.93069-6-macroalpha82@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Fri, Jun 26, 2026 at 11:12:26AM -0500, Chris Morgan wrote:
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but `ele_msg_send_rc=
-v` leaves `priv->waiting_rsp_clbk_hdl.rx_msg` dangling if `ele_msg_send` fa=
-ils, risking a Use-After-Free memory corruption.
-- [High] This problem wasn't introduced by this patch, but there is a silen=
-t truncation of a 64-bit physical address in `ele_service_swap()`.
-- [High] This problem wasn't introduced by this patch, but there is a doubl=
-e free of `dmam_alloc_coherent` memory during devres teardown.
---
+> Add power management support for the ICM42607 device driver.
 
-commit 9576b0c1969c96e947c2d66ab7fdb7aa48c35c5d
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+...
 
-firmware: imx: device context dedicated to priv
-   =20
-This commit adds a private device context (priv_dev_ctx) to the se_if_priv
-structure. This prepares the driver to enable a misc-device context-based
-send-receive path for communicating with the firmware.
+> +/*
+> + * Suspend delay assumed from other icm42600 series device, not
+> + * documented in datasheet.
+> + */
+> +#define INV_ICM42607_SUSPEND_DELAY_MS			2000
 
-> diff --git a/drivers/firmware/imx/ele_base_msg.c b/drivers/firmware/imx/e=
-le_base_msg.c
-> index 54d79c3d75af6..66bae4c7d4648 100644
-> --- a/drivers/firmware/imx/ele_base_msg.c
-> +++ b/drivers/firmware/imx/ele_base_msg.c
-[ ... ]
-> @@ -156,7 +156,7 @@ int ele_service_swap(struct se_if_priv *priv,
->  	if (!tx_msg->data[4])
->  		return -EINVAL;
-> =20
-> -	ret =3D ele_msg_send_rcv(priv, tx_msg, ELE_SERVICE_SWAP_REQ_MSG_SZ,
-> +	ret =3D ele_msg_send_rcv(priv->priv_dev_ctx, tx_msg, ELE_SERVICE_SWAP_R=
-EQ_MSG_SZ,
->  			       rx_msg, ELE_SERVICE_SWAP_RSP_MSG_SZ);
->  	if (ret < 0)
->  		return ret;
+Perhaps (2 * MSEC_PER_SEC) ?
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does ele_service_swap() sile=
-ntly
-truncate 64-bit physical addresses?
+...
 
-If the physical address allocated for addr is above the 4GB boundary,
-tx_msg->data[3] only takes the lower 32 bits without validation:
+> +static int inv_icm42607_set_pwr_mgmt0(struct inv_icm42607_state *st,
+> +				      enum inv_icm42607_sensor_mode gyro,
+> +				      enum inv_icm42607_sensor_mode accel)
+> +{
+> +	unsigned int oldaccel, oldgyro;
 
-    tx_msg->data[3] =3D lower_32_bits(addr);
+> +	unsigned int sleepval_us = 0;
 
-Since the upper 32 bits are ignored without checking if they are zero, could
-this result in the firmware accessing an incorrect physical address?
+It's discouraged to have assignment here, as it's too far from the actual use
+and makes code harder to maintain and prone to subtle errors. See also below.
 
-> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
-_common.c
-> index ba606f4e8be83..b37ea1f14f75f 100644
-> --- a/drivers/firmware/imx/ele_common.c
-> +++ b/drivers/firmware/imx/ele_common.c
-[ ... ]
-> @@ -135,33 +136,37 @@ int ele_msg_send(struct se_if_priv *priv,
->  }
-> =20
->  /* API used for send/receive blocking call. */
-> -int ele_msg_send_rcv(struct se_if_priv *priv, void *tx_msg, int tx_msg_s=
-z,
-> -		     void *rx_msg, int exp_rx_msg_sz)
-> +int ele_msg_send_rcv(struct se_if_device_ctx *dev_ctx, void *tx_msg,
-> +		     int tx_msg_sz, void *rx_msg, int exp_rx_msg_sz)
->  {
-> +	struct se_if_priv *priv =3D dev_ctx->priv;
->  	int err;
-> =20
->  	guard(mutex)(&priv->se_if_cmd_lock);
-> =20
->  	if (atomic_read(&priv->fw_busy)) {
-> -		dev_dbg(priv->dev, "ELE became unresponsive.\n");
-> +		dev_dbg(priv->dev, "%s: ELE became unresponsive.\n", dev_ctx->devname);
->  		return -EBUSY;
->  	}
->  	reinit_completion(&priv->waiting_rsp_clbk_hdl.done);
-> +	priv->waiting_rsp_clbk_hdl.dev_ctx =3D dev_ctx;
->  	priv->waiting_rsp_clbk_hdl.rx_msg_sz =3D exp_rx_msg_sz;
->  	priv->waiting_rsp_clbk_hdl.rx_msg =3D rx_msg;
-> =20
-> -	err =3D ele_msg_send(priv, tx_msg, tx_msg_sz);
-> +	err =3D ele_msg_send(dev_ctx, tx_msg, tx_msg_sz);
->  	if (err < 0)
->  		return err;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this early error return
-leave a dangling pointer in rx_msg?
-
-If ele_msg_send() fails, ele_msg_send_rcv() returns early without clearing
-priv->waiting_rsp_clbk_hdl.rx_msg. Because this caller-provided buffer is o=
-ften
-freed upon an error return, the pointer left behind points to freed memory.
-
-Later, an unsolicited or delayed firmware response handled by
-se_if_rx_callback() will see the non-null pointer:
-
-    spin_lock_irqsave(&se_clbk_hdl->clbk_rx_lock, flags);
-    if (!se_clbk_hdl->rx_msg) {
-        ...
-    }
-    ...
-    memcpy(se_clbk_hdl->rx_msg, msg, se_clbk_hdl->rx_msg_sz);
-
-Can this cause a use-after-free memory corruption when data is copied into
-the freed buffer?
-
-> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
-l.c
-> index 9a2c3c6111462..a4823f485f88a 100644
-> --- a/drivers/firmware/imx/se_ctrl.c
-> +++ b/drivers/firmware/imx/se_ctrl.c
-[ ... ]
-> @@ -262,6 +292,12 @@ static void se_if_probe_cleanup(void *plat_dev)
->  	 */
->  	of_reserved_mem_device_release(dev);
->  	dev_set_drvdata(dev, NULL);
+> +	unsigned int val;
+> +	s64 disable_wait;
+> +	int ret;
 > +
-> +	if (priv->priv_dev_ctx) {
-> +		kfree(priv->priv_dev_ctx->devname);
-> +		kfree(priv->priv_dev_ctx);
-> +		priv->priv_dev_ctx =3D NULL;
+> +	ret = regmap_read(st->map, INV_ICM42607_REG_PWR_MGMT0, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	oldaccel = FIELD_GET(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, val);
+> +	oldgyro = FIELD_GET(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, val);
+> +
+> +	if (gyro == oldgyro && accel == oldaccel)
+> +		return 0;
+> +
+> +	/*
+> +	 * Datasheet on page 14.26 says we need to ensure the gyro sensor is on
+> +	 * for a minimum of 45ms. So if we transition from an on state to an
+> +	 * off state make sure at least 45ms have passed before power off and
+> +	 * wait if it hasn't.
+> +	 */
+> +	if (!gyro && oldgyro) {
+> +		disable_wait = ktime_us_delta(st->conf.gyro_stop,
+> +					      ktime_get());
+
+It's perfectly a single line.
+
+		disable_wait = ktime_us_delta(st->conf.gyro_stop, ktime_get());
+
+> +		disable_wait = clamp(disable_wait, 0,
+> +				     INV_ICM42607_GYRO_STOP_TIME_US);
+
+I would leave on a single line, or split logically, meaning moving 0 to the
+next line:
+
+		disable_wait = clamp(disable_wait,
+				     0, INV_ICM42607_GYRO_STOP_TIME_US);
+
+> +		fsleep(disable_wait);
 > +	}
->  	kfree(priv);
->  }
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does se_if_probe_cleanup()
-double-free memory allocated by dmam_alloc_coherent()?
+> +	val = FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, gyro);
+> +	val |= FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, accel);
 
-In this function, memory allocated by dmam_alloc_coherent is explicitly fre=
-ed:
 
-    if (load_fw && load_fw->imem.buf) {
-        dmam_free_coherent(dev, ELE_IMEM_SIZE, load_fw->imem.buf,
-                           load_fw->imem.phyaddr);
-        load_fw->imem.buf =3D NULL;
-    }
+Perhaps
 
-Since dmam_alloc_coherent registers its own devres release action, this act=
-ion
-runs on driver unbind and frees the memory. Because devres actions run in
-LIFO order, the release action runs before se_if_probe_cleanup() and frees
-the memory without nulling the pointer.
+	val = FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, gyro) |
+	      FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, accel);
 
-When se_if_probe_cleanup() eventually runs, does it observe a non-null
-pointer and call dmam_free_coherent() on already freed memory, resulting in
-a double free?
+which is slightly better to read in my opinion.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-imx-se-if-=
-v26-0-146446285744@nxp.com?part=3D4
+> +	ret = regmap_write(st->map, INV_ICM42607_REG_PWR_MGMT0, val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * If a state change occurs from off to on, sleep for the startup
+> +	 * time of the sensor, unless a sleep_ms is specified. Since more
+> +	 * than one sensor can be transitioned from off to on, select the
+> +	 * maximum time from each of the sensors changing from off to on.
+> +	 * The startup time for the temp sensor is considerably smaller
+> +	 * than the startup time for the other sensors and one or more are
+> +	 * required to be on for the temp sensor to function, so any start
+> +	 * delay should be enough.
+> +	 */
+
+	sleepval_us = 0;
+
+> +	if (accel && !oldaccel)
+> +		sleepval_us = max(sleepval_us, INV_ICM42607_ACCEL_STARTUP_TIME_US);
+> +
+> +	if (gyro && !oldgyro) {
+> +		sleepval_us = max(sleepval_us, INV_ICM42607_GYRO_STARTUP_TIME_US);
+> +		/* Track the earliest we can turn off the gyroscope. */
+> +		st->conf.gyro_stop = ktime_add_us(ktime_get(),
+> +						  INV_ICM42607_GYRO_STOP_TIME_US);
+> +	}
+> +
+> +	fsleep(sleepval_us);
+
+The problem is that the reaction to 0 is a gray area. Some architecture
+implementations might even complain on that.
+
+On x86, for instance, udelay(0) actually does some (supposed to be small) delay.
+
+But I think due to above check for gyro == oldgyro && accel == oldaccel this
+won't happen. Please, add a comment on top of fsleep().
+
+> +	return 0;
+> +}
+
+...
+
+> +	dev_set_drvdata(dev, st);
+
+This will require device.h to be included and hence the rest related headers
+can be dropped at the same time (like dev_printk.h).
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
