@@ -1,102 +1,154 @@
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06BC43DA27
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 15:25:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561E23EAC89;
+	Mon, 29 Jun 2026 15:26:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782746742; cv=none; b=t35fNrzGawnsr4sf1Kx3ii6MS0i0xGd462/zQN1doEvHTnOHnNdlYUsIW/VcdvA8hRrV7ehyDh1jI4eUEhJIlcBS0xVhwjIUo7B3iiZlSI+jX8CU1CPMyYHip+iyy4gWfM8Ht3m0Zb2o0z3myVa13ZB5udiS0fae2unYdnL6q+s=
+	t=1782746809; cv=none; b=AY3rd8yiAn6nTk0dcGV41g1I9VmyRhTVONNZZYeKN2X+X6NxwRIKn4YgGUqs7KcGXnhJ1ZesaRtfPolEBIL3/ceDdRT903IPWQJUK8gWExqLVuorv8O6PbFiDSPDzrUzP5o1l3OATQLnqjvWrStQyyy+wiyGFHqFWDT6qdX9nck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782746742; c=relaxed/simple;
-	bh=bMEqNXZ9mHubK+aM6jy3pBJZxkKeyMW8AyvCDDB+Lrs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=n7+tJgRl8bUaeYyOaZS4dtzeLeC/lb89h34raCpgt/zLdUTXBu52eQkoZxfTa/fMc/2FRjViW1qNWhfb8qKG/A9eeINRD2P5A5ctBkP5GO5fkMd6koAFY89O718O4rNHmYGTVhWc0OksMMNNbAXsww+3zOboHOJxtkiwbKnD8+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=mJaLXTBL; arc=none smtp.client-ip=209.85.160.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1782746809; c=relaxed/simple;
+	bh=DASQGYICKZHhLoVSGta/Peqo2uesJheDohHXOfCwpys=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hc+pnyZxaVhkHFTMIUAxhoPyBPIsQo2VwHoqnp9Ut5yhRnBEsHJJwAphWRHhc/QCmH1Lz1vVojN5gvaLsgDPC9wrNkgYVCqZeDSm12LEDa6tPBfyGjNFo5jH2t2tHeL2vRN8l3ByBdhFiikn7UEyohtKg9/rnLF6jcQyJd+cz74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kIQ37Fhi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="mJaLXTBL"
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-447bb8bb754so2550081fac.1
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:25:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782746740; x=1783351540; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=XaJaAgaoRCLCjD+AlsRhR9FrqAL4y+0Revc/YO4kdQc=;
-        b=mJaLXTBLa1qxGRMHQu77viTO4XIUoCRPMKffn6Frhl+5jxJuXvfhWmKOKLWFtpX3Pq
-         6X5ukd4WrfEay3JhK5jUJ9HkVhQ2QrBsnXW3BgscFG95s5xJJgcswBGiJxFiZG8iphwy
-         miNpmJs3NhOy8nYPpfH+YJ+MKLXGomTyMRfd1ihBvymSHnOTLbunt/Q6iUpgmw7ZTDoq
-         vpjseUl3AKApgG1Gm77XvO+Q0vos+Vi/M1fir6bwwlNRBimriXLFJ9eGIkbJhayPIs7E
-         rVo22cdcFtJLWF39Qo1T7JWSlgqA7XTQ7GNaNAavYX5pztGqX+zi4rrG6ek+MEzcrsjX
-         k6aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782746740; x=1783351540;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=XaJaAgaoRCLCjD+AlsRhR9FrqAL4y+0Revc/YO4kdQc=;
-        b=gfHvxs0q00f1iBfmfWWMROJKNHX7K7uq0RJtTb8AL61pLG0olmZPG7xmla9YcN27RH
-         7NG44EYUVlUkhcgpg+afL6PxXHFbSUUKvEMTrb7F46RwWDx7UKiDsePbgISaTZrpwz9/
-         5CXw5fXzhEv78O7t1UbJUrdlqztaXAtwpfHA0P+E6kw+zvs04OvsEVTr0/jvnaf7UwYb
-         IIm8k4R91qvQfn78hPeVcxIgN7+HnlGyujhSL13BCBdppzute3W/cAVmGxdrCllzgrmf
-         JwICgIeUxd2IxPV0h6rJyqOjM0hCEIiMUc37/A6I5yVTvFKnTLXMK0MgdUzU+h4fqYQ8
-         +Dpw==
-X-Forwarded-Encrypted: i=1; AHgh+RrTLmuiyioBcxoJsISzn3pqzlNUscbzWcnCU2ZtkMfndwOoEwwQrpzIUKTLnBtWPWMEqq9Q64ptzvrN@vger.kernel.org
-X-Gm-Message-State: AOJu0YyxsdhLmiSIx5FCsvngTZAjGt6fJ3Qi1xBS8c4Ks06cpE9eZH9f
-	QLPMqrFkBWkJpQz8pFM1/hsC6igGYTBzZMuccRHHaLhs2LL5MrHY3eVa0peOJoI7s04=
-X-Gm-Gg: AfdE7ck9vRTRUK3WgN+TAJ/oH9H5EubBN7AB698TcFRJWeAKbn46VPrTHRYFzxDOP6v
-	a5DEOezUGj1q6z4Djr3Q3cfhzLq7HsSFSWbWqOYe8LkBIRRk0JIbUiYNACz7hIwhonwvsmKyzJh
-	s5yR8flYVwERM7sD1Jdo2gK6XZvyuHe/Tr439Gne6l6iFcZ1IY7jarZ8jWU/yEgAVRUMSM86dQC
-	X4Z1OmFPC8R03q1Viqshf6eQ65nd6iqyHwgcSraz2UC5zFThTR2afhPmHuZLVgZv8LiUUI9+Wmp
-	rJBKpnT8iNtf0DYnAkXOtztftvAkbrxJjaaVpltel7uvmejGA5CA1EseTkT06bekvYMaVL59REH
-	53+sPJROpUY98o1TuKWgyBABLtHfPTVkcMOmbV3LzabjQHECYsPe8JAXuBuvOkklWL2fjdLxl9+
-	xjcI5Re8w6FTcO0aRqPK3+yI7tN6i7jHlIdjYIY9FPiAm7Lnt/nqc3DpbFCkgKwSY=
-X-Received: by 2002:a05:6870:9693:b0:448:6e54:4819 with SMTP id 586e51a60fabf-4486e544f3emr4992977fac.16.1782746739826;
-        Mon, 29 Jun 2026 08:25:39 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:3533:aa22:9a69:df1c? ([2600:8803:e7e4:500:3533:aa22:9a69:df1c])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-448dbb2302csm70720fac.7.2026.06.29.08.25.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 08:25:39 -0700 (PDT)
-Message-ID: <9b179166-3057-4867-be04-b071a809f70f@baylibre.com>
-Date: Mon, 29 Jun 2026 10:25:38 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kIQ37Fhi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF75A1F000E9;
+	Mon, 29 Jun 2026 15:26:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782746808;
+	bh=1DD1v7WAUfTa8LEsmdnXmo8TZcmGZDr0zVXhLE2Z5xY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kIQ37Fhi2asFeMqWXXsLFHsaVl4ib20zlyAFLNPHlXv0muZuUzgETqBfuj/Xy0YSa
+	 WJJts9i1xfRTBqy+zfHF5JnBJTN/zs0dNJNhfZhaGXZ8Z19wG+JNMOIwlQY1iqmiff
+	 PIziNckrvryuyZfyUnkqvaVrPWY2MHnD/UBExEufw9TxRtRGGQbL03J5eqvKCl69E3
+	 pDJ3L5POMusd4aiY7cHf4gavA7VhI/eO9NRlRTEBLytFyr1ZY95b2cvcTvDYFIdKTd
+	 hDbN0ncM+iPhk21ehxXhUZxcdXehe4d2QrzD7j+JKWClC5ai3hdfGDw94kMdZ2sphP
+	 o+cmD1krgsh/A==
+Date: Mon, 29 Jun 2026 16:26:43 +0100
+From: Conor Dooley <conor@kernel.org>
+To: yc_hsieh@aspeedtech.com
+Cc: Corey Minyard <corey@minyard.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	openipmi-developer@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org
+Subject: Re: [PATCH 3/4] dt-bindings: ipmi: Add optional LPC properties to
+ ASPEED BT devices
+Message-ID: <20260629-bogus-vocation-db32e55a595f@spud>
+References: <20260629-aspeed-bt-bmc-multichannel-v1-0-fc23ee337f7a@aspeedtech.com>
+ <20260629-aspeed-bt-bmc-multichannel-v1-3-fc23ee337f7a@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v6 0/5] iio: add Open Sensor Fusion IIO driver
-To: Jinseob Kim <kimjinseob88@gmail.com>, Jonathan Cameron
- <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260628191337.937-1-kimjinseob88@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260628191337.937-1-kimjinseob88@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JftmSqqify0j7mOM"
+Content-Disposition: inline
+In-Reply-To: <20260629-aspeed-bt-bmc-multichannel-v1-3-fc23ee337f7a@aspeedtech.com>
 
-On 6/28/26 2:13 PM, Jinseob Kim wrote:
-> Open Sensor Fusion (OSF) devices expose a UART/serdev host interface
-> for a sensor aggregation hub.  This RFC adds a Linux IIO driver that
-> parses OSF frames and creates IIO devices at runtime from capability
-> reports provided by the device firmware.
-> 
-> When the corresponding capabilities are reported, the driver exposes
-> accelerometer, gyroscope, magnetometer, and temperature data as IIO
-> devices named osf-accel, osf-gyro, osf-magn, and osf-temp.
-> 
-> This remains RFC while the binding, protocol subset, runtime discovery
-> model, and driver-facing ABI are reviewed.
+--JftmSqqify0j7mOM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-If you are just looking for review and don't have specific questions,
-then it is time to drop the RFC.
+On Mon, Jun 29, 2026 at 02:49:00PM +0800, Yu-Che Hsieh via B4 Relay wrote:
+> From: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
+>=20
+> Allocating IO and IRQ resources to LPC devices is in-theory an operation
+>=20
+> for the host, however ASPEED systems describe these resources through
+>=20
+> BMC-internal configuration, as already supported by the ASPEED KCS BMC
+>=20
+> binding.
+>=20
+> Add aspeed,lpc-io-reg and aspeed,lpc-interrupts to the ASPEED BT BMC
+>=20
+> binding so firmware can describe the host LPC IO address and SerIRQ
+>=20
+> configuration using the same properties as KCS devices.
+>=20
+> Signed-off-by: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
+> ---
+>  .../bindings/ipmi/aspeed,ast2400-ibt-bmc.yaml       | 21 +++++++++++++++=
+++++++
+>  1 file changed, 21 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-ibt-bm=
+c.yaml b/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-ibt-bmc.yaml
+> index c4f7cdbbe16b..1803c6bbae93 100644
+> --- a/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-ibt-bmc.yaml
+> +++ b/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-ibt-bmc.yaml
+> @@ -25,6 +25,24 @@ properties:
+>    interrupts:
+>      maxItems: 1
+> =20
+> +  aspeed,lpc-io-reg:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    maxItems: 1
+> +    description: |
+> +      The host CPU LPC IO address for the BT device.
+> +
+> +  aspeed,lpc-interrupts:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    minItems: 2
+> +    maxItems: 2
+> +    description: |
+> +      A 2-cell property expressing the LPC SerIRQ number and the interru=
+pt
+> +      level/sense encoding (specified in the standard fashion).
+> +
+> +      Note that the generated interrupt is issued from the BMC to the ho=
+st, and
+> +      thus the target interrupt controller is not captured by the BMC's
+> +      devicetree.
 
+Why can these two properties not just be an additional reg and
+interrupts entry?
+
+
+Cheers,
+Conor.
+
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -35,10 +53,13 @@ additionalProperties: false
+>  examples:
+>    - |
+>      #include <dt-bindings/clock/aspeed-clock.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> =20
+>      bt@1e789140 {
+>          compatible =3D "aspeed,ast2400-ibt-bmc";
+>          reg =3D <0x1e789140 0x18>;
+>          interrupts =3D <8>;
+>          clocks =3D <&syscon ASPEED_CLK_GATE_LCLK>;
+> +        aspeed,lpc-io-reg =3D <0xe4>;
+> +        aspeed,lpc-interrupts =3D <10 IRQ_TYPE_LEVEL_LOW>;
+>      };
+>=20
+> --=20
+> 2.34.1
+>=20
+>=20
+
+--JftmSqqify0j7mOM
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakKOswAKCRB4tDGHoIJi
+0psAAP9G4epdhbKfSpCHpiVzmew6DQEbokTKpL+98RgnG2LBKQD/U3BgoLrNNiQx
+n3K2bKbjCnRtMLKQG2R8sbPvLE9VbwM=
+=ygXE
+-----END PGP SIGNATURE-----
+
+--JftmSqqify0j7mOM--
