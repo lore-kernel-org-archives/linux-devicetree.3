@@ -1,86 +1,66 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF833B27D9
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 18:40:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4107B39657B
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 18:55:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782758422; cv=none; b=tFPo5IM3GtgBGfDccvU/IpW9bb3WmzlUEWMsJf5afFCRL3ylU3FhbmTgkUkBP1R8sb6PFpX+fKbRY9jRYWzEcUiP/HPuTG4RxuiJrKqAULMFGWyRQz+SnVpPoA8Xe8RfPM+0qSb/GaIXyLrnhjK3Kb8d1O6MEZ22w+ag2d49Ay0=
+	t=1782759352; cv=none; b=uAWeIsEN2AfHuOdMPDx9cooyni0SWrzDnFOIBswBiTOt2mVMYv5bkXqq35eDfc2rr2+4+fDn5lA91S9jlVSuzsDoialuBI+koE0CW29J0OGPz7XkOovcxR5TCgBJIhU2xNf4khKN5vBzW8/eydk6LC36lkG42GmIfisrRl92WHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782758422; c=relaxed/simple;
-	bh=q5tOmL4fQXLf6rF97LL5TTgbz0UYUqEg5tRWbsqLlfQ=;
+	s=arc-20240116; t=1782759352; c=relaxed/simple;
+	bh=/tygSJ+Tz4c71hbnSUm6Y1+0DuA4LX1ppuFQ3tGuM2c=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nltqnFXcWJL8OO4BiBc6d5DJvGC5J4ugxXXBtCYnG+OMkM+zjQda3fH2i/0rN33N4S2Izc1RhGpTmX3P51+PLZ5Q49GUVNOQ14pbPY4zhTt5jC2ZJHVMhYseMtTXFytao2rCGU4ErOnVKsB0Yy/RL2b880YcNi5xBgLYBl6YvlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LPCtJUpy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cpTh0FQd; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=Xv/xChej2ABw1oDTzugYzQojyUUSx81m6Nn0GmEKfJRBZpmCPraRovy0faK7Ox3g9YLrNs2IznxyyB9/jhpR3GJNcd9aqF3kPQwYz/xli++0ULCZzFXFocsE3220ltD3E/IEljTEz43YC6XKkmBSmQHmzVu7jlNT0VMtLX1HqmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=S6WHVo05; arc=none smtp.client-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LPCtJUpy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cpTh0FQd"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65TITBah3765008
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 18:40:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	CffFp0WhGRj+vqvsuwqU3TnnmViodZOWqRxtTaxYu+Y=; b=LPCtJUpylBlNWhDv
-	0fxXRaARpZMPwhKF2iYU4JQJPrVJ4CHxfUSHbsGlRYH7GA8iUEc/OPHgQYnHK1fh
-	6RLWWHzuDVzHZ7KFJNM8LqB6jiZm89AdLX85iQTgaCdin098Q4mfyUcJPxUuFPl3
-	aSajWkgso+hCNB2cZvPakgLxy+VsKmVM1Zz0X7de3gAyD/H3UiQ+sJi4BY/5Fznb
-	VcIHb6dtwr3PAdWbWjraUV704k1U5tGziQrbzycM7GloVacTvb2KplJAB9EiHT+O
-	ij+6fqEX8nmmDpiFssuBthRdCrTZDcq6wGCozkeIBPl4NLFanW/DczUgf/oAfqdf
-	DGm80A==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3x1cr1pe-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 18:40:20 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30c1f6c5559so4000668eec.0
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:40:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="S6WHVo05"
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7e6b5737bb2so4094499a34.1
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:55:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782758419; x=1783363219; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
+        d=baylibre.com; s=google; t=1782759349; x=1783364149; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=CffFp0WhGRj+vqvsuwqU3TnnmViodZOWqRxtTaxYu+Y=;
-        b=cpTh0FQdl+gPsh2IrSXHUBpvu+zm9DPBJJ7BDu7udPKQqh25Z1WpQet9/PqKTpBYoL
-         OrKT8J1p4fqlfMcev6lZBoYVOeRan/dwdsoUE+EXTGerspQ4rjSjS/+mfnA1DSwZAM2N
-         5RY3W8U5cIsRtaxGB1nXrdRZYTi3GVxtLl6iDWumJb2aZDCwDYIgfQKyeeQAyOMrCS+h
-         z8H7hLmYqOVnmj1fPp/extOH4pGucXye2zkqZc1ZWBSCUA4x+qM0b6Oi1n1nLh6nOQri
-         CMQpu7DLlyge+tEqR+5UpTbD5ye0x3pzus5Q2iYSmMoUnB9TU5YbG7+FsySwUh6IrgAL
-         /FAg==
+        bh=ACK0vFthHW+jDVGTIXTjlhgZggTZeawplRcDp+RV9vM=;
+        b=S6WHVo05v2RFcTru6gdeyY7VWJdY2lYOWekq8VBumRvcJXAUICpCAsqAWDYAN60qcD
+         KxLxWDvarwmdSrnugo7AApFhOGuE50ddUEG3Qg7A1HKg7Cr8JSPnisIRBaWgzWhb/sv1
+         u1+E7nuSouy649d+e6QAbZiVA0LdkqxyBe5iyP8aJqE4N1j6dfKyICeBhFcz2Q1oqO/D
+         Y6KdX7ezn75L5ZkO6PUPG2ipqx8oHOa1/cTGcrsY6t9UP1Z8QgnG+SsWEk279l+P0kX+
+         hlsBHpxZj3fvvVMghUQFQPHMEhwv5rScyrPeIgGtC/Z+u6yL3GKwFibdx8yI7qjL2LIb
+         Vseg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782758419; x=1783363219;
-        h=content-transfer-encoding:in-reply-to:content-language:from
+        d=1e100.net; s=20251104; t=1782759349; x=1783364149;
+        h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=CffFp0WhGRj+vqvsuwqU3TnnmViodZOWqRxtTaxYu+Y=;
-        b=idP3iH7pV/72MBbj3E+5dLiUObJ5G9DgbKp/KDKcL0GE8WfoBp99+CvMd0RZoSqcOL
-         7Ud37IPf5EzCye9eKxPbeVH/0EmwuG3r9qYTI4yaJw3GekxdryjUwtEi3lUGhQ6jzMI6
-         VOdbf4Zg2cLMLwri4aJVdpE+CYCUFxu50jGgN3t6BSK0uaxgGIkkxC/7ctW4aAs6fcRc
-         HNm5hNte1Bnwao+O66fZ7ZgIVZ0S0ny6YP274O34Sl+3ToVlcscy01QBSyEIP17wpE/2
-         vxrcxkkcns9mmj7d/Hfx7SAOYd0Rju37P1BbMfk6rItKdHLf5FimMO5wHcLeOhPLRaEq
-         rjYw==
-X-Forwarded-Encrypted: i=1; AHgh+RrAfAt8f51Pc9Y4eOGxUKEE5/R3vyULQn7m2iX7d0H70iCS+3Dy0sDoJU9403JW/f3xs09Oy3gnKmQc@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw2aMjPOSdpxjcAlzXW4gJkgjgPgLF0duvLM6kURkqV4YxI4a5G
-	KTCAHFLgT4ISx2wkPWSbwwxTHuBqrbjKOipjqB99daZbBZkGM+l9GjR4rIOFJS03kedjID/8aOl
-	3riXm+snZRpS/wpIzTGZ3lpMAZlp4LlzMsvCQbDTUiOVE4FmeBsOi1JhrXFHSRyFV
-X-Gm-Gg: AfdE7cnuSkwbKCjE/pY1VerUEmlE8PGlQmbuDlM1zniHkLs1ji/LMnPK32nDThTkzZy
-	wp62blmbA5uFVmwDYXbu+0MpwqoQ4/2A58tg6Gl3rXQMxtX5Jg3dp2alH/MAmgOi0PXC42zfQG8
-	vN6DJzoGNWSNs1Xkizwoh9KL3w7muIYn9tHND6GW5OED+2q6yqhXcfdd3b79g87aipZ5r7MxnhH
-	zZzj9RfyOA+qoQGQUThiXyW90tEF51Qxz8PkT5XUMYDNIM4CR8onOGdJFjKn67vECxhmluq12v7
-	LxIFyKIb059zsLvkkP8f8nEcfoPmJpbAi0ur3yDTewYYNLSn0WFG4XDPYIJEbxO6tdkeBoKYhk3
-	MfrV/mtKjP9nay2R8KySZmNs/pi41KZaOGg==
-X-Received: by 2002:a05:7301:6190:20b0:30c:116b:42a9 with SMTP id 5a478bee46e88-30ee1489a13mr269157eec.26.1782758419292;
-        Mon, 29 Jun 2026 11:40:19 -0700 (PDT)
-X-Received: by 2002:a05:7301:6190:20b0:30c:116b:42a9 with SMTP id 5a478bee46e88-30ee1489a13mr269143eec.26.1782758418783;
-        Mon, 29 Jun 2026 11:40:18 -0700 (PDT)
-Received: from [10.91.118.212] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30ee316bf4dsm128143eec.17.2026.06.29.11.40.09
+        bh=ACK0vFthHW+jDVGTIXTjlhgZggTZeawplRcDp+RV9vM=;
+        b=La+0NT07w8jysQviOG9PXNXDpNdDeCWOCCrVM1xZG1jealmBgBy3Ukua1beFbIoQar
+         gkgH04XojP8l7v2M11a12rohD5TW5a9LmiMZeiVq000DULYZkNBg6gJN7xG41aDfVGfi
+         67y2r1dNlM+dTTjZGn6LjZE3aENWgJZS40hUOigtbDhz3bWKtZxUpsNBvUz7eMf3RzUD
+         yOFtnq+rDPS3o8LOuB4e5RU5nmEGZa22+2fqgzR5qJHKF5nnhfVOqozE2K6DvblaVXvF
+         16tv5ipy5b8LB9WpTmZ0O+7Bmt6+mZlkyW7/kGsZkVs9yPCQ0rPQkvobFY2vzMOhYlqh
+         3YFA==
+X-Forwarded-Encrypted: i=1; AFNElJ96V3v/DRqg4MkqmmvbKUZZDjsiZBb2V2c3tav2MRQjVifD2C9PZ1cu/HN8Qva15E1NKyVzXZxe86ni@vger.kernel.org
+X-Gm-Message-State: AOJu0YzmB5AuqSlRqUw5DNu5w/d6r7uI952+PI+lrlJ1s46ehcJiWgWm
+	cg2SNMz2/EkB8JQE+PQ4ZO9MlqVYy5T9uxnVfZL5wyaTmQBRe4TyIzKFbZQV82/jS1w=
+X-Gm-Gg: AfdE7clsCQbXhkd7s7MD1lk2J3JLmWw42a86CLMmlS1F32S9F3v6TJMd9vcaoCqT8Nc
+	u2E17R7X0dWw0SubnxNDbA5BZmb3dN9KgixjAlegeW0WEHMp9Sz2RHgto+HPITMqivHf9ZJSYc+
+	6w7AboRWeU6lGcsB/nVJwIxU/Pns7ai+UOjAu79aEGDQm8P28e7RBtmUFGxnDwD3n30DSvViWLk
+	l/YqVsdviZBvtHJBe/8V18M6cL0plrbjvoSxEtPn6WWMOf0prW8In/QIVi/m/Kojxz48hrfJip3
+	JlIZxj2OJcdNpEQEJfYHjOYRHSlyrn1vkIj4qGujM0Hm2f/WwEA46QHBE3/u9/2eQrpElEAcmqD
+	gwJEDxUrlIz+uyJeIjgYToKik5Fip9BJWIR/JoFVdS9PxrTnUAtFZNn2bu/Tiw8vVf+YfxxHLDG
+	i9jDXUkqd1F5rK1+DS1sN+E+tM12iaii2P4dsDxHLJYA+Ti60nEEhYf0igtq4DZ0I=
+X-Received: by 2002:a05:6830:6d26:b0:7e6:ed97:ce52 with SMTP id 46e09a7af769-7e9ec724d6emr557381a34.20.1782759348858;
+        Mon, 29 Jun 2026 11:55:48 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:3533:aa22:9a69:df1c? ([2600:8803:e7e4:500:3533:aa22:9a69:df1c])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9ec2ba18esm461442a34.16.2026.06.29.11.55.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 11:40:18 -0700 (PDT)
-Message-ID: <4e438b43-33d2-4cde-a5a6-67e7f8c53787@oss.qualcomm.com>
-Date: Tue, 30 Jun 2026 00:10:07 +0530
+        Mon, 29 Jun 2026 11:55:48 -0700 (PDT)
+Message-ID: <2cdb9cd4-8e6c-4bdf-b14e-2191b104d229@baylibre.com>
+Date: Mon, 29 Jun 2026 13:55:47 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,88 +68,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/8] arm64: dts: qcom: shikra: Add Adreno SMMU node
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        iommu@lists.linux.dev, Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>,
-        Bjorn Andersson <andersson@kernel.org>
-References: <20260628-shikra-gpu-v3-0-9b28a3b167e1@oss.qualcomm.com>
- <20260628-shikra-gpu-v3-4-9b28a3b167e1@oss.qualcomm.com>
- <3ac0279b-105c-403a-90e8-822c28a6dcfc@oss.qualcomm.com>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/3] iio: adc: Fix incorrect reading when datarate
+ changed in single mode
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org,
+ andy@kernel.org, antoniu.miclaus@analog.com, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, duje@dujemihanovic.xyz,
+ jishnu.prakash@oss.qualcomm.com, jorge.marques@analog.com,
+ joshua.crofts1@gmail.com, krzk+dt@kernel.org, linusw@kernel.org,
+ linux-kernel@vger.kernel.org, marcelo.schmitt@analog.com,
+ mazziesaccount@gmail.com, mike.looijmans@topic.nl, nuno.sa@analog.com,
+ robh@kernel.org, sakari.ailus@linux.intel.com, wens@kernel.org
+References: <20260622221550.374235-1-jakubszczudlo40@gmail.com>
+ <20260622221550.374235-2-jakubszczudlo40@gmail.com>
+ <5e96801b-50dc-4752-8e00-1a80984ed997@baylibre.com>
+ <20260629193329.34fab6e3@jic23-huawei>
 Content-Language: en-US
-In-Reply-To: <3ac0279b-105c-403a-90e8-822c28a6dcfc@oss.qualcomm.com>
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260629193329.34fab6e3@jic23-huawei>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDE1NiBTYWx0ZWRfX2b/R2+1XmEcB
- vEcEpmB6WPWjY8lQE5ZQD93ykEOPMPA3sVQna6fEu2fYb7qxrm8VdGNd+uDwli9zLttiVsAvgfD
- 4zDdNO8VKBQDPTwGb4x7Y3C2PJBHx8qD7JBlGkUtQzihBf2ONar2T+QvUXeyvsEcUYo0RXImyij
- R3QmKsjzCo1NrjUjSerGIobAV0oFVtAqZkhyRHHXUCJedi1tfmDzcfE0VV0ZqQ56XZOh1srdd/7
- OFM5d+A265FW6afUmEEYNi9EgsL5F3SmF1uvuOOSvPHqCg/uVonzvxOw5U2fP31vmAIzFQXvvXl
- e5LVOxUNAgxat6kVC2cg0oiGF6zTABcKzEy8TDm9AGk50dQYjaeYIUV3LCx3Ly0C4RKGtxDV3tq
- U9GCHY5A1jdGDnCjL/y/pUA7bt3c6xAevkHVvL+oSFM82FC1AKZ2ADEfE5zrOo/7xNg+ekppElv
- PIFwmYoAQjDkyBfIAOw==
-X-Proofpoint-ORIG-GUID: t8TUZuAMyA_Ka76uyKUvL7lk4VXEpfqr
-X-Proofpoint-GUID: t8TUZuAMyA_Ka76uyKUvL7lk4VXEpfqr
-X-Authority-Analysis: v=2.4 cv=ftfsol4f c=1 sm=1 tr=0 ts=6a42bc14 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=l0uZIx2wMuzZ-h4bkHoA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDE1NiBTYWx0ZWRfX4/z/hYrVlgq8
- Tn+wZGcqxiRTmVgDW+HX2jbr17JcSv/SL0+7Bj/9UWymAzFCEUpsjW3b9Tnsneo2LXMQ/x1TStJ
- SVQZlznWhisVnVtwORAg/gLaPNPGXo8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-29_04,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 spamscore=0 clxscore=1015 malwarescore=0
- phishscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290156
 
-On 6/29/2026 2:16 PM, Konrad Dybcio wrote:
-> On 6/28/26 8:23 PM, Akhil P Oommen wrote:
->> From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+On 6/29/26 1:33 PM, Jonathan Cameron wrote:
+> On Sat, 27 Jun 2026 17:31:24 -0500
+> David Lechner <dlechner@baylibre.com> wrote:
+> 
+>> On 6/22/26 5:15 PM, Jakub Szczudlo wrote:
+>>> When device is suspended and it is in single mode then changing
+>>> datarate doesn't make it actual wait for new measurement, so to
+>>> be sure that read after change is correct functions that changes
+>>> datarate and gain will wait for new data.
+>>>
+>>> Fixes: 541880542f2b ("iio: adc: Add TI ADS1100 and ADS1000")
+>>> Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+>>> ---
+>>>  drivers/iio/adc/ti-ads1100.c | 74 ++++++++++++++++++++++++++++++++++--
+>>>  1 file changed, 70 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
+>>> index 9fe8d54cce83..e3c801381434 100644
+>>> --- a/drivers/iio/adc/ti-ads1100.c
+>>> +++ b/drivers/iio/adc/ti-ads1100.c
+>>> @@ -15,6 +15,7 @@
+>>>  #include <linux/module.h>
+>>>  #include <linux/init.h>
+>>>  #include <linux/i2c.h>
+>>> +#include <linux/iopoll.h>
+>>>  #include <linux/mutex.h>
+>>>  #include <linux/property.h>
+>>>  #include <linux/pm_runtime.h>
+>>> @@ -43,6 +44,9 @@
+>>>  static const int ads1100_data_rate[] = { 128, 32, 16, 8 };
+>>>  static const int ads1100_data_rate_bits[] = { 12, 14, 15, 16 };
+>>>  
+>>> +/* Timeout based on the minimum sample rate of 8 SPS (7.5s) */
+>>> +#define ADS1100_MAX_DRDY_TIMEOUT_US	7500000
+>>> +
+>>>  struct ads1100_data {
+>>>  	struct i2c_client *client;
+>>>  	struct regulator *reg_vdd;
+>>> @@ -123,10 +127,49 @@ static int ads1100_get_adc_result(struct ads1100_data *data, int chan, int *val)
+>>>  	return 0;
+>>>  }
+>>>  
+>>> +static bool ads1100_new_data_not_ready(struct ads1100_data *data)
+>>> +{
+>>> +	int ret;
+>>> +	u8 buffer[3];
+>>> +
+>>> +	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));  
 >>
->> Add the Adreno GPU IOMMU (adreno_smmu) node for the Shikra SoC.
->>
->> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
->> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
->> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+>> Do we actually need the cast here? char * is like void * and should not need it.
+> Hi David,
 > 
-> Drop the sign-offs that don't apply (presumably applied as part
-> of shuffling around the handlers of the patch in the in-flight
-> tree OR missing c-d-b)
-
-Ack. Thanks.
-
--Akhil.
-
+> Any more background on this?  The void * implicit cast thing is in the
+> c standard.  I don't think there is anything equivalent for char *
 > 
->> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->> ---
+> Thanks,
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Konrad
+> Jonathan
 
+Oops, I must have been mixing that up with special type punning
+rules for char.
+
+According to [1], char is not compatible with either of signed char
+or unsigned char.
+
+[1]: https://en.cppreference.com/c/language/type#Compatible_types
