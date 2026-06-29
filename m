@@ -1,115 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11023073.outbound.protection.outlook.com [52.101.72.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B9B3358360
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 22:27:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782772047; cv=none; b=MXjFII4ef4GqlzmNJhTJ9lmuPXSIwgYIs+xGS42cigMwfuPSGOiJV/1M9nI8GA7bUc7Ba08iw/szw/m4f1gPvfIzsHJOjoFbrt6k4BPCEvJ5f5kq14cfZhZK5v3/JbbKKTxP3qjkZLGPlEu8ZxnAJUiywNiykkIajbXgIjchv3k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782772047; c=relaxed/simple;
-	bh=oBUfxKQSOoqc3F1m++J4pP30DGvBdHoCOJwpaLicfqk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NPV2kXT/cO9ab6m+OW4C2VI30ayItbZdMFRl8DED8ECM+4bBoU/jngyXUR4BGf/XXcEWmXcPx1ZUluiuduDsY56AHxTkc/mtD2oOp1UePKPO3kr4+R/h2S0mEsQuLeNy5LDqnhen3Sk1zSMJNrx/MDDAk/4JEPTtKfKmpAiJ23w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LVmt0ruy; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91C21D86FF;
+	Mon, 29 Jun 2026 22:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.73
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782772459; cv=fail; b=dj1Ue851WTEMsXlVWJG9oC0/SU0qtnQ3pkXZbUeT0ULaCJCOAIdJ3j4MI04tGgIdqnRJdILpTjy3/ytHLzIrsTkz+mESe0aAqXN/Wk9hKsOwfwvMYqXegqj1Vkv7ReSvknaQdcbXnsH2zEWnuaLWhyu34g7BlU+Kh6qAloMNGQw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782772459; c=relaxed/simple;
+	bh=uMGlCr31Sel4dPUiT0J/Hc8FAH9ZBdJpcgwfcEieQnY=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=UpMJQUkbl4vtHg4AyJh6t/hUx8GEcT3ThQgclh2QGSfdDRmH3sUlge36AX8JHd7S6pNLfrukceDRDRNLNfmEKHmk0JG67df4I/Wvirdufe2I/KCY9ANC2V3Io//ucrGHQfW+8iwFSkR/gDX/oeW+OU9vX8y/aM0pJeimhPhCk+U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=phytec.com; spf=pass smtp.mailfrom=phytec.com; dkim=pass (2048-bit key) header.d=phytec.com header.i=@phytec.com header.b=R7ERuMNK; arc=fail smtp.client-ip=52.101.72.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=phytec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LVmt0ruy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C801F000E9;
-	Mon, 29 Jun 2026 22:27:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782772046;
-	bh=1cI6rcjZoaklNTXCMoDFVhT5gu3S/3sxs54Xma7nZgo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LVmt0ruylRc+aDA/PK33rM6S6PnGN3PD47bMYlJBSsSZ2Ul49RFFUgp5EpViGKnVL
-	 YGrqEAjSyHWTKEXQx/d9+ok4s2bTK8V0OzFCaQlLqvF0xruEKdYhY0+rEh4YRTtva/
-	 8Wyc9QF5z5VlFMlS7uRUrX/ayI7/wk2NQP1G1dGZzbsEQwlEeXn5ewd03UP4afmuBb
-	 k0GdU0tBRuW98xdWKJ/YGSer2IGpHGHaD6TeByr9eyPZmxK/VYCzSRzYQMkZcw8QlD
-	 MvmtMWA9ZDrhsz0aS0U9PJT3+I+Rkd0JOdJVMmdLQxKFdWIV2sTeBavbsGT/Az83Xm
-	 6RmpfCtAh9R2w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 2/2] net: pse-pd: add Realtek/Broadcom PSE
- MCU driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jonas Jelonek" <jelonek.jonas@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260628222705.4052815-3-jelonek.jonas@gmail.com>
-References: <20260628222705.4052815-1-jelonek.jonas@gmail.com>
- <20260628222705.4052815-3-jelonek.jonas@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 22:27:25 +0000
-Message-Id: <20260629222726.00C801F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=phytec.com header.i=@phytec.com header.b="R7ERuMNK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vw9e1e/hZfRbzPpOlKR7hNMW364guptR7oychfJgaVD/Gb2WE12kHLjQJpfnEwBSGfKviz3NwaTXbNV1HVcPoZn3Zd+0IB5YkgLlTx0zXnI67FBGz010p18ZskDi7+g9O6tIIyA+Vc9T8mW54jAclmH+b8Sry6WDZRcgjfwb12plT+yHbMxYn5kP1d/F8PoutyEZ/a0ytftaCUjTrumqQKojgeaHMcDl30/V51TeljU/mI/ftilaKjuUMUBineNB4i0RupUuYsYml4+Z7h00pGC8KU5KLreOYrq9kCyDr5W/CSFFxyVmpPtjJWXkLYG5VgCs/MoJ2ZP7R8MmcdNPXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kS3acRTT/CBNi+ZYg2PxCoo7p0Wp9catNkEdE1ASaNk=;
+ b=cHz74Rs8l8i+84rKab2V5tTmyjN9qa+qWxiaUoLpY0zoK+wHkCl1K/erInfK5lRoGxF3j5E9B8hDv/6WrgnAiYk9IE8F/M279a3i97+QZwDMV9xro9sECKADRN0WDoAXfmHyPdM9x0ZgSHAz4OVGQ5H5112J5u3GpCR99R+DH71c1UruDIFVNXvZmGtB+faGpwd5vkf7uLq0JCIvFW/BrvVJEpE8OcaHPsvw2PuoCaIG+lkFiK7NJDhio65dE5umu4q7Ws5bDk8pjxQdPncUrojQhjFgh9Pv1GwPkiAuVW1JJ9WJHYp4pQSRlxi26fYJMvXfklETlXdEQFH5pW9Bjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 91.26.50.189) smtp.rcpttodomain=ti.com smtp.mailfrom=phytec.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=phytec.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kS3acRTT/CBNi+ZYg2PxCoo7p0Wp9catNkEdE1ASaNk=;
+ b=R7ERuMNKTwljkX7IXwLDnwsgi7OGOVgUpKenlLudHMlsvTAzMGRTzEy4nGYS6nhEdTV4PN0L2UbbjBh4TlDvAEFcOm0+5a+phldvqLPP+KLKU1Ts9lqkOBPiU0ognwVsTU+pAZSoFkYq83cy1FPBzkEWc7MvQCqQNJzpL6ex2FdqsQF+jgNkdoFmCO11Hzhrpv2G35+CZ5uC/MT3fUY9C+zV57MQ4nTqsjHhYOOyLT/oETPJXlm4gsKC9fSWRXVI62jGDLqlG8lPVHwSn/7hOLs9R46+e3WeXxdU8WC1D6OQMnCSHxuY9ApDGihTOw9Pm48DZUZQJCuD+TgCHi0N+w==
+Received: from AS9PR06CA0499.eurprd06.prod.outlook.com (2603:10a6:20b:49b::23)
+ by GVXP195MB1830.EURP195.PROD.OUTLOOK.COM (2603:10a6:150::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.16; Mon, 29 Jun 2026 22:34:12 +0000
+Received: from AMS0EPF000001B1.eurprd05.prod.outlook.com
+ (2603:10a6:20b:49b:cafe::66) by AS9PR06CA0499.outlook.office365.com
+ (2603:10a6:20b:49b::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
+ 29 Jun 2026 22:34:12 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 91.26.50.189)
+ smtp.mailfrom=phytec.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=phytec.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ phytec.com discourages use of 91.26.50.189 as permitted sender)
+Received: from Postix.phytec.de (91.26.50.189) by
+ AMS0EPF000001B1.mail.protection.outlook.com (10.167.16.165) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Mon, 29 Jun 2026 22:34:11 +0000
+Received: from phytec.com (172.25.39.17) by Postix.phytec.de (172.25.0.11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 30 Jun
+ 2026 00:34:08 +0200
+From: Nathan Morrisson <nmorrisson@phytec.com>
+To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>
+CC: <afd@ti.com>, <sashiko-reviews@lists.linux.dev>,
+	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <upstream@lists.phytec.de>,
+	<w.egorov@phytec.de>
+Subject: [PATCH v3 1/2] dt-bindings: arm: ti: Add bindings for PHYTEC AM67x based hardware
+Date: Mon, 29 Jun 2026 15:33:52 -0700
+Message-ID: <20260629223353.1495209-1-nmorrisson@phytec.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: Postix.phytec.de (172.25.0.11) To Postix.phytec.de
+ (172.25.0.11)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF000001B1:EE_|GVXP195MB1830:EE_
+X-MS-Office365-Filtering-Correlation-Id: b07cd807-bc27-4b83-b6a5-08ded62e8acb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|36860700016|376014|1800799024|82310400026|23010399003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	7LxSysIC1o6GUdxdsNQdHqEiWx2rNyahkFRCYeSMyeU7EalFNaC02Du7+eGpUcmuPGCA6ih10ix1c5C/WpPAr6LeavMU9HaFDVC6Uwr3rm5/tewXHRSLeR1EfWeaRp0xEmn8wWNnQ2Fpc4HkZnmmpxUdd3waM92oxCxdIAnSQkRl38pcDPjdEqzrQo8ar2KUhUvmOtfknOjGZowh4Whxyj0h0opZZg2orgT3AGtb3cxNnt6P+Vek60E8vS7nQWxxyqH0WnQfI0AhUhJteS0OBGz3Z/8qru1AjeUY0OwPdsmCG3xdvBK6bLFX0y7ZZCrZ/oa2yxo/u9cBbCqolBWvZnjfdqfbFhWZK/tQiZQl077kdg2RNh7wNaB1gKDxEsB4xOvph4FbTh7ZbBafnhKafoec1dXEoRgfKHe1vdCVrPklgBedNtv/02MTduvfx1dutEJlLlXRhUctTXJPpHZu3V4IzcfQinT2X+QHQrPIrgjewrk/Vs8hMJpuNR6NZUWfjMznSyCH+PXzgNKtH4Lp+qH3AHA2a56FMIUqjHGXriP49zGpqu2RXhroh0t+gC5piOBb3EGxs+fc5k2oTtbL+odff9ReS1O3tHeTZOse4wBPtW8v7KlZMOu/aTzpe4NCsUPqyycKUP4Z+lxxcKU9dNZITcWVgvtMBJmeS9+Hvq+GHmVFNBQd1SgukxK7Ba0fXJQ//wmHsjrXk4DkPEVJXQ==
+X-Forefront-Antispam-Report:
+	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(36860700016)(376014)(1800799024)(82310400026)(23010399003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	gbSeawoeM6anVPx2X8dUltwC4hreB3OWF+6A+oJCP4vPln8GB12GDqJ6+LlijvzBmnpXTHo+lLOYD894VOYL4vxZ5WfL2WHXtYSC3me/G3jxHmEwt6vvkwNiH017ACMebl5c0GDVJjHIcH+/pVGIhQNIPsi/py10tjuDOlAyoqaPwnXqPczc/11P5hCXbnR2MQTVxA525Hyzo9qgqqipVQihKyeoWJIOpH+qNIxBkZXjqMJRimg9ucASfdt3Sz8MSpiy8Vrk31kUa3mk539GriHeb0CxGAShHkk3yDA9wynQ3eHk6jF4yr01DPr/5adj5C0P4ohk1x7A6GhF7d5vtISHDMzWdnC9AWosGfA78JXa+mG7xpfGLHjZA/lrKNpwiKQTeJKIvylmdascEKsER5k9NSspCuhob+kCkMRbhaRF+7MchXWW19/v+tGhMoxp
+X-OriginatorOrg: phytec.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 22:34:11.8185
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b07cd807-bc27-4b83-b6a5-08ded62e8acb
+X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29;Ip=[91.26.50.189];Helo=[Postix.phytec.de]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF000001B1.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXP195MB1830
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Incorrect module owner assignment in `rtpse_mcu_register` allows t=
-he transport module to be unloaded while active, leading to Use-After-Free.
---
+Add device tree bindings for the AM67x based phyCORE-AM67x SoM and
+phyBOARD-Rigel.
 
-commit 7bb530c7721986789a60e3b5029b0d7f2ddc58d4
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Signed-off-by: Nathan Morrisson <nmorrisson@phytec.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+No changes in v3
 
-net: pse-pd: add Realtek/Broadcom PSE MCU driver
+ Documentation/devicetree/bindings/arm/ti/k3.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-This commit adds a driver for the microcontroller that fronts Realtek and
-Broadcom PSE chips. It splits the implementation into a shared core module
-and separate I2C and UART transport modules.
+diff --git a/Documentation/devicetree/bindings/arm/ti/k3.yaml b/Documentation/devicetree/bindings/arm/ti/k3.yaml
+index 69b5441cbf1a..ae47190d1f82 100644
+--- a/Documentation/devicetree/bindings/arm/ti/k3.yaml
++++ b/Documentation/devicetree/bindings/arm/ti/k3.yaml
+@@ -222,6 +222,13 @@ properties:
+               - ti,j722s-evm
+           - const: ti,j722s
+ 
++      - description: K3 AM67 SoC PHYTEC phyBOARD-Rigel
++        items:
++          - enum:
++              - phytec,am6754-phyboard-rigel
++          - const: phytec,am67-phycore-som
++          - const: ti,j722s
++
+       - description: K3 J742S2 SoC
+         items:
+           - enum:
+-- 
+2.43.0
 
-> diff --git a/drivers/net/pse-pd/realtek-pse-mcu-core.c b/drivers/net/pse-=
-pd/realtek-pse-mcu-core.c
-> new file mode 100644
-> index 0000000000000..718788d13d90e
-> --- /dev/null
-> +++ b/drivers/net/pse-pd/realtek-pse-mcu-core.c
-
-[ ... ]
-
-> +int rtpse_mcu_register(struct rtpse_mcu_ctrl *pse)
-> +{
-
-[ ... ]
-
-> +	/*
-> +	 * Depending on the MCU firmware configuration (which might be different
-> +	 * for every board), it isn't known whether the PoE subsystem is active=
- or
-> +	 * inactive by default. At this stage, the PSE chips might already deli=
-ver
-> +	 * power to PDs without any explicit enable.
-> +	 */
-> +
-> +	pse->pcdev.owner    =3D THIS_MODULE;
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-Does this assign the core module as the owner instead of the calling transp=
-ort
-module? Since this executes in realtek-pse-mcu-core.c, THIS_MODULE resolves
-to the core module, leaving the transport module (e.g., realtek-pse-mcu-i2c)
-unpinned.
-
-When a consumer gets a reference to the PSE controller, it pins the core
-module, but an administrator can still unload the active transport module.
-Unloading the transport module triggers device unbinding and devm resource
-cleanup, which frees the pse structure while it is still active, leading to
-a use-after-free on subsequent PSE operations.
-
-> +	pse->pcdev.ops      =3D &rtpse_mcu_ops;
-> +	pse->pcdev.dev      =3D pse->dev;
-> +	pse->pcdev.types    =3D ETHTOOL_PSE_C33;
-> +	pse->pcdev.nr_lines =3D info.max_ports;
-> +	pse->pcdev.pis_prio_max =3D RTPSE_MCU_PORT_MAX_PRIORITY;
-> +	pse->pcdev.supp_budget_eval_strategies =3D PSE_BUDGET_EVAL_STRAT_DYNAMI=
-C;
-> +
-> +	return devm_pse_controller_register(pse->dev, &pse->pcdev);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628222705.4052=
-815-1-jelonek.jonas@gmail.com?part=3D2
