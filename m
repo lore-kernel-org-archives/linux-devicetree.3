@@ -1,85 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5134330E0D6;
-	Mon, 29 Jun 2026 06:41:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C551639BFEC;
+	Mon, 29 Jun 2026 06:41:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782715311; cv=none; b=gPz5CDVarTIOHGgQYfEiYEdvKJUNPcYRd+f9Hkhw71xQIr5MoP3uP8YJS7W8u0zEiDdGPYFflYlwuhqi9CVYcEqb/n1RijvNGE/VwOCni15ao2rypjAlpWLkH1WW7Xu2H25RthiNlgQwjdGf3RvctYK3lYsEO5mLbYP1iaT4BwY=
+	t=1782715314; cv=none; b=hP/cOol3BZzdtxfkJNNly0vb6yjbml7bVe27J6uZRdPSTErRdy3Fbtfz9nK3FB7hwjaUZ0Vy3yzkoyJR7Q6bX1s6W3waLlGi1pbLtJrm+ZoTcRyNSz973/8eGpxrtrgCOs7u8PIlGrx+a/JNhF3xOrJOHzzsnIM5jo80D6AyX8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782715311; c=relaxed/simple;
-	bh=p9Q3AQ3O08ApY1TuKwMa2+HSSsF27yVmOT45tvQiEH4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mwhIRlRJkVDmCxZvCLluaP38HCR3uZdwelDLTQwL4ybDLkBBM3JNn8HAJLCDwcXghmBH4TM7IzSq5umy1zhVGIkEPvpKcAfna+Y+3QthPpYKQ6ccdVqJupwQYkIoPI2bdNymIzUNrJ05/8Y9OkV2hCpk2PleJIvWJe8yqeLzXSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IajG+TGL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782715314; c=relaxed/simple;
+	bh=NFuuFcb/ruJh3wvrl4TTnR1hgxROnRQip/VR2F/THy0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=C2ar9H3lJM7oGlkVJc3G5eLGp8hPIPuptf74Mv4ZzbqjAEehylGAk18Nb5xAougXo9EZsnwtf5FCnksMcMNdOxuCSQnLc1NYoKZX1n6PeUgpn/ac/I0QLP/jVjmI2v9QICkxUexXd+vrvLbPw6iClcJUwf+1X4RYvm88mtu2nfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BWi51dZa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IajG+TGL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDEFF1F000E9;
-	Mon, 29 Jun 2026 06:41:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782715310;
-	bh=LJNxsIbjOvKv5Z4KyI22FNEB/VGm79BTV2nCIXFX1mo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IajG+TGLQzVGcp/P34WawshYbFzWNQmxMSxCpOp8Tqf4IH8lr0kc4tiJMb9BItj4k
-	 vgGyymO1OWFVZu+kmu0PRFuCrrw5Glq+6vsl0JDMb/tTYUXYzge42eLWHHUmSBkjBo
-	 piz3hSbHbaBn13GLzMGyfQCeBk20qJ6/gLsCJAAaNwhB8Hq2TS8GOgBoD59QcQHME0
-	 7jyQ9oK6I3Nj9lxj9PtAmyiXQ8rgpt+aaUe3//4GvfHnTOtLG2CVv8BcWukwWAPMmN
-	 hQRivhOSxw5I9RvjPDxUHUqvnlWCf05hdwHhVr7hvjjtLZpv5atmcHo/r7Nkhk3tq5
-	 nFDDAtbJLYoKw==
-Date: Mon, 29 Jun 2026 08:41:42 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lorenzo Bianconi <lorenzo@kernel.org>, Christian Marangi <ansuelsmth@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Benjamin Larsson <benjamin.larsson@genexis.eu>, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, Markus Gothe <markus.gothe@genexis.eu>, 
-	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Subject: Re: [PATCH v6 06/17] pinctrl: airoha: an7583: fix muxing of non-gpio
- default pins
-Message-ID: <20260629-inchworm-of-authentic-adventure-ac9eef@quoll>
-References: <20260628143733.273651-1-mikhail.kshevetskiy@iopsys.eu>
- <20260628143733.273651-7-mikhail.kshevetskiy@iopsys.eu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BWi51dZa"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 59D70C2BCB8;
+	Mon, 29 Jun 2026 06:41:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1782715314;
+	bh=NFuuFcb/ruJh3wvrl4TTnR1hgxROnRQip/VR2F/THy0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=BWi51dZaDFBXTr5XrIKky5i25CHrbQToYpeLA72LEB+hyVegKpoIkhAA6RIvCOQhO
+	 IKXaP9U7b3MM7CC1iG3Bbr4BRchL3b1AnqNJ7jO6wDHacsCGwC/MhbnVY3CXE536mZ
+	 Y8HkOWFhDlyQQDHnhjvhOM8XLrg3BJMr3EsH/KgXvnGH4joqrBJG7i45oG0ESb3UmG
+	 aMd6HVbtTZxkEwFwKpuwzx7AAUJlxCptbMK713HjYZZianKaexN9tkQQW+KUe0W9+s
+	 QbTbE1ySTTFJbkSEKkNR7PzrDTn/PBzxFfFn/F6iAs2B6+cVwdQWuJG8LAegHbwjUV
+	 c5KaaKLcWp+ZA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4034EC43458;
+	Mon, 29 Jun 2026 06:41:54 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Mon, 29 Jun 2026 06:41:51 +0000
+Subject: [PATCH] arm64: dts: amlogic: add some device nodes for A9
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260628143733.273651-7-mikhail.kshevetskiy@iopsys.eu>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260629-a9-node-v1-1-42ff6a0c16ab@amlogic.com>
+X-B4-Tracking: v=1; b=H4sIAK4TQmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDMyNL3URL3bz8lFRd41SztOTUpETzZEsDJaDqgqLUtMwKsEnRsbW1AAQ
+ 6oYpZAAAA
+X-Change-ID: 20260629-a9-node-3e6fceba7c90
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Xianwei Zhao <xianwei.zhao@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782715311; l=5289;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=qsqMagQntUJk2+7nKd+Qfbf+tdW0g4n8khbu2y9iCho=;
+ b=38v+7CfaRd6EV/UMT6fu9MuQbrcIgyUeFJuxl0LYqrsoLtV/DjAjF56OEhN2PtvvEdaM63/yi
+ 3MKG7QMdJmpCYpV+E+ESfxUHLwaUcsBc5eB1zbSfnP3aa6ESTdb85vf
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-On Sun, Jun 28, 2026 at 05:37:22PM +0300, Mikhail Kshevetskiy wrote:
-> Current an7583 pinmux implementation have following issues:
->  * pins 51 and 52 can't be set as pcie_reset, current pcie_reset code
->    will sets pins to gpio mode instead.
->  * there is no proper way to set pins 41--54 to gpio mode.
->  * pins 41--53 can't be actually set as pwm pins. These pins must be
->    muxed to gpio mode as well.
-> 
-> This patch fixes above issues. Also device tree binding schema
-> was updated.
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-Also was updated? "Also" is a sign you are mixing two commits into one.
+Add pinctrl and irqchip-gpio device nodes for A9 SoC.
 
-Describe WHY you are doing things, not what you did. And describe in
-details, becayse "binding was updated" brings no information.
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+Add pinctrl and irqchip-gpio device node for A9.
+---
+ arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi | 140 ++++++++++++++++++++++++++++
+ 1 file changed, 140 insertions(+)
 
-> 
-> Fixes: 3ffeb17a9a27 ("pinctrl: airoha: add support for Airoha AN7583 PINs")
-> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-> ---
->  .../pinctrl/airoha,an7583-pinctrl.yaml        | 14 ++-
->  drivers/pinctrl/airoha/pinctrl-airoha.c       | 99 ++++++++++++++++---
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+index 660c8556a864..cdc57b685cc3 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
++++ b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+@@ -6,6 +6,7 @@
+ #include <dt-bindings/interrupt-controller/irq.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/pinctrl/amlogic,pinctrl.h>
+ 
+ / {
+ 	interrupt-parent = <&gic>;
+@@ -97,6 +98,95 @@ soc {
+ 		#size-cells = <2>;
+ 		ranges;
+ 
++		apb: bus@fe000000 {
++			compatible = "simple-bus";
++			reg = <0x0 0xfe000000 0x0 0x480000>;
++			#address-cells = <2>;
++			#size-cells = <2>;
++			ranges = <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
++
++			periphs_pinctrl: pinctrl@4000 {
++				compatible = "amlogic,pinctrl-a9";
++				#address-cells = <2>;
++				#size-cells = <2>;
++				ranges = <0x0 0x0 0x0 0x4000 0x0 0x340>;
++
++				gpioz: gpio@c0 {
++					reg = <0 0xc0 0 0x20>, <0 0x18 0 0x8>;
++					reg-names = "gpio", "mux";
++					gpio-controller;
++					#gpio-cells = <2>;
++					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_Z<<8) 16>;
++				};
++
++				gpiox: gpio@100 {
++					reg = <0 0x100 0 0x24>, <0 0xc 0 0x8>;
++					reg-names = "gpio", "mux";
++					gpio-controller;
++					#gpio-cells = <2>;
++					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_X<<8) 18>;
++				};
++
++				gpioh: gpio@140 {
++					reg = <0 0x140 0 0x20>, <0 0x2c 0 0x4>;
++					reg-names = "gpio", "mux";
++					gpio-controller;
++					#gpio-cells = <2>;
++					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_H<<8) 8>;
++				};
++
++				gpiom: gpio@1a0 {
++					reg = <0 0x1a0 0 0x20>, <0 0x20 0 0x4>;
++					reg-names = "gpio", "mux";
++					gpio-controller;
++					#gpio-cells = <2>;
++					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_M<<8) 8>;
++				};
++
++				gpiob: gpio@240 {
++					reg = <0 0x240 0 0x20>, <0 0x0 0 0x8>;
++					reg-names = "gpio", "mux";
++					gpio-controller;
++					#gpio-cells = <2>;
++					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_B<<8) 14>;
++				};
++
++				gpioa: gpio@280 {
++					reg = <0 0x280 0 0x24>, <0 0x40 0 0xc>;
++					reg-names = "gpio", "mux";
++					gpio-controller;
++					#gpio-cells = <2>;
++					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_A<<8) 20>;
++				};
++
++				gpioy: gpio@2c0 {
++					reg = <0 0x2c0 0 0x20>, <0 0x30 0 0x8>;
++					reg-names = "gpio", "mux";
++					gpio-controller;
++					#gpio-cells = <2>;
++					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_Y<<8) 10>;
++				};
++
++				gpiocc: gpio@300 {
++					reg = <0 0x300 0 0x20>, <0 0x14 0 0x4>;
++					reg-names = "gpio", "mux";
++					gpio-controller;
++					#gpio-cells = <2>;
++					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_CC<<8) 2>;
++				};
++			};
++
++			gpio_intc: interrupt-controller@4080 {
++				compatible = "amlogic,a9-gpio-intc",
++					     "amlogic,meson-gpio-intc";
++				reg = <0x0 0x4080 0x0 0x20>;
++				interrupt-controller;
++				#interrupt-cells = <2>;
++				amlogic,channel-interrupts =
++					<10 11 12 13 14 15 16 17 18 19 20 21>;
++			};
++		};
++
+ 		gic: interrupt-controller@ff800000 {
+ 			compatible = "arm,gic-v3";
+ 			#interrupt-cells = <3>;
+@@ -123,6 +213,56 @@ uart_b: serial@1e000 {
+ 				clock-names = "xtal", "pclk", "baud";
+ 				status = "disabled";
+ 			};
++
++			aobus_pinctrl: pinctrl@4000 {
++				compatible = "amlogic,pinctrl-a9";
++				#address-cells = <2>;
++				#size-cells = <2>;
++				ranges = <0x0 0x0 0x0 0x4000 0x0 0x0e0>;
++
++				gpioao: gpio@1c {
++					reg = <0 0x1c 0 0x20>, <0 0x0 0 0x8>;
++					reg-names = "gpio", "mux";
++					gpio-controller;
++					#gpio-cells = <2>;
++					gpio-ranges = <&aobus_pinctrl 0 (AMLOGIC_GPIO_AO<<8) 13>;
++				};
++
++				gpioc: gpio@3c {
++					reg = <0 0x3c 0 0x20>, <0 0x10 0 0x4>;
++					reg-names = "gpio", "mux";
++					gpio-controller;
++					#gpio-cells = <2>;
++					gpio-ranges = <&aobus_pinctrl 0 (AMLOGIC_GPIO_C<<8) 7>;
++				};
++
++				gpiod: gpio@5c {
++					reg = <0 0x5c 0 0x24>, <0 0x8 0 0x8>;
++					reg-names = "gpio", "mux";
++					gpio-controller;
++					#gpio-cells = <2>;
++					gpio-ranges = <&aobus_pinctrl 0 (AMLOGIC_GPIO_D<<8) 18>;
++				};
++
++				test_n: gpio@c0 {
++					reg = <0 0xc0 0 0x20>;
++					reg-names = "gpio";
++					gpio-controller;
++					#gpio-cells = <2>;
++					gpio-ranges = <&aobus_pinctrl 0 (AMLOGIC_GPIO_TEST_N<<8) 1>;
++				};
++			};
++
++			gpio_ao_intc: interrupt-controller@4080 {
++				compatible = "amlogic,a9-gpio-ao-intc",
++					     "amlogic,meson-gpio-intc";
++				reg = <0x0 0x4080 0x0 0x34>;
++				interrupt-controller;
++				#interrupt-cells = <2>;
++				amlogic,channel-interrupts =
++					<384 385 386 387 388 389 390 391 392 393
++					394 395 396 397 398 399 400 401 402 403>;
++			};
+ 		};
+ 	};
+ };
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+---
+base-commit: 3d5670d672ae08b8c534b7beed6f57c8b44e7b43
+change-id: 20260629-a9-node-3e6fceba7c90
 
 Best regards,
-Krzysztof
+-- 
+Xianwei Zhao <xianwei.zhao@amlogic.com>
+
 
