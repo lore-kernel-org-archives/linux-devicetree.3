@@ -1,112 +1,177 @@
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989EB3E8C59
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:54:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782744873; cv=none; b=VBJw0ezYIwOTkPx7B32aSu/Qm+0PkeYtp0tVzy5t7SWqEy/g2xl2B8zLMWneohMu7cfKD1dVVHXk9UBRVS5ixlNCBV/it9ipAnerqQC6zKsdIU0ti0nnTO/xZM/pdyoJuj9mXOXAhE80fdz3yLrFc3k8TrQTBE0n6c5CfKi7jpg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782744873; c=relaxed/simple;
-	bh=v8CIyeLb1wkX+wqVPNxYQnc2a8miRec7mlz6SuvIKW4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XvVyWJpAHvPPE43lTdFZEbhiGTIUu5IHeGfV6NQjNnkKWlVk3kmDMFQ8qXGH/T4luynRU9miOHpo1QXOD9o8qCoHLbkvDryLrPqlZZHa8vVJ/pXUAXy/bk+jwsgjYTbRQqda6OFNERQcL8hZqgTE2IDsL6jQkUgsQ41mw76AJaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Gb6cUZ+M; arc=none smtp.client-ip=209.85.161.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300FA3E8C46
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:56:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782744971; cv=pass; b=i/X2gX9PZHvCzohVYWr8bP+ZOqku6y/xH1VysOvgyxf/4cvzQp/yxPxeRQ1PrQFXxZKPckrfBpUpI22jzHZw9riwKsjoyfQN3E+Ie3U0lUKSQUl/J5+VgH/uvIZy3IjOUZ66klhU3nkrx1jQSxfpFCj3d/sENMEgy1dmS1ymahI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782744971; c=relaxed/simple;
+	bh=+/9wgcUIWX9IAAUfj8TCtTHYJM6EUs1rELw9Q2zMQWg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ES+a5VNMpSJOEeyCGekbxedmxmPiToZ7Dx72G5lhf8G8mDG4N71hwPANCqyQWRvKaWkf4c5BF3ID7DkcfhaWCG8tI2NG00UiGBPiWONwq50w2bqhGVFGxPzmfQxDGmVI4OXslSk8gl0noDQGFo/feI5MBmW6/chcfWKSLu9y4HI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CqXNDHUQ; arc=pass smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Gb6cUZ+M"
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6a0c7c4f55fso2542708eaf.2
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:54:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CqXNDHUQ"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-46ee68c3b7aso2929630f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:56:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782744967; cv=none;
+        d=google.com; s=arc-20260327;
+        b=B9KnkT2tkuTDvlutcE0MZIBhrj5R0+ggO4jQiL+OqKUjHjIIKNqp0N2ObKtLQOBQLr
+         iUQVbIoC2rTCYl5eSEZUTc1Xlf6KpXxh4evH3kHr1vmZMaoMcn62idfbEsA3sMO3bcmG
+         +Vh9xR++7eqNj1P3IvpdAzol5wgD6XgcCuo403yuib12dbBtl/BDlUb9DN+2j8ZN5qdq
+         bx13QN5xhBEYEF9ym1zJCoxZFOkh6sYZiOeO5oV79Bstqy04cWQ9tneUHSY3LlX4GOcD
+         jF390DDSreQFWb47pUs7c8g1OL0hvctMy/CCgAcA9OOzzMTmv3h1nLLpH5z/bDlGuMM9
+         RpkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cg0nj+nO7raxM91vFADNla65NdWnOShdokPbAPfZ4QA=;
+        fh=4Z9dB/RRKRedVvfBwIcPiRbdf2B7qSMpij8PByGPl7g=;
+        b=Wh2WF3YSpfr4U6SbI4+jzSQimF5xZgQa4TFA+jLb6VdIWfnpgOrh01xwC43rJwEM+5
+         f2VvM9Ji4KEo3QeXou0SSMrrLMTdd53kGXHlUJorvVCs5dMAoXkomXFqAG8zQ/jsQNqO
+         XNkqkiANnXCOkg6l9pAr8G+wcK8Ks5Om8egpt88enjArtp/ojbF0/fH+cA5D/o/LZ209
+         ELUQ56tW/5BSj+n3B9yhY3InK8PrcEMT86//maNYvUamClDpGebUTVNT1+VpOcFGv2qm
+         3p5UE9KvnYyv9m9f4ACYCXpQpOqSuTmnDGkluiw9wWwA6nRbcNRcNG1rt1LGhj8yqtXE
+         VJxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782744869; x=1783349669; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4Z8Fz1fRVkTQIb2KN3JUG08EPIq1mQm84WayplzduZo=;
-        b=Gb6cUZ+M9gtsVEyfnuz8i+HOjiNJOqHJjhwLfazTdEdCh7Hhdp8aLRxgJHHFHXkj06
-         3Cs5wSFyNqGfDDq3/o4Hh1mjIkYN107xhn800h72ZrkQ5JWpfeVVNo3OXGVQYV+TrPqE
-         49TIpK7j2TDEKBk7wtwtjOk2OgSLOdbHop8+jX+pGWWsTscQybbeGEP4DuH/wfxlks4i
-         FMzEMbBsS3mYSzeHOFp0C9dd+4xmBYqAy3L2LNj0Nc8kdbsQdWGGKMywJMUFjjxQ+1tj
-         kq9HEDKdirAUFOOZKjABl2W66HYZBaSJoKiMJdYI4CZEeSv0md+R8G5rQEzcIVjbVpIS
-         j5Kw==
+        d=gmail.com; s=20251104; t=1782744967; x=1783349767; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cg0nj+nO7raxM91vFADNla65NdWnOShdokPbAPfZ4QA=;
+        b=CqXNDHUQGycD8TWc5Y829JYP/JedyVL5xNDdeV+MYl3nzObEwx7uplne30eoNOH/M/
+         9UNrr1NK9cWIpKRaRAVEQK84HXKMIztG6wWYs5EBZ5J8SlFRGmSUo1PPYE5iCr+QRose
+         T26AURsUxEarpwb/xY1WP07OeYJrK8C2ZUknI9V50alafJ7dSv+rJwVxQLQCOmyFtpL5
+         I15zxAa4g4d5DLDVDDSNqYFZPcBe8dIcLZL0fHf+7Judz7WJo5trAtsmeYXe3p1Oip5K
+         y4Sgeia7FO2jBBhC6qZ2Ul7akMyWgJHWXYlU2saQF7YxsLx3cBaRwfxF4UTvhR4FfZsp
+         WODg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782744869; x=1783349669;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4Z8Fz1fRVkTQIb2KN3JUG08EPIq1mQm84WayplzduZo=;
-        b=YyhwkCNShcVUsIxHWdk0cyn74lTCW/pCe3hnB9TmbFs3CR9nytSUO40NX2a1K15P+m
-         hnx2oEHkpJiO6vH6bmWaNQRp2VGGDxLLb/BdG4VVopRbJ3k6LQQvoxeUPWnUbVhYyyZJ
-         lbONLG1UgtEXxfG9/7Oad2SMeq6dAdL2Woe5fQEisYIe7Gcho8Ve0m6J7n2UThJ7p9/N
-         mJhSJda2pq0Cv7Y7t9ECDGb35gUiTDQZD1GfwIJO9Bamd74vOjCGykH9BhRb4AVZwhxZ
-         GK+LlObKZIeBuAjCfe9g1fJdbqYXpLmwwiOECF2TJl5o1aqnNSFRv1knQ/ei3TjDpFVG
-         aAwQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9TuG+giV+vmWTloS9y/KmKBN80VLAy43bfFS0K1S1Hq95B+rjq95m/u/9VGebS/weob2h4UnRnciwb@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXet8tkViwUOvSvbscGY7uoCduOj8GHeyWH+LUC7d7F9fslKta
-	OQBswLB9omucl/iBjjW8JD5Q+RisOuCPYbF11UuQgWSyHoFVpPE/yFsD9XGeq3CTUqo=
-X-Gm-Gg: AfdE7cmdyvyMybJtuhQSWCNrLsB3M97N2X+4//vWhTBeWTaFSpbtpdRajFM6PkraEGp
-	VopbzcnIshgG1n3+8+TqFEe84KA2DdSktOp3u1/05uRvwEfUKkQvA/XWclLnLRqYer1rl5Twlw+
-	VmBJdgOvO7PEWqeA9W3FrGmV9jA8i7MfY0nR5fxZPhvbw3u8TPZZBdP9HYv16uxfOgRPlSJK3sE
-	RcXYU/DejZJUsd/x1ZFcbk0wP/oAPH856cSsk69eP5iSF6MB1lUkhJGndfKgS9929eluGkF4PSu
-	XC50HCqgobe83jN2h3JckBNhH0CWLuMJq3S49gT/g0NnvudMKURz+w3WjguTo0QMwf3VmxjV/eu
-	gVm3qNePj4glWsyL2i4iDYDv5WFlc2TXPojEdpGxLqSqKCMt4kt1WQ5Jy6bWoYjQZmcuYQsPxr1
-	5+DKXXSNXQHzwNXU/cSCOrDq3WR/E7I1a9xlvuZsH1PppG/l2tQfvbxwnE1HBB7aI=
-X-Received: by 2002:a05:6820:708d:20b0:69d:f864:d35b with SMTP id 006d021491bc7-6a1890a067dmr11074eaf.23.1782744869202;
-        Mon, 29 Jun 2026 07:54:29 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:3533:aa22:9a69:df1c? ([2600:8803:e7e4:500:3533:aa22:9a69:df1c])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-448db51ef14sm36094fac.0.2026.06.29.07.54.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 07:54:28 -0700 (PDT)
-Message-ID: <06ce8972-55f6-4114-a3c5-1d3bd6f45d73@baylibre.com>
-Date: Mon, 29 Jun 2026 09:54:28 -0500
+        d=1e100.net; s=20251104; t=1782744967; x=1783349767;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=cg0nj+nO7raxM91vFADNla65NdWnOShdokPbAPfZ4QA=;
+        b=q0a34k1M8/c7Pg9PZdecHMbmg+KE9rQ2hCHnJc9p2iBjnHoQoPpxx2Y+3JKoSua3gN
+         paKMriM8kgOju5P65OnjTMs/0/T6m2AwCslz9+h2ymQ4bbetOp6+boUJKlXr/gl9/ATZ
+         nrUCTYtzesZ0js/Ms3TLnKPyWibVcaUPu99N8unYtPMLBwpmoXIN9Z9Yn9KN2QFjEiND
+         TFzjTPqTC3L1yXWbPgZFfsyZECO0LfP63CxDko8YRQnZeAJ81kDEljia/7j1IGidarw5
+         rm2hGnzjIrKyVILdStFR1hcba5GASFt8GWS1MrmQFEKURhrPtKgrrs4WkJT69PU/dST0
+         RTvg==
+X-Forwarded-Encrypted: i=1; AHgh+RqSoH2kidqLrP9kiCzJ/8PQEZLe8s09MKl1T3xDuL0DJU6zieXOX76d5j/+HfIQvhFLJ83v2IEtWP2Z@vger.kernel.org
+X-Gm-Message-State: AOJu0YxsdGM4DbJvp5kcRMmoz+RlWgeOtA1sLf4ggaUcYXt0D76p06zV
+	tw5ndHpmVh22MAywKrvO/5ELym+vvKfdnvnkuGYRJ0tAGg9bxeoCS4t7iftzTi2W6JGwr30jcTG
+	u8jGH5SLh1+6JPIZHgcVGzf6N25XBifE=
+X-Gm-Gg: AfdE7clChCdeK9oj+hw8Sn1zVvOWrFFKdtnKtm6xiyd0Iin/mcfRFre+UCakphXf1we
+	4HDTuzTfPiWuzZ+F58Hh/CKV+JqWH06btIos5Xx++fbbDpSmAnKZO8IrYtQ4yhWVhvq+oHIoKPn
+	v1XTLn1HjlYMnyReFeki/n9G/JbvpXFoG01Oeu2ZbZQHcv9PJ/1iMy5mh5FzbdGPCuzGBGBbBkf
+	O4CVmbXNwG84C15xl0YyCRBh5veJlQYVhA6sNvh4CUW/QMBwe8IPFB+EkXtMwyMPqgRvW5MG8gf
+	lwaM3xczlZRIKWAV0em6QBS/sAcdbvM9X6geTr41Gqz74o3m27aDlKIFvTbncqlaTfCo3LaNyYw
+	m5mAKg/hJfwufvzk=
+X-Received: by 2002:a05:6000:4208:b0:441:1e41:194 with SMTP id
+ ffacd0b85a97d-46dbfab53a2mr26248348f8f.17.1782744967392; Mon, 29 Jun 2026
+ 07:56:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] iio: adc: add Axiado SARADC driver
-To: Petar Stepanovic <pstepanovic@axiado.com>, Akhila Kavi
- <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
- Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260622-axiado-ax3000-ax3005-saradc-v3-0-e57c7c7ae675@axiado.com>
- <20260622-axiado-ax3000-ax3005-saradc-v3-2-e57c7c7ae675@axiado.com>
- <6770a7af-06cc-4240-9b20-c299e7080ab1@baylibre.com>
- <b06005e0-b7bc-4967-ac7b-cb170219f131@axiado.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <b06005e0-b7bc-4967-ac7b-cb170219f131@axiado.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260622170733.1703585-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdV-OWEd732BpM1XSJiu+7d+ABGYpxYUe8OUSkVV5X2Wdg@mail.gmail.com>
+In-Reply-To: <CAMuHMdV-OWEd732BpM1XSJiu+7d+ABGYpxYUe8OUSkVV5X2Wdg@mail.gmail.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Mon, 29 Jun 2026 15:55:40 +0100
+X-Gm-Features: AVVi8Cflxc-TFENMnQmfkdpU70UG_4X31nRwUCCV4ZYKWZbAtMO-azM9MIk3nT4
+Message-ID: <CA+V-a8t=PGgB5-o5=oHVXE63_nZj5nA-ZmacPSBA4dx-99qaRA@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: rzt2h-n2h-evk-common: Add memory nodes
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 6/28/26 9:33 PM, Petar Stepanovic wrote:
-> 
-> On 6/28/2026 1:07 AM, David Lechner wrote:
+Hi Geert,
 
-...
+Thank you for the review.
 
->>> +};
->>> +
->>> +static void axiado_saradc_disable(void *data)
->>> +{
->>> +     struct axiado_saradc *info = data;
->>> +
->>> +     writel(AX_SARADC_GLOBAL_CTRL_PD, info->regs + AX_SARADC_GLOBAL_CTRL_REG);
->> People usual make read and write wrappers or use regmap to avoid having
->> to write `info->regs + AX_SARADC_GLOBAL_CTRL_REG` so many times.
-> 
-> My understanding is that simple read/write wrappers are not always
-> preferred unless they provide additional value. Would switching the
-> driver to regmap be acceptable here to avoid repeating the base address
-> calculation?
-> 
-Yes, regmap is always nice because it brings a lot of extra features
-for free.
+On Mon, Jun 29, 2026 at 2:03=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68=
+k.org> wrote:
+>
+> Hi Prabhakar,
+>
+> Thanks for your patch!
+>
+> On Mon, 22 Jun 2026 at 19:07, Prabhakar <prabhakar.csengg@gmail.com> wrot=
+e:
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > Add memory nodes for the RZ/T2H and RZ/N2H EVK boards.
+> >
+> > These boards populate 8GB of DDR memory, which is exposed through two
+>
+> GiB
+>
+Thanks for taking care of this (and below).
+
+Cheers,
+Prabhakar
+
+> > address ranges.
+> >
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > ---
+> >  arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi | 11 +++++++++++
+> >  1 file changed, 11 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi b/ar=
+ch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
+> > index 1f575ea23db4..a0e1e4b1f23d 100644
+> > --- a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
+> > +++ b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
+> > @@ -30,6 +30,17 @@ chosen {
+> >                 stdout-path =3D "serial0:115200n8";
+> >         };
+> >
+> > +       memory@c8000000 {
+> > +               device_type =3D "memory";
+> > +               /* first 128MB is reserved for secure area. */
+>
+> MiB.
+>
+> > +               reg =3D <0x0 0xc8000000 0x0 0x38000000>;
+> > +       };
+> > +
+> > +       memory@240000000 {
+> > +               device_type =3D "memory";
+> > +               reg =3D <0x2 0x40000000 0x1 0xc0000000>;
+> > +       };
+> > +
+> >         reg_1p8v: regulator-1p8v {
+> >                 compatible =3D "regulator-fixed";
+> >                 regulator-name =3D "fixed-1.8V";
+>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> i.e. will queue in renesas-devel for v7.3, with the above fixed.
+>
+> Gr{oetje,eeting}s,
+>
+>                         Geert
+>
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
+8k.org
+>
+> In personal conversations with technical people, I call myself a hacker. =
+But
+> when I'm talking to journalists I just say "programmer" or something like=
+ that.
+>                                 -- Linus Torvalds
