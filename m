@@ -1,93 +1,184 @@
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D36337C906
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 17:24:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E9646AF1B;
+	Mon, 29 Jun 2026 17:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782753884; cv=none; b=DLu5ibViy99YhAQ32R8cH6XGyRndrstbEWEOrzHyGhKpTqqUj/K9aLdp9Bt9QEMJUwXzRdl5bx1ReLtI6styfQwB/4LX+q+Ftm7WrJCjVHjj1wXDQj+edwRRMpVF1o2Ti2QxQXqyoygSvRfemH5Qyu7kcaKa/R9FL5j6pGgmzKM=
+	t=1782753981; cv=none; b=WC/oNdxL5MaxR0JoHggFDFgyN8fMG45WRQiqYu7VGZGLaLkW0XdeDgFaag8jED6+uKwaCekv+9oaiGH/dwnStKcyFYj3erTw5c4sRcY4vYSBl5ikW+cInCWjvyO6HgrdU2Ij86hFF3JIrzKkIvIHy4K9tVcOil0prVppZfBPBO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782753884; c=relaxed/simple;
-	bh=ZzxOJDqPylofYp3FrL29P1xnRxESrls3/fvfW5iZ6Cc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z1AYUzSlbQICxp7EYdZrbcU9BOqMH7p2H9zNIWbYUf3K3z3Urm/pAb/ermUNVzT5x23Pt1Z5trvkzJF284dnrLWIP05vjsg55CBaUhxiy5XfsA+D6DkyOEmMnDBODBiPpErhRpQxLtG9qox03hGx1mNxvqv5Sspu6Dx88r/DXFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V4WSJ0Et; arc=none smtp.client-ip=74.125.82.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782753981; c=relaxed/simple;
+	bh=87wtZrcK1lDe1l6jGSt8sARWsY1ldhw3+AP+qA5H/IU=;
+	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ghTxmIbleDz993ZxJ2SjSQGQuZFsM5Gt1rbaGTodZFlyOLmZaHxCi4wI+fBZIs+kKmQsRi4H3N77woGTYIDlZfBkVrNBQmSsbCnuhDhrq6GDk8H+A6gc7BREkaNAZWx59gyluvihYJ6cqASlPf6BBB8nMWyGYRUuUgOjKaYPTFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=DlknxXen; arc=none smtp.client-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V4WSJ0Et"
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-13b29f58698so370261c88.1
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:24:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782753882; x=1783358682; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=cAHgI8v/5iahDWqdzu4/MvO4nkjuwauBP+gsMYKfHv4=;
-        b=V4WSJ0EthNcw7okvlNvM7rfEAnrSn/v9giK8zhB/vp7e1+7ewvh/cqgqnQhI5YwW6n
-         GtG/P+24Wfcz++WJyvD8K8YjUY9o1UwgQI8D0H3epXJUMMS9KnkSiEBjtF59tZsKp1fO
-         uE6HVmFN8tS/RfkOzaj0Le7fz5T3zESzVcQb2iTBMdgTyNTvJD4q5cvsQn+T8k3lrAAX
-         hRCv6N/VWQx7VV+Cxj2iazwN++V82lcKng7bdhlNnhsGXb5KFpOAoXp6+jNnFUMW1CX5
-         pc/gW12qyzxUsZO3txuRZ7rgVOh54zJjGcWZ7PC/2eBvwSUxAcWnGDMlNzrA2zn/MFya
-         AagA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782753882; x=1783358682;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=cAHgI8v/5iahDWqdzu4/MvO4nkjuwauBP+gsMYKfHv4=;
-        b=M+mBtvRLLGSHN0ROVil0i2fHow/L9+58apWhq07ry40T9ZVkLNPXdVn1gNiXy2KS/d
-         fYHAZuW55vQAwY2pHwFvEaSovmwXd0SUgERPfrPJ/3+V2XXyxFQ8YyqkkiRsQS9JH2aY
-         UYKWZIPiIPxy/dzoZ39RWMzOpm7GS1WU2RJwTwSvRc1uwegwdFeAHuixgXjkXZRR+MOY
-         PdG62Px5sNpo1Kj2LWjhN5rpPeXyn5aRBoLx5n0oFy/hRijdjlCZt9T9BbpJsL2sWEdO
-         IiBi8QUWL3dLIw463DtnGlx2TfydxXbgR2IX8EtNvo5F7dyEpmcOb+S/JNUQrw+E1CIc
-         X2Tw==
-X-Forwarded-Encrypted: i=1; AFNElJ+i0L8s+Mnd0qEhrtInwW9HlnVk/zDdJuQ1RcCr+DsW1urQd6D/nHo/JYzNENbvbHGzNDuj3qUO1C9p@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQ3NCUABiYCy4vLFArGdnyW1EOrlMTLEXKApAGX6buHGuvvlnU
-	RbvgCcqi72Om3eLBmWeQ+sYHGcaQ8W2BCo9wPe+2PIL7LuFu4Z834GzbEDPS7OyJuz0=
-X-Gm-Gg: AfdE7clJJ0GjazHJrqFRtS5lvihaikmCNHeQsgjUrwD90qcZJNw+6IItLqOJMQJS80Y
-	ewnLbXO9sr+MAgcx7Nbf2L8gbPFdyIlbzAiXUeGRRqjFzcsbi8sqKHHWCCHFuFBjKagfh6CcLEt
-	zA9M4EIZfHcXq05+IjTYSaOQCig/r9HlUNxinudVs24Y/7C9N+O4P8di+WdZuOdyEf9Eih7rxjE
-	7QqZM9mP+YpQuJoHLdtPSqe++spa4TDa/VVkYGeqFcEuzgWjUiF0wOefD2lfYYv6Akm5u4Je9Vf
-	fhMFkVwtP8qrSihLgrLxOq9nYPa/AwoJEFBR44oRbrvV8OZWDBcdOO4d50k2sux3hlk19uX1uIK
-	/CQptRCHt7eAk/4KFRDO4qtGzLxfEf/OtpHJqqXyNkky65uxYDBm5+kaHvriUBtkTNwfRUWO1jH
-	pcN2nS3AHtWvcFGn8zJZv/AQ==
-X-Received: by 2002:a05:7023:b16:b0:139:90ab:36bc with SMTP id a92af1059eb24-13b2a1dcbb5mr155645c88.38.1782753882083;
-        Mon, 29 Jun 2026 10:24:42 -0700 (PDT)
-Received: from localhost ([2804:30c:1618:8400:e838:86ad:21d4:de00])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-139d8f6acf9sm47567925c88.6.2026.06.29.10.24.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 10:24:41 -0700 (PDT)
-Date: Mon, 29 Jun 2026 14:25:27 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
-	dlechner@baylibre.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, julianbraha@gmail.com
-Subject: Re: [PATCH v4 3/4] iio: adc: ltc2378: Enable high-speed data capture
-Message-ID: <akKqhwv4cbR-fL-g@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1782397418.git.marcelo.schmitt@analog.com>
- <7d91f48bb03a16e6876e7aeb05fe259e33ae625f.1782397418.git.marcelo.schmitt@analog.com>
- <akIHUgTtyZv44TWv@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="DlknxXen"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1782753956; x=1783358756;
+	i=markus.stockhausen@gmx.de;
+	bh=MhXDa0AjoX+NG5+ntWtzhc5s9BFcxFwhzmcp1V6neFM=;
+	h=X-UI-Sender-Class:From:To:Cc:References:In-Reply-To:Subject:Date:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=DlknxXenFrWfiZ8q/VSP/z+zb6rPWA7+q9FR1ecWvpuGfx0Pi70nyXhC3Fa/otgg
+	 BGOk2tIC+1rElVp41LB5MWSPwc5nkegDPHhyqgLhA8H8QJJzqVyl0NywwsWQfRc7V
+	 wau2lkNSBM2XLjG3kz6MSN2VC4QgTjqX6PeHzZTkg8kKFlrU9LXFuvLat2GqY8M+p
+	 jDdxv48OnjsGb6AB6KUd7D6Dr3dh2V+a7kv4W3Ce5KNJGVqtX4B/W3xfha11Tq3vN
+	 y6B0xf/hb+jbeaw6NaO6SUcF+fPisvMZ39I+emEAyjPCEyJUAf/77wNQggt0YSeob
+	 bx5WIKVsJvmXDBbLLw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MHoRA-1wrzFa2tQU-007H0Z; Mon, 29
+ Jun 2026 19:25:56 +0200
+From: "Markus Stockhausen" <markus.stockhausen@gmx.de>
+To: "'Andrew Lunn'" <andrew@lunn.ch>
+Cc: <hkallweit1@gmail.com>,
+	<linux@armlinux.org.uk>,
+	<davem@davemloft.net>,
+	<edumazet@google.com>,
+	<kuba@kernel.org>,
+	<pabeni@redhat.com>,
+	<netdev@vger.kernel.org>,
+	<chris.packham@alliedtelesis.co.nz>,
+	<daniel@makrotopia.org>,
+	<robh@kernel.org>,
+	<krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>,
+	<devicetree@vger.kernel.org>
+References: <20260629152336.2239826-1-markus.stockhausen@gmx.de> <20260629152336.2239826-3-markus.stockhausen@gmx.de> <f3b0ddab-372a-49c5-977e-59c7a104d0a8@lunn.ch>
+In-Reply-To: <f3b0ddab-372a-49c5-977e-59c7a104d0a8@lunn.ch>
+Subject: AW: [PATCH net-next v2 2/8] net: mdio: realtek-rtl9300: Add page tracking
+Date: Mon, 29 Jun 2026 19:25:52 +0200
+Message-ID: <004201dd07ec$585a6ba0$090f42e0$@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akIHUgTtyZv44TWv@ashevche-desk.local>
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGLWj2oQThrBp+2CfDhF4qpCxunlgDPFPhbAZqHJLm25dYLoA==
+Content-Language: de
+X-Provags-ID: V03:K1:qusDnO7wJM5Yxpd9IcA9feiTCyFU45PVlIKRKxYe1wEkLA3thhg
+ KmKVKTc/qzjWdvWrTKBR1U8vtQPe7TC9Zzh5gg+OBeSdDfbJ1lWeGneHD5e2IKHY8ZWXHea
+ lAsmmJ5Yad1oUHsKx1OaSOvTHlGrTdMkqEkUBBvLIgeZCV2dqQ/SfC8+yTzLEw97k81hCla
+ psZg2/w+7hj4LOwYTIZ2g==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:XPV4yASqAVM=;XbWyogRj067m+rD1PaAs+ZegdWV
+ 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
+ keF5giNOB1dE8ob/3U=
 
-> > +	/* Double check the minimum CNV high time is met */
-> > +	if (cnv_wf.duty_length_ns < LTC2378_TCNV_HIGH_NS)
-> > +		return -EIO;
-> 
-> Hmm... How is this IO issue?
+> Von: Andrew Lunn <andrew@lunn.ch>=20
+> Gesendet: Montag, 29. Juni 2026 18:29
+> An: Markus Stockhausen <markus.stockhausen@gmx.de>
+> Betreff: Re: [PATCH net-next v2 2/8] net: mdio: realtek-rtl9300: Add pag=
+e
+tracking
+> ...
+> > Intercept access to register 31 and store the desired value for each
+port
+> > in the driver. When issuing access to other registers add the saved
+page.
+> > This given, the hardware will run two consecutive c22 commands that ar=
+e
+> > not interrupted by polling.
+> >=20
+> >   ... hardware poll ...
+> >   phy_write(phy, 31, page)
+> >   phy_write(phy, reg, value)
+> >   ... hardware poll ...
+>
+> How do you guarantee the polling will not get between?
 
-Okay, what about EDOM for PWM setup failures? Any error code suggestion otherwise?
-Will follow the other suggestions.
+The page is part of a single command towards the controller.
+If a page is given the hardware will make the above two MDIO=20
+commands out of this without any polling in between.
 
-Thanks,
-Marcelo
+I will clarify this in the next version.
+
+Markus=20
+
