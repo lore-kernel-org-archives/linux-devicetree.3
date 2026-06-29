@@ -1,193 +1,146 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 674393EF654
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 15:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0D043CEC3;
+	Mon, 29 Jun 2026 15:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782746827; cv=none; b=Dawo/+GCFlz3Rkdrpfr+EbHFhPiphw3XCOko1Oe1WpEi+ZCvJBLuWgpRnQ6IpwV4SYI5bHmN5y+lT6mH2I0pTtrMigrf3YV1o7G59kmnmcaboIoM5x3V5CuT/KbQrklgzp76WnjD8CPpLzoCCmcc1gp2POkSpkmHxmL1J/WM2gY=
+	t=1782746865; cv=none; b=nkCEVzvqWNW6AMw78VGqleGWZhygu5/KsZuHTg/aboBqQQhbOekaUCf1FwQA/upgJf+ej2Bd/dM1uArh+K6PiqxSxYMg7NgQ+BSddQ/v/mng9XiQ5A+i51Vz7fy23FED1PRoff/0XtkYSwCv2+QkfDByE8SEW/943f9gq2kvOyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782746827; c=relaxed/simple;
-	bh=EO+7GPbDoMK9HijQwsoHg6dPkxSpORWwxrjuDEiCwXA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=qHz3nTiCFcnVVpZ7awi89lJZKgOVnrASlxD7NPI6yPJAe83gNkrhXGvHhMG5TqJXP9OLGhRqDpQUipUVKUZuE92GbCOKdl/+dHo7G8teF8+GmjLvA8CEfHTPRqMoIFa8ycZGvZyCEwWHNg5a4F33Ge2yc5ahtSe9agaKHFUR9bA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=F5SgQdsD; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1782746865; c=relaxed/simple;
+	bh=DmUhDjFVA750+wEI0POtq4/a4S2qfMLQyb/VYgkrb6U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FDTIT4CHBBmOJtjqqVb9ORSvlf1yh6EB7DHO5vh3gqaEScyYRSl6VPRu4DfjzJIF3+6ijQhPneR2BYfU2+Wcp5dwhW37jZHVmvew1pL7LIkOIKE3XPZzXJUF3vV9WJgKZYB7ado+sd9ndqZEvDG40h+YqRy7epGWLhZXnFJVJuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hS4o2Ez7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="F5SgQdsD"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-490cf3000f0so28995305e9.1
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:27:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782746824; x=1783351624; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4WTgdgx74eKSECK/LqviDIf77Rxva4Ev5PA6PkXPXgw=;
-        b=F5SgQdsD/RNNB2INKYAJoUT6u5Jk6TMG/Kes6PAAbECCxmibvY9I1kvZUOfXpzf4KA
-         YAUgnNKlg8fe7+AkGgkGCw86WbOg0dUv13ibDH1kIQ5VO7TPpmPx5xrWBQHt79yEtA20
-         la4h5xoOUm/x5BsNnUSQtN82y4Xo0DZ0EDBfxAB3tpOVhTTIH86g0F+Z4m1ry5P3B/FY
-         aK+O6sRyBVxdvYJrOmcJ/9t6q7gULGpSq8FYzXE4dmFdEivdztMWn3LX6/B8QtRgV0GD
-         xufpTf1/6lV17sXsy7JswrwoS/bvDh7kCREpCBTUdG23U3cmM3/tw0XeewCTebLVTdsV
-         wD1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782746824; x=1783351624;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4WTgdgx74eKSECK/LqviDIf77Rxva4Ev5PA6PkXPXgw=;
-        b=AqJyIR6bmVhnxtrtbxyQZ5ktmamo74OSL2gGxlr7VTwHFQO6n4Tb8J4srHvQTeLl33
-         jHsKp9CL9t7U+/R4uPDvRomXj0h+LDdKhPOVawY2HjlvcKbDQzMytN3hKabU19nByMnn
-         1RosNzVRkvC+xNqqlNx+0xGLuYT+dQHcaDlHMJwaMCyfUUQYlDqsHIgz92vvgDGJdth4
-         z9k+0IK0wHMGY0uCkZdU0yYFMjf3ebEAAVQXVtRNjTyyL9Rd2zcWrFeXv2jV941mHxCm
-         1Cthua7RBapcy9EhM3VCR/NrZNA5jBoc0FRo0RfSy+6v3GfPT5NLLfY7MA7sBZh2wkch
-         eMeA==
-X-Forwarded-Encrypted: i=1; AFNElJ/HzMZcSZ5b+p1jb/XdJcabeBrCkz1IgKsHujsx/kEs/awpVOc50MIIgOC6u+19J3iXcUue/QUHTJyO@vger.kernel.org
-X-Gm-Message-State: AOJu0YyHnihbIeVbzFyk7eWltzPg61vuBDvv6wtmaRUHehHKB+Lv4p/e
-	6BXbO2cNs1R6MjGuP2c6EsKD/dg4wwlCtoZ9uKW0eFGXCBOY/Xd+HTYpVnDa5oMP/KI=
-X-Gm-Gg: AfdE7cn+DV1QvtasySMEuphxkhT1GB3Hyv+UAeXY3g4/ivJEXySpLsZ0+YBuL7UO6EF
-	a5JONNLr6T+SgSp4DMnglwDCAkESQXNT5PoYgNAVhEM15PpNvViTXMStawgiillPRdW9ObZBbxa
-	2Dofgkt689hab032ruyXnBu7pftJhtlr35t3btE3jqV30/KOpRrZ5x49Vw4Np5wOAleN8ARR5jA
-	v44TOtM1kmRIf/zydWnGK9/JsX3f9XkiPvEacWCsOILGTfqNy+xNzW36beQNIjej7mq4j4wITYN
-	7EhbJKAgx+yXi4/ejXRuoVdJ+PeF31ECCgp/wULEpN2bUEBSMXJurjH8dEzrCG1R2d7zzY0MFqK
-	fJq/gqTRY5OvwjEb0AMVlTb97Sb/ATf7CCy4xSZjMkbE1qRuZv1D6PCy0D7R1zY36svSutOGKd7
-	UbSDcS9YV/tsg=
-X-Received: by 2002:a05:600c:3b24:b0:493:a88d:28d2 with SMTP id 5b1f17b1804b1-493b82aeaffmr2405445e9.24.1782746823793;
-        Mon, 29 Jun 2026 08:27:03 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:1d21:f5d5:2d3c:23a7])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4932f100e4asm221440355e9.1.2026.06.29.08.27.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 08:27:02 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: Conor Dooley <conor@kernel.org>,  sashiko-bot@kernel.org,
-  sashiko-reviews@lists.linux.dev,  linux-sunxi@lists.linux.dev,
-  robh@kernel.org,  devicetree@vger.kernel.org,  conor+dt@kernel.org
-Subject: Re: [PATCH v2 1/6] dt-bindings: rtc: sun6i: add sun60i-a733 support
-In-Reply-To: <CAGb2v67QV4gt=iXvaWeRCAxcasvzSpgTPodHhspd2ka19Hgdtg@mail.gmail.com>
-	(Chen-Yu Tsai's message of "Mon, 29 Jun 2026 23:20:40 +0800")
-References: <20260629-a733-rtc-v2-0-7b72112784f8@baylibre.com>
-	<20260629-a733-rtc-v2-1-7b72112784f8@baylibre.com>
-	<20260629125305.0DF981F000E9@smtp.kernel.org>
-	<1jpl198jzk.fsf@starbuckisacylon.baylibre.com>
-	<20260629-aliens-busload-ef9178973b4f@spud>
-	<CAGb2v67QV4gt=iXvaWeRCAxcasvzSpgTPodHhspd2ka19Hgdtg@mail.gmail.com>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Mon, 29 Jun 2026 17:27:01 +0200
-Message-ID: <1jechp8j0a.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hS4o2Ez7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CB201F00A3A;
+	Mon, 29 Jun 2026 15:27:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782746863;
+	bh=orhtP5VNB01XWVqy2adjFRk5D8XLKJ5Xav2QFmRRwSI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hS4o2Ez7lb7xgHK5v6vbq9e2f7WXez49Q0V3RJkLMlCbZri4QJ3k8TwODxPcDuDdq
+	 5srVoXVg8/siwjJQsvu28zjWrMaxKVgMzdkP7aY/yKpyVFcDcSEOovpkjOPAx+25mJ
+	 pmtIwAokKuXY/UWN4ULMHa6uOQjAh3ouTu1KZLgVtLcAEzwfHJBBKwxrUIAVhZIWri
+	 Qx93atidHTBccncdSerNu5VybqwDor+QKTN6n5fqidN4JaA0rjU1Ead2pm72BzXZk0
+	 HOFN5fQB037rPNdP0+BkxiCDanHKYNJedHtc06XOBv1cElUMxlMjYQN6TS/qyOoIg8
+	 +16hrUPZZX4TA==
+Date: Mon, 29 Jun 2026 16:27:39 +0100
+From: Conor Dooley <conor@kernel.org>
+To: wangjia@ultrarisc.com
+Cc: Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: pci: ultrarisc: add required DP1000
+ PCIe clocks
+Message-ID: <20260629-caboose-outpour-6e1df34112ef@spud>
+References: <20260629-ultrarisc-pci-clk-v1-0-5ea3308fdab3@ultrarisc.com>
+ <20260629-ultrarisc-pci-clk-v1-1-5ea3308fdab3@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DLqYu/eAV647/L1X"
+Content-Disposition: inline
+In-Reply-To: <20260629-ultrarisc-pci-clk-v1-1-5ea3308fdab3@ultrarisc.com>
+
+--DLqYu/eAV647/L1X
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On lun. 29 juin 2026 at 23:20, Chen-Yu Tsai <wens@kernel.org> wrote:
+On Mon, Jun 29, 2026 at 01:59:50PM +0800, Jia Wang via B4 Relay wrote:
+> From: Jia Wang <wangjia@ultrarisc.com>
+>=20
+> Require the DP1000 PCIe controller nodes to provide clocks and
+> clock-names, using the standard DesignWare clock names "core",
+> "dbi", and "aux".
+>=20
+> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
 
-> On Mon, Jun 29, 2026 at 11:16=E2=80=AFPM Conor Dooley <conor@kernel.org> =
-wrote:
->>
->> On Mon, Jun 29, 2026 at 05:05:51PM +0200, Jerome Brunet wrote:
->> > On lun. 29 juin 2026 at 12:53, sashiko-bot@kernel.org wrote:
->> >
->> > > Thank you for your contribution! Sashiko AI review found 1 potential=
- issue(s) to consider:
->> > > - [Low] The `clock-output-names` property has a global `maxItems: 3`
->> > > constraint and a description limiting it to three clocks, which cont=
-radicts
->> > > the new clock outputs (IDs up to 11) added for the sun60i-a733-rtc.
->> > > --
->> > >
->> > > commit a1565b632e372c724867216463a453c9d1600ad2
->> > > Author: Jerome Brunet <jbrunet@baylibre.com>
->> > >
->> > > dt-bindings: rtc: sun6i: add sun60i-a733 support
->> > >
->> > > Adds a new rtc compatible for the sun60i-a733 SoC and new IDs for the
->> > > peripheral oscillator clock gates of this SoC.
->> > >
->> > >> diff --git a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-=
-a31-rtc.yaml b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rt=
-c.yaml
->> > >> index 9df5cdb6f63f2..197a6f67b180a 100644
->> > >> --- a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc=
-.yaml
->> > >> +++ b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc=
-.yaml
->> > >> @@ -33,6 +33,7 @@ properties:
->> > >>            - enum:
->> > >>                - allwinner,sun20i-d1-rtc
->> > >>                - allwinner,sun55i-a523-rtc
->> > >> +              - allwinner,sun60i-a733-rtc
->> > >>            - const: allwinner,sun50i-r329-rtc
->> > >
->> > > [ ... ]
->> > >
->> > >> diff --git a/include/dt-bindings/clock/sun6i-rtc.h b/include/dt-bin=
-dings/clock/sun6i-rtc.h
->> > >> index 3bd3aa3d57ce1..5132a393ca4b6 100644
->> > >> --- a/include/dt-bindings/clock/sun6i-rtc.h
->> > >> +++ b/include/dt-bindings/clock/sun6i-rtc.h
->> > >> @@ -6,5 +6,9 @@
->> > >>  #define CLK_OSC32K                0
->> > >>  #define CLK_OSC32K_FANOUT 1
->> > >>  #define CLK_IOSC          2
->> > >> +#define CLK_HOSC_UFS              8
->> > >> +#define CLK_HOSC_HDMI             9
->> > >> +#define CLK_HOSC_SERDES0  10
->> > >> +#define CLK_HOSC_SERDES1  11
->> > >
->> > > [Severity: Low]
->> > > Will adding clock IDs up to 11 conflict with the existing clock-outp=
-ut-names
->> > > constraint in allwinner,sun6i-a31-rtc.yaml?
->> > >
->> > > The clock-output-names property currently has a global maxItems cons=
-traint
->> > > alongside its description:
->> > >
->> > >   clock-output-names:
->> > >     minItems: 1
->> > >     maxItems: 3
->> > >     description:
->> > >       The RTC provides up to three clocks
->> > >
->> > > If a device tree author attempts to define an array of clock-output-=
-names
->> > > to document all outputs for the allwinner,sun60i-a733-rtc node, won'=
-t it fail
->> > > dt_binding_check validation because it exceeds the maximum allowed i=
-tems?
->> >
->> > Not quite sure what to do with that one.
->> >
->> > The h616 compatible devices all exposed more than 3 clock through the
->> > provider, even if the higher IDs did not have define.
->> >
->> > The clock output names for the h616 compatible device are not really
->> > supposed to be defined through DT ... at least AFAIU ??
->>
->> The output names aren't even defined anyway, so the property is not
->> really all that helpful. It's worth increasing the max to whatever is
->> permitted now and look into the conditional sections to see if any
->> constraints need updating.
->
-> Or just not allow it for the newer RTC compatible? On the kernel side,
+Probably should have a fixes tag here because the clocks are mandatory
+and were missing.
+With one,
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-I was edging toward this. Would this be acceptable to you Conor ?
-I'm thinking about disallowing it for all the h616 compatible ones, not
-just the a733.
+Thanks,
+Conor.
 
-> the sunxi-ng clk library doesn't even use the property, presumably because
-> the library mainly targets the main clock controller that has at least
-> tens of clocks. Writing clock-output-names for them isn't really scalable,
-> and sort of useless as the name can be inferred by the clock ID and
-> compatible.
->
->
-> ChenYu
+> ---
+>  .../devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml   | 16 ++++++++++=
+++++++
+>  1 file changed, 16 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.=
+yaml b/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
+> index 512b935bf5d1..d9d1488e915a 100644
+> --- a/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
+> @@ -43,6 +43,18 @@ properties:
+>        - description: Legacy INTC interrupt
+>        - description: Legacy INTD interrupt
+> =20
+> +  clocks:
+> +    items:
+> +      - description: PCIe core clock
+> +      - description: Data Bus Interface (DBI) clock
+> +      - description: Auxiliary clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +      - const: dbi
+> +      - const: aux
+> +
+>    interrupt-names:
+>      items:
+>        - const: msi
+> @@ -55,6 +67,8 @@ required:
+>    - compatible
+>    - reg
+>    - reg-names
+> +  - clocks
+> +  - clock-names
+>    - interrupts
+>    - interrupt-names
+> =20
+> @@ -71,6 +85,8 @@ examples:
+>          reg =3D <0x0 0x21000000 0x0 0x01000000>,
+>                <0x0 0x4fff0000 0x0 0x00010000>;
+>          reg-names =3D "dbi", "config";
+> +        clocks =3D <&clkc 9>, <&clkc 7>, <&clkc 10>;
+> +        clock-names =3D "core", "dbi", "aux";
+>          ranges =3D <0x81000000 0x0 0x4fbf0000 0x0 0x4fbf0000 0x0 0x00400=
+000>,
+>                   <0x82000000 0x0 0x40000000 0x0 0x40000000 0x0 0x0fbf000=
+0>,
+>                   <0xc3000000 0x40 0x00000000 0x40 0x00000000 0xd 0x00000=
+000>;
+>=20
+> --=20
+> 2.34.1
+>=20
+>=20
 
---=20
-Jerome
+--DLqYu/eAV647/L1X
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakKO6wAKCRB4tDGHoIJi
+0ip/AQCVz1Lc3mKC+oyVm1tYc5cCDMlpdYT5sv3lVtOkAfV7AwD9EzD7eXAGbT/c
+5swQnBATFbdPJStitu8gs6S7JaA8IgQ=
+=KfNt
+-----END PGP SIGNATURE-----
+
+--DLqYu/eAV647/L1X--
