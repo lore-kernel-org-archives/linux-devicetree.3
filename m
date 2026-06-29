@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09ADF367B92
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:05:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3F62765D7
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:06:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782731143; cv=none; b=iUjUSJhvn3Qi0vSwvUACHKQUilN9gMHxDe65Z8A5VveohF5jN1DOipjbt97eHD3u39EA/B7Gjrew8j/wz3dEsZ5vAiDXBGnJShu+Cv4nrNwtkRo1iiJLk07mGwVbDZyb8v25C5jg4T2akQdb17nAd0to2UpDQM/JZp4OIKkQoyE=
+	t=1782731185; cv=none; b=VnTldR9uU8MM7yoF9YrkPJfJaKMqAnGyN6hiNneHIksruqtxqtRa8pkP7odc4JDIdfx58K4bStXHRaKwXrdnS16WYeiqAN3rcDViN4+09B3qAIwmIl7ugLckkJU3u+dXbl6j+3FUvoWMaXGVUS7LBgxh283R4ZWkPFcZDkGS6as=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782731143; c=relaxed/simple;
-	bh=FSQb6ZpE8VVXi/jfcaVs6EfAbRkf2SmUzltq38Ie0gc=;
+	s=arc-20240116; t=1782731185; c=relaxed/simple;
+	bh=yKd8A6p+8bziZPsp2Q28s2PZ2vk3u4AqtgqFKkxKqxY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ObMGhV29ceetbw7Qa+hTDDXFOIKMRRxWYz1v8fSmmltAFp+2+zqoKREVUfgjMyVvfgH9v9YHlTbpUkr/xvFh2fSRZqWGGVvp98JeS8BRNXnR/OwiMGZ+T0Kq0EPsvCZzYZ7D3jmdFcduFYrfifTyGDHRmXwyVPPROoicU5zDaIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=huJEamqy; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=TyxmEzwv5Xxxjg/HtTaPhZBcW4brvRKtGPkMzTMrRtWYLzF2hfNvOHTHr8hLh5Av1ymPqUYVb8Zb2WfzS8JaGhYteJ15gkq+7p+W+Ito2g9Yxq7mwBWs9iJS6n+tlsPCDaxsAFtN6UhRKX5eyCggLFDBr9bzwLvFilBVH/vvalU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QMrrQtvH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="huJEamqy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F7831F000E9;
-	Mon, 29 Jun 2026 11:05:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QMrrQtvH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19FAD1F000E9;
+	Mon, 29 Jun 2026 11:06:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782731141;
-	bh=2GZ7qQk+fAqMlOHOt/jgJhApgudXlPli1H9aOQ8rQNU=;
+	s=k20260515; t=1782731184;
+	bh=lxoWw985NMd9JHNaIPVIITMVNctxRj+Fm6JNRS8rwMc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=huJEamqyuUG6rSAGIwNwpNE/5BfJXG8Ckf9A9I9sYxwF7+t9z/M0PClOMd73v/V3t
-	 ppxOltegR5NPjXMWZFRtFu+0Ae6ZdPWzU2xH298ja6MAqlKCC8wA5rMZWrP4c90IjW
-	 o58GR2W/dWDBpZeBrjLNS1bJ3B2WZR97TY87ipVG6WS5kXmbAJcTmnxopqR+r51WCN
-	 r3stkaG8P7FSHxnJV0R7RXT8MvMs6hXNGp5lJC2PUmUA+plbRyd+5FR+yKwkAVgSf1
-	 8RppEllLvkr++NhmMrcZmyrJoUCuw39eCtP8BUZFakMw3x7dv1blFJXOa/ZqR2C2nh
-	 yzSdbuQ7Mg94g==
+	b=QMrrQtvHnsPioSmnlGtWJSNhx5j0VyHGA3dhkcg0fQKLrqzRWw5K3PHKrNzUJXPT+
+	 7bd++QkFHYh2TKSxUiO3puS1DQBhSuiKpqafNjgsS4j967bMUhWSZWJpWmI/nQBdBA
+	 WpyUq8ACZvw9aI/AF6mXgs+9LebK9JIf83r0ckLoPhnXe60Pk9WKbyoq22EwExtX+r
+	 1bmKkTMLd55h9HM/RHBv2XWFa1gP3+3aDaEJbobf9EvkdFzqriS10wbW/tQ3I631l5
+	 ekgbbXJQUgAnyk5E97zBkocGdkpZPQYvSbb9bSuPt1+FGljFtXnc1bgR50a+ih7flo
+	 0xawbX/8Nlyew==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/5] media: i2c: vd55g1: Remove spurious pad format
- update on init_state()
+Subject: Re: [PATCH v17 07/10] LoongArch: kexec_file: Use
+ crash_prepare_headers() helper to simplify code
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Benjamin Mugnier" <benjamin.mugnier@foss.st.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260629-vd55g4_and_fixes-v2-2-ea0a7cf3cd66@foss.st.com>
-References: <20260629-vd55g4_and_fixes-v2-0-ea0a7cf3cd66@foss.st.com>
- <20260629-vd55g4_and_fixes-v2-2-ea0a7cf3cd66@foss.st.com>
+To: "Jinjie Ruan" <ruanjinjie@huawei.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260629094746.191843-8-ruanjinjie@huawei.com>
+References: <20260629094746.191843-1-ruanjinjie@huawei.com>
+ <20260629094746.191843-8-ruanjinjie@huawei.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 11:05:40 +0000
-Message-Id: <20260629110541.0F7831F000E9@smtp.kernel.org>
+Date: Mon, 29 Jun 2026 11:06:23 +0000
+Message-Id: <20260629110624.19FAD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,86 +49,81 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The subdev state lock and the control handler lock are not shared,=
- leading to lockdep failures and data races.
+- [High] Concurrent memory hotplug can modify `memblock.memory` during `kex=
+ec_file_load()`, causing an out-of-bounds write on `cmem->ranges[]` and use=
+-after-free on `memblock.memory.regions`.
 --
 
-commit e1c6d43eeca25a31bf4c1014650f4e8b8276a063
-Author: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+commit 144c95098f9114fc6eb269028a7cf5e5b2d79839
+Author: Jinjie Ruan <ruanjinjie@huawei.com>
 
-media: i2c: vd55g1: Remove spurious pad format update on init_state()
+LoongArch: kexec_file: Use crash_prepare_headers() helper to simplify code
 
-This patch prevents vd55g1_update_pad_fmt() from being called twice during
-initialization by setting the format directly in vd55g1_init_state(). The
-actual update is now deferred entirely to vd55g1_set_pad_fmt().
+This commit simplifies the kexec_file code by replacing the existing
+prepare_elf_headers() with the generic crash_prepare_headers() helper.
+It implements the architecture-specific arch_get_system_nr_ranges()
+and arch_crash_populate_cmem() functions using for_each_mem_range.
 
-> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-> index fceb437e19bec..22464fe315624 100644
-> --- a/drivers/media/i2c/vd55g1.c
-> +++ b/drivers/media/i2c/vd55g1.c
-> @@ -1365,9 +1365,9 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
->  		code =3D vd55g1_mbus_formats_mono[0];
->  	else
->  		code =3D vd55g1_mbus_formats_bayer[0][0];
-> -	vd55g1_update_pad_fmt(sensor,
-> -			      &vd55g1_supported_modes[VD55G1_MODE_IDX_DEF],
-> -			      vd55g1_get_fmt_code(sensor, code), &fmt.format);
-> +	fmt.format.code =3D vd55g1_get_fmt_code(sensor, code);
-> +	fmt.format.width =3D vd55g1_supported_modes[VD55G1_MODE_IDX_DEF].width;
-> +	fmt.format.height =3D vd55g1_supported_modes[VD55G1_MODE_IDX_DEF].heigh=
-t;
+> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/=
+kernel/machine_kexec_file.c
+> --- a/arch/loongarch/kernel/machine_kexec_file.c
+> +++ b/arch/loongarch/kernel/machine_kexec_file.c
+
+[ ... ]
+
+> -static int prepare_elf_headers(void **addr, unsigned long *sz)
+> +unsigned int arch_get_system_nr_ranges(void)
+>  {
+> -	int ret, nr_ranges;
+> -	uint64_t i;
+> +	int nr_ranges =3D 2; /* for exclusion of crashkernel region */
+>  	phys_addr_t start, end;
+> -	struct crash_mem *cmem;
+> +	uint64_t i;
 > =20
->  	return vd55g1_set_pad_fmt(sd, sd_state, &fmt);
->  }
+> -	nr_ranges =3D 2; /* for exclusion of crashkernel region */
+>  	for_each_mem_range(i, &start, &end)
+>  		nr_ranges++;
+> =20
+> -	cmem =3D kmalloc_flex(*cmem, ranges, nr_ranges);
+> -	if (!cmem)
+> -		return -ENOMEM;
+> +	return nr_ranges;
+> +}
+> +
+> +int arch_crash_populate_cmem(struct crash_mem *cmem)
+> +{
+> +	phys_addr_t start, end;
+> +	uint64_t i;
+> =20
+> -	cmem->max_nr_ranges =3D nr_ranges;
+> -	cmem->nr_ranges =3D 0;
+>  	for_each_mem_range(i, &start, &end) {
+>  		cmem->ranges[cmem->nr_ranges].start =3D start;
+>  		cmem->ranges[cmem->nr_ranges].end =3D end - 1;
+>  		cmem->nr_ranges++;
+>  	}
 
 [Severity: High]
-This is a pre-existing issue, but does the initialization order in the driv=
-er
-leave the control handler and subdev state locks unshared, potentially lead=
-ing
-to data races and lockdep warnings?
+This is a pre-existing issue, and was not introduced by the patch under
+review, but could this loop overflow cmem->ranges[]?
 
-In vd55g1_subdev_init(), the lock assignment happens before the control han=
-dler
-is initialized:
+The crash_prepare_headers() function first counts the memblock memory ranges
+via arch_get_system_nr_ranges() to allocate the cmem array, and then
+populates it using arch_crash_populate_cmem().
 
-drivers/media/i2c/vd55g1.c:vd55g1_subdev_init() {
-    ...
-    sensor->sd.state_lock =3D sensor->ctrl_handler.lock;
-    ret =3D v4l2_subdev_init_finalize(&sensor->sd);
-    ...
-}
+Neither of these functions appears to hold the mem_hotplug_lock via
+get_online_mems(). If a concurrent memory hotplug event adds a new memory
+range via memblock_add_node() between the counting and population steps,
+does the loop here blindly increment cmem->nr_ranges past cmem->max_nr_rang=
+es
+and cause a heap out-of-bounds write?
 
-Since sensor->ctrl_handler.lock is still NULL here, v4l2_subdev_init_finali=
-ze()
-falls back to allocating an unshared lock for the active state.
-
-The control handler lock is actually initialized later in vd55g1_init_ctrls=
-():
-
-drivers/media/i2c/vd55g1.c:vd55g1_init_ctrls() {
-    ...
-    v4l2_ctrl_handler_init(hdl, 16);
-    ...
-}
-
-This means vd55g1_s_ctrl() runs with ctrl_handler.lock held, but expects the
-active state lock to be held:
-
-drivers/media/i2c/vd55g1.c:vd55g1_s_ctrl() {
-    ...
-    struct v4l2_subdev_state *state =3D
-        v4l2_subdev_get_locked_active_state(&sensor->sd);
-    ...
-}
-
-Because the locks are distinct, this triggers a lockdep assertion failure i=
-nside
-v4l2_subdev_get_locked_active_state(). It also seems to expose a data race,=
- as
-vd55g1_s_ctrl() can read format and crop while vd55g1_set_pad_fmt() modifies
-them concurrently using the active state lock.
+Furthermore, if the hotplug event triggers memblock_double_array(), the
+underlying memblock.memory.regions array might be reallocated and freed.
+Could this lead to a use-after-free when for_each_mem_range() iterates
+over the stale array pointer?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-vd55g4_and=
-_fixes-v2-0-ea0a7cf3cd66@foss.st.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629094746.1918=
+43-1-ruanjinjie@huawei.com?part=3D7
