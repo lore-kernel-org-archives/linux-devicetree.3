@@ -1,154 +1,425 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012038.outbound.protection.outlook.com [52.101.66.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 602C0367B98
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:08:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782731325; cv=none; b=XZuCfI5g58x7hBoa+1nNBFIynEJOnA682eiuIN/hcbpJJ3ecsSctda7jDj53ey7ejmJx3pOziZYk6udUJXrjBp/HVCTQ4ZuoLdEkJxrk/sg9gioWtbT/Hjrly4bU+37gayk40mapl5bzCFE/d+1rSVWk1gD0h/sK4Neic8EGDm0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782731325; c=relaxed/simple;
-	bh=C7LYnV5cPGrQ4FakMXv0vrPFgX/zSK8Y4zIEi2atbKI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=d0Z5qlfwj2GTyzC2UqsxiT4aCjtMVy+sLf1E4kkryKQg1KeCPgcV2wroa0cd60tKL5tdlxZEmXmx3UGebgwqJo5vBz+Q2jJeKULB9UeZn5hbrewi9BhQwg6VsGdeBTtnMsZYNJy6rTNk1MkyHdP3ZnjVGEJPSNRyha76Ua/4CCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PdjCZlvE; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544E536C9DF;
+	Mon, 29 Jun 2026 11:09:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782731346; cv=fail; b=dPIUfZfCdMVZEobss0Wtg35WPDRA+lXjwmXM9Xj0fmNk7kmgoVBkzE/AKBaxH5bYYV9ys6vgXt0cvZZS6tUHUaWXmIpXL3Aen8Lobu8Pnybe9vEoApctcaKc3E5sLJFnV5KRXs7YinCTmZklg6M44ns4gm4B+rjCJPOgPNQzqmM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782731346; c=relaxed/simple;
+	bh=zoMbyNkH0VN2qIuO/KFHryNDB6/w6KCPivP9PhvRPkM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=F+dtljAHuGB1K9WtjPbvY1LriVbI79CvlqSbWOtCVk2uSDMqIW64+IorigrawFntScCncNNlPMtvPRhf23o0p0B8TTx6cTXLoaw6z5RUHnndEiVEV/zG4yf6IPqSElVxzyO1mRHj8iPxA2ZVk4nts4vXf54Px68+St+nLq7FBs8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=mzFw5iGg; arc=fail smtp.client-ip=52.101.66.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PdjCZlvE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBFDD1F000E9;
-	Mon, 29 Jun 2026 11:08:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782731324;
-	bh=50RhA1Fg2aJRaYEflK7X17DI7ev1N4qsDCX9+yjHDg0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PdjCZlvEYCONz/860BL4U5OtUpEOsN9sbsGjhhpipeHkgYfFPDYodfxKIpWKj2/Ke
-	 ikRTsZ/Kd/9JBjlOCmOpRHwIk1eS0PEEzCq6/MPsshpoYSUApZx3/eS3RWGPcDptQF
-	 2PJuEPNOn1u6BNtSeOF8Ik+IrlEYQivZZXmA+ktd6Bkp7DFGTsY4K58P4YWQtVsuiW
-	 vH3CfOKirlulY59HrX/Wdqn3ue8EWETLUm0qQU1P2x2FhILUUPynKbZmj55HjgxQ2O
-	 h0pSEUpOjFY6E+WV7sxQ/oUXsBwET4a2htwwUXNtCDfUyUWuRb9YIGMC7wpzECWJU8
-	 Oh3lC9CA7m5iQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/5] media: i2c: vd55g1: Add support for vd55g4
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Benjamin Mugnier" <benjamin.mugnier@foss.st.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260629-vd55g4_and_fixes-v2-5-ea0a7cf3cd66@foss.st.com>
-References: <20260629-vd55g4_and_fixes-v2-0-ea0a7cf3cd66@foss.st.com>
- <20260629-vd55g4_and_fixes-v2-5-ea0a7cf3cd66@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 11:08:43 +0000
-Message-Id: <20260629110843.BBFDD1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="mzFw5iGg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PiyIghVck3L+99HE2tZ11C9tNHVWlrF2GiwZKdzwZ8lrAhrHtfk9KNrIu7hm/0o9w+9yxmZ1AAjLNLgZE9oMUKjBMpFUk4e6VeRHW4TPJd+ZMdPE1YOgEDrjwx5yhUo6iizKzI0zVstnjkVDA7iFw84tHf0Mh4VM/tMgkxb6YF4PrDwLF8whNOSMIj0AvEWA7wjEj4Sz+jkhPEfwCTm4ggHXvjzanTZ56cSsvKsrAExFOFJ3Wza6wpnoR6lY4q/NjtryN3WcGopx5zAy69H2kIk4IVcdypmaKLBM0MrxG8qQYTbsinZZcfuQamPmBCDTDZAuf5CK6+s4GkylGyvSog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hdYmzlinQrOTdqaXFcBZMTxHGZG54UUEXBcCcFY64eo=;
+ b=P62jiVnVnmsyfUQTgJHvw/Bkx8+cjaypQMSa5hgS74gjMlc+m6NiftRAeKM08Ea8dL9pT2UPLxQTIpH/MHDj/CqSiC0+2uXZpsnsawOjHJKQ0W8yMuzx4c0P6PtuhNh9EvCpz8O/7nlGgygWeV3i2bK5ZkUgxGZn5tMclx7phdVIAkmdXxr4Vgp3VLFrvVUJcO0WTPGghhd5Tf9Rk5aW5PTcku2rcKOxl5YtGR0TxWosAyPv1swHYMvbZdDyqBd59Klr8d+Se30oKLsgjQzabrE9caxVKU4gSfiYhNrdGaE+jaE/qa9L4IJfy+qWXr+HMbz6zjPmWwmROa9qINts6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hdYmzlinQrOTdqaXFcBZMTxHGZG54UUEXBcCcFY64eo=;
+ b=mzFw5iGg/j4eguGMxPV1HxAChkGLp7COImodjkNjwHEW3fVwn7olohPJ+1JA31SmDTgg2bLnEuBvW6Cxi5NWCvk8p7kHhww0L/of0WvtdRaR/rv3TTaPDtSEzUBsNQ6CcBbims+QLhTt+PlZOcAqIR0zMkl8CKYNDt1jv4Ja6JaQWcUdAb83OIh6MdORsPHdw9QXjenKTfkzsL4jrGSsVCuPyns4TVkLipEnegYlwWPQk7MsEs6AKIJQuZFr9Scmpvb9P/fW29Os7Tawqpo4KO/ZBlGp3Aq/dcwrvGnhQ1bSc7qrEvQFev1Bm8628OvYSqW1jxGUo6kE5rGwtSJNpg==
+Received: from CWLP265CA0462.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d4::8)
+ by DB9PR10MB8194.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:4ee::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 11:08:57 +0000
+Received: from AMS0EPF0000019F.eurprd05.prod.outlook.com
+ (2603:10a6:400:1d4:cafe::27) by CWLP265CA0462.outlook.office365.com
+ (2603:10a6:400:1d4::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
+ 29 Jun 2026 11:08:57 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ AMS0EPF0000019F.mail.protection.outlook.com (10.167.16.251) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Mon, 29 Jun 2026 11:08:57 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 29 Jun
+ 2026 13:13:40 +0200
+Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 29 Jun
+ 2026 13:08:55 +0200
+Message-ID: <591573d0-587a-4a27-9bef-c707de177a15@foss.st.com>
+Date: Mon, 29 Jun 2026 13:09:00 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/7] dt-bindings: media: i2c: Utilise
+ video-interface-devices enums
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi
+	<jacopo@jmondi.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su
+	<jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>, "Mikhail
+ Rudenko" <mike.rudenko@gmail.com>, Daniel Scally
+	<dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Michael Riesch <michael.riesch@collabora.com>, Sylvain Petinot
+	<sylvain.petinot@foss.st.com>, Laurent Pinchart
+	<laurent.pinchart@ideasonboard.com>, Paul Elder
+	<paul.elder@ideasonboard.com>, Martin Kepplinger <martin.kepplinger@puri.sm>,
+	Quentin Schulz <quentin.schulz@theobroma-systems.com>, Tommaso Merciai
+	<tomm.merciai@gmail.com>, Svyatoslav Ryhel <clamor95@gmail.com>, "Richard
+ Acayan" <mailingradian@gmail.com>, Thierry Reding
+	<thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Frank Li
+	<Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+	<konradybcio@kernel.org>, "Geert Uytterhoeven" <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>
+CC: <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
+	<linux@ew.tq-group.com>, <imx@lists.linux.dev>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-arm-msm@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+References: <20260628-kbingham-orientation-v3-0-4ed92968aff8@ideasonboard.com>
+ <20260628-kbingham-orientation-v3-3-4ed92968aff8@ideasonboard.com>
+Content-Language: en-GB
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+In-Reply-To: <20260628-kbingham-orientation-v3-3-4ed92968aff8@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF0000019F:EE_|DB9PR10MB8194:EE_
+X-MS-Office365-Filtering-Correlation-Id: 151b6c1d-2265-4ada-cf64-08ded5ced0b0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|82310400026|36860700016|1800799024|921020|18002099003|22082099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	fzwuTA/hR0qRVwMHz/Mt4DJWaMSwl9xyQyKjQ83QwfOzMJdrmZVO12UZoa3kXtEmsAOwz45PeB0j+rEygWWzlj3/aMbxgwKf4jXa4iptkCksBLHNwCNFtQQTDv9KOp4jhoY7qQBxCtI81TfQejiGkoUjFINoJpGOn2YFOFGparvL9UcOaU195pfszB+C+obt1GgCTrDYtxInhG7xuwpuJfnyhsDWCXaCGQRiN+Fm+8eQ9fF0H4FfX7ZXcEd0N9dZ4EyfQHH5jt9WeyZEVsD3ASJad1SUrmwUesbOqDFbrsLwdaUh9jCMAT1/ZLsBDDrpwjKWIKzUkbKO4Bs+TC+9XLpx+bgKk4XJertj8NMCKhX/UIj0oqcL2HCP7RiPzjpqFXv2xqVJwrtX+f7Ktm66r5WZjTOUlGVqHLujgM2KjYFb5Q6LBYP8Tn8T8xKeEWICtZ8Hx6kxxxsnXE4pXiiVQEWfhre5kiPxrbzS9sXm6+juUx4BZUr85vYvSEtAKcsIN36OpL880pOdnKumFaNTbdKGriPn0w3K1gIHTUqus1c2Ods2dQMK66SHkn/sj19Wm+Higm5GSHUOqynDuFE0KG916t9TM5GD/ziaAX1CJqo2zUZh/hZDhpDBWClxWAdMGrgPrITbHqYE1eJKtXS9CPbyCsGi5Z4F2fgYkvzLEWIE/7KSmDWykChyjyETvol7YcURutr1GEV/1orUrAtUpq+tZwgKjyHieWyQfG3hBZ1kKqO95K4JBnC70RrPoCft
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(82310400026)(36860700016)(1800799024)(921020)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	mDPCMtK46muHjsK9RAN5F/4rQoBTq0fV/q7IlGIM118FfKAKpHsPmYgz6gyA5IRZCl14glTL1qqIF6T1a0Y0zk+CRedZPNgdPc4uUSJnkJa4Moqt2LYOSr4ocEv5X4U6k3cg8h5F/srN7EcPywlF+i/GVKn77vw66vKVCu/VC16IdCL9d4NdBqcmH4Ghsh/YEE9fhWS3c8EdmvhruiyV6TbXZlF4cWVugTvh65gAECR6gwBgBVUi0fZjkE5tP1nSrCZyRAbFZ56VCodBimMVMOpAu7Q0cOpA4p9Ft8a6mEqLmussni9I4ax7kBr6lQx4xcnLHB0NxYqGvdGsIZgG9UAP+23r8Y99jf6ZpuazfytB3TfPPAtQLwh7kI2b84Lp5v3TmwdLRjNtFpyd/XLpnz8BYnuokyAEfsTUBrmSTxvRtWZEnDiEIzyYR7aZw+kl
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 11:08:57.3892
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 151b6c1d-2265-4ada-cf64-08ded5ced0b0
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF0000019F.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR10MB8194
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hi Kieran,
 
-New issues:
-- [High] Unchecked dereference of `device_get_match_data()` result in `vd55=
-g1_detect()` leads to a NULL pointer dereference.
+Thank you for this patch.
 
-Pre-existing issues:
-- [High] The V4L2 subdev state lock and control handler lock are mismatched=
-, causing lockless execution of `__v4l2_ctrl_modify_range()`.
---
+Le 28/06/2026 à 12:22, Kieran Bingham a écrit :
+> The orientation property for video interface devices now has definitions
+> to prevent hardcoded integer values for the enum options.
+> 
+> Update the existing examples throughout the bindings documentation for
+> camera sensors.
+> 
+> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Signed-off-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
 
-commit 6446db5fc4015fc328aed2df077a1b5dfc46a590
-Author: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+Reviewed-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
 
-media: i2c: vd55g1: Add support for vd55g4
+> ---
+>  Documentation/devicetree/bindings/media/i2c/hynix,hi846.yaml   | 3 ++-
+>  Documentation/devicetree/bindings/media/i2c/ovti,ov08d10.yaml  | 3 ++-
+>  Documentation/devicetree/bindings/media/i2c/ovti,ov4689.yaml   | 3 ++-
+>  Documentation/devicetree/bindings/media/i2c/ovti,ov5675.yaml   | 3 ++-
+>  Documentation/devicetree/bindings/media/i2c/ovti,ov5693.yaml   | 3 ++-
+>  Documentation/devicetree/bindings/media/i2c/ovti,ov64a40.yaml  | 3 ++-
+>  Documentation/devicetree/bindings/media/i2c/sony,imx111.yaml   | 3 ++-
+>  Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml   | 3 ++-
+>  Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml   | 3 ++-
+>  Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml     | 3 ++-
+>  Documentation/devicetree/bindings/media/i2c/st,vd56g3.yaml     | 3 ++-
+>  Documentation/devicetree/bindings/media/i2c/thine,thp7312.yaml | 3 ++-
+>  12 files changed, 24 insertions(+), 12 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/hynix,hi846.yaml b/Documentation/devicetree/bindings/media/i2c/hynix,hi846.yaml
+> index 1a57f2aa1982..b7bc6ba26e6e 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/hynix,hi846.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/hynix,hi846.yaml
+> @@ -86,6 +86,7 @@ unevaluatedProperties: false
+>  examples:
+>    - |
+>      #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/media/video-interface-devices.h>
+>  
+>      i2c {
+>          #address-cells = <1>;
+> @@ -102,7 +103,7 @@ examples:
+>              vddio-supply = <&reg_camera_vddio>;
+>              reset-gpios = <&gpio1 25 GPIO_ACTIVE_LOW>;
+>              shutdown-gpios = <&gpio5 4 GPIO_ACTIVE_LOW>;
+> -            orientation = <0>;
+> +            orientation = <MEDIA_ORIENTATION_FRONT>;
+>              rotation = <0>;
+>  
+>              port {
+> diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov08d10.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov08d10.yaml
+> index 6f2017c75125..b9c61395b24f 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/ovti,ov08d10.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov08d10.yaml
+> @@ -69,6 +69,7 @@ examples:
+>    - |
+>      #include <dt-bindings/gpio/gpio.h>
+>      #include <dt-bindings/media/video-interfaces.h>
+> +    #include <dt-bindings/media/video-interface-devices.h>
+>  
+>      i2c {
+>          #address-cells = <1>;
+> @@ -84,7 +85,7 @@ examples:
+>              avdd-supply = <&ov08d10_vdda_2v8>;
+>              dvdd-supply = <&ov08d10_vddd_1v2>;
+>  
+> -            orientation = <2>;
+> +            orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>              rotation = <0>;
+>  
+>              reset-gpios = <&gpio 1 GPIO_ACTIVE_LOW>;
+> diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov4689.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov4689.yaml
+> index d96199031b66..fcd617848ce3 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/ovti,ov4689.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov4689.yaml
+> @@ -96,6 +96,7 @@ unevaluatedProperties: false
+>  examples:
+>    - |
+>      #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/media/video-interface-devices.h>
+>  
+>      i2c {
+>          #address-cells = <1>;
+> @@ -114,7 +115,7 @@ examples:
+>              powerdown-gpios = <&pio 107 GPIO_ACTIVE_LOW>;
+>              reset-gpios = <&pio 109 GPIO_ACTIVE_LOW>;
+>  
+> -            orientation = <2>;
+> +            orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>              rotation = <0>;
+>  
+>              port {
+> diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov5675.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov5675.yaml
+> index ad07204057f9..6df62fd0c0c0 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/ovti,ov5675.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov5675.yaml
+> @@ -85,6 +85,7 @@ examples:
+>    - |
+>      #include <dt-bindings/clock/px30-cru.h>
+>      #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/media/video-interface-devices.h>
+>      #include <dt-bindings/pinctrl/rockchip.h>
+>  
+>      i2c {
+> @@ -108,7 +109,7 @@ examples:
+>              dovdd-supply = <&vcc_2v8>;
+>  
+>              rotation = <90>;
+> -            orientation = <0>;
+> +            orientation = <MEDIA_ORIENTATION_FRONT>;
+>  
+>              port {
+>                  ucam_out: endpoint {
+> diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov5693.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov5693.yaml
+> index 3368b3bd8ef2..5732657e1484 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/ovti,ov5693.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov5693.yaml
+> @@ -103,6 +103,7 @@ examples:
+>    - |
+>      #include <dt-bindings/clock/px30-cru.h>
+>      #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/media/video-interface-devices.h>
+>      #include <dt-bindings/pinctrl/rockchip.h>
+>  
+>      i2c {
+> @@ -126,7 +127,7 @@ examples:
+>              dovdd-supply = <&vcc_2v8>;
+>  
+>              rotation = <90>;
+> -            orientation = <0>;
+> +            orientation = <MEDIA_ORIENTATION_FRONT>;
+>  
+>              port {
+>                  ucam_out: endpoint {
+> diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov64a40.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov64a40.yaml
+> index 2b6143aff391..24787c9aa155 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/ovti,ov64a40.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov64a40.yaml
+> @@ -72,6 +72,7 @@ unevaluatedProperties: false
+>  examples:
+>    - |
+>        #include <dt-bindings/gpio/gpio.h>
+> +      #include <dt-bindings/media/video-interface-devices.h>
+>  
+>        i2c {
+>            #address-cells = <1>;
+> @@ -87,7 +88,7 @@ examples:
+>                powerdown-gpios = <&gpio1 9 GPIO_ACTIVE_HIGH>;
+>                reset-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+>                rotation = <180>;
+> -              orientation = <2>;
+> +              orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>  
+>                port {
+>                    endpoint {
+> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx111.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx111.yaml
+> index 20f48d5e9b2d..56fb5f18f07b 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/sony,imx111.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx111.yaml
+> @@ -69,6 +69,7 @@ examples:
+>    - |
+>      #include <dt-bindings/gpio/gpio.h>
+>      #include <dt-bindings/media/video-interfaces.h>
+> +    #include <dt-bindings/media/video-interface-devices.h>
+>  
+>      i2c {
+>          #address-cells = <1>;
+> @@ -84,7 +85,7 @@ examples:
+>              dvdd-supply = <&camera_vddd_1v2>;
+>              avdd-supply = <&camera_vdda_2v7>;
+>  
+> -            orientation = <1>;
+> +            orientation = <MEDIA_ORIENTATION_BACK>;
+>              rotation = <90>;
+>  
+>              nvmem = <&eeprom>;
+> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
+> index 6050d7e7dcfe..b4a88eaa7ef2 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
+> @@ -74,6 +74,7 @@ examples:
+>    - |
+>      #include <dt-bindings/clock/qcom,camcc-sdm845.h>
+>      #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/media/video-interface-devices.h>
+>  
+>      i2c {
+>          #address-cells = <1>;
+> @@ -98,7 +99,7 @@ examples:
+>              pinctrl-0 = <&cam_front_default>;
+>  
+>              rotation = <270>;
+> -            orientation = <0>;
+> +            orientation = <MEDIA_ORIENTATION_FRONT>;
+>  
+>              port {
+>                  cam_front_endpoint: endpoint {
+> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
+> index 7c11e871dca6..69a37ff68db3 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
+> @@ -86,6 +86,7 @@ unevaluatedProperties: false
+>  examples:
+>    - |
+>      #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/media/video-interface-devices.h>
+>  
+>      i2c {
+>          #address-cells = <1>;
+> @@ -98,7 +99,7 @@ examples:
+>              clocks = <&clock_cam>;
+>              dvdd-supply = <&vcc1v1_cam>;
+>              lens-focus = <&vcm>;
+> -            orientation = <2>;
+> +            orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>              ovdd-supply = <&vcc1v8_cam>;
+>              reset-gpios = <&gpio_expander 14 GPIO_ACTIVE_LOW>;
+>              rotation = <180>;
+> diff --git a/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml b/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
+> index 060ac6829b66..db9f0c15576c 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
+> @@ -105,6 +105,7 @@ unevaluatedProperties: false
+>  examples:
+>    - |
+>      #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/media/video-interface-devices.h>
+>  
+>      i2c {
+>          #address-cells = <1>;
+> @@ -123,7 +124,7 @@ examples:
+>              reset-gpios = <&gpio 5 GPIO_ACTIVE_LOW>;
+>              st,leds = <2>;
+>  
+> -            orientation = <2>;
+> +            orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>              rotation = <0>;
+>  
+>              port {
+> diff --git a/Documentation/devicetree/bindings/media/i2c/st,vd56g3.yaml b/Documentation/devicetree/bindings/media/i2c/st,vd56g3.yaml
+> index c6673b8539db..48db22ca4a7e 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/st,vd56g3.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/st,vd56g3.yaml
+> @@ -107,6 +107,7 @@ unevaluatedProperties: false
+>  examples:
+>    - |
+>      #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/media/video-interface-devices.h>
+>  
+>      i2c {
+>          #address-cells = <1>;
+> @@ -125,7 +126,7 @@ examples:
+>              reset-gpios = <&gpio 5 GPIO_ACTIVE_LOW>;
+>              st,leds = <6>;
+>  
+> -            orientation = <2>;
+> +            orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>              rotation = <0>;
+>  
+>              port {
+> diff --git a/Documentation/devicetree/bindings/media/i2c/thine,thp7312.yaml b/Documentation/devicetree/bindings/media/i2c/thine,thp7312.yaml
+> index bc339a7374b2..4a66cb711372 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/thine,thp7312.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/thine,thp7312.yaml
+> @@ -173,6 +173,7 @@ examples:
+>    - |
+>      #include <dt-bindings/gpio/gpio.h>
+>      #include <dt-bindings/media/video-interfaces.h>
+> +    #include <dt-bindings/media/video-interface-devices.h>
+>  
+>      i2c {
+>          #address-cells = <1>;
+> @@ -196,7 +197,7 @@ examples:
+>              vddgpio-0-supply = <&vsys_v4p2>;
+>              vddgpio-1-supply = <&vsys_v4p2>;
+>  
+> -            orientation = <0>;
+> +            orientation = <MEDIA_ORIENTATION_FRONT>;
+>              rotation = <0>;
+>  
+>              sensors {
+> 
 
-vd55g4 is the same device as vd65g4 but outputs in monochrome instead of
-RGB. Adapt the driver structure according to this new variant, and add
-its support.
+-- 
+Regards,
+Benjamin
 
-> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-> index 37d44abd1435c..c4142d771e7c8 100644
-> --- a/drivers/media/i2c/vd55g1.c
-> +++ b/drivers/media/i2c/vd55g1.c
-
-[ ... ]
-
-> @@ -1658,38 +1693,46 @@ static int vd55g1_init_ctrls(struct vd55g1 *senso=
-r)
-
-[ ... ]
-
->  static int vd55g1_detect(struct vd55g1 *sensor)
->  {
-> -	unsigned int dt_id =3D (uintptr_t)device_get_match_data(sensor->dev);
-> -	u64 rev, id;
-> -	int ret;
-> +	const struct vd55g1_version *dt_version =3D
-> +		device_get_match_data(sensor->dev);
-> +	const struct vd55g1_version *version;
-> +	u64 color, id;
-> +	int ret =3D 0;
-> =20
-> -	ret =3D vd55g1_read(sensor, VD55G1_REG_MODEL_ID, &id, NULL);
-> +	vd55g1_read(sensor, VD55G1_REG_MODEL_ID, &id, &ret);
-> +	vd55g1_read(sensor, VD55G1_REG_COLOR_VERSION, &color, &ret);
->  	if (ret)
->  		return ret;
-> =20
-> -	if (id !=3D VD55G1_MODEL_ID_VD55G1 && id !=3D VD55G1_MODEL_ID_VD65G4) {
-> -		dev_warn(sensor->dev, "Unsupported sensor id 0x%x\n",
-> -			 (u32)id);
-> +	version =3D vd55g1_get_version(id, color);
-> +	if (!version) {
-> +		dev_warn(sensor->dev, "Unsupported sensor version, expected %s\n",
-> +			 dt_version->name);
-
-[Severity: High]
-Could dt_version be NULL here? If the device is instantiated via software
-nodes or forced to bind via sysfs without matching OF compatible properties,
-device_get_match_data() returns NULL.
-
-If it returns NULL, this will cause a kernel oops when dereferencing
-dt_version->name here, as well as dt_version->id and dt_version->color
-below. The previous version of this code safely cast the result to an
-integer instead of dereferencing it.
-
->  		return -ENODEV;
->  	}
-> -	if (id !=3D dt_id) {
-> -		dev_err(sensor->dev, "Probed sensor %s and device tree definition (%s)=
- mismatch",
-> -			VD55G1_MODEL_ID_NAME(id), VD55G1_MODEL_ID_NAME(dt_id));
-> +	if (version->id !=3D dt_version->id ||
-> +	    version->color !=3D dt_version->color) {
-> +		dev_err(sensor->dev, "Probed sensor version %s and device tree definit=
-ion %s mismatch",
-> +			version->name, dt_version->name);
->  		return -ENODEV;
->  	}
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but is there a mismatched lock assignment
-in vd55g1_subdev_init()?
-
-It appears sensor->sd.state_lock is assigned to sensor->ctrl_handler.lock
-before v4l2_ctrl_handler_init() is called, meaning the lock is still NULL:
-
-vd55g1_subdev_init() {
-    ...
-    sensor->sd.state_lock =3D sensor->ctrl_handler.lock;
-    ret =3D v4l2_subdev_init_finalize(&sensor->sd);
-    ...
-}
-
-Since v4l2_ctrl_handler_init() allocates a different internal mutex later,
-the V4L2 core allocates a separate mutex for the state. When V4L2 core
-invokes vd55g1_set_pad_fmt(), it calls __v4l2_ctrl_modify_range() while
-holding only the subdev state lock. Could this violate V4L2 locking
-invariants and cause a data race if a concurrent user-space VIDIOC_S_CTRL
-ioctl is issued?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-vd55g4_and=
-_fixes-v2-0-ea0a7cf3cd66@foss.st.com?part=3D5
