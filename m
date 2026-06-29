@@ -1,235 +1,208 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B913E169E;
-	Mon, 29 Jun 2026 14:34:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B413F5BD4
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:34:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782743691; cv=none; b=Hg+pyZ5jkAc3bwqnNk+O48UdYrux6CBSPkkST0w3eGXXPVjXY7ZRSs3Ua36MLfCcK4Wv7ZXTSLqr0slWIjFX7Nfovhg0NZctGNU3gtrTX08QXCv0KADVjsMKaWg9TvlMLWO8JWZdxDZjxKVF7tJe55CVyk+t3QFxWAJCKKp0EmM=
+	t=1782743693; cv=none; b=n5FPk6IG8Rlel6PrMNzj6OmxdNc4pOCgPt97PM/JPFulW6d1AkQ48Htx/5M5TO1OCrV3U3O2YwvvVyMdr/G5aaQyj8UdJ8dgDaWqHa1cvJGupu46IPxEXpF2oMxeqJcnHuUG2qnlJoTWc8s7KtdBiBad7VFp+bPjViLOQn4tsaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782743691; c=relaxed/simple;
-	bh=BwZOJtCi29xG7YS74nuVxcsDkGYoCMCQK67EJ5IhvRQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N1UAoep3esep2Rpqa9hdEDjf+ZW2j9u5+TRLzEPU7jxVTvIkOHd1iFzjs3ZjF/BrfuDIqwMR0AAHzDFIvJGZ+55a44kFEcKSfHuWiZSKWWVeO6B4exvoTl6bY+UTPuuE/gIGeGeWUXa1iwO4lNLD0TD7nrPl1UYn6OJwXpKCO3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VMfT+ltQ; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782743693; c=relaxed/simple;
+	bh=nQgj+GFBH/eooOxlxhaBazNeK+nly5tw28MqdrnZ7fE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W5IANaAa6tB1lw/9XMq/pvx1p5SbTBDANt3t0It2RmJPreQ8zhJ4/A7WrgIRLWlBF6CzGmysTAA9yKdpxFYRNg830H9oJ4aYT/TtTjDjdP8r6kyJJDDAumdNWcwTjlkiVWhBBsC2/Kpzg9hLT/MUzbxJuVQx+gUOMNofd6203YU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kY/Ssr58; arc=none smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VMfT+ltQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782743690; x=1814279690;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=BwZOJtCi29xG7YS74nuVxcsDkGYoCMCQK67EJ5IhvRQ=;
-  b=VMfT+ltQekK1/RO7WrrJ/MkI/ZaVXnXXOVGL1Zkq3Fsuf02hQhl8isKS
-   LG7bz3O4/tZtPHXsTf5jVcCXQHv7tmXQziy37VEbf1r8hj9XjajzZ7CnT
-   OwXu0umen1xzTjkBj85b+CSdkmDaOSusIKvO4v/Xk7MPQJ77sD0aPVzc4
-   cy41YPWnY6qNDluYSBMKDUtZLIYAze+c8mQI/YcoTe/48P0J5Q+YAOpYa
-   kWHI5Ii0Zjd3klf8pILEP8kgQH4v4n6XwESAtE0YpkiyWzEwoIVuwO+DI
-   yZC7aMJ1tL8GMValeTXOuFqJjq1aPAA1xmJjQObzi+OwI/AY++h7Ytqyt
-   Q==;
-X-CSE-ConnectionGUID: ikYJnMYTSLSvyTLgQpzRvw==
-X-CSE-MsgGUID: Kh0KdoKkSxaoH2yFtLqZww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="83483711"
-X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
-   d="scan'208";a="83483711"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 07:34:34 -0700
-X-CSE-ConnectionGUID: HJl0MlKUSf+1XUZwfoAVgQ==
-X-CSE-MsgGUID: PLuHj14sS2qlDi4ZuR8RdQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
-   d="scan'208";a="276249136"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.207])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 07:34:31 -0700
-Date: Mon, 29 Jun 2026 17:34:29 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kim Seer Paller <kimseer.paller@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] iio: dac: ad3530r: Add support for AD3532R/AD3532
-Message-ID: <akKCdSRn1LzhwD-o@ashevche-desk.local>
-References: <20260629-iio-ad3532r-support-v3-0-f6e4f4abebbe@analog.com>
- <20260629-iio-ad3532r-support-v3-4-f6e4f4abebbe@analog.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kY/Ssr58"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-30c965eab27so6410007eec.0
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:34:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782743691; x=1783348491; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=UisZIj9SAq+/iU2iNCfWWIml1oT3ijfALHSO5VDxq/M=;
+        b=kY/Ssr58iwyei6ZcSu0SCkAjrESZSSaUrbH5u7DwinW3rywbzEMsaLaPmdibj4PbEd
+         GDdamj8jM8QrONl8yE4nfZ+NnOOLHqhMqRkjgsECc3Z8kL0n+TrRqsDmnOdp9HdT4jaG
+         RlaagsJl1V8CPTaTYVC+Ua3W7KqZqMmaXw/5FADiQEiQmmqnQfO9rp15LgImiodYAWUH
+         3xvDtDGiXVtckLhhXntz5ZlC5S/UgzydSWI4+y9sCgsYmmsKvdU8wOEZTJ5nOBGUgIgk
+         2S+Qxl6kGPOOZuah+atB12bVUjx7HJZFfeHF3CtgtUgrTnSA5S5V9/XEOzWl6vk8cuaF
+         29+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782743691; x=1783348491;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UisZIj9SAq+/iU2iNCfWWIml1oT3ijfALHSO5VDxq/M=;
+        b=dRWyjZjayy7sF4BBDb7Uaf6bt8oOXqnNFxapSDyEBRW+eq3o4kQe7eJUOkhOxkziRP
+         a9pvNEu8xIkG9mjNjDV0HSymZ5AisDXFR31uVZk/wjSufinZjWGs9Z37GDs6QizXSzeO
+         OGJgSbxfjMHk55KTUyh1N1TEloOx5U9jbLHN4FzvTeHgDYGwTtFn9zlXoUcdLo9dzDgs
+         80H6iwOwmClWI3l0QeshwDgV+Ov2pxfBg3nKUVQErg7f9jsLQaRUOYUujJwzJw5AMrBc
+         x7MVyY7d0XfWCCgZDeLyMu6D+RGFR6tmm5+Cfog3HnxclejW8a+d8YEuOtmpRjYNU3+j
+         7jYA==
+X-Forwarded-Encrypted: i=1; AHgh+RqvetVuw6z5ipPr/27NSsGTn2OxcLBGsIDJeVhJaTSnJq1K4p3cTj3hVG5A9zXqKU96zYZ+R1dOF7Qq@vger.kernel.org
+X-Gm-Message-State: AOJu0YwCIUZWg459x3gu5iILYZZc6KSQqeVi2jGfMxd1mdcFHzopJxHx
+	IZghDTfhJmhIVfO/UUk+FDRPKu5li1GiVI3DoGmfp9nNSNCgT400Uqnc
+X-Gm-Gg: AfdE7cmhvpnPuzFIe/B7o9uu3s03hzPAri+kimipUXhvf/uNQ3Qfghcb6oETY37qLiA
+	llf2AVxqAFZFApFGim8H3TvnZfEwlhhz5rkbvv71EHSxxyvH3k/azt66dysG4wkjRwlebQOzzPT
+	BPrRrIRTPTcNFbYSgNNjqc4bqVFcU9n9vPlfZv2RCfGhc5UfazN5oY4IQS2MWirv728fSl66dkI
+	A8va3Qi2A3J08+yhfHI/WhCi/e553ZUFEt2lxPxLOMKbexQiuDBKYzncjz0JpqVKxuBC7UARKQq
+	ixUf5i9T4imeuw6lPzN3xImen77txF61JgvAQ8kAmDd+f78CnQZPe54/l04TPD5K160U1vuTNtA
+	dTWbwvTHHJMPE+PNbgoyNnxMhwJnsh73I6GnKkf6NTSt7hznRkhAjCIv8a+oLV1uFnYq/NUwlQI
+	zdS0v0ZrXc8QCs3pO6tgbFJe/kJOlCsQxD8bI+6ObVEp64o2TEb2ADcJOsbTQUQWIiXahGPpE93
+	V18P7uV
+X-Received: by 2002:a05:693c:62d0:b0:30c:536e:3a95 with SMTP id 5a478bee46e88-30c84b94ff5mr10920163eec.2.1782743690538;
+        Mon, 29 Jun 2026 07:34:50 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30edffa26afsm176604eec.4.2026.06.29.07.34.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Jun 2026 07:34:50 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com
+Cc: leonardo.costa@toradex.com,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: [REGRESSION] mainline/master: Apalis iMX6 no longer boots
+Date: Mon, 29 Jun 2026 11:34:32 -0300
+Message-ID: <20260629143439.361560-1-leoreis.costa@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260629-iio-ad3532r-support-v3-4-f6e4f4abebbe@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 29, 2026 at 04:31:07PM +0800, Kim Seer Paller wrote:
-> The AD3532R/AD3532 is a 16-channel, 16-bit voltage output DAC with a
-> dual-bank register architecture (bank 0 at 0x1000 for channels 0-7,
-> bank 1 at 0x3000 for channels 8-15). It shares similar functionality
-> with AD3530R (channel configuration, LDAC triggering, powerdown control),
-> the main difference being the register address map due to the dual-bank
-> architecture, handled by table-driven helpers.
-> 
-> Add AD3532R-specific register definitions, channel specs, per-bank
-> register arrays, a dedicated ad3532r_set_dac_powerdown(), and per-chip
-> regmap_config to limit debugfs-exposed register space to each variant's
-> actual address range.
+Hello,
 
-...
+We are seeing a regression on Apalis iMX6 where the kernel doesn't boot in the
+newest v7.2-rc1 (it was working before, in v7.1). The device tree being used is the imx6q-apalis-eval.dtb. The kernel
+configuration used is the one shown below:
 
-> +/* AD3532R/AD3532 has two register banks: bank 0 at 0x10xx, bank 1 at 0x30xx */
+    https://gist.github.com/lcosta37/53efdb2fb6e6e0fc05437c7e53b47737
 
-Split this to two comments, see below.
+The kernel logs stop almost immediately as the board starts to boot, and I 
+don't notice any difference in the logs that points to the cause.
 
-> +#define AD3532R_INTERFACE_CONFIG_A_0		0x1000
-> +#define AD3532R_OUTPUT_OPERATING_MODE_0		0x1020
-> +#define AD3532R_OUTPUT_OPERATING_MODE_1		0x1021
-> +#define AD3532R_OUTPUT_CONTROL_0		0x102A
-> +#define AD3532R_REFERENCE_CONTROL_0		0x103C
-> +#define AD3532R_SW_LDAC_TRIG_0			0x10E5
-> +#define AD3532R_INPUT_CH_0			0x10EB
+Is this known? We are seeing this behavior on all Apalis iMX6 modules, though
+we don't see it on Colibri iMX6, so it is not SoC-specific.
 
-+ Blank line and a comment.
+Logs from v7.2-rc1 (not working, printing stops after the last line pasted
+here):
 
-> +#define AD3532R_INTERFACE_CONFIG_A_1		0x3000
-> +#define AD3532R_OUTPUT_OPERATING_MODE_2		0x3020
-> +#define AD3532R_OUTPUT_OPERATING_MODE_3		0x3021
-> +#define AD3532R_OUTPUT_CONTROL_1		0x302A
-> +#define AD3532R_REFERENCE_CONTROL_1		0x303C
-> +#define AD3532R_SW_LDAC_TRIG_1			0x30E5
-> +#define AD3532R_INPUT_CH_1			0x30EB
-> +#define AD3532R_MAX_REG_ADDR			0x30F9
+    [    0.000000] Booting Linux on physical CPU 0x0
+    [    0.000000] Linux version 7.2.0-rc1-0.0.0-devel (oe-user@oe-host) (arm-tdx-linux-gnueabi-gcc (GCC) 16.1.0, GNU ld (GNU Binutils) 2.46.1) #1 SMP PREEMPT Sun Jun 28 19:01:31 UTC 2026
+    [    0.000000] CPU: ARMv7 Processor [412fc09a] revision 10 (ARMv7), cr=10c5387d
+    [    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+    [    0.000000] OF: fdt: Machine model: Toradex Apalis iMX6Q/D Module on Apalis Evaluation Board
+    [    0.000000] Memory policy: Data cache writealloc
+    [    0.000000] cma: Reserved 256 MiB at 0x40000000
+    [    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+    [    0.000000] Zone ranges:
+    [    0.000000]   Normal   [mem 0x0000000010000000-0x000000003fffffff]
+    [    0.000000]   HighMem  [mem 0x0000000040000000-0x000000004fffffff]
+    [    0.000000] Movable zone start for each node
+    [    0.000000] Early memory node ranges
+    [    0.000000]   node   0: [mem 0x0000000010000000-0x000000004fffffff]
+    [    0.000000] Initmem setup node 0 [mem 0x0000000010000000-0x000000004fffffff]
+    [    0.000000] percpu: Embedded 15 pages/cpu s28684 r8192 d24564 u61440
+    [    0.000000] Kernel command line: root=PARTUUID=adb2cea1-02 ro rootwait console=tty1 console=ttymxc0,115200
+    [    0.000000] printk: log buffer data + meta data: 131072 + 409600 = 540672 bytes
+    [    0.000000] Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
+    [    0.000000] Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+    [    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 262144
+    [    0.000000] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+    [    0.000000] SLUB: HWalign=32, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+    [    0.000000] rcu: Preemptible hierarchical RCU implementation.
+    [    0.000000] rcu:     RCU event tracing is enabled.
+    [    0.000000]  Trampoline variant of Tasks RCU enabled.
+    [    0.000000]  Tracing variant of Tasks RCU enabled.
+    [    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+    [    0.000000] RCU Tasks: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=4.
+    [    0.000000] NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+    [    0.000000] L2C-310 errata 752271 769419 enabled
+    [    0.000000] L2C-310 enabling early BRESP for Cortex-A9
+    [    0.000000] L2C-310 full line of zeros enabled for Cortex-A9
+    [    0.000000] L2C-310 ID prefetch enabled, offset 16 lines
 
-...
 
-> +static int ad3532r_input_ch_reg(unsigned int channel)
-> +{
+Logs from v7.1 (working) (full logs here: https://paste.debian.net/hidden/0f65ae5f)
 
-Maybe
-
-	unsigned int bank = channel / 8;
-	unsigned int ch_in_reg = channel % 8;
-
-> +	if (channel < 8)
-> +		return 2 * channel + AD3532R_INPUT_CH_0;
-> +
-> +	return 2 * (channel - 8) + AD3532R_INPUT_CH_1;
-
-	return 2 * ch_in_reg + (bank ? AD3532R_INPUT_CH_1 : AD3532R_INPUT_CH_0);
-
-? This might need the correction in variable names. I tried to deduce them from
-the _dac_powerdown() below. But if you think it makes things more complicated,
-don't refactor.
-
-> +}
-
-...
-
-> +static ssize_t ad3532r_set_dac_powerdown(struct iio_dev *indio_dev,
-> +					 uintptr_t private,
-> +					 const struct iio_chan_spec *chan,
-> +					 const char *buf, size_t len)
-> +{
-> +	struct ad3530r_state *st = iio_priv(indio_dev);
-> +	unsigned int bank, local_ch, reg_in_bank, ch_in_reg;
-> +	unsigned int reg, pdmode, mask, val;
-> +	bool powerdown;
-> +	int ret;
-> +
-> +	ret = kstrtobool(buf, &powerdown);
-> +	if (ret)
-> +		return ret;
-> +
-> +	guard(mutex)(&st->lock);
-
-May chan->channel be modified behind our back here?
-If not, what's the point of protecting the below lines
-(till IO)?
-
-> +	bank = chan->channel / AD3530R_CH_PER_BANK;
-> +	local_ch = chan->channel % AD3530R_CH_PER_BANK;
-> +	reg_in_bank = local_ch / AD3530R_CH_PER_REG;
-> +	ch_in_reg = local_ch % AD3530R_CH_PER_REG;
-> +
-> +	reg = bank ? AD3532R_OUTPUT_OPERATING_MODE_2 :
-> +		     AD3532R_OUTPUT_OPERATING_MODE_0;
-> +	reg += reg_in_bank;
-
-	reg = reg_in_bank + bank ? AD3532R_OUTPUT_OPERATING_MODE_2 :
-				   AD3532R_OUTPUT_OPERATING_MODE_0;
-
-> +	mask = AD3530R_OP_MODE_CHAN_MSK(ch_in_reg);
-
-> +	pdmode = powerdown ? st->chan[chan->channel].powerdown_mode : 0;
-> +	val = field_prep(mask, pdmode);
-> +
-> +	ret = regmap_update_bits(st->regmap, reg, mask, val);
-
-Okay, now it's cleaner and we may make it even clearer:
-
-	if (powerdown) {
-		val = field_prep(mask, st->chan[chan->channel].powerdown_mode);
-// Here is the question, do we even need a field_prep()?
-		ret = regmap_update_bits(st->regmap, reg, mask, val);
-	} else {
-		ret = regmap_clear_bits(st->regmap, reg, mask);
-	}
-
-so pdmode variable is not needed.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	st->chan[chan->channel].powerdown = powerdown;
-> +
-> +	return len;
-> +}
-
-...
-
-> +static int ad3532r_trigger_sw_ldac_reg(unsigned int channel)
-> +{
-> +	if (channel < 8)
-> +		return AD3532R_SW_LDAC_TRIG_0;
-> +
-> +	return AD3532R_SW_LDAC_TRIG_1;
-> +}
-
-Taking the above, not sure if we benefit from the parametrized macros like
-
-#define AD3532R_SW_LDAC_TRIG(channel)	\
-	(((channel) < 8) ? AD3532R_SW_LDAC_TRIG_0 : AD3532R_SW_LDAC_TRIG_1)
-
-...
-
-> +	st->chip_info = spi_get_device_match_data(spi);
-> +	if (!st->chip_info)
-> +		return -ENODEV;
-
-> -	st->regmap = devm_regmap_init_spi(spi, &ad3530r_regmap_config);
-> +	st->regmap = devm_regmap_init_spi(spi, st->chip_info->regmap_config);
->  	if (IS_ERR(st->regmap))
->  		return dev_err_probe(dev, PTR_ERR(st->regmap),
->  				     "Failed to init regmap");
-
-> -	st->chip_info = spi_get_device_match_data(spi);
-> -	if (!st->chip_info)
-> -		return -ENODEV;
-
-This is simply moved up, make it happen in a separate patch.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+    [    0.000000] Booting Linux on physical CPU 0x0
+    [    0.000000] Linux version 7.1.0-0.0.0-devel (oe-user@oe-host) (arm-tdx-linux-gnueabi-gcc (GCC) 16.1.0, GNU ld (GNU Binutils) 2.46.1) #1 SMP PREEMPT Wed Jun 24 01:36:41 UTC 2026
+    [    0.000000] CPU: ARMv7 Processor [412fc09a] revision 10 (ARMv7), cr=10c5387d
+    [    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+    [    0.000000] OF: fdt: Machine model: Toradex Apalis iMX6Q/D Module on Apalis Evaluation Board
+    [    0.000000] Memory policy: Data cache writealloc
+    [    0.000000] cma: Reserved 256 MiB at 0x40000000
+    [    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+    [    0.000000] Zone ranges:
+    [    0.000000]   Normal   [mem 0x0000000010000000-0x000000003fffffff]
+    [    0.000000]   HighMem  [mem 0x0000000040000000-0x000000004fffffff]
+    [    0.000000] Movable zone start for each node
+    [    0.000000] Early memory node ranges
+    [    0.000000]   node   0: [mem 0x0000000010000000-0x000000004fffffff]
+    [    0.000000] Initmem setup node 0 [mem 0x0000000010000000-0x000000004fffffff]
+    [    0.000000] percpu: Embedded 15 pages/cpu s28684 r8192 d24564 u61440
+    [    0.000000] pcpu-alloc: s28684 r8192 d24564 u61440 alloc=15*4096
+    [    0.000000] pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3
+    [    0.000000] Kernel command line: root=PARTUUID=4ce4ba92-02 ro rootwait console=tty1 console=ttymxc0,115200
+    [    0.000000] printk: log buffer data + meta data: 131072 + 409600 = 540672 bytes
+    [    0.000000] Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
+    [    0.000000] Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+    [    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 262144
+    [    0.000000] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+    [    0.000000] SLUB: HWalign=32, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+    [    0.000000] rcu: Preemptible hierarchical RCU implementation.
+    [    0.000000] rcu:     RCU event tracing is enabled.
+    [    0.000000]  Trampoline variant of Tasks RCU enabled.
+    [    0.000000]  Tracing variant of Tasks RCU enabled.
+    [    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+    [    0.000000] RCU Tasks: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=4.
+    [    0.000000] NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+    [    0.000000] L2C-310 errata 752271 769419 enabled
+    [    0.000000] L2C-310 enabling early BRESP for Cortex-A9
+    [    0.000000] L2C-310 full line of zeros enabled for Cortex-A9
+    [    0.000000] L2C-310 ID prefetch enabled, offset 16 lines
+    [    0.000000] L2C-310 dynamic clock gating enabled, standby mode enabled
+    [    0.000000] L2C-310 cache controller enabled, 16 ways, 1024 kB
+    [    0.000000] L2C-310: CACHE_ID 0x410000c7, AUX_CTRL 0x76470001
+    [    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+    [    0.000000] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+    [    0.000000] Switching to timer-based delay loop, resolution 333ns
+    [    0.000001] sched_clock: 32 bits at 3000kHz, resolution 333ns, wraps every 715827882841ns
+    [    0.000018] clocksource: mxc_timer1: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 637086815595 ns
+    [    0.001910] Console: colour dummy device 80x30
+    [    0.001926] printk: legacy console [tty1] enabled
+    [    0.002519] Calibrating delay loop (skipped), value calculated using timer frequency.. 6.00 BogoMIPS (lpj=30000)
+    [    0.002561] CPU: Testing write buffer coherency: ok
+    [    0.002627] CPU0: Spectre v2: using BPIALL workaround
+    [    0.002650] pid_max: default: 32768 minimum: 301
+    [    0.002989] Mount-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+    [    0.003038] Mountpoint-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+    [    0.003430] VFS: Finished mounting rootfs on nullfs
+    [    0.004538] CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+    [    0.006552] Setting up static identity map for 0x10100000 - 0x10100060
+    [    0.006835] rcu: Hierarchical SRCU implementation.
+    [    0.006864] rcu:     Max phase no-delay instances is 1000.
+    [    0.007320] Timer migration: 1 hierarchy levels; 8 children per group; 1 crossnode level
+    [    0.008854] smp: Bringing up secondary CPUs ...
+    [    0.010035] CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+    [    0.010218] CPU1: Spectre v2: using BPIALL workaround
+    [    0.011412] CPU2: thread -1, cpu 2, socket 0, mpidr 80000002
+    [    0.011581] CPU2: Spectre v2: using BPIALL workaround
+    [    0.012747] CPU3: thread -1, cpu 3, socket 0, mpidr 80000003
+    [    0.012917] CPU3: Spectre v2: using BPIALL workaround
+    [    0.013109] smp: Brought up 1 node, 4 CPUs
+    ...
 
