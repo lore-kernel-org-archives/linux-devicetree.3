@@ -1,207 +1,154 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4273128BE
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 602C0367B98
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:08:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782731299; cv=none; b=j7ubdn7hcvD2Ao7FrJ2FwVk/PMxvgQQjlZsdOHWS9lrfkyyyrVwWe2Zl2gmcKrM4uzIKKHPdrpNH+5aq3TFO7kMU4rhL69HXcIcqm61QVkKsbA3Arjnzri+eEXOredsoI5mb0nq5pm7/s7tgL8LbUTjNJxhkFRLSGtj/wwr5p3w=
+	t=1782731325; cv=none; b=XZuCfI5g58x7hBoa+1nNBFIynEJOnA682eiuIN/hcbpJJ3ecsSctda7jDj53ey7ejmJx3pOziZYk6udUJXrjBp/HVCTQ4ZuoLdEkJxrk/sg9gioWtbT/Hjrly4bU+37gayk40mapl5bzCFE/d+1rSVWk1gD0h/sK4Neic8EGDm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782731299; c=relaxed/simple;
-	bh=p5oeSozrPpVmGY6T9fydOAx3xRD71h2scVUiMjk8UZw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cIhcqYns1YdU+l91+Dxj8D+ky6MgsC4B0Ec+esiornxKQaaJDT2zjWV6LrsFDnhDgPIBuASI2BzArcN+89pkEo80P57idwnyQrx9YH1H71g0p+ER2RrtZuagGyOtX4DmLU1Of4cR2rP2+KbiszNZCo5RB/8AaZ1SZaKEBtF/keE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=piX7RmSp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OLs1ccOx; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782731325; c=relaxed/simple;
+	bh=C7LYnV5cPGrQ4FakMXv0vrPFgX/zSK8Y4zIEi2atbKI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=d0Z5qlfwj2GTyzC2UqsxiT4aCjtMVy+sLf1E4kkryKQg1KeCPgcV2wroa0cd60tKL5tdlxZEmXmx3UGebgwqJo5vBz+Q2jJeKULB9UeZn5hbrewi9BhQwg6VsGdeBTtnMsZYNJy6rTNk1MkyHdP3ZnjVGEJPSNRyha76Ua/4CCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PdjCZlvE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="piX7RmSp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OLs1ccOx"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65TASrtj2601136
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:08:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Fn5b8KchpWy8FyyHPcxO27rsnTJuShm2MrGXkaTyXWs=; b=piX7RmSpG530hazT
-	Lyl4SB23dacMbmR9OW+0Jtjm0A2hj3jmr2LM9IsfVQmEFHFfRQhSDVnXqicrOz2t
-	UMtpV+c7KML71+jW8KL23mV9KQ5QAy5v/F8yZxzkp7PjJTdCrjL+3LfNsE/Eylcz
-	s++Y2lXgIm07nPBMQbidh/Mf6VrwMZfPL6KUQMQUOC0h8/2GooZRrCC9YMog5mxO
-	aB9q61txPYcp6AdcG9+d8xPe6wnq2wuOm6aY7xdvqDi62+irCcYjWUeJ1R2hGI+a
-	kU5E5hvQvp1TU31uCxPiVRtgxXA5RkEbQGd4cGtTVfWnZRN3xNS4o6jB6hko/gXX
-	csVqDw==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3nnw8g9s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:08:16 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5bd6db76caaso149442e0c.1
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 04:08:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782731295; x=1783336095; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fn5b8KchpWy8FyyHPcxO27rsnTJuShm2MrGXkaTyXWs=;
-        b=OLs1ccOxZTcVgaFv0p/+hLKSdE06m8YArsy52QAdGTKK7Vdxpa9kwU6URC3jJmjWz+
-         x3oKNssjwK4+ZlgKAx43MKsJCY+o2Mk/49oYiRmxMVMbE/RgtzNA7o0mPqBXQc9LDJ1i
-         Q86I1uQSmL04wj2hP0fxMXHLdkXISCuAH7gHknwgruQXrWOJDN0L8El9IOml/pIwS0jX
-         7shhotTPqFARNN0JfoeJBQ7lLMcgX4WYINszBQiqFFDfH23QGlzyTnKroGfzl6SV0RZB
-         YuwO+uOeFwUSCZbgvZCb87WOOp0gJXr3yjl7o549Ac1bei4tAnswsRuepsZi0536Xlo4
-         NnDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782731295; x=1783336095;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fn5b8KchpWy8FyyHPcxO27rsnTJuShm2MrGXkaTyXWs=;
-        b=AMyrdmsvifPnQCvL6zHqpdvCajFA8CuhKoGzd12Hpy30nd87iMGk4qqQaW13XndmLY
-         Yr7h3jPJwfDf24aAlSHPv3Lv9ItO5USAlQv7t34HUPtvbkQ/mylbxl2LZXp88vrVu3x8
-         T8AUJ12k15UQGp1+H2G7lucGGMfoc0h+AoJsRDYTXqnc1hFomfrsYikA+XZFAScEiwKO
-         iu3yoycpe3EFBybG+GJ+IobdmgdDcQ6RrKPkJyUvmgqJWRilu9+N0lPcytDg1bFlGQTE
-         y6t3YsXtme+QFNIzwwo9Yulb4bgNjKobYnMEmYKDymKpGUxMPLT48zEQowDD2i8e5PaL
-         zMPg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrk6U+m8u8vQPWYJhsSKPzQqdifMTz5UyL7lhFmwofxDlrs1Q0XIzIKovWmhJJMcASFUKKPR5hZm1t5@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx/HcWHC1IAxzcqdpRBhhFLPh7jTf5tqs6YKUHvHWsvRQBLGQ+u
-	IbxcHAYQxGcKZtaBhY5QdVtwA6op9HZa9QZWUmTqGR/G46Ypeo7iN0V3eyRHvxPM5pfVDGUDIgz
-	GLb89KT5rl3Qh9DMZardbualDTN9wFjUBNt2TxrflEl2qZUjMOpBe2xRGKV/z3Zdt
-X-Gm-Gg: AfdE7cnt7JM05D49zRy4Pm+W5u1qzF4ghTe4K9ibi6LJnWwrFNCM3mv/StzxyzCmWuv
-	I6QyHQmnJsRuzN/9c1Chkw/oywUOfiGPLA360nYaqHCDqigifzUchCIpaL1gqJygHdwM9QF3HXC
-	auuRv1dDOOQ14kRslgt0iN2LiDMSdXKmu3Vax9qNGnpG6Bb9gxLq9WHFQ9taBVEEPhdh98Tck+d
-	bSritKJykCIqHrwmind0M0IV+GDmTZxH0HVxK08bBPiXa5PQ/1/IljJQfjSAc/O1OvSJVO3RfwU
-	PkkX2rd7el0/OC6/yEonHJUIbnsyvITAKHaqC48Q5T00RgSRzyDQKxo/7zvlIKFcgxLPboGJvRG
-	325JnUuSIl1XLMNkSJwYl1g1sz8EBETQpHCg=
-X-Received: by 2002:a05:6102:8017:b0:738:a78f:5483 with SMTP id ada2fe7eead31-738a78f5743mr462614137.2.1782731295152;
-        Mon, 29 Jun 2026 04:08:15 -0700 (PDT)
-X-Received: by 2002:a05:6102:8017:b0:738:a78f:5483 with SMTP id ada2fe7eead31-738a78f5743mr462596137.2.1782731294673;
-        Mon, 29 Jun 2026 04:08:14 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-697f4bd36adsm6984719a12.27.2026.06.29.04.08.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 04:08:13 -0700 (PDT)
-Message-ID: <cc8678f2-49ab-4754-8102-d567b94e52e9@oss.qualcomm.com>
-Date: Mon, 29 Jun 2026 13:08:08 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PdjCZlvE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBFDD1F000E9;
+	Mon, 29 Jun 2026 11:08:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782731324;
+	bh=50RhA1Fg2aJRaYEflK7X17DI7ev1N4qsDCX9+yjHDg0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PdjCZlvEYCONz/860BL4U5OtUpEOsN9sbsGjhhpipeHkgYfFPDYodfxKIpWKj2/Ke
+	 ikRTsZ/Kd/9JBjlOCmOpRHwIk1eS0PEEzCq6/MPsshpoYSUApZx3/eS3RWGPcDptQF
+	 2PJuEPNOn1u6BNtSeOF8Ik+IrlEYQivZZXmA+ktd6Bkp7DFGTsY4K58P4YWQtVsuiW
+	 vH3CfOKirlulY59HrX/Wdqn3ue8EWETLUm0qQU1P2x2FhILUUPynKbZmj55HjgxQ2O
+	 h0pSEUpOjFY6E+WV7sxQ/oUXsBwET4a2htwwUXNtCDfUyUWuRb9YIGMC7wpzECWJU8
+	 Oh3lC9CA7m5iQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 5/5] media: i2c: vd55g1: Add support for vd55g4
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Benjamin Mugnier" <benjamin.mugnier@foss.st.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260629-vd55g4_and_fixes-v2-5-ea0a7cf3cd66@foss.st.com>
+References: <20260629-vd55g4_and_fixes-v2-0-ea0a7cf3cd66@foss.st.com>
+ <20260629-vd55g4_and_fixes-v2-5-ea0a7cf3cd66@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 11:08:43 +0000
+Message-Id: <20260629110843.BBFDD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 1/6] soc: qcom: ice: Add OPP-based clock scaling
- support for ICE
-To: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>,
-        Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        Harshal Dev <harshal.dev@oss.qualcomm.com>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
-        devicetree@vger.kernel.org
-References: <20260609-enable-ice-clock-scaling-v11-0-1cebc8b3275b@oss.qualcomm.com>
- <20260609-enable-ice-clock-scaling-v11-1-1cebc8b3275b@oss.qualcomm.com>
- <d1232243-2f23-423b-84ac-4463eac79f9a@oss.qualcomm.com>
- <ajjloqm9eOkrr5W9@hu-arakshit-hyd.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <ajjloqm9eOkrr5W9@hu-arakshit-hyd.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA5MSBTYWx0ZWRfXy2kLmErMV+7+
- QGQUJRBVJ211d6l0x9qqkum2kX4bXNu6IXAfy3j2akcaKoq+bUBcrlOBz4rs4p1r1l7PH3Q8fay
- JmhD7v4cbvnzkeBP90MerDWqQiKpLAk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA5MSBTYWx0ZWRfXyOqQsi326NQy
- F55g6EVFdtMQWVIZe00AuqJ1y24iFyp7n5DpOSFji/rZLo91AM3rdrE373mCGViUZoSB5fkaFfs
- M41odp7IQuMmoE2mbPBcX2Da+GTLZ7/4QstFUdqv/exbGbua92e7h4aZGA53g/52sVhVguksNPo
- 7pV8Gr3vs6CDsCCdj2sYp96hAgrkrIudyKXdnQIdnMQxQAOAcmr0JJQAE6Ej2ckNZKvKBAZAf8X
- bhYAaYK0t+pBRtO2HIorrgf5uxn6paRMnr8u8V6SKV020WcNXjS/lwnqnjiChRG1vFohNgRBRT+
- Dy27kLdy6mDirNngnLN8UuAjh8TQVayX5y2IcfYWTbxYY1So/5/C/LeFYcnuyStOqaGpf8RCOZz
- jhWr4gKEsX+Xv6Xg39aiyIhS3XIz6xQoPNM5U+e6VkckSXl8IrL6pTSZ7ARb5r4p2wTk3QySTIv
- M1HeCMS7M7Qofp/gCnA==
-X-Proofpoint-GUID: 2pXxojhV3cS46PAvVADGoEP6B_buuiMZ
-X-Authority-Analysis: v=2.4 cv=cefiaHDM c=1 sm=1 tr=0 ts=6a425220 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Y01jbQKe1eecyiKPCdgA:9 a=QEXdDO2ut3YA:10
- a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-ORIG-GUID: 2pXxojhV3cS46PAvVADGoEP6B_buuiMZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-29_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290091
 
-On 6/22/26 9:34 AM, Abhinaba Rakshit wrote:
-> On Thu, Jun 18, 2026 at 03:01:54PM +0200, Konrad Dybcio wrote:
->> On 6/8/26 11:47 PM, Abhinaba Rakshit wrote:
->>> Register optional operation-points-v2 table for ICE device
->>> during device probe. Attach the OPP-table with only the ICE
->>> core clock. Since, dtbinding is on a transition phase to include
->>> iface clock and clock-names, attaching the opp-table to core clock
->>> remains optional such that it does not cause probe failures.
->>>
->>> Introduce clock scaling API qcom_ice_scale_clk which scale ICE
->>> core clock based on the target frequency provided and if a valid
->>> OPP-table is registered. Use round_ceil passed to decide on the
->>> rounding of the clock freq against OPP-table. Clock scaling is
->>> disabled when a valid OPP-table is not registered.
->>>
->>> This ensures when an ICE-device specific OPP table is available,
->>> use the PM OPP framework to manage frequency scaling and maintain
->>> proper power-domain constraints.
->>>
->>> Also, ensure to drop the votes in suspend to prevent power/thermal
->>> retention. Subsequently restore the frequency in resume from
->>> core_clk_freq which stores the last ICE core clock operating frequency.
->>>
->>> Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
->>> Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
->>> ---
->>
->> [...]
->>
->>> @@ -335,6 +342,11 @@ int qcom_ice_suspend(struct qcom_ice *ice)
->>>  {
->>>  	clk_disable_unprepare(ice->iface_clk);
->>>  	clk_disable_unprepare(ice->core_clk);
->>> +
->>> +	/* Drop the clock votes while suspend */
->>> +	if (ice->has_opp)
->>> +		dev_pm_opp_set_rate(ice->dev, 0);
->>
->> The PM core will quiesce the vote as the device suspends, this is
->> unnecessary. Similarly, the rate restore logic will become unnecessary.
->> Especially since dev_pm_opp_set_rate(0) does not actually do any rate
->> setting.
-> 
-> This section was earlier discussed in the patchset v4:
-> https://lore.kernel.org/all/7b219a50-6971-4a0c-a465-418f8abd5556@oss.qualcomm.com/
-> The intention here was to drop the RPMh votes once the device goes to suspend same
-> as the storage drivers such as mmc drivers does:
-> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/mmc/host/sdhci-msm.c#n2946
-> This was done to leave the hanging votes *on* for unused clocks.
-> 
-> However, I get your point, due to mean to say that once device goes to suspend
-> and GDSC power-domain will be turned OFF, it will automatically quiesce the
-> performance votes?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-When the device's runtime state goes to 'suspended', all votes are
-dropped (which then propagates up the power domain tree, effectively
-lowering the vote which passes through the GDSC to the parent CX domain)
+New issues:
+- [High] Unchecked dereference of `device_get_match_data()` result in `vd55=
+g1_detect()` leads to a NULL pointer dereference.
 
-i.e. "yes"
+Pre-existing issues:
+- [High] The V4L2 subdev state lock and control handler lock are mismatched=
+, causing lockless execution of `__v4l2_ctrl_modify_range()`.
+--
 
-Konrad
+commit 6446db5fc4015fc328aed2df077a1b5dfc46a590
+Author: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+
+media: i2c: vd55g1: Add support for vd55g4
+
+vd55g4 is the same device as vd65g4 but outputs in monochrome instead of
+RGB. Adapt the driver structure according to this new variant, and add
+its support.
+
+> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+> index 37d44abd1435c..c4142d771e7c8 100644
+> --- a/drivers/media/i2c/vd55g1.c
+> +++ b/drivers/media/i2c/vd55g1.c
+
+[ ... ]
+
+> @@ -1658,38 +1693,46 @@ static int vd55g1_init_ctrls(struct vd55g1 *senso=
+r)
+
+[ ... ]
+
+>  static int vd55g1_detect(struct vd55g1 *sensor)
+>  {
+> -	unsigned int dt_id =3D (uintptr_t)device_get_match_data(sensor->dev);
+> -	u64 rev, id;
+> -	int ret;
+> +	const struct vd55g1_version *dt_version =3D
+> +		device_get_match_data(sensor->dev);
+> +	const struct vd55g1_version *version;
+> +	u64 color, id;
+> +	int ret =3D 0;
+> =20
+> -	ret =3D vd55g1_read(sensor, VD55G1_REG_MODEL_ID, &id, NULL);
+> +	vd55g1_read(sensor, VD55G1_REG_MODEL_ID, &id, &ret);
+> +	vd55g1_read(sensor, VD55G1_REG_COLOR_VERSION, &color, &ret);
+>  	if (ret)
+>  		return ret;
+> =20
+> -	if (id !=3D VD55G1_MODEL_ID_VD55G1 && id !=3D VD55G1_MODEL_ID_VD65G4) {
+> -		dev_warn(sensor->dev, "Unsupported sensor id 0x%x\n",
+> -			 (u32)id);
+> +	version =3D vd55g1_get_version(id, color);
+> +	if (!version) {
+> +		dev_warn(sensor->dev, "Unsupported sensor version, expected %s\n",
+> +			 dt_version->name);
+
+[Severity: High]
+Could dt_version be NULL here? If the device is instantiated via software
+nodes or forced to bind via sysfs without matching OF compatible properties,
+device_get_match_data() returns NULL.
+
+If it returns NULL, this will cause a kernel oops when dereferencing
+dt_version->name here, as well as dt_version->id and dt_version->color
+below. The previous version of this code safely cast the result to an
+integer instead of dereferencing it.
+
+>  		return -ENODEV;
+>  	}
+> -	if (id !=3D dt_id) {
+> -		dev_err(sensor->dev, "Probed sensor %s and device tree definition (%s)=
+ mismatch",
+> -			VD55G1_MODEL_ID_NAME(id), VD55G1_MODEL_ID_NAME(dt_id));
+> +	if (version->id !=3D dt_version->id ||
+> +	    version->color !=3D dt_version->color) {
+> +		dev_err(sensor->dev, "Probed sensor version %s and device tree definit=
+ion %s mismatch",
+> +			version->name, dt_version->name);
+>  		return -ENODEV;
+>  	}
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but is there a mismatched lock assignment
+in vd55g1_subdev_init()?
+
+It appears sensor->sd.state_lock is assigned to sensor->ctrl_handler.lock
+before v4l2_ctrl_handler_init() is called, meaning the lock is still NULL:
+
+vd55g1_subdev_init() {
+    ...
+    sensor->sd.state_lock =3D sensor->ctrl_handler.lock;
+    ret =3D v4l2_subdev_init_finalize(&sensor->sd);
+    ...
+}
+
+Since v4l2_ctrl_handler_init() allocates a different internal mutex later,
+the V4L2 core allocates a separate mutex for the state. When V4L2 core
+invokes vd55g1_set_pad_fmt(), it calls __v4l2_ctrl_modify_range() while
+holding only the subdev state lock. Could this violate V4L2 locking
+invariants and cause a data race if a concurrent user-space VIDIOC_S_CTRL
+ioctl is issued?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-vd55g4_and=
+_fixes-v2-0-ea0a7cf3cd66@foss.st.com?part=3D5
