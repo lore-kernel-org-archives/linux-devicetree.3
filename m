@@ -1,82 +1,117 @@
-Received: from outbound.qs.icloud.com (qs-2005g-snip4-11.eps.apple.com [57.103.86.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3DE400DF0
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:33:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.86.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6DF4028D9
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:34:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782736422; cv=none; b=TCpovOGM4sDM9sISqpCtDJG2XrJiuxDKmaoI/Tq/DK/aR1I6pkLhGZPboRQxQrDYhUis94DggeLgGfOi4KdcsLLEgODxhKbDI9I4/5delcG879xcBh6opvYPuz3R2ZuwpYp6rxAn2pI6ZjU7vjVJDn90jNX5kfw9oabbqo0zug0=
+	t=1782736496; cv=none; b=tSEjaBycm/EwdZnwMB3myIW7pNGCeNtWcRnizv/Ue6NOvBNqjU5GhJ/jQT4K6PPRLyA6DJHsol5uzc749pLbTOrCUI+pOuOrACdFseZyZJGsct4bLiZoBLrra4vAgiOj7WB6Qvs3vpp98IGB2hM58dNxpidczoanXUdszcRa+ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782736422; c=relaxed/simple;
-	bh=8YLXhUbIWRx0tS3HCOlad3wN8nbngvo7OVFQ/aCeobA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d0gOi4jAkwNWC7y3Oz7aw6qJbn+T0BYt4DiOi4yA51XngGoLuxW+hLjT+oQDQ+GJc2Mhc9kLPX9t7C9zj9yWpz7Tvh9MDQt0GP77khvdOhRtS2JeLP0sL28MGqn7YUB7oCilQzjYFxkMT+Ct28l1O4Yp/Nzxk52M4+4K0gvTSEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=SUDiY1Bz; arc=none smtp.client-ip=57.103.86.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	s=arc-20240116; t=1782736496; c=relaxed/simple;
+	bh=jYYz3r5QblRtn54RPZTxdK1S0EfKv336GlsJ8DXXz9w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WnH/+1NjDj7In2cABJ7L0wFn7YUkrLTMkXF3BalWGh9QOZNZbuZjCBxzT+ttXjT7BPXoESs5MNUFDxFmFPyb7CuoKHDYxdtC6X3OGG6BEunp1bMKm/LDB4IPRVnR09JeaQJVpmaNZzdF7dHL4qKQTUHmfU4Hh7rj/KiSkQlPSGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ln4HXlGT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="SUDiY1Bz"
-Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-2d-10-percent-2 (Postfix) with ESMTPS id CDED93000A32;
-	Mon, 29 Jun 2026 12:33:35 +0000 (UTC)
-X-ICL-RepId: 019f135e-ebd7-756b-bea4-1ef1525772bd
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhAAEMGUgdeCVYAVBcOVk1DEVkYWTRaBXkRUAFYHlZeWhdeTVEPDxlaFFwYU0VRH1RYQQ4KWgdQUR1fAgoERwRbF0YDU0VDAxcRUAFYHlZeWhdeTUcfQE1iSQFaGVscQBdKbk1TDw8ZWhRcGFNFUR9UWF4EU1YOEl0aBVRVXgJdXB4KVRpfBRYMVQpfVFofRAEdBF5RDwAUWE8BLV4IXh9MHB0OWAYMUE0BQwgKAlEcVg1X
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1782736420; x=1785328420; bh=T5WuAUMg5pxT+GcaKkat0zADndF0s7gZB8ckXQWQGo8=; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme; b=SUDiY1BzFJFP9G7QISkDRz7YR1voUUoKXVKATHbI2BqTCCPDF2zZCPK9s5QR5ksem9fmg6BnV0SFT6zt5DHHxwiiLfPJ7AjGFFbwTwmfB8tWX9345jOAJMg0GjMAOzPcqlwFKvAoYmty9fCk8WVlHv5X9iD2idVxsBqoLQb1NV+PiLGpdGnCbnI3xXbPdIDIcXSTC0GtYLU3jjgurbauGpcJ4yUHbk/xti7hA/gcYECiLELNjWfape5K/NHFQHctOiKA3W5mRQaqOmgPyWObJGE/uTF/OG/olnMbUVVfwIBCcaDPp/muBJktIGYKQRJKCoeir2j3iNJFHm2+l4syVw==
-Received: from [192.168.1.26] (unknown [17.57.155.37])
-	by p00-icloudmta-asmtp-us-east-2d-10-percent-2 (Postfix) with ESMTPSA id 847B93000093;
-	Mon, 29 Jun 2026 12:33:29 +0000 (UTC)
-Message-ID: <bdb69b50-ef98-47f5-92c1-48e73fd2da72@icloud.com>
-Date: Mon, 29 Jun 2026 20:33:24 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ln4HXlGT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 009A21F000E9;
+	Mon, 29 Jun 2026 12:34:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782736495;
+	bh=yCklJLxIbLkoeMhiiiiR6QZQfTsN9k6q6fZgtm2x694=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ln4HXlGTzUO0TLm+yMEM9UTYXokq2FSyVLoTwdEFH41Df6rlIgRYrqZDDF+bt+Pw6
+	 Jiu7JoUPmzobv1zK0uj/58iXOJnHIZAqxh/Oya0dbqkIqcKUP6a+y/DdpAytMJ0zq1
+	 g0J47Ha/rvnVb0MMb9gHh3yiaUaB2I+76PWkBkDSS/uXAGZiic0qTOuYpD7ALvaYOe
+	 U1wT/yNvukZPZOHmuUG6L/2Em8xqPZl0TZ+T/gS7Azudo3DNUCKKcS/2CtVSonUdad
+	 MTBbkl6GpZiPYo4OJZ0drJfgbGMmM+MWdcObbE4M/9AQneAcA4Ob4Qtb9o16Jau4gL
+	 XPukUQAjGbj7Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: sm8250: Add JPEG encoder node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260629121750.3469292-4-atanas.filipov@oss.qualcomm.com>
+References: <20260629121750.3469292-1-atanas.filipov@oss.qualcomm.com>
+ <20260629121750.3469292-4-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 12:34:54 +0000
+Message-Id: <20260629123455.009A21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] software node: Fix
- software_node_get_reference_args() with index -1
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Zijun Hu <zijun.hu@oss.qualcomm.com>
-Cc: Alban Bedel <alban.bedel@lht.dlh.de>, driver-core@lists.linux.dev,
- devicetree@vger.kernel.org, Daniel Scally <djrscally@gmail.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20260618152035.1600436-1-alban.bedel@lht.dlh.de>
- <20260618152035.1600436-2-alban.bedel@lht.dlh.de>
- <85b2bac4-9882-4f35-81e4-1718a52aacc9@oss.qualcomm.com>
- <akIfHJd2gpLC1u5o@ashevche-desk.local>
-Content-Language: en-US
-From: Zijun Hu <zijun_hu@icloud.com>
-In-Reply-To: <akIfHJd2gpLC1u5o@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDEwNCBTYWx0ZWRfXzaIdZ+8vDicx
- lzzVH3t2hqsW4V/H5PnuPN8Y5w4KAM6xUjLTnKyESsRH7RqEYLR5IZelSgo3iueFDXm1ck1MyC4
- QYGKpvuRgTgPisw7etlMptX+5ey5I8RYIIx+8W5/vBPb3n+xwYVeHLGxsCa0kT2inA15vBSzKU5
- KFxsVpqkAYqJfDtAObLIgyPJvSrc3e5x/LdjOseDKSZFBugJmTLLSITjoMNcXjIeRdCU0R+T+5L
- H+6D3JIxtaJlfvpVHMI4VQ0WfRihnIfOdYKCInHpZJG+LvQ3fiLDZySIL9Rke/o0eAt25Xbd7wy
- G4Nyiuwk6/AE1DwiA2O
-X-Proofpoint-GUID: 8bQz5ySa9e7w2bF775xeibc55Cs4AGcF
-X-Proofpoint-ORIG-GUID: 8bQz5ySa9e7w2bF775xeibc55Cs4AGcF
 
-On 6/29/26 15:30, Andy Shevchenko wrote:
->> who will use UINT_MAX ?
->>
->> This function is a interface function.  the best fix should check
->> input parameter @index and return -EINVAL if it is not expected?
-> And how do you know which index is allowed without doing that division?
-> Basically this patch does what you asked for: check input parameter for
-> the allowed range (which is dynamic, depending on the property length and
-> size of the reference structure.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Renaming `interconnect-names` in the `camss` DT node violates the =
+API contract and fatally breaks the `camss` driver probe on SM8250.
+- [Low] The modifications to the `camss` node violate the `qcom,sm8250-cams=
+s.yaml` binding schema, resulting in DT validation failures.
+--
 
-Introduce a common macro to limit the max reference handle count and put it
-in include/linux/fwnode.h with the following macro.
-#define NR_FWNODE_REFERENCE_ARGS        16
+commit 28e11fda34f9237ee15cc0f987e7147787f608e8
+Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-OR introduce a macro for software node only.
+arm64: dts: qcom: sm8250: Add JPEG encoder node
 
+Add the JPEG encoder hardware node to the SM8250 device tree so the
+qcom-jpeg V4L2 encoder driver can bind and operate on this platform.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/q=
+com/sm8250.dtsi
+> index 7076720413ab2..d0cacb4ec35bb 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> @@ -4472,6 +4472,9 @@ cci1_i2c1: i2c-bus@1 {
+>  		camss: camss@ac6a000 {
+>  			compatible =3D "qcom,sm8250-camss";
+>  			status =3D "disabled";
+> +			#address-cells =3D <2>;
+> +			#size-cells =3D <2>;
+> +			ranges;
+
+[Severity: Low]
+Does adding these new properties and the jpeg-encoder child node cause devi=
+ce
+tree validation failures?
+
+The qcom,sm8250-camss.yaml schema uses additionalProperties: false and does
+not appear to currently document these new properties or the child node. Th=
+is
+might cause make dtbs_check to complain about unapproved properties.
+
+[ ... ]
+> -			interconnect-names =3D "cam_ahb",
+> -					     "cam_hf_0_mnoc",
+> -					     "cam_sf_0_mnoc",
+> -					     "cam_sf_icp_mnoc";
+> +			interconnect-names =3D "ahb",
+> +					     "hf_mnoc",
+> +					     "sf_mnoc",
+> +					     "icp_mnoc";
+
+[Severity: High]
+Will renaming these interconnect-names break the camera subsystem probe on
+SM8250?
+
+The camss driver expects the original names to be present. During boot,
+camss_probe() calls camss_icc_get(), which searches for names hardcoded
+in icc_res_sm8250:
+
+drivers/media/platform/qcom/camss/camss.c:
+static const struct resources_icc icc_res_sm8250[] =3D {
+        { .name =3D "cam_ahb", },
+        ...
+
+If devm_of_icc_get() searches for "cam_ahb" but the device tree provides
+"ahb", the lookup will return -EINVAL and cause the probe to abort.
+
+Additionally, does renaming these properties violate the allowed items list
+in qcom,sm8250-camss.yaml?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629121750.3469=
+292-1-atanas.filipov@oss.qualcomm.com?part=3D3
