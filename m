@@ -1,118 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8EC404BF6;
-	Mon, 29 Jun 2026 13:15:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96DB440BCA7
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 13:23:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782738948; cv=none; b=lvpKZOiEhHhdHXWSSH9Eojzp8R0vmN5rXXBdQ6TuFdAYG4Ro+NMUReUWq69m4n52OYGC/yu3So0dolfo2wogNzTMcfKSxqL13yskpaHSaPYzwd6Q/tsKmu7eLmTvxl6ci5NYqgj6zW7R/9A4oPPZX4vCkTjlSNAq+1bnnUUiCv4=
+	t=1782739417; cv=none; b=pw6FTHZ3PK2WUpO9BHO46vazbzaYIjJzSyK5ol/LkY+4y5LJVwMSyFfBSM+u8E1oRu/pQrvjVoCAzdrPNT7ueu83XPyqshC5s4M+uaiqwNA0QeAui0F9qY17dJjb+YuvZzmBlIisq+5hJRU/OfGp3MQbqjxUefVUl67lfZz8CIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782738948; c=relaxed/simple;
-	bh=VNmoJRe3sWKU0HZmw0KinqoKxuOrqe4v8ADSewPfbhY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tsCFtlORFJUbv6tw8h4rkFF0/v5+gQf9NmlOqoSwewueIYPV2vcFivFxo931UIX7ffZP2ZZbjR7mw5h/XNYmwSEs2vLokI81DOEEWHcGZ6OS9gc+6RqhGRS/RXW9CrajZVoUX01INqvUy6FpVEXoR7I0vxW/qIc99sTGtOpKo8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N+Ta0L9L; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N+Ta0L9L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0261F000E9;
-	Mon, 29 Jun 2026 13:15:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782738947;
-	bh=yjLk0ARRNQTgoDzyMNpOklojHJL2nvRex4UWXYoCdPQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N+Ta0L9LKKPnDZfhDmmkGyqBE6YGVgIzAZ0evw3jaJWmCiNR0/OHda1dgcd/uIwgJ
-	 piHA5KsfQ/s0cBIu9xAOizSS49/FnTcD+eZy6ZN4uUKVzx5RytBgLe1rxo/ku62BGl
-	 aHV4G2VXrsmRLPjxrFClrPremD5MzTonYc44shod/yCxPAMLn7Kz5bdJw/4lzT885R
-	 1MUqAWgi4w/uK55aV12EalJTY42xRtukxNCiM49dlc6wlv0LLKj327cLLfy0+PCIT8
-	 039fONbPeIqnOUXZylxmWrJJYVn5XkvZuRCjveoXkot/KR1q3kQ+BC0sCWOAagjX66
-	 oJIR8cR2bHLzg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/6] clk: sunxi-ng: sun6i-rtc: add a733 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jerome Brunet" <jbrunet@baylibre.com>
-Cc: robh@kernel.org, linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260629-a733-rtc-v2-6-7b72112784f8@baylibre.com>
-References: <20260629-a733-rtc-v2-0-7b72112784f8@baylibre.com>
- <20260629-a733-rtc-v2-6-7b72112784f8@baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 13:15:46 +0000
-Message-Id: <20260629131546.8D0261F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1782739417; c=relaxed/simple;
+	bh=DdwggJ4E9iDAHbD2Qln8KIIUHdg1hwqV6Nb3MWUD7P4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rtYBQggMPJloEk4yP72/9ZHuL1IgChiUcxqY+ApHGGdXvwTarsVez4PJj0t6ZV/rfhKdGEjxfoAkz2WQOktaxMcEM+dFzd4DbBVr5W3VYkWc/aYpSelTQ4G+hRXPxof0oOAxwyMeRBqlNbF69ajSUCtZf73gY23aQbsU/Xo+GjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-966d70b9e1cso1509066241.2
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 06:23:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782739414; x=1783344214;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bKY7ojYsyJyKr7XY9/LqXdE3DsIviA4GUBjQBda1xac=;
+        b=ktWNtqGoiqyGPrQMm80U50URa+/utPtsCy3QFqIzs2EWudfg1Rj5tAJ68PqpIi+Yl8
+         +ONmtJt5do4UKY1EY0wcP6hBRe45M/sbAUpcvB5a2XC4RRBhdJQ7dwEZLw6DH6kSQn68
+         zp6RolKhkayzloVePtVHPnPKx1N4/95EK6PLPzj24qG2hepNro6awUpgkQ5DsP3FV8F6
+         myi6CQAptCwTrXmGXVJGjtACPb5RdBK1WCreopzw5RTdOaC9Tufa68RJx0F6KRtSGAcO
+         t5441w2vPlMxgv5zQPlCeoS+d9ve99mzPq33d5yjG/01ey4beCCvV+V0kMC0QHl+Just
+         UmIg==
+X-Forwarded-Encrypted: i=1; AHgh+RoJsGeO4C4urt/UOHu+eCKk5dD1mDFobQ9hFBDzGBWG57PYPtJvf8V2FKLqtox+RnZYPhsHZk4Jttkv@vger.kernel.org
+X-Gm-Message-State: AOJu0YzomU2Vau1tjnhA1SZ1VpoJXIKOEr9XU9sy4OEA7esiFQtcC9NE
+	louAkeWd2BZesvJ6k6VMxVWJfUw4biFgaaDHHlEbMuNBa3Vljc7y/Jq/Ifu8bfGL
+X-Gm-Gg: AfdE7clRX24R3UvjbWxqj6A1s2i1wYOHMWxnvRFuLcGzG8nwBG2S1Ps79/eP9Y2zcJK
+	Abnf271lQ0ZPGMhGYSkXmOK3UnQApCphl1/ca0xgtO4066LAKUQlDL4vkL0164pSE07SXkHYGwk
+	wyvafAaToSZ7i5SzkfdML+NOR1Il2EuqyQNF3RFhlTbUCaMJjTumZuPif3dEjRIk5tCO/m7dNMH
+	SpREFuTFqiRbszAI2EnFnOv9t45x9C8WfyC142aMbPaV267L4d0A84jzD8QYOdxcfEYJh0Ot8Qk
+	bsoOMOCmEM8ZAuBzTCLUiqemIvz07TjgQCYbW8ojbWcB9jbNMeiKB7EfpADYJGn6ohnpuYGOCQG
+	dOb/UhBQZJSq6OLT0AfXqOYkKkkmPp4f43hfVHEe0D8GSW+Y9GIyE6IBUvI2lYcUEAFxSPGTzo1
+	IKye9u19F2qJh/j3tMOfgwf76qqDkRVVXTMG1N0JalwFd/aGQgJQ==
+X-Received: by 2002:a05:6102:548b:b0:739:15ef:cdfb with SMTP id ada2fe7eead31-73915ff17dfmr1200441137.5.1782739414506;
+        Mon, 29 Jun 2026 06:23:34 -0700 (PDT)
+Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com. [209.85.222.53])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96916eb7b9fsm5120374241.7.2026.06.29.06.23.33
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 06:23:33 -0700 (PDT)
+Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-9670c11410cso1447948241.1
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 06:23:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrqzvEYEpqG5uTtRBmkvwbQMx7DvtqtQ9ZkwMcThZVylOP3DYx+BW+Y+x/bjxXzqyquXX2MI5y7yrfV@vger.kernel.org
+X-Received: by 2002:a05:6102:440d:b0:729:cc7c:7de2 with SMTP id
+ ada2fe7eead31-7343464d061mr8150103137.10.1782739413627; Mon, 29 Jun 2026
+ 06:23:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260626180326.9593-1-wsa+renesas@sang-engineering.com> <20260626180326.9593-4-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20260626180326.9593-4-wsa+renesas@sang-engineering.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 29 Jun 2026 15:23:21 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUnerjPTvZvL2QmaFn3xaWA19SbLtoh6ek4Am_-nUVwmw@mail.gmail.com>
+X-Gm-Features: AVVi8CfgvqcZ_IqMp2pmvREWQ09z7g6L3xLrH_AO5yEh0leI4fJK7FP82g6k3hM
+Message-ID: <CAMuHMdUnerjPTvZvL2QmaFn3xaWA19SbLtoh6ek4Am_-nUVwmw@mail.gmail.com>
+Subject: Re: [PATCH v4 3/4] ARM: dts: renesas: r9a06g032: Describe SPI controllers
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-renesas-soc@vger.kernel.org, Herve Codina <herve.codina@bootlin.com>, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] The master DCXO enable bit is incorrectly mapped as the exclus=
-ive enable bit for the 32kHz divider. This will cause the clock framework t=
-o inadvertently turn off the master oscillator, freezing the system.
---
+On Fri, 26 Jun 2026 at 20:03, Wolfram Sang
+<wsa+renesas@sang-engineering.com> wrote:
+> Add nodes for the 6 SPI controllers of the Renesas RZ/N1D SoC. The first
+> 4 can only be controllers, the latter 2 can only be targets. DMA nodes
+> are not added yet because DMA needs some extra code in the drivers and
+> cannot be tested yet. Basic FIFO mode works reliably, though.
+>
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Tested-by: Herve Codina <herve.codina@bootlin.com>
 
-commit 83ebb861eeea7934e5df335b0d1620cad0b733bf
-Author: Jerome Brunet <jbrunet@baylibre.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.3.
 
-clk: sunxi-ng: sun6i-rtc: add a733 support
+Gr{oetje,eeting}s,
 
-This commit adds support for the sun60i a733 CCU RTC. It introduces a
-new auto-detecting oscillator divider and several phy reference clocks
-with dedicated clock gates.
+                        Geert
 
-> diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c b/drivers/clk/sunxi-ng/=
-ccu-sun6i-rtc.c
-> index 25dd87e78eb7a..2ec09e3464724 100644
-> --- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
-> +++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-[ ... ]
-
-> @@ -227,8 +237,28 @@ static struct clk_fixed_factor osc24M_32k_div_clk =
-=3D {
->  					    0),
->  };
-> =20
-> -static SUNXI_CCU_GATE_HW(osc24M_32k_clk, "osc24M-32k", &osc24M_32k_div_c=
-lk.hw,
-> -			 LOSC_OUT_GATING_REG, BIT(16), 0);
-> +static struct clk_div_table osc24M_32k_div_a733_table[] =3D {
-> +	{ .val =3D 0, .div =3D 732 },
-> +	{ .val =3D 1, .div =3D 586 },
-> +	{ .val =3D 2, .div =3D 793 },
-> +	{ .val =3D 3, .div =3D 732 },
-> +	{ /* Sentinel */ },
-> +};
-> +
-> +static struct ccu_div osc24M_32k_div_a733_clk =3D {
-> +	.enable =3D BIT(1),
-
-[Severity: Critical]
-This maps the master DCXO enable bit, BIT(1) defined earlier as
-DCXO_CTRL_DCXO_EN, directly to the 32kHz divider's lifecycle.
-
-If a board uses an external 32kHz crystal, the rtc-32k clock mux is
-reparented to osc32k_clk, leaving this internal osc24M-32k-div clock with
-zero active consumers.
-
-During late boot, the clock framework's clk_disable_unused() routine walks
-the clock tree and will disable this clock, clearing BIT(1) in DCXO_CTRL_RE=
-G.
-
-Could this cause a hard system freeze? Since this bit physically turns off
-the shared master 24MHz crystal (DCXO), does it immediately stop the CPU,
-PLLs, and all peripherals?
-
-> +	.div	=3D _SUNXI_CCU_DIV_TABLE(14, 2, osc24M_32k_div_a733_table),
-> +	.common	=3D {
-> +		.reg		=3D DCXO_CTRL_REG,
-> +		.hw.init	=3D CLK_HW_INIT_PARENTS_DATA("osc24M-32k-div",
-> +							   osc24M,
-> +							   &ccu_rodiv_ops,
-> +							   0),
-> +	},
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-a733-rtc-v=
-2-0-7b72112784f8@baylibre.com?part=3D6
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
