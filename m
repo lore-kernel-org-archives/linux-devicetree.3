@@ -1,202 +1,240 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C531D3B19AE;
-	Mon, 29 Jun 2026 07:05:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DBD3BBFAA
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:05:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782716704; cv=none; b=fkfiqINxXOOYAYgfa4kCqFb7zwOGWhgNWRJFUjrODB6v+JO6QfV6KopqcT80v1FyluEBW6yYWJgN/PQ5HJo6f6X3ZdLt/7Yx/86LWXLVPSPBP6BqN8ohEx9Xgm3GrkEehO1IYJuGHarpdMI7PmkZC6MUfyDJ3U+NaxlyL5jUQ5w=
+	t=1782716712; cv=none; b=sLinGkVHJopJItjEhwg+ADIhkhG4dqlzjo2JKCjVqrAmaSaeI3ouwGl4MA8rFxsbWkr7RPEOa7lApyjAVOasV8QUMDyeslwM1yOkNbIpeKWBkF2o71Qxf0BBULJzQIhHkO3zZUqOr0IuAi7xOBW6tmGcNlFWYxW3k3Fk2o3Tu2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782716704; c=relaxed/simple;
-	bh=bfdO1vBU6urV5FPyWWOGw1w9pfLNUtGXSKNu36pKHC8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gxBlRByy47AH9/FWCvr9lvHNzS6hzWSNjHrVnGlWzTAsbpnQp2TEtSQW/71GDhxfJHXTk3Q600i8XS+dpwZtXQAgo2i+Ol0Bb2b6OJly/IWMrW19ot1bnlzJQlccjk0gEP3Y0VzgQ/DKz+FVAdkTAR4wzEVO4JNL7RJgE2Cniu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689861F00A3F;
-	Mon, 29 Jun 2026 07:05:01 +0000 (UTC)
-Date: Mon, 29 Jun 2026 09:04:54 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
-Cc: linux-mmc@vger.kernel.org, ulf.hansson@linaro.org, 
-	Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Masahiro Yamada <yamada.masahiro@socionext.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/9] dt-bindings: mmc: cdns,sdhci: add SD6HC support
- and PHY properties
-Message-ID: <20260629-elegant-furry-fossa-1fd2ae@quoll>
-References: <20260627201457.12318-1-tanmay.kathpalia@altera.com>
- <20260627201457.12318-3-tanmay.kathpalia@altera.com>
+	s=arc-20240116; t=1782716712; c=relaxed/simple;
+	bh=S1hzlPC8gANr8aZdGiGeYuKVTflE4DxyuYbmc5JiOPA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TMlwdk2GXfHCQPT4aJwbK10eHHi7vvKLmiSBh6RVh067R9jBUXC/4+4f1U8/yXTCr2NG1c7IdcX+1Ata39hHs3ENVZtnHwMgD6i6B+KQMgzSFvoBoqnd76f9Cfdp1ZV4ZhyQnmX264Bqj6uyVJsDwBh2YKMQkKN7JD+i7EiTmHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=of/X3b2p; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="of/X3b2p"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 5699B1A0CA1;
+	Mon, 29 Jun 2026 07:05:03 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2419A5FF96;
+	Mon, 29 Jun 2026 07:05:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8AF9B106F14DB;
+	Mon, 29 Jun 2026 09:04:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1782716701; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=1rsMIqeUo7w/8HQ084SMthYLAbPCuimMFz6Hr3QOyaE=;
+	b=of/X3b2pqHw09oeoNd1OvSXDh4fwfA+/kKLRQreFdmzEqIgfhOA1Qr/ndrgAS+GDHD1foq
+	YVUwy2UDChvK8VCKa8bl8WHPu/RGbgHx65vTU8qf5QhD+0SjO+EkaJQD+PiMQRKealgon9
+	TuDtgKRkFFgrshWTzAVAX0UEKPDekcNslGvvWEwSaHcY0QSWF9ruFjP5u+SRAQ0XeASqZc
+	cYPYWionzUmVuXiJgbsoK9MfyrKHSIylnjEV4Hxv2eg1bnCcvScdtVZk2m50nfz7Mpw8Ir
+	N/mi42ewOEIx03TM2HzKhOkVMoYeeWZgwbOT1qao8LyiML3z7WV7A+3DF6KRQw==
+Message-ID: <178defc6-8e60-4b0b-b3b0-f0f2a4003b68@bootlin.com>
+Date: Mon, 29 Jun 2026 09:04:49 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260627201457.12318-3-tanmay.kathpalia@altera.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH net-next v8 03/12] net: phylink: add
+ phylink_release_pcs() to externally release a PCS
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit
+ <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Nathan Chancellor
+ <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ llvm@lists.linux.dev
+References: <20260618125752.1223-1-ansuelsmth@gmail.com>
+ <20260618125752.1223-4-ansuelsmth@gmail.com>
+ <a271385e-302d-45c7-a1df-aebd380b427b@bootlin.com>
+ <6a3fc312.6161eb1e.3441bb.c0de@mx.google.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <6a3fc312.6161eb1e.3441bb.c0de@mx.google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sat, Jun 27, 2026 at 01:14:47PM -0700, Tanmay Kathpalia wrote:
-> Extend the Cadence SDHCI binding to support the sixth-generation SD6HC
-> controller. Add the cdns,sd6hc compatible string with two named clocks
-> (ciu and biu) and three SD6HC-specific PHY timing properties for iocell
-> input/output delay and delay element size.
+Hi Christian,
+
+On 6/27/26 14:33, Christian Marangi wrote:
+> On Thu, Jun 25, 2026 at 04:13:14PM +0200, Maxime Chevallier wrote:
+>> Hello Christian,
+>>
+>> On 6/18/26 14:57, Christian Marangi wrote:
+>>> Add phylink_release_pcs() to externally release a PCS from a phylink
+>>> instance. This can be used to handle case when a single PCS needs to be
+>>> removed and the phylink instance needs to be refreshed.
+>>>
+>>> On calling phylink_release_pcs(), the PCS will be removed from the
+>>> phylink internal PCS list and the phylink supported_interfaces value is
+>>> reparsed with the remaining PCS interfaces.
+>>>
+>>> Also a phylink resolve is triggered to handle the PCS removal.
+>>>
+>>> The flag force_major_config is set to make phylink resolve reconfigure
+>>> the interface (even if it didn't change).
+>>> This is needed to handle the special case when the current PCS used
+>>> by phylink is removed and a major_config is needed to propagae the
+>>> configuration change. With this option enabled we also force mac_config
+>>> even if the PHY link is not up for the in-band case.
+>>>
+>>> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+>>> ---
+>>>  drivers/net/phy/phylink.c | 56 +++++++++++++++++++++++++++++++++++++++
+>>>  include/linux/phylink.h   |  2 ++
+>>>  2 files changed, 58 insertions(+)
+>>>
+>>> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+>>> index c38bcd43b8c8..064d6f5a06da 100644
+>>> --- a/drivers/net/phy/phylink.c
+>>> +++ b/drivers/net/phy/phylink.c
+>>> @@ -158,6 +158,8 @@ static const phy_interface_t phylink_sfp_interface_preference[] = {
+>>>  static DECLARE_PHY_INTERFACE_MASK(phylink_sfp_interfaces);
+>>>  
+>>>  static void phylink_run_resolve(struct phylink *pl);
+>>> +static void phylink_link_down(struct phylink *pl);
+>>> +static void phylink_pcs_disable(struct phylink_pcs *pcs);
+>>>  
+>>>  /**
+>>>   * phylink_set_port_modes() - set the port type modes in the ethtool mask
+>>> @@ -918,6 +920,60 @@ static void phylink_resolve_an_pause(struct phylink_link_state *state)
+>>>  	}
+>>>  }
+>>>  
+>>> +/**
+>>> + * phylink_release_pcs - Removes a PCS from the phylink PCS available list
+>>> + * @pcs: a pointer to the phylink_pcs struct to be released
+>>> + *
+>>> + * This function release a PCS from the phylink PCS available list if
+>>> + * actually in use. It also refreshes the supported interfaces of the
+>>> + * phylink instance by copying the supported interfaces from the phylink
+>>> + * conf and merging the supported interfaces of the remaining available PCS
+>>> + * in the list and trigger a resolve.
+>>> + */
+>>> +void phylink_release_pcs(struct phylink_pcs *pcs)
+>>> +{
+>>> +	struct phylink *pl;
+>>> +
+>>> +	ASSERT_RTNL();
+>>> +
+>>> +	pl = pcs->phylink;
+>>> +	if (!pl)
+>>> +		return;
+>>> +
+>>> +	mutex_lock(&pl->state_mutex);
+>>> +
+>>> +	list_del(&pcs->list);
+>>> +	pcs->phylink = NULL;
+>>> +
+>>> +	/*
+>>> +	 * Check if we are removing the PCS currently
+>>> +	 * in use by phylink. If this is the case, tear down
+>>> +	 * the link, force phylink resolve to reconfigure the
+>>> +	 * interface mode, disable the current PCS and set the
+>>> +	 * phylink PCS to NULL.
+>>> +	 */
+>>> +	if (pl->pcs == pcs) {
+>>> +		phylink_link_down(pl);
+>>> +		phylink_pcs_disable(pl->pcs);
+>>> +
+>>> +		pl->force_major_config = true;
+>>> +		pl->pcs = NULL;
+>>> +	}
+>>> +
+>>> +	mutex_unlock(&pl->state_mutex);
+>>> +
+>>> +	/* Refresh supported interfaces */
+>>> +	phy_interface_copy(pl->supported_interfaces,
+>>> +			   pl->config->supported_interfaces);
+>>> +	list_for_each_entry(pcs, &pl->pcs_list, list)
+>>> +		phy_interface_or(pl->supported_interfaces,
+>>> +				 pl->supported_interfaces,
+>>> +				 pcs->supported_interfaces);
+>>
+>> I've given more thought to that 'supported_interfaces' thing. This
+>> patchset redefines the meaning of
+>>
+>>   pl->config->supported_interfaces
+>>
+>> Currently, it's filled by the MAC driver and means "Every interface
+>> we can support, including the ones provided by PCSs that we can use
+>> with this MAC".
+>>
+>> It now becomes "Every interface we support without needing a PCS", at
+>> least the way I understand that.
+>>
 > 
-> Add the altr,agilex5-sd6hc compatible string with three named reset
-> lines from the Altera HPS Reset Manager. Introduce per-variant
-> constraints so SD6HC and SD4HC each enforce their own clock, reset, and
-> PHY property requirements independently.
+> Wait but with the current code using the OR logic, it still follows
+> "Every interface we can support...". The modes that needs a PCS are
+> specificed with the pcs_interfaces mask in phylink_config.
 
-You just repeated the diff. Instead describe the hardware.
+you current code is correct, I was mostly concerned about the doc
+that goes along with it :)
+
+So in the end, we'd have something like (simplified):
+
+pl->config.supported_interfaces = RGMII_xx | SGMII | 1000BaseX
+pl->config.pcs_interfaces = SGMII | 1000BaseX
+
+pcs->supported_interface = SGMII| 1000BaseX
+
+correct ?
 
 > 
-> Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
-> ---
->  .../devicetree/bindings/mmc/cdns,sdhci.yaml   | 122 ++++++++++++++++--
->  1 file changed, 111 insertions(+), 11 deletions(-)
+> The late add and release operates on the phylink supported_interfaces ONLY
+> when the MAC didn't specify support for it (by removing it as only the PCS
+> will declare support for it)
 > 
-> diff --git a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
-> index 6c7317d13aa6..edd96e1d2bdc 100644
-> --- a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
-> +++ b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
-> @@ -4,21 +4,29 @@
->  $id: http://devicetree.org/schemas/mmc/cdns,sdhci.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
->  
-> -title: Cadence SD/SDIO/eMMC Host Controller (SD4HC)
-> +title: Cadence SD/SDIO/eMMC Host Controller (SD4HC and SD6HC)
->  
->  maintainers:
->    - Masahiro Yamada <yamada.masahiro@socionext.com>
-> +  - Tanmay Kathpalia <tanmay.kathpalia@altera.com>
->  
->  properties:
->    compatible:
-> -    items:
-> -      - enum:
-> -          - amd,pensando-elba-sd4hc
-> -          - microchip,mpfs-sd4hc
-> -          - microchip,pic64gx-sd4hc
-> -          - mobileye,eyeq-sd4hc
-> -          - socionext,uniphier-sd4hc
-> -      - const: cdns,sd4hc
-> +    oneOf:
-> +      - description: Cadence SD4HC controller
+> The confusion is present because everything is validated later on
+> major_config so those supported_interfaces are just an HINT that are later
+> verified with get_caps and with the pcs_validate OPs.
+> 
+> Adding the supported_interfaces to phylink is really to keep an original
+> reference of the value. This is to address a pattern I have notice where
+> the MAC driver always OR the interfaces with the one supported by the PCS.
+> (I remember it was pointed out by Russell)
+> 
+> But I'm more than open to discussion as this is something marginal to the
+> whole implementation, I'm also questioning if this OR is actually useful to
+> anything on the nth tought on this.
+> 
+> One thing that I notice is that parsing this early with AND might be
+> problematic at phylink_create, but I still have to evaluate that.
+> 
+> My take is that would be good to have some review also on the other logic
+> as I think I reached a point where Sashiko starts to comments on more or
+> less unreal problem.
 
-Drop description, you repeat the fallback compatible, so this is obvious.
+True, TBH all the fwnode part is something I'm a bit less familiar with though
+so maybe someone else can browse through that.
 
-> +        items:
-> +          - enum:
-> +              - amd,pensando-elba-sd4hc
-> +              - microchip,mpfs-sd4hc
-> +              - microchip,pic64gx-sd4hc
-> +              - mobileye,eyeq-sd4hc
-> +              - socionext,uniphier-sd4hc
-> +          - const: cdns,sd4hc
-> +      - description: Cadence SD6HC controller
+FWIW, I've tested that whole series on a board that has "legacy" PCS board
+that has mvpp2 and 2 possible PCSs, and it seems to work fine so no regressions
+there :)
 
-Same here
+A side note with the "legacy" naming, I'd rather have it called "built-in" or
+something like that, I don't see a clear path to porting the existing code to
+fwnode without breaking DT compat, as it's likely we'll have to remove the PCS
+register ranges out of the MAC's range. 
 
-> +        items:
-> +          - enum:
-> +              - altr,agilex5-sd6hc
-> +          - const: cdns,sd6hc
->  
->    reg:
->      minItems: 1
-> @@ -28,10 +36,12 @@ properties:
->      maxItems: 1
->  
->    clocks:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 2
->  
->    resets:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 3
->  
->    # PHY DLL input delays:
->    # They are used to delay the data valid window, and align the window to
-> @@ -115,6 +125,25 @@ properties:
->      minimum: 0
->      maximum: 0x7f
->  
-> +  # SD6HC PHY timing properties:
-> +  cdns,iocell-input-delay:
+Thanks for this work anyway, this is great !
 
-Use standard unit suffixes from dtschema. I am pretty sure we have
-picoseconds.
-
-> +    description: Input delay across IO cells in picoseconds
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 0
-> +    maximum: 20000   # 20 ns
-> +
-> +  cdns,iocell-output-delay:
-> +    description: Output delay across IO cells in picoseconds
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 0
-> +    maximum: 20000   # 20 ns
-> +
-> +  cdns,delay-element:
-> +    description: Delay element size in picoseconds
-
-None of these are deducible from the compatible? IOW, they differ in
-each board with the same SoC?
-
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 1
-> +    maximum: 1000    # 1 ns
-> +
->  required:
->    - compatible
->    - reg
-> @@ -139,6 +168,77 @@ allOf:
->          reg:
->            maxItems: 1
->  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: cdns,sd6hc
-> +    then:
-> +      description: SD6HC variant - use IO-cell and delay element properties
-> +      properties:
-> +        clocks:
-> +          minItems: 2
-> +          maxItems: 2
-> +        clock-names:
-> +          items:
-> +            - const: ciu
-> +            - const: biu
-
-There is no property like clock-names. Look at the schema/binding.
-
-> +        dma-coherent: true
-> +        iommus:
-> +          maxItems: 1a
-
-Do not define properties in conditional block, but top level.
-
-> +        cdns,phy-input-delay-sd-highspeed: false
-> +        cdns,phy-input-delay-legacy: false
-> +        cdns,phy-input-delay-sd-uhs-sdr12: false
-> +        cdns,phy-input-delay-sd-uhs-sdr25: false
-> +        cdns,phy-input-delay-sd-uhs-sdr50: false
-> +        cdns,phy-input-delay-sd-uhs-ddr50: false
-> +        cdns,phy-input-delay-mmc-highspeed: false
-> +        cdns,phy-input-delay-mmc-ddr: false
-> +        cdns,phy-dll-delay-sdclk: false
-> +        cdns,phy-dll-delay-sdclk-hsmmc: false
-> +        cdns,phy-dll-delay-strobe: false
-> +      required:
-> +        - clock-names
-
-All this clearly suggests you should have own binding file.
-
-Best regards,
-Krzysztof
-
+Maxime
