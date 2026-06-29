@@ -1,168 +1,314 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com [209.85.210.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8013F825E
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:47:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782722823; cv=none; b=iaeA063HTzo4rQy3KtdhpBY++k1KFE96SSVODqfEG9D1kByryOA/ckabj07i7BldVRypV1+K+VhlXeyyvhxCofAMB4+fAWzRlOS4jKHWcdOqesLA2b7cnuIso8eIwzRbE3b97rRYRU2vaUugpKEl7/MbeEHnBlbjmZ/N3RMw9gM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782722823; c=relaxed/simple;
-	bh=IZDSvvIWTvxeOc6vAT6CTmA1TxSwSVLPm0tS8B76Bdw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JegYeTIl1Sn7g7QAzORpSNpbfkdr/hMASdcAwHUMY42lKElP6GiCFJpWGW10m/LtR7m0S96I3cjilI9cmMiSrR5aA8c3X5GV/6XYCzwLUIAkgVewjvFeE6LVsNHjRMAckHVUx8ttHX6VnM9Iumc0OPSyS5QiBYtP1kyq0+ejf5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S5v1Oid/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dIRrnmqA; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7978C3F7A9E
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:48:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782722920; cv=pass; b=T/JTF/H8UaqRGIfGfkp8aCwt9MOfJjDW4LFGyskTkpsa19WxjvAB96c6tw4dwh44+0F6W03y6Nd/8QIMgcJiBNyJEagLH7LmmLBAT2jh1hqKHoOOmejbbS6lifPNgAKnvAwGaIs3OjjLyNavHR/ONs7zOyUl00+8SNU9cAmEfe4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782722920; c=relaxed/simple;
+	bh=vlj9kY1XGfqdtCgT3fZ5VL5CEwYNVtFcBJZbVqediMU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RIILe9Y8r7InuNBtj+i8Sx6sfhmbusRmvJPAfh1o1twFsFvvNtlYTd4Ll8SJq0776+CCvZ+AeVANXw8DaXAxdKeTDoZ3ZmS79odCyp7zCSq3UNtpOjfXWDd3AlyANi50eo6z+FUa2T0KJ/IsNwha9zfrBkoBPwPGpYr/xWcAQYc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ng7b0ekZ; arc=pass smtp.client-ip=209.85.210.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S5v1Oid/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dIRrnmqA"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65T6rV0P2134872
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:47:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dsuvkNF0CRvWMwPOO/jhGrruMUfqUKJkLRonqqcBpsg=; b=S5v1Oid/YK8zkt6J
-	2ItjNKJhX4moBJ+xFFnUfRz7spo1b7QPzxRTMwHqM6TOXp7IZl9+etshzKHNQ2rz
-	i8xUonlPASvKY+E0gX+DsEkgdmdjL8iV4rAzMh/hFyB88f+QRqDRE/LLHLRQlLi9
-	IpQcxAeTgjRc+k5mu42tticXPsqjKzVTtE8BYoA6yky3gI5xFv+Cqj6pu1r+A+gk
-	rAnUY3QSJEYk4vDJnN8Jarv0mR/jFbeb4re3zvxWlJQ7g2jMik0hamPAGO168iyi
-	ypMG0IKeeleScoOwHOtgelvOflQSlXJE5WE+2ubIBIOFSEzNDKahIp5iVb9gTuvB
-	maH2kA==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f270a5kjq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:47:00 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-969471b1265so22369241.2
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 01:47:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ng7b0ekZ"
+Received: by mail-ot1-f65.google.com with SMTP id 46e09a7af769-7e94cd6f99aso3500376a34.3
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 01:48:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782722917; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cA39tOEwpp+LV1mjvj1ezHvuNGzgP4UkJxYCcU084sPIpRmJhxdmF1bmhfLONb/MdR
+         LoQP0lx0KG5Puv0t/V+PxSa9iMmLIiR3XCtO9A8Izrb87N4SBJZgIKNBj2i0lmyJVUcW
+         PsKEt5XPDfQj5/Ddwf7jhpgF/xXgwKR3SGY5WG5szOvuQ76VkInJASowAY4jbWuhngCk
+         abbrcnWfzIXL/TobAmKcPoztDdAoYB+osEy+uv7IB0wZpPbTaoUqLyBq58mS4I6l1lLd
+         eUzQIrgnoDsa8hRyVl2ZaW7zpY5iziyLpVT8PLoQXglks4hfUMvk2VTDw6wzNirPfS7d
+         JunA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aUFVwir31Lt9p8bnST+2MesNqx8N4BFQ0O5QuspoUJc=;
+        fh=Y+2TKyPDrkTbFB0vU9c/lmUzEWg1mqC1WVwuewVZX5s=;
+        b=XUHCTXl/sCbAwaJiAaTUPSuthHJ+Tgmk+yMT03w/cySQMRiDoAYiUAk7YQO17kwqbW
+         vZx7HpBVEDmoRHYjaxASOBwF7Bj1ApuY7q/NE2z0GyQaftKHbVGIXC3kAWZ1vI5op85u
+         SdHVKMWXJc37u2sdEnAAIRO1HZdzwvtd9yhRwUR/BxZyfblFWwkDtc9OtJXY2ce0weV1
+         JKUlvFaijTDldtU2kKmYq+BepVtLIhbCSPeiPRoBt6py8RVzvW8m6fwJVw63n5S1lmvh
+         opd//V82czOfFcFu4pBZOha3WG/NToDKsTZuqREELnlY3yfsmZtwlMvlTHu2F2er8GoZ
+         aiTw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782722820; x=1783327620; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dsuvkNF0CRvWMwPOO/jhGrruMUfqUKJkLRonqqcBpsg=;
-        b=dIRrnmqAmZAFh/JTe8mwXeeraf6iUNNYiep1apu4nERLncuLYtm6/8nI6LoBdg9YSL
-         BHoOhY2M76hVAp9w28vL28Sni7MSjqaQKDeskUjdmFaIi95ODwGhmicc0t5xz6aB3PCm
-         BOvDBVv9e7qMtLhh9SJAnj+/nmn3sWZ/jhfQGP2F31fF3aDbeiU1I6JALObWmhU+h1Xm
-         0mIlmBO4loP5u4wvkYGoyekhs1uV0mRJeXIFe29oMfU5x8zbJvGoeD6vPLwOcGv+Qz8t
-         16mHwPzxh7L5cnZYftY6VrfOdYR1dlIkdbpWu9sP69bQEJQWQS2FbDp+8JecPc+Hv63S
-         Zd+g==
+        d=gmail.com; s=20251104; t=1782722917; x=1783327717; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aUFVwir31Lt9p8bnST+2MesNqx8N4BFQ0O5QuspoUJc=;
+        b=ng7b0ekZVAGD3S+9QXiLEeiODCWqMGwMVK86QdlhWCTWlqdf0Ao7gt2cCmlbTgPpAo
+         e7lzy+C/sfLB1zTgBBcBYWr2hLcKzi8Di/64SK2T5ob0FIJvsaaw4lJWggi5q4e1QXU/
+         FnXsuom7xC55PLfyIFINBEaEbx0Q9czAF4yCWh83Bel3kQtbMkG4Ear9AcDb74QWk7kD
+         xdcZ+ePqHZy8MCOtf9YQVW/CXnJHHUELWvN0+rH6Z9S2kQwNkZvRqYUYQe/5ktqNyjcT
+         m4cvJFHufgOkNUNE5PFufoZWob469NX5ukAa24LaXUTXUhNS9jRmUdEMd6VFbLIJrITE
+         dr3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782722820; x=1783327620;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dsuvkNF0CRvWMwPOO/jhGrruMUfqUKJkLRonqqcBpsg=;
-        b=aYwCoBQdp+rT/17X//Z0dtYMu+tLC9Hqkn5Egz6wZC2RE6qclHNmCa+gvN07tsa/vM
-         69/UKDf033LL0ALhNk08IRKxE27Wu4bNrAhuykv2vwtIcBp04p0hYwGrorPlE8RLpoSg
-         RFjqHp7U+6SVLHf5/L3siNghh23TdlxJMjF+NpAsNGBIlaPU30p9Zr0AOOUyssH18Wbm
-         J/jnuILcr/NhNoseDzD4tMSdghr3gydLDnHB5WjATa9/wt8D5Bjo2Ok+4gsjkQCtcwJm
-         Pwcrl3HFWjP92L6rvsf1CmkiZg0+fN7zj52fbD29+wz2DcWHSM81Appi2hkTn0GpsOo2
-         89cw==
-X-Forwarded-Encrypted: i=1; AHgh+RoVbBaz6bdOKlg8+jHv/ffcTTslrRMQnW2mG1tXXWe/27CbRMtv+a7ucME/YiUDWHBQdi4hw17h4kKK@vger.kernel.org
-X-Gm-Message-State: AOJu0YxJI6ko4hGZ0yZldtgoWRvlAhmRRHrWo8ktShtk388If4q5BlOW
-	8n4Z35xu0ReLe4SXIqW+OVFYvcreXhKcpjA3hnWYXcULBrs6kG27re1BeZrlZEFnp5S8vb4pLBA
-	g8TtgLDDySjPx/J9Fmvsn4OOY7iBeKFf4QMKGQ9zlBLH2Jq2C94DFoAwX3NxH9BRP
-X-Gm-Gg: AfdE7cnJZpsRt0mWBpJhKtHZqno26B4qeWuoMxbMVS4IZ1i4CLvCZfPUNsa2kiNwuM7
-	IqQWwuV4WAcvDQxAd00P0oK46SzocoSOHI0vqcp+APOy3o3qtesJGhzVDh9H0QKbXSiqleo2bEz
-	8HkDOG20euzdWy8AXjIqyfmS9ZrRQlzACg+Iv0nN8tZn7HqfFtRgHaLsQHiHeTyoAZB6TjmxWil
-	A7SNyNVF4dhWcOq2ojOiWjhXBdCx5IeVrlo+ZjVtL8v8g0QkhivGE9wqAUTqtfOK5eufje4g7DX
-	+b+TmVnRM7t+YyYmQF/+6IL/4qtp3VPZZs5iGP2Yy8HlTiMRdWNy2NRA13Lyw1j7MXNF/gHkB7s
-	qvWMGPDobCzR+U1GCGNxK8u0UzFGUHV3bKik=
-X-Received: by 2002:a05:6102:6c5:b0:738:4343:fba9 with SMTP id ada2fe7eead31-73843441853mr493669137.6.1782722819884;
-        Mon, 29 Jun 2026 01:46:59 -0700 (PDT)
-X-Received: by 2002:a05:6102:6c5:b0:738:4343:fba9 with SMTP id ada2fe7eead31-73843441853mr493642137.6.1782722819368;
-        Mon, 29 Jun 2026 01:46:59 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-698481d0359sm3009277a12.30.2026.06.29.01.46.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 01:46:57 -0700 (PDT)
-Message-ID: <3ac0279b-105c-403a-90e8-822c28a6dcfc@oss.qualcomm.com>
-Date: Mon, 29 Jun 2026 10:46:53 +0200
+        d=1e100.net; s=20251104; t=1782722917; x=1783327717;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=aUFVwir31Lt9p8bnST+2MesNqx8N4BFQ0O5QuspoUJc=;
+        b=Ri4+/mSByMACToSNeLvyoiy3JcitxT/hTPyvI7xcellScbEYeuz8S23bTV4tXh52E6
+         J6Si5fjSAxM8l2IPpn7gQvznSbnKDjZqU9hm36sd18rdb13X9ePOeB+gAQK57NBxv7lV
+         wY2EhNhJCHqkVgG+7DVx3FsZpCLs59jZqeVB/pGgBDs3emgcEaY93bkDw7KZFc2jaE7F
+         66Yw5On/dfh25ME/uTH5qUftmE98YzSvNCb7DOqqmAg2i6QEgSH9RQbnMuUPcS5j+nzT
+         VwWnXeUQazhqU8k58/rYjZyvPcBRKHgWSA7HVL88IaRUcJQZ+RHUT5sxTK0DKv2jrUX5
+         ll6w==
+X-Forwarded-Encrypted: i=1; AFNElJ9lSDGqB1v8rpcZ8XqhvFNw7M5yagWL4kmNRFBt9dqd9RBu06/uy10ytvw2xXYboJTwGKDk/RRTwFtu@vger.kernel.org
+X-Gm-Message-State: AOJu0YwY54E1HKUqDQVzIiiHWi9EQL11dpMIfsp4lu/ggTPVKw8tRue8
+	LO77dDZQDAey/t9DaT3GxL88Yq4AwZc3R8fI29MdKiFJXHXjI+r+D59puxsBokA0LrhPGE/M4S4
+	BQ5utRD3LUQGf+KZtgurhyAKa4PVbe7Q=
+X-Gm-Gg: AfdE7ckmex5sGYdPF79Y5a9YgRLTnyLD1Aq0QNSwt2sNYRSK5vtfYseYnvhsNA7YJq0
+	mdExQoFxQfeG63DgXEPb6+S6y8TSYURSm3urmzDBK1yuPfxKlPjsRZSF5LQvCuiEr163eOIZ+7p
+	wjGuQQr/srW36tbveso2xj4OuMO/E6wLH7RpSJMxXDe+EMce9Dm1a28Jsb8PCoe7r4+RSfD/6ER
+	dDEtedK39BzbrRGTXlXCd7Klnryh+GzardFVesp0kUhrv7UjNnpsHUefduwztf+gw09CRJIWaY3
+	UaXyor73OrE=
+X-Received: by 2002:a05:6830:4902:b0:7e9:b4d0:539c with SMTP id
+ 46e09a7af769-7e9b4d05cb4mr7597336a34.29.1782722917221; Mon, 29 Jun 2026
+ 01:48:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/8] arm64: dts: qcom: shikra: Add Adreno SMMU node
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        iommu@lists.linux.dev, Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-References: <20260628-shikra-gpu-v3-0-9b28a3b167e1@oss.qualcomm.com>
- <20260628-shikra-gpu-v3-4-9b28a3b167e1@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260628-shikra-gpu-v3-4-9b28a3b167e1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA2OSBTYWx0ZWRfX5Y+k67BIhI7j
- VZs2YAYgvbcM8/T0aK5dBEJUWM3pQC/j/BVDbV054f0Eeg8Ysl8H9ZkwqO9+wNRB2kouXzfxtHu
- bwtv+xA8syk/qhSnrQ78xciAeoS0u2m9ZyE0a5p6na73H3JE0iYqPrLwUa/7MZBpjmH1JI3QNhi
- m/TdWr6Fo+o0xXnKBh+jS1o85THk1Qeyfs1pt+4cN0mGvtBIy/lsHzT8K6qrbc8d1ZW7B7+9Nc0
- Op06rZ5F2kRDTFsUeZcgyXTq+LKRQIicSLpfgjSh2yGAfus1fLrZXmy49wbnvW+7w+G/6JLQoNj
- FHm7fp+nzjexhBWqv1nUXdVAeKztW7OTyAleI3MprCF89ApO4SyKJB2MXrVHnXGy9goUk/oUdbX
- 6nVWjw81SA1LtiCN05P7OBvqfKLsk+C/2uzuXyG9VczSKycTKvXUu56DyTGr+EzNmiptA3wdQrk
- vK7ELleSUC3AcACOp9A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA2OSBTYWx0ZWRfX0Kqw5I58pfHn
- Wz8C3m/b0oRnoduPDx/2vpXYpSaAWpeBClP6q3kRgYbvzz2sERcDJIp6Q5JuDc703uBQ/Pna4tK
- 6x3uE7BPKyNKVRDWGMOYf/5oAQdXeF0=
-X-Proofpoint-GUID: xoFiTrN7QmJc52VRGCxr45kCDguh7_0R
-X-Proofpoint-ORIG-GUID: xoFiTrN7QmJc52VRGCxr45kCDguh7_0R
-X-Authority-Analysis: v=2.4 cv=Fe4HAp+6 c=1 sm=1 tr=0 ts=6a423104 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=CtAqrJV6yErwifH23rQA:9 a=QEXdDO2ut3YA:10
- a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-29_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- adultscore=0 lowpriorityscore=0 phishscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290069
+References: <20260627225755.1710837-2-coiaprant@gmail.com> <20260627225755.1710837-6-coiaprant@gmail.com>
+ <20260627230820.8C6AA1F000E9@smtp.kernel.org>
+In-Reply-To: <20260627230820.8C6AA1F000E9@smtp.kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Mon, 29 Jun 2026 16:48:24 +0800
+X-Gm-Features: AVVi8CfuknIVpEUVONl1MaX488tBt0lHnX7_3hgzJaRxPHZonPlvSzmvsY1S_nE
+Message-ID: <CALj3r0iZzrJUiEa4E8jftrZYcPxik7JoCXSt-zSh5c-6jzaQHQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] arm64: dts: rockchip: Add devicetree for the
+ Graperain G3568 v2
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 6/28/26 8:23 PM, Akhil P Oommen wrote:
-> From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-> 
-> Add the Adreno GPU IOMMU (adreno_smmu) node for the Shikra SoC.
-> 
-> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+<sashiko-bot@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8828=E6=97=A5=E5=91=
+=A8=E6=97=A5 07:08=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Thank you for your contribution! Sashiko AI review found 4 potential issu=
+e(s) to consider:
+> - [Medium] Incorrect `press-threshold-microvolt` values in `adc-keys` use=
+ boundary midpoints instead of nominal voltages, causing the MENU button to=
+ misregister as ESC.
+> - [Medium] The WiFi SDIO interface specifies `keep-power-in-suspend`, but=
+ its I/O voltage supply (`vcc_1v8`) is configured to turn off in suspend, b=
+reaking Wake-on-WLAN.
+> - [Medium] The AP6356S Bluetooth UART is missing hardware flow control pr=
+operties and the required Bluetooth child node.
+> - [Low] The deprecated `gpio` property is used instead of `gpios` in fixe=
+d regulator nodes.
+> --
+>
+> commit 13181564cb78799e1d57eb0995588d8e839f22a5
+> Author: Coia Prant <coiaprant@gmail.com>
+> arm64: dts: rockchip: Add devicetree for the Graperain G3568 v2
+>
+> This patch introduces the device tree for the Graperain G3568 v2, an RK35=
+68
+> based development board. It configures the hardware peripherals including
+> ethernet, storage, wireless, and power regulators.
+>
+> Link: https://image.chukouplus.com/upload/C_153/product_file/20211022/6da=
+ddec9e400458816dd4c57ba807fc3.pdf
+> Link: https://blog.gov.cooking/archives/research-graperain-g3568-v2-and-f=
+lash.html
+>
+> > diff --git a/arch/arm64/boot/dts/rockchip/rk3568-graperain-g3568-v2.dts=
+ b/arch/arm64/boot/dts/rockchip/rk3568-graperain-g3568-v2.dts
+> > new file mode 100644
+> > index 0000000000000..221992d6c6003
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/rockchip/rk3568-graperain-g3568-v2.dts
+> > @@ -0,0 +1,894 @@
+>
+> [ ... ]
+>
+> > +     adc-keys {
+> > +             compatible =3D "adc-keys";
+> > +             io-channels =3D <&saradc 0>;
+> > +             io-channel-names =3D "buttons";
+> > +             keyup-threshold-microvolt =3D <1800000>;
+> > +             poll-interval =3D <100>;
+> > +
+> > +             button-esc {
+> > +                     label =3D "esc";
+> > +                     linux,code =3D <KEY_ESC>;
+> > +                     press-threshold-microvolt =3D <1250000>;
+> > +             };
+> > +
+> > +             button-menu {
+> > +                     label =3D "menu";
+> > +                     linux,code =3D <KEY_MENU>;
+> > +                     press-threshold-microvolt =3D <1600000>;
+>
+> [Severity: Medium]
+> Will this cause the menu button to misregister as esc?
+>
+> The adc-keys driver uses a nearest-neighbor algorithm to match the ADC
+> reading to the button. Since the commit message indicates the nominal
+> voltages are 1.1V for ESC and 1.4V for MENU, an ADC reading of 1.4V from
+> pressing MENU is closer to the ESC threshold of 1.25V (0.15V difference)
+> than the MENU threshold of 1.6V (0.2V difference).
+>
+> Could we use the exact expected nominal voltages here instead of the
+> boundary midpoints?
+>
+> [ ... ]
+>
+> > +     vcc5v0_usb_host: regulator-vcc5v0-usb-host {
+> > +             compatible =3D "regulator-fixed";
+> > +             enable-active-high;
+> > +             gpio =3D <&gpio0 RK_PA6 GPIO_ACTIVE_HIGH>;
+>
+> [Severity: Low]
+> Is this using the deprecated gpio property?
+>
+> The standard regulator-fixed binding expects gpios instead of gpio, which
+> can cause device tree schema validation warnings.
+>
+> > +             pinctrl-names =3D "default";
+> > +             pinctrl-0 =3D <&vcc5v0_usb_host_en>;
+> > +             regulator-name =3D "vcc5v0_usb_host";
+> > +             regulator-min-microvolt =3D <5000000>;
+> > +             regulator-max-microvolt =3D <5000000>;
+> > +             vin-supply =3D <&vcc5v0_usb>;
+> > +     };
+> > +
+> > +     vcc5v0_usb_otg: regulator-vcc5v0-usb-otg {
+> > +             compatible =3D "regulator-fixed";
+> > +             enable-active-high;
+> > +             gpio =3D <&gpio0 RK_PA5 GPIO_ACTIVE_HIGH>;
+>
+> [Severity: Low]
+> Would it be better to use the gpios property here as well to match the
+> regulator-fixed device tree binding schema?
+>
+> [ ... ]
+>
+> > +/* used for AP6356S WiFi */
+> > +&sdmmc2 {
+> > +     bus-width =3D <4>;
+> > +     cap-sd-highspeed;
+> > +     cap-sdio-irq;
+> > +     keep-power-in-suspend;
+> > +     mmc-pwrseq =3D <&sdio_pwrseq>;
+> > +     non-removable;
+> > +     pinctrl-names =3D "default";
+> > +     pinctrl-0 =3D <&sdmmc2m0_bus4 &sdmmc2m0_cmd &sdmmc2m0_clk>;
+> > +     sd-uhs-sdr104;
+> > +     vmmc-supply =3D <&vcc3v3_sys>;
+> > +     vqmmc-supply =3D <&vcc_1v8>;
+>
+> [Severity: Medium]
+> Will this configuration break Wake-on-WLAN and SDIO communication on resu=
+me?
+>
+> This node specifies keep-power-in-suspend, but the vqmmc-supply is set to
+> vcc_1v8. Looking at the vcc_1v8 regulator definition (DCDC_REG5) earlier =
+in
+> the file, it is configured with regulator-off-in-suspend.
+>
+> Cutting power to the SDIO I/O domain during suspend violates the power
+> sequencing for keep-power-in-suspend and prevents out-of-band wake interr=
+upts
+> from signaling the host.
+>
+> [ ... ]
+>
+> > +/* used for WiFi/BT AP6356S */
+> > +&uart8 {
+> > +     pinctrl-0 =3D <&uart8m0_xfer &uart8m0_ctsn>;
+> > +     status =3D "okay";
+> > +};
+>
+> [Severity: Medium]
+> Does this Bluetooth UART configuration need hardware flow control and a
+> device child node?
+>
+> High-speed Bluetooth modules like the AP6356S generally rely on RTS/CTS t=
+o
+> prevent buffer overflows, but the uart-has-rtscts property and the
+> uart8m0_rtsn pin configuration are missing here.
+>
+> Additionally, without a bluetooth child node (such as compatible =3D
+> "brcm,bcm4345c5"), the kernel's HCI UART driver might not be able to prob=
+e
+> and initialize the module automatically.
+>
+> [ ... ]
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627225755.17=
+10837-2-coiaprant@gmail.com?part=3D3
 
-Drop the sign-offs that don't apply (presumably applied as part
-of shuffling around the handlers of the patch in the in-flight
-tree OR missing c-d-b)
+Thanks for the thorough review.
 
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
+Here are my responses to the issues raised:
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+1. ADC Keys threshold (Medium)
 
-Konrad
+The current threshold values (1.25V for ESC and 1.6V for MENU) are intentio=
+nally
+set to midpoints, as the adc-keys driver uses a nearest-neighbor algorithm =
+to
+match ADC readings. These midpoints provide the largest decision margin and
+minimize the risk of mis=E2=80=91detection. I have verified the functionali=
+ty with
+evtest, and the buttons are correctly recognized. Therefore, I will keep th=
+is
+configuration unchanged.
+
+2. GPIO property in fixed regulators (Low)
+
+This is correct that gpios is the preferred property now, and gpio is
+deprecated.
+Since this board and the X3568 v4 share almost identical hardware, I plan t=
+o
+address this for both boards in a separate, follow=E2=80=91up patch series =
+to ensure
+consistency.
+
+3. SDIO vqmmc-supply and regulator-off-in-suspend (Medium)
+
+This is a valid concern. The configuration conflict between
+keep-power-in-suspend
+and regulator-off-in-suspend is indeed problematic. However, this same patt=
+ern
+appears in many existing RK3568 board files and appears to be a historical
+mistake that has been copied across multiple devices. I believe this should=
+ be
+fixed systematically at the platform level rather than on a per=E2=80=91boa=
+rd basis.
+Should we submit a separate patch series to clean up this issue for all RK3=
+568?
+
+4. Bluetooth UART flow control and child node (Medium)
+
+Agreed that hardware flow control (uart-has-rtscts) and a Bluetooth child n=
+ode
+are required for proper operation. Since this is a common requirement
+for similar board
+ (X3568 v4), I will address this in a separate follow=E2=80=91up patch seri=
+es
+to improve consistency
+ across the platform.
+
+If there are no more questions, I will submit PATCH v2.
+
+Thanks.
+
+Best,
+Coia
