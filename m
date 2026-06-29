@@ -1,172 +1,92 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D23C4418E3;
-	Mon, 29 Jun 2026 17:29:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A863358CA;
+	Mon, 29 Jun 2026 17:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782754194; cv=none; b=DhVzCWrubqODTx84+PtSgUL5ucYG322zBGFU7Rq7LzIFdmkcR3IKFRvlsb66B1SS7Z+VtBLzj3+6s12+oSwPDxrdutFyXhG/N4XtrBLcMIuvZwfH+iF8vDhoM9VqclEPfru4G7YLV7a1wzdkOjNoozdmjVMZBaHpZIiuI8KZgk4=
+	t=1782754694; cv=none; b=S61jSTO7hBh65fV4jbdXxp57ogOFtZJi8d1Zjr39qtKY2P2ZQO9WrLE1+45CnhzS94Qcyi/Pexs1ryM23YZMfmaFWgyMtDE5jud3PG7X4Ls6J8Cm3g/eug0xRTfk0VJ89x4UI8l0O1ShinHcAfi/Ji26d8n/A0a2GJf6u7FCUrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782754194; c=relaxed/simple;
-	bh=3VAyzXNRFVIW0UFkvirrH4gHGduCRf1oHAuxOzgSmto=;
-	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type; b=i2/oD8d9dulnejWeqEACrUwegOLT2rE8aAWzz9dE4ITlgxtfjtDpoTRQq4lRto/DZ3EyvGvrlxxeM6gg/UOnp9fskSyc7fNPqDDKJPSqwrJhgeuZ/lb6V+S3OjIfUR614m+h9pGNqdsZ0KNfA1kx60XA4JdECHoBmGd2Vn/UsUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=KiN1/xUm; arc=none smtp.client-ip=212.227.15.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1782754694; c=relaxed/simple;
+	bh=Uvqp2waCHDrzlXU0QVPf22/NxsudQ01dIehVK+QNUqM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=udktknD+v9UVX+HrtqBWEOnAU0BIF3qCHQWEyX0a/GfKyRKig7XWTPcwaISbI/4mm9Vu8X20kBy7DdQCgw781sBu9lWCF5xpRDUFXQSGD7KXEoTo8lkeIJALJnodyfuJVeK6sHdgYVgFD3U9b4OnS2/SzfthGjC0uZ002agSjjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oFDERMdc; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="KiN1/xUm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1782754177; x=1783358977;
-	i=markus.stockhausen@gmx.de;
-	bh=3VAyzXNRFVIW0UFkvirrH4gHGduCRf1oHAuxOzgSmto=;
-	h=X-UI-Sender-Class:From:To:Cc:References:In-Reply-To:Subject:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=KiN1/xUm1cjQBkeyb6oi6OX5yVcYuP9CY2dhGsidhFTU7EAdoO1oj4HGfq12ywGV
-	 PSEe9wZB9fw43jjuJpFIUEBlwhxFmZUxVyzaTqkjwxY2GQ/N6AAGvBO4e24IUUyd1
-	 5kUEGdUMWO2eyvQZreaR658XOHaUb9U5ZkCZQvcBVWazqEhG5l6gIXUnjYSeCAU5K
-	 XToUv38zAwRn+B+C0OCxdE2N6Kb8IpGJuCv2XGF1mVWugxDnC/BiUqugsKoMy9vgH
-	 UPNJqv7iYghRRev6EfRcFhqI4a8q1Vh0YHmhGQo4UykF8joV/x3it/Zo1XY0TIyHX
-	 /B7n3KYUeFk5FBReyg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MzhnH-1x0TU93RhJ-017oN7; Mon, 29
- Jun 2026 19:29:36 +0200
-From: "Markus Stockhausen" <markus.stockhausen@gmx.de>
-To: "'Andrew Lunn'" <andrew@lunn.ch>
-Cc: <hkallweit1@gmail.com>,
-	<linux@armlinux.org.uk>,
-	<davem@davemloft.net>,
-	<edumazet@google.com>,
-	<kuba@kernel.org>,
-	<pabeni@redhat.com>,
-	<netdev@vger.kernel.org>,
-	<chris.packham@alliedtelesis.co.nz>,
-	<daniel@makrotopia.org>,
-	<robh@kernel.org>,
-	<krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>,
-	<devicetree@vger.kernel.org>
-References: <20260629152336.2239826-1-markus.stockhausen@gmx.de> <20260629152336.2239826-6-markus.stockhausen@gmx.de> <af7ba89b-bac6-4e04-b606-8e51a61d4be0@lunn.ch>
-In-Reply-To: <af7ba89b-bac6-4e04-b606-8e51a61d4be0@lunn.ch>
-Subject: AW: [PATCH net-next v2 5/8] net: mdio: realtek-rtl9300: Add c45 over c22 mitigation
-Date: Mon, 29 Jun 2026 19:29:31 +0200
-Message-ID: <004401dd07ec$db8f70b0$92ae5210$@gmx.de>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oFDERMdc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782754693; x=1814290693;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Uvqp2waCHDrzlXU0QVPf22/NxsudQ01dIehVK+QNUqM=;
+  b=oFDERMdchxqIIAuWcYNALx4W7U6HWbtmwXgcmRHqmH93zPbwsc1N6ivB
+   v0sJIHNFFnAPXLlkFLC3Fn04jptQs4IFfb9I/FUgp3ikXNrxutooSeBGR
+   5rL/Zn1jMKPwQh2M4T8nTGCyQaARCZTwl8+Lqs8yJ25JIYF7XHNp+/JuY
+   jQsIxI2bRKU1LxG3LTe+MZiHm3reotH0Y6zdLUKFmXjzyQqEbFZWEdHLs
+   N7JH6MvhjkM3C6CfHU6NupbitFzfFSGjx1B0gzziZk6mElpPTW5z7FxZ4
+   LP4o7cNLUJ+KiYKoKiSWuYIwZt0VoHesnES1pPpWDKXDqOIP3Vud59TTe
+   w==;
+X-CSE-ConnectionGUID: My9m6v43Tg2w2xs/ITAiZg==
+X-CSE-MsgGUID: jaPVedoFSfKWIq85aOGpQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="94949444"
+X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
+   d="scan'208";a="94949444"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 10:38:13 -0700
+X-CSE-ConnectionGUID: J8KpsXNRRz+bGnB+1CPy8w==
+X-CSE-MsgGUID: JQwSwp9ZSguu1bcxfsWy0A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
+   d="scan'208";a="250318417"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.207])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 10:38:10 -0700
+Date: Mon, 29 Jun 2026 20:38:07 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+	dlechner@baylibre.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, julianbraha@gmail.com
+Subject: Re: [PATCH v4 3/4] iio: adc: ltc2378: Enable high-speed data capture
+Message-ID: <akKtfzF2DtDJlKh8@ashevche-desk.local>
+References: <cover.1782397418.git.marcelo.schmitt@analog.com>
+ <7d91f48bb03a16e6876e7aeb05fe259e33ae625f.1782397418.git.marcelo.schmitt@analog.com>
+ <akIHUgTtyZv44TWv@ashevche-desk.local>
+ <akKqhwv4cbR-fL-g@debian-BULLSEYE-live-builder-AMD64>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGLWj2oQThrBp+2CfDhF4qpCxunlgKkR+9CAraA/bC2zk36cA==
-Content-Language: de
-X-Provags-ID: V03:K1:L4I2Rl6X0y7r3sM1ZdNTQYM/rJBdZ9eVC0mIGRQiZbg8fqkQYEO
- q6w8tQ1XLMjBdVh8UOtwO2CY/9MEz56MsMjMqZhSt1254Rr2OtbIdMPmyne3HGyTP0e1bxJ
- 2Wo0YcB7CGOSpN5xDlzNRH499Hk4lvazlJeobNo8VgAxQzWn07R21epJC57XMALLZEp2EgY
- JwRUvnFxKIjJNb6geRVMQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:SeQCQuYozag=;eELQRvV+xEi7QjcGM2JcOXmRAHo
- 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
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <akKqhwv4cbR-fL-g@debian-BULLSEYE-live-builder-AMD64>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-> Von: Andrew Lunn <andrew@lunn.ch>=20
-> Gesendet: Montag, 29. Juni 2026 18:40
-> An: Markus Stockhausen <markus.stockhausen@gmx.de>
-> Betreff: Re: [PATCH net-next v2 5/8] net: mdio: realtek-rtl9300: Add c45
-over c22 mitigation
->=20
-> > Enhance the driver to detect this register 13/14/13/14 access sequence=
-.
->=20
-> I still think this is the wrong way to do this, and you should look at
-> MDIO bus lock/unlock.
+On Mon, Jun 29, 2026 at 02:25:27PM -0300, Marcelo Schmitt wrote:
+> > > +	/* Double check the minimum CNV high time is met */
+> > > +	if (cnv_wf.duty_length_ns < LTC2378_TCNV_HIGH_NS)
+> > > +		return -EIO;
+> > 
+> > Hmm... How is this IO issue?
+> 
+> Okay, what about EDOM for PWM setup failures? Any error code suggestion otherwise?
+> Will follow the other suggestions.
 
-C45 over C22 interception only tried to mitigate a downstream nit
-that is no show stopper. We already live perfectly without it. I will=20
-drop that part.
+Seems -EDOM is in use in some cases of PWM. I haven't checked those cases, and
+if fits I have no objection.
 
-Markus=20
+"-EDOM if setting failed due to the exact waveform not being possible"
+(from PWM code comments).
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
