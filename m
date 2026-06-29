@@ -1,135 +1,98 @@
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F690404BC0
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 13:03:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696C2407CF1;
+	Mon, 29 Jun 2026 13:03:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782738206; cv=none; b=FE1wVMyVGiyH68YmGlLF/BPNYNkHsXl7nMFK7CpIm/VgF2okHgAMt8AeYCineRvaOTmjdn2pi3NoIeRkdTSps201jDjaq9EYIbFgg+rrI9RZH2XNuuAtJ2QspqHQ1koFfRlgOtu71zqtkNpbtVfdlfXXfS6IQpnU5R+gGhPONfU=
+	t=1782738224; cv=none; b=ROKybhReMNNqpJVyhM5XBAiC75ChDJZ8fqNzKQrlHSqr1UfxgGYQ3M3QLN+eeIL7IoeMHEp4Jl2r4MOoNKgpyPIPCptfeEfCXQMhgBRW9DIvKnlTFjGs7f8mPf+iol/bqrdXTD80ds+GAPfUtxlGFqaL7tfXebxIf6boh8usbnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782738206; c=relaxed/simple;
-	bh=armCZ6kh6Mp+vil2b8961ACpmWrzy5c/C0CKvisFfuM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QRoSgkmLmr4YZEdWS1RaQTW2qa3sb1DFliTmqysWmwcOcb0u7gbWvT4l7BtDvKdhBJUlCOnlmn5r7Ngr9MwDnMH+327oXfwO8xzkLSKV11G0yx1rShg/cp068koyQHnvNIflXkQ18S4Z0b8fesSHP1eRZzIDnv5M+xQRW/KepAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5bdb162ee53so368041e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 06:03:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782738203; x=1783343003;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Da4qgY4Y4W5rhNhbnVcdDTNhOm56xWdt/s0F9hMNClU=;
-        b=no2D4RB0aQFSr2uE5XZHo9iF2IkNx4i5AetjP+AXFnVQ3fiUReArD8AqwK870FSuTj
-         WyJkZrdXb98xQRnz48n18dkDBWo8qCU4CXZBNaDVfJEX7Qair9WbshA/QIkwsQggAd0F
-         fuos9bfh8cTbE4pvb19z3HB9pfVmNhjU10TEzJWBX12lt4F7Ws1F0BLMnCtHYeK3RAh7
-         BwO35g1GxylPom8/ixrvIQduvpzDEHm3NrR+eJzCPghSxiO+Kw5DZ4secQ3hfibLgZF1
-         MljfQgOedrfZYou2Z97LopNc6ViB0HNy2f8laeQlgGNnFzw4VXDqw21RkKe6U98oHsVt
-         kkZA==
-X-Forwarded-Encrypted: i=1; AHgh+RrmGrzNv7fsm1VyLdhFfZ+n40hiaOYK0MsXCGnC8SlHv+/u/k0uxtmG65NLgPGE9J151FnNdNqOox8n@vger.kernel.org
-X-Gm-Message-State: AOJu0YwG0SQAoHfD8pHkQ2b+sv+sOI9I75/+ImHI8AiSTgAgtUqZRND6
-	3yEbuNHEKD8b9vvfEHkkUu+apZm17CgA5mkrD0J7BNaH+qR/+pLj4PC772RFGyDQ
-X-Gm-Gg: AfdE7cmN3McMPhQOCqx1DCInjJBEksBTLO6wcw77ZZs2JJ1vHcIHXHrRNP8ouHb6SEv
-	FK1j9A+Ifn7TI8lv0yyLKBVo90CUNBqZrc34FPMLpW8neSarpnmyZPAwn213em50YwNEn+fB9es
-	mwMV19CwRGdyEr8jZ6LqoSfBxVWoRGee+f+UIIbCjxdj6lLOjTVIObzMD+dh6p6uXVDJ5TANxEr
-	CXuOQPRkl6bJvuy2fpQVfWli1cvffKzPMaXmYLzDNiKIBxbtuxNEMnVtefqxcLrzr3STEOmIKKG
-	hCwemOiG3gsU34XmZZv1i0N4M+8629L6HTb2UxaCFZh9oGSgn246t3YK5jjIsGQhMGUM5Yv1d2c
-	uytolDfzvm1R6rr0PIMvREIdCMT3Juvw7ZOC0mqauFUQQUYAWF/PvqDUKG9LoX2nTl52HntGKBn
-	PjDxT+GZ7KiqKXMWqCvKU9MdPEw+qL241hjs2sbaLJsadE4KOuqA==
-X-Received: by 2002:a05:6122:d87:b0:56e:f1d2:c3ca with SMTP id 71dfb90a1353d-5bd69c31db8mr7775610e0c.2.1782738202980;
-        Mon, 29 Jun 2026 06:03:22 -0700 (PDT)
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bd933bd2e5sm3197047e0c.16.2026.06.29.06.03.22
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 06:03:22 -0700 (PDT)
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7383cdb7800so1085671137.1
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 06:03:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoYrOlt4aTq6yYODKrVdwv8G0MdI+L29gXIu6AaOMUc2KkpbgTUd6N9B77w6iacMTV5LFz1gYZdbmvd@vger.kernel.org
-X-Received: by 2002:a05:6102:548b:b0:739:15ef:cdfb with SMTP id
- ada2fe7eead31-73915ff17dfmr1144006137.5.1782738201875; Mon, 29 Jun 2026
- 06:03:21 -0700 (PDT)
+	s=arc-20240116; t=1782738224; c=relaxed/simple;
+	bh=UfUQVznN57MZwYdZIYJnNW5D3adS0b+BQ5UYf+PnrtY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=evkNINp+kZ0R13BhPvnJlDeZR0ipNJwZ4yR2db2FZGUa3/t3Dzt6LOBqOZxF90mDJjoCdwwHBe4n5i9RI8Iky2sJJKGvqsQRn97qiCLy8yuxOaCtnXqMlAMX4DRa8zGP6l/ij6DhTmdaCBencUhxjyVljHhfjB7kFFdVbOc7ZSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZXIKI0Jn; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZXIKI0Jn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73C851F000E9;
+	Mon, 29 Jun 2026 13:03:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782738223;
+	bh=kMShm4U6bpIHfB0blihITKvRHWK+oEBQknLVDHcwpKU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZXIKI0Jnw4dAI+pORhw+j5lG22M9hyaCZwnYQhuFfwdRm+NIwbEswwNb4KwW25ezV
+	 p1e+oib67WWz5HNETrFogaL1dmy8jewAkkSKmO9anqg/OpLLwp1WKrOzfKWdkWagyM
+	 DA2o7TrEIAscM5pGKXCQ+LB0G4NGRyYzCcdLaV8k6AyLQHuvJWm/amrWI6OFyfUIvW
+	 0vKC1BhSaKeaRgRIt9duFuCGVOZlV7KFh1r7augJ6ALRWm3RBLU40I345+usnlvAuJ
+	 XFDhau6wk2oB7hTGnc6xm0/dpLX+TPfji3fyK1s2PuCCKGaYOMsS5IZ1nLYFeGRVQV
+	 WsWYwAlIUy2Mg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/6] clk: sunxi-ng: div: add read-only operation
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jerome Brunet" <jbrunet@baylibre.com>
+Cc: linux-sunxi@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260629-a733-rtc-v2-4-7b72112784f8@baylibre.com>
+References: <20260629-a733-rtc-v2-0-7b72112784f8@baylibre.com>
+ <20260629-a733-rtc-v2-4-7b72112784f8@baylibre.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 13:03:41 +0000
+Message-Id: <20260629130342.73C851F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260622170733.1703585-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260622170733.1703585-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 29 Jun 2026 15:03:10 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdV-OWEd732BpM1XSJiu+7d+ABGYpxYUe8OUSkVV5X2Wdg@mail.gmail.com>
-X-Gm-Features: AVVi8CcTCI6PZ2e5KazbcFsddx5bajf7aRu5XT8XCn9fL0mHlzsF1MtV9Nok0Ls
-Message-ID: <CAMuHMdV-OWEd732BpM1XSJiu+7d+ABGYpxYUe8OUSkVV5X2Wdg@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: renesas: rzt2h-n2h-evk-common: Add memory nodes
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Prabhakar,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] `ccu_rodiv_ops` omits the `.determine_rate` callback, which brea=
+ks rate rounding, reparenting, and proper rate propagation for clocks using=
+ `CLK_SET_RATE_PARENT`.
+--
 
-Thanks for your patch!
+commit 97a1d0e7adc68eb81524d76b0c667da1b5f1be50
+Author: Jerome Brunet <jbrunet@baylibre.com>
 
-On Mon, 22 Jun 2026 at 19:07, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Add memory nodes for the RZ/T2H and RZ/N2H EVK boards.
->
-> These boards populate 8GB of DDR memory, which is exposed through two
+clk: sunxi-ng: div: add read-only operation support
 
-GiB
+Add support for sunxi-ng read-only dividers to be used by the a733
+oscillator detection logic.
 
-> address ranges.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
->  arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi | 11 +++++++++++
->  1 file changed, 11 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
-> index 1f575ea23db4..a0e1e4b1f23d 100644
-> --- a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
-> @@ -30,6 +30,17 @@ chosen {
->                 stdout-path = "serial0:115200n8";
->         };
->
-> +       memory@c8000000 {
-> +               device_type = "memory";
-> +               /* first 128MB is reserved for secure area. */
-
-MiB.
-
-> +               reg = <0x0 0xc8000000 0x0 0x38000000>;
-> +       };
+> diff --git a/drivers/clk/sunxi-ng/ccu_div.c b/drivers/clk/sunxi-ng/ccu_di=
+v.c
+> index 62d680ccb524b..0e3d9e6e30fb0 100644
+> --- a/drivers/clk/sunxi-ng/ccu_div.c
+> +++ b/drivers/clk/sunxi-ng/ccu_div.c
+> @@ -143,3 +143,14 @@ const struct clk_ops ccu_div_ops =3D {
+>  	.set_rate	=3D ccu_div_set_rate,
+>  };
+>  EXPORT_SYMBOL_NS_GPL(ccu_div_ops, "SUNXI_CCU");
 > +
-> +       memory@240000000 {
-> +               device_type = "memory";
-> +               reg = <0x2 0x40000000 0x1 0xc0000000>;
-> +       };
+> +const struct clk_ops ccu_rodiv_ops =3D {
+> +	.disable	=3D ccu_div_disable,
+> +	.enable		=3D ccu_div_enable,
+> +	.is_enabled	=3D ccu_div_is_enabled,
 > +
->         reg_1p8v: regulator-1p8v {
->                 compatible = "regulator-fixed";
->                 regulator-name = "fixed-1.8V";
+> +	.get_parent	=3D ccu_div_get_parent,
+> +
+> +	.recalc_rate	=3D ccu_div_recalc_rate,
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.3, with the above fixed.
+[Severity: Medium]
+Does this struct need a .determine_rate callback to prevent breaking rate
+rounding and parent rate propagation?
 
-Gr{oetje,eeting}s,
+If a driver registers a clock using these exported operations and sets the
+CLK_SET_RATE_PARENT flag, the Common Clock Framework's
+clk_core_round_rate_nolock() falls back to a pass-through behavior when
+.determine_rate is missing. This causes it to forward the child's requested
+rate unmodified to the parent, ignoring the divider scaling, and also causes
+mux reparenting to fail.
 
-                        Geert
+> +};
+> +EXPORT_SYMBOL_NS_GPL(ccu_rodiv_ops, "SUNXI_CCU");
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-a733-rtc-v=
+2-0-7b72112784f8@baylibre.com?part=3D4
