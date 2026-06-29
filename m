@@ -1,76 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974653ED134;
-	Tue, 30 Jun 2026 11:13:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D5D3CB8F1;
+	Tue, 30 Jun 2026 11:16:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782818009; cv=none; b=ORVPu0bIloR5jfDQyFKXKQTnHXYrL8YBV7YjjOss++k6DbWB6vo5yucVlROv24zQ38tjUmjB8Q8TRsz4JBtRw7CsaADHugGHhtJQLoU6denfa9PASgo/gjpIzBC0moY+tqd4q7tsY5KNFvWkPfhBtZ3+hcqJ88BwuUH7wTDTvVI=
+	t=1782818190; cv=none; b=Q5Qz6OZbt7V0hpyGDTTCzUTsmZ+GVzAmenaBnJt9iQ+V3h9cIEqsPHSOOzqrzBIkhSGQsx4yvdMXJNd6yVy+wwbw8Q2bNjmxEUEJxF2ov72zblN8C3tEPo7VfBwTXULs0UsKDvSk3WKWFGYTBLO/UzExVK+dtrAMZdh3QOZybvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782818009; c=relaxed/simple;
-	bh=uZBoD4hToNo2KabJQHYXYg+k7RrwRGIWXBXHh5Zu+Ew=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=VnNOWAcHvf4IoW8B3sIQ88c0kjuPePZxPkUinvQ7hYiPnvm/LApyKihrYyyl1zy/1i4zVDyuYa8QjZJO90UcF73eU02geAac1egAhswqCni841WLBge9CQsz5xcYsFMvLSDTOj/m5oYLG1Vo5gTk1kW7RjvJN+YvvUuYgsjGImY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=blytqQRa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782818190; c=relaxed/simple;
+	bh=YV6YJpcGwfQvseMKoKnas43u5Hxx1rnlDUu4/Nw/DGA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Y+UH2nv9M96mRL+9BV8XZejG2isjmA2SZ3Nzo1TpC56cInEx8uRvMRIB3tAozhTGFDp1unavM19HSarijmJ439zNoqepNtcm41QnKIosfdrXPwMHJkZb0aADHXIbyOsSZOWf0q60TNlofSwzY9yCH5keGFXu+4STDa+atqUy2A0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iSPZY21t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="blytqQRa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 262B41F000E9;
-	Tue, 30 Jun 2026 11:13:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iSPZY21t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00A591F000E9;
+	Tue, 30 Jun 2026 11:16:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782818008;
-	bh=gBrw4h6G+CAidiPHKiZfKf7oBnSSJvuEXV9bJiShaTA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=blytqQRac+g9IOLHTev0RLz7JAEA05ZsCRJ4cXitfvYsRAWj+gBUwA3e6cQe8G0UO
-	 PmqqWpzCpst3E2PvtVSn5zI6mrdwPf0p93zgNTlUC+ctCybXfH6X9J1JZ3viG6eATk
-	 W/0sowhyccmzR/ELJy79DfC7PRH4Hk+2ksfFhFf5w/3BxLpG7rq4fDlGIsoMndRLaQ
-	 ISDk9zW3XOoIF3nWXA39CBFku69yw+kff9k6bT2J8SgKMr6GCcewIkNUHIf7kcfpLR
-	 dR7FNbthATEO2DTOT+eXGFIJt028JX+fkSP8YDOCwgjuuzeV6rGd5vO1VRkidBO596
-	 f9DESVmWQK+TQ==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Wandun Chen <chenwandun1@gmail.com>
-Cc: chenhuacai@kernel.org,  kernel@xen0n.name,  pjw@kernel.org,
-  palmer@dabbelt.com,  aou@eecs.berkeley.edu,  robh@kernel.org,
-  saravanak@kernel.org,  bhe@redhat.com,  rppt@kernel.org,
-  linux-arm-kernel@lists.infradead.org,  linux-kernel@vger.kernel.org,
-  loongarch@lists.linux.dev,  linux-riscv@lists.infradead.org,
-  devicetree@vger.kernel.org,  kexec@lists.infradead.org,
-  iommu@lists.linux.dev,  zhaomeijing@lixiang.com,
-  catalin.marinas@arm.com,  will@kernel.org,  alex@ghiti.fr,
-  akpm@linux-foundation.org,  pasha.tatashin@soleen.com,
-  pratyush@kernel.org,  ruirui.yang@linux.dev,  m.szyprowski@samsung.com,
-  robin.murphy@arm.com
-Subject: Re: [PATCH v4 10/10] loongarch: kdump: exclude non-dumpable
- reserved memory regions from vmcore
-In-Reply-To: <20260630074715.4126796-11-chenwandun1@gmail.com> (Wandun Chen's
-	message of "Tue, 30 Jun 2026 15:47:14 +0800")
-References: <20260630074715.4126796-1-chenwandun1@gmail.com>
-	<20260630074715.4126796-11-chenwandun1@gmail.com>
-Date: Tue, 30 Jun 2026 13:13:22 +0200
-Message-ID: <2vxza4sci8ml.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	s=k20260515; t=1782818189;
+	bh=7uk3YhrWEUg+nWNZmn8lka+Y14/S6FL8oxksKWCkBzA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=iSPZY21tUzZI3mSVAns2pmoP4+ViGPrR5XdX85l/Ln5ve31xO1MP1z/3qBNrml4by
+	 nlYuzU8StaOLqHUBBM7mVnQ2GIWLEoOXg9WVx4TZZCZ/gPsc5+R4BMWNu9NKxc7T/l
+	 4ShnRP2L8n4HZKDP8qt6T4ApG72v1memvv009JoJGvxlmU91LkhQbiPt2HvnpnTUFy
+	 qMeosOKayOX27UBnkR4MGhO/euoPVotFYQ4IiCFoGMEn0NKwDor9jZNg1W+5idJ0UF
+	 miGlbrfUgUaNIU862RyhHtAVPMFFTDyH42jqfMnVAse3iSPa5622uOI8A3umXPpClh
+	 D/laua+JWlMpg==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, stable@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260617-ipq9650_refgen-v4-0-c505ea6c6661@oss.qualcomm.com>
+References: <20260617-ipq9650_refgen-v4-0-c505ea6c6661@oss.qualcomm.com>
+Subject: Re: [PATCH v4 0/3] Add support for the REFGEN in the IPQ9650 SoC
+Message-Id: <178275629145.47562.9789998445156549572.b4-ty@b4>
+Date: Mon, 29 Jun 2026 19:04:51 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1685; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=YV6YJpcGwfQvseMKoKnas43u5Hxx1rnlDUu4/Nw/DGA=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqQ6WJ3gs57rxjOYInD2MF9f70GjUy2TeB0g/30
+ HGlGgu5FpeJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCakOliQAKCRAk1otyXVSH
+ 0AygB/4weS7fOFEV/Z0PlEhepkVD4y5TuXvddWKlAAjgw8nIXPWn7jbUbSbRi/WDmjhOYTEUZpj
+ V6dYcOhzVh592w8H950ox5WAVxWmBiySqVDYffEc8WAJMsKKR4SS0iQvd1wybjws/X7MxRqIjni
+ LlOSTDK1ov/1NN+F/4w2ny4Kr5Ph76svAogSdPIibgV+hZMPe5sd8FR3IHOZgdOrKN6YbDl1Vkv
+ caYA0vKOCLB3esiXvs7ZJZkYT2fXWN41kSQOr+edO4SkRjWENO1BAjFQ6IT2PPNdF13qoI6yuye
+ ypWVxhjdXZa2VN8MefEy7znvZSSz2RwuNsuwwx1PyJ7RVVOo
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, Jun 30 2026, Wandun Chen wrote:
+On Wed, 17 Jun 2026 23:08:42 +0530, Kathiravan Thirumoorthy wrote:
+> Add support for the REFGEN in the IPQ9650 SoC
+> 
+> IPQ9650 SoC has 2 REFGEN blocks providing the reference current to
+> the PCIe and USB, UNIPHY PHYs. For the other SoCs, clocks for this block
+> is enabled on power up but that's not the case for IPQ9650 and we have
+> to explicitly enable those clocks.
+> 
+> [...]
 
-> From: Wandun Chen <chenwandun@lixiang.com>
->
-> Apply the same non-dumpable reserved memory filtering to LoongArch
-> kdump as was done for arm64. Use of_reserved_mem_kdump_exclude() to
-> drop flagged regions from the elfcorehdr PT_LOAD segments, and
-> of_reserved_mem_kdump_nr_ranges() to pre-size the crash_mem array.
->
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+Applied to
 
-Acked-by: Pratyush Yadav <pratyush@kernel.org>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
 
-[...]
+Thanks!
 
--- 
-Regards,
-Pratyush Yadav
+[1/3] regulator: qcom-refgen: correct the regulator type to CURRENT
+      https://git.kernel.org/broonie/regulator/c/05dfeb2d0ccf
+[2/3] regulator: dt-bindings: qcom,sdm845-refgen-regulator: Document IPQ9650
+      https://git.kernel.org/broonie/regulator/c/7b5cd466e488
+[3/3] regulator: qcom-refgen: add support for the IPQ9650 SoC
+      https://git.kernel.org/broonie/regulator/c/ca5c1a0ca229
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
