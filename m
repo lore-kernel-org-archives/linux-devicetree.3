@@ -1,137 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF30C4028E8
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782736249; cv=none; b=TySesmADAxDvw0CVd/UqXtTz0FQqTFFb9JvpyaDIa3XqP6+mqlkx3WkdQ2EASLUjMNIqGvcg/b6gKaWuACi6zL6wjLgGY1M5dNt++HZqeQeS9mNEaHpEZZ1hFopRsQv/yLilGvrA643WHOOve9IV68ZxSoCslegL3Mt9eDKGM/0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782736249; c=relaxed/simple;
-	bh=vvoMUrhB2Dj2N96mVX1nRauZI34ueEVl2v6xJ5km2QE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=d/beJf2pxKMBkKh8UDko9z9NGzKwFQHlvFtv8QfARDRqg41Nnr27Y74EzxeIsVWol9fD8nMC49vTV8b4s8uqDlHkUyXVN1YLYePx0B78KyETflnJ3nLi3qCU5k32ZKfteY0dWive6Vx9eA3uoLyvg/RgiRJ03d5fEovGcA1ZUEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MECYJnE+; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DD240863F
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:32:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782736364; cv=pass; b=kb8RUsVpZraZof5Yp9VCE2T92mlQXfbfDPE9WCGU0+D98uy+JsJ36XxQO+YtvaT1FUlKoIkVqIXCZEfv5asu7V/3F3sQ4KroTeT6taaD/jUtQqqwjRngVhLzeoa5nQ8y6CF7VTw0Sa3y71+/tzl2gTwQlz/zkQlkLLDhxuLVt1E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782736364; c=relaxed/simple;
+	bh=L8JaU1cFQMm9KChrGufXeN5dKBFqD7lhpptMglX4LMw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FX+3UtCh2SCtD8KzdHBp3KZyiQj3+n+DMvGOx9NG5Mqg3TaoWCJbA6BkCWirf41NPAgbnZExIQ3raPpepVhNgwnAqfPKa0npuyvC5gkdP7vwN0RTIloONbAmhbu4tpqYfUC5V+XsIan7bHyOcgWxAZlItEoyHkjmojf6lWWIovc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=JGuyXLnQ; arc=pass smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MECYJnE+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FCA91F000E9;
-	Mon, 29 Jun 2026 12:30:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782736247;
-	bh=Zyox5SSv1DXb7rJMlycwShkV0vzIA2Z+JVfFatNugPE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MECYJnE+WOVaSevLLPzSqJ/FHYu92vkNTvE+PCGItGblbnkfNJzgk+snnIv7lsBOq
-	 lMYysWFdgu90Z1ViEa7pQbi1oHy+5cmeavVwmlmA5nTGaIioVsI5sNPnIIoRB9exE9
-	 dL/4Dapr91vTTBmH9UdUicKt/28lrd+cILf96zAmIFg98j5DJKdTOBOqXVnU5QleY/
-	 D7xpMtnsd5aLww5Oo4LAD4iHeldKcvxJ+4AJXGcEpICVqAMkVnwPljWrmlnVBpeKHn
-	 gIx1q6DH4rQCdIIusvRkstSMCNfz08Uv2DTVuKL6Y+k7LF7RdjV2kYCE2Xv137xBha
-	 J4Xx/nY0yXTwg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] media: qcom: camss: populate child platform
- devices
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260629121750.3469292-2-atanas.filipov@oss.qualcomm.com>
-References: <20260629121750.3469292-1-atanas.filipov@oss.qualcomm.com>
- <20260629121750.3469292-2-atanas.filipov@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 12:30:46 +0000
-Message-Id: <20260629123047.0FCA91F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="JGuyXLnQ"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6982e71dfb0so3684042a12.0
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 05:32:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782736361; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EN3h2sBfw+iccgURCgK3ipd2r1ZWhJ/TbGI+3UVCCsVnf1INKaypBzWhxjkuZfpNIg
+         xk4rJZFe66bsWm34ZyqXBVeGtxEqPKOYhFwMYDOLP8rurRXCgPso4vFd4RM0tOuxnuuk
+         EsaO2KUwUbjaYETnSCxkNKir++Hk24Itu7GOMe2dhIbhNVrSnKDeYurUuLOJNJrzPIEr
+         uWWKI/2jlQEqqpbkziDJYlaKyICW2cNFUJ13cuRZCxx6Ig4x3ztrGSHJeJ/8UmY1oWig
+         GorYkByQ27Db4ks2kSKuvLCSmkWqjQ0iHjqj0VXnwFY2y2ZAJBDIOQLis+6ByIuj/gJe
+         xmXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=mx+bJya2052OeT1zYheYpJVI5drzn8BNJLEF7IAU1sg=;
+        fh=C9p10IgJBQSQxqTl0LEGNob60MOSZhhMQJMDT53bkn4=;
+        b=EG1B918peHx/zu4t44W61ADgsljj4jI0YHmKyqRzD9VmiGqCgDiX1jaCcmRz8pZPLV
+         +mat6Me3388Hr+PPVUxVfSZC+sQdn1c5tBuBTF+P3G9ZqZLCQ+NdhAvRn6A7xdohc6WI
+         IOYO0HUa13wZO5HsOItMZmtOD9ig/b3LHd6ViVPBGMAZcvd4z8y21euSPwYsYM7i1uUw
+         v9lu8CNGjiUy6SevJfC3sAE2iUCPTmVQICsAsL9lOftEkoCoYJ+Yb5HEkKfVZQErSnXw
+         kxoUpWeE3rHylRdPEPF+RxFC2o8YVM4ysllSzEPXpJ38vpRjSKxoykk/kXMmC9+abnv6
+         NeqQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1782736361; x=1783341161; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=mx+bJya2052OeT1zYheYpJVI5drzn8BNJLEF7IAU1sg=;
+        b=JGuyXLnQL5sz9BH6+VPjvQeoF3/judbJARvJ0xkTJSpwa3rlW9fTCnYBr3mSjiI2xB
+         3Ac60HX+i5+KJAoVOEBKs+x3EUrHbziQNfLPDONqowB+t9HrmkDfyf1YK0P8vDtScu3Y
+         791WtF7RyjGrvlOAOBWeitOkmZzwWJkx0f9z3W9jhD4iRV1xGBbKtKyvI231NsXMyMuP
+         LDLPPtMnXTbWN/mUVqzpW0vlEevdhFAu00He9KdLufz9D/UHuvLWxDOjj5tSixQ+mR/1
+         8jtGvG6Bgzl0NFhPretHBnDU9dB/73TI0SSZKc3sVk/29lR2qq6KpsiAZTLvkZPSIX31
+         diog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782736361; x=1783341161;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mx+bJya2052OeT1zYheYpJVI5drzn8BNJLEF7IAU1sg=;
+        b=VsgDVDFUHQYCo6Am7R8Zb4QdcdvuRNfxT8QnQgalODNSR9w83QgQaLRJdnnLTGX/ew
+         Bp6FweYbcWcRtc1ZQ1e2zvxUwvDRpGmEpMuTgYEMF8feNV6w849vOMg53sGnTa6eKGqB
+         bTHtQsbSLjEEPPWRMpZo1zhpolmdtJoMR5l4WVbNBFPGvakXHtZ+mklX64COGsndqxFv
+         PYqdXhwUwx2rWAN15BTCTPHZyCIykzFXRyx7Il0ApBXejYzRgXy3KHiEAvfe+N60bZfj
+         8Xb6mTcZ2TSqDEQCZvyqojqhFsaarGORTsfFcb1W+iXj7wT+j7opd/7jLAfRMdmfmEyx
+         tmdg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro6Wk+rg2FpT9DSGx21zoAQro0CSG3IC4DESx7r2L2j4b8tzNroLJOb2xGL5reBpZF52r0qGw1Vv+iQ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy6Zh/iWg24eLiug+xwcl/H+YjjS7g4Q3EVa5ktsJfc0FgOO1QU
+	qvywlmEZOarrcyFsYAyhN87hPwDHSYaXCgrvG/AjM3mKUXeI9ikCv8VHIUldpYDF8t9/ZVbHSuY
+	pwHCjpzIkosN16TlaIVPtsXouIE13mrydPsGNeoHgIg==
+X-Gm-Gg: AfdE7cnhdtkDgEfPu256M/erAukNp7iUSeJMUtFsvzv5v/66WI1updZQtJAyXHCFqrE
+	gYyTA02Hdil4mzFRw1VPTs8RderefUlWZDYyE2qNxMIrccWiIiayUCfluZUqdxdAzjuxAy3FUYX
+	V/DTBK5DJzj3VVuVR9ZVvLqyPH7utqxVdh7DmRu8kiH3+KNLVbyzsEM2HpSjqIKB3SIocZm9bcu
+	kWWW+4Nv/hlyZAuZE3al0K8lnVtb2p0p+AccD4RzUADVuijkL9LvkxNwzab4hpxr5uDIFIAx+bE
+	+063oF/JC8EXdOiIN7OIY8D8rfNQ7g==
+X-Received: by 2002:a05:6402:35cd:b0:697:d475:9692 with SMTP id
+ 4fb4d7f45d1cf-6983630b4camr4695431a12.11.1782736360872; Mon, 29 Jun 2026
+ 05:32:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260613-exynos990-peris-fix-v3-v3-0-2b230db78ae4@gmail.com> <20260613-exynos990-peris-fix-v3-v3-3-2b230db78ae4@gmail.com>
+In-Reply-To: <20260613-exynos990-peris-fix-v3-v3-3-2b230db78ae4@gmail.com>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Mon, 29 Jun 2026 13:32:29 +0100
+X-Gm-Features: AVVi8CdLbhp4Di9rmkSMap57ieyZzpxVCIoG3c1G91VB-Ou_IfcxhglJYrQ6uH0
+Message-ID: <CADrjBPpNQd6WgwVo-a3Mz74d1EptPm9D9BisLEmoFRsdUb3izw@mail.gmail.com>
+Subject: Re: [PATCH v3 3/3] clk: samsung: exynos990: Fix PERIS gate clock parents
+To: Denzeel Oliva <wachiturroxd150@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+	Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi Krysztof & Denzeel,
 
-Pre-existing issues:
-- [High] Pre-existing use-after-free vulnerability due to mixing `devm_kzal=
-loc` with asynchronous V4L2 video device lifecycle.
---
+On Sat, 13 Jun 2026 at 13:36, Denzeel Oliva <wachiturroxd150@gmail.com> wrote:
+>
+> Correct eight PERIS gate clock parents to match the hardware clock
+> tree and reorder the GIC mux parents so mout_peris_bus_user is the
+> default source.
+>
+> Signed-off-by: Denzeel Oliva <wachiturroxd150@gmail.com>
+> ---
 
-commit 9fa1d355926fe655802b3d013baabb22bd939e3e
-Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
 
-media: qcom: camss: populate child platform devices
+@Krysztof: I was thinking, maybe we should establish a new rule/best
+practice for Samsung clock upstream submissions whereby patch
+contributors should link to the downstream cal-if code for the SoC
+after the --- line. That would make reviewing the patches' correctness
+a bit easier, as the downstream cal-if code would be readily available
+to the reviewer.
 
-Call of_platform_populate() at the end of camss_probe() so that child
-nodes of the CAMSS DT node are registered as platform devices and
-probed via their own platform_driver.
+regards,
 
-Call of_platform_depopulate() at the start of camss_remove() to tear
-down child devices before the parent unwinds its own resources.
+Peter
 
-Link: https://patchwork.linuxtv.org/project/linux-media/patch/20260326-b4-l=
-inux-next-25-03-13-dtsi-x1e80100-camss-v11-4-5b93415be6dd@linaro.org/
-
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
-atform/qcom/camss/camss.c
-> index 2123f6388e3d7..d2ecc79d5269f 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-
-[ ... ]
-
-> @@ -5497,6 +5500,7 @@ static void camss_remove(struct platform_device *pd=
-ev)
->  {
->  	struct camss *camss =3D platform_get_drvdata(pdev);
-> =20
-> +	of_platform_depopulate(&pdev->dev);
->  	v4l2_async_nf_unregister(&camss->notifier);
->  	v4l2_async_nf_cleanup(&camss->notifier);
->  	camss_unregister_entities(camss);
-
-[Severity: High]
-This is a pre-existing issue, but does camss_remove() lead to a use-after-f=
-ree
-if a userspace process holds the V4L2 video node open during unbind?
-
-In camss_probe(), the camss structure and its sub-structures are allocated
-using devm_kzalloc() and devm_kcalloc():
-
-camss_probe() {
-    ...
-    camss =3D devm_kzalloc(dev, sizeof(*camss), GFP_KERNEL);
-    ...
-    camss->vfe =3D devm_kcalloc(dev, camss->res->vfe_num,
-                              sizeof(*camss->vfe), GFP_KERNEL);
-    ...
-}
-
-If the device is unbound while the video device is kept open by userspace,
-camss_remove() checks atomic_read(&camss->ref_count). If the count is great=
-er
-than zero, it skips camss_delete() but still returns. The driver core then
-automatically frees the devres-managed memory for the camss structure.
-
-Later, when userspace closes the file descriptor, the V4L2 core invokes the
-deferred msm_video_release() callback:
-
-drivers/media/platform/qcom/camss/camss-video.c:msm_video_release() {
-    struct camss_video *video =3D video_get_drvdata(vdev);
-
-    media_entity_cleanup(&vdev->entity);
-
-    mutex_destroy(&video->q_lock);
-    mutex_destroy(&video->lock);
-
-    if (atomic_dec_and_test(&video->camss->ref_count))
-        camss_delete(video->camss);
-}
-
-Will this asynchronous callback access the already-freed video and
-video->camss structures when trying to destroy the mutexes and decrement
-the reference count?
-
-Is it safe to use devm allocators for structures embedding V4L2 video devic=
-es,
-or should their lifetimes be strictly tied to the V4L2 release callback?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629121750.3469=
-292-1-atanas.filipov@oss.qualcomm.com?part=3D1
+>  drivers/clk/samsung/clk-exynos990.c | 18 +++++++++---------
+>  1 file changed, 9 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/clk/samsung/clk-exynos990.c b/drivers/clk/samsung/clk-exynos990.c
+> index ee3566b8e57c..df5928833b23 100644
+> --- a/drivers/clk/samsung/clk-exynos990.c
+> +++ b/drivers/clk/samsung/clk-exynos990.c
+> @@ -2551,7 +2551,7 @@ static const unsigned long peris_clk_regs[] __initconst = {
+>
+>  /* Parent clock list for CMU_PERIS muxes */
+>  PNAME(mout_peris_bus_user_p)           = { "oscclk", "mout_cmu_peris_bus" };
+> -PNAME(mout_peris_clk_peris_gic_p)      = { "oscclk", "mout_peris_bus_user" };
+> +PNAME(mout_peris_clk_peris_gic_p)      = { "mout_peris_bus_user", "oscclk" };
+>
+>  static const struct samsung_mux_clock peris_mux_clks[] __initconst = {
+>         MUX(CLK_MOUT_PERIS_BUS_USER, "mout_peris_bus_user",
+> @@ -2584,15 +2584,15 @@ static const struct samsung_gate_clock peris_gate_clks[] __initconst = {
+>              CLK_CON_GAT_GOUT_BLK_PERIS_UID_RSTNSYNC_CLK_PERIS_BUSP_IPCLKPORT_CLK,
+>              21, 0, 0),
+>         GATE(CLK_GOUT_PERIS_CLK_PERIS_OSCCLK_CLK,
+> -            "gout_peris_clk_peris_oscclk_clk", "mout_peris_bus_user",
+> +            "gout_peris_clk_peris_oscclk_clk", "oscclk",
+>              CLK_CON_GAT_CLK_BLK_PERIS_UID_RSTNSYNC_CLK_PERIS_OSCCLK_IPCLKPORT_CLK,
+>              21, 0, 0),
+>         GATE(CLK_GOUT_PERIS_CLK_PERIS_GIC_CLK,
+> -            "gout_peris_clk_peris_gic_clk", "mout_peris_bus_user",
+> +            "gout_peris_clk_peris_gic_clk", "mout_peris_clk_peris_gic",
+>              CLK_CON_GAT_GOUT_BLK_PERIS_UID_RSTNSYNC_CLK_PERIS_GIC_IPCLKPORT_CLK,
+>              21, 0, 0),
+>         GATE(CLK_GOUT_PERIS_AD_AXI_P_PERIS_ACLKM,
+> -            "gout_peris_ad_axi_p_peris_aclkm", "mout_peris_bus_user",
+> +            "gout_peris_ad_axi_p_peris_aclkm", "mout_peris_clk_peris_gic",
+>              CLK_CON_GAT_GOUT_BLK_PERIS_UID_AD_AXI_P_PERIS_IPCLKPORT_ACLKM,
+>              21, CLK_IGNORE_UNUSED, 0),
+>         GATE(CLK_GOUT_PERIS_OTP_CON_BIRA_PCLK,
+> @@ -2600,19 +2600,19 @@ static const struct samsung_gate_clock peris_gate_clks[] __initconst = {
+>              CLK_CON_GAT_GOUT_BLK_PERIS_UID_OTP_CON_BIRA_IPCLKPORT_PCLK,
+>              21, 0, 0),
+>         GATE(CLK_GOUT_PERIS_GIC_CLK,
+> -            "gout_peris_gic_clk", "mout_peris_bus_user",
+> +            "gout_peris_gic_clk", "mout_peris_clk_peris_gic",
+>              CLK_CON_GAT_GOUT_BLK_PERIS_UID_GIC_IPCLKPORT_CLK,
+>              21, CLK_IS_CRITICAL, 0),
+>         GATE(CLK_GOUT_PERIS_LHM_AXI_P_PERIS_CLK,
+> -            "gout_peris_lhm_axi_p_peris_clk", "oscclk",
+> +            "gout_peris_lhm_axi_p_peris_clk", "mout_peris_bus_user",
+>              CLK_CON_GAT_GOUT_BLK_PERIS_UID_LHM_AXI_P_PERIS_IPCLKPORT_I_CLK,
+>              21, CLK_IGNORE_UNUSED, 0),
+>         GATE(CLK_GOUT_PERIS_MCT_PCLK,
+> -            "gout_peris_mct_pclk", "mout_peris_clk_peris_gic",
+> +            "gout_peris_mct_pclk", "mout_peris_bus_user",
+>              CLK_CON_GAT_GOUT_BLK_PERIS_UID_MCT_IPCLKPORT_PCLK,
+>              21, 0, 0),
+>         GATE(CLK_GOUT_PERIS_OTP_CON_TOP_PCLK,
+> -            "gout_peris_otp_con_top_pclk", "mout_peris_clk_peris_gic",
+> +            "gout_peris_otp_con_top_pclk", "mout_peris_bus_user",
+>              CLK_CON_GAT_GOUT_BLK_PERIS_UID_OTP_CON_TOP_IPCLKPORT_PCLK,
+>              21, 0, 0),
+>         GATE(CLK_GOUT_PERIS_D_TZPC_PERIS_PCLK,
+> @@ -2624,7 +2624,7 @@ static const struct samsung_gate_clock peris_gate_clks[] __initconst = {
+>              CLK_CON_GAT_GOUT_BLK_PERIS_UID_TMU_SUB_IPCLKPORT_PCLK,
+>              21, 0, 0),
+>         GATE(CLK_GOUT_PERIS_TMU_TOP_PCLK,
+> -            "gout_peris_tmu_top_pclk", "mout_peris_clk_peris_gic",
+> +            "gout_peris_tmu_top_pclk", "mout_peris_bus_user",
+>              CLK_CON_GAT_GOUT_BLK_PERIS_UID_TMU_TOP_IPCLKPORT_PCLK,
+>              21, 0, 0),
+>         GATE(CLK_GOUT_PERIS_OTP_CON_BIRA_OSCCLK,
+>
+> --
+> 2.54.0
+>
