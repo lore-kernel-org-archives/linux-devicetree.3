@@ -1,134 +1,158 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D3B347BBD
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 13:58:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F02B933CE88
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782741507; cv=none; b=ea95vxruMmmi+AysQ5Fna+qHe0ChEf7JPFv/U5nbLujrI1yGSEso3aHJV4oLRc6S0YwVQA0/cPpCMk5Fr8EjMk30QMdHCT6J/Ox/spgU36g4UVynwewfPsI2Av+o65BaA7d54Sk1nsNw0IzoW1TnBsj/HChSQgIHCa8xzlbnxH0=
+	t=1782741805; cv=none; b=E3GD3oOh1XDOUoCFj2oLZFs0PW+p5/OlfWqr9o5jZaF5eKP5CjsrA/sVsE9sDbHn+kT1/gbdXhvZzCLPNem9QRneqg5t/p+iloUOVvRW93qGZahlxcmxBb92KqOJs43a1P+Jsg8dKyj3kM+nWzAy3Jf5WVECcLagR2Q4e4iOxt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782741507; c=relaxed/simple;
-	bh=yOzbqmPiymX68IbIPL916O/Rd6K79n+KEjdHVuEkcE0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=qYSh2aLdHv7I19ugq2WCRNuK230ODtCX3TokMcFxhBJvH6jbBVf52wNItmiFn0SP3gdcuJscXhZPJ32uScMn90uGu0BsRu2ZRZpEOw0xpDSH3iql8vsdo0aqfO/TEDS+JSIaQ44o7JdUPpXufEL40q2ao2xmgzqC4tWUWog1i/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=hBnI9cM/; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1782741805; c=relaxed/simple;
+	bh=yLRMWt0gSG9xo2RTtUlfUSWI+t9Ex8A2TuGnqc1Yy7Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kkAjhbkLlZtINyM/H9WiYvno0D2t2SvRrumtRhsg716oEQUCOFQvQG6gYfKQBYdmguPVW0tdEkA3Vrug4FqKfbFRIt7FtojbofvzPIbzdGBkXHJ6GZYrOLZR3+fwpQDl6f3H0sX+fssA9kcFvsjwJnzzfCEuGlijJfpT6GQV4so=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=McV8P3L6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P/xnIFom; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="hBnI9cM/"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4926bd21aa1so23983925e9.3
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 06:58:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="McV8P3L6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P/xnIFom"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65TASpuh2601110
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:03:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	yLRMWt0gSG9xo2RTtUlfUSWI+t9Ex8A2TuGnqc1Yy7Y=; b=McV8P3L65Po9kJ4z
+	T0xMsPyRpbrTNLwpiOLiAZg7oyuu7xsZCz7EddqvE2mKbkYXffvoIcKIJXlN1QEU
+	WIjwhiWUpQAjqCJqa42P7XYmOqlJG2nNpWIlXshH2V2LtOtoa8vGnOrEP17Ef1/9
+	X6C7H2FR3TeaP6ogXFNyZmZiF4YO7CERbvvNa+rT/k655wLmg6sjUO1EbxBOU41V
+	AA4vewqb5P6Lm5GSUz/ov0QkPh93U9wog8RdSa6zgx4sdiPXk4HA3eKob4pE0scL
+	t17cuEG2LMHKZAa2Btpt3+pYMmTnIQFmiXtF4Xl+JkT1u1CsMBvM+4UUlUz7ASus
+	iQ1zLA==
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3nnw9607-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:03:23 +0000 (GMT)
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6a183ff0015so31959eaf.3
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:03:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782741504; x=1783346304; darn=vger.kernel.org;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=PATmqIJOT58g+w0bwm0EGEjm0V85SjTo4ZbuYUtUfhE=;
-        b=hBnI9cM/XkqRekuh1FL8itUOieHjKL5RvGiNhofcP+aAcjgWkS1NPkjMmrbRjtQv7a
-         n7AffSrxbpbFB9wIjF2cIbi0M7bZEZsELZ9DPnWh5NtgB3gUC07T2XwOJrBK6Q2ADaSJ
-         vgdrx29u+VJKcyUkME66KN2+7yA+hB8D9Eb/r78Th6MM96qSJ+gGxLmRnh7AoQfgmY1d
-         stbdnXa0dGXT5dWraQqNgaZvzQ8D+jOfjFq2jRBdxwzqLeFP3BenIDE1ht4WU42PDgZV
-         TVDLPvyG6ahgeMdclHyE8Gf2pwxWMim4JQI/CIgxD0/fXRdcRbTF9a3ggrpgSKdIWBII
-         cGvg==
+        d=oss.qualcomm.com; s=google; t=1782741802; x=1783346602; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yLRMWt0gSG9xo2RTtUlfUSWI+t9Ex8A2TuGnqc1Yy7Y=;
+        b=P/xnIFomCPUabdCFh68KIhYpA6BMYXsoZpfdg5L3bB+xtALvbsBYOAhWdPmrJLKYoh
+         REzprCkDiTcXwC+7yrpJRhA3o5nTnLVooJKvojHKNlTScNdmipVRSMq4Bh5HI3E+uV/l
+         zgDJc4/zVGyXgpfbt1NGfDRVHmsTyq5Ri9zTnmcKKtBQOdpfY0cLV68HK7GJ0Gy/IN/W
+         RSZAUku4cBn9j/C2vZyoMevmIcTLAZxlN1U4D8eUydYKCm61thJLp3gGnfhVO4UiKq9j
+         4H5GU8SJFHlJhS+k/ISnEtnAjuJNf2cyoxasJ0JQc+KhreCbQwFcDOSXBJUx6InkoLQL
+         ygOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782741504; x=1783346304;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=PATmqIJOT58g+w0bwm0EGEjm0V85SjTo4ZbuYUtUfhE=;
-        b=a6YHJQ8pka6y5ryC1q3g6oT9KXbx6mLUxw6OtQn8YqDaN0W/+LJBh30JQNyWt48BJA
-         tWOTlsb55zgKBaAjbH4ybTANMwJz/I6Kg/TO0cixc/nHiFAB3FszYLTCsAfnaLgS9CGX
-         iZpf2nnCQGLKVDR4L/hljO1C+KpyW6DviWgpK8qwGdD2P7VmrSv1zBrLSxoAXKrFtl6T
-         X0YVAo2P+U4Q8KG7iNFquqUk8kZgqJzqHbrh/8JiQfGYjjO4PQ5AquXdQbYBMeLIiTMN
-         nTdJXzoMCpNtqCe6VGeQknWf3qT7S7pd77vQ7VTkVxqBcL8r5OCeRgSMhhPecnXxffju
-         HClQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8kL2EaXWR2/PD1T5R4LZm0TSXzN7/91kcvCMzP7YRwY4HNu55KXI/G2UATLY4TCwgduZZj3CoXdjM9@vger.kernel.org
-X-Gm-Message-State: AOJu0YyvCBm4nqelI4FVBB9mTf204S6QBJGNyk3ndOukSaF58+7o9AXS
-	IXu7jFtJptYXtNSHvIAl0+Tp2p/5TW1VXL65a3O2GzZTrBePv0SyPDcET8/I1naKwbQ=
-X-Gm-Gg: AfdE7ckAQc6ZvGhA39q5od5lMHGYuXGSczdjzW+maaudTz+A9OJLdBGhXUEkshNqubn
-	g8dJqtQ7MkmusiUVRLZ61uhJY3s9E36kanuLpLuAJvqLDv7Q+cJZDHOidWFBGNS/ykb6jg0PPKG
-	V29Q3Otc82nsbThSk29AyVobOAZ2obKQugD4ITLc75OMLZKGigdzPqqAVplL6lG4jrvN94ey/ZE
-	yPDdkLCLJS4fn931VZatBwa+pmP2aKDFK2BYk4ebj7qHz7vcPh+ZEgnr9X9ikRFAc1A8oJkzJ5x
-	EKhLya+I6nLsao4BThnM9KUl0ckUGYZHEd9LKuRFjHmLj0Ox/V+17eY8eiHQFdUZh4LeDuz6jkE
-	/eMQ3SdaPn3UewlL5b5undkvhHtkrRHNJPLhAOlrVijpYjpgXLYRC9W9GCyFkupHa4BFABTgllb
-	S9dsH7eXJKsWw=
-X-Received: by 2002:a05:600c:3b85:b0:490:50c5:8153 with SMTP id 5b1f17b1804b1-4926683231fmr259468755e9.2.1782741504468;
-        Mon, 29 Jun 2026 06:58:24 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:1d21:f5d5:2d3c:23a7])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-492690100c7sm351172685e9.12.2026.06.29.06.58.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 06:58:24 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: sashiko-bot@kernel.org
-Cc: sashiko-reviews@lists.linux.dev,  linux-sunxi@lists.linux.dev,
-  robh@kernel.org,  devicetree@vger.kernel.org,  conor+dt@kernel.org
-Subject: Re: [PATCH v2 4/6] clk: sunxi-ng: div: add read-only operation support
-In-Reply-To: <20260629130342.73C851F000E9@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Mon, 29 Jun 2026 13:03:41
-	+0000")
-References: <20260629-a733-rtc-v2-0-7b72112784f8@baylibre.com>
-	<20260629-a733-rtc-v2-4-7b72112784f8@baylibre.com>
-	<20260629130342.73C851F000E9@smtp.kernel.org>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Mon, 29 Jun 2026 15:58:22 +0200
-Message-ID: <1jcxx9a1oh.fsf@starbuckisacylon.baylibre.com>
+        d=1e100.net; s=20251104; t=1782741802; x=1783346602;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yLRMWt0gSG9xo2RTtUlfUSWI+t9Ex8A2TuGnqc1Yy7Y=;
+        b=RCW8eYpKkM6LnGDRLa/1Kdoc6/bAOZ9ZKKwARlSZV7sviFOfflav1etvBmgzawfYn2
+         cbPFMvh7Rk3ze8ANX9cqQRp+BY78BFx0zFpJ6ATym+7bApPSlStE6ZQCMvQfxcrCY3C3
+         zXzd8A4vEiFvpTzH80aFvpmZd8BTAo9MMOMhlc09V5tEhEUscUzs4tEsPbYxM7Ec7X+3
+         WkCJ0QlIq35dtbNepc/nlNNIH0qkMi5jb1NWEAnbmPwo8kFxEU/kpHtsDAyUe2IyKQLj
+         VHWsG8fLlV5pU8X+ikd4A8zfeUFaIfx0OjbbKqCtvpG9vr7il1nbi7nn8fzRlG/hSckh
+         DrGg==
+X-Forwarded-Encrypted: i=1; AFNElJ+NZTEkGtJ48/80SteOkM2LtReVkpKCgWlwY+62pxROyKrlLbH175dw8TdIg/jDpaXWHaH2vjLwiJ4E@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxga/g5ALl84TDgOqjsaLEIr8G29Ew8KsCCUjgHGY+/zS34CCeV
+	7WtBo5k9vqcnLVPveysMrxIwJa/H/7IcOYLvaHpFadg93IUQ+qW3J6r2ur9bTaDBCNbV8C3fFki
+	FpOUOLwYi7Ix1C+ri4mSx66vHe0cS5fn+NXH/0sODkYM5wL3IB4Hj2cexbTc8Mhenn2ZA892Y
+X-Gm-Gg: AfdE7clmIMPvp5Z3rHKv5dpQJkmJzwoz1YGIyw/F1odpLhaAc3bZkftGETrnShjBl1s
+	S+mcAVSFx3fL5AGGFVTTlmHwO1EwqfzJJnjbqBtLIgRYIcDzLf2+ASD6/ekN6uyKfuYAIq48hIB
+	kg+jXk9/1ukaatY836/dvr5EnXsO00tBTm/FgKlAwUUAO4ba0WFTDydGYtrT9C0GwTpLYdtExEa
+	n4EQJn6PQWbX4C/KsFzxAnLtWSmIV1L9WhWJ0SsaQMGLA5NOOHIDAgU2isXAurxAuYH4xtiSLKm
+	HAtc/Hi3X/AxRLCOLBbCEwJhkIqqX2lBkLKV9Wsh4ex5oFC4zAOsmli76RaPXaF7XRnXTQO2NEh
+	D89eEnHZ54KBK7QRmIZl1lM5voWNhJ7EAP+8=
+X-Received: by 2002:a05:6820:2dd7:b0:6a1:7ed6:9de with SMTP id 006d021491bc7-6a17ed60ad2mr558977eaf.3.1782741802180;
+        Mon, 29 Jun 2026 07:03:22 -0700 (PDT)
+X-Received: by 2002:a05:6820:2dd7:b0:6a1:7ed6:9de with SMTP id 006d021491bc7-6a17ed60ad2mr558948eaf.3.1782741801604;
+        Mon, 29 Jun 2026 07:03:21 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1250a80b04sm283661766b.34.2026.06.29.07.03.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 07:03:20 -0700 (PDT)
+Message-ID: <c56732c2-2aff-4c3f-801b-b798c95918fc@oss.qualcomm.com>
+Date: Mon, 29 Jun 2026 16:03:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/4] arm64: dts: qcom: Add IMDT QCS8550 SBC
+To: William Bright <william.bright@imd-tec.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260610-imdt-qcs8550-sbc-rfc-v4-0-358e71d606bc@imd-tec.com>
+ <20260610-imdt-qcs8550-sbc-rfc-v4-4-358e71d606bc@imd-tec.com>
+ <8afbc9f9-15ff-4b60-9a0f-845f903d3c9a@oss.qualcomm.com>
+ <akJIGk8BEgHQrt34@will-Legion-Slim-5-16APH8>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <akJIGk8BEgHQrt34@will-Legion-Slim-5-16APH8>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDExNyBTYWx0ZWRfX5xN3Dbn2jrQS
+ +KZ4oYido3yNLPQyjUABBNLd5uUPqHEw02JuCxI6TP+2vb+7IDkafDuEuiAPwcGcxNxp8c3SY+J
+ 24VzEMTMwJ2UqvKXKDzlRCGO9pZ7e7E=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDExNyBTYWx0ZWRfXy2Af/5rVkeHY
+ +j9pSy7cyC9j+uPhosE212lODufCBTe5RelnAYbvWXYb5NRhEOt7/rET1BtfZipDzytjW7gJ0ej
+ 5PnSg8WGcUM2fsj2DMbjYwQMXOBwEP6skwptAefAPcHgv8OiW3hudlLjde2/wgkLUTaBITama+l
+ kaYrfl4P5ohYxj9EJusPDnUOYZxVHNKwm8lz2qktFCbXhq09e+HqtMyad/Y1+cKK7awzp3wfx0A
+ +8RT6i1NtfVR0XfEt2FxnZDHQZxlz5qSu8p7vCcbi5993+fTKEvU8Xi6qf+eFBx4jsDGRMBhq4v
+ b97en/G1XeojiEy1FdEKFMsn1XdaDou3NNMCeoBBK4DFjfis+sOl1wzayQcjDvb+KliIpH7uhJ2
+ d/oM9fOL4MIGhyNA7KlGtfZyCSs8T0eWiD9E0uLL7vbqPmjLOdXrlGu61AXE+bgTp/GPu2/YXUj
+ M/p7rDc6oZw3Rp/mKnA==
+X-Proofpoint-GUID: i7IOXaJ3iq_EM0PXOGUnBdv6np44aQR9
+X-Authority-Analysis: v=2.4 cv=cefiaHDM c=1 sm=1 tr=0 ts=6a427b2b cx=c_pps
+ a=lVi5GcDxkcJcfCmEjVJoaw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=8RGhZ6I6Z7cABIXISqEA:9 a=QEXdDO2ut3YA:10 a=rBiNkAWo9uy_4UTK5NWh:22
+X-Proofpoint-ORIG-GUID: i7IOXaJ3iq_EM0PXOGUnBdv6np44aQR9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-29_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290117
 
-On lun. 29 juin 2026 at 13:03, sashiko-bot@kernel.org wrote:
+On 6/29/26 12:25 PM, William Bright wrote:
+> On Fri, Jun 26, 2026 at 05:18:20PM +0200, Konrad Dybcio wrote:
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] `ccu_rodiv_ops` omits the `.determine_rate` callback, which breaks rate rounding, reparenting, and proper rate propagation for clocks using `CLK_SET_RATE_PARENT`.
-> --
->
-> commit 97a1d0e7adc68eb81524d76b0c667da1b5f1be50
-> Author: Jerome Brunet <jbrunet@baylibre.com>
->
-> clk: sunxi-ng: div: add read-only operation support
->
-> Add support for sunxi-ng read-only dividers to be used by the a733
-> oscillator detection logic.
->
->> diff --git a/drivers/clk/sunxi-ng/ccu_div.c b/drivers/clk/sunxi-ng/ccu_div.c
->> index 62d680ccb524b..0e3d9e6e30fb0 100644
->> --- a/drivers/clk/sunxi-ng/ccu_div.c
->> +++ b/drivers/clk/sunxi-ng/ccu_div.c
->> @@ -143,3 +143,14 @@ const struct clk_ops ccu_div_ops = {
->>  	.set_rate	= ccu_div_set_rate,
->>  };
->>  EXPORT_SYMBOL_NS_GPL(ccu_div_ops, "SUNXI_CCU");
->> +
->> +const struct clk_ops ccu_rodiv_ops = {
->> +	.disable	= ccu_div_disable,
->> +	.enable		= ccu_div_enable,
->> +	.is_enabled	= ccu_div_is_enabled,
->> +
->> +	.get_parent	= ccu_div_get_parent,
->> +
->> +	.recalc_rate	= ccu_div_recalc_rate,
->
-> [Severity: Medium]
-> Does this struct need a .determine_rate callback to prevent breaking rate
-> rounding and parent rate propagation?
+[...]
 
-I don't think is a problem in the specific context of this series since
-not parent on the RO clock may adjust but it is indeed something to fix
-in the next revision
+> The PCIe switch we are using is a NXP CBTU02044HEJ, this is a simple
+> 1->2 switch that is not PCIe enumerable. Given that there isn't support
+> for this IC already in the kernel and that it will take quite a few
+> weeks/months for me to cobble something together, I am thinking that it
+> might make sense to drop PCIe support from this patch-series in V5 and
+> then submit a seperate patch-series with a driver and bindings for this
+> IC whenever I get something working. Are you OK with this?
 
->
-> If a driver registers a clock using these exported operations and sets the
-> CLK_SET_RATE_PARENT flag, the Common Clock Framework's
-> clk_core_round_rate_nolock() falls back to a pass-through behavior when
-> .determine_rate is missing. This causes it to forward the child's requested
-> rate unmodified to the parent, ignoring the divider scaling, and also causes
-> mux reparenting to fail.
->
->> +};
->> +EXPORT_SYMBOL_NS_GPL(ccu_rodiv_ops, "SUNXI_CCU");
+Sure
 
--- 
-Jerome
+I'm a bit curious why do you have a switch there in the first
+place - is there anything else connected to the other port?
+
+Would you like for that to be switchable at runtime?
+
++Mani will probably be interested
+
+Konrad
