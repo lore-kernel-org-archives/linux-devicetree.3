@@ -1,171 +1,136 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D69C3E3DA8
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 17:07:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0D12F8EAE;
+	Mon, 29 Jun 2026 17:19:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782752853; cv=none; b=MKPErKHCzCmMC0DfPcA96rIqfXXbGGpDnrE/6mSZ7fc7t9wuUO0WbrqTa8lyr4OWo1GdLl8SIcYsoqVa8HjPPP/vI8mRzkiJ1g8HfJI4bUkdza9n++ir2Cye2gXqon71pjpqLXBoNmHFQsgHQWYPAhZjQLP3HaCGWAWgofbNpH0=
+	t=1782753573; cv=none; b=pLh2WeIXIPvmmefG83kEJL/wMtuz7Md+n6nmQt27SxbI1F+e7Uo98XJgsm+Jgc9fur5mJMc5tEZY32UraDhuPka8YZJ9H/YlrGsGLQvXNRMGUMfcs0/EwljW8KPfxxrZ4ZTDRQMJUlK5o+9ZNWIFFCPRn7KBNYuktU7geqaI2r8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782752853; c=relaxed/simple;
-	bh=b4m9ugKTd4P2FLzaPcwmBvTb4oJlDyBJ/58sBPB1jek=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=BWNq1yOCOivMm8WTWHKmiYU0D0dFZDmRXE3WHyJgqGpR8rKqmsjpSuYwyeVVDe7zU9gGJTM68nEM4FzTCnPxYyepYRhJVcR5diZWTol5Tb37wcKgOeFx27GXDmCo57j3IPlfBCHOAnEWnhOGpFU8RUN+FMxzG7Zc8s9DoE76luQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=EFguHKN3; arc=none smtp.client-ip=170.10.153.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	s=arc-20240116; t=1782753573; c=relaxed/simple;
+	bh=P1EWMB3LQRPM23CKgEw5c+2921EAwMu9drsHjbmttqE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=RcpWj/byvbkmRZCD5pQye8OLe/yjaj2kwVPUhJMY7e2W1s85juFUDnWt9iGPZGY2BfCwa0qg8lDgiq3jbI4IDkqcCjMIhz1kaBJq+hh92jftjFvk3piI6kZcLzfRpBvoGkPPbQWe27GXgJHUoqKIwUY00uwkMBfJlqnuF3D0LkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LySIAnm7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="EFguHKN3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1782752846;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b4m9ugKTd4P2FLzaPcwmBvTb4oJlDyBJ/58sBPB1jek=;
-	b=EFguHKN3GQif3CTC6EHEC999PAH0vYQ+dw10Dp8Q7ntVKVkuEjWWOqEa2CGcvve13cBfj6
-	Q5PXpzxTkbJL5D57jwrtsx5b8nE1RqRiitQ4EHGqmdgtmCrMDx5xlCI03IifeH0YwCJY/n
-	Ro06Wl10qZFah6VAx8JRXzFrisZWH0aST0Qto//S38wkL9Tizo46PVLSk8wg/WcBprj4i5
-	ViXIG9G4mb3u6Ge7NIubUffi1yB3CLy6FS+g5K3CIuS0CATbHasAdqP4SGZNbZrGnEEBwO
-	LQ8oXNnENBaulUlfq7iHDmnEBpuOqHeZ94kMINPQRBMYva9W2iFTsH7oBaGSxg==
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013005.outbound.protection.outlook.com
- [40.107.201.5]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- usb-mta-30-T3DZkBkHNxCvUwWnVkNcsA-1; Mon, 29 Jun 2026 10:07:20 -0700
-X-MC-Unique: T3DZkBkHNxCvUwWnVkNcsA-1
-X-Mimecast-MFC-AGG-ID: T3DZkBkHNxCvUwWnVkNcsA_1782752832
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com (2603:10b6:930:b8::20)
- by MN2PR02MB6623.namprd02.prod.outlook.com (2603:10b6:208:1dd::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Mon, 29 Jun
- 2026 17:07:10 +0000
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca]) by CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca%4]) with mapi id 15.21.0159.012; Mon, 29 Jun 2026
- 17:07:09 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: Rob Herring <robh@kernel.org>
-CC: Andrew Lunn <andrew@lunn.ch>, Piergiorgio Beruto <Pier.Beruto@onsemi.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew
- Lunn <andrew+netdev@lunn.ch>, Parthiban Veerasooran
-	<parthiban.veerasooran@microchip.com>, Richard Cochran
-	<richardcochran@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>, Jonathan
- Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, Jerry Ray
-	<jerry.ray@microchip.com>
-Subject: RE: [PATCH net-next v5 14/15] dt-bindings: net: add onsemi's S2500
-Thread-Topic: [PATCH net-next v5 14/15] dt-bindings: net: add onsemi's S2500
-Thread-Index: AQHc/B9zVG+75VEz+E+ClqG9Xmjc7bY/Aa4AgBbXfAA=
-Date: Mon, 29 Jun 2026 17:07:09 +0000
-Message-ID: <CYYPR02MB9828308552BBC60427E8EF2283E82@CYYPR02MB9828.namprd02.prod.outlook.com>
-References: <20260614-s2500-mac-phy-support-v5-0-89874b72f725@onsemi.com>
- <20260614-s2500-mac-phy-support-v5-14-89874b72f725@onsemi.com>
- <20260615041056.GA1426553-robh@kernel.org>
-In-Reply-To: <20260615041056.GA1426553-robh@kernel.org>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CYYPR02MB9828:EE_|MN2PR02MB6623:EE_
-x-ms-office365-filtering-correlation-id: fa98b7d8-8cb7-4f92-fec8-08ded600db33
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|38070700021|22082099003|18002099003|11063799006|56012099006|4143699003
-x-microsoft-antispam-message-info: Y68FVuxUprv+ldfFpy2CqPt8vssOsXvBzHFuYg/B+ECNuou+Yxj2aK2xx7IPj0geNXEfgX85KYsd/wDAMtFGXU0y1TsZOonKHXpWMg0fda1yz//Uw6Fn7TE11CzzERUVfx9gsleQW2p0bjHkiZLZFt+CsXZDZzKOOOAJLsViUqJ//sTUmNCPclesEaSeW57RJpNXoafdSGVGK1tmisUvvvuL+c8TpMT6UpwcD8Ii3xrmssaMp1hFMX+q74uM6Ays+LYtwUQ70KYsASFpNzAtHSxZn2GL/JabeU6kZUajuNxk6F4n2o5W6HyAMUuutJkksOmaTjDwHXg1JL7l51wF06nRUUiUUPn2NqfF3otLi78dqRNdQ1xyw4esDEZkoRyqjpQRMiXEQzRXR0Pvsk2Yc8njLIXvsJq47NkCOigkBD091o8C4rZasLLsNvhmJujOzLnHacJzOYuTrDlL2C06WXNSfkkswz0wH/hxE20jEExjt1tM805Fce6zLU1+yAqgmKnAwIfwEHpPyWf6kmcSRsq1/pd5HxVC7h71fkFocp4iQwFSfwlUSpDgN3qIT0v1qdMHFsF5XzMlqfFoL4ESNb/FXUUMiMj7hp9oUYVgOEaET8AzJ8MCrMT0jQBk4tx40o+PMlIr89WwvmThc9FKlySUdzHrsaldjICoVvf85afb+PD7Axn322o/PcrreKlkrdviYRo59g0Epxv6jAr4+ayAA99TSq+CfemWw6bywyw=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR02MB9828.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(38070700021)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?U3ZkQ3N3TGNTVW5EK3Ixb3ZoUkZETWJsNVJXQmNjKzI2L3JzN3pJclg5Y3RH?=
- =?utf-8?B?dUhOWENrL04wNGpkci9FOC9BdlY2ZlVGMHZWaWxZNndQclBKRUtWN1F0NlFj?=
- =?utf-8?B?VDRwNzUwM1QxaERIZ0FHTnBzTHNHOVhPa3hlNW9JQ0tqb2Q0S1ArTkdYTGE3?=
- =?utf-8?B?YmovdTFEaEVjQldBQ3gwZzZTWnVaMkJ3MkFiMkZFZ3lSdmJ1Wlhqb2RvbTQw?=
- =?utf-8?B?NGUxSzJtUnNoR0xueENoWjRUcktna1VyZFlIUjFCT0pudHBnc3ZLU29meE9v?=
- =?utf-8?B?cEQ2RGtBVllrUytScVFrR2ZHVEZ0UGhlTit6U1JiNmQzRzdYN2FhaFhVTCta?=
- =?utf-8?B?SXhmakFQaDY5YUVMTEltNFI4NGV3VTRZeWd0WndkbTNXQWtNbmp6ZEZSRk1a?=
- =?utf-8?B?WGVkR2Rva1Y3QjltQ0lpRU4ybGtQQy9VQjRtSjZJdXBKTW1TZ2l0NlZ6SGpr?=
- =?utf-8?B?YlVjdDl2ZjlMTVpveDQvK0FDQzJwMk9WbmFtWWlmN1MwUmxld0E1R0ROMmox?=
- =?utf-8?B?UHBpTk0xQzZURi8zVEpQR0VWQVpJOTc4RXltNzJPZ1dVQzFUQzVrRWRhRUlP?=
- =?utf-8?B?QmZtaHZ5SkxCMko2Z1B0anNtdlNkWXZ6NGRNN2FGZkdEbFZoZ2ZTWlBpWWNH?=
- =?utf-8?B?ZVRDNm5EMGIyREthWXhYUXhMcmQ4OUNnMW16MHZObjJtbnd3UmJmL1NxVVR3?=
- =?utf-8?B?c3JUR0dLUjlzUnI1bXlIazJmRmV6S0FVT2E3VTdNQk94OVVUNjFNbHlHd0xz?=
- =?utf-8?B?cGo1WmlBQ2pjbFpNWFNQd0tKL004YjFkbjZpZzFJRHZqSDNBcEJ6L21uZFcv?=
- =?utf-8?B?M3FHUnI2U0tMblN3ZHRMN21UYzFvR1lwQ2lWS0tlTFFTZitKNmNRR21GVjNk?=
- =?utf-8?B?VnhUVUhBeE4xOFZJTHNTbDMrRllydm1nOUxwNTRNQVZaRG1SMHduMnRRYXh3?=
- =?utf-8?B?RmZqdGw1bWNWV0l1SlYyYTlhR0FucGo2NDlNZU4wV3NHT3pLWnlVdFJXRmQx?=
- =?utf-8?B?KzdXcVVwZTRSUWhmcU9MZUh4NmQrZjhqVVA5ejlvR2hUL1FBZXFGS0lONmN5?=
- =?utf-8?B?QmRDWjFxUURpMnFjaWh3ZU9RMVgzZ3IyUWRsZlk3RDFiUWJ5Y3NEbnI5a055?=
- =?utf-8?B?d21SV2FjSkV5MlpNUkY0dGp1QkxZZmhLdXdrck9EdHBJZmpueWFzRUJzRWsx?=
- =?utf-8?B?K05TWDAwZlRZWFNNZ1VybXBWbU1ET0ZzWllBRldrK0JFOG1KZnZ4Q2xYRW9X?=
- =?utf-8?B?dmdMZ0hqSURUWU8wM3VaV0cyS0ZjcVQwUTViam9IRjhQanZTT0JLK3BTV0FO?=
- =?utf-8?B?Q1VVdVIyTW9lRXZmbWF5bGNRRnB5N0tPakhtOWk5d3lja0toQlNIeFBlV1lI?=
- =?utf-8?B?SFVZaVFuOFhJaVVOd2puN2w4RlhhSnNQcnQ4UC8rQSswdUVONFBtdW9OK1E3?=
- =?utf-8?B?YytIU2x0azdGQWdVb1J0OXNBVHZsemE3RkNxNmhmUWZyZy9QK2RsaDB0UTlZ?=
- =?utf-8?B?NVNEdFNpQVJDTHVLSDZramhrZXE1OFNXZ1JQNjQ1OTUxbU51cWVaWlN3c0tH?=
- =?utf-8?B?cWZjcXJhZXpRdG1ORTNNV2xCamdpR21RK2JOWmR1dG05WEZlQXkvVDhDaG45?=
- =?utf-8?B?RURoWUZkZWw0QzZjakkrT0lWayt5bEc3TEpUUEh0RGRTQjd2Sk5RbldJa05X?=
- =?utf-8?B?SXVyWkhiWU9lcGN6RUdJTXp1ckY4SGNyUjRQWDJjV1FwQW5SVmx3alh5M28v?=
- =?utf-8?B?UUNKbGZ3SjVVVGlZYUpmalBmYWVXdXlObUVaUVFlL3FQQXc4dC81N3JTMmsw?=
- =?utf-8?B?QmhzNUw3ZHUzNDRBUTBvMjgxTnBhNW1IWWYzdjlsaFNTYkd1NG1BS3o0K2Nj?=
- =?utf-8?B?TlpSWlJYNFFwVGw3UTFvVFgrSkxSMEV2SUc4c0s5dUxzcGlRV0c4V0hSemFI?=
- =?utf-8?B?KzhldGhmM0wxbXlhTFVxOUpRNTBvL1psMVBrb0pyZW5OU3UzejB4WXR1Nmox?=
- =?utf-8?B?dXBwMlpuTThaQkFrWjRjUHdJczNGaDk3SWc0eldpUnNuemt3dURLQzhYQnB0?=
- =?utf-8?B?aTNFUDdtTzYzKzBxVTZlM2ZkaWQ4ZzJ5M0tEVVZsNzhlNGFGdUJpeFdMTGRF?=
- =?utf-8?B?Mk0vZDl5YmltQzRjcUxFY2tvT3hQZ0dWbEdaNGpKc08rQ1VYL2xwUlZPcWtM?=
- =?utf-8?B?NWNnU3pJdXg1Z1FPTXN0eDA2QzR6eUlIQTVKYVlPSXBMWk5TL01ObG90RWJl?=
- =?utf-8?B?WnU3M0RieEVVNXgwRVd4T3ZFbk12dFZVT2tXa210SWdVSVhqWC9hVTVUWDJn?=
- =?utf-8?B?VzdsZGpaaFFqQVpXaXBBR05KYXZHNUVoOEs2aERNaVEweXJBcTZhb3RaNTdY?=
- =?utf-8?Q?LfX0m9AkewxwuFgY=3D?=
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LySIAnm7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED581F000E9;
+	Mon, 29 Jun 2026 17:19:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782753571;
+	bh=k14WBG5BYyRU40eMDKhd+3ayEC6wejzsH2WxO4tzxtk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LySIAnm7Q91OOrVSIgeo4t/99w/r7I0SmPPIJkiOvbwHrtO7z9guUbVYbSgrqRC6o
+	 Vf1lpeFak8L+lNlkuhucmbUgCy7i1S4ME6T1u+/Bx/O2FJr22nbus63o2CyJTqW2pe
+	 ec8n20rJau60w/a9KeQAXY1I1Px9uEn84rTv8uJU+NN1YulWwq7I+exXUAR3C8iODN
+	 loLI3+OLOYpjB3YUl5DXvbB7NIB2/DooZjpQXg/XKI78fAKCNTI5nfniv3zbP3m0Z0
+	 BbnQSATARDr5Zr+IH2wayxaO8YLW+rTKXbkw1FJs/DInEN3O5EnEyynQg19w48/5A2
+	 amGhYscGFOYqg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v16 2/2] platform: Add initial synology microp driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Markus Probst" <markus.probst@posteo.de>
+Cc: conor+dt@kernel.org, lee@kernel.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, ojeda@kernel.org, robh@kernel.org
+In-Reply-To: <20260629-synology_microp_initial-v16-2-601e91c49e0d@posteo.de>
+References: <20260629-synology_microp_initial-v16-0-601e91c49e0d@posteo.de>
+ <20260629-synology_microp_initial-v16-2-601e91c49e0d@posteo.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 17:19:29 +0000
+Message-Id: <20260629171930.4ED581F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: od8VgRKhRsd8h29O65oZT24+CPWosfImA7Hxv7gVVTbuopifc0l0S8vQ7qMhucFp69IJbfMo0nsNXDIQihj2LCn9dggDLb3FmRhLXyslw8eurB4XZLWU3ahvwOVU6riE8/E877VJAh1kSFSsGgY+ba+xV5xdZMv/Iyu2BtF7Q6krN9gmPKizW4FY4RUgmMJJUTOVfAntZ8n64Oq0eDC9ar8MW+uSFkDcJ58PT8D7Z5MxHs611fJ7DWSIncwpn3BlKc+ieoKrYBQCgPpPlUK6HvaGoSBhkQJcLNam3dCDD63a+5LL23MZeYPM3pECXS4iDe2GkN62RHeWXTJ5Qkd4ag==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9828.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa98b7d8-8cb7-4f92-fec8-08ded600db33
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jun 2026 17:07:09.8861
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: I9XIjRyjPPNBiJP98aTcLEcAMbr+K1HNguqOw63dOZerQgC4PmkyYEnRAcig7ki2kJHd6MlryVCqg0conz4SVOL8tA4MRUHhxDRkwy/H0rE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR02MB6623
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: AJoqFvDfV7msV9quxLNbI9vCVIVuLqjAcLgQYLPCv2o_1782752832
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBSb2IgSGVycmluZyA8cm9iaEBr
-ZXJuZWwub3JnPg0KPiBTZW50OiBTdW5kYXksIEp1bmUgMTQsIDIwMjYgOToxMSBQTQ0KPiBUbzog
-U2VsdmFtYW5pIFJhamFnb3BhbCA8U2VsdmFtYW5pLlJhamFnb3BhbEBvbnNlbWkuY29tPg0KPiBT
-dWJqZWN0OiBSZTogW1BBVENIIG5ldC1uZXh0IHY1IDE0LzE1XSBkdC1iaW5kaW5nczogbmV0OiBh
-ZGQgb25zZW1pJ3MgUzI1MDANCj4gDQo+IA0KPiANCj4gQW5kIHlvdSBhcmUgbWlzc2luZyB0YWdz
-IGZyb20gcHJpb3IgdmVyc2lvbnMuIEl0IGlzIHlvdXIgcmVzcG9uc2liaWxpdHkNCj4gdG8gYWRk
-IHRoZW0uDQoNCkkgYWRkZWQgdGhlIHByaW9yIHZlcnNpb24ncyBsaW5rIHVuZGVyIGVhY2ggdmVy
-c2lvbi4gU29tZWhvdyAiYjQgcHJlcCAtLXNob3ctcmV2aXNpb24iIGNvbW1hbmQgZG9lc24ndCBw
-aWNrdXAgdGhlIG9sZGVyDQp2ZXJzaW9ucy4gSXQgc2hvd3MgdjQgYW5kIHY1IGNvcnJlY3RseSBh
-cyB0aGUgZW1haWxzIGNvbnRhaW5pbmcgcGF0Y2hlcyB3ZXJlIHNlbnQgaW4gYSB0aHJlYWRlZCBt
-YW5uZXIuDQoNCkJ1dCB3aXRoIHYxLHYyLHYzLCBhcyBlYWNoIHBhdGNoIHdhcyBzZW50IHRocm91
-Z2ggaW5kaXZpZHVhbCBlbWFpbCAod2l0aCBwcm9wZXIgc3ViamVjdCBsaW5lLCBvZiBjb3Vyc2Up
-IHVzaW5nIG91dGxvb2suIA0KSSBkb24ndCBrbm93IGlmIHRoZXJlIGlzIGEgd2F5IHRvIGZpeCB0
-aGlzLiANCg0KPiANCj4gPiBjaGFuZ2VzIGluIHY1DQo+ID4gLSBubyBjaGFuZ2VzDQo+ID4gY2hh
-bmdlcyBpbiB2NDoNCj4gPiAtIGFkZGVkIHNwaS1tYXgtZnJlcXVlbmN5IGFzIHN1Z2dlc3RlZCBi
-eSBBSSByZXZpZXcNCj4gPiAtIGNoYW5nZWQgaW50ZXJydXB0IHRvIElSUV9UWVBFX0VER0VfRkFM
-TElORyBhcyBpdCBpcw0KPiA+IGJlaW5nIHRha2VuIGNhcmUgaW4gbmV0IChzdGFibGUpIGJyYW5j
-aA0KPiA+IGNoYW5nZXMgaW4gdjMNCj4gPiAtIFJlbW92ZWQgVVJMIGxpbmsgdGhhdCBmYWlsZWQg
-dmVyaWZpY2F0aW9uDQo+ID4gY2hhbmdlcyBpbiB2Mg0KPiA+IC0gcmVtb3ZlZCBzcGktbWF4LWZy
-ZXF1ZW5jeSBlbnRyeQ0KPiA+IC0gY2hhbmdlZCB0aGUgY29tcGF0aWJsZSBzdHJpbmcgdG8gczI1
-MDANCj4gPiBjaGFuZ2VzIGluIHYxDQo+ID4gLSBBZGRlZCB0aGUgZmlyc3QgdmVyc2lvbiBvZiBZ
-QU1MIGZpbGUgZm9yIG9uc2VtaSBNQUMtUEhZDQo+ID4NCg0K
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] StatusLedHandler::brightness_set fails to turn off the LED when =
+brightness is set to 0.
+- [Low] The driver depends on a non-existent Kconfig symbol RUST_SERIAL_DEV=
+_BUS_ABSTRACTIONS.
+--
 
+commit b10df269f564d88c0451b8cff4f399129c6cc317
+Author: Markus Probst <markus.probst@posteo.de>
+
+platform: Add initial synology microp driver
+
+This commit adds an initial Synology Microp driver in Rust. It targets the
+microcontroller found in Synology NAS devices to control various LEDs.
+
+> diff --git a/drivers/platform/synology_microp/Kconfig b/drivers/platform/=
+synology_microp/Kconfig
+> new file mode 100644
+> index 0000000000000..8878cfb7bcddb
+> --- /dev/null
+> +++ b/drivers/platform/synology_microp/Kconfig
+> @@ -0,0 +1,13 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +config SYNOLOGY_MICROP
+> +	tristate "Synology Microp driver"
+> +	depends on LEDS_CLASS && LEDS_CLASS_MULTICOLOR
+> +	depends on RUST_SERIAL_DEV_BUS_ABSTRACTIONS
+
+[Severity: Low]
+Is RUST_SERIAL_DEV_BUS_ABSTRACTIONS defined anywhere in the kernel tree?
+
+Referencing a non-existent config symbol in "depends on" makes it impossible
+to satisfy the dependency, leaving the driver completely unselectable during
+configuration.
+
+[ ... ]
+> diff --git a/drivers/platform/synology_microp/led.rs b/drivers/platform/s=
+ynology_microp/led.rs
+> new file mode 100644
+> index 0000000000000..ce57adfd307f2
+> --- /dev/null
+> +++ b/drivers/platform/synology_microp/led.rs
+[ ... ]
+> +    fn brightness_set<'bound>(
+> +        &self,
+> +        dev: &'bound Self::Bus,
+> +        classdev: &led::MultiColorDevice<'bound, Self>,
+> +        brightness: u32,
+> +    ) -> Result<()> {
+> +        let mut blink =3D self.blink.lock();
+> +        if brightness =3D=3D 0 {
+> +            *blink =3D false;
+> +        }
+> +
+> +        let amber_brightness =3D classdev.subleds()[1].brightness();
+> +
+> +        let (color, subled_brightness) =3D if amber_brightness =3D=3D 0 {
+> +            (StatusLedColor::Green, classdev.subleds()[0].brightness())
+> +        } else {
+> +            (StatusLedColor::Amber, amber_brightness)
+> +        };
+> +
+> +        Command::StatusLed(
+> +            color,
+> +            if subled_brightness =3D=3D 0 {
+
+[Severity: Medium]
+When brightness is 0, will subled_brightness actually be 0 here?
+
+The LED subsystem does not automatically recalculate the subled brightness
+before invoking this callback. If the subled retains its previous non-zero
+value, will subled_brightness =3D=3D 0 evaluate to false, causing the drive=
+r to
+incorrectly send State::On to the hardware instead of State::Off?
+
+> +                State::Off
+> +            } else if *blink {
+> +                State::Blink
+> +            } else {
+> +                State::On
+> +            },
+> +        )
+> +        .write(dev)
+> +    }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-synology_m=
+icrop_initial-v16-0-601e91c49e0d@posteo.de?part=3D2
