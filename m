@@ -1,203 +1,220 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2138.outbound.protection.partner.outlook.cn [139.219.17.138])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03A53D905F;
-	Mon, 29 Jun 2026 07:45:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16E13E0080
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782719119; cv=fail; b=nnqDugxQgojlZfcc0EK97gcTsN0iJYyP2Ud4iw3akPJ3BEsrKHBqgav3ZAR7svaKY5ZiOOOZPT+TIQDQjU00GiVfBzlrqmwzUvYoJM//V2ksY+xEfU5nkUVP+y1dJbHBzV+rYk/198wzmpC0H8LQlp9QVqGcJ7I1mXFhO1RxbNM=
+	t=1782719173; cv=pass; b=lhcx1zV21F0FSECKr4VH3S2eMRWH2ainKwq0u3aN13jVU/7sQCNcWJqXwmRVKCRmIz+GaJS0kX4xf40HTZFK/wCybH6tf1uU1S53BnqyXB9w92cnVIBRvcz0cX+llZPKmvtoDfiSPcZ6nPez/kWladKGFX5AQ3tHeI7ydvv7Le4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782719119; c=relaxed/simple;
-	bh=INX3l8g9eEOWtIJr0gucljJJhwccaQZ4GJIhnnUSel8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=cUCoAaiAl8XjM+PaJi2KmUK8gR6ZRIoqi4zWHbGFQcAejeXzwlWgywSPZZ0F0sN0ValNjkL9AP5yC/LeGR8RRiqShVbT0aOhPTlI2VqUtuQzH4P/XzCwLSKy/98/6l2NFJW9wir3Jq4IORfIuntR2ldaoARjgmtAtO60JjPp2Nk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TnEdndAvh8U6sgLlTxDZEVq8mRvWv75xWZuHL3FwkIoAjVPaZcdJbeBehCz6jOZQtT96O9GyYL7dCnAziYwgOpTETfLcvSFeoi0sUj0WGIC6IU8F1HMZ2rGOoeQdMbFZ1itWY6RZDAYkKllYsEVFzPjl9Hlmt9ZS0w1FMa7jSF+bVGDTVdqtOGtTATF1PhxQc5vMcvxV2xgzsTegzFnN/chWNCt+cUtdjeO+5URzKWyLgWhWCID6QtpclUfK2fGrg5OFNYbJH8wtjt6qHBvpzWx5+uHH97kMli2fFCPPYf5i022H0A7+HAEo3VV5ay+LAJoUuA+6aFQnvM5Fm83Eew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sEBoUnmkAlAqhavEz/RdJAnjV8hQJTGrF4zmjVwzNOQ=;
- b=J0LIG00Z1g6zmO/jDqvcolbXsL3ph6t0e/Ur/qxyCCc5Mhu6aeGGkxcxBVexTJ4rNVSFaKSm/px5EtMgXhSNT3dHDaopUTAcL9hPo8wbhpDVVKHopG0FM8CGHzqQAj1MsXlwg3dI7U7bg7wJXTd3OVf2Xd07BcW6fqwgQgg23GJ1Wqd7Dn+xI0fcuLHKACDbDfFMA8K1e1BWCAAYNV8OpkAajC7G/rN5BOTFTYRwd5qRWa5gRmCLMDq+1toMBpZ27iIgq7ci6fYN1b6e75/WfL6dEnMmObJRTPKyxF0elHBEWWJ3VZye2n5h9gNbyvyoB18Rfn9n/GA3THYUzdjVew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1299.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:15::9) by ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.23; Mon, 29 Jun
- 2026 02:09:25 +0000
-Received: from ZQ4PR01MB1299.CHNPR01.prod.partner.outlook.cn
- ([fe80::9284:55ac:8499:dfc2]) by
- ZQ4PR01MB1299.CHNPR01.prod.partner.outlook.cn ([fe80::9284:55ac:8499:dfc2%4])
- with mapi id 15.21.0113.020; Mon, 29 Jun 2026 02:09:25 +0000
-From: Hal Feng <hal.feng@starfivetech.com>
-To: Conor Dooley <conor@kernel.org>
-CC: =?iso-8859-1?Q?Uwe_Kleine-K=F6nig?= <ukleinek@kernel.org>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Emil Renner Berthing
-	<emil.renner.berthing@canonical.com>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v19 1/3] dt-bindings: pwm: opencores: Update compatibles,
- examples and maintainers
-Thread-Topic: [PATCH v19 1/3] dt-bindings: pwm: opencores: Update compatibles,
- examples and maintainers
-Thread-Index: AQHc/N/BbYwhFywv1U+0WhLg7DD1frY/zFoAgBUSgjA=
-Date: Mon, 29 Jun 2026 02:09:25 +0000
-Message-ID:
- <ZQ4PR01MB1299D0EB20EE30602AD13A2BE6E82@ZQ4PR01MB1299.CHNPR01.prod.partner.outlook.cn>
-References: <20260615155759.129210-1-hal.feng@starfivetech.com>
- <20260615155759.129210-2-hal.feng@starfivetech.com>
- <20260615-crescent-equation-d948fcc46cd1@spud>
-In-Reply-To: <20260615-crescent-equation-d948fcc46cd1@spud>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1299:EE_|ZQ4PR01MB1202:EE_
-x-ms-office365-filtering-correlation-id: bf25ee96-9daf-4277-20b9-08ded5837184
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|7416014|1800799024|376014|23010399003|18002099003|22082099003|38070700021|3023799007|56012099006|4143699003;
-x-microsoft-antispam-message-info:
- mw9bMNSVrOb3vCRqCaV2mwhXXM+0A+EjE1xqrmIQdLxlSkHER1/UsIELOCZWQS/Q2SJU0w/M+ScavcnTVyz2Bv8eBMgE+ILBNlD/I0q/qOFGNQSf84gnwgdTddcNGbU1iuqMZVej/O61MYAoP0Zwxex6qfQz+J0GxZDzlYvBKFDTmJBavktsWPlnE5Vse6qiEuZpmP3BnrXHOG79AyObu32zAfTgG6agBgyduL7FjrQ66jZPBhdGMXiRyQFjMjaoUL34/m02RwBvxlskEQP8zswJF/r5tQSGn4rxHNTvIuqXhO4Nqg3spPkqbuzeAwqDCnHu+jcuwvHS7dyFbvJpYCEtOhwm6FpHQBhrxVPeYaXJ2w23eX/C9JNkM9fsWndDoXGOuE8GjjTa1d49V2/8m/sVLJEclGrKPSQqTA8Sl2mOuaK3tQl7dTO8nstAIoo2veOtR74Tw8dDvpxuwbCXE9MD3fNl+gCVtqGhKUetM8jU01p+Z4YcZWjfbZvEWwDLmmSRAJa7uBHXlGNgwCiDZcjXrNXOX6SS2lXlannciwZ6K3uBYOe8MNAgTqae1oj9
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1299.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(38070700021)(3023799007)(56012099006)(4143699003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?LXyYL4ojFS3EokgCZrVJUbsNiqYxwur42EDCOBFBBrXIMlOvL0CGguWk41?=
- =?iso-8859-1?Q?uMI6MYB74ZjrC7rNO7BPw8nwcCIHdJhpnyUjMLkNpsKdbXB7kiJWat72jK?=
- =?iso-8859-1?Q?NPVBEaGJQuB/8AtcAonZ3hoePbwALvL2gtN4G++x/ZJAKVYfyu77WMyQbK?=
- =?iso-8859-1?Q?qW/7RAxu5cQumZuMX0YrVkJbsQ9nCtNWDCVasygCg6ziDBDk3fQfJ3PRiw?=
- =?iso-8859-1?Q?taDbq/AcX6UV2pgtM/H19SBRw7MTTKCADAxRMXokVXlR8vMmZ/7vFlGxZg?=
- =?iso-8859-1?Q?tdR5NLT/g6niPnZUOPyGRJUuMf7zgiRxkedfiBxYxJj531rpgIZrtSW5Ie?=
- =?iso-8859-1?Q?ywj8jHqzJnG7yIH09MGgVvyFqZ7a919DHC6oFKCrpyO/Hm/3OpS4SBP+0D?=
- =?iso-8859-1?Q?drbq81JrINnKFsTxpL+TTNQTKeG+B50WZhNOcka3jUdUHy1gvhAJmMjnRD?=
- =?iso-8859-1?Q?XF2tYaXC7Hj4/so2B2PUR/bozbs2CT+47c6MgNWXq879Qd2FXmtuMMgeLx?=
- =?iso-8859-1?Q?C/9yF80m1Qiet2qiy3ThgIS5xpvHIF+Vjs+37KUMvtk5chYP5NCyzFA0s+?=
- =?iso-8859-1?Q?psnzqhp5Xr9heAsvw2ZJc2EB5bx7D3Ejyc34lctotlhpa+Nn4njktDyfjG?=
- =?iso-8859-1?Q?Klp1swghJEm0wkIvMk1a3oM5s21Hqj22lnEJpkJOKylqdULQqDlosujRWe?=
- =?iso-8859-1?Q?iBDVuO+FAGgLdbyOcI2hNHj08HEQMkHBd2t4ZWZ1Q25NwwpFi5+9t17cv+?=
- =?iso-8859-1?Q?EQ1umVKXlcb1oVAuS7HLhbKVuuxe0fN4ERaWEh7rNwEefJuIVEHl+ZUb8w?=
- =?iso-8859-1?Q?BwIsUE3+dUoT6Ug3Q+98wiP3Kk5Vay2IyTZkwW/v0YFr7TjR55xwLaUouF?=
- =?iso-8859-1?Q?FytLHNlxgpBsKgOlybw2TALbxhu35kXFX99YPtEZdCMDHmu2XwRkCmuRTL?=
- =?iso-8859-1?Q?+1xeRSCOi35AgM/2p6s5TJgG2crNBngcflTOvp9wb8F8TQwUZAHHsMJbdF?=
- =?iso-8859-1?Q?UAmOE2pOGhAKNd34M4aCA47GElQLLEDHcCahJMwQQ5CuSNpuy+eFifew1q?=
- =?iso-8859-1?Q?jhiqaFK0OjNIbfWw/jlIv1ZfRu8P7cTJC3d0U8cVggeYtDeeNP+b331oHb?=
- =?iso-8859-1?Q?upAwJcUOyireBuTcx3QNMFgVsuY0uJxP4M/UY96eFAvnP/ZVmjMigFBjTX?=
- =?iso-8859-1?Q?Q/yq0LFd+2tQ+lbbnr+M38AH6iB0pXGKL5cDQGrlw7nkmdaCRauv6lOTw+?=
- =?iso-8859-1?Q?Ne5yJ7aaO6solweApY9386hWm9fee/cgA2HEXX5Mqdy3FaCXsf35WuVGbv?=
- =?iso-8859-1?Q?cCswZHQVj8+zfQYi8Y2XVy0oQ0Z7pgWCCOu6DeL6ZJRRu8eDENkjIag7Bd?=
- =?iso-8859-1?Q?RhkfwlaLEDddezTBTN3zsuZzfBCQ4MYbMN0rQrBG2fkQxs6qpNkGww36Dv?=
- =?iso-8859-1?Q?hwpY46cYpnTfFuSoWyVH/4U9dx+LOIV+KC///Vvyj83vA53/Z9u1tlAV6u?=
- =?iso-8859-1?Q?WTfi6N+BjqV20xg3nKkncB/nOgZDA8N9x7so3aLhWiiXBMj1wttcHYamUB?=
- =?iso-8859-1?Q?lL2QDHpTKtnTgbGoYgbDiLnrR7ssYZdKba8HfNxu2x7aLecpUxr/H6OrUf?=
- =?iso-8859-1?Q?j+ZtBpM10x7Gh+vznRRW94JGF5XbuQx8Je6REOZt2Kem24eq5rjlMEDBT8?=
- =?iso-8859-1?Q?BMRTQW6Y05A0/cXB3MLhh/WlWJhi3txJ2yGpYxHJgS4OllBgMqwya7h4r/?=
- =?iso-8859-1?Q?EFg9AsJlPpvm43xaL9nVoRk2hxZuy8dl2rm3cNgGfUOAyQUh3i9GFb3X+H?=
- =?iso-8859-1?Q?aJIzvbmj4A=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	s=arc-20240116; t=1782719173; c=relaxed/simple;
+	bh=6tHTC7dMaWLutqIJyz+8sg1I2A6BctzDU8v6IomSqhM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=q6yh6st0rnuv2X3WjFE0M/ZnleBGEGnmGIhIrO5oMi1KpEzxCKvKeWhlhDj4RnIRCFIFvob8rlnBQtWhDu2qbQGSSYXH0jJDwu/AYSTI2VPx5Po+8TAKgjmzTJ/TlXtQwTKj9t8ONtd/ulNzy53qvRjy5huEVJCovv80NpqSKyc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Lgvgeeg6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TDiI+9sL; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lgvgeeg6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TDiI+9sL"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65T72e8x2164000
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:46:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=aCQLcRC1jMG+f6yczHRsyvOb
+	Q/+zkZyDP00/2XGZBZI=; b=Lgvgeeg6WRX3ChCWVb7Zjr+1lEBKPEhEWoTwRy0X
+	zrB4ISZS9/UrBNid1MyEO0gkCm2UhgGgPg3JP2PuXfTR2LYGBjeoWnxCwgn5P1y3
+	3J+dWClruo1XSmzkbyKNp1cOR1VHfwoKTIzL1bkPV3BxjqDazPV/ENeYkziIPHcA
+	NBXVdkjKOlJPabRycshqHHbJAa71i9fNU33FLWhWHkyTumR+AoCV9BViPtbh7BTp
+	oACAW0SGpY+uZKSgNIr3LdNG0U6IKgy9M7zq1fXF+1/F3o3yGWPqehpTEuo77qH5
+	qjqdCkxNO8HTKAD5gjT6hisZk0oZtcdk9urq8dvISvphIA==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3kyjg5wc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:46:06 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ca0331d0b1so8924685ad.3
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 00:46:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782719165; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QjevrJ6ADQ9fNNWg6WivmBYr9y1oEftZoEuLVq39vYqwEXGJI3r4fH4aMve/hmuSQo
+         4Qpy92uGB18eQ4rPkZeGQjsXnCgRUdXVSVDt0y4f5tpRIya/C63Hb8qgHaBFmGJzF7bD
+         FDvQozre9rLu84l4GGGnAn8C2KHWLh5vhAVKQm1Kt1xgYHP5tJRD8BeSyPRCEsCGe7t4
+         ksAdTZLCKJ7ft+jobaMn7IqgKyylVqZMC1NeL1b9HxR/GFiNoZfxQZYxTh1TfCVK0O0v
+         RwS0vUntLyBc1Cr3rv8BqTziM4E9fwfHqAt28nDmVy3EZl5lPwn0ImdrhIUIKtojURGW
+         bJ1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=aCQLcRC1jMG+f6yczHRsyvObQ/+zkZyDP00/2XGZBZI=;
+        fh=9UzCMN1OfHVYnx9KoSrCr8dyYdjuM6jsRX4lc3kLKUE=;
+        b=QZ+n1ksYL3TOO420Wunkdqg1vrRF1KaSD7lfyyVwUt+qFvIn3fyzrC6vihGtgAEDW1
+         lNmntEgtuicFUJrCXOXU8xn38b3bTx2e62wsOkol+scflWt8JDcOIVD8Jsy16eKK0VHo
+         RbcGzWaGNymdC+yV9l8ChTmnxJc4zkTWTj3DsWJN1OyKVRMFxSa7y5h39Q4QCYb4y5H+
+         OOfW+ltyjLWnG96Ta/gAysnwxCQ1Eif4v3hId5zNryr+aigsM/7dFLTiOvyEQkCOVDvr
+         NTx4/NwSpdFJUzVPlyPNgNxxZ86ahUO0ExieLcZAQn/rXDItOrgdZ2/f9UXMSjn4IK4s
+         hjgA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782719165; x=1783323965; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=aCQLcRC1jMG+f6yczHRsyvObQ/+zkZyDP00/2XGZBZI=;
+        b=TDiI+9sLnJVTbF4GjGCZmesYFIgIwvN3Jdw98tYbw5qJEzztl+OmICY+e3zR3T5c+y
+         weAutzS5j7PUrc/+T8aeNh20vW3/TSfhcW2ODkTYwv10C+HfX7D+heAZOtFeOl4ZV3va
+         zJtioYmmUlXLwKBdUaZBs3+8igPoxBGC1I4I5n7UQd0nD+F0RtsibO0WRtdBin0txgVg
+         WmjyTSuks9O1LZIgE2P5jxcUfxrHgfuLUiHq8EHc4x4z7rz9XRtikp8blMBAD8Etcqp6
+         RdIK6eiV1+zlfGdH1+qPFNJC9RQPPaK3q2JfffNGmYn2zqk0UlHmU5lO+LCltoDVYwSM
+         y68w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782719165; x=1783323965;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aCQLcRC1jMG+f6yczHRsyvObQ/+zkZyDP00/2XGZBZI=;
+        b=h/VGDbW2WHlbrie+7KgEJJPV7BrZJOKj1rpcQ/XTeghxp91YQb+t54k71xheAtRjku
+         ofKFU06goZ3cUg5BKxoS10kuZQziw0tJBsphP/DpS+OIjIVq/fDlT9Pd6RTqioA3Gu1c
+         HwfzFKyswNQA+lkNwY8Rp9SVqg5ZGMPDpjEqONMPz2XIfSunfSYZeKeRAOAsVDDNwnMc
+         n8tRfDnU8voc6veaNDdQ2YjZ7i4yq8Fb7pcKm3q2eFKqNm0T9XkAG4kz+hoExnHEmR+U
+         N8jKniisHxYI9zn//XyRpeTOIAVYyXhij/NJpEE7kKCISa6PS4QjC8h9kfjCh+D5AoQT
+         S8vw==
+X-Forwarded-Encrypted: i=1; AFNElJ/8c9xWFVf54142OA3mCbNqZbbxynBT9rkpA2l8aH4VEW1ZN8ps3y296dGty0If1z6RR197xDqZ/S+P@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3qqlHtsz6zg0lele1oLrSx9WgMc4Y9I2pWDttFV5xcIO3X7f7
+	bhRqvDcVRSYabLnatnFs0AHvZn4n/8fO/0bGNrfmjndxabQr8HkIAhBTOwuSNTx/+HjX8iZVy46
+	xv+6+90P/nezXTMx5zeGdCHCvkxIG6ifHG80NEVPckhExbQK6h16pFP3fjazZBuWFjBsiXJ7gDN
+	0TMYF8WgGmxhwwuyVQFp8rXZJQSJJeH+uLWYOAJG4=
+X-Gm-Gg: AfdE7cmI9ER1D8musRIjqsVIzirMFQY1LHXMD0h6wV3mKkb0+IIDMor9FrjBcpAVEP0
+	k3/WqYxHRT6jh2Yw7J9Ym8+4lRE+xIzLauxFn+O7sV8s2gB8hA5mlsNqhXXhZ75hRWcYk9LaLPh
+	3MZ+J8l34aAvLXpgsU+nulq7HJMGIgwDsiWvNeEPApK8EZYidu79vZIFV9IV9PYHjuR+q4WR27+
+	ph8NT27N8YgbmI9L3Hlmjxjo7Yl4Q==
+X-Received: by 2002:a05:6a21:694:b0:3bf:6c08:fb93 with SMTP id adf61e73a8af0-3bf6c09147bmr8846519637.53.1782719165185;
+        Mon, 29 Jun 2026 00:46:05 -0700 (PDT)
+X-Received: by 2002:a05:6a21:694:b0:3bf:6c08:fb93 with SMTP id
+ adf61e73a8af0-3bf6c09147bmr8846501637.53.1782719164714; Mon, 29 Jun 2026
+ 00:46:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1299.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf25ee96-9daf-4277-20b9-08ded5837184
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jun 2026 02:09:25.4756
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uIJuPEbVH0Nrs7EDhXAsmx3FvLrvowcAcihcrF1+FZDgS/Wam2nWbuN15PZfA64VbKIMAiAcBP3RfxNri7c/6mDGjNZsg2Cl2ytbcu+ugw4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1202
+References: <20260627-shikra-dt-changes-v1-0-449a402673d0@oss.qualcomm.com>
+ <20260627-shikra-dt-changes-v1-1-449a402673d0@oss.qualcomm.com>
+ <hwn2kjauk3xt35cwmv3ludr3sxrwklf4n65p2tziox6m7req5o@lldl2cztbqi4> <276e001a-00a4-4822-849c-f1c0879b81d5@oss.qualcomm.com>
+In-Reply-To: <276e001a-00a4-4822-849c-f1c0879b81d5@oss.qualcomm.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Date: Mon, 29 Jun 2026 10:45:53 +0300
+X-Gm-Features: AVVi8CcZBxmYWaIoIL4LytxUTmmGJMy6wbU3f0iW_j9dnLWGAuso1nTRnz7u_UQ
+Message-ID: <CAO9ioeVq1UHC7w63vQOo2-hxZ-d=N+XPXrU8W4txXsDXqOf6gQ@mail.gmail.com>
+Subject: Re: [PATCH 1/5] arm64: dts: qcom: shikra: Add MDSS display subsystem
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        arpit.saini@oss.qualcomm.com, mohit.dsor@oss.qualcomm.com
+Content-Type: text/plain; charset="UTF-8"
+X-Proofpoint-GUID: a6__sl8UGVqcsJMLYBnuAcltu5yp56U9
+X-Proofpoint-ORIG-GUID: a6__sl8UGVqcsJMLYBnuAcltu5yp56U9
+X-Authority-Analysis: v=2.4 cv=Ftk1OWrq c=1 sm=1 tr=0 ts=6a4222be cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8 a=7gqF0e2FHWVQxZ1fruEA:9
+ a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA2MiBTYWx0ZWRfX78hxtZDl76el
+ J3rRsnnqtpAw9qujUk+4v5pYj1vJPeNvYmke1opechsEb74aDuBaTxUaFSs8qZOe8INqMJ04RPj
+ RE3oBEWodHTPugIJKJh/tiGIxQX5kpQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA2MiBTYWx0ZWRfX2A0o3vooIOMb
+ HGfMQwADuWr6xmc+8HTbnDf9DDjrjwEVFJkDpXfDX6MW+LNucveuGhzPGiYCfhHlsSOzixgkGv5
+ lPDzyCvxcoYdFOiIWZJGGaDcF8omRZtE36h+XoBCXiPnx9T2UHC34otEVF5d16kNgFa705bGT5R
+ cvfTJRdMrdTM6slzrNk2LV1oJg5gnEqEnWFh3Vbnacc3tPfLeEo1d+wiHAi26inrRuY9TUA0bc6
+ gE9kzArqCRFn57ocsWsQwqrRdJ0ApEd/C+PIjoKOrZLh0+JyxsiPjtOZfUSt8tU1rouSuDfOrvH
+ z/jXfLBP/7K7Sm6jQFQlX14z5EZEZBhiy4SjJReDaM3ks2HXukR8/QeM8DeAHRdML32RO6hW0fN
+ 5Hx4uqSUR/+6jjYl9dn+mOMvJLYrgAyPCZbn/Zxx5tX9NmxyswyWBSzTeyx63aK0GJxQxWN2WfO
+ JGZOypfNhl2GbzJ2WZg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-29_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290062
 
-> On 26.06.16 00:22, Conor Dooley wrote:
-> On Mon, Jun 15, 2026 at 11:57:57PM +0800, Hal Feng wrote:
-> > Remove the jh8100 compatible since the JH8100 SoC has been canceled
-> > and will not be released. Add the jhb100 compatible to replace it.
->=20
-> > Use a oneOf construct to support the single-string opencores,pwm-v1
-> > compatible.
->=20
-> No thanks. Simple as this IP might be, I still want soc-specific compatib=
-les to be a
-> requirement.
-> pw-bot: changes-requested
+On Mon, 29 Jun 2026 at 10:25, Nabige Aala <nabige.aala@oss.qualcomm.com> wrote:
+>
+> Hi Dmitry,
+>
+> you want me to use this generic power domain index ?
+> => RPMPD_VDDCX
 
-Okay, will update accordingly. Thanks for your review.
+Which indices are used by the rest of the file?
 
-Best regards,
-Hal
+Also, please , stop top-posting. And don't post HTML emails.
 
->=20
+> On 6/28/2026 6:05 PM, Dmitry Baryshkov wrote:
+> > On Sat, Jun 27, 2026 at 03:31:35PM +0530, Nabige Aala wrote:
+> >> Add the SoC-level display subsystem nodes for Shikra: MDSS wrapper,
+> >> DPU display controller, DSI host controller, and 14nm DSI PHY.
+> >>
+> >> Shikra uses DPU 6.5 hardware (same as QCM2290). Platform-specific
+> >> compatible strings are used as the primary match with QCM2290 fallbacks
+> >> to reuse the existing driver support.
+> >>
+> >> The dispcc clock inputs for the DSI byte and pixel PLLs are wired
+> >> from mdss_dsi0_phy.
+> >>
+> >> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+> >> ---
+> >>   arch/arm64/boot/dts/qcom/shikra.dtsi | 203 ++++++++++++++++++++++++++++++++++-
+> >>   1 file changed, 201 insertions(+), 2 deletions(-)
+> >>
+> >> +
+> >> +                            clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
+> >> +                                     <&dispcc DISP_CC_MDSS_AHB_CLK>,
+> >> +                                     <&dispcc DISP_CC_MDSS_MDP_CLK>,
+> >> +                                     <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
+> >> +                                     <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
+> >> +                            clock-names = "bus",
+> >> +                                          "iface",
+> >> +                                          "core",
+> >> +                                          "lut",
+> >> +                                          "vsync";
+> >> +
+> >> +                            operating-points-v2 = <&mdp_opp_table>;
+> >> +                            power-domains = <&rpmpd QCM2290_VDDCX>;
+> > Don't blindly copy bits and pieces from other platforms. No, its' not
+> > QCM2290.
 > >
-> > Change the register size in examples to 0x10, since an OpenCores PTC
-> > IP has only 4 32-bit registers: CNTR, HRC, LRC and CTRL.
+> >> +
+> >> +                            ports {
+> >> +                                    #address-cells = <1>;
+> >> +                                    #size-cells = <0>;
+> >> +
+> > [...]
 > >
-> > I will maintain this pwm module in place of William.
+> >> +
+> >> +                            assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>,
+> >> +                                              <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
+> >> +                            assigned-clock-parents = <&mdss_dsi0_phy DSI_BYTE_PLL_CLK>,
+> >> +                                                     <&mdss_dsi0_phy DSI_PIXEL_PLL_CLK>;
+> >> +
+> >> +                            operating-points-v2 = <&dsi_opp_table>;
+> >> +                            power-domains = <&rpmpd QCM2290_VDDCX>;
+> > The same.
 > >
-> > Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
-> > ---
-> >  .../devicetree/bindings/pwm/opencores,pwm.yaml   | 16 +++++++++-------
-> >  1 file changed, 9 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
-> > b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
-> > index 52a59d245cdb..5f05606a2d3d 100644
-> > --- a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
-> > +++ b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
-> > @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
-> >  title: OpenCores PWM controller
-> >
-> >  maintainers:
-> > -  - William Qiu <william.qiu@starfivetech.com>
-> > +  - Hal Feng <hal.feng@starfivetech.com>
-> >
-> >  description:
-> >    The OpenCores PTC ip core contains a PWM controller. When operating
-> > in PWM @@ -19,12 +19,14 @@ allOf:
-> >
-> >  properties:
-> >    compatible:
-> > -    items:
-> > -      - enum:
-> > -          - starfive,jh7100-pwm
-> > -          - starfive,jh7110-pwm
-> > -          - starfive,jh8100-pwm
-> > +    oneOf:
-> >        - const: opencores,pwm-v1
-> > +      - items:
-> > +        - enum:
-> > +            - starfive,jh7100-pwm
-> > +            - starfive,jh7110-pwm
-> > +            - starfive,jhb100-pwm
-> > +        - const: opencores,pwm-v1
-> >
-> >    reg:
-> >      maxItems: 1
-> > @@ -49,7 +51,7 @@ examples:
-> >    - |
-> >      pwm@12490000 {
-> >          compatible =3D "starfive,jh7110-pwm", "opencores,pwm-v1";
-> > -        reg =3D <0x12490000 0x10000>;
-> > +        reg =3D <0x12490000 0x10>;
-> >          clocks =3D <&clkgen 181>;
-> >          resets =3D <&rstgen 109>;
-> >          #pwm-cells =3D <3>;
-> > --
-> > 2.43.2
-> >
+> >> +                            phys = <&mdss_dsi0_phy>;
+> >> +
+> >> +                            #address-cells = <1>;
+> >> +                            #size-cells = <0>;
+> >> +
+> >> +                            status = "disabled";
+> >> +
+
+
+
+-- 
+With best wishes
+Dmitry
