@@ -1,136 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0D12F8EAE;
-	Mon, 29 Jun 2026 17:19:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89CB2D12ED;
+	Mon, 29 Jun 2026 17:23:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782753573; cv=none; b=pLh2WeIXIPvmmefG83kEJL/wMtuz7Md+n6nmQt27SxbI1F+e7Uo98XJgsm+Jgc9fur5mJMc5tEZY32UraDhuPka8YZJ9H/YlrGsGLQvXNRMGUMfcs0/EwljW8KPfxxrZ4ZTDRQMJUlK5o+9ZNWIFFCPRn7KBNYuktU7geqaI2r8=
+	t=1782753835; cv=none; b=HjXAkG4wDRL4P4Ak/oXxmv3YKiNkQ/Wm0Z7QPlntX+3W2ov0oORyNuULQT8cs+8UTI/DVoo2XLnw49IFdO23NhNr/HNGzaTIqc51lenOp/XkpgF7dwyGU34/cg5Gz+rSemqhCtn+ng9npHSAvP39afkxay13Eed9IKZ5Gj/qDXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782753573; c=relaxed/simple;
-	bh=P1EWMB3LQRPM23CKgEw5c+2921EAwMu9drsHjbmttqE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RcpWj/byvbkmRZCD5pQye8OLe/yjaj2kwVPUhJMY7e2W1s85juFUDnWt9iGPZGY2BfCwa0qg8lDgiq3jbI4IDkqcCjMIhz1kaBJq+hh92jftjFvk3piI6kZcLzfRpBvoGkPPbQWe27GXgJHUoqKIwUY00uwkMBfJlqnuF3D0LkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LySIAnm7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782753835; c=relaxed/simple;
+	bh=c6zgOYMSyxxFjsyRuiKXRExE6Dq7Qhi1n6CBnG2VKQs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=VybPQAP/gWo6AnDKcR/Zsrdcnp2ezyPeHrAjif64/i4kqIwQwHTiBCWWcSCJJRRtLAVg7NHvSYcB3kaehI6SEPGL/YsKk2exoOd/Gn3IVXWNtTeoFqDbrKBTckMZkY//oxPOk+jxgU9E6tyfMbTr3LbJVbB6CF6aJvppPLjFmlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PO0EA9Bv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LySIAnm7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED581F000E9;
-	Mon, 29 Jun 2026 17:19:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782753571;
-	bh=k14WBG5BYyRU40eMDKhd+3ayEC6wejzsH2WxO4tzxtk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LySIAnm7Q91OOrVSIgeo4t/99w/r7I0SmPPIJkiOvbwHrtO7z9guUbVYbSgrqRC6o
-	 Vf1lpeFak8L+lNlkuhucmbUgCy7i1S4ME6T1u+/Bx/O2FJr22nbus63o2CyJTqW2pe
-	 ec8n20rJau60w/a9KeQAXY1I1Px9uEn84rTv8uJU+NN1YulWwq7I+exXUAR3C8iODN
-	 loLI3+OLOYpjB3YUl5DXvbB7NIB2/DooZjpQXg/XKI78fAKCNTI5nfniv3zbP3m0Z0
-	 BbnQSATARDr5Zr+IH2wayxaO8YLW+rTKXbkw1FJs/DInEN3O5EnEyynQg19w48/5A2
-	 amGhYscGFOYqg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 2/2] platform: Add initial synology microp driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Markus Probst" <markus.probst@posteo.de>
-Cc: conor+dt@kernel.org, lee@kernel.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, ojeda@kernel.org, robh@kernel.org
-In-Reply-To: <20260629-synology_microp_initial-v16-2-601e91c49e0d@posteo.de>
-References: <20260629-synology_microp_initial-v16-0-601e91c49e0d@posteo.de>
- <20260629-synology_microp_initial-v16-2-601e91c49e0d@posteo.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 17:19:29 +0000
-Message-Id: <20260629171930.4ED581F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PO0EA9Bv"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8EB76C2BCC6;
+	Mon, 29 Jun 2026 17:23:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1782753835;
+	bh=c6zgOYMSyxxFjsyRuiKXRExE6Dq7Qhi1n6CBnG2VKQs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=PO0EA9BvwAQ2nczuj+6T2Drq1MUIE0+hdWrDov+oR4PmLWUQwZR07Iux9uCXBIZFD
+	 riBAAKixiz67tfqHcmgNTTLwUUfe8uTbk/NtIO5wAFbMzY5wLnOMiWAScazKlPElzM
+	 US0XoAt2kYJOyCWq+zhZa5pbORlx0GIqa9AtqUP9iPygr/moMi4bczs6oWAcXYUFQ3
+	 y17E95ASR6zBOVh5mGiFZmfoherozjhs/v2iKj4REE2agcmd3IcYxamBc2Byl/thql
+	 P0u6zbYQxXDuFBy3Sy0P2a81BHYG35Jh3egK5/pxKNOp9iNhFsE9Yz6kFQSD4bkVzi
+	 ClvhWqTbW/ogA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A25FC43327;
+	Mon, 29 Jun 2026 17:23:55 +0000 (UTC)
+From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
+Date: Mon, 29 Jun 2026 10:23:31 -0700
+Subject: [PATCH net-next v6 01/15] net: phy: Helper to read and write
+ through C45 without lock
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260629-s2500-mac-phy-support-v6-1-18ce79500371@onsemi.com>
+References: <20260629-s2500-mac-phy-support-v6-0-18ce79500371@onsemi.com>
+In-Reply-To: <20260629-s2500-mac-phy-support-v6-0-18ce79500371@onsemi.com>
+To: Andrew Lunn <andrew@lunn.ch>, 
+ Piergiorgio Beruto <pier.beruto@onsemi.com>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
+ Selva Rajagopal <selvamani.rajagopal@onsemi.com>, 
+ Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Jerry Ray <jerry.ray@microchip.com>, 
+ Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782753817; l=3753;
+ i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
+ bh=PZskgc1fBKQfn8jSfkk+0wWBwzgT1bBdU+1HtSLOovs=;
+ b=Cj2VMf7mwxYSYwzusgkpeSMdx9znSvY/VqBYa9e0Cu/5TAvQKcZnp9fNVba93tBY9iWme78AS
+ z5SdcVSUNm6CDDZ716X0T7kv1ybPKjq/aNkiRG9RuaUryFjPo+CSKEA
+X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
+ pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
+X-Endpoint-Received: by B4 Relay for
+ Selvamani.Rajagopal@onsemi.com/20260531 with auth_id=803
+X-Original-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Reply-To: Selvamani.Rajagopal@onsemi.com
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] StatusLedHandler::brightness_set fails to turn off the LED when =
-brightness is set to 0.
-- [Low] The driver depends on a non-existent Kconfig symbol RUST_SERIAL_DEV=
-_BUS_ABSTRACTIONS.
---
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-commit b10df269f564d88c0451b8cff4f399129c6cc317
-Author: Markus Probst <markus.probst@posteo.de>
+Generic helper function to initiate read and write through C45 bus
+protocol without mdio bus lock. This will help PHYs to avoid indirect C22
+API calls for C45 bus protocol which may not be supported by the PHY.
 
-platform: Add initial synology microp driver
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-This commit adds an initial Synology Microp driver in Rust. It targets the
-microcontroller found in Synology NAS devices to control various LEDs.
+---
+changes in v6
+  - No change
+changes in v5
+  - no change
+changes in v4
+  - lockdep_assert_held added to ensure correct calling convention
+changes in v3
+  - Added the genphy APIs to initiate Clause 45 register read/write
+  - first patch
+---
+ drivers/net/phy/phy_device.c | 55 ++++++++++++++++++++++++++++++++++++++++++++
+ include/linux/phy.h          |  4 ++++
+ 2 files changed, 59 insertions(+)
 
-> diff --git a/drivers/platform/synology_microp/Kconfig b/drivers/platform/=
-synology_microp/Kconfig
-> new file mode 100644
-> index 0000000000000..8878cfb7bcddb
-> --- /dev/null
-> +++ b/drivers/platform/synology_microp/Kconfig
-> @@ -0,0 +1,13 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +
-> +config SYNOLOGY_MICROP
-> +	tristate "Synology Microp driver"
-> +	depends on LEDS_CLASS && LEDS_CLASS_MULTICOLOR
-> +	depends on RUST_SERIAL_DEV_BUS_ABSTRACTIONS
+diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+index 0615228459ef..b82b99d08132 100644
+--- a/drivers/net/phy/phy_device.c
++++ b/drivers/net/phy/phy_device.c
+@@ -2787,6 +2787,61 @@ int genphy_write_mmd_unsupported(struct phy_device *phdev, int devnum,
+ }
+ EXPORT_SYMBOL(genphy_write_mmd_unsupported);
+ 
++/**
++ * genphy_phy_read_mmd - Helper for reading a register without lock
++ * from the given MMD and PHY.
++ * @phydev: The phy_device struct
++ * @devnum: The MMD to read from
++ * @regnum: The register on the MMD to read
++ *
++ * Description: PHYs can have both C22 and C45 registers space. Once PHY
++ * is discovered via C22 bus protocol, it uses C22 indirect access to
++ * access C45 registers. Some PHYs, like 10Base-T1S PHYs defined by OPEN
++ * Alliance 10BASE‑T1x, support only direct access.
++ *
++ * If PHY indicates C45 support through DTS entry, it avoid C22 APIs
++ * entirely and therefore generic MDIO registers are inaccessible.
++ *
++ * MDIO bus isn't locked here because when called through read_mmd
++ * callback of phy_driver, caller is expected to lock the bus as
++ * implemented in phy_read_mmd.
++ *
++ * Returns: Register value if successful, negative error code on failure.
++ */
++int genphy_phy_read_mmd(struct phy_device *phydev, int devnum,
++			u16 regnum)
++{
++	struct mii_bus *bus = phydev->mdio.bus;
++	int addr = phydev->mdio.addr;
++
++	lockdep_assert_held(&bus->mdio_lock);
++	return __mdiobus_c45_read(bus, addr, devnum, regnum);
++}
++EXPORT_SYMBOL(genphy_phy_read_mmd);
++
++/**
++ * genphy_phy_write_mmd - Helper for writing a register without lock
++ * to the given MMD and PHY.
++ * @phydev: The phy_device struct
++ * @devnum: The MMD to write to
++ * @regnum: The register on the MMD to write
++ * @val:    Value to write
++ *
++ * Description: Similar to genphy_phy_read_mmd
++ *
++ * Returns: 0 if successful, negative error code on failure.
++ */
++int genphy_phy_write_mmd(struct phy_device *phydev, int devnum,
++			 u16 regnum, u16 val)
++{
++	struct mii_bus *bus = phydev->mdio.bus;
++	int addr = phydev->mdio.addr;
++
++	lockdep_assert_held(&bus->mdio_lock);
++	return __mdiobus_c45_write(bus, addr, devnum, regnum, val);
++}
++EXPORT_SYMBOL(genphy_phy_write_mmd);
++
+ int genphy_suspend(struct phy_device *phydev)
+ {
+ 	return phy_set_bits(phydev, MII_BMCR, BMCR_PDOWN);
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 199a7aaa341b..8266dd4a8dbe 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -2301,6 +2301,10 @@ int genphy_read_mmd_unsupported(struct phy_device *phdev, int devad,
+ 				u16 regnum);
+ int genphy_write_mmd_unsupported(struct phy_device *phdev, int devnum,
+ 				 u16 regnum, u16 val);
++int genphy_phy_write_mmd(struct phy_device *phydev, int devnum,
++			 u16 regnum, u16 val);
++int genphy_phy_read_mmd(struct phy_device *phydev, int devnum,
++			u16 regnum);
+ 
+ /* Clause 37 */
+ int genphy_c37_config_aneg(struct phy_device *phydev);
 
-[Severity: Low]
-Is RUST_SERIAL_DEV_BUS_ABSTRACTIONS defined anywhere in the kernel tree?
+-- 
+2.43.0
 
-Referencing a non-existent config symbol in "depends on" makes it impossible
-to satisfy the dependency, leaving the driver completely unselectable during
-configuration.
 
-[ ... ]
-> diff --git a/drivers/platform/synology_microp/led.rs b/drivers/platform/s=
-ynology_microp/led.rs
-> new file mode 100644
-> index 0000000000000..ce57adfd307f2
-> --- /dev/null
-> +++ b/drivers/platform/synology_microp/led.rs
-[ ... ]
-> +    fn brightness_set<'bound>(
-> +        &self,
-> +        dev: &'bound Self::Bus,
-> +        classdev: &led::MultiColorDevice<'bound, Self>,
-> +        brightness: u32,
-> +    ) -> Result<()> {
-> +        let mut blink =3D self.blink.lock();
-> +        if brightness =3D=3D 0 {
-> +            *blink =3D false;
-> +        }
-> +
-> +        let amber_brightness =3D classdev.subleds()[1].brightness();
-> +
-> +        let (color, subled_brightness) =3D if amber_brightness =3D=3D 0 {
-> +            (StatusLedColor::Green, classdev.subleds()[0].brightness())
-> +        } else {
-> +            (StatusLedColor::Amber, amber_brightness)
-> +        };
-> +
-> +        Command::StatusLed(
-> +            color,
-> +            if subled_brightness =3D=3D 0 {
-
-[Severity: Medium]
-When brightness is 0, will subled_brightness actually be 0 here?
-
-The LED subsystem does not automatically recalculate the subled brightness
-before invoking this callback. If the subled retains its previous non-zero
-value, will subled_brightness =3D=3D 0 evaluate to false, causing the drive=
-r to
-incorrectly send State::On to the hardware instead of State::Off?
-
-> +                State::Off
-> +            } else if *blink {
-> +                State::Blink
-> +            } else {
-> +                State::On
-> +            },
-> +        )
-> +        .write(dev)
-> +    }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-synology_m=
-icrop_initial-v16-0-601e91c49e0d@posteo.de?part=3D2
