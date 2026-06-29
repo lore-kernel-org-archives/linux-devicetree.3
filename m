@@ -1,279 +1,395 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC48A40862F
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82184402451
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:46:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782736964; cv=none; b=Ui52iUjWQ6DtYRw4xdMIzrdhOTbpiaCcQ+FUoQtXRvclnCZ8dLLlkNkd0qj7h+sffIxqhAWFxi1v2yFxH2OKZKdUHK3woMbv2y3cXiB9QRfMyK8gaTin4rV4TLCae2AVoP+q+s+f99ulSwwFwWVBVzB+xnUIJ5fflVM4qZesQ6E=
+	t=1782737170; cv=none; b=uCLNNzylC2eZfZ+gJN1nBC0tcu5qufQekKzafYzQTeMOThyamipQBtyGK4ozzH03vYJ5bKCWWOqjCIkqGTkXcRdwp82W8P/oYPS79gRduDHIhIQD2hTRJlU6ELcO1E08mquLt+kh3SfS/73MzyEpgzyaFo+8WiidvDiO2Nf1MOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782736964; c=relaxed/simple;
-	bh=5CSoUIy/v6LOzSzkVQ2mOnhu7hJrrhe9yfYnkVNt/3U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=S1SQs87hSFxiRLGTJXI00g9jEWzq56RawK9plxyNFSNkoX/Lfx0KA4l0NvGiXNDpiFe9NPGJUtq/WcyhG7CuEOFONTUOUrxRTqjo/K1CwtKUc0rQ3hUQQfVEZDJ8EMDTH8hqLPYn/O1nKWKAF7ruOhHYqyUrCc0xHxNyPlD8mv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=oioIMUJW; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1782737170; c=relaxed/simple;
+	bh=m96PPdQRt9WgCweyLIW/RHL4JQWWfJOnSKuXnnAdenU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kdOFLeTaXCndcbPQ0Gd2B9CxBDQvGiNX/h6AQyedOwmlz1r5nHjzUa7o2T5oyHiCehxUG1nxqmvURHWGyeTacwiBwPATGeBOqKCkhIPYfUB0vAIJvbkHIccu+/fnJ9szGGGM1gji41YGSYlXU18DVyPIVneI39j9rRf5FwdMa9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O9e6tL5S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="oioIMUJW"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so23220415e9.1
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 05:42:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782736961; x=1783341761; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QvuvGrw74bcC43tNkUtjQENE+L2SxKO7K1MrIT8vI48=;
-        b=oioIMUJWlHtVLwAzsNB/YtefuR6hQbbLOSW/juTn5Zc8JMtWsAIvQ2hk9J7eVuACgn
-         fKCcPuIFT2dCNSqgOXpuilo9tEFG4t6P9aODD78VAMS5/TjEPkW7498IjN0nHFBvEmGH
-         F2CkLObVQTWMNsMEELNDf50eWiBVUXZjnq9MCERDmb6/3/SpOxzwWHsOL7oXUo8tSeMU
-         OwqYuHaJVgd4urvKtJDsINtWy/2rUKwLmms8vmyIvm0ZquIk0Xzo/+tFwFdO6bGzITUh
-         EAsqLMjQ6065UiAt2p6/BlvJwtFS1vSLlmvFNsu5q6XKwy+472Aj8wqHW3RpzL4/n+uZ
-         HUpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782736961; x=1783341761;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=QvuvGrw74bcC43tNkUtjQENE+L2SxKO7K1MrIT8vI48=;
-        b=eXAHMP+Q4Zquq7W2jY2XRO4+1qeJp7Fa2fdVyIBysQ1huytuXGgDBeW3hvI0wf9BG/
-         P6a+XwIZw/8QxhAxhG84kcDtqZBHtiJiT1ZnEHdX8j3S9eViR23Wy+6sST5zZkbbpUuM
-         HqxaXpdp6lL1bYocs2MEpSNAy1AJMI/BbYn9/mp3ZAHAiCDxyphB1JuxU+wN7REMSAt0
-         K1AafB6pFPFHmYwANNJuzGgdCTMhUtiS/E8EU5ZF+uda4eofqLMuymqBh9NKXO3sdfyp
-         UgyYi8xJtkfPD0l5tNipFy0+eXcm5Q4XKFKgdYwv/WsqO4l17aTuYaQshNAX4tTXxItS
-         FW4Q==
-X-Forwarded-Encrypted: i=1; AFNElJ8StSSf5zHu6nHgS0NYz1eszrUsggBkpCwG+V4h3zdeK3eEBkQCQd61cSA0j5vuwpfQJMTp2s6zo8yp@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw41mcrFBLoUCE3+AMA8mg8hWZbLL0b/235dTKIN2Un86UB2pSn
-	cx3l9DdMSUJz8kYQUGuCPXlY+mtFqT8lA8LdaT8ObXTACtYHLqDeTDAZiiLqKx4yaMs=
-X-Gm-Gg: AfdE7cmuVlpk1AsE+pNBzKixfXx2wA3vP03J698V8ROdRSsBeNZdURuQ6E2VWD9aerR
-	jh4Wyukdem8uc9F7C6riOWe3yySNLemjPqwV2e9iLPoh3B4zsykScf3S+dTLNcZQWHQru9aO1ID
-	IKOIp2zY5BDmbFYOUaVIH1Gv1+lHrvd6IpFiFLULzHCtJVsYw38ETcXOJezAaldofAc7BrMhkYS
-	/8HaVjwAmMZGCFN+39AaxF45si9dscHvjypFrA4a1N4psl1jPZoy8tcdvsQq0kMcZ5mRnoMvnGe
-	+9u5ZEs9FC7ni9bgVOBu+mM2V32JTHQ0qrmscLhzUnqCxf9qp2TBR6QQgHDh0+hT3ZwxVv2pP8m
-	J3enyK0qsqGjvEEr6R3hErzBGe++5YTV1q8rQ2KmNunhwdgSp5UnEv4BJv7Wiyje5uaddRLHKeu
-	WmLEtr/Sb6HWY=
-X-Received: by 2002:a05:600c:e555:10b0:492:4a70:faaa with SMTP id 5b1f17b1804b1-4926685af4cmr178735795e9.11.1782736961340;
-        Mon, 29 Jun 2026 05:42:41 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:1d21:f5d5:2d3c:23a7])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4926c00a34esm181463855e9.0.2026.06.29.05.42.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 05:42:40 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Mon, 29 Jun 2026 14:42:10 +0200
-Subject: [PATCH v2 6/6] clk: sunxi-ng: sun6i-rtc: add a733 support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O9e6tL5S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E70B11F00A3A;
+	Mon, 29 Jun 2026 12:46:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782737168;
+	bh=syHBg/+DbrFBit8bl7OO2Vg/7D5djEfY1OpNF5j1aI0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=O9e6tL5SNja6hrTB6ZAEHDJAFBPPXrTUBQu3lhLF9VXo5TJ0gkaUr6HNxCID26OGv
+	 BNuqGPiakEZncKVzY9h6GGZa734ErfAtXrGJsa7DFV26DhoGTuo2yLQnGC+iEVt1Up
+	 b53umw0izUdj+vCrNydSUvoqEOWiWtAEDFtl2MDAKkvrUIiyednZQm6r+a23t167fL
+	 cE7ll7zGwZ1QFMmGXUMHl/hBWRb5VYyTFUtl39q+INQ1s9AM003tQAxvPelIJR9vfv
+	 IfB07xYED4hFeu42PrzmoV0HgBqR1GMkgxENu2gs8q9PXYPs6tdmqYoQ3pl3hYYz9h
+	 vnIs7ODTYzRig==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/4] media: qcom: jpeg: Add Qualcomm JPEG V4L2
+ encoder
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260629121750.3469292-5-atanas.filipov@oss.qualcomm.com>
+References: <20260629121750.3469292-1-atanas.filipov@oss.qualcomm.com>
+ <20260629121750.3469292-5-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 12:46:07 +0000
+Message-Id: <20260629124607.E70B11F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-a733-rtc-v2-6-7b72112784f8@baylibre.com>
-References: <20260629-a733-rtc-v2-0-7b72112784f8@baylibre.com>
-In-Reply-To: <20260629-a733-rtc-v2-0-7b72112784f8@baylibre.com>
-To: Junhui Liu <junhui.liu@pigmoral.tech>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Maxime Ripard <mripard@kernel.org>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- Jerome Brunet <jbrunet@baylibre.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6063; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=5CSoUIy/v6LOzSzkVQ2mOnhu7hJrrhe9yfYnkVNt/3U=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqQmgxq2HH6bfU6XRMG/P3wAg/3/Lz/I6SoI1Mq
- iWTTigZ2J6JAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCakJoMQAKCRDm/A8cN/La
- hSYkD/450bshj2S5XxoAoJje9mK8Hi8e1BZOuGTkYPjAq8k3Um0UbnvoobjUeqO5KH+YrA9LBd3
- x3g9eAg3ArRNrqV0WIvcGJapW4BU7ufAkJj8PAOXZBMMZ19K0p9CakT80ib2+TVC6YblC56I2tX
- pxKBdUNo5F6yFyZoBcyW2lr+b7QPej8EXlFFxq5K9xnAj5kn5QhWkDpIS5f7/ryHonSjS3SGTD8
- PJw6ctyYz27PASy+HNF4tWOSs4s7HPNsGWg1GVHh5wSE8rv/RvZzOupwvTQ06S2IRulgWuNbKIS
- RIIVoxwRijTBSWpdxKMfSCkx1ZTOMs8dQwUwU1xrRbnrPFlizvWyupqXowx/P9yAyqP5UEBhjKZ
- i7c/01awneVW10zbHpE6BK1zR00AFp8dwwx5Mt3VZmPrM1/Yvo3lbWGJyu7KLY7HEhS7RbSV84d
- yUlQOblvMLk9cCNLMMBjBcO+Pp4JK0yj9/h84+y1H7md6hwzJ7qmdktIcWav43hAqTxDDxV/c6y
- 3xcXlLjU4i9DFB5Sbn8iF44HCo2Y+gDMyKw60Vi8/aSZl26yZwRiQUHfxo3rqdMcuTQlIt2Hfd3
- uVqaD8OdMWMzRXUSolpIMWcbe7k26NPJMM54wnMTU0+hB6am9457nSvn38I+unrA/BTVw4j4W4L
- kbQ+TPKhpGhohyQ==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-Add support for the sun60i a733 CCU RTC.
+Thank you for your contribution! Sashiko AI review found 11 potential issue=
+(s) to consider:
+- [Critical] The top-half IRQ handler performs an unprotected MMIO read on =
+a power-managed device without checking pm_runtime_get_if_active().
+- [Critical] The device remove callback unbinds the driver without synchron=
+izing with active M2M jobs, ioctls, or file releases, causing hardware acce=
+sses to unmapped memory.
+- [High] The driver fails to call v4l2_device_unregister() in the remove pa=
+th, permanently leaking the device and m2m context.
+- [High] Bidirectional DMA synchronization on capture buffers mapped as DMA=
+_FROM_DEVICE violates the DMA API.
+- [High] The driver enables vb2_dma_sg_memops but only programs the first S=
+G segment's address into the hardware, causing linear DMA overruns on fragm=
+ented buffers.
+- [High] The driver returns active DMA buffers to userspace on STREAMOFF or=
+ job abort without halting the hardware, risking memory corruption.
+- [High] Missing synchronization between the threaded IRQ handler, workqueu=
+e cancellation, and file release causes Use-After-Free during context teard=
+own.
+- [High] The threaded IRQ handler signals job completion before stopping th=
+e hardware, creating a race where a newly started job is abruptly stopped m=
+id-flight.
+- [Medium] The driver fails to reinitialize the hardware when resuming an a=
+ctive encoding session from system suspend.
+- [Medium] The hardware write limit is set to the full buffer size, but the=
+ start address is advanced by the header size, allowing the hardware to wri=
+te past the end of the allocated DMA buffer.
+- [Low] The driver calls non-existent macros and APIs (kzalloc_obj, v4l2_m2=
+m_suspend, v4l2_m2m_resume), which will cause compilation to fail.
+--
 
-Compared to the a523, this SoC has a different input oscillator divider
-which auto-detects the oscillator rate and select a divider to provide
-a fixed 32768Hz clock. It also provides several phy reference clocks
-with dedicated clock gates.
+commit 86e68a88243e817a1f879ac5131b1a179ec73c9b
+Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Subject: media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
- drivers/clk/sunxi-ng/ccu-sun6i-rtc.c | 74 ++++++++++++++++++++++++++++++++++--
- drivers/clk/sunxi-ng/ccu-sun6i-rtc.h |  2 +-
- 2 files changed, 72 insertions(+), 4 deletions(-)
+This commit introduces a Qualcomm JPEG encoder driver based on the V4L2
+mem2mem framework. It handles format negotiation, queue management, hardware
+initialization, interrupt-driven encoding, and power management integration
+for the SM8250 platform.
 
-diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
-index 25dd87e78eb7..2ec09e346472 100644
---- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
-+++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
-@@ -42,11 +42,16 @@
- #define LOSC_OUT_GATING_REG		0x60
- 
- #define DCXO_CTRL_REG			0x160
-+#define DCXO_CTRL_DCXO_EN		BIT(1)
- #define DCXO_CTRL_CLK16M_RC_EN		BIT(0)
- 
-+#define DCXO_GATING_REG			0x16c
-+
- struct sun6i_rtc_match_data {
- 	bool				have_ext_osc32k		: 1;
- 	bool				have_iosc_calibration	: 1;
-+	bool				have_dcxo_status	: 1;
-+	bool				have_phy_ref_gates	: 1;
- 	bool				rtc_32k_single_parent	: 1;
- 	const struct clk_parent_data	*osc32k_fanout_parents;
- 	u8				osc32k_fanout_nparents;
-@@ -213,7 +218,12 @@ static struct ccu_mux osc32k_clk = {
- 	},
- };
- 
--/* This falls back to the global name for fwnodes without a named reference. */
-+/*
-+ * This falls back to the global name for fwnodes without a named reference.
-+ * NOTE: osc24M name might be misleading the oscillator could also be a 26MHz
-+ * or a 19.2MHz one starting with the a733. The original name is kept anyway
-+ * in case anything is relying on it.
-+ */
- static const struct clk_parent_data osc24M[] = {
- 	{ .fw_name = "hosc", .name = "osc24M" }
- };
-@@ -227,8 +237,28 @@ static struct clk_fixed_factor osc24M_32k_div_clk = {
- 					    0),
- };
- 
--static SUNXI_CCU_GATE_HW(osc24M_32k_clk, "osc24M-32k", &osc24M_32k_div_clk.hw,
--			 LOSC_OUT_GATING_REG, BIT(16), 0);
-+static struct clk_div_table osc24M_32k_div_a733_table[] = {
-+	{ .val = 0, .div = 732 },
-+	{ .val = 1, .div = 586 },
-+	{ .val = 2, .div = 793 },
-+	{ .val = 3, .div = 732 },
-+	{ /* Sentinel */ },
-+};
-+
-+static struct ccu_div osc24M_32k_div_a733_clk = {
-+	.enable = BIT(1),
-+	.div	= _SUNXI_CCU_DIV_TABLE(14, 2, osc24M_32k_div_a733_table),
-+	.common	= {
-+		.reg		= DCXO_CTRL_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_DATA("osc24M-32k-div",
-+							   osc24M,
-+							   &ccu_rodiv_ops,
-+							   0),
-+	},
-+};
-+
-+static SUNXI_CCU_GATE(osc24M_32k_clk, "osc24M-32k", "osc24M-32k-div",
-+		      LOSC_OUT_GATING_REG, BIT(16), 0);
- 
- static const struct clk_hw *rtc_32k_parents[] = {
- 	&osc32k_clk.common.hw,
-@@ -267,6 +297,15 @@ static struct ccu_mux osc32k_fanout_clk = {
- 	},
- };
- 
-+static SUNXI_CCU_GATE_FW(hosc_serdes1_clk, "hosc-serdes1", "hosc",
-+		      DCXO_GATING_REG, BIT(5), 0);
-+static SUNXI_CCU_GATE_FW(hosc_serdes0_clk, "hosc-serdes0", "hosc",
-+		      DCXO_GATING_REG, BIT(4), 0);
-+static SUNXI_CCU_GATE_FW(hosc_hdmi_clk, "hosc-hdmi", "hosc",
-+		      DCXO_GATING_REG, BIT(1), 0);
-+static SUNXI_CCU_GATE_FW(hosc_ufs_clk, "hosc-ufs", "hosc",
-+		      DCXO_GATING_REG, BIT(0), 0);
-+
- static struct ccu_common *sun6i_rtc_ccu_clks[] = {
- 	&iosc_clk,
- 	&iosc_32k_clk,
-@@ -275,6 +314,11 @@ static struct ccu_common *sun6i_rtc_ccu_clks[] = {
- 	&osc24M_32k_clk.common,
- 	&rtc_32k_clk.common,
- 	&osc32k_fanout_clk.common,
-+	&osc24M_32k_div_a733_clk.common,
-+	&hosc_serdes1_clk.common,
-+	&hosc_serdes0_clk.common,
-+	&hosc_hdmi_clk.common,
-+	&hosc_ufs_clk.common,
- };
- 
- static struct clk_hw_onecell_data sun6i_rtc_ccu_hw_clks = {
-@@ -288,6 +332,10 @@ static struct clk_hw_onecell_data sun6i_rtc_ccu_hw_clks = {
- 		[CLK_OSC24M_32K]	= &osc24M_32k_clk.common.hw,
- 		[CLK_RTC_32K]		= &rtc_32k_clk.common.hw,
- 		[CLK_OSC24M_32K_DIV]	= &osc24M_32k_div_clk.hw,
-+		[CLK_HOSC_UFS]		= &hosc_ufs_clk.common.hw,
-+		[CLK_HOSC_HDMI]		= &hosc_hdmi_clk.common.hw,
-+		[CLK_HOSC_SERDES0]	= &hosc_serdes0_clk.common.hw,
-+		[CLK_HOSC_SERDES1]	= &hosc_serdes1_clk.common.hw,
- 	},
- };
- 
-@@ -330,6 +378,15 @@ static const struct sun6i_rtc_match_data sun55i_a523_rtc_ccu_data = {
- 	.osc32k_fanout_nparents	= ARRAY_SIZE(sun50i_r329_osc32k_fanout_parents),
- };
- 
-+static const struct sun6i_rtc_match_data sun60i_a733_rtc_ccu_data = {
-+	.have_ext_osc32k	= true,
-+	.have_iosc_calibration	= true,
-+	.have_dcxo_status	= true,
-+	.have_phy_ref_gates	= true,
-+	.osc32k_fanout_parents	= sun50i_r329_osc32k_fanout_parents,
-+	.osc32k_fanout_nparents	= ARRAY_SIZE(sun50i_r329_osc32k_fanout_parents),
-+};
-+
- static const struct of_device_id sun6i_rtc_ccu_match[] = {
- 	{
- 		.compatible	= "allwinner,sun50i-h616-rtc",
-@@ -343,6 +400,10 @@ static const struct of_device_id sun6i_rtc_ccu_match[] = {
- 		.compatible	= "allwinner,sun55i-a523-rtc",
- 		.data		= &sun55i_a523_rtc_ccu_data,
- 	},
-+	{
-+		.compatible	= "allwinner,sun60i-a733-rtc",
-+		.data		= &sun60i_a733_rtc_ccu_data,
-+	},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, sun6i_rtc_ccu_match);
-@@ -375,6 +436,13 @@ int sun6i_rtc_ccu_probe(struct device *dev, void __iomem *reg)
- 	osc32k_fanout_init_data.parent_data = data->osc32k_fanout_parents;
- 	osc32k_fanout_init_data.num_parents = data->osc32k_fanout_nparents;
- 
-+	if (data->have_dcxo_status)
-+		sun6i_rtc_ccu_hw_clks.hws[CLK_OSC24M_32K_DIV] =
-+			&osc24M_32k_div_a733_clk.common.hw;
-+
-+	if (!data->have_phy_ref_gates)
-+		sun6i_rtc_ccu_hw_clks.num = CLK_OSC24M_32K_DIV + 1;
-+
- 	return devm_sunxi_ccu_probe(dev, reg, &sun6i_rtc_ccu_desc);
- }
- 
-diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
-index ab7b92b47f59..4f4f4cb00f1d 100644
---- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
-+++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
-@@ -11,6 +11,6 @@
- #define CLK_RTC_32K		6
- #define CLK_OSC24M_32K_DIV	7
- 
--#define CLK_NUMBER		(CLK_OSC24M_32K_DIV + 1)
-+#define CLK_NUMBER		(CLK_HOSC_SERDES1 + 1)
- 
- #endif /* _CCU_SUN6I_RTC_H */
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c b/drivers/m=
+edia/platform/qcom/jpeg/qcom_jenc_dev.c
+> index c3573853f24ad..0000000000000
+> --- a/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c
+> @@ -152,6 +152,15 @@ static int qcom_jpeg_pm_resume(struct device *dev)
+>  {
+>  	struct qcom_jenc_dev *jenc =3D dev_get_drvdata(dev);
+>  	int rc;
+> =20
+>  	rc =3D qcom_jpeg_icc_on(jenc);
+>  	if (rc)
+>  		return rc;
+> =20
+>  	rc =3D qcom_jpeg_clk_on(jenc);
 
--- 
-2.47.3
+[Severity: Medium]
+Does the hardware need to be reinitialized after power loss? During suspend,
+the hardware is forcefully powered down and loses internal register state.
+This resume path restores clocks but skips the jpeg_init hardware reset
+sequence, which might leave the hardware in an uninitialized state for
+subsequent encode jobs.
 
+>  	if (rc) {
+>  		qcom_jpeg_icc_off(jenc);
+>  		return rc;
+>  	}
+> =20
+>  	return 0;
+>  }
+> =20
+>  static int qcom_jpeg_suspend(struct device *dev)
+>  {
+>  	struct qcom_jenc_dev *jenc =3D dev_get_drvdata(dev);
+>  	int rc;
+> =20
+>  	v4l2_m2m_suspend(jenc->m2m_dev);
+
+[Severity: Low]
+Is this calling an out-of-tree macro? The v4l2_m2m_suspend and
+v4l2_m2m_resume APIs do not appear to exist in the standard Linux kernel and
+will cause compilation to fail.
+
+> =20
+>  	rc =3D pm_runtime_force_suspend(dev);
+>  	if (rc)
+>  		v4l2_m2m_resume(jenc->m2m_dev);
+> =20
+>  	return rc;
+>  }
+
+[ ... ]
+
+>  static int qcom_jpeg_probe(struct platform_device *pdev)
+>  {
+>  	const struct qcom_dev_resources *res;
+>  	struct qcom_jenc_dev *jenc;
+>  	int rc;
+> =20
+>  	jenc =3D kzalloc_obj(*jenc, GFP_KERNEL);
+
+[Severity: Low]
+Does kzalloc_obj exist in the upstream kernel? It appears to be an undefined
+macro which will cause compilation to fail.
+
+>  	if (!jenc)
+>  		return -ENOMEM;
+
+[ ... ]
+
+>  static void qcom_jpeg_remove(struct platform_device *pdev)
+>  {
+>  	struct qcom_jenc_dev *jenc =3D platform_get_drvdata(pdev);
+> =20
+>  	/* v4l2_device_unregister() is called from the release callback. */
+>  	qcom_jpeg_v4l2_unregister(jenc);
+> =20
+>  	dev_dbg(jenc->dev, "Qualcomm JPEG encoder deregistered\n");
+>  }
+
+[Severity: Critical]
+Does this remove function properly synchronize with active hardware? If an
+encode job is running or a file descriptor remains open when the module is
+unloaded, devres will automatically unmap the hardware registers. When the
+file is later closed, fop_jpeg_file_release will call jpeg_deinit and attem=
+pt
+to write to the unmapped registers, leading to a kernel panic. Should this
+explicitly stop M2M jobs and wait for open file descriptors to close?
+
+[Severity: High]
+Is it safe to omit v4l2_device_unregister from the remove path? The comment
+notes it is called from the release callback jenc_v4l2_dev_release, but the
+v4l2_device reference count starts at 1 and is only decremented by
+v4l2_device_unregister. If it is never called here, the refcount will never
+reach zero, permanently leaking the device and m2m context.
+
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c b/drivers/m=
+edia/platform/qcom/jpeg/qcom_jenc_ops.c
+> index a34c87fc59ecd..0000000000000
+> --- a/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c
+> @@ -578,21 +578,22 @@ static irqreturn_t op_jpeg_irq_bot(int irq, void *d=
+ata)
+>  	irq_status =3D READ_ONCE(jenc->pending_irq_status);
+> =20
+>  	irq_mask =3D jenc->res->hw_mask[JMSK_IRQ_STATUS_SESSION_DONE];
+>  	if (jpeg_bits_get(irq_mask, irq_status)) {
+>  		struct jenc_context *ctx;
+> =20
+>  		spin_lock_irqsave(&jenc->hw_lock, flags);
+>  		ctx =3D jenc->actx;
+>  		jenc->actx =3D NULL;
+>  		spin_unlock_irqrestore(&jenc->hw_lock, flags);
+
+[Severity: High]
+Can this race with fop_jpeg_file_release and cause a use-after-free?
+The handler reads jenc->actx and drops the lock. If fop_jpeg_file_release
+runs concurrently immediately after the lock is dropped, it will see
+jenc->actx is NULL, bypass cancellation, and free the context memory. The I=
+RQ
+handler would then access the freed ctx in enc_hw_irq_cb.
+
+> =20
+>  		if (ctx && ctx->bufq[JENC_DST_QUEUE].buff_id >=3D 0) {
+>  			struct qcom_jenc_queue *dq =3D &ctx->bufq[JENC_DST_QUEUE];
+>  			struct qcom_jpeg_buff *frame =3D &dq->buff[dq->buff_id];
+>  			size_t out_size =3D jpeg_io_read(jenc, offs->enc_out_size);
+> =20
+>  			dev_dbg(jenc->dev, "complete idx:%d addr=3D%pad size=3D%zu\n",
+>  				dq->buff_id, &frame->plns[0].dma, out_size);
+> =20
+>  			jenc->enc_hw_irq_cb(ctx, VB2_BUF_STATE_DONE,
+>  					    out_size + ctx->hdr_cache.size);
+>  		}
+> =20
+>  		jpeg_stop(jenc);
+>  	}
+
+[Severity: High]
+Does signalling completion before stopping the hardware introduce a race
+condition? The enc_hw_irq_cb callback signals v4l2_m2m_job_finish, which
+can instantly trigger the V4L2 framework to run the next queued job on
+another CPU. If the new job starts the hardware, this subsequent jpeg_stop
+call could erroneously halt the newly started job mid-flight.
+
+[ ... ]
+
+> @@ -641,12 +641,13 @@ static int jpeg_apply_we_addr(struct jenc_context *=
+ectx, struct qcom_jenc_queue *q,
+>  	mutex_unlock(&ectx->quality_mutex);
+> =20
+>  	/*
+>  	 * Invalidate stale CPU cache lines before writing the JPEG header
+>  	 * with the CPU into the destination buffer.
+>  	 */
+>  	jpeg_sync_sg(jenc->dev, frame, DMA_BIDIRECTIONAL, false);
+
+[Severity: High]
+Does using DMA_BIDIRECTIONAL here violate the DMA API? The destination
+capture queue is typically mapped as DMA_FROM_DEVICE. Supplying a direction
+to sync helpers that does not match the original mapping direction leads to
+incorrect cache maintenance operations and potential silent memory corrupti=
+on
+on non-coherent architectures.
+
+> =20
+>  	header_size =3D min_t(size_t, vb->planes[0].length, ectx->hdr_cache.siz=
+e);
+>  	header_size =3D qcom_jenc_header_emit(&ectx->hdr_cache, mptr,
+>  					    (u32)header_size, (u16)q->vf.width,
+>  					    (u16)q->vf.height);
+> =20
+>  	dma +=3D header_size;
+>  	qcom_jenc_dqts_emit(&ectx->hdr_cache, mptr);
+> =20
+>  	/*
+>  	 * Flush CPU writes to the header before handing the buffer to the
+>  	 * hardware DMA engine.
+>  	 */
+>  	jpeg_sync_sg(jenc->dev, frame, DMA_BIDIRECTIONAL, true);
+> =20
+>  	jpeg_io_write(jenc, offs->we.pntr[pln], dma);
+
+[Severity: Medium]
+Could advancing the DMA base address by header_size allow the hardware to
+write past the end of the allocated DMA buffer? The hardware write limit
+is set to the full buffer size (see jpeg_setup_we_size below). By shifting
+the start address forward without reducing the maximum hardware output size
+by the same amount, the allowed write window extends past the end of the
+mapping.
+
+[ ... ]
+
+> @@ -693,12 +693,13 @@ static int jpeg_store_we_next(struct jenc_context *=
+ectx, struct vb2_buffer *vb2)
+>  {
+>  	struct qcom_jenc_queue *q =3D &ectx->bufq[TYPE2QID(vb2->type)];
+>  	struct qcom_jpeg_buff *frame =3D &q->buff[vb2->index];
+>  	struct sg_table *sgt;
+>  	dma_addr_t dma;
+> =20
+>  	sgt =3D vb2_dma_sg_plane_desc(vb2, 0);
+>  	if (!sgt || !sgt->sgl)
+>  		return -EINVAL;
+> =20
+>  	dma =3D sg_dma_address(sgt->sgl);
+
+[Severity: High]
+Will the hardware correctly handle fragmented memory here? The queue is
+configured with vb2_dma_sg_memops, allowing buffers to be physically
+fragmented across multiple scatterlist entries. However, the driver only
+extracts sg_dma_address for the first element. If the buffer is fragmented,
+the hardware will linearly overrun the end of the first segment and corrupt
+adjacent physical memory.
+
+>  	if (!dma)
+>  		return -EINVAL;
+
+[ ... ]
+
+> @@ -711,9 +711,10 @@ static int jpeg_setup_we_size(struct jenc_context *e=
+ctx, struct qcom_jenc_queue
+>  {
+>  	struct qcom_jenc_dev *jenc =3D ectx->jenc;
+>  	const struct qcom_jpeg_reg_offs *offs =3D jenc->res->hw_offs;
+>  	struct v4l2_pix_format_mplane *dfmt =3D &q->vf;
+>  	u8 pln;
+> =20
+>  	for (pln =3D 0; pln < QCOM_JPEG_MAX_PLANES; pln++)
+>  		jpeg_rw_bits(jenc, offs->we.stride[pln], JMSK_PLNS_WR_STRIDE, 0);
+> =20
+>  	jpeg_io_write(jenc, offs->we.bsize[0], dfmt->plane_fmt[0].sizeimage);
+
+(Related to the DMA bounds observation above: the hardware maximum bound is
+set to the full sizeimage without taking the header offset into account).
+
+[ ... ]
+
+> @@ -1016,13 +1016,14 @@ static irqreturn_t op_jpeg_irq_top(int irq, void =
+*data)
+>  {
+>  	struct qcom_jenc_dev *jenc =3D data;
+>  	const struct qcom_jpeg_reg_offs *offs =3D jenc->res->hw_offs;
+>  	unsigned long flags;
+>  	u32 irq_status;
+>  	u32 irq_mask;
+> =20
+>  	spin_lock_irqsave(&jenc->hw_lock, flags);
+> =20
+>  	irq_status =3D jpeg_io_read(jenc, offs->int_status);
+
+[Severity: Critical]
+Is it possible for this interrupt handler to run while the device is
+suspended? This accesses the int_status hardware register without using
+pm_runtime_get_if_active to verify that the power domain and clocks are
+enabled. If a spurious or delayed interrupt fires while suspended, this
+access will cause a fatal bus hang.
+
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c b/drivers/=
+media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+> index 20f698f77acfe..0000000000000
+> --- a/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+> @@ -835,13 +835,14 @@ static const struct vb2_ops qcom_jpeg_v4l2_vb2_ops =
+=3D {
+>  	.stop_streaming		=3D bop_jpeg_vb2_stop_streaming,
+>  };
+> =20
+>  static void mop_jpeg_m2m_job_abort(void *priv)
+>  {
+>  	struct jenc_context *ectx =3D priv;
+>  	struct qcom_jenc_dev *jenc =3D ectx->jenc;
+> =20
+>  	mutex_lock(&jenc->dev_mutex);
+> =20
+>  	jpeg_v4l2_work_stop(ectx, VB2_BUF_STATE_ERROR);
+> =20
+>  	mutex_unlock(&jenc->dev_mutex);
+>  }
+
+[Severity: High]
+Does this abort sequence correctly stop the executing hardware? The
+jpeg_v4l2_work_stop function systematically unqueues all buffers and returns
+them to userspace, but the driver never sends a stop command to the hardwar=
+e.
+The executing hardware context could continue running asynchronously and DMA
+encoded data into buffers that have already been returned to userspace.
+
+[ ... ]
+
+> @@ -996,10 +996,11 @@ static int jpeg_v4l2_init_queue(void *priv, struct =
+vb2_queue *sq, struct vb2_queue
+> =20
+>  	sq->drv_priv		=3D ectx;
+>  	sq->dev			=3D ectx->dev;
+>  	sq->type		=3D V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
+>  	sq->io_modes		=3D VB2_MMAP | VB2_DMABUF | VB2_USERPTR;
+>  	sq->buf_struct_size	=3D sizeof(struct v4l2_m2m_buffer);
+>  	sq->ops			=3D &qcom_jpeg_v4l2_vb2_ops;
+>  	sq->mem_ops		=3D &vb2_dma_sg_memops;
+
+(Related to the DMA fragmentation observation earlier: the queue is explici=
+tly
+configured here to allow scattered memory allocations).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629121750.3469=
+292-1-atanas.filipov@oss.qualcomm.com?part=3D4
