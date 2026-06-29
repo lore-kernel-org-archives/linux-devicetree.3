@@ -1,135 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D8338F62F;
-	Mon, 29 Jun 2026 06:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA1938911B;
+	Mon, 29 Jun 2026 06:50:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782715774; cv=none; b=BE7UgJKEefa+9BoG3LgmyrWxgb/ACXarn26bFneVW3VRHCdFcqlMkKAxuDcrx9K1NuF60l7kw2WzYWiUwla+npicN8C4/cDErUm8IPnGdFfHeJGqIY59FZ7nSd/AnkJXYnwDYilQnW2IbBLpJdaQvB7pmwajDeH3WX7AZznj7rA=
+	t=1782715810; cv=none; b=TJxaLSQhktJk1JoMKwYAGwsoag3iURjdLhmWW+mcbWvM5zWIZs9Qlvu04O1/LdDdjOQxhdgM4aCN+aI1dLqs/LTQR5hdjZLg1TLNeLjPeCZZGiab8v8xm8mAxtXmUU/duqJfeVRCdRfq4mhE2WDWtmdv6AD6rhhdcYvtD5wsL+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782715774; c=relaxed/simple;
-	bh=nBvnhkraAlhGHXXmcPBOJhkaZz0VzUTiD+ls+OA6G2k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O7IN9kS3OQfxJdMUbRED74rR2C873dz51DA5ILOu1fMxi8zB8eJaa28q+1J+2RTkWkYJuZk5XSthXqofeTXDFM8r/YRNujRIJMGbJC/L7/9EDtv8qZsontVjftB22ikqdnU+GvwEdcdCcjHDEQDwYlQZ5Z7ZZH6vFXTb07uhzq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SSwEZKs8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1782715810; c=relaxed/simple;
+	bh=2PUIEsCAAuuZf89di6vgXYkaxF4f1h54dt+Xdr4q1Hg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZZcgtKiupPqeVDHBN+ltNBTA1PLON5emTTFqpz+3Mw6Xa7r97uuCp9Mrw4eArwBEXLA4EOWhHumTjIg7d1kMTDjtzjAvs8RyFX+SYjgOKNpPdmiNEUk1w5UGB2cUgE0tzUj43XSKwD0MMbPoQtIrtwRUybVT/CRxbS+N0HEvHUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OJoESfbZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SSwEZKs8"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 12AC0C4AF0F;
-	Mon, 29 Jun 2026 06:49:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782715774;
-	bh=nBvnhkraAlhGHXXmcPBOJhkaZz0VzUTiD+ls+OA6G2k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=SSwEZKs83e6+QTrEKzagUVnFW/IOgcDcpy+iaAn1t081H8LzVxAcJzQf35og+tL70
-	 om6TdRvoHWlIclhSpcSzpW2NmEb2AqkOG+Z8LVYS/pf7FL26td+/RevoGfni8M9Zk+
-	 SFjmLdCRSonP/rLpeMecLhVDMK9uWgivKQeEKmb/aVe6VcRKg/4VE/62gqBoP102FI
-	 BM9AOskNHU3MNvLb100K9x5Jju0jQuU9P9dtNryzcziwvh7Rd5cr0pyoCAPmh4tmEC
-	 7kqIqTsgVheFudAo4TobAubW4RI2qufprx8wJzezum3MB2PyHR1CO+IEhlXYD+Y1DD
-	 WpoXAV+9Kr7XA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0EA1C44500;
-	Mon, 29 Jun 2026 06:49:33 +0000 (UTC)
-From: Yu-Che Hsieh via B4 Relay <devnull+yc_hsieh.aspeedtech.com@kernel.org>
-Date: Mon, 29 Jun 2026 14:49:00 +0800
-Subject: [PATCH 3/4] dt-bindings: ipmi: Add optional LPC properties to
- ASPEED BT devices
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OJoESfbZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC1A1F000E9;
+	Mon, 29 Jun 2026 06:50:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782715809;
+	bh=hKkyiI/yiTP7cDIO4RjTJ77BW4c8hbO3ztakDA5/1iw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OJoESfbZdO83HNh7oKMhYGdqPfgIf1wHRDiEo4WkmviQ+4zoYRgCN6vF3DeNkWYf+
+	 GldlaWWMZEpb7U7+EZri1NmLJdb4AXLucWpp7KC54QzO4GM8kw9fqQa+2TURqLvNww
+	 yRHCpqjTe9osQmWa1xkn+OEpLj7Gt01cRFS1SsSoQkugVb0vd1msS3JmZPtk2CjMZy
+	 zSC9G16OjzDms4saM/0PiXkw0UAFpgHgbcpuJFBapeMceMXuRYj0/h02jv9DPPrFvf
+	 XdHYwuso1WWzT3CGcvCdDVrb7en/g0GetjF5hPFiRtTdQgZPAMe5l9pEMOU1vbPsv8
+	 zOBromKNtxIWA==
+Date: Mon, 29 Jun 2026 08:50:00 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Lorenzo Bianconi <lorenzo@kernel.org>, Christian Marangi <ansuelsmth@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Benjamin Larsson <benjamin.larsson@genexis.eu>, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, Markus Gothe <markus.gothe@genexis.eu>, 
+	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+Subject: Re: [PATCH v6 15/17] pinctrl: airoha: add support of en7523 SoC
+Message-ID: <20260629-ambrosial-ambitious-jackrabbit-821d2b@quoll>
+References: <20260628143733.273651-1-mikhail.kshevetskiy@iopsys.eu>
+ <20260628143733.273651-16-mikhail.kshevetskiy@iopsys.eu>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-aspeed-bt-bmc-multichannel-v1-3-fc23ee337f7a@aspeedtech.com>
-References: <20260629-aspeed-bt-bmc-multichannel-v1-0-fc23ee337f7a@aspeedtech.com>
-In-Reply-To: <20260629-aspeed-bt-bmc-multichannel-v1-0-fc23ee337f7a@aspeedtech.com>
-To: Corey Minyard <corey@minyard.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782715772; l=2189;
- i=yc_hsieh@aspeedtech.com; s=20260629; h=from:subject:message-id;
- bh=z+ycFWmOaDIg3MLyJDHKU8ALQWWy3TelygSh1S01hYI=;
- b=2Z9HfF4G2QEiNPdhd3fE4XoWv99voNdrQ8WCW9S6YS9YMCZkCHI4FWveW74mN6CgGvTdjwiDC
- DSvofFpp5H7Dr21dT5wgMlRNWm301BGtmyyzOF1GLUFzkHN5ot/asz7
-X-Developer-Key: i=yc_hsieh@aspeedtech.com; a=ed25519;
- pk=kLxUeF7g6teciq79it9N3tYNgp3yCspZ+AHlYSnZ0gs=
-X-Endpoint-Received: by B4 Relay for yc_hsieh@aspeedtech.com/20260629 with
- auth_id=844
-X-Original-From: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
-Reply-To: yc_hsieh@aspeedtech.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260628143733.273651-16-mikhail.kshevetskiy@iopsys.eu>
 
-From: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
+On Sun, Jun 28, 2026 at 05:37:31PM +0300, Mikhail Kshevetskiy wrote:
+> This patch adds support of Airoha en7523 SoC pin controller.
+> Also it adds corresponding device tree binding schema.
+> 
+> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+> ---
+>  .../pinctrl/airoha,en7523-pinctrl.yaml        |  375 ++++++
+>  drivers/pinctrl/airoha/Kconfig                |    6 +
+>  drivers/pinctrl/airoha/Makefile               |    1 +
+>  drivers/pinctrl/airoha/pinctrl-en7523.c       | 1124 +++++++++++++++++
 
-Allocating IO and IRQ resources to LPC devices is in-theory an operation
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
 
-for the host, however ASPEED systems describe these resources through
 
-BMC-internal configuration, as already supported by the ASPEED KCS BMC
+> +    pinctrl {
+> +      compatible = "airoha,en7521-pinctrl";
 
-binding.
+Wrong compatible.
 
-Add aspeed,lpc-io-reg and aspeed,lpc-interrupts to the ASPEED BT BMC
-
-binding so firmware can describe the host LPC IO address and SerIRQ
-
-configuration using the same properties as KCS devices.
-
-Signed-off-by: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
----
- .../bindings/ipmi/aspeed,ast2400-ibt-bmc.yaml       | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-ibt-bmc.yaml b/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-ibt-bmc.yaml
-index c4f7cdbbe16b..1803c6bbae93 100644
---- a/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-ibt-bmc.yaml
-+++ b/Documentation/devicetree/bindings/ipmi/aspeed,ast2400-ibt-bmc.yaml
-@@ -25,6 +25,24 @@ properties:
-   interrupts:
-     maxItems: 1
- 
-+  aspeed,lpc-io-reg:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    maxItems: 1
-+    description: |
-+      The host CPU LPC IO address for the BT device.
-+
-+  aspeed,lpc-interrupts:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    minItems: 2
-+    maxItems: 2
-+    description: |
-+      A 2-cell property expressing the LPC SerIRQ number and the interrupt
-+      level/sense encoding (specified in the standard fashion).
-+
-+      Note that the generated interrupt is issued from the BMC to the host, and
-+      thus the target interrupt controller is not captured by the BMC's
-+      devicetree.
-+
- required:
-   - compatible
-   - reg
-@@ -35,10 +53,13 @@ additionalProperties: false
- examples:
-   - |
-     #include <dt-bindings/clock/aspeed-clock.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
- 
-     bt@1e789140 {
-         compatible = "aspeed,ast2400-ibt-bmc";
-         reg = <0x1e789140 0x18>;
-         interrupts = <8>;
-         clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
-+        aspeed,lpc-io-reg = <0xe4>;
-+        aspeed,lpc-interrupts = <10 IRQ_TYPE_LEVEL_LOW>;
-     };
-
--- 
-2.34.1
-
+> +
+> +      interrupt-parent = <&gic>;
+> +      interrupts = <GIC_SPI 26 IRQ_TYPE_LEVEL_HIGH>;
 
