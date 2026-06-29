@@ -1,277 +1,169 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10022389DE8;
-	Mon, 29 Jun 2026 05:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F91CBA45
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 05:35:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782711125; cv=none; b=JB+mSvOiLRHpp2pptz0YRQqdVjPh1mnNXJUfG7WxuizgrwRKrcMHLAxeuw877OAgKKn5Et3aGz69p6sH/Lfa165fdul7XnpD5tRRllvoXS+7US5WiB/DDzLLgWOsXQXCd5/MS2smjEtHsNqI3hrF5nY9Onm4MCU+JITElJbK6mQ=
+	t=1782711328; cv=none; b=fhFKZanTOTTh43ponazZVRKSoGiXexX5kN3/FHylF57u8xzeqKTEcXM9KyxmsLQCdRUhoB9pkzfB/JY9jO7fTMBfCTuF0j4B657R1M/BKXeIERrB0Uow0EPjknt664S4vcwcXGtj1lE9rtYHSwRry443ucq/9P3m9MltYUD0e+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782711125; c=relaxed/simple;
-	bh=B8jBVRrAilY147UoMA1kmSEcJfkXMKy3BW9dVE6ORY0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e7FcNHn6y7iKhviCdxZ0Bcm0rFxoY7G2YVA/7pERIA9A2yhczfBKY9z9gNEJAPBrMCkH0Txe3c8C4TkWwQT++YHC3gqiSzXYwlet3TAL53JC3IEQ0CgBkRkw8TG4P0XUGlcCqPbiaC0grS1b7BE+IO2Z6sN1sfYcNWTQLxzXI78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.182])
-	by APP-05 (Coremail) with SMTP id zQCowABXrdBCA0JqknDpFQ--.43857S2;
-	Mon, 29 Jun 2026 13:31:47 +0800 (CST)
-Message-ID: <80ae28925a67b7bee3b8873db3c113111437e717.camel@iscas.ac.cn>
-Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
- for single-output variants
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, Conor Dooley
- <conor.dooley@microchip.com>
-Cc: Conor Dooley <conor@kernel.org>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- ychuang3@nuvoton.com, 	schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, 	devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org
-Date: Mon, 29 Jun 2026 13:31:46 +0800
-In-Reply-To: <b3b7a0f8-93a8-4965-a2f3-3ca1552a25d6@gmail.com>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
-	 <20260625094449.708386-2-a0987203069@gmail.com>
-	 <20260625-bobbing-annotate-d1c4d6874ee2@spud>
-	 <e3fe23ddbc504879bd797bbaa595d3653fa139ff.camel@iscas.ac.cn>
-	 <20260626-astrology-mural-853d3860e048@wendy>
-	 <c0731801729713d35f97bec40ebc21cef31b72b5.camel@iscas.ac.cn>
-	 <20260626-everybody-epilogue-8fb298a54981@wendy>
-	 <9456bde5059bea3aac1ed64355e3f017dd9bd3e5.camel@iscas.ac.cn>
-	 <b3b7a0f8-93a8-4965-a2f3-3ca1552a25d6@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1782711328; c=relaxed/simple;
+	bh=PxaZIWbiRfKq/pjVX+fFLjPVwm6NqZ+lpXwCPgCITwc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rGeXTCh/SnusccOS9vsXD6MaQIz8QOs2pCIh4T69r8QVecYk0de9sWXw3LEdJ7avE7FKh7KH3FJcUJVnkmIlfrWEJJX3yM48NXuZdBJt4NCnGf6+S5OrjKJifOnZlwLTpjr3Imv0MYBRBMvYaR0jnv2Vkc6dRHdSwIIxk1BsoNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KNmSRr8j; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MXRDL7VU; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KNmSRr8j";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MXRDL7VU"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65T4NUOw1738486
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 05:35:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	G1lNe0N0L5HORX8OGtk2WAQHROy/AL8D/HxbtZeZ3jI=; b=KNmSRr8jY3dvNKh3
+	QchGfbWF8eYecE1ett6kxRFC87AZgyrSSM7IKlUNLDzVGdIAkeqhHwl6zq4V6qEb
+	X/EdM1i0wfE1vLdNlBfnYS8RcRUMradtuhGiFZjhOvCwsa+gMQHuXqMfBmMaC0w+
+	aBhbq2m1OpWhe4Gu0X6iLRNMgZpAqrUMDYllsDm8zsO61QCUlnZ4R/ly+iBO+lmG
+	DFZJlbExf0Yd0fd69hT1syZEd/pA6Oxl3Nc4isJXKQx7FVcY7dloHvhMAIN4ji4b
+	EAJH0rJonnIuuSHUrpwZ1b7L9Xr6pwZdLl/DkCtAliDYfvOhGrJdPj4yUdh17gC1
+	Ig51aw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f279cmjjn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 05:35:23 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-36d97a4e08fso2117330a91.0
+        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 22:35:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782711323; x=1783316123; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=G1lNe0N0L5HORX8OGtk2WAQHROy/AL8D/HxbtZeZ3jI=;
+        b=MXRDL7VUn0zW2sXv/IWJCmmDIhhwZcHReVoJVm5bALWcvv3JvS3gK9BtPg0BsVq/9G
+         CGwEV8QFuXfKL/EKglTR5wo5JJdgFh/CX9aK6CqawHYrZ8QYOEIKoKJ5GnSqGMa/v+mh
+         0PPQnUeuRPGsagLhfYu8iUh3xd3HPrleSjkj0zjCnu99x4bSQOVw85vcMiwu5er/sMGl
+         cbYnFDuDQM+uFSbKfMjzKQ067TPrnKFxwwussjy3e9uMglLcrCDt41LQZV9kLHESWxwd
+         i486rWgdBoqiBUBX59uzOoRk60s5z7gAs67ngNh1tMR8v8lCTB+QroClJtEB+ESKSc/V
+         gGKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782711323; x=1783316123;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=G1lNe0N0L5HORX8OGtk2WAQHROy/AL8D/HxbtZeZ3jI=;
+        b=VgQGcD1FXbzbeuZHrgPy26aYO/0pcslpyV97dd7INQdgsuc9/7bgg6Lu8QH63N6BXZ
+         IZS51oTBDyIWq6KnQ08HTCm27wkxohLYxwZhIr80SktjR09GZchSAVKc671G4VDEj3dZ
+         s8P1WBndlzooX8OhhHs0QNGovstl4lkZec+wpH0NRgW1lSBK57HdkL5Y0YVA0a2KfbI9
+         F6G3wm9T+bfhRZWimH78mYE0/DDT9nco8MZ18Dljo6r3yrgDZHLsH1skXoLlB4M+sqj+
+         2uK5CMExl+OO2tLi4heF4A+U6x12YiLPnYtVHnakIw6hlaRQNCkzKnU9P9RMls8HKMUD
+         oWKA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqr8xKMC2Ns76DmgRUnDizpWXQEdNrc66zuvIEzcmTIx1Rk7K02W/C0muZIfG/EUPXmkzBda96iHNeV@vger.kernel.org
+X-Gm-Message-State: AOJu0YzIuyFUkSdyTA7k7VBB+iCbvwMEJJYuH0MGMd/6+0vZ4NyN7g5e
+	9rzgVC9Lo7jG/VLLnw6SOzDG9B2AE9ot6atVn92PNe2P/XfLjIpXjzFHAoKDQ//Fuwu8CRx2+8q
+	XgJfUnXN/nwoq8C4fhUYAo8mFSAswvllQdtXtEgdkEePtIiZsUM8q9adeOJLHTybE
+X-Gm-Gg: AfdE7cnI6sjzFsC80E05AfWQ1KvauZkC6trlVxCM8AR1yV/jNzGd4El1Vp0Aqfitx+3
+	inZn2rwrmlx5IbFDmY2eVDT+Q8zGbdPvFzDhpcDc47vBdXbIMJAaHIF5yH7uahBq4Bhx6P2vKjU
+	Cg+MpwpeYBYc9jt9C2NyqU9OGQAiMBft2w6WXltvxttcypR+2z8bE5P0v0cNVzABdIieqq3MvvT
+	fWuqJNyaXyhLeeK8tp+8KB8J1SdR1xzWEmdDPkwjlcsX3Bw9lklkdDNJCCfaLLP6wdQ3Jd+LSAY
+	OjZBRm68XiV0CKElWvbYJ8TqlOmojAMCciVhC/nFa7UNRlOHP8BCd3GTpEt9zyxqsIqyvuIjeJc
+	TwIJuYiZ9CJJrSlfs7E5/zpLLEe0nEBiH7ZYW873I6EH5UJtlnA==
+X-Received: by 2002:a17:90b:514f:b0:37f:bfa2:1887 with SMTP id 98e67ed59e1d1-37fbfa21cfemr5617336a91.8.1782711322913;
+        Sun, 28 Jun 2026 22:35:22 -0700 (PDT)
+X-Received: by 2002:a17:90b:514f:b0:37f:bfa2:1887 with SMTP id 98e67ed59e1d1-37fbfa21cfemr5617321a91.8.1782711322477;
+        Sun, 28 Jun 2026 22:35:22 -0700 (PDT)
+Received: from [10.218.21.154] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c9d8bf1f07sm25282945ad.69.2026.06.28.22.35.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 28 Jun 2026 22:35:22 -0700 (PDT)
+Message-ID: <159fe00a-f259-400c-b1e9-7963330bf9f3@oss.qualcomm.com>
+Date: Mon, 29 Jun 2026 11:05:17 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:zQCowABXrdBCA0JqknDpFQ--.43857S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtFyUXFy8tr4UXr1fKw47twb_yoWxXFy3pF
-	ykJFW5JFWkJr1rtr1Utw18JFy2yw1UJw1UXr1kXF17JF4qqF1jgr1jgr1q9Fy8Xr4xGr1j
-	qr4jqry7Zr15AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjxUkX_TUUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 8/8] arm64: defconfig: Enable Qualcomm QAIF and
+ WSA885X-I2C drivers
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260616201315.2565115-1-mohammad.rafi.shaik@oss.qualcomm.com>
+ <20260616201315.2565115-9-mohammad.rafi.shaik@oss.qualcomm.com>
+ <20260622-analytic-pigeon-of-force-bd53c6@quoll>
+ <ebb1c3c7-87ff-4683-bcbd-c088226fc74b@kernel.org>
+Content-Language: en-US
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+In-Reply-To: <ebb1c3c7-87ff-4683-bcbd-c088226fc74b@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=evzvCIpX c=1 sm=1 tr=0 ts=6a42041b cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=1-yt-TcySLUHAD0pDGUA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA0NSBTYWx0ZWRfX8cOTaHlHt3lT
+ qTaU26Dv+CwJLZR/JuIF22niUHhHobIZqv7fLTAQDCPAIutQtBZ1LuAJf+xobOq7fMuwY8TK/+N
+ x12cdipl07cJLhiRpYoeStISPhg7O4c=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA0NSBTYWx0ZWRfX6vle9NsDcpiW
+ 5V5lLPBOm97o5JU7+9IOL8UMipZSuueXNcbyqLomAt/ZT9+aOMnXUbjSz0zuitOt4D9ZGZcStWS
+ w1gaZEaL5ITgchoZ0y6sL/jfkRn/LTSaS1/J7+yD4IRnG4oM7c44mxyia/vTRf9xZajvTQ8a/kn
+ ZS752hqkJZZxUmd4FxCj0yGkWwyY+3mjCvQAUaQgmm5XNi+FG+vZLlk10XSnss/rN51k35kA+vN
+ VhYWSl3BMnOdRZoY9VuTUdhF0dKzBRN3E/Faqh0VIlZfYo4fFROTTQOiX7IVOp3QWh4oa7sKY0E
+ DPBe8de3b5a85oNQzgmidyOQpulip70Ntf1djcTX7TxvCHl02YcL1i5AojUKv9qS5MnRcUh70xM
+ exAlEmr/LuDoNwactcraqn4aimgNwi/7xgCUqPFD6RVtClKSsMTtVWaYdg7m2HTBCEC7b+GIEV2
+ LbeRyRtQfQtSpB7kkqg==
+X-Proofpoint-GUID: Dz6nw0-PR29McO0ETenZOSsBYrUme8FZ
+X-Proofpoint-ORIG-GUID: Dz6nw0-PR29McO0ETenZOSsBYrUme8FZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-29_01,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ malwarescore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290045
 
-=E5=9C=A8 2026-06-29=E4=B8=80=E7=9A=84 11:47 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
->=20
-> On 6/26/2026 5:33 PM, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-06-26=E4=BA=94=E7=9A=84 10:26 +0100=EF=BC=8CConor Dooley=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > On Fri, Jun 26, 2026 at 05:00:35PM +0800, Icenowy Zheng wrote:
-> > > > =E5=9C=A8 2026-06-26=E4=BA=94=E7=9A=84 08:19 +0100=EF=BC=8CConor Do=
-oley=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > On Fri, Jun 26, 2026 at 01:27:21PM +0800, Icenowy Zheng
-> > > > > wrote:
-> > > > > > =E5=9C=A8 2026-06-25=E5=9B=9B=E7=9A=84 17:33 +0100=EF=BC=8CCono=
-r Dooley=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > > > On Thu, Jun 25, 2026 at 05:44:43PM +0800, Joey Lu wrote:
-> > > > > > > > +allOf:
-> > > > > > > > +=C2=A0 - if:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 con=
-tains:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 const: thead,th1520-dc8200
-> > > > > > > > +=C2=A0=C2=A0=C2=A0 then:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 min=
-Items: 5
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 max=
-Items: 5
-> > > > > > > > +
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 min=
-Items: 5
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 max=
-Items: 5
-> > > > > > > All the maxItems here repeat the maximum constraint and
-> > > > > > > do
-> > > > > > > nothing.
-> > > > > > >=20
-> > > > > > > Since you didn't change the minimum constraint at the top
-> > > > > > > level,
-> > > > > > > your
-> > > > > > > minItems also do nothing.
-> > > > > > >=20
-> > > > > > > > +
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 min=
-Items: 3
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 max=
-Items: 3
-> > > > > > > > +
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 min=
-Items: 3
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 max=
-Items: 3
-> > > > > > > > +
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - resets
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - reset-names
-> > > > > > > Both conditional sections have this, but the original
-> > > > > > > binding
-> > > > > > > doesn't
-> > > > > > > require these for the thead device. This is a functional
-> > > > > > > change
-> > > > > > > therefore and shouldn't be in a patch calling itself
-> > > > > > > "generalise
-> > > > > > > for
-> > > > > > > single ended variants".
-> > > > > > Well yes they're required.
-> > > > > >=20
-> > > > > > Should I send a patch adding the `thead,th1520-dc8200` part
-> > > > > > of
-> > > > > > the
-> > > > > > schema?
-> > > > > If you mean the code above, no. Adding a conditional section
-> > > > > when
-> > > > > there's only that compatible doesn't make sense.
-> > > > >=20
-> > > > > What you could do is just add it at the top level though,
-> > > > > which
-> > > > > would
-> > > > > also benefit this patch since it'd not have to be
-> > > > > conditionally
-> > > > > added
-> > > > > for the new nuvoton device.
-> > > > > Just note in your commit message about what the ABI impact of
-> > > > > the
-> > > > > change
-> > > > > to required properties is (effectively nothing because it's
-> > > > > optional
-> > > > > in
-> > > > > the driver and the only user has the properties).
-> > > > Okay, I will craft such a patch and send it.
-> > > >=20
-> > > > > > > > +
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 min=
-Items: 1
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 max=
-Items: 1
-> > > > > > > > +
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ite=
-ms:
-> > > > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 - const: core
-> > > > > > > This is just maxItems: 1.
-> > > > > > Well the implicit rules of DT binding schemas are quite
-> > > > > > weird...
-> > > > > I don't think it is that strange, as the binding has
-> > > > > =C2=A0=C2=A0 reset-names:
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
-> > > > Ah does the list constraint the order of items? If it
-> > > > constrains
-> > > > the
-> > > It does, yes.
-> > > Alternatively, using an enum permits free ordering.
-> > Ah in this case this should be converted to an enum, I think.
-> >=20
-> > Should I send a patch for converting it?
-> >=20
-> > Thanks,
-> > Icenowy
-> Thank you all for the detailed review and discussion, it really
-> helped
-> clarify the right approach.
->=20
-> Since I will supply all four clocks with the same phandle for
-> core/axi/ahb,
-> and only one reset "core" for MA35D1, the ordering constraint in the
-> `items` list is not a problem, "core" is already the first entry.
-> There
-> is no need to convert to an enum.
->=20
-> Regarding the clock situation for the MA35D1: I agree with supplying
-> all
-> four clocks (core, axi, ahb, pix0) in the devicetree, even though the
-> MA35D1 clock controller gates core/axi/ahb with a single bit. The DT
-> will
-> use the same clock phandle for core, axi, and ahb:
->=20
-> =C2=A0=C2=A0 clocks =3D <&clk X>, <&clk X>, <&clk X>, <&pix_clk Y>;
-> =C2=A0=C2=A0 clock-names =3D "core", "axi", "ahb", "pix0";
->=20
-> This correctly models the hardware topology. Since all three names
 
-No, this doesn't correctly model the hardware topology -- this will
-lead to clk_get_rate() return the rate of DC core clock when checking
-the AXI clock rate, which is problematic because both clocks are
-limiting the performance of the DC.
 
-> resolve
-> to the same underlying clock node, the CCF's standard enable
-> refcounting
-> handles the shared gate correctly without any custom implementation
-> needed.
-> I will also revert the change in patch 4/7 that made axi and ahb
-> clocks
-> optional, since they will now always be provided in the devicetree.
->=20
-> Regarding moving `resets` and `reset-names` to the top-level
-> `required:`,
-> I will wait for Icenowy's patch to land before sending v6 to avoid
-> duplicating the work.
+On 6/22/2026 6:49 PM, Krzysztof Kozlowski wrote:
+> On 22/06/2026 15:18, Krzysztof Kozlowski wrote:
+>> On Wed, Jun 17, 2026 at 01:43:15AM +0530, Mohammad Rafi Shaik wrote:
+>>> Enable the QAIF CPU DAI and WSA885X I2C codec as modules in
+>>> arm64 defconfig.
+>>>
+>>> These options are required to exercise the Shikra EVK
+>>
+>> Qualcomm Shikra EVK, but anyway the problem is that:
+>> 	git grep -i "Shikra EVK"
+>> gives me zero results.
+>>
+>> I already commented about this for some other patches.
+>>
+> 
+> And SND_SOC_WSA885X_I2C also does not exist in next-20260619.
+> 
 
-The patch is sent.
+ACK,
 
->=20
-> In v6 I will update patch 1/7 with:
-> - Update the subject to "dt-bindings: display: verisilicon,dc: add
-> =C2=A0=C2=A0 support for nuvoton,ma35d1-dcu"
-> - Lower `clocks`/`clock-names` `minItems` to 4 at the top level
-> - Remove the `thead,th1520-dc8200` conditional block entirely
+Thanks for the feedback,
 
-I think this conditional block will still be needed, because it will
-need to constrain the minItems to ensure all clocks / resets are
-populated.
+will wait till WSA885X driver got Approved.
 
-Thanks,
-Icenowy
+Best Regards,
+Rafi.
 
-> - Keep only the `nuvoton,ma35d1-dcu` conditional block, using only
-> =C2=A0=C2=A0 `maxItems: 4` for clocks/clock-names and `maxItems: 1` for
-> =C2=A0=C2=A0 resets/reset-names to tighten the top-level constraints
->=20
-> BR,
-> Joey
-> > > > order, it partly breaks the intention of having names; if it
-> > > > does
-> > > > not
-> > > > constrain the order, it needs to be clarified that the required
-> > > > 1
-> > > > reset
-> > > > is core instead of the other two.
-> > > Given the discussion we're having on the clocks, I wonder if this
-> > > is
-> > > also an oversimplification and the IP has three resets inputs
-> > > hooked
-> > > up
-> > > to one output of the reset controller (or 3 outputs controlled by
-> > > one
-> > > bit..).
+> Best regards,
+> Krzysztof
 
