@@ -1,203 +1,139 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6CA528CF5D
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:30:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518E835A393
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:31:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782729046; cv=none; b=SdV3SYmx3D1IiBtwSVjXWo2l1hfgt7+WLEjPembCR9gFrffGavsP2G8N4hmVu/VxQoUjYgqPtGUKT9t9VdDmM4moFrV/YEwBRnFtbgx7EG1acHAvVLT37bWd/9E3TKQGWcZ07q4dtArCl5w8aXOUUiEqeR8wli8+S3jWxv6/gf0=
+	t=1782729071; cv=none; b=n6NI1kMKGtC5yWoVftyDg8eINFUICLlQgt0y7x+ZVjGihJi2i1dfXAIvvLzUn8rA2cGsF5+h5mbNSOrQDXFF52QhC9m+0DHaedGWSFLKv9oW5ayPv3nDfXk8lyoFuOuGgmWOk5Vhnbe2rlQOnaqUt38nDOYmzkM22sIJwsbyNlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782729046; c=relaxed/simple;
-	bh=yUpVDpfstUTvBShEWh452166LLBk3hB0rm6F58PzqDw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XmZaNznxOmkNutVYXfrWdJ3Fo5Z996z9m8POdyB/zsPZQntyIAjJQ9ynzg95ax1SzKd9Ylj97SqXsI0Mmn93qAZVEU/oCDMJ1ZvWTOL4SD/fad7LPPGrL5JInKYuxZ6EnY8xCMyRe8AjF2YIuZxle6dO47JjI/iHmVf2zGge1js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AjASJJrQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MzKPjC07; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782729071; c=relaxed/simple;
+	bh=VrWVCz6yhMDpAhIN0NNK0+oJDPYp4a+CihdlOidDzPQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=b6yqWrINJ96w2C89wnLgRFKo58i5LeiJI1GylhgfoozUEgSPNbib+i2tfNR1aRypjgdYjyz7QstvxcTQFvj/M8HLN35ejkvWGLODu5KFsvVDtW32Wuzvc/bhwEiD/uGJSR2Bf523mkEOyGUFSHTfTTmDXY0voiWNxb4rCK7hpxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BG8U8xWk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AjASJJrQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MzKPjC07"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65TASw0V2603482
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:30:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yv3dmN+/b2qLyQGRXAJxgVm9+F8UR7u22dzaZZFmT+0=; b=AjASJJrQfLAXQM+f
-	ZV0sXfYn2I5WKC7JQaI6TjJ9p9mcRhDROQiXBcdi//JioSOmdDaxaDAGUP9hWIIF
-	zpHGwZwz1oVKkiuG6A8sGbdGA+FWkxTwEuqVT2IkgEBHHcYbTXNndYXA0nEL9afP
-	W1IYQtlS9JN9W61NoVE1GzoCi2hNn2wmm6NrmjFLXL7AFYeku8kN2xc9OQNRnjRA
-	qZPMfZNFgRPbVijRwbtxj6p0qKxyW3rPnTApYxEeGfwr5n0qG4UkqvFOev/kyKsC
-	v/1TSnhmYRplztI1FlSmSuh0MjL4ZghnENmfarQNa68f7ZfHL3EBbwIamRoDO6u8
-	YvfpyA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3nq88bra-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:30:43 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51bfd1772d8so1608571cf.1
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 03:30:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782729043; x=1783333843; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yv3dmN+/b2qLyQGRXAJxgVm9+F8UR7u22dzaZZFmT+0=;
-        b=MzKPjC07LuWH5jXKvipr0vFTt0ytL1O8XZTt9TmzHAeZ6h3WrhL1/6jzYggK+mBIgs
-         noNvqAzsJumKpAIv3ZaAtzZ4Jz/f8sJMRgKl/Ee9eM5DoZQPOfGROEo37MxcZFFezUf/
-         5JeygbPPjsPvIqHzQGZOAMeZdAf5A424aIdnzXrQes2siOoCMscMRBox6bDqIXC/431+
-         NCc8K0sN/wf40kUCurryYifpzT4VPQH+nLwFfrsMFJjSs6fq/7QeFy/8xg/1Pu2Wh5zX
-         Zd2As5lM+v/T8sB+7Gqyxb/Q68YimYGWGGFBL58AUzoDqBJBJHVxaCDVdmk9xz6YvNzA
-         UQZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782729043; x=1783333843;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yv3dmN+/b2qLyQGRXAJxgVm9+F8UR7u22dzaZZFmT+0=;
-        b=P1L3N5KvfEZrJsAgWzQKlIkjCDPTvdKXYPb4cdU8vnOZNem22pQ6YQAoCSfcdcQU6Z
-         sIt/1aQlBTSiefjJzl6UyRJ88jQiIoSXQDtM8fJsyEX0bs+q8h0w1iP8C99Vy5fR2LOg
-         M0r3R0ZlTKk16IXd1dMFho1iNoiL1CcIx56FS0SrINZN5kDSKfXEWMDN2JdcM0EhHkFe
-         qz/+MW3BbkUkh421X3k+cmOIX1bV+GJCxM2Pwo0THD4EAqiPKwHR7qSOAoOaWjx8inHz
-         /GnkOfwMTuWqm2kpCMUyDAXSXC9CF682Yewn825f3Jw4Mr/j5utxry3v5tJ1G7140eK7
-         cVFw==
-X-Forwarded-Encrypted: i=1; AFNElJ98DPZv2k/TXaadBOpb9i0xlnmUmE5CJHxSUNzCSw/mp5vEZSeERo2T5yotSQX8VVaw80UAu6XwHYO7@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzbxqmo7q4aQpl7a+T3iUNs/46GxCDCqPQhF4BUcOFioRFSNZIP
-	pv6LJWtS0iCX/M5GSeHog6pKxc6+YZBm1fX0otQR5cLk8Qp55qMr4wlqo+bGsJxJZ32r4q2B35A
-	eIqZ6jCLsYLmSqTyZcFsNbAdxRpggqWWESCksgIiM+i9K36UQZNTLIqUayJRqAqaB
-X-Gm-Gg: AfdE7cnduvF8MEYXq21K4vSWkvIyXShzCHAv/BPyvfACaly+xIYRDtEePzqETDLpwc7
-	96RUm6A+XgI0z/njxHJKmjEMC9s22NXxSZCxvku90/BDAwO3zUMdekSnEIScwI0qJ87c4KzKpvL
-	ctQp/Rpf7X3dP9Hw3j7x7ES3K0msTP6gZOnfiz8p7+4FO2TdIYI1oeKf/UoJz67B0a0SKTnoKQx
-	epyalwo8WGQkSkc+Tew9wPOMKHCrgWzdQcGh52u6l73lIuS1QiPUAc7KlmkHOc8ODb627lEVyVo
-	s65pkIxtMWgNpuCPdB/LQYTmBV6lvdexba4N74VZVNhqvCH0CXtU65uI8B/7ld/VhLyXB4Ac8UY
-	Plal1aYrJW885CJ2xJ6/p0fQQfKjRbJPcsDI=
-X-Received: by 2002:ac8:5f0b:0:b0:51a:8fd2:8ed2 with SMTP id d75a77b69052e-51a8fd2910fmr82101691cf.7.1782729042712;
-        Mon, 29 Jun 2026 03:30:42 -0700 (PDT)
-X-Received: by 2002:ac8:5f0b:0:b0:51a:8fd2:8ed2 with SMTP id d75a77b69052e-51a8fd2910fmr82101141cf.7.1782729041983;
-        Mon, 29 Jun 2026 03:30:41 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c122db5dba3sm481538266b.22.2026.06.29.03.30.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 03:30:41 -0700 (PDT)
-Message-ID: <c6df90d1-bb3f-426f-806b-9f31840126b5@oss.qualcomm.com>
-Date: Mon, 29 Jun 2026 12:30:37 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BG8U8xWk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 894551F000E9;
+	Mon, 29 Jun 2026 10:31:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782729070;
+	bh=P6uBJ8w0bAucCXFNofgNXHTkkFyvbYHjRKKVnRuy738=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BG8U8xWkwcZygZUyxl2MT2fkdxGjjXbA6wkE4uXklHVTkq693ugTdDFOWDbMMv967
+	 furR7gIseOsE9jsVfBd0JF6nNXNa1RN7+HZ+Rqb/zrC11hU93XI2CjE0qI+BTg7z/H
+	 g66GRi7g/KfjHIBKoXixEf+th0aw2Bu6KWFJm4BwIVNMPJ2R7UHYIbmj2SW68xkhQX
+	 iRemeegSJ2YefNkRkk6/ai7WyORLI75oGu3fOYSvqRkqK7TWyu02IYQX47cwHdYzDA
+	 /BAHeRCxaL+jrY3J6gW1kxylww87/UPqggdEyk8wcVUhNDZlvH/5h8wGlaKmDbmxJF
+	 YuxJp6McfdQwA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v17 04/10] arm64: kexec_file: Use
+ crash_prepare_headers() helper to simplify code
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jinjie Ruan" <ruanjinjie@huawei.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260629094746.191843-5-ruanjinjie@huawei.com>
+References: <20260629094746.191843-1-ruanjinjie@huawei.com>
+ <20260629094746.191843-5-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 10:31:09 +0000
+Message-Id: <20260629103109.894551F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/8] clk: qcom: tcsrcc-glymur: Add Mahua QREF regulator
- support
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Taniya Das
- <taniya.das@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, krishna.chundru@oss.qualcomm.com
-References: <20260621-tcsr_qref_0622-v6-0-c939c22ded0c@oss.qualcomm.com>
- <20260621-tcsr_qref_0622-v6-5-c939c22ded0c@oss.qualcomm.com>
- <5f32d4c2-f90d-4f66-96b1-c9c7987ac18e@oss.qualcomm.com>
- <ajkvV28hEWFfnwa6@hu-qianyu-lv.qualcomm.com>
- <cd7619b6-a428-4ad3-9926-52b846953634@oss.qualcomm.com>
- <aj33ujz1m9qYOcRs@hu-qianyu-lv.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <aj33ujz1m9qYOcRs@hu-qianyu-lv.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: zbAY2_JN5bjDGGrgjegs7LnUS6oK5Gqj
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA4NSBTYWx0ZWRfX07nOZ8RvxON5
- FFw7rc7eBakXa9aobFvtMgCqqqzg2TuWa66hdISBQ/lae9+iRBPz0mSfJLBOG3gECwVqq2SgfkD
- i8Mnms3Yiik4vphHNDLYc3ybg7zo2ek=
-X-Proofpoint-ORIG-GUID: zbAY2_JN5bjDGGrgjegs7LnUS6oK5Gqj
-X-Authority-Analysis: v=2.4 cv=PqSjqQM3 c=1 sm=1 tr=0 ts=6a424953 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=nIBEM5H7OJN-vwckHmUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA4NSBTYWx0ZWRfX8h7sGPkEtKwr
- Ezylb+bffiEaBrJBEk3sXyH+w1NVR9b/wVdW+7kCuR6KVnwucjqNUyO8qzU06BVSvzOZZchf+do
- y1mBdocUCflDw89DCYkaROLJApB0k3MwIhu8wFwFn86GpTW4bGRGsfpgy3eM09FEE7j/35kW+M2
- 8ddMhICy4beEDTUcCa5PTl3JrTPkb8wM3W3OBsnGJir0sC/QpYqwHmfbBn1nxKwwMWPDJqil7kZ
- 2Xj8g+stH8VeNpeWiSN6iXY95UhR+pTT47M/vlL8UvijFTEEB6gkWFL3rr7FFM/CvTWpt21G+5f
- 1tFA+dHWpFyJAQBCGIsdCYWAYUsCabr3DtmNSXjP0gziyE3ivtRF0Df9zeLmb0cLhOsTK6lOVlS
- KidXNQPbAXKsQBFXwYBZwapVKjp44BDqIC2oiM3xzlv62piJWzcDQkKtLyHEb3XaIGH7ymAn8DF
- KRs0q3KsuFFXYcpPVzQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-29_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 adultscore=0 clxscore=1015
- lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606290085
 
-On 6/26/26 5:53 AM, Qiang Yu wrote:
-> On Mon, Jun 22, 2026 at 03:03:39PM +0200, Konrad Dybcio wrote:
->> On 6/22/26 2:49 PM, Qiang Yu wrote:
->>> On Mon, Jun 22, 2026 at 01:35:45PM +0200, Konrad Dybcio wrote:
->>>> On 6/22/26 7:11 AM, Qiang Yu wrote:
->>>>> Mahua is based on Glymur but uses a different QREF topology, requiring
->>>>> distinct regulator lists and clock descriptors for its PCIe clock
->>>>> references.
->>>>>
->>>>> Add mahua-specific regulator arrays and clk descriptor table, and use
->>>>> match_data to select the correct descriptor table per compatible string at
->>>>> probe time.
->>>>>
->>>>> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
->>>>> ---
->>
->> [...]
->>
->>>> You're also missing PCIe_1_CLKREF_EN (+0x48) (for PCIe5)
->>>> which goes through CXO1_>TX->RPT0->RPT1->RPT2->RX2
->>>
->>> I have removed PCIe_1_CLKREF_EN in dts node because PCIe5 PHY doesn't
->>> require QREF. So I didn't provide its structure here.
->>
->> I don't quite get what you mean. I see that it is there in the graph
-> 
-> I double-checked with the HW team — QREF is not required for CXO0. In TCSR
-> HPG, I think the QREF components you are seeing are in an old version
-> diagram, but it says the QREF for CXO0 will be removed. In the updated
-> diagram, PCIe5, USB2_0, USB2_1, USB4_0 and USB4_1 PHYs get refclk directly
-> from CXO0.
-> 
-> In theory, we don't need to vote clkref_en and QREF LDOs for these PHY
-> instances, and I got confirmation from the PCIe HW team for PCIe5 PHY.
-> 
-> I also compared the description of the TCSR_CLKREF_EN register between
-> glymur and mahua on ipcatlog. Unfortunately, only
-> TCSR_USB4_1_CLKREF_EN_USB4_ENABLE is marked as "not in use". I believe
-> this is because these registers are not documented well in ipcatlog.
-> 
-> So I think part of the regulator lists you commented for USB instances is
-> not required, and their dts node also can to be changed to use CXO as
-> refclk instead of TCSR_CLKREF_EN. But the mapping between the USB instance
-> names in the QREF diagram and the TCSR_CLKREF_EN registers is not clear —
-> I cannot find TCSR_USB4_0_CLKREF_EN_USB4_ENABLE, but there is a USB4_0 PHY
-> in the diagram. Can we leave the USB regulator list as NULL or we just
-> add them as it is harmless?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-I believe the internal discussions we had indeed point to the TX/RPT
-elements having been removed somewhere in the chip dev process, so
-the regulators can go, in my understanding.
+Pre-existing issues:
+- [High] A Time-of-Check to Time-of-Use (TOCTOU) race condition in arch_cra=
+sh_populate_cmem() causes a heap buffer overflow in the flexible array cmem=
+->ranges.
+- [High] Memory leak of the vmalloc'd ELF headers buffer in the fallback re=
+try loop of image_load().
+--
 
-As for the refclk toggles themselves, my understanding is that they are
-still meaningful. Although, we should be able to just smoketest that - set
-all of these registers to 0 and see if the related IPs still work normally
+commit 8b7f92744f5c8fa93faeb43fb72b1a59dcc427a4
+Author: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Konrad
+arm64: kexec_file: Use crash_prepare_headers() helper to simplify code
+
+This patch refactors the kexec_file code to use the newly introduced
+crash_prepare_headers() helper, replacing prepare_elf_headers(). It
+implements arch_get_system_nr_ranges() and arch_crash_populate_cmem()
+to traverse memblock ranges and populate crash memory structures.
+
+> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/m=
+achine_kexec_file.c
+> index e31fabed378a5..b019b31df48cb 100644
+> --- a/arch/arm64/kernel/machine_kexec_file.c
+> +++ b/arch/arm64/kernel/machine_kexec_file.c
+
+[ ... ]
+
+> +int arch_crash_populate_cmem(struct crash_mem *cmem)
+> +{
+> +	phys_addr_t start, end;
+> +	u64 i;
+> =20
+> -	cmem->max_nr_ranges =3D nr_ranges;
+> -	cmem->nr_ranges =3D 0;
+>  	for_each_mem_range(i, &start, &end) {
+>  		cmem->ranges[cmem->nr_ranges].start =3D start;
+>  		cmem->ranges[cmem->nr_ranges].end =3D end - 1;
+>  		cmem->nr_ranges++;
+
+[Severity: High]
+This is a pre-existing issue, but is it possible for memory hotplug events
+to add new memblock regions concurrently?
+
+If a concurrent memory hotplug event adds regions between the first
+pass in arch_get_system_nr_ranges() and this second pass in
+arch_crash_populate_cmem(), this loop blindly increments cmem->nr_ranges
+without bounding it against cmem->max_nr_ranges.
+
+Could this lead to an out-of-bounds write to the cmem->ranges array?
+
+>  	}
+> =20
+> -	/* Exclude crashkernel region */
+
+[ ... ]
+
+> @@ -109,7 +93,7 @@ int load_other_segments(struct kimage *image,
+>  	void *headers;
+>  	unsigned long headers_sz;
+>  	if (image->type =3D=3D KEXEC_TYPE_CRASH) {
+> -		ret =3D prepare_elf_headers(&headers, &headers_sz);
+> +		ret =3D crash_prepare_headers(true, &headers, &headers_sz, NULL);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this leak the vmalloc'd
+headers buffer if a subsequent step in load_other_segments() fails?
+
+If a later operation (like placing the initrd or dtb via kexec_add_buffer)
+fails, the function jumps to out_err:
+
+out_err:
+	image->nr_segments =3D orig_segments;
+	kvfree(dtb);
+	return ret;
+
+This doesn't free headers or clear image->elf_headers. The caller,
+image_load(), catches this failure and loops to retry load_other_segments()
+in a new memory hole.=20
+
+On the retry, a new headers buffer is allocated here, overwriting the
+previous pointer in image->elf_headers and permanently leaking the old buff=
+er.
+
+>  		if (ret) {
+>  			pr_err("Preparing elf core header failed\n");
+>  			goto out_err;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629094746.1918=
+43-1-ruanjinjie@huawei.com?part=3D4
