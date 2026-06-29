@@ -1,118 +1,211 @@
-Received: from dd54918.kasserver.com (dd54918.kasserver.com [85.13.167.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011026.outbound.protection.outlook.com [52.101.125.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6253B4EB0;
-	Mon, 29 Jun 2026 08:00:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.13.167.58
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782720023; cv=none; b=UcXwu85HR8wtpwgtwnhd0l7qgxk4MvAFbCYoU8Z8qxQJbHk9ozmZ2mynMpbPCjFjN1V0Vitl+SZNbw1XS2IMtKA9GqLIhxJKZAQlsBFIDR5d9j4XBWl3Bn3sYOWpGl8dzP0rKSsDmuguT7/HWjALJsRobhRmZ+xNtd2/Jg44nkY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782720023; c=relaxed/simple;
-	bh=Mu/vYRPrMM6y78Zq6iLYUkQGJTBkafHpPpDy8E5c9xQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QwXpN5w01tAxYSCXSHl+K451mrYv+WKVW+jwPsH7oVkRAf+0htZc3Atdjg1HEOqA2cHy3uMge37OZq8DmfoL8Z2/fwSJKfuag27fyrfX92wr7Js+eRYyMWf8/Vj4Ze4SvJmd//toQWnz6HoKplIw60mY0GLRa7qfJzIIjP4CrfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=KARO-electronics.de; spf=pass smtp.mailfrom=KARO-electronics.de; dkim=pass (2048-bit key) header.d=karo-electronics.de header.i=@karo-electronics.de header.b=ecw7eren; arc=none smtp.client-ip=85.13.167.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=KARO-electronics.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=KARO-electronics.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC511E2614;
+	Mon, 29 Jun 2026 08:01:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782720090; cv=fail; b=orBcwAENm5g2rPUMfml7CE4r67JjcyRcIO3rjnUxe3wZZn0PsfFfDzvOTDHabRKUjeORCoXbJIxpaRb4/YtROhyVreSooG/pTLbABXhnhLmwT3z3uAPqyBIoWgd4cbAREEVuxCmNwyh+w88IUtub4TrlKuKhYPOGtCTM1GiiMa8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782720090; c=relaxed/simple;
+	bh=1PHGbB1/8HYkSyfDa9S20g2aEkGFtWf0/1h7iDmnsDY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=indh/+0KUt9/l7o486yzGwjV1AiO4s7rRWx/F2UTrp61NDdT9MO+tVrwAGX77kQgfv652AE78l+bQthuoQEXdwkoUA8vOLdfi+35elrcD0IPTQCAABM+B8RsRsDKlHvafbTf/i/DehIulZyIuOM2QYqqz7Mi/IesViVR2FzbUnc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=shposDPR; arc=fail smtp.client-ip=52.101.125.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=karo-electronics.de header.i=@karo-electronics.de header.b="ecw7eren"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=karo-electronics.de;
-	s=kas202603021246; t=1782719411;
-	bh=Qylp1+q58BKXjVYMlUJn3x4tvz3kf67QuXXQvLn3hVQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=ecw7erenvWIYPBx2V7ZPPuTiP0QJvB7JeAWgS4GWnn8/503xZok/8BGzb9DeXRFBc
-	 XeC7jO4MWatNjCHC1ECcBW6XrZdV0OBa382Qs/IVNEJ5dgLX3G92WP+J1ri7YIyWer
-	 dwai6hyb94q6EmVN0GrRTOkeBo/h0lefqhkodnLOH1A79zFz1cvQTTHVYCYQsOCsz1
-	 c62YtKjIwpqQE3i0RhHvCf2yilcCcl4J95W3ejucUfo5okw7f5V89GB8iMAPWRex8x
-	 ZZ1n2IpEQXDTL/6Gfp4KBftpnC4mSJJIA2vDTx0WN8aEMFIQMHm9Gls1wkkKm9TBcP
-	 0b7q1/LHFGtGQ==
-Received: from karo-electronics.de (unknown [89.1.81.74])
-	by dd54918.kasserver.com (Postfix) with ESMTPSA id 8485F7722430;
-	Mon, 29 Jun 2026 09:50:10 +0200 (CEST)
-Date: Mon, 29 Jun 2026 09:50:09 +0200
-From: Lothar =?UTF-8?B?V2HDn21hbm4=?= <LW@KARO-electronics.de>
-To: pankaj.gupta@oss.nxp.com
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank
- Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
- Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- Pankaj Gupta <pankaj.gupta@nxp.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, Frieder Schrempf
- <frieder.schrempf@kontron.de>, kernel test robot <lkp@intel.com>,
- sashiko-bot <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v26 3/7] firmware: imx: add driver for NXP EdgeLock
- Enclave
-Message-ID: <20260629095009.3256f956@karo-electronics.de>
-In-Reply-To: <20260629-imx-se-if-v26-3-146446285744@nxp.com>
-References: <20260629-imx-se-if-v26-0-146446285744@nxp.com>
-	<20260629-imx-se-if-v26-3-146446285744@nxp.com>
-Organization: Ka-Ro electronics GmbH
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="shposDPR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dAH+7aJA+wNdwIXijWTjvO0IBZvqKkcTpuwbOON1aEctroChAd6YV/7bKtxnLZdUXc3TECVQbdYeLL4nWdlO8jS7Op4fW2O4EZ26bnqXNba1fu9+B6Mo6GkliuWW3wYz4/ibxAagdivHI/H8xeqeU6a/+zcThyvDE00oGQLCLiwnSRJVg/7F5R2yl5XMcn9CKENg6p5YAYVsaAoZWV+3PIOUHAZ6qurgR9uyuXZnOvE/1zJcS8S1MRhOD1BlUp5EzloDZz34XSn1cJM7Giqc1O/pZmJ8yrik9lHCzNRxj5tBlw0T7MmC8bP++RXzxSpPLIDH/BM6E74SN16JAE4osA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Fy5iKZwbNIU1su3GXxKFSIkadkiJKPayWEL18UZ7sEU=;
+ b=cBsQpw9/qKKLFBRr82lbGZgPzunpVAik8f+SctdBfxmojcgBS1cFH+wGdKnLPy3mm8dVwwEUeoV08T+DdPwQMgiM84fJ8NmYbRNEcDzY8n4z2QkWKqnI7tRhKhKzAk7WIk79+sfy5zeStP3kEzwOAXHj8PvkQQg0c0IKBF9ALl5hZaB1Ml0CHAJEDjaFzIIyvnaIJYB+O1+FDPWwSAe8zDokbIRkwOLgFl8Qt6C0xRzKWP8J71PkBJHMLdEpreGgLhO++76JUfWfB4evCoM/248L3ZutORcZJ7hyMwtirgnQH7K5r1tongqz2mMw0h15UBXTMc6P8Boe9S7TZ1uVfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Fy5iKZwbNIU1su3GXxKFSIkadkiJKPayWEL18UZ7sEU=;
+ b=shposDPRMlwqVNN1Q3ieKVNqEMrhPD/1UxPGOujbBVk91CERzU3OMt2vtXwuVmAu8w1lU7B6byIHR/ZwIgLBhwdiJjHOkdriAE5aRhZ4/Zlk0WHa6TKIp+JhPiudxh3C7XD6phDel6/FY4og1TygPsQ9zahuRyMIFJ+qvesfRzA=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYCPR01MB8787.jpnprd01.prod.outlook.com (2603:1096:400:18b::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 08:01:26 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 08:01:16 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: biju.das.au <biju.das.au@gmail.com>, Ulf Hansson <ulfh@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	Philipp Zabel <p.zabel@pengutronix.de>, magnus.damm <magnus.damm@gmail.com>
+CC: wsa+renesas <wsa+renesas@sang-engineering.com>,
+	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, biju.das.au
+	<biju.das.au@gmail.com>
+Subject: RE: [PATCH v18 00/12] Add Renesas RZ/G3L SD/eMMC support
+Thread-Topic: [PATCH v18 00/12] Add Renesas RZ/G3L SD/eMMC support
+Thread-Index: AQHdAl+r4yj1HERfHk6QPePkoaHOOLZVNPhQ
+Date: Mon, 29 Jun 2026 08:01:16 +0000
+Message-ID:
+ <TY3PR01MB1134652261EF120BB5B8027DB86E82@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260622155610.184271-1-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260622155610.184271-1-biju.das.jz@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYCPR01MB8787:EE_
+x-ms-office365-filtering-correlation-id: 97f37e9a-23af-4dec-f364-08ded5b49864
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|56012099006|22082099003|11063799006|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ o+cpMlHfdJmvlBD7KRzBUa6/XdpczF6SRuHfACVpU1t71pveJvTxUwtnWreCP/N5bYHnPH/zWEXODp3y4Iou8iqRRkwFnicxHJI/rCkG9hEGK1+oH5ilPPcalDB7vw/gWGe80fR9ySLJIfou02kUpWjlCNjIx9QMFXTYOcnwiomq4rGbwTo69sKpwBi9oRfdQmJO0AlcwrMpgi5uGkzojxSPgdiqx5ZUPv+xvr1LiYAQq/DKRt6UGiYj0LWKGLCTwkS74ejfsRLh77RKPkNCvICUfpTWNOnhptgMGBGhjuzi/Hh0LsjRzHcsV3BF7GdwcEeA+v+MkgUqvz3wTgxknaL9jDts84m1QNZDZjZlsMGSSMdIqEj5/I3zJfKadkpDbi5o+kPZNzgb9tCG/qIA9A99je17pHEtVWkg1evUeYEKzOpuVGgiIzgZ4UR6W8h414VCWQudtcrTeZcuPHYpT1V09P7uG04Irw9yNExdj95uiJlFvjeajmpIJAW9kZsmJvlPotL10tCsWXQNIGqYb3JrqdCkBjfgd/qElmWwzze0XFbIqYNewxHbPT9iii8tazvv+nQ4mAYdmUt2bAQrTDzEydOWiRLRuR34dtAXKeKNmDrIKLl7Te26fvY4Sm9873kmpBrmSLCPubOet583+IuwwT4GdPMBEy5Z/877Zhk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(56012099006)(22082099003)(11063799006)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?tce2dP2iTzrV+YeLIy3CJ1+8sno0qYDneLNgPCIeq7uFg/2Cy3WxFW4zURrX?=
+ =?us-ascii?Q?ikTkxFxN6ehgVpwE0wvpuDJwWdo6vRjN/uk9wM2JGG4jRH8ULk/BIoTTZUv9?=
+ =?us-ascii?Q?nt0yk/sOIYSVM6db6sKHMuD5LNfGc5bz9u+GBwsnu3uSqoHLAM8pZHXAAwz+?=
+ =?us-ascii?Q?kFwiXp0zkW/tMPG9Xc1Ku56rZzLBOMk1ymyqHXNqH4HB3Pn9eXoznXZ4epe7?=
+ =?us-ascii?Q?H8keZtubrRxzRZ0tiCyS2keGvEG2VWGWcbIMLfDKJHmRIlwgJeEtXxDHk+m1?=
+ =?us-ascii?Q?xsR6UZGOsudMCkEaOZtCd/C0Ayni6XSQavrXGdqWWmYpwlLSQH+RFenDjCSz?=
+ =?us-ascii?Q?AmM5HqOPdWB2tfe8RxeNRIpuY5dAMn3U3fexXRHtaBjnwBostINwdhXJBSio?=
+ =?us-ascii?Q?ruE7TVe0iktXMhKNXcl25ru16llOjSnDVUIV8erIgZ4VZh6uJDWDYXWyanS6?=
+ =?us-ascii?Q?Qf/Ik1ikplJEa+m/aR4EoTgxAySYqYyevJp2fCMk3aIif7VUDe0QmKntgEuj?=
+ =?us-ascii?Q?AiGK/i7eDCoTUhe+eSltIlLmLmHaLYZV0Ud1Mu/f4zcPtE2BBbjCRw90FpKj?=
+ =?us-ascii?Q?fCGP2ZVTDefjx6P0YA1iq4snxAVY+q3aK7fdESaagEpHlIiiu/ehAe83vfNr?=
+ =?us-ascii?Q?F6bnFusvstqdYzIjjUrMbnvIgyTjfQS2R0BHWmJHKFdq2N9b6lSlmtpAdsfl?=
+ =?us-ascii?Q?rFVwaCaQRZo+C/Qu7X8FvvExVxwoGMEL+Unkxa3IKzkHZpSgt9NYPWEmDWcI?=
+ =?us-ascii?Q?n/N14QkUTLrULtzfqLhWHUl0dtfd6bD0nmymtgT0/WDhQqrbMARvY0kjlfjH?=
+ =?us-ascii?Q?DrXDZLGXOLRrDn1JegK1y3/kZ07NdAySb8fO4NTlULfEhXgkqMiBIJfjbZUg?=
+ =?us-ascii?Q?8uXPsl4Vl4fzG0qgLaHVEUorzwehO5uqMxdCt6hhph42SWyw0QxXF4B+1Msz?=
+ =?us-ascii?Q?Yb0NhomKMhb/lzOXNaWYs53YBh6wJ5mDW672/cU77OZUwSzeRHwL1Ws/FlKc?=
+ =?us-ascii?Q?e61sPsKMpMHrNXElNYRRa0kRlSHlpmUs0D2HLm1bl9XMEzeJnaWcxi3xEJXd?=
+ =?us-ascii?Q?3tTBKES1QH1JyLqIlnSQ8iQZ+T9hSDX6AJmHZA2QXSejDjxO6qNzUQa3OvmW?=
+ =?us-ascii?Q?WOt4g8qs79K1csZxn8gB/O5EAYXbimyjuESBL/AyB8aRJkzvuu6ALUDxY95L?=
+ =?us-ascii?Q?LGwJPQrnxXSKoOqZXc30bgDzxprPHgvN4yK6P2ndC2heW44QkpBeS6XxrGI6?=
+ =?us-ascii?Q?ot8ROL8Ot0DW4I4BjJXlx+QWLsszLmGMwfT74CHFlYeGdqkuYiKtSeCTH5d1?=
+ =?us-ascii?Q?UeoBXDYQPk65NgUiPZkjvo+FGGcJ0sY985Nk9ciWPJCRYNM1da39ArUUru+3?=
+ =?us-ascii?Q?4Ns/z3nl+LqdHJdM8MbjYQR9Bhk5seZH9seEz2ICtcsNQxsV+Cz5QGA8ErRz?=
+ =?us-ascii?Q?Gy8RaQSDR6uFibDZwzJAQ7cBapcZwu7r/kcy3LVRwRlhHuj5e9LkHDqydCJa?=
+ =?us-ascii?Q?FPAwk9ljOIgYp+sxwtMxaXdvurgJE4TevgYNx6YeEi+iUy7xuk09PZ+uJdX5?=
+ =?us-ascii?Q?itZGraDCipc+0qLjvTVVFQvFYIgcAXas/NiAPH3UH5W5+0QkMvEjb+aXupTe?=
+ =?us-ascii?Q?aXkd7vRy4uWCHKon4lAbMMvSUjwpkfqrKHFDe8e9Loncx6AcIglF2EdQCwcO?=
+ =?us-ascii?Q?efROB76isXUKzDvAlFOUu4D9eLA339RreWRVg8uaO1wCbtcznQAn6ZYdLTxY?=
+ =?us-ascii?Q?qXehDjS1vw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Spamd-Bar: /
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97f37e9a-23af-4dec-f364-08ded5b49864
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jun 2026 08:01:16.0614
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: N66MNUwCwAxpIaeBSVthZ9WCyLZWFQeCz6jzILmYR4g725UM/8gVeeR89rquPHiTnfZcSm6B7Bj+viHu/ag8iUIjxHreKGHZ1bTwVbhqqzw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB8787
 
-Hi,
+Hi Wolfram,
 
-On Mon, 29 Jun 2026 17:51:59 +0530 pankaj.gupta@oss.nxp.com wrote:
-> From: Pankaj Gupta <pankaj.gupta@nxp.com>
+> -----Original Message-----
+> From: Biju <biju.das.au@gmail.com>
+> Sent: 22 June 2026 16:56
+> Subject: [PATCH v18 00/12] Add Renesas RZ/G3L SD/eMMC support
 >=20
-> Add MU-based communication interface for secure enclave.
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 >=20
-> NXP hardware IP(s) for secure-enclaves like Edgelock Enclave(ELE), are
-> embedded in the SoC to support the features like HSM, SHE & V2X, using
-> message based communication interface.
+> RZ/G3L SoC has:
 >=20
-> The secure enclave FW communicates with Linux over single or multiple
-> dedicated messaging unit(MU) based interface(s).
-> Exists on i.MX SoC(s) like i.MX8ULP, i.MX93, i.MX95 etc.
+> Channel 0 supports SD and eMMC (including HS400/HS400ES).
+> Channel 1 supports SD and eMMC (except for HS400).
+> Channel 2 supports SD.
 >=20
-> For i.MX9x SoC(s) there is at least one dedicated ELE MU(s) for each
-> world - Linux(one or more) and OPTEE-OS (one or more).
->=20
-[...]
-> +	ret =3D se_fill_cmd_msg_hdr(priv, (struct se_msg_hdr *)&tx_msg->header,
-> +				  ELE_GET_INFO_REQ, ELE_GET_INFO_REQ_MSG_SZ,
-> +				  true);
-> +	if (ret)
-> +		goto exit;
-[...]
-> +/* Fill a command message header with a given command ID and length in b=
-ytes. */
-> +static inline int se_fill_cmd_msg_hdr(struct se_if_priv *priv, struct se=
-_msg_hdr *hdr,
-> +				      u8 cmd, u32 len, bool is_base_api)
-> +{
-> +	hdr->tag =3D priv->if_defs->cmd_tag;
-> +	hdr->ver =3D (is_base_api) ? priv->if_defs->base_api_ver : priv->if_def=
-s->fw_api_ver;
-> +	hdr->command =3D cmd;
-> +	hdr->size =3D len >> 2;
-> +
-> +	return 0;
-> +}
->
-I don't see a point in having a function always return zero and
-implement error checks that will never be used.
+> The SoC supports a maximum frequency of 150 MHz. The SD0 interface does n=
+ot support IOVS and PWEN in the
+> SDHI register (no internal regulator), unlike SD1 and SD2. It has an inte=
+rnal divider for all modes
+> except HS400.
+> It also has a 2048-bit divider compared to 512 on others. Moreover RZ/G3L=
+ supports HS400 enhanced strobe
+> mode.
 
-[...]
-> +static const struct of_device_id se_match[] =3D {
-> +	{ .compatible =3D "fsl,imx8ulp-se-ele-hsm", .data =3D &imx8ulp_se_ele_h=
-sm},
-> +	{ .compatible =3D "fsl,imx93-se-ele-hsm", .data =3D &imx93_se_ele_hsm},
-> +	{},
->
-Since the last entry in this array must be a NULL entry, there should be
-no comma after the {}. This will generate a compile error if (e.g. by
-patch conflict resolution) an entry is added after the end marker.
+Sashiko pointed out some issues with this patch series[1], Should I start i=
+nvestigating these issues=20
+or you have any additional comments for me to look at? Please let me know.
+
+[1] https://sashiko.dev/#/patchset/20260622155610.184271-1-biju.das.jz%40bp=
+.renesas.com
+
+Cheers,
+Biju
 
 
+>=20
+> v17->v18:
+>  * Collected tag
+>  * Merged patch #4 and #5 and updated commit description
+>  * Annotated the empty sentinel entries in the OF match tables with a
+>    "Sentinel." comment for clarity.
+>  * Retained the tag as it is a trivial cleanup.
+>  * New patches drop struct renesas_sdhi_hw_info, instead using
+>    renesas_sdhi_of_data and tmio_mmc_data.
+>  * Dropped clk, pinctrl, SoC, and board dtsi from this patch series;
+>    will send later.
+> v1->v17:
+>  * Collected tag for binding patch.
+>  * Resending the series as there is an issue with patch threading from
+>    patch #14.
+>=20
+> Biju Das (12):
+>   dt-bindings: mmc: renesas,sdhi: Document RZ/G3L (r9a08g046) SoC
+>   mmc: renesas_sdhi: Fix whitespace alignment in struct
+>     renesas_sdhi_of_data
+>   mmc: renesas_sdhi: Add clk_mask field to support SoC-specific clock
+>     divider widths
+>   mmc: renesas_sdhi: Add max_divider field to support SoC-specific clock
+>     divider ranges
+>   mmc: renesas_sdhi: Add tuning delay support for RZ/G2L
+>   mmc: renesas_sdhi: Add TMIO_MMC_INTERNAL_DIVIDER flag
+>   mmc: renesas_sdhi: Add optional axis/axim reset controls
+>   mmc: renesas_sdhi: Add RZ/G3L SDHI support
+>   mmc: renesas_sdhi: Save and restore IOVS across suspend/resume
+>   mmc: renesas_sdhi: Make HS400 OSEL bit configurable per SoC
+>   mmc: renesas_sdhi: Add RZ/G3L HS400 support
+>   mmc: renesas_sdhi: Add HS400 enhanced strobe support for RZ/G3L
+>=20
+>  .../devicetree/bindings/mmc/renesas,sdhi.yaml | 101 ++++++--
+>  drivers/mmc/host/renesas_sdhi.h               |  12 +-
+>  drivers/mmc/host/renesas_sdhi_core.c          | 239 ++++++++++++++----
+>  drivers/mmc/host/renesas_sdhi_internal_dmac.c |  73 +++++-
+>  drivers/mmc/host/renesas_sdhi_sys_dmac.c      |  12 +-
+>  include/linux/platform_data/tmio.h            |  18 ++
+>  6 files changed, 370 insertions(+), 85 deletions(-)
+>=20
+> --
+> 2.43.0
 
-Lothar Wa=C3=9Fmann
