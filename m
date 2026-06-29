@@ -1,245 +1,95 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866AD3FC5B2
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:55:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5721F3F86E6;
+	Mon, 29 Jun 2026 08:56:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782723357; cv=none; b=M5hqzyRqRc0OKbaNjKZGCFDA0yvVDOoBUH/F5l9ed4dYkLmHdJIfhsq6f3FfxJqwgtWfCZ0/yScIhLuFsXHoROi0rMO4tMNK8WjIHF51nLyOl26jOqG7WYrZws3KjfKNrGgfODz6Ivc9ijveOI3HnD1Fri51kD1wKCtvkmRNg0c=
+	t=1782723391; cv=none; b=Uij/vjzD0MmJSokpXwtCEzyPn0V8uXhilMawlr4+1hPmGF5sfHLmnaju0Tu8BnNIW5Q7v37sm8I0t7/mAPdhwMoOsLxUhS2KFfu/DK9saR9zyJ7uYMUxC93+wcIxcTvngiHoSmZh+/QtU5UArmBLL+iBwhE6tPCv+n17ZH0KuiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782723357; c=relaxed/simple;
-	bh=45LaNgBPxbRtyHZ0FmSbWF4XyTOkfAE6p0u9C1oK9dk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Yv1c9i3RXRG7djZxaCAII+aU4LvUIRkJPiVOtaQxR1LpdDG9lJlI/ppRlNjiTQ8uWA86q0jPgWA2JMNYKICAnqOOxU0yE5lQ0vwHExdb3kT78GCfPmnRRUsXd7eVqHbniKgvHvABflJYuheBYIwybybGLsmay97Cci48hbrD3mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iq4VWTls; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JhFJ5Pfp; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782723391; c=relaxed/simple;
+	bh=0yTRbjxySal/heahLX70Gmz85+gYWePyla9OA2N5Dsc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gmT0cDIUvyNLpQ4mNVFCi2mtosZac98s0Yl++5DDITO4i9mKCu1sgOs31f6b9eza+WG9In2FJnIG6PRIE+ccciEuzthAuaSX3uN0nkt7d22sasTklEJf2ImGsjE7cJvOIZOlIDWwq/4Y/9ju/PqH7hCC5gRUmTzlIHCSyWNv1wU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=flWvWT2R; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iq4VWTls";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JhFJ5Pfp"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65T6rcSg2134910
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:55:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8JbaVcxwuW0pNu9X0F52ZmLiaxV03v+NOG21Kfuhl0U=; b=iq4VWTlsEF72+xeR
-	4ttGhDzRIivrHn8pUV919TlnjWQskne00TWo/B6pv4C/c5TDY81vqnrJHR4XE7oY
-	THxmHiVL61ti1m5iInP+4M1nadSovvZzm3ha+MdheyY+dqx8/d7EBfICmYJVcoeo
-	XejDAXu55tkdsr8/EuMbTaqJIgRHXEeNv6EZeFcqTpVxoSLZ4jSI8FM5Us8aE6TZ
-	MLm1hyqbfAdaBawkp+nFNEd4bFdPq+n/ah3AdtCjKbEXPdBIYP680DXc+odHnxMe
-	+dHBQEZHsdIMBUf1IMMKwqN8o1yg8hGLhkmmlwh23gvMdLBw30CLGe9zBhgrN32C
-	zXF7ow==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f270a5mr7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:55:53 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5bd7ea84c73so4174281e0c.1
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 01:55:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782723353; x=1783328153; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=8JbaVcxwuW0pNu9X0F52ZmLiaxV03v+NOG21Kfuhl0U=;
-        b=JhFJ5PfpGSdedGHhIMIkd96xfNqyb5vnQy0iYqaOarZZL7UFNsP0/vyIyEdcWrSSTd
-         qWDNcqvwkQqN1DzovU7n1ipla9428RK6aAsFkqIe6BOuZoYhkXHUKQ+fLFlPOo9A7T25
-         pqd2gwkKu44jjv0UAnsadhDrCZ4L0J/FGZDLfIGhBzz8paeXuRHNU3BS1qD4AjtqEPzi
-         lP1FkZ6Vhv063JrQ6I1maFM9Uv/Gcm2TMQY/BCgK6hD7bMHjobyDT64ELKM83KDqQO8r
-         AJXcUSbxRFFTMpmUImm9j9wz9Cw22KU71cFmHJmXatLfGhKGfCjNYmrvefMrmwn/RNQH
-         NwBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782723353; x=1783328153;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=8JbaVcxwuW0pNu9X0F52ZmLiaxV03v+NOG21Kfuhl0U=;
-        b=km7oMl55fm1gD6avscqgvxxF54HaguLAaXjSUxPpu4zYyshEkmjtVRw/nrWyfbUnE0
-         J2NUslKYixXpBvCmtmWQeyenlh553JEMoPkuFOQ3dEKemTbILtZov/YaiKATE3R6oNXO
-         O8m0UGiQhT5yHdol9CU/4tao8DkKVEue4X7gGU5oG4nQjbwDwpWeqSRW0c7ej5o10SdY
-         SWL30AMCY4pSnbrRtEN82ezoBhiGWCRKm7aTtNG2zLkhn3SFv+4KF3UQaCeFRpjXnsTi
-         h/g4goA5idEFR+3mQbFPFKNAUYADbxs3Gdhgj9YHP88iTd5HeQ6pNgIYWkIZd0qyDVbv
-         cDfA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpu7cT6XCyE0biCuPI//5wfPlOT5jouXhC6W9WojI/LhttWZNLeyXleDudnMk5kZOtV2uw5yjLQ/Uex@vger.kernel.org
-X-Gm-Message-State: AOJu0YxLxue1Tbtd5BTIy2g5R14Oo8MufGVUqLgZPKZcop65gg1z4b4E
-	qrH1mdwnF1A7H6BynbqUw3eThsUK8GDJgfUXU9mlAGsRJyzJg4SZRm9JnccnSSQtsVnZpvTO6PD
-	SQW2i6tQTPBOGhlHPeQwH6VPkxcNst781kNWgLs3Ypg6BQsmKwdg3zGKBpFP53MOn
-X-Gm-Gg: AfdE7ckQp70tfYcDDQAWwzJQ5CwKnXdI8u4Zvfh1BBNqsLZfUyUtVafio0kaS0QFpCW
-	QoP3lpPLsRp0y27cxVlh+YowvOBtMuJCtM5uvB1AKFy9Vf+PyE24ItvzC9JXbIFqRrg6ir8zdQq
-	Omz3aFJcqnFD3ZW+rby/FgNbVPE/+lBltg6RLzx4wynTRBemMD53oIcCP9AGIbvp7/O4wOa3GSW
-	K13Y/AkpdFP3IbHtCy7hQKi+eSxvyA6g2oE1gICA1fpy7opunB0bA0reunfAsMzyNUXLmf036UJ
-	y84vSFHNvVNcPAsVHFJgrhciyaF3/Szv6FbcxKOqv8DcIb/iwoQckEUZ4N3fTnAxzHn3ft0msVK
-	K/o4BxBMJTOiykey1zJPq5YptNnGaLSqhINWJH42twZiOnzsx5VHwJLBRwBU+OsYxujETe1G2+0
-	aY1itIsEGMViqJuaz29gaKN6Nn4tjqGXsMslEVCI9otbwgVokgA4Et+FeIc9150a+twRXCw9nqL
-	mtBpG65ciWKgmkHonrg
-X-Received: by 2002:a05:6122:616e:b0:59b:9264:b06d with SMTP id 71dfb90a1353d-5bc2ae3c4f0mr10167352e0c.7.1782723352642;
-        Mon, 29 Jun 2026 01:55:52 -0700 (PDT)
-X-Received: by 2002:a05:6122:616e:b0:59b:9264:b06d with SMTP id 71dfb90a1353d-5bc2ae3c4f0mr10167320e0c.7.1782723352206;
-        Mon, 29 Jun 2026 01:55:52 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com (82-64-236-198.subs.proxad.net. [82.64.236.198])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-697f4bc8016sm6558981a12.25.2026.06.29.01.55.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 01:55:51 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Mon, 29 Jun 2026 10:55:28 +0200
-Subject: [PATCH v6 9/9] arm64: dts: qcom: arduino-imola: Describe NVMEM
- layout for WiFi/BT addresses
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="flWvWT2R"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=c6g7nbO2M1qqUr0/Bx4CqlMPDTHAgE252nPWP6AfYUQ=; b=flWvWT2RH9I4fVnnWs47isveqD
+	GJQaSVchmfdboyk6+Fe78wCuKbF8JXDZfWf6iNtv2QduU1uZqmiZlDIB22n0cizqmbLXkn/asfBZC
+	KKHwni3xOxNuilVCZoOlaLU/LXL/BcKzZuxi+ZUC6D7UC1eaxExIRVYTFAtkyZqDtECi8eFUG5op5
+	ahpXOIFdT7wxlje+q91575PmxL9pB0Ug+WuVbsDj0sWzlNx/e5RZj7LlPBRrUjND1miuTJJZPggq9
+	JWryA2DBjqEa+AKVi/5nPhV9rkYL4yGiuT3swLT3FareS+OlwXRKL8FSX7Tmv+CSxlY7lVaS5SICe
+	XhDFTORg==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1we7mz-000FcP-2t;
+	Mon, 29 Jun 2026 10:56:25 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1we7mz-000K3w-1E;
+	Mon, 29 Jun 2026 10:56:25 +0200
+From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+To: Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux@ew.tq-group.com,
+	Alexander Feilke <Alexander.Feilke@ew.tq-group.com>,
+	Nora Schiffer <nora.schiffer@ew.tq-group.com>
+Subject: [PATCH 1/2] arm64: dts: ti: k3-am642-tqma64xxl: add ospi0 vcc-supply
+Date: Mon, 29 Jun 2026 10:55:50 +0200
+Message-ID: <eea90f48c139901397d65487a87b64bf1744587b.1782723206.git.nora.schiffer@ew.tq-group.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-block-as-nvmem-v6-9-f02513dcd46d@oss.qualcomm.com>
-References: <20260629-block-as-nvmem-v6-0-f02513dcd46d@oss.qualcomm.com>
-In-Reply-To: <20260629-block-as-nvmem-v6-0-f02513dcd46d@oss.qualcomm.com>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Christian Marangi <ansuelsmth@gmail.com>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
-        netdev@vger.kernel.org, daniel@makrotopia.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA3MSBTYWx0ZWRfX+dE+qNIPMwa9
- jOjnsu80OB6Dczg1XyPu897UQ28ZrwrrRHDMr1jpBvrsqJ+Aht8IacBT4xDoFavUp82OC7hygxl
- EAI5Jd+DFnyIWkCZVA9qx0/sWHqBqXMuWTngrXQPDrKM+co9Gc4Lc37o8YsEjR6Q7+IO96yrnR3
- 3wGP2tk6/N1YDMm14cL5YdXM+0SnfTMZaXTZX3WKSffiaKruA+VcmBmMstaE3fGxXjIc2gCGmjj
- 7+QZbhgtoO8/scrBcpYShHBOSp+lC92JlYKrPfkefV1PKdnbzsJQMfUAZI6nBJbGnlf6L9EkIxo
- ax9aFGUUkSxY6h3ghz7MlnAe0IReH1Z/akYTT5W1F3yFkO4GoTXhXQpJ01rhdmLxdbKLH8hND46
- G7qWsJ9lQe/AAdaULw2CKMEbIP5na0Lj/KYb9A8L58MetRHsoYTDZhjtbww9mSAUqap6uuE0hcA
- fSjHuuovsQI0QVCfc5Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA3MSBTYWx0ZWRfXwsms4x8NkIxo
- JVV6edbjXoFXE9M+sNXzds/NFAdqD4j6gcj8vkYsgQXEGK3yRVtMp+N7b7UK2DwGNb/cDGU21Js
- BdcYgB8mYpVzfxOJpyQ6lUvn/s711AA=
-X-Proofpoint-GUID: cjv_km5gJvSq5pcvNidK0jjcxmeYAv7r
-X-Proofpoint-ORIG-GUID: cjv_km5gJvSq5pcvNidK0jjcxmeYAv7r
-X-Authority-Analysis: v=2.4 cv=Fe4HAp+6 c=1 sm=1 tr=0 ts=6a423319 cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=MDeckJw97qnk8wCBExTehA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=1BEw5LmG3YzgyHxDt7YA:9 a=QEXdDO2ut3YA:10
- a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-29_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- adultscore=0 lowpriorityscore=0 phishscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290071
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28046/Mon Jun 29 08:27:20 2026)
 
-On Arduino Uno-Q, the eMMC boot1 partition is factory provisioned
-with device-specific information such as the WiFi MAC address
-and the Bluetooth BD address. This partition can serve as an
-alternative to additional non-volatile memory, such as a
-dedicated EEPROM.
+From: Alexander Feilke <Alexander.Feilke@ew.tq-group.com>
 
-The eMMC boot partitions are typically good candidates, as they
-are relatively small, read-only by default (and can be enforced
-as hardware read-only), and are not affected by board reflashing
-procedures, which generally target the eMMC user or GP partitions.
+Add missing vcc-supply to ospi0 flash.
 
-Describe the corresponding nvmem-layout for the WiFi and Bluetooth
-addresses, and point the WiFi and Bluetooth nodes to the appropriate
-NVMEM cells to retrieve them.
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Signed-off-by: Alexander Feilke <Alexander.Feilke@ew.tq-group.com>
+Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
 ---
- arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts | 39 ++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+ arch/arm64/boot/dts/ti/k3-am642-tqma64xxl.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-index bf088fa9807f040f0c8f405f9111b01790b09377..128c7a7e76b5b089044745f5d6407d6391055fc2 100644
---- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-+++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-@@ -409,7 +409,40 @@ &sdhc_1 {
- 	no-sdio;
- 	no-sd;
- 
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
- 	status = "okay";
-+
-+	card@0 {
-+		compatible = "mmc-card";
-+		reg = <0>;
-+
-+		partitions-boot1 {
-+			compatible = "fixed-partitions";
-+
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			nvmem-layout {
-+				compatible = "fixed-layout";
-+				#address-cells = <1>;
-+				#size-cells = <1>;
-+
-+				wifi_mac_addr: mac-addr@4400 {
-+					compatible = "mac-base";
-+					reg = <0x4400 0x6>;
-+					#nvmem-cell-cells = <1>;
-+				};
-+
-+				bd_addr: bd-addr@5400 {
-+					compatible = "mac-base";
-+					reg = <0x5400 0x6>;
-+					#nvmem-cell-cells = <1>;
-+				};
-+			};
-+		};
-+	};
- };
- 
- &spi5 {
-@@ -512,6 +545,9 @@ bluetooth {
- 		vddch0-supply = <&pm4125_l22>;
- 		enable-gpios = <&tlmm 87 GPIO_ACTIVE_HIGH>;
- 		max-speed = <3000000>;
-+
-+		nvmem-cells = <&bd_addr 0>;
-+		nvmem-cell-names = "local-bd-address";
- 	};
- };
- 
-@@ -557,6 +593,9 @@ &wifi {
- 	qcom,ath10k-calibration-variant = "ArduinoImola";
- 	firmware-name = "qcm2290";
- 
-+	nvmem-cells = <&wifi_mac_addr 0>;
-+	nvmem-cell-names = "mac-address";
-+
- 	status = "okay";
- };
- 
-
+diff --git a/arch/arm64/boot/dts/ti/k3-am642-tqma64xxl.dtsi b/arch/arm64/boot/dts/ti/k3-am642-tqma64xxl.dtsi
+index dde19d0784e31..fe4cb49934bef 100644
+--- a/arch/arm64/boot/dts/ti/k3-am642-tqma64xxl.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am642-tqma64xxl.dtsi
+@@ -106,6 +106,7 @@ flash@0 {
+ 		spi-tx-bus-width = <8>;
+ 		spi-rx-bus-width = <8>;
+ 		spi-max-frequency = <84000000>;
++		vcc-supply = <&reg_1v8>;
+ 		bootph-all;
+ 		cdns,tshsl-ns = <60>;
+ 		cdns,tsd2d-ns = <60>;
 -- 
-2.34.1
+TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht München, HRB 105018
+Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
+https://www.tq-group.com/
 
