@@ -1,167 +1,154 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010038.outbound.protection.outlook.com [52.101.84.38])
+Received: from bee.birch.relay.mailchannels.net (bee.birch.relay.mailchannels.net [23.83.209.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DDCA40D57D;
-	Mon, 29 Jun 2026 19:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782761511; cv=fail; b=dJOxau4jMeASRSxc/oBcD3q8UqwzZbmCLJD5qRPE1BBho0668zycXyTVGcFmIs1ebzOx8ov2UpqUqfEsvb5HBB1fhBaHSaxhA7VXTMMcenC8fI94nJmHywwICKwU0jwLNnO0K4OHmY4Pzvb5WYtm8mjDYFeyT57iHZc02vXHJAM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782761511; c=relaxed/simple;
-	bh=SCgy1F4Gm1ZNXrzS3LQHg7J+rSndwXSjLawA76actIQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Kco2I0tXtD0s/0zySMlMvi+g5UcfRnBai9NHXqgXdbTTGA6SH8IDdhhMjec5S7VTRuYlh57J77r3oWGYoFvt8TsXdzKSfXN2qWjO8KjDm3cVSZZ5IzP/qkg2X3rLbFtGOPb14FLBZR5893ENcTQ4J4s5lVwd5wEWPkag//zCBTk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=t37XBR2D; arc=fail smtp.client-ip=52.101.84.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9033803F2;
+	Mon, 29 Jun 2026 19:41:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.209.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782762109; cv=none; b=L/ZPPiR0D40Z4vTKWec1N5hq/3jgf3FRiHjjFn50+X9B0QtdwfIVR/zU7x/s6KdR4TYX78+gVpk0oGBo1IIvLoTD9WIoUSPUwy2PMs7dxThBACKKSVjN3tjP+JzeKH1ubPkhhMEFOW37oLpZUN86JSBHm+gIxaiD6is2kjYuIX0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782762109; c=relaxed/simple;
+	bh=Fgm3l8MJA0Le/r0K5irIq0he0GuKjbR4LOeGRerkBy4=;
+	h=Message-ID:MIME-Version:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Date; b=ejkSx4gL/8CTEvYph1vFdaPtsTPrjXlMTNXv7wpEIKzhRZhudLXfwzIPh/UwlPivNt2rx0yfB+pZvadQPro2zkJ0W1ffAbuRgumk+0oxhhd9nsoIJoG5cbEnrhzHrvmJ8+nVYUviKFdlBZG7VL0fvJkdJdU6WhlJaw/n3why6WU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=LEpTe7/Y; arc=none smtp.client-ip=23.83.209.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="t37XBR2D"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zFFQL8fW6uGh0eZ9/CVKWG3wkEZp35amhUJ3Rc1KlICGdXCfdZr4obHLdmG3pP/hyE5FBpQF6773If1FI/GUGQGIzbplfTUWx5AtsAHiCUC5gJb7OVVKNrAy2H5lQAMXMygAxKVo2ExrSKcjC627vh0ObP2Gbdym26wEOOaPfmuGD66ghejPkWnlZQjSkCwz1LaXcn/8VvcfxdvGN/RhoBTE7Tfvguhz783InanD9s18KYAQge6IclobXhfH6bKFD9XXxzpS7HEajcZzd0B9/K0/KdpRVrIHW5qKWVeDTDZbn3a1rFc3UDG1/iGeIwP/IQcoIHfr427atxxCHvQemQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BiIJlN7hy0Y2wA9KHHVXP6PM52F7F/YeRuEXYvsOscI=;
- b=mW16r/Gqh4wXl7fnClg2ueAMgjOvpIYBTzWXk+6pi2mR6FqBANswfjtlVZZ12/2MyT5X5IqJg8SzD5EIDD0uKDkOLvTlgrmTlC+IIu5fRLUWn1RtGZcVttLN7MnzR2WDhfR744BzAdUatZSLSs63HDLKpHNFr+iRq2Wc4oL9o5+gXEqSSSXGuAuORqYbXFvDSPAn8euFN8JrJyuAimfEyWgeqoAYbfTZIqwJX6EFolZ+8yZLAK0pQHZHhpKJ3IHPYIGyU3HntuKo69YKslDcxTX1Fc2f9T4qDf58USuPWsYWgAIXn+2QDVv5FYZgLY2LxQOnuhpQidC9FFJv89Tepg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BiIJlN7hy0Y2wA9KHHVXP6PM52F7F/YeRuEXYvsOscI=;
- b=t37XBR2DSha+xK3TuTRcEr0+5f9soSdMFoic+VIoy7/RC2e4oOcUEngk+4UIa0cLOYikiGuCL6+lTz0SBFrDoUy610Sv2vdki8NL3GwkEdTpOHDZVMZCp5eS/syinlfECE8UF7J5dz6aXx4zJgD13ydnVcN+eoeMVK5akVrTun39Fyly1+CAe8XfxtGnRUGPG0cR72UF3gqfkDeB8TSdV2tmcepo9ToflootdnU8yuvl5MQWuBGPGfYp3SNOeZOOdsRKvSS+AKy3SB3mtOQ28WAv6iI5xLlD8LOIWM4ikyArkut89R6SqQcGo6JgWJA98zMKwsheL46z4woIfZPcqg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DBAPR04MB7270.eurprd04.prod.outlook.com (2603:10a6:10:1af::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 19:31:46 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 29 Jun 2026
- 19:31:46 +0000
-From: Frank.Li@oss.nxp.com
-To: Robby Cai <robby.cai@nxp.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Martin Kepplinger <martin.kepplinger@puri.sm>,
-	Rui Miguel Silva <rmfrfs@gmail.com>,
-	Purism Kernel Team <kernel@puri.sm>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	imx@lists.linux.dev,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] media: dt-bindings: nxp,imx8mq-mipi-csi2: Fix example endpoint label typo
-Date: Mon, 29 Jun 2026 15:31:39 -0400
-Message-ID: <178276149121.2421775.16396513414846222417.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260519113824.91533-1-laurent.pinchart@ideasonboard.com>
-References: <20260519113824.91533-1-laurent.pinchart@ideasonboard.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA1P222CA0102.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:35e::10) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="LEpTe7/Y"
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 743AF721AD6;
+	Mon, 29 Jun 2026 19:41:46 +0000 (UTC)
+Received: from fr-int-smtpout23.hostinger.io (100-99-18-221.trex-nlb.outbound.svc.cluster.local [100.99.18.221])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 05F13722DBF;
+	Mon, 29 Jun 2026 19:41:42 +0000 (UTC)
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
+X-MailChannels-Auth-Id: hostingeremail
+X-Soft-Tank: 6e0c897c538e6886_1782762106291_1829064959
+X-MC-Loop-Signature: 1782762106291:940535404
+X-MC-Ingress-Time: 1782762106291
+Received: from fr-int-smtpout23.hostinger.io (fr-int-smtpout23.hostinger.io
+ [148.222.54.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.99.18.221 (trex/7.1.5);
+	Mon, 29 Jun 2026 19:41:46 +0000
+Received: from [IPV6:2001:448a:c030:3ec5:354f:5fbd:f4fe:4abf] (unknown [IPv6:2001:448a:c030:3ec5:354f:5fbd:f4fe:4abf])
+	(Authenticated sender: linux@smankusors.com)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4gpxVT2p2Tz1xql;
+	Mon, 29 Jun 2026 19:41:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
+	s=hostingermail-a; t=1782762101;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mf6gsDgb6CflBLqE6QCHPCck70qrJ5bPrH4uI36lvug=;
+	b=LEpTe7/Y6+z5tTJ7OgBhd5PcLDmGd8BtSo459x/z8hRT2C2AiWXCBfv+Dn4Gq9hqAAzZNo
+	mxi+reBudSa0i5xkZs8FvT3DBNKfXrAX0B6icRynNcgOLkP2bpGE7Cn7EMiqsmfM7TIAnW
+	rEc1Rr9wNcJj9ffioackollRcU/IpBsrGHrDDpBEZuzU7OZ8lZs2vzRGLy1csaGsYJK/ra
+	moOfflYuOQ/mXMFO/gf4uhkw+viKK88+0mPhZVp9L3H7++b9gq0D1TLwmX+8eGTtVunHBk
+	/8ckYNWH4Vdw4Ur9omFu4V5fdUZhMn65/AW1CBf35SGBl9JX+6mWCi2I5J9UjQ==
+Message-ID: <417600e8-9be7-4c6e-a62c-f10a5fca7a9a@smankusors.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DBAPR04MB7270:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47665b61-27b6-4482-1b21-08ded6150ec3
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|7416014|366016|1800799024|19092799006|23010399003|22082099003|18002099003|921020|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
- qxZowETPEk5oJc4YnjuZUGYhFtbyDzDt6LQXQJfOythbmVx74cO0vPUgyFlLWMIqv4Kj98pHixv5R13U3Jfb1eoIaSqj5l7oC3j47IYBMlOOkjwtpRHnAzYCQU3pBdPheOMDp2FTdUoSY2mshndK5NkQCRXQtEdPfisAcs+Km6o7p+8M7WmAxQ2Yhma0yr/CvUxLjY7aPmW9eluElT3upr95OZ5SftazWuMNqgXkQw+kknd0JWghNRLbbDahBpAGFcxPhO6E7bEMYZU5LK0ku95ltllBcKEOAjAGp/RzwcfsMZv1/3XOakTSYQavA3cRCGu8eZ+3vNPHkV83PCOzPqtFMLjzqyM9k5DRaiAdwPnqMaNJV7jrN/7Vo16r5DzFWRo57Ij02hlW55EAiMQjcL/E1sQ+DQ1lEG7oDogvVTyHNFkEy6Iw1clsGqMQ0G3Tr8TzuoG46SoLg5XxTFl2aE5g/ou4HPFy3Jw4r9A9eqEjcvzwdBFCfsUBLSQXTVUSgn/7PJH7ZLgtSJR3Y+NyUZuhi/osCBXK43A6bkSBcAnOOtpp1kH+uydvtTUtDPtZOhVSqPivDQz6/adz/sj3W6G8Xl+uyakjY0b83f/TruzFosLvTQpRtoKJ/RbXWM/Azw5DMuiw6U7bBlsRdEy929dLcGmnnA0U9UVE50KrufEe4C85zRnz/tCzpteCit3+W8c7Kvscpy05kXR9rOD6sg==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(19092799006)(23010399003)(22082099003)(18002099003)(921020)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?YTZ0VDF2NmhhT21XRG4ySXk2MzZTWWpCSENNdFJrMWpVUWNVSnRYWE9jMGlk?=
- =?utf-8?B?elNHV0FIeWxJaC9wTHRVT0VRc2tmRVBhMU9IVWhKSXhWNVM4cXE2dmdYZ1lU?=
- =?utf-8?B?ZGJRQ01nTklZUGVrRng1K1ZLRTRmYklkVVZPTSthMk4wd1pQTytZQ3ZvNE13?=
- =?utf-8?B?YnI0Z3Ezb0lDcDd2WThjRzBPUWFmNnp6SmU5ZkgveDNWdDlRVWxhUkxHb3JI?=
- =?utf-8?B?TkZ3RmpHb2Y5UEhwOTBObWUxaXZJVFBwdm5PU0U4ZVhFaThMNGVqMTdmUXlk?=
- =?utf-8?B?WW1GNmh5b1VIcTk1bmZrdVUyYlhlNkZyc3crVExmcktWQTZ4cUpoTmhwVUZK?=
- =?utf-8?B?NFFjVHptZnlLalZlNnJZYzFNUzl0cHVsNzMzbi9pSDdJLzVCdkpPU0NKbERB?=
- =?utf-8?B?N2NtaEg2b25BZXh3QXRiUWJ5cTJpZEJ3Z0pNSU5vbTN2U1ptcERheHoydG5V?=
- =?utf-8?B?OGltd3g3eTlzRVpNenQ4c3FUTUVMUDZCQXh1NGtzNWZqNWF2RWpsemNLT3BB?=
- =?utf-8?B?RWIvTDhoL1ZUL1dSanY1TmZ3U2ptRS9lQzZaa1NUQXBqTkRBMXE4b1RYNy9V?=
- =?utf-8?B?R1ljME9EZGlMMlVucWgyVndybTFHejEwbzZwWGZRTDlxeUNteWdVV0E4QW9Q?=
- =?utf-8?B?WUh2R2hrejlqa3JzU3RBeVpOaUxkU1FLNnZMdTBJSUM3UEJOeEt0VzFPc3Zs?=
- =?utf-8?B?NFJiaWg2N1NIMEMxV1ZWd0ozK2wvOXJXTFpCS2FoRFBtaVZUc2FEaWNQdTkz?=
- =?utf-8?B?dzZsV3ozR3QrVHFFZmZyeGZldG5QVS9MSjNZYzA4UlMwelZWczNmVlppRzFt?=
- =?utf-8?B?dVk3TVhBNjE4RlJRNnpVTUZJL1gycWgvMzFwMktkamJwdjcvallyMTlta1o5?=
- =?utf-8?B?MUMveUlPV2RybTVNUmRiYnd5SmUyRzc2VFh1dFR2SVBNV2lycVdEMGFnUEsw?=
- =?utf-8?B?T2FYK3Q0cUVuOWhoakd1YmhhKzB4dlRXazNXMnFIQlhJejBJWFhMYzFOcENs?=
- =?utf-8?B?MUdIMzZSNGRIY04yS2tlV1lnMjlyTjJsVDMzQ0lyQmJhWjB1ZmpsSWlwRUF1?=
- =?utf-8?B?U2FHSUowM3hYUmpZNGtPTWNKVS82b2lJeGdSZ0lMTzg0MElEOW1hUWVpY2VP?=
- =?utf-8?B?T1gyOEp2cVdlTTNqU2pWYmZDN01uVEZtT0hPeUhQekhIS2ZkSjNpVTZUYWs1?=
- =?utf-8?B?ZjNYbEN6T0ZUYzRnbjcyZ3N4V1NMMlEwazRHUkR5eWg2MDlnWDFFd1Vid2tC?=
- =?utf-8?B?cmgrSmNsM2JaZVZIZEYzcXp5T0pZVkpOWXdCaVluejI2VmpWMFJWWUdUODNx?=
- =?utf-8?B?cFJwZTVaeWY1dFErbjNPb3h0WWdCMVQ2Z2RMNHlOZnFUdnFBRWo5THFBZWZW?=
- =?utf-8?B?N2wyencyWkpGdzNjTXhGbTNXMmk0YmtoTTlSN01UeHN1Z25hZmhsSFlyOEZl?=
- =?utf-8?B?cncrLzBnRlppSHJQR0VUbzI3ZHcvYWdUMC8yN0ROSDU5TndKWHRlc2hRaGpv?=
- =?utf-8?B?bzNpNUVEUGkzdW00azQ4dm1HeXNycXJ4NW5EZW1XR3BGeWI5aXdmbENEcFB3?=
- =?utf-8?B?K3lveExYMWtGOUplVWM3WDBMQWs0SEpGSElBS21MTFlzVFpQd0VWeXBnQXBm?=
- =?utf-8?B?V0RlUXowU3JMOGVja3k0Z3J5azBvOVFFMzBjaUFFZ0VQdVZvQWZpaWV5clZH?=
- =?utf-8?B?K1JMTmZyeHhjK3hLVTVnaTFRWW42eVZGdWZLQzZiU0EyN25KTC9GaHV0dlFa?=
- =?utf-8?B?N0FYRFAvTDlBZ2JaSUVZVmtncDVSeDEyaGNaaW14VEdNQkEzeHpvTTNaVG0x?=
- =?utf-8?B?UVVKYkpwY3g2K1FNQjFrcnRrSHVBNW9yRHBJOHRrRmJPdEl3MU54OTdhU2FB?=
- =?utf-8?B?bDR1SE1JYjczZkZFWjNvUEppMXVUc0FwZzZ0d2gwaExVeC9leEl4Y2lRNHZG?=
- =?utf-8?B?WE9mdWY3MXJnc0lHU1ovY2lOVG83Mkx4Mnh5NEU4Q2kwRW5meDN2bmRwYW4w?=
- =?utf-8?B?OWtVT0VKd042bE5iSXhZZk45L1Bld1hWdEZlY2dtajJYSWx5aTNiV2h6R09K?=
- =?utf-8?B?bmp6elo5OW53V0VVS29SOWZFbWltaHZIeFNBUk0xYU10a1ZPam02MlRTTHEz?=
- =?utf-8?B?ekpCeXhxb0pmb3RFL1lvTC94M2E1bThtRU5YVmtwMU56TzR4RTBTRWtzU2VD?=
- =?utf-8?B?Tmd2aVZBOXFlZUJ1WFJTT3NBenNNNytjdFdQWjVEeXhUQnBST3lOWmFRaFpw?=
- =?utf-8?B?QzBZbTB6ZzJzZUlyUXNhVFNmcjU0M1pzbmI0dDlHRmZiU2Q0MVFJYm90UE5z?=
- =?utf-8?B?V0lCcjRyWjVIQnNHOVRWdDVvQUo3b2Q3S3VrbU1FMFQzUzNWeTB6STd6WmVP?=
- =?utf-8?Q?SkxZZYJvrUsCWand1RsH6gR0L4t8SLzHuohFp?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47665b61-27b6-4482-1b21-08ded6150ec3
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 19:31:46.6246
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oZq8KyOLA0Wd6vZTEG0a5WSuLMFuzpaeE7jkfPZbkqRzJ+KxLaH/zNAxR+emBK2Qw/dyv0j3MDoBuDwADrnq6KcTl2p5fOiyLnz+eGSx1fJiqwsYUhl6yv2zl6Cj56WA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7270
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 05/10] ARM: dts: qcom: msm8960: add RPM clock
+ controller and fix USB clocks
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ Rudraksha Gupta <guptarud@gmail.com>, Alexandre MINETTE <contact@alex-min.fr>
+References: <20260601-msm8960-wifi-v3-0-fec6ac8dba02@smankusors.com>
+ <20260601-msm8960-wifi-v3-5-fec6ac8dba02@smankusors.com>
+ <1d15a420-7360-429e-a451-ec1f012a0346@oss.qualcomm.com>
+ <efb42f6c-b26a-4ee0-a5e7-0a25a0a41f50@smankusors.com>
+ <b0d30704-7761-40a2-9090-983f32102c8a@oss.qualcomm.com>
+Content-Language: en-US
+From: Antony Kurniawan Soemardi <linux@smankusors.com>
+In-Reply-To: <b0d30704-7761-40a2-9090-983f32102c8a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Date: Mon, 29 Jun 2026 19:41:37 +0000 (UTC)
+X-CM-Envelope: MS4xfH3zFpxAuKJs4Q3JZFNQhlKzU2k8sx9RQUh6NNlij5+Gh21orHO+pJP1UlGQTgSSa0AN32wYUGsizsBeZ6hKP1tXhOsEvgsAWxbC9xfZukkhdR2A1pyA 58hQf3YGSiZscOOCV7UOYP6LgAsuTCIekKXubxI1izPmSIkje+utpX91i918DKTDaq9oByQBeHB/XsK2N/zzGSjF+eUGP+lcuB5EafUO21rlGQGXZYIHgd4j DKa0xftk2gE7BbDmZo5IXL6KnFt76RMAhD4se2QmK53MFNmgDuw6IshFWw/rSPnUM9i3R9RrvWtg7qzJXdmzI6LEF1OVobAgl/TicmzzbZJL2Rnp01xYLJpR hT6gxRiVLygpnJPJktXwuxaCNR8qnfOdP2sl4TajQAljOpgwxfyRypeSHAY7v5qyH6iRWh5hkHGmpw3CdCx9C7EKgiksfvIhrEE2hq6D7c419nUw2LbAZjnl dE0FxItPNz447YlTCQnOej0B35OYxFE92DU+52I78kJTO3nm4zle0JB9cZMzniOUF4roIGLh6KVSVh06RwGFh9QDKQB+eQJfzKVPXH7RdedYFMXQfxqEQ0xy EYa8VfHLsC/M4LQY9jbKjfRBtb4jzxHEAbqFdWgA8jMz5QVOj5NcpWIUvvDfK2lsjJsctyOpNtBmquMaA780d5nkN5il7HkWQniCLPiuTM4QpJcId+OddbTF 0CpstuDATwwQXiNzu7KVvai6wSVI5D3V9ptXhqCravpreQrmqInIQ35YRgCb5q6JbydIii3ULGiFEhjIRkpojHxnLrx6CVzmkbOfp6w9FywijDmk8MnSF8ya EqsVOF26iSBujQJvYUk=
+X-CM-Analysis: v=2.4 cv=GMJaEfNK c=1 sm=1 tr=0 ts=6a42ca75 a=w1GBRM/3DoNZU4Dpj/menA==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=wxLWbCv9AAAA:8 a=mF3C4NYB_VIFf37MXf4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=Db0iDgFn7o8KFbWQUzvq:22 a=QJY96suAAestDpCc5Gi9:22
+X-AuthUser: linux@smankusors.com
 
-From: Frank Li <Frank.Li@nxp.com>
-
-
-On Tue, 19 May 2026 13:38:23 +0200, Laurent Pinchart wrote:
-> The example in imx8mq-mipi-csi2.yaml uses imx8mm_mipi_csi_{in,out}
-> endpoint labels, which is confusing for an i.MX8MQ binding. The labels
-> could be removed as they are not functionally required in the example,
-> but they have a documentation purpose that brings value to the reader.
-> Rename them mipi_csi_{in,out} to avoid the confusion.
+On 6/16/2026 8:43 PM, Konrad Dybcio wrote:
+> On 6/16/26 3:04 PM, Antony Kurniawan Soemardi wrote:
+>> On 6/9/2026 7:21 PM, Konrad Dybcio wrote:
+>>> On 6/1/26 10:51 AM, Antony Kurniawan Soemardi via B4 Relay wrote:
+>>>> From: Antony Kurniawan Soemardi <linux@smankusors.com>
+>>>> @@ -507,8 +519,12 @@ usb1: usb@12500000 {
+>>>>                reg = <0x12500000 0x200>,
+>>>>                      <0x12500200 0x200>;
+>>>>                interrupts = <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>;
+>>>> -            clocks = <&gcc USB_HS1_XCVR_CLK>, <&gcc USB_HS1_H_CLK>;
+>>>> -            clock-names = "core", "iface";
+>>>> +            clocks = <&gcc USB_HS1_H_CLK>,
+>>>> +                 <&rpmcc RPM_DAYTONA_FABRIC_CLK>,
+>>>> +                 <&gcc USB_HS1_XCVR_CLK>;
+>>>> +            clock-names = "iface",
+>>>> +                      "core",
+>>>> +                      "fs";
+>>>
+>>> The bindings change you sent changes the expectations - "core" used
+>>> to be the first clock. And I would guesstimate that the
+>>> DAYTONA_FABRIC clock is not really "core" - does downstream do any
+>>> ratesetting on the other two?
+>>
+>> Looking at the downstream, I can only find HS1_XCVR being set to 60MHz, DAYTONA_FABRIC being set to the max rate (just for voting purposes?). I don't see any clk_set_rate for HS1_P though.
+>>
+>> Would you rather the other way around? Like "core", "iface", and "fs"? My concern is that such a change would result in a large number of warnings for newer SoC device trees.
 > 
+> I didn't notice you're actually aligning the order with bindings. I was
+> under the impression this was a random change.
 > 
-> [...]
+> For the clock assignments themselves, I think the schema reflects a
+> full-speed (i.e. usb 1.x) core.. I dug out some ancient doc that says
+> that we should have:
+> 
+> - ahb (bus clock - perhaps daytona in this case?)
+> - system (core clock for the thing, >55 Mhz for compliant HS operation
+>    or at least 35 MHz for any sort of operation)
+> - ulpi_clk (60 MHz, coming from the USB PHY) (we can probably ignore this
+>    in our description)
+> - inactivity_timer since there's a BAM instance attached to this host
+>    (possibly handled implicitly)
+> 
+> for the record, there's 4 hosts:
+> 
+> USB1_HS @ 0x12500000 (this one)
+> USB2_HSIC @ 0x12520000
+> USB1_FS @ 0x18000000
+> USB2_FS @ 0x18100000
+> 
+> I don't know if they are all exposed and functional though
 
-Applied, thanks!
+Hmm, I'm not sure which option is technically more correct.
 
-[1/1] media: dt-bindings: nxp,imx8mq-mipi-csi2: Fix example endpoint label typo
-      commit: 733394c59684b8d16c5e4d26d6bf021a3a2d4bed
+I did try swapping the clocks, using daytona as the iface clock and
+`hs1_h` as the core clock. USB still works as expected in Sony Xperia
+SP.
 
-Best regards,
+If that's what you want, let me know. I'm also curious whether others
+agree with this approach.
+
+Also cc +Alexandre for the recent Samsung Galaxy S4 patches.
 -- 
-Frank Li <Frank.Li@nxp.com>
+Thanks,
+Antony K. S.
