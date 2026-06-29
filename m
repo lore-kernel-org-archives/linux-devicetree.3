@@ -1,150 +1,185 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A544266B1
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 15:05:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 061E23783AE
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 15:06:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782745558; cv=none; b=HAxzQsYOx0n5QpwF49f50OLvCIAAa++FRsWd9FS7A1m/jUJ9bg6JgZIevtyNevmVYEsbLHVshSbZepr3WNZPu3R3CZCRRpc67CgDNsP5xeb6Joexz2EebrENFhk+dRZTMfr0DDoaqU2cY0grcWJegDn2LIUSYj5uANUqNWXo6ho=
+	t=1782745614; cv=none; b=gC+Kh9cJ9pd7WuzDXVozUXEhuK8PruIjNurrEdijI2mTnXdQRGm4egExGdjfBtDK3zLqt5+WXDAAVJNSYP17gVp5M8avBb1Pi6yZYcrPuL8mcpLueXUszKoDK/Xk0kJ886VDc6qd7S2D27yeH+gO2w5s5P52B3DjN3FrbOD5vt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782745558; c=relaxed/simple;
-	bh=NIbfOpAFlLlvaPWeifBrHOW03ZGaSqQUgrtJhDxVpjk=;
+	s=arc-20240116; t=1782745614; c=relaxed/simple;
+	bh=BONHax0KPGvnYh/wOipV0VMGtz4EIszzeU5Nj5QrZKk=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=i0m1wkhnouc16qzCJ7BY1TUi8SjzDlBRWP7MTwwHyaTktk+FQkIt2fxxhCjs/Zq+QHfwaiZKxnN6UeupsREtaw42CX/6QASml3FPHapNdBrALs3A3dt2GtmvynzrDpvAQNItcJt5O4qg4GbK/0WpK9hEm+zoR7cfQJrjrWT8Viw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Dpx/49Aj; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 MIME-Version:Content-Type; b=mgTYy5WaSVxdBCVHSMXPfl1uKf85grtRzYTLrLhiMnklm4wh4T34iezmR8td7rtkRf/HzwcYTJoEtgXUk4lU7SI+DZfbhXfRjVdY0B37AsMGr7rx5AL+szWuF+scHJ20oxdQNsy4VJ9Dzz0LSyttshG/lrGYbV2nfOzMSrFthiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=PDHsfQX8; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Dpx/49Aj"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4939a809b24so18233325e9.1
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:05:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782745554; x=1783350354; darn=vger.kernel.org;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=DAzrVW08LVfxI+Bn9EkRfmN0dtsivlXeptpZjuWvIi0=;
-        b=Dpx/49Ajd3JBnbFiLpFOGWu9duzBHMLdV2dNBhIGAeSw/4/FGVScIn4Knc8jX6+grw
-         q+cxjUiNxzstXLfCo5VnGFKnG++2mOrr5BcfwUNaVBmkHOMlq+Hw0464ilsQBh8TG7cy
-         o+forZnHG4aNB2Zl/SaHpfijavNdPgvonTKXAyTFPENL+quGQPxx8EbJa/tJO45p/R1i
-         ifwZaExuWTnEqurFR5sXQac6XTErhTE0YiIlRR75qKkuaPwLKu854gUJkwJdILmTO5GP
-         ey2QrrNjNXtzuEEUwo+PzX1dDU86eoxs3WrbdO9C/PmuL9xbBLx1/Tnqdc2rr6one47E
-         QIaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782745554; x=1783350354;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=DAzrVW08LVfxI+Bn9EkRfmN0dtsivlXeptpZjuWvIi0=;
-        b=TDm/JSDXUOn1FZqDRRlVfJ3GUiDh+hbDOr7kSZ09L/ZRfZ6lFspusVKE4BDYDJSXg4
-         9m6N89qS0n7ErU8T84R0iyy1OPDlNzsTXaTDre9BDQpFS+jcQxIVYR+vqnX+hHrQhu7A
-         qLruD3MySci3Pb2+rspyJJHcREdMnR2FhoSzGY783rCOdmYjGISTQ3xEjIuyQI9EOWPU
-         ajaSGJtxwUunXQkiDVetmESmM8VDYjWm1uf4FUc30c72yyyYxRDDIACduhD+XjZMPQnd
-         KzHG1FUglSYXsDP8GXiA9S4RANGDT+MySaqyOsV+4nPSsfEerOfPFv2wlPYICZvUPA3F
-         htjw==
-X-Forwarded-Encrypted: i=1; AFNElJ+F/8kDb7ICxA1S23hWtgLWYIL1RurM5/2WFXZbW8KTcFIGGJxhKoLpq2IzHOk4nlxqcxbDlILYEyZg@vger.kernel.org
-X-Gm-Message-State: AOJu0YzD9Cnf5j7WfuSiPiIneMlrJlsj6PzrDcCVx6DILYCOi9Z7ikPp
-	rbZ7Xv/WUmksmfqGZDWJSxdSZxD9KKx1WjcNL5XhSnnIN5TTkdl4lmd9ZHhKbN7Nd7M=
-X-Gm-Gg: AfdE7clOrp6WuPrKq2aH7euKwYcQScOvRvDzFYvyN1b+3ONCcCTHxz5pubIbfQ60cZ5
-	c0Kq91N4Ldwclw48QqnqRGSc7vggeGPmvYyWDirbRZNt5O53CuQXskS6QMFHc0rtLutwFkoOX6L
-	vQwJnkVIajd5JespGqFh0igZ3m8hqbzkVtHnH7VyKvGKJ5WKQJSAcDulVQ2a2qTOvqEytKxgYdL
-	XuRP+v3WoRRG6ikjjysjaqMLM+MlNwYo+RBR06d53kI14ab7QcDvQOUgsyNWtJPAl60GWH5JgaT
-	PFxnmqSRdbY9c/ktNaEOLblclEONs3RCMAC2seAsrpTWlO7D9SqNcfGuKcv7fQeP2gVQalitTEH
-	Delfo1/Kdmz55P5BgZMqrX1Ow6pV00P0PxDe+qADZFc+rdQMPlwMIDfYhc/xrU1w6AylnWJA9bj
-	L9vQeKWNLjLLQ=
-X-Received: by 2002:a05:600c:45c3:b0:493:9b02:484c with SMTP id 5b1f17b1804b1-493b82b9e7amr734905e9.29.1782745554300;
-        Mon, 29 Jun 2026 08:05:54 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:1d21:f5d5:2d3c:23a7])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4932f100e4asm220013365e9.1.2026.06.29.08.05.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 08:05:53 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: sashiko-bot@kernel.org
-Cc: sashiko-reviews@lists.linux.dev,  linux-sunxi@lists.linux.dev,
-  robh@kernel.org,  devicetree@vger.kernel.org,  conor+dt@kernel.org
-Subject: Re: [PATCH v2 1/6] dt-bindings: rtc: sun6i: add sun60i-a733 support
-In-Reply-To: <20260629125305.0DF981F000E9@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Mon, 29 Jun 2026 12:53:04
-	+0000")
-References: <20260629-a733-rtc-v2-0-7b72112784f8@baylibre.com>
-	<20260629-a733-rtc-v2-1-7b72112784f8@baylibre.com>
-	<20260629125305.0DF981F000E9@smtp.kernel.org>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Mon, 29 Jun 2026 17:05:51 +0200
-Message-ID: <1jpl198jzk.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="PDHsfQX8"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id B36D51A0D01;
+	Mon, 29 Jun 2026 15:06:49 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 854325FF96;
+	Mon, 29 Jun 2026 15:06:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 561EC106F18BF;
+	Mon, 29 Jun 2026 17:06:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1782745608; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=BONHax0KPGvnYh/wOipV0VMGtz4EIszzeU5Nj5QrZKk=;
+	b=PDHsfQX8vE5Gkq/pWrLB4bkNUh8x6PgT3QnB23IU5i7pjORNCFKRKuWdrR9mSiBpE8xqNf
+	3Vwv1M5wr/pfypZMB/pWA3EmDYfhhGeIV9hWBJQiaVxFC/I4wBpnJww2o0z8xL2vHcIU8N
+	Hb9VPsY+FnNayGPaEkwHZH0W+54eVBbD0Z0A8Yxe0A8s0F6YeIaeSGp71GiaFHw9s6Xm9y
+	1QuTgFH8U7zLx73V3vZiBqu++GH8mMqLiLZwzupY+ZDQMx1m3QDymc6ysKHO1hTigZPWtS
+	SLUVw4xyFsap3weTpBrM8RL7kDWPb/IPuftw0GCBsBjZx5OEvjipX7Zzvok0zw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Stephan Gerhold <stephan.gerhold@linaro.org>,  Manivannan Sadhasivam
+ <manivannan.sadhasivam@oss.qualcomm.com>,  Kathiravan Thirumoorthy
+ <quic_kathirav@quicinc.com>,  Krzysztof Kozlowski <krzk@kernel.org>,
+  Manivannan Sadhasivam <mani@kernel.org>,  Richard Weinberger
+ <richard@nod.at>,  Vignesh Raghavendra <vigneshr@ti.com>,  Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
+ Dooley <conor+dt@kernel.org>,  linux-mtd@lists.infradead.org,
+  linux-arm-msm@vger.kernel.org,  devicetree@vger.kernel.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: mtd: qcom,nandc: Add MDM9607 QPIC NAND
+ controller
+In-Reply-To: <3ab3ccfc-1fdc-4176-b073-1f31e2c88c6a@oss.qualcomm.com> (Konrad
+	Dybcio's message of "Wed, 17 Jun 2026 13:42:44 +0200")
+References: <20260608-qcom-nandc-mdm9607-v1-0-4639a0492274@linaro.org>
+	<20260608-qcom-nandc-mdm9607-v1-1-4639a0492274@linaro.org>
+	<20260609-quirky-rat-of-criticism-aea1fe@quoll>
+	<87mrx4b164.fsf@bootlin.com> <aifKejyF7n6QsI9h@linaro.org>
+	<a6b17b9a-f639-4a7f-adb6-d0c9dbd31e68@oss.qualcomm.com>
+	<35c7513b-6aea-48cf-aea8-da8604616601@oss.qualcomm.com>
+	<aifX80IHM8TLQiV7@linaro.org> <87o6hk9i29.fsf@bootlin.com>
+	<aifktn_s2qmg7MzI@linaro.org>
+	<3ab3ccfc-1fdc-4176-b073-1f31e2c88c6a@oss.qualcomm.com>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Mon, 29 Jun 2026 17:06:44 +0200
+Message-ID: <87v7b1s7wb.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On lun. 29 juin 2026 at 12:53, sashiko-bot@kernel.org wrote:
+Hello,
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] The `clock-output-names` property has a global `maxItems: 3`
-> constraint and a description limiting it to three clocks, which contradicts
-> the new clock outputs (IDs up to 11) added for the sun60i-a733-rtc.
-> --
->
-> commit a1565b632e372c724867216463a453c9d1600ad2
-> Author: Jerome Brunet <jbrunet@baylibre.com>
->
-> dt-bindings: rtc: sun6i: add sun60i-a733 support
->     
-> Adds a new rtc compatible for the sun60i-a733 SoC and new IDs for the
-> peripheral oscillator clock gates of this SoC.
->
->> diff --git a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml
->> index 9df5cdb6f63f2..197a6f67b180a 100644
->> --- a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml
->> +++ b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml
->> @@ -33,6 +33,7 @@ properties:
->>            - enum:
->>                - allwinner,sun20i-d1-rtc
->>                - allwinner,sun55i-a523-rtc
->> +              - allwinner,sun60i-a733-rtc
->>            - const: allwinner,sun50i-r329-rtc
->
-> [ ... ]
->
->> diff --git a/include/dt-bindings/clock/sun6i-rtc.h b/include/dt-bindings/clock/sun6i-rtc.h
->> index 3bd3aa3d57ce1..5132a393ca4b6 100644
->> --- a/include/dt-bindings/clock/sun6i-rtc.h
->> +++ b/include/dt-bindings/clock/sun6i-rtc.h
->> @@ -6,5 +6,9 @@
->>  #define CLK_OSC32K		0
->>  #define CLK_OSC32K_FANOUT	1
->>  #define CLK_IOSC		2
->> +#define CLK_HOSC_UFS		8
->> +#define CLK_HOSC_HDMI		9
->> +#define CLK_HOSC_SERDES0	10
->> +#define CLK_HOSC_SERDES1	11
->
-> [Severity: Low]
-> Will adding clock IDs up to 11 conflict with the existing clock-output-names
-> constraint in allwinner,sun6i-a31-rtc.yaml?
->
-> The clock-output-names property currently has a global maxItems constraint
-> alongside its description:
->
->   clock-output-names:
->     minItems: 1
->     maxItems: 3
->     description:
->       The RTC provides up to three clocks
->
-> If a device tree author attempts to define an array of clock-output-names
-> to document all outputs for the allwinner,sun60i-a733-rtc node, won't it fail
-> dt_binding_check validation because it exceeds the maximum allowed items?
+On 17/06/2026 at 13:42:44 +02, Konrad Dybcio <konrad.dybcio@oss.qualcomm.co=
+m> wrote:
 
-Not quite sure what to do with that one.
+(keeping the context for Krzysztof)
 
-The h616 compatible devices all exposed more than 3 clock through the
-provider, even if the higher IDs did not have define.
+> On 6/9/26 12:02 PM, Stephan Gerhold wrote:
+>> On Tue, Jun 09, 2026 at 11:30:54AM +0200, Miquel Raynal wrote:
+>>> On 09/06/2026 at 11:08:03 +02, Stephan Gerhold <stephan.gerhold@linaro.=
+org> wrote:
+>>>
+>>>> On Tue, Jun 09, 2026 at 11:01:18AM +0200, Konrad Dybcio wrote:
+>>>>> On 6/9/26 10:55 AM, Konrad Dybcio wrote:
+>>>>>> On 6/9/26 10:10 AM, Stephan Gerhold wrote:
+>>>>>>> On Tue, Jun 09, 2026 at 09:52:51AM +0200, Miquel Raynal wrote:
+>>>>>>>>>> On MDM9607, there is only a single controllable clock for the NA=
+ND
+>>>>>>>>>> controller (RPM_SMD_QPIC_CLK). The same situation also applies e=
+.g. for
+>>>>>>>>>> qcom,sdx55-nand, but the corresponding device tree (qcom-sdx55.d=
+tsi) works
+>>>>>>>>>> around that by assigning a dummy clock (&nand_clk_dummy) to the =
+second
+>>>>>>>>>> clock ("aon") that is required by the dt-bindings. This is not r=
+eally
+>>>>>>>>>> useful, so avoid doing that for new platforms by excluding the s=
+econd "aon"
+>>>>>>>>>> clock entry in the dt-bindings.
+>>>>>>>>>
+>>>>>>>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcom=
+m.com>
+>>>>>>>>
+>>>>>>>> What is the problem in giving twice the same clock? If this is wha=
+t is
+>>>>>>>> done in the hardware routing, I do not see the reason for more
+>>>>>>>> complexity in the binding?
+>>>>>>>>
+>>>>>>>
+>>>>>>> I had that in my first draft for this series, but this would be wro=
+ng
+>>>>>>> IMO. I suspect there is no QPIC/NAND related "aon" (always-on) cloc=
+k on
+>>>>>>> this platform at all. I'm not sure about MDM9607 in particular (may=
+be
+>>>>>>> someone from Qualcomm can confirm), but a similar platform I was lo=
+oking
+>>>>>>> into at some point actually had *3* separate clocks for QPIC in the
+>>>>>>> hardware and none of them were called "aon" ...
+>>>>>>
+>>>>>> gcc_qpic_ahb_clk (50/100/133.(3) MHz sourced from PCNoC_bfdcd_clk_sr=
+c)
+>>>>>> gcc_qpic_clk (likewise, sourced from qpic_clk_src which is sourced
+>>>>>> from GPLLs)
+>>>>>> gcc_qpic_system_clk (32 KHz)
+>>>>>>
+>>>>>> No clock containing the substring 'aon' in its name on this platform
+>>>>>
+>>>>> Looking at SDX65, perhaps the 32 Khz clock is the "aon" one after all=
+..
+>>>>> The NAND documentation says
+>>>>>
+>>>>> CC_QPIC_SYSTEM_CLK - Always-on timeout clock (32 KHz)
+>>>>>
+>>>>
+>>>> Thanks for looking this up.
+>>>>
+>>>> IMO, if we want to describe the actual hardware routing, we should
+>>>> describe all 3 clocks and assign all of them to RPM_SMD_QPIC_CLK for
+>>>> MDM9607).
+>>>
+>>> Sounds more accurate to me.
+>>>
+>>>> The resulting diff would be basically the same as this patch just
+>>>> inversed (3 clocks for MDM9607+SDX(?) and 2 clocks for the IPQ* SoCs.
+>>>
+>>> Diff would not be simpler but more accurate. So if we go for a
+>>> modification of the bindings, I would prefer that path.
+>>>
+>>=20
+>> IMO the result wouldn't be much more accurate from the perspective of
+>> the kernel. If we assign RPM_SMD_QPIC_CLK to all 3 clocks we would be
+>> effectively saying "there is a single clock with a single rate that is
+>> sourcing 'core', 'ahb' and 'system'(/'aon')". But in reality, these are
+>> 3 separate clock domains with separate rates, as shown by Konrad above.
+>>=20
+>> We could try defining dummy clocks like the &nand_clk_dummy in
+>> qcom-sdx55.dtsi, but this isn't very accurate either. Presumably, all of
+>> these clocks are toggled by RPM_SMD_QPIC_CLK. So if we define a dummy
+>> clock for 'ahb', then enabling that clock without also enabling the
+>> non-dummy 'core' (RPM_SMD_QPIC_CLK) will do nothing.
+>
+> I can't find a good answer for what RPM_SMD_QPIC_CLK controls, maybe
+> +Mani or +Kathiravan know where to look
+>
+> Konrad
+>
+>>=20
+>> At the end, the truth for the OS/kernel running on this hardware is that
+>> it can only see the 'core' clock (with the option to change its rate).
+>> All others are invisible, with no way to influence or check the status,
+>> so pretending that we have separate resources for them doesn't really
+>> make things more accurate in my opinion.
+>>=20
+>> But yeah, let's leave the decision up to Krzysztof. I'm happy to change
+>> this patch as needed as long it works at the end. :-)
 
-The clock output names for the h616 compatible device are not really
-supposed to be defined through DT ... at least AFAIU ??
+Sorry to bother you Krzysztof. Based on the previous discussion, would
+you mind giving an updated point of view? If you don't have time, no
+problem, I can take the series as-is.
 
--- 
-Jerome
+Thanks a lot,
+Miqu=C3=A8l
