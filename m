@@ -1,172 +1,134 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4910C224B15;
-	Mon, 29 Jun 2026 14:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26E3374E57
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:07:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782741934; cv=none; b=ug5ddtsSAQz2NMDvjHir6/GfoZMNqH6JTKFX0MHe/Ovcmsqeg/JumYL1aJTz8JcVPojI6GlCCi3DNtwuE9NjI92pEYBYt4BPkIToSIC9ldZbsNboIDCkNxr3fWJxIXIRnvAMtj3bHu0SQ2n/bPFx37j3qfg1tLcW104JQv1gxbE=
+	t=1782742053; cv=none; b=d283UrJdpWIQzGbXXdnetG0mxOyY7XCCboW6I9NidknkheI6QsSci9+cb5Yw29Hnxg4tlJujU6YHDyjzjC5OuxkvufSg+ZRKp0wkaKArIAhLca1xU9syM1tmwkzBdgXpguMlpiPt6GTP13s+qX9l6Ep1aBpykB9utv9qb0pA8A4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782741934; c=relaxed/simple;
-	bh=c5scqsKrFR923loW0LJkY5W0jRYL4ryhQKo4XfRhyYI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LJ6l4MN6xtjbGNOTNIXKHj4EHgNoXLOC3wMxL1EvQT1zPPcoe+5Bbcy9SJt6jv9K6Tabz5ubA1893V+g8Y7/NNV7Lh8Zqv0LvPvbF3YkzRIrmtvPFkOu3pGtKN4+bnurL2xJy+ijACGXq9vD+Iepjmy6VIq1tgaWUhPNXbOMo4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RpX260gs; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782742053; c=relaxed/simple;
+	bh=dEBpbC87537LBBTTmXAr8CNI2ZwT6yEisCHDxbF5LnA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D0Vr4CtHtGgFT93puK65IUOrUr4NSmgCgIwqYZKKC5wqgtP2oBh/t1lsgKzN2Ti0Oiy0My+LlrJy4T3Lv4QGgb2AfvjDX+urh5r2yq9JCqG7tqfoTb0FhoxgdPFg3RaAJ388zwTTqxjNythl6y0z1mDZAws3k1/jNY9vyS4s64M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WdJgbGTu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RpX260gs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782741934; x=1814277934;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=c5scqsKrFR923loW0LJkY5W0jRYL4ryhQKo4XfRhyYI=;
-  b=RpX260gsvp2lt3nXY9rz3qhR2ipPusHxZj8y+6NQHdLFq2cd78vkU83i
-   /Xc8X4LnLyx62ehJbw/lCNzv17oxAJ5G7mpgwcPUN3oRhps5S5kkE7Xxu
-   xj/t0QIW4ig2yvCiAwMycIP5AUD8w183qwqkCq0DPCojkCuHi4vLB6Hmc
-   mmvuvib1gP6WimCVlu0KoXAUDZgXWLJqgb70ET1wMcyLZE4QxLJyYmHbc
-   qxEXV2YWCc3sTt6jPw6Jn8BDns1Jaq/lXto3KFb5LStPxgI5KYoql7QNg
-   Mlpi3Qt1XRrlFuAMYxgGIInTRYJalKQO7qGYz3OjbbQdRitFioxiTMqv1
-   Q==;
-X-CSE-ConnectionGUID: iiRb8/+KRUumIiicUngCJg==
-X-CSE-MsgGUID: ugdVhjuOQKmoBFeDYXAgEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="83437526"
-X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
-   d="scan'208";a="83437526"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 07:05:33 -0700
-X-CSE-ConnectionGUID: D2WYEo3GTRqDo8mRszrxIA==
-X-CSE-MsgGUID: BXYOOxUDQuWINzIO0K/3dw==
-X-ExtLoop1: 1
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.207])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 07:05:29 -0700
-Date: Mon, 29 Jun 2026 17:05:27 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v6 3/5] iio: osf: add protocol decoding
-Message-ID: <akJ7p17eay2mnW-Y@ashevche-desk.local>
-References: <20260628191337.937-1-kimjinseob88@gmail.com>
- <20260628191337.937-4-kimjinseob88@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WdJgbGTu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BFF91F0155B
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:07:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782742050;
+	bh=bbeOSfk9uz1Wrt6J5wAea4CxiJx++/6lvqEjtpLfRco=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=WdJgbGTuii88TFEbu6XpTlHIdAbM0xcN6YjUJQNtsS5QZsweE06dn2SWSTdr13D0g
+	 cDrsusjeeaUBCimeiqTSvi/JeSiW9AvQkX/i5ua3pgxXsZCwAFb3CIBmkFlcjrkZT3
+	 WxbCtvKerMUrNoL6ZT6mTGetEEJdTN52F+3OEcp6VUHr8oc/v6pd+DkzaqNbBXxBZA
+	 Ld517NmZ9/iIB3qfK/4FP1OCHdb2Rkgwddzfy6RLgP+atqTMDKqOOsDnjXz2TzmohL
+	 x3TvIUD56kSkRMRCMUlifT+c1/Ck/brCKHJOFU6gJ74LZtHxWG4NXK6rUQ23KkWcRX
+	 mGc+ywabfwJrA==
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39acf7c6d59so27456561fa.0
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:07:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rp483dJVVGHxe4KC4hHQPn7SFZlD8ElFhpcFUwG/ucMNalYkSwUyeLqOdd3KLGGsoV1C7oMqKSXV/k9@vger.kernel.org
+X-Gm-Message-State: AOJu0YxY8BxZOCS1jKRjXhydNY33kAsGYPEzvR4vTfXi4KKO0JKCv5zo
+	SnHcoHvbY3iIcEI3Dw/s3khvnUsVa5+OxcWsIYz5kXX+1Iz3Q/b+8+2xYpt1a9MFq3OafTqtcSC
+	qLOBhMTcqDYPWikQzg7z245R5uqjsKpy1LSmTubxeEA==
+X-Received: by 2002:a05:651c:146c:b0:396:5d0a:765a with SMTP id
+ 38308e7fff4ca-39acb8ffa66mr33873361fa.21.1782742048596; Mon, 29 Jun 2026
+ 07:07:28 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 29 Jun 2026 07:07:24 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 29 Jun 2026 07:07:24 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <CAMuHMdXen+E-Ai51aWBa_KV9W8Fz2cQPpT-FG_kQ7akhrrYa_A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260628191337.937-4-kimjinseob88@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260629-qcom-sa8255p-emac-v11-0-1b7fb95b51f9@oss.qualcomm.com>
+ <20260629-qcom-sa8255p-emac-v11-1-1b7fb95b51f9@oss.qualcomm.com> <CAMuHMdXen+E-Ai51aWBa_KV9W8Fz2cQPpT-FG_kQ7akhrrYa_A@mail.gmail.com>
+Date: Mon, 29 Jun 2026 07:07:24 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Me3jaZXiXa1sFXr=8Do4sCd+XN1pKTcWC8-0j78SjCkKA@mail.gmail.com>
+X-Gm-Features: AVVi8CfgGr0R3g5nrNxVwL-t6-jaKI4wsgAKUpj-c_HwbEC7_gerPUuikt96dHI
+Message-ID: <CAMRc=Me3jaZXiXa1sFXr=8Do4sCd+XN1pKTcWC8-0j78SjCkKA@mail.gmail.com>
+Subject: Re: [PATCH net-next v11 1/7] dt-bindings: phy: document the serdes
+ PHY on sa8255p
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Vinod Koul <vkoul@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Fabio Estevam <festevam@gmail.com>, Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com, 
+	Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, Romain Gantois <romain.gantois@bootlin.com>, 
+	Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
+	Christophe Roullier <christophe.roullier@foss.st.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Radu Rendec <rrendec@redhat.com>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, Drew Fustini <dfustini@tenstorrent.com>, 
+	linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org, 
+	linux-mips@vger.kernel.org, imx@lists.linux.dev, 
+	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	sophgo@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Jun 29, 2026 at 04:13:35AM +0900, Jinseob Kim wrote:
-> Add helpers for decoding Open Sensor Fusion frame headers and supported
-> message payloads.
-> 
-> The decoder validates the OSF0 wire magic, protocol major version,
-> header length, payload bounds, reserved fields and CRC before exposing
-> decoded frame contents to the rest of the driver.
-> 
-> Use explicit little-endian wire storage sizes and designated
-> initializers for decoded output structures.
+On Mon, 29 Jun 2026 15:51:31 +0200, Geert Uytterhoeven
+<geert@linux-m68k.org> said:
+> Hi Bartosz,
+>
+> Thanks for your patch!
+>
+> On Mon, 29 Jun 2026 at 13:29, Bartosz Golaszewski
+> <bartosz.golaszewski@oss.qualcomm.com> wrote:
+>> Describe the SGMII/SerDes PHY present on the Qualcomm sa8255p platforms.
+>> This is essentially the same hardware as sa8775p rev3 but the PHY is
+>> managed by firmware over SCMI.
+>
+> So why can't it be reuse the DT bindings, and be compatible with
+> qcom,sa8775p-dwmac-sgmii-phy?
+>
+>> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/phy/qcom,sa8255p-dwmac-sgmii-phy.yaml
+>
+>> +  power-domains:
+>> +    maxItems: 1
+>> +
+>> +  power-domain-names:
+>> +    items:
+>> +      - const: serdes
+>
+>> +examples:
+>> +  - |
+>> +    phy@8901000 {
+>> +        compatible = "qcom,sa8255p-dwmac-sgmii-phy";
+>> +        reg = <0x08901000 0xe10>;
+>> +        #phy-cells = <0>;
+>> +        power-domains = <&scmi7_dvfs 0>;
+>> +        power-domain-names = "serdes";
+>
+> Ah, this uses power-domains, while the existing bindings for
+> qcom,sa8775p-dwmac-sgmii-phy use a clock.
+> I guess the clock is the correct hardware description?
+>
+> Adding to my list of examples for backing a hardware-to-SCMI remapping
+> driver...
+>
 
-...
+Russell King asked me to put the PHY logic for SCMI pm domains into the PHY
+driver instead of the MAC driver where it was previously. Instead of cramming
+both HLOS and firmware handling into the same driver, I figured it makes more
+sense to have a dedicated, cleaner driver as the two share very little code (if
+any).
 
-> +#include <linux/bits.h>
-> +#include <linux/crc32.h>
-> +#include <linux/errno.h>
-> +#include <linux/limits.h>
-> +#include <linux/types.h>
-> +#include <linux/unaligned.h>
-
-...
-
-> +#define OSF_FRAME_MAGIC		0x3046534f /* "OSF0" little-endian */
-
-#define OSF_FRAME_MAGIC		0x3046534f /* "OSF0", little-endian */
-
-(mind a comma).
-
-...
-
-> +int osf_protocol_decode_sensor_sample(const struct osf_frame *frame,
-> +				      struct osf_sensor_sample *sample)
-> +{
-> +	u16 channel_count;
-> +	u16 sample_format;
-> +	u16 sensor_type;
-> +	size_t expected_len;
-> +	const u8 *payload;
-> +
-> +	if (!frame || !sample || !frame->payload)
-> +		return -EINVAL;
-> +
-> +	if (frame->message_type != OSF_MSG_SENSOR_SAMPLE)
-> +		return -EPROTO;
-> +
-> +	if (frame->payload_len < OSF_SENSOR_SAMPLE_BASE_LEN)
-> +		return -EMSGSIZE;
-> +
-> +	payload = frame->payload;
-> +	sensor_type = get_unaligned_le16(payload);
-> +	channel_count = get_unaligned_le16(payload + 4);
-> +	sample_format = get_unaligned_le16(payload + 6);
-> +
-> +	if (!osf_sensor_type_valid(sensor_type))
-> +		return -EPROTO;
-> +
-> +	if (!channel_count)
-> +		return -EPROTO;
-> +
-> +	if (sample_format != OSF_SAMPLE_FORMAT_S32)
-> +		return -EPROTO;
-> +
-> +	if (get_unaligned_le32(payload + 12))
-> +		return -EPROTO;
-
-> +	if (channel_count > (SIZE_MAX - OSF_SENSOR_SAMPLE_BASE_LEN) /
-> +	    sizeof(__le32))
-> +		return -EOVERFLOW;
-
-Dead code because it's always 'false'? Hasn't compiler given a warning?
-Always compile your code with `make W=1` using both compilers: clang and GCC.
-
-> +	expected_len = OSF_SENSOR_SAMPLE_BASE_LEN + channel_count * sizeof(__le32);
-> +	if (frame->payload_len != expected_len)
-> +		return -EMSGSIZE;
-> +
-> +	*sample = (struct osf_sensor_sample) {
-> +		.sensor_type = sensor_type,
-> +		.sensor_index = get_unaligned_le16(payload + 2),
-> +		.channel_count = channel_count,
-> +		.sample_format = sample_format,
-> +		.scale_nano = get_unaligned_le32(payload + 8),
-> +		.samples = payload + OSF_SENSOR_SAMPLE_BASE_LEN,
-> +	};
-> +
-> +	return 0;
-> +}
-
-...
-
-> +	if (capability_count > (SIZE_MAX - OSF_CAP_REPORT_BASE_LEN) /
-> +	    OSF_CAP_SENSOR_ENTRY_LEN)
-> +		return -EOVERFLOW;
-
-Ditto.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Bart
