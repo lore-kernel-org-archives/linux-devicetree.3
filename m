@@ -1,83 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672262F2910;
-	Mon, 29 Jun 2026 18:15:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740A7379C2C;
+	Mon, 29 Jun 2026 18:18:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782756919; cv=none; b=ct9V0N359HD2XwrkPBc/sMYvyiW1JFAfEN249EoisHsABue08qGSmwd6QDXLTMOxQgEhYdIHwkKfUv+Uf9E1734VVe3YsZUb7A0dDE982mm6Pio13w63ZvlQevucXz1Y/e2Hdn39Cm2sFDIBEAVPJMhiMiK2aL9PJT0Lln7UXiE=
+	t=1782757122; cv=none; b=qj2ZO801LtnFZ+JApZ5G7yHOFiNEUWQgXM6vYTYbGgFR+qlSaCAurQH8Sn9RQ+XfJchjh+CTgLoS9v20pvR50t4iesWeBAWPmBF1vOeRcBYpSkPzr54vu7Kqw4Jv51b/qPZaHpf+Isnz5GbWq4I8ANu/EeHxA2aXvMLFdSKr2sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782756919; c=relaxed/simple;
-	bh=rPgJrpsKY/gq2QrGnJvSHgDpNq3RIsDhciRasX2nBQM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E1+Ammvf8dIiTY3ht4sxupu3rVy5NXetmCzxFp7Tr84GGJGvfhHq7Qy87PTQZ1pHkck/u4I7KpOC3tXHxxZcTWgHDrHMoUjJmVJUm9o8BdB5G1wi4FP9pQysuP86ZwLO53ILYzpPt16dVDpcFk+5CzEkKwbOqNpZnED9Uc9XwcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O76wn73i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782757122; c=relaxed/simple;
+	bh=YaYTwPK9VSSwzepj4GfEnSgg1MVFJLrruAtM52rkhlE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QNAw3Ois7/wJzByi4yQYQHejno2bwcZd2pScA1yGPceojOfkr7sHza8K+bRyFlWBaqrADJQNbQqaquilteOVY+FZkQvANJHUToXcRT/Xprsnm4ckN72922Jz0iJ7d7rScQ9UhoMJmfATMCJybbrEKCyrwizXs7d8MnysV9X63W0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QVkIQ0CV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O76wn73i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C7101F000E9;
-	Mon, 29 Jun 2026 18:15:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QVkIQ0CV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8453D1F000E9;
+	Mon, 29 Jun 2026 18:18:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782756918;
-	bh=rPgJrpsKY/gq2QrGnJvSHgDpNq3RIsDhciRasX2nBQM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O76wn73iHRoPaysrwnuzNDqa+PPiPbMT13et1MWiwdGApXzuWHlz71cXbejeEIGeP
-	 AGp0xpsirWjL/yYAbPCsZYO5DkryUbB+gFHAso7yYZObHE6ChAxC4H/bc4xA9SP73x
-	 78/fFUsHlZZoxgYaU/y/cMDVht9KhhZY+7i+ZmsO3SINX0dmmAHRUQJRiPxxDITgAD
-	 dqlBkuJgnqvFXmdSDdQjOtUM7Cp/hen+taEg3JoMs0NKtOB+9Ip9rWaYqct5GW6uqk
-	 4B1VQAHsU68yYYf7yRBvhAYcRnOv2wiAJN+x2dYHsbh2W2NsKgyBm5C1aHNefZkveH
-	 UGpGg8U2meGOw==
-Date: Mon, 29 Jun 2026 19:15:13 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Otto =?iso-8859-1?Q?Pfl=FCger?= <otto.pflueger@abscue.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Zhongfa Wang <zhongfa.wang@unisoc.com>
-Subject: Re: [PATCH v6 0/3] regulator: Add support for Unisoc SC2730 PMIC
- regulators
-Message-ID: <cf99b84b-5ce3-4b1f-91c4-9e8a5064fcd1@sirena.org.uk>
-References: <20260620-sc2730-regulators-v6-0-bbd2db395231@abscue.de>
+	s=k20260515; t=1782757121;
+	bh=2s+0rhdljTbKBPvKs4FVrQ/4UObODJSaX9xBvfkyyPg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=QVkIQ0CVX29p89bevN664jajE9aqGeMWtLG16n5LsQm/xUYXv0QIP7zTxREWhK5aZ
+	 WGCbtXbRlCxkgMFSrDQUAWDiMV6W/gVMr6r3X4bKMdLs3kvLrJ9XMrvRD+RaqoDVH0
+	 BsbseXR15RpfHj+XJf6kBy4ag/iZ8tHi9Ejlov9Q//yV77kSaz/wH+LrPX5LwGXJMI
+	 j+dj2UZqkVtcZn2NeOOrlwiV7D2k75m268P7adz0SfMCMYiPc+Bd4oCluccWz3KwGS
+	 EI51A8vy6+1NoxNWFGCW/F1uLZSDIAahzHybcK2Q1gsMl4DX8KT7UHt9mUKtYwsAq7
+	 FSCjWNxpJnDcg==
+Date: Mon, 29 Jun 2026 19:18:34 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Kim Seer Paller <kimseer.paller@analog.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] iio: dac: ad3530r: Refactor setup to
+ table-driven register bank approach
+Message-ID: <20260629191834.38a2b8df@jic23-huawei>
+In-Reply-To: <akJ5xoMvLWwNvpVN@ashevche-desk.local>
+References: <20260629-iio-ad3532r-support-v3-0-f6e4f4abebbe@analog.com>
+	<20260629-iio-ad3532r-support-v3-1-f6e4f4abebbe@analog.com>
+	<akJ5xoMvLWwNvpVN@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="95yFsMHopHmTJv9r"
-Content-Disposition: inline
-In-Reply-To: <20260620-sc2730-regulators-v6-0-bbd2db395231@abscue.de>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Mon, 29 Jun 2026 16:57:26 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
---95yFsMHopHmTJv9r
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> On Mon, Jun 29, 2026 at 04:31:04PM +0800, Kim Seer Paller wrote:
+> > Replace direct register calls in ad3530r_setup() with per-chip register
+> > address arrays and bank helpers (ad3530r_set_reg_bank_bits,
+> > ad3530r_write_reg_banks). Convert sw_ldac_trig_reg from a static  
+> ad3530r_set_reg_bank_bits(),
+> ad3530r_write_reg_banks().
+> 
+> > Convert sw_ldac_trig_reg from a static
+> > register address to a function pointer for per-bank LDAC trigger
+> > register selection. Switch spi_device_id to named initializers.  
+> 
+> Split this patch to do one thing per a change.
+> 
+Perhaps more relevant here is remember to update the changelog.
+It doesn't do that last thing as Uwe already dealt with it.
 
-On Sat, Jun 20, 2026 at 10:53:59AM +0200, Otto Pfl=FCger wrote:
-> Add device tree bindings and a driver for the regulators found in the
-> Spreadtrum/Unisoc SC2730 PMIC.
+> ...
+> 
+> > +static int ad3530r_set_reg_bank_bits(const struct ad3530r_state *st,
+> > +				     const unsigned int *regs,
+> > +				     unsigned int num_regs,
+> > +				     unsigned int mask)
+> > +{
+> > +	int ret;
+> > +
+> > +	for (unsigned int i = 0; i < num_regs; i++) {
+> > +		ret = regmap_update_bits(st->regmap, regs[i], mask, mask);  
+> 
+> _set_bits()
+> 
+> > +		if (ret)
+> > +			return ret;
+> > +	}
+> > +
+> > +	return 0;
+> > +}  
+> 
 
-This doesn't apply against current code, please check and resend.
-
---95yFsMHopHmTJv9r
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpCtjAACgkQJNaLcl1U
-h9CpWwf/deCeIYkEER6Q/OUOTz3nz2YacD5JkLMIBVx7h8kaxWpb5Cz2a5pX9jnI
-dQq2GDETYi6re5sjTZaF6k5rpWDAwdismC/OIVXdSgiMzSHszGFXcKdN78yUXQPd
-cPf7RJFXLVXiFYWmoFRGgYPHaFU8N8xqw3K3cKB0yO0eVVgElnpJyNWs+iwRy5Eu
-a/2xkHXXVV/yb5ud1Qm6U3p/LPNbHJthPVTY83ZxYl1wC0WXpm24gBWOktgv1LnK
-+A3sEXX4hoc/SNtHjUZ0ANUZEuVYBjGRP9E2K71vapsUaO0Mdrs7isvpZjtTuIDq
-vaph9FBtvPpbE7FMOanO2j0Q6Gceww==
-=ODhd
------END PGP SIGNATURE-----
-
---95yFsMHopHmTJv9r--
