@@ -1,54 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C7A017BA6;
-	Mon, 29 Jun 2026 22:12:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D75191;
+	Mon, 29 Jun 2026 22:15:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782771162; cv=none; b=O9KWZKWf4VKbIF2rBhG4RuX0lROV8o2YsJAfl8wp+RomQYlSsQOPAU0GyCbG1IpId8hnJW+z6I7YQeBB873itsbBlK3KwjsyyTiprCJt8PXp83bbNTK143dg/LxwRgm3eJCpf+5XAsyAl5VQgBVNgKdUMxXK1fbWjDa0rQ1rOd0=
+	t=1782771341; cv=none; b=s9mpiuazTV/L6d3X92FLb3f8EVg05eWsqVyWf9820wzFw+Dsv/FVSJJUvT1GucAqkkeRxiePnrC0brIwIQt4R5IGjrbZ8XuGgtp6e+tBgF876FP4OwHKQDgjVK3SdwNy7PrqZq6f6YRL7p1Qe3WY3fb2dzDtvnvbBiSk8FZiF5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782771162; c=relaxed/simple;
-	bh=iB2QUIH+jnpnz5OCEwFTlGlxMpaMurfUS2GYKwYpoDA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BIR0pcJL8iZr1OPw8lkPNWsNKJHj5bSqyUJtLU80yM4hlIenxqgJwEbsjJcHtg2fBlIVmT4fWkdJHykl2GAHZYk+rjtjTujq1K3rAVuQMllwfoqGtjoUPQ62ozTZEV8Jz48TndP/yNgmgj+657gV4I/KLZOv6AXTrqx8ot22O54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YG5oIrH+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782771341; c=relaxed/simple;
+	bh=s2lGu4iAeEUl42sSwYI0OpUe9gLW2IsebNJICi/W6M8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SIQfWz3SJe3tXmhzYHYYNKrSY3pg/4+i8KqxqLYDEiN4OZGp1AHwEhrkO9XlRjwngnvV1k3XLpkS5OKZnsd554Xn2O2qMR5iZ4gTAqytd9LKFVw8reEmAMVk3FA7TZ/J08R7IBLmghQO5O1k1M8nXzct6tvu87nsY6hBXVwRsk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LiFD7iMl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YG5oIrH+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AFE51F000E9;
-	Mon, 29 Jun 2026 22:12:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LiFD7iMl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71B8C1F000E9;
+	Mon, 29 Jun 2026 22:15:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782771161;
-	bh=8n9le3trkSyiCOdoQQ7qv7ONy8S8pzEvqIJjvhKl0SQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=YG5oIrH+7u+2vG5yyjLSoqJErG9KFnKVH8VxtcUsZw6iAnnRI1lsLV2YWVstIrVIX
-	 ySje8nnRZz84eh2EfVzctjJdgk6957pIwY+vwDSNH69oiKLgW7JMjEIN4w75clLFZp
-	 Sz0YAN6CSjUADJjX9iB6Vb6iSt0cdNe0vHMdaib/z/v7HOmxzn0avxC4/0DD1+K34a
-	 28sjB7H0l+OYbTAUu6KrORpAhkcTJvLqKWaV0+gRiNRaT8PRCyLY98ZvS5NFgxNDav
-	 iCtGAegWrTVR4Bdcq0qfPxTgWTQv0gYkjeKNXEOuzJCt7IfMZZf+UDicRORCKqTETo
-	 P3u3jnm9xHJog==
-Date: Mon, 29 Jun 2026 15:12:39 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Gokul Praveen <g-praveen@ti.com>
-Cc: <vigneshr@ti.com>, <kristo@kernel.org>, <conor+dt@kernel.org>,
- <c-vankar@ti.com>, <s-vadapalli@ti.com>, <krzk+dt@kernel.org>,
- <davem@davemloft.net>, <andrew+netdev@lunn.ch>, <pabeni@redhat.com>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/3] net: ethernet: ti: am65-cpsw: Fix MAC
- configuration for SGMII mode
-Message-ID: <20260629151239.67115e55@kernel.org>
-In-Reply-To: <20260629102308.56616-3-g-praveen@ti.com>
-References: <20260629102308.56616-1-g-praveen@ti.com>
-	<20260629102308.56616-3-g-praveen@ti.com>
+	s=k20260515; t=1782771339;
+	bh=s2lGu4iAeEUl42sSwYI0OpUe9gLW2IsebNJICi/W6M8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LiFD7iMloFj4V2Vk7K9T0b0GnN7im8/vxlxKBKuLLOrV2b7lCrscOnXIVsr3Ja+ON
+	 rYw5UBSa6EEsqV1rKj0e2j8qH90stsshEKcDVQpIH8WGELq8p5lx2xeJv/EQ/mayx8
+	 gy7/MStnNt8i7Kn2l3R69fj04p7+axY3PVHg/vNlalOeDlCfA/QbiSloGfSKnjAYbA
+	 gWULwfxaZRA6qaJ2gS/WmCPAgCnHIt/W79uqcry6L7KjslvDJQk22NKfVpDlpQilZK
+	 wndJ8jy6qKSS6wfMVuymE0MBFWLV96VLgf2lrXm/VoBe2vySF1Xfixrwq0vt8tum5w
+	 XuVM1yONS5NPg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/4] dt-bindings: PCI: renesas,r9a08g045-pcie: Add
+ RZ/V2H(P) support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: robh@kernel.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260629220932.861445-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260629220932.861445-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260629220932.861445-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 22:15:39 +0000
+Message-Id: <20260629221539.71B8C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 29 Jun 2026 15:53:07 +0530 Gokul Praveen wrote:
->  drivers/net/ethernet/ti/am65-cpsw-nuss.c | 9 +++++----
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>=20
+> Add support for the PCIe controller found on the Renesas RZ/V2H(P) SoC.
+>=20
+> The RZ/V2H(P) controller is similar to the RZ/G3E variant but includes
+> additional registers and configuration bits for PCIe lane control. It
+> supports multilink operation configured as either a single x4 link
+> or two independent x2 link controllers.
+>=20
+> Unlike earlier SoCs supported by this driver which only feature a single
+> PCIe controller, the RZ/V2H(P) SoC implements two controllers. Both
+> instances rely on the system controller (SYSC) for configuration, but
+> the required registers reside at different offsets for each controller.
+>=20
+> To correctly identify the controller instance and map the corresponding
+> system controller registers, update the "renesas,sysc" property to a
+> phandle-array. For the RZ/V2H(P) SoC, require an accompanying cell to
+> specify the controller instance index (0 or 1). For all earlier SoCs,
+> strictly restrict the property to a single phandle with zero argument
+> cells.
+>=20
+> Additionally, make the "num-lanes" property mandatory for this SoC and
+> restrict its values according to the hardware capabilities.
+>=20
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-you need to cc netdev@
+Sashiko has reviewed this patch and found no issues. It looks great!
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629220932.8614=
+45-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D1
+
