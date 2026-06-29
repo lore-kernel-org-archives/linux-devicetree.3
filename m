@@ -1,226 +1,389 @@
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930D43B2FD4
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:26:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782728772; cv=pass; b=m5GVXeh+RofKNZOUb0cPnV+AxG2rAcNsf7dzT/mLscACjy3T2kHc8fSndazdRGTVIw61dUzo72vz9HSodVw/vQ/vOD9vPmsRt5obEgc1xQq5Vx7Ic/yAW6NfRuUJiynqL8Gxd4sR/FBX8BMjO/7SWFF7coBCQvC9zQ3cT9Kbh38=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782728772; c=relaxed/simple;
-	bh=vPo/+rqkfTUkMh/4zJfZSra5jkXnJmIDRS9TcFwO23A=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=e37RpD2QugCPpu+dR2P/3S8Zi29LmE4D2WwLbe0N/AFdqrurzjc8mxHifNZ+HCgW/WLrCYjnwJzqTgTnhB+iOoYTqo+tTrJ06DNGHNLyceGJGwlhIa7PDaFrN6JbVPQL6rQkMETr/Su6KiZwZ9zI4N0nc1pB1KgaTriQMMGiCWM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NhnGKKPY; arc=pass smtp.client-ip=209.85.221.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E3F3D9DBA
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:30:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782729007; cv=none; b=PHgIvGS++m9tiHTgYxymZVrKxnPolVNpIYAMmmGXVSxGBym2eGvUPf6HifhYc5etNH0KM7wbF6X8A8Hru8U6eSLy2+DaZHsP+DMs5ywZvuneq/XEpB95KXBlPauJ0TOOHize//OaAihC81YBQPNU+Y6aqbw1h81MWrP4X9KmJnI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782729007; c=relaxed/simple;
+	bh=f4+4llNW9QdhdeH+apJcGMWAMTcPwb5TvVtwKEjFvW8=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=EWSV9hmzR8AXKAlI+0/EdXjcgITHPk8ER1mPrt9dlhTl2HMrM4sn6KQl/FKDyJQhXQWLVEBNM7KD9cAfuVGwxc7RANH32eyhcdDkLrerC+MFCr9KzZ2DoW61MrXYdofsDN9PvXZgqaA9/aoCIngdGHa0zcczfJUyqw1a18Uti0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=enazcpVc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cSLyWYgp; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NhnGKKPY"
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-59ccf81e6feso1186832e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 03:26:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782728769; cv=none;
-        d=google.com; s=arc-20260327;
-        b=o7iSgqjtj/HRsX92O28aOFl4+u5cEzgG4Al6Oxj8pxT1CiBw0wsfd5E3ftzjKDEE8a
-         0nOusFfoUcreVnAQTIx0CXyC3HVRluGzzJYqa8UMwVEgUtTaCSGorK/HDjVajYPCvwgx
-         qJQRsEoaFpCJDjqKEl6Jfvys/otqRF4+5lY28fb9fQ2QKV9c9ATNvpnQXdnl7PpQky21
-         55/POIf48+HfguSPStNQx/4QZmnH2FDvDvBb83MPkcCCPcnQjYDDDCN7wbEf9D+nWFne
-         bVHlURgfEaKWRhl7Llr8fc7g4mYM4p4mTQieB/lhQLN3O7KYoRBFrwseAT2q1woBefhw
-         aU8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=2+oMmapmkVZB78B8jlXLYw17UEpB0GTQyW8V6v9d5bM=;
-        fh=7wwUEF03ghd/Lb7DO+g4W/W9MC12lsAKc07hPjC8DEg=;
-        b=BzeHFeekvmaS/KzE7aKcGR+C4TwZZ0I7WRbwdGXciuyk7yawty7zyqdm0eEQMOhWUd
-         QzwxPiPENSVccGdwzaNlLqNEtkY82eMGV/Er/LLzaFTftiniHA6B6A4GJwwNli+RWjIt
-         CL5rXYyPr3BbjcuvD1XeFp8S0QalTOulIdIYTEm4jEVm3QbyddYMefvetW4DDXjtAhU1
-         kGFlzLdzzayVTXoTyao9vKEjRiCiFL6qL8CcOtkj1Y4pgaT1WlaK0I1wds96aaMNVX1u
-         jEWtue5qhQexZ3KqsbliK/JkAKQ2BttrdTbpJNQN/5DbsRDvceg0HTIuS8z1zqEXWaGd
-         FEnA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="enazcpVc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cSLyWYgp"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65TATUgV2647160
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:30:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YAVzcg6dPMdyNGOIBoidBHCGALgpEE2VWjE3OvdvjsU=; b=enazcpVcgvqwtQ1H
+	VUhCQZ2XvpfTBXyanURAs0xpxISnWOcQUQJGz6qKxzX/xIaU5+cHPlcQB32+8nNz
+	rdvAn9vrgzRibnjx3286KaOwVtCbdOKgdO3LuNe4Z16+TseZDlgWaq3/OwYAJBq9
+	m4lESQGc21xLk/0XxEdshwuH48bZe0yGhD4SBBgbFIxJrWkL4eUIV6wx2so+VjJN
+	aD868SVQhoQve9LFRPtvnWni7my8rTiutMxd/QrN1D32/YRWaUYo+cXSwZBs2bcy
+	1M7adkmuU+mON8g+EQmVen7CkC0d75l957eK2Rt3acH181thkat0b/d0MLBUiRg/
+	5p7DEQ==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f26x8p1qw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:30:04 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5bd8213c803so3401558e0c.0
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 03:30:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782728769; x=1783333569; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=2+oMmapmkVZB78B8jlXLYw17UEpB0GTQyW8V6v9d5bM=;
-        b=NhnGKKPYfnZ/PYtJV4DkwDk7wPmNjwNj+DeiHVqHP1sNMHEk+OQuUKhksQYMfX5fwr
-         vewfG63TbPyAfTSU07EikrZjm+dA/4+a8vTtqX3OGvhVPKo4U15YF5BBgdD1XHZ887Xl
-         kyHd4EfRBrpsGUu5T0+plmOqe777w85t4L9pIxz0Ef1wlfSl5OIqY2pAfibgXFy1MQ7A
-         NGV0IXmIGsjkoaPecphOD46Brmp1OzpKQLc1x5pnshvg9D1/52RsUkUe0fmlQ1RrZnu9
-         SqiCOO5Adzpxf9zUPy5eOGUlvl/KtFcjh7D0DABitHROUMZ0wdZKlwJtbZxDzIah/xsK
-         PW8Q==
+        d=oss.qualcomm.com; s=google; t=1782729004; x=1783333804; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=YAVzcg6dPMdyNGOIBoidBHCGALgpEE2VWjE3OvdvjsU=;
+        b=cSLyWYgpM8mnqaqc4oRhfZZMZWeZn8CKn5qDzfF/bQYK6kmwcLzBq2QK0RcEwYYMbH
+         0NZHqvLjxs2vovmQ6IO0xSywLpmvAUHsyz46S3ucC5MA9QNqH0xWZm1w9R5w73zPFRer
+         9SAb0RQQo9K4vgSx7NJJaegr5i+VM7fQq/8+ZKdqPPMSDBc5N72EjFjY2kbG5Q9tmRzO
+         bHpt1CCm8vDmj3W1nGEaeCu/20mHidxZfyETrxSytz1S4UHWEBBmz2I+firQHNzgeenj
+         QhN/ByQdi0WkZkr3AKkjJkeMgYG6AkrC9yGZzorbH9JWOfkWCLwT2woMJbEv7C0Dhr2F
+         n7mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782728769; x=1783333569;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1782729004; x=1783333804;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2+oMmapmkVZB78B8jlXLYw17UEpB0GTQyW8V6v9d5bM=;
-        b=bno9NfzrsRfwzOeW4ToioPiSONisnXkgstJM5QRLA15S2/f6zSZvrICcxh8jFlKFie
-         RCF3VHUbAfuGLH7m7nzCgb6z+zh/Diyif0YA5yJuxBSECAWZhA/cNM/tgLU+ZHcuwCrS
-         TqV8+UHtS08oT3HqtSzquKtIeUcWjbdM50B6VOeM8f9WqWNdqmra+QQZhLyBPBtLXLj9
-         guRwagKV0t00wzQo4n9QzLLVQYMBNyrrD5ADQGTKCasJzxOdSPqVMIX23ag/db4STiyb
-         Quv1DpVqQkWPqGwzYb70FJBsY7fz2C2Vnhs42FZXeDfSoboasDHtqW9FD7DgKZnA41Sz
-         d8uw==
-X-Forwarded-Encrypted: i=1; AHgh+RpPXoUBRIy5TiK5/judajW8Fz4VaMPHO2mecw+w1mdk0NMuXEzSFaF5NAlwBQbGUh/qKfmej54KYSSn@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy8Lg4q3QCJ1PX4oLkpkAW0nPoBChBLdORn5U/4ZOFBAFdaqkjm
-	9BRILvmB4JbJa4ZY5Hn3fS/qsqTtvH7cwyPW1jurbA9PEqytzClh394aBF3x7azz+opynPXrp3y
-	OxyDlFsEzGK88B8GJ/sJNB8zMM8S71yQ=
-X-Gm-Gg: AfdE7cmiBDteeb5zEws+bu1yRN50z8HmIRxgkB+Bl/s+TyuPCVc70Tfl/ujv4d97tSw
-	NKcxeJJ7uLLsNhmVJBNRg/mVkhiMJUWrzAcncbWHejCee3du1ggGr0FRNrSv579A+GBvJdmdtch
-	jwf4i2gyaLeVRnX8JoPoRJvJSUqbZYLSDINm1C/Do84/Z/YGjDdMembbSvenBRHUDOh5EfbbXKH
-	4EQsyNiu4BHpkIYXezwCMGl8DVhJx90AFevIhCv4V5lze+RSwhFh3u3j0wSHsWyII0RvQBcjfQK
-	Tk1BZCPmeys1UtL1iKL7yDgXLP6M/g==
-X-Received: by 2002:a05:6122:a2a:b0:5bd:ac34:9823 with SMTP id
- 71dfb90a1353d-5bdac34a434mr867311e0c.1.1782728769445; Mon, 29 Jun 2026
- 03:26:09 -0700 (PDT)
+        bh=YAVzcg6dPMdyNGOIBoidBHCGALgpEE2VWjE3OvdvjsU=;
+        b=QvF4FBQFnwwXKhyLg5F0p/wLfIVZaBc6D7Rzzh4nc72BIAs7pOd+iZ0r2QulRuMQUc
+         oXpkLLbZofsxv8Zhm2Jt9DsJUp1XwNGYapU8X+mDrPZ1kWxieDo3uqAXTQU+DsI5xXTm
+         Ie1IoFWUPAhuzWwv1hm8PV4/GhBn36os3HZsdG8+tK+oZUtO72p3zVvtZfdcHHttiZtl
+         xywe9ZjwJSIcoW1Q9GO3+A07YF2jWqEWlsqUwTDCljlc/dYmWLeh4ACWmNnlMDmBrv+d
+         bxNGQ9w7ZczFbwgrXR3pjn0p6p+YfyYo0iubf8m+NFWSCvo8vzueobpXZe2bCeXHkKUU
+         j21g==
+X-Forwarded-Encrypted: i=1; AHgh+Rpv7OQac0TaP4gZQcAzhVgS1Ukzfzy+f0ofTvj309aufIG9P9N9Ock9EmNJBOhIdKBoOqrX44+0I7iR@vger.kernel.org
+X-Gm-Message-State: AOJu0YxdOTbaO6NrOqe7DcnTTCelBuuou5lA/lcCaAHVvOUxKEvs1gCk
+	z9G9A2yObFnnb75egsfNlgEeilzzXNJjPK8AjOqlNCuU/jmpPk2KRhS4CEsaeZoZqhuEqnNamHj
+	UZrNxnQwtU4BCeVONV+Uz2vLKMXzk/zFgwa3YjvnXDL9KXko/rGItKYL6ef9SiC1O
+X-Gm-Gg: AfdE7cmbMGXNor+IQNvhXyjmMs4NzcdC8ayW6umaLslqXcahaxcgcy1Ug0ZxIwWs3z1
+	Mh2NzxOSD02BaNOzUoN+mBYsfKpAAAWVvVjMHdRL7SWQCvtwwfDGgClwZ5fvuBEqQ5cGzLLnpU5
+	GvzOKKWv5pm5m0QtFyUTqJ6bWIuQYYD5SDko5tLG2J+zB2+OB4hmZlIkyRrJtOBx+gMjcWJUT/k
+	1LpW7WMGQAKRalwcfiL1yO3rmD9hn2lnLHSH2bLFib5IyU4hQEt3DppuWc98ybL2piwZz8nZA1n
+	+qCtvB4GeyaVeF+nmb+P5Ce/2agrV1SyxDYR1wZUVSAtvXKK2whSLVk9hVSGPzi+Ovp+5HYjr/h
+	oC6rRXVcOL33AvfLZG987RD3GKQM7zw==
+X-Received: by 2002:a05:6123:5d6:10b0:5bd:a6a3:3066 with SMTP id 71dfb90a1353d-5bda6a336abmr855620e0c.2.1782729003635;
+        Mon, 29 Jun 2026 03:30:03 -0700 (PDT)
+X-Received: by 2002:a05:6123:5d6:10b0:5bd:a6a3:3066 with SMTP id 71dfb90a1353d-5bda6a336abmr855607e0c.2.1782729003139;
+        Mon, 29 Jun 2026 03:30:03 -0700 (PDT)
+Received: from [10.40.99.10] ([78.108.130.194])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-697f49ca131sm6721952a12.20.2026.06.29.03.30.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 03:30:01 -0700 (PDT)
+Message-ID: <6893c0fb-16a4-4e88-92f9-bd072e26547f@oss.qualcomm.com>
+Date: Mon, 29 Jun 2026 12:30:00 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Juan Manuel <juanmanuellopezcarrillo@gmail.com>
-Date: Mon, 29 Jun 2026 12:25:58 +0200
-X-Gm-Features: AVVi8Cfv4WdSZWRGf0w7f3ZaAnGnrkOYjnYgSwdq5ZA_oLSQCELW1XzNXr4Ya6g
-Message-ID: <CA+c=wxVd6Mq9AU6Oy+11KE+PsSpkQvokwNcbCn5P+tt6b1UTWw@mail.gmail.com>
-Subject: 
-To: macromorgan@hotmail.com, heiko@sntech.de
-Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="00000000000008cc18065561e3ee"
+User-Agent: Mozilla Thunderbird
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Subject: Re: [RFC 09/12] pinctrl: qcom: Add support for WoA ACPI tables
+ virtual TLMM pin numbers
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-acpi@vger.kernel.org
+References: <20260623145225.143218-1-johannes.goede@oss.qualcomm.com>
+ <20260623145225.143218-10-johannes.goede@oss.qualcomm.com>
+ <akHOI2Ki1L1pVEVy@baldur>
+Content-Language: en-US, nl
+In-Reply-To: <akHOI2Ki1L1pVEVy@baldur>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA4NSBTYWx0ZWRfX8g1bL9aWB8Kk
+ Qni348HIvobksfBTxZKw2Gw9r+GiwHRgR3GM0YmgjE6AIT689oR0PLmgdKhAd2FwVogk+9RoSqE
+ lhf4+uPb8Tzg1bD9B/2U0eY4/YI/B1k=
+X-Authority-Analysis: v=2.4 cv=D+N37PRj c=1 sm=1 tr=0 ts=6a42492c cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=rrvG0T/C2D967D07Ol03YQ==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=CZlP5E7Tkv4MzdeRfuQA:9 a=QEXdDO2ut3YA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-GUID: kv80T5pLHs0wEnVlae61RaVqNGv9K3DC
+X-Proofpoint-ORIG-GUID: kv80T5pLHs0wEnVlae61RaVqNGv9K3DC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA4NSBTYWx0ZWRfXyPcf2WoeyjJR
+ 2n+Q0SuaTDK7qoB7quuOSMt5swGDtF9HtLJXmPIvRawMdy0quYoZbPljikB5T8pp9ox9BE86xjt
+ NM7kquM3yvoDESgPigB26g+JFn/LdJRsmpovZ6QZqQ+f20cbR2HYohvNhHBF5azl1GcJ99oOedo
+ 9CCbj1lbI8gl/Aps0aanlL/XYtmQd/ThXEFtKsHOFURfSbLpD8GJWF3IT6RZQKQO2qCCMKtb5oI
+ gVXpdX7PFMNGvQGEH4AlWz7CUTdFUCTsQ1jK4gOQ3MGEc61bP1Y55oxQ2f7+OJJIu6qdkEDg9EE
+ 5OD3YA3SygHmYOYanoIKUfESof73VcdWhWjAKWHaGrcbVpsgRkoGjB/bfCGzCR7qeMd4FvJMtL/
+ gdb5F4oNWO7zQWmGucPGjt+BxBZv/yxfOHJdB+8RhBonnIYSl41QBTwSKWUUtAUTWnDUkvzGFZ6
+ iAM7UfpgGltOS7mCwlw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-29_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 suspectscore=0 bulkscore=0 impostorscore=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290085
 
---00000000000008cc18065561e3ee
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 29-Jun-26 3:59 AM, Bjorn Andersson wrote:
+> On Tue, Jun 23, 2026 at 04:52:22PM +0200, Hans de Goede wrote:
+>> The ACPI tabled on Windows on ARM laptops use TLMM pin numbers outside of
+>> the actual TLMM pin number range. These are a rather convoluted way to let
+>> the Windows Qualcomm GPIO driver now to use the PDC for some pins because
+>> these are wakeup sources.
+>>
+>> This adds support for translating the magic Windows virtual GPIOs for these
+>> back to a regular TLMM GPIO so that ACPI described devices using these
+>> virtual GPIOs can work with Linux.
+>>
+>> For now this code only tries to do this mapping when booting in DT-ACPI
+>> hybrid mode which is only used on some WoA devices so this should not
+>> impact any other use-cases.
+>>
+>> The new functions use woa_acpi in their name to make clear that these
+>> are for dealing with the ACPI tables found on WoA devices, rather then
+>> ACPI tables found on other devices, like ARM system ready devices which
+>> also use ACPI.
+>>
+>> Note that simply mapping these virtual GPIOs back to TLMM pin numbers can
+>> safely be done on Linux, because Linux always uses the PDC for GPIO IRQs
+>> where possible.
+>>
+> 
+> This adds a fair amount of complexity to the driver,
 
-Hi Chris, Heiko,
+The changes to pinctrl-msm.c itself are pretty minimal and the 200 lines
+in pinctrl-msm-acpi.c are not too bad given that they fix a bunch of
+GpioInt-s in the ACPI tables not working.
 
-While bringing up a couple of Powkiddy RK3566 handhelds I ran into a
-battery problem that turns out to be in the device trees, and it has
-already cost me two packs, so I'd like to get it fixed for everyone.
+> to support a model
+> that I am not convinced we want to retain - and that only works in the
+> hybrid case.
 
-Both battery nodes charge the cell above its own declared full voltage:
+With the exception of relying on the pdc-ranges from DT, this should
+work fine in an ACPI only mode too and would be quite useful to have
+in ACPI only mode.
 
-rk3566-powkiddy-rk2023.dtsi (inherited by the RGB10 Max 3):
-constant-charge-voltage-max-microvolt =3D 4250000 (4.25 V), but
-voltage-max-design-microvolt and the ocv-capacity-table-0 100% point
-are both 4172000 (4.172 V).
+Now that I think of it, why are the pdc-ranges in DT at all ?
 
-rk3566-powkiddy-x55.dts: constant-charge-voltage-max-microvolt =3D
-4300000 (4.30 V), but voltage-max-design-microvolt and the
-ocv-capacity-table-0 100% point are both 4138000 (4.138 V).
+AFAICT this is a property of the Soc, so this could just be in the pinctrl
+driver based on the compatible. Just like the wakeirq_map is coded
+in the driver. It feels a bit weird to have one defined in DT and
+the other coded in the driver?
 
-So the charger drives each cell ~80=E2=80=93160 mV past its own OCV-100% po=
-int
-on every cycle. On a standard 4.2 V Li-Po that is an overcharge: it
-raises the cell's internal resistance and kills the pack early. The
-symptom is textbook =E2=80=94 the pack reads a normal voltage/SoC while on =
-the
-charger but collapses under load and shuts the device off the moment
-it's unplugged. I lost two packs to this before tracing it to the DT;
-capping the charge voltage at 4.2 V (verified at the rk817 CHRG_OUT
-register) stopped the damage, and a third, already-degraded pack
-stabilised.
 
-Patch 1 also corrects the RGB10 Max 3 design capacity: it ships a 4000
-mAh cell but inherits the 3151 mAh value from rk2023.dtsi. I did this
-as a per-board override so I don't touch the shared profile, which may
-well be correct for the RGB30 and other rk2023 users.
 
-One thing worth a look on your side: the shared
-rk3566-powkiddy-rk2023.dtsi default itself (4.25 V against a 4.172 V
-OCV-100% point) looks like it would overcharge any device using it,
-not just the RGB10 Max 3 =E2=80=94 but I only have the two units above to t=
-est
-on, so I've kept the fix scoped to what I can verify.
+> 
+>> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+>> ---
+>>  drivers/pinctrl/qcom/Makefile           |   4 +-
+>>  drivers/pinctrl/qcom/pinctrl-msm-acpi.c | 196 ++++++++++++++++++++++++
+>>  drivers/pinctrl/qcom/pinctrl-msm.c      |  47 +++++-
+>>  drivers/pinctrl/qcom/pinctrl-msm.h      |  35 +++++
+>>  4 files changed, 278 insertions(+), 4 deletions(-)
+>>  create mode 100644 drivers/pinctrl/qcom/pinctrl-msm-acpi.c
+>>
+>> diff --git a/drivers/pinctrl/qcom/Makefile b/drivers/pinctrl/qcom/Makefile
+>> index 84bda3ada874..9029d99190d2 100644
+>> --- a/drivers/pinctrl/qcom/Makefile
+>> +++ b/drivers/pinctrl/qcom/Makefile
+>> @@ -1,6 +1,8 @@
+>>  # SPDX-License-Identifier: GPL-2.0
+>>  # Qualcomm pin control drivers
+>> -obj-$(CONFIG_PINCTRL_MSM)	+= pinctrl-msm.o
+>> +obj-$(CONFIG_PINCTRL_MSM)	+= pinctrl-msm-core.o
+>> +pinctrl-msm-core-y		:= pinctrl-msm.o
+>> +pinctrl-msm-core-$(CONFIG_ACPI)	+= pinctrl-msm-acpi.o
+>>  obj-$(CONFIG_PINCTRL_APQ8064)	+= pinctrl-apq8064.o
+>>  obj-$(CONFIG_PINCTRL_APQ8084)	+= pinctrl-apq8084.o
+>>  obj-$(CONFIG_PINCTRL_ELIZA)	+= pinctrl-eliza.o
+>> diff --git a/drivers/pinctrl/qcom/pinctrl-msm-acpi.c b/drivers/pinctrl/qcom/pinctrl-msm-acpi.c
+>> new file mode 100644
+>> index 000000000000..df180fd04749
+>> --- /dev/null
+>> +++ b/drivers/pinctrl/qcom/pinctrl-msm-acpi.c
+>> @@ -0,0 +1,196 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * ACPI GPIO lookup handling for WoA (Windows on ARM) laptop ACPI tables.
+>> + *
+>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> + */
+>> +
+>> +#include <linux/acpi.h>
+>> +#include <linux/device.h>
+>> +#include <linux/dev_printk.h>
+>> +#include <linux/gpio/driver.h>
+>> +#include <linux/list.h>
+>> +#include <linux/math.h>
+>> +#include "pinctrl-msm.h"
+>> +
+>> +#define MSM_GPIO_WOA_ACPI_GPIOS_PER_BANK	64
+> 
+> Wasn't this 32 for a while?
 
-Thanks a lot for all the handheld DT work; none of these devices would
-run mainline without it.
+Not AFAICT on my Samsung Galaxy Go with Snapdragon 7c gen 2 /
+sc7180 using 64 is the right thing to do, as is on the x1e laptops.
 
-Juan Manuel Lopez Carrillo
+> 
+>> +#define MSM_GPIO_WOA_ACPI_IRQ_OFFSET		32
+>> +#define MSM_GPIO_WOA_ACPI_INVALID_GPIO		~0U
+>> +#define MSM_GPIO_WOA_ACPI_MAX_PDC_RANGES	16
+>> +
+>> +#define PDC_RANGE_PIN_BASE			0
+>> +#define PDC_RANGE_GIC_BASE			1
+>> +#define PDC_RANGE_COUNT				2
+>> +#define PDC_RANGE_ELEMENTS			3
+>> +
+>> +/**
+>> + * struct msm_gpio_woa_acpi_parse_data - Data for parsing WoA ACPI GPIO ctl resources
+>> + * @chip:		gpiochip handle
+>> + * @data:		Data for mapping virtual WoA ACPI PDC IRQ GPIOs
+>> + * @soc_data:		Reference to soc_data of platform specific data
+>> + * @pdc_range:		PDC GIC to PDC map ranges
+>> + * @pdc_range_count:	PDC GIC to PDC map range-count
+>> + */
+>> +struct msm_gpio_woa_acpi_parse_data {
+>> +	struct gpio_chip *chip;
+>> +	struct msm_gpio_woa_acpi_data *data;
+>> +	const struct msm_pinctrl_soc_data *soc_data;
+>> +	u32 pdc_range[MSM_GPIO_WOA_ACPI_MAX_PDC_RANGES][PDC_RANGE_ELEMENTS];
+>> +	unsigned int pdc_range_count;
+>> +};
+>> +
+>> +/*
+>> + * Mapping does not need translating the acpi_resource in to a regular resoure
+>> + * and adding it to the resource list. Always return 1 to disable this.
+>> + */
+>> +static int msm_gpio_woa_acpi_resource(struct acpi_resource *ares, void *_parse)
+>> +{
+>> +	struct msm_gpio_woa_acpi_parse_data *parse = _parse;
+>> +	const struct msm_pinctrl_soc_data *soc_data = parse->soc_data;
+>> +	struct msm_gpio_woa_acpi_data *data = parse->data;
+>> +	struct gpio_chip *chip = parse->chip;
+>> +	u32 gic_irq, pdc_pin;
+>> +
+>> +	if (ares->type != ACPI_RESOURCE_TYPE_EXTENDED_IRQ ||
+>> +	    ares->data.extended_irq.interrupt_count != 1)
+>> +		return 1;
+>> +
+>> +	if (data->nmap == MSM_GPIO_WOA_ACPI_MAX_VIRT_GPIOS) {
+>> +		dev_err(chip->parent, "ACPI resources contain more than %d IRQs\n",
+>> +			MSM_GPIO_WOA_ACPI_MAX_VIRT_GPIOS);
+>> +		return 1;
+>> +	}
+>> +
+>> +	/*
+>> +	 * Windows ACPI tables divide GPIOs into banks of 64 pins with one IRQ
+> 
+> Is this really "Windows ACPI tables"?
 
---00000000000008cc18065561e3ee
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-arm64-dts-rockchip-powkiddy-rgb10max3-fix-battery-pr.patch"
-Content-Disposition: attachment; 
-	filename="0001-arm64-dts-rockchip-powkiddy-rgb10max3-fix-battery-pr.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mqz2o79d0>
-X-Attachment-Id: f_mqz2o79d0
+I'm using "Windows ACPI" / Woa ACPI" in comments and naming here to distinguish
+this from ARM System Ready ACPI tables, for which there also seems to be some
+support directly inside pinctrl-msm.c .
 
-RnJvbSAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBKdWFuIE1hbnVlbCBMb3BleiBDYXJyaWxsbyA8anVhbm1hbnVl
-bGxvcGV6Y2FycmlsbG9AZ21haWwuY29tPgpEYXRlOiBTdW4sIDI5IEp1biAyMDI2IDEyOjAwOjAw
-ICswMjAwClN1YmplY3Q6IFtQQVRDSCAxLzJdIGFybTY0OiBkdHM6IHJvY2tjaGlwOiBwb3draWRk
-eS1yZ2IxMG1heDM6IGZpeCBiYXR0ZXJ5CiBwcm9maWxlCgpUaGUgUG93a2lkZHkgUkdCMTAgTWF4
-IDMgc2hpcHMgd2l0aCBhIDQwMDAgbUFoIHBhY2ssIGJ1dCBpdCBpbmhlcml0cyBpdHMKYmF0dGVy
-eSBub2RlIGZyb20gcmszNTY2LXBvd2tpZGR5LXJrMjAyMy5kdHNpLCB3aGljaCBkZXNjcmliZXMg
-YSAzMTUxIG1BaApjZWxsIGFuZCwgbW9yZSBpbXBvcnRhbnRseSwgc2V0cyBjb25zdGFudC1jaGFy
-Z2Utdm9sdGFnZS1tYXgtbWljcm92b2x0IHRvCjQyNTAwMDAgKDQuMjUgVikuCgpUaGF0IGNoYXJn
-ZSB2b2x0YWdlIGlzIGFib3ZlIHRoaXMgcGFjaydzIGRlY2xhcmVkIGZ1bGwgdm9sdGFnZTogdGhl
-CmluaGVyaXRlZCB2b2x0YWdlLW1heC1kZXNpZ24tbWljcm92b2x0IGFuZCB0aGUgb2N2LWNhcGFj
-aXR5LXRhYmxlLTAgMTAwJQpwb2ludCBhcmUgYm90aCA0MTcyMDAwICg0LjE3MiBWKS4gVGhlIGNo
-YXJnZXIgdGhlcmVmb3JlIGRyaXZlcyB0aGUgY2VsbAp+NzggbVYgcGFzdCBpdHMgb3duIGRlY2xh
-cmVkICJmdWxsIiBvbiBldmVyeSBjeWNsZS4KCkZvciBhIHN0YW5kYXJkIDQuMiBWIExpLVBvIHRo
-aXMgaXMgYW4gb3ZlcmNoYXJnZS4gSXQgcmFpc2VzIHRoZSBjZWxsJ3MKaW50ZXJuYWwgcmVzaXN0
-YW5jZSBhbmQga2lsbHMgdGhlIHBhY2sgcHJlbWF0dXJlbHkuIFRoZSBmYWlsdXJlIG1vZGUgc2Vl
-bgppbiB0aGUgZmllbGQgaXMgY2hhcmFjdGVyaXN0aWM6IHRoZSBwYWNrIHJlYWRzIGEgcGxhdXNp
-YmxlIHZvbHRhZ2UvU29DCndoaWxlIG9uIHRoZSBjaGFyZ2VyIGJ1dCBjb2xsYXBzZXMgdW5kZXIg
-bG9hZCAoYW5kIHNodXRzIHRoZSBkZXZpY2Ugb2ZmKQphcyBzb29uIGFzIGl0IGlzIHVucGx1Z2dl
-ZC4gVHdvIHBhY2tzIHdlcmUgbG9zdCB0aGlzIHdheSBiZWZvcmUgdGhlIGNhdXNlCndhcyB0cmFj
-ZWQgdG8gdGhlIERULgoKT3ZlcnJpZGUgdGhlIG5vZGUgZm9yIHRoaXMgYm9hcmQgd2l0aCB0aGUg
-Y29ycmVjdCA0MDAwIG1BaCBkZXNpZ24gY2FwYWNpdHkKYW5kIGEgc2FmZSA0LjIgViBjaGFyZ2Ug
-Y2VpbGluZywgYXQvYmVsb3cgdGhlIGNlbGwgZGVzaWduIG1heCBhbmQgdGhlCk9DVi0xMDAlIHBv
-aW50LiBUaGUgY2hhcmdlIGN1cnJlbnQgbGltaXQgKDIgQSA9IDAuNUMpIGFuZCB0aGUgT0NWIGN1
-cnZlCmFyZSBsZWZ0IHVuY2hhbmdlZC4KClNpZ25lZC1vZmYtYnk6IEp1YW4gTWFudWVsIExvcGV6
-IENhcnJpbGxvIDxqdWFubWFudWVsbG9wZXpjYXJyaWxsb0BnbWFpbC5jb20+Ci0tLQogYXJjaC9h
-cm02NC9ib290L2R0cy9yb2NrY2hpcC9yazM1NjYtcG93a2lkZHktcmdiMTBtYXgzLmR0cyB8IDUg
-KysrKysKIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9hcmNo
-L2FybTY0L2Jvb3QvZHRzL3JvY2tjaGlwL3JrMzU2Ni1wb3draWRkeS1yZ2IxMG1heDMuZHRzIGIv
-YXJjaC9hcm02NC9ib290L2R0cy9yb2NrY2hpcC9yazM1NjYtcG93a2lkZHktcmdiMTBtYXgzLmR0
-cwotLS0gYS9hcmNoL2FybTY0L2Jvb3QvZHRzL3JvY2tjaGlwL3JrMzU2Ni1wb3draWRkeS1yZ2Ix
-MG1heDMuZHRzCisrKyBiL2FyY2gvYXJtNjQvYm9vdC9kdHMvcm9ja2NoaXAvcmszNTY2LXBvd2tp
-ZGR5LXJnYjEwbWF4My5kdHMKQEAgLTEyLDYgKzEyLDExIEBACiAJY29tcGF0aWJsZSA9ICJwb3dr
-aWRkeSxyZ2IxMG1heDMiLCAicm9ja2NoaXAscmszNTY2IjsKIH07CgorJmJhdHRlcnkgeworCWNo
-YXJnZS1mdWxsLWRlc2lnbi1taWNyb2FtcC1ob3VycyA9IDw0MDAwMDAwPjsKKwljb25zdGFudC1j
-aGFyZ2Utdm9sdGFnZS1tYXgtbWljcm92b2x0ID0gPDQyMDAwMDA+OworfTsKKwogJmJsdWV0b290
-aCB7CiAJY29tcGF0aWJsZSA9ICJyZWFsdGVrLHJ0bDg3MjNkcy1idCI7CiB9OwotLQoyLjQzLjAK
---00000000000008cc18065561e3ee
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0002-arm64-dts-rockchip-powkiddy-x55-cap-battery-charge-4.patch"
-Content-Disposition: attachment; 
-	filename="0002-arm64-dts-rockchip-powkiddy-x55-cap-battery-charge-4.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mqz2o79m1>
-X-Attachment-Id: f_mqz2o79m1
+> 
+>> +	 * per bank. The resources start with listing the real TLMM IRQ for
+>> +	 * as many banks as are necessary to cover the real GPIOs. The Windows
+>> +	 * virtual GPIO indexes skip these banks, mark them as unavailable.
+>> +	 */
+>> +	if (data->nmap < DIV_ROUND_UP(chip->ngpio, MSM_GPIO_WOA_ACPI_GPIOS_PER_BANK)) {
+>> +		data->map[data->nmap++] = MSM_GPIO_WOA_ACPI_INVALID_GPIO;
+>> +		return 1;
+>> +	}
+>> +
+>> +	/*
+>> +	 * Use the "pdc-ranges" property on the PDC to translate the GIC IRQ
+>> +	 * from the acpi_resource to a PDC pin.
+>> +	 */
+>> +	gic_irq = ares->data.extended_irq.interrupts[0] - MSM_GPIO_WOA_ACPI_IRQ_OFFSET;
+>> +	pdc_pin = MSM_GPIO_WOA_ACPI_INVALID_GPIO;
+>> +	for (unsigned int i = 0; i < parse->pdc_range_count; i++) {
+>> +		u32 gic_base = parse->pdc_range[i][PDC_RANGE_GIC_BASE];
+>> +		u32 count = parse->pdc_range[i][PDC_RANGE_COUNT];
+>> +		if (gic_irq >= gic_base && gic_irq < (gic_base + count)) {
+>> +			pdc_pin = parse->pdc_range[i][PDC_RANGE_PIN_BASE] +
+>> +				  gic_irq - gic_base;
+>> +			break;
+>> +		}
+>> +	}
+>> +	if (pdc_pin == MSM_GPIO_WOA_ACPI_INVALID_GPIO)
+>> +		goto no_map;
+>> +
+>> +	/* Use wakeirq-map to map PDC pin to TLMM pin */
+>> +	for (unsigned int i = 0; i < soc_data->nwakeirq_map; i++) {
+>> +		if (soc_data->wakeirq_map[i].wakeirq == pdc_pin) {
+>> +			data->map[data->nmap++] = soc_data->wakeirq_map[i].gpio;
+>> +			return 1;
+>> +		}
+>> +	}
+>> +
+>> +no_map:
+>> +	dev_warn(chip->parent, "Cannot map GIC IRQ %u to TLMM pin\n", gic_irq);
+>> +	data->map[data->nmap++] = MSM_GPIO_WOA_ACPI_INVALID_GPIO;
+>> +	return 1;
+>> +}
+>> +
+>> +int msm_gpio_woa_acpi_init(struct gpio_chip *chip, struct msm_gpio_woa_acpi_data *data,
+>> +			   const struct msm_pinctrl_soc_data *soc_data)
+> 
+> This function name makes me think this deals with "the ACPI case", but
+> it requires both ACPI and DT tables to define the TLMM block - in other
+> words, it complicates the DT-only case and it's useless in a ACPI-only
+> system.
 
-RnJvbSAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBKdWFuIE1hbnVlbCBMb3BleiBDYXJyaWxsbyA8anVhbm1hbnVl
-bGxvcGV6Y2FycmlsbG9AZ21haWwuY29tPgpEYXRlOiBTdW4sIDI5IEp1biAyMDI2IDEyOjA1OjAw
-ICswMjAwClN1YmplY3Q6IFtQQVRDSCAyLzJdIGFybTY0OiBkdHM6IHJvY2tjaGlwOiBwb3draWRk
-eS14NTU6IGNhcCBiYXR0ZXJ5IGNoYXJnZQogdm9sdGFnZSBhdCA0LjJWCgpUaGUgeDU1IGJhdHRl
-cnkgbm9kZSBzZXRzIGNvbnN0YW50LWNoYXJnZS12b2x0YWdlLW1heC1taWNyb3ZvbHQgdG8KNDMw
-MDAwMCAoNC4zMCBWKSwgYnV0IHRoZSBzYW1lIG5vZGUgZGVjbGFyZXMgdm9sdGFnZS1tYXgtZGVz
-aWduLW1pY3Jvdm9sdAphbmQgYW4gb2N2LWNhcGFjaXR5LXRhYmxlLTAgMTAwJSBwb2ludCBvZiA0
-MTM4MDAwICg0LjEzOCBWKS4gVGhlIGNoYXJnZXIKdGhlcmVmb3JlIGRyaXZlcyB0aGUgcGFjayB+
-MTYyIG1WIGFib3ZlIGl0cyBvd24gZGVjbGFyZWQgZnVsbCB2b2x0YWdlIG9uCmV2ZXJ5IGN5Y2xl
-LgoKVGhpcyBvdmVyY2hhcmdlcyB0aGUgc3RhbmRhcmQgNC4yIFYgTGktUG8sIHJhaXNpbmcgaXRz
-IGludGVybmFsIHJlc2lzdGFuY2UKYW5kIGtpbGxpbmcgaXQgZWFybHkgLSBpdCByZWFkcyBmaW5l
-IG9uIHRoZSBjaGFyZ2VyIGJ1dCBjb2xsYXBzZXMgdW5kZXIKbG9hZCBvbmNlIHVucGx1Z2dlZC4g
-Q2FwIHRoZSBjaGFyZ2Ugdm9sdGFnZSBhdCB0aGUgc3RhbmRhcmQsIHNhZmUgNC4yIFYuCkRlc2ln
-biBjYXBhY2l0eSAoNDAwMCBtQWgpIGFuZCBjaGFyZ2UgY3VycmVudCAoMiBBKSBhcmUgYWxyZWFk
-eSBjb3JyZWN0LgoKU2lnbmVkLW9mZi1ieTogSnVhbiBNYW51ZWwgTG9wZXogQ2FycmlsbG8gPGp1
-YW5tYW51ZWxsb3BlemNhcnJpbGxvQGdtYWlsLmNvbT4KLS0tCiBhcmNoL2FybTY0L2Jvb3QvZHRz
-L3JvY2tjaGlwL3JrMzU2Ni1wb3draWRkeS14NTUuZHRzIHwgMiArLQogMSBmaWxlIGNoYW5nZWQs
-IDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvYXJjaC9hcm02NC9i
-b290L2R0cy9yb2NrY2hpcC9yazM1NjYtcG93a2lkZHkteDU1LmR0cyBiL2FyY2gvYXJtNjQvYm9v
-dC9kdHMvcm9ja2NoaXAvcmszNTY2LXBvd2tpZGR5LXg1NS5kdHMKLS0tIGEvYXJjaC9hcm02NC9i
-b290L2R0cy9yb2NrY2hpcC9yazM1NjYtcG93a2lkZHkteDU1LmR0cworKysgYi9hcmNoL2FybTY0
-L2Jvb3QvZHRzL3JvY2tjaGlwL3JrMzU2Ni1wb3draWRkeS14NTUuZHRzCkBAIC03Nyw3ICs3Nyw3
-IEBACiAJCWNoYXJnZS1mdWxsLWRlc2lnbi1taWNyb2FtcC1ob3VycyA9IDw0MDAwMDAwPjsKIAkJ
-Y2hhcmdlLXRlcm0tY3VycmVudC1taWNyb2FtcCA9IDwzMDAwMDA+OwogCQljb25zdGFudC1jaGFy
-Z2UtY3VycmVudC1tYXgtbWljcm9hbXAgPSA8MjAwMDAwMD47Ci0JCWNvbnN0YW50LWNoYXJnZS12
-b2x0YWdlLW1heC1taWNyb3ZvbHQgPSA8NDMwMDAwMD47CisJCWNvbnN0YW50LWNoYXJnZS12b2x0
-YWdlLW1heC1taWNyb3ZvbHQgPSA8NDIwMDAwMD47CiAJCWZhY3RvcnktaW50ZXJuYWwtcmVzaXN0
-YW5jZS1taWNyby1vaG1zID0gPDkxMDAwPjsKIAkJdm9sdGFnZS1tYXgtZGVzaWduLW1pY3Jvdm9s
-dCA9IDw0MTM4MDAwPjsKIAkJdm9sdGFnZS1taW4tZGVzaWduLW1pY3Jvdm9sdCA9IDwzNDAwMDAw
-PjsKLS0KMi40My4wCg==
---00000000000008cc18065561e3ee--
+Ack, see above. We could just hardcode the PDC ranges on a per compatible
+bases (assuming we want this patch at all). Then this should work fine for
+the pure ACPI case too.
+
+This would actually be an interesting thing to have for people interested
+in doing further experiments with a pure ACPI mode.
+
+
+>> +{
+>> +	struct msm_gpio_woa_acpi_parse_data parse;
+>> +	struct fwnode_handle *fwnode;
+>> +	struct device_node *pdc_np;
+>> +	LIST_HEAD(resources);
+>> +	unsigned int ngpio;
+>> +	int ret;
+>> +
+>> +	/* WoA ACPI tables are only used in DT-ACPI hybrid mode */
+>> +	fwnode = chip->parent->fwnode;
+>> +	if (!is_of_node(fwnode) || !is_acpi_device_node(fwnode->secondary))
+>> +		return 0;
+>> +
+>> +	parse.chip = chip;
+>> +	parse.data = data;
+>> +	parse.soc_data = soc_data;
+>> +
+>> +	/* Get PDC ranges, the PDC is the TLMM's wakeup-parent. */
+>> +	pdc_np = of_parse_phandle(chip->parent->of_node, "wakeup-parent", 0);
+>> +	if (!pdc_np)
+>> +		return 0;
+>> +
+>> +	ret = of_property_count_elems_of_size(pdc_np, "qcom,pdc-ranges", sizeof(u32));
+> 
+> That said, do you actually need to do this? Doesn't the ACPI resource
+> give you the INTID directly? (Perhaps I'm misremember? Or perhaps that's
+> of no use to us)
+
+The ACPI Interrupt resource gives a GIC IRQ number, which needs to go through
+pdc-range mapping to become a PDC pin number, which then needs to go through
+soc_data->wakeirq_map to find the TLMM pin number.
+
+Regards,
+
+Hans
+
+
