@@ -1,213 +1,211 @@
-Received: from mail-m15574.qiye.163.com (mail-m15574.qiye.163.com [101.71.155.74])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023125.outbound.protection.outlook.com [52.101.127.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070A93F88A3;
-	Mon, 29 Jun 2026 09:14:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.74
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782724489; cv=none; b=IA8evcaHpZRPOvU06OPx1hI50n2ii55zakB1R59wJ8kZ8ZILtpCNB7haZ+3JYZE2bqW+gB0UAoofqmtLPS33yvX06wZOOGCgBu1/HrY0TEPT7Ghqws7MUJ8UKV8uwz+n3flo0YKSW2cI+6kLImPUcNyL8lQV909MruYX11yoSL0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782724489; c=relaxed/simple;
-	bh=DKksF8ObdV5cCc8gNPV4GonL7jA1mzJBaHtSuhG6HEE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UpiXadbU1ZtCOYibS0mxZ8q361UFLUWmAf++2JfQspMXZqGSfKWliLZ5gMhii5bywdItzZk8hq6Bp6GNQFB0778egBk4hoytnqCOMFIJfgW+XwHo6+4j85jJmfbJ0c15U+qKTbExyBIj0oHgF4WCoj1bA7SBeXImskkKrGUIC90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=KeP9lnKD; arc=none smtp.client-ip=101.71.155.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="KeP9lnKD"
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 442780943;
-	Mon, 29 Jun 2026 17:09:24 +0800 (GMT+08:00)
-Message-ID: <b2633b22-da30-4778-8e23-7b5bed9ead07@rock-chips.com>
-Date: Mon, 29 Jun 2026 17:09:23 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59123F822A;
+	Mon, 29 Jun 2026 09:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.125
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782724509; cv=fail; b=ANieuSv81vcVxy3IlXc/usYWisNXb6SUlZ0jnUtz4MVDsvCLkuNwoKZ9Rl4Y1J946GmcwFKTBCzAZK3f/Gszrv65WBOZr/u4vpSfGDRlNeJZMMKA9pB/o1T1zUknbvKiyvHVUHht0FVhROyATprHRloK4SRCom1qmpAJmkdrT88=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782724509; c=relaxed/simple;
+	bh=XHiwxhXXETGhLUI9ej+Gm0w2PgZLqq+pJi6zeOu8eUc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rSJq+fglnAkNhzuEEy4ACFOmbecJUFKnH1LcSCoDaWUO9dwkNVM+eI4jC7leM8fH0w60EKrAfszZce/W5TX6zoUi63dLRtqLaRgtpO4EclJPRNdE7K/iWXnxbch4A+19KpWmGdYDAEl3hmXhhWhiwzEI8HeV52zX2JTZATjfCYY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.127.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hiTQjcLwlC8rS0sIqFJ0ZDxvlEPfvRoOTAxZnInhFFbFXH6pr42QCVuK9HRdWeQ31bwzcX/PmrxGxejgD71dMIoI+/EYkmZF799Mg8xLeyYUeY4hGE2u0fls8mazW6h2d8C9lq/wbqylbPNWg9KDpx5KOzTVUmm4c7k9vvpDiaGudosyWLYaqjediCD4I1mC8AVl0IY5MwzqmmrcVZCTi+4tKEqn+m9sY3vd6zKQsb9qlQjNaE/nJFnn/tqCnISrjWMeb97KXLWNhi1IrHhryChOZ/ZITRTonjO9QVy1mYciEHbvcI0LFQbjZTU4HilI3iKj/5TCw9L7K6Jr0aY/lA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MmCkUJr8R/kRpoOCJTj2tfjUd66/jpXi5fsU7B2WDVo=;
+ b=s8ClVnKgJcjYZi5qffcuydS9EG64bVv/UVPqWhZ1L6/F8ZUTjWU1H4q64MIqtllLfkgl1gHcH/+UZTPj6EFdi5DmxIUVV68gHOuaTWxzMGWXji5ZqWR/UZicQVdwuRhf+BCFCWYgltpOSFqm8xDU+MxHvDSh/d9yxoxx9DctuIBnfOD7rvc9roaNFGyMUdxbIAaV8zt0bp859GSzvZE/ffLMTQi43BsSHqe7kVc6RDkPxWFWLv7p+7uJ3zzOdfji6tAAwifnMHVuAM06pnoU5IHW8QmeELTnbXRW9PtnqIS+pwrl67+r2eetLzVsIM2pXsEmjAukVh9JwPYn/Lix7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=baylibre.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI1PR02CA0007.apcprd02.prod.outlook.com (2603:1096:4:1f7::6) by
+ KL1PR0601MB5512.apcprd06.prod.outlook.com (2603:1096:820:bc::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 09:15:04 +0000
+Received: from SG2PEPF000B66C9.apcprd03.prod.outlook.com
+ (2603:1096:4:1f7:cafe::4d) by SI1PR02CA0007.outlook.office365.com
+ (2603:1096:4:1f7::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
+ 29 Jun 2026 09:15:04 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66C9.mail.protection.outlook.com (10.167.240.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Mon, 29 Jun 2026 09:15:03 +0000
+Received: from cix (unknown [172.18.64.61])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id AF17040920FD;
+	Mon, 29 Jun 2026 17:15:02 +0800 (CST)
+From: joakim.zhang@cixtech.com
+To: mturquette@baylibre.com,
+	sboyd@kernel.org,
+	bmasney@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	p.zabel@pengutronix.de
+Cc: cix-kernel-upstream@cixtech.com,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Joakim Zhang <joakim.zhang@cixtech.com>
+Subject: [PATCH v7 0/4] Add Cix Sky1 AUDSS clock and reset support
+Date: Mon, 29 Jun 2026 17:14:56 +0800
+Message-ID: <20260629091500.52540-1-joakim.zhang@cixtech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 1/9] drm/bridge: Implement generic USB Type-C DP HPD
- bridge
-To: Xu Yang <xu.yang_2@oss.nxp.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Chaoyi Chen <kernel@airkyi.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Peter Chen <hzpeterchen@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Yubing Zhang <yubing.zhang@rock-chips.com>,
- Frank Wang <frank.wang@rock-chips.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Amit Sunil Dhamne <amitsd@google.com>, Dragan Simic <dsimic@manjaro.org>,
- Johan Jonker <jbx6244@gmail.com>, Diederik de Haas <didi.debian@cknow.org>,
- Peter Robinson <pbrobinson@gmail.com>, Hugh Cole-Baker <sigmaris@gmail.com>,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org
-References: <20260304094152.92-1-kernel@airkyi.com>
- <20260304094152.92-2-kernel@airkyi.com>
- <erx73m2ueuvbzjteadjli6aki5by4pr3hyertkkqqoqwhaa4v3@5cstmshcercx>
- <56c6abb8-c127-449f-9368-12f94620c2bc@rock-chips.com>
- <k53t2soc3nxhwugncatksektig6agxfgdkogkdwbhrhu2fn2g7@auvsfrv76wxy>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <k53t2soc3nxhwugncatksektig6agxfgdkogkdwbhrhu2fn2g7@auvsfrv76wxy>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9f12a3faa703a7kunmb5a121f9254176
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSUhIVkwfQ0hMHkxCHUNLHVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=KeP9lnKD//VlvvlxIiRxEa09oTrs/v+c7Ck0y9CJ7kebPxL1eAQ4LuYjyaIGw/OYsBbKdtssXKahpSlLQkKujxKOUvxCbJxwSZlr8H/ZYK2KhzjMnwcoDd1Sn9tYhC8NZeSIdOHyY2fC9yOG+KjawDDY3dqQlsRMu7fzSYuGBdk=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=oOV+Bwk6KYyidJt86LeBdzQS5L6KRlfhXQ6hucCploM=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66C9:EE_|KL1PR0601MB5512:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 6b57c157-d2a9-4fb2-c005-08ded5bee771
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|82310400026|1800799024|36860700016|23010399003|3023799007|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	dwgb/5+Iji1SFspypZTyVKAJWH1KsGDOgcuT11dCTAhvzugQ7el1DdsiSqf/JBzIdk9hv8EdRh4Im2EaVydEmdePdnprYpdzDGJDNSkfqIGD3vt+3E+UbnS1OEWFj0dY0sClRqPcdEuTN3rEogoJvRQ4crY6rnpzsTD+KB6Pi4VZIjW99BfoXTzaSNJfI/oev168fYDQMdwFIyB9zI1jIlKfeBN1jJnjKY6n5oXutCb8xSQaTbvnZJblLjiGRKYq0NLcG4ap+5eK7pCDFjlVDxuj4lqVEJbzdQaKrQQjZ2nzgUDt6WCxQ2Et4fog2KryrI9dsOyi2b9EF8kwdFWKdH+LQcxGcIlpUSha/uVWnT5Gfyd7KxuK5MJGkMQ6i1wXQkNEW4o0mUoil1m/V7MsdpED+DB0sRPk08suOK8VlzLzwZQWHw5Dfb46LLNLoBJdXeoxutf2GJVPkuswz8sSGnpQFpR9/fFpeg4pJr6LmhgsbH2LxUnF0UT2hAFqnmY1VpY7NZ9D0KxMg1k1lC4/II0074QFR6O9QNWOil10ZPa2ASmI6JkjtotXFHzS/XiVaFAhmZJQoTJy6xCk27Drz77aRuHASz0/8zKYe5WrmNwlm95NZlb9lm10JhuSbX6oddK4yTamRUY4bvgrWfugfUEOzq/OgrR5/Sx064tjkGi+dYF0D6I9SgpuXhrAnhU43f3GyauWcWBu+8vCU9epFA==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(3023799007)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	8vrmb8shT4eJoDzDzCNpQ1ob4TLpuwcKM+hbdiXmmJV1UVUBta7PE0zQypQ4j6sfPeTDMWE4Jgj877NtrrA1zXrvF+kN8z1e2E9iNzmCLguPNqFJmV7A8W7N6cQjMep3UPLCBANbVVumZ2wKNQkBOosJg8cAH1JBH4bqcOki2AwXDlfj3HkoxhIMWES4CFjMNWeW5BC3zjIZh68hBt/w5NeR0JBOUkqblYpnspp/zy+p5jhXdtNRvWlwD+D71VurmPQ98zExPSqXvnrQy3ANsTr9LIsAA2kWPhdod0IS4LFltH95uW5rJz4DZCeiwlkF6Oh1dsPtaOT9npZw01KVJYC5scT80ObqdKq6Xu9h4MXUf8XEWJO2cbxdPW3kpQtzKXP267ZPj5TokfThdJ1ZU3XF5lRM7KvBUIhwEe4oWsCCGrBjSp+TCJIWQtH+Ppe7
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 09:15:03.4971
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b57c157-d2a9-4fb2-c005-08ded5bee771
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66C9.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR0601MB5512
 
-Hello Xu Yang, Heikki
+From: Joakim Zhang <joakim.zhang@cixtech.com>
 
-On 6/29/2026 4:26 PM, Xu Yang wrote:
-> On Mon, Jun 29, 2026 at 09:29:08AM +0800, Chaoyi Chen wrote:
->> Hello Xu Yang,
->>
->> On 6/26/2026 7:15 PM, Xu Yang wrote:
->>> On Wed, Mar 04, 2026 at 05:41:44PM +0800, Chaoyi Chen wrote:
->>>> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->>>>
->>>> The HPD function of Type-C DP is implemented through
->>>> drm_connector_oob_hotplug_event(). For embedded DP, it is required
->>>> that the DRM connector fwnode corresponds to the Type-C port fwnode.
->>>>
->>>> To describe the relationship between the DP controller and the Type-C
->>>> port device, we usually using drm_bridge to build a bridge chain.
->>>>
->>>> Now several USB-C controller drivers have already implemented the DP
->>>> HPD bridge function provided by aux-hpd-bridge.c, it will build a DP
->>>> HPD bridge on USB-C connector port device.
->>>>
->>>> But this requires the USB-C controller driver to manually register the
->>>> HPD bridge. If the driver does not implement this feature, the bridge
->>>> will not be create.
->>>>
->>>> So this patch implements a generic DP HPD bridge based on
->>>> aux-hpd-bridge.c. It will monitor Type-C bus events, and when a
->>>> Type-C port device containing the DP svid is registered, it will
->>>> create an HPD bridge for it without the need for the USB-C controller
->>>> driver to implement it.
->>>>
->>>> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->>>> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
->>>> ---
->>>>
->>>> (no changes since v14)
->>>>
->>>> Changes in v13:
->>>> - Only register drm dp hpd bridge for typec port altmode device.
->>>>
->>>> (no changes since v12)
->>>>
->>>> Changes in v11:
->>>> - Switch to using typec bus notifiers.
->>>>
->>>> (no changes since v10)
->>>>
->>>> Changes in v9:
->>>> - Remove the exposed DRM_AUX_HPD_BRIDGE option, and select
->>>> DRM_AUX_HPD_TYPEC_BRIDGE when it is available.
->>>> - Add more commit comment about problem background.
->>>>
->>>> Changes in v8:
->>>> - Merge generic DP HPD bridge into one module.
->>>> ---
->>>>
->>>>  drivers/gpu/drm/bridge/Kconfig                | 10 ++++
->>>>  drivers/gpu/drm/bridge/Makefile               |  1 +
->>>>  .../gpu/drm/bridge/aux-hpd-typec-dp-bridge.c  | 49 +++++++++++++++++++
->>>>  3 files changed, 60 insertions(+)
->>>>  create mode 100644 drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
->>>>
->>>> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
->>>> index a250afd8d662..559487aa09a9 100644
->>>> --- a/drivers/gpu/drm/bridge/Kconfig
->>>> +++ b/drivers/gpu/drm/bridge/Kconfig
->>>> @@ -30,6 +30,16 @@ config DRM_AUX_HPD_BRIDGE
->>>>  	  Simple bridge that terminates the bridge chain and provides HPD
->>>>  	  support.
->>>>  
->>>> +if DRM_AUX_HPD_BRIDGE
->>>> +config DRM_AUX_HPD_TYPEC_BRIDGE
->>>> +	tristate
->>>> +	depends on TYPEC || !TYPEC
->>>> +	default TYPEC
->>>> +	help
->>>> +	  Simple bridge that terminates the bridge chain and provides HPD
->>>> +	  support. It build bridge on each USB-C connector device node.
->>>> +endif
->>>> +
->>>
->>> Should CONFIG_TYPEC_DP_ALTMODE select this one? Otherwise, we need to do it
->>> manually.
->>>
->>> $ grep -nr --include=Kconfig "select DRM_AUX_HPD_BRIDGE" .
->>> ./drivers/soc/qcom/Kconfig:118: select DRM_AUX_HPD_BRIDGE
->>> ./drivers/usb/typec/ucsi/Kconfig:88:    select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
->>> ./drivers/usb/typec/ucsi/Kconfig:99:    select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
->>> ./drivers/usb/typec/tcpm/Kconfig:62:    select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
->>> ./drivers/usb/typec/tcpm/Kconfig:85:    select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
->>>
->>
->> That's a fair point. But based on the previous discussion, Heikki
->> point out that configurations in the TYPEC subsystem should not
->> select configurations from DRM.
-> 
-> I have just reviewed your previous patchsets but I did't find such opinion from
-> Heikki. Otherwise, why are tcpm.c/ucsi.c already allowed to add the above select
-> condition in their configs?
-> 
-> I think Heikki means that the DRM_AUX_HPD_BRIDGE shouldn't been selected at the
-> top level of Type-C subsystem. Because not all Type-C devices support the DP function.
-> 
-> As a generic Type-C DP HPD bridge, displayport.c will likely need to use it in
-> the future. Therefore, allowing displayport.c to select DRM_AUX_HPD_BRIDGE makes sense.
-> 
-> According to my testing, it's impossible to build this driver in unless TYPEC_FUSB302
-> or a relevant CONFIG is built in to select DRM_AUX_HPD_BRIDGE, or the defconfig is modified.
-> 
+The Cix Sky1 Audio Subsystem (AUDSS) groups audio-related blocks such as
+HDA, I2S, DSP, DMA, mailboxes, watchdog and timer behind one Clock and
+Reset Unit (CRU). The CRU is a single MMIO register block that provides
+clock muxing, gating and block-level software reset lines for those
+peripherals.
 
-Yep. For me, I select DRM_AUX_HPD_BRIDGE in DRM.
+Clock and reset support are submitted in one series because they belong
+to the same hardware block and share one devicetree node
+(cix,sky1-audss-cru). The binding, clock indices and reset indices are
+defined together; the clock driver maps the CRU and instantiates the
+reset controller as an auxiliary driver on that node. Splitting clk and
+reset across separate series would leave neither side self-contained: the
+DTS node needs both providers, and the reset driver has no standalone
+probe path without the clock driver.
 
-@Heikki, what do you think of the following change?
-Should we add a new patch for this? Thanks.
+---
+ChangeLogs:
+v6->v7:
+  * reset driver:
+    * propagate regmap errors in assert/deassert ops
+    * drop .reset and .status ops (no consumer uses them)
+    * remove regmap fallback path; use parent regmap only
+    * use dev->of_node for rcdev.of_node
+    * drop of_reset_n_cells and dev_set_drvdata()
+  * dt-binding:
+    * Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
+v5->v6:
+  * rename dt-bindings headers to cix,sky1-audss-cru.h to match compatible
+  * drop status = "okay" from audss_cru node in sky1.dtsi
 
-diff --git a/drivers/usb/typec/altmodes/Kconfig b/drivers/usb/typec/altmodes/Kconfig
-index 7867fa7c405d..f89cdf3c949b 100644
---- a/drivers/usb/typec/altmodes/Kconfig
-+++ b/drivers/usb/typec/altmodes/Kconfig
-@@ -5,6 +5,7 @@ menu "USB Type-C Alternate Mode drivers"
- config TYPEC_DP_ALTMODE
-        tristate "DisplayPort Alternate Mode driver"
-        depends on DRM
-+       select DRM_AUX_HPD_BRIDGE 
-        help
-          DisplayPort USB Type-C Alternate Mode allows DisplayPort
-          displays and adapters to be attached to the USB Type-C
+v4->v5:
+  * refactor the driver, using platform_driver for clk and auxiliary_driver
+    for reset.
+
+v3->v4:
+  * move both power domain and resets into parset node (audss_cru)
+  * remove "simple-mfd", and change to populate the child node
+  * cix,sky1-audss.h -> cix,sky1-audss-clock.h
+
+v2->v3:
+  * clk part:
+    * devm_reset_control_get()->devm_reset_control_get_exclusive()
+    * assert noc reset from suspend
+    * clock parents changes from 6 to 4, and rename the clock names,
+      explain more about this: confirm with our designer, In fact,
+      there are 6 clock sources going into the audio subsystem. audio_clk1
+      and audio_clk3 are redundant in design and are not actually needed
+      in practice, so they are not shown here.
+    * refine clocks and clock-names property
+    * add detailed description of clocks
+    * drop parent node from clk binding
+    * drop define AUDSS_MAX_CLKS
+  * reset part:
+    * rename reset signal macro, remove _N
+    * drop SKY1_AUDSS_SW_RESET_NUM
+    * switching to compatible-style of defining subnodes in parent schema
+
+v1->v2:
+  * remove audss_rst device node since it doesn't has resource, and
+    move to reset-sky1.c driver.
+  * remove hda related which would be sent after this patch set accepted
+  * soc componnet is okay by default from dtsi
+  * fix for audss clk driver:
+    * remove "comment "Clock options for Cixtech audss:""
+    * add select MFD_SYSCON
+    * move lock and clk_data into struct sky1_audss_clks_priv
+    * const char *name -> const char * const * name
+    * remove CLK_GET_RATE_NOCACHE
+    * divicer -> divider
+    * Reverse Christmas tree order
+    * return reg ? 1 : 0; -> return !!reg;
+    * return ERR_CAST(hw); -> return hw;
+    * of_device_get_match_data(dev) -> device_get_match_data()
+    * add lock from runtime_suspend/resume
+  * loop to more mailing lists
+
+Joakim Zhang (4):
+  dt-bindings: soc: cix: add sky1 audss cru controller
+  clk: cix: add sky1 audss clock controller
+  reset: cix: add sky1 audss auxiliary reset driver
+  arm64: dts: cix: sky1: add audss cru
+
+ .../bindings/soc/cix/cix,sky1-audss-cru.yaml  |   92 ++
+ arch/arm64/boot/dts/cix/sky1.dtsi             |   18 +
+ drivers/clk/Kconfig                           |    1 +
+ drivers/clk/Makefile                          |    1 +
+ drivers/clk/cix/Kconfig                       |   16 +
+ drivers/clk/cix/Makefile                      |    3 +
+ drivers/clk/cix/clk-sky1-audss.c              | 1203 +++++++++++++++++
+ drivers/reset/Kconfig                         |   14 +
+ drivers/reset/Makefile                        |    1 +
+ drivers/reset/reset-sky1-audss.c              |  137 ++
+ .../dt-bindings/clock/cix,sky1-audss-cru.h    |   60 +
+ .../dt-bindings/reset/cix,sky1-audss-cru.h    |   25 +
+ 12 files changed, 1571 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/soc/cix/cix,sky1-audss-cru.yaml
+ create mode 100644 drivers/clk/cix/Kconfig
+ create mode 100644 drivers/clk/cix/Makefile
+ create mode 100644 drivers/clk/cix/clk-sky1-audss.c
+ create mode 100644 drivers/reset/reset-sky1-audss.c
+ create mode 100644 include/dt-bindings/clock/cix,sky1-audss-cru.h
+ create mode 100644 include/dt-bindings/reset/cix,sky1-audss-cru.h
 
 -- 
-Best, 
-Chaoyi
+2.50.1
+
