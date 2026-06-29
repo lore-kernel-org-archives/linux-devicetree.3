@@ -1,163 +1,407 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011039.outbound.protection.outlook.com [52.101.70.39])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399DD3C1414;
-	Mon, 29 Jun 2026 21:10:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782767435; cv=fail; b=kKamcz1t66Mej1y6TvkGao3YUdckm41WW8TRVwbL5Mmr1LqvDqE45CwcfvjMwl+y9mf5RqL+5j9RIhlzqj3VCsCya0uZC4TWdTYqoIhVrMxil6V1NEkslyAX8o01YqGjnnhJXpIgJ24xKDN/13RJl88IcfTeD9IrWEc0tr0+KWM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782767435; c=relaxed/simple;
-	bh=HJJ0eytX2VmffaXr6YvUUvA9tG9LKCa499gups8y5TI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=A7sY55u+YDT1rvmxZXW9c+igKqn3OS4gWOWpgRAwLTStTPRSPiNzLLKfql0G0hPt80n7hv25gepBUpaVQxQdEfcFEjGRDsAUTJEtpo3M34Zd/aN0GwAq1jCna/XIS4HeqZLurXTculHj3mRkZn6KdSk6vK6KmfXQyGZOWFJu4wE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Bz5imfGc; arc=fail smtp.client-ip=52.101.70.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B416E3C4B85;
+	Mon, 29 Jun 2026 21:10:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782767469; cv=none; b=PGDs6oYjQQgnY1ujdujS/4WHhBnOcR1qQh5JAsf8A6PoSo9VnE5KdaPKQf4S79B+v/fOVma1fX6r8NuqdGBQ9FjSGf2s1kCvI+nikcRY6+gt26hp9ky8DgsPbpbbqwxQC8MJlY9pqlAvmqZCOrkY8oqnn1dzIXKiY7/FUSRsb14=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782767469; c=relaxed/simple;
+	bh=EW5zioG7jePNQfFZdvz5ceu+C+f75jJr5yGAs01haXQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u++trqDHpRY3N6H8AF87Ztcf6WNYgrU9YEbWXA4h4xUbrnPiwThd3Cum0gjxXZNwxxgrSkdG3Xp9CHZi14nexDAv9yIbqldhxHBwTCZix5uwihTsbrtRBKLgS6brkI94UFt5ZBj5cghpYKcDoyIB8xf2iabhiZtXAFtZuwGqm7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TMhAeyYR; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Bz5imfGc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lwzVhHY3EYdEMyq3JyypUaVjtttzF3L0TYVHfwVIuuhy0hTOkjcILPhxeOI4itaOud+Qbb6YGEIh5TuVdFMr5CnhSEWElCPMKPzOaLpj7DD/21RJ8yN2ozqDRV//TsvYZt/7MYkZVEyyy9aEhiit/6NKELX4z6jAVKD9AuMrymzDF8j+jDYojWaaGERlkk8roEiJrmDIUmOe835quaIDtqanjXeSmCAXCXrHMTBbjLMi5jrlV4LspkLYth/txV2tUSFSkvPmlzpm3Vz/uw0zT+xjAe3TJ5K4sEgXyKZhtG58wTMMk+3j1w5c4KaGenv9qyb/ket1y8ICzIsDQMWY2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3+Qfo4eMH7AAJF5chASl+IVG8P+mPOUu40/QKeBFMAc=;
- b=gcOd42QloWIKXti0GnVcGNK/wryg5cRtL3+RDeV2OxUf5YXF5Uzf7/ea4qjcnzP7bfT6rf/0+c62EAIKt2B+tDHVMpyHjAsTwwUaGuTLEj6JZ1LBo875tFAoFx4FDsP1RQAAHQfopC2V+jwyyPyk36+Lvq9tI/RmAFSufPQ2hs6keOHr6i9RuQKb+1xb6DhPEjtKff65zN1lsXHUX9Wy/dtXNZKsk8jRlptPvbS/5zTwlygn2UYfQFOlj6O+fxHsstukmvIFrJV9OahuGU05ij5gJ49lYuWzIuSYshMf3JRRm7t6O9lO/rZep8e9OW9xWDCHjHBzRi3dPwJNFob8qQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3+Qfo4eMH7AAJF5chASl+IVG8P+mPOUu40/QKeBFMAc=;
- b=Bz5imfGcwXdE2iL/MrRf24QWW0/f0R8S3JT0FZGb9IiqI8nWzI5XuIEUGQCY7PgAek3lw4Q8F9v1ku/tFwr00kXyj878fgz6+vnubfs/VqW2ixy/CvXzbCNwkBS7gR0Jl2CCMEXyt8eHtmiY9UWbtq+4D2Khfda2GboYXtzAHMLrU1lI0JRA9cKjqMfO3pIhLJUKOdpeHKAEEyHvgYfEqwv56jDCusbcW7IzTDn1HlGpD32o/lHw+9WRcZONCNBFLrBexav82zMXx1i+iloDtA/CtHxBUGsPTe7ORgQd0t1dcSbc4grNoQKsIL4ivUj+R34rbgPV4skapzqwl8h/7w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DB9PR04MB10033.eurprd04.prod.outlook.com (2603:10a6:10:4ee::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 21:10:22 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 29 Jun 2026
- 21:10:22 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TMhAeyYR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782767457; x=1814303457;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=EW5zioG7jePNQfFZdvz5ceu+C+f75jJr5yGAs01haXQ=;
+  b=TMhAeyYRnMI9B+mgFW9EoGT+XXLkA49uTQ3KLS2simu6U3BgohA5xi9A
+   r0L5VQASeFr8B4+2zKPzt49gi1HrbYbPsYyWqEsAj0hIVdsL/JYecqMH9
+   kSO+jRvN7PuOFnC1ytkJLeNR6DNn1h6J9UaJgwsgCfifqNq3GmDb11zCp
+   qMUKeGEbx12Vhk9L7q43aJGaWnHcfVjHakQwjsbUoLRmXDCunRKJsXslF
+   RVvP23s/sF+f0oXGeF7K2KboiFhGRQweMRtsJuAXrFmpA5GmuRPvQ/Dbk
+   I1fFXmOQ2Zn8NMttcF5Z/DiaTO8WCFePDnLbEQxa23AsQqqpqaxVXX5Mq
+   A==;
+X-CSE-ConnectionGUID: DvGngXvOT+2P3u7YFMrsfA==
+X-CSE-MsgGUID: jxg4GIMbSOec667KajAvew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="83502814"
+X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
+   d="scan'208";a="83502814"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 14:10:56 -0700
+X-CSE-ConnectionGUID: 8xOUEhvKS1m7BIhZs5bq+w==
+X-CSE-MsgGUID: lFCUno39ROak+T8g0vej1Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
+   d="scan'208";a="250375616"
+Received: from lkp-server02.sh.intel.com (HELO ea128546eb3d) ([10.239.97.151])
+  by orviesa006.jf.intel.com with ESMTP; 29 Jun 2026 14:10:52 -0700
+Received: from kbuild by ea128546eb3d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1weJFi-000000007lZ-18o5;
+	Mon, 29 Jun 2026 21:10:50 +0000
+Date: Tue, 30 Jun 2026 05:10:37 +0800
+From: kernel test robot <lkp@intel.com>
+To: Fredrik M Olsson <fredrik.m.olsson@axis.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] arm64: dts: freescale: imx95-toradex-smarc: add alias for lpuart5
-Date: Mon, 29 Jun 2026 17:10:15 -0400
-Message-ID: <178276740916.2496507.263937302163138587.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260622093507.44132-1-francesco@dolcini.it>
-References: <20260622093507.44132-1-francesco@dolcini.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH7P220CA0114.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:32d::8) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
+Cc: oe-kbuild-all@lists.linux.dev, linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel@axis.com, Fredrik M Olsson <fredrik.m.olsson@axis.com>
+Subject: Re: [PATCH v3] rtc: ds1307: Add driver for Epson RX8901CE
+Message-ID: <202606300522.9EnurYvY-lkp@intel.com>
+References: <20260629-ds1307-rx8901-add-v3-1-302dc3cbb71e@axis.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DB9PR04MB10033:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33e056ed-2594-49b2-106d-08ded622d4f6
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|7416014|19092799006|376014|23010399003|366016|1800799024|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
- vBM+1zvc3/aMkN6PjnsquJLyNXzYwqrjC/oj7OPlY89FuYJJOpxbVSnRlmnvDDh56YvbPlLmBSxlzlRfezj9578qJFCUJrAYYo4XU/cTBuEjMJve/Ml1JHK+fkX4E/OsB4EcwuJQjoVdB/j08bUI3ZLum1qRLrP+2uhdfXvw4h+oWMlb8ESpAxp8GxfZzXHkCGzCrgOV8PkZKKZ5dqsyEDqHRdN4PguKHsJzqOEEJirtiuBwYxz1gxYb4cLJjHhBdMQHzBotSaSJyJHhhxqZev80rmozXWze9ZUnM6oYlMEuibWiz+H5yBvqPNQ9KB0mVX0TDBsiEWOi5RlwKUXVmAsaFYuLekSm+YMXkdFoALWRnC0GThNzEw/NCi/MO8qDzkiFJqb7d1dU7jl0Fd2g6dejUgjRzaDZP6xoiy52Zrrrh1IuYJ/JLz0BbIaR1KG0fmqMkSf5oh2h3T3oCcBTymTQMUqy7xilWAsQOETaJ+cemhLUwYO15jz+Q5fRriRfDSIG8GZICILHQ68jFuE8OAdRcSTnDHzza755KceI+ARYEnQTI2pnkFyf4zXp3kcE5ePHI7ZzO8o9ik8aV2upCV7UEYoqO9oKjGu5ctHOQlqFSei6J+GFGGeIRXMO2Th/BV0O6VfGb3vaUqMVNeAm1v7flN4ncxrmLHTX63wsVMI=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(19092799006)(376014)(23010399003)(366016)(1800799024)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?VFpLS3JJV2p6OHhMNzZDVkdkUFh2TXE2RmpzZkxDZUdCMTRSSFlka05nOWpY?=
- =?utf-8?B?L0RIVk1lOW8rMEV6VkJlYW0rTlZVMHV6QThHYUNscGRUc21ncDY1TFl0bGRU?=
- =?utf-8?B?YzA5VzlicXZWdWQyREZBQjBrZ0JjeDArTEFRSSt4Z3BJclNRb1pkZWFaUGVK?=
- =?utf-8?B?aHZKdURpTVJiTWNnU0pjV0U1OXUzQjIydENMK3JNWVYxWmJ1ZHZFL3d1Tnhy?=
- =?utf-8?B?dVRJdFVzQzROY1IrOEtMZ0RoVnlrZTJ4cTI2UENNYjJ6N1k5VHVJVk40cmpB?=
- =?utf-8?B?NEdsd0ZVMlVpME9zSkFoZXU3MHdWdlpqYmdXZXNwTlVRR2FZWlNyQlh5MXpX?=
- =?utf-8?B?ZWlseW52RHRhZlNLaGdHVlZZbExKL1dUUEMrTzBoeitIRjl4R2pyR2JEelR4?=
- =?utf-8?B?TittRXVrd29QZzVyWUk3VDVHcS9tdWV3SVg2QW1LSFpzdmwyNTM3T0RJNEhW?=
- =?utf-8?B?S05jQ3JKRm4zN0JBWWV6bnBuVC93dVE3aTZxeG53VGhmUXI4Vkw4OUNHZG1l?=
- =?utf-8?B?YlFQTHBLc1luV1Z0SVZYNzgwaDRzKzh3TWJURUtsR1FISXBKbDhCUnpRWS9Q?=
- =?utf-8?B?NkVxSkZtcGRsR1JZejhjWVFPNTdrTStXdW5oUUFObkpGWEEwc00rdjdNdVVW?=
- =?utf-8?B?dlRpTVY3KzBVdlNXNnNIS0VQb0RieStscGdyMG5ETUJ3VC9VTXl1bHZkaitN?=
- =?utf-8?B?aTFPaFI1U2Ftcyt6RHQwOE4yWlBwZkJmUnhHMlhlTDdDeDI5N0lnOWlsbXE5?=
- =?utf-8?B?Q3hOQTdqOUpzU1BHdnEvOFgwbXhpbElsUllvT3pBcHBhbldBZ1R4T1Jwb0Za?=
- =?utf-8?B?M2NuRmdrZU8vZmpCbmFBZmRvWFNpc3RjeFppTE9CZExucXJOaE5uNEVjVVVB?=
- =?utf-8?B?QklyaVcxYlN5OVJKUG55dWVyK2VBaE5DRjNjUDhub21abHdPZzJMdFFTUUx6?=
- =?utf-8?B?aVZKRWRDTEdVZUxhSEZRSHg4d3ZVOENEa2xUYWl2c2Y3K2Uxb2QycFdMMkdu?=
- =?utf-8?B?UzBJcDlBaXVXSGdoWWVVaVBUbk9wKy9kbUc3ZzB6UHNOY0tYdURsUFFPWFpk?=
- =?utf-8?B?QXoyVWJGdEVmZ1gwRTM5WmNiTDIyRk0wYzhYYTQ0eWFIbTZHL01IYnA4N01K?=
- =?utf-8?B?Y2dCT21TMHZ0bi9Qb2lLWXNIckczREJmenRHcm5JOCs5NWxUQ3M4VVZoVHRr?=
- =?utf-8?B?ejRaTG9xQ0hJMzhkcFExeWRtTm9kVXo3cHNDcllnLzBwMDVtak12bEFIeFk3?=
- =?utf-8?B?SHpQK2pWWFhGSUR6aWkvcFAzZDdhK1d0WE1SSEY2RGZ0QllvZUI1NGRXY1VI?=
- =?utf-8?B?S3B3VkRGNTErcDIrRXVlMXBFWkNob2I0cE1JazVUanNSQzMzYnFGV0w5M25Z?=
- =?utf-8?B?dnU5Vmg2NzF6VE9QMzQ0aTdMb3NTMHRUUE9pcTh1aVdmU0R3ZVIxV3p1cXdF?=
- =?utf-8?B?bDJTOVJDRkQrZmhZSm5tUEp4QUhxVHBLMktLTFlhTCthRkxhd1BBRnlwd0xG?=
- =?utf-8?B?alNFcUhKV01LRVlLOG1ydWxldCtjM2dWTnhaVUhIYjU3blBacUhpcGo0MkJS?=
- =?utf-8?B?WnJMQVNGeGROMm1PRkRtSTJNTHJidEl0bEx2ZGJmKzRHRGZsM093b3NyckFB?=
- =?utf-8?B?V3p3TG1zRnNMclVJUnFRVFJtUWYzeHdCU2xhU2s1eTNHZlo2RWxOZHdpTnhR?=
- =?utf-8?B?NDFhUTRMZjV0UEtRemNSOWFPZnpDUCtleHI3MCtiYk43d3NyampnTnA4eC9T?=
- =?utf-8?B?blNzVnVnUGFjL3pxSWZBUEVJQ3NRRWdHcFA0QTBaNjlUT1pYT05YTy9JMnhY?=
- =?utf-8?B?bXVwcVNuWHpLdEdpMGlPbGdhRHpha2FBN2wvMXZ5UlVqY1p3UkhkOFdvMFVa?=
- =?utf-8?B?YTRtWHEvTUwzaFNURlhrbklObFVXdGlsOEFEajU5R1pZWFNvbmtFTHdLcUYr?=
- =?utf-8?B?RFpWazVHcGIzZ2ptUkpkNHZNRWVSeFpJUk9BZjRUYnE5dzY2dm5WcVFLdG56?=
- =?utf-8?B?c29UaWxEV2syR3h5ZXcvTmR0d2ZsVjJoZ0E2ZkJsekJHY3RvRG9HeUhtUEF2?=
- =?utf-8?B?Mkp3RG9DMTF3eU9pQWthMS8rbzNWUUo2MTdvL21Ca0pEbjBjUFBFV1ZES3VM?=
- =?utf-8?B?MXRPV0hZTXcxbC83WmVEZTBKbjl2VHZlbDVCMEFwOXRjelg2K2Y5TE1RR2Ns?=
- =?utf-8?B?NkZla1hWOGt0MjZCUGRFSFlWVHcxaFNPdU1hVmRvMUZEWnJiK1VwNDRUeW5Q?=
- =?utf-8?B?Q2RjRldDckZXeWNGMGVEcWpFQ1RZYklZd0tsN21wUG14K01wb1NTRWRSY0JR?=
- =?utf-8?B?aUwrMlF6bitoYTZsd2prWDRSb2dob3kvY2xOWjZsM1BTeWVzUy9TbTN3Zk1u?=
- =?utf-8?Q?5EU8WpjVEmHGAIzhWZSyO9pznXronut6ZC6E3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33e056ed-2594-49b2-106d-08ded622d4f6
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 21:10:22.4900
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aVRaOVQb6BQFYTGm5KWmo0nqjkI02RtUiUXbiv0Wqkz4dEYahfeIO6OuZfvIQdXT90vo8aw2R5b2Hu6b9UckiMN0SBMnhd0KLhXyiMym4vmMY+IoSTTK0okmjHvxuxWq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB10033
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260629-ds1307-rx8901-add-v3-1-302dc3cbb71e@axis.com>
 
-From: Frank Li <Frank.Li@nxp.com>
+Hi Fredrik,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on dc59e4fea9d83f03bad6bddf3fa2e52491777482]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Fredrik-M-Olsson/rtc-ds1307-Add-driver-for-Epson-RX8901CE/20260629-232253
+base:   dc59e4fea9d83f03bad6bddf3fa2e52491777482
+patch link:    https://lore.kernel.org/r/20260629-ds1307-rx8901-add-v3-1-302dc3cbb71e%40axis.com
+patch subject: [PATCH v3] rtc: ds1307: Add driver for Epson RX8901CE
+config: sparc64-randconfig-002-20260630 (https://download.01.org/0day-ci/archive/20260630/202606300522.9EnurYvY-lkp@intel.com/config)
+compiler: sparc64-linux-gcc (GCC) 8.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260630/202606300522.9EnurYvY-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202606300522.9EnurYvY-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/rtc/rtc-ds1307.c: In function 'ds1307_probe':
+>> drivers/rtc/rtc-ds1307.c:2331:2: error: label at end of compound statement
+     default:
+     ^~~~~~~
 
 
-On Mon, 22 Jun 2026 11:35:06 +0200, Francesco Dolcini wrote:
-> Add alias for lpuart5 so the UART gets a stable line number.
-> Without this alias, the lpuart driver fails:
-> 
->   fsl-lpuart 42590000.serial: failed to get alias id, errno -19
-> 
-> This prevents the Bluetooth controller connected to this UART from
-> working.
-> 
-> [...]
+vim +2331 drivers/rtc/rtc-ds1307.c
 
-Applied, thanks!
+  2066	
+  2067	static int ds1307_probe(struct i2c_client *client)
+  2068	{
+  2069		const struct i2c_device_id *id = i2c_client_get_device_id(client);
+  2070		struct ds1307		*ds1307;
+  2071		const void		*match;
+  2072		int			err = -ENODEV;
+  2073		int			tmp;
+  2074		const struct chip_desc	*chip;
+  2075		bool			want_irq;
+  2076		bool			ds1307_can_wakeup_device = false;
+  2077		unsigned char		regs[8];
+  2078		struct ds1307_platform_data *pdata = dev_get_platdata(&client->dev);
+  2079		int			trickle_charger_setup = 0;
+  2080	
+  2081		ds1307 = devm_kzalloc(&client->dev, sizeof(struct ds1307), GFP_KERNEL);
+  2082		if (!ds1307)
+  2083			return -ENOMEM;
+  2084	
+  2085		dev_set_drvdata(&client->dev, ds1307);
+  2086		ds1307->dev = &client->dev;
+  2087		ds1307->name = client->name;
+  2088	
+  2089		ds1307->regmap = devm_regmap_init_i2c(client, &regmap_config);
+  2090		if (IS_ERR(ds1307->regmap)) {
+  2091			dev_err(ds1307->dev, "regmap allocation failed\n");
+  2092			return PTR_ERR(ds1307->regmap);
+  2093		}
+  2094	
+  2095		i2c_set_clientdata(client, ds1307);
+  2096	
+  2097		match = device_get_match_data(&client->dev);
+  2098		if (match) {
+  2099			ds1307->type = (uintptr_t)match;
+  2100			chip = &chips[ds1307->type];
+  2101		} else if (id) {
+  2102			chip = &chips[id->driver_data];
+  2103			ds1307->type = id->driver_data;
+  2104		} else {
+  2105			return -ENODEV;
+  2106		}
+  2107	
+  2108		want_irq = client->irq > 0 && chip->alarm;
+  2109	
+  2110		if (!pdata)
+  2111			trickle_charger_setup = ds1307_trickle_init(ds1307, chip);
+  2112		else if (pdata->trickle_charger_setup)
+  2113			trickle_charger_setup = pdata->trickle_charger_setup;
+  2114	
+  2115		if (trickle_charger_setup < 0)
+  2116			return trickle_charger_setup;
+  2117	
+  2118		if (trickle_charger_setup && chip->trickle_charger_reg) {
+  2119			dev_dbg(ds1307->dev,
+  2120				"writing trickle charger info 0x%x to 0x%x\n",
+  2121				trickle_charger_setup, chip->trickle_charger_reg);
+  2122			regmap_write(ds1307->regmap, chip->trickle_charger_reg,
+  2123				     (u8)trickle_charger_setup);
+  2124		}
+  2125	
+  2126	/*
+  2127	 * For devices with no IRQ directly connected to the SoC, the RTC chip
+  2128	 * can be forced as a wakeup source by stating that explicitly in
+  2129	 * the device's .dts file using the "wakeup-source" boolean property.
+  2130	 * If the "wakeup-source" property is set, don't request an IRQ.
+  2131	 * This will guarantee the 'wakealarm' sysfs entry is available on the device,
+  2132	 * if supported by the RTC.
+  2133	 */
+  2134		if (chip->alarm && device_property_read_bool(&client->dev, "wakeup-source"))
+  2135			ds1307_can_wakeup_device = true;
+  2136	
+  2137		switch (ds1307->type) {
+  2138		case ds_1337:
+  2139		case ds_1339:
+  2140		case ds_1341:
+  2141		case ds_3231:
+  2142			/* get registers that the "rtc" read below won't read... */
+  2143			err = regmap_bulk_read(ds1307->regmap, DS1337_REG_CONTROL,
+  2144					       regs, 2);
+  2145			if (err) {
+  2146				dev_dbg(ds1307->dev, "read error %d\n", err);
+  2147				goto exit;
+  2148			}
+  2149	
+  2150			/* oscillator off?  turn it on, so clock can tick. */
+  2151			if (regs[0] & DS1337_BIT_nEOSC)
+  2152				regs[0] &= ~DS1337_BIT_nEOSC;
+  2153	
+  2154			/*
+  2155			 * Using IRQ or defined as wakeup-source?
+  2156			 * Disable the square wave and both alarms.
+  2157			 * For some variants, be sure alarms can trigger when we're
+  2158			 * running on Vbackup (BBSQI/BBSQW)
+  2159			 */
+  2160			if (want_irq || ds1307_can_wakeup_device)
+  2161				regs[0] |= DS1337_BIT_INTCN | chip->bbsqi_bit;
+  2162	
+  2163			regmap_write(ds1307->regmap, DS1337_REG_CONTROL,
+  2164				     regs[0]);
+  2165	
+  2166			/* oscillator fault? warn */
+  2167			if (regs[1] & DS1337_BIT_OSF) {
+  2168				dev_warn(ds1307->dev, "SET TIME!\n");
+  2169			}
+  2170			break;
+  2171	
+  2172		case rx_8025:
+  2173			err = regmap_bulk_read(ds1307->regmap,
+  2174					       RX8025_REG_CTRL1 << 4 | 0x08, regs, 2);
+  2175			if (err) {
+  2176				dev_dbg(ds1307->dev, "read error %d\n", err);
+  2177				goto exit;
+  2178			}
+  2179	
+  2180			/* oscillator off?  turn it on, so clock can tick. */
+  2181			if (!(regs[1] & RX8025_BIT_XST)) {
+  2182				regs[1] |= RX8025_BIT_XST;
+  2183				regmap_write(ds1307->regmap,
+  2184					     RX8025_REG_CTRL2 << 4 | 0x08,
+  2185					     regs[1]);
+  2186				dev_warn(ds1307->dev,
+  2187					 "oscillator stop detected - SET TIME!\n");
+  2188			}
+  2189	
+  2190			if (regs[1] & RX8025_BIT_PON) {
+  2191				regs[1] &= ~RX8025_BIT_PON;
+  2192				regmap_write(ds1307->regmap,
+  2193					     RX8025_REG_CTRL2 << 4 | 0x08,
+  2194					     regs[1]);
+  2195				dev_warn(ds1307->dev, "power-on detected\n");
+  2196			}
+  2197	
+  2198			if (regs[1] & RX8025_BIT_VDET) {
+  2199				regs[1] &= ~RX8025_BIT_VDET;
+  2200				regmap_write(ds1307->regmap,
+  2201					     RX8025_REG_CTRL2 << 4 | 0x08,
+  2202					     regs[1]);
+  2203				dev_warn(ds1307->dev, "voltage drop detected\n");
+  2204			}
+  2205	
+  2206			/* make sure we are running in 24hour mode */
+  2207			if (!(regs[0] & RX8025_BIT_2412)) {
+  2208				u8 hour;
+  2209	
+  2210				/* switch to 24 hour mode */
+  2211				regmap_write(ds1307->regmap,
+  2212					     RX8025_REG_CTRL1 << 4 | 0x08,
+  2213					     regs[0] | RX8025_BIT_2412);
+  2214	
+  2215				err = regmap_bulk_read(ds1307->regmap,
+  2216						       RX8025_REG_CTRL1 << 4 | 0x08,
+  2217						       regs, 2);
+  2218				if (err) {
+  2219					dev_dbg(ds1307->dev, "read error %d\n", err);
+  2220					goto exit;
+  2221				}
+  2222	
+  2223				/* correct hour */
+  2224				hour = bcd2bin(regs[DS1307_REG_HOUR]);
+  2225				if (hour == 12)
+  2226					hour = 0;
+  2227				if (regs[DS1307_REG_HOUR] & DS1307_BIT_PM)
+  2228					hour += 12;
+  2229	
+  2230				regmap_write(ds1307->regmap,
+  2231					     DS1307_REG_HOUR << 4 | 0x08, hour);
+  2232			}
+  2233			break;
+  2234		case ds_1388:
+  2235			err = regmap_read(ds1307->regmap, DS1388_REG_CONTROL, &tmp);
+  2236			if (err) {
+  2237				dev_dbg(ds1307->dev, "read error %d\n", err);
+  2238				goto exit;
+  2239			}
+  2240	
+  2241			/* oscillator off?  turn it on, so clock can tick. */
+  2242			if (tmp & DS1388_BIT_nEOSC) {
+  2243				tmp &= ~DS1388_BIT_nEOSC;
+  2244				regmap_write(ds1307->regmap, DS1388_REG_CONTROL, tmp);
+  2245			}
+  2246			break;
+  2247		default:
+  2248			break;
+  2249		}
+  2250	
+  2251		/* read RTC registers */
+  2252		err = regmap_bulk_read(ds1307->regmap, chip->offset, regs,
+  2253				       sizeof(regs));
+  2254		if (err) {
+  2255			dev_dbg(ds1307->dev, "read error %d\n", err);
+  2256			goto exit;
+  2257		}
+  2258	
+  2259		if (ds1307->type == mcp794xx &&
+  2260		    !(regs[DS1307_REG_WDAY] & MCP794XX_BIT_VBATEN)) {
+  2261			regmap_write(ds1307->regmap, DS1307_REG_WDAY,
+  2262				     regs[DS1307_REG_WDAY] |
+  2263				     MCP794XX_BIT_VBATEN);
+  2264		}
+  2265	
+  2266		tmp = regs[DS1307_REG_HOUR];
+  2267		switch (ds1307->type) {
+  2268		case ds_1340:
+  2269		case m41t0:
+  2270		case m41t00:
+  2271		case m41t11:
+  2272			/*
+  2273			 * NOTE: ignores century bits; fix before deploying
+  2274			 * systems that will run through year 2100.
+  2275			 */
+  2276			break;
+  2277		case rx_8025:
+  2278			break;
+  2279		default:
+  2280			if (!(tmp & DS1307_BIT_12HR))
+  2281				break;
+  2282	
+  2283			/*
+  2284			 * Be sure we're in 24 hour mode.  Multi-master systems
+  2285			 * take note...
+  2286			 */
+  2287			tmp = bcd2bin(tmp & 0x1f);
+  2288			if (tmp == 12)
+  2289				tmp = 0;
+  2290			if (regs[DS1307_REG_HOUR] & DS1307_BIT_PM)
+  2291				tmp += 12;
+  2292			regmap_write(ds1307->regmap, chip->offset + DS1307_REG_HOUR,
+  2293				     bin2bcd(tmp));
+  2294		}
+  2295	
+  2296		ds1307->rtc = devm_rtc_allocate_device(ds1307->dev);
+  2297		if (IS_ERR(ds1307->rtc))
+  2298			return PTR_ERR(ds1307->rtc);
+  2299	
+  2300		if (want_irq || ds1307_can_wakeup_device)
+  2301			device_set_wakeup_capable(ds1307->dev, true);
+  2302		else
+  2303			clear_bit(RTC_FEATURE_ALARM, ds1307->rtc->features);
+  2304	
+  2305		if (ds1307_can_wakeup_device && !want_irq) {
+  2306			dev_info(ds1307->dev,
+  2307				 "'wakeup-source' is set, request for an IRQ is disabled!\n");
+  2308			/* We cannot support UIE mode if we do not have an IRQ line */
+  2309			clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, ds1307->rtc->features);
+  2310		}
+  2311	
+  2312		if (want_irq) {
+  2313			err = devm_request_threaded_irq(ds1307->dev, client->irq, NULL,
+  2314							chip->irq_handler ?: ds1307_irq,
+  2315							IRQF_SHARED | IRQF_ONESHOT,
+  2316							ds1307->name, ds1307);
+  2317			if (err) {
+  2318				client->irq = 0;
+  2319				device_set_wakeup_capable(ds1307->dev, false);
+  2320				clear_bit(RTC_FEATURE_ALARM, ds1307->rtc->features);
+  2321				dev_err(ds1307->dev, "unable to request IRQ!\n");
+  2322			} else {
+  2323				dev_dbg(ds1307->dev, "got IRQ %d\n", client->irq);
+  2324			}
+  2325		}
+  2326	
+  2327		switch (ds1307->type) {
+  2328		case rx_8901:
+  2329			set_bit(RTC_FEATURE_BACKUP_SWITCH_MODE, ds1307->rtc->features);
+  2330			break;
+> 2331		default:
+  2332		}
+  2333	
+  2334		ds1307->rtc->ops = chip->rtc_ops ?: &ds13xx_rtc_ops;
+  2335		err = ds1307_add_frequency_test(ds1307);
+  2336		if (err)
+  2337			return err;
+  2338	
+  2339		err = devm_rtc_register_device(ds1307->rtc);
+  2340		if (err)
+  2341			return err;
+  2342	
+  2343		if (chip->nvram_size) {
+  2344			struct nvmem_config nvmem_cfg = {
+  2345				.name = "ds1307_nvram",
+  2346				.word_size = 1,
+  2347				.stride = 1,
+  2348				.size = chip->nvram_size,
+  2349				.reg_read = ds1307_nvram_read,
+  2350				.reg_write = ds1307_nvram_write,
+  2351				.priv = ds1307,
+  2352			};
+  2353	
+  2354			devm_rtc_nvmem_register(ds1307->rtc, &nvmem_cfg);
+  2355		}
+  2356	
+  2357		ds1307_hwmon_register(ds1307);
+  2358		ds1307_clks_register(ds1307);
+  2359		ds1307_wdt_register(ds1307);
+  2360	
+  2361		return 0;
+  2362	
+  2363	exit:
+  2364		return err;
+  2365	}
+  2366	
 
-[1/1] arm64: dts: freescale: imx95-toradex-smarc: add alias for lpuart5
-      commit: 3385e2f77182469940c136b9eeedf01f27b7441f
-
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
