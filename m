@@ -1,532 +1,384 @@
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010061.outbound.protection.outlook.com [52.101.56.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9886932AAC5;
-	Mon, 29 Jun 2026 08:31:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782721916; cv=none; b=B+6JdlAJCCZelJsyqoEjUWEDBvRs5Cw9M/yt2gjf1riF7AQ0kQ2MYTHeEaKH2VZ6AF8wUeo1as9EjdkXacjtKFFqi04UAAM6VcP/7CL5UTteAQ8ADW8PjacDh9CS2GjqrUzEmlRUwbaZ5trLK46zfxSt8t84p+4RxrX2305vKoY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782721916; c=relaxed/simple;
-	bh=rgVT6Xkohcem05jAok8AKm6P4NwWxN9USdrdMRue4ic=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=q14ObCG7kfh8mkQP6Z8ChKlo77s1cB9VKLF8NOxSQNv4M8z5BUJ0rHXftJNYzRH9iarsd4wdzMhJpJNpdE3/441ChXZdhevCYLxMjZ6s3VJLvZPtVVV+ZB4gZW9ogl4goaiuOhs++uWG+hKArqth63HQsksRoiRdtStJFkII7gI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=E+9/cypA; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE49C35202E;
+	Mon, 29 Jun 2026 08:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782722023; cv=fail; b=AXpzek5fk7KocjPBzWR/e0XebRD4uTB/5Up0lkKkJPr7tAQeY1jTlnncehP8VBjzxvx+nUd372CMkkyGA/u6SiS/w2PrdiYmP2nUl8Bmkq8jOlRLC0NpEgEWaYay34Q154uo4jFkmgLAledxysqIQgSCJ/IZnQJY8Z2LUVQ691o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782722023; c=relaxed/simple;
+	bh=24/lGmgGt0OAhFrOdc/k4ymmz8A76bwHICAlj1dvkYc=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=SeoOzfmGMXVdqvJweIxkTnj6zHJAjYDaNYWHMSUQ5G9742TK+dw1tlqOsSODcUvBxV/fFDcB1zjMvtYhXFqGfhLl7qDeps4NmFPU88YaD/jAycX2UNJruLxkUGdcjr3H+BopxX+J70mP6sQOnxM2MTvSx6nazPJAGW0aT1Kl5eo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=MCPTl0fI; arc=fail smtp.client-ip=52.101.56.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="E+9/cypA"
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65T6k5jn1390901;
-	Mon, 29 Jun 2026 04:31:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=47Fs/
-	QtmEa0tBbpLe9yjtVP72CTD4sU7XjtQPllADjs=; b=E+9/cypAiZMtlyMKR0ea9
-	z6wzCHy2gIg2YvoyhTKftptH9wi9HnmnzGiHWxP4VFYzFhfTM2GXH1dsyAlczv7+
-	0j4lHIkmMfFHXvwKPd2GjHsbikWaQYOdDCZ/TucYSU05i4tqeUIMK7kqDW74lbVe
-	BF0yNzUm8EX9F3Lhxqn9eqFc9NWv0p92+iNZpAVngHqcG+TxGKN+BkxVnFBm5FOl
-	e6MUE3eeIeNK/HemOfe1kKMWQUzRPiBECVsNukrxjBcmnkUUqu8FHyX7H5zs564s
-	ox43f8jFqtHYMNRALEox7jeauXul632ch4SIU3FBYtMYMxWPNwLdWDh9N83OxoLd
-	Q==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4f2vud3wcv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 29 Jun 2026 04:31:51 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 65T8Vo6W022814
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 29 Jun 2026 04:31:50 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Mon, 29 Jun
- 2026 04:31:49 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 29 Jun 2026 04:31:49 -0400
-Received: from 10.32.22.147 ([10.66.6.190])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 65T8VJki012929;
-	Mon, 29 Jun 2026 04:31:42 -0400
-From: Kim Seer Paller <kimseer.paller@analog.com>
-Date: Mon, 29 Jun 2026 16:31:07 +0800
-Subject: [PATCH v3 4/4] iio: dac: ad3530r: Add support for AD3532R/AD3532
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="MCPTl0fI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FLIK6FV+fg52z/ODrVruEnQMRE8AMn4urGr+JEeFrXOYqIZVms7YTdYUXAzGseLI3RkV3q5fQE764R0zs8vQyPt5CbuHNdlyZHgUleUB6uLg8BNu19jkBn32JeMAnkKj8jFbnfCisbEdl7w5LI4npzQUk/vlTlOan/8x+ZZHOglX2XRmD0vEyD3mOSvptIVJrNmswnZI/vOF/NpeP9uTPUna2A1EfsAOtOrPT9iTgoekLJifowdb8EtEsNevvLXBvMmm6c0pP3U0kyBzXz/FwQ9vmtbYXLsqID2I73xKBbukZeWDjKX46TKmH39LnL5p2cMj9Tt8y9ZA7FioApyyGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j+FeOC8FNbJnU0Zh3sgJmTz67V2+iCNeGiwTX6UYpvg=;
+ b=DFjLarvAKZ5GKs6Dwog0c8ISZe29doGrmRAGQ7HVx7mp2/m4aek/spd8UPaVMmRqWQGECT4my4+S/kolewdElXw2QLrzv08+/u7h4tVOwYQcB9o/fYM6lTF7Otfl12Hlf2v83bPdoTPUN9RksLA86SNL6n6/Xs75PrGDRCE7Q2IUTISyp25bGXw4WAbCYva4nV/kFVuY+6octcBUnmwsnjJDKh6duBT6IPzoX7OQHE78lnbrBC7NThtLyWpIddsg3pMr5OYEMMtGowgHI9rar5InIPv3o2Qyp62URShheqkn/ZEWCtzBFZ2csPlvs6cNEqtZiMindWTYO0kaHAc+AA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j+FeOC8FNbJnU0Zh3sgJmTz67V2+iCNeGiwTX6UYpvg=;
+ b=MCPTl0fIy5InxcvPbEf+kyF9n+MoZCHhD2vGEWKTUuif/xDft52MX4z9BpsLL9+C+xJ4tNZ+tHN183uQA42HB8HVyRKqSMBRJW23ADyi/Ncv+D4RGdgbGw68rb09W4AVViY1Rh6mgMCsY+cr3ek/yjaMzkw29C6sFiYM3ht8MQ8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com (2603:10b6:408:301::14)
+ by CH8PR12MB9744.namprd12.prod.outlook.com (2603:10b6:610:27a::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 08:33:38 +0000
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287]) by LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287%3]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 08:33:38 +0000
+Message-ID: <f3d32a1e-acab-4fad-bce1-75b1bf564681@amd.com>
+Date: Mon, 29 Jun 2026 10:33:32 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] arm64: dts: xilinx: drop bias-high-impedance on SDIO
+ CD/WP pins
+To: linux-kernel@vger.kernel.org, monstr@monstr.eu, git@amd.com
+Cc: mikko.rapeli@linaro.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "moderated list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+References: <e01c8e60e1d9ed68c347f1a3741f89149109d8b7.1780496388.git.michal.simek@amd.com>
+Content-Language: en-US
+From: Michal Simek <michal.simek@amd.com>
+Autocrypt: addr=michal.simek@amd.com; keydata=
+ xsFNBFFuvDEBEAC9Amu3nk79+J+4xBOuM5XmDmljuukOc6mKB5bBYOa4SrWJZTjeGRf52VMc
+ howHe8Y9nSbG92obZMqsdt+d/hmRu3fgwRYiiU97YJjUkCN5paHXyBb+3IdrLNGt8I7C9RMy
+ svSoH4WcApYNqvB3rcMtJIna+HUhx8xOk+XCfyKJDnrSuKgx0Svj446qgM5fe7RyFOlGX/wF
+ Ae63Hs0RkFo3I/+hLLJP6kwPnOEo3lkvzm3FMMy0D9VxT9e6Y3afe1UTQuhkg8PbABxhowzj
+ SEnl0ICoqpBqqROV/w1fOlPrm4WSNlZJunYV4gTEustZf8j9FWncn3QzRhnQOSuzTPFbsbH5
+ WVxwDvgHLRTmBuMw1sqvCc7CofjsD1XM9bP3HOBwCxKaTyOxbPJh3D4AdD1u+cF/lj9Fj255
+ Es9aATHPvoDQmOzyyRNTQzupN8UtZ+/tB4mhgxWzorpbdItaSXWgdDPDtssJIC+d5+hskys8
+ B3jbv86lyM+4jh2URpnL1gqOPwnaf1zm/7sqoN3r64cml94q68jfY4lNTwjA/SnaS1DE9XXa
+ XQlkhHgjSLyRjjsMsz+2A4otRLrBbumEUtSMlPfhTi8xUsj9ZfPIUz3fji8vmxZG/Da6jx/c
+ a0UQdFFCL4Ay/EMSoGbQouzhC69OQLWNH3rMQbBvrRbiMJbEZwARAQABzSlNaWNoYWwgU2lt
+ ZWsgKEFNRCkgPG1pY2hhbC5zaW1la0BhbWQuY29tPsLBlAQTAQgAPgIbAwULCQgHAgYVCgkI
+ CwIEFgIDAQIeAQIXgBYhBGc1DJv1zO6bU2Q1ajd8fyH+PR+RBQJn8lwDBQkaRgbLAAoJEDd8
+ fyH+PR+RCNAP/iHkKbpP0XXfgfWqf8yyrFHjGPJSknERzxw0glxPztfC3UqeusQ0CPnbI85n
+ uQdm5/zRgWr7wi8H2UMqFlfMW8/NH5Da7GOPc26NMTPA2ZG5S2SG2SGZj1Smq8mL4iueePiN
+ x1qfWhVm7TfkDHUEmMAYq70sjFcvygyqHUCumpw36CMQSMyrxyEkbYm1NKORlnySAFHy2pOx
+ nmXKSaL1yfof3JJLwNwtaBj76GKQILnlYx9QNnt6adCtrZLIhB3HGh4IRJyuiiM0aZi1G8ei
+ 2ILx2n2LxUw7X6aAD0sYHtNKUCQMCBGQHzJLDYjEyy0kfYoLXV2P6K+7WYnRP+uV8g77Gl9a
+ IuGvxgEUITjMakX3e8RjyZ5jmc5ZAsegfJ669oZJOzQouw/W9Qneb820rhA2CKK8BnmlkHP+
+ WB5yDks3gSHE/GlOWqRkVZ05sUjVmq/tZ1JEdOapWQovRQsueDjxXcMjgNo5e8ttCyMo44u1
+ pKXRJpR5l7/hBYWeMlcKvLwByep+FOGtKsv0xadMKr1M6wPZXkV83jMKxxRE9HlqWJLLUE1Q
+ 0pDvn1EvlpDj9eED73iMBsrHu9cIk8aweTEbQ4bcKRGfGkXrCwle6xRiKSjXCdzWpOglNhjq
+ 1g8Ak+G+ZR6r7QarL01BkdE2/WUOLHdGHB1hJxARbP2E3l46zsFNBFFuvDEBEACXqiX5h4IA
+ 03fJOwh+82aQWeHVAEDpjDzK5hSSJZDE55KP8br1FZrgrjvQ9Ma7thSu1mbr+ydeIqoO1/iM
+ fZA+DDPpvo6kscjep11bNhVa0JpHhwnMfHNTSHDMq9OXL9ZZpku/+OXtapISzIH336p4ZUUB
+ 5asad8Ux70g4gmI92eLWBzFFdlyR4g1Vis511Nn481lsDO9LZhKyWelbif7FKKv4p3FRPSbB
+ vEgh71V3NDCPlJJoiHiYaS8IN3uasV/S1+cxVbwz2WcUEZCpeHcY2qsQAEqp4GM7PF2G6gtz
+ IOBUMk7fjku1mzlx4zP7uj87LGJTOAxQUJ1HHlx3Li+xu2oF9Vv101/fsCmptAAUMo7KiJgP
+ Lu8TsP1migoOoSbGUMR0jQpUcKF2L2jaNVS6updvNjbRmFojK2y6A/Bc6WAKhtdv8/e0/Zby
+ iVA7/EN5phZ1GugMJxOLHJ1eqw7DQ5CHcSQ5bOx0Yjmhg4PT6pbW3mB1w+ClAnxhAbyMsfBn
+ XxvvcjWIPnBVlB2Z0YH/gizMDdM0Sa/HIz+q7JR7XkGL4MYeAM15m6O7hkCJcoFV7LMzkNKk
+ OiCZ3E0JYDsMXvmh3S4EVWAG+buA+9beElCmXDcXPI4PinMPqpwmLNcEhPVMQfvAYRqQp2fg
+ 1vTEyK58Ms+0a9L1k5MvvbFg9QARAQABwsF8BBgBCAAmAhsMFiEEZzUMm/XM7ptTZDVqN3x/
+ If49H5EFAmfyXCkFCRpGBvgACgkQN3x/If49H5GY5xAAoKWHRO/OlI7eMA8VaUgFInmphBAj
+ fAgQbW6Zxl9ULaCcNSoJc2D0zYWXftDOJeXyVk5Gb8cMbLA1tIMSM/BgSAnT7As2KfcZDTXQ
+ DJSZYWgYKc/YywLgUlpv4slFv5tjmoUvHK9w2DuFLW254pnUuhrdyTEaknEM+qOmPscWOs0R
+ dR6mMTN0vBjnLUeYdy0xbaoefjT+tWBybXkVwLDd3d/+mOa9ZiAB7ynuVWu2ow/uGJx0hnRI
+ LGfLsiPu47YQrQXu79r7RtVeAYwRh3ul7wx5LABWI6n31oEHxDH+1czVjKsiozRstEaUxuDZ
+ jWRHq+AEIq79BTTopj2dnW+sZAsnVpQmc+nod6xR907pzt/HZL0WoWwRVkbg7hqtzKOBoju3
+ hftqVr0nx77oBZD6mSJsxM/QuJoaXaTX/a/QiB4Nwrja2jlM0lMUA/bGeM1tQwS7rJLaT3cT
+ RBGSlJgyWtR8IQvX3rqHd6QrFi1poQ1/wpLummWO0adWes2U6I3GtD9vxO/cazWrWBDoQ8Da
+ otYa9+7v0j0WOBTJaj16LFxdSRq/jZ1y/EIHs3Ysd85mUWXOB8xZ6h+WEMzqAvOt02oWJVbr
+ ZLqxG/3ScDXZEUJ6EDJVoLAK50zMk87ece2+4GWGOKfFsiDfh7fnEMXQcykxuowBYUD0tMd2
+ mpwx1d8=
+In-Reply-To: <e01c8e60e1d9ed68c347f1a3741f89149109d8b7.1780496388.git.michal.simek@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0148.namprd05.prod.outlook.com
+ (2603:10b6:a03:33d::33) To LV5PR12MB9779.namprd12.prod.outlook.com
+ (2603:10b6:408:301::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260629-iio-ad3532r-support-v3-4-f6e4f4abebbe@analog.com>
-References: <20260629-iio-ad3532r-support-v3-0-f6e4f4abebbe@analog.com>
-In-Reply-To: <20260629-iio-ad3532r-support-v3-0-f6e4f4abebbe@analog.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-        David Lechner
-	<dlechner@baylibre.com>,
-        =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Andy
- Shevchenko <andy@kernel.org>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof
- Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-CC: <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux@analog.com>, <devicetree@vger.kernel.org>,
-        Kim Seer Paller
-	<kimseer.paller@analog.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782721879; l=14219;
- i=kimseer.paller@analog.com; s=20250213; h=from:subject:message-id;
- bh=rgVT6Xkohcem05jAok8AKm6P4NwWxN9USdrdMRue4ic=;
- b=24dZNttA0bOFSVvc99Nd4o4nRScYdeBBxYMNt/RgH7OZFb5LzRkJNE4v0W6X+98U5+NU89lSn
- Y0OHfIOVABMDyGGx6CgUHiyMzWtFc9Aj5TAgRFvQn6AalZHw7vSIOHA
-X-Developer-Key: i=kimseer.paller@analog.com; a=ed25519;
- pk=SPXIwGLg4GFKUNfuAavY+YhSDsx+Q+NwGLceiKwm8Ac=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Authority-Analysis: v=2.4 cv=bvJ8wkai c=1 sm=1 tr=0 ts=6a422d77 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8
- a=cz2-yH3D_utBwWmHlxEA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: kDWb1Ma5i6P1bxO6KdpFh5WYRRuH0DU4
-X-Proofpoint-GUID: kDWb1Ma5i6P1bxO6KdpFh5WYRRuH0DU4
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA2NyBTYWx0ZWRfXwfzxx7QYPsKt
- 1joQpMCPn1z5LeNd16C3k/ntTpyA6tLRH3Cm8+NJibi2xe3mfr708RMIKjzHr+tCSs1EQAwk71V
- wQkJmUWmOIeFQZznzWq6TJQBWz4akjpTILWXCqzlKS1/BTBgBCZe
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA2NyBTYWx0ZWRfX91TZPE1Hj0gH
- slAz+nYMOucs2kKqAP8026LgDqvlwko+hNvyodj85okf6pkUBybijhJxsE7zWgTL8b7gBKb8qvJ
- w2IMqZ/mZbbx640DNIwH3w8S5y1f/5Wf5UzEQSYznT5YrifabjI1YMmlh2+4SK5LWX5qberw9nO
- E0lf0W5xsAHQxCN/oqOPWZjgVVqR8uKAhuosOByfjlSZjGBunLt6FVUd1+rvTu89t544h7ejwkc
- Ynk6Op4EEUltq5bbPdck61jNaW0EXfth4Y2Qu23BdNPBORHLLMyHPWwZ8SZOBBnvnnGkSenyfP2
- QFY9j2qPUsGynnzgyIYiLvcXAgDUkqr5WvwYbBJtqL3ws3OsrklhzGwGH2de0Bz3PamxM99zGeP
- z0jGLvtgaZI60ptouaTO1BWuMCXVxtDMEzb5p81C205EUVSTThDrkC7lSaHWGrojAAF9G6SleBm
- eyhdjSzzCQVsoQKrK+g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-29_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0
- impostorscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290067
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV5PR12MB9779:EE_|CH8PR12MB9744:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9954af8-a108-401a-d54e-08ded5b91de6
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|18002099003|22082099003|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	FM3XGhXEHISkVIRA6G6ZGNs/ZwGQepyYJey68VxCNY79GFJo8ryP9umastdtqj55F5bFjYPDTG3wnXRWNyk545TQrwYSodXrRXh9DKME3+X6pMJYNotjW3HdDNdfMnNKnytg5Sha4rO1B+WnAmn9BKtLpHgyyTUxxL6Rym8s3R15GjCx/RiAdaO/u6OXZBfkohaAhJiOopSE+9H952EDX2JeudREbLXFmNo+YnrO8qA2W80GHEMRFGTFR405YogBGYRsTVg0PM7H+vsZ/AaaxNdLnZickuUuZnN5P+scK83JGPr7C1DWvMZXeuE1B+73tVwNW3y9bXJfIC0irITGkKqf215P2jkpmQ3k9erwRO3mbVxkW6gwZg3kgM2sHShXzsrFzk18EJDvcaKUevPQll6lboORYHPjBPSRDuMDoqjktoHsHNnWADYeUg8vKjxtzMoagWpyNngKZ1y70cHrfuyhgPZ8/yQf9fgZZOOzBRtbDVf11aLEF+ZV0ckB3pxfShr21XSCg/qUn/j3itDEqBoAHta4N5TzDyoB56PvIHEetseW4oRXAgBgVl86y5HOBKQmHGuJWaqeBps9hB8nPeatIMGhS/r3F8GxZ8TctCnx5mYqYy6Nha3ySqlJOCpnUbD92AR4N0PKa9dvrf34AVeQ5VXBl6rdglsJoM+THMQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV5PR12MB9779.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WTl3OFczWWN5MWo0V1ZOeDRCbjg0RTFGTXlhYWIyYVVQUWF1QkdIWWZDbERQ?=
+ =?utf-8?B?cndnU2JYNDd3YkwySWZPek1jU3BJVFlXTHlpR2xZVmswM1B2MmJpS2dvR1NC?=
+ =?utf-8?B?MWE1Q2VuV2E3anZGbmJkUm1KZXVjR1pnbTBhdUlSRUVCOTFzV2p5eHEzTEJP?=
+ =?utf-8?B?MVRIOEsrSWg3dmptU04xemJkZjFoMTg5bUcrSVlSRS9MbWpnY2dBMmdRdXcr?=
+ =?utf-8?B?QzAwa2d0dXR0WHZRc3JNQTJFRmRab1VFZ2JHdnpHbW9ZOG12dnpCOHRzUDNi?=
+ =?utf-8?B?eDhqNk9idjZVSmxGYkVKVjNwNEtqdWpKYytLcmpjL1pSdW84VTdRMzIzQTRm?=
+ =?utf-8?B?T2JiMUc5VXFKVGlUMldva3JYdmszUytPYTF4Y09DWlpWU3BZcVhURmEzMzh0?=
+ =?utf-8?B?RjRHZCthRjN2Y2tneWhBSkZ1M0w2MElUeVRPblpqb3FBWnk3U29xRGFIK2lu?=
+ =?utf-8?B?MStBaCtBOW90STZmSVZsTHR0eW5iUjh3ZnFBc3JWS0xVYWtoaldNS21Tck52?=
+ =?utf-8?B?cVZkOWhYZkowcmFwMHVQTHQ3cEJMNXZEbXBZbS9MV09YcmVyUDVnL2ttYVFU?=
+ =?utf-8?B?MUx5bXd2VzFKTmdqdXUvYTFIc0l2RDZtTkdwOUxiSkhQY0JiVzk3UVcrTThv?=
+ =?utf-8?B?SE0xaDhmbURvQkQ2bUtuTEFxN3hXZTZaS1c2SnFoOEgwNGVKcko2cDU1NFFu?=
+ =?utf-8?B?YmxpTnRFR3Uwa3REZk13bEFUdk1RMkswaGQ5NTV0ZUcyZVRFdzl1WG1HL1ln?=
+ =?utf-8?B?SEg2RlhkNnU4eTgzV0lmSWtCdGtqVnRIaDF1M1ZDazFMcC9xNTh5NFljeWtk?=
+ =?utf-8?B?WUFnb1B1SHFZQVZyTDJNdFhRWG1aY0MxVWorcDVUUWhGaTNzUGdnYm5HWURL?=
+ =?utf-8?B?d2JQOXZZcG5yK24wMk9JSS9LYTc2KzhZUVF2Zko4bG5YSEwzZkh1cFhaV1BK?=
+ =?utf-8?B?QUNRblVmaWwvM0tNZVV5blo1dmZvNm1zalYwaGZLdkI0QW9aUnFFT29PeTB2?=
+ =?utf-8?B?UFFDbnlEeFRoaTdEenJGNXRMQTZZaWFFT2lhQk9aRTYxMmdvMEpHanZ5VDc0?=
+ =?utf-8?B?MGlmODQ1L2R6N2k2TzB3ZXhwUnV0eDRDZHJrLzFuZTRHbjNyUEV2Y2haTnRs?=
+ =?utf-8?B?OXVMcUFEMmxSVWR5S2JZVjRQTlppL01kaEtudTczVjA2Mk1OVXd1bGZzbUVJ?=
+ =?utf-8?B?UmVrSVRuUjJaenM4RGtKV0xmcnRnR1pvbUNpaktTdGFCdjM3SVFiL1pUWXV0?=
+ =?utf-8?B?SS90NkNsOVJ5U3RaQlVtbndzQ2V3NzEyMm02UVJvejF6MDZXTXk1SnBHNUNu?=
+ =?utf-8?B?clJvTkhDck55MGFtTzlkMWR4RGZFR1RPSGJLZUJVYklhNkp6aktkYmZxV3E0?=
+ =?utf-8?B?dTZCU2xFNWNyV0Z4L3FXdFc0NW9qcHpONm9vNTJjRG13T2RKNXN5M2pObHVI?=
+ =?utf-8?B?N2hOcTQ4VjZ4eHZ2VEV6SFc3N3Y5c2pLVDNUWFUya2k0M0FNVGw2Tk96cERo?=
+ =?utf-8?B?eDFnNm5BcGFOazRpbC9VUWllc0VRZkJndzRPRFhReDhlVlNFS3ZaY0hKcE1X?=
+ =?utf-8?B?RFZob0tUdFZpNnFZZGdiVDBYakVnUHNuUHJIVGQ5cDJ2TnpYSTFxWHROaEpO?=
+ =?utf-8?B?L2VJUDYySVNOb0Fodm11b3NzS0x5dzQ2VWdZeXpHdnBVMTJaRGtsU2lOS3Yx?=
+ =?utf-8?B?c3hKL3g0Q3NDbWxJdm41Nk9UNVZaUWpPbXFDWlRubldmWXBUTlRYWktwQzB2?=
+ =?utf-8?B?NHJYZlo0M3A0Tk9razNJMks5YlNzTXh2Y0tQOXB5dHVXbVhadi9uTGJQalg2?=
+ =?utf-8?B?QXlQTEE5bW5BaWx2Vmp4cDR0VGt4UWRvUDVNTkpyZlFiZW52ODFEZWhSMDdI?=
+ =?utf-8?B?RGNPQURXK2JRUGEwNnV0d0hsa2ZOYklmSnZRa2EzU2dnRlBHcEhQRHloeGk0?=
+ =?utf-8?B?STJId3JQMkhiOWRjekVBcnJlUTE4SGREU1RQbFNTNkhtSW1YTjNqWXJ6VTZW?=
+ =?utf-8?B?YUExNm4raktZNjVRaUdyY0NZUFZnem03UU02OHhnNFdTUU5rd0ZIcDYzck5B?=
+ =?utf-8?B?Q1NmdGZ4Tk5sYjBsSnZzdFRCVTQrWitlbUw0UFlWRDVtNzhPUGM5TjB6ZHYv?=
+ =?utf-8?B?MEh3TmtVVVJBRjZ2dWd4Yk42WlNQUzF3b2xZUnZ6WnBYdSs0WmJaSk90cllX?=
+ =?utf-8?B?MFN0bjF2ajQrcC91eHZVRmdGR2NmV0NIek85TlJVa01Say9jck80Nyt1Umwx?=
+ =?utf-8?B?czM0MDlyMjFVMW5uZi9oZFhrb2tNUGpUYlBhdGRYYTNkUmF3eGo4MWhEaEd4?=
+ =?utf-8?B?czdBYVk2bUdMaHBOd0NUdFBjZDRzVzRXekRJZDlRb25RMEpIR0NEdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9954af8-a108-401a-d54e-08ded5b91de6
+X-MS-Exchange-CrossTenant-AuthSource: LV5PR12MB9779.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 08:33:38.1187
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oY0EXODYzSsJdV5pshzoDZNsPb5fpEsUstbkJdz4oj+9MdnmBiM5yN4LG+MslePj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB9744
 
-The AD3532R/AD3532 is a 16-channel, 16-bit voltage output DAC with a
-dual-bank register architecture (bank 0 at 0x1000 for channels 0-7,
-bank 1 at 0x3000 for channels 8-15). It shares similar functionality
-with AD3530R (channel configuration, LDAC triggering, powerdown control),
-the main difference being the register address map due to the dual-bank
-architecture, handled by table-driven helpers.
 
-Add AD3532R-specific register definitions, channel specs, per-bank
-register arrays, a dedicated ad3532r_set_dac_powerdown(), and per-chip
-regmap_config to limit debugfs-exposed register space to each variant's
-actual address range.
 
-Signed-off-by: Kim Seer Paller <kimseer.paller@analog.com>
----
- drivers/iio/dac/Kconfig   |   7 +-
- drivers/iio/dac/ad3530r.c | 215 +++++++++++++++++++++++++++++++++++++++++++---
- 2 files changed, 207 insertions(+), 15 deletions(-)
+On 6/3/26 16:19, Michal Simek wrote:
+> Since commit 9c105255108b ("pinctrl: pinconf-generic: perform basic
+> checks on pincfg properties"), the generic pinconf parser logs an error
+> when a pin configuration node specifies more than one bias mode.
+> Several ZynqMP boards described SDIO card-detect and write-protect pins
+> with both bias-high-impedance and bias-pull-up, which triggers at
+> pinctrl probe:
+> 
+>    generic pinconfig core: /firmware/zynqmp-firmware/pinctrl/.../conf-cd:
+>      cannot have multiple bias configurations
+> 
+> On ZynqMP, bias-high-impedance enables tri-state while bias-pull-up
+> enables the internal pull resistor; these are mutually exclusive bias
+> settings and only pull-up is needed for CD/WP inputs. Drop the redundant
+> bias-high-impedance property and keep bias-pull-up.
+> 
+> Reported-by: Mikko Rapeli (Linaro) <mikko.rapeli@linaro.org>
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221586
+> Signed-off-by: Michal Simek <michal.simek@amd.com>
+> ---
+> 
+>   arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso   | 1 -
+>   arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso   | 1 -
+>   arch/arm64/boot/dts/xilinx/zynqmp-zc1751-xm015-dc1.dts | 4 ----
+>   arch/arm64/boot/dts/xilinx/zynqmp-zc1751-xm019-dc5.dts | 2 --
+>   arch/arm64/boot/dts/xilinx/zynqmp-zcu100-revC.dts      | 1 -
+>   arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts      | 2 --
+>   arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts      | 1 -
+>   arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts      | 1 -
+>   arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts      | 2 --
+>   arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts      | 1 -
+>   10 files changed, 16 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso
+> index 923a70d750bf..44834bf1c19c 100644
+> --- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso
+> +++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso
+> @@ -374,7 +374,6 @@ conf {
+>   
+>   		conf-cd {
+>   			groups = "sdio1_cd_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso
+> index 563e750b0e08..49732de5fa4b 100644
+> --- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso
+> +++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso
+> @@ -365,7 +365,6 @@ conf {
+>   
+>   		conf-cd {
+>   			groups = "sdio1_cd_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zc1751-xm015-dc1.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zc1751-xm015-dc1.dts
+> index 6aff22d43361..f57987dad50f 100644
+> --- a/arch/arm64/boot/dts/xilinx/zynqmp-zc1751-xm015-dc1.dts
+> +++ b/arch/arm64/boot/dts/xilinx/zynqmp-zc1751-xm015-dc1.dts
+> @@ -270,7 +270,6 @@ mux-cd {
+>   
+>   		conf-cd {
+>   			groups = "sdio0_cd_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> @@ -283,7 +282,6 @@ mux-wp {
+>   
+>   		conf-wp {
+>   			groups = "sdio0_wp_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> @@ -310,7 +308,6 @@ mux-cd {
+>   
+>   		conf-cd {
+>   			groups = "sdio1_cd_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> @@ -323,7 +320,6 @@ mux-wp {
+>   
+>   		conf-wp {
+>   			groups = "sdio1_wp_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zc1751-xm019-dc5.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zc1751-xm019-dc5.dts
+> index 53aa3dca1dca..737d445dc16b 100644
+> --- a/arch/arm64/boot/dts/xilinx/zynqmp-zc1751-xm019-dc5.dts
+> +++ b/arch/arm64/boot/dts/xilinx/zynqmp-zc1751-xm019-dc5.dts
+> @@ -270,7 +270,6 @@ mux-cd {
+>   
+>   		conf-cd {
+>   			groups = "sdio0_cd_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> @@ -283,7 +282,6 @@ mux-wp {
+>   
+>   		conf-wp {
+>   			groups = "sdio0_wp_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu100-revC.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu100-revC.dts
+> index 4ec8a400494e..41f312a82bb4 100644
+> --- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu100-revC.dts
+> +++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu100-revC.dts
+> @@ -320,7 +320,6 @@ mux-cd {
+>   
+>   		conf-cd {
+>   			groups = "sdio0_cd_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts
+> index e172a30e7b21..a5bc521ab679 100644
+> --- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts
+> +++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts
+> @@ -896,7 +896,6 @@ mux-cd {
+>   
+>   		conf-cd {
+>   			groups = "sdio1_cd_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> @@ -909,7 +908,6 @@ mux-wp {
+>   
+>   		conf-wp {
+>   			groups = "sdio1_wp_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts
+> index fe8f151ed706..32509083e54f 100644
+> --- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts
+> +++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts
+> @@ -359,7 +359,6 @@ mux-cd {
+>   
+>   		conf-cd {
+>   			groups = "sdio1_cd_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts
+> index 3ee8ab224722..96699be8430f 100644
+> --- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts
+> +++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts
+> @@ -371,7 +371,6 @@ mux-cd {
+>   
+>   		conf-cd {
+>   			groups = "sdio1_cd_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts
+> index 7f6c87d4d77e..52441e5c8739 100644
+> --- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts
+> +++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts
+> @@ -895,7 +895,6 @@ mux-cd {
+>   
+>   		conf-cd {
+>   			groups = "sdio1_cd_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> @@ -908,7 +907,6 @@ mux-wp {
+>   
+>   		conf-wp {
+>   			groups = "sdio1_wp_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
+> diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts
+> index 428b5558fbba..b34e4c93d249 100644
+> --- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts
+> +++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts
+> @@ -750,7 +750,6 @@ mux-cd {
+>   
+>   		conf-cd {
+>   			groups = "sdio1_cd_0_grp";
+> -			bias-high-impedance;
+>   			bias-pull-up;
+>   			slew-rate = <SLEW_RATE_SLOW>;
+>   			power-source = <IO_STANDARD_LVCMOS18>;
 
-diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-index 657c68e75542..4ec5bf5bf877 100644
---- a/drivers/iio/dac/Kconfig
-+++ b/drivers/iio/dac/Kconfig
-@@ -11,8 +11,11 @@ config AD3530R
- 	depends on SPI
- 	select REGMAP_SPI
- 	help
--	  Say yes here to build support for Analog Devices AD3530R, AD3531R
--	  Digital to Analog Converter.
-+	  Say yes here to build support for the following Analog Devices
-+	  Digital to Analog Converters:
-+	  - AD3530/AD3530R (8-channel)
-+	  - AD3531/AD3531R (4-channel)
-+	  - AD3532/AD3532R (16-channel)
- 
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called ad3530r.
-diff --git a/drivers/iio/dac/ad3530r.c b/drivers/iio/dac/ad3530r.c
-index 3f7c983739fc..8e17e738d4c8 100644
---- a/drivers/iio/dac/ad3530r.c
-+++ b/drivers/iio/dac/ad3530r.c
-@@ -2,6 +2,7 @@
- /*
-  * AD3530R/AD3530 8-channel, 16-bit Voltage Output DAC Driver
-  * AD3531R/AD3531 4-channel, 16-bit Voltage Output DAC Driver
-+ * AD3532R/AD3532 16-channel, 16-bit Voltage Output DAC Driver
-  *
-  * Copyright 2025 Analog Devices Inc.
-  */
-@@ -39,6 +40,23 @@
- #define AD3531R_SW_LDAC_TRIG_A			0xDD
- #define AD3531R_INPUT_CH			0xE3
- 
-+/* AD3532R/AD3532 has two register banks: bank 0 at 0x10xx, bank 1 at 0x30xx */
-+#define AD3532R_INTERFACE_CONFIG_A_0		0x1000
-+#define AD3532R_OUTPUT_OPERATING_MODE_0		0x1020
-+#define AD3532R_OUTPUT_OPERATING_MODE_1		0x1021
-+#define AD3532R_OUTPUT_CONTROL_0		0x102A
-+#define AD3532R_REFERENCE_CONTROL_0		0x103C
-+#define AD3532R_SW_LDAC_TRIG_0			0x10E5
-+#define AD3532R_INPUT_CH_0			0x10EB
-+#define AD3532R_INTERFACE_CONFIG_A_1		0x3000
-+#define AD3532R_OUTPUT_OPERATING_MODE_2		0x3020
-+#define AD3532R_OUTPUT_OPERATING_MODE_3		0x3021
-+#define AD3532R_OUTPUT_CONTROL_1		0x302A
-+#define AD3532R_REFERENCE_CONTROL_1		0x303C
-+#define AD3532R_SW_LDAC_TRIG_1			0x30E5
-+#define AD3532R_INPUT_CH_1			0x30EB
-+#define AD3532R_MAX_REG_ADDR			0x30F9
-+
- #define AD3530R_SLD_TRIG_A			BIT(7)
- #define AD3530R_OUTPUT_CONTROL_RANGE		BIT(2)
- #define AD3530R_REFERENCE_CONTROL_SEL		BIT(0)
-@@ -50,8 +68,10 @@
- #define AD3530R_LDAC_PULSE_US			100
- 
- #define AD3530R_DAC_MAX_VAL			GENMASK(15, 0)
--#define AD3530R_MAX_CHANNELS			8
-+#define AD3530R_CH_PER_REG			4
-+#define AD3530R_CH_PER_BANK			8
- #define AD3531R_MAX_CHANNELS			4
-+#define AD3532R_MAX_CHANNELS			16
- 
- enum ad3530r_mode {
- 	AD3530R_NORMAL_OP,
-@@ -68,6 +88,7 @@ struct ad3530r_chan {
- struct ad3530r_chip_info {
- 	const char *name;
- 	const struct iio_chan_spec *channels;
-+	const struct regmap_config *regmap_config;
- 	int (*input_ch_reg)(unsigned int channel);
- 	int (*sw_ldac_trig_reg)(unsigned int channel);
- 	const unsigned int *interface_config_a;
-@@ -84,7 +105,7 @@ struct ad3530r_state {
- 	struct regmap *regmap;
- 	/* lock to protect against multiple access to the device and shared data */
- 	struct mutex lock;
--	struct ad3530r_chan chan[AD3530R_MAX_CHANNELS];
-+	struct ad3530r_chan chan[AD3532R_MAX_CHANNELS];
- 	const struct ad3530r_chip_info *chip_info;
- 	struct gpio_desc *ldac_gpio;
- 	int vref_mV;
-@@ -105,6 +126,14 @@ static int ad3531r_input_ch_reg(unsigned int channel)
- 	return 2 * channel + AD3531R_INPUT_CH;
- }
- 
-+static int ad3532r_input_ch_reg(unsigned int channel)
-+{
-+	if (channel < 8)
-+		return 2 * channel + AD3532R_INPUT_CH_0;
-+
-+	return 2 * (channel - 8) + AD3532R_INPUT_CH_1;
-+}
-+
- static const char * const ad3530r_powerdown_modes[] = {
- 	"1kohm_to_gnd",
- 	"7.7kohm_to_gnd",
-@@ -117,6 +146,12 @@ static const char * const ad3531r_powerdown_modes[] = {
- 	"16kohm_to_gnd",
- };
- 
-+static const char * const ad3532r_powerdown_modes[] = {
-+	"1kohm_to_gnd",
-+	"10kohm_to_gnd",
-+	"three_state",
-+};
-+
- static int ad3530r_get_powerdown_mode(struct iio_dev *indio_dev,
- 				      const struct iio_chan_spec *chan)
- {
-@@ -152,6 +187,13 @@ static const struct iio_enum ad3531r_powerdown_mode_enum = {
- 	.set = ad3530r_set_powerdown_mode,
- };
- 
-+static const struct iio_enum ad3532r_powerdown_mode_enum = {
-+	.items = ad3532r_powerdown_modes,
-+	.num_items = ARRAY_SIZE(ad3532r_powerdown_modes),
-+	.get = ad3530r_get_powerdown_mode,
-+	.set = ad3530r_set_powerdown_mode,
-+};
-+
- static ssize_t ad3530r_get_dac_powerdown(struct iio_dev *indio_dev,
- 					 uintptr_t private,
- 					 const struct iio_chan_spec *chan,
-@@ -196,6 +238,45 @@ static ssize_t ad3530r_set_dac_powerdown(struct iio_dev *indio_dev,
- 	return len;
- }
- 
-+static ssize_t ad3532r_set_dac_powerdown(struct iio_dev *indio_dev,
-+					 uintptr_t private,
-+					 const struct iio_chan_spec *chan,
-+					 const char *buf, size_t len)
-+{
-+	struct ad3530r_state *st = iio_priv(indio_dev);
-+	unsigned int bank, local_ch, reg_in_bank, ch_in_reg;
-+	unsigned int reg, pdmode, mask, val;
-+	bool powerdown;
-+	int ret;
-+
-+	ret = kstrtobool(buf, &powerdown);
-+	if (ret)
-+		return ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	bank = chan->channel / AD3530R_CH_PER_BANK;
-+	local_ch = chan->channel % AD3530R_CH_PER_BANK;
-+	reg_in_bank = local_ch / AD3530R_CH_PER_REG;
-+	ch_in_reg = local_ch % AD3530R_CH_PER_REG;
-+
-+	reg = bank ? AD3532R_OUTPUT_OPERATING_MODE_2 :
-+		     AD3532R_OUTPUT_OPERATING_MODE_0;
-+	reg += reg_in_bank;
-+	mask = AD3530R_OP_MODE_CHAN_MSK(ch_in_reg);
-+
-+	pdmode = powerdown ? st->chan[chan->channel].powerdown_mode : 0;
-+	val = field_prep(mask, pdmode);
-+
-+	ret = regmap_update_bits(st->regmap, reg, mask, val);
-+	if (ret)
-+		return ret;
-+
-+	st->chan[chan->channel].powerdown = powerdown;
-+
-+	return len;
-+}
-+
- static int ad3530r_trigger_sw_ldac_reg(unsigned int channel)
- {
- 	return AD3530R_SW_LDAC_TRIG_A;
-@@ -206,6 +287,14 @@ static int ad3531r_trigger_sw_ldac_reg(unsigned int channel)
- 	return AD3531R_SW_LDAC_TRIG_A;
- }
- 
-+static int ad3532r_trigger_sw_ldac_reg(unsigned int channel)
-+{
-+	if (channel < 8)
-+		return AD3532R_SW_LDAC_TRIG_0;
-+
-+	return AD3532R_SW_LDAC_TRIG_1;
-+}
-+
- static int ad3530r_trigger_hw_ldac(struct gpio_desc *ldac_gpio)
- {
- 	gpiod_set_value_cansleep(ldac_gpio, 1);
-@@ -318,6 +407,19 @@ static const struct iio_chan_spec_ext_info ad3531r_ext_info[] = {
- 	{ }
- };
- 
-+static const struct iio_chan_spec_ext_info ad3532r_ext_info[] = {
-+	{
-+		.name = "powerdown",
-+		.shared = IIO_SEPARATE,
-+		.read = ad3530r_get_dac_powerdown,
-+		.write = ad3532r_set_dac_powerdown,
-+	},
-+	IIO_ENUM("powerdown_mode", IIO_SEPARATE, &ad3532r_powerdown_mode_enum),
-+	IIO_ENUM_AVAILABLE("powerdown_mode", IIO_SHARED_BY_TYPE,
-+			   &ad3532r_powerdown_mode_enum),
-+	{ }
-+};
-+
- #define AD3530R_CHAN(_chan, _ext_info)				\
- {								\
- 	.type = IIO_VOLTAGE,					\
-@@ -347,6 +449,25 @@ static const struct iio_chan_spec ad3531r_channels[] = {
- 	AD3530R_CHAN(3, ad3531r_ext_info),
- };
- 
-+static const struct iio_chan_spec ad3532r_channels[] = {
-+	AD3530R_CHAN(0, ad3532r_ext_info),
-+	AD3530R_CHAN(1, ad3532r_ext_info),
-+	AD3530R_CHAN(2, ad3532r_ext_info),
-+	AD3530R_CHAN(3, ad3532r_ext_info),
-+	AD3530R_CHAN(4, ad3532r_ext_info),
-+	AD3530R_CHAN(5, ad3532r_ext_info),
-+	AD3530R_CHAN(6, ad3532r_ext_info),
-+	AD3530R_CHAN(7, ad3532r_ext_info),
-+	AD3530R_CHAN(8, ad3532r_ext_info),
-+	AD3530R_CHAN(9, ad3532r_ext_info),
-+	AD3530R_CHAN(10, ad3532r_ext_info),
-+	AD3530R_CHAN(11, ad3532r_ext_info),
-+	AD3530R_CHAN(12, ad3532r_ext_info),
-+	AD3530R_CHAN(13, ad3532r_ext_info),
-+	AD3530R_CHAN(14, ad3532r_ext_info),
-+	AD3530R_CHAN(15, ad3532r_ext_info),
-+};
-+
- static const unsigned int ad3530r_if_config[] = {
- 	AD3530R_INTERFACE_CONFIG_A,
- };
-@@ -368,9 +489,44 @@ static const unsigned int ad3531r_op_mode[] = {
- 	AD3530R_OUTPUT_OPERATING_MODE_0,
- };
- 
-+static const unsigned int ad3532r_if_config[] = {
-+	AD3532R_INTERFACE_CONFIG_A_0,
-+	AD3532R_INTERFACE_CONFIG_A_1,
-+};
-+
-+static const unsigned int ad3532r_out_ctrl[] = {
-+	AD3532R_OUTPUT_CONTROL_0,
-+	AD3532R_OUTPUT_CONTROL_1,
-+};
-+
-+static const unsigned int ad3532r_ref_ctrl[] = {
-+	AD3532R_REFERENCE_CONTROL_0,
-+	AD3532R_REFERENCE_CONTROL_1,
-+};
-+
-+static const unsigned int ad3532r_op_mode[] = {
-+	AD3532R_OUTPUT_OPERATING_MODE_0,
-+	AD3532R_OUTPUT_OPERATING_MODE_1,
-+	AD3532R_OUTPUT_OPERATING_MODE_2,
-+	AD3532R_OUTPUT_OPERATING_MODE_3,
-+};
-+
-+static const struct regmap_config ad3530r_regmap_config = {
-+	.reg_bits = 16,
-+	.val_bits = 8,
-+	.max_register = AD3530R_MAX_REG_ADDR,
-+};
-+
-+static const struct regmap_config ad3532r_regmap_config = {
-+	.reg_bits = 16,
-+	.val_bits = 8,
-+	.max_register = AD3532R_MAX_REG_ADDR,
-+};
-+
- static const struct ad3530r_chip_info ad3530_chip = {
- 	.name = "ad3530",
- 	.channels = ad3530r_channels,
-+	.regmap_config = &ad3530r_regmap_config,
- 	.num_channels = ARRAY_SIZE(ad3530r_channels),
- 	.sw_ldac_trig_reg = ad3530r_trigger_sw_ldac_reg,
- 	.input_ch_reg = ad3530r_input_ch_reg,
-@@ -386,6 +542,7 @@ static const struct ad3530r_chip_info ad3530_chip = {
- static const struct ad3530r_chip_info ad3530r_chip = {
- 	.name = "ad3530r",
- 	.channels = ad3530r_channels,
-+	.regmap_config = &ad3530r_regmap_config,
- 	.num_channels = ARRAY_SIZE(ad3530r_channels),
- 	.sw_ldac_trig_reg = ad3530r_trigger_sw_ldac_reg,
- 	.input_ch_reg = ad3530r_input_ch_reg,
-@@ -401,6 +558,7 @@ static const struct ad3530r_chip_info ad3530r_chip = {
- static const struct ad3530r_chip_info ad3531_chip = {
- 	.name = "ad3531",
- 	.channels = ad3531r_channels,
-+	.regmap_config = &ad3530r_regmap_config,
- 	.num_channels = ARRAY_SIZE(ad3531r_channels),
- 	.sw_ldac_trig_reg = ad3531r_trigger_sw_ldac_reg,
- 	.input_ch_reg = ad3531r_input_ch_reg,
-@@ -416,6 +574,7 @@ static const struct ad3530r_chip_info ad3531_chip = {
- static const struct ad3530r_chip_info ad3531r_chip = {
- 	.name = "ad3531r",
- 	.channels = ad3531r_channels,
-+	.regmap_config = &ad3530r_regmap_config,
- 	.num_channels = ARRAY_SIZE(ad3531r_channels),
- 	.sw_ldac_trig_reg = ad3531r_trigger_sw_ldac_reg,
- 	.input_ch_reg = ad3531r_input_ch_reg,
-@@ -428,6 +587,38 @@ static const struct ad3530r_chip_info ad3531r_chip = {
- 	.internal_ref_support = true,
- };
- 
-+static const struct ad3530r_chip_info ad3532_chip = {
-+	.name = "ad3532",
-+	.channels = ad3532r_channels,
-+	.regmap_config = &ad3532r_regmap_config,
-+	.num_channels = ARRAY_SIZE(ad3532r_channels),
-+	.sw_ldac_trig_reg = ad3532r_trigger_sw_ldac_reg,
-+	.input_ch_reg = ad3532r_input_ch_reg,
-+	.interface_config_a = ad3532r_if_config,
-+	.output_control = ad3532r_out_ctrl,
-+	.reference_control = ad3532r_ref_ctrl,
-+	.op_mode = ad3532r_op_mode,
-+	.num_banks = ARRAY_SIZE(ad3532r_if_config),
-+	.num_op_mode_regs = ARRAY_SIZE(ad3532r_op_mode),
-+	.internal_ref_support = false,
-+};
-+
-+static const struct ad3530r_chip_info ad3532r_chip = {
-+	.name = "ad3532r",
-+	.channels = ad3532r_channels,
-+	.regmap_config = &ad3532r_regmap_config,
-+	.num_channels = ARRAY_SIZE(ad3532r_channels),
-+	.sw_ldac_trig_reg = ad3532r_trigger_sw_ldac_reg,
-+	.input_ch_reg = ad3532r_input_ch_reg,
-+	.interface_config_a = ad3532r_if_config,
-+	.output_control = ad3532r_out_ctrl,
-+	.reference_control = ad3532r_ref_ctrl,
-+	.op_mode = ad3532r_op_mode,
-+	.num_banks = ARRAY_SIZE(ad3532r_if_config),
-+	.num_op_mode_regs = ARRAY_SIZE(ad3532r_op_mode),
-+	.internal_ref_support = true,
-+};
-+
- static int ad3530r_set_reg_bank_bits(const struct ad3530r_state *st,
- 				     const unsigned int *regs,
- 				     unsigned int num_regs,
-@@ -533,12 +724,6 @@ static int ad3530r_setup(struct ad3530r_state *st, int external_vref_uV)
- 	return 0;
- }
- 
--static const struct regmap_config ad3530r_regmap_config = {
--	.reg_bits = 16,
--	.val_bits = 8,
--	.max_register = AD3530R_MAX_REG_ADDR,
--};
--
- static const struct iio_info ad3530r_info = {
- 	.read_raw = ad3530r_read_raw,
- 	.write_raw = ad3530r_write_raw,
-@@ -559,7 +744,11 @@ static int ad3530r_probe(struct spi_device *spi)
- 
- 	st = iio_priv(indio_dev);
- 
--	st->regmap = devm_regmap_init_spi(spi, &ad3530r_regmap_config);
-+	st->chip_info = spi_get_device_match_data(spi);
-+	if (!st->chip_info)
-+		return -ENODEV;
-+
-+	st->regmap = devm_regmap_init_spi(spi, st->chip_info->regmap_config);
- 	if (IS_ERR(st->regmap))
- 		return dev_err_probe(dev, PTR_ERR(st->regmap),
- 				     "Failed to init regmap");
-@@ -568,10 +757,6 @@ static int ad3530r_probe(struct spi_device *spi)
- 	if (ret)
- 		return ret;
- 
--	st->chip_info = spi_get_device_match_data(spi);
--	if (!st->chip_info)
--		return -ENODEV;
--
- 	ret = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(regulators),
- 					     regulators);
- 	if (ret)
-@@ -605,6 +790,8 @@ static const struct spi_device_id ad3530r_id[] = {
- 	{ "ad3530r", (kernel_ulong_t)&ad3530r_chip },
- 	{ "ad3531", (kernel_ulong_t)&ad3531_chip },
- 	{ "ad3531r", (kernel_ulong_t)&ad3531r_chip },
-+	{ "ad3532", (kernel_ulong_t)&ad3532_chip },
-+	{ "ad3532r", (kernel_ulong_t)&ad3532r_chip },
- 	{ }
- };
- MODULE_DEVICE_TABLE(spi, ad3530r_id);
-@@ -614,6 +801,8 @@ static const struct of_device_id ad3530r_of_match[] = {
- 	{ .compatible = "adi,ad3530r", .data = &ad3530r_chip },
- 	{ .compatible = "adi,ad3531", .data = &ad3531_chip },
- 	{ .compatible = "adi,ad3531r", .data = &ad3531r_chip },
-+	{ .compatible = "adi,ad3532", .data = &ad3532_chip },
-+	{ .compatible = "adi,ad3532r", .data = &ad3532r_chip },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ad3530r_of_match);
-
--- 
-2.34.1
-
+Applied.
+M
