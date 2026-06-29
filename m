@@ -1,270 +1,145 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011056.outbound.protection.outlook.com [52.101.65.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6267383983;
-	Mon, 29 Jun 2026 21:23:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782768211; cv=fail; b=mZ8qDXffdFpGo9alk8cd2P7RSywihJ39zUZJMvjFhOfnRZ27SrZKPsjJO//vxIgs1vjzANaL4313Xy72/bMoeLBj4jRsCPuGDxR7GWBSbhNvdejdZnjGzjbR/xPowdMkupDuuYGxIIo1TEIGtlOPoWp0JTfe9bw3g/Ur7gaEwf0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782768211; c=relaxed/simple;
-	bh=uu2OFm7VXRIlyI1fftpmnf9PVNIDd26GCo2x91CNiG0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=aAjnQfLTHRDFku16XZDvdE0GU/L1SqVwEe/V1RoZMKMZFNrOB+DEEKHXFeC1c43QzC1w73uwI5Ad2J4c3PG3f61rF/bgwCaru0Jel9ZeMcabGZrmTsApmzIsP1Nk3wFXz6uUFKikIqzAu+dhQQeZkL6VD2XtVrBQoHj1j28rSBM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ZzDuV3vB; arc=fail smtp.client-ip=52.101.65.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 062AE2C08D0
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 22:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782770978; cv=none; b=Xmd++m9Y3ajtXN+i/1TfJY553R0c5RQPH4g6hXzMl2+CxOegwRrNsDKRuc8ozViM35xFCAwDhsepnny2EbzGzX1nw2lBGGgo0PlIdSrSFS28nDffZNeJmBBGP1ZJKfIsb/YVd1oeTBaf+/9QPOTcaLQqw9SW1zXolLI8fogdV4g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782770978; c=relaxed/simple;
+	bh=3ZvgkqijbuMRZHZyVD7vTyjiiO3/fzLq7IsUEDeI/EI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sPn7lyNNkb7BlkTknpPaiuA57yW9Ml7U1vIzw3E9/6erYMf1TSHxgZp4a1Xyiw4D4Afm6xMnw6l6rEcosPRjZM2x+ku4hTmSC9mqVyd6I1m9F6xs4PHSmB+eZxkjORyEJ7jisXC1GXjjgqjoZz6WGeXVeXFJhgaFugj/HDtDao0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nfyv7T2a; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ZzDuV3vB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QbI3ZjOKsFMRd4Yqxk163dHW4FLhGwLb3tdqdddqp5HhwN27LYH0MXh7pBboG/kB4wWEV+JKW0kogxbz0IbG3wsPqvh0NdzRqhpXaQFMx9a0T6Hhl8iELvKxUBrtcT3QzITEyQ535ESUGZ2vBrJYgBcUXOzo54YBC0/8MHkrjYGSlsN8yoZTI3va47P2tmfYJz69W0RTD/b+7PrLudWO8VcfT1KFqcpSN5USvS6RLxXiowKb/gyask3Zf6qhjMqK9ZHKipEqM8UfxV4K9ay4664SpG/jMG6rx9DvfFKOUAUyZTTJKlqv0ychQ9ivsQpGbf+cFSY3Wqg+503zq/J+/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3ZlLJ8eKeokazvJmP1FmZ3tWkJpJ2bQi4AHoWyzKyEI=;
- b=MnmTzUXxA7vQPqeofSWP1O+yzQkihc9u0BbtRjQJSrA8PaBkcOYK7RoWh6pwXIOnVkjkvKyzcvPKKXkieWh2va99FEO41IxIIQxpNlrWf/STw2JFrsCvtFJqwbDLEuCI0MuhNq9kF0NHOEoaeE5/xrnBm8GtGf5tek6k8Qn+BdFgpxGl+TCH71VOOlEyDgx+9oPDMw7mkimrXaxkl9OkLsSQzxeid9INONggxt334ItK1JorrLfLAa9/oGwKpq/dF5YURYnaT0wbp9j6AKYDGsHaoggIVZqKdTdI6VeGcvweW2h2MBcyDgntvWJUkbh2J+8RmChXE4dmlieqb+NKcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3ZlLJ8eKeokazvJmP1FmZ3tWkJpJ2bQi4AHoWyzKyEI=;
- b=ZzDuV3vBuXvBL8pGavjc5gj0JDIl9osWlbuEsh17UX2ZWyg3G3OhicEa74w+iruZPz9zwOygw9MTZDKXhGdWptodhi1hTCAPDQ15aBlfTpnsfQLy4vO6F+RiFR8PdcW5PTYC2pJ+k/8c9G4KwRYyvMVmvTzS0lr0xoPnTollagKNhct+n8dAk2NdTAPT9hKSJHTXFhnieTSfYizzMLPjF+mD9urqhvBhG000jfDsi62tYubactucmrfI5F6B++Xgk8C3eU3Qz+PwgtOmjQM4FfhNsHWYMyAMuZh5IMG/2+tjok31aH1snsxR21OPzKdvKzfNtORxORncABHRaXPlCg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GV1PR04MB10305.eurprd04.prod.outlook.com (2603:10a6:150:1d2::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 21:23:25 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 29 Jun 2026
- 21:23:25 +0000
-Date: Mon, 29 Jun 2026 16:23:13 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: guoniu.zhou@oss.nxp.com
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nfyv7T2a"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4624a44e152so3514753f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 15:09:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782770974; x=1783375774; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eWtjIYRwzsZNUE+tnUUrysdcLHF0sFz6gPY6Xuye6sY=;
+        b=Nfyv7T2anmPIoTxMsdqt6/qvJe2Z0w1nuGNBBMDfI7Tj/Laacjf84nwbemPcE8xcS1
+         lDCsvWFTAztPRcjGF1lfnVEn6qRcEGcr395/RJzQcTvjqexHyy76ZFzCsyBUZTPt3AmP
+         cdeClix+O+3EXoyKDyIihifyOflHujd9cjD1WIpGCBiRkciOmAybz8k1GMe0670ayxIN
+         kB0PFwOj39YiZNSjjrGS/XoB3R7ysQZlGOnF4V0v4yLEG8HpVlZ3MocYGDVZgcXeeewP
+         WeeXr5uUI1fD3rWFRguueXv+z48MVq0zLRUxpbgUaBWLtOM9j/MBdw4QeznMrWAoRHHW
+         UuSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782770974; x=1783375774;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eWtjIYRwzsZNUE+tnUUrysdcLHF0sFz6gPY6Xuye6sY=;
+        b=SxIkWVR/VORR9y5KBXSQTxOsPhof/FxY938rIh5L/A8Wex1NbO2UwfzUZbG/YRafqu
+         eqEFL68XNX+YRe8fxnkbsWJXwH/pDOcocBDF1kd1PAqs+Q39Ml3Lcv/PW1/pxU7OMxR3
+         /Xz/6X/lgdWu4YtrM4buVdjjGIu16SaQGd4t1O3W5xD7O4wsdkKufzvz46E5DdD7BgSi
+         oxgO384pKxAQqnr6IK8plknO4Z5r56pe+nqgEoLoNomBkxX6yZXpMzNG3ElnyZe5YEDU
+         ysxnWCstCs44i4CFbkGnTEUPCsIfvACC3JywK4ljAi6alZpztnzg5a70U6Yy1oDg+bs1
+         37NQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpe0/ZZYRB74Q+96tL3Bt16XMaJRYJalE4g0RwY9yjoT2M+n/KmgntETpdk/EweB7UjwrNm3/000YGK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxcVu6aFTL59BHILMujmtfJn413ti1pmqV4MgN4Db2lBX7A3Gow
+	WY9dgywCoVYP4JeXBaBK4QkGJFJaajC8ch1zpE1Gbs7wj0egTMa0hdYEThwJkZTv
+X-Gm-Gg: AfdE7cm0rOsWRElqCK6c479kD2tBwgC2AjBmCReCr/RYod8tz580h8F8ZolrO+LOE4h
+	QUYBX5Mx/K2gmZa+TTMU194bgVAHItyE3Ru51g8iK5TvsaOTanLoTm/XD8rumw+Y5x7OjY3s8p3
+	kJM5MYEnfyy+hEg3Td78aeVgLQnLWH0Wb0ql861n/i6H3C7e+yZP+9e6mW1xK/WlcQnriWtLiCN
+	rvk2CZkM8Jq9mG25mQqqDn3dj8C19VQYZx8wr69VrZ1E0VHHIscjSgvMzew+E7saR3P8hINCv8I
+	lsKOfYE622HtGt6EsUaO66J05voRup6U5s+kDvJvbMAd1gJ2cW661dRGqNxgLNVmsVsVfQSkJLS
+	kK8Cp8Aldee8HzhWf8+oNvp0+kaSiPlkxYxvbmm0NjDG9OgkASi30IfL6JyOcOiPlVt2MPZJi6l
+	XgVrJ+qaVrWtJV0ooGVsq29Xr1b8lVB7/OqBgA4mHqUK75jsaae81rffeWdgiI4e2En/TEyPu+P
+	3WlgAW3VjVeuZK0BpDU5p1ov3thKQ+bcSxCsg==
+X-Received: by 2002:a5d:5d04:0:b0:460:1301:dec6 with SMTP id ffacd0b85a97d-475506e994fmr1291051f8f.10.1782770974226;
+        Mon, 29 Jun 2026 15:09:34 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:dfcc:acfa:dec0:e556])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47563d195b3sm1644670f8f.8.2026.06.29.15.09.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Jun 2026 15:09:33 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Manivannan Sadhasivam <mani@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
 	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Frank Li <frank.li@nxp.com>, Abel Vesa <abelvesa@kernel.org>,
-	Peng Fan <peng.fan@nxp.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, imx@lists.linux.dev,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>
-Subject: Re: [PATCH v11 2/3] dt-bindings: clock: imx95-blk-ctl: Define
- formatter child node schema
-Message-ID: <akLiQc1q1G8C0ZnQ@SMW015318>
-References: <20260623-csi_formatter-v11-0-a792fe9c1502@oss.nxp.com>
- <20260623-csi_formatter-v11-2-a792fe9c1502@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260623-csi_formatter-v11-2-a792fe9c1502@oss.nxp.com>
-X-ClientProxiedBy: SA1PR05CA0018.namprd05.prod.outlook.com
- (2603:10b6:806:2d2::18) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v5 0/4] Add PCIe support for RZ/V2H(P) SoC
+Date: Mon, 29 Jun 2026 23:09:28 +0100
+Message-ID: <20260629220932.861445-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB10305:EE_
-X-MS-Office365-Filtering-Correlation-Id: a1afa79c-f06b-40ed-bbd9-08ded624a764
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|366016|7416014|23010399003|19092799006|1800799024|18002099003|22082099003|4143699003|11063799006|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info:
- UZcGRLbWmXuf2I/3O9rNglXoOsuOmT0HmTHCShaz0ibp0J8Rtc69w0+tlgk3pepKPk6Dw/tKzB2ToOghmprZh27/cUD9cMHSG5TJqznk6gkHEBvjH0xoHtE3YkB3XYQEbDuEgnWgv9qzp8MWBbR+3o36WyIvb8qU0efIYrYChIRPNkwGEPQKyJGUvegkkv5bzZ2TzLx6GHZk5WaXlG/C7HyrhWaD6n+PKNDbxa7CgFnPoq0mcPrCydaOr9I5a2FW1nq8lNWgl7RfgFS/8MwzwobfHi8pzxpd0lMf8AvEKpw/EJrDx4GnmPeeQuIUElwTWpexwT9Ew6Riu5lXRT8OSADExPufyHGAlNQaP8OeBl9tyv5GHXxmAEGKJRcW3yoQ9fwCjrv+FQdqFlvc0uBL4rUx9/O9IZUwrfRijPP+YtGFE/CSO+feEw3GB1ugDb/l1KzXonY4GrmDkQUGWczL0m6+bgZlnZDNgR6TnOx5gT2BC2mDu/oAiRoszbwgFd+wISyke3lfUVyDcm4NuvRrTwmgz0TcwMwL4NNZN7Ah0ZxJAhJInux7PESwITnR8yIF5LTBmiWBb5rVyzdtAQo4BIs0K6UlSjCtiqkPDyr/mXc6hXSp41dgpDTziUjSCDCm2ZmkZZwK+TfNMODPiNpm4A2SQ/w9v5dsjI4EmmJwQas=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(23010399003)(19092799006)(1800799024)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?6FxWADYGjnjDS+YxioJkZF/cgyTV7fMwmomXi9AZ6WIUz6h73keXItpvNM6N?=
- =?us-ascii?Q?N5KB77iQ1qRgPWWdcvHU/a8PusPgR0o78oZzzHazyOdz1fDJY5zmU7Lophfs?=
- =?us-ascii?Q?fkHANuWJQy0JoYWBNbAnK1rsRODGHrXAJPovROgJWVTAkUI3TFuYMhQXk4wv?=
- =?us-ascii?Q?Pw/RrwQwguv8uCqExEtUK/T4d0ZoO+SxcCiSwyFh40NV/3d+4rui3B3TL0qn?=
- =?us-ascii?Q?+0ngbU49dnmbsrhr3WKE1Mn9EzkRfymNkwLDPxnVm/OB4uuAL2GeiHjGPtg7?=
- =?us-ascii?Q?XyA/jTxTojcStNsOu4bohm5qQ8ZQ3IRNlrnOMPErFjGy84Mze5rfqoT0Jy9I?=
- =?us-ascii?Q?yibL4C7JCywXC5fukUsvzDwz3T7iyFmfLVlgaBvsmEMlIXssSL0XGe1QBO8N?=
- =?us-ascii?Q?+UP5EoxXDJ7sXhJnXLxPqU6BH7Guvc6BTlLlGd/DYp8czbHpMLkDvyxyI+oi?=
- =?us-ascii?Q?V3/IBZUkQ6G53cUtMYW3bIIat21OWEM3r5v6L8MSbr2XzdMxvQ7Z2jwXSV5Q?=
- =?us-ascii?Q?pf7uy/SBIn2rWeWBldQr65/eoZKkYKgun3oYR7Kn1xidKdjUs44pbu+d7dWY?=
- =?us-ascii?Q?bQDddJzqHsWJ4LvdN2JyN5CCjgs8ZGch7xLb1PqiNq+Cui4eCnoAh1vfA1j+?=
- =?us-ascii?Q?S3ZqEXGpBjGtsRONvbya+ct7AMU3cvdOYhtA0QJmrwM8mIof+7KAcYrjAbh9?=
- =?us-ascii?Q?2TGKHDPTH8evL0SlsasO7wNxYM0xDgsVRJd2iIeQelnZgB96yf1ZFoaeax3G?=
- =?us-ascii?Q?F254KVORMpl4S5ECmbxMd88mYzh0f59rfUCN02IYJ+jpT3fJsgn2yswxWBen?=
- =?us-ascii?Q?JB4RqPh6e8Gg3aF/fCUzdQ7KCRCLY4Lq5j7+amlrAA9Sb9/D8F0X2iQc3PFR?=
- =?us-ascii?Q?ZSPTVLSdWrev01Js04XqpjbWwGZDTUpqFYjYaHkx0SzisNrL4l2wRO9HFLY1?=
- =?us-ascii?Q?G9OCYRqiRGYNvfhgAFEyr/pjcP/9UY6LsHpYonOsmtGaAdy4sjXqQBOqOwnw?=
- =?us-ascii?Q?cv8Uti5vW7GVXcl9RkCiYBBz3onkZVFUtVHbVO1m/24IJFYiKuOyHP8mdant?=
- =?us-ascii?Q?A75onXwfiiouITRDQwsF/2cY6SnF42+BXiosEa1Bqwi+aDxlldj+I7CvBOUA?=
- =?us-ascii?Q?LDpVh25j0FVL8sFUuRcreIrip0HoxegL0MUI024V+zsQwM3Ih6KS5+4OTsEJ?=
- =?us-ascii?Q?qO3+Ms1EdlckObZcECnOilfUS9PWTEuOW/cVdH61lrpqm9qu/1MX7gR0aic0?=
- =?us-ascii?Q?n3zBw0PvDkcbWgFwhDo0xq5+qDFMRdq4/mJcaz/z0UegF7hubg/lF9ds+Dzh?=
- =?us-ascii?Q?um0ZEShojdh1Urx61BHJDZawkiIXDWq5AQu8/BdTNx01E03du7Ifno19CxlR?=
- =?us-ascii?Q?fhdt5CyhjvJrl4ABZFtKLKwsw7h1e9eahv0ws7x9iWBLTd/u8YhtnvGCeIF/?=
- =?us-ascii?Q?MyRpxFq6UmM9T1OxpPkY08q+Jtz6inXBpcdCgql6GRrxcknwUSEravtSz8dz?=
- =?us-ascii?Q?mIqF8ig/EwcbC3CkPx0PJ4aiNQFKGdBmFOycDotXH4Ajx/VNveZI7ioPcAni?=
- =?us-ascii?Q?fNHHbhIwk1v4AUtG0GyufjFvO7zMfPI7claIphZXx5pUKvPp7MDW0vPFrJDi?=
- =?us-ascii?Q?CpbD4vb5Xsv0f/frGo9Byetadi0SHczI6gUNjFwOb1EaEvxEP9/syeFOGMSj?=
- =?us-ascii?Q?zk7JmVKASeSjN0Itf5u/Ev3UlIuXlCykFeziTDo3sGyN3l0jAPJdMxfaJZHt?=
- =?us-ascii?Q?TgeTpB4EAzxuDlyas2jkScghrAiQrGRB8HGrN//8M3BYkWPeq3lN?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1afa79c-f06b-40ed-bbd9-08ded624a764
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 21:23:25.1534
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: exHAs7ZfsgFXLmqht9gV+UeDrNlHtGL9uVvxV+2URGyV9xfQ8rKnJXlc6jCNNWmmrZnhvpAKV62uUFAiNJ9i2Q8fuNIbpzLBUsM119w/Db54V9Ca51Mt6Vu7VQ+oWSjm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10305
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 23, 2026 at 11:56:32AM +0800, guoniu.zhou@oss.nxp.com wrote:
-> From: Guoniu Zhou <guoniu.zhou@nxp.com>
->
-> The Camera CSR contains control registers for multiple CSI formatter IPs
-> at different register offsets. Each formatter is an independent hardware
-> block with its own clock input and media pipeline connection.
->
-> Define schema to allow formatter child nodes under nxp,imx95-camera-csr,
-> with 'reg' property specifying the formatter's register offset within the
-> CSR address space.
->
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
-> ---
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Abel Vesa:
+Hi all,
 
-	There are week dependence with media driver/binding, Can I pick
-this with media driver together? If this go through clock tree,
-"fsl,imx95-csi-formatter" cause dt_binding_check failure.
+This series adds support for the PCIe host controllers found on the
+Renesas RZ/V2H(P) SoCs. The RZ/V2H(P) controller includes additional
+features for PCIe lane control and supports multilink operation with
+two independent controllers.
 
-Frank
+v4->v5:
+- Rebased on top v7.2-rc1
 
-> Changes in v11:
-> - Move properties to top-level and use if:then:else (Krzysztof/Frank)
->
-> Changes in v10:
-> - Use single quotes for regex pattern to be consistent (Krzysztof Kozlowski)
-> - Add formatter subnode binding and camera-csr syscon example
-> - Update commit title and message
->
-> Changes in v9:
-> - New patch to address the issue of formatter acting as a child node of syscon
-> ---
->  .../bindings/clock/nxp,imx95-blk-ctl.yaml          | 71 ++++++++++++++++++++++
->  1 file changed, 71 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> index 27403b4c52d6..fbbf1b3f1790 100644
-> --- a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> +++ b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> @@ -39,6 +39,18 @@ properties:
->        ID in its "clocks" phandle cell. See
->        include/dt-bindings/clock/nxp,imx95-clock.h
->
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 1
-> +
-> +patternProperties:
-> +  '^formatter@[0-9a-f]+$':
-> +    type: object
-> +    $ref: /schemas/media/fsl,imx95-csi-formatter.yaml#
-> +    unevaluatedProperties: false
-> +
->  required:
->    - compatible
->    - reg
-> @@ -46,6 +58,23 @@ required:
->    - power-domains
->    - clocks
->
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: nxp,imx95-camera-csr
-> +    then:
-> +      required:
-> +        - '#address-cells'
-> +        - '#size-cells'
-> +    else:
-> +      properties:
-> +        '#address-cells': false
-> +        '#size-cells': false
-> +      patternProperties:
-> +        '^formatter@[0-9a-f]+$': false
-> +
->  additionalProperties: false
->
->  examples:
-> @@ -57,4 +86,46 @@ examples:
->        clocks = <&scmi_clk 114>;
->        power-domains = <&scmi_devpd 21>;
->      };
-> +
-> +  - |
-> +    #include <dt-bindings/clock/nxp,imx95-clock.h>
-> +
-> +    syscon@4ac10000 {
-> +      compatible = "nxp,imx95-camera-csr", "syscon";
-> +      reg = <0x4ac10000 0x10000>;
-> +      #address-cells = <1>;
-> +      #size-cells = <1>;
-> +      #clock-cells = <1>;
-> +      clocks = <&scmi_clk 62>;
-> +      power-domains = <&scmi_devpd 3>;
-> +
-> +      formatter@20 {
-> +        compatible = "fsl,imx95-csi-formatter";
-> +        reg = <0x20 0x100>;
-> +        clocks = <&cameramix_csr IMX95_CLK_CAMBLK_CSI2_FOR0>;
-> +        power-domains = <&scmi_devpd 3>;
-> +
-> +        ports {
-> +          #address-cells = <1>;
-> +          #size-cells = <0>;
-> +
-> +          port@0 {
-> +            reg = <0>;
-> +
-> +            endpoint {
-> +              remote-endpoint = <&mipi_csi_0_out>;
-> +            };
-> +
-> +          };
-> +
-> +          port@1 {
-> +            reg = <1>;
-> +
-> +            endpoint {
-> +              remote-endpoint = <&isi_in_2>;
-> +            };
-> +          };
-> +        };
-> +      };
-> +    };
->  ...
->
-> --
-> 2.34.1
->
->
+v3->v4:
+- In rzv2h_pcie_setup_lanes() returned early in case of error
+- Added RB/TB tags
+
+v2->v3:
+- Dropped using linux,pci-domain property.
+- Switched property to phandle-array for renesas,sysc
+  to support multiple controllers with different SYSC register sets.
+- Parsed controller-id from the "renesas,sysc" property instead of
+  using linux,pci-domain.
+- Updated commit message for clarity in patch #1
+
+v1->v2:
+- Dropped RZ/V2N DT binding patch as it has been merged in the
+  pci/dt-binding branch.
+- Dropped un-necessary new line in schema.
+- Renamed RZG3S_PCIE_CHANNEL_ID* to RZG3S_PCIE_CONTROLLER_ID* for clarity.
+- Added locks to protect shared lane configuration state and
+  prevent concurrent access issues during probe.
+- Added cleanup action to release lanes on driver removal.
+- Reconfigured RZG3S_SYSC_FUNC_ID_LINK_MASTER in resume path.
+- Renamed num_channels to num_pcie_controllers for clarity.
+- Updated commit messages for clarity in patches 1-4.
+
+Cheers,
+Prabhakar
+
+Lad Prabhakar (4):
+  dt-bindings: PCI: renesas,r9a08g045-pcie: Add RZ/V2H(P) support
+  PCI: rzg3s-host: Use shared reset controls for power domain resets
+  PCI: rzg3s-host: Prepare System Controller handling for multiple
+    controllers
+  PCI: rzg3s-host: Add support for RZ/V2H(P) SoC
+
+ .../bindings/pci/renesas,r9a08g045-pcie.yaml  |  34 ++-
+ drivers/pci/controller/pcie-rzg3s-host.c      | 233 ++++++++++++++++--
+ 2 files changed, 247 insertions(+), 20 deletions(-)
+
+-- 
+2.54.0
+
