@@ -1,320 +1,168 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD9E3B2FE4;
-	Mon, 29 Jun 2026 08:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8013F825E
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:47:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782722818; cv=none; b=EITJ0PJYRSaps1CVjcZcBbI7O4NJyEF7eqVahMvtOCKD5Dwbk5IagEGHoaktQNuv7efHYCAjVdMViBGiDQlVzQhOxRKK1912d4HJU83JyG2dY3kWDME9RFHVZVzOf69RzIehwf1RyqfbTI5Zq+q0MQCE2MnT9DkbBUQbbKit704=
+	t=1782722823; cv=none; b=iaeA063HTzo4rQy3KtdhpBY++k1KFE96SSVODqfEG9D1kByryOA/ckabj07i7BldVRypV1+K+VhlXeyyvhxCofAMB4+fAWzRlOS4jKHWcdOqesLA2b7cnuIso8eIwzRbE3b97rRYRU2vaUugpKEl7/MbeEHnBlbjmZ/N3RMw9gM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782722818; c=relaxed/simple;
-	bh=Sn6/pnvMV+7cTSNOzKy0Jhpp/BOj27Lxn1QBk+3onIU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LX2H0x8ahUbP2dbSemYcjoccwgs6E6f4apz7jmZj3q4x+KuwjT1weOHILl7W7I5Og6osKlUjREgADFP1gnX4R8y8WIgPahyPWBSS/R8Eo8A3HZeTLdIYXGoRKDQqh27gHE81/qOOodrePn9bnqC8/wkWHcJGwf5OFxSEKFlzVck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=bRRdsd0Z; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1782722823; c=relaxed/simple;
+	bh=IZDSvvIWTvxeOc6vAT6CTmA1TxSwSVLPm0tS8B76Bdw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JegYeTIl1Sn7g7QAzORpSNpbfkdr/hMASdcAwHUMY42lKElP6GiCFJpWGW10m/LtR7m0S96I3cjilI9cmMiSrR5aA8c3X5GV/6XYCzwLUIAkgVewjvFeE6LVsNHjRMAckHVUx8ttHX6VnM9Iumc0OPSyS5QiBYtP1kyq0+ejf5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S5v1Oid/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dIRrnmqA; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="bRRdsd0Z"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6FEA812F;
-	Mon, 29 Jun 2026 10:46:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1782722772;
-	bh=Sn6/pnvMV+7cTSNOzKy0Jhpp/BOj27Lxn1QBk+3onIU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bRRdsd0ZsSf7fogMbtUYfbhUgfsQVwCCWZMWTcDEYFOv/+OytRbbANuM5dUqzbuy3
-	 AiceQ6X0uU/iuq6kVZtojs33momkbdMk0wZ48tpch4aYrjGbtUZEHWaQrJjQaMyDXT
-	 W3pV5fPerzMH5K9W95hHM/hjKRT3TWFzf5dlx7os=
-Date: Mon, 29 Jun 2026 11:46:54 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Frank.Li@oss.nxp.com
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Rui Miguel Silva <rmfrfs@gmail.com>,
-	Purism Kernel Team <kernel@puri.sm>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	Guoniu Zhou <guoniu.zhou@nxp.com>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v6 3/9] media: subdev: Add media_async_register_subdev()
- helper
-Message-ID: <20260629084654.GB3054459@killaraus.ideasonboard.com>
-References: <20260624-imx8qxp_pcam-v6-0-4b3f45920d2f@nxp.com>
- <20260624-imx8qxp_pcam-v6-3-4b3f45920d2f@nxp.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S5v1Oid/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dIRrnmqA"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65T6rV0P2134872
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:47:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	dsuvkNF0CRvWMwPOO/jhGrruMUfqUKJkLRonqqcBpsg=; b=S5v1Oid/YK8zkt6J
+	2ItjNKJhX4moBJ+xFFnUfRz7spo1b7QPzxRTMwHqM6TOXp7IZl9+etshzKHNQ2rz
+	i8xUonlPASvKY+E0gX+DsEkgdmdjL8iV4rAzMh/hFyB88f+QRqDRE/LLHLRQlLi9
+	IpQcxAeTgjRc+k5mu42tticXPsqjKzVTtE8BYoA6yky3gI5xFv+Cqj6pu1r+A+gk
+	rAnUY3QSJEYk4vDJnN8Jarv0mR/jFbeb4re3zvxWlJQ7g2jMik0hamPAGO168iyi
+	ypMG0IKeeleScoOwHOtgelvOflQSlXJE5WE+2ubIBIOFSEzNDKahIp5iVb9gTuvB
+	maH2kA==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f270a5kjq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:47:00 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-969471b1265so22369241.2
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 01:47:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782722820; x=1783327620; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dsuvkNF0CRvWMwPOO/jhGrruMUfqUKJkLRonqqcBpsg=;
+        b=dIRrnmqAmZAFh/JTe8mwXeeraf6iUNNYiep1apu4nERLncuLYtm6/8nI6LoBdg9YSL
+         BHoOhY2M76hVAp9w28vL28Sni7MSjqaQKDeskUjdmFaIi95ODwGhmicc0t5xz6aB3PCm
+         BOvDBVv9e7qMtLhh9SJAnj+/nmn3sWZ/jhfQGP2F31fF3aDbeiU1I6JALObWmhU+h1Xm
+         0mIlmBO4loP5u4wvkYGoyekhs1uV0mRJeXIFe29oMfU5x8zbJvGoeD6vPLwOcGv+Qz8t
+         16mHwPzxh7L5cnZYftY6VrfOdYR1dlIkdbpWu9sP69bQEJQWQS2FbDp+8JecPc+Hv63S
+         Zd+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782722820; x=1783327620;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dsuvkNF0CRvWMwPOO/jhGrruMUfqUKJkLRonqqcBpsg=;
+        b=aYwCoBQdp+rT/17X//Z0dtYMu+tLC9Hqkn5Egz6wZC2RE6qclHNmCa+gvN07tsa/vM
+         69/UKDf033LL0ALhNk08IRKxE27Wu4bNrAhuykv2vwtIcBp04p0hYwGrorPlE8RLpoSg
+         RFjqHp7U+6SVLHf5/L3siNghh23TdlxJMjF+NpAsNGBIlaPU30p9Zr0AOOUyssH18Wbm
+         J/jnuILcr/NhNoseDzD4tMSdghr3gydLDnHB5WjATa9/wt8D5Bjo2Ok+4gsjkQCtcwJm
+         Pwcrl3HFWjP92L6rvsf1CmkiZg0+fN7zj52fbD29+wz2DcWHSM81Appi2hkTn0GpsOo2
+         89cw==
+X-Forwarded-Encrypted: i=1; AHgh+RoVbBaz6bdOKlg8+jHv/ffcTTslrRMQnW2mG1tXXWe/27CbRMtv+a7ucME/YiUDWHBQdi4hw17h4kKK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJI6ko4hGZ0yZldtgoWRvlAhmRRHrWo8ktShtk388If4q5BlOW
+	8n4Z35xu0ReLe4SXIqW+OVFYvcreXhKcpjA3hnWYXcULBrs6kG27re1BeZrlZEFnp5S8vb4pLBA
+	g8TtgLDDySjPx/J9Fmvsn4OOY7iBeKFf4QMKGQ9zlBLH2Jq2C94DFoAwX3NxH9BRP
+X-Gm-Gg: AfdE7cnJZpsRt0mWBpJhKtHZqno26B4qeWuoMxbMVS4IZ1i4CLvCZfPUNsa2kiNwuM7
+	IqQWwuV4WAcvDQxAd00P0oK46SzocoSOHI0vqcp+APOy3o3qtesJGhzVDh9H0QKbXSiqleo2bEz
+	8HkDOG20euzdWy8AXjIqyfmS9ZrRQlzACg+Iv0nN8tZn7HqfFtRgHaLsQHiHeTyoAZB6TjmxWil
+	A7SNyNVF4dhWcOq2ojOiWjhXBdCx5IeVrlo+ZjVtL8v8g0QkhivGE9wqAUTqtfOK5eufje4g7DX
+	+b+TmVnRM7t+YyYmQF/+6IL/4qtp3VPZZs5iGP2Yy8HlTiMRdWNy2NRA13Lyw1j7MXNF/gHkB7s
+	qvWMGPDobCzR+U1GCGNxK8u0UzFGUHV3bKik=
+X-Received: by 2002:a05:6102:6c5:b0:738:4343:fba9 with SMTP id ada2fe7eead31-73843441853mr493669137.6.1782722819884;
+        Mon, 29 Jun 2026 01:46:59 -0700 (PDT)
+X-Received: by 2002:a05:6102:6c5:b0:738:4343:fba9 with SMTP id ada2fe7eead31-73843441853mr493642137.6.1782722819368;
+        Mon, 29 Jun 2026 01:46:59 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-698481d0359sm3009277a12.30.2026.06.29.01.46.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 01:46:57 -0700 (PDT)
+Message-ID: <3ac0279b-105c-403a-90e8-822c28a6dcfc@oss.qualcomm.com>
+Date: Mon, 29 Jun 2026 10:46:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260624-imx8qxp_pcam-v6-3-4b3f45920d2f@nxp.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/8] arm64: dts: qcom: shikra: Add Adreno SMMU node
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        iommu@lists.linux.dev, Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+References: <20260628-shikra-gpu-v3-0-9b28a3b167e1@oss.qualcomm.com>
+ <20260628-shikra-gpu-v3-4-9b28a3b167e1@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260628-shikra-gpu-v3-4-9b28a3b167e1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA2OSBTYWx0ZWRfX5Y+k67BIhI7j
+ VZs2YAYgvbcM8/T0aK5dBEJUWM3pQC/j/BVDbV054f0Eeg8Ysl8H9ZkwqO9+wNRB2kouXzfxtHu
+ bwtv+xA8syk/qhSnrQ78xciAeoS0u2m9ZyE0a5p6na73H3JE0iYqPrLwUa/7MZBpjmH1JI3QNhi
+ m/TdWr6Fo+o0xXnKBh+jS1o85THk1Qeyfs1pt+4cN0mGvtBIy/lsHzT8K6qrbc8d1ZW7B7+9Nc0
+ Op06rZ5F2kRDTFsUeZcgyXTq+LKRQIicSLpfgjSh2yGAfus1fLrZXmy49wbnvW+7w+G/6JLQoNj
+ FHm7fp+nzjexhBWqv1nUXdVAeKztW7OTyAleI3MprCF89ApO4SyKJB2MXrVHnXGy9goUk/oUdbX
+ 6nVWjw81SA1LtiCN05P7OBvqfKLsk+C/2uzuXyG9VczSKycTKvXUu56DyTGr+EzNmiptA3wdQrk
+ vK7ELleSUC3AcACOp9A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA2OSBTYWx0ZWRfX0Kqw5I58pfHn
+ Wz8C3m/b0oRnoduPDx/2vpXYpSaAWpeBClP6q3kRgYbvzz2sERcDJIp6Q5JuDc703uBQ/Pna4tK
+ 6x3uE7BPKyNKVRDWGMOYf/5oAQdXeF0=
+X-Proofpoint-GUID: xoFiTrN7QmJc52VRGCxr45kCDguh7_0R
+X-Proofpoint-ORIG-GUID: xoFiTrN7QmJc52VRGCxr45kCDguh7_0R
+X-Authority-Analysis: v=2.4 cv=Fe4HAp+6 c=1 sm=1 tr=0 ts=6a423104 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=CtAqrJV6yErwifH23rQA:9 a=QEXdDO2ut3YA:10
+ a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-29_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290069
 
-On Wed, Jun 24, 2026 at 04:37:50PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+On 6/28/26 8:23 PM, Akhil P Oommen wrote:
+> From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
 > 
-> Add media_async_register_subdev(), a helper to register a V4L2 sub-device
-> with the asynchronous sub-device framework.
+> Add the Adreno GPU IOMMU (adreno_smmu) node for the Shikra SoC.
+> 
+> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 
-For the reason stated by Sakari in patch 1/9 (dependency from MC to
-V4L2), I don't think a "media_async_register_subdev()" function is a
-good idea.
+Drop the sign-offs that don't apply (presumably applied as part
+of shuffling around the handlers of the patch in the in-flight
+tree OR missing c-d-b)
 
-> The helper assumes a 1:1 mapping between firmware endpoints and media pads.
-> During registration it parses the firmware graph, creates media pads for
-> all endpoints, and registers common asynchronous notifiers for sink
-> endpoints. These notifiers automatically create media links when the
-> corresponding remote source devices become available.
-> 
-> The set_pad_by_ep() callback allows drivers to determine the media pad
-> associated with a firmware endpoint and identify whether the endpoint
-> represents a sink pad.
-> 
-> By centralizing firmware graph parsing, media pad creation, notifier
-> registration, and link creation, this helper reduces duplicated code and
-> simplifies error handling in V4L2 sub-device drivers.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
-> change in v6
-> - new patch
-> ---
->  drivers/media/v4l2-core/v4l2-fwnode.c | 155 ++++++++++++++++++++++++++++++++++
->  include/media/v4l2-async.h            |  39 +++++++++
->  2 files changed, 194 insertions(+)
-> 
-> diff --git a/drivers/media/v4l2-core/v4l2-fwnode.c b/drivers/media/v4l2-core/v4l2-fwnode.c
-> index 62a3a452f7884..169059654478f 100644
-> --- a/drivers/media/v4l2-core/v4l2-fwnode.c
-> +++ b/drivers/media/v4l2-core/v4l2-fwnode.c
-> @@ -26,6 +26,7 @@
->  
->  #include <media/v4l2-async.h>
->  #include <media/v4l2-fwnode.h>
-> +#include <media/v4l2-mc.h>
->  #include <media/v4l2-subdev.h>
->  
->  #include "v4l2-subdev-priv.h"
-> @@ -1302,6 +1303,160 @@ int __v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *m
->  }
->  EXPORT_SYMBOL_GPL(__v4l2_async_register_subdev_sensor);
->  
-> +static int v4l2_common_notifier_bound(struct v4l2_async_notifier *notifier,
-> +				      struct v4l2_subdev *sd,
-> +				      struct v4l2_async_connection *asd)
-> +{
-> +	struct media_pad *pad = NULL;
-> +	int ret;
-> +
-> +	if (asd->match.type != V4L2_ASYNC_MATCH_TYPE_FWNODE)
-> +		return -EINVAL;
-> +
-> +	if (!asd->match.fwnode)
-> +		return -EINVAL;
-> +
-> +	struct fwnode_handle *remote __free(fwnode_handle) =
-> +		fwnode_graph_get_remote_endpoint(asd->match.fwnode);
-> +
-> +	for (int i = 0; i < notifier->sd->entity.num_pads; i++) {
-> +		if (notifier->sd->entity.pads[i].vep.base.local_fwnode == remote) {
-> +			pad = &notifier->sd->entity.pads[i];
-> +			break;
-> +		}
-> +	}
-> +
-> +	if (!pad) {
-> +		dev_err(notifier->sd->dev, "failed to find sink pad\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = v4l2_create_fwnode_links_to_pad(sd, pad, MEDIA_LNK_FL_ENABLED);
-> +	if (ret) {
-> +		dev_err(sd->dev, "failed to link source pad\n");
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct v4l2_async_notifier_operations v4l2_common_notifier_ops = {
-> +	.bound = v4l2_common_notifier_bound,
-> +};
-> +
-> +static int
-> +v4l2_async_nf_parse_fwnode(struct device *dev, struct media_pad *pads,
-> +			   struct v4l2_async_notifier *notifier)
-> +{
-> +	struct v4l2_subdev *sd = notifier->sd;
-> +	struct v4l2_async_connection *asd;
-> +	struct media_pad *pad;
-> +	int ret;
-> +
-> +	if (!sd->internal_ops->set_pad_by_ep)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "Missed valiate_endpoint() callback\n");
-> +	pad = pads;
-> +
-> +	fwnode_graph_for_each_endpoint_scoped(dev_fwnode(dev), ep) {
-> +		u32 flags;
-> +
-> +		ret = v4l2_fwnode_endpoint_parse(ep, &pad->vep);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "failed to parse endpoint\n");
-> +
-> +		ret = sd->internal_ops->set_pad_by_ep(sd, pad);
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret, "Can support endponit\n");
-> +
-> +		flags = pad->flags;
-> +
-> +		pad++;
-> +
-> +		if (flags & MEDIA_PAD_FL_SOURCE)
-> +			continue; /* Bypass source port */
-> +
-> +		notifier->ops = &v4l2_common_notifier_ops;
-> +
-> +		asd = v4l2_async_nf_add_fwnode_remote(notifier, ep,
-> +						      struct v4l2_async_connection);
-> +		if (IS_ERR(asd))
-> +			return dev_err_probe(dev, PTR_ERR(asd),
-> +					      "failed to add notifier\n");
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +void media_async_subdev_cleanup(struct v4l2_subdev *sd)
-> +{
-> +	v4l2_async_unregister_subdev(sd);
-> +	v4l2_subdev_cleanup(sd);
-> +	media_entity_cleanup(&sd->entity);
-> +	v4l2_async_nf_unregister(sd->subdev_notifier);
-> +	v4l2_async_nf_cleanup(sd->subdev_notifier);
-> +	kfree(sd->entity.pads);
-> +}
-> +EXPORT_SYMBOL_GPL(media_async_subdev_cleanup);
-> +
-> +int __media_async_register_subdev(struct v4l2_subdev *sd, struct module *module)
-> +{
-> +	struct device *dev = sd->dev;
-> +	u32 ep_count;
-> +	int ret;
-> +
-> +	if (WARN_ON(!sd->dev))
-> +		return -ENODEV;
-> +
-> +	struct v4l2_async_notifier *notifier __free(kfree) = kzalloc_obj(*notifier);
-> +	if (!notifier)
-> +		return -ENOMEM;
-> +
-> +	v4l2_async_subdev_nf_init(notifier, sd);
-> +
-> +	ep_count = fwnode_graph_get_endpoint_count(dev_fwnode(dev), 0);
-> +	if (!ep_count)
-> +		return dev_err_probe(dev, -EINVAL, "No connected endpoints\n");
-> +
-> +	struct media_pad *pads __free(kfree) = kzalloc_objs(struct media_pad, ep_count);
-> +	if (!pads)
-> +		return -ENOMEM;
-> +
-> +	ret = v4l2_async_nf_parse_fwnode(dev, pads, notifier);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = media_entity_pads_init(&sd->entity, ep_count, pads);
-> +	if (ret)
-> +		goto out_cleanup;
-> +
-> +	ret = v4l2_async_nf_register(notifier);
-> +	if (ret < 0)
-> +		goto out_cleanup;
-> +
-> +	ret = v4l2_subdev_init_finalize(sd);
-> +	if (ret)
-> +		goto out_unregister;
-> +
-> +	ret = __v4l2_async_register_subdev(sd, module);
-> +	if (ret < 0)
-> +		goto out_unregister;
-> +
-> +	sd->subdev_notifier = no_free_ptr(notifier);
-> +	retain_and_null_ptr(pads);
-> +
-> +	return 0;
-> +
-> +out_unregister:
-> +	v4l2_async_nf_unregister(notifier);
-> +
-> +out_cleanup:
-> +	v4l2_async_nf_cleanup(notifier);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(__media_async_register_subdev);
-> +
->  MODULE_DESCRIPTION("V4L2 fwnode binding parsing library");
->  MODULE_LICENSE("GPL");
->  MODULE_AUTHOR("Sakari Ailus <sakari.ailus@linux.intel.com>");
-> diff --git a/include/media/v4l2-async.h b/include/media/v4l2-async.h
-> index 54a2d9620ed5b..ca41820f776c5 100644
-> --- a/include/media/v4l2-async.h
-> +++ b/include/media/v4l2-async.h
-> @@ -345,4 +345,43 @@ __v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *modul
->   * @sd: pointer to &struct v4l2_subdev
->   */
->  void v4l2_async_unregister_subdev(struct v4l2_subdev *sd);
-> +
-> +enum v4l2_subdev_1to1_pads {
-> +	V4L2_SUBDEV_1TO1_PADS_SINK,
-> +	V4L2_SUBDEV_1TO1_PADS_SOURCE,
-> +	V4L2_SUBDEV_1TO1_PADS_TOTAL,
-> +};
-> +
-> +/**
-> + * media_async_register_subdev - registers a sub-device to the asynchronous
-> + *				 sub-device framework and parse set up common
-> + *				 related devices
-> + *
-> + * @sd: pointer to struct &v4l2_subdev
-> + *
-> + * Register a V4L2 sub-device with the asynchronous sub-device framework.
-> + * In addition to v4l2_async_register_subdev(), this function parses the
-> + * firmware graph, creates media pads for the endpoints, and registers common
-> + * notifiers to create media links between connected devices.
-> + *
-> + * This function also init media_pads.
-> + *
-> + * The sub-device is unregistered and cleanup by media_async_subdev_cleanup()
-> + *
-> + * While registered, the subdev module is marked as in-use.
-> + *
-> + * An error is returned if the module is no longer loaded on any attempts
-> + * to register it.
-> + */
-> +#define media_async_register_subdev(sd_1to1) \
-> +	 __media_async_register_subdev(sd_1to1, THIS_MODULE)
-> +
-> +int __media_async_register_subdev(struct v4l2_subdev *sd_1to1, struct module *module);
-> +
-> +/**
-> + * media_async_subdev_cleanup - unregistered and cleanup subdev and media pads
-> + * @sd_1to1: pointer to struct &v4l2_subdev_1to1
-> + */
-> +void media_async_subdev_cleanup(struct v4l2_subdev *sd_1to1);
-> +
->  #endif
 
--- 
-Regards,
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Laurent Pinchart
+Konrad
