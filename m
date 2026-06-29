@@ -1,47 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB603B42CD;
-	Mon, 29 Jun 2026 23:06:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368A71632DD;
+	Mon, 29 Jun 2026 23:15:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782774397; cv=none; b=HOxTXiX9Pv2U/1LumUb6a24NzSEPZk3s5DvIBXnYJEF9h2lilYX758vixpuNH6qxSSJbxdezuMQcq/z+KPgv/4dtezzYNkFl5nE+seZj1dHFMcBrnY5gGwU/aGRnkPQFHL8JbXb3eXueGT4i6VAkSRStjS5R/QpOR3MzU7Nxohs=
+	t=1782774922; cv=none; b=GQOkrvntxaXCa5ysQeVdPdrNlm0Oh96fJR7veVcOD5DKuAmQ3NL84L9OK+Fz6261qsAgeV9rWedtfWdci1jpcq0ZeHcDTwBPhNvRgLPkVyHA9nXIj15OobZxQyyvru9UriYBAI9fDAn0RhG09ylrn10jCUUtWGn1BoGxLM7oWL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782774397; c=relaxed/simple;
-	bh=sqXgBZQxFN0darbob5faZx91nyTlw3pO6r5sSDYkc4E=;
+	s=arc-20240116; t=1782774922; c=relaxed/simple;
+	bh=5qA20pRRqXQqyqhmgrm9hpsVJ87sWrrB52/4s12fm0o=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=R1b8wMfZKZEb0FlTAngVuWe0AhbQbBD+lcpcC43s5tbjlCCYAyo5fmsVEANVHEZRTIEhusZ8JGbJVhl/SWUkOjv+Jz4ar7D3lzJDfLlBInA3lPlAO2Wf3BCzmTuyXxDYx0BmK+73oiXqhhF2H6bGq+i+I05IErNIKH8Nq1+7qwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hP+n24ne; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=URWQQcC8MBnIzWvXwdwjU4/eu9nWrJGet0boA0Fl6vPCZpbMecNx9izNPtGq8x7kyWdufjeHJXA7ErUPDY+EcfoEtQ8AtISsOaoXrd13BRMkQV/8tiFo2l8Lm/03DauxgE9cFQCemB5XzhomK5JjOdRIvBNvQREWc9ZOIBwUQiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ot0qqQP/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hP+n24ne"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE151F000E9;
-	Mon, 29 Jun 2026 23:06:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ot0qqQP/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4810E1F000E9;
+	Mon, 29 Jun 2026 23:15:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782774396;
-	bh=RWlWSJaDxC29Sdj1WQq6vCX/yzQeSlt4YQP4YKUk740=;
+	s=k20260515; t=1782774920;
+	bh=PTDwVtGU6wid+Bgktvqm3ZvyMDN9HQ00NiQBzjMDb5o=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hP+n24neaYZprSLT3zscu/3UL5aC3qRPyoKVyQ3W3HW0sxQeNWvIuOZG1OAyipwNW
-	 CxwTkZd6D329g1xe/3gNhiZY6q3pOJhQNl5SVkvDSfUgKU7iiTiUX9nQ5u7n+3fFTU
-	 B5w2e4taUIvmFkr/j0oIKvbyOCIvD3+zpUnmE/5CdVcmM7ATQDmrFPxZA2PACqULg2
-	 9x04CkLhqrf50Be/weijoHbB912KYjmg6bCZMeSBS6swfbJfy1YRBmzgF47HVAg9aq
-	 OvZDyjz+ncj3EHWm+xYUxDpgi3x5tUlwxT1NyJ5LV0sDbjWbGaiHVZuNBy5AKPBodi
-	 JCKwdfeLDVwlg==
-Date: Mon, 29 Jun 2026 16:06:35 -0700
+	b=ot0qqQP/lCjO5k6zzU+QNvbWLaxMC7H+3qFT92VX2UvZABSNZ6N/MA2JGDbKJUoW1
+	 4M3ANFO3DORGIYjuAUU/OKyDgSRndVEow6+eo7gKf5g+h6Nta8gSgEIp649T4tfv2a
+	 8Ktiv40iRLVXohmb+zQ3jkItGTS3vZB6ZyGiV6EAadMM+RSY9n/MsJxwkhpr50kHGz
+	 K31LH0XcB6aN8eoHIi7kAdwqtv4A2jLe1FlUnosYLazPLozsAtx0LBNaD3AJjzlXwS
+	 /WnVFsJ7hsxiDjHHixfIDpBA9qNUdqfbiOjfquNqtwGGDI5/40gxsVd0QLBzUBZA0k
+	 MY+MvMrB9YDBw==
+Date: Mon, 29 Jun 2026 16:15:17 -0700
 From: Jakub Kicinski <kuba@kernel.org>
-To: Jonas Jelonek <jelonek.jonas@gmail.com>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>, Kory Maincent
- <kory.maincent@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S
- . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
- Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Golle <daniel@makrotopia.org>,
- =?UTF-8?B?QmrDuHJu?= Mork <bjorn@mork.no>
-Subject: Re: [PATCH net-next v3 0/2] net: pse-pd: add Realtek/Broadcom PSE
- MCU support
-Message-ID: <20260629160635.489e6779@kernel.org>
-In-Reply-To: <20260628222705.4052815-1-jelonek.jonas@gmail.com>
-References: <20260628222705.4052815-1-jelonek.jonas@gmail.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>, Mark Brown
+ <broonie@opensource.wolfsonmicro.com>, Thierry Reding
+ <thierry.reding@avionic-design.de>, Sebastian Hesselbarth
+ <sebastian.hesselbarth@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Srinivas Kandagatla
+ <srini@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Vinod
+ Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Danilo
+ Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, Saravana Kannan
+ <saravanak@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, Michael
+ Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Andi Shyti
+ <andi.shyti@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, Will
+ Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Doug Berger
+ <opendmb@gmail.com>, Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Ulf Hansson <ulfh@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam
+ <festevam@gmail.com>, Matthew Brost <matthew.brost@intel.com>, Thomas
+ =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>, Rodrigo
+ Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Peter Chen <peter.chen@kernel.org>, Paul Cercueil
+ <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Maximilian Luz <luzmaximilian@gmail.com>, Hans de
+ Goede <hansg@kernel.org>, Ilpo =?UTF-8?B?SsOkcnZpbmVu?=
+ <ilpo.jarvinen@linux.intel.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
+ linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH v2 09/19] net: bcmgenet: use
+ platform_device_set_of_node()
+Message-ID: <20260629161517.34754824@kernel.org>
+In-Reply-To: <20260629-pdev-fwnode-ref-v2-9-8abe2513f96e@oss.qualcomm.com>
+References: <20260629-pdev-fwnode-ref-v2-0-8abe2513f96e@oss.qualcomm.com>
+	<20260629-pdev-fwnode-ref-v2-9-8abe2513f96e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,13 +81,12 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sun, 28 Jun 2026 22:27:02 +0000 Jonas Jelonek wrote:
-> This series adds a PSE-PD driver for the microcontroller (MCU) that
-> fronts the PSE silicon on a range of managed switches, together with its
-> DT binding.
+On Mon, 29 Jun 2026 11:12:32 +0200 Bartosz Golaszewski wrote:
+> +	if (dn) {
+> +		struct device_node *np __free(device_node) = bcmgenet_mii_of_find_mdio(priv);
+> +
+> +		platform_device_set_of_node(ppdev, np);
+> +	} else {
 
-Sorry, but net-next was still closed when you posted.
-It'd be unfair towards those who follow the announcements to consider
-this posting, you'll have to resend.
--- 
-pw-bot: defer
+Please don't blindly use __free() in cases where it's clearly
+unnecessary.
