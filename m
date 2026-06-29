@@ -1,732 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A2340D58C;
-	Mon, 29 Jun 2026 13:51:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B533930B517
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 13:51:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782741064; cv=none; b=Bo9DK2bxWy/YyzkRIBGEbgkWZxhRNJde189/x5TuCxTn5iRUYRvhwJ4Skhq4kecA0/dlWz/SuT26ztJStujsGDXoGRNwRBx0zuJZXyWZW7f75N4kP/c7c7LUbIv74aNvB1uFc4vUCF+9V5PVfiLIdWj2vyiumTMvXxzEBs0GaIw=
+	t=1782741110; cv=none; b=Y6coKT5ugtj3QWCJlyzjMa/juo94FJjcwUsQ1G8bPw+J5YJV8s6AV/HrVYIUEy980bH569d7+NPhFeg0YD/X6mct84IGaEF4xnpsuWlEw16qDQZiMvdIyjkJusJQiqCjwBzR/CT99w9FIu72Wjkf2i+dr6j9dD9l4PvJWZnJALE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782741064; c=relaxed/simple;
-	bh=7aDJtASJ9hni+E01NvEcAX0fBC3PAtusqXbVZp3ROjM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cf0XYaNJlEmVFmNZJXYWVQzQxj+LNnIUh0vDtEsKqdBOQolq9aXr76sUX89McbhOm8y9Pt/jJU+HKDud9k+yq9cZ9VxxsQtuvC4LITaM8hX/n+V1KXaNYPZfxQWfnD0vCNHrPszC4HeeP1E1Z2QbUK68Zd9V34CY+QHNn1MG42k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S4r+4lJ/; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S4r+4lJ/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782741063; x=1814277063;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=7aDJtASJ9hni+E01NvEcAX0fBC3PAtusqXbVZp3ROjM=;
-  b=S4r+4lJ/vTz3SbXISNiNOdpJiicBqNq9RfETwylmqcYuzw4jGG2ghQ57
-   Eq47qbkJFhz0I4VHXXBhEDVmVdo4kD1zUFjAAdHbRvkAqN1V/UWnSDRs2
-   ymyDPx5q2wsIHB60S39TvcRIO8XTXkxooWegTYfv3sNoBGform375+gdx
-   vY9OhkmeFuqV/apPzk+wGJtylqYpumgUC1M9fhK0JABefDgBuXZv1tLfE
-   1s0C3m6mbJI1MvCM1CM7RQN6PQXh44LCrqh02hheYSPmrm9YmHVoZG19e
-   OvVwnzU7vapJZjyv9Zvn/x2n2b069OPc8LkExqtXLGO6KkiNL7+RiDWPb
-   g==;
-X-CSE-ConnectionGUID: g9rpF4HjSXOQOXW6euFj5w==
-X-CSE-MsgGUID: iX+qW8qZTruuPCtOYGEEvw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="83199281"
-X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
-   d="scan'208";a="83199281"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 06:51:02 -0700
-X-CSE-ConnectionGUID: Mf6KdHoBRkO/cx0M3rbehQ==
-X-CSE-MsgGUID: PBk/+bnSSFOwNeNZz0JqRg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; 
-   d="scan'208";a="290084403"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.207])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jun 2026 06:50:58 -0700
-Date: Mon, 29 Jun 2026 16:50:56 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nikhil Gautam <nikhilgtr@gmail.com>
-Cc: linux-iio@vger.kernel.org, jic23@kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, u.kleine-koenig@baylibre.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: magnetometer: add support for Melexis
- MLX90393
-Message-ID: <akJ4QCdhIKpfaNDD@ashevche-desk.local>
-References: <20260627005843.7786-1-nikhilgtr@gmail.com>
- <20260627005843.7786-3-nikhilgtr@gmail.com>
+	s=arc-20240116; t=1782741110; c=relaxed/simple;
+	bh=UvkvBBzeyeMqgudY2G6gDFJg27JiOFKpvozKSRN3iE8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=m23aYSc4TRkJh3JlJ8VZ2uKAoD++H5bqSYwpLwR9ka7kYZhk3RhG6K/oPrOY/7JySYYn/w6DH/HZDk4F3laVni5iRUIS34qBKQyW6030I/CgsMYQBK0urU9Pi+vB+BrPp7osYWQAj4hAESHtXvc65Cf1F4RDN3RQFVFnJuxS0Jc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-59e23d70dfaso1073665e0c.2
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 06:51:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782741108; x=1783345908;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yDPhNjOsxEQ0DHLYZPQfDHuBKCTUhxYTzus1J/5tEMc=;
+        b=B4KKcEVYK694J2ZQfcnZn9HIj15vFsMjBePmNAJZt7w0+H3iV6jk2/vM2yV2g+bI0e
+         ZCW/K4/JQSWu/cxzfwXd0jkkL0Wcq3y4beNFbJ7R5HxP2SHcRjU841qIqqxYzqcOZF71
+         no53VE785+0eXX15p1ESQ6LBdajtxCwNCsL7yRjDulj5oSkQRlc7Yp+CTUzeDJDBFw5s
+         kptFN10+mvVhtJGS0zlb1HKppeQ6t+rk3DghGinUV8C+4hfS4PgPbleWnlPchEkuu1AQ
+         KIU+exdii3mlYv+YQcilxA8uRfBisve0WF6t9oNjNjYr5NpVX5LEzrMSg2C/AtX8X+jL
+         lDvg==
+X-Forwarded-Encrypted: i=1; AHgh+RpHjfOBj+5jqMpda5Z12uepwkonM8sfE+M/xHB6PYnq7gcLBt7liWRDHy+IZ8Rj4pvoFaxgO8GfzczD@vger.kernel.org
+X-Gm-Message-State: AOJu0YzBmhHvaYulmiJsykBo2fWreGOKlF1oOoGW+UUg26n7kyIpvf/n
+	laRve8symj3nqIEST7US5CYHDPTYPzcUOlSexLLavDP+3V8jdeRIf8WSebHjCrjV
+X-Gm-Gg: AfdE7cmCNWYRw8SugOSgqz+bGCU9+ShaDWfq4v840ItVsEDo2be09hxyJIiTZnSYgcl
+	DrhIw+Pr8YLkzoCIbrXAgjGCVa0mMryDvJ0zEfXURQ2iWU8GSMo26hZsgxIIH48fBNBJ9KkbZ/d
+	0WWDNqd8FN1LoT7G9gHVIYfmbElVZ7ePSIRwRYyxXqkkWwYKA9r1TiqItsoQ8LzuwzxHcE4sC4w
+	XkT9EPUq8dCEMTqYwRr77zTZSQkS2OFapO4PYd4c7jfh7YpZxKGIf6UHP3RPVI3jTkOVicCMZEY
+	QmI8z5MI3qoOBncMUJ9XrP+QF2wo3M8o3to+44eixDEWJy3r0HPv+F9vWgapRlIGDLmHSPvj3Wq
+	0HQQrWd0tkWtzMbuBdXEU6Z0jfL9rgG+2p6QhxSYngfenBGc64ZDFwJpRQOKB/KxP/c/70SBbRE
+	Ryajz7iNMnU5UvM9MIatSSIovYgsvjKPHW2Y2jnGGP2/M7uXOLVQ==
+X-Received: by 2002:a05:6122:3488:b0:5bd:b27c:bade with SMTP id 71dfb90a1353d-5bdba970665mr407553e0c.5.1782741107667;
+        Mon, 29 Jun 2026 06:51:47 -0700 (PDT)
+Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com. [209.85.222.49])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bd78c3248esm5710902e0c.0.2026.06.29.06.51.44
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 06:51:44 -0700 (PDT)
+Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-966d4da9fa6so814685241.0
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 06:51:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RofR3z/YyEta1POACiGW7epFMu3PsCXglziFiRfnnhGfSeXOB6ZpfHizmVBhpmtS5jv7RxRLBbt/hK1@vger.kernel.org
+X-Received: by 2002:a05:6102:c93:b0:739:86da:7777 with SMTP id
+ ada2fe7eead31-739fa951f6emr430364137.27.1782741103904; Mon, 29 Jun 2026
+ 06:51:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260627005843.7786-3-nikhilgtr@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260629-qcom-sa8255p-emac-v11-0-1b7fb95b51f9@oss.qualcomm.com> <20260629-qcom-sa8255p-emac-v11-1-1b7fb95b51f9@oss.qualcomm.com>
+In-Reply-To: <20260629-qcom-sa8255p-emac-v11-1-1b7fb95b51f9@oss.qualcomm.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 29 Jun 2026 15:51:31 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXen+E-Ai51aWBa_KV9W8Fz2cQPpT-FG_kQ7akhrrYa_A@mail.gmail.com>
+X-Gm-Features: AVVi8CdHRRLXddfc63bNJYLQ9RF__6zMi6ngPMxYGYM87lHlKy_8kZoakyQBXrY
+Message-ID: <CAMuHMdXen+E-Ai51aWBa_KV9W8Fz2cQPpT-FG_kQ7akhrrYa_A@mail.gmail.com>
+Subject: Re: [PATCH net-next v11 1/7] dt-bindings: phy: document the serdes
+ PHY on sa8255p
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Vinod Koul <vkoul@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Fabio Estevam <festevam@gmail.com>, Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com, 
+	Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, Romain Gantois <romain.gantois@bootlin.com>, 
+	Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
+	Christophe Roullier <christophe.roullier@foss.st.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Radu Rendec <rrendec@redhat.com>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, Drew Fustini <dfustini@tenstorrent.com>, 
+	linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org, 
+	linux-mips@vger.kernel.org, imx@lists.linux.dev, 
+	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	sophgo@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Jun 27, 2026 at 06:28:43AM +0530, Nikhil Gautam wrote:
-> Add Industrial I/O subsystem support for the Melexis
-> MLX90393 3-axis magnetometer and temperature sensor.
-> 
-> The driver currently supports:
-> 
-> raw magnetic field measurements
-> raw temperature measurements
-> configurable gain/scale selection
-> configurable oversampling ratio
-> direct mode operation
+Hi Bartosz,
 
-Can you add '-' or '*' in front of each item in the list?
+Thanks for your patch!
 
-> The MLX90393 supports both I2C and SPI interfaces. This
-> initial implementation adds support for the I2C interface.
-> 
-> The device uses a command-based communication protocol
-> rather than a conventional register-addressed interface.
-> A small transport abstraction layer is therefore used
-> instead of regmap to share the common sensor logic
-> between the current I2C implementation and future SPI
-> support without duplicating code.
+On Mon, 29 Jun 2026 at 13:29, Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
+> Describe the SGMII/SerDes PHY present on the Qualcomm sa8255p platforms.
+> This is essentially the same hardware as sa8775p rev3 but the PHY is
+> managed by firmware over SCMI.
 
-The commit message seems wrapped around 56 characters. We have capacity up to
-~72, please use it.
+So why can't it be reuse the DT bindings, and be compatible with
+qcom,sa8775p-dwmac-sgmii-phy?
 
-...
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-> + * Datasheet: https://media.melexis.com/-/media/files/documents/datasheets/mlx90393-datasheet-melexis.pdf
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/qcom,sa8255p-dwmac-sgmii-phy.yaml
 
-Also add this line as a tag in the commit message (before your SoB).
-
-...
-
-> +#include <linux/array_size.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bitops.h>
-> +#include <linux/errno.h>
-> +#include <linux/delay.h>
-
-+ dev_printk.h // dev_err_probe()
-
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-
-> +#include <linux/types.h>
-> +#include <linux/time64.h>
-
-Please, keep them sorted alphabetically.
-
-> +#include <linux/unaligned.h>
-> +#include <linux/units.h>
-
-
-...
-
-> +struct mlx90393_data {
-> +	/* Protects sensor configuration and measurement operations */
-> +	struct mutex lock;
-> +	struct device *dev;
-
-You need a forward declaration for struct device.
-
-> +	void *bus_context;
-> +	const struct mlx90393_transfer_ops *ops;
-> +	u8 gain_sel;
-> +	u8 hallconf;
+> +  power-domains:
+> +    maxItems: 1
 > +
-> +	u8 res_xy;
-> +	u8 res_z;
-> +
-> +	u8 dig_filt;
-> +	u8 osr;
-> +	u8 osr2;
-> +};
-
-...
-
-> +/* Datasheet: Table no.17 */
-> +static const int mlx90393_scale_table[MLX90393_AXIS_MAX][MLX90393_GAIN_MAX]
-> +				      [MLX90393_RES_MAX] = {
-
-Not good indentation. Just make it
-
-static const int mlx90393_scale_table[][MLX90393_GAIN_MAX][MLX90393_RES_MAX] = {
-
-which is precisely a single line.
-
-> +	/* XY axis */
-> +	{
-> +		{ 751, 1502, 3004, 6009},
-> +		{ 601, 1202, 2403, 4840},
-> +		{ 451, 901, 1803, 3605},
-> +		{ 376, 751, 1502, 3004},
-> +		{ 300, 601, 1202, 2403},
-> +		{ 250, 501, 1001, 2003},
-> +		{ 200, 401, 801, 1602},
-> +		{ 150, 300, 601, 1202},
-> +	},
-> +	/* Z axis */
-> +	{
-> +		{ 1210, 2420, 4840, 9680},
-> +		{ 968, 1936, 3872, 7744},
-> +		{ 726, 1452, 2904, 5808},
-> +		{ 605, 1210, 2420, 4840},
-> +		{ 484, 968, 1936, 3872},
-> +		{ 403, 807, 1613, 3227},
-> +		{ 323, 645, 1291, 2581},
-> +		{ 242, 484, 968, 1936},
-> +	}
-
-Keep trailing comma(s) for non-terminator entries.
-
-> +};
-
-...
-
-> +#define MLX90393_CHAN(idx, axis, addr) { \
-> +	.type = IIO_MAGN, \
-> +	.modified = 1, \
-> +	.channel = idx, \
-> +	.address = addr, \
-> +	.channel2 = IIO_MOD_##axis, \
-
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |	\
-> +		BIT(IIO_CHAN_INFO_SCALE), \
-
-It's harder to read, make it either
-
-	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |	\
-			      BIT(IIO_CHAN_INFO_SCALE), \
-
-or (which is also my preference)
-
-	.info_mask_separate = \
-		BIT(IIO_CHAN_INFO_RAW) |	\
-		BIT(IIO_CHAN_INFO_SCALE), \
-
-Do it for all such cases.
-
-> +	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),\
-> +	.info_mask_separate_available = \
-> +		BIT(IIO_CHAN_INFO_SCALE),  \
-> +	.info_mask_shared_by_type_available = \
-> +		BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO), \
-> +}
-
-...
-
-> + * Datasheet: Table 8, Page no. 12
-
-If Table has a title, also mention it here
-
-		Table 8 "...title of the table..."
-
-in such a case the page reference most likely may be dropped.
-Same comment for all the similar cases.
-
-...
-
-> +static int mlx90393_get_tconv_us(struct mlx90393_data *data)
-
-Can it return negative? What will be the meaning?
-
-> +{
-> +	const int osr = data->osr;
-> +	const int osr2 = data->osr2;
-> +	const int df = data->dig_filt;
-
-> +
-
-No blank line in the definition block.
-
-> +	int tconvm;
-> +	int tconvt;
-> +
-
-Ditto, and why are tconv* signed?
-
-> +	int m = 3; /* X,Y,Z */
-> +
-> +	/*
-> +	 * TCONVM = 67 + 64 * 2^OSR * (2 + 2^DIG_FILT)
-> +	 */
-> +	tconvm = 67 + (64 * BIT(osr) * (2 + BIT(df)));
-> +
-> +	/*
-> +	 * TCONVT = 67 + 192 * 2^OSR2
-> +	 */
-> +	tconvt = 67 + (192 * BIT(osr2));
-> +	/*
-> +	 * Total conversion time:
-> +	 * TSTBY + TACTIVE + m * TCONVM + TCONVT + TCONV_END
-> +	 */
-> +	return 220 + 360 + (m * tconvm) + tconvt + 120;
-> +}
-
-...
-
-> +static int mlx90393_xfer(struct mlx90393_data *data,
-
-> +			 const u8 *tx, int tx_len,
-> +			 u8 *rx, int rx_len)
-
-The last two lines may be joined.
-
-
-> +{
-> +	return data->ops->xfer(data->bus_context, tx, tx_len, rx, rx_len);
-> +}
-
-...
-
-> +static int mlx90393_update_bits(struct mlx90393_data *data, u8 reg,
-> +				u16 mask, u16 val)
-> +{
-> +	u16 reg_val;
-> +	int ret;
-> +
-> +	ret = mlx90393_read_reg(data, reg, &reg_val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	reg_val &= ~mask;
-> +	reg_val |= (val << __ffs(mask)) & mask;
-
-Isn't it field_prep() reinvention? (Note small letters in the name!)
-
-> +	return mlx90393_write_reg(data, reg, reg_val);
-> +}
-
-...
-
-> +	/* Wait conversion */
-
-	/* Wait for conversion to be done */
-
-("wait for" is an English stanza that in great majority of the cases is used).
-
-> +	fsleep(mlx90393_get_tconv_us(data));
-
-...
-
-> +static int mlx90393_find_scale(struct mlx90393_data *data, bool z_axis,
-> +			       int val, int val2,
-> +			       int *gain)
-> +{
-> +	u8 res;
-> +	enum mlx90393_axis_type axis;
-
-Prefer reversed xmas tree order.
-
-> +	if (z_axis) {
-> +		axis = MLX90393_AXIS_TYPE_Z;
-> +		res = data->res_z;
-> +	} else {
-> +		axis = MLX90393_AXIS_TYPE_XY;
-> +		res = data->res_xy;
-> +	}
-
-> +	if (val != 0)
-> +		return -EINVAL;
-
-This doesn't use res or axis, move it above.
-
-
-> +	for (unsigned int i = 0; i < ARRAY_SIZE(mlx90393_scale_table[0]); i++) {
-
-Use [axis] instead of [0] for the consistency's sake.
-
-> +		if (mlx90393_scale_table[axis][i][res] == val2) {
-> +			*gain = i;
-> +			return 0;
-> +		}
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-
-
-> +static int mlx90393_set_scale(struct mlx90393_data *data,
-> +			      const struct iio_chan_spec *chan,
-> +			      int val, int val2)
-> +{
-> +	bool z_axis;
-> +	int gain;
-> +	int ret;
-
-> +	z_axis = chan->channel2 == IIO_MOD_Z;
-
-Can we rather split _find_scale() to two and replace this with
-
-	if (chan->channel2 == IIO_MOD_Z)
-		ret = mlx90393_find_z_scale(data, val, val2, &gain);
-	else
-		ret = mlx90393_find_xy_scale(data, val, val2, &gain);
-
-? I believe it will be less LoC.
-
-> +	ret = mlx90393_find_scale(data, z_axis, val, val2, &gain);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = mlx90393_update_bits(data, MLX90393_REG_CONF1, MLX90393_CONF1_GAIN_SEL,
-> +				   gain);
-> +	if (ret)
-> +		return ret;
-> +
-> +	data->gain_sel = gain;
-> +	return 0;
-> +}
-
-...
-
-> +static int mlx90393_find_osr(int val, int *osr)
-> +{
-> +	for (unsigned int i = 0; i < MLX90393_OSR_MAX;  i++) {
-
-One space too many.
-
-> +		if (mlx90393_osr_avail[i] == val) {
-> +			*osr = i;
-> +			return 0;
-> +		}
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-
-...
-
-> +static int mlx90393_set_osr(struct mlx90393_data *data, int val)
-> +{
-> +	int osr;
-> +	int ret;
-> +
-> +	ret = mlx90393_find_osr(val, &osr);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (osr == data->osr)
-> +		return 0;
-> +
-> +	ret = mlx90393_update_bits(data, MLX90393_REG_CONF3, MLX90393_CONF3_OSR,
-> +				   osr);
-
-Just make line longer, in this case it will be better to read in my opinion.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	data->osr = osr;
-> +	return 0;
-> +}
-
-...
-
-> +static int mlx90393_set_temp_osr2(struct mlx90393_data *data, int val)
-> +{
-> +	int ret;
-> +
-> +	if (val < 0 || val >= MLX90393_OSR2_MAX)
-> +		return -EINVAL;
-> +
-> +	if (val == data->osr2)
-> +		return 0;
-> +
-> +	ret = mlx90393_update_bits(data, MLX90393_REG_CONF3, MLX90393_CONF3_OSR2,
-> +				   val);
-
-Ditto.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	data->osr2 = val;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int mlx90393_write_raw(struct iio_dev *indio_dev,
-> +			      const struct iio_chan_spec *chan,
-> +			      int val, int val2,
-> +			      long mask)
-> +{
-> +	struct mlx90393_data *data = iio_priv(indio_dev);
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE: {
-> +		guard(mutex)(&data->lock);
-> +		return mlx90393_set_scale(data, chan, val, val2);
-> +	}
-
-> +
-
-Be consistent with the style of switch-case. Either add blank lines in all of
-them in all cases, or drop everywhere.
-
-> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
-> +		guard(mutex)(&data->lock);
-> +		switch (chan->type) {
-> +		case IIO_TEMP:
-> +			return mlx90393_set_temp_osr2(data, val);
-> +
-> +		case IIO_MAGN:
-> +			return mlx90393_set_osr(data, val);
-> +
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +	}
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-...
-
-> +static int mlx90393_read_raw(struct iio_dev *indio_dev,
-> +			     const struct iio_chan_spec *chan,
-> +			     int *val, int *val2, long mask)
-> +{
-> +	struct mlx90393_data *data = iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW: {
-> +		guard(mutex)(&data->lock);
-> +		ret = mlx90393_read_measurement(data, chan->address, val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		return IIO_VAL_INT;
-
-> +		}
-
-Misindented.
-
-> +	case IIO_CHAN_INFO_SCALE:
-> +		switch (chan->type) {
-> +		case IIO_MAGN:
-> +			return mlx90393_get_scale(data, chan, val, val2);
-> +
-> +		case IIO_TEMP:
-> +			/*
-> +			 * Datasheet Table 7: Thermal Specification
-> +			 */
-> +			*val = 0;
-> +			*val2 = 22124;
-> +			return IIO_VAL_INT_PLUS_MICRO;
-> +
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +
-> +	case IIO_CHAN_INFO_OFFSET:
-> +		if (chan->type != IIO_TEMP)
-> +			return -EINVAL;
-
-> +		/*
-> +		 * Datasheet Table 7: Thermal Specification
-> +		 */
-
-This is a single line comment.
-
-> +
-
-This blank line should be before the comment and not after.
-
-> +		*val = -45114;
-> +		return IIO_VAL_INT;
-> +
-> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-> +		switch (chan->type) {
-> +		case IIO_TEMP:
-> +			return mlx90393_get_temp_osr2(data, val);
-> +		case IIO_MAGN:
-> +			return mlx90393_get_osr(data, val);
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-...
-
-> +static int mlx90393_read_avail(struct iio_dev *indio_dev,
-> +			       const struct iio_chan_spec *chan,
-> +			       const int **vals,
-> +			       int *type,
-> +			       int *length,
-> +			       long mask)
-> +{
-> +	struct mlx90393_data *data = iio_priv(indio_dev);
-> +	static int scale_avail[MLX90393_GAIN_MAX][MLX90393_AXIS_MAX];
-> +	enum mlx90393_axis_type axis;
-> +	u8 res;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE: {
-> +		guard(mutex)(&data->lock);
-> +		axis = chan->channel2 == IIO_MOD_Z;
-> +		res = axis ? data->res_z : data->res_xy;
-
-		res = chan->channel2 == IIO_MOD_Z ? data->res_z : data->res_xy;
-
-This fits a single line, no axis variable is needed.
-
-> +		for (unsigned int i = 0; i < MLX90393_GAIN_MAX; i++) {
-> +			scale_avail[i][0] = 0;
-> +			scale_avail[i][1] =
-> +				mlx90393_scale_table[axis][i][res];
-> +		}
-> +
-> +		*vals = &scale_avail[0][0];
-> +		*type = IIO_VAL_INT_PLUS_NANO;
-> +		*length = MLX90393_GAIN_MAX * MLX90393_AXIS_MAX;
-> +		return IIO_AVAIL_LIST;
-> +	}
-> +
-> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-> +		if (chan->type == IIO_TEMP) {
-> +			*vals = mlx90393_osr2_avail;
-> +			*type = IIO_VAL_INT;
-> +			*length = MLX90393_OSR2_MAX;
-> +		} else {
-> +			*vals = mlx90393_osr_avail;
-> +			*type = IIO_VAL_INT;
-> +			*length = MLX90393_OSR_MAX;
-> +		}
-> +		return IIO_AVAIL_LIST;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-...
-
-> +static int mlx90393_init(struct mlx90393_data *data)
-> +{
-> +	int ret;
-> +	u16 reg;
-> +
-> +	/* Exit mode */
-> +	ret = mlx90393_write_cmd(data, MLX90393_CMD_EX);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * Datasheet section 15.4.1.2 (RT command), Figure 16:
-> +	 * Wait 1 ms after EX command before issuing RT.
-> +	 */
-> +	fsleep(1 * USEC_PER_MSEC);
-> +
-> +	/* Reset device */
-> +	ret = mlx90393_write_cmd(data, MLX90393_CMD_RT);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * Datasheet section 15.4.1.2 (RT command), Figure 16:
-> +	 * Wait 1.5 ms for the start-up sequence to complete.
-> +	 */
-> +	fsleep(1.5 * USEC_PER_MSEC);
-
-He-he, this is a float number. While it might work, it's better to use integer
-numbers. Yeah, for the sake of consistency the above also better with 1000.
-
-> +
-> +	ret = mlx90393_read_reg(data, MLX90393_REG_CONF1, &reg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	data->gain_sel = FIELD_GET(MLX90393_CONF1_GAIN_SEL, reg);
-> +	data->hallconf = FIELD_GET(MLX90393_CONF1_HALLCONF, reg);
-> +
-> +	ret = mlx90393_read_reg(data, MLX90393_REG_CONF3, &reg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	data->res_xy = FIELD_GET(MLX90393_CONF3_RES_X, reg);
-> +	data->res_z = FIELD_GET(MLX90393_CONF3_RES_Z, reg);
-> +	data->dig_filt = FIELD_GET(MLX90393_CONF3_DIG_FILT, reg);
-> +	data->osr = FIELD_GET(MLX90393_CONF3_OSR, reg);
-> +	data->osr2 = FIELD_GET(MLX90393_CONF3_OSR2, reg);
-> +
-> +	return 0;
-> +}
-
-...
-
-> +#include <linux/array_size.h>
-> +#include <linux/errno.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/mod_devicetable.h>
-
-+ types.h // uXX
-
-...
-
-> +	struct i2c_client *client = context;
-> +	int ret;
-> +	struct i2c_msg msgs[2] = {
-
-Keep reversed xmas tree order.
-
-> +		[0] = {
-> +			.addr = client->addr,
-> +			.len = tx_len,
-> +			.buf = (u8 *)tx,
-> +		},
-> +		[1] = {
-> +			.addr = client->addr,
-> +			.flags = I2C_M_RD,
-> +			.len = rx_len,
-> +			.buf = rx,
-> +		},
-> +	};
-
-...
-
-> +	ret = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
-> +	if (ret != ARRAY_SIZE(msgs))
-> +		return ret < 0 ? ret : -EIO;
-> +
-> +	return 0;
-
-Do it in a regular pattern
-
-	if (ret < 0)
-		return ret;
-	if (ret != ARRAY_SIZE(msgs))
-		return -EIO;
-
-> +}
-
-> +static struct i2c_driver mlx90393_i2c_driver = {
-> +	.driver = {
-> +		.name = "mlx90393",
-> +		.of_match_table = mlx90393_of_match,
-> +	},
-> +	.probe = mlx90393_i2c_probe,
-> +	.id_table = mlx90393_id,
-> +};
-
-> +
-
-Redundant blank line.
-
-> +module_i2c_driver(mlx90393_i2c_driver);
+> +  power-domain-names:
+> +    items:
+> +      - const: serdes
+
+> +examples:
+> +  - |
+> +    phy@8901000 {
+> +        compatible = "qcom,sa8255p-dwmac-sgmii-phy";
+> +        reg = <0x08901000 0xe10>;
+> +        #phy-cells = <0>;
+> +        power-domains = <&scmi7_dvfs 0>;
+> +        power-domain-names = "serdes";
+
+Ah, this uses power-domains, while the existing bindings for
+qcom,sa8775p-dwmac-sgmii-phy use a clock.
+I guess the clock is the correct hardware description?
+
+Adding to my list of examples for backing a hardware-to-SCMI remapping
+driver...
+
+> +    };
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
