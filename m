@@ -1,277 +1,210 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012063.outbound.protection.outlook.com [52.101.53.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21C12D3A7C
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 03:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782705250; cv=none; b=EQ14CS+vnU9XmueN89q+nZijhUWo5t9a0Ik1lDy/YuNyE0uSphKSWF2sGH90gU9XRC6ANoSqXWfD8Pt87OGnMiY4AM47syeDqNI7ko762sgdR5dMDyrayyiEpwBtezcVmOm6yfzPlYIAnQy5P2BRyDb3snklfsF1Il1YbWpby9I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782705250; c=relaxed/simple;
-	bh=5umHZV3H/ot1rNNXhRIqLlTbIixDu6He53sSu2yb9LU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qDeO2jvaTEU7eiBZBpe5GWjU4UGfNo6XfVm0XC2qGIH2of8vF2btLaHjd8XShovB6SAURQNZXKhtgzkDNNJTBWEGfx9k/9n7yQi22ZTldv2B/TqCiHwii6RzBFV30MfI2/Zp4eDM/zVRWg4PtuIVR+WvazmoUo+AZg/Nw4bgd1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HRhUYCbJ; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A014A32;
+	Mon, 29 Jun 2026 04:03:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.63
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782705801; cv=fail; b=oNRDVureV0Ewf7kZ3fhAE17zVced7DSu2FsffwpmgY8IAjcbwByC+iR+ricXXprevChbZCd4rCtHwAtK+R4vs2GmGQKPJrc8yLp9xyjUvNB/c5MqqasO/vGATCCpszlQANfNZ8iQeN6dYsSAEmHX0gkiA5D/WYFQcRj/xiYRKvc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782705801; c=relaxed/simple;
+	bh=uuhx4EVneepgnyPO//NMysgpZZx+64YXntXeHjkjfEM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UpejO7IjjeqIfkPwU8a+DGAiif35lnntmdRg046o8OCX3XDfXplwRMi6YFFMd0UOFCSeaLpABlO0K+8BnZ5LjxMWanQzslrtnqK94kqKwsDcqahld82VJKekVd9HAHwG6EaQ7egGG9fSHpBvH5n950XwsYE6G6h1oez1++YsIXw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=tsHHYF4+; arc=fail smtp.client-ip=52.101.53.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HRhUYCbJ"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2c99672293cso12229525ad.2
-        for <devicetree@vger.kernel.org>; Sun, 28 Jun 2026 20:54:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782705248; x=1783310048; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LFFcFveTYAjTv+ZdiJ5NifJ7wIuGpllPfX6b0xg96Fk=;
-        b=HRhUYCbJxlktNk0URRPUqLiVZZ2sGfmMQTj5K8UxphFoxnlFTftlpjrS9fcHXfF84n
-         WA9N0l1sb2+OT1KxNAGGaUCJNnOSwscLvpSrx5nyt8NV7kU1TmQsVDpHVqfJyurkSW1B
-         kfXSWqP2BgOuuJxld5g7xkDi9u31fAAVmgA6pqr0uUAaHflntLHk2ZxJ0dqSk/Zw2OGB
-         yIl5XHlqaQ+3tetUPYxGH8xLcBdTgHJbSQbXVTJeaTV7X+Tl6KZaOA/VCyWm8JwQHLlM
-         fFC+EVmAfY4FVqR1UuRpV8cD7okAm7BagUo3hi63MCNcfzm7off/UTl+iIVzU9cnd7af
-         Y/qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782705248; x=1783310048;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=LFFcFveTYAjTv+ZdiJ5NifJ7wIuGpllPfX6b0xg96Fk=;
-        b=GVEDU2Dp1uydP7JB11y8lkkrss8urjxYQvBTya6M4U1nED9KkJTrm3eONyYLrIb0FT
-         Fx83Fv7XcZ8gNJh9pddRn7Lr1f2/xLw/oFW8XaHue/N7GUA2hh56T48IxBZoMbEYGsxG
-         GcG5RDgPPJVqS3eyxtvvcGdUnsLRM7cAHOABS2KgJEib/DibJL8j/6ksXgUGhceHXf9X
-         e+4xocBlO8xR6JIXPGLBqN+4l8p7LmqgdHkkD73et1VcFeZ4yXeUlLwijWA1z9db/TGX
-         qsERAA8ftpYzbawOoEZydkSOQnq+AnYXAn4Dby9WpSM0XjUoBGPNjtCmoyrydHWX+1aE
-         LT2w==
-X-Forwarded-Encrypted: i=1; AHgh+RocfF/T8vQe08kov7DUk6tUCygPj8T8ecam23aAtnhZGfgYCtatF5jmi3aSIVHQx87KofBpcmbNBqSr@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBuDKDWafgMbd2BUKvIiELU04sJhs103gbqt1AXFiBeD3VyO2p
-	UAVB48xvO117+kwOR+WxtpI5H16k2cxJzpPEnphq2MPjRZM3BavUHE+t
-X-Gm-Gg: AfdE7cnU7Ylj7uvwVUoVLbDFWfmowNpmMoelEqAVBhwWz2J0Bx/0WmNgdzMKTMNNMnE
-	7hDyrJCTDSqIkPzkKVYzeeaSDwUmYP7paX4mkyFymSLnimynBMNmlZ7TKz9nkTcsSijYp4SRID+
-	eCjQ58Esoc/5B5oXLIY0qpieaX48s0cWuUz7DXzPCaE9sLTY6QGdqv10TTWg/Mrj8quX2f18cC8
-	Q7w1JV2CvnzT7LVDiQbJtKiHvdh1/ol2pbQTt5365NlVajiBOI+N3QesZBspPB4SdLWaokBw3bj
-	2kA6XPsyFoCjiQgbKO+NSr3wDMPAfAAv2XSRMbhXSKA6FyHSHGr/t4F1lNHl4/hOx+UhopVfatn
-	qF6Y3QE0dbAMg8dKHFnIy5EragpfQUsYmZii3RiOOy66ZDphnikhRECztkQ/Rk34yEI+Kd1RCJH
-	wsGMB9Qf8daN2MBd2gwkNMYVSywdGu12nr6jWAqc7jTSgTR2Nc7e9iwgnRZydam4BAa1du+GUi9
-	p7Q
-X-Received: by 2002:a17:903:244f:b0:2ca:b8d:e65f with SMTP id d9443c01a7336-2ca0b8de994mr9096045ad.1.1782705248120;
-        Sun, 28 Jun 2026 20:54:08 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c9b1b02f8esm36341435ad.71.2026.06.28.20.54.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 28 Jun 2026 20:54:07 -0700 (PDT)
-Message-ID: <abe52380-dbb9-49e1-b93b-ab4aca9105b6@gmail.com>
-Date: Mon, 29 Jun 2026 11:54:03 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="tsHHYF4+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L1tUV5KSDgHSfMMM+Al/lRAtxG7fRuR02ryamSpIEdh1R7Tvro8Qqe54TZUvfVf9oxk6x/mqyHMwJ5fJSDsHtFHS4eGxnCENM1sdfCrf5/uGViE6F3uzBNy6QeJn3Q3FkGPQQyv8tj0OWyLl97uTZq9tOD4dy8u53BBypOZcZPWc0CSzT6ReiOyrCHkD+XmFCETtWSzW/Qgxz08s49OTf9sZusq13wSk/OhgO1xAItyXncU++i29f0fpgiV+uD7hlXKbfwu5a3qi4Wq+dUddYNAE/rdCvs+qQnkB3aLVsHIIr5eVIe620P76JS69vImJ8riDA7t5dXCm/4w8X4hP3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uuhx4EVneepgnyPO//NMysgpZZx+64YXntXeHjkjfEM=;
+ b=azveEOKTVnpdgkYPn16PhY5yP7ifnHT5cltjD4zIDESYyzaE17Lc6ejHxftYSNlthBy3uO65Tcf4mMfkSQawT25UYh+9kEGoiIUMpnnKP6b3iwe2l9El39XlYKk+AkGt6Ans0RiEB4fS7Rl7IIyu4UdlC2jj2zNkJFBgVxJR8llnQihTqJXqb21UQidI2f9Ux4eD40NHBKmhwtpEisNKVN8NT65tAuggPrWVgE9faszD0mgDRqNs5Hkno7YY7OrXEVjOS+MwzI5b8e8gNbX4RLbIyJ7YwC/KDlcRhR7RUUOBZTWfmq96EvmE5X4UB3gNnoCFUMh6PgEHs+ftHLMaJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uuhx4EVneepgnyPO//NMysgpZZx+64YXntXeHjkjfEM=;
+ b=tsHHYF4+kTVou0V3FK3eKvpFmgZRvKc9a5QsozBahR7cKHXEpq6/lTz2H92cMlvKM/CxVvACCx7FIHhCs5syq0wFWUwFfPayDNSYe/jF0KirG5p434vLDJvFqQBlF/qDivgjsjJhvna4zYUQ3j/nHYkuOTRd6PFblSlDz4XchdEAxEfhIXRKtr6wy+8/KQuMSs5MhWJ5CV09pJGJ77qSTwjtkVYT0cd+nNqWxWfKJ43Z/vbSaJMZZXb7ups4MblIFtEOjJ9SWJQtXYOt3XR63nQWQrJ+JV+gHpDTDWIhcsOAeHhAjum2anRfINYpXBlx4R/I61oQ8QltDBVgPUn6gQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by PH8PR12MB7157.namprd12.prod.outlook.com (2603:10b6:510:22b::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Mon, 29 Jun
+ 2026 04:03:12 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 04:03:12 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH 2/4] dt-bindings: display: tegra: Add channel/syncpoint range
+ properties
+Date: Mon, 29 Jun 2026 13:02:59 +0900
+Message-ID: <xLshrt-qQoOT-VB3QjfvBA@nvidia.com>
+In-Reply-To: <20260626-sceptical-aardvark-from-mars-cedf81@quoll>
+References:
+ <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
+ <Np88My8kTE-rRphOw0a-Ew@nvidia.com>
+ <20260626-sceptical-aardvark-from-mars-cedf81@quoll>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TY6PR01CA0036.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bd::10) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/7] drm/verisilicon: add DC8000 (DCUltraLite) display
- controller support
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260625094449.708386-1-a0987203069@gmail.com>
- <20260625094449.708386-6-a0987203069@gmail.com>
- <39e7d0426d1690ccfc8dbcfc77e7440bc5c9a725.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <39e7d0426d1690ccfc8dbcfc77e7440bc5c9a725.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|PH8PR12MB7157:EE_
+X-MS-Office365-Filtering-Correlation-Id: 394fc545-9a4a-4c36-f3d0-08ded593564e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|10070799003|23010399003|6133799003|18002099003|22082099003|4143699003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	+dTXg/OvSTdj6VxJTnX5HM3izgXDFc4QjwebCn0DsGa9Gn5KFeC06bCJKs4S2XltRyBqRJDJtwCQmGNzsdlaCM9/jPKdU9LDc11wM0baiE/3hakyYUoQPqLnWxHFegh01OslsPQHtxTf/Hlc8HBJqeXOeFRBv5dv6sYVgGw5RmvJ632cLQ59t6IVixy+A1ofDINyZGuKE+L8RKXZA5D0movze7Yl4fge7OPb8q5ugBczQDzWwPr1C4sBP6plAU+lggtq2g9v6YkKlCInxtCj1Oq4l93r0TpQ9KeC8gKdMRdQmQ8s76wVPGFQ2Gu11KtfaB7Gv/02UtfK1A8zG2JnRAoik3OX+E6PrFLaZsxaZlHDkyBWnPhGGjJ0XpwvsA/Brs1pReUSVupNsUdGakbDXcF/UkPfy4olfKUNjvYE1fY2vG+lxJbl87hE/LH1OtE8w7qd87Dw9IfHK4pBNgxDyVhIWLT1aYhUHH+hHlxHpIspTkjmkbKdPkbUpUyj2tnGleej25WpOx3tZVct8zBttgUqDLC8gHiF0DDwPbLAqpYIMSbmu2ZwFb0tE+8tOGVOnh5m1PLcmzlz0s11v6R8Hda7a/AgIMz5/BUYGASRuad/R9HW3HHE2GVdSMb1FnJsMxc+lE/fVAtjZACXfW7VoKbCDRl65QTCkMK4ytncUEs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(10070799003)(23010399003)(6133799003)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WDRaSkJUaXdKRkdyNDBBUXZ1aWd6dGZoS3hESHpVSWl1VDd4UTB4bnJRRFBI?=
+ =?utf-8?B?dk9ZWkhieTJZUGZFQWhWT1pHUERtbUdCT3J5SkJuWHJCWEdiTHFSNG9hYVYv?=
+ =?utf-8?B?NDBkZ3EyWWFtc0RQVTdZWDRmSnZFdWp0QXpLLzBiWThaTVpid1pGZStJTmtv?=
+ =?utf-8?B?bHp3SUtERVpYZlp4TzZqdG9oUmdLbEZtK1hIb2NsRHNWVnFCNXV5SnFIcGNn?=
+ =?utf-8?B?eWhYajN3dXRBRDd2cm85aFFHNUpRY2xKTkJ6cHYvdFg5aFVUWXhUU3FmOFZs?=
+ =?utf-8?B?Sk9XKzRtWGs0amVHZ1ZaTTdhOVRkR2toU3RFTHhyU2xkcGdURTdQaE5COUZP?=
+ =?utf-8?B?WUVqR2ZoaG1BRkxSc24rOWZPSmpFNEJxMmRSd2tXV011K1pPSG9yNUZKQ1Bl?=
+ =?utf-8?B?V215SHBVaXRtL2hQRzNzclVvR0FaUnNGMXQvWDNDZFc3RjdZVTUxNHRVd0p6?=
+ =?utf-8?B?UVZqR3pyN0xVSHhKd2g5eDUxZDI2YVFUY0RhM3F2NXhpdUtSN1UzbWM0TnIw?=
+ =?utf-8?B?RG5LeWpsekVMQWlQOGhyTkRnZWNlcDV5ME1YSEVoSVNWYnY1MjZONTk1YXF4?=
+ =?utf-8?B?UTh3bzFpeGxMUjM0Y21wd1U3bXR4cUI0MGdEK1dMS1Nlc0NpWDh4TXhZbzdI?=
+ =?utf-8?B?ZFR1V3RFZ2dURWRWNEd1ZmRsZVkxdXJhQXJoTlBoR2s0TjlaQkZ5cmJRMTFz?=
+ =?utf-8?B?dkVETWsyaGtJNXM4cExwSUhMbGNTejZXRXlUcmRXUmVvcnlOTy9lVUNlVnha?=
+ =?utf-8?B?R1Z6TUZsZlpoWmZCQUhzWHc4cm5vRllpM2xMTURQYm81K0xPVEw1OXBCZEcz?=
+ =?utf-8?B?Y043WUpERHF3UUhBT1N1YmE1U1pNTHFTTG90SVdjaklTTHQ0UzR2MTVHMkFK?=
+ =?utf-8?B?VFJ3dzd0cmlYajAwZGhXZW16bFlkdE1rQk9wbU1yTWlKTWVTSGl1dUtxalBk?=
+ =?utf-8?B?WEVEbktyZHJNZHFDRHJPN2FncWF6NHZ3SGx4dE5ybVh3RUVCNFlQRzNjWEtX?=
+ =?utf-8?B?Qmg1RjhCeEJLd0hUNzlLSWpkN250d3dQWDhBK0FrR3JqaWQwU2JCbTNMUnhN?=
+ =?utf-8?B?cHFobDAvT2MwMVZQK3lML0MrYkh4WjJaWVN0ZlVpQXJuZm9jbEF1ZGM1cm1W?=
+ =?utf-8?B?WXpOeXpaaHViTG0wV2l6V0tZY0FLR1g1UVB6Qk0wbWI5aVMzZjN3ZEQwMzFT?=
+ =?utf-8?B?RzJ0MzRlNEM4RDBpWVhRVjRocXoyRlF3RGFobmtNOCtCbTlYRVBNSnJndzNi?=
+ =?utf-8?B?dVBwZ0hFd2x4djRySU14Q1JzSWFUT2VibWJHc1pPOE5vaFJsWHdPUGZsWVNk?=
+ =?utf-8?B?dXlJNy9XNFFaMEcyWGp4NGVOZW9lSGwrUURZamZ0Wk0zOTVzd0VXOHY1Smdo?=
+ =?utf-8?B?d291WUNwdEtoTHFUTVVOejEvb08yUVhxcHducjlaQUtORFdVbzJvSHJjRVM3?=
+ =?utf-8?B?NTBGcFRyYU9hMVRTNFFVMlRieHdBVkFOTldSTk81Y0VzVDNJbGJZMFlBcmtU?=
+ =?utf-8?B?emZDQ1E4ZVJwUk40NGk3TmhSV2ZkN01LRGppR05uQzhPdXlib25kOHpMNGpY?=
+ =?utf-8?B?R1JQR1I5L0tWUzdIdmZVKzRaU29lbTVrOXFta3VXRkFPRnVycDh2OStyamxK?=
+ =?utf-8?B?Q2lPVlE5bWJ1d3Jwb25LTk9GYWtmeUhuWU5aSWVRbG52OUI2dzlzb0JMcUFK?=
+ =?utf-8?B?T05NV1NQemQySXRYalEvdGJIY1JqNjZ5ci9qbjUxRk9UV2tjZzN5NTlUVUNh?=
+ =?utf-8?B?MEV4YURLa2I3VFN3ZnREM2N4WVJTTVVzUDZIS2NyamdmUS9BTnczVkVlSnZY?=
+ =?utf-8?B?L00wLzVBSWhUcG1odWw3U1JhbFA3NDBZa2VXZUdUeFpkMlY1bjQ3NTg0ZEpG?=
+ =?utf-8?B?Nk9hMVd2RlV0eEhrWTFqdy9Calk3YlpvUTdITzBBSmtYZWdMVnpwTWw1dDBm?=
+ =?utf-8?B?QStma3Ftalg0Ukl5TjVneUdGdVhKaGpaRHhFamYwMlI1YkdQaktxSDNCcTBS?=
+ =?utf-8?B?SmdrZFh4ZzJnS2cxa01INTBvY1VLVVI2S2cwaEVmWkJFWVhhL09JZW5XMmh4?=
+ =?utf-8?B?ajFHWHlkRGlUdHF6VUpSSU9IUHozTDF4c1I1cCtxcCtsdUhpWUhya2x0WWhw?=
+ =?utf-8?B?cml5Z3ZqTy84UjdqYlR4ckYzRm5zQTJBWmNMZVpVdUc2aTNIMDNydjJaM1I3?=
+ =?utf-8?B?OWxEdE0rWUdvR1lKV2hJc0RnVDNwSDhQNG5pSmJmK01ZNHRzYitUOVZHaC85?=
+ =?utf-8?B?b2p4Z3ZoKy82RzZrUkE4OWhHd3ExYVRRTXVUMCt3SXVETzdndFNSc1dXWVM2?=
+ =?utf-8?B?NEFjWVB5Qitud0ljblVsakRWRkpPbVNITXo3RUtZS29sNng3RVNXdWtPckpF?=
+ =?utf-8?Q?yh8dCdjwaS8jo7xdAFp+qeoOBW3yRB2WjqcAsYjsZN5Dw?=
+X-MS-Exchange-AntiSpam-MessageData-1: YRFQla8PuuP1Tg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 394fc545-9a4a-4c36-f3d0-08ded593564e
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 04:03:12.0654
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pT2/fvx/10eSZptM0L8n89tUBCTWWt2l1GfqtIs0YnzQFk7xwv3W7nghdIDb+socdQgqjqCZ0lv7KFpXFq+iaw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7157
+
+On Friday, June 26, 2026 7:26=E2=80=AFPM Krzysztof Kozlowski wrote:
+> On Thu, Jun 25, 2026 at 06:26:43PM +0900, Mikko Perttunen wrote:
+> > On Thursday, June 25, 2026 5:36=E2=80=AFPM Krzysztof Kozlowski wrote:
+> > > On Mon, Jun 22, 2026 at 05:22:51PM +0900, Mikko Perttunen wrote:
+> > > > Channels and syncpoints available may be limited when other system
+> > >=20
+> > > What are channels and syncpoints?
+> >=20
+> > Very host1x-specific hardware resources. Somewhat close to GPU channels
+> > and semaphores / fences if you're familiar with those.
+> >=20
+> > >=20
+> > > > components are using them. Add properties nvidia,channels and
+> > > > nvidia,syncpoints to limit the range of usable channels and/or
+> > > > syncpoints.
+> > >=20
+> > > Why isn't this deducible from the compatible?
+> >=20
+> > When Host1x is partitioned, the hypervisor (or other software entity
+> > with access to the non-vm host1x register regions) can configure which
+> > channels and syncpoints are available to each partition arbitrarily.
+>=20
+> So you will have different boards for the same SoC with different
+> values?
+>=20
+
+Yes -- even the same board will have different values depending on the
+use case of the system. The hypervisor or bootloader has to update the
+properties according to the configuration it has programmed in the
+hardware.
+
+I will update the commit message with clarification.
+
+> >=20
+> > How that partitioning was done is not discoverable through hardware
+> > directly, so we need to pass that information through device tree.
+> >=20
+> > >=20
+> > > Also, nvidia,channels is too broad/generic. This is not ADC, right? A=
+nd
+> > > channels is a common term in IIO. And in few other cases.
+> >=20
+> > It's not ADC. Yes, it's a common term in a lot of contexts. I can call
+> > it nvidia,host1x-channels if you prefer but that seems a bit redundant
+> > given the context.
+>=20
+> host1x is indeed poor, but maybe there is some way to be a bit more
+> descriptive? message-channels?
+
+I would prefer to keep these as is -- anyone working with host1x will
+know what 'channels' and 'syncpoints' mean, and changing the name could
+cause confusion since the name would not match other code or
+documentation discussing these.
+
+I can update the binding documentation with some more explanation about
+what these properties mean.
+
+Thank you
+Mikko
+
+>=20
+> Best regards,
+> Krzysztof
+>=20
 
 
-On 6/26/2026 4:03 PM, Icenowy Zheng wrote:
-> 在 2026-06-25四的 17:44 +0800，Joey Lu写道：
->> The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltraLite display
->> controller (DC8000 generation) whose register layout differs from
->> the DC8200 in several important ways:
->>
->> 1. No CONFIG_EX commit path: framebuffer updates use the enable (bit
->> 0)
->>     and reset (bit 4) bits in FB_CONFIG instead of the DC8200 staging
->>     registers (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT,
->>     FB_BLEND_CONFIG, PANEL_CONFIG_EX).
->>
->> 2. No PANEL_START register: panel output starts when
->>     PANEL_CONFIG.RUNNING is set; there is no multi-display sync start
->>     register.
->>
->> 3. Different IRQ registers: DCUltraLite uses DISP_IRQ_STA (0x147C) /
->>     DISP_IRQ_EN (0x1480) versus DC8200's TOP_IRQ_ACK (0x0010) /
->>     TOP_IRQ_EN (0x0014).
->>
->> 4. Simpler clock topology: only 'core' (bus gate) and 'pix0' (pixel
->>     divider) clocks; no axi or ahb clocks required.
->>
->> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->> ---
->>   drivers/gpu/drm/verisilicon/Makefile    |  2 +-
->>   drivers/gpu/drm/verisilicon/vs_dc.c     |  5 +-
->>   drivers/gpu/drm/verisilicon/vs_dc.h     |  1 +
->>   drivers/gpu/drm/verisilicon/vs_dc8000.c | 86
->> +++++++++++++++++++++++++
->>   4 files changed, 92 insertions(+), 2 deletions(-)
->>   create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8000.c
->>
->> diff --git a/drivers/gpu/drm/verisilicon/Makefile
->> b/drivers/gpu/drm/verisilicon/Makefile
->> index 9d4cd16452fa..d2fd8e4dff24 100644
->> --- a/drivers/gpu/drm/verisilicon/Makefile
->> +++ b/drivers/gpu/drm/verisilicon/Makefile
->> @@ -1,6 +1,6 @@
->>   # SPDX-License-Identifier: GPL-2.0-only
->>   
->> -verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
->> vs_drm.o vs_hwdb.o \
->> +verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
->> vs_dc8000.o vs_drm.o vs_hwdb.o \
->>   	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
->>   
->>   obj-$(CONFIG_DRM_VERISILICON_DC) += verisilicon-dc.o
->> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
->> b/drivers/gpu/drm/verisilicon/vs_dc.c
->> index fd1f5fe67a68..9499fffbca58 100644
->> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
->> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
->> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device
->> *pdev)
->>   	dev_info(dev, "Found DC%x rev %x customer %x\n", dc-
->>> identity.model,
->>   		 dc->identity.revision, dc->identity.customer_id);
->>   
->> -	dc->funcs = &vs_dc8200_funcs;
->> +	if (dc->identity.generation == VSDC_GEN_DC8200)
->> +		dc->funcs = &vs_dc8200_funcs;
->> +	else
->> +		dc->funcs = &vs_dc8000_funcs;
->>   
->>   	if (port_count > dc->identity.display_count) {
->>   		dev_err(dev, "too many downstream ports than HW
->> capability\n");
->> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h
->> b/drivers/gpu/drm/verisilicon/vs_dc.h
->> index 825f5dd6bf17..ac96ad701199 100644
->> --- a/drivers/gpu/drm/verisilicon/vs_dc.h
->> +++ b/drivers/gpu/drm/verisilicon/vs_dc.h
->> @@ -66,5 +66,6 @@ struct vs_dc {
->>   };
->>   
->>   extern const struct vs_dc_funcs vs_dc8200_funcs;
->> +extern const struct vs_dc_funcs vs_dc8000_funcs;
->>   
->>   #endif /* _VS_DC_H_ */
->> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c
->> b/drivers/gpu/drm/verisilicon/vs_dc8000.c
->> new file mode 100644
->> index 000000000000..fbe0fa516cac
->> --- /dev/null
->> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
->> @@ -0,0 +1,86 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * Copyright (C) 2026 Joey Lu <yclu4@nuvoton.com>
->> + */
->> +
->> +#include <linux/regmap.h>
->> +
->> +#include "vs_crtc_regs.h"
->> +#include "vs_dc.h"
->> +#include "vs_drm.h"
->> +#include "vs_primary_plane_regs.h"
->> +
->> +static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int
->> output)
->> +{
->> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
->> +			VSDC_FB_CONFIG_RESET);
->> +}
->> +
->> +static void vs_dc8000_panel_disable_ex(struct vs_dc *dc, unsigned
->> int output)
->> +{
->> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
->> +			  VSDC_FB_CONFIG_RESET);
->> +}
->> +
->> +static void vs_dc8000_crtc_begin(struct vs_dc *dc, unsigned int
->> output)
->> +{
->> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
->> +			VSDC_FB_CONFIG_VALID);
->> +}
->> +
->> +static void vs_dc8000_crtc_flush(struct vs_dc *dc, unsigned int
->> output)
->> +{
->> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
->> +			  VSDC_FB_CONFIG_VALID);
->> +}
->> +
->> +static void vs_dc8000_crtc_enable_ex(struct vs_dc *dc, unsigned int
->> output)
->> +{
->> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
->> +			VSDC_FB_CONFIG_ENABLE);
->> +}
->> +
->> +static void vs_dc8000_crtc_disable_ex(struct vs_dc *dc, unsigned int
->> output)
->> +{
->> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
->> +			  VSDC_FB_CONFIG_ENABLE);
->> +}
->> +
->> +static void vs_dc8000_enable_vblank(struct vs_dc *dc, unsigned int
->> output)
->> +{
->> +	regmap_set_bits(dc->regs, VSDC_DISP_IRQ_EN,
->> +			VSDC_DISP_IRQ_VSYNC(output));
->> +}
->> +
->> +static void vs_dc8000_disable_vblank(struct vs_dc *dc, unsigned int
->> output)
->> +{
->> +	regmap_clear_bits(dc->regs, VSDC_DISP_IRQ_EN,
->> +			  VSDC_DISP_IRQ_VSYNC(output));
->> +}
->> +
->> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
->> +{
->> +	u32 hw_irqs, unified = 0;
->> +	unsigned int i;
->> +
->> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &hw_irqs);
->> +
->> +	for (i = 0; i < VSDC_MAX_OUTPUTS; i++) {
->> +		if (hw_irqs & VSDC_DISP_IRQ_VSYNC(i))
->> +			unified |= VSDC_IRQ_VSYNC(i);
->> +	}
-> Maybe a warning for unknown IRQ bits should be added here.
->
-> Thanks,
-> Icenowy
-I will add the same `drm_WARN_ONCE` pattern in `vs_dc8000_irq_ack` for
-unknown `VSDC_DISP_IRQ_STA` bits.
->> +
->> +	return unified;
->> +}
->> +
->> +const struct vs_dc_funcs vs_dc8000_funcs = {
->> +	.panel_enable_ex	= vs_dc8000_panel_enable_ex,
->> +	.panel_disable_ex	= vs_dc8000_panel_disable_ex,
->> +	.crtc_begin		= vs_dc8000_crtc_begin,
->> +	.crtc_flush		= vs_dc8000_crtc_flush,
->> +	.crtc_enable_ex		= vs_dc8000_crtc_enable_ex,
->> +	.crtc_disable_ex	= vs_dc8000_crtc_disable_ex,
->> +	.enable_vblank		= vs_dc8000_enable_vblank,
->> +	.disable_vblank		= vs_dc8000_disable_vblank,
->> +	.irq_ack		= vs_dc8000_irq_ack,
->> +};
+
+
