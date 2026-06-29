@@ -1,202 +1,114 @@
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650BD3B2FD4;
-	Mon, 29 Jun 2026 10:15:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=91.207.212.86
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782728122; cv=fail; b=O5CA+j+LHYFtZ4pXEVnXxD3RT/MrVRvmJmSZfjRnjz2Wom9ZaF8HUtwuueJX+DrUfUptQh/42i9kaNtXEqzyo0AJxSq2gOv0xL3LASTMWZIu1CIZyHI3LgSDQRTbIHsDcuwOSR7PPyfeVmgE9tIrGQxi6Y9LH0xK/+jhf6TRIyo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782728122; c=relaxed/simple;
-	bh=0BAuG8+BeYGsOdaJvNEDB899LTzgDWgKrqFs3UO6LAk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Fsa45TYZJbkATR5E8YpeRVH9cKtRmSQFPlwHtBpM5UUTKwgPLMMNnyYrCVHtvYQ9WzJzu2Rnw/sxhS2WPG9tEalnnM9XMEnWAI55HAzTnBmeLss1LVPNKYoDSUrcUDubQ9w3UFieyicRElWp8L86cGE7Tx7o2Nlv/mzaU/UKrE4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=ONH/jZei; dkim=pass (1024-bit key) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.b=eTmpO3OY; arc=fail smtp.client-ip=91.207.212.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D3A63C1094
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:15:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782728128; cv=none; b=MmShN7yDePmZopgrSvxzFRtiD9wHhPc7PnPkOfw5MNyfLlGTJLQ7cLTaIas7sana8aFT2EvaASL8H/W6p36gr6UNdgBGWJcYIdWfgO+YlNfwZKKwirFmF39dTjkfVeZ7no+0fmkWV2LBvmAMFO59KztEJ/E/UVLcgJtvc4gB3ME=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782728128; c=relaxed/simple;
+	bh=g5Vp3F3kBKS6C3iglZC5osVJ0ebhmD+qWRgzweWFSFg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=C4rlA4SYP5tOvo1j/LMZAyPa1gvegDP5LAYCz7Zkt5JYmg4S60lKcnhoqBbmxsq/3uGP0FSxe0wUvKNVP60Wt9FWlS4csbNiHlzo3HZmSs4+o5PNNzbMm6yiRkpLyti9yfGXHxKLPAzj6HJh5g1sYazGJnr6DN/cQEP/yyMHqmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jBgsRQ8k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="ONH/jZei";
-	dkim=pass (1024-bit key) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.b="eTmpO3OY"
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65T6lt4O2575772;
-	Mon, 29 Jun 2026 11:15:10 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-id:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	dk201812; bh=0BAuG8+BeYGsOdaJvNEDB899LTzgDWgKrqFs3UO6LAk=; b=ONH
-	/jZeiBbSeNLr9nyuozMdtNGjdadTi9p34iwXgAu/yoGCZ7pJ1zR2LzG+NqEJDOrG
-	SiEp/FxRUbluROGdtCi0UJkb3jeyaA99vOMaxAR/S8QgZ31jX7deob7Iu768hziV
-	h7dNc3Nhh1Gi0VNhfe/v2ZbRJQ4FJ7hOKt0iIMVPvvn596ivnn0lEq2e/ijMmjqq
-	a4jQwr6biPqB/g1b/7KA95yCGmd4BD86o2tsHOOITeZd3xBtsKH+sjZmyahgcJjw
-	cdt6qHM4AH9OweFhWCTTPrkmxx6zJLbJkim3N+/Bmu9giGfkuuJwlA0xNE0R4HWK
-	ALgqEBkD6WFF9PUHqEw==
-Received: from cwxp265cu008.outbound.protection.outlook.com (mail-ukwestazon11020090.outbound.protection.outlook.com [52.101.195.90])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4f24snsky4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 29 Jun 2026 11:15:10 +0100 (BST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pvLQOa86bhffEGcSGz+I6x5quu2cF9CpOQ/TwAQw8VlKkcZ82HGwBgv0NznPJPNu11iZCe1U7tqit4P2P4V6DG6w+TT0dHwkOfmRsnUL1iQiud79ZmBvwB4pX5m7pn5t+0SIphCKLPj8xdPiVhoJI6zRCkI+qqUCPYFnE7MfzD/OCjND/CvLLghpujpZoijGgiDK8mD5QnUSEEuYqdC4RdZBMXPU4T99bDxB1kkBg8SegmImt24BmFSPgzZ91k3EVTiNCvR1Ox9yObZXPOHbiVlvdn4IRJaejda1F0DOBcII23Eb5N7RtjbuEIYpb/QrSvyvyvFpd5eycoR5T60b3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0BAuG8+BeYGsOdaJvNEDB899LTzgDWgKrqFs3UO6LAk=;
- b=s2mVpAPwB3+onEgP1QG/q3PrUow920KbfvOIZYvloxDGy552oyIdgKk65BoBSB+ysqvwjqdSMq+USOwEh7OoaebOk41t4SvUG0VI1UIZdDLB5A/6o8F8WuEJMgHRqX8c59pPL9s1Xg05naeWZ0KUq2ugGJtGhCoVQCflKhKEnfdOztMNh9XEunmIHTdOoMIN/JSobFG4L57lq9p/+0TdWkgO3wM68gmYdwkPgLYM13DAjeqmhlUDxFcF4YzB2Tv2rMehERC30YMrdVCGa1SYvYXUyE2Gdm4YWM+6XCjqEK6vMyWAbLU1n8pQw3dNZ+5pTt+PDcpB2nwa8UZw8tK/Jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
- dkim=pass header.d=imgtec.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0BAuG8+BeYGsOdaJvNEDB899LTzgDWgKrqFs3UO6LAk=;
- b=eTmpO3OYHcgz4FFL09rHCXJIaJdO8Jq4tVBPDQPT+SpCvi+wOWCdxJ+rIW4BMBz2KohvBH6Y1fpGx+nnX+4l13TYWJ1OoNRftq4632KpzCxRtFO1lkoNw2WqGEbyne4pBQ268RD4nq7rIbR6pSQGWXt/96kpvPrtWJZ8mBaEqrE=
-Received: from LOCP265MB8579.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b6::11)
- by CW1P265MB7625.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d9::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 10:15:05 +0000
-Received: from LOCP265MB8579.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6a13:bb8b:b1da:77e3]) by LOCP265MB8579.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6a13:bb8b:b1da:77e3%6]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 10:15:05 +0000
-From: Frank Binns <Frank.Binns@imgtec.com>
-To: Matt Coster <Matt.Coster@imgtec.com>,
-        "imagination@lists.freedesktop.org"
-	<imagination@lists.freedesktop.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        Brajesh Gupta
-	<Brajesh.Gupta@imgtec.com>,
-        Alexandru Dadu <Alexandru.Dadu@imgtec.com>,
-        Luigi
- Santivetti <Luigi.Santivetti@imgtec.com>,
-        Alessio Belle
-	<Alessio.Belle@imgtec.com>
-Subject: Re: [PATCH 0/3] drm/imagination: Maintainer updates
-Thread-Topic: [PATCH 0/3] drm/imagination: Maintainer updates
-Thread-Index: AQHdBKty+u11VZjKr0KlclO2nQdR/bZVVtoA
-Date: Mon, 29 Jun 2026 10:15:05 +0000
-Message-ID: <8c332763e4da9f756c8c2d5ea06645062fc337b5.camel@imgtec.com>
-References: <20260625-maintainer-updates-v1-0-35112b2f038e@imgtec.com>
-In-Reply-To: <20260625-maintainer-updates-v1-0-35112b2f038e@imgtec.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1.1 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LOCP265MB8579:EE_|CW1P265MB7625:EE_
-x-ms-office365-filtering-correlation-id: b3253204-84cf-4c26-94ab-08ded5c74a2a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|38070700021|56012099006|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- X7hb6vlwgQxTb31xvCtVoreWb18TCfP9Q4VTivAwGV5tX6JqgzTgE1k6siCh+8HnKkuuQY4/HaApJSqkhEn/dVEs6LU7YK/S+hVan6o+Q2jTXiYyAgGnpkfW3ldlE/B9E35DL7YBwS1cnHpNDdg+kgrXMvv21HJZXm4d8OprK2q1XiCZCY9tduG6/s70+YVLmaVmW0DHrBDzvSsG3PEDLKl2j83GoXStB4zL5moM9xPmDAPpGL7IXWLXbsC+Tjczz0difd75fz+ucA0OmdiLn4NcEXubDzKNlAFG+gtmu5DO22prDcNf5uQH1huNaZwomM9OI4Jm2QfQ7AYZj0xPzFHi5EBgCFSUKtI6TmV9Vr7Y9rXlEsCqY2+cBVcgDB1yO+YummlXaSeQVSsUUY0QZx/vAK3RGHChaVKGt5x9JutoQgLAJQZfSxcQ12U1pui+rJ/D4lPoqBuFy8SDYcB4ieyheoPjExeU6hzHJfXq4retgdqLMcZMVDWYH5wrICV1xM0dC3HcIv1ZmXtlfI/wQSfCZ1SWGAJsuiHiLjZzdeTHspxtRmndUKgZewezU9RQgBYBcKeKJ2Iub3vpVgwF3cEJtoVFKzLSx5xaZ0DVAAWicCsXxHDIgcEHCzSBHaOGk87uM57jjeueaKY2khXRVf/LoL4Nc0eBSGGyA/9TJUlXSHWLdfpuG2j77ibsQI3nzuZ71uqgCyZYhYTrjR3md3FTzA7XwYKnIvKvPE/wMSQ=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOCP265MB8579.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(38070700021)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?QzZMYUlqYmJIaG95TDNqNTV5MVNHd2V3RGhCNk56MVZ5elNtcjZjaklvNlpD?=
- =?utf-8?B?SHN2Szg3blFhclNYQU1XM0ZmRlp5Y2N4UmVTU0pra0tLUTZpeXZhdVNOL2JF?=
- =?utf-8?B?cllraTlaZzFWYVV3S1Z2UEVxOE1IQnd0ODc2MmF5LzRkbEZwVVpSWWRJbVJy?=
- =?utf-8?B?bWVtR0ZqOTU1QlcvbjA0OXdNcU96VFBtbHpqNzVWZkRJaFpsdXVyTmdFdWRl?=
- =?utf-8?B?TkFpSW9rY01ZQ1ZjczhpZ2ZqNjhkL0pOK2xvaXBnMzE3ekxvbW9UejhuRFRK?=
- =?utf-8?B?RXVrc0RGbGtjZUNQbUxlSncyMHBWZ0Q0YWh2cWs3RExYUjYwNDJNL29HMWRr?=
- =?utf-8?B?bk9qZ1Q2OUxOaU92Ylg5Z2J2Z2h4MDJ4ZU03czMrdUQrNWRNbU9VR01NRWRk?=
- =?utf-8?B?WVVKZzBzdHdKTDJiUjA1dWpFNk5JMy96NmpOaytWWVVVTDF4M3dRem81aFdB?=
- =?utf-8?B?ZVVlQS9iZWpOVzNwS1FxZE5tUzQ3aFoyeFNodzlReWVvcU5ZWFFkcy9uQXV5?=
- =?utf-8?B?TGhGQzlvSzdnRmlVcVhHZW8rSlZxY1dWSlVRTTF5NWxaeFRQTnIzWXVTdWUv?=
- =?utf-8?B?SzRtNkFMVzBYdHYzbVdnY2IwT2gvaWk4ZGtqek5ObU5FYm5qYmNjWERlRnU5?=
- =?utf-8?B?L2lVSElxNVhFMEJSUUNXZzhMRHpJL3VDYmludUZCaHBzalFRNU9FMWFaTDZO?=
- =?utf-8?B?aGJ3c015NXpBcXlBa29WVEFXc2c2b3dCWDVUZTZGOEp2T1BjaUNaUlN0TWhz?=
- =?utf-8?B?RXd1Y3g0eTlzQ280UVk5aU1NY0ZHV1QxWWV4dklyeFlZckFMU1FacVhnQngz?=
- =?utf-8?B?L3BJUmZWdEhTdEY2Q2FoK29XL09IUkZXQXVpRnlYY1VJZkZ2SllNRXZlSG91?=
- =?utf-8?B?WHd2d2NJdzlhUTJ4OUcvUWJISHYwL2VWZVVGb3BSQi9zWGcvaGMvNVhmR1dz?=
- =?utf-8?B?MGUzSnlMQThOdWErOTYxTjY0WnVPd2hjcVJkSnJmVk52UDBtK3JXbC84Zi9p?=
- =?utf-8?B?aVR3U3VJNHFuUUlzbm1aVnBlWkhwZDdNd0tJZ3ZLRkJiWkNPYnZwSWlDb2VF?=
- =?utf-8?B?Ukp1UURNV0p3R0FDdFB3ZjhZV2xsaWxPVzJzYzVKdncwVURRRElQQzA1UjYy?=
- =?utf-8?B?dlN1TjRXNUtkSU1tMnBoYUtRejhDQ3JRdThLUDA2dFh5Mllka0dWeHJsQWQ5?=
- =?utf-8?B?UWcyODh5TU5HVzRuaUhXbVZNODhyckQ3MzN3UFllMmtFem93OXh3Ynhkb3N4?=
- =?utf-8?B?L3N0bkk4c3RlZXN3RUVYOTAyYXljaFFISExEemJyRmZaeWdmRXZXZVpHMWxV?=
- =?utf-8?B?OFRja2JaU0J1VHFrT3BHSmtTaGZ5NG5HMi9xb2NJWGFsM0d6ajZlMkdYRkR6?=
- =?utf-8?B?eEI2UHU1aHlPUUkrMTlWYzNpeVdpUEF2Zi84MEQ4dDk0RGlpY2dxMXRQdnQ1?=
- =?utf-8?B?VVpQWXVuWTFVdktxZWZJeU1xSFBRckFLY29JUnVqMTZQWHhZcWxpcHRCOWdj?=
- =?utf-8?B?ZzFLWE5YNG1jOEpOdFI2d25HdkRvQUV4WmM1NzJKN0ZJd0NCUk5ZSHBPQzRO?=
- =?utf-8?B?UDVxSFZzVXdUNE1xWDlOWmxqaDRJcW5GTEtIdU5JK1RCOCtjbEhBRHVrcWRP?=
- =?utf-8?B?bFJmalpuektxLy9KUG9CdnZhUFE4ZzRtN00zSEhaR1VvMTdZVVZ6bUhldUtS?=
- =?utf-8?B?TE5qdmtNaDhDSHU2aUU0TU5SL1JOR0dvdTlxQjlQMzRMeE9VWVEyOEhBKytH?=
- =?utf-8?B?SUh1L1psQmMzZkU4ZTlsSGw5TDh2cFY0RWQ5Q2FtUVZWRGJaalV1cEJjaDRR?=
- =?utf-8?B?MjAxT1ZqVjl2bWgxYzZoZ016QUN6Mk9XYTF3T0xhUEQxMCsxcVZ4Z2E5QytC?=
- =?utf-8?B?dmZ1OEtwdVFCZkZJdGt2b3FxaDI3MlIyeGNPYVpFZHFSWkVqQkxyOGtJeVFS?=
- =?utf-8?B?WVBaV093RUR1SGFRb0hoK0RvVVNKV0E1K3hRQSszWHpDOHArMTZLek0rem5h?=
- =?utf-8?B?U3NUa29SVUhKdzJTci9PVkYyK0VBUWNUcmF1cDVveWlWZ3RJNGlTTkFQU3E1?=
- =?utf-8?B?dDRqaW1CUS91RHhKZlprS3NMd3h2MjhKLy84bGY5YUlDTVJNc2FMM1NMU1Q4?=
- =?utf-8?B?c3IwRi95aUVldFdiV041NzhtempjNWxVTkY5YmFoVjF5UnRkc1BqVTFNR2R3?=
- =?utf-8?B?WDZFa3dUUFpJNFplV2tWcHFsNjB4SlhRdUM0WUZtbmhMNGk2dFQ0ZGhHRnlk?=
- =?utf-8?B?WmVZL1NNZ1A3R3Q5WmRqL2RWaFN2TDNiQk5aaWxzZzBvZUpTNDZTSWxYelh2?=
- =?utf-8?B?V0VNQVpMMXlaYW1PSWgrRU9CUzFRY29tang2RnBDbG1YYTF3QWF5Zz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4AE327CBEFEE2940BF458B4E876EBC68@GBRP265.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jBgsRQ8k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74511F000E9;
+	Mon, 29 Jun 2026 10:15:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782728127;
+	bh=6vdlnDdUgcc9Xz19bp5PVo7QjvF8LYom5ibAi7BLmH4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jBgsRQ8k0L705ULkbP9cL+tWneLa1t5afRXifHZGr/CXS9190hiDjWhCUJiFGddky
+	 i4tkE5TEZa2l5qsCr7C/HzTklrEcQHZnaeIYE3H4Fq79JKCWydk/GKtmoiHN8ixR9t
+	 KXp+mHeFkv43qp5DB+0UBLgdTysi8uvILy09HHPkJWswViqHb0alEDGaQ3x49vtIo7
+	 JOPkZaHBwGneGpr8O/BYDyKelaEx/stN8evp414iQmdE1gb9MMr3rbtPjwpucvPXbT
+	 gxYZ4hjbQuX3wMpKd1/b3jzKwTFlJfGBTiY8fY5ArlJtIDik2d799GMh4jzIGUTgqW
+	 dh4lJqUyaa70w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/4] iio: dac: ad3530r: Add support for
+ AD3532R/AD3532
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kim Seer Paller" <kimseer.paller@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260629-iio-ad3532r-support-v3-4-f6e4f4abebbe@analog.com>
+References: <20260629-iio-ad3532r-support-v3-0-f6e4f4abebbe@analog.com>
+ <20260629-iio-ad3532r-support-v3-4-f6e4f4abebbe@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 10:15:26 +0000
+Message-Id: <20260629101526.E74511F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	JVrMw28CAzPIbspQQixErrBDygT4ZWoOEXqn5Pw698C1ClzSATlO7p8fhtw4P/ZmZ7T5hJaJsBKDh/CjU3tibPjO2f/UBXZFXtzTF/OWfUu3Dd6UbhiAEWGgi7DjTKVxDgN6Ntfv0cn9vcckH9mJJIoo4x0jkF53ZL2Vbfcrg/ZXhIE1dSDK9lAfFylLaN68PUMfLd7PPNBzEnBB3oO+8at3nIBl3e+2U4KXGCqnY7kOlkJTqb+s3ZDeA35Pk7plLsWvVEr06BYj9eEmt5jJByfK0qN8Kn1wxkztXkBnlwzHp8AJ4iAtMvhOqSFwNtfNASwEDPbI6HqnbaR8QDvpDQ==
-X-OriginatorOrg: imgtec.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LOCP265MB8579.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3253204-84cf-4c26-94ab-08ded5c74a2a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jun 2026 10:15:05.2200
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vaDtkS+ZhtzOfCxTqEUXxBTf133VE0D4Mf0LIkqel8MU54zPwRY++dTvo7HyTnoOtsxPj7Utd0jGIBeTRkf8Ag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB7625
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA4MiBTYWx0ZWRfXwZpeeu8t0qso
- sxAG4i6NTTcAoyFJpvB3kT3eAUwqYxgOEg1eJfC0OpHcZ7OCXJGo9tYVo/6fWrroTtJVGKP1+OG
- rQd4TH9gpLnSBojtgXa+Uwl+HKpe0Po=
-X-Authority-Analysis: v=2.4 cv=We48rUhX c=1 sm=1 tr=0 ts=6a4245ae cx=c_pps
- a=MANaKr9EeCqT9/MKwD1biA==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22 a=r_1tXGB3AAAA:8
- a=oiPMGJNdvW4XLUKoBdoA:9 a=QEXdDO2ut3YA:10 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: w12feLtBRU7Hxt3IkUz3INt1QTGhbeEd
-X-Proofpoint-GUID: w12feLtBRU7Hxt3IkUz3INt1QTGhbeEd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA4MiBTYWx0ZWRfXyq6yqEBB1+o2
- pkezt4yJScXThTpjbblrmqVDhu4HtnniVXl6DIeTsPqtXmRCX7mEWwPUuDhIyES4J3FGUoBSYuD
- zpSeNib74dP62kTuWuGcQ650mdWK4ZBg8bOexbnLg6wV6JoZ0cn576OTx1EjV8eT9KyJr95VTlZ
- QHjfM1oOtRaXd09gtxgYSw8O+D2DoEQTWtCiqSw6blXdVWLcM+QabKbCDrEJsWZkAFZRcmTLTVi
- SZD+QSE2igRiFFk0agWC+0xH0meCrcvlRC/+dul4lE3KmhzR0Lv4oWq9mhmyi7YxqLu7uttuLAd
- 5gtkDQCtN8uPW3iGPTdvoilRi37EVDx+VPQT5r3Uiv1YNH2foXU8d2mEXocXvdZrsLh1PopHCFy
- d9+26weMWaX0cHCjP2A7p+78AoTisf8OZOQL11pjFM7+CB00llDoLDvVuP56Muhk5c4W5BMoITN
- EDIOdTQNowZHds7kMww==
 
-T24gVGh1LCAyMDI2LTA2LTI1IGF0IDE1OjAzICswMTAwLCBNYXR0IENvc3RlciB3cm90ZToNCj4g
-V2UndmUgZ290IHNvbWUgbmV3IHBlb3BsZSBzdGVwcGluZyB1cCB0byBoZWxwIG91dCB3aXRoIG1h
-aW50YWluZXJzaGlwIG9mDQo+IHRoZSBpbWFnaW5hdGlvbiBkcml2ZXIsIHNvIGxldCdzIHRha2Ug
-dGhpcyBvcHBvcnR1bml0eSB0byB1bmlmeSB0aGUNCj4gbWFpbnRhaW5lciBsaXN0IHdoZXJlIGl0
-IGFwcGVhcnMgYWNyb3NzIG11bHRpcGxlIGZpbGVzLg0KPiANCj4gVGhlcmUgYXJlIGFsc28gc29t
-ZSBuZXcgcmVzb3VyY2VzIChtYWlsaW5nIGxpc3QsIHBhdGNod29yaywgSVJDKSB0aGF0DQo+IGRp
-ZG4ndCBwcmV2aW91c2x5IGV4aXN0IGFuZCBoYWQgbm90IHlldCBiZWVuIGFkZGVkLCBzbyBsZXQn
-cyBkbyB0aGF0IG5vdw0KPiBhcyB3ZWxsLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogTWF0dCBDb3N0
-ZXIgPG1hdHQuY29zdGVyQGltZ3RlYy5jb20+DQoNCkZvciB0aGUgc2VyaWVzOg0KUmV2aWV3ZWQt
-Ynk6IEZyYW5rIEJpbm5zIDxmcmFuay5iaW5uc0BpbWd0ZWMuY29tPg0KDQo+IC0tLQ0KPiBNYXR0
-IENvc3RlciAoMyk6DQo+ICAgICAgIE1BSU5UQUlORVJTOiBVcGRhdGUgaW1hZ2luYXRpb24gZGV0
-YWlscw0KPiAgICAgICBNQUlOVEFJTkVSUzogVXBkYXRlIGltYWdpbmF0aW9uIG1haW50YWluZXJz
-DQo+ICAgICAgIGR0LWJpbmRpbmdzOiBncHU6IGltZyxwb3dlcnZyLSo6IEFkZCBtYWludGFpbmVy
-IGVudHJpZXMNCj4gDQo+ICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZ3B1L2lt
-Zyxwb3dlcnZyLXJvZ3VlLnlhbWwgfCAgNCArKystDQo+ICBEb2N1bWVudGF0aW9uL2RldmljZXRy
-ZWUvYmluZGluZ3MvZ3B1L2ltZyxwb3dlcnZyLXNneC55YW1sICAgfCAgNCArKystDQo+ICBNQUlO
-VEFJTkVSUyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-fCAxMCArKysrKysrLS0tDQo+ICAzIGZpbGVzIGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKyksIDUg
-ZGVsZXRpb25zKC0pDQo+IC0tLQ0KPiBiYXNlLWNvbW1pdDogNjBiNWZhNmVkZmVmODY3MzIyZmNl
-N2M4MzA2ZTVjNGI0NjIxMWJlNw0KPiBjaGFuZ2UtaWQ6IDIwMjYwNjI0LW1haW50YWluZXItdXBk
-YXRlcy1iZmMxODkyNTQ1NTUNCj4gDQoNCg0K
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The `max_register` configuration for AD3532R is off-by-one, perman=
+ently breaking writes to the highest channel.
+--
+
+commit 471c601807c7303ea879a6246deaa17af7989f08
+Author: Kim Seer Paller <kimseer.paller@analog.com>
+
+iio: dac: ad3530r: Add support for AD3532R/AD3532
+
+The AD3532R/AD3532 is a 16-channel, 16-bit voltage output DAC with a
+dual-bank register architecture. This commit adds AD3532R-specific register
+definitions, channel specs, per-bank arrays, and per-chip regmap_config.
+
+> diff --git a/drivers/iio/dac/ad3530r.c b/drivers/iio/dac/ad3530r.c
+> index 3f7c983739fc7..8e17e738d4c8c 100644
+> --- a/drivers/iio/dac/ad3530r.c
+> +++ b/drivers/iio/dac/ad3530r.c
+
+[ ... ]
+
+> @@ -39,6 +40,23 @@
+>  #define AD3531R_SW_LDAC_TRIG_A			0xDD
+>  #define AD3531R_INPUT_CH			0xE3
+> =20
+> +/* AD3532R/AD3532 has two register banks: bank 0 at 0x10xx, bank 1 at 0x=
+30xx */
+> +#define AD3532R_INTERFACE_CONFIG_A_0		0x1000
+> +#define AD3532R_OUTPUT_OPERATING_MODE_0		0x1020
+> +#define AD3532R_OUTPUT_OPERATING_MODE_1		0x1021
+> +#define AD3532R_OUTPUT_CONTROL_0		0x102A
+> +#define AD3532R_REFERENCE_CONTROL_0		0x103C
+> +#define AD3532R_SW_LDAC_TRIG_0			0x10E5
+> +#define AD3532R_INPUT_CH_0			0x10EB
+> +#define AD3532R_INTERFACE_CONFIG_A_1		0x3000
+> +#define AD3532R_OUTPUT_OPERATING_MODE_2		0x3020
+> +#define AD3532R_OUTPUT_OPERATING_MODE_3		0x3021
+> +#define AD3532R_OUTPUT_CONTROL_1		0x302A
+> +#define AD3532R_REFERENCE_CONTROL_1		0x303C
+> +#define AD3532R_SW_LDAC_TRIG_1			0x30E5
+> +#define AD3532R_INPUT_CH_1			0x30EB
+> +#define AD3532R_MAX_REG_ADDR			0x30F9
+
+[Severity: High]
+Does this max register bound leave out the second byte for channel 15?
+
+Looking at ad3532r_input_ch_reg(), the base register for channel 15 is
+calculated as:
+2 * (15 - 8) + AD3532R_INPUT_CH_1 (0x30EB) =3D 0x30F9.
+
+Since this is a 16-bit DAC, writing a value to channel 15 requires writing
+to both 0x30F9 and 0x30FA. Because ad3532r_regmap_config sets max_register
+to 0x30F9, will regmap reject bulk writes to the final byte and return
+-EINVAL, effectively making channel 15 unusable?
+
+It looks like this off-by-one pattern might have been copied from the
+pre-existing AD3530R_MAX_REG_ADDR configuration.
+
+> +
+>  #define AD3530R_SLD_TRIG_A			BIT(7)
+>  #define AD3530R_OUTPUT_CONTROL_RANGE		BIT(2)
+>  #define AD3530R_REFERENCE_CONTROL_SEL		BIT(0)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-iio-ad3532=
+r-support-v3-0-f6e4f4abebbe@analog.com?part=3D4
