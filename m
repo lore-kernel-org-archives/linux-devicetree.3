@@ -1,96 +1,106 @@
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69810409107
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 13:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C32520299B
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 13:31:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782739478; cv=none; b=ao8qPEvdHs5YsmLc6zQye/tU9BajaAj0laR9IaH8hqD8FgeZzhWvzIr+Ss7iH6Vf85x9C/rEV8w7xaaw6u0CCf7jHueVwQyvvUHCeb6slKLIzBqkp+4QKEq04ts95KE53PWfl2QXehP2rN9axv9R+vSUliXrEAj/avnbc2i6bdw=
+	t=1782739904; cv=none; b=WvVK3AWr1XQ6K54tvdi8ZqKZPiIWHSzWEtesGvvKn5Be1uolnYENGtq2499fkux3yJcB4DPOwUER7W/D1V0qdqzdciXH1M9SUyKnlxSaWn74GMQ/wh+Ng5qJ9KHKpnA8+7QW8V70dKVgjxFWzW7lRYjMvvT6qW/A8lbcn6tf07E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782739478; c=relaxed/simple;
-	bh=2F6Q+G8lPK3/LK966UnTL3MxjuHM04Y1nolQeR3CA4E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t9BFR6UiHclyxvIFPbRabtN0rKWptMNMsQYYPBZfRa8cAUOT5gpB9gQcqibdBP/nawYDDeTyKN3Wbfyf8vM0VfHTe3yigeWMzmioC+1ukajjYxOh8Usv3Iqw7VPuYYMKEgdvXIVtPLXsmgnzhiGMAMUKK5m+G/PGBMheG58ycys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-9673385b1efso773502241.2
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 06:24:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782739476; x=1783344276;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GLPd0Ch+Wc2elcUwgdUQIz9nCCIE4WAtlCHUOVZvJQ4=;
-        b=nq/tzmXg7i0I7EIGgjPo0gt499UFbb7k2cHi9YOz3VsrPKgJtDylcIndn4DUwrd0K7
-         ZaR+9JtnMCJwuqh9QBjq6bP8AAtz2glELy217cUAYu9iFTdkT1a4hXrSnyhk2NTwwsGU
-         rHlOK6vjrp0P2pP7Xxuf9LUEo6tjYKMYvlF0qXCpWa3quxaNdxUx/S3A2mPcf0Qs5WbD
-         9xvEmy1LEoWG2fqpEFFP438Y1W8pvQO6kdyMAkbadAkzYz8ZnbPrBsG+yVCy1kdu/3bJ
-         JzPoIPE+GcJjHv/k0YdR9sklWsIqq6JSYyizXpxfPHRnvSexbashKEPzbFfbBqKkLDow
-         uDyg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro7c3mGtFtpLQhZZE8q2QPQtioJdBlRwrQJHiy9u7GFSkIlpibRm69RD4wSYwNwuIJ2S2CHKUWmdXTO@vger.kernel.org
-X-Gm-Message-State: AOJu0YxcWZQV1xn+Ft54f+SG1a+dusE5reoJ5LGozwY4eR4q5bLig6xX
-	ukJA9c8AG2hvW2WjKGweh8RYIKBsVPZ1OERlxUZJQ0AVDOBQ//fYscKisB/m3VzY
-X-Gm-Gg: AfdE7cnZ9YJCRSbqDU3aAz4Ux2dmVWwGunVDzVdsJS+TFTsmagyavwEWDKuR9VxnPcl
-	QJLBZYxZD1z/GkOKdu6BSVZq41OM/MBZlKVHCs077pfheFrOuDWKJlOQuUDbBWsf4y0htgOcVBN
-	Nt3jLT6OEohmgjGn7PDLyM2wEWJg2s7f2xh5MKNTSZvrGgok4UV1Qi82lYVMZmPIJh+ublLdYOD
-	KnFoMeRoCqbh4IJijqa10CNFigUWuyaH2muT4cduiB2yYL4ADQfD5ID39L7oP0wf+XPDc2zqS0f
-	0OlRnGpq5MRmyDTJoYCLB/Vr6gTi/fFmx+f11HM2fwFiuzfSX3aYtJHRMa/1KpTaYzXm7rfa4Hu
-	8cYgSQ7+lBlgq5LED77m53NT2b3/KcSPyalPsdQ4RNAl3prZWY8vbWZE4uNVYWUTXqSId1hoCCt
-	/fe0/36lLi+aFRMi6qPpoE6CtxGoO1KOoUAF7kag93KS1tk0tH5Q==
-X-Received: by 2002:a05:6102:5695:b0:608:9a34:c8ea with SMTP id ada2fe7eead31-7343495a4acmr6686019137.10.1782739476275;
-        Mon, 29 Jun 2026 06:24:36 -0700 (PDT)
-Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com. [209.85.222.50])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-738bcff6df0sm1527340137.10.2026.06.29.06.24.33
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 06:24:34 -0700 (PDT)
-Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-9673385b1efso773477241.2
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 06:24:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RomNGUcuRyo+WpNaFZegaVS/r1Y9WbGI1tduF3nOXkhlrq9AKytpeiS+4l073OjVoEuwa/IDnlaZhNJ@vger.kernel.org
-X-Received: by 2002:a05:6102:f06:b0:650:94b2:3839 with SMTP id
- ada2fe7eead31-7343444e593mr6347265137.7.1782739473554; Mon, 29 Jun 2026
- 06:24:33 -0700 (PDT)
+	s=arc-20240116; t=1782739904; c=relaxed/simple;
+	bh=R5l1JhLtd0PXDn50droyipeO/aGhpssWF/Q/Ka8lQqY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Zr0rVl9b+uN3KQ0Z/be/+/29Tbe538My/ZcDUUc/e6arg6CiTMNvqGc9Fly2Cvhf0ZbYjweRXFDX7eRIluDVs754hEfLrZHrPEKL27GCCUqHL+Ie4rJjMBZd4X+R4/+OnrDqmUkL7MoO0G5oAoU9WMhtcMsR6FgmkyRqTgngReA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CY/TUUB0; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CY/TUUB0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8B991F000E9;
+	Mon, 29 Jun 2026 13:31:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782739902;
+	bh=kRGQFl/z/hOAW56atGgQs8CbFSMUDxUnfbI2aVjBH4g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CY/TUUB0zM8zeesxkaa547RHOS5aXLw+h2JsePDgQYnMLjM/dbPwdSixwLIWhK3xP
+	 fwOMJ8HgKXatMiMLgQNXcF3OJLquS76pjPYLuw5tPDMAKyjGfCzr+MpX6a+ONVB6l9
+	 fYymcnQsAp5YpI8vdhOHNH7YmvCovOa/EBJN83jlcTXvLpuaKV7qd8mdrebp7Xk/ho
+	 SX5LcyEdr5DyWlm2Ye8dRy7GaD9LO+C9ApiPV11IDS8+o7z+glY5rdaM5yrVenx7g7
+	 DYBtVx1PpS0ttaTCLZA1vY4nbOoiWpdhpSpM5UxIuzOAolos5LlbQW16C6QW6JErjw
+	 NaiNxNbmFw3tg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5] dt-bindings: pwm: st,sti-pwm: convert to DT schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Charan Pedumuru" <charan.pedumuru@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260629-st-pwm-v5-1-a93f2bfec38c@gmail.com>
+References: <20260629-st-pwm-v5-1-a93f2bfec38c@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 13:31:41 +0000
+Message-Id: <20260629133142.A8B991F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260626180326.9593-1-wsa+renesas@sang-engineering.com> <20260626180326.9593-5-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20260626180326.9593-5-wsa+renesas@sang-engineering.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 29 Jun 2026 15:24:22 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdW7E+8qOaB57HPV+bZsbKwjwMnKOKTgHXTP=37JnttDyQ@mail.gmail.com>
-X-Gm-Features: AVVi8CfVKo8iwUjr1Vw7ce8j-4Mj2uWLtD2PeaR6Sv7OOxbw6WnrkVNuF-6CbEk
-Message-ID: <CAMuHMdW7E+8qOaB57HPV+bZsbKwjwMnKOKTgHXTP=37JnttDyQ@mail.gmail.com>
-Subject: Re: [PATCH v4 4/4] ARM: dts: renesas: r9a06g032-rzn1d400-eb: Enable SPI-FRAM
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-renesas-soc@vger.kernel.org, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 26 Jun 2026 at 20:03, Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
-> Activate the FRAM and the SPI bus which it is attached to.
->
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> ---
->
-> Change since v3:
-> * none
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `clock-names` YAML schema strictly enforces an ordered list =
+starting with `"pwm"`, which improperly rejects valid capture-only configur=
+ations.
+--
 
-Thanks, will queue in renesas-devel for v7.3.
+commit c9b4fd6ce8e4e0ebe419750b4c65554ab14080bc
+Author: Charan Pedumuru <charan.pedumuru@gmail.com>
 
-Gr{oetje,eeting}s,
+dt-bindings: pwm: st,sti-pwm: convert to DT schema
 
-                        Geert
+This commit converts the STMicroelectronics STiH41x PWM/Capture controller
+binding from a text file to DT schema. It updates the compatible string to
+match hardware conventions and drops inherited pinctrl properties from the
+required list.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> diff --git a/Documentation/devicetree/bindings/pwm/st,sti-pwm.yaml b/Docu=
+mentation/devicetree/bindings/pwm/st,sti-pwm.yaml
+> new file mode 100644
+> index 0000000000000..39f96596c1ef8
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pwm/st,sti-pwm.yaml
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+[ ... ]
+
+> +  pinctrl-names:
+> +    const: default
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    items:
+> +      - const: pwm
+> +      - const: capture
+
+[Severity: Medium]
+Can this rigid sequence for clock-names improperly reject valid capture-only
+configurations during schema validation?
+
+The driver selectively fetches clocks based on whether st,pwm-num-chan and
+st,capture-num-chan are non-zero. If a hardware variant is configured solely
+for input capture, it only needs the "capture" clock.
+
+By defining an items array that starts with a constant of "pwm", the schema
+mandates that the first or only clock name must be "pwm". Consequently, a
+valid single-clock configuration providing just "capture" will be rejected =
+by
+the validation tools.
+
+Would it make sense to use a more flexible schema construct like enum, anyO=
+f,
+or oneOf to allow either clock to be specified independently?
+
+> +
+> +  clocks:
+> +    minItems: 1
+> +    maxItems: 2
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-st-pwm-v5-=
+1-a93f2bfec38c@gmail.com?part=3D1
