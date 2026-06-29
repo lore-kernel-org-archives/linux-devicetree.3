@@ -1,173 +1,231 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11021087.outbound.protection.outlook.com [52.101.65.87])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AC04192F5
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782743694; cv=none; b=DnvVTeKL/XQ3TmMPCy8DjyB1L0lKCSfwfQdZskzw1vM9a0471vqiRp9qj+J+1ss2nEhhpVI37VvzvnIkDMxkaxKDc01hn8yEGNiyRKBvgey0brE4mX3/qp8iXcuO8InLuQ7aAsowUKlEtiuA/y66xv7gvhTdC9sB6lq+O2zTVQs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782743694; c=relaxed/simple;
-	bh=d05Fycd2bYo1vzS1RtKd2HZ2iWBH0Agkyzhv3yB91pc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q0FP4wlvh50sMHylxTjltnuPuQrU3BCbHhOqe/nX283nCf6YQSBh/9/KZY3OSE2NncDO44Hfrwd3DfVC5sLDa+Scajk4BPvXrgInCHvhE1KLTf+uu2nOoshMNd+V7lTQtlRakNY89IAeVdPgsIdRbEzvRUwvRb6xOKjdBFxsDrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cakNeJZC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kmsnVjuj; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F80416D15;
+	Mon, 29 Jun 2026 14:37:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.87
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782743857; cv=fail; b=Qg8tdqi9eAlUno5jyo0KOMAUEuCaraYArO4lpTpDRn2SZdJ2+ncxzmSiBahBb/pWAzcEaz9cUqidMXjoW77ehPVuuoxfAYuTjfsBHEWb8EJ+E5UTt15CXtdKwwFLcA0fB0s7SWQv1xz7XjUFCwQm0SNROfA/Vc36cqMQ1AG/G1Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782743857; c=relaxed/simple;
+	bh=gMK/Kwp8CFtMZ/kjEyvHIx3PhhmBxNUmAyfMlyc6B0w=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=M/OO5Mmim0ycUfLw0oLI7saqP7QBlQ8MVUvWap/Yj7uvv9ysA+k33GwbluGrRaZwfIVa/gO889Ts/wAC8qn/BAsQzwnfimnU9O2C4T6h6zYDbehBt8p/Sr5yCd/QeLagvB5XFuK0byUwet33YGbj82ZJ1ojw8/uHAr2Vz1CtXoE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de; spf=pass smtp.mailfrom=kontron.de; dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b=dAdvFFJs; arc=fail smtp.client-ip=52.101.65.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kontron.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cakNeJZC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kmsnVjuj"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65TAT0hY2641507
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:34:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HqxLsFSIjpjpgfIsOF0zA+8yLigOIjsUeyr/IlQVCzU=; b=cakNeJZC3hkOaDJg
-	x5BeMewWb7qRGF+V1MWGBoz41UrKVB8l+Xdz/ZnFv0BDS0gyGoEiV8dzTwa81ZQE
-	ejsT4pWOBbJRs36ULqtLgn/YGEgslOPrQaCqyKeZliyT2Euh8nVrdHoI6yB+Krb2
-	MywU3DDkZ2aZolbNHMThMC0uNfSxiYh1XuqIr/9kY/lb5IA3F3jViITOCjaH5pK8
-	IAjxb+1ypiYLo47pb1CJdswPEnkygWzn48HqPt2tVR1wTJWQD/gGPRExL1QTvpF7
-	2pu5DeN8Mw7av9oN2TIk8CcsDtizuE5ZyOkXVn6Y6az2ZwJUp2hzJOPdCOwUTPFR
-	J7+kBA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3npesa97-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 14:34:52 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51bf5755b57so707341cf.2
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:34:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782743691; x=1783348491; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HqxLsFSIjpjpgfIsOF0zA+8yLigOIjsUeyr/IlQVCzU=;
-        b=kmsnVjujkr84UsusCovTuhtg1awcT2LOEJsQN5YvxHhafyNgBfQ8ssj+lyyO1O2jfu
-         Qo7m6YpBDg4ahYjSr2ecRGAkWoeONak8z0NGip7/fyo4loKIRGrHAdi3ltNjAM1HaLje
-         gwyrX/mR2B6/pAOCeug/YTPRBeHHGToj0cz/4YwDQ7JkyNamtDAismcwoE3TTtW4mXc6
-         rPjnr0A73Ig32PQHaGo0vuBoOYQH1yMnr58YGPqxLhNFMXVXvdxtAe9ZiC4t3J1a18MW
-         XFahEcylgaKhZDjDhn+xyUM59eAwzN8DoONuCFKy+AkG92cAq+qF8mDkfsXggRxiGyzw
-         BKWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782743691; x=1783348491;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HqxLsFSIjpjpgfIsOF0zA+8yLigOIjsUeyr/IlQVCzU=;
-        b=rvm9h10TND3LnO2iSKbpYKBmdZzSmQsjSK3TY2P4iXn91ECt62WQcmXWbYzAY8EQdx
-         xjbZ7DNpZfFJT4rfC9KrIwM5NKF4q1v2PiKSfiKLj7Mbi1afBpP/oAceaeSv72vVmOaj
-         mOwxBxWv0h5u4Ieace4r//MrSBeZiEhr0jvqdQ0QDYl9z1VMsZdwORlG7JHrEI9H0XNQ
-         cPVmAOa4grUNASX8i8PLKLtT624Skx1qV2lCqvzzkIesvu/fcx7Z1kmPTU+K4Bzgeh1W
-         AvskGsjVX+RSV0Mk5qMq5juQqW39Tx7IwK49s2gOOjmH56OJFGcfajcQKbnNFKJALq0p
-         iQBA==
-X-Forwarded-Encrypted: i=1; AFNElJ8lSiSUnVwum8R/SwOiqFq3rQsELebtTfxfSmk7xBIPDeQlc9DV8KZ3TbNrB1or3AJZ6/mcQgClVbW5@vger.kernel.org
-X-Gm-Message-State: AOJu0YwH/lIzZ5q5BJHUPh6TPonM8PQuf7q+KXQ/XdgOuEZmv/f83UE6
-	TI11jXe54e6688LzTMPQ1rDzFaMJqjfyRNmIYYAGKdQpEhXnoLkLYSs8kMpKMD3vUJa90XCr4SY
-	pvDShCsP3eiftwLGxifqcB0J+3d+GMrEdt8AAZCCtfpiVIQY7Ge3MYadLqe3GgGDt
-X-Gm-Gg: AfdE7cm1AxsJExEUmrm1UbHIorMoo2i+wQK07P5Xf/bBjparNwArTxcAAxz/h6c18Yp
-	6adOU+LyPt86B83Zj+POsfBCsBq9tdizDbt6gDZzf2yh6xO/hF7jmleTGfZKZ77SH9KzoIS/r72
-	+e/fQmCTHkijlbSsIc89DEK3SmA5CFq/R93DenbrvowVr+77mJm3jwwLiQc760ZN8nsEro02yvM
-	v7SRhnlUKStmwh1gYfr0ftUxBFAFN6ccVgxJlsyE4gPAnABkzanLVV3LFhqR+q3qpSRvb/cebE5
-	PQB0YlV2yw1zO3ECZgCETUyXrgZgqvQ+5/b/NYvE/VA9pgqqWYpJ5I+rUP0Ol0tMxGAKP3mJ7Pq
-	7gnJnKTI7dhGu6sx7h9ODIrivrWdinzkX3Mw=
-X-Received: by 2002:ac8:7dc7:0:b0:51c:a85:bf91 with SMTP id d75a77b69052e-51c0a85c063mr13123651cf.3.1782743691067;
-        Mon, 29 Jun 2026 07:34:51 -0700 (PDT)
-X-Received: by 2002:ac8:7dc7:0:b0:51c:a85:bf91 with SMTP id d75a77b69052e-51c0a85c063mr13123191cf.3.1782743690417;
-        Mon, 29 Jun 2026 07:34:50 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1250a80b04sm289378066b.34.2026.06.29.07.34.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 07:34:49 -0700 (PDT)
-Message-ID: <64691236-178a-4fc2-a9c0-f053b7944e66@oss.qualcomm.com>
-Date: Mon, 29 Jun 2026 16:34:46 +0200
+	dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b="dAdvFFJs"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Qq0Fdwbp7G5qydBzB82BGyzaiS25eA5nNWTo5qjDedEyGp54GtGJ5xNy1le9RmITTfKs1YM1j7tnRbiXRzr5WepheA2dVZShe2AF/ejM3X6FhGIjdTFUuXd29bxbJRfeB0ztxjZ+Zi2TkK2kOQo0uuxqVcBjGnz4wPQFrKa/fOdeDZMjNDYeNQYoLwY3cXx3fuiEJjrUVafAaKc32I9Gbo6Ab0CwMOIXMU3GSFp6u+YFKAY/OoQQYXOEGIYUu3XlOKpK1u6xxIsL8gKaUH4bLsy8rZ/ng2vQFOjDKjZIc6d+gnwPbJFRj2L11LbqMzRISWJ9PsolM9p6WgnzxxyceQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NpVr4e7DHXu35c5lRXcZatWWjSE9CvlTgHwQOTrBoeQ=;
+ b=QXrr/JEMiOi8Y1ax2wY3geZPvAqVCV0C2bDwON5ddJ5xVyd08o1nZkejgKK+QrLzSdvILqrrIRadPF1G9onfiNYifuwx65qL43E/fucrcr+9mGQXmzFIv1erp0Le1cMs304aijL8+FP918rXEv6mGmTCUPJmEP9np4u+zkoKwWy94XWmhlICBHGynZQsCSErvEI3rPhb+Yjf43Bi2oxwdZ+ZZbUSJRFBldyFgBUQBVmJIf5nnQNX/Uu0sNK6t7g6OIbib3x6GpD9szFktUHqjbAg2hmol0JuPjSNfC0ikbAN+pvfSAVe2irR/8NKSxl8XITAIsnOPCBdrX+Y4fb9Qg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
+ dkim=pass header.d=kontron.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NpVr4e7DHXu35c5lRXcZatWWjSE9CvlTgHwQOTrBoeQ=;
+ b=dAdvFFJsPB86utHaxQtYClAr2TPVs5ET/NOLexrBv1FSA7SvTkksFmnR/AF+YpI5hL2/Z8ICPrwL9bSyk/gZoA3gXMj3P6l1eQByVM33/LsBRdAxigtkkWY+C8AmmgVkR7ghOxcAZnIlj+0ty55FKWXl0piWmmPXjf2XxDUibb3rS75eowCsOeeKqMqCKHEY/1LejSMEIEwpb+45c4Cmur86xpv2Gz9WIj8gQpVTo6QYvTIu2ZJxzHeiSP4qzOs8fEvWyY2ckHxcpi/z2bLs0j54D3FoOT5AV/HdTdbhC8c8QweiA7O27ooGOxl6GONUXALYO0XY9mP0+7pJhSRs7A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=kontron.de;
+Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
+ by AM7PR10MB3557.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:131::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Mon, 29 Jun
+ 2026 14:37:29 +0000
+Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::a276:4ad7:962:da22%3]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 14:37:28 +0000
+Message-ID: <62b2c912-abc7-41c6-8f23-c98516016431@kontron.de>
+Date: Mon, 29 Jun 2026 16:37:27 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/9] dt-bindings: nvmem: imx-ocotp: Add support for
+ secure-enclave
+To: Krzysztof Kozlowski <krzk@kernel.org>, Frieder Schrempf <frieder@fris.de>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260616-upstreaming-next-20260609-imx-ocotp-ele-v1-0-cb7f3698c3e6@kontron.de>
+ <20260616-upstreaming-next-20260609-imx-ocotp-ele-v1-1-cb7f3698c3e6@kontron.de>
+ <20260617-prodigious-private-inchworm-beae1e@quoll>
+ <085262ba-32e5-4011-8df3-5a677575b2db@kontron.de>
+ <30e02780-52c7-4a71-9d4f-4b7a20494161@kernel.org>
+Content-Language: en-US, de-DE
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
+In-Reply-To: <30e02780-52c7-4a71-9d4f-4b7a20494161@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0144.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b8::20) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:1fb::23)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 10/10] arm64: dts: qcom: shikra: Enable Bluetooth and
- WiFi on EVK boards
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>, Vinod Koul
- <vkoul@kernel.org>,
-        Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>,
-        Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>
-References: <20260608-shikra-dt-m1-v4-0-2114300594a6@oss.qualcomm.com>
- <20260608-shikra-dt-m1-v4-10-2114300594a6@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260608-shikra-dt-m1-v4-10-2114300594a6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDEyMSBTYWx0ZWRfX8eTIWYIyFi1m
- vTJjukBxgwa6MoGqAJ5x27em0+Z25iJyuRHgdMPevjwzBvplHFB4vY1w5kDQrrYKJjKckTbOXdE
- dIXN/0YBbl3o6A4HWXIq24gB9uAcu3EhgVYTNppInOR5Yr9HXxDpexES7hR6WJkFk1OHKbh6tys
- tmhm1O3gCM6DfU+Z1cgFQ5/me9g3QVjwcF7SzLOP8MuNNWUwqcHxznkNzI6RVAsuU06Kr0/Kfif
- DnMUfIaVmilrFZlX0fymBh9j5UBHn+1EWlhfWH8SBVWya3trGYz9q2Yv0tFTQo1wXKvPyWYIG2K
- KUk+vL2pXF0nuWIh5JO2acWDVuVFxz2jstDXhHdiI1yeEk7O3fA2leyXoDkBV71JUzxNQk8fDC3
- oH2jVSeqMA84hqkdtWry1qMHsoiwylSN0gURrdw774AxC5+NC8mc9M4h4NDXWOCJa7VzWLDc7pJ
- I+NjPs2qEwLg+gF6tsA==
-X-Proofpoint-ORIG-GUID: b4_-ZgJAvvVPHut8iD75WwOaMpO-SDE2
-X-Authority-Analysis: v=2.4 cv=T6q8ifKQ c=1 sm=1 tr=0 ts=6a42828c cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=bA5z4lzVfraiEpfBxBMA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDEyMSBTYWx0ZWRfXy5TdFtvYG4/z
- m9AWkhEf3JUvJoSR9Hjen9eRxu7oQtf/GQf8ysnhhvlgOC8WVZOj9ci+XrI6WG6XlNBF1fssJ/N
- iFQ145okVDKNZXo6YDWvd4SKbda5Qg0=
-X-Proofpoint-GUID: b4_-ZgJAvvVPHut8iD75WwOaMpO-SDE2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-29_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 suspectscore=0 clxscore=1015 adultscore=0
- lowpriorityscore=0 malwarescore=0 impostorscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290121
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|AM7PR10MB3557:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35438267-a2c0-48bc-af71-08ded5ebf1e8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|3023799007|18002099003|22082099003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	+FYOQZLUQtViS3g6vQSysI1lD4gzVhEM4D8QweTQNs0jorhdn0y1HAMa3zdXHlk7NsdIBE1Dj66hNI8hDF8MSuxzWJPIiO8DmDT9dXOuOrL4ZhL36Zq74cdzGgD1Zeh8zA2MC95oVLuqJaS6w1hMSLpwn0AgtLianJRLxAVXrUJS481X2tL0xzYM1fQ87x+QBiM3pfDsCTiv9lMDhq6JfZXig0gKk2ZFfP+YoQVcW5qtOWFvI7m16z4fuHKP0/4hT2Ow8kWV7CjTA1q9kNXJntsjLNiNq92sFweFG15jYeMOLLqmNodctXNnfVT+KfNF9fHDurLZ7/7e8Tvxid/5kAwaqgERULynN13pH3WGEPPNyxidkR4ubWieLpn0HA5gFTj93hz3RSX+LSR8OeDC7LtdGeLoRVeugvaIhFRsdg+QLQgQMvVre8n0JkHYCLlzGICmbdxQqJ+Y4mzjgiGaoYa8LoGsU3Xz/8GHLINtyv2vPAghUD4LvDS3lH9HrFidq1aKz7F+2UV4fJjXasm3RBZ1lgRHtB+BVdZ21zOv68Y4kdRJtr6xHqaWEQUS6UVzsY51zH6SWI4ug1GEhdzaKZq5f2PQ0rCtA6eTo3b2BxVCl+0st0hGop2Q65hHz8/q+G5LG9dhgUcndmOTh90lNT7zkYkeaGDS2QueI41HFsI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d2l1ZXZPOG9QeUNxV0t0bkI0Z0VUcE5pWlBmVmIwMDl1Mm4wUWo5Smx1V0o0?=
+ =?utf-8?B?Nk5mSi9zQ3BpclRoWklQYUJOOG5YdWt4NnlDWlBBRXhTVXVYSFMvR3VRQVp6?=
+ =?utf-8?B?dmlYanluMktZd0NlSHVYVll2MzlnUXhOSHJBT0xOTmFtY2RLdUIxSHFXTm8r?=
+ =?utf-8?B?QkVrRWFkbFc5MTdHMUYzREhQRFVpWXdJVE5QTDZkT1l1TlRGOTlBbVBNUDRz?=
+ =?utf-8?B?cG8zenRxOHZkRnkwR2hxRktXQU1jRHY5WVA2cE41ZXRKeFhTanpEN1hXMjNr?=
+ =?utf-8?B?Y0FaVUNkVmFDWFM3TWRTWFJnZHFkNHlHR3M3YUt2bi9sSDAzZmVvMUJQZ1Z4?=
+ =?utf-8?B?NCs2ME03V0hTSWdDRGRSeW8vT1JzaHNKLzJadGo2M2lzTGFDTEZvS1BVTVpK?=
+ =?utf-8?B?RFNZZkZWOXhVRlN2RGZtb3JSMThsVDRhNU1mblFSR2JrdmF2clhiVGV0SEdS?=
+ =?utf-8?B?cnVhVUwyS001TGtyWXBoOHZoeUp0aGVlSlpIcHMwWms5a1BvNy9IajBYQ0Vp?=
+ =?utf-8?B?Z3pOT2RGWEpvMkFNQmt6SjRSOU9qRlRaWllmQjFLUHBOZ0RRNkg0bEFCMmln?=
+ =?utf-8?B?Q0p4TUNoM2M2c3NvTjU4VEhXU2d1RStvNmdMSDYzZFBQWWh5OGRZZEpzSzFT?=
+ =?utf-8?B?d3FCRzY5R1BBS0FsamNIRnhTcjNqWk1nY3hjRy9CN28wS1d6MkpROGZLRHEv?=
+ =?utf-8?B?Qk53NzN3NUJiYmE1YmRxL1dsL2ExZGZUT3VNTzlrSGJhR1JsM2tSaXBjZlIz?=
+ =?utf-8?B?MzRpT1N5SVU2YnV2dlBqL0JOR1BqOHVTY29tZWRGallQb2szNmNkNGhtTkRw?=
+ =?utf-8?B?c2dLWGhBUGp1LzZBenQzNWNpNTVBRVdHNHVrdzdsaWhmdkMweUNCVituRS9C?=
+ =?utf-8?B?ZEtNYm4rNnJFbXVMNWp3WUxuWnlCZnZ0QzdJTUNoUDl0TU9iVFNIOXZZSWQv?=
+ =?utf-8?B?bUhzRWlWOE1BcnQyVVRKSTZLWDY4Q05JZFpHejN1c0pSSy9GRTlmUndKbkt6?=
+ =?utf-8?B?dTdKSmYvQ2VpNk1ZeWJ4VDN5MGF3ZElmcVRlK2d5UmxTS092RFI4cXZKSmNL?=
+ =?utf-8?B?N1lVak5OWndqN1VpWUlXTkF5YUNCcG0wK0twOStHd2ZDZ25CQVVlMEd0WmVT?=
+ =?utf-8?B?SGk5WmdTUXdIZHdVdS94bVljT1ZnZ3dCRjR4cHIydW45NWE0WU5EaDhUaHJk?=
+ =?utf-8?B?dHBOSlVVeHJYRjM5b0xCalg0T0Y5UU10Z0xHWTJsTTJGNHZ3MXZCdjUwWFRZ?=
+ =?utf-8?B?TCtkNlExNFphVW9oYm5uYUtwQkJ1OGhzSjJLTXJ6M3NBSFpxd0gwazhJVGR4?=
+ =?utf-8?B?Wjg1Tm5nVzI2czBaakNBUWZDK0xyRDBDYWFJSHZSZ2xDNWQ0REFjeFo3cXla?=
+ =?utf-8?B?c0FxS0Z4WVRublFuUjdpVEg3a2VMa1hkNCt4WG1YS1RnQlM5U2p6YmFhREhL?=
+ =?utf-8?B?MTlPY3l0RUtuVVhRc1BTajdkSy83Y09SaTZFVHAvMXNIUnNJdWZscVYvVU9l?=
+ =?utf-8?B?V1FYdXdtbDN0dFJpcWErdExCUVVSdDAra25taklidkNhNzAwTXFRTG10b05B?=
+ =?utf-8?B?RG80U1FHNVVHS3puWjRUQ045dGJtQ0xtNWNZLzI5VUlSN2pXN1FHOWNMdE5B?=
+ =?utf-8?B?OGRwRDQvbVRBZ2hVTnphaW5rK211WVVmOFM2UDI1N1ZOYzBqVzZCaENDc1h6?=
+ =?utf-8?B?MjQxNmRiN0prZ3gvUXVIWTVKMXIyRklkcGg2OElxTkx5RWxaMmpuTUVTUFBm?=
+ =?utf-8?B?eXkvc00zYzVkUlYyWVZwblUzOE1vN0grNDFETVZncWE4TFhIVU9XWkFBazNE?=
+ =?utf-8?B?N3hTSVIzeHBKTENvcml3YTVSWGtzSVN1b1grZWx2eVRwMEVXS3VCVTgzNzZx?=
+ =?utf-8?B?L2MxdG8zbFVTQnZLdjdnVzhmV2xvSHpOT3YvbUFBQXhmdzFYRkVZSEtyWnht?=
+ =?utf-8?B?UDJmeHU3SktuMHZsRmN3Mk5uRS9zOXJjaUJSSE5QTktBVGdUd3BNZ3YwK3Vy?=
+ =?utf-8?B?Q1ZqMFJDN3BYR2t5MmhSN3lTdHgwMEVNU3J3YW5yRzI2WUNNRVpQTzMzSzFj?=
+ =?utf-8?B?ZFB5YzMvbmJETDR2dHdqUExwRzlDYk4rNnpMeFpkcjBld3FhcmFsV2ZqU3hV?=
+ =?utf-8?B?aUIwT1p4V29UWStuVGMzOG5VR0xlYXFVUGJJa3RnbVh5M2orS1NUQmZWcWor?=
+ =?utf-8?B?N3NtMisxbThqRUc3YVRHMDdMWDAxajZBemxTVWVSazU1NU5PMjk4MnBXTHR2?=
+ =?utf-8?B?cFpMNlR6azczL1A0azRjbTB5a1Rmdm9SSC9WOFJnMW5OMTFNRjB3MEExdDQ3?=
+ =?utf-8?B?WTNpMTV2ZWtoY2d5UHYxTmZFUWdyeFZZYTZQdWdrTmZOLzVuZkNGREhJcXBD?=
+ =?utf-8?Q?xt80abIq1Rl771LM=3D?=
+X-OriginatorOrg: kontron.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35438267-a2c0-48bc-af71-08ded5ebf1e8
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 14:37:28.6950
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: e9VDHzFrqxuXcR31CW569VEHDMOoc9nqkS3TlNMgIql4LKSvQtEomBcNEGqreGke+aJ/Le3g+e9Hogc/oO5Kp9mKqmEsJ9MCaVTJob2giLQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3557
 
-On 6/8/26 3:10 PM, Komal Bajaj wrote:
-> Enable Bluetooth and WiFi connectivity on Shikra CQM, CQS and IQS
-> EVK boards using the WCN3988 combo chip.
+On 22.06.26 15:12, Krzysztof Kozlowski wrote:
+> On 17/06/2026 13:36, Frieder Schrempf wrote:
+>> On 17.06.26 12:49, Krzysztof Kozlowski wrote:
+>>> On Tue, Jun 16, 2026 at 01:52:16PM +0200, Frieder Schrempf wrote:
+>>>> From: Frieder Schrempf <frieder.schrempf@kontron.de>
+>>>>
+>>>> Some SoCs like the i.MX9 family allow full access to the fuses only
+>>>> through the secure enclave firmware API. Add a property to reference
+>>>> the secure enclave node and let the driver use the API.
+>>>>
+>>>> Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
+>>>> ---
+>>>>  Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml | 4 ++++
+>>>>  1 file changed, 4 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml b/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
+>>>> index a8076d0e2737..14a6429f4a4c 100644
+>>>> --- a/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
+>>>> +++ b/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
+>>>> @@ -53,6 +53,10 @@ properties:
+>>>>    reg:
+>>>>      maxItems: 1
+>>>>  
+>>>> +  secure-enclave:
+>>>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>>>> +    description: A phandle to the secure enclave node
+>>>
+>>> Two things here:
+>>> 1. Here you describe what for is that phandle, how it is used by the
+>>> hardware. Currently the description repeats the property name and type,
+>>> so not much useful.
+>>
+>> Ok, agree.
+>>
+>>>
+>>> 2. If you access OTP via firmware, then this is completely different
+>>> interface than MMIO, thus:
+>>> A. reg is not appropriate
+>>> B. Device is very different thus it has different compatible and I even
+>>> claim should be in different binding. Devices having completely
+>>> different SW interface should not be in the same binding, at least
+>>> usually.
+>>>
+>>> If any of above is not accurate, then your commit msg should answer why
+>>> and give some background.
+>>
+>> Thanks for the feedback!
+>>
+>> The driver currently uses the limited MMIO (FSB) interface to access the
+>> OTPs. The intention is to support the firmware interface alongside the
+>> MMIO interface so the driver can pick the interface that is available
+>> (firmware might not be loaded) and fallback to MMIO.
+>>
+>> Following your argument would mean a driver deciding by itself which
+>> interface to use at runtime is not something we want to have in general,
+>> right?
 > 
-> For Bluetooth, enable uart8 and add WCN3988 Bluetooth node with
-> board-specific regulator supplies across CQM, CQS and IQS Shikra
-> EVK boards.
+> No, the property fits DT, but above information should be in commit msg.
+> If this SoC has indeed both interfaces - MMIO and firmware calls - then
+> everything is in general fine. I assumed that is not the case and MMIO
+> is not really working.
 > 
-> For WiFi, introduce the wcn3990-wifi hardware node in shikra.dtsi
-> with register space, interrupts, IOMMU configuration and reserved
-> memory. The node is kept disabled by default and enabled per-board
-> with the appropriate PMIC supply connections and calibration variant
-> selection.
+> What was confusing is that it feels like you are changing existing
+> interface, but why wasn't all this documented in the beginning? There is
+> imx9 in this binding already, so was it working? Was it not working at
+> all? Commit msg must clarify that.
+
+Ok, thanks for clarifying. The MMIO interface for imx9 is working just
+fine, but it's limited to access only a subset of the available OTP fuse
+register space and only provides read access. Only the firmware
+interface provides full access. I will extend the commit message
+accordingly.
+
 > 
-> Co-developed-by: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
-> Signed-off-by: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
-> Co-developed-by: Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>
-> Signed-off-by: Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> --->  arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 59 +++++++++++++++++++++++++
->  arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 59 +++++++++++++++++++++++++
->  arch/arm64/boot/dts/qcom/shikra-evk.dtsi    | 15 +++++++
->  arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 67 +++++++++++++++++++++++++++++
->  arch/arm64/boot/dts/qcom/shikra.dtsi        | 23 ++++++++++
+>>
+>> In turn this would mean we need two drivers, or at least two
+>> compatibles/bindings for something that is effectively the same hardware.
+> 
+> Driver design is orthogonal choice here.
+> 
+> It can reside in separate binding, if MMIO is still valid, but till
+> everything is not yet too complex can be also this binding file.
+> 
+> If it stays in this binding, then you need to restrict properties per
+> variant, so add if:then: block which will disallow the phandle for other
+> variants.
 
-Split the SoC and board changes
-
-Should most of the board-level changes go to evk.dtsi, since
-they're almost identical across all boards? You can e.g. simply
-override the supplies in the IQS EVK DTS
-
-Konrad
+Of course! I totally forgot about this. I will restrict the property to
+be only valid for variants that have the ELE firmware interface.
