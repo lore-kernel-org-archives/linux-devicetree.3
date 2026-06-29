@@ -1,174 +1,142 @@
-Received: from mail-m8236.xmail.ntesmail.com (mail-m8236.xmail.ntesmail.com [156.224.82.36])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF2133F38A;
-	Mon, 29 Jun 2026 01:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.224.82.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB691A683D;
+	Mon, 29 Jun 2026 01:34:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782696567; cv=none; b=m8ny3IxHHk1A21C6gBtf0oeOs35ZVmAkazW2Q5/WfIDbGhPw1i/sbKIEt0nj9irHf3XhGOklXOhdC1dxp0qJa3P5JUiCf3U7vnuxiXj7JjD+QMOkBWqokV3dGQ4K6YbkxzqeBuzVYp5PeePvjtWlU3mylKB/HqlPE1c9+tqaaJQ=
+	t=1782696895; cv=none; b=mJYfTKYpmypYuOi3G/yTEZjbu3aZWz66ATM1M+rA+esyuz0pAHLqJvIhxjg0gk9qBXuyyFroONbmh2wf7zrJy0FzbxFTnCDiJFKbxWLXr7H6TjuhaAuXR0ONw9ZkDLIUZB4bUoVm18hyQOznnXlvQrF+Q4IOKe1P0J0aXZEiLLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782696567; c=relaxed/simple;
-	bh=wWFAIF0zuz8Dkz8Wdr5+B1vXQREN9qit4lZfDgy2Uno=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K0rpk9a4BOGdPe036XkYJpvwKC2cGq9JtOBngem/hoJwa9fefmaemomAaM3wrfQrEsFwqO/aXv/091JIrDCQ35wV6V7bqH1KdYHz8iR0AhygAwaK0+Z0CnfEaweAhb2USpVlsKPDfIcH85/28eXxgXz5hEGvoiMGLx/jN2hnERA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=bc5KtQ7U; arc=none smtp.client-ip=156.224.82.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1782696895; c=relaxed/simple;
+	bh=it4WTs50OHWh3oRcFIMVblsQhkVAmd8+K1FhC4skm+0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LYA+x6KHbSf+zR8Q9XB+h4CfN46Ypst3ezZSuKgiui0t0+MjCpq+ADpjDqb/4UfUBdWkKDZLI5XFWHchmJTwikM1aPyq63vFn8hK7/f/80AOY9a2ZVqfO+MAI6yFMt2Ei3GniGR7ZzrqgsQVYoC+O3bmmwNXLyE99cWFNA0syoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O71nDWX1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="bc5KtQ7U"
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4413e3e2e;
-	Mon, 29 Jun 2026 09:29:10 +0800 (GMT+08:00)
-Message-ID: <56c6abb8-c127-449f-9368-12f94620c2bc@rock-chips.com>
-Date: Mon, 29 Jun 2026 09:29:08 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O71nDWX1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DC951F000E9;
+	Mon, 29 Jun 2026 01:34:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782696894;
+	bh=5o9vzQ5awf5chQlqEeray9rTDpmHaB2X2kxgT1murzI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O71nDWX1ZkYb2WN0n9CBMnWIz1/OD4O0CquIbW2H7xVvy9TWeitAG0DQdTL8+YRV9
+	 gPXsLMkZ1CLXUNrmjgTxLHwpPtrdTllEu4kFv0qaG3JzeZ0tYnYsECcebJJ9eqYbn2
+	 bZsp66UVr7uBpEs0fliuveSdvJ6DPU/Ryaqxuuf186YRF0qBFbxsswlF6A+XKOWJxC
+	 6TeiylPszTA9EjpX1UKz2BTIQw1qIlQBNabohw7Safzg72ZGpGnXJyaFEpcpk9zaPp
+	 b0AixmzcSe2cs3Y1s9kwGI8UvAB3vrOlZ4uVM6Sn2or7wg7YegG4XnWo18ve+BHHL5
+	 rslJ9od4uj6nA==
+Date: Sun, 28 Jun 2026 20:34:35 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-acpi@vger.kernel.org
+Subject: Re: [RFC 00/12] RFC: Devicetree-ACPI hybrid mode
+Message-ID: <akHHCx0MLYu3vfbq@baldur>
+References: <pskkNka1-QtLVb1tcyyUSjNNeMAWUUOLyvn0XSpq55AyeqXnEjOWDCXF1pWVAufJEya52NTx6ZCXz5dMHcMlyQ==@protonmail.internalid>
+ <20260623145225.143218-1-johannes.goede@oss.qualcomm.com>
+ <asD5eIxx2ppKOwrwsxHV3d3olpLk5MF9C3Upf_lVo_MWzsiSilQZ2obgX-IAL0Zmv_Pxd3d1zyBV2tSH4ramsw==@protonmail.internalid>
+ <04b4f1b0-4d8f-41eb-9b6f-d90b88aec2ff@kernel.org>
+ <b5283758-bf75-4906-b821-d6bd7a81e3cd@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 1/9] drm/bridge: Implement generic USB Type-C DP HPD
- bridge
-To: Xu Yang <xu.yang_2@oss.nxp.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Chaoyi Chen <kernel@airkyi.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Peter Chen <hzpeterchen@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Yubing Zhang <yubing.zhang@rock-chips.com>,
- Frank Wang <frank.wang@rock-chips.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Amit Sunil Dhamne <amitsd@google.com>, Dragan Simic <dsimic@manjaro.org>,
- Johan Jonker <jbx6244@gmail.com>, Diederik de Haas <didi.debian@cknow.org>,
- Peter Robinson <pbrobinson@gmail.com>, Hugh Cole-Baker <sigmaris@gmail.com>,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org
-References: <20260304094152.92-1-kernel@airkyi.com>
- <20260304094152.92-2-kernel@airkyi.com>
- <erx73m2ueuvbzjteadjli6aki5by4pr3hyertkkqqoqwhaa4v3@5cstmshcercx>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <erx73m2ueuvbzjteadjli6aki5by4pr3hyertkkqqoqwhaa4v3@5cstmshcercx>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9f10fea08b03a7kunmf966b99e214af0
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSBgaVhpDH0kaHhhKTh4ZTlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=bc5KtQ7UrGKUA1rijDG/0B4GnAe4Tbk7iG+1XzHoKWSacIyQrLgRn/wZx/UCpNfTXWV4YMlY+zS699AajY0KFrqU8mPgVl3OdvBTceFp8y15yVHWma3EgFqkkQYhFlnRAVXl6lg8VchEaO+B6yHrFQ3CnqvDkdKPMtnFtZ92LDI=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=7rX64/yu/OhWoqaAPGRmOa806yP0CYEXLXKtENt1Bg4=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b5283758-bf75-4906-b821-d6bd7a81e3cd@kernel.org>
 
-Hello Xu Yang,
-
-On 6/26/2026 7:15 PM, Xu Yang wrote:
-> On Wed, Mar 04, 2026 at 05:41:44PM +0800, Chaoyi Chen wrote:
->> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->>
->> The HPD function of Type-C DP is implemented through
->> drm_connector_oob_hotplug_event(). For embedded DP, it is required
->> that the DRM connector fwnode corresponds to the Type-C port fwnode.
->>
->> To describe the relationship between the DP controller and the Type-C
->> port device, we usually using drm_bridge to build a bridge chain.
->>
->> Now several USB-C controller drivers have already implemented the DP
->> HPD bridge function provided by aux-hpd-bridge.c, it will build a DP
->> HPD bridge on USB-C connector port device.
->>
->> But this requires the USB-C controller driver to manually register the
->> HPD bridge. If the driver does not implement this feature, the bridge
->> will not be create.
->>
->> So this patch implements a generic DP HPD bridge based on
->> aux-hpd-bridge.c. It will monitor Type-C bus events, and when a
->> Type-C port device containing the DP svid is registered, it will
->> create an HPD bridge for it without the need for the USB-C controller
->> driver to implement it.
->>
->> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
->> ---
->>
->> (no changes since v14)
->>
->> Changes in v13:
->> - Only register drm dp hpd bridge for typec port altmode device.
->>
->> (no changes since v12)
->>
->> Changes in v11:
->> - Switch to using typec bus notifiers.
->>
->> (no changes since v10)
->>
->> Changes in v9:
->> - Remove the exposed DRM_AUX_HPD_BRIDGE option, and select
->> DRM_AUX_HPD_TYPEC_BRIDGE when it is available.
->> - Add more commit comment about problem background.
->>
->> Changes in v8:
->> - Merge generic DP HPD bridge into one module.
->> ---
->>
->>  drivers/gpu/drm/bridge/Kconfig                | 10 ++++
->>  drivers/gpu/drm/bridge/Makefile               |  1 +
->>  .../gpu/drm/bridge/aux-hpd-typec-dp-bridge.c  | 49 +++++++++++++++++++
->>  3 files changed, 60 insertions(+)
->>  create mode 100644 drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
->>
->> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
->> index a250afd8d662..559487aa09a9 100644
->> --- a/drivers/gpu/drm/bridge/Kconfig
->> +++ b/drivers/gpu/drm/bridge/Kconfig
->> @@ -30,6 +30,16 @@ config DRM_AUX_HPD_BRIDGE
->>  	  Simple bridge that terminates the bridge chain and provides HPD
->>  	  support.
->>  
->> +if DRM_AUX_HPD_BRIDGE
->> +config DRM_AUX_HPD_TYPEC_BRIDGE
->> +	tristate
->> +	depends on TYPEC || !TYPEC
->> +	default TYPEC
->> +	help
->> +	  Simple bridge that terminates the bridge chain and provides HPD
->> +	  support. It build bridge on each USB-C connector device node.
->> +endif
->> +
+On Fri, Jun 26, 2026 at 03:43:59PM +0100, Bryan O'Donoghue wrote:
+> On 26/06/2026 15:33, Bryan O'Donoghue wrote:
+> > On 23/06/2026 15:52, Hans de Goede wrote:
+> > > Comments, thoughts ?
+> > 
+> > Throw out DT and just do this...
+> > 
+> > One thing I like about this approach TBH is that you don't do the easy
+> > thing of presuming to push the hard work into the bootloader - thus
+> > creating a dependency on bootloader.
+> > 
+> > We've had _alot_ of problems doing DT selectivity to get OSes installed
+> > on arm64 laptops. You mentioned I2C-HID devices and EC controllers which
+> > I agree are a good and obvious targets.
+> > 
+> > I don't think this can replace a full and complete DT but, then I don't
+> > think that should be the objective.
+> > 
+> > Much like installing cursed OSes like Windows on "normal" laptops or x86
+> > machines, you'd expect to boot in ACPI mode have enough of the OS
+> > running to install more of the OS - which I think _can_ be a viable
+> > objective with an ACPI-DT translator.
+> > 
+> > Sadly OpenBSD could boot all the way to console on the Qcom laptops
+> > where Linux could not - because ACPI support was better there.
+> > 
+> > And, we have Nvidia laptops coming too, Windows laptops which will parse
+> > ACPI tables to boot.
+> > 
+> > There's almost no upside in having ACPI data and not trying to make
+> > maximal use of it, especially if you don't have a DT supplied by
+> > antecedent boot stages.
+> > 
+> > ---
+> > bod
+> > 
 > 
-> Should CONFIG_TYPEC_DP_ALTMODE select this one? Otherwise, we need to do it
-> manually.
-> 
-> $ grep -nr --include=Kconfig "select DRM_AUX_HPD_BRIDGE" .
-> ./drivers/soc/qcom/Kconfig:118: select DRM_AUX_HPD_BRIDGE
-> ./drivers/usb/typec/ucsi/Kconfig:88:    select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
-> ./drivers/usb/typec/ucsi/Kconfig:99:    select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
-> ./drivers/usb/typec/tcpm/Kconfig:62:    select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
-> ./drivers/usb/typec/tcpm/Kconfig:85:    select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
+> I'm going to agree with myself some more on the boot story.
 > 
 
-That's a fair point. But based on the previous discussion, Heikki
-point out that configurations in the TYPEC subsystem should not
-select configurations from DRM.
+Good for you.
 
--- 
-Best, 
-Chaoyi
+> If you can boot Linux _at_all_ and dump out ACPI tables from the booted
+> system you are way further along than not being able to boot without a
+> "real" DT.
+> 
+> Again, bootloaders have had to be educated on how to make that DT selection
+> - a problem that isn't well solved or converged on - and even if such an
+> agreed method were present, exactly 100% useless to you without the DT to go
+> with it.
+> 
+
+The problem of selecting "after-market hardware description" will remain
+as long as "BIOS" ships without upstream-compliant descriptions. I'm not
+sure I understand in what way your comment relate to the patchset at
+hand though.
+
+> As a Linux user I don't expect everything to work, especially so on aarch64
+> but, if I can get to a boot console with a screen and keyboard - I have
+> scope to play in a way I otherwise don't - parsing DSDT from Windows and
+> walking backwards to DT.
+> 
+
+We supported this on SDM850 and 8cx, we had sufficient amount of
+support/quirks in Linux to allow you to boot and run the Debian
+installer - but that's how far it was possible to push things without
+improving ACPI specification and tables.
+
+Given that you couldn't run any real use cases, this was not adequately
+maintained and as we moved on to 8cx Gen3 I argued that we should
+prioritize the DT-effort.
+
+> DT _should_ be the landing zone of course but, ACPI-DT hybrid to "just boot"
+> seems like an obvious yes to me.
+> 
+
+But this proposal doesn't give you ACPI+DT, it gives you DT+ACPI, you
+still need a base DT that is somewhat functional - and then you
+explicitly need to make references to the external ACPI representation.
+
+Quite nice for experimentation, but I don't think it will solve either
+of your problems.
+
+Regards,
+Bjorn
+
+> ---
+> bod
