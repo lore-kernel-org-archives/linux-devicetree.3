@@ -1,212 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD27C1531E8;
-	Mon, 29 Jun 2026 06:00:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2897D1367;
+	Mon, 29 Jun 2026 06:05:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782712803; cv=none; b=pUeySIo7OF0tGtI/Vz3BV/CWXbQAs10ViBomWn4/HUXH5n9fZPnNlnqDlIkv8KzXY82cX84Uuh7zr9D2IKR9fizmVLAIeY4BXOrsg5qB5SeVf3gBY/Xr79bl3MJCAypVkRqpamSIaYffX832pHdLV3j2gPjwPqN2p0KyYdnuXTg=
+	t=1782713136; cv=none; b=rM3xk1YBe6PuixQUOGDxARgP2QTVDM4wslsRpg4Y2EIbzJShsgXWNQ+k4i5d4BzT3M7PT40RXTVx50wTvZP0la1YaYA3dIViHWICq1ppPbf3EC5Iqr6++gxTWPrs4nwcNDlu5PuXwwhvkKUvWR7xYePijEIbJdZR/b5+A+jtvaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782712803; c=relaxed/simple;
-	bh=HcEUM7JJTPo7A5XYpjjOnhzLdkJnGn7kiEtZHv9QU5Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XbxxPXpQb2ESMl3i1T6Hkbg3vW1QJu1kIaxKMmZGD3vSB+EhJ674lXRrYL/Qfvp7ayHCpj4ABxhLxgJY2tVXwyT74JY6NGR8LgZpxFtxwdqljpMPKSxmE8oRn3Y2Ruw6oNyB8YybB4okKk0SWQd+svBts9QoFv29XZhgaS6lI1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3qt0raC; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1782713136; c=relaxed/simple;
+	bh=iY967g1ZEXuRDMEeq8Z98MT4WkdJAVc0EMew914JPwE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cy3Y4yaojnCxSK4YvQdM948kEVHHSMRtqNb7RcQnsERQ0RUz9AcmN/MYHxdQdxkU+7c9zxPtTDR8pCgyv0cvzgo/LehpddYDf25LwvRF/6oiedbklxO5SGba3289vitpUNi5uVY1PcKZKwkL94DckiuovplRSMivaScJCgdIOKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=P9MxmW6d; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3qt0raC"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 65C2DC2BCF4;
-	Mon, 29 Jun 2026 06:00:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782712803;
-	bh=HcEUM7JJTPo7A5XYpjjOnhzLdkJnGn7kiEtZHv9QU5Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=K3qt0raCjKd1yur8d2DkG1uY+IPVL00RKH2aSYHoY3r0PSidJxfoS9Bl2BWjo8kEs
-	 FyoYNmTwc6UaDf6VcRVMmt90TFQjeFh/T3H5GZFVMxw2zb919cBsmoac0yB2aZn8ga
-	 XK5zXPSEqzAz1E0BbEhkw+UAGz5T9y25IXCXjaba6RlFrg+UwBcCWYuNlyd8G04h+P
-	 6iA/+nX+qR9xa4bf0wuSJd7SZcPqUglP2V1Fy4lhRNRJqU7R86Gk+wA8ZrUWaVsGRA
-	 FfNE08zFx/kpFHPbehrkaoZnR7oKrlSws+NyHCyz6gc9hhxCZbW8Jj0So2puRKt+3T
-	 R8cwouU0atSsA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50816C43638;
-	Mon, 29 Jun 2026 06:00:03 +0000 (UTC)
-From: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>
-Date: Mon, 29 Jun 2026 13:59:51 +0800
-Subject: [PATCH 2/2] PCI: ultrarisc: get and enable DP1000 PCIe clocks
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="P9MxmW6d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782713135; x=1814249135;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=iY967g1ZEXuRDMEeq8Z98MT4WkdJAVc0EMew914JPwE=;
+  b=P9MxmW6dLV4eJc3E8uf5q7Us5e9C4MmxEncMfuhUrVbhP3xZxBmYYMX1
+   7GYAhmVD/i5lekgpUdQpg1q5sBfqaj9bwqWjHyBBR5tlVasHIWMA/f4Zn
+   1emzCrId0XdooeQ797cfDFCU+KlfEfqvOZ5I5WUDXJ3x3ODebVFGKapyB
+   E/RHdvC6kAgi41HnE+iQ33UmHlYb+FkbEUQNk39poazZtTa3mR6szls0Q
+   SgpR3F2T+JbfYUlBH2gYp3uvx0Ky1WHBM2UbKxPy4m0Z1dt+xmC/GScF4
+   loHdMEv+EX6z46K6ucnTieYfeBo9Qfhmmk4l5A/TVzs2ERLhYRiQain/J
+   g==;
+X-CSE-ConnectionGUID: FcQH+UZpRKGPgIxLfYJRng==
+X-CSE-MsgGUID: 1OlsZtXJTByaSZPtkJFnIA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="83533033"
+X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
+   d="scan'208";a="83533033"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jun 2026 23:05:33 -0700
+X-CSE-ConnectionGUID: X2Y08qLLQWiV8H/vMCy++g==
+X-CSE-MsgGUID: r9Evo2xCRPm5B0mtFMWtOw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
+   d="scan'208";a="252000444"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.207])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jun 2026 23:05:30 -0700
+Date: Mon, 29 Jun 2026 09:05:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: David Lechner <dlechner@baylibre.com>, Akhila Kavi <akavi@axiado.com>,
+	Prasad Bolisetty <pbolisetty@axiado.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: adc: add Axiado SARADC driver
+Message-ID: <akILJ0zG-g8rMzts@ashevche-desk.local>
+References: <20260622-axiado-ax3000-ax3005-saradc-v3-0-e57c7c7ae675@axiado.com>
+ <20260622-axiado-ax3000-ax3005-saradc-v3-2-e57c7c7ae675@axiado.com>
+ <6770a7af-06cc-4240-9b20-c299e7080ab1@baylibre.com>
+ <b06005e0-b7bc-4967-ac7b-cb170219f131@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-ultrarisc-pci-clk-v1-2-5ea3308fdab3@ultrarisc.com>
-References: <20260629-ultrarisc-pci-clk-v1-0-5ea3308fdab3@ultrarisc.com>
-In-Reply-To: <20260629-ultrarisc-pci-clk-v1-0-5ea3308fdab3@ultrarisc.com>
-To: Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jia Wang <wangjia@ultrarisc.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782712801; l=3985;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=LtJ66+myRw3X2vCGc+65Ap5gE7bLwVO+Sf4xHFQmlfE=;
- b=MwLsvGel0miFh1m/CsqhcqyhlWjcj9ABZiQcYV9GLudA9sNZHyysEEht7zGI/ohO+kuOKDOYC
- 9l0jGwIGC0JDC7FbhPyTKnPAGmywPtX+w/tVIsl+VfYlUlcI+w+JvET
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-Endpoint-Received: by B4 Relay for wangjia@ultrarisc.com/20260515 with
- auth_id=779
-X-Original-From: Jia Wang <wangjia@ultrarisc.com>
-Reply-To: wangjia@ultrarisc.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b06005e0-b7bc-4967-ac7b-cb170219f131@axiado.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Jia Wang <wangjia@ultrarisc.com>
+On Mon, Jun 29, 2026 at 04:33:00AM +0200, Petar Stepanovic wrote:
 
-Add the required core, dbi, and aux clocks for the DP1000 PCIe
-controller and enable them before initializing the DesignWare host.
+...
 
-Also manage the clocks across system suspend and resume.
+> >> +static const struct iio_chan_spec axiado_saradc_iio_channels[] = {
+> >> +     AX_SARADC_CH(0, "adc0"),   AX_SARADC_CH(1, "adc1"),
+> >> +     AX_SARADC_CH(2, "adc2"),   AX_SARADC_CH(3, "adc3"),
+> >> +     AX_SARADC_CH(4, "adc4"),   AX_SARADC_CH(5, "adc5"),
+> >> +     AX_SARADC_CH(6, "adc6"),   AX_SARADC_CH(7, "adc7"),
+> >> +     AX_SARADC_CH(8, "adc8"),   AX_SARADC_CH(9, "adc9"),
+> >> +     AX_SARADC_CH(10, "adc10"), AX_SARADC_CH(11, "adc11"),
+> >> +     AX_SARADC_CH(12, "adc12"), AX_SARADC_CH(13, "adc13"),
+> >> +     AX_SARADC_CH(14, "adc14"), AX_SARADC_CH(15, "adc15"),
+> > Two columns looks a bit odd.
+> 
+> I will also reformat the channel table to one entry per line.
 
-Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
----
- drivers/pci/controller/dwc/pcie-ultrarisc.c | 74 ++++++++++++++++++++++++++---
- 1 file changed, 67 insertions(+), 7 deletions(-)
+I think with a new approach David proposed, 4 per line will be also acceptable.
 
-diff --git a/drivers/pci/controller/dwc/pcie-ultrarisc.c b/drivers/pci/controller/dwc/pcie-ultrarisc.c
-index 6ee661ceff67..74010a86244e 100644
---- a/drivers/pci/controller/dwc/pcie-ultrarisc.c
-+++ b/drivers/pci/controller/dwc/pcie-ultrarisc.c
-@@ -5,6 +5,7 @@
-  * Copyright (C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-  */
- 
-+#include <linux/clk.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/of_device.h>
-@@ -23,6 +24,11 @@
- 
- #define ULTRARISC_PCIE_COMP_TIMEOUT_65_210MS	0x6
- 
-+struct ultrarisc_pcie {
-+	struct dw_pcie pci;
-+	struct clk_bulk_data clks[3];
-+};
-+
- static struct pci_ops ultrarisc_pci_ops = {
- 	.map_bus = dw_pcie_own_conf_map_bus,
- 	.read = pci_generic_config_read32,
-@@ -98,17 +104,46 @@ static const struct dw_pcie_ops dw_pcie_ops = {
- 	.start_link = ultrarisc_pcie_start_link,
- };
- 
-+static void ultrarisc_pcie_disable_clks(void *data)
-+{
-+	struct ultrarisc_pcie *ultra = data;
-+
-+	clk_bulk_disable_unprepare(ARRAY_SIZE(ultra->clks), ultra->clks);
-+}
-+
-+static int ultrarisc_pcie_init_clks(struct ultrarisc_pcie *ultra)
-+{
-+	struct device *dev = ultra->pci.dev;
-+	int ret;
-+
-+	ultra->clks[0].id = "core";
-+	ultra->clks[1].id = "dbi";
-+	ultra->clks[2].id = "aux";
-+
-+	ret = devm_clk_bulk_get(dev, ARRAY_SIZE(ultra->clks), ultra->clks);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get clocks\n");
-+
-+	ret = clk_bulk_prepare_enable(ARRAY_SIZE(ultra->clks), ultra->clks);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable clocks\n");
-+
-+	return devm_add_action_or_reset(dev, ultrarisc_pcie_disable_clks, ultra);
-+}
-+
- static int ultrarisc_pcie_probe(struct platform_device *pdev)
- {
-+	struct ultrarisc_pcie *ultra;
- 	struct device *dev = &pdev->dev;
- 	struct dw_pcie_rp *pp;
- 	struct dw_pcie *pci;
- 	int ret;
- 
--	pci = devm_kzalloc(dev, sizeof(*pci), GFP_KERNEL);
--	if (!pci)
-+	ultra = devm_kzalloc(dev, sizeof(*ultra), GFP_KERNEL);
-+	if (!ultra)
- 		return -ENOMEM;
- 
-+	pci = &ultra->pci;
- 	pci->dev = dev;
- 	pci->ops = &dw_pcie_ops;
- 
-@@ -117,7 +152,11 @@ static int ultrarisc_pcie_probe(struct platform_device *pdev)
- 
- 	pp = &pci->pp;
- 
--	platform_set_drvdata(pdev, pci);
-+	platform_set_drvdata(pdev, ultra);
-+
-+	ret = ultrarisc_pcie_init_clks(ultra);
-+	if (ret)
-+		return ret;
- 
- 	pp->num_vectors = MAX_MSI_IRQS;
- 	/* No L2/L3 Ready indication is available on this platform */
-@@ -135,16 +174,37 @@ static int ultrarisc_pcie_probe(struct platform_device *pdev)
- 
- static int ultrarisc_pcie_suspend_noirq(struct device *dev)
- {
--	struct dw_pcie *pci = dev_get_drvdata(dev);
-+	struct ultrarisc_pcie *ultra = dev_get_drvdata(dev);
-+	struct dw_pcie *pci = &ultra->pci;
-+	int ret;
-+
-+	ret = dw_pcie_suspend_noirq(pci);
-+	if (ret)
-+		return ret;
- 
--	return dw_pcie_suspend_noirq(pci);
-+	if (pci->suspended)
-+		clk_bulk_disable_unprepare(ARRAY_SIZE(ultra->clks), ultra->clks);
-+
-+	return 0;
- }
- 
- static int ultrarisc_pcie_resume_noirq(struct device *dev)
- {
--	struct dw_pcie *pci = dev_get_drvdata(dev);
-+	struct ultrarisc_pcie *ultra = dev_get_drvdata(dev);
-+	struct dw_pcie *pci = &ultra->pci;
-+	int ret;
-+
-+	if (pci->suspended) {
-+		ret = clk_bulk_prepare_enable(ARRAY_SIZE(ultra->clks), ultra->clks);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = dw_pcie_resume_noirq(pci);
-+	if (ret && pci->suspended)
-+		clk_bulk_disable_unprepare(ARRAY_SIZE(ultra->clks), ultra->clks);
- 
--	return dw_pcie_resume_noirq(pci);
-+	return ret;
- }
- 
- static const struct dev_pm_ops ultrarisc_pcie_pm_ops = {
+> >> +};
+
+...
+
+> >> +static void axiado_saradc_disable(void *data)
+> >> +{
+> >> +     struct axiado_saradc *info = data;
+> >> +
+> >> +     writel(AX_SARADC_GLOBAL_CTRL_PD, info->regs + AX_SARADC_GLOBAL_CTRL_REG);
+> > People usual make read and write wrappers or use regmap to avoid having
+> > to write `info->regs + AX_SARADC_GLOBAL_CTRL_REG` so many times.
+> 
+> My understanding is that simple read/write wrappers are not always
+> preferred unless they provide additional value. Would switching the
+> driver to regmap be acceptable here to avoid repeating the base address
+> calculation?
+
+This is the value of transition --> having that register base to be hidden and
+not repeated all the times.
 
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
 
 
