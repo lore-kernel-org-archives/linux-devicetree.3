@@ -1,168 +1,310 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011034.outbound.protection.outlook.com [40.107.130.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B169F382F05;
-	Mon, 29 Jun 2026 18:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5144B387363
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 18:22:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782757260; cv=fail; b=diL5Uf+qteQmPR5xktBgw1rEAPPU5xFbWD9C1WO19ug7QHI9x2CKR2p5uxLwRGw7c++jzvUd++4+8xDusMRuuQks4k6RzodFpAIReE7LuIkN0U7X1+SW+yl/0XQpTxiEkfjzFm9IIzp3AwEmlQ8kLCXqEmPEFiEUHPg9IqHjabE=
+	t=1782757329; cv=pass; b=e2T3nVat9NKi5/pgbAo3wVGvcZDrBTflg81T6/vVk0g7U880ZLnuJxr11hEXj7YxsBEPDCG6x2gWPqB/C+kNGJSsHftttJr30YQ9IhFCJX2gKjFNhSz2b/P5+TBfwPj3kAzphHdSioWKfVks7su2YRfhpfo9Gse/Y9IBfTk9xWA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782757260; c=relaxed/simple;
-	bh=2ZRPrY+jX066aJs2G/a2LeyyIBUm+e0z3n1mBVY/BKQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=HKGDffPBddxMWSh5HOJYHTTtlOOi9PY6/F5ZDIvrqSTOnmMvwi60XT7azRJM6OhH+zRUrYTV/iAkGeeUU5mYT8IeUcdPXHUCmszWzEP1tirrQFE21waRfLA4gZ/ZAj1JOzoM3mbuzlq0wQDx71aOqjIQQFiyslnAwfMqX7X8nhM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=XI8+/E6J; arc=fail smtp.client-ip=40.107.130.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1782757329; c=relaxed/simple;
+	bh=rTCC+Q2QI/RNZdcYErq5nB4Tg1Xxg7Ybj1fhnVetaOY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HjFhtC+4th66kq3vVIbTZqra4Ou4YZJzPskaJXxJp8xquuzbrRQGG7x0o15Mq8GhBcEm7L7FVg5yUpdp2iYhxQyPVxKPqEmyyvkFsZ6WShRfqLbS1vkq7pycbQtfmmBopaGy4SxSy28IZI7IRmCeKUEYfyuYqLSJtM6ieSNtoNw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lZVlrTnH; arc=pass smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="XI8+/E6J"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T7N6qrUSYKlDcWjksLHB901izFnyDkwa3ljM+tAqh4psor2be+Tq1f01XQ4wNNKFYKCnftuYZeDxXbeySLJaNJddrodX0plc6sHDGnqInQxv90wA6aMCuH+cN+WCALq/5XeTNA6wT1fimLGN1RxHO83xJoSnkyuL3ZDXbOJBRBSbSEAEuZ/nKmCgMEvKr3wt3Q0orYgXfReKQGEEejkJ4/rxjv4iHSAJ7XUPCKlgSXI2tQ8g1u7WVkCcH8VGC8Nmf6IFvS72Kwhp/TWV4+Tkpj6EDEZfUJcMcZqQ5Wd9wfP3XOFGLf+9R79pPJwHmGOUzxyiAGQH3Aee+e5JIkcrBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z0mPnK/u18TmhgjDwA2tvkK++eKoop66bxqn+/G8rXE=;
- b=OQ2En9I2Fu9Tq6ZJZkq8Cm8E0WqCXpA56mrCJAhd4GJIwM+k9CTc2fdq8ZCdfsMMN6/Gk1mF8eVkG7kNcV53Xoe+g4zz6XyhuFvrhwXjgrO0nAOSZv9SJiEeyVy35h47IvAeifbW0o3kJJnkxumJYZcEgUlYNpP8WkYqQ4G8NmF3NTzzS5qztXm2vGDxtfZlrDx/DeckVe9wn+/AluirCDIgKeIah3uPCRnLhoxyosvx+f3yatmBx/5YxOyOc5b/cNbko9QsjchkeLQNX+eEPPrPrjlTZODUTSMg/K43T/4WNr3j+HWY4wp6wQj8dfK1xeqCWqa7F/fUyU2wWnsB/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z0mPnK/u18TmhgjDwA2tvkK++eKoop66bxqn+/G8rXE=;
- b=XI8+/E6J8EHNEjhJiDJ5qW1jfWKF8tdE6Sgy4saqV07PufWed6u3mpye+1TwbmgZBKRPDeqx3A2DZ5PaPpnVFHMQ2Y0kq4BsLeyaDBk3lcxvl+NR9Jt5dtb+HVzaYxSqVwh/H8Ox+vaDlXIhS6YhDemMd30GiiJwW84kL0lyQpcK9q3ktj4Ome+nMDU3OkvF96k4LyCc+MSu+p0CjilqRnWNZb/1LRZp2K4ZX8euin2lqNdjznVDcI7dsieg1DAHN9s/Ff5sByXfWHsZ2AqfiErwFAQ2UI7AGpbun3Ym3nAkt+TPToj8KUhXBmkyZ+UNYZ4UEgzwAZ+yEdPFxYsweQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GVXPR04MB10969.eurprd04.prod.outlook.com (2603:10a6:150:221::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 18:20:50 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 29 Jun 2026
- 18:20:50 +0000
-From: Frank.Li@oss.nxp.com
-To: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Subject: Re: [PATCH v1 0/2] arm64: dts: imx8mm-var-som-symphony: minor board updates
-Date: Mon, 29 Jun 2026 14:20:42 -0400
-Message-ID: <178275723289.2363090.6349594223758276729.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1780527068.git.stefano.r@variscite.com>
-References: <cover.1780527068.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA9PR13CA0146.namprd13.prod.outlook.com
- (2603:10b6:806:27::31) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lZVlrTnH"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47231f1f8f3so2815624f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:22:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782757321; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IHVJgM8gZoC7ZZlfSfBQIvBBYUn8PbW0rytllVN+WYWg0d2mCsbmprpYOMivjtBuNl
+         D6EMttZEyOoz7pXLaO2ePoHzsQAujT8wmmwe0d4EfFReLev+MBvqRpmO9sWrV6KYKpRk
+         6zVqAu/QwiDyrTdJ9XpnzBg4K9ae96pZx5RRtufyrsj51osFFhBfjlxNos4yShb/VrSO
+         pplOQx/ItpFEh5By4dYIuli/LhT9KkyYPbKKrvquVOU8t6KD3acR8atCeOtUrzb23oNC
+         I5TkCLmCd37ObyfkxawJaCwUGXXN7TWn/wtHsjIbuj8/oFl4pB/T8bCkZUm4n+nfDqF5
+         bKtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5NfKOjNU6srylE75C2adpej95bKtXYvziT0LYJSnVds=;
+        fh=4TZyWmSV5OyW38t8cGYZ63qT4gRZLrHJNYSpkJXkIJc=;
+        b=X3KFTLitO/ney8DTtghiWe2Fh/ywZ1YUA1b3t/g+5aptDB9h8oWEJAyXNatco7me2p
+         0HHuQuQwFBywQ8utpPRJ21NhmWFIyotDUYVFqZErVvGzyUqNDcdiWnyV6rQ9pFTUMQlE
+         u7AId+2OQb+aOTbkyiju7CYywAxEYCdrFoM3+SDRm4JlC/a5xB2MfaMQbeTkOIVSvX8h
+         qEGtu+K3ISnkw9yZ1hXQwS9TSMQyk5k8wkL9YbTre6iC5cuh8AdxRU478FrV6rkmU2zE
+         zfpbmGc2cdXJLYpy4YVNLiykL2PEaBocbI9leR6P6TRWj/I7Tn8sIMMunmWyLFZc9dpl
+         RpIw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782757321; x=1783362121; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5NfKOjNU6srylE75C2adpej95bKtXYvziT0LYJSnVds=;
+        b=lZVlrTnHAIE6MHhnr76cv5+Q9ab3WEF37l1jXtbCTR0zXFkwPQGjAcZs9ooF4TN2HA
+         0zv3vLRXJ/Z4ZopSsJuTeilRNAlXpdGx3QyUDpnwM2wLstJ3OzCQas6HEMKgpo0BeKYJ
+         qj7xeSFA26oJJb7ArIsLKQ8MBfTpLrvdPRsvqW2zDgjdJLFbP4TP+j14v/s7S+CqLrcc
+         8O0IDAPaVGDl2vZiXU9ZFXkSR/oXnO0+fTzcGsoxpCfMkTGKGgQauqdKcH0ChPVIRWEr
+         tD9o1Y7MPxLmN+a05ofn6At1meODNOzZbpa3hAkbYofXv4rW3ruTPeITd8d1GbJVn0wM
+         sevQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782757321; x=1783362121;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5NfKOjNU6srylE75C2adpej95bKtXYvziT0LYJSnVds=;
+        b=OG6N/kG7S8wTUpIGlWM6T8Vh1S3PE4p5dJW9Z602CRZYd7F2dGIPjTpsB7UsF9apo5
+         1tOPzmEyT2A3dU4zf3EpF9Gbqq1TICTi29ZJQe8M3cCj4f1BbkAc8qxr3AtJ5KAE42uj
+         4PWSsZiH8aBqNI/vZw153MirpRrD5qhCFoXoOdzxWYB/HShwPFeWSnTF11QfXgLvE2SC
+         1wG1B53/GipnPJx0zZ1Djm5pSLQUydDBmDZrEPz2nqYgerGHzWqe2P+0eycxGosss07L
+         yZhk2m8TMAtVnZKT5Qe4o25W9UcJTwk07pHf339CyNvt4XkfhTn6QaI7rNE5Cxgjiksm
+         2uVg==
+X-Forwarded-Encrypted: i=1; AHgh+RpSE1zuSNYZDIVjs2YOk03G2MKrhRclgD4AGjrJejJ1JoWmJTiN2O7RyN4pMdQeNlDik3lg8I6bs2sF@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqIUIAm4rOmX5TJ+vBWcysORoDok0r/FoXOrgIi4Mj0P+hs8oZ
+	5cBbzm8ZRDE2dXeDBOMkvcd/jbfqsVMBTTlTS1eQpStYm+M+Ku0LcFYbkOmODxJJvFv7ERd/dqd
+	Dkj63XxaucjshVncW5308CWoWnHB7LbY=
+X-Gm-Gg: AfdE7cnx71orpYTupZwgmj11ZhcZvFF1LUj7ILRoTzmXIcld1gIKybvw9nwA7X6ELuw
+	d6kJ4LaAuvtLaPzKfa9ARJdD2Wa1Y2jSBrYZIQvUQmq2Z5pTFN6l5jRldJctUdXHQxhxwWZd+yu
+	s6iSACtBednfDzo8GwA4eBNdT2u5pQrTt5TYnQfkqdKtESqZmVY/B5malZFmoCxrlsVQkCHi7np
+	w54AQQ/iJkrSPdhw6xx/KARUg+nRra4IW9e/iml0xwswG6Ca7EBg1X7NiFIbc2fB27tlqvDBX+U
+	qIsixEX73m5FUlQ0C1FC4Ic+SoUsNQ==
+X-Received: by 2002:a05:6000:460d:b0:473:6e8d:7f3 with SMTP id
+ ffacd0b85a97d-475506e96a8mr558778f8f.1.1782757321163; Mon, 29 Jun 2026
+ 11:22:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB10969:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d5fccfd-c0bb-46ef-2fbb-08ded60b25ed
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|19092799006|7416014|6133799003|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
- 9DFLBPBcM63Dg/Ii86bbFRiQFuCivKQm2zkk8orokmTqWueuzZ3NPpK+aUGfjIv5oHOOTbO/W7Wt+INi2SWSyOlB3Aw8e7ET/z3feFQoed8B/7umQ3YrkGRedV/oRUYDl9xAcyOyWpWVYsBOGtWLQklGH6XhWkN6SjKOlwAZ8w+qcrPWg5JM1vUU5BhuQAlOLVw1tprYNA5BkjGlGIdC0ij5OEObkm0O1Wu08P8Me6DSHVHz2+TZwH0sXyIz+H6JE9k17F/piZmrL2bfN4Fd0YHHCQQ+jz/b5NL1i+3nM/samP3jZUu8QadkgGgVn7BL0ZRFMNINXqdPabT4Sn6XNisXRGVB7TyPYovZnRn/b+zcoTU5qDkGSDOMLQs8QFlQbN066qmV9ipK59De/ke+DNOOBS+BtO9ZA8UXehEIAvqFJrek97sm24U6eH69sb3DgCwTKwU+ujjBfSneESOCgnyyz6RWuFagL/cM8moUs82UwwKVtWR+fNAsTmaynFTX3JlERQVYgh17EVwlGlLiXbL4gRgMg6F8PZXw5OeyJ1LtaBxAXeQOc987sCiJOJmp2Gp7XvZ0i90MhU29nniHxk2Na+wCHx1pju+TA3NKQTSIs9nrvpwSLqwtfOhqyBv6XHVUUNT7g2NNEGhWnXH3IedkUXN9T56eLP52RTn1ERY=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(19092799006)(7416014)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?dmRQRXUzNlZJc2hmZTRtMVgzZjRYU3BERTVHQkRLQVFtNkFWYWNkbW1WVjRk?=
- =?utf-8?B?VSs2Tm1zZ1ZUTkdieDEwdDRCZ0hhd2QxamxlbzlLSjZvSkdNSHVPRit0TEdt?=
- =?utf-8?B?d2V0MHRTQWFWNGxqeWZYY3BGSVlpeWJsZHdRaE5JalliY2lqTmg0a2kyajhj?=
- =?utf-8?B?d2FydEZNVWhNRkN4TklBQi9uU0s5ZjdwN1I3eVZ5MVUxV1FxaHRDYUhnZ1hp?=
- =?utf-8?B?TTJieldnWXlGeVFUbnZCUE9laktqaWJIcHcrMU11MkwzbHNkMGIzdHR6Qkk5?=
- =?utf-8?B?ZTdjdnpZVzlkaTU2RVZvR3c4UGlLdHRyRlQ0NGlVTEdEL09FVFowc2xYN1VF?=
- =?utf-8?B?YW5HVTZXSzJXVGZWWCsvVi9UWXdUUEVJSVB5dWRrYWY4NksxalVtT0ZXb0wr?=
- =?utf-8?B?RXZtRm1XVFgvWUliZnoyZjJzNFp3RmE2L2FHbjkxUTRsWUxqblk2TUM4NnZV?=
- =?utf-8?B?K0plQXoyLzFIT25iSkFCOFIyVFROZ3FsdEtURkZ4YUZJQTBGM1QydHlqbXlO?=
- =?utf-8?B?RjFvVmNjN1dpbVo4UDVTUVJvWWJwb055QjZmbWRFRklTQldRSkc0WWphYmR2?=
- =?utf-8?B?Wm55UWV6L1hlOTVCMzd1YTBWR0FzSWQ5cGp4SzMwalVEdmdtcnAxQmY2cnM1?=
- =?utf-8?B?cDZDc1NWYjM0K3NQNW1rMmo4cGFkTTdiRUNWempGS1VSMCtuWEowUmFWMUdr?=
- =?utf-8?B?aGRWUkg3RGpaVnVaQkd1Q0UwR0dXTEZpUjV3ZnNYQlRaT2xkWEZHd2ZPOVpM?=
- =?utf-8?B?WmNxVTV4Vi9GWDhYSjFpSWR3bUF2TnAzUGlILzVpcUk4OHBtT2d1ams5VmpE?=
- =?utf-8?B?cll1V3RFeGVyaWhUTTJ5eElHRVNiL0lVMjNpOWFoQzBxclJIblRrTk1LRXZk?=
- =?utf-8?B?OHduZFd2eUdnQjd2WUg4RjhnWlFmQU9UV1Y5bHdJY3NvNTZSRU5QWTVockRX?=
- =?utf-8?B?M1FTbStJR1Rjemx1MVY5STNSRjJMY3E3R2ozVVUwTjN4d0E1aUVHTnkxbkkz?=
- =?utf-8?B?aHhKZXJ2c2Rad2FSenBqS2JwOURoT0tBcWFKRjNIY3BybmwrWllmTUNYcmNT?=
- =?utf-8?B?NW50eEdXL21rWHZNanBDVEttVW1IV05GMzZ2dklubll0aGFZRjM4MW1oNHNy?=
- =?utf-8?B?ZnZiODZzeHh3UWFQQ01tNThuSGI1WUV0WjdJRGl6eFZFZUxLdG5TTjNhVlBm?=
- =?utf-8?B?bFEwSzVXRVJVOXVaQ0RlNWFILzNoTzZVdGZqMWVKOUJQTzd5YlphdWdScHM0?=
- =?utf-8?B?SUUxb2RtNit1aUdXeERaWUVoRlVZa0FMbmQ5RTJmOXB5YVRzMngranlTRHBN?=
- =?utf-8?B?VDM4UGVQNml4dWV4KzAzbkhXc08wSjdmRVFxVUc1dlBMejNadVd2K0hCUGtT?=
- =?utf-8?B?S0Zta0RjWGRIQ0VhcldQQ0hER3ZHbk8xVWtoYnExcWllYjV5ZlJKbXVsYVNl?=
- =?utf-8?B?SGMrS0Z2b3VJT0ZkRFlhdGRucjcwR0lzU1RlUmw4OHpDNXQ4Y0ZJemdWdFhi?=
- =?utf-8?B?YU1FaDZFTm1CcFdNQkJnd3RzUy80NXpPVEdxd3NXa1h2dXpmQUlPOFNCU1E1?=
- =?utf-8?B?V3UrZzlsNDRoakVuZDRlcTJEdnhRUmNPalVJSXVGQjVaMUhmalZDSDBwNG51?=
- =?utf-8?B?SGFKNTkvdld1NlF6SmpKOG9nYXBnU0lwVTY0V21sZmltN3dyeTNBcW5BdnNi?=
- =?utf-8?B?QlBhaVVuWW5DQkhvUkx6MjQwMDU3eUF3blB2OWh0K2FaczdwUzBpZGtCdDdV?=
- =?utf-8?B?VHA5L3UwcG95WFNvL3pDTTNVL3VXdmZ0UmxCc0d3M0ZFL0svQVRBNFUvM1Rt?=
- =?utf-8?B?aElMY1dvcmUwL3c1SlE0eElxR0IxamFMTlpOWGNsK25jZC9FajJzcDFPenlr?=
- =?utf-8?B?aTRxSHhGRVppMkpudEIreWxvWnUveGJYeFh3Rk1jaEVFcDJsWlExYU9EcGN4?=
- =?utf-8?B?Vi9FcnV1YW1iRjBTdHowMllETWk3clF0ZjEwR0pFNXBRWE9LVk96R1ZzeXNq?=
- =?utf-8?B?S3ViUHZkSTNnbk81RGdYQWhwTUlNTzNGL1RoVnRsSldIZSs5VmtSTnliQStF?=
- =?utf-8?B?VDA3THFtZVRKbTRpRkVEQXlLcW80SUhvT2Ivb3IxeU1GaFl3aEhnb0RxNnhu?=
- =?utf-8?B?YXRKbFI0WlRKZUxJcmdUeUdIZnBuMVIyT0RTTGZhY2dBS2xoanNQRmpxeWJn?=
- =?utf-8?B?MUY5djkyby9tK3FhZFArV3JScS8vZkpleHJXMkpITW9EMnFoSVd3ZEQyYnUv?=
- =?utf-8?B?enJ5c2hxUDNaU3o0S0tPc2NRSzg3ZWRGMFJHSEJiQ0Z5aFF2S3dkdGhVWjZD?=
- =?utf-8?B?MGhscHg1SFQ5ZWdudjFlUjlidy9icHpiVmhEYnJJZmtNZ0pQVGs0Qm4zNDd3?=
- =?utf-8?Q?nNAUfDVxME+ryIrnfTGdXrlN1Ua3M+Iqoqmbd?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d5fccfd-c0bb-46ef-2fbb-08ded60b25ed
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 18:20:50.5136
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MQMN4zhDX1K2JqKML/UpxvGsPeEjXWU018jUXde1VA/SlXBtJs3CsyV3d6xZwWQ+ahvB1nnQZ+CIXuNtMChNXMiFpQjcnuq9rmPYPBabqiXIexSZdWJU8rhAZp4QtM/k
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10969
+References: <20260611-rva23u64-hwprobe-v2-v4-0-3f01a2449488@gmail.com> <20260611-rva23u64-hwprobe-v2-v4-6-3f01a2449488@gmail.com>
+In-Reply-To: <20260611-rva23u64-hwprobe-v2-v4-6-3f01a2449488@gmail.com>
+From: Jesse T <mr.bossman075@gmail.com>
+Date: Mon, 29 Jun 2026 14:21:24 -0400
+X-Gm-Features: AVVi8CeVJe5kDV9ivsXrbK-CzxJfU-Om1AQNkB7-XLVhzZDb1etpOuW05CkKE0c
+Message-ID: <CAJFTR8RK2sR88ePKREmZw-9FRkWEpV_FH6s7M9TegaObqU1cwA@mail.gmail.com>
+Subject: Re: [PATCH v4 06/16] riscv: Add Ziccamoa, Ziccif, Ziccrse, and Za64rs
+ to cpufeature and hwprobe
+To: Guodong Xu <docular.xu@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Zong Li <zong.li@sifive.com>, Deepak Gupta <debug@rivosinc.com>, 
+	Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Yixun Lan <dlan@kernel.org>, Chen Wang <unicorn_wang@outlook.com>, 
+	Inochi Amaoto <inochiama@gmail.com>, linux-doc@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
+	Paul Walmsley <paul.walmsley@sifive.com>, Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org, 
+	spacemit@lists.linux.dev, sophgo@lists.linux.dev, 
+	linux-kselftest@vger.kernel.org, Palmer Dabbelt <palmer@sifive.com>, 
+	Andrew Jones <andrew.jones@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Frank Li <Frank.Li@nxp.com>
+On Thu, Jun 11, 2026 at 4:14=E2=80=AFPM Guodong Xu <docular.xu@gmail.com> w=
+rote:
+>
+> From: Andrew Jones <andrew.jones@oss.qualcomm.com>
+>
+> Add Ziccamoa, Ziccif, and Za64rs to riscv_isa_ext[] so they can be
+> parsed from devicetree/ACPI ISA strings. Ziccrse is already present
+> in cpufeature; this patch only adds its hwprobe exposure.
+>
+> Expose all four extensions via hwprobe through new bits in
+> RISCV_HWPROBE_KEY_IMA_EXT_1 (RISCV_HWPROBE_EXT_ZICCAMOA, _ZICCIF,
+> _ZICCRSE, _ZA64RS), so userspace can probe each of these
+> RVA23U64-mandatory extensions individually.
+>
+> Rationale for the validation dependencies added for Ziccamoa and Za64rs:
+>
+> 1) Ziccamoa depends on Zaamo.  The RVA23 profile prose was updated
+> post-ratification to spell out the Zaamo reference: commit
+> 2b218613752d in riscv/riscv-profiles ("Improve description of
+> Ziccamoa (#224)") reworded the rva23-profile.adoc (and other profiles
+> that include Ziccamoa) text from "must support all atomics in A" to
+> "must support all atomics in the Zaamo extension" [1].
+>
+> 2) Za64rs depends on Zalrsc. The unprivileged ISA manual src/zars.adoc,
+> integrated in commit ebe06adc22cd ("Integrate profiles as Volume III
+> (#2771)"), defines Za64rs as: "The Za64rs extension requires that the
+> reservation sets used by the instructions in the Zalrsc extension be
+> contiguous, naturally aligned, and at most 64 bytes in size" [2].
+>
+> Link: https://github.com/riscv/riscv-profiles/commit/2b218613752d63287286=
+b5ae801b820cbd8cc10c [1]
+> Link: https://github.com/riscv/riscv-isa-manual/blob/main/src/unpriv/zars=
+.adoc [2]
+> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
 
+Reviewed-by: Jesse Taube <jtaubepe@redhat.com>
 
-On Thu, 04 Jun 2026 00:53:58 +0200, Stefano Radaelli wrote:
-> This series contains minor updates for the Variscite Symphony carrier
-> board based on the current hardware configuration.
-> 
-> It updates the RGB_SEL handling and marks the relevant input devices as
-> wakeup sources.
-> 
-> Stefano Radaelli (2):
->   arm64: dts: imx8mm-var-som-symphony: add wakeup sources
->   arm64: dts: imx8mm-var-som-symphony: keep RGB_SEL low
-> 
-> [...]
-
-Applied, thanks!
-
-[1/2] arm64: dts: imx8mm-var-som-symphony: add wakeup sources
-      commit: b376fc7db933785a5a89446ed0748ebb7709c1c6
-[2/2] arm64: dts: imx8mm-var-som-symphony: keep RGB_SEL low
-      commit: 7294b6214493075806a032227691781a2df94fc9
-
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+> ---
+> v4: No change.
+> v3: Indent the added hwprobe.rst entries to match the normalized style; n=
+o other change.
+> v2:
+> - Rebased to v7.1-rc2.
+> - Reworded subject and expanded commit message.
+> - Validation added for Ziccamoa depending on Zaamo and Za64rs depending
+>   on Zalrsc.
+> ---
+>  Documentation/arch/riscv/hwprobe.rst  | 16 ++++++++++++++++
+>  arch/riscv/include/asm/hwcap.h        |  3 +++
+>  arch/riscv/include/uapi/asm/hwprobe.h |  4 ++++
+>  arch/riscv/kernel/cpufeature.c        | 21 +++++++++++++++++++++
+>  arch/riscv/kernel/sys_hwprobe.c       |  4 ++++
+>  5 files changed, 48 insertions(+)
+>
+> diff --git a/Documentation/arch/riscv/hwprobe.rst b/Documentation/arch/ri=
+scv/hwprobe.rst
+> index 49d9fb68632d0..893e1a1215d23 100644
+> --- a/Documentation/arch/riscv/hwprobe.rst
+> +++ b/Documentation/arch/riscv/hwprobe.rst
+> @@ -405,3 +405,19 @@ The following keys are defined:
+>    * :c:macro:`RISCV_HWPROBE_EXT_ZICCLSM`: The Zicclsm extension is suppo=
+rted,
+>      as defined in the RISC-V Profiles specification starting from commit
+>      b1d80660 ("Updated to ratified state.")
+> +
+> +  * :c:macro:`RISCV_HWPROBE_EXT_ZICCAMOA`: The Ziccamoa extension is sup=
+ported,
+> +    as defined in the RISC-V Profiles specification starting from commit
+> +    b1d80660 ("Updated to ratified state.")
+> +
+> +  * :c:macro:`RISCV_HWPROBE_EXT_ZICCIF`: The Ziccif extension is support=
+ed,
+> +    as defined in the RISC-V Profiles specification starting from commit
+> +    b1d80660 ("Updated to ratified state.")
+> +
+> +  * :c:macro:`RISCV_HWPROBE_EXT_ZICCRSE`: The Ziccrse extension is suppo=
+rted,
+> +    as defined in the RISC-V Profiles specification starting from commit
+> +    b1d80660 ("Updated to ratified state.")
+> +
+> +  * :c:macro:`RISCV_HWPROBE_EXT_ZA64RS`: The Za64rs extension is support=
+ed,
+> +    as defined in the RISC-V Profiles specification starting from commit
+> +    b1d80660 ("Updated to ratified state.")
+> diff --git a/arch/riscv/include/asm/hwcap.h b/arch/riscv/include/asm/hwca=
+p.h
+> index e8f4a7dd96a93..0acb7a01ecc0f 100644
+> --- a/arch/riscv/include/asm/hwcap.h
+> +++ b/arch/riscv/include/asm/hwcap.h
+> @@ -113,6 +113,9 @@
+>  #define RISCV_ISA_EXT_ZICFILP          104
+>  #define RISCV_ISA_EXT_ZICFISS          105
+>  #define RISCV_ISA_EXT_ZICCLSM          106
+> +#define RISCV_ISA_EXT_ZICCAMOA         107
+> +#define RISCV_ISA_EXT_ZICCIF           108
+> +#define RISCV_ISA_EXT_ZA64RS           109
+>
+>  #define RISCV_ISA_EXT_XLINUXENVCFG     127
+>
+> diff --git a/arch/riscv/include/uapi/asm/hwprobe.h b/arch/riscv/include/u=
+api/asm/hwprobe.h
+> index 6819df159c51e..58d1e86e47ae7 100644
+> --- a/arch/riscv/include/uapi/asm/hwprobe.h
+> +++ b/arch/riscv/include/uapi/asm/hwprobe.h
+> @@ -117,6 +117,10 @@ struct riscv_hwprobe {
+>  #define RISCV_HWPROBE_KEY_IMA_EXT_1            16
+>  #define                RISCV_HWPROBE_EXT_ZICFISS       (1ULL << 0)
+>  #define                RISCV_HWPROBE_EXT_ZICCLSM       (1ULL << 1)
+> +#define                RISCV_HWPROBE_EXT_ZICCAMOA      (1ULL << 2)
+> +#define                RISCV_HWPROBE_EXT_ZICCIF        (1ULL << 3)
+> +#define                RISCV_HWPROBE_EXT_ZICCRSE       (1ULL << 4)
+> +#define                RISCV_HWPROBE_EXT_ZA64RS        (1ULL << 5)
+>
+>  /* Increase RISCV_HWPROBE_MAX_KEY when adding items. */
+>
+> diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeatur=
+e.c
+> index 1fb595581adcf..b9538e69fa1b3 100644
+> --- a/arch/riscv/kernel/cpufeature.c
+> +++ b/arch/riscv/kernel/cpufeature.c
+> @@ -90,6 +90,24 @@ static int riscv_ext_f_depends(const struct riscv_isa_=
+ext_data *data,
+>         return -EPROBE_DEFER;
+>  }
+>
+> +static int riscv_ext_zaamo_depends(const struct riscv_isa_ext_data *data=
+,
+> +                                  const unsigned long *isa_bitmap)
+> +{
+> +       if (__riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_ZAA=
+MO))
+> +               return 0;
+> +
+> +       return -EPROBE_DEFER;
+> +}
+> +
+> +static int riscv_ext_zalrsc_depends(const struct riscv_isa_ext_data *dat=
+a,
+> +                                   const unsigned long *isa_bitmap)
+> +{
+> +       if (__riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_ZAL=
+RSC))
+> +               return 0;
+> +
+> +       return -EPROBE_DEFER;
+> +}
+> +
+>  static int riscv_ext_zicbom_validate(const struct riscv_isa_ext_data *da=
+ta,
+>                                      const unsigned long *isa_bitmap)
+>  {
+> @@ -502,6 +520,8 @@ const struct riscv_isa_ext_data riscv_isa_ext[] =3D {
+>         __RISCV_ISA_EXT_SUPERSET_VALIDATE(zicbom, RISCV_ISA_EXT_ZICBOM, r=
+iscv_xlinuxenvcfg_exts, riscv_ext_zicbom_validate),
+>         __RISCV_ISA_EXT_DATA_VALIDATE(zicbop, RISCV_ISA_EXT_ZICBOP, riscv=
+_ext_zicbop_validate),
+>         __RISCV_ISA_EXT_SUPERSET_VALIDATE(zicboz, RISCV_ISA_EXT_ZICBOZ, r=
+iscv_xlinuxenvcfg_exts, riscv_ext_zicboz_validate),
+> +       __RISCV_ISA_EXT_DATA_VALIDATE(ziccamoa, RISCV_ISA_EXT_ZICCAMOA, r=
+iscv_ext_zaamo_depends),
+> +       __RISCV_ISA_EXT_DATA(ziccif, RISCV_ISA_EXT_ZICCIF),
+>         __RISCV_ISA_EXT_DATA(zicclsm, RISCV_ISA_EXT_ZICCLSM),
+>         __RISCV_ISA_EXT_DATA(ziccrse, RISCV_ISA_EXT_ZICCRSE),
+>         __RISCV_ISA_EXT_SUPERSET_VALIDATE(zicfilp, RISCV_ISA_EXT_ZICFILP,=
+ riscv_xlinuxenvcfg_exts,
+> @@ -516,6 +536,7 @@ const struct riscv_isa_ext_data riscv_isa_ext[] =3D {
+>         __RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
+>         __RISCV_ISA_EXT_DATA(zihpm, RISCV_ISA_EXT_ZIHPM),
+>         __RISCV_ISA_EXT_DATA(zimop, RISCV_ISA_EXT_ZIMOP),
+> +       __RISCV_ISA_EXT_DATA_VALIDATE(za64rs, RISCV_ISA_EXT_ZA64RS, riscv=
+_ext_zalrsc_depends),
+>         __RISCV_ISA_EXT_DATA(zaamo, RISCV_ISA_EXT_ZAAMO),
+>         __RISCV_ISA_EXT_DATA(zabha, RISCV_ISA_EXT_ZABHA),
+>         __RISCV_ISA_EXT_DATA(zacas, RISCV_ISA_EXT_ZACAS),
+> diff --git a/arch/riscv/kernel/sys_hwprobe.c b/arch/riscv/kernel/sys_hwpr=
+obe.c
+> index 9cf62266f1890..b15ac9adf7920 100644
+> --- a/arch/riscv/kernel/sys_hwprobe.c
+> +++ b/arch/riscv/kernel/sys_hwprobe.c
+> @@ -206,6 +206,10 @@ static void hwprobe_isa_ext1(struct riscv_hwprobe *p=
+air,
+>                  */
+>                 EXT_KEY(isainfo->isa, ZICFISS, pair->value, missing);
+>                 EXT_KEY(isainfo->isa, ZICCLSM, pair->value, missing);
+> +               EXT_KEY(isainfo->isa, ZICCAMOA, pair->value, missing);
+> +               EXT_KEY(isainfo->isa, ZICCIF, pair->value, missing);
+> +               EXT_KEY(isainfo->isa, ZICCRSE, pair->value, missing);
+> +               EXT_KEY(isainfo->isa, ZA64RS, pair->value, missing);
+>         }
+>
+>         /* Now turn off reporting features if any CPU is missing it. */
+>
+> --
+> 2.43.0
+>
+>
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
