@@ -1,267 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A5C3EF647;
-	Mon, 29 Jun 2026 15:21:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90633BB12D
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 15:21:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782746477; cv=none; b=g1wVI1CjjKtL6fTctIi7BiXvw1qIWqOm5rM0/xPvVhOqGkUYA7CDdS4pzSh6+FUzWYUuLAjACKzrrHXdKVilXLPyN0QKKRRBENUCNbmuxryDgoELd5VFrkpUXWtQhATMlF+eccV0a+rJZ24eN/jLDatNRhuqX1IKnlrhhfSNVfM=
+	t=1782746506; cv=none; b=agmUyjbQrcYXQHrzqADTCDctzCYPzZoghUycTkcxBziAcuewR0ht1rtMrvTbZa3tkXkSTNjzbQpdFhG3oEi56zPg/AeXFxYFJDEwi3+PFVDDvjbZbp1Msq3KG2KzQpWre7hbppJPn7E8upY2qklKq1tUQakAgsNX+NwsnXJ5U0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782746477; c=relaxed/simple;
-	bh=wNio1yLMq99NcwrcTVnYEWhf7LC8jplmGfolKk7Hn8E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LKbEJSxP2kGeMMqG+hhCSZsvA3gmegx1oCXk2mMJMVDs2JbIJG2cuHXwa7Q1H4UF72ZknJrEBQhBpaqKcYt+QmyHwKG1oHUkNm1RnxDIooO5lzbuA8LILvsS0oPX9jT61w12U3gwlxjeksnZX9f3RMjFhx0XTE8V7R2TNiWEIG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mxDCw+NK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782746506; c=relaxed/simple;
+	bh=GqLnvZkmBn/+jdSRiIjOQLiMbdgqd/ohJyb5VcFNH64=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jKrrM1gfrt1Roq0brYrqT3TMbglyITZD6XXNA3xY9BN+X3+eI784Y9a3p+oXN7ADRFC43cRDlyknxy8yndGyGNZgYMtHwEuwqSXYrp2+9UWuLAoJdoTQMO0KEWc8W58/Ql+5V33G1ybFszaEgZVy41hi/hQShy40iuFUSHILggQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=SRryUTWy; arc=none smtp.client-ip=209.85.161.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mxDCw+NK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DF041F00A3A;
-	Mon, 29 Jun 2026 15:21:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782746475;
-	bh=8JeIET6BIO7IAQ1VGFsVbdLpIFTiA3/rwieOpXwgEHU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mxDCw+NKxACQINPLhkoDiHknZMmfP32yHsviw3jgAyjmVXAAG6DLBb+4HJdGvJ2XA
-	 DVnomXBv5PvZn9EMPMbF2i5bom8RC2+9nPW/Rd52QBuElEFAf0rE9/WiHD4uLHA3bM
-	 POMb019YotS0sS/0EOkrK/i4oU62mgKHgchFQR0mJoywpSHhzL5IltXPJU/MeIgCYx
-	 ap0JwBevDgGf4ZkMMfnZfhPZuE5smna7fJU5Lou68n/gfmrNzTEwrD0k8G0Eh7J2pA
-	 /8dbudFQQkg/dfFzw19Oz6oMBIhRdpH1cEVStTHfBdI9nrYiFHWCF11zI8gxqNuFfa
-	 y1SH9IS6U/TaA==
-Date: Mon, 29 Jun 2026 16:21:11 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Wayne Chang <waynec@nvidia.com>
-Cc: mathias.nyman@intel.com, vkoul@kernel.org, neil.armstrong@linaro.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	gregkh@linuxfoundation.org, thierry.reding@gmail.com,
-	jonathanh@nvidia.com, linux-usb@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 2/8] dt-bindings: usb: Add Tegra264 XUSB host support
-Message-ID: <20260629-primal-refrain-1eb04745384f@spud>
-References: <20260629093406.1118594-1-waynec@nvidia.com>
- <20260629093406.1118594-3-waynec@nvidia.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="SRryUTWy"
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6a13fffa9b6so1324937eaf.1
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:21:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1782746503; x=1783351303; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=RoN6vMVFKf7cav/D/vQQNE2Ex9fB7yojp9INli3pPQ4=;
+        b=SRryUTWyUOERn3+W4f25FkqSBAp+0GXtS2Zd/Xot/JtAesczfApSwHDdR1YDv0VlGr
+         SENJ1C3dBorbPEx15kid/EeVhgvFQYcaEJYv0M2Ufb6ZnjCaV58f+6ExW0aoB3zr9KOj
+         f4/4DpR9/1/EZLg1AVw+lHO7pN00SsuIhx19DdZdHMYzwNnulG4bF7hVg+iJhqaBZV6F
+         s8PCjW6SYFfnCdRhdK2KcEIVmXBw1OKHLaxEDqSTr9/OBYusc2G5wWW2M/q+uNxAfL7W
+         EqIkn0sNvUWjMQkw/pLwUZR+MvTu6AUCkqeecdHrBtXcirwAl9NpN2GXWNtZSHwFU8cz
+         Ok7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782746503; x=1783351303;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RoN6vMVFKf7cav/D/vQQNE2Ex9fB7yojp9INli3pPQ4=;
+        b=EHMETDuFssgc+6wNGhRydOKsE9Nk3HprOg541zLmiPq+ZJ+rTWokPl51NVUE9NiFjt
+         2joek5mwLuf5A1nRNXCYq+DQpMxAFjkaoitmzxJDHeBKrPVAuBPmTALetG+WMy7a0tiV
+         KesHcTLL+pdNz1Sze06HxJw+Cm/qgdjr88J9VgvaNFqWbBcZeWw0/9XshYjnEDOtc7JG
+         EIKYjvTCsoxidfm+Y/b4AL97JLuDBcsCSWHcE+t3C8DMO9u4iZFjsmF+GaYrg8LZmI+O
+         dpvASS7P2V9nQ7P0l6YTUjR26u5dUcYZrpmb23ZPJltooa2UvcngD/7NY8zUH2Mjb7J2
+         k5Wg==
+X-Forwarded-Encrypted: i=1; AFNElJ8jheFzflBimmNxo8UO91eyVXdGINm2iGIoFACeixGZZTcclvbc186ZilJop+TdsHUX8T1kDKnPXf4X@vger.kernel.org
+X-Gm-Message-State: AOJu0YzmmhR9BGrcMKCk4NESKeSEz9q4ZGYClpa4kVLw4FlSxHNKyZ1l
+	NwGDUlYJ8l6QIeVQ6/iRjO7gNhaH5R7Q+01sEnvNxxH6JIvmsfC51OPCB3OZN/Qszz0=
+X-Gm-Gg: AfdE7ckBkaLNBW/NY+A+3VynZ5o6kuEMHMAUgqiaxdbUvqR6+fsSydogFo5oTP5QrJS
+	NSEu8zeDrQGxK1o1rP5VHPdeOPjmDfCLM1HEpxMXtWZBSdI7KXcniksuqi33wNFi2Rz7S8xJ0sU
+	rLMTCeWVDrmmkpm6e9gtXeMxCBCxxqzVWd2V9l3IEMLLQH6rmZxR9SJoiRJqNel2Y4VanhOji4p
+	+qXenhoQxz3s7YtqZu8nPp2mUsJb96VCNBb4aaBxOmfdUCc5TB1ZGR8sof9aOQfyEzz6Wpi1wA4
+	7daDWoFGg74B5Hv0OWJqxKxYBemljQ3vcwBj3KdEkqCn44gQm2SZn7zXQt1hZU8HY+ryOVA1CtT
+	Mfu9GrynpiatP0M0dt3yY5bsVnStw1bHIU3uAtGBwF4cHWUMt8Acn9MKiqVp2bd18yvEVM9DQVJ
+	VEurxx5ONFL9HGwQkTZYap+QC6nMbsSiAkHHDOllUjsg3m1gknZFKLezqBByaVPwqCNWHz+16BF
+	g==
+X-Received: by 2002:a05:6820:4de2:b0:6a1:7644:772c with SMTP id 006d021491bc7-6a18939bcb6mr63450eaf.63.1782746502661;
+        Mon, 29 Jun 2026 08:21:42 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:3533:aa22:9a69:df1c? ([2600:8803:e7e4:500:3533:aa22:9a69:df1c])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a189173c3bsm53188eaf.1.2026.06.29.08.21.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 08:21:42 -0700 (PDT)
+Message-ID: <4d81af47-277d-40c5-94d5-8c7d59dbd0c4@baylibre.com>
+Date: Mon, 29 Jun 2026 10:21:41 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eqDp6fcqM2UH+2oI"
-Content-Disposition: inline
-In-Reply-To: <20260629093406.1118594-3-waynec@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/3] iio: adc: Add support for TI ADS1110 to ti-ads1100
+ driver
+To: Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org
+Cc: andy@kernel.org, antoniu.miclaus@analog.com, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, duje@dujemihanovic.xyz, jic23@kernel.org,
+ jishnu.prakash@oss.qualcomm.com, jorge.marques@analog.com,
+ joshua.crofts1@gmail.com, krzk+dt@kernel.org, linusw@kernel.org,
+ linux-kernel@vger.kernel.org, marcelo.schmitt@analog.com,
+ mazziesaccount@gmail.com, mike.looijmans@topic.nl, nuno.sa@analog.com,
+ robh@kernel.org, sakari.ailus@linux.intel.com, wens@kernel.org
+References: <20260628194341.66752-1-jakubszczudlo40@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260628194341.66752-1-jakubszczudlo40@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---eqDp6fcqM2UH+2oI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Jun 29, 2026 at 05:34:00PM +0800, Wayne Chang wrote:
-> Extend the Tegra234 XUSB host binding to cover Tegra264:
->=20
-> - Add nvidia,tegra264-xusb compatible string
-> - Document optional USB wake interrupts for Tegra264
-> - Document Tegra264 PMC wake event to port mapping
-> - Allow up to five IOMMU specifiers for the additional XUSB host
->   stream IDs
->=20
-> Signed-off-by: Wayne Chang <waynec@nvidia.com>
+On 6/28/26 2:43 PM, Jakub Szczudlo wrote:
+> Add support for the TI ADS1110 to the existing ADS1100 ADC IIO driver.
+> The ADS1110 is pin-to-pin compatible with the ADS1100 while providing
+> higher resolution and an internal voltage reference. This patch series
+> extends driver support for ADS1110, updates device tree bindings and
+> Kconfig text, and improves the overall hardware description for the
+> TI ADS1100 family.
+> 
+> Tested on: Raspberry pi 3b+ with 7.0 stable kernel
+> 
+> Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+> 
 > ---
->  .../bindings/usb/nvidia,tegra234-xusb.yaml    | 115 ++++++++++++------
->  1 file changed, 80 insertions(+), 35 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/usb/nvidia,tegra234-xusb.y=
-aml b/Documentation/devicetree/bindings/usb/nvidia,tegra234-xusb.yaml
-> index ec0993497fbb..94b1dbe2b02f 100644
-> --- a/Documentation/devicetree/bindings/usb/nvidia,tegra234-xusb.yaml
-> +++ b/Documentation/devicetree/bindings/usb/nvidia,tegra234-xusb.yaml
-> @@ -17,7 +17,9 @@ description: |
-> =20
->  properties:
->    compatible:
-> -    const: nvidia,tegra234-xusb
-> +    enum:
-> +      - nvidia,tegra234-xusb
-> +      - nvidia,tegra264-xusb
-> =20
->    reg:
->      items:
-> @@ -31,37 +33,6 @@ properties:
->        - const: fpci
->        - const: bar2
-> =20
-> -  interrupts:
-> -    minItems: 2
-> -    items:
-> -      - description: xHCI host interrupt
-> -      - description: mailbox interrupt
-> -      - description: USB wake event 0
-> -      - description: USB wake event 1
-> -      - description: USB wake event 2
-> -      - description: USB wake event 3
-> -      - description: USB wake event 4
-> -      - description: USB wake event 5
-> -      - description: USB wake event 6
-> -    description: |
-> -      The first two interrupts are required for the USB host controller.=
- The
-> -      remaining USB wake event interrupts are optional. Each USB wake ev=
-ent is
-> -      independent; it is not necessary to use all of these events on a
-> -      platform. The USB host controller can function even if no wake-up =
-events
-> -      are defined. The USB wake event interrupts are handled by the Tegr=
-a PMC;
-> -      hence, the interrupt controller for these is the PMC and the inter=
-rupt
-> -      IDs correspond to the PMC wake event IDs. A complete list of wake =
-event
-> -      IDs is provided below, and this information is also present in the=
- Tegra
-> -      TRM document.
-> -
-> -        PMC wake-up 76 for USB3 port 0 wakeup
-> -        PMC wake-up 77 for USB3 port 1 wakeup
-> -        PMC wake-up 78 for USB3 port 2 and port 3 wakeup
-> -        PMC wake-up 79 for USB2 port 0 wakeup
-> -        PMC wake-up 80 for USB2 port 1 wakeup
-> -        PMC wake-up 81 for USB2 port 2 wakeup
-> -        PMC wake-up 82 for USB2 port 3 wakeup
-> -
+> V4 -> V5:
+> - Correct pm macros to be more generic
+> - fix variables ordering in new functions
+> - delete unnecessary casts
 
-Property definitions should remain at the top level, with the widest
-constraints and list of entries.
-Conditional sections should just apply restrictions. In this case, only
-one additional clock seems to be the difference, so conditional
-restrictions should suffice.
+Either this changelog is incomplete or some of my comments on v4
+were not addressed. (If you disagree with comments, that is fine,
+just reply to them with your reasoning. If you don't reply, then
+we assume you agree with them and expect to see the changes here.)
 
->    clocks:
->      items:
->        - description: XUSB host clock
-> @@ -96,9 +67,6 @@ properties:
->        - const: dma-mem # read
->        - const: write
-> =20
-> -  iommus:
-> -    maxItems: 1
+> - Link to v4: https://lore.kernel.org/linux-iio/20260622221550.374235-1-jakubszczudlo40@gmail.com/
+> 
+> V3 -> V4:
+> - make fixes patch the first change in the series
+> - correct error handling when short read
+> - use ACQUIRE macros from pm_runtime.h in new functions
+> - Link to v3: https://lore.kernel.org/linux-iio/20260613190957.654798-1-jakubszczudlo40@gmail.com/
+> 
+> V2 -> V3:
+> - clean patch from unreleated changes
+> - divide adding support for ads1110 into separate patch
+> - add missing changelog
+> - Link to v2: https://lore.kernel.org/linux-iio/20260607183542.368184-1-jakubszczudlo40@gmail.com/
+> 
+> V1 -> V2:
+> - go from creating new driver to extending ADS1100 driver to support ADS1110
+> - Link to v1: https://lore.kernel.org/linux-iio/20260527164312.355729-1-jakubszczudlo40@gmail.com/
+> 
+> Jakub Szczudlo (3):
+>   iio: adc: Fix incorrect reading when datarate changed in single mode
+>   dt-bindings: iio: adc: ti,ads1100: add support for ADS1110
+>   iio: adc: Add ti-ads1110 support to ti-ads1100 driver
+> 
+>  .../bindings/iio/adc/ti,ads1100.yaml          |  10 +-
+>  drivers/iio/adc/Kconfig                       |   9 +-
+>  drivers/iio/adc/ti-ads1100.c                  | 145 +++++++++++++++---
+>  3 files changed, 135 insertions(+), 29 deletions(-)
+> 
 
-Same with this, conditionally forbid it on the new platform but leave
-this here.
-
-
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
-> -
->    nvidia,xusb-padctl:
->      $ref: /schemas/types.yaml#/definitions/phandle
->      description: phandle to the XUSB pad controller that is used to conf=
-igure
-> @@ -137,6 +105,83 @@ properties:
->  allOf:
->    - $ref: usb-xhci.yaml
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - nvidia,tegra234-xusb
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          minItems: 2
-> +          description: |
-> +            The first two interrupts are required for the USB host contr=
-oller.
-> +            The remaining USB wake event interrupts are optional. Each U=
-SB wake
-> +            event is independent; it is not necessary to use all of thes=
-e events
-> +            on a platform. The USB host controller can function even if =
-no
-> +            wake-up events are defined. The USB wake event interrupts are
-> +            handled by the Tegra PMC; hence, the interrupt controller fo=
-r these
-> +            is the PMC and the interrupt IDs correspond to the PMC wake =
-event
-> +            IDs.
-> +
-> +            PMC wake-up 76 for USB3 port 0 wakeup
-> +            PMC wake-up 77 for USB3 port 1 wakeup
-> +            PMC wake-up 78 for USB3 port 2 and port 3 wakeup
-> +            PMC wake-up 79 for USB2 port 0 wakeup
-> +            PMC wake-up 80 for USB2 port 1 wakeup
-> +            PMC wake-up 81 for USB2 port 2 wakeup
-> +            PMC wake-up 82 for USB2 port 3 wakeup
-> +          items:
-> +            - description: xHCI host interrupt
-> +            - description: mailbox interrupt
-> +            - description: USB wake event 0
-> +            - description: USB wake event 1
-> +            - description: USB wake event 2
-> +            - description: USB wake event 3
-> +            - description: USB wake event 4
-> +            - description: USB wake event 5
-> +            - description: USB wake event 6
-> +        iommus:
-> +          maxItems: 1
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - nvidia,tegra264-xusb
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          minItems: 2
-> +          description: |
-> +            Same as Tegra234, with one additional optional USB wake event
-> +            interrupt. USB3 port 2 and port 3 each have a dedicated wake=
- event
-> +            interrupt on Tegra264.
-> +
-> +            PMC wake-up 79 for USB3 port 0 wakeup
-> +            PMC wake-up 80 for USB3 port 1 wakeup
-> +            PMC wake-up 81 for USB3 port 2 wakeup
-> +            PMC wake-up 82 for USB3 port 3 wakeup
-> +            PMC wake-up 83 for USB2 port 0 wakeup
-> +            PMC wake-up 84 for USB2 port 1 wakeup
-> +            PMC wake-up 85 for USB2 port 2 wakeup
-> +            PMC wake-up 86 for USB2 port 3 wakeup
-> +          items:
-> +            - description: xHCI host interrupt
-> +            - description: mailbox interrupt
-> +            - description: USB wake event 0
-> +            - description: USB wake event 1
-> +            - description: USB wake event 2
-> +            - description: USB wake event 3
-> +            - description: USB wake event 4
-> +            - description: USB wake event 5
-> +            - description: USB wake event 6
-> +            - description: USB wake event 7
-> +        iommus:
-> +          maxItems: 5
-> +
->  unevaluatedProperties: false
-> =20
->  examples:
-> --=20
-> 2.25.1
->=20
-
---eqDp6fcqM2UH+2oI
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakKNZwAKCRB4tDGHoIJi
-0mfTAP9A9GmGGdOGVMyr6X9sPpaTSh4nzhGwFvLGrU+wledLKwEA1gnN+c4MbrQN
-c9h/2QDvCBQLEbB5tocWAg7MFq+CXAg=
-=N0ZX
------END PGP SIGNATURE-----
-
---eqDp6fcqM2UH+2oI--
