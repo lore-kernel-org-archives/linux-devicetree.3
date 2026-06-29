@@ -1,227 +1,194 @@
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5792A3B8D5C
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:33:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782729192; cv=pass; b=bMyIYL5iozWuJS7vBU/Yoeazn5H7QiOol4JR7XuvjnNgtX6G5fWoHrUV0oqQqE6xkmCile3gSko++HiRK5jp1a3j5WVaHJsBgTAZKeb+3vPKbCZhRpcwxJc7ubuYbsYFvi4EbvlthM3vqVWqbTgu7HlMEuE4XK9C4wFfrTx0Ihg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782729192; c=relaxed/simple;
-	bh=uPNUsV/vx8wHQs+ok7nL4vgz7UWd10GIJIYT6GJ1G1g=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=JUjrg5WIqyitxXPEqUW+JFgfqqYS4tivArxGsC/PnyD2FOfISZgW2dxX91DYm1lEtr0kwP0lJED5IGrv9VnPo6RZG88RIr0+GH/Hfy09QBp9Y9OSeJqRAWaU0ZAJQvecaCe10cIvV//QvCXhEFBMlj7fgvr4HgSzIiF4ZPh76/Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gE8qBn8+; arc=pass smtp.client-ip=209.85.217.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9125D33B961
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782729260; cv=none; b=X/jjw2yMLcH4OvUQAMTBePh2Rfigyq2aEAD9I+/RVHYrXqSUdtVYeb9k/T8uut4TLOH8x8hDlaHZRBi0mi8DJc2l6FwkrOEcOW+zGXZLagbTQC/IS3EdeE4c+dOOxe3z0cY4xJv515rzmG3G/eRrfVp5RqdNORglIAMwE5FtG+8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782729260; c=relaxed/simple;
+	bh=O7k+YKlCUgne8sQca2M+WCEzkz5Cqo5yJXcu0TM/sGw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B057ie/8BUMmpewLJB2GNtnU/ALq6C0jLY1b1RrJ0TpI15O5VZgvhglGZ70GVbsgXLn7DbOJZP7BlhqhvhBCAkKYhPiYo8GP3A3YZi0vQ9ixqapjZsF1XW/7bU6dDLq4DjOJOf97PiyonUSAJ1OL1v2jN+i/Z9e5ZGurKVyeRvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T9DISo9J; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h/qlPO38; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gE8qBn8+"
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-728f9ecd56aso1270478137.3
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 03:33:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782729189; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rJZIP4DSJdemoSckSbmQNnJYS7QW7vjX3nEYJCx11CqWWt1f8oov/6rizAkzf5md7w
-         QL9QpO+Ao2ZtY7BuR6ttmGRnnbSaCFthOlhWVl1GRyfkimh0b4fgyRk8g95gkDVUbgWJ
-         Eui1sA+vZO2wiNbPBvG3YfV86B6+OWebt9YKBgiu+dM/5LoQyUFGI6E8W7/ZBuQPXsU5
-         jdjd29NgPnNyNpd8ZyxeGbUROLcu+wFqEm4LvIL40XU4zfWObR9z+z8u+mt7uJtqdZ3P
-         SBY8AM/9NROoHV1OAD+yLdiUkCY60Hq/h8sf+ncVwCyg5d3zc0ZZclHHzs4ikgmZHcNe
-         wfFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=bDqMGYnVhsBZQ1sXpSP8J8dhP+q5GofYCfFvca8AcKE=;
-        fh=04y7VHtpHgwJYcTu2BZEpz0XkoXeZMWL573vb+lBFRo=;
-        b=RoJ55tM79OrwVGGFKN1j2skiziegV4MpAP5vPJ5gmjEyMnZ7j2KFguRq2ShdqUTjAh
-         Bi1J3d/Puk/WK6dt5XDn9EMXyYWptnOCXXOg+WE30fGmMm8/kLjElZ86lLQ47PnqJjoP
-         Sktl5hHAR/vshyIkgEWQ16NyLd9PyYy67MKYWaA62gjLyl+MDsfm0MOUQa/2RvrYvek3
-         rytbM2t4Aldeo5gCOOmKDDA9rlQytU2yL1YQN32LOXRtl91t0Qvfca2YibSi4Bdq5wCm
-         L9UGOSQKNUpAM+mWrDjn51NrBMXA7cz5sZ8apxdmaRYm/NWdzGWTrVq0UAKYj5n8G0VS
-         pSwg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T9DISo9J";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h/qlPO38"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65TAT3BD2618796
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:34:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	We8IfLXw172gbAFTQlf72mWB2mC4Z1ZwwihA6fagoqk=; b=T9DISo9J7j6psLNv
+	9DiNxp8vZleQfl3RhHDR60iFKwo45IIdPImrtT4bK9GpYfGsZ8u2EsybeHTD/GvE
+	bHDoD5g8hHCwUDhu98o7J5vh86Ge45FPbJY0+p9vwJH7SuY+yOm3krw1O4ncgoJ4
+	/og6Gj6WJ3cLm2Mc7SBCyA7wqtDxX72X9iUZ8Qxs9jyjFywBID2v47xNfnO4TNd3
+	75hCcxyqd3mkICakMK/kpM28A3j2FgTctGuh+RMQjoeK+Mstkl5x6EfL6R0eVGvB
+	T4vNXIJaWigJ86LWKBRUUKMejzVvXlfx1UeupSLAR+XYfhDZfh4dKNrTB1xMiItB
+	ERyEyQ==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3pdkr5bn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 10:34:16 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-6cf9fa331ddso101295137.1
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 03:34:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782729189; x=1783333989; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=bDqMGYnVhsBZQ1sXpSP8J8dhP+q5GofYCfFvca8AcKE=;
-        b=gE8qBn8+Svdzz/0YRdAMIW0h3wRt8vH5mAoBtF1WMw0EJlRjXZjASMXoXgG04sTHUP
-         y1ZlWAglVAoAZlVqmp4LhKC+dgpW/ZEqSvogRnFuufZmnH0q7F8djvBnrlimwbkj1e88
-         dA1vzRTZIUJUk8RO7DMich+QwPxxRkbFZ1B/D0e+8E/muUepypXscSzHh9aV4rfbrt/u
-         VnZr7PZyhfgyubJOY0G82jNA5loe7Q8uT6a1quJI3OBMd1x3NSZFILT5q24Gd5HnY1/D
-         NpHMNlV6niNK52BSjOaTCQrp5mPbVHvm1+re++nyk13wFOjqh6ouxNLwp/cufrRIXUSu
-         SSbA==
+        d=oss.qualcomm.com; s=google; t=1782729256; x=1783334056; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=We8IfLXw172gbAFTQlf72mWB2mC4Z1ZwwihA6fagoqk=;
+        b=h/qlPO38fVN7pZGU12/Z8pH6nbt8pWthZfyWeijTwt6cw3xywYJ1SahGCYr1aAuKpm
+         BsJhlHCp/n4ZT38TW3P1XFocvuPvPzoU566cEzOuoKHMDjv6nMailUOG6hslIOpWafW1
+         RSqNxBqvCd56tRVbbg/00JvEMCBNnt64ebtmqvySoABCokMFzvHvUGnoCa2nRJG5tigg
+         II15I8rTY3Zfm6SVDJ/aWypeoSH87YRKSP+A3XDwg6/z3sOLJ0sfPMAKL61ksFlL3K5o
+         tnXq2ePWuGPczDv6kXIqu9Cx3QNwC2Vf/IJow5zPQeK1jEx26rbwfZ8ppxEPgIYvVemE
+         iF0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782729189; x=1783333989;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bDqMGYnVhsBZQ1sXpSP8J8dhP+q5GofYCfFvca8AcKE=;
-        b=dHeul4/oR/CkWfS56lMBbBMuicxcg8GXykgMwrUTYjxpfazsDH02tvfomncVvQuSlh
-         ltFMdgyEmkLCPjPrdxf0+dAchWSE/y321B9n3HpzMcUOWncnEMdDEIe4AocVmWlARr84
-         v5uccB/cpnOBifwjyuoq/AtddwMeV2yt8NR6BpZYdWMqeQhpcya082oSSj3Rt+uieZQv
-         xecCLBG6xvNsHJmDovR/LdFnkdqhyMJJtb9YJb04rfirUbYhY2R8TxxyNe82RNHHxaLO
-         U/+GZOOQ1Gmj7385j1fqtLgI0OQtitba4FAFgLWkZVjtXN9Zcatzi0tLK6Xm7vcHm8SR
-         V2bg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqtjf/Ey1kVXspK+dmL5LfryIqlRg9DFzVLINAJF2goPvPBjkf8pLH60kK6JmwxGVcsdmtf8Szp7HJM@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLm/AmA7TW3nd5fhhGcc1tOUpg/F5Cclx7lANWTxXo08bO7ncz
-	Gihqqy8yXLFOuEWubHsnPlumzi7pZ2Y8oewPMK8hO9V4S5HE+2hNFAscfw1uxy46YX+nsF6pDgR
-	hidtpLQOUikFF9CKJQRkCJzgzw8NE4mo=
-X-Gm-Gg: AfdE7cmynZlhfcuVyThf98bSpZ8bjiITQu82WIvnocGiN5lZ5PL49sKMqk8kIzGYETZ
-	0mkAIAhVcbcgYzo2p75F2pA2dejiaqXVuXivL0EtqH94tG9w+Pxo1aymgarZyJvr7DAHNwKuyF8
-	FV7Nl8kFeJ0TKigtqgq5nGo/EyPCXGjDvGXm4PI5bdZnMSsRJpMtgSRrnlTCT6r7k8W59rHqEQt
-	NRthzzMIG/zTrmT/r8Nb02SF4wt9mwVYUWL+Y9r0eSfG/AxS7fEi2/+f/UJe4CGd8BctF2HBpzf
-	M0UnK8zT0gCN0IDfUFtc5dRhmnOxuA==
-X-Received: by 2002:a05:6102:c10:b0:739:18ea:565f with SMTP id
- ada2fe7eead31-73918ea5a95mr618398137.21.1782729189290; Mon, 29 Jun 2026
- 03:33:09 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782729256; x=1783334056;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=We8IfLXw172gbAFTQlf72mWB2mC4Z1ZwwihA6fagoqk=;
+        b=G2TOKWjFiAKl+kPBCKIpYFkNvOCFv6bBfzKo+T2TAZ57g6IX8XJ7jixAJUXosk8wKB
+         icgCMBryNN3FeCRK4pQ9pcetBcfpcBgx2/zVhJpfd1F8UBTKDUL9F30scrBnjVe92OSr
+         j7gBaG/vae/EOgcaEizgZLI/E7trQOy7phEOvyS7cR7YPHX177jkMbRAfZqq/JTRjZQL
+         TCQNHblccEH5rV1i8AdCmJ1mqcv4lqRaAiY1EYsTSUZooyuGsGQ+5qAcjeApJNBeXTHD
+         B1MtotxvUq5Psr3OcI9VbAIrOVLaiZ2zQW2Zl+KvGd4EvMI1eW5T+Uj3/I1DZzfpTIwz
+         ThNQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/Yg3604o6auu306WfCJUzbNBe9F9GdsX9lQCe6u3TAT/5qIZdN0hfRY+nnSMqFkSMDDHCSr1wczPs@vger.kernel.org
+X-Gm-Message-State: AOJu0YyMhFnqVUzpu3l7DQ0wCtx9A/4AHEHDSGxTj3MQ84DO1HlZQR93
+	TId4RH1fpkga9puZPHQp5Y0S9I6PnqsjgckA4yPTY0YyZpDYO2u7LPl3wwzLoJn+yGndF/bvLCT
+	dz6FSmn8tWc7iyDvlTEXCkD1s3F7eyinPZz2mMmOSRNaPTule815NBH2qK7XMaoo4
+X-Gm-Gg: AfdE7clxZzn62gq0P5xOv1hKHSbhVBt/qVvMXKW0o33Y4iMb74RONEPsIy4MWre5X35
+	0aaE7Boz4PNLphpVfk+Mw9/uq6bmPs+4A66bWDI/bDUtIjzDuHOlZKLZAuXAiBGV5U4aap71/Uk
+	nf/iiVt8VFIqiANIW8wYR66BAaITS01CDqV/5aJd1nYBTM0qU+6SyAZRHtZDnpR8kJYoJNYV6zc
+	p2zDr2l2n2d+N1VI8yoPiFXoQj5qUHMCHn7UEa6/3gjh83dEv81ycG8Nxg4lfGStZyUwZv/Kc37
+	wt33A6JEN1h3fE2Alo3zbgmp4Xri/alJaAX1j+Jmi4fIl8KJvYyXa3Tvgo5qjC2+ZP2iKqQowkA
+	YP6h9g5O6TNhPllMI8V5zXL+qCzsQG/gKJmM=
+X-Received: by 2002:a05:6102:cd3:b0:631:25ab:8bbe with SMTP id ada2fe7eead31-734366bedd7mr2311958137.5.1782729255776;
+        Mon, 29 Jun 2026 03:34:15 -0700 (PDT)
+X-Received: by 2002:a05:6102:cd3:b0:631:25ab:8bbe with SMTP id ada2fe7eead31-734366bedd7mr2311943137.5.1782729255151;
+        Mon, 29 Jun 2026 03:34:15 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-697f3aeb509sm6698546a12.10.2026.06.29.03.34.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 03:34:14 -0700 (PDT)
+Message-ID: <8e4ea76e-f1c0-4dfd-8477-35e01ac0ba0d@oss.qualcomm.com>
+Date: Mon, 29 Jun 2026 12:34:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Juan Manuel <juanmanuellopezcarrillo@gmail.com>
-Date: Mon, 29 Jun 2026 12:32:58 +0200
-X-Gm-Features: AVVi8Ce8OnbSifc50sa7-2oatyxo8iNF2oRrQajOiWvO-Ge81MADTdXhbhnWuCg
-Message-ID: <CA+c=wxUU-mS=fiX2gCK_NH4SQPPWMqK6yrRSBSwvGZDEVaRkOA@mail.gmail.com>
-Subject: [PATCH 0/2] arm64: dts: rockchip: fix Li-Po overcharge on Powkiddy
- RGB10 Max 3 / X55
-To: macromorgan@hotmail.com, heiko@sntech.de
-Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="0000000000000f2dfe065561fca9"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 7/8] arm64: dts: qcom: mahua: Add QREF regulator
+ supplies to TCSR
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das
+ <taniya.das@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, krishna.chundru@oss.qualcomm.com
+References: <20260621-tcsr_qref_0622-v6-0-c939c22ded0c@oss.qualcomm.com>
+ <20260621-tcsr_qref_0622-v6-7-c939c22ded0c@oss.qualcomm.com>
+ <e6c0971b-ec41-4914-aa34-6caef51d2327@oss.qualcomm.com>
+ <ajk5KE/fEDDU9W3V@hu-qianyu-lv.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <ajk5KE/fEDDU9W3V@hu-qianyu-lv.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=R8Uz39RX c=1 sm=1 tr=0 ts=6a424a28 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=h4iy993FS52baA_BjO4A:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-GUID: wgnsknFQiS5BDd438ZPHwCt4KtjWsQ34
+X-Proofpoint-ORIG-GUID: wgnsknFQiS5BDd438ZPHwCt4KtjWsQ34
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA4NSBTYWx0ZWRfX6ksRaQmJNAWq
+ OM3/67PEAEWWVAYMB9uX4SYZPYMfTXMnTzf1npLX1AcJ3uJcg/4/Vn9EW0GzSYzdUXfCTEJUkao
+ 5jyPCGm5XeAmmiN2kCFZcM+nImsCAu58z8i+fVMgH0AGUl4HcXq1pCSZ4KsaRzmS2pPaVq3YXWZ
+ jttCDnY1hlGr+8XhirHdy/jqZsWNhT+0FBcwjnbILkzXk2c4LTl5B3x4v0ZTLg2VCtJirTmxIVw
+ 1tV7fDcKb8OkUwJX+LIKrD3MgegxNChksWL42OzweXJIVXQMfkHkk9Gtc0TwgGhI+ODat4cSgZL
+ gWKrIB+KfxtNLG1WQ0V8teNZ/CN1pSSr4jx+ntSNkOLI+D4jOJLRL0nGQoP3CsgjNL3AMd7e61n
+ D+HnSWkEMx56FgzRwR55v3ITBef9mgNExvGlRivuYUPTu2rEbMRt1G4UGwxEzoYck1iDaD1Zjen
+ gWYB4SJY8M0gYz8UO6Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA4NSBTYWx0ZWRfX7UepUD9EHvtK
+ ug2n1+OyjowZoB1cbpZNPGIdG/1IerYE9r/oU9A/2X60DOeHB1dtNmN8DHKImnSHlFY4045qNUZ
+ C2du2eU58xc9aB8mXswFYrphcCGto68=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-29_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290085
 
---0000000000000f2dfe065561fca9
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 6/22/26 3:31 PM, Qiang Yu wrote:
+> On Mon, Jun 22, 2026 at 02:18:54PM +0200, Konrad Dybcio wrote:
+>> On 6/22/26 7:11 AM, Qiang Yu wrote:
+>>> Mahua has a different PCIe QREF topology from glymur. Override the TCSR
+>>> compatible to qcom,mahua-tcsr in mahua.dtsi, and wire up the required
+>>> LDO supplies for the PCIe clkref paths on the CRD board.
+>>>
+>>> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+>>> ---
+>>>  arch/arm64/boot/dts/qcom/mahua-crd.dts | 15 +++++++++++++++
+>>>  arch/arm64/boot/dts/qcom/mahua.dtsi    |  4 ++++
+>>>  2 files changed, 19 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/mahua-crd.dts b/arch/arm64/boot/dts/qcom/mahua-crd.dts
+>>> index 9c8244e892dd..8b42f5174b31 100644
+>>> --- a/arch/arm64/boot/dts/qcom/mahua-crd.dts
+>>> +++ b/arch/arm64/boot/dts/qcom/mahua-crd.dts
+>>> @@ -19,3 +19,18 @@ / {
+>>>  	model = "Qualcomm Technologies, Inc. Mahua CRD";
+>>>  	compatible = "qcom,mahua-crd", "qcom,mahua";
+>>>  };
+>>> +
+>>> +&tcsr {
+>>> +	vdda-qrefrpt0-0p9-supply = <&vreg_l2f_e1_0p83>;
+>>> +	vdda-qrefrpt1-0p9-supply = <&vreg_l2f_e1_0p83>;
+>>> +	vdda-qrefrpt2-0p9-supply = <&vreg_l2f_e1_0p83>;
+>>> +	vdda-qrefrpt3-0p9-supply = <&vreg_l1f_e1_0p82>;
+>>> +	vdda-qrefrpt4-0p9-supply = <&vreg_l2h_e0_0p72>;
+>>> +	vdda-qrefrpt5-0p9-supply = <&vreg_l2h_e0_0p72>;
+>>> +	vdda-qrefrx1-0p9-supply = <&vreg_l2f_e1_0p83>;
+>>> +	vdda-qrefrx2-0p9-supply = <&vreg_l2f_e1_0p83>;
+>>> +	vdda-qrefrx3-0p9-supply = <&vreg_l2h_e0_0p72>;
+>>> +	vdda-qreftx1-0p9-supply = <&vreg_l1f_e1_0p82>;
+>>> +	vdda-refgen3-0p9-supply = <&vreg_l1f_e1_0p82>;
+>>> +	vdda-refgen3-1p2-supply = <&vreg_l4f_e1_1p08>;
+>>
+>> The supplies are correct, but QREF uses refgen4 on Mahua
+>>
+> 
+> The instance is REFGEN4, but its regulator name is refgen3_xxx. Do you
+> think rename the supplies as vdda-refgen4-0p9-supply is better?
 
-Hi Chris, Heiko,
+Ah, I overlooked this. Maybe 4 could be better here, since the supplies
+that end up being assigned there match what we call refgen4 on Glymur.
 
-While bringing up a couple of Powkiddy RK3566 handhelds I ran into a
-battery problem that turns out to be in the device trees, and it has
-already cost me two packs, so I'd like to get it fixed for everyone.
+But there's no good answer, both options are terrible. Let's add a
+comment somewhere (in bindings?) describing this mess, perhaps like:
 
-Both battery nodes charge the cell above its own declared full voltage:
+# On Mahua, the REFGEN4 block is supplied through pads named REFGEN3
 
-rk3566-powkiddy-rk2023.dtsi (inherited by the RGB10 Max 3):
-constant-charge-voltage-max-microvolt =3D 4250000 (4.25 V), but
-voltage-max-design-microvolt and the ocv-capacity-table-0 100% point
-are both 4172000 (4.172 V).
-
-rk3566-powkiddy-x55.dts: constant-charge-voltage-max-microvolt =3D
-4300000 (4.30 V), but voltage-max-design-microvolt and the
-ocv-capacity-table-0 100% point are both 4138000 (4.138 V).
-
-So the charger drives each cell ~80=E2=80=93160 mV past its own OCV-100% po=
-int
-on every cycle. On a standard 4.2 V Li-Po that is an overcharge: it
-raises the cell's internal resistance and kills the pack early. The
-symptom is textbook =E2=80=94 the pack reads a normal voltage/SoC while on =
-the
-charger but collapses under load and shuts the device off the moment
-it's unplugged. I lost two packs to this before tracing it to the DT;
-capping the charge voltage at 4.2 V (verified at the rk817 CHRG_OUT
-register) stopped the damage, and a third, already-degraded pack
-stabilised.
-
-Patch 1 also corrects the RGB10 Max 3 design capacity: it ships a 4000
-mAh cell but inherits the 3151 mAh value from rk2023.dtsi. I did this
-as a per-board override so I don't touch the shared profile, which may
-well be correct for the RGB30 and other rk2023 users.
-
-One thing worth a look on your side: the shared
-rk3566-powkiddy-rk2023.dtsi default itself (4.25 V against a 4.172 V
-OCV-100% point) looks like it would overcharge any device using it,
-not just the RGB10 Max 3 =E2=80=94 but I only have the two units above to t=
-est
-on, so I've kept the fix scoped to what I can verify.
-
-Thanks a lot for all the handheld DT work; none of these devices would
-run mainline without it.
-
-Juan Manuel Lopez Carrillo
-
---0000000000000f2dfe065561fca9
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-arm64-dts-rockchip-powkiddy-rgb10max3-fix-battery-pr.patch"
-Content-Disposition: attachment; 
-	filename="0001-arm64-dts-rockchip-powkiddy-rgb10max3-fix-battery-pr.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mqz2w1d90>
-X-Attachment-Id: f_mqz2w1d90
-
-RnJvbSAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBKdWFuIE1hbnVlbCBMb3BleiBDYXJyaWxsbyA8anVhbm1hbnVl
-bGxvcGV6Y2FycmlsbG9AZ21haWwuY29tPgpEYXRlOiBTdW4sIDI5IEp1biAyMDI2IDEyOjAwOjAw
-ICswMjAwClN1YmplY3Q6IFtQQVRDSCAxLzJdIGFybTY0OiBkdHM6IHJvY2tjaGlwOiBwb3draWRk
-eS1yZ2IxMG1heDM6IGZpeCBiYXR0ZXJ5CiBwcm9maWxlCgpUaGUgUG93a2lkZHkgUkdCMTAgTWF4
-IDMgc2hpcHMgd2l0aCBhIDQwMDAgbUFoIHBhY2ssIGJ1dCBpdCBpbmhlcml0cyBpdHMKYmF0dGVy
-eSBub2RlIGZyb20gcmszNTY2LXBvd2tpZGR5LXJrMjAyMy5kdHNpLCB3aGljaCBkZXNjcmliZXMg
-YSAzMTUxIG1BaApjZWxsIGFuZCwgbW9yZSBpbXBvcnRhbnRseSwgc2V0cyBjb25zdGFudC1jaGFy
-Z2Utdm9sdGFnZS1tYXgtbWljcm92b2x0IHRvCjQyNTAwMDAgKDQuMjUgVikuCgpUaGF0IGNoYXJn
-ZSB2b2x0YWdlIGlzIGFib3ZlIHRoaXMgcGFjaydzIGRlY2xhcmVkIGZ1bGwgdm9sdGFnZTogdGhl
-CmluaGVyaXRlZCB2b2x0YWdlLW1heC1kZXNpZ24tbWljcm92b2x0IGFuZCB0aGUgb2N2LWNhcGFj
-aXR5LXRhYmxlLTAgMTAwJQpwb2ludCBhcmUgYm90aCA0MTcyMDAwICg0LjE3MiBWKS4gVGhlIGNo
-YXJnZXIgdGhlcmVmb3JlIGRyaXZlcyB0aGUgY2VsbAp+NzggbVYgcGFzdCBpdHMgb3duIGRlY2xh
-cmVkICJmdWxsIiBvbiBldmVyeSBjeWNsZS4KCkZvciBhIHN0YW5kYXJkIDQuMiBWIExpLVBvIHRo
-aXMgaXMgYW4gb3ZlcmNoYXJnZS4gSXQgcmFpc2VzIHRoZSBjZWxsJ3MKaW50ZXJuYWwgcmVzaXN0
-YW5jZSBhbmQga2lsbHMgdGhlIHBhY2sgcHJlbWF0dXJlbHkuIFRoZSBmYWlsdXJlIG1vZGUgc2Vl
-bgppbiB0aGUgZmllbGQgaXMgY2hhcmFjdGVyaXN0aWM6IHRoZSBwYWNrIHJlYWRzIGEgcGxhdXNp
-YmxlIHZvbHRhZ2UvU29DCndoaWxlIG9uIHRoZSBjaGFyZ2VyIGJ1dCBjb2xsYXBzZXMgdW5kZXIg
-bG9hZCAoYW5kIHNodXRzIHRoZSBkZXZpY2Ugb2ZmKQphcyBzb29uIGFzIGl0IGlzIHVucGx1Z2dl
-ZC4gVHdvIHBhY2tzIHdlcmUgbG9zdCB0aGlzIHdheSBiZWZvcmUgdGhlIGNhdXNlCndhcyB0cmFj
-ZWQgdG8gdGhlIERULgoKT3ZlcnJpZGUgdGhlIG5vZGUgZm9yIHRoaXMgYm9hcmQgd2l0aCB0aGUg
-Y29ycmVjdCA0MDAwIG1BaCBkZXNpZ24gY2FwYWNpdHkKYW5kIGEgc2FmZSA0LjIgViBjaGFyZ2Ug
-Y2VpbGluZywgYXQvYmVsb3cgdGhlIGNlbGwgZGVzaWduIG1heCBhbmQgdGhlCk9DVi0xMDAlIHBv
-aW50LiBUaGUgY2hhcmdlIGN1cnJlbnQgbGltaXQgKDIgQSA9IDAuNUMpIGFuZCB0aGUgT0NWIGN1
-cnZlCmFyZSBsZWZ0IHVuY2hhbmdlZC4KClNpZ25lZC1vZmYtYnk6IEp1YW4gTWFudWVsIExvcGV6
-IENhcnJpbGxvIDxqdWFubWFudWVsbG9wZXpjYXJyaWxsb0BnbWFpbC5jb20+Ci0tLQogYXJjaC9h
-cm02NC9ib290L2R0cy9yb2NrY2hpcC9yazM1NjYtcG93a2lkZHktcmdiMTBtYXgzLmR0cyB8IDUg
-KysrKysKIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9hcmNo
-L2FybTY0L2Jvb3QvZHRzL3JvY2tjaGlwL3JrMzU2Ni1wb3draWRkeS1yZ2IxMG1heDMuZHRzIGIv
-YXJjaC9hcm02NC9ib290L2R0cy9yb2NrY2hpcC9yazM1NjYtcG93a2lkZHktcmdiMTBtYXgzLmR0
-cwotLS0gYS9hcmNoL2FybTY0L2Jvb3QvZHRzL3JvY2tjaGlwL3JrMzU2Ni1wb3draWRkeS1yZ2Ix
-MG1heDMuZHRzCisrKyBiL2FyY2gvYXJtNjQvYm9vdC9kdHMvcm9ja2NoaXAvcmszNTY2LXBvd2tp
-ZGR5LXJnYjEwbWF4My5kdHMKQEAgLTEyLDYgKzEyLDExIEBACiAJY29tcGF0aWJsZSA9ICJwb3dr
-aWRkeSxyZ2IxMG1heDMiLCAicm9ja2NoaXAscmszNTY2IjsKIH07CgorJmJhdHRlcnkgeworCWNo
-YXJnZS1mdWxsLWRlc2lnbi1taWNyb2FtcC1ob3VycyA9IDw0MDAwMDAwPjsKKwljb25zdGFudC1j
-aGFyZ2Utdm9sdGFnZS1tYXgtbWljcm92b2x0ID0gPDQyMDAwMDA+OworfTsKKwogJmJsdWV0b290
-aCB7CiAJY29tcGF0aWJsZSA9ICJyZWFsdGVrLHJ0bDg3MjNkcy1idCI7CiB9OwotLQoyLjQzLjAK
---0000000000000f2dfe065561fca9
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0002-arm64-dts-rockchip-powkiddy-x55-cap-battery-charge-4.patch"
-Content-Disposition: attachment; 
-	filename="0002-arm64-dts-rockchip-powkiddy-x55-cap-battery-charge-4.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mqz2w1dh1>
-X-Attachment-Id: f_mqz2w1dh1
-
-RnJvbSAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBKdWFuIE1hbnVlbCBMb3BleiBDYXJyaWxsbyA8anVhbm1hbnVl
-bGxvcGV6Y2FycmlsbG9AZ21haWwuY29tPgpEYXRlOiBTdW4sIDI5IEp1biAyMDI2IDEyOjA1OjAw
-ICswMjAwClN1YmplY3Q6IFtQQVRDSCAyLzJdIGFybTY0OiBkdHM6IHJvY2tjaGlwOiBwb3draWRk
-eS14NTU6IGNhcCBiYXR0ZXJ5IGNoYXJnZQogdm9sdGFnZSBhdCA0LjJWCgpUaGUgeDU1IGJhdHRl
-cnkgbm9kZSBzZXRzIGNvbnN0YW50LWNoYXJnZS12b2x0YWdlLW1heC1taWNyb3ZvbHQgdG8KNDMw
-MDAwMCAoNC4zMCBWKSwgYnV0IHRoZSBzYW1lIG5vZGUgZGVjbGFyZXMgdm9sdGFnZS1tYXgtZGVz
-aWduLW1pY3Jvdm9sdAphbmQgYW4gb2N2LWNhcGFjaXR5LXRhYmxlLTAgMTAwJSBwb2ludCBvZiA0
-MTM4MDAwICg0LjEzOCBWKS4gVGhlIGNoYXJnZXIKdGhlcmVmb3JlIGRyaXZlcyB0aGUgcGFjayB+
-MTYyIG1WIGFib3ZlIGl0cyBvd24gZGVjbGFyZWQgZnVsbCB2b2x0YWdlIG9uCmV2ZXJ5IGN5Y2xl
-LgoKVGhpcyBvdmVyY2hhcmdlcyB0aGUgc3RhbmRhcmQgNC4yIFYgTGktUG8sIHJhaXNpbmcgaXRz
-IGludGVybmFsIHJlc2lzdGFuY2UKYW5kIGtpbGxpbmcgaXQgZWFybHkgLSBpdCByZWFkcyBmaW5l
-IG9uIHRoZSBjaGFyZ2VyIGJ1dCBjb2xsYXBzZXMgdW5kZXIKbG9hZCBvbmNlIHVucGx1Z2dlZC4g
-Q2FwIHRoZSBjaGFyZ2Ugdm9sdGFnZSBhdCB0aGUgc3RhbmRhcmQsIHNhZmUgNC4yIFYuCkRlc2ln
-biBjYXBhY2l0eSAoNDAwMCBtQWgpIGFuZCBjaGFyZ2UgY3VycmVudCAoMiBBKSBhcmUgYWxyZWFk
-eSBjb3JyZWN0LgoKU2lnbmVkLW9mZi1ieTogSnVhbiBNYW51ZWwgTG9wZXogQ2FycmlsbG8gPGp1
-YW5tYW51ZWxsb3BlemNhcnJpbGxvQGdtYWlsLmNvbT4KLS0tCiBhcmNoL2FybTY0L2Jvb3QvZHRz
-L3JvY2tjaGlwL3JrMzU2Ni1wb3draWRkeS14NTUuZHRzIHwgMiArLQogMSBmaWxlIGNoYW5nZWQs
-IDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvYXJjaC9hcm02NC9i
-b290L2R0cy9yb2NrY2hpcC9yazM1NjYtcG93a2lkZHkteDU1LmR0cyBiL2FyY2gvYXJtNjQvYm9v
-dC9kdHMvcm9ja2NoaXAvcmszNTY2LXBvd2tpZGR5LXg1NS5kdHMKLS0tIGEvYXJjaC9hcm02NC9i
-b290L2R0cy9yb2NrY2hpcC9yazM1NjYtcG93a2lkZHkteDU1LmR0cworKysgYi9hcmNoL2FybTY0
-L2Jvb3QvZHRzL3JvY2tjaGlwL3JrMzU2Ni1wb3draWRkeS14NTUuZHRzCkBAIC03Nyw3ICs3Nyw3
-IEBACiAJCWNoYXJnZS1mdWxsLWRlc2lnbi1taWNyb2FtcC1ob3VycyA9IDw0MDAwMDAwPjsKIAkJ
-Y2hhcmdlLXRlcm0tY3VycmVudC1taWNyb2FtcCA9IDwzMDAwMDA+OwogCQljb25zdGFudC1jaGFy
-Z2UtY3VycmVudC1tYXgtbWljcm9hbXAgPSA8MjAwMDAwMD47Ci0JCWNvbnN0YW50LWNoYXJnZS12
-b2x0YWdlLW1heC1taWNyb3ZvbHQgPSA8NDMwMDAwMD47CisJCWNvbnN0YW50LWNoYXJnZS12b2x0
-YWdlLW1heC1taWNyb3ZvbHQgPSA8NDIwMDAwMD47CiAJCWZhY3RvcnktaW50ZXJuYWwtcmVzaXN0
-YW5jZS1taWNyby1vaG1zID0gPDkxMDAwPjsKIAkJdm9sdGFnZS1tYXgtZGVzaWduLW1pY3Jvdm9s
-dCA9IDw0MTM4MDAwPjsKIAkJdm9sdGFnZS1taW4tZGVzaWduLW1pY3Jvdm9sdCA9IDwzNDAwMDAw
-PjsKLS0KMi40My4wCg==
---0000000000000f2dfe065561fca9--
+Konrad
