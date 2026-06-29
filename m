@@ -1,304 +1,390 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51FD3C4551
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 07:18:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D9B3C873B;
+	Mon, 29 Jun 2026 07:19:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782717492; cv=none; b=fNW5LZHlmtbLkr9zvaU/zA/0VeoDcFtUlpBMZiNoM59wqRslR8ZW5AXNkq8OT7003ZTastzKZkMEebvzFgV86c5cFoDAyzcrlBoKqgZuQBwrUyyJA3KFuyMYdh4RgZkontxs2pLMbBKELqOmwIXqlpV22mcjyLXNVjsnhBWSHMg=
+	t=1782717569; cv=none; b=bk963ax6lJ1PP/ctFi7jweSURoTU10+Ow1V8TYufvgGTbOKrcopC7Um8wtkdmzPYR1L65ESJVj/GySUQZMt+Fas6vS2BdtPY4QfiSLwc89bW+6/EwKJ4J+8SC+bgWZq8dNwmgSM90hD2ZQW/K7twuahQTm0/G1m6YBe/nEmfU6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782717492; c=relaxed/simple;
-	bh=blN7kUYjZ29Lu9JrwtLJvpjU1Wy8lfqujnHxweqK+8c=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MyagHCB/h5ZeF/AFb3agkak2z/MeNNUW/WBHFLUo0JHZJv8XPxUi28SAHAP32XQj7zi/S15a8s2QD1cawOGdVSJEUYmJr5N0jKlcnZm24RjwJlggYWb4vvIzA16fl8tf88oSCJSiD81NOFXnspjDC23kVOBXF3zuC1UMmlZHUcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UoKebr6L; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UoKebr6L"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-472326ca506so458362f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 00:18:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782717487; x=1783322287; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BovyFstc80MYHmYyIZVG50kULX+1YfHlAuIHPTiI6jk=;
-        b=UoKebr6L7g61S2ib1/fbHXwppvTCC1ASPVOG2gTWyXjTEcnJTr1ZZ1tFbyCkBNX28I
-         ay9ZQqGMkmaKqeiUNL1Bpy+ituRDCsTu/jrTTful/YsQ2V4upAJBk1RlUzHnFE9F7iSy
-         Js1x1pW7T8syZXAMpb57x+17cn2zG3kTfBddZIGdcHwvZHOrz7jgTy3bLZSPOWXhcwaN
-         8zc6BJLiedrnyhgzyP+TwCMskBECBxC/d3Dw7oYdqOCuPPd1d84yvCVWdq6Lx6En/Rgt
-         knW2V5g7iTNkQhlBWIoSQbBRyuezOLGGLv/URcDeJtqZD8CfouiGkrVZPu4z0tPrf6Ys
-         VK0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782717487; x=1783322287;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=BovyFstc80MYHmYyIZVG50kULX+1YfHlAuIHPTiI6jk=;
-        b=lRBujc+HYS/Lan7dTbuacxHHboe7qjnA7Yiaxp73uuk0YvFf1hvR9u4BHMf7dLAUE+
-         wKnHCwy9FYg/wiPNunXtcASw3DbUpkeZGucbcbc6HJcHMs+Q5o9umk58mmUlMKiWmySr
-         LQP/dj32IvLOCDk5I/LfDHp5zD7Y32XE3xWadoLnVoS0Lfcq2EE7imGYzLdSHd52EzzH
-         7E1tDRB2FA5Zf++l61Ai7tkxT4C+j32MJHjFmSZPCtuwC/15fjxWeqNKp3hZ6UtCrRP8
-         m7Q/B70HKsw0t0VMRDO+EfzzNODXPRVXgBCzmmuMU0iqFKSDttV8PK8J6P67OO4KDZVb
-         esaQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqo9Y547N8nd6jOrhtnu+19DvU/4+8NDH/D1Q5A28uRzcgsJJlSKP4Wot1iUlJRMjG5u7I6zlMh1tHe@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw84UAVd51zG63bTah9KQ3hMufyE/9NyyooFXWg8ZL42HPFyBjF
-	fJ+Zo+6B/OKYGrFpps8iD0He+yrylnQ1AzY1vM+anYbIODS2lBBbp0Wm
-X-Gm-Gg: AfdE7cmFfa0SodZnXZfpuj3pO2rfpJZj/iXCiT1cJAS0VzrZ/IDEbOZ40YtV14+TI7Z
-	kiKnXDv9QKY4Ieh6/YrsnypRxPzY0RA3G5eS00TB2yd5KSEgVpaEEWzUQxIwEhqycnaxYNHtkbp
-	pilhDTVFu9rjFjpow1FWRIgE1sORxDfx9gwAq+TKiSEBVgUAiA3QhwrxUnlcvqnv8rWRJg1bPwX
-	SKjEUfLFrtc35fYUc1Ru1fTcRdtnBzTZZpqXJ0Cs/uEKucvG0U4iF9kBMort+BCV1c0t2iDlJEe
-	WYba0ZlTGN9nL0+2vNK8v23OL7QK4ypd68VL3wn0nH2ogLskczzFuM029OyR9mnQdbIrsuTA4Xe
-	iRH5TrCK5A7YG5immcWpikkxTQAQkp47ExTjuffs9ezu3xX7BqGMqND8gk2ZElVQl+tNPT/o9xd
-	9Zjk2Kig7dEKCTTRojyyk6HLFevMx3H3/YSHzU0EV9qdAqCMD2OTcS33YHuEm9/izgp1o=
-X-Received: by 2002:a5d:6a48:0:b0:46d:32:3340 with SMTP id ffacd0b85a97d-46fb8d93892mr12284633f8f.36.1782717486707;
-        Mon, 29 Jun 2026 00:18:06 -0700 (PDT)
-Received: from Ansuel-XPS. (host-80-183-219-152.pool80183.interbusiness.it. [80.183.219.152])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47290ed4377sm13297042f8f.37.2026.06.29.00.18.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 00:18:05 -0700 (PDT)
-Message-ID: <6a421c2d.1e0bfc4f.b2eb6.06fb@mx.google.com>
-X-Google-Original-Message-ID: <akIcKbA8zsoalq-G@Ansuel-XPS.>
-Date: Mon, 29 Jun 2026 09:18:01 +0200
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
-Subject: Re: [RFC PATCH net-next v8 03/12] net: phylink: add
- phylink_release_pcs() to externally release a PCS
-References: <20260618125752.1223-1-ansuelsmth@gmail.com>
- <20260618125752.1223-4-ansuelsmth@gmail.com>
- <a271385e-302d-45c7-a1df-aebd380b427b@bootlin.com>
- <6a3fc312.6161eb1e.3441bb.c0de@mx.google.com>
- <178defc6-8e60-4b0b-b3b0-f0f2a4003b68@bootlin.com>
+	s=arc-20240116; t=1782717569; c=relaxed/simple;
+	bh=sdgcBQiRRDb/Sfxuh9Bsxvfpko/UJ/Kv6NzOy0ZI2WI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fE1k0M2tJY7LylgFDLWrHGhSxJodvjSJXodaLMCPx1rFH6yS896qRQwvaMtjMR7UP18Xho+NDNoKijhUTFqF3Cb3KKRkLZvXDAVn807ZmMSIMDzvbnI2xSkQwLT94kA3966s7hk893ZAEJZ/JrQ4gLIk+W4BdwWp7joxPj7HSxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66AE51F000E9;
+	Mon, 29 Jun 2026 07:19:24 +0000 (UTC)
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v26 3/7] firmware: imx: add driver for NXP EdgeLock
+ Enclave
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260629-imx-se-if-v26-3-146446285744@nxp.com>
+References: <20260629-imx-se-if-v26-0-146446285744@nxp.com>
+ <20260629-imx-se-if-v26-3-146446285744@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 07:19:02 +0000
+Message-Id: <20260629071924.66AE51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178defc6-8e60-4b0b-b3b0-f0f2a4003b68@bootlin.com>
 
-On Mon, Jun 29, 2026 at 09:04:49AM +0200, Maxime Chevallier wrote:
-> Hi Christian,
-> 
-> On 6/27/26 14:33, Christian Marangi wrote:
-> > On Thu, Jun 25, 2026 at 04:13:14PM +0200, Maxime Chevallier wrote:
-> >> Hello Christian,
-> >>
-> >> On 6/18/26 14:57, Christian Marangi wrote:
-> >>> Add phylink_release_pcs() to externally release a PCS from a phylink
-> >>> instance. This can be used to handle case when a single PCS needs to be
-> >>> removed and the phylink instance needs to be refreshed.
-> >>>
-> >>> On calling phylink_release_pcs(), the PCS will be removed from the
-> >>> phylink internal PCS list and the phylink supported_interfaces value is
-> >>> reparsed with the remaining PCS interfaces.
-> >>>
-> >>> Also a phylink resolve is triggered to handle the PCS removal.
-> >>>
-> >>> The flag force_major_config is set to make phylink resolve reconfigure
-> >>> the interface (even if it didn't change).
-> >>> This is needed to handle the special case when the current PCS used
-> >>> by phylink is removed and a major_config is needed to propagae the
-> >>> configuration change. With this option enabled we also force mac_config
-> >>> even if the PHY link is not up for the in-band case.
-> >>>
-> >>> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> >>> ---
-> >>>  drivers/net/phy/phylink.c | 56 +++++++++++++++++++++++++++++++++++++++
-> >>>  include/linux/phylink.h   |  2 ++
-> >>>  2 files changed, 58 insertions(+)
-> >>>
-> >>> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> >>> index c38bcd43b8c8..064d6f5a06da 100644
-> >>> --- a/drivers/net/phy/phylink.c
-> >>> +++ b/drivers/net/phy/phylink.c
-> >>> @@ -158,6 +158,8 @@ static const phy_interface_t phylink_sfp_interface_preference[] = {
-> >>>  static DECLARE_PHY_INTERFACE_MASK(phylink_sfp_interfaces);
-> >>>  
-> >>>  static void phylink_run_resolve(struct phylink *pl);
-> >>> +static void phylink_link_down(struct phylink *pl);
-> >>> +static void phylink_pcs_disable(struct phylink_pcs *pcs);
-> >>>  
-> >>>  /**
-> >>>   * phylink_set_port_modes() - set the port type modes in the ethtool mask
-> >>> @@ -918,6 +920,60 @@ static void phylink_resolve_an_pause(struct phylink_link_state *state)
-> >>>  	}
-> >>>  }
-> >>>  
-> >>> +/**
-> >>> + * phylink_release_pcs - Removes a PCS from the phylink PCS available list
-> >>> + * @pcs: a pointer to the phylink_pcs struct to be released
-> >>> + *
-> >>> + * This function release a PCS from the phylink PCS available list if
-> >>> + * actually in use. It also refreshes the supported interfaces of the
-> >>> + * phylink instance by copying the supported interfaces from the phylink
-> >>> + * conf and merging the supported interfaces of the remaining available PCS
-> >>> + * in the list and trigger a resolve.
-> >>> + */
-> >>> +void phylink_release_pcs(struct phylink_pcs *pcs)
-> >>> +{
-> >>> +	struct phylink *pl;
-> >>> +
-> >>> +	ASSERT_RTNL();
-> >>> +
-> >>> +	pl = pcs->phylink;
-> >>> +	if (!pl)
-> >>> +		return;
-> >>> +
-> >>> +	mutex_lock(&pl->state_mutex);
-> >>> +
-> >>> +	list_del(&pcs->list);
-> >>> +	pcs->phylink = NULL;
-> >>> +
-> >>> +	/*
-> >>> +	 * Check if we are removing the PCS currently
-> >>> +	 * in use by phylink. If this is the case, tear down
-> >>> +	 * the link, force phylink resolve to reconfigure the
-> >>> +	 * interface mode, disable the current PCS and set the
-> >>> +	 * phylink PCS to NULL.
-> >>> +	 */
-> >>> +	if (pl->pcs == pcs) {
-> >>> +		phylink_link_down(pl);
-> >>> +		phylink_pcs_disable(pl->pcs);
-> >>> +
-> >>> +		pl->force_major_config = true;
-> >>> +		pl->pcs = NULL;
-> >>> +	}
-> >>> +
-> >>> +	mutex_unlock(&pl->state_mutex);
-> >>> +
-> >>> +	/* Refresh supported interfaces */
-> >>> +	phy_interface_copy(pl->supported_interfaces,
-> >>> +			   pl->config->supported_interfaces);
-> >>> +	list_for_each_entry(pcs, &pl->pcs_list, list)
-> >>> +		phy_interface_or(pl->supported_interfaces,
-> >>> +				 pl->supported_interfaces,
-> >>> +				 pcs->supported_interfaces);
-> >>
-> >> I've given more thought to that 'supported_interfaces' thing. This
-> >> patchset redefines the meaning of
-> >>
-> >>   pl->config->supported_interfaces
-> >>
-> >> Currently, it's filled by the MAC driver and means "Every interface
-> >> we can support, including the ones provided by PCSs that we can use
-> >> with this MAC".
-> >>
-> >> It now becomes "Every interface we support without needing a PCS", at
-> >> least the way I understand that.
-> >>
-> > 
-> > Wait but with the current code using the OR logic, it still follows
-> > "Every interface we can support...". The modes that needs a PCS are
-> > specificed with the pcs_interfaces mask in phylink_config.
-> 
-> you current code is correct, I was mostly concerned about the doc
-> that goes along with it :)
+Thank you for your contribution! Sashiko AI review found 11 potential issue=
+(s) to consider:
+- [Critical] The physical/DMA address of the encrypted IMEM buffer (`load_f=
+w->imem.phyaddr`) is never initialized after allocation, causing the firmwa=
+re to write exported IMEM state to physical address 0.
+- [High] If `ele_msg_send()` fails, `ele_msg_send_rcv()` returns early with=
+out clearing `priv->waiting_rsp_clbk_hdl.rx_msg`, leaving a dangling pointe=
+r that can be written to by the interrupt handler.
+- [High] If a firmware response timeout occurs, `tx_msg` is freed by the ca=
+ller while its pointer is still queued asynchronously in the mailbox framew=
+ork.
+- [High] Global static state `var_se_info` is shared across all instances o=
+f the device, leading to memory leaks and state corruption when multiple MU=
+ instances probe.
+- [High] `ele_service_swap()` silently truncates the 64-bit physical addres=
+s to 32 bits, and the driver fails to configure a 32-bit DMA mask.
+- [High] The SoC device registered via `soc_device_register()` is never unr=
+egistered on driver removal, leading to a memory leak and sysfs UAF.
+- [High] `se_if_probe_cleanup()` manually calls `dmam_free_coherent()` on d=
+evres-managed memory, causing a double-free and passing an invalid handle.
+- [High] Hardcoded `MAX_SCHEDULE_TIMEOUT` is applied to active command rece=
+ivers, bypassing the timeout budget and causing an unkillable deadlock.
+- [Medium] Mixing `goto`-based cleanup with `__free()` attribute declaratio=
+ns in the same function.
+- [Medium] The response buffer pointer `rx_msg` is cleared locklessly on th=
+e success path, allowing a Write-After-Free if a spurious response arrives.
+- [Low] In the resume handler, the return value of `se_restore_imem_state()=
+` is not assigned to the `ret` variable, silently swallowing hardware resto=
+re errors.
+--
 
-Oh yep thanks, I will update also that entry. Also maybe check the .rst
-introduced and tell me if something is confusing or badly described.
+commit 6df55de736269bcb35dff3283a274cacbfb24e1f
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+Subject: firmware: imx: add driver for NXP EdgeLock Enclave
 
-> 
-> So in the end, we'd have something like (simplified):
-> 
-> pl->config.supported_interfaces = RGMII_xx | SGMII | 1000BaseX
-> pl->config.pcs_interfaces = SGMII | 1000BaseX
-> 
-> pcs->supported_interface = SGMII| 1000BaseX
-> 
-> correct ?
-> 
+This commit adds a messaging unit (MU) based communication interface for the
+NXP EdgeLock Enclave (ELE). It exposes APIs via file descriptors for
+configuring shared memory and exchanging messages.
 
-Correct. phylink_config describing that for SGMII and 1000BaseX a PCS is
-required and the related PCS declaring support for those modes.
+> diff --git a/drivers/firmware/imx/ele_base_msg.c b/drivers/firmware/imx/e=
+le_base_msg.c
+> index 0000000000000..54d79c3d75af6
+> --- /dev/null
+> +++ b/drivers/firmware/imx/ele_base_msg.c
+[ ... ]
+> +int ele_get_info(struct se_if_priv *priv, struct ele_dev_info *s_info)
+> +{
+[ ... ]
+> +	struct se_api_msg *tx_msg __free(kfree) =3D
+> +		kzalloc(ELE_GET_INFO_REQ_MSG_SZ, GFP_KERNEL);
+> +	if (!tx_msg)
+> +		return -ENOMEM;
+> +
+> +	struct se_api_msg *rx_msg __free(kfree) =3D
+> +		kzalloc(ELE_GET_INFO_RSP_MSG_SZ, GFP_KERNEL);
+> +	if (!rx_msg)
+> +		return -ENOMEM;
+[ ... ]
+> +	ret =3D se_val_rsp_hdr_n_status(priv, rx_msg, ELE_GET_INFO_REQ,
+> +				      ELE_GET_INFO_RSP_MSG_SZ, true);
+> +	if (ret < 0)
+> +		goto exit;
+> +
+> +	memcpy(s_info, get_info_data, sizeof(*s_info));
+> +exit:
+> +	if (priv->mem_pool)
+> +		gen_pool_free(priv->mem_pool, (unsigned long)get_info_data,
+> +			      ELE_GET_INFO_BUFF_SZ);
+> +	else
+> +		dma_free_coherent(priv->dev, ELE_GET_INFO_BUFF_SZ,
+> +				  get_info_data, get_info_addr);
+> +
+> +	return ret;
+> +}
 
-Code will skip searching for a PCS for RGMII.
+[Severity: Medium]
+Does this mix goto-based cleanup with __free() variable declarations?
 
-> > 
-> > The late add and release operates on the phylink supported_interfaces ONLY
-> > when the MAC didn't specify support for it (by removing it as only the PCS
-> > will declare support for it)
-> > 
-> > The confusion is present because everything is validated later on
-> > major_config so those supported_interfaces are just an HINT that are later
-> > verified with get_caps and with the pcs_validate OPs.
-> > 
-> > Adding the supported_interfaces to phylink is really to keep an original
-> > reference of the value. This is to address a pattern I have notice where
-> > the MAC driver always OR the interfaces with the one supported by the PCS.
-> > (I remember it was pointed out by Russell)
-> > 
-> > But I'm more than open to discussion as this is something marginal to the
-> > whole implementation, I'm also questioning if this OR is actually useful to
-> > anything on the nth tought on this.
-> > 
-> > One thing that I notice is that parsing this early with AND might be
-> > problematic at phylink_create, but I still have to evaluate that.
-> > 
-> > My take is that would be good to have some review also on the other logic
-> > as I think I reached a point where Sashiko starts to comments on more or
-> > less unreal problem.
-> 
-> True, TBH all the fwnode part is something I'm a bit less familiar with though
-> so maybe someone else can browse through that.
-> 
-> FWIW, I've tested that whole series on a board that has "legacy" PCS board
-> that has mvpp2 and 2 possible PCSs, and it seems to work fine so no regressions
-> there :)
-> 
-> A side note with the "legacy" naming, I'd rather have it called "built-in" or
-> something like that, I don't see a clear path to porting the existing code to
-> fwnode without breaking DT compat, as it's likely we'll have to remove the PCS
-> register ranges out of the MAC's range. 
+Looking at ele_get_info(), tx_msg and rx_msg use the __free(kfree) scoped
+cleanup macro, but the error paths use a goto exit label to manage the
+cleanup of get_info_data. The cleanup subsystem guidelines prohibit mixing
+these two error handling paradigms in the same function scope because it
+obscures ownership semantics and can lead to double-frees or leaks.
 
-I think also built-in might be confusing as a SoC might have a PCS built-in
-but just as a separate device on a different register map.
+[ ... ]
+> +int ele_service_swap(struct se_if_priv *priv,
+> +		     phys_addr_t addr,
+> +		     u32 addr_size, u16 flag)
+> +{
+[ ... ]
+> +	tx_msg->data[0] =3D flag;
+> +	tx_msg->data[1] =3D addr_size;
+> +	tx_msg->data[2] =3D ELE_NONE_VAL;
+> +	tx_msg->data[3] =3D lower_32_bits(addr);
+> +	tx_msg->data[4] =3D se_get_msg_chksum((u32 *)&tx_msg[0],
+> +					    ELE_SERVICE_SWAP_REQ_MSG_SZ);
 
-A better description might be "externally-managed" but that is very long...
+[Severity: High]
+Does this silently truncate the 64-bit physical address to 32 bits?
 
-Also the use of fwnode and DT is just to reference them and use the normal
-helper but the implementation is liberal on custom implementation for the
-current code.
+If upper_32_bits(addr) is non-zero, this passes only the lower 32 bits to
+the firmware without validation. When combined with dmam_alloc_coherent()
+calls that lack a restricted 32-bit DMA mask, the memory could be allocated
+above 4GB, causing the firmware to write the enclave state to the wrong
+address.
 
-Everything is around the pcs_interface mask, num_possible_pcs and the
-fill_available_pcs.
+> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
+_common.c
+> index 0000000000000..ba606f4e8be83
+> --- /dev/null
+> +++ b/drivers/firmware/imx/ele_common.c
+[ ... ]
+> +int ele_msg_rcv(struct se_if_priv *priv, struct se_clbk_handle *se_clbk_=
+hdl)
+> +{
+> +	bool wait_uninterruptible =3D false;
+> +	unsigned long remaining_jiffies;
+> +	unsigned long flags;
+> +	int ret;
+> +
+> +	remaining_jiffies =3D MAX_SCHEDULE_TIMEOUT;
+> +	do {
+> +		if (wait_uninterruptible)
+> +			ret =3D wait_for_completion_timeout(&se_clbk_hdl->done,
+> +							  remaining_jiffies);
 
-Nobody stops from implementing custom parser in fill_available_pcs and
-return a PCS pointer created directly by the MAC. (In such case late and
-release won't be needed as everything is present when phylink_create is
-called)
+[Severity: High]
+Does this hardcoded MAX_SCHEDULE_TIMEOUT bypass the timeout budget?
 
-On OpenWrt we migrated every SoC that used ""exotic"" pcs reference (Qcom,
-Realtek, MTK, Airoha) but I don't have a board that used something like the
-'pcs' property.
+If userspace sends a command and the firmware never responds, the task will
+block indefinitely in D-state. Since this holds the global se_if_cmd_lock
+mutex, it could completely freeze the driver.
 
-> 
-> Thanks for this work anyway, this is great !
-> 
-> Maxime
+[ ... ]
+> +int ele_msg_send_rcv(struct se_if_priv *priv, void *tx_msg, int tx_msg_s=
+z,
+> +		     void *rx_msg, int exp_rx_msg_sz)
+> +{
+> +	int err;
+> +
+> +	guard(mutex)(&priv->se_if_cmd_lock);
+> +
+> +	if (atomic_read(&priv->fw_busy)) {
+> +		dev_dbg(priv->dev, "ELE became unresponsive.\n");
+> +		return -EBUSY;
+> +	}
+> +	reinit_completion(&priv->waiting_rsp_clbk_hdl.done);
+> +	priv->waiting_rsp_clbk_hdl.rx_msg_sz =3D exp_rx_msg_sz;
+> +	priv->waiting_rsp_clbk_hdl.rx_msg =3D rx_msg;
+> +
+> +	err =3D ele_msg_send(priv, tx_msg, tx_msg_sz);
+> +	if (err < 0)
+> +		return err;
 
--- 
-	Ansuel
+[Severity: High]
+If ele_msg_send() fails and returns early, is rx_msg left in a dangling
+state?
+
+Because priv->waiting_rsp_clbk_hdl.rx_msg is set before the call to
+ele_msg_send(), an error here leaves the pointer populated. If the caller
+then frees the buffer and a spurious response arrives, the interrupt handler
+might memcpy into the freed memory, causing a write-after-free.
+
+> +
+> +	err =3D ele_msg_rcv(priv, &priv->waiting_rsp_clbk_hdl);
+
+[Severity: High]
+If ele_msg_rcv() times out and returns -ETIMEDOUT, does this leave the
+pending message in the mailbox framework?
+
+The caller frees tx_msg upon error, but since the mailbox client is configu=
+red
+with tx_block =3D false, the pointer might still be queued in the mailbox
+framework. When the hardware eventually processes it, the controller driver
+could dereference the freed memory.
+
+> +
+> +	if (priv->waiting_rsp_clbk_hdl.signal_rcvd) {
+> +		err =3D -EINTR;
+> +		priv->waiting_rsp_clbk_hdl.signal_rcvd =3D false;
+> +		dev_err(priv->dev, "Err[0x%x]:Interrupted by signal.", err);
+> +	}
+> +	priv->waiting_rsp_clbk_hdl.rx_msg =3D NULL;
+> +
+> +	return err;
+> +}
+
+[Severity: Medium]
+Is it safe to clear rx_msg here without holding clbk_rx_lock?
+
+If a spurious response arrives immediately after a successful reception,
+se_if_rx_callback() on another CPU might acquire the spinlock and see the
+non-NULL pointer before this lockless assignment propagates, potentially
+writing to the buffer after it has been freed by the caller.
+
+[ ... ]
+> +int se_save_imem_state(struct se_if_priv *priv, struct se_imem_buf *imem)
+> +{
+[ ... ]
+> +	/*
+> +	 * EXPORT command will save encrypted IMEM to given address,
+> +	 * so later in resume, IMEM can be restored from the given
+> +	 * address.
+> +	 *
+> +	 * Size must be at least 64 kB.
+> +	 */
+> +	ret =3D ele_service_swap(priv, imem->phyaddr, ELE_IMEM_SIZE, ELE_IMEM_E=
+XPORT);
+
+[Severity: Critical]
+Can this pass an uninitialized physical address to the firmware?
+
+Looking at se_if_probe(), the DMA address allocated is stored in a local
+variable (imem_dma_addr) but is never assigned to load_fw->imem.phyaddr. As=
+ a
+result, this passes 0 to ele_service_swap(). Writing 64KB to physical addre=
+ss
+0 could corrupt critical system memory or exception vectors upon suspend.
+
+> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
+l.c
+> index 0000000000000..9a2c3c6111462
+> --- /dev/null
+> +++ b/drivers/firmware/imx/se_ctrl.c
+[ ... ]
+> +struct se_if_node {
+> +	struct se_soc_info *se_info;
+> +	u8 *pool_name;
+> +	bool reserved_dma_ranges;
+> +	struct se_if_defines if_defs;
+> +};
+> +
+> +/* common for all the SoC. */
+> +static struct se_var_info var_se_info;
+
+[Severity: High]
+Is it intentional that var_se_info is a global static variable rather than
+per-device state?
+
+If multiple MU instances probe, they will all share and overwrite this
+singleton state. During unbind, se_if_probe_cleanup() could call
+dmam_free_coherent() using a specific device's devres context on a shared
+buffer pointer, causing memory leaks or devres mismatch corruption.
+
+[ ... ]
+> +static int get_se_soc_info(struct se_if_priv *priv, const struct se_soc_=
+info *se_info)
+> +{
+[ ... ]
+> +	attr->serial_number =3D devm_kasprintf(priv->dev,
+> +					     GFP_KERNEL, "%016llX",
+> +					     GET_SERIAL_NUM_FROM_UID(s_info->d_info.uid,
+> +								     MAX_UID_SIZE >> 2));
+> +
+> +	sdev =3D soc_device_register(attr);
+> +	if (IS_ERR(sdev))
+> +		return PTR_ERR(sdev);
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Does this permanently discard the handle needed to unregister the SoC devic=
+e?
+
+The returned soc_device handle is not saved. When the driver unbinds, devres
+frees the attr memory, but because soc_device_unregister() is never called,
+the device node remains active in sysfs. Any userspace process reading the
+lingering attributes will access freed memory.
+
+[ ... ]
+> +static void se_if_probe_cleanup(void *plat_dev)
+> +{
+> +	struct platform_device *pdev =3D plat_dev;
+> +	struct se_fw_load_info *load_fw;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct se_if_priv *priv;
+[ ... ]
+> +	/*
+> +	 * free the buffer in se remove, previously allocated
+> +	 * in se probe to store encrypted IMEM
+> +	 */
+> +	if (load_fw && load_fw->imem.buf) {
+> +		dmam_free_coherent(dev, ELE_IMEM_SIZE, load_fw->imem.buf,
+> +				   load_fw->imem.phyaddr);
+> +		load_fw->imem.buf =3D NULL;
+> +	}
+
+[Severity: High]
+Does this explicitly free memory that is already managed by devres?
+
+Because dmam_alloc_coherent() allocates devres-managed memory, the kernel
+will automatically free it on teardown. Calling dmam_free_coherent() here
+causes a double-free. Furthermore, since imem.phyaddr was never populated,
+this passes an invalid DMA handle to the allocator.
+
+[ ... ]
+> +static int se_if_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	if (se_info->se_fw_img_nm.seco_fw_nm_in_rfs) {
+> +		load_fw =3D get_load_fw_instance(priv);
+> +		load_fw->se_fw_img_nm =3D &se_info->se_fw_img_nm;
+> +		load_fw->is_fw_tobe_loaded =3D true;
+> +
+> +		if (load_fw->se_fw_img_nm->prim_fw_nm_in_rfs) {
+> +			/* allocate buffer where SE store encrypted IMEM */
+> +			imem_dma_addr =3D phys_to_dma(priv->dev, load_fw->imem.phyaddr);
+> +			load_fw->imem.buf =3D dmam_alloc_coherent(priv->dev, ELE_IMEM_SIZE,
+> +								&imem_dma_addr, GFP_KERNEL);
+
+[Severity: Critical]
+Is the allocated DMA address supposed to be saved in load_fw->imem.phyaddr?
+
+The resulting imem_dma_addr is stored locally but never written back to
+load_fw->imem.phyaddr. It remains 0, which is later passed to the firmware
+in se_save_imem_state().
+
+[Severity: High]
+Is the device's DMA mask configured to 32-bits before this allocation?
+
+Since ele_service_swap() silently truncates physical addresses to 32 bits,
+allocating memory without enforcing a 32-bit DMA mask could result in buffe=
+rs
+above 4GB, which the firmware will truncate and then write to the wrong
+address.
+
+[ ... ]
+> +static int se_resume(struct device *dev)
+> +{
+> +	struct se_if_priv *priv =3D dev_get_drvdata(dev);
+> +	struct se_fw_load_info *load_fw;
+> +	int ret =3D 0;
+> +
+> +	load_fw =3D get_load_fw_instance(priv);
+> +
+> +	if (load_fw->imem_mgmt) {
+> +		se_restore_imem_state(priv, &load_fw->imem);
+> +		if (ret)
+> +			dev_err(dev, "Failure restoring IMEM state[0x%x]", ret);
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: Low]
+Does this accidentally swallow the return value of se_restore_imem_state()?
+
+The function call does not assign its result to ret. Because ret is
+initialized to 0, the subsequent error check if (ret) will always fail,
+masking any hardware restore failures.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-imx-se-if-=
+v26-0-146446285744@nxp.com?part=3D3
