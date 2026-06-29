@@ -1,86 +1,202 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010038.outbound.protection.outlook.com [52.101.69.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891A0426ECF;
-	Mon, 29 Jun 2026 16:29:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782750542; cv=none; b=uO0kgPcWzKyoLqIUhPfaIQXnxD50oY5CA8l+3opE+0dLT4vJmDip847xu+q99LB/N+QjS4v2+96jIQ6GuV9BlGQ6/cmXzaOJrPG+MVz0M1IICl3YfWwqPcDo5XcoVrm+S8uz4IWZQKc4u3IcQgPfrqQ8Iovo7vRutEghcQQCjek=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782750542; c=relaxed/simple;
-	bh=v+ZzzwyTZpCd3A9wLJNj/5QREFo40R32KmC0KRi4trI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Obf7md6Lo8ggoIif5l7xfQA+/SVIwm6y6sgUzfBfqwMgp0Bn63Z1cm/54wGTSp70k5l0lqc03OGW65hvLjrRFedMmydmY5jcLQSIwtm7hb8dUXSf7h6jVXyNJa8cGJI2LtixlMJTExO49th/WKFQjNhGR+nxfqkJCoqvtAbcy/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=bLn6iDGC; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D824534B7;
+	Mon, 29 Jun 2026 16:30:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782750623; cv=fail; b=PXWnLwd8YSGJj/sXvU9y7EqOZRAr6VlcP/o2einblBxs52Cl1VC5LzusDW/7ySvLRn3+7IO0CmotnLmhYUmEuY0csa97Uvoxpgc8ZQd/dF7V+pq0jNK6JjEQcP7UxH8El5JacHz+k6YJCmB63cyE4nNKFHdriTQz2JXS2OMRdvo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782750623; c=relaxed/simple;
+	bh=yLxmcr5KL33fSeCchymx8tvloqQPsP9yzOZe7vZPrI8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=WIoSMHoxiGfItKuVNZCV62Q/at+BR0MuLkE9YQP6TCj/cNPMTz9AwjChjl2KA9DstmPNCC9KV1YN8dxYTO7p1eWH4UYXHqx3aVC6WDRtQRDmNTSRSCBYgysex+jb7TrYZoW+qFUhJcL5az5CGZ/12LZMm9GpmHDhnstgVclO0DE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=PY83pEo9; arc=fail smtp.client-ip=52.101.69.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="bLn6iDGC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=lkQrR2HpPgR/4lUKYt2XGoq32UZZpopn65LXb2S9Gvk=; b=bLn6iDGCIGIthV8lH6CA1r1R56
-	LWrmERqrTdeCOoN6Ta7IXP0Yuv6NvPF7DPhnIxw+5dCTL9CG8CIcPArIx2KRDV2DW25MVQZG8SH2T
-	5fDuA1PCiEQMmNncnv93Ge1bYj72X923k1/ZpV/HpXD3T5ly6gdGlKaXtrEU2iK4oY2g=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1weEql-009mmn-0P; Mon, 29 Jun 2026 18:28:47 +0200
-Date: Mon, 29 Jun 2026 18:28:46 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Markus Stockhausen <markus.stockhausen@gmx.de>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz,
-	daniel@makrotopia.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v2 2/8] net: mdio: realtek-rtl9300: Add page
- tracking
-Message-ID: <f3b0ddab-372a-49c5-977e-59c7a104d0a8@lunn.ch>
-References: <20260629152336.2239826-1-markus.stockhausen@gmx.de>
- <20260629152336.2239826-3-markus.stockhausen@gmx.de>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="PY83pEo9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NqxxeqZrTalxob74VQT1xOqPDWCXqxHyfF+NmMh+75kH9fFbpXKiq4Kf7FWx8at1hpkUokq9GtLNw3zXfNUZb5+DbZmUvgLBS33zbLelajuC1DJz4lv3+ffrOu3XsW9KOpUJijT/1jD2MxfjV+AlYYrqpNfQznea+ElpnQ77xiHLTOVF8GvN0KETPYorKsZvax8Aet9c+M5/EmK6hgIZHL7PnkDBivtTb/s38h8jWWb/aGbFYcmNbHKVwI24riHFoog/rxHdNzZq+Etp6NP1i3xzbYyTCreVg5tf5rAsCwqEZ348uOowgjPQsICRD+tLGtfwkyaNu0y/lI/1W+cwIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r51vBflPLPCW6bZheOH7y6x50zxuT3Or9c+D81EvhYQ=;
+ b=MsFELGr03pkRzmltXTUE4uj5+7KVov9nKK9k8byxtoYZ3zN12TQS5oEMt4+zFWKY1f7gcWp4+1TBNMoFq7Ab/6cPmYt2goYcMK1/pCP2lzYogazK69RDSAqBwXqOWMlmjkFGNc+pO3XfRXZfP1YgeOhKek9q0mjO7vrLkWw0eRuV8eeP7w88UTYXDjlezOY7c2D7oej6obCT8ozZsf2bbMKHALlI0RoiNIFFxc5DCFDQ/wdYRYo4X1bHbwLLvngDehXgwYmih3PcV1AuLQ7FBlWCPnHGVAbZzjdTFW/0+KIdMvzM4ErfKWSJsHOlqD67DOjTQHJnxdTGEcDKkBoqVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r51vBflPLPCW6bZheOH7y6x50zxuT3Or9c+D81EvhYQ=;
+ b=PY83pEo9HTi/oYSarBivg2q6vC233GYOHZ6//sxw8f+tGAdxs+GxkFN97pvbyffvWceJ6RYHkMNXGSKTCxECf8DXowckVAHu6SYQ/m1ZaLqqmkiv+NeOeTWJuL9LwJYawF5bh+H2L6Moqc5grq5CThV7eQUQRk/rXk4nCsOsZznvJTiEFbu6kWA20+UDkQgOoO3y5KS9C5f0UQAZg2PtTC1p9XTSnoFLUIMOtNmU/kFbZ5tt1ZtMqDxIBvj/MUwvOJSsdB1fNURavpgaTHgESHKxhdvPmHYcxMg19TT1oDzriO1t30FV7cQw5diKqbpfSVCEIasudewIrcf8fGz9OQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM7PR04MB7045.eurprd04.prod.outlook.com (2603:10a6:20b:11e::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 16:30:18 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 29 Jun 2026
+ 16:30:18 +0000
+Date: Mon, 29 Jun 2026 12:30:09 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v5 06/14] arm64: dts: imx8mp-var-som-symphony: enable PCIe
+Message-ID: <akKdkWos2E25M_q8@lizhi-Precision-Tower-5810>
+References: <cover.1780929317.git.stefano.r@variscite.com>
+ <26b5b602c3995a5a74f64b84576ab4d54ace23ee.1780929317.git.stefano.r@variscite.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <26b5b602c3995a5a74f64b84576ab4d54ace23ee.1780929317.git.stefano.r@variscite.com>
+X-ClientProxiedBy: PH7PR10CA0006.namprd10.prod.outlook.com
+ (2603:10b6:510:23d::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260629152336.2239826-3-markus.stockhausen@gmx.de>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM7PR04MB7045:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71ed2d14-0938-42e4-3b7f-08ded5fbb4ea
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|366016|23010399003|19092799006|7416014|1800799024|22082099003|18002099003|4143699003|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+ Q95WxHrY6lmoJ5lhBl3ncoLRSzrbA5Q+kbKeYFB+bH6dRleNqHw4buWO1veQwUQo6Ntm7qtYoMjEQyR0CT7nlNFoOonh/xwz77m8IiO89pG9n/svkvzMs7iKJt5J1uKqHSpc1RKqqyvHyog884RKYu1kCZFlqbBpwedwSpLqXAdSwJpx23YpvulO4Yf2eft/IruIScqLibHzwEeqBfoiZzwlt0cmrXl8wsMA/y6M17KxjsATg/kOkcIIdBa3TlyWOBWiAVbNF7CnF+t0Y6YroaCGGmXuQOweo1ba1ZdvdY5W9xr8Ixhm70413Hr09pyqkH9g0cvC4Sgq934uKyOaGqpma81IQNulP1k5FYIWd1R658jgHb8l5ktJnx+E9ZGP+lJ1O9Ej4GBxCbJfSLCViCr6WLsuSjdk6NWDd2WRGbZeUSoHgvQjPtURLm2cz+K4RvaQEgBFSTvE+p3wrncw336KzRxvF+49EDke8gc2jjIKRyBdp9ZNeROG+cPL/16CnfXZ0f3HiZuqHCv3MKrt2UInCiIgDNgN/njLb9kCyESuSGK69EY8nB8K19IKvzbMcCsGplpNkgoS2TDaSzS7F3EJ3nvn7NaP2cin4o09flac6kGOT7gfZGUQi/MtPbihm3dfxwFr+OjT9H2VO5iErloUkhYaY9z5gnlajdkfLvI=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(19092799006)(7416014)(1800799024)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?8pilMbkCl+o3OJ9e49MGsFOUSQU0aO4X9vZ9tlsSQgCU2sNVY7csXxrz2iDU?=
+ =?us-ascii?Q?eJiXzBJF+J9lL6pihTo+1V89qOGYoQ1kkZiMP5mddLwunKlVRu9mkvvSvxKb?=
+ =?us-ascii?Q?nYNaOpoma5iJ8YsmVX2HhF9Cz+O8gTwJRF3eFs8vEkbiLGApiVL+nbQlA+5+?=
+ =?us-ascii?Q?rvcB5OLkrgHZgEItFdhRndhuILsxgMDKnCb2xBo5wpObgkFtZJHuvFXyYf79?=
+ =?us-ascii?Q?UfViBmzbJgjt3yCMrTsX/ZX/XDLrxBPMQ4xOO/i35h9LQssdSnwSQo+IigPj?=
+ =?us-ascii?Q?iWWHG0xVstR01ey2hyZ6OfycmfkktRs5T5tF/XsKFfNt8DA6nsz44cwk0sVn?=
+ =?us-ascii?Q?7OUr8gHy5UE/UKX1yDdZCRavmnYMksKcvS2Oc4XGlZcD7ZoLl6f0EuEUv4YD?=
+ =?us-ascii?Q?YWGul18keK6ySajbGHHGa5hAgoTuYzyopgJRVT+4m2DS6yeHWG6I2sdr2cZ2?=
+ =?us-ascii?Q?MPAIVpjki13P77XUQp/1uGhzKJF8YtOiJGjhHZbmRopyNB5LND3A63a5q+Kk?=
+ =?us-ascii?Q?U18+osFKlpHS7R7xwj9rUFVXc5L3dkJ8JtjNrgDu3ASDBPzQMCXqFtWx+ziG?=
+ =?us-ascii?Q?FeDcEHcyTfIlmi4+eZFfgKoZ8X2S+8IMWq5ollTMCQ71dQKjdJkeZvLInrkV?=
+ =?us-ascii?Q?HYcxDfx/u905XLbQD/T2lfhy/0TbDZQ7WGl0pIaBZaCDWec8b1wsCk4IoW9D?=
+ =?us-ascii?Q?LU1OEU4sF0vhqUWj4+Drk+jMMtC4pTzQ5LynoqznFeEAe+TvGQPKR4fdAX5i?=
+ =?us-ascii?Q?PU2CZD5xzYYi7Qsof8YFRdietr65yGvJQPJj4jVlkrOZE+qH8OxcSFfc9yGr?=
+ =?us-ascii?Q?kQZHziHJ1VWB7Iga2k0IILroqicJ99nO25L97U+iA4RYUvVQtQZEnyTSVDnq?=
+ =?us-ascii?Q?5+RuFsEheqmaHlX5yGP6GR8SdqRb5CAanEoQwuLMCGbZSoHe4jqEjCsw91i2?=
+ =?us-ascii?Q?Fjb/yjEZvmDBd1vt4lgI7+LkeohA4Cgu9p6apk6vmkzmuxN8QU/YYFSS+EqC?=
+ =?us-ascii?Q?eG0LWDaj0edcZlgaYQKDTfB6/9BOk/3JxYqpxqmutbVc0BzIbk3cCYoEVydZ?=
+ =?us-ascii?Q?POkjX8HmrO2R1wdWFpjaI3JY1PKxPYvRgXFj1DuoDphWrmcBeNq9nwziqyw6?=
+ =?us-ascii?Q?4rce059QM5w6m4KbItjbflRUWlt21Y0Y5lgxg8DkdMtpcKlo7u9bgrHCgcIF?=
+ =?us-ascii?Q?0fPqKIdqD0hBysf/MDQYdCq3n+bzCEoCzsIAuGpDi+7eSoIGJUb8TorD7++S?=
+ =?us-ascii?Q?SiYATbLnlLqThDamPm8fOV+VeckGNW/hMkjjDvSNXF6C0EgiNQnop//VA/YN?=
+ =?us-ascii?Q?WyDte919kLjm4kJ26QQ2369C75JBTixXyRkLVsotiN3S3Dd8J+gBLAwzJlKI?=
+ =?us-ascii?Q?oeqwMRazUJbfCxVBz4E4Ud7I0ad7hldggcm9BAqfI0JaJGCk3XUz6gqWUYwU?=
+ =?us-ascii?Q?TJ7Yz46csbZJpJ6q+UA+EKyiYpBbr8EvXr73JSqJgXWoa8OvtvgPM0seblit?=
+ =?us-ascii?Q?arKrCIDVbisQU1HTBfqXnF+3nRlpoIraS05m484uyKQ7gkQBPBfVtfxodHEC?=
+ =?us-ascii?Q?sAwUz/b8iqr+NZScWdek8HDTNZpp2vFFgvyMUhO/4B4OyRcB4c6Y09O8v3ad?=
+ =?us-ascii?Q?g/d6Sbk18Lb0htWkAD2a84OQ/OHF9JlFl38EhbwjWRSOzOB22Iz4zZNc+oBG?=
+ =?us-ascii?Q?q3xbdhlB3toaO+CXHbb9zkkVBg4YNnUVdPcd2qWWH7ZhVUsW0mojZ9KJlOBi?=
+ =?us-ascii?Q?fJphZw8i0ITPVX0Rzmin3CpkY0DDU4WdlmSQs37PnPBKykHhhtr/?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71ed2d14-0938-42e4-3b7f-08ded5fbb4ea
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 16:30:18.4120
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 079eJPTXfIke4lpL2qE3MDqCvpdV8kcXk7iSs8cdwTYd0DuEKM1TFzDQt0pCK5dKT16oXRAFkHXrrd7afnqvLbnFLVdDdOkCMKxI+u4bAbQHhVoCipydbfCFrzT0BN+b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7045
 
-On Mon, Jun 29, 2026 at 05:23:30PM +0200, Markus Stockhausen wrote:
-> The hardware polling unit of the Realtek switches has a very special
-> handling for PHY register 31 (aka Realtek page register) in place.
-> 
-> - On the RTL838x it is permanently reset to zero.
-> - On other devices there is some magic saving/restoring (aka parking)
->   in the background in place.
-> 
-> This makes access to PHYs a gamble.
-> 
-> As of now all known existing hardware designs have Realtek based 1G PHYs.
-> Otherwise the polling engine and the MAC status update will not work at
-> all and the vendor SDK would fail totally.
+On Mon, Jun 08, 2026 at 04:41:07PM +0200, Stefano Radaelli wrote:
+> From: Stefano Radaelli <stefano.r@variscite.com>
+>
+> Add the PCIe reference clock and enable the PCIe controller and PHY on
+> the Symphony carrier board.
+>
+> Describe the PERST# reset GPIO and configure the PHY to use an external
+> reference clock input.
+>
+> Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+> ---
+> v4->v5:
+>  -
+>
+> v3->v4:
+>  - Add pcie reset-gpios instead of deprecated one
+>
+> v2->v3:
+>  -
+>
+> v1->v2:
+>  - Adjust PCIe controller configuration
+>
+>  .../dts/freescale/imx8mp-var-som-symphony.dts  | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
+> index fdac4ceb4c19..698f02fc39a5 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
+> @@ -48,6 +48,12 @@ led-0 {
+>  		};
+>  	};
+>
+> +	pcie0_refclk: pcie0-refclk {
+> +		compatible = "fixed-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <100000000>;
+> +	};
+> +
+>  	reg_usdhc2_vmmc: regulator-usdhc2-vmmc {
+>  		compatible = "regulator-fixed";
+>  		regulator-name = "VSD_3V3";
+> @@ -146,6 +152,18 @@ rtc@68 {
+>  	};
+>  };
+>
+> +&pcie {
+> +	reset-gpios = <&pcal6408 1 GPIO_ACTIVE_LOW>;
+> +	status = "okay";
+> +};
+> +
+> +&pcie_phy {
+> +	clocks = <&pcie0_refclk>;
+> +	clock-names = "ref";
 
-If you are going this direction, then please somehow validate the PHY
-is a realtek PHY, and error out if it is not.
+You have to provide all clocks, otherwise, whole clocks and clock-names will
+by overwrite with one clock "ref".
 
-> This driver differentiates clearly between c22 and c45 buses. During
-> probing it enables only one of the protocols for a bus. So it is safe
-> to assume that any c22 access will only target a Realtek based 1G PHY.
-> 
-> Intercept access to register 31 and store the desired value for each port
-> in the driver. When issuing access to other registers add the saved page.
-> This given, the hardware will run two consecutive c22 commands that are
-> not interrupted by polling.
-> 
->   ... hardware poll ...
->   phy_write(phy, 31, page)
->   phy_write(phy, reg, value)
->   ... hardware poll ...
+suppose CHECK_DTBS should report warning about clocks items.
 
-How do you guarantee the polling will not get between?
+Frank
 
-	Andrew
+> +	fsl,refclk-pad-mode = <IMX8_PCIE_REFCLK_PAD_INPUT>;
+> +	status = "okay";
+> +};
+> +
+>  &snvs_pwrkey {
+>  	status = "okay";
+>  };
+> --
+> 2.47.3
+>
