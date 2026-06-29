@@ -1,70 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D9D37A498;
-	Mon, 29 Jun 2026 15:32:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D2A237C0E5;
+	Mon, 29 Jun 2026 15:35:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782747178; cv=none; b=sYPODN4He+E9WnlatMHXZWM6oHeuGV7zoXIHd+V2ocB0tPIXiJrZE5aCQrcTcMr0WJGSSytUnSeALdlEPCz11m+ojjb/tIaxeJ6NPQtPQcycBGKBGqr/fS/N3aiE+8u9/qNDymGtad6W7tEDqSFnUki+CjS/wjEt5Q21Azu2DBU=
+	t=1782747345; cv=none; b=la8rx67ABqQm0qP+7u2Y4nHi1T/PSuLyurF2EHgRMOImxsW7Zee56XWZ0yJLC2IL2vly9cNeQexwnJA8LY1jbRB8iF4mbO0kqFK8RBeRMfrgSKO/7hZe6bHIHjM9o/wDKf/uf+7+bkoaOjYlt1pJraWk4zJsJiS74bhGNJS4IVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782747178; c=relaxed/simple;
-	bh=mnhHFQLWlBMk0jiGzanVa/9YxlSEiaiSag4o7iJqZ3o=;
+	s=arc-20240116; t=1782747345; c=relaxed/simple;
+	bh=t9chGVaa1WtKYlqTPv6UXZYIQhSIncoAkH7DNac3fBQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hKZ/IYyHFxazid4zEyPzVORvxewV5L95qkViRusOJ1NRvo6CB/RXDV1Yev7AqCLC9RKQdaDrQB94H+PbYDDQTBsIpXemSuMw/ZYU5/TcLcRpliQa5Tzh9dNDnpXrw7UlZiKeeGoZDK7r9P4DpwykvUDMN13wOWU3whSAd10Uw3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kh0eAxl+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=BLs01BIE3NQhtoL3aLUMQ9gVlPqm6/L32ErLJw2BSyoAZeQtIX2M7+rzCTkafMI6N3w/F7hSQzpY+LCKhdoOv1A5jfhSB1LwxHVAoI0sD43gcT5zabzwtLJLhu1JNkwsW35GkzqyhIsw5iOH/fBKlIM4UtSIiy205nSCxct9TCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F142UrWf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kh0eAxl+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AEF01F000E9;
-	Mon, 29 Jun 2026 15:32:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F142UrWf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42BF31F000E9;
+	Mon, 29 Jun 2026 15:35:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782747177;
-	bh=mnhHFQLWlBMk0jiGzanVa/9YxlSEiaiSag4o7iJqZ3o=;
+	s=k20260515; t=1782747344;
+	bh=t9chGVaa1WtKYlqTPv6UXZYIQhSIncoAkH7DNac3fBQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Kh0eAxl+BBoLZPsPIn17XfRi1X7McxKBvvQVYpAdbon0kRXRW+clGhx6RvpySqumF
-	 jG8KHflJej6TDLujfuh5yv2JJP0dJ1RgDuQv1gCv9TIYOizT70Xn9mRI5vA/A4Bs2t
-	 PP4aJ14LUJxYvnWtb/WK6EXvI38pRXQ159jH3Yo7xlmbk0H5NEE2xKQGh88MnOT8BR
-	 QlUSxe6TwS99s8eM/jBdk+EM5fsqAJx7K2RNqiifeJdoVP3y5hn1cfPKBbmLUXUMDE
-	 09HuRGd9M1bOtJD1D7RutTR60d1Pere18Eoi0B2S6Kp4VtaESPRZAB/n53hou0VCI9
-	 xw2n06k3Qj+kw==
-Date: Mon, 29 Jun 2026 16:32:48 +0100
+	b=F142UrWfol30Ah/1POus3FkRUx3FNpXX+q94mW9rJQgQWtLzfyYCUtguv7YIPwmYh
+	 BhWJMcTnuqaIMi8j/eIa3jkiAVJ014iB0SpUvNNtGAUcTlyOYSkoxrM7kjbU+f0hUr
+	 WFSGpZBTHTXHbLd8CxX1qyUYpJQidXs+ENJgfOgzkoNitP9Zepgoar14Him8KaVp9b
+	 WKp1MPGLNP6ASLnr/2qSW0r5ILMSF2k0EDgvT2hcXRyL3E5TNZ4DPPJoGSz1IpJ7IU
+	 Z6kU/mvCrSxB3CfQKXK64sG0KjuzUaPgwNKQcSuScz7RLsPY1/jhdZXgnKy2JpLznD
+	 S/sQ4ZPiWaT0w==
+Date: Mon, 29 Jun 2026 16:35:40 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Drew Fustini <fustini@kernel.org>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Atish Kumar Patra <atishp@rivosinc.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>,
-	Fenghua Yu <fenghua.yu@intel.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Tony Luck <tony.luck@intel.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v3 7/8] dt-bindings: riscv: Add binding for CBQRI
- controllers
-Message-ID: <20260629-modulator-backlog-931a4600f567@spud>
-References: <20260628-dfustini-atl-sc-cbqri-dt-v3-0-c9c1342fe3cf@kernel.org>
- <20260628-dfustini-atl-sc-cbqri-dt-v3-7-c9c1342fe3cf@kernel.org>
+To: Wadim Mueller <wafgo01@gmail.com>
+Cc: wbg@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+	conor+dt@kernel.org, o.rempel@pengutronix.de,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel@pengutronix.de
+Subject: Re: [PATCH v6 1/3] dt-bindings: counter: add gpio-counter binding
+Message-ID: <20260629-trekker-estranged-754e9bfada16@spud>
+References: <20260628210241.119825-1-wafgo01@gmail.com>
+ <20260628210241.119825-2-wafgo01@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,40 +44,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Rzri6Paspuk7yh4l"
+	protocol="application/pgp-signature"; boundary="ZOxRcXird+mP+OQW"
 Content-Disposition: inline
-In-Reply-To: <20260628-dfustini-atl-sc-cbqri-dt-v3-7-c9c1342fe3cf@kernel.org>
+In-Reply-To: <20260628210241.119825-2-wafgo01@gmail.com>
 
---Rzri6Paspuk7yh4l
+--ZOxRcXird+mP+OQW
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jun 28, 2026 at 02:18:18PM -0700, Drew Fustini wrote:
-> Document the device tree binding for RISC-V CBQRI capacity and bandwidth
-> controllers. Each controller is named by a device-specific compatible
-> followed by the generic compatible. The binding also describes the
-> common riscv,cbqri-rcid and riscv,cbqri-mcid properties, and the
-> optional riscv,cbqri-cache phandle that links a capacity controller to
-> the cache whose capacity it allocates.
->=20
-> Assisted-by: Claude:claude-opus-4-8
-> Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> Signed-off-by: Drew Fustini <fustini@kernel.org>
-
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---Rzri6Paspuk7yh4l
+--ZOxRcXird+mP+OQW
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakKQIAAKCRB4tDGHoIJi
-0mPIAQDBagOfetNCVnYvlw3izyi8K+IDSYeG2DHQ5aFVQ93VOAD+MS7oATLWI06S
-TGQz48qb5siY3bfMvtFbjmx4zT+eGgk=
-=idfr
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakKQzAAKCRB4tDGHoIJi
+0lQ0APsFvTDXWyHXHur0YzSMYJ4DaT12G8z+VRf+i8PGbKLBVwD/SH2IIbG9F5Ex
+/Z9+tUVfeeUfLPKcYRvHkgXmvZtm9Qo=
+=owo8
 -----END PGP SIGNATURE-----
 
---Rzri6Paspuk7yh4l--
+--ZOxRcXird+mP+OQW--
