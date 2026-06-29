@@ -1,134 +1,166 @@
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
+Received: from outbound.st.icloud.com (p-east2-cluster1-host7-snip4-10.eps.apple.com [57.103.76.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F5F36D9F6;
-	Mon, 29 Jun 2026 15:48:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B9A429806
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 15:48:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.76.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782748088; cv=none; b=hZ4amMTuIGgWb0rnvjf/PC1pU7ciU2aIwucQ28cyh9szRJ94RxCz0ETTIMfeBmMjNzdOk6RSTo/yeotBdBKGGHCBA5i5UgN4BGKKq+ymnoeWUU28WFAl0uwcMuOPSOMC/HOw6NwMPml3E/fpggnLvmgQkYylBOmFg/W2KC3Bexw=
+	t=1782748113; cv=none; b=FwYfsc9KyL9buQTMDR8Gb601BEfG1LeQNg3xsy4sZ+AnvdfiQA6wsK+ompaLoto7tRs5bp1DZalPpAelyrT3Cq4U9blc8vVnOkohH1e1AAd2tO3lh65t5znJlci42Ipy/LzOwGpGLgttOFc5vZD9scJIuxW5ykIbTSJuf8OJAyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782748088; c=relaxed/simple;
-	bh=RFDK1ETs1BmWS52JrlBOYalroQQm/nfKoVZJWw0vdi8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=TwQxGDl2RayDAoZoZa3wLD8o3nuiKvOgj6dEoUzzkF/nIdAXy0LyskH7afRllYcWECkqwUjVOYhdc8ewRQ1VH1UPb8CHeNA1AwfZ4vZqWK6CDfIXL38dQgynIg4pNlKkFgVy2jDXCA4f3AV50wuTVd69p3cpNG7c89MIZQUgU0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=iuucbIyh; arc=none smtp.client-ip=185.132.180.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1782748113; c=relaxed/simple;
+	bh=nt1xidh77PLL11Xy5ZZwkKmLhdJucIs7UxpbLbnci9s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AImnsAjglUAh/75FWoxvq3+Iq52uNtP2te2zAjvYDawjvxTwItzwynTeOpGgFHcFMFPonkOcC85+LWmO9g33Ui1hZI7HFB/ud9GTIHXteI7pnJQVMCRG8fkjkHhDop2qS3yTwKBeG6029unBYpirWSpZ5kERl/ZllFYRPujBj/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etehtsea.me; spf=pass smtp.mailfrom=etehtsea.me; dkim=pass (2048-bit key) header.d=etehtsea.me header.i=@etehtsea.me header.b=RsAH5fg1; arc=none smtp.client-ip=57.103.76.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etehtsea.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etehtsea.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="iuucbIyh"
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65TATKNB3000395;
-	Mon, 29 Jun 2026 16:47:59 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=H
-	11ndfnu+HlP5osipVtliJHgXnDq7yPOgDeu/zYelnA=; b=iuucbIyhwIaNZIN5X
-	pljso6Q3KdwYNbpNUrJjA9Dud9HBYOKjsz6h+yPhTk4Q1iOdt8lD55iOczCn61Uz
-	K3GJJrzxmp1vqyAw7MscK2kkV0eMk3myb2CkRCIEplHRwLmDBMW7IoeLju0RMYGa
-	BNPSEQG/ylpkkDPHms7z3KKZ0LZd+f1wAyZuRqoBqS+180DRX4J4EhudCVeb9Guj
-	RkihOXRN+sJ4m9cV6Mo9gbgJLVEf6Lw0wwlDtNVI3DU6bb5nAcUPX4YVv5olo7cr
-	bEcBnNHljWJh+QJ1coux8a7KBz1Cs84IpJos0AP7dQngFsXvqW7F4ZR1jTVgzB5K
-	KX2AA==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4f26kuj3rr-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 29 Jun 2026 16:47:58 +0100 (BST)
-Received: from [127.0.1.1] (172.25.6.219) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 29 Jun
- 2026 16:47:49 +0100
-From: Matt Coster <matt.coster@imgtec.com>
-Date: Mon, 29 Jun 2026 16:47:29 +0100
-Subject: [PATCH 1/2] MAINTAINERS, mailmap: Update address for Matt Coster
+	dkim=pass (2048-bit key) header.d=etehtsea.me header.i=@etehtsea.me header.b="RsAH5fg1"
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-3 (Postfix) with ESMTPS id E02B61801BD9;
+	Mon, 29 Jun 2026 15:48:27 +0000 (UTC)
+X-ICL-RepId: 019f1411-5409-70ad-beef-2c032225d4c7
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQtJBEMGXAVeDU8dXA9fEhVdRV4MXgdyFU0dWxlEDlNeVB0TC1NWVwRcEEceUgocHVxYQQ4KWgJQUR1fAgoERwRbF0YDU0VBBBcRUAFYHlZeWhdeTUcfQE1iSQFaGVscQBdKbk1TDw8VTR1bGUQOU15UHRMAXg8PTAtIAVsHXQBJCE0HVQZZHEkJTgVABkZfEVAUcwhDDloESh1SQ1oODFBNAUMICghHA00XXjJTBF8RUBY=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etehtsea.me; s=sig1; t=1782748111; x=1785340111; bh=oGgt+abRxX+I/sSsG1kHOzXeO7wMvb/snFF6mT8Ykjs=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=RsAH5fg1xYTnP1GR+ysLaIflE+liLVqChI2Sm5+R8BAtSWX2O7DOqCur+PzujOSJqUMFuMFaGsM8nVTH0Bx0MhMFHq3vDDL/MWva5gE4K+2Iuf58Dsm2UwoP9B6fk8zl4m5tuU++H4S8LpI8tRy0VW093WK7WaXNHy0IqWdATkU0W14viutgA8Ht1uO3FcBiBCrj1uwiLNyIPEpImW11fSlK34Bg7b4hK2qChyu074uUtPyZGuZxvjx4M3Nhz5xJRLtG4usF/B74c6QjHQRZkOrEPwh3Jxvex6rprHG8v9OdHdXPTj3+2SpJOUpWUvjd8H+dBXT4yN+rwRM4dFiWRQ==
+mail-alias-created-date: 1634905887181
+Received: from localhost (unknown [17.42.251.67])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-3 (Postfix) with ESMTPSA id 6A6FC1800218;
+	Mon, 29 Jun 2026 15:48:25 +0000 (UTC)
+From: Konstantin Shabanov <mail@etehtsea.me>
+To: andersson@kernel.org,
+	konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	valentin.manea@mrs.ro,
+	Konstantin Shabanov <mail@etehtsea.me>
+Subject: [PATCH v6 0/4] Introduce HONOR MagicBook Art 14 Snapdragon device tree
+Date: Mon, 29 Jun 2026 22:48:08 +0700
+Message-ID: <20260629154812.9066-1-mail@etehtsea.me>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260629-goodbye-v1-1-3bab53a80c53@imgtec.com>
-References: <20260629-goodbye-v1-0-3bab53a80c53@imgtec.com>
-In-Reply-To: <20260629-goodbye-v1-0-3bab53a80c53@imgtec.com>
-To: <imagination@lists.freedesktop.org>
-CC: Matt Coster <opensource@mtcoster.net>,
-        Alessio Belle
-	<alessio.belle@imgtec.com>,
-        Luigi Santivetti <luigi.santivetti@imgtec.com>,
-        Frank Binns <frank.binns@imgtec.com>,
-        Brajesh Gupta
-	<brajesh.gupta@imgtec.com>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>,
-        <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, Matt Coster <opensource@mtcoster.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1325;
- i=matt.coster@imgtec.com; h=from:subject:message-id;
- bh=RFDK1ETs1BmWS52JrlBOYalroQQm/nfKoVZJWw0vdi8=;
- b=owGbwMvMwCVWuUfy8817WRsYT6slMWQ5TV6idugr68rJdscN7moFxTulrjwoc8Xs5HuNzrgt5
- U3nPTc/6ChlYRDjYpAVU2TZscJyhdofNS2JG7+KYeawMoEMYeDiFICJsMkw/Pc/f1q2/2HziT7h
- hYxMmT8W9V7xuDxTetqSidbe8034P19n+Gf9QWVOSdnxnsWJhWVL7772ttmZ1v0hNue+wvMbEgk
- 3mXgA
-X-Developer-Key: i=matt.coster@imgtec.com; a=openpgp;
- fpr=05A40CFCE7269D61D97100A1747F0A9036F90DFA
-X-Authority-Analysis: v=2.4 cv=epXvCIpX c=1 sm=1 tr=0 ts=6a4293ae cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=UteWFfMXGp8A:10 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=mDV3o1hIAAAA:8 a=pGLkceISAAAA:8
- a=VwQbUJbxAAAA:8 a=LpQP-O61AAAA:8 a=iB0s77fEAAAA:8 a=JfrnYn6hAAAA:8
- a=Odnh0R2cAAAA:8 a=e5mUnYsNAAAA:8 a=Q0WHy3Y73_uH-jEgx5EA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22 a=pioyyrs4ZptJ924tMmac:22 a=HyUCkmmLtCL0fD60kmUx:22
- a=1CNFftbPRP8L7MoqJWF3:22 a=lNAA6UHySJB7qmBR1x20:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-ORIG-GUID: RhsFuBl-Ot-aqA5vBDbjtCs9HXyD_ebr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDEzMSBTYWx0ZWRfX9OOGu/aRccOE
- 0wOiEaZNyqg98ZAQ0V81EMOxZMuJMZKemc+UexZ4nyXFIuPOdmXGNaZLTsayTAQ3ianxWOJWUBc
- FvOI6iSYN6DCv/UPl5a53gRscRtO8CR2X02ycDG62JFFF++Va8f4EHWDwzynfQTGKqgJ/GZtQvD
- cbJI1B47HfdyMCeyFC6hM2FGyXKJHjsKRhRfYx2wRrHGXD4rvwyfIudDa7iRZmhc4OiU/70alYs
- ilYjclrdH2yppUt1LgwpfIuo27z3xA8am3Wk2EsFzzkOtLf6ApJwXUOkTDBih6ahV1c5DSiVYnn
- O9qne7vvFX+IX7uygT4cx/SwVFSt3/qS6yYuzkDiLuFSexfmS56wC+2+BGoI9tQpcQ2DbhblU9v
- iXfqem8/YNbLU4Vg3T+WnPi9txqzwyrNbbwmPgSAnqFqE+oWCB4rKYG6i5cPjeJxpfCW4dGCXKF
- DnKUY8oWv6s9fSexjDw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDEzMSBTYWx0ZWRfX1W+Fg28rfCcf
- V7GRPDzZn5nQ5bPM/tcLjkNFGe3g0HvB6xf7rXTeY8s6jrI4bR1UTXFJsh42hT8zaiolXJe4yjY
- 1/HQO++85KSsEdrsqK2WcRYFxG1DHOM=
-X-Proofpoint-GUID: RhsFuBl-Ot-aqA5vBDbjtCs9HXyD_ebr
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDEzMiBTYWx0ZWRfX3q6nzKfsh+CE
+ Do1Wk4brdmhrQ7IYRzPjta4+oQcNrR7/goN3ImHbWH2lXsLVG7JS/gfZbDUdQLr6KolKmdYMGyP
+ 9kahfeHMfqfkVzRLvBxS8IQ8Ims/R6VTxBcsGxnSoMaPc9B3gZ8B3PAyxf070gi1TgoXksZ53eb
+ REmW44XOe/eIrKQwrJggPeZtCWt+fnHYP3cE1kTErpP+0pVz3mqrv5qSL2xLBa09p5HZIWK5NiS
+ lO/c6/1nUlTXQKVwCFAFvES2RahHXa80jDxwru14QYUDB3BbCpSRgovFMcle9RhfPL0LU4qGhYN
+ JzBgcd9h02CZLZFsNnK
+X-Proofpoint-ORIG-GUID: e3dYQX4_p1C13rU1JO27WYDNglv68xii
+X-Proofpoint-GUID: e3dYQX4_p1C13rU1JO27WYDNglv68xii
 
-I'm leaving Imagination; remove myself as a maintainer but leave
-a personal forwarding address.
+Introduce support for the HONOR MagicBook Art 14 Snapdragon laptop.
+This version is based on the initial work by Kirill A. Korinsky [1]
+and Valentin Manea [2].
 
-Signed-off-by: Matt Coster <matt.coster@imgtec.com>
+I'm using it with two external displays connected to the HDMI port and
+DP<->USB-C (over external hub) as a daily driver.
+
+eDP support is disabled and hopefully will be addressed in
+the follow-up [1]. I can confirm that the RFC patch by the link fixes
+output corruption (thanks Valentin!). Though, I have a suspicion that
+the issue can be resolved w/o introducing the panel driver as the very
+same panel seems to work out of the box in x86 version of
+the laptop [7].
+
+Another caveat is USB-C orientation as I could boot from an external SSD
+only with specific cable orientation. I've tried the patch [8] but got
+some instabilities (last checked before v4 submission) , so put it
+out of scope for the initial submission.
+
+Supported:
+
+- Sound (with alsa-ucm-conf config [5])
+  - Speakers
+  - Headphone jack
+- Bluetooth
+- Battery
+- HDMI
+- DP over USB-C
+- Touchpad
+- Keyboard (with backlight)
+- Touchscreen
+- WiFi
+- USB-C ports
+- USB-A port
+- UFS
+- H/W accel
+
+Untested:
+
+- Camera
+- Fingerprint reader
+- Sleep/Suspend
+
+Disabled:
+
+- eDP
+
+ACPI dumps are available in aarch64-laptops repo [3].
+HWids in dtbloader repo [4].
+
+[1]: https://lore.kernel.org/all/871px910m1.wl-kirill@korins.ky/
+[2]: https://github.com/vamanea/linux-magicbook/blob/qcom-x1e-7.0/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts
+[3]: https://github.com/aarch64-laptops/build/tree/master/misc/honor-magicbook-art-14/acpi
+[4]: https://github.com/TravMurav/dtbloader/blob/main/src/devices/honor_magicbook_art_14.c
+[5]: https://github.com/alsa-project/alsa-ucm-conf/pull/755
+[6]: https://lore.kernel.org/linux-arm-msm/2095cb86-6729-41f3-a0f3-b806d6acafd3@mrs.ro/
+[7]: https://linux-hardware.org/?id=eisa:edo-edo4179
+[8]: https://github.com/vamanea/linux-magicbook/commit/b855efb02268677d84dac4b9e27b1c5c9425d81d.patch
 ---
- .mailmap    | 1 +
- MAINTAINERS | 1 -
- 2 files changed, 1 insertion(+), 1 deletion(-)
+Changes in v6:
+- Reordered some more nodes
+- Fixed indentation
+- Declared missing phys to usb_mp
+- Link to v5: https://lore.kernel.org/linux-arm-msm/20260628172640.23167-1-mail@etehtsea.me
 
-diff --git a/.mailmap b/.mailmap
-index 99dba08041fa..ecc8e574df11 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -549,6 +549,7 @@ Martyna Szapar-Mudlaw <martyna.szapar-mudlaw@linux.intel.com> <martyna.szapar-mu
- Mathieu Othacehe <othacehe@gnu.org> <m.othacehe@gmail.com>
- Mat Martineau <martineau@kernel.org> <mathew.j.martineau@linux.intel.com>
- Mat Martineau <martineau@kernel.org> <mathewm@codeaurora.org>
-+Matt Coster <opensource@mtcoster.net> <matt.coster@imgtec.com>
- Matthew Wilcox <willy@infradead.org> <matthew.r.wilcox@intel.com>
- Matthew Wilcox <willy@infradead.org> <matthew@wil.cx>
- Matthew Wilcox <willy@infradead.org> <mawilcox@linuxonhyperv.com>
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fe02d1087ab2..8e7c2f9c8249 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -12567,7 +12567,6 @@ S:	Orphan
- F:	drivers/media/rc/img-ir/
- 
- IMGTEC POWERVR DRM DRIVER
--M:	Matt Coster <matt.coster@imgtec.com>
- M:	Alessio Belle <alessio.belle@imgtec.com>
- M:	Luigi Santivetti <luigi.santivetti@imgtec.com>
- L:	imagination@lists.freedesktop.org
+Changes in v5:
+- Added hdmi-bridge definition compatible with simple-bridge
+- Link to v4: https://lore.kernel.org/linux-arm-msm/20260628094031.54452-1-mail@etehtsea.me
 
--- 
-2.48.1
+Changes in v4:
+- Dropped output-foo properties from TLMM pins
+- Sorted pins by their index
+- Dropped data-lanes from mdss_dpX to use the default (4-lane)
+- Added a space before the opening bracket in the comment
+- Link to v3: https://lore.kernel.org/linux-arm-msm/20260620175210.19563-1-mail@etehtsea.me
 
+Changes in v3:
+- Update sound model to the board's name
+- Dropped unnecessary output-foo properties as they are controlled by the driver
+- Reordered properties alphabetically where needed
+- Updated mdss_dp0_out from 2 to 4 data lanes
+- Dropped extraneous USB related comments
+- Link to v2: https://lore.kernel.org/linux-arm-msm/20260515172926.16597-1-mail@etehtsea.me
+
+Changes in v2:
+- Disabled eDP;
+- Dropped displayport dai links (they weren't tested);
+- Dropped SBU MUXes as they make DP over USB-C unreliable;
+- Link to v1: https://lore.kernel.org/linux-arm-msm/20260501155612.5490-1-mail@etehtsea.me
+---
+Konstantin Shabanov (4):
+  dt-bindings: vendor-prefixes: Add HONOR
+  dt-bindings: arm: qcom: Add HONOR MagicBook Art 14
+  arm64: dts: qcom: Add HONOR MagicBook Art 14 device tree
+  firmware: qcom: scm: Allow QSEECOM on Honor Magicbook Art 14
+
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |    2 +
+ arch/arm64/boot/dts/qcom/Makefile             |    2 +
+ .../qcom/x1e80100-honor-magicbook-art-14.dts  | 1341 +++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              |    1 +
+ 5 files changed, 1347 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts
+
+
+base-commit: 4edcdefd4083ae04b1a5656f4be6cd83ae919ef4
+--
+2.54.0
