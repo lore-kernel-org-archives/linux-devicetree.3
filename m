@@ -1,257 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC0E35D615;
-	Mon, 29 Jun 2026 07:52:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266743C13F8;
+	Mon, 29 Jun 2026 07:53:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782719575; cv=none; b=IbS2Pbl6sr9m7MPGyGOYzChBXkPqJUaAOOV3U7JfwP4ObcTM7DuW+I/z3UHyWFsA8Q3ElblT4h0BAJOBDjMpDg1b2LjaYOFZkvIFsCuonlThXqQ7Pffa0s9OmDGOecvq3SCbXqHWpa1sXo2oaja9EX9cGhN12sXG+0El/e9yMlg=
+	t=1782719618; cv=none; b=pTP4RjsRa6IM4L6G+lYaVXYsBbBHW+y97FptXOYIDOWyQXRpuaTawI/I9zgWI0Y7HSJVH5jLUsh8AstraK0Qq8heCOgL8MKATAFz9rBamDfGwK1gV8HVIn0c7ER0uTSENK9Hqg1a5LyuTs+Svc6b9ujrbTE+5RRlN/h1Rh2IHXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782719575; c=relaxed/simple;
-	bh=5km4NmuYF9DScyquNyhzgnIdcqYff1K4clJTIfXF2U8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gyrX76ffD+2e+6CB9wupFxSeLXlaJQPg34jKjUYURBMBsqtq+zcuBRte5bzv5eYLq0iY3gysUyuk23B8iAcPJqHkQ7Xex5KzogHtjJcEzWs8gxcnQTKy1I8Bt/YMhUz4AQgsq8oW3WsV4VX3XH+SFH88C8t4PVVC975259AkoSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h0FFBMOU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1782719618; c=relaxed/simple;
+	bh=LMa8gfrWVhhvrW92fmaqJLBa5y7TxQYaHEZQFuL2eIE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nNLS0iR91HnbrFXxv0HCWP0ylPJ5Tz2CgWVJAPbCwiUU8A6QrGBSK8GHGnd4ewAoloYUmgsE0UOn2prQvuvsn8SlLPj025G2C8aB3Hte6fuSjF2HLgxbUbKrwnNcOd9ll8HVnKDhabkEFJ4wta9zJvXWMmqFRWQnW+6wZ9A7X3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BHrnEyu7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h0FFBMOU"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4FD52C2BCB8;
-	Mon, 29 Jun 2026 07:52:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782719575;
-	bh=5km4NmuYF9DScyquNyhzgnIdcqYff1K4clJTIfXF2U8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=h0FFBMOU/GYZC6i0PCy8lSk6gzKWJOKtVOZ33jhhz/hpd9ZX0U+6G/hjRagPP0Suz
-	 FuoPp7sqD1VgDH1tk3AVeb5mEMEELSMH2EjGqnNdJizLNeNI5DXrJ8hjhwuavFu3ZG
-	 IcPuxIg4P8zszmfG6v1H0VoUHa4rYM7gUmK6Gu8jAQFBOyCuxDLYGwjP7JGW4w5GRJ
-	 q8eO2HRQ8vUrwgrO3Tw6dAFRu5R3NJWc/0V5A3RoCgmGtqPn7ruREtB3R0rfaw1UML
-	 +TlBYL2P4N6k4dxAL/BthJHaf1vXZ88cp74LMGAUx4tSINsWB13ZZl8+3eJV3Wfkcu
-	 qUiJ0SKimZhwA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3075EC43458;
-	Mon, 29 Jun 2026 07:52:55 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Mon, 29 Jun 2026 07:52:53 +0000
-Subject: [PATCH v2] arm64: dts: amlogic: add some device nodes for A9
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BHrnEyu7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E33ED1F000E9;
+	Mon, 29 Jun 2026 07:53:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782719616;
+	bh=OCH2ADBFrSK5pycGbrWsAbElIVWubUj64/QZx07LGc4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BHrnEyu7tMRLQeojFGaS4J2HeRR3cqoDcqnEjgc+44kGE499uMj0H+8kHGvp8Ppni
+	 Gew3mib22mAXPy4HYBJzHRWRjkcC8L9vOYw/mofcaBe9FKJShB1qfq5lMOgIRj0hgc
+	 5kdpo8PctslQKlVIaNBeQxNMv/eRBOd0G3z8Jxi+BD6GRuRe+zfYzxeIIRLpOpdKZz
+	 JWJQ2wdZeR48M0dOgjeGJOxrGccmyqRS3JGOJei1u1U7890D/TnKVrmKUe+5s3hPSw
+	 VNKIvDUKulHp43XnxmcUcx8DeS2oWPXuwceuW3uN1p0GfPiZx0AdYZ8JVvIH6Jze3X
+	 GBCkZ+5HjgSCg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: connector: Add fsl,aud-io-slot
+ binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: chancel.liu@oss.nxp.com
+Cc: imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260629074734.3643227-2-chancel.liu@oss.nxp.com>
+References: <20260629074734.3643227-1-chancel.liu@oss.nxp.com>
+ <20260629074734.3643227-2-chancel.liu@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 07:53:35 +0000
+Message-Id: <20260629075335.E33ED1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-a9-node-v2-1-dadd3401fccb@amlogic.com>
-X-B4-Tracking: v=1; b=H4sIAFQkQmoC/2XMQQrCMBCF4auUWTuSRInElfeQLqbppB2wjSQSl
- JK7G7t1+T8e3waZk3CGa7dB4iJZ4trCHDrwM60To4ytwShjlTUOyeEaR8YT2+B5oIt3Ctr7mTj
- Ie5fufetZ8iumzw4X/Vv/jaJR49mEYEl5bWm40fKIk/ijjwv0tdYvVP6iHaAAAAA=
-X-Change-ID: 20260629-a9-node-3e6fceba7c90
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xianwei Zhao <xianwei.zhao@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782719573; l=5518;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=4hEc0Y3kJi0oLWhBei8MgVtCOquaYcl8dUAJU9UbQBo=;
- b=DlbUk+TTjIUALWf5L5T56AOLfQA4dYtobtp6v0o1p/if76zO5DUT8ikuqbEEWI1i6OBSakAyI
- /SelcFZcKfGAkrtrlAZ0doTeS2BxFk5/n5x+Z2zyzIqOc8UI7MlmARi
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The device tree binding defines clock and interrupt provider capabi=
+lities but omits the corresponding standard properties (`#clock-cells`, `in=
+terrupt-controller`, `#interrupt-cells`) from the `required` list.
+--
 
-Add pinctrl and irqchip-gpio device nodes for A9 SoC.
+commit 600c9389f32346f471a54074928953574a215cfc
+Author: Chancel Liu <chancel.liu@nxp.com>
 
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
-Add pinctrl and irqchip-gpio device node for A9.
----
-Changes in v2:
-- Reorder device node by address.
-- Link to v1: https://lore.kernel.org/r/20260629-a9-node-v1-1-42ff6a0c16ab@amlogic.com
----
- arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi | 140 ++++++++++++++++++++++++++++
- 1 file changed, 140 insertions(+)
+dt-bindings: connector: Add fsl,aud-io-slot binding
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
-index 660c8556a864..b0e0fadeed82 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
-@@ -6,6 +6,7 @@
- #include <dt-bindings/interrupt-controller/irq.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/pinctrl/amlogic,pinctrl.h>
- 
- / {
- 	interrupt-parent = <&gic>;
-@@ -97,6 +98,95 @@ soc {
- 		#size-cells = <2>;
- 		ranges;
- 
-+		apb: bus@fe000000 {
-+			compatible = "simple-bus";
-+			reg = <0x0 0xfe000000 0x0 0x480000>;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			ranges = <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
-+
-+			periphs_pinctrl: pinctrl@4000 {
-+				compatible = "amlogic,pinctrl-a9";
-+				#address-cells = <2>;
-+				#size-cells = <2>;
-+				ranges = <0x0 0x0 0x0 0x4000 0x0 0x340>;
-+
-+				gpioz: gpio@c0 {
-+					reg = <0 0xc0 0 0x20>, <0 0x18 0 0x8>;
-+					reg-names = "gpio", "mux";
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_Z<<8) 16>;
-+				};
-+
-+				gpiox: gpio@100 {
-+					reg = <0 0x100 0 0x24>, <0 0xc 0 0x8>;
-+					reg-names = "gpio", "mux";
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_X<<8) 18>;
-+				};
-+
-+				gpioh: gpio@140 {
-+					reg = <0 0x140 0 0x20>, <0 0x2c 0 0x4>;
-+					reg-names = "gpio", "mux";
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_H<<8) 8>;
-+				};
-+
-+				gpiom: gpio@1a0 {
-+					reg = <0 0x1a0 0 0x20>, <0 0x20 0 0x4>;
-+					reg-names = "gpio", "mux";
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_M<<8) 8>;
-+				};
-+
-+				gpiob: gpio@240 {
-+					reg = <0 0x240 0 0x20>, <0 0x0 0 0x8>;
-+					reg-names = "gpio", "mux";
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_B<<8) 14>;
-+				};
-+
-+				gpioa: gpio@280 {
-+					reg = <0 0x280 0 0x24>, <0 0x40 0 0xc>;
-+					reg-names = "gpio", "mux";
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_A<<8) 20>;
-+				};
-+
-+				gpioy: gpio@2c0 {
-+					reg = <0 0x2c0 0 0x20>, <0 0x30 0 0x8>;
-+					reg-names = "gpio", "mux";
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_Y<<8) 10>;
-+				};
-+
-+				gpiocc: gpio@300 {
-+					reg = <0 0x300 0 0x20>, <0 0x14 0 0x4>;
-+					reg-names = "gpio", "mux";
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+					gpio-ranges = <&periphs_pinctrl 0 (AMLOGIC_GPIO_CC<<8) 2>;
-+				};
-+			};
-+
-+			gpio_intc: interrupt-controller@4080 {
-+				compatible = "amlogic,a9-gpio-intc",
-+					     "amlogic,meson-gpio-intc";
-+				reg = <0x0 0x4080 0x0 0x20>;
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				amlogic,channel-interrupts =
-+					<10 11 12 13 14 15 16 17 18 19 20 21>;
-+			};
-+		};
-+
- 		gic: interrupt-controller@ff800000 {
- 			compatible = "arm,gic-v3";
- 			#interrupt-cells = <3>;
-@@ -114,6 +204,56 @@ aobus: bus@ffa00000 {
- 			#size-cells = <2>;
- 			ranges = <0x0 0x0 0x0 0xffa00000 0x0 0x100000>;
- 
-+			aobus_pinctrl: pinctrl@4000 {
-+				compatible = "amlogic,pinctrl-a9";
-+				#address-cells = <2>;
-+				#size-cells = <2>;
-+				ranges = <0x0 0x0 0x0 0x4000 0x0 0x0e0>;
-+
-+				gpioao: gpio@1c {
-+					reg = <0 0x1c 0 0x20>, <0 0x0 0 0x8>;
-+					reg-names = "gpio", "mux";
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+					gpio-ranges = <&aobus_pinctrl 0 (AMLOGIC_GPIO_AO<<8) 13>;
-+				};
-+
-+				gpioc: gpio@3c {
-+					reg = <0 0x3c 0 0x20>, <0 0x10 0 0x4>;
-+					reg-names = "gpio", "mux";
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+					gpio-ranges = <&aobus_pinctrl 0 (AMLOGIC_GPIO_C<<8) 7>;
-+				};
-+
-+				gpiod: gpio@5c {
-+					reg = <0 0x5c 0 0x24>, <0 0x8 0 0x8>;
-+					reg-names = "gpio", "mux";
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+					gpio-ranges = <&aobus_pinctrl 0 (AMLOGIC_GPIO_D<<8) 18>;
-+				};
-+
-+				test_n: gpio@c0 {
-+					reg = <0 0xc0 0 0x20>;
-+					reg-names = "gpio";
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+					gpio-ranges = <&aobus_pinctrl 0 (AMLOGIC_GPIO_TEST_N<<8) 1>;
-+				};
-+			};
-+
-+			gpio_ao_intc: interrupt-controller@4080 {
-+				compatible = "amlogic,a9-gpio-ao-intc",
-+					     "amlogic,meson-gpio-intc";
-+				reg = <0x0 0x4080 0x0 0x34>;
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				amlogic,channel-interrupts =
-+					<384 385 386 387 388 389 390 391 392 393
-+					394 395 396 397 398 399 400 401 402 403>;
-+			};
-+
- 			uart_b: serial@1e000 {
- 				compatible = "amlogic,a9-uart",
- 					     "amlogic,meson-s4-uart";
+This commit introduces the NXP AUD-IO slot device tree binding. It acts as
+a nexus exposing GPIOs, clocks, and interrupts from the base board for
+attached expansion cards.
 
----
-base-commit: 3d5670d672ae08b8c534b7beed6f57c8b44e7b43
-change-id: 20260629-a9-node-3e6fceba7c90
+> diff --git a/Documentation/devicetree/bindings/connector/fsl,aud-io-slot.=
+yaml b/Documentation/devicetree/bindings/connector/fsl,aud-io-slot.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/connector/fsl,aud-io-slot.yaml
 
-Best regards,
--- 
-Xianwei Zhao <xianwei.zhao@amlogic.com>
+[ ... ]
 
+> +allOf:
+> +  - $ref: /schemas/gpio/gpio-nexus-node.yaml#
+> +  - $ref: /schemas/clock/clock-nexus-node.yaml#
+> +
+> +required:
+> +  - compatible
+> +  - gpio-controller
+> +  - '#gpio-cells'
+> +  - gpio-map
+> +  - gpio-map-mask
+> +  - gpio-map-pass-thru
 
+[Severity: Low]
+Does this required block miss the standard properties for the clock and
+interrupt providers defined earlier in the schema? Should `#clock-cells`,
+`interrupt-controller`, and `#interrupt-cells` be included here?
+
+> +
+> +additionalProperties: false
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629074734.3643=
+227-1-chancel.liu@oss.nxp.com?part=3D1
