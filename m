@@ -1,247 +1,179 @@
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BDC3ACF1C;
-	Mon, 29 Jun 2026 09:49:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E939D3F88B5
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 09:51:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782726542; cv=none; b=KzIqLWnfvEL4lkfPTplA1KxuUsi1IAOzjbtg54/gFiuwNbD9TS2sf77DCw07Q5wbkhBipdLBbxa1pJqjXJPaS/VkS7wq/OZ/S+xR0oVohfTs64L5RCPT8s/pqb8TitSiaOnI9T7Fdusx9pz5Brt7r/fCSadQvJVj97hyarcSOsA=
+	t=1782726673; cv=none; b=XEOpqafOf9rw/0nAlS8gXnKrKBR+pCXfINyNwL19w6rMP0CZMdsTPReQfEZEHW9cfOhmDK+Zdsldj5GpYKdqkOnl3ba87auobWAosQ/YN4vkzbE8zPdwjIrljV0C1UUMHyaZIwFjyWhgwBl/MqKpgDr2NpJNZa/UtasnZ3IvWic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782726542; c=relaxed/simple;
-	bh=GnsEYCjbe0S9jknU3l2IswJZuKVjKzGgWHpOCZ0UyCE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kselWC5VotA6xlumqlWPr2rqoaag5EarpbRZCzzJVZacOG7sT+74N1vuhPo5cPaeaGfyNrvi78IjHeypd73n5YXF5JG8HrgsES/xcouQghlTZInpHsIuUlb2g+cN10Rwgrep3k2apEU+1hhdZXJu44mU8tbn6aASBZGJ8u9zhi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=c+1ykNIK; arc=none smtp.client-ip=113.46.200.224
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1782726673; c=relaxed/simple;
+	bh=clg0AzGHYAP/V3MGodBAGw/7RE1WclMLvIgKBJ9RdiM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Pi1QqVpTENQcV5vNcNRIXR7Oiih63w4ZAR4qLSOWU/TeRurRPiyVjtsBmSSnjklGgor7Se6kJWAOdIPoZg9aWPyAypw29nJLD58mFcrSBgmJnz0xrYknsuj3c8Zu95W555+UMFAeAQYf+hI0g7CMyx/A4I49QO72wC+y1Oc7aWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m4F7cJSs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I/beJeHD; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="c+1ykNIK"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=u/3+3WmAyBCxJj1hXY/2UJ7mv0ILXHI87iQztv7VJmk=;
-	b=c+1ykNIKEcttl9rsWOhf3KGhszIQPHyR7u28Cchxm0JpfPnJDFUdBFhKmPBJnjP8o/WQW+I8z
-	5O1ONH0OfVfIe+WtV4VQJvjyVHAxaw6YwWydZ4ZlYHyqID1vcv1YjRJ9qJPSiT15yQEliXf/Iwz
-	irw6wy7sb89jLE6PXhHTxWI=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4gph7C2V8Wz1cyrh;
-	Mon, 29 Jun 2026 17:39:03 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 5D7184058A;
-	Mon, 29 Jun 2026 17:48:10 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
- (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 29 Jun
- 2026 17:48:07 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
-	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
-	<akpm@linux-foundation.org>, <baoquan.he@linux.dev>, <rppt@kernel.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<rdunlap@infradead.org>, <peterz@infradead.org>,
-	<feng.tang@linux.alibaba.com>, <dapeng1.mi@linux.intel.com>,
-	<elver@google.com>, <enelsonmoore@gmail.com>, <kuba@kernel.org>,
-	<ebiggers@kernel.org>, <lirongqing@baidu.com>, <leitao@debian.org>,
-	<kees@kernel.org>, <coxu@redhat.com>, <cfsworks@gmail.com>, <jbohac@suse.cz>,
-	<osandov@fb.com>, <ryan.roberts@arm.com>, <tangyouling@kylinos.cn>,
-	<sourabhjain@linux.ibm.com>, <ritesh.list@gmail.com>, <gaohan@iscas.ac.cn>,
-	<david@kernel.org>, <wangruikang@iscas.ac.cn>, <muchun.song@linux.dev>,
-	<vishal.moola@gmail.com>, <junhui.liu@pigmoral.tech>, <guoren@kernel.org>,
-	<namcao@linutronix.de>, <rick.p.edgecombe@intel.com>, <djbw@kernel.org>,
-	<liaoyuanhong@vivo.com>, <fuqiang.wang@easystack.cn>,
-	<vishal.l.verma@intel.com>, <chenjiahao16@huawei.com>, <x86@kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <loongarch@lists.linux.dev>,
-	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v17 09/10] arm64: kexec_file: Add support for crashkernel CMA reservation
-Date: Mon, 29 Jun 2026 17:47:45 +0800
-Message-ID: <20260629094746.191843-10-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260629094746.191843-1-ruanjinjie@huawei.com>
-References: <20260629094746.191843-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m4F7cJSs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I/beJeHD"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65T8wV7C2391251
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 09:51:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	GkCQR8MNxV/qrXyojcsgaOniTxZ4r+JBV6h6codhP2k=; b=m4F7cJSsDLVJ8KQR
+	xRAK8vfkJtOncPfJ4Of0R2q3n5FwWBzepSVlDxzpMsIADkshZgCj/oeIzaoZviL4
+	EwJYZESsriOFsRzC1Lvc6ViLV51T+3U5XK8d4UZXPusEKbgTzAwjFNTL9HH6KWqF
+	9CMtL7byypShWGHjRDEtc6EbagtgvlDsr1WRXp13wvizwHAI++aBrGqkomlc0QZH
+	nPbxi9zp7wF2+dtDkPXxFq1mgAiTPH/TYmAzKukwgrqbjHiD0jD1PkJYFfNJAmCf
+	nFIWDa2Dz9PU6kYAOJjWmleIBu6eBJH/ewzSf+rfAuNy51L7p/302uQpUABPix1l
+	y4M4Uw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3nnw87pc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 09:51:11 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e566bae1bso9772985a.3
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 02:51:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782726670; x=1783331470; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GkCQR8MNxV/qrXyojcsgaOniTxZ4r+JBV6h6codhP2k=;
+        b=I/beJeHDpjYCrgx2O92qmp1XXZHX8gJJtbuhX6ZIQ8fOGWRxjyxcJzAMsyMFMojVJN
+         RvCtH265BIvn3bdFjACupFm0ZfQnGx2VLdNwvcxDz/mzs1MCvpGMsLsT1RSYqy+9TuSO
+         9Q/z+D2n2iw1ZwHANQ8S4S0WA4B0KOPT+A4CfFA6LstTUyY3DTf9W+fjMmFnIcOQciAN
+         mFku4qkzIjxdLY+CLLbHqsOptlZMtMskm8irnfKIMZO1m4ZFn7+EsHq+Ii2jtbqzDXUI
+         UMlcFYBEd3DZu3WnDq3yAwUyWtMcZa4SSfV1opLgqX1JR2M133DxZkzmavvHgLbjm08G
+         yABg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782726670; x=1783331470;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GkCQR8MNxV/qrXyojcsgaOniTxZ4r+JBV6h6codhP2k=;
+        b=QWOP/5Uv/1j7BOdl4Rq0Adza6quR+n+8OHsOXof0JEEvUfCcGnQtK9yT6OXA4TTPjm
+         VZFUjQajmBXTChPETUYUIRbu+7f8I53cAXkRZwk1wV8GsyB9ushmHCOXKkmEfacaGwpz
+         IqHfdTY1esDSb0zU/0PMEYSKitalc2Ev1KQG2iQO3NSi6Rp65TS7kEqBKzKQd782uOF8
+         xwqjIhAar3QfONMxmpJj2k4JgNSbN8FQBgnmtQuOQ+eaOb6RK3+55Mfmh1J9Eh/6IkMq
+         Lj4eTmD0Xg/1apkX4uHsMBajNsMWdVvq2RZb7LiVj83ROUwPq5NtHbVPG+rWldA5hiZR
+         k+nA==
+X-Forwarded-Encrypted: i=1; AFNElJ97a6IjTEfmOIppprQrh0qEZKiEsowN+hWbk5mZw7hNzAR6esNKsl5nzhxqrXj4N/IfuMPUmAPIaZzG@vger.kernel.org
+X-Gm-Message-State: AOJu0YzO3rjZh17Yo8Ib3IySmUe50zR/Nt402OgL7HOiZ+32HI0fZQWx
+	LCSeSAKzw7QMpHOsFgw1o+sMZuhxhVOKTeTcVSIOChyCa/qXRsTVjkhZQgH0TyKPTVrrdSI1Uts
+	4pyJGeZXWUS4W/3qvnT2LcKo0SYbva23UaC8LhEgs05jgMJw9gIvoiCphfIT1DWTs
+X-Gm-Gg: AfdE7clEBKNeEBpMwGog9WJwVlM6oxXLbsTqY7EhrTgdxmiRcW35n5SgUmKja4A7moF
+	jUAVEqpCUKdCM9SmSq6t3ZbPAFNluDvh0bt5Tb/cc5+pcY6KUOr/V3kU4C5vX491y94TPC7Q232
+	urYo5xb1+S1j+uh/VrRvY2pbXeUBuzmfET4Ulk/wMFO8i9ojJX+il2gmyDDOYQtubyQh89GLYls
+	lHR+Rf/HXatHob2ZipN5rWnP8ZESL8R0wePYXMEgvO+wcEGU0FarOf5Xalxr8yXke+F0zUwS3au
+	KAVfXpqiR/c5Rz7e5ro/wiZflLrYSMf1jSux2n5XLEAgGssAFCBWa2s33wGFLJDPQG6bZZAjzzt
+	Tvo673j3cmxWEF5yDVbZJg/sNsKhupeLLvw8=
+X-Received: by 2002:a05:620a:2b46:b0:915:7c1a:1388 with SMTP id af79cd13be357-9293d8a98edmr1528682085a.5.1782726670218;
+        Mon, 29 Jun 2026 02:51:10 -0700 (PDT)
+X-Received: by 2002:a05:620a:2b46:b0:915:7c1a:1388 with SMTP id af79cd13be357-9293d8a98edmr1528679585a.5.1782726669775;
+        Mon, 29 Jun 2026 02:51:09 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c11fbba677csm744546666b.11.2026.06.29.02.51.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 02:51:08 -0700 (PDT)
+Message-ID: <050d47ac-9089-4a72-be89-d61fa695c00b@oss.qualcomm.com>
+Date: Mon, 29 Jun 2026 11:51:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 13/13] arm64: dts: qcom: shikra: Add support for
+ DISPCC/GPUCC nodes
+To: Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Brian Masney <bmasney@redhat.com>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260604-shikra-dispcc-gpucc-v4-0-8204f1029311@oss.qualcomm.com>
+ <20260604-shikra-dispcc-gpucc-v4-13-8204f1029311@oss.qualcomm.com>
+ <77a5213d-6be7-4a86-81ad-3509a499ad12@oss.qualcomm.com>
+ <3f8d117c-2ced-480e-bec6-0bd38a60b7c0@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <3f8d117c-2ced-480e-bec6-0bd38a60b7c0@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA3OSBTYWx0ZWRfX1zyS90/09N1H
+ p2fJ99DvbBCF5n3McGCu56tIlDUVHpkGRIMVrDfqz1IPyANbDPvzckjSmHCmRsPoT+AYvbU4pcf
+ IBNKsg4ytkkxCEdbkjZ57uF6yzuTsNo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA3OSBTYWx0ZWRfX1P6WWTjcrMCx
+ MFYX9OZ6y2XBT6kGtfSRQcRdYs+xV9LyQLFc9Bp3MnI7OtR2WCpBxy9iuhoMXSq2LZZ88BY9U0W
+ hZdFcq3/PJBKktOfw2Id2HWkhkZymVZ9+5rs/PqfnRb99JgM9q66SLOcHH1XpQQSeHSlLgZW/ZW
+ DyT+ITB4edsh0AP+jw4ifqu8uxjlrea9cX6jWXrAeo4/aJBZoys/Q3IyJMIJO4Eu7/INlo9Qwoj
+ x2BKDegI7O9bdnIHFzlEED/KX3kBp2to8+wUaXYHX4aQmOd3gzrY2odSGWSKp9lzK0/4t1gwKML
+ BmWe4K/OHFWAKHlY9j3QclUXxQOWEXioAwAmE5KqBlu4Gi6ao6arquvqnl08fSgHccUp+cfdgob
+ /12MBeXvIWTJ2SFU3Kbgv1NOyhmWXaJZfUAkZZqDweckJmXEIMNr3QOHBmm4Tt5rEs+kuc13t/w
+ vU/2loLwNAL5z4wB/TQ==
+X-Proofpoint-GUID: ndH9459urLL4jJTzYPYBGg7dejJCwI4I
+X-Authority-Analysis: v=2.4 cv=cefiaHDM c=1 sm=1 tr=0 ts=6a42400f cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=6UAb0L3E1jN75_jUm_YA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: ndH9459urLL4jJTzYPYBGg7dejJCwI4I
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-29_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290079
 
-Commit 35c18f2933c5 ("Add a new optional ",cma" suffix to the
-crashkernel= command line option") and commit ab475510e042 ("kdump:
-implement reserve_crashkernel_cma") added CMA support for kdump
-crashkernel reservation.
+On 6/29/26 8:43 AM, Imran Shaik wrote:
+> 
+> 
+> On 25-06-2026 02:14 pm, Konrad Dybcio wrote:
+>> On 6/4/26 7:26 AM, Imran Shaik wrote:
+>>> Add support for Display clock controller and GPU clock controller nodes
+>>> on Qualcomm Shikra SoCs.
+>>>
+>>> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+>>> ---
 
-Crash kernel memory reservation wastes production resources if too
-large, risks kdump failure if too small, and faces allocation difficulties
-on fragmented systems due to contiguous block constraints. The new
-CMA-based crashkernel reservation scheme splits the "large fixed
-reservation" into a "small fixed region + large CMA dynamic region": the
-CMA memory is available to userspace during normal operation to avoid
-waste, and is reclaimed for kdump upon crash—saving memory while
-improving reliability.
+[...]
 
-So extend crashkernel CMA reservation support to arm64. The following
-changes are made to enable CMA reservation:
+>>> +                      "gcc_disp_gpll0_clk_src",
+>>> +                      "gcc_disp_gpll0_div_clk_src",
+>>> +                      "dsi0_phy_pll_out_byteclk",
+>>> +                      "dsi0_phy_pll_out_dsiclk",
+>>> +                      "dsi1_phy_pll_out_byteclk",
+>>> +                      "dsi1_phy_pll_out_dsiclk",
+>>> +                      "sleep_clk";
+>>> +            #clock-cells = <1>;
+>>> +            #reset-cells = <1>;
+>>> +            #power-domain-cells = <1>;
+>>
+>> DISP_CC also needs to source power from somewhere!
+>>
+> 
+> The Shikra bindings aligns with the existing Agatti bindings, as it is a re-use. And the Shikra/Agatti DISPCC is on CX rail, and it will be always ON when APPS is active.
 
-- Parse and obtain the CMA reservation size along with other crashkernel
-  parameters.
-- Call reserve_crashkernel_cma() to allocate the CMA region for kdump.
-- Include the CMA-reserved ranges for kdump kernel to use.
-- Exclude the CMA-reserved ranges from the crash kernel memory to
-  prevent them from being exported through /proc/vmcore, which is already
-  done in the crash core.
+Yes, it will be on, but currently the genpd performance state requests
+(i.e. RPMH states) go to /dev/null because DISP_CC is an orphan
 
-Update kernel-parameters.txt to document CMA support for crashkernel on
-arm64 architecture.
-
-Tested-by: Breno Leitao <leitao@debian.org>
-Acked-by: Catalin Marinas <catalin.marinas@arm.com>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Acked-by: Baoquan He <bhe@redhat.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: Ard Biesheuvel <ardb@kernel.org>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
-v7:
-- Correct the inclusion of CMA-reserved ranges for kdump
-  kernel in of/kexec.
-v3:
-- Add Acked-by.
-v2:
-- Free cmem in prepare_elf_headers()
-- Add the mtivation.
----
- Documentation/admin-guide/kernel-parameters.txt | 2 +-
- arch/arm64/kernel/machine_kexec_file.c          | 2 +-
- arch/arm64/mm/init.c                            | 5 +++--
- drivers/of/fdt.c                                | 9 +++++----
- drivers/of/kexec.c                              | 9 +++++++++
- include/linux/crash_reserve.h                   | 4 +++-
- 6 files changed, 22 insertions(+), 9 deletions(-)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index b5493a7f8f22..6774223c53b0 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -1089,7 +1089,7 @@ Kernel parameters
- 			It will be ignored when crashkernel=X,high is not used
- 			or memory reserved is below 4G.
- 	crashkernel=size[KMG],cma
--			[KNL, X86, ppc] Reserve additional crash kernel memory from
-+			[KNL, X86, ARM64, PPC] Reserve additional crash kernel memory from
- 			CMA. This reservation is usable by the first system's
- 			userspace memory and kernel movable allocations (memory
- 			balloon, zswap). Pages allocated from this memory range
-diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-index b019b31df48c..854d872dfd0f 100644
---- a/arch/arm64/kernel/machine_kexec_file.c
-+++ b/arch/arm64/kernel/machine_kexec_file.c
-@@ -42,7 +42,7 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
- #ifdef CONFIG_CRASH_DUMP
- unsigned int arch_get_system_nr_ranges(void)
- {
--	unsigned int nr_ranges = 2; /* for exclusion of crashkernel region */
-+	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
- 	phys_addr_t start, end;
- 	u64 i;
- 
-diff --git a/arch/arm64/mm/init.c b/arch/arm64/mm/init.c
-index 97987f850a33..227f58522dad 100644
---- a/arch/arm64/mm/init.c
-+++ b/arch/arm64/mm/init.c
-@@ -96,8 +96,8 @@ phys_addr_t __ro_after_init arm64_dma_phys_limit;
- 
- static void __init arch_reserve_crashkernel(void)
- {
-+	unsigned long long crash_base, crash_size, cma_size = 0;
- 	unsigned long long low_size = 0;
--	unsigned long long crash_base, crash_size;
- 	bool high = false;
- 	int ret;
- 
-@@ -106,11 +106,12 @@ static void __init arch_reserve_crashkernel(void)
- 
- 	ret = parse_crashkernel(boot_command_line, memblock_phys_mem_size(),
- 				&crash_size, &crash_base,
--				&low_size, NULL, &high);
-+				&low_size, &cma_size, &high);
- 	if (ret)
- 		return;
- 
- 	reserve_crashkernel_generic(crash_size, crash_base, low_size, high);
-+	reserve_crashkernel_cma(cma_size);
- }
- 
- static phys_addr_t __init max_zone_phys(phys_addr_t zone_limit)
-diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index 26f66046cc32..a64afc3ded3d 100644
---- a/drivers/of/fdt.c
-+++ b/drivers/of/fdt.c
-@@ -878,11 +878,12 @@ static unsigned long chosen_node_offset = -FDT_ERR_NOTFOUND;
- /*
-  * The main usage of linux,usable-memory-range is for crash dump kernel.
-  * Originally, the number of usable-memory regions is one. Now there may
-- * be two regions, low region and high region.
-- * To make compatibility with existing user-space and older kdump, the low
-- * region is always the last range of linux,usable-memory-range if exist.
-+ * be 2 + CRASHK_CMA_RANGES_MAX regions, low region, high region and cma
-+ * regions. To make compatibility with existing user-space and older kdump,
-+ * the high and low region are always the first two ranges of
-+ * linux,usable-memory-range if exist.
-  */
--#define MAX_USABLE_RANGES		2
-+#define MAX_USABLE_RANGES		(2 + CRASHK_CMA_RANGES_MAX)
- 
- /**
-  * early_init_dt_check_for_usable_mem_range - Decode usable memory range
-diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
-index b6837e299e7f..029903b986cb 100644
---- a/drivers/of/kexec.c
-+++ b/drivers/of/kexec.c
-@@ -458,6 +458,15 @@ void *of_kexec_alloc_and_setup_fdt(const struct kimage *image,
- 			if (ret)
- 				goto out;
- 		}
-+
-+		for (int i = 0; i < crashk_cma_cnt; i++) {
-+			ret = fdt_appendprop_addrrange(fdt, 0, chosen_node,
-+					"linux,usable-memory-range",
-+					crashk_cma_ranges[i].start,
-+					crashk_cma_ranges[i].end - crashk_cma_ranges[i].start + 1);
-+			if (ret)
-+				goto out;
-+		}
- #endif
- 	}
- 
-diff --git a/include/linux/crash_reserve.h b/include/linux/crash_reserve.h
-index f0dc03d94ca2..30864d90d7f5 100644
---- a/include/linux/crash_reserve.h
-+++ b/include/linux/crash_reserve.h
-@@ -14,9 +14,11 @@
- extern struct resource crashk_res;
- extern struct resource crashk_low_res;
- extern struct range crashk_cma_ranges[];
-+
-+#define CRASHK_CMA_RANGES_MAX 4
- #if defined(CONFIG_CMA) && defined(CONFIG_ARCH_HAS_GENERIC_CRASHKERNEL_RESERVATION)
- #define CRASHKERNEL_CMA
--#define CRASHKERNEL_CMA_RANGES_MAX 4
-+#define CRASHKERNEL_CMA_RANGES_MAX (CRASHK_CMA_RANGES_MAX)
- extern int crashk_cma_cnt;
- #else
- #define crashk_cma_cnt 0
--- 
-2.34.1
-
+Konrad
