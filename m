@@ -1,273 +1,157 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011028.outbound.protection.outlook.com [40.107.130.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DC031E82A
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 19:52:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782762745; cv=none; b=Re7hy7R4UAztVWOyc/7nu+KYxC0Jc7FSAQ/tTIECzUvfPEQZkdNVsT7tMK/dsdpUZgXMIoHCSyVT2IglKDEl3lhgAEP/IfriR2swAaNlojfIy18ArxnO144tpgQZCP4I3q2B9wRzjT2su6zHbExqlRC1XSILBJYXc9XC9pJRwSw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782762745; c=relaxed/simple;
-	bh=xzD9r7m1mdIsz8vG8N/LmGO1tj0nBeLuziDr8pQ4fYs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sY+fRTpSClZVMfLajppw3R6a9Fk6aRr9hCdU96RvDAuF+ljH1ZrCfetIi5UaPIe49nxgdf3pGz3+rPh9xd3JTrQSvvM8N6RlK1D35Ipq2MGL8KYwpiHammuZcgB/eJ+1W6/9HRnXFKG5YH6ilZaOT9hqfubEtBQFVIRbhsQizZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Pnl8g2+G; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Tb6eZlu7; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6202729430
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 19:52:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782762763; cv=fail; b=RUlC+h0rnh2kKxWYhVI2kr8FZT+5v7dZMz7Ie6OpUT3OUIKFlkmlpChmUkdzAb3qY7+mHrcz3VcxlsSOG1HcHhQDKNu77j7psYC6fZjX08SEVBu4zxhNXB2L515uUOZ0NydnuAsheXPBr+wMXQ7TCRzxht4jFah8OmG/orFS66A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782762763; c=relaxed/simple;
+	bh=w+dnt97ZXgw7dTv1bFC2uwK1l8dLMD68ZaVjDtm9zWI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YPTJT0MOIH/auY2LHYqytRMkiLTNx5pkd4oo+ewIQA8V+npv/xKvULxyMGcseggBz0G3v4I3GSzEaFPYLtu6PmUShOmU4YzyflLJ225jWAoZBxGi9JNHk7RUj+dCF6a/lQ0TfWxK1/ig8ezkSoqKju9bfTUU7iFeZ3Stscht8K8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vFCYvdEp; arc=fail smtp.client-ip=40.107.130.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Pnl8g2+G";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Tb6eZlu7"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65TGJuch3448305
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 19:52:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	p9bp34Ti6ivWdInuxYzOVcR1zKZg/fDN2ENN/Gc9YdM=; b=Pnl8g2+Gc00JSQte
-	zEfbMUAg+El0+G8hjxrGuPrHtz9f7nHwTEqEmBefloF+tlPw54SQYH1oIMVGGIXB
-	F2KgxvlLrkGa1OlSSsYEVLwkb7SelKzvJfVHLVWGKTug2g6zg/lpyhLxPVHisl4V
-	0SSMBT/gzbIBt8m8XVD0MO0a++p9a4ezbltBQ8sh7lag4HyTxx4ujUPMvQJ88ygT
-	yChmPTqzjpD6rmEE+9alY9wYfruvb+m4gdtOrdKEwPV/vOj6l3xgmATeww3x02RZ
-	PCQFg3flAfR+E3Hd1ulBOO3U/vMt+QYEbFlmlnZj6kZatDCThJ6LQkVSj5iTDlZZ
-	1cr+9A==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3qhaa9j7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 19:52:23 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92ae405b5eeso489715085a.0
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 12:52:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782762742; x=1783367542; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=p9bp34Ti6ivWdInuxYzOVcR1zKZg/fDN2ENN/Gc9YdM=;
-        b=Tb6eZlu7VvjevwAjR27EzfrqlaImWrmokl3x1mCHCDIDpPns7sJ98PMxT9opC0Vs7B
-         m8pHKnh/AaVDVRbNDIrZ6Qyhc7XqgljrNlTX8pjq8LcDKhOh5LhcDVH3woJN/6BMCtNC
-         YcPwANSjRRsvwkk1FVI9V+s+7ubAoekTrtOhJA8JNyOo6flbsVEHuvIApBFdgShUmw9o
-         J+CjHBQt85+mlsoWZPhf3wpAtQBoW0Uf8RZ9EgaGjZsfcBNx2dvXo4jPtyIu1vwPbl9u
-         EBgegeUqEfYRulFkbseNW3vqwStzjydAKe+YZw/s3ohlSrMevtQ+pZadcV+C/ZgpQBXL
-         4yAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782762742; x=1783367542;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=p9bp34Ti6ivWdInuxYzOVcR1zKZg/fDN2ENN/Gc9YdM=;
-        b=lKsQITj/LbDUEzo7GzmGeYmi7ANM/9ta8PDXaQXj4E7cFsuMD77hsPMIXkWNOH6MRJ
-         EMUSJi+m7/V5FTZmZ/FudFes44B8kZXuph8DTOmZQrZC1+UoPN9s6fiPaOnKPWvZGvOi
-         URdV4GPAGp9KcbjkwkDeB37q3bCsbnu484iOVPq0i2kpk+UK3eyXbrEDOrstLWH52rNO
-         Y759movbV45vOYrl3tk90B7anB5OEflxrHrTRSzFxVpPuyHGj4q9j67vdeVMNAC+K87x
-         6SugT7zUUc9g1w/WxE7IsEkrRBs2gLbpUed2HnJWlhJCvlHPbFRIzHT0dYg4H7FsjSPO
-         gbMQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/Z1A0ZJJGChGPl6nAtUKInLlYAlJX/UGnQ3WO+Obl7xI+PhyPH5puTf3nJD7Bgj32qI+63OU4nCy1s@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywf/D5erjkg1zGswn4UHGLq48u2kHS+L6zTX/Fu8La2x9CE/uhY
-	g7X3VPSuoN+CBJY8c0C1E8xkC5IYsTXPgVMjT4PhJJmXpmWALh36Np+o4R1xdNK5p8+FF/Mbgx0
-	dGJs4gQ6UH0XT957Y1Y7TeGHFHtLUaofW8cYTEzt0KCNXpIVBmc8OXufXeVD5EZ/yWPMjI0c4B+
-	Q=
-X-Gm-Gg: AfdE7ckn94esi2wJpo7yrmOSsl0YOk4ByZ3I+YVWhVcmu7OlZvO/MCyGRvUl0vbFl0q
-	jDiCnRLwOyHzok4FCUDz9mcoAptTYibzci7xKWQKu3zKRAJ//H98fA9ey+lzXZxy9gPQs2egHl9
-	JlYSzo/Fo2TNzEleEbmmY0i29edYvw6kYjme57sMU4J5qnXBTIpq9wFsdBlrg3ICmRtFQmavbXW
-	UArcGMg+r85k+bNSHFMu9YF7lC45Op2YAj4taD00OI0kgTNpCj2uqhUDYk0ZMHdDhcyQwGqmRbX
-	KP4hPyk4d4RGQwD3qVyADngTibp/tGDi+nngIn0oyvx26w0smna0k0/IOO5HOZETnovMJwXBiSC
-	u0IhFO6jZuvbGzn4kq6DmkeHitMUrS8t3ZPAIIwzCVTfz2oQ8rNA+b8/pJCW8mjorUBfy+RVvkR
-	2jSA3haHARnkD/CH1XhLk0ZQ/nDWcZBE68U2Kui+V+xDZ86qVJB6LWyB2/nPEx+JvNIgE+DzOV3
-	UqAxLBhXQPri1MitoF0
-X-Received: by 2002:a05:620a:4690:b0:92b:6805:9193 with SMTP id af79cd13be357-92e627e2931mr164293085a.59.1782762740781;
-        Mon, 29 Jun 2026 12:52:20 -0700 (PDT)
-X-Received: by 2002:a05:620a:4690:b0:92b:6805:9193 with SMTP id af79cd13be357-92e627e2931mr164253385a.59.1782762736442;
-        Mon, 29 Jun 2026 12:52:16 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com (82-64-236-198.subs.proxad.net. [82.64.236.198])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493b8d99565sm6360005e9.0.2026.06.29.12.52.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 12:52:14 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Mon, 29 Jun 2026 21:52:09 +0200
-Subject: [PATCH 3/3] arm64: dts: monaco-arduino-monza: microcontroller LEDs
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vFCYvdEp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ukt4qB6adPrQ/fUu+ekI3+bzf6vGik5US+J2K0/yVMjATOc+JVcaMiGJQntUpjC/zHBASb0LXVUInjIVIVABMsO9Z/tY42vbaTUeWMidDIwxTqvzbXPwffvF0358HK0tkPK8DUp+eKebrKlwn/oq1C8agafQpwOpqAtJFlMhpcQMFLh7F7jhu7qA1JpkcB2zZze7kZH81X2RSSJ8h5sKSSWlPXcwixNEU4zCFYOtZ5dHwSRLF2P/bHTER4Y3yGJ2DGdFcrfAuidQBuuvq5NH0zsBe+FaqOV9qxi5Vgfae6NJICSOyt5zpCaiwp/IZCzLaOs5aVeSeHRpcDZ/5qUgcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l0Nr+h/ke4f/9V4ZlF7jJkduLcXTAPV4ytPaXjTqXI4=;
+ b=AhAd83Un2Hvfgsb+CpIVfwRmLOHVNXXJb1+pdye05yFJIaekIS/Nnx2uKCqJ7O4IRNVnmied8R9OiLTEG2aEdmTQdVxKBXrtF1lPmVa+oGsLQllmNo6iX3recSNddd3yxdsEHEzIfu2mlE+UOnibsX9yPgk/tcWa7T1lc6ER4aYypuryp07B37qIve6ouY0blO5BC8UBzYvkfajK7l6Hj/EKDbYyYYiHeUEulYCq1y1ImPltdfRVnJ0zKb1/HvZ3Pg7NpVAXlhv9+zFBUT16guSEOXvLoH/znUqjPAJOoKJEYOokP4MWzjjBSZJGaJb8Z+TtnU7b57IQmWvf00uRyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l0Nr+h/ke4f/9V4ZlF7jJkduLcXTAPV4ytPaXjTqXI4=;
+ b=vFCYvdEpafoSb+CeC+FByCWhOw0WuX1MVmup61UYT+lnGMkkeFlFZjpfjYR3Fl+RnToySbQn3j/5E7O+SJR6iMUJhJpbKfi+SIxrI+cXF1+ExBHndNfcz87/yakcBvLFgzzPN0pgKOiqw0FolcHAc3F1eHfZrxDPhV0uHcPTmXRNzx801rx3GEPH7kZzwdl/NnuGr11WPj+NQsx71FquCT1VvTz+8rsTEzranXVSL1Icy2ycVG+9Z/0OiOHKSiWAkYeIJxzbQuU1Q1KgKAXoSjI/G1kyA+qKbdlsQxBidKsaoO/TYkzN87ziOrUF4zuMmhlLMYSDgpPDd/7Kd0z5bg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DBBPR04MB7978.eurprd04.prod.outlook.com (2603:10a6:10:1e9::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Mon, 29 Jun
+ 2026 19:52:39 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 29 Jun 2026
+ 19:52:36 +0000
+From: Frank.Li@oss.nxp.com
+To: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	Lech Perczak <lech.perczak@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lech Perczak <lechu@hswro.org>
+Subject: Re: (subset) [PATCH] ARM: dts: imx7d-pico: describe Bluetooth controller
+Date: Mon, 29 Jun 2026 15:52:29 -0400
+Message-ID: <178276274275.2437081.9059083136920604553.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260607131217.6497-1-lech.perczak@gmail.com>
+References: <20260607131217.6497-1-lech.perczak@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SN7PR04CA0162.namprd04.prod.outlook.com
+ (2603:10b6:806:125::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-monza-leds-v1-3-0cf7c0a7dc14@oss.qualcomm.com>
-References: <20260629-monza-leds-v1-0-0cf7c0a7dc14@oss.qualcomm.com>
-In-Reply-To: <20260629-monza-leds-v1-0-0cf7c0a7dc14@oss.qualcomm.com>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-GUID: N8-ZwQYibVU4vKtZT2KgB02JIAd6skMo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDE2NiBTYWx0ZWRfX2tbQj78dbN5X
- 1imEiJDa0ZYt3SYlFmg31oK3Nal05rSA3RfNTYyA8rJ4kpl4q6YGVnikfe4NQIBpLT1l+pmhg27
- fGf7NgJ0XZorr3RLtAtqlSDlJRNXVXswhE51iPfVgOkjT/f0TKNd3vjJzJW7BdygbgTTSLDODFT
- c51zqvJv+2UzVV9f8ev7MyKOVgx4TDBkepFy0Bn1oL3zGbtE8GxuC0oxCP3LXSyBDqKf5YcC33b
- FkXzESuCGlx8Rbh0BlDJes+43sh0ZI+y9HWJpsTK9tRizAOt7NNxsvv5n1RzeKPE5cfTvDh0kGA
- CMaD6z70GXXxoLOcw7dh2fY3FlhMW7c1D3x1uvW+LkCmMS967g7AD9aCIV6aMirlJkOwAmKrc9K
- QONGWR6RuNai+bRt9C5Op10St1rwNlcVYB/vZ0RTKfOlxWiLp5N/kGjicvLVliAiYUkgJPDgBo/
- rCWkFOeRB2Suhu5fs3Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDE2NiBTYWx0ZWRfX1PXrLEq5izPA
- bUIzcZ9v0CWP/X1kIhJW44fHCoe+VeYIey2y5SLDHnP2G0YZgj6ElR4m2pj4rongkgApyrXRRC1
- UYLkEt7G3qhmdYaq/4/cqPt3A4qVvgA=
-X-Authority-Analysis: v=2.4 cv=O9UJeh9W c=1 sm=1 tr=0 ts=6a42ccf7 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=MDeckJw97qnk8wCBExTehA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=KhZQscbOQyvxDa-8kVMA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: N8-ZwQYibVU4vKtZT2KgB02JIAd6skMo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-29_04,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0
- phishscore=0 malwarescore=0 priorityscore=1501 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290166
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DBBPR04MB7978:EE_
+X-MS-Office365-Filtering-Correlation-Id: b62dd3c8-f4e7-4835-b6bf-08ded617f7ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|19092799006|23010399003|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	BWePmMgN0M/GSdSfhzR5/x7BF+DWAXOEGgEJyHIdVuzZmaYNT/3fP3BqdOdm9CTHXvjGEUd+Jy7t+ydx+8+mYqQDgeMeUR4cR+kdmt4VkPUDausHOjKmzjIRxxAre//YZFwuUp+KztfQFcRX0V1qeAyYHKeB5nRcUOMM2Zj7c+eVhdck1o55N6tF+WJzAtRiyD/BqpJs+q71qWb2OSZSoP+0FcJ9jOh4dwY04v5khfttRkGSr9FH34/1G3a4Ze3806QOkHYFy/M8WHkoq1n9/53P0WzLVxSYuOwJAOCnK8247h9UaMq/A9P5sxAHYzSNfjBv6rgyY3j0zX0UD7GY+7dwvUYiO+D5ORAR3jSL2z/ICt6i/upOH1Gp+lure/8t1W9zmTk9jf9nFFGfJqnktvnOddKFLFsnPpxREQR9tzGbsaIGlAwhg4qQPb1M1yq/4CY+XwxjaYahdRz37SIQRcRRvgJKiZ3DzMLmRHIEkKupQuDfMtKVQvUl+ZCEtGh9/NFDW7wN/v/6kAlkzT6euhxMu7IEgqtL19GZadWd15jQVH01Qg3HeL7OHy+frbngnhd9trCxXy606BmItPPu/yHzjZ/HwtXOHF1uNDBvy/DWjxj9/dM7Gcm99N6T/2C62efO94Ls/QVw6RfEgQpT6pQZhqSVdHqG2fEUc7cr4iY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(19092799006)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WnVNOUEzTFpHelNxeThyLzBycmhvanJMQ0hObXlNajBDZkpFL1E1eVJ4NEZZ?=
+ =?utf-8?B?K3RrVklJdEV4SWFlUXg3WGRqd2prQ1NNZG9hQzJ2MFhiZVhkZnZuNkJ2emNW?=
+ =?utf-8?B?ak1vOHYzRk9ZVzdBU0pUZ2NJeFNudkl3UnBHeXFRd1phN1lQSTRyRzAvZ0p5?=
+ =?utf-8?B?ZXp3dURaVGwxbnJOa08rbTJUWHc2TUlNM0d0aUxBQXlVKzFkNW14cGpmc09K?=
+ =?utf-8?B?NnpGUXh4MDJ2VStaeGd4YllmcnRDTURGNWhVT0tELzRuS2RIMVE1eEpYY3BQ?=
+ =?utf-8?B?bExycFdBSTBYbno3dWZVazJDOEJZdW0rOTZXcXUyRGJQNXFNNFNoRUxkNCtN?=
+ =?utf-8?B?SUY4SDVjc0J5Ti93MVVINWk5SVUvaWQ3U2NSbGNrcWNSbitZY3NTWDNsSFdG?=
+ =?utf-8?B?N3oyZld2cWZ3b2gvcC9nQVJxUkk5aENCVVN0R3JRT0Q2OW5MVklobm1kSGk3?=
+ =?utf-8?B?a042Wjg1L3NTcG9vbThwMWVyNUJ3NHJ5NkNaWTJVZkdpY2ZtYVhEL1NydEM1?=
+ =?utf-8?B?dm9YUU8yNFh1SGNRdGhpbVljUSt2b0ovSnBuTnBOVXRRT1hGRzVLYndmT2xQ?=
+ =?utf-8?B?b0txcVdVQ3EreWtWNUU1WFNIK0x5Y3BiMlhua1JIdi82R2hRODk4TmFLS0xM?=
+ =?utf-8?B?Rlp2TzZaaXNsWS9lbHNPZWxrVEdlNjVVbGtST1J4TXA3ZllyRTN2cGNiMUgr?=
+ =?utf-8?B?RUdaL2dpTkdCaEJBZHRySk5WNEJJQUZvTk9mdlQreEZDSUlmdFEzWnY2YkZy?=
+ =?utf-8?B?K3E3VU1VbE9PWDFjMDQ3ZlQ5TFIvMGxYNlM4UlNFbE94NWdIL0xSL0tvckdV?=
+ =?utf-8?B?Z1BGNFBFY3ZyemV6TEJLekpESnVDUEo1eHpHNlZ1NGxKNjVqeTN3ZUkvOXYx?=
+ =?utf-8?B?a0VvY20zMFI0eHRzK21wUXB3b2RiWlliRlFocC9FMm5zdDFpS2xNVmJsQ3R3?=
+ =?utf-8?B?TzlveXB1cWpEY0Z4NFEwVTg5ZVAxdEw1cUNmVk44RnRVRjM5T2dPaEJLRjl6?=
+ =?utf-8?B?dFJKaUFkbTdoTXVTOWNQUmh3Zkh2WVVVazNoaSt0bGZJalREdEt1eDNqMmZT?=
+ =?utf-8?B?aGdweUJOV25DcHcvdVNzdThORVZ0L1NXRENqK0lub0U3ajl6UHJXZ25ZellX?=
+ =?utf-8?B?eXpreUFnRGpVSEt1OGpSU3VPVk45ZTZWbHQyZzA4NWxVY2hsTmM2U01NOEJK?=
+ =?utf-8?B?THN6QWVsTzR4bUNiMXBHSzVhSDFXT1lIdE5HVFpJZjJvZjVJWmV3MkJHTDV1?=
+ =?utf-8?B?dXpscXJBWEVub0p6NlI5TWNYU3czcGtOY2dTQXRPaG0zUEFoLy9lb0sxZDN3?=
+ =?utf-8?B?YXVuRGhNWWpFU2kzM2Zjbk1GS0xhcVlzM3dVZGdneWdFVEVySDM4a3hGaWJN?=
+ =?utf-8?B?b1p6eWkvSkFtNkd3UmlhN3lzZXowQVRzSVFDQ0x0WWpESWRKQkc4ZTRwbFhy?=
+ =?utf-8?B?UWJVWmo3c0pyMk1iWDczd2hySnBneCthYVFDMUZ3ZFh5K0FiTTFqRVllUXZ1?=
+ =?utf-8?B?ZWkrbVp5M2xzcHNJNDkwdnhzT2xFL29zempiUElTdDNHdld5TTVMRG03UGFM?=
+ =?utf-8?B?aldrTWdQbklYK1pnQWwrekpncjY1NllENnhFMGUzYzlLMlFNL1VQK2dBYndh?=
+ =?utf-8?B?RE9ESlNIVlhURmk1OVY5MG91UTV1OTJYZ1poY3V6ZDNyaEVPVXdsL0xmdXhQ?=
+ =?utf-8?B?VnpFWkxoS3NpS1JNUWlYOWZ3S1RJUWh3TDYwWjd2R3pGTno0aXJHeEZyRy9Q?=
+ =?utf-8?B?ZEx3N1Y4V1hPTm5JdXEydVdqMmtFc0xVVHZyRUpISG9LRGVkakdVakpGTmFN?=
+ =?utf-8?B?REtHOENTNEp2QjhibWw5U2FTcW1iS3lkZnE0eks3bGF1U0U2TWh6RnJYZjh5?=
+ =?utf-8?B?MjliU1I1Vk83T3BvR3V3UVFKNGJrV1dEWEFyR0p1ck1iaUF5SUs0Q0c2cEgr?=
+ =?utf-8?B?bGNSZXV2RDh6aWFnZURWVjkrSUJRempiTUV1TVJPZnZYOGp5SVdBeEdEV0Nn?=
+ =?utf-8?B?OHZTbVZFY2Rjd1JYeCtUREVmeHU1Vzl1R2Q4ZnNrR01lU3VNNVBKUmp6cXU4?=
+ =?utf-8?B?d3NwSFhhMS9CTHJGL2F6WHN2OWlsc1FVb3ZhVXF6bDdOTlJMQzVWYXlKYUJh?=
+ =?utf-8?B?Mlh3M0QxNXFmVUVVbHdqZHNGUnhsc3MvcGRoOTRRRXFMKzZCcjhuYWJxSkRG?=
+ =?utf-8?B?Umo3cTVSaS9vSHFWZU94cXA2UHdXWWVVQ0JZRGMzUmlJWTEyQXBGTXFHUVJL?=
+ =?utf-8?B?WmtKdmhLMzdONXVtanF1YW9vVEJTVXgyYkxONTN6NXZZTUtpNnlkcW9QNnM1?=
+ =?utf-8?B?a1luTzhpcEFXZHN4dlAxam0zbSt3emlRa3ZRSWpLK05FdkoyUGpQcUpEWDlU?=
+ =?utf-8?Q?hCv/y6U0gjoYN9LxkpxolxQT+lPnINjMyOnIf?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b62dd3c8-f4e7-4835-b6bf-08ded617f7ee
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 19:52:36.6983
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9/lv8RCAAFGt0GefDvzKBFXNAZ387+1OxXP4LYnmnNmznxNZHO48wKXF2UWhC1hdeB8HPAbRs5SkUja6KfNBUUgD03FgVX9tioC4RTUJTLPTWoqoKCZuViM2DPxadBAk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7978
 
-Onboard MCU/STM32 implements a led controller compatible with PCA9635.
-There are four RGB LEDs controlled via channels 0-2, 3-5, 6-8 and 9-11.
----
- arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts | 110 ++++++++++++++++++++++
- 1 file changed, 110 insertions(+)
+From: Frank Li <Frank.Li@nxp.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-index 379b796f261f4c8f6b7712c5d340b20be1b9217c..71685e54a3781c9b03fc41cacecfea77650a7182 100644
---- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-+++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-@@ -7,6 +7,7 @@
- 
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
- #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
- 
- #include "monaco.dtsi"
-@@ -156,6 +157,115 @@ vreg_nvme: regulator-3p3-m2 {
- 	};
- };
- 
-+&cci1 {
-+	status = "okay";
-+};
-+
-+&cci1_i2c1 {
-+	leds_controller: leds-controller@22 {
-+		compatible = "nxp,pca9635";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		reg = <0x22>;
-+
-+		multi-led@0 {
-+			reg = <0>;
-+			label = "stm-led-1";
-+			color = <LED_COLOR_ID_RGB>;
-+			function = LED_FUNCTION_STATUS;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			led@0 {
-+				reg = <0>;
-+				color = <LED_COLOR_ID_RED>;
-+			};
-+
-+			led@1 {
-+				reg = <1>;
-+				color = <LED_COLOR_ID_GREEN>;
-+			};
-+
-+			led@2 {
-+				reg = <2>;
-+				color = <LED_COLOR_ID_BLUE>;
-+			};
-+		};
-+
-+		multi-led@1 {
-+			reg = <1>;
-+			label = "stm-led-2";
-+			color = <LED_COLOR_ID_RGB>;
-+			function = LED_FUNCTION_STATUS;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			led@3 {
-+				reg = <3>;
-+				color = <LED_COLOR_ID_RED>;
-+			};
-+
-+			led@4 {
-+				reg = <4>;
-+				color = <LED_COLOR_ID_GREEN>;
-+			};
-+
-+			led@5 {
-+				reg = <5>;
-+				color = <LED_COLOR_ID_BLUE>;
-+			};
-+		};
-+
-+		multi-led@2 {
-+			reg = <2>;
-+			label = "stm-led-3";
-+			color = <LED_COLOR_ID_RGB>;
-+			function = LED_FUNCTION_STATUS;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			led@6 {
-+				reg = <6>;
-+				color = <LED_COLOR_ID_RED>;
-+			};
-+
-+			led@7 {
-+				reg = <7>;
-+				color = <LED_COLOR_ID_GREEN>;
-+			};
-+
-+			led@8 {
-+				reg = <8>;
-+				color = <LED_COLOR_ID_BLUE>;
-+			};
-+		};
-+
-+		multi-led@3 {
-+			reg = <3>;
-+			label = "stm-led-4";
-+			color = <LED_COLOR_ID_RGB>;
-+			function = LED_FUNCTION_STATUS;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			led@9 {
-+				reg = <9>;
-+				color = <LED_COLOR_ID_RED>;
-+			};
-+
-+			led@10 {
-+				reg = <10>;
-+				color = <LED_COLOR_ID_GREEN>;
-+			};
-+
-+			led@11 {
-+				reg = <11>;
-+				color = <LED_COLOR_ID_BLUE>;
-+			};
-+		};
-+	};
-+};
-+
- &ethernet0 {
- 	phy-mode = "2500base-x";
- 	phy-handle = <&hsgmii_phy0>;
 
+On Sun, 07 Jun 2026 15:12:17 +0200, Lech Perczak wrote:
+> Ampak AP6335i Wi-Fi module atop i.MX7D Pico SoM also supports Bluetooth 4.1
+> via UART attached to "serial6" port. Describe it, so the controller can
+> probe automatically on boot.
+> 
+> This is based on "Pico i.MMX Development Kit for Android Things Hardware
+> Manual" rev. B1 [1], Table 6 on page 12.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] ARM: dts: imx7d-pico: describe Bluetooth controller
+      commit: b9e9f549e9b65d85605fd3f7cb587d4df81e7d06
+
+Best regards,
 -- 
-2.34.1
-
+Frank Li <Frank.Li@nxp.com>
