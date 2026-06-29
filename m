@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89CB2D12ED;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD6143DA4C;
 	Mon, 29 Jun 2026 17:23:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782753835; cv=none; b=HjXAkG4wDRL4P4Ak/oXxmv3YKiNkQ/Wm0Z7QPlntX+3W2ov0oORyNuULQT8cs+8UTI/DVoo2XLnw49IFdO23NhNr/HNGzaTIqc51lenOp/XkpgF7dwyGU34/cg5Gz+rSemqhCtn+ng9npHSAvP39afkxay13Eed9IKZ5Gj/qDXY=
+	t=1782753836; cv=none; b=VvRKfQGS9YMZ7tMY+1weQvHN5QsdefBhfVhiE7EgV+LyrVuR9XWfi1/21cUX2BEgjpf4sF4zSfm7WnwKun2ftRNShxTSnkC3EgM+mQLFuSvkzpL7pUsuy/lLHANFAjWitPS+wp0BJUKftMQWSLe4jE/lpTcIMO+NXRDnnLbZHwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782753835; c=relaxed/simple;
-	bh=c6zgOYMSyxxFjsyRuiKXRExE6Dq7Qhi1n6CBnG2VKQs=;
+	s=arc-20240116; t=1782753836; c=relaxed/simple;
+	bh=35MQNHlIvBMRlD5DLlz+ZJ/WZI455tOHtxE1oHaXaR4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VybPQAP/gWo6AnDKcR/Zsrdcnp2ezyPeHrAjif64/i4kqIwQwHTiBCWWcSCJJRRtLAVg7NHvSYcB3kaehI6SEPGL/YsKk2exoOd/Gn3IVXWNtTeoFqDbrKBTckMZkY//oxPOk+jxgU9E6tyfMbTr3LbJVbB6CF6aJvppPLjFmlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PO0EA9Bv; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Len+EtgnYw4UhxuFGQdBoVpU8S1KHGgE2up7dcU6/WdI4FSLHV872LOi6tFR9Ch6K/dGt0NjFtGZnS7Hz3PvagRLRicRESA9Q/38E6OUM9dDoCipiKl9+zP0ZMiYEUEVxNWSHbJ4WZq231ROFbJtqpw7qczrnTZjvAVXXaUUcTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3cX/ux4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PO0EA9Bv"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8EB76C2BCC6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3cX/ux4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A95D4C2BCF7;
 	Mon, 29 Jun 2026 17:23:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1782753835;
-	bh=c6zgOYMSyxxFjsyRuiKXRExE6Dq7Qhi1n6CBnG2VKQs=;
+	bh=35MQNHlIvBMRlD5DLlz+ZJ/WZI455tOHtxE1oHaXaR4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=PO0EA9BvwAQ2nczuj+6T2Drq1MUIE0+hdWrDov+oR4PmLWUQwZR07Iux9uCXBIZFD
-	 riBAAKixiz67tfqHcmgNTTLwUUfe8uTbk/NtIO5wAFbMzY5wLnOMiWAScazKlPElzM
-	 US0XoAt2kYJOyCWq+zhZa5pbORlx0GIqa9AtqUP9iPygr/moMi4bczs6oWAcXYUFQ3
-	 y17E95ASR6zBOVh5mGiFZmfoherozjhs/v2iKj4REE2agcmd3IcYxamBc2Byl/thql
-	 P0u6zbYQxXDuFBy3Sy0P2a81BHYG35Jh3egK5/pxKNOp9iNhFsE9Yz6kFQSD4bkVzi
-	 ClvhWqTbW/ogA==
+	b=b3cX/ux4FqXciZt815/47P2F97kR+wEI+AwBMZyXOWgAi7TmmIVXJKnL8ORwGPbnn
+	 80I2P0ShVdaWGSqWNoMDHkzpZw9QlDgYzj14hR/Sc4uagG8P9XyNplueIJB0Ed//O6
+	 qxlm+dbEUSCewjAHwR0xuURtCvc2aVpRptFwM9AKP3sPZqECo04hmguKNe3QpwYbzM
+	 XIj8brVCbUTJ9/it0/CnFPsPqYjfnrCoEnqJnzbYh4hiC0GrDsIBv/2LeA6WAvQyHG
+	 SIxiJVMFyG/HewsDNE3pRyhMSedkmswAIvqaj+qIV9lFHMPJR+H3Z0nCRcNFq1Mc47
+	 5MXC1Jo4skgiA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A25FC43327;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E973C44500;
 	Mon, 29 Jun 2026 17:23:55 +0000 (UTC)
 From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Mon, 29 Jun 2026 10:23:31 -0700
-Subject: [PATCH net-next v6 01/15] net: phy: Helper to read and write
- through C45 without lock
+Date: Mon, 29 Jun 2026 10:23:33 -0700
+Subject: [PATCH net-next v6 03/15] net: ethernet: oa_tc6: Move oa_tc6.c to
+ its own directory
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,8 +40,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260629-s2500-mac-phy-support-v6-1-18ce79500371@onsemi.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260629-s2500-mac-phy-support-v6-3-18ce79500371@onsemi.com>
 References: <20260629-s2500-mac-phy-support-v6-0-18ce79500371@onsemi.com>
 In-Reply-To: <20260629-s2500-mac-phy-support-v6-0-18ce79500371@onsemi.com>
 To: Andrew Lunn <andrew@lunn.ch>, 
@@ -62,11 +62,11 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Jerry Ray <jerry.ray@microchip.com>, 
  Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782753817; l=3753;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782753817; l=4709;
  i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=PZskgc1fBKQfn8jSfkk+0wWBwzgT1bBdU+1HtSLOovs=;
- b=Cj2VMf7mwxYSYwzusgkpeSMdx9znSvY/VqBYa9e0Cu/5TAvQKcZnp9fNVba93tBY9iWme78AS
- z5SdcVSUNm6CDDZ716X0T7kv1ybPKjq/aNkiRG9RuaUryFjPo+CSKEA
+ bh=vLf1FlPADW0eaJ1MZyRsGFESPPo/wgftf41MBA8sCug=;
+ b=gCfH5rSUAoHnF7jXkPD7VO21EmCPqvePeJDzwU4Kszdp77y2ZoYpMxiEEkvI8aJbLaZeax8uy
+ BXo8J8SganQDPsCE/4Nf52pgCX15qtdtvK0RoArjRmx7ouboqV/2zOR
 X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
  pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
 X-Endpoint-Received: by B4 Relay for
@@ -76,109 +76,133 @@ Reply-To: Selvamani.Rajagopal@onsemi.com
 
 From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-Generic helper function to initiate read and write through C45 bus
-protocol without mdio bus lock. This will help PHYs to avoid indirect C22
-API calls for C45 bus protocol which may not be supported by the PHY.
+Moving oa_tc6.c to its own directory, drivers/net/ethernet/oa_tc6. This
+will facilitate adding more files to support other features
+defined by OPEN Alliance 10BASE-T1x Serial Interface specification
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+This patch series is adding two files, one for hardware
+timestamp related functions and one for PTP related APIs.
+
 Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
 ---
 changes in v6
   - No change
 changes in v5
-  - no change
+  - No change
 changes in v4
-  - lockdep_assert_held added to ensure correct calling convention
+  - Removed reference to onsemi in Kconfig files
 changes in v3
-  - Added the genphy APIs to initiate Clause 45 register read/write
-  - first patch
+  - Moved oa_tc6.c to its own, oa_tc6 directory under ethernet.
+  - First patch
 ---
- drivers/net/phy/phy_device.c | 55 ++++++++++++++++++++++++++++++++++++++++++++
- include/linux/phy.h          |  4 ++++
- 2 files changed, 59 insertions(+)
+ MAINTAINERS                                |  2 +-
+ drivers/net/ethernet/Kconfig               | 12 +-----------
+ drivers/net/ethernet/Makefile              |  2 +-
+ drivers/net/ethernet/oa_tc6/Kconfig        | 16 ++++++++++++++++
+ drivers/net/ethernet/oa_tc6/Makefile       |  7 +++++++
+ drivers/net/ethernet/{ => oa_tc6}/oa_tc6.c |  0
+ 6 files changed, 26 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 0615228459ef..b82b99d08132 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -2787,6 +2787,61 @@ int genphy_write_mmd_unsupported(struct phy_device *phdev, int devnum,
- }
- EXPORT_SYMBOL(genphy_write_mmd_unsupported);
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 15011f5752a9..ff1295d37ae2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20217,7 +20217,7 @@ M:	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+ L:	netdev@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/networking/oa-tc6-framework.rst
+-F:	drivers/net/ethernet/oa_tc6.c
++F:	drivers/net/ethernet/oa_tc6/oa_tc6*
+ F:	include/linux/oa_tc6.h
  
-+/**
-+ * genphy_phy_read_mmd - Helper for reading a register without lock
-+ * from the given MMD and PHY.
-+ * @phydev: The phy_device struct
-+ * @devnum: The MMD to read from
-+ * @regnum: The register on the MMD to read
-+ *
-+ * Description: PHYs can have both C22 and C45 registers space. Once PHY
-+ * is discovered via C22 bus protocol, it uses C22 indirect access to
-+ * access C45 registers. Some PHYs, like 10Base-T1S PHYs defined by OPEN
-+ * Alliance 10BASE‑T1x, support only direct access.
-+ *
-+ * If PHY indicates C45 support through DTS entry, it avoid C22 APIs
-+ * entirely and therefore generic MDIO registers are inaccessible.
-+ *
-+ * MDIO bus isn't locked here because when called through read_mmd
-+ * callback of phy_driver, caller is expected to lock the bus as
-+ * implemented in phy_read_mmd.
-+ *
-+ * Returns: Register value if successful, negative error code on failure.
-+ */
-+int genphy_phy_read_mmd(struct phy_device *phydev, int devnum,
-+			u16 regnum)
-+{
-+	struct mii_bus *bus = phydev->mdio.bus;
-+	int addr = phydev->mdio.addr;
-+
-+	lockdep_assert_held(&bus->mdio_lock);
-+	return __mdiobus_c45_read(bus, addr, devnum, regnum);
-+}
-+EXPORT_SYMBOL(genphy_phy_read_mmd);
-+
-+/**
-+ * genphy_phy_write_mmd - Helper for writing a register without lock
-+ * to the given MMD and PHY.
-+ * @phydev: The phy_device struct
-+ * @devnum: The MMD to write to
-+ * @regnum: The register on the MMD to write
-+ * @val:    Value to write
-+ *
-+ * Description: Similar to genphy_phy_read_mmd
-+ *
-+ * Returns: 0 if successful, negative error code on failure.
-+ */
-+int genphy_phy_write_mmd(struct phy_device *phydev, int devnum,
-+			 u16 regnum, u16 val)
-+{
-+	struct mii_bus *bus = phydev->mdio.bus;
-+	int addr = phydev->mdio.addr;
-+
-+	lockdep_assert_held(&bus->mdio_lock);
-+	return __mdiobus_c45_write(bus, addr, devnum, regnum, val);
-+}
-+EXPORT_SYMBOL(genphy_phy_write_mmd);
-+
- int genphy_suspend(struct phy_device *phydev)
- {
- 	return phy_set_bits(phydev, MII_BMCR, BMCR_PDOWN);
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 199a7aaa341b..8266dd4a8dbe 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -2301,6 +2301,10 @@ int genphy_read_mmd_unsupported(struct phy_device *phdev, int devad,
- 				u16 regnum);
- int genphy_write_mmd_unsupported(struct phy_device *phdev, int devnum,
- 				 u16 regnum, u16 val);
-+int genphy_phy_write_mmd(struct phy_device *phydev, int devnum,
-+			 u16 regnum, u16 val);
-+int genphy_phy_read_mmd(struct phy_device *phydev, int devnum,
-+			u16 regnum);
+ OPEN FIRMWARE AND FLATTENED DEVICE TREE
+diff --git a/drivers/net/ethernet/Kconfig b/drivers/net/ethernet/Kconfig
+index 78c79ad7bba5..49d93488ba52 100644
+--- a/drivers/net/ethernet/Kconfig
++++ b/drivers/net/ethernet/Kconfig
+@@ -134,6 +134,7 @@ source "drivers/net/ethernet/netronome/Kconfig"
+ source "drivers/net/ethernet/8390/Kconfig"
+ source "drivers/net/ethernet/nvidia/Kconfig"
+ source "drivers/net/ethernet/nxp/Kconfig"
++source "drivers/net/ethernet/oa_tc6/Kconfig"
+ source "drivers/net/ethernet/oki-semi/Kconfig"
  
- /* Clause 37 */
- int genphy_c37_config_aneg(struct phy_device *phydev);
+ config ETHOC
+@@ -146,17 +147,6 @@ config ETHOC
+ 	help
+ 	  Say Y here if you want to use the OpenCores 10/100 Mbps Ethernet MAC.
+ 
+-config OA_TC6
+-	tristate "OPEN Alliance TC6 10BASE-T1x MAC-PHY support" if COMPILE_TEST
+-	depends on SPI
+-	select PHYLIB
+-	help
+-	  This library implements OPEN Alliance TC6 10BASE-T1x MAC-PHY
+-	  Serial Interface protocol for supporting 10BASE-T1x MAC-PHYs.
+-
+-	  To know the implementation details, refer documentation in
+-	  <file:Documentation/networking/oa-tc6-framework.rst>.
+-
+ source "drivers/net/ethernet/pasemi/Kconfig"
+ source "drivers/net/ethernet/pensando/Kconfig"
+ source "drivers/net/ethernet/qlogic/Kconfig"
+diff --git a/drivers/net/ethernet/Makefile b/drivers/net/ethernet/Makefile
+index bba55d9af387..77b11d5a7abf 100644
+--- a/drivers/net/ethernet/Makefile
++++ b/drivers/net/ethernet/Makefile
+@@ -71,6 +71,7 @@ obj-$(CONFIG_NET_VENDOR_NETRONOME) += netronome/
+ obj-$(CONFIG_NET_VENDOR_NI) += ni/
+ obj-$(CONFIG_NET_VENDOR_NVIDIA) += nvidia/
+ obj-$(CONFIG_LPC_ENET) += nxp/
++obj-$(CONFIG_OA_TC6) += oa_tc6/
+ obj-$(CONFIG_NET_VENDOR_OKI) += oki-semi/
+ obj-$(CONFIG_ETHOC) += ethoc.o
+ obj-$(CONFIG_NET_VENDOR_PASEMI) += pasemi/
+@@ -104,4 +105,3 @@ obj-$(CONFIG_NET_VENDOR_XILINX) += xilinx/
+ obj-$(CONFIG_NET_VENDOR_XIRCOM) += xircom/
+ obj-$(CONFIG_NET_VENDOR_SYNOPSYS) += synopsys/
+ obj-$(CONFIG_NET_VENDOR_PENSANDO) += pensando/
+-obj-$(CONFIG_OA_TC6) += oa_tc6.o
+diff --git a/drivers/net/ethernet/oa_tc6/Kconfig b/drivers/net/ethernet/oa_tc6/Kconfig
+new file mode 100644
+index 000000000000..97345f345fb9
+--- /dev/null
++++ b/drivers/net/ethernet/oa_tc6/Kconfig
+@@ -0,0 +1,16 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# OA TC6 10BASE-T1x MAC-PHY configuration
++#
++
++config OA_TC6
++	tristate "OPEN Alliance TC6 10BASE-T1x MAC-PHY support"
++	depends on SPI
++	select PHYLIB
++	help
++	  This library implements OPEN Alliance TC6 10BASE-T1x MAC-PHY
++	  Serial Interface protocol for supporting 10BASE-T1x MAC-PHYs.
++
++	  To know the implementation details, refer documentation in
++	  <file:Documentation/networking/oa-tc6-framework.rst>.
++
+diff --git a/drivers/net/ethernet/oa_tc6/Makefile b/drivers/net/ethernet/oa_tc6/Makefile
+new file mode 100644
+index 000000000000..f24aae852ef2
+--- /dev/null
++++ b/drivers/net/ethernet/oa_tc6/Makefile
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# Makefile for OA TC6 10BASE-T1x MAC-PHY
++#
++
++obj-$(CONFIG_OA_TC6) := oa_tc6_mod.o
++oa_tc6_mod-objs := oa_tc6.o
+diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6/oa_tc6.c
+similarity index 100%
+rename from drivers/net/ethernet/oa_tc6.c
+rename to drivers/net/ethernet/oa_tc6/oa_tc6.c
 
 -- 
 2.43.0
