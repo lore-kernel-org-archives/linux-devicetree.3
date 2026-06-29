@@ -1,129 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3F62765D7
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:06:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4273128BE
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:08:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782731185; cv=none; b=VnTldR9uU8MM7yoF9YrkPJfJaKMqAnGyN6hiNneHIksruqtxqtRa8pkP7odc4JDIdfx58K4bStXHRaKwXrdnS16WYeiqAN3rcDViN4+09B3qAIwmIl7ugLckkJU3u+dXbl6j+3FUvoWMaXGVUS7LBgxh283R4ZWkPFcZDkGS6as=
+	t=1782731299; cv=none; b=j7ubdn7hcvD2Ao7FrJ2FwVk/PMxvgQQjlZsdOHWS9lrfkyyyrVwWe2Zl2gmcKrM4uzIKKHPdrpNH+5aq3TFO7kMU4rhL69HXcIcqm61QVkKsbA3Arjnzri+eEXOredsoI5mb0nq5pm7/s7tgL8LbUTjNJxhkFRLSGtj/wwr5p3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782731185; c=relaxed/simple;
-	bh=yKd8A6p+8bziZPsp2Q28s2PZ2vk3u4AqtgqFKkxKqxY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TyxmEzwv5Xxxjg/HtTaPhZBcW4brvRKtGPkMzTMrRtWYLzF2hfNvOHTHr8hLh5Av1ymPqUYVb8Zb2WfzS8JaGhYteJ15gkq+7p+W+Ito2g9Yxq7mwBWs9iJS6n+tlsPCDaxsAFtN6UhRKX5eyCggLFDBr9bzwLvFilBVH/vvalU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QMrrQtvH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782731299; c=relaxed/simple;
+	bh=p5oeSozrPpVmGY6T9fydOAx3xRD71h2scVUiMjk8UZw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cIhcqYns1YdU+l91+Dxj8D+ky6MgsC4B0Ec+esiornxKQaaJDT2zjWV6LrsFDnhDgPIBuASI2BzArcN+89pkEo80P57idwnyQrx9YH1H71g0p+ER2RrtZuagGyOtX4DmLU1Of4cR2rP2+KbiszNZCo5RB/8AaZ1SZaKEBtF/keE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=piX7RmSp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OLs1ccOx; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QMrrQtvH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19FAD1F000E9;
-	Mon, 29 Jun 2026 11:06:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782731184;
-	bh=lxoWw985NMd9JHNaIPVIITMVNctxRj+Fm6JNRS8rwMc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QMrrQtvHnsPioSmnlGtWJSNhx5j0VyHGA3dhkcg0fQKLrqzRWw5K3PHKrNzUJXPT+
-	 7bd++QkFHYh2TKSxUiO3puS1DQBhSuiKpqafNjgsS4j967bMUhWSZWJpWmI/nQBdBA
-	 WpyUq8ACZvw9aI/AF6mXgs+9LebK9JIf83r0ckLoPhnXe60Pk9WKbyoq22EwExtX+r
-	 1bmKkTMLd55h9HM/RHBv2XWFa1gP3+3aDaEJbobf9EvkdFzqriS10wbW/tQ3I631l5
-	 ekgbbXJQUgAnyk5E97zBkocGdkpZPQYvSbb9bSuPt1+FGljFtXnc1bgR50a+ih7flo
-	 0xawbX/8Nlyew==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 07/10] LoongArch: kexec_file: Use
- crash_prepare_headers() helper to simplify code
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jinjie Ruan" <ruanjinjie@huawei.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260629094746.191843-8-ruanjinjie@huawei.com>
-References: <20260629094746.191843-1-ruanjinjie@huawei.com>
- <20260629094746.191843-8-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 11:06:23 +0000
-Message-Id: <20260629110624.19FAD1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="piX7RmSp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OLs1ccOx"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65TASrtj2601136
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:08:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Fn5b8KchpWy8FyyHPcxO27rsnTJuShm2MrGXkaTyXWs=; b=piX7RmSpG530hazT
+	Lyl4SB23dacMbmR9OW+0Jtjm0A2hj3jmr2LM9IsfVQmEFHFfRQhSDVnXqicrOz2t
+	UMtpV+c7KML71+jW8KL23mV9KQ5QAy5v/F8yZxzkp7PjJTdCrjL+3LfNsE/Eylcz
+	s++Y2lXgIm07nPBMQbidh/Mf6VrwMZfPL6KUQMQUOC0h8/2GooZRrCC9YMog5mxO
+	aB9q61txPYcp6AdcG9+d8xPe6wnq2wuOm6aY7xdvqDi62+irCcYjWUeJ1R2hGI+a
+	kU5E5hvQvp1TU31uCxPiVRtgxXA5RkEbQGd4cGtTVfWnZRN3xNS4o6jB6hko/gXX
+	csVqDw==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3nnw8g9s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 11:08:16 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5bd6db76caaso149442e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 04:08:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782731295; x=1783336095; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fn5b8KchpWy8FyyHPcxO27rsnTJuShm2MrGXkaTyXWs=;
+        b=OLs1ccOxZTcVgaFv0p/+hLKSdE06m8YArsy52QAdGTKK7Vdxpa9kwU6URC3jJmjWz+
+         x3oKNssjwK4+ZlgKAx43MKsJCY+o2Mk/49oYiRmxMVMbE/RgtzNA7o0mPqBXQc9LDJ1i
+         Q86I1uQSmL04wj2hP0fxMXHLdkXISCuAH7gHknwgruQXrWOJDN0L8El9IOml/pIwS0jX
+         7shhotTPqFARNN0JfoeJBQ7lLMcgX4WYINszBQiqFFDfH23QGlzyTnKroGfzl6SV0RZB
+         YuwO+uOeFwUSCZbgvZCb87WOOp0gJXr3yjl7o549Ac1bei4tAnswsRuepsZi0536Xlo4
+         NnDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782731295; x=1783336095;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Fn5b8KchpWy8FyyHPcxO27rsnTJuShm2MrGXkaTyXWs=;
+        b=AMyrdmsvifPnQCvL6zHqpdvCajFA8CuhKoGzd12Hpy30nd87iMGk4qqQaW13XndmLY
+         Yr7h3jPJwfDf24aAlSHPv3Lv9ItO5USAlQv7t34HUPtvbkQ/mylbxl2LZXp88vrVu3x8
+         T8AUJ12k15UQGp1+H2G7lucGGMfoc0h+AoJsRDYTXqnc1hFomfrsYikA+XZFAScEiwKO
+         iu3yoycpe3EFBybG+GJ+IobdmgdDcQ6RrKPkJyUvmgqJWRilu9+N0lPcytDg1bFlGQTE
+         y6t3YsXtme+QFNIzwwo9Yulb4bgNjKobYnMEmYKDymKpGUxMPLT48zEQowDD2i8e5PaL
+         zMPg==
+X-Forwarded-Encrypted: i=1; AHgh+Rrk6U+m8u8vQPWYJhsSKPzQqdifMTz5UyL7lhFmwofxDlrs1Q0XIzIKovWmhJJMcASFUKKPR5hZm1t5@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/HcWHC1IAxzcqdpRBhhFLPh7jTf5tqs6YKUHvHWsvRQBLGQ+u
+	IbxcHAYQxGcKZtaBhY5QdVtwA6op9HZa9QZWUmTqGR/G46Ypeo7iN0V3eyRHvxPM5pfVDGUDIgz
+	GLb89KT5rl3Qh9DMZardbualDTN9wFjUBNt2TxrflEl2qZUjMOpBe2xRGKV/z3Zdt
+X-Gm-Gg: AfdE7cnt7JM05D49zRy4Pm+W5u1qzF4ghTe4K9ibi6LJnWwrFNCM3mv/StzxyzCmWuv
+	I6QyHQmnJsRuzN/9c1Chkw/oywUOfiGPLA360nYaqHCDqigifzUchCIpaL1gqJygHdwM9QF3HXC
+	auuRv1dDOOQ14kRslgt0iN2LiDMSdXKmu3Vax9qNGnpG6Bb9gxLq9WHFQ9taBVEEPhdh98Tck+d
+	bSritKJykCIqHrwmind0M0IV+GDmTZxH0HVxK08bBPiXa5PQ/1/IljJQfjSAc/O1OvSJVO3RfwU
+	PkkX2rd7el0/OC6/yEonHJUIbnsyvITAKHaqC48Q5T00RgSRzyDQKxo/7zvlIKFcgxLPboGJvRG
+	325JnUuSIl1XLMNkSJwYl1g1sz8EBETQpHCg=
+X-Received: by 2002:a05:6102:8017:b0:738:a78f:5483 with SMTP id ada2fe7eead31-738a78f5743mr462614137.2.1782731295152;
+        Mon, 29 Jun 2026 04:08:15 -0700 (PDT)
+X-Received: by 2002:a05:6102:8017:b0:738:a78f:5483 with SMTP id ada2fe7eead31-738a78f5743mr462596137.2.1782731294673;
+        Mon, 29 Jun 2026 04:08:14 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-697f4bd36adsm6984719a12.27.2026.06.29.04.08.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 04:08:13 -0700 (PDT)
+Message-ID: <cc8678f2-49ab-4754-8102-d567b94e52e9@oss.qualcomm.com>
+Date: Mon, 29 Jun 2026 13:08:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 1/6] soc: qcom: ice: Add OPP-based clock scaling
+ support for ICE
+To: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        Harshal Dev <harshal.dev@oss.qualcomm.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20260609-enable-ice-clock-scaling-v11-0-1cebc8b3275b@oss.qualcomm.com>
+ <20260609-enable-ice-clock-scaling-v11-1-1cebc8b3275b@oss.qualcomm.com>
+ <d1232243-2f23-423b-84ac-4463eac79f9a@oss.qualcomm.com>
+ <ajjloqm9eOkrr5W9@hu-arakshit-hyd.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <ajjloqm9eOkrr5W9@hu-arakshit-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA5MSBTYWx0ZWRfXy2kLmErMV+7+
+ QGQUJRBVJ211d6l0x9qqkum2kX4bXNu6IXAfy3j2akcaKoq+bUBcrlOBz4rs4p1r1l7PH3Q8fay
+ JmhD7v4cbvnzkeBP90MerDWqQiKpLAk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA5MSBTYWx0ZWRfXyOqQsi326NQy
+ F55g6EVFdtMQWVIZe00AuqJ1y24iFyp7n5DpOSFji/rZLo91AM3rdrE373mCGViUZoSB5fkaFfs
+ M41odp7IQuMmoE2mbPBcX2Da+GTLZ7/4QstFUdqv/exbGbua92e7h4aZGA53g/52sVhVguksNPo
+ 7pV8Gr3vs6CDsCCdj2sYp96hAgrkrIudyKXdnQIdnMQxQAOAcmr0JJQAE6Ej2ckNZKvKBAZAf8X
+ bhYAaYK0t+pBRtO2HIorrgf5uxn6paRMnr8u8V6SKV020WcNXjS/lwnqnjiChRG1vFohNgRBRT+
+ Dy27kLdy6mDirNngnLN8UuAjh8TQVayX5y2IcfYWTbxYY1So/5/C/LeFYcnuyStOqaGpf8RCOZz
+ jhWr4gKEsX+Xv6Xg39aiyIhS3XIz6xQoPNM5U+e6VkckSXl8IrL6pTSZ7ARb5r4p2wTk3QySTIv
+ M1HeCMS7M7Qofp/gCnA==
+X-Proofpoint-GUID: 2pXxojhV3cS46PAvVADGoEP6B_buuiMZ
+X-Authority-Analysis: v=2.4 cv=cefiaHDM c=1 sm=1 tr=0 ts=6a425220 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Y01jbQKe1eecyiKPCdgA:9 a=QEXdDO2ut3YA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-ORIG-GUID: 2pXxojhV3cS46PAvVADGoEP6B_buuiMZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-29_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290091
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 6/22/26 9:34 AM, Abhinaba Rakshit wrote:
+> On Thu, Jun 18, 2026 at 03:01:54PM +0200, Konrad Dybcio wrote:
+>> On 6/8/26 11:47 PM, Abhinaba Rakshit wrote:
+>>> Register optional operation-points-v2 table for ICE device
+>>> during device probe. Attach the OPP-table with only the ICE
+>>> core clock. Since, dtbinding is on a transition phase to include
+>>> iface clock and clock-names, attaching the opp-table to core clock
+>>> remains optional such that it does not cause probe failures.
+>>>
+>>> Introduce clock scaling API qcom_ice_scale_clk which scale ICE
+>>> core clock based on the target frequency provided and if a valid
+>>> OPP-table is registered. Use round_ceil passed to decide on the
+>>> rounding of the clock freq against OPP-table. Clock scaling is
+>>> disabled when a valid OPP-table is not registered.
+>>>
+>>> This ensures when an ICE-device specific OPP table is available,
+>>> use the PM OPP framework to manage frequency scaling and maintain
+>>> proper power-domain constraints.
+>>>
+>>> Also, ensure to drop the votes in suspend to prevent power/thermal
+>>> retention. Subsequently restore the frequency in resume from
+>>> core_clk_freq which stores the last ICE core clock operating frequency.
+>>>
+>>> Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+>>> Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+>>> ---
+>>
+>> [...]
+>>
+>>> @@ -335,6 +342,11 @@ int qcom_ice_suspend(struct qcom_ice *ice)
+>>>  {
+>>>  	clk_disable_unprepare(ice->iface_clk);
+>>>  	clk_disable_unprepare(ice->core_clk);
+>>> +
+>>> +	/* Drop the clock votes while suspend */
+>>> +	if (ice->has_opp)
+>>> +		dev_pm_opp_set_rate(ice->dev, 0);
+>>
+>> The PM core will quiesce the vote as the device suspends, this is
+>> unnecessary. Similarly, the rate restore logic will become unnecessary.
+>> Especially since dev_pm_opp_set_rate(0) does not actually do any rate
+>> setting.
+> 
+> This section was earlier discussed in the patchset v4:
+> https://lore.kernel.org/all/7b219a50-6971-4a0c-a465-418f8abd5556@oss.qualcomm.com/
+> The intention here was to drop the RPMh votes once the device goes to suspend same
+> as the storage drivers such as mmc drivers does:
+> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/mmc/host/sdhci-msm.c#n2946
+> This was done to leave the hanging votes *on* for unused clocks.
+> 
+> However, I get your point, due to mean to say that once device goes to suspend
+> and GDSC power-domain will be turned OFF, it will automatically quiesce the
+> performance votes?
 
-Pre-existing issues:
-- [High] Concurrent memory hotplug can modify `memblock.memory` during `kex=
-ec_file_load()`, causing an out-of-bounds write on `cmem->ranges[]` and use=
--after-free on `memblock.memory.regions`.
---
+When the device's runtime state goes to 'suspended', all votes are
+dropped (which then propagates up the power domain tree, effectively
+lowering the vote which passes through the GDSC to the parent CX domain)
 
-commit 144c95098f9114fc6eb269028a7cf5e5b2d79839
-Author: Jinjie Ruan <ruanjinjie@huawei.com>
+i.e. "yes"
 
-LoongArch: kexec_file: Use crash_prepare_headers() helper to simplify code
-
-This commit simplifies the kexec_file code by replacing the existing
-prepare_elf_headers() with the generic crash_prepare_headers() helper.
-It implements the architecture-specific arch_get_system_nr_ranges()
-and arch_crash_populate_cmem() functions using for_each_mem_range.
-
-> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/=
-kernel/machine_kexec_file.c
-> --- a/arch/loongarch/kernel/machine_kexec_file.c
-> +++ b/arch/loongarch/kernel/machine_kexec_file.c
-
-[ ... ]
-
-> -static int prepare_elf_headers(void **addr, unsigned long *sz)
-> +unsigned int arch_get_system_nr_ranges(void)
->  {
-> -	int ret, nr_ranges;
-> -	uint64_t i;
-> +	int nr_ranges =3D 2; /* for exclusion of crashkernel region */
->  	phys_addr_t start, end;
-> -	struct crash_mem *cmem;
-> +	uint64_t i;
-> =20
-> -	nr_ranges =3D 2; /* for exclusion of crashkernel region */
->  	for_each_mem_range(i, &start, &end)
->  		nr_ranges++;
-> =20
-> -	cmem =3D kmalloc_flex(*cmem, ranges, nr_ranges);
-> -	if (!cmem)
-> -		return -ENOMEM;
-> +	return nr_ranges;
-> +}
-> +
-> +int arch_crash_populate_cmem(struct crash_mem *cmem)
-> +{
-> +	phys_addr_t start, end;
-> +	uint64_t i;
-> =20
-> -	cmem->max_nr_ranges =3D nr_ranges;
-> -	cmem->nr_ranges =3D 0;
->  	for_each_mem_range(i, &start, &end) {
->  		cmem->ranges[cmem->nr_ranges].start =3D start;
->  		cmem->ranges[cmem->nr_ranges].end =3D end - 1;
->  		cmem->nr_ranges++;
->  	}
-
-[Severity: High]
-This is a pre-existing issue, and was not introduced by the patch under
-review, but could this loop overflow cmem->ranges[]?
-
-The crash_prepare_headers() function first counts the memblock memory ranges
-via arch_get_system_nr_ranges() to allocate the cmem array, and then
-populates it using arch_crash_populate_cmem().
-
-Neither of these functions appears to hold the mem_hotplug_lock via
-get_online_mems(). If a concurrent memory hotplug event adds a new memory
-range via memblock_add_node() between the counting and population steps,
-does the loop here blindly increment cmem->nr_ranges past cmem->max_nr_rang=
-es
-and cause a heap out-of-bounds write?
-
-Furthermore, if the hotplug event triggers memblock_double_array(), the
-underlying memblock.memory.regions array might be reallocated and freed.
-Could this lead to a use-after-free when for_each_mem_range() iterates
-over the stale array pointer?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629094746.1918=
-43-1-ruanjinjie@huawei.com?part=3D7
+Konrad
