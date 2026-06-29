@@ -1,139 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8114C38B7B4;
-	Mon, 29 Jun 2026 06:19:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940363749E4
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 06:26:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782713997; cv=none; b=aO2iiV9QPwhZP3NzIkxis63O7OegZzaXRHuMyOxVJJiG7/v/321uXKl3nvhzMTOqxfB9h6fGva6VekCpwV49JLxYVBgeblSXnujHL18pkkV6JCq1+DJ525YhC7lL3ihqlwmbjKaenI0OmYcDwiAzwSVi882hKenFSX6Eo57h81A=
+	t=1782714402; cv=none; b=PZVHSQIRxBzQWHj99DF2nz1L+Jqt5JUGPmVwuEjq2/71zFo8qm6URb2xfAt3ZpaXzMdj+7xTu4RSquZBJWGrbQX5VHLGQNf1yD3zjpaXuBPEml+ixU1qlMdd6I3M+TA4xwbRe53V3AC/7yXe6Mcao2oB1Xf/dMf1asS0c/WyhMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782713997; c=relaxed/simple;
-	bh=M+CVXNbFxnYVUHiLO8p1f8U/Oa8yWKHeFEwwNFbVCw8=;
+	s=arc-20240116; t=1782714402; c=relaxed/simple;
+	bh=CMw8IrJ8TdmR6qZMYCm3a5dWEAdS58OSC6i7cS07jjU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m9RQ+jFdeGtoZnofVdvWtyGLxYOADZNh5IRkCgRjYtkHMQyVXN4po3p8kkOA5AZveXceNkq66XtU7A9OinE8i3jKy7Lm0TQbfr8EAuVe7abRRSYE9VNJJpr28F5hC9+0kjawypJ9irzWQe+hbECvHDkD7hO2aO9gKeHBOna8VyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WoKj80MP; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=P/HvKR/rYzi5W/nGGZ0G8wHbLNWA9C1mT64Ezy2/W+2A6+qshNOWox+TTqSvTE5SwbJaYqdavj24nqN6m1YJB+7+p6ahG7FymR2sPjs2wmtz3CUJS9BGSKBz3C5SbQJp1B5T3iqUoPJBnzQec10x5yNTW3thONTKonOOw5C+Qew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=JZ/OjDQL; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WoKj80MP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782713995; x=1814249995;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=M+CVXNbFxnYVUHiLO8p1f8U/Oa8yWKHeFEwwNFbVCw8=;
-  b=WoKj80MPsCjuynuPYxwQfWg1HcpFMk+/4dryM/rOBrxPr3jNsIRzoLav
-   JCxR/ZTc1PnX4R3nEBLH72Y+nH8i/ZxT0hsYTMGxzxUbml0nhD56T5ILf
-   V1TYp8/uQW9x7IV+Bdd+m1+EzvCgGOxvvAl0R1GQE58W0Bl7H7Yv1Ot7J
-   oOJeZe5lAQcBzEBObcvY4DFHwWQDPiVJSmhZVRK7BbRIFniHEDqHjlDtV
-   P7ewzLVr2KwddTX7Q27yzOxgDV5a16IpmptJBFQVxTr7D0WIBXpkfKlBO
-   /JVIQC+aqTVyTDE/gJArkYOAjj02SJR/FTfAIjyn/jUDDl/YCHGUzCuV6
-   A==;
-X-CSE-ConnectionGUID: /TN8zCo5TYW+qFv9e0c04w==
-X-CSE-MsgGUID: /zE7r3VOQMe9p9BMKWfq9g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="94544382"
-X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
-   d="scan'208";a="94544382"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jun 2026 23:19:55 -0700
-X-CSE-ConnectionGUID: WCXRpK0OR/W1yR4qCMVJog==
-X-CSE-MsgGUID: JolV0ZvlTbKLpzL6HNcWGg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; 
-   d="scan'208";a="256271508"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.207])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jun 2026 23:19:50 -0700
-Date: Mon, 29 Jun 2026 09:19:48 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>
-Cc: airlied@gmail.com, andy@kernel.org, azuddinadam@gmail.com,
-	chintanlike@gmail.com, conor+dt@kernel.org, deller@gmx.de,
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	gregkh@linuxfoundation.org, javierm@redhat.com, krzk+dt@kernel.org,
-	linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev, maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org, robh@kernel.org, simona@ffwll.ch,
-	tzimmermann@suse.de
-Subject: Re: [PATCH v2 3/4] drm/ssd130x: Add SSD135X_FAMILY and SSD1351
- support
-Message-ID: <akIOhFZbATDY2vRf@ashevche-desk.local>
-References: <ajpLyronl7a-yxh-@ashevche-desk.local>
- <20260628154312.46185-1-amit.barzilai22@gmail.com>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="JZ/OjDQL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=0uAk
+	ejhgCuaMoZrshp+jK8Z0ZGAtpRWMSbgtnJiT1+o=; b=JZ/OjDQLQTXGYDrenyOz
+	4nOtaMLXCnhVkGYGM6BPN8hcdL9/edD1d+SrXyG8Tnd0LB4q/fEAuyYynkyq85ie
+	LZ4HVIu04bnhOcWLS/UZybbPnQWAG580NH/YP2X00LHTovRcW5yyKMFW+hN3GUaz
+	/hzNRjT7NlAeCQ+m3cfgmxknOAfMOuNtIoDO/Cg9VsRJuw/lVvm/njhH93aYjLX3
+	JFjtFvhZxJsw16n8fpr3++kYXmzeD2Pi9bNQigNib0PhKWGmHmss6DrgJrk5PYPp
+	Qr4lWgsHaagkapbbSp3DoT1nP5kJhwzykjorNsi1JGEEweTvpx8U4VJQ/yRKGCwE
+	0w==
+Received: (qmail 256473 invoked from network); 29 Jun 2026 08:26:30 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 29 Jun 2026 08:26:30 +0200
+X-UD-Smtp-Session: l3s3148p1@qX3wiV5VGL0ujntC
+Date: Mon, 29 Jun 2026 08:26:28 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/3] dt-bindings: i2c: Add Qualcomm I2C slave
+ controller
+Message-ID: <akIQFAX8LcZae29l@ninjato>
+References: <20260628-i2c-qcom-slave-v1-0-8b0a5c01f9f6@oss.qualcomm.com>
+ <20260628-i2c-qcom-slave-v1-1-8b0a5c01f9f6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="r+ZUegNvxI2DW21t"
+Content-Disposition: inline
+In-Reply-To: <20260628-i2c-qcom-slave-v1-1-8b0a5c01f9f6@oss.qualcomm.com>
+
+
+--r+ZUegNvxI2DW21t
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260628154312.46185-1-amit.barzilai22@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jun 28, 2026 at 06:43:12PM +0300, Amit Barzilai wrote:
-> On Tue, 23 Jun 2026 12:37:31 +0300, Andy Shevchenko wrote:
+Hi,
 
-...
+On Sun, Jun 28, 2026 at 08:09:04PM +0530, Viken Dadhaniya wrote:
+> Add a binding for the Qualcomm I2C slave controller found on QDU1000. The
+> block operates only as an I2C slave and supports FIFO/PIO transfers, so it
+> needs a binding separate from Qualcomm I2C master controllers.
 
-> >> +	const u8 cmds[] = {
-> >
-> > Why not static?
-> 
-> This array can't be made static. It is initialised with runtime values
-> (ssd130x->width - 1 and ssd130x->height - 1), so it is not a compile-time
-> constant and a static/file-scope definition wouldn't compile.
-> The other ssd13xx_init() functions are non-static for exactly the same
-> reason.
+The official naming in I2C is now 'target' instead of 'slave'. Do you
+think you can rename that? I know the Linux I2C core has still the old
+wording in a lot of places and needs to be converted. However, if
+possible, it would be nice if not more of the old terms would be added
+which need to be converted at some point anyhow.
 
-Ah, I see. Thanks for pointing out.
+> Document the MMIO region, interrupt, XO and AHB clocks, interconnect path,
+> and the 7-bit slave address needed to describe the controller in device
+> tree.
+>=20
+> Use the 'qcom,slave-addr' property for the slave address because 'reg'
+> describes the controller MMIO range, and this slave-only controller has no
+> child node where an I2C address can be encoded.
 
-> >> +		4, SSD135X_SET_CONTRAST, 0xc8, 0x80, 0xc8,
-> >> +		2, SSD135X_SET_CONTRAST_MASTER, 0x0f,
-> >> +		2, SSD135X_SET_PRECHARGE2, 0x01,
-> >> +		1, SSD135X_SET_DISPLAY_NORMAL,
-> >> +		2, SSD13XX_SET_SEG_REMAP, remap,
-> >
-> >> +		0,
-> >
-> > No trailing comma for the terminator entry.
-> 
-> Removing it in v3. The other init arrays in drm-misc-next still carry the
-> terminator comma, but that's pre-existing code outside this series -- I've left
-> it alone to avoid unrelated churn. Happy to send a separate cleanup if you'd
-> prefer.
+This should not be needed because the backend defines which address is
+going to be used? Can you share how you tested this?
 
-You can issue a separate cleanup patch for those.
+Happy hacking,
 
-> >> +	};
-
-...
-
-> >> +	/*
-> >> +	 * ssd130x_power_on() issues a short reset pulse, but the SSD1351 is not
-> >> +	 * ready to accept commands immediately afterwards. Give the controller
-> >> +	 * time to settle before sending the init sequence.
-> >> +	 */
-> >
-> > Any reference to the datasheet?
-> 
-> It's not a datasheet figure. fb_ssd1351 doesn't do it in init_display() either;
-> it inherits it from the shared fbtft_reset() helper, which deasserts reset and
-> then does msleep(120) before any command is sent. The 120 ms is a generic fbtft
-> blanket value, not an SSD1351 number -- the SSD1351 datasheet's reset timing is
-> microsecond-scale.
-> 
-> I removed the msleep() and retested this on the hardware. The panel still 
-> initialises reliably.
-> I'll drop the msleep() in v3.
-
-Yeah, I truly believe that this long delay is for the parallel type of IO, where
-data and control signals are usually connected to a quite low speed GPIOs.
-
-But I suggest to leave some comment in the code.
-
--- 
-With Best Regards,
-Andy Shevchenko
+   Wolfram
 
 
+--r+ZUegNvxI2DW21t
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmpCEBAACgkQFA3kzBSg
+KbYpJw/+Jy6U95MRFmB6J1Zy6lGHpyDpSphYyFIl7y72sswAbF11zLbJJYfP8VZM
+1+y2qXv7VR+OGvSm72L7qCp22/ECva6pk6yVg1JFuBogRE8EskzW4qDcPYPcAkA3
+UrSPPXpfMkTkARRCL9mPheiihHxWmGq7QTDejHKw+mpFxBfF844Ch4zaoifxUpVr
+S78jmNX4kbGd36s1rqBg2V7jHKzAi6jTrtm94bp5LHLXc8Ch5clX4ZY8Ae8SV9c4
+ALbEIHZFCwy22shWoVeHyK2cJGEenzHjrPwI1Z8md1AGD21b9fwoFxoKU3s34x3E
+1jh5lAZranhaQZlv7D7R4Vij6bajyQDVcD4/nsN0qE48Bwe2ytJ3mfevI/c3zYJX
+Zqc82bBv8slMuyj3m5L3mab4DeU/lYinLqe/ABaCQnsSlFLwZNuAysiE0he8Wrxn
+y/p+rEyDyBd0/YEoYX4pW2W2xkZdQOA8Y8ft2RTa9jS77VZRGj+2H9ss8wX8mB56
+cwgNApPk04cICgu3ZC1gadxa9W8MvsD0iX1+BXLmalplGxJDp/uB58fsVlWKJgDQ
+q6kL3VMwLpiuh38VUBaolaQgILvpOuqpRotST3ihczTj/U1uYvc6sEVE7FNyQwkx
+/+UM39mRcw4KlBGLbh3TNKdaJ6h440EgQ8sdY1/176FilPUY8HU=
+=/xuL
+-----END PGP SIGNATURE-----
+
+--r+ZUegNvxI2DW21t--
