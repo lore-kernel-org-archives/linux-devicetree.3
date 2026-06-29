@@ -1,54 +1,54 @@
-Received: from fr5000-r.dnsiaas.com (fr5000-r.dnsiaas.com [92.42.104.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dd54918.kasserver.com (dd54918.kasserver.com [85.13.167.58])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99D43E1687;
-	Mon, 29 Jun 2026 07:59:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.42.104.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6253B4EB0;
+	Mon, 29 Jun 2026 08:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.13.167.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782719986; cv=none; b=jVu3QlE8fbcIfrP+pqT5I/MU5NdQ1xuegalRr6qzlN1b4HQGFXmYOe9oCN8/ZASoUF5kiCK5SgoQ84E5Fq9k3MrJfAT6HCg8fx/GsjPEEkAuFKlLchQWDaUmiklbMCaYn2FWbNT5XvkMeL7T6zHm/OdVTPOFIA60iEzJyBVBOt4=
+	t=1782720023; cv=none; b=UcXwu85HR8wtpwgtwnhd0l7qgxk4MvAFbCYoU8Z8qxQJbHk9ozmZ2mynMpbPCjFjN1V0Vitl+SZNbw1XS2IMtKA9GqLIhxJKZAQlsBFIDR5d9j4XBWl3Bn3sYOWpGl8dzP0rKSsDmuguT7/HWjALJsRobhRmZ+xNtd2/Jg44nkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782719986; c=relaxed/simple;
-	bh=/nvwFv0JfmjK2NA5Qy4Mb1EPkG5HgybnUNzmPA+S75k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CepP+0D/rnoDdHNmNKfHklzud7Ke1agemmlziqfKGssA4ZtNvvnQbFOgxYes8+t1ozi2QPokNCS9wzz/lBsHo54jgpR9S4TpE7R1wOYRBq4Xs+Ue+KVT6QQFYf15ho+lu6jZqmVrEFG5FJfqYUMgnsmlFD5KQi62Qg8VIjCsH94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=superkali.me; spf=pass smtp.mailfrom=superkali.me; dkim=pass (2048-bit key) header.d=superkali.me header.i=@superkali.me header.b=XZ7uOx38; arc=none smtp.client-ip=92.42.104.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=superkali.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=superkali.me
+	s=arc-20240116; t=1782720023; c=relaxed/simple;
+	bh=Mu/vYRPrMM6y78Zq6iLYUkQGJTBkafHpPpDy8E5c9xQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QwXpN5w01tAxYSCXSHl+K451mrYv+WKVW+jwPsH7oVkRAf+0htZc3Atdjg1HEOqA2cHy3uMge37OZq8DmfoL8Z2/fwSJKfuag27fyrfX92wr7Js+eRYyMWf8/Vj4Ze4SvJmd//toQWnz6HoKplIw60mY0GLRa7qfJzIIjP4CrfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=KARO-electronics.de; spf=pass smtp.mailfrom=KARO-electronics.de; dkim=pass (2048-bit key) header.d=karo-electronics.de header.i=@karo-electronics.de header.b=ecw7eren; arc=none smtp.client-ip=85.13.167.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=KARO-electronics.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=KARO-electronics.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=superkali.me header.i=@superkali.me header.b="XZ7uOx38"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=superkali.me; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=/nvwFv0JfmjK2NA5Qy4Mb1EPkG5HgybnUNzmPA+S75k=; b=XZ7uOx38ZJ4O0V7qpLnD5cQ9u2
-	SDJkMOPnuHSkURQBGK3plOCj0HwhIB1h6EHGKY33vhCwHwnAtQ3lsx3BnnFj9IEb6mf8m26gLfll2
-	JHvM1KU0xGpVutlRiy7ATGXmLnD5H6e59Qrm7Ytfye/w58z993n1aP2Ofgk5EShtWNafl+oNbzU9H
-	wvPMf7/bCt2XsIMfuaopzXLbqekUfWLDeS8RGHOfbUf5Zf1xKheGerDQrJQgePpAQCz/13RY8ygU1
-	bxwIl/cma034VcE8fDYA/JaDi/A5nT10QMyCOgvuKoGMLvNMS2VlVfoXo9FczLilL7ObcVaN/hxUO
-	tLMVAU9g==;
-Received: from [81.57.40.39] (port=42644 helo=superkali.me)
-	by fr5000-r.dnsiaas.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.4)
-	(envelope-from <hello@superkali.me>)
-	id 1we6u1-00000001mbW-18ue;
-	Mon, 29 Jun 2026 09:59:36 +0200
-From: Daniele Briguglio <hello@superkali.me>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 0/3] arm64: dts: rockchip: Add Youyeetoo YY3588
-Date: Mon, 29 Jun 2026 09:59:34 +0200
-Message-ID: <20260629075934.518649-1-hello@superkali.me>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260610-yy3588-board-v1-0-4bb7176b6826@superkali.me>
-References: <20260610-yy3588-board-v1-0-4bb7176b6826@superkali.me>
+	dkim=pass (2048-bit key) header.d=karo-electronics.de header.i=@karo-electronics.de header.b="ecw7eren"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=karo-electronics.de;
+	s=kas202603021246; t=1782719411;
+	bh=Qylp1+q58BKXjVYMlUJn3x4tvz3kf67QuXXQvLn3hVQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=ecw7erenvWIYPBx2V7ZPPuTiP0QJvB7JeAWgS4GWnn8/503xZok/8BGzb9DeXRFBc
+	 XeC7jO4MWatNjCHC1ECcBW6XrZdV0OBa382Qs/IVNEJ5dgLX3G92WP+J1ri7YIyWer
+	 dwai6hyb94q6EmVN0GrRTOkeBo/h0lefqhkodnLOH1A79zFz1cvQTTHVYCYQsOCsz1
+	 c62YtKjIwpqQE3i0RhHvCf2yilcCcl4J95W3ejucUfo5okw7f5V89GB8iMAPWRex8x
+	 ZZ1n2IpEQXDTL/6Gfp4KBftpnC4mSJJIA2vDTx0WN8aEMFIQMHm9Gls1wkkKm9TBcP
+	 0b7q1/LHFGtGQ==
+Received: from karo-electronics.de (unknown [89.1.81.74])
+	by dd54918.kasserver.com (Postfix) with ESMTPSA id 8485F7722430;
+	Mon, 29 Jun 2026 09:50:10 +0200 (CEST)
+Date: Mon, 29 Jun 2026 09:50:09 +0200
+From: Lothar =?UTF-8?B?V2HDn21hbm4=?= <LW@KARO-electronics.de>
+To: pankaj.gupta@oss.nxp.com
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank
+ Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ Pankaj Gupta <pankaj.gupta@nxp.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, Frieder Schrempf
+ <frieder.schrempf@kontron.de>, kernel test robot <lkp@intel.com>,
+ sashiko-bot <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v26 3/7] firmware: imx: add driver for NXP EdgeLock
+ Enclave
+Message-ID: <20260629095009.3256f956@karo-electronics.de>
+In-Reply-To: <20260629-imx-se-if-v26-3-146446285744@nxp.com>
+References: <20260629-imx-se-if-v26-0-146446285744@nxp.com>
+	<20260629-imx-se-if-v26-3-146446285744@nxp.com>
+Organization: Ka-Ro electronics GmbH
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,32 +56,63 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - fr5000-r.dnsiaas.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - superkali.me
-X-Get-Message-Sender-Via: fr5000-r.dnsiaas.com: authenticated_id: hello@superkali.me
-X-Authenticated-Sender: fr5000-r.dnsiaas.com: hello@superkali.me
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Transfer-Encoding: quoted-printable
+X-Spamd-Bar: /
 
-On Wed, Jun 10, 2026 at 03:58:57PM +0200, Daniele Briguglio wrote:
-> This series adds support for the Youyeetoo YY3588, a single board
-> computer built around the Rockchip RK3588.
-> [...]
+Hi,
 
-Hi Heiko,
+On Mon, 29 Jun 2026 17:51:59 +0530 pankaj.gupta@oss.nxp.com wrote:
+> From: Pankaj Gupta <pankaj.gupta@nxp.com>
+>=20
+> Add MU-based communication interface for secure enclave.
+>=20
+> NXP hardware IP(s) for secure-enclaves like Edgelock Enclave(ELE), are
+> embedded in the SoC to support the features like HSM, SHE & V2X, using
+> message based communication interface.
+>=20
+> The secure enclave FW communicates with Linux over single or multiple
+> dedicated messaging unit(MU) based interface(s).
+> Exists on i.MX SoC(s) like i.MX8ULP, i.MX93, i.MX95 etc.
+>=20
+> For i.MX9x SoC(s) there is at least one dedicated ELE MU(s) for each
+> world - Linux(one or more) and OPTEE-OS (one or more).
+>=20
+[...]
+> +	ret =3D se_fill_cmd_msg_hdr(priv, (struct se_msg_hdr *)&tx_msg->header,
+> +				  ELE_GET_INFO_REQ, ELE_GET_INFO_REQ_MSG_SZ,
+> +				  true);
+> +	if (ret)
+> +		goto exit;
+[...]
+> +/* Fill a command message header with a given command ID and length in b=
+ytes. */
+> +static inline int se_fill_cmd_msg_hdr(struct se_if_priv *priv, struct se=
+_msg_hdr *hdr,
+> +				      u8 cmd, u32 len, bool is_base_api)
+> +{
+> +	hdr->tag =3D priv->if_defs->cmd_tag;
+> +	hdr->ver =3D (is_base_api) ? priv->if_defs->base_api_ver : priv->if_def=
+s->fw_api_ver;
+> +	hdr->command =3D cmd;
+> +	hdr->size =3D len >> 2;
+> +
+> +	return 0;
+> +}
+>
+I don't see a point in having a function always return zero and
+implement error checks that will never be used.
 
-Gentle ping on this one, it's been about three weeks. Conor acked the
-vendor-prefixes and rockchip.yaml patches (1/3 and 2/3). The dts in 3/3
-hasn't had any comments yet, and I'd hate for it to slip through.
+[...]
+> +static const struct of_device_id se_match[] =3D {
+> +	{ .compatible =3D "fsl,imx8ulp-se-ele-hsm", .data =3D &imx8ulp_se_ele_h=
+sm},
+> +	{ .compatible =3D "fsl,imx93-se-ele-hsm", .data =3D &imx93_se_ele_hsm},
+> +	{},
+>
+Since the last entry in this array must be a NULL entry, there should be
+no comma after the {}. This will generate a compile error if (e.g. by
+patch conflict resolution) an entry is added after the end marker.
 
-I know the dts queue is long, so no rush. Anything you'd want changed, or
-is it OK to queue for the next cycle? Happy to respin if there's something
-to fix.
 
-Thanks,
-Daniele
+
+Lothar Wa=C3=9Fmann
