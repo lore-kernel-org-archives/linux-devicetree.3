@@ -1,111 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F63B3A873C
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 06:48:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186A338911B;
+	Mon, 29 Jun 2026 06:49:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782715696; cv=none; b=GXYb+MIO2bdR1Q14v5jD4zmps+bkFiXfYnpag8bzg0LrKjimXZjFhF/FnJduSRHNiM6NL+VkvluTV9boi42vExdpzOmvFnfb02pZEtxmxH6Ern83aHlRNwK0dZwfBwQCnXB3dPhASji74Gbtgx3FWuawuYLq7BtsaJn/2BwdOSI=
+	t=1782715774; cv=none; b=ZLC5rpSGgRpFrKlkfdvRsXkBJOXd6gdnUalGJaYiKAi2ivNMTArH95AqaJLF7j95fdrl2zwOKFzFfM9/xatlnNFCFfbr4yD01rDe0WG/7utIL75Ep1F6bjyL7Cg2jmCOwoX0ZycGsZ9kvHVmxh9mdzdhrgpLT3TINCyQUcX2ZSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782715696; c=relaxed/simple;
-	bh=EtoJTg+HOqiygPVL4TLWOvd87c872pl8z9T0zb2JMN4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eFRobESCSOHi9JLBN9OSywFUmuP7xD7i0Q2Tv1/PINrLeTZMm3N/nOPxFLo/d20hEusJbPaI1FSagkGaaoiGSqBOzDWKCu8x5dCU+w9YpFDuMhbZWprElGK2y04G4/jlj4NpPglkf5vs3w6DWAoqU9rR9XoFl91c8i4IuhQwqpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5EB61F000E9;
-	Mon, 29 Jun 2026 06:48:14 +0000 (UTC)
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v3] arm64: dts: qcom: talos: Add memory-region
- for audio PD
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ekansh Gupta" <ekansh.gupta@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260629-talos-remoteheap-v3-1-4e23366c9196@oss.qualcomm.com>
-References: <20260629-talos-remoteheap-v3-1-4e23366c9196@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 06:47:44 +0000
-Message-Id: <20260629064814.A5EB61F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1782715774; c=relaxed/simple;
+	bh=FDwiNnQBBCZ/QNpWwqyHzdSkJIqsF5fGdO+P3uhJhds=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WGp88iwNAYIDNfoim7seU0Vpwto5UV4GXSnzn5zpdAnCihA8F+noKGtMDiD6m3SGyozYceRFv8F4++RCEjfWmASkhTq15hJMVsCjfPvZA9/7f0CHjwFLLMdGCyUUk6mxXb8g2XwMVgkT9gHB6loFTf0VgQn5LOjbaxaOrCN/Msw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qAJxWiPV; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qAJxWiPV"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E60A0C2BCF4;
+	Mon, 29 Jun 2026 06:49:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1782715774;
+	bh=FDwiNnQBBCZ/QNpWwqyHzdSkJIqsF5fGdO+P3uhJhds=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=qAJxWiPVg6528Lhg4/0l0Av5OZ8Gz+nivKx5XllbrCQ8K3951ahAjQKIrxZ2w9+US
+	 9KEMeSuKAenLBKu6fD+biwpbGu1Y/yNNIUAe82HYmpVnSCeoApmJ8soBTa5Vh9FXem
+	 maezA0zXrkmlJe/AsUXsT0ahXmv1XyunYhe1azV/6ad4TRjpakhJ5HxIpaTmuXdxtJ
+	 ktsBMxHYjM3ZeWd8v0OnF59BtCrlYrBx9RO5RNEtiqFvXUwectd/Ul7hXr/QTqOWd7
+	 dyjt8rqACywE5z5NgwtIe040NB1R5SGRHs7dlaFp1Nv3hFWOoXxJdjFx2JBsGvFA1b
+	 pRnCuF+2do9nA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CDDDCC43638;
+	Mon, 29 Jun 2026 06:49:33 +0000 (UTC)
+From: Yu-Che Hsieh via B4 Relay <devnull+yc_hsieh.aspeedtech.com@kernel.org>
+Date: Mon, 29 Jun 2026 14:48:58 +0800
+Subject: [PATCH 1/4] ipmi: bt-bmc: Use bitfield helpers for register
+ definitions
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260629-aspeed-bt-bmc-multichannel-v1-1-fc23ee337f7a@aspeedtech.com>
+References: <20260629-aspeed-bt-bmc-multichannel-v1-0-fc23ee337f7a@aspeedtech.com>
+In-Reply-To: <20260629-aspeed-bt-bmc-multichannel-v1-0-fc23ee337f7a@aspeedtech.com>
+To: Corey Minyard <corey@minyard.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782715772; l=3925;
+ i=yc_hsieh@aspeedtech.com; s=20260629; h=from:subject:message-id;
+ bh=HQw8rGJUsM6loLGP55U5cgMUUCPUOKcrGTqHI8TGeyw=;
+ b=Mg57Y/Vn2ocHuNlZAZqksIQ0vRHfMU0JKXY0uL/knqv7c4ICD8NzGXdCdiFClN9xhS/Yheusc
+ B5G083PbCmYD71NYrV8XV1FsDJV8yyawcP2dzWurZPGlGsjI8mi6jI7
+X-Developer-Key: i=yc_hsieh@aspeedtech.com; a=ed25519;
+ pk=kLxUeF7g6teciq79it9N3tYNgp3yCspZ+AHlYSnZ0gs=
+X-Endpoint-Received: by B4 Relay for yc_hsieh@aspeedtech.com/20260629 with
+ auth_id=844
+X-Original-From: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
+Reply-To: yc_hsieh@aspeedtech.com
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+From: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
 
-Pre-existing issues:
-- [Critical] The fastrpc driver allocates CMA memory for the `remote_heap` =
-and transfers ownership to the DSP via `qcom_scm_assign_mem`. However, it f=
-ails to restore ownership back to the kernel (HLOS) before freeing the memo=
-ry, causing fatal kernel panics upon memory reuse.
---
+Use BIT(), GENMASK(), and FIELD_PREP() for the BT register definitions
 
-commit d7ff4ea03a9a2493480fcd2856711302a7acac21
-Author: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+and register field programming.
 
-arm64: dts: qcom: talos: Add memory-region for audio PD
-   =20
-Reserve memory region for audio PD dynamic loading and remote heap
-requirements. Add the required VMID list for memory ownership
-transfers.
+This makes the register layout easier to read and prepares the driver
 
-> diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qc=
-om/talos.dtsi
-> --- a/arch/arm64/boot/dts/qcom/talos.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/talos.dtsi
-[ ... ]
-> @@ -5195,6 +5204,9 @@ fastrpc {
->  					compatible =3D "qcom,fastrpc";
->  					qcom,glink-channels =3D "fastrpcglink-apps-dsp";
->  					label =3D "adsp";
-> +					memory-region =3D <&adsp_rpc_remote_heap_mem>;
-> +					qcom,vmids =3D <QCOM_SCM_VMID_LPASS
-> +						      QCOM_SCM_VMID_ADSP_HEAP>;
+for later changes that need to program the BT_CR0 fields from device
 
-[Severity: Critical]
-This is a pre-existing issue, but by adding the qcom,vmids property, does
-this expose a fatal kernel panic in the fastrpc driver?
+configuration.
 
-Setting this property configures vmcount > 0, which triggers memory
-assignment code paths in the fastrpc driver. The driver allocates CMA memory
-for the remote_heap and transfers ownership to the DSP via
-qcom_scm_assign_mem, but it fails to restore ownership back to the kernel
-(HLOS) before freeing the memory.
+Signed-off-by: Yu-Che Hsieh <yc_hsieh@aspeedtech.com>
+---
+ drivers/char/ipmi/bt-bmc.c | 72 ++++++++++++++++++++++++----------------------
+ 1 file changed, 37 insertions(+), 35 deletions(-)
 
-For example, when a user unmaps the memory, the buffer is freed directly
-back to the CMA pool:
+diff --git a/drivers/char/ipmi/bt-bmc.c b/drivers/char/ipmi/bt-bmc.c
+index a179d4797011..f3c67272502f 100644
+--- a/drivers/char/ipmi/bt-bmc.c
++++ b/drivers/char/ipmi/bt-bmc.c
+@@ -15,6 +15,7 @@
+ #include <linux/poll.h>
+ #include <linux/sched.h>
+ #include <linux/timer.h>
++#include <linux/bitfield.h>
+ 
+ /*
+  * This is a BMC device used to communicate to the host
+@@ -24,33 +25,34 @@
+ #define BT_IO_BASE	0xe4
+ #define BT_IRQ		10
+ 
+-#define BT_CR0		0x0
+-#define   BT_CR0_IO_BASE		16
+-#define   BT_CR0_IRQ			12
+-#define   BT_CR0_EN_CLR_SLV_RDP		0x8
+-#define   BT_CR0_EN_CLR_SLV_WRP		0x4
+-#define   BT_CR0_ENABLE_IBT		0x1
+-#define BT_CR1		0x4
+-#define   BT_CR1_IRQ_H2B	0x01
+-#define   BT_CR1_IRQ_HBUSY	0x40
+-#define BT_CR2		0x8
+-#define   BT_CR2_IRQ_H2B	0x01
+-#define   BT_CR2_IRQ_HBUSY	0x40
+-#define BT_CR3		0xc
+-#define BT_CTRL		0x10
+-#define   BT_CTRL_B_BUSY		0x80
+-#define   BT_CTRL_H_BUSY		0x40
+-#define   BT_CTRL_OEM0			0x20
+-#define   BT_CTRL_SMS_ATN		0x10
+-#define   BT_CTRL_B2H_ATN		0x08
+-#define   BT_CTRL_H2B_ATN		0x04
+-#define   BT_CTRL_CLR_RD_PTR		0x02
+-#define   BT_CTRL_CLR_WR_PTR		0x01
+-#define BT_BMC2HOST	0x14
+-#define BT_INTMASK	0x18
+-#define   BT_INTMASK_B2H_IRQEN		0x01
+-#define   BT_INTMASK_B2H_IRQ		0x02
+-#define   BT_INTMASK_BMC_HWRST		0x80
++#define BT_CR0			0x0
++#define   BT_CR0_IO_BASE	GENMASK(31, 16)
++#define   BT_CR0_SIRQ		GENMASK(15, 12)
++#define   BT_CR0_SIRQ_TYPE	GENMASK(11, 10)
++#define   BT_CR0_EN_CLR_SLV_RDP	BIT(3)
++#define   BT_CR0_EN_CLR_SLV_WRP	BIT(2)
++#define   BT_CR0_ENABLE_IBT	BIT(0)
++#define BT_CR1			0x4
++#define   BT_CR1_IRQ_EN_HBUSY	BIT(6)
++#define   BT_CR1_IRQ_EN_H2B	BIT(0)
++#define BT_CR2			0x8
++#define   BT_CR2_IRQ_STS_HBUSY	BIT(6)
++#define   BT_CR2_IRQ_STS_H2B	BIT(0)
++#define BT_CR3			0xc
++#define BT_CTRL			0x10
++#define   BT_CTRL_B_BUSY	BIT(7)
++#define   BT_CTRL_H_BUSY	BIT(6)
++#define   BT_CTRL_OEM0		BIT(5)
++#define   BT_CTRL_SMS_ATN	BIT(4)
++#define   BT_CTRL_B2H_ATN	BIT(3)
++#define   BT_CTRL_H2B_ATN	BIT(2)
++#define   BT_CTRL_CLR_RD_PTR	BIT(1)
++#define   BT_CTRL_CLR_WR_PTR	BIT(0)
++#define BT_BMC2HOST		0x14
++#define BT_INTMASK		0x18
++#define   BT_INTMASK_BMC_HWRST	BIT(7)
++#define   BT_INTMASK_B2H_IRQ	BIT(1)
++#define   BT_INTMASK_B2H_IRQEN	BIT(0)
+ 
+ #define BT_BMC_BUFFER_SIZE 256
+ 
+@@ -361,7 +363,7 @@ static irqreturn_t bt_bmc_irq(int irq, void *arg)
+ 
+ 	reg = readl(bt_bmc->base + BT_CR2);
+ 
+-	reg &= BT_CR2_IRQ_H2B | BT_CR2_IRQ_HBUSY;
++	reg &= BT_CR2_IRQ_STS_H2B | BT_CR2_IRQ_STS_HBUSY;
+ 	if (!reg)
+ 		return IRQ_NONE;
+ 
+@@ -398,7 +400,7 @@ static int bt_bmc_config_irq(struct bt_bmc *bt_bmc,
+ 	 * message to the BT buffer
+ 	 */
+ 	reg = readl(bt_bmc->base + BT_CR1);
+-	reg |= BT_CR1_IRQ_H2B | BT_CR1_IRQ_HBUSY;
++	reg |= BT_CR1_IRQ_EN_H2B | BT_CR1_IRQ_EN_HBUSY;
+ 	writel(reg, bt_bmc->base + BT_CR1);
+ 
+ 	return 0;
+@@ -447,12 +449,12 @@ static int bt_bmc_probe(struct platform_device *pdev)
+ 		add_timer(&bt_bmc->poll_timer);
+ 	}
+ 
+-	writel((BT_IO_BASE << BT_CR0_IO_BASE) |
+-		     (BT_IRQ << BT_CR0_IRQ) |
+-		     BT_CR0_EN_CLR_SLV_RDP |
+-		     BT_CR0_EN_CLR_SLV_WRP |
+-		     BT_CR0_ENABLE_IBT,
+-		bt_bmc->base + BT_CR0);
++	writel(FIELD_PREP(BT_CR0_IO_BASE, BT_IO_BASE) |
++	       FIELD_PREP(BT_CR0_SIRQ, BT_IRQ) |
++	       BT_CR0_EN_CLR_SLV_RDP |
++	       BT_CR0_EN_CLR_SLV_WRP |
++	       BT_CR0_ENABLE_IBT,
++	       bt_bmc->base + BT_CR0);
+ 
+ 	clr_b_busy(bt_bmc);
+ 
 
-drivers/misc/fastrpc.c:fastrpc_req_munmap_impl() {
-    ...
-        fastrpc_buf_free(buf);
-    ...
-}
+-- 
+2.34.1
 
-The same occurs during device teardown:
 
-drivers/misc/fastrpc.c:fastrpc_rpmsg_remove() {
-    ...
-    if (cctx->remote_heap)
-        fastrpc_buf_free(cctx->remote_heap);
-    ...
-}
-
-And the free function never reclaims HLOS ownership:
-
-drivers/misc/fastrpc.c:fastrpc_buf_free() {
-    dma_free_coherent(buf->dev, buf->size, buf->virt,
-                      fastrpc_ipa_to_dma_addr(buf->fl->cctx, buf->dma_addr)=
-);
-    kfree(buf);
-}
-
-Without making a qcom_scm_assign_mem hypercall to restore QCOM_SCM_VMID_HLOS
-ownership before dma_free_coherent(), won't subsequent kernel accesses to
-these freed pages trigger a Stage-2 permission violation and cause a
-Synchronous External Abort (SEA)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-talos-remo=
-teheap-v3-1-4e23366c9196@oss.qualcomm.com?part=3D1
