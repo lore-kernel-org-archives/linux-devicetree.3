@@ -1,147 +1,167 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11021120.outbound.protection.outlook.com [52.101.70.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37BE20D4FF
-	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 13:35:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782740161; cv=none; b=Gb6VkFhnSXHPzhe9+GLiysAPv7J4Twt1O3FyuyM18qhKQQv6GwtVix4hb4qEtZDyuwM21BeOr8tk4e8URSKg/Dys+yTDSwY6iIPvkAaEjHgvoPl39TTRRkqt5XcP+uGsRLq3m6NGHd989Zz8hdcJ04KexrVqJ3ozbTEbKX8/E/c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782740161; c=relaxed/simple;
-	bh=zqrAv4ptgcQDDabtUqrMSNTpUU2PxpRKSgX2iLRPyeM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WYjRs1G8v5jufXiXmO2gLZi84fahBDBdrgB8/9PASXUG/izhha2faBCcwkoWBfRSif7u9Glj2JW16+H8IfEKmwhgh8lwCF/moPs5PpXx6/bKuzitKMiD06NFfZCjCjIRmwo4riQM0nu7vyozWPKxfqlE2kEKvu/0H7f+szM1sjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BAUHus22; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AAD212542;
+	Mon, 29 Jun 2026 13:38:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.120
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782740307; cv=fail; b=OsPKmUSvrCu7hw5Slu4ryzMOu6yl5BBD6Klh9zNFjsThz2ofbcPJC6BgWTAA/lBw1KbUluoPsfqBEjpH5iA5PAjN+tz8VK24hf5T2x7muCGBEPqUHGZewzZkjipwuDNM9UcvzXz+DI4BkpgBzkPIzr4ViPGQcqgTstE85mszUn8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782740307; c=relaxed/simple;
+	bh=yzdBUeG1vOIsPR6UmzBoEhHhIQKys6x+V5jdJvqZpUU=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ba/Ut1zA/CYSWAi2cSmqayX6yjb6Tuz7zsT55LYY/TaRVuZiNNp/U/tWt769GbtL4D501xlaj4Fe9Q5WVzB0f4ZPIlBnwdB2gpA2N0+w85vUr295Anun7jsnrbxQXhrXFxx2vIsWK7+zysO72yJgsfqV2l4/WVVLDxUBH19K3qg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de; spf=pass smtp.mailfrom=phytec.de; dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b=VCAJWCQz; arc=fail smtp.client-ip=52.101.70.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BAUHus22"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4926f8e02e8so20225665e9.0
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 06:35:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782740158; x=1783344958; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=RBM+1nAZz4BwsUG4gfSKzLFy6PeoM2OFZ8wfEYkLDpg=;
-        b=BAUHus22URUgc6vBRNzRs52RNxaC46SCFKUYBEJQsgAjvynGGvuQ/Fw55zKg3PHD77
-         I+iCBcGT1VPTj9VHFPu2QRkMOLGomEf82qzwoPhWoosFuMvv+JJJ0R3WGJ2uI4eH2KUl
-         jWx+jWZaQm/S9cuynT5/Hgg3BkSfgyzkpUEHcE1c5soMAoILr1Kq7aVqkg+tQzJdS2Q5
-         qgCKBjYX6/elDsrM08FW1ok5oj3KzayS+JBFvZq7L2vPTKyxWx1SWY7+TLjcvRN2+lb0
-         Zu/FuWy974mdZRq8QBzNtJo8WyeDO3hZtp/CopNb2yZrUBhqaokXZMeuNhvyx52d6/vf
-         YvMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782740158; x=1783344958;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RBM+1nAZz4BwsUG4gfSKzLFy6PeoM2OFZ8wfEYkLDpg=;
-        b=XC9/y8hu5m0158V7TnlGxyd7vsNwfLKPl6/TSTHTxUNOV6/Mtn3Ga+9ppwiTnyXsPX
-         VWP2kv7X8zkn6EgI4AKMHMdNj8y31ORDCz7bBBUDz9Fe/S75OUt5JQiv9u63IH+ejuhS
-         RHaAgGlL5O0ymEsTkbAPpdv77/f1yklO/mYXjefqfkiqjnxJwkV04THCzYYJ+vBq8hH5
-         N/Plhc4tPolpjFfkZjYXemf636RB55wHUWJYwHE0q+Nxa3nSDcdHP7HhCEvdI9PjbShO
-         D1O8FP1WGPyxcs2pYnjurb+tAjjR+Bpb3S0b9kVf79s9FZLLZ0D8omEcWz6abPZJ8w4B
-         FZXw==
-X-Forwarded-Encrypted: i=1; AFNElJ82L4+roTzcLV8JwR6AoYsxYBFDt8WqT/dNBRPWOEpRmzDT0IXWuCQldw47Z3zAHWGiaH2tq6saP2YT@vger.kernel.org
-X-Gm-Message-State: AOJu0YziZonhhMREwsK+C/youeLYsipf5J/qa55iPJNcEMgD/JYqi5Nh
-	dnGUDaDu4NhrjOffEkvWrVSPr20NEkuAA9MDR5XHNd5K2w86GqPc9PKW
-X-Gm-Gg: AfdE7clRM6GqF5UKWiXE7M11soZ11q0Hu/1FJeqYakq4xOH1vV8ADNtjwtTFF+zSoNN
-	z5J+G41n86kpSn9eYQxfbHvE1fV2dUNvQ6EZJQaRLd55tJvBz71grKInISf8IpnlwSNXpy1Xuuy
-	nRg7Y1XE3xbCO8ng3yO4e8GbV2UypU/zu2SXVPmCbRGTFkqY1gQz1NHIpENTujW1tFD3WO89FNg
-	ii3TAU+ViMOj5yhGt1eS5SiTct5M42yUatm4L8jUHl17thgNVukghfjnu60eaBOhSDqt/YAWARC
-	SpaLG+An0JPFdOzU2oUVApSQpCW4PgWvG7FJyUZZc4t+Oih+9JelAAXws2fFprQImMvhNQUUgqW
-	3nliFdRb6LywfmihbH33R9CtCi7tLhgVblY/vE9o41VZSU/sgAr+o0n9tftSbJVmMwJYX2VTqNF
-	On7KGNajss7jRUmyG03Dwr0jNQy/cdj11y9xEyfkzj7RoOX0bQMiEfqk8p4inEfqkw/MKArGO2R
-	gjOYGzL
-X-Received: by 2002:a05:600c:524e:b0:493:b2c1:b302 with SMTP id 5b1f17b1804b1-493b2c1b445mr34652035e9.16.1782740157956;
-        Mon, 29 Jun 2026 06:35:57 -0700 (PDT)
-Received: from [10.128.11.240] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47327c47122sm13954850f8f.34.2026.06.29.06.35.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 06:35:57 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <2496717f-12b9-4d33-b6db-1db278aee8e2@gmail.com>
-Date: Mon, 29 Jun 2026 14:35:55 +0100
+	dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b="VCAJWCQz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ypkhqO0BFhhkoHfBraaE3L54usgr4qqaArv1wGt5nYRTjhxBNd5sJlGwD0rLhowW1T6ZQ03wGc7peJP5BJ0EEGXfjyRTIsQre1gZLP2JAIURtmAexp1mThaAZvW5bF6B7IHSWgvTOVs67oSrHJpZMUvAzWkQeZf6XXcmMwoLvYOGCUoA8drMg9+LlCmbsDlgLRqOHBxcQ7809wZltYgOw++yMyEKJeXrqgW1Lcds3VdjtQbX5cTLMcUO65HYJE3SRRSn+hR+zumL2PPXUPXQkhWS02opaldg1jdCRZkID9CagFJ5ERTLB7rWnDEVHO0+Ql7XCtJkeXLbrZbpk7bBxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uz3T92n2bN0PSHocIxl3BBzXF25F6ofpqGcDZYTa9MM=;
+ b=tPXtVdB/OxW4OMK0L18qe2gCJHYJQh8zdVl25Tj8NB8Dp12k+80E9ME3GyJsJePEZvOLTgABEZ/FFQWhG0S2wXIAVgwTiqxk3H31w00EO0YsWOBj2P51xNqVlMMy81HrFQA39Ca2+bW56PlrtlNxlFtPCfNUVihdfI8eP6rhwvPcKRj63VTA/2R31le4XlqVY651PBlzTY0Nve/7H1MS7Aa7TkRUzk/1N3On+HOCXW1hBPREvsiZgFTIMogvyrkkCX8Eywv8yS9G6x+PRSVN6AdHchvkbE22lojhrJMBNnxi1Ait4+qPzGZams/3Ortf1Rxo9U/4TlTqqZ1eb40IvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=phytec.de; dmarc=pass action=none header.from=phytec.de;
+ dkim=pass header.d=phytec.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uz3T92n2bN0PSHocIxl3BBzXF25F6ofpqGcDZYTa9MM=;
+ b=VCAJWCQzqUirUU6D2ta9K2DwVjaj88pU5boTeRrFGrVqtYulSqLGUDprV/AoaXq5z49pCfJSj78KpulG7UNn6dObr79c/+Rg9BJlQYYNVBSqNy5DKiKoIE5Zr/0++ZFHH6I80+rCoYlHSwo3DdM2ny77AwYrM5LUrVZVh0qHSnwXIqRJkNw09qI02fcd8Y+5EbswqC60K8nzksx6cOouePBsr6FBewE04GOuJHh2am1DIWmXo0UBFrXByOy1f1Dr2P2f5p4giQ25Xr6UmVTkuJZ0aHnCSdi0gD3YwwFrRc0PG6+G+81N3xlAMHz0YYkT055iQyvY8nr7NUGL9Tx1KA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=phytec.de;
+Received: from AS4P195MB1456.EURP195.PROD.OUTLOOK.COM (2603:10a6:20b:4b3::21)
+ by PAWP195MB2350.EURP195.PROD.OUTLOOK.COM (2603:10a6:102:366::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 13:38:19 +0000
+Received: from AS4P195MB1456.EURP195.PROD.OUTLOOK.COM
+ ([fe80::295f:9a59:b66a:621a]) by AS4P195MB1456.EURP195.PROD.OUTLOOK.COM
+ ([fe80::295f:9a59:b66a:621a%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 13:38:19 +0000
+Message-ID: <7e6fb960-e3fc-4923-adf3-c2a289780332@phytec.de>
+Date: Mon, 29 Jun 2026 16:38:15 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Upstream] [PATCH v2 2/2] arm64: dts: ti: Add support for the
+ phyCORE-AM67x
+To: Nathan Morrisson <nmorrisson@phytec.com>, nm@ti.com, vigneshr@ti.com,
+ kristo@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: afd@ti.com, sashiko-reviews@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, upstream@lists.phytec.de
+References: <20260626161014.1146128-1-nmorrisson@phytec.com>
+ <20260626161014.1146128-2-nmorrisson@phytec.com>
+Content-Language: en-US
+From: Wadim Egorov <w.egorov@phytec.de>
+In-Reply-To: <20260626161014.1146128-2-nmorrisson@phytec.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: ZR0P278CA0212.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:6a::27) To AS4P195MB1456.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:20b:4b3::21)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v11 2/7] phy: qcom: add the SGMII SerDes PHY
- driver for SCMI systems
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Vinod Koul <vkoul@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com,
- Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Radu Rendec <rrendec@redhat.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Drew Fustini
- <dfustini@tenstorrent.com>, linux-sunxi@lists.linux.dev,
- linux-amlogic@lists.infradead.org, linux-mips@vger.kernel.org,
- imx@lists.linux.dev, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, sophgo@lists.linux.dev,
- linux-riscv@lists.infradead.org,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-References: <20260629-qcom-sa8255p-emac-v11-0-1b7fb95b51f9@oss.qualcomm.com>
- <20260629-qcom-sa8255p-emac-v11-2-1b7fb95b51f9@oss.qualcomm.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260629-qcom-sa8255p-emac-v11-2-1b7fb95b51f9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS4P195MB1456:EE_|PAWP195MB2350:EE_
+X-MS-Office365-Filtering-Correlation-Id: b72e86f9-85f8-4078-483c-08ded5e3ae51
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|7416014|10070799003|22082099003|18002099003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	5xQgUbjnH2gGIJrljWNRu8HRkrugd+btOP4RoeYJyS/v0yeYuix3UP1Xjf9EH6YMegRAcyI4ILPZi7Hm6giV1aBnqq4YYsg8+G6oDZqCztRpKqPA1flb6Zem3ZzB15CaxTcaRJ1fpabE1Z0JJqarFhnxsogt29s/8GPl4srEP/4qUTyT6Exmi0qnvaeyRVSVAS+/Sd7FGA7v4wT6dEaqbcxerNCo3177IGvHHVQea+AEUzL2006bXE998rNoFymDh7gPIsBCkU3houl6i9O78i+yKOFHlRbucAMKNTGF0qLQYxZtEIzAiB+U8cQGUcRKa13qMVQ+h9zvo9DVHacqEGrgztKzaTT6/OqUbdd7WYwsyhfR2BZO/JfiwxJlT45bjwFLaUha6B9idHOMcEuf3LXYwNOSsq3LIKyql2uAtRMJ8vR7uCT5jVppv7EOvq/T5uNIrFXzEnZs9HNXc0v7LTmgxZEdCaKozPKzdGttl6Lgo4Uw6ALlzG0zFoVuJvn16Qxt8gz4rHcxFXcEEl6FteJ38XpvRu841qo4DUjeMKvRKgLUuMbjRRuShPS7WKXcj6NgHuh1ca0Dd4OMEBCtjRQRCruklvbn16TsXcWLuFFkEt9b4mPmZXEfzI2rlGapDJd7D8MyjGjv+2vTxmlRlyTU4kTdpfn67CJwufykwAk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4P195MB1456.EURP195.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(10070799003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y1FFaHBYNm55ZkZ1KzM2MUZyOHIwOGhBSGtyNjhRa1dZQThNeEJ5NnpicjRh?=
+ =?utf-8?B?b09MUzU0bUdFa2REdHlleHljMWZlL1RYS05LTFlJMFFic25SejBWc0VyUTFY?=
+ =?utf-8?B?dytlZW5IRjNrN1ZncVlITkR4d3hCOW84ZmlYQXRaQWw4N3BJNThGelROam84?=
+ =?utf-8?B?ZzFsM0hyRUtWMFlqZ1IwS1dZbU1uUm14c2hDTm9ERElUeXIrUVFLRUp4dWY1?=
+ =?utf-8?B?YTQ0aHhZUGZ1Q0I2WEl1UjNxWmtacnk3L1dxY3lnY2JjOTJURGVCeU1LQVBW?=
+ =?utf-8?B?TzNVeVpxZG5pUEFmMkl5WVlVS3QyR2NleTFoam5EVnNhL2FRNXgrNndJc3M1?=
+ =?utf-8?B?bnp4UklsbWJJLzlwc29lZmFJdVc4MTUvTlZGTFZMZmRZMm5NLzdoSUJIM212?=
+ =?utf-8?B?NzRlZEtuM2JjWlRoM3VoZGorMTZTRE5pMUxMZWRPY2RsdXA3d3dpMnd3NXl3?=
+ =?utf-8?B?SWtscUd1Qk1vM3N0bFBVMjhEanhaMS9Ia1hFY003VzNKd25yVkhBcDJzVVly?=
+ =?utf-8?B?dnM3ZE54dnR4QnlFUjM5V2JBRnoreWdTUGZkRFBpY01UTHdNREhGNEFkYnpM?=
+ =?utf-8?B?Nmd0RUdPYWloQXRsUGsrT1llUVpmKzdyOU1wMDh5NytsN1dOVjNyUjVSSGgw?=
+ =?utf-8?B?cW9qMnQ3YWlybU4rOWxySXN0MklJaHdnc01jV3E4WDc0VnBKNDJqcVB2dkgz?=
+ =?utf-8?B?UlltMGRpd2twWjRPd0dUQVhCaG9UbVhlR0x1UW9CUWIxSmIrTU1xSjRjbmha?=
+ =?utf-8?B?Mkt1L3QwZkJHTm0vM3MyMlFvVzhKUG42RTFoM2l2eEYvcXM5S1dYVmo4ell5?=
+ =?utf-8?B?RXQ4Z0phZ1JyYjEwWEtDYjZIdXNLb0UxZlh1OS8yRHljQ3IvMUs5d1N6Ylp0?=
+ =?utf-8?B?MDVoTlZJbjJSMVNXTG4rNFJXaGNSaXI0UEJDbnBBbDlpVDJFTms1SnZ1aHFS?=
+ =?utf-8?B?L2VhUldKaFBFRHFBS3lQSW5veER3aTEzWkxkMTZTa0p0TmZ1WXlTY29OWXV4?=
+ =?utf-8?B?QVlMbGo5NzQxWWZaOExRMDJnVXBJMjBuN256aENyK1FmYTNWRzVpZlJnaUNW?=
+ =?utf-8?B?UXMyVW5XenVLRTlsaUdNL2p5WHZlaW1OYVlFaGdFOU00c3BHTUhhWStTdUZo?=
+ =?utf-8?B?VzZzL2diWURWKzB3MmhjeEhzVTVBTm5kRkc2Tk11TWJWcStkZW1oRzdZNnoz?=
+ =?utf-8?B?L0EwZmloR1gvSm5IakYvSnp6VTV4YU9palp4TENWTTNlOWZabXlJSWkyMG9I?=
+ =?utf-8?B?MDQ0NkVTTDkvaklGaG8ySE5qa0czd3hzL29Ibld3bzJ6anBtODFIZ1BOK0xG?=
+ =?utf-8?B?R0xZUndLWU8wMklneEU2RXI3WDcxM2hkc3ZRd1FFQlpaRytpam9XZURmZ0Q1?=
+ =?utf-8?B?TDlzNDdRZEVLWDVwaUV4eUo4dy9IdmJJL2lIcDB4cFpwSEdsdTNHSFRVTW9V?=
+ =?utf-8?B?S2xPL0o2dUszMkFWc0J0cUNCL1AyQVhWRkprZTVaQUlNVnFxOGs1WExpaSsr?=
+ =?utf-8?B?WDVaMnRwM0QxSTdKOVV2dW5lWU11NnVjZHkwRzVRc3poN240cXlJRHpzdWRk?=
+ =?utf-8?B?NHYvWDhuTFRzd1NrcFFySVlmN3l1MDZsYzhML3F2RDlreWJkUm5tOER6SE5O?=
+ =?utf-8?B?WC92dzFOMWtCbmJhZlBXK2hLQlIzYkRYQk1QdkpKWVA4WExuclR3SlNHUENr?=
+ =?utf-8?B?T0trWU5HYmdpUXk2OC92dFJYcEVYTUNpaDVNN1dIZzlsaEJoTEpvUW11ejd1?=
+ =?utf-8?B?OUhidVBjTENPT2Rwd3JUa0YwbFhmUk9IUVJ3TkJNV3lIUnRjTm9tQ0xEMk5K?=
+ =?utf-8?B?WDBlTDA3bG1lbk9hOThEMWlBL245cVBNNTJIQm9ubGJFSDNnc3JFN3ZOeER5?=
+ =?utf-8?B?dS82Q2NSNHA3ZDdES09nUzh1d0FWeXpoYmFEQTFHc21FaVBneVlxWkQ2dnNF?=
+ =?utf-8?B?UHl3SUdEQ3FrUFZkNVhsdGJ0ZnFSeFZQcE5Ranc3V2l2QWFYTWNvWm1oelVw?=
+ =?utf-8?B?YUJSQ2dLSFR6Z00wOVpsQTNUaWxvdWxBZVhaVnlraTBKeGxBWHd6WFZESitN?=
+ =?utf-8?B?MnV2eU5RSzV1cG9YN1VVaTVTRllKVFVZUFhLYVF0VnNlK3UyM1BWM2JMelhU?=
+ =?utf-8?B?NFZSeW1SdS9vd2JRSXBoeU5WakNqWFl2VSs2QXJtQWxVUGR2elI0Z0MzeGwy?=
+ =?utf-8?B?N2hrdzVSQWNpTUVDck9GaFF3SEZxUHlLWmswcUl5UVJaK09XSFU4eUovQ2F5?=
+ =?utf-8?B?MWFXaGVKdzJWaHFTQ2FXL29USk1KR1hvMi9WQmh3UjJUZzN2YlFZeGlDdjZN?=
+ =?utf-8?B?MlhzUnRteUgwTjlBU3RKeFVzaHlkQndqV2ZPOHlya1FSZlZXRDR1NHk3MjVl?=
+ =?utf-8?Q?gAEk2w2Ud0V0SGV0V137wjo7clSKNiU+9YnaQtNcPurAp?=
+X-MS-Exchange-AntiSpam-MessageData-1: +Q8OYPlZOPhV/A==
+X-OriginatorOrg: phytec.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: b72e86f9-85f8-4078-483c-08ded5e3ae51
+X-MS-Exchange-CrossTenant-AuthSource: AS4P195MB1456.EURP195.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 13:38:19.3916
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9B8ZtaZ0bYKZuRVvufVRgJM0oEqJx5HgeeAUKSY0y09JD7sVpZYpFsuyflLeVw2uz4i53Lj/p99UA3VLUo42GA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWP195MB2350
 
-Hi Bartosz,
 
-On 6/29/26 12:28, Bartosz Golaszewski wrote:
-> +config PHY_QCOM_SGMII_ETH_SCMI
-> +	tristate "Qualcomm DWMAC SGMII SerDes/PHY driver (firmware managed)"
-> +	depends on OF && (ARCH_QCOM || COMPILE_TEST)
-> +	select GENERIC_PHY
-> +	select PM_GENERIC_DOMAINS
-> +	help
 
-I think PHY_QCOM_SGMII_ETH_SCMI is missing a dependency on PM. I get a
-build error currently:
+On 6/26/26 7:10 PM, Nathan Morrisson wrote:
+> Add support for the PHYTEC phyCORE-AM67x SoM [1] and the
+> corresponding phyBOARD-Rigel carrier board [2]. The phyCORE-AM67x SoM
+> uses the TI AM67x SoC and can come with different sizes and models of
+> DDR, eMMC, and SPI NOR Flash.
+> 
+> Supported features:
+>   * Audio playback and recording
+>   * CAN
+>   * Debug UART
+>   * eMMC
+>   * Ethernet
+>   * GPIO buttons
+>   * Heartbeat LED
+>   * I2C Current sensor
+>   * I2C EEPROM
+>   * I2C Light sensor
+>   * I2C RTC
+>   * Micro SD card
+>   * PCIe
+>   * SPI NOR flash
+>   * USB
+> 
+> [1] https://www.phytec.com/product/phycore-am67x/
+> [2] https://www.phytec.com/product/phyboard-am67x-development-kit/
+> 
+> Signed-off-by: Nathan Morrisson <nmorrisson@phytec.com>
 
-WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS
-  Depends on [n]: PM [=n]
-  Selected by [y]:
-  - PHY_QCOM_SGMII_ETH_SCMI [=y] && OF [=y] && (ARCH_QCOM ||
-COMPILE_TEST [=y])
-
-drivers/pmdomain/core.c: In function ‘genpd_queue_power_off_work’:
-drivers/pmdomain/core.c:936:20: error: ‘pm_wq’ undeclared (first use in
-this function)
-  936 |         queue_work(pm_wq, &genpd->power_off_work);
-      |                    ^~~~~
-drivers/pmdomain/core.c:936:20: note: each undeclared identifier is
-reported only once for each function it appears in
-drivers/pmdomain/core.c: In function ‘genpd_dev_pm_qos_notifier’:
-drivers/pmdomain/core.c:1133:39: error: ‘struct dev_pm_info’ has no
-member named ‘ignore_children’
- 1133 |                 if (!dev || dev->power.ignore_children)
-      |                                       ^
-  CC      mm/truncate.o
-
-- Julian Braha
+Reviewed-by: Wadim Egorov <w.egorov@phytec.de>
