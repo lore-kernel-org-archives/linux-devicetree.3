@@ -1,84 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034AC3403EE;
-	Mon, 29 Jun 2026 15:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE834219E1
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 15:58:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782748318; cv=none; b=LRuBgg/foPSQtAfwMGBOHtgYX32Q+ynqqy3tHcqXIPtz21p4//jbeTdbsQYOXogZ0YYhiDWUcCBrcSxWPaOeu4uXNigmBJayGS7T59nqU4qkHMpnnFeaUrcYunm7Mxrl4QLkyh31Q2LJujXpMonoCAFctGZkcuDN0P889WI+3vg=
+	t=1782748690; cv=none; b=cjwRvnA9j95gJiF7PhMjUBHBiTi+ibGVQnsU0qN/Csz6dJRXxjgmIW3EtJWIZrQgNamWPn2QWIbAm1LJABGfHn8QhYYjeu1yASn5ixcRVsi9w0Tv63ifl7dElKjkRynLIYYqpVG4lVcLDTzHbs7g8lqoX7Oxz0toqB74kJBuWXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782748318; c=relaxed/simple;
-	bh=NkSqXsCjFelI+fw0m730nbL+Y68+r9Ov6+K4pl4qoaA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=hCG/ihQELocbpvsmZDL68+jM+OO92yhdRbyi1RWvV2nJutTykI0SAIO3GHcegbbGGzKEGIWaJSsk6wtbCKXEVNvssuptrB3SVNboBpmU+yyPgrT8guVUqHo3SMjml4BSIMxqgaK2VqcaboDVclHF3LJHLLyyYejQIW8wtqz2stU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kPocfMEU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782748690; c=relaxed/simple;
+	bh=FKTz7rXC3TYNqt1upKOS5ukYPGh9Vp3yClY8vEtWRJU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZbK5gOzjfN3aszrrZe0raYNePbg00+2DBBR31iY0wUqmOv1J/0TmK0rVV0WkZqBVUEHTNOJ3DZvrs3XWsatfJ68rO3dlunBwbRh+26fXnEWAMOwChh0wP3fWd3ogWV4+LpoJpzeZ99wTCdL4ZzAbma5HnP46+gRXK02I8x2gI/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UwjwjcsG; arc=none smtp.client-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kPocfMEU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B6211F000E9;
-	Mon, 29 Jun 2026 15:51:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782748317;
-	bh=cMcHgc36aaJU0Nr7RRyNOjEsyz6bF5/W9plziuy9uws=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=kPocfMEUYuMNe84xZZDYWtfO4m0SOtx7s/Wp7ICcWWqoGN1zL9e+D+YdUSO/UDmwD
-	 PZzO4FMO2ScHMKS8p25Z65MJYD1ORoPTJD7nt4sGLBtxXRxW/bZQue9ECmf/HDI3iz
-	 lfnnY2V5SIv0HIb0q4NP/OPYwhG2OJai3WgC9k5JSZtsJZYVuwOU+amtlAI7xhLUBB
-	 vxwP+hpxCqI1M09qg/vVNt7mNjO3homFld20KjeBbaExljBFjfc2SC9Ssf5mysLUSn
-	 Uhb+TZZ53DLlorbdHpoUSUe0DvQCKRje6YvtsDnZKz2Kbsd64qr/57gWoTNUXnbMmO
-	 phfu3Yl2/CZwg==
-From: Chen-Yu Tsai <wens@kernel.org>
-To: linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- Alexander Sverdlin <alex@sverdlin.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Hans de Goede <hansg@kernel.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Andre Przywara <andre.przywara@arm.com>, Jun Yan <jerrysteve1101@gmail.com>, 
- Lukas Schmid <lukas.schmid@netcube.li>, 
- =?utf-8?q?J=2E_Neusch=C3=A4fer?= <j.ne@posteo.net>, 
- Eric Biggers <ebiggers@kernel.org>, Michal Simek <michal.simek@amd.com>, 
- Luca Weiss <luca@lucaweiss.eu>, Sven Peter <sven@kernel.org>, 
- Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-input@vger.kernel.org
-In-Reply-To: <20260623204824.691832-1-alexander.sverdlin@gmail.com>
-References: <20260623204824.691832-1-alexander.sverdlin@gmail.com>
-Subject: Re: (subset) [PATCH v5 0/6] Add support for Baijie Helper A133
- board
-Message-Id: <178274831392.2336627.18238595158174074345.b4-ty@kernel.org>
-Date: Mon, 29 Jun 2026 23:51:53 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UwjwjcsG"
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-137335bc3caso7138061c88.0
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:58:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782748688; x=1783353488; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NgF+6GMrNePcWbid/ZswI6mC5nsFo7xxmyhTSXIk+kQ=;
+        b=UwjwjcsGczXK2KhC/LRZROmM7hsBS27qWrxC0mMGThhEQR0U6mSIA3k+iXyMLLobFq
+         FFqMrw2SGofD4WuN495NzNVQFj2RISzdna/H7lvZnbG7AyQdvo7dZreQr0a5J2Zgtuqg
+         GyHJ/s+pfd3g5WRTbLTA4kWVx1i2NvsqO94nXb3NXEESrqXyzyye9TJPS+yaLdXtSNHD
+         yz6AKlttjBeHra9VTZDJnQCXBI4pRwaAWSexaHhCUVqed6Xxhy+GjKEy8xr0vBwkMq3l
+         LM7se+88xgrGulyxMfvWzPPtWIiZDMWNedxnf5AFXWO07kcdQjSFgtexykw34M1I2uZm
+         8Bhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782748688; x=1783353488;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=NgF+6GMrNePcWbid/ZswI6mC5nsFo7xxmyhTSXIk+kQ=;
+        b=iWOGJ4cWPEEhIc0xFNR1Gxu7g7pdVapI+12narax22z24CpIY+hg+I7ZkK2W0/skug
+         xQR93bgHx5isgq3B62Au2vJttV9fPlURFDMBcBVo0OqVX+8ip2paLntEodS7Aj2eRlHe
+         Sz7P6lmK4XoJpX6C1mO187kJnqaaQBa0E82ScIvZaw6VW2aC7IIjD5ms4ois+vu9L40M
+         uCFQ5OIPsQc51g41CsI/Ff/hS0p+PH7lYhEJdpo9afhxfE8sq4mW2xHNhpSyQchDUBSK
+         EWyeGrXPn2NUl+n730MhuuJpEO/T2pYZcCDawf2hK5j19eVlHNwpRu+gPYNsujNsJED+
+         LByA==
+X-Forwarded-Encrypted: i=1; AFNElJ+qFx3rTRzduKj1XT2iYtJU4+xmcFW/25VX73RKOlARBNJCs8FbrwQ+NS9yMRwG8FeUO5nBMIvqlQZc@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7wpK3SMDwZjVgwBmEtUupW3Jk5YLJb6E19m6EXMDwwBWnoFpS
+	yfUHM2uWNZDw8I52ZHtmFF/UVM6gNko3XTp53sT6oa4eRGGQnfLsbsJF
+X-Gm-Gg: AfdE7ckdEox/T0fvsIdzE5HDUzl92LJvlE81FijCNhRiGtZFKwn2mwYrhf7ax4u5tjf
+	wKWLQJYYyde4ayMG41zOZURuGkmpWx1lsI8M7vn4j31B7oAIOIflhZyCIRmuMMJ456Eyu9XLLQB
+	I1NrcR4jAGkd2zUUWSUGdu4FwTHXh2pEe1Quuu90wZo48EZVp60IY8BCS/YtCyipg402CSNwEjm
+	lXhekj6LR9YCgdy0vN5M51ZZtb1E9p4tExilE7N6RJhWjbk1UM/4RXmrSel0dbJAENg3TNmoT4r
+	tmc9GLDyMnvYbD2iKWshHWYruxG8UrB3oDh6iQ+EV+fzonC+gUjk247bJKS2xknVoUolVtfjXe6
+	T0N67OZMxGmMrVThhaMwocBT5oA/6W5xbgbVn4t1mak2TTXEZhJdFWFaZnJL1KXKGPurlAjPrAo
+	FTq5foz6IaEJRkbKxdpu7hhQin9g==
+X-Received: by 2002:a05:7022:6707:b0:139:7f71:9ce8 with SMTP id a92af1059eb24-13b2a099976mr65961c88.0.1782748688437;
+        Mon, 29 Jun 2026 08:58:08 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-139d912197bsm80459643c88.15.2026.06.29.08.58.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Jun 2026 08:58:07 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 29 Jun 2026 08:58:07 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Flaviu Nistor <flaviu.nistor@gmail.com>
+Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: chipcap2: Add label property
+Message-ID: <7d9466c3-1cca-4bfb-8c15-b67812c9bb12@roeck-us.net>
+References: <20260625160423.17882-1-flaviu.nistor@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260625160423.17882-1-flaviu.nistor@gmail.com>
 
-On Tue, 23 Jun 2026 22:48:12 +0200, Alexander Sverdlin wrote:
-> Baijie Helper A133 board is a development board around Baijie A133 Core
-> SBC. Features:
+On Thu, Jun 25, 2026 at 07:04:22PM +0300, Flaviu Nistor wrote:
+> Add support for an optional label property similar to other hwmon devices.
+> This allows, in case of boards with multiple CHIPCAP2 sensors, to assign
+> distinct names to each instance.
 > 
-> - 1/2/4GiB LPDDR4 DRAM
-> - 8/16/32GiB eMMC
-> - AXP707 PMIC
-> - USB-C OTG port in peripheral mode (via onboard hub)
-> - 2 USB 2.0 ports
-> - MicroSD slot and on-board eMMC module
-> - Gigabit Ethernet
-> - Bluetooth
-> - WiFi
-> 
-> [...]
+> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Applied to sunxi/config-for-7.3 in local tree, thanks!
+Applied.
 
-[1/6] arm64: defconfig: Enable Allwinner LRADC input driver
-      commit: b4158103c45386ab30ba7624bee17ebf33940baa
-
-Best regards,
--- 
-Chen-Yu Tsai <wens@kernel.org>
-
+Thanks,
+Guenter
