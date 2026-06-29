@@ -1,351 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9BE3C8C72;
-	Mon, 29 Jun 2026 07:21:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782717702; cv=none; b=RUhQt3B1DvF+0k1d/aFyAVEdDSgHIRedDmnxTx05VEkh0gN9HHSngJLXfP7F4EG7aUsXdyZbIDc3/xIJRSy4i09YatI1nwDALThKxHvHjBcAcc0K48AGXX3gzhBP8YMrmJtVJkcxZse4Zkrkxp0WB3eRwKeh9SsXF/safa0kQf0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782717702; c=relaxed/simple;
-	bh=pYOxRjR3efAewFrrG/jNz9lLg8zP6RTv+PjCyJqZDUU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=T314UO9CImxgA1IThRDLzoXYSighNDD9PTTGAuNETsF9KrjonDth2stcrS7o6P8U0poz7akqzf0C9Cy0FiewNJVvkfnG1w1ej0LXoHagI1pfd1sxwqz8ZtKJbCCsQ7nObKBg24Gt6CRlX8yYLQ+FL8hsxXqpq2uOfsEYMxNUfro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC5C31F000E9;
-	Mon, 29 Jun 2026 07:21:38 +0000 (UTC)
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v26 5/7] firmware: drivers: imx: adds miscdev
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <20260629-imx-se-if-v26-5-146446285744@nxp.com>
-References: <20260629-imx-se-if-v26-0-146446285744@nxp.com>
- <20260629-imx-se-if-v26-5-146446285744@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 07:21:34 +0000
-Message-Id: <20260629072138.EC5C31F000E9@smtp.kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9443C9456;
+	Mon, 29 Jun 2026 07:22:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782717765; cv=fail; b=hR0vp9lbK0ZVmXUYFuUKlHbQBgoouTWvhh7ePLXTboyI32uM0L9bg0nuA1AZV0q5CGWQHpQSSlV67WVSoNtRIDVEOmfoDoyUsGI9tGOZ0RUQt7cHyCnzBrST6Q5++/zHIGVvljn/VPMxtDAVfQemmOPtzb0nT4SOgKCaPuboMIc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782717765; c=relaxed/simple;
+	bh=hkxVUuXnd8F3MlVQifmDWw/gyIr3/PRj/HRU8DGvXjQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PBL46YGIEffJBLGgcSbRFg/lFnR1cfGLOE5YEBB2HVskHLkURIHIatkNnV+N4ND2KAmuAzyllXHD0MukVuSqLlqcipxF3fDKHMDg9Q9b8T9KzUwC6V8BMCCFFVX9D/itr2NDva+aVFS5GvxAsv5+XOQXxDVpAqObkW6ASvjdrjU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=ipFIAgR0; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=FvJ5Phop; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="ipFIAgR0";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="FvJ5Phop"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65T6lD901397314;
+	Mon, 29 Jun 2026 02:22:25 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=cZy3MvmKfdCC1
+	pNSwtsr4GhpDUZbWDyevQxZfe5fsv4=; b=ipFIAgR0B1zFpeWBeSS0ROlaxLeJ5
+	HPE9pmcJNnA30FS4sMF3v+28ZQLwQIpGnPnEq7SQoJ1EgKNTzcp5U6i+2F80+swx
+	OTKujnDbkkY5uz1O1aSpiI/QWHpeqprf4zS9cQELl7Ly/6wMAMqj7Ao6/9on4R2g
+	GY+qRa/e6TGyoK0Z2XjjnyIjgZm0b3YCiIFhwmlQNxwmWp7eV3NLhj5VWN9lhvTP
+	qRUEUZDZX4n6kPmb5fEGXMqMoBKKVigHWjnhcutbEi37WEPQzeGxrSUFuJkrbZ8Z
+	KHlxHvkfnjc1kkWJifdVWXBYEqOGPuo9Ycx9WTmDFbwB4eDKhop2qK++w==
+Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010014.outbound.protection.outlook.com [52.101.46.14])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4f2wnpdwgk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 29 Jun 2026 02:22:25 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D9+TwaKtaw4NTIwvGEJkZZbS1TICs03JtotLM6njE+YMEEanNbX9aYgBM6yRgoE1w6vCLWJlvNz09SVkVdzeD1MNPi0ipg8BdZnWxX607ZExk8PaXv27zTiqqeLC2qFMBx8iWcAmUc1opubN87AJoivrLiTYaZ8d0S7Yhqok2vCM7/3OHRM+iwnQhDh+bCyCJzN5sOyKxR2s/BQ/7gNcVC6YBDD6eSAnl/WBgmhtd4xPBpjh7nML3FDaPXHGzXlPGv7Na7f4nYOWzbYu9I2VBO55mlKVsziOOk09p5S05k//xMq5U/ngOt0e/h9kgdVPZbpwRt090YtsvduPO5oPWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cZy3MvmKfdCC1pNSwtsr4GhpDUZbWDyevQxZfe5fsv4=;
+ b=mv+P6SsRZ0h5anVXyhdo3KKoAjQDHsFe/H8Wm4Ys95NqyQQMe/KNCkJEpwB8FonjzR1KqJYeFPOQ2nyffPQvxajihp6/9WZ45u4YPW6m7dxMXQ6RajFz9QqBzb7qmeVyFfmc1aTzpJRwTYaWoODMs4+H2XGTE9u3i092TXnahSCaP2aQuraBdy0kqWXE5Rn7BezSCelt/TgHxC3pTVhsfQNGFk/+wCA5QHkg33fTFR2mX0UFZBl4+Hw0moXFofASMO5AvcpxMCraOtqx6YuDWIzfdYwBoumgFQOQHj8I+UO8OZfG5dGYRFBLHJyS3ZThusPncMU5/bRluYNU0BmtPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cZy3MvmKfdCC1pNSwtsr4GhpDUZbWDyevQxZfe5fsv4=;
+ b=FvJ5Phop9TE11alKPwNL+4U/T0+5DRxP6W8iC1+AmVtg62lkRwtIZM6qIucqrJm8VhUbbdRS+DdHOKsCob/3vcwmMz8iyOVhFykaH/2UbsIHBnA8UhH859W7gpIaGf66iI5yDBBK/w7BjGcZZfnMMIpZpSTMQQ1/UN0TVW7eFfc=
+Received: from SJ2P220CA0004.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5da::11)
+ by DS7PR10MB5215.namprd10.prod.outlook.com (2603:10b6:5:3a3::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 07:22:21 +0000
+Received: from SJ1PEPF000023CD.namprd02.prod.outlook.com
+ (2603:10b6:a03:5da:cafe::75) by SJ2P220CA0004.outlook.office365.com
+ (2603:10b6:a03:5da::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
+ 29 Jun 2026 07:22:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ SJ1PEPF000023CD.mail.protection.outlook.com (10.167.244.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Mon, 29 Jun 2026 07:22:21 +0000
+Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 29 Jun
+ 2026 02:22:20 -0500
+Received: from DLEE206.ent.ti.com (157.170.170.90) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 29 Jun
+ 2026 02:22:20 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE206.ent.ti.com
+ (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Mon, 29 Jun 2026 02:22:20 -0500
+Received: from santhoshkumark.dhcp.ti.com (santhoshkumark.dhcp.ti.com [10.24.52.55])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 65T7MHWO3509277;
+	Mon, 29 Jun 2026 02:22:18 -0500
+From: Santhosh Kumar K <s-k6@ti.com>
+To: <krzk@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>, <s-k6@ti.com>
+CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: [PATCH v2 0/2] Fix OSPI DMA corruption via FSS_FSAS driver
+Date: Mon, 29 Jun 2026 12:50:53 +0530
+Message-ID: <20260629072055.896322-1-s-k6@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CD:EE_|DS7PR10MB5215:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86885f30-c1f2-498d-d44d-08ded5af28dc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|13003099007|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	sC/waRuuGfNVQ9hgQnBT+JWS029IAxManH7L9N5FtqGqXnDi41K6QXhZ2SJCk2FyHB3QsvM+754M5zBrzCLipJh6oPFRNrERrzLzC1y/ZbjKPfmGoKM8ZtIFT2CGEMwtmuw5czq1mfM+h2kYTIM2WpcgchuNgtinIjIvPDX3TSRXABlV2gfl6dTjLUf3VaRQZwnqwlCW2YeHhegTdrYmNCHm95CULethgl4FECOSur6L4fj2orpvkdeJRZ9tKUC10WvI5G18wWp+yLwlGebwM/sKkz8yNv9zVL2z//e7oLqVnnBurH+k6o1ltPImS7YygVJNBlb5/JFFSfzY+E26lT0t5n1XuioPKbTTX9t0jrLOnEEDzo9sSNtD6B/uluDl+4ltO93RTtSVSPDSJ7qqPz7LuKtWcpZcnjnZ+S/sFWA62AdvcbTnNiWWCQ39Zjwbtlr8pP0nyWiZaKPLX+OFipmWL1DM+TnEkIek2f5eRQYjwqDlN80CH3hWcoLa25CLVuVkd+0HxbyAkBvO6V1js4G/Oh13BUzCYiR+eaxDOOtrhjOWbiSGlTD23woNpw9K8rIVFkqanRqZp614X18Rg0GnJV1UamTKgMVGGpVlbmSquFY8Jd6tXI/YP51dYqYlV3mPLw9dwO0Ua0Wobd0aE5//lqxqkTlh8HTnHI5dhFdly9SCWgfOOaLNgoTaNizLxtXJm7MG7d6kL8wmfX+5Cg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(13003099007)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Se1YwA5ltVtYg5n1e4IEkT/kPzpQ5p/QhThV6HnNi6Vz6RmtV9Y67cnF8ADb91pEkx6HCpXUE9qKEgSxn1uWxUPqEIyUSjzi8H7C/LGWVuJ6BuROOfcxIjNuedRr+RVoq4pmmHue1OE3YZ5n3/CEIw0jxOBhZJlpYgA84W7xg8OK3VNLrQqkUTrYhj6jchlaqajvTC6LBjcQpMpjREbm0CVuz/i0SjdwSIuUNP67VcCV/cWULAU1GCnucR+Uq5IJXdmH0PFWl8D/b7X+PM+EXqC85BVJKCdx/9Y0aT3q9bvaeqswIrHgcbjTS0QpZwb+UoTCPBnZ5f+ki8HctpWRBRfUrv4pK/eniHOPh9k33ifMDpmsR0p5ab9dgscs+oxFZIroLnzl1dBk5k8iGwfaSeyZ0XCIMA6DeNNojm32IiZ1KMmciwG2Ami+pYCrFwfV
+X-Exchange-RoutingPolicyChecked:
+	DVJTG3JrdI5E3eJt+xDYiIfAqtiR1XKWWxJOvzMBXybGiOvlD7otQkAG6DHoNCFh4N0AUHQnZcbd6g3bAQq75pmDRCDEytaxnoJPQIuSrcitZVxfnzQ0xzTPr/Y+vbY7YGX8eBIZHK3u8qAsUxMYi+P2HYWiy+oD0IyR5KyRi+9relmUhrFSR9jziMATkVMsWb+Z5tIM1ofCf35nwRYGCsWiH9V6xVXi7qSI/S+smNXZRpW572SufaIoCF1fZLTCCOsfrUkBsAc4O/MtefRdzzJmD0P38F0USCXFp0X9JNItp1aaiHaG1VgrkvOHi2gc/WsXEBPcLebxjNzuEFgpdQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 07:22:21.3681
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86885f30-c1f2-498d-d44d-08ded5af28dc
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023CD.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB5215
+X-Authority-Analysis: v=2.4 cv=QdxWeMbv c=1 sm=1 tr=0 ts=6a421d31 cx=c_pps
+ a=f5Tl6ILaYY6UHEJdjUIuFA==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=FelO9ux0wxsA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
+ a=TiSfEeLu68DA89B8gvwA:9
+X-Proofpoint-ORIG-GUID: I7Is1K6xmapstMELvmbKNB1ikYmeUjrA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDA2MCBTYWx0ZWRfX74kOB7QsKH94
+ pa+0Hxf2FpdR1s+1R2b2RxqCJykeDqq60IsLjg3mQ44VMuRq94DvAsdUP9xxAFFbRw/cZPQgLf/
+ 9GRrQUPx3MLQ0sHlD7guWFgcUZTnuD8mX3HEGaBL7X7hrZ9Y6b8ToUOOCV/lMAM6iQGZwkuQO7S
+ Qxk5UW3ltNgEXH0e5vN3041K412QOUH3FbNUgm3P+dv2nMiwsS6y+6u+1x3m3SoCVniN6I2wskh
+ sRlDj1NcV4N4y5RPYKmnvknnsz/IUctDaeUFB0OgG7UaqZv9/RDC0i6PlaSTe9KNb9FwM+nMTMV
+ /+P4ypbzGErM7pto/r5ZDivFy0WAPSvN0Z1bIS2IrRA1jGuqmwTbOUH6RYtYYaNdIJoZQwGSz5b
+ ysR4o3Zxf9rTwKeIpsLJFikDWFNQzJEwLey9JSiCy0KOgEFFdILMU4ZaW6de2ODXh4mp5g7YuVf
+ 9e+KClE4p4iK9Popw1w==
+X-Proofpoint-GUID: I7Is1K6xmapstMELvmbKNB1ikYmeUjrA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDA2MCBTYWx0ZWRfXyyHoD0PuXov6
+ vCvTjhFW/MO+9nt3149I4CwxVdtS0ScOBteTkSJ4YWWk/5oym/KFfL1x+3et9E00nM0i5Kv4tIn
+ Ga0s5vyyO1JUUmJObttjsGCWUZ73vdk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-29_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 spamscore=0 suspectscore=0 bulkscore=0
+ phishscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606290060
 
-Thank you for your contribution! Sashiko AI review found 13 potential issue=
-(s) to consider:
+On TI K3 SoCs, DMA transfers from OSPI produce corrupted data when the
+source address is only 4-byte aligned (not 4K-aligned). The root cause
+is XIP read prefetch in the FSS_FSAS_GENREGS wrapper (SYSCONFIG.DISXIP,
+bit 7), which is enabled by default.
 
-New issues:
-- [Critical] The allocated DMA address for the encrypted `imem` buffer is d=
-iscarded, causing firmware to corrupt physical address 0x0.
-- [High] Command receiver device contexts bypass the response timeout, caus=
-ing indefinite hangs on firmware communication.
-- [High] `dlink_dev_ctx()` frees the command receiver's `rx_msg` without ho=
-lding the required synchronization lock.
-- [High] Missing `kref_init()` in `init_device_context()` causes the file c=
-ontext to be permanently leaked upon close.
-- [High] Unbinding the device or removing the module hangs indefinitely if =
-a userspace thread is blocked in `read()`.
-- [High] DMA memory is freed when a file descriptor is closed, even if the =
-firmware is still actively processing a timed-out transaction using that me=
-mory.
-- [High] Concurrent ioctls can cause multiple firmware authentications due =
-to an unprotected state variable.
-- [High] Kernel pointer leakage to userspace due to struct type confusion i=
-n `get_se_soc_id()`.
-- [High] Early return upon mailbox send failure leaves a dangling pointer i=
-n the shared response waiter state, leading to a Use-After-Free in the RX i=
-nterrupt handler.
-- [High] Invalid use of `dma_to_phys()` on a DMA address returned by `dma_a=
-lloc_coherent()`.
-- [Medium] UAPI ioctl structures use variable-sized types and pointers, bre=
-aking 32-bit userspace compatibility.
-- [Medium] Unbounded user-provided size is passed to memdup_user(), allowin=
-g potential kernel warnings and memory exhaustion.
+This series adds a dedicated FSS_FSAS platform driver that disables XIP
+prefetch at probe, plus the respective DT binding.
 
-Pre-existing issues:
-- [High] Misdirected signal handling in `ele_msg_rcv()` corrupts another th=
-read's state and traps daemon read threads in an uninterruptible wait.
---
+Testing:
+This series was tested on TI's
+AM62Ax SK with OSPI NAND flash and
+AM62Px SK with OSPI NOR flash:
 
-commit 17a7df5c75595fcf60d2885ef3d90c709156c8d3
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
-Subject: firmware: drivers: imx: adds miscdev
+Test log: https://gist.github.com/santhosh21/3ac2a0273065e86315a9b442327c9599
+Repo: https://github.com/santhosh21/linux/commits/fsas
 
-This commit adds a miscdev character driver for communicating with NXP
-secure enclaves (like EdgeLock). It provides ioctls for shared memory
-management, command exchange from userspace, and firmware loading lifecycle
-management.
+Changes in v2:
+ - Fix $id in dt-binding
+ - Use pm_ptr() instead of pm_sleep_ptr()
+ - Link to v1: https://lore.kernel.org/linux-devicetree/20260629065517.868418-1-s-k6@ti.com/
 
-> diff --git a/include/uapi/linux/se_ioctl.h b/include/uapi/linux/se_ioctl.h
-> --- /dev/null
-> +++ b/include/uapi/linux/se_ioctl.h
-> @@ -0,0 +1,97 @@
-[ ... ]
-> +struct se_ioctl_setup_iobuf {
-> +	void __user *user_buf;
-> +	__u32 length;
-> +	__u32 flags;
-> +	__u64 ele_addr;
-> +};
+Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
 
-[Severity: Medium]
-Does this struct break 32-bit userspace compatibility on 64-bit kernels?
+Santhosh Kumar K (2):
+  dt-bindings: memory: Add TI FSS_FSAS binding
+  memory: ti-k3-fsas: Add TI FSS_FSAS driver
 
-Using pointer types like void __user * changes the struct size between
-architectures. Since the ioctl uses _IOWR which encodes the size, a 32-bit
-process will have a mismatched size.
+ .../memory-controllers/ti,am62a-fsas.yaml     | 39 ++++++++++
+ drivers/memory/Kconfig                        | 10 +++
+ drivers/memory/Makefile                       |  1 +
+ drivers/memory/ti-k3-fsas.c                   | 74 +++++++++++++++++++
+ 4 files changed, 124 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/memory-controllers/ti,am62a-fsas.yaml
+ create mode 100644 drivers/memory/ti-k3-fsas.c
 
-> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
-_common.c
-> --- a/drivers/firmware/imx/ele_common.c
-> +++ b/drivers/firmware/imx/ele_common.c
-[ ... ]
-> +	if (dev_ctx->priv->cmd_receiver_clbk_hdl.dev_ctx !=3D dev_ctx) {
-> +		is_rsp_wait_with_timeout =3D true;
-> +		timeout_jiffies =3D msecs_to_jiffies(dev_ctx->priv->se_rcv_msg_timeout=
-_ms);
-> +		deadline_jiffies =3D jiffies + timeout_jiffies;
-> +	}
->  	do {
-> +		if (is_rsp_wait_with_timeout) {
+-- 
+2.34.1
 
-[Severity: High]
-Does this logic correctly identify the wait context?
-
-It disables the timeout based on the file descriptor's identity as a command
-receiver rather than the type of wait being performed. If the daemon issues
-a synchronous command via SE_IOCTL_CMD_SEND_RCV_RSP, it will use
-MAX_SCHEDULE_TIMEOUT and could hang indefinitely if the firmware drops a
-response.
-
-[ ... ]
-> +		if (ret =3D=3D -ERESTARTSYS) {
-[ ... ]
-> +			if (dev_ctx->priv->waiting_rsp_clbk_hdl.dev_ctx) {
-> +				dev_ctx->priv->waiting_rsp_clbk_hdl.signal_rcvd =3D true;
-> +				wait_uninterruptible =3D true;
-> +				continue;
-> +			}
-
-[Severity: High]
-This is a pre-existing issue, but does this signal handling code modify the
-wrong thread's state?
-
-When the daemon receives a signal, the hardcoded check against
-priv->waiting_rsp_clbk_hdl could corrupt another concurrently waiting
-thread's state. Would this force the daemon read thread into an infinite
-wait_uninterruptible loop?
-
-> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
-l.c
-> --- a/drivers/firmware/imx/se_ctrl.c
-> +++ b/drivers/firmware/imx/se_ctrl.c
-[ ... ]
-> +static u32 get_se_soc_id(struct se_if_priv *priv)
-> +{
-> +	const struct se_soc_info *se_info =3D device_get_match_data(priv->dev);
-> +
-> +	return se_info->soc_id;
-> +}
-
-[Severity: High]
-Does this cause a struct type confusion that leaks kernel pointers to
-userspace?
-
-device_get_match_data() returns a pointer to struct se_if_node *, but this
-code mistakenly casts it to struct se_soc_info *. Reading se_info->soc_id
-will extract bits from the first member of struct se_if_node, which is a
-kernel pointer.
-
-These bits are then exposed to userspace by the SE_IOCTL_GET_SOC_INFO ioctl.
-
-[ ... ]
-> +static int load_firmware(struct se_if_priv *priv, const u8 *se_img_file_=
-to_load)
-> +{
-[ ... ]
-> +	se_fw_buf =3D dma_alloc_coherent(priv->dev, fw->size, &se_fw_dma_addr, =
-GFP_KERNEL);
-[ ... ]
-> +	se_fw_phyaddr =3D dma_to_phys(priv->dev, se_fw_dma_addr);
-> +	ret =3D ele_fw_authenticate(priv, se_fw_phyaddr, se_fw_phyaddr);
-
-[Severity: High]
-Is it safe to use dma_to_phys() on an address returned by
-dma_alloc_coherent()?
-
-dma_alloc_coherent() returns a DMA address (IOVA on systems with an IOMMU),
-and dma_to_phys() cannot reverse an IOMMU mapping. This will result in a
-garbage physical address being passed to the firmware for authentication.
-
-[ ... ]
-> +static int se_load_firmware(struct se_if_priv *priv)
-> +{
-> +	struct se_fw_load_info *load_fw =3D get_load_fw_instance(priv);
-> +	int ret =3D 0;
-> +
-> +	if (!load_fw->is_fw_tobe_loaded)
-> +		return 0;
-
-[Severity: High]
-Is the load_fw->is_fw_tobe_loaded initialization state safe from race
-conditions?
-
-It is checked and modified here without global locking. Could concurrent
-ioctls on different file descriptors bypass the boolean check
-simultaneously, leading to duplicate memory allocations and multiple
-conflicting firmware authentication commands?
-
-[ ... ]
-> +static void cleanup_se_shared_mem(struct se_if_device_ctx *dev_ctx)
-> +{
-[ ... ]
-> +	/* Free non-secure shared buffer. */
-> +	dma_free_coherent(priv->dev, MAX_DATA_SIZE_PER_USER,
-> +			  se_shared_mem_mgmt->non_secure_mem.ptr,
-> +			  se_shared_mem_mgmt->non_secure_mem.dma_addr);
-
-[Severity: High]
-If a synchronous command sent via SE_IOCTL_CMD_SEND_RCV_RSP times out, the
-background firmware operation is not canceled.
-
-When userspace closes the file descriptor, these coherent DMA buffers are
-freed. Will the firmware eventually write its response to the freed address,
-causing kernel memory corruption?
-
-[ ... ]
-> +static void dlink_dev_ctx(struct se_if_device_ctx *dev_ctx)
-> +{
-[ ... ]
-> +	if (priv->cmd_receiver_clbk_hdl.dev_ctx =3D=3D dev_ctx) {
-> +		kfree(priv->cmd_receiver_clbk_hdl.rx_msg);
-> +		priv->cmd_receiver_clbk_hdl.rx_msg =3D NULL;
-> +		priv->cmd_receiver_clbk_hdl.dev_ctx =3D NULL;
-> +	}
-
-[Severity: High]
-Can this result in a use-after-free and data race?
-
-This frees the command receiver's rx_msg without acquiring the clbk_rx_lock.
-Concurrently, the mailbox interrupt handler se_if_rx_callback() could
-acquire the lock, observe a non-null pointer, and copy incoming firmware
-data into the freed memory.
-
-[ ... ]
-> +static void cleanup_dev_ctx(struct se_if_device_ctx *dev_ctx, bool is_fc=
-lose)
-> +{
-> +	scoped_guard(mutex, &dev_ctx->fops_lock) {
-
-[Severity: High]
-Can this cause a deadlock during device unbind or module removal?
-
-If a userspace daemon is blocked indefinitely in read() holding the
-dev_ctx->fops_lock, the teardown path unconditionally attempts to acquire t=
-he
-same fops_lock here and will hang indefinitely.
-
-[ ... ]
-> +static int init_device_context(struct se_if_priv *priv, int ch_id,
-> +			       struct se_if_device_ctx **new_dev_ctx)
-> +{
-> +	struct se_if_device_ctx *dev_ctx;
-> +	int ret =3D 0;
-> +
-> +	dev_ctx =3D kzalloc_obj(*dev_ctx, GFP_KERNEL);
-[ ... ]
-> +	mutex_init(&dev_ctx->fops_lock);
-> +	dev_ctx->priv =3D priv;
-> +	dev_ctx->cleanup_done =3D false;
-> +	INIT_LIST_HEAD(&dev_ctx->link);
-> +	*new_dev_ctx =3D dev_ctx;
-
-[Severity: High]
-Should this allocation include a call to kref_init(&dev_ctx->refcount)?
-
-Without initialization, the refcount remains at 0. When close() is called,
-kref_put() will fail, bypassing the se_if_dev_ctx_release callback and
-permanently leaking the file context.
-
-[ ... ]
-> +static int se_ioctl_cmd_snd_rcv_rsp_handler(struct se_if_device_ctx *dev=
-_ctx,
-> +					    void __user *uarg)
-> +{
-[ ... ]
-> +	struct se_api_msg *tx_msg __free(kfree) =3D
-> +		memdup_user(cmd_snd_rcv_rsp_info.tx_buf,
-> +			    cmd_snd_rcv_rsp_info.tx_buf_sz);
-
-[Severity: Medium]
-Is the tx_buf_sz parameter validated against an upper bound before calling
-memdup_user()?
-
-If a user process passes an extremely large value, could this lead to a
-local denial of service via memory exhaustion or warning spam?
-
-[ ... ]
-> +	err =3D ele_msg_send_rcv(dev_ctx, tx_msg, cmd_snd_rcv_rsp_info.tx_buf_s=
-z,
-> +			       rx_msg, cmd_snd_rcv_rsp_info.rx_buf_sz);
-
-[Severity: High]
-If ele_msg_send() fails internally within ele_msg_send_rcv(), does it leave
-a dangling pointer?
-
-If ele_msg_send_rcv() returns early on error, it does not reset the shared
-priv->waiting_rsp_clbk_hdl.rx_msg pointer to NULL. The caller then frees the
-buffer, and a late firmware response handled by se_if_rx_callback() will
-trigger a use-after-free when copying into the freed memory.
-
-[ ... ]
-> +static ssize_t se_if_fops_write(struct file *fp, const char __user *buf,
-> +				size_t size, loff_t *ppos)
-> +{
-[ ... ]
-> +		struct se_api_msg *tx_msg __free(kfree) =3D memdup_user(buf, size);
-
-[Severity: Medium]
-Is the size parameter validated against an upper bound before calling
-memdup_user() here?
-
-[ ... ]
-> +static const struct file_operations se_if_fops =3D {
-> +	.open		=3D se_if_fops_open,
-> +	.owner		=3D THIS_MODULE,
-> +	.release	=3D se_if_fops_close,
-> +	.unlocked_ioctl =3D se_ioctl,
-> +	.read		=3D se_if_fops_read,
-> +	.write		=3D se_if_fops_write,
-> +};
-
-[Severity: Medium]
-Is a .compat_ioctl handler missing here?
-
-Because the ioctl structures use pointer types, a translation handler is
-required to support 32-bit userspace binaries.
-
-[ ... ]
-> +static int se_if_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +		if (load_fw->se_fw_img_nm->prim_fw_nm_in_rfs) {
-> +			/* allocate buffer where SE store encrypted IMEM */
-> +			imem_dma_addr =3D phys_to_dma(priv->dev, load_fw->imem.phyaddr);
-> +			load_fw->imem.buf =3D dmam_alloc_coherent(priv->dev, ELE_IMEM_SIZE,
-> +								&imem_dma_addr, GFP_KERNEL);
-
-[Severity: Critical]
-Does this discard the DMA address allocated by dmam_alloc_coherent()?
-
-The function returns the IOVA in the local stack variable imem_dma_addr, but
-this address is never saved back to load_fw->imem.phyaddr, leaving it at 0.
-
-The firmware might then be instructed to use physical address 0, destroying
-data at page 0. This will also cause the cleanup path to pass 0 to
-dmam_free_coherent().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-imx-se-if-=
-v26-0-146446285744@nxp.com?part=3D5
