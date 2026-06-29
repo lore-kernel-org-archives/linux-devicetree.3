@@ -1,131 +1,169 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011071.outbound.protection.outlook.com [40.107.130.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD8243CEC0;
-	Mon, 29 Jun 2026 15:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782747719; cv=none; b=gZs1eNyASKH5HWa7vpch41+Vc2lG7ACed4y7LeWMuouBOBDy9iGY1qMivVCuknN6VqrGictQDcWrUii4PtUB/UVlOOQciNeNA85EX+X7imSd03ly0adn6Ei7PyAEz4IfEUZgBXUG1EgR21gxp93amG+jsPtRhNNQXgHY1wfCHjw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782747719; c=relaxed/simple;
-	bh=K+puyxZopR4gkSTJL3cffNbTGqH96CJtVCWWwQzRITA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Br+POIgRQTThbSNtVDRhyXBbnYB7VTCxeLBraN4GA0vpWRcF86NtuRDrsmGjAZeKBHtcWp69FxhRmtT9o/uRanrQYdghjYy+fAzSYfV24gqgRmNrKKHIkWTh4Dhmrf34xk161b5/uVmxjOxqT5eXXTH0T0xEcf10oE0fwojmztw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=e8JSMcoc; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A1A4266BF;
+	Mon, 29 Jun 2026 15:43:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782747802; cv=fail; b=bu/L8cBW3e87mJxZlyfMwyHbBWQbod8vqZzNezbh4IaW/ruUsCcKsQDn70S28WYg30Xv5R8vsKWAqvowwRQQCtQIAUYdJ7kktdxebzQA0TSp+w3lgsaiAgkXoV5vKklEJvx7j4bsPiClNHApBb7ek99ZOwelJHU+cJv9ViKIFpA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782747802; c=relaxed/simple;
+	bh=4TKb8DXeBND7OLKvnWbVNLIPnGCLaGAbDq4tM2LS09o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ar67jBhuByBlScqFvG2rA/fr/qHXHWSpexswCiaSLrdWRQTRFba5VIX0xn4YtIEk5tvbyoMseD7+IxfgUJ9ExiIySdQyOSOk8OwaJeG/wueRm50XppPnFZTJDRWLd7Y3DvDHQO7Zw5rNekLc/Sg84HggvR0kqAA9F2RbOjgKd84=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=S/zykTuh; arc=fail smtp.client-ip=40.107.130.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="e8JSMcoc"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 75F004E40B60;
-	Mon, 29 Jun 2026 15:41:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2C4EE5FF96;
-	Mon, 29 Jun 2026 15:41:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C710F106F18F2;
-	Mon, 29 Jun 2026 17:41:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1782747714; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=8J9faHVVv2ntVQAaALWU4TngzNzL0U5Yipge3+xPG7s=;
-	b=e8JSMcocsEMdwZIn+IiOh7qSvNcGXscTgT6coAUO5+OOVMv+TIftj7LPjGYJw47OR2hur7
-	PMvM/INXhv+nzLgO2uPX+Tp0QRt+0qSCY6IKC1/+ijMQyS3aCLG+DxRk/MJwBWirZiLKna
-	f8ba9MbnmL0hEvTNPAHVHPr96b3i16a5oZ+ye6dA/wAK80JbdtcYbeRBVP/UJMWquxMk17
-	xdpMkk+ESs51mYYjL71XW5OM4hjSrh8r9LmVXDchkgAuDqibWWVh65vz2PFVCNN3EKg/wH
-	JOuqneLoMhx4IbDuOiqybLDaFUJu4qzmaAOSoO4O/7Kq4Y+Y+oBl0XfXoYK9NQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Santhosh Kumar K <s-k6@ti.com>,  broonie@kernel.org,  robh@kernel.org,
-  krzk+dt@kernel.org,  conor+dt@kernel.org,  richard@nod.at,
-  vigneshr@ti.com,  pratyush@kernel.org,  mwalle@kernel.org,
-  takahiro.kuwano@infineon.com,  linux-spi@vger.kernel.org,
-  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  linux-mtd@lists.infradead.org,  praneeth@ti.com,  u-kumar1@ti.com,
-  a-dutta@ti.com
-Subject: Re: [PATCH v4 01/16] spi: dt-bindings: add
- spi-max-post-config-frequency property
-In-Reply-To: <20260622-private-curly-fennec-7e1ad0@quoll> (Krzysztof
-	Kozlowski's message of "Mon, 22 Jun 2026 11:14:32 +0200")
-References: <20260618073725.84733-1-s-k6@ti.com>
-	<20260618073725.84733-2-s-k6@ti.com>
-	<20260622-private-curly-fennec-7e1ad0@quoll>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Mon, 29 Jun 2026 17:41:50 +0200
-Message-ID: <87bjcts69t.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="S/zykTuh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YhyQvjyNAMmrR1gYVz+E/eT6D4RJ0rA1uAANVvCuOuYYLBSc0zOqACpg0JKV8+CCFCqVeR+x2nNh9tL81A6TEMCfxksEM1VdFSZH03VOQjXDHg/g0QyMxGnt8Df/i7YXh9N0IRO4TP3uK6Pc2XaQWgjuT8L8Pu8Ph3B0RfH4qIwFOfUn6XPJAnqehRmk2H738TaUlzfzBa9tQM18FHL2lg6Rr38DB5uKrJoBlKgkFy3BRNLl8B+Je+81nBXFgb7zXkYC9OuhHFbJGsK3PRP9ekKtIHT1ZdHaic09J8c+urP5rKr4rmc4eMfuSgWa9Khxb2LLQrV+h7BaqnBrO+69mA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eUlfXlgXPywHPdQ0QOggn86872UVQZcmxCm6e/LrYIs=;
+ b=tqjcolLGIb/CEAHZonk3jiHrl0IfLwkMp81WIDduIUJtjTPhz/DoDzn5+ir0arOFq+EDCsif6iAeP0iHe2iINFyDrTeMbKw4ZhJQ7TD0fr4YexUOhDI2ocJA5zQB/hBfU5q67e2y0MBe2+8Ri1WTlO2vA0GZmCQh/zGtsBXzgRActEvqifszgSCnuzeCwonscBjE0Dte0l++4BUqj04fejBSCXAXsc69NEMUSaLYHREz7HHpprNzhagVVvVhTVEHjXGe8DlsUxhU4WKO+d2491QJ9c/yrtZ9p4qz2oDBwFEdsoZMjCjM8kA6dFKxzshf4mIx7FJggVARm2mKakaV5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eUlfXlgXPywHPdQ0QOggn86872UVQZcmxCm6e/LrYIs=;
+ b=S/zykTuhTH17SpKkWMQtPFMuJuPXe20j9FtyL3P8b6OHDI0AN3TOQd7+bv4KV4/dldxCjZ5fRKPrglioJgzR4l1Hbq9iucGxanIG0M7KwSiW+5w7PFx0uwaUXuYmg1IuzXN3vmb/kKew9usiJPq6olHtqpvjjyCwmtbYG9cWKG+YWmccRFvAdfiNF1fc5XtCB11eholJxz935R61ORq0g/1S1nGGnhzUWKoujCQHRUZT4iqof0y2d7BqpAH9RxB25piI1l+NCFumaU2Zwneu+3W4KFoghlJomTCjoNSaHMdLdKlqUZx6ePWuyARVHs8w8TT7OKo9nmlOyklCtlTriQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI0PR04MB11819.eurprd04.prod.outlook.com (2603:10a6:800:2eb::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 15:43:17 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 29 Jun 2026
+ 15:43:17 +0000
+From: Frank.Li@oss.nxp.com
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Peter Rosin <peda@lysator.liu.se>,
+	Frank Li <Frank.Li@nxp.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Haibo Chen <haibo.chen@nxp.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Ahmad Fatoum <a.fatoum@pengutronix.de>
+Subject: Re: (subset) [PATCH v6 0/7] pinctrl: Add generic pinctrl for board-level mux chips
+Date: Mon, 29 Jun 2026 11:43:08 -0400
+Message-ID: <178274777822.2249000.12458353880909358016.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260504-pinctrl-mux-v6-0-8ea858ba3a5b@nxp.com>
+References: <20260504-pinctrl-mux-v6-0-8ea858ba3a5b@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH8PR02CA0028.namprd02.prod.outlook.com
+ (2603:10b6:510:2da::29) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB11819:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f078b37-5bd3-4c84-dcd8-08ded5f52348
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|19092799006|1800799024|366016|18002099003|921020|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	2EZmjWDpakhKM46qR/yTpWg6xUwOm0tFazLQzjMkADbcb2DKU0775NweBaXhAK0+thgNsqyo2zf95bIPAsLv60AIQIaGxrsMpWt0Y7BtsJsCIpfcG26/Sfwfq6SxkvUeOOQ48jgsjHMQpWh+vOXVSdwFc36Ax0qoKTw3VEm9KD7F0XIb5q7O0fCZQeAOnKSf61SMHRK9DUKQjFI6ecF7eWy2cRM5hM9emQFoXxHtBo9mnGjawLe4xTkEK9l6e5X5qI9x2YVNgLIQmK3A1/4JKSzIykaSW8kF9r78AddLm6c7bzaatsIXBfnlpG22UUzDUMhHCsvp49f4hzCyiRIzGivDkoLQuhyIgzYGSpIZXf7qpNTkdopcvhDEp02zSAAnrsTyno7QBfy+6FfKSvMsYegk+DjY+l4R10HsxzZ6DP1IKCKDo3sEDuSwuBZx48j5ulPDq/ErqnB8kwBeyVRZM6WZEQxOd6xtgnccKPL6723i5mqED+voYK8szt+Mwv4M4hEqPOKhvLpQe6I3OYWgPlztnHrM+5tzdzeF7s+MLBbk9+SRgBbkbkh8OqvOkdpVKnKxjX4Jyt6sd7SxQ3gHel1CI4U5XsB40s3VUIpZqSEKEn00o0CbW+GT9zuZA45SszsRlrjCtgWDDJa+J3+hIqTSLzHPkyTyZmpzZRuDe+JXXgHloXIaQNa6UBsNAN6gm2BJw3ebI1wG0DruVq1+8g==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(19092799006)(1800799024)(366016)(18002099003)(921020)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eFp6SEdYa08xak03RlJobkVZRTg1a0Y3QmVhVnRmcHh6RnhhK2cyKytBUXlz?=
+ =?utf-8?B?RmNTQnMxZGFIRUlaM3MwYkx0UXF0NTBsZTlpZVZxT0lLS3BsVnFQWFpYZTlo?=
+ =?utf-8?B?QWtSMnVhVkZYd3ByMDB2bExrSmRTRmtUeWNCYlY1OEMyRnNCTUM2b3FFRFZP?=
+ =?utf-8?B?ei9MNk9NREN1alVjUUFuV3h5OVpoMmNNNGlqd210TU1VeVhxSHhMYzBuTjYv?=
+ =?utf-8?B?N2N1UVVEalBKblQ5aDUxN09uZUNiaEJuQXR5VXowRFg3bmlERTh0c241YWY4?=
+ =?utf-8?B?S3VUc042WWpydzhkNnd3djNEeDFTZ2ZWQXZkSE9odlNqelNkZ0hpY3d0QkRZ?=
+ =?utf-8?B?SW9VYU9wNElReVRIVU5TTkZzQTZla05EYlBvUy8rZjhyVU56d0hXN2NlNkJ3?=
+ =?utf-8?B?NnBPUEU0U2JRcTdrc0NLNmlpM0VESEd0NDVuS1pPSm1odGJwM3FUN1VoRjhs?=
+ =?utf-8?B?M2YxMGxxai9Xemo4NXNmTnRWajdmRm5vbGQ4R2ptdWVrZWpiYXROTXAxQ3oz?=
+ =?utf-8?B?U1JpMXZDWG05VVpyZ2xTSXgxcHk3YnJZckIzRFR5SWMyMVRsY0NuNGlJa1M2?=
+ =?utf-8?B?TGJ1VERBTWc1V29yVmZVWjRHT3dLNlA2V004UXRIVml0V1ZvcmN2eEszbzFl?=
+ =?utf-8?B?Z0xHZERDbVExMzVGSGc3a1BML2FkbUFyMVJ6dmN3eFR6S0QwTE5iSHhDSXpz?=
+ =?utf-8?B?Qm9ZQWlaTklxSXhWRlFocm1zYnNMNEkybkY1QlhQMUFNWWtwUWROWktpRkRu?=
+ =?utf-8?B?RTlWL3RkdVRhaUUydUlYSVFJRHlPTC96cURyUXZwT0NZVEdkK1hySTQ4VUZm?=
+ =?utf-8?B?aGRJUVZ0VlEvd2Z4enRTRW1ESFg2SWkraWwrYTRuajRyckd3VkFOdFVFQzQ2?=
+ =?utf-8?B?Z0g4U0I5Z2VUL0FidmVkbjIzcjE1ZWs2YVpHcXN6M3JoNENIRER2RDRTVml6?=
+ =?utf-8?B?Q1BxN3hEKzJvM3FodVU1ZkoxWUJnNmc2emMvVEhTOWRZcng0cmJ4Y25TOVhv?=
+ =?utf-8?B?c2Z4N2E2UjNTV055WjNJZ29lV0lxN3IvOG5QZ2U0dzViL2dkc1hycUtadXJh?=
+ =?utf-8?B?YWZQR1BpVXdoYWpoaW5wWnlHNDRPbnRpcm1TN0V2eUNhemt4ejFlRUdYSG1Y?=
+ =?utf-8?B?c2JYNmJIYm1laVc0ZFh4bWszQmJGV3BzWEZEZ1ZBU3VjQTV1T1lWUUh2UEt2?=
+ =?utf-8?B?elV2S3FBczlUNEpJSnBhQnIvZUtrSFdLMVZCR0ZnU1J1dE1JeFN4dkE5emNt?=
+ =?utf-8?B?RFVjUUVqNU5Kblo0akIrU1lIU1VxbEwwMlNNMUVGSG05RVpibEZHMGxEQTE3?=
+ =?utf-8?B?Q3l3YkFMdUdQSTgrb29pUEpjNVJ5WTFtSERDMUs3ZWYybGw4eU5GNXRJa2VC?=
+ =?utf-8?B?aWlJUGVHekNoeXRzQmNVQThuSzhEbWlzOHIza2pYQytCRUhoZThvVDhBaFhw?=
+ =?utf-8?B?YjlyMGNoY3NvNldFRFhGNmFsSWRYQWZxU04yZGJtSmxXZmpvWmFKS0xMdWRr?=
+ =?utf-8?B?bnZnbWtOMHUrbmFvL3VGNXpTRkduOWo2bU8vNEkzSUJVYzBTR2pzTDlhRkhp?=
+ =?utf-8?B?emorNXBtUjk1dC9qMlk5OGgzTzg5a09pOWs3dzlCaVVkYUExbG9zS29wQlZt?=
+ =?utf-8?B?cDZpOXJDdm1OUzh3STJRbW83S3poUzNRSVI4NUcwbGV6ZnZaeWEzenFxeDFJ?=
+ =?utf-8?B?eVBPOTVMTVNFczR4RkNuRlZlR1RTTkozWDdnbTJNRU9FWlY3MC9QNm95SHBR?=
+ =?utf-8?B?ZEswUnhGaTI1bDQxZXpsT1FvYXMraENvMzNWMlhwMXJvdVVvbVg0OXRzUXE1?=
+ =?utf-8?B?Tms0dnJnakI4OFFhL1BRU3VxMTBwSHZtR2NORlJsOEtDS3pGMlEzb01xOThE?=
+ =?utf-8?B?ZDJRU3NjT0hha3N4TXR4TnVpR0t5Q3JBbXdoZW5BYlRDb3E4UmhpTWtoWWJB?=
+ =?utf-8?B?UDM5NHd2Ty9tQnNTYWNJZXFwUjM3VWFJRHVVSkdDSzlFdDlWMUVGUWhCMU5R?=
+ =?utf-8?B?YXNlZ0dtUjJOT2FrRmZ4ZXdJRjFmUXVudVN6MGx1K0J5dG9wWm8rT3NXOWgv?=
+ =?utf-8?B?dXUxV0QrWHgwQkFablJrUUVoemo5MnQxKzVhcVVVeEdPaU1XYlFEZWVOV2NX?=
+ =?utf-8?B?V01zWm90bDhua3R6TThEdnpxK0F6aDJkeDNCQllpT1VvTENuK0xBZzlWTHk2?=
+ =?utf-8?B?RW9jeUZiMWp5OGNlNXNpd1RBYlBVYm1hSWc1ZEwydDFHVUFaWlFOaTliZlVt?=
+ =?utf-8?B?eXpLSnZrdlFxdWdLQkkya0NvNlZ5ZVJvN2ZSckFNVXFrTlNnZ3lBMDYxNzZh?=
+ =?utf-8?B?RzhjWXBKcjlRVERsVWpFWGdSRU4wSnFRVjJvdGtma2J5b1ZSWjNxMHZGbE5q?=
+ =?utf-8?Q?sKDlWaRmi5R01acFct85hHYUzTITl05wbzs8C?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f078b37-5bd3-4c84-dcd8-08ded5f52348
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 15:43:17.0730
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oX/anZrDI/Hrqa2y8SmQjjDSGSLyrS/XolH2HR4Vfvj7PCcw0EaEQy/fD0woPBo1cCjeAZL6iyO/ul4QqY8lQy5jRYHJIu6t8paL+OPcTwjCfRj8uHsnl/m0g6rCjXVr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11819
 
-On 22/06/2026 at 11:14:32 +02, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+From: Frank Li <Frank.Li@nxp.com>
 
-> On Thu, Jun 18, 2026 at 01:07:10PM +0530, Santhosh Kumar K wrote:
->> Add spi-max-post-config-frequency, a generic uint32 property for SPI
->> peripherals that support two distinct clock rates: a conservative rate
->> always reachable without controller configuration, and a higher rate
->> reachable only after controller-side configuration such as PHY tuning.
->>=20
->> When both properties are present, spi-max-frequency gives the
->> conservative pre-configuration rate and spi-max-post-config-frequency
->> gives the higher post-configuration target.
->>=20
->> Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
->> ---
->>  .../devicetree/bindings/spi/spi-peripheral-props.yaml       | 6 ++++++
->>  1 file changed, 6 insertions(+)
->>=20
->> diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.=
-yaml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
->> index 880a9f624566..ece86f65930f 100644
->> --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
->> +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
->> @@ -45,6 +45,12 @@ properties:
->>      description:
->>        Maximum SPI clocking speed of the device in Hz.
->>=20=20
->> +  spi-max-post-config-frequency:
->
-> -hz
-> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/pr=
-operty-units.yaml
->
-> and you need maxItems: 1.
->
-> Now, please take time and think if this should not be an array instead
-> (maxItems: ...) to cover other possible cases, e.g. different tuning
-> levels? IOW, having single spi-max-frequency turned out to be
-> insufficient. You address that insufficiency with one more frequency,
-> but what if this is going to be insufficient next month as well?
 
-It is actually a very good remark. I do not have existing needs in mind
-at the momet, but that does not mean there is none.
+On Mon, 04 May 2026 19:54:34 -0400, Frank Li wrote:
+> Add a generic pinctrl binding for board-level pinmux chips that are
+> controlled through the multiplexer subsystem.
+> 
+> On some boards, especially development boards, external mux chips are used
+> to switch SoC signals between different peripherals (e.g. MMC and UART).
+> The mux select lines are often driven by a GPIO expander over I2C,
+> as illustrated below:
+> 
+> [...]
 
-In SPI NAND we have per-operation maximum frequencies being defined in
-manufacturer drivers (you can check drivers/mtd/nand/spi/winbond.c)
-because when the speed increases, the number of dummy cycles shall be
-adapted accordingly. So we kind of handle the various frequency possibiliti=
-es already
-(the property added by Santhosh setting an absolute maximum that cannot
-be crossed).
+Applied, thanks!
 
-However, I do not think SPI NORs have something similar, and also one
-day we might have different tuning levels requiring different "maximum
-frequencies": we could imagine a first mode where tuning is very fast to
-configure and speed gains good, in competition with another mode where
-tuning makes transfers extremely fast but with an extra configuration
-penalty (this is pure sci-fi in my head at the moment).
+[6/7] arm64: dts: imx8mp-evk: add board-level mux for CAN2 and MICFIL
+      commit: ec5c75673cb9d4c9a2a55a70d54a6ccb254f4ba4
+[7/7] arm64: dts: imx8mp-evk: add flexcan2 overlay file
+      commit: 368eb597c6ef0263931a3922648e8c7b83cd0536
 
-It is hard to tell whether this wet finger guessing will realize any
-time soon. Maybe the safest approach is to go for an array, though. In
-that case, could we add a mandatory name to ease (future) parsing?
-Typically here, we might want to call it phy-delay-tuning or something
-like that (name to be discussed, because there is the risk to make to
-too controller specific).
-
-Thanks,
-Miqu=C3=A8l
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
