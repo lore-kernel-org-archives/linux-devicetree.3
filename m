@@ -1,105 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F27A265CC2;
-	Mon, 29 Jun 2026 15:19:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EAD4426D03
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 15:20:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782746353; cv=none; b=UgZ245KGHyAJrqcX+Orw3vpze5RU+x0wQG9qctNWxIB+c+weErFOXDscRilEdYGYh18yVteq4Y8+6gPnR4t0RsT7PiCZBWGy7AvBDLECzuaEsCgmuM0JMF1acR1/8LmzAYUo2PxaYu802KbjAFsp82X+j6d/LngL31r/J0CLcPI=
+	t=1782746456; cv=none; b=QergHSEPcLvY/ulgI+aqf9jM/Y5yZhefpzrhxjyAEax4LAJP+nW0tM5UniTiQ5rM1aFZKrGHi7+adXZctm5RuuvmzellJ4U5NbPtMjl58kkh5cp0xMi3577lQ7mJxSK8rejcAdSkaQWAdIrLaQc3jSqcTIQTXXClP+4Ofzc+OoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782746353; c=relaxed/simple;
-	bh=iv/fiKg3EuQ2jv4GyHWtObJl/Zd75MjEvho8+pDnZ1E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U/FprdJp79rslOJ4JhSvBETXkc1dm5bn29cRPHJIXKJ6kxxuAevr4iBEchdftyucO4gVz8gzcMF1+WcjUOW4NnzXNAJ69k4O1+jV/bkgqjg1oi1idTQj1/eb23T4+oHYWyDC4WclLzl2iT/4qg++p/rclyh6dgSootKkBPonJyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HEmZvJtK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782746456; c=relaxed/simple;
+	bh=nc86Jp8o62Q5nme3DvzGnKx5D+U2qvXr0jn+wTpod4M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sKmSbmZvfNzjquC7hxqsculSVjH0i/V4iKCoALyW6GD5LX7PnJCwJA+uqQLT1wLYr5juRBKd980YC9nLs0o2XFit4MWe5ZKiakqCORn3ve3LC3JSlCvHr/By5eJSin/ymSQJEPZRvjTp+lj/FPnVqSz/Yubqq+PdiHUfXDJ9BAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X/gUcjv/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HEmZvJtK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079AD1F000E9;
-	Mon, 29 Jun 2026 15:19:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X/gUcjv/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00F271F00A3F
+	for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 15:20:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782746351;
-	bh=6FUFc8VbJurEpSDevgOvU/4VEZEQWETJDf8GR/IYV3w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HEmZvJtKwhfG6+2u9YMDRUtu8arFt06cJRcwTdMJHDbr2BHORKFUmM8gzS6+Nuf59
-	 JYOhNUCmlBBHYF4/8GdQhH8elDIxldPzftRRCbyQdOym90+G3RJsaxiTmlJsRPMyXw
-	 cmHFhugQ3ScY89DeGqRHL0sT3Pa2VJZbvS578kDJ2rES6+ZhkK2iWFbxB9SjZEnRze
-	 cYG9qds5ZcxWY1O9CXAb4WrhnjMiTNVfz0VLe0pimYobJ+lyt7cdzICzOD3zsrBLoc
-	 Z6VNlufBJhg7Y9FhKrBdhGHPxBAiOT1o6kA/lutHXLf0sYWPInSBvkRrdiU73lP/MU
-	 zApxhoY6JGLbA==
-Date: Mon, 29 Jun 2026 16:19:07 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Wayne Chang <waynec@nvidia.com>
-Cc: mathias.nyman@intel.com, vkoul@kernel.org, neil.armstrong@linaro.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	gregkh@linuxfoundation.org, thierry.reding@gmail.com,
-	jonathanh@nvidia.com, linux-usb@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/8] dt-bindings: phy: tegra-xusb: Add support for
- Tegra264
-Message-ID: <20260629-baffling-gag-05e20c9d925b@spud>
-References: <20260629093406.1118594-1-waynec@nvidia.com>
- <20260629093406.1118594-2-waynec@nvidia.com>
+	s=k20260515; t=1782746454;
+	bh=wX2jSosalBCXeov1KAZFnmkZLC/jlFNjqnL7xit1Tpo=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=X/gUcjv/e1O4kU1vRPhXCj8Nw9/Ff4OtxldD7mpprASv2Qx0LEHcdxKR0FvwQ8pTm
+	 QeBM6smK1MSKxoE6H3YciAnGoCIG4eMMv/gCoO/XCMeyp5F9KrV2kv7ZTWxX5fr6BX
+	 nWJIY/d4So/2pGol4U/S7no1oQpqvp99qFL9sR3YahuXcI7qVVpfIkHgdG2XCwi+6K
+	 MLHupZaWeecFLSHl4c2kiRwaAUcdxGgNEFdKr7fKJssw+S1KbrldgGcWnM6RGVRGL9
+	 Kff61la0CCqKI4DzBV4+qA8y+8tiIXOJpYRmN5lXg4cf23CG/hMG5Cht1H02f1Scxf
+	 F4RBDA1kCLWnQ==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-39ad656869bso30218261fa.0
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 08:20:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpsCMGUDlGFcylre4l/qepVLHRO3Anv94alatO+ptWl9kM2+d+SURRZ0ER5uSZ4bRJV4tRiCsQXrFR3@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOYgJWXm/3qS7CL8t9TMNqLEb+saZTyIe9fpcK61tSkuwJ0aD4
+	671p/AGodE7qGMhrxBt9Pi7i3SbBikebUlgeqQpdNQ5zYwm3Mbz8ZgMx1mE5iHz+1Y4wpMf4dVX
+	Y7bPxuBfNG+p5gaRpl9ZZEqmpY23sG5g=
+X-Received: by 2002:a2e:bd03:0:b0:39a:da70:2c77 with SMTP id
+ 38308e7fff4ca-39ada702fc0mr25197121fa.3.1782746452424; Mon, 29 Jun 2026
+ 08:20:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZivZHyQiMsJs/gWz"
-Content-Disposition: inline
-In-Reply-To: <20260629093406.1118594-2-waynec@nvidia.com>
-
---ZivZHyQiMsJs/gWz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260629-a733-rtc-v2-0-7b72112784f8@baylibre.com>
+ <20260629-a733-rtc-v2-1-7b72112784f8@baylibre.com> <20260629125305.0DF981F000E9@smtp.kernel.org>
+ <1jpl198jzk.fsf@starbuckisacylon.baylibre.com> <20260629-aliens-busload-ef9178973b4f@spud>
+In-Reply-To: <20260629-aliens-busload-ef9178973b4f@spud>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Mon, 29 Jun 2026 23:20:40 +0800
+X-Gmail-Original-Message-ID: <CAGb2v67QV4gt=iXvaWeRCAxcasvzSpgTPodHhspd2ka19Hgdtg@mail.gmail.com>
+X-Gm-Features: AVVi8CdsTodw99fmrCaHKTshq-RBAGtmS8kU99BDukgcJtbj15UOd7IbhDxIdwE
+Message-ID: <CAGb2v67QV4gt=iXvaWeRCAxcasvzSpgTPodHhspd2ka19Hgdtg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/6] dt-bindings: rtc: sun6i: add sun60i-a733 support
+To: Conor Dooley <conor@kernel.org>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, sashiko-bot@kernel.org, 
+	sashiko-reviews@lists.linux.dev, linux-sunxi@lists.linux.dev, robh@kernel.org, 
+	devicetree@vger.kernel.org, conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 29, 2026 at 05:33:59PM +0800, Wayne Chang wrote:
-> Add the compatible string for the Tegra264 XUSB PHY.
->=20
-> Signed-off-by: Wayne Chang <waynec@nvidia.com>
+On Mon, Jun 29, 2026 at 11:16=E2=80=AFPM Conor Dooley <conor@kernel.org> wr=
+ote:
+>
+> On Mon, Jun 29, 2026 at 05:05:51PM +0200, Jerome Brunet wrote:
+> > On lun. 29 juin 2026 at 12:53, sashiko-bot@kernel.org wrote:
+> >
+> > > Thank you for your contribution! Sashiko AI review found 1 potential =
+issue(s) to consider:
+> > > - [Low] The `clock-output-names` property has a global `maxItems: 3`
+> > > constraint and a description limiting it to three clocks, which contr=
+adicts
+> > > the new clock outputs (IDs up to 11) added for the sun60i-a733-rtc.
+> > > --
+> > >
+> > > commit a1565b632e372c724867216463a453c9d1600ad2
+> > > Author: Jerome Brunet <jbrunet@baylibre.com>
+> > >
+> > > dt-bindings: rtc: sun6i: add sun60i-a733 support
+> > >
+> > > Adds a new rtc compatible for the sun60i-a733 SoC and new IDs for the
+> > > peripheral oscillator clock gates of this SoC.
+> > >
+> > >> diff --git a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a=
+31-rtc.yaml b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc=
+.yaml
+> > >> index 9df5cdb6f63f2..197a6f67b180a 100644
+> > >> --- a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.=
+yaml
+> > >> +++ b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.=
+yaml
+> > >> @@ -33,6 +33,7 @@ properties:
+> > >>            - enum:
+> > >>                - allwinner,sun20i-d1-rtc
+> > >>                - allwinner,sun55i-a523-rtc
+> > >> +              - allwinner,sun60i-a733-rtc
+> > >>            - const: allwinner,sun50i-r329-rtc
+> > >
+> > > [ ... ]
+> > >
+> > >> diff --git a/include/dt-bindings/clock/sun6i-rtc.h b/include/dt-bind=
+ings/clock/sun6i-rtc.h
+> > >> index 3bd3aa3d57ce1..5132a393ca4b6 100644
+> > >> --- a/include/dt-bindings/clock/sun6i-rtc.h
+> > >> +++ b/include/dt-bindings/clock/sun6i-rtc.h
+> > >> @@ -6,5 +6,9 @@
+> > >>  #define CLK_OSC32K                0
+> > >>  #define CLK_OSC32K_FANOUT 1
+> > >>  #define CLK_IOSC          2
+> > >> +#define CLK_HOSC_UFS              8
+> > >> +#define CLK_HOSC_HDMI             9
+> > >> +#define CLK_HOSC_SERDES0  10
+> > >> +#define CLK_HOSC_SERDES1  11
+> > >
+> > > [Severity: Low]
+> > > Will adding clock IDs up to 11 conflict with the existing clock-outpu=
+t-names
+> > > constraint in allwinner,sun6i-a31-rtc.yaml?
+> > >
+> > > The clock-output-names property currently has a global maxItems const=
+raint
+> > > alongside its description:
+> > >
+> > >   clock-output-names:
+> > >     minItems: 1
+> > >     maxItems: 3
+> > >     description:
+> > >       The RTC provides up to three clocks
+> > >
+> > > If a device tree author attempts to define an array of clock-output-n=
+ames
+> > > to document all outputs for the allwinner,sun60i-a733-rtc node, won't=
+ it fail
+> > > dt_binding_check validation because it exceeds the maximum allowed it=
+ems?
+> >
+> > Not quite sure what to do with that one.
+> >
+> > The h616 compatible devices all exposed more than 3 clock through the
+> > provider, even if the higher IDs did not have define.
+> >
+> > The clock output names for the h616 compatible device are not really
+> > supposed to be defined through DT ... at least AFAIU ??
+>
+> The output names aren't even defined anyway, so the property is not
+> really all that helpful. It's worth increasing the max to whatever is
+> permitted now and look into the conditional sections to see if any
+> constraints need updating.
 
-Why is a fallback compatible not suitable here?
+Or just not allow it for the newer RTC compatible? On the kernel side,
+the sunxi-ng clk library doesn't even use the property, presumably because
+the library mainly targets the main clock controller that has at least
+tens of clocks. Writing clock-output-names for them isn't really scalable,
+and sort of useless as the name can be inferred by the clock ID and
+compatible.
 
 
-Thanks,
-Conor.
-
-> ---
->  .../devicetree/bindings/phy/nvidia,tegra194-xusb-padctl.yaml     | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/phy/nvidia,tegra194-xusb-p=
-adctl.yaml b/Documentation/devicetree/bindings/phy/nvidia,tegra194-xusb-pad=
-ctl.yaml
-> index d8de900a4fce..f6fe3c90b5b0 100644
-> --- a/Documentation/devicetree/bindings/phy/nvidia,tegra194-xusb-padctl.y=
-aml
-> +++ b/Documentation/devicetree/bindings/phy/nvidia,tegra194-xusb-padctl.y=
-aml
-> @@ -45,6 +45,7 @@ properties:
->      enum:
->        - nvidia,tegra194-xusb-padctl
->        - nvidia,tegra234-xusb-padctl
-> +      - nvidia,tegra264-xusb-padctl
-> =20
->    reg:
->      items:
-> --=20
-> 2.25.1
->=20
-
---ZivZHyQiMsJs/gWz
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakKM6gAKCRB4tDGHoIJi
-0kBcAQCrqgOOerZugKKmjKtKayBzITE7zLM1L51QJ4kOU8RpIQEA2dvPt7Nwz6Xi
-yE/Bh7l6FDgrHCL0xL46jpuiCDlmugU=
-=iSW+
------END PGP SIGNATURE-----
-
---ZivZHyQiMsJs/gWz--
+ChenYu
