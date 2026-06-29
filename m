@@ -1,174 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D55C346766;
-	Mon, 29 Jun 2026 15:41:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD8243CEC0;
+	Mon, 29 Jun 2026 15:41:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782747663; cv=none; b=JxmSfor9s9ARZ95IKz13V/tkkvkV6/hzUNqYStVC0rCLik5IBzFiLV4M5NL0j5Svv8SdoRNxFxUrtmBNlI9+/5V0GzMyeZ5bxFuM1SakFyvZQ2HoGtqOSyclTBkIq6+XM+Uz88uiCn1N6abBHofP/bN9OVs8GDljVF1YZYfVcpM=
+	t=1782747719; cv=none; b=gZs1eNyASKH5HWa7vpch41+Vc2lG7ACed4y7LeWMuouBOBDy9iGY1qMivVCuknN6VqrGictQDcWrUii4PtUB/UVlOOQciNeNA85EX+X7imSd03ly0adn6Ei7PyAEz4IfEUZgBXUG1EgR21gxp93amG+jsPtRhNNQXgHY1wfCHjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782747663; c=relaxed/simple;
-	bh=rswPskcN/RRQHGJ902UrZcCJGTezAbbrNN6coAxwfc4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZLCaQcRX9jzMwc9Vh+d0v+Qp+jaG0JIUlmzyDNaTVMglqU+QFjdb/aln78xNaP3FLBP4ovHq0k2aMH7d73xnkf4ExR+szvSt8PC8Ubv3ZlbGj9Fo6itti21Xtu5reKz5m3AlOtq5Z3kDhUWq6B/NXN8n5qBCHunTNlQUEmVJeDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S0nOe/r5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782747719; c=relaxed/simple;
+	bh=K+puyxZopR4gkSTJL3cffNbTGqH96CJtVCWWwQzRITA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Br+POIgRQTThbSNtVDRhyXBbnYB7VTCxeLBraN4GA0vpWRcF86NtuRDrsmGjAZeKBHtcWp69FxhRmtT9o/uRanrQYdghjYy+fAzSYfV24gqgRmNrKKHIkWTh4Dhmrf34xk161b5/uVmxjOxqT5eXXTH0T0xEcf10oE0fwojmztw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=e8JSMcoc; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S0nOe/r5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349F51F000E9;
-	Mon, 29 Jun 2026 15:41:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782747661;
-	bh=PzRxgBHlbkeuvPpeSnjPJmcCLBvqWL+knmj3C3qFY9U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S0nOe/r5BiPQMgC/pEsdNyfJmtZFPQ1mn2eFSbSbB0GEy/E37qrUwkj82dLhnA2xe
-	 OAPua0cPJRZUQJPDQuMQzaEjfjILbAzJ+ER94pp4ts67aHN0ZB2ZwTbRoxZV/B4Q39
-	 s/7Lyp6HcTlkgO7HF9Kv6+StugeicBpcmp6sUj2DOJAgzl+EhRtNLtR6VNQ3f7clXM
-	 Ixm6hUEJ2EGIdsfX/M3MQUQ8joPjxC6nJsrdhkcez6462pf52VYOwdyf+n1DlhHVBB
-	 KVRGWBBcgzIfS4UFYFWDP8RjSuGI6Vn/ecA12Yy8PKKXi40GCA2Lh07KOz0/pIPYyQ
-	 smSb1wOrg4hHQ==
-Date: Mon, 29 Jun 2026 16:40:58 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Chen-Yu Tsai <wens@kernel.org>, sashiko-bot@kernel.org,
-	sashiko-reviews@lists.linux.dev, linux-sunxi@lists.linux.dev,
-	robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v2 1/6] dt-bindings: rtc: sun6i: add sun60i-a733 support
-Message-ID: <20260629-grime-chasing-8f09675e5013@spud>
-References: <20260629-a733-rtc-v2-0-7b72112784f8@baylibre.com>
- <20260629-a733-rtc-v2-1-7b72112784f8@baylibre.com>
- <20260629125305.0DF981F000E9@smtp.kernel.org>
- <1jpl198jzk.fsf@starbuckisacylon.baylibre.com>
- <20260629-aliens-busload-ef9178973b4f@spud>
- <CAGb2v67QV4gt=iXvaWeRCAxcasvzSpgTPodHhspd2ka19Hgdtg@mail.gmail.com>
- <1jechp8j0a.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="e8JSMcoc"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 75F004E40B60;
+	Mon, 29 Jun 2026 15:41:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2C4EE5FF96;
+	Mon, 29 Jun 2026 15:41:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C710F106F18F2;
+	Mon, 29 Jun 2026 17:41:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1782747714; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=8J9faHVVv2ntVQAaALWU4TngzNzL0U5Yipge3+xPG7s=;
+	b=e8JSMcocsEMdwZIn+IiOh7qSvNcGXscTgT6coAUO5+OOVMv+TIftj7LPjGYJw47OR2hur7
+	PMvM/INXhv+nzLgO2uPX+Tp0QRt+0qSCY6IKC1/+ijMQyS3aCLG+DxRk/MJwBWirZiLKna
+	f8ba9MbnmL0hEvTNPAHVHPr96b3i16a5oZ+ye6dA/wAK80JbdtcYbeRBVP/UJMWquxMk17
+	xdpMkk+ESs51mYYjL71XW5OM4hjSrh8r9LmVXDchkgAuDqibWWVh65vz2PFVCNN3EKg/wH
+	JOuqneLoMhx4IbDuOiqybLDaFUJu4qzmaAOSoO4O/7Kq4Y+Y+oBl0XfXoYK9NQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Santhosh Kumar K <s-k6@ti.com>,  broonie@kernel.org,  robh@kernel.org,
+  krzk+dt@kernel.org,  conor+dt@kernel.org,  richard@nod.at,
+  vigneshr@ti.com,  pratyush@kernel.org,  mwalle@kernel.org,
+  takahiro.kuwano@infineon.com,  linux-spi@vger.kernel.org,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  linux-mtd@lists.infradead.org,  praneeth@ti.com,  u-kumar1@ti.com,
+  a-dutta@ti.com
+Subject: Re: [PATCH v4 01/16] spi: dt-bindings: add
+ spi-max-post-config-frequency property
+In-Reply-To: <20260622-private-curly-fennec-7e1ad0@quoll> (Krzysztof
+	Kozlowski's message of "Mon, 22 Jun 2026 11:14:32 +0200")
+References: <20260618073725.84733-1-s-k6@ti.com>
+	<20260618073725.84733-2-s-k6@ti.com>
+	<20260622-private-curly-fennec-7e1ad0@quoll>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Mon, 29 Jun 2026 17:41:50 +0200
+Message-ID: <87bjcts69t.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FsVq+3ZUQ4Vt+gBu"
-Content-Disposition: inline
-In-Reply-To: <1jechp8j0a.fsf@starbuckisacylon.baylibre.com>
-
---FsVq+3ZUQ4Vt+gBu
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Jun 29, 2026 at 05:27:01PM +0200, Jerome Brunet wrote:
-> On lun. 29 juin 2026 at 23:20, Chen-Yu Tsai <wens@kernel.org> wrote:
->=20
-> > On Mon, Jun 29, 2026 at 11:16=E2=80=AFPM Conor Dooley <conor@kernel.org=
-> wrote:
-> >>
-> >> On Mon, Jun 29, 2026 at 05:05:51PM +0200, Jerome Brunet wrote:
-> >> > On lun. 29 juin 2026 at 12:53, sashiko-bot@kernel.org wrote:
-> >> >
-> >> > > Thank you for your contribution! Sashiko AI review found 1 potenti=
-al issue(s) to consider:
-> >> > > - [Low] The `clock-output-names` property has a global `maxItems: =
-3`
-> >> > > constraint and a description limiting it to three clocks, which co=
-ntradicts
-> >> > > the new clock outputs (IDs up to 11) added for the sun60i-a733-rtc.
-> >> > > --
-> >> > >
-> >> > > commit a1565b632e372c724867216463a453c9d1600ad2
-> >> > > Author: Jerome Brunet <jbrunet@baylibre.com>
-> >> > >
-> >> > > dt-bindings: rtc: sun6i: add sun60i-a733 support
-> >> > >
-> >> > > Adds a new rtc compatible for the sun60i-a733 SoC and new IDs for =
-the
-> >> > > peripheral oscillator clock gates of this SoC.
-> >> > >
-> >> > >> diff --git a/Documentation/devicetree/bindings/rtc/allwinner,sun6=
-i-a31-rtc.yaml b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-=
-rtc.yaml
-> >> > >> index 9df5cdb6f63f2..197a6f67b180a 100644
-> >> > >> --- a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-r=
-tc.yaml
-> >> > >> +++ b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-r=
-tc.yaml
-> >> > >> @@ -33,6 +33,7 @@ properties:
-> >> > >>            - enum:
-> >> > >>                - allwinner,sun20i-d1-rtc
-> >> > >>                - allwinner,sun55i-a523-rtc
-> >> > >> +              - allwinner,sun60i-a733-rtc
-> >> > >>            - const: allwinner,sun50i-r329-rtc
-> >> > >
-> >> > > [ ... ]
-> >> > >
-> >> > >> diff --git a/include/dt-bindings/clock/sun6i-rtc.h b/include/dt-b=
-indings/clock/sun6i-rtc.h
-> >> > >> index 3bd3aa3d57ce1..5132a393ca4b6 100644
-> >> > >> --- a/include/dt-bindings/clock/sun6i-rtc.h
-> >> > >> +++ b/include/dt-bindings/clock/sun6i-rtc.h
-> >> > >> @@ -6,5 +6,9 @@
-> >> > >>  #define CLK_OSC32K                0
-> >> > >>  #define CLK_OSC32K_FANOUT 1
-> >> > >>  #define CLK_IOSC          2
-> >> > >> +#define CLK_HOSC_UFS              8
-> >> > >> +#define CLK_HOSC_HDMI             9
-> >> > >> +#define CLK_HOSC_SERDES0  10
-> >> > >> +#define CLK_HOSC_SERDES1  11
-> >> > >
-> >> > > [Severity: Low]
-> >> > > Will adding clock IDs up to 11 conflict with the existing clock-ou=
-tput-names
-> >> > > constraint in allwinner,sun6i-a31-rtc.yaml?
-> >> > >
-> >> > > The clock-output-names property currently has a global maxItems co=
-nstraint
-> >> > > alongside its description:
-> >> > >
-> >> > >   clock-output-names:
-> >> > >     minItems: 1
-> >> > >     maxItems: 3
-> >> > >     description:
-> >> > >       The RTC provides up to three clocks
-> >> > >
-> >> > > If a device tree author attempts to define an array of clock-outpu=
-t-names
-> >> > > to document all outputs for the allwinner,sun60i-a733-rtc node, wo=
-n't it fail
-> >> > > dt_binding_check validation because it exceeds the maximum allowed=
- items?
-> >> >
-> >> > Not quite sure what to do with that one.
-> >> >
-> >> > The h616 compatible devices all exposed more than 3 clock through the
-> >> > provider, even if the higher IDs did not have define.
-> >> >
-> >> > The clock output names for the h616 compatible device are not really
-> >> > supposed to be defined through DT ... at least AFAIU ??
-> >>
-> >> The output names aren't even defined anyway, so the property is not
-> >> really all that helpful. It's worth increasing the max to whatever is
-> >> permitted now and look into the conditional sections to see if any
-> >> constraints need updating.
-> >
-> > Or just not allow it for the newer RTC compatible? On the kernel side,
->=20
-> I was edging toward this. Would this be acceptable to you Conor ?
-> I'm thinking about disallowing it for all the h616 compatible ones, not
-> just the a733.
+On 22/06/2026 at 11:14:32 +02, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 
-Works for me.
-Just make sure you note somewhere that the names aren't ever defined
-anyway.
+> On Thu, Jun 18, 2026 at 01:07:10PM +0530, Santhosh Kumar K wrote:
+>> Add spi-max-post-config-frequency, a generic uint32 property for SPI
+>> peripherals that support two distinct clock rates: a conservative rate
+>> always reachable without controller configuration, and a higher rate
+>> reachable only after controller-side configuration such as PHY tuning.
+>>=20
+>> When both properties are present, spi-max-frequency gives the
+>> conservative pre-configuration rate and spi-max-post-config-frequency
+>> gives the higher post-configuration target.
+>>=20
+>> Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
+>> ---
+>>  .../devicetree/bindings/spi/spi-peripheral-props.yaml       | 6 ++++++
+>>  1 file changed, 6 insertions(+)
+>>=20
+>> diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.=
+yaml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+>> index 880a9f624566..ece86f65930f 100644
+>> --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+>> +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+>> @@ -45,6 +45,12 @@ properties:
+>>      description:
+>>        Maximum SPI clocking speed of the device in Hz.
+>>=20=20
+>> +  spi-max-post-config-frequency:
+>
+> -hz
+> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/pr=
+operty-units.yaml
+>
+> and you need maxItems: 1.
+>
+> Now, please take time and think if this should not be an array instead
+> (maxItems: ...) to cover other possible cases, e.g. different tuning
+> levels? IOW, having single spi-max-frequency turned out to be
+> insufficient. You address that insufficiency with one more frequency,
+> but what if this is going to be insufficient next month as well?
 
---FsVq+3ZUQ4Vt+gBu
-Content-Type: application/pgp-signature; name=signature.asc
+It is actually a very good remark. I do not have existing needs in mind
+at the momet, but that does not mean there is none.
 
------BEGIN PGP SIGNATURE-----
+In SPI NAND we have per-operation maximum frequencies being defined in
+manufacturer drivers (you can check drivers/mtd/nand/spi/winbond.c)
+because when the speed increases, the number of dummy cycles shall be
+adapted accordingly. So we kind of handle the various frequency possibiliti=
+es already
+(the property added by Santhosh setting an absolute maximum that cannot
+be crossed).
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakKSCgAKCRB4tDGHoIJi
-0gn5AQDD5BpnbkEuXFqjXr45UvCGpc0VNOtAllspIK02XLX22gEAtkL5sluYvcyP
-4gx+sYYqb+rdzPsLBlKIqNSYOsEaLQ8=
-=q2lG
------END PGP SIGNATURE-----
+However, I do not think SPI NORs have something similar, and also one
+day we might have different tuning levels requiring different "maximum
+frequencies": we could imagine a first mode where tuning is very fast to
+configure and speed gains good, in competition with another mode where
+tuning makes transfers extremely fast but with an extra configuration
+penalty (this is pure sci-fi in my head at the moment).
 
---FsVq+3ZUQ4Vt+gBu--
+It is hard to tell whether this wet finger guessing will realize any
+time soon. Maybe the safest approach is to go for an array, though. In
+that case, could we add a mandatory name to ease (future) parsing?
+Typically here, we might want to call it phy-delay-tuning or something
+like that (name to be discussed, because there is the risk to make to
+too controller specific).
+
+Thanks,
+Miqu=C3=A8l
