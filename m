@@ -1,287 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B591411687;
-	Tue, 30 Jun 2026 16:22:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C7C3B9D84;
+	Tue, 30 Jun 2026 16:23:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782836545; cv=none; b=fZ/ZZnHQrubUgiBkAskyQd8/ighmbYBMYE3j9+Pe/9skhJfejmcVXRVRgOn9egv6bDRMtzcSzAes6hlP288poTskULOPS6JOavlqAmBm/HsZj4FBClOH3yizb47S0jE9ofAIz4zwwEvhbgAmZVys77DBFkeOHYBnsYDQHlYcJUI=
+	t=1782836595; cv=none; b=I4luzN0eDYziqXrMiHftVK9uoCcYsMp2rNYqMiPUDG5zYbmmg9oz6AUhvJJlM5ezx31/9UzB/Rv4shrRQ/wm8cFGEc7MfEBeSdPmWAR2LO8OnbhEN6udlVzB8d804dgg6DNGG+tQFTkOJb/e5S3ciphvkGtxyhL0tdcwQcFWG7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782836545; c=relaxed/simple;
-	bh=yomOaMMl+vcnji15fJRLYYv6WVklrScE4szp52y4iTw=;
+	s=arc-20240116; t=1782836595; c=relaxed/simple;
+	bh=KhkxMedQQRIcfwWXYlMxNfQJ2Izk6ZD+3c/eD9pgzWE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C1WGauKAkYv3QAs9aDN51QRu37Bn8oIG7CpKH6Fg8/v5Hr/3XkYz0zyc4dEkd/ftVQMAMhmmoKebuPhTR+m2PxjAZx4Snq4LYzp4cgUBnFV6pkbRAg/+m4W5/51GwttbkgrGfTvdHjkx1BPSNQgNko/N8gniOF0Qt4AcGyqgono=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dul5b6bc; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=sUD5hWLkijXJINmj76FCTTw19ISKZpVzKoR2ti2Lc+E7/EbyAl1Dh3iBCf1EJI+Xa8cH9pamwCgH6GJV+i0pw0Rds2rFmlH8wEpSnQ1pOlaL2XdBPhBxvuB2XZMKDSfGFfiCuk9jXHOo6x3bvGcSNqNiw0MFc31r0KzL8Vs+Mgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JNfllhvJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dul5b6bc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8681F000E9;
-	Tue, 30 Jun 2026 16:22:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JNfllhvJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578711F000E9;
+	Tue, 30 Jun 2026 16:23:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782836543;
-	bh=sslHSl9vky2DIRPZzDKqYfXMiyTPmeA8uuP0XK5gK7k=;
+	s=k20260515; t=1782836594;
+	bh=+aWdnoMMtLoLPwWqfxE5l3Mi7c2BQoVXxXHwRngYLxw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dul5b6bcSmqXLVoo6tIeMdmES/vM+PkaSomaF+A3lC8ejOh+Po+qF6DKRh7QRQ2qj
-	 RNt5b/KsKki68SFNDJku6wPb9CW+ZISWaf0sLRJDquJs7b1haH+BphobIlZQ/XsrxK
-	 7E3ztX8E7Fe4NBFIGjf/w9wLbnZk4d6dZkciTmjJWFaotbV52J/Fblih8ggVQ3AfyZ
-	 w9Ki3HlFWs5/xZeCkmZ2vLV+jhuhzcM6fttlAUrOL/P1tLzQNNB3zopW6CYS3jjrCV
-	 y7Wuixcf3Ctz91L2/ZgKY6aqX969OGCbE8ZsQQCg3RbEHpHi0Lejl3t7SC7x1470r5
-	 Bsvt3p8kOJEYw==
-Date: Tue, 30 Jun 2026 18:22:09 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Marc Zyngier <maz@kernel.org>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] PCI: rcar-gen4: Configure AXIINTC if iMSI-RX not
- used
-Message-ID: <ck6i6tdw4ngde6vmtamfrvryg47ixycpmd74ny5hpzury5ekpr@ibgrw7o6uewj>
-References: <20260618220427.14325-1-marek.vasut+renesas@mailbox.org>
- <20260618220427.14325-2-marek.vasut+renesas@mailbox.org>
+	b=JNfllhvJO5N5wVksTw9WwBnKjPMOZJR9RPF/WorjJxlD8KUYbkA4Q4dSG2pA/I73v
+	 gsXcWinbucwHVI7odj5o3AyzaWa/BqtUnNrimAB0mBaQ2a2LiKDQdW/NAPLFHe6nlb
+	 plldkahii6Oq62o/LzINmEQidRkhIVLWD06xYCBlJRxpkzt/f9XEF54F7EqSi1Njsq
+	 7Tocnxzk0anOnFEcNOFGVQsiL6nY5DBDwAojIJF4wiRJt3B3veBixbNcSzi0SVuNEb
+	 G5UOS23xJsTx3LPgWzSSv3Mf8adTLtbKDZEWHFlWBlLKQg8KLa06RLHv37U43Ps/0+
+	 xm/DekhQ25N+A==
+Date: Tue, 30 Jun 2026 11:23:13 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: David Heidelberg <david@ixit.cz>
+Cc: devicetree@vger.kernel.org, David Rhodes <david.rhodes@cirrus.com>,
+	phone-devel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, patches@opensource.cirrus.com,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	David Rhodes <drhodes@opensource.cirrus.com>,
+	David Rhodes <David.Rhodes@cirrus.com>, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH v3] ASoC: dt-bindings: Convert cirrus,cs35l36 to DT schema
+Message-ID: <178283659300.3869832.12251843257328309264.robh@kernel.org>
+References: <20260624-dt-cirrus-cs35l36-v3-1-ec451d5a2908@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260618220427.14325-2-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260624-dt-cirrus-cs35l36-v3-1-ec451d5a2908@ixit.cz>
 
-On Fri, Jun 19, 2026 at 12:01:59AM +0200, Marek Vasut wrote:
-> In case MSI are enabled, but DWC built-in iMSI-RX is not in use, the
-> MSI are handled via GIC ITS. Configure all controller MSI registers
-> fully.
-> 
-> Set or clear MSI capability register MSICAP0 MSI enable MSIE bit and
-> PCIe Interrupt Status 0 Enable register PCIEINTSTS0EN MSI interrupt
-> enable MSI_CTRL_INT bit according to MSI enable state, set both bits
-> if MSI are enabled, clear both bits if MSI are disabled.
-> 
-> If MSI are disabled, or MSI are enabled and iMSI-RX is used, then
-> deconfigure AXIINTCADDR and AXIINTCCONT to 0, which disables any
-> pass through of MSI TLPs onto the AXI bus and then further into
-> GIC ITS translation registers.
-> 
-> If MSI are enabled and iMSI-RX is not used, the configure AXIINTCADDR
-> with target address of GIC ITS translation registers, and configure
-> AXIINTCCONT to enable MSI TLP pass through onto AXI bus and into the
-> GIC ITS. This specific configuration allows handling of MSI via the
-> GIC ITS instead of integrated iMSI-RX.
-> 
-> Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Same as patch 3, SoB chain is broken. Rest LGTM!
-
-- Mani
-
+On Wed, 24 Jun 2026 23:10:02 +0200, David Heidelberg wrote:
+> Convert CS35L36 Speaker Amplifier to yaml.
+> 
+> Changes:
+>  - maintainers email to the generic Cirrus email
+>  - Both the codec and downstream worked just fine without
+>    VP-supply provided. Align with datasheet for similar models.
+>  - add dai-common.yaml to cover for '#sound-dai-cells',
+>    'sound-name-prefix'
+>  - updated not yet implemented:
+>      cirrus,weak-fet-delay -> cirrus,classh-wk-fet-delay-ms
+>        (in both definition and example)
+>      cirrus,weak-fet-thld -> cirrus,weak-fet-thld-millivolt
+>        (only in the example)
+>  - added two required properties:
+>      cirrus,boost-ctl-millivolt
+>      cirrus,boost-peak-milliamp
+> 
+> Assisted-by: OpenAI:gpt-4
+> Reviewed-by: David Rhodes <David.Rhodes@cirrus.com>
+> Co-developed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 > ---
-> NOTE: This would not be possible without prior work from Shimoda-san
+> Relevant for Pixel 3 / 3XL / 4.
 > ---
-> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> Cc: Manivannan Sadhasivam <mani@kernel.org>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-doc@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
-> V2: Pull GITS_TRANSLATER address from DT, which also fixes missing +0x40
->     offset of the GITS_TRANSLATER register
-> ---
->  drivers/pci/controller/dwc/pcie-rcar-gen4.c | 118 +++++++++++++++++++-
->  1 file changed, 113 insertions(+), 5 deletions(-)
+> Changes in v3:
+> - Corrected properties which has been unimplemented and also
+>   conflicting between definition and the sample.
+> - Removed units from description where units are part of the property
+>   name.
+> - Added sound into the $id path. (Mark)
+> - Readded James and removed Bjorn. (Rob)
+> - Made path to dai-common shorter.
+> - Added two required properties
+>   cirrus,boost-ctl-millivolt and cirrus,boost-peak-milliamp.
+> - Use $defs for the cirrus,vpbr-config to prevent matching it against
+>   vendor defined properties. The driver is already mainlined with
+>   cirrus, vendor part, so we have to keep it compatible.
+> - Link to v2: https://lore.kernel.org/r/20260624-dt-cirrus-cs35l36-v2-1-74eccdbd8fe4@ixit.cz
 > 
-> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> index 8b03c42f8c84c..6300ab4dc38b3 100644
-> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> @@ -13,8 +13,11 @@
->  #include <linux/interrupt.h>
->  #include <linux/io.h>
->  #include <linux/iopoll.h>
-> +#include <linux/irqchip/arm-gic-v3.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> +#include <linux/of_address.h>
-> +#include <linux/of_irq.h>
->  #include <linux/pci.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
-> @@ -31,6 +34,10 @@
->  #define DEVICE_TYPE_RC		BIT(4)
->  #define BIFUR_MOD_SET_ON	BIT(0)
->  
-> +/* MSI Capability */
-> +#define MSICAP0			0x0050
-> +#define MSICAP0_MSIE		BIT(16)
-> +
->  /* PCIe Interrupt Status 0 */
->  #define PCIEINTSTS0		0x0084
->  
-> @@ -55,6 +62,14 @@
->  #define APP_HOLD_PHY_RST	BIT(16)
->  #define APP_LTSSM_ENABLE	BIT(0)
->  
-> +/* INTC address */
-> +#define AXIINTCADDR		0x0a00
-> +
-> +/* INTC control & mask */
-> +#define AXIINTCCONT		0x0a04
-> +#define INTC_EN			BIT(31)
-> +#define INTC_MASK		GENMASK(11, 2)
-> +
->  /* PCIe Power Management Control */
->  #define PCIEPWRMNGCTRL		0x0070
->  #define APP_CLK_REQ_N		BIT(11)
-> @@ -305,13 +320,103 @@ static struct rcar_gen4_pcie *rcar_gen4_pcie_alloc(struct platform_device *pdev)
->  	return rcar;
->  }
->  
-> +static int rcar_gen4_pcie_host_msi_addr(struct dw_pcie_rp *pp, u32 *msi_addr)
-> +{
-> +	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
-> +	struct device_node *msi_node = NULL;
-> +	struct device *dev = dw->dev;
-> +	struct resource res;
-> +	u64 addr;
-> +	int ret;
-> +
-> +	/*
-> +	 * Either the "msi-parent" or the "msi-map" phandle needs to exist
-> +	 * to obtain the MSI node.
-> +	 */
-> +	of_msi_xlate(dev, &msi_node, 0);
-> +	if (!msi_node)
-> +		return -ENODEV;
-> +
-> +	/* Check if "msi-parent" or the "msi-map" points to ARM GICv3 ITS. */
-> +	if (!of_device_is_compatible(msi_node, "arm,gic-v3-its"))
-> +		return dev_err_probe(dev, -ENODEV, "Compatible MSI controller not found\n");
-> +
-> +	/* Derive GITS_TRANSLATER address from GICv3 */
-> +	ret = of_address_to_resource(msi_node, 0, &res);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "MSI controller resources not obtained\n");
-> +
-> +	addr = res.start + GITS_TRANSLATER;
-> +	if (addr >= SZ_4G)
-> +		return dev_err_probe(dev, -EINVAL, "MSI controller address above 32bit range\n");
-> +
-> +	*msi_addr = addr;
-> +	return 0;
-> +}
-> +
-> +static int rcar_gen4_pcie_host_msi_init(struct dw_pcie_rp *pp)
-> +{
-> +	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
-> +	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
-> +	u32 val;
-> +	int ret;
-> +
-> +	/* Make sure MSICAP0 MSIE is configured. */
-> +	val = dw_pcie_readl_dbi(dw, MSICAP0);
-> +	if (pci_msi_enabled())
-> +		val |= MSICAP0_MSIE;
-> +	else
-> +		val &= ~MSICAP0_MSIE;
-> +	dw_pcie_writel_dbi(dw, MSICAP0, val);
-> +
-> +	if (!pci_msi_enabled() || pp->use_imsi_rx) {
-> +		/* Clear AXIINTC mapping. */
-> +		writel(0, rcar->base + AXIINTCADDR);
-> +		writel(0, rcar->base + AXIINTCCONT);
-> +	} else {
-> +		ret = rcar_gen4_pcie_host_msi_addr(pp, &val);
-> +		if (ret)
-> +			goto err;
-> +
-> +		/* Point AXIINTC to GIC ITS and enable. */
-> +		writel(val, rcar->base + AXIINTCADDR);
-> +		writel(INTC_EN | INTC_MASK, rcar->base + AXIINTCCONT);
-> +	}
-> +
-> +	/* Configure MSI interrupt signal */
-> +	val = readl(rcar->base + PCIEINTSTS0EN);
-> +	if (pci_msi_enabled())
-> +		val |= MSI_CTRL_INT;
-> +	else
-> +		val &= ~MSI_CTRL_INT;
-> +	writel(val, rcar->base + PCIEINTSTS0EN);
-> +
-> +	return 0;
-> +
-> +err:
-> +	/* Deconfigure MSICAP0 MSIE. */
-> +	val = dw_pcie_readl_dbi(dw, MSICAP0);
-> +	val &= ~MSICAP0_MSIE;
-> +	dw_pcie_writel_dbi(dw, MSICAP0, val);
-> +
-> +	/* Clear AXIINTC mapping. */
-> +	writel(0, rcar->base + AXIINTCADDR);
-> +	writel(0, rcar->base + AXIINTCCONT);
-> +
-> +	/* Deconfigure MSI interrupt signal */
-> +	val = readl(rcar->base + PCIEINTSTS0EN);
-> +	val &= ~MSI_CTRL_INT;
-> +	writel(val, rcar->base + PCIEINTSTS0EN);
-> +
-> +	return ret;
-> +}
-> +
->  /* Host mode */
->  static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
->  {
->  	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
->  	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
->  	int ret;
-> -	u32 val;
->  
->  	gpiod_set_value_cansleep(dw->pe_rst, 1);
->  
-> @@ -328,16 +433,19 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
->  	dw_pcie_writel_dbi2(dw, PCI_BASE_ADDRESS_0, 0x0);
->  	dw_pcie_writel_dbi2(dw, PCI_BASE_ADDRESS_1, 0x0);
->  
-> -	/* Enable MSI interrupt signal */
-> -	val = readl(rcar->base + PCIEINTSTS0EN);
-> -	val |= MSI_CTRL_INT;
-> -	writel(val, rcar->base + PCIEINTSTS0EN);
-> +	ret = rcar_gen4_pcie_host_msi_init(pp);
-> +	if (ret)
-> +		goto err;
->  
->  	msleep(PCIE_T_PVPERL_MS);	/* pe_rst requires 100msec delay */
->  
->  	gpiod_set_value_cansleep(dw->pe_rst, 0);
->  
->  	return 0;
-> +
-> +err:
-> +	rcar_gen4_pcie_common_deinit(rcar);
-> +	return ret;
->  }
->  
->  static void rcar_gen4_pcie_host_deinit(struct dw_pcie_rp *pp)
-> -- 
-> 2.53.0
+> Changes in v2:
+> - Rename the commit. (Mark)
+> - Link to v1: https://lore.kernel.org/r/20260618-dt-cirrus-cs35l36-v1-1-1a43515666ad@ixit.cz
+> ---
+>  .../devicetree/bindings/sound/cirrus,cs35l36.yaml  | 240 +++++++++++++++++++++
+>  .../devicetree/bindings/sound/cs35l36.txt          | 168 ---------------
+>  2 files changed, 240 insertions(+), 168 deletions(-)
 > 
 
--- 
-மணிவண்ணன் சதாசிவம்
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+
