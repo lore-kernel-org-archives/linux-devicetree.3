@@ -1,195 +1,132 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E980640BCCC
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 12:40:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782823250; cv=pass; b=iaK1Hs6NbLgEZSzvbTrdnVjmuZ8Tu2858EbxvujqgX5zLCM5i1Q05yRz8J3I8DdCIldc9Xw/YH/gJUKojEEKdnmMJkDSXrXyPkbWCSxUaxtFLPM7yMbOOyZuVb5g3fSMyOhL64KLBk++pX1ST+DSy54yRiGZ+6NQkhHmSNgYrEw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782823250; c=relaxed/simple;
-	bh=uOJKz5W+d2p6Y6G+mO8v3mk6G4LRD5Z3XtmSK7BGQy4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sBaixGFfGtHUx0++v3mvvTYUtmn7V3UL76INliYkdyETdSadxMK1Jy1dw0oGVP6siPCYnq4vNMnYTTj9Lk9Fm861WfEOFzOZHNTvq+I8T/5HomPHHKLU6qbkeKEOzCWX0iLMFElgMmc7Pmcq51o/gOXioSDnmB2Xu2o+oY22MWA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=okYOPVw2; arc=pass smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4DDA331EA7
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 12:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782823302; cv=none; b=fu5dehymy6/W5MqfeNTKuDUC9/udkx6ZkEyitA01Hwu9wEtEDl1HL+pj5iZhqJUX0PYgNX+BP48zOFbCC4DQ97a8mDPz9r0+KgoDjzGyoAaih5wwa9kruDPcOSAYVT6N0Y10Hs9Umk/JNqTshCJv5ZX8hmQ4IlDGQk17tO35uOU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782823302; c=relaxed/simple;
+	bh=/qQIhp6ivqT+2HKiI9GiNz6XwQD5DVyFYiJSHPh2nJ0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RyXYFTiMppQTOEXu5IWMzftJlOjTr2hAOIapbRQPbvWI3l1rPo83S5UV433ZzkhsjPotbHue/vrzUEcyGElmw/1n+RXUQ7XOu3zed0UtQvQUre3eeNA6BxJKmaTEr1EoU2nzEvGf3fmdpuNJ0DfO/aUcH/klDbrlMuwEerSDlTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=eX41QCLi; arc=none smtp.client-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="okYOPVw2"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493a5392c60so14335215e9.2
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 05:40:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782823247; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HikmHivRFKIt3ma1jbDDlZOf3Mh2PkS49me/b4YcG4JeEtBbZeqDo7AErHhpUSwN6K
-         hL2eUhxk+UoykCE0iiEeDuJmH5TEGr8HQ7ABRKKFznMcLaiDZzKoPkc/c3UDatwLIfZt
-         gijVT2KfFV5AxPsu/85lVWzehwkoxkWIkZYBhdh+F/ZdVBQ1myObeHagzzok/vRzN/cN
-         qAbVnfLrDIV2a51LG4FIv/Crxr9ZRuUmrhtd7W38GbHShXfF8kIZJECbANZIYaoTXPXm
-         Sry5z5fWD3RuqeyXThLxdKZfANOshmDu4P401fiq1ZM68ravFqQzXvF0JmH6PSEWK1yC
-         HTLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=eV5IRKi1OeoMkxNq2d6si+B8SDj/PuxpdPHNUkls7HM=;
-        fh=iECXC4dKd8Ebl6ajkUljW6IuuS90fsE1VQGhTRi25EA=;
-        b=nUe6DSq/aPz9jvsyBQoXVb9BGH3rIcon5jFR1bpUpycXTiixfS5B0np/IBEziT0EZ5
-         Vm3hO/QrkMqKZe+DzS39ZIzkGHgvboMDBNxG9GijbNk9DQ5T1iOuoLynbWOjPjNSdrAh
-         rvUOwTXKKAgHTZBhc1gPF/FNVp2F4EtEErRrwHUAem+XW1oyLeii5BTnLUHuWikWjNde
-         nNJeF2lJceY3/oKPQ1z28Vqygx1vOuJSsOREmb/dc4D+cxHocvJ2gd/koCTI71xdUwV+
-         Ag67YCXQOkM0I/K4QmQlvMRz+g0pANLSmE31kXFIsgmdUtQKutC+uTuu32bs2vpxcioL
-         NGLg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="eX41QCLi"
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5aebd7da975so118440e87.2
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 05:41:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782823247; x=1783428047; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eV5IRKi1OeoMkxNq2d6si+B8SDj/PuxpdPHNUkls7HM=;
-        b=okYOPVw2Q+8a0DjlK1NeXzgumgVYTGzXd73n6RNIzvvxcwTJ5XophTMRfU8cSS2mI+
-         bixAvDqaYTTKPYqQ5xK40UAVg5Ig4yTaqqaJgyNW71xx1FrfxpbpgJG3u9+3RUY5DNZf
-         gk741C9HIvNObnKUKTy10T2YUBluO0u+1B4JPnR4LevWTO4MlmyWmtIFwXhLlCtXEmVN
-         FjZdEQqflShRPY4XlutZXqyQP6HbC4+phfRsszXH2cL+pGGot5vWpsABD/T6BP7XZqbt
-         KqJ4JiPKSdOYwKflJSJa6RQ14d8NbsfNdhpCRC6BiYTkpTER911Bhbzd1l5fEt2AEukF
-         FjQw==
+        d=linaro.org; s=google; t=1782823298; x=1783428098; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uCmcPvFsUj9ce5Hb9FUW8V5ardKixIrXr25AUWrKNw0=;
+        b=eX41QCLi2zRk9kHbgo52eDnI5I3W4vs++xHKRG5rGY3hXct7AQ4j643DuypenEGBKp
+         KROqNZM+93NLWASk165IKvE1Nw2nVRLjBd6mzx4I8RlVVJFIdCVq8ShxRYlRWb7b44SC
+         x48HJtWcDMWkaQu8HeNsZG5JLCbmnAC5VNTPfXVc/Z1bTdJsAmN1WR7X7EzwWCFckIBo
+         AORv5d5ET3O01z8YcDFaydwJx2iv3HmVJ7enPMEOGpffv+GLWFvM6arul1zRkRp+ZPlS
+         hJl410IjUCYca7ndFwMOZLAHpu9BgpFxw/Unh8aZi7w37E/5Qix2e02DwtgxTp9nu3A3
+         haxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782823247; x=1783428047;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=eV5IRKi1OeoMkxNq2d6si+B8SDj/PuxpdPHNUkls7HM=;
-        b=q5a3k1g0k1CflQZ2H27R4SPeKgAOyyTWs7y9bwJ339GwswWeWQltEhVgOWfLZMe3NO
-         JJAPNfvRdCQwho3zzw/M075ynNFe8YPxf5hTeRwyKU46vj83dgsLBowiB3dFDhLF519k
-         gae5VYskPtYmuz843VQfqkP7vC7QkIIsDuIc84cc3yNQRVealz0iAzjVhPxEXp7fTi3T
-         uXdLZzDEdPKoX0wTIOXNqhBhC2dtIfjncG9LMbwAfoLE65rQkaQjbOviJEZ5h8FHabfv
-         IoZ53we57ppBp4eJYECI8R2DZms4K5wOcE3sHX+zIxkSd0Zleh5Ai0NvTZotkyHdVaE/
-         bp6w==
-X-Forwarded-Encrypted: i=1; AFNElJ9elv3bxAPYcGwiEA1vzz5cOOJynTFWvCweGH6PjKQ/tiND6Q0LGMCqOWvml2oD9Al10ZQTfQ8fmkun@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4ZUzASsBHQvD5aQmhwmfOJWnN+DDUK3NVTIEBqwNglSqUijKi
-	sBLin41Wu0SPZ+yIu+Zg89vVCj3ofUm/0n+xpGi+Wbi7+RYXrlXGADlLaY5mPK2K6HsaQ7J/Sf/
-	5lJwqI89ojCoKrtzNr/9sY8YzIURxwu0=
-X-Gm-Gg: AfdE7cltIi2gBrmuXypn9knEKRmE/MRthEK+4FDxSzg1i0EAdk698VBFKhEvv9qHqxU
-	BqmCAxmDZGZZs0qqCP2//D3q15a6npTj2hN+XYgMx4mKiOYta/D+Dhz93QrEZkd9cmMFSrTOZsY
-	0MfjtXIKHm+d+VHd1SR+ZCllzWHIN1LQOoxVYbCbnTiABcBDCm/9w1IFskC7ebyKgNbr9U//Cb6
-	s+9/yoFfEn1OXXLRQpX0uxIzmU/KdgyAfGhpnI+RkXXeweBbSEE991QBvkB14UYllALze6SEV/s
-	X4+4HxaGi4Hx8qpjWjLqfXi2YwhrBmteAyHgzp4=
-X-Received: by 2002:a05:600c:1383:b0:492:58d6:2565 with SMTP id
- 5b1f17b1804b1-493b82b62b1mr51680335e9.25.1782823247134; Tue, 30 Jun 2026
- 05:40:47 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782823298; x=1783428098;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uCmcPvFsUj9ce5Hb9FUW8V5ardKixIrXr25AUWrKNw0=;
+        b=AQ4o1pM8dpAZ7gs4ebkhRyciAmdgX3WwRZU3DIR6MdsXpQJlIHEe5DUDzDv+DZ1ife
+         WcPqtCE8eAnvszwWFORdmNEQQN0kWoDuW4X5S14CTl8cnherHIaDHZ2eV675dWW4DK6y
+         KyO3aF0D3UCh14rbUm4u5u0QYRXuZEh0yciu5+oM6iAsLRh30LKdhcVzUkIBIiD9cqfn
+         2O/ivjysOV8UDOMw0Kdax4YveRxjL2GgZU+dCaVR+ioPzbMkHmU3TIS0jFCiodEghnS8
+         mEbbtPxIXSFfLPXLGv8050bCOn97epJrVBJtfDnTDzb52eXqTTDfs6OlQjn3Vy6kmIDd
+         0qWw==
+X-Forwarded-Encrypted: i=1; AHgh+RoI0ZWvb5bOO/H+Q5jbPpgJdy4dVKucwaIagDlvo3mZRRkgRgJLbTJ+h0lIu1A29C0oUAWcEejUhne6@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMXZi2mZKpxfInWxSCc/Fb1iJOGEJKhIxxK8l6NSJ+PXhvU642
+	mkT+mtEViSRKnZIKMaa8XJ5QwnP1SfQ6947cMRZPYLlsYgLwok6zmdMwjJqmuu62Gbw=
+X-Gm-Gg: AfdE7cmtnvrW12m/BCD4EiUSM+Aizi/gkPSGzJr6jXysYwwTPlSMbuN11mNBb29272A
+	GFdwY/2/N2VUJWsJ3sptWmsHeMvuxRcsTj4DwOvtZIPs7FjBoVBShmIqj+dFAL96+lKFnYcNo1k
+	a7BuqNK/saZ3sd9Zdsx7wGIZoG5JvbJTHUP1snaV1DVRYZfmDgUM83Yzfqi6wNK3+RIh/lG6fqG
+	eWxEHGhSlO96lnOBDwYZHO9ssNmAkY0/A7uoi37tR7jRB4q8qsuEd73/amldXufhiCzZsc4hxYc
+	uT+7h6LzAh5C7Dcz+2bLDNgx/4CCukvaSoXvn59vlmkNasi4cQOLrmwtksGH5h6vLOdp4BcU4qq
+	yrKVDB0+dvpYT9NX+80mqSo0Z9M3/yAlK7X1O6roqKitOC9HFAuu1IDZM2C3PsWrGsIB8opsJ/D
+	14dKkCf5O1NfGN2LkHJOcH+r1mAWm6L8/NZ4SqNPTC2hAlERniOmTijdjgdbpmFETVxd4=
+X-Received: by 2002:a05:6512:1253:b0:5ae:b8bf:51c0 with SMTP id 2adb3069b0e04-5aebdbb2232mr564127e87.5.1782823297830;
+        Tue, 30 Jun 2026 05:41:37 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aebe33ce5asm513831e87.21.2026.06.30.05.41.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jun 2026 05:41:36 -0700 (PDT)
+Message-ID: <fd78f8e8-07c6-490b-a9bd-d581a28c1f04@linaro.org>
+Date: Tue, 30 Jun 2026 15:41:36 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260614083424.464132-1-mitltlatltl@gmail.com>
- <20260614083424.464132-2-mitltlatltl@gmail.com> <qwbda435on6rhsbf5o4jqijakanjmnmswnc6g6qsubuqbyvbok@fuoclv6u7tq5>
- <c29776b4-04b8-4c59-8f1e-d766bf982a2f@oss.qualcomm.com> <CAH2e8h75xeRVvo+jOjRuFaBko5NNCnBX0dawFFsWBaiTwNd4Xw@mail.gmail.com>
- <99eaf1d1-fbf9-4336-a13c-ae8ab789cc99@oss.qualcomm.com> <CAH2e8h6aWW_=pD6JAuFB-VqEZDj9x8gZVh9TdvTCRQakKzm3pA@mail.gmail.com>
- <df03a3dc-1f6a-4725-a565-939838d3b1ba@oss.qualcomm.com>
-In-Reply-To: <df03a3dc-1f6a-4725-a565-939838d3b1ba@oss.qualcomm.com>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Tue, 30 Jun 2026 20:39:14 +0800
-X-Gm-Features: AVVi8CfouiOAAEzdLUS5LEph1kSz7ajqtxX1IEObzFKZMd694YMeQZPjfxjVDBU
-Message-ID: <CAH2e8h7XmhwWPfDmPf8SVpu6syP2E=BriC0=x3BT=XNPzJDzMg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] spi: qcom-geni: Add property to force GSI mode
-To: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: sm8550: add SDHC4 controller node
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ William Bright <william.bright@imd-tec.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Ram Boukobza <ram@imd-tec.com>, Tendai Makumire <tendai.makumire@imd-tec.com>
+References: <20260427-sm8550-sdhc4-support-v2-1-a4241f43ecd5@imd-tec.com>
+ <e0731edc-81da-429a-a12e-a1d1b75f9544@linaro.org>
+ <aig9licCxhtZbHMq@will-Legion-Slim-5-16APH8>
+ <5a5cbf8f-07ef-419a-8d30-c1b0b2786312@linaro.org>
+ <aik1ZYUT-cnpfdQn@will-Legion-Slim-5-16APH8>
+ <00643a25-040a-4bec-8324-f52b30d84f9f@linaro.org>
+ <aivHs6p28uN3d6TI@will-Legion-Slim-5-16APH8>
+ <aca9bd93-9dff-4493-a1c4-daf9ba27aad6@linaro.org>
+ <c9f7b597-f083-4438-bf9b-a19e2f39436a@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <c9f7b597-f083-4438-bf9b-a19e2f39436a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 30, 2026 at 8:28=E2=80=AFPM Mukesh Savaliya
-<mukesh.savaliya@oss.qualcomm.com> wrote:
->
->
->
-> On 6/30/2026 3:36 PM, Pengyu Luo wrote:
-> > On Tue, Jun 30, 2026 at 5:52=E2=80=AFPM Mukesh Savaliya
-> > <mukesh.savaliya@oss.qualcomm.com> wrote:
-> >>
-> >>
-> >>
-> >> On 6/29/2026 1:33 PM, Pengyu Luo wrote:
-> >>> On Mon, Jun 29, 2026 at 1:36=E2=80=AFPM Mukesh Savaliya
-> >>> <mukesh.savaliya@oss.qualcomm.com> wrote:
-> >>>>
-> >>>> Hi Pengyu,
-> >>>>
-> >>>> On 6/15/2026 2:48 AM, Dmitry Baryshkov wrote:
-> >>>>> On Sun, Jun 14, 2026 at 04:34:24PM +0800, Pengyu Luo wrote:
-> >>>>>> Some devices (such as gaokun3) do not disable FIFO mode, causing t=
-he
-> >>>>>> driver to fallback to FIFO mode by default. However, these platfor=
-ms
-> >>>>>> also support GSI mode, which is highly preferred for certain
-> >>>>>> peripherals like SPI touchscreens to improve performance.
-> >>>>>>
-> >>>>>> Introduce the "qcom,force-gsi-mode" device property to hint and fo=
-rce
-> >>>>>> the controller into GSI mode during initialization.
-> >>>> Why to force ? You can directly configure in GSI mode. Note there ar=
-e
-> >>>> some configuration done prior to Linux bootup too.
-> >>>
-> >>> Sorry, I don't get it. how? I know there may be a qupfw, but it is
-> >>> impossible for a normal user like me to generate one with GSI
-> >>> preferred.
-> >>>
-> >> If firmware doesn't program in GSI, you can't have this working in GSI
-> >> mode, its going to fail (and work with fallback). if it's programmed i=
-n
-> >> GSI, anyway this will run in GSI mode. So why to add extra things
-> >> without any usage ?
-> >>
-> >
-> > What I can confirm is that fifo is not disabled on my device, and gsi
-> > is definitely enabled (under windows, check the register
-> > SE_GENI_DMA_MODE_EN), forcing the device to enable GSI mode on linux
-> > works well.
-> >
-> Thanks  ! if GSI is already enabled, then why do you need forced gsi ?
+On 6/30/26 14:09, Konrad Dybcio wrote:
+> On 6/12/26 11:11 AM, Vladimir Zapolskiy wrote:
+>> On 6/12/26 11:47, William Bright wrote:
+>>> On Thu, Jun 11, 2026 at 10:48:34AM +0300, Vladimir Zapolskiy wrote:
+>>>> Looks like the SDHC driver behaves expectedly then. For me it's hard to say
+>>>> what may be the rootcause, I believe the lower bus frequency should be fine,
+>>>> so it sounds like a hardware issue, but could it be PCB/board specific one?
+>>>>
+>>>> If you find a chance to copy the SDHC driver (and its small dependencies)
+>>>> from Android and test it on your board, and if it also fails, then it might
+>>>> be well concluded that something is wrong with hardware, still it won't be
+>>>> quite convincing that the SoC SDHC is to blame here.
+>>>>
+>>>> Hope it helps.
+>>>>
+>>> My colleague Tendai (<tendai.makumire@imd-tec.com>) had the same issue
+>>> with dll-tuning failing in SDR50 when working on the downstream 5.15 msm
+>>> kernel [1].
+> 
+> I have a "feature table" and it says SM8550->SDC4->DLL [Y/N] -> No
+> 
+> no wonder it fails the tuning if it's not present (or that's at least
+> my interpretation of this doc..)
 
-I meant it is enabled on windows, not linux, and I think it is enabled
-in the driver, geni_se_select_dma_mode() does it. On windows,
-GENI_DMA_MODE_EN bit is set, but not on linux.
+So, is it a hardware problem of the SDHC4 controller, which reports "SDR50 mode
+requires tuning" bit in CAPS1 (see SDHCI_USE_SDR50_TUNING from sdhci.h)?
 
-Yes, I have no doubt about below(as I drop DT part in V2), but the
-GENI_IF_DISABLE_RO register only determines if fifo is disabled, if
-not, why can't we use GSI?
+https://lore.kernel.org/linux-arm-msm/aik1ZYUT-cnpfdQn@will-Legion-Slim-5-16APH8/
 
-> My point here - SW should only decide mode based on register read, not
-> enforce by DT flag. As such it's not a SOC exposed, can't be overridden
-> by user.
+> There's some notes about the frequency being limited to 75 MHz in
+> SDR50 and to 37.5 in DDR50.
+> 
+> The supported modes are DS, HS, SDR12, SDR25, SDR50 and DDR50 (with
+> the caveat above).
+> 
 
+-- 
 Best wishes,
-Pengyu
-
-> >>>
-> >>>>>
-> >>>>> Ideally, this should be decided by the SPI controller based on the
-> >>>>> requirements. Another option would be to prefer GSI for all transfe=
-rs if
-> >>>>> it is available, ignoring the FIFO even if it is not disabled.
-> >>>>>
-> >>>> Yes, it should be decided in advance and configured accordingly for =
-GSI
-> >>>> vs non GSI mode. Because there would be limited set of GSI pipes, wh=
-ich
-> >>>> will actually make must have GSI mode device run with FIFO mode.
-> >>>>
-> >>>> Why don't you decide prior and configure for GSI mode ? We don't nee=
-d to
-> >>>> change the current logic of deciding FIFO vs GSI.
-> >>>>>>
-> >>>>>> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
-> >>>>>> ---
-> >>>>>>     drivers/spi/spi-geni-qcom.c | 7 +++++++
-> >>>>>>     1 file changed, 7 insertions(+)
-> >>>>>>
-> >>>>>
-> >>>>
-> >>
->
+Vladimir
