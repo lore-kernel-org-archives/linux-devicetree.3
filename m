@@ -1,87 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F403C9894
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9952D7812;
+	Tue, 30 Jun 2026 11:38:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782819403; cv=none; b=drhPa58ETcylho96UbxOzPlncCFPp7R/BoGdFx7HYwQAsHI/fNnAxuBfJjB9eVHNO9JlWWQgrWe+Vs7SeN14GS2mig0eCQhN8NFmmZx+LluVEUA38z2WCVRxDUp3dqSWwmgPQ7pws8mII7FcKIVeRBPXW7q7ulgIT/W3YvxU3h0=
+	t=1782819506; cv=none; b=mabeNsZdqPyO2695u5ae3tz4uiiLFE6avKVMaS5XeAe7jOz87EQx1T2MJ8oNWLRbXElg7bcvpjlpCPkA3qCsReieyLlo8l98quYzDk9Z9bTDE4/OMSKg2qsPulIY1exetDitzSdYXd8kbZjPxfj77GEjy9AzeXhsLtXdPAM1OMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782819403; c=relaxed/simple;
-	bh=k1siOPcWAKNP0ifXqQpv6Fdl+gbu3rJlsbm9cF84yPA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M3BC3tv0IA07pukoZmoQvnlnrt0VAMkWzf1z3pTsCyck0iyofYuc0Z1iHhT1IQg/NctTqKEehLgZ4g1nEjvavwN+Boc1ZRbOrB4PPim5q4RwJaLWBVda3MKLw1HwiKlpDShlzCVp33JPE5ggGZIE7RTVEdB4hpglD3fALpDlDLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=STEoDo6S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782819506; c=relaxed/simple;
+	bh=oTCNM/AOyFpPb5rIncF1bOxUq0WXQpL6pQN30H0AnWg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Gf3lqbRp7V4zRu3RZYdMQlEvMVqvKSohj6aC98JW5DC4uvf5CLeql+JNEuU96clnctIDD05iBVCT2WHz0aKvmoGIGqzFI1Lf5c0AJsdBCgpnsgj2n0fZLY8iNLUiY/vvh9774FC0CWpFu7UpFTpgxTl+d4/w2ZYsQGj+7reSstI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=YCB6Twpa; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="STEoDo6S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 103AD1F00A3F
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:36:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782819402;
-	bh=k1siOPcWAKNP0ifXqQpv6Fdl+gbu3rJlsbm9cF84yPA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=STEoDo6SG9fwUsVOXvJ39bWzZXydJureSnmU04tt+ZrDLU8H38whEcOsi/VkbHJ7r
-	 OiRZxuq3TrX8MyWyXSEKr6K4Rb17aTZ7uSN00nDx9lf02SJdrTNr6ZNV3MucNLd3gs
-	 7uOvg/mAe7LZ+dFEHgSMSs5GyJPVzNFQQNcZ3LzY+gFuBZ/EDoRE6Y3sObgDevcWwO
-	 Ry/B3IYsO/yKEcSwh2BXFccQ8NqUbrm0EL8SOHTPo5U9hvPwNtKiUOl3pTNXabo03J
-	 GPx4fm0JgedcLBnvrUOoXQRFU5di7VtihHJhFD5c7w9wsFnh5U0rejLOrXsxrFT/wU
-	 gzkBlqs4I7hQQ==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aeb2bc82ccso2847397e87.2
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 04:36:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Ro2u6bDRPb9y4KclgljdJPvXaKrLBMAw/7+ahkI0p0ApuEPDbSoK/NB4EIEChfNZsi4PAl2q8/kNPS4@vger.kernel.org
-X-Gm-Message-State: AOJu0YwBavq+ItMIq6E0NeQmV8yNKFCInMeL0J7wjjPcwASMqPYA5XZm
-	yP7kvMEXEwObE8DdcYZ6eOIcSTbozVMhkJgPHBkaO1QD8X38OKbCm87QH1PPAHB8M4bfxYc/gTs
-	klFmVl4lOjUBCBJbu5C3E337agjIv5v0=
-X-Received: by 2002:a05:6512:31d4:b0:5ae:b260:cf4b with SMTP id
- 2adb3069b0e04-5aebdbc7cbamr833596e87.64.1782819400838; Tue, 30 Jun 2026
- 04:36:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="YCB6Twpa"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gqLkP1C9Kz9v1p;
+	Tue, 30 Jun 2026 13:38:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1782819501;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xShlwrKyTIF4qAdBox24ShRYzAy+zv7+bJMeZEybzao=;
+	b=YCB6TwpaO927QjEdXrlIiJBt3S2TMj/lUoTQyC5iej5UxCRKDn/XljRoPJbwW7XxlugG6N
+	xBgQ8xLD8khNkgkWh+g0ulj34prUa724A/+poOtOInojCqpSRpE4vb6OBmRtDmIJAxSA4f
+	q+iHkCtSckNXJ49ELVp3wKYekx4Hu3LHe2ZUyT3N5n18Mwi4lpbcu585fLX8dl6Sm1920r
+	w0LYy0isS0hDcqp6fFRitgGmFoMYdelUtHSbx9Tm6NOH0N4ee+iItLHiYZcykaDEt9MsqF
+	xFH0uK67m+VTeUGiD6g7C/77X5TkshLws6H+4ToFw4GPgFvrVvyldWMMbrXUAQ==
+Message-ID: <263f58b418a27a2339fc2478f93234e0208b0ad9.camel@mailbox.org>
+Subject: Re: [PATCH v2 02/19] driver core: platform: provide
+ platform_device_set_of_node()
+From: Manuel Ebner <manuelebner@mailbox.org>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Lee Jones	
+ <lee@kernel.org>, Thierry Reding <thierry.reding@avionic-design.de>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller"	 <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski	 <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Srinivas Kandagatla	 <srini@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Vinod Koul	 <vkoul@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich	
+ <dakr@kernel.org>, Rob Herring <robh@kernel.org>, Saravana Kannan	
+ <saravanak@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, Michael
+ Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)"	 <chleroy@kernel.org>, Andi Shyti
+ <andi.shyti@kernel.org>, Andy Shevchenko	
+ <andriy.shevchenko@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, Will
+ Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Doug Berger
+ <opendmb@gmail.com>,  Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list	
+ <bcm-kernel-feedback-list@broadcom.com>, Ulf Hansson <ulfh@kernel.org>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team	 <kernel@pengutronix.de>, Fabio Estevam
+ <festevam@gmail.com>, Matthew Brost	 <matthew.brost@intel.com>, Thomas
+ =?ISO-8859-1?Q?Hellstr=F6m?=	 <thomas.hellstrom@linux.intel.com>, Rodrigo
+ Vivi <rodrigo.vivi@intel.com>,  David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Peter Chen <peter.chen@kernel.org>,  Paul
+ Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>,  Maximilian Luz <luzmaximilian@gmail.com>, Hans
+ de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
+ <ilpo.jarvinen@linux.intel.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
+	driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+ iommu@lists.linux.dev, 	linux-pm@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
+	linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Date: Tue, 30 Jun 2026 13:37:54 +0200
+In-Reply-To: <20260629-pdev-fwnode-ref-v2-2-8abe2513f96e@oss.qualcomm.com>
+References: <20260629-pdev-fwnode-ref-v2-0-8abe2513f96e@oss.qualcomm.com>
+	 <20260629-pdev-fwnode-ref-v2-2-8abe2513f96e@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260622-maili-pinctrl-v3-0-9724e1000471@oss.qualcomm.com>
-In-Reply-To: <20260622-maili-pinctrl-v3-0-9724e1000471@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 30 Jun 2026 12:36:28 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkYzGi3KrVtTw+m_H=BVWChMaF6fFF++hg_nZLwAOMuCQ@mail.gmail.com>
-X-Gm-Features: AVVi8CebyNlIglBQIcQKyVXZ7o8kY_lFSVk7vYSCrSZxltHIlhUqN_iKl5FCZ3o
-Message-ID: <CAD++jLkYzGi3KrVtTw+m_H=BVWChMaF6fFF++hg_nZLwAOMuCQ@mail.gmail.com>
-Subject: Re: [PATCH v3 0/2] pinctrl: qcom: Introduce Pinctrl for the upcoming
- Maili SoC
-To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, aiqun.yu@oss.qualcomm.com, 
-	tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com, 
-	yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MBO-RS-ID: 160dda9997288de2bec
+X-MBO-RS-META: xtee85ryzhfy8x8szdsj4cwckgtw999y
 
-On Mon, Jun 22, 2026 at 9:35=E2=80=AFAM Jingyi Wang
-<jingyi.wang@oss.qualcomm.com> wrote:
+On Mon, 2026-06-29 at 11:12 +0200, Bartosz Golaszewski wrote:
+> [...]
+> =C2=A0
+> +/**
+> + * platform_device_set_of_node - assign an OF node to device
+> + * @pdev: platform device to add the node for
+> + * @np: new device node
+> + *
+> + * Assign an OF node to this platform device. Internally keep track of t=
+he
+> + * reference count. Devices created with platform_device_alloc() must us=
+e this
+> + * function instead of assigning the node manually.
 
-> Introduce Top Level Mode Multiplexer dt-binding and driver for the
-> upcoming Qualcomm Maili SoC. Maili is the new mobile SoC, and its DTS
-> will be upstreamed later.
->
-> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-> ---
-> Changes in v3:
-> - add reviewed-by tag
-> - remove comments before msm_pingroup
-> - Link to v2: https://lore.kernel.org/r/20260614-maili-pinctrl-v2-0-0db5b=
-fc23d64@oss.qualcomm.com
+Doesn't it make sense to add a remark to the kernel doc of platform_device_=
+alloc()?
 
-FWIW looks good to me
-Acked-by: Linus Walleij <linusw@kernel.org>
+Thanks
+ Manuel
 
-Bartosz is queueing Qualcomm patches now, he will decide on this patch.
-
-Yours,
-Linus Walleij
+>  [...]
