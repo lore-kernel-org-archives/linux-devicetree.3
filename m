@@ -1,89 +1,138 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1A23CEBA7;
-	Tue, 30 Jun 2026 09:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F278D3B42D1;
+	Tue, 30 Jun 2026 09:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782812282; cv=none; b=NlEyl7r4utWRYFjCh3g6OKOM35q3Z45co0abc5XE21ayFu4YEUJAm7rj9ujGORkpv2oaur2+m33jR/gv5nkFkMzBwpIt2zG4ewwRmURJoQNdkrj6FntFuUJLGqL29dJRDrL38kqobecivOFdnvUnsZeNHLy5xXbZuA0zzGgdw+8=
+	t=1782812286; cv=none; b=nJwbdrpWfT7FDc7LmmYhgvhKUlhzlYlGaEEy55WjW1vHfiB6ks3gtu/FlMSP1xqel9FJ3AxhRwikEYGywoRDaO7wvR2XarsGhrcCJrSGqpqyt+FvkOCkVwJlyL3+RM+p4khbmaG7Ac912Tx9SP8x1BSraWV5HjdBY6wc3MsWFgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782812282; c=relaxed/simple;
-	bh=Dx6r6KRQw/Y8Q9QV4XTwcNAgMQsPIjTj5hYAVq5+yTc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oZtDcbhtlf6Qwyv9RhDvf1UvZ3g5SKKEzwi9Ukpp2iyXWX9Q2MUEayWeH+4AyzFNR36dNWkKWXSNEVZGfscWx7Xh7l2SeAyOHdYK9/3twarXP54WcKPNqGLbM0O9QYwaaPZrovonkCE2x4dfKcdVVt8rv9opMtfPkIhY7BLTq1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=fail smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id DA89D2006B4;
-	Tue, 30 Jun 2026 11:37:57 +0200 (CEST)
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1weUuj-005OHq-2d;
-	Tue, 30 Jun 2026 11:37:57 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1weUuj-000000006lu-33Ue;
-	Tue, 30 Jun 2026 11:37:57 +0200
-Message-ID: <90ecf77e16c17f0ac46b2996be58110fc01c2e08.camel@pengutronix.de>
-Subject: Re: [PATCH v7 3/4] reset: cix: add sky1 audss auxiliary reset driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: joakim.zhang@cixtech.com, mturquette@baylibre.com, sboyd@kernel.org, 
-	bmasney@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: cix-kernel-upstream@cixtech.com, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Date: Tue, 30 Jun 2026 11:37:57 +0200
-In-Reply-To: <20260629091500.52540-4-joakim.zhang@cixtech.com>
-References: <20260629091500.52540-1-joakim.zhang@cixtech.com>
-	 <20260629091500.52540-4-joakim.zhang@cixtech.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1782812286; c=relaxed/simple;
+	bh=vyyTTSbuj5h3Q9OgBsXCtnnt+Yw0U/fLWgoQLk2IQLk=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NiCeCp//I7Jf5y+NmAv7kMgHfLeFbCORnNO99o2pBnasEa9mhUrR7PeTaRRr0eFdCRZx4IO0uEhLHS1KpedM5xiTJgaQeNo4yOcy9/NwpyfJyyldsFxlvpiWnCIf+todL3V5i8YlqOC4fI/NFsiAUn/hiM0mis7t5zb+ZmddBSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=shgLOXZE; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="shgLOXZE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1782812284; x=1814348284;
+  h=from:to:subject:date:message-id:in-reply-to:references:
+   mime-version:content-transfer-encoding;
+  bh=vyyTTSbuj5h3Q9OgBsXCtnnt+Yw0U/fLWgoQLk2IQLk=;
+  b=shgLOXZEZxI9ybM/8X/VoOE7dECSoQgkR9PDUXej0SxhpAkIQIkcle1u
+   28rpG1Z7yIC4R0jurzotaRR0LeQHTW/xqUcUE3/9ZcESEixaCpcTSs8rv
+   Ub0FswnEzApJ8wtpQvzovwDrc+WSs5Gbd1dLJqepdzawZgHFeDDXDzCas
+   EjzHbABuLNYjVRctQXLGlIBk9+TfQxM/VK7/z30pyvGIPUhTtHh6QYQFZ
+   UR3ewxULhe73VW6I70IP4cCCWY0ArNNPPdIj8npxf9dfHmB5AiYZGr4ea
+   dzjag7neG9Uk//bR4X7wt5GlrBUAZwIKV2BYcwS0huSP1K8B0p5MaKAmj
+   Q==;
+X-CSE-ConnectionGUID: lmxtWMPfT9qZ8eisWbDhNg==
+X-CSE-MsgGUID: 4ZgRZ3I9Sl2FVcUhaLvleA==
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
+   d="scan'208";a="227053725"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 02:38:03 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.43; Tue, 30 Jun 2026 02:38:03 -0700
+Received: from che-ll-i67070.microchip.com (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 30 Jun 2026 02:37:55 -0700
+From: Varshini Rajendran <varshini.rajendran@microchip.com>
+To: <ehristev@kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
+	<nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
+	<srini@kernel.org>, <marcelo.schmitt@analog.com>, <jorge.marques@analog.com>,
+	<mazziesaccount@gmail.com>, <Jonathan.Santos@analog.com>,
+	<jishnu.prakash@oss.qualcomm.com>, <antoniu.miclaus@analog.com>,
+	<duje@dujemihanovic.xyz>, <varshini.rajendran@microchip.com>,
+	<linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 09/13] ARM: dts: microchip: sama7d65_curiosity: Enable ADC, DVFS
+Date: Tue, 30 Jun 2026 15:05:59 +0530
+Message-ID: <20260630093603.38663-10-varshini.rajendran@microchip.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260630093603.38663-1-varshini.rajendran@microchip.com>
+References: <20260630093603.38663-1-varshini.rajendran@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Mo, 2026-06-29 at 17:14 +0800, joakim.zhang@cixtech.com wrote:
-> From: Joakim Zhang <joakim.zhang@cixtech.com>
->=20
-> Add an auxiliary reset controller driver for the AUDSS CRU. Sixteen
-> software reset lines for audio subsystem peripherals are controlled
-> through one register in the CRU register map.
->=20
-> The driver is created by the AUDSS clock platform driver and registers
-> the reset controller on the CRU device node.
->=20
-> Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
-> ---
->  drivers/reset/Kconfig            |  14 ++++
->  drivers/reset/Makefile           |   1 +
->  drivers/reset/reset-sky1-audss.c | 137 +++++++++++++++++++++++++++++++
->  3 files changed, 152 insertions(+)
->  create mode 100644 drivers/reset/reset-sky1-audss.c
->=20
-> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-> index d009eb0849a3..f74859b292ae 100644
-> --- a/drivers/reset/Kconfig
-> +++ b/drivers/reset/Kconfig
-> @@ -300,6 +300,20 @@ config RESET_SKY1
->  	help
->  	  This enables the reset controller for Cix Sky1.
-> =20
-> +config RESET_SKY1_AUDSS
-> +	tristate "Cix Sky1 Audio Subsystem reset controller"
-> +	depends on ARCH_CIX || COMPILE_TEST
-> +	select AUXILIARY_BUS
-> +	select REGMAP_MMIO
+Add regulator, pinmux and enable ADC for sama7d65 curiosity. Add
+cpu-supply regulator for DVFS.
 
-This driver doesn't need REGMAP_MMIO itself, it just inherits its
-parent's regmap.=20
+Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
+---
+ .../dts/microchip/at91-sama7d65_curiosity.dts | 27 +++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-regards
-Philipp
+diff --git a/arch/arm/boot/dts/microchip/at91-sama7d65_curiosity.dts b/arch/arm/boot/dts/microchip/at91-sama7d65_curiosity.dts
+index 927c27260b6c..c2d1e5308170 100644
+--- a/arch/arm/boot/dts/microchip/at91-sama7d65_curiosity.dts
++++ b/arch/arm/boot/dts/microchip/at91-sama7d65_curiosity.dts
+@@ -79,6 +79,14 @@ reg_5v: regulator-5v {
+ 	};
+ };
+ 
++&adc {
++	vddana-supply = <&vddout25>;
++	vref-supply = <&vddout25>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_adc_default &pinctrl_adtrg_default>;
++	status = "okay";
++};
++
+ &can1 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_can1_default>;
+@@ -97,6 +105,10 @@ &can3 {
+ 	status = "okay";
+ };
+ 
++&cpu0 {
++	cpu-supply = <&vddcpu>;
++};
++
+ &dma0 {
+ 	status = "okay";
+ };
+@@ -334,6 +346,16 @@ &main_xtal {
+ };
+ 
+ &pioa {
++	pinctrl_adc_default: adc-default {
++		pinmux = <PIN_PC5__GPIO>;
++		bias-disable;
++	};
++
++	pinctrl_adtrg_default: adtrg-default {
++		pinmux = <PIN_PB7__ADTRG>;
++		bias-pull-up;
++	};
++
+ 	pinctrl_can1_default: can1-default {
+ 		pinmux = <PIN_PD10__CANTX1>,
+ 			 <PIN_PD11__CANRX1>;
+@@ -457,3 +479,8 @@ input@0 {
+ &slow_xtal {
+ 	clock-frequency = <32768>;
+ };
++
++&vddout25 {
++	vin-supply = <&vdd_3v3>;
++	status = "okay";
++};
+-- 
+2.34.1
+
