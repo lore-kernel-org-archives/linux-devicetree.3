@@ -1,139 +1,87 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A342D7812;
-	Tue, 30 Jun 2026 11:36:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F403C9894
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:36:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782819371; cv=none; b=QimsD6kzEkEdIXf2ZTmBUb//akn+qQ8JJcgePiEM71+XC5zliwFMk2QLB0sQr0NrfPTEYr02NTg7BMV7borLPOkgU/Reu8bo0/08F+xSuJnjX4wwEOEc5HqEg+8NAoFGNaM7Hsua3kgedlSgq2dcgztN8z+kq1CFjpPV0fTtxig=
+	t=1782819403; cv=none; b=drhPa58ETcylho96UbxOzPlncCFPp7R/BoGdFx7HYwQAsHI/fNnAxuBfJjB9eVHNO9JlWWQgrWe+Vs7SeN14GS2mig0eCQhN8NFmmZx+LluVEUA38z2WCVRxDUp3dqSWwmgPQ7pws8mII7FcKIVeRBPXW7q7ulgIT/W3YvxU3h0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782819371; c=relaxed/simple;
-	bh=AOrSt0ytGcYunDyeVrE2mtXF0JUE9sF29fmLH+8Phdg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jNSiFWShO73qZlYvjop48rdZrT8UsPXXZfB6nhCdrCyQuxzN3yX6Et6YTLZ5gL/zcVuQhu2mwZtONl0VP6guguCZa5qn5GNC3frV3aoc8p2rTQVUMkC2liwz8cuqGC0ASF8ZnBb2qIWKVbupikwZ2aNpGv7TKaeRUDt+/WHjReo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Sn3gmX/C; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782819403; c=relaxed/simple;
+	bh=k1siOPcWAKNP0ifXqQpv6Fdl+gbu3rJlsbm9cF84yPA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=M3BC3tv0IA07pukoZmoQvnlnrt0VAMkWzf1z3pTsCyck0iyofYuc0Z1iHhT1IQg/NctTqKEehLgZ4g1nEjvavwN+Boc1ZRbOrB4PPim5q4RwJaLWBVda3MKLw1HwiKlpDShlzCVp33JPE5ggGZIE7RTVEdB4hpglD3fALpDlDLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=STEoDo6S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Sn3gmX/C"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782819369; x=1814355369;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AOrSt0ytGcYunDyeVrE2mtXF0JUE9sF29fmLH+8Phdg=;
-  b=Sn3gmX/Cc/fiM89DVq/HUSBqYY/Pe4k2OOI71ZkixfT20LXajSWKZn11
-   pvoUKDeJbgJl0ASFJC1xFefBN2Jc4NEuJjXAYkdO7xMAy1AOL9f3ugbDo
-   ZuklgjCSOl8dPnp/j5hDFhBlSjvG3x3WYHs6VMUj1tkalqM9iPr3m7y2a
-   R8W3H9otlLoFL1wAZyyWB1w1JmIBBRNo52LI7KzG2PJ8OOdV5QdZw1Xq/
-   F9uG4SV4HI1L7fjSL+3oBUoFcXwjBAvWNgDDJhS/y8jmU87pEWm2X/RAo
-   PR2dErVkaKgz/rb/68oq1ZPMOdpJIhGpog6vMOlkzhRBHwrUDhUb2ZMz7
-   Q==;
-X-CSE-ConnectionGUID: yN068zpnQMOGjtSoHlayNQ==
-X-CSE-MsgGUID: 28LCPedXTWScdASW1IMySA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="106322016"
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
-   d="scan'208";a="106322016"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 04:36:09 -0700
-X-CSE-ConnectionGUID: 89L1EsSsRTC/WowA+Ca0PQ==
-X-CSE-MsgGUID: Ot9jzLlnQeGvcaeGclJhug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
-   d="scan'208";a="255833692"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.96])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 04:36:04 -0700
-Date: Tue, 30 Jun 2026 14:36:01 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org,
-	andy@kernel.org, antoniu.miclaus@analog.com, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, dlechner@baylibre.com,
-	duje@dujemihanovic.xyz, jishnu.prakash@oss.qualcomm.com,
-	jorge.marques@analog.com, joshua.crofts1@gmail.com,
-	krzk+dt@kernel.org, linusw@kernel.org, linux-kernel@vger.kernel.org,
-	marcelo.schmitt@analog.com, mazziesaccount@gmail.com,
-	mike.looijmans@topic.nl, nuno.sa@analog.com, robh@kernel.org,
-	sakari.ailus@linux.intel.com, wens@kernel.org
-Subject: Re: [PATCH v4 1/3] iio: adc: Fix incorrect reading when datarate
- changed in single mode
-Message-ID: <akOqIVDibovrbBAK@ashevche-desk.local>
-References: <20260622221550.374235-1-jakubszczudlo40@gmail.com>
- <20260622221550.374235-2-jakubszczudlo40@gmail.com>
- <ajpO9zaZbIl3x1uC@ashevche-desk.local>
- <20260629235118.1abc4067@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="STEoDo6S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 103AD1F00A3F
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:36:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782819402;
+	bh=k1siOPcWAKNP0ifXqQpv6Fdl+gbu3rJlsbm9cF84yPA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=STEoDo6SG9fwUsVOXvJ39bWzZXydJureSnmU04tt+ZrDLU8H38whEcOsi/VkbHJ7r
+	 OiRZxuq3TrX8MyWyXSEKr6K4Rb17aTZ7uSN00nDx9lf02SJdrTNr6ZNV3MucNLd3gs
+	 7uOvg/mAe7LZ+dFEHgSMSs5GyJPVzNFQQNcZ3LzY+gFuBZ/EDoRE6Y3sObgDevcWwO
+	 Ry/B3IYsO/yKEcSwh2BXFccQ8NqUbrm0EL8SOHTPo5U9hvPwNtKiUOl3pTNXabo03J
+	 GPx4fm0JgedcLBnvrUOoXQRFU5di7VtihHJhFD5c7w9wsFnh5U0rejLOrXsxrFT/wU
+	 gzkBlqs4I7hQQ==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aeb2bc82ccso2847397e87.2
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 04:36:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Ro2u6bDRPb9y4KclgljdJPvXaKrLBMAw/7+ahkI0p0ApuEPDbSoK/NB4EIEChfNZsi4PAl2q8/kNPS4@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBavq+ItMIq6E0NeQmV8yNKFCInMeL0J7wjjPcwASMqPYA5XZm
+	yP7kvMEXEwObE8DdcYZ6eOIcSTbozVMhkJgPHBkaO1QD8X38OKbCm87QH1PPAHB8M4bfxYc/gTs
+	klFmVl4lOjUBCBJbu5C3E337agjIv5v0=
+X-Received: by 2002:a05:6512:31d4:b0:5ae:b260:cf4b with SMTP id
+ 2adb3069b0e04-5aebdbc7cbamr833596e87.64.1782819400838; Tue, 30 Jun 2026
+ 04:36:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260629235118.1abc4067@jic23-huawei>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260622-maili-pinctrl-v3-0-9724e1000471@oss.qualcomm.com>
+In-Reply-To: <20260622-maili-pinctrl-v3-0-9724e1000471@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 30 Jun 2026 12:36:28 +0100
+X-Gmail-Original-Message-ID: <CAD++jLkYzGi3KrVtTw+m_H=BVWChMaF6fFF++hg_nZLwAOMuCQ@mail.gmail.com>
+X-Gm-Features: AVVi8CebyNlIglBQIcQKyVXZ7o8kY_lFSVk7vYSCrSZxltHIlhUqN_iKl5FCZ3o
+Message-ID: <CAD++jLkYzGi3KrVtTw+m_H=BVWChMaF6fFF++hg_nZLwAOMuCQ@mail.gmail.com>
+Subject: Re: [PATCH v3 0/2] pinctrl: qcom: Introduce Pinctrl for the upcoming
+ Maili SoC
+To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, aiqun.yu@oss.qualcomm.com, 
+	tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com, 
+	yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 29, 2026 at 11:51:18PM +0100, Jonathan Cameron wrote:
+On Mon, Jun 22, 2026 at 9:35=E2=80=AFAM Jingyi Wang
+<jingyi.wang@oss.qualcomm.com> wrote:
 
-...
+> Introduce Top Level Mode Multiplexer dt-binding and driver for the
+> upcoming Qualcomm Maili SoC. Maili is the new mobile SoC, and its DTS
+> will be upstreamed later.
+>
+> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+> ---
+> Changes in v3:
+> - add reviewed-by tag
+> - remove comments before msm_pingroup
+> - Link to v2: https://lore.kernel.org/r/20260614-maili-pinctrl-v2-0-0db5b=
+fc23d64@oss.qualcomm.com
 
-> > >  	size = data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
-> > >  	for (i = 0; i < size; i++) {
-> > > -		if (ads1100_data_rate[i] == rate)
-> > > -			return ads1100_set_config_bits(data, ADS1100_DR_MASK,
-> > > -						       FIELD_PREP(ADS1100_DR_MASK, i));  
-> > 
-> > > +		if (ads1100_data_rate[i] != rate)
-> > > +			continue;  
-> > 
-> > This will look better if you break here and add a check
-> > 
-> > 	if (i == size)
-> > 		return -EINVAL;
-> I just saw the result of this in v5 and wondered why?
-> 
-> i is controlled by the for loops stuff only so i never == size.
-> I'm not sure what intent of this comment was.
+FWIW looks good to me
+Acked-by: Linus Walleij <linusw@kernel.org>
 
-Meant to add 'break;' and move the actual check to outside of the loop.
+Bartosz is queueing Qualcomm patches now, he will decide on this patch.
 
-> I am fairly sure what Andy is suggesting is the following..
-> 
->  	for (i = 0; i < size; i++) {
-> 		if (ads1100_data_rate[i] == rate)
-> 			break;
-> 	}
-> 
-> 	if (i == size)
-> 		return -EINVAL;
-
-Yes, that one. Sorry for the language confusion.
-
-> 	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(&data->client->dev, pm);
-> 	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> 	if (ret)
-> 		return ret;
-
-> //note that we 'could' do what some other users of ACQUIRE_ERR()
-> //have allowed
-> 	if ((ret = PM_RUNTIME_ACQUIRE_ERR(&pm)))
-> 		return ret;
-> 
-> I'm open to hear if people think we should allow this or not.
-
-I'm against that. The style is prone for errors and readability issues.
-
-> 	ret = ads1100_set_config_bits(data, ADS1100_DR_MASK,
-> 				      FIELD_PREP(ADS1100_DR_MASK, i));
-> 	if (ret)
-> 		return ret;
-> 
-> 	return ads1100_poll_data_ready(data);
-> }
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Yours,
+Linus Walleij
