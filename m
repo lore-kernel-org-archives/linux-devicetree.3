@@ -1,165 +1,67 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.151.120])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB76B34CDD
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 17:36:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.151.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23BE0548EE;
+	Tue, 30 Jun 2026 17:37:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782841014; cv=none; b=OdZVjRgKuuBknE/pN+XjyXkLguODAm5qjqzwaK9JQOha3YCpeTJiykTKsweHB9yO4UmbdHwq1P30QRQK6/FmnKOKjPxFgKgomp5goclr5JvqawwwUz/8K4JS1eTr8g/M88uvBBe1M+gNQLheEhUSvezCLUp8dxQdpJqBtEwkpcU=
+	t=1782841068; cv=none; b=Y3PiFy8jfiriPAgnsj7IemgtFsSJKN8NW7ncHMTKitpW2tkRag/Vc43Fa/ksz3MVXjjvsbYVJBLzzpUoZQ1UqNY8jr0kqbGSfgGr3GAzxGs1mosDJtkRX6zuWJNex5Hi3P31DIj1KASDAD9kTCfyUvSqlS7Cn+EPaKsp/IpNVjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782841014; c=relaxed/simple;
-	bh=uxRcFC5SITi4KTqlRWPoUbEPLxbmRADOPbF7cjvktNc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=Ny0YcWA40ry/X5mo1z860WyKt1s15SvDiRWKA1Z9uODlnGSWD6OSeaCOH4sjE0fq+loWGR7rNpZGWcXZYC+9blvrH6nXBAXzPmZuS+jlBVXYpUoMbh0agoro6DdxynA50NoC6i8XLVoyGQScvEDUQV5c/0nLi17M8pY2tcPg7Fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=Mfnbn8q+; arc=none smtp.client-ip=170.10.151.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	s=arc-20240116; t=1782841068; c=relaxed/simple;
+	bh=HJRM5qHyE5meSMlSI6WRBAbKT5AnOu1oLTv0gbcogxk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=LWBEmsmcM4V4/kc4J4jsCeH/EqvZlAJvDIS7ElpivG72YXDR3u+836ZhRMmmwEv9J0TS9GJNwedDd4PeEDovjr4KsGQEgtqPDa7/6pxbrb0yX8hhPkeZDoXyMcaPEO4WyxKbox1OjaZLGEwav/MCKk5nDL9JIVroS+bhysvpo1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NERHJxgT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="Mfnbn8q+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1782841012;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uxRcFC5SITi4KTqlRWPoUbEPLxbmRADOPbF7cjvktNc=;
-	b=Mfnbn8q+AsfcMeGMW2igbWJoYhoYMXOGiozTbEhQFeKzMBLu2MTG5tLP7ecNAFXYx20BXC
-	2DjrKSb1lRJfH/Hrik3UnhWVsb3P/Htbe180QtH9H8d9G0IE1PQpgYIDFI3/a3Ri20DOtF
-	/FCICpKEV7w+/NC8VenL1bfW69psPgPTgBiOpuVV1BQOYW9/V2wmYguvKGCasx0WYCEuYa
-	TqL9ROPhPiO1J4QrUVRHw/Jk8LLW2O3c2arb++1u+Q+7+lWV6BY31Qj2zpihKw4DT9Dli3
-	N+UudNPqevN9jCh2aNr+glaxfIihGMeY9ufePC/duVgTUckl+smuEthPfK6J9g==
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010022.outbound.protection.outlook.com [52.101.61.22])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id usb-mta-11-1xFjJetvO_aNny73j89smg-1; Tue,
- 30 Jun 2026 10:36:48 -0700
-X-MC-Unique: 1xFjJetvO_aNny73j89smg-1
-X-Mimecast-MFC-AGG-ID: 1xFjJetvO_aNny73j89smg_1782841006
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com (2603:10b6:930:b8::20)
- by IA0PR02MB9751.namprd02.prod.outlook.com (2603:10b6:208:48d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
- 2026 17:36:42 +0000
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca]) by CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca%4]) with mapi id 15.21.0159.012; Tue, 30 Jun 2026
- 17:36:42 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: =?iso-8859-1?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-CC: Andrew Lunn <andrew@lunn.ch>, Piergiorgio Beruto <Pier.Beruto@onsemi.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew
- Lunn <andrew+netdev@lunn.ch>, Parthiban Veerasooran
-	<parthiban.veerasooran@microchip.com>, Richard Cochran
-	<richardcochran@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Simon
- Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
-	<skhan@linuxfoundation.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-doc@vger.kernel.org"
-	<linux-doc@vger.kernel.org>, Jerry Ray <jerry.ray@microchip.com>
-Subject: RE: [PATCH net-next v6 12/15] onsemi: s2500: Add driver support for
- TS2500 MAC-PHY
-Thread-Topic: [PATCH net-next v6 12/15] onsemi: s2500: Add driver support for
- TS2500 MAC-PHY
-Thread-Index: AQHdB+wZw4OihCeBzE+Ub6CPdp8aWLZXVjmAgAAF9cA=
-Date: Tue, 30 Jun 2026 17:36:42 +0000
-Message-ID: <CYYPR02MB98284F87BFAA4474F4B5563F83F72@CYYPR02MB9828.namprd02.prod.outlook.com>
-References: <20260629-s2500-mac-phy-support-v6-0-18ce79500371@onsemi.com>
- <20260629-s2500-mac-phy-support-v6-12-18ce79500371@onsemi.com>
- <akP3jrbFLBfS5UqV@monoceros>
-In-Reply-To: <akP3jrbFLBfS5UqV@monoceros>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CYYPR02MB9828:EE_|IA0PR02MB9751:EE_
-x-ms-office365-filtering-correlation-id: 1b72aa3c-2e24-40fb-1c8a-08ded6ce2648
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|38070700021|11063799006|18002099003|4143699003|22082099003|56012099006
-x-microsoft-antispam-message-info: 2ukM29N4zImMNaTTPN9fsXljLudtTZ5nvUT8p2xOeYwG/Ss1MUkX+pCYS+ebQVxV/LgoYguBiywgQyJu05s/4WmYNQriK7eic4IajQ8Uc2gHai8weJ1RQ7/0pWsHAyuqgJcXlrMpxsrhtHrAiIv16mk2Rueepb2b+4tBeMutn0162TUu27Vay35KIaawfDKp8veom4cmoa8rZbVYNc0qzeTYxMoJWDkQ8xYHMX8bsusecxm5ZQs7b2vjlFO99cT3oZ1HV84XVbcjOGFGkR6kG9ackq505wEL+rz7dVieApcJXifoVWgIpPWwYr8ypi19fE5sfI7qxpaIkjmIsOslzgK0aH5ZitZGH8GkWb7BAbHuF1RUO349G/8++GN1yrLoaIjyi55Cvl4nVD5k9H6OJ6vVQa9Vn3AWzK606b8rLGLO1KmWP0HyJ1SFBnMwvrknRuovwyI8M5T34oCECSOkpJfzqFkL4q/EpYLAYJathPyLAmrA/IOrEegihkYXHdCQlW+uJ25FrdLViNjgvLTFLXSd+q3OhoOf2hR8uJreYKjfnYCfQTO+PyjuWxBGaLlvkaoGRjiojVKm5nTI81qUZLB9twaBjUsiKcpqmQKMUcifxRUdBNjkO5EowNhzcBxJ/3JC/VOuhFmIq2OpCbc1qiBfApK1YfaT+w/DfL8xop+zwPsJ0Qsewr9zRIzeE21cGK9yJduIe15trm1AAiEabn3Vbm8fFxeRBQNQO9uRD4g=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR02MB9828.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(38070700021)(11063799006)(18002099003)(4143699003)(22082099003)(56012099006);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?GmQMYKZfcJT1JsDMTWoz8xjpSS92kptDxa9v5+/Zqse0diq19sUVAOT7FE?=
- =?iso-8859-1?Q?gwmuCoiCQPwmclbQLyYZE/mHltMDcZEP7++Eh6WM3gGQUbR5231eXj1JKV?=
- =?iso-8859-1?Q?jYIl7dM5PsDq2JJr/htfDpcqdXQUw9dW7wbVKvW7PheMMXzRpt/awXdCY7?=
- =?iso-8859-1?Q?Rp72CcvptusXQtG/BpGFpmX6g6A4lu1BWQJQXymvnrV3rqOiVN4NFqUr5a?=
- =?iso-8859-1?Q?jODKB6wz07YRz9ONNVBlV5pQ1X+A46ldnDuE24zEC6OrGw6191Qym0FY/5?=
- =?iso-8859-1?Q?uD79UZGoxK0of+QdKCo4A5O+Z7HtD9uCvXaWqiT7LKX68w7aoU/dpPoWnB?=
- =?iso-8859-1?Q?PsJ6PIB4IIi6eah5FBy/t9DbRqn0HSrrnRjesAOY0i127dJnx0/y0IOGWi?=
- =?iso-8859-1?Q?1MEDNsdHvBsUUs7mZz0wqOncddWZ5aqTPX3XcNeTfGwTVBHJPNgevWSgFI?=
- =?iso-8859-1?Q?GF2kCM13v90H8ErNuzMF4F6pkMrEpyZlZ18AhOhypg1fH9QA8oHZuRVH6a?=
- =?iso-8859-1?Q?/byKFdZLSlj1wwIboWIQa9qWhDeJt1UT/vSFH/YX6P0zMqCJZz3Sakh0/H?=
- =?iso-8859-1?Q?VxmrbsrbTyaCzNSmbYECE2Nsi8LnYPL/VO5PFcTxTPSjXb00UYgE7z14Wh?=
- =?iso-8859-1?Q?UW7mrPCWBb5CrLyovDO7l1YWkd5ajxK/YzgyJiOnaNMEkI19u46lu8U8v2?=
- =?iso-8859-1?Q?/rkIDNDhvyfIy29xIKiepT6+vy/3GHgfo+1CKY0nh7bH7LQXhTu/6GPHK5?=
- =?iso-8859-1?Q?biE4rWCeSZXAVkybyGJhFfrPN8CxSoFczTB24XlKOETqTGwC7G3XkBhAkd?=
- =?iso-8859-1?Q?a/Cc0/AN8zE4pl8hwF3PXO4AAH+KhCuOSfKEGWjGI2KQJa5FaFD3E8ZVdv?=
- =?iso-8859-1?Q?2MQPO+uWvTari45zmATaYanbWySpJ9d3/R5gGAZY+VgxHapJS9ulnOtInS?=
- =?iso-8859-1?Q?I8e+V4FywiS+eS99J3HduQlFZFCeq5jGRgFkszkbNGfLP0OEs/lMqU9s9q?=
- =?iso-8859-1?Q?un+yUJPtoGCml6MiRFrRvM9zMPeEjXc40b8CwwCTZeJN2KPz8I7LnJ2WIK?=
- =?iso-8859-1?Q?CBFRmXMZ9MqWZyIK996eZ+ppUtBLLfkUuXGpeDRKM81bnqcZGdfPpQDOcP?=
- =?iso-8859-1?Q?kpcRr9IQp57FE5L4Q+G299Y0ZTQ67jF/Qqh1+JLeWrEzmQ5s+L+Kob8lU1?=
- =?iso-8859-1?Q?Ti0eo8tTP2c7t9hxxwCJY0v8rsR3nGj/UsZUDndtZILhN/AsWT3uQy5qoP?=
- =?iso-8859-1?Q?ilELtK6q8YqSSrg1yidGsMHaPWBQGFH5l0RqJVKu+IhrPN9RW2HlW6qmPh?=
- =?iso-8859-1?Q?aN6jPH4gz7+g6yQuWUuCMwM2+rV0oVE0WJ166bSFZusaUzIACwaXJeYJtK?=
- =?iso-8859-1?Q?U5dtOEA5xXSHou3yILNX4jxmKecttvDNSR57v0x5dTjfcdlkC1sSf1h2iv?=
- =?iso-8859-1?Q?KZ3RwC6BEPi4YHn4SfMltU+gy237hJF6yLXJqq+GFmiQdaWf84tOFRL6Cp?=
- =?iso-8859-1?Q?lgy16S3MFwrgLVgNUA9joQO0rYmFK+3tfe8RKqBxymJUE8E9HS803UoGyR?=
- =?iso-8859-1?Q?duXqUzeyJ2TN8ZMf5NRG2bF22KvMAqdUYS2nwFjMCzsWIlUl55kzztlpeU?=
- =?iso-8859-1?Q?2R7sRkGrqF7DWwtUfFU9+8GXFDUCMltrykWt3O72RSnbz/sdxr0r5ML1qm?=
- =?iso-8859-1?Q?sgEr6HE55OHv0pFMuZ7v86QP3TCKj+BIHJqXEga55tQqqMPRgUg0Wwdj6w?=
- =?iso-8859-1?Q?PaW2qwzIxuISrtPBvOm2cQ4TuDk0OpXNByULAxzpekp6eeP+hygkd0+zfH?=
- =?iso-8859-1?Q?Atsa7sbSTpPnUNYYjYAiwMmHg+vUBg4=3D?=
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NERHJxgT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65BEC1F000E9;
+	Tue, 30 Jun 2026 17:37:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782841066;
+	bh=oKhxSVXGDVm+qucXMK8YNhWI4lwMIt4fOF8+IcyMJ5E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=NERHJxgTlKQbLnw800mRU4wiRtidr8eWnJrJ6u1axUtwriB6g9JzkCQhz9rrdY+Xc
+	 Lg0RB0duZfXGnPVNlEWZ+xrl17cdL0/H+Do75pa/AK56vUOiNxUfSPEmwcy7QrFuOu
+	 cl0CLGjqiv5VrS0cr4EHHyY+93wUMTJpIfXXkscL1KpRb1DYFb+DXMuEz9kcKGeSdT
+	 KC5zCbtLTjHFlFzb1MgU0oh+jk/utS6XyjtH+7ukIKxnctwVGEz3358ser+97m8ZgH
+	 vH/UKSJJPjwAfB6CHNNYWYATM4bChF3YkQZ+p7sWTDFX7J58HFOoTt+ao4cFAIisti
+	 HckZe76qpZXbQ==
+Date: Tue, 30 Jun 2026 12:37:45 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: "Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
+	festevam@gmail.com, amitkumar.karwar@nxp.com,
+	neeraj.sanjaykale@nxp.com, marcel@holtmann.org,
+	luiz.dentz@gmail.com, hongxing.zhu@nxp.com, l.stach@pengutronix.de,
+	lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+	bhelgaas@google.com, brgl@kernel.org, imx@lists.linux.dev,
+	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-pm@vger.kernel.org,
+	sherry.sun@nxp.com
+Subject: Re: [PATCH V4 1/8] PCI: imx6: Move pci_pwrctrl_create_devices() to
+ imx_pcie_probe()
+Message-ID: <20260630173745.GA155769@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: Govf/IVlFvSSLrX501cjvQHXTW1NDhAaCO7B1EWZ+0B4fFYIlYxgHtXCZ3yjBND8cBRPF3cSIJbjRoN3LbVfvzctcuc5P/M8SA8+TL8iSzbQxOLc1QkvAMBmCUH/Fdbjw4odRdeApcGwZk18HxwvbV3AxuAPKtxkKpZZ6PoKjS2BhQJpF/sovEQtsaj+Gyy5hwu/G2ZJldlI9P11rOJTsQZW8HjL84w7TCUkPaUvDWXh8ub8cME163BLyrzxR5fZbe4iO3xIfktdOXCf6VYk0DtQ9AEFyx+jgSHWJA26pYZToCQaNBil9fJIxsXYGywymH1BApj0mFmvW6uibWRDmQ==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9828.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b72aa3c-2e24-40fb-1c8a-08ded6ce2648
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2026 17:36:42.6812
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ymUmzxMmhLZ0RPgea1J6E/9ITv9m8GadJ+uoStAZvkkSVM4VnphC9hyYPW0jwLL3Gd70FoiaxtJ9Hnlwt/28f1rMNmrsd5KEjBIRi0GJHQs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR02MB9751
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ONw11uPHaf2xtAG-J6X26MpLBpAMfoVoJ1kC3gKcheg_1782841006
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260630103139.3823329-2-sherry.sun@oss.nxp.com>
 
-> -----Original Message-----
-> From: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
-> Sent: Tuesday, June 30, 2026 10:08 AM
-> Subject: Re: [PATCH net-next v6 12/15] onsemi: s2500: Add driver support =
-for TS2500
-> MAC-PHY
->=20
-> > +static const struct spi_device_id s2500_ids[] =3D {
-> > +=09{ "s2500" },
-> > +=09{}
->=20
-> (i.e. use a named initializer, a space between { and } and no empty line
-> before MODULE_DEVICE_TABLE()).
->=20
-> Also the driver should probably have a
->=20
-> =09MODULE_DEVICE_TABLE(of, s2500_of_match);
->=20
-> Best regards
-> Uwe
+On Tue, Jun 30, 2026 at 06:31:32PM +0800, Sherry Sun (OSS) wrote:
+> From: Sherry Sun <sherry.sun@nxp.com>
+> 
+> Move pci_pwrctrl_create_devices() to imx_pcie_probe() so that it is only
+> called once during probe, similar to other regulator_get calls.
 
-Thanks for your review. Will take care of your three comments
-(space between {}, no empty line, missing MODULE_DEVICE_TABLE macro)
+Can we say something in the subject about the purpose of this?  "Move
+X to Y" summarizes the code change but not the motivation.
 
+I guess previously pci_pwrctrl_create_devices() would be called during
+probe and then again during resume, and we don't want it called during
+resume?
