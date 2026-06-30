@@ -1,306 +1,72 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B523C4B82
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 19:22:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35DC3A7F50;
+	Tue, 30 Jun 2026 19:22:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782847348; cv=none; b=GNRtajm5kcWepxg1KcFqucM5RmeiwYseFHIq4hiG1a2OHWOD7q0oSLIYRoKOiyWkby8349xkVbxltxKDByKsIKe28t0GOljEkSjaevGwkG5qfOdAbRxXUYYp5UyoQdq9L+EJ3oW5IGSrHLNTnipocCbKJw644CtssBqyKvWzik0=
+	t=1782847358; cv=none; b=avVPFN0guvUgTG3fnfGqcPgaCOqBMwXsnfnzD/VhwhDYleNisyuQ9ML74mDuhO4k8jrBxjyIvXyo/kQm3I+Okr3Y0ne6m5BrVuPbTuhN/WmXxnuzbp4VlxT9VC4IqSoKdKcTCVos7Mg2g/C1KYl3VCT5h8sR4XCfyQEM298LkZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782847348; c=relaxed/simple;
-	bh=M+XvosyzJ8TSi5AvxNpLv/Ixt1HoXNLEnKfRvMPN5ls=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MsVLFCMjfx8RjZif1atsOz+FkDHjcEmaVhTKpMXaUjz/o0grnsjq9mjtBZSoyBXDgR2zUSF6BYBuDGTR47dOOPZc4xtmfc84scTOG2fzW7kyK6glKVAVBI3woZ3Dd2NnONdqC5tIIqr1+PzmijQp4Q0RmfTEFXR5LC4EFujQx+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=GvVU7mDn; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1782847358; c=relaxed/simple;
+	bh=8BJ4FLb4iY9Yx8V0ZL2/VtDwLa9LTvH8Am7OoD3eWJ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=R1AhzOEagn1qztixxeh8sTM4Q6h1hi6MmQsbnDfqC/p8Tz63QSAXpBSAI6z8iV0yXtTRTXOX42ZolATT9WB4tBajeXfZBjOZPGY8Wp2Gi3F2kcUx/Ls97ExkbzhbJaGMDdBrzma7XBCWFq1XrjgJzkO3H96n5fbBAI497G+qwzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nz0M/7vs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="GvVU7mDn"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id 14560240029
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 21:22:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
-	t=1782847344; bh=T0kNAdohQK0MQTdo+yXKpflnXa9nQ4nl0a7dVhmSO+w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=GvVU7mDnYiJwm4dh6e1K8dVkGBSPcwJ+7JPc0Y474VjoN/xMFYvwsc0yEC/uuBXIj
-	 xI4gi1s18bChZmstkqeFW2kFK4DF8sLU4kJVqTlO22A5sJeeeN7UaG7H0w1TdPS+ZS
-	 bfpf9XerX8MDsL+Uwzc/QabZgMWtZfkQXi2DE+erMH3xIIH0dsT/2FDs5+Nxw7HYGX
-	 nCtQNrqwru2qPQYE21G7PzhDot2nDdqIbuIl4kWkiSHP4/SWsEqUy1R+sXxsuk+MGE
-	 Ggs2LHLd6bPeN//vKNj40WEDL2FM0OrC4RgJi6QR1RvBHEVrwZetE5UnL8TRpkAwmc
-	 6JjSeurk6KuAA==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4gqY1p439Gz9rxD;
-	Tue, 30 Jun 2026 21:22:22 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Tue, 30 Jun 2026 19:22:23 +0000
-Subject: [PATCH 3/3] rtc: s35390a: make use of interrupt signal 1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nz0M/7vs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EF2C1F00A3A;
+	Tue, 30 Jun 2026 19:22:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782847357;
+	bh=93+khCzYAxSuZ6LAEDHQmhDcBOzCoIbxXWmUh6yplEs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=nz0M/7vsVhwb0KqueOLLKIaOEdw/r77pfoDWR/QRvJRlF9Lso4B/URWwYHVsWxXOm
+	 p95jCHvlo9k0RPeP+2NDP8OI7dIj6TZ3N3zQ50um+qzPLwwW/vo/AG5yzelDF6w8bM
+	 YunrhVD746DO8HyOajx7JbmLqf+UhrtZAn+x0yNjwbc6fVeWnC85AhRcN1CsYiSb00
+	 391uAs5DSybPVvI+QoxOGett5drXd63ntnXxZXSGB1Ydh2pgQl4BHwYJaencGZlKiU
+	 EkLbIxout9q3KhhqryruTvRLvi3wKtROK1N+RXQQEYqBROFN1aBM+FKC+8nH0yMkty
+	 sMRHi/HqTj2yA==
+Date: Tue, 30 Jun 2026 14:22:36 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org
+Subject: Re: [PATCH 3/9] dt-bindings: PCI: Add bindings for endpoint gpios
+Message-ID: <20260630192236.GA222338@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260630-rtc_s35390a_int1-v1-3-1b2239e16be2@posteo.de>
-References: <20260630-rtc_s35390a_int1-v1-0-1b2239e16be2@posteo.de>
-In-Reply-To: <20260630-rtc_s35390a_int1-v1-0-1b2239e16be2@posteo.de>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>, 
- Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6288;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=M+XvosyzJ8TSi5AvxNpLv/Ixt1HoXNLEnKfRvMPN5ls=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqRBdq4r5I7SJGXtgvlz/5Jul6ZryOS+ycez+Om
- OAcJ7jMps+JAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCakQXahsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9KIJg//Wjr6jFrX3Divd6scYKyAGTe5H7gHahA
- HbTBV4KCNtsZzntGHb8FTIEq3Rh/hO2yF+cPVSCoVz/8ugjHHTe6Wk4kIrWHfIQM/kAska6q/qm
- gDVMLtoIUH3UXQL5ZDIiWcrzP5kTVRXykAZ4yTwtm8lh+TC+3A2Oz0946zAQL6RJnrhBM6n4kGO
- NL9LpOFXdoKd1Jfa15GaHz+Yj6g7y7yULG3FXPjEPjYLSwI2YPkX12Xpr2i40T36W/9f949wtxG
- VLLq89BqFj09LrshGHf+XQ1xIErTcGGmsHCsYppR10GdBiY5wpoZ+2xPHvQQ6VfGZCsCzYZ7o6N
- WrKThTKHNV56O5vpQv6VI1HDfQQ1Ai4Avo+MTxNlOxymDX6IeHsWvImuZVFS8O5goFGW6P4SeQw
- Im/8IrqZJl7eOV7WV96lMzP8DuLLNSYU9K4Fhi0Q8Jr6lp9ZTUi9B/RWZVJWKmx70N4Eqp97LgR
- djP6XH5HwFqtIC0eB2uWaMn+LRv3BxfVkLjN6ibCU4BOptQgD59PDeo+he3qrCRtYzsJKNoCJFv
- TIcyRzs0FTaVL9LpC/jO0kldfbwQheAKLF07Q0h3/3sG23WILFPof11OgCUiNH/uXfuo5neb+mG
- v2t8/2QzFZX9kiWLm6h2ZImN020Lk/NBXLVvKi8HUQwUcb5pLrI0=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
-  keydata=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
-  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260701-shikra-upstream-v1-3-e1a721eb8943@oss.qualcomm.com>
 
-If configured, use output pin for interrupt signal 1 for the wake alarm.
+On Wed, Jul 01, 2026 at 12:32:45AM +0530, Sushrut Shree Trivedi wrote:
+> Add devicetree bindings for TC9563 GPIO's which are
+> used to control endpoint power and reset.
 
-Successfully Tested on a Synology DS923+.
+Include context in subject line.  Regrettably, previous commits to
+toshiba,tc9563.yaml don't include that either, but I think something
+like this would be good:
 
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- drivers/rtc/rtc-s35390a.c | 61 +++++++++++++++++++++++++++++++++++++----------
- 1 file changed, 49 insertions(+), 12 deletions(-)
+  dt-bindings: PCI: toshiba,tc9563: Add endpoint GPIO bindings
 
-diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
-index 4cfe7034c516..6875bf039cbf 100644
---- a/drivers/rtc/rtc-s35390a.c
-+++ b/drivers/rtc/rtc-s35390a.c
-@@ -12,11 +12,13 @@
- #include <linux/bcd.h>
- #include <linux/slab.h>
- #include <linux/delay.h>
-+#include <dt-bindings/rtc/s35390a.h>
- 
- #define S35390A_CMD_STATUS1	0
- #define S35390A_CMD_STATUS2	1
- #define S35390A_CMD_TIME1	2
- #define S35390A_CMD_TIME2	3
-+#define S35390A_CMD_INT1_REG1	4
- #define S35390A_CMD_INT2_REG1	5
- #define S35390A_CMD_FREE_REG    7
- 
-@@ -36,6 +38,7 @@
- #define S35390A_FLAG_POC	BIT(0)
- #define S35390A_FLAG_BLD	BIT(1)
- #define S35390A_FLAG_INT2	BIT(2)
-+#define S35390A_FLAG_INT1	BIT(3)
- #define S35390A_FLAG_24H	BIT(6)
- #define S35390A_FLAG_RESET	BIT(7)
- 
-@@ -50,6 +53,14 @@
- #define S35390A_INT2_MODE_FREQ		BIT(3) /* INT2FE */
- #define S35390A_INT2_MODE_PMIN		(BIT(3) | BIT(2)) /* INT2FE | INT2ME */
- 
-+/* INT1 pin output mode */
-+#define S35390A_INT1_MODE_MASK		0xE0
-+#define S35390A_INT1_MODE_NOINTR	0x00
-+#define S35390A_INT1_MODE_ALARM		BIT(5) /* INT1AE */
-+#define S35390A_INT1_MODE_PMIN_EDG	BIT(6) /* INT1ME */
-+#define S35390A_INT1_MODE_FREQ		BIT(7) /* INT1FE */
-+#define S35390A_INT1_MODE_PMIN		(BIT(7) | BIT(6)) /* INT1FE | INT1ME */
-+
- static const struct i2c_device_id s35390a_id[] = {
- 	{ .name = "s35390a" },
- 	{ }
-@@ -65,6 +76,7 @@ MODULE_DEVICE_TABLE(of, s35390a_of_match);
- struct s35390a {
- 	struct i2c_client *client[8];
- 	int twentyfourhour;
-+	bool wakealarm_use_int1;
- };
- 
- static int s35390a_set_reg(struct s35390a *s35390a, int reg, u8  *buf, int len)
-@@ -275,7 +287,7 @@ static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
- 	struct i2c_client *client = to_i2c_client(dev);
- 	struct s35390a *s35390a = i2c_get_clientdata(client);
- 	u8 buf[3], sts = 0;
--	int err, i;
-+	int err, i, reg;
- 
- 	dev_dbg(&client->dev, "%s: alm is secs=%d, mins=%d, hours=%d mday=%d, "\
- 		"mon=%d, year=%d, wday=%d\n", __func__, alm->time.tm_sec,
-@@ -293,9 +305,13 @@ static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
- 		return err;
- 
- 	if (alm->enabled)
--		sts = S35390A_INT2_MODE_ALARM;
-+		sts = s35390a->wakealarm_use_int1
-+			? S35390A_INT1_MODE_ALARM
-+			: S35390A_INT2_MODE_ALARM;
- 	else
--		sts = S35390A_INT2_MODE_NOINTR;
-+		sts = s35390a->wakealarm_use_int1
-+			? S35390A_INT1_MODE_NOINTR
-+			: S35390A_INT2_MODE_NOINTR;
- 
- 	/* set interrupt mode*/
- 	err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts));
-@@ -317,8 +333,11 @@ static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
- 	for (i = 0; i < 3; ++i)
- 		buf[i] = bitrev8(buf[i]);
- 
--	err = s35390a_set_reg(s35390a, S35390A_CMD_INT2_REG1, buf,
--								sizeof(buf));
-+	reg = s35390a->wakealarm_use_int1
-+		? S35390A_CMD_INT1_REG1
-+		: S35390A_CMD_INT2_REG1;
-+
-+	err = s35390a_set_reg(s35390a, reg, buf, sizeof(buf));
- 
- 	return err;
- }
-@@ -328,13 +347,21 @@ static int s35390a_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alm)
- 	struct i2c_client *client = to_i2c_client(dev);
- 	struct s35390a *s35390a = i2c_get_clientdata(client);
- 	u8 buf[3], sts;
--	int i, err;
-+	int i, err, reg, mask, mode;
- 
- 	err = s35390a_get_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts));
- 	if (err < 0)
- 		return err;
- 
--	if ((sts & S35390A_INT2_MODE_MASK) != S35390A_INT2_MODE_ALARM) {
-+	mask = s35390a->wakealarm_use_int1
-+		? S35390A_INT1_MODE_MASK
-+		: S35390A_INT2_MODE_MASK;
-+
-+	mode = s35390a->wakealarm_use_int1
-+		? S35390A_INT1_MODE_ALARM
-+		: S35390A_INT2_MODE_ALARM;
-+
-+	if ((sts & mask) != mode) {
- 		/*
- 		 * When the alarm isn't enabled, the register to configure
- 		 * the alarm time isn't accessible.
-@@ -345,7 +372,11 @@ static int s35390a_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alm)
- 		alm->enabled = 1;
- 	}
- 
--	err = s35390a_get_reg(s35390a, S35390A_CMD_INT2_REG1, buf, sizeof(buf));
-+	reg = s35390a->wakealarm_use_int1
-+		? S35390A_CMD_INT1_REG1
-+		: S35390A_CMD_INT2_REG1;
-+
-+	err = s35390a_get_reg(s35390a, reg, buf, sizeof(buf));
- 	if (err < 0)
- 		return err;
- 
-@@ -437,10 +468,10 @@ static int s35390a_nvmem_write(void *priv, unsigned int offset, void *val,
- static int s35390a_probe(struct i2c_client *client)
- {
- 	int err, err_read;
--	unsigned int i;
-+	unsigned int i, wakealarm_output_pin = 0;
- 	struct s35390a *s35390a;
- 	struct rtc_device *rtc;
--	u8 buf, status1;
-+	u8 buf, status1, flag;
- 	struct device *dev = &client->dev;
- 	struct nvmem_config nvmem_cfg = {
- 		.name = "s35390a_nvram",
-@@ -452,6 +483,9 @@ static int s35390a_probe(struct i2c_client *client)
- 		.reg_write = s35390a_nvmem_write,
- 	};
- 
-+	fwnode_property_read_u32(dev->fwnode, "sii,wakealarm-output-pin",
-+				 &wakealarm_output_pin);
-+
- 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
- 		return -ENODEV;
- 
-@@ -460,6 +494,7 @@ static int s35390a_probe(struct i2c_client *client)
- 		return -ENOMEM;
- 
- 	s35390a->client[0] = client;
-+	s35390a->wakealarm_use_int1 = wakealarm_output_pin == S35390A_OUTPUT_PIN_INT1;
- 	i2c_set_clientdata(client, s35390a);
- 
- 	/* This chip uses multiple addresses, use dummy devices for them */
-@@ -489,7 +524,9 @@ static int s35390a_probe(struct i2c_client *client)
- 	else
- 		s35390a->twentyfourhour = 0;
- 
--	if (status1 & S35390A_FLAG_INT2) {
-+	flag = s35390a->wakealarm_use_int1 ? S35390A_FLAG_INT1 : S35390A_FLAG_INT2;
-+
-+	if (status1 & flag) {
- 		/* disable alarm (and maybe test mode) */
- 		buf = 0;
- 		err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &buf, 1);
-@@ -514,7 +551,7 @@ static int s35390a_probe(struct i2c_client *client)
- 	set_bit(RTC_FEATURE_ALARM_RES_MINUTE, rtc->features);
- 	clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, rtc->features);
- 
--	if (status1 & S35390A_FLAG_INT2)
-+	if (status1 & flag)
- 		rtc_update_irq(rtc, 1, RTC_AF);
- 
- 	nvmem_cfg.priv = s35390a;
+s/GPIO's/GPIOs/
 
--- 
-2.54.0
-
+Wrap to fill 75 columns.
