@@ -1,161 +1,157 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.151.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC88A2980A8
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 17:14:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.151.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2BD3DB65D
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 17:14:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782839674; cv=none; b=f+wkVo1pFEAWhfngenb61BgjpD3pIfY4Cs6k59SJXzin2AW0lbBCTDfI6UxCQPiV0SUCdIxbdTHXga8YQhyaUG2KbpZ+FigfC0rdU6x0zVeCiPMEdykbLhheaUInXRIjK4KziOPMUYYpHA7LJS/skFLMYCrkZBk+xoIiJw3iugI=
+	t=1782839688; cv=none; b=F5VptLqpLELbBnPxzHoj/KopI3z+gDUlC6Y+xO/3j46ZWz8Lu0dO7gLox1X/+jUX7/EigIJ/LpgXNBmBeakWOGEaagA+bMZ4Ud5ZxRlhtW7QcfqXzmyAGEdelWfESHq+iP7c6bpH93OBcVlvng7Xp24X5wuW3rsgvljMjaSUCIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782839674; c=relaxed/simple;
-	bh=m9TVrxcnxhO86FrvxHgEYfX9XQEO6Xu7u4U/yRG5r7w=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=oggFbI9YvGFod1rqNMfpiqko/pO3Oxfo7STFYTqtBgIfVdDlntT/6MChvX7262UyCdg2+Db44a96sJCwsadHu5Talxc8O4KQ/q51jC8JWBQIMsn/OQeq8ib0zEusGOrYVSiFUPw97Ghm4YvirNCat2Ldpg+Md4rI0TYW4mWlb1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=jORSCfWp; arc=none smtp.client-ip=170.10.151.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	s=arc-20240116; t=1782839688; c=relaxed/simple;
+	bh=yI4LIb23rfKE/21+3syEgft1Xeo2c0ZRsRWLnRGk4wc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=fqaR4YtqO3ZVIV3Gaoe+L4Kpvy+zi7SMGZkqE35zRdXCgYe4NN3xMDXcbYOODvGEJMFN7g5jD0M87MMSNkxDuve4kKwUr1yRs4eiTJqa5CusYRY+H51XQzne/9qckfYs4OCGjqaBUYXT5Sjc0NKHp4BU5KIRUZSWSbEcXihlXlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PR2Nh1tf; arc=none smtp.client-ip=209.85.222.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="jORSCfWp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1782839673;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m9TVrxcnxhO86FrvxHgEYfX9XQEO6Xu7u4U/yRG5r7w=;
-	b=jORSCfWpVvsPznPZikAW21xbRtnm0rsxoKJ8KIzNWOvMZDA05v0FtwixdWSMf9Gi2t9t8R
-	rmzZ+UDHaRZ12u1awiPmH8g0KBfpplSywikmJsOkKZ+3BIPqss5CuLBY5ZyxXtX+YySzOH
-	irdN5lPKb0563rW6kzMSIl5BXyilJr1DKuQWFA6e/GNI3cr+TKWhrFfnSzEWlGgyhNLnUK
-	Cd4DQ1s9IUkSou2UYpIOnF/54xnT9wYRd936JRuNveIO8TPNHGo0xl6Qy9QdRx/kKe42y8
-	KPGLYUWfAxeu/5Jb6I0goAZUVIXVBmmc9U0q9rXlKI0Zb/WWh8re66r0hep69w==
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012008.outbound.protection.outlook.com [40.107.209.8])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id usb-mta-21-Irtr-vrlP9u8Rn29JVIcrQ-1; Tue,
- 30 Jun 2026 10:13:21 -0700
-X-MC-Unique: Irtr-vrlP9u8Rn29JVIcrQ-1
-X-Mimecast-MFC-AGG-ID: Irtr-vrlP9u8Rn29JVIcrQ_1782839600
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com (2603:10b6:930:b8::20)
- by CYYPR02MB9761.namprd02.prod.outlook.com (2603:10b6:930:c1::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 30 Jun
- 2026 17:13:19 +0000
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca]) by CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca%4]) with mapi id 15.21.0159.012; Tue, 30 Jun 2026
- 17:13:13 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: =?iso-8859-1?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-CC: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: RE: [PATCH 3/3] hwmon: (pmbus/fd5121): Add support FD5121, FD5123 and
- FD5125
-Thread-Topic: [PATCH 3/3] hwmon: (pmbus/fd5121): Add support FD5121, FD5123
- and FD5125
-Thread-Index: AQHdAtUEg1iU98CpwE61O70G8ttbHLZXWzyAgAAFy/A=
-Date: Tue, 30 Jun 2026 17:13:13 +0000
-Message-ID: <CYYPR02MB9828907FBC60D12DFD947EF383F72@CYYPR02MB9828.namprd02.prod.outlook.com>
-References: <20260622-support-fd5121-from-onsemi-v1-0-b31767689c65@onsemi.com>
- <20260622-support-fd5121-from-onsemi-v1-3-b31767689c65@onsemi.com>
- <akPy0zCESKoGgsF1@monoceros>
-In-Reply-To: <akPy0zCESKoGgsF1@monoceros>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CYYPR02MB9828:EE_|CYYPR02MB9761:EE_
-x-ms-office365-filtering-correlation-id: 8392d583-c178-4d45-50f5-08ded6cade4b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|56012099006|11063799006|4143699003|22082099003|18002099003|38070700021
-x-microsoft-antispam-message-info: l0RsdMPMMeTmRnQtZM0JHWR7wCpgUiIr3kgeU7bz94R0mFk1JVwQ7UQCdWgFjU+kf7wxkJpmETMLBFCieNDqJkcFaf19HVvc1NEOo75QlZrp7u05RCtVgGFSIyONtyhWFZ5iNJ7ZxyUzBnDoneJAMvmORxBTcfCn7KC3vUT2ADOFPwEAI5fAhl/f1Qnswg8Bft9m0ImHDAOPxtkPfp/HUDOgakdmdH/3HDReC6NIsAGzkBvm2FU6HDIBX3/55IJZw6wKAgmUjluYoO4ce/x3VxJ3JgsV7cTcF71moo3OFl31OcI6TDeG3Mfx/NIUn86rgud+YurN2/82xq9qbt9jgAxpH2Le47FlGco8rhvrhxFhHKmH9Rqg94JjIeTWYhDcqGnrwIBd8EaMe0Ha8cnsBuVR+wrfS0n+HXnBiNdHMYOxcyy20hwcmwFHqkqndmmblntepQo94hfBbAZTnigSYEaqTBX/zuz04ZpLAq5ZTeQ3cZu4TTeykt5BHmZAz3TuT7v6Fy4R9ByuNL/YgzlgHw5PQzFP/8RxEJNjMskQfHMH6QaGLsNBCdTOUuYvobEN6VAVJyYBlf2tLuYQVzAeeMA6y7BwzGlDQBK1sqUbAVVeGUwVmneECN1dbPB5ezlR8YrXfjdrY9vSbXNBNluuyyL0m01EWkHeXp/yaznci7tzoVE7211TFEbv6w6N1sAKsA2sdpdL8COUXLALHKg7rYYUXjv3oCQtRI5NKOLYPO0=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR02MB9828.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?gNdi9LCRBFurJKSaZJ3QpTBXMFYkNLo0S1JroTVlxocbTZWsGfyBdOxspA?=
- =?iso-8859-1?Q?WR2mR/u7hIaEAGJtHE+1u+RMhruREorDvEfuk1ampiXeaqSYYBe9P9NHPh?=
- =?iso-8859-1?Q?wd7OmDDQqFOjA0Y4X7C9nW+ldF10Okrs0giNo1tOZ8W8j5K4MDFK4th2Bo?=
- =?iso-8859-1?Q?DRNy4rUJF2lxJadc1ieFohvTvHIyjVIhdINifbQi7v/92BfWrqIJEw10D+?=
- =?iso-8859-1?Q?7KHXwbTGDG14wD8zmcr8aaq88fT5pKvi1eE/0Ao6whvimaizpfD0Zuzh37?=
- =?iso-8859-1?Q?9mmP2pSOgvsiOq//z7Tts167NfSRXpYpDf2TdgMKIAiFGYqvpWdYbEmn0j?=
- =?iso-8859-1?Q?jxS1KQ/OyRavCdlqwRHHi7t8E4Tv5GUhAZ2ltsMH8wqKIrRv2IKjcEXnH9?=
- =?iso-8859-1?Q?TPu1BN08MrX1nBXlzTCWhQoJCO+70ZY3x6zRFk2zxq/hiO5JcVp/BVtk+J?=
- =?iso-8859-1?Q?r0USadW1r7Tkem80CebTU58pB90HOrB21mjpuPplH0LK/a9ldFXzsOtIPX?=
- =?iso-8859-1?Q?ob+JQkxF+c/dY57PV4xWv1OQG7YgPb8zi9hQHb5qCGKIQbauDQhMcHwWPJ?=
- =?iso-8859-1?Q?tqceBSYnERrvrW7xNgVVGPgKGpCdpNLWmEjd8IpQqC3Uo4yozHJfqr6UAX?=
- =?iso-8859-1?Q?zg4vgCwfrA1xpsikB6F9ZKjalNPqDmkj/kS/xTkOtSFMRwM2G8FkqvMgaa?=
- =?iso-8859-1?Q?mvDpnf+3HepMTR8/eQZWFgVFAQWLZ6EA3E0bn2EeEOyTm8zsxEUH2XY4g5?=
- =?iso-8859-1?Q?jJMdOV/oSsK6gsO1x2ligL455gKWv8mQ2sDvcbsbxiUrgDLL1OnwzVIr82?=
- =?iso-8859-1?Q?CtkmIq+vF26kqJ9U41Une7zyUawpgBJ8aYA6tC7lQ4rh6Z8DmPWRXT1VH+?=
- =?iso-8859-1?Q?U6Pt1Tq6wRErsotIFJEit2rYQoth4QFSzUZBxxMw9tcYeG52krZmx4oUzp?=
- =?iso-8859-1?Q?E389N1pLJ6FD3fU22VvHAOWYZKBMY5Iwzz5XuMmW/7Uswp4HLfftpjlBPL?=
- =?iso-8859-1?Q?3K497sETIgfligP+ZfIpNnCZkkwMNocVx9ivvu9yjHyoJv70HQnqdwo760?=
- =?iso-8859-1?Q?Yj6NpRM45O7h807FKtrYEQhrEldnDYFov2ndRW5Ik28Zbqs0RSeoadhjLJ?=
- =?iso-8859-1?Q?1g9YNXv+JiCdy5yegjhyGdCrLDViIX2n/eLo4RsdBoFeJsdXl6KYtske3x?=
- =?iso-8859-1?Q?aTD/4/xzNzCh7MYh+o4TbCnSaPtPHnOJQuGHbz1Do0xp/pCZuWh35vSatW?=
- =?iso-8859-1?Q?cllMhNcvbLZYVtRHkRIXDfq4UEZh6nvRgYwS7UxCAsKulo2VTxf2eL6h9i?=
- =?iso-8859-1?Q?OnZG5KsSCWM14h+wumGR6N5dJVoWbncNKGkMMv8tSxaP2BBRY1QE2r9bTy?=
- =?iso-8859-1?Q?/p5LpASaZvJy6h1N5Xuu6eKRCzjQtKE2u9JmupFr6aEL6A+XaTsf4aPaBz?=
- =?iso-8859-1?Q?AoiC9JhXmkn/y/9LNgJV+lnfosnsUt8U5uSMjc8pgRJ9uQe1jbmp1XiEkp?=
- =?iso-8859-1?Q?dlIsMYaKQN48tjRUTKC+X75Q+n+JgSTE73ndS+oMlQZ0Lb9x/5K31sADe2?=
- =?iso-8859-1?Q?LLnZyZ8LkY2Huhgoq19pc/UyyqGSOqXqH+BVVQ261rcotbBASAv6ZAmYQ3?=
- =?iso-8859-1?Q?jr/xI+4RdE6FNBxyS5dl9e7mVqDgLrTPooSmZ2brpr69rmC1sBLucQE3YW?=
- =?iso-8859-1?Q?WojIbnl0AO8D5dZg8UxWA2WFOL69lsc1MyaeDg/OJtX8LCri3DQyKa23ZC?=
- =?iso-8859-1?Q?QrYKIfpIcko98YIDsDPSS/jSiWy8bARphaypkSj/Ocz4cUCywEbdY1vhv1?=
- =?iso-8859-1?Q?8tT/bQim/aPoQGJ9KXhU6kQTky23kPw=3D?=
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PR2Nh1tf"
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-967327a0c7dso586459241.1
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:14:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782839686; x=1783444486; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Yj0dzyKkgM+YsTOclkY88VSZr2slrmcvgTQm6yEB8ME=;
+        b=PR2Nh1tf9U45X2QPsNMjst7ZwGhxnGXhjDNwcur0Llo8NsqsykiXkUt9lvx0T23OwK
+         ymp+6ljMMOa/z/OLuagQ49NrKixAp1JPPYYF1KgCLnGuEf84RaywJNM5CuMKxB8QqcIG
+         gUtcYQ5cKwM+1+cP93GVTDGsZs5f59wpf8+Gv3UnlYeJNF2vWqRHedCblxFmhu/4QTWj
+         Y3gxg2WE6mShEjrsGVX2cCSGQ59OED6BH9ZJLvOd3bi5Q8xPYQFfFoW3486lXgL7C58Y
+         owy4CgGeKhvfItdjkCAQJiy229dmrH2g0TT5k/irjgkwHbtX2aKXf+/+tZ29WJ7Wenp/
+         JDng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782839686; x=1783444486;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Yj0dzyKkgM+YsTOclkY88VSZr2slrmcvgTQm6yEB8ME=;
+        b=GrCG0TpS07QR9Tohbb3w8AwYSRaVbzOSPtlCRdWaoDLrQS+wihj/K9EJUpE4MzdcQp
+         DMACfdRR6gW4mAm/zK9X1F2rVW1cAbOWkyW/PW7lstF/x/nAofvHN5d3uX6zPh99fdn9
+         kLjHMuUECp0JcYje9Cw3XnRutYNALxymdGqEjwXPTlgHPdCwlsxKYEp0D3aWSPTZQ7sJ
+         TQUMXdDX9wFWoVIX0BnqQtaZTcktmOSxnS8f6SJHIn8RWX96nsqsUhcNmo4Ug/Tz5dmY
+         y3pBfHAvbqw0Y4N/LEVvpNGdXDjVX/Gw1MGa1QsL7ULT4vp3zDiPseSRmSQAnAEQJl3O
+         /16A==
+X-Forwarded-Encrypted: i=1; AHgh+Rr2zn+ghMOsgY4enEeXVnR1CuGsaKVvtsL9pgG1Gk7W0CRR5JlZWL57hNIGhH/HTiyFj9dOTvzo6pXQ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/eIkN0sNvP0Ux4xQ5fwDJOvbh2xZSC/MjZLjdXd3Yg0x9h+9N
+	H7rI3F1Zpp00BjoTFlnCHJ/nCGh0tEdWSGX9QqMKi7aBPkbHBqdzlVaO
+X-Gm-Gg: AfdE7cnZnGZVMmI5YsbRnOtegr6Qx40XzN4ank1qgKX2gALWLtFr3tvEor8lmpKhEpL
+	PxbsTCqGxpEqxtB8sSIPBdwqSk6d4W2WqkO7X2psQQErTVxXBRFFUx5594wJrCv2Y2v6qiJj9DB
+	Kz5ROovwdRgxTN+RGLPfN0Ody4wjrh+Lw367jEiKUv+naBYuZmt/1XcRPTomjVbrfd8PsH+IUbR
+	I8rDPZq16piAkqkoPQDlpbwyOXVID0OSdxWH2aTHvq5I62QVceqi05F4o0cBkY7N57+CnyhSmQr
+	RzWU02/mv9GkeLps6U0zBgwtx+rcfkHh0hjDOOh7C4wx0B6tkIGB7ZbymqxyFeescU7qeBwoVU0
+	Hcw0qWoHvYMntFDnwWLYOsidBgW1qhpUelvMkUZN5sdVeqoFcXN8NEQowe1KdXOWxaB4AbhRXSj
+	TBXjY=
+X-Received: by 2002:a05:6122:4b11:b0:573:a779:62cf with SMTP id 71dfb90a1353d-5bdbed0ba9dmr1958656e0c.7.1782839686037;
+        Tue, 30 Jun 2026 10:14:46 -0700 (PDT)
+Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bdc184957csm1836979e0c.2.2026.06.30.10.14.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jun 2026 10:14:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: KujRT+zDU8QI6UbRgf0ilQfZLauFmkx14LHSrhMVY05vAPoQJk5cTVtClNtcbzhV0xEBmBVbUZ8QS1Dxnafur9vgkQuPBzA6BuBDWP/IKIMOGne4cADmobBnkAWpoMY9cmwwPeOkfqRx4OQbyH/FQIxb4pPWc3wQzRExhIH+pAu9oAJyM9fAxcAyxe8R7MmJTCrBbu7QEQjGQ26Bg8wp0hLhMaJ1X/qlXkjp69IvKWh5zJRqcmO/XiDL9F+FeWqLf37jmYG+TFg0tDlQiE5XbTDpewNQpYPHTnXgUYUDalKpf/UutGvaNwGlgFQNXdxm2cVdMtKXtviU9qvc7G1h5A==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9828.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8392d583-c178-4d45-50f5-08ded6cade4b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2026 17:13:13.4305
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PbXemPLh4PaDGKJpf1XWG0URRSQqZ4t7MruKiCawzXxvJ+xOVHkm8Czt5ptDGXC4bRcVxdTdJY9O1G4jK/EkNSBqtvy0n/Rq66LsjbFcrDY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR02MB9761
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: iwVYBZ1GtGXNzU7_-sBKhbekc6h9G3p0mzrbioENOkE_1782839600
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=WINDOWS-1252
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 30 Jun 2026 12:14:38 -0500
+Message-Id: <DJMJX5FGSZ9X.1GQK24K6CI60X@gmail.com>
+Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 1/7] dt-bindings: iio: adc: Add TI ADS126x ADC family
+From: "Kurt Borja" <kuurtb@gmail.com>
+To: "David Lechner" <dlechner@baylibre.com>, "Kurt Borja"
+ <kuurtb@gmail.com>, "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260628-ads126x-v2-0-4b1b231325ba@gmail.com>
+ <20260628-ads126x-v2-1-4b1b231325ba@gmail.com>
+ <946a30c9-01e9-42f1-bd2b-b7934fda85cf@baylibre.com>
+ <DJKX600ONL4O.1YUTCD1L9FU8F@gmail.com>
+ <a16f61fb-4e98-4c30-8d4f-da084e27ebeb@baylibre.com>
+ <DJLOAISPZLG7.VZYX8B16QU4K@gmail.com>
+ <22e1e1c2-659c-4991-857c-b38d66769c7e@baylibre.com>
+In-Reply-To: <22e1e1c2-659c-4991-857c-b38d66769c7e@baylibre.com>
 
+On Mon Jun 29, 2026 at 11:43 AM -05, David Lechner wrote:
+> On 6/29/26 11:27 AM, Kurt Borja wrote:
+>> On Mon Jun 29, 2026 at 9:21 AM -05, David Lechner wrote:
+>>> On 6/28/26 2:12 PM, Kurt Borja wrote:
+>>>> On Sun Jun 28, 2026 at 10:45 AM -05, David Lechner wrote:
+>>>>> On 6/28/26 12:36 AM, Kurt Borja wrote:
+>>>>>> The ADS1262 and ADS1263 are 32-bit, 38.4-kSPS delta-sigma ADCs with =
+an
+>>>>>> integrated PGA, internal reference, excitation and burn-out current
+>>>>>> sources for sensor biasing and diagnostics. The ADS1263 adds a secon=
+d,
+>>>>>> 24-bit delta-sigma ADC (ADC2) for background measurements.
+>>>>>>
+>>>
+>>> ...
+>>>
+>>>>>> +
+>>>>>> +patternProperties:
+>>>>>> +  "^channel@[0-9]+$":
+>>>>>> +    $ref: /schemas/iio/adc/adc.yaml#
+>>>>>> +    unevaluatedProperties: false
+>>>>>> +
+>>>>>> +    properties:
+>>>>>> +      reg:
+>>>>>> +        maxItems: 1
+>>>>>> +
+>>>>>
+>>>>> If we want to allow single-ended/pseudo-differential inputs, then we =
+should
+>>>>> also allow single-channel (positive pin) and common-mode-channel (neg=
+ative
+>>>>> pin) properties.
+>>>>>
+>>>>> This will also require additional common-mode-<N>-supply properties t=
+o allow
+>>>>> for the negative pin connected to something other than GND.
+>>>>
+>>>> Ah interesting. Why the N though? wouldn't a single supply connected t=
+o
+>>>> AINCOM be enough here?
+>>>
+>>> In theory, any AINx could be a common mode input by connecting it to
+>>> a constant voltage supply.
+>>=20
+>> Technically yes, but there is a pin named AINCOM intended for this
+>> purpose. Can we do a simplification here? I propose having
+>>=20
+>>   common-mode-channel:
+>>     /* AINCOM pin */
+>>     const: 10
+>>=20
+>> That way we would only need one common-mode-supply. Would that be okay?
+>>=20
+>
+> Ideally, we shouldn't limit how the chip can be wired up in the devicetre=
+e
+> bindings. It doesn't mean that we have to implement everything in the dri=
+ver
+> though.
 
-> -----Original Message-----
-> From: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
-> Sent: Tuesday, June 30, 2026 9:50 AM
-> Subject: Re: [PATCH 3/3] hwmon: (pmbus/fd5121): Add support FD5121, FD512=
-3 and
-> FD5125
->=20
->=20
-> Please make this:
->=20
-> static const struct i2c_device_id fd5121_id[] =3D {
-> { .name =3D "fd5121", .driver_data =3D chip_fd5121 },
-> { .name =3D "fd5123", .driver_data =3D chip_fd5123 },
-> { .name =3D "fd5125", .driver_data =3D chip_fd5125 },
-> { }
-> };
-> MODULE_DEVICE_TABLE(i2c, fd5121_id);
+Makes sense.
 
+I just have a doubt: In the ADS112c14 bindings, is there a specific
+reason why you didn't describe common-mode-<N>-supply?
 
-Thank you.
-
->=20
->=20
-> Best regards
-> Uwe
-
+--=20
+Thanks,
+ ~ Kurt
