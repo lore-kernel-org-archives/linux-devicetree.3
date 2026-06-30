@@ -1,330 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CBBE2E736F
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:59:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E51B2DF3DA
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 08:00:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782806353; cv=none; b=AFG/wfDbvRSL5JqTDJ4hHZ7ekjK2vZPoh/Y4bHA1XhxXawJlRsDRFYcDGHLKMlqSXYN+poVfdC9+sU7E8QfR3pt/uBf9wYGcf0DboilE9qOiT0Y5zhGsiG76P+PBWQiSkBJV7SuqWLUb5O0M/4gyykeSPDT7sgh9cUrrpDnUpgA=
+	t=1782806439; cv=none; b=N1TovSxnQY7CHLw1JQ6DPEi7zC4tR2vWzL3MYGqxSU0DkZG4Gk8wpSyhhMu58z5e8Hn27KvJfSmDxkJWIIkCQXa8P6RdliemEr3ZWWK0wmYEacGAVu7sP3Nj5akzzi0TiAg/YgV2Rg/k2eYi1127xmEHHkfkZMdt5pYvm+Zyp/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782806353; c=relaxed/simple;
-	bh=lg9op26MdqxKJ0MH2DFR1A8jhvcD3iF2cAsxZl87Y8g=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fLpHowUrkWgqBY1S5XG3/Fj5IwJm06ix7UpYT/EkVbEwAgL4iTEJued0m4/sS00AjpdoLAimjpl/mdY7timp9CHwLnM0f8e7AEwXhC1sU5RYDlSM7qoNTM2U7ouXmpi4+c+6l5orbjiiVSMN+gelwJ0VyA2CWPlTazTUyCojIyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UApqONX7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782806439; c=relaxed/simple;
+	bh=KvbnJuw1dsIYC55qHxS71LrJG2C/OkHcB+GpqJuwerM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ufVitCPzfgn+My7HLGeanw2UptH43OCSMO4dlno6WCymEbI/LoS2hhQrrfjagw8JLrLve7rPUTQmRZyMmgNnsSg1rZcyWQ4zIeBz4fFGhrJNLeLILfliM9onnU8MtiRmCyqRWHh7MSZUMOP48U5yKOZXFJJJEab0FG510y4JMrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n+jtMy76; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UApqONX7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F0441F00ACA
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:59:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n+jtMy76"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5CE21F000E9;
+	Tue, 30 Jun 2026 08:00:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782806350;
-	bh=pXIU515qOOsxjN8QinSZ8G3UR3cgYahzlHHeqpmljMM=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=UApqONX7eMgCERbddo2DmM0foPkY80T/19yA0QFKJJP6JF+xYwKDCIm4aHGLpJQXI
-	 13GviSlgmWgLgMgz3SkrRbSBaEMCWg25BCdutM9hiNropI//pw3z/BNKZp+arIfZIC
-	 04qFhW8Dh3tPCuB3ag5lC2sS39rcurxGyfUIe9eJMj+I+51DkgJ0nPjaiXvwahrqW3
-	 vhBRMMa53WLJ0jFS/4ly4iGruIeyPDhBAIB/rYB5mT4INe9KwysuohH7rbTud+XfJ/
-	 Nub9HGOZBi1Vit4WsTvSVp/YL6yPK1m+aKg75KuPWHIt3IeeUJwH2RaWmbLKQHTBUr
-	 t5VMcqt9nddxQ==
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39ad1d2555aso35005201fa.3
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 00:59:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqIVTcDftSWe3OVL2nFtEIoG/jw3FBC9I5rY2+raTVPxejfd7Jfe5p/1Rwc0/UYnM73b5boVgblVguQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzrkP8rAouO3Aao4GXPV7fu4O6iWUpDJuTZH0e3B9nYeh8vugsA
-	NPb/EWVI5uyUI+aOXNqZQh8eyisr6yp5IAk2SEBMh+pG5Q+GhVmXqXQwDgtvFTTWtoAeoNErZ7r
-	8qcfWICpYqQyoH9Iz/G2Ovb2XyX/ueJr/zE3mq7VZiw==
-X-Received: by 2002:a2e:9a0f:0:b0:39a:fb24:36cb with SMTP id
- 38308e7fff4ca-39b1e01b79emr5212551fa.40.1782806348810; Tue, 30 Jun 2026
- 00:59:08 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 30 Jun 2026 07:59:07 +0000
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 30 Jun 2026 07:59:07 +0000
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260629-block-as-nvmem-v6-5-f02513dcd46d@oss.qualcomm.com>
+	s=k20260515; t=1782806438;
+	bh=aklCtIdwAuaV/IkYc3oYr7mTqO/RWDS/WnA9iYfqABI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=n+jtMy76AtRUPWNey7Uh6bCpahTZ15+A+d5vimKhXap0eKxXdW+zpGiUzwliEf3Vm
+	 /CDYW/kLw2E8/y8UWTfGcI2DZadOm/ejXe1eqqq+oOdlgMfU+QGtuXiGjARIVAFII9
+	 15sMxCzyLbxSFRDkWRVssYHA64gZmOLdmc5zItyorHySHMUKXOnX/PzY0XCDAuqMyU
+	 wJXPEew2/xCHf2+tabUGwuX6OqbQKP9JDjQg+L3yW1UJHFVzfgU8+1Qe1C5jddTiCY
+	 9MgBIpJcBb2wbsXLiVo0cNVIuMDmDWufXalyoBjQiWft+4s3XoEhIHwTKWFTyRj6lp
+	 ZKxT1nXgRx54w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/3] phy: rockchip: phy-rockchip-inno-csidphy: fix
+ rk1808 hsfreq table
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gerald Loacker" <gerald.loacker@wolfvision.net>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, olteanv@gmail.com, conor+dt@kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org
+In-Reply-To: <20260630-feature-mipi-csi-dphy-4k60-v3-1-176792ab71fa@wolfvision.net>
+References: <20260630-feature-mipi-csi-dphy-4k60-v3-0-176792ab71fa@wolfvision.net>
+ <20260630-feature-mipi-csi-dphy-4k60-v3-1-176792ab71fa@wolfvision.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 08:00:37 +0000
+Message-Id: <20260630080037.B5CE21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260629-block-as-nvmem-v6-0-f02513dcd46d@oss.qualcomm.com> <20260629-block-as-nvmem-v6-5-f02513dcd46d@oss.qualcomm.com>
-Date: Tue, 30 Jun 2026 07:59:07 +0000
-X-Gmail-Original-Message-ID: <CAMRc=McvGOyMrK8vMU=6CZi1-p3=aVy8S3UbN5etJ9uKdNEP5g@mail.gmail.com>
-X-Gm-Features: AVVi8Cc7BGwD2qRbSWg1iNJ-MyLvd3Ot0x9QeV3LoARCUPBdEZ_Ym2hO5krr8DI
-Message-ID: <CAMRc=McvGOyMrK8vMU=6CZi1-p3=aVy8S3UbN5etJ9uKdNEP5g@mail.gmail.com>
-Subject: Re: [PATCH v6 5/9] block: implement NVMEM provider
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-block@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org, 
-	netdev@vger.kernel.org, daniel@makrotopia.org, Ulf Hansson <ulfh@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Jens Axboe <axboe@kernel.dk>, Johannes Berg <johannes@sipsolutions.net>, 
-	Jeff Johnson <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
-	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, Rocky Liao <quic_rjliao@quicinc.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Saravana Kannan <saravanak@kernel.org>, Christian Marangi <ansuelsmth@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 29 Jun 2026 10:55:24 +0200, Loic Poulain
-<loic.poulain@oss.qualcomm.com> said:
-> From: Daniel Golle <daniel@makrotopia.org>
->
-> On embedded devices using an eMMC it is common that one or more partitions
-> on the eMMC are used to store MAC addresses and Wi-Fi calibration EEPROM
-> data. Allow referencing the partition in device tree for the kernel and
-> Wi-Fi drivers accessing it via the NVMEM layer.
->
-> For now, NVMEM is only registered for the whole disk block device, as the
-> OF node is currently only associated to it.
->
-> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
-> Co-developed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
->  block/Kconfig             |   9 ++++
->  block/Makefile            |   1 +
->  block/blk-nvmem.c         | 111 ++++++++++++++++++++++++++++++++++++++++++++++
->  block/blk.h               |   8 ++++
->  block/genhd.c             |   4 ++
->  include/linux/blk_types.h |   3 ++
->  include/linux/blkdev.h    |   1 +
->  7 files changed, 137 insertions(+)
->
-> diff --git a/block/Kconfig b/block/Kconfig
-> index 15027963472d7b40e27b9097a5993c457b5b3054..0b33747e16dc33473683706f75c92bdf8b648f7c 100644
-> --- a/block/Kconfig
-> +++ b/block/Kconfig
-> @@ -209,6 +209,15 @@ config BLK_INLINE_ENCRYPTION_FALLBACK
->  	  by falling back to the kernel crypto API when inline
->  	  encryption hardware is not present.
->
-> +config BLK_NVMEM
-> +	bool "Block device NVMEM provider"
-> +	depends on OF
-> +	depends on NVMEM
-> +	help
-> +	  Allow block devices (or partitions) to act as NVMEM providers,
-> +	  typically used with eMMC to store MAC addresses or Wi-Fi
-> +	  calibration data on embedded devices.
-> +
->  source "block/partitions/Kconfig"
->
->  config BLK_PM
-> diff --git a/block/Makefile b/block/Makefile
-> index 7dce2e44276c4274c11a0a61121c83d9c43d6e0c..d7ac389e71902bc091a8800ea266190a43b3e63d 100644
-> --- a/block/Makefile
-> +++ b/block/Makefile
-> @@ -36,3 +36,4 @@ obj-$(CONFIG_BLK_INLINE_ENCRYPTION)	+= blk-crypto.o blk-crypto-profile.o \
->  					   blk-crypto-sysfs.o
->  obj-$(CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK)	+= blk-crypto-fallback.o
->  obj-$(CONFIG_BLOCK_HOLDER_DEPRECATED)	+= holder.o
-> +obj-$(CONFIG_BLK_NVMEM)                += blk-nvmem.o
-> diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..4b35a74255059320ef0cbd3c0003f1510bae5733
-> --- /dev/null
-> +++ b/block/blk-nvmem.c
-> @@ -0,0 +1,111 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * block device NVMEM provider
-> + *
-> + * Copyright (c) 2024 Daniel Golle <daniel@makrotopia.org>
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + *
-> + * Useful on devices using a partition on an eMMC for MAC addresses or
-> + * Wi-Fi calibration EEPROM data.
-> + */
-> +
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Add linux/cleanup.h for __free() and linux/device.h for dev_err_probe().
+Pre-existing issues:
+- [High] Valid low-frequency configurations are incorrectly rejected becaus=
+e a `cfg_bit` value of `0x00` conflicts with the default 'not found' sentin=
+el.
+- [High] The `rk3368_grf_dphy_regs` array is missing an explicit size and o=
+nly initializes index 0, meaning it is compiled as an array of size 1. `roc=
+kchip_inno_csidphy_power_on()` unconditionally indexes into this array at i=
+ndices 1 and 2, causing an out-of-bounds read and an erroneous write to an =
+undefined GRF register offset.
+--
 
-> +#include <linux/file.h>
-> +#include <linux/nvmem-provider.h>
-> +#include <linux/nvmem-consumer.h>
-> +#include <linux/of.h>
-> +#include <linux/pagemap.h>
-> +#include <linux/property.h>
-> +
-> +#include "blk.h"
-> +
-> +static int blk_nvmem_reg_read(void *priv, unsigned int from, void *val, size_t bytes)
-> +{
-> +	dev_t devt = (dev_t)(uintptr_t)priv;
-> +	size_t bytes_left = bytes;
-> +	loff_t pos = from;
-> +	int ret = 0;
-> +
-> +	struct file *bdev_file __free(fput) =
-> +		bdev_file_open_by_dev(devt, BLK_OPEN_READ, NULL, NULL);
-> +	if (IS_ERR(bdev_file))
-> +		return PTR_ERR(bdev_file);
-> +
-> +	while (bytes_left) {
-> +		pgoff_t f_index = pos >> PAGE_SHIFT;
-> +		struct folio *folio;
-> +		size_t folio_off;
-> +		size_t to_read;
-> +
-> +		folio = read_mapping_folio(bdev_file->f_mapping, f_index, NULL);
-> +		if (IS_ERR(folio)) {
-> +			ret = PTR_ERR(folio);
-> +			break;
-> +		}
-> +
-> +		folio_off = offset_in_folio(folio, pos);
-> +		to_read = min(bytes_left, folio_size(folio) - folio_off);
-> +		memcpy_from_folio(val, folio, folio_off, to_read);
-> +		pos += to_read;
-> +		bytes_left -= to_read;
-> +		val += to_read;
-> +		folio_put(folio);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +int blk_nvmem_add(struct block_device *bdev)
-> +{
-> +	struct device *dev = &bdev->bd_device;
-> +	struct nvmem_config config = {};
-> +
-> +	/* skip devices which do not have a device tree node */
-> +	if (!dev_of_node(dev))
-> +		return 0;
-> +
-> +	/* skip devices without an nvmem layout defined */
-> +	struct device_node *child __free(device_node) =
-> +		of_get_child_by_name(dev_of_node(dev), "nvmem-layout");
-> +	if (!child)
-> +		return 0;
-> +
-> +	/*
-> +	 * skip block device too large to be represented as NVMEM devices,
-> +	 * nvmem_config.size is a signed int
-> +	 */
-> +	if (bdev_nr_bytes(bdev) > INT_MAX) {
-> +		dev_warn(dev, "block device too large to be an NVMEM provider\n");
-> +		return 0;
-> +	}
-> +
-> +	config.id = NVMEM_DEVID_NONE;
-> +	config.dev = dev;
-> +	config.name = dev_name(dev);
-> +	config.owner = THIS_MODULE;
-> +	config.priv = (void *)(uintptr_t)dev->devt;
-> +	config.reg_read = blk_nvmem_reg_read;
-> +	config.size = bdev_nr_bytes(bdev);
-> +	config.word_size = 1;
-> +	config.stride = 1;
-> +	config.read_only = true;
-> +	config.root_only = true;
-> +	config.ignore_wp = true;
-> +	config.of_node = to_of_node(dev->fwnode);
-> +
-> +	bdev->bd_nvmem = nvmem_register(&config);
-> +	if (IS_ERR(bdev->bd_nvmem)) {
-> +		int ret = PTR_ERR(bdev->bd_nvmem);
-> +
-> +		bdev->bd_nvmem = NULL;
-> +		dev_err_probe(dev, ret, "Failed to register NVMEM device\n");
-> +		return ret;
+commit 4cc350ff3a3bfdcb6204ddc2357172385fbe4d2a
+Author: Gerald Loacker <gerald.loacker@wolfvision.net>
 
-Just do return dev_err_probe().
+phy: rockchip: phy-rockchip-inno-csidphy: fix rk1808 hsfreq table
 
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +void blk_nvmem_del(struct block_device *bdev)
-> +{
-> +	nvmem_unregister(bdev->bd_nvmem);
-> +	bdev->bd_nvmem = NULL;
-> +}
-> diff --git a/block/blk.h b/block/blk.h
-> index ec4674cdf2ead4fd259ff5fc42401f591e684ee9..ed0c10168ba7be10855509637f824a9cea2b9ccb 100644
-> --- a/block/blk.h
-> +++ b/block/blk.h
-> @@ -757,4 +757,12 @@ static inline void blk_debugfs_unlock(struct request_queue *q,
->  	memalloc_noio_restore(memflags);
->  }
->
-> +#ifdef CONFIG_BLK_NVMEM
-> +int blk_nvmem_add(struct block_device *bdev);
-> +void blk_nvmem_del(struct block_device *bdev);
-> +#else
-> +static inline int blk_nvmem_add(struct block_device *bdev) { return 0; }
-> +static inline void blk_nvmem_del(struct block_device *bdev) {}
-> +#endif
-> +
->  #endif /* BLK_INTERNAL_H */
-> diff --git a/block/genhd.c b/block/genhd.c
-> index 7d6854fd28e95ae9134309679a7c6a937f5b7db8..1b2382de6fb30c1e5f60f45c04dc03ed3bf5d5f2 100644
-> --- a/block/genhd.c
-> +++ b/block/genhd.c
-> @@ -421,6 +421,8 @@ static void add_disk_final(struct gendisk *disk)
->  		 */
->  		dev_set_uevent_suppress(ddev, 0);
->  		disk_uevent(disk, KOBJ_ADD);
-> +
-> +		blk_nvmem_add(disk->part0);
->  	}
->
->  	blk_apply_bdi_limits(disk->bdi, &disk->queue->limits);
-> @@ -704,6 +706,8 @@ static void __del_gendisk(struct gendisk *disk)
->
->  	disk_del_events(disk);
->
-> +	blk_nvmem_del(disk->part0);
-> +
->  	/*
->  	 * Prevent new openers by unlinked the bdev inode.
->  	 */
-> diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-> index 8808ee76e73c09e0ceaac41ba59e86fb0c4efc64..ace6f59b860d0813665b2f62a1c03a1f4be94059 100644
-> --- a/include/linux/blk_types.h
-> +++ b/include/linux/blk_types.h
-> @@ -73,6 +73,9 @@ struct block_device {
->  	int			bd_writers;
->  #ifdef CONFIG_SECURITY
->  	void			*bd_security;
-> +#endif
-> +#ifdef CONFIG_BLK_NVMEM
-> +	struct nvmem_device	*bd_nvmem;
->  #endif
->  	/*
->  	 * keep this out-of-line as it's both big and not needed in the fast
-> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-> index 890128cdea1ce66863c5baa36f3b336ec4550807..f15d2b5bf9e4fd2368b8a70416a978e22c0d4333 100644
-> --- a/include/linux/blkdev.h
-> +++ b/include/linux/blkdev.h
-> @@ -30,6 +30,7 @@
->
->  struct module;
->  struct request_queue;
-> +struct nvmem_device;
+The rk1808 hsfreq table previously capped at 2499 Mbps. This commit
+extends the final entry to 2500 Mbps to support this exact data rate,
+which is essential for the RK3588 platform reusing this array.
 
-Why is the forward declaration here and not in blk_types.h where it's needed?
+> diff --git a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c b/drivers/p=
+hy/rockchip/phy-rockchip-inno-csidphy.c
+> index c79fb53d8ee5c..5281f8dea0ad3 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+> @@ -170,7 +170,7 @@ static const struct hsfreq_range rk1808_mipidphy_hsfr=
+eq_ranges[] =3D {
+>  	{ 299, 0x06}, { 399, 0x08}, { 499, 0x0b}, { 599, 0x0e},
+>  	{ 699, 0x10}, { 799, 0x12}, { 999, 0x16}, {1199, 0x1e},
+>  	{1399, 0x23}, {1599, 0x2d}, {1799, 0x32}, {1999, 0x37},
+> -	{2199, 0x3c}, {2399, 0x41}, {2499, 0x46}
+> +	{2199, 0x3c}, {2399, 0x41}, {2500, 0x46}
+>  };
 
->  struct elevator_queue;
->  struct blk_trace;
->  struct request;
->
-> --
-> 2.34.1
->
->
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing the frequency
+tables I noticed a potential problem in how the selected configuration is
+evaluated later in the driver.
 
-With the above nits addressed, LGTM:
+If a data rate maps to a configuration where the cfg_bit is 0x00, will
+rockchip_inno_csidphy_configure() incorrectly reject it?
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+In rockchip_inno_csidphy_configure():
+    if (!hsfreq)
+        return -EINVAL;
 
-Bart
+It seems this check uses 0x00 as a not found sentinel, but valid low
+frequency ranges might legitimately use 0x00 as their configuration value.
+This same logic is also present in rk_dphy_configure() in
+phy-rockchip-dphy-rx0.c. Does this prevent the hardware from operating at
+those low frequencies?
+
+[Severity: High]
+This is also a pre-existing issue, but I noticed an out-of-bounds array
+access in this driver for the RK3368 platform.
+
+The rk3368_grf_dphy_regs array is initialized with only a single element:
+
+static const struct dphy_reg rk3368_grf_dphy_regs[] =3D {
+    [GRF_DPHY_CSIPHY_FORCERXMODE] =3D PHY_REG(RK3368_GRF_SOC_CON6_OFFSET, 4=
+, 8),
+};
+
+However, rockchip_inno_csidphy_power_on() unconditionally accesses
+indices beyond this:
+
+    write_grf_reg(priv, GRF_DPHY_CSIPHY_CLKLANE_EN, 0x1);
+    write_grf_reg(priv, GRF_DPHY_CSIPHY_DATALANE_EN,
+                  GENMASK(priv->config.lanes - 1, 0));
+
+Could this read past the end of the 1-element array and cause an erroneous
+write to an undefined register offset if the adjacent memory evaluates as
+valid?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630-feature-mi=
+pi-csi-dphy-4k60-v3-0-176792ab71fa@wolfvision.net?part=3D1
