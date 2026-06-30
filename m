@@ -1,215 +1,201 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011035.outbound.protection.outlook.com [40.107.130.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8DA282F3A
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 06:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782799472; cv=none; b=Gucy9eFmOef0Zg3Sa2AXEFUniKV7KCyjyvZHSK+0lepcLJZ4Dd3cQUsPBGiVjvwDmjrtojYz8CROoQ6INLfphit4W5WwVXBBq2IqZmml0u8/2YpUmXwQfRvWV7OIwu911t/h+jb2yz/B1+H/xmNMikivpd42xUK0reYHBpeOENc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782799472; c=relaxed/simple;
-	bh=q9HQDf6uU3KOpf7X+h0FkXT0BRmTsT0Ka85jPZxYGjU=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p4eoj3czjCPJ3E4wWhVPGWdRdfQ5KvATt5GeCn93QvUf0kR1eVPMubHXI2qPQTQ6wzzu3OXVubACQtR9MsARFZzKGLUm8jI7Ae7kupjIigYNWIa7liU42zj3ccHhKO48Cr4gkolk5aRA/TvQKVhGNfUeC/w5Ma7vVZfEvmHFfgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ktwxb7CX; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA59291C10;
+	Tue, 30 Jun 2026 06:04:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782799485; cv=fail; b=uv33/e/FYuQMrcanM3GN78er9NdlGEdUhWX7aVH8ATstGWtfOKnzHbkW/PRFH6X0dDmiU7snIu9Updvc358EhA/I/flwCq/x7Kgq2Yk8eHT4XN8OJl9/c/slEroTdqSH+1JVN323LgoqDkLeML/GHi4OATz+MPIvGVDsq+LY844=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782799485; c=relaxed/simple;
+	bh=MRTgytEPTt43VWUOSFR87BvuGsmnbZ6bIZ0fNc9E2W4=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=JhETJ2J4pOT++7pAoyCM0/cNJ8IdTzR6RbiL0NO9yhJO/BruQ9mKPz2X+woMMgkEbF1eWr0/QZxwaHr3ZskIMt4bdoWsD3cUjsJa8GJ/m2Xa/OBWFy4pGD3X/jZjM8WuNswUzkZLyS0CowmMAhb/AjEqL27Nir890EmI9YkAEVs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=BaIj49VX; arc=fail smtp.client-ip=40.107.130.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ktwxb7CX"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493b691cb44so8277175e9.0
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 23:04:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782799469; x=1783404269; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=b5BBnItCnxunKMbKk5r5XGq35MhHqmNERXs298mNYZQ=;
-        b=ktwxb7CXt+trnAajnkzA9h9gdeaP+NWWqiQtMnj/0fmN71drYBEJJVqA/zdDPOHA+j
-         tx53cU1g/94nmCKnfAZI3uM4N20ZfXbOrGesn2v8kLV408YjA0rqDDhX/rgJwy6yAMAx
-         RHuc5qOE1EEd+PNOB/7AVM6ZKg1kPXmDutlUdICaEZh79ksn91a3posF345m56bEi96d
-         N3fxZ84jT3pXm8b8Vnk4HkRUvEcpZIrhYwKHSeZAEHqu8PzndfN05M6wyGGRylM8ZzM2
-         GlE2jFRlS3Dsmd36Hh6dzBH61f9OpFXTs900Z0kPYXTJM4l+T3BlB2wf6TAGsYHsX3mL
-         IlpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782799469; x=1783404269;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=b5BBnItCnxunKMbKk5r5XGq35MhHqmNERXs298mNYZQ=;
-        b=OjzVyKZFVratP3vfL8Uz4THK/N0DJvH0tA4VOhOdPX0rnB4MnwIumuSOVfhpWUVWDW
-         yg/iOjl30mshUXMUTI+K4+VH83dyQ9fW3sLL0zSxbOMAlvNww1Ke8Ot/H8UQUJFbMZBG
-         ltY257v91IixeHsJP4m85GDt/cIGzdpA8urqxi9fsSe/VzViNk9A/68tA45jKowhg/GK
-         q/U1YY/+4DT72R2WS+nFo2SKeh3IlIE8wqwZrIrTIhVDBwrSINy5zf+caMx3Y85zEAsZ
-         K3HJR41zR8SE96ZU8eYLD3rF8t3kerFdxPCSLeZ/5jj8OgHA2e7UjlpuPpRVWmF2D66D
-         C1Xw==
-X-Forwarded-Encrypted: i=1; AFNElJ9xnhGWmMy4NodB4IbaalMGZ9YvUjxHKLP+09ETt3WIwb3z+Y+MCeRM3XoTTVZPlcgfRPvK9GhA1Y80@vger.kernel.org
-X-Gm-Message-State: AOJu0YyheRgkyoZT3R0IVpqFvJTVkzSgsnc9fs2mM0TFJxTJWYDuRedv
-	TKsTjBkzMecYZgFsq/EKoiiW2gHH7KEWkeIBY3IdtXqR/SzH3s6sSOWFi/Ekg16CbFQ=
-X-Gm-Gg: AfdE7cma/bmROs04sD7u+afJTKzSV/STlUwDU8ACM1syqzuumzaFExraoJbblvp3AEh
-	ObeqrfEt+YTYRLDF/e9NWj8TnbAF+XeQkWD0GoxZoHiEAeTSer5uIWwmyMsl4J3et5YVufJdaX9
-	KBYAtUCOUvf9m3oAbVbfqO4kk0DiEA1YEJRlRVn4Hng0k9dxthHVOT7fegZuCGpvLHEqBK2sHDT
-	n5ToEvP3IFy7AkXtJhLzX539yzt8qhlFD+os1Z7foyqt2KWKflEkY8Gitqx7fsYWXdJhX9wN9Rf
-	6hkSGiwZlWXcEvwwYk1kVf+OfOgqpBrvep++LUoh0Dyjzgm5IfO3iJADKvgYyhTNlgDpYxRGaGw
-	DO7ETQjMMKyFgs3b+3deK2OUcuoeIwERpplfHQQYaXcu7B1p5dn/bKGTgav9tAX0oPUULsxvMVg
-	uLuJdWbWDm7N5LzFoLJQ==
-X-Received: by 2002:a05:600c:8285:b0:493:bacb:1341 with SMTP id 5b1f17b1804b1-493bacb176dmr13964925e9.4.1782799468463;
-        Mon, 29 Jun 2026 23:04:28 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:559d:eec2:887f:c200])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-493b8cd3018sm45429405e9.5.2026.06.29.23.04.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 23:04:27 -0700 (PDT)
-Date: Tue, 30 Jun 2026 08:04:26 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Mark Brown <broonie@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Raag Jadav <raag.jadav@intel.com>, 
-	Sohil Mehta <sohil.mehta@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Len Brown <lenb@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, linux-kernel@vger.kernel.org, 
-	Yemike Abhilash Chandra <y-abhilashchandra@ti.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	linux-media@vger.kernel.org, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org, linux-sound@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
-	Jonathan Cameron <jic23@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Pei Xiao <xiaopei01@kylinos.cn>, 
-	Shashank Balaji <shashank.mahadasyam@sony.com>, Ben Horgan <ben.horgan@arm.com>, Johan Hovold <johan@kernel.org>, 
-	linux-usb@vger.kernel.org, Nikita Kravets <teackot@gmail.com>, 
-	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
-	platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, 
-	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, kvm@vger.kernel.org, 
-	loongarch@lists.linux.dev
-Subject: Re: [PATCH v3 00/16] mod_devicetable.h: Split into per subsystem
- headers
-Message-ID: <akNYUdAS3sbEdRqC@monoceros>
-References: <cover.1782682124.git.ukleinek@kernel.org>
- <20260629235804.GA414914@sakamocchi.jp>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="BaIj49VX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pAUzxyhTiMqIc8P/gZfqMfGnBmnBiOkmMR5UwWDbpC2P82YsORj9wsD1RCY6WrznioRI3EhfUTvpUXVbkyRmgYqxoE42qIciFIoE5R/kvxaSHP57dO5j2XRgAvNFrAGh7t21GaHJageH5azlsDSeol2+resXrqE5HUUPrGzpMEjqO5B+2VpQEeWnVKkcWO3ZYUnDsK2kz0GzrA3KZk9OLRtG82i2U5AUTG/WFiHcAfbfno5AOnOw3RO+6KooT78rBjPEJzIVWACYVV92tl0ySrkj7tU2r3rmGNUMGCh+GQfO9rrKeZh1WRIdnxkDTsLsXfuJ1ZENWgvSkAgpSCzq9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tDjpftuZZzLgruqeDlL+IP4PaJWgaWYemXuZZB7afB8=;
+ b=EcoxHvrKZUcWZx4301U9txeTcmCqUl91cl+hlGjkiIo4a+4YErp3DEGRf4Psi5t23rr9O8j1C5gtlZ8mX6IeAQthF/QJRQnLfUmyKLJKCmec7ySrUJgNC5W7tr9lxaHAihvvgzEve6T/KXF2gxRSGISvx5+QEo8MjWM4Az5Ka5RFw5dUsxWVnjVv1NuUVup8PF3GJfjKhGz1dTJXEhuRQrxY/qXp1WG1OoeTi3yq51l8vdkA6t0mdYfCcVvjVhKhSAKV03G72ATrz+tFuezPwOAaEVIj6JjStfg41x3ICVm824R+E76WzWmeXKKRHZQy3Vb4lb8RPfa9MQw44SK0bw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tDjpftuZZzLgruqeDlL+IP4PaJWgaWYemXuZZB7afB8=;
+ b=BaIj49VXqZb5nURThF1SaOSxAtv94HRR5SVMFzsdf0BNYXkN4XpRFgHJVh0ZSYYWbO3u72CxSZzB9i59YktbkxwC5iuhu+5HfaCkmn5HOwDG6SNpmsKUHuiHEMDgOmVXxrulBDQeiE+TkvaDA002K1Ps3M279xRtXYyFe5BzU/NpyomrzIfM8IbQ9FBLYwPB3+oi9BsBvZlSnBmJ8vOV3PoPqlHcEbDIHaJU5nYEj/R0Exs6pTNLZh/2t/t2HU/Tsn+oUM7P0yQZ0KIDadadBs/BIrWh7Vi2MOiVP+2u4ED9FKSxqZzkM6m4hcyw6JAuuiHMVm5X4M8htjMasFe4Tw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI2PR04MB11276.eurprd04.prod.outlook.com (2603:10a6:800:296::7)
+ by AM9PR04MB8748.eurprd04.prod.outlook.com (2603:10a6:20b:409::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
+ 2026 06:04:40 +0000
+Received: from VI2PR04MB11276.eurprd04.prod.outlook.com
+ ([fe80::60d7:a8e5:eb88:9be]) by VI2PR04MB11276.eurprd04.prod.outlook.com
+ ([fe80::60d7:a8e5:eb88:9be%5]) with mapi id 15.21.0159.018; Tue, 30 Jun 2026
+ 06:04:40 +0000
+From: "Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	bhelgaas@google.com,
+	hongxing.zhu@nxp.com,
+	l.stach@pengutronix.de
+Cc: imx@lists.linux.dev,
+	linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sherry.sun@nxp.com
+Subject: [PATCH V4 0/7] PCI: imx6: Integrate pwrctrl API and update device trees
+Date: Tue, 30 Jun 2026 14:07:03 +0800
+Message-ID: <20260630060710.3294811-1-sherry.sun@oss.nxp.com>
+X-Mailer: git-send-email 2.50.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR02CA0025.apcprd02.prod.outlook.com
+ (2603:1096:4:195::21) To VI2PR04MB11276.eurprd04.prod.outlook.com
+ (2603:10a6:800:296::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bjsp2vxvxtx3lqot"
-Content-Disposition: inline
-In-Reply-To: <20260629235804.GA414914@sakamocchi.jp>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI2PR04MB11276:EE_|AM9PR04MB8748:EE_
+X-MS-Office365-Filtering-Correlation-Id: c8739f96-365d-4b15-d3b0-08ded66d7887
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|19092799006|18002099003|56012099006|11063799006|921020;
+X-Microsoft-Antispam-Message-Info:
+	jgGCECtYsXBI6mZEBIWFsGVy1XGZOBmUUKgy0a3AT2u+opVp7cRKXdqPVYkJy5uxRXkdeullh/BJJpi+QbdPrvfnse4oWlhTjB0l09IpfR0yjguSgYXcorY23CFTkspgmulm1H3++4zPYQmUt6PmhJD68Hm2jNQbVnYje6CP1MmCcKjKnWPSmfW+2MLyqyJU1Y9f5hWu3p8nqlG0YBV+YyxE5a+aKmCj0+P0Aq9pDrpjszsfeAbxBQKdbjtMUIU8BORiufJEw2BoZZvEfc7xZshnnxBowDzNOJfL947DafQDs03oj0x9ISpHS71URYRQvepSs1tOBaBUi3OeftLzRB5MLL7dUkuzgSQTOCEE8+5cImbIRfqaxi8W0efe5QjYmqo8LWMGERTZ3qmPF9t2IRbPwR/crnTb7tNtDxrUCLoxVRpnwNXVx3v8bbldv573zK2W6ZlOni9aeXJDl1pan9EsFkjfbTUz/Uf06DR+kNFjY2Z3qJ5t6QAQsaF9KLvGnM6rifCTGqjTUJlW6n6m1d7lFQMSegClGy3RqMWHPn6VAuP6RUFEET2cTo4PVdwvvGjT/ZvTlpJK45eQtfCgie2tvuP3Cxx1ZMt3JuMqhGfP78eI5rZSDfvBWwHDKS5PgCRhN+Z2KNHsXKS6rfSaYOaOuucqFIXndf+awWkkP/0qHQ7OJM2bqEWq8Pm+wOrcZ+d90AHT2LHKJ5tMiUVGXA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI2PR04MB11276.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(19092799006)(18002099003)(56012099006)(11063799006)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?LRaMakBHBb7wGBnW0p1dqsu/Od5Hnu3OQnNY1cEf9WvPrn+nQbcPpyjjc9Zk?=
+ =?us-ascii?Q?nRa/OhsWfrL6mVlgN1uLhmnHNBIbbm7f3/6y8ZzY4QoPNQn/SVca8DS6qRBF?=
+ =?us-ascii?Q?9DvGHgr4QhUjFTwuttncoU2av//tFx+ks6XyyY+k5Vri6TU9Z+Nw2mw/t1Xu?=
+ =?us-ascii?Q?K6ka2aD8mKwJsDcUdpXR5OnFZJi+QnfFjCtIXte+xh8ex6qXQIjnk+fEAkaU?=
+ =?us-ascii?Q?RHse6KFmstFS6GDcXmteBlg2xqNGfYZpd1HJz7jix0OR8ZpTGPTjJcQqeSzM?=
+ =?us-ascii?Q?w99dm5vWXcXSsx1nJfFPa7URHknYVUOri7b5dyG3bsg0g7FPrIzCWGTSgKYp?=
+ =?us-ascii?Q?dap7d0/bP2aX18hPCxo7RGA7OAjXWBXXf0NK/SlyxFE8KxoTIrTuwbB9CyYt?=
+ =?us-ascii?Q?Wx71Hkdp0diCA+dE/XJkKJITLVPMpyJFOeovOVljphtsqAyCm0SZIa7tbX44?=
+ =?us-ascii?Q?OlM2o9PL8Q6XfmJecWfrXowJnC0o9FeTZmVIYacuVD1e8tTsvlBqCk2GwSdl?=
+ =?us-ascii?Q?2qDLfCbiqRBnXDQjAlpD0EhFvDwkjvKtZmpLjPOEW2z0xutf0ZbPCAmD0hzn?=
+ =?us-ascii?Q?U+31UobHn7MqpAiYX/95ecP76OS62zr+XTQ/QG0km4FKGE6ua6cVIEmox4Fp?=
+ =?us-ascii?Q?/smHc7wdwFF1rAIciABlN06rSCDt1Hxny6zkeaYqQZLkZeFbN7WqV/ddJyoh?=
+ =?us-ascii?Q?zVOwaJCZ2HPkRisAUZAr1Kzm4FevS/lKXVb8xnRnazC4dtZyVOHctbXyme29?=
+ =?us-ascii?Q?pb+W+6KBfhJDBVJB/QhLiP2V9jWUiEYfKPJjzcsh/+8bCo8zdsNkJ9B3FmCR?=
+ =?us-ascii?Q?B1jCsNAi9I6g8kcQw67GEuYXz8gBPNrvlDj6yW48uBNbm3tKAxfLC89U4vSY?=
+ =?us-ascii?Q?42iZSnk4i1mumyZBWFx77WG1gOmx75pJ0+Cgv4sohvxyB9TXIGoZWQ5YZgWK?=
+ =?us-ascii?Q?mgN4qwMGvw7lRonfCWUiDNB3uQrB95lF1u7+hpHm8YyL+i4bw3rbUsNJp96g?=
+ =?us-ascii?Q?THvElGv18ywGlEQOKpYd/V/IuvcUHZdtxzRbzQ6fPL0bCe+tDx76c84KgunF?=
+ =?us-ascii?Q?UFVzTXQ/Xc+hXcYATbLAkQZztg4lilghVjs3NzZeIphnXGyVMxLUSA21vk9Y?=
+ =?us-ascii?Q?hDwOPtyM5ttZW4rs78rdqqU9QzAy5pRzMEA2llM6BRRBU8aXqmahx3rUDkCy?=
+ =?us-ascii?Q?K/vFB6FKRgxqGgWHxLTU01CWPHCKSu1OQDLZ7hFnUryX+xyu0gswMGIZbQ53?=
+ =?us-ascii?Q?R/NlCLTyR1MKwCrV5TlqPaQ3hb6ZFYTOf3cOwtoWCw12eFrB3CjM/AyhVqph?=
+ =?us-ascii?Q?KDkY4i6sLTYbGHGyivqjpJHdyBIanOlcH7FoOPFlH4bQr4k3QTlacucpWYT7?=
+ =?us-ascii?Q?/ro8ecsw52cE2re+PH3mozFA7h/aufsStAVd8mgUtVhGoKuYPCwmMCkkl+r8?=
+ =?us-ascii?Q?PGSTU4vNEZO9jlJ+b/qnWtqs9jatDYa34XiytoUUS21dpCX/3DixoeF881hu?=
+ =?us-ascii?Q?Mk2GXVfnFnpB02759jpvVY5c2CjPJbP+w7iNfdv+nfVM7wpvxefNi5DylsPJ?=
+ =?us-ascii?Q?Zv0sq6bwuG86hqJGA1b4B0BEWg8J9L+q+zZWtxAKdyuljCEmtj+yDSTdbnQp?=
+ =?us-ascii?Q?/lSsq9rXfhwc2SCskRR+4ZaEhTfHsm5g4zWah8yVQV4KVq5gOughcpw5h8og?=
+ =?us-ascii?Q?n83sTnjCSOIAgoScoahJ9BVl5qiotaFL9I9ukXSStrM/TiD+gmAkohPG+OFa?=
+ =?us-ascii?Q?wrq6eZ1dgBMqenLiDAVT31slPmc5CRPinfqyyr9pPOGBTEBG1BPr?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8739f96-365d-4b15-d3b0-08ded66d7887
+X-MS-Exchange-CrossTenant-AuthSource: VI2PR04MB11276.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 06:04:40.0325
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XwWBWufnzkEuRS81ayJwihT1lMXtgFRMRAyaq62pNlTG9gQXxnyzD01FBJm3KXpGNvSHG+kq6D471IRnUy4ZdESo/Rlld4B4IZDBQzZJmJX/Aps2/5xWpU4zUveorFID
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8748
+
+From: Sherry Sun <sherry.sun@nxp.com>
+
+This series integrates the PCI pwrctrl framework into the pci-imx6
+driver and updates i.MX EVK board device trees to support it.
+
+Patches 2-8 update device trees for i.MX EVK boards which maintained
+by NXP to move power supply properties from the PCIe controller node
+to the Root Port child node, which is required for pwrctrl framework.
+Affected boards:
+- i.MX6Q/DL SABRESD
+- i.MX6SX SDB
+- i.MX8MM EVK
+- i.MX8MP EVK
+- i.MX8MQ EVK
+- i.MX8DXL/QM/QXP EVK
+- i.MX95 15x15/19x19 EVK
+
+The driver maintains legacy regulator handling for device trees that
+haven't been updated yet. Both old and new device tree structures are
+supported.
+
+Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
+
+---
+Changes in V4:
+1. Fix the CHECK_DTBS warnings. 
+2. Drop pci-imx6 pwrctrl support patch as it got applied.
+
+Changes in V3:
+1. Rebased on top of latest 7.1.0-rc4
+
+Changes in V2:
+1. After commit 2d8c5098b847 ("PCI/pwrctrl: Do not power off on pwrctrl
+   device removal"), the pwrctrl drivers no longer power off devices
+   during removal. Update pci-imx6 driver's shutdown callback in patch#1
+   to explicitly call pci_pwrctrl_power_off_devices() before 
+   pci_pwrctrl_destroy_devices() to ensure devices are properly powered
+   off.
+---
+
+Sherry Sun (7):
+  arm: dts: imx6qdl-sabresd: Move power supply property to Root Port
+    node
+  arm: dts: imx6sx-sdb: Move power supply property to Root Port node
+  arm64: dts: imx8mm-evk: Move power supply property to Root Port node
+  arm64: dts: imx8mp-evk: Move power supply properties to Root Port node
+  arm64: dts: imx8mq-evk: Move power supply properties to Root Port node
+  arm64: dts: imx8dxl/qm/qxp: Move power supply properties to Root Port
+    node
+  arm64: dts: imx95: Move power supply properties to Root Port node
+
+ arch/arm/boot/dts/nxp/imx/imx6qdl-sabresd.dtsi    | 2 +-
+ arch/arm/boot/dts/nxp/imx/imx6sx-sdb.dtsi         | 2 +-
+ arch/arm64/boot/dts/freescale/imx8dxl-evk.dts     | 4 ++--
+ arch/arm64/boot/dts/freescale/imx8mm-evk.dtsi     | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts      | 4 ++--
+ arch/arm64/boot/dts/freescale/imx8mq-evk.dts      | 4 ++--
+ arch/arm64/boot/dts/freescale/imx8qm-mek.dts      | 4 ++--
+ arch/arm64/boot/dts/freescale/imx8qxp-mek.dts     | 4 ++--
+ arch/arm64/boot/dts/freescale/imx95-15x15-evk.dts | 4 ++--
+ arch/arm64/boot/dts/freescale/imx95-19x19-evk.dts | 8 ++++----
+ 10 files changed, 19 insertions(+), 19 deletions(-)
 
 
---bjsp2vxvxtx3lqot
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 00/16] mod_devicetable.h: Split into per subsystem
- headers
-MIME-Version: 1.0
+base-commit: 7de6ae9e12207ec146f2f3f1e58d1a99317e88bc
+-- 
+2.50.1
 
-Hello Takashi,
-
-On Tue, Jun 30, 2026 at 08:58:04AM +0900, Takashi Sakamoto wrote:
-> On Sun, Jun 28, 2026 at 11:58:35PM +0200, Uwe Kleine-K=F6nig (The Capable=
- Hub) wrote:
-> >  ...
-> >  drivers/firewire/core-device.c                |    1 -
-> >  drivers/firewire/net.c                        |    1 -
-> >  drivers/firewire/sbp2.c                       |    1 -
-> >  ...
-> >  drivers/media/firewire/firedtv-fw.c           |    1 -
-> >  ...
-> >  include/linux/firewire.h                      |    3 +-
-> >  ...
-> >  sound/firewire/isight.c                       |    1 -
-> >  ...
-> >  1649 files changed, 1575 insertions(+), 2544 deletions(-)
-> >  ...
-> >  create mode 100644 include/linux/device-id/ieee1394.h
->=20
-> I have no objection to the above changes relevant to firewire subsystem.
->=20
-> Acked-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-
-Thanks! Added to my tree.
-
-> Consequently, unit drivers just include include/linux/firewire.h to refer=
-=20
-> to 'struct ieee1394_device_id'. After merging the changes, I'll post more
-> patches to modify the following unit drivers, since they are left from the
-> patchset.
->=20
-> * drivers/media/firewire/firedtv.h
-> * sound/firewire/bebob/bebob.h
-> * sound/firewire/dice/dice.h
-> * sound/firewire/digi00x/digi00x.h
-> * sound/firewire/fireface/ff.h
-> * sound/firewire/fireworks/fireworks.h
-> * sound/firewire/motu/motu.h
-> * sound/firewire/oxfw/oxfw.h
-> * sound/firewire/tascam/tascam.h
->=20
-> By the way, the changes touch so many files. If it takes more time to
-> apply, I think it better to make steps to modify across several kernel
-> generation.
-
-Touching so many files is the motivation to do all the high-impact
-changes in a single go. As of v7.2-rc1 <linux/mod_devicetable.h> is
-included (transitively) in ~18000 of 21500 .o files below drivers/ for a
-x86_64 allmodconfig[1]. So touching that file requires a near complete
-rebuild. If we spread the changes over several trees/kernel releases the
-need to recompile the whole tree repeats more often than necessary. Note
-this bites not only during the merge window when building the
-development tree, but also during bisection.
-
-> For example, getting rid of direct reference of
-> mod_devicetable.h from drivers at first (in the case of firewire
-> subsystem, for 'Replace <linux/mod_devicetable.h> by more specific
-> <linux/device-id/*.h> (headers))', then adding these per-subsystem
-> headers and applying relevant changes.
-
-The impact of these firewire changes is limited to the firewire
-subsystem. So doing these later is a smaller issue. I plan to tackle
-these when this series is in. (But if you want to care about the
-firewire bits, that's fine, too.)
-=20
-> Of course, I don't mind to apply the v3 patchset as is in upstream.
-
-There are a few changes that I collected (Added SPDX markers, a few less
-#includes added as my script evolved, a new patch to fix a hppa
-fallout), so I will send a v4 later today.
-
-Best regards
-Uwe
-
-[1] I did in my build tree (with the series applied)
-
-	$ find drivers -name \*.o.cmd -not -name \*.mod.o.cmd | xargs grep -l /dev=
-ice-id/ | wc -l
-	19221
-	$ find drivers -name \*.o.cmd -not -name \*.mod.o.cmd | wc -l
-	21597
-
-That's a bit wrong as my series changes the numbers, but the ballpark
-should be right. In
-https://lore.kernel.org/all/20260622210733.1743063-2-u.kleine-koenig@baylib=
-re.com/
-I found similar numbers for 7.1 (17038/21330).
-
---bjsp2vxvxtx3lqot
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpDXGcACgkQj4D7WH0S
-/k6p0wf8C/fqLWElPKeEJ6VYZOMbHAVQFFSaiocKgLhyatujJO/xABylQtIrG2bm
-oNQHPUayrcWacObHGF3fEjQy4hRJLu10iu9WrGW/FvZUPjhCWUzPdhuXpmSnE4fH
-zd/NVmkNUTbomy4rUfxcWTKfXtWxqi+pwwPvcbEeQBUCqK/R3MK9MTJPeo+fuS0w
-N7J2Vv4yLihgZU1OW8Y9uT+TbrHb5Kn77XyKCF3bvRyrDK82GHBAEy0UIojDpJnT
-sIhHykaiFL1/5jUZb/iCqMx0+2OUeNz8HOywoSete10zzE2qFPFgI683oSrO6gcY
-cBQF6NX+zboS6GmYI42xlkzJTj7ODw==
-=GSrp
------END PGP SIGNATURE-----
-
---bjsp2vxvxtx3lqot--
