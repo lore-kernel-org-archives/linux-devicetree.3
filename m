@@ -1,180 +1,141 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1603EB7E8
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:25:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C74C31D372
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:26:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782818721; cv=none; b=V3mW6XCHKh0FlrEqynBUmHMbnXOSq1SPl5LVB7BCrvjhaoxuAPjM//W1uhFAJwy0+VZtaONQ8wrNxizXyS9w3gTY23I1l/qKRwEDkpuNFr8tHK7C3G2YiQu2Qo1e8SL005NvOih8u8FOcnbJrl6PAafcDpmVsRk8dN6bHm5RW2I=
+	t=1782818787; cv=none; b=TFMNEeJw0YgsiT98SIios3D53csPQG2pufUKrkuwc5vtxo60JnH5MdP2DUsyTedz9py7+WcQ2vSEyJeq5S9K5Wx1ySUE8GGGwzUYrjz8DjIjMvby3/ch/OPZoeaQueAkecVGALmhU3Kv7Y29xRsWYKvnLTSyXGVZhskmQQwdZPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782818721; c=relaxed/simple;
-	bh=VHv0DUGnwaDZhACPYMMQ4MZL7D26mlLGcb12H916HAA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SUEEuG1lC6DLyfxehJkT3QJxLjhmZQeWXvJ4zZClXXMsecDDRec64nz1T42KzwNtl7emLje9xs+LwzJirg/eVY9sQDMtDNpvMBH5Mpbz/p3KxQq10ZeX2UFFTnEnI/SGXyzFfPvHcUDsReDLJ5CCHIUvnqe+b8B4LyABerroyH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bOj97r4D; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OiGumuPQ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782818787; c=relaxed/simple;
+	bh=lB97F5wrbw07ed2Ta+uZmic1Lvo5jhV6jv3gG66Wwhg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ikVvC3SLf96e7TO0zAtjW1bwxY0Vle0BOCBVWR6qnu7dRA+sPcvEP9OAs9vKhwVdu/0hUxdA0VCKW5Orl+ttkWV/VXDF6N+8GyzZMQv6b/gFVKUJ7p7bJaPb5vcKj4EwHiwv1TcrEEWs4DNapkkrwgvA881eGSgQan140/lLoDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R6nJYYSx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bOj97r4D";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OiGumuPQ"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U9nCRo1590615
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:25:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	32IH0+GhcMxvvSV3B8uT8krSKLLsXFNv3zLVkf5JJcY=; b=bOj97r4Dh5TpRPBn
-	DFQIXdaZxi6EC5Q4QGYGKi7PgfD4SVY4G12bQxCCkwWx/uGwWY8P/HwfqfK9WcKS
-	hAccou7nNNcDqcIpiDO2s9kz7r23Ao1UpOYTqQYc1zncDCtGrVY4Tswn7RcJl9P8
-	rfKsDiVBSilIz3/ZEz9gzvQdOOtyEiPqSS3yjWInS18sfDLcO9tWQMAfbVc7QtAS
-	9ey4eXvXuuafL0GCzIfPFeqAeKQB1TD+MA5EK8PtY6AR1N7s7+YSfRc843GyKNOi
-	C9yiX4giO8rgKkuxS4OBz/zzq4ulAh+4OD2YsCHQ5jaMYWl/gU+rWtxyMdR8f3oL
-	cA+F9Q==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3y9k38tf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:25:18 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51a89451078so4382701cf.2
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 04:25:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782818718; x=1783423518; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=32IH0+GhcMxvvSV3B8uT8krSKLLsXFNv3zLVkf5JJcY=;
-        b=OiGumuPQRFxPXG8mNMQxWTFnM2bi/li7D+HqaGXqnEWQSwSO4OR/fhTLB3T/elJhbP
-         li6ZNbYc/1uVkHWqGFQ5PwMQx0sFX3/5uf8RJxzQS5zt04O0cZWhcDRFLqgHu/04XwXj
-         JRkwzeS1rtvVjD2yuE9CxQv1cDdg3OwyD+WLlOcX36meCFcNONOb6VZofn3EgNvaynCP
-         7r4kMSsY5JLmEsjyTAf0ohyErps9UTR+TW9hbHDbGL0KHWevjkl5O2hbJPO3MoC2pDZ8
-         7bqUN+7IQmL/iLpiMs0L9sWKvRyVies+eZ1tzNS75B2tZXo4LugkIRE7JAG8pDoL3DQk
-         +iqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782818718; x=1783423518;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=32IH0+GhcMxvvSV3B8uT8krSKLLsXFNv3zLVkf5JJcY=;
-        b=LWiJuDujyTNGp0nPpjirQ6yS8NPwOXrvTn7BqodFRl7Wjwk8ZKXT83rI8+OG3a/r2n
-         rwuDcIQbBj2ZkwUpviLFEmJoloyU/4fkvxF+DCCTasW3du5UUp/11mNipNDukYCxOa9A
-         fBbrDRzFbHcEVp6y++xQYZ875dWyBH4WucA4A31Ej+YhjdHG8Yuk2Aol41OudiKiTep5
-         1hPVEFrkA+F7GGNf0iKn7SLc5ykHuP8uRQ7evV148PhAa6ZV9SiRdPegCac6lKyz965U
-         UnQeU/c3lLycbsPAGlJ/rAny4+Qe1QlJQc/VTfc8Hw10uq0gWlVvwaHgg4otg3HJPjhV
-         q9Fg==
-X-Forwarded-Encrypted: i=1; AFNElJ/UJ/u+D+VSthCPyRRtK7VNQGV4iIFJAEs1C8tJf/tMs+Ormr5o5FxVWoUgxxNZjJinXsJZBJs1plt8@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVTwS9u3ChQ+D8g2mjJfbjeo3NWk35LHzw+ucUu6LQBgnx9M8k
-	NUO0R6vfmJC709OuZtokn/Kb5ccyb+a57RlzzXe03dwH3CRjN8VmDc+ex1ChKYwZpsQc4gCccWx
-	nT28T8vL1JfSsRTXpGgwhZ7iljZlHjZWWBUZTAkq/4I1Dbz4aNJfqLr1SbHYdFa4s
-X-Gm-Gg: AfdE7cnAKWLYyaw2uEmMhmWNj9XNZ6GmZG3uBnS554Ddb57sNg9+YFl+6wlHsskvpYV
-	fhYMgH0B0afUOQRHxICVFNNiIu6Ct6FIx0JNW6bsneXKihCDVfz5WIaWYnnKHewNwbzTEKVBws4
-	JiV8lYDFQs1RgBW/gPydrFl3maARkAcYul1kwIjGOdG9XsBfXV02I48yOgBHTErRck5bct8QSxZ
-	LK6nRtSEwNRxU8Tw1TiR1cHBJTnsH8r0mA8UGAdZNCzHmu0AzMY+98rmd53ZwiLT8e71tWVdKti
-	C5kEcTVP+bDH/sqav10h2T2jBrJBNbfxcQ/ekFFFoTOmeh3qG8nk39TW4OYf0GUCeYyxAER18Rc
-	/+nFTGeZAJsb2WSWQIZJSVcQ+TfUVf5VEpsE=
-X-Received: by 2002:a05:622a:2d2:b0:51b:ff1a:3d80 with SMTP id d75a77b69052e-51c108c0a75mr26146191cf.7.1782818717950;
-        Tue, 30 Jun 2026 04:25:17 -0700 (PDT)
-X-Received: by 2002:a05:622a:2d2:b0:51b:ff1a:3d80 with SMTP id d75a77b69052e-51c108c0a75mr26145891cf.7.1782818717294;
-        Tue, 30 Jun 2026 04:25:17 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1288d16b06sm108856866b.8.2026.06.30.04.25.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jun 2026 04:25:16 -0700 (PDT)
-Message-ID: <56ab63c3-4288-45f7-bfea-d40046437a9f@oss.qualcomm.com>
-Date: Tue, 30 Jun 2026 13:25:13 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R6nJYYSx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F333C1F000E9;
+	Tue, 30 Jun 2026 11:26:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782818786;
+	bh=DhkGn865KN4kRJ8n2zV4ydWm6Q9GdvXcLszYXD3lkYQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=R6nJYYSxRQ0pfFkum1OIXASEZ/huj7ePq/vqHLF6j4b66SUowtmiMFc5ckrFUfTyD
+	 O0YajKUEI/z8PXpaPxEVRIyIXLwkZgTCZHqtipixTT7tIIr76XPMexUEvYHiBUQkIQ
+	 D8CwZBkS7KWpFy+Sa7zlgvxqJ8CfV8zenVIyPLEMMBovghJIrOtrl5dJ5X4uFX3QEm
+	 M2qH6ZtscAWaq8xrfF4BkJKNTJfrFunQhrXM3RwVKHIg1jZbYcDWxeKiEwkPog1uzz
+	 ay3wC3xljp8rH07IrDQoN8fgZTvu2ifR5UlEkUSpWxpidr2uQaj/5YZoxzW1c3hJx1
+	 XHalWXZ0Hyfdg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/5] arm64: dts: lx2160a: transition to device-specific
+ SerDes compatible strings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ioana Ciornei" <ioana.ciornei@nxp.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260630110459.516364-2-ioana.ciornei@nxp.com>
+References: <20260630110459.516364-1-ioana.ciornei@nxp.com>
+ <20260630110459.516364-2-ioana.ciornei@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 11:26:25 +0000
+Message-Id: <20260630112625.F333C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/3] arm64: dts: qcom: kodiak: enable inline crypto
- engine for SDHC
-To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org
-Cc: linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>
-References: <20260629-ice_emmc_support-v8-0-1a26e1717b85@oss.qualcomm.com>
- <20260629-ice_emmc_support-v8-2-1a26e1717b85@oss.qualcomm.com>
- <ba96f5e3-6b6e-40b6-b6c1-300e862e8ee4@oss.qualcomm.com>
- <d3be45ab-0390-4d0e-8d5b-330a48c529a1@oss.qualcomm.com>
- <1a0b91c6-5e17-4330-a8ab-ac14d3339024@oss.qualcomm.com>
- <ffca92db-a3ac-4345-8477-1f53ec61ef16@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <ffca92db-a3ac-4345-8477-1f53ec61ef16@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDEwNSBTYWx0ZWRfX7oQPOfAR/b/g
- KJMzb/Zs6MQ2O6rmmmMIMox8M1bio0ausMiCEY/tXqqa0s8vhYaOnFccQjDOr2YW8i56pmJkL+y
- KO+23yH+6I+npsgMEJBfflWCQY9fZxU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDEwNSBTYWx0ZWRfXz1Hq+poyHMFI
- 4JR0kwOtbMwmaR2YCe3b2ZgYxs3AxrI4C3muaDfz6O4lKX8GlKANwuRissm/k4B1bVYeMlAUaEt
- DaujGO+vXpc+Lk7U817VpwYyfAiUZjmhHgysH5U1ZuEmecpwO7mbwUxkjowjoctSPUQeVvEQTF1
- uEgB4tL75o421gZBvAXm38xcIYOAD12Zifs4NLoed9/+AJ5uTeIeWxZLGLik9/m9lUSPYs29Khw
- ZKvvKQmFGt41DJsreduL9koEEQDVU9CzPKoTk0jVBSKvNh1ykQiAAfP4K3dY5Jnu2kdhyCY6ylU
- 7qIBcg0VL0xoqdYbUw7i5oNmwDVPJRkaqt6lOaXhDIDkv3PxS/wMX0MvX6yMLLYsLpnvin6z6uS
- jvnI6hBg8l+GUVcMEBySp37F9PxNHQLajjL15AwdkoMGwONxdEQQbret34INPkykHelVgrJ7XUC
- G07ZToyxnNW72FRdTBQ==
-X-Proofpoint-ORIG-GUID: VBuXjUNYwb8Yeek4Paj1-hmAo2PdQF4Y
-X-Authority-Analysis: v=2.4 cv=TeqmcxQh c=1 sm=1 tr=0 ts=6a43a79e cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=YUSBgXEUuFXLcjEF3eYA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: VBuXjUNYwb8Yeek4Paj1-hmAo2PdQF4Y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-30_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- spamscore=0 adultscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300105
 
-On 6/30/26 12:23 PM, Kuldeep Singh wrote:
->> qcom_ice_probe()
->>   -> qcom_ice_create()
->>     -> devm_clk_get_optional_enabled()
->>
->> If we remove the _enabled suffix and put a ice_resume() in ice_get(),
->> I believe this is no longer an issue
-> 
-> I see your point.
-> devm_clk_get_optional_enabled turns clocks on, whereas using
-> devm_clk_get_optioanl will only get handle but don't enable clock.
-> Please note, clocks are needed at probe to read ice hw version 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Unintentional disabling of `serdes_1` on multiple boards.
+- [Medium] Consumer phandles for SerDes PHYs were not updated to match the =
+new per-lane PHY providers, contradicting the commit message.
+- [Medium] The newly added `serdes_3` node is missing the generic fallback =
+compatible string `fsl,lynx-28g`.
+- [Low] Device tree compilation fails due to incorrect node name in `/delet=
+e-node/` directive for serdes_3.
+--
 
-Right, but we don't need them afterwards in the probe function. We
-can simply gate them. There's a parallel effort to enable runtime PM
-in the driver:
+commit dcf5b2d58e1afb24aa2ae2829db182c735a1dfc1
+Author: Vladimir Oltean <vladimir.oltean@nxp.com>
 
-https://lore.kernel.org/linux-arm-msm/20260512033750.3393050-3-linlin.zhang@oss.qualcomm.com/
+arm64: dts: lx2160a: transition to device-specific SerDes compatible strings
 
-and with that all you'd need after getting the clock is a
-pm_runtime_resume_and_get() before the version check, followed by a
-pm_runtime_put() right after it
+Align to the modern fsl,lynx-28g.yaml binding, where the SoC and SerDes
+instance is present in the compatible string, to allow reliable per-lane
+capability detection and per-lane customization of electrical properties.
 
+>     These new bindings have #phy-cells =3D <0> in per-lane PHY providers,=
+ so
+>     we need to update consumer phandles as well.
 
-> and then
-> later ufs/sdhc fetch ice instance using of_qcom_ice_get() and control
-> suspend/resume path.
-> 
-> But my idea is, if storage itself isn't there(like sdhc on
-> qcs6490-rb3gen2) then why sdhc-ice should even probe and check hardware
-> version? as there's no significance in even probing ice.
+[Severity: Medium]
+Did we miss updating the consumer phandles in this patch?
 
-On the developer/customer experience side, would you expect having to
-manually enable what's essentially a sub-feature of the storage media
-on every single board?
+The commit message indicates consumer phandles need updating to match
+#phy-cells =3D <0>, but they appear to remain unupdated in the device tree,
+and #phy-cells =3D <1> is still retained on the parent PHY nodes.
 
-Konrad
+> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi b/arch/arm64/=
+boot/dts/freescale/fsl-lx2160a.dtsi
+> index 1d73abffa6b72..a687eb3e31904 100644
+> --- a/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi
+> @@ -621,17 +621,163 @@ soc: soc {
+>  		ranges;
+>  		dma-ranges =3D <0x0 0x0 0x0 0x0 0x10000 0x00000000>;
+> =20
+[ ... ]
+>  		serdes_1: phy@1ea0000 {
+> -			compatible =3D "fsl,lynx-28g";
+> +			compatible =3D "fsl,lx2160a-serdes1", "fsl,lynx-28g";
+>  			reg =3D <0x0 0x1ea0000 0x0 0x1e30>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+>  			#phy-cells =3D <1>;
+> +			status =3D "disabled";
+
+[Severity: High]
+Does this default status =3D "disabled" unintentionally break interfaces
+wired to serdes_1 on boards like fsl-lx2162a-clearfog and fsl-lx2160a-half-=
+twins?
+
+These boards consume serdes_1 but do not appear to override the status to
+"okay" in this patch.
+
+[ ... ]
+> +		serdes_3: phy@1ec0000 {
+> +			compatible =3D "fsl,lx2160a-serdes3";
+> +			reg =3D <0x0 0x1ec0000 0x0 0x1e30>;
+
+[Severity: Medium]
+Should serdes_3 include the generic "fsl,lynx-28g" fallback compatible stri=
+ng
+here, similar to what was added for serdes_1 and serdes_2?
+
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			status =3D "disabled";
+> +			#phy-cells =3D <1>;
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2162a.dtsi b/arch/arm64/=
+boot/dts/freescale/fsl-lx2162a.dtsi
+> new file mode 100644
+> index 0000000000000..b9629e074d943
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2162a.dtsi
+> @@ -0,0 +1,24 @@
+[ ... ]
+> +&soc {
+> +	/delete-node/ serdes@1ec0000;
+> +};
+
+[Severity: Low]
+Could this /delete-node/ directive fail at build time?
+
+In the base fsl-lx2160a.dtsi, the node is defined as phy@1ec0000 rather
+than serdes@1ec0000.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630110459.5163=
+64-1-ioana.ciornei@nxp.com?part=3D1
