@@ -1,56 +1,46 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7DD4397E73;
-	Tue, 30 Jun 2026 16:39:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D725D25B0B7;
+	Tue, 30 Jun 2026 16:39:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782837577; cv=none; b=tMQHgiVg6bLR2ek8tYKBjdw4XK9IVSXwcIq1Om+7qE4ZxP7twOaWBvY5BaDimMSzTsWI6E9qtsAA6C0liXrJt3ngIj4wYlY0CrMi/4KeAPS81FmOiz2IVwnRKmJKNA3PTrhygQHHhKAaM+OamUi1PKIFSSNpdqYvaNvtNytklx8=
+	t=1782837598; cv=none; b=pK1LnhSsT7p0sn/TjFFmQoO/X8+rEXKsQp0Z5Iw6K4MgKo1KRrLETfIplrGHTtogpTJP6cd1Z5ce38SS8iPhHEjViufyx+HEKQwjzWEM+ko/7mgrn5PVlv96Zc+YPsY/yLes1kutex+XXnCJ+8ywXGCUoLwHYoF5gWYeW26v70Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782837577; c=relaxed/simple;
-	bh=Rikpi7pPgOmeEsr1F3K6MYEisg8kPO5U/COrf+QAQp8=;
+	s=arc-20240116; t=1782837598; c=relaxed/simple;
+	bh=62Pps94gRIXRxKym5mdviKPCi6q8yM4B6mt9tZ7ALpM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pPL+qUVhRK6IXE3iV7NE8o7dHHtYrDdt2hXIJT+AP4DQNlgXY0XIuBikKrZZlA7g5vd7hL1pcKYjWfao7pYNtmX6MvSGeyDrJUi27hRuffa19yJ/0hdDns2h3qCGwcU1zgpc2oTBkLhO+ve2n/qRSw7/4EBIX+LMFKCTVNwPmRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c2jZtrhL; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=PQ1LQMq3D1D8NW6PSPF3TYbqQkE75RHaBRST/238rcG7zjV/YOMzmNEftfCfNrZZzCtpr2jW60kYRPwNZaDBSeDRd6u00Cpfw8dLL06W8pMZ2HYl7jMYS4NhTJLokrY+RNQg/oXTNwa2EjRNEeg64WgeWR3u+JPwVflAKadqoXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=EbaKLHDH; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c2jZtrhL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 415601F000E9;
-	Tue, 30 Jun 2026 16:39:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782837576;
-	bh=5y1+upEHw2aVmmfQc7NmwlD1vJ7ldcPCjL3K67v3kVM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c2jZtrhLB2/QXI1U1YIaFApsftQcs9m8LqVlyzcANboeutPLdeCkiwTnVEZjDCyit
-	 X0Y95SAAFZgUpm79p1I3UcPbtEE5ZfChErW8ImZ8QQQi+s/CoOWak3a0TkOzFFp4OV
-	 a3GvWRGmUMRGgLCitrKIltfYT/jx8mT/FDP8R52885EKIIBJIrwR/LkBmkY1aTBYbo
-	 Lb+NkW/k9yRSJHsXzz8Kv7x6/Mnj1AFFigALczLhMUCmIY/L4tpMbHaRh4FTUqcA13
-	 Gxw92QgmmLPLkhff3nVK5s7Wt5roeuaD9CgYhtEgHvTSlj5UhfeGVFbyVVrueMX7Xa
-	 REMo4LW/Z/R4A==
-Date: Tue, 30 Jun 2026 11:39:35 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Ryder Lee <ryder.lee@mediatek.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Jianjun Wang <jianjun.wang@mediatek.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-clk@vger.kernel.org,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Brian Masney <bmasney@redhat.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	linux-pci@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] dt-bindings: PCI: mediatek-gen3: Split Airoha
- schema and document 2-lanes
-Message-ID: <178283757491.3920026.421543369418004225.robh@kernel.org>
-References: <20260626092029.3525264-1-ansuelsmth@gmail.com>
- <20260626092029.3525264-4-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="EbaKLHDH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1782837589; bh=62Pps94gRIXRxKym5mdviKPCi6q8yM4B6mt9tZ7ALpM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EbaKLHDHkfZ+RG9y1FeeJy240F/CWdrHRnc1kkfvgethjk7wDidEUzEFHpY5AlL5y
+	 ThN05uFWGeDImscud35QuYO+2007X1wKYONTaIsQ7GhwoeX3xIxjCON9Q7PCzoxZP0
+	 ZnmrcudowQgTstoZphkELy+BW113uE1zBV3aJynrw2DbVOIM+U4q/vtmoWl4gJA5EG
+	 XVLbhiIEP2maGeu/3SaKfcRoo15LTTMZxWZgSGsym0yUta7FQTKnrGpkpWCNduUtNy
+	 C6OUDdrg1Cm5V6vJy1lvX/LztZ/uDXe2h3gs5eajblci0qMiThnXMM4fLBCCVQEwlZ
+	 v5oJTKo6MgogQ==
+Received: by extorris.mess.org (Postfix, from userid 1001)
+	id 0969D41567; Tue, 30 Jun 2026 17:39:48 +0100 (BST)
+Date: Tue, 30 Jun 2026 17:39:48 +0100
+From: Sean Young <sean@mess.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-media@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] media: dt-bindings: rc: Sync keymap list with latest
+ list
+Message-ID: <akPxVG7pA7gbN_An@extorris.mess.org>
+References: <cover.1782300922.git.sean@mess.org>
+ <2d87b050777b95ffe8adbdf156d2fb1de14c4dfb.1782300922.git.sean@mess.org>
+ <akO_XqVQ-S72dveD@extorris.mess.org>
+ <20260630161703.GA3798331-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,28 +49,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260626092029.3525264-4-ansuelsmth@gmail.com>
+In-Reply-To: <20260630161703.GA3798331-robh@kernel.org>
 
+On Tue, Jun 30, 2026 at 11:17:03AM -0500, Rob Herring wrote:
+> On Tue, Jun 30, 2026 at 02:06:38PM +0100, Sean Young wrote:
+> > Hi Rob, Krzysztof,
+> >  
+> > Could I have an Acked-by: please?
+> 
+> You can look at patchwork and see where you are in the queue. No 
+> need to ping us. Plus, don't expect quick reviews during the merge 
+> window.
 
-On Fri, 26 Jun 2026 11:20:27 +0200, Christian Marangi wrote:
-> To permit proper documentation of required property to support PCIe
-> configured for 2-lanes mode, split the Airoha schema part from the
-> mediatek-gen3 schema to a dedicated schema.
-> 
-> A PCIe configured for 2-lanes mode require an additional reg for the
-> secondary PCIe to be configured and the airoha,scu phandle to correctly
-> configure the PCIe MUX.
-> 
-> Rework the mediatek-gen3 schema to drop any redundant constraint previsouly
-> introduced for Airoha PCIe properties.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  .../bindings/pci/airoha,en7581-pcie.yaml      | 251 ++++++++++++++++++
->  .../bindings/pci/mediatek-pcie-gen3.yaml      |  77 +-----
->  2 files changed, 256 insertions(+), 72 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/pci/airoha,en7581-pcie.yaml
-> 
+Ok, understood. Will do next time.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Thanks,
 
+Sean
