@@ -1,62 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2FDF2F1FDF;
-	Tue, 30 Jun 2026 06:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782801178; cv=none; b=hSo308IslRfezB9CEfAD1lXGFtzYt6lcAPMxSeCsg4kfqa+1eQERgSiGYOWhDShig+JjCjutJDW8QPQsFift25P6bVQGE5cgeKot1GgCejh7pYKW/MDE7VdCB10zPFuL21wPYhSj1nXBWde0d8OzMlmWTJyaSYNJLqgReqLWAM4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782801178; c=relaxed/simple;
-	bh=I9t8nQfOjj9/aUr9XFtsyxbPFcqWKMnzkHixQOT91Uo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=glRIrRlbOjOGSMpftcDddsTSMbrb3cRBscyXTfzE8UXk2ZL7YTnFqxz6bTmwJq0xVzFtUpSd6JmBHRo08hkw54kTbxNDfRIF0Kgc75wiiXFFlDg0YGb4o1ON4a+5+/TjC8Rdl72wPwmJhra+B7xCPQBTon71WKe8SachyllEn+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=biKk+QvE; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="biKk+QvE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 788FB1F000E9;
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44A462D0C9D;
 	Tue, 30 Jun 2026 06:32:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782801177;
-	bh=Kl+w1FAsj/uySaEZ3UOYaV3smbCW0UBPqhVmiNwbMjk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=biKk+QvEthSVytwRLlPpvQ5bnk6zb5nYVb/Spo6lktHn44Tftb5SYvxdiAc6tPfYk
-	 a9XJJ7ilTLLGxpluwYWie+kZc01Gn9Jz50hp9GiS4wO9yyQ6HoeZQ4Zu8onddMhf0K
-	 /aW2HFzzKe/d2u5ZIXf+/7hn2kP15E0EsAnYxC8Q4TTlJNi3sDwO/8ZrMouGozbjw4
-	 URhucxpOIFCTYo5pqF9OG6CwpbCPv5Usz5gEnSL8zUwnbsl9P1lY+qsfi8lboaF9s2
-	 N/tj01GMcYVzzkZ+OC65DQEWYv1AWWlWcSMuV7Grn3dOEy7sb11JFADLPA+noFym14
-	 IahmX3BRmOHQw==
-Date: Tue, 30 Jun 2026 08:32:53 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Charan Pedumuru <charan.pedumuru@gmail.com>
-Cc: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, linux-pwm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] dt-bindings: pwm: st,sti-pwm: convert to DT schema
-Message-ID: <20260630-antique-iron-chachalaca-a7560e@quoll>
-References: <20260629-st-pwm-v5-1-a93f2bfec38c@gmail.com>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782801180; cv=none; b=s/SRe4N9+v+a/iC7ZiHRax00nVPzgJ/3CU0L7BhdfILZ8qMujzp2mXIOE9r5bBkbXpipvaGCcvhxHIArIH/48kTfrVcfjdyWmMIA/4PtxSIgUf8vjU+dmxjJlzAFWDhsimlRlt/AxQ0pdCN/tAU8cCarvVo4spJiIAdu3Deh2Lw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782801180; c=relaxed/simple;
+	bh=4oc1+YLDliORMGAF/lnsCgjV2kz9yTwJ5M/xgHxgbYE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=j/boiHxovHeWjfphGWaNyTsZCMMgFc8R3QaSsiANoqxZh+b5B11+F7GP1Qxf/7TQGU3VSvl/3QLbXKwOTJ9HKf+yFt7qm89cWtXfrXmaUxsDRyX05va9oZgTyD3NSXsIcs49B7l6SFLjk6TcCUHBqk8jTqKjQFHvFsB+xc5KnO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
+	by app2 (Coremail) with SMTP id TQJkCgCHnaD5YkNqVhwwAA--.36430S2;
+	Tue, 30 Jun 2026 14:32:27 +0800 (CST)
+From: lizhi2@eswincomputing.com
+To: devicetree@vger.kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	rmk+kernel@armlinux.org.uk,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	linux-riscv@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	maxime.chevallier@bootlin.com
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	pritesh.patel@einfochips.com,
+	weishangjuan@eswincomputing.com,
+	horms@kernel.org,
+	lee@kernel.org,
+	wens@kernel.org,
+	Zhi Li <lizhi2@eswincomputing.com>
+Subject: [PATCH net-next v9 1/6] dt-bindings: ethernet: eswin: relax internal delay model to range-based constraints
+Date: Tue, 30 Jun 2026 14:32:22 +0800
+Message-ID: <20260630063222.1141-1-lizhi2@eswincomputing.com>
+X-Mailer: git-send-email 2.52.0.windows.1
+In-Reply-To: <20260630063123.1118-1-lizhi2@eswincomputing.com>
+References: <20260630063123.1118-1-lizhi2@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260629-st-pwm-v5-1-a93f2bfec38c@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TQJkCgCHnaD5YkNqVhwwAA--.36430S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCrWxJw13tw4rGr4UWFW7Arb_yoW5Xw1UpF
+	ZxCryrGr48Xr1xZanrt3W0kr9xXw4kWFy3Gr1xJ3Z7Xa1qvFs0qr13tFy8G3WUCrs7ZFy5
+	XFW3KFWUC34jk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBm14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
+	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1U
+	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
+	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRimiiDUUUU
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
 
-On Mon, Jun 29, 2026 at 12:58:37PM +0000, Charan Pedumuru wrote:
-> Convert STMicroelectronics STiH41x PWM/Capture controller binding
-> to DT schema.
-> Changes during conversion:
-> - Fix compatible string from "st,pwm" to "st,sti-pwm" to match the
->   actual hardware variant naming convention used across STi bindings.
-> - Drop pinctrl-names from the required list as pinctrl properties are
->   inherited and validated by the pinctrl schema.
+From: Zhi Li <lizhi2@eswincomputing.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Relax internal delay constraints for EIC7700 Ethernet binding.
 
-Best regards,
-Krzysztof
+Replace fixed enumeration of rx-internal-delay-ps and tx-internal-delay-ps
+with a range-based definition (0-2540 ps, 20 ps steps) to reflect actual
+hardware capability.
+
+Mark rx/tx internal delay properties as optional, as they are board-
+specific tuning parameters rather than mandatory configuration.
+
+Update the device tree example to align with the relaxed constraint model
+and remove delay properties from the example to avoid implying they are
+required.
+
+No functional change to existing DT users.
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+---
+ .../bindings/net/eswin,eic7700-eth.yaml       | 25 ++++++++++---------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+index 65882ff79d8d..4e02fedae5c6 100644
+--- a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
++++ b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+@@ -63,10 +63,14 @@ properties:
+       - const: stmmaceth
+ 
+   rx-internal-delay-ps:
+-    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
++    minimum: 0
++    maximum: 2540
++    multipleOf: 20
+ 
+   tx-internal-delay-ps:
+-    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
++    minimum: 0
++    maximum: 2540
++    multipleOf: 20
+ 
+   eswin,hsp-sp-csr:
+     description:
+@@ -105,8 +109,6 @@ required:
+   - phy-mode
+   - resets
+   - reset-names
+-  - rx-internal-delay-ps
+-  - tx-internal-delay-ps
+   - eswin,hsp-sp-csr
+ 
+ unevaluatedProperties: false
+@@ -116,23 +118,22 @@ examples:
+     ethernet@50400000 {
+         compatible = "eswin,eic7700-qos-eth", "snps,dwmac-5.20";
+         reg = <0x50400000 0x10000>;
+-        clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
+-                <&d0_clock 193>;
+-        clock-names = "axi", "cfg", "stmmaceth", "tx";
+         interrupt-parent = <&plic>;
+         interrupts = <61>;
+         interrupt-names = "macirq";
+-        phy-mode = "rgmii-id";
+-        phy-handle = <&phy0>;
++        clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
++                <&d0_clock 193>;
++        clock-names = "axi", "cfg", "stmmaceth", "tx";
+         resets = <&reset 95>;
+         reset-names = "stmmaceth";
+-        rx-internal-delay-ps = <200>;
+-        tx-internal-delay-ps = <200>;
+         eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118 0x114 0x11c>;
+-        snps,axi-config = <&stmmac_axi_setup>;
++        phy-handle = <&phy0>;
++        phy-mode = "rgmii-id";
+         snps,aal;
+         snps,fixed-burst;
+         snps,tso;
++        snps,axi-config = <&stmmac_axi_setup>;
++
+         stmmac_axi_setup: stmmac-axi-config {
+             snps,blen = <0 0 0 0 16 8 4>;
+             snps,rd_osr_lmt = <2>;
+-- 
+2.25.1
 
