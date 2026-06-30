@@ -1,165 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1AC396588;
-	Tue, 30 Jun 2026 06:19:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF3F37AA81;
+	Tue, 30 Jun 2026 06:19:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782800353; cv=none; b=aEA9DR5ex+AHsnNNyCoYAcuRjq5iD+ILjq1kOMwg4PTp5K64LMmL8Lhg19Qs6AciQ+b+usBkuuXTB/2L52zfNUiv2OLKM1Htj+RitiNA83nGT4LLphAArXCtdKvim4lrAOjJMyUPtObtiUVU5tGjpDjAC3m2Wy977fJYnodfwC8=
+	t=1782800371; cv=none; b=mkI1zfCm7oA6rsC5JpLCm+k7FxSNZl+tzLO6uE2fbG9zBIXmUHnPLp70YSQYG7kqyyuIwEl3MZns4ABCbM8avK9ySVMMRYxuspH1h+/6Mp14oLbpyhmf/uWgblQl/hlkaziODSFKzq9sNvt255ukX7prZ9VAZCyijrihR6mbWBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782800353; c=relaxed/simple;
-	bh=AqDsct3vg4EkmYvjIthGbbEt5EqA+5w5suFL1b5gJpY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b8A2/TtxHAH7dsdDl1Ns1S3YqDapFeNaceuToVvGpf60Olq/fWY877wUj5UUHbTkXl9RXyTQmEsHEQ6qTzdgq7+9L06mkOtI3XpjTxExWQtLLiyYJ73RoUczMCDVOyZtkpjYMeZ5gkC/WCRPfXVCXmHwWYkJZAxJlQuAESHsxC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vw6R5LKp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782800371; c=relaxed/simple;
+	bh=gPz3LPTDFPtL/9HEKFqIS2fNxTOPVxP6rRBmP5Pj1m0=;
+	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=sH1VUyFdoJKzqrHsSqcDhpNTu7ZZI5jLnbZuFrgxgTR/XEtT8Z0hBRUZjXI+njETClJ9yvVS6FMlZBkduYoFwW2v6dFISv/ghRWxD6VIYQ3sxDTrkm//yC8zKXIgYXMrUjzaolTyjo25ZifSa2epwMHHFZ9pNWAt+3tfIy1R8CI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ae3Q544W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vw6R5LKp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA4571F000E9;
-	Tue, 30 Jun 2026 06:19:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ae3Q544W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07B141F000E9;
+	Tue, 30 Jun 2026 06:19:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782800352;
-	bh=qMiG0Alun6q3tS0Lfxy2DZB8LH3E6RU8IaYzZ98kJPE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Vw6R5LKpATzPgLliEKZ19Q0EtU7HZ8sYgi1WTs+y/db48PlO5fs4EtFmRoRoxbFVm
-	 XYZi81/r7Ii13cvqVFEfXFWSpC3mCeCSpOsYsnr5+NX+7Gt8+ncMroeu85FUkVjfs6
-	 tq/bejYQIVxnmrQQvn9nPp8OBObmN3as+2VQ7desYE3KQEqyyGYPCnHxhFu5Ed3dDk
-	 L98PTPEtODX/IIBBxTmniLus/0z6YSCd1lXegOi0UBabLOa1Q1TE4ucLX7eYrME11a
-	 +E9t1LvZsKXCWVFvKnSgnhyZIPj69IOM49bxhxpqVopnnl6tP97fSjgijBTLWuVCB+
-	 pE8pbibs5Yr4w==
-Message-ID: <976ad3b4-ada5-4fc0-8fba-97eb172ede91@kernel.org>
-Date: Tue, 30 Jun 2026 08:18:56 +0200
+	s=k20260515; t=1782800370;
+	bh=HP8rMXvxZe/c0Vo6jvcBj8GaeSNo9tX0Dwe6iy1+SJ0=;
+	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
+	b=ae3Q544Wn56I2TttcsPDBu3KXsq8O70NzzckxTB/YEodR4Ex9RcxSE0oqXnnanA97
+	 +Ay2s5MNT7LpslR4uT4disjHoleIytW2Zb65nz35kpOWmPHmqqn31HqtV0O+Lc7G+r
+	 S2ygA4SMqwryyKagy9fFX7SsX8BLlIGwL14/XkeYFaYtqA5r2gICUCjP0+KiB2tpqy
+	 Bqtig4TD/Z1DibzpKEPwDQZ/vWKbE8BtNoxKg+pLc4UT8SjTO+Ywq3TXy/DTIY2hO2
+	 r1AAQiMg1155ip+D0OKfVbVJd4U/zB+GsEc+L0ys9hV8k6pLc8xmNFhTIMeZ1fnMwM
+	 e/PLQW3z9aUtQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V4 4/7] arm64: dts: imx8mp-evk: Move power supply
+ properties to Root Port node
+Reply-To: sashiko-reviews@lists.linux.dev
+Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev, linux-pci@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260630060710.3294811-5-sherry.sun@oss.nxp.com>
+References: <20260630060710.3294811-1-sherry.sun@oss.nxp.com>
+ <20260630060710.3294811-5-sherry.sun@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 06:19:29 +0000
+Message-Id: <20260630061930.07B141F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] dt-bindings: net: bluetooth: Document Qualcomm
- IPQ5018 Bluetooth controller
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- George Moussalem <george.moussalem@outlook.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Ulf Hansson <ulfh@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Johannes Berg
- <johannes@sipsolutions.net>, Jeff Johnson <jjohnson@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann
- <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
- Rocky Liao <quic_rjliao@quicinc.com>, Saravana Kannan
- <saravanak@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath10k@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org,
- linux-remoteproc@vger.kernel.org
-References: <20260625-ipq5018-bluetooth-v1-0-d999be0e04f7@outlook.com>
- <20260625-ipq5018-bluetooth-v1-4-d999be0e04f7@outlook.com>
- <20260626-discerning-light-swan-6b599c@quoll>
- <SN7PR19MB673692EBED649CF6DC9833A89DEB2@SN7PR19MB6736.namprd19.prod.outlook.com>
- <0e0fb3af-968f-46d2-be6c-18b76c7d2a1a@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <0e0fb3af-968f-46d2-be6c-18b76c7d2a1a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 26/06/2026 13:30, Konrad Dybcio wrote:
-> On 6/26/26 1:20 PM, George Moussalem wrote:
->> On 6/26/26 14:53, Krzysztof Kozlowski wrote:
->>> On Thu, Jun 25, 2026 at 06:10:08PM +0400, George Moussalem wrote:
->>>> Document the Qualcomm IPQ5018 Bluetooth controller.
->>>>
->>>> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
->>>> ---
-> 
-> [...]
-> 
->>>> +      compatible = "qcom,ipq5018-bt";
->>>> +
->>>> +      qcom,ipc = <&apcs_glb 8 23>;
->>>> +      interrupts = <GIC_SPI 162 IRQ_TYPE_EDGE_RISING>;
->>>
->>> No firmware to load?
->>
->> firmware is loaded by the remoteproc in patch 1
->>
->>>
->>> It feels like remoteproc node split is fake. The property qcom,rproc is
->>> even more supporting that case. Shouldn't this be simply one device -
->>> bluetooth? What sort of two devices do you have exactly? How can I
->>> identify them in the hardware?
->>
->> I wasn't sure how to represent the HW. Should I make this bluetooth node
->> a childnode of the rproc? Essentially, this is the transport layer
->> (using shared memory space and IPC/interrupt).
->>
->> Most QCA BT controllers are also childnodes of a serdev/uart node as
->> they use serdev for transport.
->>
->> From what I understand, it's simply BT firmware running on this
->> dedicated M0 core in the SoC itself connected to an RF.
-> 
-> Seems like this rhymes with the WPSS remoteproc +ATH1xK_AHB situation
-> - the Q6 core power sequences and manages the wireless controller,
-> while Linux gets to drive the device as it would if it were connected
-> over PCIe/ UART respectively, just with MMIO writes instead.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] Removing power supply properties from the PCIe host controller=
+ node breaks backward compatibility with older kernels.
+--
 
-But the ATH (except the MMIO for remoteproc bringup) are physically
-connected over other bus, like PCIe and UART.
+commit d2930da890ce2314f11817b05c9728d18176f34c
+Author: Sherry Sun <sherry.sun@nxp.com>
 
-What is here?
+arm64: dts: imx8mp-evk: Move power supply properties to Root Port node
 
-Best regards,
-Krzysztof
+This commit moves the power supply properties from the PCIe controller
+node to the Root Port child node to support the new PCI pwrctrl framework.
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/bo=
+ot/dts/freescale/imx8mp-evk.dts
+> --- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+> @@ -772,8 +772,6 @@ &pcie0 {
+>  	pinctrl-0 =3D <&pinctrl_pcie0>;
+>  	/* This property is deprecated, use reset-gpios from the Root Port node=
+. */
+>  	reset-gpio =3D <&gpio2 7 GPIO_ACTIVE_LOW>;
+> -	vpcie-supply =3D <&reg_pcie0>;
+> -	vpcie3v3aux-supply =3D <&reg_pcie0>;
+
+[Severity: Critical]
+Does removing these power supply properties from the host controller node
+break backward compatibility with older kernels?
+
+Older kernels (prior to the introduction of the new PCI pwrctrl framework)
+rely on the pci-imx6.c host controller driver to parse the vpcie and
+vpcie3v3aux regulators directly from the host controller node (&pcie0).
+
+If these are removed, older kernels booting with this new device tree
+will silently fail to enable these regulators because
+devm_regulator_get_optional() safely ignores -ENODEV. As a result, the
+PCIe slot will remain unpowered and endpoint enumeration will fail.
+
+To maintain ABI stability, should these properties remain in the host
+controller node as deprecated properties, just as the reset-gpio property
+was retained above?
+
+>  	supports-clkreq;
+>  	status =3D "disabled";
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630060710.3294=
+811-1-sherry.sun@oss.nxp.com?part=3D4
