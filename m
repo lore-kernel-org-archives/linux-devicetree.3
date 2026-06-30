@@ -1,125 +1,159 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B83E2D837C
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 17:02:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782838925; cv=pass; b=NlyQOtWIBAs3Zz4VTnl8Ykyw84iXXpr3c1+r6WJvM2qchVo3gWGaxgqqHuY8dSzzWMhKdmCKlDLwadTeMjjkR91fJGYM4NpFM8OltIC8uNrIEh/uCmuIdA7LiQE3GfP5o8EbzTL4dJSJAtBdePzG4owJVLggNnPIPi1F4qHG7WA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782838925; c=relaxed/simple;
-	bh=u7rHJs9jICEwL0rR8cg3yrWmOb4tQOeogxpk6eKkbX4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lfIIdFmGsPZCpyQhoUbPcN67j4hOUoSHdBpzG9W7xnZqefF+tZkCB8f5VpEWPSH6UfWonoj7UdEglhVC0K9Aji+tVj7vUUBIL4n+0xcDY1VzLfAyz5CX3RCZjSfFV3vc65xaSaVHA9wOGywGVjtsn4yr0yvuDVq+SmN9z4YQGsg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sJlu2lqW; arc=pass smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0773C1973
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 17:03:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782838987; cv=none; b=nk+QZV9TNI2VRu5vQOVPJiKjjgkYdiI5wYlte3BQZWJV5x0ennvVoDhZ0QIHkOAUFjVLrQ2RpKM6gLe3ra51BeK/PSLkTnL1tfVuNi280BhGoQmqu2L82wqM45xtLCONQv8chQw8g55/SJga/ypWw5rtX96yhSgE6eOvA6HnnEg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782838987; c=relaxed/simple;
+	bh=wFcPxcQLP8FI+3mLIH02StKQAxTWliyQeGTu8bwHZa4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NlzF7grENVW3j3RXzThiqvNMp7WR+eTqyVnt/NCRkefG0u0dkLog0Y+9w4SNDianQzCXR/n0QaMrNYOHqEVoaz9wPnvQ+Kg0sAkqMrhEEnqyFpCZJ/TfhFdStEk+XFrdQ1DEn2wCQvPs9VmB90C5ylxg/A6Rfe6/q6cId5RsQs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=FoBJ4f1M; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sJlu2lqW"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-c88973b6965so457964a12.1
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:02:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782838923; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N1ArQj+7PNYfSapM7VnDma+xPmqz3DcAKdF+I08BR5CA/TnoS9AOP4/nhouSVg3HDT
-         nSi+6hHyEDguct3Gq1i10Bqj70cjnosRCAaZ3eMuJH1b+edTCx34Z7y/r432vhiQp9wr
-         fAepJPO7ajLd00AVMfW4KfQmYT0aS0QcdYs+TQPsEcLOmD5EZa3ZMjs1w80w4usHguoB
-         CDtU7d2yOJMCiyjInXttzlpIq3mpNTMDomMBZEzuEl1c4FVfMev6i0pzGNqM4zJDOd7s
-         FInMPLl6iE7Q6h+vD28TsUBQMogEQUPVLFfg5ecMAX4kegDB+wRVMvY1aasWYnOku3E8
-         tDuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=u7rHJs9jICEwL0rR8cg3yrWmOb4tQOeogxpk6eKkbX4=;
-        fh=y9xzJLgLBVnZSX9kCzOhbsiMN+1biyhvWboHwxXYBms=;
-        b=rM/NlTpqED9oiNdcCVZlStOGGOSMvRN8/seluj6tdxs0SJG/2L4hXxsunLgPJg6AT5
-         lL/3a1Bv7eKe4QGbeMwoj+YFnifj6v7Tiu4YSEoWzwfzN6Y15w2I15uZRejSkluOnQOY
-         FK8wNYvRbp/49kw1xfrnC1KGtS3Q4mA1HS13WMr5RMDp9VbFw3g2pe6MmFA8e+jjdS17
-         Anh9kZNWBy2+GCVM4S3v3ThzGFeRh/3d0ynZiRqwLBXqFfGZYvYSwBoYm7If1g732GaQ
-         ANK85kEvK51w6BClyCbVvC4R+PXAS0KJuHCY3+YvVjz1O3MlhFjyOB28KA6hXN8sjWkH
-         oFXA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="FoBJ4f1M"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493b7612475so11479295e9.3
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:03:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782838923; x=1783443723; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=u7rHJs9jICEwL0rR8cg3yrWmOb4tQOeogxpk6eKkbX4=;
-        b=sJlu2lqWliD2z5vyLfVuatTv0PiEUP3GyDgnd25UYxRaELNn32tyiH613zrvHBKky/
-         y0+nClePzMGKK21o5Jjd0dUCsvvYztlV4p5Ayt7TrwemaLJHl0IEbnfOLcMT3lU76kQm
-         Nff9vhDjnlgwzZZfmfAEM7EzNwL+gayyW+jAfy58/G/2ErPSzMsIT2CTe0gCGurUB4rT
-         S+BTyBO4VsmfWbs5IeER5A6FPDOjmJtEUMj+8mb9purXp8GhFFvEjXl3t9uxpPviC2u2
-         a5E8riX88pCoXt2v4+5wGeebnxwrZNUHFSrfur+X5CvZ6e8Yef9bn6HLOKzlgydvRZ5T
-         21Fw==
+        d=baylibre.com; s=google; t=1782838984; x=1783443784; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=065FLRDoYNi4tJNRO4o9kX5ArAQ4ACVdhpCQabyC+5Y=;
+        b=FoBJ4f1MSciH9tqQe8ajKu8ZgKsJgeMU826++81YGL3WtbCGwAnwUq4PmF/2hR9eYg
+         L/vwWBPBhHoEqdlN8uAlojIPnydgC/+F1vjfnQjho5qO7UJkB7NP3owWaNUoMDXkVl9J
+         zx+hG7PAMe5OINaA1dEJukKU7o4rDOUG/S++YCTeCQo0/Db9toco37J/DcnxnrdQOCJ5
+         sZKyLYnZGwmC6G3IgOmjgZTaT08BIu9VFJhFCoTtoAGyeSTeuqpj79zsPSogPrLFVNWW
+         QsHsu8UiTYblDb5IGIolZxenL/MiL/Ja0hHTwO2iaMmDNiz9w/f6cccth5NBpCsoznCb
+         x1oA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782838923; x=1783443723;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=u7rHJs9jICEwL0rR8cg3yrWmOb4tQOeogxpk6eKkbX4=;
-        b=YaBzPZjQ290RIJNoNNjjYI9fbaeKMXfeFJ58RrYBrqK6F/dZtIaAftXf4O5b8VyBrY
-         qAzDKj2O2VBDIb+AfvmnoGh+Twjh1ncYvjAtq4yJwZsv/Gpo03dXZ9HjRBtqJK/cj+9e
-         vo1gGRjJYwOqUJFo2hdJnclPB/+LtYToEnAHfIJtUTuNZGjS5wObvAA2OocHubjhCbi3
-         M42lyfdP4fz4bNnvQ6OqRe8Zd3KjgFv/AgGZgbYDowKIvoLJrnPL2M5BPDawQX6EMHgl
-         6lmnGh/VmHAUK+yJmBR1E/SnxU7iqSYmYa4RythfIc2KCzDaAn1DVGubzTeq1fYdQYHo
-         mCXw==
-X-Forwarded-Encrypted: i=1; AFNElJ81hSZgITVA51w39TKkVM0f/p7H5FNPs7+kz/871xcwcnDcbdX0imR/dvC5N6F4sXBhxFmBXpHXZI9l@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyc3joA10epqtv+fBuQ/SQ3/v3cyH/5PMF48CJ0n1uJ+JSQlljl
-	iyl8L+647IK6ECJvFKE+4RwkAqdYNwqaYeK9v3uLE3MuEu0vnxPs6pi6XaBP8zV3XXibKfDsEbV
-	DVRMXab6FCZitYoQ4tOlDntacRS4N+Wk=
-X-Gm-Gg: AfdE7clYU1aL3V3P+6nSR7pKQvYkjTzjKNRcKebj2uBSyqc0rZHJpJJ2fErzrQmqs+5
-	JZ3EvwlZ//O03QMF1vOR8d7EEhFERBJTHjNo7+eIEh20jGTUdCMSnr2v+58CKcO+zoB743I4Vek
-	fk5+CCFllc3zCw5XgoD/+Hx2edpNKFOlbD2353t1ZFoKRt3YGhelaJuJoYYUv5m5PXACHGfuVmw
-	RzzTa75b9THmU7KoXsgn50Se7FwQkCWpjwtbBt+baLIgGfGGOF5IKN3ct++X+Pfke7UIZMiIKWD
-	zzafcAAiYvELOgSgI+hLQsbqaa0HUq3D+trQazCxZg==
-X-Received: by 2002:a05:6a21:1bc6:b0:3bf:9bd9:cf54 with SMTP id
- adf61e73a8af0-3bfd2637dc8mr2029537637.8.1782838923351; Tue, 30 Jun 2026
- 10:02:03 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782838984; x=1783443784;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=065FLRDoYNi4tJNRO4o9kX5ArAQ4ACVdhpCQabyC+5Y=;
+        b=N7Mdg/sq6xSYRCHGOZ+41rA8UDoHvFlH3NzZBTj/2nGdyOoVihxj57QvRr322E+I43
+         SkWR74+974hsvwGqsTC+6GDe+vrip7yiFPXkYZZZWxMxZb6NnG+ZABRYNnJi+ha1hh5o
+         flCoDw2A5RYpyc7vKNlKHVCLWG/B0al+FSPOljUJ8HZ6WI7w55m5IfTn0bhFHFCZ7kXC
+         /CRRR1I2sxFONUcUOcYLefcdrc2oELftTHUtLyy0aUiWuNL0u2MWgXzi2C7dgmmsctbw
+         wKcZkL4/UzL83kr5tnD8FuBAiRBDhHptD5mU4j0hmDH4IF/act3+LRMC7MDsuUhDCnYy
+         xv0Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/CxfbJCyyAhkeZGozlAFM5KbjzflQz2SWi1uf/zm8qP7RfPD8W3CgweGl9elYceVIfpq163PMHfK+e@vger.kernel.org
+X-Gm-Message-State: AOJu0YxA+wuAl8IjFjoVn9POps9Silfe56654NLsIr7T3FPt7kGbQiP3
+	VpoFrJs8l9145z0emXFDKO5ZAo9j5qIShz7paNGY/1L3vO279EAhkvnT+vGjvkedg8g=
+X-Gm-Gg: AfdE7cmogHm4+Fod1vMCsn4b//Pl+BmKuerZ+6xnGatUHY9B0Ki8Z6YwtJ94sPSlCh9
+	9PrqS7yjWw3MnlH01nikZQSTcRjcd9mzoZp78M3kMrTxYCpuhosvZUpNA9xaWoDXkUjUxEeKHl+
+	ovdgZh0Gh2bVMcdZW0g4UdDmSPWJ4J1dHSzfmEtUfVfgatFNcnZJED2kLWmd7bQGvtK10UWn61R
+	Cz/irHGXlBYVT1xLMxZ9XKCaf8VYbtHSQ3GHjptsp/6SrsE1wmP/yH7PPX7R7YDjwDChVEnpIfY
+	fG0z+U3nX3ONLFphtGjTtdjBFbZRXCs/D51uPQNlYRY1JxZXNUspRNk/OSHv8/5XGQL/FKIDHWL
+	kHSH8XGhtcWBtKlT9Hg1ohUAsTGzb52rNr5VycfPqgr/y5q989w0Gs4vB33kP1wWEbWlc88KSkk
+	9aM8Qzmoz4E38ySURhqMpHHUvELCmoh8pQPTnXkzOmKQfD7Y8m7mDGggezdSGz+MdRGp+HlNOc7
+	bLXgc/3FDPIsXw=
+X-Received: by 2002:a05:600c:8b05:b0:493:b764:ff98 with SMTP id 5b1f17b1804b1-493b828631fmr71049215e9.11.1782838983777;
+        Tue, 30 Jun 2026 10:03:03 -0700 (PDT)
+Received: from localhost (p200300f65f47db042a9b551def0a6b94.dip0.t-ipconnect.de. [2003:f6:5f47:db04:2a9b:551d:ef0a:6b94])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-493be4c8080sm10175345e9.1.2026.06.30.10.03.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 10:03:02 -0700 (PDT)
+Date: Tue, 30 Jun 2026 19:03:01 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Lukas Metz <lukas.metz@gmx.net>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] iio: dac: dac8163: Add driver for DAC8163
+Message-ID: <akP2RSriqaN8qqQT@monoceros>
+References: <20260623-dac8163-work-v1-0-5b508158faa0@gmx.net>
+ <20260623-dac8163-work-v1-1-5b508158faa0@gmx.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260622221550.374235-1-jakubszczudlo40@gmail.com>
- <20260622221550.374235-2-jakubszczudlo40@gmail.com> <ajpO9zaZbIl3x1uC@ashevche-desk.local>
- <20260629235118.1abc4067@jic23-huawei> <akOqIVDibovrbBAK@ashevche-desk.local>
- <e966a0dd-d8ef-4009-b609-546a48bd16f4@gmail.com> <akO2XF2dejbao6Zn@ashevche-desk.local>
-In-Reply-To: <akO2XF2dejbao6Zn@ashevche-desk.local>
-From: =?UTF-8?Q?Jakub_Szczud=C5=82o?= <jakubszczudlo40@gmail.com>
-Date: Tue, 30 Jun 2026 19:01:52 +0200
-X-Gm-Features: AVVi8CdVri3EHATATvfuvom6TGocFdcDcnlRg5z8nfjRm7v4mPHz7kxTZkawjRA
-Message-ID: <CA+gq5JiQV3n_t1OA6++_ZVqJdsCZmg-mnz2sHVpFsCZyp=QVgQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/3] iio: adc: Fix incorrect reading when datarate
- changed in single mode
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Matti Vaittinen <mazziesaccount@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
-	linux-iio@vger.kernel.org, andy@kernel.org, antoniu.miclaus@analog.com, 
-	conor+dt@kernel.org, devicetree@vger.kernel.org, dlechner@baylibre.com, 
-	duje@dujemihanovic.xyz, jishnu.prakash@oss.qualcomm.com, 
-	jorge.marques@analog.com, joshua.crofts1@gmail.com, krzk+dt@kernel.org, 
-	linusw@kernel.org, linux-kernel@vger.kernel.org, marcelo.schmitt@analog.com, 
-	mike.looijmans@topic.nl, nuno.sa@analog.com, robh@kernel.org, 
-	sakari.ailus@linux.intel.com, wens@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pdjo7z7h4wmknyds"
+Content-Disposition: inline
+In-Reply-To: <20260623-dac8163-work-v1-1-5b508158faa0@gmx.net>
 
->
-> On Tue, Jun 30, 2026 at 03:08:42PM +0300, Matti Vaittinen wrote:
-> > On 30/06/2026 14:36, Andy Shevchenko wrote:
->
-> Thanks, Matti!
->
-> > Just my random 5 (or so) cents.
->
-> 5 because Finland doesn't have 1 or 2-cent coins :-)
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
-Thanks for all reviews, I will include them in v6 version
 
-Best regards,
-Jakub Szczud=C5=82o
+--pdjo7z7h4wmknyds
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 1/2] iio: dac: dac8163: Add driver for DAC8163
+MIME-Version: 1.0
+
+Hello,
+
+On Tue, Jun 23, 2026 at 06:07:27PM +0200, Lukas Metz wrote:
+> +#define DACXX6X_COMPATIBLE(of_compatible, id)        \
+> +	{                                            \
+> +		.compatible = of_compatible,         \
+> +		.data = &dacxx6x_chip_info_table[id] \
+
+Missing , after the value for .data.
+
+> +	}
+> +
+> +static const struct of_device_id dacxx6x_of_match[] = {
+> +	DACXX6X_COMPATIBLE("ti,dac7562", ID_DAC7562),
+> +	DACXX6X_COMPATIBLE("ti,dac7563", ID_DAC7563),
+> +	DACXX6X_COMPATIBLE("ti,dac8162", ID_DAC8162),
+> +	DACXX6X_COMPATIBLE("ti,dac8163", ID_DAC8163),
+> +	DACXX6X_COMPATIBLE("ti,dac8562", ID_DAC8562),
+> +	DACXX6X_COMPATIBLE("ti,dac8563", ID_DAC8563),
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(of, dacxx6x_of_match);
+> +
+> +static const struct spi_device_id dacxx6x_id_table[] = {
+> +	{ "dac7562", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7562] },
+> +	{ "dac7563", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7563] },
+> +	{ "dac8162", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8162] },
+> +	{ "dac8163", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8163] },
+> +	{ "dac8562", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8562] },
+> +	{ "dac8563", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8563] },
+> +	{}
+> +};
+
+Additional to the missing space pointed out already by others, please
+also use named initializers, i.e.
+
+	static const struct spi_device_id dacxx6x_id_table[] = {
+		{ .name = "dac7562", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7562] },
+		{ .name = "dac7563", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7563] },
+		{ .name = "dac8162", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8162] },
+		{ .name = "dac8163", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8163] },
+		{ .name = "dac8562", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8562] },
+		{ .name = "dac8563", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8563] },
+		{ }
+	};
+
+See
+https://lore.kernel.org/lkml/20260515103150.164887-2-u.kleine-koenig@baylibre.com/
+for a rationale.
+
+Best regards
+Uwe
+
+--pdjo7z7h4wmknyds
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpD9sIACgkQj4D7WH0S
+/k7rhAgAj7ImlgrgPsZWeETvfMzKOH4o9IxIZniUJoYukNSn+rqWsYNyyxQA5HbO
+HkpfYskuDV6YkIDEL/5rqz8g41y0kqc8Txxni9tjRfvHRjY5z/CU+32qs7sSVCQ4
+eoTAo1C4qIleNRSiDJpqcRk9DfoLKFDXTJRFVYeIQvWW1Y1KEXLea/3kxda2/gcX
+snPcROQwWZIr7OPy0sR54lqGn/dgCqyh+d6mDATGcngE5KW4FVChyNn10K1rshh+
+Kxx3PWXueDbvBqDAFVoLn1EXhajNrQJ/v6YIs+9h65UwHbHwQlFfzp0AWd7d/oKb
+hgxn4938MwqWPGTf65MnzW26QK2zNA==
+=D1q/
+-----END PGP SIGNATURE-----
+
+--pdjo7z7h4wmknyds--
