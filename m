@@ -1,311 +1,126 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C58380FCB
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 04:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A853B27D9
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 04:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782793448; cv=none; b=S2rMjYqwVSiQEY1IiPXhiUGg1UQRIQ1kB1flu+EcxCiJRJpSBc2dbp3jpXdXeCHoaMu6jk2xlSRltOvWgPbMxhyeS1/Qjs64zqOmN9sLKi0/5dpJaZkcH75jQM9xiVHSy5RlgVh3089V85bvlL8j+INnraKZybRzidQyr8lvT2Q=
+	t=1782793704; cv=none; b=gd4WvJiGxdU7nvhRDEnkHC2JkwaEZZfsQupGdZRglAhvIFsZzJfHnCvLeNZ+kOwIcXf6h9+7uBgPB4alg/aUDJtTQ32/7IuMHuiIW5bYq1dNQUnFLnMvoLIZGQQbJEeXDk4yl948jyKmC4SIdSVRYgvO5/7qnqGUj3FI1bSFUVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782793448; c=relaxed/simple;
-	bh=/BNVPSG0WbRSTzd0kbO/nPpIHc9BdttO+Yfj9Ivih+U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UFWRbh9lzM4U4yyWfuY7vnsFJD2qjGO1FMWnky4OVcw2M3x/NXuH8H5fQFHE/0JM0/cFJ4H/0v7XbACAZSrGFTN20I+9o4fSicLshPAnArH8IHNN+t2RY9LZSpc2fBIxWFsvkHQpo/peiJxo0H7O3TBPuYnCPe9bMY0sL/ftXXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T+fELgP4; arc=none smtp.client-ip=209.85.215.176
+	s=arc-20240116; t=1782793704; c=relaxed/simple;
+	bh=xJKT55bm34PbDyZKSs2QdqQluEMDHDryBLZVBk7djFA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CwCUlR/pewM2bS3p6fHWQhfMPlnwcgAanInURUEsyflWW2yDCSMOiw/1C+hyPvLq5HyHbDgzh2WIzY/0dwJnaaze24DCxpPcp0czvGzOAPTkGFSiOkV0jiAzbS7OGgo97JNDtO/IdrGAtbAyGyt4L23e10CcqOXqNTWyHcLkJkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r3HZ8/9m; arc=none smtp.client-ip=209.85.214.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T+fELgP4"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-c96d2bebca3so998027a12.3
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 21:24:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r3HZ8/9m"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2c95a0c0aa2so27793225ad.3
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 21:28:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782793445; x=1783398245; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=V6z9kgHrkzq/dULKlezqI9ISa94DVtxAwTB+jOqC+x8=;
-        b=T+fELgP4hqjkf6UGc/Icwhgh6JTj22UybLirDZdRXcsFfYEQWxwrhFu7aDzahsqCsg
-         P7Vo4Yh6uGnBPMJu91ECqAahp27oW9w/H2guPVLK0DcGcSmRJCax+MBSXZ0+k43lGai3
-         pi0VWbH7+lJaIzDoHL/cPbs5ZkyxIXrYiQiu7UHto7D/YePahzgOSA96qMUgtVFaoSod
-         G45khUiba2dLtRb1bMYbc93ZSdaOea1IRO92XqKKNhLm8TN8oW74TFSAvrCINbW66Xa4
-         DJFHvnyYkfDD9ftddW5f92XzDblJ5cjBkjO9mgD3/7W48pF7G1lwmxiHjom/ihZ5z44O
-         sd5Q==
+        d=gmail.com; s=20251104; t=1782793703; x=1783398503; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xJKT55bm34PbDyZKSs2QdqQluEMDHDryBLZVBk7djFA=;
+        b=r3HZ8/9msLIpgw+ISFgpy1eV2Gds6rEsI75BCnNwt5dkRCSQ5z/hfJFSc2GhrTmY5u
+         dmX+uRoDYzh99D0wucNxazvWLjimWc20cVzSaYGXuyaKqd8nuwWxSQWwAgA3RZHElLMP
+         SzqScWz2+QBEqVbskGY7qZuy0O6mFrExY4WqtkUtfix7DZpKRz3eK8J8zMTdFSYMb4qJ
+         sW6I1byowW5bG8uIVP/gEtVEN7qegD8vkh1YjMbLCwkZoB97S98pS4f5eDvzozzco0qo
+         8/3N76vgPF4+nFUqaffuNSGjxuhEOw62a9WSJCY49ZwfazXv2EadAq8QkIkoFTCGvWdf
+         +/xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782793445; x=1783398245;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=V6z9kgHrkzq/dULKlezqI9ISa94DVtxAwTB+jOqC+x8=;
-        b=TNI8tSyV/sxx64Y+bAw/YgRo1O5xxdVYJ1PDlFPem5mG3Oku1fSK0Qo4Hl3Kz97nnI
-         zLxRWjTXaQwlkQ9wZftT2xL+EUlmhw6stlx6tBJ5sfUFpmAag9n8U5t2FjPzpzIa2tH3
-         zDEzbBJVOdeIFuCXx8HjPaA4x3xv4mRcRnZi1PD76qNNZbPMP+9fZQKJuXbylVrFbvRu
-         Yv7lzGE4GGrCqMRkN0LR8GQyG33MkkolB6jvWQxcYzwqBqs73cI6Tzpk7heWt2WsOr7u
-         sDeWpbZjAIJh/WQQk+eZI85TEOw4b8Qo0MwpBNyWza0D5XKL6eOFLFctM0jEL7mE/VtW
-         R1VQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/n/qFxHDMwxJNnWuJShDh2fAkl92gMo+8SB6uzam+I42T6u5Xu84HRrFOMPUjJ4V13imUOSOVOCyFN@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzji/B3dMPvFvTDnlCBLui66Q2hY0kAaZA/jl+9WqBxP1bzwF2S
-	oKrn3VX6bS5IWdeOc3NmCoMU9HgZ1vxziNr800Uu39cDNW0g1/0f31zdLV8wT3AAlZE=
-X-Gm-Gg: AfdE7clhSTQEhuzieLU0wNq9NnibwDxmDN6pOXbovkOT2Q9dmiNHUOTeCis2reo3Cvs
-	EN8jheskrsuWcWWuxJ/n9M6rROeoonDNuXU063tF4IrsK+07L0vCNBbWFC6ymCLmOPZ0VLz/0Kk
-	sZM1MOZmJfSKcxLEyRZN2GaDa1Bn4Zn2oWo129Dseuu+pBrpnfAuDWBrrgvG3En3TFk3De/1tj1
-	GAiO8ohN9TjaQe7Sv17no2ZyDPY2mPCFnf/Ajf6mCDrCK8vIFOPorPFcyRnDpmVJXXBOS/689xu
-	7dJ0IeqcJtLUwV/oOZ1X97qMYNzvAsGR6NpnQoJVBwLl3ps7q6/0AqVXZTWoxqONo3rgzoZ1vxC
-	jk6v8zj2SqWURVjK9SKbTafWqmTGuVOyrWcTECgEz5qLWieQ2KM1kGg2yMM5j+lp7zIN24NZCsG
-	WLaN58Uj+BPCM=
-X-Received: by 2002:a05:6a21:1b84:b0:3bf:a7d5:df38 with SMTP id adf61e73a8af0-3bfc505cd59mr1808934637.9.1782793445449;
-        Mon, 29 Jun 2026 21:24:05 -0700 (PDT)
-Received: from nuvole ([2408:844c:b00:2b2f:398a:8bef:b88c:653a])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c9bbc6da7a1sm765928a12.2.2026.06.29.21.24.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jun 2026 21:24:04 -0700 (PDT)
-From: Pengyu Luo <mitltlatltl@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH] arm64: dts: qcom: sc8280xp-huawei-gaokun3: Add dsi panel DT node
-Date: Tue, 30 Jun 2026 12:22:29 +0800
-Message-ID: <20260630042229.277799-1-mitltlatltl@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20251104; t=1782793703; x=1783398503;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xJKT55bm34PbDyZKSs2QdqQluEMDHDryBLZVBk7djFA=;
+        b=K0xLoHTHIWShKOj8vRnjcJTqyZTHW/GI1r4Tx1/P4xjap2VOBJjo2R09s9q1qtxJpM
+         0VDK5stYcINtI7wT0fdcGD3YN1dGP1WAgfEqysh/1vpnI/5X0mVMnAzpjQNqe3ZcGZX2
+         iLn+1XdpqDoAkmIMGgqcDgvntW/NrDpoHuuFhzbnnI1jc/ZLZiN/sPYIQOYfw2h13YdH
+         2q1wZWjedCle9/4vrGYidw+d0yq0DNDgMSgDAvZLlm9YbCMFxlGQueD3Mnew69+LKdDU
+         BXm/QM4L7Be++vQalBJ1I1x2TFeiYkymXjPIzYsQKOBF/7Tk+LBkPdgMHd74rKs5QT+1
+         2bwg==
+X-Forwarded-Encrypted: i=1; AHgh+RpinLLJ0T2PCiUhtSHy/Zw4PabmBrsojPOgSSpR2de0NsCERND20VzMLxOzfDmwjo66+VG9EoahBMB+@vger.kernel.org
+X-Gm-Message-State: AOJu0YwTRQvxTycftlLRjFxAeS56suTGb9L6nO49BGpSR3WxzG/4VLmo
+	qQn797jrdUrLgBgWSWzFCoUockA4qau6IiLWBzTmnm+uZf+YqZxE5Jwy
+X-Gm-Gg: AfdE7cnzuwmpg94wtkK1TO6NaBTqCvvEyJiL0LujfPeYgAA9NzTaHicYkWES3zP3MqC
+	KeKL627r+JkTAoiPOOKb5mS3or/tojEL9jD8eTUWy5fRK4P9/KjwkRcC6fTADBrOEuZtgvGJ9KS
+	bWD2UEXHxY40iknW1c55mxm7BSJxSR/z3lMahOgmvr/gxJxqFIPUa+7YV6DZRbKDJzdhNS64rx1
+	Dx8L3m0ikdmWkMf5JN2lf/sScL6ugBV2kHAJJLAWankIPrDkE4AgE61/gOKelahGuP7LGMKebUs
+	q8pna+ewIRt1PorV+tkQ5/bzc772rZ5Yc5QZGp+qfVJUgGaVedjwRBhMQmw7E8yEz0v/8C7vrK/
+	0TU8vut1y1//V5ofE0ojGlBrnZsDED6YC6LePh49F9pC0/SxDoi5/8MizGHkEkSh5N5saljrzhF
+	AonZrcVC6fSV8000YxW3FJvEl9N9imHfaRAZQT42H8Keny8T9bqXnkNLqsAGl2OLAz
+X-Received: by 2002:a17:903:291:b0:2c1:e426:70f4 with SMTP id d9443c01a7336-2ca2e71453bmr14983255ad.23.1782793702521;
+        Mon, 29 Jun 2026 21:28:22 -0700 (PDT)
+Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca37a70812sm5085795ad.16.2026.06.29.21.28.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 21:28:21 -0700 (PDT)
+Message-ID: <7ab78656-3413-4230-8214-8cecaaf62735@gmail.com>
+Date: Tue, 30 Jun 2026 12:28:19 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
+To: David Lechner <dlechner@baylibre.com>, jic23@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: nuno.sa@analog.com, andy@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, cwweng@nuvoton.com
+References: <20260625110638.38438-1-cwweng.linux@gmail.com>
+ <20260625110638.38438-3-cwweng.linux@gmail.com>
+ <66ad5723-6589-473a-91da-b13e2ba90aeb@baylibre.com>
+ <5e65eabd-699b-4587-bb38-d8ef5c6d2aaa@gmail.com>
+ <f759ad9b-56ef-482a-9389-85ea1e3fd7d3@baylibre.com>
+Content-Language: en-US
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+In-Reply-To: <f759ad9b-56ef-482a-9389-85ea1e3fd7d3@baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-DSI panel driver have been added for a while, so add the DT node to
-enable it. vdd{a,s}-supply for dsi, dsi_phy are blank since the DSDT
-describes the wrong, no impact after manual disabling these wrong
-supplies.
+Hi David,
 
-Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
----
- .../boot/dts/qcom/sc8280xp-huawei-gaokun3.dts | 165 ++++++++++++++++++
- 1 file changed, 165 insertions(+)
+Thanks for the clarification, and sorry for top-posting. I will reply
+inline and trim the irrelevant context next time.
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-index f3c00be67081..658bb253394a 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-@@ -11,6 +11,7 @@
- 
- /dts-v1/;
- 
-+#include <dt-bindings/clock/qcom,dsi-phy-28nm.h>
- #include <dt-bindings/iio/qcom,spmi-adc7-pm8350.h>
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/input/gpio-keys.h>
-@@ -98,6 +99,52 @@ switch-mode {
- 		};
- 	};
- 
-+	vreg_avdd_5p5: regulator-avdd-5p5 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "vreg_avdd_5p5";
-+		regulator-min-microvolt = <5500000>;
-+		regulator-max-microvolt = <5500000>;
-+
-+		gpio = <&tlmm 53 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&avdd_reg_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-boot-on;
-+	};
-+
-+	vreg_avee_5p5: regulator-avee-5p5 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "vreg_avee_5p5";
-+		regulator-min-microvolt = <5500000>;
-+		regulator-max-microvolt = <5500000>;
-+
-+		gpio = <&tlmm 52 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&avee_reg_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-boot-on;
-+	};
-+
-+	vreg_vddi_1p8: regulator-vddi-1p8 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "vreg_vddi_1p8";
-+
-+		gpio = <&tlmm 0 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&vddi_reg_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-boot-on;
-+	};
-+
- 	vreg_misc_3p3: regulator-misc-3p3 {
- 		compatible = "regulator-fixed";
- 
-@@ -616,6 +663,9 @@ touchscreen@4f {
- 		hid-descr-addr = <0x1>;
- 		interrupts-extended = <&tlmm 175 IRQ_TYPE_LEVEL_LOW>;
- 
-+		/* TODO: set post-reset-deassert-delay-ms */
-+		panel = <&panel>;
-+
- 		vdd-supply = <&vreg_misc_3p3>;
- 		vddl-supply = <&vreg_s10b>;
- 
-@@ -738,6 +788,86 @@ &mdss0_dp1_out {
- 	remote-endpoint = <&usb_1_qmpphy_dp_in>;
- };
- 
-+&mdss0_dsi0 {
-+	/* real vdda is unknown */
-+
-+	qcom,dual-dsi-mode;
-+	qcom,master-dsi;
-+	qcom,sync-dual-dsi;
-+
-+	status = "okay";
-+
-+	panel: panel@0 {
-+		compatible = "csot,ppc357db1-4", "himax,hx83121a";
-+		reg = <0>;
-+
-+		pinctrl-0 = <&disp_reset_n>, <&mdp_vsync_default>;
-+		pinctrl-names = "default";
-+
-+		reset-gpios = <&tlmm 38 GPIO_ACTIVE_LOW>;
-+
-+		vddi-supply = <&vreg_vddi_1p8>;
-+		avdd-supply = <&vreg_avdd_5p5>;
-+		avee-supply = <&vreg_avee_5p5>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				panel_in_0: endpoint {
-+					remote-endpoint = <&mdss0_dsi0_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				panel_in_1: endpoint {
-+					remote-endpoint = <&mdss0_dsi1_out>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&mdss0_dsi0_out {
-+	data-lanes = <0 1 2 3>;
-+	remote-endpoint = <&panel_in_0>;
-+};
-+
-+&mdss0_dsi0_phy {
-+	/* real vdds is unknown */
-+
-+	status = "okay";
-+};
-+
-+&mdss0_dsi1 {
-+	/* real vdda is unknown */
-+
-+	qcom,dual-dsi-mode;
-+	qcom,sync-dual-dsi;
-+
-+	status = "okay";
-+
-+	/* DSI1 is slave, so use DSI0 clocks */
-+	assigned-clock-parents = <&mdss0_dsi0_phy DSI_BYTE_PLL_CLK>,
-+				 <&mdss0_dsi0_phy DSI_PIXEL_PLL_CLK>;
-+};
-+
-+&mdss0_dsi1_out {
-+	data-lanes = <0 1 2 3>;
-+	remote-endpoint = <&panel_in_1>;
-+};
-+
-+&mdss0_dsi1_phy {
-+	/* real vdds is unknown */
-+
-+	status = "okay";
-+};
-+
- &pcie2a {
- 	perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
- 	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
-@@ -1303,6 +1433,20 @@ &tlmm {
- 
- 	gpio-reserved-ranges = <70 2>, <74 6>, <83 4>, <125 2>, <128 2>, <154 4>;
- 
-+	avdd_reg_en: avdd-reg-en-state {
-+		pins = "gpio53";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	avee_reg_en: avee-reg-en-state {
-+		pins = "gpio52";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	bt_default: bt-default-state {
- 		hstp-bt-en-pins {
- 			pins = "gpio133";
-@@ -1318,6 +1462,20 @@ hstp-sw-ctrl-pins {
- 		};
- 	};
- 
-+	disp_reset_n: disp-reset-n-state {
-+		pins = "gpio38";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-up;
-+	};
-+
-+	mdp_vsync_default: mdp-vsync-default-state {
-+		pins = "gpio8";
-+		function = "mdp_vsync";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	i2c4_default: i2c4-default-state {
- 		pins = "gpio171", "gpio172";
- 		function = "qup4";
-@@ -1470,6 +1628,13 @@ usb1_sbu_default: usb1-sbu-state {
- 		bias-disable;
- 	};
- 
-+	vddi_reg_en: vddi-reg-en-state {
-+		pins = "gpio0";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	wcd_default: wcd-default-state {
- 		reset-pins {
- 			pins = "gpio106";
--- 
-2.54.0
+ > This is a simple/small enough driver that it would be fine to still
+ > keep all of those features in v2. It would still be fine to split
+ > them into separate patches, but you could still send them all as
+ > a single patch series.
+
+Understood. I will keep the driver as a single driver patch in v2, but I
+will keep the features in the patch and fix the issues raised during
+review instead of dropping them only to reduce the initial scope.
+
+For v2, I will keep direct reads, differential channels and triggered
+buffer support in the driver patch. DMA support will still not be used by
+the driver yet, although the binding will describe the optional DMA
+property as discussed in the binding review.
+
+I will address the driver comments in v2, including:
+- use regmap for register access and update_bits,
+- add optional vref-supply handling and avoid forcing the external
+   reference path unconditionally,
+- add IIO_CHAN_INFO_SCALE based on the selected reference source,
+- handle differential channels with the proper hardware constraints and
+   signed output handling,
+- fix the buffered scan sequencing so samples are read only after the
+   requested scan has completed,
+- avoid an unpaced software re-triggering loop,
+- use IIO_DECLARE_BUFFER_WITH_TS() for the scan buffer,
+- use the new scan_type.format field,
+- drop datasheet_name,
+- use device_for_each_child_node_scoped(),
+- use devm_mutex_init(),
+- remove the unused struct device pointer and other cleanup items.
+
+Thanks,
+Chi-Wen
 
