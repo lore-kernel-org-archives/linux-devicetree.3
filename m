@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8452BE03B;
-	Tue, 30 Jun 2026 07:17:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5143E15C14F;
+	Tue, 30 Jun 2026 07:20:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782803826; cv=none; b=cFlLQL7RirtY35N0mJzHbEpyik6BcaeIDDNCtO3DlHBSZN+s46Ek2H9+3eCIyqqvqp1f/CPxB923TVEKi26yVGfAX4PBxuHuaNrnIH+BrpqyOOmLzSQuavXI1ytAi+nQFFUCLZ2tGsV+lKVFdQO2Q8fh3F+QK1gQuGvfAlVorI4=
+	t=1782804004; cv=none; b=Vq4PADaqu9U6td3pPMAbRdiDg7h/+rmPrjdu/h4R0Se29xDyEXFkiOOTbV/p4U15gS71dZqGzlG8x/XOvGWCYj68mPc2nu1elBcmRu234pmL4MNflfHCiZlzZi6Xg0vBpcr0WS7FYTfg9J3WFxClyY4nYpB92jbYgMcKcoQuY9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782803826; c=relaxed/simple;
-	bh=CnOxLrvS6VwbsrpoGfJ+JIBXBBEmKLj/aQm51FG6PwU=;
+	s=arc-20240116; t=1782804004; c=relaxed/simple;
+	bh=Icb4XoGB7vI72rZIiyKUM568WlOEx6b1q7mfyjb9zJ8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fyd7T1DCuw2DhslMkBpowy7/KVlrR48TvSylvsFbk4vb4pBm0xBxM7vSesRZNSF7oWziyh3tx6XpMDvnilygBWIKGSpgbzvEzW6vVjF3f8pYPbrh4o8NidwR7+HDLlyMe4B2UwCJyTVJk+YsNChLqc1BhvU91Z19fZXcPSbx4lY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N50/KIrd; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=V9HhstZHOh/Drm9/oifJEeVUblxTfhb3iVGXu8tmoJVHWMHgfNgOIHO3c4fQRzLaS4KSLJkd/Attu45WPrpOjHWqNHDhTwuwUq4VKpe+uwqS4KnLMjjc3UzOC7Aotge64r94jDzH73Gpf92vWmWWrstv6iqtbxPPM3Lx4DoaHsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CuI42o3N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N50/KIrd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EE281F000E9;
-	Tue, 30 Jun 2026 07:17:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CuI42o3N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D287A1F00AC4;
+	Tue, 30 Jun 2026 07:20:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782803825;
-	bh=iCdrMUvSSw/mZ+gIsbwP1bklG4AtyFzFYJZ+5GttJBk=;
+	s=k20260515; t=1782804003;
+	bh=Icb4XoGB7vI72rZIiyKUM568WlOEx6b1q7mfyjb9zJ8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N50/KIrdFzKgp/X3seWtKpS9i2aaZ8WpCHLUb9N10JCELAE8iJTzJDh0g2klfL+5+
-	 DfaazjdfOO1T+tlX3zQqFxda68kKphzwXB0bCa3mG0MX2BaL/a41LncCZvtiVlgafp
-	 SBDzGGmiOxpc+rdEunnKN8lR766aGaHGNK0tKWL+kSJl8rPqz0kx7Sh+HUF8HfEjEB
-	 eAqthZ+tGwhggZItNXLA/9AnIPPk8/Ec+AleCrhMjypM1tpL5y0sP+l4CFnCqdw00f
-	 sZf3bA/yFK1nnZlQ0quwAWCbMzrWUBUx7kQGlrH5v0nhkul0SkNRU5e5bSApt3rlOr
-	 8lOeSyIYQqXYw==
-Date: Tue, 30 Jun 2026 09:17:00 +0200
+	b=CuI42o3NsL6WBwo9sx7QVaNS2n2+TI6iO6TYF/9HTMS/vvMhDN4STRtT4GQzAZ2Sp
+	 OeWEiVTUvJNw18FrvGTNQ+OtM7y9zzbuJ3DlWa2Z3AicBlY0P+FJ6l5Ykm27uHdCdB
+	 2YcoNhW+lMuglIXB4FpFrtbxfhbdh6TGcNRhSyXOkOgAcYexYNhApxfhrXbKT0R6Op
+	 CAEu7MK3b6GA5RWFSKtcr/OYWeapkqFGFALoK0/U3IIpGrBkpdxLKzjTab8epw0Be1
+	 BOYKot76jnIYrm17dQlPX0pkrr90/RRbgM0CK523QcZgOMun33UFozDMha4CGi1/Nl
+	 LPwW3h6roILLQ==
+Date: Tue, 30 Jun 2026 09:19:55 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Frank.Li@oss.nxp.com
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Linus Walleij <linusw@kernel.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, 
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, 
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev, 
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v2 1/1] dt-bindings: mfd: st,stmpe: fix typo st,stmpe601
- (should be st,stmpe610)
-Message-ID: <20260630-energetic-spiffy-cobra-5b9b9c@quoll>
-References: <20260629223735.2559722-1-Frank.Li@oss.nxp.com>
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: embedded-controller: qcom,hamoa-crd-ec:
+ Add Purwa IOT EVK
+Message-ID: <20260630-unstoppable-phoenix-of-dew-9f0bd5@quoll>
+References: <20260629-ec_support_for_purwa_evk-v1-0-e082b70138d6@oss.qualcomm.com>
+ <20260629-ec_support_for_purwa_evk-v1-1-e082b70138d6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,21 +47,13 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260629223735.2559722-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <20260629-ec_support_for_purwa_evk-v1-1-e082b70138d6@oss.qualcomm.com>
 
-On Mon, Jun 29, 2026 at 06:37:34PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> The compatible string "st,stmpe601" is a typo and does not correspond to
-> any existing STMPE device in either the driver or DTS files. The correct
-> compatible string is "st,stmpe610".
-> 
-> Fix the typo to ensure proper schema matching and eliminate the
-> following CHECK_DTBS warning:
->   imx53-m53evk.dtb: /soc/bus@60000000/i2c@63fc4000/touchscreen@41: failed to match any schema with compatible: ['st,stmpe610']
-> 
+On Mon, Jun 29, 2026 at 04:10:17PM +0530, Anvesh Jain P wrote:
+> Document the qcom,purwa-iot-evk-ec compatible for the embedded controller
+> found on Purwa IOT EVK boards. Like the other reference designs, it uses
 
-Missing fixes tag. This was introduced by conversion, no?
+EC on an IoT device? This needs some explanation of hardware.
 
 Best regards,
 Krzysztof
