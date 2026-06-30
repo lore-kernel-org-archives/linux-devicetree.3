@@ -1,168 +1,103 @@
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5F34534A7
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 15:48:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32BE746AECC;
+	Tue, 30 Jun 2026 15:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782834507; cv=none; b=Fp0kHMvVzoit3o5THZ2MWCH5Z+FMA8xLd1yYJpafa8IN9+7uKJheDMeYUXfqUBboGPTmerNt6dMBOtIvmkG+toIca+lghd5tY8VfGG7ZEC/uGaSMRAzNcMXZ4itWxivbMFibIG1kDx1Eg9agPQ877dVXHlKiSpVFpZs4Z1EcgbQ=
+	t=1782834552; cv=none; b=iLrDx0pPmad2i48Q2daRP7mp2m9mJB02CONSMCvdy0fJMBn6gWLh6Ojaf/IgRZAN3VPoz3TDfzwQEUdXyjKhNDEHxEkm4OI6vaDk0/4+PSHFLXreI0bjcMqOZqY9ddtncECCKPJNPUWglxrh3kuS+/7WDvdyjUkrVqx21NzxfH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782834507; c=relaxed/simple;
-	bh=5daw7GHF082XZFOBtpOcz+XZJghpPd5rcNaXIs/Gqfo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j8k/FII4s2fM7UsKPF7mGhPueKgA9+p4R8wPXLswVhV2vrISs6kpjSSB8SOhhmCcj4EIun0I/+yIkBPeZm9hQnnBgEOCmc6jM8XYgGOnFufN96xiGPLhrwCpPXitbksivtSf/T42sESKE+WYm1UrL+PpiiUzwPxi2b16tc0ekFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VnbjuEFR; arc=none smtp.client-ip=74.125.82.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782834552; c=relaxed/simple;
+	bh=+mu2xcT0nwoLIp0swtqhupdARRBhiosNKr6wrjgJjVI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=gDLdbz1XgWGMTjNdsJ8k+Ymi/8W5F6u/YqctDrZ6ngV8txfJukbri015CPf3pyqRDPW28/stl62w1mKiXZSpNK5mE5FZ7vg+v47QoS1k2a7h4cRE7NAsdfQ5moIQg+r5JlufJEfcF4BlUFDPAW5L41T3zR3Wg6636w0fuqV66IM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RUFVmX8e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VnbjuEFR"
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-139a5f4ca15so5699906c88.1
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 08:48:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782834506; x=1783439306; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=UxCj86Vqc8nQPo8juJb5HDgI5Ftj5c58cIVgplQr+NU=;
-        b=VnbjuEFRE3gvIfQcvUsm6IxIqPkhKen7u7C4QKPO/ANzDUwqrBXme0hGI1s+Wh9JLU
-         k5F5KvSXArAxlX4iwduWiSXH4cThMZ2Fj5G9Km5bcPGurQtgTWTND5H2es2klNJYTDL5
-         xfmy8C1r7WD93i26rGgE7sI/ni7Q3Q+3MvtRvnIhIkq5dEa85so+bgMUn65wDhybQare
-         shftXkHlbSQwUYVCEOWXM9rq5PLHh14zl9oOYjzZNBbR0Z7plDyxscEWeIUvWacdidZ+
-         zT6GBBnah4d59T7uwC8iAdrPwpuWXp7zqYa3ESHfGSz7kcjvLrjoEAF9gnLlC2WQGv6l
-         UIBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782834506; x=1783439306;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=UxCj86Vqc8nQPo8juJb5HDgI5Ftj5c58cIVgplQr+NU=;
-        b=XqZTFMGXxbMx4T5JtRwBNDCxbmSvYSrq1eisnDUdnRLQmoMFcXZqEj2n+8CV1lFDua
-         l0rclqPHVpJqjH/+A46ATmcM1BmcKqTat7Im2vO5O8wFl5xYFt6lBoaEAmlRwDr/I2gX
-         wA5K7a2LWcRDFcAnNHzVxzktL8pf9PxZvceoNHSryq9BY3TpsiENBnKKocdx3hxcpRrw
-         qkC1y8IO3GJqrepA0+oezgpsLtu7myVhaQtL3CBo/PXfg3T4LRyDBmwUCx5psnvl1Qlu
-         iPtzM0p0Zpihu2NFJfoeroLK8K892bVhvXmIK0mz8bLJnABr5mq5gAXYttDriSh1RwvO
-         OkIw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq91tgAuSLNVAIv1E6UhuNxFtRsWRla032RtWcPo8OAsChqT/Bk/GsIHwwe6UlHqjjscjnkqNRd69pd@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy3WQUhk+MyEBcwbpopkkDV1kUcerOs9+PV0cIvZQ9ulJay6X5o
-	9kQFUJZmptdtXwqmZJAtWBw7Dehk0mTGs3bWmn6bRFmksFHDufe8BfUX
-X-Gm-Gg: AfdE7clRlmEuKBTlCUxCPMpe/rmYwAP17O6et/9LS4FzRhRjXr/N/uF7bYZmANmVNuP
-	9M12XRI3L9+rxNjuMjl2Z2HnppMeF86mQoaYsPjXbTKByb6xODHiAx5PdOAFKc5PfZeeQO6XOmg
-	36Yl8Aubd0Dge8ohjQlH+Wmo6oh43sQ4UHHdO368Y+EY8Azu0ZihFASCs3PPMTZvwwYuuB8jMdO
-	NaKJZqL1jjqrGALmoLAgnAxGoFsn/1HvcV1Z/a06miyVaJiOySTHaE7kghTfvK8wSjNsVNywHu6
-	/rNqMcWQDHiiEDeVfO5HGqeH64/BaFEU4uxQ3sI0S9CWDvQAPVLgadDb32c9bne89k1S0lZlvJ0
-	M6lexx+S3llesgb6kIHyP8YzvpWhFBW4ofhqaxv9vEaC+XOQlp9o8eD9eY7Jz2Y8DicYtxNuo9/
-	t4Oe2L/4OMlomfEADES34uNnuB/5ZZF5WI1z8eP2Mox/B7v32ssrla22bsy8fjrQ==
-X-Received: by 2002:a05:7300:5bab:b0:30a:e530:ebc6 with SMTP id 5a478bee46e88-30ee12f0e92mr2823150eec.12.1782834505729;
-        Tue, 30 Jun 2026 08:48:25 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30ee2f5e4d1sm9007145eec.6.2026.06.30.08.48.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jun 2026 08:48:25 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <d6e011d7-ef9b-4cc8-91c6-3f329017d213@roeck-us.net>
-Date: Tue, 30 Jun 2026 08:48:23 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RUFVmX8e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 306D31F000E9;
+	Tue, 30 Jun 2026 15:49:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782834550;
+	bh=N1cs8dxUNXx7SRL0RkpGK0B4FDOYukdxUpHg73xldcM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=RUFVmX8eilDkdKM0sG6CWCGkb7gQrzEOndXlZzkoOZHum9hxFdF+niGsUUhFRVyjr
+	 tfh99GcFq1b3LwO5Rm80FcJBY41dVkCB7kmchY52rfSHxVpByWq3aNi/qFpVB/9KtT
+	 NfYVYjt9EapVoOxqyAtkATKZqY7R6j/YGL42STxRqaGXZBp+L9kUu7+EAZVAkSIAd5
+	 ORVb+3n5SHYu3A/53L1VWYregeGhxGbjnOKlr+glqkOYfHFPEEjI99Lvqkani2VyjF
+	 3RZ13tiHF9njRTMlyEGRy5fjaLL/uOSfAYcIH06KLpdjniwLRa5sO93KsdRggrSINc
+	 3v5agWethJwaQ==
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>, cy_huang@richtek.com
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Yoon Dong Min <dm.youn@telechips.com>, 
+ edward_kim@richtek.com, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <cover.1782444299.git.cy_huang@richtek.com>
+References: <cover.1782444299.git.cy_huang@richtek.com>
+Subject: Re: [PATCH v2 0/2] rtq2208: Remove the unnecessary MTP_SEL
+ property
+Message-Id: <178281978386.79320.3879730013919887255.b4-ty@b4>
+Date: Tue, 30 Jun 2026 12:43:03 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dt-bindings: hwmon: (pmbus/max20830): add
- enable-gpios property
-To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-References: <20260630-dev-max20830c-v1-0-a02786bde470@analog.com>
- <20260630-dev-max20830c-v1-1-a02786bde470@analog.com>
- <20260630-cuddly-quiet-jackdaw-b7ab3d@quoll>
- <PH0PR03MB63514D6ACDFF20DF4D1A4855F1F72@PH0PR03MB6351.namprd03.prod.outlook.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <PH0PR03MB63514D6ACDFF20DF4D1A4855F1F72@PH0PR03MB6351.namprd03.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1509; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=+mu2xcT0nwoLIp0swtqhupdARRBhiosNKr6wrjgJjVI=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqQ+V07tRTTH4d/aOKjxbKgW3RbRGhh4fnB4gsw
+ LA6GKTeFgqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCakPldAAKCRAk1otyXVSH
+ 0NnVB/wLYgGsMKhw7CRDJqy1pW+yYOxvs2vmra05EE22ASxIfgNt+/h6A5y+t7TeH//DjfXVSZf
+ zyKUNo3qWAALDnDGj/zuJ/l7QcYkOjhQ9AM5OSFJ+PdU/szmTW6gnmlrV5n+AXRJQGkAvqkZg+y
+ hDMrvFvXLD1n6Jduy6/7Z+tPqQxdVPKPzaSRwYvVkcOUSbVwZafI1ssw51/ugWE4LgtLFkAsFJ+
+ T1JRe4cyyK7CzgnP1kuhEGL2Go9zOToZ6IunAEOfcFq46RMkkZ/5D2pxnkzrxf/qyvdvrQU2fqa
+ PaxY11yR+m1JS8TbE2jz43zvSqjObbF+MSMQEmR0ILwgTV9j
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 6/30/26 01:07, Torreno, Alexis Czezar wrote:
->> [External]
->>
->> On Tue, Jun 30, 2026 at 10:46:43AM +0800, Alexis Czezar Torreno wrote:
->>> Adding a missing entry for the MAX20830 EN (enable) pin.
->>
->> ... because? Device has it? Was missing?
+On Fri, 26 Jun 2026 11:38:51 +0800, cy_huang@richtek.com wrote:
+> rtq2208: Remove the unnecessary MTP_SEL property
 > 
-> Yes, device has it and I forgot to include it in the past.
+> From: ChiYuan Huang <cy_huang@richtek.com>
 > 
+> This patch series remove the 'richtek,mtp-sel-high' property usage.
+> 
+> v2:
+> - Remove'richtek,mtp-sel-high' from yaml example block
+> 
+> [...]
 
-Pretty much every PMBus chip has it. Many non-PMBus hardware
-monitoring chips have it. Problem is that there is no practical
-use case that I am aware of to connect it to a GPIO pin,
-especially for PMBus chips because PMBus (and the chip) has
-a command to override it. Connecting the Enable pin to a GPIO
-output would mean another extra and unnecessary wire on a board
-plus the need for additional software to support - in a more
-complex way - what is already supported by the chip itself.
+Applied to
 
-This will even more complicated if anyone ever adds regulator
-support to the driver. In order to fully support this, the driver
-would have to add support for enabling the chip through the
-GPIO pin (or to override it permanently, making it pointless
-to have it) even though it is highly unlikely that this code
-can ever be tested on real hardware.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
 
-That is why I was asking for a use case. "The chip has the
-pin" is not a use case.
+Thanks!
+
+[1/2] regulator: dt-bindings: rtq2208: Label mtp-sel-high property as deprecated
+      https://git.kernel.org/broonie/regulator/c/9f6e4b8befc4
+[2/2] regualtor: rtq2208: Initiate the default MTP_SEL state by hardware register
+      https://git.kernel.org/broonie/regulator/c/2f84cec84ffa
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Guenter
+Mark
 
