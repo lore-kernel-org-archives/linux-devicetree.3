@@ -1,53 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1B0330B11;
-	Tue, 30 Jun 2026 17:08:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A784F3DB310;
+	Tue, 30 Jun 2026 17:09:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782839334; cv=none; b=kDlNsl5wHFvf7wZ/8JsInE9eYdSzGPkCormVzq/7KryTNUxdFLnQaQuq5qUG1SQ1BnVaHrYOl8/olEcnZNX2kTWi5vtmXUu1dAQw5Xb/EJG3M3+q1BPT0YJAcQqBjIj3sMq4Lq9Y5RZcLMxx5+tMSuRQPOPj2TRnWAecIYZWQTQ=
+	t=1782839362; cv=none; b=W/Nrw8+v/jVL9mUcvtnbrnBeNDpckWEFmuCzSBxisz6IZn5/GbmCd3zcvlxoVh3QmrJv9M5dhl3SOy26SdCWckYPlKehGceO9bXUOXNHOUxvS/aZNGEXwBO9999fepkYKGGM2uw7lbqekWXl30jBKMNLOAvLetNT+x5tYrByGPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782839334; c=relaxed/simple;
-	bh=fIMm8C/TgI5nAa47LMm9rPL7P0R3u5OOub/jUFPcc/g=;
+	s=arc-20240116; t=1782839362; c=relaxed/simple;
+	bh=ZQ463BWcNQ/hsjfVmxHntb0h6n+WMBn6b+KUF4VdkJA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DDvcYMcNuX1uDS8EsGemxwN9YiBAAtyz6IRmYB9M3ZmWuUHgqcD2xGvJKcA80icSHss19+7R9ucpgPyjoVQT8mDcK4u4uRbynfwAjS62+QopmV6g3TN4Qm2J5QV2vi86eJUz4zl28KoVXYi0XYilQmiSOKdzmzUMd25zqan8o/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ElepC66P; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=bo8o3yhz+5qq97pZOkjTWk7c6Z5LOXv9aW+hR970WCnGCewpazhei65YQJiQE5Spq1EeFSY1AnOlpwnrT1Yyyy/6TDaZTIZe6squGNUob9pLAakUz70Vi6w3o0EYbmjxv5yxfOdhrGuLLYzr4o45MPv6GLXFMPNugMnlGccheBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OJC0kuXF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ElepC66P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 426B01F000E9;
-	Tue, 30 Jun 2026 17:08:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OJC0kuXF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB3D71F000E9;
+	Tue, 30 Jun 2026 17:09:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782839333;
-	bh=vjXeeeCYeiUa7yMAifq5hXz1HtFrjFiorCgExnyzF2g=;
+	s=k20260515; t=1782839361;
+	bh=ZQ463BWcNQ/hsjfVmxHntb0h6n+WMBn6b+KUF4VdkJA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ElepC66Pcuk267CvYmyn28I9bk3zHpHX2THxl8aq57IkCJXnUQBuLeA6ND3uVCtTf
-	 UlsYWTk73uWhMnNjlC3jg7P7lrIeReoQ2Tkh/ciYapoig73EeiF8QJBmoO7qrOOLS3
-	 NKLlS35VZ6hjxu9MmJNkIekPkp1KqgYq//PM5WhXMYWKriEt/31sSkCCmD40/pAOlS
-	 05zkuCb6z+w5gIIVSvIxQpXSk0BXKpIC3Mta5W+PTFsDc39nkgqsqy74x5osEmFFHO
-	 zubBFB+x5qzDhL5Hq2AETvLb/xv8yiWruG5/H0jWez/ZtOhekY1W/5OOmtBTziILS2
-	 C4Pl3MgFtpIbg==
-Date: Tue, 30 Jun 2026 18:08:47 +0100
+	b=OJC0kuXFbpCHeFcfZ07jJhUKplyTMiBXEM9OSj/u9f8yTTW396S7BV0YqTO9NPtq8
+	 37RTHUZWNEzm8WptAvGvWC5kupdrZ5e8ctKl1It0Bqasiaj+mRMWUKZYdI9PXV+bGI
+	 ACPqkKZqpTNEyiM0b4FB6na7X8IFsR+zOJY8XSJ1SDPwchr7vf5LmTA6q2/Q7TxoxO
+	 wnhXc05th0hS5uLLZQ1oyeC3xxxdKrwJTqdTPxCMKo9DXuFnWkSRvUYAneDLCVZNqK
+	 7lXZxopgwWoB0xOdGrNNiHnMQP9g0958Z8zFcR4dpAjjYxt9YwJMbWIHvjNRV/4JK3
+	 Ejizw6JINVrHQ==
+Date: Tue, 30 Jun 2026 18:09:16 +0100
 From: Conor Dooley <conor@kernel.org>
-To: michael.reeves077@gmail.com
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>, Jassi Brar <jassisinghbrar@gmail.com>,
+To: Yixun Lan <dlan@kernel.org>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hector Martin <marcan@marcan.st>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, iommu@lists.linux.dev,
-	linux-input@vger.kernel.org
-Subject: Re: [PATCH 04/10] dt-bindings: input: apple: Add DockChannel HID
- transport
-Message-ID: <20260630-halves-magnesium-856f9c7d60b2@spud>
-References: <20260630-apple-mtp-keyboard-final-v1-0-506d936a1707@gmail.com>
- <20260630-apple-mtp-keyboard-final-v1-4-506d936a1707@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: soc: spacemit: k3: Add clock ID for UFS
+ refclk
+Message-ID: <20260630-bullish-backed-1790f501d5c3@spud>
+References: <20260630-06-clk-ufs-support-v1-0-cf7521d1d0fe@kernel.org>
+ <20260630-06-clk-ufs-support-v1-2-cf7521d1d0fe@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,57 +48,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IFgQppRoGRqlg1/V"
+	protocol="application/pgp-signature"; boundary="35b+5CeuJkFuBDwY"
 Content-Disposition: inline
-In-Reply-To: <20260630-apple-mtp-keyboard-final-v1-4-506d936a1707@gmail.com>
+In-Reply-To: <20260630-06-clk-ufs-support-v1-2-cf7521d1d0fe@kernel.org>
 
---IFgQppRoGRqlg1/V
+--35b+5CeuJkFuBDwY
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 30, 2026 at 10:54:32PM +1000, Michael Reeves via B4 Relay wrote:
-> From: Michael Reeves <michael.reeves077@gmail.com>
->=20
-> Apple internal keyboards and trackpads behind MTP are exposed through a
-> DockChannel HID transport.
->=20
-> Add the client binding tying together the RTKit ASC mailbox,
-> DockChannel mailbox, and MTP DART. The keyboard child can provide the
-> HID country code used by hid-apple to distinguish layout variants.
->=20
-> Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
-> ---
->  .../bindings/input/apple,dockchannel-hid.yaml      | 91 ++++++++++++++++=
-++++++
->  MAINTAINERS                                        |  1 +
->  2 files changed, 92 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/input/apple,dockchannel-hi=
-d.yaml b/Documentation/devicetree/bindings/input/apple,dockchannel-hid.yaml
-> new file mode 100644
-> index 000000000000..dbba4fc38971
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/apple,dockchannel-hid.yaml
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Same thing here about the filename. Looks good otherwise, so please
-change that.
-pw-bot: changes-requested
-=02
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-
-Thanks,
-Conor.
-
---IFgQppRoGRqlg1/V
+--35b+5CeuJkFuBDwY
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakP4HwAKCRB4tDGHoIJi
-0rC1AP9CivYKeIXifyJKmjFVsB20Z3JWxax7appciOgjNqympgEAs/E2+BjCEf/S
-gRxK6PCZN+rd05T+GWJvwgvz+22GFQg=
-=VmHn
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakP4PAAKCRB4tDGHoIJi
+0nL1AQCAysfwv7mxL9RNVgQOqyZA/A0wbsLRrMZcK/NPCNXj5gEA7gWOJunVrkxY
+IOk+VgtGB5f3YAg2sJPX5py6JGPkVwc=
+=Y+s9
 -----END PGP SIGNATURE-----
 
---IFgQppRoGRqlg1/V--
+--35b+5CeuJkFuBDwY--
