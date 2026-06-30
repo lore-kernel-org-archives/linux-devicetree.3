@@ -1,88 +1,88 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C893F4139
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:37:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED10B3F39FA
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:37:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782815830; cv=none; b=OnluiS/gwnTAjQndTWmXrpWVhAhTodS4w2y/j7kveL0n8PLKdsNZiosANrLhjxTK9WK5EsWCV+v707OFsiWHQjp2orK9KBqIUnPwFemlRs+053g52ksn0HuUPDKNt+zBhKIxhyy1c6a06ZWRbMrMYPj6i+lJruvMj63pJziQ0xI=
+	t=1782815834; cv=none; b=la1mnsyE1SV2HJK6NwYw391fTfo4NX4mqo3sIQ1tcnLgVwLsFiJQk5HXy6R2ipqzrFIzNj/wL8IDLz9SEKZC4VIld3h22scO+MSsJAaba055Pq7f2Jz0iX+GqTFb5LHxQkObvVPlVb869dZC63BvHSNnwkLfOQF6dbNn4mBls9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782815830; c=relaxed/simple;
-	bh=33uEo4UJgPbPMMZuq8e5HQE+sJ6R6/JGUnMwJkekCsc=;
+	s=arc-20240116; t=1782815834; c=relaxed/simple;
+	bh=HagOjHvvKalPyaoRLhnwxbxe/eeYB5Wc6HvJnYKVRFQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=svz37wn5nA8VW7wopnxRkaipwefdkAXY3c9dNe9IkNRYpXNtM/lS14XD+LGPH4qw1mS7XFlgI0JocVk6xIzZ2eKb81N0JWfX8T/evViY8J3HOW7gBCNpMhjg4CKEw5oLuIEKVrA6BPO5dASQBGsrTmpBi6i7fwB+Kxl3BzKa0eQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WpVntv6J; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b44ErqdD; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=sLOH/aGvO9g00QuwCmMgl392KYbcXreS/tZkx8xpdA63XiOD0hiBVhihuh8PlqZhOS5RZKOXzFKX2pR9N7+ZQ+VtwV5oNNOt4GvRBxNFEIb6gmby7UmfrqdQIeXZt5DudRp3jkkvwDOduPwfolq7LP8uiFuPkW/VVCg9jKmFFYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HI8EC6H0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KmQGuCsr; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WpVntv6J";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b44ErqdD"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U9nDHJ1590654
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:37:05 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HI8EC6H0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KmQGuCsr"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U9musB1522302
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:37:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ccqq1qUvXleK1gCp35AxM5d+eMHG5Aas2iW2dgCZeys=; b=WpVntv6JLBY3v36o
-	YM+/IO9SsbQUJrDEWB75l1+osDf5YEOBSVQK+f85Jc/29AeKVCXDxa7knRLJKwYO
-	tiVPgVWeMYJYkPPne6M07kzXsXY5C+8yV6tqPUs19ZEMdxPAGQKNSMkEJNb1nHqm
-	CvBPswjcrbneDm6rzeQnFi/BslNMn3p9Syyv647nOIhV8wx55hCzn2ZUYy7dE8cI
-	vdG6R0eD/5iQfWLiNcyR3xlNOEl442xU4jlBwvtifzbPVPcKDYyqvF8N0Bs6mtmD
-	bdKGbUMxqpsJR11ZM9+Dl+j1hdqiN4jjuTWjVkAm+BCu1tPszehxuRYYYKqx7Dfp
-	cHoM7Q==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3y9k313n-1
+	CPV0Cu4z4WlvZa9lXzKbTkoT+NVZAbTVV3x69Ag6f0M=; b=HI8EC6H0H03YFrdR
+	YqFGi1tdZcXtXs0xVQJn1RZt/pZmxE6Iww3lZrn+d94j6JwVt6F3Rq1tHNn7+jOW
+	zuuiisgVqI74vBjjgHHgB8YBqX4Ad1mYDSKw456FetKf3s+58QH1/5FZrvEUXWXU
+	SMta47BXz7nXqwWiGokJXlHf71tqXPoCFhrQn1ZjwB8Kej7QqbS2qAtz8gmpiZ9+
+	FaHAB7BF0PT4sAKDC4sTBJZ87jhmyGtbHBqt5gVOffY09vIp6XZPWrsekV36PoWR
+	Hr3PiE9/1r69VKVq5RrxU84lojDv26Pu2l7ahIOXN0LDkiRdCknZD55wV3lgwZ1r
+	y61MUA==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3yw92v95-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:37:05 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-84786d85ec2so1198653b3a.1
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 03:37:05 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:37:11 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8478e9c4bd2so1415138b3a.1
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 03:37:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782815824; x=1783420624; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1782815831; x=1783420631; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ccqq1qUvXleK1gCp35AxM5d+eMHG5Aas2iW2dgCZeys=;
-        b=b44ErqdDYcrYfvR/4Lg3deJfeYVOR/iQDWGm0HIlPpmIX+ek4o9LpJAZDJDBbjxdzj
-         zP+EV45tFZ6pqmCCHLLz76MVQuS3AIoYiUbqgRkmEz6o6Ixp5hnFD5ScgkvIeWPBCiwX
-         auBJH9nB7MFhCJhXEhfccwPCaltss8ep/sXvlKbO9OkrckUffuhsWKPdfZFCgB8bv1Q8
-         W4G+Ka0stvN9P51kVQjmO+QxIk8SRbUBLo7qq0EH99sz9sBh4TZ7jnHdyTvP7ZoGOauW
-         6LiemTkFEh8EsyHeZsgJqQYfEikHfnX/ZcomnA8CSDynye+wSk+W3uHNJeCEB2PZQKlM
-         IAog==
+        bh=CPV0Cu4z4WlvZa9lXzKbTkoT+NVZAbTVV3x69Ag6f0M=;
+        b=KmQGuCsrHP7GQOTCmcFxpb6GJANOFMOzUXRC2p0Tqv2g9tf4/YUsCDiulOqzUfBfLz
+         OzfgdbUA3+VlBAlb+FMoDE2Qw23x4TgKdJjQ2BUp0f16oK1i7DhvRnnbWeCOVspRbghf
+         1C/JOVgJXQS2YNF5rcygjYl8svr0ymF7gs1T61a9odnVjYcnT1DznIlPvtijoGkxW3Yb
+         0RM9frzKUjD/v8dcWyM65sk4ws+a9OzSx+tTZvibIBtSALdOLBVfZJqCfclrS9aAjCZz
+         vwjHdH+2OquKsNuHdWzcJQE6Rh3T4wrqiqzFjztbbguvHST9i1NvTcW4iujqMGUFTKPp
+         f6EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782815824; x=1783420624;
+        d=1e100.net; s=20251104; t=1782815831; x=1783420631;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=ccqq1qUvXleK1gCp35AxM5d+eMHG5Aas2iW2dgCZeys=;
-        b=IiMM11rttBsIbAbbwGA+juwMc7kAXjOuuvbiR6PH8GW1suhEXtdDxG38nLrqyQpdT2
-         x/2aIO0ojFxLRpLAU7B0T28e5x3b9gkDdyGVWU6CViMiNlWC0lOOKAiWk0BV1sCwdl/d
-         02xI2/fPr1Me+kIShm++sE/RY4pIS920ZHUPN/jFUhrSFY4Iu0+k023vz6Sc+75PcKNf
-         swed4uXT6NqodXqzqHMMSS4fp7tM4j9JjOKGWHsUZRDUGvtuYH2wkf5cwVU5N2ggyaPn
-         THve+bXJxo1pfHFTZJ66sCqg0MdVEQKF8OlAqq6F81JqgX1h+8g/QaoXSjk2VbfHwcQD
-         5XRQ==
-X-Forwarded-Encrypted: i=1; AHgh+RruACBxurvN0LRiUb0jpMiRu0cA/Z1uMgi5wEkntC38pGQSREOt7mHJhr/IedE6FyuHksL7VhmAEuBg@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxqwg/ub7QLSbPMJ1DPvQZhCIuV9kdeto935FBZ8olNIJuM6DrO
-	z10deyPMJXv2dHLM6lZasjhi7/bBDNB6eheQvDFltRmNEkg4GgGb4zhk4lgnygygtGdeQPdnb1u
-	dIq673oQYZphwMA1z56CGeFpDe6AoVh4ZHtTFGcuoQAqq35nuuYXyxOg//AccGvcu
-X-Gm-Gg: AfdE7clrsRndtMrhtnzkFO8XXmb0rfCNwSp4aO06GESK82KooVKNhKLuVxNdgJvYcgT
-	0k4EnbP5NOKh33Pfqq4BWOIdaohkNb2VJbqNx7GqqqfuYuYS8KH31Z5FOcV2MB+sQ1UCXCnWibS
-	1mKTXVobKwiUemodIunQHVnOwGuxzfx8wzpKTu2aCGp72BDF23rrZ8MiP6vEurBs8v+oLzr1D/u
-	xqtfW0BKY1FTcyKhb3yS2RX3aNTbz1qEpqbprUZeicFtcnHvxGq+sDpUryC/1j7558h5w/1imJG
-	yaqKK4e/ubYXN+/6MnxfXD5bsUIltk2j/sYHEBT0cOf9MpOIF7t/N8WNzCRKjg7XsU+4FhOdeIM
-	xoKJdGJlSUOUqtGjHT389NaDWa9lTEG6CvT2EA1uiZ8aotR4Bwhobh3njHlhlhVLPHe+5Vyzb5g
+        bh=CPV0Cu4z4WlvZa9lXzKbTkoT+NVZAbTVV3x69Ag6f0M=;
+        b=YT+37EHsIWvh91Oolq+yZ9W5sir4wmBJqCVAC8FthU+OCGEUdfdvnlgVE063YyVb0s
+         rKU27dGJrLx1EznBAxwGdd7318vQUZ9dp6woFe3L6wjKMC2FBog8nZBSvVgGBtr74GdG
+         6r1lhsLYP1dE6GLITDLWKZ6gb/UMn/AYez/AYIqhcBB591L0WengJHasqaAYaprxtA1d
+         PbtQvMtc9Zhp5nn+HL2EXSoluDE0VyIcUriwtykav/Bvy4xYzqCOZ8YCZlJEGfBuPjtF
+         dU/F1I28r6bgJ25zhDzCTk69o/Xy9+jyOD1s07psrNWFogS6nrO3vmZWBdm7Zt/b2SvS
+         nbig==
+X-Forwarded-Encrypted: i=1; AHgh+RohbFYZK0i4dTd48AJb0OY2FWpBX+PFW8L8WQQOISLE2c5Q4AZjEk3M9fivGIsXU/vyWD4VFHVkCu97@vger.kernel.org
+X-Gm-Message-State: AOJu0YxDj4IUQhjXr2h+nb0cCu+gmBj8BEWE3jLmwf9c8ZvdELXP+QEw
+	M0bePxZeEFJtHcmGoL31LSeDZenDTIxdS+4eT8TI/0n0K9hJcdG8TnNTyiDaqLAiUseS2+P9mFh
+	i52DZnzOkOH6PkWTZmQmpiWwI5uKtDNo0ASd3gjQ6TogR+JWmHPsTU5Kzr3BCkfSm
+X-Gm-Gg: AfdE7cmr/YlkAcIX3PksFvk+urZzbMcDYptkd0J2+teFzyqY+CcqQtYNnzCeYZ6aJxq
+	0+RVpFyto69DtxPkJtc+cVnpQKjBAnTfdqBnQal0vNfI4tiEHUcF0UmFVPCp98gJ7UZZLW6Z2jn
+	iFnP4Fr+ZZR2YZkROh7fS2t5pXv9fZP0NcsswbL6WaM9sitQsaB/yDopHdGyCA681zNcqs3Uvut
+	dlEWBFRTPS3mCn3OjXTzclM1KsXtTIU/urE88wMBd8pFixjQkUjM4kVn1eW+tTMLT91qtaziX9h
+	kJ44TsNYC+QT1g6EtGeml0usbstQuHI+3bYTkltkI/ZoZykOApBbTqZaZVpMLNVOWcgkXe4c5qz
+	FnhoegjmbeM6zsjPxPMhhkC5iH6VoxEMD3AWPCPRFwGfW68Eo6L57KScwvz2nk8+3QBTCJUWH9g
 	==
-X-Received: by 2002:a05:6a00:3391:b0:847:8f0d:cc0a with SMTP id d2e1a72fcca58-847aded7b04mr104106b3a.41.1782815824461;
-        Tue, 30 Jun 2026 03:37:04 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3391:b0:847:8f0d:cc0a with SMTP id d2e1a72fcca58-847aded7b04mr104078b3a.41.1782815823968;
-        Tue, 30 Jun 2026 03:37:03 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1253:b0:845:e1a3:107e with SMTP id d2e1a72fcca58-8479f27a8d4mr2349396b3a.52.1782815830837;
+        Tue, 30 Jun 2026 03:37:10 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1253:b0:845:e1a3:107e with SMTP id d2e1a72fcca58-8479f27a8d4mr2349370b3a.52.1782815830384;
+        Tue, 30 Jun 2026 03:37:10 -0700 (PDT)
 Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847a02cf9b8sm1677581b3a.28.2026.06.30.03.36.57
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847a02cf9b8sm1677581b3a.28.2026.06.30.03.37.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 03:37:03 -0700 (PDT)
+        Tue, 30 Jun 2026 03:37:09 -0700 (PDT)
 From: Jie Gan <jie.gan@oss.qualcomm.com>
-Date: Tue, 30 Jun 2026 18:36:04 +0800
-Subject: [PATCH v3 2/5] coresight: tnoc: Add AG tnoc standalone compatible
- to the platform driver
+Date: Tue, 30 Jun 2026 18:36:05 +0800
+Subject: [PATCH v3 3/5] arm64: dts: qcom: kaanapali: fix traceNoC probe
+ issue
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260630-fix-tracenoc-probe-issue-v3-2-7201e1841e94@oss.qualcomm.com>
+Message-Id: <20260630-fix-tracenoc-probe-issue-v3-3-7201e1841e94@oss.qualcomm.com>
 References: <20260630-fix-tracenoc-probe-issue-v3-0-7201e1841e94@oss.qualcomm.com>
 In-Reply-To: <20260630-fix-tracenoc-probe-issue-v3-0-7201e1841e94@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -113,162 +113,69 @@ Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
         linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
         linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782815804; l=4471;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782815804; l=1214;
  i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
- bh=33uEo4UJgPbPMMZuq8e5HQE+sJ6R6/JGUnMwJkekCsc=;
- b=nNrbjemV8d+J6IgHPQfdSuHPIpGliTr9spJ+rmcrEEJfxdY9BFmrgGSbniTFeKZZUQzBMNTRC
- 5dgo2C1vWTcAw4iG0Ggrg1ThVtoCRTwPfdQcBtLMLXQt2rj4fqUf6cO
+ bh=HagOjHvvKalPyaoRLhnwxbxe/eeYB5Wc6HvJnYKVRFQ=;
+ b=4lZF37zPda1yimqyZLnf7/5YnIJaYzVw6x5TTSBnASYMyAeufNJcTbfRuB0rbMFy0xiaCqNVX
+ eJO8CBg95lIDb+wy49Iz61s7gYwDsyG0IxF5ZBSDEd/UMSltfv5+3YJ
 X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
  pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA5NSBTYWx0ZWRfXw5apNpyhe90l
- 9k0Klw48TAp2SIo9AVUqGjVIKeWnSQZU1nr/ejRmfXSrrrNZyOssrg4JJshBnD4Syv3dDe5ihAy
- XO4oBZsvCjMzivF/08W8XW1CWDpNkIU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA5NSBTYWx0ZWRfXxMbFSajWkz/6
- oqp69GNKirGu054OsbiOhQBKWKd/ZsT8SdDUVL3XHxc4+x3iYFshVRC6U3Crzooq3CjnshlD643
- K3o9Eaug/07W41BAwsPGEjN6JR2OFUusgJagDpI3XbDHsxyxCAF5VEakrvuUrQytgG6aDuHDahK
- 3gDMb0FDMiZ1S+IZzqio3i9Ec6ezuu3xCxyhr8nr5Xh8CUnJdIjorfDVkLmSr1QmF8eI9JfF+DW
- cQejRT8+5sEH61I5zRpfphyBw7qesbaSEknNjm1FIoZRaxAJQuSQ3i4h5q5Y1kDlbl0O2FX7rKv
- wx+TLanpxa0/GuXIRJjL4XX58mxbrcyNdYPlyUUr75srLbJpsfNlWPRR/zrws90W3fQPjFxZLtC
- CmfzopJsy6N2Rct7BMulf2RxKQHa7qMBCE8YagD7vgo4agl62dB5vvmfMbfDPPaIeDUv92gybgY
- YPLwY4Shzj+4djTDfoA==
-X-Proofpoint-ORIG-GUID: PKFrDf6xxzkycpO8_VfPiij4fa5Gl_aE
-X-Authority-Analysis: v=2.4 cv=TeqmcxQh c=1 sm=1 tr=0 ts=6a439c51 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA5NSBTYWx0ZWRfXxZGx91fNFxym
+ F7xNlbD4lgUnjfBTpmD5Emp3DzVmFWprYoE2HwziDhqu052bc215suMNsG5Ns9menYoYFoIFVND
+ 7J+2otbiGwc/Y98bmnBuInAu3kUszdI=
+X-Authority-Analysis: v=2.4 cv=KfDidwYD c=1 sm=1 tr=0 ts=6a439c57 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=H-CQmrK-EWR9bHiRmqcA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-GUID: PKFrDf6xxzkycpO8_VfPiij4fa5Gl_aE
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=9-n9NCBYjeJb_QXN7LkA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-GUID: oDORYMzB2iNMN4mdU_f7jip7ZslhUquK
+X-Proofpoint-ORIG-GUID: oDORYMzB2iNMN4mdU_f7jip7ZslhUquK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA5NSBTYWx0ZWRfXxj1SiXq2xWTo
+ jNb0z49wK2iFn6MKiIVy2zBsS7jQF3AsitNzqfXHFztSmH9+jpHtXumvXMBk40ABjRzEHVidJxD
+ sG5tB2p6LaOqtr9PxOs/dcI4r5XabecO/1HYU3pM1CLT59L8EID9tDgaGrC8baHAWGBNPrUcTCR
+ Ws6k/hzad5m+ImVnoGdGy+vBiAQuXQ5gQOCo4k8ocoWG8rFkKNCjn6Tb1OXfqUawf8xGSYcZVTo
+ Pw28GbSua9MNzZ6xU7aWVqJBd4wYBUs+kHHopcLFeBWWamVaN7PmRClg0gGGsZHl96145VOYUCs
+ a0Fd5hOA1B0+J1/5uwaF0tzGl+uRBMT89uKT6bx4ztPhu4klNiip42zRCgOR9L9+s60aLmM3RFe
+ u7NMbSt95L2Pgx6F6njSjIOXtswDY69NzB0y6ep5rLOoXvS6/kPskxhJL0uDCHNTtr0431bmdgz
+ +vWt5+kZKaRYoKGcctA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-30_03,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- spamscore=0 adultscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015
+ spamscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300095
 
-The Aggregator TNOC can be described either as an AMBA device using the
-"qcom,coresight-tnoc", "arm,primecell" compatible or as a standalone
-platform device using the new "qcom,coresight-agtnoc" compatible. The
-latter avoids the AMBA bus and the associated peripheral-ID probing.
+The traceNoC node used the "qcom,coresight-tnoc", "arm,primecell"
+compatible, which places the device on the AMBA bus. The AMBA peripheral
+ID probing fails on this platform, so the device never probes.
 
-Add "qcom,coresight-agtnoc" to the platform driver's match table so the
-Aggregator TNOC can probe through the platform driver, and rename the
-platform driver and its callbacks from the "itnoc"-specific names to
-generic "tnoc" names, since the driver now serves both the Interconnect
-and Aggregator TNOC. The platform driver name is updated to
-"coresight-tnoc" accordingly.
+Switch the node to the standalone "qcom,coresight-agtnoc" compatible.
+Dropping "arm,primecell" makes the device probe through the platform
+driver instead of the AMBA bus, which resolves the probe failure while
+keeping it an Aggregator TNOC that retains ATID functionality.
 
-Restrict the ATID-unsupported handling to the Interconnect TNOC. The
-previous check disabled ATID for every non-AMBA device, which would
-wrongly cover the standalone Aggregator TNOC. Only "qcom,coresight-itnoc"
-lacks aggregation and ATID functionality, so key the check on that
-compatible and let every other form allocate a trace ID.
-
+Fixes: f73959d86c15 ("arm64: dts: qcom: kaanapali: add coresight nodes")
 Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
 ---
- drivers/hwtracing/coresight/coresight-tnoc.c | 35 ++++++++++++++--------------
- 1 file changed, 18 insertions(+), 17 deletions(-)
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/hwtracing/coresight/coresight-tnoc.c b/drivers/hwtracing/coresight/coresight-tnoc.c
-index 9e8de4323d28..8237467faba7 100644
---- a/drivers/hwtracing/coresight/coresight-tnoc.c
-+++ b/drivers/hwtracing/coresight/coresight-tnoc.c
-@@ -130,7 +130,7 @@ static int trace_noc_init_default_data(struct trace_noc_drvdata *drvdata)
- {
- 	int atid;
+diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+index 7aa9653bd456..e98f4aa4b141 100644
+--- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
++++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+@@ -5004,7 +5004,7 @@ tpdm_pcie_rscc_out: endpoint {
+ 		};
  
--	if (!dev_is_amba(drvdata->dev)) {
-+	if (of_device_is_compatible(drvdata->dev->of_node, "qcom,coresight-itnoc")) {
- 		drvdata->atid = -EOPNOTSUPP;
- 		return 0;
- 	}
-@@ -278,7 +278,7 @@ static struct amba_driver trace_noc_driver = {
- 	.id_table	= trace_noc_ids,
- };
+ 		tn@111b8000 {
+-			compatible = "qcom,coresight-tnoc", "arm,primecell";
++			compatible = "qcom,coresight-agtnoc";
+ 			reg = <0x0 0x111b8000 0x0 0x4200>;
  
--static int itnoc_probe(struct platform_device *pdev)
-+static int tnoc_platform_probe(struct platform_device *pdev)
- {
- 	struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
- 	int ret;
-@@ -295,7 +295,7 @@ static int itnoc_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
--static void itnoc_remove(struct platform_device *pdev)
-+static void tnoc_platform_remove(struct platform_device *pdev)
- {
- 	struct trace_noc_drvdata *drvdata = platform_get_drvdata(pdev);
- 
-@@ -304,7 +304,7 @@ static void itnoc_remove(struct platform_device *pdev)
- }
- 
- #ifdef CONFIG_PM
--static int itnoc_runtime_suspend(struct device *dev)
-+static int tnoc_runtime_suspend(struct device *dev)
- {
- 	struct trace_noc_drvdata *drvdata = dev_get_drvdata(dev);
- 
-@@ -313,7 +313,7 @@ static int itnoc_runtime_suspend(struct device *dev)
- 	return 0;
- }
- 
--static int itnoc_runtime_resume(struct device *dev)
-+static int tnoc_runtime_resume(struct device *dev)
- {
- 	struct trace_noc_drvdata *drvdata = dev_get_drvdata(dev);
- 
-@@ -321,35 +321,36 @@ static int itnoc_runtime_resume(struct device *dev)
- }
- #endif
- 
--static const struct dev_pm_ops itnoc_dev_pm_ops = {
--	SET_RUNTIME_PM_OPS(itnoc_runtime_suspend, itnoc_runtime_resume, NULL)
-+static const struct dev_pm_ops tnoc_dev_pm_ops = {
-+	SET_RUNTIME_PM_OPS(tnoc_runtime_suspend, tnoc_runtime_resume, NULL)
- };
- 
--static const struct of_device_id itnoc_of_match[] = {
-+static const struct of_device_id tnoc_of_match[] = {
- 	{ .compatible = "qcom,coresight-itnoc" },
-+	{ .compatible = "qcom,coresight-agtnoc" },
- 	{}
- };
--MODULE_DEVICE_TABLE(of, itnoc_of_match);
-+MODULE_DEVICE_TABLE(of, tnoc_of_match);
- 
--static struct platform_driver itnoc_driver = {
--	.probe = itnoc_probe,
--	.remove = itnoc_remove,
-+static struct platform_driver tnoc_platform_driver = {
-+	.probe = tnoc_platform_probe,
-+	.remove = tnoc_platform_remove,
- 	.driver = {
--		.name = "coresight-itnoc",
--		.of_match_table = itnoc_of_match,
-+		.name = "coresight-tnoc",
-+		.of_match_table = tnoc_of_match,
- 		.suppress_bind_attrs = true,
--		.pm = &itnoc_dev_pm_ops,
-+		.pm = &tnoc_dev_pm_ops,
- 	},
- };
- 
- static int __init tnoc_init(void)
- {
--	return coresight_init_driver("tnoc", &trace_noc_driver, &itnoc_driver);
-+	return coresight_init_driver("tnoc", &trace_noc_driver, &tnoc_platform_driver);
- }
- 
- static void __exit tnoc_exit(void)
- {
--	coresight_remove_driver(&trace_noc_driver, &itnoc_driver);
-+	coresight_remove_driver(&trace_noc_driver, &tnoc_platform_driver);
- }
- module_init(tnoc_init);
- module_exit(tnoc_exit);
+ 			clocks = <&aoss_qmp>;
 
 -- 
 2.34.1
