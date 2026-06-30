@@ -1,264 +1,207 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010033.outbound.protection.outlook.com [52.101.84.33])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98C71DE8BB;
-	Tue, 30 Jun 2026 08:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782808853; cv=fail; b=XSnQ7hess3Va+fqzOt2HhuEMlm1qq1rttUGZfNp9S4gdcqGjJm7rf5Az58D3K+oefi1/vdU69SgRe+KogWSp2PgYiGkZFB49DvJMaFyQnFE4AJ73QmflfMhkDW9ZGhgo+oju7Srd2iyeixX0ILG89nptGTLIC/kmut71A2Klkfg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782808853; c=relaxed/simple;
-	bh=RsyX049cqzPnKIDgLwYrOq1IwurrKrDlfN0aJAmTh5U=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=a5foLqyjnWlxm9IH1yhTzZQpQDx0/h7Ucg4rPhpf5OcVtKVJ+R/fDcKs5GzeKCnuH7xt00quAhul8boH4z+rL+g8oUJLHcOrpnWhTvnaNrvI8bWabiYQ0l9T3wmQ4Z40rDMhi9xEkDuccTnb/n30QxFswlaRGkyMdszNywU0z3U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=CJMarw8f; arc=fail smtp.client-ip=52.101.84.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8522FB965
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 08:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782808969; cv=none; b=eu2zwaPfB5GakBad53cLFRirGz7cHfCnJ7f2Rtndqir0tStb/HanIyC8qDC81HZlLFz3rfxR/cHieRx7RoANEJzbeOvXHRAXll8nTOh79wmIzplTCqjicgqe9Ont+YU/N7+LnH6A7OKBVMrG3KawAyNvUTVD+rcvml+UexfFl/E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782808969; c=relaxed/simple;
+	bh=awnU39Goc8U0uYSQwFG6QxmjFciE6pLbo6oarSPAhTI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oype5TVCP3rI1Uy9uKFWcZXpfwyPhyd14kuCHAXLQc7SV4l83vk2GwJPI3kh30ybThsCw0rGZ1nK4B5Klyxtg66rYZKSl52KH/VtZ/EGpp+teeQ0d7fXun1xyaUaE8NUTVUjh0wg6U7LvB3XXbT2mmnG5n/6soH3ZuKZQdPtEe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G/U1rECp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XqzU0IkP; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="CJMarw8f"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LoKPJd1lm/M+Tr4ip02XzQwRwS5R677eLexSEx27Qo+jFQK0R06IbROxd0a9EPW6yLmbD4PChSSur0nqHGFEPuY1+bXpqbgOMdwDEipbibQLnyw14jv6Qz6BVJhJzEOtCmWnZlga8/frPYDO8+HfVk3dEnAT2oAz4uzNjwQxKcIcbbehOVD0Va6VVz4/MBpaj5nKfrGigRoxBK9zN333x7JI/zoG3bCH4zY51BcJU1FC0gq340UsfXpzLYVzJD7MseWlmQs3YiCBIpEiqaPWDps53UuRIOInXBE2jbsEr5wKZCmfXDliV4wqS+rxyx3DlXQCKqnYaQ6XUxPbp2HomQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D8MDANuFCAS8+POGBM9ztQAR6PQADEgeVy5XjL44b10=;
- b=kczKQhbHRuoYMzOrD6xHZU2Qnza/0aWh5DRju3aOTuHgQO3OaVIbFcm97E0/kGnIpgHxmRu4Nhwj90Bzgu+QCqCTJrUlt+D6iKUr9F53x+EGaZrl0COJzDq+aHf1Svws3NLQlxaHuENOwjApvVNL7zsfg9LGMPBzBNRzOnxUnRV9Dr5VMYaJGeU/TN1JpIA8jnKi2u4/czKfXPQ772HtNKH2ILDkCyAvm7iqCUMAa0Zdpn/l9MDEQQ1ObzSxx6zNlbpw9zZ+5PhTPt1daKKbSiacFrB7qBky+gR9V3NK7Pg935SmGpwQBuTyJ3jKgfzd+TYVhqjv8FWm+y7GNXttlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D8MDANuFCAS8+POGBM9ztQAR6PQADEgeVy5XjL44b10=;
- b=CJMarw8fJDSgX1zEs+99zN8qwnXPLJWGEG7G1WHAd+tNNVzpHK1XjJ2ntAZpffb83bGxK06gjPaM5T7O2whQsHPj9s/435WOv8a2OhcbiQAdEQMmjtNsbhy9Yl3VoLfV8PcsFtr9ZmMFwkcvwcSsgGNXNyEBk75ctclW4y3ekCzK9KmyGAnFoUeTnQ2vBejR/6ECpcPFqwyqPTb1+nzwb9X49jqWL7uefWc9AZb24TjeTF5+uViB2Vf1OZjWODU/KwjU8MRIcta3i1ZC5a9ZS3FUoRYaJED1Y/ERiitNdFlKECM0aBJHLs+tnsaJ1CYu9hwaetYmL4IOjx395IMhjg==
-Received: from VI0PR04MB12114.eurprd04.prod.outlook.com
- (2603:10a6:800:315::13) by VI0PR04MB11892.eurprd04.prod.outlook.com
- (2603:10a6:800:305::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
- 2026 08:40:47 +0000
-Received: from VI0PR04MB12114.eurprd04.prod.outlook.com
- ([fe80::feda:fd0e:147f:f994]) by VI0PR04MB12114.eurprd04.prod.outlook.com
- ([fe80::feda:fd0e:147f:f994%6]) with mapi id 15.21.0159.015; Tue, 30 Jun 2026
- 08:40:47 +0000
-From: Sherry Sun <sherry.sun@nxp.com>
-To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
-CC: "robh@kernel.org" <robh@kernel.org>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "Frank.Li@kernel.org" <Frank.Li@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>
-Subject: RE: [PATCH V4 5/7] arm64: dts: imx8mq-evk: Move power supply
- properties to Root Port node
-Thread-Topic: [PATCH V4 5/7] arm64: dts: imx8mq-evk: Move power supply
- properties to Root Port node
-Thread-Index: AQHdCFZxWGLJyYQ0hEOgDCMMLg3dSLZWoIeAgAAmbJA=
-Date: Tue, 30 Jun 2026 08:40:46 +0000
-Message-ID:
- <VI0PR04MB12114CD1CB75348D227FD1B9192F72@VI0PR04MB12114.eurprd04.prod.outlook.com>
-References: <20260630060710.3294811-1-sherry.sun@oss.nxp.com>
- <20260630060710.3294811-6-sherry.sun@oss.nxp.com>
- <20260630062054.2027C1F000E9@smtp.kernel.org>
-In-Reply-To: <20260630062054.2027C1F000E9@smtp.kernel.org>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: VI0PR04MB12114:EE_|VI0PR04MB11892:EE_
-x-ms-office365-filtering-correlation-id: cabb317b-6c54-495a-19f1-08ded68347fa
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|19092799006|38070700021|22082099003|18002099003|4133799003|11063799006|4143699003|56012099006;
-x-microsoft-antispam-message-info:
- FavwgWJLy0GVxuDBE3JkV6i0XotYpPDDWlYQ51HqegD0k9b+cZbiPvptjS7RUffPCxPSXLLDCL2aUGPxkeVbHMeX+Yb9IoVr/6Agj/ky++RYC5ykOsB67+mQcfoBXjmN8nBQ0yrRFiKzX5bGNja8CmBaFVn0uLUxC0Zve4W4fPHMsXTqs/9RGlHVMEXUKiIkD+ZvwqeBmNTkLA+cOQcFKXBcg5ee/omUpoKDbZdocBPCZgFKvi5Dvi8OIb1/wb1qgPgo+cFntlim/z0dpFrDwPeJaQMtWlETi9xmniVRyova1vgGirPwTvzsZZCtxbIFhv/Q75MkpUBKFEi/lmn8DKi5JVbmyPHriOoIoFq42Cau3WH2VxdXVnZm1nlydIDpOtV4i79j9Z7aa0xWGyTFz8tuDLyHSW4gGVk/tSRC73RD1BfSh+tsw2fJGq5ogAUxCtI/eVgFih3knqcRCpcbYFOt+ZclKPg2QRm/PYD6ZeZwlHnftqNTpVJOh0GVXFlQWewF7fYQwNbcqJ4FgmXcmYUjQ+6e67K32D2NoCa0BYWWloBBRe+Yx35nJ/hKgLOuQaPT9UYWxzRD877AREY5Nd4zfosdkf3HuE0Id1IQ64BLICgruqVM6tOWQr0P7oIEIry1iLWIG/mAWw1D9nNEJbw+Gqq7gnBgvHLh611h80Y=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB12114.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(19092799006)(38070700021)(22082099003)(18002099003)(4133799003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?aCptJRHVFX05C23SxDe4ueqjWNbqFh0InQQoZP7Fw7mogjhEr5fy6f0qNUso?=
- =?us-ascii?Q?lXS18OmcHF2YblOyEjpFysxuSANVXT0qqxIKPDjnnsLfGtFpfXP4g6x7dAOh?=
- =?us-ascii?Q?EVVI3y87mYHrnKcV2uouy5D9kKQk1mm9YUuWDR9ZztE0ZNE+jKZG52kNoi3e?=
- =?us-ascii?Q?B6nY8rplWWsLRWohaJLqOFoqWpvQSf1roGDmFK+e7lfnODvKk8aeH9tFW7yK?=
- =?us-ascii?Q?YblPerEMdsJI75yQfceZ6bsecNC8Fqa0L12LKAMaFJ8LKVRbRA7BMeGe2t3J?=
- =?us-ascii?Q?XJLxOah0dwMDrzqAJsQHNSi15ULDy1lIexMEPGf6gieO77dEzdb6r0T453iU?=
- =?us-ascii?Q?4uEmo0asO8EvG/FxytU5aKFGgnxPIYj7eKDjI9fUH8DQ1vkdPrgPDGY13z9Z?=
- =?us-ascii?Q?ZombZgc2hVkcwBeAbI/Td2HHK1rM0mbLgeVCrXS5ONcM3qnyu4HColDAYYHr?=
- =?us-ascii?Q?yWUkzZkcfBkItqRjBqaO7i0QgyspKanEb4hb2/Gqh0gm5CgAbfxvqKWbBaRw?=
- =?us-ascii?Q?qkstxvAEXr9kz6hFlfdSw7RHHE9qXK1bMs34qdyr3o/FTKLin6mC3rs47Wzi?=
- =?us-ascii?Q?LkL9DieDx3XnBJZx34Iu3YGHQApwhYcwqTZ6Jui0Hqe+FbRADbhjUaZS1wLC?=
- =?us-ascii?Q?HABgv48YWJQGGovxDqi1nOeu/XRML4ejQvSDFPNZbU9c9qywbKGqFYvbzUk5?=
- =?us-ascii?Q?yoFTmQjhGprmJhMNGiGEzBJVCP4Q18f3UAMBp57umBcB0cb3ezdB7SM70MIV?=
- =?us-ascii?Q?0Cu8MWMFgQ64CALrZ6/zmRi9T4VTJLjv8SmnSXqah+7BRFFH36FFZBrKFSvE?=
- =?us-ascii?Q?mMjyd1eG6hthcAVr30la1luScJk3yZ0gPXJixdTCuZa3AHxr5rahCX8DiEKq?=
- =?us-ascii?Q?gZzPLo9eeZF+haKWeLuxbBDqalAVniIE5escL+vEiWroV0WHFFidJahD/yzc?=
- =?us-ascii?Q?b5JU5CMe7o9B8ZFP+qwI82v6eKzLeiNUvFgQj7TCGWsm9meTRCBhkIDajcR0?=
- =?us-ascii?Q?168UQIfbzz+KSfQMc0ms2QcVjDwxAJkP2sHkDTjxGG7ANc/zQCZ41nGMRuLN?=
- =?us-ascii?Q?JndrtPd+Grx2o/wwR+y5F7/hiQSMb1MB1oNWnW7+Q0KBImEaE7iJSi72gJDS?=
- =?us-ascii?Q?pLZ1LVdsw1PdHcgB4gsA3F9HFyvmjqtzYubP2AxD70wa8ZC/PnvDkSBbKPh+?=
- =?us-ascii?Q?KpJKDRVSgaBNGsPjDKgBa0JEdV8eGkio/6wOkeR+ZkM6nJb1fTSgcOaQX3dm?=
- =?us-ascii?Q?6V03PPU1vVgTZGaNrLVirFVz0bL9fWmyTHKexOhuHcRHcTfj4eSxpUSe22hj?=
- =?us-ascii?Q?bUBcCqLeTtRikq13AU1Bqt5BfcwEHld/6KNNmGMzDHfCX9EQj2MGYpxZpHIL?=
- =?us-ascii?Q?elxz4ojUs3NUJ/hZfT8+XAKX0ZhRsN/Mh5kOL+BqGqYC3HL1XLnRyRQ99N2E?=
- =?us-ascii?Q?3IGV+8fxYzARdw1ZW/t+lKhjl5YLqFpsthAonNEbft+Zw4ZZc205uCx6hJqH?=
- =?us-ascii?Q?1y/Jnp0/51IGYBCqzehMj+pjjte3C1PzXWLQE/cD8dfrpI/9KECpV4IahXJY?=
- =?us-ascii?Q?wYEQr3tmO6FsNWuZVm6KQ4gbu1XHwWxUf4ECLzlvSO/GbDwnV+vApsqW4vW6?=
- =?us-ascii?Q?2VT6b72HIi0498iSKgd+xuFBolQOT0evWoqCktICMDHKGF5DhoSX+CwTIuPN?=
- =?us-ascii?Q?S+riVO+nbTe8Y6yMKfKxkTcOUOmyJHPif0YE25gqBQRG/ihl?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G/U1rECp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XqzU0IkP"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U6CUIT1087580
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 08:42:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	t3PkPp9OpJEAmf4QS2hFOkoU+Rq0Ib3wE4adA5BkKIA=; b=G/U1rECpO9DXIczc
+	CdXXJFxo6nXualylOUdw7K1x8kiqi4NTIjROD9KbTKEQB3Fb84vvHR+lZKNXLhnz
+	Am+N7X37E3xzbWuIAdNENwNweVMEl6QUrackh78/W96Fx+Ch8Fs7WTaBmZ582ncM
+	4WR7Fcu+sg/OthS15mHy6Mg/wTomMuQCDOU6wlhv8LzQBk/62fmN01zVefx6aoRb
+	7p4/hTsibd4zwX1Mp2nnKtIRYtNFgu1L8cF89NCWBUjtDny+jnKl2H35Yr96kjnI
+	nwoEw2QqFq8zoLQdXbyAgEo3gAbVIyYWhTKIgKUll4eeve4SyKaodgRa2wgh6Xas
+	7LLxVw==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3qhacta8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 08:42:47 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c8969083f23so2386082a12.1
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 01:42:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782808967; x=1783413767; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=t3PkPp9OpJEAmf4QS2hFOkoU+Rq0Ib3wE4adA5BkKIA=;
+        b=XqzU0IkP9D0m//B878lJIhx/fZpZwUNl7libjwP2fVsCVJ1Fde7X9EyEjSnzClMX8D
+         uHfPBpRrnUyH80mkym+dXauVKMm3zyEiEVHIRMfU3XF8AbDZ9khKpz7nITANXtcP+IaN
+         OWpQIsIVOsG8cVp4vvv6vtccK8qKuI1hvo7Om4DgoCrBqzoVUkJnwIJnCQdP5+hUlDAy
+         R2PNj7y1I9L5p9QfgohyYc4MkAxMhfORf1y66QHpNvbWUuV6p3wSIeWWP+NSFCCEnLcf
+         WEBY+Vs7+ii7gYPfgjj5C7kEf2sMKj/5bcCOuoMRjmogGLHWbQrIsaKVZdhZm8WDcofZ
+         7OcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782808967; x=1783413767;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=t3PkPp9OpJEAmf4QS2hFOkoU+Rq0Ib3wE4adA5BkKIA=;
+        b=E3IB4DTyYx9+Xr5AMSKC4AQFY2b3bitSqPbK+7itgRer9jivznhN+ijH3phYTaQmVI
+         MwVFzMiKqFAhPaOQd8YFa0c3Y+tEox/NMpsyC/z5iSyR4+uyBjnFKvh3kQNtJ9O1EBLp
+         EqBNjq6Ygy73GXkZz9dt8jX+aME+UzKh36y7PlUORJo9pmtSg9PcAh5z6VC0gfDNE5sP
+         krXzLXOzK1VlIZYB33IuXzchNWMob/pYWmuNcN9dkgLIzttnK+7KXmORda5orQo1D6hx
+         PJ+o0BUonlMuxZSSNIF5D238arHsnFe10Ua/Wqtqnr7+GG2mwaXAFxYDh5CDEg5cx2kS
+         IVYg==
+X-Forwarded-Encrypted: i=1; AFNElJ/9sArcakR4DOWRO6nlt3NrHL7xmQ1w65e1jeZRD/ju4X0leLS2F+MXoQOaUcL7qVv5Rkxu++WPQIt+@vger.kernel.org
+X-Gm-Message-State: AOJu0YymxvIOH92SyFdIuqt+12OydGT35EoJAC66W1tyDal0YBWg5wpr
+	oWI+r/AwA6B073zgwG2+JNRGgIGE9dzh3QnORWdZqdbsvspTgqMUMt36240hJW1zWZc7AVnDQ8j
+	5yntY+jZ6Qy9sVHFwrSlINBjycR3c+oDBxpyuOF0yrFayU4n3MYbpELUFbgb90Q2+
+X-Gm-Gg: AfdE7ckur1lJnfK3JVk5Y29MClRvTCcMpNZphFxZZWC9EcN1lKlEfTKYxZSo0kHqsbU
+	pIU8rGj/oBYGMEsbwzspAR53Cx605LKOKVdQvu6xE6Sk3oMHxl/nDr5BKI9Fi/jyb5h6qy4MqPY
+	gsX+J6J6S07rzFYVwyZNQ0fxpAJGAZzSzIs/mYM5XFC8t/UlPsfU1N7whYh9n5KqmLfuBK6cRe2
+	9LMi0jNdSClwxJKvKr5bRlbekfecQYbyz5JlKBiba1Efwn5CARrVq0ZkdBk0/zX7S1sgAI3w/hD
+	Dy69ztAushRGNgtvtWR9RhT/HpFNIDtzNs3s4vaxXt4btU/iG14nqZSH8DLLoIA4OQJ9ORrzOB4
+	KS5vaQM8sw3xjgPgaF0Ln8/yIL6D78VvA8J/+CwDsGd0b9lbuHD6tgIdSq/RHYdRiFBZA0GGPAB
+	8=
+X-Received: by 2002:a05:6a21:398:b0:3bf:a543:e7f5 with SMTP id adf61e73a8af0-3bfc50664e7mr2352338637.3.1782808966651;
+        Tue, 30 Jun 2026 01:42:46 -0700 (PDT)
+X-Received: by 2002:a05:6a21:398:b0:3bf:a543:e7f5 with SMTP id adf61e73a8af0-3bfc50664e7mr2352319637.3.1782808966200;
+        Tue, 30 Jun 2026 01:42:46 -0700 (PDT)
+Received: from [10.133.33.20] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c9bbf95c04fsm1124404a12.21.2026.06.30.01.42.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jun 2026 01:42:45 -0700 (PDT)
+Message-ID: <37017aa2-e18c-4568-a37c-d13964cbb418@oss.qualcomm.com>
+Date: Tue, 30 Jun 2026 16:42:39 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: VI0PR04MB12114.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cabb317b-6c54-495a-19f1-08ded68347fa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2026 08:40:46.9191
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IEJcIXn7mLSEJ41ycF0FE+LayXp7qVyGP4FEV8FHsXrEJ3rOac++kBYnYCudfy8cXcmDaJnx01zTA6i1akBs4A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11892
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: kaanapali: fix traceNoC probe
+ issue
+To: Leo Yan <leo.yan@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
+        linux-arm-kernel@lists.infradead.org
+References: <20260624151610.GC575984@e132581.arm.com>
+ <a13fb65c-726b-4c99-b741-29040c4564d0@oss.qualcomm.com>
+ <20260625085643.GD575984@e132581.arm.com>
+ <065853f5-b11b-4316-814e-202f07acb6ea@oss.qualcomm.com>
+ <20260626103015.GE575984@e132581.arm.com>
+ <c1ac3ab4-f214-4947-b42f-cbc635be6bbb@oss.qualcomm.com>
+ <20260626154949.GA1812158@e132581.arm.com>
+ <9432df20-08bf-4134-b4b9-e6b5d618af81@oss.qualcomm.com>
+ <20260629142848.GB1812158@e132581.arm.com>
+ <adb45638-1787-45cd-b4fd-d957323cc608@oss.qualcomm.com>
+ <20260630081021.GD1812158@e132581.arm.com>
+Content-Language: en-US
+From: Jie Gan <jie.gan@oss.qualcomm.com>
+In-Reply-To: <20260630081021.GD1812158@e132581.arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: XPI-ADqBIglrkdFizK-j8S1UOi70-l1V
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA3NyBTYWx0ZWRfX1XQmbum5bJ2u
+ oWw4PcQNq6/0nBBuLBaN44x4YprVel9YcPRJfSfkcF2+i1rMsY0JEjDQwI1dw8Ry8817BTN+fWq
+ dNASkpfstPkELaqGpfdfiJjL0YoqSeEtFBcY9+N7KZdVdwadVxEzN4r4P//A7K/7zpilaiHuEUC
+ 7ZvK5BVU3GK0gQcHlHEY6W2ICNiKAhb7umrD9jsXwvhOPgY85sIsGi7T/FjWD+Yr+Xo5J8TGze2
+ MzP0O/RCCyGmRjnnuoHibWByqkr33/OkElCE9dcfQDw7wNCRrLxfJTkfdK9Km/DGy6cPqT5ZxTi
+ Wj7cdz0YAl40mClKdoetLCdwroWCe/9PINLOOQciXnLBZM9hhXp2tnOZftnmbkThIVb0GdFp+Pl
+ tmVaNDxbFy9Mw3I76pn2goo6TvMa8/JI2JOrWyIhpltdw99rmKuCPfMzJjJTNZOZHijVUViyvS4
+ 7MjnokFjsezXl2Gi4fg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA3NyBTYWx0ZWRfXwSkZ/uJ1EQJ/
+ lkTH0VjEtlxu52PVGHPoVzpIQIUrlSJwZMRg6d/+d9pbuPwdASx3XNf8d5uSKXZKwio0RqN8nFh
+ ENh4ScuGOqOd6iEXTyAzB+u35n8b+ok=
+X-Authority-Analysis: v=2.4 cv=O9UJeh9W c=1 sm=1 tr=0 ts=6a438187 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=9NUdbc6MOnRMJlQJ6ZEA:9 a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-ORIG-GUID: XPI-ADqBIglrkdFizK-j8S1UOi70-l1V
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-30_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0
+ phishscore=0 malwarescore=0 priorityscore=1501 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300077
 
-> Subject: Re: [PATCH V4 5/7] arm64: dts: imx8mq-evk: Move power supply
-> properties to Root Port node
->=20
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s)
-> to consider:
->=20
-> New issues:
-> - [Critical] DT ABI breakage: Removing `vpcie-supply` and `vpcie3v3aux-
-> supply` from the PCIe controller node breaks PCIe functionality on older
-> kernels.
->=20
-> Pre-existing issues:
-> - [High] Resource and memory leak of regulators and `slot->supplies` arra=
-y in
-> `slot_pwrctrl_probe` error paths and driver teardown.
-> --
->=20
-> commit 331966289ddb574974fd80a80b3f1214ffc7055f
-> Author: Sherry Sun <sherry.sun@nxp.com>
->=20
-> arm64: dts: imx8mq-evk: Move power supply properties to Root Port node
->=20
-> This commit moves the vpcie-supply and vpcie3v3aux-supply properties from
-> the PCIe controller node to the Root Port child node. The change is inten=
-ded
-> to support the new PCI pwrctrl framework.
->=20
-> > diff --git a/arch/arm64/boot/dts/freescale/imx8mq-evk.dts
-> > b/arch/arm64/boot/dts/freescale/imx8mq-evk.dts
-> > index e7d87ea81b697..541f6d5e9cefb 100644
-> > --- a/arch/arm64/boot/dts/freescale/imx8mq-evk.dts
-> > +++ b/arch/arm64/boot/dts/freescale/imx8mq-evk.dts
-> > @@ -403,8 +403,6 @@ &pcie1 {
-> >  		 <&pcie0_refclk>,
-> >  		 <&clk IMX8MQ_CLK_PCIE2_PHY>,
-> >  		 <&clk IMX8MQ_CLK_PCIE2_AUX>;
-> > -	vpcie-supply =3D <&reg_pcie1>;
-> > -	vpcie3v3aux-supply =3D <&reg_pcie1>;
->=20
-> [Severity: Critical]
-> Does removing these properties break DT ABI compatibility for older kerne=
-ls?
->=20
-> If an older kernel lacks the new PCI pwrctrl framework, its pci-imx6.c dr=
-iver
-> will look for vpcie-supply and vpcie3v3aux-supply in the parent PCIe
-> controller node.
->=20
-> Without pci-pwrctrl to enable the child node's supplies, the regulators m=
-ight
-> never be turned on, causing PCIe devices to fail probing.
 
-As documented in Documentation/devicetree/bindings/ABI.rst, "a stable
-binding means that a newer kernel will not break on an older device
-tree, but that doesn't mean the binding is frozen for all time." The
-compatibility guarantee is one-directional: new kernels must support
-old DTS files, but old kernels are not required to work with new DTS
-files.
+Hi Leo,
 
-The driver already preserves the legacy fallback path for this:
+On 6/30/2026 4:10 PM, Leo Yan wrote:
+> Hi Jie,
+> 
+> On Tue, Jun 30, 2026 at 09:03:52AM +0800, Jie Gan wrote:
+> 
+> [...]
+> 
+>>>     - How can you guarantee that a interconnect TraceNoC will never
+>>>       require ATID in the future?
+> 
+>>  From a hardware perspective, there is no fundamental difference between an
+>> itnoc and an AG TraceNoC. They use the same TraceNoC hardware implementation
+>> and share the same AMBA bus type. The distinction is purely functional: an
+>> itnoc is used for local trace aggregation within a subsystem, whereas an AG
+>> TraceNoC serves as the top-level aggregation point for the SoC.
+> 
+> I'm still not convinced that adding "arm,primecell-periphid" is the
+> right approach.
+> 
 
-    /* Legacy regulator handling for DT backward compatibility. */
-    if (imx_pcie->vpcie) {
-        ret =3D regulator_enable(imx_pcie->vpcie);
-        ...
-    }
+I agree we shouldn't need to add arm,primecell-periphid for the AMBA 
+bus, as the hardware provides the necessary registers to read the 
+peripheral ID. I used it as a temporary workaround to resolve the issue, 
+but I believe that solution is not correct.
 
-So a new kernel running with an old DTS that still has vpcie-supply on
-the controller node will continue to work correctly.
+>  From the description above, I'd expect either the hardware to expose
+> bits in a register to distinguish these two module types, or as I
+> suggested earlier, to use a DT property to indicate the module type (or
+> whether ATID is required).
+> 
 
-Users are not expected to pair a new DTS with an old kernel. Doing so
-would break in many other ways beyond this single property.
+I wanna distinguish the aggregator traceNoC and interconnect traceNoC, 
+even probe with platform driver, but the existing compatible is too 
+specific to the interconnect traceNoC device(coresight-itnoc), that's 
+why I didnt try the DT property proposal.
 
-Best Regards
-Sherry
->=20
-> >  	vph-supply =3D <&vgen5_reg>;
-> >  	supports-clkreq;
-> >  	status =3D "okay";
-> > @@ -422,6 +420,8 @@ &pcie1_ep {
-> >
-> >  &pcie1_port0 {
-> >  	reset-gpios =3D <&gpio5 12 GPIO_ACTIVE_LOW>;
-> > +	vpcie3v3-supply =3D <&reg_pcie1>;
-> > +	vpcie3v3aux-supply =3D <&reg_pcie1>;
-> >  };
->=20
-> [ ... ]
->=20
-> [Severity: High]
-> This is a pre-existing issue, but while reviewing the PCI pwrctrl framewo=
-rk that
-> this DT change supports, I noticed a potential resource leak in the probi=
-ng
-> path.
->=20
-> In drivers/pci/pwrctrl/generic.c:slot_pwrctrl_probe():
->=20
->         slot->clk =3D devm_clk_get_optional(dev, NULL);
->         if (IS_ERR(slot->clk))
->                 return dev_err_probe(dev, PTR_ERR(slot->clk),
->                                      "Failed to enable slot clock\n");
->=20
-> If devm_clk_get_optional() fails (e.g., returns -EPROBE_DEFER), does this
-> return path leak the slot->supplies array allocated by
-> of_regulator_bulk_get_all(), as well as the regulator references?
->=20
-> Since devm_add_action_or_reset() has not yet been registered at this poin=
-t, it
-> appears the cleanup is skipped entirely on this failure path.
->=20
-> Additionally, looking at the driver teardown path:
->=20
-> drivers/pci/pwrctrl/generic.c:devm_slot_pwrctrl_release() {
->         struct slot_pwrctrl *slot =3D data;
->=20
->         regulator_bulk_free(slot->num_supplies, slot->supplies); }
->=20
-> Does regulator_bulk_free() actually free the dynamically allocated array =
-itself,
-> or does it only drop the regulator references, leaving the
-> slot->supplies array memory permanently leaked on unbind?
->=20
-> --
-> Sashiko AI
-> review * https://eur01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2
-> Fsashiko.dev%2F%23%2Fpatchset%2F20260630060710.3294811-1-
-> sherry.sun%40oss.nxp.com%3Fpart%3D5&data=3D05%7C02%7Csherry.sun%40
-> nxp.com%7C5311d8c218154e8ffbe308ded66fc10f%7C686ea1d3bc2b4c6fa92c
-> d99c5c301635%7C0%7C0%7C639183972638984127%7CUnknown%7CTWFpb
-> GZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zM
-> iIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3D7QYi3LVOLx
-> ie4fyAVD9bNp2FqeXTE%2F%2FtGorcdG1mVaI%3D&reserved=3D0
+> Or have you tried to detect the last tnoc on a path and allocate ID for
+> it? (You can retrieve csdev->path).
+
+As Suzuki mentioned in the other thread, I think it would be better to 
+add separate compatibles in the of_match_table to distinguish between 
+Aggregator TraceNoC and Interconnect TraceNoC when probing with the 
+platform driver. This would allow us to allocate an ATID only for 
+Aggregator TraceNoC during probe, which is consistent with our original 
+design.
+
+Thanks,
+Jie
+
+> 
+> Thanks,
+> Leo
 
