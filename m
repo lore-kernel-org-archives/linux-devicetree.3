@@ -1,42 +1,34 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D793D41167F;
-	Tue, 30 Jun 2026 12:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44033FA5D8;
+	Tue, 30 Jun 2026 12:53:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782823902; cv=none; b=q7h0f36nPEaAkNj29mTBBEjqD8VrtNZ5GUjCWRn+uRqAqvZFrOS/6Ts4V83nwnz/PD2gYRzUnjwXm/ekcfZKEWvAB7NLBqMtIZDj/yhRy3MuD42732JN1W0Nhjn/iCNpdQ8bs4p1PFJ6l3Srr9j2D0jQYXMJjsmmwiDabWEPyyM=
+	t=1782823988; cv=none; b=PWc1ydcvb01gIZfU/4xKS0gG3M0V4Fdcf/xe2hNu+XdOrUMgs9XlSjJN9HqHl3M+kdLYj2tOoGG9J0zc2vhLU/EFmiT14q9BwC+VIYeOtg3US1K+3c92C0rEfA05uJwE0mGV/dYJcd06EnjQ4ZLumBmTpvQ3HgNRWxU6FG2ozbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782823902; c=relaxed/simple;
-	bh=e0tBgdXodDjKLB5j9Y0ET09qtFn0rM79QozzGweseXU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qAMWlVL6t4DA3EUwWy9EyET01Fm1JNeNxQow7xH/AY/ECeqctE3sEF1ICcaixa7DKJwgg6iuPfuKZctmc7qZUn+NPWxLHIhz6Hf0MXehbefHmujMGJa9DHyc+qyJQ8KZIP+w5l2cLJ1ViYpJrcYhGe6mQknJzzfPPax6LIMWbLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wKCCAdMX; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1782823988; c=relaxed/simple;
+	bh=ROcY5MyDjeKC0r7oBgUYsRLMttcLNK+R76DuiYC0u4E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TkGHeCOpqbx01TJi6SoNcuAReBbnQQtQ6nQo045HWpMpEVhETARnAvMdF2CD99RfpGYwKmuL4jKV8bZDXuR6VIOeU7yTXS7WVbuT+qFHL6R7P/1XxumMy3WIvlLWK/OiL//XSgg0ESmKqvsaffgNY3nv2hrnO3ZZ6XKikHt4rF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BZvw+gJt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wKCCAdMX"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 17FD1C51476;
-	Tue, 30 Jun 2026 12:51:50 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8DE3D6025A;
-	Tue, 30 Jun 2026 12:51:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5C680106F1EA6;
-	Tue, 30 Jun 2026 14:51:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1782823898; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=+iwh65dKO5+bsZr13pVdRagINz4uUME07b+uSSD/0Nc=;
-	b=wKCCAdMXTbId36Xcy84/uXy9ierwa8xUGcPE+dhoEL+fCikztA4aLkjCKwiZgSNgxgZ8D1
-	b+s+jGwSXKwr5hTPrnaDWxXvNxXulZIjiccKT7uCUCev2FmGLVZ48y+QqBDXMdbLTbjqOJ
-	rWhCQ701jN8BtP0HWy0KvPLFk+dyPc0SPAyFRdsVUsWNAv8NX0bKCDPQazDgsf9v4fXdFd
-	BzcSwIrSKGth0DozEii9a9d/bl+FikQAOH3MReWq+v6lXFtZWXcy6sliTpbrEsVcxreFeM
-	afoTPk3n16ijY6DaPj7X3ZoaYe4F+M6INdq4dNvZsbsnBDOAMNiWTQZUlMsB2w==
-From: "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>
-Date: Tue, 30 Jun 2026 14:51:15 +0200
-Subject: [PATCH v6 5/5] watchdog: aaeon: Add watchdog driver for SRG-IMX8P
- MCU
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BZvw+gJt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06DF1F000E9;
+	Tue, 30 Jun 2026 12:53:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782823987;
+	bh=fFTV49VQW5ZLiYL/aWzjzFEMFn4A4VsTnUBjOkMuqWY=;
+	h=From:Subject:Date:To:Cc;
+	b=BZvw+gJtjsEfu3BH3FwuCAS6hJw15zwm0YFP7w2g8qNdTKf9SuksiES7LX89gf0zr
+	 NVY0CR0pwdHP6ns2hzuACB73oM+Oepgb3ydWKQWNrNKGwl8F46XAL6ZXwWv21KDn0F
+	 xgYkZZmyBSXZl7IjFbi19+IpQcJayjilVoY30lNZAcMgPLtKsD6EUCJQPqEVYjNHsv
+	 qflbEwUwWR+k1cUwS1Qi6UyggJ92eBNlaXKrfviw7bOC+v5VZQYSzWdKRojzf2Lkwj
+	 NuBbKYzkeWFHRmvEi6JL5IQAUAd7kXAlYVLw0DdE91bhLEK8ILzXlQs7dNenN5Tl+Q
+	 D/I6R+c3zneTw==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH 0/3] clk: spacemit: Add clock support for UFS
+Date: Tue, 30 Jun 2026 12:52:44 +0000
+Message-Id: <20260630-06-clk-ufs-support-v1-0-cf7521d1d0fe@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,245 +36,58 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260630-dev-b4-aaeon-mcu-driver-v6-5-d66b5fcbd2f0@bootlin.com>
-References: <20260630-dev-b4-aaeon-mcu-driver-v6-0-d66b5fcbd2f0@bootlin.com>
-In-Reply-To: <20260630-dev-b4-aaeon-mcu-driver-v6-0-d66b5fcbd2f0@bootlin.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- =?utf-8?q?J=C3=A9r=C3=A9mie_Dautheribes?= <jeremie.dautheribes@bootlin.com>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, Lee Jones <lee@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABy8Q2oC/yXMQQ6CMBBA0auQWTPJWElBr0JYSJnqqIGmQwkJ4
+ e4WXL7F/xsoR2GFe7FB5EVUpjHjUhbgXo/xyShDNhgylixdkSy67weTV9QUwhRntA352jR1Vd0
+ Ichgie1nPadv9ral/s5uPE+z7D0ZG/5Z2AAAA
+X-Change-ID: 20260603-06-clk-ufs-support-680f72874490
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=924; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=ROcY5MyDjeKC0r7oBgUYsRLMttcLNK+R76DuiYC0u4E=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqQ7witHp46MnBhRPjHRqWbO9ifeIppPTxvDQQ/
+ YQNw4zSt+eJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCakO8IhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+1OmA//food5KEGKOPt1pFdI0WOzWHoqS7YKsm7TL3J5jP8jn9e5T6VUg1XC
+ ogEi79jITIqS7/ffigZ6qgvw14YLGl2n5gxLNiJftyEY92bT8/XIuO2rWImBZ0TwUduqMoLTeeu
+ t3tzVz3xkOLdFF7uNIa1E11NLgiTbjjFgioIFeLAXX132Mjw6ZFDHOVQAVKLSrGQAgNMpjgyBhP
+ FBEafeUtwOXR3VffUKJJr49+nnPRBcv2DyUlDrPW6SA9EqlS/QTIsN/hZfb9hTSvJUkQkwUPj/b
+ KIqCv47XPpin82iWqR8YZNWetTT7Yw66W1p1zHGYjiBKgBAl6cD3t8773ljd8xuFAb3TrTm45Y3
+ sp6nUH+uIwm2TIE3ddIjGelHQzQyIOhOQwNoPVNt4Lk2r482Pi2EWyCCGviNXATyreIJ7aK4yLJ
+ S4RwEEXIZnDImAwSSzJEMBMFMq8VIAMsFB20BD+kGXTgR6+uUVYNiC5KiH1bsCwbVb4tYJqcTY7
+ nbPxBqkYiW8PYIu3QRGVYzupBsP8WdON64GKQgCRb1rDs3bYeH62aMAyQy0kkgAWyfE+1H0mUBZ
+ 6Hth1A2KMYzjPze9s2PAdB7ZchtCIklgvCY/U0ICjFG4pHQPPiwcbCoHj61kdOuAB7HZPrIRzod
+ mxPHEtMzxBMexmFQHgHL/nk1PzTSfM=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-Add watchdog driver for the Aaeon SRG-IMX8P embedded controller.
-This driver provides system monitoring and recovery capabilities
-through the MCU's watchdog timer.
+This series try to fix parent clock of UFS aclk which was submitted as 
+wrong version, so correct it according to updated doc[1] here. Also, add
+a UFS reference clock which was missing in previous patchset.
 
-The watchdog supports start, stop, and ping operations with a maximum
-hardware heartbeat of 25 seconds and a default timeout of 240 seconds.
-The software timeout can be changed via the WDIOC_SETTIMEOUT ioctl,
-the DT timeout-sec property, or the watchdog_timeout kernel boot
-parameter.
-
-Co-developed-by: Jérémie Dautheribes (Schneider Electric) <jeremie.dautheribes@bootlin.com>
-Signed-off-by: Jérémie Dautheribes (Schneider Electric) <jeremie.dautheribes@bootlin.com>
-Signed-off-by: Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
-Acked-by: Guenter Roeck <linux@roeck-us.net>
+Link: https://www.spacemit.com/community/document/info?nodepath=hardware/key_stone/k3/k3_docs/k3_usermanual/17_clock_reset.md&lang=en [1]
+Signed-off-by: Yixun Lan <dlan@kernel.org>
 ---
- MAINTAINERS                      |   1 +
- drivers/watchdog/Kconfig         |  10 +++
- drivers/watchdog/Makefile        |   1 +
- drivers/watchdog/aaeon_mcu_wdt.c | 144 +++++++++++++++++++++++++++++++++++++++
- 4 files changed, 156 insertions(+)
+Yixun Lan (3):
+      clk: spacemit: k3: fix parent clock of UFS aclk
+      dt-bindings: soc: spacemit: k3: Add clock ID for UFS refclk
+      clk: spacemit: k3: Add UFS refclk clock
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2538f8c4bc14..7b92af42c9fd 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -193,6 +193,7 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/mfd/aaeon,srg-imx8p-mcu.yaml
- F:	drivers/gpio/gpio-aaeon-mcu.c
- F:	drivers/mfd/aaeon-mcu.c
-+F:	drivers/watchdog/aaeon_mcu_wdt.c
- F:	include/linux/mfd/aaeon-mcu.h
- 
- AAEON UPBOARD FPGA MFD DRIVER
-diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-index d3b9df7d466b..f67a0b453316 100644
---- a/drivers/watchdog/Kconfig
-+++ b/drivers/watchdog/Kconfig
-@@ -420,6 +420,16 @@ config SL28CPLD_WATCHDOG
- 
- # ARM Architecture
- 
-+config AAEON_MCU_WATCHDOG
-+	tristate "Aaeon MCU Watchdog"
-+	depends on MFD_AAEON_MCU
-+	select WATCHDOG_CORE
-+	help
-+	  Select this option to enable watchdog timer support for the Aaeon
-+	  SRG-IMX8P onboard microcontroller (MCU). This driver provides
-+	  watchdog functionality through the MCU, allowing system monitoring
-+	  and automatic recovery from system hangs.
-+
- config AIROHA_WATCHDOG
- 	tristate "Airoha EN7581 Watchdog"
- 	depends on ARCH_AIROHA || COMPILE_TEST
-diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
-index ba52099b1253..2deec425d3ea 100644
---- a/drivers/watchdog/Makefile
-+++ b/drivers/watchdog/Makefile
-@@ -37,6 +37,7 @@ obj-$(CONFIG_USBPCWATCHDOG) += pcwd_usb.o
- # ALPHA Architecture
- 
- # ARM Architecture
-+obj-$(CONFIG_AAEON_MCU_WATCHDOG) += aaeon_mcu_wdt.o
- obj-$(CONFIG_ARM_SP805_WATCHDOG) += sp805_wdt.o
- obj-$(CONFIG_ARM_SBSA_WATCHDOG) += sbsa_gwdt.o
- obj-$(CONFIG_ARMADA_37XX_WATCHDOG) += armada_37xx_wdt.o
-diff --git a/drivers/watchdog/aaeon_mcu_wdt.c b/drivers/watchdog/aaeon_mcu_wdt.c
-new file mode 100644
-index 000000000000..347ee8269bfd
---- /dev/null
-+++ b/drivers/watchdog/aaeon_mcu_wdt.c
-@@ -0,0 +1,144 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Aaeon MCU Watchdog driver
-+ *
-+ * Copyright (C) 2026 Bootlin
-+ * Author: Jérémie Dautheribes <jeremie.dautheribes@bootlin.com>
-+ * Author: Thomas Perrot <thomas.perrot@bootlin.com>
-+ */
-+
-+#include <linux/mfd/aaeon-mcu.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/watchdog.h>
-+
-+#define AAEON_MCU_PING_WDT	0x73
-+
-+#define AAEON_MCU_WDT_TIMEOUT         240
-+#define AAEON_MCU_WDT_HEARTBEAT_MS    25000
-+#define AAEON_MCU_WDT_MIN_TIMEOUT     1
-+#define AAEON_MCU_WDT_MAX_TIMEOUT     3600
-+
-+static unsigned int timeout;
-+module_param(timeout, uint, 0);
-+MODULE_PARM_DESC(timeout, "Watchdog timeout in seconds");
-+
-+struct aaeon_mcu_wdt {
-+	struct watchdog_device wdt;
-+	struct regmap *regmap;
-+};
-+
-+static int aaeon_mcu_wdt_cmd(struct aaeon_mcu_wdt *data, u8 opcode, u8 arg)
-+{
-+	return regmap_write(data->regmap, AAEON_MCU_REG(opcode, arg), 0);
-+}
-+
-+static int aaeon_mcu_wdt_start(struct watchdog_device *wdt)
-+{
-+	struct aaeon_mcu_wdt *data = watchdog_get_drvdata(wdt);
-+
-+	return aaeon_mcu_wdt_cmd(data, AAEON_MCU_CONTROL_WDT_OPCODE, 0x01);
-+}
-+
-+static int aaeon_mcu_wdt_status(struct watchdog_device *wdt, bool *enabled)
-+{
-+	struct aaeon_mcu_wdt *data = watchdog_get_drvdata(wdt);
-+	unsigned int rsp;
-+	int ret;
-+
-+	ret = regmap_read(data->regmap,
-+			  AAEON_MCU_REG(AAEON_MCU_CONTROL_WDT_OPCODE, 0x02),
-+			  &rsp);
-+	if (ret)
-+		return ret;
-+
-+	*enabled = rsp == 0x01;
-+	return 0;
-+}
-+
-+static int aaeon_mcu_wdt_stop(struct watchdog_device *wdt)
-+{
-+	struct aaeon_mcu_wdt *data = watchdog_get_drvdata(wdt);
-+
-+	return aaeon_mcu_wdt_cmd(data, AAEON_MCU_CONTROL_WDT_OPCODE, 0x00);
-+}
-+
-+static int aaeon_mcu_wdt_ping(struct watchdog_device *wdt)
-+{
-+	struct aaeon_mcu_wdt *data = watchdog_get_drvdata(wdt);
-+
-+	return aaeon_mcu_wdt_cmd(data, AAEON_MCU_PING_WDT, 0x00);
-+}
-+
-+static const struct watchdog_info aaeon_mcu_wdt_info = {
-+	.identity	= "Aaeon MCU Watchdog",
-+	.options	= WDIOF_KEEPALIVEPING | WDIOF_MAGICCLOSE | WDIOF_SETTIMEOUT
-+};
-+
-+static const struct watchdog_ops aaeon_mcu_wdt_ops = {
-+	.owner		= THIS_MODULE,
-+	.start		= aaeon_mcu_wdt_start,
-+	.stop		= aaeon_mcu_wdt_stop,
-+	.ping		= aaeon_mcu_wdt_ping,
-+};
-+
-+static int aaeon_mcu_wdt_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct watchdog_device *wdt;
-+	struct aaeon_mcu_wdt *data;
-+	bool enabled;
-+	int ret;
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->regmap = dev_get_regmap(dev->parent, NULL);
-+	if (!data->regmap)
-+		return -ENODEV;
-+
-+	wdt = &data->wdt;
-+	wdt->parent = dev;
-+	wdt->info = &aaeon_mcu_wdt_info;
-+	wdt->ops = &aaeon_mcu_wdt_ops;
-+	/*
-+	 * The MCU firmware has a fixed hardware timeout of 25 seconds that
-+	 * cannot be changed. The watchdog core handles automatic pinging to
-+	 * support software timeouts longer than the hardware limit. The default
-+	 * software timeout of 240 seconds can be overridden via the DT
-+	 * timeout-sec property or the watchdog_timeout kernel boot parameter.
-+	 */
-+	wdt->timeout = AAEON_MCU_WDT_TIMEOUT;
-+	wdt->min_timeout = AAEON_MCU_WDT_MIN_TIMEOUT;
-+	wdt->max_timeout = AAEON_MCU_WDT_MAX_TIMEOUT;
-+	wdt->max_hw_heartbeat_ms = AAEON_MCU_WDT_HEARTBEAT_MS;
-+	watchdog_init_timeout(wdt, timeout, dev);
-+
-+	watchdog_set_drvdata(wdt, data);
-+	watchdog_stop_on_reboot(wdt);
-+
-+	ret = aaeon_mcu_wdt_status(wdt, &enabled);
-+	if (ret)
-+		return ret;
-+
-+	if (enabled)
-+		set_bit(WDOG_HW_RUNNING, &wdt->status);
-+
-+	return devm_watchdog_register_device(dev, wdt);
-+}
-+
-+static struct platform_driver aaeon_mcu_wdt_driver = {
-+	.driver		= {
-+		.name	= "aaeon-mcu-wdt",
-+	},
-+	.probe		= aaeon_mcu_wdt_probe,
-+};
-+
-+module_platform_driver(aaeon_mcu_wdt_driver);
-+
-+MODULE_ALIAS("platform:aaeon-mcu-wdt");
-+MODULE_DESCRIPTION("Aaeon MCU Watchdog Driver");
-+MODULE_AUTHOR("Jérémie Dautheribes <jeremie.dautheribes@bootlin.com>");
-+MODULE_LICENSE("GPL");
+ drivers/clk/spacemit/ccu-k3.c                  | 10 ++++++----
+ include/dt-bindings/clock/spacemit,k3-clocks.h |  1 +
+ 2 files changed, 7 insertions(+), 4 deletions(-)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260603-06-clk-ufs-support-680f72874490
 
--- 
-2.54.0
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
 
