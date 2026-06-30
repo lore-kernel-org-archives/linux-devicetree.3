@@ -1,178 +1,164 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7BC13F8EDA
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782819166; cv=pass; b=qvDifDdJPHQ+iQTbdAfLUCnnO1ZsXUgzujAu28CLxiq+d/W2guv9mbdyWKmYqJk3lr4EdF2vrAekoELmSTLEr6lbdeRlb9T9ZSKzauXrcgEUPkM1BDpC84cZfrhJXrlHJBqvQvLe7Tsdg0iuVuGHc/UVOXwbjopOenPx8WJ+CBs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782819166; c=relaxed/simple;
-	bh=Ml3S2a0ZylulO8bEdZQM280rooBXFC/9alJktHHXtFE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H7WmtjbAX8O6RnqTZZheTuy4Czbn5/aU/ZUg53SebwW4AJHOUge9hBMu9pi/o5MMY/m0xOLaG1Anc0H+3RJRfNue6aKXGtzI2AycXiZOW6RJ4ishIwxTTLpcajr+XlZT6f5wefJcRUtKAQZkSPPw5gnlyuRcxzBqQxu5BUjzoGw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OAdrWwk7; arc=pass smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D35F3F8EDA
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782819220; cv=none; b=R7wVEeMG5uJZg0YZFWtzOGA3VcoQAvPPK21V2ODb9KVIL6CKST0z7Y8iHzmgPq+VXX9UKUfoAK6xsdolBawz2hZrsEzoyF7dmwNrq1AlxkjCn/CUqzXUdQnnijc+4XTiTv5NN5JVy/wEQfmXcmnw4/8+NDvmk6v7Awa18azIRJ4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782819220; c=relaxed/simple;
+	bh=l9RlYtqbFZk70E+/GtjbGBCq+MwRPknGUsrxHjSxMm0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=svmnVoUEmwnrKDKexO3rujuOzJOAauPH5cD6Kty2/LwLZYD4Ul1SNV/CEOCXOU0n+9CO+lmgMmwi4miWui/SQkK8rPagIHp6pltYYKn+TgLnQlYJSTGUdIsm3fdmIMcpH7Mg39uYjzCDw14E45FFwNVTVr4d8UA5sfAYd4UlUFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TBDRS8MK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cn3kkC7R; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OAdrWwk7"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6984169c126so6196977a12.1
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 04:32:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782819162; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N1FmDCbmEhVLMBiHPK1vm95jTivvxSJP9Z6JpJ/wbPPnzGfgoR0AlosXNHgqGyYJfb
-         Nvo0p+v154EzMQfOOwSvdJGOckUbYVono2V7Tg1DWzDOvbKsC1efGRdbuwkpKihGSnyv
-         OMAc5qpf42/TNKt1KvLFXQEee6IhGpeLnoMQXMsgN2r1u1T9woFaaShKErOKGKYbllgi
-         6eAbht0mm5Df68qzZqEOKbka6H4gy8PJuRBaWyhtnkJMrl2j+mp5i7gGq2n/4uU35Tcf
-         wLiPldXTWBpnkf5Ln/8kWmicul8Ad9aW54NlUsg4NzNi9FN9RFygGrl+IL0WElF0y2jh
-         p/fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Ml3S2a0ZylulO8bEdZQM280rooBXFC/9alJktHHXtFE=;
-        fh=JbPaFQcGn0t8tmHCBKOeK2jiO/tmPEkmkoTDGon4JFE=;
-        b=jUKdbtCZ4YCTvUGCqTaKUitPd/MwP6uXzixylhRU9Gccgfb96LL2QxMrXigJeN8Ji/
-         WgZ3S3BWJ1ChDYn/I59lIQ4DpEete3S4dZoaMl1/6m6tEH9c8dxgNfruGQlqZRqjvTL+
-         e3iOPvHWeD/QN8W7WmXfZpWDfJYCuxF2zQFFsLxr26UHEzf053PpkgA7h1OjvHG5W6YZ
-         y/2Acd96sBo4PEf3Z4ySsTeABcTRMhKBC8CsfKdkdAOnHSe0YDQZP+RPsff/LJZbRaG/
-         3dAAUN/NkBRjjR+B0rYRA/e5naYqIk40fKLqW/f6KOuiFqOx5iab5fG60c+ASWt71njF
-         /mvA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TBDRS8MK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cn3kkC7R"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U9mtF31522278
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:33:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4wOCryQXLht4LcqPVS7Zzx0jUrFByxhQIzaqTBMnaiw=; b=TBDRS8MKEyZ2sYIH
+	TIr8GAAAspb9WyYEkpnzBtgKmHH+TC+EBL3RKTMxJZM7y2VUd8cJlel7qhitWwRH
+	Lt9nGbOYIKgKle34ZRWihTNVJYJR648sVfcD/N/FZH311+8AarpFiU2oIjOK9DMB
+	mIy+0lVYEPsekAQ/haxMOYAZKMcVWoVxRW1IgR//+kDK116tS9VZwQlHiQyNEd9O
+	+jRDRFXrX+xPzVN5v19gc3xwkrCy2htx5uuZiLFCYFT4EhqDu4l4kdATW2VbbM45
+	V7v4ECoTF8qUZ73WCyEbCGA4IS99e6938JxX9l123wtHmWzBTiG64xzq0GPK2ZZh
+	GY30Qg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3yw934cn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:33:37 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51bfd1772d8so4152751cf.1
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 04:33:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1782819162; x=1783423962; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ml3S2a0ZylulO8bEdZQM280rooBXFC/9alJktHHXtFE=;
-        b=OAdrWwk7io5oRt1D+wBZo4XxKyRYhbS6Ga+h5k2kXwFfqO2AeuIuDEj0LSUzB9GBmO
-         f0rD+mCzMfVr47ERrP4WOeHPDWE/5OvIxMOsExToiiXTfSzyUgBu/61t+i9xws+p/AKT
-         SYputwV7kGbe5rmLIH4scSfPzUWmuuqHCZERoVqhuDXB62mou9SO+wABdItAa2iWKIRI
-         L8lwHW6D/oGFXhSUkpJBpAQQIrqk5TyXnlQoiyExM5w1EPfb/qXpapYY+oZyfDL3MZ5z
-         86VTfAf9aNOPluWsB+ZmlpXGGFTNsavi7owG0emKIdizUY8N7QWz+V2GRUgXVCPTXKjv
-         Hs0A==
+        d=oss.qualcomm.com; s=google; t=1782819216; x=1783424016; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4wOCryQXLht4LcqPVS7Zzx0jUrFByxhQIzaqTBMnaiw=;
+        b=Cn3kkC7Res+Z/gEijT+oxSWT8F/zTTZ8qrAXlMvdhPihU9cZkyugkttpES/ZUxHSTp
+         1Zgf1zaBtd1xVBHvkUSZGsOpP41sg0O++Ygv3SVnq3Z+n6rrYgpkOzgXvSA1HVHRlKnh
+         eNRpYBF9el8hfUHc1Dog9dKg6v6hkl3Wbg14tOA/85S0Dr9/EJqP/Y255sg2vvI4C1VD
+         Ma9sjIwAJ7mlNyTyRl3y2ltW7cJ9KjugorCdSwIragGn13mo3ZpDRbNeG9/HY43kK7UC
+         qOpHFqj5hLr9ElVdQfjzfPmmdAl48EnX6kKDQfvQuFR3mFxGmiylSFqXmnCJ+xcc4dw7
+         RbSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782819162; x=1783423962;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ml3S2a0ZylulO8bEdZQM280rooBXFC/9alJktHHXtFE=;
-        b=qFOX0sYRU+7GTYgMj5DvqVjtNDmbiRpC0TC5Q3USayjRFbwnMaRsp+3NObXcFCa+gJ
-         cYUSelt4Fm9Wk9BXaOwP5K4kLVLzgX/k+QQ76TVhxWcz61kkrdGlm8E+icwKVlCJGIUc
-         WB90iFeoe3TKEpevXtiYwb6SmrHoGruVxQNuP6lGd8CbzQxNpPapQOTYjsuCPScJfKkA
-         /moOK2b6NkHR3e4hAeGlkg6r+wkYiUC1ntx1WE6tUbp0SHRHZf7E7bX5K3nnzrz4lptJ
-         hMvgsy4hOSkD5wG2MiLFIPO+886r1hXCYen0NnKq8J1aFK6yPWIUKoLF2GuTRBkcX+gY
-         v+aA==
-X-Forwarded-Encrypted: i=1; AHgh+RoTGDV8/PTtcp99JkITyAVoHfynKJDd4PuIBo8gKTgTMmQeijmsoqOYmt1w5iPfTcOw/OZCYExW1S2+@vger.kernel.org
-X-Gm-Message-State: AOJu0YwIC0p3jgV6yhYIL+tlSvSHBGJEscEPOqxb1aEL9qQva4VygJYT
-	gH/+6iKRbYpzp6d5vhtsE2BWkC0GEeMqWM7pPyScTQiU8ptky9xCM6ibWdS3S5UUye+g9Tbw7NY
-	y4FS+/Wiu/YDoReipepaERUx55g5fCNpQDekufJ7KwA==
-X-Gm-Gg: AfdE7cmxtzUlFlg9sJL/UVWskdIHHfH1M9ejEFURDpen7pK5zG506J/PQTa/Zr6TBlM
-	OqjAKCQtlKLTxqtHe/euHGwHIxyk98egL9qJQQ08U55LBksG0RdCMFpv6Pqw40ivDv+zgMCocvd
-	/1F4dG3pXl0PzdJq3ydFYJ6funF39y9zuajX4rZwFn4t/+c8zOQv5mtxK9zJH1Pfn8FMpt7l6BI
-	eJ9V6YLkcqDUYd1Nm64UBemxk7+aJ1BRtIwMIR+VN3Q/tNVeokSqWELD94hUZ/tJcOaHtoUKot8
-	QULnxZzPUwHTnq/ll5Uy/RdO2Jyy5g==
-X-Received: by 2002:a05:6402:51c8:b0:698:3b7c:7e36 with SMTP id
- 4fb4d7f45d1cf-698878ad389mr184057a12.32.1782819162077; Tue, 30 Jun 2026
- 04:32:42 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782819216; x=1783424016;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4wOCryQXLht4LcqPVS7Zzx0jUrFByxhQIzaqTBMnaiw=;
+        b=lM0DcX8KeEE7m2gO/CsAujB5bbu94W7m5Wk6Wn5Vce+fm4HR+HnGMQfA1OjUEYl5Zj
+         h55rJ0ByEFzTB8FPTG/6X6u9p7HORnKge9/YM9moucUVCDN7f7NuWfMwvJNhl2kTRo2v
+         sv5vvqOSA8q9dW/oQKG//+jvpcdLrtnwHBuPvcQeUAbelYWJEq9kdHC42jFwmyMyo1PR
+         eiKfAiUceN4G7ps/r8gYc7Hgxaa0HBkTP4iGM8U7QW9zvve6WoZ/h26TLsPPrJwtyuNG
+         sNABrQUNdFR7CNzabbnQLMHFZqdcPpleTLsl2jF1ofr5g7ld2ePxbg2CoCTHNYkVxobZ
+         IRFg==
+X-Forwarded-Encrypted: i=1; AFNElJ/oI52AxNCBXS9/14Sstrn0/SXsAnHXSIb71JrK4iPymEwMn9RSwnVjw+cRDoeaSMumY0iCZKauJ6wE@vger.kernel.org
+X-Gm-Message-State: AOJu0YwJarBMkbVZ37QA7hg96hsGLOTDZLFhm+HT+K5quwMEmRbXzZ+b
+	s44mpY6uRb30VexKu2tNvZgiEI95TeExeKLE+J4j6UtBGudp2HXQlk8df+qz/whSBLilyCKuDSR
+	ssufUvTiVg9/yxeagYvPCmBfYxXt2aRlSACF+EUe2i0Tj+xJ6nodj/2QYb8MYoF2X
+X-Gm-Gg: AfdE7cnwixWWiSwNeK+gz0j9qvtsBthEv7xAr9Z0XE76qWJ2ryRxvbwn9sRk70Crhce
+	2EryFF4wgSWaHoYqAD9nMS9osUz2hTobvgwQ3eu/56PGUKn0fBT9HuxDHeDWEtX7pzT9mhKs27X
+	XR3dkxsOfRG1P1bHu+4pcy5t1m87mtZVIHYwLJ+QWeMtk3YG9fO7+VzpvWGTnO5JeRii6YH4bT2
+	jOcjth5drp2lKqwqFhMpXzE0hENvPxknGFLD4e8WfIFrV1jlMF5A1EYcXcaCvlDfXHdvjItKdvV
+	0vBmYfnWCc24ZZXO1togIqBtWL+xphWZesQtWYFouhqm1elTolFe2X6XjxiKVgK5sYV+rHDJkId
+	j/ika6CU/tds0p571ijpkne5EYLibBB4zSGY=
+X-Received: by 2002:a05:622a:510:b0:51a:8fd2:8ed2 with SMTP id d75a77b69052e-51c1081930dmr25350411cf.7.1782819216292;
+        Tue, 30 Jun 2026 04:33:36 -0700 (PDT)
+X-Received: by 2002:a05:622a:510:b0:51a:8fd2:8ed2 with SMTP id d75a77b69052e-51c1081930dmr25350031cf.7.1782819215815;
+        Tue, 30 Jun 2026 04:33:35 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1288f0cc89sm109562766b.36.2026.06.30.04.33.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jun 2026 04:33:34 -0700 (PDT)
+Message-ID: <8ba8a59c-fb80-45e3-b4b7-0db06614df49@oss.qualcomm.com>
+Date: Tue, 30 Jun 2026 13:33:31 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260613-exynos990-peris-fix-v3-v3-0-2b230db78ae4@gmail.com>
- <20260613-exynos990-peris-fix-v3-v3-3-2b230db78ae4@gmail.com>
- <CGME20260629123246epcas5p2aab9da9ef417274bb0b70f74c386f7b4@epcas5p2.samsung.com>
- <CADrjBPpNQd6WgwVo-a3Mz74d1EptPm9D9BisLEmoFRsdUb3izw@mail.gmail.com>
- <0f1e01dd0844$01190c40$034b24c0$@samsung.com> <CADrjBPoZ4G09WGC_b59YWq3_EfTaPFyp0dD7VizKLYBW_eFk+A@mail.gmail.com>
- <b035916c-e985-4acf-930b-bb74814ae748@kernel.org>
-In-Reply-To: <b035916c-e985-4acf-930b-bb74814ae748@kernel.org>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Tue, 30 Jun 2026 12:32:30 +0100
-X-Gm-Features: AVVi8CcNxlc8aBvVUsFvxwtw-6b-XjIoK93AeruSemmptuSvFy4q0u1JGeOhNoM
-Message-ID: <CADrjBPrG7bo1i6YcxuwNKnYmKF=d-MXXMWSNdu+KfF7hhqQMXg@mail.gmail.com>
-Subject: Re: [PATCH v3 3/3] clk: samsung: exynos990: Fix PERIS gate clock parents
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, Denzeel Oliva <wachiturroxd150@gmail.com>, 
-	Sylwester Nawrocki <s.nawrocki@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: dts: qcom:
+ qcs6490-rb3gen2-industrial-mezzanine: Add QCC2072 Bluetooth M.2 overlay
+To: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann
+ <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>
+Cc: quic_mohamull@quicinc.com, quic_hbandi@quicinc.com,
+        rahul.samana@oss.qualcomm.com, harshitha.reddy@oss.qualcomm.com,
+        dishank.garg@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260529180234.3373056-1-yepuri.siddu@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260529180234.3373056-1-yepuri.siddu@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDEwNiBTYWx0ZWRfX8Ht5MNm/rpKo
+ Klv1QfVkyFFKzNcCl7a54XtOgB89dGyMTjpsnpwnYioOHhsQuxWmC1A9fu96UC9A0FO6dCy38Ir
+ TsyvQiYdJh0gNEvG4y40GrxuOduaJ5A=
+X-Authority-Analysis: v=2.4 cv=KfDidwYD c=1 sm=1 tr=0 ts=6a43a991 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=HIlf0Euc_oyIobYlzwoA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: z8sIwjbNBpCekyn8-cTr7fKAtTX2429-
+X-Proofpoint-ORIG-GUID: z8sIwjbNBpCekyn8-cTr7fKAtTX2429-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDEwNiBTYWx0ZWRfX3ERKaMJbJp5q
+ j4UITujgB1cbnVlWxpA7IFowGO0iWY6IQ3YjnTbgDPTY7/wFihAWzp/mOh3aYspmdV09IRMnPVo
+ /T09a+sTB7ew8IaO/nMoO84WczAeAsu8omsaawno0sVTudfmIXnwttPXIxwqNW1BzwJLrDw6n3o
+ m1je9D4j5P5jaQhzh/G7Q3JiCM3D90y85me2zZ0OKv2qJhWDfmi/m+O6T2zUAQlaimyCA+hx1HX
+ qFdxDQne8rwo7XZcsmA4O5vny3hrLpvZ0ocapwsNI3FgJ6QIwxUkc0fUoDkyKVZo3ObnxT4cJZc
+ d2DRD+Ilrhkm3yeum9NbHiRNRCErXpF2sHw7p+fg4u+IV23M86oaMB+DPyjZvA557MmgvGLrEUX
+ vIcliEHTpBpcmwx9j0G5ihRpIrRGkTVijP+URDqt1ErGE/kiJDjXi5gB3OokL9t2kLEX+nEE6Fu
+ CEDg7erttL5IhuEYw0w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-30_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015
+ spamscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300106
 
-Hi Krzysztof,
+On 5/29/26 8:02 PM, Yepuri Siddu wrote:
+> Add a DTSO overlay for the M.2 E-key slot on the QCS6490 RB3 Gen2
+> industrial mezzanine board when populated with a QCC2072 Bluetooth
+> module.
+> 
+> The overlay configures UART4 (gpio16-19) for Bluetooth communication
+> at up to 3.2 Mbps. Sleep pin states are defined for all four UART
+> lines to minimize power consumption when Bluetooth is inactive. Host
+> wakeup is handled via a GPIO interrupt on the RX line (gpio19), and
+> SW_CTRL is mapped to gpio86 for power sequencing.
+> 
+> Disable UART7 in the base industrial mezzanine overlay as it is
+> not used when the M.2 slot is populated.
+> 
+> Signed-off-by: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
+> ---
 
-On Tue, 30 Jun 2026 at 12:12, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On 30/06/2026 13:02, Peter Griffin wrote:
-> > Hi Alim,
-> >
-> > On Tue, 30 Jun 2026 at 04:53, Alim Akhtar <alim.akhtar@samsung.com> wrote:
-> >>
-> >>
-> >>
-> >>> -----Original Message-----
-> >>> From: Peter Griffin <peter.griffin@linaro.org>
-> >>> Sent: Monday, June 29, 2026 6:02 PM
-> >>> To: Denzeel Oliva <wachiturroxd150@gmail.com>
-> >>> Cc: Krzysztof Kozlowski <krzk@kernel.org>; Sylwester Nawrocki
-> >>> <s.nawrocki@samsung.com>; Chanwoo Choi <cw00.choi@samsung.com>;
-> >>> Alim Akhtar <alim.akhtar@samsung.com>; Michael Turquette
-> >>> <mturquette@baylibre.com>; Stephen Boyd <sboyd@kernel.org>; Brian
-> >>> Masney <bmasney@redhat.com>; Rob Herring <robh@kernel.org>; Conor
-> >>> Dooley <conor+dt@kernel.org>; linux-samsung-soc@vger.kernel.org; linux-
-> >>> clk@vger.kernel.org; devicetree@vger.kernel.org; linux-arm-
-> >>> kernel@lists.infradead.org; linux-kernel@vger.kernel.org
-> >>> Subject: Re: [PATCH v3 3/3] clk: samsung: exynos990: Fix PERIS gate clock
-> >>> parents
-> >>>
-> >>> Hi Krysztof & Denzeel,
-> >>>
-> >>> On Sat, 13 Jun 2026 at 13:36, Denzeel Oliva <wachiturroxd150@gmail.com>
-> >>> wrote:
-> >>>>
-> >>>> Correct eight PERIS gate clock parents to match the hardware clock
-> >>>> tree and reorder the GIC mux parents so mout_peris_bus_user is the
-> >>>> default source.
-> >>>>
-> >>>> Signed-off-by: Denzeel Oliva <wachiturroxd150@gmail.com>
-> >>>> ---
-> >>>
-> >>> Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
-> >>>
-> >>> @Krysztof: I was thinking, maybe we should establish a new rule/best
-> >>> practice for Samsung clock upstream submissions whereby patch
-> >>> contributors should link to the downstream cal-if code for the SoC after the --
-> >>> - line. That would make reviewing the patches' correctness a bit easier, as the
-> >>> downstream cal-if code would be readily available to the reviewer.
-> >>>
-> >> We can leave this choice to the reviewer if they want to refer to downstream cal-if code.
-> >
-> > Generally I would like to, but I also don't have time to hunt around
-> > the internet for a downstream kernel tree. My rationale was that the
-> > submitter is most likely to know where the downstream code is, and is
-> > likely using it for the upstream clock implementation. So, linking to
-> > it as part of the submission should hopefully be fairly easy.
-> >
-> > If it is a Samsung SoC for which no public code is available that's
-> > fine. I didn't intend this to be a hard requirement: "you can't
-> > upstream x,y,z unless you link to the cal-if code". I meant it more as
-> > "best practice/guidance"; if the cal-if code is publicly available,
-> > linking to it would be a useful reference for reviewers.
->
-> cal-if as vendor tree? Some contributors just base their work on
-> downstream GPL-compliance dumps from opensource.samsung.com, so not sure
-> how that link would work.
+This seems to be a single, unthreaded message. Please switch to
+using the b4 tool for submitting patches - https://b4.docs.kernel.org/
 
-Urgh, I see. My suggestion kind of assumed the downstream vendor tree
-had been pushed to a public Git repository, similar to how Google used
-to push their gs101 sources, for example:
-https://android.googlesource.com/kernel/google-modules/raviole-device/+/refs/heads/android-gs-raviole-mainline/drivers/soc/google/cal-if/
-
-A link to a tarball for sure isn't as easy to just click through and
-take a look which is what I was hoping to achieve. Thanks for the link
-though, maybe that will come in useful at some point.
-
-Peter
+Konrad
