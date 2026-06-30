@@ -1,580 +1,210 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azolkn19012021.outbound.protection.outlook.com [52.103.10.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A4A3E6DE8
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:50:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782805835; cv=none; b=pARAHEPdpQms2JDWmVFDz3mbGkdeNUVlpYkRoasW8jmt5OLLm7YW+TrmEegkv8UYyk9AhqcOhBS8+nM5GBxsXPommyA0xbZdi6F32hq5RPe248pR12dFbJzeCo5nG0OU4qpELIauGF+C8hWTsy0gFLg0TRb7Eql9Sye8A69E/1M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782805835; c=relaxed/simple;
-	bh=fKMU1NeGGUQY41fhAOV7CeZ1kxRC2hDpCeMw00fNp+M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=e2w6l8/a+Yu9c4ZfVcgdQwAXpB/GzxUW1Wl8QB2k9PR8kiMDcNX/Yv2KzeVrXMGY2h+E8fPepDiWlBaSq9BiJ7ZIzjJcIMp7fpTiocRqmTAuq4Mn9AO4+gnAEdzcwTZp7jUGTCAKw1dAYWopvlGn6DyQraEBA/gCp025AgzUEso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FuIH6k8Z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DDrZ8Q0b; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091D33E3DA4;
+	Tue, 30 Jun 2026 07:56:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.10.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782806174; cv=fail; b=PQNx/22uz6yZPdQCRI9J47vHCzTF5/Nk//7VZ2UDN2xJ/zlRr+iVnhvujyrGypj2oMI7/ZV4NnguNMsWCE3m8gcC2Oj6NHookxSuz8Oeu2mRsEvRkFe4fj5mDOo7MARLlHc1VEoadDQTXUIFOhDbQfsggep9SCYsKdS2sYW80m8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782806174; c=relaxed/simple;
+	bh=FrIOYRWoqIDjuNiMKH6CdXMiAA8eR3s/YtQIHLHG94E=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=SrLt+M/mb8DPce0mBePk2pAbAIgkSxYgjHz5fISBrK++7IvSZb+gghAckAAFC0Ej+7XbAEabCDagaAv95IRnqv7RwD2/62l8JvJxkXYtEbBBH9M3ygiJD77KmqJA5m+34O5rQmkxOjsEB58w5TeiTPHwkDjjIf6lekehpec/zyA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=LgymLp+h; arc=fail smtp.client-ip=52.103.10.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FuIH6k8Z";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DDrZ8Q0b"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U6CIee1055971
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:50:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=cDcsvQ35yvivZlq3oSfzhB
-	6wOm05GoaQYkiAbIzSDPE=; b=FuIH6k8Z+hjyc7wMKbqXG2UjcsqHoy01up5sND
-	VDZaWzg1EomW3IJEsOr6ybWl6XDD+i83yfJYVHMsjEOl16DUjyipBLPyA9mHljK/
-	2V2wgxE3xSuhMl6y0vg7jVrRxtKMYf4453V5DFEHDIUAgZ7uaHCaqgNNU8buLbtu
-	qqEm2xRmMb5XOPJK+QCc5IqCnl9QHAjyUa5+HLO7o7mKmacbOzN1Hdltm6hwzi8L
-	52iH6fP+hCm3pUS6kmIoG2oWwOosr/ALsBjD9ynQtGc4VykYGUmTw3BSe7f62mjn
-	gbFock+yYcFTvmU0V7ZgbIPgKwv33pZw91RoGDyDHS9VfOFg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f46860x8f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:50:31 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92d1cae5740so317717885a.0
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 00:50:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782805831; x=1783410631; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=cDcsvQ35yvivZlq3oSfzhB6wOm05GoaQYkiAbIzSDPE=;
-        b=DDrZ8Q0bIPPCq5Pmi/mqYem0HsHXZaNzRJWLaOPRO8vzN9WLtzPZpKwX/FF8EhuF3Y
-         2+/SV8TDfX2Xke2oiV7GfzRZn9/F0ZYJUh5brPYBT/wM8wfYXUhrZb4e/SAcTFIsZEYr
-         A2WdjjejtIlPFviGGm8/V6DYHe/Ndkmfps+DKFc1jk9m/jPglEPTnngbQZLKLyt+IjEP
-         GA9CZfrlUjfRex4BwUx82ji6/PeY4ShD1HcLGUtfaANZO5mFM9LDqMFSt3QgeYmzWAub
-         ngFZ56axuGvO3apjYqaPoJdmVBcRiTvBao451yJ68FN2+O7Q7iAYMnX688N5KOsDDWJI
-         BxAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782805831; x=1783410631;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cDcsvQ35yvivZlq3oSfzhB6wOm05GoaQYkiAbIzSDPE=;
-        b=gzvJdYtzeWETAie69hTqF7rvNc7xXR649UVXfV1DNbx2yMo/ZYUS6exc9+Lh8opE2U
-         Jek0Kw1SX8t3o67zfbHbUVgQILpAc21uFSuTZR+hOlbhF1NBaoQT3m4wNjAAS3u1NH9z
-         QK08BYoa1+ndczDUjcydeSJsfObRD0rsKoYRM30Ms6/Mss8QmnErCIP4Nv3r+bKU/+RP
-         ClLJBo5hCs1KMpa2ibmmmZuoFqpwGeMeScnWdW7EkISpTpWzCp12kHw4TxTKtxYNo4vP
-         PKKju+Xy2Coqc73VTIHuVxaxfWJtwMdIaBUfIXIg3/gk11QlWaThc6gL9U97aoHbzxJS
-         4CIg==
-X-Forwarded-Encrypted: i=1; AFNElJ8l5RkARb2a6tGG2zBFc7yDy3N+kfanHrUQxFvfBsDnNmkAUyr5wBOykBLMOyoJK8jbl2A+Na8J8yNw@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWntsACCVcnhvOGs1zAW1Uo9adhTieMUWuH0O5iWcDbbK+91uu
-	IiCOscYdlzTUAw1pB6jJTKPLmLSf5fPa490m1USbsKqeSt1u30MPEL2JPw1I0VfN8gvLyIuZfK+
-	s1AT8IAmX2U1e09eyyR7Ca5ZbGqnmOAPr1ZUAl7QJGXrdRaLu9Iv7Di5JZ2OVt93L2GzhASj9
-X-Gm-Gg: AfdE7ckb817FlDEB1OpceR9w2akPdQSS1HbEOx/zWWUt19tDeMIKNoEG/zLoctp9iaG
-	CmzL/2iz5eHknZ0DC9KY0Eps9+1JPMX0nVvhXUvND5Z9WBucjhVq3M035EXCFiWu2PQyCDP0hPu
-	FummXsnVi22qXfLl6ncxFbabNvudimnqGafRjxILUv0hs19qYb90onRRbZaYL5IABnx4sZZnVxg
-	LTdZrATZswxBw3GnMoaC+cjwqA4k5QkxSmx/x78UI+3rKJm1wvm4hd51Rts6F6aKx3PxHCdrYIW
-	Vb9nfN80rVJo6RVm78I+p8HQsOTAjJO2tPve/MdkTpEI+HqH7Nioxgj9MTOYmcLJWEgwUFfYUZM
-	4iZoalPQADUDqJII=
-X-Received: by 2002:a05:620a:444a:b0:918:532f:9693 with SMTP id af79cd13be357-92e624e5a2amr412657485a.28.1782805830462;
-        Tue, 30 Jun 2026 00:50:30 -0700 (PDT)
-X-Received: by 2002:a05:620a:444a:b0:918:532f:9693 with SMTP id af79cd13be357-92e624e5a2amr412654785a.28.1782805829771;
-        Tue, 30 Jun 2026 00:50:29 -0700 (PDT)
-Received: from hackbox.lan ([5.12.73.156])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493bb1bf712sm18766245e9.2.2026.06.30.00.50.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 00:50:28 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Tue, 30 Jun 2026 10:50:20 +0300
-Subject: [PATCH] arm64: dts: qcom: eliza: Add PMIC nodes for CQS SoM and
- MTP
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="LgymLp+h"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f20rxSDyYGrYDRFKokMvBl+YfNmUNNen2C6mFlLTgNIGoXfGua2NY1vxO2tZnhmmzAgxgP6EE4U6tJeTxnxDAhzg/trrxlfmBa1M5KfS+bbwC0dWsuLCthxXhY/r4n4fngjOzZHwMSDNoEuRi3GUT6Wf1x/zOuTLpyOfnj7UUcGk2I8qtQDtzVxHIS85v8fXXjCfbMqftoUDx63MnbGIWCTpzEb16SjK+VuZC5Kdfhui4kgynj1jG+xfkHe2ArseOLJ5qo22ei2aBDHmc+eOuZ4bMnGZocGNXMcCmn4I84YjSx+K22hciVcNgyp65J4NTPN/+UBJHkum2g0xU3hfkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lcU75L4NhYOOqpBJVd+2XoryhV9nYIl5d1UbdDMYNbQ=;
+ b=VfqFofwSO7RHXY9LdV2jOF/AT1UcIOpL26jvAa//666fVgMN5zL3ARE0litXVq5+0BS+Lyv+CjjiV3PvVIuSvoVxGIdC8odrOO8F8UIwjzebDTlsXHBYCGwosodt+TzK8kEezPoE7YnckHwhDmdOaXSUqLSIPKmsPKG6IEhcjEYTLScTyshYeXPajj4xIeuKI5ykzLl9eYwzan+fdUJQpIYxtyiWMhBJ/iex3okBU5EH6pguNPRIiWkClT4WQOWFCDxET3OozCCuLeix0C0PnM1ZLbdpRkDKX64Ug7h6LQq2HCGkcQBJdL5lRduIj8GlSRQsvqw1orJ2cADufWQSQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lcU75L4NhYOOqpBJVd+2XoryhV9nYIl5d1UbdDMYNbQ=;
+ b=LgymLp+h5XtN4LJNxtXOtL+2WHzp2F+klbFNo0+UwiLtjS2YzybJ7rqGK3cjdp7YQk5iwlLa17UCi26tLv1nl9oyWs1xMSbsOq9hNmus7/uXLbSdRVTnAGxhPtZtWLONfkdSRFYnlW5UrQDchQw8FFUFOvvb7ZDH7Pu4VODhGu7AXLHTysOzDzomduzcOG3dwBzJGGUTIuQXLQi03cZT1vNzjGHsIysU6T722YjtwQahg4mL7/u5+wOSy0P8684XYCKlVdE1E5R1fvUrHQlp0nRagNX8L4G7Qy5ktTPDFs3A20JZzryliOJOiAnbxhC43GkA8141PCHXu37hwdXYFw==
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com (2603:10b6:806:263::12)
+ by PH0PR19MB5129.namprd19.prod.outlook.com (2603:10b6:510:97::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
+ 2026 07:56:09 +0000
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a]) by SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a%3]) with mapi id 15.21.0181.008; Tue, 30 Jun 2026
+ 07:56:09 +0000
+Message-ID:
+ <SN7PR19MB6736BB58C4F6E648CB3910949DF72@SN7PR19MB6736.namprd19.prod.outlook.com>
+Date: Tue, 30 Jun 2026 11:55:54 +0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] dt-bindings: net: bluetooth: Document Qualcomm
+ IPQ5018 Bluetooth controller
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jens Axboe <axboe@kernel.dk>, Ulf Hansson <ulfh@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Johannes Berg
+ <johannes@sipsolutions.net>, Jeff Johnson <jjohnson@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann
+ <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+ Rocky Liao <quic_rjliao@quicinc.com>, Saravana Kannan
+ <saravanak@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath10k@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org
+References: <20260629-ipq5018-bluetooth-v2-0-02770f03b6bb@outlook.com>
+ <20260629-ipq5018-bluetooth-v2-1-02770f03b6bb@outlook.com>
+ <20260630-wondrous-lean-stoat-be0b9a@quoll>
+ <SN7PR19MB67361ED99501853D6BD968E69DF72@SN7PR19MB6736.namprd19.prod.outlook.com>
+ <ccbd320f-5a17-45f3-96cf-3fa0c9bd1e8f@kernel.org>
+Content-Language: en-US
+From: George Moussalem <george.moussalem@outlook.com>
+In-Reply-To: <ccbd320f-5a17-45f3-96cf-3fa0c9bd1e8f@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DX0P273CA0010.AREP273.PROD.OUTLOOK.COM
+ (2603:1086:300:26::16) To SN7PR19MB6736.namprd19.prod.outlook.com
+ (2603:10b6:806:263::12)
+X-Microsoft-Original-Message-ID:
+ <2268b3c6-6723-46ff-9ec5-4834ef6a1194@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260630-dts-qcom-eliza-mtp-evk-add-pmics-v1-1-f4f320f7c88b@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIADt1Q2oC/02O2Q6CMBREf4XcZ29CWcryK4aH0l60KltbCJHw7
- 1bAxMeZTOacFSwZTRbKYAVDs7a673xglwDkXXQ3Qq18hiiMeMijApWzOMq+RXrpt8DWDUjzE4V
- SOLRaWsziWGSMq5xCBf5mMNToZUdcqyPbqX6QdN/fc2FonDzbHTOohSX0kFa7Muhocfjjw79YG
- ex1ypLT5pCzu1HWsIQVOYt4WpRzAtW2fQBMwFoq7gAAAA==
-X-Change-ID: 20260629-dts-qcom-eliza-mtp-evk-add-pmics-733a716d8e0d
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-bc6c4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11340;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=fKMU1NeGGUQY41fhAOV7CeZ1kxRC2hDpCeMw00fNp+M=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqQ3U/8rucHFLXLLvT8eauRAQxk5cIsrWL9AV/q
- N/5v6KibXCJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCakN1PwAKCRAbX0TJAJUV
- VvpqD/4yGpUbboPlTLNQf5svZPpOcj74FrN4Efvr8WhFUC1VeV7soyDjvGxZEee2fYk2GVGa4Gi
- Z7ua8yq/vJK2EzqD3AtNAmgil/ezsNaEn31vucWUtnSljrJqo61X83JiVMGD/NG0Popn6uaQJ++
- 4zh+qUvkn1Ki5Zlap7ziUAY8O90tinTj/jfC5xiMwvW7fNZFtDImHda+rc7K3TwNoy9gBgYdsuW
- xYidKhe7pk7OVvwnY6TghM5gzvNObbbk387oHXdD5+PVKkttcplhSskGZztsEuXRuGRlQaRRj1P
- oH2f6jIYXSjHNM/ECpSReOX4TNomJz5GJ1zE2lUyZBLBKbrjpLLgiemXPFMQNWFWBx9V+743KgS
- 8NfpbEx8+IS7nvxCSKEG+7YpVyuK8oNE5myqKeK+1i/RcHxt2hC6o+1PengcalIlGf2iipDRSzs
- EeEOcRzwNOaRcPF5nq7ePu2rYEtCCj/cTUJ4QWc3fg6zswSOcfLByuhwlfkMUxJXEAHFc128wOw
- TtpJQNXFoMQAsrxisrqWzLYOPQ7AVH0uWHQuP298XXnkJzCyKeI1496ny6GP8jmqYLzSK8GWHgZ
- lLL4PezYLtNSjsWfTOAqUBQPk7rwB3K8rLsho2FahHTY8y57seIwrM0PrJx2aQe4HdJG2ks4mi7
- pv138VKEyoxfhRw==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-ORIG-GUID: eZit0hncQ-5oAoceADvJnIlEz-veuFge
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA2OCBTYWx0ZWRfX987GMQnDQ9mf
- B6qotyNik0YFEG514S9br8X+BsxSZ9W/5ddCoVuyaAXuoVEL4LoO5McS//1Hk2J2VYGQN9f1fG0
- YB7JkVA/35+LWFcLEsI7rhqs3pwFGI3xxxkjRI1uv31dgIlwvqLlMgbt03AvHe66wDqHEKVerUf
- VGfMmiUT+mhkELnS7Sq28Sojw6kLYsiph5MU4NfSljap5/hFaWcckKImt+ADniV4w7p9me8B0/d
- wOpaRnBvGIypgv+XTWbV43CPYOYbch8/7Xk5iqbxYL5pDbfb0rHEq0NlQmTcOi2SUt5MEzTei41
- mkH1FOOg9Z6xgV52UveKi/xsmdo/esll9VmlzKAO+vWZGINgatvfuYbiacnMe7HA/QuXf324u/5
- uuy9UHeJTNTcIBallae6zUj3bHT1eAgf6lgBYiMJEwj/3GXXIUjAbAyNyu81MhfXHBPxmz2L1b2
- joJEbtHUco7q7ybBJLQ==
-X-Proofpoint-GUID: eZit0hncQ-5oAoceADvJnIlEz-veuFge
-X-Authority-Analysis: v=2.4 cv=FbcHAp+6 c=1 sm=1 tr=0 ts=6a437547 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=qUYP/O48JsHWwiZSxXr1NQ==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=uEpe_3vvm7urPFSnT1UA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA2OCBTYWx0ZWRfXwfSa1DogBikH
- MQ6jAEt+5nm9HZR8PJ4CmQwq6iLn0r7zwlSbgHtd1DPjsXUGxBwkziX7+un4zCYNNXUY0dbWN58
- VHhJ7VIlQGdExHMk4VDzAT0x6eTWmWQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-30_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 bulkscore=0 adultscore=0 phishscore=0
- malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300068
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR19MB6736:EE_|PH0PR19MB5129:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a2a74d7-5785-4a63-e70a-08ded67d0bcc
+X-MS-Exchange-SLBlob-MailProps:
+	znQPCv1HvwUXBahuwteIkQeW30lJPuxOInnodx1UWtcjPExcipIPL7OdG3FFcmWfddTO34i850KWHEjmLS+Iwoi11fMyZRd7VfNaFJyglxLmbvHWrXho3u4xt3TPxjFLM4pwgHDB7tbq27fr0+NdiveNVTbF3lB6KMPZ7VSrOxQy2R7iPsrINwumXW5RtN8i+O6Rhd2jZJhP7Ie/ErBLLrvzr32QbcBK7emqApROqyXt3UraOjgT8fFvYwxTEZCq0clQz+rkwEbepgUr9l7i+gJvE12xuvwjcGDbNlfa80i1Z9on+zLCgxAUvM/r2aRb5HMVVrozyaRNF004djosvaQI4ForwDQHUyxhsA+o90gqvWLHCt9NPbe03KteZWR5MCqmuXHAuk7xfzV1VKuU/Pci1/i/lcgpbIypQPGPlR2sN7fpwGDKSWISjjQzXddwKsuFJ/QCodfK7AgeGR5eWxHaxBMRvKiY6CGerUJrvFLvLSwZjQBgsmD/EKL+IiovTuCG5zFBHno5S9BHi2RWaxyvL7mt4bStcjQMVAO20KDRnXOdCL2K6QDHQtg7Z4RD+JGZ5jqLBD0xDa7NSJeMrhPtt7bvuNCy2NRABabX88+3Lb6VWkvSns2FAXnwFFtfc5gcR7Q5yn59K0TTg8j67VI76c1Lelwb/UtsyWffE+jKceK+dNOaX7K1oatzg1TWlgs1wHwprGYi+IHmGMd3Ov/dOmpoOzD1iz6qRd1pI/QULTK9d+djcB312smYvUyv121K3kZaz0c=
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|6090799003|51005399006|15080799012|19110799012|23021999003|8060799015|24021099003|37011999003|5072599009|25010399006|40105399003|3412199025|440099028;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?aE5iMDlzVFAwNFNXMUwrZld6K2xNVFh6TjZ5R29UN01BVzFjd3FSWkVyRFBL?=
+ =?utf-8?B?QnozaVpPaGNmeHArYWxhZDBneVFkMFFUSzU2bnJTemZoRElFUTdzRDZjSmJj?=
+ =?utf-8?B?SkRBSGZvRjdsNmE1TUJSTkgxSGpMUStkUUZieWFYNWZ3UEpGNUJmTi9TQU1t?=
+ =?utf-8?B?Znl4cUtCVVZPTGNEL1NHdGtDWHFvM0drRnNZVm4zbTJtNEViajFuOThNS3h0?=
+ =?utf-8?B?M29xbjlHWmpXQlMvU0pLdXc2Y1ZVa0l4R2UwbUFDWHJibGxzcjZwSnhrS0x5?=
+ =?utf-8?B?RExJcThsNCt2V1lEd0J4dCs3YmRmTUw2dzFqVHJSdkFUQ2VEMDNNUXI5bmND?=
+ =?utf-8?B?TWN5MGpuQUxPUmFsdERzaklKejRxa2VaMUpIMjVxSmYvZmpvUjdQOVh2NVBH?=
+ =?utf-8?B?eVpzTTkrYUJkU1VMc2ZPMGhTaTVQV2lRL25FN1E0cVdrc3BPNW5xUDJoS2hX?=
+ =?utf-8?B?a3haRWYvZDQwNmlkNkhRZzJpcm9JUFZQOFo5anBNUTBDYW1Mb2xFL3IwVytR?=
+ =?utf-8?B?Q2ljQ2Nka0NxZnVueDJhY2hVY0VwRjg1U2xabUg4bXE3UVVTclNJYUlYcTFU?=
+ =?utf-8?B?NGlidEtvWUFoVjdhUCt1Tng0K0JMOVExTFlXSHZjbGxydHQ1MW0ySUFXMStU?=
+ =?utf-8?B?Y2g1bEtOdEc4Zkgrd1NQM3VOckwvRHRsa2VvN2hiY2s1SVh1WlJQa1FlNWE4?=
+ =?utf-8?B?Njl3S09oQnF5N3piNmlvc0pzejBzVG9UTlpwcjVpUWpMQnNpclIxWGpGVXUz?=
+ =?utf-8?B?NndpdWZaRmd5WGRsZG5sQVVCZEI3Y214S3E4UFdGa0xBekovQXI4ajFnSFR3?=
+ =?utf-8?B?NSs4dXVQSjdrV0tYWTFLaGViS1RWZkZtNUVsY1RPQkcvaCs1bEZJYjlYc1Ro?=
+ =?utf-8?B?bGwvWE1lWWpFUWF0Q00wUXRWY0xDRUJUaEcySGJNa3Y2RDF0RTVpTHYxaE9t?=
+ =?utf-8?B?S0pFMVZKR0JNa2tteE5DSXRVRjM4RElkVitLVUxWb1ljOEduMjI3b3lJRkVi?=
+ =?utf-8?B?QW9ONDVvWHlrY0Z3K1F5dlFsZFhLMHhPMlNJdDEwYUV6ZjlweGFESmtRa21F?=
+ =?utf-8?B?MVVGRGtUMDdDTUtMTzdydXFJN0xnRXRXaXFUWFRGdUI0cUpZVDFxNEd1UTdF?=
+ =?utf-8?B?bXdEYVl2RFk0cThDdDZJQ0VuU2lndCs1RzhoYitNK0RZU002Z0pSbUxqbENT?=
+ =?utf-8?B?aFppNGtJSHRJaDNNL3BveVV6MGdPaUM1MHkxaW1yQWRCK1hmbGs0RjE4cER0?=
+ =?utf-8?B?R1RjU1pFZVNjb1RPZ2Q5QWlNV3BsVUV2QjIwTndmTS85R1lRbjdxWVBkbElq?=
+ =?utf-8?Q?dnlfgIId0yX3oD1FZp2kc4MuX6kH54E1p7?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ck9TYnhIc0N3bERialkvWWFmVncyYVdPRlRyc3MzVWhneVFPSE1VVitiZjEz?=
+ =?utf-8?B?WEFlUkI2a0NuRDVtKytrcFNkalN1SUUrSXp3dVlDVVRVd3VVcjRHbDZyNmNn?=
+ =?utf-8?B?Vmh6b1NiSk5wUERDU3VMdjZ6WFM1QjU2NkExenNSNExvRjFDcW16ZTI3bGxW?=
+ =?utf-8?B?WDkraGxuUkYvbDVSeU5aekM2SU5LNnZuc0ozc2tORXdIZGRPU0dHMG5sKzVr?=
+ =?utf-8?B?anAxTjMzQ2VTdndWOVduOXNHYkltN291enNYcUFZVGFYWEdMZWJ1L3hxbm9I?=
+ =?utf-8?B?ODFBNThzR0Iwa0ptYnlvVjAyTXpFTG5qaHNzVDgzZVplZFZaU044elE0Zi9N?=
+ =?utf-8?B?MysvWjk0eEdJYWJaYmN1MEhrM3B0WjcyQXROMEZnY0hPWU1Ib3FTY24raEt4?=
+ =?utf-8?B?NjVVZk43OHZINFRtQ2huUVFLZFhGYzV2VTRlMU9JQjhBRHhwWnB6SGtkUzJx?=
+ =?utf-8?B?UklrRS82SHp4WlBVbjBseFRobWdscnM3QkE0MjMvR1o3K3BQNmNMaWdUTWtJ?=
+ =?utf-8?B?UU1mUTA4R0lvYnNZTWFudTdBdXlmb1Jmd1cxdDVmVUk4THFwLzFhOURNdmpG?=
+ =?utf-8?B?eDIxM1ZpOHQrcFA3TDJlVHdNVUNFS2NQczdhb0JPK01odW5Ma3VialVhR09O?=
+ =?utf-8?B?aGdXbUVaeDZvWmdVMnczUWxMbHdpalBqTUVKdlRkQ2NvVWdNUGdaajlGcmZ4?=
+ =?utf-8?B?aHJXZDZRK3dkd0h5QmtEYjFMTks2dmpuYjhNK0hUUmFndTBzZDJpU250ZnZ2?=
+ =?utf-8?B?WEE3VW5lT2NnMTlWTGlnN3BsRVZIcExxSXEyZUtKajd0T1BJVDJPTlAyQmhi?=
+ =?utf-8?B?T1d4RkVRVkNaYVljaWVGK2FvenFHcGoyUC9wL0hWVXc2UFZjbXN5WTBrcE1s?=
+ =?utf-8?B?ajVJQm1nb0tIWWg1QkxGZk9EMjhzZU1lZGZuMGgxNWo5bHhnRmFySWtvUmp2?=
+ =?utf-8?B?S2VBSHNSUmg2Yk50eHR3enNXS25iWjdQYUhlTVM3T1FiL2dXbkVSR2s3RmZu?=
+ =?utf-8?B?c0p0bEFaN2Z5aWs0ODkzdGZmTXg2d3BISHFlK2Rvb0UwK1NRQ0E0MlFFWWlt?=
+ =?utf-8?B?bGNnakN0THJnL2hZMnFWSzNtWlcxSXpjV2RERGR2TW9tNHBOTVZrSWs3Wmcw?=
+ =?utf-8?B?N0dhQVpHZ2VDVG9zWFJ1TjlsbmhyM0IxL2RPWHJzR01YbG5seEY2WjA1aUUr?=
+ =?utf-8?B?Y2g1NkRZVnE0N2hMNzVGTTFqSldXQzRzS0RXNEV2ZnlTbWdQWDYvL2tMcDNP?=
+ =?utf-8?B?aHpuSHV4RkV2RG11SXN6VFJKSWVMWHVMc0VoOWI3TkEyb2pSMTA3WUZUYlAr?=
+ =?utf-8?B?em4xQVdHK2ZETG84UFpVZ3FMZktRaGRJWS9SYXZkQlMvRHFycTdsbDM1RDdy?=
+ =?utf-8?B?VUQ3bzJFUUh4ZmxYYkZjYTFlQUNDSTNQeHI0ZU5DUWIvNnlzZ2hqWnRaWlRP?=
+ =?utf-8?B?OFdTK0ZTLzlDWFRPcWY5bUJjL214Wms4WDU2WEVmaGx5Y295dHkyY0I3Q0Qy?=
+ =?utf-8?B?STBndEpkQmtUeUsxTEhPNmtEbXJaOUlsTXJCaS9LQ0dpNlYxT1JIZWdNc1Jo?=
+ =?utf-8?B?VmdkSFFIanpvcGt2NmVXS1QyZVg0TndLelpTc2hTbmMwQS9GZTRGQitrUXd2?=
+ =?utf-8?B?WlZqYi9tSDZmNXdCWTQ0SitmREY0Q09sN2s3VHBWWlNqRFM2Kzk3c3ZONDl1?=
+ =?utf-8?B?ZkxFbFRPUVNqRXJXZWFrTWRLQUt2b05VOTlYTklsb3Q2eG00bjA5RHJCRlFz?=
+ =?utf-8?B?b1RnbGxQS3BhcWlTdWxRejhyZ2pRZzVHSlgzZ2J4SjQ4TmZmVmo3VGUxb0Q4?=
+ =?utf-8?B?eHhWRE9mamZtQ0dqSEUzSFZDWTZoUTlxVXFlTlpHTlZ3OW5WSzB5ajQ4czhG?=
+ =?utf-8?B?RGlueHpMQkFxblhlTjdkWFQva0p3c25FSXZkZS80R0d0cUE9PQ==?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a2a74d7-5785-4a63-e70a-08ded67d0bcc
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR19MB6736.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 07:56:09.4689
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR19MB5129
 
-Both the CQS SoM and the MTP have the following array of PMICs:
-PMK8550, PM7550, 2x PM8550VS, PMIV0102 and PMR735D.
+On 6/30/26 11:40, Krzysztof Kozlowski wrote:
+> On 30/06/2026 09:31, George Moussalem wrote:
+>> On 6/30/26 11:15, Krzysztof Kozlowski wrote:
+>>> On Mon, Jun 29, 2026 at 05:01:44PM +0400, George Moussalem wrote:
+>>>> +unevaluatedProperties: false
+>>>> +
+>>>> +examples:
+>>>> +  - |
+>>>> +    #include <dt-bindings/clock/qcom,gcc-ipq5018.h>
+>>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>>> +    #include <dt-bindings/reset/qcom,gcc-ipq5018.h>
+>>>> +
+>>>> +    bluetooth {
+>>>
+>>> Don't send new versions while discussion is still going. I need to
+>>> repeat my question - what bus does that sit on?
+>>>
+>>> Device nodes represent real devices. Real devices sit on a bus, usually.
+>>> Do you have here a bus?
+>>
+>> I'm afraid I don't have a definitive answer. Again, my understanding
+>> based on downstream code is that the 'controller' is basically a Cortex
+>> M0 processor running Bluetooth firmware connected to an RF. Data
+>> transport is over a shared memory carveout with APPS signaling the
+>> controller through writes to an IPC mailbox register, while the
+>> controller has an interrupt line back to signal APPS.
+> 
+> So this looks like should be squashed into remoteproc node. There is no
+> reason or no data to express it as two separate device nodes.
 
-Since on Eliza there is already support for SPMI multi-master,
-it is necessary to duplicate the devicetree description for each
-of these PMICs, due to the SPMI bus index and address.
+In this version, I've squashed them into one already but as a Bluetooth
+controller as that's what the 'processor' is dedicated to, also in line
+with Bjorn's guidance to manage the lifecycle of this processor and all
+other resources in one. Kindly let me know if this approach is satisfactory.
 
-So add a new Elize specific dtsi for each of these PMICs and include
-all of them in both the CQS SoM and MTP board dts.
-
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi    |  5 ++
- arch/arm64/boot/dts/qcom/eliza-mtp.dts         |  5 ++
- arch/arm64/boot/dts/qcom/pm7550-eliza.dtsi     | 61 ++++++++++++++++++
- arch/arm64/boot/dts/qcom/pm8550vs-d-eliza.dtsi | 63 +++++++++++++++++++
- arch/arm64/boot/dts/qcom/pm8550vs-g-eliza.dtsi | 63 +++++++++++++++++++
- arch/arm64/boot/dts/qcom/pmk8550-eliza.dtsi    | 87 ++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/pmr735d-eliza.dtsi    | 63 +++++++++++++++++++
- 7 files changed, 347 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi b/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
-index 33f4cd282272..318ae3c22351 100644
---- a/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
-@@ -9,6 +9,11 @@
- 
- #include "eliza.dtsi"
- #include "pm7550ba-eliza.dtsi"
-+#include "pm7550-eliza.dtsi"
-+#include "pm8550vs-d-eliza.dtsi"
-+#include "pm8550vs-g-eliza.dtsi"
-+#include "pmr735d-eliza.dtsi"
-+#include "pmk8550-eliza.dtsi"
- 
- / {
- 	clocks {
-diff --git a/arch/arm64/boot/dts/qcom/eliza-mtp.dts b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-index 1374afd9d14e..a7d6f9d52ef3 100644
---- a/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-@@ -11,6 +11,11 @@
- #include "eliza.dtsi"
- 
- #include "pm7550ba-eliza.dtsi"
-+#include "pm7550-eliza.dtsi"
-+#include "pm8550vs-d-eliza.dtsi"
-+#include "pm8550vs-g-eliza.dtsi"
-+#include "pmr735d-eliza.dtsi"
-+#include "pmk8550-eliza.dtsi"
- 
- / {
- 	model = "Qualcomm Technologies, Inc. Eliza MTP";
-diff --git a/arch/arm64/boot/dts/qcom/pm7550-eliza.dtsi b/arch/arm64/boot/dts/qcom/pm7550-eliza.dtsi
-new file mode 100644
-index 000000000000..9b907f69264b
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/pm7550-eliza.dtsi
-@@ -0,0 +1,61 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved.
-+ */
-+
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/spmi/spmi.h>
-+
-+/ {
-+	thermal-zones {
-+		pm7550-thermal {
-+			polling-delay-passive = <100>;
-+
-+			thermal-sensors = <&pm7550_temp_alarm>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <95000>;
-+					hysteresis = <0>;
-+					type = "passive";
-+				};
-+
-+				trip1 {
-+					/*
-+					 * Current Linux driver currently only supports up to
-+					 * 125°C, should be updated to 145°C once available.
-+					 */
-+					temperature = <125000>;
-+					hysteresis = <0>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&spmi_bus0 {
-+	pm7550: pmic@1 {
-+		compatible = "qcom,pm7550", "qcom,spmi-pmic";
-+		reg = <1 SPMI_USID>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		pm7550_temp_alarm: temp-alarm@a00 {
-+			compatible = "qcom,spmi-temp-alarm";
-+			reg = <0xa00>;
-+			interrupts = <0x1 0xa 0x0 IRQ_TYPE_EDGE_BOTH>;
-+			#thermal-sensor-cells = <0>;
-+		};
-+
-+		pm7550_gpios: gpio@8800 {
-+			compatible = "qcom,pm7550-gpio", "qcom,spmi-gpio";
-+			reg = <0x8800>;
-+			gpio-controller;
-+			gpio-ranges = <&pm7550_gpios 0 0 12>;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/qcom/pm8550vs-d-eliza.dtsi b/arch/arm64/boot/dts/qcom/pm8550vs-d-eliza.dtsi
-new file mode 100644
-index 000000000000..548d2aa83962
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/pm8550vs-d-eliza.dtsi
-@@ -0,0 +1,63 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved.
-+ */
-+
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/spmi/spmi.h>
-+
-+/ {
-+	thermal-zones {
-+		pm8550vs-d-thermal {
-+			polling-delay-passive = <100>;
-+
-+			thermal-sensors = <&pm8550vs_d_temp_alarm>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <95000>;
-+					hysteresis = <0>;
-+					type = "passive";
-+				};
-+
-+				trip1 {
-+					temperature = <115000>;
-+					hysteresis = <0>;
-+					type = "hot";
-+				};
-+
-+				trip2 {
-+					temperature = <145000>;
-+					hysteresis = <0>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&spmi_bus0 {
-+	pm8550vs_d: pmic@3 {
-+		compatible = "qcom,pm8550vs", "qcom,spmi-pmic";
-+		reg = <3 SPMI_USID>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		pm8550vs_d_temp_alarm: temp-alarm@a00 {
-+			compatible = "qcom,spmi-temp-alarm";
-+			reg = <0xa00>;
-+			interrupts = <0x3 0xa 0x0 IRQ_TYPE_EDGE_BOTH>;
-+			#thermal-sensor-cells = <0>;
-+		};
-+
-+		pm8550vs_d_gpios: gpio@8800 {
-+			compatible = "qcom,pm8550vs-gpio", "qcom,spmi-gpio";
-+			reg = <0x8800>;
-+			gpio-controller;
-+			gpio-ranges = <&pm8550vs_d_gpios 0 0 6>;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/qcom/pm8550vs-g-eliza.dtsi b/arch/arm64/boot/dts/qcom/pm8550vs-g-eliza.dtsi
-new file mode 100644
-index 000000000000..4ad2cd189a6c
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/pm8550vs-g-eliza.dtsi
-@@ -0,0 +1,63 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved.
-+ */
-+
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/spmi/spmi.h>
-+
-+/ {
-+	thermal-zones {
-+		pm8550vs-g-thermal {
-+			polling-delay-passive = <100>;
-+
-+			thermal-sensors = <&pm8550vs_g_temp_alarm>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <95000>;
-+					hysteresis = <0>;
-+					type = "passive";
-+				};
-+
-+				trip1 {
-+					temperature = <115000>;
-+					hysteresis = <0>;
-+					type = "hot";
-+				};
-+
-+				trip2 {
-+					temperature = <145000>;
-+					hysteresis = <0>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&spmi_bus0 {
-+	pm8550vs_g: pmic@6 {
-+		compatible = "qcom,pm8550vs", "qcom,spmi-pmic";
-+		reg = <6 SPMI_USID>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		pm8550vs_g_temp_alarm: temp-alarm@a00 {
-+			compatible = "qcom,spmi-temp-alarm";
-+			reg = <0xa00>;
-+			interrupts = <0x6 0xa 0x0 IRQ_TYPE_EDGE_BOTH>;
-+			#thermal-sensor-cells = <0>;
-+		};
-+
-+		pm8550vs_g_gpios: gpio@8800 {
-+			compatible = "qcom,pm8550vs-gpio", "qcom,spmi-gpio";
-+			reg = <0x8800>;
-+			gpio-controller;
-+			gpio-ranges = <&pm8550vs_g_gpios 0 0 6>;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/qcom/pmk8550-eliza.dtsi b/arch/arm64/boot/dts/qcom/pmk8550-eliza.dtsi
-new file mode 100644
-index 000000000000..e0ff4ff9c469
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/pmk8550-eliza.dtsi
-@@ -0,0 +1,87 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved.
-+ */
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/input/linux-event-codes.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/spmi/spmi.h>
-+
-+/ {
-+	reboot-mode {
-+		compatible = "nvmem-reboot-mode";
-+		nvmem-cells = <&reboot_reason>;
-+		nvmem-cell-names = "reboot-mode";
-+		mode-recovery = <0x01>;
-+		mode-bootloader = <0x02>;
-+	};
-+};
-+
-+&spmi_bus0 {
-+	pmk8550: pmic@0 {
-+		compatible = "qcom,pm8550", "qcom,spmi-pmic";
-+		reg = <0x0 SPMI_USID>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		pmk8550_pon: pon@1300 {
-+			compatible = "qcom,pmk8350-pon";
-+			reg = <0x1300>, <0x800>;
-+			reg-names = "hlos", "pbs";
-+
-+			pon_pwrkey: pwrkey {
-+				compatible = "qcom,pmk8350-pwrkey";
-+				interrupts = <0x0 0x13 0x7 IRQ_TYPE_EDGE_BOTH>;
-+				linux,code = <KEY_POWER>;
-+				status = "disabled";
-+			};
-+
-+			pon_resin: resin {
-+				compatible = "qcom,pmk8350-resin";
-+				interrupts = <0x0 0x13 0x6 IRQ_TYPE_EDGE_BOTH>;
-+				status = "disabled";
-+			};
-+		};
-+
-+		pmk8550_rtc: rtc@6100 {
-+			compatible = "qcom,pmk8350-rtc";
-+			reg = <0x6100>, <0x6200>;
-+			reg-names = "rtc", "alarm";
-+			interrupts = <0x0 0x62 0x1 IRQ_TYPE_EDGE_RISING>;
-+		};
-+
-+		pmk8550_sdam_2: nvram@7100 {
-+			compatible = "qcom,spmi-sdam";
-+			reg = <0x7100>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges = <0 0x7100 0x100>;
-+
-+			reboot_reason: reboot-reason@48 {
-+				reg = <0x48 0x1>;
-+				bits = <1 7>;
-+			};
-+		};
-+
-+		pmk8550_gpios: gpio@b800 {
-+			compatible = "qcom,pmk8550-gpio", "qcom,spmi-gpio";
-+			reg = <0xb800>;
-+			gpio-controller;
-+			gpio-ranges = <&pmk8550_gpios 0 0 6>;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+		};
-+
-+		pmk8550_pwm: pwm {
-+			compatible = "qcom,pmk8550-pwm";
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			#pwm-cells = <2>;
-+
-+			status = "disabled";
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/qcom/pmr735d-eliza.dtsi b/arch/arm64/boot/dts/qcom/pmr735d-eliza.dtsi
-new file mode 100644
-index 000000000000..1c29d8ddea65
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/pmr735d-eliza.dtsi
-@@ -0,0 +1,63 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved.
-+ */
-+
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/spmi/spmi.h>
-+
-+/ {
-+	thermal-zones {
-+		pmr735d-thermal {
-+			polling-delay-passive = <100>;
-+
-+			thermal-sensors = <&pmr735d_temp_alarm>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <95000>;
-+					hysteresis = <0>;
-+					type = "passive";
-+				};
-+
-+				trip1 {
-+					temperature = <115000>;
-+					hysteresis = <0>;
-+					type = "hot";
-+				};
-+
-+				trip2 {
-+					temperature = <145000>;
-+					hysteresis = <0>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&spmi_bus0 {
-+	pmr735d: pmic@a {
-+		compatible = "qcom,pmr735d", "qcom,spmi-pmic";
-+		reg = <0xa SPMI_USID>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		pmr735d_temp_alarm: temp-alarm@a00 {
-+			compatible = "qcom,spmi-temp-alarm";
-+			reg = <0xa00>;
-+			interrupts = <0xa 0xa 0x0 IRQ_TYPE_EDGE_BOTH>;
-+			#thermal-sensor-cells = <0>;
-+		};
-+
-+		pmr735d_gpios: gpio@8800 {
-+			compatible = "qcom,pmr735d-gpio", "qcom,spmi-gpio";
-+			reg = <0x8800>;
-+			gpio-controller;
-+			gpio-ranges = <&pmr735d_gpios 0 0 2>;
-+			#gpio-cells = <2>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+		};
-+	};
-+};
-
----
-base-commit: 758ee0279ff3463f564cbb36687f4faa035b7878
-change-id: 20260629-dts-qcom-eliza-mtp-evk-add-pmics-733a716d8e0d
-prerequisite-change-id: 20260514-eliza-dts-qcs-evk-7f1419812659:v4
-prerequisite-patch-id: 9e10dfbe360941cdac0300aaf163149755952f9f
-prerequisite-patch-id: fecce0170351baf00cbe8f6b302d1def4d99bbfc
-prerequisite-patch-id: 97cd6cb495fdd198f6de7fbe45ef32e4a638ec9c
+> 
+> Best regards,
+> Krzysztof
 
 Best regards,
---  
-Abel Vesa <abel.vesa@oss.qualcomm.com>
-
+George
