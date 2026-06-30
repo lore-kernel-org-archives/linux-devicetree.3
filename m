@@ -1,171 +1,188 @@
-Received: from flow-b1-smtp.messagingengine.com (flow-b1-smtp.messagingengine.com [202.12.124.136])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA8E411687;
-	Tue, 30 Jun 2026 13:12:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F492416CF4
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 13:12:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782825134; cv=none; b=qMbjX6XVHoGU4lzFh11l7YcJUe9Ww99Jjx749SqEBDDCTFesMuHDXozVsmo4/WRq2sP/AIQdFdIAIZgoEFfxIqQEsBmUMGyfvb74Amut7BcJH6vP3+lruGLCRZJskJ0CyCp68aNGBLIIBkFkyHhCJ9ew18J+MKz0qlMrekjS+3A=
+	t=1782825172; cv=none; b=ut/kmh/oexa8o8fbI4wBMHctzoQtz7IQ+zWjdRogwLxZHW63J86v8I7zt4v52upJMbLr7/KIoL/876GjrMfL56Iiy8et1lTF1PgurRRMkbqGIzlD1DjKDWhQk1eixLtdybTrD9soiffjP5gvUTPf/7zzDFA2sxav0fD+piFFx7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782825134; c=relaxed/simple;
-	bh=8BXpW32i3b+MZ6T6RR8FcwEOaRbjJVuX738hyO6aW4c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h4ThpxbnrT487jiT/RX45kptIuQPCKJTQxSKljIJ7cqx2bbq0gMgrzvAg8yUJ0nn4AIzNGc4FEwgEYASTJjAFpyAe81nQRDnGjeDwmvo8mO6uCF0/a9wxT0kXINzHrpzUNCDgx4BUQynTlHgs+ReltiSSoEEk4T+gEAweuhVHr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=PJXGwFB3; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=NhGlSUZC; arc=none smtp.client-ip=202.12.124.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1782825172; c=relaxed/simple;
+	bh=3RhZhz8qRVBeG+9Z4V+0HzKXdGm3B3s1JlXEC/Wghdc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eebxaTYp0Qr4+bEmGZt66UxWf1Se9MXWRTIaPlf819yEbR8lr2QzSV+XDM7qV9Yxstdr20d+Xj4CENWL/L3eHTl0x84+IyZmQYtbFP4rUjog7T1+gaLrrdFvn3TvpydRCw3IKUD2zhcOOEHTaMps01B0cBg0oxXjFPg0u4n7vhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MlQs4G54; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="PJXGwFB3";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="NhGlSUZC"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailflow.stl.internal (Postfix) with ESMTP id 39F0B1300071;
-	Tue, 30 Jun 2026 09:12:10 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Tue, 30 Jun 2026 09:12:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm1;
-	 t=1782825130; x=1782832330; bh=8BXpW32i3b+MZ6T6RR8FcwEOaRbjJVuX
-	738hyO6aW4c=; b=PJXGwFB30fcai5mjfKu2R+eBg2ljAsikpExxGKLPRLVa0NOP
-	M1ycgbJJE0ZZEK9IDOqVM27W/XC2rtksn2dtwcDDEp0E0XqpMetCb1S9u1QS9vRs
-	1RpG9E1DxiYICt1E4S5M+M8o0AO3d/lDRbaMGoAYitA0nB4ffxb6+I9mxnMRuZrW
-	cLANa2sjxxxgEEOTOGsqEZ1+sVQ56b8BPrZ+TWxHeLWXOSBqkQGZ4b/gNvoCcROA
-	YQ/iYGPf+7CaH81chhSp9iO5517lx8P174SsCtLkHncpI+lxouQgklo6Fl5c6kVj
-	JNiImW96RfYUAODI1gVUSpzWqjiMshFdXgzT2Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782825130; x=
-	1782832330; bh=8BXpW32i3b+MZ6T6RR8FcwEOaRbjJVuX738hyO6aW4c=; b=N
-	hGlSUZC5FJjbCQGE1G49NdD+d7cILSk+XoFg/PLocO85LTUqUcTTnA2qOez5xa/1
-	7olGYURUII1QwbW7/5l/NHKGC5XPwDnnvdkTi9seGSIfK7ewoJm9gkjQJ5QixhPY
-	YbiNvMDK64Ve9tqPDFF8ueJ3fFg4ZJr1ngimgTgkSEjWxANu3u9xdk+qeBWL6v2T
-	nZWr7xCFbFxxlaMB1GLbgnNlMtvs11OY/SGxKARwTz9fGm77EVUE0gQcxCPI8nOp
-	SWw1G+J+mz2oQD8MbsyZtTn7pTd3ZWq9QMuTxBctShNEVb6Y4gepeOn3zYb5wFmi
-	9B5JpaDHEJ6cfA89KcJPg==
-X-ME-Sender: <xms:p8BDaq0NvsKE4Bwmrv7s6iPNrlRLMROJJfeP0PtkiGSW7gsRd0-TDw>
-    <xme:p8BDaowX_ucL4yAoCMkD8zUpTEubysfFuSXF0rmTIEEd6kwqgbgIHD5cSY_RiP5q7
-    e94Qqk9PxtgNPph5Dh-eQn0ewvop-u96XOrG5qKJv32fgGLhp4LwQ>
-X-ME-Received: <xmr:p8BDapzG2fnajZZ032F6c5k00KAk68fe5vP2RzELkgMs08TO2FJvPbVaiAuGz8lvK1JDMAGE4tF7lFNPlbFs-ViUMGr_wQ>
-X-ME-Proxy-Cause: dmFkZTGWMpslQBp5MoMOGT3m9w2jgI36XruuqnR1pq0xzO86H7HHpTyefggyPo3gnlbJ2+
-    oUnJ5655lI+FwSC+uR7gX7xFFGOmQJDOgf9Cba3Anoe3HTOIfOGCIAsgo1oJZtDql3wBBu
-    SB3jkp1L6LCEgtQxQMxyoy5Barght9IrAsceMzQUUBw7yzWpezkYTkGw46uvF5pwbOwhQA
-    zC2+AIIkGLJOKN5oP5DOt5CpV0EjBg1Q504AwM3NXu2EdDiyHhIj+1boTpwxsX4uWP3Dtq
-    q1Sx/fGVa2o1PfHLSAbSC97hryNKZ1Xkg+kcpXHWnkeOBgW28cM/lKBZYCocptO7oNw7Xp
-    RRRp1lmFluW4GD3WBSjnVRt7ShmNMV8JxE7I4KxMCGy1xK939sWK596jv4gWLGFVVsl58z
-    0zIbon8UG8BOgTKT9obCI77IUrcmzyKVUgxH9BcBIXTiSVJX0hzVYDYb3z8plG9r6Qmqhw
-    5XKD5CserZlglD6zl422xOx0BpMhzXw+CBy3CC9PpBgPIN0QWoaRgkg5YjLzHpvaWYMvAP
-    kswZxHVzkddqUnlH+ytcMyHDd4N7HF8kZdvxlKCIeSI9lHErBxpIgzgCgK6MYR3Gs4kNlt
-    yXG+xUduKp0+yACN9ZkEHsRE3C1r15KrySGCNt8HsxIUOsWWgxHUpptffVtw
-X-ME-Proxy: <xmx:p8BDagp55rfDi1q_D4dxVo_2Op9MhmMsNnjsFNrFYNaOD4Ef6nhgRQ>
-    <xmx:p8BDatqsCMbaET8mYMnWUgekQi8JdiMi195_l061CoO2xWwR_o3QkA>
-    <xmx:p8BDahiyYZ_k6dahNCS0o5fMpNgmC8HjicFh_VY9pLuXWpbV6L1mBA>
-    <xmx:p8BDauz6N3_C5O0MFtj-iENsXLL0iCKDuafUA3tyEHBXnnTDZ7XB5g>
-    <xmx:qsBDamtebrD5hnYxkpqIAnk8VBxhqbqHUrgJns-p6CEdQOutmOtpa6T6>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 30 Jun 2026 09:11:58 -0400 (EDT)
-Date: Tue, 30 Jun 2026 22:11:55 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mark Brown <broonie@kernel.org>,	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Bill Wendling <morbo@google.com>,	Justin Stitt <justinstitt@google.com>,
-	Raag Jadav <raag.jadav@intel.com>,	Sohil Mehta <sohil.mehta@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,	Len Brown <lenb@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>,	linux-kernel@vger.kernel.org,
-	Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,	linux-media@vger.kernel.org,
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,	Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,	Heiko Stuebner <heiko@sntech.de>,
-	linux-rockchip@lists.infradead.org, linux-sound@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,	Danilo Krummrich <dakr@kernel.org>,
- driver-core@lists.linux.dev,	Jonathan Cameron <jic23@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Pei Xiao <xiaopei01@kylinos.cn>,
-	Shashank Balaji <shashank.mahadasyam@sony.com>,
-	Ben Horgan <ben.horgan@arm.com>, Johan Hovold <johan@kernel.org>,
-	linux-usb@vger.kernel.org, Nikita Kravets <teackot@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-i2c@vger.kernel.org,	Daniel Scally <dan.scally@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Tianrui Zhao <zhaotianrui@loongson.cn>,	Bibo Mao <maobibo@loongson.cn>,
- Huacai Chen <chenhuacai@kernel.org>,	WANG Xuerui <kernel@xen0n.name>,
- kvm@vger.kernel.org,	loongarch@lists.linux.dev
-Subject: Re: [PATCH v3 00/16] mod_devicetable.h: Split into per subsystem
- headers
-Message-ID: <20260630131155.GA39400@sakamocchi.jp>
-Mail-Followup-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mark Brown <broonie@kernel.org>,	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Bill Wendling <morbo@google.com>,	Justin Stitt <justinstitt@google.com>,
-	Raag Jadav <raag.jadav@intel.com>,	Sohil Mehta <sohil.mehta@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,	Len Brown <lenb@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>,	linux-kernel@vger.kernel.org,
-	Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,	linux-media@vger.kernel.org,
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,	Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,	Heiko Stuebner <heiko@sntech.de>,
-	linux-rockchip@lists.infradead.org, linux-sound@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,	Danilo Krummrich <dakr@kernel.org>,
- driver-core@lists.linux.dev,	Jonathan Cameron <jic23@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Pei Xiao <xiaopei01@kylinos.cn>,
-	Shashank Balaji <shashank.mahadasyam@sony.com>,
-	Ben Horgan <ben.horgan@arm.com>, Johan Hovold <johan@kernel.org>,
-	linux-usb@vger.kernel.org, Nikita Kravets <teackot@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-i2c@vger.kernel.org,	Daniel Scally <dan.scally@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Tianrui Zhao <zhaotianrui@loongson.cn>,	Bibo Mao <maobibo@loongson.cn>,
- Huacai Chen <chenhuacai@kernel.org>,	WANG Xuerui <kernel@xen0n.name>,
- kvm@vger.kernel.org,	loongarch@lists.linux.dev
-References: <cover.1782682124.git.ukleinek@kernel.org>
- <20260629235804.GA414914@sakamocchi.jp>
- <akNYUdAS3sbEdRqC@monoceros>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MlQs4G54"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B3F1F000E9
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 13:12:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782825171;
+	bh=wkvT66lJpDRdyEaoJbT/7KZo9MPl7om0PLqvxc7ob+g=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MlQs4G54c13BOoDjbRqfk9JXS0zYvoN2PTMHw2l9DzIt3rhp0u/NLUxXtRzfj0SMk
+	 r248yRej4n8zNz5ghiy1dms0tnbjYQUG4bYLHhG6wCqW+RTP1eFw5TJZKWyQkxJBBe
+	 lE+jSuWGKJS5Vu8R7jGIlwotqdpoGkzlI+f9KEDueRCjVLIwJ02WWEicb44pTVWJZP
+	 PpTy6IhpTI91585rq/dKUbVYvxW4aLqfxO4kLfghjVmsDS0DRNWPgKtr4vgn+i4Wkt
+	 qdkodsqKJpYB54dq5rTckejtiUpGJZm0bCpO7hL6nEESxBJESjAwkKjBWEds7ev3Cb
+	 lNwK33IGbkvNA==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5aeb2df5cc1so2159308e87.3
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 06:12:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoGxU4xjcqrflElOJM7D9ECLP1JGq8JnNm9px69lQZcSGhyf+GRh1o9eJBYW47gTy56UMMAn44oJioS@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw4391o7W+J9XZXZS/k/AW751TYIy4W8Dqxe5Sw+/ep5zWwOIQX
+	FyQJJq2wf5yibMcVFK1e9dnFjG5mfNYsKdC5DgwvAXJs9eMz982qjmLlzzZuXkRefCjFmYf7e+p
+	0e05dd3P4BN5Fc/l5aWWrSCOEUlux8GQ=
+X-Received: by 2002:ac2:4f04:0:b0:5ae:ba3e:a6f6 with SMTP id
+ 2adb3069b0e04-5aec10a566bmr209261e87.4.1782825169836; Tue, 30 Jun 2026
+ 06:12:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <akNYUdAS3sbEdRqC@monoceros>
+References: <20260622092335.1166876-1-eleanor.lin@realtek.com> <20260622092335.1166876-4-eleanor.lin@realtek.com>
+In-Reply-To: <20260622092335.1166876-4-eleanor.lin@realtek.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 30 Jun 2026 14:12:36 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=xa-8E8Uon5mXgA=XHTUpc3h4DNi-jUevq5ibWyL3YGA@mail.gmail.com>
+X-Gm-Features: AVVi8Cd0rzQDD94BIMNrdHy8q6vTCtb9F3B8vRr2O64rvi7iNBdl6YLUyoEX4Ss
+Message-ID: <CAD++jL=xa-8E8Uon5mXgA=XHTUpc3h4DNi-jUevq5ibWyL3YGA@mail.gmail.com>
+Subject: Re: [PATCH v4 3/4] gpio: realtek: Add driver for Realtek DHC RTD1625 SoC
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: brgl@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	afaerber@suse.com, mwalle@kernel.org, andriy.shevchenko@intel.com, 
+	tychang@realtek.com, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-realtek-soc@lists.infradead.org, cy.huang@realtek.com, 
+	stanley_chang@realtek.com, james.tai@realtek.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 30, 2026 at 08:04:26AM +0200, Uwe Kleine-König (The Capable Hub) wrote:
-> The impact of these firewire changes is limited to the firewire
-> subsystem. So doing these later is a smaller issue. I plan to tackle
-> these when this series is in. (But if you want to care about the
-> firewire bits, that's fine, too.)
+Hi Yu-Chun,
 
-I promise it for firewire subsystem. Just focus on your good work ;)
+thanks for your patch!
 
+On Mon, Jun 22, 2026 at 10:33=E2=80=AFAM Yu-Chun Lin <eleanor.lin@realtek.c=
+om> wrote:
 
-Thanks
+> From: Tzuyi Chang <tychang@realtek.com>
+>
+> Add support for the GPIO controller found on Realtek DHC RTD1625 SoCs.
+>
+> Unlike the existing Realtek GPIO driver (drivers/gpio/gpio-rtd.c),
+> which manages pins via shared bank registers, the RTD1625 introduces
+> a per-pin register architecture. Each GPIO line now has its own
+> dedicated 32-bit control register to manage configuration independently,
+> including direction, output value, input value, interrupt enable, and
+> debounce. Therefore, this distinct hardware design requires a separate
+> driver.
+>
+> Additionally, the RTD1625 GPIO controller has a specific hardware quirk:
+> it fires both 'assert' and 'de-assert' interrupts simultaneously on any
+> edge toggle. To handle this, we utilize the polarity register to route
+> the requested edge (rising/falling) to the 'assert' IRQ line. The driver
+> then filters out the unwanted 'de-assert' interrupt in the IRQ handler
+> and pre-clears edge interrupts to prevent interrupt storms caused by
+> unhandled dropped interrupts.
+>
+> Interrupt support is optional for this device, matching the dt-bindings.
+> If the interrupts property is not provided, the driver simply skips IRQ
+> initialization and operates purely as a basic GPIO controller.
+>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Signed-off-by: Tzuyi Chang <tychang@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+(...)
+> +static void rtd1625_gpio_irq_handle(struct irq_desc *desc)
+> +{
+> +       unsigned int (*get_reg_offset)(struct rtd1625_gpio *gpio, unsigne=
+d int offset);
+> +       struct rtd1625_gpio *data =3D irq_desc_get_handler_data(desc);
+> +       struct irq_domain *domain =3D data->gpio_chip.irq.domain;
+> +       struct irq_chip *chip =3D irq_desc_get_chip(desc);
+> +       unsigned int irq =3D irq_desc_get_irq(desc);
+> +       unsigned long status;
+> +       unsigned int reg_offset, i, j;
+> +       unsigned int girq;
 
-Takashi Sakamoto
+So this
+
+> +       irq_hw_number_t hwirq;
+> +       u32 irq_type;
+> +
+> +       if (irq =3D=3D data->irqs[RTD1625_IRQ_ASSERT])
+> +               get_reg_offset =3D &rtd1625_gpio_gpa_offset;
+> +       else if (irq =3D=3D data->irqs[RTD1625_IRQ_DEASSERT])
+> +               get_reg_offset =3D &rtd1625_gpio_gpda_offset;
+> +       else if (irq =3D=3D data->irqs[2])
+> +               get_reg_offset =3D &rtd1625_gpio_level_offset;
+> +       else
+> +               return;
+> +
+> +       chained_irq_enter(chip, desc);
+> +
+> +       for (i =3D 0; i < data->info->num_gpios; i +=3D 32) {
+> +               reg_offset =3D get_reg_offset(data, i);
+> +               status =3D readl_relaxed(data->irq_base + reg_offset);
+> +
+> +               /*
+> +                * Hardware quirk: The controller fires both "assert" and=
+ "de-assert"
+> +                * interrupts simultaneously on any edge toggle.
+> +                * We must pre-clear edge interrupts here. If we drop an =
+unwanted
+> +                * de-assert interrupt below, it will never reach the IRQ=
+ core
+> +                * (generic_handle_domain_irq), meaning ->irq_ack() won't=
+ be called.
+> +                * Failing to clear it here leads to an interrupt storm.
+> +                */
+> +               if (irq !=3D data->irqs[RTD1625_IRQ_LEVEL])
+> +                       writel_relaxed(status, data->irq_base + reg_offse=
+t);
+> +
+> +               for_each_set_bit(j, &status, 32) {
+> +                       hwirq =3D i + j;
+> +                       girq =3D irq_find_mapping(domain, hwirq);
+> +                       irq_type =3D irq_get_trigger_type(girq);
+
+Just
+irq_type =3D irq_get_trigger_type(irq_find_mapping(domain, hwirq));
+
+Drop the intermediate variable.
+
+> +static void rtd1625_gpio_ack_irq(struct irq_data *d)
+> +{
+> +       struct rtd1625_gpio *data =3D irq_data_get_irq_chip_data(d);
+> +       irq_hw_number_t hwirq =3D irqd_to_hwirq(d);
+> +       u32 irq_type =3D irqd_get_trigger_type(d);
+> +       u32 bit_mask =3D BIT(hwirq % 32);
+
+This is a clear sign that your GPIOs and IRQs should be three-cell
+(bank and offset) since they clearly have one each a separate
+status bit in this register.
+
+> +static void rtd1625_gpio_enable_edge_irq(struct rtd1625_gpio *data, irq_=
+hw_number_t hwirq)
+> +{
+> +       int gpda_reg_offset =3D rtd1625_gpio_gpda_offset(data, hwirq);
+> +       int gpa_reg_offset =3D rtd1625_gpio_gpa_offset(data, hwirq);
+> +       u32 clr_mask =3D BIT(hwirq % 32);
+
+Same here.
+
+> +static int rtd1625_gpio_setup_irq(struct platform_device *pdev, struct r=
+td1625_gpio *data)
+> +{
+> +       struct gpio_irq_chip *irq_chip;
+
+This is a super-confusing name for this variable.
+
+It is called irq_chip but it's not struct irq_chip at all.
+
+Call this girq like all other drivers.
+
+Yours,
+Linus Walleij
