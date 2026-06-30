@@ -1,106 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C30261B91
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:37:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB8734F48A;
+	Tue, 30 Jun 2026 09:37:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782812223; cv=none; b=XA8S21GEvyuUOriP+KueCRP5nmZni9l+xIDUylcMW5RuYqaAusJpBC2H4GqIZOG+Q6SWrEWCfgTYybtHfu06RU6yVDjbRHGx3E3+2pwTU7cOnsvlS492sMMTsb5bBd53hxM7tRgAJqR3na+xNf+oElA6VWVC0yAbhzBITCHXhdQ=
+	t=1782812223; cv=none; b=W9kMg9uEJLbmOMBiGhjca09lRiqtrwbIGx4SbASAWcmIeIyh6TWB0awJR3zXTg5LFXxeQHhI2xtNAOhKXWcgWfBZ5hjX3G+BXfQsh8n7zusKqf3G+hxNPWsNylorBNNVC/zw3ArEOEP52J4y4TDxZHOR0rSTgQYpTNcbp9Gg1nA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782812223; c=relaxed/simple;
-	bh=DFQYKzaMLxMFb8KpdU/CMtl/afClSFq3DLOWV46ufng=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uIw+wmx2dgzo5DZCX0OvTPbD0HJS+1RuP5OcxsoPfA+MV0tucZR3njot3K2QYN+dlR7udx117jayNMXqGstMKpNSiQ9XLom3gs9zBAUMfs0aAYTgKov+lpXDjntPfZFTOyMQVCihTFBDKB9E0/QuVcY/+SJ+qLplpnPIzvcCggc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TNJDxbBd; arc=none smtp.client-ip=100.103.45.18
+	bh=b2HE2/l9IrpGvkPLNtqbKq6IrgROI2wKPVDiGDKGxTU=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fPDdzfLQNrmJpGStpoO2ouqqradVrDVeq8QmJ0viQU7N6JiUeLNpUIPA8N5jbj1oULtgOKgOy8rtp5wwQEKWnL6jNApcMsK6x/SpinlJBYk8qlS7LZpYg8n5Ti6ikyIYUa8OeKe4bi7ULz7IRoIwGAGJga69SjT+aBD6bmlvhho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=07X5LiZS; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TNJDxbBd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24B31F000E9;
-	Tue, 30 Jun 2026 09:37:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782812222;
-	bh=klixIZihNJVXQiVlbUS2Xvpyd8/AKRUFXbey2VeZ2Co=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TNJDxbBdqVpxOeiReYVTZ7lYB0riEPZHpaJsFqdlHBDyGLQoZQVDu1nJJSm0dd8QE
-	 2lyeduvl9tfbcbHHt8zIIXv2AcshDLSlIK8MkPR0w8hrlSEDXIAjKxJ81/RShGUoYR
-	 HWA2BZkQXwK/upOS0JfanS/zMmqjpChwVzVD2diR9NZJpzTSqnGJldiTwH5LnHjBa6
-	 b8AM60xa26oo3hCyVhusjbmJi2TPpTQ/CCCwbQEul7Vt6OfqGl8u5j7uw2o2nJYLXc
-	 cDs4VKGoADySX6fBsPGxxzbEQhfXptVgrvi/1r+uA+p8AylRzuQ9LSU6/Nm2MSBc4i
-	 jr3gSHz4xe7+w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 10/10] loongarch: kdump: exclude non-dumpable
- reserved memory regions from vmcore
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260630074715.4126796-11-chenwandun1@gmail.com>
-References: <20260630074715.4126796-1-chenwandun1@gmail.com>
- <20260630074715.4126796-11-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 09:37:01 +0000
-Message-Id: <20260630093701.B24B31F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="07X5LiZS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1782812223; x=1814348223;
+  h=from:to:subject:date:message-id:in-reply-to:references:
+   mime-version:content-transfer-encoding;
+  bh=b2HE2/l9IrpGvkPLNtqbKq6IrgROI2wKPVDiGDKGxTU=;
+  b=07X5LiZSEDl4U/t0ZxepwYLyXpj1FV2ORiEm0Mq1cBM43RbkYvWb3feV
+   IW6uDKZhObwBlW7xoAxE79EG3rw+pkn0JxDhsmkvNp1NHQ83x2WporDNn
+   qFZXm/9qdoVXV8rYS+5WTgWvgk4wkVKUNnBm1a4hRsq9RnPDhaMKZ5UQD
+   gfm6+qUEKAnQ208sgcaS7k4wB5I5Xe/Qm1n+dnhK5/Ts++JOBaHy1cE2v
+   qK+gpls379rtUsGUJWWVe6tU/a9WQ5uNzCaznRaC0/IQ+V9QfgB5YQh5A
+   2ybez0TV3Gg/9teyL5csPLnN9iSJMdzrlTzMFC+j+GN4pWnqf9qo6Ndpv
+   Q==;
+X-CSE-ConnectionGUID: ke3uW/xuQkuIIzeAFFBFjw==
+X-CSE-MsgGUID: qDgVRIxdS7WTrMiyOUgiuQ==
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
+   d="scan'208";a="291266929"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 30 Jun 2026 02:37:02 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Tue, 30 Jun 2026 02:37:01 -0700
+Received: from che-ll-i67070.microchip.com (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 30 Jun 2026 02:36:52 -0700
+From: Varshini Rajendran <varshini.rajendran@microchip.com>
+To: <ehristev@kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
+	<nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
+	<srini@kernel.org>, <marcelo.schmitt@analog.com>, <jorge.marques@analog.com>,
+	<mazziesaccount@gmail.com>, <Jonathan.Santos@analog.com>,
+	<jishnu.prakash@oss.qualcomm.com>, <antoniu.miclaus@analog.com>,
+	<duje@dujemihanovic.xyz>, <varshini.rajendran@microchip.com>,
+	<linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 02/13] iio: adc: at91-sama5d2_adc: use cleanup.h for NVMEM buffer
+Date: Tue, 30 Jun 2026 15:05:52 +0530
+Message-ID: <20260630093603.38663-3-varshini.rajendran@microchip.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260630093603.38663-1-varshini.rajendran@microchip.com>
+References: <20260630093603.38663-1-varshini.rajendran@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Use __free(kfree) cleanup helper for the NVMEM data buffer in
+at91_adc_temp_sensor_init() to simplify error handling paths.
 
-Pre-existing issues:
-- [High] Concurrent memory hotplug during kexec_file_load() can cause an ou=
-t-of-bounds write in the `cmem->ranges` array due to a TOCTOU between two l=
-ockless passes of `for_each_mem_range()`.
---
+Since __free(kfree) requires a valid kfree-able pointer (not an
+ERR_PTR), store nvmem_cell_read() result in a temporary void pointer
+first, check for errors, then assign to the managed buffer.
 
-commit d8948c2d581027666a36bbb47058ae244b39b8ae
-Author: Wandun Chen <chenwandun@lixiang.com>
+Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
+---
+ drivers/iio/adc/at91-sama5d2_adc.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
-loongarch: kdump: exclude non-dumpable reserved memory regions from vmcore
+diff --git a/drivers/iio/adc/at91-sama5d2_adc.c b/drivers/iio/adc/at91-sama5d2_adc.c
+index 255970b2e747..5015c234289e 100644
+--- a/drivers/iio/adc/at91-sama5d2_adc.c
++++ b/drivers/iio/adc/at91-sama5d2_adc.c
+@@ -2251,9 +2251,10 @@ static int at91_adc_temp_sensor_init(struct at91_adc_state *st,
+ {
+ 	struct at91_adc_temp_sensor_clb *clb = &st->soc_info.temp_sensor_clb;
+ 	struct nvmem_cell *temp_calib;
+-	u32 *buf;
++	u32 *buf __free(kfree) = NULL;
++	void *cell_data;
+ 	size_t len;
+-	int ret = 0;
++	int ret;
+ 
+ 	if (!st->soc_info.platform->temp_sensor)
+ 		return 0;
+@@ -2267,16 +2268,18 @@ static int at91_adc_temp_sensor_init(struct at91_adc_state *st,
+ 		return ret;
+ 	}
+ 
+-	buf = nvmem_cell_read(temp_calib, &len);
++	cell_data = nvmem_cell_read(temp_calib, &len);
+ 	nvmem_cell_put(temp_calib);
+-	if (IS_ERR(buf)) {
++	if (IS_ERR(cell_data)) {
+ 		dev_err(dev, "Failed to read calibration data!\n");
+-		return PTR_ERR(buf);
++		return PTR_ERR(cell_data);
+ 	}
++
++	buf = cell_data;
++
+ 	if (len < AT91_ADC_TS_CLB_IDX_MAX * 4) {
+ 		dev_err(dev, "Invalid calibration data!\n");
+-		ret = -EINVAL;
+-		goto free_buf;
++		return -EINVAL;
+ 	}
+ 
+ 	/* Store calibration data for later use. */
+@@ -2289,9 +2292,7 @@ static int at91_adc_temp_sensor_init(struct at91_adc_state *st,
+ 	 */
+ 	clb->p1 = clb->p1 * 1000;
+ 
+-free_buf:
+-	kfree(buf);
+-	return ret;
++	return 0;
+ }
+ 
+ static int at91_adc_probe(struct platform_device *pdev)
+-- 
+2.34.1
 
-This commit applies the arm64 non-dumpable reserved memory filtering to
-LoongArch kdump. It uses of_reserved_mem_kdump_nr_ranges() to size the=20
-crash_mem array and of_reserved_mem_kdump_exclude() to drop regions.
-
-> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/=
-kernel/machine_kexec_file.c
-> index 5584b798ba464..4b918c3d4a285 100644
-> --- a/arch/loongarch/kernel/machine_kexec_file.c
-> +++ b/arch/loongarch/kernel/machine_kexec_file.c
-[ ... ]
-> @@ -67,6 +68,7 @@ static int prepare_elf_headers(void **addr, unsigned lo=
-ng *sz)
->  	nr_ranges =3D 2; /* for exclusion of crashkernel region */
->  	for_each_mem_range(i, &start, &end)
->  		nr_ranges++;
-> +	nr_ranges +=3D of_reserved_mem_kdump_nr_ranges();
-> =20
->  	cmem =3D kmalloc_flex(*cmem, ranges, nr_ranges);
->  	if (!cmem)
-
-[Severity: High]
-This is a pre-existing issue, but can concurrent memory hotplug during
-kexec_file_load() cause an out-of-bounds write in the cmem->ranges array?
-
-If the number of memory regions increases between the first lockless pass
-of for_each_mem_range() shown above, and the second lockless pass that
-populates the array later in prepare_elf_headers():
-
-	for_each_mem_range(i, &start, &end) {
-		cmem->ranges[cmem->nr_ranges].start =3D start;
-		cmem->ranges[cmem->nr_ranges].end =3D end - 1;
-		cmem->nr_ranges++;
-	}
-
-could the second pass write past the allocated cmem->ranges array?
-
-Since kexec_file_load() takes kexec_mutex while memory hotplug uses
-mem_hotplug_lock, they can run concurrently. A concurrent addition via
-memblock_add_node() could result in writing beyond the bounds of the array.
-Should there be bounds checking when adding ranges to the array in the
-second pass?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630074715.4126=
-796-1-chenwandun1@gmail.com?part=3D10
