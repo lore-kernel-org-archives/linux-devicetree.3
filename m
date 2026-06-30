@@ -1,310 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5008634AB1D;
-	Tue, 30 Jun 2026 14:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9AC2475D0
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 14:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782831308; cv=none; b=UKNHSkhfvVdW4QcqlEq3zOYZh9N38uF8W6rm19MvFRx37BXCFdzPWz4ApYnKvwMNuTuG2aTLR4rQBVEKjVloz0kGOwYeBessBgWefGEvVCTjGqBlb9ShHfmKZGsLQJShVPSA1nE4YF/JDuCdizrVw2JSl3MM22RqmyrsvJVKg/I=
+	t=1782831405; cv=none; b=V9RU/Zl2zYAxcEElXUBxor1t4/lK5Z+BZ2CY+6I60sJg8KM9LX8nTmJNkZ+87SL//TbjjlVWkAK41gBgBKUVD3PKzKfNf0qWJPXEdxYkOrGTN6qjnIdgvnEibZedzDrglFORGaqGsUMap+6NEml94gu/iXr+qhqOXuEUgxZFhOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782831308; c=relaxed/simple;
-	bh=awFFWtgVL1TAG14f5CYmC0LELd9S2Tl5LSXPyhVTyk4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oyIJpDoQKKpjjqj09D4H79EaCquVfqrWkWNziM3T6imsZqqv7nUm3ryZeXvEoZcEdbEg9ZYcdXytzXzclGU8pbcZdPcvlUKhZpx7X/yyGshMpT5sPo42YuC9/LksxWRw/4D3ToURIldYXYHxTJU+yMEFihDIhr5ENy5lhdkfWL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oKfVzFZ6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782831405; c=relaxed/simple;
+	bh=R3Og7UN2n8n9LTZTfx1vMc5jN8NgotgtqijYcSnTn/Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pNWIhunHipYIoKeHoibw2kKm6LMqMtJRieCM+SNUIyxghYE2gR25DnX5NwbNL/MAqGeOQyz+63qNqxHSL8wu8qRSENvKWVGInKvqnyEvqeUBRCd0ILj1AdkScyaIHpyLqn2PO3KNEourmpOQLq/WxQQDk6+Uy6cvgggDWJ/U18E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PbDRoupy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fNiDibid; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oKfVzFZ6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73DB41F00A3E;
-	Tue, 30 Jun 2026 14:54:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782831307;
-	bh=FrOy3rj9ErYPsJBF3jjZifi/JmWhngje4d+c3PkjfiI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oKfVzFZ6b/XSsHTT24iTlGuILVTem1fiPHNzbqfkkfEvgofuYcLnT0ZBgbClmJSyU
-	 1Lje1eKxqCR4srhyHKb8b43TaGt/wOdQZXmv9MCfqI/QaKY0Sm3heWK7BVrIeOZDzf
-	 P2zz/ZVNqH0yjYGkLQQLLiGvp654MVGM2V4RrpCvRDYfrZqeDqSFpN1iBK/jQBipio
-	 GzOMvwzGE77O+3r4MhfmAyJvycRC+cbAkpZPfltFgLx+L3FcsZRkJbecwAdR5VffFu
-	 7XRMQ3++8oaFXaRC4M35PtNbbbb3CmOuL7Rrw8sLRlduulgMHMNmiiOglxx3k9yzNS
-	 XQhqm13RH8Dug==
-Date: Tue, 30 Jun 2026 16:54:52 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Ryder Lee <ryder.lee@mediatek.com>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Jianjun Wang <jianjun.wang@mediatek.com>, 
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 3/4] dt-bindings: PCI: mediatek-gen3: Split Airoha
- schema and document 2-lanes
-Message-ID: <alqqddz52csz4pcbiilfca7a47x6jsazf2um4ydwiqq6ejrgz4@4qhkbj4k5i5s>
-References: <20260627121450.3529133-1-ansuelsmth@gmail.com>
- <20260627121450.3529133-4-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PbDRoupy";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fNiDibid"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65UEDRIc2225679
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 14:56:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	dgvL7NjSVUKBYdOnhG+1nuU7W73bphG+krxfU0rVXsA=; b=PbDRoupy8AaJpDHU
+	v96GzSIeByyyMFP7M7jBSf99kw2LGPuGrK6Fy46NaaaWPKbRw8Uj/ru2/e+TUgUR
+	e49p5XQRsJDwMvFxug+yjpfKAn6ea7Ob46kdR3NgwDecfEULxYYrxXXQexzJkKMe
+	rW66xObHFDh/d1N1ANIk8S66/4gUEcf9AuiGPcKxFM18rmynOUOShQXcyu91kaJZ
+	mN44BrCe74H5URuZ7BznmzOdLIkSe1UzzNSSfakMvdkz0/Xw5fDqO+2kF7lBDeFL
+	iJk2Ccbbuc3pindVV5jw6vFHAjPgZxseQClnZg3VhNGz3CY+etIHOdU4/LTdyF6r
+	+M7DhA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f441gu872-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 14:56:43 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c8895156101so2153431a12.1
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:56:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782831403; x=1783436203; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=dgvL7NjSVUKBYdOnhG+1nuU7W73bphG+krxfU0rVXsA=;
+        b=fNiDibidiR5z5w3dtWU+I1/pLsQPybtmYNSD3oCVZrZDEBu7vWNwT8iQjS+zhq/e/j
+         gVjoe4jOuy54Dd4dCzbTXw33fcJ3t8Wg/FNj7WXTlA+AbEjNJXVY/pFRr7Lu6yxmgbcz
+         w75a7W/Krb8GoX2LknLYzZmsj3/2VplEOUP1klNpgjoBtrd10vf8RDfmP21L7Kr8zRlq
+         hU9QqBHjFEgTV7H7asRUEp3UYQt6thbOfQXizZemqSmjqfHZQTxhY1Z1hbf4nnYiz6yC
+         MKezsClf7ghNDFSmRd5rtq2t8qhMU6Pkof/dkLyvzVdqPuHYmijX+TWDQzgD4hRJdjjW
+         sCtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782831403; x=1783436203;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dgvL7NjSVUKBYdOnhG+1nuU7W73bphG+krxfU0rVXsA=;
+        b=Va8jCa9OYkAZTcq1JcPWhNAQDE1E7xizacG8IXtXShPlWdONlO4WeVSVG/L7FByzvi
+         JD/5CAQPss/asRnG/t92+RkyXwzJLrXiu/usWphYXrbF/0X6Ild75Lvv/lZ3sXBQiscd
+         m2LJy3/FfPYAoYl+1t5NoP9+K2IOp3H4KTbcK7QPwIdvkLXIQBy37ZuHflS7++zYAak1
+         qEhLyhgmCP6c+lLVoEiD/yBQI9Se7325fIwfjs8AGcKo8GyykwGnsD86lc9OR5dkGs21
+         s9DU39m38TNwVxNXJ28eFqT3tLRWKhTcFtuyXeoJ+XC1VWH9UqB66PKFDUqqj6m2xE28
+         /sxA==
+X-Forwarded-Encrypted: i=1; AFNElJ8F114+afW6oihNuHsspPh2La9SLeqUekS0JHirRu8S1OHkvo2oKaW7I8hdNWJvgkIqwPxLRH6Rl3kF@vger.kernel.org
+X-Gm-Message-State: AOJu0YyfCzujZQsNU1LG5Lia0+aeJKzpkRmZwHvQvjjLKs5sFNRn1GL8
+	JuKGRpAQQfaUf1yJo46oQK/Y1gns6UmHF3OGBJ/4aZD4gJ1N07atiJdkfTDrFATGFkCmGgEsIEx
+	ToxvXHB3fqhg6jVNVW+52eA8EQqTpI2FKGYo8bLlsxZvSb4HCaY5PLtJHarmDXBuy
+X-Gm-Gg: AfdE7ckntUEoaMLldCYUjWPQDl7G7aIeawLJrCHwT2PyKxKQQKMbG90yuqH8TcrwjkI
+	rNuoOnGwYIHtU1kY/vZvEp0eFJAJMqJLLs3gfITTgHHOQIz8vu01cbJfPOkE099jXw0xjD9wElq
+	csc9DW+/DbtQvWQEXLWAY/1lBP4LUnA0nlCan1bhLFPsZU42/NnAw2BHBVuvlxzZuf+fDZBWQBo
+	8D8bpSywu0fWcVYYoSaMsiemrNQs5gLSATXHnNar6ig1vYfbLh5K4R6mvowND6D96F8hfco86gP
+	De4ECzfg3wu9X64vbWq1YlEXStYMX3WftNUlvcSpunQWPsw9mFaKIF2oJp/fek0hJLl/LaHmxHj
+	0SR3lsP6diOV7GxQyJ9EFOUC2YzjyiuaE
+X-Received: by 2002:a05:6a21:687:b0:3bd:187e:2de with SMTP id adf61e73a8af0-3bfdc359071mr646904637.25.1782831402841;
+        Tue, 30 Jun 2026 07:56:42 -0700 (PDT)
+X-Received: by 2002:a05:6a21:687:b0:3bd:187e:2de with SMTP id adf61e73a8af0-3bfdc359071mr646883637.25.1782831402423;
+        Tue, 30 Jun 2026 07:56:42 -0700 (PDT)
+Received: from [192.168.1.6] ([171.76.81.78])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c9bc02082ebsm1824121a12.26.2026.06.30.07.56.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jun 2026 07:56:41 -0700 (PDT)
+Message-ID: <68dc89e8-2c91-497f-a665-4a7a8ad2bc76@oss.qualcomm.com>
+Date: Tue, 30 Jun 2026 20:26:37 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260627121450.3529133-4-ansuelsmth@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: embedded-controller: qcom,hamoa-crd-ec:
+ Add Purwa IOT EVK
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring
+ <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260629-ec_support_for_purwa_evk-v1-0-e082b70138d6@oss.qualcomm.com>
+ <20260629-ec_support_for_purwa_evk-v1-1-e082b70138d6@oss.qualcomm.com>
+ <20260630-unstoppable-phoenix-of-dew-9f0bd5@quoll>
+Content-Language: en-US
+From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+In-Reply-To: <20260630-unstoppable-phoenix-of-dew-9f0bd5@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDE0MCBTYWx0ZWRfX6K5DiRTNHqwv
+ Vdu5a3VejwcmXBEpg8nZgCQbLUzqS9nRJI3SLZNYMp55vACOx4HkQt080w3pb/qPMFtP2ced0Ad
+ 4sbHPBurBNZfma0pKm1X6ALm7mjc/dA=
+X-Proofpoint-ORIG-GUID: GO-tkFoj80vonQONb8tAkoMyxd7oZZA4
+X-Authority-Analysis: v=2.4 cv=F8dnsKhN c=1 sm=1 tr=0 ts=6a43d92b cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=Tlw+mRs2SjLwfDc/NrL+bQ==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=QOAcj8qZypVd95KNxhoA:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDE0MCBTYWx0ZWRfX0v4nrIOazIlG
+ dxAo1FH7bgKjGdq2GGLztUoscsYsxj1mDu6b0/1+Th6Ji3MKAu7sQeUrjKCRSbygEm8KuVjqUnd
+ cKSBad1LUDSITFRO3F4qCkOL/HCSodA3svRLfpax/2Razq5fHo9AVUdqlZWE9Yx0Y8elZZyplU6
+ SiDbZjWR+YPCp1TurtU6QLzKRd/t4ywgn0NeuBJRIles0WbzKaZn1EagbDnIFzp3mebW2xNEe34
+ U+JrHlfl20uvoP4B7neMFqSt0Y9bh7cUNpUSAnCLdEpr2w6RrclmS+S8P+CY9QteJ1C7rhHRWcQ
+ aV8JIHrOohQ2X9Tft0eqm6EwbebHQUDKnHmTDAzcVI6OKzzqvqoOh5wMKkKRtzak4ok219GqLPQ
+ Tp4npsYy4D/4wamk83jeaE92GCdyaaEjXUOD93trSrxOPJZjkzJhp1it0bQI3/A7FYwYymVgIjc
+ Ye7Tb2APt9Tb8aKc/Hw==
+X-Proofpoint-GUID: GO-tkFoj80vonQONb8tAkoMyxd7oZZA4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-30_04,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 suspectscore=0 clxscore=1015
+ impostorscore=0 phishscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606300140
 
-On Sat, Jun 27, 2026 at 02:14:44PM +0200, Christian Marangi wrote:
-> To permit proper documentation of required property to support PCIe
-> configured for 2-lanes mode, split the Airoha schema part from the
-> mediatek-gen3 schema to a dedicated schema.
+
+
+On 6/30/2026 12:49 PM, Krzysztof Kozlowski wrote:
+> On Mon, Jun 29, 2026 at 04:10:17PM +0530, Anvesh Jain P wrote:
+>> Document the qcom,purwa-iot-evk-ec compatible for the embedded controller
+>> found on Purwa IOT EVK boards. Like the other reference designs, it uses
 > 
-> A PCIe configured for 2-lanes mode require an additional reg for the
-> secondary PCIe to be configured and the airoha,scu phandle to correctly
-> configure the PCIe MUX.
+> EC on an IoT device? This needs some explanation of hardware.
 > 
-> Rework the mediatek-gen3 schema to drop any redundant constraint previsouly
-> introduced for Airoha PCIe properties.
+> Best regards,
+> Krzysztof
 > 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  .../bindings/pci/airoha,en7581-pcie.yaml      | 251 ++++++++++++++++++
->  .../bindings/pci/mediatek-pcie-gen3.yaml      |  77 +-----
->  2 files changed, 256 insertions(+), 72 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/pci/airoha,en7581-pcie.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/pci/airoha,en7581-pcie.yaml b/Documentation/devicetree/bindings/pci/airoha,en7581-pcie.yaml
-> new file mode 100644
-> index 000000000000..c690ba7f207c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pci/airoha,en7581-pcie.yaml
-> @@ -0,0 +1,251 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/pci/airoha,en7581-pcie.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Gen3 PCIe controller on Airoha SoCs
-> +
-> +maintainers:
-> +  - Christian Marangi <ansuelsmth@gmail.com>
-> +
-> +description: |+
-> +  PCIe Gen3 MAC controller for Airoha SoCs, it supports Gen3 speed
-> +  and compatible with Gen2, Gen1 speed.
-> +
-> +  This PCIe controller supports up to 256 MSI vectors, the MSI hardware
-> +  block diagram is as follows:
-> +
-> +                    +-----+
-> +                    | GIC |
-> +                    +-----+
-> +                       ^
-> +                       |
-> +                   port->irq
-> +                       |
-> +               +-+-+-+-+-+-+-+-+
-> +               |0|1|2|3|4|5|6|7| (PCIe intc)
-> +               +-+-+-+-+-+-+-+-+
-> +                ^ ^           ^
-> +                | |    ...    |
-> +        +-------+ +------+    +-----------+
-> +        |                |                |
-> +  +-+-+---+--+--+  +-+-+---+--+--+  +-+-+---+--+--+
-> +  |0|1|...|30|31|  |0|1|...|30|31|  |0|1|...|30|31| (MSI sets)
-> +  +-+-+---+--+--+  +-+-+---+--+--+  +-+-+---+--+--+
-> +   ^ ^      ^  ^    ^ ^      ^  ^    ^ ^      ^  ^
-> +   | |      |  |    | |      |  |    | |      |  |  (MSI vectors)
-> +   | |      |  |    | |      |  |    | |      |  |
-> +
-> +    (MSI SET0)       (MSI SET1)  ...   (MSI SET7)
-> +
-> +  With 256 MSI vectors supported, the MSI vectors are composed of 8 sets,
-> +  each set has its own address for MSI message, and supports 32 MSI vectors
-> +  to generate interrupt.
-> +
-> +properties:
-> +  compatible:
-> +    const: airoha,en7581-pcie
-> +
-> +  reg:
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  reg-names:
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  ranges:
-> +    minItems: 1
-> +    maxItems: 8
 
-8 entries? Really?
+The "IOT EVK" boards are full Snapdragon reference/development kits, not
+small sensor-class IoT devices. Like the CRD, the Purwa IOT EVK carries
+an on-board embedded controller (on a separate MCU) that handles fan
+control, temperature sensors and EC state-change/suspend notifications.
+The existing hamoa-iot-evk board already documents the same EC via
+qcom,hamoa-iot-evk-ec.
 
-> +
-> +  iommu-map:
-> +    maxItems: 1
-> +
-> +  iommu-map-mask:
-> +    const: 0
-
-Why these iommu properties are not present in the example?
-
-> +
-> +  resets:
-> +    minItems: 1
-> +    maxItems: 4
-> +
-> +  reset-names:
-> +    minItems: 1
-> +    maxItems: 4
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    items:
-> +      - const: sys-ck
-
-sys-clk?
-
-> +
-> +  phys:
-> +    maxItems: 1
-> +
-> +  phy-names:
-> +    items:
-> +      - const: pcie-phy
-
-If there is going to be only one PHY, then I think you can drop the phy-names
-property.
-
-> +
-> +  num-lanes:
-> +    enum: [1, 2]
-> +
-> +  mediatek,pbus-csr:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    items:
-> +      - items:
-> +          - description: phandle to pbus-csr syscon
-> +          - description: offset of pbus-csr base address register
-> +          - description: offset of pbus-csr base address mask register
-> +    description:
-> +      Phandle with two arguments to the syscon node used to detect if
-> +      a given address is accessible on PCIe controller.
-> +
-> +  airoha,scu:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    items:
-> +      - items:
-> +          - description: phandle to airoha SCU syscon
-> +    description:
-> +      Phandle to SCU syscon to configure PCIe MUX for 2 lines support.
-> +
-> +  '#interrupt-cells':
-> +    const: 1
-> +
-> +  interrupt-controller:
-> +    description: Interrupt controller node for handling legacy PCI interrupts.
-
-s/legacy/INTx
-
-> +    type: object
-> +    properties:
-> +      '#address-cells':
-> +        const: 0
-> +      '#interrupt-cells':
-> +        const: 1
-> +      interrupt-controller: true
-> +
-> +    required:
-> +      - '#address-cells'
-> +      - '#interrupt-cells'
-> +      - interrupt-controller
-> +
-> +    additionalProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - interrupts
-> +  - ranges
-> +  - clocks
-> +  - clock-names
-> +  - '#interrupt-cells'
-> +  - interrupt-controller
-> +
-> +allOf:
-> +  - $ref: /schemas/pci/pci-host-bridge.yaml#
-> +  - if:
-> +      properties:
-> +        num-lanes:
-> +          const: 2
-> +    then:
-> +      properties:
-> +        reg:
-> +          minItems: 2
-> +
-> +        reg-names:
-> +          items:
-> +            - const: pcie-mac
-> +            - const: sec-pcie-mac
-> +
-> +        resets:
-> +          minItems: 4
-> +
-> +        reset-names:
-> +          items:
-> +            - const: phy-lane0
-> +            - const: phy-lane1
-> +            - const: perstout
-> +            - const: sec-perstout
-> +
-> +      required:
-> +        - airoha,scu
-> +
-> +    else:
-> +      properties:
-> +        reg:
-> +          maxItems: 1
-> +
-> +        reg-names:
-> +          items:
-> +            - const: pcie-mac
-> +
-> +        resets:
-> +          minItems: 2
-> +          maxItems: 3
-> +
-> +        reset-names:
-> +          minItems: 2
-> +          items:
-> +            - enum: [ phy-lane0, phy-lane1, phy-lane2 ]
-> +            - enum: [ phy-lane1, perstout ]
-> +            - const: phy-lane2
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    bus {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-
-You can drop bus node.
-
-- Mani
+If needed I can expand the commit message to explain this.
 
 -- 
-மணிவண்ணன் சதாசிவம்
+Best Regards,
+Anvesh
+
