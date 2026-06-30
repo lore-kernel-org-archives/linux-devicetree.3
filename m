@@ -1,148 +1,110 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F9E3375C3
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 08:54:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9B334C9AF
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 08:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782809641; cv=none; b=BqBZTe7er+XwVjHVdqM+c+Lg7t5dg4hMn65rnoPONjsDnHEDZgTZ8xiQenRU42k6kcBwF+j3gmbcFHn4dbapuP4BoHQ4DFE27BDKtM3mOJKkiOP2Xy5HPnzOhqPC78F4jeHJvzI0ebseh9Q47IP9OK37SbbRvz+4hP7+rVsBrjQ=
+	t=1782809764; cv=none; b=SbaTEdgyCD4fYIOB8AhQcSha00sZDjYqfdK+jjanOqn2sbH+XKmvVa8gO5QgWisQHpwwyibJ1w0CaKFHkFCLlLAqa2DY16d7P/B+cdhcHtXP7Kw2cHBznWLC3iFcOAPRaGJ28sg6PZHk24qi4mAv/rADbqaZrdRUxPMEzxXFZE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782809641; c=relaxed/simple;
-	bh=jSqCbiw8rPhSQgPSsHd7R6eVF88l2Y8pZ2SQ4YaLbnM=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=qYjnCBtaRXJLyx/JCGwadOrPYm0DTWcO8viZDknXJV/uX9HFmz9e8Fi3gHGgPkX13usvBdGRXXZOyAEKKsDJJn//0DHQjimCv27rw5s9BO0fzKMoZB+8uR+BmFjhs37n7fzK9DiDZ89tJheVQfCwrfrZW/8nY2bqmoxZfUBWklU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cHvE+qhx; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782809764; c=relaxed/simple;
+	bh=2OSMAONc9ew6BBDAFgsMrjiVWVD6noTf51uUIwirWl0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uimQ1zNvgqJUiqS2n164jaiF4VjiAoakQoeOTEBAmEoJl5VxHYF3rsWJBRMM6xO3vJJyNawKxsbAQNJG0O+zMgjTV/5a4t0+4LxpXeFYW2BSd0tiv3Ks8qPZXt2eeCnBnaFJho/sPxLkF8dgMQxm/3EmCI+yS+eS9M6olyNV2q0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sbsn8vvF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cHvE+qhx"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493b966dd74so3002175e9.3
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 01:54:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782809639; x=1783414439; darn=vger.kernel.org;
-        h=to:references:message-id:cc:date:in-reply-to:from:subject
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=3p5N3pSY7f2AmTP0/oS5IDt21osoKJvAm5wj7AjOhYY=;
-        b=cHvE+qhxJvEN7A3RmEoEz/b0SL/0uv6pB142b62xnXECyfIl4OHuJvwCfrMPEnPZhd
-         LR8la3lIZEy7inW2OaOJlWhAPaV0/FAPitBHR0zuwzjlwIiVTKAYtJpXPLOFIo559Qh6
-         9zS2MudCthN+4vb6F0wNwsZ0tBXjS7Jn0MRzaLnJ6+Lz2R5KStJQHNV11HAdOLmHoeJ9
-         7KpCIfBQIV4vOmjVerXkn/G9OnxG10txMIa4SmpT3jk2jbGqVyO9j1Cz3BhKN5wXh2rq
-         oo9Cm7j9EUcQeRFBLG+28u6/KdAV56Fh/wl3pneLc286AjaKmP0pK/OkRBhiZzk6gI6l
-         50tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782809639; x=1783414439;
-        h=to:references:message-id:cc:date:in-reply-to:from:subject
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3p5N3pSY7f2AmTP0/oS5IDt21osoKJvAm5wj7AjOhYY=;
-        b=j9Q43RMY7cFhl22jPQAHU2u0FyycGhdXBKW9iVju1W4EPCXFcHTZx/tVKc5mMkwJsO
-         cGN6oKgJNZ8YqUxp+3NkYx2k/VBAUBMaOK6fToyHX6619zuYOuKCF2/Juydn+MyA2Fs4
-         eVySKW+Po6QBua1+4HskYleOGXU93c+PAfSr8FwmniWqvwY44UsqZbmwOUJ8qqJtd8Io
-         dd2fOCZbTM6PqHJdkoYL++8/9OW0Nj6RPiKTkwYddMtD6MaMOxKU5uX/2e6gofCUeN0w
-         /5PlTub1Mf26BcEdW1fxYAa7OY+ynCStUr5WSiQ70c673jTXRuUiewmk64FuPLPl9eHX
-         o3CA==
-X-Forwarded-Encrypted: i=1; AFNElJ9whSJ0ZGMlwYuD49JKrpiNknpd+oLxFDK0B0l4NkbzdyH0fH/aYTEowQxzgh+Z0s/vUcmycOIdNbpz@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywc4ztYqI4E+61Km+hB4vfSeE147RTSlDpZP5+gS6D4BiuWkq4v
-	6Ru+JjR+sFwe+YNyirxOwcVgdvmNYZtaCntVXLzE8j3bATHZdvjbcl82
-X-Gm-Gg: AfdE7cnEF8yQJ6L1jfj70cChdOk9mjqnGpbrMqbL/7pfHCsYZn9Kd8PZezffCHK7FHN
-	JYW+0eap116D8F/Bo5VBEIebY7B9Jo1ZhFTl0ZsQVpQz8nA8GimhmgArCaPM4ajLKqzaOAyi7pz
-	9KejRXbodT3NP2StEag6voY0y33AeXhHigAmwHalytDI0E0qWTTEmMBEj9DqRh5js3yEbYUWGnx
-	dvsj1uSwYSS4DkR1G/ZoBoeEKVYMTrIVwxr5oxi8I5aZOcfMFXkrvffUBWrkQKl8Xl7wSwsPrqM
-	nRvZARsnfxXPeJZ4o1o8ydvyk3NkeHEL1ZbLdZT7S1rk1/4oFjQXQLztmfqeUcQI0R8BgJD58pN
-	cbmoUbpXfZ1e0JDgEs+lY91PWyniTIG0ZpS+FDtbYQYqlakhqDlaPpw8s2yiu3KrTYAvIOi0Q6N
-	9NV3iR7Y46OiWmQ5+SbsyMYRwLvuIJXGLvgSl0jOAte+fVHPuww6S7
-X-Received: by 2002:a05:600c:c11a:b0:492:3da4:81ef with SMTP id 5b1f17b1804b1-493b82b0e50mr36934455e9.18.1782809638753;
-        Tue, 30 Jun 2026 01:53:58 -0700 (PDT)
-Received: from smtpclient.apple ([197.250.51.120])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493bc7aca88sm46787785e9.0.2026.06.30.01.53.55
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 30 Jun 2026 01:53:57 -0700 (PDT)
-Content-Type: multipart/signed;
-	boundary="Apple-Mail=_E2D32867-FDC8-4398-8E1A-361442408B27";
-	protocol="application/pgp-signature";
-	micalg=pgp-sha256
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sbsn8vvF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77AB31F00A3A;
+	Tue, 30 Jun 2026 08:56:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782809761;
+	bh=Sgx7UoEhgUa9haERmuxWFAQrtrFbtPxaVXkr+pUaGmg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Sbsn8vvF/wz+t9CSA/MpNAC10kb3aIXKN40uNybC2RKceOLT58lOmlhwaR+vmP2O2
+	 OqWemA64GUqkJyoQnyMb+y1XeA9gk/or7UIP3NRbdImzL1oc71QsemR7ZGufyFg7ej
+	 fRlXCnfQJSFUUn51TDyJZpIFxBNJqwKoebagaVlnEmFtwayWd+qRWcqy7I+l0cbyDt
+	 9lja0b6URQdWoLJAfbRmiWgZYNjjFhzwqRrSCDiQBBFQYsty6cZVxypjBeCVOQEN+u
+	 oGNk4awENQtDMlmW7Wu1EyLDkpA3p3NGlamw9HXmsch0GTLczi24U6X7nekIsBdE5W
+	 EIwVp31IKaDSQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 6/9] net: of_net: Add of_get_nvmem_eui48() helper for
+ EUI-48 lookup
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260629-block-as-nvmem-v6-6-f02513dcd46d@oss.qualcomm.com>
+References: <20260629-block-as-nvmem-v6-0-f02513dcd46d@oss.qualcomm.com>
+ <20260629-block-as-nvmem-v6-6-f02513dcd46d@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 08:56:01 +0000
+Message-Id: <20260630085601.77AB31F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH RFC v5 05/12] clk: zte: Add Clock registration
- infrastructure.
-From: =?utf-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-In-Reply-To: <c59fab242716c80250a66707d7ccaaf243a85aac.camel@pengutronix.de>
-Date: Tue, 30 Jun 2026 11:53:41 +0300
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Brian Masney <bmasney@redhat.com>,
- linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Message-Id: <84C4450E-7355-48CD-BCBB-CF619C27EBED@gmail.com>
-References: <20260628-zx29clk-v5-0-79ff044e4192@gmail.com>
- <20260628-zx29clk-v5-5-79ff044e4192@gmail.com>
- <c59fab242716c80250a66707d7ccaaf243a85aac.camel@pengutronix.de>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Replacing memcpy() with ether_addr_copy() imposes an unsafe 16-bit=
+ alignment requirement on the caller-provided addr buffer, which can trigge=
+r unaligned access faults (kernel panics) on strict-alignment architectures.
+--
 
---Apple-Mail=_E2D32867-FDC8-4398-8E1A-361442408B27
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
+commit a4898c618dc4fdc91885d4184cdfd51af73fa946
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Hi Philipp,
+net: of_net: Add of_get_nvmem_eui48() helper for EUI-48 lookup
 
-> Am 30.06.2026 um 11:27 schrieb Philipp Zabel <p.zabel@pengutronix.de>:
->=20
-> I think the MFD driver is unnecessary overhead. Can't you just keep =
-the
-> reset controllers as auxdev and use of_platform_populate() to create
-> devices for clock-controller child nodes such as syscon-reboot?
+This commit factors out the common NVMEM EUI-48 retrieval logic from
+of_get_mac_address_nvmem() into a new helper. The original function
+is updated to call the new helper, preserving the lookup behavior.
 
-MFD for top and matrix was the suggestion of Conor:
+> diff --git a/net/core/of_net.c b/net/core/of_net.c
+> --- a/net/core/of_net.c
+> +++ b/net/core/of_net.c
+[ ... ]
+> @@ -75,27 +73,54 @@ int of_get_mac_address_nvmem(struct device_node *np, =
+u8 *addr)
+[ ... ]
+> -	memcpy(addr, mac, ETH_ALEN);
+> -	kfree(mac);
+> +	ret =3D of_get_nvmem_eui48(np, "mac-address", mac);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (!is_valid_ether_addr(mac))
+> +		return -EINVAL;
+> +
+> +	ether_addr_copy(addr, mac);
+> +	return 0;
+>  }
 
-=
-https://lore.kernel.org/linux-arm-kernel/20260618-fantasy-estimate-6c52edb=
-c6890@spud/
+[Severity: High]
+Will the use of ether_addr_copy() here cause an unaligned access fault on
+strict-alignment architectures?
 
-To quote:
+The original code used memcpy(), which handles unaligned destination pointe=
+rs
+safely. The ether_addr_copy() function requires both source and destination
+pointers to be 16-bit aligned.
 
-> I think aux bus makes perfect sense when you have a clock/reset
-> controller, but once you start expanding past that and you have reboot
-> or hwmon or hwspinlock then mfd starts to make sense.
+While the local mac buffer is explicitly aligned to 16 bits in this patch,
+the destination addr buffer is provided by the caller. Callers like
+of_get_ethdev_address() often allocate a 1-byte aligned array on the stack:
 
-I can go either way. To me aux vs mfd seems like a distinction without a =
-difference.
+of_get_ethdev_address() {
+        u8 addr[ETH_ALEN];
+       =20
+        ret =3D of_get_mac_address(np, addr);
+        ...
+}
 
+Could this lead to kernel panics during device probe when the stack-allocat=
+ed
+addr buffer happens to be unaligned?
 
---Apple-Mail=_E2D32867-FDC8-4398-8E1A-361442408B27
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename=signature.asc
-Content-Type: application/pgp-signature;
-	name=signature.asc
-Content-Description: Message signed with OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmpDhBUACgkQPRO8yFRP
-GiLDTA//XuiFvq2hvcqMHFcgqCiOzfN6Ejynlaa1U0fpgCupiwkoTk7x7V2F9fNC
-GDJKF2tdhcs7CpooAxYbSMwhLT4UlSuCWBz+Op6qj4ANOJi0L/kMelslIMoZG5qc
-XgAKSrho7pZxbYl1BPd6iNZn7fU6ejh9B346spNmR6Kjk8o+7giGQS527j2Qlnfr
-Lgk0fnGiCcg5uKdkynAcTArHAJN7Pt9TjBHQ3SxjC424lnbUqeAHZ3MVb+nMbM0L
-vbSSXmozV0xj2RPFVor0EUYhXWT8jsF1t6TfZCycP/DWL4oVMa8nzBtYRM1E6D7M
-Sz+Yc59noQ0NgNeCzoTDR7iBR/QkZdsq8WB6Q5cO8TMVcDxXUOTIU0cyVoFLimjG
-y8cNXWjGqhYXYbAT/7W/Y/MlTT2Ss20ssTNTTP3WYoORsMjVrBUtAiyI7FXpaZIC
-7u272rGUcIf/EyhIBuIOtukt1F+YwWytOoPqDXzfvUX3OyU/VdzlV63Ee30HlnOT
-JNjndlqVVL4aX7BgJIBKkP4gEd815JCX6I44nlSbLWs9375U1uwYmkWgqhKFLx/S
-gm0fMw/AxcXSP+XbtrCnbIMSeWSWtlW9y+itnxhISdD9rgx00WhjxnoX99ywfat9
-ugTXugS0oIxmoGGxLvMBTUdKcXQjk0V/smaau8JmSbdZujZ0lr8=
-=DWLi
------END PGP SIGNATURE-----
-
---Apple-Mail=_E2D32867-FDC8-4398-8E1A-361442408B27--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-block-as-n=
+vmem-v6-0-f02513dcd46d@oss.qualcomm.com?part=3D6
