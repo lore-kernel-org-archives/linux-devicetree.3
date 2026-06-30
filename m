@@ -1,141 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C74C31D372
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:26:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF2F3FBB44
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:28:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782818787; cv=none; b=TFMNEeJw0YgsiT98SIios3D53csPQG2pufUKrkuwc5vtxo60JnH5MdP2DUsyTedz9py7+WcQ2vSEyJeq5S9K5Wx1ySUE8GGGwzUYrjz8DjIjMvby3/ch/OPZoeaQueAkecVGALmhU3Kv7Y29xRsWYKvnLTSyXGVZhskmQQwdZPE=
+	t=1782818927; cv=none; b=GWjxOr7DkiQ3K4jE+8LdbEzhacPMjgQs+hBKDdqHTk/ta71OWszHxM3JcOxuegF+oNkJbNOIR5YonzQewI8/UlHTvWXAD/Af/Q8IiuVC4uFUz/IiJZGyK29xu1ZmnT/BMFy4m8e82Ovey2vmsEzcJ0qk/DaECBjujtW9kZtbkM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782818787; c=relaxed/simple;
-	bh=lB97F5wrbw07ed2Ta+uZmic1Lvo5jhV6jv3gG66Wwhg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ikVvC3SLf96e7TO0zAtjW1bwxY0Vle0BOCBVWR6qnu7dRA+sPcvEP9OAs9vKhwVdu/0hUxdA0VCKW5Orl+ttkWV/VXDF6N+8GyzZMQv6b/gFVKUJ7p7bJaPb5vcKj4EwHiwv1TcrEEWs4DNapkkrwgvA881eGSgQan140/lLoDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R6nJYYSx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782818927; c=relaxed/simple;
+	bh=WBlom0iDPCVsCjE864JxXWp8X0m3OrVlX25asskwS8g=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=CETAlCmuzznhAQvcewYUHf8/DXlLRjus7lAoNOrY/N4DJ9i0MU3XqPfoi8VBKaAE0hPZ5JLeHSwU5PD5remvJbyG1h8dDlFlIfdG8fH1yvQNN49M6OI/5wY4QvzjyLSy4yoMN9sYzAHPUSNyiXbDEzWht9JavGKcmRoJEZ17qhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=N8CMIt18; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R6nJYYSx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F333C1F000E9;
-	Tue, 30 Jun 2026 11:26:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782818786;
-	bh=DhkGn865KN4kRJ8n2zV4ydWm6Q9GdvXcLszYXD3lkYQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=R6nJYYSxRQ0pfFkum1OIXASEZ/huj7ePq/vqHLF6j4b66SUowtmiMFc5ckrFUfTyD
-	 O0YajKUEI/z8PXpaPxEVRIyIXLwkZgTCZHqtipixTT7tIIr76XPMexUEvYHiBUQkIQ
-	 D8CwZBkS7KWpFy+Sa7zlgvxqJ8CfV8zenVIyPLEMMBovghJIrOtrl5dJ5X4uFX3QEm
-	 M2qH6ZtscAWaq8xrfF4BkJKNTJfrFunQhrXM3RwVKHIg1jZbYcDWxeKiEwkPog1uzz
-	 ay3wC3xljp8rH07IrDQoN8fgZTvu2ifR5UlEkUSpWxpidr2uQaj/5YZoxzW1c3hJx1
-	 XHalWXZ0Hyfdg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/5] arm64: dts: lx2160a: transition to device-specific
- SerDes compatible strings
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ioana Ciornei" <ioana.ciornei@nxp.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260630110459.516364-2-ioana.ciornei@nxp.com>
-References: <20260630110459.516364-1-ioana.ciornei@nxp.com>
- <20260630110459.516364-2-ioana.ciornei@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 11:26:25 +0000
-Message-Id: <20260630112625.F333C1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="N8CMIt18"
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260630112838epoutp048519d0219c731594471dd414388c3028~92Fw0kZmc2875328753epoutp04Z
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:28:38 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260630112838epoutp048519d0219c731594471dd414388c3028~92Fw0kZmc2875328753epoutp04Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1782818918;
+	bh=WBlom0iDPCVsCjE864JxXWp8X0m3OrVlX25asskwS8g=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=N8CMIt18qyqh4UyXXu6C2pgNITJJ3eLl/7VDzD0CpSERHQiRJMwiN7Jmlssm0yWb6
+	 +Us5ntXEs0j374OaCF5zkXsDgxbhrpnHoOLZaO+faHvRo880HqpzkRw9FRERxHM3EE
+	 6KyEDpAJ6Awe4ZEXTpsv2TxSHatLGCXmvS3UsMgo=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
+	20260630112837epcas5p42699c74e7bdfdc08e7a387ecddd1610f~92FwTOXXd2430624306epcas5p4W;
+	Tue, 30 Jun 2026 11:28:37 +0000 (GMT)
+Received: from epcas5p3.samsung.com (unknown [182.195.38.87]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4gqLW83pG4z6B9m9; Tue, 30 Jun
+	2026 11:28:36 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20260630112836epcas5p49964fca2cb45fb07d2bbd7f3a7dfcbf1~92FvDdikf2430624306epcas5p4U;
+	Tue, 30 Jun 2026 11:28:36 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20260630112833epsmtip1093e0631eef1002d20979d73c9441641~92FsWGGhq1723317233epsmtip1E;
+	Tue, 30 Jun 2026 11:28:33 +0000 (GMT)
+From: "Alim Akhtar" <alim.akhtar@samsung.com>
+To: "'Krzysztof Kozlowski'" <krzk@kernel.org>, "'Peter Griffin'"
+	<peter.griffin@linaro.org>
+Cc: "'Denzeel Oliva'" <wachiturroxd150@gmail.com>, "'Sylwester Nawrocki'"
+	<s.nawrocki@samsung.com>, "'Chanwoo Choi'" <cw00.choi@samsung.com>,
+	"'Michael	Turquette'" <mturquette@baylibre.com>, "'Stephen Boyd'"
+	<sboyd@kernel.org>, "'Brian	Masney'" <bmasney@redhat.com>, "'Rob Herring'"
+	<robh@kernel.org>, "'Conor Dooley'" <conor+dt@kernel.org>,
+	<linux-samsung-soc@vger.kernel.org>, <linux-clk@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+In-Reply-To: <b035916c-e985-4acf-930b-bb74814ae748@kernel.org>
+Subject: RE: [PATCH v3 3/3] clk: samsung: exynos990: Fix PERIS gate clock
+ parents
+Date: Tue, 30 Jun 2026 16:58:31 +0530
+Message-ID: <10d301dd0883$970925c0$c51b7140$@samsung.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQEx4sfAWwy4gnk+MuXqAo8FFpNhngGTah19AjUYwH4DLBf1wQK+JwWqAckmQ8cBG1pq6bdIhjIw
+Content-Language: en-us
+X-CMS-MailID: 20260630112836epcas5p49964fca2cb45fb07d2bbd7f3a7dfcbf1
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260629123246epcas5p2aab9da9ef417274bb0b70f74c386f7b4
+References: <20260613-exynos990-peris-fix-v3-v3-0-2b230db78ae4@gmail.com>
+	<20260613-exynos990-peris-fix-v3-v3-3-2b230db78ae4@gmail.com>
+	<CGME20260629123246epcas5p2aab9da9ef417274bb0b70f74c386f7b4@epcas5p2.samsung.com>
+	<CADrjBPpNQd6WgwVo-a3Mz74d1EptPm9D9BisLEmoFRsdUb3izw@mail.gmail.com>
+	<0f1e01dd0844$01190c40$034b24c0$@samsung.com>
+	<CADrjBPoZ4G09WGC_b59YWq3_EfTaPFyp0dD7VizKLYBW_eFk+A@mail.gmail.com>
+	<b035916c-e985-4acf-930b-bb74814ae748@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Unintentional disabling of `serdes_1` on multiple boards.
-- [Medium] Consumer phandles for SerDes PHYs were not updated to match the =
-new per-lane PHY providers, contradicting the commit message.
-- [Medium] The newly added `serdes_3` node is missing the generic fallback =
-compatible string `fsl,lynx-28g`.
-- [Low] Device tree compilation fails due to incorrect node name in `/delet=
-e-node/` directive for serdes_3.
---
 
-commit dcf5b2d58e1afb24aa2ae2829db182c735a1dfc1
-Author: Vladimir Oltean <vladimir.oltean@nxp.com>
 
-arm64: dts: lx2160a: transition to device-specific SerDes compatible strings
+> -----Original Message-----
+> From: Krzysztof Kozlowski <krzk=40kernel.org>
+> Sent: Tuesday, June 30, 2026 4:43 PM
+> To: Peter Griffin <peter.griffin=40linaro.org>; Alim Akhtar
+> <alim.akhtar=40samsung.com>
+> Cc: Denzeel Oliva <wachiturroxd150=40gmail.com>; Sylwester Nawrocki
+> <s.nawrocki=40samsung.com>; Chanwoo Choi <cw00.choi=40samsung.com>;
+> Michael Turquette <mturquette=40baylibre.com>; Stephen Boyd
+> <sboyd=40kernel.org>; Brian Masney <bmasney=40redhat.com>; Rob Herring
+> <robh=40kernel.org>; Conor Dooley <conor+dt=40kernel.org>; linux-samsung-
+> soc=40vger.kernel.org; linux-clk=40vger.kernel.org;
+> devicetree=40vger.kernel.org; linux-arm-kernel=40lists.infradead.org; lin=
+ux-
+> kernel=40vger.kernel.org
+> Subject: Re: =5BPATCH v3 3/3=5D clk: samsung: exynos990: Fix PERIS gate c=
+lock
+> parents
+>=20
+> On 30/06/2026 13:02, Peter Griffin wrote:
+> > Hi Alim,
+> >
+> > On Tue, 30 Jun 2026 at 04:53, Alim Akhtar <alim.akhtar=40samsung.com>
+> wrote:
+> >>
+> >>
+> >>
+> >>> -----Original Message-----
+> >>> From: Peter Griffin <peter.griffin=40linaro.org>
+> >>> Sent: Monday, June 29, 2026 6:02 PM
+> >>> To: Denzeel Oliva <wachiturroxd150=40gmail.com>
+> >>> Cc: Krzysztof Kozlowski <krzk=40kernel.org>; Sylwester Nawrocki
+> >>> <s.nawrocki=40samsung.com>; Chanwoo Choi
+> <cw00.choi=40samsung.com>; Alim
+> >>> Akhtar <alim.akhtar=40samsung.com>; Michael Turquette
+> >>> <mturquette=40baylibre.com>; Stephen Boyd <sboyd=40kernel.org>; Brian
+> >>> Masney <bmasney=40redhat.com>; Rob Herring <robh=40kernel.org>;
+> Conor
+> >>> Dooley <conor+dt=40kernel.org>; linux-samsung-soc=40vger.kernel.org;
+> >>> linux- clk=40vger.kernel.org; devicetree=40vger.kernel.org; linux-arm=
+-
+> >>> kernel=40lists.infradead.org; linux-kernel=40vger.kernel.org
+> >>> Subject: Re: =5BPATCH v3 3/3=5D clk: samsung: exynos990: Fix PERIS ga=
+te
+> >>> clock parents
+> >>>
+> >>> Hi Krysztof & Denzeel,
+> >>>
+> >>> On Sat, 13 Jun 2026 at 13:36, Denzeel Oliva
+> >>> <wachiturroxd150=40gmail.com>
+> >>> wrote:
+> >>>>
+> >>>> Correct eight PERIS gate clock parents to match the hardware clock
+> >>>> tree and reorder the GIC mux parents so mout_peris_bus_user is the
+> >>>> default source.
+> >>>>
+> >>>> Signed-off-by: Denzeel Oliva <wachiturroxd150=40gmail.com>
+> >>>> ---
+> >>>
+> >>> Reviewed-by: Peter Griffin <peter.griffin=40linaro.org>
+> >>>
+> >>> =40Krysztof: I was thinking, maybe we should establish a new rule/bes=
+t
+> >>> practice for Samsung clock upstream submissions whereby patch
+> >>> contributors should link to the downstream cal-if code for the SoC
+> >>> after the --
+> >>> - line. That would make reviewing the patches' correctness a bit
+> >>> easier, as the downstream cal-if code would be readily available to t=
+he
+> reviewer.
+> >>>
+> >> We can leave this choice to the reviewer if they want to refer to
+> downstream cal-if code.
+> >
+> > Generally I would like to, but I also don't have time to hunt around
+> > the internet for a downstream kernel tree. My rationale was that the
+> > submitter is most likely to know where the downstream code is, and is
+> > likely using it for the upstream clock implementation. So, linking to
+> > it as part of the submission should hopefully be fairly easy.
+> >
+> > If it is a Samsung SoC for which no public code is available that's
+> > fine. I didn't intend this to be a hard requirement: =22you can't
+> > upstream x,y,z unless you link to the cal-if code=22. I meant it more a=
+s
+> > =22best practice/guidance=22; if the cal-if code is publicly available,
+> > linking to it would be a useful reference for reviewers.
+>=20
+> cal-if as vendor tree? Some contributors just base their work on downstre=
+am
+> GPL-compliance dumps from opensource.samsung.com, so not sure how
+> that link would work.
+>=20
+Right, I am not against adding any best practice guideline, but I wonder on=
+ly few of us will end up reviewing those patches.=20
+And for other reviewer, cal-if will add more confusion as it is completely =
+out of =7Btree / clk subsystem=7D interface.=20
 
-Align to the modern fsl,lynx-28g.yaml binding, where the SoC and SerDes
-instance is present in the compatible string, to allow reliable per-lane
-capability detection and per-lane customization of electrical properties.
+> Best regards,
+> Krzysztof
 
->     These new bindings have #phy-cells =3D <0> in per-lane PHY providers,=
- so
->     we need to update consumer phandles as well.
-
-[Severity: Medium]
-Did we miss updating the consumer phandles in this patch?
-
-The commit message indicates consumer phandles need updating to match
-#phy-cells =3D <0>, but they appear to remain unupdated in the device tree,
-and #phy-cells =3D <1> is still retained on the parent PHY nodes.
-
-> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi b/arch/arm64/=
-boot/dts/freescale/fsl-lx2160a.dtsi
-> index 1d73abffa6b72..a687eb3e31904 100644
-> --- a/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi
-> @@ -621,17 +621,163 @@ soc: soc {
->  		ranges;
->  		dma-ranges =3D <0x0 0x0 0x0 0x0 0x10000 0x00000000>;
-> =20
-[ ... ]
->  		serdes_1: phy@1ea0000 {
-> -			compatible =3D "fsl,lynx-28g";
-> +			compatible =3D "fsl,lx2160a-serdes1", "fsl,lynx-28g";
->  			reg =3D <0x0 0x1ea0000 0x0 0x1e30>;
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
->  			#phy-cells =3D <1>;
-> +			status =3D "disabled";
-
-[Severity: High]
-Does this default status =3D "disabled" unintentionally break interfaces
-wired to serdes_1 on boards like fsl-lx2162a-clearfog and fsl-lx2160a-half-=
-twins?
-
-These boards consume serdes_1 but do not appear to override the status to
-"okay" in this patch.
-
-[ ... ]
-> +		serdes_3: phy@1ec0000 {
-> +			compatible =3D "fsl,lx2160a-serdes3";
-> +			reg =3D <0x0 0x1ec0000 0x0 0x1e30>;
-
-[Severity: Medium]
-Should serdes_3 include the generic "fsl,lynx-28g" fallback compatible stri=
-ng
-here, similar to what was added for serdes_1 and serdes_2?
-
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			status =3D "disabled";
-> +			#phy-cells =3D <1>;
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2162a.dtsi b/arch/arm64/=
-boot/dts/freescale/fsl-lx2162a.dtsi
-> new file mode 100644
-> index 0000000000000..b9629e074d943
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2162a.dtsi
-> @@ -0,0 +1,24 @@
-[ ... ]
-> +&soc {
-> +	/delete-node/ serdes@1ec0000;
-> +};
-
-[Severity: Low]
-Could this /delete-node/ directive fail at build time?
-
-In the base fsl-lx2160a.dtsi, the node is defined as phy@1ec0000 rather
-than serdes@1ec0000.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630110459.5163=
-64-1-ioana.ciornei@nxp.com?part=3D1
