@@ -1,40 +1,41 @@
 Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469823C2B92
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 19:22:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D0A3A7F50
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 19:22:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782847345; cv=none; b=NsmDrlmzCGO7VgY6bRopsU5QVpsGSQzpatkp4VNypbNa4vEHBxPirNe+bGD6KmpopRA8DPRl3HRNfQFo802xJTgU04pTbTBDq2o/umIoNSUgPspHLcLCSWr6qOLAGynx+9smyGyFzVvax1n7SRfTyLi7GqQrrP3adbZW4mlrGvA=
+	t=1782847346; cv=none; b=BNRJfWV+CD96Rp5CxdXFjU9xbxjSDTylncet2dQiBRgfVCs1AjLCQkdae4sZqphHaBjefVmv5N8uSibxrVgPZ/zU709Xd8vt8sGEMSO/stui8jscR/yw2WBg2nR79DH+Urd3uhMW9SBjzdsehfYB4AMmY0abnVLP7W2Fai93ztI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782847345; c=relaxed/simple;
-	bh=QV/D+X9L6iHtWxf2FTb2FsPSMVe+HAIVh5ovcaU9Yq0=;
+	s=arc-20240116; t=1782847346; c=relaxed/simple;
+	bh=iaAF+yS936aMUd2uo2ERhF4xGvZqCHabIEA/vQVk0Kw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=m8VKzR8ldPvZXQdHsRPYnEoJHmfq2dZeADdq4zOup6Xf35mzYjQIw130lGxnmw74m6zMr8kOBrnZtb7b0PaGqf/oOVfGeG6yDV+O0j+Sd6WPcCLNtIl8OhPZk660wydjTCAlUWnVJPJaLmj47JaYQH+EwRb8xrgFGGToxvfJTcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=FGD8uXKo; arc=none smtp.client-ip=185.67.36.65
+	 In-Reply-To:To:Cc; b=p1tBYTI7xDBhCCjyc0S6BFbvRQXwYUWfQ78q0UxicIjGNafvfVFapeE1qajAvyPMhENgJpNmmz4VjPhPt/DkR27EjlMb2g0N8YcAepkASQv+ok27cd4+ilomj3mk/cJZCU3Kv5NHuSFjcjdFHjYE76qyao+3mDSL4gBkicJ4Yqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=oOLgsgIZ; arc=none smtp.client-ip=185.67.36.65
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="FGD8uXKo"
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="oOLgsgIZ"
 Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id B77A4240028
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 21:22:22 +0200 (CEST)
+	by mout01.posteo.de (Postfix) with ESMTPS id BB14724002A
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 21:22:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
-	t=1782847342; bh=RGGhD71B+UtcIgYaLVJcbUJD2ZD+NnVvBK4/H22TbeY=;
+	t=1782847341; bh=rgjwVdw/2f/R8g0IOrUVxokMD0ga5Bc0eQVVG555Fmc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=FGD8uXKovqyM0y+yb6KVHFj8Fy769k1nFj0w1fG2z/7YDxrwkoQfCDy6YDhoEA0gT
-	 qwRZzot3Bf1Uop5OsDzB5Cnjb1RqLmxsorie7aoZLJUBRX7WJF7P4cu5grSYWc3y1r
-	 us9WnsNqx/c6C3rEEEcuKb6ucwpoOpNj+lJyueC05ShEQEGHX+j7wT2gUSfcxwV3M1
-	 A51pKfFyujLXRB4IW5Q5e86XrHMHFcUHjCuoOqrlINQFmhWnEkIhKg9zpAYBs4lMDA
-	 6rCS1khiCICoHaFSWyp7+MhUkZC+HSQYnD62dQKv8nFgQsQFQjE9fVXSnS+M2RTXWs
-	 PL204+5tkM0XA==
+	b=oOLgsgIZi4IdjAzkjhQn3nyAV3HAEp2jGBReD+IYW3eSJwmGTE+IBLE3MU8nxdH7/
+	 YMLo0Q2akfmUAxydla6meQ/CZufxZE93RFpKED7B27CJq+QXoU7iy8TFPJPtQVs4D9
+	 VsyofZEiX6cCKXeAJPBMnLdCR3bcD9lH31HL1W6tVJQiyxas0zq5nnCYvq4uGE4877
+	 nkpFTjVkKV45twcEKtSXrBaVetrKtuQvW0mao9tbF44jCfyYscZdWPPnTHp+wVL7iG
+	 QU5n/LyNWnf1fHN5XJ2bmUgw54wLlBZpi8mkW/vmDMvTVK7xDuo6QPE/X5SZL+jIpT
+	 jGA/vvQtvqaUg==
 Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4gqY1n2Mxtz9rxB;
-	Tue, 30 Jun 2026 21:22:21 +0200 (CEST)
+	by submission (posteo.de) with ESMTPSA id 4gqY1m1MnVz9rxD;
+	Tue, 30 Jun 2026 21:22:20 +0200 (CEST)
 From: Markus Probst <markus.probst@posteo.de>
-Date: Tue, 30 Jun 2026 19:22:22 +0000
-Subject: [PATCH 2/3] rtc: s35390a: Add missing newline to dev_err
+Date: Tue, 30 Jun 2026 19:22:21 +0000
+Subject: [PATCH 1/3] dt-bindings: rtc: Add sii,wakealarm-output-pin
+ property for S35390A
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,7 +44,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260630-rtc_s35390a_int1-v1-2-1b2239e16be2@posteo.de>
+Message-Id: <20260630-rtc_s35390a_int1-v1-1-1b2239e16be2@posteo.de>
 References: <20260630-rtc_s35390a_int1-v1-0-1b2239e16be2@posteo.de>
 In-Reply-To: <20260630-rtc_s35390a_int1-v1-0-1b2239e16be2@posteo.de>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
@@ -55,21 +56,21 @@ To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
 Cc: linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=693;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3977;
  i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=QV/D+X9L6iHtWxf2FTb2FsPSMVe+HAIVh5ovcaU9Yq0=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqRBdqgh0URn4xbFyEX3QaMJKFEAZRKEzPDlUk6
- FjTe7KXEE2JAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCakQXahsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9LfBw/+O344j6uHJ0kT0XZ6XIfyPdtmr8MEBMt
- kxDF99ZnpWd5eS+fk7j3p8VA3x5WvhHBgHqaF0RYjLau27gHtmnadD+3WZD0ubg3hOrFPnsGlnN
- ENvXJmoGB5ZTju0Qch487UuUIoIMAU5FJdtyfIHVSLko7ly9iJ0QK84bT/E7HWG0vVwatVfWspK
- BiOcYN/0fFmZ4mRA2l9VCN/AI4rIC7+XCMOZzxEPbbT7G9Daph8X3v66DDWzuMwAm/M2h+uQ/2e
- adG5w4aRRbUY8vuEkVS9/xXNU9qTE5vaEoIdSnS1QmD7t5Ot867a/sEUhWxsANhIVfe2PdbP6dl
- jlufvPT7eMb21glu0IKsYT9pfb145VnS9d5mYhmZcLwrndNMJ5+pBTWlOUMJJl65POP2Ka1m8Ve
- +Ep3ltGLQo7ZXCnBaChPqEr3RNCxYmHLfkt2qZ4NRW/87OG3Iwah6ZUDN3sozPCpGZLj+IU7Wb5
- akv3T6Z571OCybsrMazYSjMcAN/mvhAMWVEve0zXRkdsgt0VENrGCnCIVO932jLT6U5DLkW7pWv
- NJ+mLW55iQKK+LYHUq8AyDhNBmUKCRyhZ08VOBjU5lT6B/oHuCSHLDIu+XnGRoJ3I7ESnabQYuo
- JHNqbPpjqrvwY9ZmeaMUHp00gZufSESY2Dx7nVHCmEGOTsbi+SHI=
+ bh=iaAF+yS936aMUd2uo2ERhF4xGvZqCHabIEA/vQVk0Kw=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqRBdqXhgSYQ1G0bopxHbsIuyeWtyg/MBsZTTdf
+ 45ajFXDTO2JAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCakQXahsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9Iv/xAAtmzNsqZ4vd/U9yb6fnuvE0OUx2FSk6q
+ JXb2Vxdyfz7KcUoszlul4uvlrhilvBkGE8KK354Sgf8Chpbe8YpBdtgQ4X1P8IgSh68ZKNw+a/8
+ z6Fu4qUhm3hhUDC1jY2qy9ytPR3Y+FFHZfxxMtuwi4sHF3F6FwwCHXEVhAAe+oJWAq/1mbGNvQ0
+ tRWFtVuGIomUo/iRtVJHi04FOxZXQ0CNZBBTGLdH0pl31t52hITTss5gvXU9PYCpY2YM8TDXSHn
+ +e6WBfYpYXJjX14L8svGmx1dpfhghclfK7xvCalzzm7lrbtRrH69QoVpYq3zCc9BqKzbxziOth8
+ xNkNPuNjARR/Oz19IFE+ud14gLdXQWBZpICXzmcueFzH2ioQUSWDzs/HazTA6lENe73mk2jd2LL
+ N08cRMrafMkD+LGcuX4q1UFFB7CXI24jhnhiJnn3rB8cFQZV6ULS+X8TLKDuQfwBJjL7aeCUW8D
+ iNC3gwtLt8VhqGKcFTAXrjkugysHs/MnYOvHQhxZbDbFsn0uh04X6CWPhzraGZDfgkhGhnNdnHR
+ gG0moiXumuCnOH3v9exAVMaVsHUYItMpD37BOIgmPEz5Sj5UHgsot63dI3TtcudoDxLkOI/JLMa
+ UtLSCdeX2n0dxO/hCSw2nTtWc1VQhyjWrJrp6fs7rYcedsBvaG5A=
 X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
  fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
 Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
@@ -115,25 +116,128 @@ Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
   aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
 OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-Fixes: 3bd32722c827d ("rtc: s35390a: improve irq handling")
+Synology NAS devices use the output pin for interrupt signal 1 to wake up
+the system.
+
+Move devicetree bindings for sii,s35390a into its own file.
+Add sii,wakealarm-output-pin property to enable the use of the output
+pin for interrupt signal 1 for the wake alarm, which makes it possible to
+set an wake alarm on Synology NAS devices.
+
 Signed-off-by: Markus Probst <markus.probst@posteo.de>
 ---
- drivers/rtc/rtc-s35390a.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../devicetree/bindings/rtc/sii,s35390a.yaml       | 54 ++++++++++++++++++++++
+ .../devicetree/bindings/rtc/trivial-rtc.yaml       |  3 --
+ MAINTAINERS                                        |  1 +
+ include/dt-bindings/rtc/s35390a.h                  |  9 ++++
+ 4 files changed, 64 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
-index b72eef4fb099..4cfe7034c516 100644
---- a/drivers/rtc/rtc-s35390a.c
-+++ b/drivers/rtc/rtc-s35390a.c
-@@ -494,7 +494,7 @@ static int s35390a_probe(struct i2c_client *client)
- 		buf = 0;
- 		err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &buf, 1);
- 		if (err < 0) {
--			dev_err(dev, "error disabling alarm");
-+			dev_err(dev, "error disabling alarm\n");
- 			return err;
- 		}
- 	} else {
+diff --git a/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
+new file mode 100644
+index 000000000000..31a578673870
+--- /dev/null
++++ b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
+@@ -0,0 +1,54 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/rtc/sii,s35390a.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: S-35390A 2-WIRE REAL-TIME CLOCK
++
++maintainers:
++  - Alexandre Belloni <alexandre.belloni@bootlin.com>
++
++description:
++  The S-35390A is a CMOS 2-wire real-time clock IC which operates with the
++  very low current consumption in the wide range of operation voltage.
++
++allOf:
++  - $ref: rtc.yaml#
++
++properties:
++  compatible:
++    const: sii,s35390a
++
++  reg:
++    maxItems: 1
++
++  sii,wakealarm-output-pin:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [1, 2]
++    description: |
++      The output pin to wake up the system.
++      Default will use the output pin for interrupt signal 2.
++        <S35390A_OUTPUT_PIN_INT1> : Output pin for interrupt signal 1
++        <S35390A_OUTPUT_PIN_INT2> : Output pin for interrupt signal 2
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/rtc/s35390a.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        rtc: rtc@30 {
++            compatible = "sii,s35390a";
++            reg = <0x30>;
++            sii,wakealarm-output-pin = <S35390A_OUTPUT_PIN_INT2>;
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml b/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
+index f4d0eed98a08..7b3f682ef4d5 100644
+--- a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
++++ b/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
+@@ -81,8 +81,6 @@ properties:
+       - ricoh,rv5c386
+       # I2C bus SERIAL INTERFACE REAL-TIME CLOCK IC
+       - ricoh,rv5c387a
+-      # 2-wire CMOS real-time clock
+-      - sii,s35390a
+       # ST SPEAr Real-time Clock
+       - st,spear600-rtc
+       # VIA/Wondermedia VT8500 Real-time Clock
+@@ -105,5 +103,4 @@ required:
+   - reg
+ 
+ additionalProperties: false
+-
+ ...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 15011f5752a9..46a19a0873e0 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22690,6 +22690,7 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/abelloni/linux.git
+ F:	Documentation/admin-guide/rtc.rst
+ F:	Documentation/devicetree/bindings/rtc/
+ F:	drivers/rtc/
++F:	include/dt-bindings/rtc/
+ F:	include/linux/rtc.h
+ F:	include/linux/rtc/
+ F:	include/uapi/linux/rtc.h
+diff --git a/include/dt-bindings/rtc/s35390a.h b/include/dt-bindings/rtc/s35390a.h
+new file mode 100644
+index 000000000000..bd99db118d31
+--- /dev/null
++++ b/include/dt-bindings/rtc/s35390a.h
+@@ -0,0 +1,9 @@
++/* SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause) */
++
++#ifndef __DT_BINDINGS_RTC_S35390A_H
++#define __DT_BINDINGS_RTC_S35390A_H
++
++#define S35390A_OUTPUT_PIN_INT1	1
++#define S35390A_OUTPUT_PIN_INT2	2
++
++#endif /* __DT_BINDINGS_RTC_S35390A_H */
 
 -- 
 2.54.0
