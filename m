@@ -1,113 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E22E2727FD;
-	Tue, 30 Jun 2026 06:27:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2361B257827;
+	Tue, 30 Jun 2026 06:29:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782800853; cv=none; b=Yx6sIkMI387B4wJSeQ4ck7SL41gjHgS8rAOtI2VLcMwKxCxrlUjkbb8JQH4YIizqPoThHcbRx7s28lgZVEkseL+dDAEOMB9TIicZ9fn30L/sJK+3mVOmQCtPwIK4IPPSkStiyWnlppbI5C/5X9NI7wjWmFuZbxcxkHUDeabHRDc=
+	t=1782800973; cv=none; b=RrG803u8792Ov1BPske29PbPBqJOggh3+m0DhMSI0xwCSS/zGkgwPizs2+1qhcJfCSMqcROh6dxkoDBE8DyVQeD6Sz04FaiRhN/m7EtWsxOuRRTTvnhcSX7GhFyhWLBJwROR/k3eBaEKqLm9xX7LYR8VIcFLdhoJjbT7HRV2D7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782800853; c=relaxed/simple;
-	bh=6i/+mIz6fiaCmPQbwnlgXBB6+QZaE3Reo3MUAYiWcGY=;
-	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HmdUZKhPu//FglDxgJFZutuYENl12beCkX1+tL9U5Wa9NCTJzvVlaWyQJ+M++Il6lrpzVVkBw+XGo2ritre6pMcLRbaPq94kBJa7UIgtLRm77xjr5aIhPCYTCC6yJPlulnO4A4G/H3waO4FhZvCPg8KGTLbHEWzBe9XNXRj0kVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YtEGoDYz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782800973; c=relaxed/simple;
+	bh=xx05GJO2blYEosxfNzQZ7F/MRFjRiTrWU+OnO8HLSpE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eqhjsqHmdLed2f/pc6U5KmmatfaN+GsFRqFn9Ia5rMyjYsAxd4FxVcKl7kl+NAohj0qnDLPCeDe9TyTngIh8zdN1Smk8Vqhcql1wXNtB5fABQEuavVF+T/TzYmUQpwL86Cv9nEsgSveENgL1LIrXpdOJkr6n2cte/aIHEg7C2Is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bzOwEau2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YtEGoDYz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7AA1F000E9;
-	Tue, 30 Jun 2026 06:27:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bzOwEau2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16CE71F000E9;
+	Tue, 30 Jun 2026 06:29:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782800851;
-	bh=xJkiOYeiK27PJ9Tsx0PkVRNWzWe8gtgZDPWwwZcCkNg=;
-	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
-	b=YtEGoDYzU9D8L0d9+/N0zNP+gliK88vuF8kAP+vre+tFzjCjpz2T/X1L4OGjfXTUA
-	 Pw0iqdMdstMUFaKWfRc8rKTdezM59Yaps++KwH7A9c6Opwe9R+II37plt0kCMHAHV+
-	 pdgJdpl2LdR86e11VuneJC7Ovur7tozV1LM9PEEpMOg7+PkfJ66c9bzjE+VvlHhbS2
-	 h9qLZ0wrr0tWxOTKqyU1YaNuQzcGOIVI8cum2KlRy/YhPCncYXoFdf0x9Bp9bas8bk
-	 AA7AteLcXnuuLcOjCXOQ/ZkvG23J0/d9wvx3wJlkqOCcxBtKf9aaqXp8+F/+8D8L/e
-	 agy72GAV6zxLA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V4 1/7] arm: dts: imx6qdl-sabresd: Move power supply
- property to Root Port node
-Reply-To: sashiko-reviews@lists.linux.dev
-Cc: linux-pci@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260630060710.3294811-2-sherry.sun@oss.nxp.com>
-References: <20260630060710.3294811-1-sherry.sun@oss.nxp.com>
- <20260630060710.3294811-2-sherry.sun@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 06:27:30 +0000
-Message-Id: <20260630062731.3C7AA1F000E9@smtp.kernel.org>
+	s=k20260515; t=1782800972;
+	bh=xx05GJO2blYEosxfNzQZ7F/MRFjRiTrWU+OnO8HLSpE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bzOwEau2Bl6p0XLHz1D3eJadtj9eiV8o0ZY6FheoUvGmbu/gdk2URuPW5lIskGQe8
+	 e3wQ3CwPGYNv5ZW2XZFGL1e68V2Y8S22HitqV8bFj+KTjk3veELn7w/pW3duQv6ADs
+	 /QwUW8TFsM9dW4gSEdaB9IJnk6O+x2WY+ro3WGzfqHZZe6jhMXFM0TblQLftY1dZMx
+	 Dd4ZlELkZLdMI7Ir+u3JOPuGUnO3Zg3CapKcW8WC50FP/Fgac0yeT5vgRv1Fq6a6rg
+	 u7hcaI84IFh0+rUvPg8pY1YD2BW9NsrbtjGzdnFHHn4yK5JGkC223SOkOMSHMEN/pt
+	 iEnkcZFoagy4g==
+Date: Tue, 30 Jun 2026 08:29:28 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, 
+	Piergiorgio Beruto <pier.beruto@onsemi.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, Richard Cochran <richardcochran@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jerry Ray <jerry.ray@microchip.com>
+Subject: Re: [PATCH net-next v6 14/15] dt-bindings: net: add onsemi's S2500
+Message-ID: <20260630-beryl-mongrel-of-exercise-abf63a@quoll>
+References: <20260629-s2500-mac-phy-support-v6-0-18ce79500371@onsemi.com>
+ <20260629-s2500-mac-phy-support-v6-14-18ce79500371@onsemi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260629-s2500-mac-phy-support-v6-14-18ce79500371@onsemi.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Removing the legacy `vpcie-supply` property breaks PCIe initializa=
-tion on older kernels and non-pwrctrl environments.
-- [Medium] Adding `vpcie3v3-supply` to the Root Port node without documenti=
-ng it in the binding schema causes a schema validation failure.
---
+On Mon, Jun 29, 2026 at 10:23:44AM -0700, Selvamani Rajagopal wrote:
+> Add YAML device tree binding for the onsemi S2500 IEEE 802.3cg
 
-commit 1190644448a0f1a3780ae7b3d2a75e1606ab6017
-Author: Sherry Sun <sherry.sun@nxp.com>
-arm: dts: imx6qdl-sabresd: Move power supply property to Root Port node
+No improvements.
 
-This commit moves the power supply property from the PCIe controller node
-to the Root Port child node. This change aims to support the new PCI pwrctrl
-framework.
+So not only you ignored review comment but you also ignored actual
+review tag.
 
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-sabresd.dtsi b/arch/arm/bo=
-ot/dts/nxp/imx/imx6qdl-sabresd.dtsi
-> index fe9046c03ddd6..c52b8897f9995 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-sabresd.dtsi
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-sabresd.dtsi
-> @@ -756,12 +756,12 @@ &pcie {
->  	pinctrl-0 =3D <&pinctrl_pcie>;
->  	/* This property is deprecated, use reset-gpios from the Root Port node=
-. */
->  	reset-gpio =3D <&gpio7 12 GPIO_ACTIVE_LOW>;
-> -	vpcie-supply =3D <&reg_pcie>;
+Don't worry, we can ignore your patches as well.
 
-[Severity: High]
-Will removing the legacy vpcie-supply property break backward compatibility
-with older drivers?
+Best regards,
+Krzysztof
 
-Older drivers, such as pci-imx6.c, looking for this property via
-devm_regulator_get_optional("vpcie") in the host bridge node will receive
-an error code and silently skip enabling the PCIe regulator. Because the
-regulator lacks an always-on constraint, it will remain off, which can cause
-PCIe link failures on older kernels or when booting with the generic PCI po=
-wer
-control framework disabled.
-
-Device trees generally act as stable hardware descriptions. Can this proper=
-ty
-be kept in the parent node while adding vpcie3v3-supply to the child node,
-since the regulator core can safely handle multiple consumers?
-
->  	status =3D "okay";
->  };
-> =20
->  &pcie_port0 {
->  	reset-gpios =3D <&gpio7 12 GPIO_ACTIVE_LOW>;
-> +	vpcie3v3-supply =3D <&reg_pcie>;
-
-[Severity: Medium]
-Could adding vpcie3v3-supply here without documenting it in the binding
-schema cause a schema validation failure?
-
-The pcie@0 node definition in the fsl,imx6q-pcie.yaml binding schema
-uses "unevaluatedProperties: false", meaning all properties must be explici=
-tly
-documented. Since vpcie3v3-supply is not documented in that file or in the
-core PCI schemas, the schema validator will likely reject it.
-
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630060710.3294=
-811-1-sherry.sun@oss.nxp.com?part=3D1
