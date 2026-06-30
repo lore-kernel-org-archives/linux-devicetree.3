@@ -1,74 +1,51 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A643D6CDD
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 16:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE3F1A9FBD;
+	Tue, 30 Jun 2026 17:01:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782838773; cv=none; b=ecwj4Sub4xaetvwC0n/vGcaeVqitalkKEm3spl+xCajbLwvlm89zEHe5jHSJdCFroSV2NOUdu7iOmL+6XQ/+9OZsRpr1B2kg8nLpPm+ekQyQ8zZOc/noxqRFUekAATcvtvcSyf4L9+xfhtvp5PcMy7POzKIpB7mdWpO1udP1IFg=
+	t=1782838913; cv=none; b=dgJxGNvNV79VoabuMCAFqyvVdASus12/r/W0KSpf0x/tM6yt/tbsCGfBWnLG3jTaF3XGMK8YbjlpFWlX1b35A8FUjN+XLJvW+HAcvTHsTxCZLU1SSplKl02yuxvOWZ6Sig/5FY0Y0lV8LgX8yn67wSA2KmvsKp7r8bq8xzcw36E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782838773; c=relaxed/simple;
-	bh=FveIuuZW3MWr0DW5S0AtbDNefqSkX06Xtrdwa3y5Gzo=;
+	s=arc-20240116; t=1782838913; c=relaxed/simple;
+	bh=/mv4wVM6OFf8sEdIQXMPemskyZZTp/pXShw4YQV6bWA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Aqv1+mqF15l8y4daDzMP4xWcqXG2APjj+2GifGO5nBZqTSocAdIhIS7W3f9xsyfEnd10KVAQ2BWazbMwEc7Mz+aEzdYasaDLtYEAU4w/ib+8M5brT+EL09BqL38TWBD/emZQR7pIe/xp0obJbrpZSEfYb8IdcBGqK/LVFs691uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=HMv/7z6x; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=VKRW2Qhb3ljHlY2v059HWVK0lPCIeFmv/p8d3E1dbMuizorPFM7Lwx3FfXCve9p8EBt1un224DzZ4mR4Nh36WaN0/BrRtmOAcq64FnvqBXGyuQR2z/dgXBVrp3bh4irFFdun48MS1JSvUNnGVtDxUCau2XEAfRQ4utz6y1UKg2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IquSNYx4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="HMv/7z6x"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47640541585so405374f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:59:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782838770; x=1783443570; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ToPfySYGPKghPkEJRrJrIYgPfvQVtZ8t1xpbJGBGmt8=;
-        b=HMv/7z6x82U/9firCQd5Xc3oP3uGYVM2fx9TKGFGMYXYnHTvKWKKmfbyZ2z2t7DAvB
-         3EAepJB16g7eLUhHebRs95S8JkTZgAYRJL7BPaRKc0BsGG9PDV7yudPm6lbxJcxf0O3X
-         SuDzqsCYm9i47b+uEEp6R8x8e7lWtSVd2GusKejdq3kouLQeXYkIYqtQsKkJGox1vZgJ
-         XG28bM6A2rAhPydowd/8pKaAfJON4PL4yF1PTLDayUb/sO2PkrhoPpFa7z4RiCb8KJUR
-         r04R9pFDfCTBZMeE3eCbIvfbGefKgA++pu8MfwbqQTv30HK+MmYigTXXtBQvcJwg6o9L
-         xvVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782838770; x=1783443570;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ToPfySYGPKghPkEJRrJrIYgPfvQVtZ8t1xpbJGBGmt8=;
-        b=e2x5CMF9us2Fm1oTqwH2K3TUNNyqSe2ipZ3lY/p4PefbDAwMedHIYnZXwtdjEFdb2z
-         ss3LifUhcpEcvknXi9qNUekahi/N9qDo0D20TL8/4NmdF+84Gu91VmJdiJDwFmjug8St
-         0HHxtITWtk9xquuOCV2QvkatjSV7Nq0N0YvZQn7l0pFaLMj3DDJfthWhjbtU8+wpMep8
-         3OOcKNSGmoltu4k6KoqpBP0JXl0CsTw8daFGNBQ16RloMccGA2hNhL4k2BT3pY0wCn1u
-         hy2OtJ2XgQjEs1vwbw7jvJafBJ5yWfndudqaMx3DlGlIPforPqfLfF2yTIWIKXgCN4zr
-         Bb7A==
-X-Forwarded-Encrypted: i=1; AHgh+RoMRfpHJBCkm6eDlXRdEQH6ln1vEU9uDVY2yGhUlY3YPpvDT101PyhBq+Gj3vvJAfCBdejwF03J+jQQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBgcSqImrhsa0jI40iPMHbc3ny4xY6CN1BI9LXmqAM8sbwNo8c
-	GqZMGQXl4ReAnE/btCqoJPnKMj1DCpBVU4JINNpsFvJiTrR7NNcyTX2AyoMD3Eq1wkI=
-X-Gm-Gg: AfdE7cmcn4OOdeyYttoPJoQzgPNkqDp5AuRVm6Fhfg5ky99reXCPbTrIZcTRkjDaaA0
-	JnP+YhOswWNXzgPkSCHswmVLYHNBNkR2zzX0v7nK4t5nSNixgAzTiJEnpt7vjzE+JAKO3eIF/sN
-	8NOhj7qquCkzEJM7sKKoWa5CR2qUaWG3biymHUvetjWZIOFOBCr3ZjAffePx7rPYA+6fFlHPyhK
-	sY66JqhlUfXScJ+XvsQQm6qoqodA3bk/pvnsEkGRT+6UQSRYdj0dB7T7/ZdqvC2Gd4BwAbs5PAT
-	2QdYTh/wDrG8NdS+kZeaQe0dE9fFczPv8tDUoArtmPJcxHKkW1Zg8GkAOBkht6MQJCFX6gJYLNR
-	cogB3IjFDBuUny4vRIVfVyCzQgMSu7o5tr3yUD1Sn6B8s/cBt+AOGTocMvtBBb9A7VTaj54YD8p
-	cq0InaD6dUnQ/34RSvIWoot+aE2Toofbpl+KhepNMFYMXcNyPKEamkcZtBiGO0/FKXJJEwvrM/f
-	/hR
-X-Received: by 2002:adf:e44e:0:b0:473:6e8d:7f8 with SMTP id ffacd0b85a97d-476586d066fmr1739874f8f.14.1782838769975;
-        Tue, 30 Jun 2026 09:59:29 -0700 (PDT)
-Received: from localhost (p200300f65f47db042a9b551def0a6b94.dip0.t-ipconnect.de. [2003:f6:5f47:db04:2a9b:551d:ef0a:6b94])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47563d194b0sm9864992f8f.1.2026.06.30.09.59.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 09:59:29 -0700 (PDT)
-Date: Tue, 30 Jun 2026 18:59:28 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: mturquette@baylibre.com, sboyd@kernel.org, bmasney@redhat.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	patches@opensource.cirrus.com
-Subject: Re: [PATCH v6 2/3] clk: cs2600: Add Fractional-N clock driver
-Message-ID: <akP1uxP3uDp9er4X@monoceros>
-References: <20260630155549.824059-1-rf@opensource.cirrus.com>
- <20260630155549.824059-3-rf@opensource.cirrus.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IquSNYx4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C6FE1F00A3F;
+	Tue, 30 Jun 2026 17:01:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782838912;
+	bh=r1fPFrDZ9NhL5N/9RJ6igZAPje/KpsEjFsCfMVm5Oic=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IquSNYx4CxMUC+vKE+lrEekfi8VHNUEUW0gQnl27gVgl7J6Z4CeupqbtYTtpw8FG0
+	 DkKfZPdrUZBG0ghDfPk+Gpu9n+W7SCEsPCVi2f3z7X2T2hlN5bAbcZjHzZewapI1+2
+	 tUP/ppMPb+9ousSo86UHxO9zvVSe6RNeeaWmGGw8djErdVP9d0YlSegLn6YG0wCQS5
+	 5+2nIMhjqP+0DGrJxXokAq2Q6VebdrQhSqBJjkzwgInSgNGLgCC0QFr0ReyMxaGzbU
+	 hFZJ+e3H8oZgrXpxqKT6xQ5cXBaebJNUbdPd5A3yAok7n4hDk9XRx1TTJDPAfW+ocY
+	 2FLlVP1YusxkA==
+Date: Tue, 30 Jun 2026 18:01:47 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Gregor Herburger <gregor.herburger@linutronix.de>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Eric Anholt <eric@anholt.net>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/4] dt-bindings: raspberrypi,bcm2835-firmware: Include
+ 'reboot-mode.yaml'
+Message-ID: <20260630-galleria-monorail-bf3b4f6c7a25@spud>
+References: <20260626-rpi-tryboot-v1-0-490b1c4c4970@linutronix.de>
+ <20260626-rpi-tryboot-v1-2-490b1c4c4970@linutronix.de>
+ <20260626-quaking-shove-fcc9d8057ae0@spud>
+ <qgoblikagfbcmbqoryw4ajfa6qyx3wpj4qfeuuntima542qlkq@evebdvjaxern>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -76,47 +53,102 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uank47bqgvhpmjv7"
+	protocol="application/pgp-signature"; boundary="nr/V2KaeEBWBPf17"
 Content-Disposition: inline
-In-Reply-To: <20260630155549.824059-3-rf@opensource.cirrus.com>
+In-Reply-To: <qgoblikagfbcmbqoryw4ajfa6qyx3wpj4qfeuuntima542qlkq@evebdvjaxern>
 
-
---uank47bqgvhpmjv7
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--nr/V2KaeEBWBPf17
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [PATCH v6 2/3] clk: cs2600: Add Fractional-N clock driver
-MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 30, 2026 at 04:55:48PM +0100, Richard Fitzgerald wrote:
-> +static const struct i2c_device_id cs2600_id[] = {
-> +	{ "cs2600", },
-> +	{}
-> +};
+On Tue, Jun 30, 2026 at 03:56:32PM +0200, Gregor Herburger wrote:
+> Hi Conor,
+>=20
+> On Fri, Jun 26, 2026 at 04:57:35PM +0100, Conor Dooley wrote:
+> > On Fri, Jun 26, 2026 at 09:35:05AM +0200, Gregor Herburger wrote:
+> > > The Raspberry Pi firmware allows to set a reboot mode called tryboot
+> > > that allows to try booting from a different partition to allow updati=
+ng
+> > > of the boot partition. Allow reboot mode properties by referencing the
+> > > reboot-mode schema.
+> > >=20
+> > > Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+> > > ---
+> > >  .../devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml   =
+ | 5 ++++-
+> > >  1 file changed, 4 insertions(+), 1 deletion(-)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bc=
+m2835-firmware.yaml b/Documentation/devicetree/bindings/arm/bcm/raspberrypi=
+,bcm2835-firmware.yaml
+> > > index 983ea80eaec97..30b490e0d9fb3 100644
+> > > --- a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-f=
+irmware.yaml
+> > > +++ b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-f=
+irmware.yaml
+> > > @@ -133,11 +133,14 @@ properties:
+> > >      required:
+> > >        - compatible
+> > > =20
+> > > +allOf:
+> > > +  - $ref: /schemas/power/reset/reboot-mode.yaml#
+> > > +
+> > >  required:
+> > >    - compatible
+> > >    - mboxes
+> > > =20
+> > > -additionalProperties: false
+> > > +unevaluatedProperties: false
+> >=20
+> > I think you should keep additionalProperties: false and add
+> > mode-normal: true
+> > mode-tryboot: true
+> >=20
+> > (I don't know if the latter works though, you may need to have a $ref to
+> > uint32-array).
+> >=20
+> > What you've done permits freeform reboot modes, but I think only normal
+> > and tryboot are valid?
+>=20
+> Ah yes good point. I do think it should be restricted to
+> 'mode-{normal,tryboot}'.=20
+>=20
+> Sashiko also suggested to set maxItems to 1 and I think that is a good id=
+ea as
+> well, because afaik the firmware only accepts a 32bit value for the reboo=
+t flag.
+> The $ref to uin32 is not needed that is already enforced by the
+> patternProperties "^mode-.*$": in reboot-mode.yaml.
+>=20
+> Therefore I will add the following (and keep additionalProperties: false):
+>=20
+> properties:
+> ...
+>=20
+>   mode-normal:
+>     maxItems: 1
+>=20
+>   mode-tryboot:
+>     maxItems: 1
+>=20
+> allOf:
+>   - $ref: /schemas/power/reset/reboot-mode.yaml#
+>=20
+>=20
+> I will do some more testing and send a v2 later.
 
-Please make this:
-	static const struct i2c_device_id cs2600_id[] = {
-		{ .name = "cs2600" },
-		{ }
-	};
+Cool, sounds good to me.
 
-to match the common style.
-
-Best regards
-Uwe
-
---uank47bqgvhpmjv7
-Content-Type: application/pgp-signature; name="signature.asc"
+--nr/V2KaeEBWBPf17
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpD9ewACgkQj4D7WH0S
-/k4xTQgAjU7n2LgMUu9Q0GkPON5In9ieUddR+wc8yV7m4IKTBvEFVmoq69UniHC6
-uVr+Lp+vDSMKPXAm1ZzppVFCb0C6N2GlZpg++smO1/ssBrCHxeCn0j3WlcgAy3rL
-2/o8dMDwYk/kfqYNoXCnYHkGE83aPsfM4zqFlz0BZ6vsOPdAJ1g1QZIgzjPEEGgQ
-+VR0HuiIFc3OadpTDVnq/SFN4vZ8ONt889m2O6SXWdnXM6Z3Bcf7CC2EwpYJpwXb
-Ov2Qvu+f52plS8czZ++zwS4ZyKpAn/gNY48tAW5Ax2gJHYo+XXq3lC8U6zecvRXc
-zHXTvrJLZCC0s46GMcVdh5SbgYP2aA==
-=x3xX
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakP2ewAKCRB4tDGHoIJi
+0tjSAP9JKMAbY3EfCZuyJTIoiA2kkQtFs91Hj5L7Qd2Ub1cFXwD7BAd+zepdemEz
+lzDLgaPXEn4Kt442IPX7QNtBaROagQ0=
+=aKzA
 -----END PGP SIGNATURE-----
 
---uank47bqgvhpmjv7--
+--nr/V2KaeEBWBPf17--
