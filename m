@@ -1,166 +1,120 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-00823401.pphosted.com (mx0a-00823401.pphosted.com [148.163.148.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413893E5EF3
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:13:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9788935A3AF;
+	Tue, 30 Jun 2026 09:18:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.148.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782810838; cv=none; b=Ljrc/9an4NR9wjwLHxW4ZTpWrYhgDzWUHLrMHG63+mDWYkYlDG3xaN8OawyAKQIiCfGbAYnpfKB0hpnGOjQNqiceMVLHz36oWFoJzQAO8rXgNWfUbGD2vcXaK2INR84nTHMqAebdTc+kLpfoUKOm5jhcHxidl5kelJbLWLjDib0=
+	t=1782811085; cv=none; b=XHFcXPSXZU1hWHge9ADtsLRgF/k7Zm5fa0rTu24MTk6EEfzSCe+ff+L/wQOYJMU90q1zRjGGNMLa470SIMPDYfxLK0LBdOI/VgcHYQGRQ4PFBa2Haud4H9z8oPKf1OgMmlaReLcK/FuzGJSJ4eYssSJOZKARfOPQvzCtlrBcWO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782810838; c=relaxed/simple;
-	bh=d+mLD1x2hxZDlUEdb98SKIREx2londngUqrUjv7sJ5g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XI8+MrD8P/pHnxK8siI6DF0mhNF7Plukh9g+ayCz3hA+oBMGcVIf3bB1NUhJGk43TTpALnoSSJdDZxSyYApx2FrhqK3iN4/45CU1Xe2Or2gnMdmow/mfITNzJZEcX4Csl7yA6+XcrfKv2SiexA/soXTN2k3g6K5wWtfRgya9eYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kBm8GQ9H; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WkqZiYXo; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782811085; c=relaxed/simple;
+	bh=3s/QOz8k9wxpyJ1u9VK/ZYUNlFaOqOF7AAwXjjZGKcM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oIZDffZWZX2J6efW8hpMwbIYtTxlP2Ke+Djk7vMf5Vz2inK4CHXoTB9vjwL8TWSg5UIiWSlgZJ0SK81fVnAlJSILWN3pIJU+ydT8AAVvlbyNL3z+9wyiX+9FKXFgubPPqXJuJob6wen2WfN9moAYWTIv52qJQrlpb+lUVLrDALA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lenovo.com; spf=pass smtp.mailfrom=lenovo.com; dkim=pass (2048-bit key) header.d=lenovo.com header.i=@lenovo.com header.b=FFLITHl7; arc=none smtp.client-ip=148.163.148.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lenovo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lenovo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kBm8GQ9H";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WkqZiYXo"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U6CUo41097910
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:13:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zjAH6qXKIxIZlt0DR1HdruARu0yYHLdBvO2fRNVwJK0=; b=kBm8GQ9HH3km03Ef
-	HsaOF6dZw3mgIp6zp0NSEyXrNfz1S87nnA32TqLfDZqW+5ZKMRORKhZY6bAPdMHN
-	yU5FVOcNo7tqZqgb8Ag5h+tyAnNuZD0WOveSrNGHuyfyE49fJch6R3Qan2W/aqlm
-	eOABFZ+m+X6X6jOZSaHdrrQMTcN7f7oNdJh8tmKokkzSk0Xmov0GhN49LSQXZ6GX
-	BDEyJLF4ZmVyyZC5U0833HcI4JT7Zfpjj/jXdyt05hJ0FBQWpuceOl9BZ8rGQWIN
-	S2rvFmAwPplMkbyKYyzszkN8cMRbD8CzkLtnnUBrNf3l7FaYIvKs7VpDzdtZR8A9
-	jmO+pQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3x1ctyqe-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:13:55 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e4ecd1ae4so42873485a.2
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 02:13:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782810835; x=1783415635; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zjAH6qXKIxIZlt0DR1HdruARu0yYHLdBvO2fRNVwJK0=;
-        b=WkqZiYXoot60CmKgV/5VTXRxdYZ/Ee4oYkpVvmKYK/YqonJY3aTyWrDQLX9eTrhnEl
-         oQgN5Y+FH5/Zj35/Oo+mG0INbqhFPFz6fjXwu90mgSsbbKe187Q4TXjimTIHyhzOuRKj
-         MMyuB0JB6S7FwEn547UIC86LlXC7IEpzdBMPFgrzoBo17i2z13g/0DCWuQULqBVPCkU2
-         yC9sMfSqe8jQagu/zwSx57ahP20M/h5LBnSHD5Y1VxaP7Tm9UyM4YVuvCNL34nYuM5ru
-         r2hVH1ndiA9QZ20jXG+gxvBbNwVYThoyexe907P/JZKnKhHbJOttmGwzibgMFHV0uDe1
-         Nb2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782810835; x=1783415635;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zjAH6qXKIxIZlt0DR1HdruARu0yYHLdBvO2fRNVwJK0=;
-        b=BaTv/4m5H8JhsMx5hXXOYwzWn+vx8Zm9RjiOiRTqmcCwKtCLh1hEukzC2TL/u9y2Ok
-         8VOcDYI+tSl5LK4drL1leH9rpxOAC1hfqKR1tikYAkszaa/Rk58lxbTWUVtAtbWgj9bb
-         wZGCGMkHc+my7xZI8X22YiXQfUYDGGr3wZfzC1nKPQKLv98fUXaqjxnpoXzu4TU/Osjm
-         quJc1kHhyoiZHIysNfXcYotIC0LmmcQ0T/3/SC1TqKkg2xlNHPPJBsMrBvUrv6pd3oMr
-         ZQirseuwY48tG59TXtxdf05KrvMRs4dx8Oyc9YU8+krKnI21s5Cm6DFubyemZVp7jYO3
-         9Gjg==
-X-Forwarded-Encrypted: i=1; AFNElJ/41OPFj4NhMnkkX7M6lvoZZ9xg9TLTryfsL5GNzV7ZYjrH8G2034KH0lfSaN/V3lJzUu6UWpzW6Qmx@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxc/hg5HU0hjLXsTQN0OTlpDIUqa5itk/TZODDHO4Z0hRMaAC7f
-	ctf4zuWJHDh6iSP7616KtsWcA+8j2VKfmtYhLHr+KoMslwlOwsVk6DjsTyFPbtGMnQGRRDdLz8y
-	3glj3zpFjkQhCjsy9a61m5TIr7YTfEVMHX9X8FXyMglLv6yZgTZRPkohAyXrJKhZH
-X-Gm-Gg: AfdE7ck6aWWMoxh6IzwbD0LqYOsqYZ5bjO5u8Qcdn1Rw6TmUtIdibJWT9UQJnGXU2ct
-	CRyuS4LxHrB5Elw0Cb5Zv4FORfa/iwezkFJYXKg+JztT3F9GUaitJGRRMFG577nsB7GRrnd0vzW
-	BAvqiWuFwJsM8sQ126pR1VEEVcMIsf9OA7t6+4ZgVXQwLq/5yYmudbBKMrJ+/WbAW5HIEBAvYRo
-	KrhYMYSFNCNUyKyWGEuSsxSa2JOgwjx3fG9trbYJvs6SFxDvgI9LfXJQZh4EyymE5c5O3pCdKI8
-	DfOog5rO2WHrPIGwi1/SuxRxd7UI/hH3qQSQ0AzNhKtPweWpwOB4LWW9tCQOiDr6zDzJRiTBBpH
-	nsiHQjL/nU55V/7Uw1PcftFeHxah7jikfT7I=
-X-Received: by 2002:a05:620a:2b4e:b0:92b:7420:bd58 with SMTP id af79cd13be357-92e622c0c59mr284172685a.0.1782810834548;
-        Tue, 30 Jun 2026 02:13:54 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b4e:b0:92b:7420:bd58 with SMTP id af79cd13be357-92e622c0c59mr284170685a.0.1782810834107;
-        Tue, 30 Jun 2026 02:13:54 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1288d16b06sm91084266b.8.2026.06.30.02.13.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jun 2026 02:13:53 -0700 (PDT)
-Message-ID: <62ce45b8-5ffc-47e5-8424-f1472a2fddb3@oss.qualcomm.com>
-Date: Tue, 30 Jun 2026 11:13:50 +0200
+	dkim=pass (2048-bit key) header.d=lenovo.com header.i=@lenovo.com header.b="FFLITHl7"
+Received: from pps.filterd (m0355085.ppops.net [127.0.0.1])
+	by mx0a-00823401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U5axL33245166;
+	Tue, 30 Jun 2026 09:17:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lenovo.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=DKIM202306; bh=fPK1aMyjeecWtVzAhwi6nBdLvbBO/WB1Xu
+	J3AQfm6yE=; b=FFLITHl7zGdOqvRmceFMYM/DpfMj4qbDwY9TcVTnBIZ588i+fC
+	J+Atut5JenD0QM0jlAZdGZ/BfOqTH1DN6PAyaOiXdxALhIiyAxiM4miciFTSH0Ra
+	v4jMEVwp1eDZOpGMZwUezUQdWzmvNsSZdlHZ+J5Z2WayHELD0etwKKbB491dA5eo
+	9TtB9Xz5xJaUkC14CvdwEfqqTKwDAWk2AQx/TaA9BD2TzWtEootHcEVgJDNnhU+K
+	hoCvFJ95SaLf1uof3Wwv8X0Depr2KndoL++5qBsYsaSSlp/ciFbEdsM0v45FzVyQ
+	lAjDjRwAyTpYDifJTFO4q1a9lnKrkHT2TAUA==
+Received: from hkglppfpool3.lenovo.com ([103.30.235.220])
+	by mx0a-00823401.pphosted.com (PPS) with ESMTPS id 4f2w1dksmc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 30 Jun 2026 09:17:46 +0000 (GMT)
+Received: from shelppfpol2.lenovo.com (unknown [10.122.146.24])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hkglppfpool3.lenovo.com (Postfix) with ESMTPS id 4gqHXq2hKGzDRDtM;
+	Tue, 30 Jun 2026 09:14:51 +0000 (UTC)
+Received: from lenovo.com (unknown [10.119.171.213])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by shelppfpol2.lenovo.com (Postfix) with ESMTPS id 4gqHc81rzDz1Mmw;
+	Tue, 30 Jun 2026 09:17:44 +0000 (UTC)
+From: Jiqi Li <lijq9@lenovo.com>
+To: linux-tegra@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh+dt@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, mperttunen@nvidia.com, jonathanh@nvidia.com,
+        thierry.reding@gmail.com, mpearson-lenovo@squebb.ca,
+        Jiqi Li <lijq9@lenovo.com>
+Subject: [PATCH v2 0/2] Add Lenovo ThinkEdge SE70 carrier board support
+Date: Tue, 30 Jun 2026 17:17:41 +0800
+Message-ID: <20260630091743.657388-1-lijq9@lenovo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        linux-media@vger.kernel.org
-Cc: mchehab@kernel.org, robh@kernel.org, krzysztof.kozlowski+dt@linaro.org,
-        conor+dt@kernel.org, andersson@kernel.org, quic_vgarodia@quicinc.com,
-        quic_jesszhan@quicinc.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260629121750.3469292-1-atanas.filipov@oss.qualcomm.com>
- <20260629121750.3469292-5-atanas.filipov@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260629121750.3469292-5-atanas.filipov@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA4MiBTYWx0ZWRfX3ey2MYYBgSr3
- 4RKjeb8vspi6xCB2N2yRYe6ysVxuk8/PIySAH3jcT6kgaHScsGbvvHcjvHf63kOtvzFj38qKjVO
- cTK6yMT8D6rKS+41vUrUSl8Fs1KuNWCAZUou6yTjWK8ahiWEJTgk79CezlRwc8xD4MAdtbHrPS1
- o+6Xb9CXrJ7/575gNCPdVh34EzcEvQLa9NoBq5M53K77Rg/7N5Zj+UiVrf7joElWvGUSvvmKrNy
- x6sHTgKqtBSqLfd+23AI+t4XJznxtjufH/1AY4RJ9ctu7FcVI9rptaJSYKQY2xfVtstNqC+tiTk
- iIaOGeKRiO6xGcCZIlX7UbKEvTSbE58yM1tt10m4BpnzmoY2+YAvbtIGEerYuAphQX2bvqoOJLu
- bfZlEhtLYq0fKRe5L93qTW+iobyWaBX/T0szUqh3EfbbmJTlmgeDIYbvJHqpp4brt++N70+4a5e
- u2FtBo/rZCUtlpz5dVg==
-X-Proofpoint-ORIG-GUID: w9Um0Jf_dCx9TfAjcNyNL-Aovx8lSX7D
-X-Proofpoint-GUID: w9Um0Jf_dCx9TfAjcNyNL-Aovx8lSX7D
-X-Authority-Analysis: v=2.4 cv=ftfsol4f c=1 sm=1 tr=0 ts=6a4388d3 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=S8WVJQRO9DNrYap-pUMA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA4MiBTYWx0ZWRfX4wyh6+n8AQcl
- IoosnxOHSfCejrq6oVzO0yN9c8WhX94ZrxZkz2ic6wqAHxccxXvjIlGdsB65E1/oMFmNWrDGWIN
- 1ctClkZ3kz98hbtvFlBjZU4fSQX2QSw=
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: HN42lFtMqy1fVR2tj0Sf2XNlc5vUcacD
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA4MyBTYWx0ZWRfX5s+QVsd1Cwc+
+ VIqiYv7uwTdEJfcEY94Y+Bhe98blDF1PEeG+GFbpHo8aTarG2dAiDch/4T5KZrDL0SsZK99xl4D
+ HxiwVabtbq0aE1Ri6L0me/Xnxfvq+qM=
+X-Proofpoint-ORIG-GUID: HN42lFtMqy1fVR2tj0Sf2XNlc5vUcacD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA4MyBTYWx0ZWRfX5WcjkbuLVQHs
+ yArS9TqMV9Zj9fZGV9Jpmfj+tDL3xrI5ljga1SbGuEsois/RnMUE1ar5wHVtGe2Q/TLimHDCkAL
+ 8zNSrXRo+kbDGGd/zwWT9w8oa3yaV3m/Gue3SF4QNvZt5hCu4ZlRxZ1lerUgdH4jmOUSsDGWPkQ
+ D/RFqZCsv0RGESqqh8kT2TXv/JtaiODNdETrZu+maIxdG7eXSsRh1yEgylFANf6PWX0Uuaag5qq
+ PuWG15QqsHFbz6f29sHE4OkY0UaRHiy/5DcwMSsgq0skKzSfJhyOeMunwTVxqUT/eTygzVIcaKL
+ qk+u3+POlOAgulIO+7F0+5rq7xYqt35PuOv/wqEYwaWOF0ft1eZ90I0Q41Nfh3hUjCmLoUbM+8Z
+ Ncarrcz5C9FPsK1lWQP0pX2XTQnN2jYGjn234t47n09NhqAeAIEnOPFCZvUTEtsTkGrECOhXqJ2
+ VqMAEOq+iUlElsgGcYA==
+X-Authority-Analysis: v=2.4 cv=Qo9uG1yd c=1 sm=1 tr=0 ts=6a4389ba cx=c_pps
+ a=3okn395cuUlJnlrAQteHYA==:117 a=3okn395cuUlJnlrAQteHYA==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=2RTuljz969oO5usasWGy:22
+ a=ohM_6DErYqYCNn4jCPz8:22 a=1HKclyIHpsRocwtzyY4A:9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-30_02,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 spamscore=0 clxscore=1015 malwarescore=0
- phishscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300082
+ suspectscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
+ priorityscore=1501 malwarescore=0 bulkscore=0 impostorscore=0 phishscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=-20 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606300083
 
-On 6/29/26 2:17 PM, Atanas Filipov wrote:
-> Add a Qualcomm JPEG encoder driver implemented on top of the
-> V4L2 mem2mem framework.
-> 
-> The driver wires vb2 queue handling, format negotiation, JPEG header
-> handling, interrupt-driven job completion, and runtime PM/clock/ICC
-> integration for the standalone JPEG encode hardware block.
-> 
-> This series targets SM8250 (Kona) platforms.
-> 
-> The jpeg-encoder node is described as a child node of the CAMSS block
-> and is probed automatically via of_platform_populate() in camss_probe().
-> 
-> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-> 
-> media: qcom: jpeg: restore JPEG_ENCODE_H1V1 for CAPTURE format lookup
-> 
-> V4L2_PIX_FMT_JPEG must remain in jpeg_encode_fmt[] with JPEG_ENCODE_H1V1
-> so that jpeg_get_encode_fmt() and jpeg_get_memory_fmt() resolve correctly
-> for the Write Engine (CAPTURE queue) path.
-> 
-> The corresponding jpeg_mcu_blocks[H1V1] entry is also restored.
-> 
-> V4L2_PIX_FMT_JPEG is not present in jpeg_src_formats[] so it cannot be
-> set as a SOURCE format by userspace.
-> 
-> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-> 
-> fixup! media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+This patch set introduces device tree binding and standalone DTS file
+for Lenovo ThinkEdge SE70, a fanless industrial edge gateway powered by
+the NVIDIA Jetson Xavier NX module (P3668-0001) on a custom carrier board.
 
-I recommend "git config --global rebase.autoSquash true"
+Patch 1 updates tegra.yaml bindings to add the three-stage compatible
+string matching board + SOM + SoC, following the existing Tegra
+carrier board convention.
 
-Konrad
+Patch 2 adds the complete carrier board device tree, including:
+- 40-pin expansion header pinmux configuration
+- External Micro SD card slot with dedicated 3.3V regulator
+- I2C bus for 40-pin header
+
+All static device tree checks pass: dtbs compile and dt_binding_check
+complete without errors.
+
+Jiqi Li (2):
+  dt-bindings: arm: tegra: Add lenovo,thinkedge-se70 compatible string
+  arm64: tegra: Add Lenovo ThinkEdge SE70 device tree
+
+ .../devicetree/bindings/arm/tegra.yaml        |   5 +
+ arch/arm64/boot/dts/nvidia/Makefile           |   1 +
+ ...ra194-lenovo-thinkedge-se70-baseboard.dtsi | 103 ++++++++++++++++++
+ .../nvidia/tegra194-lenovo-thinkedge-se70.dts |  14 +++
+ 4 files changed, 123 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge-se70-baseboard.dtsi
+ create mode 100644 arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge-se70.dts
+
+-- 
+2.43.0
+
