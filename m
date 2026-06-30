@@ -1,171 +1,141 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A01B2BEC2B
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:08:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782814104; cv=pass; b=LTWo8stSQ1shJdQ2XXtg6objZ4WwmRq1P63Ryf3yVzv3ik/GS2LW7kmFVQfOuq0GE1qHA6lNotanw4KWJMnB908DA912sn+AXboSHWE9Sge0zxt30u6dlbi7vCKX6OrgtL88G298VzszCf7rtJcW8I2ru05BIaqW8XzlqhoHWbs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782814104; c=relaxed/simple;
-	bh=ImIp7ff7R+p3kOeF0z4nxDiC1ZOiuu9W7gXy3BE6q5A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MiKsGjxgyw+JXWrK7la78AxeKR+oVxxnJjnQ0UeA1xRuTdnxzOEg+NWpbqgcv8pISrzfBjb+nPDk3dQsygvSA7UMs2scJI48COKupSLKRgL5YjiBlnimH6s9eWjhWgscU/W87Vm5CuODcAovW8ZRU+oebID7LGNyd9VpY9rxW1g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AfHkWQ+4; arc=pass smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58473EB10F
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:12:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782814364; cv=none; b=idUPz9tsOKc0vN5xx9+xeRb4Vbo3qnJSwvqvfkRe745LLg1Lj7CnFw1jpDM8eTKYRSpV6gY8ItUNRvDulRO7sfK0onOOzK2MyIT9KWaFcol15+ojnpIXaFh7XriWGRyjXiB6Q44Psex7HTm7QpOoqII/JKQDOkCglY0isrGSfC8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782814364; c=relaxed/simple;
+	bh=MX6Hw1vd1Kj5TEfvcIWrLlYetnqKjtDoCnB6oDVA6Gs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rQ+PXO/uwoS0do8QDTpUq2QHgn60tp3Dp5meZc72eOrzdiCjT+0fu6x7ODbthtv+IaqzpLKtEEcvQ0Mr72omId9UYkxhANn9Wt8WGC8I5BAkI5p59A/+1ilqNeKNbvAO93khzUeJQhT9J7JbqXYQ8eErANoNE1BU6NuyBTKKm8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CLRHJGvS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AfHkWQ+4"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4924593f45dso55382585e9.1
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 03:08:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782814101; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mE7hy6/sd3l7d8T7i7UEBrYKJsx+8TNrWlPcpbb5w5h5O3ZZO5eobemXx7e/JhDG3o
-         U4klaX9IQMi5l0a51jbihGini4aNb3cB+PAbjlDd8Znca0hG/VTde/NY+vYDb/qR63oG
-         /LBB4oTM9vECttLsw8jyhKyavjraz1kkI29aEUzC15qS9lQ5XVNvdNnnfyz+bTTjfbsr
-         d7Kv+lfGEDSOi4QXKN9jzGPEQ6l49eHBmB4XBOuq6V9AVe2rgZnO2/JIcV/pjn3Cslxa
-         Z953vErqDC/b9Rurrn6bk3HosR4afjodv4/RZDApsef0bMhTpRQsOgTf+JXM3SzCIvel
-         dfFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zA254jSg7Mg/pmP5Hvzp8s8/v3sVmr5J11egd6Z5eK0=;
-        fh=BKoYwHocEgMC9XlVQbZ+KTt8mVUYBnOoG8LdhTQp5RE=;
-        b=NG9pqHJc9jmw9d2UTh4340dwUpgaWlztloAlSgSN1QpL70iWgj0oF79TdTdMofoNmN
-         OSTFMwEA40SyHrDIwelfu6hvUcnswgNogteV9D4L0KuAl8HUCy7sgcyWE+JMHQhkqOyv
-         D5IpEzxZ0vQl5SJS6T6HlPE+nnnsQykDsOwTdhRYRgaqxSlcPIG5b+0hUF6sD8OQGBzs
-         Vu7iteb/hwKfkZYdyEwK9gyApUsKPcTFZXu26PE4jLjxVW3pZrtYvwmusIBAuWn9u/0w
-         ADLmPnOZqGsuMTry6e4OdvrR8Rxt2JFaOOua5bH8ElaV2VrStC5FHSzO1GXNcpNTgz+z
-         ofzA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782814101; x=1783418901; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zA254jSg7Mg/pmP5Hvzp8s8/v3sVmr5J11egd6Z5eK0=;
-        b=AfHkWQ+4+dOgoqkmHcQUprrHPh+aL1fDXBe5mbKlRaLrc9EC15+p4PYgkyNs/hG0zA
-         mtqDT9ikZBrEN1hiGrrsl2kVrMk59Gu42IbhF8Ojkj7jwo+obtLOBwJ+dA+0b2/Cfznn
-         orVTdYe/jz7f8ZdB9zvR9+U6lbxAIrgeSHZWmoi4vJ4VLRZ5/R0iuladv/Z0/xUZz6OL
-         gChPiAPkSp+SBGxwfiQkcYpABBVXCsGoxoMRZ95CxEAl5KbdtmUo/lDdMYy7JGpf3xK8
-         +qX+wsF5atgBHUDODLGWRSwD9UvVpQdEFwbVDR3fmQsunkZpmvEqyLoEbGVcDAQmF6tB
-         dQKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782814101; x=1783418901;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=zA254jSg7Mg/pmP5Hvzp8s8/v3sVmr5J11egd6Z5eK0=;
-        b=I1OWj1S4KqfxqDqQvV6syTAgs7tkZXzlF0wxxBu0YhU1KScbdWd6aPaRNy7gIV369O
-         PW694A7qkt7R2SAeUOoNkLtJyzzvAo/bzC5UhO35juBXaT+K2+0l/YYUxyXobb51HCcI
-         dEGjvgqXlf5ceJ3crBCgPEIkrSg2GSNtzlT96S4tbGlptXzvR5N10pnHERXN5/cE1zIO
-         +jTaTnDCsa7DAv6rASMx2hL13ONNzVfMyptScILgydYmc0CldP5Hml71h0V+I07uA1/R
-         C9BK2QtizB2tEgr0R5LQ2iLE8DnQlDQSTbzIetSqFxbrLWB6+N1/e+p7xM5knICUesOD
-         2SQg==
-X-Forwarded-Encrypted: i=1; AFNElJ+QgC3KvkyYnSV8iyynS62GtMEzEVqvO5Acn9Ba8/+zFIB+LN4y9WnjF/A2bPJc/+lt3Y7T2ikFvIm1@vger.kernel.org
-X-Gm-Message-State: AOJu0YxeiyXPJo780yyj3knEucg6yOevJKuE/+rBCEnQf019Zhitej5o
-	g6xigrRSTQX0+h5Q45MAvo9DsvVhxFlKtd2272iQVqCwRt6WRJl10PaRJt1cITDFnT0pAQdttE8
-	nhomh3FvjfxvMOTwe5wn0mkayyFUqHOA=
-X-Gm-Gg: AfdE7cmk9QFv6b7ngt1Tri0QGr2SjDarXqzfM/xOtltduqIioRe0zbbw1a6h7q7x+mB
-	3ppAnWkIMY8upuoaKuvLTT6VBGUUuXoD+z83NZ+BoCSW2RvMV1Wp8ZEiMWPiDZ36mReFBQfPFvi
-	7XALX9RKcybwK248l+5IACoCZfrm8X2nPAefKzZ7fFRzJGez8Acmy9M6kj5rTArOzkHAJAw9ER/
-	uinfCYpV+nZ2tCni2yCtUY6KhXybAB2qp2RympOIenRX5+sRsLwWdqejJggagTBU+D1kUBPHdyE
-	KQjhDCGUYkqeFymxUA2W43e3muC+NLg8Vm1/hPY=
-X-Received: by 2002:a05:600c:4991:b0:493:b730:8d78 with SMTP id
- 5b1f17b1804b1-493b82c324bmr28731885e9.31.1782814100704; Tue, 30 Jun 2026
- 03:08:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CLRHJGvS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4325B1F000E9;
+	Tue, 30 Jun 2026 10:12:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782814362;
+	bh=PfeHpsBARIYLXi5HKpkRUIIaoCPLjQnXRqb2d6EXbE8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CLRHJGvSrZ48gMK3K3mXs2mxK3ggUKZiTfj/N3sDBCGpSnel8ex24EnsQMzOpbVUg
+	 tjBmQOwyCCaWcaBOqw8VC4I++OcN3WsEz91HQILMJZMu0bkcEixfwGU0W7x88cQLMd
+	 9ctMDvhq+IT5d8T6ps6ERvyXTan1ZzYCBxpAggQPo/XFwz7NhjPaSJBK0SNhb4/+kl
+	 6hOLFO5kGnQqESpsmglu5iqC4VWx/wz11BTM9rLHNtmz3fF+NCu25F2VhdCJtGpozx
+	 aeExmUnRbY2BqKJjn0ogQQoLyb7/cgmyl3a0Br+6rPEGqW275QEnr00XAwVcC/H8E2
+	 CTJrAlpInOMgg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 11/13] ARM: dts: microchip: sama7d65: add cells for
+ temperature calibration
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Varshini Rajendran" <varshini.rajendran@microchip.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260630093603.38663-12-varshini.rajendran@microchip.com>
+References: <20260630093603.38663-1-varshini.rajendran@microchip.com>
+ <20260630093603.38663-12-varshini.rajendran@microchip.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 10:12:41 +0000
+Message-Id: <20260630101242.4325B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260614083424.464132-1-mitltlatltl@gmail.com>
- <20260614083424.464132-2-mitltlatltl@gmail.com> <qwbda435on6rhsbf5o4jqijakanjmnmswnc6g6qsubuqbyvbok@fuoclv6u7tq5>
- <c29776b4-04b8-4c59-8f1e-d766bf982a2f@oss.qualcomm.com> <CAH2e8h75xeRVvo+jOjRuFaBko5NNCnBX0dawFFsWBaiTwNd4Xw@mail.gmail.com>
- <99eaf1d1-fbf9-4336-a13c-ae8ab789cc99@oss.qualcomm.com>
-In-Reply-To: <99eaf1d1-fbf9-4336-a13c-ae8ab789cc99@oss.qualcomm.com>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Tue, 30 Jun 2026 18:06:50 +0800
-X-Gm-Features: AVVi8CeXY2XXtKzC05jw7mqBTSZCDFNAWUTECad4JJzZvuIX-tBM3NerKDQFx-Y
-Message-ID: <CAH2e8h6aWW_=pD6JAuFB-VqEZDj9x8gZVh9TdvTCRQakKzm3pA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] spi: qcom-geni: Add property to force GSI mode
-To: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 30, 2026 at 5:52=E2=80=AFPM Mukesh Savaliya
-<mukesh.savaliya@oss.qualcomm.com> wrote:
->
->
->
-> On 6/29/2026 1:33 PM, Pengyu Luo wrote:
-> > On Mon, Jun 29, 2026 at 1:36=E2=80=AFPM Mukesh Savaliya
-> > <mukesh.savaliya@oss.qualcomm.com> wrote:
-> >>
-> >> Hi Pengyu,
-> >>
-> >> On 6/15/2026 2:48 AM, Dmitry Baryshkov wrote:
-> >>> On Sun, Jun 14, 2026 at 04:34:24PM +0800, Pengyu Luo wrote:
-> >>>> Some devices (such as gaokun3) do not disable FIFO mode, causing the
-> >>>> driver to fallback to FIFO mode by default. However, these platforms
-> >>>> also support GSI mode, which is highly preferred for certain
-> >>>> peripherals like SPI touchscreens to improve performance.
-> >>>>
-> >>>> Introduce the "qcom,force-gsi-mode" device property to hint and forc=
-e
-> >>>> the controller into GSI mode during initialization.
-> >> Why to force ? You can directly configure in GSI mode. Note there are
-> >> some configuration done prior to Linux bootup too.
-> >
-> > Sorry, I don't get it. how? I know there may be a qupfw, but it is
-> > impossible for a normal user like me to generate one with GSI
-> > preferred.
-> >
-> If firmware doesn't program in GSI, you can't have this working in GSI
-> mode, its going to fail (and work with fallback). if it's programmed in
-> GSI, anyway this will run in GSI mode. So why to add extra things
-> without any usage ?
->
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-What I can confirm is that fifo is not disabled on my device, and gsi
-is definitely enabled (under windows, check the register
-SE_GENI_DMA_MODE_EN), forcing the device to enable GSI mode on linux
-works well.
+New issues:
+- [Medium] Adding `nvmem-cells` and `nvmem-cell-names` to the ADC device tr=
+ee node will cause `dtbs_check` validation failures because they are not do=
+cumented in the corresponding YAML binding.
 
-Best wishes,
-Pengyu
+Pre-existing issues:
+- [Critical] A raw ADC hardware reading of 0 for the bandgap voltage causes=
+ a kernel panic due to division by zero.
+- [High] The ADC driver fails to propagate `-EPROBE_DEFER` when acquiring t=
+he calibration NVMEM cell, permanently breaking temperature calibration if =
+the NVMEM provider probes later.
+--
 
-> > Best wishes,
-> > Pengyu
-> >
-> >>>
-> >>> Ideally, this should be decided by the SPI controller based on the
-> >>> requirements. Another option would be to prefer GSI for all transfers=
- if
-> >>> it is available, ignoring the FIFO even if it is not disabled.
-> >>>
-> >> Yes, it should be decided in advance and configured accordingly for GS=
-I
-> >> vs non GSI mode. Because there would be limited set of GSI pipes, whic=
-h
-> >> will actually make must have GSI mode device run with FIFO mode.
-> >>
-> >> Why don't you decide prior and configure for GSI mode ? We don't need =
-to
-> >> change the current logic of deciding FIFO vs GSI.
-> >>>>
-> >>>> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
-> >>>> ---
-> >>>>    drivers/spi/spi-geni-qcom.c | 7 +++++++
-> >>>>    1 file changed, 7 insertions(+)
-> >>>>
-> >>>
-> >>
->
+commit 6142abae648297aaf43eed2fdd08d882882efb74
+Author: Varshini Rajendran <varshini.rajendran@microchip.com>
+Subject: ARM: dts: microchip: sama7d65: add cells for temperature calibrati=
+on
+
+This commit adds NVMEM cells to the ADC node for temperature calibration da=
+ta
+on the sama7d65 platform.
+
+> diff --git a/arch/arm/boot/dts/microchip/sama7d65.dtsi b/arch/arm/boot/dt=
+s/microchip/sama7d65.dtsi
+> index 5867fda378b19..c336f863406de 100644
+> --- a/arch/arm/boot/dts/microchip/sama7d65.dtsi
+> +++ b/arch/arm/boot/dts/microchip/sama7d65.dtsi
+
+[ ... ]
+
+> @@ -323,6 +323,8 @@ adc: adc@e1000000 {
+>  			atmel,trigger-edge-type =3D <IRQ_TYPE_EDGE_RISING>;
+>  			atmel,startup-time-ms =3D <4>;
+>  			#io-channel-cells =3D <1>;
+> +			nvmem-cells =3D <&temperature_calib>;
+> +			nvmem-cell-names =3D "temperature_calib";
+
+[Severity: Medium]
+Will adding these properties cause dtbs_check validation failures?
+
+It appears the corresponding YAML binding schema
+(Documentation/devicetree/bindings/iio/adc/atmel,sama5d2-adc.yaml) restricts
+properties via additionalProperties: false, but lacks the definitions for
+nvmem-cells and nvmem-cell-names. Do we need a matching binding update?
+
+[Severity: High]
+This is a pre-existing issue, but will adding these nvmem cells expose a
+probe deferral bug in the driver?
+
+Looking at at91_adc_probe() in drivers/iio/adc/at91-sama5d2_adc.c, if the
+NVMEM provider hasn't probed yet, nvmem_cell_get() returns -EPROBE_DEFER:
+
+drivers/iio/adc/at91-sama5d2_adc.c:at91_adc_probe() {
+    ...
+    ret =3D at91_adc_temp_sensor_init(st, &pdev->dev);
+    /* Don't register temperature channel if initialization failed. */
+    if (ret)
+        num_channels =3D st->soc_info.platform->max_channels - 1;
+    else
+        num_channels =3D st->soc_info.platform->max_channels;
+    ...
+}
+
+Since -EPROBE_DEFER is swallowed here and the probe completes successfully,
+does this mean the driver will never retry, permanently breaking the
+temperature calibration if the NVMEM provider probes later?
+
+[Severity: Critical]
+This is a pre-existing issue, but since we are enabling temperature sensor
+capabilities here, does at91_adc_read_temp() have a division by zero risk?
+
+When userspace reads the temperature from the IIO sysfs node, the hardware
+is requested to read the bandgap voltage (vbg). If the hardware returns 0
+(due to a glitch, lack of analog power, or being unplugged), it is used as
+a divisor:
+
+drivers/iio/adc/at91-sama5d2_adc.c:at91_adc_read_temp() {
+    ...
+    div1 =3D DIV_ROUND_CLOSEST_ULL(((u64)vtemp * clb->p6), vbg);
+    ...
+}
+
+Can a raw ADC hardware reading of 0 for the bandgap voltage cause a system
+crash due to this unchecked division by zero?
+
+>  			status =3D "disabled";
+>  		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630093603.3866=
+3-1-varshini.rajendran@microchip.com?part=3D11
