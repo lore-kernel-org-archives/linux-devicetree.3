@@ -1,49 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE4847277C;
-	Tue, 30 Jun 2026 16:15:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC21477982;
+	Tue, 30 Jun 2026 16:17:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782836110; cv=none; b=oWdfM1cdKpZnJ0yBJJZ2rSwkRWULRazRM2V/fP9HuYSsGd+EMMh2Oh41ZalDuVYg0m/WCPweHrwjtKE8BciRXZDFGoxXx+t1v/VG82yFnJpCrkPsvexQRhB4dfcrFVstiaC0955my05jhKBQ7MwnKj65VdsTNKeoX1Z8WR4U7EI=
+	t=1782836225; cv=none; b=fuZ4nYPpq32VBpkCC6XHJTTiJqaHQFIOmadGelxR9lc2RY1YmoM/Z8OVigWAZBMxV6nNIVcDyuGofJYlLbWFYSfs5aX06hdpMvbThUmSDALABl9JJuDz8wbUwBqmzZD3PUr8GpPvgNo8NUxK4CITnO7/Te5RDSlY9Es2KaAMUso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782836110; c=relaxed/simple;
-	bh=CXaeKMIRSrvYxU3iiMGwtvb8iGGkSv/3XmNw9Vnfn1A=;
+	s=arc-20240116; t=1782836225; c=relaxed/simple;
+	bh=+6OOHItpTaF/h+nadWc6FKiIaCw5jXWp2z/oy0XdOdY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C39j3DGgVOcsLTdl5GVbt4swzc1zBbocmskULYefWhLIYrBfhpmETYO4AEtTa53RpE1NhPvOmc4IKbPWBdGWLk+fuw2Wa78BwHRdKSrapp4FIAzfbzYPWpff7MRjzkgd1iv6Jvgu0fUeFtAhCP0xEiAcDBS+xWuRR723rkSfLaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TzoRfypq; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ahfx5JVEA6hDWSzeQ1E2jb04EbBFhUll/sGZI85N4Q5mx1pwCO5w51Q0ry5TSZbn/MJm1wsCBn3ovSsJRuJitZqkGCiVW2QClz2q9avJv6Nf5mOhhUQIorTQelsw6ONuyqF/I5GoJw3R8K9N3BGr2xz/FQIHHkAVndMj3qsEdbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KWx+O3TD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TzoRfypq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7359C1F000E9;
-	Tue, 30 Jun 2026 16:15:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KWx+O3TD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9981F000E9;
+	Tue, 30 Jun 2026 16:17:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782836108;
-	bh=eb0sWdkKcVZuiKOIJ6FAW+I06k/4BEXqFcAMn2RFR64=;
+	s=k20260515; t=1782836224;
+	bh=mfneG00FYDfw9G098Kqg2HFmOi2sByNHAslBiEKNido=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TzoRfypqbyHyYC058os6xjzoo0pe/kS/QOQH02nFIqoXQhsi9obHZ/eurkAXX77r/
-	 TGf6F7sl95t4bcLwI2dS9DburRMXdJ6ZnW0VjmesOruwSWIXEhSJX0USX4j/PtCLoR
-	 k04vJGCUaRCwFfGQ6kUFPmlMxNfaYbvPhWrSu1NTuy2xFeZsUYxAlotm+yPIXBJbx8
-	 Zk7A7wZtD+EH7DCLZE7Owkf678LTcUSvtc+vY8+KLX404Qi1c9/1qSFwbV9JRtjHha
-	 chnvRadTMlmO/S/1hM02JYqktsTBI/E52jNgMQ1ZEsoE/woKA2wd0NFAsGOloeaNFt
-	 kcJC3NxCEdOfA==
-Date: Tue, 30 Jun 2026 11:15:07 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Guenter Roeck <linux@roeck-us.net>, linux-tegra@vger.kernel.org,
-	linux-i3c@lists.infradead.org,
-	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jon Hunter <jonathanh@nvidia.com>
-Subject: Re: [PATCH v5 01/12] dt-bindings: i3c: Add mipi-i3c-static-method to
- support SETAASA
-Message-ID: <178283610732.3797495.11836462917948472551.robh@kernel.org>
-References: <20260624102153.1770072-1-akhilrajeev@nvidia.com>
- <20260624102153.1770072-2-akhilrajeev@nvidia.com>
+	b=KWx+O3TD+foOsFZg+5qSNLcedrBrOCbkxaXlXT7pw8bUMgC1z8o7GrD9RQohW44kI
+	 UoT/Pdx/GGkQpZaEOp7ZWQrEIDtjxwU32eXXGosCkWNuLNBKkqUYCwfOQKnZZwc/1N
+	 jUxDSs63K3ISQh5NTNx7M26WWheL10SjekPrZeXAeq3h8rhlCUdtTKF3FWASbxfpnt
+	 OP+h3N3J5UfQ3iEQkHTCA/UpiBphz12nBiv0aGUTHypOGIrg+zBS65k2t3lH3jZd3y
+	 jfa2hugnZ6RE58oOC+aByGeAWm0CmT1197KH4wFArsl0wQrDxcYzbvMdDmp7C8a6WB
+	 SCkoUxQ8JF98A==
+Date: Tue, 30 Jun 2026 11:17:03 -0500
+From: Rob Herring <robh@kernel.org>
+To: Sean Young <sean@mess.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-media@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] media: dt-bindings: rc: Sync keymap list with latest
+ list
+Message-ID: <20260630161703.GA3798331-robh@kernel.org>
+References: <cover.1782300922.git.sean@mess.org>
+ <2d87b050777b95ffe8adbdf156d2fb1de14c4dfb.1782300922.git.sean@mess.org>
+ <akO_XqVQ-S72dveD@extorris.mess.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,36 +47,15 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260624102153.1770072-2-akhilrajeev@nvidia.com>
+In-Reply-To: <akO_XqVQ-S72dveD@extorris.mess.org>
 
+On Tue, Jun 30, 2026 at 02:06:38PM +0100, Sean Young wrote:
+> Hi Rob, Krzysztof,
+>  
+> Could I have an Acked-by: please?
 
-On Wed, 24 Jun 2026 10:20:55 +0000, Akhil R wrote:
-> Add the 'mipi-i3c-static-method' property mentioned in the MIPI I3C
-> Discovery and Configuration Specification [1] to specify which discovery
-> method an I3C device supports during bus initialization. The property is
-> a bitmap, where a bit value of 1 indicates support for that method, and 0
-> indicates lack of support.
-> 
-> Bit 0: SETDASA CCC (Direct)
-> Bit 1: SETAASA CCC (Broadcast)
-> Bit 2: Other CCC (vendor / standards extension)
-> All other bits are reserved.
-> 
-> It is specifically needed when an I3C device requires SETAASA for the
-> address assignment. SETDASA will be supported by default if this property
-> is absent, which means for now the property just serves as a flag to
-> enable SETAASA, but keep the property as a bitmap to align with the
-> specifications.
-> 
-> [1] https://www.mipi.org/mipi-disco-for-i3c-download
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
-> ---
->  .../devicetree/bindings/i3c/i3c.yaml          | 36 ++++++++++++++++---
->  include/dt-bindings/i3c/i3c.h                 |  4 +++
->  2 files changed, 35 insertions(+), 5 deletions(-)
-> 
+You can look at patchwork and see where you are in the queue. No 
+need to ping us. Plus, don't expect quick reviews during the merge 
+window.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
+Rob
