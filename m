@@ -1,55 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC7A3242BE
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 22:13:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 345BA1D9663
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 22:25:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782857584; cv=none; b=H4NIAR8MOGqdD1N8jQON57riRhM9eWhhAc2tKKGNS/96lC3WffnaUq4LSXlQjsb+GCDPGVMoJLqlzOzTiSvht1LhyoNoQjbTd0p3HNIsgFSqTI5iFIGLm+he1rHh1DNL2cSX8+The+81mTGwzx2rfaP1Gt+KYZURz5hSZHqda/Q=
+	t=1782858334; cv=none; b=AQcFojOJNU7ON+nQNweI+RR/TV6TMHI+I/t3N0EgvF5pFw243a096vNbRrRzhPhsR+PEfoYxwROh9amQXYvZH+R+MT+6scGZp9IwjSlKF+nXpTtVvcTr2gmzyC7V8Uktirzg0xt/BY4WKVuA/u10uUv2m0yXCTLmZkNKXM7k2YI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782857584; c=relaxed/simple;
-	bh=a/lxtTDTDg9qHZ1XxJGp6GALUnxVcyilFnlyp8deNr4=;
+	s=arc-20240116; t=1782858334; c=relaxed/simple;
+	bh=vLhbE10te/VPBBt6ZQDRVIhxWYhikKNLXZOkJFDsW+s=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eu/9rL1xAsajUlWpIGGUy7EdCt7b6IOL5KCnGMxlwnitSmA2AeO0Zv2WpqhyB/zaWAo0N0lvlluX7cKrFnGUJvG6sxfS4Ab31ViLug8S4bHXFTyK5bDYMN3C0bqmz5AdmbsVWlLW8Hia4w7dVKahQUsoUj+iZFhFxyQf8oRPQZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PJgsHN6y; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=EVcSuTiQuR1dTaJEZdrH98nvh7zYMIq7THGNCOA/jUwK/TukzR/LpRggRlauolndsdCmn1vv46mGaDhbCOCY/+QVi8ez5js7TJMfnym1BoxwlPXh8QpgEFDKaEvyRfyNlseTMmaO/e/77Rw4BEXJH3zhR7UoQWfX8ZUZfZ8b1Rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VO7G2t1F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PJgsHN6y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83E591F01558
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 22:13:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VO7G2t1F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4001F0155B
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 22:25:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782857583;
-	bh=HM1j74yODPhJMYhAe8Gysw58b33HB8UlPnD7jYgM3wc=;
+	s=k20260515; t=1782858332;
+	bh=lJSNchfWEyMduAfk7UjM53bR+D02Dxe2C6sVldFvt8E=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PJgsHN6yFCy6uM8OzJ5er++rKVozMaAHvyDqrhtYfMPCCxrpB8AXLUA6uGg+5VklC
-	 9duGS1uMgl4p3p5uoQL7TK9MhvxKTa2dKSCMTkS2w2VwjlYEbiWAkQa2L67HL5VVVd
-	 9uvKdyQ3g4QVOBg20tia94Xcv+JC3R0uEMn+QJKcGoYACQdi1ovvRcZqMegBGiFT4p
-	 hLtNn0IurWdCmVibLCpjZx2NvYHdoGJBdwYHxHXG+WkxypEPGGiZsPFfWJoND2Kal+
-	 98zSH13AxZSGRmzDL3hBFy5vxpfe1HN4oOXaZk4ptIHXrsgqLoTMTFxyer7juhoAp7
-	 7YulToC5Pm34w==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aeae350e0aso3721530e87.1
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 15:13:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoeZaxFoqKG1uDQYLBtTADouCciVWtG60ewWZG7YDd31XDA8n3Lykht+mXtnTrg66VGY++pdTkOeT9S@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyw8i8cxyiRN8bq6Iroont7rpdCy/h+z4U3n9nd6fpwh536JpIY
-	lzB1RQhwhNbROQMTPnGC+ne5/bE2jRky+so/NAU9Ytnb6SdyOloHAfWIl9UvURp8PLV7lbfA9h0
-	a9IF+ZGeSNOVSQJ007kGDRwGhS2xJ/TE=
-X-Received: by 2002:a05:6512:1248:b0:5ae:b2cf:8204 with SMTP id
- 2adb3069b0e04-5aec10a3841mr657448e87.2.1782857582274; Tue, 30 Jun 2026
- 15:13:02 -0700 (PDT)
+	b=VO7G2t1Fop7D33uO3A+qYFU4/l49qMz4/fv7261otOP5CpUOFZac93RTf5iLSqCqr
+	 e/eln6tInnaYZvtLwA6lA74onbV4Oa9fKZcxZQOG1AAbpxy2m+OeDcfmDH+nJLq4QI
+	 zQFyjZP5nygLQQ1ZNMPk/DMTusm4KdUWG7lIlzdhcurKcO8og80hyqQmTMGfPHBVZr
+	 oSTiTUDs2eM5DEo8XzJu8uMABRjNNbKy5dMR3QVfzqHZt1q6Y70ZDSezEsGF31qIqS
+	 /f8aNeCj5iiqzEcKMWD7AplC9VBa7hffu7TKGV3vZd6IFM+ligf7Hy0CkmkWcMpRzE
+	 iAcMdmOt3tK0Q==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aeba1a36dfso2066463e87.2
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 15:25:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqbXGrW3qGMN+dnQw1u7rb4yZUxI2UGxZ3Eu7vH8fTyOLz7cxGvgHkHnVyEpMjTi+sagTrfnv8qx5XB@vger.kernel.org
+X-Gm-Message-State: AOJu0YzAwcA2VOcKWUB5u3ivq/oJb1tkPnDHsd4Lh7RYfe4dBma5UYZD
+	8RhbfL+9R0GbyYKkYhP8/tjCOWPYVsg2ocKB9ffoNghqhpIhJM4Gc1epWtd0/cKaWpIIaL1z3yW
+	j/NkXuhUrbNe1I/6yO2uE4SWjW8Sm8Qg=
+X-Received: by 2002:ac2:4bca:0:b0:5ae:bce4:b696 with SMTP id
+ 2adb3069b0e04-5aebdb8913amr1285650e87.15.1782858331615; Tue, 30 Jun 2026
+ 15:25:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260630092406.150587-1-manikandan.m@microchip.com> <20260630092406.150587-2-manikandan.m@microchip.com>
-In-Reply-To: <20260630092406.150587-2-manikandan.m@microchip.com>
+References: <20260630092406.150587-1-manikandan.m@microchip.com> <20260630092406.150587-4-manikandan.m@microchip.com>
+In-Reply-To: <20260630092406.150587-4-manikandan.m@microchip.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 1 Jul 2026 00:12:47 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=FkEfpz-LW0vmPpZ28fLfGFMWo5E479Mapz55YUxKNAQ@mail.gmail.com>
-X-Gm-Features: AVVi8CcLJOfvOFl8jmVmAP_uzLY_UWoBigmB1_kTp6EN1gm7rCEox0bV8PbTeSw
-Message-ID: <CAD++jL=FkEfpz-LW0vmPpZ28fLfGFMWo5E479Mapz55YUxKNAQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/7] dt-bindings: mtd: jedec,spi-nor: allow the SFDP to
- be exposed via NVMEM
+Date: Wed, 1 Jul 2026 00:25:19 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk9Vw6tv+S0jno80g1cQNOJ8UH=E_XKEnXdbdKB6QMWJg@mail.gmail.com>
+X-Gm-Features: AVVi8CeKBUAk9hYd7-xedVdQUq3OtUOkiZl_3QiYFyIqzcOrLBrHLUbSYsRIb2A
+Message-ID: <CAD++jLk9Vw6tv+S0jno80g1cQNOJ8UH=E_XKEnXdbdKB6QMWJg@mail.gmail.com>
+Subject: Re: [PATCH v4 3/7] mtd: spi-nor: sfdp: expose the SFDP as a read-only
+ NVMEM device
 To: Manikandan Muralidharan <manikandan.m@microchip.com>
 Cc: pratyush@kernel.org, mwalle@kernel.org, takahiro.kuwano@infineon.com, 
 	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, robh@kernel.org, 
@@ -66,37 +66,75 @@ Hi Manikandan,
 
 thanks for your patch!
 
-On Tue, Jun 30, 2026 at 11:24=E2=80=AFAM Manikandan Muralidharan
+On Tue, Jun 30, 2026 at 11:25=E2=80=AFAM Manikandan Muralidharan
 <manikandan.m@microchip.com> wrote:
 
-> Add an optional "sfdp" child node (compatible "jedec,sfdp") that
-> describes the SFDP as a read-only NVMEM provider via nvmem.yaml, so its
-> contents (e.g. a vendor EUI-48/EUI-64) can be read through NVMEM cells.
+> Register the cached SFDP as a read-only NVMEM device rooted at the
+> flash's "sfdp" child node, exposing it in on-flash byte order. This lets
+> NVMEM cells reference any SFDP data: a fixed-layout for parameters at a
+> known offset, or an nvmem-layout parser for vendor data whose location
+> must be discovered at runtime. The device is only registered when an
+> "sfdp" node is present in the device tree.
+
+It seems the existing serial NOR driver core already reads out the SFDP
+and stores it in  nor->sfdp->dwords, right?
+
+This should be mentioned in the commit so we know when the stuff
+is actually read in from the flash memory.
+
 >
 > Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
+(...)
 
-I would expect it to follow nvmem conventions like this, notice
-compatibles specific-to-general with sfdp first:
+> @@ -3204,6 +3204,11 @@ static int spi_nor_init_params(struct spi_nor *nor=
+)
+>                 spi_nor_init_params_deprecated(nor);
+>         }
+>
+> +       /* Expose the SFDP as an NVMEM device. */
 
-sfdp {
-    /* NVMEM provided by SFDP */
-    compatible =3D "jedec,sfdp", "nvmem-cells";
-    label =3D "SFDP";
-    read-only;
-    #address-cells =3D <1>;
-    #size-cells =3D <1>;
+Add "if and only if the flash has an SFDP"
 
-    mac0: macaddr@0x00 {
-        reg =3D <0x00 0x06>;
-    };
-    mac1: macaddr@0x06 {
-        reg =3D <0x06 0x06>;
-    };
-};
+> +static int spi_nor_sfdp_nvmem_read(void *priv, unsigned int offset,
+> +                                  void *val, size_t bytes)
 
-Your example should definitely be more elaborate like this,
-just an opaque sfdp node will not suffice. Maybe a separate
-example?
+Name it _reg_read() to mirror the nvmem prototype.
+
+> +/**
+> + * spi_nor_register_sfdp_nvmem() - expose the SFDP as a read-only NVMEM =
+device
+> + * @nor:       pointer to a 'struct spi_nor'
+> + *
+> + * Expose the whole SFDP, in on-flash byte order, as a read-only NVMEM d=
+evice
+> + * rooted at the flash's "sfdp" child node. This lets generic (fixed-lay=
+out) or
+> + * vendor (nvmem-layout) cells reference any SFDP data. The device is on=
+ly
+> + * registered when an "sfdp" node is described in the device tree.
+> + *
+> + * Return: 0 on success or if there is nothing to do, -errno otherwise.
+> + */
+> +int spi_nor_register_sfdp_nvmem(struct spi_nor *nor)
+> +{
+> +       struct device *dev =3D nor->dev;
+> +       struct nvmem_config config =3D { };
+> +       struct nvmem_device *nvmem;
+> +       struct device_node *np;
+> +       int ret;
+> +
+> +       if (!nor->sfdp)
+> +               return 0;
+> +
+> +       np =3D of_get_child_by_name(dev_of_node(dev), "sfdp");
+> +       if (!np)
+> +               return 0;
+
+If this node name is required to be named like that it has to be
+enforced in the schema.
+
+I would instead check all the nodes (for_each_available_child)
+for the right compatible "jedec,sfdp".
 
 Yours,
 Linus Walleij
