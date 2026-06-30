@@ -1,117 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D7A3815D4
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:22:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A051D35C190;
+	Tue, 30 Jun 2026 09:24:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782811371; cv=none; b=bBl/6SuwNxumZ0xHJ+XH6PdQo/UK/9nn/W39ID+8wDLhThMR5Iy5bsD4+1OhuJ+ra5/nLPDvSy7mIeeMyy6ow91R8cMfOzS2+KWDAhnzWcNtBKclyhkHjXFlKQNuArEbKKCQAuonIi9PhmFVCuMClkmQWyqA2ryMHJSBgtVy6yY=
+	t=1782811471; cv=none; b=vA/pBVzATmldknLk6dQ0yTYTLnCMeQh9JDcuTOaPmNlMvDX0uK58fycxOMtfokmgAEOSs+zVOMo5kMde8eXAzLE8pldLMiyF+9U8X6MgZ7DdKDiKLtwJe1uJH6KveoaulVj01W3Udnm/s3Aq7CBB9ih8hUBK5VwqI5/zvgrDxBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782811371; c=relaxed/simple;
-	bh=AYBarYRYIwk+59883gPQSLR1CFBQ2/1ARfP5k9h/QoE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BtjK/M2vQUxZ8bwSrKbSG2U0FAYvx/qHs+xAcxFUgP+1ffiV9Uut7oLuPd4cf5gZ4WQRJ6G0dq/64h28XMgLYCsbt+zS/TOkuIh0MQzFqebcowVMsPCYe6GSpJSGsJYl4qfwyb/78UHmVs4Srld0/J5QpyYSXAXu3D0aFULMsXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IRm3ReJ8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782811471; c=relaxed/simple;
+	bh=MAR7dBMvboAZsq8wqndsRj8+f2jQFua2iR0ewa1tL7c=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QLYXA8ydn02ll+JfekAW5ZldInhOdRac5ToFw9QDR3RqiShz8/Br8x7OujOQa76YnyuA8HitXJOYMBlLis0H7PxR4UpOoPElQlaFM98XKHrsRqKvQBSrXtN9jg3h8xADFkPPR/0f93cl+/EnuhCRA9qNUpgohbcu0sOV/OM7oaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=RrTK5d2w; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IRm3ReJ8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B991F00A3A;
-	Tue, 30 Jun 2026 09:22:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782811369;
-	bh=sbhlNkRMZcS8MzQF5Rya3mWM2ceczFeJ7ICQhV7n4TQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IRm3ReJ8A1sBL8bwU0UoACDgJLugPRjQhi2O98BT4+R0qnXbe2ZOwYm07hCcthnb3
-	 ZTKByktL0B9KUXoNPW3t5Lf/tGHYNJxEtgRZ5+SSbKkEx7NFvpD4Ggi+VQL3nWtbjU
-	 cHvbAylp/04KcO0Cz4RWF+KDzKtoTCVNjEJz4WmhMytBN1Q/QM9BZF4pK7PdA0DcC3
-	 tICn/DIbfbpFHi9Sp5fRwlRR/2vJN9PdhxIak5BP+fjZPe4psXUDj/HdHChRAMGXKx
-	 EittpMKDan6nQHu77euFePBODeQYyAekxscvAWKUGljvIWaGtlrH20kdTufUBtdM45
-	 9GzSbk0ZXArZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 09/10] riscv: kdump: exclude non-dumpable reserved
- memory regions from vmcore
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260630074715.4126796-10-chenwandun1@gmail.com>
-References: <20260630074715.4126796-1-chenwandun1@gmail.com>
- <20260630074715.4126796-10-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 09:22:48 +0000
-Message-Id: <20260630092249.85B991F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="RrTK5d2w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1782811469; x=1814347469;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=MAR7dBMvboAZsq8wqndsRj8+f2jQFua2iR0ewa1tL7c=;
+  b=RrTK5d2w1AmWNuQWOzC/8ERb8OGF+W5kdYok63VMTqNiW1z/4FkbLstl
+   BJdsJBdVGR1OECgzhl2vz1tVvAwWrGT2cahpJwRZ+1jjTTHkhjCL1/C6G
+   RufZvmUY6UDYzmpEj8WtNEJj9abs1yUzKysSMhlmbbHU0RDxcSXEgnBTX
+   MEIOqsXRJisSj5PvpTzpDHgSyZMjYtRFVtYEuNVgX/+ZeVuX8tHk2xuQm
+   QyOtApNu2dG9JT6TXw3hjZz04e2YqL46azN0xWLBM79oB+d7wIIyGomCg
+   OIplOm7YL9esnnZKz94oDIvncWMOyYdQx2v9bWNMOzH5zJDhRGyu38EeK
+   g==;
+X-CSE-ConnectionGUID: h08U4A3ST1ap5TG9w0Nndw==
+X-CSE-MsgGUID: 854853ThQGG7lQfDPj9ddw==
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; 
+   d="scan'208";a="291266459"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2026 02:24:27 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.43; Tue, 30 Jun 2026 02:24:26 -0700
+Received: from che-ll-i67131.microchip.com (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 30 Jun 2026 02:24:18 -0700
+From: Manikandan Muralidharan <manikandan.m@microchip.com>
+To: <pratyush@kernel.org>, <mwalle@kernel.org>,
+	<takahiro.kuwano@infineon.com>, <miquel.raynal@bootlin.com>,
+	<richard@nod.at>, <vigneshr@ti.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <srini@kernel.org>, <nicolas.ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
+	<linux@armlinux.org.uk>, <richardcochran@gmail.com>, <linusw@kernel.org>,
+	<arnd@arndb.de>, <michael@walle.cc>, <linux-mtd@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <netdev@vger.kernel.org>
+CC: Manikandan Muralidharan <manikandan.m@microchip.com>
+Subject: [PATCH v4 0/7] Read MAC address from SST vendor specific SFDP region
+Date: Tue, 30 Jun 2026 14:53:59 +0530
+Message-ID: <20260630092406.150587-1-manikandan.m@microchip.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Some Microchip/SST QSPI flashes (e.g. the SST26VF064BEUI) are factory
+programmed with globally unique, write-protected EUI-48 and EUI-64
+identifiers stored in a vendor-specific SFDP parameter table. On boards
+that have no on-board EEPROM (sama5d27_wlsom1, sama5d29 curiosity,
+sam9x75 curiosity) this is a reliable source for an Ethernet MAC address,
+instead of relying on a U-Boot-provided or random address.
 
-Pre-existing issues:
-- [High] Concurrent memory hotplug between two `walk_system_ram_res()` call=
-s creates a race condition leading to an out-of-bounds array write in `prep=
-are_elf64_ram_headers_callback()`.
---
+This v4 reworks the approach into a generic NVMEM framework with no vendor
+code in the SPI NOR core:
+ - The SPI NOR core now exposes the entire SFDP as a generic read-only
+   NVMEM device, rooted at a new "sfdp" child node of the flash.
+ - A new NVMEM layout driver (drivers/nvmem/layouts/) locates the
+   Microchip vendor parameter table at runtime and presents the EUI-48 as
+   a "mac-address" cell.
+ - Arbitrary parameters can be read with a standard fixed-layout
+   (known offset) or with an nvmem-layout parser (location discovered at runtime).
 
-commit a4a73b4654fd97d90e65198367a18f9dc30631b2
-Author: Wandun Chen <chenwandun@lixiang.com>
+Changes in v4:
+ - Rework per v3 review: remove the vendor-specific SFDP handling from the
+   SPI NOR core; expose the whole SFDP as a generic read-only NVMEM device
+   and move the EUI extraction into an nvmem-layout driver.
+ - Introduce a new nvmem-layout driver to discover the vendor-table location
+   at runtime; no offset hardcoded in the device tree.
+ - Describe the SFDP via a dedicated "sfdp" subnode (compatible
+   "jedec,sfdp"), which also resolves the v3 dtbs_check "Unevaluated
+   properties ('nvmem-layout')" warning.
+ - Reverse the stored EUI bytes into canonical MAC order.
+ - Enable the layout in sama5_defconfig.
 
-riscv: kdump: exclude non-dumpable reserved memory regions from vmcore
+ Changes in v3:
+ - 2/3 - add support to update the QSPI partition into 'fixed-partition'
+   binding in sama5d27_wlsom1
+ - 3/3 - add nvmem-layout in qspi node for EUI48 MAC Address and nvmem cell
+   properties for macb node in sama5d27_wlsom1
 
-This commit applies non-dumpable reserved memory filtering to RISC-V kdump,
-similar to arm64. It excludes flagged regions from the elfcorehdr PT_LOAD
-segments and pre-sizes the crash_mem array accordingly.
+Changes in v2:
+ - 1/3 - parse the SST vendor table, read and store the addresses
+  into a resource - managed space. Register the addresses
+  into NVMEM framework
+ - 2/3 - add support to update the QSPI partition into 'fixed-partition'
+  binding
 
-> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/m=
-achine_kexec_file.c
-> index 59d4bbc848a89..25359d583bc3b 100644
-> --- a/arch/riscv/kernel/machine_kexec_file.c
-> +++ b/arch/riscv/kernel/machine_kexec_file.c
-[ ... ]
-> @@ -64,6 +65,7 @@ static int prepare_elf_headers(void **addr, unsigned lo=
-ng *sz)
-> =20
->  	nr_ranges =3D 1; /* For exclusion of crashkernel region */
->  	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
-> +	nr_ranges +=3D of_reserved_mem_kdump_nr_ranges();
-> =20
->  	cmem =3D kmalloc_flex(*cmem, ranges, nr_ranges);
->  	if (!cmem)
+v3: https://lore.kernel.org/linux-arm-kernel/20250521070336.402202-1-manikandan.m@microchip.com/
 
-[Severity: High]
-This is a pre-existing issue, but is it possible for a memory hotplug event
-to occur between counting the ranges here and when the array is actually
-populated?
+Manikandan Muralidharan (7):
+  dt-bindings: mtd: jedec,spi-nor: allow the SFDP to be exposed via
+    NVMEM
+  dt-bindings: nvmem: layouts: add Microchip/SST SFDP EUI layout
+  mtd: spi-nor: sfdp: expose the SFDP as a read-only NVMEM device
+  nvmem: layouts: add Microchip/SST SFDP EUI layout driver
+  ARM: dts: microchip: sama5d27_wlsom1: use fixed-partitions for QSPI
+    flash
+  ARM: dts: microchip: sama5d27_wlsom1: read MAC address from QSPI SFDP
+  ARM: configs: sama5: enable Microchip/SST SFDP EUI NVMEM layout
 
-In prepare_elf_headers(), the code counts the memory ranges to allocate
-the cmem array, but a concurrent memory hot-add could occur before the
-subsequent walk_system_ram_res() call populates it:
+ .../bindings/mtd/jedec,spi-nor.yaml           |  18 ++
+ .../layouts/microchip,sst26vf-sfdp-eui.yaml   |  60 ++++++
+ .../bindings/nvmem/layouts/nvmem-layout.yaml  |   1 +
+ MAINTAINERS                                   |   6 +
+ .../dts/microchip/at91-sama5d27_wlsom1.dtsi   |  61 +++---
+ .../dts/microchip/at91-sama5d27_wlsom1_ek.dts |   2 +
+ arch/arm/configs/sama5_defconfig              |   1 +
+ drivers/mtd/spi-nor/core.c                    |   5 +
+ drivers/mtd/spi-nor/core.h                    |   1 +
+ drivers/mtd/spi-nor/sfdp.c                    |  83 ++++++++
+ drivers/nvmem/layouts/Kconfig                 |  10 +
+ drivers/nvmem/layouts/Makefile                |   1 +
+ drivers/nvmem/layouts/sst26vf-sfdp-eui.c      | 182 ++++++++++++++++++
+ 13 files changed, 409 insertions(+), 22 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/nvmem/layouts/microchip,sst26vf-sfdp-eui.yaml
+ create mode 100644 drivers/nvmem/layouts/sst26vf-sfdp-eui.c
 
-arch/riscv/kernel/machine_kexec_file.c:prepare_elf_headers() {
-    ...
-    walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
-    ...
-    ret =3D walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_call=
-back);
-    ...
-}
 
-If the number of ranges increases, prepare_elf64_ram_headers_callback()
-will write past the end of the flexible array since it doesn't verify
-that cmem->nr_ranges is less than cmem->max_nr_ranges:
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+-- 
+2.43.0
 
-arch/riscv/kernel/machine_kexec_file.c:prepare_elf64_ram_headers_callback()=
- {
-    ...
-    cmem->ranges[cmem->nr_ranges].start =3D res->start;
-    cmem->ranges[cmem->nr_ranges].end =3D res->end;
-    cmem->nr_ranges++;
-    ...
-}
-
-Could this missing bounds check lead to an out-of-bounds heap write?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630074715.4126=
-796-1-chenwandun1@gmail.com?part=3D9
