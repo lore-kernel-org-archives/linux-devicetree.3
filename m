@@ -1,240 +1,81 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBCA03DBD53
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 19:59:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782849564; cv=pass; b=S6NC4ogrRsrAjkembdFiBJK3nf4nzTR9v574iEb6gqZ7qkLPPhoZCl7yfJw7nTw4qmveTC4bdPJFiNi2l/gPCEHemOC5l1mnEmv4sds5D62loNAtIoz7vTApc/YJ3fwIDjNkqTG3/MhtQXn11AaFDL0nO+40WAkPiGl7zPhnWg4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782849564; c=relaxed/simple;
-	bh=RiKwOhz2rdMC9/aebYm1g33822i4EXTv8wYdbkHCerM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Cohp+UqAbA8Ecl5DAZEIkAVoX1LEHGwe1rfDtHaCxgjnFRUxsuVeSqhkG5MgQRH35TVso/4VW2EfLtL29b1zmmWiHS+6lLGLoz0rtDVB9uUqDba7vHTNzwcwyn1o5HAtt4JgPCuAPjoxVZ88jF8/7zqfIKXBpctEfuKn9hLAbJo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cdR8HRwp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XN24c5TU; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C772364EB0;
+	Tue, 30 Jun 2026 20:13:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782850438; cv=none; b=uRAdBhnKvLVyN89tpO/eRqAmcWlkJdb+elzb3XnslRgQ9veVGYQq7NsFaPs82/F0cOzUl0NLVg57CZiAQYlXzIce6dwYfHMY0wFT9URgZ6b8pwjQrDLEE1OXG4g3lZ9hJAayfoDml90uHH4A7Cb1GAlEEjp150aM+trwrkdONOI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782850438; c=relaxed/simple;
+	bh=f8QDbkAksamBomFoeUhrLyS2qHFemLsXIetHLlXjnKk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=U11McoOB8bFXvNu1jtQ/JAHllBG8BnrdyisZ08C5WJMChu3A5reK+D6j8owBjiTTe/D7FMQciPUEhb8ha+H0CFNPEBwTThXGNccCzc4HqwquMxoZk2ANvDWWVZ+KVZhTYUUMIAgIxa598U9JcnfubXugzEM7/eUrEyd7rgha9Wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhIeJz3J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cdR8HRwp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XN24c5TU"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65UJDmR62937297
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 19:59:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	24HwDmxkwRqteaHOqqQJzmtBl1Z3hVbm1sSUYzWXHUM=; b=cdR8HRwpOL0F5KGf
-	Pa72vskx0M2kP/Z35S2cu0vrb4j+OEKIt6KMM7Th6UonX+P19BpjlUhTk5Li1d1Z
-	Y/Wv59ciZPfT/RYaiQrRsZFm3fZPcDfKBwaFfoTbWjAmnFyZj3n9bpk2D9uAq+as
-	Zefne9lZYGQzV3whovwFyt/TN8jYz46vzYj5NL0+/lOGbG9MlNpdo0tsMl5xk0yg
-	fCV3pDFQVQuR35FiZSvIftsxLo2l1P5E5HN15BL52dlkXhgQkdoSVKvLPz9tpEoo
-	i0SPA3tzquu7dDbPf2qsPBmIKC29344dcx2/YoqDcNf3SztycbPjKCqS4n+bRngs
-	SWWdJg==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4fc09pdm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 19:59:21 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8e9489f62bfso105277786d6.2
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 12:59:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782849561; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HMrozcgq4Azo6D5H0c67vSvV38HGsuhU6OY+JjFnr7QCaQxeN2C05tXU0j8f1qL1+Q
-         Q2kgeSyBmv0zwZUMq0VcCnLyf4A1rurJ/BiPt1Q5iKz09YlnN91tIg0Ilp/Sgh/MpiRh
-         GccF0PbgFUwbeRCEQVrIbHMsjXCh/6LhI+DjC9TmDIRjQx4v1iUzFYYOp+m3l0C6lXuO
-         5CkL7Cd1O3F5+E8IWugEJ2U2BGvhbQrjU6+8iGqbZg9gqWd7ExhYCuBiJG4e3kJM+YIk
-         +9WIx3pe1Su1o3gSIoX5IZrvH5LbhOflOlkHUOCxEU6G3Wd06LjyjuXYnaAjIVvxc1bi
-         25UQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=24HwDmxkwRqteaHOqqQJzmtBl1Z3hVbm1sSUYzWXHUM=;
-        fh=8gUR0AdZBwhAAVdfpoe2c+0+6KsC6Ws9gm7UVQJfLHU=;
-        b=h+6vMLoJ877a3XJL0JfrIouj0XftX/BJWx/DIfDifd3+ME+UDSgWBNYyF70s1nV8td
-         Uyj/HVNA5uVXfyaC5ZMJ7hwCoGo6oUnjsDSfCSWBr4joWtLUaYDNMy3AeKxjUyutNvN3
-         khjzuN3419JswtMyMv1CiMxLfxu0Ban4FwT20GtYgkEBwpuojMFtcBZg0PjeagdOXTgd
-         utTWtm/umSl4B7FRfunUYblWrHgSECg9I/GbLq4twtUww+6jqyYa0AVK+T8t/9Ex/i2p
-         Ny70m4eh5jeQ9zHZmVHJeyrb5anir+Gt+KTcztfYmyXSzzKyR8yZWz0JiAcMmTIDVy0l
-         Uc2w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782849561; x=1783454361; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=24HwDmxkwRqteaHOqqQJzmtBl1Z3hVbm1sSUYzWXHUM=;
-        b=XN24c5TU1mLtMwwVQrpsA3cb+Ec8JVOKflkTLwTXGBmehHakzQGPaN2aEZbPFpbD97
-         LJXI7Xi/LFKLihPbM/Ozc33AJiWJHQW3D1ngB20cGK4F0B+mw1KKlsWOORfLOvwYsoe+
-         pmnAxjzZ9/JjnTdkln0XJbGOPCH4QQHP6a4M2/WUsRbPfukntEC+Cb5T4b5ddzPzo/1E
-         Fgqd0htDz4EopwjnY4LZMQlSDeipFKR95uSEQi4bnEoxNaYVXOfOSGL1EIqOhDX1SE0p
-         xMUobMZUWaIXPebd5HgAPV046c5JKpeaohJhunSH/eiRKkNKEPKNFA+8OSveeGfCXZK+
-         ujaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782849561; x=1783454361;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=24HwDmxkwRqteaHOqqQJzmtBl1Z3hVbm1sSUYzWXHUM=;
-        b=FObBk3m1rP5CGYzB6SMkUNGlVwLVlD7vkUVatgTLD3LSXFrA15xc4+KuwBmH7mAPyf
-         t8ysS5AtHn8sELvxi1rGJSYK0NnKSMCUP36CIDmS0/7l/34lCVBamEGC+ourpJo82DWk
-         08iV6/NTH2WiYfXQ4kUPk0V2uqnFfwtpm8AZoBFSPrYuxo9whcLt2AV/WUT0Bfreg+Nl
-         QotvLftj+HIptAbqjdlVTxVFYoFz9PzjtL08OCXkA/MFwVcW+wWtfj6OEeIdaOyt4HnA
-         dfDr0/SPR285rG/b6WcDX06+NDSB1VvF/XNX0El/OrqDldkUij27pxQ4FtmXNtdS4XH6
-         jLOQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpTTKJszZ3VOYsUBib0lMpYWZ+lX9+f/6K3FcGKLYIEM0Tg4alkrRDLSQB4f2+Ua2x0cRHgth23KgGK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwM0dRCFPREALegvZfDspMFvNFAhVNVsdAUmTQRjM2K+kVqdV8J
-	YU4LYDJMZwjpPQPIy887dMcAUe+52wOVvwSb+1jmKICj1AWyYD9nBin5axz+Bdwmf6XwGK12v1A
-	qFPEpJfYd8BtyrCcurRyrOdmON8AisOIQD8CUh+FaQLtdcOnMFeOuoFPqGH2kJu/hL3wk+CBnRy
-	nP/dc4a6AhBZ42bHjB/9Dgo5WjSKW7BSP6vZVv1OQ=
-X-Gm-Gg: AfdE7clh/2swiyzukvDwDJn2Erhpj3QZ8C9EwdK9G5ZiVj/7Ou6cktZlsKNXfYjJV7V
-	YLy/xr2jKHCFwPa2yUlpkQxT29l3pVsiXWH0Qi0aCBeHnlY7FTERUNRtBcC2M9DImcf3cANRO90
-	sPEfCJAfxlHoomMiABu8ZhQa+nfnxnbwQxXVzeSCH5RH3GzeK94pAN1aOXWqSsUYHrNiVKxfwOJ
-	8/Y0gfl7ELSjeoHcp27gxnVBj7vOHCrWfQU5ig+lmoftO6LlrSJ2l2EvAwf1vgrQjXu7y72tzXO
-	Sr6MLc1ewQY=
-X-Received: by 2002:a05:6214:821b:10b0:8ce:e651:5d63 with SMTP id 6a1803df08f44-8f2d1343d13mr25863756d6.31.1782849561035;
-        Tue, 30 Jun 2026 12:59:21 -0700 (PDT)
-X-Received: by 2002:a05:6214:821b:10b0:8ce:e651:5d63 with SMTP id
- 6a1803df08f44-8f2d1343d13mr25863166d6.31.1782849560532; Tue, 30 Jun 2026
- 12:59:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhIeJz3J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 725461F000E9;
+	Tue, 30 Jun 2026 20:13:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782850436;
+	bh=PZYf4Vwez8GJq9I3WvAYOkbLhk26eGFt/+e8TLUuyHw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=lhIeJz3JM3MkT3jBMvoqFKIRXj5FP1wYrEj3ZP7Vrox3COPzDuXJ3H2ApcqemT6C5
+	 slYah7vEgTxLHPww06byXICKKx6ktkXyNpJ6tLQQyWs5Om/6FC1xuo4AUWTLr36eR6
+	 aizxrASoQDiTyzlnpi+zJWBplWpp2cQl5KqVCrF75ZrkJ3ecD8EyEYmszYrCQ6g0jz
+	 P7CNaQFyBKvv6frhy2SfwOKi1YzanVJLE0GMsL2JAENxq4vOjCQXOrBsE8xOFBRRy+
+	 POjUiwzfWlRiaIjwr5E/X8/vn8e1EcHCdmv2Hgz7qnYKHw0xGmGD2+QIQQ7mdR9iki
+	 n/rXaVx23zhhQ==
+Date: Tue, 30 Jun 2026 15:13:55 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
+	Hou Zhiqiang <Zhiqiang.Hou@nxp.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Kevin Xie <kevin.xie@starfivetech.com>, Aksh Garg <a-garg7@ti.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v7 1/4] dt-bindings: pci: Strictly distinguish C0 from
+ C1-C5
+Message-ID: <20260630201355.GA233513@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260629-block-as-nvmem-v6-0-f02513dcd46d@oss.qualcomm.com>
- <20260629-block-as-nvmem-v6-1-f02513dcd46d@oss.qualcomm.com> <20260630180219.GA4139943-robh@kernel.org>
-In-Reply-To: <20260630180219.GA4139943-robh@kernel.org>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Tue, 30 Jun 2026 21:59:09 +0200
-X-Gm-Features: AVVi8CcrbqRCRkmYSZLH_ub9JNgkd2IUQmjyz1dD9_QoekOgl29FSB3CCebEUbk
-Message-ID: <CAFEp6-163adAq8-H_pCzGnq+Fo4jpyKGs6Jv25j3fSpZg3COjQ@mail.gmail.com>
-Subject: Re: [PATCH v6 1/9] block: partitions: of: Skip child nodes without
- reg property
-To: Rob Herring <robh@kernel.org>
-Cc: Ulf Hansson <ulfh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Christian Marangi <ansuelsmth@gmail.com>, linux-mmc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-block@vger.kernel.org,
-        linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
-        linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org,
-        daniel@makrotopia.org, stable@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDE5MyBTYWx0ZWRfX0RZv6AtOzK1k
- MDzvARmyTKxZgr9VxjPsP55kzWxE0vPO4aomNTrNN+hBl5Ydsv8b7hiYKXFyrTwep5XgK0xEjcK
- QMeiNTAnqY+e2v6XQxHKJz4oNHqM6dUxhGKlOXRSgp1OqdiMpPdHiIyOMkCw3ju/0UlTKlESq/p
- BEkpmglXknA06g8iVVJSJ2dlTsUcYVBIPgCMRl0Q0Q7YY8D1pcjlpi+iLYJVDabI42aLt1aJjej
- +boIQySC+trknrHY1o5vESVfenSv8Sf1MSv/4kM8ktQq2eTMd+mFvyqs9XUfdg9cKWjgJI7NoDz
- j0k1WxQUHKQM4TiQaTUTdcPP/qILzweOw+DBTEShY0qgN7Z8naArcNOOb1j9QrCPSqqxtBCXR3y
- +GZsDPNLV8Qp9VOj0xiX3jotsNReYZAcmKrBXWvejrP8PBx8T8UQ/sQb1m/y2J7GLXZJzRrXPxe
- N2Sd5ryGBHvvPOXRTfw==
-X-Proofpoint-GUID: Z4pyoBT0Z22K-qMW69dysnf0OLuuPAFv
-X-Proofpoint-ORIG-GUID: Z4pyoBT0Z22K-qMW69dysnf0OLuuPAFv
-X-Authority-Analysis: v=2.4 cv=Ivkutr/g c=1 sm=1 tr=0 ts=6a442019 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8 a=2sLY7anfMaDELvqluMMA:9
- a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDE5MyBTYWx0ZWRfX4NdXyo0ixeha
- aKxQPiRsKpbewoqRMw+Je7wYglhWFO9mPEE8MIUbn6naHn1kwEqSxmpOi4ZDVzKLzHxDVwL4BZY
- Cn3qRuvj3Yhn0ym5fikEYuQgO9FS2DI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-30_05,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 clxscore=1015 malwarescore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300193
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260617-tegra264-pcie-v7-1-eae7ae964629@nvidia.com>
 
-Hi Rob,
+On Wed, Jun 17, 2026 at 06:01:28PM +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+> 
+> Instead of using the ECAM registers as the first entry, strictly make a
+> distinction between C0 and C1-C5. This is needed because otherwise the
+> unit address doesn't match the first "reg" entry. We also cannot change
+> the ordering of these nodes to follow the ECAM addresses because that
+> would put them outside of their "control bus" hierarchy since the ECAM
+> address space is a global one outside of any of the control busses.
 
-On Tue, Jun 30, 2026 at 8:02=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
-:
->
-> On Mon, Jun 29, 2026 at 10:55:20AM +0200, Loic Poulain wrote:
-> > Child nodes of a fixed-partitions node are not necessarily partition
-> > entries, for example an nvmem-layout node has no reg property. The
-> > current code passes a NULL reg pointer and uninitialized len to the
-> > length check, which can result in a kernel panic or silent failure to
-> > register any partitions.
->
-> That does not sound right to me. A fixed-partitions node should only be
-> defining partitions with address ranges. I would expect a partition node
-> could be nvmem-layout, but not the whole address range. If you wanted
-> the latter, then just do:
->
-> partitions {
->   ...
-> };
->
-> nvmem-layout {
->   ...
-> };
+Can you make the subject line a little more specific?  Something like:
 
-In our case, the nvmem-layout needs to be associated with a specific
-eMMC hardware partition, nvmem cells can be a simple sub-range within
-the global eMMC, each hardware partition (boot0, boot1, user...)
-having its own address spaces.
+  dt-bindings: PCI: tegra264: Strictly ...
 
-That said, your point about not abusing fixed-partitions is valid. I
-initially dropped the compatible =3D "fixed-partitions" from the
-partitions-boot1 node when it only carries an nvmem-layout and no
-actual partition entries, making it a plain named container node. But
-it's a bit fragile if we want to support both nvmem-layout and
-fixed-partitions.
+would match the history of
+Documentation/devicetree/bindings/pci/nvidia*
 
-Regarding your expectation of a partition node being a nvmem-layout,
-do you mean that the nvmem-layout should live under a fixed-partitions
-node? Something along these lines:
-
-partitions-boot1 {
-      compatible =3D "fixed-partitions";
-      #address-cells =3D <1>;
-      #size-cells =3D <1>;
-
-      nvmem@4400 {
-          reg =3D <0x4400 0x1000>;
-
-          nvmem-layout {
-              compatible =3D "fixed-layout";
-              #address-cells =3D <1>;
-              #size-cells =3D <1>;
-
-              wifi_mac_addr: mac-addr@0 {
-                  compatible =3D "mac-base";
-                  reg =3D <0x0 0x6>;
-                  #nvmem-cell-cells =3D <1>;
-              };
-      [...]
-
-That makes some sense, this would require extra work for the
-emmc/block layer to also associate fwnodes with logical partitions,
-not just the whole disk/hw (hw part), Is that the direction you'd like
-us to go?
-
-Also, Note that regardless of which approach we settle on, this
-specific fix/patch remains necessary to validate the partition node
-and prevent NULL-deref.
-
-Regards,
-Loic
+We can do while merging if there's no v8.
