@@ -1,193 +1,179 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FADB40D598
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:08:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F8C3955C1
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782803295; cv=none; b=gIj6HHjEQq9yLVHN0F8N4iuLORgu6wCAcgdCQ75FSfPwJ42GzRnVJWaFVmhke4WXgEaXBYg8w4hMXPomsUWPiFQoyvV9nICQoBqw9QmjIVPQHO5l6kv2uRJ9+3TX8aDBmd7u1jk4Q5z39s5aGuTuDTerMoZzTzw9Pu0XAxUF9KM=
+	t=1782803442; cv=none; b=HR7LB5PGwOwPPfpI3JxaXgA/2pVCSjcRqZ7FK+5HD8gNIgIkewZ4WtLzFjblocxC6or2b02aILRoOmUyMWwG/yDZ26OBOhxoPz4+wd7VWoLzG7D7dsi9qMoyhnBdBtRjvVC/ECKrmc1O96MDCRt8meamT4hfVWlFWhN+Q+r7TZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782803295; c=relaxed/simple;
-	bh=AdUkbtIAqxriT0988Vf6tLxtOVHSR2uhBSR1D25EYh4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C7c+uH1MXr2rJl0A/ayqrnBmDqheHJ+V9zedVe4I/9vH8mlYBn15XZKP9Rf2fi/uX6L9Ypt62WnR2olj6wxZARFdj2KpmpmSwr/jdCStIPZElwqslR5weoCf831BEn/58tIgDb/rQeNqWn7VAGBxhrRR2Tr6hO+Zhn21cdltUuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UXE/F21R; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782803442; c=relaxed/simple;
+	bh=y/yDjjLkDUh8iGsWzfnxYn81hfEg3x1PqIo//TUmAhQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qY2cFZeFaHkDwvZwiZODOUnmIOXvitqu+dAJWOgPqGQtPWgIShfTp2ZzmerBaJcCQOsS/7FXpF0dLd5uWvlEaZU5CDAOdFK3cnPygNZikqJStTdOp5aqj+DCjaui96fXSFWbEbvTkCk+hxrw1hHp5t5JU62Q+I+VZ0vWmy5Dkvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fX8m94t3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IPBrM5Xx; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UXE/F21R"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-37de961d1bfso3233813a91.0
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 00:08:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fX8m94t3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IPBrM5Xx"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U6CdQq1074123
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:10:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=laNitI81tOcv3NnixGTD6j
+	dGRDX4c/NTa7r69SA/O8g=; b=fX8m94t3Eb94xyNO4k362lRctMyG9is9Bl7XQA
+	pkSVUKnxZYQYPOkcRxzHFtCmNu6NRyc1y2Cjorwk+fBLZh9/O90mMIyczRDt6VOL
+	bRfDXnF2hkwNZNCpQkaeLLCOU8Ey09oB6ELilvi5o2GNIr4hB3GA6pNlsr6I/v3M
+	1+BdWNnuG8X0HGbEznRhw5K13VUS+u8XI+JR5W1aT/HSkvUZ0LWxG7f8xcFQtQA4
+	0wOEA1hWrVDVQWgBKyVti5YBG0epdoKqwWu5rX8+pS+S3Gjk7mnENW5uppjf6eWk
+	nmCOLPLNcKO693Gb+yvv3j3SeA1KRWISBsez0uRm+ieP53mg==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3y9k226x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:10:39 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8f0caedba59so8646996d6.1
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 00:10:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782803293; x=1783408093; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=tyLQLQryK7/S92ya5PLfuOu/W+JvCTVmwNrWVc0CbCI=;
-        b=UXE/F21Ri3qgrHRL/ksn7PxJhlBcK8MUk8crDfStdxe80Toc5c5+l5ONcvdHgOTyJ7
-         WyvaypwJedtdFvqxxkbxs2fJFEJahUytbggBRPvWsYE95lQCLd4rZXplVOjkm7qTJBxG
-         gUILXhXnBqWW59tnaYoI9b+oC1VdzRqKF2NzW/pUcPtFhLI1YK5wVhJLkvaRoq7blUsw
-         xVTvb8x4lYxs4qivvo6kOjjmituCbaRvmKtTTbTL8lCjMZtBYXox4b39myz/uATEbrkD
-         N4TmTW6lBWHmu/eXoqS2hI9wC/r+9ntwuqPgwaykcdIqFZxQyArur4ZOjyyk3Eqx7XQx
-         DpBw==
+        d=oss.qualcomm.com; s=google; t=1782803439; x=1783408239; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=laNitI81tOcv3NnixGTD6jdGRDX4c/NTa7r69SA/O8g=;
+        b=IPBrM5XxU8mCUTkHSuhfv/VTYmjSnH5sBXzg4FkzIP0/DUhIKv/7OK24aIdRvU7vn7
+         B1XcPbbjyDnW9jeBL464Os1lOzFpnjdc/8LNFABgBWX0b6kGIC5vkTOBXNueyGXRSXIG
+         zdtBDM+Uu/FXUb5XLZboHGSNVcpoP9KR/YOGZBXMiOSpYPmOXqV28FM1OhAa9mR8FNkC
+         maorwLjzlInVXw6x2JpmZMzDgLUCu6YXVaY0QADFE3x15xvvDL3KhjxOtu9VLkj2KlyM
+         h6b83kzIa7oiHDCL6b44/vWJFtJOey7KxGtznBfBvgRvcnBazmSXPdCH4K39VhHObWJE
+         i6cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782803293; x=1783408093;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=tyLQLQryK7/S92ya5PLfuOu/W+JvCTVmwNrWVc0CbCI=;
-        b=eHDn7dMp7/yAyfzGbTC3NwMCQoZ5rrS3zaRBkYXWzA3nJJIkR/tMcOnui2Z4vH85b8
-         N3VvnHKYC+65LH7b+6DraaZvSoNAcmYkWXVim3sH9ot2r26bkpE5rqh6jdtZAgB0LViR
-         /aaJxJUwqq+Fqu0+esS4jOjthtilt1WFih4Fuuq4TYOHJtlQdRLL3BkCoynxGqZAM6P5
-         vJltbZR+ISWKUzqvMLlFgAyysV/iNuY0jHoDZM6uf56ShOy7kh/TsVUCq4JsC0KTNF+O
-         s6qF9gi8+zDkqB6baQXWYkwaPVoMVnqk2d2COUH/5E3bViYjWiDVrgiNbUvkK5UNenzN
-         7u8w==
-X-Forwarded-Encrypted: i=1; AFNElJ9ndOhWgwm+N7QrRPuaEDM6yPG4Bl6ImH8P3P5jm2K+3vXc1tcFWsygpp7o6rJ8Srr2312M71YIaHPE@vger.kernel.org
-X-Gm-Message-State: AOJu0YxmuAuVfMwLmraNrg/WTWkPbWiGhbCIpq1Bp/zLUxEq/slQ0qr4
-	rxZMDFPzJ7IVV3Ntux7//K4nGguYVYOou/EAY+eyd2Nu05cC0Ry1fqHv
-X-Gm-Gg: AfdE7ckqlBGjUUki2BYn+ln1BRCB890r4Tr114sunI9+KN6zcuO+mFWc9B6m62HEBvV
-	dkLqoolZnauXRuxqoocfgLIBG6GzX1guS9nItw8L8dyVZCOfIlvT/qZHx7TvuuCO0C6b4iLVWbN
-	GBHQN5ssRQC6B7etV6bIjI93vW/5beAzIfkg16+istNmjU1XSC2ILnwd3KWHGoqAaEdXmAvB+Qe
-	X1f4mpIIepMqK+8Ivya/XyWY3ZlWFjHBbBrmEdFH2f/bJm3V5qen6eeZn+A/x6GWXZt4MJ/ebqh
-	v0ZTvKeS8+AecwmSuq8IkHC7nsyu+bFRbaZh7QWB5epiKEYAE009yF2IDfdk9BbvB0sRRdWPnTr
-	oQrcDvlkgRf74IdhFPAFsL+KHwVraJjOus1F2DLM8pbExQKj1lNxYiNd86CsI3N9kLKQV9elNfb
-	1q95ALJ5kvCsimtKOGxcDrKwYkypnh6cn7YOMXZ6sOyQEvkpLRrDc2iHR3VsBfYtIXaQ==
-X-Received: by 2002:a05:6a20:4393:b0:3bf:c28f:8afd with SMTP id adf61e73a8af0-3bfc5275c9cmr2386643637.31.1782803293270;
-        Tue, 30 Jun 2026 00:08:13 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c9bb9fdbe64sm996296a12.0.2026.06.30.00.08.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jun 2026 00:08:12 -0700 (PDT)
-Message-ID: <54fd4b86-d978-4f21-8634-292ecbe484ed@gmail.com>
-Date: Tue, 30 Jun 2026 15:08:06 +0800
+        d=1e100.net; s=20251104; t=1782803439; x=1783408239;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=laNitI81tOcv3NnixGTD6jdGRDX4c/NTa7r69SA/O8g=;
+        b=tBpWkglZaW7UD7ReE9BPoJyaIciePYFK6xRcgdYNIv2TQ6RPBh7aXG59bFAyV249c4
+         501MPZcSMgAfMWKFKtF5ZrPScFzyObL5gBxJSjDZfY844NeAxrol7dSGkiGUkO/ncy/M
+         g//dPAAKUYbd8m+G0u6LAHEfIFhD8zJoZ5PLXA3Zc5lZ2ezEZhtd1MwrT/04bJCA2zxt
+         RQWwLKBjWxlZK7LEUPXfg1CVChezDGyny9hOxL7j8xqTDd9k69E3FvsjbpsTxfBjo4j2
+         OD4uyWrcNtV0MSAtDJvC7NCcqaOYvEFekGJkXB40oitC5dh9ogBTpcPz7GNxNjwK8fIx
+         0Yng==
+X-Forwarded-Encrypted: i=1; AHgh+Rqkw5zlZK1Nqj2Zh5iVJ9ufJMEZwXdiGue1LNhLsLaqpVf2gAxUKH+5Kyt6b7mmthypNoXDgad3xcEW@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy5wBnVbB33aPhAopuj4k8Yldu3OGYDE+mMJZVqEi9m2u56Bcll
+	9xDH7lIqUnAsfrwy6iW4AN/3h1/jrHBdWFR1T8vRueb7ESQlpSeSiZSolHKRfsZ1iQqxWvEY/Lk
+	X965lDMDH6AuLq/CvN1qEfAZIF3w5UcK3s54LtQjJcDNYr616TmC9PbHxkwy4sI98
+X-Gm-Gg: AfdE7clN+0MBnJtPB7gpBhRzbC3p+H02MJ5nN8awxiTXRrGfVPC9mHcOqjkkM5Eu2kf
+	027yzAxBBNWu87cvbL69Cw8VSDOZ1LAHCRVzwlYDYft6GXqCzZNgJmrsDwz6GPQewtyMXvowUx8
+	Est7jL6cuyyEkRPwdEGVZFiKr3G8RobR8X/nAzpT8LGz6RRd3o5IH2KDyLW5yodI0NWzGCMYXNy
+	b5tZlyq2WV6ovk7eREn3+cB6y3S3jv9x2Ywd0bkJeHzkX0iHSKKyEyoVFEifm1jaS2pffmLXYe9
+	BBrUlRk9bqpPKXJCuL91tDE7/SItjtD8Fy0+tShG2eOqBjkhcwC74KRhcAiPNMrMl/EZ9lZmzXn
+	0RFhnRBUQWFmsFNwUvn8i3Twp6YET8NC7CgRhaJ3FrLyKsTq5NpwK2fWJTKNd15DIpF8Tig==
+X-Received: by 2002:a05:6214:2aac:b0:8f1:77b7:9bdc with SMTP id 6a1803df08f44-8f25202dd9cmr6553846d6.1.1782803438935;
+        Tue, 30 Jun 2026 00:10:38 -0700 (PDT)
+X-Received: by 2002:a05:6214:2aac:b0:8f1:77b7:9bdc with SMTP id 6a1803df08f44-8f25202dd9cmr6553516d6.1.1782803438337;
+        Tue, 30 Jun 2026 00:10:38 -0700 (PDT)
+Received: from YUANJIEY2.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8f19f770c41sm17471956d6.0.2026.06.30.00.10.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 00:10:37 -0700 (PDT)
+From: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+To: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, yuanjie.yang@oss.qualcomm.com,
+        tingwei.zhang@oss.qualcomm.com
+Subject: [PATCH 0/2] Initial support for Qualcomm Hamoa IOT COME board
+Date: Tue, 30 Jun 2026 15:10:10 +0800
+Message-ID: <20260630071022.3256-1-yuanjie.yang@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
- for single-output variants
-To: Conor Dooley <conor@kernel.org>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Conor Dooley <conor.dooley@microchip.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, ychuang3@nuvoton.com, schung@nuvoton.com,
- yclu4@nuvoton.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260625094449.708386-1-a0987203069@gmail.com>
- <20260625094449.708386-2-a0987203069@gmail.com>
- <20260625-bobbing-annotate-d1c4d6874ee2@spud>
- <e3fe23ddbc504879bd797bbaa595d3653fa139ff.camel@iscas.ac.cn>
- <20260626-astrology-mural-853d3860e048@wendy>
- <c0731801729713d35f97bec40ebc21cef31b72b5.camel@iscas.ac.cn>
- <20260626-everybody-epilogue-8fb298a54981@wendy>
- <9456bde5059bea3aac1ed64355e3f017dd9bd3e5.camel@iscas.ac.cn>
- <b3b7a0f8-93a8-4965-a2f3-3ca1552a25d6@gmail.com>
- <80ae28925a67b7bee3b8873db3c113111437e717.camel@iscas.ac.cn>
- <20260629-chevron-awhile-7cf456a768a0@spud>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <20260629-chevron-awhile-7cf456a768a0@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA2MCBTYWx0ZWRfXypClJfHs7YKz
+ dfkqWut2SJC1Y5R/xqrna+bC7csb0ZqWr+RrfJxklxZ+KeU52z96K7r1G0vFf7B+m2orc5695n+
+ Kruwbf0ketLObZXOuh+LdXumGPDwo7c=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA2MCBTYWx0ZWRfX3R/JkhTHV5zd
+ EWk5domvhv2UkHaRE4t1Xu2E+nNWIsJqWFq7VLgneuQop53BTV3xmHeWONhj2CmroemaWZqr9Ce
+ nvLcl/yTjJ1oEK3HrXUapKiOx5ws0Qt0Fc5Rx1SqKIdcppjaPnIuhwKEiOAxcUBZUCA4hNflPd/
+ YUx05jImQyd1CMGQHcf4CgemkABsRZlmVfxtbQgg13WfKJJNhy6lls93eMHA7Ta0FkeYmcjq11c
+ Vzb+XSI9+WlPpQHSmwevauPsuQezZPzWJxncvraFsLcSQ79tv31KTKIG0D6/1nPUEtcL4S3cxe2
+ pzIsCLR2o4b2GD4J8thPrS8GN32L4+N89k9mDDuE5I6RtsbvhXs3EbVTbcvNtSGHXGBYZ4oYbEw
+ vml2bEzT6RzDEsJAnPmZKno5OQluUdWXuLzmpc1xzFS+/EddEkiefojy2r2fM02qCcS3+vfZF1M
+ Sg487V71bz3qLumkBSg==
+X-Proofpoint-ORIG-GUID: wwyX5gCPKcoRwR9T0ENYgXKFH88FPKJH
+X-Authority-Analysis: v=2.4 cv=TeqmcxQh c=1 sm=1 tr=0 ts=6a436bef cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=juaxyESPAC5OR6l5tJAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-GUID: wwyX5gCPKcoRwR9T0ENYgXKFH88FPKJH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-30_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 impostorscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ spamscore=0 adultscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300060
+
+Introduce the device tree, DT bindings for HAMOA-IOT-COME board.
+
+The system consists of a SoM mounted on a carrier board. The HAMOA-IOT-COME
+SoM integrates the core system, including a SiP that contains the SoC and
+related components.
+
+The SiP on the HAMOA-IOT-COME SoM is equivalent to the HAMOA-IOT-EVK SoM.
+
+┌───────────────────────────────┐
+│          SoM (Module)         │
+│   System on Module (small     │
+│   pluggable board)            │
+│                               │
+│   ┌───────────────────────┐   │
+│   │        SiP            │   │
+│   │   System in Package   │   │
+│   │        (chip)         │   │
+│   │                       │   │
+│   │   ┌───────────────┐   │   │
+│   │   │     SoC       │   │   │
+│   │   │               │   │   │
+│   │   └───────────────┘   │   │
+│   │                       │   │
+│   │                       │   │
+│   └───────────────────────┘   │
+│                               │
+└──────────────┬────────────────┘
+               │ Plugs into
+┌──────────────▼────────────────┐
+│   Carrier Board (COME)        │
+│                               │
+└───────────────────────────────┘
 
 
-On 6/29/2026 11:02 PM, Conor Dooley wrote:
-> On Mon, Jun 29, 2026 at 01:31:46PM +0800, Icenowy Zheng wrote:
->>>>>>>>>> +
->>>>>>>>>> +        resets:
->>>>>>>>>> +          minItems: 1
->>>>>>>>>> +          maxItems: 1
->>>>>>>>>> +
->>>>>>>>>> +        reset-names:
->>>>>>>>>> +          items:
->>>>>>>>>> +            - const: core
->>>>>>>>> This is just maxItems: 1.
->>>>>>>> Well the implicit rules of DT binding schemas are quite
->>>>>>>> weird...
->>>>>>> I don't think it is that strange, as the binding has
->>>>>>>     reset-names:
->>>>>>>       items:
->>>>>>>         - const: core
->>>>>>>         - const: axi
->>>>>>>         - const: ahb
->>>>>> Ah does the list constraint the order of items? If it
->>>>>> constrains
->>>>>> the
->>>>> It does, yes.
->>>>> Alternatively, using an enum permits free ordering.
->>>> Ah in this case this should be converted to an enum, I think.
->>>>
->>>> Should I send a patch for converting it?
->>>>
->>>> Thanks,
->>>> Icenowy
->>> Thank you all for the detailed review and discussion, it really
->>> helped
->>> clarify the right approach.
->>>
->>> Since I will supply all four clocks with the same phandle for
->>> core/axi/ahb,
->>> and only one reset "core" for MA35D1, the ordering constraint in the
->>> `items` list is not a problem, "core" is already the first entry.
->>> There
->>> is no need to convert to an enum.
->>>
->>> Regarding the clock situation for the MA35D1: I agree with supplying
->>> all
->>> four clocks (core, axi, ahb, pix0) in the devicetree, even though the
->>> MA35D1 clock controller gates core/axi/ahb with a single bit. The DT
->>> will
->>> use the same clock phandle for core, axi, and ahb:
->>>
->>>     clocks = <&clk X>, <&clk X>, <&clk X>, <&pix_clk Y>;
->>>     clock-names = "core", "axi", "ahb", "pix0";
->>>
->>> This correctly models the hardware topology. Since all three names
->> No, this doesn't correctly model the hardware topology -- this will
->> lead to clk_get_rate() return the rate of DC core clock when checking
->> the AXI clock rate, which is problematic because both clocks are
->> limiting the performance of the DC.
-You are right. The current MA35D1 clock driver does not correctly reflect
-the real AXI/AHB clock rates, and I think it needs a more comprehensive
-review and rework. I will address this in a separate clock driver patch
-series in the future.
+Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+---
 
-For this DRM patch series, the AXI and AHB clocks are shared system bus
-clocks fixed by the SoC clock tree and are not managed by the display
-driver. The driver does not query their frequencies for mode validation
-or bandwidth decisions. Therefore, driver correctness is independent of
-the reported AXI/AHB clock rates, meaning it will remain unaffected when
-the clock driver is later reworked.
->>> resolve
->>> to the same underlying clock node, the CCF's standard enable
->>> refcounting
->>> handles the shared gate correctly without any custom implementation
->>> needed.
->>> I will also revert the change in patch 4/7 that made axi and ahb
->>> clocks
->>> optional, since they will now always be provided in the devicetree.
->>>
->>> Regarding moving `resets` and `reset-names` to the top-level
->>> `required:`,
->>> I will wait for Icenowy's patch to land before sending v6 to avoid
->>> duplicating the work.
->> The patch is sent.
-Got it.
->>> In v6 I will update patch 1/7 with:
->>> - Update the subject to "dt-bindings: display: verisilicon,dc: add
->>>     support for nuvoton,ma35d1-dcu"
->>> - Lower `clocks`/`clock-names` `minItems` to 4 at the top level
->>> - Remove the `thead,th1520-dc8200` conditional block entirely
->> I think this conditional block will still be needed, because it will
->> need to constrain the minItems to ensure all clocks / resets are
->> populated.
-> Correct. When the outer constraints are relaxed to deal with the new
-> device the conditional block for the th1520 becomes required. Or having
-> an else, but if all devices are likely to be different in terms of
-> configuration specific conditional blocks is better.
-Understood. I will keep the `thead,th1520-dc8200` conditional block.
+Yuanjie Yang (2):
+  dt-bindings: arm: qcom: Document HAMOA-IOT-COME board
+  arm64: dts: qcom: Add base HAMOA-IOT-COME board
+
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/hamoa-iot-come-sip.dtsi     |   9 ++
+ .../boot/dts/qcom/hamoa-iot-come-som.dtsi     |  38 ++++++
+ arch/arm64/boot/dts/qcom/hamoa-iot-come.dts   | 108 ++++++++++++++++++
+ 5 files changed, 157 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/hamoa-iot-come-sip.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/hamoa-iot-come-som.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/hamoa-iot-come.dts
+
+
+base-commit: 7de6ae9e12207ec146f2f3f1e58d1a99317e88bc
+-- 
+2.43.0
+
