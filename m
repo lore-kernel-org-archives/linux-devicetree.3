@@ -1,93 +1,180 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E3A2C235E;
-	Tue, 30 Jun 2026 15:43:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86708450917;
+	Tue, 30 Jun 2026 15:47:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782834187; cv=none; b=j9+hT6XliOImK0i7j4MJhzDRZWNhf8Z+jKS/4OyMtu2IyHyh9BXyr0zo3+GvzViNWYzZIZVKMpseVGG26lnjlJzTQ3SP1VNBUPEScGIKUe8pD6aroY4iMwab4/IFf6X5BDfa7BHa9TnWfodVMqiH9TapJ6SpJVPOHivL5kcEtRo=
+	t=1782834449; cv=none; b=b7Vq1J6NUhqeO3x9JOZw0znmDqdZVhmAJBrC8+oAegRei0K89etNRlsccYkWJ7Wtkh82WZ+cUXdV/spqvq5qmW+etHmFvG1rnfQG0ay1Znpp+aI/n0kzvJMVRdqHxiSH+WlWyad+89cZhi2eEwjmj32iUMABYnXCDUk9PPBlm/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782834187; c=relaxed/simple;
-	bh=a5G8lj5Vr3Cug92qW+jRXYhGd1wpChW9VT0ikwed4/g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ds5+WIZmDMeg3A4uvnI80DnRevB2zZ0RSjwSDOfMOrDVWvzJA7SOEvU/Ct7I4OkK3gUi/dFuQjuM3wZu8ym7+n8+0tRy2F6z/9p81BXMxxEX8jSqkvoVdn1bJP2pcRi35p00r1x13ADRfJKh5qUeJE07AlFadUD5G/A9uWbZ7EQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=NRf0kcaR; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1782834449; c=relaxed/simple;
+	bh=PrZHqnmC3A1Ld1j/CB3cuuUyThllqFq8xKGYKEpXCZE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WkiaimPYkDxyRb1Qmgpm0wSnuYfWVtuX+NZYcQwqAnKsq/8Ub/+WVDn35/kt68ybl+PqjVv4OUvCmkEeYviOYz742dXd8CuKMC7r+ZE/OLyBv0Uv2Epfc43VVKusCRatziqdMYGoEhqGKzuMcpZSxZFfHFOroNqwIkOyzF0TMI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jsRfMIcT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="NRf0kcaR"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 71D1F4E40BB4;
-	Tue, 30 Jun 2026 15:43:04 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2CED36025A;
-	Tue, 30 Jun 2026 15:43:04 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D0673106F2116;
-	Tue, 30 Jun 2026 17:42:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1782834183; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=ip7IFQoe+FjDmN/C09LzOH0hgzEjluyXXN8qgQJUD6g=;
-	b=NRf0kcaRF6+dzSqatZMU6jAZsF3CbnVzeWRZfIL/O2jDpkAxiL1B2Fw9066IRCYycAxOW0
-	ZrtC9XkzokO8Vxs8QrE4k8Ve54K0KgcKQpNyn4mGle0cPqxEpC6PEDIkHDP6FSgS2zdQBB
-	UQ6VlI6PrIFjOxyjT8relPexBhA6I1oIRVGYf0hsQNkXcJOuHjxLXlyIMHsDzHyaxHv9kc
-	9Y/2mSq6EOz6chGC+v3YWSiZdd2iz6XXdUib/TLNCPbEiyALIdeeaeLD86oS12CXmTL1oe
-	FtmAU4XjT7PoUBiOzWOqmaH2OHc/X9do/cf0PYy8szLNG1nTPy3A0D8YNxRDlA==
-Message-ID: <e691298f-b3e5-4c1a-8270-a821c1f46a2b@bootlin.com>
-Date: Tue, 30 Jun 2026 17:42:56 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jsRfMIcT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2971F00A3A;
+	Tue, 30 Jun 2026 15:47:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782834444;
+	bh=8CL+GC2aWHjn2F0cACsiCPGqiUQQsFs/7D5cQK9Ns+s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jsRfMIcTbezPDM8Pv/6T0FAsZy6sPX6dc1ooqpUC31riMPeH9Gy/8LQ5gA0+7R+SH
+	 gg85idt7BRgS5wwHOJTBn82qqpdP9KO2M5qUcREFJor4q7IB1mEd/10n1aCx9oyloU
+	 C865ThPfOLdi/ZkWzqONWvPh8xpoESHwFfxya+eb9qW3rlVxLZSw7XCwfoDh2rGsKu
+	 CW1wbUSZQk9bvdA/F2lWR0LsG3G5PCAxcoJ9wT6aRXUzgJZsjSxoyMtO+UeNHkAs2R
+	 LjJnIi1XA6tmHVUAMDaLWG60WfVaBDTw+ObqhlrKKdbLLYRxXIZKmVIeapUDziVZVL
+	 K6L+ECMajx6SQ==
+Date: Tue, 30 Jun 2026 10:47:23 -0500
+From: Rob Herring <robh@kernel.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Tero Kristo <kristo@kernel.org>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, goledhruva@gmail.com,
+	m-chawdhry@ti.com, daniel.baluta@gmail.com, simona.toaca@nxp.com
+Subject: Re: [PATCH v2] dt-bindings: clock: ti,clockdomain: Convert to DT
+ schema
+Message-ID: <20260630154723.GA3691228-robh@kernel.org>
+References: <20260622-ti-clockdomain-v2-1-434dbe0789e2@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] net: stmmac: dwmac-socfpga: Add mac-mode DT property
- support
-To: "Nazle Asmade, Muhammad Nazim Amirul"
- <muhammad.nazim.amirul.nazle.asmade@altera.com>, Andrew Lunn <andrew@lunn.ch>
-Cc: "dinguyen@kernel.org" <dinguyen@kernel.org>,
- "rmk+kernel@armlinux.org.uk" <rmk+kernel@armlinux.org.uk>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "robh@kernel.org" <robh@kernel.org>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "edumazet@google.com" <edumazet@google.com>,
- "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com"
- <pabeni@redhat.com>, "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260630133108.27244-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <20260630133108.27244-4-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <4c285993-978c-4d9e-a8c5-c3b36baa6840@lunn.ch>
- <7c57bb08-b72d-44bf-be44-f1bcb2aa9a84@bootlin.com>
- <b6c52ac8-32dc-4a58-83ec-ef600b306448@altera.com>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <b6c52ac8-32dc-4a58-83ec-ef600b306448@altera.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260622-ti-clockdomain-v2-1-434dbe0789e2@gmail.com>
 
+On Mon, Jun 22, 2026 at 11:21:33PM +0530, Bhargav Joshi wrote:
+> Convert TI clockdomain to yaml DT schema. Drop '#clock-cells' from the
+> required list as this binding doesn't define a new clock binding type,
+> it is used to group existing clock nodes under hardware hierarchy. Most
+> existing dts omit '#clock-cells'.
+> 
+> Update the reference to the old legacy text binding in the description
+> of bindings/clock/ti/ti,gate-clock.yaml to point to the new YAML file.
+> 
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+> ---
+> Changes in v2:
+> - updating the stale reference to the legacy .txt file inside
+>   bindings/clock/ti/ti,gate-clock.yaml to fix make refcheckdocs error
+> - Link to v1: https://lore.kernel.org/r/20260621-ti-clockdomain-v1-1-e99a56af98ea@gmail.com
+> ---
+>  .../devicetree/bindings/clock/ti/clockdomain.txt   | 25 -------------
+>  .../bindings/clock/ti/ti,clockdomain.yaml          | 41 ++++++++++++++++++++++
+>  .../bindings/clock/ti/ti,gate-clock.yaml           |  2 +-
+>  3 files changed, 42 insertions(+), 26 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/ti/clockdomain.txt b/Documentation/devicetree/bindings/clock/ti/clockdomain.txt
+> deleted file mode 100644
+> index edf0b5d42768..000000000000
+> --- a/Documentation/devicetree/bindings/clock/ti/clockdomain.txt
+> +++ /dev/null
+> @@ -1,25 +0,0 @@
+> -Binding for Texas Instruments clockdomain.
+> -
+> -This binding uses the common clock binding[1] in consumer role.
+> -Every clock on TI SoC belongs to one clockdomain, but software
+> -only needs this information for specific clocks which require
+> -their parent clockdomain to be controlled when the clock is
+> -enabled/disabled. This binding doesn't define a new clock
+> -binding type, it is used to group existing clock nodes under
+> -hardware hierarchy.
+> -
+> -[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
+> -
+> -Required properties:
+> -- compatible : shall be "ti,clockdomain"
+> -- #clock-cells : from common clock binding; shall be set to 0.
+> -- clocks : link phandles of clocks within this domain
+> -
+> -Optional properties:
+> -- clock-output-names : from common clock binding.
+> -
+> -Examples:
+> -	dss_clkdm: dss_clkdm {
+> -		compatible = "ti,clockdomain";
+> -		clocks = <&dss1_alwon_fck_3430es2>, <&dss_ick_3430es2>;
+> -	};
+> diff --git a/Documentation/devicetree/bindings/clock/ti/ti,clockdomain.yaml b/Documentation/devicetree/bindings/clock/ti/ti,clockdomain.yaml
+> new file mode 100644
+> index 000000000000..9494cbb1a942
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/ti/ti,clockdomain.yaml
+> @@ -0,0 +1,41 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/ti/ti,clockdomain.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments clockdomain
+> +
+> +maintainers:
+> +  - Tero Kristo <kristo@kernel.org>
+> +
+> +description:
+> +  This binding uses the common clock binding in consumer role. Every clock on TI
+> +  SoC belongs to one clockdomain, but software only needs this information for
+> +  specific clocks which require their parent clockdomain to be controlled when
+> +  the clock is enabled/disabled. This binding doesn't define a new clock binding
+> +  type, it is used to group existing clock nodes under hardware hierarchy.
+> +
+> +properties:
+> +  compatible:
+> +    const: ti,clockdomain
+> +
+> +  "#clock-cells":
+> +    const: 0
+> +
+> +  clocks: true
 
+At least put some range of number of clocks.
 
-On 6/30/26 17:13, Nazle Asmade, Muhammad Nazim Amirul wrote:
+> +
+> +  clock-output-names: true
 
-> Yes, Agilex5 has the same concept. The GMII-to-RGMII converter is a 
-> Quartus soft IP instantiated in the FPGA fabric — equivalent to the 
-> CycloneV EMAC splitter. The XGMAC outputs GMII signals to the FPGA 
-> fabric, the soft IP converts them to RGMII, and the RGMII signals then 
-> go through the FPGA HVIO pins to the external Marvell 88E1512 PHY.
+If #clock-cells is 0, then this can only have 1 entry (maxItems: 1).
 
-Does this converter need any special config, and does it expose any
-control registers ? or is it fully autonomous ?
-
-If it's fully autonomous, can you detect its presence through some
-capability registers or something like that ?
-
-
-Maxime
-
+> +
+> +required:
+> +  - compatible
+> +  - clocks
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    dss_clkdm {
+> +        compatible = "ti,clockdomain";
+> +        clocks = <&dss1_alwon_fck_3430es2>, <&dss_ick_3430es2>;
+> +    };
+> diff --git a/Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml b/Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml
+> index eaa727ab0d7f..438e190d1067 100644
+> --- a/Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml
+> +++ b/Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml
+> @@ -19,7 +19,7 @@ description: |
+>    that is used.
+>  
+>    [1] Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
+> -  [2] Documentation/devicetree/bindings/clock/ti/clockdomain.txt
+> +  [2] Documentation/devicetree/bindings/clock/ti/ti,clockdomain.yaml
+>  
+>  properties:
+>    compatible:
+> 
+> ---
+> base-commit: acb7500801e98639f6d8c2d796ed9f64cba83d3a
+> change-id: 20260610-ti-clockdomain-a27dd0fa1ad5
+> 
+> Best regards,
+> -- 
+> Bhargav
+> 
+> 
