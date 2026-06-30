@@ -1,206 +1,178 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCFE40F8C4
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 12:49:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA5840F8E6
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 12:51:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782823755; cv=none; b=VO7eUwWoDMC6fwXmfXFzDuqqWyyXgoc6KtQb3dm/E2HKReHKR41CfWJ6wPaLIlCwPr8WVtmNv+uNsn7oDZKBXg1WSH49k1t+4dObIGbIWyAt2b2hHsmEsYRkvnQQZYmChSZzWK7UdV5i1GMXMweQT5m9FSUpw08YMEZb9g0miSE=
+	t=1782823892; cv=none; b=GaXZGAFeDP/IZdxa4ityTD65RaNJGaXNWBDN6DMkny00NKCpnpSDerc9eRlgk5x8wLMJTepusUgAYgafbDYBA2TNuN+ZNMP7BE7UkKFOQM3so2B2IVoAWZGGywQGRyqkGmWcWxa289errzIbDd0b4dt2HhvW3WepJpREbhFlm8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782823755; c=relaxed/simple;
-	bh=AxLilXai7kh8n+gsv1ff3xUSbI939G7Kn5yFvMnrzsk=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=eX78OegVCGxF/y45O5exEvwKe9DdH4Lw1Nh1dqR+v9/XY/zwyURyFYqfMwu2MvFxRMNEgnmWzdSz7SEQS5QSySz8wvfwjxTYqhlmXAtKHYKk43hyNJXsC3iSTf4yCbSYLv8QQWLrAV7QAwyTApd6JmEjFE+UuwkVfdIc0SPlMjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VxnzgIGt; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782823892; c=relaxed/simple;
+	bh=Ew94CTnIuyG041Zskrgoh5pOpYPUy+JIIzndTHF8o4M=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jKnMHwqaAJ0zq+EhcXygoDZKcj4YIO89/yierrGKyiCozK4Fa7IF9NgEPBnbhAqYgoISyn7jf+Ibct4PvLV89eGFQjmsgSPhr208MRzF6/1TOg80Li/cqDA7AY/WYnrS043qtVhLZBCvhSqTuRjTmA7jkMIcW2WQVf2AuYBg5r8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ol53ycHT; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VxnzgIGt"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4758b2a9e2aso444928f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 05:49:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782823752; x=1783428552; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=c50dCF6Rd+MbSNOPXAWDKotK7lnVsUArlHEFScFI1o4=;
-        b=VxnzgIGtm43/I/J4iXSQ0O4ZSOzIzkioZtkgZV4oq3R61lPMNA0zi8Uz1vXZaoJu2I
-         122MsZwjfMseWmBkxWnXWrO5qBlWFFD+Oa+HNL1XYt9YC3xWQ5XxX+sTSyMAqH2XYppI
-         vL0XgnJNXx/kCz5RA6b8/wTqBdQHlDg9nVxgcn4m5/cnTmHmGqrGxaUYN1etlGChRG3w
-         jQfsM9Xpdo5QzYlxOs41zgamIp0YKi5Kgs5HxzTUZxErgV/j4Q5ptz2QR5iNimaF2mSg
-         cnHCAOTh5DYLnekwlPjFXojFXfYEbb6IuRYUegas8ZyykiamFhgPYQWXTosfKzbSNsHv
-         b88A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782823752; x=1783428552;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=c50dCF6Rd+MbSNOPXAWDKotK7lnVsUArlHEFScFI1o4=;
-        b=aqsONUIBDmWYaE2dzMd+e3fi8gBdU0MOYRGA1dpCMWnI6AdSItcy0a5yrgjaipwcNv
-         rlFXzeW5mqwNAPiC8vBexoDV9w9Ht5jVO2NKLUhn9/vdCjJWd5Sm1j0e6xmuz/bJyEew
-         i3HQqpOLwBvJCqrfS83NTMjkQno3ZBuW083pr7KQsTtA3Et5mmnrGV6+LTEVanmxSteT
-         xm7hcXtTvvlkOSEdGlgoKXicyQQDAp+jIgbpVxrTW9s5iqOqeCBchGkEZteSoMoSwydi
-         vdjo0KFHVXateuqDGN0ONBC7X0+UkBKNFLIJfwDyMCuMczkv/dI9pVt1ywEZgjzTmonQ
-         k4gA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq4GPuydjpYXzncpTCr9c0ktm0fvSDe5r73nxl+xayE7zlBMz4KAepq8QB1p4fG1MtaIWF9FaC7wky4@vger.kernel.org
-X-Gm-Message-State: AOJu0YxaabJ42nqukMV3hvF2M6TQm5b1bAMfgCdajDU7+VRBmEfxs6DF
-	qbDeBmFT3C4DX+RbDDvRgfZ41jRqWLfAGc0kOlESSa+tbzPIWTJ2UoMW
-X-Gm-Gg: AfdE7cmyvStal0EilihpaaUm0GNoYowlK8sa1bW5EIbnKTFH5TFmjLGzeImTEWxEeB+
-	TKDjK+qF5osDwI5zql1XRYs2E9BelfyJvHMPuwHfD83zwNSx2yBjQQAgVHV24udL8dJRe8dpqXw
-	vK0O7eyShktHj7frCO5SY5GsS9PqvCuWiPqNiwJ/czdF8QitRK+mk/QIklh2W097y3tn2hL1vwz
-	/Si4Cg16jHoaUBx1XDfHtcqUKx81nvSeWNqQZeWhKA/5xKVaopWiusuagftXYZ1f6HA8/LGoTnC
-	sR24B8jpEu7WDMXQnu15FLXG1njrI4YljZnvBsVCJV5RfPSSHo+IhIZW/H2dP38ov0+L0J0/gT3
-	h3LflbFCwUp+dDq6g3oLHmADr0zF5qBGK2pdg4cCKCaNFEn+GElXBDnoVw/sV7YVD9RJQzTlBPA
-	kzTQmkBSYWooHPclYlNDul0+ng8HlHYfXj53oNxF8cZlmJ3vwKg4jYWg==
-X-Received: by 2002:a05:6000:178b:b0:46e:7a27:98cf with SMTP id ffacd0b85a97d-475521c85f3mr4846155f8f.25.1782823752342;
-        Tue, 30 Jun 2026 05:49:12 -0700 (PDT)
-Received: from localhost.localdomain ([82.77.79.113])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4756778fac3sm7004531f8f.32.2026.06.30.05.49.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 05:49:12 -0700 (PDT)
-From: Eduard Bostina <egbostina@gmail.com>
-To: daniel.baluta@nxp.com,
-	simona.toaca@nxp.com,
-	goledhruva@gmail.com,
-	m-chawdhry@ti.com,
-	egbostina@gmail.com,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: w1: Convert HDQ One Wire to DT schema
-Date: Tue, 30 Jun 2026 12:48:25 +0000
-Message-ID: <20260630124826.2992529-1-egbostina@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ol53ycHT"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 31398C5CD59;
+	Tue, 30 Jun 2026 12:51:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A0D7B6025A;
+	Tue, 30 Jun 2026 12:51:28 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 55F4E106F1E97;
+	Tue, 30 Jun 2026 14:51:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1782823887; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=Y4vxuq1hsWIzJHmUQ5gpCbPTMUFi5om9JE3+vStt6zc=;
+	b=Ol53ycHTwafFTsJ0jZuZC4mvH6xvLp5KPZGNOSnvgIW3KU74ZEuhiYbzABdmSfR1Gd0OU5
+	mopW01mzA1bKH57thL2n0SKrd3Mh8FxotIuM2vtkYfdvI7lw0pBF1Ung05CtgtqwB1Ej2h
+	Gj/noj0x7EHg4saiIHS5xTsw/LNctdT3wxa0QP1QNYaZPCYLASbgY2PWFXONbYvbxLXZUz
+	Z4sTqnun5JJ53gh/J7fLsvoQDM8U8kQkfk+QuJonrBT4x/Xs0IxAsonSXE4NP2UhzvPDWU
+	srCoI5+/0TIw3+9zxp+pn5lbg/WsjB8/eAhb5l1J3r9DURbEvbchGvXHtGn+xw==
+From: "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>
+Subject: [PATCH v6 0/5] Add support for AAEON SRG-IMX8P MCU
+Date: Tue, 30 Jun 2026 14:51:10 +0200
+Message-Id: <20260630-dev-b4-aaeon-mcu-driver-v6-0-d66b5fcbd2f0@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XQ3UoDMRAF4FcpuTaSyV+zXvke4kUmmdiA3Ui2B
+ qXsu5stSinL1sszMN8Z5swmqpkm9rQ7s0otT7mMPdiHHQsHP74Rz7FnJoU0IAF4pMZRc++pjPw
+ YPnmsuVHlJMgNhEn7hKxvf1RK+esiv7z2fMjTqdTvS1GDZfq/2YALbgZMHtAHldQzlnJ6z+NjK
+ Mel5FeQ9wWL0RoMjhLIG2G5q8m/W6wAqbYl2aUh6SAEJjQB15K6SlLckVSXhIdBKyn21oe1pK+
+ Sknpb0l3q/xYAMen9oNeSuUpauG3JLFIcHEbtwFp3K83z/AO2BVRzKgIAAA==
+X-Change-ID: 20251211-dev-b4-aaeon-mcu-driver-e0e89ebf4afb
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ =?utf-8?q?J=C3=A9r=C3=A9mie_Dautheribes?= <jeremie.dautheribes@bootlin.com>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Lee Jones <lee@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-Convert the Texas Instruments OMAP HDQ One Wire bindings to DT schema.
+This patch series introduces support for the AAEON SRG-IMX8P embedded
+controller (MCU). The MCU is connected via I2C and provides GPIO and
+watchdog functionality for the SRG-IMX8P board.
 
-During the conversion, several updates were made to reflect actual hardware
-usage and resolve dtbs_check warnings:
-- 'ti,hwmods' has been made optional.
-- Added 'clocks' and 'clock-names' properties as they are used in actual
-  device trees (e.g., am437x-l4.dtsi).
-- Added a second example for the AM4372 HDQ controller to demonstrate
-  the clock and interrupt configuration.
+The series includes:
+- Device tree binding for the MFD driver
+- MFD driver that serves as the core driver for the MCU
+- GPIO driver implementing the GPIO functionality
+- Watchdog driver for system monitoring
+- MAINTAINERS entry for the new drivers
 
-Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+The drivers follow the standard Linux kernel subsystem patterns, with
+the MFD driver registering the sub-devices (GPIO and watchdog) which
+are then handled by their respective subsystem drivers.
+
+Signed-off-by: Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
 ---
- .../devicetree/bindings/w1/omap-hdq.txt       | 22 ------
- .../devicetree/bindings/w1/ti,hdq.yaml        | 70 +++++++++++++++++++
- 2 files changed, 70 insertions(+), 22 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/w1/omap-hdq.txt
- create mode 100644 Documentation/devicetree/bindings/w1/ti,hdq.yaml
+Changes in v6:
+- mfd: rename local variable to ddata in probe
+- mfd: fix driver name from "aaeon_mcu" to "aaeon-mcu"
+- mfd: set I2C_M_DMA_SAFE on all i2c_msg flags so the host driver
+  skips bounce-buffering the heap-allocated DMA-safe buffers
+- mfd: drop COMPILE_TEST
+- gpio: replace __set/__clear/__assign_bit with atomic set_bit/
+  clear_bit/assign_bit to fix potential races on shared bitmaps
+- gpio: write output value before switching pin to output mode to
+  avoid a potential glitch on direction_output
+- gpio: add MODULE_ALIAS("platform:aaeon-mcu-gpio")
+- watchdog: add WDIOF_SETTIMEOUT and watchdog_init_timeout() so the
+  software timeout is configurable via ioctl, DT timeout-sec or
+  the watchdog_timeout boot parameter
+- watchdog: add watchdog_stop_on_reboot() to prevent a spurious
+  reset from the external MCU during system shutdown
+- watchdog: add MODULE_ALIAS("platform:aaeon-mcu-wdt")
+- Link to v5: https://lore.kernel.org/r/20260408-dev-b4-aaeon-mcu-driver-v5-0-ad98bd481668@bootlin.com
 
-diff --git a/Documentation/devicetree/bindings/w1/omap-hdq.txt b/Documentation/devicetree/bindings/w1/omap-hdq.txt
-deleted file mode 100644
-index 913c5f91a0f9..000000000000
---- a/Documentation/devicetree/bindings/w1/omap-hdq.txt
-+++ /dev/null
-@@ -1,22 +0,0 @@
--* OMAP HDQ One wire bus master controller
--
--Required properties:
--- compatible : should be "ti,omap3-1w" or "ti,am4372-hdq"
--- reg : Address and length of the register set for the device
--- interrupts : interrupt line.
--- ti,hwmods : "hdq1w"
--
--Optional properties:
--- ti,mode: should be "hdq": HDQ mode  "1w": one-wire mode.
--	   If not specified HDQ mode is implied.
--
--Example:
--
--- From omap3.dtsi
--  hdqw1w: 1w@480b2000 {
--	compatible = "ti,omap3-1w";
--	reg = <0x480b2000 0x1000>;
--	interrupts = <58>;
--	ti,hwmods = "hdq1w";
--	ti,mode = "hdq";
--  };
-diff --git a/Documentation/devicetree/bindings/w1/ti,hdq.yaml b/Documentation/devicetree/bindings/w1/ti,hdq.yaml
-new file mode 100644
-index 000000000000..aa539c7bb5f7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/w1/ti,hdq.yaml
-@@ -0,0 +1,70 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/w1/ti,hdq.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments OMAP HDQ One Wire Bus Master Controller
-+
-+maintainers:
-+  - Eduard Bostina <egbostina@gmail.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,omap3-1w
-+      - ti,am4372-hdq
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    items:
-+      - const: fck
-+
-+  ti,hwmods:
-+    description: Name of the hwmod associated to the hdq
-+    $ref: /schemas/types.yaml#/definitions/string
-+    const: hdq1w
-+
-+  ti,mode:
-+    description: |
-+      Operation mode. "hdq" for HDQ mode, "1w" for One-Wire mode.
-+      If not specified, HDQ mode is implied.
-+    $ref: /schemas/types.yaml#/definitions/string
-+    enum:
-+      - hdq
-+      - 1w
-+    default: hdq
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    hdq@0 {
-+        compatible = "ti,am4372-hdq";
-+        reg = <0x0 0x1000>;
-+        interrupts = <GIC_SPI 139 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&func_12m_clk>;
-+        clock-names = "fck";
-+    };
-+  - |
-+    w1@480b2000 {
-+        compatible = "ti,omap3-1w";
-+        reg = <0x480b2000 0x1000>;
-+        interrupts = <58>;
-+        ti,hwmods = "hdq1w";
-+        ti,mode = "hdq";
-+    };
+Changes in v5:
+- mfd: use heap-allocated DMA-safe buffers for I2C transfers, replacing
+  stack-allocated buffers in the regmap bus callbacks
+- mfd: switch from REGCACHE_NONE to REGCACHE_MAPLE; add volatile_reg
+  callback marking GPIO input read registers (opcode 0x72) as volatile;
+  add max_register
+- mfd: use PLATFORM_DEVID_AUTO instead of PLATFORM_DEVID_NONE
+- mfd: use MFD_CELL_BASIC() macro for cell definitions
+- mfd: use dev_err_probe() for regmap initialization error
+- Link to v4: https://lore.kernel.org/r/20260324-dev-b4-aaeon-mcu-driver-v4-0-afb011df4794@bootlin.com
+
+Changes in v4:
+- mfd: switch to a custom regmap bus; remove aaeon_mcu_i2c_xfer() and the aaeon_mcu_dev struct
+- mfd: locking delegated to regmap's built-in mutex; drop explicit mutex
+- mfd: remove firmware version reading at probe time
+- gpio, watchdog: use regmap_read()/regmap_write() via dev_get_regmap()
+- include: replace aaeon_mcu_i2c_xfer() declaration with AAEON_MCU_REG() macro
+- dt-bindings: remove unused label from example node
+- Link to v3: https://lore.kernel.org/r/20260203-dev-b4-aaeon-mcu-driver-v3-0-0a19432076ac@bootlin.com
+
+Changes in v3:
+- Renamed SRG-IMX8PL to SRG-IMX8P
+- dt-bindings: add gpio-controller properties as required
+- mfd: move struct aaeon_mcu_dev from header to .c file (private)
+- mfd: use guard(mutex) and devm_mutex_init() for cleanup
+- mfd: firmware version log changed to dev_dbg()
+- mfd: add select MFD_CORE to Kconfig
+- Kconfig: add || COMPILE_TEST to all three drivers
+- watchdog: add comments explaining hardware timeout and WDOG_HW_RUNNING
+- watchdog: remove unused platform_set_drvdata()
+- watchdog: add a function to query the status
+- Link to v2: https://lore.kernel.org/r/20260123-dev-b4-aaeon-mcu-driver-v2-0-9f4c00bfb5cb@bootlin.com
+
+Changes in v2:
+- Fold GPIO and watchdog bindings into MFD binding
+- Drop OF_GPIO dependency in GPIO Kconfig
+- Use __set_bit/__clear_bit/__assign_bit instead of atomic variants
+- Various driver cleanups and improvements
+- Link to v1: https://lore.kernel.org/r/20251212-dev-b4-aaeon-mcu-driver-v1-0-6bd65bc8ef12@bootlin.com
+
+---
+Thomas Perrot (Schneider Electric) (5):
+      dt-bindings: vendor-prefixes: Add AAEON vendor prefix
+      dt-bindings: mfd: Add AAEON embedded controller
+      mfd: aaeon: Add SRG-IMX8P MCU driver
+      gpio: aaeon: Add GPIO driver for SRG-IMX8P MCU
+      watchdog: aaeon: Add watchdog driver for SRG-IMX8P MCU
+
+ .../bindings/mfd/aaeon,srg-imx8p-mcu.yaml          |  67 ++++++
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ MAINTAINERS                                        |  10 +
+ drivers/gpio/Kconfig                               |   9 +
+ drivers/gpio/Makefile                              |   1 +
+ drivers/gpio/gpio-aaeon-mcu.c                      | 230 +++++++++++++++++++++
+ drivers/mfd/Kconfig                                |  11 +
+ drivers/mfd/Makefile                               |   1 +
+ drivers/mfd/aaeon-mcu.c                            | 205 ++++++++++++++++++
+ drivers/watchdog/Kconfig                           |  10 +
+ drivers/watchdog/Makefile                          |   1 +
+ drivers/watchdog/aaeon_mcu_wdt.c                   | 144 +++++++++++++
+ include/linux/mfd/aaeon-mcu.h                      |  40 ++++
+ 13 files changed, 731 insertions(+)
+---
+base-commit: d358e5254674b70f34c847715ca509e46eb81e6f
+change-id: 20251211-dev-b4-aaeon-mcu-driver-e0e89ebf4afb
+
+Best regards,
 -- 
-2.43.0
+Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
 
