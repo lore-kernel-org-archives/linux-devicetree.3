@@ -1,101 +1,87 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548063D6692;
-	Tue, 30 Jun 2026 16:44:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3719387588;
+	Tue, 30 Jun 2026 16:48:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782837851; cv=none; b=tTBNPHuLG53dJJjjPFwSS/EZOAq3Ay8thAvbO4Iji1M0bze7dmIXpGXJJnWqVkB722ijSy+8lKHwPaE908HkMV4nfaN0/i2p/K3pTbAKgqV1XeWu7AnbBfEtxpMsdGp+hsYkLaiV4Cd+6mE7vxnaZAvbCDII6AMBAZR+H2Jg19w=
+	t=1782838087; cv=none; b=U4Y8x7ngKp51L0Y3BdUaukVr/73MzaW4qoZDmlPhAe+zR7MknCUCyCy+Qov5FtusQ6Q85ybDICVrO9oJXefmKAfPv8RZo7CTaCtq40ljHhgssZvXnIYkIIQhY3dsQvy82Z/9/n013amTm+8a3FGnTL2eGOcuiGhChxbw8gZiNg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782837851; c=relaxed/simple;
-	bh=xPTKnjYhG/klSu1C/iRiS52JiMJTkVUQXtrZFmc9eZ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X4xPC9HWXfXzuy1828rVQghg2ntZvpugTqog3aKLYhHm1zFlSEESMsb5XCyeJZvdCytWxrRXRb9Tit/LtmKlnk8pqUmMBdPkzUNZh5/vS45Sa8c0RZ0K4jZWYYRJZPExNiBVyJixSxZMvlcdxiRtdAdN5ye5pjlqmH55yfpyD3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=ra4IZzyc; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1782838087; c=relaxed/simple;
+	bh=pjBPF2DGIK1jzhKqPI/vUBhcxsMj5K5QCHSwZ3gNkO4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bJKU31utjFX+djyDrObgqjf6ShmhBWiGSRZiK7LtYLgUaZRWTvmWcgYxc4nhNxWN5IJQg+TUiDXO8nzVXzU73Ba9N7x173g+EvJLqLVr13nGA+P+ncjAulybk95cmMXPpVuEgM+j9KY8iC1Ths0u20O/x6a20Es2mjmpwPEGRis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z54EhXZ5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="ra4IZzyc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type;
-	bh=iQBy/o37l9sudMeWSCTCpjVQ/V1ougLIUohroSPHPK0=; b=ra4IZzycLMlAALjhjKyzC+Wy0q
-	41zyiJleGla0koqeyiUVgLfeYR86pfv5TZyE/8orGe3kdgLl1NiYkWj2KAMUvHstoBhcA7mquLB33
-	D/x935HbO+vobPy6KV4bNyNokvmpSWgiErM78FO2IwPrYRTucLaZxD+8NhAqPjyKI8QWdF33h73eL
-	PwD0PEwVCFxVoTu2IfvZgeiTEPz51mynoc4frt8rNET0MOlWkqD2ZA4O9KgokITRk37MBqp48ASJ3
-	Co7Fk23AyHDtntqMsy4M0aon264qT8X+1U6KXJIRFwSGaEtjEp83G6NhtSCTQEYEh61swonUVC6/e
-	+4z5AsbQ==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: mkl@pengutronix.de,
-	mailhol@kernel.org
-Cc: kernel@pengutronix.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	heiko@sntech.de,
-	shawn.lin@rock-chips.com,
-	linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	quentin.schulz@cherry.de,
-	zhangqing@rock-chips.com,
-	Heiko Stuebner <heiko.stuebner@cherry.de>
-Subject: [PATCH 3/6] can: rockchip-canfd: enable erratum 6 on RK3588
-Date: Tue, 30 Jun 2026 18:43:33 +0200
-Message-ID: <20260630164336.3444550-4-heiko@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260630164336.3444550-1-heiko@sntech.de>
-References: <20260630164336.3444550-1-heiko@sntech.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z54EhXZ5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662971F000E9;
+	Tue, 30 Jun 2026 16:48:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782838085;
+	bh=aQME56hxrnfMv8y1HuSYOXEeBCbRKzTFUcscWXVXKE0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z54EhXZ5X2YgK7JbcAbTLsK/UJhjf475ABh03MFW5BJ4o2CiOCeRW71iitG7DPpql
+	 0roMyl2c0aHBngl7wl3TfGKzz55Oa6quU3Hk8ekE2iyOk0SQ5h2+0W9ChAt7vNHraU
+	 Y5RR7Tp3IABI2RUG6mNk0P5/m+KH7494xQF93vNtgI4DoIMb1+kt2jiLsLCwEnjMnY
+	 XQ2jP7+B3rdWTUjHBbaxVJ46gWhywnSQDUgs3wHIkCeexgcg0mWsVqXPe0z7X/hJOX
+	 s0N6Cyg4QD6fmrw/y/nKI7n0j8YxgBIQjh3DbffPOra36Sx7J0AXPSa6fwKclzoH+Z
+	 OyI3awpgu0PSw==
+Date: Tue, 30 Jun 2026 11:48:04 -0500
+From: Rob Herring <robh@kernel.org>
+To: Daniel Palmer <daniel@thingy.jp>
+Cc: saravanak@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] of/address: Drop ISA parts when !CONFIG_ISA
+Message-ID: <20260630164804.GA3920230-robh@kernel.org>
+References: <20260626171906.476688-1-daniel@thingy.jp>
+ <CAFr9PXmAtnLSzA3GLb4qKvrs1X6aD+DNPSoEBXhSzkL7oPHBig@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAFr9PXmAtnLSzA3GLb4qKvrs1X6aD+DNPSoEBXhSzkL7oPHBig@mail.gmail.com>
 
-From: Heiko Stuebner <heiko.stuebner@cherry.de>
+On Sun, Jun 28, 2026 at 02:44:51PM +0900, Daniel Palmer wrote:
+> Hi Daniel, (Replying to myself..)
+> 
+> On Sat, 27 Jun 2026 at 02:19, Daniel Palmer <daniel@thingy.jp> wrote:
+> >
+> > The PCI parts are already wrapped in #ifdef CONFIG_PCI
+> > so it seems sensible to add #ifdef CONFIG_ISA around the ISA
+> > parts.
+> >
+> > This reduces the code/data size a bit on configs with !CONFIG_ISA.
+> >
+> > Signed-off-by: Daniel Palmer <daniel@thingy.jp>
+> > ---
+> >
+> > Sorry for the spam, somehow I botched sending a patch..
+> >
+> > I thought about making this RFC as I'm a bit unsure if machines
+> > that need this ISA stuff actually select CONFIG_ISA or not.
+> 
+> So sashiko worked out what is going on here. A few machines have
+> things connected via an LPC bus that is derived from ISA and needs the
+> code to parse those nodes but those machines don't select CONFIG_ISA.
+> There seem to be ~15 devicetrees in total that actually need it (1 in
+> x86, 1 in arm64, a few in mips/loongson for loongson machines, and
+> then a few in ppc).
+> 
+> I made a series that adds CONFIG_OF_ISA to enable this code, selects
+> it in the places that needs it, and then does the original part of
+> disabling the code if not needed. I will wait a bit before sending.
+> The reason to do this is I am using devicetree to boot a machine with
+> 4MB of RAM and a 7MHz CPU. Removing dead code/data like this helps.
 
-Sending extended CAN frames from the RK3588's CAN controller, sometimes
-sends standard frames, as explained in the erratum's description:
+I tend to not want more CONFIG_OF_foo options, but okay I guess.
 
-  can0  00001234   [4]  DE AD BE EF
-  can0  00000001   [4]  DE AD BE EF
-  can0  000007FF   [4]  DE AD BE EF
-  can0  00000800   [4]  DE AD BE EF
-  can0  1FFFFFFF   [4]  DE AD BE EF
-  can0  12345678   [4]  DE AD BE EF
-  can0       234   [4]  DE AD BE EF
-  can0  00000001   [4]  DE AD BE EF
+Alternatively, maybe CONFIG_ISA should just be enabled with these 
+drivers. Doesn't really look like there's actually much or any code for 
+CONFIG_ISA. The biggest issue might be the option doesn't exist on 
+arm64.
 
-Enabling the erratum, introduces the correct behaviour in re-sending the
-frame:
-
-  can0  1FFFFFFF   [4]  DE AD BE EF
-  can0  12345678   [4]  DE AD BE EF
-  can0       234   [4]  DE AD BE EF
-  can0  00001234   [4]  DE AD BE EF
-  can0  00000001   [4]  DE AD BE EF
-
-Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
----
- drivers/net/can/rockchip/rockchip_canfd-core.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-core.c b/drivers/net/can/rockchip/rockchip_canfd-core.c
-index 707f387e7cf4..105ca4d5cbef 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-core.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-core.c
-@@ -53,6 +53,7 @@ static const struct rkcanfd_devtype_data rkcanfd_devtype_data_rk3568v3 = {
- static const struct rkcanfd_devtype_data rkcanfd_devtype_data_rk3588 = {
- 	.model = RKCANFD_MODEL_RK3588,
- 	.quirks =  /* Possible more Errata */
-+		RKCANFD_QUIRK_RK3568_ERRATUM_6,
- 		RKCANFD_QUIRK_CANFD_BROKEN,
- };
- 
--- 
-2.47.3
-
+Rob
