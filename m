@@ -1,174 +1,322 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011066.outbound.protection.outlook.com [52.101.52.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E042A2367DF;
-	Tue, 30 Jun 2026 03:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782789882; cv=fail; b=UUqtmUI7WPjKy8imXsSD47S42A2h7sHb+3NVKCTDK96L4heC2TzNS3R3ZMt7YTolZjrZHpnuyKb0kL0qPJsDt31O0SPpX6xqHyBBJsbSBC01jLpXha9jdONuUo2H1ayikHYNzIJACcttoPwUavy5mhWEOJGVOF3NRHFxgj4k0ks=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782789882; c=relaxed/simple;
-	bh=iwdkGBdjXWMZkQ1PqvhzWXHMoWrU/wyti10T0N0go3E=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=YRGeEpc6ttHO0IAUQ3C7AmsvriWKh+I4MEgdB7ECgITOLF1/jBwmqhjnAvtz0+IilYMZbi/1eaO41VpDz7IRmihUbNB3EItK4MbYtW08n+yQXIASE/jL7B4cIdH6qeDTyudAsURkvC+RHsRcxw/B9MPojJxdIaX9Nn0TMRW/Dko=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=S9QU0xqO; arc=fail smtp.client-ip=52.101.52.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895AB3CFF5A
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 03:43:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782791012; cv=none; b=ALpZSK6IFgdfKby+6OOneFLGpFsk++qdU2VbdgtnfV/PhhDNC0S8M4semAqlqu8mK++qBEehxFwwZmMAJlHoWzJxyA8sVTN9LHpOb1iXE/WcFN99/yLTYpCAeD7M50VjKmloKRudICcbmbj6jQgnR8MlIjGqw0ctYfeqBbHjBNY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782791012; c=relaxed/simple;
+	bh=7qZ7BD/kPdntbjx284SKm6xDphVUDw2P3Dj9RXsLrTw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QSKj9FJknKtZI0Hl14nererf+ujj2lgEjJs76L0t1kCRRjCUI2kSH7WtEef/PyNbBsHoWXqO3BvMPtkSDWyU5X2d9AQxzcRXg5Ym2AsBUwNW6mN1vWZWnzpYcm5h5D/Jzd+9gM4IPSYIsENVfSCV/0xPtGdAFzmho1OAQLh3p6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mE7FxRQT; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="S9QU0xqO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Fiss+yHyb0qMq6oZSvquJxtWkSAL98XYh0j9fvM/pOD+qjEcUn+nLwiNTGkIdaswZm8aHFrhXiG9qQAdIyNEiIiMmP45QlZsHe5Mmb5vMx4+HCqfUcEP4Wd+Q4RF6K5HPBrhMwa4/mq+NEKtxnDkZvtNkiToHTzo2PHOB8wTrayGFyG8Bnw1N2dWvu1kBYBJnq5/ejwkd2s4dr3brd0hmMSf4YrnWpXV4cbnbf5jQtmYfUPps1q3P/3UvAmydSzKXWlQV0E1aH4PmJZNtxhq1MluMDeIxqr4OC2OUeikzgF9/iuLB9VOpAvxoXtG/Gsm2/ENPb2BQjM2sTNL/dqjNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iwdkGBdjXWMZkQ1PqvhzWXHMoWrU/wyti10T0N0go3E=;
- b=lQ8QYD9VzcTzO/cgQX3H4qRXUidz1bQZrDBeu8k2MM0rwCYP0Nx/bF/0KKnHd2nBuRJb8lhDfaMFsMqTccpHqNiQgpX3x68XUso0bga/eFoNabLeulOXYjJ3JCdKBygL3W91myoxv7qumf5NyIoRiNutpYRDB1OqPgda+gF2G4FyVMKcrX8/81U/Aom/IxXM/dOPDWWy+xEN8dk1WI2AGojOTx4aDzwXgtTD7BdmOjDCyuDAuu0ZuRi9Z1H40uqqos9qAdcQIuRkk8If7TnRxSA8AwDEiE5GKXsutgrl20MlYJ3jbnycVlQvvLC9x2OXygJDi41AqrROwdDYD6ww3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iwdkGBdjXWMZkQ1PqvhzWXHMoWrU/wyti10T0N0go3E=;
- b=S9QU0xqO4IklMb+Zzgvx/B+P786PJdo0wnce3fHtZwX0HapqpOYkRk6tB+5W7CCEkk95lxK8NgMKYH0kJAWHRhwq/K/Q3opl5thRDbztvK3qNTtWdfDNT8LUzg0478z40n6imTFl9C7iVshAw7m2zWOOsBhrD0xZ+SxktXU61xK7wMhmIt/SwdWy2IMJ0uQXSlDxq3UrQJf7z7vS9mNzkFFmflWvvgOFkalZls57kq94bM97S+SfZ+zcCxzR4RUfF7L2b7cAdr6bha3/h7Qz94Ro7zh4yi55mStcxDH7GFh5OL0USnTqZ6WF18wX7zef8m0ld55a4P7JUDjwWqEgCQ==
-Received: from SA1PR11MB8278.namprd11.prod.outlook.com (2603:10b6:806:25b::19)
- by IA3PR11MB8918.namprd11.prod.outlook.com (2603:10b6:208:57c::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
- 2026 03:24:38 +0000
-Received: from SA1PR11MB8278.namprd11.prod.outlook.com
- ([fe80::3a83:d243:3600:8ecf]) by SA1PR11MB8278.namprd11.prod.outlook.com
- ([fe80::3a83:d243:3600:8ecf%4]) with mapi id 15.21.0159.013; Tue, 30 Jun 2026
- 03:24:37 +0000
-From: <Parthiban.Veerasooran@microchip.com>
-To: <Selvamani.Rajagopal@onsemi.com>
-CC: <andrew@lunn.ch>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <Conor.Dooley@microchip.com>,
-	<devicetree@vger.kernel.org>, <andrew+netdev@lunn.ch>, <davem@davemloft.net>,
-	<edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<Pier.Beruto@onsemi.com>
-Subject: Re: [PATCH net v5 1/4] net: ethernet: oa_tc6: Interrupt is active
- low, level triggered.
-Thread-Topic: [PATCH net v5 1/4] net: ethernet: oa_tc6: Interrupt is active
- low, level triggered.
-Thread-Index:
- AQHc+e0XZNEa+AKE3E6e8zsz3KcUMrZAt0IAgAMKGgCABla3gIABk9YAgAAH9ACAA5akgIAALl2AgAACmYCABxCiAA==
-Date: Tue, 30 Jun 2026 03:24:37 +0000
-Message-ID: <d15eaa01-3312-420f-a34a-d810710e5b12@microchip.com>
-References: <20260611-level-trigger-v5-0-4533a9e85ce2@onsemi.com>
- <20260611-level-trigger-v5-1-4533a9e85ce2@onsemi.com>
- <7c89df6b-32ac-46c8-8400-945879037f2e@microchip.com>
- <CYYPR02MB9828CD98EEEB9B218A940E4483E32@CYYPR02MB9828.namprd02.prod.outlook.com>
- <CYYPR02MB9828A1434E6339A6CFCCA74283EF2@CYYPR02MB9828.namprd02.prod.outlook.com>
- <64f4f30e-a987-4289-b36a-1acc977a6764@microchip.com>
- <CYYPR02MB9828E1167750AEA090EC60CD83EE2@CYYPR02MB9828.namprd02.prod.outlook.com>
- <f127837f-e08f-48e0-a3a9-906e1d61d6bb@microchip.com>
- <CYYPR02MB982836BC273D09FD3BDE623583EC2@CYYPR02MB9828.namprd02.prod.outlook.com>
- <CYYPR02MB98285BD6A2639E0B01AE407183EC2@CYYPR02MB9828.namprd02.prod.outlook.com>
-In-Reply-To:
- <CYYPR02MB98285BD6A2639E0B01AE407183EC2@CYYPR02MB9828.namprd02.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Mozilla Thunderbird
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR11MB8278:EE_|IA3PR11MB8918:EE_
-x-ms-office365-filtering-correlation-id: 09812376-9f07-4079-f846-08ded6571d6e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|38070700021|18002099003|22082099003|11063799006|4143699003|56012099006;
-x-microsoft-antispam-message-info:
- nGTibxWU7KCLxBtvMgihyJBrdeBtpCA/AbNcdgnPuXHnipwbiVspaVd6QuZhykHo9KLpjTFGuJBXLz89eGo+eQLAvz+u6eTYi/83Al1WBciW/YUUFAl2q3ANuuqXphQ6MTrMta/Vo/Cv4MnklYxXgHWf8IMs87t87UqHf/A2jAkSnJzvaj10/dvF0qP+D3EjYPnv0p6s4a8Lqdw0Jh0VFwI0s2E6NsbdtPIEVWBR7BD0pbXhAMPiPweX9ls0ZbNWUPbgelYmIxsXD2F9H0u1aVKeN4UHKClxr8KbG9G/qOmyXVWxDLhaKK+IHdgFpJTlZO33uJ+ist3C4Flm8z/fhKD75UZW9/VwVZ0DHJZMhOB+pvxdHsCYBJ7oliW3LK6F94hpMBdHZI9wBwjAyElsKaXJaHV7tXnqThig3O/wlP9qnQTH3kFYlp3Ca8Qc2U6byQ9QMTfdal4T+Yjp2DtVKyYwsUdNnO3ERd3gEAST0nMd7V8BmcJG8NkmaEF5nuMBVXO9fdgJKxwXrDJCXOWlh7KA/RiUZmM3iwcTN+OVekhxIu29qMcMRWt1IMUkxaELRWNCjM497i+LShGw1WsxIuCAbm93oozEowbmxDtlCmK9Tpa3kq/ZZi23eZ3PCS5BdSNQM45H9Xtx8dNFsl58HXxqAdsaQ7c4NHwSJ/5s8X4h2+O698kRM1rYY6w318+NbvU5+UJaIPS6IcKcfvUMv6mq6gtpPlgORtkzWUBke8c=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR11MB8278.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(38070700021)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VlJCd2VvTC9Selp6enpucTc5UEE2aGhHRjN0d2tadExDOTlTWmRxdzZhcFE3?=
- =?utf-8?B?ZE9mNndRUm5OVHEvZEhGVStoLzJIK2V3YXV3MWV1SUMvZjAvNk5lMkwrcysy?=
- =?utf-8?B?SjRONytST1J2MElhUGtjTEl0a1p1MHFZeXFaeE5yS2pvOGNuaHBvQ1QvNHpZ?=
- =?utf-8?B?K2dWREl6eTZSV0N5anIzN2x3YVVBVmVBMWk0OW5sY2pIYlN4V0JPWU9RSStK?=
- =?utf-8?B?WVdEbFJRSGVtTGdUNHhlMFllaHJPVi9KL2JtUFA0M3FERFBIOENpNzVlNGJJ?=
- =?utf-8?B?a0F2RmxTNUdXQ1RTalBkUFVOdDJWV2h6T0hhWU9GVjZwbDI0dmtDTFcwdmda?=
- =?utf-8?B?b1gwanpGUXJYOWNjaHpiVkV6RGFXWmh4aWRjSldpSmMrOWNIVWRIYU05ZllV?=
- =?utf-8?B?OFN3eC9XNGZ1Q0duS3FPMEVKTEg0dWMxUlNuT24vREF4L3Jac1hacVR0dGNu?=
- =?utf-8?B?T1BjZUs5ZXREVzBUbkJLQ2xsbHpvcGV4SlZpQVZieW56QUtTU1RTcXlSUU94?=
- =?utf-8?B?ZWgrUkljcmdKMWE2QzVWOXM0UExTL0pRWmgzMnpOdk5HL1IrMEkrMFVxdFJj?=
- =?utf-8?B?ZlZIUWRwN3drQm1XSWkrVVBUQlNVcGp4a2habmVMaGNjcExnOWhGdHlUaXBw?=
- =?utf-8?B?SUgzbXFSNDI0ZDJLZC96NmhkTktrQXdyck5kN1FUaFllZWZRWjlWeFo0cWVG?=
- =?utf-8?B?Tk1DTVVpR0hzVU95WlBoZ0NiTldBNk51ZDlaa3pONVJUdE1CdkxZSUdxbitz?=
- =?utf-8?B?R25EWlpwRVEyeVA1c0hPYnVub09RcU4rTXl2dHZBWEt2MnQrWFJqSE1VTDBF?=
- =?utf-8?B?ejVIMm83a1p6TkxkdWsrVTMvWGRSU0U2UDk3ZXlpc0RGc2VVbUQvUGR1Qis2?=
- =?utf-8?B?SzZ3K2poMUlDZk5NVjVmNGlSUWI4L0VQTTFzWFlkdjBZSXA4K0M3NFc5V0FO?=
- =?utf-8?B?Q3Q0UkROdjc0VmRtcjBuMDNxRURHQ1J5ZkEyeC9QV2c4eStXbmdaV1NUckZ0?=
- =?utf-8?B?eEhvUWcra3E4TGFid0lTNHcwNm9MVGNBMlpnR3pwWnV5YnpIWC9oS255enp0?=
- =?utf-8?B?dUg1YVE0dTZhdGF2QWNKUEEzaHFxMHJMaUQzWUovcDRKRkFvOXdhMEZ5a1Q2?=
- =?utf-8?B?YlljZWJWK0xObS9ucUlTQ3J5a0FlWS9HWHlacEtkcDR3aGQ4Vmkzck5KVXUz?=
- =?utf-8?B?cXVMa1ZURmJFY0tUekhIaW5hL3dvUGwyNHpOMCtxQzFiME1hNDM2bnBkRGo5?=
- =?utf-8?B?Tkg1QkZxT3U0ZTVqRC9ON0NnckpuVkdtazh6K0dsZ0hGMk9xc0FOTkUzNVpW?=
- =?utf-8?B?KzkvRVVqbHIyYUFyaUlYMzlHaFh2cGszMWFWWHA3Vnp3cEltQXNkQmN4S25u?=
- =?utf-8?B?MjE2bXVvbzRzNWdwOHV3Vkd1Syt6Wnk0T1ZqU3VoSHp1eVpHUGJBQVp1QWRK?=
- =?utf-8?B?TWdvR3I1ME4yWmNjNUlUL2c5SlRFdjhNRGowWVRPWE5aSmc4dmFHWlBzbVRq?=
- =?utf-8?B?YmVqNGVNYlVISnp2R29oa2tRUXZQSDl6dWZlNi9lOUNJeCt6Y3ZQR0JLZFdm?=
- =?utf-8?B?YnpDa2ZVWDBxOTFReVBpc3d4bXJ5VTl0UmxEclRXSDA1YjF1ZkdadjQ4b2hQ?=
- =?utf-8?B?RVlrR0J4QXZCdFhCL3ExeDVVNVl5UGltdUdkK3Fwc3VUZFlWWHJ1OEw5Z2JD?=
- =?utf-8?B?K1VuaGdZUElTcUR1eEhpZ3o4NTNoclRpV0lLa0RsWFNTVjdpZGlsdFkvNURY?=
- =?utf-8?B?bGJUSzdWS0FPZzFML3h1cnRmZTJsZFl0Q3dac0R1QzNIMjBqamtXTWhvOWlm?=
- =?utf-8?B?WW03QXdlbGpLbEo5dTloUG51aHlaZis3UGQ1MURYcG12SG9mQXd5V3FyNlFV?=
- =?utf-8?B?MVJwcW5NWGFqNWpUWHdZYzNGODY1eEc4TjBxanc2N1I5ZE1CWHU0YW05NDNz?=
- =?utf-8?B?dW1wZnF0cXI3WVB2SmtNMzJtc3hwaU43aUhhNlVWdWwvY0hQN29BNnlkZTd1?=
- =?utf-8?B?cGZZUDR6MERLRFo5akd0aTk0dzJ3U05LWklUbjRBOVpsVlVVejJsTUFWUFc3?=
- =?utf-8?B?dU9VMS9GUnEremROM1dKSE9Tcld3Q3BRMjczQkY4U2xUUi9HN3Y1ck1JQ2xJ?=
- =?utf-8?B?Q0p0UWJHalpmY20vTnkrb0dSVGZNVEtNUWtxRkExdjZhcnBWQWFxRFdJZnBk?=
- =?utf-8?B?K0Z2NlZRNjhURjd6M3pQZVZwZTB6a3Y0NzhsOE02TzJLT1NJRzR6Q2taVm8w?=
- =?utf-8?B?cGhESkUxYkZtcmkzSUQ2OTdHeHoxcUJPRnpYZ3lKbjU2NDVMRzJnQWhtTzRQ?=
- =?utf-8?B?Y3VTaS9xazRjR3pTU0RxQ2N4OHlkdXdvV2ozajZUYnh6ZjNzRlAvU25UWmVo?=
- =?utf-8?Q?x190WeLWS372O0PU=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <2036C218F42F8841ADA51BCA5C5ABB93@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mE7FxRQT"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c9b373d5af0so684592a12.2
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 20:43:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782791010; x=1783395810; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=RFyykPXnuU8lpZ43+6F/IaAIeDAQiIIJTgb29BGSmF4=;
+        b=mE7FxRQTLBd/TqwRWjUCsk83vO3/THTKAIi22Y0r0vi19n4GuxQE1M4ejEk+ejkG0l
+         B0BTFLOkD+KH0W2qOEgMBQEjwrqLuv2DE11qnj5FNnBwfCsxhXcMgKdNqqG78jnRNDTr
+         ybLBwqlkYYGJnaoI+fs7LKT++UknGSAAO1Py0T7C7+/YlWk1EfTy1GvE0b+tb+QFuioo
+         YDkOaUJdsfmw/RMqZaE5LFD6i7BOcxG3wHqXxu4FG4M6ELbkTqpOhRBdDX7leKNo5zb+
+         OK5dGzsbI6QyeuRnr45hmWMRTX1oE1RJR0Zr4D8/CwH+88PRg3lXElbKiZzbJW0TzKns
+         fojA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782791010; x=1783395810;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RFyykPXnuU8lpZ43+6F/IaAIeDAQiIIJTgb29BGSmF4=;
+        b=i72I1em3/j+0V0rcz2hC2dJLydoVd8wAhpuOm+gBV5M2FbTL912cwqZ9AWWu452xWK
+         d69o44oQQcHNcmEMLXBQQJTgZYjSeX30plB7kF9s8+4G9XHUEcIGJ+RBMLXjrm8hFtBY
+         d1SuJDqw1lnIHFDLuVbluXPA70W3cadzZ52cBS4r4cS4uV3joN9qIG3lTrdwmFemNPOC
+         5E3NpUDF5teAR9QtpAVR37fbW20GJqRDvzghwwDbPZJe9/1CBPLg6SdIAEEP7SLjLDat
+         c0hvKj9k1nK9rRz5MhUVWWJJBLwTAcIzyDe1u4G2VcaKSrG67dtINyXDR0vnfOv/BaYE
+         E9og==
+X-Forwarded-Encrypted: i=1; AFNElJ9BlnZclYt4mBzN6Fwdxi7DxElkcCu9Ky/XuzyxzU3LdYpbLAuAAX8oGCsjdHjD3mT/SFB2ea+hy9Th@vger.kernel.org
+X-Gm-Message-State: AOJu0YzPwn9VquUP3jfsbxogR4JkxT7uexEbAQ5K7WUUxIrGlrvXlEw1
+	f0IHgw8PuxXAWIOhH19GNJh+xBqeHeOiFQl4eF0lT8Kv7rTGcVeeskB/
+X-Gm-Gg: AfdE7cnTOBixh1kgaHbueWMjYAmA037eVGcXnCWKlmlZH98cuhTbo6qlWn60t9MLDx3
+	fddz7uq4mpqzd00IfFLtA2Yppx5FQY0q7mmmbMmJvpTBH01yaCRsec/e7RLyyFQQUq8qi9xq2ct
+	9fr/GW8HWvzlhIHw4kMvko6cbK0S7Z7IW8wjWO+dMgqqcGgea1/YtVSG/Tn8tcSGxNFJ8Wenkw+
+	bRQtNnctXe/ByVw/FfArwMSd9Hg0I/fYueakxMokOkdSW/sz80SbKivP0hL8P9arGz2IpkLgP9X
+	War0wNHWShKU/cllUIlkouP5D/HYjF/srlb/ZsyXo0IqX4g53kAq/597PGhAwiZvFNsAndUTlEj
+	AbZMOODfkJIMP+0Ti4ktiIi2X8z5PrDb7pUaPvbgBpslO+ohFSms3bJRCY7tUgmFhRNNXj3ZyEr
+	ymmHCtQm3VWiDSGFUM2R9fQKTDOJeubDSiUgV+n+P5VM4E0qHQ6eHf0zhgrC3H9A==
+X-Received: by 2002:a05:6a21:1506:b0:3bf:6c08:fb95 with SMTP id adf61e73a8af0-3bfc532ebbemr1804293637.55.1782791009663;
+        Mon, 29 Jun 2026 20:43:29 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c9bbf95be56sm678099a12.16.2026.06.29.20.43.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Jun 2026 20:43:29 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <e5c7fcae-57aa-4461-987d-7f004d066873@roeck-us.net>
+Date: Mon, 29 Jun 2026 20:43:26 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: microchip.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB8278.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09812376-9f07-4079-f846-08ded6571d6e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2026 03:24:37.7114
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: m0306PTD9FDZDrSuklDO9axOYmHB1qnlb9Dis/Kt5fCF/wSv30o1IbGJvy0ZdNin8PqDWzaF0zvGNVMAGYI36MsNXTWi1TqMDCqW0a8nyxbAV2RMzxjWngJHKuJjgoq+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB8918
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/6] hwmon: (pmbus/max20830): add support for max20830c
+ and max20840c
+To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20260630-dev-max20830c-v1-0-a02786bde470@analog.com>
+ <20260630-dev-max20830c-v1-6-a02786bde470@analog.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260630-dev-max20830c-v1-6-a02786bde470@analog.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-SGkgU2VsdmFtYW5pLA0KDQpPbiAyNS8wNi8yNiA5OjAxIHBtLCBTZWx2YW1hbmkgUmFqYWdvcGFs
-IHdyb3RlOg0KPiBFWFRFUk5BTCBFTUFJTDogRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0
-YWNobWVudHMgdW5sZXNzIHlvdSBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUNCj4gDQo+IFBhcnRo
-aWJhbiwNCj4gDQo+IExldCBtZSBrbm93IGlmIHlvdSBwcmVmZXIgdXBkYXRpbmcgdGhlIHBhdGNo
-c2V0LiBJIGNlcnRhaW5seSBwcmVmZXIgYWRkaW5nIGEgTlVMTCBjaGVjaw0KPiBJbiBvYV90YzZf
-dXBkYXRlX3J4X3NrYiBmdW5jdGlvbi4NClNvcnJ5IGZvciB0aGUgZGVsYXllZCByZXNwb25zZS4g
-SSBzZWUgeW91IGFscmVhZHkgc2hhcmVkIHRoZSBwYXRjaGVzIGZvciANCnRoZSBmaXhlcy4gVG9k
-YXkgSSB3aWxsIHRlc3QgdGhlIGJlbG93IHBhdGNoIHNlcmllcyBhbmQgc2hhcmUgdGhlIA0KZmVl
-ZGJhY2sgQVNBUC4NCg0KaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9wcm9qZWN0L25ldGRl
-dmJwZi9wYXRjaC8yMDI2MDYyNi1maXgtcmFjZS1jb25kaXRpb24tYW5kLWNyYXNoLXYyLTEtYjZj
-NWMxMGU2MDRmQG9uc2VtaS5jb20vDQoNCkJlc3QgcmVnYXJkcywNClBhcnRoaWJhbiBWDQo+IA0K
-PiANCj4+DQo+PiBSb290IGNhdXNlIHNlZW1zIHRvIGJlIHNhbWUuIFdoZW4gb2FfdGM2X3VwZGF0
-ZV9yeF9za2IgZnVuY3Rpb24gaXMgY2FsbGVkLCB0YzYtDQo+Pj4gcnhfc2tiDQo+PiBzZWVtcyB0
-byBiZSBOVUxMLCB3aGljaCBtYXkgbWVhbiwgY29udHJvbGxlciBzZWVtcyB0byBiZSBub3QgZ2V0
-dGluZyBzdGFydA0KPj4NCj4+IEkgaGF2ZSBhIHRoZW9yeS4gTG9vayBhdCBsaW5lICM5MzMuIFdl
-IGhhdmUgdGhlIGZvbGxvd2luZyBjb21tZW50LiBJIGFtIHN1cmUgdGhpcyBjb3VsZA0KPj4gYmUg
-dHJ1ZQ0KPj4gZm9yIHRoZSBjYWxsIHRvIG9hX3RjNl9wcmNzX3J4X2ZyYW1lX2VuZCBhdCBsaW5l
-ICM5MjYgb3Igb2FfdGM2X3ByY3Nfb25nb2luZ19yeF9mcmFtZQ0KPj4gYXQgbGluZSAjOTUwLg0K
-Pj4gICAgICAgICAgICAgICAgIC8qIEFmdGVyIHJ4IGJ1ZmZlciBvdmVyZmxvdyBlcnJvciByZWNl
-aXZlZCwgdGhlcmUgbWlnaHQgYmUgYQ0KPj4gICAgICAgICAgICAgICAgICAgKiBwb3NzaWJpbGl0
-eSBvZiBnZXR0aW5nIGFuIGVuZCB2YWxpZCBvZiBhIHByZXZpb3VzbHkNCj4+ICAgICAgICAgICAg
-ICAgICAgICogaW5jb21wbGV0ZSByeCBmcmFtZSBhbG9uZyB3aXRoIHRoZSBuZXcgcnggZnJhbWUg
-c3RhcnQgdmFsaWQuDQo+PiAgICAgICAgICAgICAgICAgICAqLw0KPj4NCj4gDQoNCg==
+On 6/29/26 19:46, Alexis Czezar Torreno wrote:
+> Add support for MAX20830C and MAX20840 step-down DC-DC switching
+> regulator with PMBus interface. MAX20830C is a different packaging
+> for MAX20830, and MAX20840C supports 40A regulation compared to
+> MAX20830 that is only 30A.
+> 
+> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> ---
+>   Documentation/hwmon/max20830.rst | 27 +++++++++++++---
+>   drivers/hwmon/pmbus/max20830.c   | 68 ++++++++++++++++++++++++++++------------
+>   2 files changed, 70 insertions(+), 25 deletions(-)
+> 
+> diff --git a/Documentation/hwmon/max20830.rst b/Documentation/hwmon/max20830.rst
+> index 936e409dcc5c0898dde27d782308d4a7e1357e73..b850f3b6e40d1f1d0cec944be40af02265aced59 100644
+> --- a/Documentation/hwmon/max20830.rst
+> +++ b/Documentation/hwmon/max20830.rst
+> @@ -13,6 +13,22 @@ Supported chips:
+>   
+>       Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/max20830.pdf
+>   
+> +  * Analog Devices MAX20830C
+> +
+> +    Prefix: 'max20830c'
+> +
+> +    Addresses scanned: -
+> +
+> +    Datasheet:
+> +
+> +  * Analog Devices MAX20840C
+> +
+> +    Prefix: 'max20840c'
+> +
+> +    Addresses scanned: -
+> +
+> +    Datasheet:
+> +
+>   Author:
+>   
+>     - Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> @@ -21,12 +37,13 @@ Author:
+>   Description
+>   -----------
+>   
+> -This driver supports hardware monitoring for Analog Devices MAX20830
+> -Step-Down Switching Regulator with PMBus Interface.
+> +This driver supports hardware monitoring for Analog Devices MAX20830, MAX20830C
+> +and MAX20840C. These are Step-Down Switching Regulator with PMBus Interface.
+>   
+> -The MAX20830 is a 2.7V to 16V, 30A fully integrated step-down DC-DC switching
+> -regulator. Through the PMBus interface, the device can monitor input/output
+> -voltages, output current and temperature.
+> +MAX20830, and MAX20830C are 2.7V to 16V, 30A fully integrated step-down DC-DC
+> +switching regulators. MAX20840C is similar but can reach 40A. Through the PMBus
+> +interface, these devices can monitor input/output voltages, output current and
+> +temperature.
+>   
+>   The driver is a client driver to the core PMBus driver. Please see
+>   Documentation/hwmon/pmbus.rst for details on PMBus client drivers.
+> diff --git a/drivers/hwmon/pmbus/max20830.c b/drivers/hwmon/pmbus/max20830.c
+> index a3abd24437e8e7560264aad55fc4f456d30ae235..252c77beb243c5a2d90fcf96941605ff31439383 100644
+> --- a/drivers/hwmon/pmbus/max20830.c
+> +++ b/drivers/hwmon/pmbus/max20830.c
+> @@ -14,7 +14,30 @@
+>   #include <linux/string.h>
+>   #include "pmbus.h"
+>   
+> -#define MAX20830_IC_DEVICE_ID_LENGTH	9
+> +struct max20830_chip_info {
+> +	const char *id_str;
+> +	u8 id_length;
+> +};
+> +
+> +static const struct max20830_chip_info max20830_chip = {
+> +	/*
+> +	 * MAX20830 IC_DEVICE_ID has a byte length of 9 despite being an 8
+> +	 * character string, as it includes a null terminator. The other
+> +	 * devices do not include null.
+> +	 */
+> +	.id_str = "MAX20830\0",
+> +	.id_length = 9,
+> +};
+> +
+> +static const struct max20830_chip_info max20830c_chip = {
+> +	.id_str = "MAX20830C",
+> +	.id_length = 9,
+> +};
+> +
+> +static const struct max20830_chip_info max20840c_chip = {
+> +	.id_str = "MAX20840C",
+> +	.id_length = 9,
+> +};
+>   
+>   struct max20830_data {
+>   	struct pmbus_driver_info info;
+> @@ -60,11 +83,14 @@ static struct pmbus_driver_info max20830_info = {
+>   
+>   static int max20830_probe(struct i2c_client *client)
+>   {
+> +	const struct max20830_chip_info *chip;
+>   	u8 buf[I2C_SMBUS_BLOCK_MAX + 1] = {};
+>   	struct max20830_data *data;
+>   	struct gpio_desc *enable_gpio;
+>   	int ret;
+>   
+> +	chip = i2c_get_match_data(client);
+> +
+>   	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
+>   	if (!data)
+>   		return -ENOMEM;
+> @@ -90,16 +116,14 @@ static int max20830_probe(struct i2c_client *client)
+>   	 * which do not support SMBus block reads.
+>   	 */
+>   	if (i2c_check_functionality(client->adapter, I2C_FUNC_SMBUS_READ_BLOCK_DATA)) {
+> -		/* Reads 9 Data bytes from MAX20830 */
+>   		ret = i2c_smbus_read_block_data(client, PMBUS_IC_DEVICE_ID, buf);
+>   		if (ret < 0)
+>   			return dev_err_probe(&client->dev, ret,
+>   					     "Failed to read IC_DEVICE_ID\n");
+>   	} else {
+> -		/* Reads 1 length byte + 9 Data bytes from MAX20830 */
+> +		/* Reads 1 length byte + data bytes */
+>   		ret = i2c_smbus_read_i2c_block_data(client, PMBUS_IC_DEVICE_ID,
+> -						    MAX20830_IC_DEVICE_ID_LENGTH + 1,
+> -						    buf);
+> +						    chip->id_length + 1, buf);
+>   		if (ret < 0)
+>   			return dev_err_probe(&client->dev, ret,
+>   					     "Failed to read IC_DEVICE_ID\n");
+> @@ -108,36 +132,40 @@ static int max20830_probe(struct i2c_client *client)
+>   		 * match the format of i2c_smbus_read_block_data().
+>   		 * Also adjust return value to reflect length byte removal.
+>   		 */
+> -		memmove(buf, buf + 1, MAX20830_IC_DEVICE_ID_LENGTH);
+> +		memmove(buf, buf + 1, chip->id_length);
+>   		ret = ret - 1;
+>   	}
+>   
+> -	/*
+> -	 * MAX20830 IC_DEVICE_ID sends string data "MAX20830\0".
+> -	 * Return value should at least be 9 bytes of data.
+> -	 */
+> -	if (ret < MAX20830_IC_DEVICE_ID_LENGTH)
+> +	/* Verify we read the expected number of bytes */
+> +	if (ret < chip->id_length)
+>   		return dev_err_probe(&client->dev, -ENODEV,
+> -				     "IC_DEVICE_ID too short: expected at least 9 bytes, got %d\n",
+> -				     ret);
+> +				     "IC_DEVICE_ID too short: expected %d bytes, got %d\n",
+> +				     chip->id_length, ret);
+> +
+> +	/* Null-terminate the string */
+> +	buf[chip->id_length] = '\0';
+>   
+> -	/* 9 bytes of data, buf[0]-buf[7] = "MAX20830", buf[8] = '\0' */
+> -	buf[MAX20830_IC_DEVICE_ID_LENGTH - 1] = '\0';
+> -	if (strncmp(buf, "MAX20830", MAX20830_IC_DEVICE_ID_LENGTH - 1))
+> +	/* Verify the device ID matches what we expect */
+> +	if (strncmp(buf, chip->id_str, chip->id_length))
+>   		return dev_err_probe(&client->dev, -ENODEV,
+> -				     "Unsupported device: '%s'\n", buf);
+> +				     "Device mismatch: expected '%s', got '%s'\n",
+> +				     chip->id_str, buf);
+>   
+> -	return pmbus_do_probe(client, &max20830_info);
+> +	return pmbus_do_probe(client, &data->info);
+>   }
+>   
+>   static const struct i2c_device_id max20830_id[] = {
+> -	{"max20830"},
+> +	{ "max20830", (kernel_ulong_t)&max20830_chip },
+> +	{ "max20830c", (kernel_ulong_t)&max20830c_chip },
+> +	{ "max20840c", (kernel_ulong_t)&max20840c_chip },
+>   	{ }
+>   };
+>   MODULE_DEVICE_TABLE(i2c, max20830_id);
+>   
+>   static const struct of_device_id max20830_of_match[] = {
+> -	{ .compatible = "adi,max20830" },
+> +	{ .compatible = "adi,max20830", .data = &max20830_chip },
+> +	{ .compatible = "adi,max20830c", .data = &max20830c_chip },
+> +	{ .compatible = "adi,max20840c", .data = &max20840c_chip },
+
+"adi,max20830" is a fallback for the other two chips, but that
+is not how the code is implemented.
+
+Guenter
+
+>   	{ }
+>   };
+>   MODULE_DEVICE_TABLE(of, max20830_of_match);
+> 
+
