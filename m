@@ -1,101 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4EF3E5A14
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:04:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F4F3CF95E
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:06:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782810254; cv=none; b=dYWXnEjNDTsRJZDJAb0lSbZsBOciu2uRPOx51qns7fVEvKzXALLtaTwQrDYaWwSU0gvb6j75hB5L6ynj/Vpu7lq7f3pxLdDU7ZSh3ymH/bvAcG31z5QOu6k3bqNWYNJjYN+CiHJU+oRR0YQg3lkv4Cd6Iutt7w0KDfTeh6erImc=
+	t=1782810415; cv=none; b=ipaDXq0hcyd4MBh+sx9L8dAit3CiqjrIaKfrT6vzR83gVg4Zog08L7kNAAFuppX2tvBey7Vic1Ka4xkbY7FtxowU+QpNpXvnPDP/ObaavQU5wQY7Bw1B1Z57uXFN8C5+1eXhMhoKvBpF5cVfvre00ZQ2MOwwyRGyOGFwYlZeCIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782810254; c=relaxed/simple;
-	bh=ishNFSa2/fAzAehpD+s3tFppiuJZ4jjTpVbnkdEwkKc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=c07g20PzkUmxUYCU0Q1IV6HPTMRLGQgFOCzTEJy+plzfQJr3RfYIM/udyBFa7SFeztcgWrkl87cgvr2UP5rgWx8T0SvOt+Y5E17tcjhJFG3Tv6BtpA2fNqJ+AuqoFD9i2QPnliotXAnetjpbqfG00SfbmlTANmF23p+P8/YBTl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=atqXPlaB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782810415; c=relaxed/simple;
+	bh=sfshIF0RhF/xtW9nVefxWAOalPUL9Z+YWrGdIhMX47k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jV1vEx9diT2+c1LrBwYY1gncWyfvHLfPskwj/Sv75Y64oGD7LvtqjGr/Ql+rUvb0agW7gETTZun7AIWZMTqiPkD0dt80g0wrBkT7dtOZfM3xh6VUw9Ikhr4I2EQdd+7ubRPqeLjhv07gMxV3dCk/38GGvv3sRX22Ye2rqKyJhuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hlf84YcY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TjodovCt; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="atqXPlaB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4051F000E9;
-	Tue, 30 Jun 2026 09:04:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782810252;
-	bh=xK19dFfrbuDDxAMpI6dgOiL3JqfUCBrZGIpbXLstX9M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=atqXPlaByfzt83jxs1Pz1znD89eVPJaE/Fs4BjOHnaa0NvIzfV4alUR8IKK5wa5i1
-	 pI7m4dzEvILfSwcZbtCEiuG8hMmhlATOMbjVHLtYxM0Odk1gJS3vprbSjxIoxCl3Si
-	 LGRd6Wp7TEdb9D/iQXr522N0ZBb7ogFfwCt3Yeqkv8d8spzABMTh6fq/EC0pyQGFzK
-	 E9kloIg5bYTj0PjB+wUBqx/kNs7DzS1HEl25xDIgSX3gMtbRbyQC1PN/6DX5EzPl92
-	 HX3jUxSdutU3OmjORj+/3UyxemYptSHCXhtXsSbp1YlE7X1dMUZIOKoo8SuCc8FZQQ
-	 PmNxWdMqhhTWQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 08/10] arm64: kdump: exclude non-dumpable reserved
- memory regions from vmcore
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260630074715.4126796-9-chenwandun1@gmail.com>
-References: <20260630074715.4126796-1-chenwandun1@gmail.com>
- <20260630074715.4126796-9-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 09:04:12 +0000
-Message-Id: <20260630090412.6A4051F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hlf84YcY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TjodovCt"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U6CKYr999637
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:06:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ngPOQwjwk5Db6ClM0CyokY5GomZFoDsLXDPpDvOhZEI=; b=hlf84YcYkWaYWPot
+	W28s5AjP/9pYWQ03Susl9ECzqPRyWDSPCRq2r5Bnyp3gOMLMRUa/CyoFL7tp6lHO
+	YdNXuNXfIPn7EBJOkUvdoY+3zhpmtZF0T7LG2jhic6IyMulwJHEnoucZQ3/RpTpy
+	3N51YYHPlLqkfQpLyFejn40i0QS1Zur7WfilZKKtg7BD+5KYxjx9obEymXNnKKiu
+	JJ89Pc/4KSlfd67r4NnTODf1iIoCIf8KVh9FbtaKy1CwWKn7Gaw7T1UbDymYhEw8
+	6BfyN0pBnsDqAa2pKeRNwWmGn4hx8LFnNW01tSxOzw1g6PJYJuULOhu86O0/Y6vd
+	ntT7AA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3y9j2kjq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:06:53 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92b79cc1f21so110663385a.1
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 02:06:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782810412; x=1783415212; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ngPOQwjwk5Db6ClM0CyokY5GomZFoDsLXDPpDvOhZEI=;
+        b=TjodovCt40OfuyckoZzNNktsjQlJO62VOqU/zaEOmnW3UceDkNlfvUcR5murMNzJze
+         fjFOqpG75hkRAqYmZ2g3PelzNfcs0O2XK4wzEdI2V0jIr1lxtWQBncjByP7NiGDY7xx1
+         gB8NRtL78AjKVRKk8rfeYzn+j9HYFRlGKJkZKpbDVh93S/zFN5Las/S5Q5BZ9lIw4z44
+         vgyJtpQ/MAk/B8o1oGVHBXARhDITBRsjCj7L/1q65eKJLd6J8HpwaBOgZBBJsMJEnxyX
+         MwGnjK6DXgVNh21nYYECNMsg3hTe8o6hppLnMWM+FvnJcp6/DzkVSqLCtndUWESWhg8K
+         WuDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782810412; x=1783415212;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ngPOQwjwk5Db6ClM0CyokY5GomZFoDsLXDPpDvOhZEI=;
+        b=hI6zt0u6UwI13bbEmOeSagTNOfyUZbSolJAUIgZNxl3tOOkCrJ1NOopI6oWvoiTxuR
+         fSJ3YsW4yi7tr6mQyD1F5A0yDqVCxKaRV1qtzUd/tc++vqGIvcMNxi7DrZ0uaYKgIpJ2
+         tv8C4CWR42NRd49OPLD6Mdm5IfyMVG3YY4MXiGajxDvJV3bZxOMrbVCYRYnuKw6i0m2u
+         0+14u5QKfr5YcqfMOs14sKN68I+La7JqPURvLAaidzL363V4Q+uw5IwTsg/cCFWuEyE7
+         2nDYkpe+8ySYL1nKr1W7h/U8BUKqB0dYI5RnCwHHecmo5M7VuFKXdU0wEXcKqGKjX7FC
+         ZFSw==
+X-Forwarded-Encrypted: i=1; AFNElJ9H/49m/U98F43zfTv1Mjax2pFjMTAvC/RUalBFu1Tjn3uZbYcv3NMU+/25/M9MrGsnlZWFvYS1hiOa@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFFKNDVnm8Leesw3C9krM+NtA226ma4W37xriFz50Laeo1GFTZ
+	Ai4OW/mJyN6HOCVlXI+K+C3+4QzuMuJTsphgu1ZGvA62jUuClCsZVCa9uijsCRauFcddiqFT71k
+	byvFt4T/aYf2gLHpYzpBPvT2nNlx8qGmS8fVPiqY7nQz97B2b0KVRExjFxQHenY0N
+X-Gm-Gg: AfdE7cka6+R2aVZ+neq2lZ6So3aZ5JEHyC9mz42GlDaHqTAvF1x1FeBVmsJfvcG77c8
+	eDxB/UlxqPaGWhtYrxfI8TeyUYlu1FY1x+ATi2jD3CzckTqwlwKYKz+gfdBQBARkL7NXiGRKPyH
+	gcyL+3w+ORaZAqPNQfQp64e489cjOLfdNl96SvLvYBBa1qa18YxXXbF+6TiCWYC/M5wzTHGf04I
+	e8cg0zudLYc4GeBCXgPd+zAH72aVtQVJ7K+h8KFMbxt1rcCisl24un7cNeVnJolnAC6W3YI2QkX
+	a5jy8Z5fIWETN+iadxWuQanw47e4ubfWOo1ulQ5Wh9RvJXvsvz3amk0D1ywKHDtx5K4uYpRkyHi
+	yp3x3Ghnll+Xxd57pqPo25tsEv57tM6gECQU=
+X-Received: by 2002:ac8:5909:0:b0:517:5e32:f3ac with SMTP id d75a77b69052e-51c104ee712mr23691161cf.0.1782810411937;
+        Tue, 30 Jun 2026 02:06:51 -0700 (PDT)
+X-Received: by 2002:ac8:5909:0:b0:517:5e32:f3ac with SMTP id d75a77b69052e-51c104ee712mr23690931cf.0.1782810411352;
+        Tue, 30 Jun 2026 02:06:51 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1289176ee2sm88818066b.58.2026.06.30.02.06.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jun 2026 02:06:50 -0700 (PDT)
+Message-ID: <7348d7e6-18b3-4064-9fb2-932cce76816e@oss.qualcomm.com>
+Date: Tue, 30 Jun 2026 11:06:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] dt-bindings: net: bluetooth: Document Qualcomm
+ IPQ5018 Bluetooth controller
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        George Moussalem <george.moussalem@outlook.com>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Ulf Hansson <ulfh@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Johannes Berg
+ <johannes@sipsolutions.net>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann
+ <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        Saravana Kannan
+ <saravanak@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+        Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King
+ <linux@armlinux.org.uk>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>, linux-block@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath10k@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org
+References: <20260629-ipq5018-bluetooth-v2-0-02770f03b6bb@outlook.com>
+ <20260629-ipq5018-bluetooth-v2-1-02770f03b6bb@outlook.com>
+ <20260630-wondrous-lean-stoat-be0b9a@quoll>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260630-wondrous-lean-stoat-be0b9a@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: H135m4h0tMzUSndxEi_5AjktPtIGO6JK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA4MCBTYWx0ZWRfXz7/jnXGlzvxR
+ V1laTHl2nLu+9YN71BO6ozDZ97guXzBWgl7BWkjqQ+uJnWFIXd9tHpSe4qKYD5nCEid5e/F9X7n
+ mJtmlj5U71cH+NxM2MUjwN2xvHjYFG9tkhUMMNx1U0x55Lw71/OhA4eqmYAFojCUgNjLXWDDdpY
+ +eKLJDrQLakmInAoXOhsfUa/Q+q98oBJPd6qI8Zl5+QRV+uqgSliQR4bLNSy1UA7Y2Ae44D+VMy
+ 1gfnYh4fHI//NfVQflh7yWocO0iRPT0522Ljne6HngNo24kQHfeXU07fSUUQokT6EB6aqR4P2Qu
+ OHRhUPW7uZuPHH6TSTJkwvqwUPaDaWK92/+S4UXI3NmD++lT89QvzaZzLdGulkRtrgUFs+2iceY
+ tbMYFTcD0FNy6VXkUlY/muAC63H2b8yuDgJ5YADSE/Ell2G1HKnkkvy8nMlaM4F9yoVHRRtObtQ
+ mdnSxgLXswAwX1B6uqg==
+X-Proofpoint-GUID: H135m4h0tMzUSndxEi_5AjktPtIGO6JK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA4MCBTYWx0ZWRfX0MxXQrh/JXqh
+ 7OL4Y8jEpjC09gBMV97SZeOzx6Fp2cmRH6yD20h3xNKHlCifatcrUxUXI8/lCb4DNqD5rGmko1x
+ Vfh0f7sYJ3w2mJoaeZAJV6CLZhTG8Sg=
+X-Authority-Analysis: v=2.4 cv=SINykuvH c=1 sm=1 tr=0 ts=6a43872d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=oV5YwiDV2Nt2AUhp6S0A:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-30_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 priorityscore=1501 spamscore=0 phishscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300080
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 6/30/26 9:15 AM, Krzysztof Kozlowski wrote:
+> On Mon, Jun 29, 2026 at 05:01:44PM +0400, George Moussalem wrote:
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/clock/qcom,gcc-ipq5018.h>
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/reset/qcom,gcc-ipq5018.h>
+>> +
+>> +    bluetooth {
+> 
+> Don't send new versions while discussion is still going. I need to
+> repeat my question - what bus does that sit on?
+> 
+> Device nodes represent real devices. Real devices sit on a bus, usually.
+> Do you have here a bus?
 
-Pre-existing issues:
-- [High] Preexisting TOCTOU race in prepare_elf_headers() during memblock i=
-teration can cause an out-of-bounds array write due to concurrent memory ho=
-tplug.
---
++Kathiravan would you know what the remoteproc-driven bluetooth is
+connected over on IPQ5018?
 
-commit 66936af0a692eab34029fe4f8b5ede43875e861f
-Author: Wandun Chen <chenwandun@lixiang.com>
-Date:   Tue Jun 30 07:47:12 2026 +0000
-
-arm64: kdump: exclude non-dumpable reserved memory regions from vmcore
-   =20
-This commit excludes reserved memory regions from the vmcore unless they are
-explicitly marked as dumpable. It uses device tree reservations to filter
-out device firmware regions, reducing the size of the vmcore. The array
-size is adjusted to accommodate these exclusions.
-
-> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/m=
-achine_kexec_file.c
-> index e31fabed378a5..1d65320c6ba48 100644
-> --- a/arch/arm64/kernel/machine_kexec_file.c
-> +++ b/arch/arm64/kernel/machine_kexec_file.c
-[ ... ]
-> @@ -51,6 +52,7 @@ static int prepare_elf_headers(void **addr, unsigned lo=
-ng *sz)
->  	nr_ranges =3D 2; /* for exclusion of crashkernel region */
->  	for_each_mem_range(i, &start, &end)
->  		nr_ranges++;
-> +	nr_ranges +=3D of_reserved_mem_kdump_nr_ranges();
-> =20
->  	cmem =3D kmalloc_flex(*cmem, ranges, nr_ranges);
->  	if (!cmem)
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could this allocation lead to
-an out-of-bounds write due to a time-of-check to time-of-use race?
-
-In prepare_elf_headers(), the code counts the memory ranges with a first
-for_each_mem_range() loop, allocates cmem based on that count, and then
-populates cmem->ranges in a second for_each_mem_range() loop further down.
-
-Because sys_kexec_file_load() does not hold the memory hotplug lock, a
-concurrent memory hotplug operation could increase the number of ranges
-between the two loops.
-
-Since the second loop does not verify if cmem->nr_ranges exceeds
-cmem->max_nr_ranges, could it write past the allocated array bounds?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630074715.4126=
-796-1-chenwandun1@gmail.com?part=3D8
+Konrad
