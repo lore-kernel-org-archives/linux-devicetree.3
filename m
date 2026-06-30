@@ -1,187 +1,278 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011067.outbound.protection.outlook.com [52.101.70.67])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B2A36F8E4;
-	Tue, 30 Jun 2026 02:29:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782786597; cv=fail; b=EAMJWmSxNXaN/3W7Iq9EOe0JHIwkr9Ag4xtGI6ppMp+lMj6xyU7df4JLwzEB/IhpiA2wkQ9ocU2ItfpUqDReewAC//MDk1dUveDT5VYTkUy5FSamvbbg8l3FkapN/f4IR0ugZMkm50FXyudDowd9RjWwvvycUjMvDcNJTQUjxh8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782786597; c=relaxed/simple;
-	bh=bB6pLQ5DbFQvOXZUMIqASALiv8o/N8wtPRAxQUvijoY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Qz0ldSWq2vw0NwxPFS2pBmruCOWmA7JxyGHegrqre1uAcUZRZFBoiqht3M1la3Fx0Tql60ne9Glu0H9hdXJcJejqXwpqwoF0eM9imQmqkR9jMix5C3x9xu9qIdFasD85cw0I2FJWe1u3M+OF56UWxs57+hoPKwMyo30Tt4wOi9I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ZTUdHisH; arc=fail smtp.client-ip=52.101.70.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BED21E5B88
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 02:35:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782786956; cv=none; b=jO91ANINkS1b9yRwtabxgwyWEaCOG+GMPTJio2Z/yfh/wdCYJHmHmRiEotXBEC/iDbQ8KJqUBwJ9CMvBzJw/DpGHgpdx67yNERqmfBZhQC6yYJb0axSgRaUuE5KANXNsHXpkU4hJrpTT3z24uG1RZw/7Z2hv9gXvUfLNOdPsbD8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782786956; c=relaxed/simple;
+	bh=JDm80PARaz8qhdcMsEM8DQ6kPwWmZTJalHdXNJIbWok=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FO+O8tiNHZPb7z7r9WepTxdwVE4wYQyKYT07lsPBFOzd9DlE1dgXa6ECyj163y0rpM1OXKuvnM3z//mv4vbrhZQMXrX21I+7jd9TS4Ra0LUcHSgkwZxexpfr52ItbY8HRZ/bOYAriqlXSYyhof9sMou/Vag48ZmPvjFHnK3FGZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=big3inVH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ZTUdHisH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eDEj21zvHWPLb+BS5CFplc4gOU+UoHJ/nuZh5DSWA9yGrg0vxytRs02olT8NPFSXDOQiP1FNF1701VaXeGJul3ppvlVvqPxDDifpE0i1S54xAhO2hhEmVFrzbzpZRNjbdMYNRC4JZSp0ZKVwipJrMWFLlWcXOvq8ZUjE1ydECzfuidxKK2ZWndPJNlwjtIyfl6mr5JhZy34xSWhP3R/S13IwwuiahEHwhKFRrqX/wpAn7C2DpM3lfmtFo8KFaG9QrpoWf6T93izxI91v+q51noFhzc5ihbBMCpe3gAmG0sESo8go/i4Sa5t2tHnUu6RC6l3Cff7Kg6Aw6sMoqw2/Cw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rLhjcB2WqeT5iJksRei1J1Ctm6hA3No6Kvf5FjGA7B8=;
- b=Nd7UNDvKuxEa2du5x/h2JKpaa9pyXcwf9N5PkygkhuoVP/Wu8HIUTf64y/1oXK/g06TRyDNXZx4z8QJpGfMsB8DWcrz41sEb+d3mywhZQ+B/gqR2MIOS3XlADWrTYPz8H/vyMEKCq9Whn0RzTNMcxjDuIIDcMJGDgKWYeGQcdexwoQT3bOCJUgFjCNeBE+PJyY3h7paFDCPXMagT/KxnmtODjUPNJzlyJbsCthw5/M+kHsOHa3uTYFLMZuhTas2+JYKJRKSbo2XvCgqH9WCI86ud6FIWFgdfXlbNNlSwIHz7ETVfqt/Lr3Z8TEgdukxwIOcr69ylkS0Pg+QFUBOBYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rLhjcB2WqeT5iJksRei1J1Ctm6hA3No6Kvf5FjGA7B8=;
- b=ZTUdHisHmQWFMexIg6fWipT72q9YcgGSN7xj8JtBEwKVAiiNO9GTHWmIxC9E1iVeDWT1BeDty7EUtnCB6Iu6kY5syOYz0oIHibx1oV2x389rlBNHMJsxPMUOCIfqbAhprvvKIMa/bJFMu46KwSnYsGxWICI2zPs+rlXMBfOUmfathLhI7llIyYbKmTrDh1nA2NPqzWapWD1a0ToFeEFWsAN4ljmJzo1u/N/45/VLZqYPyHi1LhvxlHDwArgvsV9MnDCM5JSjApnglTqvGKy/na0oRpq1XzeZ8Y/RXfcAIylFIX4lkOGrWmmQwc7IlPs5QkCc/2EOEUe45LKNQWWXwg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB8096.eurprd04.prod.outlook.com (2603:10a6:102:1c7::19)
- by DB9PR04MB11661.eurprd04.prod.outlook.com (2603:10a6:10:60f::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 30 Jun
- 2026 02:29:52 +0000
-Received: from PAXPR04MB8096.eurprd04.prod.outlook.com
- ([fe80::68be:f721:5000:3f2d]) by PAXPR04MB8096.eurprd04.prod.outlook.com
- ([fe80::68be:f721:5000:3f2d%5]) with mapi id 15.21.0159.018; Tue, 30 Jun 2026
- 02:29:52 +0000
-From: hongxing.zhu@oss.nxp.com
-To: sherry.sun@nxp.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	frank.li@nxp.com,
-	s.hauer@pengutronix.de,
-	festevam@gmail.com
-Cc: kernel@pengutronix.de,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Richard Zhu <hongxing.zhu@nxp.com>
-Subject: [PATCH v5 2/2] arm64: dts: imx943-evk: Add Root Port node and according properties
-Date: Tue, 30 Jun 2026 10:30:06 +0800
-Message-Id: <20260630023006.3247578-2-hongxing.zhu@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260630023006.3247578-1-hongxing.zhu@oss.nxp.com>
-References: <20260630023006.3247578-1-hongxing.zhu@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2P153CA0023.APCP153.PROD.OUTLOOK.COM (2603:1096:4:190::6)
- To PAXPR04MB8096.eurprd04.prod.outlook.com (2603:10a6:102:1c7::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="big3inVH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82CB91F000E9;
+	Tue, 30 Jun 2026 02:35:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782786954;
+	bh=DN51B/0E7mV8Fc4Y4R2TuXGaqK4Y7q8R6WUEeKr+3h4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=big3inVHqqvpDToRUwpIDlGEYkQG6HUHDbcVsfQ/r8WAD/nYucqotnLy7pnyriKWZ
+	 1LAHIGiTVCbPwCi6mw4grifKvC0biuPvY2SAlJQv7hNU8d9XIRwrZRrXAa4b/rj7MQ
+	 YNXAcdqZNmyDQYoJwbHTjOMQheacO6Vu726uyIuwbLv2Kf61lo9l1uMnYZluOtPgv7
+	 ltv/4XXJOk+Trm7zbX7+N4LtlpDD7/znj3F47D8lmZdN4eQk6/705bW0Jr8iVhxs4l
+	 KX7AJnOcwv4zyy1wYMaIySCwQRgatSPA8iDYEbTTezmKHP7HJetRdh79/WWh0sc28E
+	 zPGeHubZINixQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
+ amplifier
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neo Chang" <YLCHANG2@nuvoton.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260630021510.821919-3-YLCHANG2@nuvoton.com>
+References: <20260630021510.821919-1-YLCHANG2@nuvoton.com>
+ <20260630021510.821919-3-YLCHANG2@nuvoton.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 02:35:54 +0000
+Message-Id: <20260630023554.82CB91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB8096:EE_|DB9PR04MB11661:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5cc84f7-31b0-46cb-682b-08ded64f7746
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|19092799006|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	G0tvfrp88R4pwNLCwcn2S8qwBaK1vLRbdtdsOe2dPO72IxaKfC4i2588sFcvLqLbtRsTzs80chBMXK1fD0aWrKZlWZ6HIr56rYDJqohnZ3jk40GGvkUsmxPzbfzGj9CvwG/a3EXp6Cos9aN9gLjk0udh5HQUQzpuJ3qiIq+Yk/SQ1UwrI8AhNLFsnjyEqSAxIvlh2alEbZIlt5+hxMsjSax/0PpPV5cwAAlf1rPByRUu/kPtH+lXh9M+0dOItke/bMoEu7uAQgf28mNFV48YmhzqWz8JEAl8Jp5uzxnTnSpc5lBe3BKRabUbeVLwUA/yJkaDAVjEAWD70KD+HpTHY6g03u45v+nznvRbVJcLPtIjU2aMJn/+3JI+eExgDqYk5fEovPHlBPE6Awm7jd9iW3DJoyLz109ZxhVlz0wC+f7X3jQdhW/k9ds23y2/V3Vp1QVTPcB7objsijtnElczxvu0GM3evfIgoMgttuBmXIZZ1+kR/SQAwdNfHmMHqk/Wnrxg0toNvsVd555KCL0AL0Mw3pbSdo82N8MOd7IUsQQtsl/vECbOUxPShu2aXwjpzwuwcScZa0vhFaJs9RsfzL66KaOlBr6dF1z4ut6S6A6BkRN4BWhzWvYqqDpOUoRTSuMO5QLVMmFp8vOQFxydoQ8x+l1SlV+Bh614YBTa3eU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB8096.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(19092799006)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fjEs8Lk4HsMrXvRdt4BP5SU5xPKz6x5DodGsan9VPIlrPAuQoOamfTsEhjF7?=
- =?us-ascii?Q?MK3uOand8KGkW4r663W0AepIiewD2Zz3+KjFK7zLA0fMAe5w4b1LqQU6UZzH?=
- =?us-ascii?Q?ZZIm5jApDD15WdxH9wJmt6xQkrv9MWbrTDslqlRqWSQMZHvH2rtnCTMqmsJf?=
- =?us-ascii?Q?ejOIezU3hx5PNROBiFO/jOTLEUlL5oPJvQgOeB84j9EcQV5i6ATGLYjAd6V4?=
- =?us-ascii?Q?rwmLb5QsPb7pxM0Ge4tpKEoNuNO/gmmx5iTBpFiSBSigzCpzhXpYYQ6uYLey?=
- =?us-ascii?Q?2da2odEthOyl+LLOBPe/9IRCvTZmDe23JHp4H6s5E+PxAfML41P3GQDWsXa7?=
- =?us-ascii?Q?AIa4hT9ZBKqzvAJs5wLrMtXpd0UMVc8Ht8gc6LiYgt1OAJIhuJ2bu1MjAKBb?=
- =?us-ascii?Q?STw2egiDHjn3zujHu09/Kz9KEHeuT922DHu6Z6JlT1fKxOD7OYWdn+kSRj60?=
- =?us-ascii?Q?riti2k9hlsPlw7KgAmadISjyoUznCdDVLyQfaplqQQUgPBSY7Oe9AjK/Xht4?=
- =?us-ascii?Q?j7Cr9PjR+wVHssXlWDCy1wQb2IJs9QsTG0d/QaCgcCcBQN0vMNybnLV7/zOg?=
- =?us-ascii?Q?MnXe1SNNSOfVQCDEsISLJHMUGDXG08jUTPN+Aq4vUv4xEBGzHCYFIBE2Oqw7?=
- =?us-ascii?Q?sTuqHptWkXde3AvxDaJN0Q6TrnCu6xnmkaWCkeH9/u3JzntmWzvD5HbHZTjU?=
- =?us-ascii?Q?Q9mMDjeqzgoNfGtEw90gTyzuDlHtCqymCOcqLRRDIK32Lbk/Ro3QkgVfajl1?=
- =?us-ascii?Q?C401WbZmT42PuziBAosrjByuAOzDAuhsxY5ArLLysUne3i2yHoEy/5nJi5wf?=
- =?us-ascii?Q?m+UUJ17XLgbfRQWAtJLE8FdiIdt+qv+oQACT3tY0wpB11/VKl3JRncFsBQmO?=
- =?us-ascii?Q?+x2BWCxLYI90mbJssLgOy50AJaT4VPhgcnPSm3R4lT889eyDygLf+Q3Ep6IK?=
- =?us-ascii?Q?2bo8WQhPHKREuXV4biDSjsTmLD5hUZUaz1QPvvkUFTMu+xWM8Y4adxmNj3T8?=
- =?us-ascii?Q?yQfWxAGvID/abKa3SoLXbbFNOQqLOxB+Eb81SnHqb/GNj35jv0YCs6zAC5Mh?=
- =?us-ascii?Q?yxJ8wjAvxdCX7j8UGDjH97a84Q37xM2y9l2TnRMtDbf25CpAN2i8fMOzOEEG?=
- =?us-ascii?Q?fYgSHcC1LiQOP2dLqT+O9t37zawJ2KTG/JvSRORX3p4XZYZ0QoHnXjfR+jXP?=
- =?us-ascii?Q?yNEGB3U1QB5Dc2GrQSGNp+8VPKjliEY+FMxGRlHV72EGpXs297zDyGPNI9jC?=
- =?us-ascii?Q?kyg4vgF1H/byBYRyzfhRFmW+HF/dvco55KWkkcBN/EP/Gqx3JveU1CYkuLPZ?=
- =?us-ascii?Q?vYV++3XZchyiLHuaIlea9Nv7t+h5VWJG9Ugpl4JHwGsbqLuwOmjCwthLeX2m?=
- =?us-ascii?Q?7IWvMOscRbEi3fCM+yNVjmo7yFPw0unGohszg/7CZBHjzQJUOh69pEwxGVsT?=
- =?us-ascii?Q?3m6xjBVxK7QhGbBKHef3ymv0QRBmicsSCM8R1vYJ5IVFPxNKthfp3Yo4i3yT?=
- =?us-ascii?Q?/xXaqzVZrPWGmNfCdO2EmYR8QTodQU2fd2Dtyo1byAbrNARuUA9Yv5trojnx?=
- =?us-ascii?Q?Ffa3Zy7rw3KaZ7ivkwY82I5MYBII2V4Hw6UpHl5flW9qejqIPS+5pSdYWvSL?=
- =?us-ascii?Q?8ThhsPzlXPznLlpTwGu47XK4msoGJ4tQrYAddEwKw4ay7dSaRFUDTOzWrXUm?=
- =?us-ascii?Q?9zxRJgXjzQiQ5DubNji5BjoclXZwL97DN5f+K/vCTuZHvMrjkpwqxDwGgMAv?=
- =?us-ascii?Q?VJh/+NtJnZHLmSomjdIA3T235zhWm/Osi4WX4O6rvvmcSOFwtvNN?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5cc84f7-31b0-46cb-682b-08ded64f7746
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8096.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 02:29:52.6647
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eXeHUtEq1EeYszz5KAFwYdG7dTrpwW3bae0ZMBez0KcAznnCnEEmTdGz5QE+Qz5qdAqE76YJO/5BbC+TFpcm3PXMRTdztlcV8NOKP1E+XuDoAKc46LxLxZSdeDPxovEi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB11661
 
-From: Richard Zhu <hongxing.zhu@nxp.com>
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] Asynchronous firmware loading via request_firmware_nowait() causes=
+ a Use-After-Free when the device is unbound.
+- [High] Missing NULL check on strstr() result causes a kernel panic if the=
+ ALSA control name is truncated by an ASoC prefix.
+- [Medium] device_property_read_string() always returns the first array ele=
+ment, causing all DSP cores to use identical firmware.
+- [Medium] Mathematical invalidity of TDM TX byte offsets for PDM Loopback =
+when changing channel length.
+- [Medium] Concurrent hardware state corruption due to missing locking arou=
+nd DSP protocol communication during system resume.
+- [Medium] Race condition between nau8360_anc_put() and nau8360_dac_mux_put=
+_enum() leads to inconsistent PEQ band configuration.
+- [Low] The DSP KCS setup result is retrieved from hardware but its value i=
+s completely ignored, masking configuration failures.
+--
 
-Since describing the PCIe PERST# property under Host Bridge node is now
-deprecated, it is recommended to add it to the Root Port node, so
-creating the Root Port node and add the reset-gpios property in Root
-Port.
-Move the regulator to Root Port nodes as well, because that the PCI
-pwrctrl framework had been integrated into pci-imx6 driver.
+commit 90fa475e6f47a06dabf426d4caf28ef96fe5ed05
+Author: Neo Chang <YLCHANG2@nuvoton.com>
 
-Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
-Reviewed-by: Sherry Sun <sherry.sun@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx943-evk.dts | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ASoC: codecs: nau8360: Add support for NAU83G60 amplifier
 
-diff --git a/arch/arm64/boot/dts/freescale/imx943-evk.dts b/arch/arm64/boot/dts/freescale/imx943-evk.dts
-index 7cfd424689507..674410e541cba 100644
---- a/arch/arm64/boot/dts/freescale/imx943-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx943-evk.dts
-@@ -1034,12 +1034,15 @@ &pcie0 {
- 		 <&pcie_ref_clk>;
- 	clock-names = "pcie", "pcie_bus", "pcie_phy", "pcie_aux",
- 		      "ref", "extref";
--	reset-gpio = <&pcal6416_i2c3_u46 3 GPIO_ACTIVE_LOW>;
--	vpcie3v3aux-supply = <&reg_m2_wlan>;
- 	supports-clkreq;
- 	status = "okay";
- };
- 
-+&pcie0_port0 {
-+	reset-gpios = <&pcal6416_i2c3_u46 3 GPIO_ACTIVE_LOW>;
-+	vpcie3v3aux-supply = <&reg_m2_wlan>;
-+};
-+
- &pcie0_ep {
- 	pinctrl-0 = <&pinctrl_pcie0>;
- 	pinctrl-names = "default";
-@@ -1058,12 +1061,15 @@ &pcie1 {
- 		 <&pcie_ref_clk>;
- 	clock-names = "pcie", "pcie_bus", "pcie_phy", "pcie_aux",
- 		      "ref", "extref";
--	reset-gpio = <&pcal6416_i2c3_u46 1 GPIO_ACTIVE_LOW>;
--	vpcie3v3aux-supply = <&reg_slot_pwr>;
- 	supports-clkreq;
- 	status = "okay";
- };
- 
-+&pcie1_port0 {
-+	reset-gpios = <&pcal6416_i2c3_u46 1 GPIO_ACTIVE_LOW>;
-+	vpcie3v3aux-supply = <&reg_slot_pwr>;
-+};
-+
- &pcie1_ep {
- 	pinctrl-0 = <&pinctrl_pcie1>;
- 	pinctrl-names = "default";
--- 
-2.34.1
+Add support for the Nuvoton NAU83G60 audio codec. The NAU83G60 is a
+stereo 30W+30W smart amplifier with an integrated low-latency
+Advanced Audio DSP.
 
+> diff --git a/sound/soc/codecs/nau8360-dsp.c b/sound/soc/codecs/nau8360-ds=
+p.c
+> index 0000000000000..d0483805607d4 100644
+> --- /dev/null
+> +++ b/sound/soc/codecs/nau8360-dsp.c
+[ ... ]
+> @@ -310,6 +310,23 @@ static void nau8360_dsp_fw_cb(const struct firmware =
+*fw, void *context)
+>  {
+>  	struct nau8360_dsp_ctx *dsp_ctx =3D context;
+>  	struct snd_soc_component *cp =3D dsp_ctx->cp;
+>  	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(cp);
+
+[Severity: High]
+Can this sequence allow a use-after-free if the device is unbound?
+
+If a user unbinds the I2C device (e.g., via sysfs) while the background
+firmware worker is still pending, the nau8360 struct and the component are
+freed via devres. When the firmware callback eventually runs, it attempts to
+dereference the freed cp pointer and acquires a lock in the freed nau8360
+struct.
+
+It looks like the I2C driver lacks a .remove callback, meaning there is no
+synchronization point to wait for or cancel the asynchronous firmware worker
+before device resources are reclaimed.
+
+[ ... ]
+> @@ -341,6 +358,10 @@ static int nau8360_dsp_chan_kcs_setup(struct snd_soc=
+_component *cp,
+>  	struct device *dev =3D cp->dev;
+>  	int ret, status =3D 0;
+> =20
+>  	ret =3D nau8360_dsp_get_cmd_put(cp, dsp_addr,
+>  			NAU8360_DSP_CMD_GET_FRAME_STATUS, &status);
+
+[Severity: Medium]
+Could this unlocked I2C command to the DSP cause hardware state corruption
+during system resume?
+
+During system resume, the PM thread resets the DSP and calls
+nau8360_dsp_chan_kcs_setup(), which interacts with the DSP via
+nau8360_dsp_get_cmd_put(). The PM thread executes these commands without
+holding nau8360->lock.
+
+If a background firmware loading worker from a previous request was
+suspended and resumes simultaneously (or is running on another CPU), its
+locked DSP communications will interleave with the unlocked ones from the
+PM thread, destroying the expected DSP I2C fragment protocol.
+
+[ ... ]
+> @@ -481,6 +502,10 @@ static int nau8360_dsp_kcs_setup(struct snd_soc_comp=
+onent *cp, int offset, int s
+>  		addr_offset +=3D data_len;
+>  		data_rem -=3D data_len;
+> =20
+>  		/* checking KCS result */
+>  		ret =3D nau8360_dsp_exec_command(cp, NAU8360_DSP_CMD_GET_KCS_RSLTS,
+>  			0, NAU8360_DSP_DATA_BYTE, NULL,
+>  			NAU8360_DSP_DATA_BYTE, &kcs_rst, dsp_addr);
+>  		if (ret)
+>  			return ret;
+
+[Severity: Low]
+Is the DSP KCS setup result retrieved from hardware but its value completely
+ignored?
+
+While the I2C transaction success is verified via the return value, the
+actual hardware response stored in kcs_rst is never checked. Does this
+silently mask algorithmic configuration failures in the DSP?
+
+> diff --git a/sound/soc/codecs/nau8360.c b/sound/soc/codecs/nau8360.c
+> index 0000000000000..f4dc351a4030c 100644
+> --- /dev/null
+> +++ b/sound/soc/codecs/nau8360.c
+[ ... ]
+> @@ -288,6 +288,14 @@ static int nau8360_anc_put(struct snd_kcontrol *kcon=
+trol,
+>  	if (ret !=3D 1)
+>  		return ret;
+> =20
+>  	nau8360->anc_enable =3D ucontrol->value.integer.value[0];
+>  	if (nau8360_dsp_active(cp))
+>  		value =3D nau8360->anc_enable ? NAU8360_PEQ_BAND_15 : NAU8360_PEQ_BAND=
+_12;
+>  	regmap_update_bits(nau8360->regmap, NAU8360_R9D_PEQ_CTL, NAU8360_PEQ_BA=
+ND_MASK,
+>  		value << NAU8360_PEQ_BAND_SFT);
+
+[Severity: Medium]
+Could a Time-Of-Check to Time-Of-Use race condition occur between
+nau8360_anc_put() and nau8360_dac_mux_put_enum() that leads to an
+inconsistent PEQ band configuration?
+
+nau8360_anc_put() modifies nau8360->anc_enable and reads
+nau8360_dsp_active() without holding a driver-specific lock.
+Concurrently, nau8360_dac_mux_put_enum() updates the DAC path
+(changing the result of nau8360_dsp_active()) and calls
+nau8360_dsp_switch(), which reads nau8360->anc_enable locklessly.
+
+Both execute under ALSA's controls_rwsem read lock, allowing concurrent
+execution by two userspace threads. nau8360_anc_put() might calculate a tar=
+get
+register value based on the DSP being active, but before it writes to the
+hardware, nau8360_dac_mux_put_enum() could disable the DSP. This leaves the
+NAU8360_R9D_PEQ_CTL register with a value appropriate for an enabled DSP,
+even though the DSP path is disabled.
+
+[ ... ]
+> @@ -375,6 +383,9 @@ static inline int nau8360_peq_regaddr(const char *id_=
+name)
+>  	int reg, band_num, dsp_addr =3D NAU8360_DSP_ADDR_BYNAME(id_name);
+>  	char *band =3D strstr(id_name, "BIQ");
+> =20
+>  	if (kstrtoint((band + 3), 10, &band_num))
+
+[Severity: High]
+Can strstr() return NULL here and cause a kernel panic when its result is
+dereferenced?
+
+The ASoC subsystem permits machine drivers to apply a sound-name-prefix from
+the device tree to control names. If a long prefix causes the control name =
+to
+exceed the ALSA maximum length of 44 characters, the string will be truncat=
+ed.
+
+If truncation removes the "BIQ" substring, strstr() returns NULL. The code
+then unconditionally executes pointer arithmetic (band + 3) and dereference=
+s it,
+which crashes the kernel when unprivileged userspace accesses the affected =
+PEQ
+control.
+
+[ ... ]
+> @@ -439,6 +450,9 @@ static int nau8360_pdm_slot_get(struct snd_kcontrol *=
+kcontrol,
+>  	struct snd_soc_component *cp =3D snd_kcontrol_chip(kcontrol);
+>  	struct soc_enum *e =3D (struct soc_enum *)kcontrol->private_value;
+>  	int scale, slot =3D snd_soc_component_read(cp, e->reg);
+> =20
+>  	compute_slotx_scale(cp, &scale);
+>  	slot =3D ((slot >> e->shift_l) & e->mask) / scale;
+
+[Severity: Medium]
+Will this return a mutated, invalid slot index to userspace if the TDM chan=
+nel
+length changes dynamically?
+
+Because the PDM Loopback TX slots (PDM_L and PDM_R) are handled independent=
+ly
+and do not exist in the tdm_tx_func_slot cache array, nau8360_tdm_apply()
+fails to update their hardware offsets. When nau8360_pdm_slot_get() divides
+the stale byte offset by the new channel scale, it calculates an invalid va=
+lue.
+
+[ ... ]
+> @@ -660,6 +674,13 @@ static void nau8360_tdm_apply(struct snd_soc_compone=
+nt *cp, int slot_scale)
+>  	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(cp);
+>  	int i, chan_tx;
+> =20
+>  	for (i =3D 0; i < NAU8360_TDM_TXN; i++) {
+>  		if (nau8360->tdm_tx_func_slot[i] =3D=3D TDM_SLOT_NONE)
+>  			continue;
+> =20
+>  		/* compute the slot location in bytes according to slot/chan width */
+>  		chan_tx =3D slot_scale * nau8360->tdm_tx_func_slot[i];
+>  		nau8360_set_tdm_tx_slot(cp, i, chan_tx);
+>  	}
+
+[Severity: Medium]
+Does this code incorrectly ignore PDM slots when recalculating byte offsets
+for TDM TX slots?
+
+The loop iterates over standard TX slots but omits PDM slots because they a=
+re
+absent from the iteration. The PDM slots are left with stale byte offsets t=
+hat
+no longer align with the new width boundaries, which corrupts the TDM strea=
+m.
+
+[ ... ]
+> @@ -2404,6 +2425,10 @@ static int nau8360_read_device_properties(struct n=
+au8360 *nau8360)
+>  		return -EINVAL;
+>  	}
+> =20
+>  	for (i =3D 0; i < NAU8360_DSP_FW_NUM; i++) {
+>  		ret =3D device_property_read_string(dev, "firmware-name",
+>  			&firmware);
+
+[Severity: Medium]
+Does device_property_read_string() always return the first array element
+in this loop?
+
+During device initialization, the loop uses device_property_read_string()
+instead of device_property_read_string_array() to extract strings from an
+array property. Since it simply fetches the first string of the array
+regardless of the loop index, all iterations process the exact same firmware
+name, causing both DSP cores to be loaded with the firmware intended only
+for the first core.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630021510.8219=
+19-1-YLCHANG2@nuvoton.com?part=3D2
