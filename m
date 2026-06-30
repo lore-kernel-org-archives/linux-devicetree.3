@@ -1,269 +1,284 @@
-Received: from mx0a-00823401.pphosted.com (mx0a-00823401.pphosted.com [148.163.148.104])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EA940BCAD;
-	Tue, 30 Jun 2026 11:04:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.148.104
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782817461; cv=fail; b=pXRqN1h3o+Jmo4S1r4+Zzipz+foR/A4Fu96RphZo3Sb3/to3IEQ79TTLEz7i0OmzAYf4MVfhYNT21pTrxouAJ3v2b6lZ9XsXW9KkXsQF3W+7lKsChUZR6WRynXaubIu+gYvCYFcBjj1jHI9KVmtvDf6i+x2uJTvg+nSlY5YSVDQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782817461; c=relaxed/simple;
-	bh=HSfYR+PzZcZQz+uRqhUnHX8DQbnOTNKA20varVuLia0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ofF2Q3m0g2NR/SYyyG4LhyrbDx1aVDgt6TkWwKU9IqaYQmhUUzJJDjs6PS/0gxpDDz8W2sCGg6Dwrksw4Hz2apznQ4zQnGN4mXU6sJ4GeNuvLPEgfx6teykQu3frVcaVwqVONl4rlAhSoezNDZ/btmgfsd6Mv6kxDkU82rjtpXA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lenovo.com; spf=pass smtp.mailfrom=lenovo.com; dkim=pass (2048-bit key) header.d=lenovo.com header.i=@lenovo.com header.b=3YPyEk21; arc=fail smtp.client-ip=148.163.148.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lenovo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lenovo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1A640BCB3
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:04:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782817463; cv=none; b=teDqjJtDeWISd5+1NgWh9ObELloPYDz7AqvF0p7iYH7A2Z8D+oGIEyj5lGv+zODmZaHiG3xIP2KG+ycvVNqYGp69BTs8KFHlscqaTzBTk6D+oiKyajK7diquW3xWvsNYC095KbcVoFL+G5Wweui5PPj73pOArqEVVCJintSoyBg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782817463; c=relaxed/simple;
+	bh=fQUPmhPxNjKZEYwfuVKBirrd16g/+0UoJsbRG4kPGas=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=O3imYj5lYWWZTggs6moEQI7ZRjReeDdhDk9UMgYh6V6PNhFEunaFl+NqF3rXvPwY6eQVNDSUgftX2OLSR+LG00/yXGBbY3dxqXZx5R+vaTbUKE4tQ8eqZ4+AQSBgX5Vo2AlpHn9QJIsF+un8OEyStxFF3ZUz+XC6oSBfzGys2tI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PgMoQ/+p; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SWyMIZ2p; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lenovo.com header.i=@lenovo.com header.b="3YPyEk21"
-Received: from pps.filterd (m0464638.ppops.net [127.0.0.1])
-	by mx0a-00823401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U9kePY3730123;
-	Tue, 30 Jun 2026 11:04:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lenovo.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM202306;
-	 bh=iag7nviDayGcPJNivAOn4v/ZRq3uOdJoKg5ElumqMyk=; b=3YPyEk21fBrD
-	3ffP4SlVjmuXiHFatvtVfH4r9J8RA761tDxnKGZbNg888MSpNwg8afCrGd0Jyb7N
-	YgntGYO2CwArF6hFtKr5Mbu5u62q3h3ikWoXYDvkLVAC/5+uxA1JOPXsikdakK9L
-	Dr0vzC6W78XfiSTmBBkl4LL6ahpfip0dQCgGFdesO0gWOl/pVB/ijdaeTlOsmxwb
-	KsHtCUgmi3a3HFEA9agvRvo0saC2x43iwYHRbIZgJJZBjPrF7O/xt0eYG1hBjGzm
-	sn28zduCoz2MrpAbKCITXjA8PXSjKlJdMkWJj69/k9DR+R6Dnfd4JOl8FkGjdC9l
-	RJNLV2EuqQ==
-Received: from seypr02cu001.outbound.protection.outlook.com (mail-koreacentralazon11013007.outbound.protection.outlook.com [40.107.44.7])
-	by mx0a-00823401.pphosted.com (PPS) with ESMTPS id 4f2syevdqy-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 30 Jun 2026 11:04:14 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hz1wjfCLuRYHDYieG+6iQJ37pyvLX0iOOjUu8mDniobuMdP+EtHH34EPFLZEuWyB1yDu0Mm3ts4iKVeV2jz3Dzmo4jD+MWQR6A8eLAIkdKjGs3BilYapc6rc9kMjPkGjK14JLLYt8VdjMKBrHeWUSSq2Np8n/il/HwArEoSy2P+e5umZaqzJazhTYsDuxMy11QCiVyvTsVAOh696vY6AZ/EVIC4BivrHyoOajaNHPwCSyH1zhzNZh+X4b+8craaipU9L8k+ru6Vu1DmU0PSortUTXeJspJ7zXIrJH7h3DqSI1ktGKhyW4MwlV7J8jOFo2gxKFBWQDFsYpvFCFslJ7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iag7nviDayGcPJNivAOn4v/ZRq3uOdJoKg5ElumqMyk=;
- b=epdY3ZP02D4qB6f9cGJ8LU9+J+zx4PF61T408RT9ImyzC2Fr5aD7BZYHWYKKvytpnna7pxR684aIDQjXbZeXg3msYdJEgLJ68NgAy9Ym7I0ymiU7NUnPTURs5fIeJ1zMvsu4aQ8MRuKTHNJHlNixPT2v+beGTAZJuxG+jLqnSSO6FhdbJ8UJEtx8CYQgKc31l6NuoWoWCiaxreI8rF/S0wl1yYUjnqZw7MdpnuoeLjluTTqItqiIh8CAGLOgjd9P+vuhryCnyH8Ka5q+mf8HNkcvKtukyzybVcScciftFrkgqldzjflqKUwpJkXm8DJtsMtJJ929HGI2+F5pNXRLsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=lenovo.com; dmarc=pass action=none header.from=lenovo.com;
- dkim=pass header.d=lenovo.com; arc=none
-Received: from JH0PR03MB8637.apcprd03.prod.outlook.com (2603:1096:990:8f::13)
- by TYZPR03MB7667.apcprd03.prod.outlook.com (2603:1096:400:428::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 30 Jun
- 2026 11:04:11 +0000
-Received: from JH0PR03MB8637.apcprd03.prod.outlook.com
- ([fe80::699f:723b:4200:763d]) by JH0PR03MB8637.apcprd03.prod.outlook.com
- ([fe80::699f:723b:4200:763d%5]) with mapi id 15.21.0181.008; Tue, 30 Jun 2026
- 11:04:11 +0000
-From: Jiqi JQ9 Li <lijq9@lenovo.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        "linux-tegra@vger.kernel.org"
-	<linux-tegra@vger.kernel.org>
-CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "robh+dt@kernel.org" <robh+dt@kernel.org>,
-        "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>,
-        "conor+dt@kernel.org" <conor+dt@kernel.org>,
-        "mperttunen@nvidia.com" <mperttunen@nvidia.com>,
-        "jonathanh@nvidia.com"
-	<jonathanh@nvidia.com>,
-        "thierry.reding@gmail.com"
-	<thierry.reding@gmail.com>,
-        "mpearson-lenovo@squebb.ca"
-	<mpearson-lenovo@squebb.ca>
-Subject: Re: [External] Re: [PATCH 2/2] arm64: tegra: Add Lenovo ThinkEdge
- SE70 device tree
-Thread-Topic: [External] Re: [PATCH 2/2] arm64: tegra: Add Lenovo ThinkEdge
- SE70 device tree
-Thread-Index: AQHdCHFTDOapB3j1yECfkt8Oy1jGYLZW3i4AgAAP9W8=
-Date: Tue, 30 Jun 2026 11:04:11 +0000
-Message-ID:
- <JH0PR03MB8637692033F3AC7486EB397B83F72@JH0PR03MB8637.apcprd03.prod.outlook.com>
-References: <20260630091743.657388-1-lijq9@lenovo.com>
- <20260630091743.657388-3-lijq9@lenovo.com>
- <d7bc7c0a-9f36-4440-b6d0-2e23667659c4@kernel.org>
-In-Reply-To: <d7bc7c0a-9f36-4440-b6d0-2e23667659c4@kernel.org>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: JH0PR03MB8637:EE_|TYZPR03MB7667:EE_
-x-ms-office365-filtering-correlation-id: 72902f48-bd38-4878-2df4-08ded6975086
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|4143699003|56012099006|11063799006|6133799003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info:
- 1un3ZbTaEiNj/MmwOWVVsol66sjNdSsL7lzgxH7Kqb3qPRtQnQNgGNuYxBY/i1YinsJgfNU3xKwzHY8Roj9jb1C7LAL7z/drVyPwH9azl4pPGq17cMpbT7NAbKTlA6TGGYqMqS0E9sPqs+TbHhSda17AGz9ciLy4ajNVax/tI4R/k954y7kWBJ0+k7yecAVjyhqd4bMIbJMPSV2VEizyJAC/6ufLbymqYUh2LhI1I6jrP9MXsXp8HTzkV2nNnbAydoISYkrR2VsaN6kyRpqkvEGsg1anQM46fzhPuNk6rzBVvFuAC/P/Pq/KnOJ6wPRmJt61RiMsTuSH0ep01NxY4lN1A8x3mf/gy5xr7WmMzmnBL61ZtNedpr4xdx9DnK8TvkQwa+WUnYPyivlCavEfBg8vwJhRfUTAKAc2eo+H8lPsvIj+yyZ7sbXA8EIrH7xOnt/p6oa0f9SRoXQoyfLZdvS/ByXw+KLnmAXz58qcRwaG6D+gnVUTZM9RGoteAtxK/EajPIc3ckKLlifAvHFBDMdDMvQEdEwM37Vj8+Zb9fxx0yDDFqiE+1mk5r71aEIC8Kqy00aAWrpMy6pttWBv6JBs3nBavl8ntEC5T7lY/pdrsRT4ROwSE4S2RweLl1O0HeX+YqDaBuh3dK0G/Uel3UDYpsqkHuSifzbqtPDuGkTp1+snobiULAdlhWkEtsypXO3gEpCEBAWw7qir+HYz2R4ea5LsZBBX0Qz6/NxiZvA=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:JH0PR03MB8637.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(4143699003)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?Windows-1252?Q?DlBMHt83SsNl92tiniWcZsMRBlCPd0YVoeoEQFrpYG5dQ8ZTtCndpx1B?=
- =?Windows-1252?Q?gxJRTrDD5+TeLUgRS4sAW8fsj0B7R4FqAh1/eZ4dRJUJh1lRFTemHRUe?=
- =?Windows-1252?Q?pyjQLE07hymirB9w4w7nvkxIEpdK/sjVCF9RHQK3+RNVawfYsBTjqfOK?=
- =?Windows-1252?Q?0amCxCrDT7wEF1byP7evRkNYPFbXUTcnVgbhxUieDJl6fE1Mkyiznsd7?=
- =?Windows-1252?Q?Ip2CrRVS2kLi8PaNEGyxHPqiciHzpBR+Zy3a8wkA9pHcyLrCR57iqK+Z?=
- =?Windows-1252?Q?Q7vlnQr6x1DTrl1t4La3E0ZQQHpaxh4ajqLPbpeuuXe4eWq8iyn+GMcn?=
- =?Windows-1252?Q?yY6ZmYLaOsSMzvn4SBnLKVCKvXtEtb0q8Hd+tRCDxz7plK6APlcmpOhM?=
- =?Windows-1252?Q?ULZcNd7NLJqxf7N0p7eguJASO8J/xb9ijIMWlQgMV4dsmpP1+P1UoNF1?=
- =?Windows-1252?Q?thODYwD+2PISQVBVr+4+A60J9UB9XqtmblRJHje3iMxcVN5+yUjLxrRi?=
- =?Windows-1252?Q?Ef/NFLUafUWmiBWl/3To9lHzfF5IrQ8dhrTvVRAOb3oPEgzqPgZdYp2T?=
- =?Windows-1252?Q?kuzSBbDI4Bj99o/LunEc/BYEpZvcWzWji2y1JsYs/UhY8S9bAt0NjYrl?=
- =?Windows-1252?Q?kfLSRWd6QcS0adAZ8r8Mn7V/zXl67ILrnVVzACj1lT/rhZhVBXn/zXHE?=
- =?Windows-1252?Q?FfIqw+uECWFBTh3nSoQtyanIis+rUe66BBEAgazK2dC6d07OpXz/jMA1?=
- =?Windows-1252?Q?as3zTsXxVbkkBdq94As1BSGT639BYMxV5CPSQ9fEUmesgggyPet9bXBZ?=
- =?Windows-1252?Q?sffU51gQEOSRnCSyjKiOAYPQSjvauRTsBm4DsAW+HZGgEIwXrSQVaecm?=
- =?Windows-1252?Q?IMLWR7plsR1IWiyHwT0icsb3BFtUi1Q1eKR15SYy/wPDBGCS9zs12o2i?=
- =?Windows-1252?Q?yhgkDyYstIg/0OnQQqX6AIO9UAwX1pA/u+WPrnNH6AbgvIsEdyNTVIlc?=
- =?Windows-1252?Q?jYXICVqWthLZ750/DKVzfd5mmPhiu47xDtNoczMdtsYwqet2+0+dHx3O?=
- =?Windows-1252?Q?LOSP5q7xr0GqNj0vH3+HHFB7UurCcXP1VF3fuWmRThgM8Yo/0xPHCcxg?=
- =?Windows-1252?Q?fjKkCVvLtoq42yNWqClUj1+3vAT8wr6hRQthKOvqpchzV4i5r+jMl8wU?=
- =?Windows-1252?Q?67lnGbYbOlkQsVeH/eVeQ2xo6+eEcnMtepTylMRkAbi7H0hXR8h5OtI6?=
- =?Windows-1252?Q?pbOsoVa19qRoiPhjM8twiFx2+8IAjb9naUPaGvLFOleslyWGoSduYYD6?=
- =?Windows-1252?Q?7Wlg8EgwhXXdj4nlRE0aVNSM1nqncGGUFgZQeBZHb4U92tMshZCYzTW2?=
- =?Windows-1252?Q?dBP1MoLItkX2o+J3tSDHNG5UJPLT6DnAhmOjxy4qEolOl/xKR7cBl494?=
- =?Windows-1252?Q?0dnxTHpwrqLrltpbrjztk4Hj23ywA/vlnxduwV47AAQYcWJPUP6WbOOV?=
- =?Windows-1252?Q?VkRyVZowKWDNJmUxVI9I+b8mil8yeXS9hURSIvXFVqGJH0GnyoUpD42W?=
- =?Windows-1252?Q?Tt3v3jwisXHOcwcd/BGLevhRaTLi8GBi40bs9XD0U1v9UObr16Z3Hc4z?=
- =?Windows-1252?Q?SOMUV0VPHsUbGvz8M5yK+fWHDU/loWehEltoQr4USIc4hDkNWVO7l6aM?=
- =?Windows-1252?Q?GKifXJw8s0bVCYsv2UYGD/UydRSbD4YSYcPH/dyvsgw+CviB5ExtohbP?=
- =?Windows-1252?Q?nG4kaYp5tSwsv+bY1fj0sGdD6HeztzRp+YSc37edzuuBU2XyIvcws0y+?=
- =?Windows-1252?Q?CfH11KWRXAlhR7/OGD2lxRMwylghyJL4Vm2r3rxsMIBzT7bS?=
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PgMoQ/+p";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SWyMIZ2p"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U9n4261508630
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:04:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=tnwQYIB2oMxdOusb1j01rB
+	DKSnAHELsMv3JRvufhtNM=; b=PgMoQ/+pt8ADDDPWEl9/YisqHsHHMkvC/evk0h
+	Npiakhp1bfUfC9cO/hbnoWPJitmBcU1vzVxMpqbhlnjBSxGB2K7AxPaBLLjgV4bd
+	byfmx7G6sYjqazDwlLtLFK5TpeTShr8GGSoRnprsKFjqcAiCfvdcnFbYU6Qu1eHb
+	rXln4YIi/SLSb9yx+AwUpBt82pePF5wyOpxd/quLLXbUnIVGA6BEaPmH7Elf1idG
+	FEnOKgZTCvAcVn1goHTAPFHxUF1+J439Mn1ieEDYUAU+J6YZ4qE8+0tHd39QEedi
+	lqqEds67uuvn8iQQ16iTWJT0wGMtbk9zDuMgrBhnUbRaevDg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3y9j34sg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:04:21 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e53b8a302so371667285a.1
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 04:04:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782817460; x=1783422260; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=tnwQYIB2oMxdOusb1j01rBDKSnAHELsMv3JRvufhtNM=;
+        b=SWyMIZ2pn7gmFB+GBW+ABsQPWN43Dk1+2vF5VUzhqFYdclJdDK4XEx52MN18rTAk+K
+         luBmnL+06q37GqLSW87Gpa/Bluc0gDPSpisbTWS5GJSlNQnIArYiP0zTRzdLTo0a6L4Z
+         sUapLHJ7QBsGN6DOLZqTJ8xIDs36RQzs30e1d97Z69Z3u5StykcPrsHZlgMqORaMKmxb
+         YodZ2HELtavIUYn8saeuZuP6pa6wEcxtEj1QXkDEebQzodUkR6Gr1gBxWOog8qkV1Am+
+         Nq84Q0QjKHC05LD1t6wXscJXJrTtGYCkNLLFmDtqYFjXHCg4ANEDCcJJwCtU38ydZwy5
+         fZwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782817460; x=1783422260;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tnwQYIB2oMxdOusb1j01rBDKSnAHELsMv3JRvufhtNM=;
+        b=nqmY7BKf63BEuwNTqD0dzL5fI4QBKi+neELZrYpuuwWtmAWZiSDNN4gDwdyHuGw5cv
+         J8jRsH2jggRkxLo0ayHyZF5VzYJHUGHHx60kTpqYGeRjNvMcmzH83Yg91yusV3ytpR/O
+         TRD3ohrfTRN/J6tnAQXS6dgHuhIWkSDh74ZtT7reUjl0Y4Q3fE67MCstSKJPc4Xt/hFJ
+         hW4NYoFiD/4+JnbfWQ9YXbRNc6NBd+ANHox0HLR0QAGwnEMYctgDiaG7ZHVxNA74qRuy
+         2K4tIQ2U4SU00oYj4p9nolK5TBC75REDJpGkdWiZgIWd9lhrnKLJCCBUFe8XsC5yUTT6
+         8F1Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/Zt0Uo/Fv+aDEZZs2Q4JkfZ2lwXchlGH0ucQ8QPzoDR8nkaxYqIKnuSEEbZOtrHDSC7IhztZfPQegr@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzm3Kymb2+MLAXwfK2DWDFmCxj/IjvgbJwbjr875tp6EJkLriGi
+	+/LIBRZgJFa31cZjLC0V+CY5HLjW+FNcijtAZ14opShndXegMCzA3qIap8memlHaEcap3wdxe98
+	MIos+tHMsPKsrzMXOB0qISpfAa2BvU+PG1XpRrlSqB4oC0inH7Uk5VOOvKKWXoVDC
+X-Gm-Gg: AfdE7ckOiUnA5Ns6oj1iGcIKKT0sDz1L95t4qZRxrCQj9a0lSBeA7MmGwZ+9MXbrWH3
+	JO6hXxFG4FtDScTKumdg7KoqESRUneH5d/OYp5eYZ8U7269h7Ny9x05jady9iwX033HmrGuO/RH
+	y+tfmmYoKnzUyoq+llUuTdXBPlYb2e1uJDL8QE8e+RnDSbIj3KcXFjBAPhbzn3E6asHCnWWziHJ
+	P4kfnMqmNj2e6/n0Jl9rU6wqjdO2KN51v+UgaVIkhFKUEdbsCPv3S0RE4tKZT14Kb49RRhY3X1v
+	zEzri2zRKj8LyMCxMjK9RaAiPOv5dIL4zdO5McQCGOQ454DJP3iRtgV5iH8GMlwhZcmkLDGo7vO
+	t7JVgCZvgD9qbwp8=
+X-Received: by 2002:a05:620a:601a:b0:92e:6430:3c68 with SMTP id af79cd13be357-92e6d80809bmr31276085a.18.1782817459986;
+        Tue, 30 Jun 2026 04:04:19 -0700 (PDT)
+X-Received: by 2002:a05:620a:601a:b0:92e:6430:3c68 with SMTP id af79cd13be357-92e6d80809bmr31266785a.18.1782817459304;
+        Tue, 30 Jun 2026 04:04:19 -0700 (PDT)
+Received: from hackbox.lan ([5.12.73.156])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4756636ce7esm7137226f8f.23.2026.06.30.04.04.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 04:04:18 -0700 (PDT)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Date: Tue, 30 Jun 2026 14:04:12 +0300
+Subject: [PATCH] arm64: dts: qcom: eliza-evk: Add support for USB and SD
+ card
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	muLYNUg1vttdCLZpY2qTSo1eKJdNPCKBjh3JWKEjA8/LCX5bvoBQPR6btcz9ZjvEwMv9vIbGcZ0PhZFvIkRzoZlshTPiy6ZWrxSSzWKCSFGPDD4YbKItCKjY6idbgxzD2EkuEwnYWNaqyBKYJvGoONcQKmt/u5NVyrO6qZwrmzpE7F4pjmdmw4lTLZCt6ye2Mure5mzC8WRQUnBzQNqJkSo8YzBC+0cGFb1Wy4fb2/SYGQEX65wID6b8iZTCpxOPnES5xBsdLrLkz3hURGXw52PO3j98HhX1i/Q18umq31ZTvTOdi+Mj31j24Ckk/h+WxjAMHJ+d8xqpj32upZe19g==
-X-OriginatorOrg: lenovo.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: JH0PR03MB8637.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72902f48-bd38-4878-2df4-08ded6975086
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2026 11:04:11.1879
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5c7d0b28-bdf8-410c-aa93-4df372b16203
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pTOk+AijDuFTcqyk4LtGu2TxOmDvOZsGrhfhcNPa5gGxD5D36sxG93PHblK3n7+zWIfE4uxlPOoWINUMIr2xSQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB7667
-X-Proofpoint-GUID: bZsgYL7zlfAQ7CKvHmIhDs3pQlUM0fnn
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDEwMSBTYWx0ZWRfX3DFWMn/G/hId
- kaEoETU01J5ht+KzO68xZ9rkQ9GUvTTPXSIIWJ8wPNVtwV+/Z+VzNdXWPpKD8xtv+6HTy0Rfxi+
- CkPemKefe1xvrtmkZDN9eZGh3rTexV8odREkmZBRptRzd7O0dF3Kf+TAUOT/u0UYsiThwwwBqoE
- 1o+RxB5lx/xxs0NvsJLydqwE3ZUZJPbkE55LMFtIZZgO+qwkfLkuJIkrgBYiRw0oxcb7PiqXpKT
- /Z58lmAtlgn+e8BTHDqpaRmG9TGiGzA9Bl24pJEMyk2E0YvUdDTGRumzQY7NoXTAXoPNV1nEgiN
- woOn/X0O7wqvAE9kbXSEijvX3BmZrf5D/FtoCXgU1sCaqMDwt8Be3x8epjtwaJU6HQ5SAYB2WTA
- 9qE3KtAfEKF9oB7HXiOrr+xfnabXPF5tDvwRBeRAqwcPVp8oCAc1q7N0O0A+k9jzvPgKwsv7ML1
- wZ18eTG/d2M9e0Wj60w==
-X-Proofpoint-ORIG-GUID: bZsgYL7zlfAQ7CKvHmIhDs3pQlUM0fnn
-X-Authority-Analysis: v=2.4 cv=S8TpBosP c=1 sm=1 tr=0 ts=6a43a2ae cx=c_pps
- a=UnW58Y/yffJfwI1+CksWwg==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=N659UExz7-8A:10
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=2RTuljz969oO5usasWGy:22
- a=QJilI6ASod0cdCKXAsqI:22 a=8k6WQxmsAAAA:8 a=wCxiEiQ-7hyFXQ6ihi4A:9
- a=pILNOxqGKmIA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDEwMSBTYWx0ZWRfX+/Ssua9Rc0HZ
- JJOfNNp+250cI3MwQmFU+W/7HzD4FdTnWcf58nlayBTi52ufxrOMbJJNpsb5Zn1KSHTDuM6kqFW
- ak6l9YvUuJmYTz6qvf40k0FQPA3q0+c=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260630-dts-qcom-eliza-cqs-evk-enable-usb-sdcard-v1-1-146264625095@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAKuiQ2oC/02Oyw6CMBBFf4XM2klo5SH8imHRx6D1AdIphGj8d
+ yt14fLc3Nx7XsDkHTG02Qs8LY7dOEQQuwzMWQ0nQmcjg8xllVf7HG1gnMx4R7q5p0IzMdJyRRq
+ UvhHOrJGtUd4i1XVhhSRdigri3MNT79bt6tgl5llfyITv/q/haZqjQ0g10IoJ49ndhTYbaA2YP
+ GQD/4JttsWlKH5WSTKZ1b0oRHMQsiqbdimge78/HS6WMfYAAAA=
+X-Change-ID: 20260630-dts-qcom-eliza-cqs-evk-enable-usb-sdcard-e774d12eb516
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-bc6c4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3131;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=fQUPmhPxNjKZEYwfuVKBirrd16g/+0UoJsbRG4kPGas=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqQ6KtffGqJVAEiaWmdcDS0eIO1bvNo+PdT3Z/c
+ 9tdbpSnQsuJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCakOirQAKCRAbX0TJAJUV
+ VgZpD/9iXJ/7vN1RgM5AB3zqPaNIjfJt6ikcBa6ioUzd/k+RWbX3HYRG3Xv5nnml2h8Ytm3KtWC
+ GLB25SKDt9IINMzS1J0BLRKMTUCwZ9M0Cj0RxDPWLFIigaFGc7KQn8q8qJwLQLLA+1z1ADcyAV0
+ 3/IsqyraWCbHnub7JtyS2Efub+wm6TiXnzg/KqKsKMKeMFnDwCJCeuorGQ3KiqSA4o95Rku5ezr
+ bUIwqut9eJilPDWRHuJ7NF/DZzY++bSUVtq6EsB3TOS6neKTutdZAaZbigiRDneKzp9Lzz37tqR
+ lJfwBvrnZSM7bqGgP7K3wfxLOUWSMP0BKfhVo6sL4c5T0GB+c9BlvdxfDDqxtwOtD2ay1XpgPjh
+ xvBnC41O/MNuHAFcFYbiUZzacKkGpJK8Lm9vT0TG6Iw/cWoXWaD/RLbgl0YWbWKydDL0oGqmA87
+ vX23GJonS6QRK82sYEXcpVIAuduXYVauqhegFNOLdyCA3hHoXiuUPRGKqlmk9gzKcf9ddKllkT9
+ kakumhVJK15eYe9mkqPXwiKJ8YAkVQQN17eoyVaMxmSXpjYsSAGnzuQEUKHhjCLf2Z0BceHCRu3
+ DL/uaEY/nZZhgq5+crIJ0tP7PdwILnNil44xWgELXfV1BeLiCGkQLrEZ4D3kI5v8I/b2b1Uz5fW
+ jGs6WNqKeYLqHSQ==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-ORIG-GUID: B9aDi5if08OVTVT8brlr9mF61Mm4bYBn
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDEwMSBTYWx0ZWRfX+YzU0qddWzXE
+ 1s4HAwo3pbbFRVdSBx2YrBYTYT7UY+DC90jgHrFrO5fCvsW0DANMTbm3Ge7Kana7Rt5+F7tIKHr
+ i3WsxHQee/eQewZ1+E2/4XI5SlgQa1wui3hyzRtuXtT77Q9h4fNi5zzDZrgT3fBBUHmtEYTr0av
+ NAzzxc6L3XslfhDxywkyZ5QM7+jlrVTcrcczJiz9Fo1Cd4yCs6Z74BEMiIMg8T4F0oJO9LZNZAG
+ lMP7m1ZrZmpi9PQProK6azlc+mNIyu0B/g4deQxvrReA79ASz26N0hQEwuyEECRgrmTTWTp/9f2
+ 2BvrS6SOvA9jqTWHjqwa/pVF2YXH0DGU/RMLzdSoZW/Qk7qGI7vevIBsuuXXCy7Nd3/CMSBC3sY
+ 5Vj9AW9Np1Rw45eXqKdTh4qNAr59gCJeKOllIfSPDys+1fipL4AxR8hCfMvupas8CL+leNQHJYF
+ tZFPnpESwQe92GR3w7g==
+X-Proofpoint-GUID: B9aDi5if08OVTVT8brlr9mF61Mm4bYBn
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDEwMSBTYWx0ZWRfX3tVDl22Dmftl
+ PGX7+ptx+X0fXMkVnWYcGOLubPvxxA+UdVB2et1IYzisIeg0w0eUcGoOSCMpEZpi1VKTZzjB245
+ 7rdG+4O5Qk5dU/5APGOfh5XKoiYJkIc=
+X-Authority-Analysis: v=2.4 cv=SINykuvH c=1 sm=1 tr=0 ts=6a43a2b5 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=qUYP/O48JsHWwiZSxXr1NQ==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=ly97nd3JUEkQhviyxlMA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-30_03,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 lowpriorityscore=0 clxscore=1011 suspectscore=0
- priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=-20
+ suspectscore=0 malwarescore=0 priorityscore=1501 spamscore=0 phishscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300101
 
->> Add initial device tree support for the Lenovo ThinkEdge SE70, an=0A=
->> industrial edge gateway based on the NVIDIA Jetson Xavier NX module=0A=
->> (P3668-0001) with a custom carrier board.=0A=
->>=0A=
->> This initial submission includes:=0A=
->> - 40-pin expansion header pinmux configuration=0A=
->> - External Micro SD card slot with dedicated 3.3V regulator=0A=
->> - I2C bus for 40-pin header=0A=
->>=0A=
->> Static verification passed: dt_binding_check and dtbs compilation=0A=
->> complete without errors.=0A=
->>=0A=
->> Signed-off-by: Jiqi Li <lijq9@lenovo.com>=0A=
->> ---=0A=
->> Changes in v2:=0A=
->> - Remove unused input-related headers from baseboard DTSI=0A=
->> ---=0A=
->>  arch/arm64/boot/dts/nvidia/Makefile           |   1 +=0A=
->>  ...ra194-lenovo-thinkedge-se70-baseboard.dtsi | 103 ++++++++++++++++++=
-=0A=
->>  .../nvidia/tegra194-lenovo-thinkedge-se70.dts |  14 +++=0A=
->>  3 files changed, 118 insertions(+)=0A=
->>  create mode 100644 arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge=
--se70-baseboard.dtsi=0A=
->=0A=
->What is the "baseboard"? You do not have compatible for SoM, so se70=0A=
->feels like final baseboard. Also commit msg says that se70 is the final=0A=
->carrier board, so a DTSI for non-existing hardware feels confusing.=0A=
-=0A=
-Hi Krzysztof,=0A=
-=0A=
-Thank you for your review.=0A=
-=0A=
-Regarding the "baseboard" DTSI file =96 you're right.=0A=
-Following Mikko's earlier suggestion, I initially split the=0A=
-carrier board description into a separate DTSI to avoid=0A=
-inheriting from the NVIDIA P3509 reference board. However,=0A=
-since the SE70 is a complete carrier board product with no=0A=
-separate hardware module, the split isn't necessary. I'll=0A=
-merge the content into the main DTS file in v3 and drop the=0A=
-baseboard DTSI.=0A=
-=0A=
->...=0A=
->=0A=
->> +};=0A=
->> diff --git a/arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge-se70.d=
-ts b/arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge->se70.dts=0A=
->> new file mode 100644=0A=
->> index 000000000000..a8de685f05ef=0A=
->> --- /dev/null=0A=
->> +++ b/arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge-se70.dts=0A=
->> @@ -0,0 +1,14 @@=0A=
->> +// SPDX-License-Identifier: GPL-2.0=0A=
->> +/dts-v1/;=0A=
->> +=0A=
->> +#include "tegra194-p3668-0001.dtsi"=0A=
->> +#include "tegra194-lenovo-thinkedge-se70-baseboard.dtsi"=0A=
->> +=0A=
->> +/ {=0A=
->> +     model =3D "Lenovo ThinkEdge SE70";=0A=
->> +     compatible =3D "lenovo,thinkedge-se70", "nvidia,p3668-0001", "nvid=
-ia,tegra194";=0A=
->> +=0A=
->> +     chosen {=0A=
->> +             bootargs =3D "console=3DttyTCU0,115200";=0A=
->=0A=
->=0A=
->Why do you need bootargs? stdout property does not work?=0A=
->=0A=
->Best regards,=0A=
->Krzysztof=0A=
-=0A=
-Regarding bootargs =96 I checked tegra194-p3668.dtsi (which=0A=
-is included by tegra194-p3668-0001.dtsi) and it already=0A=
-defines the chosen node. Following the NVIDIA reference=0A=
-(e.g., tegra194-p2888.dtsi), I'll define it in the main DTS:=0A=
-=0A=
-chosen {=0A=
-    bootargs =3D "console=3DttyTCU0,115200";=0A=
-    stdout-path =3D "serial0:115200n8";=0A=
-};=0A=
-=0A=
-This ensures compatibility while aligning with the existing=0A=
-Tegra device tree convention.=0A=
-=0A=
-I'll send v3 with these changes later.=0A=
-=0A=
-Best regards,=0A=
-Jiqi Li=
+Even though the EVK comes with 3 Type-C ports, the Eliza EVK only has
+one USB controller and a single set of PHYs, which are connected to
+the port marked as JUSB.
+
+Also, the EVK comes with an SD card slot.
+
+So describe the PMIC GLINK node, the connector graph, the PHYs and repeater
+supplies and enable the USB controller.
+
+Also enable the second SD host controller, describe the card detect GPIO
+and the board specific supplies.
+
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/eliza-evk.dtsi | 92 +++++++++++++++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+index e47b24f8b827..2fc945658300 100644
+--- a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
++++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+@@ -11,6 +11,70 @@ aliases {
+ 	chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
++
++	pmic-glink {
++		compatible = "qcom,eliza-pmic-glink",
++			     "qcom,sm8550-pmic-glink",
++			     "qcom,pmic-glink";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		orientation-gpios = <&tlmm 122 GPIO_ACTIVE_HIGH>;
++
++		connector@0 {
++			compatible = "usb-c-connector";
++			reg = <0>;
++
++			power-role = "dual";
++			data-role = "dual";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					pmic_glink_hs_in: endpoint {
++						remote-endpoint = <&usb_dwc3_hs>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					pmic_glink_ss_in: endpoint {
++						remote-endpoint = <&usb_dp_qmpphy_out>;
++					};
++				};
++			};
++		};
++	};
++};
++
++&pm7550ba_eusb2_repeater {
++	vdd18-supply = <&vreg_l7b>;
++	vdd3-supply = <&vreg_l17b>;
++};
++
++&sdhc_2 {
++	vmmc-supply = <&vreg_l13b>;
++	vqmmc-supply = <&vreg_l23b>;
++
++	cd-gpios = <&tlmm 58 GPIO_ACTIVE_LOW>;
++
++	pinctrl-0 = <&sdc2_default>, <&sd_cd>;
++	pinctrl-1 = <&sdc2_sleep>, <&sd_cd>;
++	pinctrl-names = "default", "sleep";
++
++	status = "okay";
++};
++
++&tlmm {
++	sd_cd: sd-cd-state {
++		pins = "gpio58";
++		function = "gpio";
++		bias-pull-up;
++	};
+ };
+ 
+ &uart13 {
+@@ -18,3 +82,31 @@ &uart13 {
+ 
+ 	status = "okay";
+ };
++
++&usb {
++	status = "okay";
++};
++
++&usb_dp_qmpphy {
++	vdda-phy-supply = <&vreg_l3g>;
++	vdda-pll-supply = <&vreg_l7k>;
++
++	status = "okay";
++};
++
++&usb_dp_qmpphy_out {
++	remote-endpoint = <&pmic_glink_ss_in>;
++};
++
++&usb_dwc3_hs {
++	remote-endpoint = <&pmic_glink_hs_in>;
++};
++
++&usb_hsphy {
++	vdd-supply = <&vreg_l7k>;
++	vdda12-supply = <&vreg_l4b>;
++
++	phys = <&pm7550ba_eusb2_repeater>;
++
++	status = "okay";
++};
+
+---
+base-commit: 758ee0279ff3463f564cbb36687f4faa035b7878
+change-id: 20260630-dts-qcom-eliza-cqs-evk-enable-usb-sdcard-e774d12eb516
+prerequisite-change-id: 20260514-eliza-dts-qcs-evk-7f1419812659:v4
+prerequisite-patch-id: 9e10dfbe360941cdac0300aaf163149755952f9f
+prerequisite-patch-id: fecce0170351baf00cbe8f6b302d1def4d99bbfc
+prerequisite-patch-id: 97cd6cb495fdd198f6de7fbe45ef32e4a638ec9c
+
+Best regards,
+--  
+Abel Vesa <abel.vesa@oss.qualcomm.com>
+
