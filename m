@@ -1,171 +1,75 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F0F3815D4
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 18:58:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D1E3E8C74;
+	Tue, 30 Jun 2026 19:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782845895; cv=none; b=BGsM7FEJK4XcLPWny2FPBA7j8gLluRq2d7g+EZUMSUjcZY6rhODmjjIJIV5URKKr6+TT2GAcLTjYMKSSgsgieUks8DXeVqrMB8zcGbGpTXAncYrj/QNBIfwRd3tUb7gf0oP0sDAuu3SKLBqC/sKNHYD8IZVMbEr125GbZctVAEQ=
+	t=1782846027; cv=none; b=fmJtB06rSgy0dTABc/i15lrtsy+Bqijaxmy/tTImsx1Zot3FBFUHb1tJqexPCC6Drlr8b53R9ws3g9p2+5Z25cSkb128siPF65XjDJ9YNMyzwALfy6K3/lrRxZ3vrrt82wjr8HnUbmJqK5udTS2q5eu2kDyHVuqfsAnXJ96oAl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782845895; c=relaxed/simple;
-	bh=liAWauqxfOKg8u1XRrlELemjS47RKtHwe0SGtDx/hgo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AkNsyUhuQPx0qZkUwgwh/icKeAHDLDz07YwptjbY4uVD7aFR7JUr2AEcV9jSrrNqmCq3BU5p4fUhBA+QVu9AR3ygx68Ldv7DavigrIn2ZqzctJrO2TP025bCXh7UT9I9LFyS//cD0MwjWHoUt1lh1f5XszC7PUMecyMfBjMhGBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mu7pUNv/; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782846027; c=relaxed/simple;
+	bh=+fL3DQvZUF6NuNMIgUTFuM25h8Ut+xeqc6oYf1enZxI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=amg6BT2wEzARSOAd2kZMjxyHGNRpBwUnEMP7QSFhOY8YgOVybyIGbJiV7bLcFVlE7z/lTWB+OYG/wDO+vKLLefuYITCmD9Vze+D2jUbMq2SDhTHxy5vrCl3NimFS3e2/FpIaZKA37IlKxIm3HXngzpcCin+AqCwvbB+fDwr85JU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l6kYk+dn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mu7pUNv/"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-30e7eb50b83so3707114eec.1
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:58:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782845893; x=1783450693; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=K0MD1jiUBRZgyv6uUhm4ka/YEfBEnwUyewin9caeOzM=;
-        b=Mu7pUNv/RLtkeQD8wGWmounbwbETrojCL9jbCfEiPtGaWoiT04EcBj6Uca7RWvb7k7
-         MHXGgZhPTzhy0kTKQMf3UwN1YHaGqAuWFu/oMF2HoPsES+M2Ft+Ptavdpm+GRg/sqZOu
-         d4SyFKp3kvSTVco7w5LDxVN40xfCypX0T2MQ8UGipgFwdzaMsEgKmp6TYbP1HxrWlAta
-         L2irbMEQ5iYIMREuci14axXQjuHjz7VgxywLGIYkoWtB580Q9khTDwRxCMyhUGq5NIOf
-         c8vD/wKt7upQj6UppoWyXu33GjeOTulfKgkIgSmqC+UR4CzMBMu2aFNDixXgouAgE4OX
-         KQug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782845893; x=1783450693;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=K0MD1jiUBRZgyv6uUhm4ka/YEfBEnwUyewin9caeOzM=;
-        b=o1YY9oP8L4gN3dsJ29ZtEZlmtiU/mTW1w6DjYi0k64sdMqxPOl9NKJ/8tJ9cPvSTKE
-         P2qO4omcOdQaEEcHl8attVO9zkGrdkvLZsoy60iXzrpiTLzzf7JyAP9IlP9DUdlZJ6Mu
-         c1zkX1kCbcQcSoDJG5EKAov3+x3U+XuHzvgXWFfYRtoySaSZbcZqyyXWriLe54Zy6uvo
-         s72L0I49p0R2Q6Szz2eq+dajcjwv2jgLlvekB2sNaL3Oiwpi3CMxG3okwSYlnn3O5c98
-         +1hUc+ZtSR94rAN5pYyO6Mx6/C6ggAylFZhSJ6YNRpwVP5n8C6a9IOIlbh8o6z5v1hcu
-         DYAg==
-X-Forwarded-Encrypted: i=1; AHgh+RrSlUcprzX8EtgCv96jv7qlk1Sz8LWiC5vG5+bMawcdlPqckYbmpHZJqL8vwIx57iBGgTzTy7xL8hX6@vger.kernel.org
-X-Gm-Message-State: AOJu0YwSRtnHmKfqvP7p6xbuR5AylIy8+th1U/mUOoUIBYdxI3t3Cv5M
-	ZHRCwnjmP3moqqXsOLkOvE06I7KFAY4gy0ZJ3lDamDGvH2aU+GnLkTRa
-X-Gm-Gg: AfdE7cl4bcW7FXB6Yg4omweEMI0QNIhKUc/YLbBhF+aXn2+ujOGICm/q1CrjTNLfQNp
-	qWPJI9TJcxVy+0I+SPSBBHIJykiG0y3k8BciJOtR105lQ0Zxuqv//Zbs8yvEND7jyL2P73T73bT
-	InDuTcLxWrSIKKiy723t1HJd1Sw6KC+hgCpJZHEdtRIot6LkLjQt4RmmotFMHtvN1KcIUikVMsm
-	LPqrAgDxAwS5uHBX7+shnfxCZSCYa63Tjd3l1MXTCfAPPJ5zNgJVoE/gFsSTc15et1M8qeKYz6o
-	Cmlzwr9PBOvhmFW4sBMAHp3M2oT2vCXQfyuNa2Vp0eLBjddzk7R2eaXPU5q/MGytl7+9xKlc9xO
-	VeWPmkZPT+fbkHQkeW7tVS7M3q0k1z7gwr1D5TcLpJ/R1yjg/0cuahjF3YumvvW4YzhYlmxVJO+
-	CT2qAAnbXLvg3syoyZa47Tgfvjxx1SQV1qsKZ+LxqssaPUhftDSvj+qo1kysKW7TvsBnp9KGJp
-X-Received: by 2002:a05:693c:62d0:b0:30e:e786:689e with SMTP id 5a478bee46e88-30ee7866ad4mr1661655eec.31.1782845893207;
-        Tue, 30 Jun 2026 11:58:13 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30ee2f584bdsm11317161eec.4.2026.06.30.11.58.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jun 2026 11:58:12 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <26438725-805a-4b04-85bc-a22e936c222d@roeck-us.net>
-Date: Tue, 30 Jun 2026 11:58:10 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l6kYk+dn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 184A11F00A3D;
+	Tue, 30 Jun 2026 19:00:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782846019;
+	bh=v6zQg/xYPMDSyslhP1cR6EBRnEfcHERRfBEW1QaonUY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l6kYk+dnADxcNvWjIOprBPyqXQ1Y7XsBT+lzOvhvysjLNr1mIEqKRCG68oSxfkaur
+	 X0rloWC/ZFjJoyHs5SDaizxbD1rft6y8ChrzW0kNjSEVmjZwFxQO3UDXAkhcC7LBQz
+	 fSpGz4JN61ogW7irKbWjNPEjTPF+1rg9TlFjvstBrfqd3ji61Txsv9s7AvkX6AKZeu
+	 QQNAWj5aFqut8OdrYnOcvm8v1WNFWEck/e1SFv1ftvEStTX+C/RHjNWTBZLdftqBBl
+	 AddU5rpiMkBIuZCF82Gi+V4gLHO5rezVcWCciMRAL8yqgCEvTaSWV4YEJD3Uz1TBH1
+	 jcYYAOz4KuJxQ==
+Date: Tue, 30 Jun 2026 14:00:18 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Charan Pedumuru <charan.pedumuru@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@foss.st.com>,
+	linux-arm-kernel@lists.infradead.org, linux-mmc@vger.kernel.org,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] dt-bindings: mmc: st,sdhci: Convert to DT schema
+Message-ID: <178284601784.43252.5393908816899610396.robh@kernel.org>
+References: <20260629-st-mmc-v5-0-3cf0e639bff8@gmail.com>
+ <20260629-st-mmc-v5-2-3cf0e639bff8@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dt-bindings: hwmon: pmbus: Support for onsemi's
- FD5121
-To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>,
- Conor Dooley <conor@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-References: <20260622-support-fd5121-from-onsemi-v1-0-b31767689c65@onsemi.com>
- <20260622-support-fd5121-from-onsemi-v1-2-b31767689c65@onsemi.com>
- <20260623-anybody-gutter-e6ca04f53bdb@spud>
- <CYYPR02MB98280DF78A07EADACFD084EE83EE2@CYYPR02MB9828.namprd02.prod.outlook.com>
- <20260623-scared-judgingly-7efc1c188670@spud>
- <CYYPR02MB9828EECB3F6AFDD2A7BD3E9B83ED2@CYYPR02MB9828.namprd02.prod.outlook.com>
- <eed3e19b-8cc7-4aef-b058-b2242c94c940@roeck-us.net>
- <CYYPR02MB982898B8E8EC0513EF55D44083EC2@CYYPR02MB9828.namprd02.prod.outlook.com>
- <CYYPR02MB98281A2314A718EC3841464583F72@CYYPR02MB9828.namprd02.prod.outlook.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <CYYPR02MB98281A2314A718EC3841464583F72@CYYPR02MB9828.namprd02.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260629-st-mmc-v5-2-3cf0e639bff8@gmail.com>
 
-On 6/30/26 10:22, Selvamani Rajagopal wrote:
+
+On Mon, 29 Jun 2026 16:26:40 +0000, Charan Pedumuru wrote:
+> Convert STMicroelectronics sdhci-st MMC/SD controller binding from
+> text format to YAML DT schema.
+> Changes during conversion:
+> - Preserve optional 'icn' clock and 'top-mmc-delay' register region
+>   via minItems: 1 on their respective properties.
+> - Conditionally require reg-names when two reg entries are present
+>   via an allOf if/then block, preventing silent runtime failure in
+>   devm_platform_ioremap_resource_byname().
+> - Constrain max-frequency to enum [200000000, 100000000, 50000000]
+>   with a default of 50000000, matching the driver's behaviour in
+>   sdhci-st.c.
 > 
->> -----Original Message-----
->> From: Selvamani Rajagopal
->> Subject: RE: [PATCH 2/3] dt-bindings: hwmon: pmbus: Support for onsemi's FD5121
->>
->>>
->>> One of the problems here is that the chip datasheet is not public,
->>
->> Agree on both points. No datasheets on our website. And chips not available through
->> distributors. Little
->> early in the process. I am working with our product team to see how to move forward. So,
->> there will be some
-> 
-> Guenter,
-> 
-> After your question, I realized that there is no point in merging this in kernel until the product is available
-> with distributors. I don't have any time frame for that. Sorry for the inconvenience/wasted reviewing time
-> for the team.
-> 
-> Is there any way, we can mark this series "abandoned" or "on hold" for an extended period?
+> Signed-off-by: Charan Pedumuru <charan.pedumuru@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/mmc/sdhci-st.txt | 110 ---------------------
+>  .../devicetree/bindings/mmc/st,sdhci.yaml          | 105 ++++++++++++++++++++
+>  2 files changed, 105 insertions(+), 110 deletions(-)
 > 
 
-I marked the series as "Changes Requested", which I think matches the state.
-
-I could mark it as "Deferred" or "Abandoned", but none of those really
-reflects the status.
-
-Thanks,
-Guenter
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
