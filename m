@@ -1,172 +1,284 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159263F7877;
-	Tue, 30 Jun 2026 10:54:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A7B408607
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:57:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782816849; cv=none; b=B8hFIP/3BCB8hfGSHJm0AT/SkBMlSW5K+SuH+MnieGaTD9Y4cV8DrCQKKAr9rOEQZKv4cIjJap52UW6+Kt3r54YqOrmSLDdpec5vyvjXw2u6342/cQe9eCIewzLHq5V98hP44k38TCag3+Mj0UkmYe8VWB/3MQNg0y8GWF9CVnI=
+	t=1782817023; cv=none; b=nnsTQ1loTwsgkl+KBc/8iTWQx2ZN2RGwZeL6sgcQZF0HwepK7CO0Jvs5YeaIYTXUGnV/halGcrEJKxyF7tGsg0U0K0kvU/Pwx0M21tr+ZI8CWeCWpdKOkg0Q5/yxE3vVvPFisPIKTCEjETKQmMF2YWq9icNdyJV7SSss502Mofg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782816849; c=relaxed/simple;
-	bh=fEvpqHWw9i2d57Sm/WwLcUxQY1+owlDBFTnHRtMPGmw=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qjPOjArRE+fVr94obXrShIFpfK9OnUbSnW+a2cNGWWei0AY62zdIDpCDMFgAeHaIz0b0Tw6eY2IWdBZ7fLGCcNmV3eWko1kyWS6CTlQ46FSE1e63GGID1ou7flajNm+Ppag3VxVcMPEkgSMqd6N9md5uBONmOIByNlY1YHEz3Zw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X2uy8AfH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782817023; c=relaxed/simple;
+	bh=MIeXi+Qy8hk6Ot1stqH5yVrx5+17ld2T9dztOgNqqp0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cztSZzqUCuHso2t2DP/dfiq82WvuObk/sXMo1XoFN0pCoivwMKHf3ON+7t3AF9OmiA8IO8tEN0PFwSFHX9gy+h+XuomJ1AmvY144kRTIIBqC8hDtPX1hvpygOi03Y+QMKasBg2NXke03s0lP1xDXiZwLOZ0S7Ax815COGuLTDr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W1ccIXKJ; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X2uy8AfH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97DB71F000E9;
-	Tue, 30 Jun 2026 10:54:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782816847;
-	bh=7XUNh2xZ+zxsc4m1oKNNe2grhWxc/9LAqKvL6GOxjTE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=X2uy8AfHwtHF0wRDgaE7g4aiKyldyWQrtNyErgp1exNnCRystRDF/nRD4TN5XDJ/v
-	 c4d1r+IMrpcHszxihBDru5JKvu28nYxG1blVJKdHxCABJTTlMkJmDVfuE9GRjpo2hz
-	 uViG0Yz6Q9Yr8LKmCBReXkWW2H6TrVmA1T0IOYUhAQUXATG0ICWEoRPyA2tGggArBA
-	 MsWjTXDlwjBBePOqwZeu305qL5JC3fYUPjdyOnFSrZ1LxNVaSYLBjms0DQv9prRtcr
-	 b/ipnzolIFJEJi6J2fF+uAzqDecWqz7UcAe8WydxiWYQKzZc+OjAPRl/yby28g7sxF
-	 a33NHauFqG3mA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1weW6O-0000000HREb-3tTn;
-	Tue, 30 Jun 2026 10:54:05 +0000
-Date: Tue, 30 Jun 2026 11:54:04 +0100
-Message-ID: <86wlvgpacz.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: linux-arm-kernel@lists.infradead.org,	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,	devicetree@vger.kernel.org,
-	"linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,	Lorenzo
- Pieralisi <lpieralisi@kernel.org>,	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,	Catalin Marinas
- <catalin.marinas@arm.com>,	Will Deacon <will@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,	Mark Rutland
- <mark.rutland@arm.com>,	Daniel Lezcano <daniel.lezcano@kernel.org>,	Thomas
- Gleixner <tglx@kernel.org>,	Rob Herring <robh@kernel.org>,	Krzysztof
- Kozlowski <krzk+dt@kernel.org>,	Conor Dooley <conor+dt@kernel.org>,	Chen-Yu
- Tsai <wens@kernel.org>,	Jernej Skrabec <jernej.skrabec@gmail.com>,	Samuel
- Holland <samuel@sholland.org>,	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,	Ge Gordon
- <gordon.ge@bst.ai>,	BST Linux Kernel Upstream Group
- <bst-upstream@bstai.top>,	Jesper Nilsson <jesper.nilsson@axis.com>,	Lars
- Persson <lars.persson@axis.com>,	Alim Akhtar <alim.akhtar@samsung.com>,
-	Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,	Pengutronix Kernel Team
- <kernel@pengutronix.de>,	Fabio Estevam <festevam@gmail.com>,	Dinh Nguyen
- <dinguyen@kernel.org>,	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Thierry Reding <thierry.reding@kernel.org>,	Bjorn Andersson
- <andersson@kernel.org>,	Konrad Dybcio <konradybcio@kernel.org>,	Andreas
- =?UTF-8?B?RsOkcmJlcg==?= <afaerber@suse.de>,	=?UTF-8?B?Ill1LUNodW4gTGlu?=
- =?UTF-8?B?IFvmnpfnpZDlkJtdIg==?= <eleanor.lin@realtek.com>,	Heiko Stuebner
- <heiko@sntech.de>,	Shawn Lin <shawn.lin@rock-chips.com>,	Orson Zhai
- <orsonzhai@gmail.com>,	Baolin Wang <baolin.wang@linux.alibaba.com>,	Michal
- Simek <michal.simek@amd.com>
-Subject: Re: [PATCH v3 12/17] arm64: dts: nvidia: Add EL2 virtual timer interrupt
-In-Reply-To: <3c714ae3-8f62-4785-9f61-ba9899fd70d8@nvidia.com>
-References: <20260523140242.586031-1-maz@kernel.org>
-	<20260523140242.586031-13-maz@kernel.org>
-	<3c714ae3-8f62-4785-9f61-ba9899fd70d8@nvidia.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W1ccIXKJ"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493b966dd74so3694675e9.3
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 03:57:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782817020; x=1783421820; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CnAUH0IyVjWohICJQD2sZTC1KkDcmw0Frs3noihd5E0=;
+        b=W1ccIXKJYtjnUjkKPpwFWHqFXQ0bzL8wrVdP6x9H0YOaemHRZy7suQmZxuP7Ssyk5A
+         fysJ/CsR9cUTFUekGYJ3dKcTqilZPTy5jH06NtOthGiSySUEnvzo31qKMSbeU750+FEj
+         kBqmNJVYUHTtgnQofUaAb4/jp0vyRvt2ZGyUJnbArl8BGpP9v4uGcP/4A+C7/Y0+7q7s
+         NkuuJTbP/TVXgkJmrHYxUmYtmaveFrPBGfmgRFWoqCQave/TKNvEb3MhjqWrKW/hT4t0
+         OiHy0NQR0tPgpGZCpVKY8o8KQwEw1rS5icODudpx0q15gCcNby+1/S0GGL+5Nc1IWruU
+         7HYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782817020; x=1783421820;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=CnAUH0IyVjWohICJQD2sZTC1KkDcmw0Frs3noihd5E0=;
+        b=Yyh7+nezZPgvOjWwVs16N3gB89bMCiKeLzcCplMlOfEgQTFHAq8Mmt1/JoPa2xqigc
+         y+MhNBlEr+f1I4+NyHKvm3th5WanQrCvdMXWOn9V4bcCQwrYzsq8sTPW4ORFJz+dNbFI
+         TZZ4GpWyoTcdt+yu2G0wFUQyVnju0/gGYhU8PxXOr0D2UvFsrhhL31l93deeqw6rtjTd
+         JhhwKp2Lpgfy8A4S1PZFU2U3CgL543KQpqRSqJPYswC3EVFHYtXW6vgKnAss59Mp21l+
+         koyLC6sxvMClA6ranzKdj77aLpzU/xLmQvkzi0Z2U5ikCOfhGExXj5SyU28BiZ8mGerh
+         cF7w==
+X-Forwarded-Encrypted: i=1; AFNElJ8lIzhqgZEZW1Mz6xngGJ8Ch+dQfrddgWHw1UuXLXbYnt9D3R3w8r8V6iGA284EJruWPSCF6PgvGTxz@vger.kernel.org
+X-Gm-Message-State: AOJu0YxkxkENJOefL5lohXrt0kHSH2oTHTZWNayMvyzOd/U/11sn0Fct
+	LpabA7wjfd48+UPNR3qgOdHijDh/Rl1UgHJ6y+zV8b+n9SnXIGrCA7OF
+X-Gm-Gg: AfdE7cl5c+lPfdJPTVcO5DQ+qEIqmGOvwDxJIxock3nnxy1RFY1sjuVGLyokAJaKMRb
+	HMCeyWrw5Yqk32d4+I9zl8lZv10uNat14S3IzfHr4VRYgzOaDioT6qE+jGDWMyxN8woJXWw83/4
+	HCW6Dt3BYD2yvQkvhl3HPth+wNoYo1qjaKqVTrdMvqjsEUd9wFli28TUnWIPGaDQwL+iAyPKCZi
+	PtWabnW5d8Sl7fk3yM38FeY7K+MtZNSlREF4WeljU/50TEFeL2CsGfRZs6aU/5vAq1NS4FN34my
+	fChDsKeFFim2MAWMcGX4GVHDHn5KzR3m+w+ECvsUDRasX4nVEpqP1WxpVS6kM7Spwg2VcfmEuPx
+	PAiZFr0tbdWGypxnxvlzC6FIbHY35pqN4zpQXFv78Kgn+4C2sbKwmUBElzk5x2oKku/44bofKBv
+	kypssMZ3kMP0lmMg==
+X-Received: by 2002:a05:600c:5250:b0:493:b771:de06 with SMTP id 5b1f17b1804b1-493bda3863fmr1280945e9.5.1782817019802;
+        Tue, 30 Jun 2026 03:56:59 -0700 (PDT)
+Received: from builder ([2001:9e8:f11a:416:be24:11ff:fe30:5d85])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493b8d0bbbcsm70701085e9.13.2026.06.30.03.56.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 03:56:59 -0700 (PDT)
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+To: Oleksij Rempel <o.rempel@pengutronix.de>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daniel Golle <daniel@makrotopia.org>,
+	=?UTF-8?q?Bj=C3=B8rn=20Mork?= <bjorn@mork.no>,
+	Jonas Jelonek <jelonek.jonas@gmail.com>
+Subject: [PATCH net-next v4 1/2] dt-bindings: net: pse-pd: add bindings for Realtek/Broadcom PSE MCU
+Date: Tue, 30 Jun 2026 10:56:49 +0000
+Message-ID: <20260630105651.756058-2-jelonek.jonas@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260630105651.756058-1-jelonek.jonas@gmail.com>
+References: <20260630105651.756058-1-jelonek.jonas@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: jonathanh@nvidia.com, linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, lpieralisi@kernel.org, guohanjun@huawei.com, sudeep.holla@kernel.org, catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org, mark.rutland@arm.com, daniel.lezcano@kernel.org, tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, gordon.ge@bst.ai, bst-upstream@bstai.top, jesper.nilsson@axis.com, lars.persson@axis.com, alim.akhtar@samsung.com, ivo.ivanov.ivanov1@gmail.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, dinguyen@kernel.org, matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, thierry.reding@kernel.org, andersson@kernel.org, konradybcio@k
- ernel.org, afaerber@suse.de, eleanor.lin@realtek.com, heiko@sntech.de, shawn.lin@rock-chips.com, orsonzhai@gmail.com, baolin.wang@linux.alibaba.com, michal.simek@amd.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Jon,
+Add a binding for the microcontroller (MCU) that fronts the PSE silicon
+on a range of managed switches. The host talks only to the MCU, over
+I2C/SMBus or UART, using a fixed message-based protocol; the PSE chips
+behind it never appear on the bus.
 
-On Tue, 30 Jun 2026 10:42:34 +0100,
-Jon Hunter <jonathanh@nvidia.com> wrote:
-> 
-> Hi Marc,
-> 
-> On 23/05/2026 15:02, Marc Zyngier wrote:
-> > The ARMv8.2 based CPUs used in a number of nvidia SoCs are missing
-> > the EL2 virtual timer interrupt. Add it.
-> > 
-> > Signed-off-by: Marc Zyngier <maz@kernel.org>
-> > ---
-> >   arch/arm64/boot/dts/nvidia/tegra194.dtsi | 2 ++
-> >   arch/arm64/boot/dts/nvidia/tegra234.dtsi | 3 ++-
-> >   2 files changed, 4 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/arch/arm64/boot/dts/nvidia/tegra194.dtsi b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-> > index 849694f751d90..45cc180ac9973 100644
-> > --- a/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-> > +++ b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-> > @@ -3163,6 +3163,8 @@ timer {
-> >   			     <GIC_PPI 11
-> >   				(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> >   			     <GIC_PPI 10
-> > +				(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> > +			     <GIC_PPI 12
-> >   				(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
-> >   		interrupt-parent = <&gic>;
-> >   		always-on;
-> > diff --git a/arch/arm64/boot/dts/nvidia/tegra234.dtsi b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-> > index 04a95b6658caa..ab9813f9ba30c 100644
-> > --- a/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-> > +++ b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-> > @@ -5872,7 +5872,8 @@ timer {
-> >   		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> >   			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> >   			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> > -			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
-> > +			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> > +			     <GIC_PPI 12 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
-> >   		interrupt-parent = <&gic>;
-> >   		always-on;
-> >   	};
-> 
-> Sorry for the delay. I gave this a test because I observed the warning
-> that was added on the Tegra194 and Tegra234 platforms. This change
-> fixes the warning for Tegra234, but on Tegra194 the platforms I tested
-> hang on boot. It appears to be similar to the issue that Marek saw on
-> his platforms and so I am wondering if Tegra194 also doesn't have this
-> wired up?
+The compatible names the MCU front-end, not a specific part. These
+boards front the PSE silicon with an MCU that presents a stable
+message protocol Realtek documents. The PSE chip behind it varies
+- Broadcom on older boards, Realtek on newer - and is detected at
+runtime; the arrangement appears to be a Realtek MCU-based PoE design
+carried across those PSE-chip generations. So the 'realtek' prefix
+names that front-end (Realtek's protocol and firmware), not the
+general-purpose MCU silicon or the PSE chip - the google,cros-ec-*
+model. The '-rtk'/'-brcm' suffix selects the Realtek or Broadcom dialect.
 
-I think you are in a better position than me to find out. It also
-could be a firmware issue not making the PPI a Group-1 interrupt, and
-therefore not allow Linux to configure the interrupt.
+A single compatible per dialect covers both the I2C/SMBus and UART
+attachments: the wire protocol is identical across them and the transport
+is expressed by the node's parent bus, so it is not encoded in the
+compatible.
 
-> 
-> Was there any resolution to the issue reported by Marek?
-> 
-> FYI, the Tegra194 SoC has the 'NVIDIA Carmel ARM v8.2' CPUs [0].
+Both dialects share one protocol family and one device tree contract, so
+they are documented in a single binding under the one 'realtek' prefix,
+with the '-rtk'/'-brcm' suffix distinguishing the dialect.
 
-There is no resolution so far. Florian was going to check what the
-deal is with the Broadcom-related systems, but hasn't come back with
-an answer yet.
+Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+---
+ .../bindings/net/pse-pd/realtek,pse-mcu.yaml  | 154 ++++++++++++++++++
+ 1 file changed, 154 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu.yaml
 
-The possibilities are as follows:
-
-- remove the interrupt for the EL2 virtual timer and live with the
-  warning
-
-- add a patch such as [1], which should document the reason why this
-  is now working (and fallback to the EL2 physical timer)
-
-I'm happy either way, as long as we know exactly what we are dealing
-with on each affected platform.
-
-Thanks,
-
-	M.
-
-[1] https://lore.kernel.org/all/878q898ulx.wl-maz@kernel.org/
-
+diff --git a/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu.yaml b/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu.yaml
+new file mode 100644
+index 000000000000..3a414ef38922
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu.yaml
+@@ -0,0 +1,154 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/pse-pd/realtek,pse-mcu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Realtek/Broadcom PSE MCU
++
++maintainers:
++  - Jonas Jelonek <jelonek.jonas@gmail.com>
++
++description: |
++  Microcontroller (MCU) that fronts the PSE hardware on switches using
++  Realtek (RTL8238B, RTL8239, RTL8239C) or Broadcom (BCM59111, BCM59121)
++  PSE chips. The MCU exposes a small message-based protocol over either
++  I2C/SMBus or UART; the actual PSE silicon is not accessed directly. The
++  Realtek and Broadcom variants share this device tree contract but use
++  different protocol opcodes, selected by the compatible.
++
++  The compatible identifies the PSE-MCU protocol dialect, not a specific
++  part. The device here is the MCU: it presents a stable message protocol
++  documented by Realtek, with the PSE silicon behind it - Broadcom on
++  older boards, Realtek on newer - detected at runtime and not described
++  here. The MCU's own silicon is general-purpose and varies across
++  boards, so the 'realtek' vendor prefix names the protocol front-end
++  (following the google,cros-ec pattern); the '-rtk'/'-bcm' suffix
++  selects the Realtek or Broadcom dialect.
++
++  A single compatible per dialect covers both the I2C/SMBus and UART
++  attachments: the wire protocol is identical across them and the
++  transport is already expressed by the node's parent bus, so it is not
++  encoded in the compatible. Transport-specific properties differ
++  accordingly - the I2C attachment carries 'reg' (and, for Realtek,
++  'realtek,i2c-protocol'), while the UART attachment carries the serial
++  peripheral properties such as 'current-speed'.
++
++properties:
++  compatible:
++    enum:
++      - realtek,pse-mcu-rtk
++      - realtek,pse-mcu-brcm
++
++  reg:
++    maxItems: 1
++
++  power-supply:
++    description: Regulator supplying the PoE power rail.
++
++  enable-gpios:
++    maxItems: 1
++
++  realtek,i2c-protocol:
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [ i2c, smbus ]
++    description: |
++      Wire framing the MCU firmware expects on the I2C bus. "smbus" means
++      reads carry a leading command byte (0x00) and a repeated start; "i2c"
++      means bare 12-byte writes and reads with no command prefix. Only
++      applies to the Realtek I2C attachment.
++
++required:
++  - compatible
++
++allOf:
++  - $ref: pse-controller.yaml#
++  - $ref: /schemas/serial/serial-peripheral-props.yaml#
++  # The I2C attachment (identified by 'reg') cannot carry serial bus props.
++  - if:
++      required: [reg]
++    then:
++      properties:
++        current-speed: false
++        max-speed: false
++  # 'realtek,i2c-protocol' is meaningful only for the Realtek I2C attachment;
++  # the Broadcom variant and any UART attachment must not carry it.
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: realtek,pse-mcu-rtk
++      required: [reg]
++    then:
++      required:
++        - realtek,i2c-protocol
++    else:
++      properties:
++        "realtek,i2c-protocol": false
++
++unevaluatedProperties: false
++
++examples:
++  # Realtek PSE chip, I2C attachment (SMBus framing).
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet-pse@20 {
++            compatible = "realtek,pse-mcu-rtk";
++            reg = <0x20>;
++            realtek,i2c-protocol = "smbus";
++
++            pse-pis {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                pse-pi@0 {
++                    reg = <0>;
++                    #pse-cells = <0>;
++                };
++            };
++        };
++    };
++
++  # Broadcom PSE chip, I2C attachment.
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet-pse@20 {
++            compatible = "realtek,pse-mcu-brcm";
++            reg = <0x20>;
++
++            pse-pis {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                pse-pi@0 {
++                    reg = <0>;
++                    #pse-cells = <0>;
++                };
++            };
++        };
++    };
++
++  # Realtek PSE chip, UART attachment.
++  - |
++    serial {
++        ethernet-pse {
++            compatible = "realtek,pse-mcu-rtk";
++            current-speed = <115200>;
++
++            pse-pis {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                pse-pi@0 {
++                    reg = <0>;
++                    #pse-cells = <0>;
++                };
++            };
++        };
++    };
 -- 
-Without deviation from the norm, progress is not possible.
+2.51.0
+
