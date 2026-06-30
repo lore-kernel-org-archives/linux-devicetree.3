@@ -1,69 +1,164 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E122236FD;
-	Tue, 30 Jun 2026 14:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E533C22A4EE
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 14:03:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782828184; cv=none; b=Ee8Eayrhk+lnBI0QxpBH0gtjm3rTxdIt/7ch7lTlfRKNNtDucdlVpuX0g3wb21xY/R4oZo7GWdiYj4gKTzedHzsTLAtT6bd4ctERBU+zfykC7hoOs3Dk3baGWljgoxrtJzwixFO11lnsDmt7UolWoCyRp8bp8lI1UZnKb5iJ4Qw=
+	t=1782828198; cv=none; b=DodzA9/2Yk3R2sJzTMbp0jxvxkse/UcPe9pKkhfc9o6CBOh+HgGAnWBWUD8Z3s6SBSaF9hkqAaLIK7HGVC/4pld4Tuy+74EVCPP7bz8hC9I1JB6V80ylWDCHf22jgl0zPFEC5JcMB6U4Hvux8f1DhEKCjFfKmBr7cjlxG+PE+8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782828184; c=relaxed/simple;
-	bh=RRSGBWEJGrWpLI4NZKGOrKYwU43b5K6pNyzZcJFNoeY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pd+sIDZAtic6BJXWiUv6ICcI/zJP8zz6EySg4lcgmgT+Ne6fWeHaRrMveM33V/yAQ3sT025BZwu2OVBw8Wcz2OAoT/pieqtjbv4XfvBMliJRjhigY8SyjQWlsahaP0eKf/wvgmtQGVa6kkKN2p2Zje7aXXNbXaIz97QVDRKrkjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=duh0gbDG; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1782828198; c=relaxed/simple;
+	bh=te6yQ/vh13KPOT8v7c2CmXqIR0YWG0FCzDunJJ2/n4A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XtrBsczdrvNeTlh4YK6MXtM2sLzqp5ml01Pw+vlyIpRy2yubclpP8q3J4hwqWZh7t9f9J+KZprSQySPttBQl5lZSt9o8e4qz6i5DoZmzy4wvooEqKpgcU8pio2OtfGiBfYjlIihOSCXw8CTEgogRkc2HgfgBjMu0hKkdvQ8uY1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KZCxBo9g; arc=none smtp.client-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="duh0gbDG"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=u0GmV8HGMiBxPZojHC/TPgWc17DSdtLcrq8m1XBeG5k=; b=duh0gbDGUnCmyAvCUFlAJkhKWV
-	iTyDb85hcDckWkn7WAkdUmluWcry2+GWkvIJ020qOXnJtQV130jn18fzVSkWbmk17qokRZEkIFbG6
-	A7+wORvIdThNF7mYpvjN95NpgMsRolUW0byZAx3+OZjF27BkkMkR1h0bRcV1CVwOYxbk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1weZ37-009zHK-Nm; Tue, 30 Jun 2026 16:02:53 +0200
-Date: Tue, 30 Jun 2026 16:02:53 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: dinguyen@kernel.org, maxime.chevallier@bootlin.com,
-	rmk+kernel@armlinux.org.uk, krzk+dt@kernel.org, conor+dt@kernel.org,
-	robh@kernel.org, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] net: stmmac: dwmac-socfpga: Add mac-mode DT property
- support
-Message-ID: <4c285993-978c-4d9e-a8c5-c3b36baa6840@lunn.ch>
-References: <20260630133108.27244-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <20260630133108.27244-4-muhammad.nazim.amirul.nazle.asmade@altera.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KZCxBo9g"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5aeae771c49so2630961e87.3
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:03:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782828195; x=1783432995; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=E5myFV2lUvsbUXFZwzMTNcvCKBKBwVWQwQUk0dFgQmo=;
+        b=KZCxBo9gj5446lUwH5ZYMsOlpTU57x3lMtBQ9LnKCPNbhfSLG+qNM2BBpnh7MllfsT
+         fcDZEpaIxUJhj3fLO3sFWmdPcCQiui5Qxs9B01sl/c4c96c5QnDoebAR0TVMej2aocXN
+         syQ2oi8aYhlIbJMCXnH4x3h84Xwll0SeLmQTS/YVjrxpLjfuSOdU5Fhf7qp+uKcSZoWE
+         MWRBbhkGRzGEczi83ukW7FWC26pIairE0WK8lvN7qJB+hP/bT3MbKfXRlBKkBgZacesO
+         imw9g+HESC8LdDB0bdji4ftuIpAcxPxHQIx9dd/ubAfqSMfLz0P/3O3RHzwQerKReJU3
+         aiJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782828195; x=1783432995;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=E5myFV2lUvsbUXFZwzMTNcvCKBKBwVWQwQUk0dFgQmo=;
+        b=B/EOYivKcG1UdK2xmc7HwvDp7R30Y6KOIfX2hZNrnDtvhO/HAmuVOXZQ0TBUwZnSeF
+         e7LkZcJgmXee1fbZDz17kBUfRxzwhwU4dphSI+ztKdrKf9mdweWEq5ytrg68BkRUjqL1
+         ClBtG3g2H8B5g0GYgkNLVAZuR8vx6OgkcAP/MSbMEIX2zUkDrOQ4YMDtoNxp9IVUcjXK
+         sYo78kKclEds/l9+naWMpWTxCo9Q+3+9n+sGOLJN3QznXq97knnBvPDQUUxljzSStfmE
+         3JxsyHKkJmRFgM7xbvIWd1u2A4Qr026r1k9bi/h+H/GcyvvRbH/RRQVEXIxQEkk+CH5U
+         Drew==
+X-Forwarded-Encrypted: i=1; AHgh+RqiJnV27OFiNn12UFa+zM5uhuWXDW1PgAJ7b3KXl0dnlcfPOparx5k237DDxTqmvAEJuCQz7ZLyYNDQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzwCzEMafviu83jgVKG5U/ceYHYf6E2l464wu2Rtw8WcJuem4oE
+	8ayBy4ZODBdUlLkOvIIz6Bmh7iFtq0RpNCX5Dwu9nfktQAISg4IA+BFS
+X-Gm-Gg: AfdE7cke7DXAnbdD4712jQpmOUVi2kDo0ex52aAR6mXEz4hpX1FlidS+jaFqezpu85b
+	f01xEbPUeuz8rje0luZw+im1jgHhgA98GStiLffVZ1Rokgn8VpeHqgDVd23BmNDUUhy3wxDEXTY
+	6BDVOnQjlmxhSK/pJteTffTYvNJr2kOq/iy2kZLwoTWFwARYNt0E0rsHy01n54pdCcjZvzHtJp+
+	+4ljs9o+/HmVUQ36s7ChuLfpna6vW1W1Zd2Qg9TU2kxuTJH9TW9+AqwfcRHIBnoMH/KgRaFyBP2
+	sI3tQtuQRu1HHpmx8wgHzxZncpZG6nk0NGcNkpbkmxcT7EmBN54iAITTGBoxp0FKAaKim8tlWpH
+	qE52YQv74F7winlMRL6p7tdQLSIdK5otb6kd8iN3TbPj/C0Y015Nc8BWNY8RN+zO1AN6qFV1/E1
+	nJ3J5gtGljwzTrBcoENSIxKEmIrqqOnARojw8zDYTaGUMAgg==
+X-Received: by 2002:a05:6512:3589:b0:5ae:a76b:4bb2 with SMTP id 2adb3069b0e04-5aec10c27aamr163435e87.33.1782828194753;
+        Tue, 30 Jun 2026 07:03:14 -0700 (PDT)
+Received: from Shofiq.home (87-92-251-137.rev.dnainternet.fi. [87.92.251.137])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aebe4aa01fsm599564e87.75.2026.06.30.07.03.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 07:03:13 -0700 (PDT)
+From: Md Shofiqul Islam <shofiqtest@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: jic23@kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mike.looijmans@topic.nl,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Md Shofiqul Islam <shofiqtest@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: iio: adc: ti,ads1298: add ADS1299 EEG ADC variants
+Date: Tue, 30 Jun 2026 17:03:10 +0300
+Message-ID: <20260630140311.1473031-1-shofiqtest@gmail.com>
+X-Mailer: git-send-email 2.51.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260630133108.27244-4-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 30, 2026 at 06:31:08AM -0700, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
-> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
-> 
-> Russell King's commit de696c63c1dc ("net: stmmac: socfpga: convert to
-> use phy_interface") replaced mac_interface with phy_interface in
-> socfpga_get_plat_phymode(), noting that no upstream DTS files set the
-> "mac-mode" property, making the two values identical.
-> 
-> The Agilex5 SoCDK TSN Config2 board is an exception: its gmac1 TSN
-> port uses GMII internally in the MAC while the PHY-side interface is
-> RGMII, so mac-mode and phy-mode differ.
+The ADS1299, ADS1299-4, and ADS1299-6 share the same SPI interface
+and register map as the ADS1298 ECG ADC family but are designed for
+EEG and biopotential measurement.  Key differences from ADS1298:
+- PGA gain up to 24x (vs 12x for ADS1298)
+- Internal reference is always 2.4V (no 4V option)
 
-Maybe you need to represent the hardware block which magically
-converts GMII to RGMII in DT?
+Add compatible strings and update the vref-supply description to
+document the ADS1299 reference voltage behaviour.
 
-	 Andrew
+Signed-off-by: Md Shofiqul Islam <shofiqtest@gmail.com>
+---
+ .../bindings/iio/adc/ti,ads1298.yaml          | 31 ++++++++++++++++---
+ 1 file changed, 26 insertions(+), 5 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1298.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1298.yaml
+index 71f9f9b745cb..82c5181126df 100644
+--- a/Documentation/devicetree/bindings/iio/adc/ti,ads1298.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1298.yaml
+@@ -4,11 +4,16 @@
+ $id: http://devicetree.org/schemas/iio/adc/ti,ads1298.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Texas Instruments' ads1298 medical ADC chips
++title: Texas Instruments ADS1298/ADS1299 biopotential ADC chips
+ 
+ description: |
+-  Datasheet at: https://www.ti.com/product/ADS1298
+-  Bindings for this chip aren't complete.
++  ADS1298/ADS1298R: 8-channel, 24-bit ECG ADC.
++  Datasheet: https://www.ti.com/product/ADS1298
++
++  ADS1299/ADS1299-4/ADS1299-6: 8/4/6-channel, 24-bit EEG/biopotential ADC.
++  Identical SPI interface and register map to the ADS1298 family, but with
++  a higher maximum PGA gain (24x vs 12x) and fixed 2.4V internal reference.
++  Datasheet: https://www.ti.com/product/ADS1299
+ 
+ maintainers:
+   - Mike Looijmans <mike.looijmans@topic.nl>
+@@ -17,6 +22,9 @@ properties:
+   compatible:
+     enum:
+       - ti,ads1298
++      - ti,ads1299
++      - ti,ads1299-4
++      - ti,ads1299-6
+ 
+   reg:
+     maxItems: 1
+@@ -33,8 +41,10 @@ properties:
+ 
+   vref-supply:
+     description:
+-      Optional reference voltage. If omitted, internal reference is used,
+-      which is 2.4V when analog supply is below 4.4V, 4V otherwise.
++      Optional reference voltage. If omitted, internal reference is used.
++      For ADS1298, the internal reference is 2.4V when analog supply is
++      below 4.4V, 4V otherwise. For ADS1299, the internal reference is
++      always 2.4V.
+ 
+   clocks:
+     description: Optional 2.048 MHz external source clock on CLK pin
+@@ -75,5 +85,16 @@ examples:
+           spi-max-frequency = <20000000>;
+           spi-cpha;
+         };
++
++        adc@2 {
++          reg = <2>;
++          compatible = "ti,ads1299";
++          label = "ads1299-1-eeg";
++          avdd-supply = <&reg_iso_5v_a>;
++          interrupt-parent = <&gpio0>;
++          interrupts = <79 IRQ_TYPE_EDGE_FALLING>;
++          spi-max-frequency = <20000000>;
++          spi-cpha;
++        };
+     };
+ ...
+-- 
+2.51.1
+
