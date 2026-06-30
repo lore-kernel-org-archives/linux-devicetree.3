@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7455410D26;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8465410D38;
 	Tue, 30 Jun 2026 12:54:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782824086; cv=none; b=oMrKHZ/05EjTCuXhIZZf8Bjdc3NU5Hr80hJdcgxeuUzsk4ZRx46HclZxGa8nD7iF0q5fT13CcpfFTpuF1Ys7ZiwpGQmcEqK55nzeAYMa8nshq45u46lli0ZAZjr0cmAA/01z8LT8h4Y4klytmXb/JTBRZh+iCuD1ludnyaqK6pE=
+	t=1782824086; cv=none; b=ENMyJpslQHs/I1LmnNaOD+caMaW8HUDVL9QyXQ+4w6UkNe5i2tv3F6wxpv6YyHM7Z4rNh5DoOSUn5mrz9+qiNheuieX4JXTn3Ej28u9k2PZN/59k/6scMte7R5kLWlbFXQTRGFrWa5/Dnl4Bl4B7ahlnLANkaoQWP8LcxkOvdwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782824086; c=relaxed/simple;
-	bh=v5K8YIOQSM4pcHUmb0+gBEqEMmgttu3NrEpZewiOH7k=;
+	bh=9XzjbYaBUsoOWcEt/akYK3mjOrj4my2NJLQ/VEcsXjI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kItaATnKOQvjeFKZlfj3RoIfPQ8wxT9xu/IpmgNjZihLnm1mvje8hEEkiGlxEoC+Cab5/nDyHMb3jwxl2l1cDsuxoK39ciGeHZm+wyJFfhwaT2CLeMkBRgW8iljDEqJX4Kp/78zASqfdcXPyBGGK6JpgzdUZsVhKwhrTT2eub+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lMJtJWsL; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=W5ceLLhdbNUF/FpUjOfSKMb20eCFYbqTcNkJxzIvfLJlXJ+2PhdjdZXCzxECE5ff00e+njs4nCyJTB225vf+/Brv417WpWoQmXNT8YDRfngdbFb8nYzMHv8N5xTa5VEtmOW9T3pdon6ncyM32+X7UR1pidFPlaD+gpltFzHut/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nqMUR/ea; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lMJtJWsL"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5C51CC2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nqMUR/ea"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7388AC4AF0B;
 	Tue, 30 Jun 2026 12:54:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1782824086;
-	bh=v5K8YIOQSM4pcHUmb0+gBEqEMmgttu3NrEpZewiOH7k=;
+	bh=9XzjbYaBUsoOWcEt/akYK3mjOrj4my2NJLQ/VEcsXjI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=lMJtJWsLzUcDLEVPamBva2P15vIXr6oDES9ANs6QAxxnrglPRE2MTsajK/KUDz9sc
-	 2W0LVUg2HbDas259NOZ/62IRFtHNZYklGQA3yN6nbVAUpDbUpST8UNz5s6yznc3JPA
-	 aCNpEQD5vwRPPOCTabYh0qhtVNMHr74zu5b6Yo5PP1B55rUKJJqPke/gl/wfwflCvQ
-	 q3SRkBcegYykpsxvj+xt4ZIdRqcBey/54tjcMO1ptXILozzFfcoqdLqfhS6M+MigKk
-	 3cnCfPrTCcZ+VxP1fqdkuGDCJX8rKL3tqIWdonhzRbYWw+sthpwuM2z/CrcHVgWP6U
-	 qcgsrjlswmiYA==
+	b=nqMUR/eaOrw3tQzjrTkePZdxnmA3cdkEfwtNNFztLjJx9Kal+Hmp6orqbU3rdgJje
+	 obRCLNr2M3YowCTQ/rKp3v8KOfbJzvchNndNRoYiLwmekhTGWng47aqBox1GMAOwdd
+	 SV91RWaoehiffquNq/9D8XgTwUrG5YIfwnaGTEL8DrxqogGAX4Cy0DXbdrBmjQ61s1
+	 mYoe0Tc0oqEhgp/ick4CYTaUjZopwCt8bZ3NTp17H99g5+7HURza537kSGujwfNfZU
+	 kFIkxdM7gZw4ZsQCq9W5QSvHyXVzM6bJlSsIqzz4OwmpzojjbTrBt/Cr/sTl8eK6IT
+	 VtZcx9RK6r4MQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47405C43602;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 651CBC43327;
 	Tue, 30 Jun 2026 12:54:46 +0000 (UTC)
 From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
-Date: Tue, 30 Jun 2026 22:54:29 +1000
-Subject: [PATCH 01/10] dt-bindings: mailbox: Add Apple t8122 ASC mailbox
+Date: Tue, 30 Jun 2026 22:54:31 +1000
+Subject: [PATCH 03/10] dt-bindings: iommu: apple,dart: Add t8122 compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260630-apple-mtp-keyboard-final-v1-1-506d936a1707@gmail.com>
+Message-Id: <20260630-apple-mtp-keyboard-final-v1-3-506d936a1707@gmail.com>
 References: <20260630-apple-mtp-keyboard-final-v1-0-506d936a1707@gmail.com>
 In-Reply-To: <20260630-apple-mtp-keyboard-final-v1-0-506d936a1707@gmail.com>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -56,11 +56,11 @@ Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  iommu@lists.linux.dev, linux-input@vger.kernel.org, 
  Michael Reeves <michael.reeves077@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782824083; l=1027;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782824083; l=963;
  i=michael.reeves077@gmail.com; s=20260105; h=from:subject:message-id;
- bh=NwNyyVWwfMGwXyyxkslAk52mQZkXJnBNHg2CHXQEQ4E=;
- b=CK7aMG4Z4oGnQhA3PjnKecoI+wEIKEftwtDJ0ZlWJ5B07dBzEvYZDDfqij4ju+7c5A6BbCZQt
- 9KrMNVXDe0YAL4cotqDbFqmlvSNrK6wuclH5S/Qy5TS1RuJLKDGYP5o
+ bh=y5JWfMxBJX2xwts+wGq01XJ6a6fA14G/VbJw916yMm0=;
+ b=5iqh2NsfbrvbnnFMBUjNQ9JMWqmwkDS68TKoS3s6ZKyEuN8ohJJ4u5+rkTGBiNHhfR+95Ekiq
+ ojKHCJikfWADnyTu62aZ30rMoFM5bYbdIPtKbGM4A7trN7HTSRd2pBQ
 X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
  pk=QIrgWBGCm3LG0YYc6MLCDkwuVXLTGGooVBdWX/KhSiU=
 X-Endpoint-Received: by B4 Relay for michael.reeves077@gmail.com/20260105
@@ -70,29 +70,31 @@ Reply-To: michael.reeves077@gmail.com
 
 From: Michael Reeves <michael.reeves077@gmail.com>
 
-The ASC mailbox on t8122 is compatible with the v4 mailbox block used
-by other Apple Silicon SoCs.
+The MTP block on t8122 has its own DART instance for coprocessor DMA.
 
-Document the t8122 compatible in the v4 mailbox section so M3 device
-trees can describe their coprocessor mailboxes.
+Document the t8122 compatible with the existing t8110 fallback because
+the programming model is shared.
 
 Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
 ---
- Documentation/devicetree/bindings/mailbox/apple,mailbox.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/devicetree/bindings/iommu/apple,dart.yaml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/mailbox/apple,mailbox.yaml b/Documentation/devicetree/bindings/mailbox/apple,mailbox.yaml
-index 28985cc62c25..946c909c6922 100644
---- a/Documentation/devicetree/bindings/mailbox/apple,mailbox.yaml
-+++ b/Documentation/devicetree/bindings/mailbox/apple,mailbox.yaml
-@@ -30,6 +30,7 @@ properties:
-           - enum:
-               - apple,t8103-asc-mailbox
-               - apple,t8112-asc-mailbox
-+              - apple,t8122-asc-mailbox
-               - apple,t6000-asc-mailbox
-               - apple,t6020-asc-mailbox
-           - const: apple,asc-mailbox-v4
+diff --git a/Documentation/devicetree/bindings/iommu/apple,dart.yaml b/Documentation/devicetree/bindings/iommu/apple,dart.yaml
+index 47ec7fa52c3a..e179199dbd3b 100644
+--- a/Documentation/devicetree/bindings/iommu/apple,dart.yaml
++++ b/Documentation/devicetree/bindings/iommu/apple,dart.yaml
+@@ -29,7 +29,9 @@ properties:
+           - apple,t8110-dart
+           - apple,t6000-dart
+       - items:
+-          - const: apple,t6020-dart
++          - enum:
++              - apple,t6020-dart
++              - apple,t8122-dart
+           - const: apple,t8110-dart
+ 
+   reg:
 
 -- 
 2.51.2
