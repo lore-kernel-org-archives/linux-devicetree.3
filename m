@@ -1,182 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F6740B6EE
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:57:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA003CCFD2
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:57:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782817039; cv=none; b=L2M1Ci9YuryQ+xhuM+uy7cAjJGGApeM1fhJkiPTDaDbFr9yKdvyf36GLJMhGU+0ijnp4WBvLukK8JGAG7tHtLecawjaeiTPx98RuhDbx148O1bWulKQx6ibfHkFyxC3BuE01flptA2vGQGGjOVubvKDDyJELGqI2ZiXTItzGmYI=
+	t=1782817070; cv=none; b=E5tv7cOlWrVYXIKAPXOnTTewHyFu+/HeYA/FZQLmo0jGzhuyoWs1vkaNO3zzI1Fm+G90CWdmIQLyrW6bm6koNQf/rPj9TVnC4VaqSehw8WSCUcClw7BxvTZ3ElB2MB9MlFONcTajj/sw3dqyueXPowH+6BkvhprZfzOlrnIbwSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782817039; c=relaxed/simple;
-	bh=OIwIZmtISKNLdUknisqQx9Wkk/u7hNUAMMoDmuGZXSA=;
+	s=arc-20240116; t=1782817070; c=relaxed/simple;
+	bh=YAGjExc2ajzEMKoB7dCay4wWkth40nowl6q+ZdwxtgU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DtHISVL5556nBt7bnJ8+vU1mYTuHC7S23YuV5/4aDZqGugT2s+uadRdtAOGQu7NyH74MwhJHi8nRLqJGLX04S9OEvM28XSK88zdAEP7gZDRGSUWThGe5EwS2yjns9IxMGS+rp6caeE1ItBbgT26BxHpB/5t0ZV68jo+umKfEitY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJiF1N3y; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=h6gSHNOIPdwVXgXf8vTDt89I4degrTsAtsCCdPpmVoxmOHg5+GxmULPzJBUCfVxzMse7qfhgvcc4mKf1FpiNG/QLK/Da1IEUHYCezhoa8z9v5XeHHCyqsCSMpGD/b5/ug1Pw2j2iaVl/GXDIYR+zm/lCg7hLfP7bdKvpTQkL4M4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XrGx2oQM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJiF1N3y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EEC41F000E9;
-	Tue, 30 Jun 2026 10:57:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XrGx2oQM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 197541F000E9;
+	Tue, 30 Jun 2026 10:57:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782817038;
-	bh=6TNdTs9e+zswQHONVLn+KHfsYSMTBFRxU3F5V7mXaqY=;
+	s=k20260515; t=1782817069;
+	bh=ki7QH7l3wDnRJrKfhir6lAwm3VXvOsBl5nkng+tR5ro=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nJiF1N3yUICncManiD6BG4sEuPg8JqsxEzoEm3BARHk75mRSCzB3qk6Y841NNz9yC
-	 o5hmCamgZjfCUd1zBc2IYG5Ud3AV66pRyuIr+qhL670/s+rC8kWN+X6KSTzyN9Ljl5
-	 RiMLusvjRldAXM/G8O28bqZMMHSeElecae8n7mi9II8vSi3lYw9CF67kNAOVPBRDCb
-	 lSQkt9mLq9UKEb9m+UMXMdq/FLXucyodR+hjuqLPIzxBqUPD0KgEkAe3Ts/MeKBlzA
-	 1b0CgnvCDs5dajbbZOUjke5LVfkxlnqsmms+COycerEveh1+vrQAFrDR110mraFkLZ
-	 wwfjyAu6AtZ/g==
+	b=XrGx2oQMDqB4nmSNWhhs4bY0T4hPpGC6qwwEsm1ztp129VTeQKepy2qOPcNDU2cXk
+	 krpXt00ogcPwWEum95tGxSpZ7anLPOEOhJwKIZHHIWStfuIHyucgcjVH/MWF07HIVY
+	 jLo5+fm6XekwAL3cFXROZJ28p9yaoxlprHikBYyzdsU2a1dArTJR4mPxwR+yxK8d28
+	 ZjKpCLYt2z09TS+sEPfbgWAgDXEMI3GQPKsdVsawm6DdOQCAIfuyE47eybkDOBjc/M
+	 MjBL9uW6zEDyxjgkxjpsCGt++VBcn3e/p4hOmxsmFBkaEhXvzWqRCozI+5MedxiNZX
+	 KGnbfTPOWhLGA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] drm: bridge: cdns-mhdp8546: Add no-hpd property
+Subject: Re: [PATCH v3 2/5] coresight: tnoc: Add AG tnoc standalone
+ compatible to the platform driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yashas D" <y-d@ti.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260630102610.1849902-3-y-d@ti.com>
-References: <20260630102610.1849902-1-y-d@ti.com>
- <20260630102610.1849902-3-y-d@ti.com>
+To: "Jie Gan" <jie.gan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260630-fix-tracenoc-probe-issue-v3-2-7201e1841e94@oss.qualcomm.com>
+References: <20260630-fix-tracenoc-probe-issue-v3-0-7201e1841e94@oss.qualcomm.com>
+ <20260630-fix-tracenoc-probe-issue-v3-2-7201e1841e94@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 10:57:17 +0000
-Message-Id: <20260630105718.0EEC41F000E9@smtp.kernel.org>
+Date: Tue, 30 Jun 2026 10:57:48 +0000
+Message-Id: <20260630105749.197541F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Polling monitor presence using `drm_dp_dpcd_read_link_status()` re=
-ads from link training status registers (DP_LANE0_1_STATUS), which can disr=
-upt the DP sink's state machine.
-- [High] Calling `cdns_mhdp_update_link_status()` from the `.detect()` call=
-back continuously re-programs live video registers during DRM polling.
-- [High] Missing `drm_dp_aux_unregister` on the firmware load timeout error=
- path in `cdns_mhdp_attach`.
-- [Medium] In no-hpd mode, link status evaluation is bypassed, preventing r=
-ecovery from main link failures.
-- [Medium] A hardcoded 100ms timeout in `cdns_mhdp_attach` to wait for asyn=
-chronous firmware loading is too short and will cause initialization failur=
-es.
+- [High] System Trace ID is leaked on platform device removal for standalon=
+e Aggregator TNOC.
 --
 
-commit 2c6e286375fe2e77fec97f0ea17066c50894dd26
-Author: Rahul T R <r-ravikumar@ti.com>
+commit 060ed6649d8ad0bd7b6b53c7f626563782e801df
+Author: Jie Gan <jie.gan@oss.qualcomm.com>
 
-drm: bridge: cdns-mhdp8546: Add no-hpd property
+coresight: tnoc: Add AG tnoc standalone compatible to the platform driver
 
-This patch adds a 'no-hpd' property to support boards where the HPD line ca=
-nnot
-be used for hotplug detection. It implements a polling mechanism using AUX =
-reads
-to detect monitor presence when hardware HPD signals are unavailable.
-
-> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/driver=
-s/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> index 36c07b71fe04b..5e1bad8fc73ea 100644
-> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-[ ... ]
-> @@ -1523,6 +1532,26 @@ static int cdns_mhdp_attach(struct drm_bridge *bri=
-dge,
-> =20
->  	spin_unlock(&mhdp->start_lock);
-> =20
-> +	if (mhdp->no_hpd) {
-> +		/*
-> +		 * In no-hpd mode there is no interrupt to signal firmware
-> +		 * readiness. The firmware loads asynchronously after probe(),
-> +		 * so we must wait here until the uCPU is running before
-> +		 * attempting the first AUX channel poll for monitor presence.
-> +		 */
-> +		ret =3D wait_event_timeout(mhdp->fw_load_wq,
-> +					 mhdp->hw_state =3D=3D MHDP_HW_READY,
-> +					 msecs_to_jiffies(100));
-
-[Severity: Medium]
-Will this 100ms timeout cause initialization failures?
-
-Async firmware loading can routinely take longer than 100ms on a busy syste=
-m or
-when reading from slow storage.
-
-> +		if (ret =3D=3D 0) {
-> +			dev_err(mhdp->dev, "%s: Timeout waiting for fw loading\n",
-> +				__func__);
-> +			return -ETIMEDOUT;
-
-[Severity: High]
-Does this error path leak the registered AUX channel?
-
-Earlier in cdns_mhdp_attach(), the DRM DP AUX channel is registered using
-drm_dp_aux_register(). Returning directly here skips the aux_unregister err=
-or
-path label at the end of the function, leaving the AUX channel registered b=
-ut
-in an invalid state.
-
-> +		}
-> +
-> +		cdns_mhdp_update_link_status(mhdp);
-> +		return 0;
-> +	}
-> +
-[ ... ]
-> @@ -2100,7 +2132,16 @@ static int cdns_mhdp_update_link_status(struct cdn=
-s_mhdp_device *mhdp)
-> =20
->  	mutex_lock(&mhdp->link_mutex);
-> =20
-> -	mhdp->plugged =3D cdns_mhdp_detect_hpd(mhdp, &hpd_pulse);
-> +	if (mhdp->no_hpd) {
-> +		ret =3D drm_dp_dpcd_read_link_status(&mhdp->aux, status);
-
-[Severity: High]
-Is it safe to read link training status registers to poll for monitor prese=
-nce?
-
-drm_dp_dpcd_read_link_status() reads the DP_LANE0_1_STATUS (0x202) register.
-According to the DRM subsystem guidelines, reading link training status
-registers (0x202-0x207) outside of the expected training sequence can trigg=
+This commit adds the "qcom,coresight-agtnoc" compatible to allow the Aggreg=
+ator
+TNOC to probe as a standalone platform device. It updates the platform driv=
 er
-unintended state machine transitions in DP/eDP sinks. Could this cause hard=
-ware
-state corruption or screen flickering?
+and callback names to generic "tnoc" variants. It also modifies the default
+data initialization so that only the Interconnect TNOC skips trace ID alloc=
+ation.
 
-> +		hpd_pulse =3D false;
-
-[Severity: Medium]
-Does hardcoding hpd_pulse to false bypass link retraining?
-
-Later in cdns_mhdp_update_link_status(), link validation logic checks
-if (hpd_pulse && old_plugged =3D=3D mhdp->plugged). By hardcoding this to f=
-alse,
-that logic is skipped. If the main high-speed link loses synchronization but
-the monitor remains connected, wouldn't the driver fail to retrain the link?
+> diff --git a/drivers/hwtracing/coresight/coresight-tnoc.c b/drivers/hwtra=
+cing/coresight/coresight-tnoc.c
+> index 9e8de4323d285..8237467faba72 100644
+> --- a/drivers/hwtracing/coresight/coresight-tnoc.c
+> +++ b/drivers/hwtracing/coresight/coresight-tnoc.c
+[ ... ]
+> @@ -295,7 +295,7 @@ static int itnoc_probe(struct platform_device *pdev)
+>  	return ret;
+>  }
+> =20
+> -static void itnoc_remove(struct platform_device *pdev)
+> +static void tnoc_platform_remove(struct platform_device *pdev)
+>  {
+>  	struct trace_noc_drvdata *drvdata =3D platform_get_drvdata(pdev);
+> =20
+>  	coresight_unregister(drvdata->csdev);
+>  	pm_runtime_disable(&pdev->dev);
+>  }
 
 [Severity: High]
-Does this also cause live video stream registers to be reprogrammed on every
-polling event?
+Does this code leak the allocated system trace ID on device removal?
 
-Since hpd_pulse is false, the function skips the early return path for a he=
-althy
-link (goto out;). It then falls through to the end of the function where it
-unconditionally executes cdns_mhdp_sst_enable(mhdp, current_mode) if
-mhdp->bridge_enabled is true.
+Because trace_noc_init_default_data() now allocates a system trace ID via
+coresight_trace_id_get_system_id() for the new "qcom,coresight-agtnoc"
+devices, it appears tnoc_platform_remove() needs a corresponding call to
+coresight_trace_id_put_system_id(drvdata->atid) when the driver is unbound.
 
-When called via periodic DRM polling via the .detect() callback, won't this
-cause severe screen flickering or sync loss by continuously overwriting act=
-ive
-hardware display timing registers?
-
-> +		if (ret < 0)
-> +			mhdp->plugged =3D false;
-> +		else
-> +			mhdp->plugged =3D true;
-> +	} else {
-> +		mhdp->plugged =3D cdns_mhdp_detect_hpd(mhdp, &hpd_pulse);
-> +	}
+Without this cleanup, repeated unbind and bind cycles could permanently
+exhaust the finite system trace ID pool.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630102610.1849=
-902-1-y-d@ti.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630-fix-tracen=
+oc-probe-issue-v3-0-7201e1841e94@oss.qualcomm.com?part=3D2
