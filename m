@@ -1,91 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com [209.85.214.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E1E3E3158
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:47:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C35503E2760
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:47:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782805646; cv=none; b=aTya2BzuUg0sX1lgwCHwPIXpQI5DN9gWQ5OKiz5cvpLvQSacuDQ+B19uNPfna/pi2D0sqBNFxAoFNaUd+4+I/Bmzjva5Fc4VSHn/Wv46OQTP8c0VNubzNrn8xmyNWjrSdZ+XjphYEsQtqYNXAy6UVWREfLot9dgQz8j75E6tURE=
+	t=1782805651; cv=none; b=KGxxew3TleK+E0ro/GbMUyZQ61j8WD3pXPj6PrOB+CsTdyh50tHwNvWFnX4PuNxmai8N4oapf/ruV4epwO+2scW+6GXn5EkubMXkS60HniOuZ8Om5eyJKq2awMYSuheQBYRn7zYvxGpT0B2VDyrAVINccvz9ScjBmP2deVAx6Jc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782805646; c=relaxed/simple;
-	bh=O8UtlWA2/ymbY3Pi5cr1VAwTiB4Ay3GNCozA5qseyXE=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fHdexgZl1954rDk1DGBwZlq++NtWkYcWFiPkyxJoUlo+tTzqNFg5RJrd6L2nvXd5ZXUfcCMi04xae4ZJVt7iGxLiuT1HoUr/9FsEH6s6pqN1hJcWZgkNpFIjQdi4IzlN9sqYILgBUBhXQEJaxuwyTJutwG1F9p8/DDPNoG+ee9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X5JY/iSB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782805651; c=relaxed/simple;
+	bh=heKSEPDt49FyXQkUR7yX+hI6qaeXiquq+AzKfj9m46s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AJw+Q3BxBU9rK3dN3h4trcZDMLa0zUP6HQGJJsc1+tsESDKFVqH+gjz13Jm6dohWKSJmJlD7UuUGeWCRB7kcqrQZ30O0MoOaie5QICAsKTewP/sxn1XT7JvyVKXpG2iDqMGIEE6B4+pBK2MBjup5JKSZTq4ekdXT7B2u9JgLgB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oIR3hGLl; arc=none smtp.client-ip=209.85.214.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X5JY/iSB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 251E21F0155A
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:47:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782805645;
-	bh=D0vA91JCy6e3U4Zy4A7u6z+5xLKwz9OO6mJyFAEDjWo=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=X5JY/iSBvE5bIvOcIm0YQO9+bwx9WFalRg8XAdM/Dy7q/Oxzbe5Lkdbglu5fv0OUK
-	 fJYCmcrcJ4/g5E3FdwKdBPnaotBLNmXbb9CFrnUr/E7ro+IoDK0sXIOJqsF5jzvDxC
-	 u+4wKW4E9nCYz3WkKxgbil4glsu3fn7RvqeVrNXIkyRolwRwMM1hkhdCyiD3jWHJYw
-	 kwCPOdcOxX8X4XTiAtrhb54ePGhfALetVicbqlcx76vjApOHgz18CZe3D6FHPSjES6
-	 9AjqebUwzzoVRWUFStflre7HZDVvMAmy1dTZPWhBVKqjyv1iE3P3xynnO7atbg0hPR
-	 0bEvjEPk8WHxQ==
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39b1f588471so4241841fa.0
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 00:47:25 -0700 (PDT)
-X-Gm-Message-State: AOJu0YzTw/T32heRCXLXwy/lLKO+PrPgg5nI9Alvp7MqlIN9JjQr8vJX
-	wIgQAmyJfhQFbSpZbmfHL8U4ciox3F7uEBi2NvCxJCMIgzM0rVGpW3YAN/n5goWSjd8G+Ntqi0e
-	W3yV2QiX42IjHOarLykzoRG7l6JixtR0wFLnUkdw/yQ==
-X-Received: by 2002:a05:651c:50a:b0:39b:695:32a3 with SMTP id
- 38308e7fff4ca-39b1ddd1aa2mr5206931fa.13.1782805643902; Tue, 30 Jun 2026
- 00:47:23 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 30 Jun 2026 00:47:22 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 30 Jun 2026 00:47:22 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <31477953aace52bb6594461e82ddf99493af2329.camel@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oIR3hGLl"
+Received: by mail-pl1-f196.google.com with SMTP id d9443c01a7336-2c7ebfb63c6so26017605ad.3
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 00:47:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782805649; x=1783410449; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+GS4Pj9gB+OIxG6eqcIUsdmhCCBXu3Ye2u2fsYJSw7Q=;
+        b=oIR3hGLlCSpZtuGRyipOJpSumWA/sHuDyUQzErgIMiUwDDJLUtEkXeRJDRegBeqk5v
+         8toRFGlBTXCdTVOJ1jk5s6uXyLkV6ssOi74VZbbOu/Tk/VymF9bORfdMuzM5tAzvFOhu
+         7dHNXqsFSwKF4Q0TyLDpmF36mwPlo+dmcBLs6XHZEpZr4RXvcXp3bNVAEkkw1tLtdZ1G
+         pjO276+PIWg/RJN9UG7FTtgPm9Z3F53uJNZJyD5/kxr+Xi8MSsshF+3+jW6O19GcrZwR
+         4L2R7yrPkOpM+3nVNcuHyr++THPW0Ydsah6sIfjJePP7lFrTXtXfEuKOhu0dGuZs8E/t
+         xfEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782805649; x=1783410449;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+GS4Pj9gB+OIxG6eqcIUsdmhCCBXu3Ye2u2fsYJSw7Q=;
+        b=S6oCU0iAyl755uyDq4JdSp7EBMLfPW8ixdf8gtJm4rjL1dpbK9krpFihfFrEPVLaiD
+         mar8OXq5x2pRgpn8PUsOuovIhcfqrdwsNhUEqKUYzIZTPvd4Fu/7BTEOAgkuXqMz+Uug
+         Cc3KmSKn6odz+9Nw/VBLrN9Kh9g8p0bWGlVyGmcy/DlXP5UHNQ2su/uMnClmwWeDZCw+
+         Rl2/joj6QHPZujlfb27msPN+40Ynp0UH/mP2dCYXFww+9bVZdDCW2OGsynRcK9dCZOvn
+         zL2JpM7qfYdAo+EUHrhURLXnmAclzKOwTCs9TNcGh6bhG6ibRmY9fvPANDkQQA+F/VQh
+         ARhQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rrg+S647aQsYZP4824ELM2sme17p2TocdTZfQnTNX2GsA6L12XR2xHI+uPzYL0NH8Duo3kAhKv1lHUI@vger.kernel.org
+X-Gm-Message-State: AOJu0YwvEkSm8OZu/rzEWJSAGeU2RrKU0NOPOhlAXYIM5ZE9iLhqk4dl
+	sigKuX3gicfztDYCmaCPwtqCDDQerIGIeqD4aFoJoBaSPQKAzF2jxKNC
+X-Gm-Gg: AfdE7cmsbcJYxJ00HyaMKmk3S3Q1KXa2QViA1N46tsivBOiXf5Dehd7pTAEPBmax948
+	3AkRpJsbkvqKtYfQ0ywoAhTbGyDK+E0LLf4cOLEuqFNVeq4XxHedBYCyewTqKE2OP8cmeUgYkza
+	nne7PxHimVyhDfAA9nLABbnh6EUG87+wtIh4Xw9u2CYuSuM8Wj2X0S+E7PLQJMqg6Lz6RkkDHP8
+	nfCmKDNFQyPUm/u6L8DYUO3mj3kNyR6z8qj2jXsqVvh9js2W0195IRwbbSUBrq1G5JL4tRDLdAP
+	1aEZeWUVBHT1IVLfJnt6RK/2z3HRV/cO10GNQT3PnSf4zHb6HO+NA9gKPMBWJAhxzJfqgfK80PF
+	6sB0KescQZoJQ6KWDewfpjI4tFUCXHTBPlgxnz/5oMxfQ7fiIXVH8jzgmaP36r5PXrMUm7HCyuH
+	kgSvFM5gFqtbmkStYiMl99u10rvQ==
+X-Received: by 2002:a17:903:46cf:b0:2c9:f0e3:e20a with SMTP id d9443c01a7336-2ca2ea178a7mr21382995ad.33.1782805648953;
+        Tue, 30 Jun 2026 00:47:28 -0700 (PDT)
+Received: from intel.company.local ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca382a2d3dsm7821045ad.55.2026.06.30.00.47.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 00:47:28 -0700 (PDT)
+From: Wandun Chen <chenwandun1@gmail.com>
+To: chenhuacai@kernel.org,
+	kernel@xen0n.name,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	bhe@redhat.com,
+	rppt@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	kexec@lists.infradead.org,
+	iommu@lists.linux.dev,
+	zhaomeijing@lixiang.com
+Cc: catalin.marinas@arm.com,
+	will@kernel.org,
+	alex@ghiti.fr,
+	akpm@linux-foundation.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	ruirui.yang@linux.dev,
+	m.szyprowski@samsung.com,
+	robin.murphy@arm.com
+Subject: [PATCH v4 00/10] kdump: reduce vmcore size and capture time
+Date: Tue, 30 Jun 2026 15:47:04 +0800
+Message-ID: <20260630074715.4126796-1-chenwandun1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260408-dev-b4-aaeon-mcu-driver-v5-0-ad98bd481668@bootlin.com>
-							 <b4396f57-3501-4e89-9cf3-8dc5d7cad9b7@roeck-us.net> <31477953aace52bb6594461e82ddf99493af2329.camel@bootlin.com>
-Date: Tue, 30 Jun 2026 00:47:22 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MdJJnRTOSEecqpX-EddJRAzWc_1a-cg3wrW8m0jR2Fihw@mail.gmail.com>
-X-Gm-Features: AVVi8CeaJi7AWd-H-Al7farjl69e4bGemX_zfvWwe4vajt3tOcP7qfQEh_ha7H0
-Message-ID: <CAMRc=MdJJnRTOSEecqpX-EddJRAzWc_1a-cg3wrW8m0jR2Fihw@mail.gmail.com>
-Subject: Re: [PATCH v5 0/5] Add support for AAEON SRG-IMX8P MCU
-To: Thomas Perrot <thomas.perrot@bootlin.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	Conor Dooley <conor.dooley@microchip.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Guenter Roeck <linux@roeck-us.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, 
-	=?UTF-8?B?SsOpcsOpbWllIERhdXRoZXJpYmVz?= <jeremie.dautheribes@bootlin.com>, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Lee Jones <lee@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, 29 Jun 2026 18:04:59 +0200, Thomas Perrot
-<thomas.perrot@bootlin.com> said:
-> Hello Guenter,
->
-> On Sat, 2026-04-11 at 17:12 -0700, Guenter Roeck wrote:
->> snip
->>
->> Sashiko has some interesting feedback that might be worth looking
->> into.
->>
->> https://sashiko.dev/#/patchset/20260408-dev-b4-aaeon-mcu-driver-v5-0-ad98bd481668%40bootlin.com
->>
->
-> Thanks for the pointer. I went through all findings and addressed the
->   valid ones in v6:
->
+From: Wandun Chen <chenwandun@lixiang.com>
 
-Did I miss anything? I don't see the v6 neither in my inbox nor on lore.
+On SoCs that carve out large firmware-owned reserved memory (GPU
+firmware, DSP, modem, camera ISP, NPU, ...), kdump currently dumps
+those carveouts as part of system RAM even though their contents are
+firmware state that is not useful for kernel crash analysis.
 
-Bart
+This series introduces an opt-in 'dumpable' flag [1] on struct
+reserved_mem and uses it to filter the elfcorehdr PT_LOAD ranges on
+DT-based architectures (arm64, riscv, loongarch). By default reserved
+regions are treated as non-dumpable; CMA regions are explicitly opted
+in because their pages are returned to the buddy allocator and may
+carry key crash-analysis data.
+
+Since the reserved memory regions are filtered out, the vmcore is
+smaller in size and faster to produce. The reserved memory
+has already been filtered out in x86; the optimizations in this series
+apply to systems that use DTS such as arm64/riscv/loongarch.
+
+The series is organized as follows:
+Patches 1-4: Small prepare changes and cleanups.
+Patches 5: Add dumpable flag to opt-in vmcore.
+Patches 6: Append /memreserve/ entries into reserved_mem[].
+Patch 7: Add generic kdump helpers.
+Patches 8-10: Wire the helpers into arm64, riscv and loongarch kdump
+              elfcorehdr preparation.
+
+v3 --> v4:
+1. Rebase this series on v7.2-rc1.
+2. Add two cleanup patches (patch 02/03).
+3. Simplify patch 03 to avoid checking whether initial_boot_params is
+   NULL multiple times, suggested by Rob.
+
+v2 --> v3:
+1. Fix out-of-bounds issue if device tree lacks /reserved-memory node.[2]
+2. Fix UAF issue when alloc_reserved_mem_array() fails.
+3. Add some prepare patches.
+
+v1 --> v2:
+1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
+   feedback [1], v2 drop that property and exclude reserve memory
+   by default.
+2. Split some prepared patches from the original patches.
+3. Address coding-style comments on patch 5 from Rob.
+
+[1] https://lore.kernel.org/lkml/20260506144542.GA2072596-robh@kernel.org/
+[2] https://sashiko.dev/#/patchset/20260520091844.592753-1-chenwandun%40lixiang.com?part=4
+
+
+Wandun Chen (10):
+  kexec/crash: provide crash_exclude_mem_range() stub when
+    CONFIG_CRASH_DUMP=n
+  of: reserved_mem: dedup and relocate reserved-memory messages
+  of: reserved_mem: skip late scan when no regions are reserved
+  of: reserved_mem: split alloc_reserved_mem_array() from
+    fdt_scan_reserved_mem_late()
+  of: reserved_mem: add dumpable flag to opt-in vmcore
+  of: reserved_mem: save /memreserve/ entries into the reserved_mem
+    array
+  of: reserved_mem: add kdump helpers to exclude non-dumpable regions
+  arm64: kdump: exclude non-dumpable reserved memory regions from vmcore
+  riscv: kdump: exclude non-dumpable reserved memory regions from vmcore
+  loongarch: kdump: exclude non-dumpable reserved memory regions from
+    vmcore
+
+ arch/arm64/kernel/machine_kexec_file.c     |   6 ++
+ arch/loongarch/kernel/machine_kexec_file.c |   6 ++
+ arch/riscv/kernel/machine_kexec_file.c     |   4 +
+ drivers/of/fdt.c                           |  11 ++-
+ drivers/of/of_private.h                    |   3 +
+ drivers/of/of_reserved_mem.c               | 108 ++++++++++++++++++---
+ include/linux/crash_core.h                 |   6 ++
+ include/linux/of_reserved_mem.h            |  15 +++
+ kernel/dma/contiguous.c                    |   1 +
+ 9 files changed, 142 insertions(+), 18 deletions(-)
+
+-- 
+2.43.0
+
