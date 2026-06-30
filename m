@@ -1,86 +1,104 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2449932C957
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 14:04:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC002F0680
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 14:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782828300; cv=none; b=rG6EAZxRo7VnfAc41vAuQZwgHFle5D6wen67vbp9H1AkBBYhLEV8DuAIZNhvJzPC19WQvPY59k/hOLUueMMVqwNc2giX4fcfjBPjyfp5cBOA05fi3yiAQXmnopppswBudOfQ7gEQOfERrENIs+LA6T3f9uTe8iZXBVJk6YK/7Y0=
+	t=1782828324; cv=none; b=r8mf8lIlfB3c3Tg5LpMANg/5WRrnRDlii6gnJvZti+5p1LbUMAJAQhx+LJlWZzIq8IKwuCUaGOL04U+HDVPCtXyNnBANY1W7DiLIlG3G7/lDvmVRScBSXelmhUF3BhkEDU21Tcwh2nqptYhHKn79ar9PUslMgDLbmq3jxY5bq+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782828300; c=relaxed/simple;
-	bh=M3nMIHM0CsIal5ps+98iV4ppcJBOc4XAy2zZXrzNx5A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mm/2o01q34mjbV16ktz8BUuXnTE6BGy1w5rsJkGgBQ7dMAc6BXNwK5gwsKinZudNOoETOQT0OVdXNAJDQB7jyb3SKKzfmnHbT0ugPP/xv0RBZuP5OV0ji2R5VJdf74CpgM1RliKziO7rTRN2Tkru59tksPpvQWqheE46CkJTBJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FUoLqOkr; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1782828324; c=relaxed/simple;
+	bh=h4Bk2vS84/K+uN7N+3iFwUXv7x6OXYbSuSCpCdgMOCo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KfZIOgZOjuFyHuX6y5stfUMZJKPCG88p9opBfZrU5OGvLDnrO4a/0xE/uYOzPzEW4d2ehmUKebbhbi9UPr++HwgTZDwRAVUwhKexPrfD/X/VTDTeyt4yGT2wtSYSQWRSlc7JL4UBbqx5T8oPe6iQSiqi+yK++eBPKrqg2MqG7+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H7BepRbR; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FUoLqOkr"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 1F8E5C5CD59;
-	Tue, 30 Jun 2026 14:05:07 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8597E6025A;
-	Tue, 30 Jun 2026 14:04:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EF050106F1F6A;
-	Tue, 30 Jun 2026 16:04:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1782828295; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=6rjDgL/xt0149iiitUzxfV7EKlVMkvz0wclCPfWzM1I=;
-	b=FUoLqOkrO8rzuA1Ak7mXnpNxg4VXWCHELhJxzYACKEQIbR7/J0Y/k2NsH6LM/o11J8uiH+
-	fc2ZFO5jSm/ZRI0yP1GfBih4u9hwx7smvcu0Feb3NptqCaPiab3vhq3gJM+KJs29WW9W7N
-	mVp3UV1RlIc+UbeyjNytz3lMquy1jvgjWgTT9fyvO19H7Mgcxxnf2v06+/SwXtoA3YpVfD
-	0GSWcj92+nec0sTksyFKtyfZmSmfoc+zeK0vdAmf1Wmgu4iahdgX93SvdMA25FuopURWe2
-	eAwXn4eO2DEv5MSnVLfy7+9iUBK9HvwT3al8E0EKvAY9/T8RrPSOYMM7dJ/BBA==
-Message-ID: <7c57bb08-b72d-44bf-be44-f1bcb2aa9a84@bootlin.com>
-Date: Tue, 30 Jun 2026 16:04:52 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H7BepRbR"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4704d652e9cso2388369f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 07:05:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782828322; x=1783433122; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=O6LhOb8EsOqkumof6PN234kRqnlpHLJfaxXGP2ixv0M=;
+        b=H7BepRbR/8PmRwAKRqndLR+nEYUr6RuDFE4LyPo4FYdYnv5LioyoWPQhQUflNpC0BA
+         WA8qF1gOVtAt1ryjpT5gcS6x2c0Eotec97douipPQhkAZbq0/UoXII96pWk6+f9W9u0W
+         693J/033GwiKmH1eGN7SiC2v290KKptijEDg/yieBqYIWh7BNwZWA/nyXEUpp8r09Btq
+         r1s5Jh+Sgs6q5ZTgEEfQspmDzfq6KKO+gRf1c3Ipwa6REjOdztsuQ+rqjFavT0zHzm2J
+         gToHFSAOkmZjHvjxJ4bSaAXXyo+tgGSC9Ah4m3qggLMTPb2A4Iibb5YLXKby6FaGWnH6
+         LUNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782828322; x=1783433122;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=O6LhOb8EsOqkumof6PN234kRqnlpHLJfaxXGP2ixv0M=;
+        b=dlE5MTKKH7dp9djnAdEPEUtmjbm3Sfo2oV6iAcUrP/6ew8XJ4HCEzX4mFdIXjzqZVe
+         VEB30+0l5IulBydG76nNWwRvScpmjhQG9lLuk+E840lC8gRNPwa/O7YonH2ZOkW4dMLk
+         VfDLCM5RQDF66OcyB+j4qgSD1CC+GTRWOq2nu8Acso7RT/LVZC3tKor/8Dn646mzuYL0
+         Cvila01J+j6oyN/34Z34p5inL78fuqmXW+dLrrUm1l6uMDtMFwO/whvNqXWaa+bPZL3i
+         m843Q2a5FvZNk4Rf6K3RaFncTc2Vm/p5W5oa9gSJ4QnTprP3GMjkxds+NxKoyOF+/S/g
+         GbfQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoKUU2461dImOX3jMrzLCWly5DoL/WFpZi5jrRbLknzhKXwvpwEZbvF5mGetHeqFvmB6OfpZ9RihIKA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7bOnGL4wj5vBna9xvMu+yr9/6aFxTx79RBJKsln5Fb06XgTiP
+	3kW8y4nWoNGGBDY5UWlFhKHouliStQC3T3dI46veHa9sS440Rs2AQbsj
+X-Gm-Gg: AfdE7cnWjlSp9BJL3oBYm/Dqonz1kutkBWvwV17TwItDPRNA9rZ0/iiqiHyCZxO2Vg4
+	AcMnWe1lUdOXG7Cn5IZJ7tcxfnYKREXLPCMV3k9QTxLBlLftmwC8YEGplo7oHq8HeHP2eokMmtN
+	HvUpKVI1iqsM1/ICs+Ejg5zbiw/pYS/+bEtWzfH2VV3Qxk+6g0BTfp3O3WcXKrs7IwRkZHwlipo
+	udMpzndIoK3nMDtMl75fAf95VofARKsFEUheF3Uzl1Gfzm6q9VehoLwkG17v5pj9lwwTT0QN8me
+	MgUP/dyb9D8BgvWFYMkCeF3QngPjkeCGhGQR2KWo9SYovTPqOLTrtJ09ptiYYsOZnNuOWJ0vSgt
+	UpSMUuY/jjLuAz5QtcOSh45IGCa/Wnp2wK83AQNQZNdo9/oM0YLNBrxQLlyS5XKGToQcnma0y/e
+	tqMMWnp/9oCwb04EL4nZk6aMTSS04=
+X-Received: by 2002:a05:6000:2510:b0:475:f0f0:9ed0 with SMTP id ffacd0b85a97d-475f0f0a0d6mr2897097f8f.59.1782828319713;
+        Tue, 30 Jun 2026 07:05:19 -0700 (PDT)
+Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4756778f015sm8456382f8f.31.2026.06.30.07.05.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 07:05:19 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: javierm@redhat.com
+Cc: airlied@gmail.com,
+	andy@kernel.org,
+	azuddinadam@gmail.com,
+	chintanlike@gmail.com,
+	conor+dt@kernel.org,
+	deller@gmx.de,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	gregkh@linuxfoundation.org,
+	krzk+dt@kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	robh@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de
+Subject: Re: [PATCH v2 2/4] drm/ssd130x: Add RGB565 support to SSD133X family
+Date: Tue, 30 Jun 2026 17:04:53 +0300
+Message-ID: <20260630140453.78029-1-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <87jyrhd58b.fsf@ocarina.mail-host-address-is-not-set>
+References: <87jyrhd58b.fsf@ocarina.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] net: stmmac: dwmac-socfpga: Add mac-mode DT property
- support
-To: Andrew Lunn <andrew@lunn.ch>,
- muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: dinguyen@kernel.org, rmk+kernel@armlinux.org.uk, krzk+dt@kernel.org,
- conor+dt@kernel.org, robh@kernel.org, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- andrew+netdev@lunn.ch, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260630133108.27244-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <20260630133108.27244-4-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <4c285993-978c-4d9e-a8c5-c3b36baa6840@lunn.ch>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <4c285993-978c-4d9e-a8c5-c3b36baa6840@lunn.ch>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 6/30/26 16:02, Andrew Lunn wrote:
-> On Tue, Jun 30, 2026 at 06:31:08AM -0700, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
->> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
->>
->> Russell King's commit de696c63c1dc ("net: stmmac: socfpga: convert to
->> use phy_interface") replaced mac_interface with phy_interface in
->> socfpga_get_plat_phymode(), noting that no upstream DTS files set the
->> "mac-mode" property, making the two values identical.
->>
->> The Agilex5 SoCDK TSN Config2 board is an exception: its gmac1 TSN
->> port uses GMII internally in the MAC while the PHY-side interface is
->> RGMII, so mac-mode and phy-mode differ.
-> 
-> Maybe you need to represent the hardware block which magically
-> converts GMII to RGMII in DT?
+Javier Martinez Canillas <javierm@redhat.com> writes:
+> Given that we don't have that, I suppose that we could just get rid of the
+> DRM_FORMAT_RGB332 support for SSD133X and just default to DRM_FORMAT_RGB565.
 
-Yeah that's what we have on CycloneV, and we force the INTF_SEL to GMII if that
-HW block is present. I wonder if there's the same on agileX5 ?
+I see your point. In v3 I'll remove the format_rgb565 option and just make RGB565 
+compatible screens (ssd133x and ssd135x) use the higher color depth.
 
-> 
-> 	 Andrew
-
+--
+Thanks,
+Amit
