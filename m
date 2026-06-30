@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FCB370ADD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35AD370AE9
 	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 15:24:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782833070; cv=none; b=lAbzBYhVHbpBPVlemySOPAR6j1wxybRH29vMhwrk6IFo8G5eChm1zrjkrtcsiwwA24Hrc2R6NdkRunoSfuXuzyoflrwJ6MKCoOP7rH41ZD39NRJp9Thait76FXkZnLvrUtV/eeC9Q+EP7bH6l/X5ry7loLGzWQz2PFm2Tp9Eh7s=
+	t=1782833071; cv=none; b=K0If/AMXDP86Q1KWMZ9WPo0NRHARRTFhaQEAaENapw/bA9LCSoR8KAHzsap6p1Gg6oH49rDtTfWWiBeCMFW5H5l7D4I07k774T7mJOdD1gOC2+SDU6lOlMyfV7fB3KBaKhL+Mh9FuKesI7zW4Rb06+CEortKqbI2noM3sZkFT9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782833070; c=relaxed/simple;
-	bh=hAa4aheuZ4m3d1pqKSRmR0+0VfUdeAQzBD4vTHrRuMc=;
+	s=arc-20240116; t=1782833071; c=relaxed/simple;
+	bh=lZ9E/FQUkhpeJzcTLKdE5j4DFyD3FWlxY2VgpxoxL8Q=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bItyphUjz4sLdw89t6tzGf5/Utezgd75XQlk4dSeSkE3w4uXjIPGH2rbny9MbCMosxCzz0UesTmaCT1pzNVTJLOqrXqPv3OE9c8zSg6sG3uVdqiCmx7zwzeSRwAAasga0P5RUpO9EZZP62SDWnD6ITo1jAnorfNSPuQ1fkCPxpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gl3HVf7s; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=na5W8awZyR/HzL3k2KiV5IsE6QJQ5hmP/+x9NePUHnAAHe/zKuDIKyKZljrNRZR1P0y6OOQfVBWWiMfT2dGLJumKGIeZmfsiqm+wQNYyqA9NtSFEAEweiOTKZqh0v/a62DC2/6Q9bhYeyn1V9a6b9n70qaaCxjkizDawHyYEhDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j10Hiek9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gl3HVf7s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DBD01F00A3A;
-	Tue, 30 Jun 2026 15:24:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j10Hiek9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85D651F00A3D;
+	Tue, 30 Jun 2026 15:24:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1782833069;
-	bh=dFm3ZELVmbdc9+wyTXkIsZEKn25JxBRf2DY9Cdx6pQo=;
+	bh=FsZ2el5JFJ5nghC9BGQcu7g5xf2oQcqmu1i/3cPwLOU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gl3HVf7siPkjm/yghX041jwJIfsmN9JN4H0xyhQLpkyGNxsGcEqQJJmmS4Wn+q7nO
-	 RphB6dUstzUwCh7G1xaBwoFXf9EeMti0cJsBY0TmX3jdH3NOhnH+dsHSQ4xOh6TItB
-	 j2uROx4wqHVCS7+UxwQSyjd3UV16W9SC1TwTBBYj1+7NrPWOKq8VzhkX+0BeGgDjKs
-	 DWfcknUawXqjMO9JGTennwXtE7DVT5+BFXROeIBBM/FwZURIdVqIOGX58fdMlu406L
-	 zs9GZnf0O+FSi065y69DBj4op6HIkotdljkMvp9ZsSiHavk4cgeTIFbUDEFfVdd+z6
-	 OTvQEl5O+/a1g==
+	b=j10Hiek9ev6RpUi5F8k8Due1V7rdK1xJBKvL5AfJY4PxfuRTQBssYPWEQBpjk3TGm
+	 ucFHFyaa+8M9QZCOaveL6xS7n8laugxEh5gMtAJxBDdD0nAvN1tBeQjxmobIkT4dsq
+	 2nu20ObQMetGQpzlCQP872tHBW34Sbgwusxfk3LzbXCLu+hQOUtR///5xDGCqTsMAh
+	 hJaW60mS2zwcWn2LZxMC0Tt5nFpBOXiq7XA97jfw/EvZxlf6HpkpiyjyMywsFbsiHg
+	 PobuVsYvSFmNQ943MxU80aMKJzWxWVgjLNPUy2ccMtWIZyFScgRt6AXifbtWeUo/WJ
+	 /q7XKgbdTQ9/Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v2 3/8] net: phy: add
- (*notify_phy_attach/detach)() hooks to struct mii_bus
+Subject: Re: [PATCH net-next v2 4/8] net: mdio: realtek-rtl9300: Configure
+ hardware polling during probing
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Markus Stockhausen" <markus.stockhausen@gmx.de>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260629152336.2239826-4-markus.stockhausen@gmx.de>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260629152336.2239826-5-markus.stockhausen@gmx.de>
 References: <20260629152336.2239826-1-markus.stockhausen@gmx.de>
- <20260629152336.2239826-4-markus.stockhausen@gmx.de>
+ <20260629152336.2239826-5-markus.stockhausen@gmx.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 15:24:28 +0000
-Message-Id: <20260630152428.7DBD01F00A3A@smtp.kernel.org>
+Date: Tue, 30 Jun 2026 15:24:29 +0000
+Message-Id: <20260630152429.85D651F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,94 +47,137 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] The `notify_phy_detach` hook can be invoked on an MDIO bus even =
-if `notify_phy_attach` was never called or failed, leading to unbalanced se=
-tup/teardown symmetry.
-
-Pre-existing issues:
-- [High] Calling `phy_attach_direct` on an already attached PHY returns `-E=
-BUSY` but incorrectly executes the `phy_detach` error path, destroying the =
-existing valid attachment.
+- [Medium] The `init_polling` callback signature is missing a context point=
+er, preventing it from accessing hardware registers.
+- [Medium] Calling `tune_polling` and `init_polling` while holding `priv->l=
+ock` risks a recursive mutex deadlock.
 --
 
-commit c461faab1a569fa9ec7dc7cc9fc30615fc89408c
-Author: Daniel Golle <daniel@makrotopia.org>
+commit 164e86ce081c60921e2d359e6eef598a0a2bea6e
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
 
-net: phy: add (*notify_phy_attach/detach)() hooks to struct mii_bus
+net: mdio: realtek-rtl9300: Configure hardware polling during probing
 
-Some MDIO buses require to program PHY polling registers depending on
-the PHY type. Provide two simple hooks in struct mii_bus which are called
-right after a PHY has been attached and just before the PHY is going to be
-detached.
+During PHY probing and configuration complex configuration sequences
+might be issued and firmware might be loaded. Hardware polling can
+interfere badly with that. E.g. a hardware polling MMD c45 over c22
+request might break an ongoing firmware loading sequence.
 
-Link: https://github.com/openwrt/openwrt/pull/21515#discussion_r2714069716
-Link: https://lore.kernel.org/netdev/cover.1769053496.git.daniel@makrotopia=
-.org/
+[1] https://github.com/openwrt/openwrt/blob/main/target/linux/realtek/files=
+-6.18/drivers/net/mdio/mdio-realtek-otto.c#L818
+[2] https://lore.kernel.org/netdev/680696024a8648535ce6dee771fe4de67802e0e8=
+.1769053496.git.daniel@makrotopia.org/
 
-> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-> index 0615228459ef4..676cbf183350d 100644
-> --- a/drivers/net/phy/phy_device.c
-> +++ b/drivers/net/phy/phy_device.c
-> @@ -1876,6 +1876,12 @@ int phy_attach_direct(struct net_device *dev, stru=
-ct phy_device *phydev,
->  	if (err)
->  		goto error;
-> =20
-> +	if (phydev->mdio.bus->notify_phy_attach) {
-> +		err =3D phydev->mdio.bus->notify_phy_attach(phydev);
-> +		if (err)
-> +			goto error;
-
-[Severity: High]
-This is a pre-existing issue, but calling phy_attach_direct() on an already
-attached PHY seems to tear down the existing valid attachment. Earlier in
-this function:
-
-	if (phydev->attached_dev) {
-		dev_err(&dev->dev, "PHY already attached\n");
-		err =3D -EBUSY;
-		goto error;
-	}
-
-Jumping to the error label unconditionally executes phy_detach(), which
-clears phydev->attached_dev (the original owner) and severs the
-dev->phydev link.
-
-Should this path return an error directly without calling phy_detach()?
-
-> +	}
-> +
->  	phy_resume(phydev);
+> diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/m=
+dio-realtek-rtl9300.c
+> index 616edcde15d95..a8e9a497a0dc5 100644
+> --- a/drivers/net/mdio/mdio-realtek-rtl9300.c
+> +++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
 
 [ ... ]
 
-> @@ -1919,6 +1925,9 @@ void phy_detach(struct phy_device *phydev)
->  	struct module *ndev_owner =3D NULL;
->  	struct mii_bus *bus;
-> =20
-> +	if (phydev->mdio.bus->notify_phy_detach)
-> +		phydev->mdio.bus->notify_phy_detach(phydev);
-> +
+> @@ -210,6 +213,9 @@ struct otto_emdio_info {
+>  	u8 num_buses;
+>  	u8 num_ports;
+>  	u16 num_pages;
+> +	u32 poll_ctrl;
+> +	int (*init_polling)(int port);
 
 [Severity: Medium]
-Will notify_phy_detach() be invoked even if notify_phy_attach() was never
-called or failed?
+Will future implementations of this callback need access to the driver's
+private data?
 
-If phy_init_hw() or any other initialization step prior to
-notify_phy_attach() fails in phy_attach_direct(), the code jumps to the
-error label and calls phy_detach(), which now unconditionally executes
-notify_phy_detach().
+The init_polling() callback only takes an integer port parameter, meaning a=
+ny
+implementation won't have access to the driver's private data context (priv)
+or regmap. Will this prevent it from actually interacting with the hardware
+registers?
 
-Could this lead to unbalanced setup/teardown symmetry if a bus driver
-assumes notify_phy_detach() is only called after a successful
-notify_phy_attach()?
+> +	int (*tune_polling)(struct phy_device *phydev);
+>  	int (*setup_controller)(struct otto_emdio_priv *priv);
+>  	int (*read_c22)(struct mii_bus *bus, int port, int regnum, u32 *value);
+>  	int (*read_c45)(struct mii_bus *bus, int port, int dev_addr, int regnum=
+, u32 *value);
 
->  	if (phydev->devlink) {
->  		device_link_del(phydev->devlink);
->  		phydev->devlink =3D NULL;
+[ ... ]
+
+> @@ -588,6 +602,49 @@ static int otto_emdio_9310_setup_controller(struct o=
+tto_emdio_priv *priv)
+>  	return 0;
+>  }
+> =20
+> +static int otto_emdio_notify_phy_attach(struct phy_device *phydev)
+> +{
+> +	struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(phydev->mdio.bu=
+s);
+> +	int port =3D otto_emdio_phy_to_port(phydev->mdio.bus, phydev->mdio.addr=
+);
+> +	int ret;
+> +
+> +	if (port < 0)
+> +		return port;
+> +
+> +	if (test_bit(port, priv->phy_poll))
+> +		return 0;
+> +
+> +	scoped_guard(mutex, &priv->lock) {
+> +		if (priv->info->tune_polling) {
+> +			ret =3D priv->info->tune_polling(phydev);
+
+[Severity: Medium]
+Does invoking tune_polling() while holding priv->lock risk a recursive mutex
+deadlock?
+
+In otto_emdio_notify_phy_attach(), priv->lock is acquired via scoped_guard.
+If a future implementation of tune_polling() calls standard PHY APIs like
+phy_read(), the call would eventually route down to otto_emdio_read_c22(),
+which attempts to blindly acquire priv->lock again, potentially deadlocking
+the thread.
+
+> +			if (ret)
+> +				return ret;
+> +		}
+> +
+> +		ret =3D otto_emdio_set_port_polling(priv, port, true);
+> +		if (!ret)
+> +			__set_bit(port, priv->phy_poll);
+> +	}
+> +
+> +	return ret;
+> +}
+
+[ ... ]
+
+> @@ -733,6 +793,27 @@ static int otto_emdio_map_ports(struct device *dev)
+>  	return err;
+>  }
+> =20
+> +static int otto_emdio_init_polling(struct otto_emdio_priv *priv)
+> +{
+> +	int err;
+> +
+> +	scoped_guard(mutex, &priv->lock) {
+> +		for (int port =3D 0; port < priv->info->num_ports; port++) {
+> +			err =3D otto_emdio_set_port_polling(priv, port, false);
+> +			if (err)
+> +				return err;
+> +
+> +			if (priv->info->init_polling) {
+> +				err =3D priv->info->init_polling(port);
+
+[Severity: Medium]
+Does invoking init_polling() while holding priv->lock also risk a recursive
+mutex deadlock, similar to tune_polling() above?
+
+> +				if (err)
+> +					return err;
+> +			}
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629152336.2239=
-826-1-markus.stockhausen@gmx.de?part=3D3
+826-1-markus.stockhausen@gmx.de?part=3D4
