@@ -1,76 +1,75 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A701941169B
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 12:46:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCFE40F8C4
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 12:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782823613; cv=none; b=MURSqxMnh24/R+ItbVX1Ox4FPgoyiH1GWSlfY8WrGXje2kNBVgGFoGZZ8S2bj/QUoyBqKh5w5cBRsET2TgW5nUIPPukG7zjZWw3rHk/un9mNVsJffDNFwC4oCNbR83btbilMMzml2vMOJAdjAJ2VUmTbkgEoKA6h7M/VZi07muc=
+	t=1782823755; cv=none; b=VO7eUwWoDMC6fwXmfXFzDuqqWyyXgoc6KtQb3dm/E2HKReHKR41CfWJ6wPaLIlCwPr8WVtmNv+uNsn7oDZKBXg1WSH49k1t+4dObIGbIWyAt2b2hHsmEsYRkvnQQZYmChSZzWK7UdV5i1GMXMweQT5m9FSUpw08YMEZb9g0miSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782823613; c=relaxed/simple;
-	bh=kdJl+EUw8jVvMYC3N5IE68PLclBfqF2niKoiUYMWlgU=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=bjxxhG0A/QsCtN23vTz1UdmGndxNgGw+4rChQS4eVssZpwr36ClTkdVZP024eBhLtN/k1W4oeuRzVaq0GZXJnyaY27Qutkuc+L8UVfzd/FazRG4NSFzUgq+NPglPhyq0ydTn4AZ58CuvE+udPfEDcm/4ZDJ4lXaUSAjbbxWTw8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q2y2G+eq; arc=none smtp.client-ip=209.85.128.49
+	s=arc-20240116; t=1782823755; c=relaxed/simple;
+	bh=AxLilXai7kh8n+gsv1ff3xUSbI939G7Kn5yFvMnrzsk=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=eX78OegVCGxF/y45O5exEvwKe9DdH4Lw1Nh1dqR+v9/XY/zwyURyFYqfMwu2MvFxRMNEgnmWzdSz7SEQS5QSySz8wvfwjxTYqhlmXAtKHYKk43hyNJXsC3iSTf4yCbSYLv8QQWLrAV7QAwyTApd6JmEjFE+UuwkVfdIc0SPlMjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VxnzgIGt; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q2y2G+eq"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493a548fc99so12795585e9.2
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 05:46:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VxnzgIGt"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4758b2a9e2aso444928f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 05:49:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782823610; x=1783428410; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782823752; x=1783428552; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:to
          :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=dap/ctidZYQin79oLPYBa3pq5WW66y6gAeCW8syc9mU=;
-        b=q2y2G+eqbt+hVbDhm0s4XJ13QGwn5Bn2bQwuWvlLWMPIdkLmfMhFRb7m40OaV22Wx0
-         +FQuYrknfQXiwT+TnPgKggRmas1idDNu9SHlLJYGsKGNPNyu+am3gZxcq5dytJaSngi+
-         rARkiJdbOuAYuMYIDXfWihw8MOazG3bYK75LCbpaiLCbxjZ/Dmfm046YGPtHqAmDSYky
-         Ig9fioun+h8/vumuABhGBuJTN5IW5g6Sb7w35hz0loB9ImFlWT2+A4zy7PT9Bx/px8jx
-         x3kOqiHv7cBLU9pBYHrMq9D3rC2yipLNMP55YKGof93jDimEBhd0MJyE/yEb3AJBLz1J
-         MOHQ==
+        bh=c50dCF6Rd+MbSNOPXAWDKotK7lnVsUArlHEFScFI1o4=;
+        b=VxnzgIGtm43/I/J4iXSQ0O4ZSOzIzkioZtkgZV4oq3R61lPMNA0zi8Uz1vXZaoJu2I
+         122MsZwjfMseWmBkxWnXWrO5qBlWFFD+Oa+HNL1XYt9YC3xWQ5XxX+sTSyMAqH2XYppI
+         vL0XgnJNXx/kCz5RA6b8/wTqBdQHlDg9nVxgcn4m5/cnTmHmGqrGxaUYN1etlGChRG3w
+         jQfsM9Xpdo5QzYlxOs41zgamIp0YKi5Kgs5HxzTUZxErgV/j4Q5ptz2QR5iNimaF2mSg
+         cnHCAOTh5DYLnekwlPjFXojFXfYEbb6IuRYUegas8ZyykiamFhgPYQWXTosfKzbSNsHv
+         b88A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782823610; x=1783428410;
+        d=1e100.net; s=20251104; t=1782823752; x=1783428552;
         h=content-transfer-encoding:mime-version:message-id:date:subject:to
          :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=dap/ctidZYQin79oLPYBa3pq5WW66y6gAeCW8syc9mU=;
-        b=gaFP7odzNsBFywZjpTmneiUmhtUU8Ne4V4HK6nu2RI7kp3q5Act+68lutZreQpfIss
-         lyESdAN5U8786uoUtzrwm9233a3aKAeqj0XvwBB1o9tsX5MLeuqOz4baddVdN2lT9PSp
-         9hwdLjHQ9h8cJUdxhms+cMG2jzsEX0oeqPY7vhHuUjehreGndx/JX6MEv6wyRRTFEpss
-         OCedhULo0IV2Cvokv1YxklyrKVKio7EG/ABxIxy+/9usT1iQBpUyu2FGuoKd4uk8vXoB
-         zYEMUHSHxMCv60eqsIFgOZGOK9Wk5FwgUgVX/6yLArabGCEtTrt0wUvXMW4quLl62Nmz
-         m3xw==
-X-Forwarded-Encrypted: i=1; AFNElJ/GdN6SbJhl9N9Xd7e0X/NazSzbqZCeTk5ClbXrlaVrOeSOY4dvbz/WZtiKAzybAfk2GzYvOHmVP04/@vger.kernel.org
-X-Gm-Message-State: AOJu0Yymf3nhQ9UZXAYjOfk/ItKZMPL1RB1tByvQkgctVEvZejJ1iUZi
-	ehjy29UGcEve5XFhF2RNGPIAIqrO1jtmaF7Yd0ppeOguDeJ/VHzulpwQ
-X-Gm-Gg: AfdE7cl0//xdwxdccnH5Cg0A9jDQjg6+ioxUwzADPCFPRFS22Y/74gZ4HpAEEF3lmex
-	E8DHkZQf0LR5YRCYZn0MReQIxtZ/T+RjfBAvj4o66f6VFR0U59Tp2UEvVPajTYJNvGtAAEDmXw1
-	27S1UkTERINh/s5X3hsrLKBA1OMXof2+PRg9KCJj9z7LRiXgvGgdprwwgxh86Vwz9c+Tf7sa1e8
-	xqkUOMJEATrIIdOVVFaJvmDXIkNYzQixOHWcNWREdgXFCj0PECvj2Hl4rQmMm4vpC/B8/E688AT
-	JGojs+JL/Nnj4jqhdX9g8zi73MsbMWw5M8NoAgszwuqv6HLLaf8pHug055opX1Xh85x7WzvRsKy
-	jqcx9nniCm8fqMX9NT+ppYnS7jBuvtZHn2XJryBtovzBvgo+/T4Ttq3ilZpZfIUEQNfOi++GbbV
-	emc+au62Zp8UmDaWakhB8Z2/MNQwl48rlgJGQAFR62FvDJvNNCDtMyAQ==
-X-Received: by 2002:a05:600c:56d7:b0:490:b724:507d with SMTP id 5b1f17b1804b1-493b828c5bfmr35016365e9.11.1782823609901;
-        Tue, 30 Jun 2026 05:46:49 -0700 (PDT)
+        bh=c50dCF6Rd+MbSNOPXAWDKotK7lnVsUArlHEFScFI1o4=;
+        b=aqsONUIBDmWYaE2dzMd+e3fi8gBdU0MOYRGA1dpCMWnI6AdSItcy0a5yrgjaipwcNv
+         rlFXzeW5mqwNAPiC8vBexoDV9w9Ht5jVO2NKLUhn9/vdCjJWd5Sm1j0e6xmuz/bJyEew
+         i3HQqpOLwBvJCqrfS83NTMjkQno3ZBuW083pr7KQsTtA3Et5mmnrGV6+LTEVanmxSteT
+         xm7hcXtTvvlkOSEdGlgoKXicyQQDAp+jIgbpVxrTW9s5iqOqeCBchGkEZteSoMoSwydi
+         vdjo0KFHVXateuqDGN0ONBC7X0+UkBKNFLIJfwDyMCuMczkv/dI9pVt1ywEZgjzTmonQ
+         k4gA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq4GPuydjpYXzncpTCr9c0ktm0fvSDe5r73nxl+xayE7zlBMz4KAepq8QB1p4fG1MtaIWF9FaC7wky4@vger.kernel.org
+X-Gm-Message-State: AOJu0YxaabJ42nqukMV3hvF2M6TQm5b1bAMfgCdajDU7+VRBmEfxs6DF
+	qbDeBmFT3C4DX+RbDDvRgfZ41jRqWLfAGc0kOlESSa+tbzPIWTJ2UoMW
+X-Gm-Gg: AfdE7cmyvStal0EilihpaaUm0GNoYowlK8sa1bW5EIbnKTFH5TFmjLGzeImTEWxEeB+
+	TKDjK+qF5osDwI5zql1XRYs2E9BelfyJvHMPuwHfD83zwNSx2yBjQQAgVHV24udL8dJRe8dpqXw
+	vK0O7eyShktHj7frCO5SY5GsS9PqvCuWiPqNiwJ/czdF8QitRK+mk/QIklh2W097y3tn2hL1vwz
+	/Si4Cg16jHoaUBx1XDfHtcqUKx81nvSeWNqQZeWhKA/5xKVaopWiusuagftXYZ1f6HA8/LGoTnC
+	sR24B8jpEu7WDMXQnu15FLXG1njrI4YljZnvBsVCJV5RfPSSHo+IhIZW/H2dP38ov0+L0J0/gT3
+	h3LflbFCwUp+dDq6g3oLHmADr0zF5qBGK2pdg4cCKCaNFEn+GElXBDnoVw/sV7YVD9RJQzTlBPA
+	kzTQmkBSYWooHPclYlNDul0+ng8HlHYfXj53oNxF8cZlmJ3vwKg4jYWg==
+X-Received: by 2002:a05:6000:178b:b0:46e:7a27:98cf with SMTP id ffacd0b85a97d-475521c85f3mr4846155f8f.25.1782823752342;
+        Tue, 30 Jun 2026 05:49:12 -0700 (PDT)
 Received: from localhost.localdomain ([82.77.79.113])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-493b8d0bbbcsm79274455e9.13.2026.06.30.05.46.48
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4756778fac3sm7004531f8f.32.2026.06.30.05.49.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 05:46:49 -0700 (PDT)
+        Tue, 30 Jun 2026 05:49:12 -0700 (PDT)
 From: Eduard Bostina <egbostina@gmail.com>
 To: daniel.baluta@nxp.com,
 	simona.toaca@nxp.com,
 	goledhruva@gmail.com,
 	m-chawdhry@ti.com,
 	egbostina@gmail.com,
+	Krzysztof Kozlowski <krzk@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: bus: Convert DA8XX MSTPRI to DT schema
-Date: Tue, 30 Jun 2026 12:46:27 +0000
-Message-ID: <20260630124631.2991596-1-egbostina@gmail.com>
+Subject: [PATCH] dt-bindings: w1: Convert HDQ One Wire to DT schema
+Date: Tue, 30 Jun 2026 12:48:25 +0000
+Message-ID: <20260630124826.2992529-1-egbostina@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -80,88 +79,127 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert the Texas Instruments DA8XX Master Peripheral
-Priority Registers bindings to DT schema.
+Convert the Texas Instruments OMAP HDQ One Wire bindings to DT schema.
 
-Documentation:
-OMAP-L138 (DA850) http://www.ti.com/lit/ug/spruh82c/spruh82c.pdf
+During the conversion, several updates were made to reflect actual hardware
+usage and resolve dtbs_check warnings:
+- 'ti,hwmods' has been made optional.
+- Added 'clocks' and 'clock-names' properties as they are used in actual
+  device trees (e.g., am437x-l4.dtsi).
+- Added a second example for the AM4372 HDQ controller to demonstrate
+  the clock and interrupt configuration.
 
 Signed-off-by: Eduard Bostina <egbostina@gmail.com>
 ---
- .../bindings/bus/ti,da850-mstpri.txt          | 20 ----------
- .../bindings/bus/ti,da850-mstpri.yaml         | 37 +++++++++++++++++++
- 2 files changed, 37 insertions(+), 20 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/bus/ti,da850-mstpri.txt
- create mode 100644 Documentation/devicetree/bindings/bus/ti,da850-mstpri.yaml
+ .../devicetree/bindings/w1/omap-hdq.txt       | 22 ------
+ .../devicetree/bindings/w1/ti,hdq.yaml        | 70 +++++++++++++++++++
+ 2 files changed, 70 insertions(+), 22 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/w1/omap-hdq.txt
+ create mode 100644 Documentation/devicetree/bindings/w1/ti,hdq.yaml
 
-diff --git a/Documentation/devicetree/bindings/bus/ti,da850-mstpri.txt b/Documentation/devicetree/bindings/bus/ti,da850-mstpri.txt
+diff --git a/Documentation/devicetree/bindings/w1/omap-hdq.txt b/Documentation/devicetree/bindings/w1/omap-hdq.txt
 deleted file mode 100644
-index 72daefc6b4a1..000000000000
---- a/Documentation/devicetree/bindings/bus/ti,da850-mstpri.txt
+index 913c5f91a0f9..000000000000
+--- a/Documentation/devicetree/bindings/w1/omap-hdq.txt
 +++ /dev/null
-@@ -1,20 +0,0 @@
--* Device tree bindings for Texas Instruments da8xx master peripheral
--  priority driver
--
--DA8XX SoCs feature a set of registers allowing to change the priority of all
--peripherals classified as masters.
--
--Documentation:
--OMAP-L138 (DA850) - http://www.ti.com/lit/ug/spruh82c/spruh82c.pdf
+@@ -1,22 +0,0 @@
+-* OMAP HDQ One wire bus master controller
 -
 -Required properties:
+-- compatible : should be "ti,omap3-1w" or "ti,am4372-hdq"
+-- reg : Address and length of the register set for the device
+-- interrupts : interrupt line.
+-- ti,hwmods : "hdq1w"
 -
--- compatible:		"ti,da850-mstpri" - for da850 based boards
--- reg:			offset and length of the mstpri registers
+-Optional properties:
+-- ti,mode: should be "hdq": HDQ mode  "1w": one-wire mode.
+-	   If not specified HDQ mode is implied.
 -
--Example for da850-lcdk is shown below.
+-Example:
 -
--mstpri {
--	compatible = "ti,da850-mstpri";
--	reg = <0x14110 0x0c>;
--};
-diff --git a/Documentation/devicetree/bindings/bus/ti,da850-mstpri.yaml b/Documentation/devicetree/bindings/bus/ti,da850-mstpri.yaml
+-- From omap3.dtsi
+-  hdqw1w: 1w@480b2000 {
+-	compatible = "ti,omap3-1w";
+-	reg = <0x480b2000 0x1000>;
+-	interrupts = <58>;
+-	ti,hwmods = "hdq1w";
+-	ti,mode = "hdq";
+-  };
+diff --git a/Documentation/devicetree/bindings/w1/ti,hdq.yaml b/Documentation/devicetree/bindings/w1/ti,hdq.yaml
 new file mode 100644
-index 000000000000..5b03abd3fc3b
+index 000000000000..aa539c7bb5f7
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/bus/ti,da850-mstpri.yaml
-@@ -0,0 +1,37 @@
++++ b/Documentation/devicetree/bindings/w1/ti,hdq.yaml
+@@ -0,0 +1,70 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/bus/ti,da850-mstpri.yaml#
++$id: http://devicetree.org/schemas/w1/ti,hdq.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Texas Instruments DA8XX Master Peripheral Priority Registers
++title: Texas Instruments OMAP HDQ One Wire Bus Master Controller
 +
 +maintainers:
 +  - Eduard Bostina <egbostina@gmail.com>
 +
-+description: |
-+  DA8XX SoCs feature a set of registers allowing to change the priority of all
-+  peripherals classified as masters.
-+
-+  Documentation:
-+  OMAP-L138 (DA850) - http://www.ti.com/lit/ug/spruh82c/spruh82c.pdf
-+
 +properties:
 +  compatible:
-+    const: ti,da850-mstpri
++    enum:
++      - ti,omap3-1w
++      - ti,am4372-hdq
 +
 +  reg:
 +    maxItems: 1
 +
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    items:
++      - const: fck
++
++  ti,hwmods:
++    description: Name of the hwmod associated to the hdq
++    $ref: /schemas/types.yaml#/definitions/string
++    const: hdq1w
++
++  ti,mode:
++    description: |
++      Operation mode. "hdq" for HDQ mode, "1w" for One-Wire mode.
++      If not specified, HDQ mode is implied.
++    $ref: /schemas/types.yaml#/definitions/string
++    enum:
++      - hdq
++      - 1w
++    default: hdq
++
 +required:
 +  - compatible
 +  - reg
++  - interrupts
 +
 +additionalProperties: false
 +
 +examples:
 +  - |
-+    mstpri@14110 {
-+        compatible = "ti,da850-mstpri";
-+        reg = <0x14110 0x0c>;
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    hdq@0 {
++        compatible = "ti,am4372-hdq";
++        reg = <0x0 0x1000>;
++        interrupts = <GIC_SPI 139 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&func_12m_clk>;
++        clock-names = "fck";
++    };
++  - |
++    w1@480b2000 {
++        compatible = "ti,omap3-1w";
++        reg = <0x480b2000 0x1000>;
++        interrupts = <58>;
++        ti,hwmods = "hdq1w";
++        ti,mode = "hdq";
 +    };
 -- 
 2.43.0
