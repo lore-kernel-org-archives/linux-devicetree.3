@@ -1,98 +1,136 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72F141322F;
-	Tue, 30 Jun 2026 13:06:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F741416D09;
+	Tue, 30 Jun 2026 13:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782824802; cv=none; b=nTp4H8kDlsMZ5Ahne4W75opOIJqZp50UvK9WbZitekuaJxWA0/axwopYUfB5naDLzCLV+72lqAAQf59dajVVmuYjTJq01iDe+emDLavOsfSZnBRdzJ+vkIOGTg0TZeRTxuxAfDAEZPb4kCb7pwyTw18iJosOUoeAValW21Cai4g=
+	t=1782825020; cv=none; b=WhDcG4mFZtujx92JoWrboXm9Bad05phQ/LG1aJW/42oqXE+v7tWwUcrsokxv01tURlJ4c4v8mvz7rsA0aWfARgRg1jDPqT5oJ0/eCo9zRVAmMzL3VRdMObmwrY+LW912Bsp1TxYnecwWNT/U4GOwQ1QfvhSwFuRx6uaaIdrTYhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782824802; c=relaxed/simple;
-	bh=QKlrhyzobVAhmV/m1MnqprcVY1OLo/Qe+7LW1AiM6Q4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MeaygC9bnTYpomn9a78GiL4blKCliI2iPvHO7WJkO8toTRTkNmyVy5uGxzd+iw7evRl3hty+2KrdOdbzEQsjzp7sWtLgwuHUdKWy0oCvHwITNSZ0JmqQXgEBpT1502lt4rUErWccciZe+BJsQ9utlUbL4Dlvi+Tvr/YX5T9XOcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=asNYKdG9; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1782825020; c=relaxed/simple;
+	bh=71FGi3GNfI8IifyPtlk3/LtXzoRwq27IZZc7qX9MH1M=;
+	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=I0bQkUI+ISKhf4NPVo5j3MIndrtrjpu2o2hzXh0I3/jh0er/1ZMf6+YBG9w6ernAeSYuHz1i5neA3ikdAL2DKWCiWtyxCArlF2O2IrXiHAZ9hzWztoBEPuEZWyuaN/bHK6MkOJ/cGxhHiTs0mV68S++lAso4Y1uVKJWHeqVEns8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ib5zBAa9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="asNYKdG9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1782824799; bh=QKlrhyzobVAhmV/m1MnqprcVY1OLo/Qe+7LW1AiM6Q4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=asNYKdG9k5OKrOXLTL8geoeQ4xfuIry1KFnvPE0p3GIfyDq9gX5hbx9hQgNXCgllB
-	 C+kcDTK4o+m1ltH4D628t/FMy4uQHZujeZ0P3u7s2HxRFWHqPovhog94WufpweNwyE
-	 QXA/LjLrMFP8YzA96HkGqTiFmJYL1zlDM64fmZyrw+db6NBIGonFeBeyvUUZrV5b51
-	 kXPDAwi/3YAz8dA8idJ/tFU6Qbekbwtz7iXiVTf6UGM+Je71gYQ4sfo4784MoWob5Q
-	 e1LaP9NXe2+mqaqSHI+q6hP8+tr+vbKuEZONvkwCxe9Dr/I6UwdzErvw7MuVjZmon+
-	 ucmR+jKXeL4UQ==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id 0E01C41567; Tue, 30 Jun 2026 14:06:39 +0100 (BST)
-Date: Tue, 30 Jun 2026 14:06:38 +0100
-From: Sean Young <sean@mess.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] media: dt-bindings: rc: Sync keymap list with latest
- list
-Message-ID: <akO_XqVQ-S72dveD@extorris.mess.org>
-References: <cover.1782300922.git.sean@mess.org>
- <2d87b050777b95ffe8adbdf156d2fb1de14c4dfb.1782300922.git.sean@mess.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ib5zBAa9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60D8C1F000E9;
+	Tue, 30 Jun 2026 13:10:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782825017;
+	bh=dW5cnOiLDGaHAlToRbB9W33P9zj9uViAhwdub11Sofg=;
+	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
+	b=ib5zBAa98KrK+zI7PQPEclF6Tk/E1NXlO1S6r+8fkB8VlH+26nlhBGsOBDLuJsDaZ
+	 AlR8KeC/fcWSWAqFRGFIp01zfpmqThkQvMVswAS0FbfSRE/bt8YEXwUdPdzho7IbH4
+	 Wv6b+4latBzWqB7iixSEIbxu0zj06bAqk24o9HySS3zLuIBA5vEh0Y+nONYDCWoQcv
+	 cxVd3MNW74HHiw3z6wW90xqBDHHpmhtK1KuqShVLnPUuzsbPjYv0Ku4/uVDI76+LXO
+	 bC/Cv2ru88VYa+4YVuMks+53dajuidAgn5p7JH3cXu+apFL4VUD0npqxtsgQoe6GjD
+	 FReNwYIZ69JAg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 4/5] gpio: aaeon: Add GPIO driver for SRG-IMX8P MCU
+Reply-To: sashiko-reviews@lists.linux.dev
+Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260630-dev-b4-aaeon-mcu-driver-v6-4-d66b5fcbd2f0@bootlin.com>
+References: <20260630-dev-b4-aaeon-mcu-driver-v6-0-d66b5fcbd2f0@bootlin.com>
+ <20260630-dev-b4-aaeon-mcu-driver-v6-4-d66b5fcbd2f0@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 13:10:16 +0000
+Message-Id: <20260630131017.60D8C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2d87b050777b95ffe8adbdf156d2fb1de14c4dfb.1782300922.git.sean@mess.org>
 
-Hi Rob, Krzysztof,
- 
-Could I have an Acked-by: please?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Unconditional resetting of all hardware pins in the `probe` functi=
+on breaks bootloader hand-off and destroys firmware configuration.
+- [Medium] Ignoring critical hardware errors during probe initialization le=
+ads to inconsistent software state.
+--
 
-Much appreciated,
+commit 73ee6d66b506331ac77e36c415e83febae316cf0
+Author: Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
 
-Sean
+gpio: aaeon: Add GPIO driver for SRG-IMX8P MCU
 
-On Wed, Jun 24, 2026 at 12:39:21PM +0100, Sean Young wrote:
-> The list is out of sync, so add missing entries, remove obsolete
-> entries and sort.
-> 
-> Signed-off-by: Sean Young <sean@mess.org>
-> ---
->  Documentation/devicetree/bindings/media/rc.yaml | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/rc.yaml b/Documentation/devicetree/bindings/media/rc.yaml
-> index dedc5a4b81ec..43d84296e70d 100644
-> --- a/Documentation/devicetree/bindings/media/rc.yaml
-> +++ b/Documentation/devicetree/bindings/media/rc.yaml
-> @@ -122,10 +122,10 @@ properties:
->        - rc-proteus-2309
->        - rc-purpletv
->        - rc-pv951
-> -      - rc-rc5-tv
->        - rc-rc6-mce
->        - rc-real-audio-220-32-keys
->        - rc-reddo
-> +      - rc-siemens-gigaset-rc20
->        - rc-snapstream-firefly
->        - rc-streamzap
->        - rc-su3000
-> @@ -147,11 +147,11 @@ properties:
->        - rc-tt-1500
->        - rc-twinhan-dtv-cab-ci
->        - rc-twinhan1027
-> +      - rc-vega-s9x
->        - rc-videomate-k100
->        - rc-videomate-s350
->        - rc-videomate-tv-pvr
->        - rc-videostrong-kii-pro
-> -      - rc-vega-s9x
->        - rc-wetek-hub
->        - rc-wetek-play2
->        - rc-winfast
-> -- 
-> 2.54.0
+This commit adds a GPIO driver for the Aaeon SRG-IMX8P embedded controller.
+It supports 7 GPO pins and 12 GPIO pins, providing access to pins handled
+by the microcontroller. During probe, all pins are reset to a known state.
+
+> diff --git a/drivers/gpio/gpio-aaeon-mcu.c b/drivers/gpio/gpio-aaeon-mcu.c
+> new file mode 100644
+> index 0000000000000..a9e048c865f5c
+> --- /dev/null
+> +++ b/drivers/gpio/gpio-aaeon-mcu.c
+
+[ ... ]
+
+> +static void aaeon_mcu_gpio_reset(struct aaeon_mcu_gpio *data, struct dev=
+ice *dev)
+> +{
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	/* Reset all GPOs */
+> +	for (i =3D 0; i < MAX_GPOS; i++) {
+> +		ret =3D aaeon_mcu_gpo_set_cmd(data, i, 0);
+> +		if (ret < 0)
+> +			dev_warn(dev, "Failed to reset GPO %u state: %d\n", i, ret);
+> +		clear_bit(i, data->dir_in);
+
+[Severity: Medium]
+Is it safe to update the internal software state tracking when the hardware
+command fails?
+
+If aaeon_mcu_gpo_set_cmd() returns an error because the underlying bus is
+temporarily inaccessible, clear_bit() is still executed. This could result
+in the GPIO controller registering with a mismatched view of the hardware.
+
+> +	}
+> +
+> +	/* Reset all GPIOs */
+> +	for (i =3D MAX_GPOS; i < MAX_GPOS + MAX_GPIOS; i++) {
+> +		ret =3D aaeon_mcu_gpio_config_input_cmd(data, i);
+> +		if (ret < 0)
+> +			dev_warn(dev, "Failed to reset GPIO %u state: %d\n", i, ret);
+> +		set_bit(i, data->dir_in);
+
+[Severity: Medium]
+Similarly, does this code lead to an inconsistent state by blindly updating
+data->dir_in even if aaeon_mcu_gpio_config_input_cmd() fails?
+
+> +	}
+> +}
+> +
+> +static int aaeon_mcu_gpio_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	/*
+> +	 * Reset all GPIO states to a known configuration. The MCU does not
+> +	 * reset GPIO state on soft reboot, only on power cycle (hard reboot).
+> +	 * Without this reset, GPIOs would retain their previous state across
+> +	 * reboots, which could lead to unexpected behavior.
+> +	 */
+> +	aaeon_mcu_gpio_reset(data, &pdev->dev);
+
+[Severity: High]
+Could forcing all output pins to low and resetting GPIO configurations to
+inputs unconditionally during probe disrupt the state established by the
+bootloader?
+
+Overriding the hardware state on every boot could inadvertently cut power to
+critical system components like regulators, eMMC, or displays that were left
+on by the bootloader or previous kernel execution.
+
+> +
+> +	return devm_gpiochip_add_data(&pdev->dev, &data->gc, data);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630-dev-b4-aae=
+on-mcu-driver-v6-0-d66b5fcbd2f0@bootlin.com?part=3D4
