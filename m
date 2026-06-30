@@ -1,123 +1,178 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012015.outbound.protection.outlook.com [52.101.48.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FD4325483
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 13:30:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782826224; cv=none; b=MlINEiCCNV72KVqO95XSY8sCY7e26UfB6G+5+PC7XxrnGyTgF82GMozFMRmwUKtsmkcnhosNLwcMxMwufmK4F/LoFJX2gGDUIw9YSnpGAUcOA78z+ENSaYx5StJd9g70pLEZYTmc9wUzQe2Csl+HoxlGWqs4/9dQ8Bu/YyESPoM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782826224; c=relaxed/simple;
-	bh=laEbLt5uZW2gyt3+YNSeRGDWszsz6z2Ki2lVxOx69MQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bpl44bkLL7dMo5hcuo1xwM9Z4NKN55ra3QaiF8Uly8Ne3mKa5uQcwCy30yNnWtPvyWB9A+X0nVhjgfO6QSsRAsJDw9VVNMx0wnk1gCs6XVymXEZcYqx7K8bka78Pi7VP6cR/moNi+MkRp+xHVNyJFRc9zYqFfoVnn/xGlhoTsus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fxqnh+D7; arc=none smtp.client-ip=209.85.219.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9783264A86;
+	Tue, 30 Jun 2026 13:31:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782826274; cv=fail; b=Xd+ei2qc9y8V4qFyJOdH2N2W/6NVJKVs+rxghP52vzk+JzdLd6KD2jkGr4AKeSYC/UgWk7U9tjiSF122prRWSk68gaFx22KSvbKk+mQPKeg/cSD1JpoV5t4Ld6y+4xgTiS+2dm+sDE9UVC0puosJvdTq9rkFNZ3g/ZBMoUVpxCo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782826274; c=relaxed/simple;
+	bh=lTi8RwDSf/cVwjN+hoI9Z1q12hBrGhcLXT0cwjelrcw=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=P3c5UfyEQUYw6yqQrSMtfR+wXpz4M5CCOPmxyFdb+a/sZpi3sUDOohSd6uTN9Nv+k/WZKcGZpjiVXahPk9ZF62pDBqhXKsXpfSKeLnXTxxoQZYLv01ONi/L7vcJUlvOojSehPXaKElEKY5o9myUZKUrJmCNMnjVQTdCWS1aWPKk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=YXQSIt2h; arc=fail smtp.client-ip=52.101.48.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fxqnh+D7"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-8f18d92172aso16008176d6.2
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 06:30:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782826222; x=1783431022; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aByZm7jR+8Ms3DdCpAHOVCxrhdh4rHnZilW7Sr7olMA=;
-        b=Fxqnh+D70XlsBp/izUkMFqyRDzDfuR7I8spwTjkBX/etm2C1YqIzuRwD9yadlSQGv5
-         6J9jBzKa5/7nZnfW+IZnWrp/eM/jApgNPjeW569w4VTMI8XKEEdMqXXH+21sakHSMlpN
-         j053mHBPL2KwMvHF7vWEqveymJvTn/HAKs6/SeXQObrz1BC2eQYb/OjQanYRFYnyzD3L
-         6Z7aD4J/LlDXIrQkUPTJSkYV+l9a3FDnXT/UP6iYYMkvfvmuAxfjpBoZw3PmBri2jWoO
-         0IY1av13nDaPnw6L7jqAyv38sVcee/lRBzAZ+3NbdW8x52wrukcnYSER9I2t59pdMBcI
-         GAWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782826222; x=1783431022;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aByZm7jR+8Ms3DdCpAHOVCxrhdh4rHnZilW7Sr7olMA=;
-        b=U7GYTBlccd0BuzdeWBAcdA0zfen9bIMo62GOuwi5Y/MejE2Q9Jdmi3KLEQAF69vpj0
-         oARV4pQ1ZsDc9VGlciUgKI8qbxx9dndHRbx0JkGOg3BOXXgUMI+NwXYoUVB0RzNZ7SvH
-         8FAsU2Unm0o84eLOovDKLD9J2qT4HLv2OnJ+du9Xh4yYLS0hEOEvO96NzW8QS4sCxCRF
-         DyDxRPJ37r3hQej19aoDH5wkdjD6m08Nm0Ndsz7IiOeF4ddLr77D9KgKn7aqbe+vOHkq
-         MmrA6GHmrlL02PnIXQT1AsVyKN/+rlDNjJwalbL/bN1WYZYwUosKAdQSVDB90EhZBWcx
-         UEWg==
-X-Forwarded-Encrypted: i=1; AHgh+RqCOboYgpqZJu2fez44GJEI8RYU5dlXAPHTo1yrreDMCFzSSEqtq8ZNr175BSeHupTovljBi13CTr1r@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0oRqO6bWp5HTuLO70ofSRdpczXdatE0QPtlnay3Y1TbKj3r49
-	SssxMg3EauUzuhEHtk5VcB/NnPjoPiD4Gdx69si8fQC8rAog6Fi0vL5c
-X-Gm-Gg: AfdE7cnjeuJ00VFwAXTBTt2fg7a1nCCU6wbADBEZros0ZKl1WY/ZFrFrF/vxhf2FJf0
-	ggFr2Dp20G5+/ktF7xeQ16q44mEaCHzfYw+Yykq+ftaJESDNE225/yBa3M1UuSCy3oQallH23K7
-	/9sJzF8quLryTsQ2UozihHJl3SkqTuIo2mHFcxzO8R0JF+WK290fI4Ty3IrNDmDzdmexcNjcgPl
-	NY3D0lSOvU0ySpkEnyk5n8lf8W62EKEhmJ49hCCZFOM2ASf/jLDmWrkjji8cma+cf4K4THgjm1/
-	kTT5nhrU+UUbAqlk1OakT4QnUX+1rBuBtPucvS7gEDAgF5OFTCvi8brqnIgZtczhyJuhS2Tfj6d
-	edI841odjAv89AN4DiGsXI/rMJC0+nJauVC9Nd7gKAeHj2mf8jPeJUFDiq7UHuJ8XWmsBRYZ9Fm
-	tI+l1ff7FVOcKwOKchHG94p2w3BoKWUMFKxBZuPkJyjLMKmA==
-X-Received: by 2002:a05:6214:12cd:b0:8f0:b75:c4ae with SMTP id 6a1803df08f44-8f1b8e6ad8cmr36969156d6.9.1782826218110;
-        Tue, 30 Jun 2026 06:30:18 -0700 (PDT)
-Received: from dev.lan (c-75-67-38-46.hsd1.ma.comcast.net. [75.67.38.46])
-        by smtp.googlemail.com with ESMTPSA id 6a1803df08f44-8f1a7b26b2csm23003536d6.45.2026.06.30.06.30.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 06:30:17 -0700 (PDT)
-From: Andrew LaMarche <andrewjlamarche@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="YXQSIt2h"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xFcY7DZF4GU8V5Uwv7K+QZVaRPzRKB9HG592V0ifXxHUCiRxuWnQ6I+HB+pkdg61YenSeMmKb6bKiwF5VGixO+2yJSW0vPDCvHZhnj9qa+z1+CO6e6urip+xq77kPMyt3n3RcQyfFhKLv0JGmmBK2OV8pZ+OboRlghFT7uSsFwoRT2jYH9fXFiR6fWSglopZiQyN1PjfCFprq9t5rXr25+RqeWUZn4cNduV8oHxge/DUJDLggU1yTrKWb61ODssNSVev/O8MX46KQJtt7itFRfRnMAUtFuuoGk6Gb3aAv5Bm5upzcU5KGMtuoj5mjdVjRZXPW4kBIHpMlyRcB7ZTyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=egb+qkBBsK0jKpGGkevqNSZWERHgAMVA1ALsW8FN87o=;
+ b=AI8DAdWEK9EP6Yd5l9dXrHs+5IykrnGfAxTwUbFYC9QCkZxv/mPCYw0Gb+cawXncYLWeSoEM8O0me48ONCr2aEVgEDUZvcqHtIjvaLLuXQ4kU+m+YrRhCPuFjwjrmt2BvjR19krUIOM1wdJfvp5fJGjnbw33TeW2H2yIjn/y0v8WTML6LiQvAASgn+7p+qMlZvzkCgxa9oBiFftz6jajWCXWdQSX1V3DjJAlttiIb3F2hlGS0uSJk+n70WPLD+Hc0IIJZIbE1Og9iDaFcLbBTRCKOl5z81pk/qGEKbbwa1c75/EjpAfOPHXLx7TQmykHuo1MhdPcMFYM1PNH3nE3FQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=egb+qkBBsK0jKpGGkevqNSZWERHgAMVA1ALsW8FN87o=;
+ b=YXQSIt2hED7yxoR521SImMUTO/yqDpmn2KwsE3JLPFLrkky9VehidqwowlSPyDc2CGm+CwRZUEhgfOO+yIx0n1JX+zPUT/VV/x+CxvlZaJaOnnM/HUmCiUUGG12DznS1gmLqciBScQTzieGD0b2UIYMx8vrmM1zzHjUTlgWhnMGI3eFM9i2GTl/booYqhITF84okR5biAUD1z3/C0zI9cgRXLIYX8FOQbIXIqPPGDk0pJeW/R2NLh57fYIDcjpH0mAC2GFVCboUmSlZ06N8UrCiVFLMOVrLVuZKVn39EKqxqerYVYZIgmsG4+OBtynH3Sy2xILAZMkJQu0o94f2new==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
+ by IA1PR03MB8216.namprd03.prod.outlook.com (2603:10b6:208:5b2::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
+ 2026 13:31:10 +0000
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775%4]) with mapi id 15.21.0159.018; Tue, 30 Jun 2026
+ 13:31:10 +0000
+From: muhammad.nazim.amirul.nazle.asmade@altera.com
+To: dinguyen@kernel.org,
+	maxime.chevallier@bootlin.com
+Cc: rmk+kernel@armlinux.org.uk,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robh@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
 	devicetree@vger.kernel.org,
-	ath12k@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Andrew LaMarche <andrewjlamarche@gmail.com>,
-	Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Subject: [PATCH v2 2/2] dt-bindings: wireless: ath12k: drop qcom,ath12k-calibration-variant
-Date: Tue, 30 Jun 2026 13:30:01 +0000
-Message-ID: <20260630133001.1426824-2-andrewjlamarche@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260630133001.1426824-1-andrewjlamarche@gmail.com>
-References: <20260630133001.1426824-1-andrewjlamarche@gmail.com>
+	linux-arm-kernel@lists.infradead.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] arm64: dts/net: stmmac: Add Agilex5 SoCDK TSN Config2 board support
+Date: Tue, 30 Jun 2026 06:31:05 -0700
+Message-ID: <20260630133108.27244-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+X-Mailer: git-send-email 2.43.7
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR13CA0163.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c7::18) To SJ0PR03MB6964.namprd03.prod.outlook.com
+ (2603:10b6:a03:432::18)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|IA1PR03MB8216:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b2a124f-dc12-4dfc-5130-08ded6abd8be
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|23010399003|376014|18002099003|56012099006|11063799006|55112099003;
+X-Microsoft-Antispam-Message-Info:
+	N+M5xnRsbr+O+iXpLh2cAlZcGVszQqR29xrXewvVMaNOzU/yh7uC3PQ9zNl/K7I0Yn/AyOSBgJd3XG1llhJxPji4/l6hhaPlMyYCtFvFOkt1Rbq9UTDIR6P/tOaWEOvOzSNg2BY+CmiUwOlVuhTcvhGbKw2bFGGFuUwbt807/TxDR7/W6M2m0+zk/kV9ZrJ0+KyLxzeuOsAAML+Fg5n9F/dGnH3ReFkAt2/xuWzPAadSLDh0EdDZzeb1qRkLJ0haP+0QMd8SlYXBN7u6ZnvgiN2BIWPipaydpLIun1ywJK+NB98lOWfk2rz7fsEouo57hOIMfNi43yKrMoeLB1bIlE+Q2JkmeE9weKR+yJx1vrrfMAYAG91Tvdg6z2oXzbpnMuq6RjbK1tXeFAS+bfN722UsNgXszGi/Ym+z+C6ULeEjoYzg0BIzpyBH+tljKk0BFINqnd11nQBpRQrSBO4RAfcv8PGyEjUEj6QSdCl/SjqP+f7PyuYOaiu8kroSXb/b3OaJvReaqS/9wvpS9PFlXYimRuoJLDAYk631QLxCSafzOufvALBExCXrIVg16i9HqTZwR93OFhHStMtHfRXYc0ROuguglRuggCOA7Ez8y2w4Ef3S4dmgTu7YEE+dZGsDLLRHKVSmT8MGz42Kw06QpfePC3olnSYFgsZwPU8hL9w=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(23010399003)(376014)(18002099003)(56012099006)(11063799006)(55112099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?fvIC0kiNBhwYdzqM89PesF1aeDM1bxX1NenpOM66tKvyAl5p4MIgOUUG8VUJ?=
+ =?us-ascii?Q?kiJ/sXz15Jc4DqkE2A3iz4YRcU18xPBrK60bcFBgt65huHoG/mMEyfFHVuS4?=
+ =?us-ascii?Q?Vl6czIkuAhkN5xY6LHTj/iHEEwV7dguDasiH96AsRJf0QXftrysEXiunI3Il?=
+ =?us-ascii?Q?+ypVVmQ6MWoSeQv85jwBqeo5RuVqLikAH167hDb5yaLhmhPI5vuDJ8v581PJ?=
+ =?us-ascii?Q?kltYbA5lpchcP98efRgsPnFJ9PyfLQYD+4a7wbnleos+V1Nvxz/RkykPWvGt?=
+ =?us-ascii?Q?Y7rDMKl47iG5ZRliEz+CyxXILUGSppokxTNtHq0otZPO0WQRsdrVjNideLHb?=
+ =?us-ascii?Q?DTlNiR6vvo1dmRVXB6qse7SY99s4LHdXrzKBaMlcgguC7uaNOJkQk9xC9fSB?=
+ =?us-ascii?Q?R+GeaPTdD13+CEtp7ioRm7g9BROMvkp+yNJwHI2h7rRrtKuWapVLl40avQkf?=
+ =?us-ascii?Q?zXBrez5lnwq4WCp/X7goQfaNNCn+g4MFt0ymFNa4IH3B3eeehkIO/KQOrYXF?=
+ =?us-ascii?Q?mq9mkeuOrQ6PyVApiFKDTKEh71fCMsP1P44ZbbpKGxvWw9b7cxa4p6BuVo17?=
+ =?us-ascii?Q?p6iv2tjqYDjhpLUIWYgMazeI6EhjkGxkELQIsP++j4FuTzek9T/aOSzo0Ly3?=
+ =?us-ascii?Q?9L2ZFWhp0W8zuHuh9PNCx/2zTPboyMwx9zeNQpw0QI4IOJuysyih//xm5Y33?=
+ =?us-ascii?Q?SFJ6InujoQKAcR40c2XA+A1fRxyml9gWtg6pVFvTZiMGweNfuKKrHau/InrD?=
+ =?us-ascii?Q?qWBA39IMJSC0+9B5P1cMsnTCWIOWuW++UizHs/ZP8KNFfBhWpLZqQqA27ijv?=
+ =?us-ascii?Q?pP7fQXkAMSrzfUqkYSFq1Km/Hu0eUIUkjtN6gr0waJPgCaWbK9TxfxBW6hit?=
+ =?us-ascii?Q?MlCXmnElqLepdJFZcNGigkYq+LuymSV1GNjb9BCAur8KzdTqNvdkkLUq9LDF?=
+ =?us-ascii?Q?UISLMb56C7k32zpvXZL8b2wx4OnwpP+kfps26UaQVrHyQ3hHZVY9bHRMdySw?=
+ =?us-ascii?Q?8R6rgdEDhalu2HXR4g3BRDsZjwoiAIrDLZAJbGn1wVNi9Nv/PhB5bN2BP2qB?=
+ =?us-ascii?Q?c6NxpxfjAcaqGMiwuHEXGP/ZQceRWll70vK9nVe7qxRkoPpYmCa/eiQ725z6?=
+ =?us-ascii?Q?37uYRk0QS/Nudj+pnynAvMEjR/c572ZWvfOwb3v69sVR3L5S5f7VFfTM3TX5?=
+ =?us-ascii?Q?ziejNfNt3K0UB/SuNoUIMInXhAuiQAb6Wiih+vAQxTbAS+6PS2W8S1FmfMKA?=
+ =?us-ascii?Q?kMU0O3TFJHLY6mrpy0WaDuNymDHHoCHVqt1qd3Xb+yO9HFySGNYzgbdeEg4e?=
+ =?us-ascii?Q?gojz8H73tEqfceMue+y51H6pC2TPZwOvUhqE3Tsu6b1RLN7b4XfK0GBrvcs0?=
+ =?us-ascii?Q?5+ttlQs6C8GZK3pCXdMt73ziO8aqJJPjDmrCz00nzW1j36UArHochF0JkPMK?=
+ =?us-ascii?Q?BZX5NN3twsH0NwcI6AqBt3TzrmfXOGF7WaqkKPVkrN/BU8aGBKl/fWQh0y0z?=
+ =?us-ascii?Q?lSE4QWma5gToulIpEeeYx0mJtPZKu8O0nh6UTqsKF7E4khBVWv6SR/2nQhJR?=
+ =?us-ascii?Q?f8nHeCZA7Jy8ZLrucCiiGj5VMKjkPGAexeBOIB6AaVowmWBCu+D7FjKClgmb?=
+ =?us-ascii?Q?KBt9giWgsAJUn8cBb4raWq5AmHEakqNCnujiJVMK0gWpHN0Rp9NfdVbiLIcN?=
+ =?us-ascii?Q?onjoIkQ7L2fKDV8ViAZgNOGzozWl8NhVS80+DNj3xqyULgX0EbpqyuCsqIKY?=
+ =?us-ascii?Q?rhAtu19G7LR6zdj97C0WnU+sCth69kZYpnKZ6A+VuvqSqRbkF2zjxTg6rZK3?=
+X-MS-Exchange-AntiSpam-MessageData-1: nV6J1qFhv3Apzg==
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b2a124f-dc12-4dfc-5130-08ded6abd8be
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 13:31:09.9871
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4hwJq2eY1WvZAPDvo9jwvzlyPaWwzKdrQi7wzdyZTzvsl9KMlWnDj1YOFlv8F3gkHExYWOktxViQWQ7iUpsFFhMqN0MVQS8VC3fqF5U16GN6n1mMVWoKfp21r0AOxfQIUtMadnYYE1B/YW+9E5Tfyg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR03MB8216
 
-The ath12k-wsi binding documentation describes using the
-generation-specific qcom,ath12k-calibration-variant binding as well as
-the generation-agnostic qcom,calibration-variant binding to load
-board-specific calibration data from the device tree. However, the
-driver never implemented either of these.
+From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-Given that no devices currently supported use
-qcom,ath12k-calibration-variant and the previous patch implements
-qcom,calibration-variant, drop the generation-specific version from the
-binding to prevent future confusion.
+The Intel SoCFPGA Agilex5 SoCDK TSN Config2 board uses a dual-port
+Ethernet setup where gmac1 (TSN port) operates with different MAC-side
+and PHY-side interface modes: GMII internally in the MAC, and RGMII
+towards the PHY.
 
-Signed-off-by: Andrew LaMarche <andrewjlamarche@gmail.com>
----
- .../devicetree/bindings/net/wireless/qcom,ath12k-wsi.yaml  | 7 -------
- 1 file changed, 7 deletions(-)
+Russell King's commit de696c63c1dc ("net: stmmac: socfpga: convert to
+use phy_interface") replaced mac_interface with phy_interface in
+socfpga_get_plat_phymode(), correctly noting that no upstream DTS files
+set the "mac-mode" property at the time. However, the Agilex5 SoCDK
+TSN Config2 board requires mac-mode and phy-mode to differ, causing
+ping failures when the MAC is configured with RGMII instead of GMII.
 
-diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,ath12k-wsi.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,ath12k-wsi.yaml
-index 589960144fe1..fa64c8aa56f5 100644
---- a/Documentation/devicetree/bindings/net/wireless/qcom,ath12k-wsi.yaml
-+++ b/Documentation/devicetree/bindings/net/wireless/qcom,ath12k-wsi.yaml
-@@ -58,13 +58,6 @@ properties:
-       String to uniquely identify variant of the calibration data for designs
-       with colliding bus and device ids
- 
--  qcom,ath12k-calibration-variant:
--    $ref: /schemas/types.yaml#/definitions/string
--    deprecated: true
--    description:
--      String to uniquely identify variant of the calibration data for designs
--      with colliding bus and device ids
--
-   qcom,wsi-controller:
-     $ref: /schemas/types.yaml#/definitions/flag
-     description:
+This series fixes the issue in three steps:
+
+  Patch 1 (dt-bindings): Add the compatible string for the new board
+  variant to Documentation/devicetree/bindings/arm/altera.yaml.
+
+  Patch 2 (dts): Add the device tree source for the Agilex5 SoCDK
+  TSN Config2 board, enabling gmac1 with mac-mode = "gmii" alongside
+  the standard gmac2 port.
+
+  Patch 3 (driver): Restore mac_interface support in dwmac-socfpga by
+  reading the optional "mac-mode" DT property. When absent, it falls
+  back to phy_interface, preserving existing behaviour for all other
+  boards.
+
+Note: Patches 1 and 2 target Dinh Nguyen's SoCFPGA tree
+(git://git.kernel.org/pub/scm/linux/kernel/git/dinguyen/linux.git).
+Patch 3 targets net-next.
+
+Nazim Amirul (3):
+  dt-bindings: arm: altera: Add Agilex5 SoCDK TSN Config2 board
+  arm64: dts: socfpga: agilex5: Add SoCDK TSN Config2 board
+  net: stmmac: dwmac-socfpga: Add mac-mode DT property support
+
+ Documentation/devicetree/bindings/arm/altera.yaml            |   1 +
+ arch/arm64/boot/dts/intel/Makefile                           |   9 +-
+ arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_tsn_cfg2.dts | 133 ++++++++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c          |  23 ++-
+ 4 files changed, 162 insertions(+), 4 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_tsn_cfg2.dts
+
 -- 
-2.43.0
+2.43.7
 
