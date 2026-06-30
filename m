@@ -1,183 +1,152 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013046.outbound.protection.outlook.com [40.107.159.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F52B466B59;
-	Tue, 30 Jun 2026 15:52:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782834750; cv=fail; b=t8CjneuFFxJZoJv1i8iRinkqZ1ecxcg5npPeqLADpJ6xJhJyGLw2sB5hh+nCEQJwPYD/BwguR3MLp2cjV1vTjK8m64T449eF+KF2HNHC0FnLIsS05dD7ZoKZGycw1kYkHDrMuQo/0M2O+fxpz8ZkKZJA3kvMe/M3VIE7/fIMXj8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782834750; c=relaxed/simple;
-	bh=ZoQm2oLSD3NGukMknAkQRVF02eloMWhEVi9MqCZz+94=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=kf9//sXIntVZ3itJrcp2pQVOXlByT2ltdDHbeTJLNZtIiPsgo/RdmOJ/F3aBHNjkzS8xkVrtUPQZx4aCGPLj23fcThGD3CIwInTVKXYfbCQUp/OAotGZp0M2rvd+ogwsFyuqC7ElVkHNvrOuQegGmJxtEKK9YTjKYYNLbcBsyY4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=JkaUkmSM; arc=fail smtp.client-ip=40.107.159.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53DC47279F
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 15:52:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782834763; cv=none; b=g+lRktlIOgest35Dq7ERVoYNsvJmXclmIETkOw63VW0k5LoDHjJi9E315yhIt5BwmiZeWhRFZEvGpHm7rTbNlXKozZEziqy7xx9BuwAyAzpWH9M0pYvgQ1e+iahtgN40l/Tud+L7NWo8YCdGp8H/SElvMkjV1/17hE57bW7/Xq4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782834763; c=relaxed/simple;
+	bh=8Tng/785TOksM3cqv9je7/B9gCJxv05mWOFSi5TVs0c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OzKX5WCaI+1YGiZZzjvlRSJxRWFYT0Kjrmx+fXMyU9YF4ElyF/xUW7lhzWTHiNHfEWo9v2Yrh2zLl3Lybb463vkAjixRxwUEwKHPgZaKcf30e1W6ugJkx5GCtJeHgClJ8p9xK3Q9pLN60Z/sDSBcxL515ivuRDnqxdEmLtKntNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c5qGriNw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="JkaUkmSM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g4w6QZRqhmW81ZGc8tT31WLcLlMEgztDYwok6SGDhAkHaYusZDnCJ9Q/QHC4J5z5pS9UCMM0L96rGBYDR1NvVbqYpBAjBpLq6B4AUJVl74MhNOga/OLBJy8xP4NUtRXuwZNbmGBL/LkKvLVUBmJMwpuS8M3Hg4T5geQdAH3SFHjsUIzEuefATsm42QVx+pfaAsn3AVchWQBEeHAP/JSThUlTN+zMkLPpXNzsUXAh2TLdPrPzHW/YIw8DYqu+yexcAaRAk93BlcRiMaZjr2vLl1LeN+/l8JdecKO9ncJWOHEDOyA1NxFAmhv0ZYlCix96lcWgXQR5Sllu7Oy0iig6rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wlv76N5EuH9P6KSkDdhOV8+L2Ot3b9xQqRotC21u6ac=;
- b=gAxE0fcTNIAPaD0ES/RNFikjcFAC5/izGQyH4+EGNyeFKE+t9nDYhDMuo1o5IP8Uq+sOjwRMpygMWcGFab2jWRCbpA6CAoEBnXJ19m6d7k81xq/Oshmhgp6yhosO0+eLAloMPrxH64X9KgcVBWXou8DCpud9M2Z17auOJExsMVg0PRYf7MSMmllhz7PiDZKmUL0LqNvhzNgfqh4/QMO51O7rDtRmjMCBjV8X7WoN+ZKOjbdvl57/E2EPyF9m0bPasYVVjHpnZuUaIzbsDcT8e4SN6UVFOYQz0ctA9RsryKSQ6doshoa7yAjUNTNCrYSMZWxzHhjwf/0HpyfcjPsL9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wlv76N5EuH9P6KSkDdhOV8+L2Ot3b9xQqRotC21u6ac=;
- b=JkaUkmSMYj6AEkDIuG24ZUbAgJmarq9320fPqpAOiTsuUpt+aXnha0mQt2THKn9FvJC7CAarAHrN7EJRFJbFfDjtHTQ4uPwAe773iDycFTJdRi/Gx3RzRmLecctYXLHmZMMFKWbeHTBX7mOlUWUHS6BKDiPZwUTdp+FqEZE4m1rzYI+RLt03nt6nYgQ07ctQ8C+N4+aSsEf1isPg/JCI93ZLIi60h8/pvqnXDd6JzIiNdcmHKbBV63kvT0lYVeKeRpt5YLuVLQesdI6DVNoySQgroxUvVxE18Woz3Xl9DMpQmWyy2FYidcEDh+/9m9nQW7EQuWgfAMgpxZmK6qe7bA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB8913.eurprd04.prod.outlook.com (2603:10a6:20b:42c::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 30 Jun
- 2026 15:52:21 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Tue, 30 Jun 2026
- 15:52:21 +0000
-Date: Tue, 30 Jun 2026 10:52:11 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
-	lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
-	bhelgaas@google.com, hongxing.zhu@nxp.com, l.stach@pengutronix.de,
-	"Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, imx@lists.linux.dev,
-	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	sherry.sun@nxp.com
-Subject: Re: [PATCH V4 0/7] PCI: imx6: Integrate pwrctrl API and update
- device trees
-Message-ID: <akPmK--SgmTTAjFw@SMW015318>
-References: <20260630060710.3294811-1-sherry.sun@oss.nxp.com>
- <178283343009.3269775.506226017892254973.b4-ty@b4>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178283343009.3269775.506226017892254973.b4-ty@b4>
-X-ClientProxiedBy: PH8P220CA0019.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:345::10) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c5qGriNw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF2421F000E9;
+	Tue, 30 Jun 2026 15:52:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782834759;
+	bh=LAXi/kUgq6JGyQXb76UTzEBFHHAJALz8A/M7dhKRQ4c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=c5qGriNweCCtAQNyHxZM0DDKH1+q4mcVmJex4/7sqQTzSviSfx5o1oN75YV0TG9BC
+	 TwwPoEp3/jFFaNo1JnxLWSdWnhymOkObh0QIkSS2I1o6N1lpJKNw0uly01JB+sJzfc
+	 XhlnyGrlCpmjxcCNRD1//l+WrWeBAZzVZTmJFEklfIc3p1T7PIgR+4FL0cJMLH24JG
+	 IeCp4+TZ34q3nKIIw+zeCDcsDV17NsdiZ0VqZs2DTjigiBnIT/qKV8ZXc4GMiL2YKN
+	 n91GKn0F4a2Sy13J9BJWvHbvbDe7NWRhwH69aiRczLX2bkd39/mBjO3V5+KX6OGgqN
+	 2NiQ9KPSkJisg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: rockchip: Add devicetree for the
+ Graperain G3568 v2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Coia Prant" <coiaprant@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260630153810.3574714-7-coiaprant@gmail.com>
+References: <20260630153810.3574714-2-coiaprant@gmail.com>
+ <20260630153810.3574714-7-coiaprant@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 15:52:38 +0000
+Message-Id: <20260630155238.EF2421F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8913:EE_
-X-MS-Office365-Filtering-Correlation-Id: eca95978-4c03-4163-a32b-08ded6bf921d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|19092799006|23010399003|18002099003|22082099003|11063799006|4143699003|56012099006|921020;
-X-Microsoft-Antispam-Message-Info:
-	woZGRPVj7+NGse2EYVeANnsV5hOLQ8SbTwjcSVKGjzkeRpxwogeNSLFKzFg6nZkBDxR8clkpwDF1f2PiYz1gEG1OkR5MgPwMyruaPct7qFeuHQUfu8NPTTPffK32V7e52l887qQkXIq8gdunlFiEbryFJPU/dhd3/FcOnSLvDubs/ze+xAcDkb7FX9qslrjV74ueSwu5/7+42vKoAOWR0w3Mcrm9wHfBUfthGv2nrZo3CvPoowhRWjeyKEqCtF/vxjk81P8ZpGjslDTmvp+T602T2weiuzF4kwQn1Aeb39BcKgNXaYlaQmothePwf61dRcjxGuZMKtXvxOyVvTdycPTQIzP1AvPVcd54DYg0TUyzfxw1J2ZU1SwnrA9PDmR4I/Zgm3Ir5LFHXP2P34AGjLuP8PC7Sw6fqPvNzSIYOwDCTM3SMAcFNcfaESBGKJnjUMFQx3an4ZQqLm3fv69khJ2VeSCenUljR5POrUqYi9ehLuAETZGyzY7tEIsRRfdbx6Url9o5dqnM8umjbzKi/kN1wGOzvWN8PJBlZdyvBYOTVExAlZiCDk5lEW3XnGxuDMr63ylrnTJQX8VqHvl65QXWWI+EybAYJ2ZAAnTSe4KSwI9b4a7JJKhQ8sGiq8iWuXT+0AqBqGjVLe+KYNugFtVM6R500qJUNtOCFncrzaPDGw5IbU+ZrMdEthNyXjPl+31byXWaf4oGNG9Dj9CxJA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(19092799006)(23010399003)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?z7RTtSGV8/XZPZ4xs8BJQkSZ9bF2NwNrzMFLJiquKB0Nr0ywCOdegIuVDJKO?=
- =?us-ascii?Q?8EdHO7dxwNfbxyYR6fIHkVzK+QrhsaaozNxuu87whZkGxIbkbV6rKv0l4qEO?=
- =?us-ascii?Q?7cTlSaGCnxElbLpk3xZWLup29iws6ah4dZDFIUjd+pSEVRb7W9J0ixJIn9b4?=
- =?us-ascii?Q?Ea/m03T5fMvrCLH94GddaAl3E6965WsPuMCkLuGr3feBueeA1COo+vLTIoyU?=
- =?us-ascii?Q?gWknCQLglKOeQEW6TD6HVdOsC2cCfaOVYz1BaAR5c0nEnaCNE+IA/htfDHXe?=
- =?us-ascii?Q?9SZr756GMTVEsXirHldopKVhxuMpfr1vjOIFHMM7bwXR/NfPYoCSVW0UOxlO?=
- =?us-ascii?Q?jDFIbHwvSoMX1rpxG3C6SvXF3aay89E+4q1N8OcrTvl2LUTv8e2dDKPSKNe4?=
- =?us-ascii?Q?EmEnhX9lqb7MOwAT9Ce67goQBDVeDgJEVmzNhYdqCUTYMR7pAWP/rh/uupZ5?=
- =?us-ascii?Q?yaFDS5dIeoSmzL2L8muKSdRTeBjfQIUP6naRct8wgfQxpzA8aHKmylib4js1?=
- =?us-ascii?Q?OBg1nDZkaprIEQUwGkZpU8yB9OAykmiJ+KQx2PTpvLBTIululIu0bsl+1yA7?=
- =?us-ascii?Q?OWOFLGDaij7t3oFitZ8SAQM5+AZNIQ2gSirztcgSrXSen7dO9caVdSj+XBaE?=
- =?us-ascii?Q?uZQXWSLEv5Kqw0RbXqA7KIsI7/zPoY6mZZKmoPXL1E+8GoLqT+OAc/ocwHNn?=
- =?us-ascii?Q?QhZRdK6k0UfaC6+OWbXngq9/EXtDRIwE3TW/LzeewxwxOby8bQ71aVDHDlmL?=
- =?us-ascii?Q?u3PIcx1yJjn/LyC2DvcP6xfXGmV48grKvbmU7jzZSU/em886JfZfG/wVeUBR?=
- =?us-ascii?Q?OBWbUyOcg76El2cWOBcs5nNf1+6LIQbCx0Dg4UV1rLjLzKAlRWAaZ4y+x08L?=
- =?us-ascii?Q?q0NnnunnUIpcJLyB4T7N6HrzBAHYhSko+uErDYMbGdmqiqXq/pKqyADPSgt1?=
- =?us-ascii?Q?SFgNoGBiSg7koVeb4MkS5UILZY4ZzIqy048ZrtCynmlGWt0ZKrrC/TpXdEnm?=
- =?us-ascii?Q?XzjgymREJz/oMXdH0oAth0PBlypmKZG1vSG0k1D/OYbRd4uGvAGXBlYR9+xN?=
- =?us-ascii?Q?FsHwt3px268uxWXjXSnH2G4MLGjGrF4tt+eHIp/6PE5QqKQn03+PYvd2GOTu?=
- =?us-ascii?Q?6sAEo9Ww9Y3umYvDu47wr3pFB3TWDgF9sMNd+cFlg7Ht14RRHHOgzXGI4Mqa?=
- =?us-ascii?Q?oqa7wCTr8xn4PJQNPgRuivk+oRP4+hQeMe+YjoX9Uw7K5GTeWZgza3GIXXk1?=
- =?us-ascii?Q?2WbXftb7vOhwtOTfnDrG5IZNS5TG9RwGxY7+Tp55tKyjJar1quSWXKCDFZjB?=
- =?us-ascii?Q?JhzIOlmlM6yj1yocEL4oYMWiYMgu0ocjLwiM81iENTNb1/X92fHsQfDgPLzY?=
- =?us-ascii?Q?kT1/D+CeleAOncMuNzFooggU7/9xXP5q0n0tKPd7chtI5yM6kqbgg5RYAlXT?=
- =?us-ascii?Q?gyFUy17E/gMrf7xw/uPdhbQo4I5Ibn52Y9Hc9YcQDn0cZ4obZTNXkthh0L5G?=
- =?us-ascii?Q?1Ihf0cQE4wtlLMfgDvbqj7sPJX+x2fv98bHKncIwaPVfQ+eZ+HHXCMU+bRMe?=
- =?us-ascii?Q?i8lChujuGR5PCJ1U3HLtp+LXk3U2zaaD+gBI5+rxbpVt+Da7/9WYS373HZqs?=
- =?us-ascii?Q?3OCa3Ngp5KyOxfUBWHvJHCduz0xxptdIpj/tDHHj9Pz/JdbLlvypNiWNROFa?=
- =?us-ascii?Q?n34DmWF2XiKCdNQ0ySnzpHzj74vlE8sUGLgBYT4mGjWmo9T+kJklo+MhGPhD?=
- =?us-ascii?Q?CyFK3Insd1P6UfTAXpiQO4/AB5BlwYBkUI6+D+79aj2sGmOpdiOl?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eca95978-4c03-4163-a32b-08ded6bf921d
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 15:52:21.5475
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: m0+2l7YKqfZGL6MSQxdOrhGHMji65dHXEWUd9NYHSfbbHdfQHg1zXf4oW9SJ1xJFkMr2roBHXvR7ketmjmZx0uJ66GY4U148XjOBWupEJ0yud9ZdbfE+wbJ+QNcK/4AS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8913
 
-On Tue, Jun 30, 2026 at 11:31:10AM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
->
->
-> On Tue, 30 Jun 2026 14:07:03 +0800, Sherry Sun (OSS) wrote:
-> > From: Sherry Sun <sherry.sun@nxp.com>
-> >
-> > This series integrates the PCI pwrctrl framework into the pci-imx6
-> > driver and updates i.MX EVK board device trees to support it.
-> >
-> > Patches 2-8 update device trees for i.MX EVK boards which maintained
-> > by NXP to move power supply properties from the PCIe controller node
-> > to the Root Port child node, which is required for pwrctrl framework.
-> > Affected boards:
-> > - i.MX6Q/DL SABRESD
-> > - i.MX6SX SDB
-> > - i.MX8MM EVK
-> > - i.MX8MP EVK
-> > - i.MX8MQ EVK
-> > - i.MX8DXL/QM/QXP EVK
-> > - i.MX95 15x15/19x19 EVK
-> >
-> > [...]
->
-> Applied, thanks!
->
-> [1/7] arm: dts: imx6qdl-sabresd: Move power supply property to Root Port node
->       commit: b16fded592305f04ae40764f5fa91d5ac6f02a65
-> [2/7] arm: dts: imx6sx-sdb: Move power supply property to Root Port node
->       commit: a1af6cf5a6ce526ea41d4686fa14580a48b2e768
-> [3/7] arm64: dts: imx8mm-evk: Move power supply property to Root Port node
->       commit: b6a38d70bcbf0893ce5493f3daf0cb19e5102269
-> [4/7] arm64: dts: imx8mp-evk: Move power supply properties to Root Port node
->       commit: fde093c386a64c820a704abaab9ffd9ec738cd4d
-> [5/7] arm64: dts: imx8mq-evk: Move power supply properties to Root Port node
->       commit: 78610987333b0811a456f9a4782472fad00f4a19
-> [6/7] arm64: dts: imx8dxl/qm/qxp: Move power supply properties to Root Port node
->       commit: 240950f3ad76761066ffe399f62670321c1be1f1
-> [7/7] arm64: dts: imx95: Move power supply properties to Root Port node
->       commit: 6e53e8b854bc6f8330d07905b73e53ad02aff62b
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The `press-threshold-microvolt` values for the ADC keys are inco=
+rrectly set to the midpoints instead of the nominal voltages, breaking the =
+closest-match logic.
+- [Medium] The `uart8` pinmux configuration for the AP6356S Bluetooth modul=
+e omits the RTS pin, breaking hardware flow control.
+--
 
-Sorry, I have to drop again because miss consider back compatible problem.
+commit fa96250010d1434d5bd9c7fed26ebc77f8c2f9f1
+Author: Coia Prant <coiaprant@gmail.com>
 
-All old platform, 1 - 6, need keep both under pcie and root port.
+arm64: dts: rockchip: Add devicetree for the Graperain G3568 v2
 
-iMX95, you can move under root becasue it is new platform, it should be
-fine to break compatible since development phase.
+This patch adds support for the Graperain G3568 v2, an RK3568-based
+development board. It defines the device tree including CPU, memory, networ=
+k,
+wireless, storage, display, and standard IO interfaces.
 
-Frank
+Link: https://image.chukouplus.com/upload/C_153/product_file/20211022/6dadd=
+ec9e400458816dd4c57ba807fc3.pdf
+Link: https://blog.gov.cooking/archives/research-graperain-g3568-v2-and-fla=
+sh.html
 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-graperain-g3568-v2.dts b=
+/arch/arm64/boot/dts/rockchip/rk3568-graperain-g3568-v2.dts
+> new file mode 100644
+> index 0000000000000..221992d6c6003
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3568-graperain-g3568-v2.dts
+> @@ -0,0 +1,894 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 
->
-> Best regards,
-> --
-> Frank Li <Frank.Li@nxp.com>
->
+[ ... ]
+
+> +	adc-keys {
+> +		compatible =3D "adc-keys";
+> +		io-channels =3D <&saradc 0>;
+> +		io-channel-names =3D "buttons";
+> +		keyup-threshold-microvolt =3D <1800000>;
+> +		poll-interval =3D <100>;
+> +
+> +		button-esc {
+> +			label =3D "esc";
+> +			linux,code =3D <KEY_ESC>;
+> +			press-threshold-microvolt =3D <1250000>;
+> +		};
+> +
+> +		button-menu {
+> +			label =3D "menu";
+> +			linux,code =3D <KEY_MENU>;
+> +			press-threshold-microvolt =3D <1600000>;
+> +		};
+
+[Severity: Medium]
+Are these threshold values correct? The commit message declares nominal
+voltages (e.g., 1.1V for ESC and 1.4V for MENU), but the values here seem to
+be configured to the midpoints.
+
+The adc-keys driver dynamically matches the read voltage to the closest
+defined threshold. By configuring midpoints instead of actual nominal
+voltages, the distance calculations can become skewed.
+
+For example, when the MENU key (nominal 1.4V) is pressed, its distance to
+the configured MENU threshold (1.6V) is 200mV, but its distance to the ESC
+threshold (1.25V) is only 150mV.
+
+Won't the driver incorrectly register the MENU key as ESC?
+
+> +		button-vol-down {
+> +			label =3D "volume down";
+> +			linux,code =3D <KEY_VOLUMEDOWN>;
+> +			press-threshold-microvolt =3D <600000>;
+> +		};
+> +
+> +		button-vol-up {
+> +			label =3D "volume up";
+> +			linux,code =3D <KEY_VOLUMEUP>;
+> +			press-threshold-microvolt =3D <100000>;
+> +		};
+> +	};
+
+[ ... ]
+
+> +/* used for WiFi/BT AP6356S */
+> +&uart8 {
+> +	pinctrl-0 =3D <&uart8m0_xfer &uart8m0_ctsn>;
+> +	status =3D "okay";
+> +};
+
+[Severity: Medium]
+Does this UART configuration omit the RTS pin (&uart8m0_rtsn)?
+
+High-speed Bluetooth modules like the AP6356S require hardware flow control=
+ to
+prevent packet loss. Without the host RTS pin explicitly muxed, the Bluetoo=
+th
+module may receive an invalid or floating RTS signal.
+
+Could this prevent it from successfully transmitting data to the host or
+cause buffer overflows when hardware flow control is utilized?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630153810.3574=
+714-2-coiaprant@gmail.com?part=3D3
