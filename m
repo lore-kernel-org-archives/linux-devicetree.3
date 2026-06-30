@@ -1,199 +1,117 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72797379EF7;
-	Tue, 30 Jun 2026 09:20:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D7A3815D4
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:22:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782811242; cv=none; b=mlz5YlB/NwjQwNRRzraJTj6zOv6QPy8vSkG1lbkioravc5KTZvwgqfxP6DjH7I40Qm4Ei7s/S/OurnogVSaiEksua/+UL3vyC4eJR0H6wpUBT50gCcQPjuqO4jEtqcwr257UbL4UMyvOrkpdytJQnqms65MLNxDM0t/d8CtPUAk=
+	t=1782811371; cv=none; b=bBl/6SuwNxumZ0xHJ+XH6PdQo/UK/9nn/W39ID+8wDLhThMR5Iy5bsD4+1OhuJ+ra5/nLPDvSy7mIeeMyy6ow91R8cMfOzS2+KWDAhnzWcNtBKclyhkHjXFlKQNuArEbKKCQAuonIi9PhmFVCuMClkmQWyqA2ryMHJSBgtVy6yY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782811242; c=relaxed/simple;
-	bh=twqRVVm2jX3j9DQJsBQp/A9ulNIRgckM6uD5x5XeF2Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=POJ1v8egeE2JqAlJP1qwp2z161j9Pn/bDSpEFb98KZTrY7ZA8CO7rL+xqG33G0siAVWSij1OCmdnfvG8UeZaCyq1GD6agq3Y+N8XXF93z2KmIFWc35ZpJ46CQF1YbZQsih6/JtzFP0iCp1TszPePK3Vx2h2qmZFnE63dG9HeAVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pMPxdcv8; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1782811371; c=relaxed/simple;
+	bh=AYBarYRYIwk+59883gPQSLR1CFBQ2/1ARfP5k9h/QoE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=BtjK/M2vQUxZ8bwSrKbSG2U0FAYvx/qHs+xAcxFUgP+1ffiV9Uut7oLuPd4cf5gZ4WQRJ6G0dq/64h28XMgLYCsbt+zS/TOkuIh0MQzFqebcowVMsPCYe6GSpJSGsJYl4qfwyb/78UHmVs4Srld0/J5QpyYSXAXu3D0aFULMsXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IRm3ReJ8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pMPxdcv8"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U6CJ1W1056027;
-	Tue, 30 Jun 2026 09:20:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=zS2NKJX0t2i
-	l32bHO653P1abE866LuOgajP9cd0/NB0=; b=pMPxdcv8JZwxcIWclsSGpWQ4IW9
-	fDTkMGpg2omOGjRFhkDDl78ZcKmajbYxbuOe0i6AqAazjCdyKrhMzO/a5hd0Zu47
-	mGNZBUwK1bJQrg/cg4ROHLQIgrgOzFivXHoVFtbQo5AJxHY32Ys+eUP5Gd8cC8tA
-	WWDhGom15p1+9sYHqJVW6Jh7LJXnuNzQQxlB5vHNXyjvF5+zsas1VJJJ8IVDbpbQ
-	tdyNEdEyjB0fw7uiLZOYaeBhknVU7LG4KqyXk4G+nFB1wmlSFJLkBC7AyF3Tn0dy
-	4pTfazAw/uwVYWm8zRAHZlpVp0MZu5wRcMdJ98VDhVleIWBPcc2RKayY6+w==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f46861c0h-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 30 Jun 2026 09:20:23 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 65U9KICQ010622;
-	Tue, 30 Jun 2026 09:20:20 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4f27kjmer8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 30 Jun 2026 09:20:20 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65U9KKxu010737;
-	Tue, 30 Jun 2026 09:20:20 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 65U9KKan010727
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 30 Jun 2026 09:20:20 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
-	id 9ADB563B; Tue, 30 Jun 2026 14:50:16 +0530 (+0530)
-From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Subject: [PATCH v2 7/7] ASoC: qcom: sc8280xp: add TDM hw_params support
-Date: Tue, 30 Jun 2026 14:46:05 +0530
-Message-Id: <20260630091605.4043426-8-prasad.kumpatla@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260630091605.4043426-1-prasad.kumpatla@oss.qualcomm.com>
-References: <20260630091605.4043426-1-prasad.kumpatla@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IRm3ReJ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B991F00A3A;
+	Tue, 30 Jun 2026 09:22:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782811369;
+	bh=sbhlNkRMZcS8MzQF5Rya3mWM2ceczFeJ7ICQhV7n4TQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IRm3ReJ8A1sBL8bwU0UoACDgJLugPRjQhi2O98BT4+R0qnXbe2ZOwYm07hCcthnb3
+	 ZTKByktL0B9KUXoNPW3t5Lf/tGHYNJxEtgRZ5+SSbKkEx7NFvpD4Ggi+VQL3nWtbjU
+	 cHvbAylp/04KcO0Cz4RWF+KDzKtoTCVNjEJz4WmhMytBN1Q/QM9BZF4pK7PdA0DcC3
+	 tICn/DIbfbpFHi9Sp5fRwlRR/2vJN9PdhxIak5BP+fjZPe4psXUDj/HdHChRAMGXKx
+	 EittpMKDan6nQHu77euFePBODeQYyAekxscvAWKUGljvIWaGtlrH20kdTufUBtdM45
+	 9GzSbk0ZXArZQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 09/10] riscv: kdump: exclude non-dumpable reserved
+ memory regions from vmcore
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wandun Chen" <chenwandun1@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260630074715.4126796-10-chenwandun1@gmail.com>
+References: <20260630074715.4126796-1-chenwandun1@gmail.com>
+ <20260630074715.4126796-10-chenwandun1@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 09:22:48 +0000
+Message-Id: <20260630092249.85B991F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-ORIG-GUID: aV8BUphHUd0bDSPNh61CdN7Con-P-YpD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA4MyBTYWx0ZWRfX+ocU+Slcugl8
- aHq9oQYfie1l/XCCffY3F1XD+zpJlS+uZZB8+sUoRFIYw4ys+OUkdkYiD1Fxwa2casVRiwpXO5w
- 82BBfB4Iqk6lGY2mzZa0Vesww8FrI6rv1VxvyQ0VQ0ei61vgJ1ywCoZ1BhFpSImSwY5641UB5c5
- 45Cvc5bF+x59NsOr8h9UYSTPg707eX6bu9b0V0Ik8Eohw5wJgapIIiK86SrhvG+yPba3YD5CtPJ
- 31crGJF+S74KTvwsnyxCOon3p96Ow2r4+PE19QpindY8VhHbujlq52quvtEaVB+ak6Oxkiy/yTE
- 1NZtFkWYxjwTzBcFPvgqhGb5Me1X5wTFGrcI87JjwmVK/5hAdTAR+V2HJWG5/JKYDsK+5aXPrHZ
- DPTFlf+pUcvRnZ3EgrVUJA03mlMBjmjlzlaehNZJ589o79B0cem5NCaGqbGwuWFdGcDCuqQKqir
- D7KSrO/M4ZiGr8MujDw==
-X-Proofpoint-GUID: aV8BUphHUd0bDSPNh61CdN7Con-P-YpD
-X-Authority-Analysis: v=2.4 cv=FbcHAp+6 c=1 sm=1 tr=0 ts=6a438a58 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=QTpijNGdYiuWC2p250EA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA4MyBTYWx0ZWRfX71SDjSKCEdSL
- 4iCGwZSr8somYR+n5xFyKxMtPGjU5fbwFdHSK1kLFGbI9AybvloIEBUS3fiEQXCUPu2w5+lRVmB
- zRlAIucXD+Y4HvXLDaCxvy8nITho6lk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-30_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 bulkscore=0 adultscore=0 phishscore=0
- malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300083
 
-Add TDM backend handling to the sc8280xp machine driver.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Use the common QCOM DAI-node TDM helper to parse the standard
-DAI TDM slot properties from backend CPU and codec endpoints. Reuse the
-parsed configuration when programming DAIs so hw_params does not need a
-second DT traversal.
+Pre-existing issues:
+- [High] Concurrent memory hotplug between two `walk_system_ram_res()` call=
+s creates a race condition leading to an out-of-bounds array write in `prep=
+are_elf64_ram_headers_callback()`.
+--
 
-Derive the LPASS backend bit clock from the runtime TDM parameters and
-request it through the backend child-clock path using LPAIF_MI2S_BCLK.
+commit a4a73b4654fd97d90e65198367a18f9dc30631b2
+Author: Wandun Chen <chenwandun@lixiang.com>
 
-Program codec sysclk in hw_params so codec PLL setup happens before the
-stream is triggered.
+riscv: kdump: exclude non-dumpable reserved memory regions from vmcore
 
-Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
----
- sound/soc/qcom/sc8280xp.c | 59 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 59 insertions(+)
+This commit applies non-dumpable reserved memory filtering to RISC-V kdump,
+similar to arm64. It excludes flagged regions from the elfcorehdr PT_LOAD
+segments and pre-sizes the crash_mem array accordingly.
 
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index 1f3afc6d015c..1a385a673f86 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -83,6 +83,63 @@ static inline int sc8280xp_get_bclk_freq(struct snd_pcm_hw_params *params)
- 			    snd_pcm_format_width(params_format(params)));
- }
- 
-+static int sc8280xp_tdm_hw_params(struct snd_pcm_substream *substream,
-+				  struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-+	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-+	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_dai *codec_dai;
-+	struct qcom_snd_tdm_slot_cfg cpu_cfg;
-+	struct qcom_snd_tdm_slot_cfg codec_cfg;
-+	unsigned int bclk_freq;
-+	int ret;
-+	int i;
-+
-+	ret = qcom_snd_get_dai_tdm_slots(rtd, &cpu_cfg, &codec_cfg);
-+	if (ret)
-+		return ret == -EINVAL ? 0 : ret;
-+
-+	if (!cpu_cfg.slots)
-+		return 0;
-+
-+	ret = snd_soc_dai_set_fmt(cpu_dai, SND_SOC_DAIFMT_BP_FP);
-+	if (ret)
-+		return ret;
-+
-+	ret = qcom_snd_apply_dai_tdm_slots_cfg(rtd, &cpu_cfg, &codec_cfg);
-+	if (ret)
-+		return ret;
-+
-+	bclk_freq = snd_soc_tdm_params_to_bclk(params, cpu_cfg.slot_width, cpu_cfg.slots, 1);
-+	if (!bclk_freq)
-+		return -EINVAL;
-+
-+	if (data->snd_soc_common_priv->mi2s_bclk_enable) {
-+		ret = snd_soc_dai_set_sysclk(cpu_dai, LPAIF_MI2S_BCLK, bclk_freq,
-+					     SND_SOC_CLOCK_IN);
-+		if (ret) {
-+			dev_err(rtd->dev, "%s: failed to set cpu sysclk: %d\n",
-+				__func__, ret);
-+			return ret;
-+		}
-+	}
-+
-+	if (data->snd_soc_common_priv->codec_sysclk_set) {
-+		for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+			ret = snd_soc_dai_set_sysclk(codec_dai, 0, bclk_freq,
-+						     SND_SOC_CLOCK_IN);
-+			if (ret) {
-+				dev_err(rtd->dev, "%s: failed to set codec sysclk on %s: %d\n",
-+					__func__, codec_dai->name, ret);
-+				return ret;
-+			}
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static int sc8280xp_snd_init(struct snd_soc_pcm_runtime *rtd)
+> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/m=
+achine_kexec_file.c
+> index 59d4bbc848a89..25359d583bc3b 100644
+> --- a/arch/riscv/kernel/machine_kexec_file.c
+> +++ b/arch/riscv/kernel/machine_kexec_file.c
+[ ... ]
+> @@ -64,6 +65,7 @@ static int prepare_elf_headers(void **addr, unsigned lo=
+ng *sz)
+> =20
+>  	nr_ranges =3D 1; /* For exclusion of crashkernel region */
+>  	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
+> +	nr_ranges +=3D of_reserved_mem_kdump_nr_ranges();
+> =20
+>  	cmem =3D kmalloc_flex(*cmem, ranges, nr_ranges);
+>  	if (!cmem)
+
+[Severity: High]
+This is a pre-existing issue, but is it possible for a memory hotplug event
+to occur between counting the ranges here and when the array is actually
+populated?
+
+In prepare_elf_headers(), the code counts the memory ranges to allocate
+the cmem array, but a concurrent memory hot-add could occur before the
+subsequent walk_system_ram_res() call populates it:
+
+arch/riscv/kernel/machine_kexec_file.c:prepare_elf_headers() {
+    ...
+    walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
+    ...
+    ret =3D walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_call=
+back);
+    ...
+}
+
+If the number of ranges increases, prepare_elf64_ram_headers_callback()
+will write past the end of the flexible array since it doesn't verify
+that cmem->nr_ranges is less than cmem->max_nr_ranges:
+
+arch/riscv/kernel/machine_kexec_file.c:prepare_elf64_ram_headers_callback()=
  {
- 	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
-@@ -186,6 +243,8 @@ static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
- 					       0, mclk_freq,
- 					       SND_SOC_CLOCK_IN);
- 		break;
-+	case PRIMARY_TDM_RX_0 ... QUINARY_TDM_TX_7:
-+		return sc8280xp_tdm_hw_params(substream, params);
- 	default:
- 		break;
- 	}
--- 
-2.34.1
+    ...
+    cmem->ranges[cmem->nr_ranges].start =3D res->start;
+    cmem->ranges[cmem->nr_ranges].end =3D res->end;
+    cmem->nr_ranges++;
+    ...
+}
 
+Could this missing bounds check lead to an out-of-bounds heap write?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630074715.4126=
+796-1-chenwandun1@gmail.com?part=3D9
