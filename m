@@ -1,632 +1,232 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1907F3ECBED
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895873E5EEA
 	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:47:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782812829; cv=none; b=mN5Q+qMUD4ps49XDTojErtiSYzvvUrhYTzq09/FAKPOt2ewpPDm2i+6IaEpKLwk69R24RIafwRj4lsDi7GZaSp5YP3oMLgmlWI8dkz/ucWphlAjcXnIiV4cJ6pX2K+QlAaUXGvtfHbhZdxzpudIdanJAOecfYoS2f7EYBbuKUEo=
+	t=1782812829; cv=none; b=SDYbWeNyo6CvjZSsezrbPHb34DN2tiUdzInj/T1TVFnzAy98yaHTvt4+cbKxHAoTHpxM5q6NICGpkRkAwYUny0hkE4cIPqmhO4IRsZ5lNJ/O9S+1SWB70Xpka6dvowYlo/Isijpd/WZFj9wG5myql1BIXLt5Q9IfwmoBullpBGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782812829; c=relaxed/simple;
-	bh=g2toXpPr3TTzoNixhG+9HkIgpIy3Pw46kKCMhnOFy+8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UCiLs/cWUpAJamL/ucfeilom5Rhmik9O7PX/xpFV/xamKkavNGFdKRS6okfPlzuCDx7sYMZN3XDon8SXZNDdZRtesTX6kJ6hdMaDkr8TZYc3Q5ES9pixlI45IVQRCfckjOPKTvjhLV2OYgA2lTfrHJdKPvHJlVdL4XbXJQbeVc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z5I0A4ra; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=1lAuX1dOvob5WlUR4elT7eSNAOc5CKgC3zoG2VGlYfI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=idB48qZdQxQyLNJKGyDHxTSC4cWFeHlH7VrxipfrqpJC6ZAnUzOxTrQrgno1/E+WJrFZ2eSz/siYHLa5U5uoLhVnYA5YisrGMi6dZ9pTR4o0w+LBK8lrWHQEemM+qBhsWgYEmmWtoPtDhf0+uxvIS8WyvKQvi+VyascqN1h5QDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=RZibmz01; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z5I0A4ra"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-472a14c9965so1960650f8f.1
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="RZibmz01"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2c9cb97e178so23150515ad.3
         for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 02:47:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782812825; x=1783417625; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cFEIqMsV/WZjPG3GiDeWbAAMsV3GPWKXaGBH34SQUa8=;
-        b=Z5I0A4raQMPIkZOWb/7bkPUgedRoZxhZUt7ELente9Zkfxo0TcH3ux/3dd10Vhi+kN
-         PvsqIxxRGhZc7PgNGRYFLaKbCzg4Wqe9QW6kV6MoYPuu5ljjGf2IP8/FMXmyEfio6l3F
-         jHSAHk9PXe8W2umQFI81h9Bm6yMJsPvyi1ev9kSMvbx8mtVKSCRpixi5ba3agqoIze1S
-         fEdI5vHdtdAbHpzgEvEUJ+7ZWv5A4PE/0MN1Xl669+sqiZvLiLQOIAsV+6RgJVYYVuGr
-         abTgXjZdwcCJbg/kq/mB+awNfq3ohOkWr9ZphgPCmdBWFgWWk5ExU0RUVLiuegswKrcu
-         kB1Q==
+        d=sifive.com; s=google; t=1782812826; x=1783417626; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Q1mhPayeB7vwAFK9b1yiuy8iVzM6luMZwkJqwu4SqsU=;
+        b=RZibmz01sROkx0MfvuAmXtejUYBv9PEPuJokOkHOfTPOSlQ1hjvCmtrxV4nmOTKNO4
+         1dxob4G30I5TgEhC1QQLeKwJAf0nf8zXxTVMyWmj5lnwueODb2t+1Kz4DJvRV/1doK2j
+         iP8lv3WF4MESMkCol70OrhHNjQPsYrzp0bGOciTaEnDA36uxS0Ms+ogWic6Lp43cWtZv
+         ANyFoHjLiK4OBKuMYmJKMWlbLppu52IezMtkaHrujzYo1c9Otj6IpCmC8K+wEqzkxaEd
+         ZMzwUk5AMF+GqDtAw5RccAP71ytiKYUERtptkNzlmxyVWLpj6lkmBCHdz6DNnSyZyO/u
+         +5/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782812825; x=1783417625;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=cFEIqMsV/WZjPG3GiDeWbAAMsV3GPWKXaGBH34SQUa8=;
-        b=r1BE8coyG0677ILvfWdD2ukc0cHnl+kjgkcQtkKTtCJoe2WT/YYjvJg64kl17Kj8L1
-         RBerZiXGp9HU5Y0rPxnYulWY1hvQB024w+LfDqx+aUMOpWUqGvKfLA4R4n4wNRTcQToC
-         k1ZPGiPgZMOW0zKaJVgLVCDG3p3U/KAzVOvgq7TyyW68yPaCCSOtYL84SqF29tYOAH9T
-         1ruKE/1iMxedoeC7+SBao3qDJODAnSSMuYpOghF+YVqziFCbIHs0AQzgaxfwuEpGNe+4
-         95mJQ3Y7opqndcPMvZQGvbKJpgyZhXfMesu7EgbrI0NbPjUqJ+VYCdyJEKPXdmr4A6r3
-         GXXQ==
-X-Forwarded-Encrypted: i=1; AHgh+RobKZF2pvvpaMl/woN3bQH4yPXhBD+wjRcY2e/Yjb46PZqPGNYyY5PIEpA+dydTPjrKVpd3vkP4omQx@vger.kernel.org
-X-Gm-Message-State: AOJu0YxotqVXBkI+c3cPPbhgY/xdqOappvwY2/DIl33RqtEiXZkGpMPD
-	qPZnjITgFMZF/Y0YwpPq5X+4EXGKNixL6+CzZIFdOlH0P7IzuDUJk+5P
-X-Gm-Gg: AfdE7cmVUm13Q2a4aEI9/WUpDaNJq5PazaBmGsIFDDBGUfTWDjy4dKZ5avHKsiZPwqF
-	d3kFlTS0qnKMUSmW90x60ow6DvsTBU+uMTvICZJjt78Y0Ap7U1KqbFiP66lXPTlMa+JNTRi78nT
-	r1d6dzpPCO40L3zelnGI1LyOKYePX3Y2vrHn8MP/dRlRRfASM2uOg3z7S9/6GhPOuzhuboV1MCp
-	KY3Wlpf1RHWfYSDdv/Ktz5UGVjw1SGgJRFLqXd5FuSd1QK48WJlVNzh3yNv7kSJ5eVX3dYoeI0m
-	rAWHZ0vvovxsaLoyg5VRlj/g7qag80tyu0gi86kgmiCOZ/mUOGfTvv8ePDnV3/bAYCXm0ycM5HK
-	b9ptm1/EoilcKclVCJeZH3QQ5mOK28wwS2pgHi6Bz19WBMvBdlIYProZAcIDiDv+/Py+NpKAIHV
-	p1BAT51Ph1D7ekf2IYw1YHO8unOgt9tA5YZs+8aCLNxwa7WRhYE6V38+GP4uIQf5GPpiSGFYiNo
-	YVFFnhCxSFHtK2fSWoxwuTKobfalzhJkxgo
-X-Received: by 2002:a05:6000:440b:b0:473:1706:7f01 with SMTP id ffacd0b85a97d-47552f32951mr2599658f8f.43.1782812825292;
+        d=1e100.net; s=20251104; t=1782812826; x=1783417626;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Q1mhPayeB7vwAFK9b1yiuy8iVzM6luMZwkJqwu4SqsU=;
+        b=om7GrhNaYof3DV1K9aNsA1z1W48e+j/5pGbhYUa0Hz4/jEWz6n2HNenimE/F7i6r7E
+         DZOnj2R47T+AKw6a1vOq4vGxnrZcFRl348uNn1jb5He7ojtlT4vhr9oH63rP+54MQmCC
+         0gf3GcfhLQJNkuJFhivzA3PykpPrw7tE9CRCcmAP64+3JouKkttj56FAmGDFDkh6Ho++
+         OQIeHM2w4Hgrz3Bo+xK+yl5uMEznjgDljgh78Fuf5iDQ0XkIF0tocVZD5Bl62O38y1Q9
+         H/DFmmJt9dUp9PWdbEUhCv8Ynp+Qds9EjAD5Cc99yT50Pud9rcilCI3BxmrmKOzvtQkb
+         VD/w==
+X-Forwarded-Encrypted: i=1; AHgh+RoiTd2FFqqD4SMTJOM0YfFL4PBVtMGuyfP2xhAkfmu3Wlc3snpxZR8MhJfiwMU5PBe0ZPAPiXo4SrfZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwANsxOqQSJrSxOS9IWK6envs8IGiMiFEkMFbM9K9e8PSwHr4yX
+	fR2xQ4RJmVJjSiXXDa58GGnfbtZ53Kkw9Jax7cSELLobtGxCVSfTjgbx8Yx24lvweAjZ6h6/ukW
+	ogW5du6C0C3tFVHYeGBnsgCmkuPk9HTSo4rXd0o4+i/gpzdEzvlktMhgd73nhBzGP/7Fg0eFSxV
+	vlVUfEkn8ew1IROzOpDRi+PR/2bt64WECyEpy8MlipHCKlle16nLd8cg==
+X-Gm-Gg: AfdE7cnEr9h8yT66fNZ4x+7xhucLidihykkTtANVf6bSw/uz8ETJd+zc6+1zapBowJ4
+	9g22FyDMCTQAyMRtKfd/mwFEC/rWv00cYu/PLtd5EHWvka0Xeya+HdvzzXc8oX0+h7GKt/ORuWi
+	JMD7DWwojybItwn0BJcjmc2VWbPSunONg1dC7ZVct7F1ae7O21Hc6Pl0nTDjNCxQs0LcNJ3y9D9
+	RNfygPZLfV/bWI7WtudRlusgPlmOiSm2a2HEnUAmXBVGjV16hSkbHqbLM5+fGNWmgcP5ULNfqal
+	0ix9unhPOCWtpIAeVPudbXLhGQ4E7sQOIyhTY8/+b0PDTCJ67v3GfmJqRoRFx7oZOcZi2E8mizu
+	lBSvWHn9TNyLJcFXmIXVzrC4uT1nambHhSJNeuzD8jA363VL8Rd9sEcujGgnBV/8g2m47cx8EzB
+	mucrKr6dFC46sxkNgcOv8muQ0o/Ri4cJA=
+X-Received: by 2002:a17:902:d2ca:b0:2c7:1200:bd7e with SMTP id d9443c01a7336-2ca2d56543dmr23326695ad.18.1782812825774;
         Tue, 30 Jun 2026 02:47:05 -0700 (PDT)
-Received: from Lord-Beerus.station (net-93-144-65-248.cust.dsl.teletu.it. [93.144.65.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4756778f015sm6552725f8f.31.2026.06.30.02.47.04
+Received: from EricL-ThinkPadX1-TW.local ([136.226.240.181])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca37c87bb8sm10144675ad.30.2026.06.30.02.47.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 02:47:04 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Josua Mayer <josua@solid-run.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Maud Spierings <maudspierings@gocontroll.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Subject: [PATCH v1 3/3] arm64: dts: imx8qm-var-som: Add support for Variscite Symphony board
-Date: Tue, 30 Jun 2026 11:46:56 +0200
-Message-ID: <2cdbea18bba7c9e05addd24390e54063216bcf88.1782812572.git.stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1782812572.git.stefano.r@variscite.com>
-References: <cover.1782812572.git.stefano.r@variscite.com>
+        Tue, 30 Jun 2026 02:47:05 -0700 (PDT)
+From: Eric Lin <eric.lin@sifive.com>
+Date: Tue, 30 Jun 2026 17:46:27 +0800
+Subject: [PATCH RFC 04/12] rvtrace: Pass struct rvtrace_path_node to start
+ callback
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260630-dev-ericl-riscv_trace_support_v3-new_sifive-v3-v1-4-c9c1ffc64e4b@sifive.com>
+References: <20260630-dev-ericl-riscv_trace_support_v3-new_sifive-v3-v1-0-c9c1ffc64e4b@sifive.com>
+In-Reply-To: <20260630-dev-ericl-riscv_trace_support_v3-new_sifive-v3-v1-0-c9c1ffc64e4b@sifive.com>
+To: Mayuresh Chitale <mchitale@gmail.com>, Anup Patel <anup@brainfault.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Samuel Holland <samuel.holland@sifive.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Cc: linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Greentime Hu <greentime.hu@sifive.com>, 
+ Eric Lin <dslin1010@gmail.com>, Eric Lin <eric.lin@sifive.com>, 
+ Nick Hu <nick.hu@sifive.com>, Vincent Chen <vincent.chen@sifive.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782812801; l=5312;
+ i=eric.lin@sifive.com; s=20260630; h=from:subject:message-id;
+ bh=1lAuX1dOvob5WlUR4elT7eSNAOc5CKgC3zoG2VGlYfI=;
+ b=PARNFRWmdV+hB1v3H2XemPeF/EkHqwMQ8r/pB59m0oP1gyQQ3yYXpQCsIuW7KshBvhM9xGAWZ
+ SlzwX8msXa1CckSJJMhBxH+q5aGwJ1GgxwvfwQaS6lNJmy07sUyzQ5W
+X-Developer-Key: i=eric.lin@sifive.com; a=ed25519;
+ pk=RLPQN6uNJ1cSM8GhP+L++2j3pf5ohznFbkNdwIO1XDw=
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+Routing trace data from a source to an output component requires
+configuring the connections between components. The mechanism for this
+configuration varies between hardware implementations:
 
-Add device tree support for the Variscite Symphony carrier board with
-the VAR-SOM-MX8 QuadMax system on module.
+  - Standard (ratified) RISC-V trace configures routing at the
+    receiving end. For example, a funnel uses the trFunnelDisInput
+    register to control which source input is accepted.
+  - Pre-ratified hardware (e.g., SiFive) configures routing at the
+    sending end, selecting the output destination by setting a bitfield
+    directly within the current component's control MMIO register.
 
-The Symphony board includes
-- uSD Card support
-- USB ports and OTG
-- Additional Gigabit Ethernet interface
-- Uart, SPI and I2C interfaces
-- GPIO Expanders
-- RTC module
-- TPM module
-- CAN peripherals
-- PCIE support
+To seamlessly support both ratified and pre-ratified data flows,
+component drivers require full path topology information (i.e., the
+component and its connections) when starting, rather than just the
+component itself.
 
-Link: https://variscite.com/carrier-boards/symphony-board/
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+Update the rvtrace_driver->start() callback to accept a
+'struct rvtrace_path_node' instead of a 'struct rvtrace_component'
+so that component drivers can access the node and connection
+details required to program their specific routing registers.
+
+Co-developed-by: Nick Hu <nick.hu@sifive.com>
+Signed-off-by: Nick Hu <nick.hu@sifive.com>
+Co-developed-by: Vincent Chen <vincent.chen@sifive.com>
+Signed-off-by: Vincent Chen <vincent.chen@sifive.com>
+Signed-off-by: Eric Lin <eric.lin@sifive.com>
 ---
- arch/arm64/boot/dts/freescale/Makefile        |   1 +
- .../dts/freescale/imx8qm-var-som-symphony.dts | 488 ++++++++++++++++++
- 2 files changed, 489 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
+ drivers/hwtracing/rvtrace/rvtrace-core.c    | 12 ++----------
+ drivers/hwtracing/rvtrace/rvtrace-encoder.c |  3 ++-
+ drivers/hwtracing/rvtrace/rvtrace-ramsink.c |  3 ++-
+ include/linux/rvtrace.h                     | 14 +++++++++++++-
+ 4 files changed, 19 insertions(+), 13 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 8ddaab127ab9..118674f0ce7e 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -528,6 +528,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-ixora-v1.1.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-ixora-v1.2.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-mek.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-tqma8qm-mba8x.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8qm-var-som-symphony.dtb
+diff --git a/drivers/hwtracing/rvtrace/rvtrace-core.c b/drivers/hwtracing/rvtrace/rvtrace-core.c
+index 51546cbcc6ad..12ffc6917c70 100644
+--- a/drivers/hwtracing/rvtrace/rvtrace-core.c
++++ b/drivers/hwtracing/rvtrace/rvtrace-core.c
+@@ -501,12 +501,6 @@ void rvtrace_unregister_component(struct rvtrace_component *comp)
+ }
+ EXPORT_SYMBOL_GPL(rvtrace_unregister_component);
  
- imx8qm-mek-ov5640-csi0-dtbs := imx8qm-mek.dtb imx8qm-mek-ov5640-csi0.dtbo
- dtb-${CONFIG_ARCH_MXC} += imx8qm-mek-ov5640-csi0.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
-new file mode 100644
-index 000000000000..c944c85e1dd7
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
-@@ -0,0 +1,488 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Variscite Symphony carrier board for VAR-SOM-MX8 QuadMax
-+ *
-+ * Link: https://variscite.com/carrier-boards/symphony-board/
-+ *
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com/
-+ *
+-struct rvtrace_path_node {
+-	struct list_head		head;
+-	struct rvtrace_component	*comp;
+-	struct rvtrace_connection	*conn;
+-};
+-
+ struct rvtrace_component *rvtrace_path_source(struct rvtrace_path *path)
+ {
+ 	struct rvtrace_path_node *node;
+@@ -625,17 +619,15 @@ static void rvtrace_release_path_nodes(struct rvtrace_path *path)
+ int rvtrace_path_start(struct rvtrace_path *path)
+ {
+ 	const struct rvtrace_driver *rtdrv;
+-	struct rvtrace_component *comp;
+ 	struct rvtrace_path_node *node;
+ 	int ret;
+ 
+ 	list_for_each_entry_reverse(node, &path->comp_list, head) {
+-		comp = node->comp;
+-		rtdrv = to_rvtrace_driver(comp->dev.driver);
++		rtdrv = to_rvtrace_driver(node->comp->dev.driver);
+ 		if (!rtdrv->start)
+ 			continue;
+ 
+-		ret = rtdrv->start(comp);
++		ret = rtdrv->start(node);
+ 		if (ret)
+ 			return ret;
+ 	}
+diff --git a/drivers/hwtracing/rvtrace/rvtrace-encoder.c b/drivers/hwtracing/rvtrace/rvtrace-encoder.c
+index d189819aecf7..f0a4ac46b6a9 100644
+--- a/drivers/hwtracing/rvtrace/rvtrace-encoder.c
++++ b/drivers/hwtracing/rvtrace/rvtrace-encoder.c
+@@ -11,8 +11,9 @@
+ #define RVTRACE_COMPONENT_CTRL_INSTMODE_SHIFT	4
+ #define RVTRACE_COMPONENT_CTRL_INSTMODE_OPIT	0x6
+ 
+-static int rvtrace_encoder_start(struct rvtrace_component *comp)
++static int rvtrace_encoder_start(struct rvtrace_path_node *node)
+ {
++	struct rvtrace_component *comp = node->comp;
+ 	int ret;
+ 	u32 val;
+ 
+diff --git a/drivers/hwtracing/rvtrace/rvtrace-ramsink.c b/drivers/hwtracing/rvtrace/rvtrace-ramsink.c
+index e4b6f0547245..7aa525ac0f75 100644
+--- a/drivers/hwtracing/rvtrace/rvtrace-ramsink.c
++++ b/drivers/hwtracing/rvtrace/rvtrace-ramsink.c
+@@ -43,8 +43,9 @@ struct trace_buf {
+ 	size_t len;
+ };
+ 
+-static int rvtrace_ramsink_start(struct rvtrace_component *comp)
++static int rvtrace_ramsink_start(struct rvtrace_path_node *node)
+ {
++	struct rvtrace_component *comp = node->comp;
+ 	int ret;
+ 	u32 val;
+ 
+diff --git a/include/linux/rvtrace.h b/include/linux/rvtrace.h
+index 9f1afcfd83e6..079fe16807d3 100644
+--- a/include/linux/rvtrace.h
++++ b/include/linux/rvtrace.h
+@@ -281,6 +281,18 @@ struct rvtrace_path {
+ #define RVTRACE_INVALID_TRACE_ID	0
+ };
+ 
++/**
++ * struct rvtrace_path_node - Representation of a node in the trace path
++ * @head: List head for linking nodes in the path
++ * @comp: Pointer to the trace component at this node
++ * @conn: Pointer to the connection leading to the next node (NULL for sink)
 + */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+#include "imx8qm-var-som.dtsi"
-+
-+/ {
-+	model = "Variscite VAR-SOM-MX8 on Symphony evaluation board";
-+	compatible = "variscite,var-som-imx8qm-symphony",
-+		     "variscite,var-som-imx8qm", "fsl,imx8qm";
-+	chosen {
-+		stdout-path = &lpuart0;
-+	};
-+
-+	 gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		button-back {
-+			label = "Back";
-+			gpios = <&pca9534 1 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_BACK>;
-+		};
-+
-+		button-home {
-+			label = "Home";
-+			gpios = <&pca9534 2 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_HOME>;
-+		};
-+
-+		button-menu {
-+			label = "Menu";
-+			gpios = <&pca9534 3 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_MENU>;
-+		};
-+	};
-+
-+	gpio-leds {
-+		compatible = "gpio-leds";
-+
-+		led-hearthbeat {
-+			function = LED_FUNCTION_STATUS;
-+			color = <LED_COLOR_ID_GREEN>;
-+			gpios = <&pca9534 0 GPIO_ACTIVE_LOW>;
-+			linux,default-trigger = "heartbeat";
-+		};
-+	};
-+
-+	reg_fec_phy: regulator-fec-phy {
-+		compatible = "regulator-fixed";
-+		regulator-name = "fec-phy";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-enable-ramp-delay = <20000>;
-+		vin-supply = <&reg_vselect>;
-+		gpio = <&pca9534 7 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	reg_usb_otg1_vbus: regulator-usb-otg1-vbus {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb_otg1_vbus";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&lsio_gpio0 18 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	reg_usdhc2_vmmc: regulator-usdhc2-vmmc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "sw-3p3-sd1";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+	};
-+
-+	reg_vselect: regulator-vselect {
-+		compatible = "regulator-fixed";
-+		regulator-name = "reg_vselect";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+		gpio = <&pca9534 6 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
++struct rvtrace_path_node {
++	struct list_head		head;
++	struct rvtrace_component	*comp;
++	struct rvtrace_connection	*conn;
 +};
 +
-+&ethphy0 {
-+	leds {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		led@0 {
-+			reg = <0>;
-+			color = <LED_COLOR_ID_YELLOW>;
-+			function = LED_FUNCTION_LAN;
-+			linux,default-trigger = "netdev";
-+		};
-+
-+		led@1 {
-+			reg = <1>;
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_LAN;
-+			linux,default-trigger = "netdev";
-+		};
-+	};
-+};
-+
-+&fec1 {
-+	mdio {
-+		ethphy1: ethernet-phy@5 {
-+			compatible = "ethernet-phy-ieee802.3-c22";
-+			reg = <5>;
-+			vddio-supply = <&reg_phy_vddio>;
-+			reset-gpios = <&pca9534 5 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <10000>;
-+			reset-deassert-us = <100000>;
-+
-+			leds {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				led@0 {
-+					reg = <0>;
-+					color = <LED_COLOR_ID_YELLOW>;
-+					function = LED_FUNCTION_LAN;
-+					linux,default-trigger = "netdev";
-+				};
-+
-+				led@1 {
-+					reg = <1>;
-+					color = <LED_COLOR_ID_GREEN>;
-+					function = LED_FUNCTION_LAN;
-+					linux,default-trigger = "netdev";
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&fec2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_fec2>;
-+	/*
-+	 * The required RGMII TX and RX 2ns delays are implemented directly
-+	 * in hardware via passive delay elements on the SOM PCB.
-+	 * No delay configuration is needed in software via PHY driver.
-+	 */
-+	phy-mode = "rgmii";
-+	phy-handle = <&ethphy1>;
-+	phy-supply = <&reg_fec_phy>;
-+	status = "okay";
-+};
-+
-+&flexcan1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_flexcan1>;
-+	status = "okay";
-+};
-+
-+&flexcan2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_flexcan2>;
-+	status = "okay";
-+};
-+
-+&hsio_phy {
-+	fsl,hsio-cfg = "pciea-pcieb-sata";
-+	fsl,refclk-pad-mode = "input";
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	clock-frequency = <100000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_i2c1>;
-+	status = "okay";
-+
-+	pca9534: gpio@20 {
-+		compatible = "nxp,pca9534";
-+		reg = <0x20>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_pca9534>;
-+		interrupt-parent = <&lsio_gpio1>;
-+		interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
-+	};
-+
-+	/* USB Type-C Controller */
-+	typec_ptn5150: typec@3d {
-+		compatible = "nxp,ptn5150";
-+		reg = <0x3d>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_ptn5150>;
-+		interrupt-parent = <&lsio_gpio3>;
-+		interrupts = <11 IRQ_TYPE_LEVEL_HIGH>;
-+
-+		port {
-+			typec_dr_sw: endpoint {
-+				remote-endpoint = <&usb3_drd_sw>;
-+			};
-+		};
-+	};
-+};
-+
-+&i2c4 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	clock-frequency = <100000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_i2c4>;
-+	status = "okay";
-+
-+	pca6408: gpio@21 {
-+		compatible = "nxp,pcal6408";
-+		reg = <0x21>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		/* RGB_SEL */
-+		lvds-brg-enable-hog {
-+			gpio-hog;
-+			gpios = <7 GPIO_ACTIVE_HIGH>;
-+			output-low;
-+			line-name = "lvds_brg_en";
-+		};
-+	};
-+
-+	st33ktpm2xi2c: tpm@2e {
-+		compatible = "st,st33ktpm2xi2c", "tcg,tpm-tis-i2c";
-+		reg = <0x2e>;
-+		label = "tpm";
-+		reset-gpios = <&pca6408 4 GPIO_ACTIVE_LOW>;
-+	};
-+
-+	/* Capacitive touch */
-+	ft5x06_ts: touchscreen@38 {
-+		compatible = "edt,edt-ft5406";
-+		pinctrl-names = "default";
-+		reg = <0x38>;
-+		pinctrl-0 = <&pinctrl_captouch>;
-+		interrupt-parent = <&lsio_gpio0>;
-+		interrupts = <19 IRQ_TYPE_LEVEL_LOW>;
-+		touchscreen-size-x = <800>;
-+		touchscreen-size-y = <480>;
-+		touchscreen-inverted-x;
-+		touchscreen-inverted-y;
-+		wakeup-source;
-+	};
-+
-+	rtc@68 {
-+		compatible = "dallas,ds1337";
-+		reg = <0x68>;
-+	};
-+};
-+
-+&lpspi1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpspi1>;
-+	cs-gpios = <&lsio_gpio3 24 0>;
-+	status = "okay";
-+};
-+
-+/* console */
-+&lpuart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpuart0>;
-+	status = "okay";
-+};
-+
-+/* header */
-+&lpuart2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpuart2>;
-+	status = "okay";
-+};
-+
-+&pca9534 {
-+	usb3-signal-route-hog {
-+		gpio-hog;
-+		gpios = <4 GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "usb3_signal_route";
-+	};
-+};
-+
-+&pciea{
-+	phys = <&hsio_phy 0 PHY_TYPE_PCIE 0>;
-+	phy-names = "pcie-phy";
-+	reset-gpio = <&pca6408 1 GPIO_ACTIVE_LOW>;
-+	status = "okay";
-+};
-+
-+&usb3_phy {
-+	status = "okay";
-+};
-+
-+&usbotg1 {
-+	dr_mode = "host";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_usbotg1>;
-+	vbus-supply = <&reg_usb_otg1_vbus>;
-+	srp-disable;
-+	hnp-disable;
-+	adp-disable;
-+	disable-over-current;
-+	status = "okay";
-+};
-+
-+&usbotg3 {
-+	status = "okay";
-+};
-+
-+&usbotg3_cdns3 {
-+	dr_mode = "otg";
-+	usb-role-switch;
-+	status = "okay";
-+
-+	port {
-+		usb3_drd_sw: endpoint {
-+			remote-endpoint = <&typec_dr_sw>;
-+		};
-+	};
-+};
-+
-+&usbphy1 {
-+	status = "okay";
-+};
-+
-+&usdhc2 {
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz";
-+	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-1 = <&pinctrl_usdhc2_100mhz>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-2 = <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
-+	bus-width = <4>;
-+	cd-gpios = <&lsio_gpio0 14 GPIO_ACTIVE_LOW>;
-+	vmmc-supply = <&reg_usdhc2_vmmc>;
-+	status = "okay";
-+};
-+
-+&iomuxc {
-+	pinctrl_captouch: captouchgrp {
-+		fsl,pins = <
-+			IMX8QM_GPT1_COMPARE_LSIO_GPIO0_IO19			0x06000021
-+			IMX8QM_GPT0_COMPARE_LSIO_GPIO0_IO16			0x06000021
-+		>;
-+	};
-+
-+	pinctrl_fec2: fec2grp {
-+		fsl,pins = <
-+			IMX8QM_ENET1_RGMII_TX_CTL_CONN_ENET1_RGMII_TX_CTL	0x06000048
-+			IMX8QM_ENET1_RGMII_TXC_CONN_ENET1_RGMII_TXC		0x06000048
-+			IMX8QM_ENET1_RGMII_TXD0_CONN_ENET1_RGMII_TXD0		0x06000048
-+			IMX8QM_ENET1_RGMII_TXD1_CONN_ENET1_RGMII_TXD1		0x06000048
-+			IMX8QM_ENET1_RGMII_TXD2_CONN_ENET1_RGMII_TXD2		0x06000048
-+			IMX8QM_ENET1_RGMII_TXD3_CONN_ENET1_RGMII_TXD3		0x06000048
-+			IMX8QM_ENET1_RGMII_RXC_CONN_ENET1_RGMII_RXC		0x06000048
-+			IMX8QM_ENET1_RGMII_RX_CTL_CONN_ENET1_RGMII_RX_CTL	0x06000048
-+			IMX8QM_ENET1_RGMII_RXD0_CONN_ENET1_RGMII_RXD0		0x06000048
-+			IMX8QM_ENET1_RGMII_RXD1_CONN_ENET1_RGMII_RXD1		0x06000048
-+			IMX8QM_ENET1_RGMII_RXD2_CONN_ENET1_RGMII_RXD2		0x06000048
-+			IMX8QM_ENET1_RGMII_RXD3_CONN_ENET1_RGMII_RXD3		0x06000048
-+		>;
-+	};
-+
-+	pinctrl_flexcan1: flexcan0grp {
-+		fsl,pins = <
-+			IMX8QM_FLEXCAN0_TX_DMA_FLEXCAN0_TX			0x00000021
-+			IMX8QM_FLEXCAN0_RX_DMA_FLEXCAN0_RX			0x00000021
-+		>;
-+	};
-+
-+	pinctrl_flexcan2: flexcan1grp {
-+		fsl,pins = <
-+			IMX8QM_FLEXCAN1_TX_DMA_FLEXCAN1_TX			0x00000021
-+			IMX8QM_FLEXCAN1_RX_DMA_FLEXCAN1_RX			0x00000021
-+		>;
-+	};
-+
-+	pinctrl_i2c1: i2c1grp {
-+		fsl,pins = <
-+			IMX8QM_USB_SS3_TC3_DMA_I2C1_SDA				0xc6000020
-+			IMX8QM_USB_SS3_TC1_DMA_I2C1_SCL				0xc6000020
-+		>;
-+	};
-+
-+	pinctrl_i2c4: i2c4grp {
-+		fsl,pins = <
-+			IMX8QM_ENET1_MDC_DMA_I2C4_SCL				0xc6000020
-+			IMX8QM_ENET1_MDIO_DMA_I2C4_SDA				0xc6000020
-+		>;
-+	};
-+
-+	pinctrl_lpspi1: lpspi1grp {
-+		fsl,pins = <
-+			IMX8QM_ADC_IN3_DMA_SPI1_SCK				0x0600004c
-+			IMX8QM_ADC_IN4_DMA_SPI1_SDO				0x0600004c
-+			IMX8QM_ADC_IN5_DMA_SPI1_SDI				0x0600004c
-+			IMX8QM_ADC_IN6_LSIO_GPIO3_IO24				0x00000021
-+		>;
-+	};
-+
-+	pinctrl_lpuart0: lpuart0grp {
-+		fsl,pins = <
-+			IMX8QM_UART0_RX_DMA_UART0_RX				0x06000020
-+			IMX8QM_UART0_TX_DMA_UART0_TX				0x06000020
-+		>;
-+	};
-+
-+	pinctrl_lpuart2: lpuart2grp {
-+		fsl,pins = <
-+			IMX8QM_LVDS0_I2C1_SCL_DMA_UART2_TX			0x06000020
-+			IMX8QM_LVDS0_I2C1_SDA_DMA_UART2_RX			0x06000020
-+		>;
-+	};
-+
-+	pinctrl_pca9534: pca9534grp {
-+		fsl,pins = <
-+			IMX8QM_MIPI_CSI0_MCLK_OUT_LSIO_GPIO1_IO24		0x00000021
-+		>;
-+	};
-+
-+	pinctrl_ptn5150: ptn5150grp {
-+		fsl,pins = <
-+			IMX8QM_SPI2_CS1_LSIO_GPIO3_IO11				0x00000021
-+		>;
-+	};
-+
-+	pinctrl_usbotg1: otg1grp {
-+		fsl,pins = <
-+			IMX8QM_GPT1_CAPTURE_LSIO_GPIO0_IO18			0x06000048
-+		>;
-+	};
-+
-+	pinctrl_usdhc2: usdhc2grp {
-+		fsl,pins = <
-+			IMX8QM_USDHC1_CLK_CONN_USDHC1_CLK			0x06000041
-+			IMX8QM_USDHC1_CMD_CONN_USDHC1_CMD			0x00000021
-+			IMX8QM_USDHC1_DATA0_CONN_USDHC1_DATA0			0x00000021
-+			IMX8QM_USDHC1_DATA1_CONN_USDHC1_DATA1			0x00000021
-+			IMX8QM_USDHC1_DATA2_CONN_USDHC1_DATA2			0x00000021
-+			IMX8QM_USDHC1_DATA3_CONN_USDHC1_DATA3			0x00000021
-+			IMX8QM_USDHC1_VSELECT_CONN_USDHC1_VSELECT		0x00000021
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
-+		fsl,pins = <
-+			IMX8QM_USDHC1_CLK_CONN_USDHC1_CLK			0x06000040
-+			IMX8QM_USDHC1_CMD_CONN_USDHC1_CMD			0x00000020
-+			IMX8QM_USDHC1_DATA0_CONN_USDHC1_DATA0			0x00000020
-+			IMX8QM_USDHC1_DATA1_CONN_USDHC1_DATA1			0x00000020
-+			IMX8QM_USDHC1_DATA2_CONN_USDHC1_DATA2			0x00000020
-+			IMX8QM_USDHC1_DATA3_CONN_USDHC1_DATA3			0x00000020
-+			IMX8QM_USDHC1_VSELECT_CONN_USDHC1_VSELECT		0x00000020
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
-+		fsl,pins = <
-+			IMX8QM_USDHC1_CLK_CONN_USDHC1_CLK			0x06000040
-+			IMX8QM_USDHC1_CMD_CONN_USDHC1_CMD			0x00000020
-+			IMX8QM_USDHC1_DATA0_CONN_USDHC1_DATA0			0x00000020
-+			IMX8QM_USDHC1_DATA1_CONN_USDHC1_DATA1			0x00000020
-+			IMX8QM_USDHC1_DATA2_CONN_USDHC1_DATA2			0x00000020
-+			IMX8QM_USDHC1_DATA3_CONN_USDHC1_DATA3			0x00000020
-+			IMX8QM_USDHC1_VSELECT_CONN_USDHC1_VSELECT		0x00000020
-+		>;
-+	};
-+
-+	pinctrl_usdhc2_gpio: usdhc2-gpiogrp {
-+		fsl,pins = <
-+			IMX8QM_GPT0_CLK_LSIO_GPIO0_IO14				0x00000021
-+		>;
-+	};
-+};
+ struct rvtrace_component *rvtrace_path_source(struct rvtrace_path *path);
+ struct rvtrace_component *rvtrace_path_sink(struct rvtrace_path *path);
+ struct rvtrace_path *rvtrace_create_path(struct rvtrace_component *source,
+@@ -324,7 +336,7 @@ struct rvtrace_driver {
+ 	const struct rvtrace_component_id *id_table;
+ 	size_t			(*copyto_auxbuf)(struct rvtrace_component *comp,
+ 						 struct rvtrace_perf_auxbuf *buf);
+-	int			(*start)(struct rvtrace_component *comp);
++	int			(*start)(struct rvtrace_path_node *node);
+ 	int			(*stop)(struct rvtrace_component *comp);
+ 	int			(*probe)(struct rvtrace_component *comp);
+ 	void			(*remove)(struct rvtrace_component *comp);
+
 -- 
-2.47.3
+2.34.1
 
