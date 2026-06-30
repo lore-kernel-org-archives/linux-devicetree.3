@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5FB3E2AD6;
-	Tue, 30 Jun 2026 06:16:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1AC396588;
+	Tue, 30 Jun 2026 06:19:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782800178; cv=none; b=NuSaQ72pnDgTPuA1Qlzsldk7SmL0jkBhfMFD5D9FYbuES6iO5/ZlW5hwxmeeuKLUhhbUXDRJBYD1q38uA8muce3Ln/BctrsWS/yl3VQ6+jgQra1VQbxANxzq2jOWFylA5FCr8QRiMVxVtwABA+aCwLBC+gArn/PdZvYQPnbXdG0=
+	t=1782800353; cv=none; b=aEA9DR5ex+AHsnNNyCoYAcuRjq5iD+ILjq1kOMwg4PTp5K64LMmL8Lhg19Qs6AciQ+b+usBkuuXTB/2L52zfNUiv2OLKM1Htj+RitiNA83nGT4LLphAArXCtdKvim4lrAOjJMyUPtObtiUVU5tGjpDjAC3m2Wy977fJYnodfwC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782800178; c=relaxed/simple;
-	bh=gQ/ibaFigUiGTfJPUzaJk8rrhGaOfPYYRFSsblFu0LE=;
+	s=arc-20240116; t=1782800353; c=relaxed/simple;
+	bh=AqDsct3vg4EkmYvjIthGbbEt5EqA+5w5suFL1b5gJpY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=luowjPLvP6wc2c092pKJwhaKsmyl76otbNcWb9eWWSMg25x15XRKzYJ4tvBFTveO5WKACyxwK9FyeIeWxT9G0DRI/aCjZKmN22KgEiCg3fLiXM9hyFYuUjolJjWAtepDrMIlpTViIVBbTHxApZIs3yMr3J6che5744e6bJmYI64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+X9Klcv; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=b8A2/TtxHAH7dsdDl1Ns1S3YqDapFeNaceuToVvGpf60Olq/fWY877wUj5UUHbTkXl9RXyTQmEsHEQ6qTzdgq7+9L06mkOtI3XpjTxExWQtLLiyYJ73RoUczMCDVOyZtkpjYMeZ5gkC/WCRPfXVCXmHwWYkJZAxJlQuAESHsxC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vw6R5LKp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+X9Klcv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A00711F000E9;
-	Tue, 30 Jun 2026 06:16:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vw6R5LKp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA4571F000E9;
+	Tue, 30 Jun 2026 06:19:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782800176;
-	bh=PKpfbxWFHCWJMPd0MtA6m1KCI2Zy5ycZwqT9NywXrYE=;
+	s=k20260515; t=1782800352;
+	bh=qMiG0Alun6q3tS0Lfxy2DZB8LH3E6RU8IaYzZ98kJPE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=W+X9KlcvTWyRNceahzNOSAi+hAuwgdXYSaojsYwy8zCJuvWWTvRUYp6/GSjJvC0IO
-	 1MutRnXS2H6Sq2TTE9CNIz3WiLKrLbGo/rpAU3HnGDt9QAP01cyw/Irci4EaLgcpAe
-	 +1Ve8YvIhgrXbcMa4SX7PW1EjwcDSKdIo6GuYKWr8LK9lAZIUWHqLWkrJFH+GxzGxf
-	 nO2hjCryUtJLrwIPtGrImkXftXNQEUD2wgNKtwO1h0tgEItehkBkAEGQnViQwoNHRc
-	 Nn5YK3JcoVl5DMqCHr4YGJdmjLZ5Yb53Xfl/BVRgUqXRDuSce9dzFcavxAiZ3O4yGn
-	 HQgGshjRWcJyw==
-Message-ID: <0f5a408b-5c55-4cd2-831a-49316c9912c9@kernel.org>
-Date: Tue, 30 Jun 2026 08:16:07 +0200
+	b=Vw6R5LKpATzPgLliEKZ19Q0EtU7HZ8sYgi1WTs+y/db48PlO5fs4EtFmRoRoxbFVm
+	 XYZi81/r7Ii13cvqVFEfXFWSpC3mCeCSpOsYsnr5+NX+7Gt8+ncMroeu85FUkVjfs6
+	 tq/bejYQIVxnmrQQvn9nPp8OBObmN3as+2VQ7desYE3KQEqyyGYPCnHxhFu5Ed3dDk
+	 L98PTPEtODX/IIBBxTmniLus/0z6YSCd1lXegOi0UBabLOa1Q1TE4ucLX7eYrME11a
+	 +E9t1LvZsKXCWVFvKnSgnhyZIPj69IOM49bxhxpqVopnnl6tP97fSjgijBTLWuVCB+
+	 pE8pbibs5Yr4w==
+Message-ID: <976ad3b4-ada5-4fc0-8fba-97eb172ede91@kernel.org>
+Date: Tue, 30 Jun 2026 08:18:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,22 +35,37 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] dt-bindings: phy: nuvoton,ma35d1-usb2-phy: extend
- for dual-port OTG support
-To: Joey Lu <a0987203069@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Catalin Marinas <catalin.marinas@arm.com>, Jacky Huang
- <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
- Hui-Ping Chen <hpchen0nvt@gmail.com>, Joey Lu <yclu4@nuvoton.com>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260625023958.569299-1-a0987203069@gmail.com>
- <20260625023958.569299-3-a0987203069@gmail.com>
- <20260625-sexy-black-tarantula-4031a6@quoll>
- <24de6a00-ba4e-455b-baa7-479d1cc2edf3@gmail.com>
+Subject: Re: [PATCH 4/6] dt-bindings: net: bluetooth: Document Qualcomm
+ IPQ5018 Bluetooth controller
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ George Moussalem <george.moussalem@outlook.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Ulf Hansson <ulfh@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Johannes Berg
+ <johannes@sipsolutions.net>, Jeff Johnson <jjohnson@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann
+ <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+ Rocky Liao <quic_rjliao@quicinc.com>, Saravana Kannan
+ <saravanak@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath10k@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org
+References: <20260625-ipq5018-bluetooth-v1-0-d999be0e04f7@outlook.com>
+ <20260625-ipq5018-bluetooth-v1-4-d999be0e04f7@outlook.com>
+ <20260626-discerning-light-swan-6b599c@quoll>
+ <SN7PR19MB673692EBED649CF6DC9833A89DEB2@SN7PR19MB6736.namprd19.prod.outlook.com>
+ <0e0fb3af-968f-46d2-be6c-18b76c7d2a1a@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -96,125 +111,55 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <24de6a00-ba4e-455b-baa7-479d1cc2edf3@gmail.com>
+In-Reply-To: <0e0fb3af-968f-46d2-be6c-18b76c7d2a1a@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 29/06/2026 12:40, Joey Lu wrote:
+On 26/06/2026 13:30, Konrad Dybcio wrote:
+> On 6/26/26 1:20 PM, George Moussalem wrote:
+>> On 6/26/26 14:53, Krzysztof Kozlowski wrote:
+>>> On Thu, Jun 25, 2026 at 06:10:08PM +0400, George Moussalem wrote:
+>>>> Document the Qualcomm IPQ5018 Bluetooth controller.
+>>>>
+>>>> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+>>>> ---
 > 
-> On 6/25/2026 3:58 PM, Krzysztof Kozlowski wrote:
->> On Thu, Jun 25, 2026 at 10:39:56AM +0800, Joey Lu wrote:
->>>   properties:
->>>     compatible:
->>>       enum:
->>>         - nuvoton,ma35d1-usb2-phy
->>>   
->>> +  reg:
->>> +    maxItems: 1
->>> +
->>>     "#phy-cells":
->>> -    const: 0
->>> +    const: 1
->>> +    description:
->>> +      The single cell selects the PHY port. 0 selects the OTG port (USB0,
->>> +      shared with DWC2 gadget controller) and 1 selects the host-only port
->>> +      (USB1).
->>>   
->>> -  clocks:
->>> -    maxItems: 1
->> This is odd, considering that parent does not have clocks. So explain me
->> this:
->> 1. USB PHY needed clocks.
->> 2. You extend USB PHY to cover second part.
->> 3. That extension for second part means that clocks are not needed.
->> Really, how? How is it possible in hardware?
-> The hardware has two independent clock domains:
+> [...]
 > 
->    - The PHY analog block takes the 24 MHz HXT as its reference, wired
->      directly to the PHY's internal PLL, which derives the required 
-> operating
->      frequencies internally. This reference path is entirely outside the SoC
->      software clock tree; no software-gatable clock gate needs to be enabled
->      for the PHY to power up and lock its PLL. The only software control the
->      PHY driver exercises is toggling each PHY's Power-On Reset (POR) bit,
->      which resides in the SYS register block. The driver accesses this via
->      the parent regmap
-> 
->    - `HUSBH0_GATE` / `HUSBH1_GATE` / `USBD_GATE` are AHB/APB bus interface
->      clocks for the host and gadget (EHCI, OHCI, DWC2). They gate
->      the register-access path between the CPU and each controller, not 
-> the PHY
->      analog circuitry itself.
-> 
-> The original single-port driver enabled `HUSBH0_GATE` as if it belonged 
-> to the
-> PHY, but that gate is actually owned by EHCI0/OHCI0 and is already 
-> managed by
-> those controller drivers through their own `clocks` DTS bindings. The PHY
-> driver was redundantly enabling the same gate.
-> 
-> When extending the driver to cover PHY1, the same pattern held: EHCI1/OHCI1
-> manage `HUSBH1_GATE` themselves. There is no clock that belongs 
-> exclusively to
-> the PHY, so `clocks` will be dropped from the PHY binding entirely.
-
-What driver has to do with it?
-
-You did not answer the question. How adding missing OTG to existing
-device causes that hardware to lose a clock? How is it possible?
-
-
->>> +  nuvoton,rcalcode:
->>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
->>> +    minItems: 1
->>> +    maxItems: 2
->> You should require two values. I understand that any PHY is optional,
->> thus you skip the entry, so how would you provide value for PHY1 only?
-> `nuvoton,rcalcode` will be changed to require exactly two values
-> (`minItems: 2, maxItems: 2`), one for PHY0 and one for PHY1 respectively.
-> The property will remain optional overall; when absent, each port 
-> retains its
-> power-on default value loaded at hardware initialisation. When present, both
-> entries must be supplied.
-
-So are you going to implement it or not?
-
-
->>> +    items:
->>> +      minimum: 0
->>> +      maximum: 15
->>> +    description:
->>> +      Resistor calibration trim codes for PHY0 and PHY1 respectively.
->>> +      Each 4-bit value is written to the RCALCODE field in USBPMISCR and
->>> +      adjusts the PHY's internal termination resistance. Both entries are
->>> +      optional; when absent the hardware reset default is used.
->>>   
->>> -  nuvoton,sys:
->>> -    $ref: /schemas/types.yaml#/definitions/phandle
->>> +  nuvoton,oc-active-high:
->>> +    type: boolean
->>>       description:
->>> -      phandle to syscon for checking the PHY clock status.
->>> +      When present, the over-current detect input from the VBUS power switch
->>> +      is treated as active-high. The default (property absent) is active-low.
->>> +      This setting is shared by both USB host ports.
->>>   
->>>   required:
->>>     - compatible
->>> +  - reg
->> That's ABI break which was not explained in the commit msg - neither
->> specifying impact nor actually providing reasons why you break ABI.
+>>>> +      compatible = "qcom,ipq5018-bt";
+>>>> +
+>>>> +      qcom,ipc = <&apcs_glb 8 23>;
+>>>> +      interrupts = <GIC_SPI 162 IRQ_TYPE_EDGE_RISING>;
+>>>
+>>> No firmware to load?
 >>
->> And honestly, you have no resources here except the address, so now it
->> is clear that this should be folded into parent. See DTS101 talk slides.
-> The commit message will be updated to explicitly acknowledge the ABI break:
-> existing DTS files that contain a standalone `usb-phy` node without a `reg`
-> property will fail dt-schema validation after this change. The impact is
-> limited to the MA35D1 SoC; no upstream DTS for this SoC existed before this
-> patch series, so no in-tree board files are broken. The break is intentional
+>> firmware is loaded by the remoteproc in patch 1
+>>
+>>>
+>>> It feels like remoteproc node split is fake. The property qcom,rproc is
+>>> even more supporting that case. Shouldn't this be simply one device -
+>>> bluetooth? What sort of two devices do you have exactly? How can I
+>>> identify them in the hardware?
+>>
+>> I wasn't sure how to represent the HW. Should I make this bluetooth node
+>> a childnode of the rproc? Essentially, this is the transport layer
+>> (using shared memory space and IPC/interrupt).
+>>
+>> Most QCA BT controllers are also childnodes of a serdev/uart node as
+>> they use serdev for transport.
+>>
+>> From what I understand, it's simply BT firmware running on this
+>> dedicated M0 core in the SoC itself connected to an RF.
+> 
+> Seems like this rhymes with the WPSS remoteproc +ATH1xK_AHB situation
+> - the Q6 core power sequences and manages the wireless controller,
+> while Linux gets to drive the device as it would if it were connected
+> over PCIe/ UART respectively, just with MMIO writes instead.
 
-But all of out of tree users are broken.
+But the ATH (except the MMIO for remoteproc bringup) are physically
+connected over other bus, like PCIe and UART.
 
+What is here?
 
 Best regards,
 Krzysztof
