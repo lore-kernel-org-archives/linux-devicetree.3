@@ -1,210 +1,175 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010045.outbound.protection.outlook.com [52.101.84.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36232285CAE;
-	Tue, 30 Jun 2026 15:22:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782832964; cv=fail; b=c4kS9mZ2z6/y2RKmIeJfzI9EOtU80oe6/gUk+kfofAPd4x8MbjHCBwFqlbpkr00nJ1E16h/HlTbiBBi5F89573VyCOeEev6ksV9rCHYyTGqTzKhfszV3guB4+YoRxzKJMAeoLB7rGgigw3VTFIiTCnZPRY9gL0PhJO+Zs3GBV6w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782832964; c=relaxed/simple;
-	bh=2hZh1cwa3M02nr5q8SD7SgXUeQ6F68ZITyj4WCtJuJg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=PxlbBC1jRoHGvjaokUDg/DY6ufBynw09AzYdd47riZ12j16ai+RAqIgfZHQ9vI3XkZ/TRvRpP7XmOfBLfm+HCO+iY4weG48Vr9vw1bpkRhlefoe8BvbMCHTT5VpvuHs7iBMP5mjXkbIuv6nHaTJpI7ED13nU3GshgoVkIPiGoNg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Dffs03QD; arc=fail smtp.client-ip=52.101.84.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC61331EC4
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 15:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782833063; cv=none; b=vFOrarxyDYsRTabi6jji199Jy6pjMjcWbsr3X3u8fDd+Wvvp2rPzHHwmSloJRjCob/fIMn/ThUbXwtjBHAU+mv4fofYQQ8o5XSN7Ml6HQ/piwzVZ5JLVfpJZtyv3oBiMPeUsTbGZaev5IveSE3pMlJrQ378O9LPhwEmsfilqn6w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782833063; c=relaxed/simple;
+	bh=ilwmPRsLFmPgkqbep4PVet62o0txIgMEH0pTIIfUWFE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=II+1pMZdY7z3wdienO/6eNLPM+NBhZgwq6DsOatJrU71i0ILTbyZufLkZszWrtz1qNkmoZQpTtTtTeutPUn5naxmo3G61xGApj/kyrmge82xR3ppCsTGUJ90+T3RnQdPDk+ZHpXE4jfjRTGvg0Nh+ukyPrSST4+p8sFLMCYY1tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ld4sIBts; arc=none smtp.client-ip=209.85.210.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Dffs03QD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MM7AKqcdDUWpaIuTYezhAf0rzUG66S7N+IzVz6y2jZrTDbFLRpMeCj6Wn/OZo7XHnArEO9rYq6X9DLswG24rARJgH8ktYxItyWqd59ZdrByCMF938ELbajwyrTqvKmI6BAQa9M7udZi2OWy5j6rbb2Xq1Fc3GOuMHXA2k6y2bZzBIEqe3do8IFYsne10ooO0v89GUHSbzoogSxd2lIQXuztyXtWRMmxFT5WEA74Ifxmyvdr7882y1PTvZi1ZV7c2H/pGGk0xGJ7riaPZDjfIXI0LeEBiYeRkK/fBQWKT04i43k4Kcub79iymn4hRF2/UUFfJ2ydtN24izIxBcDxNWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KJdzUIZDuZiOo/p1ZlDv5v8yOS+mF6BuS0iPUhtWFF8=;
- b=j+HRuH2nii4gGms9pSgM6BFtdO3QED45slLy5uMvkAT4mVW2WmTiOX+3sh+Te2KY+eBj4cglCDiyYxOhguRiw0pjBnzqnDAq9/610hlct9QHOoTljXl0FyQXedop1FMsYXFs+u+JuNP4+ZDWk1SvjrNjIzPOXpRSx94kEHJ17W7UL10hqLo/Keb3YWM95JJLy2lwsIyNuflr7Mky5jF2QWDmfdK88kRnx2sqblZhthyQtf/bK7k8gVqP9XuoJ1MqQnvqW3PST418ys99Ckvldzs/heJsFtwBq+iTXvlIkRif3qZSMSeBkUoA1B6yhVKrv8/xYiisbpkpI5fPo0V26A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KJdzUIZDuZiOo/p1ZlDv5v8yOS+mF6BuS0iPUhtWFF8=;
- b=Dffs03QDHrvsLNrz5VI+mFam9ajRFOaGj5dgv6iykrZOCkjClJ7MtjDGLi2YcyeeG9v5aOLedASwn9ehHWlM4k75VFSXnMpgV1IzevN1Dob0IZ3GSd3j8Z5i6t5Ypz9vhjhuazkqBNOV8uo168VCtHfJWHj4girCgb+SKSlwDHx0AhGjcusWPnO96jrJt81yCaHbI90G1wnK9EAvjUWYC8TnOICvdl8xLVLAYDpgm3q7Sk/gfN7Fmve1go2XWVthmDSZqdTI9dSBmFlJnxRHKy9+Ct/MVRMb843MjZelXKydr3pimvNmAkARh7zhG4o8ac1Tu6GoqVEptLMgEhwxCg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by FRWPR04MB11284.eurprd04.prod.outlook.com (2603:10a6:d10:19e::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
- 2026 15:22:39 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Tue, 30 Jun 2026
- 15:22:39 +0000
-Date: Tue, 30 Jun 2026 10:22:25 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chester Lin <chester62515@gmail.com>,
-	Matthias Brugger <mbrugger@suse.com>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
-	Larisa Grigore <larisa.grigore@nxp.com>, Lee Jones <lee@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Alberto Ruiz <aruizrui@redhat.com>,
-	Christophe Lizzi <clizzi@redhat.com>, devicetree@vger.kernel.org,
-	Enric Balletbo <eballetb@redhat.com>,
-	Eric Chanudet <echanude@redhat.com>, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: Re: [PATCH v12 2/6] pinctrl: s32cc: remove inline specifiers
-Message-ID: <akPfMWrGlVMoFBCZ@SMW015318>
-References: <20260630125403.546375-1-khristineandreea.barbulescu@oss.nxp.com>
- <20260630125403.546375-3-khristineandreea.barbulescu@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260630125403.546375-3-khristineandreea.barbulescu@oss.nxp.com>
-X-ClientProxiedBy: PH8PR20CA0002.namprd20.prod.outlook.com
- (2603:10b6:510:23c::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ld4sIBts"
+Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-7e9ecb1e13cso1192920a34.3
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 08:24:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1782833060; x=1783437860; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xv8vYlFh+PBuicn2boO4XNNshtTQUIiWhs4Wjc5dQk8=;
+        b=ld4sIBtsp58JIYgeGDjBTnOaDFLR1gNjsWaii2wL3eh7x15PsNcHCO4zvaLE6euAWk
+         rpZkOMGHdr5XXZmckcJkx5wUL6QRLJbG59OFA5dLwhEIqRcIE2GdK4frv4gVrTUb7GaR
+         VI2Lk62jmzmkpXwJ1SaSCIn+XvZVhdyJPCCQq/DgyWRBFw2FwSKpaOz1VExXtJynWxi8
+         xlcCXMKRqQ0ixUCHUXoMwKhUyCkfp/NZKQAN+ypyQgzsebril3+5y4zDXb2VEvbIBvD8
+         1WzKn/+USYj2p57npPdCvmBTVb4geoSTdq7m8cHPiwoYfUEwudd/FqQJvNI0qeVar+eJ
+         2MyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782833060; x=1783437860;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xv8vYlFh+PBuicn2boO4XNNshtTQUIiWhs4Wjc5dQk8=;
+        b=UiO/mlt5BHU00IRAIEY3kCiIaUE1575fm0mAV/sY2lu4R8XgXuD+sKVHI0Pv7fMrwt
+         X5zWnJNJU/DCFoBuMUnyFcAXxWCt6/8SO4P3kAnqcaeFBrLIoEhjOtTAnUaL2eyOTymU
+         QW0HcgYGtwZrBnavWu1RBtfA4NyQfUdX3u33UvL3TZpqAy+Hq8/Qr8RjM5qmIbuFp26D
+         525gxdd8h3RvcrQ5fiXB/nSK5Q3NFzBFJfb1awsISj8ADGrzBikwKb5pxHO/CPfkZBZV
+         7xIEuZ0Xlb4DWgRHeCyiTCWAvp/sx5ETDTkWEEa/WpLY6SmFT8fDAiH5Rf0fjLZUzzmV
+         7qSw==
+X-Forwarded-Encrypted: i=1; AFNElJ944Elj2s6lBRp4OCFMByOHXgGeAp+PiU6W1ZcSC71S7ShWx+NoWquifeBnIjqWj4oXhhklUW1Ye8ha@vger.kernel.org
+X-Gm-Message-State: AOJu0YzkSE3GCe8Ey064Eq/ssD/hhco/Qvdl70vhUmCUHaSjt87SWN1C
+	5Mu2PYH5vZKdCAMzWdd9WlDx7f4NpzL7S5fAA2ndoMwedcmY9mi/ASwYHv5fH1C8xZE=
+X-Gm-Gg: AfdE7ckfb5ZBgvlKXmlfPVPdXptB7oDowF6XcMMJiehvxmgUriiel5nVUruF8dkMScp
+	DNKH5+6t6TC5H93PAwktW4ut9EZJYoYTb/KtURj8nuJZjLEHbv1rF9aKwTc4/vhMGF1eP6sNO1d
+	EO0iEjF4UDXsfaz8xalqE82r4Zh4iXgBESGz3F/pIYBqUXDCZh5AOIWDcqdQ58ZEkwoxyvlelY6
+	5qfzdv8VXie2MxuYnIcIM7fRBpMbXEiCwm0fn67CEn9R0V4fjMygTmH6CbVcC/bNWbevg5mgEAX
+	+KgzH2mS5d/2hg/Kq4OATSC4pvqIFEnWdrqVpnzZFXsEtc5lRUHqZeQw1woQSmEkfiuQ118QzkM
+	EeqZ0nT+blrqh+Ll0Z5PR5ZfvX04T13YgEK+93eCTbEeAltZ9FfH5+bnd6byggUXHgtva2T80HO
+	g2V9e2z5oq6S2dQiY96Z2DXpxzhPz/+/fSYn70Vwzqhj5bWVP/31z2Bh1k7X91zUc=
+X-Received: by 2002:a05:6830:488a:b0:7e6:f482:df36 with SMTP id 46e09a7af769-7e9fbfb81bbmr567069a34.15.1782833060338;
+        Tue, 30 Jun 2026 08:24:20 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:e190:78b2:dd4e:ba94? ([2600:8803:e7e4:500:e190:78b2:dd4e:ba94])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9ec2ba18esm2689450a34.16.2026.06.30.08.24.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jun 2026 08:24:19 -0700 (PDT)
+Message-ID: <a64fd56f-6e4b-4e19-9804-ce7a96f14973@baylibre.com>
+Date: Tue, 30 Jun 2026 10:24:19 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|FRWPR04MB11284:EE_
-X-MS-Office365-Filtering-Correlation-Id: d00feeb7-cc07-4967-9280-08ded6bb6ba8
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|366016|7416014|23010399003|19092799006|1800799024|18002099003|22082099003|4143699003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info:
- GxhQzIFbRA+2QDp7HmYNmqh4JMc0YNfXCOzgsxS+2sWJ3xKORL4G3xclBcnlEwFefiCo9B1Yern24IiYgic2ivraz+ZhaPKuDNu3ayVOHksmAK2A+5kCsyEOqik0haVjqhZPA/kj64DbJC+3Tf/uFz0+J3UNYE1dBPKY0XhtoGx0aSCZz3r5obMxWaXPjWsaYdPEQm492gxxRsWWtXdDBFCDelk9Nmz9KGm3W24Hwj01ur0JtyikuE+L8rres8s9kzemgfp1QJKqQmp2Ott8tWj2Yl84XlpPriqEPQ89jBLB8HXw4VKw+dmh2lG0RC71mMZ1hREOBmlVqoj49uvXLroaj9x5Zk3D+pqkAQZDN5Yt8LCju/TQE8e2+xoNWwtE/njfv9xf8Hznm4u3/NzT4feC7dN7oH/lBbKUegw5zmsy+XTd3OTMAPyHgA7VbEJ9dW7FrAVvXIHgg7YV4H8Cw7lv2omo/8nALWK8b65ZUdydKZz12oXTPOPztJHM+ddoBWWVbGmTti8Y0HR+OxnaNxRthLKo6F81X8rAfXApZQ26UeExUpRgeWjMYK6dBdOL0azxZCjzo0Hqv9+rz+vL0tEXvL287SijM2HuzG6XPC/Ey+psuZL7WRblN9dOeqHrp6d4au5wRgh5H/ZYS1gHtWddYtefE3fYb7xVq1v/S8I=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(23010399003)(19092799006)(1800799024)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?Z7kJ4E19H6cN22PGPUmbkOg039LyfHkZZhiNpqVzA/AcmsUZnLJk/Siz+GFj?=
- =?us-ascii?Q?YCsrdcpwFt7tTEsP0kBz8fh+/eh3vminRL58rXz8GPY/ybP+RVbs2fYAVHWM?=
- =?us-ascii?Q?5TBNKQ36yK+FM6DR0BjOrR5sBd261lvvd/5d6T4++uYZCOsApc70SgN5nJVT?=
- =?us-ascii?Q?3aEKQ13UOEn5l98SNL1LqEMYl8b9O29g3HrsSXirJmHug7B53VkoV2tWl6OX?=
- =?us-ascii?Q?vDp9nd/v+Ec9Rm2XnZh6y5PVRtZFRNN4tILrCvMRNS4MD/tT0dGqapg7JD8r?=
- =?us-ascii?Q?59VW6mQh67QsRJq+IYLrIM8YAa+5ArkcVfflOXTEwhStXoB097uALEBkMMzH?=
- =?us-ascii?Q?xJ8ncOlbhh/Tindi/HHW+MavLzSxsxzOhu8XrA9VLbVLVxkbx00JraCDxBw7?=
- =?us-ascii?Q?d0Wd2+9xlWJV4csriSlw5498HN98EeAC9SuOkGeP/OwFXlOep2lYDxoYIyVi?=
- =?us-ascii?Q?E5fm/m48nYDH7fhA2kmzSnlWb79GMoAHav4Q4EGaq7kcia6ro7ymM+9+tiEo?=
- =?us-ascii?Q?KtsdJZlnDkwzfMKAT3eD3wcBILi9YZUnofDAyHoy1jmVRRRVlQQbuGoqrNQ1?=
- =?us-ascii?Q?zHeE9rSsp39guwSrFF4KPY1dYN+eYgZ9g6oYRRP/6VEpEvfPQ6i7s3ObP2+c?=
- =?us-ascii?Q?FJDQQK76dzWPd5XG4muywNuxK6MqA6Q+TxRvVjEJeE4v6mFLC5FJZ09cKlCO?=
- =?us-ascii?Q?3wW2aS8+wgdzBcW/Im1IKzhcE11PZJio3lXGzxpiYXp+CkfZqEyMpPMYSsKH?=
- =?us-ascii?Q?ZJnQd64JtJGiCrHiN5s+AwPkXe5ibDuejXsoHZAXGg+AlKQBWXNLr587FYN0?=
- =?us-ascii?Q?gzlXL8GWEycqAVTqMHgovTG7c9Vs/kqMFj7zm21fYYOTpHNPQlR0/v3l6TQM?=
- =?us-ascii?Q?B4M5Xr0IOZ835pZi8ZLMTV0tTTWxG36IttrLxhK4rMI0gFzamnpjcdrfDefM?=
- =?us-ascii?Q?Zvl54LJbyjYUi8/P3mNLP6yDa5020tks8Eg0ZNBX7oWlp+X0hEBvVl+IGpil?=
- =?us-ascii?Q?0ML4pEA4X7nzivML3eAats3yuRMbUWeDcoZJJ5UuagnMQ6OmHUALb/KDgeXr?=
- =?us-ascii?Q?R4qdb9xIe8TRoO0WE1u2t6Z4Vyg5OS+8TGJ9L1uK6ciPjMeH4HMANhjLte6O?=
- =?us-ascii?Q?R4bKk1Vny+jZwApOdcdjDK0lM7hMwFCMa+rko7m9EEuclkyCCeIUfc+6hb2i?=
- =?us-ascii?Q?0SGRFvWnj1d8yNso8qdW3cDE1iEYQU40DLRuBrtMTB9NFOPK8NCVBA5UnyhH?=
- =?us-ascii?Q?bmRC60lppHtvw85WSw4OxFclGeMQZUtF4VsRkI7ScdVlJ4ZvUZKuoGaIO46t?=
- =?us-ascii?Q?S75KjRyZ+BJGf072sq8PTFi/rRp3rbGSVDeE+3wuoIq522wJuuLV4bPkpx/A?=
- =?us-ascii?Q?6uiipvcvavWDECDTCugVYsmmJoFpz6ac5C9v0IqQQfh2yZTgt1dEdyDSRNXv?=
- =?us-ascii?Q?+YigmW3HIHbqf3Tpjp5oebn4IiIDs+qSmST3NG3JpxN8N7vvC/RDNkSyqclR?=
- =?us-ascii?Q?FbY21uRJkstFumYEzi8pWugDFnT2WT4tDPCD+uAVqZ6SoZlnDFDUXIOD5tSu?=
- =?us-ascii?Q?dVsf7Mnp6dF8HJu0bPuMxwKNYDmVly25MdVh6/yUvd2Gx9ichdS2e0A7Ok8h?=
- =?us-ascii?Q?EPy8lcukNAXpHuvD4FIuMp+bJEP10+B7DFFJ2q85/lk8RIuvXRTRfGEEY3IG?=
- =?us-ascii?Q?ok64iuKxELaMaM5WA2c5ri0z9ok7LpAfcAsR/QgPl2NADk8afoIiI1DT7jIe?=
- =?us-ascii?Q?afTbOmedjZPepjDbgnB+QtuxFJxZ/qfLvA3+QS/ZIOM0ds/7xRBL?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d00feeb7-cc07-4967-9280-08ded6bb6ba8
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 15:22:38.9826
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XTpRk4xi+l1surL5ZH2s/+ViryOksBVNnin04zHC5VhmaXPdkVxL03vUFWchb6VhV9TOaSSA39qYH4cKx0QL1oUgmIBtXEGkh5jsRZKCLdycNZUpx6j+OeEUlBV5+UPY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR04MB11284
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: ti,ads1298: add ADS1299 EEG
+ ADC variants
+To: Md Shofiqul Islam <shofiqtest@gmail.com>, linux-iio@vger.kernel.org
+Cc: jic23@kernel.org, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, mike.looijmans@topic.nl,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260630140311.1473031-1-shofiqtest@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260630140311.1473031-1-shofiqtest@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 30, 2026 at 02:53:59PM +0200, Khristine Andreea Barbulescu wrote:
-> Remove unnecessary inline specifiers from static functions.
->
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Andrei Stefanescu <andrei.stefanescu@oss.nxp.com>
-> Signed-off-by: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
+On 6/30/26 9:03 AM, Md Shofiqul Islam wrote:
+> The ADS1299, ADS1299-4, and ADS1299-6 share the same SPI interface
+> and register map as the ADS1298 ECG ADC family but are designed for
+> EEG and biopotential measurement.  Key differences from ADS1298:
+> - PGA gain up to 24x (vs 12x for ADS1298)
+> - Internal reference is always 2.4V (no 4V option)
+> 
+> Add compatible strings and update the vref-supply description to
+> document the ADS1299 reference voltage behaviour.
+> 
+> Signed-off-by: Md Shofiqul Islam <shofiqtest@gmail.com>
 > ---
+>  .../bindings/iio/adc/ti,ads1298.yaml          | 31 ++++++++++++++++---
+>  1 file changed, 26 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1298.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1298.yaml
+> index 71f9f9b745cb..82c5181126df 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/ti,ads1298.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1298.yaml
+> @@ -4,11 +4,16 @@
+>  $id: http://devicetree.org/schemas/iio/adc/ti,ads1298.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  
+> -title: Texas Instruments' ads1298 medical ADC chips
+> +title: Texas Instruments ADS1298/ADS1299 biopotential ADC chips
+>  
+>  description: |
+> -  Datasheet at: https://www.ti.com/product/ADS1298
+> -  Bindings for this chip aren't complete.
+> +  ADS1298/ADS1298R: 8-channel, 24-bit ECG ADC.
+> +  Datasheet: https://www.ti.com/product/ADS1298
+> +
+> +  ADS1299/ADS1299-4/ADS1299-6: 8/4/6-channel, 24-bit EEG/biopotential ADC.
+> +  Identical SPI interface and register map to the ADS1298 family, but with
+> +  a higher maximum PGA gain (24x vs 12x) and fixed 2.4V internal reference.
+> +  Datasheet: https://www.ti.com/product/ADS1299
+>  
+>  maintainers:
+>    - Mike Looijmans <mike.looijmans@topic.nl>
+> @@ -17,6 +22,9 @@ properties:
+>    compatible:
+>      enum:
+>        - ti,ads1298
+> +      - ti,ads1299
+> +      - ti,ads1299-4
+> +      - ti,ads1299-6
+>  
+>    reg:
+>      maxItems: 1
+> @@ -33,8 +41,10 @@ properties:
+>  
+>    vref-supply:
+>      description:
+> -      Optional reference voltage. If omitted, internal reference is used,
+> -      which is 2.4V when analog supply is below 4.4V, 4V otherwise.
+> +      Optional reference voltage. If omitted, internal reference is used.
+> +      For ADS1298, the internal reference is 2.4V when analog supply is
+> +      below 4.4V, 4V otherwise. For ADS1299, the internal reference is
+> +      always 2.4V.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Not sure the dt-bindings care about the internal reference. It should
+just be a driver implementation detail.
 
->  drivers/pinctrl/nxp/pinctrl-s32cc.c | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/pinctrl/nxp/pinctrl-s32cc.c b/drivers/pinctrl/nxp/pinctrl-s32cc.c
-> index 2a32df932d8a..8c5ec6a76a1f 100644
-> --- a/drivers/pinctrl/nxp/pinctrl-s32cc.c
-> +++ b/drivers/pinctrl/nxp/pinctrl-s32cc.c
-> @@ -131,13 +131,13 @@ s32_get_region(struct pinctrl_dev *pctldev, unsigned int pin)
->  	return NULL;
->  }
->
-> -static inline int s32_check_pin(struct pinctrl_dev *pctldev,
-> -				unsigned int pin)
-> +static int s32_check_pin(struct pinctrl_dev *pctldev,
-> +			 unsigned int pin)
->  {
->  	return s32_get_region(pctldev, pin) ? 0 : -EINVAL;
->  }
->
-> -static inline int s32_regmap_read(struct pinctrl_dev *pctldev,
-> +static int s32_regmap_read(struct pinctrl_dev *pctldev,
->  			   unsigned int pin, unsigned int *val)
->  {
->  	struct s32_pinctrl_mem_region *region;
-> @@ -153,7 +153,7 @@ static inline int s32_regmap_read(struct pinctrl_dev *pctldev,
->  	return regmap_read(region->map, offset, val);
->  }
->
-> -static inline int s32_regmap_write(struct pinctrl_dev *pctldev,
-> +static int s32_regmap_write(struct pinctrl_dev *pctldev,
->  			    unsigned int pin,
->  			    unsigned int val)
->  {
-> @@ -171,7 +171,7 @@ static inline int s32_regmap_write(struct pinctrl_dev *pctldev,
->
->  }
->
-> -static inline int s32_regmap_update(struct pinctrl_dev *pctldev, unsigned int pin,
-> +static int s32_regmap_update(struct pinctrl_dev *pctldev, unsigned int pin,
->  			     unsigned int mask, unsigned int val)
->  {
->  	struct s32_pinctrl_mem_region *region;
-> @@ -484,8 +484,8 @@ static int s32_get_slew_regval(int arg)
->  	return -EINVAL;
->  }
->
-> -static inline void s32_pin_set_pull(enum pin_config_param param,
-> -				   unsigned int *mask, unsigned int *config)
-> +static void s32_pin_set_pull(enum pin_config_param param,
-> +			     unsigned int *mask, unsigned int *config)
->  {
->  	switch (param) {
->  	case PIN_CONFIG_BIAS_DISABLE:
-> --
-> 2.34.1
->
->
+So I would just trim this down to:
+
+	Optional reference voltage. If omitted, internal reference is used.
+
+>  
+>    clocks:
+>      description: Optional 2.048 MHz external source clock on CLK pin
+> @@ -75,5 +85,16 @@ examples:
+>            spi-max-frequency = <20000000>;
+>            spi-cpha;
+>          };
+> +
+> +        adc@2 {
+> +          reg = <2>;
+> +          compatible = "ti,ads1299";
+> +          label = "ads1299-1-eeg";
+> +          avdd-supply = <&reg_iso_5v_a>;
+> +          interrupt-parent = <&gpio0>;
+> +          interrupts = <79 IRQ_TYPE_EDGE_FALLING>;
+> +          spi-max-frequency = <20000000>;
+> +          spi-cpha;
+> +        };
+
+Since the chips are nearly identical, not sure a 2nd example is
+particularly useful.
+
+>      };
+>  ...
+
