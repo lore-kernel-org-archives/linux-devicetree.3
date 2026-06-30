@@ -1,198 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BE6367B84;
-	Tue, 30 Jun 2026 10:07:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782814033; cv=none; b=nFcIABSJU7ulDhgamZ5n1C3QZwcpArne4ADuUq1+41BlE0vXyO6jQw+aCTB/SRB01iKPbUpKByPIHZQZ9Sne/z9M6jFg5aQiyYQwUQnR+87gip1tpQbNZo5JzE+d7r+fgvKIs3uqv6tBELXGnA0g7hzt+j4ZJ4imZ4/uT/ED/9g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782814033; c=relaxed/simple;
-	bh=BHhI3Y8XvaAV4J6L9rKnV78gRvMl/2GmTKgcUWSQW6s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CTFsh3HmWWtoUe8lbV1VD102jBwmK8ZzNwbQLP6acYJJv5TlMucKZbtad4FI6Yx1IGLBRZTD7PSvFlyFRvIaykZGr7/RZj41puR/JJxNZsyqmtJEYwDh4gFxSTLhEMgrX+la1r/m/ruq8uD+d+8NleKXtefXlHzPokVxTUovsv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KjcoLVc0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A01B2BEC2B
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782814104; cv=pass; b=LTWo8stSQ1shJdQ2XXtg6objZ4WwmRq1P63Ryf3yVzv3ik/GS2LW7kmFVQfOuq0GE1qHA6lNotanw4KWJMnB908DA912sn+AXboSHWE9Sge0zxt30u6dlbi7vCKX6OrgtL88G298VzszCf7rtJcW8I2ru05BIaqW8XzlqhoHWbs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782814104; c=relaxed/simple;
+	bh=ImIp7ff7R+p3kOeF0z4nxDiC1ZOiuu9W7gXy3BE6q5A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MiKsGjxgyw+JXWrK7la78AxeKR+oVxxnJjnQ0UeA1xRuTdnxzOEg+NWpbqgcv8pISrzfBjb+nPDk3dQsygvSA7UMs2scJI48COKupSLKRgL5YjiBlnimH6s9eWjhWgscU/W87Vm5CuODcAovW8ZRU+oebID7LGNyd9VpY9rxW1g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AfHkWQ+4; arc=pass smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KjcoLVc0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25E511F000E9;
-	Tue, 30 Jun 2026 10:07:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782814032;
-	bh=Yfxacg1GKpPRTZ6aMEUKrRO5YVFDCHekooAhy0R0MeE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KjcoLVc0pFyXhSm4cEHGmpI8LmmnMILAe1rDY4oMRajSuOSB3mudrzv/WZtrhpBfl
-	 toKogiQ+7bmLp1jVs9KrlyXZsJodwUz4vxD3X+ZraGj5mQj1OtH1IOAR4hQT9KAPlC
-	 YbTOdD7hQ2Lvm8PsiNibUgO34TuSWAyunz4O8onQNsJHyj677n2FKfISMgRXzHkicb
-	 XQAJ/qLY/DdNzDdfiHYdnKaluAgp8LcVppwW996mLbszMiJZps8qFy1LKLNldhxQ7u
-	 dwWirYD5aOLfr5KQvWdJB79d5Qjzc80bYS771NGvZbGH3XHixm0akCnPklx1RD78tk
-	 UXP8p1XDzR6pg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/3] arm64: dts: freescale: Add support for Variscite
- VAR-SOM-MX8 QuadMax
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <69727b6a39f9ebfc00d7896377a8b24191926bea.1782812572.git.stefano.r@variscite.com>
-References: <cover.1782812572.git.stefano.r@variscite.com>
- <69727b6a39f9ebfc00d7896377a8b24191926bea.1782812572.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 10:07:11 +0000
-Message-Id: <20260630100712.25E511F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AfHkWQ+4"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4924593f45dso55382585e9.1
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 03:08:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782814101; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mE7hy6/sd3l7d8T7i7UEBrYKJsx+8TNrWlPcpbb5w5h5O3ZZO5eobemXx7e/JhDG3o
+         U4klaX9IQMi5l0a51jbihGini4aNb3cB+PAbjlDd8Znca0hG/VTde/NY+vYDb/qR63oG
+         /LBB4oTM9vECttLsw8jyhKyavjraz1kkI29aEUzC15qS9lQ5XVNvdNnnfyz+bTTjfbsr
+         d7Kv+lfGEDSOi4QXKN9jzGPEQ6l49eHBmB4XBOuq6V9AVe2rgZnO2/JIcV/pjn3Cslxa
+         Z953vErqDC/b9Rurrn6bk3HosR4afjodv4/RZDApsef0bMhTpRQsOgTf+JXM3SzCIvel
+         dfFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zA254jSg7Mg/pmP5Hvzp8s8/v3sVmr5J11egd6Z5eK0=;
+        fh=BKoYwHocEgMC9XlVQbZ+KTt8mVUYBnOoG8LdhTQp5RE=;
+        b=NG9pqHJc9jmw9d2UTh4340dwUpgaWlztloAlSgSN1QpL70iWgj0oF79TdTdMofoNmN
+         OSTFMwEA40SyHrDIwelfu6hvUcnswgNogteV9D4L0KuAl8HUCy7sgcyWE+JMHQhkqOyv
+         D5IpEzxZ0vQl5SJS6T6HlPE+nnnsQykDsOwTdhRYRgaqxSlcPIG5b+0hUF6sD8OQGBzs
+         Vu7iteb/hwKfkZYdyEwK9gyApUsKPcTFZXu26PE4jLjxVW3pZrtYvwmusIBAuWn9u/0w
+         ADLmPnOZqGsuMTry6e4OdvrR8Rxt2JFaOOua5bH8ElaV2VrStC5FHSzO1GXNcpNTgz+z
+         ofzA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782814101; x=1783418901; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zA254jSg7Mg/pmP5Hvzp8s8/v3sVmr5J11egd6Z5eK0=;
+        b=AfHkWQ+4+dOgoqkmHcQUprrHPh+aL1fDXBe5mbKlRaLrc9EC15+p4PYgkyNs/hG0zA
+         mtqDT9ikZBrEN1hiGrrsl2kVrMk59Gu42IbhF8Ojkj7jwo+obtLOBwJ+dA+0b2/Cfznn
+         orVTdYe/jz7f8ZdB9zvR9+U6lbxAIrgeSHZWmoi4vJ4VLRZ5/R0iuladv/Z0/xUZz6OL
+         gChPiAPkSp+SBGxwfiQkcYpABBVXCsGoxoMRZ95CxEAl5KbdtmUo/lDdMYy7JGpf3xK8
+         +qX+wsF5atgBHUDODLGWRSwD9UvVpQdEFwbVDR3fmQsunkZpmvEqyLoEbGVcDAQmF6tB
+         dQKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782814101; x=1783418901;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=zA254jSg7Mg/pmP5Hvzp8s8/v3sVmr5J11egd6Z5eK0=;
+        b=I1OWj1S4KqfxqDqQvV6syTAgs7tkZXzlF0wxxBu0YhU1KScbdWd6aPaRNy7gIV369O
+         PW694A7qkt7R2SAeUOoNkLtJyzzvAo/bzC5UhO35juBXaT+K2+0l/YYUxyXobb51HCcI
+         dEGjvgqXlf5ceJ3crBCgPEIkrSg2GSNtzlT96S4tbGlptXzvR5N10pnHERXN5/cE1zIO
+         +jTaTnDCsa7DAv6rASMx2hL13ONNzVfMyptScILgydYmc0CldP5Hml71h0V+I07uA1/R
+         C9BK2QtizB2tEgr0R5LQ2iLE8DnQlDQSTbzIetSqFxbrLWB6+N1/e+p7xM5knICUesOD
+         2SQg==
+X-Forwarded-Encrypted: i=1; AFNElJ+QgC3KvkyYnSV8iyynS62GtMEzEVqvO5Acn9Ba8/+zFIB+LN4y9WnjF/A2bPJc/+lt3Y7T2ikFvIm1@vger.kernel.org
+X-Gm-Message-State: AOJu0YxeiyXPJo780yyj3knEucg6yOevJKuE/+rBCEnQf019Zhitej5o
+	g6xigrRSTQX0+h5Q45MAvo9DsvVhxFlKtd2272iQVqCwRt6WRJl10PaRJt1cITDFnT0pAQdttE8
+	nhomh3FvjfxvMOTwe5wn0mkayyFUqHOA=
+X-Gm-Gg: AfdE7cmk9QFv6b7ngt1Tri0QGr2SjDarXqzfM/xOtltduqIioRe0zbbw1a6h7q7x+mB
+	3ppAnWkIMY8upuoaKuvLTT6VBGUUuXoD+z83NZ+BoCSW2RvMV1Wp8ZEiMWPiDZ36mReFBQfPFvi
+	7XALX9RKcybwK248l+5IACoCZfrm8X2nPAefKzZ7fFRzJGez8Acmy9M6kj5rTArOzkHAJAw9ER/
+	uinfCYpV+nZ2tCni2yCtUY6KhXybAB2qp2RympOIenRX5+sRsLwWdqejJggagTBU+D1kUBPHdyE
+	KQjhDCGUYkqeFymxUA2W43e3muC+NLg8Vm1/hPY=
+X-Received: by 2002:a05:600c:4991:b0:493:b730:8d78 with SMTP id
+ 5b1f17b1804b1-493b82c324bmr28731885e9.31.1782814100704; Tue, 30 Jun 2026
+ 03:08:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260614083424.464132-1-mitltlatltl@gmail.com>
+ <20260614083424.464132-2-mitltlatltl@gmail.com> <qwbda435on6rhsbf5o4jqijakanjmnmswnc6g6qsubuqbyvbok@fuoclv6u7tq5>
+ <c29776b4-04b8-4c59-8f1e-d766bf982a2f@oss.qualcomm.com> <CAH2e8h75xeRVvo+jOjRuFaBko5NNCnBX0dawFFsWBaiTwNd4Xw@mail.gmail.com>
+ <99eaf1d1-fbf9-4336-a13c-ae8ab789cc99@oss.qualcomm.com>
+In-Reply-To: <99eaf1d1-fbf9-4336-a13c-ae8ab789cc99@oss.qualcomm.com>
+From: Pengyu Luo <mitltlatltl@gmail.com>
+Date: Tue, 30 Jun 2026 18:06:50 +0800
+X-Gm-Features: AVVi8CeXY2XXtKzC05jw7mqBTSZCDFNAWUTECad4JJzZvuIX-tBM3NerKDQFx-Y
+Message-ID: <CAH2e8h6aWW_=pD6JAuFB-VqEZDj9x8gZVh9TdvTCRQakKzm3pA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] spi: qcom-geni: Add property to force GSI mode
+To: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Wi-Fi and Bluetooth on the SOM will fail to probe because their en=
-able GPIOs are never toggled and the Wi-Fi MMC host lacks the `non-removabl=
-e` property.
-- [High] Incomplete PMIC cooling map omits high-power A72 cores.
-- [Medium] Missing PHY interrupt configuration causes fallback to polling.
---
+On Tue, Jun 30, 2026 at 5:52=E2=80=AFPM Mukesh Savaliya
+<mukesh.savaliya@oss.qualcomm.com> wrote:
+>
+>
+>
+> On 6/29/2026 1:33 PM, Pengyu Luo wrote:
+> > On Mon, Jun 29, 2026 at 1:36=E2=80=AFPM Mukesh Savaliya
+> > <mukesh.savaliya@oss.qualcomm.com> wrote:
+> >>
+> >> Hi Pengyu,
+> >>
+> >> On 6/15/2026 2:48 AM, Dmitry Baryshkov wrote:
+> >>> On Sun, Jun 14, 2026 at 04:34:24PM +0800, Pengyu Luo wrote:
+> >>>> Some devices (such as gaokun3) do not disable FIFO mode, causing the
+> >>>> driver to fallback to FIFO mode by default. However, these platforms
+> >>>> also support GSI mode, which is highly preferred for certain
+> >>>> peripherals like SPI touchscreens to improve performance.
+> >>>>
+> >>>> Introduce the "qcom,force-gsi-mode" device property to hint and forc=
+e
+> >>>> the controller into GSI mode during initialization.
+> >> Why to force ? You can directly configure in GSI mode. Note there are
+> >> some configuration done prior to Linux bootup too.
+> >
+> > Sorry, I don't get it. how? I know there may be a qupfw, but it is
+> > impossible for a normal user like me to generate one with GSI
+> > preferred.
+> >
+> If firmware doesn't program in GSI, you can't have this working in GSI
+> mode, its going to fail (and work with fallback). if it's programmed in
+> GSI, anyway this will run in GSI mode. So why to add extra things
+> without any usage ?
+>
 
-commit c50bb64cb8cb31c1a2367dc07bbf18802022b684
-Author: Stefano Radaelli <stefano.r@variscite.com>
-arm64: dts: freescale: Add support for Variscite VAR-SOM-MX8 QuadMax
+What I can confirm is that fifo is not disabled on my device, and gsi
+is definitely enabled (under windows, check the register
+SE_GENI_DMA_MODE_EN), forcing the device to enable GSI mode on linux
+works well.
 
-This commit adds device tree support for the Variscite VAR-SOM-MX8 QuadMax
-system on module. It enables basic on-module peripherals including memory,
-ethernet, audio, and Wi-Fi/Bluetooth functionality.
+Best wishes,
+Pengyu
 
-Link: https://variscite.com/system-on-module-som/i-mx-8/i-mx-8-quadmax-quad=
-plus/var-som-mx8/
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi b/arch/arm=
-64/boot/dts/freescale/imx8qm-var-som.dtsi
-> new file mode 100644
-> index 0000000000000..2ffc32ddbf51e
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi
-[ ... ]
-> +	mdio {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		ethphy0: ethernet-phy@4 {
-> +			compatible =3D "ethernet-phy-ieee802.3-c22";
-> +			reg =3D <4>;
-> +			reset-gpios =3D <&lsio_gpio2 28 GPIO_ACTIVE_LOW>;
-> +			reset-assert-us =3D <10000>;
-> +			reset-deassert-us =3D <20000>;
-> +			vddio-supply =3D <&reg_phy_vddio>;
-> +		};
-
-[Severity: Medium]
-In pinctrl_fec1 below, the pin IMX8QM_ESAI0_TX4_RX1_LSIO_GPIO2_IO30 is muxed
-alongside the Ethernet reset pin, suggesting it is intended as the PHY
-interrupt pin. However, this ethphy0 node does not declare an interrupts
-property. Will the network stack fall back to polling the PHY over the MDIO
-bus, wasting CPU cycles and increasing link-state detection latency?
-
-> +	};
-> +};
-[ ... ]
-> +/* Bluetooth */
-> +&lpuart1 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pinctrl_lpuart1>;
-> +	uart-has-rtscts;
-> +	status =3D "okay";
-> +};
-
-[Severity: High]
-The commit message states the SOM includes Bluetooth, but this lpuart1 node
-lacks a bluetooth child node to power on the Bluetooth chip. Since the
-required GPIOs are muxed in pinctrl_wifi below but never actively driven, w=
-ill
-the Bluetooth chip remain in reset and fail to probe?
-
-[ ... ]
-> +&thermal_zones {
-> +	pmic-thermal {
-> +		polling-delay-passive =3D <250>;
-> +		polling-delay =3D <2000>;
-> +		thermal-sensors =3D <&tsens IMX_SC_R_PMIC_0>;
-> +		trips {
-> +			pmic_alert0: trip0 {
-> +				temperature =3D <110000>;
-> +				hysteresis =3D <2000>;
-> +				type =3D "passive";
-> +			};
-> +			pmic_crit0: trip1 {
-> +				temperature =3D <125000>;
-> +				hysteresis =3D <2000>;
-> +				type =3D "critical";
-> +			};
-> +		};
-> +		cooling-maps {
-> +			map0 {
-> +				trip =3D <&pmic_alert0>;
-> +				cooling-device =3D <&A53_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&A53_1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&A53_2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&A53_3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +			};
-> +		};
-> +	};
-> +};
-
-[Severity: High]
-The i.MX8QM processor has both A53 and A72 cores, but the cooling-device li=
-st
-only includes the four low-power Cortex-A53 cores. If a heavy workload on t=
-he
-high-power Cortex-A72 cores causes the PMIC to overheat, will the thermal
-framework fail to throttle the A72 cores, risking hardware damage or sudden
-thermal shutdowns?
-
-[ ... ]
-> +/* WIFI */
-> +&usdhc3 {
-> +	#address-cells =3D <1>;
-> +	#size-cells =3D <0>;
-> +	pinctrl-names =3D "default", "state_100mhz", "state_200mhz";
-> +	pinctrl-0 =3D <&pinctrl_usdhc3>, <&pinctrl_wifi>;
-> +	pinctrl-1 =3D <&pinctrl_usdhc3_100mhz>, <&pinctrl_wifi>;
-> +	pinctrl-2 =3D <&pinctrl_usdhc3_200mhz>, <&pinctrl_wifi>;
-> +	bus-width =3D <4>;
-> +	status =3D "okay";
-
-[Severity: High]
-This usdhc3 node lacks the non-removable property and an mmc-pwrseq to togg=
-le
-the reset GPIO. Because the Wi-Fi chip is soldered and lacks a card-detect
-pin, will the MMC subsystem treat it as a removable card, fail to detect it,
-and not probe the interface?
-
-> +
-> +	brcmf: wifi@1 {
-> +		compatible =3D "brcm,bcm4329-fmac";
-> +		reg =3D <1>;
-> +	};
-> +};
-[ ... ]
-> +	pinctrl_fec1: fec1grp {
-> +		fsl,pins =3D <
-[ ... ]
-> +			IMX8QM_ESAI0_TX2_RX3_LSIO_GPIO2_IO28			0x06000028
-> +			IMX8QM_ESAI0_TX4_RX1_LSIO_GPIO2_IO30			0x06000048
-> +		>;
-> +	};
-[ ... ]
-> +	pinctrl_wifi: wifigrp {
-> +		fsl,pins =3D <
-> +			IMX8QM_SCU_GPIO0_07_SCU_DSC_RTC_CLOCK_OUTPUT_32K	0xc600004c
-> +			IMX8QM_SCU_GPIO0_03_LSIO_GPIO0_IO31			0x06000021
-> +			IMX8QM_SCU_GPIO0_02_LSIO_GPIO0_IO30			0x00000021
-> +			IMX8QM_QSPI1A_DATA0_LSIO_GPIO4_IO26			0x00000021
-> +		>;
-> +	};
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1782812572.gi=
-t.stefano.r@variscite.com?part=3D2
+> > Best wishes,
+> > Pengyu
+> >
+> >>>
+> >>> Ideally, this should be decided by the SPI controller based on the
+> >>> requirements. Another option would be to prefer GSI for all transfers=
+ if
+> >>> it is available, ignoring the FIFO even if it is not disabled.
+> >>>
+> >> Yes, it should be decided in advance and configured accordingly for GS=
+I
+> >> vs non GSI mode. Because there would be limited set of GSI pipes, whic=
+h
+> >> will actually make must have GSI mode device run with FIFO mode.
+> >>
+> >> Why don't you decide prior and configure for GSI mode ? We don't need =
+to
+> >> change the current logic of deciding FIFO vs GSI.
+> >>>>
+> >>>> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+> >>>> ---
+> >>>>    drivers/spi/spi-geni-qcom.c | 7 +++++++
+> >>>>    1 file changed, 7 insertions(+)
+> >>>>
+> >>>
+> >>
+>
