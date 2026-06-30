@@ -1,285 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2138.outbound.protection.partner.outlook.cn [139.219.17.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE2B2E62A9
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 01:35:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782783317; cv=none; b=jBiMqNZg03MSWSCXptnVqXVA+8zfUBqiD8Ka8KRr6fR/Nvvyt8KzQOHm4mZyeNi1dBP4KSUS3k6jDBI3+xirfuCASY5jaA50m9dmwViDw9e+OvSiCBh2RSAP4o43DRlZKsj6dAZ6hKcBQj16BHZb1hSPTd3iAvVYnKSTeQZVUGs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782783317; c=relaxed/simple;
-	bh=ScL/LI1vDLKLnQTT68Rp+AsRyqSHSBmCijWXquF5pVs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Xte91SZ8BMcZd4p+CdhNwT+z7FhHvABF4kN61qi9SLrJFYS6hOqebE8hObaxromIIVJD2WcIcOskpMwAj5+Lbz1UdT217/corHIjjIJKGSArEVl29fKPhS/q/3gGKsZzsMnI8PK1eyL/Ifz+6oTT2eYeYHH0508k1nlcm/VVqo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c0rr53H5; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c0rr53H5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBAE41F000E9;
-	Tue, 30 Jun 2026 01:35:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782783310;
-	bh=12j53gvMJyOaX0V5JZCBDMk3LGj8WO9jA9//rf36Xmg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=c0rr53H5fje0BQ6INZ5O5nW/pF+sSlSWwLeVtHtIe21E908KQREIjq/V3pXROSHNk
-	 qYIvGdGxw0zA4Xh1DJ1/xMQk4AkyRFODOMAE4k8lHXNZqdE/zJU3fCfcvktaLJPxN3
-	 fWo/r6ohwxEYlmP1Ksw6lgfDlvpecibqzoXAo0Oh+jJZ47NldkOs9stv/gU2w6OKzh
-	 4+Z3lHRCyrFKoBJo6oOnNtcyMw3zv03uhaqOyb+IxRXX3qF1oBrzcFQLyNp28CYxcK
-	 AOhtBwsEDO0bZcdxgIIC6epcFG6kRFMfOae5vE1J0RdfBtq1PKFgm+OSZmgh6Dabix
-	 ehrFJhtH8sBDA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zi-Yu Chen" <zychennvt@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260630012106.3616821-3-zychennvt@gmail.com>
-References: <20260630012106.3616821-1-zychennvt@gmail.com>
- <20260630012106.3616821-3-zychennvt@gmail.com>
-Content-Type: text/plain; charset=utf-8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA9642AA6;
+	Tue, 30 Jun 2026 01:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.138
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782784111; cv=fail; b=IvWgHamUyv936K7zWMbbyg5QAR9ux+bF6YIRkobgMTbwxv/dObh7AxD2WYm/U8dgkdMmkBA7glTbi4shMAYHRWcUv34jzQOsdexGKgGVo6wH6WOe/OS59zt2ubH8QpHGupLrNrX4BLQBxdG6YhaCwH14KQ++SWyat+rhrJIxHDM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782784111; c=relaxed/simple;
+	bh=1i9vhJmoiXiN458GCN4qCWZXw8IPhFsZ2L7FnCbdndI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=SFITD030EwDrHAne2v5lvMJ/BlpxqnNTIjqhnJ4pnJD5jPx8nFCXmRfB/Fcm/r4z9Ih39f29TpeNRmELDMOLw4fjfUsLlRjAP2XLSm3jt1CO/WvfPp4K6rNdULiQOy/RQldqBarahyGBWVp9xdpZqt/I94vIYfJPCpOUqVFr4zs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=asrFfjegy9FYOG13fQWCSjOUsRzr8sygjLjGH1SuPdUDz2Ej5VLr7qDMjSBx1RZBf87M6ytjjZFS0ij+ZFmoDYFlwo5FxY4XtR+tdpURmLDbkU1s4epA3voCKrgyGS66yqWPXLEPrkuJO7gaR2PqjwwMKTKyQWbk3mREk4NJUPjbAx4wbCcVbBJxDz2oBtyfVEJkFNV9lw1icbnv6gm818T/Z34hwovz5Ba31XBs0tHaJ+tTVbYzDRQ1vM9l3MSZDZMjCenyTCgRVr2YSBpPnJsZYA4mxmjfCZcQKMjhGMTO1BB/zqjQwrBupnedlbGFVQ3OZo5/sSpRnPhme1hjfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OyHuYuLqGhUQzsn64XVkUDH30C2p4b5zZo9rojaFqvs=;
+ b=GiBJDeTyfIMkVN0d8Hn//CbhcilP0SN9q5eZDwR8MVnf6Q8uRZ4SD7z2s54ZfBg6DWVw3+LkZ87DZdxCYQ2bkYYS4NdSOrMQnw0wdz/QYnZvab8fhEu1k1ZZJ8R/ws9lixTAPaqJApr6ehcn6JrlVyV5wq+9uRm+KS6pOM0r5f9rg1Mm8s/L6Tw4ZWxn0BESxVAU+ZQkIGiiZYB/EJ9/Lpn3ENbWaQ42gqLACEFsdeq1Q67v5hcPrhOkxrvTnt7rSg/wzI+Xh9rV5Ew9TwWTFfP9dg6dLkIRZeFoNvvkYmYKvVlS+SWLJtaB1sFdxg7LOUFOPC6gJrab93yBZ6+7XA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:7::14) by ZQ2PR01MB1145.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:6::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.23; Tue, 30 Jun
+ 2026 01:15:10 +0000
+Received: from ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
+ ([fe80::4386:5cc4:3bc4:4795]) by
+ ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn ([fe80::4386:5cc4:3bc4:4795%3])
+ with mapi id 15.21.0139.024; Tue, 30 Jun 2026 01:15:10 +0000
+From: Hal Feng <hal.feng@starfivetech.com>
+To: Conor Dooley <conor@kernel.org>
+CC: =?iso-8859-1?Q?Uwe_Kleine-K=F6nig?= <ukleinek@kernel.org>, Philipp Zabel
+	<p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Emil Renner Berthing
+	<emil.renner.berthing@canonical.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v20 1/3] dt-bindings: pwm: opencores: Update compatibles,
+ examples and maintainers
+Thread-Topic: [PATCH v20 1/3] dt-bindings: pwm: opencores: Update compatibles,
+ examples and maintainers
+Thread-Index: AQHdB5GS0UsRnwRSuU6o4dGjBcd/KbZVoM+AgACr1rA=
+Date: Tue, 30 Jun 2026 01:15:09 +0000
+Message-ID:
+ <ZQ2PR01MB130775F6E674F6074A6E2CA9E6F72@ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn>
+References: <20260629063601.63917-1-hal.feng@starfivetech.com>
+ <20260629063601.63917-2-hal.feng@starfivetech.com>
+ <20260629-unedited-tarmac-b6eaaaced8fc@spud>
+In-Reply-To: <20260629-unedited-tarmac-b6eaaaced8fc@spud>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ2PR01MB1307:EE_|ZQ2PR01MB1145:EE_
+x-ms-office365-filtering-correlation-id: fbe9158d-7b2a-41b5-7ceb-08ded6450779
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|3023799007|56012099006|4143699003|38070700021|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ OY7Vft++lAczGFEs4Km8Co9ISFGqS0G1ekatVZAR9qf7L0bjrI3UC0OsGirYaiAgyAvtSXUq1RhGa6thAL3oFvNK+BPOKjbmREs5w+L44QrBt/3JrF+P1kyoT58mi3N8XbdeohLWcB36c5HoGz+WrpbHUXSucrf12s6AZYtgcZNDXv9aIUjcFvcygGlkzWgPC/6aIVeoV8DqBy9QZg7xz/sU9z2sm/B69ntz9p4VXNg/tj8z2oD/fXyLrYSAiVnG6hVD6W8OLNfMFlXfIN1uGpRJuaSjFgAXuOoZT8kpvrR/rBXv7Nm3x1UgSle8VPZqdF8Kz2azjTu9hxqxVwB11gHN7S8P4L3ID2yj2Mv386/oEzLk3dQNVvBKADpCGyr6LS/Ah/n2y44eLoQROty5TOGUnT5Lb6tDzJpSYr6vAxA7PBKNM+lcHRvR9qiyrEa1/7WUEeSdA8WvEj2jF8+KwaY1z3rzKJpvldIi+cvmqoVql2d2KLM4u2eagBrf3lt1tNizGj768eolf9J9AiGrPCNjEs3htvio8vE7HxpX/kkoaNoKpfea+tl7c2+3xFRG
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(3023799007)(56012099006)(4143699003)(38070700021)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?J8miDtnPMSzZDV4W3LZxVYSN4a+92SIxoWLXX06xiFbWoE/T0caQx23+Ts?=
+ =?iso-8859-1?Q?X0fnLlG5XNWV0fVoLgkkjVqzhcPGuEk8PV+EjsBeCNCdk5MfQ149Q+clt4?=
+ =?iso-8859-1?Q?0mXvPLZqIrhWsTBvnw5PH3DcJSsjl2J27JAiFIIzHrROAFDWnwI0UnNxvK?=
+ =?iso-8859-1?Q?aVDI9NwwgUsmxgh9M95j27y/fRznxRUOfqY06wymitXvHCOM/uZeFiBC5V?=
+ =?iso-8859-1?Q?RZtz8Ixh9hsDoiePeTq8DTgntCL8QnvMOP+OHdLGk99BvMb3Z60M03/gW1?=
+ =?iso-8859-1?Q?xsF/w4PvKIFGVc/Eegpajg5bW/IyddWMzvAnZO10T/YIHEpuv+Tqtr58VS?=
+ =?iso-8859-1?Q?MTSwkJkxosF9ild6Asygb7Dot74w5wbmv0iQGa/6QkZar+xO71HlkuGKcQ?=
+ =?iso-8859-1?Q?nJzzP2Keb+iRb+dAwiVGfZdNc2n/FwfAUCjIawFR3i4em/mTiqE2n0u9j8?=
+ =?iso-8859-1?Q?MTTr5R9Ns5fjEqw4NpLdOwZytheqh00VPpwL1CqQX83f3cxuEt9Ec4fXMi?=
+ =?iso-8859-1?Q?QcNzlmt0Z2qxgYsjYZ8LMXcsSyUVMUkW+lUfulD+EqL8WMoyBHElgYdHqZ?=
+ =?iso-8859-1?Q?0BoJp6Y4sXsM1T4PM3FLGLGlxZ5HCOwV35b+ZvoF3KCIlsEINUCAIijkGY?=
+ =?iso-8859-1?Q?M3bMdQw/Rg+Y5j1J2YHxMmACFSLgORORt0had8YXtyemwbtmj00pLqJqS/?=
+ =?iso-8859-1?Q?DnCI6U7ZaMdGdPD8uozJxxehQa87Tm1B1rBUoEX/eR3u544AXqV1IVppOl?=
+ =?iso-8859-1?Q?aIl8ovB1rE61gBRvJ7fq53O1ARxizfjwT8d/boDUsx0w5vB63anGTqW5/c?=
+ =?iso-8859-1?Q?Dbmq1Qek0Iy/dd+om54ounXxWXEm5V1anfxDSoFlBHPt2/CSNYuPgVBes3?=
+ =?iso-8859-1?Q?Zkmg41ngcczJl5AndlEJdsJTF6FHDZXBPPLzl/jrlWrsI9qrr/geasFDfA?=
+ =?iso-8859-1?Q?Y/WxYjlRauYfvfs5iQyFBZPbXUr+MOnEavRWXA+Qi9ameJ5cVJrX4fnAcG?=
+ =?iso-8859-1?Q?Jd1diWwArfCBNuj73d1kSDkPhGYLx9hmlTfyfDC9xwSQEOfOB5Q3pViW3J?=
+ =?iso-8859-1?Q?1jN4pd07+6nNsiQ9JMnGTPZa9z4X4xnM9s7BlTMejGOwbRdd5CtZvz6HRn?=
+ =?iso-8859-1?Q?xmhSmilsyrkD5oMppQznz4XUml5z9k2423h+mGyCRkjv2n4eo5sBoVB9F0?=
+ =?iso-8859-1?Q?pnJDnpJL9sESdPCnctwIa0GVMxTMxaWxCiBCbw7hNa7zfX2fyoE8hRTgVA?=
+ =?iso-8859-1?Q?kxZDK4zmGAWTUZXgdXJvRg5tJFpiG2+ktX6ETLDCVOV+8IGyeS2xWKmk/F?=
+ =?iso-8859-1?Q?EImX+opaWyuJf2anQLGmytireDLpa/KBd3yAI6j9msdnuz8tYK3IvC0g/Y?=
+ =?iso-8859-1?Q?YQokumQfHvhBUvjaZguLIsDRZdhudbG425pgN05cwKnBeRfsrQbGCL+ntZ?=
+ =?iso-8859-1?Q?aWOWKJhAEW8duKUvm+K5B2Q+8Y8fsHzN5CGXYN6TCH/dSYssy1EGTspIZh?=
+ =?iso-8859-1?Q?Vxzjim7iK3m/h6CyGctNl7NeMeLAVB71IPKP3c94XuCxYaHIjHdYG1BKYl?=
+ =?iso-8859-1?Q?Z4Tx+j32WVDIVawMlaGJXvjWph/snBrpNbRVhStQSrjTA1CY8E38VrAjnY?=
+ =?iso-8859-1?Q?aPcReYjN+FfkbtAF6SSFirDTzMsZxltzsgPip1X/iZhrYdmu9qVPG1XzCm?=
+ =?iso-8859-1?Q?NiGBgHc6KCbDwSzUFwVJw0f9IxztwefMZh9fihIVyBP/cfkQn6YUAYmFg6?=
+ =?iso-8859-1?Q?znJ79hA6Dy2vb4MRmlF5HgMsETCPG951ruGM5xUgmSNnZmMuAnCLBkhgbL?=
+ =?iso-8859-1?Q?OyJqO7+GNw=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 01:35:09 +0000
-Message-Id: <20260630013509.EBAE41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbe9158d-7b2a-41b5-7ceb-08ded6450779
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2026 01:15:09.9547
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: NiROHd/orjY+W/kAR+WSgUwS0w9UK4vPSvLHcLd1kCQ2m5LATGmKX3ooCXlN3Fj3T1LbvGuZVpFpJc3Oan0SYx8iJAt5OdcYey36ftZ6NR8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ2PR01MB1145
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] Dangling `i2c->msg` pointer and lack of IRQ synchronization causes=
- Use-After-Free / Memory Corruption on timeout.
-- [High] Incomplete target unregistration and lack of IRQ sync causes NULL =
-pointer dereference panic and bus freeze.
-- [High] Zero-message transfer triggers a START condition followed by a ZER=
-O_SIZE_PTR dereference panic.
-- [Medium] Missing `pm_runtime_mark_last_busy()` breaks PM autosuspend dela=
-y logic.
-- [Medium] Unlocked Read-Modify-Write of `MA35_CTL0` in system suspend path=
- races with the IRQ handler.
-- [Medium] Incorrect handling of `I2C_M_IGNORE_NAK` aborts the transaction =
-while reporting success.
-- [Medium] A malformed or unusually large `clock-frequency` device tree pro=
-perty causes division by zero during probe.
-- [Low] Comment incorrectly describes receiving data as transmitting data.
---
+> On 26.06.29 23:00, Conor Dooley wrote:
+> On Mon, Jun 29, 2026 at 02:35:59PM +0800, Hal Feng wrote:
+> > Remove the jh8100 compatible since the JH8100 SoC has been canceled
+> > and will not be released. Add the jhb100 compatible to replace it.
+> >
+> > Change the register size in examples to 0x10, since an OpenCores PTC
+> > IP has only 4 32-bit registers: CNTR, HRC, LRC and CTRL.
+>=20
+> Actually, please also add a fixes tag to the original commit adding the b=
+inding.
 
-commit 469758a7eb28d07aab76dce6fd3f09b0e77b5e45
-Author: Zi-Yu Chen <zychennvt@gmail.com>
-Subject: i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
+OK. Will add it in the next version. Thanks.
 
-Add I2C support for Nuvoton MA35D1 SoC.
-The controller supports standard, fast and fast-plus modes,
-and provides controller/target functionality.
+Best regards,
+Hal
 
-> diff --git a/drivers/i2c/busses/i2c-ma35d1.c b/drivers/i2c/busses/i2c-ma3=
-5d1.c
-> new file mode 100644
-> index 0000000000000..2044479b608ed
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-ma35d1.c
-[ ... ]
-> @@ -345,13 +345,11 @@ static void ma35d1_i2c_irq_controller_trx(struct ma=
-35d1_i2c *i2c,
->  	case MA35_M_TRAN_ADDR_NACK:
->  	case MA35_M_RECE_ADDR_NACK:
->  		/* Controller Transmit Address NACK */
->  		/* 0x20: SLA+W has been transmitted and NACK has been received */
->  		/* 0x48: SLA+R has been transmitted and NACK has been received */
->  		if (i2c->msg->flags & I2C_M_IGNORE_NAK) {
->  			ma35d1_i2c_stop(i2c, 0);
->  		} else {
-
-[Severity: Medium]
-Does handling I2C_M_IGNORE_NAK by stopping the transfer and returning 0
-correctly implement the ignore flag?
-
-Typically, ignoring a NACK implies treating it as an ACK and continuing to =
-the
-data phase rather than aborting the transaction entirely.
-
->  			dev_dbg(i2c->dev, "\n i2c: ack was not received\n");
->  			ma35d1_i2c_stop(i2c, -ENXIO);
->  		}
->  		break;
-[ ... ]
->  	case MA35_M_RECE_DATA_ACK:
->  	case MA35_M_RECE_DATA_NACK:
->  		/* DATA has been transmitted and ACK has been received */
-
-[Severity: Low]
-Is this comment accurate? Since this is the receive data case, shouldn't it
-state that data has been received instead of transmitted?
-
->  		byte =3D readb(i2c->regs + MA35_DAT);
->  		i2c->msg->buf[i2c->msg_ptr++] =3D byte;
-[ ... ]
-> @@ -415,22 +415,19 @@ static int ma35d1_i2c_doxfer(struct ma35d1_i2c *i2c=
-, struct i2c_msg *msgs,
->  			     int num)
->  {
->  	unsigned long timeout;
->  	unsigned int val;
->  	int ret, err;
-> =20
->  	i2c->msg =3D msgs;
->  	i2c->msg_num =3D num;
->  	i2c->msg_ptr =3D 0;
->  	i2c->msg_idx =3D 0;
->  	i2c->err =3D 0;
-> =20
->  	ma35d1_i2c_enable_irq(i2c);
->  	ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA_SI);
-> =20
->  	timeout =3D wait_event_timeout(i2c->wait, i2c->msg_num =3D=3D 0, HZ * 5=
-);
-
-[Severity: High]
-What happens if ma35d1_i2c_doxfer() is called with num =3D=3D 0 (e.g., via =
-the
-I2C_RDWR ioctl)? The hardware is issued a START condition, but the
-i2c->msg_num =3D=3D 0 condition in wait_event_timeout() evaluates to true
-instantly.
-
-When the hardware START interrupt fires, will ma35d1_i2c_irq_controller_trx=
-()
-then call ma35d1_i2c_set_addr() and dereference a ZERO_SIZE_PTR for i2c->ms=
-g?
-
->  	ma35d1_i2c_disable_irq(i2c);
->  	ret =3D i2c->msg_idx;
-> =20
->  	if (timeout =3D=3D 0) {
->  		dev_dbg(i2c->dev, "xfer timeout\n");
->  		ret =3D -ETIMEDOUT;
->  		goto reset;
->  	}
-
-[Severity: High]
-Does this timeout path leave a dangling pointer in i2c->msg? If
-ma35d1_i2c_disable_irq() runs but an interrupt handler is already executing=
- or
-fires slightly late, the handler will bypass the unlikely(!i2c->msg) check =
-and
-operate on memory that has already been freed by the caller.
-
-Could this cause memory corruption when the handler writes to
-i2c->msg->buf[i2c->msg_ptr++], or a hardware external abort when
-ma35d1_i2c_reset() runs concurrently?
-
-> =20
->  	err =3D readl_poll_timeout(i2c->regs + MA35_CTL0, val,
-[ ... ]
-> @@ -445,15 +442,13 @@ static int ma35d1_i2c_xfer(struct i2c_adapter *adap=
-, struct i2c_msg *msgs,
->  			   int num)
->  {
->  	struct ma35d1_i2c *i2c =3D i2c_get_adapdata(adap);
->  	int ret;
-> =20
->  	ret =3D pm_runtime_resume_and_get(i2c->dev);
->  	if (ret)
->  		return ret;
-> =20
->  	ret =3D ma35d1_i2c_doxfer(i2c, msgs, num);
-> =20
->  	if (i2c->target) {
->  		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI_AA);
->  		ma35d1_i2c_enable_irq(i2c);
->  	}
->  	pm_runtime_put_autosuspend(i2c->dev);
-
-[Severity: Medium]
-Does dropping the PM reference here without calling
-pm_runtime_mark_last_busy() break the autosuspend delay logic?
-
-Since the last busy timestamp isn't updated, won't subsequent transfers
-instantly suspend the controller once the initial 5000ms delay elapses,
-instead of keeping it active?
-
-> =20
->  	return ret;
->  }
-[ ... ]
-> @@ -490,12 +485,11 @@ static int ma35d1_unreg_target(struct i2c_client *t=
-arget)
->  {
->  	struct ma35d1_i2c *i2c =3D i2c_get_adapdata(target->adapter);
->  	int ret;
-> =20
->  	if (!i2c->target)
->  		return -EINVAL;
-> =20
->  	/* Disable I2C interrupt */
->  	ma35d1_i2c_disable_irq(i2c);
-> =20
->  	i2c->target =3D NULL;
-> =20
->  	ret =3D pm_runtime_put_sync(i2c->dev);
-
-[Severity: High]
-Can setting i2c->target to NULL without calling synchronize_irq() lead to a
-NULL pointer dereference in ma35d1_i2c_irq_target_trx() if a concurrent
-target interrupt fires?
-
-Additionally, since ma35d1_i2c_disable_irq() does not clear the hardware
-target address (MA35_ADDR0) or the AA bit in MA35_CTL0, does the I2C
-controller remain active on the bus? Would it continue to ACK its slave
-address without generating interrupts, permanently holding SCL low and
-freezing the bus until PM fully suspends it?
-
->  	if (ret < 0)
->  		dev_err(i2c->dev, "failed to suspend i2c controller");
-> =20
->  	return 0;
->  }
-[ ... ]
-> @@ -529,15 +523,12 @@ static int ma35d1_i2c_suspend(struct device *dev)
->  {
->  	struct ma35d1_i2c *i2c =3D dev_get_drvdata(dev);
->  	unsigned int val;
-> =20
->  	/* Prepare for wake-up from I2C events if target mode is active */
->  	if (i2c->target) {
->  		val =3D readl(i2c->regs + MA35_CTL0);
->  		val |=3D (MA35_CTL_SI | MA35_CTL_AA);
->  		writel(val, i2c->regs + MA35_CTL0);
-
-[Severity: Medium]
-Does this unlocked read-modify-write on MA35_CTL0 race with
-ma35d1_i2c_write_ctl() in the interrupt handler?
-
-Because the device is in target mode, it can still receive transactions and
-generate interrupts concurrently. Can this race corrupt the control register
-state, such as losing the MA35_CTL_SI flag or inadvertently clearing I2CEN?
-
-> =20
->  		/* Setup wake-up control */
->  		writel(0x1, i2c->regs + MA35_WKCTL);
-[ ... ]
-> @@ -642,12 +633,11 @@ static int ma35d1_i2c_probe(struct platform_device =
-*pdev)
->  	/* Default to 100kHz if not specified in DT */
->  	busfreq =3D 100000;
->  	device_property_read_u32(dev, "clock-frequency", &busfreq);
-> =20
->  	/* Calculate divider based on the current peripheral clock rate */
->  	clkdiv =3D DIV_ROUND_CLOSEST(clk_get_rate(i2c->clk), busfreq * 4) - 1;
-
-[Severity: Medium]
-Can this division crash the kernel during boot if the device tree contains a
-malformed clock-frequency?
-
-If busfreq is 0, or if it is an excessively large value that causes
-busfreq * 4 to overflow a 32-bit integer back to 0, does this result in a
-division by zero macro expansion?
-
->  	if (clkdiv < 0 || clkdiv > 0xffff)
->  		return dev_err_probe(dev, -EINVAL, "invalid clkdiv value: %d\n",
->  				     clkdiv);
-> =20
->  	i2c->irq =3D platform_get_irq(pdev, 0);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630012106.3616=
-821-1-zychennvt@gmail.com?part=3D2
+>=20
+> Cheers,
+> Conor.
+>=20
+> >
+> > I will maintain this pwm module in place of William.
+> >
+> > Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
+> > ---
+> >  Documentation/devicetree/bindings/pwm/opencores,pwm.yaml | 6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
+> > b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
+> > index 52a59d245cdb..42c5d2b6326d 100644
+> > --- a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
+> > +++ b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
+> > @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+> >  title: OpenCores PWM controller
+> >
+> >  maintainers:
+> > -  - William Qiu <william.qiu@starfivetech.com>
+> > +  - Hal Feng <hal.feng@starfivetech.com>
+> >
+> >  description:
+> >    The OpenCores PTC ip core contains a PWM controller. When operating
+> > in PWM @@ -23,7 +23,7 @@ properties:
+> >        - enum:
+> >            - starfive,jh7100-pwm
+> >            - starfive,jh7110-pwm
+> > -          - starfive,jh8100-pwm
+> > +          - starfive,jhb100-pwm
+> >        - const: opencores,pwm-v1
+> >
+> >    reg:
+> > @@ -49,7 +49,7 @@ examples:
+> >    - |
+> >      pwm@12490000 {
+> >          compatible =3D "starfive,jh7110-pwm", "opencores,pwm-v1";
+> > -        reg =3D <0x12490000 0x10000>;
+> > +        reg =3D <0x12490000 0x10>;
+> >          clocks =3D <&clkgen 181>;
+> >          resets =3D <&rstgen 109>;
+> >          #pwm-cells =3D <3>;
+> > --
+> > 2.43.2
+> >
