@@ -1,277 +1,124 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BF63E8355
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFA73E9C26
 	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782812823; cv=none; b=PZwb/9q396BUEFC1wrqKKroV+ng+bLdmUTJzPVqjaUNsW0chz8lBdPCM57ec1pMIreIdhFMWkQUT0tIiEri9tpIm1L24N2rFUtjCW6lmIBJGS5gYm4Ev9qwXaK7WjmLgzzH/X5SY/jdoSNWkuzJl2uO0Jb66/2rGGdyUhT579s0=
+	t=1782812824; cv=none; b=SqthzdVCIcgwsUTO6n2lEc4u58eJ7nOmSFVtdMvAfLvd1bfNfWO1HNQ3lw8jfkQB8/A9mqUt1aJo1mZu85LztMZiXw+t10fv+mm/p66Lx2S9Lyey08eMmeA2f1g957SMQ3eSo2XGUUgAx6WXv277F3/KoghrgcnGJ6UyJQPrCXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782812823; c=relaxed/simple;
-	bh=JTR9gEm5UhAF2yG09QL0loA3AKcywA37X87hRt3foz0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lZjdmE23YCiL1Us7qPe33lW1eQI417lbQL5XbwmmWWP4eaXfqKd6FJBFm2rS4zUEhFhJVhq0T6HXbCbFujwF0XvV3bcHk2NIkuM0S4eI/mixTyW3WEwP2y5JvvvUGqFpEI/Gs3IxpbOi94L31zEUsb9KG7v3M0Tkcu6WMOOf9Ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=ipr971vA; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	s=arc-20240116; t=1782812824; c=relaxed/simple;
+	bh=LsjrC7hDGVCOoXjAMQ6g5qbajMV2gM1v+LBhCbwDs8Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S2apfAv4shTDb5+WjW+VsZbUta2WNET8K369AWW7TFyTUbDDCvHrPk4ThHPM+FOBb4QWKFq7v8WErEycUVHyuZulBpY0Oqth4Es942/0ZAbr6gvfTKFGO4rMZLQSvmrTGTlJ3E5JEOqQ0UEwuFapSEtUyFJWS6Pg8tuszc+6Ju4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bmjYG3MT; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="ipr971vA"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2c9b42be8feso24745655ad.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bmjYG3MT"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493b779003fso4910835e9.3
         for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 02:47:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1782812821; x=1783417621; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=MnAOQCSsF2o4VZGP8SMJogyuZsC7iPNVxWIrUn/m6BM=;
-        b=ipr971vAAvD+2iCbyOJCKAFd59lxjY8rj6X/Ue8lmIAk9C+U32B9Xs99xKqp+QxAr/
-         5jY2k9MDtlXDrkH6v9sbQb13nbCqxrsRQpFVdHLu95/eoQnIg9+LSE6GIfqeSlBx1i9m
-         YQk0q9hZp7CyoHr3fK5AVKe3ACQJYThCmol4bJSlHS8mzu4fbrFDL5NRLAAsHPklQovn
-         kZWo6qwlJXButbA3QIJbtLOE1JtyKZPEqLg+Fq0sJ408P1t7DbYNf1SewUwb+GZLcwCl
-         LMLQ54noXLQmjdl2u1o1FaUBNe0YjwdO9dJmqvSgr2l0lyb2C5HygNSka10WkwcyDFAC
-         3YWg==
+        d=gmail.com; s=20251104; t=1782812821; x=1783417621; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4TYHjDbbP6M0n9F6tX9dbKAlLVBmbBYfjjSGS7CObkc=;
+        b=bmjYG3MTVYCeUKt4A33sVUvDJc3AUBvYxV7SQBBk94XnkFLMwIuodq+vC3LGLyJh/K
+         oiw0OrIAVbKXOiTc2UMjGpCZR0kFzD5cffMG5qXum3hP5rmoY2C3PaeYQgnIFJkcDXrW
+         1W2lCi7ZoVxJwN8shSSDefezoiCHcxTvg3X8jURtXZ99g2xzJWVz00/O6FKTmuKg/kUe
+         GAueu2rrjEzsIFc09D26M+hrRPmk4nKMeqFaBVhjQyV5jpEkNECFEkujvZfZz8ThuQdc
+         kdaFFtQUp+v7SNldBSLD8o/c+PC+FoxVowWUu5uTTbsMAjfKAKgFWBDl+23roW5iwF00
+         ujNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1782812821; x=1783417621;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=MnAOQCSsF2o4VZGP8SMJogyuZsC7iPNVxWIrUn/m6BM=;
-        b=CNtSvWcqUBcmTeK9bujJFZ5fD5cYchUHvx8Ci3Bpw7XfMN1p7Vc4dkj3fWQECQQDZL
-         9A8gXqnCOEQGAEU+WApfQsOo/WJMc/9tFUtRSuXxtMRGQCI5dsZHk44Y4zxIXoIjl9Z0
-         bV+qK8NtkqqPBeZopiCjS02n8BSDahfjsMD/aZg0+Umal8EAyu5FWQX18jb7ZIWpPdAh
-         xZtfEmkIzlCE+ebuo+b4xdUGljXwqboLRBTs206/TsURTyJpVhW9g+GMRqnbjfp4Zaj9
-         Sgimgm9N9PRzZ4tO9c6tqYlC0Fpzmo7Vns6jJvnjTzvLa3wip8eGQiAqWG77ZDYM1MUH
-         RnUw==
-X-Forwarded-Encrypted: i=1; AHgh+Rou7sEgFd7Pe3pEPjjTB12jh5SZhqm8gRmKlcveRsUUJplBmNPTIusjWK/s/A0BWBhEcf5qZWiY+s9R@vger.kernel.org
-X-Gm-Message-State: AOJu0YzjlQ72ql+EvZDyVLcvvamCyRbP9QfjIU7S8c1de5CrOjmiJdeO
-	+WVj4fKvIcaiR9IfWnbnHwI2Z4f7no2c5IAXUPj9IYeKbKLppHFWu9HhQt8ttmLfq9pSsdbg6Bc
-	RS2I+ML+0kB+pO1AN8qIpM2tABiVhvF7wYHlRU9VXgDgjlUecqMKd4bvKkBYVALDhToCTwwAx4v
-	LNv+VKFa+rXyvaSx9ZNsiQvwKJczWH6D9/RVKMBZF39xof2EcOpkCPLA==
-X-Gm-Gg: AfdE7cnVXskKCdRanubsVlnJLzW47tRfQSTHEhgMDMZfUQ22bvvg2tZoJWAQP/TLDlQ
-	ndrIgL9DhWuCX0/iqymPDMz+GdGqI3YFJjsJMb8IeXrSMNPLoBqg97xmtyL1CaLuxGHmd0LGUpm
-	igvInLjsoKyk5WAb3OERV3MgssEfF1yvZeVgPS2b/LihGROaPWBpsVIcOQw+TWQOTwNNRLHBGTs
-	dqrfkCdqZpHLWUyGGVdTy8Q7aGM5kGIS9WDnZC467bHjrZtPAYYjbxbDCAzbjLelOI0Uzy2Qtln
-	IxIceZM8i+3pRnLgHsLsy88ignyHZXQdi+gKOS9tJE4r7lh8BzxWH/+yHbf4/Fc3ICEzpVYUwZX
-	TTDT5mxgsH0YjZtTmkCLEy6BUlvgZiTCx/ZJ3GvcVTU173x90CeiKwW0zggyorHDI9TNwgheBQ/
-	QLpokOGDHU8TLVb0ZxWOrRb5QewiyNZQU=
-X-Received: by 2002:a17:902:e950:b0:2c0:eee2:fc40 with SMTP id d9443c01a7336-2ca2d52a0cbmr23236415ad.3.1782812821271;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4TYHjDbbP6M0n9F6tX9dbKAlLVBmbBYfjjSGS7CObkc=;
+        b=U/8+MDVGve4vF8Y434LG6B6pzDQTcJXZyDjd+BIh5/pt2keldP23Afy1RUXM23XgcM
+         +4OMRHEYmtU9Q7djbOoRqlUKMIqw9NPk3Zw9yh/s8fjuIVho1MALYmLt6qnfMuD6q8Ig
+         JEBaHo3eGHkz6eZz43NvTQkq3aLbIn3aaODQ1p+PPU0Mi1wBJ+KwwaOSuSRyNXdJISoE
+         sJ4QAtriqkSpfV6p6D7m9FuLGDjReb0xM6T/H+2It+DF1NmKXMtNdtSvCeJz9+Kdy1NQ
+         0r0e5FG1HX5usPdCKH8QwtHGZY3rgIkIgp0qQAX/KxOflmKjy57PDBxUsv1hHUHoHORb
+         QZUg==
+X-Forwarded-Encrypted: i=1; AFNElJ87cx1advGp8LoOIpkiSMLD1KTgk7OD0KKPbFsAIV6s5mxbLD3XVLRyPPXEoG/qru9WmdsXsSGwg2Qk@vger.kernel.org
+X-Gm-Message-State: AOJu0YzhK8hAQo1wHpYm7E3Ztjd7Z67V0hMoYbqs3eWs5EfaOZFStFHS
+	vCkyuDY0g1u3WZ3sW/+BPJTikIOSC1DT5M0kzogD9c+5LNhRC75aEbJh
+X-Gm-Gg: AfdE7ckKXjklOo8CuQW3u0mtnXPm68L6dhMZWKVQMPnpsM3tENw/0XOwOGTYCyhxRzC
+	CE4vLiKl7oNFZs2I/hI4FYnyvvLNk+oH+uHPHk/UHYOk3cYAh6pRopzQf1kExoEBMY6KJnJ6TDR
+	+Px1g0PgQyHjGXV52MqliKHv8WfVWVvMnj0OSXmUjEXGPyCmlenoO6He1FdA+UcCo7neAAk4YDm
+	jYCadhrbW78p2aKSzb4RY56ax6Lk0iFQGIRm8AqDpHMVc0+wNdOoJhlnOfmlwxfnmCeakJdMmcP
+	wq1c6DenpmCTuJHu5wWcSmqFRlIJ1zsPFwix6JnnNk35FfD5DwEPIXXgCPsn2q6y3AOEFCxGu9O
+	BU1iXujTJ5P7lWI4vSM3/d6w1lvX6nuugHL4R/25ANZohZCuZltkMGxFNSEAxg+nYOGrEMIa+LI
+	gKKqx6Ryx7/IyD43lQE5x92YfYIdFWzznF4LbEwSgIuwPrg60yJQSPH62zC0HXq1cFCvekXwOQo
+	I16L1jf8OWpuCR+L+k0jg18RQ==
+X-Received: by 2002:a05:600c:a086:b0:493:a607:f3b8 with SMTP id 5b1f17b1804b1-493b8146e9bmr42929345e9.0.1782812821044;
         Tue, 30 Jun 2026 02:47:01 -0700 (PDT)
-Received: from EricL-ThinkPadX1-TW.local ([136.226.240.181])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca37c87bb8sm10144675ad.30.2026.06.30.02.46.57
+Received: from Lord-Beerus.station (net-93-144-65-248.cust.dsl.teletu.it. [93.144.65.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4756778f015sm6552725f8f.31.2026.06.30.02.46.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 30 Jun 2026 02:47:00 -0700 (PDT)
-From: Eric Lin <eric.lin@sifive.com>
-Date: Tue, 30 Jun 2026 17:46:26 +0800
-Subject: [PATCH RFC 03/12] rvtrace: Add pre-ratified private data callback
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Subject: [PATCH v1 0/3] Add support for Variscite VAR-SOM-MX8QM and Symphony board
+Date: Tue, 30 Jun 2026 11:46:53 +0200
+Message-ID: <cover.1782812572.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260630-dev-ericl-riscv_trace_support_v3-new_sifive-v3-v1-3-c9c1ffc64e4b@sifive.com>
-References: <20260630-dev-ericl-riscv_trace_support_v3-new_sifive-v3-v1-0-c9c1ffc64e4b@sifive.com>
-In-Reply-To: <20260630-dev-ericl-riscv_trace_support_v3-new_sifive-v3-v1-0-c9c1ffc64e4b@sifive.com>
-To: Mayuresh Chitale <mchitale@gmail.com>, Anup Patel <anup@brainfault.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Samuel Holland <samuel.holland@sifive.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Cc: linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Greentime Hu <greentime.hu@sifive.com>, 
- Eric Lin <dslin1010@gmail.com>, Eric Lin <eric.lin@sifive.com>, 
- Nick Hu <nick.hu@sifive.com>, Vincent Chen <vincent.chen@sifive.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782812801; l=7165;
- i=eric.lin@sifive.com; s=20260630; h=from:subject:message-id;
- bh=JTR9gEm5UhAF2yG09QL0loA3AKcywA37X87hRt3foz0=;
- b=tIbr2LFjXZEnVs8swWuQjZQ2fAxttCaAZlsULyX3YmBYqEw2oL34+Ya3+P/l+3mWuotHnCsQI
- bhlCNQl+RiyCkZUWHdGwLeJTk3dnBDCW/C3Fu9uZVWEgAM/XPS6KuYR
-X-Developer-Key: i=eric.lin@sifive.com; a=ed25519;
- pk=RLPQN6uNJ1cSM8GhP+L++2j3pf5ohznFbkNdwIO1XDw=
+Content-Transfer-Encoding: 8bit
 
-For pre-ratified trace hardware, a trace component might support
-different trace sinks, and its trace sink availability information
-is embedded within the implementation register.
+This patch series adds support for the Variscite VAR-SOM-MX8 QuadMax
+system on module and the Symphony carrier board.
 
-Introduce a get_data() callback function in 'struct rvtrace_driver_data'
-to retrieve the component's supported trace sink features and store
-this information in the component's private data. This allows the driver
-to access the pre-ratified hardware capabilities during setup.
+The series includes:
+- SOM device tree with on-module peripherals
+- Symphony carrier board device tree with board-specific features
 
-Co-developed-by: Nick Hu <nick.hu@sifive.com>
-Signed-off-by: Nick Hu <nick.hu@sifive.com>
-Co-developed-by: Vincent Chen <vincent.chen@sifive.com>
-Signed-off-by: Vincent Chen <vincent.chen@sifive.com>
-Signed-off-by: Eric Lin <eric.lin@sifive.com>
----
- drivers/hwtracing/rvtrace/rvtrace-core.c     |  4 +++-
- drivers/hwtracing/rvtrace/rvtrace-platform.c | 11 ++++++++++-
- drivers/hwtracing/rvtrace/rvtrace-v0.c       | 20 ++++++++++++++++++++
- drivers/hwtracing/rvtrace/rvtrace-v0.h       | 21 +++++++++++++++++++++
- include/linux/rvtrace.h                      |  4 +++-
- 5 files changed, 57 insertions(+), 3 deletions(-)
+The implementation follows the standard SOM + carrier board pattern
+where the SOM dtsi contains only peripherals mounted on the module,
+while carrier-specific interfaces are enabled in the board dts.
 
-diff --git a/drivers/hwtracing/rvtrace/rvtrace-core.c b/drivers/hwtracing/rvtrace/rvtrace-core.c
-index 58454e9ddb4e..51546cbcc6ad 100644
---- a/drivers/hwtracing/rvtrace/rvtrace-core.c
-+++ b/drivers/hwtracing/rvtrace/rvtrace-core.c
-@@ -368,7 +368,8 @@ static void rvtrace_component_release(struct device *dev)
- 
- struct rvtrace_component *rvtrace_register_component(enum rvtrace_component_type type,
- 						     u32 version,
--						     struct rvtrace_platform_data *pdata)
-+						     struct rvtrace_platform_data *pdata,
-+						     void *data)
- {
- 	struct rvtrace_connection *conn;
- 	struct rvtrace_component *comp;
-@@ -413,6 +414,7 @@ struct rvtrace_component *rvtrace_register_component(enum rvtrace_component_type
- 	comp->pdata = pdata;
- 	comp->id.type = type;
- 	comp->id.version = version;
-+	comp->id.data = data;
- 	ret = rvtrace_alloc_type_idx(comp);
- 	if (ret) {
- 		kfree(comp);
-diff --git a/drivers/hwtracing/rvtrace/rvtrace-platform.c b/drivers/hwtracing/rvtrace/rvtrace-platform.c
-index 6cf8e7dae2ad..8d2b03668c2a 100644
---- a/drivers/hwtracing/rvtrace/rvtrace-platform.c
-+++ b/drivers/hwtracing/rvtrace/rvtrace-platform.c
-@@ -122,6 +122,7 @@ static int rvtrace_platform_probe(struct platform_device *pdev)
- 	u32 impl, type, major, minor;
- 	struct device_node *node;
- 	struct resource *res;
-+	void *data = NULL;
- 	int ret;
- 
- 	pdata = devm_kzalloc(dev, sizeof(*pdata), GFP_KERNEL);
-@@ -168,6 +169,11 @@ static int rvtrace_platform_probe(struct platform_device *pdev)
- 	if (driver_data) {
- 		if (driver_data->get_impl)
- 			impl = driver_data->get_impl(pdata);
-+		if (driver_data->get_data) {
-+			data = driver_data->get_data(pdata);
-+			if (IS_ERR(data))
-+				return PTR_ERR(data);
-+		}
- 	} else {
- 		impl = rvtrace_read32(pdata, RVTRACE_COMPONENT_IMPL_OFFSET);
- 	}
-@@ -179,7 +185,8 @@ static int rvtrace_platform_probe(struct platform_device *pdev)
- 	minor = (impl >> RVTRACE_COMPONENT_IMPL_VERMINOR_SHIFT) &
- 		RVTRACE_COMPONENT_IMPL_VERMINOR_MASK;
- 
--	comp = rvtrace_register_component(type, rvtrace_component_mkversion(major, minor), pdata);
-+	comp = rvtrace_register_component(type, rvtrace_component_mkversion(major, minor),
-+					  pdata, data);
- 	if (IS_ERR(comp))
- 		return PTR_ERR(comp);
- 
-@@ -205,10 +212,12 @@ static void rvtrace_platform_remove(struct platform_device *pdev)
- 
- static const struct rvtrace_driver_data rvtrace_v0_encoder_data = {
- 	.get_impl = rvtrace_v0_get_encoder_impl,
-+	.get_data = rvtrace_v0_get_comp_data,
- };
- 
- static const struct rvtrace_driver_data rvtrace_v0_funnel_data = {
- 	.get_impl = rvtrace_v0_get_funnel_impl,
-+	.get_data = rvtrace_v0_get_comp_data,
- };
- 
- static const struct of_device_id rvtrace_platform_match[] = {
-diff --git a/drivers/hwtracing/rvtrace/rvtrace-v0.c b/drivers/hwtracing/rvtrace/rvtrace-v0.c
-index 825de1120c8d..bed35f631390 100644
---- a/drivers/hwtracing/rvtrace/rvtrace-v0.c
-+++ b/drivers/hwtracing/rvtrace/rvtrace-v0.c
-@@ -6,6 +6,26 @@
- #include <linux/rvtrace.h>
- #include "rvtrace-v0.h"
- 
-+void *rvtrace_v0_get_comp_data(struct rvtrace_platform_data *pdata)
-+{
-+	struct rvtrace_v0_comp_features	*data;
-+	u32 impl;
-+
-+	data = devm_kzalloc(pdata->dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return ERR_PTR(-ENOMEM);
-+
-+	impl = rvtrace_read32(pdata, RVTRACE_COMPONENT_IMPL_OFFSET);
-+
-+	data->has_sram_sink = impl & RVTRACE_V0_IMPL_HAS_SRAM_SINK_MASK;
-+	data->has_atb_sink = impl & RVTRACE_V0_IMPL_HAS_ATB_SINK_MASK;
-+	data->has_pib_sink = impl & RVTRACE_V0_IMPL_HAS_PIB_SINK_MASK;
-+	data->has_sba_sink = impl & RVTRACE_V0_IMPL_HAS_SBA_SINK_MASK;
-+	data->has_funnel_sink = impl & RVTRACE_V0_IMPL_HAS_FUNNEL_SINK_MASK;
-+
-+	return data;
-+}
-+
- static u32 rvtrace_v0_get_impl(struct rvtrace_platform_data *pdata, u32 type)
- {
- 	u32 impl, major, minor;
-diff --git a/drivers/hwtracing/rvtrace/rvtrace-v0.h b/drivers/hwtracing/rvtrace/rvtrace-v0.h
-index 511aa6489caa..562d3a77c513 100644
---- a/drivers/hwtracing/rvtrace/rvtrace-v0.h
-+++ b/drivers/hwtracing/rvtrace/rvtrace-v0.h
-@@ -9,8 +9,29 @@
- 
- #include <linux/rvtrace.h>
- 
-+#define RVTRACE_V0_IMPL_HAS_SRAM_SINK_BIT	4
-+#define RVTRACE_V0_IMPL_HAS_ATB_SINK_BIT	5
-+#define RVTRACE_V0_IMPL_HAS_PIB_SINK_BIT	6
-+#define RVTRACE_V0_IMPL_HAS_SBA_SINK_BIT	7
-+#define RVTRACE_V0_IMPL_HAS_FUNNEL_SINK_BIT	8
-+
-+#define RVTRACE_V0_IMPL_HAS_SRAM_SINK_MASK	BIT(RVTRACE_V0_IMPL_HAS_SRAM_SINK_BIT)
-+#define RVTRACE_V0_IMPL_HAS_ATB_SINK_MASK	BIT(RVTRACE_V0_IMPL_HAS_ATB_SINK_BIT)
-+#define RVTRACE_V0_IMPL_HAS_PIB_SINK_MASK	BIT(RVTRACE_V0_IMPL_HAS_PIB_SINK_BIT)
-+#define RVTRACE_V0_IMPL_HAS_SBA_SINK_MASK	BIT(RVTRACE_V0_IMPL_HAS_SBA_SINK_BIT)
-+#define RVTRACE_V0_IMPL_HAS_FUNNEL_SINK_MASK	BIT(RVTRACE_V0_IMPL_HAS_FUNNEL_SINK_BIT)
-+
-+struct rvtrace_v0_comp_features {
-+	bool has_sram_sink;
-+	bool has_atb_sink;
-+	bool has_pib_sink;
-+	bool has_sba_sink;
-+	bool has_funnel_sink;
-+};
-+
- u32 rvtrace_v0_get_encoder_impl(struct rvtrace_platform_data *pdata);
- u32 rvtrace_v0_get_funnel_impl(struct rvtrace_platform_data *pdata);
-+void *rvtrace_v0_get_comp_data(struct rvtrace_platform_data *pdata);
- 
- #endif /* __RVTRACE_V0_H__ */
- 
-diff --git a/include/linux/rvtrace.h b/include/linux/rvtrace.h
-index fdf6115d7f06..9f1afcfd83e6 100644
---- a/include/linux/rvtrace.h
-+++ b/include/linux/rvtrace.h
-@@ -160,6 +160,7 @@ struct rvtrace_platform_data {
-  */
- struct rvtrace_driver_data {
- 	u32 (*get_impl)(struct rvtrace_platform_data *pdata);
-+	void *(*get_data)(struct rvtrace_platform_data *pdata);
- };
- 
- static inline u32 rvtrace_read32(struct rvtrace_platform_data *pdata, u32 offset)
-@@ -263,7 +264,8 @@ struct rvtrace_component *rvtrace_cpu_source(unsigned int cpu);
- 
- struct rvtrace_component *rvtrace_register_component(enum rvtrace_component_type type,
- 						     u32 version,
--						     struct rvtrace_platform_data *pdata);
-+						     struct rvtrace_platform_data *pdata,
-+						     void *data);
- void rvtrace_unregister_component(struct rvtrace_component *comp);
- 
- /**
+Stefano Radaelli (3):
+  dt-bindings: arm: fsl: add Variscite VAR-SOM-MX8 QuadMax Boards
+  arm64: dts: freescale: Add support for Variscite VAR-SOM-MX8 QuadMax
+  arm64: dts: imx8qm-var-som: Add support for Variscite Symphony board
 
+ .../devicetree/bindings/arm/fsl.yaml          |   6 +
+ arch/arm64/boot/dts/freescale/Makefile        |   1 +
+ .../dts/freescale/imx8qm-var-som-symphony.dts | 488 ++++++++++++++++
+ .../boot/dts/freescale/imx8qm-var-som.dtsi    | 529 ++++++++++++++++++
+ 4 files changed, 1024 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi
+
+
+base-commit: 6d1a5ede11552f559ac02b31af03bfaa67f1e91f
 -- 
-2.34.1
+2.47.3
 
