@@ -1,286 +1,148 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C94329B8CF;
-	Tue, 30 Jun 2026 08:45:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F9E3375C3
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 08:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782809111; cv=none; b=MVvzyIsNKV64OXCy3OKB/+1FhSLjpodnc64By5PAUX1ANEQZMvDV2T2EqjMLj2V6vKUREpeplHQ+kR9Nq338bTnEyJjjYrfthy4UOMD5ofHmbPwzU5thdm/amFqeYYoESFT1zpF3CplRv7MCI11s9nX5eqfDz7p+jXnxqiDnvtM=
+	t=1782809641; cv=none; b=BqBZTe7er+XwVjHVdqM+c+Lg7t5dg4hMn65rnoPONjsDnHEDZgTZ8xiQenRU42k6kcBwF+j3gmbcFHn4dbapuP4BoHQ4DFE27BDKtM3mOJKkiOP2Xy5HPnzOhqPC78F4jeHJvzI0ebseh9Q47IP9OK37SbbRvz+4hP7+rVsBrjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782809111; c=relaxed/simple;
-	bh=o6V0/Gm1C7vsfXfc+2vmXbee1ev3q1F7VMKGaR+ytfc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MR5ZJvOtGd0ysM6mmPuKKEe1ZpDaflLRX51gQa7ZBzJsF1vL/TFMfSNtS7TweJkymtBq7ZUGrep+1hfT1bizsq0dh5UAX68HXccpiNQPVIqWmmwsgdYtT29WuXM2dSuTnHq/1D/FKWUPA0S1ZCuMZdMUNR9BvUUtN5PQXp0m2GE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=fail smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id CEB042006B4;
-	Tue, 30 Jun 2026 10:45:06 +0200 (CEST)
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1weU5a-005Ns1-2Q;
-	Tue, 30 Jun 2026 10:45:06 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1weU5a-000000004al-2ntK;
-	Tue, 30 Jun 2026 10:45:06 +0200
-Message-ID: <d2a9a7b75795650728e7467c4904bfdabd00b0c8.camel@pengutronix.de>
-Subject: Re: [PATCH RFC v5 11/12] reset: zte: Add a zx297520v3 reset driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Stefan =?ISO-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>,  Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob
- Herring <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Brian Masney	 <bmasney@redhat.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Date: Tue, 30 Jun 2026 10:45:06 +0200
-In-Reply-To: <20260628-zx29clk-v5-11-79ff044e4192@gmail.com>
-References: <20260628-zx29clk-v5-0-79ff044e4192@gmail.com>
-	 <20260628-zx29clk-v5-11-79ff044e4192@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1782809641; c=relaxed/simple;
+	bh=jSqCbiw8rPhSQgPSsHd7R6eVF88l2Y8pZ2SQ4YaLbnM=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=qYjnCBtaRXJLyx/JCGwadOrPYm0DTWcO8viZDknXJV/uX9HFmz9e8Fi3gHGgPkX13usvBdGRXXZOyAEKKsDJJn//0DHQjimCv27rw5s9BO0fzKMoZB+8uR+BmFjhs37n7fzK9DiDZ89tJheVQfCwrfrZW/8nY2bqmoxZfUBWklU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cHvE+qhx; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cHvE+qhx"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493b966dd74so3002175e9.3
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 01:54:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782809639; x=1783414439; darn=vger.kernel.org;
+        h=to:references:message-id:cc:date:in-reply-to:from:subject
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=3p5N3pSY7f2AmTP0/oS5IDt21osoKJvAm5wj7AjOhYY=;
+        b=cHvE+qhxJvEN7A3RmEoEz/b0SL/0uv6pB142b62xnXECyfIl4OHuJvwCfrMPEnPZhd
+         LR8la3lIZEy7inW2OaOJlWhAPaV0/FAPitBHR0zuwzjlwIiVTKAYtJpXPLOFIo559Qh6
+         9zS2MudCthN+4vb6F0wNwsZ0tBXjS7Jn0MRzaLnJ6+Lz2R5KStJQHNV11HAdOLmHoeJ9
+         7KpCIfBQIV4vOmjVerXkn/G9OnxG10txMIa4SmpT3jk2jbGqVyO9j1Cz3BhKN5wXh2rq
+         oo9Cm7j9EUcQeRFBLG+28u6/KdAV56Fh/wl3pneLc286AjaKmP0pK/OkRBhiZzk6gI6l
+         50tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782809639; x=1783414439;
+        h=to:references:message-id:cc:date:in-reply-to:from:subject
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3p5N3pSY7f2AmTP0/oS5IDt21osoKJvAm5wj7AjOhYY=;
+        b=j9Q43RMY7cFhl22jPQAHU2u0FyycGhdXBKW9iVju1W4EPCXFcHTZx/tVKc5mMkwJsO
+         cGN6oKgJNZ8YqUxp+3NkYx2k/VBAUBMaOK6fToyHX6619zuYOuKCF2/Juydn+MyA2Fs4
+         eVySKW+Po6QBua1+4HskYleOGXU93c+PAfSr8FwmniWqvwY44UsqZbmwOUJ8qqJtd8Io
+         dd2fOCZbTM6PqHJdkoYL++8/9OW0Nj6RPiKTkwYddMtD6MaMOxKU5uX/2e6gofCUeN0w
+         /5PlTub1Mf26BcEdW1fxYAa7OY+ynCStUr5WSiQ70c673jTXRuUiewmk64FuPLPl9eHX
+         o3CA==
+X-Forwarded-Encrypted: i=1; AFNElJ9whSJ0ZGMlwYuD49JKrpiNknpd+oLxFDK0B0l4NkbzdyH0fH/aYTEowQxzgh+Z0s/vUcmycOIdNbpz@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywc4ztYqI4E+61Km+hB4vfSeE147RTSlDpZP5+gS6D4BiuWkq4v
+	6Ru+JjR+sFwe+YNyirxOwcVgdvmNYZtaCntVXLzE8j3bATHZdvjbcl82
+X-Gm-Gg: AfdE7cnEF8yQJ6L1jfj70cChdOk9mjqnGpbrMqbL/7pfHCsYZn9Kd8PZezffCHK7FHN
+	JYW+0eap116D8F/Bo5VBEIebY7B9Jo1ZhFTl0ZsQVpQz8nA8GimhmgArCaPM4ajLKqzaOAyi7pz
+	9KejRXbodT3NP2StEag6voY0y33AeXhHigAmwHalytDI0E0qWTTEmMBEj9DqRh5js3yEbYUWGnx
+	dvsj1uSwYSS4DkR1G/ZoBoeEKVYMTrIVwxr5oxi8I5aZOcfMFXkrvffUBWrkQKl8Xl7wSwsPrqM
+	nRvZARsnfxXPeJZ4o1o8ydvyk3NkeHEL1ZbLdZT7S1rk1/4oFjQXQLztmfqeUcQI0R8BgJD58pN
+	cbmoUbpXfZ1e0JDgEs+lY91PWyniTIG0ZpS+FDtbYQYqlakhqDlaPpw8s2yiu3KrTYAvIOi0Q6N
+	9NV3iR7Y46OiWmQ5+SbsyMYRwLvuIJXGLvgSl0jOAte+fVHPuww6S7
+X-Received: by 2002:a05:600c:c11a:b0:492:3da4:81ef with SMTP id 5b1f17b1804b1-493b82b0e50mr36934455e9.18.1782809638753;
+        Tue, 30 Jun 2026 01:53:58 -0700 (PDT)
+Received: from smtpclient.apple ([197.250.51.120])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493bc7aca88sm46787785e9.0.2026.06.30.01.53.55
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 30 Jun 2026 01:53:57 -0700 (PDT)
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_E2D32867-FDC8-4398-8E1A-361442408B27";
+	protocol="application/pgp-signature";
+	micalg=pgp-sha256
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH RFC v5 05/12] clk: zte: Add Clock registration
+ infrastructure.
+From: =?utf-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+In-Reply-To: <c59fab242716c80250a66707d7ccaaf243a85aac.camel@pengutronix.de>
+Date: Tue, 30 Jun 2026 11:53:41 +0300
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Brian Masney <bmasney@redhat.com>,
+ linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Message-Id: <84C4450E-7355-48CD-BCBB-CF619C27EBED@gmail.com>
+References: <20260628-zx29clk-v5-0-79ff044e4192@gmail.com>
+ <20260628-zx29clk-v5-5-79ff044e4192@gmail.com>
+ <c59fab242716c80250a66707d7ccaaf243a85aac.camel@pengutronix.de>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
 
-On So, 2026-06-28 at 22:59 +0300, Stefan D=C3=B6singer wrote:
-> This drives the MFD child devices created by the zx297520v3-crm driver
-> as well as the aux device created by the zx297520v3-lspclk driver.
+
+--Apple-Mail=_E2D32867-FDC8-4398-8E1A-361442408B27
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
+
+Hi Philipp,
+
+> Am 30.06.2026 um 11:27 schrieb Philipp Zabel <p.zabel@pengutronix.de>:
 >=20
-> Signed-off-by: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
->=20
-> ---
->=20
-> v5:
-> Make top and matrix MFD children instead of aux devices
+> I think the MFD driver is unnecessary overhead. Can't you just keep =
+the
+> reset controllers as auxdev and use of_platform_populate() to create
+> devices for clock-controller child nodes such as syscon-reboot?
 
-Why? What is the difference between top/matrix and lsp here?
+MFD for top and matrix was the suggestion of Conor:
 
-Couldn't you just keep all three as aux devices and remove the
-platform_device boilerplate half of the driver?
+=
+https://lore.kernel.org/linux-arm-kernel/20260618-fantasy-estimate-6c52edb=
+c6890@spud/
+
+To quote:
+
+> I think aux bus makes perfect sense when you have a clock/reset
+> controller, but once you start expanding past that and you have reboot
+> or hwmon or hwspinlock then mfd starts to make sense.
+
+I can go either way. To me aux vs mfd seems like a distinction without a =
+difference.
 
 
-[...]
-> diff --git a/drivers/reset/reset-zte-zx297520v3.c b/drivers/reset/reset-z=
-te-zx297520v3.c
-> new file mode 100644
-> index 000000000000..8ef434904230
-> --- /dev/null
-> +++ b/drivers/reset/reset-zte-zx297520v3.c
-> @@ -0,0 +1,274 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 Stefan D=C3=B6singer
-> + */
-> +#include <dt-bindings/reset/zte,zx297520v3-reset.h>
-> +#include <linux/reset-controller.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/auxiliary_bus.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/regmap.h>
-> +#include <linux/iopoll.h>
+--Apple-Mail=_E2D32867-FDC8-4398-8E1A-361442408B27
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP
 
-Looks like this is not needed anymore.
+-----BEGIN PGP SIGNATURE-----
 
-> +/* Most devices on the zx297520v3 SoC have one reset bit per clock line.=
- As a rule of thumb, the
-> + * lower bit disconnects the device from the bus, similarly to turning o=
-ff PCLK - registers read 0
-> + * or hang indefinitely. Unlike PCLK, this reset may have a lingering ef=
-fect after deasserting.
-> + * E.g. timers will be disabled, but retain their counter value.
-> + *
-> + * The other bit resets the actual device registers.
-> + *
-> + * For some devices, e.g. GMAC, the reset bits behave in the same way: T=
-hey disconnect the device
-> + * and registers will have their default state after deasserting. For de=
-vices that have both reset
-> + * bits, both need to be deasserted for the device to function.
-> + */
-> +struct zte_reset_reg {
-> +	u32 mask;
-> +	u16 reg;
-> +};
-> +
-> +struct zte_reset_info {
-> +	const struct zte_reset_reg *resets;
-> +	unsigned int num;
-> +};
-> +
-> +struct zte_reset {
-> +	struct reset_controller_dev rcdev;
-> +	struct regmap *map;
-> +	const struct zte_reset_reg *resets;
-> +};
-> +
-> +static inline struct zte_reset *to_zte_reset(struct reset_controller_dev=
- *rcdev)
-> +{
-> +	return container_of(rcdev, struct zte_reset, rcdev);
-> +}
-> +
-> +static int zx29_rst_assert(struct reset_controller_dev *rcdev, unsigned =
-long id)
-> +{
-> +	struct zte_reset *rst =3D to_zte_reset(rcdev);
-> +
-> +	return regmap_clear_bits(rst->map, rst->resets[id].reg, rst->resets[id]=
-.mask);
-> +}
-> +
-> +static int zx29_rst_deassert(struct reset_controller_dev *rcdev, unsigne=
-d long id)
-> +{
-> +	struct zte_reset *rst =3D to_zte_reset(rcdev);
-> +
-> +	return regmap_set_bits(rst->map, rst->resets[id].reg, rst->resets[id].m=
-ask);
-> +}
-> +
-> +static int zx29_rst_status(struct reset_controller_dev *rcdev, unsigned =
-long id)
-> +{
-> +	struct zte_reset *rst =3D to_zte_reset(rcdev);
-> +	int res;
-> +
-> +	res =3D regmap_test_bits(rst->map, rst->resets[id].reg, rst->resets[id]=
-.mask);
+iQIzBAEBCAAdFiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmpDhBUACgkQPRO8yFRP
+GiLDTA//XuiFvq2hvcqMHFcgqCiOzfN6Ejynlaa1U0fpgCupiwkoTk7x7V2F9fNC
+GDJKF2tdhcs7CpooAxYbSMwhLT4UlSuCWBz+Op6qj4ANOJi0L/kMelslIMoZG5qc
+XgAKSrho7pZxbYl1BPd6iNZn7fU6ejh9B346spNmR6Kjk8o+7giGQS527j2Qlnfr
+Lgk0fnGiCcg5uKdkynAcTArHAJN7Pt9TjBHQ3SxjC424lnbUqeAHZ3MVb+nMbM0L
+vbSSXmozV0xj2RPFVor0EUYhXWT8jsF1t6TfZCycP/DWL4oVMa8nzBtYRM1E6D7M
+Sz+Yc59noQ0NgNeCzoTDR7iBR/QkZdsq8WB6Q5cO8TMVcDxXUOTIU0cyVoFLimjG
+y8cNXWjGqhYXYbAT/7W/Y/MlTT2Ss20ssTNTTP3WYoORsMjVrBUtAiyI7FXpaZIC
+7u272rGUcIf/EyhIBuIOtukt1F+YwWytOoPqDXzfvUX3OyU/VdzlV63Ee30HlnOT
+JNjndlqVVL4aX7BgJIBKkP4gEd815JCX6I44nlSbLWs9375U1uwYmkWgqhKFLx/S
+gm0fMw/AxcXSP+XbtrCnbIMSeWSWtlW9y+itnxhISdD9rgx00WhjxnoX99ywfat9
+ugTXugS0oIxmoGGxLvMBTUdKcXQjk0V/smaau8JmSbdZujZ0lr8=
+=DWLi
+-----END PGP SIGNATURE-----
 
-The correct thing to do here would be to only check the reset bit.
-
-This happens to work anyway because we always set reset and isolation
-bits together, but maybe this warrants a comment.
-
-I assume the registers just read back the value that was set.
-
-> +	if (res < 0)
-> +		return res;
-> +
-> +	return !res;
-> +}
-> +
-[...]
-> +static int reset_zx297520v3_common_probe(struct device *dev,
-> +					 struct device_node *of_node,
-> +					 const struct zte_reset_info *drv_info)
-> +{
-> +	struct zte_reset *rst;
-> +
-> +	rst =3D devm_kzalloc(dev, sizeof(*rst), GFP_KERNEL);
-> +	if (!rst)
-> +		return -ENOMEM;
-> +
-> +	rst->resets =3D drv_info->resets;
-> +	rst->rcdev.owner =3D THIS_MODULE;
-> +	rst->rcdev.nr_resets =3D drv_info->num;
-> +	rst->rcdev.ops =3D &zx29_rst_ops;
-> +	rst->rcdev.of_node =3D of_node;
-> +	rst->rcdev.dev =3D dev;
-> +
-> +	rst->map =3D device_node_to_regmap(of_node);
-> +	if (IS_ERR(rst->map))
-> +		return dev_err_probe(dev, PTR_ERR(rst->map), "Cannot get parent syscon=
- regmap\n");
-> +
-> +	return devm_reset_controller_register(dev, &rst->rcdev);
-> +
-
-Unnecessary blank line.
-
-> +}
-> +
-> +static int reset_zx297520v3_aux_probe(struct auxiliary_device *adev,
-> +				      const struct auxiliary_device_id *id)
-> +{
-> +	return reset_zx297520v3_common_probe(&adev->dev, adev->dev.of_node,
-> +					     (const struct zte_reset_info *)id->driver_data);
-> +}
-> +
-> +static int reset_zx297520v3_top_probe(struct platform_device *pdev)
-> +{
-> +	return reset_zx297520v3_common_probe(&pdev->dev, pdev->dev.parent->of_n=
-ode,
-> +					     &zx297520v3_top_info);
-> +}
-> +
-> +static struct platform_driver reset_zx297520v3_top =3D {
-> +	.probe =3D reset_zx297520v3_top_probe,
-> +	.driver =3D {
-> +		.name =3D "zx297520v3-toprst",
-> +	},
-> +};
-> +
-> +static int reset_zx297520v3_matrix_probe(struct platform_device *pdev)
-> +{
-> +	return reset_zx297520v3_common_probe(&pdev->dev, pdev->dev.parent->of_n=
-ode,
-> +					     &zx297520v3_matrix_info);
-> +}
-> +
-> +static struct platform_driver reset_zx297520v3_matrix =3D {
-> +	.probe =3D reset_zx297520v3_matrix_probe,
-> +	.driver =3D {
-> +		.name =3D "zx297520v3-matrixrst",
-> +	},
-> +};
-> +
-> +static const struct auxiliary_device_id reset_zx297520v3_ids[] =3D {
-> +	{
-> +		.name =3D "clk_zte.zx297520v3_lsprst",
-> +		.driver_data =3D (kernel_ulong_t)&zx297520v3_lsp_info,
-> +	},
-> +	{ },
-> +};
-> +MODULE_DEVICE_TABLE(auxiliary, reset_zx297520v3_ids);
-> +
-> +static struct auxiliary_driver reset_zx297520v3_auxdrv =3D {
-> +	.name =3D "zx297520v3_lsp_reset",
-> +	.id_table =3D reset_zx297520v3_ids,
-> +	.probe =3D reset_zx297520v3_aux_probe,
-> +};
-> +
-> +static struct platform_driver * const reset_zx297520v3_mfddrv[] =3D {
-> +	&reset_zx297520v3_top,
-> +	&reset_zx297520v3_matrix,
-> +};
-> +
-> +static int __init reset_zx297520v3_init(void)
-> +{
-> +	int res;
-> +
-> +	res =3D auxiliary_driver_register(&reset_zx297520v3_auxdrv);
-> +	if (res)
-> +		return res;
-> +
-> +	res =3D platform_register_drivers(reset_zx297520v3_mfddrv,
-> +					ARRAY_SIZE(reset_zx297520v3_mfddrv));
-> +	if (res)
-> +		auxiliary_driver_unregister(&reset_zx297520v3_auxdrv);
-> +
-> +	return res;
-> +}
-> +
-> +static void __exit reset_zx297520v3_exit(void)
-> +{
-> +	platform_unregister_drivers(reset_zx297520v3_mfddrv,
-> +				    ARRAY_SIZE(reset_zx297520v3_mfddrv));
-> +	auxiliary_driver_unregister(&reset_zx297520v3_auxdrv);
-> +}
-> +
-> +module_init(reset_zx297520v3_init);
-> +module_exit(reset_zx297520v3_exit);
-
-That's too much boilerplate given I don't understand the benefit of
-using platform_device for top/matrix resets yet.
-
-regards
-Philipp
+--Apple-Mail=_E2D32867-FDC8-4398-8E1A-361442408B27--
