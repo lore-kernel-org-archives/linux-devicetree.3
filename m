@@ -1,185 +1,247 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F308A3E8695
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:10:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 00C143E168F;
+	Tue, 30 Jun 2026 09:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782810603; cv=none; b=eJBm2ZN20tenwewSl9Yc/xlEWcDLZxHE5LvxNSHY8ppX12uz8S3pbqtETdkw229UnqoSveEseXeTx+fljDlxg7bem+IrOuuPnpFRfSsbaUjgmuYmVd5/8zthw0NlmWRagqBDOnyWdYGFfNOaI29ceC3xVxqWVasJjux0lM401Bk=
+	t=1782810653; cv=none; b=PbkEwxZ7WzIeONhV/7Jo0pnAGU7xqNGCNW8HfqjJKrB1Khxt6Ll3VNt9VqzhGWCY2kOO07SBhoKTUyITMZw3qXXRmw8532OSOK70hGCLhTuXy9YaI4G+3o5MyXOKaH20KQkFef2hsij2phnGcfAYXRdyRDJBLmYhIUj5Yh5iThI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782810603; c=relaxed/simple;
-	bh=ptOVKjkZwQrCkAzXCeGoGqQIndI7yCJPdxRUgantAbw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oqPJgC3R4NZjbZl/GqFvY29yMcCkzToVRsQvsVej8wVCMYP+IFoREyqSzlkg4I3g+qBZsZjGIgHrtLoR++pgus7Zmw7yEUuZ2I1XtikyBcgM7mKA+EaE11iYF28FmX1riKiiWCxfnDvsysOjK6A0EdAuWp1j4w63r4RnP/ngSkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cGDZAUsT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FvepGzCI; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cGDZAUsT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FvepGzCI"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U6CMe11088682
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:10:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KkFq0X6wqxVvjJjzcRaiua/SKPg3yw+BNzWanfKbdtY=; b=cGDZAUsT3321ar0Q
-	uIQFG4OLlUrBeZEamVCCDLodlgM15gM6zvaxGyFFi/3AsaNK4jlmGayPocuhyX3X
-	MEkBKu0NbZqY1RnLAKPRPc0DNSrphwYe8n4NYzUUtRRflsW6/2XN5zEgEECAjO3l
-	9klmoiitBGvgqPY+lSlecpwztSiCYz/RAxlSzKlfgARJLOqdWtVEC9+sBoWXiN9D
-	rVt725k0BNLLTQ8dA7B6tjgetPrsD6C/Uw64+78PaWnlCeKOOtH/SiYTZBeVuI0j
-	XhV3XK1ZbPoYb/1EuZniWCb/JNu5YXWBpEXJTbwcjQHip4vEENAhqUo7eHv3iJm6
-	fuEz0A==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f462fhb86-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:10:00 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e6b97afe7so3563985a.2
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 02:10:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782810599; x=1783415399; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KkFq0X6wqxVvjJjzcRaiua/SKPg3yw+BNzWanfKbdtY=;
-        b=FvepGzCIjL+5t7EA4AfGfToMjR/RI4dYDsqj8co/eY4cL0QOm5RgrB3QbyU+ejHRZf
-         HViD9ECWHdkgO+4GgIQXaQV68jX+m+a/a+77DMIAUo9JvP7FNsenFx030u324zpwwvVh
-         7W2ivhFPBDzwXjd07KGaGi6jb3GmcTNgptgW6vJ7ER5531q9TuEr9BMncIoVp9qNKUS+
-         MQTs67d0fURr+aWo486fC74ZweX6KdnkCckQ7giVj2UqrX3qljbdnH4QRsbaGVU9vNTl
-         KnQrscYJh+IzAJsruxxge7okPY2F7PLBe2tpwzRSrZX4DTWG7nwyj1C2G3cFEMET8ZGm
-         t73w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782810599; x=1783415399;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KkFq0X6wqxVvjJjzcRaiua/SKPg3yw+BNzWanfKbdtY=;
-        b=MP0TRdevcyMcXROxtQtW5vHuut0bApqxj9FPGd/8O9qzzSAQvEPGLzM5lqTS7bH7Yz
-         YbzeLNScHaaROqVQgND2z8aTlt/DEjg1m8alVX3dYIL2QlegJ+bHSdr3+7NJc2P95vUl
-         w7z3VuEPvB2wuUBEukqXbdLBmKFqNVRQJqg9wBut8EVP57oCA0lQzJCsoRRFN7XgqnGs
-         6xQW/5hOVM8AVSbV/0xbK9rj2shPKLjyOTq6b2iv6SJhHBPK3p3R/8JWdVABahoft8Ck
-         lAbrOWSLURj9XTZaAKRMfHMsftLqwsW9yiQxBnTB6/FMCZW0gvT/2XAF3Oj+svSMyKuO
-         eD8w==
-X-Forwarded-Encrypted: i=1; AFNElJ8ldJqToOuF4Z20DbUwLBvlLx0G161NDvONwiY9NP0ohpwCeSdB+GzK6DbdQAueq4aNHaRcY1bBKmht@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzbxi4DLZpFSL3QFYRh5BZSyV14wSHWlNOPnXoIEPCIrzARAjYG
-	O8vSvYkzmnvAzpzHTG1ZLZ2ZanbTOwsvelenkabwjp7kqOxksByOkDhfNsqFujFjBSLpBc2qY4B
-	7VsYeMi3Yc1hhJAntiFIPdup2xOmcPzjUK6wiJbVefvmOS9sZ9kRmZW7tIposNdr8
-X-Gm-Gg: AfdE7cnHdXvQS5xlPebO5G8IOQKJeQlx0ploVIcEPu5s+C7VhQI9u5mQK48d8SBFFvx
-	zdN/zXxqMY6u2unKCmwC6pplg5ikt3w3QZfbXhDIK11etVJvDFNCRR9UYiGIghCw8zglAw9Zpxn
-	1B99hSmF/6VtcNjRaN8sAl/LEWqAWhQcboxpJen0OPXiLilOJAZmAI8vS2dTz03NpBVqEoLzrsP
-	wFjEkNpxUAQ5jxh/T/ko2WDn+Bfz8eyHXgEsM4o3etdPMyqRT7AMrEg2o+q46IazbCI9K6EjNBa
-	Di0MEjtyYJ9/QLACcJ35nP41AocjHeYOaH6h1JS4QByDevkpXqiDUenB/m+BMWlw1PQv9scewGT
-	OF9lhadngAoNUFTPO0YROqGos2aW1q3uQOPw=
-X-Received: by 2002:ac8:7e8e:0:b0:51c:d8f:d77a with SMTP id d75a77b69052e-51c1070ea79mr24049571cf.1.1782810599002;
-        Tue, 30 Jun 2026 02:09:59 -0700 (PDT)
-X-Received: by 2002:ac8:7e8e:0:b0:51c:d8f:d77a with SMTP id d75a77b69052e-51c1070ea79mr24049421cf.1.1782810598476;
-        Tue, 30 Jun 2026 02:09:58 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1288d6b059sm89407566b.21.2026.06.30.02.09.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jun 2026 02:09:57 -0700 (PDT)
-Message-ID: <7c29b53d-54e0-4667-b775-02e3c01ead3a@oss.qualcomm.com>
-Date: Tue, 30 Jun 2026 11:09:54 +0200
+	s=arc-20240116; t=1782810653; c=relaxed/simple;
+	bh=6GsS91VDm5XJTxBx9/v0Ih9NThZHJONJTviT5aFAdC0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qxqzu/2jBKVwfqQb+m8cZk3d80NQWrIemKZZAWyiYtUL548pT6BHwPoI8PLCkIi4bfHenqJmsAZ5SgGlbSCQAlkGBHiyySnZLWchPd/AaLZVrGeouQnfJg7dDecNdnTGUe+gyNcZMrQRWnhhXILA28I+cw0UzdYgrO3Lbs1ytiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
+	by app2 (Coremail) with SMTP id TQJkCgAXLaAQiENqkyUwAA--.30595S2;
+	Tue, 30 Jun 2026 17:10:41 +0800 (CST)
+From: dongxuyang@eswincomputing.com
+To: linux@roeck-us.net,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	luyulin@eswincomputing.com,
+	dongxuyang@eswincomputing.com
+Subject: [PATCH v9 0/2] Add driver support for ESWIN EIC7700 PVT controller
+Date: Tue, 30 Jun 2026 17:10:40 +0800
+Message-Id: <20260630091040.1407-1-dongxuyang@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: monaco-arduino-monza: microcontroller
- LEDs
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>, Lee Jones <lee@kernel.org>,
-        Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260629-monza-leds-v1-0-0cf7c0a7dc14@oss.qualcomm.com>
- <20260629-monza-leds-v1-3-0cf7c0a7dc14@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260629-monza-leds-v1-3-0cf7c0a7dc14@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA4MCBTYWx0ZWRfXyh1kgMtDsn5c
- y6sceqk0bYtQf1m8pEvp0vBNvP42RrNJYUuEMeSsBcyV1xY+wvAM0olVhbw/YEnikRmmwxN03bp
- hsoB2FPWhECr6Fto11UAIlE3VizqyKg/rdTIma3KwH2+qxbNSgSmeE1SV4jKjWq2xV6E9rvHkco
- BQiTKYn2zMjKjwBanVIO7lnQTUXh2gHbdMIDaIpWhzIDj7oDhbM7/JmDuUpz25Lg7MiNb0ReXHD
- euD2R0cGxxeIbqL2OECz6LWd9CJTw7D8KLAUXxdw3lBm94YHBf1M4hJV5HCWPv/FA4EibgwIZy5
- MvywbciKao9KsaSmkdmph7cDLgfEYsNJ19mK+k6eDIZ1+Yri4V6PAnXJzz8TRcaNj2oPC1LprLy
- J5rlclVtDHj5u2p9UZrRQgt9JJXJ0mwPdfdE7p0cJIwl89MIsrlOI9TyK4ORu+9uRCj/M34YTmd
- QM9ISStRmYDVthy2P0g==
-X-Proofpoint-ORIG-GUID: IyPVgqs7MZiu2gU8WhhjMMoDnnAhTm1f
-X-Authority-Analysis: v=2.4 cv=JqbBas4C c=1 sm=1 tr=0 ts=6a4387e8 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=mmkDOsKAXys1VAjLnNcA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: IyPVgqs7MZiu2gU8WhhjMMoDnnAhTm1f
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA4MCBTYWx0ZWRfX57neP9qamJAN
- DO9CEIGovWVFWaiF8DSA7RSkrXkJfbMmfUs/shTPPwHyJUsB6PcROnUvRQ0qLxQPfk/PKeNWbKH
- j1feamMpB+TSJ46c2hNyefo/c+/beX0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-30_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 bulkscore=0 adultscore=0 impostorscore=0
- suspectscore=0 phishscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300080
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TQJkCgAXLaAQiENqkyUwAA--.30595S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Jw1DKF1rWrW3urWUKFWktFb_yoWfGF1rpF
+	W8KryYkw4DXrWSq3yDt3W09F1ftan3JFWayr4xWw18Zw15t34j9FWfKF1Y9FyDArn3X3Zx
+	ta4Yqr47Aa4qyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBv14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04
+	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
+	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUXJ5wUUUUU=
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
-On 6/29/26 9:52 PM, Loic Poulain wrote:
-> Onboard MCU/STM32 implements a led controller compatible with PCA9635.
-> There are four RGB LEDs controlled via channels 0-2, 3-5, 6-8 and 9-11.
-> ---
->  arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts | 110 ++++++++++++++++++++++
->  1 file changed, 110 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-> index 379b796f261f4c8f6b7712c5d340b20be1b9217c..71685e54a3781c9b03fc41cacecfea77650a7182 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-> +++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-> @@ -7,6 +7,7 @@
->  
->  #include <dt-bindings/gpio/gpio.h>
->  #include <dt-bindings/input/input.h>
-> +#include <dt-bindings/leds/common.h>
->  #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
->  
->  #include "monaco.dtsi"
-> @@ -156,6 +157,115 @@ vreg_nvme: regulator-3p3-m2 {
->  	};
->  };
->  
-> +&cci1 {
-> +	status = "okay";
-> +};
-> +
-> +&cci1_i2c1 {
-> +	leds_controller: leds-controller@22 {
+From: Xuyang Dong <dongxuyang@eswincomputing.com>
 
-unused label, let's drop it
+Add support for the ESWIN EIC7700 PVT (Voltage, Temperature) sensor
 
-led-controller@ (there is no other 'leds'-controller)
+Features:
+The driver supports monitoring of voltage and temperature parameters
+through the hardware monitoring subsystem. It provides an access to the
+sampled Temperature and Voltage.
 
-> +		compatible = "nxp,pca9635";
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		reg = <0x22>;
+Test:
+Tested this patch on the SiFive HiFive Premier P550 (which uses the ESWIN
+EIC7700 SoC).
 
-reg right after compatible, please
+Updates:
+  Changes in v9:
+  - Taking over from Huan He <hehuan1@eswincomputing.com>, who has left the 
+    company and whose email is no longer reachable. 
+    Huan He's Signed-off-by tag is retained to acknowledge the original 
+    contribution.
+  - Update eswin,eic7700-pvt.yaml
+    - Add 'Reviewed-by: Conor Dooley <conor.dooley@microchip.com>' tag.
+  - Update eic7700-pvt.c and eic7700-pvt.h
+    - Remove config HWMON.
+    - Add eic7700_pvt_set_trim(pvt, PVT_TRIM_DEF) in
+      eic7700_pvt_runtime_resume(). Re-apply the trim values to prevent
+      incorrect sensor readings upon wake (Sashiko review of v8).
 
-with that
+  - Link to v8: https://lore.kernel.org/all/20260625061049.1614-1-hehuan1@eswincomputing.com/
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+  Changes in v8:
+  - Update eswin,eic7700-pvt.yaml
+    - Delete reviewed-by tag of Krzysztof Kozlowski due to functional
+      changes. Add the APB clock because when the kernel is booted with
+      CMDLINE option "clk_ignore_unused", the APB clock remains enabled by
+      default; without this option, the APB clock may be gated and the PVT
+      driver will not operate correctly
+  - Update eic7700-pvt.c and eic7700-pvt.h
+    - Add APB clock support and retrieve clocks using devm_clk_bulk_get()
+    - Update eic7700_pvt_hard_isr() to verify PVT_INT_STAT before clearing
+      the interrupt and completing a conversion, preventing spurious
+      interrupts from returning stale data or completing a conversion early
+    - Update eic7700_pvt_probe() to register the PM runtime cleanup action
+      before requesting the IRQ, so the IRQ is torn down before clocks are
+      disabled during driver removal, preventing a possible
+      use-after-disable of the hardware clock in the ISR
 
-Konrad
+  - Link to v7: https://lore.kernel.org/all/20260611090505.734-1-hehuan1@eswincomputing.com/
+
+  Changes in v7:
+  - Remove the unused reset control pointer from struct pvt_hwmon and keep
+    the reset control handle local to eic7700_pvt_probe()
+  - Update eic7700_pvt_init_iface() to disable PVT_ENA_EN before clearing
+    the interrupt status, preventing a possible level-triggered interrupt
+    storm if the bootloader leaves the conversion engine running
+  - Update eic7700_pvt_disable_pm_runtime() to explicitly disable runtime
+    PM and avoid an unbalanced disable_depth
+
+  - Link to v6: https://lore.kernel.org/all/20260604080430.126-1-hehuan1@eswincomputing.com/
+
+  Changes in v6:
+  - Fix the !CONFIG_PM probe error path by disabling the clock if IRQ
+    request fails before the PM cleanup action is registered
+  - Replace pm_runtime_put_noidle() with pm_runtime_put() in the IRQ
+    handler to avoid a runtime PM reference-count race with the read path
+  - Remove the unused pvt_clear_data() devres action and its associated
+    devm_add_action() registration
+
+  - Link to v5: https://lore.kernel.org/all/20260515091942.449-1-hehuan1@eswincomputing.com/
+
+  Changes in v5:
+  - Update eswin,eic7700-pvt.yaml
+    - Drop the label enum constraint and remove label from the required
+      list
+    - Add '#thermal-sensor-cells' to the required list
+    - Rename the example node to the generic sensor@... form
+    - Update the binding description to describe one temperature sensor
+      and one voltage sensor
+  - Update eic7700-pvt.c
+    - Register the hwmon device with the fixed name "pvt"
+    - Remove label-based instance identification from the driver
+    - Fix CONFIG_PM=n support by keeping the clock enabled when runtime PM
+      is unavailable
+    - Add pm_runtime_force_suspend() in the cleanup path to avoid leaving
+      the device active during unbind
+    - Switch system sleep callbacks to pm_runtime_force_suspend() and
+      pm_runtime_force_resume()
+    - Guard ISR register accesses with pm_runtime_get_if_active()
+    - Add synchronize_irq() on the timeout path to avoid stale completion
+      races
+    - Remove temp_offset support because the raw trim register does not
+      match the hwmon ABI
+    - Align the commit message with the implementation (one temperature
+      sensor, one voltage sensor)
+
+  - Link to v4: https://lore.kernel.org/all/20260430064107.1598-1-hehuan1@eswincomputing.com/
+
+  Changes in v4:
+  - Update eswin,eic7700-pvt.yaml
+    - Delete reviewed-by tag of Conor Dooley, because the label enum
+      constraint is introduced
+  - Update eic7700-pvt.c and eic7700-pvt.h
+    - Remove the unused LVT/ULVT/SVT process-monitoring channels
+    - Remove the probe-time power check since the PVT block is always
+      powered on EIC7700 and the extra verification is unnecessary
+    - Stop requesting the interrupt as shared and use the dedicated PVT IRQ
+      only
+    - Reorder probe initialization so the interface is initialized before
+      the clock is disabled, avoiding register accesses with the clock gated
+    - Fix runtime PM reference handling on error paths by balancing
+      pm_runtime_get_noresume() with pm_runtime_put_noidle()
+    - Add pm_runtime_put_noidle() handling for failed pm_runtime_get_sync()
+      calls in hwmon read/write paths
+    - Switch the PM callback registration from pm_sleep_ptr() to pm_ptr()
+
+  - Link to v3: https://lore.kernel.org/all/20260306094312.1043-1-hehuan1@eswincomputing.com/
+
+  Changes in v3:
+  - Update eswin,eic7700-pvt.yaml
+    - Remove redundant label property description and use 'label: true' to
+      reference the definition in hwmon-common.yaml
+    - Replace 'additionalProperties: false' with
+      'unevaluatedProperties: false'
+    - Remove the description for '#thermal-sensor-cells'
+  - Update eic7700-pvt.c and eic7700-pvt.h
+    - Fix clock reference count imbalance with Runtime PM:
+      Replace devm_clk_get_enabled() with devm_clk_get() and manually
+      manage clock enable/disable to avoid double-disable in remove() when
+      Runtime PM is active. Clock is now enabled only during probe for
+      eic7700_pvt_check_pwr(), then disabled before enabling Runtime PM,
+      which takes full control of the clock thereafter
+    - Add detailed comment explaining the spurious interrupt risk in
+      eic7700_pvt_check_pwr()
+    - Replace wait_for_completion_interruptible() with
+      wait_for_completion_timeout() to prevent infinite wait
+
+  - Link to v2: https://lore.kernel.org/all/20260128101400.859-1-hehuan1@eswincomputing.com/
+
+  Changes in v2:
+  - Update eswin,eic7700-pvt.yaml
+    - Reference the hwmon-common.yaml file
+    - Remove the clock-names and reset-names properties
+    - Move additionalProperties: false after the required block
+    - Remove one example node to avoid redundancy
+  - Update eic7700-pvt.c and eic7700-pvt.h
+    - Remove unused sensor macros (PVT_SENSOR_FIRST, PVT_SENSOR_LAST,
+      PVT_SENSORS_NUM)
+    - Drop the unnecessary hwmon-sysfs.h header
+    - Replace dynamic sensor info allocation with a static array and unify
+      sensor labels
+    - Remove unused hwmon_temp_type attribute
+    - Eliminate redundant validation checks
+    - Remove mutex and related locking, relying on hwmon core
+      serialization
+    - Replace per-sensor caches and completions with a single data cache
+      and completion object
+    - Remove pvt->sensor tracking. ISR no longer depends on the currently
+      selected sensor
+    - Move devm_add_action() registration after init_completion() for
+      safer cleanup, and update cleanup function (pvt_clear_data)
+    - Replace devm_reset_control_get_optional_exclusive() with
+      devm_reset_control_get_exclusive_deasserted()
+    - Replace eic7700_pvt_remove() with eic7700_pvt_disable_pm_runtime()
+      and move it after PM runtime enable to avoid resource leaks on probe
+      failure and remove clock disable and reset assert from
+      eic7700_pvt_disable_pm_runtime() as it is already handled by devm_*
+      framework
+    - Remove redundant clock presence check in runtime_resume
+
+  - Link to v1: https://lore.kernel.org/all/20260109090718.442-1-hehuan1@eswincomputing.com/
+
+Huan He (2):
+  dt-bindings: hwmon: Add Eswin EIC7700 PVT sensor
+  hwmon: Add Eswin EIC7700 PVT sensor driver
+
+ .../bindings/hwmon/eswin,eic7700-pvt.yaml     |  72 +++
+ drivers/hwmon/Kconfig                         |  11 +
+ drivers/hwmon/Makefile                        |   1 +
+ drivers/hwmon/eic7700-pvt.c                   | 509 ++++++++++++++++++
+ drivers/hwmon/eic7700-pvt.h                   |  99 ++++
+ 5 files changed, 692 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/eswin,eic7700-pvt.yaml
+ create mode 100644 drivers/hwmon/eic7700-pvt.c
+ create mode 100644 drivers/hwmon/eic7700-pvt.h
+
+--
+2.34.1
 
