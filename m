@@ -1,180 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86708450917;
-	Tue, 30 Jun 2026 15:47:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5F34534A7
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 15:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782834449; cv=none; b=b7Vq1J6NUhqeO3x9JOZw0znmDqdZVhmAJBrC8+oAegRei0K89etNRlsccYkWJ7Wtkh82WZ+cUXdV/spqvq5qmW+etHmFvG1rnfQG0ay1Znpp+aI/n0kzvJMVRdqHxiSH+WlWyad+89cZhi2eEwjmj32iUMABYnXCDUk9PPBlm/Y=
+	t=1782834507; cv=none; b=Fp0kHMvVzoit3o5THZ2MWCH5Z+FMA8xLd1yYJpafa8IN9+7uKJheDMeYUXfqUBboGPTmerNt6dMBOtIvmkG+toIca+lghd5tY8VfGG7ZEC/uGaSMRAzNcMXZ4itWxivbMFibIG1kDx1Eg9agPQ877dVXHlKiSpVFpZs4Z1EcgbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782834449; c=relaxed/simple;
-	bh=PrZHqnmC3A1Ld1j/CB3cuuUyThllqFq8xKGYKEpXCZE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WkiaimPYkDxyRb1Qmgpm0wSnuYfWVtuX+NZYcQwqAnKsq/8Ub/+WVDn35/kt68ybl+PqjVv4OUvCmkEeYviOYz742dXd8CuKMC7r+ZE/OLyBv0Uv2Epfc43VVKusCRatziqdMYGoEhqGKzuMcpZSxZFfHFOroNqwIkOyzF0TMI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jsRfMIcT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782834507; c=relaxed/simple;
+	bh=5daw7GHF082XZFOBtpOcz+XZJghpPd5rcNaXIs/Gqfo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j8k/FII4s2fM7UsKPF7mGhPueKgA9+p4R8wPXLswVhV2vrISs6kpjSSB8SOhhmCcj4EIun0I/+yIkBPeZm9hQnnBgEOCmc6jM8XYgGOnFufN96xiGPLhrwCpPXitbksivtSf/T42sESKE+WYm1UrL+PpiiUzwPxi2b16tc0ekFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VnbjuEFR; arc=none smtp.client-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jsRfMIcT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2971F00A3A;
-	Tue, 30 Jun 2026 15:47:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782834444;
-	bh=8CL+GC2aWHjn2F0cACsiCPGqiUQQsFs/7D5cQK9Ns+s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jsRfMIcTbezPDM8Pv/6T0FAsZy6sPX6dc1ooqpUC31riMPeH9Gy/8LQ5gA0+7R+SH
-	 gg85idt7BRgS5wwHOJTBn82qqpdP9KO2M5qUcREFJor4q7IB1mEd/10n1aCx9oyloU
-	 C865ThPfOLdi/ZkWzqONWvPh8xpoESHwFfxya+eb9qW3rlVxLZSw7XCwfoDh2rGsKu
-	 CW1wbUSZQk9bvdA/F2lWR0LsG3G5PCAxcoJ9wT6aRXUzgJZsjSxoyMtO+UeNHkAs2R
-	 LjJnIi1XA6tmHVUAMDaLWG60WfVaBDTw+ObqhlrKKdbLLYRxXIZKmVIeapUDziVZVL
-	 K6L+ECMajx6SQ==
-Date: Tue, 30 Jun 2026 10:47:23 -0500
-From: Rob Herring <robh@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Tero Kristo <kristo@kernel.org>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, goledhruva@gmail.com,
-	m-chawdhry@ti.com, daniel.baluta@gmail.com, simona.toaca@nxp.com
-Subject: Re: [PATCH v2] dt-bindings: clock: ti,clockdomain: Convert to DT
- schema
-Message-ID: <20260630154723.GA3691228-robh@kernel.org>
-References: <20260622-ti-clockdomain-v2-1-434dbe0789e2@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VnbjuEFR"
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-139a5f4ca15so5699906c88.1
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 08:48:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782834506; x=1783439306; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=UxCj86Vqc8nQPo8juJb5HDgI5Ftj5c58cIVgplQr+NU=;
+        b=VnbjuEFRE3gvIfQcvUsm6IxIqPkhKen7u7C4QKPO/ANzDUwqrBXme0hGI1s+Wh9JLU
+         k5F5KvSXArAxlX4iwduWiSXH4cThMZ2Fj5G9Km5bcPGurQtgTWTND5H2es2klNJYTDL5
+         xfmy8C1r7WD93i26rGgE7sI/ni7Q3Q+3MvtRvnIhIkq5dEa85so+bgMUn65wDhybQare
+         shftXkHlbSQwUYVCEOWXM9rq5PLHh14zl9oOYjzZNBbR0Z7plDyxscEWeIUvWacdidZ+
+         zT6GBBnah4d59T7uwC8iAdrPwpuWXp7zqYa3ESHfGSz7kcjvLrjoEAF9gnLlC2WQGv6l
+         UIBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782834506; x=1783439306;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=UxCj86Vqc8nQPo8juJb5HDgI5Ftj5c58cIVgplQr+NU=;
+        b=XqZTFMGXxbMx4T5JtRwBNDCxbmSvYSrq1eisnDUdnRLQmoMFcXZqEj2n+8CV1lFDua
+         l0rclqPHVpJqjH/+A46ATmcM1BmcKqTat7Im2vO5O8wFl5xYFt6lBoaEAmlRwDr/I2gX
+         wA5K7a2LWcRDFcAnNHzVxzktL8pf9PxZvceoNHSryq9BY3TpsiENBnKKocdx3hxcpRrw
+         qkC1y8IO3GJqrepA0+oezgpsLtu7myVhaQtL3CBo/PXfg3T4LRyDBmwUCx5psnvl1Qlu
+         iPtzM0p0Zpihu2NFJfoeroLK8K892bVhvXmIK0mz8bLJnABr5mq5gAXYttDriSh1RwvO
+         OkIw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq91tgAuSLNVAIv1E6UhuNxFtRsWRla032RtWcPo8OAsChqT/Bk/GsIHwwe6UlHqjjscjnkqNRd69pd@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3WQUhk+MyEBcwbpopkkDV1kUcerOs9+PV0cIvZQ9ulJay6X5o
+	9kQFUJZmptdtXwqmZJAtWBw7Dehk0mTGs3bWmn6bRFmksFHDufe8BfUX
+X-Gm-Gg: AfdE7clRlmEuKBTlCUxCPMpe/rmYwAP17O6et/9LS4FzRhRjXr/N/uF7bYZmANmVNuP
+	9M12XRI3L9+rxNjuMjl2Z2HnppMeF86mQoaYsPjXbTKByb6xODHiAx5PdOAFKc5PfZeeQO6XOmg
+	36Yl8Aubd0Dge8ohjQlH+Wmo6oh43sQ4UHHdO368Y+EY8Azu0ZihFASCs3PPMTZvwwYuuB8jMdO
+	NaKJZqL1jjqrGALmoLAgnAxGoFsn/1HvcV1Z/a06miyVaJiOySTHaE7kghTfvK8wSjNsVNywHu6
+	/rNqMcWQDHiiEDeVfO5HGqeH64/BaFEU4uxQ3sI0S9CWDvQAPVLgadDb32c9bne89k1S0lZlvJ0
+	M6lexx+S3llesgb6kIHyP8YzvpWhFBW4ofhqaxv9vEaC+XOQlp9o8eD9eY7Jz2Y8DicYtxNuo9/
+	t4Oe2L/4OMlomfEADES34uNnuB/5ZZF5WI1z8eP2Mox/B7v32ssrla22bsy8fjrQ==
+X-Received: by 2002:a05:7300:5bab:b0:30a:e530:ebc6 with SMTP id 5a478bee46e88-30ee12f0e92mr2823150eec.12.1782834505729;
+        Tue, 30 Jun 2026 08:48:25 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30ee2f5e4d1sm9007145eec.6.2026.06.30.08.48.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jun 2026 08:48:25 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <d6e011d7-ef9b-4cc8-91c6-3f329017d213@roeck-us.net>
+Date: Tue, 30 Jun 2026 08:48:23 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260622-ti-clockdomain-v2-1-434dbe0789e2@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] dt-bindings: hwmon: (pmbus/max20830): add
+ enable-gpios property
+To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+References: <20260630-dev-max20830c-v1-0-a02786bde470@analog.com>
+ <20260630-dev-max20830c-v1-1-a02786bde470@analog.com>
+ <20260630-cuddly-quiet-jackdaw-b7ab3d@quoll>
+ <PH0PR03MB63514D6ACDFF20DF4D1A4855F1F72@PH0PR03MB6351.namprd03.prod.outlook.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <PH0PR03MB63514D6ACDFF20DF4D1A4855F1F72@PH0PR03MB6351.namprd03.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jun 22, 2026 at 11:21:33PM +0530, Bhargav Joshi wrote:
-> Convert TI clockdomain to yaml DT schema. Drop '#clock-cells' from the
-> required list as this binding doesn't define a new clock binding type,
-> it is used to group existing clock nodes under hardware hierarchy. Most
-> existing dts omit '#clock-cells'.
+On 6/30/26 01:07, Torreno, Alexis Czezar wrote:
+>> [External]
+>>
+>> On Tue, Jun 30, 2026 at 10:46:43AM +0800, Alexis Czezar Torreno wrote:
+>>> Adding a missing entry for the MAX20830 EN (enable) pin.
+>>
+>> ... because? Device has it? Was missing?
 > 
-> Update the reference to the old legacy text binding in the description
-> of bindings/clock/ti/ti,gate-clock.yaml to point to the new YAML file.
+> Yes, device has it and I forgot to include it in the past.
 > 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
-> Changes in v2:
-> - updating the stale reference to the legacy .txt file inside
->   bindings/clock/ti/ti,gate-clock.yaml to fix make refcheckdocs error
-> - Link to v1: https://lore.kernel.org/r/20260621-ti-clockdomain-v1-1-e99a56af98ea@gmail.com
-> ---
->  .../devicetree/bindings/clock/ti/clockdomain.txt   | 25 -------------
->  .../bindings/clock/ti/ti,clockdomain.yaml          | 41 ++++++++++++++++++++++
->  .../bindings/clock/ti/ti,gate-clock.yaml           |  2 +-
->  3 files changed, 42 insertions(+), 26 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/ti/clockdomain.txt b/Documentation/devicetree/bindings/clock/ti/clockdomain.txt
-> deleted file mode 100644
-> index edf0b5d42768..000000000000
-> --- a/Documentation/devicetree/bindings/clock/ti/clockdomain.txt
-> +++ /dev/null
-> @@ -1,25 +0,0 @@
-> -Binding for Texas Instruments clockdomain.
-> -
-> -This binding uses the common clock binding[1] in consumer role.
-> -Every clock on TI SoC belongs to one clockdomain, but software
-> -only needs this information for specific clocks which require
-> -their parent clockdomain to be controlled when the clock is
-> -enabled/disabled. This binding doesn't define a new clock
-> -binding type, it is used to group existing clock nodes under
-> -hardware hierarchy.
-> -
-> -[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
-> -
-> -Required properties:
-> -- compatible : shall be "ti,clockdomain"
-> -- #clock-cells : from common clock binding; shall be set to 0.
-> -- clocks : link phandles of clocks within this domain
-> -
-> -Optional properties:
-> -- clock-output-names : from common clock binding.
-> -
-> -Examples:
-> -	dss_clkdm: dss_clkdm {
-> -		compatible = "ti,clockdomain";
-> -		clocks = <&dss1_alwon_fck_3430es2>, <&dss_ick_3430es2>;
-> -	};
-> diff --git a/Documentation/devicetree/bindings/clock/ti/ti,clockdomain.yaml b/Documentation/devicetree/bindings/clock/ti/ti,clockdomain.yaml
-> new file mode 100644
-> index 000000000000..9494cbb1a942
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/ti/ti,clockdomain.yaml
-> @@ -0,0 +1,41 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/ti/ti,clockdomain.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Texas Instruments clockdomain
-> +
-> +maintainers:
-> +  - Tero Kristo <kristo@kernel.org>
-> +
-> +description:
-> +  This binding uses the common clock binding in consumer role. Every clock on TI
-> +  SoC belongs to one clockdomain, but software only needs this information for
-> +  specific clocks which require their parent clockdomain to be controlled when
-> +  the clock is enabled/disabled. This binding doesn't define a new clock binding
-> +  type, it is used to group existing clock nodes under hardware hierarchy.
-> +
-> +properties:
-> +  compatible:
-> +    const: ti,clockdomain
-> +
-> +  "#clock-cells":
-> +    const: 0
-> +
-> +  clocks: true
 
-At least put some range of number of clocks.
+Pretty much every PMBus chip has it. Many non-PMBus hardware
+monitoring chips have it. Problem is that there is no practical
+use case that I am aware of to connect it to a GPIO pin,
+especially for PMBus chips because PMBus (and the chip) has
+a command to override it. Connecting the Enable pin to a GPIO
+output would mean another extra and unnecessary wire on a board
+plus the need for additional software to support - in a more
+complex way - what is already supported by the chip itself.
 
-> +
-> +  clock-output-names: true
+This will even more complicated if anyone ever adds regulator
+support to the driver. In order to fully support this, the driver
+would have to add support for enabling the chip through the
+GPIO pin (or to override it permanently, making it pointless
+to have it) even though it is highly unlikely that this code
+can ever be tested on real hardware.
 
-If #clock-cells is 0, then this can only have 1 entry (maxItems: 1).
+That is why I was asking for a use case. "The chip has the
+pin" is not a use case.
 
-> +
-> +required:
-> +  - compatible
-> +  - clocks
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    dss_clkdm {
-> +        compatible = "ti,clockdomain";
-> +        clocks = <&dss1_alwon_fck_3430es2>, <&dss_ick_3430es2>;
-> +    };
-> diff --git a/Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml b/Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml
-> index eaa727ab0d7f..438e190d1067 100644
-> --- a/Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml
-> +++ b/Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml
-> @@ -19,7 +19,7 @@ description: |
->    that is used.
->  
->    [1] Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
-> -  [2] Documentation/devicetree/bindings/clock/ti/clockdomain.txt
-> +  [2] Documentation/devicetree/bindings/clock/ti/ti,clockdomain.yaml
->  
->  properties:
->    compatible:
-> 
-> ---
-> base-commit: acb7500801e98639f6d8c2d796ed9f64cba83d3a
-> change-id: 20260610-ti-clockdomain-a27dd0fa1ad5
-> 
-> Best regards,
-> -- 
-> Bhargav
-> 
-> 
+Thanks,
+Guenter
+
