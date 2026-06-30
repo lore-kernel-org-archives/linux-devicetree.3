@@ -1,167 +1,164 @@
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC6C2F8E98
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 17:18:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2403DC4D3
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 17:23:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782839928; cv=none; b=L2+T1AOTU16krkzsB5Z9TMGtq9YCmfD0xii75+VrAJ/oWe6rrMUSicrMdcbVninmB5hoHqbDFFpvjnII1UQbnRPBZBHVzKVkaIqRsOAZJMNRpdR57PsSgFKwSMmYf8dkVVL2irKUTwMKKaczC9JcvfcjMw5loJoarV6jHO/8vv8=
+	t=1782840195; cv=none; b=me+nqjNQ+GFvVRQ1niNY2AuohKiCMXDdxI/TmS6MMdytbTEoz/y+8Nj3QSY688WJkzKE8hE+8X1IBRnY6wcb/sGmkaLKWRiCDksCEC8nxAqkg5bTehacikIv57b8sWyaQ2qCacv2ZNO/tzp0MgljNMuC2CNxZHvbe8X0pdmXuMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782839928; c=relaxed/simple;
-	bh=UHiNQkDHv8wjlhA0ze6zoBrzWqVkQOHL2jhXocdMtvM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=Knbwm0cEa+DZ6lUmDY1XjKP6BdgfOSszjpfM38MHrt29adBw5mnbM62yIi/D6sM5P0PiLPo7R0ouiJ08qOv9FFbhu1grFGlL6fYyADNMPu2YDtDCqDsnrHzy8aakt+91A4RVqC8IWIMv/FijYgtxUI0LjqjqQt+H7y4610rIpCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nIpk6KfC; arc=none smtp.client-ip=209.85.221.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782840195; c=relaxed/simple;
+	bh=EIKLfVxeX4UjvjUsMH57nMal050P+38lR90m+Sb2wOE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type; b=dX840k+6d0z8J4phM1iCh3iE4rwtvgCHZtgFE9skl13fvUXXJqUHvWSBpQ/bpiKDCscKm1GftjogIO8mWXsNipZCtiPnUYjZ7pw7vPdF2Pzfvrl7+fWyJ9toOBLEqzzGrXmf09xkdARk0CHBrdKtdGS9vDMnaTdWTkh0mY2afLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=KNyKuGrW; arc=none smtp.client-ip=170.10.153.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nIpk6KfC"
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-59d07df448bso2953514e0c.0
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:18:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782839926; x=1783444726; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=et+bMtuvqXMHROGP40ev+0eIWN1zPUfHGM72srmr7dY=;
-        b=nIpk6KfC8qoA4500PLSRdvczfmesN3j9Ptoyu/PB+907pX78ROeF/XsM2fdpfmhmEc
-         IOECccQmcPaq7xQEq5PU/85542e7d9Or0mDMd6vJX4c3fB44HDIFcN1zZo0+YgqvZCn8
-         iMLQy9k/Z1AmXpUhv6Avca9Ej+SoPuncQtDCPyDNlkzWf60yGsaGNOvow0lbC4tlAVLu
-         KZ+ImmGe99hJxCipPe/SkvIkZTbbWwhSbjXTunc6hbIYBEUoX2IAwUGIHVQQvzdKuza4
-         jXazOpTwAZ7y7hXXiFBhT32yoJhfjt76pAOegVQlpEW+IXckZux9Q9JsKpbBhis6o0id
-         ymHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782839926; x=1783444726;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=et+bMtuvqXMHROGP40ev+0eIWN1zPUfHGM72srmr7dY=;
-        b=dTbmqxhJZON54qzpVwEDCpXgfAH1m7ih3ZbcP16cXRXaewrk0xYRR1QlC2kra/zafV
-         6jtMpwULkSJBu2Xnm3SSQ0UhvEjJvX5i5nHDGKhwcE97rbZpBa/aEKgSOZ8y0ztUlrsm
-         OC0NxYrYQgs2USNtjtzKSa/L9I9Zw3UkgoTkQNDvqIGipKGM2Gt2DiwliOgAFhfELV8D
-         C45o4+R8CAoXhO1NExd0MC1CbB7+Msepab40s6e7IqEFNbjTO87CXTV5JXInGwtza8X6
-         uTPop4eHShtVjgCHYZCBrpKf3R2xeIDWf90lmf9UoMjWbYeGnMrkIXg4OnakIa0Pnc18
-         dCqg==
-X-Forwarded-Encrypted: i=1; AHgh+RpeOb0dQCHSDr0nHBx5xBoY0cGwopzvYdrBmTzTYsxPB4kF+aBRZvdZznZL7QF0B8PVoJaQ0tIZatq0@vger.kernel.org
-X-Gm-Message-State: AOJu0YzwbVbr8eYm95zgw/snTVzJuW7m4QnipqW32dUrn9H90R/w/3G1
-	DCZrhyYmUtF4mGG22hKnbwq5gzfKrbCN41U7iDPDCut84GxgaBzcIVxe
-X-Gm-Gg: AfdE7cnnKJvHEI1v4N8sGPRQIwVkZg/ZUKo0o57ja10zpa/KDU234dcxyfdsXB5KLUi
-	20znrwKg6PDqV8rKIe9BYGbApC6o1eS3wDsVK8ePRqTg9i+U2R9bgLZrheGLn48AjTVqESQxizh
-	MTxx8GiNJ8pWsg67nnqGtM1lU9ouOn2EH0lA19ks2O/kI3jqf+4iIakQ0LgwoT6oOYOnAyPS9UN
-	+tPGs1x5GDKHKozlwFgcUI0XbUPUKOkCOaEbuD3pMY/v/1xAbwpBQAoNpOQkclOXnoZ6tYlBPhd
-	rDSTDahz0oFgf2bhPXm7QBiJy2zt8UE9KajQLq393uwkoZv0rVPIiNXsj3gzexF6KEujpLdEKE1
-	bqQ7+xFXXsMYQ+pxdRUnW5bD/1shZnDghhyPwq9dK+5U0NtxMpOaRgmQc91bhQhq4Rc0j7h1Ju1
-	GUDHE=
-X-Received: by 2002:a05:6122:488f:b0:5bd:73b5:6d2b with SMTP id 71dfb90a1353d-5bdcf383d61mr998917e0c.8.1782839926387;
-        Tue, 30 Jun 2026 10:18:46 -0700 (PDT)
-Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bdc1846eb0sm1763358e0c.4.2026.06.30.10.18.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jun 2026 10:18:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="KNyKuGrW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1782840186;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EIKLfVxeX4UjvjUsMH57nMal050P+38lR90m+Sb2wOE=;
+	b=KNyKuGrW+ekD6Cy1jdOfdicxT17X7bKDytNtf3z0AwfwpWolVg0Gl7cOP/x3DJ+tOM8gZU
+	R/x1UmMuNNS3dE2UWm82cfbMbbafHGal3lI0hfB4EbDc2Ldp5OJumQA3o0v9oAzoukcRO1
+	ys+Ygi63GAw5bpQ0eKVvPSsyJ25hE7hNikPzCchni4sd8N2mycwvm2Dckrnn15Anzhol1N
+	jEwpCOVYHgaohCTNW4ioH/zOKFwsoZHxlhjTo3f9RKekKdrIzLCV/EYXEndKU06+AL1VlQ
+	N6oRqbuRBy1TCGh0BtTccSK5wrBWOi6A5bw3Pm7Ta2/UjF8ID7n9nECgOZTYTQ==
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011012.outbound.protection.outlook.com
+ [40.93.194.12]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ usb-mta-6-d_aydLttNQ-2cXcaXHyDpg-1; Tue, 30 Jun 2026 10:23:02 -0700
+X-MC-Unique: d_aydLttNQ-2cXcaXHyDpg-1
+X-Mimecast-MFC-AGG-ID: d_aydLttNQ-2cXcaXHyDpg_1782840179
+Received: from CYYPR02MB9828.namprd02.prod.outlook.com (2603:10b6:930:b8::20)
+ by DS0PR02MB11038.namprd02.prod.outlook.com (2603:10b6:8:293::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 30 Jun
+ 2026 17:22:57 +0000
+Received: from CYYPR02MB9828.namprd02.prod.outlook.com
+ ([fe80::2767:f7d2:778c:8dca]) by CYYPR02MB9828.namprd02.prod.outlook.com
+ ([fe80::2767:f7d2:778c:8dca%4]) with mapi id 15.21.0159.012; Tue, 30 Jun 2026
+ 17:22:57 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: Guenter Roeck <linux@roeck-us.net>, Conor Dooley <conor@kernel.org>
+CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, "linux-hwmon@vger.kernel.org"
+	<linux-hwmon@vger.kernel.org>, "linux-doc@vger.kernel.org"
+	<linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+Subject: RE: [PATCH 2/3] dt-bindings: hwmon: pmbus: Support for onsemi's
+ FD5121
+Thread-Topic: [PATCH 2/3] dt-bindings: hwmon: pmbus: Support for onsemi's
+ FD5121
+Thread-Index: AQHdAtUG0MJr3kYk70C0stjgUT+1+7ZMZ+AAgAA2+5CAAAYPAIABpgGwgAALPACAABXNEIAI9fUA
+Date: Tue, 30 Jun 2026 17:22:57 +0000
+Message-ID: <CYYPR02MB98281A2314A718EC3841464583F72@CYYPR02MB9828.namprd02.prod.outlook.com>
+References: <20260622-support-fd5121-from-onsemi-v1-0-b31767689c65@onsemi.com>
+ <20260622-support-fd5121-from-onsemi-v1-2-b31767689c65@onsemi.com>
+ <20260623-anybody-gutter-e6ca04f53bdb@spud>
+ <CYYPR02MB98280DF78A07EADACFD084EE83EE2@CYYPR02MB9828.namprd02.prod.outlook.com>
+ <20260623-scared-judgingly-7efc1c188670@spud>
+ <CYYPR02MB9828EECB3F6AFDD2A7BD3E9B83ED2@CYYPR02MB9828.namprd02.prod.outlook.com>
+ <eed3e19b-8cc7-4aef-b058-b2242c94c940@roeck-us.net>
+ <CYYPR02MB982898B8E8EC0513EF55D44083EC2@CYYPR02MB9828.namprd02.prod.outlook.com>
+In-Reply-To: <CYYPR02MB982898B8E8EC0513EF55D44083EC2@CYYPR02MB9828.namprd02.prod.outlook.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CYYPR02MB9828:EE_|DS0PR02MB11038:EE_
+x-ms-office365-filtering-correlation-id: 0038a05a-09b3-4d2c-fef6-08ded6cc3a4e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|18002099003|22082099003|38070700021|4143699003|11063799006|56012099006
+x-microsoft-antispam-message-info: LpcHQD2hfBbekgUxnyaBGIp8UTb6ChfCmVAU9y9kRBxta96mQq0c7sZjqEowtLOchCvBWLjMR8V592z0UMdlHq/AQHB8TVGtACbIjMBMsDZJeHZUaUk1EnHnEfyzcSmECkO6uFqaMJQV9bUqAeyizbv4T4+CFxbHYdfH2YecQYnaFVIsddUhEX7f1sFpegwOVmGQws0JgBMH2P1QO9Ol4JDo6UDqXFr22sz/q9VxSnjrWOMvggpStLfkxqlO0RGramirJvVxKaEurA5owK95W6COsSlicEMHXSTluiYVaJrv9ciEfmAVnKRKk6uTcocqqoeOfTyNkkN0awWMZJIwWMC96KnkPC8695XC2CTscGnu+8ElBa8QWA0mNv9/71K8iostdgDIh5jkwmMgWB/iyqVfej911AJY8THmdwvYxkj0AO0cikOLMU2XU5YqdIwD0uXOPaMCIUuIbMNqsAbfxE1z5iKFYoQ1NCzv03ITHGx/I0G17Zp+LDy5vPN5C39CkM9m7xZFCL7rmB/zJXLbKMCIKBFTl+TAoSjjCoXFK9VnRlh05FdQOk3q/O6INrxqn2tQ3uSUQfzPQfVMJSc2Q3jEP6mPbN2IJtDmHj3jbykKNyhENiA73YTVBRrVvdd+6Gzs00GGaWEhZh2ifM1ZuGN0Z7QNx8VlO6P/2iyI8XQgz9qJpjg1ZTJugTM6+vNcokxUpzwyqCDRRfi/uc/uLkML9VS02KAPZv4D2WNAVgg=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR02MB9828.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(18002099003)(22082099003)(38070700021)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VFNWS09KL3lMZEhqdzFmNzZRYncrQXNxL0cyVkhmQUV0b1dkK3ZHSFZkaXNl?=
+ =?utf-8?B?MU40akZJd0JhQmtjckd1QWR1TDlMS0IvZHAxWnVwK0N6WDZwcGU5d2NPNlAr?=
+ =?utf-8?B?K3pIZ0g2cHdhRUpsUFc0eXllbExJODQ1eElEWGt5QmxjbkNsMHk3Zm4ydzRZ?=
+ =?utf-8?B?dElVZWQrU3I3WTVmK0NEQ1pLeG1LV1VrNE8wUlNzTUVSRHJnTFg0c2FVdEpj?=
+ =?utf-8?B?REw5bFhvU3JIajYraDhnYWg5N3dWeEdGVVJXSjFsdzNVaG5udFRpb2J1VU1N?=
+ =?utf-8?B?VEpkdEgwYXArd2ZTY3p4dUdCRHE0QXRFTE1LQjE1Tjl6RkVXeHpPdC9iWGph?=
+ =?utf-8?B?Nk1YY1dGUWwxZFoxazZuSjRRQzlPYzVQay9DaTJKWWVscHh4UkNMNDhqZEFp?=
+ =?utf-8?B?QzFhRTRjU3NTUmJ3SktmZ0RTR0wzL040alV1Mm1SNzFtdm1hNlErQjFNczk1?=
+ =?utf-8?B?QUJhemh1ZDAyU0VmaUMveFlzQzN1d2JJMm5MbnZLMU9yNzJyaU1RL0lnL2sy?=
+ =?utf-8?B?T0F1RG1TdS9YaTF2QnQvc3VUdkltREV2bUY3UkV1RUJRQUMzaWlTMkx3WFFY?=
+ =?utf-8?B?VEZaaXNZTUVHcVBDanF2WW5nUEhoaC96YjUxYjB2cWdjZEdaQUFJTlpMNzVu?=
+ =?utf-8?B?T2hGNkpkRG54dkRhYVlnT3N0U2tXWXBteXFkbGh2Tm1TWXhwbU1PazVvN3c0?=
+ =?utf-8?B?cm9MUnk2aTdRMFJXKzdjQVZ6eUpjTFhiSC9UclQyRm91N3FHN3pPTldPcUlK?=
+ =?utf-8?B?NkQzSWZWSWJKazFEaDhKYng4aUFYMTcvUzlHeG1LcjBFOU0wWWc5NGVRRTRh?=
+ =?utf-8?B?Ym0zTEo2bCtxRGRacHV2MGpYVGF6amZYMURab24wM2tUaWQzQklWNTc3VTJF?=
+ =?utf-8?B?bWdmWWYydFU2WVBNaGZmK0pxdktoczN4OW12ZHkxSDNrSDJNMHlrN1laam5M?=
+ =?utf-8?B?czBGTXgzREJycGpXT2pIcjRQRVdkRDJ5bUhwallQMmNmTGNkRlo1TUVaUjFm?=
+ =?utf-8?B?WE1sL2tkeG8zUCtMcFRUZkVNVmJCYmpKeXZ1SVBuMzdISlZaMSsvZm0zNi9S?=
+ =?utf-8?B?TjZtdC9zM2IvZlJtQVY2d29kQ1ZpcFZodUxqSHkrcFhkOGt0QWxQZEN3MW1H?=
+ =?utf-8?B?RFZqRXhiMTdRUHROeHpjaTJ2OEJuaCtoY242b0lsSjJxeE55WjB5NGc3V2Rk?=
+ =?utf-8?B?dkgwNFhJLzlIMnFWY3hnd2VDWVlVOHhQbTI2WkJVM1kySU9sbFZ0N0pkYUU5?=
+ =?utf-8?B?ZHJXZ1lzMTZKRW5vSE5IODA4LzNnZ3dqWG9TN3d3cDN2MGVKMExkWndwQjJL?=
+ =?utf-8?B?VThtT0JkNkw5UU1TcVB4a1AvVEtxcjJ0NGhJc3FESVUxeGFNZitYYUltejd3?=
+ =?utf-8?B?SkVRa3FJaGVoaVZCVnl3TUhPbFZWY2tBV1UwbktodWI2eXpoNU50OURRS0hG?=
+ =?utf-8?B?MG9vMlozMDg1cXVNQ0lUMTdaVXJwOEdaT2tMdmpnbnpyanFmRDVMN0FVVDBT?=
+ =?utf-8?B?SjlMU0gvY2syeEcvc0dZRk41dGMxSnZRSlhqK0VDNHZDZU9iOVB4cUxLVk1s?=
+ =?utf-8?B?bUNMdE9DcTQxOEZvT0ozd0lSQlhYeUNrNGk1ZjJXNnVjb3ZCclUzM3ZNY3p4?=
+ =?utf-8?B?bXQ1MnhlREVjUFNsMlVGR2lka3BlcTBPNUwxeHdCY001OHNNeW15bm16MnYr?=
+ =?utf-8?B?dUQxZ01jYkpaRERndVJUd1hsbE5SN0EyTzVMNDVJaEM5KzRSZmhLTEp4UGRV?=
+ =?utf-8?B?YVloT2twM3lWWmhvRHM4UEQ2M2ZYUC9qSndoaHBjTUMvTmxlRzlMK0laMVNB?=
+ =?utf-8?B?LzAyajdVMFlWTkdyTjNFbGZMVFN4bWhVNGVJNElwWnJ6ODlZbkZ6SXlycWZS?=
+ =?utf-8?B?ZEhyYkV4Ly9FS3BmdVlVV2pqMUU1b2Z4ck5xM01pUEptZ1FNUDBrc0RMNy9s?=
+ =?utf-8?B?K0xUN09vZFJFa3BzSGExTnl3SmNMbDBqeUxTbWs1TktIVS9nWDk5ZURlTHdT?=
+ =?utf-8?B?UXFuUzRreTZHOXA5czlOUFZQZXlkT3VQRzdFcEZlUGdNV0hWMmRUN005VUU0?=
+ =?utf-8?B?UzZXYnQ0bUpGOEZkc3N3OGVaSG12WjJpazlNcTB2a0E1V0l5QnplbURKb01D?=
+ =?utf-8?B?STNNbEMyWHlzMFRzZDlBTmVHOXVPRHJPSjRVcTNIbzBvMVZMc29pTTNjcmxQ?=
+ =?utf-8?B?TEhFRlBnY3Bma2JJZjhWdHkvdTI5QWhveEpmOGs4Mkx3MnhtTGxEZlNkVVY3?=
+ =?utf-8?B?WVdrMGVNQm5aUDQ4cVJhclNzbHhoaEIxKzFkYlFFeUd3STVUc2hEdDVzeVYz?=
+ =?utf-8?B?QVRaR1Z3eWFpMEc3cFlMMCtOQTEyek5OWldPd1JFUWUwaUNFanVhdFlvRVRs?=
+ =?utf-8?Q?N/0ZctGC0aaWhJLs=3D?=
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: WegMjY46DNehs23QXhNQWOHQqtOgeeeSKkKBXmH3ZF0TaT5/1IitJjHmgB0tbKijqfd82XsEgGcNLe8Hp0Jbsi6imZ2CTryZdPs8vwnZmiBG84lDBghC/pRY5A/YppGj099ej67xT0oZ1lOS+yBWn/Ukm82SAAq9A5MpMhbdFqUePNoPtdrt6tlAbbZHjcBndzVbMsreC1Yg4PxlwpePiMkYcMXk8F26y/cJTPzwNMCvOfJKqgZ+DB+vLbOaxlGlMmZEWxdOxVNAV2bwFH9Nmi1Kysq5qvEXyBHGmEsjeJvc4qIts4wU8P4+6XhO1dl0736PHDAB/vIUhfX8ArxFmg==
+X-OriginatorOrg: onsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9828.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0038a05a-09b3-4d2c-fef6-08ded6cc3a4e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2026 17:22:57.2755
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9ib4rDwxjGkqHOsWAXFpWcyPLr0bIxhnYghUjt3dr3/VU9/W5ZDz9Ha4H93aX1Q6BE9pKxvT8uIbJnSWEzXpg55ILgzrjIEMxrKGK2TrwFA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR02MB11038
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: v8QuPm6kxnWW9K_oRFfoRJLk34__uhLSqXLIEZxFYFM_1782840179
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 30 Jun 2026 12:18:38 -0500
-Message-Id: <DJMK080GOMNP.1K9VX4CMRQKL4@gmail.com>
-To: "Jonathan Cameron" <jic23@kernel.org>, "Kurt Borja" <kuurtb@gmail.com>
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "David Lechner"
- <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 4/7] iio: adc: ti-ads1262: Add excitation current
- support
-From: "Kurt Borja" <kuurtb@gmail.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260628-ads126x-v2-0-4b1b231325ba@gmail.com>
- <20260628-ads126x-v2-4-4b1b231325ba@gmail.com>
- <20260630014723.786a8885@jic23-huawei>
-In-Reply-To: <20260630014723.786a8885@jic23-huawei>
+Content-Transfer-Encoding: base64
 
-On Mon Jun 29, 2026 at 7:47 PM -05, Jonathan Cameron wrote:
-> On Sun, 28 Jun 2026 00:36:05 -0500
-> Kurt Borja <kuurtb@gmail.com> wrote:
->
->> Support the two IDAC excitation current sources. Each channel can route
->> its IDAC1/IDAC2 outputs to a pin via the "excitation-channels" property
->> and select a magnitude via "excitation-current-nanoamp".
->>=20
->> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
->> ---
->>  drivers/iio/adc/ti-ads1262.c | 78 +++++++++++++++++++++++++++++++++++++=
-+++++--
->>  1 file changed, 76 insertions(+), 2 deletions(-)
->>=20
->> diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
->> index ece97a0c2b1304ad..8921eaae537f6b0a 100644
->> --- a/drivers/iio/adc/ti-ads1262.c
->> +++ b/drivers/iio/adc/ti-ads1262.c
->> @@ -193,6 +193,22 @@ enum {
->>  	ADS1262_INPMUX_LAST
->>  };
->> =20
->> +enum {
->> +	ADS1262_IDACMUX_AIN0,
->> +	ADS1262_IDACMUX_AIN1,
->> +	ADS1262_IDACMUX_AIN2,
->> +	ADS1262_IDACMUX_AIN3,
->> +	ADS1262_IDACMUX_AIN4,
->> +	ADS1262_IDACMUX_AIN5,
->> +	ADS1262_IDACMUX_AIN6,
->> +	ADS1262_IDACMUX_AIN7,
->> +	ADS1262_IDACMUX_AIN8,
->> +	ADS1262_IDACMUX_AIN9,
->> +	ADS1262_IDACMUX_AINCOM,
->> +	ADS1262_IDACMUX_NO_CONN,
->> +	ADS1262_IDACMUX_LAST
->
-> _LAST usually means inclusive. So probably call this NUM or something lik=
-e that
-> to show that it should be one more than last value.
->
->> +};
->
->> @@ -450,7 +468,7 @@ static int ads1262_dev_read_by_cmd(struct ads1262 *s=
-t, u8 cmd, __be32 *val)
->>  static int ads1262_channel_enable(struct ads1262 *st,
->>  				  struct ads1262_channel *chan)
->>  {
->> -	u8 mode0, mode1, mode2, inpmux, refmux;
->> +	u8 mode0, mode1, mode2, inpmux, idacmux, idacmag, refmux;
->>  	int ret;
->> =20
->>  	/* Avoid using guard() here to mitigate AB/BA deadlock warning */
->> @@ -464,6 +482,10 @@ static int ads1262_channel_enable(struct ads1262 *s=
-t,
->>  		FIELD_PREP(ADS1262_MODE2_BYPASS_MASK, chan->pga_bypass);
->>  	inpmux =3D FIELD_PREP(ADS1262_INPMUX_MUXN_MASK, chan->input[1]) |
->>  		 FIELD_PREP(ADS1262_INPMUX_MUXP_MASK, chan->input[0]);
->> +	idacmux =3D FIELD_PREP(ADS1262_IDACMUX_MUX1_MASK, chan->idac_mux[0]) |
->> +		  FIELD_PREP(ADS1262_IDACMUX_MUX2_MASK, chan->idac_mux[1]);
->> +	idacmag =3D FIELD_PREP(ADS1262_IDACMAG_MAG1_MASK, chan->idac_mag[0]) |
->> +		  FIELD_PREP(ADS1262_IDACMAG_MAG2_MASK, chan->idac_mag[1]);
->
-> This presumably feeds into the discussion of locking that you were having
-> with David, but I'd find this a lot easier to read if these were just
-> above where the values are used. Then we can clearly see the match betwee=
-n
-> masks and fields.  If you have to do it like this, then add variables up
-> here for the masks as well.
+DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFNlbHZhbWFuaSBSYWphZ29w
+YWwNCj4gU3ViamVjdDogUkU6IFtQQVRDSCAyLzNdIGR0LWJpbmRpbmdzOiBod21vbjogcG1idXM6
+IFN1cHBvcnQgZm9yIG9uc2VtaSdzIEZENTEyMQ0KPiANCj4gPg0KPiA+IE9uZSBvZiB0aGUgcHJv
+YmxlbXMgaGVyZSBpcyB0aGF0IHRoZSBjaGlwIGRhdGFzaGVldCBpcyBub3QgcHVibGljLA0KPiAN
+Cj4gQWdyZWUgb24gYm90aCBwb2ludHMuIE5vIGRhdGFzaGVldHMgb24gb3VyIHdlYnNpdGUuIEFu
+ZCBjaGlwcyBub3QgYXZhaWxhYmxlIHRocm91Z2gNCj4gZGlzdHJpYnV0b3JzLiBMaXR0bGUNCj4g
+ZWFybHkgaW4gdGhlIHByb2Nlc3MuIEkgYW0gd29ya2luZyB3aXRoIG91ciBwcm9kdWN0IHRlYW0g
+dG8gc2VlIGhvdyB0byBtb3ZlIGZvcndhcmQuIFNvLA0KPiB0aGVyZSB3aWxsIGJlIHNvbWUNCg0K
+R3VlbnRlciwNCg0KQWZ0ZXIgeW91ciBxdWVzdGlvbiwgSSByZWFsaXplZCB0aGF0IHRoZXJlIGlz
+IG5vIHBvaW50IGluIG1lcmdpbmcgdGhpcyBpbiBrZXJuZWwgdW50aWwgdGhlIHByb2R1Y3QgaXMg
+YXZhaWxhYmxlIA0Kd2l0aCBkaXN0cmlidXRvcnMuIEkgZG9uJ3QgaGF2ZSBhbnkgdGltZSBmcmFt
+ZSBmb3IgdGhhdC4gU29ycnkgZm9yIHRoZSBpbmNvbnZlbmllbmNlL3dhc3RlZCByZXZpZXdpbmcg
+dGltZQ0KZm9yIHRoZSB0ZWFtLg0KDQpJcyB0aGVyZSBhbnkgd2F5LCB3ZSBjYW4gbWFyayB0aGlz
+IHNlcmllcyAiYWJhbmRvbmVkIiBvciAib24gaG9sZCIgZm9yIGFuIGV4dGVuZGVkIHBlcmlvZD8g
+DQoNCj4gDQo+ID4gZWl0aGVyLg0KPiA+DQo+ID4gR3VlbnRlcg0KPiA+DQoNCg==
 
-I'll move them above each regmap calls after reorganizing the locking
-stuff.
-
->
->
->>  	refmux =3D FIELD_PREP(ADS1262_REFMUX_RMUXN_MASK, chan->reference[1]) |
->>  		 FIELD_PREP(ADS1262_REFMUX_RMUXP_MASK, chan->reference[0]);
->>  	mutex_unlock(&st->chan_lock);
-
---=20
-Thanks,
- ~ Kurt
