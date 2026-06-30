@@ -1,190 +1,75 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2138.outbound.protection.partner.outlook.cn [139.219.17.138])
+Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA9642AA6;
-	Tue, 30 Jun 2026 01:48:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.138
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782784111; cv=fail; b=IvWgHamUyv936K7zWMbbyg5QAR9ux+bF6YIRkobgMTbwxv/dObh7AxD2WYm/U8dgkdMmkBA7glTbi4shMAYHRWcUv34jzQOsdexGKgGVo6wH6WOe/OS59zt2ubH8QpHGupLrNrX4BLQBxdG6YhaCwH14KQ++SWyat+rhrJIxHDM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782784111; c=relaxed/simple;
-	bh=1i9vhJmoiXiN458GCN4qCWZXw8IPhFsZ2L7FnCbdndI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=SFITD030EwDrHAne2v5lvMJ/BlpxqnNTIjqhnJ4pnJD5jPx8nFCXmRfB/Fcm/r4z9Ih39f29TpeNRmELDMOLw4fjfUsLlRjAP2XLSm3jt1CO/WvfPp4K6rNdULiQOy/RQldqBarahyGBWVp9xdpZqt/I94vIYfJPCpOUqVFr4zs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=asrFfjegy9FYOG13fQWCSjOUsRzr8sygjLjGH1SuPdUDz2Ej5VLr7qDMjSBx1RZBf87M6ytjjZFS0ij+ZFmoDYFlwo5FxY4XtR+tdpURmLDbkU1s4epA3voCKrgyGS66yqWPXLEPrkuJO7gaR2PqjwwMKTKyQWbk3mREk4NJUPjbAx4wbCcVbBJxDz2oBtyfVEJkFNV9lw1icbnv6gm818T/Z34hwovz5Ba31XBs0tHaJ+tTVbYzDRQ1vM9l3MSZDZMjCenyTCgRVr2YSBpPnJsZYA4mxmjfCZcQKMjhGMTO1BB/zqjQwrBupnedlbGFVQ3OZo5/sSpRnPhme1hjfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OyHuYuLqGhUQzsn64XVkUDH30C2p4b5zZo9rojaFqvs=;
- b=GiBJDeTyfIMkVN0d8Hn//CbhcilP0SN9q5eZDwR8MVnf6Q8uRZ4SD7z2s54ZfBg6DWVw3+LkZ87DZdxCYQ2bkYYS4NdSOrMQnw0wdz/QYnZvab8fhEu1k1ZZJ8R/ws9lixTAPaqJApr6ehcn6JrlVyV5wq+9uRm+KS6pOM0r5f9rg1Mm8s/L6Tw4ZWxn0BESxVAU+ZQkIGiiZYB/EJ9/Lpn3ENbWaQ42gqLACEFsdeq1Q67v5hcPrhOkxrvTnt7rSg/wzI+Xh9rV5Ew9TwWTFfP9dg6dLkIRZeFoNvvkYmYKvVlS+SWLJtaB1sFdxg7LOUFOPC6gJrab93yBZ6+7XA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:7::14) by ZQ2PR01MB1145.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:6::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.23; Tue, 30 Jun
- 2026 01:15:10 +0000
-Received: from ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
- ([fe80::4386:5cc4:3bc4:4795]) by
- ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn ([fe80::4386:5cc4:3bc4:4795%3])
- with mapi id 15.21.0139.024; Tue, 30 Jun 2026 01:15:10 +0000
-From: Hal Feng <hal.feng@starfivetech.com>
-To: Conor Dooley <conor@kernel.org>
-CC: =?iso-8859-1?Q?Uwe_Kleine-K=F6nig?= <ukleinek@kernel.org>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Emil Renner Berthing
-	<emil.renner.berthing@canonical.com>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v20 1/3] dt-bindings: pwm: opencores: Update compatibles,
- examples and maintainers
-Thread-Topic: [PATCH v20 1/3] dt-bindings: pwm: opencores: Update compatibles,
- examples and maintainers
-Thread-Index: AQHdB5GS0UsRnwRSuU6o4dGjBcd/KbZVoM+AgACr1rA=
-Date: Tue, 30 Jun 2026 01:15:09 +0000
-Message-ID:
- <ZQ2PR01MB130775F6E674F6074A6E2CA9E6F72@ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn>
-References: <20260629063601.63917-1-hal.feng@starfivetech.com>
- <20260629063601.63917-2-hal.feng@starfivetech.com>
- <20260629-unedited-tarmac-b6eaaaced8fc@spud>
-In-Reply-To: <20260629-unedited-tarmac-b6eaaaced8fc@spud>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ2PR01MB1307:EE_|ZQ2PR01MB1145:EE_
-x-ms-office365-filtering-correlation-id: fbe9158d-7b2a-41b5-7ceb-08ded6450779
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|3023799007|56012099006|4143699003|38070700021|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- OY7Vft++lAczGFEs4Km8Co9ISFGqS0G1ekatVZAR9qf7L0bjrI3UC0OsGirYaiAgyAvtSXUq1RhGa6thAL3oFvNK+BPOKjbmREs5w+L44QrBt/3JrF+P1kyoT58mi3N8XbdeohLWcB36c5HoGz+WrpbHUXSucrf12s6AZYtgcZNDXv9aIUjcFvcygGlkzWgPC/6aIVeoV8DqBy9QZg7xz/sU9z2sm/B69ntz9p4VXNg/tj8z2oD/fXyLrYSAiVnG6hVD6W8OLNfMFlXfIN1uGpRJuaSjFgAXuOoZT8kpvrR/rBXv7Nm3x1UgSle8VPZqdF8Kz2azjTu9hxqxVwB11gHN7S8P4L3ID2yj2Mv386/oEzLk3dQNVvBKADpCGyr6LS/Ah/n2y44eLoQROty5TOGUnT5Lb6tDzJpSYr6vAxA7PBKNM+lcHRvR9qiyrEa1/7WUEeSdA8WvEj2jF8+KwaY1z3rzKJpvldIi+cvmqoVql2d2KLM4u2eagBrf3lt1tNizGj768eolf9J9AiGrPCNjEs3htvio8vE7HxpX/kkoaNoKpfea+tl7c2+3xFRG
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(3023799007)(56012099006)(4143699003)(38070700021)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?J8miDtnPMSzZDV4W3LZxVYSN4a+92SIxoWLXX06xiFbWoE/T0caQx23+Ts?=
- =?iso-8859-1?Q?X0fnLlG5XNWV0fVoLgkkjVqzhcPGuEk8PV+EjsBeCNCdk5MfQ149Q+clt4?=
- =?iso-8859-1?Q?0mXvPLZqIrhWsTBvnw5PH3DcJSsjl2J27JAiFIIzHrROAFDWnwI0UnNxvK?=
- =?iso-8859-1?Q?aVDI9NwwgUsmxgh9M95j27y/fRznxRUOfqY06wymitXvHCOM/uZeFiBC5V?=
- =?iso-8859-1?Q?RZtz8Ixh9hsDoiePeTq8DTgntCL8QnvMOP+OHdLGk99BvMb3Z60M03/gW1?=
- =?iso-8859-1?Q?xsF/w4PvKIFGVc/Eegpajg5bW/IyddWMzvAnZO10T/YIHEpuv+Tqtr58VS?=
- =?iso-8859-1?Q?MTSwkJkxosF9ild6Asygb7Dot74w5wbmv0iQGa/6QkZar+xO71HlkuGKcQ?=
- =?iso-8859-1?Q?nJzzP2Keb+iRb+dAwiVGfZdNc2n/FwfAUCjIawFR3i4em/mTiqE2n0u9j8?=
- =?iso-8859-1?Q?MTTr5R9Ns5fjEqw4NpLdOwZytheqh00VPpwL1CqQX83f3cxuEt9Ec4fXMi?=
- =?iso-8859-1?Q?QcNzlmt0Z2qxgYsjYZ8LMXcsSyUVMUkW+lUfulD+EqL8WMoyBHElgYdHqZ?=
- =?iso-8859-1?Q?0BoJp6Y4sXsM1T4PM3FLGLGlxZ5HCOwV35b+ZvoF3KCIlsEINUCAIijkGY?=
- =?iso-8859-1?Q?M3bMdQw/Rg+Y5j1J2YHxMmACFSLgORORt0had8YXtyemwbtmj00pLqJqS/?=
- =?iso-8859-1?Q?DnCI6U7ZaMdGdPD8uozJxxehQa87Tm1B1rBUoEX/eR3u544AXqV1IVppOl?=
- =?iso-8859-1?Q?aIl8ovB1rE61gBRvJ7fq53O1ARxizfjwT8d/boDUsx0w5vB63anGTqW5/c?=
- =?iso-8859-1?Q?Dbmq1Qek0Iy/dd+om54ounXxWXEm5V1anfxDSoFlBHPt2/CSNYuPgVBes3?=
- =?iso-8859-1?Q?Zkmg41ngcczJl5AndlEJdsJTF6FHDZXBPPLzl/jrlWrsI9qrr/geasFDfA?=
- =?iso-8859-1?Q?Y/WxYjlRauYfvfs5iQyFBZPbXUr+MOnEavRWXA+Qi9ameJ5cVJrX4fnAcG?=
- =?iso-8859-1?Q?Jd1diWwArfCBNuj73d1kSDkPhGYLx9hmlTfyfDC9xwSQEOfOB5Q3pViW3J?=
- =?iso-8859-1?Q?1jN4pd07+6nNsiQ9JMnGTPZa9z4X4xnM9s7BlTMejGOwbRdd5CtZvz6HRn?=
- =?iso-8859-1?Q?xmhSmilsyrkD5oMppQznz4XUml5z9k2423h+mGyCRkjv2n4eo5sBoVB9F0?=
- =?iso-8859-1?Q?pnJDnpJL9sESdPCnctwIa0GVMxTMxaWxCiBCbw7hNa7zfX2fyoE8hRTgVA?=
- =?iso-8859-1?Q?kxZDK4zmGAWTUZXgdXJvRg5tJFpiG2+ktX6ETLDCVOV+8IGyeS2xWKmk/F?=
- =?iso-8859-1?Q?EImX+opaWyuJf2anQLGmytireDLpa/KBd3yAI6j9msdnuz8tYK3IvC0g/Y?=
- =?iso-8859-1?Q?YQokumQfHvhBUvjaZguLIsDRZdhudbG425pgN05cwKnBeRfsrQbGCL+ntZ?=
- =?iso-8859-1?Q?aWOWKJhAEW8duKUvm+K5B2Q+8Y8fsHzN5CGXYN6TCH/dSYssy1EGTspIZh?=
- =?iso-8859-1?Q?Vxzjim7iK3m/h6CyGctNl7NeMeLAVB71IPKP3c94XuCxYaHIjHdYG1BKYl?=
- =?iso-8859-1?Q?Z4Tx+j32WVDIVawMlaGJXvjWph/snBrpNbRVhStQSrjTA1CY8E38VrAjnY?=
- =?iso-8859-1?Q?aPcReYjN+FfkbtAF6SSFirDTzMsZxltzsgPip1X/iZhrYdmu9qVPG1XzCm?=
- =?iso-8859-1?Q?NiGBgHc6KCbDwSzUFwVJw0f9IxztwefMZh9fihIVyBP/cfkQn6YUAYmFg6?=
- =?iso-8859-1?Q?znJ79hA6Dy2vb4MRmlF5HgMsETCPG951ruGM5xUgmSNnZmMuAnCLBkhgbL?=
- =?iso-8859-1?Q?OyJqO7+GNw=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E073280A20;
+	Tue, 30 Jun 2026 01:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.102
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782784643; cv=none; b=FLmf7vkkKYmp0Wc8n3I4Le559URId+bLJTFEZgbVXgDUL4XXVx4UNK3i2uZn/nfYb+lHI4jUiF7v15Po/Ft1v5Lop6qIMmmQH42me/dmP6hyfoHrnzjZ/BO/9jb9YP9bpbLO8O1fn5OBpI52oKFy+4tCK4tufScbKs25LHF5mW0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782784643; c=relaxed/simple;
+	bh=ZfoG/+QKnrfYCirFVYlyh+Zu0G4dZxrFIRndgI2AFW8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Gp2pMdJuvGWdUpYtOgfaq3tslJi9ld++Rec0+kari4EM5nhP66IljIWFjQNjW/CdYyrei2nWz094EFWMq0Br4znOTZEPJ2V2UcWxPpD6SYjiFmIXmtxjxXEBI6MWQrLzzyDH0y3xLcMT7454IuQKdHUcj9s8YR1SobiJYcnZFaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=NevV1SaL; arc=none smtp.client-ip=185.70.43.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="NevV1SaL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1782784633; x=1783043833;
+	bh=abt1Km3rhqF/kozSRmSM/863AzbKoF9WEhHJyA3rzFI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=NevV1SaLMK9EaM/8nsFnFZqmVS2NBh1OjbbzFxFVfaaOGt2TJyiSfTafSqCRb/1kC
+	 ZfP4lVW08oP0eo3RQInrKxi3uafn98+8QY+w6IdzssFXST+uWCJ7nWbRxX+Z9lyF3u
+	 BvFeUc/CIqTVBY9/10ejOnclnllSYGV/py6k2bAoKU9c0/tx23FewiEiGJqACI+PCg
+	 dubck7cR7AtA09b6b6XbOzBvlc3qfcsgNWZNTzanOjdHEVaOFxWccD4YX/SFo9SIuz
+	 GxsUHbeCav/RZ81bTCyhL2+bWopMEaQGzig6aZpcMFy30JBXkJJ8wUP/v7+pYvbrCM
+	 rwjn9Swv8rdtQ==
+Date: Tue, 30 Jun 2026 01:57:10 +0000
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alex Elder <elder@kernel.org>
+From: Esteban Urrutia <esteuwu@proton.me>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH 1/3] arm64: dts: qcom: sm8450: Add IPA support
+Message-ID: <1e151b08-5d3b-4b75-8d71-635617868285@proton.me>
+In-Reply-To: <66330ed6-826a-431e-9e8e-f2998af55168@oss.qualcomm.com>
+References: <20260622-sm8450-ipa-v1-0-532f0299f96e@proton.me> <20260622-sm8450-ipa-v1-1-532f0299f96e@proton.me> <806046b2-20ed-437e-a7e6-b3c0699f5a2d@oss.qualcomm.com> <b1f872f5-66cc-45fc-ad42-c308f8970691@proton.me> <66330ed6-826a-431e-9e8e-f2998af55168@oss.qualcomm.com>
+Feedback-ID: 147889766:user:proton
+X-Pm-Message-ID: ef11aeb475485be296f237c5a719643ca92d8730
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbe9158d-7b2a-41b5-7ceb-08ded6450779
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2026 01:15:09.9547
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: NiROHd/orjY+W/kAR+WSgUwS0w9UK4vPSvLHcLd1kCQ2m5LATGmKX3ooCXlN3Fj3T1LbvGuZVpFpJc3Oan0SYx8iJAt5OdcYey36ftZ6NR8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ2PR01MB1145
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> On 26.06.29 23:00, Conor Dooley wrote:
-> On Mon, Jun 29, 2026 at 02:35:59PM +0800, Hal Feng wrote:
-> > Remove the jh8100 compatible since the JH8100 SoC has been canceled
-> > and will not be released. Add the jhb100 compatible to replace it.
-> >
-> > Change the register size in examples to 0x10, since an OpenCores PTC
-> > IP has only 4 32-bit registers: CNTR, HRC, LRC and CTRL.
->=20
-> Actually, please also add a fixes tag to the original commit adding the b=
-inding.
+On 6/29/26 10:18 AM, Konrad Dybcio wrote:
+> Please alter the size of the register range that I mentioned this under,
+> as the range is wider than what you specified - the driver takes a big
+> offset from this base and accesses far outside the bounds of that range
+Just to make sure:
 
-OK. Will add it in the next version. Thanks.
+diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qco=
+m/sm8450.dtsi
+index dd151a2c48ec..100daf8120ce 100644
+--- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+@@ -2643,7 +2643,7 @@ ipa: ipa@3f40000 {
+                        compatible =3D "qcom,sm8450-ipa";
+=20
+                        reg =3D <0 0x3f40000 0 0x10000>,
+-                             <0 0x3f50000 0 0x5000>,
++                             <0 0x3f50000 0 0xb0000>,
+                              <0 0x3e04000 0 0xfc000>;
+                        reg-names =3D "ipa-reg",
+                                    "ipa-shared",
 
-Best regards,
-Hal
+Is this what you're referring to?
 
->=20
-> Cheers,
-> Conor.
->=20
-> >
-> > I will maintain this pwm module in place of William.
-> >
-> > Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
-> > ---
-> >  Documentation/devicetree/bindings/pwm/opencores,pwm.yaml | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
-> > b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
-> > index 52a59d245cdb..42c5d2b6326d 100644
-> > --- a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
-> > +++ b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
-> > @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
-> >  title: OpenCores PWM controller
-> >
-> >  maintainers:
-> > -  - William Qiu <william.qiu@starfivetech.com>
-> > +  - Hal Feng <hal.feng@starfivetech.com>
-> >
-> >  description:
-> >    The OpenCores PTC ip core contains a PWM controller. When operating
-> > in PWM @@ -23,7 +23,7 @@ properties:
-> >        - enum:
-> >            - starfive,jh7100-pwm
-> >            - starfive,jh7110-pwm
-> > -          - starfive,jh8100-pwm
-> > +          - starfive,jhb100-pwm
-> >        - const: opencores,pwm-v1
-> >
-> >    reg:
-> > @@ -49,7 +49,7 @@ examples:
-> >    - |
-> >      pwm@12490000 {
-> >          compatible =3D "starfive,jh7110-pwm", "opencores,pwm-v1";
-> > -        reg =3D <0x12490000 0x10000>;
-> > +        reg =3D <0x12490000 0x10>;
-> >          clocks =3D <&clkgen 181>;
-> >          resets =3D <&rstgen 109>;
-> >          #pwm-cells =3D <3>;
-> > --
-> > 2.43.2
-> >
+Regards,
+Esteban
+
