@@ -1,75 +1,44 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0773C1973
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 17:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF82A3C1973;
+	Tue, 30 Jun 2026 17:05:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782838987; cv=none; b=nk+QZV9TNI2VRu5vQOVPJiKjjgkYdiI5wYlte3BQZWJV5x0ennvVoDhZ0QIHkOAUFjVLrQ2RpKM6gLe3ra51BeK/PSLkTnL1tfVuNi280BhGoQmqu2L82wqM45xtLCONQv8chQw8g55/SJga/ypWw5rtX96yhSgE6eOvA6HnnEg=
+	t=1782839120; cv=none; b=Uo0jkJr+TnimTRYBuzw7brFvCi7t1sJXLbihwURMUBFQZacn3KPjgO1sb/x2UIBcYYmY7tfxT75kRCTqGSuEGysC7O074pTXiZHO/2j5129YmWao9I91hCcaC/VowsYHd4sj7YEGB460vvMOfwmcGjR1ZcHrUCdWZRnG8rw5Sz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782838987; c=relaxed/simple;
-	bh=wFcPxcQLP8FI+3mLIH02StKQAxTWliyQeGTu8bwHZa4=;
+	s=arc-20240116; t=1782839120; c=relaxed/simple;
+	bh=Oy+BfZGdEP+9m1zXT7vncVJp5kLOPzNnlDD5ehcqJ4w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NlzF7grENVW3j3RXzThiqvNMp7WR+eTqyVnt/NCRkefG0u0dkLog0Y+9w4SNDianQzCXR/n0QaMrNYOHqEVoaz9wPnvQ+Kg0sAkqMrhEEnqyFpCZJ/TfhFdStEk+XFrdQ1DEn2wCQvPs9VmB90C5ylxg/A6Rfe6/q6cId5RsQs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=FoBJ4f1M; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=nu6qGtxyrSBGHGMpbJokSvTR7fARGZqqquvdwyvrf1sgNbF5Zyd3SR/RrxgYIzK94m7MhiIdNDgWyitIxCiUva3tRPQsyeUpRamBRnQ9UV9rAggr/Nseai59BwBNHOGUTFodIwuHHxgYq6wxflUPsqf/Eha7rMGCDf3yfJgS+fY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QWhGdiLk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="FoBJ4f1M"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493b7612475so11479295e9.3
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:03:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782838984; x=1783443784; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=065FLRDoYNi4tJNRO4o9kX5ArAQ4ACVdhpCQabyC+5Y=;
-        b=FoBJ4f1MSciH9tqQe8ajKu8ZgKsJgeMU826++81YGL3WtbCGwAnwUq4PmF/2hR9eYg
-         L/vwWBPBhHoEqdlN8uAlojIPnydgC/+F1vjfnQjho5qO7UJkB7NP3owWaNUoMDXkVl9J
-         zx+hG7PAMe5OINaA1dEJukKU7o4rDOUG/S++YCTeCQo0/Db9toco37J/DcnxnrdQOCJ5
-         sZKyLYnZGwmC6G3IgOmjgZTaT08BIu9VFJhFCoTtoAGyeSTeuqpj79zsPSogPrLFVNWW
-         QsHsu8UiTYblDb5IGIolZxenL/MiL/Ja0hHTwO2iaMmDNiz9w/f6cccth5NBpCsoznCb
-         x1oA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782838984; x=1783443784;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=065FLRDoYNi4tJNRO4o9kX5ArAQ4ACVdhpCQabyC+5Y=;
-        b=N7Mdg/sq6xSYRCHGOZ+41rA8UDoHvFlH3NzZBTj/2nGdyOoVihxj57QvRr322E+I43
-         SkWR74+974hsvwGqsTC+6GDe+vrip7yiFPXkYZZZWxMxZb6NnG+ZABRYNnJi+ha1hh5o
-         flCoDw2A5RYpyc7vKNlKHVCLWG/B0al+FSPOljUJ8HZ6WI7w55m5IfTn0bhFHFCZ7kXC
-         /CRRR1I2sxFONUcUOcYLefcdrc2oELftTHUtLyy0aUiWuNL0u2MWgXzi2C7dgmmsctbw
-         wKcZkL4/UzL83kr5tnD8FuBAiRBDhHptD5mU4j0hmDH4IF/act3+LRMC7MDsuUhDCnYy
-         xv0Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/CxfbJCyyAhkeZGozlAFM5KbjzflQz2SWi1uf/zm8qP7RfPD8W3CgweGl9elYceVIfpq163PMHfK+e@vger.kernel.org
-X-Gm-Message-State: AOJu0YxA+wuAl8IjFjoVn9POps9Silfe56654NLsIr7T3FPt7kGbQiP3
-	VpoFrJs8l9145z0emXFDKO5ZAo9j5qIShz7paNGY/1L3vO279EAhkvnT+vGjvkedg8g=
-X-Gm-Gg: AfdE7cmogHm4+Fod1vMCsn4b//Pl+BmKuerZ+6xnGatUHY9B0Ki8Z6YwtJ94sPSlCh9
-	9PrqS7yjWw3MnlH01nikZQSTcRjcd9mzoZp78M3kMrTxYCpuhosvZUpNA9xaWoDXkUjUxEeKHl+
-	ovdgZh0Gh2bVMcdZW0g4UdDmSPWJ4J1dHSzfmEtUfVfgatFNcnZJED2kLWmd7bQGvtK10UWn61R
-	Cz/irHGXlBYVT1xLMxZ9XKCaf8VYbtHSQ3GHjptsp/6SrsE1wmP/yH7PPX7R7YDjwDChVEnpIfY
-	fG0z+U3nX3ONLFphtGjTtdjBFbZRXCs/D51uPQNlYRY1JxZXNUspRNk/OSHv8/5XGQL/FKIDHWL
-	kHSH8XGhtcWBtKlT9Hg1ohUAsTGzb52rNr5VycfPqgr/y5q989w0Gs4vB33kP1wWEbWlc88KSkk
-	9aM8Qzmoz4E38ySURhqMpHHUvELCmoh8pQPTnXkzOmKQfD7Y8m7mDGggezdSGz+MdRGp+HlNOc7
-	bLXgc/3FDPIsXw=
-X-Received: by 2002:a05:600c:8b05:b0:493:b764:ff98 with SMTP id 5b1f17b1804b1-493b828631fmr71049215e9.11.1782838983777;
-        Tue, 30 Jun 2026 10:03:03 -0700 (PDT)
-Received: from localhost (p200300f65f47db042a9b551def0a6b94.dip0.t-ipconnect.de. [2003:f6:5f47:db04:2a9b:551d:ef0a:6b94])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-493be4c8080sm10175345e9.1.2026.06.30.10.03.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 10:03:02 -0700 (PDT)
-Date: Tue, 30 Jun 2026 19:03:01 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Lukas Metz <lukas.metz@gmx.net>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] iio: dac: dac8163: Add driver for DAC8163
-Message-ID: <akP2RSriqaN8qqQT@monoceros>
-References: <20260623-dac8163-work-v1-0-5b508158faa0@gmx.net>
- <20260623-dac8163-work-v1-1-5b508158faa0@gmx.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QWhGdiLk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A30F1F000E9;
+	Tue, 30 Jun 2026 17:05:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782839119;
+	bh=CKdtDTaecC+HUonkVnwkzk/WVKXHYxo/bin0q3mo6cI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QWhGdiLk9DzqF3DaLu1vpSJ7yQJrFmB8W/+Sa1OCPTqCdKtpqn0ssYGwuSeOduNO2
+	 oLzCLIqwjsR9Bi9LLwl/KQz2AXp3sh9zCP8Ve6JfO9JKcOQiN7bWYsOHjzlYIaHR18
+	 uKLhH1ujQ6yREHvpEPuN2e/+2FwBKhH1C/O6BK/13sZks5Ngfkgi9r/gomicPxtDVo
+	 GDGehdTp1d5BZlALab2CBT1er8cyxoYYWKR/4A7R76mOYJ3OoYzfSr1/n7yPUTifLw
+	 puKZ+uQQJSP07LMxeUI/QNmdRrgE7Ng494kFEpgw3hKJatwdbB8VLhRbVw4VZUWtyX
+	 Z2epO6g5EwFyg==
+Date: Tue, 30 Jun 2026 18:05:14 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Gokul Praveen <g-praveen@ti.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org, neil.armstrong@linaro.org, nm@ti.com,
+	robh@kernel.org, sjakhade@cadence.com, kristo@kernel.org,
+	vigneshr@ti.com, vkoul@kernel.org, yamonkar@cadence.com
+Subject: Re: [PATCH v3 net-next 2/2] dt-bindings: phy: cadence-torrent:
+ Update property values to support 3 clocks
+Message-ID: <20260630-chowder-unpleased-162d2c891ead@spud>
+References: <20260630134324.61085-1-g-praveen@ti.com>
+ <20260630134324.61085-3-g-praveen@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -77,83 +46,77 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pdjo7z7h4wmknyds"
+	protocol="application/pgp-signature"; boundary="claZfrcYDscXuJ3R"
 Content-Disposition: inline
-In-Reply-To: <20260623-dac8163-work-v1-1-5b508158faa0@gmx.net>
+In-Reply-To: <20260630134324.61085-3-g-praveen@ti.com>
 
-
---pdjo7z7h4wmknyds
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--claZfrcYDscXuJ3R
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [PATCH 1/2] iio: dac: dac8163: Add driver for DAC8163
-MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Tue, Jun 30, 2026 at 07:13:24PM +0530, Gokul Praveen wrote:
+> Update maxItems value of "clocks" property to 3 as description of
+> this parameter already indicates 3 clocks(refclk,pll1_refclk(optional)
+> and phy_en_refclk(optional))
+>=20
+> Update the "clock-names" property as well with the 3 clocks.
+>=20
+> Signed-off-by: Gokul Praveen <g-praveen@ti.com>
+> ---
+>  .../devicetree/bindings/phy/phy-cadence-torrent.yaml          | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/phy/phy-cadence-torrent.ya=
+ml b/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
+> index 9af39b33646a..54fe78da297a 100644
+> --- a/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
+> +++ b/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
+> @@ -34,7 +34,7 @@ properties:
+> =20
+>    clocks:
+>      minItems: 1
+> -    maxItems: 2
+> +    maxItems: 3
+>      description:
+>        PHY input reference clocks - refclk (for PLL0) & pll1_refclk (for =
+PLL1).
+>        pll1_refclk is optional and used for multi-protocol configurations=
+ requiring
+> @@ -47,7 +47,7 @@ properties:
+>      minItems: 1
+>      items:
+>        - const: refclk
+> -      - enum: [ pll1_refclk, phy_en_refclk ]
+> +      - enum: [refclk, pll1_refclk, phy_en_refclk ]
 
-On Tue, Jun 23, 2026 at 06:07:27PM +0200, Lukas Metz wrote:
-> +#define DACXX6X_COMPATIBLE(of_compatible, id)        \
-> +	{                                            \
-> +		.compatible = of_compatible,         \
-> +		.data = &dacxx6x_chip_info_table[id] \
+This does not do what you want it to do, I would think, since it means
+you can only have two clock names.
 
-Missing , after the value for .data.
+Additionally, please restrict 3 clocks to only whatever new TI device
+actually has 3 clocks.
 
-> +	}
-> +
-> +static const struct of_device_id dacxx6x_of_match[] = {
-> +	DACXX6X_COMPATIBLE("ti,dac7562", ID_DAC7562),
-> +	DACXX6X_COMPATIBLE("ti,dac7563", ID_DAC7563),
-> +	DACXX6X_COMPATIBLE("ti,dac8162", ID_DAC8162),
-> +	DACXX6X_COMPATIBLE("ti,dac8163", ID_DAC8163),
-> +	DACXX6X_COMPATIBLE("ti,dac8562", ID_DAC8562),
-> +	DACXX6X_COMPATIBLE("ti,dac8563", ID_DAC8563),
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, dacxx6x_of_match);
-> +
-> +static const struct spi_device_id dacxx6x_id_table[] = {
-> +	{ "dac7562", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7562] },
-> +	{ "dac7563", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7563] },
-> +	{ "dac8162", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8162] },
-> +	{ "dac8163", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8163] },
-> +	{ "dac8562", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8562] },
-> +	{ "dac8563", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8563] },
-> +	{}
-> +};
+pw-bot: changes-requested
 
-Additional to the missing space pointed out already by others, please
-also use named initializers, i.e.
+Thanks,
+Conor.
 
-	static const struct spi_device_id dacxx6x_id_table[] = {
-		{ .name = "dac7562", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7562] },
-		{ .name = "dac7563", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7563] },
-		{ .name = "dac8162", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8162] },
-		{ .name = "dac8163", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8163] },
-		{ .name = "dac8562", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8562] },
-		{ .name = "dac8563", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8563] },
-		{ }
-	};
+> =20
+>    reg:
+>      minItems: 1
+> --=20
+> 2.34.1
+>=20
 
-See
-https://lore.kernel.org/lkml/20260515103150.164887-2-u.kleine-koenig@baylibre.com/
-for a rationale.
-
-Best regards
-Uwe
-
---pdjo7z7h4wmknyds
-Content-Type: application/pgp-signature; name="signature.asc"
+--claZfrcYDscXuJ3R
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpD9sIACgkQj4D7WH0S
-/k7rhAgAj7ImlgrgPsZWeETvfMzKOH4o9IxIZniUJoYukNSn+rqWsYNyyxQA5HbO
-HkpfYskuDV6YkIDEL/5rqz8g41y0kqc8Txxni9tjRfvHRjY5z/CU+32qs7sSVCQ4
-eoTAo1C4qIleNRSiDJpqcRk9DfoLKFDXTJRFVYeIQvWW1Y1KEXLea/3kxda2/gcX
-snPcROQwWZIr7OPy0sR54lqGn/dgCqyh+d6mDATGcngE5KW4FVChyNn10K1rshh+
-Kxx3PWXueDbvBqDAFVoLn1EXhajNrQJ/v6YIs+9h65UwHbHwQlFfzp0AWd7d/oKb
-hgxn4938MwqWPGTf65MnzW26QK2zNA==
-=D1q/
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakP3SgAKCRB4tDGHoIJi
+0mY1AQDA1BtEt2XQX/AY8otmFWna4lcOAOS4LCkehrqayL71ygEArP3hoqxqdl54
+tnTH5YezNgF9fglzhsf8H1wpoHH5nwI=
+=Og3T
 -----END PGP SIGNATURE-----
 
---pdjo7z7h4wmknyds--
+--claZfrcYDscXuJ3R--
