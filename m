@@ -1,82 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151BC2FA0C4;
-	Tue, 30 Jun 2026 13:52:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5A12882D7
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 13:53:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782827529; cv=none; b=LePo1xF2etFNbbyHFwqVB3Fu3wumNhXVMInuTCLKN7J5Ucpba02koYGDv3iEy0Sxv3Q6C/92rJNuRfpVTakH9YARzLhtViIFLwwlXKeSvCviUaVMVFJbfP8In6Avkpbe/3FaJSBc3y5aVU9DquleLkhVFZGnAeNUzfa84aImK7k=
+	t=1782827601; cv=none; b=FNL5rn4ivCqi8naulTAdZ5t/Es70ePHsMUSE215zpQ6UMtyAnIjZFe0IfjitRWfsYKM1LhzJnNFAARuTVvxgfCBHDuSSQfMTFBAv0jiB1uoywWiet9X5g5vL7baao8tmVNOaEVlNa1C3NybyfLgZTM3nhDpEre/EQ3m9Beh6naU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782827529; c=relaxed/simple;
-	bh=fcrjvHyRgEDnEyKZthITYPFPQmO3YCO/vYrKNtCSOkw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hd9qeRriKr1rHPvXtgyxmp6ZAashv6StHMKxhZdgF253Rm91U7Sp6+TwuaJwUVxc8OyfuAQDn5G9Mi+GZpJiF/HAtaJo7eSKdRug7bYg/RgVfTXSVWx+JkSEHlzOx82OgDKopzKZU1eEcj2PfX8FEkoEI5LXxvmnZBNDbv1mxBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OYLpV4xa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782827601; c=relaxed/simple;
+	bh=dEd5nwAKspQ/mB2Z45yUvjUY4qf3KL23pOzfxLrJJn4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eAQf0MgPNSRE0Unm3d3G1KcoJx1G/zbZ29QLhaz7atUGNAHg20qQEnJ5xxUxj91u76eNvb21I+5rKJJRrExfStUQReGDc6n/fCZYcvka64/KImZlx9fRSmbWp41ISi1lwaBnHZpiNnUESIWKP0wuu4WocOrBJ4+gaSxxvWszs2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=D9wSGRVy; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OYLpV4xa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8C6F1F000E9;
-	Tue, 30 Jun 2026 13:52:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782827528;
-	bh=LIxDCIqGoO5YnS7sM89lDYN7/qU1dT6KiPHIvC5H1+0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OYLpV4xaZjrElX/uvSWuXZD4SkkGn8NaPB8gcw1FkeLXh3gsJE3enB5YGDzMACuUm
-	 xiQuq7RXBrppXszJMeSSHON6WB6lYMao07R8wnK+D2EJEh63FRz+Gw4HzkHv/lT3D3
-	 BMim+rVqXKKw1S8lmk0Q8FnLrLrGAucqTYQ4ttrXK7eDC5LSmhA+HnXiywYfWMHqrp
-	 iM+w3JQQW6SFBqZ3A8yR122tXa+8Rf9L+FPLoxFQBcNVtyzmqOHdO4ySLVvdUbRbV9
-	 TycjXPq5lFHCEA23EshuBsFqrIoAqCmA6fdGumf0qnVCtWevDh0tEFW5hGjGa/rcxq
-	 TWugaKofRcx8A==
-Date: Tue, 30 Jun 2026 08:52:07 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Ahmed Tiba <ahmed.tiba@arm.com>
-Cc: Dan Williams <djbw@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	Tony Luck <tony.luck@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-edac@vger.kernel.org, devicetree@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org,
-	Dmitry.Lamerov@arm.com, linux-acpi@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>, acpica-devel@lists.linux.dev,
-	Saket Dumbre <saket.dumbre@intel.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Corbet <corbet@lwn.net>, Len Brown <lenb@kernel.org>,
-	Ira Weiny <ira.weiny@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v6 09/10] dt-bindings: firmware: add arm,ras-cper
-Message-ID: <178282752577.2979480.8944194387626033684.robh@kernel.org>
-References: <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-0-91f725174aa0@arm.com>
- <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-9-91f725174aa0@arm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="D9wSGRVy"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 824EDC51474;
+	Tue, 30 Jun 2026 13:53:28 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D366E6025A;
+	Tue, 30 Jun 2026 13:53:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 497B2106F1F70;
+	Tue, 30 Jun 2026 15:53:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1782827596; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=RhTaGTqXn+vEjpea1Rvo2RPETqMhHuTMxdNXRudSe/o=;
+	b=D9wSGRVypx8zxy3QgxOSR130crVvBYKWZNsLuy/RRFjJLeBg3BQdLPUaFDY/5R0BEEX9b/
+	5A498attBVzR2DG8XO4BBKQhrgBmpkrufZKVvC17sTbYl25xqGrwVMva8scfhu1g5eo3en
+	bKFmtNpANcqA/VRIGpxxTH/VCWjJL7xFzq4LhFyPwkXz61w8AQ64UJTt54okI1zw2yC75g
+	F1oDoH6AdfPL3JSbHuMapXSt20ZBqstdc1hWTxEbPCvi5NU8atITi4occfoghLZTVDBFDL
+	see8UI6kPDopLHpL55kTSDUp3FS+dxAhszlwDryseybhNk13Kvdp0Neyz/GkJA==
+Message-ID: <563ac947-0c5d-47ee-aedc-66baf4d32648@bootlin.com>
+Date: Tue, 30 Jun 2026 15:53:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-9-91f725174aa0@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] arm64: dts/net: stmmac: Add Agilex5 SoCDK TSN Config2
+ board support
+To: muhammad.nazim.amirul.nazle.asmade@altera.com, dinguyen@kernel.org
+Cc: rmk+kernel@armlinux.org.uk, krzk+dt@kernel.org, conor+dt@kernel.org,
+ robh@kernel.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260630133108.27244-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20260630133108.27244-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi,
 
-On Wed, 17 Jun 2026 14:54:47 +0100, Ahmed Tiba wrote:
-> Describe the DeviceTree node that exposes the Arm firmware-first CPER
-> provider and hook the file into MAINTAINERS so the binding has an
-> owner.
+On 6/30/26 15:31, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
+> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 > 
-> The initial user is the upstream zena-css platform, validated so far
-> on FVP.
-> 
-> Signed-off-by: Ahmed Tiba <ahmed.tiba@arm.com>
-> ---
->  .../devicetree/bindings/firmware/arm,ras-cper.yaml | 52 ++++++++++++++++++++++
->  MAINTAINERS                                        |  5 +++
->  2 files changed, 57 insertions(+)
-> 
+> The Intel SoCFPGA Agilex5 SoCDK TSN Config2 board uses a dual-port
+> Ethernet setup where gmac1 (TSN port) operates with different MAC-side
+> and PHY-side interface modes: GMII internally in the MAC, and RGMII
+> towards the PHY.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+There's the same behaviour on Gen5, e.g. CycloneV where we have the
+"EMAC splitter". Based on wether or not we have that splitter in DT,
+we override the INTF_SEL bits to set GMII as the MAC output, the splitter
+converting that to RGMII/SGMII.
 
+Is there something similar on this AgileX5 version by any chance, for
+which we could reuse the logic ?
+
+I know that on CycloneV you also need to adjust that GMII -> RGMII/SGMII
+splitter whenever the speed changes, is that different on agileX5 ? have
+you tested 10/100Mbps ?
+
+Thanks,
+
+Maxime
