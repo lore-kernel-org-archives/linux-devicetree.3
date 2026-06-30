@@ -1,157 +1,325 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B234E367B60
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 13:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE390283FD9;
+	Tue, 30 Jun 2026 13:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782827841; cv=none; b=dk9IALNOjqvHO4EA1MY1uiY25imb/+LPN9JMi2Il4bcj3XRocG1VYKctBuJ/Qac8D22ehMpErYTbNCpIyeZoA7shA0EUFH4fR2Vci1sJF6VxVKm++ITaY1mvJu2KBslpn6xX+dpQuoeE+TZ7aWlYt61RN5z8UmNnd3ozDC56RIE=
+	t=1782827886; cv=none; b=LFMy+H/B47TBcojF3jw3gVu4/497EwI+K3KenewH3/11fbmOq/UMp/nRwhg++4BroGso2ImCtDAcdThbww9Ed4w42qFuhV3PldPqnAYTzwL24Xai9/zc8eyNJ7/PjCFRwUFS5dXv3X1tO5epOT/QeNIIhtnpaof/twMFNSkOk/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782827841; c=relaxed/simple;
-	bh=VZXDCkGXPqjXNLo87oDiL3MGUCb/C/NcqCHPksmBoj8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SaFjqnznbYYzgssPAUrJFI1EsWp9RVDVlP7WoDIp98j4q+r5shp+l4Z1ETDM9rNqbQyK0x0cTZpSZ5CQRzmsHHhtIESDQNz8nw2dfI9gidw5Ar6sgcUBBngG+uRJAGhO1eJQ0MdbjeVuYW5WJAC5+QtD/gx6wHlB8qetebGOdNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EQ/hQGc5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RYp/5oCS; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782827886; c=relaxed/simple;
+	bh=PSQxQ4akFmmyR2PhhnlYsv42ZGE3LJJ7clgg23SFKYk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JwAHN88vDKCG9BuVeRgNUesYSwvTP01lihtyytWRgBo913z3Nh6w/ErNGUWAIoRrSiz4VxKK3vJT3bah5GkwGXKvKjf2hS4RxIoAQJbAqCSUjz/uopoDuA0TklXuUYSeTSf6RCB35R3DbqaewQHkxi+eVhlyzsqqqzX8m8pApvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U3TUXrvF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EQ/hQGc5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RYp/5oCS"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U9mvLi1522327
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 13:57:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jHHiZ1G2Of8CDq7sIn2bONVFdln4OQz+K/2zgUurUOs=; b=EQ/hQGc5r0U+JEjJ
-	rwXLZDRjg/yJx5q9y9n8AmOTYjnbhXszb4FUElud33w78rD93Eypmp1NnCYi0W6q
-	PuEjUGmqiLeRE9r5VakI8DKVA9qkbxGoiWxoQgzq0Ww+J5ZjOB4c65f2K9kb3ssG
-	A1QTZJKj47eZ/wB/oH/FItolhwmG2rIGD2vnmfjGl4vnQKIyyKuzKLZ51eCCII6a
-	onPKtqM3y4gk72zTUDXV4o79M4E7WHnpEIL5mcr9ADcFSSg2OxNW8MWTuQmYrrA4
-	eGFAEU+Yvict77KF8ItlALa2KxSnXLj8DHL5vKIdvejhUMfUSlmLpP2meIsjQJVi
-	+R3+tA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3yw93q3e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 13:57:19 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c1857417aso364771cf.1
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 06:57:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782827839; x=1783432639; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jHHiZ1G2Of8CDq7sIn2bONVFdln4OQz+K/2zgUurUOs=;
-        b=RYp/5oCSqSGKmIOywIPiNot4M68g97xtxRi0V77cy+1t0dc2D2v9+xmZnL1V2wEsYS
-         D+N0bv6ovxw5yP+mJSGYuRiU6KxhIXCMUWDsQkCCZcyH6Mm2dW7wKRLGoWGEB/Xo+IoA
-         VnQNhSKtvc6Sg47ldrQIY2iEk1bhY7FlsHdFSVGBJYgi9nPoSZPTVEqcoxgxQk/9CBsn
-         CZskP/kNLENHuiucvyCdRk6CW3FGCQDtSc+bw281RDw0JhzSvw8YoJrpI4ChqISeMwGW
-         13YoMkyQScG+gfGsBeqrXa29D41Roy2j1QeTR0gDK3FOGCN7dE0AGzcZTGlVcPnEBCXw
-         ZJ0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782827839; x=1783432639;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jHHiZ1G2Of8CDq7sIn2bONVFdln4OQz+K/2zgUurUOs=;
-        b=cMvqN6zzHHnILqowTspzxEigEaSZx6vjRIgY6eZv4r1hCbDepeaTwev6noOzy3FNeG
-         mLmVkhDxHhHRgf2ncyAj2wdEElbQ8jzqyjd5sL9szEJ71/80Jt8dop90HjOgNCJxR2ol
-         IKtlPn7uUAWJp7ZQv9EKmYkYt/iupPFz33r9yOnXGEEtcfmNeL1sqCSU2vSB5nmU2EzN
-         agiwGTfaiXrzNziHXVUngIy9U+HoVlpcOEEDsECehJk3ozOZITwcqXi6+g2HWcZxCBGq
-         TDcqMmUsB4M0qWiL+OUTzG3Z8b0y+OAhQys5o1CL91kCG7C8JU8Zna0YMFo8LpQ7MAn6
-         rrKg==
-X-Forwarded-Encrypted: i=1; AFNElJ9ci9yRDREWIzx3OYE6gvDhTEcXDxaGSgzX7v9HKEjHHdvecZJctOnfa4K5A7T2bTAUQfdOVQWpJvsV@vger.kernel.org
-X-Gm-Message-State: AOJu0YzesVblun2iZoACSuEX6b5QdJKorgxZVVLtnWCXHIBaOPf4IWwF
-	tBYXpqLxGn78VhWvZqIp5ikI1MlC+ccNbEn+xxGA8Zy1FTllFBwgfraKvo2V0GcMdA6DLqZMIKh
-	qSQa8yjyFJ3PGF5fjXVbnKa4WlznHh/4GtRPb0dxCd/8vMDVbDqHpJ+DssiFluVLF
-X-Gm-Gg: AfdE7ckDW3ZpXEiHM16tJjCakuqwV8+GPnwNtgQDoUhfXd6p1uPTb77i1OFSRlQNGqC
-	GsTuk+D5OWTX/P7pkIPhOHLUNzkJYKluw2VBulQ7RCwULQv5QU0LNOY23ZHEw608ttx1JDDo3EO
-	mcaPfQmmiik4b2nMvhNiX7gWoUdk8qdRXCjOCigc/OmZUF6aerFDQgpzKDSkX9I/xB23hYKN8X8
-	amgh03p0XyU5e/De9U8iA4avnOBzowrdB1Qz0FLZKspr8bzLrvHfVwufKylzyLEnGKswPWQlnSp
-	8oGd5jEQRkMXCO8eAOITrWezEtuN8/6g97UAbCSNrekca09+5Epi0ZFNdgS97AY8WNRNNMSATA/
-	c2Nn/YKzMYCb8o0Dtix8EnM553WNrY7pd1D0=
-X-Received: by 2002:a05:622a:286:b0:51b:fe41:4764 with SMTP id d75a77b69052e-51c108197b3mr29499351cf.7.1782827838865;
-        Tue, 30 Jun 2026 06:57:18 -0700 (PDT)
-X-Received: by 2002:a05:622a:286:b0:51b:fe41:4764 with SMTP id d75a77b69052e-51c108197b3mr29499051cf.7.1782827838397;
-        Tue, 30 Jun 2026 06:57:18 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c128917594csm132716066b.59.2026.06.30.06.57.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jun 2026 06:57:17 -0700 (PDT)
-Message-ID: <359d3d95-4756-49f5-8dc4-f24f24844f3a@oss.qualcomm.com>
-Date: Tue, 30 Jun 2026 15:57:13 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U3TUXrvF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F39741F000E9;
+	Tue, 30 Jun 2026 13:58:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782827884;
+	bh=i0WyWlTxWTzUX3Pom7M+EpE3G1f/6rB5cRpuG1sDm+E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=U3TUXrvFNoD/0j9ErCNLD2YYOFgkD5/GK+HeNcKocCyBbqMhMcxkrgh+NkE1EJVNX
+	 VyuaupgKyezwNlWgON4Vne2abG7IwgTm9gvLiC8hLIirgZ8yDgOSMRRQe6gIL6vTvU
+	 dNjTTiVgGzWrolgtXXKVQm9nbrEjpnJksc1mpuWqNTAiDYgls1P/F4je2GUJWOEbqm
+	 FJ1SrZ6iSCmqvHPxtGKR3AHLKmnQ3GhHnNK+CXUmJFmj187iacPdEWlah7Dvc9Mqyu
+	 coK97RuKh65vDZAEGC+tBWbF/zmvEPcmsfYCCVU9qJRqtWyky0X90RFPRUEtf445Vx
+	 mcd1IoAyEwoIA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 08/10] HID: apple: Add DockChannel HID transport driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Michael Reeves via B4 Relay" <devnull+michael.reeves077.gmail.com@kernel.org>
+Cc: dmitry.torokhov@gmail.com, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-input@vger.kernel.org
+In-Reply-To: <20260630-apple-mtp-keyboard-final-v1-8-506d936a1707@gmail.com>
+References: <20260630-apple-mtp-keyboard-final-v1-0-506d936a1707@gmail.com>
+ <20260630-apple-mtp-keyboard-final-v1-8-506d936a1707@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 13:58:03 +0000
+Message-Id: <20260630135803.F39741F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/5] arm64: dts: qcom: Add Shikra IQ2390S SoM platform
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-mmc@vger.kernel.org, monish.chunara@oss.qualcomm.com,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260612-shikra-dt-v6-0-6b6cb58db477@oss.qualcomm.com>
- <20260612-shikra-dt-v6-4-6b6cb58db477@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260612-shikra-dt-v6-4-6b6cb58db477@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDEzMCBTYWx0ZWRfX4DKRDoyowWJX
- HFVnIkf9MFFOISMyZ6f88iunDxfCQjkhFlMHqbLujcmu0o9JJ8zm401ictbanEIVQYDMKZo5cD8
- 4BV64CjkOrMMf74IXfBsI3pM5S4cghE=
-X-Authority-Analysis: v=2.4 cv=KfDidwYD c=1 sm=1 tr=0 ts=6a43cb3f cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=MSeU50jLikp4iQrAx_QA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: vo_gyGDfT2vAX8bMjdak6XOoe4IqD-x0
-X-Proofpoint-ORIG-GUID: vo_gyGDfT2vAX8bMjdak6XOoe4IqD-x0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDEzMCBTYWx0ZWRfXzstF7kox0Lnf
- RBhJsSnEMI0yXhiMd48df0V/FjqcH9DR79RxON4xhJDb+2bLVado3LRW3YH6K5BzH4JmYc4NSMP
- 2jvmD18Yht5jWgu7CJkqcVUTA8IrYuA0F3LS2iYYJ3Ez0Mq9hmHT4gvHl781dEGCK1Kd1H7yScv
- cN4JfTtpM8yw5PCvLzSYDXnsIuOGI9MaagNotJmJDgVLgBbrNOjVcszEDTl9BLWpJtQV/MvMklG
- dzH7qsss2XCCe+mAmIkzgjeYUcpKYAMdop2PnB3wrKyQul5ZEA3xGORAeHE/8mXCFHzLj6mWj/C
- EUe5c3krdDCmn8mcwMKN6ByedZ+vBgCHQkRbCAG51hB6DW88Zd1FJRPEem8V/t36szJLNA5md0p
- KrMnUU7qLowqs4vzGAIIKbQCpjZhSBSe5lbE867/aZVf09WjUEGFRSEL38ULioV6MOUJEoW06y0
- wY/8s2Z1nhYWqSwp4Jw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-30_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015
- spamscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300130
 
-On 6/12/26 7:27 PM, Komal Bajaj wrote:
-> Add device tree include for the IQ2390S variant of the Shikra
-> System-on-Module, an industrial compute module integrating the Shikra
-> SoC and PMIC for industrial IoT applications, designed to mount on
-> carrier boards.
-> 
->   - shikra-iqs-som.dtsi: Industrial SoM without modem (PM8150 PMIC)
-> 
-> The DTSI includes the common shikra.dtsi and adds PM8150 PMIC regulator
-> definitions specific to this variant.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+s) to consider:
+- [High] Flawed teardown ordering in dchid_remove leads to Use-After-Free o=
+f HID devices and transport channel.
+- [High] dchid_raw_request returns an unvalidated length from the device, l=
+eading to a heap out-of-bounds read in hidraw.
+- [High] Missing null-termination enforcement on hardware-provided interfac=
+e name leads to an out-of-bounds read.
+- [High] Concurrency flaws in dchid_cmd lead to kernel log spam and state c=
+orruption.
+- [High] Unbounded devres memory allocation in dchid_handle_descriptor allo=
+ws device to exhaust kernel memory.
+- [High] Missing memory barriers when publishing and reading dchid->ifaces =
+array causes a potential crash on weakly ordered architectures.
+- [Medium] dchid_raw_request returns incorrect length for HID_REQ_SET_REPOR=
+T, causing false short write errors.
+- [Medium] Missing cleanup for the ASC coprocessor and RTKit on probe error=
+ paths.
+- [Low] Native pointer assignment writes the checksum in host byte order, c=
+ausing failures on Big-Endian systems.
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+commit 73972b8194e713fd30c0d82321eb7f0553221fd5
+Author: Michael Reeves <michael.reeves077@gmail.com>
 
-Konrad
+HID: apple: Add DockChannel HID transport driver
+
+This commit adds a transport driver that boots the MTP RTKit coprocessor,
+exchanges HID packets through the DockChannel mailbox, and registers child
+HID interfaces from devicetree.
+
+> diff --git a/drivers/hid/dockchannel/apple-hid.c b/drivers/hid/dockchanne=
+l/apple-hid.c
+> index 0000000000000..162fcfb5ab1ce
+> --- /dev/null
+> +++ b/drivers/hid/dockchannel/apple-hid.c
+
+[ ... ]
+
+> +static struct dchid_iface *
+> +dchid_get_interface(struct dchid_dev *dchid, int index, const char *name)
+> +{
+
+[ ... ]
+
+> +	iface->index =3D index;
+> +	iface->name =3D devm_kstrdup(dchid->dev, name, GFP_KERNEL);
+
+[Severity: High]
+Can this cause an out-of-bounds read if the hardware sends a name that is
+exactly 16 characters and not null-terminated? In dchid_handle_init(), the
+device provides a fixed 16-byte character array for hdr->name. If it lacks a
+null terminator, devm_kstrdup() will read past the end of the array into
+adjacent fields. Should this use devm_kstrndup(..., 16, ...) instead?
+
+[ ... ]
+
+> +	dchid->ifaces[index] =3D iface;
+> +	mutex_unlock(&dchid->ifaces_lock);
+> +	return iface;
+> +}
+
+[Severity: High]
+Does the absence of a memory barrier here allow the reader to observe an
+uninitialized interface? The interface is published to the array here and
+the mutex is unlocked, but dchid_process_packet() reads this array lockless=
+ly.
+The mutex_unlock() does not prevent the compiler or CPU from reordering the
+initialization of the structure (like iface->wq) to after the pointer becom=
+es
+visible. Should smp_store_release() be used when publishing to the array?
+
+[ ... ]
+
+> +static int dchid_send(struct dchid_iface *iface, u32 flags, const void *=
+msg,
+> +		      size_t size)
+> +{
+
+[ ... ]
+
+> +	*checksum_ptr =3D 0xffffffff - dchid_checksum(buf, total_len - DCHID_CH=
+ECKSUM_LEN);
+
+[Severity: Low]
+Does this write the checksum in the CPU's native byte order rather than
+the expected little-endian format? Since other fields like hdr->length use
+__le16, it appears the hardware expects little-endian, which could cause
+packets to be dropped on big-endian architectures. Should this use
+put_unaligned_le32() instead?
+
+[ ... ]
+
+> +static int dchid_cmd(struct dchid_iface *iface, u32 type, u32 req,
+> +		     void *data, size_t size, void *resp_buf, size_t resp_size)
+> +{
+
+[ ... ]
+
+> +	/* Only one command can be in flight per interface */
+> +	if (WARN_ON(iface->out_report !=3D -1)) {
+> +		spin_unlock_irqrestore(&iface->out_lock, flags);
+> +		return -EBUSY;
+> +	}
+
+[Severity: High]
+Can userspace easily trigger this WARN_ON and spam the kernel log by issuing
+concurrent hidraw ioctls? Furthermore, is there a race window here? In
+dchid_handle_ack(), iface->out_report is cleared before the waiting thread
+completes its cleanup. This could allow a second concurrent thread to bypass
+this check and set up its own command, only to have its state clobbered when
+the first thread finally wakes up.
+
+[ ... ]
+
+> +static int dchid_set_report(struct dchid_iface *iface, void *buf, size_t=
+ len)
+> +{
+> +	return dchid_cmd(iface, HID_OUTPUT_REPORT, REQ_SET_REPORT, buf, len,
+> +			 NULL, 0);
+> +}
+
+[Severity: Medium]
+Does returning the result of dchid_cmd() here cause false short-write errors
+for userspace? The HID core expects the raw_request function for a SET_REPO=
+RT
+call to return the number of bytes written (the requested length). However,
+dchid_cmd() returns the length of the device's ACK payload, which is typica=
+lly
+just 1 byte.
+
+[ ... ]
+
+> +static int dchid_raw_request(struct hid_device *hdev, unsigned char repo=
+rtnum,
+> +			     __u8 *buf, size_t len, unsigned char rtype,
+> +			     int reqtype)
+> +{
+> +	struct dchid_iface *iface =3D hdev->driver_data;
+> +
+> +	switch (reqtype) {
+> +	case HID_REQ_GET_REPORT:
+> +		if (len < 1)
+> +			return -EINVAL;
+> +
+> +		buf[0] =3D reportnum;
+> +		return dchid_cmd(iface, rtype, REQ_GET_REPORT, &reportnum, 1,
+> +				 buf + 1, len - 1);
+
+[Severity: High]
+Could this return an unvalidated length from the device and lead to an
+out-of-bounds heap read? In dchid_handle_ack(), iface->resp_size is
+overwritten with the hardware-supplied sub_len. If the device sends a
+response larger than the requested length, dchid_cmd() returns that larger
+value, and hidraw_ioctl() will use it as the count for copy_to_user(),
+reading past the end of the allocated buffer.
+
+[ ... ]
+
+> +static void dchid_handle_descriptor(struct dchid_iface *iface, void *hid=
+_desc,
+> +				    size_t desc_len)
+> +{
+> +	u8 *rdesc;
+> +	int i;
+> +
+> +	if (iface->hid)
+> +		return;
+> +
+> +	rdesc =3D devm_kmemdup(iface->dchid->dev, hid_desc, desc_len,
+> +			     GFP_KERNEL);
+> +	if (!rdesc)
+> +		return;
+
+[Severity: High]
+Can a misbehaving device exhaust kernel memory by flooding the host with
+descriptor packets? The devm_kmemdup() allocation is performed without chec=
+king
+if iface->hid_desc is already allocated or freeing the previous pointer. Si=
+nce
+the check for iface->hid only bypasses this once asynchronous registration
+completes, a rapid stream of packets before that point could leak memory.
+
+[ ... ]
+
+> +static void dchid_handle_ack(struct dchid_iface *iface, struct dchid_hdr=
+ *hdr,
+> +			     void *data)
+> +{
+
+[ ... ]
+
+> +	if (shdr->flags =3D=3D iface->out_flags && iface->tx_seq =3D=3D hdr->se=
+q &&
+> +	    iface->out_report =3D=3D payload[0]) {
+> +		if (iface->resp_buf && iface->resp_size)
+> +			memcpy(iface->resp_buf, payload + 1,
+> +			       min_t(size_t, sub_len - 1, iface->resp_size));
+> +
+> +		iface->resp_size =3D sub_len;
+
+[Severity: High]
+Is it safe to unconditionally overwrite iface->resp_size with the unvalidat=
+ed
+sub_len from the device here? This causes the calling function to believe m=
+ore
+bytes were read than actually requested, setting up the info leak mentioned
+earlier in dchid_raw_request().
+
+[ ... ]
+
+> +static void dchid_process_packet(struct dchid_dev *dchid, struct dchid_h=
+dr *hdr,
+> +				 u8 *payload, size_t payload_len, u8 *packet,
+> +				 size_t packet_len)
+> +{
+> +	struct dchid_work *work;
+> +
+> +	if (dchid_checksum(packet, packet_len) !=3D DCHID_CHECKSUM_SEED) {
+> +		dev_err_ratelimited(dchid->dev, "checksum error\n");
+> +		return;
+> +	}
+> +
+> +	if (payload_len < sizeof(struct dchid_subhdr))
+> +		return;
+> +
+> +	if (hdr->iface >=3D MAX_INTERFACES || !dchid->ifaces[hdr->iface])
+> +		return;
+
+[Severity: High]
+Does reading the dchid->ifaces array locklessly in the RX interrupt context
+require an acquire barrier? Without READ_ONCE() and corresponding release
+semantics on the writer side, a weakly ordered architecture could see a
+non-NULL pointer but read uninitialized memory for fields like the workqueu=
+e,
+leading to a crash.
+
+[ ... ]
+
+> +static int dchid_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	dchid->new_iface_wq =3D alloc_ordered_workqueue("dchid-new", 0);
+> +	if (!dchid->new_iface_wq)
+> +		return dev_err_probe(dev, -ENOMEM, "failed to allocate workqueue\n");
+
+[Severity: Medium]
+Will this error path leave the ASC coprocessor running and RTKit awake? If
+probe fails here after the hardware is started, it returns without calling
+apple_rtkit_quiesce() or writing 0 to the control register, which could leak
+resources or drain power.
+
+[ ... ]
+
+> +static void dchid_remove(struct platform_device *pdev)
+> +{
+> +	struct dchid_dev *dchid =3D platform_get_drvdata(pdev);
+> +	int i;
+> +
+> +	if (dchid->dc_mbox) {
+> +		devm_release_action(&pdev->dev, dchid_free_mbox, dchid->dc_mbox);
+> +		dchid->dc_mbox =3D NULL;
+> +	}
+
+[Severity: High]
+Does freeing the mailbox channel early here introduce a use-after-free risk?
+The HID devices and workqueues are still active at this point. If a userspa=
+ce
+process continues to access the HID device concurrently, or if a pending wo=
+rk
+item executes and calls dchid_send(), they will attempt to dereference the
+freed mailbox channel. Should the teardown order be reversed to destroy
+consumers first?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630-apple-mtp-=
+keyboard-final-v1-0-506d936a1707@gmail.com?part=3D8
