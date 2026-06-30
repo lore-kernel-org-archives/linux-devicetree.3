@@ -1,132 +1,117 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BFC53EE1E2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF7D38B7B0
 	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:26:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782811606; cv=none; b=l31jzA0oKf5//OQvVjfRzZIUidPqWhR9/pc/cNn2GwUxyhOdVIP+hv5Ewfq6xTyx6/k+ji3EBCySiVjOWbMJYaMn2N1BrdSWMqFqm83uB7Gs4NA2YugSUEHiF6UJWe7A4GkQPxxE7/5p6qcFFmuSl1iZKILXLiP5MgOBRZ4hJr4=
+	t=1782811607; cv=none; b=svKpdXq8vEMW0TV7A5ABSXdr54isyGh9JYj/B5yWgKSbPJVVCVdKWOHSjPsYmulbahVHyeKgTkn6APWxnElUkhXNZxBm4sDe88GqkdFXtCi1unOPcGTo4ZDXEbkuZzKQa2RiWFkPy1Y3Xwz3Nql91EbjhxeudnmUYpdZdM8S5Hg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782811606; c=relaxed/simple;
-	bh=9IgDtyv6yAMUkWsg7RNaWcItxtFHo8kakpm/KHcWfnA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PEmY7tTj2fTn7E6Px55m0Eywxu0YmGLZNBnq/XAClcN9COa1hgpaDvCyE4/4C2xCwvAvIycHDdoS3AxGx/r7CwaGsmh7IQ/a7hobJ3AiXDdb99QEiduPCScUqvYKRA1ne8OSEUoGTds5TBJ1cd7KQHXJ9NBmIxHUsaSS1LzMjuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=iJaX3JC4; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	s=arc-20240116; t=1782811607; c=relaxed/simple;
+	bh=KaH9M7IaMUOpb0d3hPLjb8IIBCOwbNiO9tG63TmGWs0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=g+Gb9W2Yf6yUechcF09M9NO9H3CcJUGhC/I0KYCHJZv0hyOzck7YXQ7w3LFQvdyUnMPuJmtpVEvvBlNWa0kueWvckp1HGYbCM48REPwNFpWQzCyYVZRqYhOdTUFfP0YUkyc10LHdHp9tHVTg/k37eptlXHyAUSuuDYfJABEl6Hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TFdddBN7; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="iJaX3JC4"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-493bab44440so1788635e9.0
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 02:26:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1782811603; x=1783416403; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fAmctwTyX9ptfNTsOcFrY+BzuI2WSByIHEJFFIRpN/Y=;
-        b=iJaX3JC4LJutm/00HHSu26tTXigd0r95IFHzwS4LgUcziG/91IDpMTv7PExbwjyDKe
-         sMh2JcZSHrabwCom3Adv6z3EE/Z+adeOaDiUtyqU+flmTio/FTglorgvAvO05+O6tjPu
-         QQwlN4DgqVJCVz/3GRFKjLJQ0nhJx+cs/DEjk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782811603; x=1783416403;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=fAmctwTyX9ptfNTsOcFrY+BzuI2WSByIHEJFFIRpN/Y=;
-        b=GNGkcByeSQBDsvlsIsdzL84Clj7s/spx8oZvy2HF/kOrzes+oaabWVpAJZG4OeIZAR
-         K9WTr3OYywef3gQ+gKY3t0NN+7Jg9xzhXW8QsEWITIfEZ5uAcPJacIniaK4N0eslfCwV
-         7TDqeWW+KKtETAW48xZNJ0x9DLSdGGssnwMXw5JP1iLmoHN7mmrcXrjT2a/1XjdyRjTh
-         Tf5E8mojn1J2J3rM4vaoCFdit9eRT4yJWvOuPpXRO7UUsO5hhoyfc8cdY4pxK9fVtAJU
-         yNjpuM64f34zbeDyI9m6zGunrXwHinOyFKf4ouUPOXyLSprkQFmLTf54Hzv3ynrdkT6n
-         ylYA==
-X-Forwarded-Encrypted: i=1; AFNElJ/s3vUcKXJ2xv64crtDz59avN6fPXzQ2IvK79+1ESToYDRzLjBYnGRbE0TgOqmZWuhqB+lohx0yGj+F@vger.kernel.org
-X-Gm-Message-State: AOJu0YzNZ9zPscqHQRtjVJIT4qm5+1bKocG8WW1k4G4r75yIoaeT6XuI
-	4lisZAu03cjlApN6KBnvQQkCtvTbnXM7oj9ggztK80uaK9buNBijosLIqg4Iv0dXmTA=
-X-Gm-Gg: AfdE7ck1kN83J0x/v9xHOr79yiQt8WF9C5QQH9agTrmlWPyfJGrHH+glQFOsF5Ka27f
-	WJL9qFMrdBcfiKqKLdYFSGxTb92iwREhy6ooAOpSR6eL7hVkUWDeDxXRvIWJpGquXuJH/aOn6iM
-	Kjw60yHijejB+hp7nx6emz8xLzArjTwrxOho9/OyoUgqwIFgXsIpOpHAYjqzO2ZCWfaZXaWcFb8
-	YY9tKiqBmYXSD/pXi4+cQLvw9JMacUSeLG4wiUpDLAA/FTFpxDzB43an433LvxWxhHyKbiNLwfz
-	2oHohGji8MO201jWhb67//NdVpLmOlp5t4I+qhRbhXqwPxJE051iqvokDQ2ip72stpw7UaxWsXC
-	225mRNx1lmHXdippA2Fc36nOBaGgxzBwdfyXjF3Uu2XMKDwek5ZI12sbmRmeDW79p55FTt0DukS
-	Sv5l+drRnCjwrBcxcmQS+BlMtdO49zkpHFf+kSKoFa3rQjDNwYa99NII48pKJrTDvItBpDCDd1J
-	8rcA7JkNCGy3qb9SEQXheBGzxJ66tcNXwVknnr3BtPwjv4D0/F2alB07zR50TWHVjpKqRpM9mU6
-	C62AmnHWb4rVLA==
-X-Received: by 2002:a05:600c:6088:b0:48a:5f32:62c6 with SMTP id 5b1f17b1804b1-493bc24896cmr14463075e9.11.1782811603595;
-        Tue, 30 Jun 2026 02:26:43 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-82-48-44-238.retail.telecomitalia.it. [82.48.44.238])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47567a6f0ddsm5669083f8f.37.2026.06.30.02.26.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 Jun 2026 02:26:43 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-amarula@amarulasolutions.com,
-	francesco.utel@engicam.com,
-	michael@amarulasolutions.com,
-	domenico.acri@engicam.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v6 04/16] arm64: dts: st: add SDMMC2 support on stm32mp25
-Date: Tue, 30 Jun 2026 11:24:33 +0200
-Message-ID: <20260630092628.1695560-5-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260630092628.1695560-1-dario.binacchi@amarulasolutions.com>
-References: <20260630092628.1695560-1-dario.binacchi@amarulasolutions.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TFdddBN7"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id C2136C5CD4C
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 09:26:53 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 43EAD60233;
+	Tue, 30 Jun 2026 09:26:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E2AB0106F1D26;
+	Tue, 30 Jun 2026 11:26:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1782811602; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=2ba7FwK+sgJytBUpI3BG67Tjxcjxs4k/tnlNATWlYe8=;
+	b=TFdddBN7LJEnldtYCkwA0G3MeBjCubX/5zy8jncW6V+gRbQvFY/qcQ/LobY/Wtdr0wozVy
+	VPZaNNg8PfQYwnjy0FFKxlXcBZG8bjdFduVcnGrk0JhzuwlNs+7b70xk/Y+XzmVjw2Phbt
+	X9ShTEyxqFnWyylQDP15DVf8lenikPWh7jCcxRnPp9jP06tPge4Owa69Eio5YALjHIz+5o
+	pwuL/vtukaDmJdRJPQWTpzIJoBca9gfGmplOy0h3705sxE65H7GJDQaEOwYDwFAGOMNwMg
+	q6x+WdsH5FrJZjw5SArNsJeq9XfQ3FkKO58ZuC8kcCTwnXtzuG93aDLiF1uK3g==
+From: Romain Gantois <romain.gantois@bootlin.com>
+Subject: [PATCH v3 0/2] iio: temperature: tmp117: Support the TMP119 sensor
+Date: Tue, 30 Jun 2026 11:26:33 +0200
+Message-Id: <20260630-tmp119-v3-0-cfdb50e2e99f@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WN0QrCIBhGX2V4neGvU1tXvUd00dQ1o+lQk2Ls3
+ ZsLoujywHfON6FogjUR7asJBZNttN4twDYVUv3ZXQy2emFECRVEEI7TMAI0WAiqKZhaM5BoGY/
+ BdPaxho6nN8d7ezUqFbssehuTD8/1KUPZ/UUzYIJZ3XQ170BqoIfW+3Szbqv8gEo2029x9xFpE
+ YlinEnNSSN/xXmeX8Nq++LpAAAA
+X-Change-ID: 20260605-tmp119-662d21e4d317
+To: Puranjay Mohan <puranjay@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Wil Stark <wil_stark@keysight.com>, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Romain Gantois <romain.gantois@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-The SDMMC2 controller supports SD cards, eMMC memories and SDIO devices.
+Hello everyone,
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+This is version three of my series which adds support for the TMP119, which
+has an identical programming model to the TMP117, but slightly different
+specs and electrical characteristics.
+
+Best Regards,
+
+Romain
+
+Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+---
+Changes in v3:
+- Corrected indentation in device tree bindings
+- Added an explicit inclusion of array_size.h
+- Made sure the correct IIO device name was exposed to userspace
+- Link to v2: https://patch.msgid.link/20260608-tmp119-v2-0-30c3537d5097@bootlin.com
+
+Changes in v2:
+- Used ti,tmp117 as a fallback compatible
+- Made sure the correct IIO device name was exposed to userspace
+- Link to v1: https://patch.msgid.link/20260605-tmp119-v1-0-349f45f17d12@bootlin.com
+
+To: Puranjay Mohan <puranjay@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: linux-iio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
 ---
+Romain Gantois (1):
+      dt-bindings: iio: ti,tmp117: add binding for the TMP119
 
-(no changes since v3)
+Wil Stark (1):
+      iio: temperature: tmp117: add TI TMP119 support
 
-Changes in v3:
-- Add power-domains property. Suggested by Sashiko.
+ .../devicetree/bindings/iio/temperature/ti,tmp117.yaml   | 16 +++++++++++-----
+ drivers/iio/temperature/tmp117.c                         | 13 +++++++++++++
+ 2 files changed, 24 insertions(+), 5 deletions(-)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260605-tmp119-662d21e4d317
 
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index ae36d703532c..44938c036e30 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -1668,6 +1668,22 @@ sdmmc1: mmc@48220000 {
- 				status = "disabled";
- 			};
- 
-+			sdmmc2: mmc@48230000 {
-+				compatible = "st,stm32mp25-sdmmc2", "arm,pl18x", "arm,primecell";
-+				arm,primecell-periphid = <0x00353180>;
-+				reg = <0x48230000 0x400>, <0x44230800 0x8>;
-+				interrupts = <GIC_SPI 197 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc CK_KER_SDMMC2>;
-+				clock-names = "apb_pclk";
-+				resets = <&rcc SDMMC2_R>;
-+				cap-sd-highspeed;
-+				cap-mmc-highspeed;
-+				max-frequency = <120000000>;
-+				access-controllers = <&rifsc 77>;
-+				power-domains = <&CLUSTER_PD>;
-+				status = "disabled";
-+			};
-+
- 			ethernet1: ethernet@482c0000 {
- 				compatible = "st,stm32mp25-dwmac", "snps,dwmac-5.20";
- 				reg = <0x482c0000 0x4000>;
--- 
-2.43.0
+Best regards,
+--  
+Romain Gantois <romain.gantois@bootlin.com>
 
