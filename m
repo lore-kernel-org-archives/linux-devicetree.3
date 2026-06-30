@@ -1,192 +1,261 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011036.outbound.protection.outlook.com [52.101.65.36])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8FCE46AF1A;
-	Tue, 30 Jun 2026 16:10:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.36
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782835808; cv=fail; b=accMUCepRBA8TgbstHg1uw0A2V1RXGKUx9w9s5IEpYKmbtDxbvYKHIyTPD2WfBy3SEhL/1miEQ14tisvU9YK21HAqa6SHigSUnTHtZzUQzqMgcshfCVk66lmQn0O/55GTqgZhpxoMi642WsxPGh1bAgW+JBwp8nUZSYFLKVcMno=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782835808; c=relaxed/simple;
-	bh=8RimgBN3Z7Z1VNGKGUgn+zN+pYaPE6mLNW3svZyKLvw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=emZGS6m3NO1xAZ7+hh2LRB7Vw6D76xL7LR2eYce47gxUmbsWkdvIsZ8cXMATBcew87UgfAMpfhy/moqnhY4fsPlDanA/wz/iekLn1c3N5jP1hcoTmPWWqTMSaM3qzFpwkKRNt6RJdGeUXXDY9rSMg7lDYDd2C5wwUld7gARnfgg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=B8q6TtSA; arc=fail smtp.client-ip=52.101.65.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E79413244
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 16:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782835882; cv=none; b=daX+Hsj/7LihnFdF3JLhPyAI6Mi1d/6faXNnAJg/z7RznUmOyJADrziaU3x2w3+CtuWeeVb9boXJnFZ+0tTLVYj1RBqsi0r2/gNqWPAI3nRzVVvlTSR2IhVdaCU4g35P2tUuCparEjs8ViDq46Gkbk5OkqaQpNsxzFqCQaCeJUY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782835882; c=relaxed/simple;
+	bh=oBBC/M9QT0fMChiLeB9iMYIvDKzSdCdq1ILNjbDtfVo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IlN7bQo3R6z1HvWP5iID5zsdf6fz2H2dsgeSWXC3nItfcu1zKNP+BqBoo9yJ5j5Ug1tFh/x3qLxKA4CT7q0jS+6aMPY8TkYdPeSr3HEEWvha75XFrzj+RvaST2CW+F4Z05b4FjQFt8+HAfGlkMpmwPBd3ZT79str2Ie7DdXvVxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GM+gpEZ2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="B8q6TtSA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bp2ctQSj9U3eoHcw/gn1vy+k1d20uinsOAUfC1K0WdfWoqHuTLJCMpYPpLzUAzfJKQ3DZR7pU1Ew/MAc0vbkwS01bM5sAqbc+8NxEkW4BqFWAmI+eXk6G8DHBxVyw1cQkY9DOB3cntQcTg+2l2QMtFBaRGHsEzMHr+pvOdhSddYWuppkwIY3ilJmKNTkpcu3uniaCPGZolHW/gWlfvdcKlPhuKksR2JdtXZfythBzdiRzk+D3Uah4NCpvPBffHD91YIB8h0BkejGhhnKWzLXGGEzAoonieYwQoIt6Qre9+Ba2H0vyK+WdA9DoLTy39UVTdLbGRq02JGLbNDKPp6lBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uA/WkjUE/FemZ1IA2BzsjbrVinKkgL4t9m+WhhbzRVg=;
- b=QMPmc8ONvSl3Syj30lWp7K8GnMZCJqp+0wD6u2cLucHDr0ABTmpbPVgeQ7Tvxf0YFR7HzR6gDRcWiqi4HvS2NWgTOpmKlnUR5j/Ek3jzuGscdKpu07iPOLQNpGXJ/3W2Njkq9UVwCeajFRQMoVpcbQWccgBJGyNy0hNyg9nnVN4OTDXN3XHl8GqXdrXvDSfEiINxVCtUhqUjmwM1e/kMavN4ImQmn0DOrzFvMXLZPvKklanoSOUioR3j/WY7U0EtyiMCbBB6zJ49v2dwi7O1QSW5NT8af1HnHd1wfNXtMjn1p1gRuXpToO7KZAU0OvbiGxry1RCmD7yRDdxtaVVmnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=amarulasolutions.com
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uA/WkjUE/FemZ1IA2BzsjbrVinKkgL4t9m+WhhbzRVg=;
- b=B8q6TtSAZf0VDJqIRnpkzW//pGudgR8fe2nO+8hT3Vumyn7bppvc53z9K5ry5FHBAFmPLLbMKx1JOTtYN60RnzHwXC7lq7AMhS73JTxuHlPqd6VRvvy/2jKIMFp5Vj5YhZIITA8rOnM8WZ3AEzT4AXCY8MjGlnQkCq2l5Zf0dxpFOL/xUoJAV4YLqzPD+/0nQjXXYEYNqu6zYUVtqxnrXYF2tP7ldFBC4UEYeVTLQgEY7Zj2Ky76Ip+gidZnps8LBNd9NpziAeziJhOvdbbtwpflZ/BpnTlndCWMKjsagfVqsUl9eRQR+x8s3FE1MzuRFyOtogJ9DDHblL2g2TbdOQ==
-Received: from DUZPR01CA0268.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b9::16) by PA2PR10MB8409.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:102:425::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
- 2026 16:10:01 +0000
-Received: from DU2PEPF00028D08.eurprd03.prod.outlook.com
- (2603:10a6:10:4b9:cafe::1) by DUZPR01CA0268.outlook.office365.com
- (2603:10a6:10:4b9::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Tue,
- 30 Jun 2026 16:10:01 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU2PEPF00028D08.mail.protection.outlook.com (10.167.242.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Tue, 30 Jun 2026 16:10:01 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 30 Jun
- 2026 18:14:16 +0200
-Received: from [10.252.21.21] (10.252.21.21) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 30 Jun
- 2026 18:09:59 +0200
-Message-ID: <47285b1f-b99c-46b3-b386-5e900f4dce47@foss.st.com>
-Date: Tue, 30 Jun 2026 18:09:59 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GM+gpEZ2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 020FB1F000E9;
+	Tue, 30 Jun 2026 16:11:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782835881;
+	bh=xodYpkK6VutLItdylXRTDrGrIhAcMHlZRAKc9/5RE90=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GM+gpEZ2TVLRU7M0EvNJhAd2EQt6Rn8sq+lU3Yk6dFf8fDa8D4c87yeiaCCwFdfw3
+	 bpaqZJCTaGJqiQqzhL1M+iHHUJ4OPtqEBbdXADLly4/+pMIHLmmcPX1xoREEyV7azF
+	 PCONYtKnwXC9aa9udH8ae8k2SVjkT0AHchPUTrRGzNbCL32GJ8ak4X4H37dJyIkUZc
+	 s4Q0K7DsdyiabPYXEkmLJnkJS95233+fO/uPg7tFV8c/UZsPwZ8tBIEhPInX+WTC2c
+	 vopMY11jNWvnrOg+e+bqwM3G4YMRAiUpTmIo6pAiHUKi53wdS4ebjqM5YxY9AGUPom
+	 +4GM6Q5DA2rNw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/3] clk: cs2600: Add Fractional-N clock driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Richard Fitzgerald" <rf@opensource.cirrus.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260630155549.824059-3-rf@opensource.cirrus.com>
+References: <20260630155549.824059-1-rf@opensource.cirrus.com>
+ <20260630155549.824059-3-rf@opensource.cirrus.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 16:11:20 +0000
+Message-Id: <20260630161121.020FB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Linux-stm32] [PATCH v6 10/16] arm64: dts: st: add sai1 pins for
- stm32mp25
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	<linux-kernel@vger.kernel.org>
-CC: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	<devicetree@vger.kernel.org>, <francesco.utel@engicam.com>,
-	<domenico.acri@engicam.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, <michael@amarulasolutions.com>,
-	<linux-amarula@amarulasolutions.com>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>
-References: <20260630092628.1695560-1-dario.binacchi@amarulasolutions.com>
- <20260630092628.1695560-11-dario.binacchi@amarulasolutions.com>
-Content-Language: en-US
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-In-Reply-To: <20260630092628.1695560-11-dario.binacchi@amarulasolutions.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D08:EE_|PA2PR10MB8409:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f495fe6-40c7-4ad1-0c2e-08ded6c20a1f
-X-LD-Processed: 75e027c9-20d5-47d5-b82f-77d7cd041e8f,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|36860700016|23010399003|376014|7416014|1800799024|82310400026|4143699003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
- RwxQGxgwrdU7nA6xEZxDqwtWHPc6G0y2hU0hcl77g+kCv7BvoCVhl9o7kriBlD87b1OWa0dN13C7/7rk2EgQjggZJIbxYSomvgGKz+47CcRBqf7bS/DL98aXFGuvBOvmgs+i325IWMEIxy28N71P5Xy7ANUEdGhUkgdc2Ofy7Ix9FYqJxZCGMcMs/syEiZqcwC1l58CCf0T9hYIm6Z9mZK7KQ0mdsejAcZFzAWhCj08UcVP/5pMJcq9PjAo9LDZghq6ZnYD52fZc0VgC7tdaV0yU+1jw/u+wcmk5sXaA/kNoPESDGzUB4t7JMebN0T5NTXg5139lF4cfC8A1pJFoqHcNqK7XM0AQY4LUij8BKCgpttIgZVcpzfOgmr37/LdfNvKfVwDwpyVSx3ek22h/1VPqpZrwcuKrEXkejFAuXajOPPC+QgZSfEBLkqCp0mshK+PaJYvpBro1LumSSQOK8wYDBaD4VHMKasCo1y3+r4Rj4gP+mFh5VaQZG2Hd8wlvGuq4/aI1daNfCTjdO3Xt1rp2mRZaB1UOe2BQ4714ugt2KTkcL2EALYN/SOYd89gdmZU+T4eGgSYnEU33CBSxY9olzaN4fj17iWo0290sbOlMGJwdwvAuEZ5cVPqXpwFR8BFtsKjLOxbTC2Tnc8MXN687q9NXvw+B4jBhycwHbfduQCKa85zdipV3vcHpwQZ5o/vbwLs2QHG+FEPSr15ETg==
-X-Forefront-Antispam-Report:
- CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(7416014)(1800799024)(82310400026)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- gAf4/ZZFU/r3p8xbqY6BQ2MjNCFGX1fzSPCqLlBSXm91vR/gOG/4qT/yY+tEFcyYRKO9g7lrHRjl5IKa+5xj0b8GBEVJ3ZfqJkaCjEC2yGOGs9pbqE4Zg9QeUhvM8C/6HYSr2oU2xk2jwewsO9bNsyLDPnLAZUwK4lRPYYxwjBh1oq51WSj9kobu3oKpSQPdUiVaMqXzSawsvBWFR0FiXcrpT5IxwKubnKp6GiwO+7OHR2GZIeNwGaJzWIeyCMe+ZbHD78AwEfqUITOLWu1+uHzkm/Li+ofo7905Ad8vuPwT/OTnUMMXtvtONfYDn6Rj8FZHWGTZZ0SCVVCug6s27zRZ/rZpAcnffl7VvSfEBzfNqVzr/R/Ft7EusE8D0iDkEKS3vW3FgFxb3GdT83m5RvAUgf03gkcgYroQmHCvH0VQwlzi1NUYvxWokvT1kx92
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 16:10:01.3795
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f495fe6-40c7-4ad1-0c2e-08ded6c20a1f
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D08.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR10MB8409
 
-Hi Dario,
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] The `cs2600_unfreeze` guard uses inverted lock/unlock operations, =
+leaving the device permanently frozen.
+- [High] Clock rates and dividers are updated without the necessary hardwar=
+e freeze guard, risking clock glitches.
+- [High] Data race on statically defined `parent_names` array in `cs2600_cl=
+k_register`.
+- [High] The `cs2600_pll_out_recalc_rate` callback returns uninitialized so=
+ftware state instead of interrogating the hardware.
+- [High] Refcount underflow in `cs2600_pll_out_unprepare` due to early retu=
+rn in `cs2600_pll_out_prepare`.
+- [Medium] The `determine_rate` callbacks incorrectly return `-EINVAL` and =
+emit log spam instead of rounding `req->rate`.
+- [Medium] Missing `clk_in` validation in smart mode leads to 0 parents, br=
+eaking rate calculation.
+--
 
-On 6/30/26 11:24, Dario Binacchi wrote:
-> Add the sai1 pins used on MicroGEA-STM32MP257-RMM board.
-> 
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> ---
-> 
-> (no changes since v1)
-> 
->   arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 45 +++++++++++++++++++
->   1 file changed, 45 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-> index 695c9d771853..002fbc724b9d 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-> @@ -520,6 +520,51 @@ pins {
->   		};
->   	};
->   
-> +	/omit-if-no-ref/
-> +	sai1a_pins_a: sai1a-0 {
-> +		pins1 {
-> +			pinmux = <STM32_PINMUX('D', 9, AF3)>, /* SAI1_SD_A */
-> +				 <STM32_PINMUX('D', 8, AF3)>, /* SAI1_FS_A */
-> +				 <STM32_PINMUX('D', 10, AF3)>; /* SAI1_SCK_A */
-> +			bias-disable;
-> +			drive-push-pull;
-> +			slew-rate = <1>;
-> +		};
-> +		pins2 {
-> +			pinmux = <STM32_PINMUX('D', 11, AF3)>; /* SAI1_MCLK_A */
-> +			bias-disable;
-> +			drive-push-pull;
-> +			slew-rate = <2>;
-> +		};
-> +	};
-> +
-> +	/omit-if-no-ref/
-> +	sai1a_sleep_pins_a: sai1a-sleep-0 {
-> +		pins {
-> +			pinmux = <STM32_PINMUX('D', 9, ANALOG)>, /* SAI1_SD_A */
-> +				 <STM32_PINMUX('D', 8, ANALOG)>, /* SAI1_FS_A */
-> +				 <STM32_PINMUX('D', 10, ANALOG)>, /* SAI1_SCK_A */
-> +				 <STM32_PINMUX('D', 11, ANALOG)>; /* SAI1_MCLK_A */
-> +		};
-> +	};
-> +
-> +	/omit-if-no-ref/
-> +	sai1b_pins_a: sai1b-0 {
-> +		pins {
-> +			pinmux = <STM32_PINMUX('D', 4, AF4)>; /* SAI1_SD_B */
-> +			bias-disable;
-> +			drive-push-pull;
-> +			slew-rate = <0>;
-> +		};
-> +	};
-> +
-> +	/omit-if-no-ref/
-> +	sai1b_sleep_pins_a: sai1b-sleep-0 {
-> +		pins {
-> +			pinmux = <STM32_PINMUX('D', 4, ANALOG)>; /* SAI1_SD_B */
-> +		};
-> +	};
-> +
->   	/omit-if-no-ref/
->   	sdmmc1_b4_pins_a: sdmmc1-b4-0 {
->   		pins1 {
+commit ce7a3c3019cf88623a644142e879bd585ca8f100
+Author: Paul Handrigan <paulha@opensource.cirrus.com>
 
-You can add Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
+clk: cs2600: Add Fractional-N clock driver
 
-Thanks & Regards
-Olivier
+Add driver for the Cirrus Logic CS2600 fractional-N clock synthesizer
+and multiplier.
+
+> diff --git a/drivers/clk/cirrus/clk-cs2600.c b/drivers/clk/cirrus/clk-cs2=
+600.c
+> new file mode 100644
+> index 0000000000000..73937ac868fcd
+> --- /dev/null
+> +++ b/drivers/clk/cirrus/clk-cs2600.c
+
+[ ... ]
+
+> +static void cs2600_clear_freeze(struct cs2600 *cs2600)
+> +{
+> +	regmap_clear_bits(cs2600->regmap, CS2600_PLL_CFG2, CS2600_FREEZE_EN);
+> +}
+> +
+> +DEFINE_GUARD(cs2600_unfreeze, struct cs2600 *,
+> +	     cs2600_clear_freeze(_T), cs2600_set_freeze(_T))
+
+[Severity: High]
+Are the lock and unlock operations inverted here?
+
+The macro DEFINE_GUARD takes the _lock (entry) operation first and _unlock
+(exit) operation second. The device defaults to an unfrozen state
+(FREEZE_EN=3D0). By passing cs2600_clear_freeze as the entry operation, it =
+is
+initially a no-op, and passing cs2600_set_freeze on exit permanently freezes
+the hardware.
+
+Could this cause subsequent writes to critical registers to be ignored or h=
+eld
+indefinitely, breaking the device configuration?
+
+[ ... ]
+
+> +static unsigned long cs2600_pll_out_recalc_rate(struct clk_hw *hw,
+> +						unsigned long parent_rate)
+> +{
+> +	struct cs2600_clk_hw *clk_hw =3D hw_to_cs2600_clk(hw);
+> +	struct cs2600 *cs2600 =3D clk_hw->priv;
+> +
+> +	if ((parent_rate =3D=3D 0) || (cs2600->pll_target_rate =3D=3D 0))
+> +		return 0;
+> +
+> +	if (parent_rate =3D=3D cs2600->pll_parent_rate)
+> +		return cs2600->pll_target_rate;
+
+[Severity: High]
+Does this function need to interrogate the actual hardware state?
+
+During boot, the Common Clock Framework relies on recalc_rate to determine =
+the
+active hardware rate. Because cs2600->pll_target_rate initializes to 0, this
+will report 0 Hz even if the bootloader previously configured and enabled t=
+he
+PLL.
+
+Will this break downstream consumers that depend on inheriting the correct
+operational clock rate from the hardware?
+
+[ ... ]
+
+> +static int cs2600_pll_out_set_rate(struct clk_hw *hw, unsigned long rate,
+> +				   unsigned long parent_rate)
+> +{
+> +	struct cs2600_clk_hw *clk_hw =3D hw_to_cs2600_clk(hw);
+> +	struct regmap *regmap =3D clk_hw->priv->regmap;
+> +	struct cs2600 *cs2600 =3D clk_hw->priv;
+> +	unsigned int ratio, smart_s_ratio;
+> +	bool hi_res;
+> +	int ret;
+> +
+> +	ret =3D cs2600_calc_ratio(cs2600, rate, parent_rate, &ratio, &hi_res);
+
+[Severity: High]
+Should this function acquire the unfreeze guard before modifying the ratio
+registers?
+
+This function performs multiple 16-bit regmap_write operations to update a
+32-bit ratio. Without suspending the hardware state machine during these
+updates, the chip might briefly operate with a corrupted 32-bit ratio
+(half old, half new).
+
+Could this missing guard cause clock glitches, frequency spikes, or a
+temporary loss of lock?
+
+[ ... ]
+
+> +static int cs2600_pll_out_prepare(struct clk_hw *hw)
+> +{
+> +	struct cs2600_clk_hw *clk_hw =3D hw_to_cs2600_clk(hw);
+> +	struct regmap *regmap =3D clk_hw->priv->regmap;
+> +	struct cs2600 *cs2600 =3D clk_hw->priv;
+> +	int ret;
+> +
+> +	ret =3D regmap_test_bits(regmap, CS2600_PLL_CFG1, CS2600_PLL_EN1);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (ret)
+> +		return 0;
+
+[Severity: High]
+Will this early return cause a refcount underflow later?
+
+If the PLL is already enabled (for example, by the bootloader), this functi=
+on
+returns 0 immediately and skips calling clk_prepare_enable(cs2600->ref_clk).
+
+However, cs2600_pll_out_unprepare() unconditionally calls
+clk_disable_unprepare(cs2600->ref_clk).=20
+
+When CCF disables an unused clock or a consumer unprepares it, wouldn't the
+driver drop a software reference to ref_clk that was never actually acquire=
+d,
+potentially shutting down the shared reference clock for other hardware?
+
+[ ... ]
+
+> +static int cs2600_bclk_determine_rate(struct clk_hw *hw,
+> +				      struct clk_rate_request *req)
+> +{
+> +	struct cs2600_clk_hw *clk_hw =3D hw_to_cs2600_clk(hw);
+> +	struct cs2600 *cs2600 =3D clk_hw->priv;
+> +
+> +	if (req->rate > CS2600_BCLK_OUT_MAX ||
+> +	    req->rate < CS2600_BCLK_OUT_MIN) {
+> +		dev_err(cs2600->dev, "Invalid bclk rate %lu", req->rate);
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+Should this callback adjust req->rate to the closest supported frequency
+instead of returning -EINVAL?
+
+CCF determine_rate callbacks are expected to round the requested rate.
+Returning -EINVAL breaks standard rate negotiation like clk_round_rate().
+This also applies to cs2600_fsync_determine_rate().
+
+Also, because consumers routinely request unachievable bounds during initial
+rate negotiation, printing a dev_err() here may cause unnecessary kernel
+log spam.
+
+[ ... ]
+
+> +static int cs2600_clk_register(struct cs2600 *cs2600)
+> +{
+> +	static const char *parent_names[2];
+
+[Severity: High]
+Is it safe to share this static array across all driver instances without
+synchronization?
+
+If multiple CS2600 devices are probed simultaneously via asynchronous probi=
+ng
+or on independent buses, their probe threads could concurrently overwrite
+this static array before calling devm_clk_hw_register().
+
+Would this corrupt the clock topologies, causing one device to register with
+the parent names intended for another?
+
+> +	const struct clk_hw *out_clocks_parent;
+> +	struct clk_init_data init[ARRAY_SIZE(cs2600->hw)] =3D { };
+> +	int ret, i, n, input_num =3D 0;
+
+[ ... ]
+
+> +	/* ref_clk_in is only a parent option in manual mode */
+> +	if (!cs2600_is_smart_mode(cs2600))
+> +		parent_names[input_num++] =3D __clk_get_name(cs2600->ref_clk);
+> +
+> +	if (cs2600->clk_in)
+> +		parent_names[input_num++] =3D __clk_get_name(cs2600->clk_in);
+> +
+> +	init[CS2600_PLL_OUT].parent_names =3D parent_names;
+> +	init[CS2600_PLL_OUT].num_parents =3D input_num;
+
+[Severity: Medium]
+What happens if clk_in is NULL when the device operates in smart mode?
+
+The driver fetches clk_in as optional using devm_clk_get_optional(). If
+cs2600_is_smart_mode() is true and clk_in is missing from the device tree,
+input_num will be 0.
+
+Registering the PLL with num_parents =3D 0 leaves the PLL without a valid
+parent clock in the CCF. Will this cause downstream frequency calculations
+to fail or evaluate to 0, despite the hardware relying on an external clock?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630155549.8240=
+59-1-rf@opensource.cirrus.com?part=3D2
