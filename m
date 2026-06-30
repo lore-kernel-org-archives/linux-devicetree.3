@@ -1,203 +1,244 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486B43C2BA3;
-	Tue, 30 Jun 2026 02:47:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB97E3CF1FA
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 02:47:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782787658; cv=none; b=caLIUu98+zIcOgNURHfX3iT1q2ViXXqBYvHCQ/JUky4NIEJdz5EkRy26aFE341V8QjD2K7ytlhCHWcjI/i2hvf7XN2rq+ZXwSb54CV05i99QpKv55g0NiuwMimOWsIzeCyM3IboOmRe0W37qO5dMaJour203Zb5opip1wAouRd0=
+	t=1782787661; cv=none; b=ahDS2zb+myXqcSm7vbfe9qoJp35cQ2jRsgLxxtz+A0xfWhtDj0QYg8imK1wkR8W1EIBm5QhEPseRz6t7/N4QrOoiPvc4TbM7qIhIzqeBvk9ToZ0o6MjbznJLXvSwialXfpkHCaoYil95X1m458ti1QWcijiBQi8lB9qcFQXmvHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782787658; c=relaxed/simple;
-	bh=f9oNKMFaLUsKSvsWwcjf/TtW8SwoVUzXhsa4vp5q5PA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=fcDXiGXOeGnU3YiEObtPkxombLQPDY2JmOuyVjg7KiDcWSlyFdMMdHDTqMucMa5LnWeeQM+Sz3ALNiYbgklz8M3xInjylPdQqcLbe5VW1LxA26u34Wg3eVjpj1hKT1g0LOOJh6JFrbkcjMZfFoTHE8WqbYDnlVd9yIBUs4vC15Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=JRr0R3cc; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1782787661; c=relaxed/simple;
+	bh=UIfNhEvhtRw4oYxLQ4Jo6TdwWoD5YNFeJMW7uhMOcqY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=E9Jp66yzog7fPG3//AZBBeD0lT7oGIc/7kYInsxKbxLv0FiXyvIxB0INHIzXpI52cYtj4nArj/Kct3VAMk4oN8PDEBbaqga5PmAH0rFOtyi2WVpqjPxuDHHDYNcRV6yvQ8WVOMr0nEad3rSt3fAIRyIo6/Y6pJEYxgceV/IUNus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nf2C7o6i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="JRr0R3cc"
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U1GTB03610921;
-	Mon, 29 Jun 2026 22:47:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=uwKEJ
-	moz2JtivendGL4DWhq1/VMf7SE0kDTiKxxo/ig=; b=JRr0R3cc9csjqDOQ+B4KO
-	JDqL3xBI4B921QDIYwrN5iE7sBoCKM73L+Ib0X5/27OLvPc3pcSdKZaVkMfDxseR
-	DVosIR6eX+i/g0Rkd1FbPeXQAPr/KvSfR7BSgxeXAjsUts0hJTsyKjuezHBxAXtL
-	cergdBbJu/fa7XABzf5+ZB+woGtwKgRmP445eis0h+T/aBRXZLS04si6cnM7DfIa
-	e1fRppzUaP92Qupj90JT77kjJ0yGIiOmKE4wbO4i1EjmgecynhiZYnHCgdczTEkQ
-	Ya/8ZeseOVN1FtYxbWxwlCWOtk90Oj3pAGpPoPtZPS5I9+FZV8ef/h4qAmyPRHe3
-	Q==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4f3u1mte52-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 29 Jun 2026 22:47:23 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 65U2lMqj033004
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 29 Jun 2026 22:47:22 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Mon, 29 Jun
- 2026 22:47:22 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 29 Jun 2026 22:47:22 -0400
-Received: from ATORRENO-L02.ad.analog.com ([10.66.6.193])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 65U2kqhh019448;
-	Mon, 29 Jun 2026 22:47:15 -0400
-From: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Date: Tue, 30 Jun 2026 10:46:46 +0800
-Subject: [PATCH 4/6] hwmon: (pmbus/max20830): add VOUT feedback resistor
- scaling support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nf2C7o6i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 684231F000E9;
+	Tue, 30 Jun 2026 02:47:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782787659;
+	bh=kNhcYq7dXKcWI+YTnj5UlFa+m8enRtVVXhSDjp8kDss=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Nf2C7o6iEb6xGd7Pw6yZ2x7+kyvi/V7MqTqDDRU5Ekg/+1KvF6h0DxXhFrDVFcOyW
+	 DxGwPh14Kv1h8Mgnf2Ugh4cRMwfzOEZAbMwkv1W5ajnZus5eUn8ZUvqlCUbuxGigYJ
+	 aUNCLA8l00ZsTCBN+iJwDTLZw8FgLkMmMMEZpfbNn9+E4ba5Y79MLZJRhTWgIgAVoF
+	 qxLp4GyC3qAJe5L+h7JArfqlqoOIYDrlgLG479OyRl6mPZVApulE5TNpvvjQ6IWKEM
+	 sBd605XjbO0YNu07Q1DQ5QFMCeJS/bKxtgS2aIE4jOamIEydrysbgZL+L5EaDmH3VE
+	 8vtQX6QKfAAIg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/panel: Add Novatek NT36536 panel driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pengyu Luo" <mitltlatltl@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260630023439.248861-3-mitltlatltl@gmail.com>
+References: <20260630023439.248861-1-mitltlatltl@gmail.com>
+ <20260630023439.248861-3-mitltlatltl@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 02:47:39 +0000
+Message-Id: <20260630024739.684231F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-ID: <20260630-dev-max20830c-v1-4-a02786bde470@analog.com>
-References: <20260630-dev-max20830c-v1-0-a02786bde470@analog.com>
-In-Reply-To: <20260630-dev-max20830c-v1-0-a02786bde470@analog.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>
-CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        Alexis Czezar
- Torreno <alexisczezar.torreno@analog.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782787612; l=3163;
- i=alexisczezar.torreno@analog.com; s=20250213; h=from:subject:message-id;
- bh=f9oNKMFaLUsKSvsWwcjf/TtW8SwoVUzXhsa4vp5q5PA=;
- b=QwLwFOhRyxOPwh0gPmZXdCbK0o2M6X32FPyb7cyo9nhy5vQt4TVQID+et4iBALwJG3QjAue4d
- jQZdki2qmQbAQmIZn1Z1NlnDBrOpJWeevmKqSKwl8oTc1u538PBXrZ/
-X-Developer-Key: i=alexisczezar.torreno@analog.com; a=ed25519;
- pk=XpXmJnRjnsKdDil6YpOlj9+44S+XYXVFnxvkbmaZ+10=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: 6hX4SFapJbOfZKaAtBNN06TZZYKzEBrW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDAyNCBTYWx0ZWRfX8MFkDursTnRJ
- /UnAlSVNZZtYRLVe/2U/hMY714My0ZG6bjjRoxBupUAlVC1uqzTEiehPF8MaE616LZeP96FNCg6
- D5oTkyaihnV9aIElenvQrWcEXKhVZ3j57LtYg2ioofwVcuOg2jhKt//p1SFwdhoESkmuck1kT3L
- pFkMqmV56p+mxEOD1Sbh69cb+IUjpUl+3yh61R4tl+midMLHf3LjHwwMBOk+zcxtLPRd1bMowBG
- JVVEXwmpNh4q7/CvzosZxmzh7S/VULf+I+Fij19CS/FJWo7dOczu0ohu2DzIYWLsYRY2pJDVIkq
- rApLJtOhfvLguUsyxtwnPOYqh4D+XZ7t1H2Z4UREnaSF9cR+tcH/jsQgMZ5mKxctrQh5+GPVjAa
- X0uQYmQJYW3O1i9L46tWk49zc//9/yI62slusQMg2GVobbkxKbtuGE9rm6GKgd90yd5CvIdRvlA
- LEWEmIBDHOP4MmARQww==
-X-Proofpoint-GUID: 6hX4SFapJbOfZKaAtBNN06TZZYKzEBrW
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDAyNCBTYWx0ZWRfX+ouBakEiOjbZ
- ZP93TVkIhZhuFD5yIlf16eyteJpZmHw93+uDCAi1E4KobkOEY/YGDmjqL417Lm9yStVm/S6nYrx
- wz4f6eaijKQ37CgK8wHgwRuAWXFCVzRKP/7sky5wqk0MVgrecBCR
-X-Authority-Analysis: v=2.4 cv=R8cz39RX c=1 sm=1 tr=0 ts=6a432e3b cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8
- a=zpM2bklHJMWzOH9SUnQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-30_01,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 clxscore=1015
- phishscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300024
 
-Implement support for external voltage divider scaling using the
-adi,vout-rfb1-ohms and adi,vout-rfb2-ohms device tree properties.
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] Missing drm_panel_remove() in the probe error paths for backlight =
+initialization leads to a use-after-free on the global panel list.
+- [High] The panel is registered and exposed to the system via `drm_panel_a=
+dd()` before its initialization is complete, causing a race condition.
+- [High] Incomplete `drm_dsc_config` static definition leaves critical para=
+meters like `pic_width`, `pic_height`, and rate-control values as 0, breaki=
+ng DSC.
+- [Medium] Unchecked DSI multi-context accumulated error in `novatek_prepar=
+e()` during DSC configuration masks transmission failures.
+- [Medium] Missing rollback of hardware state and regulators when `backligh=
+t_enable()` fails in `novatek_prepare()`.
+- [Medium] DCS backlight commands issued in `novatek_bl_update_status()` wi=
+thout verifying the panel power state.
+- [Low] Missing Kconfig dependency on `DRM_DISPLAY_DSC_HELPER`.
+--
 
-When the desired output voltage exceeds VREF, a resistor divider
-(RFB1 and RFB2) is used to scale down the feedback voltage. The
-driver reads these resistor values from device tree and applies
-the scaling formula: VOUT_actual = VOUT_measured × (1 + RFB1/RFB2)
+commit 86b2b70476faa9f551d7227512ce180811421366
+Author: Pengyu Luo <mitltlatltl@gmail.com>
 
-The properties are optional. If not specified, the driver assumes
-no voltage divider is present and reports the raw VOUT reading.
+drm/panel: Add Novatek NT36536 panel driver
 
-Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
----
- drivers/hwmon/pmbus/max20830.c | 42 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+Add a driver for panels using the Novatek NT36536 Display Driver IC,
+including support for the CSOT PP8807HB1-1, a 10-bit panel found in
+LENOVO Legion Y700 Gen4.
 
-diff --git a/drivers/hwmon/pmbus/max20830.c b/drivers/hwmon/pmbus/max20830.c
-index cb3a39d747edee3aefb0fb4051ef957436b3c15b..a3abd24437e8e7560264aad55fc4f456d30ae235 100644
---- a/drivers/hwmon/pmbus/max20830.c
-+++ b/drivers/hwmon/pmbus/max20830.c
-@@ -8,6 +8,7 @@
- #include <linux/errno.h>
- #include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
-+#include <linux/math64.h>
- #include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/string.h>
-@@ -15,6 +16,35 @@
- 
- #define MAX20830_IC_DEVICE_ID_LENGTH	9
- 
-+struct max20830_data {
-+	struct pmbus_driver_info info;
-+	u32 vout_rfb1;
-+	u32 vout_rfb2;
-+};
-+
-+static int max20830_read_word_data(struct i2c_client *client, int page,
-+				   int phase, int reg)
-+{
-+	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
-+	const struct max20830_data *data = container_of(info, struct max20830_data, info);
-+	int ret;
-+
-+	switch (reg) {
-+	case PMBUS_READ_VOUT:
-+		ret = pmbus_read_word_data(client, page, phase, reg);
-+		if (ret < 0)
-+			return ret;
-+
-+		/* Apply voltage divider scaling if resistors are non-zero */
-+		if (data->vout_rfb1 && data->vout_rfb2)
-+			ret = DIV_ROUND_CLOSEST_ULL((u64)ret * (data->vout_rfb1 +
-+						    data->vout_rfb2), data->vout_rfb2);
-+		return ret;
-+	default:
-+		return -ENODATA;
-+	}
-+}
-+
- static struct pmbus_driver_info max20830_info = {
- 	.pages = 1,
- 	.format[PSC_VOLTAGE_IN] = linear,
-@@ -25,14 +55,26 @@ static struct pmbus_driver_info max20830_info = {
- 		PMBUS_HAVE_TEMP |
- 		PMBUS_HAVE_STATUS_VOUT | PMBUS_HAVE_STATUS_IOUT |
- 		PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_STATUS_TEMP,
-+	.read_word_data = max20830_read_word_data,
- };
- 
- static int max20830_probe(struct i2c_client *client)
- {
- 	u8 buf[I2C_SMBUS_BLOCK_MAX + 1] = {};
-+	struct max20830_data *data;
- 	struct gpio_desc *enable_gpio;
- 	int ret;
- 
-+	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->info = max20830_info;
-+
-+	/* Read optional voltage divider resistor values */
-+	device_property_read_u32(&client->dev, "adi,vout-rfb1-ohms", &data->vout_rfb1);
-+	device_property_read_u32(&client->dev, "adi,vout-rfb2-ohms", &data->vout_rfb2);
-+
- 	enable_gpio = devm_gpiod_get_optional(&client->dev, "enable", GPIOD_OUT_HIGH);
- 	if (IS_ERR(enable_gpio))
- 		return dev_err_probe(&client->dev, PTR_ERR(enable_gpio),
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index 7450b27622a23..3912b79a2ebb2 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -620,6 +620,17 @@ config DRM_PANEL_NOVATEK_NT36523
+>  	  around the Novatek NT36523 display controller, such as some
+>  	  Boe panels used in Xiaomi Mi Pad 5 and 5 Pro tablets.
+> =20
+> +config DRM_PANEL_NOVATEK_NT36536
+> +	tristate "Novatek NT36536 panel driver"
+> +	depends on OF
+> +	depends on DRM_MIPI_DSI
+> +	depends on BACKLIGHT_CLASS_DEVICE
+> +	select DRM_KMS_HELPER
 
--- 
-2.34.1
+[Severity: Low]
+Does this config also need to select DRM_DISPLAY_DSC_HELPER? The driver
+utilizes DSC helper functions like drm_dsc_pps_payload_pack(), which could
+cause a linker error if DRM_DISPLAY_DSC_HELPER is not selected by another
+module.
 
+> +	help
+> +	  Say Y here if you want to enable support for Novatek NT36536-based
+> +	  display panels, such as the one found in the LENOVO Legion Y700
+> +	  Gen4.
+> +
+>  config DRM_PANEL_NOVATEK_NT36672A
+[ ... ]
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36536.c b/drivers/gpu/=
+drm/panel/panel-novatek-nt36536.c
+> new file mode 100644
+> index 0000000000000..3ad21fcdf9f02
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36536.c
+[ ... ]
+> +static int novatek_prepare(struct drm_panel *panel)
+> +{
+> +	struct novatek *ctx =3D to_novatek(panel);
+> +	struct mipi_dsi_device *dsi =3D to_primary_dsi(ctx);
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D dsi };
+> +	struct drm_dsc_picture_parameter_set pps;
+> +	struct device *dev =3D &dsi->dev;
+> +	int ret;
+> +
+> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(novatek_supplies),
+> +				    ctx->supplies);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	novatek_reset(ctx);
+> +
+> +	ret =3D ctx->desc->init_sequence(&dsi_ctx);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to initialize panel: %d\n", ret);
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +		regulator_bulk_disable(ARRAY_SIZE(novatek_supplies),
+> +				       ctx->supplies);
+> +		return ret;
+> +	}
+> +
+> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
+> +	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
+> +	mipi_dsi_compression_mode_multi(&dsi_ctx, true);
+> +	mipi_dsi_msleep(&dsi_ctx, 28);
+> +
+> +	return backlight_enable(ctx->backlight);
+
+[Severity: Medium]
+Will the DSI command failures accumulated in dsi_ctx.accum_err be silently
+ignored here? The mipi_dsi_*_multi() macros capture errors in the context,
+but the function returns the result of backlight_enable() without checking
+the accumulated error state.
+
+[Severity: Medium]
+If backlight_enable() returns an error, will the hardware state leak? The
+function exits without rolling back the regulators or the reset GPIO state
+that were enabled earlier in the function, and the DRM core will not call
+novatek_unprepare() on a prepare failure.
+
+> +}
+[ ... ]
+> +static int novatek_bl_update_status(struct backlight_device *bl)
+> +{
+> +	struct novatek *ctx =3D bl_get_data(bl);
+> +	u16 brightness =3D backlight_get_brightness(bl);
+> +
+> +	return mipi_dsi_dcs_set_display_brightness_large(to_primary_dsi(ctx),
+> +							 brightness);
+
+[Severity: Medium]
+Could this send DCS commands over a disabled DSI bus? If userspace modifies
+the backlight brightness via sysfs while the panel is off (such as after
+novatek_unprepare() has run), it looks like the commands are sent without
+verifying if the panel is currently prepared and powered.
+
+> +}
+[ ... ]
+> +static struct drm_dsc_config csot_pp8807hb1_1_dsc_cfg =3D {
+> +	.dsc_version_major =3D 1,
+> +	.dsc_version_minor =3D 2,
+> +	.slice_height =3D 20,
+> +	.slice_width =3D 476,
+> +	.slice_count =3D 2,
+> +	.bits_per_component =3D 10,
+> +	.bits_per_pixel =3D 8 << 4,
+> +	.block_pred_enable =3D true,
+> +};
+
+[Severity: High]
+Is this DSC configuration missing dynamic parameters? Fields like pic_width,
+pic_height, and rate-control parameters default to 0 and don't appear to be
+dynamically populated by the driver via drm_dsc_compute_rc_parameters()
+before being packed in novatek_prepare().
+
+[ ... ]
+> +static int novatek_probe(struct mipi_dsi_device *dsi)
+> +{
+[ ... ]
+> +	ctx->panel.prepare_prev_first =3D true;
+> +
+> +	drm_panel_add(&ctx->panel);
+> +
+> +	for (i =3D 0; i < num_dsi; i++) {
+> +		ctx->dsi[i]->lanes =3D desc->lanes;
+
+[Severity: High]
+Is it safe to expose the panel via drm_panel_add() before its initialization
+is complete? Calling this early allows consumers like DRM bridges to access
+the panel before ctx->dsi[i]->lanes is configured, devm_mipi_dsi_attach() is
+executed, or the backlight is set up.
+
+> +		ctx->dsi[i]->format =3D desc->format;
+> +		ctx->dsi[i]->mode_flags =3D desc->mode_flags;
+> +		ctx->dsi[i]->dsc =3D &ctx->dsc;
+> +		ret =3D devm_mipi_dsi_attach(dev, ctx->dsi[i]);
+> +		if (ret < 0) {
+> +			drm_panel_remove(&ctx->panel);
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to attach to DSI host\n");
+> +		}
+> +	}
+> +
+> +	if (desc->has_dcs_backlight) {
+> +		ctx->backlight =3D novatek_create_backlight(ctx);
+> +		if (IS_ERR(ctx->backlight))
+> +			return dev_err_probe(dev, PTR_ERR(ctx->backlight),
+> +					     "Failed to create backlight\n");
+
+[Severity: High]
+Does this leak the panel registration on error? The function returns
+directly without calling drm_panel_remove(&ctx->panel), leaving a dangling
+pointer in the global panel_list.
+
+> +	} else {
+> +		ret =3D drm_panel_of_backlight(&ctx->panel);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "Failed to get backlight\n");
+
+[Severity: High]
+Similarly, does this alternative error path also need to remove the panel
+from the global list to prevent a use-after-free?
+
+> +	}
+> +
+> +	return 0;
+> +}
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630023439.2488=
+61-1-mitltlatltl@gmail.com?part=3D2
