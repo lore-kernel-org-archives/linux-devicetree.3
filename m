@@ -1,66 +1,67 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A853B27D9
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 04:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2646386C16
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 04:51:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782793704; cv=none; b=gd4WvJiGxdU7nvhRDEnkHC2JkwaEZZfsQupGdZRglAhvIFsZzJfHnCvLeNZ+kOwIcXf6h9+7uBgPB4alg/aUDJtTQ32/7IuMHuiIW5bYq1dNQUnFLnMvoLIZGQQbJEeXDk4yl948jyKmC4SIdSVRYgvO5/7qnqGUj3FI1bSFUVM=
+	t=1782795116; cv=none; b=kkXEIhJolML44NGrQpDEL5KuZpykmkX/CkShaWUaGNn/odcRwLxPdVRC0zrRj5PTBYKIHMc1QLTvrGGuZCBvjR/NwiqUx688qTE5n3ZX1q2meDx40jwkBQrRIvpl5MX9Mh16Y2aKWe1brF7NsXi6CvVk12zsAmu4DMCcDH/k7u4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782793704; c=relaxed/simple;
-	bh=xJKT55bm34PbDyZKSs2QdqQluEMDHDryBLZVBk7djFA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CwCUlR/pewM2bS3p6fHWQhfMPlnwcgAanInURUEsyflWW2yDCSMOiw/1C+hyPvLq5HyHbDgzh2WIzY/0dwJnaaze24DCxpPcp0czvGzOAPTkGFSiOkV0jiAzbS7OGgo97JNDtO/IdrGAtbAyGyt4L23e10CcqOXqNTWyHcLkJkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r3HZ8/9m; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1782795116; c=relaxed/simple;
+	bh=+GppeprviWx6+rVyB68VL2Wo6H4/HCZqlCd4o4IZogQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=aN8HM6nZOYqLUoSu4fw0tFda7UOeF2cfHPulbmsNspEQfwx2x0dD3V5+7nqzX0xs3HrBVSc0SdsPpvLNfBCMVCAeJjJ/WBwQjEHAjPGAZ+GQasJaDuDxT58A7NI0XWLzbisuT94vheAfKpsuIfzUKod5OxeTO8yavVgvzG658wQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GtwpZS71; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r3HZ8/9m"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2c95a0c0aa2so27793225ad.3
-        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 21:28:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GtwpZS71"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-37fad5eca09so131259a91.1
+        for <devicetree@vger.kernel.org>; Mon, 29 Jun 2026 21:51:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782793703; x=1783398503; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xJKT55bm34PbDyZKSs2QdqQluEMDHDryBLZVBk7djFA=;
-        b=r3HZ8/9msLIpgw+ISFgpy1eV2Gds6rEsI75BCnNwt5dkRCSQ5z/hfJFSc2GhrTmY5u
-         dmX+uRoDYzh99D0wucNxazvWLjimWc20cVzSaYGXuyaKqd8nuwWxSQWwAgA3RZHElLMP
-         SzqScWz2+QBEqVbskGY7qZuy0O6mFrExY4WqtkUtfix7DZpKRz3eK8J8zMTdFSYMb4qJ
-         sW6I1byowW5bG8uIVP/gEtVEN7qegD8vkh1YjMbLCwkZoB97S98pS4f5eDvzozzco0qo
-         8/3N76vgPF4+nFUqaffuNSGjxuhEOw62a9WSJCY49ZwfazXv2EadAq8QkIkoFTCGvWdf
-         +/xw==
+        d=gmail.com; s=20251104; t=1782795113; x=1783399913; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=jCZdfuwHXPS5iUGzRiV5MmLLNlygQGOVBjUIXIsu3F0=;
+        b=GtwpZS71HjWhJEdrhZTdkA1Noj+UM+NjRadB4MW2O5dLwBZzGHEty2QqrwqJDRhZRz
+         I00Yn6WAndHqPKx8YTuyyffybCBo0kJMtlHgBMzHtQgxx/unArfUV/sMzn2/CFe5wZ+i
+         MLFChpDaaLvdfiOMszfw48vKN6L5CywlQB9hpkx5Ji4WPWf/nc8etPK9NgWQtMqsDnhL
+         QTjRFCEDmidtPJSWClEz8YDfYIdM6tnE2v5ZNJ/6HlNIkiEP4jpptqg4uLRTejKjz0K5
+         C3NE7iUuGJpsA900tntWxF2e54axaTmkWIllQXBm7l/ZuexH0CYMk5xUNcqLoH1WM8mW
+         E5/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782793703; x=1783398503;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xJKT55bm34PbDyZKSs2QdqQluEMDHDryBLZVBk7djFA=;
-        b=K0xLoHTHIWShKOj8vRnjcJTqyZTHW/GI1r4Tx1/P4xjap2VOBJjo2R09s9q1qtxJpM
-         0VDK5stYcINtI7wT0fdcGD3YN1dGP1WAgfEqysh/1vpnI/5X0mVMnAzpjQNqe3ZcGZX2
-         iLn+1XdpqDoAkmIMGgqcDgvntW/NrDpoHuuFhzbnnI1jc/ZLZiN/sPYIQOYfw2h13YdH
-         2q1wZWjedCle9/4vrGYidw+d0yq0DNDgMSgDAvZLlm9YbCMFxlGQueD3Mnew69+LKdDU
-         BXm/QM4L7Be++vQalBJ1I1x2TFeiYkymXjPIzYsQKOBF/7Tk+LBkPdgMHd74rKs5QT+1
-         2bwg==
-X-Forwarded-Encrypted: i=1; AHgh+RpinLLJ0T2PCiUhtSHy/Zw4PabmBrsojPOgSSpR2de0NsCERND20VzMLxOzfDmwjo66+VG9EoahBMB+@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTRQvxTycftlLRjFxAeS56suTGb9L6nO49BGpSR3WxzG/4VLmo
-	qQn797jrdUrLgBgWSWzFCoUockA4qau6IiLWBzTmnm+uZf+YqZxE5Jwy
-X-Gm-Gg: AfdE7cnzuwmpg94wtkK1TO6NaBTqCvvEyJiL0LujfPeYgAA9NzTaHicYkWES3zP3MqC
-	KeKL627r+JkTAoiPOOKb5mS3or/tojEL9jD8eTUWy5fRK4P9/KjwkRcC6fTADBrOEuZtgvGJ9KS
-	bWD2UEXHxY40iknW1c55mxm7BSJxSR/z3lMahOgmvr/gxJxqFIPUa+7YV6DZRbKDJzdhNS64rx1
-	Dx8L3m0ikdmWkMf5JN2lf/sScL6ugBV2kHAJJLAWankIPrDkE4AgE61/gOKelahGuP7LGMKebUs
-	q8pna+ewIRt1PorV+tkQ5/bzc772rZ5Yc5QZGp+qfVJUgGaVedjwRBhMQmw7E8yEz0v/8C7vrK/
-	0TU8vut1y1//V5ofE0ojGlBrnZsDED6YC6LePh49F9pC0/SxDoi5/8MizGHkEkSh5N5saljrzhF
-	AonZrcVC6fSV8000YxW3FJvEl9N9imHfaRAZQT42H8Keny8T9bqXnkNLqsAGl2OLAz
-X-Received: by 2002:a17:903:291:b0:2c1:e426:70f4 with SMTP id d9443c01a7336-2ca2e71453bmr14983255ad.23.1782793702521;
-        Mon, 29 Jun 2026 21:28:22 -0700 (PDT)
-Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca37a70812sm5085795ad.16.2026.06.29.21.28.19
+        d=1e100.net; s=20251104; t=1782795113; x=1783399913;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=jCZdfuwHXPS5iUGzRiV5MmLLNlygQGOVBjUIXIsu3F0=;
+        b=pQ1RltnG8MgIBFClaDo0fo/Y8033WcUUyNns2BELDBWlZQ1jSOVIWRQmAqH+jbpkXe
+         NrMf6GlJBH0DpHib4vheSQdzvKNNdzIWUtFUB/fdb4aETlf05dbvexZcfn3WXcrZyA16
+         rErkhsDK0RSxLuSMT4LYfVPAXSMIGSUmdTdWHK8UgChEp3Mr1nN1W0VFpON2XouAxF0K
+         SHTmq63yEwNf9kiukYSLKCw3eUvsnHNMPeQ7MKttEQ6TL4SYNq4E0ntfswdGyLzdb6iP
+         yKoBWKEpRXu9cXSgx+pMXaFJXtsMvjw4fOv+SDJGKIXfc2HY6Edb+C/zuglHjEqRi68p
+         /xyg==
+X-Forwarded-Encrypted: i=1; AFNElJ/F7K7F3NbqdMAGGYeXC8fkiRty9v/U4+gN2E2RZkZNgIY6ZFojO+OoSr0GONagstKZRKNDnXkTCVtn@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzo4T15zgrE0ZNxpTMzyRRGV39uH80nqxs7e2LfKIxzS2xC98YI
+	94hjCqIqxOs2PuR+cmhoSO9g4a2ITnMJGHmEDqRRltzI5KXQLOSceOqq
+X-Gm-Gg: AfdE7cl2xkEK19OH73pR314ec/9cu+yYiaxlriqgaZIfRbfi+strIGfizwPu09aMncB
+	KIMLbFVPmKF3wYL226iNLtqhDpcSaj0Bgi29sBfovaCT5S87y9WjLGmSlYq2jv7JggSY3sfxqbl
+	rQMr0Dw45aPOuzl7XoVoTIBb+8Z8RfD8YlGwdCkdx0+nyudqjD4b4wp9cWVvUQbWG9YiVshPmQt
+	0s+spgPocoI4PGL8exnyJZZ3AY/WjttNcu6yMVVk8U5fg81Wuuk57TxvpO0zLLXfElRwiJE2k96
+	ahg3sa4b96y4TSU4NvPiMHyKa74CSvH/7xvyyCujSbYGROJffLcjdLVk02rveTAJC8Vg/7vYNdU
+	BouwZHa2qhOxzfubjW/7I0Xw7wSWJ4zaVFLxynEIQQzzJrc9F4M58LLC9a0bX7XCwKyV6B+tthG
+	25mmk0rWHwacNDUCKGg7Qq/hM58CSN0SMdJr3ZYTTGiuu66odwT9lDkbyWy4/k6QijCVfaUfDO
+X-Received: by 2002:a05:6a21:10e:b0:3bf:9bd9:cf60 with SMTP id adf61e73a8af0-3bfd2637dd4mr251772637.6.1782795113067;
+        Mon, 29 Jun 2026 21:51:53 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c9bbf95b8a4sm761296a12.18.2026.06.29.21.51.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Jun 2026 21:28:21 -0700 (PDT)
-Message-ID: <7ab78656-3413-4230-8214-8cecaaf62735@gmail.com>
-Date: Tue, 30 Jun 2026 12:28:19 +0800
+        Mon, 29 Jun 2026 21:51:52 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <1eab7897-ffca-487b-b40b-958be4f30f49@roeck-us.net>
+Date: Mon, 29 Jun 2026 21:51:51 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,59 +69,130 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-To: David Lechner <dlechner@baylibre.com>, jic23@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: nuno.sa@analog.com, andy@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-References: <20260625110638.38438-1-cwweng.linux@gmail.com>
- <20260625110638.38438-3-cwweng.linux@gmail.com>
- <66ad5723-6589-473a-91da-b13e2ba90aeb@baylibre.com>
- <5e65eabd-699b-4587-bb38-d8ef5c6d2aaa@gmail.com>
- <f759ad9b-56ef-482a-9389-85ea1e3fd7d3@baylibre.com>
+Subject: Re: [PATCH 2/6] hwmon: (pmbus/max20830): add support for enable GPIO
+From: Guenter Roeck <linux@roeck-us.net>
+To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20260630-dev-max20830c-v1-0-a02786bde470@analog.com>
+ <20260630-dev-max20830c-v1-2-a02786bde470@analog.com>
+ <836b833e-e503-4cbb-92f7-3574f3fb430f@roeck-us.net>
 Content-Language: en-US
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-In-Reply-To: <f759ad9b-56ef-482a-9389-85ea1e3fd7d3@baylibre.com>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <836b833e-e503-4cbb-92f7-3574f3fb430f@roeck-us.net>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi David,
+On 6/29/26 20:50, Guenter Roeck wrote:
+> On 6/29/26 19:46, Alexis Czezar Torreno wrote:
+>> Add support for the GPIO controlled EN pin. The EN pin is asserted high
+>> for device to operate.
+>>
+>> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+>> ---
+>>   drivers/hwmon/pmbus/max20830.c | 7 +++++++
+>>   1 file changed, 7 insertions(+)
+>>
+>> diff --git a/drivers/hwmon/pmbus/max20830.c b/drivers/hwmon/pmbus/max20830.c
+>> index cb2c23672166d641852199ca07eb716924f4f286..cb3a39d747edee3aefb0fb4051ef957436b3c15b 100644
+>> --- a/drivers/hwmon/pmbus/max20830.c
+>> +++ b/drivers/hwmon/pmbus/max20830.c
+>> @@ -6,6 +6,7 @@
+>>    */
+>>   #include <linux/errno.h>
+>> +#include <linux/gpio/consumer.h>
+>>   #include <linux/i2c.h>
+>>   #include <linux/mod_devicetable.h>
+>>   #include <linux/module.h>
+>> @@ -29,8 +30,14 @@ static struct pmbus_driver_info max20830_info = {
+>>   static int max20830_probe(struct i2c_client *client)
+>>   {
+>>       u8 buf[I2C_SMBUS_BLOCK_MAX + 1] = {};
+>> +    struct gpio_desc *enable_gpio;
+>>       int ret;
+>> +    enable_gpio = devm_gpiod_get_optional(&client->dev, "enable", GPIOD_OUT_HIGH);
+>> +    if (IS_ERR(enable_gpio))
+>> +        return dev_err_probe(&client->dev, PTR_ERR(enable_gpio),
+>> +                     "Failed to get enable GPIO\n");
+>> +
+> 
+> The above code gets the gpio reference, and then it doesn't do anything
+> with it. What exactly is the point of this exercise ? Where is the
+> chip actually enabled ?
+> 
+> Do you have an actual customer with such a set-up or is this
+> "just in case" ? Have you tested this code to ensure that the chip
+> is actually enabled in this setup ?
+> 
 
-Thanks for the clarification, and sorry for top-posting. I will reply
-inline and trim the irrelevant context next time.
+Also, please explain the need in detail, especially in the context of
+PMBus command 0x02 (ON_OFF_CONFIG) which can be used to configure
+the pin functionality. Specifically, what would be the point of
+trying to force-enable the chip if on-off-config happens to be set
+to 0x1b (ignore EN pin and require OPERATION = 0x80) ?
+And if ON_OFF_CONFIG happens to be set to 0x17 (Ignore OPERATION
+command), why not just set it to 0x1b and override EN ?
 
- > This is a simple/small enough driver that it would be fine to still
- > keep all of those features in v2. It would still be fine to split
- > them into separate patches, but you could still send them all as
- > a single patch series.
-
-Understood. I will keep the driver as a single driver patch in v2, but I
-will keep the features in the patch and fix the issues raised during
-review instead of dropping them only to reduce the initial scope.
-
-For v2, I will keep direct reads, differential channels and triggered
-buffer support in the driver patch. DMA support will still not be used by
-the driver yet, although the binding will describe the optional DMA
-property as discussed in the binding review.
-
-I will address the driver comments in v2, including:
-- use regmap for register access and update_bits,
-- add optional vref-supply handling and avoid forcing the external
-   reference path unconditionally,
-- add IIO_CHAN_INFO_SCALE based on the selected reference source,
-- handle differential channels with the proper hardware constraints and
-   signed output handling,
-- fix the buffered scan sequencing so samples are read only after the
-   requested scan has completed,
-- avoid an unpaced software re-triggering loop,
-- use IIO_DECLARE_BUFFER_WITH_TS() for the scan buffer,
-- use the new scan_type.format field,
-- drop datasheet_name,
-- use device_for_each_child_node_scoped(),
-- use devm_mutex_init(),
-- remove the unused struct device pointer and other cleanup items.
+In other words, I expect the use case to be explained in the context
+of the ON_OFF_CONFIG and OPERATION commands. "The EN pin is asserted
+high for device to operate" is misleading and only half-true since that
+is only the case if the chip is configured to actually use it (which,
+I notice, you are not doing here).
 
 Thanks,
-Chi-Wen
+Guenter
+
+> If there is indeed a use case where a customer indeed connects the
+> enable pin to a gpio output, wouldn't that same customer also want
+> to connect the "pgood" output to a gpio pin ? And what about
+> the LDOIN pin ? Shouldn't that be connected to a power supply ?
+> 
+> Guenter
+> 
+> 
 
