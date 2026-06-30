@@ -1,86 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5735405C57
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:50:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30FFB4071FC
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:53:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782820243; cv=none; b=q6QGWUpbWxGtdBpXj7p8nWpM+FLbeaxLhkxquGqeYTsjrrHMCYP9I2BAEo5WXuIdLKjEBcuEFdHyZT1hJqW2d9ar/xWPulF3mqha85Yucn4A58uIyjY0T+tuFfwqJa3sXBOrfMSA5CtOocIwQd+lp7V9TJ97QowOOSjCLfY93iM=
+	t=1782820385; cv=none; b=rKp9lLaTncY2Z9iWo9xktqCGnoREb1VsFsELXnahYm4k9SRJ8cCPFDilKmcGIoNXOXogucWBmTcDTcZSzQXCtu1Hlvm82Fbbtb7WM30I38B1KwvGT9Nf53jnDUrtBEMxrlf2F3zSqhXd37cva6CqGI+qx4SHaJYcCYvL+LlghTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782820243; c=relaxed/simple;
-	bh=dx0DW8TwqIygstJ9zMPWt3nkbLDwbpec4hVzREE2itU=;
+	s=arc-20240116; t=1782820385; c=relaxed/simple;
+	bh=493enOlPSgfL8Xi3QDIl1rddbYGRJGRVQ1cUt/F2sHc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GR+fHcSL6LsS8eSHrLscP/9OffQEjkOqOUn81jzcXFFl3tD0uBaTYeZ9pa+9s95/+6HeoYy3iLar5aUUd1ylkrIkAPFqOAlqRNyCtJxsT1g4YkCfsdY+LWTIJVwKYDg7wo/5qHgyG5MbfsK3Nlt2bCZFSixMc/1zNNt8tD9H6d8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f2xJmmWK; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=V0/q27ecyHRiGPepbX8FEA9rVAxgIeh+icHs602YbeiEAi8sPzGCWMyV08MUTOmxh3aHlGx/dU2SUfukqbDY/jjE+SVfH797ndk9zXVQCdsSM21/9gflKGUXImy82B2yZxhSyVE18QGTxEA0znabhePFA3u0S3zQqFVMsueOW1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lrlJJAyQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f2xJmmWK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A6B81F00ADE
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:50:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lrlJJAyQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14D551F00A3F
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 11:53:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782820242;
-	bh=dx0DW8TwqIygstJ9zMPWt3nkbLDwbpec4hVzREE2itU=;
+	s=k20260515; t=1782820384;
+	bh=493enOlPSgfL8Xi3QDIl1rddbYGRJGRVQ1cUt/F2sHc=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=f2xJmmWKuIP2NiDSfKQeZ2RRPUBZjoWc3ZpvEiuS6ykxSN7C7gbYGbAWWzpEgXp/W
-	 vC2XOMQ4fs+yfzRTsFE2lkXBNQVw7xHPJc5VqE/dDXYubkWZ7JT+oMPkvA4UjycYS0
-	 AI6x4Fj6bJmlUp0CUeWSfRbXf175fH9npSuQUNPeUzcA+mKONjzOm3MBlvoegOSP2U
-	 IqwhjsTMPpNv1tapf3kfy89KvHDAR33tRtCYt8EkCzdRjomSR6KRdk3085sfLF4dnf
-	 BPIktB6C5LHeuW50Zfyd0bRFui5Y3Zc6p0jr2ct1Pvcaz6tOqf1qhcjXdks5ojug/N
-	 buEqpeIMJ/ujg==
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-39b093b42b4so19571531fa.3
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 04:50:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RocG+gNN1pDLeY3yeZmRyTy40wLB6+k5uA/ZgJILeRyitkXvipIkEEVcEUCwnb4DI2LRumAMHY6dESE@vger.kernel.org
-X-Gm-Message-State: AOJu0YyTc39ql2FJ7pUJRzMW6r+393oiG/v6sdjL/blQuMt0i2J0TXiP
-	1qpSacIEe4YOffvM44V/LQh+DzgVGsC/mJFtzfgd/jobiatQb8Rf+iv30JRFelFEt0FNJTDvuDH
-	MDfLyXLpStv3yTE72bRI/cdd4nOq/QLc=
-X-Received: by 2002:a05:6512:3b96:b0:5ae:a9eb:c5bc with SMTP id
- 2adb3069b0e04-5aec10cd2demr140406e87.54.1782820241366; Tue, 30 Jun 2026
- 04:50:41 -0700 (PDT)
+	b=lrlJJAyQZ3DwijrvkQSaLW/aK3tq35nYYm/c5Fotxi0Uq/sxm/MTtkXjQNgg0Fgxp
+	 KeYk1xrd8xyH45/0n3famjiuhyGtB6ePQFrOG+P4ANJc9Ou8bDFFyq+PNnitfddnlu
+	 nn8vBTyx8KO13fiCz1xG/2id40eL/RmVJCjK3vGEmGii8y2HbrdEeYthuisNvkEIXh
+	 CCCVjANnb6ziEZe65ted0H7vtlp+DAVwnUfFYjeCgc3a3U6n7+/78RExC2z3Wm3HG3
+	 7kx01Gi09g0a+U5y8Tp+vSCr7ClStQFBUwDMXbdFuGNBF84FtfwlnzLaY2irwtKLJ8
+	 R7rE517rnSYuw==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-39b28814916so1461731fa.2
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 04:53:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq1c9Oh/EaKGLz+xLEF+e8E/RzwKalFWm1uHFVEJDv7prIKjckdMpPyjKhq/XInJ+xS6dZrMEolPH8l@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrBKBCmTHIgjHCJEUcwJKHEnDP4pyoaufdQJRop8Bfy8MiDryk
+	YgA7LAsX/ucaXkdh8Fy4x0NsT4LUCo71j/SQ2s4wlkD7uo9f7mZaqfP4QTHLojMwNtm6fJh79N3
+	zGrEVm3yPylTc4bRBODbnyYNBPQ5tPM0=
+X-Received: by 2002:a05:6512:15a3:b0:5ae:afec:8afb with SMTP id
+ 2adb3069b0e04-5aebdbdd0bfmr741396e87.48.1782820382868; Tue, 30 Jun 2026
+ 04:53:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260610132116.1998140-1-khristineandreea.barbulescu@oss.nxp.com>
-In-Reply-To: <20260610132116.1998140-1-khristineandreea.barbulescu@oss.nxp.com>
+References: <20260616-pinctrl-fix-v1-0-621036e45c7c@aspeedtech.com>
+In-Reply-To: <20260616-pinctrl-fix-v1-0-621036e45c7c@aspeedtech.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 30 Jun 2026 12:50:28 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=S6vEgSW=V4gu4z=RtuvASNFUiofJb0X+fGYMqNQT7vQ@mail.gmail.com>
-X-Gm-Features: AVVi8Cer80S6zjP7PzgocOgzwyDqIkAXmZBTd6RrIFp-jFbe4jJs8f0f-g9bRXQ
-Message-ID: <CAD++jL=S6vEgSW=V4gu4z=RtuvASNFUiofJb0X+fGYMqNQT7vQ@mail.gmail.com>
-Subject: Re: [PATCH v11 0/6] gpio: siul2-s32g2: add initial GPIO driver
-To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
-Cc: Bartosz Golaszewski <brgl@bgdev.pl>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>, Larisa Grigore <larisa.grigore@nxp.com>, 
-	Lee Jones <lee@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Alberto Ruiz <aruizrui@redhat.com>, 
-	Christophe Lizzi <clizzi@redhat.com>, devicetree@vger.kernel.org, 
-	Enric Balletbo <eballetb@redhat.com>, Eric Chanudet <echanude@redhat.com>, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Vincent Guittot <vincent.guittot@linaro.org>
+Date: Tue, 30 Jun 2026 12:52:49 +0100
+X-Gmail-Original-Message-ID: <CAD++jLm3-5BP+1E_DLTZvEPd1ugMZrXiOjM+Gqnn9Ri+uNWuPw@mail.gmail.com>
+X-Gm-Features: AVVi8Ccukh9jeKMJzDntWFmdET_gKKyPu4vZydSTvGPFTsmFqpaNo79r5YLA3x4
+Message-ID: <CAD++jLm3-5BP+1E_DLTZvEPd1ugMZrXiOjM+Gqnn9Ri+uNWuPw@mail.gmail.com>
+Subject: Re: [PATCH 0/2] pinctrl: aspeed: Make AST2700 SoC1 JTAG master TRST optional
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: Andrew Jeffery <andrew@codeconstruct.com.au>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+	linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 10, 2026 at 2:21=E2=80=AFPM Khristine Andreea Barbulescu
-<khristineandreea.barbulescu@oss.nxp.com> wrote:
+On Tue, Jun 16, 2026 at 4:30=E2=80=AFAM Billy Tsai <billy_tsai@aspeedtech.c=
+om> wrote:
 
-> This patch series adds support for basic GPIO
-> operations using gpio-regmap.
+> The JTAGM1 pin group of the AST2700 SoC1 includes ball D12, which
+> carries the TRST signal. TRST is an optional signal for a JTAG master:
+> designs that do not wire it may need the D12 ball for other functions,
+> but with TRST embedded in the group they cannot use the JTAG master at
+> all.
+>
+> Split D12 into a new JTAGM1TRST group under the existing JTAGM1
+> function, so TRST is only muxed when a board explicitly requests it.
+> Patch 1 adds the new group to the device tree binding and patch 2
+> splits the group in the driver.
+>
+> Note that this changes the meaning of the existing JTAGM1 group: boards
+> that do use TRST now need to select both the JTAGM1 and JTAGM1TRST
+> groups.
+>
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 
-Sorry for my confused comment on jun 10, these patches all go to the
-pinctrl subsystem so I should merge them.
-
-Can you make a v12 based on v7.2-rc1 and I will apply them.
-Pick up ACKs!
-
-I will not apply the device tree patch, this will need to be queued
-in the SoC tree.
+Patches applied!
 
 Yours,
 Linus Walleij
