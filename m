@@ -1,154 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE3F1A9FBD;
-	Tue, 30 Jun 2026 17:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782838913; cv=none; b=dgJxGNvNV79VoabuMCAFqyvVdASus12/r/W0KSpf0x/tM6yt/tbsCGfBWnLG3jTaF3XGMK8YbjlpFWlX1b35A8FUjN+XLJvW+HAcvTHsTxCZLU1SSplKl02yuxvOWZ6Sig/5FY0Y0lV8LgX8yn67wSA2KmvsKp7r8bq8xzcw36E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782838913; c=relaxed/simple;
-	bh=/mv4wVM6OFf8sEdIQXMPemskyZZTp/pXShw4YQV6bWA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VKRW2Qhb3ljHlY2v059HWVK0lPCIeFmv/p8d3E1dbMuizorPFM7Lwx3FfXCve9p8EBt1un224DzZ4mR4Nh36WaN0/BrRtmOAcq64FnvqBXGyuQR2z/dgXBVrp3bh4irFFdun48MS1JSvUNnGVtDxUCau2XEAfRQ4utz6y1UKg2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IquSNYx4; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B83E2D837C
+	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 17:02:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782838925; cv=pass; b=NlyQOtWIBAs3Zz4VTnl8Ykyw84iXXpr3c1+r6WJvM2qchVo3gWGaxgqqHuY8dSzzWMhKdmCKlDLwadTeMjjkR91fJGYM4NpFM8OltIC8uNrIEh/uCmuIdA7LiQE3GfP5o8EbzTL4dJSJAtBdePzG4owJVLggNnPIPi1F4qHG7WA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782838925; c=relaxed/simple;
+	bh=u7rHJs9jICEwL0rR8cg3yrWmOb4tQOeogxpk6eKkbX4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lfIIdFmGsPZCpyQhoUbPcN67j4hOUoSHdBpzG9W7xnZqefF+tZkCB8f5VpEWPSH6UfWonoj7UdEglhVC0K9Aji+tVj7vUUBIL4n+0xcDY1VzLfAyz5CX3RCZjSfFV3vc65xaSaVHA9wOGywGVjtsn4yr0yvuDVq+SmN9z4YQGsg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sJlu2lqW; arc=pass smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IquSNYx4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C6FE1F00A3F;
-	Tue, 30 Jun 2026 17:01:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782838912;
-	bh=r1fPFrDZ9NhL5N/9RJ6igZAPje/KpsEjFsCfMVm5Oic=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IquSNYx4CxMUC+vKE+lrEekfi8VHNUEUW0gQnl27gVgl7J6Z4CeupqbtYTtpw8FG0
-	 DkKfZPdrUZBG0ghDfPk+Gpu9n+W7SCEsPCVi2f3z7X2T2hlN5bAbcZjHzZewapI1+2
-	 tUP/ppMPb+9ousSo86UHxO9zvVSe6RNeeaWmGGw8djErdVP9d0YlSegLn6YG0wCQS5
-	 5+2nIMhjqP+0DGrJxXokAq2Q6VebdrQhSqBJjkzwgInSgNGLgCC0QFr0ReyMxaGzbU
-	 hFZJ+e3H8oZgrXpxqKT6xQ5cXBaebJNUbdPd5A3yAok7n4hDk9XRx1TTJDPAfW+ocY
-	 2FLlVP1YusxkA==
-Date: Tue, 30 Jun 2026 18:01:47 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Gregor Herburger <gregor.herburger@linutronix.de>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Eric Anholt <eric@anholt.net>,
-	Stefan Wahren <wahrenst@gmx.net>,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 2/4] dt-bindings: raspberrypi,bcm2835-firmware: Include
- 'reboot-mode.yaml'
-Message-ID: <20260630-galleria-monorail-bf3b4f6c7a25@spud>
-References: <20260626-rpi-tryboot-v1-0-490b1c4c4970@linutronix.de>
- <20260626-rpi-tryboot-v1-2-490b1c4c4970@linutronix.de>
- <20260626-quaking-shove-fcc9d8057ae0@spud>
- <qgoblikagfbcmbqoryw4ajfa6qyx3wpj4qfeuuntima542qlkq@evebdvjaxern>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sJlu2lqW"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-c88973b6965so457964a12.1
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 10:02:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782838923; cv=none;
+        d=google.com; s=arc-20260327;
+        b=N1ArQj+7PNYfSapM7VnDma+xPmqz3DcAKdF+I08BR5CA/TnoS9AOP4/nhouSVg3HDT
+         nSi+6hHyEDguct3Gq1i10Bqj70cjnosRCAaZ3eMuJH1b+edTCx34Z7y/r432vhiQp9wr
+         fAepJPO7ajLd00AVMfW4KfQmYT0aS0QcdYs+TQPsEcLOmD5EZa3ZMjs1w80w4usHguoB
+         CDtU7d2yOJMCiyjInXttzlpIq3mpNTMDomMBZEzuEl1c4FVfMev6i0pzGNqM4zJDOd7s
+         FInMPLl6iE7Q6h+vD28TsUBQMogEQUPVLFfg5ecMAX4kegDB+wRVMvY1aasWYnOku3E8
+         tDuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=u7rHJs9jICEwL0rR8cg3yrWmOb4tQOeogxpk6eKkbX4=;
+        fh=y9xzJLgLBVnZSX9kCzOhbsiMN+1biyhvWboHwxXYBms=;
+        b=rM/NlTpqED9oiNdcCVZlStOGGOSMvRN8/seluj6tdxs0SJG/2L4hXxsunLgPJg6AT5
+         lL/3a1Bv7eKe4QGbeMwoj+YFnifj6v7Tiu4YSEoWzwfzN6Y15w2I15uZRejSkluOnQOY
+         FK8wNYvRbp/49kw1xfrnC1KGtS3Q4mA1HS13WMr5RMDp9VbFw3g2pe6MmFA8e+jjdS17
+         Anh9kZNWBy2+GCVM4S3v3ThzGFeRh/3d0ynZiRqwLBXqFfGZYvYSwBoYm7If1g732GaQ
+         ANK85kEvK51w6BClyCbVvC4R+PXAS0KJuHCY3+YvVjz1O3MlhFjyOB28KA6hXN8sjWkH
+         oFXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782838923; x=1783443723; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=u7rHJs9jICEwL0rR8cg3yrWmOb4tQOeogxpk6eKkbX4=;
+        b=sJlu2lqWliD2z5vyLfVuatTv0PiEUP3GyDgnd25UYxRaELNn32tyiH613zrvHBKky/
+         y0+nClePzMGKK21o5Jjd0dUCsvvYztlV4p5Ayt7TrwemaLJHl0IEbnfOLcMT3lU76kQm
+         Nff9vhDjnlgwzZZfmfAEM7EzNwL+gayyW+jAfy58/G/2ErPSzMsIT2CTe0gCGurUB4rT
+         S+BTyBO4VsmfWbs5IeER5A6FPDOjmJtEUMj+8mb9purXp8GhFFvEjXl3t9uxpPviC2u2
+         a5E8riX88pCoXt2v4+5wGeebnxwrZNUHFSrfur+X5CvZ6e8Yef9bn6HLOKzlgydvRZ5T
+         21Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782838923; x=1783443723;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=u7rHJs9jICEwL0rR8cg3yrWmOb4tQOeogxpk6eKkbX4=;
+        b=YaBzPZjQ290RIJNoNNjjYI9fbaeKMXfeFJ58RrYBrqK6F/dZtIaAftXf4O5b8VyBrY
+         qAzDKj2O2VBDIb+AfvmnoGh+Twjh1ncYvjAtq4yJwZsv/Gpo03dXZ9HjRBtqJK/cj+9e
+         vo1gGRjJYwOqUJFo2hdJnclPB/+LtYToEnAHfIJtUTuNZGjS5wObvAA2OocHubjhCbi3
+         M42lyfdP4fz4bNnvQ6OqRe8Zd3KjgFv/AgGZgbYDowKIvoLJrnPL2M5BPDawQX6EMHgl
+         6lmnGh/VmHAUK+yJmBR1E/SnxU7iqSYmYa4RythfIc2KCzDaAn1DVGubzTeq1fYdQYHo
+         mCXw==
+X-Forwarded-Encrypted: i=1; AFNElJ81hSZgITVA51w39TKkVM0f/p7H5FNPs7+kz/871xcwcnDcbdX0imR/dvC5N6F4sXBhxFmBXpHXZI9l@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyc3joA10epqtv+fBuQ/SQ3/v3cyH/5PMF48CJ0n1uJ+JSQlljl
+	iyl8L+647IK6ECJvFKE+4RwkAqdYNwqaYeK9v3uLE3MuEu0vnxPs6pi6XaBP8zV3XXibKfDsEbV
+	DVRMXab6FCZitYoQ4tOlDntacRS4N+Wk=
+X-Gm-Gg: AfdE7clYU1aL3V3P+6nSR7pKQvYkjTzjKNRcKebj2uBSyqc0rZHJpJJ2fErzrQmqs+5
+	JZ3EvwlZ//O03QMF1vOR8d7EEhFERBJTHjNo7+eIEh20jGTUdCMSnr2v+58CKcO+zoB743I4Vek
+	fk5+CCFllc3zCw5XgoD/+Hx2edpNKFOlbD2353t1ZFoKRt3YGhelaJuJoYYUv5m5PXACHGfuVmw
+	RzzTa75b9THmU7KoXsgn50Se7FwQkCWpjwtbBt+baLIgGfGGOF5IKN3ct++X+Pfke7UIZMiIKWD
+	zzafcAAiYvELOgSgI+hLQsbqaa0HUq3D+trQazCxZg==
+X-Received: by 2002:a05:6a21:1bc6:b0:3bf:9bd9:cf54 with SMTP id
+ adf61e73a8af0-3bfd2637dc8mr2029537637.8.1782838923351; Tue, 30 Jun 2026
+ 10:02:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nr/V2KaeEBWBPf17"
-Content-Disposition: inline
-In-Reply-To: <qgoblikagfbcmbqoryw4ajfa6qyx3wpj4qfeuuntima542qlkq@evebdvjaxern>
-
---nr/V2KaeEBWBPf17
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260622221550.374235-1-jakubszczudlo40@gmail.com>
+ <20260622221550.374235-2-jakubszczudlo40@gmail.com> <ajpO9zaZbIl3x1uC@ashevche-desk.local>
+ <20260629235118.1abc4067@jic23-huawei> <akOqIVDibovrbBAK@ashevche-desk.local>
+ <e966a0dd-d8ef-4009-b609-546a48bd16f4@gmail.com> <akO2XF2dejbao6Zn@ashevche-desk.local>
+In-Reply-To: <akO2XF2dejbao6Zn@ashevche-desk.local>
+From: =?UTF-8?Q?Jakub_Szczud=C5=82o?= <jakubszczudlo40@gmail.com>
+Date: Tue, 30 Jun 2026 19:01:52 +0200
+X-Gm-Features: AVVi8CdVri3EHATATvfuvom6TGocFdcDcnlRg5z8nfjRm7v4mPHz7kxTZkawjRA
+Message-ID: <CA+gq5JiQV3n_t1OA6++_ZVqJdsCZmg-mnz2sHVpFsCZyp=QVgQ@mail.gmail.com>
+Subject: Re: [PATCH v4 1/3] iio: adc: Fix incorrect reading when datarate
+ changed in single mode
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Matti Vaittinen <mazziesaccount@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
+	linux-iio@vger.kernel.org, andy@kernel.org, antoniu.miclaus@analog.com, 
+	conor+dt@kernel.org, devicetree@vger.kernel.org, dlechner@baylibre.com, 
+	duje@dujemihanovic.xyz, jishnu.prakash@oss.qualcomm.com, 
+	jorge.marques@analog.com, joshua.crofts1@gmail.com, krzk+dt@kernel.org, 
+	linusw@kernel.org, linux-kernel@vger.kernel.org, marcelo.schmitt@analog.com, 
+	mike.looijmans@topic.nl, nuno.sa@analog.com, robh@kernel.org, 
+	sakari.ailus@linux.intel.com, wens@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 30, 2026 at 03:56:32PM +0200, Gregor Herburger wrote:
-> Hi Conor,
->=20
-> On Fri, Jun 26, 2026 at 04:57:35PM +0100, Conor Dooley wrote:
-> > On Fri, Jun 26, 2026 at 09:35:05AM +0200, Gregor Herburger wrote:
-> > > The Raspberry Pi firmware allows to set a reboot mode called tryboot
-> > > that allows to try booting from a different partition to allow updati=
-ng
-> > > of the boot partition. Allow reboot mode properties by referencing the
-> > > reboot-mode schema.
-> > >=20
-> > > Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
-> > > ---
-> > >  .../devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml   =
- | 5 ++++-
-> > >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bc=
-m2835-firmware.yaml b/Documentation/devicetree/bindings/arm/bcm/raspberrypi=
-,bcm2835-firmware.yaml
-> > > index 983ea80eaec97..30b490e0d9fb3 100644
-> > > --- a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-f=
-irmware.yaml
-> > > +++ b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-f=
-irmware.yaml
-> > > @@ -133,11 +133,14 @@ properties:
-> > >      required:
-> > >        - compatible
-> > > =20
-> > > +allOf:
-> > > +  - $ref: /schemas/power/reset/reboot-mode.yaml#
-> > > +
-> > >  required:
-> > >    - compatible
-> > >    - mboxes
-> > > =20
-> > > -additionalProperties: false
-> > > +unevaluatedProperties: false
-> >=20
-> > I think you should keep additionalProperties: false and add
-> > mode-normal: true
-> > mode-tryboot: true
-> >=20
-> > (I don't know if the latter works though, you may need to have a $ref to
-> > uint32-array).
-> >=20
-> > What you've done permits freeform reboot modes, but I think only normal
-> > and tryboot are valid?
->=20
-> Ah yes good point. I do think it should be restricted to
-> 'mode-{normal,tryboot}'.=20
->=20
-> Sashiko also suggested to set maxItems to 1 and I think that is a good id=
-ea as
-> well, because afaik the firmware only accepts a 32bit value for the reboo=
-t flag.
-> The $ref to uin32 is not needed that is already enforced by the
-> patternProperties "^mode-.*$": in reboot-mode.yaml.
->=20
-> Therefore I will add the following (and keep additionalProperties: false):
->=20
-> properties:
-> ...
->=20
->   mode-normal:
->     maxItems: 1
->=20
->   mode-tryboot:
->     maxItems: 1
->=20
-> allOf:
->   - $ref: /schemas/power/reset/reboot-mode.yaml#
->=20
->=20
-> I will do some more testing and send a v2 later.
+>
+> On Tue, Jun 30, 2026 at 03:08:42PM +0300, Matti Vaittinen wrote:
+> > On 30/06/2026 14:36, Andy Shevchenko wrote:
+>
+> Thanks, Matti!
+>
+> > Just my random 5 (or so) cents.
+>
+> 5 because Finland doesn't have 1 or 2-cent coins :-)
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
+Thanks for all reviews, I will include them in v6 version
 
-Cool, sounds good to me.
-
---nr/V2KaeEBWBPf17
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakP2ewAKCRB4tDGHoIJi
-0tjSAP9JKMAbY3EfCZuyJTIoiA2kkQtFs91Hj5L7Qd2Ub1cFXwD7BAd+zepdemEz
-lzDLgaPXEn4Kt442IPX7QNtBaROagQ0=
-=aKzA
------END PGP SIGNATURE-----
-
---nr/V2KaeEBWBPf17--
+Best regards,
+Jakub Szczud=C5=82o
