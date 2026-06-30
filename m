@@ -1,186 +1,198 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD33A409E16
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 12:29:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 99A4C1F3D56;
+	Tue, 30 Jun 2026 12:36:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782822570; cv=none; b=TtgdYvaGoDQTr1qIgv0mu+UQHsnKB43VVrLl0RD4Gi5oC7QINAO4EC8j7zO+AXq0yYGV35wPhvwu1qwdFcZNtOGJN8P0vtNiajLG7DBfXOE9OUgs4lU6tpsygTCckpSPEOiKWCT2490rhvFV4t1I1VFDzyH5cwsGjFRYXYlik28=
+	t=1782822989; cv=none; b=A9ZmXI+NKXFGFcqhfvVJoZW9i9OoHTUIcI9mPL/K05nd0UE66hJODl5e4z7wMGhaChv8eBqytVsP6eKnHMG0yjL095FY/WLYJBO/WRtrK5QQCRgTSKjDtjDt+NC4ef346P0OXC2/j9PLDGXCnQaiqlo8sG8x6qtMENvJgNlNsZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782822570; c=relaxed/simple;
-	bh=gl0lDm4wynurmveioyR1l2Y5g2edwHFBtqEE6jb4mBk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OaYxSoQgAzuCvZGDaibLp5H/pi0qVLBsXaJFBznlnHyjpCJdBu1tjeKmuIVs0DQe3An93K1PNr9SLNM53Vw6rYwqCP1cgjYly13aAYE8YnHLabKCtZhWs+2lLTSYawnFoNz4Gt6oypOyJFkVe+Y6vH3BNi8BZG00FI1AvePW09Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Tyw3gH/T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Wj2ddysx; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Tyw3gH/T";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Wj2ddysx"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65U9n1Gk1612259
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 12:29:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GtTspHsbGkjYzDUUdoD9USWBMPNjPNk/lGT+v+UlaRM=; b=Tyw3gH/TTSBgvzYn
-	CTDF1wxMcnv74fhvk3IQ+KTC+kIcRKKbecYHSHw5W3Ijh78lb7r5Vo6eefToGkKb
-	RG2k7f319WAv2t1vukHnvTcoYNJfMmXu8qaPa/7c3G8xW9RMoDGFnY/bdoAATjCU
-	P3HVlZJyHNBxR6DBCTwhGj+SAdHCis+tHm9F3fZ0e9X20NLWTX1dz5MjSsG7wqLj
-	UZzIVUl3cyF+FQ3UD8rPfRqSRf6wJ6nxSINb5cGrg4SWOergjYPo6lX8z2QjgB74
-	L4ScsZ/5LQ2x/3wMP4rdY0gGjU0xceG4tF9mLK5jG9uzdKJ+/0y+4u8bv04hrR5x
-	QRUeKw==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f441gtke0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 12:29:27 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2c8e14ebb2aso8286745ad.0
-        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 05:29:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782822567; x=1783427367; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=GtTspHsbGkjYzDUUdoD9USWBMPNjPNk/lGT+v+UlaRM=;
-        b=Wj2ddysxTfwAYc1XH7KOPx+uLd372goh4s4FNN3Klz99QdA3LD79xnDtycwKxAuLDJ
-         eTMS2EcqHkRM+dk5hxNDTRwmvL3/g7tAVUbP38ukIpAFz5j73oTih4GJPboNU6M9XA6g
-         rfR79qJuiS6+6MEE7G0/jp8zwtDuvPG1dlqapViF+jjiDpLGm3F/GWSgtG3cSwcZyJh8
-         m6lqkcJccdk9y0uLT6M1t8383RJEi0OcDC7S+sZZhu9AhnMVrAJ4VMruf2xKVyDdya9K
-         wodrzu1K1OcOVZPhLgQhKB0kc0A6t4+8sDeS5dw5FBCZyGWEYJeujITZLoIKDwWbCzpX
-         1e9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782822567; x=1783427367;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=GtTspHsbGkjYzDUUdoD9USWBMPNjPNk/lGT+v+UlaRM=;
-        b=avmtbNSyc+drNafUDqGYLCy+woEj1lZ7rkPDzpfRs+29vXzQfxE2sZhUmHFhnCyXCL
-         F/aCKvE2SRfYOUE3Qevuyf9SQ2aPeRc3NErXvY6/6p/BDQaeBB8pFuZb1Lwga9K6Wuh3
-         0SHHUoNYJLB77K6NC4fhWxeJBnLJLAtihWoMfwj0lBVMLSulx+0w80J7lgQpPJ9OfYrO
-         IIwFqJOHneb5OBuzv8fogCRgHLHbU3XWSfZWiwalorkv8UCsPwWCgPDYqyw1J2EiuRcI
-         pWgUfTHlsW5yvQ3oME8VuypqEM8mSpBzl068cWhjglLUOc+A78RCgaq1mdWTWmNRyaeE
-         2XYQ==
-X-Forwarded-Encrypted: i=1; AHgh+RobZiWVWjsjQTZtDJL/tZpbLSR69Q9Wff1sgMSuVaJpYSiNzX22kd8eO97kzZNHrBdoplfXK/z2GvnY@vger.kernel.org
-X-Gm-Message-State: AOJu0YySQf3xWHRtxcajrO1c5lM/4VHTUUBFMHj6D65caWHhzQl+qud3
-	vpyd+sKZMBlBSEJWLUV7HFlKLNFWRC7CyV2/r25A3ixBJyiwUTeQXnSYCfifr14VmUXv4dWVc9N
-	jic1dNmcxzFR4VjI74w9VsiBD8ak5rsw/AIvqNk1rvys2y/IE/bethYNOYcSM9vlu
-X-Gm-Gg: AfdE7cloyO34cdPa41bnam7WAgxMEt2uStviHNiaVRDzvrSzzr8Af4wZ/sNP+XQNLYw
-	MNKfqwdIwGaiDUT2mVkFnzMgCNRg53EMboK2OwApJ0obt3DGtLZ4Y3SgkcQOgTP6coJwFHndlVO
-	QlBVH5XWzggbpZI76EyULopXkK4gsHFs5aELWXeoduKeEBfpGyHpRTr8Zh1haO5g2QhE0l9L3Mv
-	+Tgi6aLjvOmsR8atG+hh0yNZyy76zFvsmUj8jchMj/QPsCVf+8rHhCVf2F/OYxPKGUPB/IMy6IY
-	8czPTgTTyqxCf7PWdNIwIJzwH5TEKbYwYYPTmHgnuwyOkYpuFqWLiAbq9DQwu5e1Jwc/49l57EE
-	90DqCwaexouheV5F7q+q4lusermdQ46dK+mzQMoRdqodl
-X-Received: by 2002:a17:902:d4d1:b0:2c6:8d95:fd7e with SMTP id d9443c01a7336-2ca4487f4c0mr11768975ad.6.1782822567248;
-        Tue, 30 Jun 2026 05:29:27 -0700 (PDT)
-X-Received: by 2002:a17:902:d4d1:b0:2c6:8d95:fd7e with SMTP id d9443c01a7336-2ca4487f4c0mr11768685ad.6.1782822566664;
-        Tue, 30 Jun 2026 05:29:26 -0700 (PDT)
-Received: from [10.217.219.87] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca37c71e77sm13054905ad.18.2026.06.30.05.29.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jun 2026 05:29:26 -0700 (PDT)
-Message-ID: <1098f5ca-2273-484b-9e0b-26bbe9644c2c@oss.qualcomm.com>
-Date: Tue, 30 Jun 2026 17:59:21 +0530
+	s=arc-20240116; t=1782822989; c=relaxed/simple;
+	bh=+9gtoXI7zpH1/d174ZpBP6VfcwKOyAPrwaYEiqqHFfo=;
+	h=From:Subject:To:Cc:References:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=aWDqCT5vWWmHhlmQqArVoIdKvXy/EaBirMRpZkvFDwFOGYFtUANp0NcN+eWQASpSnJ6i5khddzNSSBFi4kbPiivP39oJhOmysYqTq17E6ChsrnhWR2ebChqwEpee7OkxkTKleAqlYW/e5Tb0iqjcC2CdtbA2K7l7LM9vDm5f9rQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.101])
+	by gateway (Coremail) with SMTP id _____8Bxh_BIuENqPwkAAA--.149S3;
+	Tue, 30 Jun 2026 20:36:24 +0800 (CST)
+Received: from [10.20.42.101] (unknown [10.20.42.101])
+	by front1 (Coremail) with SMTP id qMiowJDxaeAzuENqzQq5AA--.24273S3;
+	Tue, 30 Jun 2026 20:36:23 +0800 (CST)
+From: Hongliang Wang <wanghongliang@loongson.cn>
+Subject: Re: [PATCH v6 2/2] i2c: ls2x: Add clocks property parsing and adjust
+ bus speed
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ loongarch@lists.linux.dev, Huacai Chen <chenhuacai@loongson.cn>,
+ stable@vger.kernel.org
+References: <20260608024533.32419-1-wanghongliang@loongson.cn>
+ <20260608024533.32419-3-wanghongliang@loongson.cn>
+ <ajHRVJhAzo3V4C9g@zenone.zhora.eu>
+Message-ID: <c63e2126-02a0-18d9-896a-89257201cb0a@loongson.cn>
+Date: Tue, 30 Jun 2026 20:34:59 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] spi: qcom-geni: Add property to force GSI mode
-To: Pengyu Luo <mitltlatltl@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260614083424.464132-1-mitltlatltl@gmail.com>
- <20260614083424.464132-2-mitltlatltl@gmail.com>
+In-Reply-To: <ajHRVJhAzo3V4C9g@zenone.zhora.eu>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-In-Reply-To: <20260614083424.464132-2-mitltlatltl@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDExNSBTYWx0ZWRfX6nLcrLa4UEII
- YxZVg4Vi+Z2h5lzDp506IvWfSO7cWLr57KuZBi9TsG+OB4ug1Os1WykHmZx2iuGRo2vKuHEEF5e
- gZs0eS3ggpFPwjpC1XWe9pHjPX+S+2k=
-X-Proofpoint-ORIG-GUID: UG_aGLmwiYt6ji5TwpA6E5wB3MQfP9ro
-X-Authority-Analysis: v=2.4 cv=F8dnsKhN c=1 sm=1 tr=0 ts=6a43b6a7 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=pGLkceISAAAA:8 a=eJ7jpIcogiy-yz44Dk8A:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDExNSBTYWx0ZWRfX3oPWXs5oQBdN
- agsnjxo6pkYRJcI7ZrF1RCIBWQVTJf5ZQPRoh8dltASJ08FGZH1tFIgb1hyH74iTodls4+beLi1
- 2EmdT3V0pgjVZosdHYj1tFW8o/Mm3lsL/S6JSF7kXJsFwp+UBsrklRb9ZNdMeTR925dtYzQLA/l
- qNJPWu8bnBpqWwHBIDB3aFK7wM8MoS8xhozR3WG/LDWnXGtBa0GO+Eu+KQavnyjBN8tYCGxT0rz
- FJ3BgGrkTjWQ841iJj8atQFtUXkGhFZOHuj3s4ODGPljUhcTDp83Ytt0ZTxj9qfFajWqUYbUU4E
- A/wfUU1Pv2dJspw4urvhQImOlkHY7UNy1zPsGsUumE4IUNINyz3oH3wfjmYAIX2YmCMcbCbaY4V
- Megqukv7U1B4HaXTSuJ3V4BkgraDynN2WETiQVsoNc66DuiVVpfJ6Pkix7fkRlmmpjapeFbvIhN
- MHX3btaOLFGdAvg4DYw==
-X-Proofpoint-GUID: UG_aGLmwiYt6ji5TwpA6E5wB3MQfP9ro
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-30_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 suspectscore=0 clxscore=1015
- impostorscore=0 phishscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606300115
+X-CM-TRANSID:qMiowJDxaeAzuENqzQq5AA--.24273S3
+X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoW3WF17tw1ktr43tF13KFW8KrX_yoW7GFW7pF
+	W8JF4UGrWDJr10qr1kXr1UZryUtw1DJ3WUJr18JF17Xr13Jr1jqF1UWr1qgr18Gr48Jw45
+	JF1UXr1UZr1UArbCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
+	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv
+	67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
+	AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
+	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
+	ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
+	xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
+	1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8zw
+	Z7UUUUU==
+
+Hi, Andi
+
+On 2026/6/17 上午6:55, Andi Shyti wrote:
+> Hi Hongliang,
+>
+> On Mon, Jun 08, 2026 at 10:45:33AM +0800, Hongliang Wang wrote:
+>> The i2c-ls2x driver supports dts and acpi parameter passing.
+>>
+>> In dts, uses clock framework, by parsing clocks property to
+>> get i2c bus reference clock, and define the div of reference
+>> clock by device data.
+>>
+>> In acpi, by passing clocks property to describe i2c bus reference
+>> clock and clock-div property to describe the div of reference clock.
+>>
+>> Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
+>> and div, calculate the prcescale of i2c divider register. The
+>> calculation formula is
+>>
+>> prcescale = (clock_a*10)/(div*clock_s)-1
+>>
+>> Reviewed-by: Huacai Chen<chenhuacai@loongson.cn>
+>> Cc:stable@vger.kernel.org
+> what are you fixing exactly? It's not clear from the commit log.
+> Do we need to add the Fixes tag?
+The modification from v5 to v6 only removed CC stable from patch 1/2 and 
+added
+Reviewed-by tag to patch 1/2 and patch 2/2, the source code of patch 2/2 
+has not
+been modified.
+
+Best regards,
+Hongliang Wang
+>> Signed-off-by: Hongliang Wang<wanghongliang@loongson.cn>
+> ...
+>
+>> @@ -96,6 +104,8 @@ static irqreturn_t ls2x_i2c_isr(int this_irq, void *dev_id)
+>>   static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
+>>   {
+>>   	u16 val;
+>> +	u32 pclk, div;
+>> +	struct clk *clk;
+>>   	struct i2c_timings *t = &priv->i2c_t;
+>>   	struct device *dev = priv->adapter.dev.parent;
+>>   	u32 acpi_speed = i2c_acpi_find_bus_speed(dev);
+>> @@ -107,12 +117,30 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
+>>   	else
+>>   		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
+>>   
+>> +	if (dev_of_node(dev)) {
+>> +		clk = devm_clk_get_optional_enabled(dev, NULL);
+> Here you got a valid comment from the sashiko-bot, did you check
+> it?
+Yes, I moved this part of code to ls2x_i2c_probe and only called 
+devm_clk_get_optional_enabled once.
+> There are some other comments that is worth checking.
+I added div non-zero checking. Other comments I evaluate have no impact 
+on the
+functionality of the i2c-ls2x driver.
+
+The modify as follows:
+
+60 @@ -107,12 +116,13 @@ static void ls2x_i2c_adjust_bus_speed(struct 
+ls2x_i2c_priv *priv)
+  61         else
+  62                 t->bus_freq_hz = LS2X_I2C_FREQ_STD;
+  63
+  64 +       val = (priv->pclk * 10) / (priv->div * t->bus_freq_hz) - 1;
+  65 +
+  66         /*
+  67          * According to the chip manual, we can only access the 
+registers as bytes,
+  68          * otherwise the high bits will be truncated.
+  69          * So set the I2C frequency with a sequential writeb() 
+instead of writew().
+  70          */
+  71 -       val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
+  72         writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + 
+I2C_LS2X_PRER_LO);
+  73         writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + 
+I2C_LS2X_PRER_HI);
+  74  }
 
 
+  75 @@ -290,6 +300,7 @@ static int ls2x_i2c_probe(struct 
+platform_device *pdev)
+  76         struct i2c_adapter *adap;
+  77         struct ls2x_i2c_priv *priv;
+  78         struct device *dev = &pdev->dev;
+  79 +       struct clk *clk;
+  80
+  81         priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+  82         if (!priv)
+  83 @@ -304,6 +315,25 @@ static int ls2x_i2c_probe(struct 
+platform_device *pdev)
+  84         if (irq < 0)
+  85                 return irq;
+  86
+  87 +       if (dev_of_node(dev)) {
+  88 +               clk = devm_clk_get_optional_enabled(dev, NULL);
+  89 +               if (!IS_ERR_OR_NULL(clk))
+  90 +                       priv->pclk = clk_get_rate(clk);
+  91 +               else
+  92 +                       priv->pclk = LS2X_I2C_PCLK_FREQ;
+  93 +
+  94 +               priv->div = (unsigned long)device_get_match_data(dev);
+  95 +       } else {
+  96 +               /* clocks and clock-div are only ACPI properties. */
+  97 +               ret = device_property_read_u32(dev, "clocks", 
+&priv->pclk);
+  98 +               if (ret)
+  99 +                       priv->pclk = LS2X_I2C_PCLK_FREQ;
+100 +
+101 +               ret = device_property_read_u32(dev, "clock-div", 
+&priv->div);
+102 +               if (ret || !priv->div)
+103 +                       priv->div = LS2X_I2C_7A_CLOCK_DIV;
+104 +       }
+105 +
 
-On 6/14/2026 2:04 PM, Pengyu Luo wrote:
-> Some devices (such as gaokun3) do not disable FIFO mode, causing the
-> driver to fallback to FIFO mode by default. However, these platforms
-> also support GSI mode, which is highly preferred for certain
-> peripherals like SPI touchscreens to improve performance.
-> 
-> Introduce the "qcom,force-gsi-mode" device property to hint and force
-> the controller into GSI mode during initialization.
-> 
-> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
-> ---
->   drivers/spi/spi-geni-qcom.c | 7 +++++++
->   1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-> index 26e723cfea61..eece7312f780 100644
-> --- a/drivers/spi/spi-geni-qcom.c
-> +++ b/drivers/spi/spi-geni-qcom.c
-> @@ -102,6 +102,7 @@ struct spi_geni_master {
->   	int irq;
->   	bool cs_flag;
->   	bool abort_failed;
-> +	bool force_gsi_mode;
->   	struct dma_chan *tx;
->   	struct dma_chan *rx;
->   	int cur_xfer_mode;
-> @@ -655,6 +656,9 @@ static int spi_geni_init(struct spi_geni_master *mas)
->   		mas->oversampling = 1;
->   
->   	fifo_disable = readl(se->base + GENI_IF_DISABLE_RO) & FIFO_IF_DISABLE;
-> +	if (mas->force_gsi_mode)
-> +		fifo_disable = 1;
-> +
->   	switch (fifo_disable) {
->   	case 1:
->   		ret = spi_geni_grab_gpi_chan(mas);
-> @@ -1133,6 +1137,9 @@ static int spi_geni_probe(struct platform_device *pdev)
->   	if (ret)
->   		return ret;
->   
-> +	if (device_property_read_bool(&pdev->dev, "qcom,force-gsi-mode"))
-> +		mas->force_gsi_mode = true;
-> +
-I don't think this is a HW bit, it's an internal selection based on FW 
-programming. This is inherently decided by GENI_IF_DISABLE_RO, No 
-exposure to the user/DT.
->   	ret = spi_geni_init(mas);
->   	if (ret)
->   		return ret;
+> Thanks,
+> Andi
+>
+>> +		if (!IS_ERR_OR_NULL(clk))
+>> +			pclk = clk_get_rate(clk);
+>> +		else
+>> +			pclk = LS2X_I2C_PCLK_FREQ;
+> ...
+Best regards,
+Hongliang Wang
 
