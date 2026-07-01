@@ -1,334 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D59B2264A8;
-	Wed,  1 Jul 2026 10:32:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A35C41C30F
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 10:34:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782901964; cv=none; b=iAg8SqR6TkmBufO6P3XkDU12b50OXE8fJsaPgFCmMMrCz6XRt59ZpFDMap2/LMdPcWC0BNG59jEEUZVemBO8KnPJ4y8EIfrmDeZYRjtbUMV+3SsUi66cUlCs/DrzsqH3V33wtQ7h8+k18QosfJZHe4Wk8k+UkxM/EG+MB+3vcqQ=
+	t=1782902078; cv=none; b=k76aTCbF4lZZjt6Vrv0y1ochNjcuxp0XKg//PWYlwBoEBcshACYmA+5ebClvYny9HqgxQOoU+17Q8VYzrZpXUnBX0HGNDtt2wPF21vPN3mv+yjNWe3yS4Csqkb2g6v0ZzAucVpk6f2tiPCMoFpVoL35AS+d7KDKqRsr47qgNdd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782901964; c=relaxed/simple;
-	bh=I+OJU5lxsGhcUXol0iQgXWqCpufkQrFozRXU+0PpZ3I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JNgL0KXkK0lXa2s5bfQcIKrqajXQzwxZC60Byu6sIDoXgzg5sNEXN0mwYgeUOP/2yh+F3BEJxNQvqU+yHx76MIMMFZbJeoyv7OE6XQ5xwgxfpAbexZyA4DKzGYR7MnunWUmK2EAq77/YyiyTDdMA5bdrolPMeb6D+mzwr91XYVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HotLwFIW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782902078; c=relaxed/simple;
+	bh=E/Lw3/RGFRUowWGKn7vX9gCqeA/OVlV1rfopMtT2b5g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Gmb/cBQFfM+N2qrJmonAC8uUbI2pbb1gqaK1cxF8rNKUG7o6J1uJuYTKzo9HYt/B5krtuHcb5YmV1IW8M18vKIpe8DBiN+fZx682OJaK5jrBJa80AKBG83ri6CQZN4BekhJjhqfsSSMkAdXxRNsGZ0doi90PWLQ4FywR/rdO3Zw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TityVFcL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HotLwFIW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7607B1F000E9;
-	Wed,  1 Jul 2026 10:32:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TityVFcL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6DEA1F000E9;
+	Wed,  1 Jul 2026 10:34:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782901963;
-	bh=Ptvg1ylGxHnshrrECxTmUr8gU4sZPkl++bmW1JmyOAI=;
-	h=From:Date:Subject:To:Cc;
-	b=HotLwFIW2BKKaTL7pX4N3gz2IPrdJx+d+7VJ9Cgsa/ZBqhR/XVPcHPLjXTf8fhIgd
-	 Apkd8NdhKoO+0d2CTnI0ujmyTmMt24zFyUgWSfJ+vyZedAurZ6Vb5prdsUWnEd3z4M
-	 bkFZm2gDofz+NToGXWEp7iOcohVgRjhh/Grw1K6xKuXIyuUnZNqG39wQdgIibTow4C
-	 0jvqw5emmMVZohuzsls5tOrGdUfmq8KwxmS3re/TtEfithxYZ5KtCD2CXaexyb+8oY
-	 tPYjFquHqyqMIlLlzeL7+dPuRxMHpOW2p0bYvIQI6aCdjJ+o/G8k29WkjtJdt5X4Of
-	 MzPxRTz/DJuog==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Wed, 01 Jul 2026 12:32:37 +0200
-Subject: [PATCH] arm64: dts: qcom: Rename pci@ nodes to pcie@
+	s=k20260515; t=1782902076;
+	bh=G1HElyZMlRrXu4lillDwYs4lxto9EUTOx3NP/Jc1GjM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TityVFcLdC7E/YRGHJbzTzjDMRf5FWVV5q1iDJ461yk+KjCpFwrAG0YTxcW9A10HT
+	 xKffyH9gdWgU+r4VdLC6C/IqOYPCk1hHJ8UCrp3Ke/qUmSr0MOYJM95+qIIMRq0Qo9
+	 lepXA/iQU/PclZAicu/LGq5GdgiVRavVN9Ge4ZCT899eiAomNw4YCD5Ml9pohv+crn
+	 mLVWYtCoY3rUoaywPlbudD/qjXs3JFyifv6ll7F3tjQKqkVjxyOEoCtN1HEOq7+Mt8
+	 lKzsbqoLb+901EjUYGgjl5rb4VYrhOA9ByuDHYpK2jnG4WIaj+vOakm7tMbCGFk0iP
+	 KwPfL7I1TYFEQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] regulator: qcom_usb_vbus: add support for
+ qcom,pm4125-vbus-reg
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rakesh Kota" <rakesh.kota@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260701-add_pm4125-vbus-reg-v2-2-6bac2bac7131@oss.qualcomm.com>
+References: <20260701-add_pm4125-vbus-reg-v2-0-6bac2bac7131@oss.qualcomm.com>
+ <20260701-add_pm4125-vbus-reg-v2-2-6bac2bac7131@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 10:34:35 +0000
+Message-Id: <20260701103435.D6DEA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-topic-dts_pci_pcie-v1-1-aab8de213b39@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDcwND3ZL8gsxk3ZSS4viC5EwQTtVNM0pLsjA1NklLNrZUAmosKEpNy6w
- AGxodC+EXlyZlpSaXgExSqq0FADCAQgt2AAAA
-X-Change-ID: 20260701-topic-dts_pci_pcie-f2fb8534fc39
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782901960; l=8750;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=x30iMF+TYnUycZ9fiSS+053+qlKHkFT6fnTCDyrkIEQ=;
- b=47Z/1jlYH1fDqbih81PsZDwmv7WKd+f50DMCmIbuFe7H42Y84kVOvn4Bbq2KeEmhtETpd8Ylq
- mTwjEO+wNBGAwo8peZ3eH+g9WOohibVEOS+QX6tf7Rssixo0aT0Nyh8
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The macro `PM4125_VBOOST_CFG` is defined twice with conflicting va=
+lues (`0x52` and `0x56`), causing the voltage selector to write to the wron=
+g register and corrupt the OTG configuration.
+--
 
-PCIe hosts/devices commonly use the 'pcie' for their node name to
-reflect they're not legacy PCI.
+commit 3778477cc88a05791ed34dc272e50cbdb4893643
+Author: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
 
-Every couple months someone comes around to clean this up because
-people keep introducing new uses of 'pci@'. Seems like it's my turn
-now, so do that for RCs and the downstream devices (switches etc.)
-defined in board files.
+regulator: qcom_usb_vbus: add support for qcom,pm4125-vbus-reg
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur.dtsi                              | 8 ++++----
- arch/arm64/boot/dts/qcom/hamoa.dtsi                               | 6 +++---
- arch/arm64/boot/dts/qcom/lemans-evk-ifp-mezzanine.dtso            | 4 ++--
- arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts                 | 4 ++--
- arch/arm64/boot/dts/qcom/monaco-evk-ifp-mezzanine.dtso            | 4 ++--
- arch/arm64/boot/dts/qcom/monaco.dtsi                              | 4 ++--
- .../arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso | 8 ++++----
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts                      | 4 ++--
- arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts     | 4 ++--
- 9 files changed, 23 insertions(+), 23 deletions(-)
+The PM4125 PMIC uses a different register layout for USB VBUS control
+compared to PM8150B. On PM4125, CMD_OTG is at offset 0x50, OTG_CFG is
+at 0x56, and offset 0x52 is a 2-bit VBOOST voltage selector rather than
+a current-limit selector. Introduce per-compatible regulator descriptor
+data to accommodate these differences.
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index 20b49af7298e..4a2be27601a0 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -2750,7 +2750,7 @@ pcie_west_slv_noc: interconnect@1920000 {
- 			#interconnect-cells = <2>;
- 		};
- 
--		pcie4: pci@1bf0000 {
-+		pcie4: pcie@1bf0000 {
- 			device_type = "pci";
- 			compatible = "qcom,glymur-pcie", "qcom,pcie-x1e80100";
- 			reg = <0x0 0x01bf0000 0x0 0x3000>,
-@@ -2960,7 +2960,7 @@ pcie4_phy: phy@1bf6000 {
- 			status = "disabled";
- 		};
- 
--		pcie5: pci@1b40000 {
-+		pcie5: pcie@1b40000 {
- 			device_type = "pci";
- 			compatible = "qcom,glymur-pcie", "qcom,pcie-x1e80100";
- 			reg = <0x0 0x01b40000 0x0 0x3000>,
-@@ -3226,7 +3226,7 @@ pcie5_phy: phy@1b50000 {
- 			status = "disabled";
- 		};
- 
--		pcie6: pci@1c00000 {
-+		pcie6: pcie@1c00000 {
- 			device_type = "pci";
- 			compatible = "qcom,glymur-pcie", "qcom,pcie-x1e80100";
- 			reg = <0x0 0x01c00000 0x0 0x3000>,
-@@ -3436,7 +3436,7 @@ pcie6_phy: phy@1c06000 {
- 			status = "disabled";
- 		};
- 
--		pcie3b: pci@1b80000 {
-+		pcie3b: pcie@1b80000 {
- 			device_type = "pci";
- 			compatible = "qcom,glymur-pcie", "qcom,pcie-x1e80100";
- 			reg = <0x0 0x01b80000 0x0 0x3000>,
-diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-index 4ba751a65142..56cfce354eb9 100644
---- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-+++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-@@ -3462,7 +3462,7 @@ pcie3_phy: phy@1be0000 {
- 			status = "disabled";
- 		};
- 
--		pcie6a: pci@1bf8000 {
-+		pcie6a: pcie@1bf8000 {
- 			device_type = "pci";
- 			compatible = "qcom,pcie-x1e80100";
- 			reg = <0 0x01bf8000 0 0x3000>,
-@@ -3605,7 +3605,7 @@ pcie6a_phy: phy@1bfc000 {
- 			status = "disabled";
- 		};
- 
--		pcie5: pci@1c00000 {
-+		pcie5: pcie@1c00000 {
- 			device_type = "pci";
- 			compatible = "qcom,pcie-x1e80100";
- 			reg = <0 0x01c00000 0 0x3000>,
-@@ -3742,7 +3742,7 @@ pcie5_phy: phy@1c06000 {
- 			status = "disabled";
- 		};
- 
--		pcie4: pci@1c08000 {
-+		pcie4: pcie@1c08000 {
- 			device_type = "pci";
- 			compatible = "qcom,pcie-x1e80100";
- 			reg = <0 0x01c08000 0 0x3000>,
-diff --git a/arch/arm64/boot/dts/qcom/lemans-evk-ifp-mezzanine.dtso b/arch/arm64/boot/dts/qcom/lemans-evk-ifp-mezzanine.dtso
-index 44bd9b1a1765..4fc5f482a18f 100644
---- a/arch/arm64/boot/dts/qcom/lemans-evk-ifp-mezzanine.dtso
-+++ b/arch/arm64/boot/dts/qcom/lemans-evk-ifp-mezzanine.dtso
-@@ -271,7 +271,7 @@ pcie@3,0 {
- 			ranges;
- 			bus-range = <0x5 0xff>;
- 
--			pci@0,0 {
-+			pcie@0,0 {
- 				reg = <0x50000 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
-@@ -279,7 +279,7 @@ pci@0,0 {
- 				ranges;
- 			};
- 
--			pci@0,1 {
-+			pcie@0,1 {
- 				reg = <0x50100 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
-diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-index 379b796f261f..e1cc3954efe8 100644
---- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-+++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-@@ -340,7 +340,7 @@ &pcie1 {
- &pcieport0 {
- 	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
- 
--	pci@0,0 {
-+	pcie@0,0 {
- 		#address-cells = <3>;
- 		#size-cells = <2>;
- 		device_type = "pci";
-@@ -348,7 +348,7 @@ pci@0,0 {
- 		ranges;
- 		reg = <0x010000 0x00 0x00 0x00 0x00>;
- 
--		pci@2,0 {
-+		pcie@2,0 {
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			device_type = "pci";
-diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-ifp-mezzanine.dtso b/arch/arm64/boot/dts/qcom/monaco-evk-ifp-mezzanine.dtso
-index e6beb4393430..77c28c19d17a 100644
---- a/arch/arm64/boot/dts/qcom/monaco-evk-ifp-mezzanine.dtso
-+++ b/arch/arm64/boot/dts/qcom/monaco-evk-ifp-mezzanine.dtso
-@@ -117,7 +117,7 @@ pcie@3,0 {
- 			ranges;
- 			bus-range = <0x5 0xff>;
- 
--			pci@0,0 {
-+			pcie@0,0 {
- 				reg = <0x50000 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
-@@ -125,7 +125,7 @@ pci@0,0 {
- 				ranges;
- 			};
- 
--			pci@0,1 {
-+			pcie@0,1 {
- 				reg = <0x50100 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
-diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
-index e4c8466f941b..c354fb4ce1fe 100644
---- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-+++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
-@@ -2276,7 +2276,7 @@ mmss_noc: interconnect@17a0000 {
- 			qcom,bcm-voters = <&apps_bcm_voter>;
- 		};
- 
--		pcie0: pci@1c00000 {
-+		pcie0: pcie@1c00000 {
- 			device_type = "pci";
- 			compatible = "qcom,pcie-qcs8300", "qcom,pcie-sa8775p";
- 			reg = <0x0 0x01c00000 0x0 0x3000>,
-@@ -2455,7 +2455,7 @@ pcie0_phy: phy@1c04000 {
- 			status = "disabled";
- 		};
- 
--		pcie1: pci@1c10000 {
-+		pcie1: pcie@1c10000 {
- 			device_type = "pci";
- 			compatible = "qcom,pcie-qcs8300", "qcom,pcie-sa8775p";
- 			reg = <0x0 0x01c10000 0x0 0x3000>,
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-index 83908db335af..937b63eae3ba 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-@@ -130,7 +130,7 @@ pcie@3,0 {
- 			ranges;
- 			bus-range = <0x5 0xff>;
- 
--			pci@0,0 {
-+			pcie@0,0 {
- 				reg = <0x50000 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
-@@ -138,7 +138,7 @@ pci@0,0 {
- 				ranges;
- 			};
- 
--			pci@0,1 {
-+			pcie@0,1 {
- 				reg = <0x50100 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
-@@ -225,7 +225,7 @@ pcie@3,0 {
- 			ranges;
- 			bus-range = <0x5 0xff>;
- 
--			pci@0,0 {
-+			pcie@0,0 {
- 				reg = <0x50000 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
-@@ -233,7 +233,7 @@ pci@0,0 {
- 				ranges;
- 			};
- 
--			pci@0,1 {
-+			pcie@0,1 {
- 				reg = <0x50100 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-index 37a3b51323ce..8dde7f4b2dc6 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-@@ -954,7 +954,7 @@ pcie@3,0 {
- 			ranges;
- 			bus-range = <0x5 0xff>;
- 
--			pci@0,0 {
-+			pcie@0,0 {
- 				reg = <0x50000 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
-@@ -962,7 +962,7 @@ pci@0,0 {
- 				ranges;
- 			};
- 
--			pci@0,1 {
-+			pcie@0,1 {
- 				reg = <0x50100 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-index a5ad796cb65d..7827f66342c9 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-@@ -784,7 +784,7 @@ pcie@3,0 {
- 			ranges;
- 			bus-range = <0x5 0xff>;
- 
--			pci@0,0 {
-+			pcie@0,0 {
- 				reg = <0x50000 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
-@@ -792,7 +792,7 @@ pci@0,0 {
- 				ranges;
- 			};
- 
--			pci@0,1 {
-+			pcie@0,1 {
- 				reg = <0x50100 0x0 0x0 0x0 0x0>;
- 				#address-cells = <3>;
- 				#size-cells = <2>;
+> diff --git a/drivers/regulator/qcom_usb_vbus-regulator.c b/drivers/regula=
+tor/qcom_usb_vbus-regulator.c
+> index cd94ed67621fe..40e7e5589d5b4 100644
+> --- a/drivers/regulator/qcom_usb_vbus-regulator.c
+> +++ b/drivers/regulator/qcom_usb_vbus-regulator.c
+> @@ -20,10 +20,35 @@
+>  #define OTG_CFG				0x53
+>  #define OTG_EN_SRC_CFG			BIT(1)
+> =20
+> +#define PM4125_VBOOST_EN		0x50
+> +#define PM4125_VBOOST_CFG		0x52
+> +#define PM4125_VBOOST_CFG_MASK		GENMASK(1, 0)
+> +#define PM4125_VBOOST_CFG		0x56
 
----
-base-commit: 7de6ae9e12207ec146f2f3f1e58d1a99317e88bc
-change-id: 20260701-topic-dts_pci_pcie-f2fb8534fc39
+[Severity: High]
+Will this redefine PM4125_VBOOST_CFG to 0x56 and silently override the
+intended 0x52 offset?
 
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+When pm4125_data.vsel_reg is assigned PM4125_VBOOST_CFG, it appears the
+regulator core will write to 0x56 instead of the 0x52 VBOOST selector
+register.
 
+Should the 0x56 definition be named PM4125_OTG_CFG instead?
+
+> +#define PM4125_OTG_EN_SRC_CFG		BIT(0)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-add_pm4125=
+-vbus-reg-v2-0-6bac2bac7131@oss.qualcomm.com?part=3D2
