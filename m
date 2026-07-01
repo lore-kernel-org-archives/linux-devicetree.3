@@ -1,138 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2094.outbound.protection.partner.outlook.cn [139.219.146.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C7935201E;
-	Wed,  1 Jul 2026 10:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782901199; cv=none; b=WEq+ZP7YXs5Rb28WqkZJfAIKtg7r9Od9hLMeMsyQx+PFjXjiUGxHqGyOMcsk3kE7f+uPlWxRqJUHT1/7HdWATWFAsIbKpOqA9fXQXgaUdOvogTN6GQ0v+k+L68hqnrUjYc/8Ysh3qBfEx0+bQ0HFhHgMPu7HsJJYWbFv7UI6Vvc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782901199; c=relaxed/simple;
-	bh=bJIMDg0Kd+BDoCeT4ZU4jOzaRBF26Uz2kFNxhVhTi4E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f6qDSyNWUfBpZRfkeqrAmiqlhqseBx1uyllRfIuG1F2bLBZzdYuTLQ7HRJKPQc8aFG3qown5dRLUNlLNIt7P4+lgPbm2rcGzKUMCEYuTDX6p20tZ1VmyMHZ6+65/8JlRvQIkNTBtxCj/sScX2RSkeh/dd2hMCtOS9zaRMbwN8Nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lkl6wSgd; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lkl6wSgd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 430961F000E9;
-	Wed,  1 Jul 2026 10:19:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782901198;
-	bh=j6JpGr+0SJkNkvrfPYReM7F3wImBGE4w74H4osrBM+g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lkl6wSgd1VDf0DzDDhebfpb2rkl+SEWrJRo/CrGSQruDHMUabKLbntUp6V+1AXLUm
-	 HWUy6+rO2vp7vne1p2Kuh5ywK2Lat2q1EMW4dYeiaKgN5XK+/WfZK3gRNoTl/qU5xa
-	 TIkrlJF4orUNiV1cUps8gxaZQI7vHhtPGN5QeTiWXjyLvf8G9HMA84DD5kS0LgxsQQ
-	 7MqiwnqjECqxxvA+mAAorXHlIUZzs3p5NXfbNatWkZ7LywWxpYA4BmebBkb9RH9+GU
-	 7F2VD87KAm9P37wPAvG7XcRKY8rNZKUiFJ8Y+VCQ1N5ILj2bUCJ5yq/YC6agmzWfZ6
-	 TlNMqtjNFeupQ==
-Message-ID: <ff8721fc-bb6f-4cef-a667-2e08d597dc43@kernel.org>
-Date: Wed, 1 Jul 2026 12:19:52 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68BBB40801E;
+	Wed,  1 Jul 2026 10:20:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782901232; cv=fail; b=oxr/1Vc4IU/SNLL50+PpejLz+WGjwJAW2/psOiQTqJbH4a/g80DfO/OPoYZIbaEN4pYqqM83fibBrGLrsldGUxYCaJoIK2BR4SP/dLcNysNQ55g0DYyXtJhf1njECflLmO1iHrZf283oeqozq7AUbmY+z6Y9L3W9oYDx4lqm+/U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782901232; c=relaxed/simple;
+	bh=11LLsd8v/iKCSo4bV2NQM8dnGyS+MLkzJp81qnhMwdI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Km7+WV9k8gF5+NGkfJ3Ed5H1r8PvYpi8jkZSuUVIdagE1SzZj95gsMx0JKdqjW8cZ9NP3BmpuECKFNpznEH29EDMCt1mpEelx0wGPWzMqXTSVdl8Ngtl5nTKYFHDgbRIGAuu7P/zYFrw8dQhoY93K3H4zs5mhgAXXcnah1PdieA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QSut3H1JeZhJUUsGyYWUUPYfqhM0mJJp2rKC4NDpp9hA3V/1elytWm7SMCrnfCcmK1GFbPK8j4317grsAkq5Bp1Aq0Z7dMUqmLOiwj0bzZ+4IAm3WXBsOt8uqCi1bqAPGh9rgqsZhpUYuQ9pNog/N8CsWVrniUrzZupQC9zA+HAB/1dhN8JsjW5KU/gcOmTE/OcHsy9sOOMLJ5OGHBY29OIjxxTM+E3CCXVSUuRCbQiLFTE0B79zhH97B/IzP62TAM4sx2WXOAzzSQk8ASzJOqDlhlRr/qzg4GD80w7DNOc5i5mfILtm6fh+DCe24eYRpr6EM9yWabIRFKSh1MS8Tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8YBV86v3nflUO674Q+hvLcTmmy+Ukq1Nv/1bEE7q5W8=;
+ b=iTtlf2xXkTPccfDqoFBFlCRXgYgJyP3ygnAB7NGXpQcjCfQI8jUu+l4m9AAVJOOz13arq/8Rk3A0j8C+8of3UMn3gPafjQhuPrZTskH/Kf8IhApbTC7GNtdYC+GzF4ddNHMCB30VrgUC6o243tQkXt9BhM5G016B7CkKklZgAe3k4BNRBbqmAea5KltYf5MSKslh1oRc+c0Fo0lh7Ol3m138XlhHwvKWrol7MzkIXQoCbKG+JQjI2GV/bMR2GiXPkUKuB7uopj7PVbXrBtVWCBNyRSgp8KDvPhVc3g21wo5rQQchIjzTJU7aFVHVP2DfExS0bSWz6ZLqTXwDoQfuMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:7::14) by ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:7::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.25; Wed, 1 Jul
+ 2026 07:44:50 +0000
+Received: from ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
+ ([fe80::4386:5cc4:3bc4:4795]) by
+ ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn ([fe80::4386:5cc4:3bc4:4795%3])
+ with mapi id 15.21.0139.024; Wed, 1 Jul 2026 07:44:50 +0000
+From: Hal Feng <hal.feng@starfivetech.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: Hal Feng <hal.feng@starfivetech.com>,
+	linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v21 1/3] dt-bindings: pwm: opencores: Update compatibles, examples and maintainers
+Date: Wed,  1 Jul 2026 15:44:40 +0800
+Message-ID: <20260701074442.7714-2-hal.feng@starfivetech.com>
+X-Mailer: git-send-email 2.43.2
+In-Reply-To: <20260701074442.7714-1-hal.feng@starfivetech.com>
+References: <20260701074442.7714-1-hal.feng@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SHXPR01CA0026.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:1b::35) To ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:7::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: Add base HAMOA-IOT-COME board
-To: yuanjiey <yuanjie.yang@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- tingwei.zhang@oss.qualcomm.com
-References: <20260630071022.3256-1-yuanjie.yang@oss.qualcomm.com>
- <20260630071022.3256-3-yuanjie.yang@oss.qualcomm.com>
- <20260701-uptight-piquant-raccoon-abceb4@quoll>
- <akTU-YQkms64qivB@YUANJIEY2.ap.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <akTU-YQkms64qivB@YUANJIEY2.ap.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ2PR01MB1307:EE_
+X-MS-Office365-Filtering-Correlation-Id: 592f924f-8be6-4bf6-e0ee-08ded744a1be
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|366016|23010399003|7416014|376014|1800799024|38350700014|22082099003|3023799007|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	FGvCEY6V/I99GKpXo4xStdzXYG8/nK2Vv740UQGSz/gTd+T8Klnavr3WqSKSVYSfJ5sNRR+S9kbnYZgQdc7msb/Dz/1vQuFKsi8AViHDyH96SKVMTNMsT7UoIrE1hKmJ9JkbCGWWD7e21gWnojzE3wWRn98b9ihJSB6gxMpKzIetswXXNuosI2sschMAxAqr5TGNrcE3JcMSVNR38LLWxZL7rk/2KCYlYOqfOD4EM9E7RA3TU7BIEscmqPGWh3x82K9O8OTiw64LGAHYhuMBBOeahKeqJ0yaafCFJapMTrqLjxWE1FGpgwY/gQ1B1m8uWai+QX/rvUlVDll7LWelD6N/ZIjWTc5UJzkZLG0hhneL1RzNQzMRNqgV1Ya/THCV/onEK/RBrOAjXa/YFapjBdAyZQ/j3XYLAz42ysKemxpBIGmolVv7VC56DawGJB0jSqZkXavqZO4/F8SzapHsvtk0MCPxedTnXrpRMpf6EgEOhR4GN44rQbjgJ4WSyYGVK2rehryiFSnITpaqcyRLN6tcEewZVR0zxBCOeMZeJj8c6/1LlbF9jj59sX8FkD7n
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(366016)(23010399003)(7416014)(376014)(1800799024)(38350700014)(22082099003)(3023799007)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?SjLDGiShlVwjK58byUWj9Qsc4xI+/Y2guQCwx7ausRZQnjdi9i31rcK446nC?=
+ =?us-ascii?Q?pM0SoATo+Rp3Lj2ZOfG91CGo7PTi4MUcQs7wk63+tx8FdlOcfuIfardwn7Ss?=
+ =?us-ascii?Q?GTu43HY2Y1/jIwskkHhpPxra+aIoFoles3WHjMj5R8lP+3N2iKtHmhv3JB8+?=
+ =?us-ascii?Q?DTTmr61Ly4hVtXX97cwobcqcnq3wKk9DECyUcsn89kJvwOZJ+w62r2PrBRt5?=
+ =?us-ascii?Q?AwAp1XeXTorcUDx2l7db/qHSvEeh/1M6WUoX1cLe4hvYghqt7ZbBNGzPZAPs?=
+ =?us-ascii?Q?q31OfItAB/MiPW747EC6RYWKPVUucWwt9GhBod26pWPjsAa1NJy3YwJ1D9yL?=
+ =?us-ascii?Q?Was9CSZfIAr3MsntnX9IHYsv0MdWl2nsMrAKsc9RdzEqAlMsMekXkADS5n3U?=
+ =?us-ascii?Q?7L9bVkemt405AjZf65sfgfCuxfsajxSzkILSigdVA3iZnoh1ak1xlx6L47oz?=
+ =?us-ascii?Q?D5bFApH3cZ3tjcrxzcFH+SH9ePiuZ3E6Dku8wDX01b7gOuols4pBZnn06ozP?=
+ =?us-ascii?Q?8M3ik4GfZ5fcJLuo5C+8FmkubVYOTTyd6+4pTmqKBuMrDc/CRvpGvJuGuBcE?=
+ =?us-ascii?Q?0f86KssB5H8VVVtAdXH/hhQtKKvVjRsmv92P8gmMrl/7PfB9ipgHsc2tVVhz?=
+ =?us-ascii?Q?U9RZXVPs/e3DkpJTzvPeL2BIo0AZFf/zEeOIxGBo7BZV3g/95h4UpMXuldhu?=
+ =?us-ascii?Q?clBcJQcOIZGS4mUkrtVfvZSsszjjLufO7yJpQLFWVfopmqV3pE2HeFykE+aG?=
+ =?us-ascii?Q?PFDbbdpOB+mah0wXwygJIqJS2+2vbHSlnn6HC9JkunIunMU20ZJ8xIxyt/5k?=
+ =?us-ascii?Q?vHeEVJz7S4BqzDrZrx8cW/EcT0Xjnct12vFYZZSlvMEHXpSZ0KidVaOLKAXq?=
+ =?us-ascii?Q?wWnlim5Dd9BzkDWkFvjqkTctdlEnuPcaQl4BYl2A6JUkTt7VkE2+38tfnuO6?=
+ =?us-ascii?Q?GF5EUEgJSiPht05385ArZRyLO2rLfpJSfStKEa9s6xDAKNG8/zId1iJ1lQ0g?=
+ =?us-ascii?Q?ygD3bowhhHQHh0gNkvoRa9afAJXAmGG+FNyvrRshqLL3FyYqkc3ia468zIDp?=
+ =?us-ascii?Q?legy4p3RcmwyQ6SAIKFiQ3o9MTv7e3n6g+Qr1sFS8Z9vXsO8XyH5avBsI+4z?=
+ =?us-ascii?Q?vhAMgdUzJ8BZRn72/7rrEnd9OU+2qtp5TcOa9xP6/IhUyAOaXlZtVDqKm6fj?=
+ =?us-ascii?Q?5pRsgJDU6yB6H5nk1a331w66gTlMiEPSjxxUs/xwv7iBUL32vV03pbDrHVST?=
+ =?us-ascii?Q?Y0QvDFJjjMVFCCHe0MXcIZoq6IxMhIZSBfqo1Uxyxmn4y2juPQNvAbferddk?=
+ =?us-ascii?Q?/6sn2zWTRRFpL6QbcRipIloi7T8Y6Of08C3tJuo4s4Y3ckVfClah9pbSvSZp?=
+ =?us-ascii?Q?WGZwzuSQUoFeJd1E1RrnroMLRvY+vjhkUicsSO8Q+R/xBxQWC8NdwEnP0fAf?=
+ =?us-ascii?Q?uNoAuUhz25wdT5i7VbC69ra29LpNKOxwd4acz23ThInVaYYVt6kLu5dobYB1?=
+ =?us-ascii?Q?Ufz/Zdm/yS2lZ34mp+ttJkC+x7M56ZpYp+C+j50TBxKgUwZoigHjORJlqZWn?=
+ =?us-ascii?Q?m8i2rfpRUOZ588givfXn1ggUIcnYLYZdaz2dZwYJKs70yzbrVoSJW4YHwn4f?=
+ =?us-ascii?Q?EwK+zmUih6dqXPo9YryDUfcwmLCcg4d5z5pIwKbzu5e04/qtqzseE2I44Po+?=
+ =?us-ascii?Q?hFyB9yjtDGIg+KUslNYie3IOgZrHofgqLwxXflnNGRqR1tA76Ij8KL6jGhqh?=
+ =?us-ascii?Q?WG6BpElm10WBja8OODs5tEKGgX2N4VA=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 592f924f-8be6-4bf6-e0ee-08ded744a1be
+X-MS-Exchange-CrossTenant-AuthSource: ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 07:44:50.5563
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: A62TTCKo3UuTwulE+1ynFaL/2Ye9Mw0KgFZB9JAB42gw8K1kTscdcDf0TibaGAQJfP4z4tU+EOMJuAhwtd3pp54jcRlgcK70WRmuKq4Pgzs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ2PR01MB1307
 
-On 01/07/2026 10:51, yuanjiey wrote:
-> On Wed, Jul 01, 2026 at 09:29:34AM +0200, Krzysztof Kozlowski wrote:
->> On Tue, Jun 30, 2026 at 03:10:12PM +0800, Yuanjie Yang wrote:
->>> Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
->>> ---
->>>  arch/arm64/boot/dts/qcom/Makefile             |   1 +
->>>  .../boot/dts/qcom/hamoa-iot-come-sip.dtsi     |   9 ++
->>>  .../boot/dts/qcom/hamoa-iot-come-som.dtsi     |  38 ++++++
->>>  arch/arm64/boot/dts/qcom/hamoa-iot-come.dts   | 108 ++++++++++++++++++
->>>  4 files changed, 156 insertions(+)
->>>  create mode 100644 arch/arm64/boot/dts/qcom/hamoa-iot-come-sip.dtsi
->>>  create mode 100644 arch/arm64/boot/dts/qcom/hamoa-iot-come-som.dtsi
->>>  create mode 100644 arch/arm64/boot/dts/qcom/hamoa-iot-come.dts
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
->>> index 6f33c4e2f09c..549287e3eeba 100644
->>> --- a/arch/arm64/boot/dts/qcom/Makefile
->>> +++ b/arch/arm64/boot/dts/qcom/Makefile
->>> @@ -16,6 +16,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= apq8096sg-db820c.dtb
->>>  dtb-$(CONFIG_ARCH_QCOM)	+= apq8096-ifc6640.dtb
->>>  dtb-$(CONFIG_ARCH_QCOM)	+= eliza-mtp.dtb
->>>  dtb-$(CONFIG_ARCH_QCOM)	+= glymur-crd.dtb
->>> +dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-come.dtb
->>>  dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk.dtb
->>>  
->>>  hamoa-iot-evk-el2-dtbs	:= hamoa-iot-evk.dtb x1-el2.dtbo
->>> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-come-sip.dtsi b/arch/arm64/boot/dts/qcom/hamoa-iot-come-sip.dtsi
->>> new file mode 100644
->>> index 000000000000..935af96c2b85
->>> --- /dev/null
->>> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-come-sip.dtsi
->>
->> What is the point of this file?
-> 
-> This SiP hardware is effectively the same as the SoM on the Hamoa EVK.
-> It's just called differently on a different board. I want to use this
-> file to include hamoa-iot-som.dtsi header to show this idea.
+Remove the jh8100 compatible since the JH8100 SoC has been canceled and
+will not be released. Add the jhb100 compatible to replace it.
 
-You do not need empty file for such purpose.
+Change the register size in examples to 0x10, since an OpenCores PTC IP
+has only 4 32-bit registers: CNTR, HRC, LRC and CTRL.
 
-Best regards,
-Krzysztof
+I will maintain this pwm module in place of William.
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Fixes: 2529085831b0 ("dt-bindings: pwm: Add bindings for OpenCores PWM Controller")
+Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
+---
+ Documentation/devicetree/bindings/pwm/opencores,pwm.yaml | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
+index 52a59d245cdb..42c5d2b6326d 100644
+--- a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
++++ b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: OpenCores PWM controller
+ 
+ maintainers:
+-  - William Qiu <william.qiu@starfivetech.com>
++  - Hal Feng <hal.feng@starfivetech.com>
+ 
+ description:
+   The OpenCores PTC ip core contains a PWM controller. When operating in PWM
+@@ -23,7 +23,7 @@ properties:
+       - enum:
+           - starfive,jh7100-pwm
+           - starfive,jh7110-pwm
+-          - starfive,jh8100-pwm
++          - starfive,jhb100-pwm
+       - const: opencores,pwm-v1
+ 
+   reg:
+@@ -49,7 +49,7 @@ examples:
+   - |
+     pwm@12490000 {
+         compatible = "starfive,jh7110-pwm", "opencores,pwm-v1";
+-        reg = <0x12490000 0x10000>;
++        reg = <0x12490000 0x10>;
+         clocks = <&clkgen 181>;
+         resets = <&rstgen 109>;
+         #pwm-cells = <3>;
+-- 
+2.43.2
+
