@@ -1,156 +1,163 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881A947A0D1
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 11:38:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A3047F2F7;
+	Wed,  1 Jul 2026 11:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782905900; cv=none; b=XhTxg6hdDLnW2SdGrPsBhH51clO0sZbmImqrG0X3hXRysgKH5+b6zBfhjRlUdlPcunBKciSH7CEkrlUTJSIlbxODeqaZsnWy5/diYUgSuONyDf+HBZDaeI75Km3VNnNw8tcOYpbcDigoxrAyYInRrnv4mVeeY0bdou0IrE2Usbk=
+	t=1782905923; cv=none; b=Q0vO9IQreBQvfRgcqj4GIxwP/z25YU0KxccUMlNAYfTMeCq/WpJ5EQwEM/qvIh19tCFaAgH2hK7XmNn+3M7OLBANR1T5AX4F0soMlqV0wcd5nPZIosgXeC1gzSCarD1qO6tpfW6vrvbNZiO9tuwj+gB7ePGT0etQ4H9ZrjKD6qI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782905900; c=relaxed/simple;
-	bh=is6ARwVtdt2qH6o7wrGQSf++Qa8KCC79NEFAFUTZbbU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lGaHGVnybSkVyg5uYgYZlO634I5nuv5kwRGF4+rw9XmXKpUVpKUHjATRFQKcbYaVecfdpwRhy6aVVF2RRpR6t7VC/qZISnDrpbSwxG6XPus3BD6rLr3u0YF5F6FUXuKpuGknnI1eKGhgeOJ+bMTVZCznbaf/H3UP+QMHN1HbQh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RBssWh6d; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Uk/XGZE0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782905923; c=relaxed/simple;
+	bh=DpQi5aHD1Rq2oQdH6gtw9i/QhFrOv7rlYgtQDdcfbSU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KdSoIL0bP/mMHUxMAHO1u5uOktJ2BSe+455343FXP0L6kg5jkZ03ecSe1ZVmhZ/92CO3CYPTu5atAFmknDzKYPgqedKkJ3+uRI0WVQw3aGuLRKn0eu81SCpYGJO2fvLBCOmtyTsHOxkIsNbzopvxN9PsseBuF8Xk98wYOPsomo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aGxMsGES; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RBssWh6d";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Uk/XGZE0"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 661A8X9Q673219
-	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 11:38:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	o2tQu9z54t7ghzjghFzoCQXBSaxkCwXxy1yiopSDUo8=; b=RBssWh6dz0rhDH9q
-	NuVQSARMkh9mgAXUpPHQlP5M6Nm0cH9iPfdfJI6U5BX1tVQKRdMTGB/mdRwRsbS8
-	6+Ve2ifGjFsRbMO2ZP1QaD7uwQ0x7eE9IaZEmmkjMCydiq/TzLSUkt9tVkC8MCOy
-	6PWendMh6zk4XLxEMaEw96RicWBB2fqwSagvcwI/oaAKCf/y8iRNfWInZI6cKkc/
-	c0omdeHY2sXF6aBnFiGbWDCU6ljmVlx9lr7Qt0mPvu/OgXdnLMh4M1D6Jx+AMlxt
-	U/oLH/DMShTjkIYFEeFTROapeTuo+tZcEc1DAMbWCVY0mIpMtQuRVgV6puf6Ygkd
-	gf9hxA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f502urkn3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 11:38:18 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c07313be5so1080991cf.2
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 04:38:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782905898; x=1783510698; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o2tQu9z54t7ghzjghFzoCQXBSaxkCwXxy1yiopSDUo8=;
-        b=Uk/XGZE0H70pTFyjRHC3iSnmOyzOiIbAL87/V5wtRQ1krg9VLdZwZXPksUfiFFqh7w
-         Ak6K3uF7E8Jl/f5REJraBe9ZhM0mCl72JX1V59hVLhN1M4ZNAi5mMhNqMT+i0agZV4oC
-         t/tHnTWx4lwpeVkNYqjz1+x7+yild/DnIB0cmLXxebdT46NWBl+Wdc1/PeSvQreskAyG
-         wJKVv/XXgRk4ifbgiG6kp6liK8Rr2jIPF7G8ta1CO8fA+q8JN/k6FnmtlZ0PDwCqmKcp
-         zmyUD7bdyd4jyo8rplg0ClFqg3H5CA3HPwTvG5zT2Ig59YMCTjnMz8PqTaOipTVFSU1N
-         85Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782905898; x=1783510698;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o2tQu9z54t7ghzjghFzoCQXBSaxkCwXxy1yiopSDUo8=;
-        b=ZZjQT81ynhRuXn0Oju7ai0al4WyhBPvK2qfGTB4mABTRinwgU6gGfCfSKtypCwfcp/
-         3akbkEuXpnKr+ts2dEnY4FTyDQo/78RN15Jztl4WOk1NthzyoLT4EXN3MbEZNMHZxtIf
-         AxrvUITkkxZZmUiZ/uGCOsW51Cy+qL2xJdJMuawPgooEjUhFQD6i+CVCFCS20g8WSLFa
-         WLdaSlpzukOQjro4RVj4Y5wC1jCPPHctYWQ4ZMSPPmYLNL6Ym1xouwHCg7JdLdKxUamW
-         fSyLnByeEVO7EI7UqfOKIILeQWS4tsBE0qFhZTM5yCP+YmTp5YJ9QB3MpPbki0PRfkjl
-         +rew==
-X-Forwarded-Encrypted: i=1; AFNElJ+NUK+Ih2frUKDNELr3Cg6bawAbVM8figMbVUxuE/uFCI3TKM1z9BTdS6vWcNJbvEgfSI+hMQDFsgeu@vger.kernel.org
-X-Gm-Message-State: AOJu0YzxFWkLh7FN64KU3JC2+nsGiQAy4cnNXLQj8Oz1SNDcy0wWJ83c
-	5+g/Cbd+GC0qIe58xqrmQZD6vkK7Chb0+XWjIc5o8OhGZa82r7iTwaiGJSE42JYq+JCTQhLp2V9
-	h4zISXQFoF9dw6TX52ctBb8Hr3WNimZaP+75O/Oeh3JX3MnvzvYaDKSgebMyC52Yy
-X-Gm-Gg: AfdE7cnNl4hfQ7ALFOF/Nj7v7Dki68cbrVMb5bpytuhJ1gjSdRP1lAK1v6d7ghagETL
-	pI8Y88DsUjUgPZ21Oj7Sqvp98EYnTtGeMEIwL/Ry8htaIRd1ppZBfSAhjvdljU0/YG9h9cFsVGw
-	T7uKRoyucgv3wwPTrLiOWH1Ty9nqLWMa+rW8ZhHx5H7e/yTitv867HlgN4odtSbk7d+FtNGJDgR
-	cz84MKiSaD+hzwq+AcrjnNxbQgerGwaapSulNanj5EFri2ycRY37ebgYyJMAT66QWTkBBLIg4Ki
-	MLPeoSU89T1VmhCpV8U9FgWB5Q2v7+hyKiJAL0zq+hbrRwoaLaF/YHMTyzx4fdR3taWmpVaqOaU
-	Wstwhz7eO1o5ESXTEQin9TwNPTSGzVWgfDtE=
-X-Received: by 2002:ac8:5f13:0:b0:517:5e32:f3ac with SMTP id d75a77b69052e-51c2693f551mr10261841cf.0.1782905897825;
-        Wed, 01 Jul 2026 04:38:17 -0700 (PDT)
-X-Received: by 2002:ac8:5f13:0:b0:517:5e32:f3ac with SMTP id d75a77b69052e-51c2693f551mr10261531cf.0.1782905897416;
-        Wed, 01 Jul 2026 04:38:17 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6987c3b6526sm2656719a12.8.2026.07.01.04.38.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Jul 2026 04:38:15 -0700 (PDT)
-Message-ID: <f5b75410-cf75-4bfb-872b-81b6180e386e@oss.qualcomm.com>
-Date: Wed, 1 Jul 2026 13:38:12 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aGxMsGES"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782905920; x=1814441920;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=DpQi5aHD1Rq2oQdH6gtw9i/QhFrOv7rlYgtQDdcfbSU=;
+  b=aGxMsGES/LhpIHmr7dstHzYYNGzm/u7ARkVQ6ErmN5nB4Hbh4rE0MUhH
+   G2Fb9EbuRpG4WLz79v9g9mFCgn5eNQbyH9sMm3ZplCoeXTSK/W0XrWc8G
+   WcmQtxsUIR9FV+/TAkuZEse07oZ9CMPV1mU1Nid/NDI9jrETbS2nFSmRg
+   lw3ZcdhEEuPBUsYuPtE0i+hMYccFUVyKgww9qWnmtKLmJWkRy9+aYQYu7
+   Hgcyu9a+PVvOfDLeD1R1gWY/TAMagd87fF3mmf3PrregcXUDX4Lt4TjdY
+   sn9nmC5kaPEbBPXJg7ct2qBldmxFz+mGs6fEGYnSld3rticnNsGzZods1
+   Q==;
+X-CSE-ConnectionGUID: 03oF66lRTfy/Y8+Fj2523Q==
+X-CSE-MsgGUID: NuqeR+T1SiqgDIeiJ7ZFpA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="87471921"
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
+   d="scan'208";a="87471921"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 04:38:38 -0700
+X-CSE-ConnectionGUID: rTQDfgZ4RGq/h2rchLoSMQ==
+X-CSE-MsgGUID: VAriTwrzQjasz3AnxY77QA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
+   d="scan'208";a="257446464"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.65])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 04:38:32 -0700
+Date: Wed, 1 Jul 2026 14:38:30 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Michael Walle <mwalle@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"afaerber@suse.com" <afaerber@suse.com>,
+	"wbg@kernel.org" <wbg@kernel.org>,
+	"mathieu.dubois-briand@bootlin.com" <mathieu.dubois-briand@bootlin.com>,
+	"lars@metafoo.de" <lars@metafoo.de>,
+	"Michael.Hennerich@analog.com" <Michael.Hennerich@analog.com>,
+	"jic23@kernel.org" <jic23@kernel.org>,
+	"nuno.sa@analog.com" <nuno.sa@analog.com>,
+	"andy@kernel.org" <andy@kernel.org>,
+	"dlechner@baylibre.com" <dlechner@baylibre.com>,
+	=?utf-8?B?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-realtek-soc@lists.infradead.org" <linux-realtek-soc@lists.infradead.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+	Stanley =?utf-8?B?Q2hhbmdb5piM6IKy5b63XQ==?= <stanley_chang@realtek.com>,
+	James Tai =?utf-8?B?W+aItOW/l+WzsF0=?= <james.tai@realtek.com>,
+	Yu-Chun Lin =?utf-8?B?W+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+Subject: Re: [PATCH v3 2/7] gpio: regmap: add gpio_regmap_get_gpiochip()
+ accessor
+Message-ID: <akT8Niv1ddo-uWmc@ashevche-desk.local>
+References: <20260512033317.1602537-3-eleanor.lin@realtek.com>
+ <agMM9soiqpG-TRSb@ashevche-desk.local>
+ <adff3a2d21a64d3ea3b408d62157ee1e@realtek.com>
+ <ah92oEavMu4QRn8y@ashevche-desk.local>
+ <CAMRc=MdA24z-tB_D8CTw68Di8e4OVQJ1QH4+rDskFzq=xjJ5BQ@mail.gmail.com>
+ <DJ3QVMZ6XLW9.1M9W541O92QWJ@kernel.org>
+ <CAD++jLncD2ZjH3aedOkGNYP3FyZ=i7Pb0OcKKZKuMOPGNjM_nQ@mail.gmail.com>
+ <DJN3PDTPJ3L6.24P71OQFB6C98@kernel.org>
+ <CAHp75VeTp4eYQ4QBoeH2VyVhUivxNn1CaC9jskmeg-1zTAOYLQ@mail.gmail.com>
+ <akTyDzdrt949VnWK@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 2/2] arm64: dts: qcom: Enable SD card for Shikra EVK
-To: Monish Chunara <monish.chunara@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>, Ulf Hansson <ulfh@kernel.org>,
-        Kernel Team <kernel@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-mmc@vger.kernel.org, Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
-        Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-References: <20260630165700.1886608-1-monish.chunara@oss.qualcomm.com>
- <20260630165700.1886608-3-monish.chunara@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260630165700.1886608-3-monish.chunara@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDEyMyBTYWx0ZWRfX4uQWqvgylxTn
- CVVbj6bbtmYFt4c9W7LLBSxqdhwO1j+/SC3m0kAeIOQotA86HDiwZNf/TO67x8MsUlKthAMTbRb
- DFvfuzvzwWU5+pjFfyZafqrx8YU9xt4=
-X-Proofpoint-GUID: gAq_9B1Q2rWxJ7lAzMADlVIiRPh0yFKs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDEyMyBTYWx0ZWRfX428jOCGO18e9
- 356R4K0KogIM4gbMINcDe8L7gJEaxXIdGZaEg3ohEWFKLtSkRRmTuUPPeNwjE3nUOHn5t3WKoDV
- VAzwGY4QCpMfrVzcnT8ZXBrx736RMgln1PMcsOSNdYrGkt64jvYqyGM9kjr4y9nk4+ZscavwF1r
- A2xUBpFoYpDZdG85uLQq0UeAHz7xUsZ3pxh/5EH7hLH0cTMPUi4nMhcS3mfJXKX88KN3NzypUIG
- vLSdPrE5Wfs/7RaQPPJGno9RnCJZEpZBH8r5Q6AMLMjpNCYiHk36c/9tCwM5/vRFQLPvvgQxGCR
- XFgstl5f4Yfr+TURIxRNi6EoZ9uoxQU00e3/hs27D0l+oFv6UrP3bJfFpayiZa9ZrCrvw9ssrqQ
- 029xZ3tMSh+Ijl0zwi0DhmOJfnQJ/7NcYDsiaDB9Yi3uvAClE/EoJ/f4ocpuWK2er2NxWfHfCH/
- 9Af/NxguNYgmVPd5guw==
-X-Proofpoint-ORIG-GUID: gAq_9B1Q2rWxJ7lAzMADlVIiRPh0yFKs
-X-Authority-Analysis: v=2.4 cv=PbLPQChd c=1 sm=1 tr=0 ts=6a44fc2a cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=pnqc_4j3uO5S_kuVk7YA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-01_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 impostorscore=0 spamscore=0 lowpriorityscore=0
- suspectscore=0 phishscore=0 malwarescore=0 adultscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010123
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <akTyDzdrt949VnWK@ashevche-desk.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 6/30/26 6:57 PM, Monish Chunara wrote:
-> Enable SD card for Shikra CQS, CQM and IQS EVK variants. Configure the
-> vmmc/vqmmc regulators and gpio-based card detection for each board
-> variant.
+On Wed, Jul 01, 2026 at 01:55:11PM +0300, Andy Shevchenko wrote:
+> On Wed, Jul 01, 2026 at 01:01:10PM +0300, Andy Shevchenko wrote:
+> > On Wed, Jul 1, 2026 at 11:44 AM Michael Walle <mwalle@kernel.org> wrote:
+> > > On Fri Jun 19, 2026 at 11:08 PM CEST, Linus Walleij wrote:
+> > > > On Mon, Jun 8, 2026 at 4:41 PM Michael Walle <mwalle@kernel.org> wrote:
+> > > >
+> > > >> >>> Without an accessor like gpio_regmap_get_gpiochip(), we cannot retrieve the
+> > > >> >>> gpio_chip instantiated inside gpio-regmap.c to fulfill these requirements in our
+> > > >> >>> map() function.
+> > > >>
+> > > >> Why is gpiochip_irq_reqres() called in the first place? Isn't that
+> > > >> only called if the irq handling is set up via gc->irq.chip and not
+> > > >> via gpiochip_irqchip_add_domain() like in gpio-regmap?
+> > > >
+> > > > Not really, the gpiochip_irq_reqres() is called to mark that a
+> > > > GPIO line is used for IRQ, so the gpiolib cannot turn this
+> > > > GPIO into an output line, gpiod_direction_out() will fail
+> > > > on lines used for IRQ. So it's a failsafe.
+> > > >
+> > > > You can live without it of course, but then you don't get
+> > > > this failsafe.
+> > >
+> > > Thanks for the explanation! So did I make a mistake years ago by
+> > > adding the gpiochip_irqchip_add_domain(), see commit 6a45b0e2589f
+> > > ("gpiolib: Introduce gpiochip_irqchip_add_domain()")
+> > >
+> > > As Yu-Chun found, gpiochip_irq_reqres() expect the irq chip data
+> > > to be a gpio_chip, which isn't the case (in general) for an
+> > > externally allocated domain, is it?
+> > 
+> > So the whole issue comes from the fact that the IRQ chip is not marked
+> > as immutable. For immutable IRQ chips (which all GPIO provides should
+> > have) there is no such issue to begin with, id est there is no
+> > gpiochip_irq_reqres() callback assigned (and respective _relres).
 > 
-> Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 18 ++++++++++++++++++
->  arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 18 ++++++++++++++++++
->  arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 18 ++++++++++++++++++
+> Ah, for immutable chips we put either custom ones or
+> GPIOCHIP_IRQ_RESOURCE_HELPERS which actually refers to those callbacks.
+> 
+> So, if the domain is external, it should also provide irq_request_resources
+> and release callbacks. In the custom case we can wrap gpiochip_reqres_irq()
+> and gpiochip_relres_irq() respectively.
+> 
+> But we need to have a struct gpio_chip pointer for them. And note, the
+> IRQ chip data can be anything in that case, so it's not a requirement.
 
-Move the commonalities to evk.dtsi and only override regulator
-in the board files, please
+And looking back for implementation in v3 the whole mistake was to use
+GPIOCHIP_IRQ_RESOURCE_HELPERS. It just wanted custom callbacks with
+the IRQ chip data assigned to whatever from which we may then deduce
+struct gpio_chip. It does *not* require to be struct gpio_chip.
+The local driver data structure should keep pointer to struct gpio_regmap.
+That one can be used in the respective .irq_request_resources() and
+.irq_release_resources(). The default ones for gpio-regmap may also
+be provided via a macro, say GPIO_REGMAP_IRQ_RESOURCE_HELPERS.
 
-Konrad
+Hence I don't see the need of having gpio_regmap_get_gpiochip() helper
+and driver can be implemented using gpio-regmap and external IRQ domain.
+
+What did I miss?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
