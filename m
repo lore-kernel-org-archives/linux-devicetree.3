@@ -1,162 +1,192 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC673EDE78
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 13:22:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B7443F44CA
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 13:24:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782912166; cv=none; b=qo/C4l88U3ilPNu8H6XD9erYirrstSLqDA7Y59sa1ypBS851vmtKEhBEwqqlzI6iNl8foNgTCCXo7Y66Z2Zx+2KoRRfBq32e9BLo6zjMUNCvNZxHl6jq+hIXgk3IGc3eIjmek0hQfgVtNsYeU17zsThliUY+y1TbtpHoALiyUy0=
+	t=1782912242; cv=none; b=QbzaDuD5ZR7OhctG+Iy0AheRuR7JPdN/pqdto3fYNAhD3giU3DK+D9PYFu6rlLmZR4E+RULj6XtRI4/Qe0yuGbFwt8zEUgrn/LObJ4GOJmqbMQ0SdI5+cCtbArQMR4FK9SPC/v1jS9DG5wETaQgwHhLomA4jDCB/aRIyIxXLerA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782912166; c=relaxed/simple;
-	bh=DKQnqFgDvTrwaMpK+r+TY4JSM7zHMX+ITmDtTGd0feI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TQgNxneYjgsySS7mP89DPGsaEa7QQHPLDdkFCX6lXS6GnWMr6Cy+MizacWqRjEGMEC+QI9nX+ocxGR+c0fB2puDnE0uLowZbTZRgUpJQY0LNynra60R/npCmsqg/IRT0Otk6k2bDyXbifHzzAciKC4N9v7r8CGb3R0Hb5QwEeRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ldr70smB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bgM6bW39; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782912242; c=relaxed/simple;
+	bh=KhYSRODMCt3hM1xOicEtHbnEHQj1GKnteSExoMBJfqQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KGiM242mO+R81pyGe+kJjS5gsnNqmBKe+Ew9IYoGoAyXey4IyIONUD+03uodP1SFyQLezLKQdZ1d4x6kC1mEzk0fhNfTZzH/dwo+h5xTyyOI9q+P1wynIwOTe3D093Ddieq/k4uVWDiYLqibXBRVr3sWj/RzM7h8J10M6mC7Zjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jr+mmcrq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ldr70smB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bgM6bW39"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 661A8jaa683280
-	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 13:22:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	E4dsKuVZYr3H4pAciMqT4eU/Q+AiTF8aSmswDNKUQ1k=; b=ldr70smB7v8HWz+s
-	6M2oD56++fE+l+JJJQ5PuQj3pV7sB8KcXw2JtelayEHPAx8AJL5ZILKUe4Jj1wIO
-	i3Mg+1j53PHW+Tf2idkFoRnH/5gAAeEYfESZYe0krB0qVjsPL63A6OvCtaWNShTV
-	dUC3YdicyPOBpkbedZeTIiQB+c11G3Pcn+t0mk/rPPALvIiX+YPZM9sQ9C+mQ2aD
-	5HUXLJ5WLuTYUoU5IlREeqg1xfQaUEbenx77ED5A0ICEPdWJZNXx0bXubl0A0m0B
-	svUa/v9BGL/FpkKYxxHYh1EnbKopjEbbnjLcTfkQ/E3HkywHaXsxdjZNj9K2pkth
-	fAVTmA==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4jtqmf2h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 13:22:44 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-734f7d8bb37so42625137.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 06:22:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782912164; x=1783516964; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E4dsKuVZYr3H4pAciMqT4eU/Q+AiTF8aSmswDNKUQ1k=;
-        b=bgM6bW39HX/8mxWNO9buiS//scRWzl4IYgj0goRLnyWNkbwMMPwhTq7jAfaYh4Ry8G
-         7TDc1YdntmuEQPlnHTgLK8NMVhjBIRWNU4qIsujNkUdJ47wabgoF8ttcxpY6ao8KaBc2
-         g763OPMwYZsGiCsir6ZNBXME2fxgyRUTWzxBP26NWfuxfD2eIv44d19lIzpDOqVE2/mr
-         KxRa+RgmD/vhpUeweACYa7WcDGCD1Z1GTedk080Bl6ESXe1ui5YAcbBAySHESoKgnCPR
-         J31/UyL3Ou3ttynqduE3nwRCXIPw9cWz27i6IzFo29RTYsml0huzjxecwBu7iY8yjo8k
-         ejJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782912164; x=1783516964;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E4dsKuVZYr3H4pAciMqT4eU/Q+AiTF8aSmswDNKUQ1k=;
-        b=C+uQTquWIztXaYTnCxWIUXhqB61CcrbS9o2SS+jip5t8e9Q3zlodqfdA+64CrvOxwV
-         idMzB+QljmWx+krK8CL350ZZzYe71w5BRur5q76DIZrAjFqAo4hDWxYP36saOcz5wbqj
-         xm/25NGPGXasi25zyRrs5TWC5VU9MUiI1lG29U6to1A3vaqWpnDFNAonqoA6lnX9+EQ/
-         frESWEBxgf3X+JTXnbQ0dYvq07BmZkhlHf5Qm4Lyi8+jIVgwpCuPMqc/lp9xBk2KQzYf
-         dA9lO480+eDpnAlFAydRPYe7SS66m4XzTMH/mzOw/mvogbkySG8UtqTLWpgvosWh9Pfp
-         QxFw==
-X-Forwarded-Encrypted: i=1; AHgh+RoHyUSVB/PYwBdzkWXxcEpxnjYh2V5wovkDqWgswVapGIhptIxDqPH+NjmtXvd58j27f2iCOyOCHvmk@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw174BFYHtRiQOw2ZsPli9tN5/ECZ0FyM/03gPFaPgJUG5DMgWO
-	nLurIkG1c+7E5e1M48gRv/dxAeBaJn5NBGszYxqjFiuY3pLmXEAyCDKjqrBM2uiVOG0k2wf5B6v
-	HgujqNjqmPutKnMWUU/MSCsyeaXc7ySIMoBK1To/jTqbkX9NHyWBTav9ogVvGeYte
-X-Gm-Gg: AfdE7clQGIhR7ieLdb8KjaNaJ8T1pTrouEZG7J84yTWCWF6QD+Sz0wapxBY158fGeqS
-	VgHkdcurQhYUIwtmP7QoFDTD1vv1QQeTKp8/xlHzGzScC7J+QcmG7OhdAWtyTguqLB2vgeLoA8B
-	vpTKQOYc4Lp5HbTlZLQ1nF4n9pC6mkls2RC54nxnodyAr5avtNvA8i6G2QznSIOBT92Y0sNshq9
-	BdiyNx2szJybDtN+jNH7lJwg4L9MHw8yB7a79N+zMXNf2K1hKubfc/UBkI8tPz4pBFVYhgLGYoN
-	SjTQna9BluJTw+2FpnNNpWnNoUE4QAxoJWIZw9Nzzr0DSOY/D8olJORrnyFeP4mWWOs9yNTYoAO
-	+6CtxgM7A7z1+2PYteGCH7ZCFyfQ/7ZMH6HU=
-X-Received: by 2002:a05:6102:5088:b0:633:3bf6:977c with SMTP id ada2fe7eead31-73da7a92fbdmr184623137.1.1782912163704;
-        Wed, 01 Jul 2026 06:22:43 -0700 (PDT)
-X-Received: by 2002:a05:6102:5088:b0:633:3bf6:977c with SMTP id ada2fe7eead31-73da7a92fbdmr184616137.1.1782912163356;
-        Wed, 01 Jul 2026 06:22:43 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c12a1f0ebc3sm93612366b.18.2026.07.01.06.22.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Jul 2026 06:22:42 -0700 (PDT)
-Message-ID: <504e7411-6cd5-4afc-80a8-e163894ca6b1@oss.qualcomm.com>
-Date: Wed, 1 Jul 2026 15:22:39 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jr+mmcrq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8221F000E9;
+	Wed,  1 Jul 2026 13:24:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782912240;
+	bh=5ce/YNWsrifgEin2n5qYwukz7Qqgy+q+kcFFDG9/5qw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Jr+mmcrqsuiACQLOxL+r3vTNaZEncfl9eEXdVUM6L4ofbohFUM1vtM9dYBYxO0OPg
+	 cHeL8K9wCA4u1ggJZZtiVUGk5v7GZc69CS4fnnWjzv+NZbY7ew+mKb3CDmrvzfSq3D
+	 IlbyoWi1tQQmv8X2qxKKJNpYjifkcnH5DoAbIrcp3mRW+Gea7mq8gbISwtoWlL5p4S
+	 iZfqka8MDyB9b7CAjRvfiMLtxyGcDAJG9zYYp163ENA5X1eBOpB0qXhDVQYyhooiwT
+	 Olh+BjvD3Z7lg4T1iJICJsjCmvIZ5O5+G/+6nuAfF8Ykz+CycNJX9QMylMDkrg0hJY
+	 DpRMK1oN9afeg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 07/11] drm/mediatek: mtk_dp: Add support for PHY from
+ devicetree
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260701122024.19557-8-angelogioacchino.delregno@collabora.com>
+References: <20260701122024.19557-1-angelogioacchino.delregno@collabora.com>
+ <20260701122024.19557-8-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 13:23:59 +0000
+Message-Id: <20260701132400.5F8221F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] clk: qcom: gcc-glymur: Move EVA clocks to critical
- clock list
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260617-evacc_glymur-v2-0-905108dacaaa@oss.qualcomm.com>
- <20260617-evacc_glymur-v2-1-905108dacaaa@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260617-evacc_glymur-v2-1-905108dacaaa@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: NqAI1QmffrOqoROLW6JdBsd7nrRYxc_l
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDE0MCBTYWx0ZWRfXwBFAZyTXFLp6
- yk1+k6o80naS7j8mq0tjTXpXijxCpsbt1v+YVu1KbzwSNz1MsEj+FK58bya1nfAOA9szCc9i0XN
- ke98XKPgbHcaZ/nrPRCq9ODIoa8MEbh6K6cpRbXjwtKOfASbDt79wVMjtiRBpQawfEu2R+WLK7C
- 4uzMWqKHVY2cKCLiEAI0ZyxjNMhw9YByKFU8jvCQiATP7lerSU6HlSAOxQoGPob97sAcRktQfqV
- Ia4FY840Hb2uAlqGMEmmMUzUDGzQVprZTDjZtH20jTrBdXkwe1oK7ONtwVCwJ8ImvlMdK5RIX+/
- ZPhM4dduKgy+mceHz+lddmhmqWEEGZ4xOJIVq80/5tReR2W7ejSobJeB5HqSYNJfK9uBOU6Np9+
- SxDladsKcVh+xkeXxfBoF0aZIRl1yFVxDKei6TUbr4gIkwsRbdiE+Q2VG7m3vlb1mhArWxZTW5J
- gCOG4tGdT6I+exyYtGw==
-X-Proofpoint-GUID: NqAI1QmffrOqoROLW6JdBsd7nrRYxc_l
-X-Authority-Analysis: v=2.4 cv=LIZWhpW9 c=1 sm=1 tr=0 ts=6a4514a4 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=hAgpJja4_gNiCobD048A:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDE0MCBTYWx0ZWRfX1nAxJx0aAQlx
- XQpmiXcmJPm41dfBXfxihsjtnP/xHmnyWX6X+5Gb26dYc+h5dRe9KsMGxvHBXP9ldyp4tUx8ULh
- u6UzuR/Uf3WxAzYNrka5hWxLzYqljnQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-01_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
- clxscore=1015 malwarescore=0 bulkscore=0 adultscore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607010140
 
-On 6/17/26 1:07 PM, Taniya Das wrote:
-> The gcc_eva_ahb_clk and gcc_eva_xo_clk branch clocks should not be
-> registered as standalone GCC branch clocks. Drop these clocks from
-> the GCC clock list and instead add their CBCR registers to the GCC
-> critical clocks list to ensure they remain enabled during early boot.
-> 
-> If these clocks are registered as normal branch clocks, they may be
-> gated, which breaks access to the EVA clock controller during clock
-> controller probe, thus leave them as critical clocks similar to other
-> subsystem AHB and XO clocks.
-> 
-> Fixes: efe504300a17 ("clk: qcom: gcc: Add support for Global Clock Controller")
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Double unregister of the mediatek-dp-phy platform device (`mtk_dp-=
+>phy_dev`) on error paths.
+- [High] Legacy PHY registers are incorrectly offset by `mtk_dp->legacy_reg=
+off`, corrupting DP TOP and ENC registers and breaking PHY initialization o=
+n legacy device trees.
+- [Medium] The HDMI audio codec platform device (`mtk_dp->audio_pdev`) is l=
+eaked on driver removal or probe failure.
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+commit 60c3f9c6bb6ec600fc25d97fe75494a73e71c05b
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Konrad
+    drm/mediatek: mtk_dp: Add support for PHY from devicetree
+   =20
+    Add support for specifying phys in devicetree to pass handle
+    to the DisplayPort PHY.
+   =20
+    In order to retain compatibility with older devicetrees, check if
+    phys was specified: if not, initialize the regmap_mmio with the
+    legacy configuration and register the mediatek-dp-phy platform
+    device from this driver, and get the PHY calibration data.
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
+/mtk_dp.c
+> index 3b5348ab487de..bf3a4b15f3ec0 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+[ ... ]
+> @@ -2769,6 +2790,7 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_d=
+p)
+>  				     "Failed to add phy unregister devm action");
+>  	}
+> =20
+> +	/* PHY calibration data is in mtk_dp only for legacy devicetree */
+>  	mtk_dp_get_calibration_data(mtk_dp);
+> =20
+>  	mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
+
+[Severity: High]
+Does this code double-unregister the mediatek-dp-phy platform device?
+
+Earlier in mtk_dp_register_phy(), devm_add_action_or_reset() is called to
+register mtk_dp_unregister_pdevs. If devm_phy_get() fails, this error path
+explicitly calls platform_device_unregister().
+
+When returning an error, devres will unwind and execute the previously
+registered devm action (mtk_dp_unregister_pdevs), unregistering the device
+a second time.
+
+Similarly, the devm_add_action_or_reset() error path explicitly unregisters
+the device, but devm_add_action_or_reset() automatically executes the clean=
+up
+function if it fails, also resulting in an immediate double-unregister.
+
+[ ... ]
+> @@ -2821,7 +2843,12 @@ static int mtk_dp_probe(struct platform_device *pd=
+ev)
+> =20
+>  	mtk_dp->dev =3D dev;
+>  	mtk_dp->data =3D (struct mtk_dp_data *)of_device_get_match_data(dev);
+> -	mtk_dp->legacy_regoff =3D MTK_DP_TOP_OFFSET_LEGACY;
+> +
+> +	/* Prefer PHY from devicetree - if not found, this is legacy */
+> +	if (of_property_present(dev->of_node, "phys"))
+> +		mtk_dp->legacy_regoff =3D 0;
+> +	else
+> +		mtk_dp->legacy_regoff =3D MTK_DP_TOP_OFFSET_LEGACY;
+
+[Severity: High]
+Does adding mtk_dp->legacy_regoff to all register accesses break legacy PHY
+initialization?
+
+The code relies on mtk_dp_update_bits() and mtk_dp_write() which unconditio=
+nally
+add mtk_dp->legacy_regoff (0x2000 for legacy device trees) to all register
+accesses:
+
+	int ret =3D regmap_update_bits(mtk_dp->regs,
+				     offset + mtk_dp->legacy_regoff,
+				     mask, val);
+
+While this is correct for DP TOP and DP ENC registers that were rebased to =
+0x0
+in the new header, the legacy PHY registers (like DP_PHY_GLB_BIAS_GEN_00 and
+DP_PHY_AUX_RX_CTL) still use their original absolute offsets starting at 0x=
+0.
+
+Writing to them now ends up at 0x0 + 0x2000 =3D 0x2000, overwriting
+MTK_DP_TOP_PWR_STATE instead of the intended PHY calibration registers.
+Writing to DP_PHY_AUX_RX_CTL (0x1040) writes to 0x3040, which corrupts the
+ENC0 register space.
+
+> =20
+>  	ret =3D mtk_dp_dt_parse(mtk_dp, pdev);
+>  	if (ret)
+[ ... ]
+> @@ -2872,9 +2899,18 @@ static int mtk_dp_probe(struct platform_device *pd=
+ev)
+>  					     "Failed to register audio driver\n");
+>  	}
+> =20
+
+[Severity: Medium]
+Is the HDMI audio codec platform device (mtk_dp->audio_pdev) leaked on driv=
+er
+removal or probe failure?
+
+In mtk_dp_register_audio_driver(), a devm action is registered to clean up
+mtk_dp->audio_pdev. However, it incorrectly passes mtk_dp->phy_dev as the d=
+ata
+argument:
+
+	ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs,
+				       mtk_dp->phy_dev);
+
+Because mtk_dp_register_audio_driver() runs before mtk_dp_register_phy(),
+mtk_dp->phy_dev is NULL here. When the driver is unbound or probe fails, de=
+vres
+executes platform_device_unregister(NULL) which does nothing, but the actual
+audio platform device remains registered and is leaked.
+
+> -	ret =3D mtk_dp_register_phy(mtk_dp);
+> -	if (ret)
+> -		return ret;
+> +	if (!mtk_dp->legacy_regoff) {
+> +		mtk_dp->phy =3D devm_phy_get(dev, NULL);
+> +		if (IS_ERR(mtk_dp->phy))
+> +			return dev_err_probe(dev, PTR_ERR(mtk_dp->phy),
+> +					     "Failed to get phy\n");
+> +
+> +		mtk_dp->phy_dev =3D NULL;
+> +	} else {
+> +		ret =3D mtk_dp_register_phy(mtk_dp);
+> +		if (ret)
+> +			return ret;
+> +	}
+> =20
+>  	mtk_dp->bridge.of_node =3D dev->of_node;
+>  	mtk_dp->bridge.type =3D mtk_dp->data->bridge_type;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122024.1955=
+7-1-angelogioacchino.delregno@collabora.com?part=3D7
