@@ -1,35 +1,41 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5923B3894;
-	Wed,  1 Jul 2026 15:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA593655D7;
+	Wed,  1 Jul 2026 15:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782920610; cv=none; b=PPNk5UJtMHRVnqqHzZSf6jTyHjso2HccXe7iTnQh3zLmCnmHitlW35oXH7LIW4601fUY3MvuAI0vxZS2Atgr0n07Ds3IiUfww5MO3C7rRd/9cmnJ+5Yi8fgSVHjeobiixq0HkUAtp72HmZ/G2ikHaJulxtQrReKXu5uKwqg5ZbE=
+	t=1782920862; cv=none; b=taWc4nCy6Uf3Qui21pZaIvzO1fdPvlye6/mE3DjstpeN9t0+AlXsxY5BCPNdApnK8KmiI4+EZQ6sFkYQnPQQWA9IyvsDYQJI7e0g4rNrfPRd3bxXPLXKQwk9OoJY7h0RFny2EQZt1KjUd3SMOn87z+IeKVXwdJiB4rp9BigmWFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782920610; c=relaxed/simple;
-	bh=gtif1OoHMxEhhG3j3g6okBshbqb0qtgOCA+Az5csT68=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gj4U5Gv/2Ndp78ebcNYFDvMbXXa7kM2+1jSWnnI4xzXzy1imbKslBdNjKYcLi9XxEEs4qQDfj7X+nD7PToZ3m83E3y0xNQFr8DkpsCFwPcSnYXx1OyjH0rzBrUvBuJFq5D9Fa5hyShRs1VnzBE3k4MfGaQdROUlWn9qosWuoRnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BP4WLdKW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782920862; c=relaxed/simple;
+	bh=Ky9AIH6/lq3FHpbsWjW7cQtA0kjqF07M4MVwKxOHcRs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gI90PNxs7g0mratJmUXH9mIGLDRotabS3BP7g9wxj3YBQ7Ur4LUK2q5i8SkH8KVtL+vd8DkMhsLp+J8yP7KGlW/tjI+OLSwxSu0QfyWsVjLHnuGzphsKImMM3Gyal943cOaTnQpCauJVis9H2vCAo3QN+nI5znhoY2Jbma6H1wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mHpvIqwN; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BP4WLdKW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EDEA1F000E9;
-	Wed,  1 Jul 2026 15:43:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782920609;
-	bh=pbPevqBDaQWq8tGCXHFVTyAf/dPYuJeMhHkxM3/SqrY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=BP4WLdKWKPkHaBWpSora99uUg+FThcJZumzuk2evpw1cr439JKmiV9Al0gtBGltpz
-	 jBf0ItGvICr3s3SPcyTHc8gSOVRyOD00tvHB/XB4J+eXEqzE6LSx2Y9+ey6mgxA3vq
-	 38JmrBGK5ytbveIX1cP0LrQDKTFDqYls96WRMy3sJuoTwGRzIq9pI8vwb3LeSImzdV
-	 22sf8mSrQJZGR8cqGQ56X4OyWOqE6FVsDKLf9Kd0hXAcXNKstk8W1ETnrgg04Woesq
-	 dTOnfMTQ9OAo129gD16w08tZkEz+yp8LT8QAXEgXmH8KpOntwifzNT9Psyko8ZR5Y/
-	 47boIegwLA6EA==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Wed, 01 Jul 2026 17:43:16 +0200
-Subject: [PATCH 2/2] arm64: dts: qcom: sc8280xp-crd: Fix the pin index for
- misc_3p3_reg_en
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mHpvIqwN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1782920859;
+	bh=Ky9AIH6/lq3FHpbsWjW7cQtA0kjqF07M4MVwKxOHcRs=;
+	h=From:Date:Subject:To:Cc:From;
+	b=mHpvIqwNp84u6/vvEm9g+BG98EFMuN+XKb/mWOpwbdTBqqkoW4jbvWpoqticz77at
+	 tJaBSxNVfU5jTcA1Dqy17ROjbdQR0XdHldSAIWOLdSoxLDm4BtTNZ2fl34Ak6Qy3hi
+	 xtvYsRUi+bmjICiJCukTyrwjy5VzY/c1sXw1WGSmNlERYFCjlR7x1lp8bS8T/Hsjm7
+	 w9w/eaUo/5beDO/ZqtzTUnURFVyvqegw3C4pWlLStn7+tvygo222Pep/zk2+ZPg5j1
+	 H1imdLxDMYAlFoClXT+8W2O3OQPV78xgbfEwfMxEQshAM9ZNrhysQYvVnoNO7dnq4G
+	 9tTShUonVWYPg==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 093D817E02CB;
+	Wed,  1 Jul 2026 17:47:38 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Date: Wed, 01 Jul 2026 17:47:20 +0200
+Subject: [PATCH] dt-bindings: dma: mediatek,uart-dma: add support for
+ MT8189 SoC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,58 +44,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-topic-8280crd_fixups-v1-2-3fe92ee9636b@oss.qualcomm.com>
-References: <20260701-topic-8280crd_fixups-v1-0-3fe92ee9636b@oss.qualcomm.com>
-In-Reply-To: <20260701-topic-8280crd_fixups-v1-0-3fe92ee9636b@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+Message-Id: <20260701-mt8189-dt-bindings-uart-dma-v1-1-c7106216a40d@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQ6DIBAAv0L23E3AppT6lcYDyGL3ALaAxsT49
+ xI9zhxmdiiUmQr0YodMKxeeUwN1EzB+bJoI2TeGTnZaPqXCWI0yL/QVHSfPaSq42FzRR4vBBO/
+ IPDSRgVb4Zgq8nfX3cHGm39Im9ZLgbCEc5xi59iLRVvEc6buE4Tj+p2kPCp4AAAA=
+X-Change-ID: 20260701-mt8189-dt-bindings-uart-dma-f8fdbe856ee8
+To: Sean Wang <sean.wang@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
+ Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Johan Hovold <johan+linaro@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782920599; l=1025;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=m4Ki/fMAJ7/KgZK7YUWp8LeXJTA+K50a864XICUPu+c=;
- b=hQEc2so4e/R7bB9dlO91iFjuI57m6Raq3skwCLJH/uKGu/RqPvI2R8I6AB0MSbP6DjkNdQ8D4
- CT2+A2xlgrbB19sWpCkEznSVdbwwTo7Q96MN0Y5+jqj6JssJoewvGR3
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Long Cheng <long.cheng@mediatek.com>
+Cc: kernel@collabora.com, dmaengine@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782920858; l=1072;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=Ky9AIH6/lq3FHpbsWjW7cQtA0kjqF07M4MVwKxOHcRs=;
+ b=ofMvNwFJxd2WVq31avixKD4TbRj35vFDFtRR0jcj91McrJ+rG7GfQZ47Vwn2QS6H9O8ZGXCOp
+ xmk7QNrBj7BBEHNOkJQLU2Oeu5O4fFX1HVyVk6W14l0cMXrxUhzUck5
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Add the compatible string for the APDMA IP found in MT8189 SoC,
+that supports 35-bits addressing as MT6985 SoC.
 
-The correct pin is GPIO1. Fix it.
-
-Fixes: ccd3517faf18 ("arm64: dts: qcom: sc8280xp: Add reference device")
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 ---
- arch/arm64/boot/dts/qcom/sc8280xp-crd.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-index adc6d7b7c91b..535abc5dcf37 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-@@ -184,7 +184,7 @@ vreg_misc_3p3: regulator-misc-3p3 {
- 		regulator-min-microvolt = <3300000>;
- 		regulator-max-microvolt = <3300000>;
- 
--		gpio = <&pmc8280_1_gpios 2 GPIO_ACTIVE_HIGH>;
-+		gpio = <&pmc8280_1_gpios 1 GPIO_ACTIVE_HIGH>;
- 		enable-active-high;
- 
- 		pinctrl-names = "default";
-@@ -917,7 +917,7 @@ kypd_vol_up_n: kypd-vol-up-n-state {
- 	};
- 
- 	misc_3p3_reg_en: misc-3p3-reg-en-state {
--		pins = "gpio2";
-+		pins = "gpio1";
- 		function = "normal";
- 	};
- };
+diff --git a/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml b/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
+index 3708518fe7fc..bba20e88a6dc 100644
+--- a/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
++++ b/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
+@@ -40,6 +40,7 @@ properties:
+       - items:
+           - enum:
+               - mediatek,mt6991-uart-dma
++              - mediatek,mt8189-uart-dma
+               - mediatek,mt8196-uart-dma
+           - const: mediatek,mt6985-uart-dma
+       - enum:
 
+---
+base-commit: ba7c57499e5999aeae8dd4f954eb2600589d80aa
+change-id: 20260701-mt8189-dt-bindings-uart-dma-f8fdbe856ee8
+
+Best regards,
 -- 
-2.54.0
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
