@@ -1,67 +1,68 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E8A48BD42
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:41:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5E648BD2E
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782909664; cv=none; b=ojzCCJIxGAb4lgmiyvUPLrN2ixJYHoGhlA46sTxm2lzjnJ/C1FJjuUh3rAF2B6WIoma/iO//7A/dTCEKV7Qcy2uEdDnwplRh64o4lY/9FtpimLuUUVM88LJGD6qoPNBapR0HCZDxbcr9wY2GKUGz8xWdFL8V0MvRgcFqgzxZODo=
+	t=1782909666; cv=none; b=NbrebJOFpHphuL34DrX9UWLQV8kzVFB6ZafUEpHndVFp0eaewNBlpJjKQG23BZkf202o4shmwvSe0viy33TcFnaiaMkrZD/M1qAslZYBYEcmz+e6Tqc+/eQoRloD0GHhVl+tg4ezqbyleboPPqo8nYsmgJn22+u9aC+3Z9lm16c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782909664; c=relaxed/simple;
-	bh=1HjXZU3N3yWNNw6i7VHEK3NtZRbPjnphoL+Zf42nRpo=;
+	s=arc-20240116; t=1782909666; c=relaxed/simple;
+	bh=vgTU6IpqehS35f26r2q57NqAGrF/RDXF3lubDqCB+Bg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gC9tY12qEL5NYVIcIbQQ0Ge0y3QzB8tQM2XfpP7J9/M5mi+KicxkVehTqtSx77P06VlBRhIzuU9cAATDQ9LxHedeArO0FyTRbeVbI3NtOKbSJPB2RBUZp4O3Zc3IWU4Mk1D5a7lQ5lzvOJuPtENyVcgfiSotWchEJ8FoHHdIWJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=XF6iLV1U; arc=none smtp.client-ip=209.85.128.51
+	 In-Reply-To:To:Cc; b=PZq9pTvw70WCQTad25xMR6e+hGBr1BTyc1u8GZIXF39qCw19Nd25E5spHeQzgSOUxvkzh/Gow+gNfY7RKStQKl1OBFy7plmuf0xqRRHWOWqhRNZ2BYhPfrsimjK81P2Sc/In9kQ7eSkcbQxblpbBQ2X1CQ28XxZ7XQlepnhnuFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=TN1ZWTze; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="XF6iLV1U"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49241dbf9c1so4949495e9.2
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 05:41:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="TN1ZWTze"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-476a130c138so623237f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 05:41:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782909661; x=1783514461; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1782909663; x=1783514463; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=nE40RXPXCC4Y6jx2aaoYHGd5GnbuzIEXCGKvuCuNxlc=;
-        b=XF6iLV1UN4ED7sBZKyeO9prWKS0yAOPFRX6OLpPE9dKMXVz8Al3A+Gpkt6KkoTQq5X
-         dk3LiM1lTs4Fq57quWNkmdOTmMQUyrvKeECTmOY3Y1LZ67J+hruxs8Ax8KCG47EIGXjr
-         PEcjj6WoZlZPUKPh7TgsCGwNNf3UCwqqQng4wCX20blDpnbqCN7VCWEUKolgeW4uI/IL
-         izMI5Vuk8vMXsCdh3EPg47QScxOm5NdDlgQvx+Lfb2Q1ZR/Sz3nWTMvsZwwVkv2ocRg0
-         Rpz/JYdqdZscZvF2D5N51GtzvXNBfrpPzULtlFpHxxsnDAleFTB4JIPBK81qCspIW5KB
-         gSuw==
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r7ceLvJFGDWzpb591woUgz7GBOYPJ1IlL6PiiR38W78=;
+        b=TN1ZWTze2VHgBIj9VQJl1YyqSOGHdQoTEMVPzVDk1UDuWakuTIbpezpR4JOHIxkBVr
+         vG/Iv8koTasHF0QlDQSX8zefzwlYRMzhQBp06o07LeV7S4uzZhNF/Ojqy+p7u7+irOdM
+         H71kB+/H9BBsLYpNhVXE5K/WBLl1PiiF+sKN2saDrJqYi3YSeVT7pv7Y/rGa9d76NW+E
+         MP4t4c1LKj+NlxOOdi25RlK89GEtRCbenceDyHsobRLuETYw633GVsUIA6w98vHRX9qz
+         kai2Oi024kL28DuVgrnj3dWaxCrfEAFNfksfe+MUgoQ/y8ed0eAoshje10xQDJOstgBX
+         CZQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782909661; x=1783514461;
+        d=1e100.net; s=20251104; t=1782909663; x=1783514463;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=nE40RXPXCC4Y6jx2aaoYHGd5GnbuzIEXCGKvuCuNxlc=;
-        b=dZ7dkZ3mFL0BbUckI6S3p+CCty5BSrPGaKvtSe7NdDiA+YZVgaAsYykoqiMpUeQ3K8
-         a10w6qyzP7NRMBNTtoroVVY9ZYQRw2UddmCQTb/6phCrH0qVyfc3SiSXiRVbdPaLCElH
-         hkKnPajF+SD3Wk+zRq1aRVdyRFONTn/Vl9iEbVlyxWPxP39bwr/BXlMSxbMMMG3zSU4+
-         t7prpRGVMUazjg3RWMXIG4xIAxCl4fvNZCgwe3RS21Zf3SOJYar/JKKjjdvdSPXQhNm1
-         hl0hF3BihYTNL2kStPT8BiHstL9xqfF8HQZElPwjxgSiBqNzZTfbzPdYaQsOfhICih6k
-         RI6g==
-X-Forwarded-Encrypted: i=1; AFNElJ/8Cf+8DjR7xjJJHjdW4WrKh/MJ88iWmmQ7EMamGEj1IxW9t6KHsRU6K00/y2FT6bC17uZRipED6a5h@vger.kernel.org
-X-Gm-Message-State: AOJu0YyIljo5EAdlzSmvtVyBLlvzEbcyEc8G57Mom3gFLe/Gare/3KEy
-	IT6gydlS5HyejnQ1GU7xp4WLv+ePPa2O9BdXOIjrGKlaBja/iFw8bY6XMiKMz8Fa9IE=
-X-Gm-Gg: AfdE7clqNvcLvznCJWN5u9C+Ai2hOpllLfQiH9uUvJJX1IWN07C/2GzbWrE/sBpQUGn
-	DJWytUmRQGpGz9aMfDuxA31Vyz8kruN8Ic9P7Ux82ixQMOxIpZ674paKDTnHqqU7SpHkQmVIcms
-	tgm3munhLHYvfyNvRkJksWTmHFT0GnY9ZS7f7Xq8h3g1xfZrXg48pgZbMQJGV+FZj/RaIt6RxUW
-	sHX9L5Me8fKntvJtk8hDXcXOVaLK6BZ62EXNaSRw52mLkIByT07OjFnUsE4iuVpRRkMV0mRfX6w
-	FqdVJJSSMD8LxCHwdtdW60Tfy4O7HT25A7QZ7F53cKPeEEeVFEUabNrN2AR3ED+Lo7hUzI+dtwh
-	nUujLz9GAy6WizMPx/KpIjxUGRZgq4ImWyUZngG2bMjygne5e720sIFqJkoOUFeLeM+Smi8VWBp
-	cGCKhzbn4/Rw==
-X-Received: by 2002:a05:600c:5307:b0:493:bfea:2786 with SMTP id 5b1f17b1804b1-493c3df38b1mr7549745e9.32.1782909661423;
-        Wed, 01 Jul 2026 05:41:01 -0700 (PDT)
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=r7ceLvJFGDWzpb591woUgz7GBOYPJ1IlL6PiiR38W78=;
+        b=XLSmQJ90ezLOfq6Y4zSewOhrCA7eur/vOcvFoDFhIRlJy5+X5N03JMLXabTD7ttXsd
+         GCO821Qy803uYQcHDS45eMtRuFJcAk+bq16NwhZTwqiem7SPzAC5S93A89xoU3VOV9z0
+         kPwoz+Xvun6XCc9Y7IAFeW5GVsYCe91fTpVNwUx3ms/1kRd7i5pYrEW141+yvGwC4PnS
+         3XlLzHOJpN04s9rPZILl8uZFyXjjU0J63LfxjRPADhfH+D5yApyrAcTlt9hxYo83GtO/
+         NS25yfUnRbhE25QM05i3HbovSumy1lA7EVLJICWXFCAxfEwen1JzpBHogXKjtrRE71G0
+         ycRw==
+X-Forwarded-Encrypted: i=1; AHgh+RqgAzd+wZCZN1+BA4sPdZfe3rMtvzv60Dy5W+mMS2h+ZcPONhkmbxUHO1o0DDL1VbBO6U85yuIIA1x+@vger.kernel.org
+X-Gm-Message-State: AOJu0YxBaJMfHTWmrv0o/Vs4vhI1LiNCA0Szz/mnq2yDUrgZp1FeWH5U
+	nhwmYfB7EdhahS4beS9zGFZzhrdfOqqrSZPOsutLUuQdHRdKdGkZkGJmoijnG1POvwI=
+X-Gm-Gg: AfdE7cmNyErT6vApGRPBfYOsOE3VJ14jvULtbN82G+TBxF35X/ItZGOwBQiVVd5uxEv
+	gzsrALoqITYHezJecuKSiWuMwH0zG732ReyZLouX5jo+gFYvH8LHOhzrTHGsLGwqgPnLPaTgaeB
+	2breoUmZUcHYxjjUgnRz+85zilwfcWfBBEqUotcswLlNhRxJFFO5Vzgr+8v/jScVF3ipK7/Aev7
+	NpIcp+6S4IPZyfquqmOxo/j8qFjdZTkokk0kzysFvrX9zpL2UgDW1EhBwaCfAKYaj8Lsgo5ih8a
+	SiIxdv/GTK1FflKirbnoSx8w+i+sgJFeYyjO2R7ss1YklGgsozMLEYOY/MCMM5L08mtQZZeTgyf
+	zJjHO6xgOkBC6toJKlrMwM4cjFlWZiy+qr0cGip2lLcHYLKYnnbvAYyFmqTZpF45f1d5orHFYN4
+	U1bwnUI1Ln0nDTZDqzNDb+
+X-Received: by 2002:a05:6000:46c7:b0:470:2fb1:3db5 with SMTP id ffacd0b85a97d-477b52962ebmr358057f8f.30.1782909662884;
+        Wed, 01 Jul 2026 05:41:02 -0700 (PDT)
 Received: from localhost ([2001:4090:a246:8638:a73d:f626:6582:90ca])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493be4d15ddsm72470595e9.6.2026.07.01.05.41.00
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47563d194b0sm17422911f8f.1.2026.07.01.05.41.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 05:41:00 -0700 (PDT)
+        Wed, 01 Jul 2026 05:41:02 -0700 (PDT)
 From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Date: Wed, 01 Jul 2026 14:39:22 +0200
-Subject: [PATCH v7 10/11] arm64: dts: ti: k3-am62p-ti-ipc-firmware: Split
- r5f memory region
+Date: Wed, 01 Jul 2026 14:39:23 +0200
+Subject: [PATCH v7 11/11] arm64: dts: ti: k3-am62p-ti-ipc-firmware: Add r5f
+ nodes to pre-ram bootphase
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-topic-am62a-ioddr-dt-v6-19-v7-10-e9db8b16821a@baylibre.com>
+Message-Id: <20260701-topic-am62a-ioddr-dt-v6-19-v7-11-e9db8b16821a@baylibre.com>
 References: <20260701-topic-am62a-ioddr-dt-v6-19-v7-0-e9db8b16821a@baylibre.com>
 In-Reply-To: <20260701-topic-am62a-ioddr-dt-v6-19-v7-0-e9db8b16821a@baylibre.com>
 To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
@@ -93,82 +94,46 @@ Cc: Vishal Mahaveer <vishalm@ti.com>, Kevin Hilman <khilman@baylibre.com>,
  llvm@lists.linux.dev, Hari Nagalla <hnagalla@ti.com>, 
  "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2400; i=msp@baylibre.com;
- h=from:subject:message-id; bh=1HjXZU3N3yWNNw6i7VHEK3NtZRbPjnphoL+Zf42nRpo=;
- b=owGbwMvMwCXWejAsc4KoVzDjabUkhixXrr3806ZIac/87yDv/G0e60K21tWLXFIly7QWGTI9u
- Kyqfre4o5SFQYyLQVZMkaUzMTTtv/zOY8mLlm2GmcPKBDKEgYtTACaieIThn8Hqot8VWi1HcqQ8
- N/zkFZPViGuJ/GO0OKe5K0RBnPXTTYa/ovelJjw+0aqgfTx8+VxWTb7r5eafhZmOh3JFbL+65Gg
- UGwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1228; i=msp@baylibre.com;
+ h=from:subject:message-id; bh=vgTU6IpqehS35f26r2q57NqAGrF/RDXF3lubDqCB+Bg=;
+ b=owGbwMvMwCXWejAsc4KoVzDjabUkhixXrqOMLZ/SpPQcPUy3F2Rk3LwuqBFyOC34z/l3E1l28
+ oVtX+3ZUcrCIMbFICumyNKZGJr2X37nseRFyzbDzGFlAhnCwMUpABMJmM7I0KZ15LlN4vNVXPvu
+ v/t0m2nK6YWn6idE/mLv5npdlaZYXsXw3/vkTmO2mFwRP4V/C6/HMifyveY+mHhfyWKCxflsE9/
+ X/AA=
 X-Developer-Key: i=msp@baylibre.com; a=openpgp;
  fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
 
-Split the firmware memory region in more specific parts so it is better
-described where to find which information. Specifically the LPM metadata
-region is important as bootloader software like U-Boot has to know where
-that data is to be able to read that data.
+For IO+DDR the wkup_r5fss0_core0 and the
+wkup_r5fss0_core0_lpm_metadata_region need to be accessed before RAM
+setup is done. These are used to read the lpm metadata region in which
+data is stored to resume. This needs to be done before RAM is in use to
+avoid overwriting data.
 
 Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
 ---
- .../boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi      | 38 +++++++++++++++++++---
- 1 file changed, 34 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi
-index f77651109564224408723b72baba93e39a82be07..8f7409da83392d2d1f160a9645ef4d68f7aaa1bf 100644
+index 8f7409da83392d2d1f160a9645ef4d68f7aaa1bf..04fcd5115b9d95e6e23c4e43782c06501a0fa601 100644
 --- a/arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi
 +++ b/arch/arm64/boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi
-@@ -24,9 +24,33 @@ wkup_r5fss0_core0_dma_memory_region: memory@9c800000 {
- 		no-map;
- 	};
- 
--	wkup_r5fss0_core0_memory_region: memory@9c900000 {
-+	wkup_r5fss0_core0_ipc_region: memory@9c900000 {
+@@ -40,6 +40,7 @@ wkup_r5fss0_core0_lpm_metadata_region: memory@9ca08000 {
  		compatible = "shared-dma-pool";
--		reg = <0x00 0x9c900000 0x00 0x01d08000>;
-+		reg = <0x00 0x9c900000 0x00 0x100000>;
-+		no-map;
-+	};
-+
-+	wkup_r5fss0_core0_lpm_fs_stub_region: memory@9ca00000 {
-+		compatible = "shared-dma-pool";
-+		reg = <0x00 0x9ca00000 0x00 0x8000>;
-+		no-map;
-+	};
-+
-+	wkup_r5fss0_core0_lpm_metadata_region: memory@9ca08000 {
-+		compatible = "shared-dma-pool";
-+		reg = <0x00 0x9ca08000 0x00 0x1000>;
-+		no-map;
-+	};
-+
-+	wkup_r5fss0_core0_lpm_rest_region: memory@9ca09000 {
-+		compatible = "shared-dma-pool";
-+		reg = <0x00 0x9ca09000 0x00 0x97000>;
-+		no-map;
-+	};
-+
-+	wkup_r5fss0_core0_dm_region: memory@9caa0000 {
-+		compatible = "shared-dma-pool";
-+		reg = <0x00 0x9caa0000 0x00 0x1b68000>;
+ 		reg = <0x00 0x9ca08000 0x00 0x1000>;
  		no-map;
++		bootph-pre-ram;
  	};
- };
-@@ -56,8 +80,14 @@ &wkup_r5fss0 {
- &wkup_r5fss0_core0 {
- 	mboxes = <&mailbox0_cluster0 &mbox_r5_0>;
- 	memory-region = <&wkup_r5fss0_core0_dma_memory_region>,
--			<&wkup_r5fss0_core0_memory_region>;
--	memory-region-names = "dma", "firmware";
-+			<&wkup_r5fss0_core0_ipc_region>,
-+			<&wkup_r5fss0_core0_lpm_fs_stub_region>,
-+			<&wkup_r5fss0_core0_lpm_metadata_region>,
-+			<&wkup_r5fss0_core0_lpm_rest_region>,
-+			<&wkup_r5fss0_core0_dm_region>;
-+	memory-region-names = "dma", "ipc", "lpm-stub",
-+			      "lpm-metadata", "lpm-context",
-+			      "dm-firmware";
+ 
+ 	wkup_r5fss0_core0_lpm_rest_region: memory@9ca09000 {
+@@ -89,6 +90,7 @@ &wkup_r5fss0_core0 {
+ 			      "lpm-metadata", "lpm-context",
+ 			      "dm-firmware";
  	status = "okay";
++	bootph-pre-ram;
  };
  
+ &mcu_r5fss0 {
 
 -- 
 2.53.0
