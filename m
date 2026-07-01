@@ -1,114 +1,130 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF7840E8E2;
-	Wed,  1 Jul 2026 23:35:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931033C4B9A
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 23:38:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782948964; cv=none; b=IU0CnOO+PVMRvSD9ENYEP2AzUxwMgK5QkESIRY9c4KUB4OmhioHsdlmgtOS4E5LahIa4IX6J1Vp+sbw5WED0gAwns4+lVvvOJaQT+LGfx3MaFlAtgO4XBlZPsql/weXETQMkH5YW/bKaT5lh8MIaQT2EqJ5XAQvUKZ/dsgMPIsE=
+	t=1782949083; cv=none; b=TH/31Vrn/rjEEhCjFwDIxb+47Y3ElVN7jwrd0s6P0COr8QOEkf+ydESGpK6N482R7qRcTi/nZexDWheQiEQ8Q6cN6KvlULWng80xPgceCwrOtZNY+ljo6m1Z07F519PQ1mJtGKoE5khjmR+V6g5FSp7mdiAlPZVnJr09unFaYII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782948964; c=relaxed/simple;
-	bh=y1K38988NOGNjrWDX39V0tM+tzGRa5eL8tR+BuYD8RM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Pi/aMiVCa888CCUzu88fYI9o5lyuVQxKE1SF0VtC2qxLXjM1rBkomARMtlkb4Xu6a9djNzcgILFy3IDNAanGhT3UyxAiwB4akXrkRvRH8Kp5vLRquz8uEZxJikGkLwoDTdE3MsykFAWM3fLmlLxaob76ubjNG/oJxZrSovRlqEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=fte/d0iZ; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1782949083; c=relaxed/simple;
+	bh=Ul+8pa7VUBwqQ9vUFj7cuT/cSE751FIa+VX8ioXeBlo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QqnNGNV5fdFs/Ro+3sUPf95pNOutXRDi4oPJ6AyQFYMMwXNuCmQpDAeb+5ZqcQlt3GBb9CcjapKLk/MSWRarlNRsA19h5zNDa6BrVtSCiMBrX98DvBV1uJH87pUBAcZTHDENa1lB9vr5iAtRyS4uVWQzq5IhwTDxnMXFISWv+BU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=au6dbQ19; arc=none smtp.client-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="fte/d0iZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1782948950;
-	bh=y1K38988NOGNjrWDX39V0tM+tzGRa5eL8tR+BuYD8RM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=fte/d0iZq+OLvpUfy6Hrv7d21+g9YMofSExIkS8k+FiewC3JpNXMXVelGiMvVrRtw
-	 PIf+kdEYi+I9nlGJSQxczBYYCXQPo98yUnzY/J6o9KSLoTUa/hc1jG3wSRtMbA5mC0
-	 hyb4l/2ErpMpMAujFMdGMx5SkrZmNj9IowbEqmPYhKVzsa2oBFE9K0vAuNf1NNZc8E
-	 ZMbb8h6sHfUzdcvGuCdL7EATaBdiGJUa2x5U8tZq76RXGf/8v2zhoV/k+pWT3zRwTY
-	 1NCVHG6V513SQai9iCxZBsnqGOPEoPT5Xlae+aaKDG4e8olS69lo7LuLHTZsCudLLa
-	 tD4FLZ2KCdhSQ==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5040617E3620;
-	Thu,  2 Jul 2026 01:35:50 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id E364D48007C; Thu, 02 Jul 2026 01:35:48 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 02 Jul 2026 01:36:15 +0200
-Subject: [PATCH v9 37/38] phy: rockchip: usbdp: Re-init PHY on mux change
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="au6dbQ19"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5aeb36c46bbso140284e87.3
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 16:38:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1782949080; x=1783553880; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OVCh6Lf8+nzzdAxzyPMuHDYAnEuNDpXn+opdGjJoaxg=;
+        b=au6dbQ19ocDmFW8BHJn9lEOMKFQxa57yUbSs2zRJi99wQw+wZvrKCbkurmaCo1z6ba
+         QqM2NXH4gWIXH+y1SspK8t40P1Q3TSZVDI/a69Lwf0KUdbQMnQBnZ9pkPaEQ0lCDYBrx
+         14+O5E19dxpdNBt2Fi2znI4X9LzOa6UX6FgZKAO8B/l0GcqH+RzLAs6PGLJ9a6CTr9j5
+         O11S5Bx7XBBec1iTqvBjlrAJHz4STwdd5cWuvF3505igPFahuo2K6LYpBaWIT8X0BQJU
+         nDtmRGDQ+9IkksZVfVem2NBE23modaHpD8AmkTAi5DQcbyiypS/zQ1zp7dgHVK94vuo0
+         Gxfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782949080; x=1783553880;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OVCh6Lf8+nzzdAxzyPMuHDYAnEuNDpXn+opdGjJoaxg=;
+        b=Axt0pVCtsODsJeslvtthGJX5HnA2+QG1I+CKbDQEnog2msZ0xBauAGe+vLsawT47cx
+         7jjvx+C+7oBKY/T4cm40WSECumElGh6TYX2B+fDKXxlCdTxr5Vo3cpxz8OXBGOwtREfr
+         EFC5UAlbS/Ww+gAYP3yl7VhS0kCnZK/ync3kLo7MHfOtaDOVg2AawyXJPQOhNwvTiuuW
+         0urVRM55B9v3FWpt+M21brg8H8OrfQKoAaFUI44dsURDjzBRYkZ9q4frKFttf4DnMORn
+         dn3LkIYNtR2OwB859083x+f+FUauZrdTxLfWXdp2VPABS21RAL+R+GjW7g9gC+w7RhZ2
+         Hbqw==
+X-Forwarded-Encrypted: i=1; AHgh+RroFdjnCDg7ov9jwkV4Zfe5kbQtYDDyVMO8NSZlCBNUnSn7ziRXIQM0X7z9E2PNm2FXgR7VamJ4GySN@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyqx2807wXSOAnEHBTiAcPTE4CchCGRf7MkZbpFFVP6RKNMC+mP
+	CVGMGonf1N5md8m3kfpC6NKOFmMH8+mt+oDEUMQy/sBRSLh6kBasiasM+avU7CNCXTY=
+X-Gm-Gg: AfdE7cmgQcPU9wS3bRbwE1MRVAaKkIBgrskFCutucRuTQLX3i02VT0FCvE2Ojex1sQG
+	Q8Wta2mx6/d/r81MtpZrETyf5CFFPbpSyW1IWMLrRN0ArteGsxIkmVLPflbbUxdVt2ljb7WKu38
+	Vt36iEpWaw+1sjq41EzYfozciqypmTmemNgvLGTdCbnSn9srVexDtp91cYDomsn6hv6Fjk59lPA
+	LlNN/Q9YSSnBJf45uCLzequByi4gQkNSi7jKSRF0w9BP3IhWPBBTIDceNObzb5X9agM9YNiZIZZ
+	2maA3fvfZkFDqglpKYLz3EdlPgzK8SNXtcv21NAh5fVZP734Sn2Z540rOskC5FtYP6SsM2w7dNK
+	TViinQ0g1oYLrLcfiavLMpKExibdatOv+SESFC5aja+Zii8jNfc2hfKEEdtW/ZUHIDvHo0HZvPw
+	8gmI9cL+dBz7vnV5GLJ7idpuxUjyE9ZmVyRWXXlqH1XttsTV4TzypoRUwBkmXqQ7zpLZY=
+X-Received: by 2002:a05:6512:4613:b0:5ae:b17a:2617 with SMTP id 2adb3069b0e04-5aec7435771mr533633e87.6.1782949079808;
+        Wed, 01 Jul 2026 16:37:59 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aec89dc478sm300818e87.68.2026.07.01.16.37.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Jul 2026 16:37:58 -0700 (PDT)
+Message-ID: <ae3a381b-5697-43ee-bdfd-aaf2d22ceedf@linaro.org>
+Date: Thu, 2 Jul 2026 02:37:58 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
+ <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
+ <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
+ <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
+ <7c564df8-5c5a-4b43-806e-5e017e5c51db@kernel.org>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <7c564df8-5c5a-4b43-806e-5e017e5c51db@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-rockchip-usbdp-cleanup-v9-37-e31efbb62d2e@collabora.com>
-References: <20260702-rockchip-usbdp-cleanup-v9-0-e31efbb62d2e@collabora.com>
-In-Reply-To: <20260702-rockchip-usbdp-cleanup-v9-0-e31efbb62d2e@collabora.com>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Yubing Zhang <yubing.zhang@rock-chips.com>, 
- Alexey Charkov <alchark@gmail.com>, linux-phy@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, kernel@collabora.com, 
- devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=976;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=y1K38988NOGNjrWDX39V0tM+tzGRa5eL8tR+BuYD8RM=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpFpFTn4vcJyseHiWtsGKSypASqmgHiFHurS
- 73UXcoGV5JhgYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqRaRUAAoJENju1/PI
- O/qa8UYP/jqwlza70YtDGsUk7C9XkDcHowQvZBZXAvJvgG5DWym8OS3+V4p7Uv2yvb6+5w32pwP
- M5TGFJr55M6WCUc0G3dG/v1MZpJHKbgDcfR0bVX+TbVGl34PZ0Jh6t+oXLTR/lviDjy7pAdmRBc
- c6thHRZk0mMEOa1ZSdD+AypEDwxKTqEXcGNjYh9IqSl8LWJ8dad4PnEwEB94qJvdZnsUc6h4/6q
- +QbFn3Wox5nbkHcJVtuYrpLj/7961Sg1Yez8ozPTWS4mT/PI74KDXEQV9bkZ6UV5TZELlMLTTPm
- cFMISyIAMNMORB8kfnWGmgFQXQDTxOzWaGERxc97QBanjPFr6PYKNAsnDBFs7yn1uU6AdFUQgHe
- zz2DueX0wIYPR/8gfLhA1CwY5rMOM6PYRjWFzJi4eV2UgKis5oZFGH3qF7Q4lau8s/WDLpVvqvd
- jauLtwktaLxbn8bp+XyV+SljEUDHuDtoOeigFy7DipO+sRqmpw++qcC4wukHSXZfR4F9195lh1c
- 3pfdLxAR95nRtPhmh1LzNiR+3+reTJaBHfHKR49u4SANeDf5iN4Q0Kcbc0clRcD43Cfwuevc74f
- Fj6sjHYlh1DVsJO9TafaMOzis8BEBnWgCwOs5Svvv/gVCqGOQhYJ9My4hY7VmXXyFbWVvp8I2Px
- N15mIlUwamRmjNMxPbjUpCQ==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Ensure that the right part of the PHY are powered up when the
-mode changes. This ensures the PHY is re-initialized in the
-following two scenarios, which are currently broken:
+On 7/2/26 01:54, Bryan O'Donoghue wrote:
+> On 02/06/2026 22:59, Vladimir Zapolskiy wrote:
+>>> +
+>>> +  "#phy-cells":
+>>> +    const: 1
+>>> +    description:
+>>> +      The single cell specifies the PHY operating mode.
+>> #phy-cells should be 0, because the PHY operating mode is well defined
+>> by 'bus-type' property of an endpoint on the sensor side, the opposite
+>> side of CAMSS/CSID as a CSIPHY "consumer" should not dictate the PHY type.
+> 
+> So going through the list I don't believe this is correct.
 
- - cable orientation changes without DP being involved
- - switching from DP-only into a mode with USB support
+Be specific what is incorrect.
 
-Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 2 ++
- 1 file changed, 2 insertions(+)
+> 
+> Inserting bus-type into the PHY layer is borrowing from one domain
+> linux-media and pushing the concept into PHYs.
 
-diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index 735ce1bfac7a..d056da53cb1c 100644
---- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-+++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -1372,6 +1372,8 @@ static int rk_udphy_typec_mux_set(struct typec_mux_dev *mux,
- 
- 	rk_udphy_set_typec_state(udphy, state->mode);
- 
-+	rk_udphy_update_power_state(udphy);
-+
- 	return 0;
- }
- 
+It's the other way around, "bus-type" is an endpoint property of media
+devices, reference to video-interfaces.yaml to get more details about it.
+
+> phy-cells = 1 with CPHY/DPHY specified in the consumer, as was Rob's
+> suggestion will specify the mode.
+
+This cell is just not needed, and unneeded complexity should not be added.
+
+> Then to understand if we are in regular or combo mode, we parse the
+> ports/endspoints in the PHY node as we've agreed already.
+> 
+
+That's correct, and while it's unavoidable to parse endpoint properties,
+a phy cell value will not bring any additional information, in the best
+case it's useless, or it opens a door to a clash, if different phy types
+are occasionally specified twice.
 
 -- 
-2.53.0
-
+Best wishes,
+Vladimir
