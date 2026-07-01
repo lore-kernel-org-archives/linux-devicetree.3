@@ -1,174 +1,206 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C349F48123B
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 180AE481650
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:40:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782909550; cv=none; b=VMIu8k1E3QQDsBpvnRAWzyfHdMVZUTPMd02F1vVvTGzALjphjhdX4WFI7ldTMaxnGaVXI+QbeLl8ZsfwJhLjAfj5z1uIzVIwpwjwnM/81bCzlxvcC6l4D74DVT5QzTw4pt7Lm9gPhQoEVbAdJq15gcVvf/V/HBnk4NygirieUNE=
+	t=1782909650; cv=none; b=mXcU6FyFz9ORNU9UkaJ72KFhrXyQ6ORakLEouFOBgKlBMMCNuBipTQmYqlp9xkywGNSy4v/Pfqj2jx2XVqG0Ys3BlSkQ8at9KnR1GPiUOmzaXHsDUm6BtlclZvfHa9y9C1YrdSZ2GPCsv+KnO128T1GIzqoHsCeHmYkcQAr0nk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782909550; c=relaxed/simple;
-	bh=0ENwD7I9GShtPzLW/n5zRTNevETKuJp0EKy/3Cy5E4E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PqnS5MgHPGqBu2VUyvMMKDE60smL9TEd4m41uD5ErHPjcKkjCctQfbLgoOHFR+fsPmp7231ruYzbPKds04ZLxmIxGEQ++FJxsOrqInIO8XeLQsSrxTSjhTMXCIm4ENqQsZpKksbQTYTQvHyZ8VspC+7AYSNKYJmFHD/1dJMtJPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dBlKanGc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=H7VFp8PF; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782909650; c=relaxed/simple;
+	bh=/QSNh/oJUk3K36diT3vAhwVzwhYSE2dQVz87cYlXnkA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cRe8YPkOEFcMVBwN9A/bW/fpAQuh+udNSr0tIS2NpH/oiTDx7IkpGCIE9Ewnbu2ep8tk5Ndm9j+TKS1nNWMrSJeDxrVkevB4ZLRc6smM5JtQnUOg+YOWGZq+r/N8sIGmAen2HWfqTA+VpXdFh9bm9+1QP5++EAf6eTbqApmVCmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=PCk4eBy+; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dBlKanGc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H7VFp8PF"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 661A8vkF753533
-	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 12:39:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RElYUFyhVFU8ab/xOJ7WvztVwr6ToVtrUcAveEyodLc=; b=dBlKanGctWPIE2EP
-	3xXkBKy/tSiYDpB+182tQ8OUA32fJ/34hGqIBcmQfiPqqv6dFNkqjOtEBHycEw1u
-	Emoluvp6tKi3e8+M7C+ELCL//56kX/sjAPbTsSBfw8xB0YwcZi/yO3Go/puu4k43
-	1kBLrbDCCoHY3pxPMFMpbrWe8z3mLFPFcKdghaKsv8PK/8Zhb/kG8PAecXqbw+xY
-	HrKw1bK5AAjNq+EXJ4L5tQ1X+gJlFjeh4WhsiX+hAcoke/zPvWG2Dw3n68PwSclA
-	u7utZUFdhAm/PnJMxqcfFloReOq5xLKr4Hj+COmLGwAeWOTB2Qdt92LfgNITuBAS
-	M/oQ4Q==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4rsy2r6b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 12:39:07 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-139f5f5eae7so2831967c88.1
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 05:39:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="PCk4eBy+"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4758bd3731bso504954f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 05:40:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782909546; x=1783514346; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=RElYUFyhVFU8ab/xOJ7WvztVwr6ToVtrUcAveEyodLc=;
-        b=H7VFp8PFZSlMA+ANPM0c79idH3+hHXIXmnbnVfgbsIzkDwVBHAkXFvLaTANa4Bve5P
-         /WQau6W6Idv2COLmdESu2OJliaojUspPjL33+d7W07knJg3rxEM10Yme0itkIah/njMi
-         igtT8orYep1RSpEuO+rCkJmNUvPCXlz8K1iUpYBacV9u74nmb6WbMlPTu4l9ZQzxo0H/
-         4olkbTE1zRYCTbwcYFssXgU9FrNrjdZNy4LdvZe8332HrcbnYq1BXqUNdT8XraPtJDQY
-         CfqOCi+DRWDXOosmT32mAsDN/4OUr+dwL7q2AVj2KNRapeb5xWwWOVThY1WqSbGvC9CO
-         J21A==
+        d=baylibre.com; s=google; t=1782909646; x=1783514446; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=7gvfiWDDw2ES6TPPr+xJ5WsqSsdwN2ZrtYiQL2rjqRE=;
+        b=PCk4eBy+XmTXzqXoWoVdSpbQXqQM/xA/b/0509EUn8tiHtTL7nJUkEKOgz0MqF29QI
+         SAgCQd0a0touboUWa2a1PVZOkcFJj07pnCGrx0xdUxxpwH76wgAzH7MDykOqV0FMfYni
+         CiTvnQfQL3NLEsXBnqAB8LBQ6YLV1FQbdulEZfDpPtB515cvWcCPJYgMV2SU0SwQJFCK
+         66YdcXXViZsLJ9Yo4R1cwgOdU2Zsu4/WpLSLfbAXGqMRTnmL/ppSo5GH9llwRT+ySvkI
+         nYiJDCV/2AT4cv5ktseJK5aUBZ7HscS+BP1ZB6ReEHmNWhD8Rl/etcgAm+1rxDAMYEIP
+         T6QA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782909546; x=1783514346;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=RElYUFyhVFU8ab/xOJ7WvztVwr6ToVtrUcAveEyodLc=;
-        b=PFmLooTOtUfDqecWEO2C74+ZWlldqhE20BJiCUhgxxP2rBm7RYNHlful7KqLJsILxM
-         3pcheovYs5T9mgYjzDazonnsklLAWkeVf7een+eZhxnYch0hMu8mWZKqK2D8F+VRRGjD
-         5ihpBvG9/YCeYffucAFeU/0zfsx0paaf1NdfByYoikxZvP2CA6JC6TYKjxaub0jL76cM
-         71XyUaAOiSZqEZkB46yv9czi9Vv+c/Nw3ZErM/Qtd+ZN+yaKa295SZZx5gkMh0/jAli2
-         xpfyykJUuseacWKkD/Bsd6O8QsaEzzk1qfRNK0daLu386vZuGQYotyAs2G1vDpE/dIv+
-         wlFQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9w4w+uiqDcNoZULyGI2h9sxbZRf7c328i5Gkp00isLszUNT8cRPpvGMXHSZe+PIFdc8yKjraHGSZSw@vger.kernel.org
-X-Gm-Message-State: AOJu0YwtTzzFWaGCkuUIzVbPj5kPTKg0MZ9FKCuUmMRQBrODHEThN5wY
-	rhtJ4JnifE/EcNkbZdif87dIiYblS8oV0lqK0CqVZgsplUorwKn6TGbnADzDyFKG7bIFVMmZ0jW
-	W8FB8YOjbyuOl0Hatn0wB/LGuyDHDX8FdnOboIUZHbFVnFpiWJ8DTrf3MJThXB9v9
-X-Gm-Gg: AfdE7clAlAceLRMcw627oJgJW0cBgJZ4ORl6wYxXM/TxqrSlEPDdEpEv+S+a9qQjjCb
-	YBkuSP/OeoU+B3a3TOzUIboSt3sDNYT28ZLJ+0PzqUNiTs5wneecdkPpGP6pCP8eYByNYf6i9ws
-	1g94FK/pyRX3ZCXB5G1/rTklZpAw40cvzm7YZIIFiSagonDBZGc6CGHRNfVeLpep+ay1EFZQ/VN
-	c2el50l27Y4RcvDx3lrN5y6nsEab97kK0rhWsYy4c6gexztvzq5gKWfycdtGAm+VgjWmtZEKcjc
-	8qgpc5CGG5t/TRnSjSXNT8KElkmucWLu00AF0hSzqzjel4N2Om0wkbYOVrl8VYHGkW5+5BuzW+y
-	8CPuSi6VUHH8TwmG8FojY8DepIA617jOIpM4k1A==
-X-Received: by 2002:a05:7022:260b:b0:139:ed5d:1b59 with SMTP id a92af1059eb24-13b36dd71ddmr1367947c88.39.1782909546425;
-        Wed, 01 Jul 2026 05:39:06 -0700 (PDT)
-X-Received: by 2002:a05:7022:260b:b0:139:ed5d:1b59 with SMTP id a92af1059eb24-13b36dd71ddmr1367914c88.39.1782909545720;
-        Wed, 01 Jul 2026 05:39:05 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b2ab0fc83sm17305784c88.3.2026.07.01.05.39.02
+        d=1e100.net; s=20251104; t=1782909646; x=1783514446;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7gvfiWDDw2ES6TPPr+xJ5WsqSsdwN2ZrtYiQL2rjqRE=;
+        b=X0MX1xSQQwhp76KTBGzAQVo82AiZPPuKdywLk9Vp5uV/67acQ/Uhh0DU/lbD3HFbHL
+         ZSQDiQTwjQoYHk5SxrTEpynocfsOETnfoY1ra+uqLqYMqb0qlTKVXrISuJ2uU/N0MdQN
+         eUfL3VPQa7q/IO0m/QmmaNZkJDG6OkXTLN0OF2V6CB4mjfNnRGYjj0UwtGa1dYKF2h4L
+         xXW7eJE0sNW3ZhYVlcFWmEhRqHnUM0Js1j2khS2avnsjImP9ZqboKdmgksDL7XlyHn/O
+         i2o8deb/aLgAVffreX19H47um5joHzLj+VPTBokm5HS//1Q10uCJ2wMswPV41Kgsi2zs
+         6BCg==
+X-Forwarded-Encrypted: i=1; AHgh+Rroo7+c1xll24jf6onmS9WTbzA4+zgi7XhERr992LgTfkmYFt5Ady6bb1RxE+BnpyYiTRILhSpKrkyN@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0Taa5fP5XorpUmQXYVA3o9zzqnr+rF53rbHipQ6nh0piKqpQT
+	6bGdNvnLEg4SCKDrkMGWyohAepfUGruVfGx0cG76wIYdWGXyLAD+6m6YSOzhxXK9r7w=
+X-Gm-Gg: AfdE7cm7hai5KstUAUu/UM4EmH2aik4tXSXxDCpQ8qIxBrCZzz1uxeTETsheVnnQYYv
+	87ncE3UjLkFeLPniH+khFZJ/UJnNw6UmU87uZzqkV4wdfbpHu2L2PHhV7NndEdmnAPivcLZ4KxJ
+	YTX7V6ULL/8UkYaTbOHXsv63X23iYMbQp+38pL4Lo0neF8WTLyPEiuziRe4vvmwtT2tid2uY4M7
+	sRPWnS8e0sjrhVRN2Ns6yU8PCml67OZKCoyxjkKVzZgcozC+HWxdPGOaHVqg7iS3uelV42CPRZO
+	3FGFaYnK3WQLigWtdEzMv1jgS1tk4vzjBfDUGe52fyCf7E6rekQlkzOnl85yMmBTZ89n34MMz7E
+	jaXYV/WhzpXJ36UiIizr1/wM6n4OOB+uixu52BDRFjdIp5bYET+k2lEhwqbyUFzOAOkIfUNNq1j
+	agrNuQgiR82rvnyNuZL7po
+X-Received: by 2002:a05:6000:4811:b0:473:e954:6abd with SMTP id ffacd0b85a97d-475e005362emr8734001f8f.21.1782909646117;
+        Wed, 01 Jul 2026 05:40:46 -0700 (PDT)
+Received: from localhost ([2001:4090:a246:8638:a73d:f626:6582:90ca])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-475643cd85dsm15966447f8f.15.2026.07.01.05.40.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 05:39:05 -0700 (PDT)
-Date: Wed, 1 Jul 2026 18:08:58 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v8] arm64: dts: qcom: kodiak: Add EL2 overlay
-Message-ID: <20260701123858.4grcpqlv25k3r7mp@hu-mojha-hyd.qualcomm.com>
-References: <20260624063952.2242702-1-mukesh.ojha@oss.qualcomm.com>
- <8fbfa82f-aae7-48d6-9406-d04e719f028d@oss.qualcomm.com>
- <0e7a5719-9271-498c-bc0d-5fa76341ede7@oss.qualcomm.com>
- <20260629122248.yb5fe7rifdoowpfl@hu-mojha-hyd.qualcomm.com>
- <b7d6e7dd-afd6-4ca9-bc54-4533de6b663e@oss.qualcomm.com>
- <20260630063037.k47sbwf26l4fi5gu@hu-mojha-hyd.qualcomm.com>
- <174009b9-8be6-48e0-847f-a85c224fb817@oss.qualcomm.com>
+        Wed, 01 Jul 2026 05:40:45 -0700 (PDT)
+From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+Subject: [PATCH v7 00/11] arm64: dts: ti: k3-am62a7-sk: Split r5f memory
+ region
+Date: Wed, 01 Jul 2026 14:39:12 +0200
+Message-Id: <20260701-topic-am62a-ioddr-dt-v6-19-v7-0-e9db8b16821a@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <174009b9-8be6-48e0-847f-a85c224fb817@oss.qualcomm.com>
-X-Proofpoint-GUID: vXyJhJ-tckylts4v0mqqQTN9jvyRUmjn
-X-Authority-Analysis: v=2.4 cv=fLgJG5ae c=1 sm=1 tr=0 ts=6a450a6b cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=8nJEP1OIZ-IA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VSszjrxEkVDZzJrrQw0A:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDEzNCBTYWx0ZWRfX/5w6TWwLy3iW
- 6duSMhL9NhRJekuvru3pynqSCVqZ88GtDp6JiDfTKNcku3zgMaa4tyv9/joww311sWFMSs9w+dS
- NlT8tWzC4X4TeIq3P0m6Ob+gjF/+pPnMtZszgaYuFQTIc6xePA2Td+afflCJJhN+G0qC5IVW468
- cOYl0H4ykRGmAFAsOFtAAfpiygeclewOIBaeAbG3EgvTKlMdyuU7HTKNFAx1uOkXgryWwtTJOlb
- pCZ8MKOVqD/ROG55E2m5kyAO2nlDnwIOlLEq6ybKN+7ZRmhkWfDi84wE/wGgtvCkwSwtUX5UwD2
- oVPmdUiT1rUgoUJli3EtymLh2bFNpuVscNkkyaYlj/opG1gGOyTVcC7afWcISd5PUpVz3NaN9kX
- iagGSzGLsp/Sj5egPclzy/10hhnBfAdwJcDxkEDguhlNZETYKNsg9TrCcANez2dyQdkXB5Q4v0p
- KQfRwMu45J4ioMfeUOg==
-X-Proofpoint-ORIG-GUID: vXyJhJ-tckylts4v0mqqQTN9jvyRUmjn
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDEzNCBTYWx0ZWRfXwcVDpHI9zNTK
- zpvH/lz1yXAeZ/r/bWg1pgIMNHdzlTA8TM4Y4VJwSbwAzPlC5g7L6ioXy28BqwCev5wiJk/iI3Z
- veycFlTYo5xYMSzGJLVyWSGjY6kGxrk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-01_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010134
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHAKRWoC/33RS27DIBAG4KtErEs1DJhxuuo9qi5ggAapiSNsW
+ Y0i3704XcSqLJb/LL553cUYS46jeDvcRYlzHvNwqYFeDoJP7vIVZQ41CwS0gArkNFwzS3e26GQ
+ eQigyTHK2Uh0lBEekEHoVSFTgWmLKPw/847PmUx6nodwevWa1Vv9YDbrFzkqCVJgiofcGAr57d
+ /vOvsRXHs5ilWfcaAqbGlZNE3viGNl2/Y6mt1rf1HTV2ChDmj1q1juaeWoGj03NVC0xUrCOqdO
+ 8o3VPzYJqat26ad9ZB6hdSnt3s1utPZtdv2Bd8u5IyUf4py3L8gvTFO/LTQIAAA==
+X-Change-ID: 20260210-topic-am62a-ioddr-dt-v6-19-0da7712081d7
+To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Judith Mendez <jm@ti.com>, Daniel Schultz <d.schultz@phytec.de>, 
+ Andrew Davis <afd@ti.com>, Siddharth Vadapalli <s-vadapalli@ti.com>, 
+ Paresh Bhagat <p-bhagat@ti.com>, Bryan Brattlof <bb@ti.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, Devarsh Thakkar <devarsht@ti.com>, 
+ Beleswar Padhi <b-padhi@ti.com>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Vishal Mahaveer <vishalm@ti.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Sebin Francis <sebin.francis@ti.com>, Kendall Willis <k-willis@ti.com>, 
+ Akashdeep Kaur <a-kaur@ti.com>, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, Hari Nagalla <hnagalla@ti.com>, 
+ "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4819; i=msp@baylibre.com;
+ h=from:subject:message-id; bh=/QSNh/oJUk3K36diT3vAhwVzwhYSE2dQVz87cYlXnkA=;
+ b=owGbwMvMwCXWejAsc4KoVzDjabUkhixXriLrF8leJpEiuTrS/5YqiSx0XXVpXjOn8Otp4a8+x
+ KZum13SUcrCIMbFICumyNKZGJr2X37nseRFyzbDzGFlAhnCwMUpABNxO8nwh3fq5unzOIvL032b
+ J221mBZ4/kSQ6mlXuU2vgoWary9zWsvwPytA7kLNvtXeLsvM17Sw1MayXsz6wfnKitn2f9PUvZI
+ N7AA=
+X-Developer-Key: i=msp@baylibre.com; a=openpgp;
+ fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
 
-On Wed, Jul 01, 2026 at 02:26:11PM +0200, Konrad Dybcio wrote:
-> On 6/30/26 8:30 AM, Mukesh Ojha wrote:
-> > On Mon, Jun 29, 2026 at 04:08:26PM +0200, Konrad Dybcio wrote:
-> >> On 6/29/26 2:22 PM, Mukesh Ojha wrote:
-> >>> On Mon, Jun 29, 2026 at 01:36:34PM +0200, Konrad Dybcio wrote:
-> >>>> On 6/25/26 3:14 AM, Miaoqing Pan wrote:
-> >>>>>
-> >>>>>
-> >>>>> On 6/24/2026 2:39 PM, Mukesh Ojha wrote:
-> >>>>>> All the existing variants Kodiak boards are using Gunyah hypervisor
-> >>>>>> which means that, so far, Linux-based OS could only boot in EL1 on those
-> >>>>>> devices.  However, it is possible for us to boot Linux at EL2 on these
-> >>>>>> devices [1].
-> >>>>
-> >>>> [...]
-> >>>>
-> >>>>> Is it necessary to redefine |wlan_ce_mem|? Can we consider updating |qcs6490-rb3gen2.dts|?
-> >>>>> I have verified that with the following changes, *NON-KVM works fine*, and |wlan_ce_mem| is only used by the WCN6750 firmware.
-> >>>>
-> >>>> Is there a good reason non-chrome devices never defined that region in
-> >>>> the first place?
-> >>>
-> >>> This region is needed by WPSS and non-Chrome (Gunyah) has IOMMU
-> >>> control, maps it for WPSS during boot up while Linux at EL2 needs
-> >>> to map it for WPSS in Gunyah's absence.
-> >>
-> >> Right, I'm asking about it usefulness on devices *with* Gunyah
-> > 
-> > Ideally, it does not need to be mentioned in the OS device tree when
-> > Gunyah is present as there is no user in OS..
-> 
-> But it's also reserved (in the UEFI map), right?
+Hi,
 
-This is device memory and not a normal memory.
+Split the firmware memory region in more specific parts so it is better
+described where which information is stored. Specifically the LPM metadata
+region is important as bootloader software like U-Boot has to know where
+that data is to be able to read that data and resume from RAM.
 
+The bindings are already applied. The remaining patches use the new
+layout for the platforms that are capable to support IO+DDR. For IO+DDR
+the new layout is necessary as it defines the location of the LPM
+metadata.
+
+Additionally the two important devicetree nodes for resuming from IO+DDR
+have the bootph-pre-ram flag added as this data needs to be read before
+the RAM is in use.
+
+The changes in this series were suggested as part of the IO+DDR u-boot series:
+  https://lore.kernel.org/r/814c211f-a9eb-4311-bb84-165b1a69755f@ti.com
+
+Note that concerns about uboot fixup of memory region fixups were
+discussed here:
+  https://lore.kernel.org/r/DJD1Y3G9S1SP.2GHOZ5X4RYJFA@baylibre.com
+
+Best
+Markus
+
+Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+---
+Changes in v7:
+- Rebase to v7.1-rc1
+- Fix commit messages
+- Link to v6: https://lore.kernel.org/r/20260609-topic-am62a-ioddr-dt-v6-19-v6-0-16afba97fbe0@baylibre.com
+
+Changes in v6:
+- Added fixes for the length of the wkup_r5fss0_core0_memory_region.
+  Thanks Francesco for pointing that out. am62a firmware is shorter than
+  am62p firmware. I calculated both and fixed all devicetrees using
+  them. All patches have different Fixes tags so I kept them separate.
+- Fixed the length of the split memory layout as well.
+- Removed the double definition of memory regions for the var-som board.
+- Link to v5: https://lore.kernel.org/r/20260601-topic-am62a-ioddr-dt-v6-19-v5-0-3856a023aff2@baylibre.com
+
+Changes in v5:
+- Move all changes into k3-am62a/p-ti-ipc-firmware.dtsi
+- Dropped the patch that adds bootph-pre-ram to k3-am62a stuff as it is
+  already present in k3-am62d2-evm.dts and got moved into the
+  firmware.dtsi file which covers am62a as well then.
+- Link to v4: https://lore.kernel.org/r/20260429-topic-am62a-ioddr-dt-v6-19-v4-0-fc27d6ac753c@baylibre.com
+
+Changes in v4:
+- Rebased to v7.1-rc1
+- Dropped all already applied patches that are the bindings and the
+  initial introduction of memory-region-names
+- Link to v3: https://lore.kernel.org/r/20260318-topic-am62a-ioddr-dt-v6-19-v3-0-c41473cb23c3@baylibre.com
+
+Changes in v3:
+- Squash the enforcement of the memory-region-names requirement in the
+  patch adding the memory-region-names, as suggested.
+- Link to v2: https://lore.kernel.org/r/20260312-topic-am62a-ioddr-dt-v6-19-v2-0-37cb7ceec658@baylibre.com
+
+Changes in v2:
+- Make memory-region-names required if memory-region is present
+- Fixup memory-region and memory-region-names conditions. Require either
+  2 or 6 regions for memory-region and memory-region-names
+- Reword and restructure the binding documentation for memory-region and
+  memory-region-names
+- Add memory-region-names to all uses of memory-region
+- Link to v1: https://lore.kernel.org/r/20260303-topic-am62a-ioddr-dt-v6-19-v1-0-12fe72bb40d2@baylibre.com
+
+---
+Markus Schneider-Pargmann (TI) (11):
+      arm64: dts: ti: k3-am62a-phycore-som: Fix wkup R5F memory region size
+      arm64: dts: ti: k3-am62d2-evm: Fix wkup R5F memory region size
+      arm64: dts: ti: k3-am62a7-sk: Fix wkup R5F memory region size
+      arm64: dts: ti: k3-am62p-verdin: Fix wkup R5F memory region size
+      arm64: dts: ti: k3-am62p5-sk: Fix wkup R5F memory region size
+      arm64: dts: ti: var-som-am62p: Fix wkup R5F memory region size
+      arm64: dts: ti: k3-am62a-ti-ipc-firmware: Move wkup reserved memory
+      arm64: dts: ti: k3-am62p-ti-ipc-firmware: Move wkup reserved memory
+      arm64: dts: ti: k3-am62a-ti-ipc-firmware: Split r5f memory region
+      arm64: dts: ti: k3-am62p-ti-ipc-firmware: Split r5f memory region
+      arm64: dts: ti: k3-am62p-ti-ipc-firmware: Add r5f nodes to pre-ram bootphase
+
+ arch/arm64/boot/dts/ti/k3-am62a-phycore-som.dtsi   | 12 ------
+ .../boot/dts/ti/k3-am62a-ti-ipc-firmware.dtsi      | 48 +++++++++++++++++++++-
+ arch/arm64/boot/dts/ti/k3-am62a7-sk.dts            | 12 ------
+ arch/arm64/boot/dts/ti/k3-am62d2-evm.dts           | 17 --------
+ .../boot/dts/ti/k3-am62p-ti-ipc-firmware.dtsi      | 48 +++++++++++++++++++++-
+ arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi        | 12 ------
+ arch/arm64/boot/dts/ti/k3-am62p5-sk.dts            | 12 ------
+ arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi      | 12 ------
+ 8 files changed, 92 insertions(+), 81 deletions(-)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260210-topic-am62a-ioddr-dt-v6-19-0da7712081d7
+
+Best regards,
 -- 
--Mukesh Ojha
+Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+
