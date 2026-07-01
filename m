@@ -1,132 +1,156 @@
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64AF53EDAB6
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 22:07:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCB1349CC0
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 22:30:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782943639; cv=none; b=AqNj1HSWuN41L7TjeFP1ugyj2KSAoLJA5kd0CKq98sUlP3rAjAIewU6Wmrw5YME0pExXQTCW1AKtEmZljgnTbRBlnp0qvMn7jG8T42F/3d7gF1zpNWEb2LBuH5d3OmA9/WfNQmoFtPCzPax3pqdISfZoPIn6wO7DmSPgW+79RH8=
+	t=1782945037; cv=none; b=LeNyaTmd5MQ4QgB403IJ0hpx0lP/RDqHjCCh794557tl4J0E0Nq001uEhcywlac0P1hS5Ej3X+SNxvCF08aVyM64SMkJUra2c0Bt9lbmN9tuYXnXC/LyJ2oX6XJasmzFYK1bVn8LNxrD7i2XfW7itaMtqsjnWV1SsubQLSZ3RcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782943639; c=relaxed/simple;
-	bh=CrpNqwYFbROwfChNL5ll5/GzTfwpskYniMG1vJ5UhFc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iWmlSys9vUFyflbL/UnTQbHh6geAixW0KZaLkuwZV/e3dU8YTFM2SJBe2DLEEUJIEM/3MePPhXhOSCycpTkYK3HhkaAlQDbmhna3u+FFpCQTxJUneS+eAVeGFOxi9uM0Dz3K+ch360SeRHcTleJrmkpEnZaFwLAdPL6Ttq/692o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=hfz12u1j; arc=none smtp.client-ip=209.85.161.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1782945037; c=relaxed/simple;
+	bh=BatHVsoIz5Bb4R2VzzgLNRFahxG5VaPstv4ozAB8ids=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A2Cin0HX+J/XgO/Hu06+eP/hc/vCZRn4dMQ7Dyz/BNkn4/NSZj/FE61yO1FxZkFdcRpfYI5yEa+uA2CCDzslT2DxC5dgH++gNYxaMa1v7rTgGmqiO2sYPjvqgfRv4wG85DA6HyFJZKUiPh/fE4YwoBl1YggqhdXU9JSVkcsRn2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XgAuYkQd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=krOidsnZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="hfz12u1j"
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6a1133217easo456245eaf.2
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 15:07:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XgAuYkQd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="krOidsnZ"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 661LhOJk2488755
+	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 22:30:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=oSade3cQuxhHGzrqmP0e10mU
+	4F/ywazI9nk73rEtvd8=; b=XgAuYkQdSv+Rl1NPx7o6ur9YTG8bEnRO+2JsU6Yd
+	WiZJ9XKR7lQ9O2fpAyplSZM6npnogUbW7yqAKoLx+vosoQssfsMPcUeso1hCIdm2
+	Esa7RD0bgcBKKBs1+s2OOAlzv7HfsGHDZAC5iXeGPrSDaXrWbESJjv96VkLB5295
+	ieEcE4TzrOsYSvxy96HeRyfSBQN5ImaWgudPP0iD8mQQb+Q1/PPEXlLV6Db5QU7J
+	Zz0u79Afml7RcTunhyAq0GgKNyVsSxKeX3T/I3nYDTEDTmgr7jVgpDU/i6OwACyg
+	ljxAXr2/lUcugAyIy0dpkXewzfv0U08xSQgvnZ6i7e6QCA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f56gps9tv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 22:30:35 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-91931144870so144953685a.1
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 15:30:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782943631; x=1783548431; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0W+YFg7WrnuWDqmzXv1zo2hy7v44Z4ropHEq/o61SnE=;
-        b=hfz12u1juqOIDNEohMBR75n7rMtD5+8ucC7+it9EHFDQLv+DkAERe/OkS64X77GYs5
-         kHJ2kg5WmlPCg7LwsblYah6y/MiCGSR0clVllfKP7YRXg74I/71HxLjIrH/9+hiQDq2X
-         F5I6zYcMNjYE71gQUqT70CLMdodxZ9QuahduMOLJrwtfgEwnJ7D0K2gjWehSZltKEnMw
-         XQhcBQ55cd+xwQrz8kwyzV3TuvjxZ8h011O4q+hBd0teM9Si+tqXVHUGu/edahS7n82x
-         sE64ygSNvnEdoRC8Sm65HRaa1f+FF4H7qDn7T2cyE8vWHiw5ehHuz9F/HzIOhk3YVLet
-         4iPQ==
+        d=oss.qualcomm.com; s=google; t=1782945034; x=1783549834; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=oSade3cQuxhHGzrqmP0e10mU4F/ywazI9nk73rEtvd8=;
+        b=krOidsnZGVaUiZMX1Bl3no2kPMnDS1Xw8CgNgTOCJY7tt0LdLyTltdQILmRfyceO9I
+         5GexPV05DUwyqjUwmyBxfvYn+l/QabbdxSu25HIgX8/FdtxVm9cwo1ZxEokSBWo2BvWI
+         bfSBlPhRRgInkt+tbqkr+leB/EW4pXYtUtXoXqthovvmj7S0tF62N2S2SZR0hCad4qJ9
+         mz019a0LKET4BTLqoJPl2slr9R0id1cPKF33oKh5OixbCDKNd11lpqnIZ+IyR6MWBnRB
+         gghMQK/kowq5uUzdib1dA7ZRxlkwxI1QK3DQ8f9ejRdSQ8vGNxjylb2SgzmD77rIEPtq
+         AWIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782943631; x=1783548431;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0W+YFg7WrnuWDqmzXv1zo2hy7v44Z4ropHEq/o61SnE=;
-        b=jP51tGXJmAafFy70S0sVkU6FQzCW2v7CrpADpAk4YZGT7CRcsSe/A+tX1tFNfqG0jy
-         X8dElBiVx5YCp09NpmjjitJ8dM0kmGmiSUYt+lu6NVU6fouNoEWQHwDufpnohMJl4Hcc
-         DSSPduQSbQoAG4pjqmJtNdWk3ccCyxTAYeV7r/7ow19DLajvIkqUH8sqUHUp6am99evA
-         qwxBUXRBV9X1I5xZYnlICTAIUavn/YFGnca1leys1yGezAVwqq2WxjxcrGeHlnwRGdmE
-         zqpurERvyA+z0I2ngeSKtoX7fsGv6PIF6Z9HH3FrFFYvg+OoTBCgpQymjdxVKM5wmj/k
-         HFrQ==
-X-Forwarded-Encrypted: i=1; AFNElJ818xEmz/0/rGKnv9jQwjPlL4z56j1+GK7LoLfSlmk7SL6i3DUEv4Uuz4vdfPVTlhDs26TJWUUCrhht@vger.kernel.org
-X-Gm-Message-State: AOJu0YzfG3QW2V6vySvcD1axrw0ErE7HEk7UwoQ3gaDoBYVpykogDsL8
-	a7HavYWW211t7ecNJYrv0jJSucp8e7UO9izTyv8KxmOufvNGpqYzCDzEuo7Mocy1udE=
-X-Gm-Gg: AfdE7clmC+hQx6o/ZTEbwKykFS2fPqw4fS/KdVPTXRR8ENndzOjFQqWYYC6WNnbSvb/
-	+jbCzSJrF3elsKe044PonOiymIXvCpwz3bVNT6IgM9JWBHEkQBrfE4nAR/NsA4YRRpdKq8kAOXN
-	mVlFecDj79/8xi3aLBot0kiGuD3kUR3vtMonOw0ldaeZaAifkQcroa229d1006+Hyzcawm8B4yP
-	J5mEZwZWyUXrri0LTAgrAa0Xp1e+QLQExxGKQ2tLm0+79byBceEs3RU1nMJdpgOW446/eN6fYPk
-	aKV/PDHztY/LYJJ08bGPKmS3/8eIC9ygbqkqg4LpNkw0di9P5KYd0tkO5NsQvXFvbCAEEXWm0JY
-	DHHYTTmegf08+XEs0ikw40LFsHhrG7UITaJh51uF21qimqsiu6LVCJlOTKLquRJoufD0Wr8D2KW
-	eEs7XwJG1QEv3+eY2mwgMRODPmTOdYV2v47OCiB+kdS5XX6mwwNt50fuwRkXBf
-X-Received: by 2002:a05:6820:810:b0:6a1:1978:59f3 with SMTP id 006d021491bc7-6a309a9a8f0mr2133372eaf.28.1782943630851;
-        Wed, 01 Jul 2026 15:07:10 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:d4c1:7681:5df:9500? ([2600:8803:e7e4:500:d4c1:7681:5df:9500])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44cbe84f609sm1119946fac.1.2026.07.01.15.07.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Jul 2026 15:07:10 -0700 (PDT)
-Message-ID: <fa7c348c-119e-429f-9806-2c76d328695b@baylibre.com>
-Date: Wed, 1 Jul 2026 17:07:09 -0500
+        d=1e100.net; s=20251104; t=1782945034; x=1783549834;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oSade3cQuxhHGzrqmP0e10mU4F/ywazI9nk73rEtvd8=;
+        b=eBhmKazV5ZsBj348QI4o2G1q408B+7NMVSh1xZH62T7Th0w5uK8OqqV4XyHNLY2sv4
+         LoWB6vBWgBFcAmr8wIgon6zevqS0ygj6Zlc4MZhlcw6zr3OIxK1KQtoE8OZD1IT5Rr18
+         be2Sqnba58iurq0zM6JBFMCoL/IMnOy/6Tod+hYkTE8QfERPH4Ypf8ZogejKVApOcGAl
+         Bz97LSeLHqZ1OAlC9uGAPxwvDTOUDdwa5D3G5FmJRc5tkid8igFud9PtyG6x8XEDMr8P
+         Geou+mEGSC/6P9ibbpEJtUWrPGE0AWzLKXU30fUchFtKIDvdUIUtr2eWgSNfGAI/fQbc
+         +eZg==
+X-Forwarded-Encrypted: i=1; AFNElJ+cV65Vn010j9NWTF3GWI6PXj9wrOF2IN/Gc8GfBg8M9vkff/aOo4/eo6E9MANT5XxG/M7TyOqMk1hg@vger.kernel.org
+X-Gm-Message-State: AOJu0YyPdovWOpMzi/tE0GKDdzYYgnkMJVMpxrf+IG3Uj/iX4lIQwKUV
+	plL1GUmb+u4+eUjl0x8RIGS3vd7i4kabjjZrWu6SEA+YaHjCN9WbQAjoKmHDTTnxDPPrnmB+7MO
+	StY38ZC0M3p0wBJu5mVkEpNWFKACkbzt5Wh+jI6uoAqxsBOqNCPL4kCtXiMfdCOlo
+X-Gm-Gg: AfdE7cm79dETYkGUrbkqY1GbcN/C4XqVvL+OIxiuxfa32m0eNb4o1cu6hkpCC2h5mq9
+	PiEOoma2qDIVh1bAh8E6uznZEsSXk3WolZ+2KsbuOhCd0qDOo6gUjXS8zzH7bMgACk+R/B2+q0v
+	YY3rQcMPOajMfF2ty3d8uSgz/G3wF3/6wYITROi8+ok5zmP+7H/GlF1+H3mAR+vgRlBseOEskMO
+	oI7gX7TmGXdjWELZKUXdRsU0Bs0wUgrImvkkntKX38bscBwXhzUDqevm6ZWNPk/dBknYAVO/rhl
+	rWyCwcX1ogiM0oxWWXThDpOn1wf2KfPtujbT9hTSdedKLOiuppmw7MGoAUK1tXf+X3E3f70LY2q
+	b4ebvA/AsbbX9vbt3FUcjFyOM2KZc+Jz2KZfKFAKCNbKg7K7ffZRchDIDHir/4fpfCaBEaiF3pM
+	LSKenJL//PYmy/Ag8l+1iVl/d5
+X-Received: by 2002:a05:620a:6883:b0:916:1a02:1965 with SMTP id af79cd13be357-92e784f1da5mr499405885a.50.1782945034416;
+        Wed, 01 Jul 2026 15:30:34 -0700 (PDT)
+X-Received: by 2002:a05:620a:6883:b0:916:1a02:1965 with SMTP id af79cd13be357-92e784f1da5mr499399385a.50.1782945033926;
+        Wed, 01 Jul 2026 15:30:33 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aec89e56d0sm273132e87.79.2026.07.01.15.30.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Jul 2026 15:30:32 -0700 (PDT)
+Date: Thu, 2 Jul 2026 01:30:28 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
+        sibi.sankar@oss.qualcomm.com, prasad.kumpatla@oss.qualcomm.com,
+        quic_srivasam@quicinc.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v10 3/3] arm64: dts: qcom: glymur-crd: add Audio sound
+ card node
+Message-ID: <hyasmkyrzp7zpifgcux3ud7yk65gkm2g43lp4qk5vw64ee47my@noebqpjhb2s6>
+References: <20260701163115.3701298-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260701163115.3701298-4-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/8] dt-bindings: iio: adc: Add excitation current
- sources properties
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chris Hall <c-hall@ti.com>,
- Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
- Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
- <20260625-iio-adc-ti-ads122c14-v2-2-ceb9b0b561cb@baylibre.com>
- <20260701203932.20e688db@jic23-huawei>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260701203932.20e688db@jic23-huawei>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260701163115.3701298-4-srinivas.kandagatla@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDI0MSBTYWx0ZWRfX9O/FQMu0KFwB
+ 7ZLrKM3X6XyNzVoNTuuIAmWMJ9+3UimpnSvlts/nVTLOftgjWg7CJv0VGEkyPDTy+fn9TGw+qG2
+ FCeyswLweN2eOszqCT1svBARdVYsASg=
+X-Proofpoint-GUID: ax41L9F-VvfTDmN3mQUVCv_Q7ZY1duEe
+X-Proofpoint-ORIG-GUID: ax41L9F-VvfTDmN3mQUVCv_Q7ZY1duEe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDI0MSBTYWx0ZWRfX7XMLn+lWmbtu
+ g87FSovxJzhsPzBsSZK+NpK0mHbFHHMszosRzrGDPb0u/8oyMUdD2dXdcKxFXeRGIya3I4fD0oE
+ L2DYq6Vb6rnCHvWKThyWHZdmMYtJeQtVfs+OBDXU2qHw4RkEc8JBr03OWUoLmnwvy9DxkGfRXTA
+ qUyBhmb69B+9qOHNyzYtbEFb6genudTQ14GVDe/5snKfb8ZGIJ9EXhSBf2DnyiYjpjUwrUefNhF
+ YHwS3tdMDn9x4ipB1acgfVsOWzYom8HoBgFyUuaWz3W3k+XvUkXpimTQvQYx7Mi/Y2nqluzV66t
+ C8JNmHQkNjcgvbI5VhIyEOREAiYug0rqT7Eg9BLow3wM5lV1AHt5TNeKcTtExcGr1yWZaAkGrXi
+ g+H7HU7l4KAUbcSLhCcn3m2f7yaVWUO5k2S35jWrSpkTsOVJs93rWKNSN23d+jbuJ6UAiuQ0fab
+ cic//ogfjM3KLw4jotw==
+X-Authority-Analysis: v=2.4 cv=K9oS2SWI c=1 sm=1 tr=0 ts=6a45950b cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=Pwg7NeMGc8aFi0NltBcA:9 a=CjuIK1q_8ugA:10 a=zgiPjhLxNE0A:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-01_05,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0 clxscore=1015
+ adultscore=0 impostorscore=0 suspectscore=0 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010241
 
-On 7/1/26 2:39 PM, Jonathan Cameron wrote:
-> On Thu, 25 Jun 2026 16:55:04 -0500
-> David Lechner <dlechner@baylibre.com> wrote:
+On Wed, Jul 01, 2026 at 05:31:15PM +0100, Srinivas Kandagatla wrote:
+> Add the sound card of Glymur-crd board with the routing for speakers.
 > 
->> From: Kurt Borja <kuurtb@gmail.com>
->>
->> Some ADCs incorporate current sources that provide excitation current to
->> resistive temperature devices (RTDs), thermistors, diodes and other
->> resistive sensors that require constant current biasing.
->>
->> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
->> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
->> ---
->> v2 changes (compared to Kurt's RFC v2):
->> * Make units nanoamps instead of microamps to fit known devices.
->> * Drop bit about allowing single value for multiple channels.
->> * Add bit about semantics of the array index.
->> ---
->>  Documentation/devicetree/bindings/iio/adc/adc.yaml | 20 ++++++++++++++++++++
->>  1 file changed, 20 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Documentation/devicetree/bindings/iio/adc/adc.yaml
->> index 12800737d4fb..860601ec5334 100644
->> --- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
->> +++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
->> @@ -81,6 +81,26 @@ properties:
->>        ADCs usually allow choosing between internal reference sources or a pair
->>        of external pins.
->>  
->> +  excitation-channels:
+> Add device nodes for the sound support with WSA884x smart speakers
+> and playback via speakers and recording via DMIC microphones.
 > 
-> How would this apply if a device provided excitation on pins that didn't correspond
-> to channels? i.e. some extra ones.  Perhaps such a device that also supports
-> configuration (rather than a static set up) would just need a different binding.
-> Feels like I'm creating a corner case we may never see :)
-> 
-We could have e.g. a ti,current-output flag to say that this
-is just a current output channel if we really needed this.
-In that case, I think we would use single-channel to specify
-the pin and not have excitation-channels or excitation-current-nanoamp.
-But as you guessed, this not something we would expect anyone
-to actually do with these chips, so we'll leave that out.
+> Co-developed-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
+If you are sending it, your SoB should be the last one.
+
+Other than that, LGTM.
+
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Co-developed-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 111 +++++++++++++++++++++++
+>  1 file changed, 111 insertions(+)
+> 
+
+-- 
+With best wishes
+Dmitry
