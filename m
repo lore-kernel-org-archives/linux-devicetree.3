@@ -1,168 +1,180 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CC0344DAA
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 14:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782915868; cv=none; b=Ivy5SEvq6fTIvJe1bmNp5YpOhKUubCLaV+SL8HZeoZZs53VKWSjrQBLXMwvVKDDSBpWzQjHdajPebALdZz8ynH8dI9c2fxRE3uTbW5TiW2NdcwrJTljzLxhV41LhlpzVX53Lc58GS/c8jyafa3LzYHCcaRfiP8OL1r/xroTT9JQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782915868; c=relaxed/simple;
-	bh=WjX6Uv6PwaQ78oIsHVOsGi1i4g+J/hD1ZX6kfwXpHoQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lg1HjMtSiWlQAKi1O8uvkErHExGa4HuVzwkXxwWdWnvnTM657yAJVEqZGKKfLuMO6508TfnC72UffxrbKgplUyrMtxB4bQqJZyYcdiK/+MPqCXlxgZ4sMF0I3IoLFgU9xc9cHNx+qD7EWJORjawzfxRlkgDNshBNNjX85qAadUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XJnFtCaL; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE293128D4;
+	Wed,  1 Jul 2026 14:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782915967; cv=fail; b=g8VnXYMjxV3d8E6XKp35M1sXKC5QlQTMQ7oPmUZC47+FSIC4xIr3zTBg1ppOwAJyMTGd958SCD1r7Tjf+Nv19WGHTnpNH3yBfuYOPBxjL6rNW6YyNHiMYf0EiDNXFhlB01wYvDkyRoARSvfG0R+F0XnTTIBqauNG3sJBTamBZF0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782915967; c=relaxed/simple;
+	bh=/3JpOwrlXZ2dxqvuSo3ZhO7p76gXoTX9O8kObclXCuU=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mcYVZseufzW0FZPqXnnApI0WBnsudxnQFEDCANa9wipw9+BtcLW9elOR+LPACAEI2dR2nugO1+35n4Mr4AlX/58X5bbK3eVvOpktaYg/BTjfVVIC//1HmUoGA/Xla4Wq051iC1591nGPCdBXymxA0REDEoxlx3SOzaIThPKeJ2s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=f7crp/VH; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=wFSKsN7k; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XJnFtCaL"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8479f1a86ecso403064b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 07:24:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782915866; x=1783520666; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=cQgE5Coeqhf4kFtxJ/8eUiYVdplw0+IBrf+l7oeSMjE=;
-        b=XJnFtCaLSV2bv8m2YP8NcQeuzF2zKi8y1XSs1fG3HAzYKxaCKNyf3rB0HDyfFvGX+R
-         mz3wrlnNNCNxKgsesAciCJoGxstDGsHiBgKkHnXEZi52Q/DgH9rI8xIFqjJB1Arrs/t0
-         3KUu6kKAE7WKswf6yrD7q5U5F+AktYWezMVfaV8VLBEy9/08UPo9JYU6dGEjjvJF/Hff
-         hOhyQRo9R/HFaFzQbXj3RmBHo8gdFPcG+b7hXb1/SZpUBBSUWXy2IrTb8oqiddVCrfLD
-         1rN6RtGGl0TvgSkeubKfQs3z7TzusB56qbXCb1EnpnEf7W8N1Y6P1tB1nuNESIp/RRGI
-         ZKfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782915866; x=1783520666;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=cQgE5Coeqhf4kFtxJ/8eUiYVdplw0+IBrf+l7oeSMjE=;
-        b=C12m4wKFGVnXs63z+TQlbZnjJH0W1f8h/SJN2am1sHW3hFKY4VyIlqDRZBZWQKzNLe
-         fHKslm2oaZRRDBOMwrkPgsZKiSfoU2Y5/j0AvRK1aws2dVo1/Ny4itjkolvRsC4SCdLS
-         z1OWEstkwgZtRB//gPWBH7+dOYdhUrAhHZ6I7780ZKiugnShKN3O7m/veL/kUFkrxVdG
-         RHZz2MigW9Ry14FrleksoB2SclSS+40zrbuNx3roQ3W9ipHB/mVENu54LTavqX9boUVj
-         XkYfn8Lz6RiT0WCLTdLoyPaesHefWJcrZsQqr4K0t6xhK3kgY17jn64cuRVg9awlS2vF
-         1SlA==
-X-Forwarded-Encrypted: i=1; AFNElJ8v7URM/fcErVjzc5U5yKQDl3n2LFME+sYOOezF/iOnviSCwJdganUTP2Z3nDW0eXxJ8f1x6rxzfqzY@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFekUOhC943pBbBXphsHk7q2JCD5vPNpw7YaFBLjvuoP2iEzXr
-	jp4vly+3TIen9J6ejqlyI1sjxCsWBk5LkKoXVNDyKP+TK+MdmKZE6ej+sYfvOA==
-X-Gm-Gg: AfdE7cnytU7YhztxtfR7l/Nr/ZI6iWOExCdCqgClAtMvH5pWJiOhrbHiY3bk/7mV7S/
-	lseAL8K+csLYS27XyoK1PHydyIvmXO7jJ95SVN93By8dagg9ztOyBRV1IYrDPBBSaPa/fxu5HtO
-	2vW8FNpoRhjW5P6WxmQ3tx9auW1UU1UqyhlQCGZ6BdIg5K7nx6I9tjigmXpfnXFKs8bTZc7Zzpy
-	W+zdYWYbS9AMkEM74DAlQxWwqMuUrxIyRgGxvmfgtW5g6ifBHWN4zl70vgk3uS8BShijwJUfre6
-	BDaAMldQRM/QTbk8oxHm6cZzLqLD8nkqWv8hS+lfvW4JW5ZP8fo83XVzee4tU09oEtmtPjqfHjs
-	uA9ccpqMtjJdcfKi9k6iQ9zr1WNeU3R4DWoBXfNatjsjcRqvIsBm8nhBBRXrzv/ptBAtm5EjBTi
-	bVU5c60acMJvCgVRmCLhp5IAYTDx8IWikq1OyWEPRdGYbaBSFi8KpVn+5svf9a5w==
-X-Received: by 2002:a05:6a00:2986:b0:845:e3af:dde9 with SMTP id d2e1a72fcca58-847c51415e4mr953263b3a.38.1782915865802;
-        Wed, 01 Jul 2026 07:24:25 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847a0003615sm4160058b3a.17.2026.07.01.07.24.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Jul 2026 07:24:25 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <648a6df5-56ae-4e50-b1be-5ebc834d6866@roeck-us.net>
-Date: Wed, 1 Jul 2026 07:24:24 -0700
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="f7crp/VH";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="wFSKsN7k"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 661BWRAj3240502;
+	Wed, 1 Jul 2026 09:25:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=
+	content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=MHuug0xi/GQSb
+	+vcXk7nopIH9/LEfCyzLNz83KjkYlY=; b=f7crp/VHvU1vgyOhPOyntVM7LJw6n
+	qgt0mZhu1fnjUFMlto/A7ofwkk+vqOel4xfHGT2Cwza6xfYD01sd3BDZpDMXwSmn
+	WNBgE1bZ0Kcp5k9GJN0q8ksMYf5fYol0HpxPIte176DixEqSmCz0OcGN65P1/9X5
+	Mca4lbkZszI6BpLOD5/L82Qe50bQHbndkgOhkQI3l8it/5poFyHMj2/YQzwyiHge
+	4IVY/+itCUQFLqhMGlFsY2+m6ukMQMNjzXQwrggrxPcWgNfOAwulJ/RZs3h3b81q
+	OzfdJQ0OlXtH7FjmlgmLsUNbwRhw2MHLlRJ3OPpqPiavUMwVudp0Lu5Og==
+Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012031.outbound.protection.outlook.com [52.101.43.31])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4f5240s4jn-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 01 Jul 2026 09:25:54 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QfvKhot8dy+6mrbxpf6nCtTdJDe484do6XtyUF/GZAYFN3pNdBVUgSQgWoOodFB+pY6KAOG5jsN6MwBx2lsX5bBUUOuisnqs1Lsbbe0aYA9IjDbQI2o8xLmyTK83rGwkKILHPh8MREtcEWlPRtFGuqI2Iz6m36fXEmK9Z5jsv5IokiOSozAVxzzP/bM7Bj21y8GkSaY/mxpg+VHd0bwpiaX0mR9EUm9lRkZo5WQhnHIK1xiZ6IJ9vNW0AvJV6lS6KLOEIuQc+h0aR93GzEye/ZuKdflx9sKTMuLuYmynv/EHtmbiU07XQPaJ+BKxQ4aQGI0C+XhuipZRj1I/4AwECw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MHuug0xi/GQSb+vcXk7nopIH9/LEfCyzLNz83KjkYlY=;
+ b=WfZCkdtSbwLqtwICqWdhc523T6LLEQhQcmVY2IGhLAJDu3/RV8UjDzwfSWOgx+V6X+KYGPMilaGWELLvzwjT/YxLidelq7ob8TT6imDQY3RjjjVkXD75MIEGBdnZce8xwFiVhWz0dklK+2kRizZHCOHyiA9r6oUnmZhGUQ3lzFRD1Yx/VKfWntqCgRjRO6m8gWAn8znc3Rm7FXjceB5ELbTd0SpBENKa6wrsjzVIQ9JdeRsDH9zsmeSBJCJ2Yp50REXdaVAziROn9V2WltJCdjzVRDkjgZH697Or9pGomK4EASLJXPCaogHg2XE/LfbWMND5IN31BkeaQzmggLtV0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=cadence.com smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MHuug0xi/GQSb+vcXk7nopIH9/LEfCyzLNz83KjkYlY=;
+ b=wFSKsN7kyCg1rR4zMQW43ua/rMWgQ0uyVv4Rn37Qk0i+8JVBjYRjvqneHt/bzn50LHXAIZa+j9QW0nwRree1ie+ZiBlxrJCTfu1Wqw8aW5qrTrdwDR+Cd3KFTdQNS/SJAWhPsgvZ6d/et63kgqm1FUD9pbJ5DjAYFU39CwdgR3w=
+Received: from PH7P220CA0123.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:327::26)
+ by CH3PR10MB6836.namprd10.prod.outlook.com (2603:10b6:610:14f::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 1 Jul 2026
+ 14:25:50 +0000
+Received: from CY4PEPF0000FCC4.namprd03.prod.outlook.com
+ (2603:10b6:510:327:cafe::62) by PH7P220CA0123.outlook.office365.com
+ (2603:10b6:510:327::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.9 via Frontend Transport; Wed, 1
+ Jul 2026 14:25:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ CY4PEPF0000FCC4.mail.protection.outlook.com (10.167.242.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Wed, 1 Jul 2026 14:25:48 +0000
+Received: from DFLE207.ent.ti.com (10.64.6.65) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 1 Jul
+ 2026 09:25:02 -0500
+Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE207.ent.ti.com
+ (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 1 Jul
+ 2026 09:25:02 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Wed, 1 Jul 2026 09:25:02 -0500
+Received: from a0507176-HP-Z2-Tower-G9-Workstation-Desktop-PC.dhcp.ti.com (a0507176-hp-z2-tower-g9-workstation-desktop-pc.dhcp.ti.com [10.24.50.145])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 661EOvlW1000238;
+	Wed, 1 Jul 2026 09:24:58 -0500
+From: Gokul Praveen <g-praveen@ti.com>
+To: <conor+dt@kernel.org>, <devicetree@vger.kernel.org>, <krzk+dt@kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        <linux-phy@lists.infradead.org>, <neil.armstrong@linaro.org>,
+        <nm@ti.com>, <robh@kernel.org>, <sjakhade@cadence.com>,
+        <kristo@kernel.org>, <vigneshr@ti.com>, <vkoul@kernel.org>,
+        <yamonkar@cadence.com>, <g-praveen@ti.com>
+Subject: [PATCH v4 net-next 0/2] Add multilink SERDES configuration support
+Date: Wed, 1 Jul 2026 19:54:55 +0530
+Message-ID: <20260701142457.81874-1-g-praveen@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] hwmon: (emc1403) Add regulator support
-To: Svyatoslav Ryhel <clamor95@gmail.com>, Jean Delvare <jdelvare@suse.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260619103153.216444-1-clamor95@gmail.com>
- <20260619103153.216444-4-clamor95@gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260619103153.216444-4-clamor95@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC4:EE_|CH3PR10MB6836:EE_
+X-MS-Office365-Filtering-Correlation-Id: b85216c3-7fe9-46ae-b815-08ded77ca585
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|7416014|1800799024|376014|23010399003|56012099006|18002099003|6133799003|921020;
+X-Microsoft-Antispam-Message-Info:
+	UcQ/mLZcEfNutuSwqxgbkWwQ+1PKjAFUWPmp/StuOMjzTLy63eY5bge+dZvilFCgx0xttQBxocmwptEcctRBLSG7biVmAhAxv8inuRjOXroBBgdlQFVAbcO0i4Ox65Lf4WoLy44Zk/pRx5Ye6WZYkuWODVXt1KqrwVmagStgGMhZPK/4tb3aYgX6o9BLEWsZ8+Zo+jDZspqCHcxHHIYHKsuYjdeGLH01nKZRRBkd8WyJeptGfW9bbZzxg9oDOp0UjwtANnTZgv5hPHIiaVja4xTzu8Q3sy9O5S3cywA5EUp6kDnb2xibxGamD6TCKE8BJBRlg393LmAITa3fsyr0C+95lJP7YcONzqX8RqgRl+6QXbeWCXVUJv7Q64o4vM/7i6YXWw0hp11/+x/53e3HOZN+AS7BWPysFw4J8rZjLUJtoct2FEyqWBdnjnbwJoJnYVHVaKENVLekMzOqmQbuy7qModu21hXGsSXKQRJzzoO+kb6eOVbmOBN5bSBn22p4ifFwyhxKVpR4fnHq6tGo5Bt6Sll1iN0n8ak6C7PO0AZ5gzttnNPZF6ry5VTkjmlyD6QYrsk2dLyxCi6A1+G6FcYfSQFsl7z/qgylSTk62rNJiJ3LliCQP4lBUhM/WXTfrh+wtf74LFPazVq6+iBmyEUiv9X0ZUOKeXxXaMCxR0YvaRWyt/1cmMhYNlDzSnd/KZ3D40Qno5k1Q4QkiX34PakRjTvRfsIKp+b5TtALdIHhWapGq9RJGl6mtWfkJLIp
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(1800799024)(376014)(23010399003)(56012099006)(18002099003)(6133799003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	nwZl5c30MNVIIPpWTBCQw8N3JCikNp0wbJs+VoeezKtqZEeNv9ZjzJyw0fa9CotmXpY6G9Oxw6olbIhKyDmzn2rXKOZIyXQJQ7I6Bkh96X7XQ8BvcTEC7ydIgyr3R5+EB8/Ptzpu222yitEFtwebcNTL0XpsPazlM6DuQ+Fpos6hiafCvEF31oIOudXm1XaKEJ6LnuTWKuzZCgn42XuPbv/yyJ1oVuAL4yx6BP4S40u4A8tq6nvhPfVQIwe/l351Dl+gtZ6ahHapbn6OEyOxvDbSPBJdn1Cm+2o0ATLjwQV9Bxsv8bCc7ZB8oHu7ZtvYuyH0jI/2oHSwGYuwWqo2hglab8lM6lBVxlpmItmvH39nZUKRUfaZOijxd0YGlWViAHZwTn2RUKrWyn1ZvP0zoA9WjA8Rxbnn2qEi+NqnltFibw+r8cDWylHCEzrgZSKb
+X-Exchange-RoutingPolicyChecked:
+	LixMEiVMpYLc0E18GWKR3Ta6hdzW8t8O0st6nwqOnMrYXQ+ipoG50tCP3yXhRXnQWj7Z39Ax93FkxN6ceBUfqfmJpmR3nNXhYd3av7z+vMzQZ9z850jmq3d79ifdEj2A4Qx+4+xsFavKCTkGc0gW1NXtyr9IrrwGTYe00diCjUtnWkUqGB5xohagJoeV7q0FSUO0rzqeWjK3tFDLYNJRykWE6HjRw86gpDeFkRk7Ki/kFoa7nB5ZD4YicYeS44kK+YlAZhkVxAGSXn0oQCGrDBkxMdMoR3HF9XQiDmR07NHoqJtLvzf5kpNgMIvNVeZnPAlGjbAhAJaBz4FUMObwhw==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 14:25:48.5295
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b85216c3-7fe9-46ae-b815-08ded77ca585
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000FCC4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB6836
+X-Proofpoint-GUID: OogE0xB-BAvRk7VH-37w1kogtts9hwa7
+X-Proofpoint-ORIG-GUID: OogE0xB-BAvRk7VH-37w1kogtts9hwa7
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDE1MiBTYWx0ZWRfXzI1BKwcY4iQZ
+ evt/oiBcN9ItJJWTlDl370AtKRbHUIsVx509k9v6VtCBf0TIfRG+dT56P35SCPXqvYUTf+c5wk4
+ Z8IcmjWXoxdOAT2KNohN03zovyRJKDw=
+X-Authority-Analysis: v=2.4 cv=cfPiaHDM c=1 sm=1 tr=0 ts=6a452372 cx=c_pps
+ a=qV0RoXYxPRq0QxHYvE7eUA==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=RAioF0-LDSMA:10 a=V5UXEbMT0ywA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
+ a=2iqQn7EZO64zITYN9VwA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDE1MiBTYWx0ZWRfX43lTP/Dda+EB
+ rv3tNC9n7W0R/uTxL81jj28xDSh7qJDhaS6YnmWpMkhz/Abf/yCtpknQJ0dBH2vON5rtlNfEC/D
+ 8NhFEkK6/z04p6RrlqXfvXPyeK3Q1TvfM1Ug2u+KHs0/xE0g6zAFBTPoPCL5j6KnRnORrTiIYa8
+ i+k5obNutFCFMa1gz5uHEco9HMdV9S3FTeOTT8w76QSPzgo8KWNNs1fDhP3N0tIVRZ1mk4uZm1S
+ PAjY7Y3hS2uOHkGjD1ImOUO3kfsOKv3UGRw9ZFV7j3BK+4NPB9phOni1aVreUjoix0H68DrK/4D
+ k6cgMQjJQAVU1mL59rd+uGINb9Dwd7zCif4oRjKGmg48vU8Y3of9EoTwsjMRXEo9mV4wh8lWRIw
+ 4gfcaRRYGUdFc3TiKUzcLZl+8MZEwDrLgZjDloI6U6PCOvJZAtRi5B2B1Da+rfMW7xIMqo+AcXJ
+ thjbBLtodHkle8GrIRg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-01_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 impostorscore=0 priorityscore=1501 malwarescore=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010152
 
-On 6/19/26 03:31, Svyatoslav Ryhel wrote:
-> Add support for VDD power supply for this sensor. It is required on some
-> devices for the sensor to start up and work properly.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Add multilink SERDES configuration support for SERDES0,SERDES1
+SERDES2 and SERDES4 node on TI J784S4 EVM.
 
-For my reference:
+This patch series add multilink SERDES configurations support 
+for SERDES0,SERDES1 SERDES2 and SERDES4 node on TI J784S4 EVM 
+by adding the PLL1 refclk.
 
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+Gokul Praveen (2):
+  dt-bindings: phy: cadence-torrent: Update property values to support 3
+    clocks
+  arm64: dts: ti: Add PLL1 refclk to J784S4 SoC SERDES node
 
-> ---
->   drivers/hwmon/emc1403.c | 7 +++++++
->   1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/hwmon/emc1403.c b/drivers/hwmon/emc1403.c
-> index ef1ccb40ed6c..d14bd90ce424 100644
-> --- a/drivers/hwmon/emc1403.c
-> +++ b/drivers/hwmon/emc1403.c
-> @@ -19,6 +19,7 @@
->   #include <linux/mod_devicetable.h>
->   #include <linux/sysfs.h>
->   #include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
->   #include <linux/util_macros.h>
->   
->   #define THERMAL_PID_REG		0xfd
-> @@ -660,6 +661,12 @@ static int emc1403_probe(struct i2c_client *client)
->   {
->   	struct thermal_data *data;
->   	struct device *hwmon_dev;
-> +	int ret;
-> +
-> +	ret = devm_regulator_get_enable(&client->dev, "vdd");
-> +	if (ret)
-> +		return dev_err_probe(&client->dev, ret,
-> +				     "Failed to enable regulator\n");
->   
->   	data = devm_kzalloc(&client->dev, sizeof(struct thermal_data),
->   			    GFP_KERNEL);
+ .../bindings/phy/phy-cadence-torrent.yaml        | 16 ++++++++++++----
+ .../dts/ti/k3-j784s4-j742s2-main-common.dtsi     |  9 ++++++---
+ arch/arm64/boot/dts/ti/k3-j784s4-main.dtsi       |  3 ++-
+ 3 files changed, 20 insertions(+), 8 deletions(-)
+
+-- 
+2.34.1
 
