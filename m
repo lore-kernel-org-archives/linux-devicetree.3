@@ -1,152 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1258C23E342
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 06:17:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1356F366557
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 06:25:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782886639; cv=none; b=AIhQwG3DVKwK4Ow6hvQqwcIq5rksT8lHnnbdCctoMuixpFSxsbs8Ha8kjjeguhD5jhEqO/C4UmhXcqe3XiO7ol4kBNbtUSo4NBb6W99n8dDquxHJa9rKu6Fhv+5G/VaFkmYRuurhaQ8pIPKXvPDLmP34+bVQSYHUcrL+tggwhMQ=
+	t=1782887153; cv=none; b=vCIzv0EHsPdhKqgeavT0eEY0HRRv8N1f/XT+py1OaQaZ9TpGQgvlrjyzE/06wH1E9foHBy4tbhSiqSheJgNQkZrlPvb6u8us8qgqOxESCglcGOL5XCzd5BCUaaHaoVhQg1rCVLh1yTI7cwlnvA8yA4fWBMBQ7lUJYJS/iXHPTKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782886639; c=relaxed/simple;
-	bh=cSIcdyneBfm1+GTzxRROhhQH+ax8RDsQtNCF0VEjRIo=;
+	s=arc-20240116; t=1782887153; c=relaxed/simple;
+	bh=A5kNJ+jwiZSHkPJRL5j8L8fZuPTfe6OIOXShnnd1Q/Y=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cUMgfzcP6ShGEsUOGqWhUOkdnIchV3pRlyjVDvJHTLezO9mMOnQdWO4oSBtroe6eyvKDsZ5b7ZJbXDIQBWVmqNFSrduIh0BETytkihdpSH01fvuV1L5PDkXmZXN1n9VFEKlg7fmp/Q+VYesl0wFzCYP6wqFrfXYA3cnCF9Xc8VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dLN7cne+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=oJONFI9+hVSYsVex6VR50LqlOZGX6B3HYpRrIHl9z5bmJmDz3cPtB5a0Rlwh1ZzK2h/S9jzOFpyAywTriQ9aZ3LjAYsL/qyx9KiTsnAb8CfQgMdYMDN3zabXba6oVIs8X7GAhpHZbqs52wWeM59zTIBx80QF1kDek6rLZt4QT34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qk0fQWOT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dLN7cne+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 765931F000E9;
-	Wed,  1 Jul 2026 06:17:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qk0fQWOT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B25C91F00A3D;
+	Wed,  1 Jul 2026 06:25:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782886637;
-	bh=QW05j+B/0oWot7YX2rgJshdv2JHkkdmnYGD0nGedSFA=;
+	s=k20260515; t=1782887152;
+	bh=HKOrSb7vFar63hv5Whgsbff7uRvow45js6ZuTAh3jWE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dLN7cne+Gxf6pAxv4bMwKpP1dVhFurvIu5V1IoOp3QVJR/H3NlVuBYWMUXTY28S4i
-	 b9y67TJITduuqhT7zkzqKidsWfuoyHW8W5GvY7PuaUJx5p91WKJGVQXxriwOADfdp8
-	 dig/ddRW71l+WK9FoN61tfAVBx/XH1l1W0+eC/8nVwkC78O2A/kM9EmY1aPhP3Vfvg
-	 i7K3JXMa3FO2SWEjnhLG/JBONtZCl0omQX6cPcNe1n0+IhsX+EeV7x22VziPkVOhX0
-	 pN5IqSiXsYq7vynsnBeCyf+bpT+yLmFGRqfAQ9FLcMrvw2xbYhZVOeaFTrl+BpBJeO
-	 o6dvthvsFyahA==
+	b=Qk0fQWOT+r49sZnevGTlGODudvsumE7ROo7voU1G7/r1qaQajnjRYFty52brLmmoz
+	 DFKJmT+RTzYu8Dy/7tNykNKTc0h+AoIlUxgxtmfQeeBZeX6cNmOjHz8lSr75Nk2gFS
+	 NzL9+pbyn7ypOJz8rwQPlHndkMz8GXQe0kwfchXImZbqdHdNBOcJkUW6B8zm5FYsak
+	 U9CjItVjunrq76VZMcTffHCfWQnqvPqmYaNdaoQOBmAuNk9OYREmzMbrCKDJXojWqI
+	 gh9QkEHg2oeJQAGzb7cE8E6cR8fyrw53WdRNAoXjtIyZqyGH7mofGZ3v6NguX84gZS
+	 O5KK3uMqnqDqw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 2/7] qcom-tgu: Add TGU driver
+Subject: Re: [PATCH v15 3/7] qcom-tgu: Add signal priority support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Songwei Chai" <songwei.chai@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260701055529.445819-3-songwei.chai@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260701055529.445819-4-songwei.chai@oss.qualcomm.com>
 References: <20260701055529.445819-1-songwei.chai@oss.qualcomm.com>
- <20260701055529.445819-3-songwei.chai@oss.qualcomm.com>
+ <20260701055529.445819-4-songwei.chai@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 06:17:17 +0000
-Message-Id: <20260701061717.765931F000E9@smtp.kernel.org>
+Date: Wed, 01 Jul 2026 06:25:51 +0000
+Message-Id: <20260701062551.B25C91F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Time-of-Check to Time-of-Use (TOCTOU) race condition in `enable_tg=
-u_store` causes unbalanced PM runtime usage counter.
-- [High] Missing `pm_runtime_get_sync()` and unbalanced sysfs PM references=
- in `tgu_remove()` lead to PM usage counter underflow or leaks.
+- [High] Sysfs files are exposed to userspace before their backing memory i=
+s allocated, creating a race condition that leads to a NULL pointer derefer=
+ence.
+- [High] Missing cleanup of explicitly created sysfs groups on probe error =
+paths leads to dangling sysfs nodes and potential Use-After-Free.
+- [Low] Missing spinlock acquisition or `READ_ONCE` in `tgu_dataset_show` c=
+auses a data race with concurrent sysfs writes.
 --
 
-commit e9711e322428fa7e4360329e125f890c5dceb36f
+commit bffbcf9cda751c587a916ac6240800447250831c
 Author: Songwei Chai <songwei.chai@oss.qualcomm.com>
 
-qcom-tgu: Add TGU driver
-
-Add driver to support device TGU (Trigger Generation Unit).
-TGU is a Data Engine which can be utilized to sense a plurality of
-signals and create a trigger into the CTI or generate interrupts to
-processors. Add probe/enable/disable functions for tgu.
+qcom-tgu: Add signal priority support
+   =20
+Like circuit of a Logic analyzer, in TGU, the requirement could be
+configured in each step and the trigger will be created once the
+requirements are met. Add priority functionality here to sort the
+signals into different priorities. The signal which is wanted could
+be configured in each step's priority node, the larger number means
+the higher priority and the signal with higher priority will be sensed
+more preferentially.
 
 > diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
-> new file mode 100644
-> index 0000000000000..49c8f710b9318
-> --- /dev/null
+> index 49c8f710b9318..7d69986c3e3d2 100644
+> --- a/drivers/hwtracing/qcom/tgu.c
 > +++ b/drivers/hwtracing/qcom/tgu.c
+> @@ -14,14 +14,123 @@
+> =20
+>  #include "tgu.h"
+> =20
 
 [ ... ]
 
-> +/* enable_tgu_store - Configure Trace and Gating Unit (TGU) triggers. */
-> +static ssize_t enable_tgu_store(struct device *dev,
-> +				struct device_attribute *attr,
-> +				const char *buf,
-> +				size_t size)
+> +static ssize_t tgu_dataset_show(struct device *dev,
+> +				struct device_attribute *attr, char *buf)
 > +{
 > +	struct tgu_drvdata *drvdata =3D dev_get_drvdata(dev);
-> +	unsigned long val;
-> +	int ret;
+> +	struct tgu_attribute *tgu_attr =3D
+> +			container_of(attr, struct tgu_attribute, attr);
+> +	int index;
 > +
-> +	ret =3D kstrtoul(buf, 0, &val);
-> +	if (ret || val > 1)
-> +		return -EINVAL;
+> +	index =3D calculate_array_location(drvdata, tgu_attr->step_index,
+> +					 tgu_attr->operation_index,
+> +					 tgu_attr->reg_num);
 > +
-> +	if (val) {
-> +		scoped_guard(spinlock, &drvdata->lock) {
-> +			if (drvdata->enabled)
-> +				return -EBUSY;
-> +		}
-> +
-> +		ret =3D pm_runtime_resume_and_get(dev);
+> +	return sysfs_emit(buf, "0x%x\n",
+> +			  drvdata->value_table->priority[index]);
 
-[Severity: High]
-Is there a time-of-check to time-of-use (TOCTOU) race condition here?
+[Severity: Low]
+Does this read need to be protected by drvdata->lock or use READ_ONCE()?
 
-Because scoped_guard releases the lock immediately after checking
-drvdata->enabled, two threads could concurrently write '1' to this sysfs
-attribute and both pass the check.=20
+tgu_dataset_store() acquires drvdata->lock before writing to this array,
+but this read accesses it locklessly, which could cause a data race.
 
-This would cause pm_runtime_resume_and_get() to be called twice, leaking a =
-PM
-runtime usage counter since the internal boolean state only changes once.
+> +}
 
 [ ... ]
 
-> +	} else {
-> +		scoped_guard(spinlock, &drvdata->lock) {
-> +			if (!drvdata->enabled)
-> +				return -EINVAL;
-> +		}
+> @@ -128,6 +269,8 @@ static int tgu_probe(struct amba_device *adev, const =
+struct amba_id *id)
+>  {
+>  	struct device *dev =3D &adev->dev;
+>  	struct tgu_drvdata *drvdata;
+> +	unsigned int *priority;
+> +	size_t priority_size;
+>  	int ret;
+> =20
+>  	drvdata =3D devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
+> @@ -143,12 +286,30 @@ static int tgu_probe(struct amba_device *adev, cons=
+t struct amba_id *id)
+> =20
+>  	spin_lock_init(&drvdata->lock);
+> =20
+> +	tgu_set_reg_number(drvdata);
+> +	tgu_set_steps(drvdata);
 > +
-> +		tgu_disable(dev);
-> +		pm_runtime_put(dev);
-> +	}
-> +
-> +	return size;
-> +}
-
-Similarly, if two threads concurrently write '0' to the sysfs attribute, co=
-uld
-the lock being released early allow both threads to bypass the state check,
-causing the PM usage counter to decrement multiple times?
-
-[ ... ]
-
-> +static void tgu_remove(struct amba_device *adev)
-> +{
-> +	struct device *dev =3D &adev->dev;
-> +
-> +	sysfs_remove_groups(&dev->kobj, tgu_attr_groups);
-> +
-> +	tgu_disable(dev);
-> +}
+>  	ret =3D sysfs_create_groups(&dev->kobj, tgu_attr_groups);
+>  	if (ret) {
+>  		dev_err(dev, "failed to create sysfs groups: %d\n", ret);
+>  		return ret;
+>  	}
+> =20
+> +	drvdata->value_table =3D
+> +		devm_kzalloc(dev, sizeof(*drvdata->value_table), GFP_KERNEL);
 
 [Severity: High]
-Since tgu_probe() called pm_runtime_put(), doesn't tgu_remove() need to call
-pm_runtime_get_sync() to balance the counter?
+Does this expose sysfs files to userspace before their backing memory is
+allocated?
 
-Without this, the AMBA bus framework might underflow the PM usage counter t=
-o -1
-during remove.
+If userspace reads a sysfs file immediately after sysfs_create_groups() ret=
+urns,
+but before the memory allocations below complete, tgu_dataset_show() will
+dereference the uninitialized drvdata->value_table pointer. Should these
+allocations happen before the sysfs groups are created?
 
-Additionally, if the device is removed while it was enabled via sysfs,
-tgu_disable(dev) is called to turn off the hardware, but it doesn't seem to
-call pm_runtime_put(). Does this leak the PM runtime reference that was
-acquired in enable_tgu_store()?
+> +	if (!drvdata->value_table)
+> +		return -ENOMEM;
+
+[Severity: High]
+Does this error path leak the sysfs groups created earlier?
+
+If this allocation fails, the function returns -ENOMEM without calling
+sysfs_remove_groups(). The devres cleanup will eventually clear the drvdata
+pointer, leaving dangling sysfs nodes. Any subsequent access to these files
+would then trigger a NULL pointer dereference or use-after-free.
+
+> +
+> +	priority_size =3D MAX_PRIORITY * drvdata->num_reg * drvdata->num_step;
+> +
+> +	priority =3D devm_kcalloc(dev, priority_size,
+> +				sizeof(*drvdata->value_table->priority),
+> +				GFP_KERNEL);
+> +	if (!priority)
+> +		return -ENOMEM;
+> +
+> +	drvdata->value_table->priority =3D priority;
+> =20
+>  	drvdata->enabled =3D false;
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701055529.4458=
-19-1-songwei.chai@oss.qualcomm.com?part=3D2
+19-1-songwei.chai@oss.qualcomm.com?part=3D3
