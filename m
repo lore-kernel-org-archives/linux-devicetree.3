@@ -1,122 +1,183 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E13480DC4
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:49:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FACF481243
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:49:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782910148; cv=none; b=Ng2Wcj4eaXnbA9FtxFp0t9xnn7cn5pXAlfGkNUyYnGqhtRPZ6HpGv5axhMWgmfyAhZEvZ7TfhlXIPqTqKQf1Zcs4U0kMo+axTQ1CWneaOh4NjO94oIzhbKD6vlpCC1Nz/QDO5r27sBIL9JrVQbP29mSaJMnaLIXKA1rjTJWxTL4=
+	t=1782910176; cv=none; b=iHWH5EiPG2Kx0DTa7Qv/uevNa0j/EG1+bG7KfDFX4zI3zQ7oXEjoRmQnnspmoYlmo1dZw0g7d0nDFEdaGhQYZu6VmFpLS4kNP2c3jac0gKzi6H0+lE0XD5spbw8ecuhq8e/o+zeh+u+0FZqEbEY9xmNJEPKf0kAAczlIas669HY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782910148; c=relaxed/simple;
-	bh=xn8BDGrAnW5RYzwBj5s6hB0RX6F9r3lZDpwDtecgBiA=;
+	s=arc-20240116; t=1782910176; c=relaxed/simple;
+	bh=0K19coNnVeD+B2T8T5ylHUq4u9eWwT9/OFgAkiQy4Ls=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mgB7qGx1JF/skzYCBT69vkoxG6HUg2QA75PsaH56cBFmv5/3IGD3x7kd2LqziqPQxSwPYEdjsHOTbZtwf+Qm7q8luntRxHgVRHYIrKdA13hrR1YUnAGljENYoQGM4rRODs8xWwh3D+LOTrZYF45gDqZOyp4447CuX9ozN0yg530=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bnxwXQNd; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=h1WjSjQ6A4wYIVICh+90L6IWelN7yNOvgrVicvVKL6FjukhuiHzO4DDLCbl0aoSMz002E1RXn6hPWHUtiXd4fPUASK3JRZ++hJsQuWbjGb2G1rYyc4q5jMhCbmLJPFXydvGgnSArOv7Fz0dX2dVdZlW43KkXhgpP11TjrQ15kPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kv2csqmE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bnxwXQNd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 660D71F000E9;
-	Wed,  1 Jul 2026 12:49:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kv2csqmE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 953791F000E9;
+	Wed,  1 Jul 2026 12:49:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782910147;
-	bh=Jwfm+UhTq9jCPDMKqKbXqx99X35tpfzn+66Oi/yfEVk=;
+	s=k20260515; t=1782910175;
+	bh=v3UgTfSxwXblzsiR2gHqjASTi3JdJQyKR9vyVzveb/4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bnxwXQNdjjTOvNn/4We374HmxWwOJPyPyjTmTuykU9AEdwhlEwUdPEcjYHVxs8LKM
-	 EECM94fDSZHCPK82QbHHHnEs9f876iZgq7K75uobakydvSQck24dz8X8+DOCIWVTWt
-	 C9k1Xzyx2EGr7VCNn7CEf0DgQbk1j4kgQqh8EZ8WbCInGpCfNbLjb9YmdzZmZgE6jw
-	 lauwVFvijmhJ9EmdP9bhG2hueu6pa7/CUrpALP4aeTjgxtv5obdIsvztI4BZVohmEP
-	 RTK7btdhow+lswoRQjbTcaIGAq7cfXryWy8bDDfhGqZ46DIOTo8NmiWKkPsEFw7JEw
-	 58oKpi5z4fuxA==
+	b=kv2csqmEoVUHDDv3UiqHvXgnVh1j9XywRdUunm0vj3xd5PoS4NLSEB/tHsFSNby7r
+	 t0ESCSHc7ZJ/KaIZVm8qlcD/iWdR44/ivDxy/LHsL6ws2AVbSRq15FPdyxOJkcUNYj
+	 +/Hslr72fBxIrUa7JIJRnS+l20/ySl5YUnk9kNg3S3JfgBTVshNl6DGt0LrJOD3yA2
+	 IVNDYnDotI6H4OLka1H754eX8duRdMARUWIcI1udiTlGx1C69aeb04TibDbXfYoCCr
+	 HhAqvomsBPE0yOa0wycCIdTsgTs4TavYD8W9L2+/ApmngZXVMgWP5mLHlPQoTXLEqa
+	 XhWEfb7hWscRg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/7] arm64: dts: mediatek: mt8186: Add and use UART
- AP_DMA controller
+Subject: Re: [PATCH 07/12] phy: phy-mtk-dp: Support setting volt swing and
+ preemphasis values
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260701121929.19374-5-angelogioacchino.delregno@collabora.com>
-References: <20260701121929.19374-1-angelogioacchino.delregno@collabora.com>
- <20260701121929.19374-5-angelogioacchino.delregno@collabora.com>
+Cc: neil.armstrong@linaro.org, devicetree@vger.kernel.org, robh@kernel.org, vkoul@kernel.org, olteanv@gmail.com, dri-devel@lists.freedesktop.org, linux-phy@lists.infradead.org, conor+dt@kernel.org
+In-Reply-To: <20260701122008.19509-8-angelogioacchino.delregno@collabora.com>
+References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
+ <20260701122008.19509-8-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 12:49:06 +0000
-Message-Id: <20260701124907.660D71F000E9@smtp.kernel.org>
+Date: Wed, 01 Jul 2026 12:49:33 +0000
+Message-Id: <20260701124934.953791F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The `apdma` node provides an incorrect number of cells in its `int=
-errupts` property (3 instead of 4) and likely incorrect polarity, breaking =
-DT parsing and interrupt registration.
-- [Medium] Incorrect fallback compatible string `mediatek,mt6577-uart-dma` =
-violates the DT binding schema and silently restricts DMA capabilities to 3=
-2 bits.
+
+New issues:
+- [High] The newly added PHYD_DP_TX_FORCE_VOLT_SWING_EN bit is never set or=
+ cleared, causing the hardware to likely ignore the configured voltage swin=
+g and pre-emphasis values.
+- [High] Undefined behavior in `mtk_dp_phy_disable_all_lanes` when no lanes=
+ are currently enabled.
+
+Pre-existing issues:
+- [High] Missing `.remove` callback leads to Use-After-Free and unbalanced =
+PM runtime states on module unload.
 --
 
-commit 9cc7e542a995507ace5b082f09a644dd3e616c00
+commit 3443073c225a00d56dcccbe80409c8537773ab64
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-arm64: dts: mediatek: mt8186: Add and use UART AP_DMA controller
+phy: phy-mtk-dp: Support setting volt swing and preemphasis values
 
-This SoC has a DMA controller (AP_DMA) that provides one channel for each d=
-ata
-direction (transmit and receive) for all of the UART controllers in the SoC.
-This commit adds the UART DMA controller and assigns the right channels to =
-each
-of the three UART controllers to increase data TX/RX efficiency.
+Add support for honoring the set_voltages request to set the voltage swing
+and preemphasis values in the .configure() callback. It also updates the
+.reset() callback to clean up the newly configured values.
 
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8186.dtsi b/arch/arm64/boot/d=
-ts/mediatek/mt8186.dtsi
-> index b91f88ffae0e8..7b25c51b1b457 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt8186.dtsi
-> +++ b/arch/arm64/boot/dts/mediatek/mt8186.dtsi
-> @@ -1142,6 +1142,22 @@ systimer: timer@10017000 {
->  			clocks =3D <&clk13m>;
->  		};
+> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
+-mtk-dp.c
+> index a2cd22b9da066..17d871530ccaf 100644
+> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
+> @@ -235,6 +242,28 @@ static int mtk_dp_phy_configure(struct phy *phy, uni=
+on phy_configure_opts *opts)
+>  				   PHYD_TX_LN_EN, val);
+>  	}
 > =20
-> +		apdma: dma-controller@10200d80 {
-> +			compatible =3D "mediatek,mt8186-uart-dma", "mediatek,mt6577-uart-dma";
-
-[Severity: Medium]
-Does this fallback compatible string restrict the DMA bitmask?
-
-According to the mediatek,uart-dma.yaml binding, mediatek,mt8186-uart-dma
-should fall back to mediatek,mt6835-uart-dma.
-
-Because the mtk-uart-apdma driver uses the matched compatible string to
-configure the DMA mask, falling back to mt6577 restricts the controller
-to 32 bits instead of the 34 bits provided by mt6835.
-
-Could using mt6577-uart-dma here force hardware with more than 4GB of RAM
-to use SWIOTLB bounce buffering for UART DMA transfers?
-
-> +			reg =3D <0 0x10200d80 0 0x80>, <0 0x10200e00 0 0x80>,
-> +			      <0 0x10200e80 0 0x80>, <0 0x10200f00 0 0x80>,
-> +			      <0 0x10200f80 0 0x80>, <0 0x10201000 0 0x80>;
-> +			interrupts =3D <GIC_SPI 376 IRQ_TYPE_LEVEL_LOW>,
-> +				     <GIC_SPI 377 IRQ_TYPE_LEVEL_LOW>,
-> +				     <GIC_SPI 378 IRQ_TYPE_LEVEL_LOW>,
-> +				     <GIC_SPI 379 IRQ_TYPE_LEVEL_LOW>,
-> +				     <GIC_SPI 380 IRQ_TYPE_LEVEL_LOW>,
-> +				     <GIC_SPI 381 IRQ_TYPE_LEVEL_LOW>;
+> +	if (opts->dp.set_voltages) {
+> +		const u32 reg_drv_force =3D pdata->regs_dig_lane[DP_PHYD_LAN_DRIVING_F=
+ORCE];
+> +
+> +		if (opts->dp.lanes > 4) {
+> +			dev_err(&phy->dev, "Wrong lanes config %u\n", opts->dp.lanes);
+> +			return -EINVAL;
+> +		}
+> +
+> +		for (i =3D 0; i < opts->dp.lanes; i++) {
+> +			const u32 off_dig_lane =3D pdata->off_dig_lane[i];
+> +			u32 val;
+> +
+> +			val =3D FIELD_PREP(PHYD_DP_TX_FORCE_VOLT_SWING_VAL, opts->dp.voltage[=
+i]);
+> +			val |=3D FIELD_PREP(PHYD_DP_TX_FORCE_PRE_EMPH_VAL, opts->dp.pre[i]);
+> +
+> +			regmap_update_bits(dp_phy->regmap, off_dig_lane + reg_drv_force,
+> +					   PHYD_DP_TX_FORCE_VOLT_SWING_VAL |
+> +					   PHYD_DP_TX_FORCE_PRE_EMPH_VAL,
+> +					   val);
 
 [Severity: High]
-Are these interrupts missing the 4th cell?
+Does this override hardware configuration actually take effect?
 
-The root interrupt controller (&gic) requires 4 cells (#interrupt-cells =3D=
- <4>),
-but only 3 cells are provided here for each interrupt.
+Since PHYD_DP_TX_FORCE_VOLT_SWING_EN is not included in the update mask or
+set in the value here, the hardware force enable bit remains unset. Will
+the hardware ignore these override values without the enable bit being
+asserted?
 
-The missing 4th cell will cause parsing to consume parts of the next
-interrupt as the 4th cell of the current one, corrupting the entire
-interrupt mapping for this device.
+> +		}
+> +	}
+> +
+>  	regmap_update_bits(dp_phy->regmap,
+[ ... ]
+> @@ -345,6 +375,15 @@ static int mtk_dp_phy_reset(struct phy *phy)
+>  	if (ret)
+>  		dev_err(dp_phy->dev, "Could not disable lanes during reset!\n");
+> =20
 
-Additionally, GIC SPIs on MT8186 are almost exclusively active-high
-(IRQ_TYPE_LEVEL_HIGH). Is IRQ_TYPE_LEVEL_LOW functionally correct for
-this controller?
+[Severity: High]
+Is it possible for the loop in mtk_dp_phy_disable_all_lanes() to execute
+with val initially set to 0?
+
+drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_disable_all_lanes() {
+    ...
+    /* Get mask of currently enabled lane */
+    val =3D FIELD_GET(PHYD_TX_LN_EN, val);
+
+    /* Disable all lanes (needs to be done one by one, from last to first) =
+*/
+    do {
+        u32 lane_num =3D fls(val) - 1;
+        val &=3D ~BIT(lane_num);
+    ...
+}
+
+If no lanes are currently enabled, fls(0) - 1 evaluates to -1, which can
+cause undefined behavior when shifting ~BIT(-1). Should this be a
+while (val) loop instead of do { ... } while (val)?
+
+> +	/* Reset Voltage Swing and Preemphasis values */
+> +	for (i =3D 0; i < MTK_DP_PHY_MAX_LANES; i++) {
+> +		const u32 off_dig_lane =3D pdata->off_dig_lane[i];
+> +
+> +		regmap_clear_bits(dp_phy->regmap, off_dig_lane + reg_drv_force,
+> +				   PHYD_DP_TX_FORCE_VOLT_SWING_VAL |
+> +				   PHYD_DP_TX_FORCE_PRE_EMPH_VAL);
+
+[Severity: High]
+Does this correctly clear the override state?
+
+Similar to the configuration above, this clears the swing and pre-emphasis
+values but leaves the PHYD_DP_TX_FORCE_VOLT_SWING_EN bit untouched. If
+the force mode was enabled elsewhere, could it remain active after reset?
+
+> +	}
+> +
+>  	return 0;
+>  }
+
+
+[Severity: High]
+This is a pre-existing issue, but I noticed the platform driver lacks a
+.remove callback:
+
+static struct platform_driver mtk_dp_phy_driver =3D {
+	.probe =3D mtk_dp_phy_probe,
+	.driver =3D { ... },
+};
+
+During probe, pm_runtime_enable() and pm_runtime_get_sync() are called, and
+a phy_lookup structure is dynamically allocated via phy_create_lookup().
+
+Because there is no .remove callback, unloading the module leaves PM runtime
+unbalanced and leaks the phy_lookup struct, which remains on the global phys
+list while pointing to a devres-freed phy device. Could this lead to a
+use-after-free on subsequent lookups?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701121929.1937=
-4-1-angelogioacchino.delregno@collabora.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
+9-1-angelogioacchino.delregno@collabora.com?part=3D7
