@@ -1,154 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5491C48AE0E
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C1C48097B;
+	Wed,  1 Jul 2026 12:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782909954; cv=none; b=IzvUtmnhUVWLwEeA+8D/y7+9LR56HOOAo4GgSxJ9Sv60sx9JV1m4hPb/TG9gr1DwYsquNQcBizJgXPJvR4JWgVdSVGt3N/Tbpz38f151C1tP15SEoZsRwYthYwsm9/M2i1Rp6YhNqTgCv6uzW2xTJiqzcscqF43NskTsl0+3Ie4=
+	t=1782910081; cv=none; b=RhM1hpVXJkY6LBTOZskMvSjYYLf0E24fUDNDYHmYg5NTv4R/uGeVepc55tMBexUumcUl2JYv/EYac1WdDr174XQGb4MRhG5BqzKK8ZjBIDkazl8AuzquCxVqDXxDebZxb1xLyyLKNYxeF38AXHBVOmaJPcds6ReM8WiHTZf+7j8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782909954; c=relaxed/simple;
-	bh=wxzoRMagsX70jJVlc5Fj2aApG6D2sBF55wuOBcfz4TM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=B32GxhMBp7TY6AVORYGEfgFl1tdorjXcCVa/G5mXFVJc8uJNQrFMD3+C+f4iN3ys0wK6Td9meVyk2xbj97e6oru9i2QzYtlfwe6s2xW4R87FUmrMUT0DhRqBm9JyOXdei09ePs/Wg94oKEMedmbD1qOobAYkFMQ4cGOuPh1lGgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NY3GhXKW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782910081; c=relaxed/simple;
+	bh=CqASPK2DpOZ3vcTRgJZ6g6iWSFf2OOIi3rCnd9twhrY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t3OQ1YnlDUiZ1v3r6FdNEZ0mQmLCxykj6iA9MLKzyOm5OdUd2H6+NjQ1n7yTX5Ugp0Q4KUUghG+El2fktRLcYo8gQltz15slPytE1rdWwNuaF4WHvqI2UhFGZINhxVOyEKCx2cgCqBkCrCFRq8e3j7Ixmx9B5bMpwE61DR3T2Fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=04AB/X5R; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NY3GhXKW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18101F000E9;
-	Wed,  1 Jul 2026 12:45:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782909952;
-	bh=1GO6ydZbEiHirUzvJuXmFMdY6V9tQKNrQJlx+7Dg8Wc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NY3GhXKWxKbP8dUQH7uZ1WC/akCdmzTiykRqxN8+IsZByOLjfCgHoiLZKyfE7B8Tu
-	 NfZ/KEhoZjLUBoiTvhCwmICNbM5c4HVH5Uq7FonSUhnYZ9SPxy6CUo6T9TWjLCf8kT
-	 QL5RHFDawyt+MwNhSckF9SJQ4WvWM4SR4kuk6pt8qqNdPTBeKhEbk9k6Vch4mJqHF/
-	 XJzIrOkeWcebnXoVN6X44ft3ga23tW3WAzq+e50EYIC9peEHMMj33MeEzCtmsWxyzL
-	 qOPs1jiOL48g7NvezIknNOn/+hbSNb3x5BMXR1wm+7/mKtBsZypTiHPJB3eP6fUwST
-	 OuyFOalOtV1Ag==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 05/11] drm/mediatek: mtk_dp: Rework register offsets for
- proper PHY usage
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260701122024.19557-6-angelogioacchino.delregno@collabora.com>
-References: <20260701122024.19557-1-angelogioacchino.delregno@collabora.com>
- <20260701122024.19557-6-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 12:45:52 +0000
-Message-Id: <20260701124552.A18101F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="04AB/X5R"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=6wRKSXChsr77WPNeKS78AynfZLFETLZw16rerEeWi/o=; b=04
+	AB/X5RnPsqzGgx1YccBerkuxPYKjwwo+gB/hs3d37IkMLuDJMzh//bklmlN1Xj69rwO+Rk3cu7u6x
+	KuSWMsJv507OOHmA6VtUYdAC025fpud8QZxcZ1Cc6+/E90SUVJ6ZqizLcMyd7Qcl0IE/SLf4iD/cS
+	jx/BkoPXUIHe25I=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1weuLx-00AALT-D6; Wed, 01 Jul 2026 14:47:45 +0200
+Date: Wed, 1 Jul 2026 14:47:45 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Nazle Asmade, Muhammad Nazim Amirul" <muhammad.nazim.amirul.nazle.asmade@altera.com>
+Cc: "dinguyen@kernel.org" <dinguyen@kernel.org>,
+	"maxime.chevallier@bootlin.com" <maxime.chevallier@bootlin.com>,
+	"rmk+kernel@armlinux.org.uk" <rmk+kernel@armlinux.org.uk>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] arm64: dts: socfpga: agilex5: Add SoCDK TSN Config2
+ board
+Message-ID: <d70a6795-e1a2-43e2-b523-0fc668324674@lunn.ch>
+References: <20260630133108.27244-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <20260630133108.27244-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <edf84080-a5e0-478c-9977-af2376cb71c5@lunn.ch>
+ <347c50ed-234a-4f29-b63a-1e0010c6b09d@altera.com>
+ <e4cf8d95-0467-4bdc-8e19-228ced3a8bbc@lunn.ch>
+ <5a0c962e-1af0-4d6a-b871-d8a0b0197ff5@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5a0c962e-1af0-4d6a-b871-d8a0b0197ff5@altera.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Writes to PHY registers are incorrectly offset by `legacy_regoff` =
-(0x2000), corrupting DP IP registers and breaking PHY configuration.
-- [Medium] Removed bit shifts from PIXEL_ENCODE_FORMAT enums cause YCbCr co=
-lor formats to silently fall back to RGB.
---
+> > # There are a small number of cases where the MAC has hard coded
+> > # delays which cannot be disabled. The 'phy-mode' only describes the
+> > # PCB.  The inability to disable the delays in the MAC does not change
+> > # the meaning of 'phy-mode'. It does however mean that a 'phy-mode' of
+> > # 'rgmii' is now invalid, it cannot be supported, since both the PCB
+> > # and the MAC and PHY adding delays cannot result in a functional
+> > # link. Thus the MAC should report a fatal error for any modes which
+> > # cannot be supported. When the MAC implements the delay, it must
+> > # ensure that the PHY does not also implement the same delay. So it
+> > # must modify the phy-mode it passes to the PHY, removing the delay it
+> > # has added. Failure to remove the delay will result in a
+> > # non-functioning link.
+> >
+> >      Andrew
+> >
+> > ---
+> > pw-bot: cr
+> Hi Andrew,
+> 
+> The delays are provided by the FPGA GMII-to-RGMII converter soft IP,
+> which is hardcoded in the FPGA bitstream and cannot be disabled or
+> modified from the driver side.
+> 
+> Using phy-mode = "rgmii" is intentional here — it prevents the PHY from
+> adding its own internal delays on top, since the FPGA converter already
+> provides the full required delay. This is consistent with how all other
+> Agilex5 SoCDK board variants are described, as seen in commit
+> c5637e5ceb4b ("arm64: dts: socfpga: agilex5: Fix phy-mode to rgmii as HW
+> provides clock delay") already in Dinh Nguyen's tree, which applies the
+> same rationale across all Agilex5 boards.
 
-commit ef9afa51895ca44a0e35947eba008bc8a9868897
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+I've become more insistent that designs get this correct. So i don't
+care too much about past systems. Many vendors are having to fix up
+their drivers and DT in order to make new boards consistent.
 
-drm/mediatek: mtk_dp: Rework register offsets for proper PHY usage
+You can look at your system as the FPGA being the MAC, and the PHY is
+the PHY. The PCB is not providing the delay, the MAC is. This exactly
+fits the description above.
 
-This commit subtracts the DP PHY register range from the MediaTek DisplayPo=
-rt
-IP register range. It prepares the driver for PHY registration from devicet=
-ree
-by moving the top offset into the driver structure and out of the legacy re=
-gmap
-configuration.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
-/mtk_dp.c
-> index f551c4543f4ee..97bce8966a1f3 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-[ ... ]
-> @@ -424,7 +448,7 @@ static u32 mtk_dp_read(struct mtk_dp *mtk_dp, u32 off=
-set)
-> =20
->  static int mtk_dp_write(struct mtk_dp *mtk_dp, u32 offset, u32 val)
->  {
-> -	int ret =3D regmap_write(mtk_dp->regs, offset, val);
-> +	int ret =3D regmap_write(mtk_dp->regs, offset + mtk_dp->legacy_regoff, =
-val);
-> =20
->  	if (ret)
->  		dev_err(mtk_dp->dev,
-> @@ -436,7 +460,7 @@ static int mtk_dp_write(struct mtk_dp *mtk_dp, u32 of=
-fset, u32 val)
->  static int mtk_dp_update_bits(struct mtk_dp *mtk_dp, u32 offset,
->  			      u32 val, u32 mask)
->  {
-> -	int ret =3D regmap_update_bits(mtk_dp->regs, offset, mask, val);
-> +	int ret =3D regmap_update_bits(mtk_dp->regs, offset + mtk_dp->legacy_re=
-goff, mask, val);
-[ ... ]
-> @@ -1401,7 +1425,7 @@ static void mtk_dp_power_enable(struct mtk_dp *mtk_=
-dp)
->  			   SW_RST_B_PHYD, SW_RST_B_PHYD);
->  	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE,
->  			   DP_PWR_STATE_BANDGAP_TPLL, DP_PWR_STATE_MASK);
-> -	mtk_dp_write(mtk_dp, MTK_DP_1040,
-> +	mtk_dp_write(mtk_dp, DP_PHY_AUX_RX_CTL,
->  		     RG_DPAUX_RX_VALID_DEGLITCH_EN | RG_XTP_GLB_CKDET_EN |
->  		     RG_DPAUX_RX_EN);
-
-[Severity: High]
-Does this code inadvertently misdirect PHY register accesses and corrupt
-encoder state?
-
-When legacy devicetrees are used, mtk_dp->legacy_regoff is set to 0x2000.
-Because the accessor functions like mtk_dp_write() and mtk_dp_update_bits()
-now unconditionally add mtk_dp->legacy_regoff, calls using legacy PHY
-registers will be offset incorrectly.
-
-For example, when mtk_dp_power_enable() calls mtk_dp_write() with
-DP_PHY_AUX_RX_CTL (which is 0x1040), the write will actually go to 0x3040.
-This leaves the PHY unconfigured and silently overwrites the DP encoder
-register MTK_DP_ENC0_P0_3040 instead.
-
-[ ... ]
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dp_reg.h b/drivers/gpu/drm/medi=
-atek/mtk_dp_reg.h
-> index 8ad7a9cc259eb..616ea6440b08d 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-> +++ b/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-[ ... ]
-> @@ -130,34 +106,36 @@
->  #define VIDEO_COLOR_DEPTH_DP_ENC0_P0_8BIT		(3 << 8)
->  #define VIDEO_COLOR_DEPTH_DP_ENC0_P0_6BIT		(4 << 8)
->  #define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_MASK		GENMASK(14, 12)
-> -#define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_RGB		(0 << 12)
-> -#define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR422		(1 << 12)
-> -#define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR420		(2 << 12)
-> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_RGB		0
-> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR422	1
-> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR420	2
-> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YONLY		3
-> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_RAW		4
-
-[Severity: Medium]
-Will this change cause YCbCr color formats to silently fall back to RGB?
-
-The bit shifts were removed from these format definitions, but the usage
-site in mtk_dp_set_color_format() passes these values directly to
-mtk_dp_update_bits() alongside the PIXEL_ENCODE_FORMAT_DP_ENC0_P0_MASK,
-which is GENMASK(14, 12).
-
-Because regmap_update_bits() internally applies the mask to the value, an
-unshifted value like PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR422 (1) combined
-with the mask (0x7000) evaluates to 0. This clears the color format bits
-entirely and forces the hardware to output in RGB mode.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122024.1955=
-7-1-angelogioacchino.delregno@collabora.com?part=3D5
+     Andrew
