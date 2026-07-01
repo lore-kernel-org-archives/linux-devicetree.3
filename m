@@ -1,191 +1,191 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A3A3B47C4
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 07:16:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAF53AEB39
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 07:21:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782890206; cv=none; b=qO8eVjayx9pFdCFUSKRogf+ww7IWw9E9nxv0ngMtvFL0kJy24Cfvgo1z352bU7FJi+OGNkNR7rTjbbr1AbB3N5ylSnRYSqzxaJeYQUj5utvZv7qO+wR7LAMtHVqsE6h2WYzgJU3oEWODKTHpp1X7FMNrJc/PBOeRxEp4e63ye1M=
+	t=1782890463; cv=none; b=mD2ZJvpUexY6AHNRd5c1d6hFGR57hf/dWn9lgihRrWytCL8f3+g5zc5IEAb3N53GOITsWw83UJIAD104+NLaZfIGOI8K9Hgg4Gyq6/tZVpgivcSoH26q0AHdK9hN7DkgY5BOGUVUNmkcriDiTGiAqFgrjbZpBlaSG65+W8qUtrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782890206; c=relaxed/simple;
-	bh=/4LKNeeme3NOffjPb+nNorikshAcZgsjaJkeEGGabWc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gUx6ddMckwfXDerlsA8x3aLwhCiXFSx3IV/PqL479sTUOK8D3Psk8hlDYoiXsMpSOA96jv8QEVj7TdRaZUnOde0MlgEMP0BhyMGTh/X/JqVkN9K/3J/q4AJaFpnHYLSXkHm7iJer4FeozNit07rr8QHxZrDw42xGiHtUl92NU9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jMSYWtB0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GRM3Nvrm; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782890463; c=relaxed/simple;
+	bh=s0EkBbA6OLlDQRL42MhXXCS4P7TXPXgscBUslUIA6sg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iaY34JhPK7iJVbLyDzMbCNIdCkRihiNzlkHUjARADxQ7hkFuQoVU9+MYW1EMyKhq2bviPI1QvJX7e/uE3O7TcGxx1k6hqH8caD1j24vBMEuiqXZHy75fG/+PfX4cWrFWatvgnODIqAYi67oH5LuNdIeNrcMmNmSqk1xtYVxj69k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JR8m1NWG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jMSYWtB0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GRM3Nvrm"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6616qS2B279938
-	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 07:16:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	X2ckU9DLLAn5LdB48ZpPiIGBrsJhbpkMqNXUETVARFk=; b=jMSYWtB0xETMBELT
-	d64Ood69eVceW3Vdxt15j4LqwyEWsYWoqWGnw8R8F3TaAsahMnkJpT0NQUQ0AEus
-	1JCqvf0I1ceGHvNYvCLZ8mrj1efo61wSNHxLloP6QB1fhM7vE55E7FCAEWZBFcEd
-	tDmI1ZWCU0iqq+9OxAKA9jXigt6WYrT3SjqPhDriM5WQUYsuAkqH6Tgo+60QKiTY
-	sGK0oTdchz71fs1Z86+9eXNvGy1maMuHcu1RQbiH9WeE4j203/excc66O68+3gWM
-	xlj5uaye/sN1G6ksa00MQzR+Vh3zSFGbx5Wy7wqwOctaVl2hD6CDVicZIOv/5ja3
-	+powzQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4x0tg4h3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 07:16:40 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-37fca5f21b1so1093827a91.0
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 00:16:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782890200; x=1783495000; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=X2ckU9DLLAn5LdB48ZpPiIGBrsJhbpkMqNXUETVARFk=;
-        b=GRM3NvrmNBPhybpR0HpetIRaWOJV67lYAiVcqIKaoDflJQkNwgstbH6EE7qcGxCAqs
-         DTw0NVbTainZzcrYla/4hIxYqXAZlYBK/+Us8ipU1k+5U4Ajcs3zW9M09odFCyhiSMJB
-         XpuAz/lD2HtN8SN/sBV1XTICi4x1L9E58KW+ypc0Eyfi334Hesjjt7Bx+5BsjTTBsPCQ
-         ojRMqCgLDflr3XAdZAvAWhpMTyY+QC1MrdFL4eTm+YSPUHda/Slg/4L1dt+yF8OAFf+o
-         4WRAOVqnm4bQtCMyeJDZ7k9J8jClzsmMrW+gW0G8cny3eIOYQM9GycPpsR+Un9u8bUI1
-         0mqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782890200; x=1783495000;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=X2ckU9DLLAn5LdB48ZpPiIGBrsJhbpkMqNXUETVARFk=;
-        b=NAV3/uGtVu2uLZV/9gpk/DUuhjEPNZEIYF8co4IxdgGMSzX+/ZfSoYD+DxTk7dekTS
-         6tmmg5f3gIpi5zMgFWxV+cgwU5nEFGru4acQP989RtZGnTwFtZ6YceJWXJ/aejs39ZZl
-         8eoaAqsv1Q+vNa/X4nWRFPbEOcn5QuNoibzuZJxpuF/0wjZtcyosHmXYasSVoDylC0kG
-         fdWQvx5emtHUF+ubEdArWbfiVSczyloj6EnpopTzOIit7wkbsaAq87rARmTipGb3hM3a
-         18T+p8aY/KZOffUSswz8XwgVxnb468WwVhdld7m65U0jsqeOtgRvlV0gclo7Xa1NyuUO
-         Gpmg==
-X-Forwarded-Encrypted: i=1; AHgh+RptWIfV78BjLBSA/2fxNvup1/nAg1OXh/os0LCRAJs+I0RJnHlgvC/KzGvU5tKttx/zmhIajRtKr/j9@vger.kernel.org
-X-Gm-Message-State: AOJu0YyfTmn1IhL8h/IOFmNd3ZSJ2DAlHNGYADBeeYn+kt59DfnbloWk
-	mNcTpGzeXPCFf8rCKt0v/LJBg/+d7gdIdivLEaw0hoWCvlUvGbNv0jgbFsvRp2rn7oy+kWrrrx8
-	edBRNg2/Loh1qXeKydTGz/wB2rwAxoEsxpzb3SVc1RtvGitG9GWt9Haj8x4nhYm+5
-X-Gm-Gg: AfdE7clCKIrBugWzcKOyXpF2HIY9glNO/P9EWsHDm9aqLMfYdA/52v8NqU8ipuq5gFH
-	60bnDtNZXOIy35/SA8XHtprw0xpsold8FmI8w0qpeGyFKIb2P0QB00L7n7zqYWOW+XwiP5nRpXu
-	8k5NRCuGdM+yHEASjeYsxYVlvLdIEjopngf/IKFLSg4WDIRjziDvl7hDGhjmrHSdWjvIP/QInIM
-	cp+bbZ/irF9UIWp3V07Mr89ojRQP0o2xfnanUnojhvuDrBT1x7wIxNHsPrSeT/VLUb8djeY8BwS
-	bghmWecHprV+O4T1ipWglj33sGbYFMqNlqJVpzq3aysDh/7e0SKsVAiIjvRP1XGxC1rvtNU6cjE
-	xvz6q/Hmud98vXmuIEjo6yeOFfZlL0HYu379ooTj36oSUdorcPc6+f6YuFB/9Ul0w3rP4dGJap9
-	Y=
-X-Received: by 2002:a17:90b:1d49:b0:36b:b903:994 with SMTP id 98e67ed59e1d1-380674340d2mr4032526a91.4.1782890199814;
-        Wed, 01 Jul 2026 00:16:39 -0700 (PDT)
-X-Received: by 2002:a17:90b:1d49:b0:36b:b903:994 with SMTP id 98e67ed59e1d1-380674340d2mr4032489a91.4.1782890199337;
-        Wed, 01 Jul 2026 00:16:39 -0700 (PDT)
-Received: from [10.133.33.76] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c9bbcd9f5acsm2795438a12.10.2026.07.01.00.16.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Jul 2026 00:16:38 -0700 (PDT)
-Message-ID: <4117c406-0d75-4eb1-842e-1d346b7fbf99@oss.qualcomm.com>
-Date: Wed, 1 Jul 2026 15:16:31 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JR8m1NWG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17E8F1F000E9;
+	Wed,  1 Jul 2026 07:21:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782890461;
+	bh=vrL8eLRIrADDfs/+GySvUFanexKcJxih8mWF+/iKggg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JR8m1NWG2Re/aUmY+RwfGKnzHE7TGusC43ePw7zJiHCD/1dW5i8Q7EJUaJoSp6qUw
+	 nIYxGZNCUT1T5gWm0S9SJ1reBRff8VK0zNFhycGvCACH+Dovxg5c1rMA6cgShiFerP
+	 prQW20gia7Kh4zp2tggPeMjVb+CtRDguBH0hFcf/bztPYRh2769YkSyhIqrLZYmOFt
+	 JEc3r5q/nQ+LNU+QKR7m2Oavij013N3wte2hXhGglCeACjbu15Bkg4xF8pjPdMYz/d
+	 qDqZjNullDBMGQYJ2Rpu5iMQ14In/N3G6BY2RsBlUm+A4m+pavPsyEbm7ZgNFLDMc2
+	 /xuFImDL/60YA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v13 7/7] i3c: hub: p3h2x4x: Add SMBus slave mode support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, linux-i3c@lists.infradead.org, robh@kernel.org
+In-Reply-To: <20260701065755.2067793-8-lakshay.piplani@nxp.com>
+References: <20260701065755.2067793-1-lakshay.piplani@nxp.com>
+ <20260701065755.2067793-8-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 07:21:00 +0000
+Message-Id: <20260701072101.17E8F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/5] dt-bindings: arm: coresight-tnoc: Add standalone
- qcom,coresight-agtnoc compatible
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
-        Leo Yan <leo.yan@arm.com>,
-        Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
-        linux-arm-kernel@lists.infradead.org
-References: <20260701-fix-tracenoc-probe-issue-v4-0-aefab449a470@oss.qualcomm.com>
- <20260701-fix-tracenoc-probe-issue-v4-1-aefab449a470@oss.qualcomm.com>
- <20260701-stirring-piculet-of-vastness-a361e5@quoll>
-Content-Language: en-US
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-In-Reply-To: <20260701-stirring-piculet-of-vastness-a361e5@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: pBthRgKVoy5NC6ytFtsSHj02a0FoXier
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDA3MyBTYWx0ZWRfXzXw5oCpWQHDx
- 1blye9LobFUywuF1rsagunzb6xi96fwZws7TTYJxrX8h23l2aCCf08O05Xm5YZhwH5OhHkdF61X
- yRorVXJe4enLpCvgJoGOr3tuw2qDt1A=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDA3MyBTYWx0ZWRfXzW0uexfOCvS3
- bfOWmaGdtAOiT5Stlli8rK5ZAfhyv387Q2w5z2APPLNw3rLCsrAIGbEWfuqQsTmYhjSlO/RfBI+
- DQ5EB+TKhHZ5LJpitQo0M+BrCyrAhU8bRXzUhrRUC09F4A7HTG2ZZi4xDhaCETu7j4l14PQXEaT
- MuyBk8Fb1YVjXXT9WZs06Hfhl3egBc3oOjFLc0LgbwxpjZvSbKAgGLUIMivQvE3739aWPxZDOa2
- dF4QBqiyeCKCtnXEuUbey4L0Bk7EnFyjueNJ6F+segCn+0aN3SizxrviTy5RPKUi2BHcOKgHvQ6
- kPXxl78WrGW5ToQbc1vmPfuVMDUcJapHS2CerPhF0/YfyVa2tUP0oG7/xvDJohOvY8chqujMouE
- woUdEx/xYq5d4nUCj8rLpvJU32LlipVlcf7pWQipsdHvRnStDiMp7oToHkWWVcGJ6C3w43sqRTg
- fmHoVOCX9uSHBAispDA==
-X-Authority-Analysis: v=2.4 cv=T5+8ifKQ c=1 sm=1 tr=0 ts=6a44bed8 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=GqxzKewt3drvE_C864MA:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: pBthRgKVoy5NC6ytFtsSHj02a0FoXier
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-01_01,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
- bulkscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010073
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Early error paths in `p3h2x4x_read_smbus_agent_rx_buf` fail to cle=
+ar the hardware buffer receive flag, resulting in an infinite In-Band Inter=
+rupt (IBI) storm.
+- [High] Hardware IBI configuration is unconditionally overwritten after ex=
+posing I2C adapters, potentially silently disabling slave interrupts.
+- [Medium] The `P3H2X4X_TARGET_BUF_CA_TF` case in the IBI handler is unreac=
+hable because its value is masked out by the switch expression.
+--
 
+commit f1791953bf7e067a7ec560f25d66e9566565ed9b
+Author: Lakshay Piplani <lakshay.piplani@nxp.com>
 
-On 7/1/2026 2:57 PM, Krzysztof Kozlowski wrote:
-> On Wed, Jul 01, 2026 at 09:53:41AM +0800, Jie Gan wrote:
->> The TNOC compatible previously only allowed the two-string AMBA form
->> "qcom,coresight-tnoc", "arm,primecell", which forces the device onto the
->> AMBA bus.
->>
->> Convert the compatible to a oneOf and add a standalone
->> "qcom,coresight-agtnoc" compatible alongside the existing AMBA form. The
->> standalone string carries no "arm,primecell" entry, so the device is
->> created on the platform bus instead of the AMBA bus.
-> 
-> That's a Linux driver specific reason, so not a valid one.
-> 
-> Describe the hardware instead.
-> 
-> Also, you do not get other compatible for the same device.
+i3c: hub: p3h2x4x: Add SMBus slave mode support
+   =20
+This commit adds SMBus slave mode support for the P3H2x4x hub target ports.
+It allows the hub SMBus slave agent to receive downstream payloads and
+report receive events through In-Band Interrupts (IBI). The payloads are
+then forwarded to the registered I2C slave client.
 
-The device is intended to be discovered and probed via the AMBA bus. 
-However, due to a hardware issue, AMBA probing does not work correctly. 
-While adding the arm,primecell-periphid property would allow the 
-existing AMBA driver to bind, but I think that's a temp WA. As 
-Suzuki/Leo pointed out, we should not add the property to pretend the 
-device as an AMBA device.
+> diff --git a/drivers/i3c/hub/p3h2840_i3c_hub_smbus.c b/drivers/i3c/hub/p3=
+h2840_i3c_hub_smbus.c
+> index fd000ff635077..f752cbe35c482 100644
+> --- a/drivers/i3c/hub/p3h2840_i3c_hub_smbus.c
+> +++ b/drivers/i3c/hub/p3h2840_i3c_hub_smbus.c
+> @@ -15,6 +15,157 @@ enum p3h2x4x_smbus_desc_idx {
+[ ... ]
+> +static void p3h2x4x_read_smbus_agent_rx_buf(struct i3c_device *i3cdev, e=
+num p3h2x4x_rcv_buf rfbuf,
+> +					    enum p3h2x4x_tp tp, bool is_of)
+> +{
+> +	struct p3h2x4x_i3c_hub_dev *p3h2x4x_i3c_hub =3D i3cdev_get_drvdata(i3cd=
+ev);
+> +	u8 slave_rx_buffer[P3H2X4X_SMBUS_TARGET_PAYLOAD_SIZE] =3D { 0 };
+> +	u8 target_buffer_page, flag_clear =3D 0, temp =3D 0, i, addr;
+> +	u32 packet_len, slave_address, ret;
+> +	struct i2c_client *client;
+[ ... ]
+> +	/* read buffer length */
+> +	ret =3D regmap_read(p3h2x4x_i3c_hub->regmap, P3H2X4X_TARGET_BUFF_LENGTH=
+, &packet_len);
+> +	if (ret)
+> +		goto ibi_err;
+> +
+> +	if (packet_len)
+> +		packet_len =3D packet_len - 1;
+> +
+> +	if (packet_len > P3H2X4X_SMBUS_TARGET_PAYLOAD_SIZE) {
+> +		dev_err(&i3cdev->dev, "Received message too big for p3h2x4x buffer\n");
+> +		goto ibi_err;
 
-Instead, I introduced a dedicated compatible string so the device can be 
-handled by the existing platform driver without relying on the missing 
-AMBA primecell identification. The purpose of the new compatible is to 
-clearly distinguish this platform-specific case from the standard 
-AMBA-based implementation. Or shall I re-use the existing compatible 
-"qcom,coresight-tnoc" as platform standalone compatible?
+[Severity: High]
+Since flag_clear is initialized to 0, if an error path like this one jumps
+to the ibi_err label early, will it skip setting flag_clear entirely?
 
-We already have a similar pattern for the interconnect TraceNoC device, 
-which uses the platform-specific compatible string qcom,coresight-itnoc.
+If flag_clear remains 0, the cleanup code below won't write to the
+P3H2X4X_TP0_SMBUS_AGNT_STS register to clear the hardware interrupt buffer
+receive flag. Could this cause the unserviced buffer status to remain active
+in the hardware and result in an continuous IBI interrupt storm?
 
-Thanks,
-Jie
+> +	}
+[ ... ]
+> +ibi_err:
+> +	regmap_write(p3h2x4x_i3c_hub->regmap, P3H2X4X_PAGE_PTR, 0x00);
+> +
+> +	if (flag_clear)
+> +		regmap_write(p3h2x4x_i3c_hub->regmap, P3H2X4X_TP0_SMBUS_AGNT_STS + tp,=
+ flag_clear);
+> +}
+[ ... ]
+> +void p3h2x4x_ibi_handler(struct i3c_device *i3cdev,
+> +			 const struct i3c_ibi_payload *payload)
+> +{
+[ ... ]
+> +		ret =3D regmap_read(p3h2x4x_i3c_hub->regmap, P3H2X4X_TP0_SMBUS_AGNT_ST=
+S + i,
+> +				  &target_port_status);
+> +		if (ret) {
+> +			dev_err(&i3cdev->dev, "target port read status failed %d\n", ret);
+> +			continue;
+> +		}
+> +
+> +		/* process data receive buffer */
+> +		switch (target_port_status & BUF_RECEIVED_FLAG_MASK) {
+> +		case P3H2X4X_TARGET_BUF_CA_TF:
 
-> 
-> Best regards,
-> Krzysztof
-> 
+[Severity: Medium]
+Is this case reachable?
 
+If BUF_RECEIVED_FLAG_MASK is defined as 0xE (GENMASK(3, 1)) and
+P3H2X4X_TARGET_BUF_CA_TF is defined as 0x1 (BIT(0)), a bitwise AND with 0xE
+will always clear bit 0.
+
+Will the switch expression ever evaluate to 0x1, or does this unintentional=
+ly
+fall through to the default case which clears all bits by writing
+BUF_RECEIVED_FLAG_TF_MASK?
+
+> +			break;
+> +		case P3H2X4X_TARGET_BUF_0_RECEIVE:
+[ ... ]
+> +static int p3h2x4x_tp_i2c_reg_slave(struct i2c_client *slave)
+> +{
+> +	struct tp_bus *bus =3D i2c_get_adapdata(slave->adapter);
+> +	struct p3h2x4x_i3c_hub_dev *hub =3D bus->p3h2x4x_i3c_hub;
+> +	int ret;
+> +
+> +	guard(mutex)(&hub->etx_mutex);
+> +
+> +	if (!hub->i3cdev || !hub->ibi_ready)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (bus->tp_smbus_client)
+> +		return -EBUSY;
+> +
+> +	ret =3D regmap_set_bits(hub->regmap,
+> +			      P3H2X4X_TP_SMBUS_AGNT_IBI_CONFIG,
+> +			      bus->tp_mask);
+> +	if (ret)
+> +		return ret;
+> +
+> +	bus->tp_smbus_client =3D slave;
+> +	hub->hub_config.tp_config[bus->tp_port].ibi_en =3D true;
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+When p3h2x4x_tp_smbus_algo() loops over target ports and exposes I2C adapte=
+rs
+via i2c_add_adapter(), this can trigger synchronous driver binding. A slave
+driver probing could call i2c_slave_register(), which calls this function to
+enable its IBI by setting a bit in P3H2X4X_TP_SMBUS_AGNT_IBI_CONFIG.
+
+However, if p3h2x4x_tp_smbus_algo() unconditionally writes
+P3H2X4X_IBI_DISABLED (0) to P3H2X4X_TP_SMBUS_AGNT_IBI_CONFIG after the adap=
+ter
+registration loop finishes, will this silently overwrite and clear the
+interrupt configurations just set by any concurrently probing slave drivers?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701065755.2067=
+793-1-lakshay.piplani@nxp.com?part=3D7
