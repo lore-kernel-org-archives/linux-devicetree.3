@@ -1,99 +1,131 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4443C348C75;
-	Wed,  1 Jul 2026 15:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BADC35E1C0;
+	Wed,  1 Jul 2026 15:37:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782920235; cv=none; b=X1D4tKMjLwXVvf+k6U7Ar6a8T3NfYwB6PCPkbex0cZRTPCT7aKu9S1k2dgmrLevWI2fHEnEAYANt7D9ZlMeEEwERh6dctlmbHa6NKvMLcNvBR81k1GTl6SmX45Ltiv+z022fOFIgORmLa7njyRmCzRrwuXSGQfl5ePi7QFjoIs0=
+	t=1782920259; cv=none; b=ZAyTSeTbbqW0etKi8OTlttezTgSplJsIyIgg+jPKiQVNtZht0ch6X/yS2KatsTHElu5Xkl43fpoD4+H4Wv8aPio7y8n6yW5c+7td/9IR2uTTOCHkhjDWUsD45jee5g60CN19yrhjbsGNC3ALBiZEXeGxG/ajyaHxVVHvSxMJ6UQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782920235; c=relaxed/simple;
-	bh=B2XyVL7QuZTHg/QCA4ERiK9bSp3FRiqNCvgt9Ow2ZVM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cw1YMmomiPqT6ctrcFLLzjsXFli19ItNyN5SDrUk3SNP+ueb3ttY/QXJiT/pfYu4wAeGqXIEQu4V04sGbkcq2d4Jq8BQrJHvNLh69V0sdSOpiF+Uta8+xYuK9FiUtXpvS98ve3RhVH9n+4ynjdAn5ZoR9xb41eeSke0Qm4nBS94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ZsR7GGxQ; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1782920259; c=relaxed/simple;
+	bh=VvIoblXm1X/tPSKbRBSuGnldR1RB2yvtUeqUtUOCdWU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MVxyh7wmKpmKuua4knhQWGGfaceVpFbCB9d91umSxiMvSDvsah71h2FUAzHxtv9mtH7ODWigPqYrAPx0vMT3t5o+02PuqHOdOcBXTmvFFC9wYAVAxxpjFjAYpoa4sGbbDFOlNK4zhCeqhHbCI4iPTy5GRYlg3pgdbR79UdpNQzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=OClQymhQ; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ZsR7GGxQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1782920232;
-	bh=B2XyVL7QuZTHg/QCA4ERiK9bSp3FRiqNCvgt9Ow2ZVM=;
-	h=From:Date:Subject:To:Cc:From;
-	b=ZsR7GGxQRS+K6ITU00OcjTBndc0C7IbFsE7CU8t/s4x4wsTpimz8V9BkdekluR86l
-	 PhFHwjUMtxHfdE9/ts0zjTnkp2pUbyCItWGkK5nBVPNW0/mPrTLVH0pOz8jmQEZTE7
-	 Jg0bgORrQT3+8c+QiYWgwig7H7Tgs4eqFxK9Z3ri2WGYZh9jJRPr4y6TO5rKzI1rxM
-	 rvvNWg4Qa3HdoSjOB9u1JjULbIjlrvQcfa3DJzW0jUdp56ZPEh5T+X9kSYmeZrQThf
-	 iG3H5prtdW0AWgNLwvbHYzigOvwFjcEJtSZBxaqlgxfzGYOHtU9h+Oar9QCkPxtKKV
-	 W35OUKwQ+yrjA==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C51D717E0432;
-	Wed,  1 Jul 2026 17:37:11 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Wed, 01 Jul 2026 17:36:49 +0200
-Subject: [PATCH] dt-bindings: phy: mediatek,tphy: Add support for MT8189
- SoC
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="OClQymhQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=XzHsAIiohOX4DX5StnSfkUvqP8C5JNbxsBNcOJnj0rE=; b=OClQymhQGEv99ZHRnzybIl9YvS
+	/IRVrKiKnsfUvU5QsSifCbYcDZF4sNgGJUNm+JweKSvZCRCKntsKGN9BBux1lHSxGTTciW3Mq7PQm
+	Bxt/qwpQhLBQ3vEQYZYezw6oXOssspH8ih+wlwmPCL/JxWFfsAydN/ZnJ62+yj+PUTZ4kNdcWI6yj
+	9etnmg7nukA7FFpU5OKyH5GbBxYU4fZmZDOGXUggtlKNckbH5Gb9MoiPkjQzabffKvIrEatNlVy37
+	A5mbSwJWm+qZftkM2zjcDltr4RpzyWMMJ1+FiZJzyyzjPGARk1q9jHmBfi0CwVyaXRIuRQ55v7A+A
+	cit6PxBA==;
+Received: from sslproxy01.your-server.de ([78.46.139.224])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wex0I-000Psz-2v;
+	Wed, 01 Jul 2026 17:37:34 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy01.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wex0I-000OUc-2S;
+	Wed, 01 Jul 2026 17:37:34 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: sashiko-reviews@lists.linux.dev, Frank.Li@kernel.org, robh@kernel.org,
+ devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com,
+ imx@lists.linux.dev, conor+dt@kernel.org
+Subject: Re: [PATCH v6 1/1] arm64: dts: add tqma9596la-mba95xxca
+Date: Wed, 01 Jul 2026 17:37:33 +0200
+Message-ID: <7985027.31r3eYUQgx@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <akUsE6A6lX0mgM5g@SMW015318>
+References:
+ <20260701082611.3126036-1-alexander.stein@ew.tq-group.com>
+ <15795907.O9o76ZdvQC@steina-w> <akUsE6A6lX0mgM5g@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-mt8189-dt-bindings-tphy-v1-1-5848a2be8303@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQ6DIBBFr0Jm3UlAW6pexbgAmeosQAu0sTHev
- USX7yf/vR0SRaYEndgh0pcTL6GAugkYZxMmQnaFoZKVlk+p0OdGNS26jJaD4zAlzOv8w7vVWlF
- tWnpIKO810ou309wPF0d6f0ogXyNYkwjHxXvOnQi0ZTwjupYwHMcfb4JeIpoAAAA=
-X-Change-ID: 20260701-mt8189-dt-bindings-tphy-4b661e3a9e50
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782920231; l=1052;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=B2XyVL7QuZTHg/QCA4ERiK9bSp3FRiqNCvgt9Ow2ZVM=;
- b=tYvNgQLRRhU0C6Mq2zqKSPuBUtv6H016NPf0CmvwYW6Ejy3fZHF9iyT/E70wJUS8INuSEPCMY
- t3sGUZ6Yyd4B6QuzRwA6L7pTAun4Kxr/gr5XjLWn7Kt9lFmirYLf8HF
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28047/Tue Jun 30 23:29:24 2026)
 
-Add a compatible string for the MediaTek MT8189 SoC, that integrates a
-MediaTek generic T-PHY version 3.
+Hi, Frank,
 
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- Documentation/devicetree/bindings/phy/mediatek,tphy.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Am Mittwoch, 1. Juli 2026, 17:02:43 CEST schrieb Frank Li:
+> On Wed, Jul 01, 2026 at 10:50:11AM +0200, Alexander Stein wrote:
+> > Hi,
+> >
+> > here some comments about the findings.
+> >
+> > Am Mittwoch, 1. Juli 2026, 10:45:22 CEST schrieb sashiko-bot@kernel.org:
+> > > Thank you for your contribution! Sashiko AI review found 2 potential =
+issue(s) to consider:
+> > > - [High] Hardware components (PWM fan and 10G SFP) remain permanently=
+ unpowered due to disabled regulators
+> > > - [Low] Dead code: Unreferenced `pinctrl_ethphy0` node
+> > > --
+> > >
+> > > commit f54617810555494fd6b435aa3ac070a14b264e01
+> > > Author: Markus Niebel <Markus.Niebel@ew.tq-group.com>
+> > >
+> > > arm64: dts: add tqma9596la-mba95xxca
+> > >
+> > > This adds support for TQMa95xxLA modules, designed to be soldered
+> > > on a carrier board. MBa95xxCA is a carrier reference board / starter =
+kit
+> > > design. Enable the external accessible PCIe controllers as host, add
+> > > clocking and reset GPIO.
+> > >
+> > > > diff --git a/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xx=
+ca.dts b/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts
+> > > > new file mode 100644
+> > > > index 0000000000000..e90f37bbdcd80
+> > > > --- /dev/null
+> > > > +++ b/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts
+> > >
+> ...
+> > >
+> > > > +	pinctrl_ethphy0: ethphy0grp {
+> > > > +		fsl,pins =3D <IMX95_PAD_PDM_BIT_STREAM0__AONMIX_TOP_GPIO1_IO_BIT=
+9		0x1100>;
+> > > > +	};
+> > >
+> > > [Severity: Low]
+> > > Is this pinctrl group missing a reference?
+> > >
+> > > It defines pin configuration for the ethphy0 IRQ pin, but doesn't see=
+m to be
+> > > referenced by the ethphy0 node (e.g., via pinctrl-0) or any other nod=
+e.
+> >
+> > This pad is connected to gpio1 which is under control of the system man=
+ager,
+> > so Cortex-A55 (Linux) has no access to it.
+>=20
+> If not one refer it, it will never be set to GPIO at all.
 
-diff --git a/Documentation/devicetree/bindings/phy/mediatek,tphy.yaml b/Documentation/devicetree/bindings/phy/mediatek,tphy.yaml
-index ff5c77ef1176..8b240cfd537d 100644
---- a/Documentation/devicetree/bindings/phy/mediatek,tphy.yaml
-+++ b/Documentation/devicetree/bindings/phy/mediatek,tphy.yaml
-@@ -90,6 +90,7 @@ properties:
-       - items:
-           - enum:
-               - mediatek,mt8188-tphy
-+              - mediatek,mt8189-tphy
-               - mediatek,mt8195-tphy
-           - const: mediatek,generic-tphy-v3
-       - const: mediatek,mt2701-u3phy
-
----
-base-commit: ba7c57499e5999aeae8dd4f954eb2600589d80aa
-change-id: 20260701-mt8189-dt-bindings-tphy-4b661e3a9e50
+At on Linux side. But this pad is owned by System manager (SM) and will be
+set and used there exclusively.
 
 Best regards,
--- 
-Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Alexander
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+
 
