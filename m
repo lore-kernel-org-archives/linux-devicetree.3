@@ -1,500 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9701C49253D;
-	Wed,  1 Jul 2026 16:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E7349251A
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 16:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782922140; cv=none; b=Yk2ZZvkFj9/wKuEj0N8KwPO8yjJFwxWD9KzoFV5D1zoUtzaGOC00iGY0WSDR47orjmmZDvbxaoVKmAbR7lCttGouoRBysg2rGZuQuTBClfr17PaTEeTZ1mXMDsaMdlvlihfpN90NWhxIqqXxQ+iTxg032NJdx0OsJXLYDMFFC30=
+	t=1782922143; cv=none; b=gZLgYq5+0Ciz4YpBbc/tNHuQGLsQh3q+IgQIg7ar+ryGCUsBNeBN0xDOI5ZYxU0+UFCM5TWac7RsMrI8B+3Wkbm8KD5xOmAz1UqhStEeoe3CZUOH62BQsbua7i4RZ91v2ejOqIliVqdqmhXYPWvAqz/tAFgSvq6QLQS1NSIbjmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782922140; c=relaxed/simple;
-	bh=j09omTc37P68T+IK8kTvPMj/Si1vY3/2/Kn3bkY9P4g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZGkvnjgjIGrU9Mj9GedEu4FN89kUvRB2dwRG9BOTqtCZmFNEqbG+YzHOjtjbRP8Qn7YqWFlvIfZxVcIq5aC2UnYz+XSkx2C+BVMttt3apwyNlT4utHNPBFlWsiV6spT+EghLCJVswuSPonEsoyAIbOG8g0VJYSfsJPDriuS5X1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fykXsph2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782922143; c=relaxed/simple;
+	bh=QI6/1jl+FwxwLNBhZZLYlzz42SxxurAYoSgW8BhCBSU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=b7cgLMBpg5z2o4MzVU0PHrU+q3v2McU/65IUQSvWsuX3WLa9Y6GgzBJBBJSMcRuKwq/pdau4rvmy6RK0MTuAZ9TudntvMl8qJ+UGfM1Vqtu5PEaz1QN/OL4zsoxdcFvpY791hyBAkGx3qznbtoAX4a2h8afHWFZYmqHlIIzGsf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NhFFDJxG; arc=none smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fykXsph2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7833E1F00A3A;
-	Wed,  1 Jul 2026 16:08:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782922138;
-	bh=bRpiq5rufxdqwnSDjIMxZWCxMAuuCf1S5mzNKuDNLFY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=fykXsph26HR0LV16BHl63gEJ0vhMdbSEqVzGoHsJmWZQVoUlwTed8s0DB+jBRRtjN
-	 0r91yL9YQ8CwVGxWO1wLX+UmJli6XT0rriLdpvPHUKUGmTSBpOAOjEH3CFjisWNjq/
-	 FPHD5agWzrjYr83E17D+eAOfRkd5bvwT2nWvdpiwxZXUyB5WygU+Q062hwDPjIJRD/
-	 rKnoVfPQfDz3ZAS/xBCESPgeP2tekI/AwSrkK+qDCAVP66wq9NdCV7HwYyJKAphVOr
-	 f+jhDyaI+5bzSg3IbbaJsK9BrY9h5yY1VBqw4qi5pSqa5sAH2gNp70cj7oWK4FE658
-	 +xIH3/Rjs6AFg==
-From: Thierry Reding <thierry.reding@kernel.org>
-Date: Wed, 01 Jul 2026 18:08:17 +0200
-Subject: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NhFFDJxG"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-81086f7abaaso11344847b3.0
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 09:09:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782922141; x=1783526941; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QI6/1jl+FwxwLNBhZZLYlzz42SxxurAYoSgW8BhCBSU=;
+        b=NhFFDJxGrbfu8ORIh5ZCTDSO7HWovTDCcIe4MF1BM/paJptFSkkY57zxRyE4pZsPsU
+         oPlENLc8miTKXOdue0J36h8cOBwS+1+ld81Ww7cSyTaI1Kivb8NrJcFRaThQw8OCt8Hd
+         27cZKUi76JSyuVo6lSR1mglBrq8Nddx/YjO56Ww00GIZW7hr+OjFTdlNNXgT3UnYEtA1
+         ruKLSBvnbo4P/EHWstHbn4gMIv0IUsxgMdPyLcYmz7msxlA/2U0pEXsd5Z05zMMAvUuv
+         pFOwwXZ2e/hakMMvccnjwekZLclNol0oudPs1QvQCJQGTI+vZsmdKqypyHdalqK1ykNQ
+         OgNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782922141; x=1783526941;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=QI6/1jl+FwxwLNBhZZLYlzz42SxxurAYoSgW8BhCBSU=;
+        b=Jkl/a+1VZ9IVxpWxFNreGAHELl9NqFN79e7AoJdCXBcsd8tcppoKotCGWcxlZiCoRx
+         gJv0hT7X+FB4K+qBpSEDKwQV4Crw2zQEnSaFw2ElkzKJgLZFZ495xVmCYIGc2IrplzoJ
+         hEgCogZi41eiJILhi9FAmi4o4VdgMY4IqeYLbz9Ed29zHFY4B71Ii0tbqV8iHKHr/NuR
+         2A5skDFEE6bT5/cgfb1IAw5Fb1BJsiql5EZ6T4j1xD93U+8XwG7YB4ZX/SiDHUGXSPB6
+         kAFR7EsCc3UPm+vaKvn4kTgQVzZYjZ6yBRhUUfMkRv8ERHjMX+5HXH7Y9sxx5viWoo00
+         2Zkg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp3t/easqtKZWzyoMxH5RRkB642QOn8Nw6vSR/liUoQSByv335tP6Z+P1AsQs40FEt2gIJ1nTdf8qRc@vger.kernel.org
+X-Gm-Message-State: AOJu0YyLo9O0dKiBjDT/pkUiijWdAvFxQUK8zHiYjNxExRXigxm2ZyPU
+	hbs1NFFMwU69M6/wCswivb3Jgpad6FWvDtFeadFdMccra5eCrMCSXdjP
+X-Gm-Gg: AfdE7ckfoHbo9j9fIj3AmrN9JqJ+zpM7JtVnDDSuRARjHZq1tEQ8lTOin3SPJ8FYfyI
+	tIyDk/+WffpGNBvT3rdKKwcdUCM0skuD/+JFgTWmGfAtSFfGtRoF+bp8gogrl5MS7h/n3xpSfGk
+	gHcofQQcUcsbkkZeFFom+EpphWDi3BYGR4WrJdgm2HWvc3bq1E0LWuALOuC0Lk5DpbkCSmRsmHs
+	52k9K7sGYmU7JprIAP7MHCg36tHf251ugjt5IjvgA2QLRAA+BUfzbyX46oRJB+4JLDvTzrYscZ5
+	77eogQtIlGDFpDUaDyBUd6dGN7CWlMx+1MksYHKI94G5rBztuHt3cWhuzGBmUS+4YmMwBYvMcGz
+	h5zJa1iymqchqy0ofv6MdZr0B7Zc1qJaHX+bo2a+ZjZN3SO33qIxnSuFqZpxzVYSy/x3DOlYJRo
+	xrU6VT1kh9dnEW8MVbwhJMm4sckJjvWPnZUgmyr5KXzdNgPhWcE6oz1SUUmXaq
+X-Received: by 2002:a05:690c:c506:b0:809:fd83:a88b with SMTP id 00721157ae682-812e8dfc9dcmr24185557b3.3.1782922140430;
+        Wed, 01 Jul 2026 09:09:00 -0700 (PDT)
+Received: from AMD.home.local (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8144af50fa5sm1682067b3.27.2026.07.01.09.08.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Jul 2026 09:09:00 -0700 (PDT)
+From: Enzo Adriano <enzo.adriano.code@gmail.com>
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Richard Cochran <richardcochran@gmail.com>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH RFC 0/8] clk: sunxi-ng: Add support for Allwinner A733 CCU and PRCM
+Date: Wed,  1 Jul 2026 12:07:44 -0400
+Message-ID: <20260701160055.320000-a733-ccu-status-enzo.adriano.code@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260310-a733-clk-v1-0-36b4e9b24457@pigmoral.tech>
+References: <20260310-a733-clk-v1-0-36b4e9b24457@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
-In-Reply-To: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
- Russell King <linux@armlinux.org.uk>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, 
- linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11984; i=treding@nvidia.com;
- h=from:subject:message-id; bh=elmsBwlEoOLupzrob+8UUsUhd0IxXyTLvi03E0uXW9Q=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqRTuGUBbiw6Wo6Y1qI+pgFwoVeRSNIRE6UVsaL
- p1NEUAXwQCJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCakU7hgAKCRDdI6zXfz6z
- oYhJD/4ye32GeZJqJTg8Cj9ItkbpSyoH0sqwt4n8ueGzlU1w+JX4kdoaOgAi/EOIYyA8Xm5PDWk
- 1ZuZP6Q1vmnzZu+xlZfpPn+QlZTGKXoNaXq2d6/Aq5/8n1YyTSTEJOhT85yWgp5GwjXCRolH7/y
- zuOHiQlSKoJDS0JUht7iYgF8EVmcCbZK6Qe7IHpF/4ITYgOf+0IuF9Zmx5MG8KcwAkYx5w5e4Pk
- OHHSUUloGht1YXHPfIcrRkFW5h21+ilDozwZV++9r3x4xw2LqJ44ViiohozkLH8CdYZZgnnf9ww
- 6nmDWJYgvgn1k+te0wkDOpWsdUTgCm/qkMeahYmmyxBkwORTmPF6PnJKUSH+AeHeHF3S3xDrMXb
- l/XcmIJFHxdzZPjK4gOH+pBUkKB5e9Ir172FUj8mI+vXsv+n1L5V77zToYwt2CUOA4JuAoigT7w
- Z+4p6nNdW/naekNNhcTKBurCaNyIfive8gzf7NjX4e4vWcJDBFwZ+1L+nrMDzPk4yb0sXHAoTRL
- M+GA/iCBuoPTa8gUxJBamjjyfJaS3OzptscafwC5LzChvEm22DNMnIMzkiTfjNqiJ9+Tx64U8uo
- fbguc1t+m5odR3bMNQmSEMiPX8JwtwMr6qhqd6Ykp5Qwkcrn1dZ4GQrsvmmboHytO6YLyoMpSYD
- HrLBhKyEw8vhBzQ==
-X-Developer-Key: i=treding@nvidia.com; a=openpgp;
- fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Thierry Reding <treding@nvidia.com>
+Hi Junhui,
 
-There is no technical reason why there should be a limited number of CMA
-regions, so extract some code into helpers and use them to create extra
-functions (cma_create() and cma_free()) that allow creating and freeing,
-respectively, CMA regions dynamically at runtime.
+Thanks for the A733 CCU/PRCM RFC v1. I've been reading through the
+series and the review feedback, including the NSI clock/reset handling,
+the binding naming and ordering comments, the SDM macro cleanup, and the
+question around modeled but otherwise-unused clocks such as the GIC clock.
 
-The static array of CMA areas cannot be replaced by dynamically created
-areas because for many of them, allocation must not fail and some cases
-may need to initialize them before the slab allocator is even available.
-To account for this, keep these "early" areas in a separate list and
-track the dynamic areas in a separate list.
+I do not see a v2 on the list yet, so I wanted to check in: are you still
+planning to take this series forward? No rush at all, and I am happy to
+leave it entirely with you if so.
 
-Signed-off-by: Thierry Reding <treding@nvidia.com>
----
-Changes in v3:
-- rebase on top of recent linux-next, update kernel/dma/contiguous.c
-- use kzalloc_obj() instead of kzalloc() with sizeof()
+If you have moved on to other things, I would be glad to help carry the
+series forward and address the review comments, keeping your authorship
+and prior work intact. I have A733 hardware here and can help test the
+changes.
 
-Changes in v2:
-- rename fixed number of CMA areas to reflect their main use
-- account for pages in dynamically allocated regions
----
- arch/arm/mm/dma-mapping.c |   2 +-
- arch/s390/mm/init.c       |   2 +-
- include/linux/cma.h       |   8 +-
- kernel/dma/contiguous.c   |   2 +-
- mm/cma.c                  | 187 +++++++++++++++++++++++++++++++++++++---------
- mm/cma.h                  |   5 +-
- 6 files changed, 165 insertions(+), 41 deletions(-)
+Either way, please let me know what works best for you.
 
-diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
-index f9bc53b60f99..934952ab2102 100644
---- a/arch/arm/mm/dma-mapping.c
-+++ b/arch/arm/mm/dma-mapping.c
-@@ -254,7 +254,7 @@ struct dma_contig_early_reserve {
- 	unsigned long size;
- };
- 
--static struct dma_contig_early_reserve dma_mmu_remap[MAX_CMA_AREAS] __initdata;
-+static struct dma_contig_early_reserve dma_mmu_remap[MAX_EARLY_CMA_AREAS] __initdata;
- 
- static int dma_mmu_remap_num __initdata;
- 
-diff --git a/arch/s390/mm/init.c b/arch/s390/mm/init.c
-index f07168a0d3dd..f8f78f1434ea 100644
---- a/arch/s390/mm/init.c
-+++ b/arch/s390/mm/init.c
-@@ -241,7 +241,7 @@ static int s390_cma_mem_notifier(struct notifier_block *nb,
- 	mem_data.start = arg->start_pfn << PAGE_SHIFT;
- 	mem_data.end = mem_data.start + (arg->nr_pages << PAGE_SHIFT);
- 	if (action == MEM_GOING_OFFLINE)
--		rc = cma_for_each_area(s390_cma_check_range, &mem_data);
-+		rc = cma_for_each_early_area(s390_cma_check_range, &mem_data);
- 	return notifier_from_errno(rc);
- }
- 
-diff --git a/include/linux/cma.h b/include/linux/cma.h
-index 8555d38a97b1..fb7a4923c3ba 100644
---- a/include/linux/cma.h
-+++ b/include/linux/cma.h
-@@ -7,7 +7,7 @@
- #include <linux/numa.h>
- 
- #ifdef CONFIG_CMA_AREAS
--#define MAX_CMA_AREAS	CONFIG_CMA_AREAS
-+#define MAX_EARLY_CMA_AREAS	CONFIG_CMA_AREAS
- #endif
- 
- #define CMA_MAX_NAME 64
-@@ -57,8 +57,14 @@ struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order);
- bool cma_release_frozen(struct cma *cma, const struct page *pages,
- 		unsigned long count);
- 
-+extern int cma_for_each_early_area(int (*it)(struct cma *cma, void *data), void *data);
- extern int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data);
- extern bool cma_intersects(struct cma *cma, unsigned long start, unsigned long end);
- 
- extern void cma_reserve_pages_on_error(struct cma *cma);
-+
-+extern struct cma *cma_create(phys_addr_t base, phys_addr_t size,
-+			      unsigned int order_per_bit, const char *name);
-+extern void cma_free(struct cma *cma);
-+
- #endif
-diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-index f754079a287d..7975551f69b3 100644
---- a/kernel/dma/contiguous.c
-+++ b/kernel/dma/contiguous.c
-@@ -52,7 +52,7 @@
- #define CMA_SIZE_MBYTES 0
- #endif
- 
--static struct cma *dma_contiguous_areas[MAX_CMA_AREAS];
-+static struct cma *dma_contiguous_areas[MAX_EARLY_CMA_AREAS];
- static unsigned int dma_contiguous_areas_num;
- 
- static int dma_contiguous_insert_area(struct cma *cma)
-diff --git a/mm/cma.c b/mm/cma.c
-index a13ce4999b39..f989e2e98594 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -34,7 +34,12 @@
- #include "internal.h"
- #include "cma.h"
- 
--struct cma cma_areas[MAX_CMA_AREAS];
-+static DEFINE_MUTEX(cma_lock);
-+
-+struct cma cma_early_areas[MAX_EARLY_CMA_AREAS];
-+unsigned int cma_early_area_count;
-+
-+static LIST_HEAD(cma_areas);
- unsigned int cma_area_count;
- 
- phys_addr_t cma_get_base(const struct cma *cma)
-@@ -198,7 +203,6 @@ static void __init cma_activate_area(struct cma *cma)
- 				free_reserved_page(pfn_to_page(pfn));
- 		}
- 	}
--	totalcma_pages -= cma->count;
- 	cma->available_count = cma->count = 0;
- 	pr_err("CMA area %s could not be activated\n", cma->name);
- }
-@@ -207,8 +211,8 @@ static int __init cma_init_reserved_areas(void)
- {
- 	int i;
- 
--	for (i = 0; i < cma_area_count; i++)
--		cma_activate_area(&cma_areas[i]);
-+	for (i = 0; i < cma_early_area_count; i++)
-+		cma_activate_area(&cma_early_areas[i]);
- 
- 	return 0;
- }
-@@ -219,41 +223,77 @@ void __init cma_reserve_pages_on_error(struct cma *cma)
- 	set_bit(CMA_RESERVE_PAGES_ON_ERROR, &cma->flags);
- }
- 
-+static void __init cma_init_area(struct cma *cma, const char *name,
-+				 phys_addr_t size, unsigned int order_per_bit)
-+{
-+	if (name)
-+		strscpy(cma->name, name);
-+	else
-+		snprintf(cma->name, CMA_MAX_NAME,  "cma%d\n", cma_area_count);
-+
-+	cma->available_count = cma->count = size >> PAGE_SHIFT;
-+	cma->order_per_bit = order_per_bit;
-+
-+	INIT_LIST_HEAD(&cma->node);
-+}
-+
- static int __init cma_new_area(const char *name, phys_addr_t size,
- 			       unsigned int order_per_bit,
- 			       struct cma **res_cma)
- {
- 	struct cma *cma;
- 
--	if (cma_area_count == ARRAY_SIZE(cma_areas)) {
-+	if (cma_early_area_count == ARRAY_SIZE(cma_early_areas)) {
- 		pr_err("Not enough slots for CMA reserved regions!\n");
- 		return -ENOSPC;
- 	}
- 
-+	mutex_lock(&cma_lock);
-+
- 	/*
- 	 * Each reserved area must be initialised later, when more kernel
- 	 * subsystems (like slab allocator) are available.
- 	 */
--	cma = &cma_areas[cma_area_count];
--	cma_area_count++;
-+	cma = &cma_early_areas[cma_early_area_count];
-+	cma_early_area_count++;
- 
--	if (name)
--		strscpy(cma->name, name);
--	else
--		snprintf(cma->name, CMA_MAX_NAME,  "cma%d\n", cma_area_count);
-+	cma_init_area(cma, name, size, order_per_bit);
- 
--	cma->available_count = cma->count = size >> PAGE_SHIFT;
--	cma->order_per_bit = order_per_bit;
--	*res_cma = cma;
- 	totalcma_pages += cma->count;
-+	*res_cma = cma;
-+
-+	mutex_unlock(&cma_lock);
- 
- 	return 0;
- }
- 
- static void __init cma_drop_area(struct cma *cma)
- {
-+	mutex_lock(&cma_lock);
- 	totalcma_pages -= cma->count;
--	cma_area_count--;
-+	cma_early_area_count--;
-+	mutex_unlock(&cma_lock);
-+}
-+
-+static int __init cma_check_memory(phys_addr_t base, phys_addr_t size)
-+{
-+	if (!size || !memblock_is_region_reserved(base, size))
-+		return -EINVAL;
-+
-+	/*
-+	 * CMA uses CMA_MIN_ALIGNMENT_BYTES as alignment requirement which
-+	 * needs pageblock_order to be initialized. Let's enforce it.
-+	 */
-+	if (!pageblock_order) {
-+		pr_err("pageblock_order not yet initialized. Called during early boot?\n");
-+		return -EINVAL;
-+	}
-+
-+	/* ensure minimal alignment required by mm core */
-+	if (!IS_ALIGNED(base | size, CMA_MIN_ALIGNMENT_BYTES))
-+		return -EINVAL;
-+
-+	return 0;
- }
- 
- /**
-@@ -276,22 +316,9 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
- 	struct cma *cma;
- 	int ret;
- 
--	/* Sanity checks */
--	if (!size || !memblock_is_region_reserved(base, size))
--		return -EINVAL;
--
--	/*
--	 * CMA uses CMA_MIN_ALIGNMENT_BYTES as alignment requirement which
--	 * needs pageblock_order to be initialized. Let's enforce it.
--	 */
--	if (!pageblock_order) {
--		pr_err("pageblock_order not yet initialized. Called during early boot?\n");
--		return -EINVAL;
--	}
--
--	/* ensure minimal alignment required by mm core */
--	if (!IS_ALIGNED(base | size, CMA_MIN_ALIGNMENT_BYTES))
--		return -EINVAL;
-+	ret = cma_check_memory(base, size);
-+	if (ret < 0)
-+		return ret;
- 
- 	ret = cma_new_area(name, size, order_per_bit, &cma);
- 	if (ret != 0)
-@@ -444,7 +471,7 @@ static int __init __cma_declare_contiguous_nid(phys_addr_t *basep,
- 	pr_debug("%s(size %pa, base %pa, limit %pa alignment %pa)\n",
- 		__func__, &size, &base, &limit, &alignment);
- 
--	if (cma_area_count == ARRAY_SIZE(cma_areas)) {
-+	if (cma_early_area_count == ARRAY_SIZE(cma_early_areas)) {
- 		pr_err("Not enough slots for CMA reserved regions!\n");
- 		return -ENOSPC;
- 	}
-@@ -1051,12 +1078,12 @@ bool cma_release_frozen(struct cma *cma, const struct page *pages,
- 	return true;
- }
- 
--int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
-+int cma_for_each_early_area(int (*it)(struct cma *cma, void *data), void *data)
- {
- 	int i;
- 
--	for (i = 0; i < cma_area_count; i++) {
--		int ret = it(&cma_areas[i], data);
-+	for (i = 0; i < cma_early_area_count; i++) {
-+		int ret = it(&cma_early_areas[i], data);
- 
- 		if (ret)
- 			return ret;
-@@ -1065,6 +1092,25 @@ int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
- 	return 0;
- }
- 
-+int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
-+{
-+	struct cma *cma;
-+
-+	mutex_lock(&cma_lock);
-+
-+	list_for_each_entry(cma, &cma_areas, node) {
-+		int ret = it(cma, data);
-+
-+		if (ret) {
-+			mutex_unlock(&cma_lock);
-+			return ret;
-+		}
-+	}
-+
-+	mutex_unlock(&cma_lock);
-+	return 0;
-+}
-+
- bool cma_intersects(struct cma *cma, unsigned long start, unsigned long end)
- {
- 	int r;
-@@ -1147,3 +1193,74 @@ void __init *cma_reserve_early(struct cma *cma, unsigned long size)
- 
- 	return ret;
- }
-+
-+struct cma *__init cma_create(phys_addr_t base, phys_addr_t size,
-+			      unsigned int order_per_bit, const char *name)
-+{
-+	struct cma *cma;
-+	int ret;
-+
-+	ret = cma_check_memory(base, size);
-+	if (ret < 0)
-+		return ERR_PTR(ret);
-+
-+	cma = kzalloc_obj(*cma, GFP_KERNEL);
-+	if (!cma)
-+		return ERR_PTR(-ENOMEM);
-+
-+	cma_init_area(cma, name, size, order_per_bit);
-+	cma->ranges[0].base_pfn = PFN_DOWN(base);
-+	cma->ranges[0].early_pfn = PFN_DOWN(base);
-+	cma->ranges[0].count = cma->count;
-+	cma->nranges = 1;
-+
-+	cma_activate_area(cma);
-+
-+	mutex_lock(&cma_lock);
-+	list_add_tail(&cma->node, &cma_areas);
-+	totalcma_pages += cma->count;
-+	cma_area_count++;
-+	mutex_unlock(&cma_lock);
-+
-+	return cma;
-+}
-+
-+void cma_free(struct cma *cma)
-+{
-+	unsigned int i;
-+
-+	/*
-+	 * Safety check to prevent a CMA with active allocations from being
-+	 * released.
-+	 */
-+	for (i = 0; i < cma->nranges; i++) {
-+		unsigned long nbits = cma_bitmap_maxno(cma, &cma->ranges[i]);
-+
-+		if (!bitmap_empty(cma->ranges[i].bitmap, nbits)) {
-+			WARN(1, "%s: range %u not empty\n", cma->name, i);
-+			return;
-+		}
-+	}
-+
-+	/* free reserved pages and the bitmap */
-+	for (i = 0; i < cma->nranges; i++) {
-+		struct cma_memrange *cmr = &cma->ranges[i];
-+		unsigned long end_pfn, pfn;
-+
-+		end_pfn = cmr->base_pfn + cmr->count;
-+		for (pfn = cmr->base_pfn; pfn < end_pfn; pfn++)
-+			free_reserved_page(pfn_to_page(pfn));
-+
-+		bitmap_free(cmr->bitmap);
-+	}
-+
-+	mutex_destroy(&cma->alloc_mutex);
-+
-+	mutex_lock(&cma_lock);
-+	totalcma_pages -= cma->count;
-+	list_del(&cma->node);
-+	cma_area_count--;
-+	mutex_unlock(&cma_lock);
-+
-+	kfree(cma);
-+}
-diff --git a/mm/cma.h b/mm/cma.h
-index c70180c36559..ae4db9819e38 100644
---- a/mm/cma.h
-+++ b/mm/cma.h
-@@ -41,6 +41,7 @@ struct cma {
- 	unsigned long	available_count;
- 	unsigned int order_per_bit; /* Order of pages represented by one bit */
- 	spinlock_t	lock;
-+	struct list_head node;
- 	struct mutex alloc_mutex;
- #ifdef CONFIG_CMA_DEBUGFS
- 	struct hlist_head mem_head;
-@@ -71,8 +72,8 @@ enum cma_flags {
- 	CMA_ACTIVATED,
- };
- 
--extern struct cma cma_areas[MAX_CMA_AREAS];
--extern unsigned int cma_area_count;
-+extern struct cma cma_early_areas[MAX_EARLY_CMA_AREAS];
-+extern unsigned int cma_early_area_count;
- 
- static inline unsigned long cma_bitmap_maxno(struct cma *cma,
- 		struct cma_memrange *cmr)
-
--- 
-2.54.0
-
+Thanks,
+Enzo
