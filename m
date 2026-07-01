@@ -1,41 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1823B42EB;
-	Wed,  1 Jul 2026 07:29:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A77F383328;
+	Wed,  1 Jul 2026 07:30:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782890978; cv=none; b=rxoXwRhXtGGCOzUEqvqWKJTin+mXTfg1HYsR/5Mq0fVx3s1X+N71CbZdyIGqxPf2XzKfhmZeRexLmwTP0oWkBvkVFvDWZQlMcemlmSyaOkWuk42qpZbEBtYw5MgJxDybSAZTeuWVH7tu4XpVvIGlMnr4JOzRLvkDlVAjksWUR5Q=
+	t=1782891016; cv=none; b=IXPdXTwOGdEX64NTXqcx0W2U4yY0GAuDLcOlDF/kZGcuZF3UbzEnZ1OavT3mHifN7ckJLDst15sx7nqPUlAQ1GSfy/5HGHvcrUpWArwx1KKjPctvU/IlUHN+ormjNzuNDIiCAyXy2M3o7nRO6a8+sCDvPGPUFftBJBI3MWiezcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782890978; c=relaxed/simple;
-	bh=Cyq2HZXkk5lT5/DTeH89v5V71oCHf/Iytel8Y7jQheU=;
+	s=arc-20240116; t=1782891016; c=relaxed/simple;
+	bh=K6qzXUTV9TsyrffIyXIg1wZS03qLu1C1oqDgIt/8NTQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pj5lDR8oSadUBpLY3R4eS5x8IzYwFt9isjb4IiJv27q39Bii5mHEtbhPxUt1HXOkztli+ekONEBwXCxF+ywZaPb8uxq0ZaWYMv0hcVtkYmRFhJgXTdzKvPJIeG8YzoamGEl022aFlq9UrHSHlMYLJxQtx2Xhqg8lJ8e0BFU+cmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aMDFig+9; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=FBkfRRc6jHdrzE9buGhKFG3Ntgx1ppkF/iHYKSNQWyCSFPROaoofkxr3iN41rop7psTo5gaeXTNbx3GaXSPQVnevm3qVDXgo8Y9efu+iahyDZdrpz6KbDz+P6pv2qficrbcpRgK0PnvwEB9CoF/Hx3++PpJ2ePaVByjb3NUwhiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cGk7AI7o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aMDFig+9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59621F000E9;
-	Wed,  1 Jul 2026 07:29:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cGk7AI7o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25D831F000E9;
+	Wed,  1 Jul 2026 07:30:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782890977;
-	bh=uK5uRqNOcaWAtQFL8ul8j7o0WwrQEuYId8Tdiyh34Ck=;
+	s=k20260515; t=1782891015;
+	bh=4wbgSGMzk51jWa7D5Al9GIHHUrhtP24S99njJMENiMo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aMDFig+9OG+LdrGx5fswuoNnrmm+9DG6UPziEbs6CyAvGmNtEnQtBwNqh4rE7iZoi
-	 xd4y+7dvoAHK0zAyznwCpQhyOdG3SzAkNsifEHtrxb6stRUkRhyhkiu9xt0Zj//ktZ
-	 Cng/2VapxwypTaV4C3Vr544L8qcaISAGkdJ7iy+Qi/WXEQCHWdCx2u5PeSFMEQxOVa
-	 rzZsF1kBf7kczQcLEJpkUuM76lYXGZFz9Fz6K9l53YXUGQYO0nk7w/U9OorUI/ZiKG
-	 MXbY6Em2ho7vqhdRwNwKyioUNaX2nlHQ6Ef7OJm6g2cpRIFsNvovc4vJksq0Wavy3Y
-	 Zr2Uvo5Z99cew==
-Date: Wed, 1 Jul 2026 09:29:34 +0200
+	b=cGk7AI7olGcpxuJLbo1Q/3ImofMK81M1vwbCLh3Fehm2SP3iebK9OtDHlrjLSgWN5
+	 8KRcgoIHuL+CCOeSw83MwUxcNJsVWi1cimBI/l7Z5mmm1aCDFEgkloyyFbnRBRtAZ7
+	 cFvofc6kf7rbaVruhqtwIZe0CgBu/JAechpcPK7HYD8OMAiXEjjNtZSk/B3+u0UmNP
+	 bmBdJr25U59Q0hdoSmBol8MbHqgIMyVLbvrj6ZfM0rCmGtM+9jGzk0/Ws1jw30nJgT
+	 i5KbsLUsGuoYnbxKN1GqUhn9XglryEfYw7ewFfEkcyRTrn1FO40wOXICz9AQcXM7Sm
+	 4HHOMJIwGFGEg==
+Date: Wed, 1 Jul 2026 09:30:11 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: Add base HAMOA-IOT-COME board
-Message-ID: <20260701-uptight-piquant-raccoon-abceb4@quoll>
-References: <20260630071022.3256-1-yuanjie.yang@oss.qualcomm.com>
- <20260630071022.3256-3-yuanjie.yang@oss.qualcomm.com>
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com, 
+	Stefano Radaelli <stefano.r@variscite.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Daniel Baluta <daniel.baluta@nxp.com>, Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
+	Josua Mayer <josua@solid-run.com>, Alexander Stein <alexander.stein@ew.tq-group.com>, 
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, Maud Spierings <maudspierings@gocontroll.com>, 
+	Francesco Dolcini <francesco.dolcini@toradex.com>, Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Subject: Re: [PATCH v1 1/3] dt-bindings: arm: fsl: add Variscite VAR-SOM-MX8
+ QuadMax Boards
+Message-ID: <20260701-smart-grinning-seriema-846d1d@quoll>
+References: <cover.1782812572.git.stefano.r@variscite.com>
+ <449840f7b6ffb71b677ccf814a0294c981854033.1782812572.git.stefano.r@variscite.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,52 +52,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260630071022.3256-3-yuanjie.yang@oss.qualcomm.com>
+In-Reply-To: <449840f7b6ffb71b677ccf814a0294c981854033.1782812572.git.stefano.r@variscite.com>
 
-On Tue, Jun 30, 2026 at 03:10:12PM +0800, Yuanjie Yang wrote:
-> Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/Makefile             |   1 +
->  .../boot/dts/qcom/hamoa-iot-come-sip.dtsi     |   9 ++
->  .../boot/dts/qcom/hamoa-iot-come-som.dtsi     |  38 ++++++
->  arch/arm64/boot/dts/qcom/hamoa-iot-come.dts   | 108 ++++++++++++++++++
->  4 files changed, 156 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/qcom/hamoa-iot-come-sip.dtsi
->  create mode 100644 arch/arm64/boot/dts/qcom/hamoa-iot-come-som.dtsi
->  create mode 100644 arch/arm64/boot/dts/qcom/hamoa-iot-come.dts
+On Tue, Jun 30, 2026 at 11:46:54AM +0200, Stefano Radaelli wrote:
+> From: Stefano Radaelli <stefano.r@variscite.com>
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index 6f33c4e2f09c..549287e3eeba 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -16,6 +16,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= apq8096sg-db820c.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= apq8096-ifc6640.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= eliza-mtp.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= glymur-crd.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-come.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk.dtb
->  
->  hamoa-iot-evk-el2-dtbs	:= hamoa-iot-evk.dtb x1-el2.dtbo
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-come-sip.dtsi b/arch/arm64/boot/dts/qcom/hamoa-iot-come-sip.dtsi
-> new file mode 100644
-> index 000000000000..935af96c2b85
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-come-sip.dtsi
+> Add DT compatible strings for Variscite VAR-SOM-MX8 QuadMax SoM and
+> Variscite Symphony development carrier Board.
+> 
+> Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+> ---
+>  Documentation/devicetree/bindings/arm/fsl.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-What is the point of this file?
-
-> @@ -0,0 +1,9 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include "hamoa-iot-som.dtsi"
-> +
-> +/ {
-> +};
-
-It is completely empty.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
