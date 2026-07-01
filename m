@@ -1,127 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261B643C06F;
-	Wed,  1 Jul 2026 11:04:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4D83BA249;
+	Wed,  1 Jul 2026 11:07:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782903887; cv=none; b=UByFasq+b2+oJRC3mzxkNHtiHfWPQrSgpxJP1vX5Iz0y+OzN2leV8fzZLXfpvkCwYQskT+HG6hbguLnCn/puYOeQvvNhBYsVxGj1+lljpJhkNujXqPUgaDsvE1zMrkjwNq+qc+A3vs6d5OoLBaTw2+JBJSP1mAXr8yKpO4XbV3c=
+	t=1782904023; cv=none; b=MuoSDz5zIhepwrnkd84Okbzc4yE9WsXjuB536ASKJ28JdztEoavDL0nq4R/EhPnRZvZ9i+ukuUsmN7loU4D6DSlUuJ/YNQPKo6wMA/VVRMu4YYDzr5HCExeraMzCyNHn9ANm76dseUwUIQaPCPYI7D2lHE854LKoHf7N/T74Qsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782903887; c=relaxed/simple;
-	bh=iNoJHRXlCQkKiqMlZrlzGN5KLrGu8DA2/8z4Ei4QI/k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bklAYi1QXZ1pffa2gqM46+CpMYRAEmZt59AYEqk5fIwU3XtmecW74tbkDse4qH2jpS7Gq1Eiyakppve2cz3tmKSqJw1wZ5jqUXm8dhrT3/6nuLadVihBnqcOeWCl7NOZm2cKCuBIcIRM/w92kTN5yYJtfbmGHgrV9sxncYJhAYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RgF0apzc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782904023; c=relaxed/simple;
+	bh=oSlcK09PdBKIVNq39bqkYR0O6+AzUMdbk+zgIoJP+Xw=;
+	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VZH/BmT+Uk1tkjEnmkRMxbHf/k8jgdYFcODHhgrUBxVj9vdg2XdguqVQF3LK6e+G5eh47KwNrwOmvfhaepmFc0SepdKl9eQpyVYWwDCFLMhVhXEpmryqv4rcaEPJIEUngNU4I0Sv/GVDvU2gXnihQ0+YAwrKZGbaNofCe9fMp+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GIuIQLTW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RgF0apzc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD7721F000E9;
-	Wed,  1 Jul 2026 11:04:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GIuIQLTW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E1B81F000E9;
+	Wed,  1 Jul 2026 11:07:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782903883;
-	bh=AnOUujFcKX3gpwz4D3fgVf4ygLddSqv9i61Ak3jx5rY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RgF0apzc2I8IGgQvXFBNTYGTj/QWPBWdU5Bh6iXatZRH4VqyZx+5vC0kZ0AeRgoD1
-	 HIrJbxmsJ/d8btCgzU1jENoUJdZn347X5FUjLieGAxHA7BBwoOUTNJ2erhM/lYZAj/
-	 kDldJSP0wW47BO3yL563p/nUT8y7CJQ63ssCuMY+0+CCaC823zHDMbWpWpaOWZEAcK
-	 +zeQl9Mg/yc9srbtD6sFr7YUwaA2xThoefpcBJ5uhUIqp8kpBl87731KoZrtnvAtSe
-	 tQJZV2J3BcyWH05lvsRFbo2NceNQcewoAeoFdJispYiHIoZAhcAHednAhBvPWLP7WO
-	 epwBmjZFpULrw==
-Date: Wed, 1 Jul 2026 12:04:37 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>,
-	linux-spi@vger.kernel.org
-Subject: Re: [PATCH v5 1/3] dt-bindings: spi: Add spi,device-addr peripheral
- property
-Message-ID: <20260701-immodest-carrot-611d255656b5@spud>
-References: <20260701-ad5529r-driver-v5-0-ed087900e642@analog.com>
- <20260701-ad5529r-driver-v5-1-ed087900e642@analog.com>
+	s=k20260515; t=1782904020;
+	bh=bNinqsNPFAPvqAYzmqzmK5X9Wv0GpzIpoiogbgAT7xY=;
+	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
+	b=GIuIQLTW7mZhtstjSE6wJrKB53qF3rM+kd4CrBRS9ry6p8zfvezmxFUpnfER9qN2C
+	 KnDJ8la1TzGVb/QtCeHIFJahLACoGE8VhqStzAuTzxHKAI1Q3DZ2Owfq9ggZArQIeb
+	 T+A34JQeLhocpMXNE7lfKWENNmcswMvRkeJASOtn7e2bIE88uB+iPspWvebPWAptaX
+	 FTBla/32K+BOlTb7Mgm7TrMJcbHwlJcq1OAu92PSO+E/Jl6w+InFB6rT1CiignMHrD
+	 5loNtVEGsp2JPBlCV3G96IjJNyYqeW/wf5hj7AEZuBKpHzbsD95f/5Ad4PqZI2TxzQ
+	 fkoBfDJWeqBTA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V5 7/7] arm64: dts: imx95: Move power supply properties
+ to Root Port node
+Reply-To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260701105234.198987-8-sherry.sun@oss.nxp.com>
+References: <20260701105234.198987-1-sherry.sun@oss.nxp.com>
+ <20260701105234.198987-8-sherry.sun@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 11:06:59 +0000
+Message-Id: <20260701110700.5E1B81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VqqCijwUkRPHXQ13"
-Content-Disposition: inline
-In-Reply-To: <20260701-ad5529r-driver-v5-1-ed087900e642@analog.com>
 
---VqqCijwUkRPHXQ13
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The transition to the new PCI pwrctrl framework is incomplete acros=
+s the i.MX95 platform. Several other i.MX95 board definitions were omitted =
+from this migration and still retain the legacy `vpcie-supply` property in =
+the host controller node instead of moving them to the Root Port child node=
+s.
+--
 
-On Wed, Jul 01, 2026 at 08:40:39AM +0200, Janani Sunil wrote:
-> Some SPI devices support sharing a single chip select across multiple
-> physical chips by encoding a device address in the SPI frame itself.
-> Add a generic spi,device-addr property to document this per-peripheral
-> address. This property belongs in channel or sub-device nodes of
-> peripherals that use this addressing scheme.
+commit b94f7498d750422b57ec34a9401c66058aec3470
+Author: Sherry Sun <sherry.sun@nxp.com>
+
+arm64: dts: imx95: Move power supply properties to Root Port node
+
+Move the power supply properties from the PCIe controller nodes to the
+Root Port child nodes to support the new PCI pwrctrl framework.
+
+> Move the power supply properties from the PCIe controller nodes to the
+> Root Port child nodes to support the new PCI pwrctrl framework.
 >=20
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> ---
->  Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.y=
-aml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> index 880a9f624566..3774e8018355 100644
-> --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> @@ -142,6 +142,11 @@ properties:
->      minItems: 2
->      maxItems: 4
-> =20
-> +  spi,device-addr:
+> Since i.MX95 is the new platform that under development phase, it should
+> be fine to simply move the power supply properties.
 
-To match other generic spi properties, s/,/-/.
+[Severity: Low]
+Are there other i.MX95 boards that should be included in this migration?
 
-However, you don't actually use this as a spi peripheral's property in
-your device binding, so you've got your wires crossed here somewhere.
+The transition to the new PCI pwrctrl framework appears incomplete across t=
+he
+i.MX95 platform. Several other i.MX95 board definitions were omitted from t=
+his
+migration and still retain the legacy vpcie-supply property in the host
+controller node instead of moving them to the Root Port child nodes.
 
-If it's a generic dac channel property (as you use it) it should be in
-dac.yaml (or adc.yaml for the other device that I asked you to add it
-for as proof of being generic), or it is a spi peripheral property and
-needs to go into the dac node itself.
+For example, arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts retains the
+legacy power supply property in the host controller node:
 
-pw-bot: changes-requested
+&pcie0 {
+    ...
+    vpcie-supply =3D <&reg_m2_mkey_pwr>;
+    ...
+};
 
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Device address used when multiple peripherals share a single chip =
-select.
-> +
->    st,spi-midi-ns:
->      deprecated: true
->      description: |
->=20
-> --=20
-> 2.43.0
->=20
+Similar omissions appear in arch/arm64/boot/dts/freescale/imx95-19x19-frdm-=
+pro.dts:
 
---VqqCijwUkRPHXQ13
-Content-Type: application/pgp-signature; name=signature.asc
+&pcie0 {
+    ...
+    vpcie-supply =3D <&reg_m2_mkey_1_pwr>;
+    ...
+};
 
------BEGIN PGP SIGNATURE-----
+And in arch/arm64/boot/dts/freescale/imx95-19x19-verdin-evk.dts:
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakT0RQAKCRB4tDGHoIJi
-0oAXAQCicLyE78yFQYPOZCjJeHOLd/F4aci3owp0A2ld0WboDAD+PNHYrKK5luFd
-0otItNvp4UEA7giSba5VSuOwoQ6lqw4=
-=BtpN
------END PGP SIGNATURE-----
+&pcie0 {
+    ...
+    vpcie-supply =3D <&reg_pcie0>;
+    ...
+};
 
---VqqCijwUkRPHXQ13--
+Should these boards also be updated to ensure consistent power management
+behavior across the i.MX95 platform and allow future cleanup of the legacy
+code?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701105234.1989=
+87-1-sherry.sun@oss.nxp.com?part=3D7
