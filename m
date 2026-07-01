@@ -1,268 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B7C480DC4
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:48:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4583481229
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782910106; cv=none; b=dmZRvPDiRvUo83TQ8aAyGCR0U8Rv21tNNloyNYl1vyNJFth5/omQvnbu2xDuCLI/oPr2A855k8xd+Hf6d0zs3Ke6DWsdcy2I6g5FJdCDBNakN1/63oA+PkUIyTSdXLqKjvJ9Li8ZRltKo6wG6jnozxr6zepXtcM3EpQFPLrL2SE=
+	t=1782910119; cv=none; b=kmDXQtRPm28aYHZM9Ea8OsIGWQpnVRR5+hvHNal55KQtlzN64AS0XcW+1pqUZAKeh0a7JmaFx+eXZ5ZWQcJMS5oRR4W/G7jFkZeH+psR24LepGudpAoaFX7Al5g29jATfezIqQ+FyTnBvJSdx4OLa7NZHmqqZcuyni0iXVSdO5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782910106; c=relaxed/simple;
-	bh=i3NFOY8XRV77zj3Els+m/EB2OxIJGTIX9SuYiGa7M7A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=e7iIGi0QEDmcFqgsX7SNjpYg3RiXtUGblx6wEAeeccaZUU2EA91CeyrzW/WS/jZmTdvCrg5N4bxcHWr2EesmTxc9VN3vOJxGEeDkh8+9M1TpNbhTxR9kx2VtmkGXF1i0jgjzvHSakOYsTHDdRviNLgbF3QmMxP+/j7F+gloT1i0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pn0V4vIU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782910119; c=relaxed/simple;
+	bh=V9/Jnx5MzODZ+45ajiX0Eb++XQ8vVE7dhfehBSnkp9A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dQ6mCJDQUktvpjkH4pFSFzJjcc8mWQO36+n/SdJ7bIyCawKammXB/dNlbW6vIcVw+d5uZ+OsJoaQOE5UmScdcvpQsXwfYJTEi5t4In9d0MLyp+WCYVdJdxCq55kqc4wFR8B9UAhFP7m4Ak9UECw4CkNSLgveag3IBGEkdmUgMdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mFsZf9ep; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QTsTA/7P; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pn0V4vIU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C1241F000E9;
-	Wed,  1 Jul 2026 12:48:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782910104;
-	bh=1T7VWutfcoT1eQhz6SNDIKkUC3UgjAn1asmuahoNjEk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Pn0V4vIUspI+U3HIrzMrqv7noPwD0R7B9lbAF3BDEk5dqxLfi0SN7GAhF5EZZ9qSE
-	 9+q0eZv6/wWEShFlrZwpDWa1p/rNpGlpTmYL6ktyZi+fFHbs3Q9GuwaQ4ru4CpaxV2
-	 Zo9nOxBOFIy878dbJbW7qR2u65Co/i776XC8DWqaMPLJu8Dd5BptA6HRaMI/DFzlEP
-	 gAHnRQZClle6scG7/tv6de8nrdadHXv0CyhIWCJt/kqQOYqiD41WH1J86sM0+NtiNv
-	 vW27FBs+Q9oWQ8CH0kyHFchVcA9Tv8EtukhY7QqS7af4+q/VK9tEPfbRVYc9lVVMW7
-	 fgC7PIVqVhKmA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 08/12] phy: phy-mtk-dp: Add support for digital and
- analog calibration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: olteanv@gmail.com, neil.armstrong@linaro.org, vkoul@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, linux-phy@lists.infradead.org, robh@kernel.org
-In-Reply-To: <20260701122008.19509-9-angelogioacchino.delregno@collabora.com>
-References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
- <20260701122008.19509-9-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 12:48:23 +0000
-Message-Id: <20260701124824.2C1241F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mFsZf9ep";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QTsTA/7P"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 661A8WZs744296
+	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 12:48:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	F0iM+aBdfeyeVdfRfQMgUrQ6dZ7uV3WS3/3Rw/+vDw0=; b=mFsZf9epPnrwK4A/
+	mojq5N0dryfGcnZChXiyo0ECSMDqfhxGbpAhkfTzvvakWrZwRSxySI/R0NfhQSiV
+	dP23W9YXrJyk4CzBIlfYPF0ZSDXLqmJ1N3FGUr0cT4Zg1XUxODreU/sja/urKBNw
+	oF1k6a1zRSRRND9iTOmQXA4XJBaCvb5WsfqloUQj4MhUeIhnSmPLYHrOBLivgasz
+	YC3KeJdDdsdPMnnSfpw4MvjaAJBgUCnzF0E7bo3SVrKXemf6Gn+V2IYxs/QIIkAQ
+	8aOSYs7uQvAjmyze8HaII9VCuUPoFYkNJIRfBfjK+115M6sKLbMsnsSkf+XxZMNe
+	d+Shjw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4x0thhrt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 12:48:35 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c21be5bb4so3030141cf.0
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 05:48:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782910115; x=1783514915; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F0iM+aBdfeyeVdfRfQMgUrQ6dZ7uV3WS3/3Rw/+vDw0=;
+        b=QTsTA/7P0GQncAkGfkr5+0dCfqTd+ijQJDW7ODjBDyK1d2+9LciInpbElDhZPaPSv+
+         +shPkqVapA3m5haxZcPmGyQj9orTHWfCq6woNsDE/jpqBHvAoigfIe3jq8iAZguBHcHM
+         cZBVaLkpqWKSY7+sMvhH+oiOqa6J5DkPEb41YD6jVyA84jgFzvK22vdt0APtbZLuSeCK
+         bb7FTegAygmrjhTRzPNM80ChneOGVFUgI072d4aUge06e+1eaz5U9ZG4pEkyZwIHLcXT
+         oxJ/vkPwjy5nLoY1mfZMDTHjpWp+hsHoUyvofgGUjeTx0GtGdwb/XHgwEt4KCydnU5xs
+         eBCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782910115; x=1783514915;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F0iM+aBdfeyeVdfRfQMgUrQ6dZ7uV3WS3/3Rw/+vDw0=;
+        b=QutapdKPCGdWPxdkjy9k+5YqSgCOLGjRhsWth7ZYzn7B0lYq8QD+GbU4zJXi0ndV3G
+         NOpZSyZlwGqk7c5X43wuNDgbeYZ6RgOsajlk2lBMdx1AOjhaYXNKRZvLtu/o6IWFzlKp
+         0Sp2LrN0YryepuBT/B8kxe1qnGyqVlfW00hIAvuK+4S0XS/YfPBfTLex/w1G+ovKwPEj
+         cX741ZC3dtrJDkAAUjcKu5AzMa4YjlpGUgsrZu+eaft2/NAJXtPQeoGwSvb5GVeS80Hb
+         On7TpEimuPUoiYuBliNjnh4xLSjSNHoqOjeJyNGR5Lo7K4/k+nkRlGzLddY7FmAfh7Q6
+         21Cg==
+X-Forwarded-Encrypted: i=1; AFNElJ+rC+n9mVxi//eUwVcPgx5FvnSJuOh1GXt4pV23liB1I2Xp0t7DGrB9DKoTokYajkXxARIqeW6uvA2v@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywrv4HT7Xor+Uzx8A72hLdbLEaEEWO8LU3ZHX0Fe6LsC57EUClY
+	zjQ/mvjo1akl3GnQDlcJOjMP7aJh7f91Bv04sYbiA8H5vVB+V2+FYpkKhhz0fLVF/9fQAw0nCrq
+	q05N5saT92xYIsRBrzGysseRZKb6PtReaTPjn5+S6ItkraHBaMK0RtQYoT4lvH5Qr
+X-Gm-Gg: AfdE7ckTdKwAAd4R0DIYbkfZ258GQGmrg6mDytcGyorIkiIMUEkLHEAmTVgzvl68hbf
+	cRibBj1Jtqyea918bhRCMNoIXxDa+ARoxW0MObSra1mYiTRfObYfe/K4u0Y566W5Wtdr28/Nurf
+	CaSS5BUnLZaR4lu57nELLcWZtqy+ordPhjBMmt7OjDj1BDzzhfJYSqevFYOGOzCUesOTc/edS9M
+	Fk06loCy/+zfJig4O7o9j1ydbsvlEH9UdVbyjm0vFBp4cR5anHBo6LcRrKh3V5stDmZKGBYz+oF
+	hdB44ZKfyK7/fKaVuF9sR0QuiqnUAZDPoaf/AQAfmr2OlePjW5o9xNo5xTDYALP/8mKn5C71Gau
+	sWAJ0oyol8UajBR0i3lH7B82f0DIqzZTPuao=
+X-Received: by 2002:ac8:5ad6:0:b0:50f:b9a6:82ae with SMTP id d75a77b69052e-51c26a45ba4mr14246121cf.2.1782910115225;
+        Wed, 01 Jul 2026 05:48:35 -0700 (PDT)
+X-Received: by 2002:ac8:5ad6:0:b0:50f:b9a6:82ae with SMTP id d75a77b69052e-51c26a45ba4mr14245681cf.2.1782910114612;
+        Wed, 01 Jul 2026 05:48:34 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1288d18735sm271634966b.6.2026.07.01.05.48.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Jul 2026 05:48:33 -0700 (PDT)
+Message-ID: <976824fc-335a-4f47-a4b6-29966137f2bf@oss.qualcomm.com>
+Date: Wed, 1 Jul 2026 14:48:31 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: sdm630: describe adsp_mem region
+ properly
+To: Nickolay Goppen <setotau@mainlining.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Alexey Minnekhanov <alexeymin@minlexx.ru>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
+References: <20260422-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v3-0-274ba3715db0@mainlining.org>
+ <20260422-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v3-3-274ba3715db0@mainlining.org>
+ <337d362d-93de-4e81-8141-a51fa75d615c@oss.qualcomm.com>
+ <e282acd6-dfcb-45a6-977d-eb71b2619b7d@mainlining.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <e282acd6-dfcb-45a6-977d-eb71b2619b7d@mainlining.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: K8LW2WMjUvP0EVOVlLtmMNXoleMyd7kS
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDEzNSBTYWx0ZWRfXxc0cFmMw2FlV
+ M3SXdYsEG7x615rweR5YdJrUeW/+pohK0Hs7uhUFTOv7r9U0jNcLTJzOFx2IEALRwtc4YsGeNVk
+ lJJufFLsajlLODmyNnyoxxP4+Et3ZiQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDEzNSBTYWx0ZWRfXwenx6ofXL7ZU
+ gaCexBp9CuG+ZGFdcP+LddcMxk5/zUDJBEgVlUbeb8LZpSVrWaWsnH1M0SpeX9SCWINNztMWySP
+ MKT2UgOKocdS6n3mum4TQM4++f0bTM4jOD0bY4taX6kkg9ck5uIPYssURV6LODhwSFh502+RKCq
+ cMJVZVSrihc/erM5qqHIbG0bic6nuaXkrJ9d1kBH0Vha6Z1EbBlIUUwUX79ZX/cGyDFFu6GqIFv
+ GjA7ZP088eFjN82yYSXGFnUEObjWSd8FJ3pwPmBbqQV5lPqSJfFDsYH9kQzSmEKwZj4p0WGBtqh
+ RVQYqdfN0R/YrFKw8XD9OF+A+77FlxL/g6aWtjQbsBBMe/E0LJD25dV9+1Gxq3XulDaF2RHivrg
+ qRVXN5nFBeT7UuR4RmcyRYV817fOgWNYlK6zuXc+woqMmXmcavPSDCSLxU+kfcoZoSesxyEZRbv
+ +CMnG9uzyBfGdcjj6zA==
+X-Authority-Analysis: v=2.4 cv=T5+8ifKQ c=1 sm=1 tr=0 ts=6a450ca3 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=Gv3PURsRAAAA:20 a=OuZLqq7tAAAA:8 a=1Z6vLoopVQRnxGewFmEA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22 a=AKGiAy9iJ-JzxKVHQNES:22
+ a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-ORIG-GUID: K8LW2WMjUvP0EVOVlLtmMNXoleMyd7kS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-01_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ bulkscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010135
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] Pointer casting a 16-bit variable to a `u8 *` in `nvmem_cell_read_=
-u8()` causes incorrect value retrieval on big-endian architectures.
-- [High] `mtk_dp_phy_set_analog_calibration_params()` clears hardware regis=
-ters due to missing bitwise shifts and ignores eFuse calibration.
-- [High] Legacy probe path fails to initialize analog calibration parameter=
-s, breaking PHY transmission.
-- [High] Driver probe fails unconditionally on platforms without NVMEM supp=
-ort due to unhandled `-EOPNOTSUPP`.
-- [High] Missing `pm_runtime_put_sync()`, `pm_runtime_disable()`, and `phy_=
-remove_lookup()` in driver removal, with unchecked `pm_runtime_get_sync()`.
-- [High] Incorrect indexing of digital register array using an analog enum =
-causes writes to the wrong offsets during power off.
-- [Medium] Spams `dev_err` on boot when expected eFuse calibration data is =
-not present.
-- [Medium] Incorrect field mask used when validating N-MOSFET impedance val=
-ues.
-- [Low] The field `efuse_cal_present` is set but never read.
---
+On 4/27/26 5:20 PM, Nickolay Goppen wrote:
+> 
+> 27.04.2026 14:49, Konrad Dybcio пишет:
+>> On 4/22/26 5:39 PM, Nickolay Goppen wrote:
+>>> Downstream [1] this region is marked as shared, reusable and dynamic so
+>>> describe it that way.
+>>>
+>>> [1]: https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/arch/arm/boot/dts/qcom/sdm660.dtsi#L448
+>>>
+>>> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+>>> ---
+>>>   arch/arm64/boot/dts/qcom/sdm630.dtsi | 9 ++++++---
+>>>   1 file changed, 6 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>>> index 4b47efdb57b2..36b419dea153 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>>> @@ -494,9 +494,12 @@ venus_region: venus@9f800000 {
+>>>               no-map;
+>>>           };
+>>>   -        adsp_mem: adsp-region@f6000000 {
+>>> -            reg = <0x0 0xf6000000 0x0 0x800000>;
+>>> -            no-map;
+>>> +        adsp_mem: adsp-region {
+>>> +            compatible = "shared-dma-pool";
+>>> +            alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
+>> Please make this = <0x0 0x80000000 0x0 0x80000000>; instead, since the RAM
+>> starts at 0x80000000
+> 
+> +Alexey Min found out that on 3 GiB xiaomi-lavender RAM starts at 0x40000000
+> 
+> 40000000-855fffff : System RAM
+>   40080000-41bfffff : Kernel code
+>   42600000-42fd0fff : Kernel data
+> 88f00000-8abfffff : System RAM
+> 95000000-feabffff : System RAM
 
-commit d7c70553eca35e13b77a951e8cbb9167598a5701
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+My docs happen to be silent on this subject..
 
-phy: phy-mtk-dp: Add support for digital and analog calibration
+Do you have a device that has more/less RAM to compare?
 
-This commit adds support for reading digital and analog calibration
-values from eFuse for the MediaTek DP PHY. If calibration values are
-present, they are used; otherwise, the driver falls back to SoC-specific
-defaults. It also implements hardware writes for the analog calibration.
-
-> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
--mtk-dp.c
-> index 17d871530ccaf..cdcae861012c7 100644
-> --- a/drivers/phy/mediatek/phy-mtk-dp.c
-> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-[ ... ]
-> @@ -257,21 +257,21 @@
-> +static int mtk_dp_phy_set_analog_calibration_params(struct mtk_dp_phy *d=
-p_phy)
-> +{
-> +	const struct mtk_dp_phy_pdata *pdata =3D dp_phy->pdata;
-> +	const u8 *regs_ana_glb =3D pdata->regs_ana_glb;
-> +	const u8 *regs_ana_lane =3D pdata->regs_ana_lane;
-> +	int i, ret;
-> +
-> +	ret =3D regmap_update_bits(dp_phy->regmap,
-> +				 pdata->off_ana_glb + regs_ana_glb[DP_PHYA_GLB_BIAS_GEN_0],
-> +				 XTP_GLB_BIAS_INT_R_CTRL, pdata->ana_bias_r);
-
-[Severity: High]
-Does this clear the hardware registers instead of applying the calibrated
-values?
-
-The regmap_update_bits() call uses the static pdata->ana_bias_r defaults
-instead of the calibrated dp_phy->ana_bias_r. Additionally, passing unshift=
-ed
-values with the high-mask field XTP_GLB_BIAS_INT_R_CTRL results in a bitwise
-AND that yields zero.
-
-[ ... ]
-> @@ -517,109 +517,109 @@
-> +static int mtk_dp_phy_get_one_cal_para(struct device *dev, const char *n=
-ame, u8 max_val)
-> +{
-> +	u16 buf =3D 0;
-> +	int ret;
-> +
-> +	/*
-> +	 * All of the calibrations are always max 8 bits long, but some may
-> +	 * be split between two different 8-bits cells: handle this corner
-> +	 * case by retrying reading as u16.
-> +	 */
-> +	ret =3D nvmem_cell_read_u8(dev, name, (u8 *)&buf);
-> +	if (ret)
-> +		ret =3D nvmem_cell_read_u16(dev, name, &buf);
-
-[Severity: High]
-Can this pointer cast corrupt the read value on big-endian architectures?
-
-Casting the 16-bit buf variable to (u8 *) will write to the most significant
-byte on big-endian systems. This shifts the 8-bit value left by 8 bits, whi=
-ch
-will exceed max_val and cause an -ERANGE error.
-
-> +
-> +	if (ret) {
-> +		dev_err(dev, "Cannot get calibration data for %s: %d\n", name, ret);
-> +		return ret;
-> +	};
-
-[Severity: Medium]
-Will this spam dev_err on boot when the eFuse calibration data is missing?
-
-If the NVMEM cells are absent, this unconditionally prints an error before =
-the
-fallback logic can handle the -ENOENT return code.
-
-[ ... ]
-> +static int mtk_dp_phy_get_calibration_data(struct mtk_dp_phy *dp_phy)
-> +{
-> +	char mtk_dp_cal_lane_imp_name[] =3D "impedance-laneXM";
-> +	struct device *dev =3D dp_phy->dev;
-> +	int i, ret;
-[ ... ]
-> +	/* Get impedance params for each lane */
-> +	for (i =3D 0; i < MTK_DP_PHY_MAX_LANES; i++) {
-> +		/* P-MOSFET first */
-[ ... ]
-> +		/* ...and then N-MOSFET too */
-> +		snprintf(mtk_dp_cal_lane_imp_name, ARRAY_SIZE(mtk_dp_cal_lane_imp_name=
-),
-> +			 "impedance-lane%dn", i);
-> +		ret =3D mtk_dp_phy_get_one_cal_para(dev, mtk_dp_cal_lane_imp_name,
-> +						  FIELD_MAX(XTP_LN_TX_IMPSEL_PMOS));
-
-[Severity: Medium]
-Is this using the wrong mask for the N-MOSFET impedance values?
-
-It passes FIELD_MAX(XTP_LN_TX_IMPSEL_PMOS) instead of NMOS. While they both
-share a 4-bit width currently, this might cause semantic errors if the bit
-widths change.
-
-> +		if (ret < 0)
-> +			goto end;
-> +		dp_phy->ana_impsel[i].nmos =3D ret;
-> +	}
-> +end:
-> +	if (ret < 0) {
-> +		/*
-> +		 * If any of the calibration values is missing, or if there
-> +		 * is no calibration at all in the eFuses, copy the default
-> +		 * one entirely (as partial values shall not be mixed!)
-> +		 */
-> +		if (ret =3D=3D -ENOENT) {
-> +			dev_info(dev, "Using calibration default values\n");
-> +			mtk_dp_phy_get_default_cal_data(dp_phy);
-> +			return 0;
-> +		}
-> +		return ret;
-> +	};
-
-[Severity: High]
-Will the driver probe fail unconditionally on platforms without NVMEM suppo=
-rt?
-
-If NVMEM is disabled, nvmem_cell_read_u8() returns -EOPNOTSUPP. The strict
-check for -ENOENT means the default fallback is skipped and the driver probe
-aborts.
-
-> +	dp_phy->efuse_cal_present =3D true;
-
-[Severity: Low]
-Is this flag actually used anywhere?
-
-The efuse_cal_present field is populated here but does not seem to be
-evaluated anywhere else in the code.
-
-> +
-> +	return 0;
-> +}
-[ ... ]
-> @@ -437,6 +661,7 @@ static int mtk_dp_phy_probe(struct platform_device *p=
-dev)
->  	struct mtk_dp_phy *dp_phy;
->  	void __iomem *base;
->  	struct phy *phy;
-> +	int ret;
-> =20
->  	dp_phy =3D devm_kzalloc(dev, sizeof(*dp_phy), GFP_KERNEL);
->  	if (!dp_phy)
-> @@ -458,6 +683,10 @@ static int mtk_dp_phy_probe(struct platform_device *=
-pdev)
-> =20
->  	dp_phy->pdata =3D device_get_match_data(dev);
-> =20
-> +	ret =3D mtk_dp_phy_get_calibration_data(dp_phy);
-> +	if (ret)
-> +		return ret;
-> +
-
-[Severity: High]
-Does the legacy probe path also need to initialize the analog calibration
-parameters?
-
-If mtk_dp_phy_legacy_probe() bypasses calibration data loading,
-dp_phy->ana_impsel is left entirely zeroed. These uninitialized zeroes will
-then be written directly to the PHY registers, which breaks transmission on
-legacy platforms.
-
-[Severity: High]
-Does the driver properly clean up runtime PM resources during removal?
-
-The probe function acquires PM resources without verifying the result:
-
-pm_runtime_enable(dev);
-pm_runtime_get_sync(dev);
-
-But there appears to be no corresponding .remove callback providing
-pm_runtime_put_sync(), pm_runtime_disable(), or phy_remove_lookup().
-
-[Severity: High]
-Does mtk_dp_phy_power_off() access the wrong offset by indexing a digital
-register array with an analog enum?
-
-Looking at mtk_dp_phy_power_off() in phy-mtk-dp.c:
-
-static int mtk_dp_phy_power_off(struct phy *phy)
-{
-        ...
-        const u8 *regs =3D pdata->regs_dig_glb;
-        ...
-        ret =3D regmap_set_bits(dp_phy->regmap,
-                        pdata->off_ana_glb + regs[DP_PHYA_GLB_FORCE_CTRL_1],
-
-Using DP_PHYA_GLB_FORCE_CTRL_1 (which is an analog enum) to index regs
-(which points to regs_dig_glb) writes to the wrong offsets during power off.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
-9-1-angelogioacchino.delregno@collabora.com?part=3D8
+Konrad
