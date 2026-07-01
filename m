@@ -1,64 +1,64 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82BAA348C5C
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 14:30:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E86349AF6
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 14:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782916213; cv=none; b=crRXrnKgTC0NtuCdhRsCdC66RFtHXdyBN6rsvuYFrVzomihxWHVqCM3hS4kd5hjM1HQ4bVAEHTJfoDBcsBW90Bt0V5xHjz9V8Mg4gN1crvHXzl2ImEpnbPP63ncVn57hcHHJnVcjuX27joJeOeXYLx9/VKQ3i6dgs3UPaNtUH2Q=
+	t=1782916214; cv=none; b=StANCVmUvQ42sEiH5cGeRzfodP/GxHer8atY3rS+ondYcUqXG8ckkJJVDBhlcz7v+MYS2BKGrzqRGw8i191Q4Nj6CzmmdhOpj6eJNbvff6RyiYKA3Vrz2AHK2i3+ONzqNVrvvyl/96mFlSs+viojSWOW///cQzqB4ZjWiWBfytE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782916213; c=relaxed/simple;
-	bh=mWMP/xdPSFDaOWdYX4G9vsqs+NvHwtQ1rzsSePjmtQk=;
+	s=arc-20240116; t=1782916214; c=relaxed/simple;
+	bh=g+r2ue8WQlUY2RpdLLI/+fS1P660DwdvJv/oi4A+9CU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MWEhsfvyfKE/q68cbWpOvoMn9cqbkP78tzI9wv8psEuTx1s1+9swOCV5bqldic31QDMva8PMNnt0fthEhYORH/WWpNkGUakk1SYKNfNSXnJ9rRzqm6Rm+49WGH6iifpG8yDu42DIvZkBATSOzd/ribo4WS02gesmlNFNcFlnsJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Eu7Ho0fj; arc=none smtp.client-ip=209.85.221.54
+	 MIME-Version; b=q6mxtpBHdK1gXknZGo+H3dqLsCkJLHQBZnjdqhYXYxy9NQxpwisGRNhehU5bxk4yUvfauPXb2uKXslnamxhakwYh1sv0jUUqUctIFVr4A/Qu6FQR7kaPIWYoKBdCv8L/MSmXUwGBJ0xpBVqiRjDIckZXde94uI3YY6mljAQZOiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FjIbpLua; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Eu7Ho0fj"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-475881b9a4bso786813f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 07:30:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FjIbpLua"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-475417f010dso485496f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 07:30:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782916210; x=1783521010; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782916211; x=1783521011; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o+UunQnZVp8S6m9pUrNYyzpfVfChMooAV6SEFAVDXiA=;
-        b=Eu7Ho0fjbcZZyBGocFM8zMB8Mtf+0YojHIgkw/ZDlPQVOB6jHNOiBjTMryVtO5ZznP
-         P7AuAY57GTS96/dDZpvQ3Hz8SxoqDRqCkTdv8vpPcenM3NuOb3z9L/X0iBm9+8Oq3lGG
-         Wczu7oP8hK22QqXOpIwoEugVCZB6AwmWXPbBOpTW4PYIeJuP0drmnLe2ul8Tiqt+jxHa
-         KiA5eLJuVyD0ZhICiNwKLKiYyr0U8WZsDmmMHAOkcRjUXKNlWYnhA23kudzNdGE23RVp
-         n+igv/75C23V/PUvOveSuswLD+5tbOy45mxHk5+VNGj+RDJaB7AtluDlXPOSB3NRbhjo
-         2jMw==
+         :message-id:reply-to;
+        bh=ugePcfJjWg3gTdTgtFvlc1OGp49uQ7iOCB+yoMKRNH4=;
+        b=FjIbpLuaZ26jOY0TMC2GrMU/UK3rXU8G4xqfwRTIK9RU9JkA8HpJ7rmIR4mUjAm+yD
+         7rP4cBMNOa/Tvlsf00vw4nGcS35K9JKMOW7aTgrg7WuJRKYt6QgZwaZqWTgtI1hyWraY
+         Xs+3NB2fNUO6zL6QbRRIRubHnU4/RLkfckvIpBE4QJnvI5da1Y6h3pd0XtmepUXCe1n7
+         3UHM5XoyJXVwplUrNGv3oyfgCpaNwURlOc19E7A9FuScbxVoEwNvpD6zrMAbMAlC+DqX
+         xQa9K24TfeMVR/6t6o2aB/NznysiEn+DkvjYXjudUTjOsjZYi3nPXJxKvaH0/J3npIT7
+         fwVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782916210; x=1783521010;
+        d=1e100.net; s=20251104; t=1782916211; x=1783521011;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o+UunQnZVp8S6m9pUrNYyzpfVfChMooAV6SEFAVDXiA=;
-        b=a/bAK8T2d1jkTd40gFoCqPWLave5M1clcJ7SoTZQYUXHdtK8MOgvrBFzkHr8wYB2Ku
-         1x2e5Ubr49/lgMRVO4zINfoArF9qoj1/DlUx2VN9L9Ti/IrPElaT6t14iUZYfKLj4IjD
-         MY4TrZv6mbEj0kqSlsUsPTeFXJ/UvHSuyU3MLMGEDlHEGLBTcC0rCJX2U2qOCTao5Uyb
-         UNbOLf57weF8RhdUINw4RKoOhU0+UP/pKl143KQpAR8JLB0zaKwxEdzgVL6yGhxn9jCn
-         t5RMBEh58rN60FGEtnGVzYUse6QN35aezZ0zGv+xxcsjMA6PtixMZPHeDGSNgfWntrKi
-         ZBdQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpCiibc6OjDoROmcDoL+eJ9bPDhI2lRcCPWQv7n9xVYPkyA4HjBo6Q7MDfd5//vBXv3l2ej2rrhT3kG@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw/OW081A941dMl4Ra0tYbuhdBnqKMsgJQaHTHiydQ03X8+4gBE
-	FkfU/pk8WqYUa6vf9CD7OKAPjpVDvp+5wcG7fzhLWF2/6y+D5nVP8y+t
-X-Gm-Gg: AfdE7cky0kMYC6xSFGDLM4u8xy13/knI35cWop2S/2DGHP72weOwQ7E9QgSIXTInP98
-	TuAmTMyRPqtK29PwUDoLKyQrUM0C7Ae73cbgygWsYgnhJaTOpB3FlLDI2bwceOyS2gRtmx5G2lr
-	dZ685y03PjewROkFoX4l0PU8wHQtB99DX1k6NCeEtFlKfYtFEvRxItXmXyGG07mvqCCMzdjZmYk
-	QD/s5wFTN5IPx5oS4lPYOTdhwkUqt/c+q6U7gz3aPa0SJanAsx0gmdk6gSxBvg4AqNNROShrYFA
-	sZUhSVzmEKzy5stw5sGk70G/sa4YcYmfYdkLSVbteMeOUUEnFgiEOnp1AWNjMZ48FXOUXr/InjQ
-	aORJikuq5CdS/T21s0FYGNGyrLjCeVxSGYUA5YjhwrXOaAVLKQ8xdYHQDt4bfBCeAW4PkvkP7n/
-	f1QiL2jJ9/3BqL6GCTWeCNjAPVN/uPbQFPpK8Smeq0IoxSmCBPbeEm89P3pfOHLUMPXwA0StXon
-	qcHMIox3QTKdJGxx77A5u+QLL0=
-X-Received: by 2002:a5d:60c3:0:b0:472:d154:facf with SMTP id ffacd0b85a97d-477b5677a8dmr1049369f8f.42.1782916209676;
-        Wed, 01 Jul 2026 07:30:09 -0700 (PDT)
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ugePcfJjWg3gTdTgtFvlc1OGp49uQ7iOCB+yoMKRNH4=;
+        b=hJ+vjHkke7RRrfsZLy9ewcfDT2cVCWOql/JyT8FNp5hfe/otFt1szLstqWEK7hrCYy
+         xS1Q+RIGFGyj/0333GFAz+CWJBIHHZSjIAV+r+IRY67T+cd/U/TeCvHYw+ry2TS7eCul
+         yExmEBaGGlJgPihxtlLGL5UqhYEzM5dXU4hrkev2nZeSIvtLyETyZRSE8aXjp1JZXLqB
+         njY5qFWHEgiYUOgEapoF1QNxVO8H+33cSAkQtaxwXb2/NrsEsaCetj8qAwaZB/M+H0yD
+         lEZvdL6qVeW6SL1m7ymgDmmBExKNLHvCcYhxlwXA7qUYuuS8vuq3QxE94kRDBbeKeJb2
+         xg2A==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/SlRSscTxHY+7iCFxFkFdB3gdE+f+2OopOElCwxPx2kbXxotHJOWL57BWldde14bPu5JfCirHBYrJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YylRgfPQq2XsqplsAAhPhFZOA7BrsLXFl+/gkZk7TFmsayBA3lu
+	gIoDzN3F+23TGERmgmj8/Px252KyVEfmEd9FxkKyKSARO/ps8mFre7aY
+X-Gm-Gg: AfdE7cnyRAK6uysUcLSRqF2SCg3Nj1h7gFcBimbn3ooWQAQd7//o/8GcZZxCh2JGqak
+	O2F7lQdy4xpfFigrKZ8KT8qre0hCI4fpZenZ197ONyXlFF5/xgX5TFEeXO7WX6ilAFljSM0aok4
+	0vvpMflyOzLEXxmOB9fSfxpA1FXp0xK3cihsLW57By0GJIt8HH3Tc3n4+5a+motqgPdMJeO73mg
+	edU8lRKDzzMNCb0RGF/J1pCMkADpP/c+DP6sHDw6wC5U31AaR7VOxbZDPLXZUMI3+2BqPoqOICJ
+	RtPkh5ZPnVvRT4wOAr8uyvjpMz2Xg99+TA+pmJiitL3u6k0lF5gkDcaorJldfFm3BgrWn9ax1l3
+	HfC7B5e6MiOlap0COniy8+w5AMEMaLynf2U+CIxeez+4vnkd+VAPlJV0vI1eUAuPAJDw2I4cOH5
+	d/brcMqSdQvbXSw3oGuco3q4xyCK82KdceFULbziuBWhrEDHUP6ZCmbae4KJuZvrX46bhnPHWEn
+	+L7WRMHccN1OkppOMPPVvjrhmQe2M19SLbDxw==
+X-Received: by 2002:a05:6000:4305:b0:471:f180:86d7 with SMTP id ffacd0b85a97d-47759568468mr3184770f8f.41.1782916210609;
+        Wed, 01 Jul 2026 07:30:10 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:5353:5ce3:a6a2:3b98])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477dd94c829sm184902f8f.24.2026.07.01.07.30.08
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477dd94c829sm184902f8f.24.2026.07.01.07.30.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 07:30:08 -0700 (PDT)
+        Wed, 01 Jul 2026 07:30:10 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -77,9 +77,9 @@ Cc: linux-rtc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v2 05/10] rtc: rzn1: Fix alarm range check truncation on 32-bit systems
-Date: Wed,  1 Jul 2026 15:29:48 +0100
-Message-ID: <20260701142953.2014895-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2 06/10] rtc: rzn1: Dynamically calculate synchronization delay based on clock rate
+Date: Wed,  1 Jul 2026 15:29:49 +0100
+Message-ID: <20260701142953.2014895-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701142953.2014895-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260701142953.2014895-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -93,55 +93,87 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-alarm and farest were declared as unsigned long, but
-rtc_tm_to_time64() returns time64_t (s64). On 32-bit systems where
-unsigned long is 32 bits, the assignment silently truncates the upper
-32 bits of the timestamp.
+Replace the hardcoded hardware synchronization delays with a calculated
+time window derived from the operating sub-clock frequency.
 
-Fix by declaring alarm and farest as time64_t and replacing
-time_after() with a direct signed comparison, which is correct for
-time64_t values that will never realistically overflow.
+The driver currently hardcodes microsecond ranges assuming a fixed
+sub-clock frequency of 32.768 kHz. Newer SoC variants, such as the
+RZ/T2H, drive this hardware block using a much faster clock rate
+(~195.3 kHz). Hardcoding these wait windows forces faster blocks to
+over-sleep, introducing unnecessary delays during clock initialization
+and register configuration.
+
+Calculate the duration of the required clock cycles in microseconds based
+on the runtime clock rate, and store this value in the driver private
+structure to adjust the usleep_range() and readl_poll_timeout() boundaries
+dynamically.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 ---
 v1->v2:
-- Added Reviewed-by tag.
+- Initialized rate variable to 32768 to avoid timeout_us of 0.
 ---
- drivers/rtc/rtc-rzn1.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/rtc/rtc-rzn1.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-index d56be7314a91..a82f2d7f7a2f 100644
+index a82f2d7f7a2f..1a45a3d895cf 100644
 --- a/drivers/rtc/rtc-rzn1.c
 +++ b/drivers/rtc/rtc-rzn1.c
-@@ -20,6 +20,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/rtc.h>
- #include <linux/spinlock.h>
-+#include <linux/time64.h>
+@@ -70,6 +70,7 @@ struct rzn1_rtc {
+ 	 */
+ 	spinlock_t ctl1_access_lock;
+ 	struct rtc_time tm_alarm;
++	unsigned long sync_time;
+ };
  
- #define RZN1_RTC_CTL0 0x00
- #define   RZN1_RTC_CTL0_SLSB_SCMP BIT(4)
-@@ -259,8 +260,8 @@ static int rzn1_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
+ static void rzn1_rtc_get_time_snapshot(struct rzn1_rtc *rtc, struct rtc_time *tm)
+@@ -120,8 +121,8 @@ static int rzn1_rtc_set_time(struct device *dev, struct rtc_time *tm)
+ 		/* Hold the counter if it was counting up */
+ 		writel(RZN1_RTC_CTL2_WAIT, rtc->base + RZN1_RTC_CTL2);
+ 
+-		/* Wait for the counter to stop: two 32k clock cycles */
+-		usleep_range(61, 100);
++		/* Wait for the counter to stop: two RTC_PCLK clock cycles */
++		usleep_range(rtc->sync_time, rtc->sync_time + 100);
+ 		ret = readl_poll_timeout(rtc->base + RZN1_RTC_CTL2, val,
+ 					 val & RZN1_RTC_CTL2_WST, 0, 100);
+ 		if (ret)
+@@ -379,10 +380,10 @@ static const struct rtc_class_ops rzn1_rtc_ops_scmp = {
+ 
+ static int rzn1_rtc_probe(struct platform_device *pdev)
  {
- 	struct rzn1_rtc *rtc = dev_get_drvdata(dev);
- 	struct rtc_time *tm = &alrm->time, tm_now;
--	unsigned long alarm, farest;
- 	unsigned int days_ahead, wday;
-+	time64_t alarm, farest;
- 	int ret;
++	unsigned long rate = 32768;
+ 	struct rzn1_rtc *rtc;
+ 	u32 val, scmp_val = 0;
+ 	struct clk *xtal;
+-	unsigned long rate;
+ 	int irq, ret;
  
- 	ret = rzn1_rtc_read_time(dev, &tm_now);
-@@ -270,7 +271,7 @@ static int rzn1_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
- 	/* We cannot set alarms more than one week ahead */
- 	farest = rtc_tm_to_time64(&tm_now) + rtc->rtcdev->alarm_offset_max;
- 	alarm = rtc_tm_to_time64(tm);
--	if (time_after(alarm, farest))
-+	if (alarm > farest)
- 		return -ERANGE;
+ 	rtc = devm_kzalloc(&pdev->dev, sizeof(*rtc), GFP_KERNEL);
+@@ -431,12 +432,20 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
+ 			scmp_val = RZN1_RTC_CTL0_SLSB_SCMP;
+ 	}
  
- 	/* Convert alarm day into week day */
++	/*
++	 * The internal clock counter operates in synchronization with the
++	 * RTC_PCLK clock. Calculate the duration of two RTC_PCLK clock
++	 * cycles in microseconds required for operations to complete.
++	 */
++	rtc->sync_time = DIV_ROUND_UP(2 * NSEC_PER_MSEC, rate);
++
+ 	/* Disable controller during SUBU/SCMP setup */
+ 	val = readl(rtc->base + RZN1_RTC_CTL0) & ~RZN1_RTC_CTL0_CE;
+ 	writel(val, rtc->base + RZN1_RTC_CTL0);
+-	/* Wait 2-4 32k clock cycles for the disabled controller */
++	/* Wait 2-4 RTC_PCLK clock cycles for the disabled controller to stop */
+ 	ret = readl_poll_timeout(rtc->base + RZN1_RTC_CTL0, val,
+-				 !(val & RZN1_RTC_CTL0_CEST), 62, 123);
++				 !(val & RZN1_RTC_CTL0_CEST), rtc->sync_time,
++				 rtc->sync_time * 2);
+ 	if (ret)
+ 		goto dis_runtime_pm;
+ 
 -- 
 2.54.0
 
