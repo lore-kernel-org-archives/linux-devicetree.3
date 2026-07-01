@@ -1,206 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020100.outbound.protection.outlook.com [52.101.225.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E1C47CC85
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:36:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782909407; cv=none; b=CGseFZtFwumOWlY6ZCfoxuylTtGq7/61A8zZMEvSPf+CNh8TWdmYPZ1L7oDfuahA38EtLtfiV38+90PdwlBjXVLTJNmZxymMnc6YG0bkYl8n7u0mU+G52Od2aKMqV2f2lFOCuAWjoC0wptT/dlL7AuU/w/qgkuuGiIxxXtcEp0M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782909407; c=relaxed/simple;
-	bh=TTCt5dYawlOog3o1DwL6gk8LDarn1/cvNuOkaWeCuzk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YP7TzyWW5xJSvSycKquD6dRRdV3tYRj29bzlOG7K7rUVbQlYl6MYKJpVcryyU5Y9v1h+nVbIUGeLs2AZYUcsHS2rkRLdllnjKEqDLGWxgpi/WQUmSwHDs7bo1TTNJNDPsrf1UDEwRWyQxtKvkaLvwlxb1MMfIPhjtFn5Ta0Z6jQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Td8ZAtgs; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1C048C3F7;
+	Wed,  1 Jul 2026 12:36:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.100
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782909410; cv=fail; b=BAziQwThdi3nHjQnIvtT0HGuT1ep7k+PGtF035ZJ51l5dU8x9pHgGfaxPb42pHGWdkaBiXdLEfxbXTF5d7VGaTucHwZo+15vu+1LYamwcUB+0xZqvDMl0BvL3jYJ0mgxH9cHVjKMJMoY4cdzEao8G5CyTzpoN/pZwyux3fO+ET0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782909410; c=relaxed/simple;
+	bh=LuY7p/VV1nrG0u2ZLTaCxEFzY4ojm2wLfCV6EB2xTFI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ulK+IXYZl2alqOaCaGCELxdeG7Lh4ApsxDtCuA9iWSGFogMdhOrTJdTxtSIfWEpY2+mkjUNm0QJKQLPxCBpBB8B09xIndxkscp90DUMluUVSmn+zzb9xsNRhU9yn8SkdKZBs5ZPSglOJBrwn6naeBF1+nGmHsXGjYKKtKYcMl7o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=KyHNh/q0 reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.225.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Td8ZAtgs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717A71F000E9;
-	Wed,  1 Jul 2026 12:36:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782909406;
-	bh=C1+20SB3grYbbLQ4hKEaqQJTlwwxHdQUc0LGvzYz11k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Td8ZAtgsLCmlbpLm4pVtiur9FeHkTmvl0ANVtHBBG/129J6sK/ABeK/Fm/mH8k9I/
-	 Pza0aYQHde7eB0Ag07QB5T2+lqrW407pQ5J/MNzhkpgHI6v3iBXSS3vg4iiOkr5ooP
-	 c78i6KjwPpwwuB+06zGgPPYTA/7UaQMj9ra9U15ABVk9Uza2WVGdZu6HhZFBZFNThj
-	 CFU9csh7UgNo0Y7xfHU1wEwZiKMNU6ANy8Y93NCScS23LkSynW62DPFJpX1vh6tZte
-	 sJ1Wtd7uY/62EGDPIGhmHSP8ICJbWqWZbpm2PGFx/znEZ/4Qf4scHIs+fJ57IOJC5+
-	 CMcCJA5y4Yp/Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 04/12] phy: phy-mtk-dp: Migrate register offsets to SoC
- specific pdata
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: linux-phy@lists.infradead.org, neil.armstrong@linaro.org, conor+dt@kernel.org, vkoul@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com
-In-Reply-To: <20260701122008.19509-5-angelogioacchino.delregno@collabora.com>
-References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
- <20260701122008.19509-5-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="KyHNh/q0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PVTW+A/jGkq+E5mHWYFdzW96fuoT86ep0iY89g/ZCOjhw11kz8xmeeMMA6XOTZdk5l0SncC5Z5Zt1+WpvF7AZhAoKk6cOLN+DL8uFtXOdv4llQPRTMcRQ5m5QmE++PXG4o4r13j0HCFPxmL6ZB8LVEBkOnueoySNfRSym+adR2ZWNH9Ej5l9e38HyMW0Chx+EYtRpKP9ueN9uNYEeSJOwEXpwJVfJVId3gRU/DHviXtuF6SKHdl4aPu/hYP3p8MkZJqhb07kWu8U5tZJh0zdXmiciepFurZ+HISK5VKxbWbkSYn33lZEfPcTPvdh+D4BjQVwF5QivODAjdc5Xl3SOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WLsfNyXPaXXRFFK56+CO2v9qZSvpjftcm+qVXLvYJo0=;
+ b=ObKf0PyghBqRO77grmyyLTaAo2pxdbYxs9UUCVk+jXTf3gg0gBk4R6KMiJ8Xm24AmDoVhq/FDPRpyDfCnHzmfnrD2Y+TUQ6HIpTtwwSMGoivSIaw6PNF8IzNcSsXyluKaUQNZOm+x9/TZQMWassRtsyTRuB6w2VWG6Lor+bL4/GjvqW/Zv2Xl2HW4GsHhuW/LcwM/9iW9hUdfXJ6MY70RawP8tFScydi3Ieesxg+uNMot7hK80ko+6ilBCuwtSRHJUuM8rodx9Su0/fzR3bbGs2xJDA2gjK6NUUWaGFaFjA6UcayqEeUmlUBUs0qqCj9B2Y5P2byl5/ao7cXJUP4UQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WLsfNyXPaXXRFFK56+CO2v9qZSvpjftcm+qVXLvYJo0=;
+ b=KyHNh/q0ZUonTc1R6YjasYHsU/Ezw3wqgiIJUlmXIr/apCvbz5ZHmoyd5+pUfsy90zmR5dPO2NsO1Uq1CqaMu6T7YOJoW6k9ROzSjVSvh0UOEKkvA8tcebAhq226ewbDyDdzsUS2Vm9HStCzlk8SGqR3tBQpNVqd8kBWoK+cyFHChUkYFqvdiq3AMSH5qBHcg3VazuzEn01bfKZ7a09RhBwyx3CjuTpSIfd8rPEAmzN/MJBaLOd3sOU5JG2o2lEAXlbOKEcKESOWZxBBOYFTGPBDyZMHJlNBmOFWTaFOMNHiX8ie72QX3Dj4OMYbWm3jAIppJOFY11E7KDGJLREaxQ==
+Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b8::9)
+ by PN3P287MB0815.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:176::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 1 Jul 2026
+ 12:36:43 +0000
+Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ebd8:538d:c705:8432]) by PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ebd8:538d:c705:8432%6]) with mapi id 15.21.0181.008; Wed, 1 Jul 2026
+ 12:36:43 +0000
+From: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	"sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
+	"luca.weiss@fairphone.com" <luca.weiss@fairphone.com>
+CC: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+	<konradybcio@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Hans de
+ Goede <johannes.goede@oss.qualcomm.com>, Vladimir Zapolskiy
+	<vladimir.zapolskiy@linaro.org>, Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>, Laurent Pinchart
+	<laurent.pinchart@ideasonboard.com>, Walter Werner Schneider
+	<contact@schnwalter.eu>, Kate Hsuan <hpa@redhat.com>, Svyatoslav Ryhel
+	<clamor95@gmail.com>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-arm-msm@vger.kernel.org"
+	<linux-arm-msm@vger.kernel.org>
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Add Sony
+ IMX576 front camera support
+Thread-Topic: [PATCH v2 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Add Sony
+ IMX576 front camera support
+Thread-Index: AQHc/+rpvZzMTRXyLkO/gzC6xhvmXLZVfMMAgAMvzLI=
+Date: Wed, 1 Jul 2026 12:36:43 +0000
+Message-ID:
+ <PN0P287MB201945BA5173A17EA963C4D29AF62@PN0P287MB2019.INDP287.PROD.OUTLOOK.COM>
+References: <20260619125439.55311-1-himanshu.bhavani@siliconsignals.io>
+ <20260619125439.55311-4-himanshu.bhavani@siliconsignals.io>
+ <c0cc8b08-b468-4120-b79d-2ab9ef4d0aa5@oss.qualcomm.com>
+In-Reply-To: <c0cc8b08-b468-4120-b79d-2ab9ef4d0aa5@oss.qualcomm.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PN0P287MB2019:EE_|PN3P287MB0815:EE_
+x-ms-office365-filtering-correlation-id: 7efe3160-740d-4bee-af75-08ded76d6858
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|18002099003|22082099003|38070700021|56012099006|4143699003;
+x-microsoft-antispam-message-info:
+ C6WUqtIZ0V3J+HcIuxLYoi+0720yyD4kEMNqz3BtU7FSoNe/659VJB8AbuGcyHsQxGk9q2x595GfvFfacsOxCcutJJtR/X7hPgb9ZJdSXW8LaGI2olqJmgUk0wQXziYm2q+6tSpra957bobALsQhcPNYT3ymuU9E6MVSaCkw9mseprHuDFHQlkD6YVYyGnbhTi6fLVmTfn4macGNA4U8vYE6MyZtHXTta9r5/MQzF+kOwLpk4SftnedSeRRee3Y0ByAzVA49p2dOdDFMBJIAzw9G/HfYtkcVuANlgLvvuJ6IWOqbp0UK4r6mNzW0PC8TUBBOBPTsmzxqJUadhWHBrRilh7/du3ez+3QGgEH0r+tl51MoqaTK9HCdq80093irLlKi2XyoWt/CNYgYMgUPIOVE0pqErlHs5+e/LpXO3B4BVRxw41B79f2OyCPdp4f3lV4q5NpDyl79WapQamSSFmpCJrR/aCRG++lTxMgs4Iupkez/33Z+5RVhD42LsSbl/Q4Dwt4ySLnqiYfxMv7ZERr6eBKxr7DYU8xaD5nDtEC+TkkWCBY7QL5k93wqGmdIURVxOjat9p2q+uoxJsDuzASt+klY366gg36PYrpqaNesWo5N2IYQfXQ/FNAqCVyf09ufRHxlj0A29OTyKQ8XSh4cv8uPt8ZgNRZr6qO11rtp24gagn7iBHZ6Jd/fKs6xEl6l5pPkkA0Y2vS/bYkcAhqe8UX3vTdNqZrM470CW5Y=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN0P287MB2019.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(18002099003)(22082099003)(38070700021)(56012099006)(4143699003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?qzk33pn05EEpY3DUTdxFSL4FIVaFbQA/30Y3zD9farkMP718Iv09vp4gDI?=
+ =?iso-8859-1?Q?i5iWsVTVhKUpKF4O+IGCWzqFrJKWJMxJC9+xGca8CJBOxjFFj7soRuW1Tg?=
+ =?iso-8859-1?Q?uICQ6gu75dGjQTGRCe4UfQ1KwAq9/wIu9I92EAiWu5LTOOHvLUlwV1zkii?=
+ =?iso-8859-1?Q?WdEUgBACA6RE4/p8WlKiHwae5AhWba4jDlTS9GVxtDo7+dTVKDbu84Z8Fx?=
+ =?iso-8859-1?Q?5RNARRRbSNohKF10pchiz4Co/6m3HzBQPYb2xmS7mi0eZUT4uPBdWO1IOL?=
+ =?iso-8859-1?Q?JXB4FlchOyl0/vWK9jL+uVOuXOzBKdsjJ+zvaDBDy8Q+eEdyZr3POf8/gq?=
+ =?iso-8859-1?Q?iItXNGIdgR6Fjhj57lRc9Sbbo4YSRJosYO3Zhzaz70co4CId310XgpklZu?=
+ =?iso-8859-1?Q?056uY3cyv6YxIF3PdXqaas65XXhDCnDEYqJgcYsw7HgFkQGqNvvGieiw6h?=
+ =?iso-8859-1?Q?aitGiXeEJS4DQAa5LhHeHO5OjXceZIvJJYsbeEuD851n+itZavoOoXW8pg?=
+ =?iso-8859-1?Q?qFIJSwGQ20vdOyuXMbhI2MOAZmkpQ0d1MFrDHqqTQd2szUTGZ7rzVhCqDm?=
+ =?iso-8859-1?Q?sle7Y9aOqEM4evpQs4/aWDxfknmkPZUqTEA40IMC3VuESr6OmyClFtkrjS?=
+ =?iso-8859-1?Q?cTpcyhTwYz5A9gWsoBsmC2lhhGUl0CYMtqO7n0wmVbjPwc13UWii1Ef4x3?=
+ =?iso-8859-1?Q?Ff49muUBsuzw769llUNkDAiDbHlGnVdNJqPLUJsFqNf/8QjHTVvNQdqc/r?=
+ =?iso-8859-1?Q?pZsgF1A3qkW2vhIq83EhYLqVWte2i84vIjgWapIZVA0wLXzkM5F8kGmd2K?=
+ =?iso-8859-1?Q?j0lev8D2fqIHbLqb81YwHzpGyoIsq7xfzVFra1OHH1tEwYRvgpvYU/2QYj?=
+ =?iso-8859-1?Q?5ep3BuCRY/a0tN+Fxn7qrRne7RI37vyq/sY+X83IxxsNVEO/rW9wnJJIUC?=
+ =?iso-8859-1?Q?uo7aSQOEBoEu4+nKVyd8ihctzbuyuAGRKvVNZe2bJEZihGEmVVFCEvfzZc?=
+ =?iso-8859-1?Q?IqVvniGDRZbZFHfNcMaMp9pBZtT868mVudFQWIr1lgJKaulX8CcKzwpMYF?=
+ =?iso-8859-1?Q?lwHXtF+m04s2mBbuF+PeU4VPYQ+hQP4p4hZli2MQDnl6rB4C8bEdDDlZoq?=
+ =?iso-8859-1?Q?9MZwmMeV1/xmZpAHKkqbPMXSAddvc4iHwLW9HPcjIXaZkcLOuJOIHhbq0R?=
+ =?iso-8859-1?Q?p1YCEf/wzVgTwk64qOMMRa/vsCxWfsHfUnWTiNiZQ0VfMW5VtWS6SJXPsC?=
+ =?iso-8859-1?Q?rzY5lsbbkf8PsbXbyiDMkqUPtIe/wSxQl6A7GCBrb8J/H/QM8iSJ4ID5pq?=
+ =?iso-8859-1?Q?TxUEUnu2EexRbgedUobWS/gnzJN/vFQKqZDmb/pkAJG2f7AksnCwlt2Tiq?=
+ =?iso-8859-1?Q?IGOu0+ivRYag3s84wbANcoELUJtErk1LIFqN6amwNm/HnQXsmoFLyCDVci?=
+ =?iso-8859-1?Q?RlWmsmj+/hzOWb/EsywTHRV992Nmw9/PfYOZ5UCToBMs4d5nt0OLvNBsmM?=
+ =?iso-8859-1?Q?HwCtdiLDhoVuwov8bIBCNBvH6Jn67xFNeveUV4XtXcCU2zW5+xtdlNDBpO?=
+ =?iso-8859-1?Q?lmmakpz+DIiR+Y8wq91q6OzVli1cMj1rlmIBfuohEciWXZDmQlkKVAPPEC?=
+ =?iso-8859-1?Q?yMd2KJC6GsCxDZSk8U1UyvUGTgujQPZ6tppoovpHKZNQBwu+7/PN7orGL2?=
+ =?iso-8859-1?Q?rGBnbU4N4jXTv7HGAzOPJCp8NSKiefj+TUUQPjM/z7TKSDXqt6M+eKEEjC?=
+ =?iso-8859-1?Q?Y6SrJS3nr2vJ6whrilHGL+eVsX8JRXLGzbU1OEe8nFoxeARsa+tuiGC/jl?=
+ =?iso-8859-1?Q?mniXJMOh3LuTl1ZdAyjaZb2A2M/5dec=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 12:36:45 +0000
-Message-Id: <20260701123645.717A71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7efe3160-740d-4bee-af75-08ded76d6858
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jul 2026 12:36:43.4822
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: W9h42+Zvaaw8pDGX0jVSmZ6vbsJcZMVY2KW5ClBFdKZEghP4dVgmX8fWQyRSaAzHPe//BHkuq0F+7+XR91JEjecLBDn0PDUiAkGyjJZSxuOKnGw7tGyWUF50ZBZJacWX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN3P287MB0815
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-
-New issues:
-- [High] Missing NULL pointer check for `device_get_match_data()` return va=
-lue leads to kernel panic.
-- [Low] Build failure due to invalid initialization of an array field with =
-a compound literal.
-
-Pre-existing issues:
-- [High] Missing driver `.remove` callback leads to unbalanced runtime PM u=
-sage counter and resource leak.
-- [High] Dangling `phy_lookup` entry in the global list causes a Use-After-=
-Free upon driver unbind.
-- [High] Unconditional dereference of `dev->platform_data` before validatin=
-g it for NULL.
---
-
-commit 2a851e9d237369ac4340bdce02183defb68c9865
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
-phy: phy-mtk-dp: Migrate register offsets to SoC specific pdata
-
-This patch migrates the hardcoded register offsets in the MediaTek DP PHY d=
-river
-to SoC-specific platform data. It assigns this platform data for both Devic=
-eTree
-and platform probing. It also loops through lanes to clean up the writing of
-driving parameters.
-
-> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
--mtk-dp.c
-> index 98e05fe05ce3b..ce33f6812bae6 100644
-> --- a/drivers/phy/mediatek/phy-mtk-dp.c
-> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-[ ... ]
-> @@ -161,11 +225,18 @@ static const struct phy_ops mtk_dp_phy_dev_ops =3D {
->  	.owner =3D THIS_MODULE,
->  };
-> =20
-> +static const struct mtk_dp_phy_pdata mt8195_dp_phy_data;
-> +
->  static int mtk_dp_phy_legacy_probe(struct platform_device *pdev, struct =
-mtk_dp_phy *dp_phy)
->  {
->  	struct device *dev =3D &pdev->dev;
->  	struct phy *phy;
-> =20
-> +	/*
-> +	 * If legacy platform driver probe, assume this is MT8195 or compatible
-> +	 * with a devicetree that was not migrated to the new, proper bindings.
-> +	 */
-> +	dp_phy->pdata =3D &mt8195_dp_phy_data;
->  	dp_phy->regmap =3D *(struct regmap **)dev->platform_data;
-
-[Severity: High]
-This is a pre-existing issue, but does this code unconditionally dereference
-dev->platform_data before checking if it is NULL?
-
-If the platform device is probed through the legacy path without an of_node=
- and
-without platform_data provided (which can happen by manually binding an
-arbitrary compatible device via sysfs), could this lead to a kernel panic?
-
->  	if (!dp_phy->regmap)
->  		return dev_err_probe(dev, -EINVAL, "No platform data available\n");
-[ ... ]
-> @@ -214,6 +285,8 @@ static int mtk_dp_phy_probe(struct platform_device *p=
-dev)
->  	if (IS_ERR(dp_phy->regmap))
->  		return PTR_ERR(dp_phy->regmap);
-> =20
-> +	dp_phy->pdata =3D device_get_match_data(dev);
-> +
-
-[Severity: High]
-Can device_get_match_data() return NULL here?
-
-If a user with privileges to write to sysfs binds the device manually using
-/sys/bus/platform/drivers/.../bind, or the device is instantiated via platf=
-orm
-name matching while having an of_node, device_get_match_data() will return
-NULL.
-
-Could this lead to a NULL pointer dereference resulting in a kernel panic w=
-hen
-dp_phy->pdata is accessed later?
-
->  	phy =3D devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
->  	if (IS_ERR(phy))
->  		return dev_err_probe(dev, PTR_ERR(phy),
-[ ... ]
-> @@ -231,8 +304,15 @@ static int mtk_dp_phy_probe(struct platform_device *=
-pdev)
->  	return 0;
->  }
-> =20
-> +static const struct mtk_dp_phy_pdata mt8195_dp_phy_data =3D {
-> +	.off_dig_glb =3D 0x1000,
-> +	.off_dig_lane =3D (const u16[]) { 0x1100, 0x1200, 0x1300, 0x1400 },
-
-[Severity: Low]
-Will this fail to compile under standard C compilers?
-
-The off_dig_lane field is declared as an array
-u16 off_dig_lane[MTK_DP_PHY_MAX_LANES], but it is being initialized using a
-pointer from a compound literal cast (const u16[]) { ... }.
-
-Assigning an explicitly cast compound literal to an array field is
-syntactically invalid and could prevent the driver from building.
-
-> +	.regs_dig_glb =3D mt8195_phy_dig_glb_regs,
-> +	.regs_dig_lane =3D mt8195_phy_dig_lane_regs,
-> +};
-
-[Severity: High]
-This is a pre-existing issue, but does the mtk_dp_phy_driver missing a .rem=
-ove
-callback lead to unbalanced runtime PM usage?
-
-drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_probe() {
-    ...
-    pm_runtime_enable(dev);
-    pm_runtime_get_sync(dev);
-
-    return 0;
-}
-
-drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_driver {
-    .probe =3D mtk_dp_phy_probe,
-    .driver =3D {
-        .name =3D "mediatek-dp-phy",
-        .of_match_table =3D mtk_dp_phy_of_match,
-    },
-};
-
-Without a .remove implementation to handle unbinding the driver, could the
-device remain permanently powered on and fail to cleanly suspend or unbind?
-
-[Severity: High]
-This is also a pre-existing issue, but is the phy_lookup entry left danglin=
-g in
-the global list when the driver is unbound?
-
-drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_legacy_probe() {
-    ...
-    phy_create_lookup(phy, "dp", dev_name(dev));
-    ...
-}
-
-Because there is no .remove callback, phy_remove_lookup() is never called.
-
-Could a subsequent phy_get() call traversing the list access the freed
-pointer, resulting in a Use-After-Free since devres automatically frees the
-struct phy?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
-9-1-angelogioacchino.delregno@collabora.com?part=3D4
+Hi Konrad,=0A=
+ =0A=
+>On 6/19/26 2:54 PM, Himanshu Bhavani wrote:=0A=
+>> From: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>=0A=
+>>=0A=
+>> Add device tree support for the Sony IMX576 front camera=0A=
+>> sensor and connect it to CAMSS via CSIPHY3.=0A=
+>>=0A=
+>> Signed-off-by: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.i=
+o>=0A=
+>> Signed-off-by: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>=0A=
+>> ---=0A=
+>=0A=
+>[...]=0A=
+>=0A=
+>>  &cci1_i2c0 {=0A=
+>> -	/* Front cam (Sony IMX576) @ 0x10 */=0A=
+>> +	camera@10 {=0A=
+>> +		compatible =3D "sony,imx576";=0A=
+>> +		reg =3D <0x10>;=0A=
+>> +=0A=
+>> +		vana-supply =3D <&vreg_l3p>;=0A=
+>> +		vif-supply =3D <&vreg_l6p>;=0A=
+>> +		vdig-supply =3D <&vreg_32m_cam_dvdd_1p05>;=0A=
+>> +=0A=
+>> +		clocks =3D <&camcc CAMCC_MCLK1_CLK>;=0A=
+>> +		assigned-clocks =3D <&camcc CAMCC_MCLK1_CLK>;=0A=
+>> +		assigned-clock-rates =3D <24000000>;=0A=
+>> +=0A=
+>> +		reset-gpios =3D <&tlmm 35 GPIO_ACTIVE_LOW>;=0A=
+>> +		pinctrl-0 =3D <&cam_mclk1_default>;=0A=
+>> +		pinctrl-names =3D "default";=0A=
+>> +=0A=
+>> +		orientation =3D <0>; /* Front facing */=0A=
+>=0A=
+>Please include the new define from:=0A=
+>=0A=
+>https://lore.kernel.org/all/20260628-kbingham-orientation-v3-0-4ed92968aff=
+8@ideasonboard.com/=0A=
+ =0A=
+Sure, I'll include it in the next revision.=0A=
+ =0A=
+Best Regards,=0A=
+Himanshu=
