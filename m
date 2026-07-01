@@ -1,87 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15CBE3612F5
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 16:16:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895CF367B7F
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 16:16:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782922561; cv=none; b=t/bsSuTAl7pl3ZpgWQp1oS+UTfban4nueAijKJcrWZ8yAjNAYf9QqOKdi8i1Y4mqMAI6z4xEpAfmh0OZ2dP765HjvSsWtf0FT8716Pas16dHoozSairiJ2QIbIYUGzIuqh2nehutds0a5vYa3HN7p6dUrUcf3p5cszCfZY9Xb4U=
+	t=1782922562; cv=none; b=HmyLWvreybpIM+dIkGJuVX6qTNg+h9pyjb6xW1fJLfMgokHnlQCXeLdGHmJUaJHq9ZHdGx2Uno15GhsF29GeaFQ2v+zU1CAsrIMGsEZsZim7giMKwljCw9Ua4BoT1zKk7oLlFDtUtLm4Cw8FEefstJcr5lcF89bjeG81+SpJWws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782922561; c=relaxed/simple;
-	bh=1y47odj+NOJ9z0mS6+ykXCLNXopAlKlTgU+V3x/sXtk=;
+	s=arc-20240116; t=1782922562; c=relaxed/simple;
+	bh=Ka3/2OHVRu69bdJbzsEw+il1OYy6CeM/zE+4zTE+Oq4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Vx7yPBKEatT2wIwR7VmyfmU5Tuo6cGC6HEBD2i3O5zTCkNiALerwUn44hWjYda7dgrT1nKQzRK7d6E1kmEhzlJC2ER6+sp9bM9+WhemfOntbh+e0HJ4b5g72/DEi1c5oA5Qp/9YciZ/WcfaEA62AvcXtOvMTZERjNTN5DkDeeMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jUKwXRhr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fA+cAlGS; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=YYSJVoSbWjYANmALZjm43VR4HnYEPVCbSD8JNSaqtcLDVDbHBsw+/bSulLSmO2pcROAYOQlJtzEAH/bmvting07U4sag1Vs4ELCjFwLxA6lt7YHzYOim54W1u0vo6VxnxJbX1wFPJs8tAJlO9e2aSlXoQ26IS+9Zz7u0YTYHvu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dDHhyXK9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ELySaIth; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jUKwXRhr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fA+cAlGS"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 661FoAVv1552738
-	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 16:15:59 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dDHhyXK9";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ELySaIth"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 661G3II01504283
+	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 16:16:01 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uUVrlO6McQy7XbenV1MuJ2C4u8WMipkYL6fUtxCmAXk=; b=jUKwXRhrs39O/E34
-	cVccw/zQEGmU9bz4i0WYwvlWEavdikbIHibgzbifbVMBdkpPE3IazUhWMgE0DDS9
-	uAtLiafhRVk80aKHZwkK/FReGZ48wSNSxDpl25Nuz+t/zApliIIGzG1QNQ7zC/B2
-	6LlMsJnjjJDb+VEHqO4q1UCiVe08K6t5cGilfk6e75BtErhqqYTJqNDqRXEfbmh1
-	VsEEWKm4HN5qShAfdttFNQYGyl7vqvNWAQrh6q977SFvZxjZPPRkOtv9IcWx7YhY
-	gsNW1t220en5gEMQCIBDtjiHtucCp7Iw3jgvMeBIKTker6G05awCvujk8tIUKz8j
-	xQF0Pw==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f50sd1jcb-1
+	HWGipK49nXtgoFExH/hwT+pS9Iok0V+C34bfYKTHbb0=; b=dDHhyXK9A0tPDieX
+	fQo3kEK3FVmfyJtxzuOR24R5YUPxmOSKStZPUw5shvr8mCNWMI2mVVVzRTsjNUgF
+	CXGbcpYlsN8TySeVX1dOOGt6pYv6DXBSeRCJ51FpkKHWxB+1QRoqJv1X/BRXqbSy
+	eAGadOezovG9mZ1XP2MmUknTyN2OlNXFEtX76P0nZ9DwoYzlB8hzoHDCWFyDbCYt
+	XeZXFxd5GPguyEb16uVi/Y8OhPOD80InTZtYgw40U3VKaEzN8k4+46eUkuLgiubP
+	o5eE8zqfoP6sZ9rw89jkjsDXISb/uRWXzkR/MA+4N3r4f1p4d758ONfvSnXlqJ/6
+	wAFXhw==
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5630823x-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 16:15:59 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-964172af027so706090241.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 09:15:59 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 16:16:00 +0000 (GMT)
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7e94dffa918so1093124a34.1
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 09:16:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782922558; x=1783527358; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1782922560; x=1783527360; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=uUVrlO6McQy7XbenV1MuJ2C4u8WMipkYL6fUtxCmAXk=;
-        b=fA+cAlGSlDOkNE8m6Q/duHNhvu8JleS1lRnYG/JpE83AjNheyuh7XjGxi0kxZnWTqa
-         FUxESjZL0KGRc88JoXJnH5/w2RUxPEEGjbbrE02Tu/YvR/DMx1rlPFU3J1B7AxNFDqnt
-         BeSzfsHSOEuR0r7Encp6QGsDcoJ3AeuxOyRqCrR0mQeZkObZ5zUHDs7AnkH9MUrtOOIi
-         KHVZmbvMqTh12t5XK22WvuYWHmx/CcUCD6TOlMcheQ3rKETorPAQHkGWCyzOwgSXQoS6
-         08Fvyn5AHUJD/ryqeWavpKYJ7FSyss4sTX+LiGQDRQeksn4HgmuIbOZ/7O96yy5NGfo2
-         axjA==
+        bh=HWGipK49nXtgoFExH/hwT+pS9Iok0V+C34bfYKTHbb0=;
+        b=ELySaIthmUH5mV0W9XW+irVokOIMdmI8348+88CRRGy2yBVcnB8og5uCYn2jsXlcap
+         rY83EdcLImELejXjbtgcayGINOKUZxWzcsUqMFigBrsH7UnfZET9Pm1Z5UmyIQFkPEoN
+         iLlNGRFi4atZ8iQM0IcUOhr/Igqd4NbP/Q7tRL2vropDwfasusGS/7BygkAm+ZLv59qc
+         nVtwSrpnDlwhDSmylhyiUwf+nhD/xfiQt5vqMgaGKsRpuXBxR0IlapcVlajDIFNJibuQ
+         DTIvTnwywi57VY39I3QCBOeRHLWtr0w6CL3bTeuqvYLDEJ7wLIpC8lYtI1wxDXp3P2K7
+         NQxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782922558; x=1783527358;
+        d=1e100.net; s=20251104; t=1782922560; x=1783527360;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=uUVrlO6McQy7XbenV1MuJ2C4u8WMipkYL6fUtxCmAXk=;
-        b=SHO40El1AkePaHKYzAMM+pClRJisf0me9/j4GIuZrRP1Q3QwRYLPi6+2OcxKOVbF0d
-         wZciDdIOWQSSfINST7Lx1irA/Td7hqm7Fng0nBvX3Yj00MUMm/jJy69YfRjekwdQM7tT
-         gQLP5fA6TuTCGTa1UxCfs1z8l55G9hIjKveogT59A1g4nmUY5kzwIdt0enBKnhtqvwfW
-         +6p2kgavanAneCLvOBbTzBcV+A0ERDL6HMW7XDlcauj/FEuavCbknxXoaXvU5eSshWWZ
-         1xzyAu0qs3eaZDbKOCn7AA/BBlsD0klbgVl/3EzuirPDyQorgQDCUk/k3HggYy1H22jN
-         OcRA==
-X-Forwarded-Encrypted: i=1; AHgh+RpHnASREw61kYmW8xyPYSF/MB33hrv+nbqMsiR8TElnG1YE7McOiPei6AZ+I3szUtgAH0cfZCvN2uV8@vger.kernel.org
-X-Gm-Message-State: AOJu0YwHbSTGU/2N0jmZmG0G8ukYmUJj9YGMS99WGBHHTr5cXjNGWc65
-	VNPyjb304IbbmHCV7UfHbrvETGUbIjIxeRlsraUFVA5jNbWSO6cXmLj3jO5iVj3ltGWhPom2w1M
-	GamVC7Bq5K9FPHyDYcd5PNwCq2rWAT87Kn604vRCC8UkXQ+sjm6jrPCkDmNLp+f40
-X-Gm-Gg: AfdE7cln7VlotDaDMvM8cfXBCk5m5+NUFTUDrrO+MHttDbHOuIlkGhsnRlLd745fdLk
-	Yo0v5N78lkAIDjR7PMse+P+P7Xv01kl3g1qlHL9e222wMdT11D3vkJpz4GuUrO8ZBy78JHtcW17
-	uq/KVSMxWLB7mJt3lgeJQ8og+XFH+os9xogEsv8PCNS4AcPUQeOWfzMiA2qESo5mciGfUw+GKre
-	uJ6jaHq7SdXh/zeFON0cG1CpMq0Pt0y8mE3uY6xVNC3ZAP0PzH8NtlqevcySdPbydgGrkSHnSVE
-	Hyyj/l+J3tezQlLXpyxAte5o2HQqIFjxT1WLmK7hIlllVy51yrulKn/OZYJ+iJc3I5YV9WgmhLO
-	+f+UFrDPDsSrRkRdBuky/cU+Oy5a/7k1SsKiP4UfzTI1xC2Ttacq1O4JTj83mpIGhJlNGWF2pzC
-	Vvvgywztrt2/fveEAdxSI2UovJ++YT7N2GWL0XqPlkzY8/3l1bcSP97afDigoVDR0=
-X-Received: by 2002:a67:f74f:0:b0:729:3df2:1aa0 with SMTP id ada2fe7eead31-73da95b0f95mr954419137.17.1782922558132;
-        Wed, 01 Jul 2026 09:15:58 -0700 (PDT)
-X-Received: by 2002:a67:f74f:0:b0:729:3df2:1aa0 with SMTP id ada2fe7eead31-73da95b0f95mr954348137.17.1782922557510;
-        Wed, 01 Jul 2026 09:15:57 -0700 (PDT)
+        bh=HWGipK49nXtgoFExH/hwT+pS9Iok0V+C34bfYKTHbb0=;
+        b=VFFSbNc41cxo8EEwJ9BvyBDWFL+eCKUD2qirUGZI1Y1E7UT0gC2lrnWma6OmTNsWy/
+         c4w6BQIk1GNtWf7p50Nd89Az9QR75WwwysV57d06bJrMO+wcZmLmX5Uq6HbBYjZi9vTt
+         nTnJ7a7JAYctyeaSKIq9fjxrOeVFjTMrHWIo8IwH6uZdfGsWcvNDh0wC9r14dEXEMaHD
+         6RUaW2RpJqV+Pdp84VFrkjDw9PzkTQXBWPtjXet3c6veOy19ZsqCRwARk+KAoncyH0aG
+         L4eLCd1WM3O5fSTuz/83utv1KQIxKfoGnvuJNkkxPegk1nTOshZseqMl7eK1at1whI6+
+         37pQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8+kjGpiaUy9morABZ84VvMXI8rwtTNQqIm8YrW/3thwBw2a98wnVKG9ZG6XFIie4uFHSRnd0DvQO0T@vger.kernel.org
+X-Gm-Message-State: AOJu0YzUsudS3G0Go4OeSTwz/qRPTSaPTkEIZ6bXU/quQA1/ZI5SThIf
+	QtTaqw/JLAe+uYvkKA3vE+Ek7J3ddOi02tqkwArzXWY0zhn+Wm0vx54+8YBrLgSVs5fwxdyIngo
+	IU9JUopa+2G2IeMZ5bFdcljI56MKtxeWfGjCD2sPGKcEbnXufxxl3U7o62zuyV4XW
+X-Gm-Gg: AfdE7ck3oPmgO9mhEQVbjOlZI/AfdG+Wnmbgzbu2NrslLHIPzYl/a38mY/K6hSJgvGa
+	ZEpX+IVA0U+taQ3lrSEjPrrFHlOFF3dsN7cI/dBUodKmdzVx1yqR9ieZcSQZpG3HwFJbd+QXsja
+	sWfpkVkQHZa9wWybkS9l3CO3rHziuxJ/Rc7jSgZBvW8wgFHTYqyV2UaQmth2a182Loyew8QO1K1
+	Nx7Srp3uoc9E1YjGyzE0LdIznCYeTl44Rvfpsa/IQkZqD9sZpxG2RFL6RTCMTqOCvYWKi7OSlxf
+	AmpF5QV7PvJaEEaG2BUD+zO3YNf5zslNV0v/tBTbVTc8Om1eSMyIVGfiTIW/8Skj1xOoUv/HZbn
+	LPqOKQSAgpFShvWSv3oeL6Nex04ge5vtaec/GXqQhbJAUtX5FLWHHILJcUq5U5eF9fIi5B7NIxK
+	KzYRrqmFztIbSsaNAB8OYE1z8Te8byAcGJz0PTngQMkDcAahWM8DG9RyQMjch/sog=
+X-Received: by 2002:a05:6820:150c:b0:69d:f8c2:387 with SMTP id 006d021491bc7-6a309a11c20mr1267442eaf.17.1782922559888;
+        Wed, 01 Jul 2026 09:15:59 -0700 (PDT)
+X-Received: by 2002:a05:6820:150c:b0:69d:f8c2:387 with SMTP id 006d021491bc7-6a309a11c20mr1267384eaf.17.1782922559258;
+        Wed, 01 Jul 2026 09:15:59 -0700 (PDT)
 Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:809d:5d56:19d9:ff8b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1288d1ea70sm299570266b.3.2026.07.01.09.15.55
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1288d1ea70sm299570266b.3.2026.07.01.09.15.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 09:15:56 -0700 (PDT)
+        Wed, 01 Jul 2026 09:15:58 -0700 (PDT)
 From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Wed, 01 Jul 2026 18:15:52 +0200
-Subject: [PATCH v2 2/3] leds: pca963x: add multicolor LED class support
+Date: Wed, 01 Jul 2026 18:15:53 +0200
+Subject: [PATCH v2 3/3] arm64: dts: monaco-arduino-monza: microcontroller
+ LEDs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-monza-leds-v2-2-c1be0b472926@oss.qualcomm.com>
+Message-Id: <20260701-monza-leds-v2-3-c1be0b472926@oss.qualcomm.com>
 References: <20260701-monza-leds-v2-0-c1be0b472926@oss.qualcomm.com>
 In-Reply-To: <20260701-monza-leds-v2-0-c1be0b472926@oss.qualcomm.com>
 To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
@@ -102,243 +103,173 @@ To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>
 Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Authority-Analysis: v=2.4 cv=Z+3c2nRA c=1 sm=1 tr=0 ts=6a453d3f cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Authority-Analysis: v=2.4 cv=JdiMa0KV c=1 sm=1 tr=0 ts=6a453d40 cx=c_pps
+ a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=TXsEHxuGAXnH8Ii1pS8A:9 a=QEXdDO2ut3YA:10 a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-ORIG-GUID: vVb9VXjhlmw2mVFbyTi9EFw6CAUIsUJx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDE3MiBTYWx0ZWRfX4sIoL6dywN5T
- 44ON5GPfHik2aFQ9UuNOERhjlmlFlw6W7hzMpJZMqw0cTDtFd1e2h1P6GF6acN3uTXGWU/5q0M2
- myPMcCgZJmSzOHMhrCArV91GIyZM5Uk=
-X-Proofpoint-GUID: vVb9VXjhlmw2mVFbyTi9EFw6CAUIsUJx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDE3MiBTYWx0ZWRfX2sf7qtIGvYz2
- O/1NsWPYD070oWvCmL+R6E2E4CxZJQWiJ9drOCZLfB1zHYMm8fs7D7wQy7UyhirOuCiguJsIAgy
- oiZN4/tqbGAVpxTViwS+wIMSK87p0/M3gu//jtMMKoeAcjOWS8L5JkMxipMrfQXxqFKxNttI/Rt
- doy03DiibSW64XAvLSrAwWD8zeEawIVvoeamboVv21kRxUwW+qySjgihJOB2WpgmGbPRKs2jMX2
- FqFPt8BLH1FP6nJL6sCbuRjDYRVWdyCjPBsc3FvszTBOFPiJIH7scNlCaZXwS5qfQkCUVaPYzVL
- KtP9NgdTZeir8n7e2CX0Q93zyb4NNFDfmWDEJYri+C9Opcs9t0Onfqgia8ecAJs2juTMkIOXDHI
- vXCwSpcoJE3HQxfV1PA+Qx112AOjoK6CVYfcgniRa4YNOhnbpRYofWOm3oUPCb5p4Hy5ysURrML
- ecmnWY7fXPr23rPHIJQ==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=1BEw5LmG3YzgyHxDt7YA:9 a=QEXdDO2ut3YA:10 a=EXS-LbY8YePsIyqnH6vw:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDE3MiBTYWx0ZWRfXxYoOSMTKrkvC
+ AI/xr7WIxO1vFuPtA4xk8V4J5M5raY0CWUZwPYLNgIu/oZnOdi8Y5MOvTopKdelbTDs6OqLWLJz
+ hpmOJrb2tXn5qWDftW+QzH8Jc9LDvbg=
+X-Proofpoint-ORIG-GUID: GgL4dheYhSghUWNJEcljkGPfjtwR0ZUt
+X-Proofpoint-GUID: GgL4dheYhSghUWNJEcljkGPfjtwR0ZUt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDE3MiBTYWx0ZWRfX0PEtJbHaWeIN
+ sDa6quHVB0b/bEXlKGIUvtz6XQSmh9qxypJgR2DOKz8H47GWvE1NtFmyqVp0UIXfQcbF3iQUOrK
+ vTflP4Z0zx+etucwRTfJD7QZc4a7kgfNRdWCQkR+hl7MMuMtq6WOZKM9v8yQEjwYpaKgMaDaf78
+ UxoMhfhAvotExQA0tmnKzRG6koUbPnZx6NPhcVbDPbY1J2D+zEj7zvuu0ePNcnCw3AOqQEX8/uJ
+ rcE6CQB0xAfvEHmf2FjpAvUKQI0YqXfzVIyFiCbOCerDBKpm7o1PqzSRO3UmjFCWVTAlxmBgbAd
+ dSmKJMpcoCiP5ihfMM7+2ELV8nwm8tE25/Qw6PGMMKqbgv6j3CHY08CNg15uT70mpxnTY2BlLi5
+ lOvFT/ywbzVNh7uvDyTxiOxEID9AIlVmGuAwCV7Lhc9ejHDWVrv9VueMi/9LTk4H9+S1wI+xdgO
+ MzVNSqljBu2YfIkoKLQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-07-01_03,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 adultscore=0 priorityscore=1501 spamscore=0
- phishscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
+ clxscore=1015 impostorscore=0 bulkscore=0 phishscore=0 priorityscore=1501
+ adultscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010172
 
-Allow grouping of individual PCA963x PWM channels into a single
-multicolor LED device by adding support for the LED multicolor class.
+Onboard MCU/STM32 implements a led controller compatible with PCA9635.
+There are four RGB LEDs controlled via channels 0-2, 3-5, 6-8 and 9-11.
 
-A child node with sub-children is treated as a multicolor group,
-others are treated as single leds, keeping full backwards compatibility.
-
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- drivers/leds/Kconfig        |   1 +
- drivers/leds/leds-pca963x.c | 126 ++++++++++++++++++++++++++++++++++++++------
- 2 files changed, 110 insertions(+), 17 deletions(-)
+ arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts | 110 ++++++++++++++++++++++
+ 1 file changed, 110 insertions(+)
 
-diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-index f4a0a3c8c8705e0f10ba26584277dbb2d5eac5b5..14df88f92b12bbe43908b67f9480cf23056e27e2 100644
---- a/drivers/leds/Kconfig
-+++ b/drivers/leds/Kconfig
-@@ -596,6 +596,7 @@ config LEDS_PCA963X
- 	tristate "LED support for PCA963x I2C chip"
- 	depends on LEDS_CLASS
- 	depends on I2C
-+	select LEDS_CLASS_MULTICOLOR
- 	help
- 	  This option enables support for LEDs connected to the PCA963x
- 	  LED driver chip accessed via the I2C bus. Supported
-diff --git a/drivers/leds/leds-pca963x.c b/drivers/leds/leds-pca963x.c
-index e3a81c60ee27c96e5050a829523dfd43e1f0663f..f6f6bafcc2bd5bad51a3184c4cb08fc50693a0a5 100644
---- a/drivers/leds/leds-pca963x.c
-+++ b/drivers/leds/leds-pca963x.c
-@@ -27,6 +27,7 @@
- #include <linux/string.h>
- #include <linux/ctype.h>
- #include <linux/leds.h>
-+#include <linux/led-class-multicolor.h>
- #include <linux/err.h>
- #include <linux/i2c.h>
- #include <linux/property.h>
-@@ -101,8 +102,11 @@ struct pca963x;
- struct pca963x_led {
- 	struct pca963x *chip;
- 	struct led_classdev led_cdev;
-+	struct led_classdev_mc mc_cdev;
-+	struct mc_subled subleds[4];
- 	int led_num; /* 0 .. 15 potentially */
- 	bool blinking;
-+	bool is_mc;
- 	u8 gdc;
- 	u8 gfrq;
+diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
+index 379b796f261f4c8f6b7712c5d340b20be1b9217c..83ccc4eec342328c78be37d4642b772d74a8ed37 100644
+--- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
++++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
+@@ -7,6 +7,7 @@
+ 
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
+ #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
+ 
+ #include "monaco.dtsi"
+@@ -156,6 +157,115 @@ vreg_nvme: regulator-3p3-m2 {
+ 	};
  };
-@@ -205,7 +209,7 @@ static int pca963x_power_state(struct pca963x_led *led)
- 	unsigned long *leds_on = &led->chip->leds_on;
- 	unsigned long cached_leds = *leds_on;
  
--	if (led->led_cdev.brightness)
-+	if (led->is_mc ? led->mc_cdev.led_cdev.brightness : led->led_cdev.brightness)
- 		set_bit(led->led_num, leds_on);
- 	else
- 		clear_bit(led->led_num, leds_on);
-@@ -237,6 +241,28 @@ static int pca963x_led_set(struct led_classdev *led_cdev,
- 	return ret;
- }
- 
-+static int pca963x_led_mc_set(struct led_classdev *led_cdev,
-+			      enum led_brightness value)
-+{
-+	struct led_classdev_mc *mc_cdev = lcdev_to_mccdev(led_cdev);
-+	struct pca963x_led *led = container_of(mc_cdev, struct pca963x_led, mc_cdev);
-+	unsigned int i;
-+	int ret;
++&cci1 {
++	status = "okay";
++};
 +
-+	led_mc_calc_color_components(mc_cdev, value);
++&cci1_i2c1 {
++	led-controller@22 {
++		compatible = "nxp,pca9635";
++		reg = <0x22>;
++		#address-cells = <1>;
++		#size-cells = <0>;
 +
-+	guard(mutex)(&led->chip->mutex);
++		multi-led@0 {
++			reg = <0>;
++			label = "stm-led-1";
++			color = <LED_COLOR_ID_RGB>;
++			function = LED_FUNCTION_STATUS;
++			#address-cells = <1>;
++			#size-cells = <0>;
 +
-+	for (i = 0; i < mc_cdev->num_colors; i++) {
-+		led->led_num = mc_cdev->subled_info[i].channel;
-+		ret = pca963x_brightness(led, mc_cdev->subled_info[i].brightness);
-+		if (ret < 0)
-+			return ret;
-+	}
++			led@0 {
++				reg = <0>;
++				color = <LED_COLOR_ID_RED>;
++			};
 +
-+	return pca963x_power_state(led);
-+}
++			led@1 {
++				reg = <1>;
++				color = <LED_COLOR_ID_GREEN>;
++			};
 +
- static unsigned int pca963x_period_scale(struct pca963x_led *led,
- 					 unsigned int val)
- {
-@@ -300,6 +326,84 @@ static int pca963x_blink_set(struct led_classdev *led_cdev,
- 	return 0;
- }
- 
-+static int pca963x_register_single_led(struct device *dev,
-+					struct pca963x_led *led, u32 reg,
-+					struct fwnode_handle *fwnode,
-+					bool hw_blink)
-+{
-+	struct led_init_data init_data = {};
-+	char default_label[32];
-+	struct i2c_client *client = led->chip->client;
++			led@2 {
++				reg = <2>;
++				color = <LED_COLOR_ID_BLUE>;
++			};
++		};
 +
-+	led->led_num = reg;
-+	led->is_mc = false;
-+	led->led_cdev.brightness_set_blocking = pca963x_led_set;
-+	if (hw_blink)
-+		led->led_cdev.blink_set = pca963x_blink_set;
++		multi-led@1 {
++			reg = <1>;
++			label = "stm-led-2";
++			color = <LED_COLOR_ID_RGB>;
++			function = LED_FUNCTION_STATUS;
++			#address-cells = <1>;
++			#size-cells = <0>;
 +
-+	init_data.fwnode = fwnode;
-+	init_data.devicename = "pca963x";
-+	snprintf(default_label, sizeof(default_label), "%d:%.2x:%u",
-+		 client->adapter->nr, client->addr, reg);
-+	init_data.default_label = default_label;
++			led@3 {
++				reg = <3>;
++				color = <LED_COLOR_ID_RED>;
++			};
 +
-+	return devm_led_classdev_register_ext(dev, &led->led_cdev, &init_data);
-+}
++			led@4 {
++				reg = <4>;
++				color = <LED_COLOR_ID_GREEN>;
++			};
 +
-+static int pca963x_register_mc_led(struct device *dev,
-+				   struct pca963x_led *led, u32 reg,
-+				   struct fwnode_handle *fwnode,
-+				   const struct pca963x_chipdef *chipdef)
-+{
-+	struct mc_subled *subleds = led->subleds;
-+	unsigned int num_colors = 0;
-+	struct led_init_data init_data = {};
-+	char default_label[32];
-+	struct i2c_client *client = led->chip->client;
-+	int ret;
++			led@5 {
++				reg = <5>;
++				color = <LED_COLOR_ID_BLUE>;
++			};
++		};
 +
-+	fwnode_for_each_child_node_scoped(fwnode, sub) {
-+		u32 color, subreg;
++		multi-led@2 {
++			reg = <2>;
++			label = "stm-led-3";
++			color = <LED_COLOR_ID_RGB>;
++			function = LED_FUNCTION_STATUS;
++			#address-cells = <1>;
++			#size-cells = <0>;
 +
-+		if (num_colors >= ARRAY_SIZE(led->subleds)) {
-+			dev_err(dev, "Too many sub-LEDs for node %pfw\n", fwnode);
-+			return -EINVAL;
-+		}
++			led@6 {
++				reg = <6>;
++				color = <LED_COLOR_ID_RED>;
++			};
 +
-+		ret = fwnode_property_read_u32(sub, "reg", &subreg);
-+		if (ret || subreg >= chipdef->n_leds) {
-+			dev_err(dev, "Invalid 'reg' for sub-LED %pfw\n", sub);
-+			return -EINVAL;
-+		}
++			led@7 {
++				reg = <7>;
++				color = <LED_COLOR_ID_GREEN>;
++			};
 +
-+		ret = fwnode_property_read_u32(sub, "color", &color);
-+		if (ret) {
-+			dev_err(dev, "Missing 'color' for sub-LED %pfw\n", sub);
-+			return ret;
-+		}
++			led@8 {
++				reg = <8>;
++				color = <LED_COLOR_ID_BLUE>;
++			};
++		};
 +
-+		subleds[num_colors].channel = subreg;
-+		subleds[num_colors].color_index = color;
-+		subleds[num_colors].intensity = LED_FULL;
-+		num_colors++;
-+	}
++		multi-led@3 {
++			reg = <3>;
++			label = "stm-led-4";
++			color = <LED_COLOR_ID_RGB>;
++			function = LED_FUNCTION_STATUS;
++			#address-cells = <1>;
++			#size-cells = <0>;
 +
-+	led->led_num = reg;
-+	led->is_mc = true;
-+	led->mc_cdev.subled_info = subleds;
-+	led->mc_cdev.num_colors = num_colors;
-+	led->mc_cdev.led_cdev.max_brightness = LED_FULL;
-+	led->mc_cdev.led_cdev.brightness_set_blocking = pca963x_led_mc_set;
++			led@9 {
++				reg = <9>;
++				color = <LED_COLOR_ID_RED>;
++			};
 +
-+	init_data.fwnode = fwnode;
-+	init_data.devicename = "pca963x";
-+	snprintf(default_label, sizeof(default_label), "%d:%.2x:%u",
-+		 client->adapter->nr, client->addr, reg);
-+	init_data.default_label = default_label;
++			led@a {
++				reg = <10>;
++				color = <LED_COLOR_ID_GREEN>;
++			};
 +
-+	return devm_led_classdev_multicolor_register_ext(dev, &led->mc_cdev, &init_data);
-+}
++			led@b {
++				reg = <11>;
++				color = <LED_COLOR_ID_BLUE>;
++			};
++		};
++	};
++};
 +
- static int pca963x_register_leds(struct i2c_client *client,
- 				 struct pca963x *chip)
- {
-@@ -338,9 +442,6 @@ static int pca963x_register_leds(struct i2c_client *client,
- 		return ret;
- 
- 	device_for_each_child_node_scoped(dev, child) {
--		struct led_init_data init_data = {};
--		char default_label[32];
--
- 		ret = fwnode_property_read_u32(child, "reg", &reg);
- 		if (ret || reg >= chipdef->n_leds) {
- 			dev_err(dev, "Invalid 'reg' property for node %pfw\n",
-@@ -348,22 +449,13 @@ static int pca963x_register_leds(struct i2c_client *client,
- 			return -EINVAL;
- 		}
- 
--		led->led_num = reg;
- 		led->chip = chip;
--		led->led_cdev.brightness_set_blocking = pca963x_led_set;
--		if (hw_blink)
--			led->led_cdev.blink_set = pca963x_blink_set;
- 		led->blinking = false;
- 
--		init_data.fwnode = child;
--		/* for backwards compatibility */
--		init_data.devicename = "pca963x";
--		snprintf(default_label, sizeof(default_label), "%d:%.2x:%u",
--			 client->adapter->nr, client->addr, reg);
--		init_data.default_label = default_label;
--
--		ret = devm_led_classdev_register_ext(dev, &led->led_cdev,
--						     &init_data);
-+		if (fwnode_get_child_node_count(child) > 0)
-+			ret = pca963x_register_mc_led(dev, led, reg, child, chipdef);
-+		else
-+			ret = pca963x_register_single_led(dev, led, reg, child, hw_blink);
- 		if (ret) {
- 			dev_err(dev, "Failed to register LED for node %pfw\n",
- 				child);
+ &ethernet0 {
+ 	phy-mode = "2500base-x";
+ 	phy-handle = <&hsgmii_phy0>;
 
 -- 
 2.34.1
