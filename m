@@ -1,152 +1,223 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51488225A38;
-	Wed,  1 Jul 2026 01:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41BE2361DDA
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 01:54:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782870461; cv=none; b=H2BrIF/w+MYYIrJcAUscwxnOCVfRmnXn348Y8+Oi7GqoAu6ujz7Afvv/0o9SFBZ91WBC+ysrtV5xYu76JMlH7RkvWL3TC7ngc09GPmpu5VgBOwdmrvgbfAs1maKObIjS4HxJaifjkmRcYKd51xVwr21GXjeGJQa54RSyoiVO7EM=
+	t=1782870858; cv=none; b=K6yqOSuT35gpG7b/2ZCOzlBAcCo0oMOsN77EuvstM5iXlyvF9uRIXhLOevo76jlYUECsDQcxMPjrlMRyBKuhaqmQYsRgJvi6EIxz9IOjBP+zgtLX+499TatX/iA3BR2a1/Aeuq3G9DBBeE1FyidQ+/tPWQOm3emekN0udSFmD8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782870461; c=relaxed/simple;
-	bh=Vem6NI0NDzuhJlnQtnKfSeTr2UWvXXI1AXa5FxpY3XU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ldZneTPLlbDi/mJicYsFbb753Wm6eCfmaUIzdb2JiS3NQcWoQmQt243Z1eM8gTXsA4BelvyKzzL3ROA5ngbrXSJNrBXGxdyN3em/pxOCx98xdgSr9cJ9gHCa1G5C/7ORo54NsJoNEU/DE+mAFUwcTvteHtX1oUMdKJqll3dEVlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TcfaV7fh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782870858; c=relaxed/simple;
+	bh=/ryGcxx6Nu7BXIs0Li0gmKHu5V51HhlktJvdbFAeafo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VZXJCNeaDxY78IvcB7fLIpFIlQaFAhbB7Vh5/UkL2Hgc4Y4OFnrQrQXkEMy4KCmkPoVtm7/hAaEHGoHnWvP/Xx/10/Qu5+3eVQkmE+7e9ujt+hJ2YSYwwYveOYDyyQnKjHWvI1rgbpM7dD+E/fPQRp9WcV3KesR+rAeZcLESmdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GfmhXF3L; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ClBCiEFb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TcfaV7fh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 506221F000E9;
-	Wed,  1 Jul 2026 01:47:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782870459;
-	bh=Rpdy5426Xc0zJZnjqUjuFXTHpOkdNMvNBX6jY1HfgE8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=TcfaV7fhPPT0+zcFP0jREJujju2MaeWSsaOPxooGHAV6RfffTFQY0FVkbyFeXpVMx
-	 34xi+8T4UTmVSmI16MYSwSJhWKKEl23A/OLU8GvEAHzo//l8Rx2NBrD59egwITcclO
-	 o0J+v17W7oYqBGJw2JMdHJC7n9TSxS+hLG7rZfDe0d6bSWIXNBKNl0VLieD/8UA54x
-	 3SADibwU0TgtbXKCxjFYpLjtRbPBwMqKvGOD4CRyzd3jJU1lc5zK35gE/0BOL0LPI7
-	 EPCRIMyFqdMewyQfjsojLIxhPxkN6FdZ8w7ZCmUzDgKTWwVcYliyBrtuRndjeVrmNB
-	 5IEK0BPj42svQ==
-Date: Wed, 1 Jul 2026 02:47:34 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chris Morgan <macromorgan@hotmail.com>
-Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
- andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
- jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
- krzk+dt@kernel.org, robh@kernel.org, andriy.shevchenko@intel.com
-Subject: Re: [PATCH V14 0/9] Add Invensense ICM42607
-Message-ID: <20260701024734.36a5148c@jic23-huawei>
-In-Reply-To: <PH0PR19MB997338A2CC95E8E0C2670713F8A5ED2@PH0PR19MB997338.namprd19.prod.outlook.com>
-References: <20260624182350.50467-1-macroalpha82@gmail.com>
-	<PH0PR19MB997338A2CC95E8E0C2670713F8A5ED2@PH0PR19MB997338.namprd19.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GfmhXF3L";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ClBCiEFb"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65UNM2gx3495898
+	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 01:54:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=C0Nt8/qawZeMhk1o8C0hBJ
+	gi0bwQbxoP3TJUKy1hBOs=; b=GfmhXF3LLHIIqhsHDRDt9eyfsltliPJqARJy/8
+	8BCD2S2QXGMy7V6HDDmalzKyR/OCfP70/mtTX9FvJVQYz7z18h09Y4r7NFkkBPma
+	++IYdjn9Y9KJpdIRPPDAfhruNQNfJzt1rpwFJCKeKLKI7r1LMTLOXDSXh/FCOS27
+	U8uzll8GY5Jok9pE9OS1Yqss0FDkKODnukyXRC6hJkomFPtDCtT0gvzpHMVOaW+j
+	nEyJXI8ms684te+8b+J8NdCvCA8JgcEMIUakyscY1GrcVBejlM6nLP0RqP6ax7f3
+	skkCWvg1OOKhFm4jjE26SRcEFxDK4oLUqlPQHWF1bptG7rwA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4j911sk3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 01:54:15 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2c9e994869aso1811605ad.0
+        for <devicetree@vger.kernel.org>; Tue, 30 Jun 2026 18:54:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782870855; x=1783475655; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=C0Nt8/qawZeMhk1o8C0hBJgi0bwQbxoP3TJUKy1hBOs=;
+        b=ClBCiEFbIpVhHEdOcuGRACVPhzUECOvIhw42n5C0yI52P50uswl/4aitxcV/KU/rYN
+         hnN5hN+k8YQsJoqviR+kcsj6yO25vp3M5SI5kyObYZl497DBHmtUlJVlPj8MFFsp4QYB
+         YIG38qYkrDqaPt8G/an84LgLNR7JAGBYAea/FnOeV0hv13CtiB+G6AUaPb8cNGwQ0g6a
+         B4ZIWaooHNmqsPqzuUQom2cXRhpKprAhtOuXundMrXyNNhCBBEyLWnjTEsi2hFWwJmNC
+         CZYhNF1I33tTwJ2obBThTh8t8ehBwS6hWtChJ8WNJ9z8PGEmLjgbkrtkg5WWwomXV2OC
+         WeuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782870855; x=1783475655;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=C0Nt8/qawZeMhk1o8C0hBJgi0bwQbxoP3TJUKy1hBOs=;
+        b=GW2SMXkWz7oPtRd9FFgSTU2WgvO/Bx8Cr2vJdD/M/TzjZswbsaVuE+Hejrsr3GwdYp
+         MJ11wMm01RA05Hh9YTG6C9RDLqjO5z/3CB9A/daB4H+6Fqho2CjVVPbiDowwR4f59y8f
+         XRMSmJ3uW3zAYCIJz1+5AjOMqFQTww5LllL6sW/snBsSj5UHx3Q8GQIdaHIN0rTasOAn
+         iJPmnUjShWCSZl5YcVBsTQar3zMkLtvQkpiNhXEFzCNymDLXpP6DBnCp1SECDVf1/pSf
+         6SoU9XxFB+sdRmDG5e0U14zrFACFIygJMLGB6mmsH8W2g/WxBAYZoluF4oKncu5weXOr
+         vDRQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpuzs4xVz0boVPo/xxMHA63G10WwtkqHq0tzxm6S2P7m1BRGoUVNSQm405d6cxAe0SfEYPuDsWC4PUo@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy8NiDo5Am9I/6X7mKmUCIjXadWSTxa3EK0R9FQbJVhj+QxcbE0
+	jXd/Jo2/buDxOpXCoSLm1NzgOOWBKV270x0366tqv5qRwYef4OWMIVuowc73UvJf4Cz7qnEUmC/
+	xjvNLov7m4OFcdCy2PvT/BO7TWiH6PVjNOTiZZgHtEPy6CoBKPrUI4Ds1HqvxA3xD
+X-Gm-Gg: AfdE7clkUD4+KoI2z9xrtMdMUYWLbo62tJLCLpMC/y8JIH480leiWLCXO96zrY0Wohg
+	Fd8ja2iUEGFKf/LGtSbkQbo7/hH3bYpA06D27SvYCUHyaeSylZgFEWHFNY53fDwtorBUlmC5Mhi
+	SD416NKwV3+yc5NgxqGvHA+1l6ySHAJWocKT61K0KpKTkoptrsdnWSL8Ue/d/WtrSyHreUP1bnQ
+	WAOCnkNQNKUp9B/FgYAOdp4ma2ahKzSl3Hf6b2P6wOZhPm9zaQzcR4sn8dn97fymjmX8rTYoDkA
+	UV8hzdHgTnZwv8wC7JvIj6kyHdnIP0YrQCxVgBohKkYJyaodG5at0W51pEq+R0nGZQJQPBN6OAI
+	HTQ00PuUdSBjmbqUiMbyNYdAIj6LbAI0KST3lgBwMdR1DO6ug0j3Zktz9+91qao1UeD4vXAjGpA
+	==
+X-Received: by 2002:a17:902:e750:b0:2c9:deec:f564 with SMTP id d9443c01a7336-2ca2d79cf0fmr54119865ad.13.1782870854741;
+        Tue, 30 Jun 2026 18:54:14 -0700 (PDT)
+X-Received: by 2002:a17:902:e750:b0:2c9:deec:f564 with SMTP id d9443c01a7336-2ca2d79cf0fmr54119515ad.13.1782870854181;
+        Tue, 30 Jun 2026 18:54:14 -0700 (PDT)
+Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca37a7102esm23040315ad.6.2026.06.30.18.54.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 Jun 2026 18:54:13 -0700 (PDT)
+From: Jie Gan <jie.gan@oss.qualcomm.com>
+Subject: [PATCH v4 0/5] Fix traceNoC probe issue on multiple QCOM platforms
+Date: Wed, 01 Jul 2026 09:53:40 +0800
+Message-Id: <20260701-fix-tracenoc-probe-issue-v4-0-aefab449a470@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACVzRGoC/43NwQ6CMAwG4FcxO1uzlTGGJ9/DeIDR6RJluAHRE
+ N7d4cmDGi5N/ubv14lFCo4i228mFmh00fk2BbndMHOp2jOBa1JmyFFxhRKse0AfKkOtN9AFX6d
+ GjAOBURLLpkLdWMnSeRcodd/08ZTyxcXeh+f70yiW7Qp0FCCgNqbQuSi1NfnBx7i7D9XV+Nttl
+ wZb7BHXeggcCq1y5FahRfHDyz68jP/xssVDLkhoKaiUX7x5nl/e/qeJZwEAAA==
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Jie Gan <jie.gan@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
+        Leo Yan <leo.yan@arm.com>,
+        Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
+        linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782870847; l=3766;
+ i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
+ bh=/ryGcxx6Nu7BXIs0Li0gmKHu5V51HhlktJvdbFAeafo=;
+ b=/UXhHbIqXN/AyUqRrNk0GJChbDZcuDbq6hv4Cytm1eI1Q9jmtBCfevqm9yhCqTQN05nlTBvcU
+ 7TbZgLFeyBFAp7hmUZncgOhPmTYNBzvcpK69v5Sd3wv5zdGBrwGYlo8
+X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
+ pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
+X-Proofpoint-ORIG-GUID: xDvtHNDAUI5yp55I7ctRnZoJbJAvYzuP
+X-Authority-Analysis: v=2.4 cv=ftfsol4f c=1 sm=1 tr=0 ts=6a447347 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=CPxOtKTflHPnepyb4PMA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: xDvtHNDAUI5yp55I7ctRnZoJbJAvYzuP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDAxOCBTYWx0ZWRfXwva/ku2skS+p
+ y/1pKsnijjRE9bJQOLNiHflJUxBHOxbPEF7Gsm3ff6XMe1w/bV1Dkitxf8IgCUwe8jUE48JkQ6i
+ fw1SC50aWmbbx24zPkScBo7281b09uoP39n6KH3Tdo2Mmeo0Hn2E61PPlERR4oIUhfrFB9odnqN
+ zCTr+ZzRsHKlHJl0uuHQtREvdbZbTIM7bpq+2lYfpmsTinf2ZYm+IDrS9770i9Vh8VPhHvyGngX
+ ll3IISYUMrAyj4r/gkR1VKGQ99biOZVoG5PrmKNKyENT7thxBv/CEZeRzxAWhqj0L9OH5BlyOzI
+ Fo74h3+0KJSgiFT/wFiB9b9pSv1Px78yqJPfSfNpKcrW93eaWRUHqG4s8R2CHdGL7q5TgYeZfDm
+ KHEjm/ZP8BPuFOSSy09jMWqxBJff4HVa5SbpOG2FpGuwHZ4v4Kv/eX8Dqr5a37mG8UJ2bDh5u/S
+ SAfPInQz6xGUovtKIqw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDAxOCBTYWx0ZWRfX8Gf2AQN3eILx
+ PG4br9zBEiJb6/yUM1v5OxWduCb74bWbHuWolRvVAY/Wr1623FcJ6U62k/P0fs5WFmNF3S2oA1N
+ vyk/PE+EHtvRN79pNEjEr91gHQezSsU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-30_06,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 clxscore=1015 phishscore=0 impostorscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010018
 
-On Wed, 24 Jun 2026 16:18:23 -0500
-Chris Morgan <macromorgan@hotmail.com> wrote:
+The CoreSight TNOC (Trace Network-On-Chip) binding so far only allowed the
+two-string AMBA form "qcom,coresight-tnoc", "arm,primecell". That form
+forces the device onto the AMBA bus, where the driver must read the
+peripheral ID from the device registers during probe. On several QCOM
+platforms this AMBA peripheral-ID probing fails, so the traceNoC device
+never probes and its trace path is unavailable.
 
-> > Changes Since V13:
-> >  - Refactored inv_icm42607_set_accel_conf() and
-> >    inv_icm42607_set_gyro_conf() into a single function.
-> >  - Refactored inv_icm42607_accel_read_sensor() and
-> >    inv_icm42607_gyro_read_sensor() into a single function.
-> >  - Merged inv_icm42607_set_temp_conf() into initial init function
-> >    since it only really needs to be called once.
-> >  - Saved adding temp sensor for last and updated
-> >    inv_icm42607_temp_read() to either confirm other sensors are already
-> >    enabled or enable the accelerometer so it can get a reading.
-> >  - Updated inv_icm42607_set_pwr_mgmt0() so that it does not update the
-> >    sensor mode and forcibly keep the sensor enabled.
-> >  - Added inv_icm42607_temp_filter_bw enums since it appears to use
-> >    different values than the accel or gyro sensor.
-> >  - Set the temp startup time from 77ms to 77us, as I previously misread
-> >    the datasheet.
-> >  - Additional minor fixes.
-> > 
-> > Chris Morgan (9):
-> >   dt-bindings: iio: imu: icm42600: Add mount-matrix
-> >   dt-bindings: iio: imu: icm42600: Add icm42607
-> >   iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
-> >   iio: imu: inv_icm42607: Add SPI For icm42607
-> >   iio: imu: inv_icm42607: Add PM support for icm42607
-> >   iio: imu: inv_icm42607: Add Accelerometer for icm42607
-> >   iio: imu: inv_icm42607: Add Gyroscope to icm42607
-> >   iio: imu: inv_icm42607: Add Temp Support in icm42607
-> >   arm64: dts: rockchip: Add icm42607p IMU for RG-DS
-> > 
-> >  .../bindings/iio/imu/invensense,icm42600.yaml |  20 +-
-> >  .../dts/rockchip/rk3568-anbernic-rg-ds.dts    |   8 +-
-> >  drivers/iio/imu/Kconfig                       |   1 +
-> >  drivers/iio/imu/Makefile                      |   1 +
-> >  drivers/iio/imu/inv_icm42607/Kconfig          |  30 +
-> >  drivers/iio/imu/inv_icm42607/Makefile         |  13 +
-> >  drivers/iio/imu/inv_icm42607/inv_icm42607.h   | 423 ++++++++++++
-> >  .../iio/imu/inv_icm42607/inv_icm42607_accel.c | 317 +++++++++
-> >  .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 606 ++++++++++++++++++
-> >  .../iio/imu/inv_icm42607/inv_icm42607_gyro.c  | 313 +++++++++
-> >  .../iio/imu/inv_icm42607/inv_icm42607_i2c.c   |  98 +++
-> >  .../iio/imu/inv_icm42607/inv_icm42607_spi.c   | 108 ++++
-> >  .../iio/imu/inv_icm42607/inv_icm42607_temp.c  |  99 +++
-> >  .../iio/imu/inv_icm42607/inv_icm42607_temp.h  |  37 ++
-> >  14 files changed, 2072 insertions(+), 2 deletions(-)
-> >  create mode 100644 drivers/iio/imu/inv_icm42607/Kconfig
-> >  create mode 100644 drivers/iio/imu/inv_icm42607/Makefile
-> >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-> >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c
-> >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
-> >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
-> >  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.h
-> > 
-> > -- 
-> > 2.43.0
-> >   
-> 
-> I got sashiko.dev's review, and agree with everything except 2 points.
-> 
-> 1) It asks "Is it appropriate to omit the interrupts property based on
-> driver behavior rather than hardware wiring?" I would say no, but in
-> my case the hardware is not wired for an interrupt so it's moot.
+This series introduces a standalone "qcom,coresight-agtnoc" compatible
+that describes the Aggregator TNOC as a plain platform device. Without
+"arm,primecell" the device is created on the platform bus and probes
+through the platform driver, bypassing the AMBA peripheral-ID read while
+remaining a fully functional Aggregator TNOC that allocates a system
+trace ID (ATID).
 
+The series is organized as: binding first, then the driver support for the
+new compatible, followed by the per-platform DT fixes that switch the
+affected nodes over to it.
 
-I think the key thing it gets wrong is 'required'.  Obviously an interrupt
-isn't required if it isn't wired ;)  My only question is why is
-it required for the other devices?  That makes no sense - so I think
-you can get rid of that change to require it in the binding (I'll reply to v15)
+- Patch 1 (dt-bindings) converts the compatible to a oneOf and adds the
+standalone qcom,coresight-agtnoc form alongside the existing AMBA form,
+updates the select block, and adds an example node.
+- Patch 2 (driver) adds qcom,coresight-agtnoc to the platform driver's
+match table and renames the itnoc-specific names to generic tnoc names,
+since the platform driver now serves both the Interconnect and Aggregator
+TNOC. It also restricts the ATID-unsupported handling to
+qcom,coresight-itnoc only, so the standalone Aggregator TNOC is no longer
+wrongly covered and correctly allocates a trace ID.
+- Patches 3-4 (kaanapali, sm8750) switch the traceNoC nodes from the AMBA
+form to the standalone qcom,coresight-agtnoc compatible, fixing the probe
+failure on those platforms.
+- Patch 5 (glymur) switches the node from qcom,coresight-itnoc to
+qcom,coresight-agtnoc. This node is actually an Aggregator TNOC (its
+tn_ag_* endpoints show aggregation), so it should expose a system trace
+ID rather than being treated as an Interconnect TNOC.
 
+Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+---
+Changes in v4:
+- rewrite the commit message for the patch 3 - patch 5.
+- free the allocated ATID in remove path.
+- Link to v3: https://lore.kernel.org/r/20260630-fix-tracenoc-probe-issue-v3-0-7201e1841e94@oss.qualcomm.com
 
-> 
-> 2) It asks "Does this code update the software state cache for the
-> sensor mode?" No, it doesn't. The goal is for the device to stay
-> powered up for up to 2 seconds until runtime PM turns it off if it
-> isn't active, but I don't mind something turning around and shutting
-> the hardware down if it's not in use before then. Anything that needs
-> to read the specific sensor in question will be holding the mutex so
-> that there shouldn't be a risk of another thread turning stuff off
-> while I'm trying to use it, I don't think. What I want to avoid is
-> calling to turn the hardware on for a one-shot read and then
-> immediately turning it off once I'm done. I can wait the two seconds
-> for runtime PM to do it when the alternative is to call the shutdown
-> routine every single time for one-shot reads and wait for the startup
-> and in the case of the gyro shutdown times otherwise.
-> 
-> Thoughts?
-> 
-As long as the locks are doing their jobs, this seems correct.
+Changes in v3:
+- add standalone compatible for AG traceNoC device, allow it to be
+  probed with platform driver.
+- add fix patches for sm8750 and Glymur platforms
+- Link to v2: https://lore.kernel.org/r/20260624-fix-tracenoc-probe-issue-v2-0-786520f62f21@oss.qualcomm.com
 
-Jonathan
+Changes in v2:
+- address the ATID issue reported by Sashiko.
+- update binding to accept arm,primecell-periphid property.
+- Link to v1: https://lore.kernel.org/r/20260624-fix-tracenoc-probe-issue-v1-1-bcc785198fc5@oss.qualcomm.com
 
-> I can fix the remaining issues it points out and resubmit.
-> 
-> Thank you,
-> Chris
+---
+Jie Gan (5):
+      dt-bindings: arm: coresight-tnoc: Add standalone qcom,coresight-agtnoc compatible
+      coresight: tnoc: add AG tnoc standalone compatible to the platform driver
+      arm64: dts: qcom: kaanapali: fix traceNoC probe issue
+      arm64: dts: qcom: sm8750: fix traceNoC probe issue
+      arm64: dts: qcom: glymur: use Aggregator TNOC compatible
+
+ .../bindings/arm/qcom,coresight-tnoc.yaml          | 39 ++++++++++++++++++++--
+ arch/arm64/boot/dts/qcom/glymur.dtsi               |  6 ++--
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi            |  2 +-
+ arch/arm64/boot/dts/qcom/sm8750.dtsi               |  2 +-
+ drivers/hwtracing/coresight/coresight-tnoc.c       | 37 ++++++++++----------
+ 5 files changed, 61 insertions(+), 25 deletions(-)
+---
+base-commit: 4e5dfb7c84012007c3c7061126491bbc92d71bf1
+change-id: 20260624-fix-tracenoc-probe-issue-c6429da28df4
+
+Best regards,
+-- 
+Jie Gan <jie.gan@oss.qualcomm.com>
 
