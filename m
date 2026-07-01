@@ -1,188 +1,144 @@
-Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020100.outbound.protection.outlook.com [52.101.225.100])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1C048C3F7;
-	Wed,  1 Jul 2026 12:36:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.100
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782909410; cv=fail; b=BAziQwThdi3nHjQnIvtT0HGuT1ep7k+PGtF035ZJ51l5dU8x9pHgGfaxPb42pHGWdkaBiXdLEfxbXTF5d7VGaTucHwZo+15vu+1LYamwcUB+0xZqvDMl0BvL3jYJ0mgxH9cHVjKMJMoY4cdzEao8G5CyTzpoN/pZwyux3fO+ET0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782909410; c=relaxed/simple;
-	bh=LuY7p/VV1nrG0u2ZLTaCxEFzY4ojm2wLfCV6EB2xTFI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ulK+IXYZl2alqOaCaGCELxdeG7Lh4ApsxDtCuA9iWSGFogMdhOrTJdTxtSIfWEpY2+mkjUNm0QJKQLPxCBpBB8B09xIndxkscp90DUMluUVSmn+zzb9xsNRhU9yn8SkdKZBs5ZPSglOJBrwn6naeBF1+nGmHsXGjYKKtKYcMl7o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=KyHNh/q0 reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.225.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D0F3B47CB
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:39:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782909548; cv=none; b=I8HITP/Q/qguSd621lR3yL/Dgi6N8weQqk8rc9C3FpbKy48+v5fPM6PiXM5BaSaFoegLV8rDf0CIKNjMgkcPR3uZAWrChMzB+WSkfGBR15PzZsOOfkI7abcPOSWfMs9xIqwyoLTFmwcUtSGw7pOXXgj4syH5z14eDtvksqhmbi0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782909548; c=relaxed/simple;
+	bh=T4e3jdBkkTGSiBPGC+8gvcbRbMJqivgD2lyYXrt5ATc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=s52c2xHMQN+DcTAI1eo6lUPlGmD6oi6i5T6WWVPDAHEhMDVwBXTPVj4Q78F+EoFaw6qoi87KjBmhqzEfZ5IXVuLSoQzTJzcVDKRtrlEoPHBXmdBcMJ3ZJXpbtMkpjZA7+7BXxz1NJHnqJeMCPwN5miCc3J5kwrVxM+pomRc51TM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o1GXLvg8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="KyHNh/q0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PVTW+A/jGkq+E5mHWYFdzW96fuoT86ep0iY89g/ZCOjhw11kz8xmeeMMA6XOTZdk5l0SncC5Z5Zt1+WpvF7AZhAoKk6cOLN+DL8uFtXOdv4llQPRTMcRQ5m5QmE++PXG4o4r13j0HCFPxmL6ZB8LVEBkOnueoySNfRSym+adR2ZWNH9Ej5l9e38HyMW0Chx+EYtRpKP9ueN9uNYEeSJOwEXpwJVfJVId3gRU/DHviXtuF6SKHdl4aPu/hYP3p8MkZJqhb07kWu8U5tZJh0zdXmiciepFurZ+HISK5VKxbWbkSYn33lZEfPcTPvdh+D4BjQVwF5QivODAjdc5Xl3SOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WLsfNyXPaXXRFFK56+CO2v9qZSvpjftcm+qVXLvYJo0=;
- b=ObKf0PyghBqRO77grmyyLTaAo2pxdbYxs9UUCVk+jXTf3gg0gBk4R6KMiJ8Xm24AmDoVhq/FDPRpyDfCnHzmfnrD2Y+TUQ6HIpTtwwSMGoivSIaw6PNF8IzNcSsXyluKaUQNZOm+x9/TZQMWassRtsyTRuB6w2VWG6Lor+bL4/GjvqW/Zv2Xl2HW4GsHhuW/LcwM/9iW9hUdfXJ6MY70RawP8tFScydi3Ieesxg+uNMot7hK80ko+6ilBCuwtSRHJUuM8rodx9Su0/fzR3bbGs2xJDA2gjK6NUUWaGFaFjA6UcayqEeUmlUBUs0qqCj9B2Y5P2byl5/ao7cXJUP4UQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WLsfNyXPaXXRFFK56+CO2v9qZSvpjftcm+qVXLvYJo0=;
- b=KyHNh/q0ZUonTc1R6YjasYHsU/Ezw3wqgiIJUlmXIr/apCvbz5ZHmoyd5+pUfsy90zmR5dPO2NsO1Uq1CqaMu6T7YOJoW6k9ROzSjVSvh0UOEKkvA8tcebAhq226ewbDyDdzsUS2Vm9HStCzlk8SGqR3tBQpNVqd8kBWoK+cyFHChUkYFqvdiq3AMSH5qBHcg3VazuzEn01bfKZ7a09RhBwyx3CjuTpSIfd8rPEAmzN/MJBaLOd3sOU5JG2o2lEAXlbOKEcKESOWZxBBOYFTGPBDyZMHJlNBmOFWTaFOMNHiX8ie72QX3Dj4OMYbWm3jAIppJOFY11E7KDGJLREaxQ==
-Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b8::9)
- by PN3P287MB0815.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:176::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 1 Jul 2026
- 12:36:43 +0000
-Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
- ([fe80::ebd8:538d:c705:8432]) by PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
- ([fe80::ebd8:538d:c705:8432%6]) with mapi id 15.21.0181.008; Wed, 1 Jul 2026
- 12:36:43 +0000
-From: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	"sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
-	"luca.weiss@fairphone.com" <luca.weiss@fairphone.com>
-CC: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>, Mauro
- Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
-	<konradybcio@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Hans de
- Goede <johannes.goede@oss.qualcomm.com>, Vladimir Zapolskiy
-	<vladimir.zapolskiy@linaro.org>, Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>, Laurent Pinchart
-	<laurent.pinchart@ideasonboard.com>, Walter Werner Schneider
-	<contact@schnwalter.eu>, Kate Hsuan <hpa@redhat.com>, Svyatoslav Ryhel
-	<clamor95@gmail.com>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-arm-msm@vger.kernel.org"
-	<linux-arm-msm@vger.kernel.org>
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Add Sony
- IMX576 front camera support
-Thread-Topic: [PATCH v2 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Add Sony
- IMX576 front camera support
-Thread-Index: AQHc/+rpvZzMTRXyLkO/gzC6xhvmXLZVfMMAgAMvzLI=
-Date: Wed, 1 Jul 2026 12:36:43 +0000
-Message-ID:
- <PN0P287MB201945BA5173A17EA963C4D29AF62@PN0P287MB2019.INDP287.PROD.OUTLOOK.COM>
-References: <20260619125439.55311-1-himanshu.bhavani@siliconsignals.io>
- <20260619125439.55311-4-himanshu.bhavani@siliconsignals.io>
- <c0cc8b08-b468-4120-b79d-2ab9ef4d0aa5@oss.qualcomm.com>
-In-Reply-To: <c0cc8b08-b468-4120-b79d-2ab9ef4d0aa5@oss.qualcomm.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PN0P287MB2019:EE_|PN3P287MB0815:EE_
-x-ms-office365-filtering-correlation-id: 7efe3160-740d-4bee-af75-08ded76d6858
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|18002099003|22082099003|38070700021|56012099006|4143699003;
-x-microsoft-antispam-message-info:
- C6WUqtIZ0V3J+HcIuxLYoi+0720yyD4kEMNqz3BtU7FSoNe/659VJB8AbuGcyHsQxGk9q2x595GfvFfacsOxCcutJJtR/X7hPgb9ZJdSXW8LaGI2olqJmgUk0wQXziYm2q+6tSpra957bobALsQhcPNYT3ymuU9E6MVSaCkw9mseprHuDFHQlkD6YVYyGnbhTi6fLVmTfn4macGNA4U8vYE6MyZtHXTta9r5/MQzF+kOwLpk4SftnedSeRRee3Y0ByAzVA49p2dOdDFMBJIAzw9G/HfYtkcVuANlgLvvuJ6IWOqbp0UK4r6mNzW0PC8TUBBOBPTsmzxqJUadhWHBrRilh7/du3ez+3QGgEH0r+tl51MoqaTK9HCdq80093irLlKi2XyoWt/CNYgYMgUPIOVE0pqErlHs5+e/LpXO3B4BVRxw41B79f2OyCPdp4f3lV4q5NpDyl79WapQamSSFmpCJrR/aCRG++lTxMgs4Iupkez/33Z+5RVhD42LsSbl/Q4Dwt4ySLnqiYfxMv7ZERr6eBKxr7DYU8xaD5nDtEC+TkkWCBY7QL5k93wqGmdIURVxOjat9p2q+uoxJsDuzASt+klY366gg36PYrpqaNesWo5N2IYQfXQ/FNAqCVyf09ufRHxlj0A29OTyKQ8XSh4cv8uPt8ZgNRZr6qO11rtp24gagn7iBHZ6Jd/fKs6xEl6l5pPkkA0Y2vS/bYkcAhqe8UX3vTdNqZrM470CW5Y=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN0P287MB2019.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(18002099003)(22082099003)(38070700021)(56012099006)(4143699003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?qzk33pn05EEpY3DUTdxFSL4FIVaFbQA/30Y3zD9farkMP718Iv09vp4gDI?=
- =?iso-8859-1?Q?i5iWsVTVhKUpKF4O+IGCWzqFrJKWJMxJC9+xGca8CJBOxjFFj7soRuW1Tg?=
- =?iso-8859-1?Q?uICQ6gu75dGjQTGRCe4UfQ1KwAq9/wIu9I92EAiWu5LTOOHvLUlwV1zkii?=
- =?iso-8859-1?Q?WdEUgBACA6RE4/p8WlKiHwae5AhWba4jDlTS9GVxtDo7+dTVKDbu84Z8Fx?=
- =?iso-8859-1?Q?5RNARRRbSNohKF10pchiz4Co/6m3HzBQPYb2xmS7mi0eZUT4uPBdWO1IOL?=
- =?iso-8859-1?Q?JXB4FlchOyl0/vWK9jL+uVOuXOzBKdsjJ+zvaDBDy8Q+eEdyZr3POf8/gq?=
- =?iso-8859-1?Q?iItXNGIdgR6Fjhj57lRc9Sbbo4YSRJosYO3Zhzaz70co4CId310XgpklZu?=
- =?iso-8859-1?Q?056uY3cyv6YxIF3PdXqaas65XXhDCnDEYqJgcYsw7HgFkQGqNvvGieiw6h?=
- =?iso-8859-1?Q?aitGiXeEJS4DQAa5LhHeHO5OjXceZIvJJYsbeEuD851n+itZavoOoXW8pg?=
- =?iso-8859-1?Q?qFIJSwGQ20vdOyuXMbhI2MOAZmkpQ0d1MFrDHqqTQd2szUTGZ7rzVhCqDm?=
- =?iso-8859-1?Q?sle7Y9aOqEM4evpQs4/aWDxfknmkPZUqTEA40IMC3VuESr6OmyClFtkrjS?=
- =?iso-8859-1?Q?cTpcyhTwYz5A9gWsoBsmC2lhhGUl0CYMtqO7n0wmVbjPwc13UWii1Ef4x3?=
- =?iso-8859-1?Q?Ff49muUBsuzw769llUNkDAiDbHlGnVdNJqPLUJsFqNf/8QjHTVvNQdqc/r?=
- =?iso-8859-1?Q?pZsgF1A3qkW2vhIq83EhYLqVWte2i84vIjgWapIZVA0wLXzkM5F8kGmd2K?=
- =?iso-8859-1?Q?j0lev8D2fqIHbLqb81YwHzpGyoIsq7xfzVFra1OHH1tEwYRvgpvYU/2QYj?=
- =?iso-8859-1?Q?5ep3BuCRY/a0tN+Fxn7qrRne7RI37vyq/sY+X83IxxsNVEO/rW9wnJJIUC?=
- =?iso-8859-1?Q?uo7aSQOEBoEu4+nKVyd8ihctzbuyuAGRKvVNZe2bJEZihGEmVVFCEvfzZc?=
- =?iso-8859-1?Q?IqVvniGDRZbZFHfNcMaMp9pBZtT868mVudFQWIr1lgJKaulX8CcKzwpMYF?=
- =?iso-8859-1?Q?lwHXtF+m04s2mBbuF+PeU4VPYQ+hQP4p4hZli2MQDnl6rB4C8bEdDDlZoq?=
- =?iso-8859-1?Q?9MZwmMeV1/xmZpAHKkqbPMXSAddvc4iHwLW9HPcjIXaZkcLOuJOIHhbq0R?=
- =?iso-8859-1?Q?p1YCEf/wzVgTwk64qOMMRa/vsCxWfsHfUnWTiNiZQ0VfMW5VtWS6SJXPsC?=
- =?iso-8859-1?Q?rzY5lsbbkf8PsbXbyiDMkqUPtIe/wSxQl6A7GCBrb8J/H/QM8iSJ4ID5pq?=
- =?iso-8859-1?Q?TxUEUnu2EexRbgedUobWS/gnzJN/vFQKqZDmb/pkAJG2f7AksnCwlt2Tiq?=
- =?iso-8859-1?Q?IGOu0+ivRYag3s84wbANcoELUJtErk1LIFqN6amwNm/HnQXsmoFLyCDVci?=
- =?iso-8859-1?Q?RlWmsmj+/hzOWb/EsywTHRV992Nmw9/PfYOZ5UCToBMs4d5nt0OLvNBsmM?=
- =?iso-8859-1?Q?HwCtdiLDhoVuwov8bIBCNBvH6Jn67xFNeveUV4XtXcCU2zW5+xtdlNDBpO?=
- =?iso-8859-1?Q?lmmakpz+DIiR+Y8wq91q6OzVli1cMj1rlmIBfuohEciWXZDmQlkKVAPPEC?=
- =?iso-8859-1?Q?yMd2KJC6GsCxDZSk8U1UyvUGTgujQPZ6tppoovpHKZNQBwu+7/PN7orGL2?=
- =?iso-8859-1?Q?rGBnbU4N4jXTv7HGAzOPJCp8NSKiefj+TUUQPjM/z7TKSDXqt6M+eKEEjC?=
- =?iso-8859-1?Q?Y6SrJS3nr2vJ6whrilHGL+eVsX8JRXLGzbU1OEe8nFoxeARsa+tuiGC/jl?=
- =?iso-8859-1?Q?mniXJMOh3LuTl1ZdAyjaZb2A2M/5dec=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o1GXLvg8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97BD1F000E9;
+	Wed,  1 Jul 2026 12:39:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782909547;
+	bh=KQxD+BDucLd1j70ef6LoNzXEdO8IcXi/OcuAmbgGP9E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=o1GXLvg8bWxPNq/IZqiGTy+27SX67f/viurF+m0Muguxdf3ovdcWTANQ4bHoZla1M
+	 3xwJuFiZu3mARxdLyFUWraZ4+680Z3GWbdO3vabKtAYmRm5wWQpF21VGzXAHrBFRsd
+	 54OypaoZ7k8xvIESxk3jC0u5JNRAIQYlG6Wcfft3D1HN1SM4QovS/IqafQxbjkIKYI
+	 foC8xTrkcy1Ianndzm2SpeJk8qyekPUPT7btsT3gIzNg0byhmyIC2M31H51qxczxti
+	 LI8EMdjYJnc+GXR88u7EF6cneNVVyVJ0FHZ4+Cz7AmAZZNarM7dlzEYQxz013pB0JK
+	 bRuz2a6mnmxXg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 05/12] phy: phy-mtk-dp: Implement power_on and power_off
+ PHY callbacks
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, linux-phy@lists.infradead.org
+In-Reply-To: <20260701122008.19509-6-angelogioacchino.delregno@collabora.com>
+References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
+ <20260701122008.19509-6-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 12:39:06 +0000
+Message-Id: <20260701123906.D97BD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7efe3160-740d-4bee-af75-08ded76d6858
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jul 2026 12:36:43.4822
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: W9h42+Zvaaw8pDGX0jVSmZ6vbsJcZMVY2KW5ClBFdKZEghP4dVgmX8fWQyRSaAzHPe//BHkuq0F+7+XR91JEjecLBDn0PDUiAkGyjJZSxuOKnGw7tGyWUF50ZBZJacWX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN3P287MB0815
 
-Hi Konrad,=0A=
- =0A=
->On 6/19/26 2:54 PM, Himanshu Bhavani wrote:=0A=
->> From: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>=0A=
->>=0A=
->> Add device tree support for the Sony IMX576 front camera=0A=
->> sensor and connect it to CAMSS via CSIPHY3.=0A=
->>=0A=
->> Signed-off-by: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.i=
-o>=0A=
->> Signed-off-by: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>=0A=
->> ---=0A=
->=0A=
->[...]=0A=
->=0A=
->>  &cci1_i2c0 {=0A=
->> -	/* Front cam (Sony IMX576) @ 0x10 */=0A=
->> +	camera@10 {=0A=
->> +		compatible =3D "sony,imx576";=0A=
->> +		reg =3D <0x10>;=0A=
->> +=0A=
->> +		vana-supply =3D <&vreg_l3p>;=0A=
->> +		vif-supply =3D <&vreg_l6p>;=0A=
->> +		vdig-supply =3D <&vreg_32m_cam_dvdd_1p05>;=0A=
->> +=0A=
->> +		clocks =3D <&camcc CAMCC_MCLK1_CLK>;=0A=
->> +		assigned-clocks =3D <&camcc CAMCC_MCLK1_CLK>;=0A=
->> +		assigned-clock-rates =3D <24000000>;=0A=
->> +=0A=
->> +		reset-gpios =3D <&tlmm 35 GPIO_ACTIVE_LOW>;=0A=
->> +		pinctrl-0 =3D <&cam_mclk1_default>;=0A=
->> +		pinctrl-names =3D "default";=0A=
->> +=0A=
->> +		orientation =3D <0>; /* Front facing */=0A=
->=0A=
->Please include the new define from:=0A=
->=0A=
->https://lore.kernel.org/all/20260628-kbingham-orientation-v3-0-4ed92968aff=
-8@ideasonboard.com/=0A=
- =0A=
-Sure, I'll include it in the next revision.=0A=
- =0A=
-Best Regards,=0A=
-Himanshu=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The power_on and power_off callbacks use the digital register layo=
+ut array to look up an analog register offset, causing register operations =
+to modify the wrong hardware offset.
+- [Medium] The error path in `mtk_dp_phy_power_on()` fails to unwind previo=
+usly applied hardware state if a subsequent step fails, leaking power state.
+--
+
+commit db1c6c4d46cae7dc24770e2f52553b8292fbfbc9
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
+phy: phy-mtk-dp: Implement power_on and power_off PHY callbacks
+
+Add .power_on() and .power_off() callbacks to mtk_dp_phy_dev_ops
+to be able to call those with phy_power_on() and phy_power_off()
+API in the DisplayPort driver to be able to stop using all of
+those hardcoded register writes in that external driver.
+
+> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
+-mtk-dp.c
+> index ce33f6812bae6..586e727956332 100644
+> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
+
+[ ... ]
+
+> @@ -200,6 +236,53 @@ static int mtk_dp_phy_configure(struct phy *phy, uni=
+on phy_configure_opts *opts)
+>  	return 0;
+>  }
+> =20
+> +static int mtk_dp_phy_power_on(struct phy *phy)
+> +{
+> +	struct mtk_dp_phy *dp_phy =3D phy_get_drvdata(phy);
+> +	const struct mtk_dp_phy_pdata *pdata =3D dp_phy->pdata;
+> +	const u8 *regs =3D pdata->regs_dig_glb;
+> +	int ret;
+> +
+> +	/* Enable AUX Channel with RX De-Glitch and input clock detection */
+> +	ret =3D regmap_write(dp_phy->regmap,
+> +			   pdata->off_dig_glb + regs[DP_PHYD_AUX_RX_CTL],
+> +			   PHYD_DIG_DPAUX_RX_EN |
+> +			   PHYD_DIG_XTP_GLB_CKDET_EN |
+> +			   PHYD_DIG_DPAUX_RX_DEGLITCH_EN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_clear_bits(dp_phy->regmap,
+> +				pdata->off_ana_glb + regs[DP_PHYA_GLB_FORCE_CTRL_1],
+
+[Severity: High]
+Here regs points to the digital register array pdata->regs_dig_glb, but it =
+is
+being indexed with DP_PHYA_GLB_FORCE_CTRL_1, which is an analog register
+enum. Does this result in reading the wrong offset (fetching the offset for
+DP_PHYD_BIT_RATE instead of DP_PHYA_GLB_FORCE_CTRL_1) and corrupting the
+bitrate configuration?
+
+> +				CKM_CKTX0_EN_FORCE_MODE);
+> +	if (ret)
+> +		return ret;
+
+[Severity: Medium]
+If regmap_clear_bits() fails here, the function returns the error without
+unwinding the previous successful write to DP_PHYD_AUX_RX_CTL. Since the PHY
+core will not call phy_power_off() if phy_power_on() returns an error, does
+this leave the RX channel and clock detection permanently enabled?
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int mtk_dp_phy_power_off(struct phy *phy)
+> +{
+> +	struct mtk_dp_phy *dp_phy =3D phy_get_drvdata(phy);
+> +	const struct mtk_dp_phy_pdata *pdata =3D dp_phy->pdata;
+> +	const u8 *regs =3D pdata->regs_dig_glb;
+> +	int ret;
+> +
+> +	ret =3D regmap_set_bits(dp_phy->regmap,
+> +				pdata->off_ana_glb + regs[DP_PHYA_GLB_FORCE_CTRL_1],
+
+[Severity: High]
+Similarly to mtk_dp_phy_power_on(), this uses the digital register array
+regs indexed with the analog enum DP_PHYA_GLB_FORCE_CTRL_1. Should this use
+pdata->regs_ana_glb instead to avoid writing to the wrong hardware offset?
+
+> +				CKM_CKTX0_EN_FORCE_MODE);
+> +	if (ret)
+> +		return ret;
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
+9-1-angelogioacchino.delregno@collabora.com?part=3D5
