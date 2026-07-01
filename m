@@ -1,130 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985AF3E0C47
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 09:04:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 375763EF0C9;
+	Wed,  1 Jul 2026 09:06:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782896686; cv=none; b=SE3j7Ho0FsvK3ncNafI6ld58B3VnO6mMD6kTvzGGShr1ytl/+X+Lumw3Vzh4s9aTXVxg1CZQoBSp+eTGtSpaIm1hf8eH84tdQJgD8ZDHWQa8529CPIQT8lxB8uMNo5IpnLgoz2cImkYhzj8itRDmi2r8dntjpuC3/pVqRR+Z1VM=
+	t=1782896795; cv=none; b=pTbY8Xbd19aCclm3QZq3KGKNAORfVFqx1xuQiHD+2eV5OPR/DwCa1hIGVTzDo9h36+YobkN/iKb1cPW9R1+S+3VgFahswjkoBuTbHqHSX5IchqMGT7zmEbb3sG7WinNYZG6QPMeSCFFh0vxamHCu4WcClAEgpkbLkgDN7FZ+kNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782896686; c=relaxed/simple;
-	bh=IkDDZu9Q4Fzrg4JgjJU/5swQkuz0J61kMcMOM91ta24=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eZBGT06/rf2l8VGXlO19sOClmWY8aqTvcgY60zOEQkuBXvBy1A/vXzZcpm7v8k8TdC5QU6RcGlj+8KLixkJUw45CeUDcKRGHGMzRTVMTwyNNajBI2oFC1kYgL/nXGjWmW4hjrNzqYOXGBDZa/yMtCo1DOWpytTwI26RynYQn1Rg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZWMRwYIZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782896795; c=relaxed/simple;
+	bh=a+zCYslTwctUlC57LcXB9oxyfds+8RQag5BpzcB63UY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=UmcNoSj7xsp7dFk4DKa8lQjtRzrV3rULanyALiGdy2plvSPNAWWa+BKMFyKP0vXW8CZpJFtvqe9qfn25Niypg2JudGyREsFlQQHzwazeNkInBnHOWCSvUQ8Z9GHE/4UWK86I0bLWqG2F5nTVDOOmAzmIa+VJx4FhYENgLlUGOrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=zb666/DC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ZD/hwl9R; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZWMRwYIZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060E81F00A3A;
-	Wed,  1 Jul 2026 09:04:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782896685;
-	bh=5L1Vqi75bXngTkN/JC7Q5wzCi9MFSzOmzh+LM9jYyoA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZWMRwYIZ6biSVYmLZKKibKoKe/0N0Lal7x2dagunCyyHER5Zrbb7/fB0g4clXXxe7
-	 jcYVq+XK+UAkwY3fhPNN/00epYkP2EW4hWaBadYAbKzSAUzzAGJzxIBaTvhAxi8mn6
-	 T2vg8KRgGDliu6yDV+KcA2jIhzgcTSh3jwnIXCUneLhzVdMemaoTcWMP/ABhn0iJT+
-	 AHcbAUyoUoKjnySNmfCv1SOC9bYDIpJINYuRVQbBZ6YEhnFa1sEXX6FHTcm4PwP8xB
-	 EWA/rqLjyY+27uUnTAnZzwMTPOCvA6ulXPyL0YJLMfHSCtWWvkq8JwZEhX+8Nx53Ur
-	 uomyk25Fr6I+A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] media: i2c: hm1092: add Himax HM1092 mono NIR
- sensor driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ramshouriesh R" <rshouriesh@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260701-hm1092-driver-v1-2-d1bd81e233b5@gmail.com>
-References: <20260701-hm1092-driver-v1-0-d1bd81e233b5@gmail.com>
- <20260701-hm1092-driver-v1-2-d1bd81e233b5@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 09:04:44 +0000
-Message-Id: <20260701090445.060E81F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="zb666/DC";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZD/hwl9R"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id E38A47A0023;
+	Wed,  1 Jul 2026 05:06:29 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Wed, 01 Jul 2026 05:06:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm1; t=1782896789; x=1782983189; bh=xl
+	Zj2IWS/yEA6l0YeXQHz6alZLDpsMjmTq7ALHs5DH4=; b=zb666/DCHWlohGfoHv
+	kbTFenalCDnrm5i4G4uIleBfTT7NFDkJGhY+shX4oXdVvAr71Os50UuiwZrN3C4r
+	alM0nQ3hChrjKb2qymyPnYD86MWWqB+nS5fnPswMWpkVORFHYi2iVf6f4gNhj+08
+	CA2I4O9QLM84BXRlFdN8VaNF0iYelQa9vciiLkHWnOIcLziL2ccyAK6NSgs8Dqcu
+	ByCPvY0mGSCPIhiTnkm9Wigxxh+zw+uY/w8hAHMVU9ja7Ms1Yy8ZkfpXnjM/dRAu
+	RIFt4beqhRsJ4mNhkKJEaqR/RugOxWSMxd2BTFKR0oXz8ak2oHHZyBp+qR3e/8Sw
+	wUZw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1782896789; x=1782983189; bh=xlZj2IWS/yEA6l0YeXQHz6alZLDp
+	sMjmTq7ALHs5DH4=; b=ZD/hwl9Rp73GrQld64ORoxQIruQzgekiJ82SvgvXfMDr
+	bqkoEWJyqkPbCpbDillF6jRwZ1VNzaCAPlbU6AInnVCEK5cIVChQiS87TBjFCXa9
+	MyOg4gtaxhO6FtcnMTfvo3IaNDTqMASWTMov7HWIqKm6G7AeUS3vGaDh2hvEuCdI
+	kSNhyJcNKkIbL5rzZEEaQtm45+ABtStYDMoHbOUZtvnVzr2pO1on7XLnf9l6xEgy
+	eJMYpiQ804fPy5PvPe3Bbi3zxotJBr678+IPRXXfCgiVdKm7FlTXKbckHikWwM6P
+	7qOJJtfNPFYTPQ6x4FsG5nh1z5YvJXq8RtCEBzd9xA==
+X-ME-Sender: <xms:ldhEahbKEOL3bP5wazLu1dqdWLIoynxkB9BIH7zc2YDj1q8Ixs7yFw>
+    <xme:ldhEam4NhJbx96cs44q6FdOKBaYr_08rutrSOMy4TRdYNHlmsRCAHfsWvEIvcoqrN
+    3D6xRBf4yLdY9E3xuo9SvfodZ4Wdbcg0V0fhMrZicUEK0TGCMzWb8E>
+X-ME-Received: <xmr:ldhEaqynrvWD0eSoj2taQCCFeN2nVefWIzn0i1QDPugE2MYuG6zRvixEijaYUxPTZJRhrUfKBHktalHoyc91TKhdW64fIkQ>
+X-ME-Proxy-Cause: dmFkZTEHujSBr1tDaokBlMPhjd6bwLitmOzJH4SPn38E53cEG/mtMfseyYzpcFUtwkBqlR
+    246XuYVy3uWfXg1U/HJhaQgnhi+rCVaNEtGRTLBxdeikAQ6pDYFkLdbgBzunYATlvaw/BM
+    prgy6iCYv5g/tuExxyE+3eMmfTLtQRNv51ssgN+lHoKT+t00YR0VmrABAFvOb2kzoGhqY+
+    nWbiS42JRSONB12mGApxDlCuwfeTiCmXEI2AOCK8MBsPHMikxalIbnaH8XtO+Yi34liHiM
+    X96kLJb/Tw0mVlXh1CoVbsj21e9gIrYmIf82uv9K/TlXv5aqM+o/OxCU70Mciqgloy1SDM
+    C4ynpVi/wzlPp+4dmvhOt5SAK8TFxRoJkfTuihD/1c0vrpn2LzV3Zz6NeptosYGjMbYsow
+    UTryaM+G6+zBsIlzhUhvDQSw9FtyAdHXLhb5BxNDDwvnOLvp0cPoSEtceZp/iUeN0daC9+
+    wQnVcynQQOvXaO4IQ61vVoRZ0EexGZDmkZUMtpCfMHBmqV8NSveryRd5sj20Am1casL2q8
+    m/r//bvg5hVLpcjQ6PBLAThrEJSYDzR+DhLdg5rf9Btv25YD+CTCPCOso+KJ9lsKDCbAan
+    Mk0p9dPEVs3jRpUPTRfuBhQ52nqMdRvdurq2pjm2myeGqYcIk72EfO/A/Kkw
+X-ME-Proxy: <xmx:ldhEavo3-BGUcKYegOVyYdZ7-_aQY45E1pAr4OX6ixdGBoakWffNcw>
+    <xmx:ldhEak2vcd8t41cuNvQdRPmTAfJIKYP8sAr6MmsVC92Bk4UJSyvu1A>
+    <xmx:ldhEagBQG-SzRjwNU1l8NS5N_6rYfy0iS-ubAuN-mSf82smCgPu2gw>
+    <xmx:ldhEatMVLkiV0M1hjESSjafHJ3Sy9_kPjSFa3gvHZ8CULA1Xw4L03w>
+    <xmx:ldhEaisqlq9X_etyLuzRp4Ldz8UoZ6MT7nC6Q-aKLiTCMQU9JNFmfPF2>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 1 Jul 2026 05:06:28 -0400 (EDT)
+From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"DavidS. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+Subject: [PATCH net-next v3 0/3] ptp: Add driver for R-Car Gen4 gPTP timer
+Date: Wed,  1 Jul 2026 11:06:04 +0200
+Message-ID: <20260701090607.1108208-1-niklas.soderlund+renesas@ragnatech.se>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The driver incorrectly uses `pm_sleep_ptr()` instead of `pm_ptr()`=
- for the `dev_pm_ops` structure pointer, silently breaking Runtime PM when =
-`CONFIG_PM_SLEEP` is disabled.
-- [Medium] V4L2 control handler memory and lock resources are leaked on ini=
-tialization error paths in `hm1092_init_controls()`.
---
+Hello,
 
-commit 355cde57de68093fd9275a1bf61c01ff0eed341f
-Author: Ramshouriesh R <rshouriesh@gmail.com>
+This series is the first part cleaning up how PTP timer support is
+implemented on R-Car Gen4. Currently there is partial support for it in
+some of the Ethernet devices that can use it, but not all.
 
-media: i2c: hm1092: add Himax HM1092 mono NIR sensor driver
+The partial support have been implemented by hacking the gPTP module
+directly into the first Ethernet device driver that used it, RTSN for
+V4H and RSWITCH for S4. This is understandable as earlier R-Car
+generations had a dedicated gPTP timer for each Ethernet device, but on
+Gen4 there is a single system-wide PTP timer shared by all.
 
-Add a V4L2 subdev driver for the Himax HM1092, a 1 megapixel monochrome
-near-infrared image sensor with a single-lane MIPI CSI-2 interface.
+The current implementation makes it impossible for other Ethernet
+devices on the platform to use the PTP timer without messing around with
+other Ethernet device drivers.
 
-> diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/media/i2c/hm1092.c
-[ ... ]
-> +static int hm1092_init_controls(struct hm1092 *hm1092)
-> +{
-> +	struct v4l2_ctrl_handler *ctrl_hdlr =3D &hm1092->ctrl_handler;
-> +	const struct hm1092_mode *mode =3D &hm1092_mode_560x360;
-> +	struct v4l2_fwnode_device_properties props;
-> +	s64 hblank, pixel_rate;
-> +	int ret;
-> +
-> +	v4l2_ctrl_handler_init(ctrl_hdlr, 6);
-[ ... ]
-> +	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &hm1092_ctrl_ops,
-> +				     V4L2_CID_TEST_PATTERN,
-> +				     ARRAY_SIZE(hm1092_test_pattern_menu) - 1,
-> +				     0, 0, hm1092_test_pattern_menu);
-> +
-> +	ret =3D v4l2_fwnode_device_parse(hm1092->dev, &props);
-> +	if (ret)
-> +		return ret;
+The effort to clean this up starts with this series which adds the
+system-wide gPTP timer as its own driver and device tree node.
 
-[Severity: Medium]
-Could this leak the control handler memory and lock resources if=20
-v4l2_fwnode_device_parse() fails?
+This series will then be followed by work to add proper PTP support to
+the R-Car RAVB Gen4 driver, which currently advertises to user-space it
+supports PTP but which implementation is broken and does not work.
 
-When hm1092_probe() calls hm1092_init_controls() and it fails here,
-probe jumps straight to err_power_off, bypassing v4l2_ctrl_handler_free().
+This will in turn be followed by work to the RTSN and RSWITCH drivers
+will be be switched from its current partial support by mapping the gPTP
+address space directly to instead use this driver.
 
-> +
-> +	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &hm1092_ctrl_ops, &props);
-> +
-> +	if (ctrl_hdlr->error)
-> +		return ctrl_hdlr->error;
+Having both this and RTSN/RSWITCH described and enabled (!) in device
+tree will not work as they will try to use the same memory region. For
+this reason this new solution will only be enabled on platforms
+after all user's of the gPTP clock have moved to only use the new
+centralized timer. But in the interim both devices will be described
+(but not enabled) in the platforms base dtsi file.
 
-[Severity: Medium]
-Similarly, if control creation fails, does returning ctrl_hdlr->error=20
-directly leave the allocated control handler resources orphaned?
+For some platforms this is straight forward, such as V4H Sparrow Hawk,
+which only have the RAVB Ethernet interface. This platform currently
+have no users of the PTP timer, but still advertise it supports it. This
+and the soon to be posted RAVB patches solves that.
 
-[ ... ]
-> +static struct i2c_driver hm1092_i2c_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "hm1092",
-> +		.pm =3D pm_sleep_ptr(&hm1092_pm_ops),
+As the RAVB patches depends on this series the device tree node for the
+gPTP clock is added in this series but will be enabled and linked to
+consumers in the RAVB gPTP series for platforms where it will not
+conflict with RTSN and RSWITCH. And further enabled as more of this is
+cleaned up.
 
-[Severity: High]
-Will this silently drop the Runtime PM callbacks when the kernel is compiled
-with CONFIG_PM=3Dy but CONFIG_PM_SLEEP=3Dn?
+The gPTP driver itself is heavily influence by the existing partial
+support for gPTP in the RTSN and RSWITCH drivers and the Renesas BSP.
 
-According to the power management subsystem guidelines, pm_sleep_ptr()
-should be used for individual sleep callbacks, while pm_ptr() should be
-used for the dev_pm_ops structure pointer. If pm_sleep_ptr() evaluates
-to NULL here, the sensor hardware might not power on during
-hm1092_enable_streams().
+Niklas Söderlund (3):
+  dt-bindings: ptp: renesas,rcar-gen4-gptp: Add R-Car Gen4
+  ptp: Add driver for R-Car Gen4
+  arm64: dts: renesas: r8a779g0: Add gPTP node
 
-> +		.of_match_table =3D hm1092_of_match,
-> +	},
-> +	.probe =3D hm1092_probe,
-> +	.remove =3D hm1092_remove,
-> +};
+ .../bindings/ptp/renesas,rcar-gen4-gptp.yaml  |  64 +++++
+ MAINTAINERS                                   |   7 +
+ arch/arm64/boot/dts/renesas/r8a779g0.dtsi     |   9 +
+ drivers/ptp/Kconfig                           |  12 +
+ drivers/ptp/Makefile                          |   1 +
+ drivers/ptp/ptp_rcar_gen4.c                   | 219 ++++++++++++++++++
+ 6 files changed, 312 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+ create mode 100644 drivers/ptp/ptp_rcar_gen4.c
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-hm1092-dri=
-ver-v1-0-d1bd81e233b5@gmail.com?part=3D2
+-- 
+2.55.0
+
