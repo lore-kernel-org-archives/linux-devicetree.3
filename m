@@ -1,440 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D213A3809
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 07:31:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EFF43A0EB3
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 07:31:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782891099; cv=none; b=PFCKuzqUgXCi43BSTw4SzxAT0IgJVvJH0xamFE+DrjJ0LQEvMBIeZogtPtEmsqMMobvQnGkwzzwX523gt0ryavkV2R/j9IJOuYr8m0Yx2msa4pUhs+OaoSeIRi3H0jptYBqD12yzhBLqp9yHJMiz9SagPLnJEuwaDxyYBqOO2A4=
+	t=1782891118; cv=none; b=j1urU7eDUlV6lFo/u17UkchKEGS+c+omeCPHpYyOp/MMjickmw1jtxrir1tC7rRxC0jnppYAvWgO/Kj8J+XyIKdyyNDLQ/72VkRO1yCzS4PT8lDxNlOT2m3K/HbWICXu2byGwlko0SMiOGYECgzlAn9rWYtLb/b6MItA7+kjNKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782891099; c=relaxed/simple;
-	bh=iUaIFCGnuFfNH3URRFCdq+79pJiah1D8HEIjhWk+yCw=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=T6T//37Y510ZzgG71s7dVdnpi5bBoHRdCMeQOuUQVUM4rxfv2Hc2E5z8mlidxJbV1OMcXSgXjBLreVhglMt8T3YiyZrtmjYR77mKDUSWDemBepUXois/OoTyASEIWBmoNDIddCNjs3soPnk+KAApypz1NEd2kPwdmlz61/Kxzkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dXF2gbb4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782891118; c=relaxed/simple;
+	bh=F3qtJ+0mswTvasfhVUrEPXonE05o5W9A1VPiF+r6U6k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m9w27C0NrC4cBo75tkxhRmnGw4f6mZUh5GuQBKG3U0bBk7J1rGrAMbDoiAF/u7OA1VvmhKhslF1zMmiODRq827VA0FoRvd9sIHCIKFa17Wl8ITWrtMdXfvJhOAoe46mDMHf/MsDeCsr0AmIK26BSKOOqAR5Y27V4AOg4/ToBGWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IbO2GVuM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hQ+CmHNe; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dXF2gbb4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5861F0155C
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 07:31:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782891097;
-	bh=EHH0hjrKeaZWnba6OJ5JT0e3gySxkqVh6AO3zCntqNE=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=dXF2gbb4zSreejAuIAugrOyXLuV+oDU7bhAYgL0LZxT0zrV9v8M5ANPVmGmXDFNKW
-	 Zqy3X3gD6N5hBwHERKl8dd2ZkXb75PHo8petzIQkpDR9vDKkYMZxCq6jNbmxRZmz/C
-	 /cA/iBHwJHvLucrePyNEZJWpTfOL2U6tLtXxV94EyOAblZaLwAqNtX30lgZ7pU7PEf
-	 S1NcZvtsLS9BV/x/qC+mR/FH7XowLzv3L09xDuwXs/2uLIq5pQfKfqXTJw0wdtZJ3B
-	 koAK0uVuwl844JRhO2/5wCvIMR4WhpBBWfmGFpx73gG8mbnMN4NQDxK7pG/9oG8C+W
-	 m80tae7NgM2gw==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-39adb9a103aso3356701fa.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 00:31:37 -0700 (PDT)
-X-Gm-Message-State: AOJu0YxbGWB0Os1NGZXu5kM7Q53U/aezg8H5ucidKLBZrrrA40qcOmq6
-	qZYC0FCNyswpLu3G/rtmZKgVwwTty5+v85uADa2CcIzPAbT1vZLy3KFea9QZNWbAOAQQxzt4DOr
-	psg4cGgmrh9L8W59FVUGw+mWZ/oKy9PpDWQ+TuPzlIA==
-X-Received: by 2002:a2e:bd83:0:b0:399:8394:9dee with SMTP id
- 38308e7fff4ca-39b340c41d3mr912171fa.25.1782891096281; Wed, 01 Jul 2026
- 00:31:36 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 1 Jul 2026 03:31:35 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 1 Jul 2026 03:31:35 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260630-dev-b4-aaeon-mcu-driver-v6-3-d66b5fcbd2f0@bootlin.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IbO2GVuM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hQ+CmHNe"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6615lZYE154284
+	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 07:31:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	naqNMluZvhh1zpVu6XPv1SQCAhNN/GX6Unyao2I5ZNI=; b=IbO2GVuMXURSMRsF
+	LRpjClDudvMqMNVJZqH1icTdQwvnrB335lkClOSpgpH5NxURfQyaT2VCpbqCbzBH
+	5yDxZ1fHAGonqABfbe4eSPysXpXzJfnruVJv83g5cXB3Z/AxCbv6/cLfeTf32CqN
+	gjzzqr2ANytjyg3uk5PdsTjnrofiVsJT0noHFHLe5en8l2wNpJLIt6vpgbgUWBLs
+	qyBJKViRDXVa39/WDBekRvabw2AbW1Pnz8nfkltQq0NQ5tJk21NJIl1yZr+62u38
+	ZOvkhuCqj3zBejzNgsanvCxy21S3m2j/iSS7ZXIXgSCzoqNeBQG8AFkyBJsYxG5w
+	H88CXg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4j9133j2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 07:31:56 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2c7f385887bso10579245ad.0
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 00:31:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782891116; x=1783495916; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=naqNMluZvhh1zpVu6XPv1SQCAhNN/GX6Unyao2I5ZNI=;
+        b=hQ+CmHNeiMAMD+NsBYGAuHHn3Nxh1zgmYierXk85Q5xS5NrjFNmVI317lLgg0mhMUp
+         iWzOxHl0Is2Wh1JhtQZnqAWJr3P1VJvmIiN6oNwUJ/D0GcQ/aJrv82tKDTqKHtj7dMp2
+         IVwkOuVlIefyM+e0tLGkd57nm616t9nVCoWl2KdO3HvqAVY7WHPY7Y2G7V6aGUvQ27W8
+         C1ovFPo9de7qNB8enZgQq632VudXMp0OktuslWl4l691VR7Va3wchssPS3RxyvyusAXC
+         yP1mvHUDnkkrV0AyBq9Wal8mW71LdzIWnEBMSv9gXYzIUhLMKbsfwhgLNoPZsd9EpmHh
+         4HYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782891116; x=1783495916;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=naqNMluZvhh1zpVu6XPv1SQCAhNN/GX6Unyao2I5ZNI=;
+        b=jTEifw5djKMKiwQd/m6i1c2d/Ye9I1YKS1aPYkOyRmc9zILEKuxbDcy7HdH7exzk0G
+         9f/E7N4B0s0RfZUBzZ7mo6TFurQVJ13shcnXVxV/wQf1wH2mm3+KGR4T71Eu61dTqdda
+         rYEvj4ZabJWRl1hgDRKAJknppQ1uflnDaNkwG/0HsH/b0GKuPHYy4hQGRB/RNyN3ecLG
+         2KSyAeDhHcN8EhfJFlkA+UvJfGqPTypMCQQPLn87NSlFdxvzZx0mFWFIM5kJoUj+pQ3e
+         78kci4GOBqxEswi8GSwMhfDDTJTyAyPi6H15Vh0kVy5hnm1/JPcrO4P8fqrScBUh9OIC
+         b5jg==
+X-Forwarded-Encrypted: i=1; AHgh+RoNzB+Q1zrgLfE7gTmjFIL+TJ2kOTgBrtNo2Rgz8wCp1IOTtDUj+Cp/yM2msxXm1n/JygYogK8QM0AA@vger.kernel.org
+X-Gm-Message-State: AOJu0YxGAzfNwsJcs7bTiwz2/vok9SYvdO0GlycvAT+0jULrNs3EeQlk
+	YtVDbR0rR6jwchJnvVsvDR6b+LhUOXWAUzD3KTvrAZIp2YKXxYlZ+4c0w9Q25lvaizRpRaEJnCQ
+	H4q7oHDm9RV06SEe6J1S83PgWyqcKnGg2yY7ao1IVHoAGKbVUZWNprQCO76bJ00W3
+X-Gm-Gg: AfdE7cklVgEkZdL4lkNu2HOjfCEP6zJV5BhjdISBYqUPUzGSOujuorMOn4m0AlfY2W0
+	/Brdq5ms+DcpRTM168z9aRiYmF1F/6C+3DPMdyZzCitDS7JJ8LXyF4MhZgnoUzm1g3H5zwlsj/C
+	DhLP0+6YKFupFUtSOBaJ7EiJDdoq1/wjiO0W2J0WLcjZ60J7bmxZj29APKCfdR3SPk2yxj4vxFk
+	aj3PFNR/oFBBO+kxlnUwjoHgtRURpNKFNVQ1GzcdAw/O2X7TzFbLlowJvjAe1WogRjfY9xnqZix
+	TYpcKWRcytc5UoLYv6iS6jU8XbgUiuJe5BJBQPET4m02H9hKaBb0h1GBwRlBvp+1TskENkfxKGz
+	OhFivwVVnGb1V7EYLELqZpAQxqpz4ja8rj7vDVsRKIzMH9Q3NaPXtlvAmZtl3sm6zM+QDYf9Kwy
+	k=
+X-Received: by 2002:a17:903:2f8e:b0:2c9:ff83:41e3 with SMTP id d9443c01a7336-2ca7e6e1653mr6427525ad.21.1782891115649;
+        Wed, 01 Jul 2026 00:31:55 -0700 (PDT)
+X-Received: by 2002:a17:903:2f8e:b0:2c9:ff83:41e3 with SMTP id d9443c01a7336-2ca7e6e1653mr6427055ad.21.1782891115085;
+        Wed, 01 Jul 2026 00:31:55 -0700 (PDT)
+Received: from [10.133.33.76] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca3828c2e8sm26960375ad.43.2026.07.01.00.31.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Jul 2026 00:31:54 -0700 (PDT)
+Message-ID: <62ac6887-1551-490b-b42b-2661d7152734@oss.qualcomm.com>
+Date: Wed, 1 Jul 2026 15:31:47 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260630-dev-b4-aaeon-mcu-driver-v6-0-d66b5fcbd2f0@bootlin.com> <20260630-dev-b4-aaeon-mcu-driver-v6-3-d66b5fcbd2f0@bootlin.com>
-Date: Wed, 1 Jul 2026 03:31:35 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Md2=u=tWhC-H6CA10zoS3ByPtA0UuSsCVkh-eLNe=Rmaw@mail.gmail.com>
-X-Gm-Features: AVVi8Cc_OfLeKOGOhGEKktyfB7tzHJqrZ0eIZ3H6jyHsoTN6UQFcWrRNSrUer3M
-Message-ID: <CAMRc=Md2=u=tWhC-H6CA10zoS3ByPtA0UuSsCVkh-eLNe=Rmaw@mail.gmail.com>
-Subject: Re: [PATCH v6 3/5] mfd: aaeon: Add SRG-IMX8P MCU driver
-To: "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, 
-	=?UTF-8?B?SsOpcsOpbWllIERhdXRoZXJpYmVz?= <jeremie.dautheribes@bootlin.com>, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, Lee Jones <lee@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/5] dt-bindings: arm: coresight-tnoc: Add standalone
+ qcom,coresight-agtnoc compatible
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
+        Leo Yan <leo.yan@arm.com>,
+        Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
+        linux-arm-kernel@lists.infradead.org
+References: <20260701-fix-tracenoc-probe-issue-v4-0-aefab449a470@oss.qualcomm.com>
+ <20260701-fix-tracenoc-probe-issue-v4-1-aefab449a470@oss.qualcomm.com>
+ <20260701-stirring-piculet-of-vastness-a361e5@quoll>
+ <4117c406-0d75-4eb1-842e-1d346b7fbf99@oss.qualcomm.com>
+ <9aa63427-ba41-436d-ab19-a533082d336a@kernel.org>
+Content-Language: en-US
+From: Jie Gan <jie.gan@oss.qualcomm.com>
+In-Reply-To: <9aa63427-ba41-436d-ab19-a533082d336a@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: mSTIKRpY0nUcP9iueq9fVx86GNXhrdjB
+X-Authority-Analysis: v=2.4 cv=ftfsol4f c=1 sm=1 tr=0 ts=6a44c26c cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=TEn5Sf8rmKvuiEhX-CAA:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: mSTIKRpY0nUcP9iueq9fVx86GNXhrdjB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDA3NSBTYWx0ZWRfX47xm2T5SevC3
+ EbDMJmi8GpFZz1CPiuXPvYvyz7AFmdsFTctgqmPjmWsTpO2orhr3/uLMvl/W6k9aFmU4QWQIyIl
+ oV/ns4dPCyCeJHCucT4MMhjNeYTmefYwb8PNyJPOYbi/p966/VvLdqOed0duir93FYfreIHRCah
+ pjvm6FhzGXhsdjl5y9K1kWW1jf1XBcOwN7+L4pbsrHpoy90lFKNIO8181wGQVXZXenkIyXePwqc
+ pZBooz4a3CgoqqIxx3D3zyz/ATdpX6NZleMIYFltU8+alZkFmJRnHnLW3OaPLc4Vtklz+9AUbnc
+ WUI2tJC6V9c8IYgeHeT6CPH/Iib2qzfkJ+6PqpiVmFUGE9pe1cTH5bK4+J6lSAvhCoDrq7Y24vi
+ BV/qC9/a3gh+I/qBCb9xzfM7TPoL+kqkPioN+rf3S/zzacsHjZn/HU9Jkl6KzwoBiJRcf1tKEbd
+ YURk9NB/2cza1/LjOXg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDA3NSBTYWx0ZWRfX0Aai1SKG3w9b
+ Q2SkeP/5bdWbYQp+ljU4Jbe2owQ1bBPdXHS0kbPq4Fowdjk4OYzdu/PSlmMzt+4bI3WBZZFrIiQ
+ AioL2zhyfIryXSK0FRtjfsdRVoJjKJQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-01_01,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 clxscore=1015 phishscore=0 impostorscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010075
 
-On Tue, 30 Jun 2026 14:51:13 +0200, "Thomas Perrot (Schneider
-Electric)" <thomas.perrot@bootlin.com> said:
-> Add Multi-Function Device (MFD) driver for the Aaeon SRG-IMX8P
-> embedded controller. This driver provides the core I2C communication
-> interface and registers child devices (GPIO and watchdog controllers).
->
-> The driver implements a custom regmap bus over I2C to match the MCU's
-> fixed 3-byte command format [opcode, arg, value]. Register addresses
-> are encoded as 16-bit values (opcode << 8 | arg) using the
-> AAEON_MCU_REG() macro defined in the shared header. The regmap
-> instance is shared with child drivers via dev_get_regmap(). Concurrent
-> I2C accesses from child drivers are serialized by regmap's built-in
-> locking.
->
-> I2C transfers use heap-allocated DMA-safe buffers rather than
-> stack-allocated ones, as required by I2C controllers that perform DMA.
->
-> Regmap caching is enabled (REGCACHE_MAPLE) with a volatile_reg
-> callback that marks GPIO input read registers (opcode 0x72) and the
-> watchdog status register (opcode 0x63, arg 0x02) as volatile. All
-> other registers written by the driver (GPIO direction,
-> GPO state, watchdog control) are stable and can be safely cached.
->
-> Co-developed-by: J=C3=A9r=C3=A9mie Dautheribes (Schneider Electric) <jere=
-mie.dautheribes@bootlin.com>
-> Signed-off-by: J=C3=A9r=C3=A9mie Dautheribes (Schneider Electric) <jeremi=
-e.dautheribes@bootlin.com>
-> Signed-off-by: Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.=
-com>
-> ---
->  MAINTAINERS                   |   2 +
->  drivers/mfd/Kconfig           |  11 +++
->  drivers/mfd/Makefile          |   1 +
->  drivers/mfd/aaeon-mcu.c       | 205 ++++++++++++++++++++++++++++++++++++=
-++++++
->  include/linux/mfd/aaeon-mcu.h |  40 +++++++++
->  5 files changed, 259 insertions(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index ea9d55f76f35..f91b6a1826d0 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -191,6 +191,8 @@ M:	Thomas Perrot <thomas.perrot@bootlin.com>
->  R:	J=C3=A9r=C3=A9mie Dautheribes <jeremie.dautheribes@bootlin.com>
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/mfd/aaeon,srg-imx8p-mcu.yaml
-> +F:	drivers/mfd/aaeon-mcu.c
-> +F:	include/linux/mfd/aaeon-mcu.h
->
->  AAEON UPBOARD FPGA MFD DRIVER
->  M:	Thomas Richard <thomas.richard@bootlin.com>
-> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-> index aace5766b38a..ed5169c7a683 100644
-> --- a/drivers/mfd/Kconfig
-> +++ b/drivers/mfd/Kconfig
-> @@ -1561,6 +1561,17 @@ config ABX500_CORE
->  	  remain unchanged when IC changes. Binding of the functions to
->  	  actual register access is done by the IC core driver.
->
-> +config MFD_AAEON_MCU
-> +	tristate "Aaeon SRG-IMX8P MCU Driver"
-> +	depends on I2C
-> +	select MFD_CORE
-> +    select REGMAP
-> +	help
-> +	  Select this option to enable support for the Aaeon SRG-IMX8P
-> +	  onboard microcontroller (MCU). This driver provides the core
-> +	  functionality to communicate with the MCU over I2C. The MCU
-> +	  provides GPIO and watchdog functionality.
-> +
->  config AB8500_CORE
->  	bool "ST-Ericsson AB8500 Mixed Signal Power Management chip"
->  	depends on ABX500_CORE && MFD_DB8500_PRCMU
-> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-> index e75e8045c28a..34db5b033584 100644
-> --- a/drivers/mfd/Makefile
-> +++ b/drivers/mfd/Makefile
-> @@ -8,6 +8,7 @@ obj-$(CONFIG_MFD_88PM860X)	+=3D 88pm860x.o
->  obj-$(CONFIG_MFD_88PM800)	+=3D 88pm800.o 88pm80x.o
->  obj-$(CONFIG_MFD_88PM805)	+=3D 88pm805.o 88pm80x.o
->  obj-$(CONFIG_MFD_88PM886_PMIC)	+=3D 88pm886.o
-> +obj-$(CONFIG_MFD_AAEON_MCU)	+=3D aaeon-mcu.o
->  obj-$(CONFIG_MFD_ACT8945A)	+=3D act8945a.o
->  obj-$(CONFIG_MFD_SM501)		+=3D sm501.o
->  obj-$(CONFIG_ARCH_BCM2835)	+=3D bcm2835-pm.o
-> diff --git a/drivers/mfd/aaeon-mcu.c b/drivers/mfd/aaeon-mcu.c
-> new file mode 100644
-> index 000000000000..306aaac1bd60
-> --- /dev/null
-> +++ b/drivers/mfd/aaeon-mcu.c
-> @@ -0,0 +1,205 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Aaeon MCU driver
-> + *
-> + * Copyright (C) 2026 Bootlin
-> + * Author: J=C3=A9r=C3=A9mie Dautheribes <jeremie.dautheribes@bootlin.co=
-m>
-> + * Author: Thomas Perrot <thomas.perrot@bootlin.com>
-> + */
-> +
-> +#include <linux/err.h>
-> +#include <linux/i2c.h>
-> +#include <linux/mfd/aaeon-mcu.h>
-> +#include <linux/mfd/core.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <linux/slab.h>
-> +
-> +struct aaeon_mcu {
-> +	struct i2c_client *client;
-> +	u8 *cmd;      /* DMA-safe 3-byte write buffer [opcode, arg, value] */
-> +	u8 *response; /* DMA-safe 1-byte read buffer for MCU acknowledgment */
-> +};
-> +
-> +static const struct mfd_cell aaeon_mcu_devs[] =3D {
-> +	MFD_CELL_BASIC("aaeon-mcu-wdt", NULL, NULL, 0, 0),
-> +	MFD_CELL_BASIC("aaeon-mcu-gpio", NULL, NULL, 0, 0),
-> +};
-> +
-> +/* Number of bytes in a MCU command: [opcode, arg, value] */
-> +#define AAEON_MCU_CMD_LEN      3
-> +
-> +/*
-> + * Custom regmap bus for the Aaeon MCU I2C protocol.
-> + *
-> + * The MCU uses a fixed 3-byte command format [opcode, arg, value] follo=
-wed
-> + * by a 1-byte response. It requires a STOP condition between the comman=
-d
-> + * write and the response read, so two separate i2c_transfer() calls are
-> + * issued.  The regmap lock serialises concurrent accesses from the GPIO
-> + * and watchdog child drivers.
-> + *
-> + * Register addresses are encoded as a 16-bit big-endian value where the
-> + * high byte is the opcode and the low byte is the argument, matching th=
-e
-> + * wire layout produced by regmap for reg_bits=3D16.
-> + */
 
-I would have preferred this implemented as a quirk in the i2c regmap but
-won't die on that hill.
 
-> +
-> +static int aaeon_mcu_regmap_write(void *context, const void *data, size_=
-t count)
-> +{
-> +	struct aaeon_mcu *mcu =3D context;
-> +	struct i2c_client *client =3D mcu->client;
-> +	struct i2c_msg write_msg;
-> +	/* The MCU always sends a response byte after each command; discard it.=
- */
-> +	struct i2c_msg response_msg;
-> +	int ret;
-> +
-> +	memcpy(mcu->cmd, data, count);
-> +
-> +	write_msg.addr  =3D client->addr;
-> +	write_msg.flags =3D I2C_M_DMA_SAFE;
-> +	write_msg.buf   =3D mcu->cmd;
-> +	write_msg.len   =3D count;
-> +
-> +	response_msg.addr  =3D client->addr;
-> +	response_msg.flags =3D I2C_M_RD | I2C_M_DMA_SAFE;
-> +	response_msg.buf   =3D mcu->response;
-> +	response_msg.len   =3D 1;
-> +
-> +	ret =3D i2c_transfer(client->adapter, &write_msg, 1);
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret !=3D 1)
-> +		return -EIO;
-> +
-> +	ret =3D i2c_transfer(client->adapter, &response_msg, 1);
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret !=3D 1)
-> +		return -EIO;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aaeon_mcu_regmap_read(void *context, const void *reg_buf,
-> +				 size_t reg_size, void *val_buf, size_t val_size)
-> +{
-> +	struct aaeon_mcu *mcu =3D context;
-> +	struct i2c_client *client =3D mcu->client;
-> +	struct i2c_msg write_msg;
-> +	struct i2c_msg read_msg;
-> +	int ret;
-> +
-> +	/*
-> +	 * reg_buf holds the 2-byte big-endian register address [opcode, arg].
-> +	 * Append a trailing 0x00 to form the full 3-byte MCU command.
-> +	 */
-> +	mcu->cmd[0] =3D ((u8 *)reg_buf)[0];
-> +	mcu->cmd[1] =3D ((u8 *)reg_buf)[1];
-> +	mcu->cmd[2] =3D 0x00;
-> +
-> +	write_msg.addr  =3D client->addr;
-> +	write_msg.flags =3D I2C_M_DMA_SAFE;
-> +	write_msg.buf   =3D mcu->cmd;
-> +	write_msg.len   =3D AAEON_MCU_CMD_LEN;
-> +
-> +	read_msg.addr  =3D client->addr;
-> +	read_msg.flags =3D I2C_M_RD | I2C_M_DMA_SAFE;
-> +	read_msg.buf   =3D val_buf;
-> +	read_msg.len   =3D val_size;
-> +
-> +	ret =3D i2c_transfer(client->adapter, &write_msg, 1);
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret !=3D 1)
-> +		return -EIO;
-> +
-> +	ret =3D i2c_transfer(client->adapter, &read_msg, 1);
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret !=3D 1)
-> +		return -EIO;
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct regmap_bus aaeon_mcu_regmap_bus =3D {
-> +	.write =3D aaeon_mcu_regmap_write,
-> +	.read  =3D aaeon_mcu_regmap_read,
-> +};
-> +
-> +static bool aaeon_mcu_volatile_reg(struct device *dev, unsigned int reg)
-> +{
-> +	/*
-> +	 * GPIO input registers are driven by external signals and can change
-> +	 * at any time without CPU involvement, always read from hardware.
-> +	 *
-> +	 * The watchdog status register reflects hardware state and can change
-> +	 * autonomously.
-> +	 *
-> +	 * All other registers are written by the driver and their values are
-> +	 * stable, so they can be safely cached.
-> +	 */
-> +	if ((reg >> 8) =3D=3D AAEON_MCU_READ_GPIO_OPCODE)
-> +		return true;
-> +	if (reg =3D=3D AAEON_MCU_REG(AAEON_MCU_CONTROL_WDT_OPCODE, 0x02))
-> +		return true;
-> +	return false;
-> +}
-> +
-> +static const struct regmap_config aaeon_mcu_regmap_config =3D {
-> +	.reg_bits          =3D 16,
-> +	.val_bits          =3D 8,
-> +	.reg_format_endian =3D REGMAP_ENDIAN_BIG,
-> +	.max_register      =3D AAEON_MCU_MAX_REGISTER,
-> +	.volatile_reg      =3D aaeon_mcu_volatile_reg,
-> +	.cache_type        =3D REGCACHE_MAPLE,
-> +};
-> +
-> +static int aaeon_mcu_probe(struct i2c_client *client)
-> +{
-> +	struct aaeon_mcu *ddata;
-> +	struct regmap *regmap;
-> +
-> +	ddata =3D devm_kzalloc(&client->dev, sizeof(*ddata), GFP_KERNEL);
-> +	if (!ddata)
-> +		return -ENOMEM;
-> +
-> +	ddata->client =3D client;
-> +
-> +	ddata->cmd =3D devm_kzalloc(&client->dev, AAEON_MCU_CMD_LEN * sizeof(*d=
-data->cmd),
+On 7/1/2026 3:26 PM, Krzysztof Kozlowski wrote:
+> On 01/07/2026 09:16, Jie Gan wrote:
+>>
+>>
+>> On 7/1/2026 2:57 PM, Krzysztof Kozlowski wrote:
+>>> On Wed, Jul 01, 2026 at 09:53:41AM +0800, Jie Gan wrote:
+>>>> The TNOC compatible previously only allowed the two-string AMBA form
+>>>> "qcom,coresight-tnoc", "arm,primecell", which forces the device onto the
+>>>> AMBA bus.
+>>>>
+>>>> Convert the compatible to a oneOf and add a standalone
+>>>> "qcom,coresight-agtnoc" compatible alongside the existing AMBA form. The
+>>>> standalone string carries no "arm,primecell" entry, so the device is
+>>>> created on the platform bus instead of the AMBA bus.
+>>>
+>>> That's a Linux driver specific reason, so not a valid one.
+>>>
+>>> Describe the hardware instead.
+>>>
+>>> Also, you do not get other compatible for the same device.
+>>
+>> The device is intended to be discovered and probed via the AMBA bus.
+>> However, due to a hardware issue, AMBA probing does not work correctly.
+>> While adding the arm,primecell-periphid property would allow the
+> 
+> If this is not AMBA bus device, then drop primecell compatible.
 
-Why not devm_kcalloc()?
+Will drop the primecell compatible and update the description.
 
-> +				   GFP_KERNEL);
-> +	if (!ddata->cmd)
-> +		return -ENOMEM;
-> +
-> +	ddata->response =3D devm_kzalloc(&client->dev, sizeof(*ddata->response)=
-, GFP_KERNEL);
-> +	if (!ddata->response)
-> +		return -ENOMEM;
-> +
-> +	regmap =3D devm_regmap_init(&client->dev, &aaeon_mcu_regmap_bus,
-> +				  ddata, &aaeon_mcu_regmap_config);
-> +	if (IS_ERR(regmap))
-> +		return dev_err_probe(&client->dev, PTR_ERR(regmap),
-> +				     "failed to initialize regmap\n");
-> +
-> +	return devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_AUTO,
-> +				    aaeon_mcu_devs, ARRAY_SIZE(aaeon_mcu_devs),
-> +				    NULL, 0, NULL);
-> +}
-> +
-> +static const struct of_device_id aaeon_mcu_of_match[] =3D {
-> +	{ .compatible =3D "aaeon,srg-imx8p-mcu" },
-> +	{},
-> +};
-> +MODULE_DEVICE_TABLE(of, aaeon_mcu_of_match);
-> +
-> +static struct i2c_driver aaeon_mcu_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "aaeon-mcu",
-> +		.of_match_table =3D aaeon_mcu_of_match,
-> +	},
-> +	.probe =3D aaeon_mcu_probe,
-> +};
-> +module_i2c_driver(aaeon_mcu_driver);
-> +
-> +MODULE_DESCRIPTION("Aaeon MCU Driver");
-> +MODULE_AUTHOR("J=C3=A9r=C3=A9mie Dautheribes <jeremie.dautheribes@bootli=
-n.com>");
-> +MODULE_LICENSE("GPL");
-> diff --git a/include/linux/mfd/aaeon-mcu.h b/include/linux/mfd/aaeon-mcu.=
-h
-> new file mode 100644
-> index 000000000000..3a1aeec85d60
-> --- /dev/null
-> +++ b/include/linux/mfd/aaeon-mcu.h
-> @@ -0,0 +1,40 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Aaeon MCU driver definitions
-> + *
-> + * Copyright (C) 2026 Bootlin
-> + * Author: J=C3=A9r=C3=A9mie Dautheribes <jeremie.dautheribes@bootlin.co=
-m>
-> + * Author: Thomas Perrot <thomas.perrot@bootlin.com>
-> + */
-> +
-> +#ifndef __LINUX_MFD_AAEON_MCU_H
-> +#define __LINUX_MFD_AAEON_MCU_H
-> +
-> +/*
-> + * MCU register address: the high byte is the command opcode, the low
-> + * byte is the argument.  This matches the 3-byte wire format
-> + * [opcode, arg, value] used by the MCU I2C protocol.
-> + */
-> +#define AAEON_MCU_REG(op, arg)		(((op) << 8) | (arg))
-> +
-> +/*
-> + * Opcode for GPIO input reads. These registers are volatile, their valu=
-es
-> + * are driven by external signals and can change without CPU involvement=
-.
-> + * Used by the MFD driver's volatile_reg callback to bypass the regmap c=
-ache.
-> + */
-> +#define AAEON_MCU_READ_GPIO_OPCODE	0x72
-> +
-> +/*
-> + * Opcode for watchdog control and status commands.
-> + * The status register (arg=3D0x02) reflects hardware state and is volat=
-ile.
-> + */
-> +#define AAEON_MCU_CONTROL_WDT_OPCODE	0x63
-> +
-> +/*
-> + * Highest register address in the MCU register map.
-> + * The WRITE_GPIO opcode (0x77) with the highest GPIO argument (0x0B =3D=
- 11,
-> + * i.e. MAX_GPIOS - 1) produces the largest encoded address.
-> + */
-> +#define AAEON_MCU_MAX_REGISTER		AAEON_MCU_REG(0x77, 0x0B)
-> +
-> +#endif /* __LINUX_MFD_AAEON_MCU_H */
->
-> --
-> 2.54.0
->
->
+> 
+>> existing AMBA driver to bind, but I think that's a temp WA. As
+>> Suzuki/Leo pointed out, we should not add the property to pretend the
+>> device as an AMBA device.
+>>
+>> Instead, I introduced a dedicated compatible string so the device can be
+>> handled by the existing platform driver without relying on the missing
+> 
+> As I said, that's a Linux driver specific reason, so not a valid one.
+> 
+> Fix your drivers if you insist on that.
+> 
+>> AMBA primecell identification. The purpose of the new compatible is to
+>> clearly distinguish this platform-specific case from the standard
+>> AMBA-based implementation. Or shall I re-use the existing compatible
+>> "qcom,coresight-tnoc" as platform standalone compatible?
+>>
+>> We already have a similar pattern for the interconnect TraceNoC device,
+>> which uses the platform-specific compatible string qcom,coresight-itnoc.
+> I do not see there a fake, duplicated compatible for the same device.
+> Can you elaborate how is that relevant?
 
-Bart
+Will fix it by removing AMBA related description.
+
+Shall I update the clock name from apb_pclk to apb as a platform device?
+
+Thanks,
+Jie
+
+> 
+> Best regards,
+> Krzysztof
+
