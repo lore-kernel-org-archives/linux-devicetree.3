@@ -1,36 +1,36 @@
-Received: from out-179.mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
+Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3C13F23BB
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 08:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A293F23BB
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 08:49:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782895745; cv=none; b=YtvnQQln3AHh0P+xPw7kIcayR60BqHQeQPB8nHaMEXl+hTj9Nu0Lto6M4sXV+nF4c1s/WHlmE0UkHAM6tQrsk+BPT2qaxl1Q6WDndx6YG/PKDrDmR4RlkbRiE5CjnsN5ugdxYaFawx2TNV8Y80vD35Z4w1j0DansPlTfWjgNdPQ=
+	t=1782895747; cv=none; b=SiSjf8rid6gDHpYNVguImywrt/aj3igavRLnGul+IEU6hx95v6/uCY/0z38lxjkK/rIy0zSoPdc+KRJFmaKZvrgN2DF0f4w2vrlU4ZejibSnDXsH82D/lM8IIzbPhs84pjtqgBU/x0gSbgViJnlUHJ0R5Pzsc4N30RxKvGfY+uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782895745; c=relaxed/simple;
-	bh=TRQUQK1N1laVmfi+/z8Tzbr63EM/xjtFPowISmSkmco=;
+	s=arc-20240116; t=1782895747; c=relaxed/simple;
+	bh=rlr1JrpvEX5VV6u+bodY3ZJOPnTthq0L3jv7H/1JuPE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Swd8ZWHIIVsryzNVGxUnlKnhB+4PHAeuvXwGL8wF7532lqSWZ0muIa8bywNouiQoJksHuGK2W5QYdbisEUGAOPTNCl78BjpkuTvpuepTHQUO1xTaw2alcf+I/ymkvbuDrKOpCpTBlJObEEoyg6HVnqmJdJypn54bxK8y11uNAb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uiLH+Uh9; arc=none smtp.client-ip=91.218.175.179
+	 In-Reply-To:To:Cc; b=L7n/sRHbHr8zdoExXSWeDA/YqYvPx2VLwkdowRMP6uHs66IqSIS41KE827hQDmuihaEnOAwlOg5R/Cn/bTI4PdNcs/M34Owt0l+uVM/dq0r13loFnp9n9WulCY00Ju1hFambXI2SxyIvltCqKohoD6xpNkej4yIVBFgmO6VcHaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=idSR86bR; arc=none smtp.client-ip=91.218.175.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uiLH+Uh9"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="idSR86bR"
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782895740;
+	t=1782895744;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=S8V8xtoKAqPlqqdP66L19gg4AeWHREfPI94nLKFh6Tk=;
-	b=uiLH+Uh9dSNQoPC8h35NhiprnhamkymjKrSZfhp5i7VWRDdYEQfxzf1+izxnVLZHjMPFdW
-	Irb4Biq7+mvnafDeeOOeK+cLN8zFyvXbp+2h/MBYrmuZn6bRvcgDio4rKEq1dCP5yqytrR
-	boC+/qSkoW2lzlnlYwySyWjT3Gviwc8=
+	bh=KM/aix7Aoq3ErthWJJhVZGT/lKJGUMSauEvdAp3MmGs=;
+	b=idSR86bRfn7ZYGRhVuVR1igwFO20aocVs5vam+0JJ+tJGd448gZUIXXUlg9IrVOLUd/PTR
+	/siamZ9g5fKUuv6zXvwXpewzO3GXbmLPwplqdsbJ8GESTvjSmemWFngNPwed43KRINxxvK
+	trG53oCWbp07eerA/xgJ08iaxCOtdV8=
 From: Atish Patra <atish.patra@linux.dev>
-Date: Wed, 01 Jul 2026 01:47:09 -0700
-Subject: [PATCH v8 21/22] TEST(do-not-upstream): fake qemu-virt PMU events
- for cdeleg counter-mask testing
+Date: Wed, 01 Jul 2026 01:47:10 -0700
+Subject: [PATCH v8 22/22] TEST(do-not-upstream): fake qemu vendor JSON +
+ mapfile entry for CounterIDMask path
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,7 +39,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-counter_delegation-v8-21-7909f863a645@meta.com>
+Message-Id: <20260701-counter_delegation-v8-22-7909f863a645@meta.com>
 References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
 In-Reply-To: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
 To: Jiri Olsa <jolsa@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
@@ -56,42 +56,58 @@ X-Migadu-Flow: FLOW_OUT
 
 From: Atish Patra <atishp@meta.com>
 
-Adds fake-any/fake-ctr3/fake-ctr34 (event codes 0xF0x QEMU doesn't model) with
-counterid_masks, to exercise the counter-delegation allocation + counter-mask
-constraint in QEMU (events read 0 = allocated/programmed, vs 'not supported').
+arch/riscv/qemu/virt/events.json: fake-json-{any,ctr3,ctr34,ctr6} with EventCode
++ CounterIDMask; mapfile.csv: 0x0-0x0-0x0 -> qemu/virt. Exercises jevents
+CounterIDMask -> counterid_mask= -> config2 -> cdeleg counter allocation.
 
 Signed-off-by: Atish Patra <atishp@meta.com>
 ---
- drivers/perf/riscv_pmu_sbi.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ tools/perf/pmu-events/arch/riscv/mapfile.csv       |  2 ++
+ .../pmu-events/arch/riscv/qemu/virt/events.json    | 26 ++++++++++++++++++++++
+ 2 files changed, 28 insertions(+)
 
-diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-index 6d528eafb525..725816c274e5 100644
---- a/drivers/perf/riscv_pmu_sbi.c
-+++ b/drivers/perf/riscv_pmu_sbi.c
-@@ -492,6 +492,12 @@ RVPMU_EVENT_CMASK_ATTR(instructions, instructions, 0x02, 0xFFFFFFF8);
- RVPMU_EVENT_CMASK_ATTR(dTLB-load-misses, dTLB_load_miss, 0x10019, 0xFFFFFFF8);
- RVPMU_EVENT_CMASK_ATTR(dTLB-store-misses, dTLB_store_miss, 0x1001B, 0xFFFFFFF8);
- RVPMU_EVENT_CMASK_ATTR(iTLB-load-misses, iTLB_load_miss, 0x10021, 0xFFFFFFF8);
-+/*
-+ * FAKE events for cdeleg mechanism testing: event codes QEMU does NOT model.
-+ */
-+RVPMU_EVENT_CMASK_ATTR(fake-any, fake_any, 0xF00, 0xFFFFFFF8);
-+RVPMU_EVENT_CMASK_ATTR(fake-ctr3, fake_ctr3, 0xF01, 0x8);
-+RVPMU_EVENT_CMASK_ATTR(fake-ctr34, fake_ctr34, 0xF02, 0x18);
- 
- static struct attribute *qemu_virt_event_group[] = {
- 	RVPMU_EVENT_ATTR_PTR(cycles),
-@@ -499,6 +505,9 @@ static struct attribute *qemu_virt_event_group[] = {
- 	RVPMU_EVENT_ATTR_PTR(dTLB_load_miss),
- 	RVPMU_EVENT_ATTR_PTR(dTLB_store_miss),
- 	RVPMU_EVENT_ATTR_PTR(iTLB_load_miss),
-+	RVPMU_EVENT_ATTR_PTR(fake_any),
-+	RVPMU_EVENT_ATTR_PTR(fake_ctr3),
-+	RVPMU_EVENT_ATTR_PTR(fake_ctr34),
- 	NULL,
- };
- 
+diff --git a/tools/perf/pmu-events/arch/riscv/mapfile.csv b/tools/perf/pmu-events/arch/riscv/mapfile.csv
+index 87cfb0e0849f..2fa3c3fd4663 100644
+--- a/tools/perf/pmu-events/arch/riscv/mapfile.csv
++++ b/tools/perf/pmu-events/arch/riscv/mapfile.csv
+@@ -24,3 +24,5 @@
+ 0x602-0x3-0x0,v1,openhwgroup/cva6,core
+ 0x67e-0x80000000db0000[89]0-0x[[:xdigit:]]+,v1,starfive/dubhe-80,core
+ 0x31e-0x8000000000008a45-0x[[:xdigit:]]+,v1,andes/ax45,core
++0x0-0x0-0x0,v1,qemu/virt,core
++0x0-0x2a-0x0,v1,qemu/virt,core
+diff --git a/tools/perf/pmu-events/arch/riscv/qemu/virt/events.json b/tools/perf/pmu-events/arch/riscv/qemu/virt/events.json
+new file mode 100644
+index 000000000000..294c4ed645f6
+--- /dev/null
++++ b/tools/perf/pmu-events/arch/riscv/qemu/virt/events.json
+@@ -0,0 +1,26 @@
++[
++  {
++    "EventName": "fake-json-any",
++    "EventCode": "0xF10",
++    "CounterIDMask": "0xFFFFFFF8",
++    "BriefDescription": "FAKE json event (any hpmcounter 3-31) - QEMU does not model 0xF10"
++  },
++  {
++    "EventName": "fake-json-ctr3",
++    "EventCode": "0xF11",
++    "CounterIDMask": "0x8",
++    "BriefDescription": "FAKE json event constrained to hpmcounter3"
++  },
++  {
++    "EventName": "fake-json-ctr34",
++    "EventCode": "0xF12",
++    "CounterIDMask": "0x18",
++    "BriefDescription": "FAKE json event constrained to hpmcounter3,4"
++  },
++  {
++    "EventName": "fake-json-ctr6",
++    "EventCode": "0xF13",
++    "CounterIDMask": "0x40",
++    "BriefDescription": "FAKE json event constrained to hpmcounter6 (out of a small pmu-mask)"
++  }
++]
 
 -- 
 2.53.0-Meta
