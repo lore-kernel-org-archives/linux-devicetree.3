@@ -1,91 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F02BF363C51
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 16:53:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04B074C14;
+	Wed,  1 Jul 2026 16:53:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782924794; cv=none; b=all9k9YR/2BPrkBa23sshl/ajoje+oPHd4CH8INSsbpO51pW3NnTCFaeBvkbGGVTsaF1Rd/09R8vWBXgwTSfnJHeCGQVRYBDJw5uUBmf2Lblvxqfc3mdZGccjPtO+zL4+mNkgUbVkz0vjNnmWxG7r74QwIGwwT6UYKHKuNFhfGg=
+	t=1782924815; cv=none; b=fl3B1pgK39MZv1bfMn+AQ/AFJZ0qajtpJ3NfPqFYPSPvek5boeDdgQhpErBElB5pnEHLH7UsjIoa+ka3FP91gBRClqOMK7QnQHewXy2z9wottU0BPClKhf/oK5ZGwLIX9+8aQoIdXH0muZI6DpyJlUU7e5s8NEHPdtb0H0fF+8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782924794; c=relaxed/simple;
-	bh=sGqCqW2noHYGz5LdJigF05KRmW0oEy25l/LpomLngwk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GofWkHqzG/QgjXzTOYyccfm/doyfdDn6gBI6/L586H2Nkbs5gjbJYyY+yoMxLHN+tpmUYk1SnC307x5lot3iUQKBOzWGA7/j/WYUb+5pn9FBzp2Q4M75PeCfnuRraq1UGCRl660XytncTMm+fOjJx8/Aas5NnSgbRMbKlda8p3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MwdbCiVn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782924815; c=relaxed/simple;
+	bh=F3uHPVS1XECBg+1FJgBsfQzbfVfb5e4T+gqzbMq2A5Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Da5ZrtDVOhZT8t0BLc+lIjnc4fcY1ltVHnn4PCVrou2sIOnbJbDlYHFiKcEHpnhZTMQ6lpHnEGOcPWTayKaPEjkMdzp+T3Tpr4YE8YxNBeDWA/Y1woGx2KDfEebwhNjSM0RbaGaNYzvnkF/IS8Xi+9BWTkB/3fgwRFKnzEvfMtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=foSZak7+; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MwdbCiVn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66D571F000E9;
-	Wed,  1 Jul 2026 16:53:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782924793;
-	bh=sGqCqW2noHYGz5LdJigF05KRmW0oEy25l/LpomLngwk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MwdbCiVnuzii2TaGkfI+xdKmP4Y4p0UypJosiN9rVKOnlzzqja5cvlVMs9sjdH0cy
-	 yxl28GqRWFr3VqGNO2ebFLqYhHVymhKTJNWAALZvLI1EYcCzKyMj5jMzQI39ZGMBjJ
-	 w0SWaw6u8KtResyW3CqeNplFlGLusGN32wfDTP0SyvIDaY8bbVfS6fpKHqXObEqJ6M
-	 tYw3eyOpm/rXzB2zUgSnSYE5vxEARm+Oo/+0zupBNvZtw+Ab1UhrK6Oze5y/646/d9
-	 ETf0zL9BrzuLVf0dBd+E+LajUhBIJb71p+62o3xAtbRO6B6zqCzYTN254jVJCf1fEQ
-	 vtWCli07wqrEQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/4] arm64: dts: mediatek: add Genio 520-EVK board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260701-add-mediatek-genio-520-720-evk-v2-4-19d5da4ef984@collabora.com>
-References: <20260701-add-mediatek-genio-520-720-evk-v2-0-19d5da4ef984@collabora.com>
- <20260701-add-mediatek-genio-520-720-evk-v2-4-19d5da4ef984@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 16:53:12 +0000
-Message-Id: <20260701165313.66D571F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="foSZak7+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1782924811;
+	bh=F3uHPVS1XECBg+1FJgBsfQzbfVfb5e4T+gqzbMq2A5Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=foSZak7+BxtLEwRYgivu+0IOUXwZ3OQ04aj+NCtX/mR7oZk0d2+9TLw6JHLv9hqvH
+	 gD+XAmcBQwF9Oo0c9klBThjh/SCCPAsGPNYZvpyVx+o+lBUT9/m3TPgWlvBT64AESc
+	 1VYYtkRp2dAH/mYKaR93afRjTL1tHfoNvFgEK3LH0j/n6D8lm89ZeViVFCEzORlOM+
+	 NO6a2s0LYpYd1YW3iAgo9LPKspHAlUFw/CVSibbOudHrMQUoG3fqEVt3205ewyFn69
+	 a+j72Ht3QSFWjtbjkcndWh+WwsAmy/6BqWzY3mmuyvE8chms1hnDugSMwuCq/S4Le6
+	 LfnTMMuWfCOpQ==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A56B317E0CA2;
+	Wed,  1 Jul 2026 18:53:30 +0200 (CEST)
+Message-ID: <f56fcbae-3ff5-46c3-bbe7-7eac462f7dd2@collabora.com>
+Date: Wed, 1 Jul 2026 18:53:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 23/42] dt-bindings: display: mediatek: Introduce Digital
+ Video Output HW
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: krzk+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, p.zabel@pengutronix.de, kernel@collabora.com,
+ tzimmermann@suse.de, chunkuang.hu@kernel.org, simona@ffwll.ch,
+ linux-arm-kernel@lists.infradead.org, jason-jh.lin@mediatek.com,
+ airlied@gmail.com, conor+dt@kernel.org, maarten.lankhorst@linux.intel.com,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ mripard@kernel.org, devicetree@vger.kernel.org, justin.yeh@mediatek.com
+References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
+ <20260701122057.19648-24-angelogioacchino.delregno@collabora.com>
+ <178291581273.4115171.8214844308967079622.robh@kernel.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <178291581273.4115171.8214844308967079622.robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The devicetree fails to compile due to missing header/dtsi includes=
- and undefined MT6359 PMIC node references.
---
+On 7/1/26 16:23, Rob Herring (Arm) wrote:
+> 
+> On Wed, 01 Jul 2026 14:20:38 +0200, AngeloGioacchino Del Regno wrote:
+>> Add documentation for the Digital Video Output (DVO) IP found in
+>> the newer generation SoCs MT8196, MT8189 and their variants.
+>>
+>> This is effectively a more capable block replacing the DisplayPort
+>> Interface (DPI/DP_INTF) one found in older SoCs.
+>>
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>> ---
+>>   .../display/mediatek/mediatek,mt8196-dvo.yaml | 142 ++++++++++++++++++
+>>   1 file changed, 142 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
+>>
+> 
+> My bot found errors running 'make dt_binding_check' on your patch:
+> 
 
-commit 4a56bfd2875ac1171a204b6c914828f4d8d05173
-Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Those errors on literally all bindings are quite embarassing. Oops.
 
-arm64: dts: mediatek: add Genio 520-EVK board
+Already fixed locally, but since this is a huge series, I will allow some time
+for reviews before compulsively pushing a v2.
 
-Add devicetree for the basic hardware enablement of the Genio 520-EVK
-board, based on MT8371 SoC.
+Cheers,
+Angelo
 
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8371-genio-520-evk.dts b/arch=
-/arm64/boot/dts/mediatek/mt8371-genio-520-evk.dts
-> new file mode 100644
-> index 0000000000000..b4fd343bc08a6
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/mediatek/mt8371-genio-520-evk.dts
-> @@ -0,0 +1,32 @@
-> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-> +/*
-> + * Copyright (c) 2025 Collabora Ltd.
-> + * Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-> + */
-> +/dts-v1/;
-> +
-> +#include "mt8189.dtsi"
-> +#include "mt8391-genio-common.dtsi"
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: ignoring, error in schema: properties: compatible
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> 	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> Traceback (most recent call last):
+>    File "/usr/local/bin/dt-doc-validate", line 8, in <module>
+>      sys.exit(main())
+>               ~~~~^^
+>    File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 66, in main
+>      ret |= check_doc(f)
+>             ~~~~~~~~~^^^
+>    File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 37, in check_doc
+>      dtsch.check_schema_refs()
+>      ~~~~~~~~~~~~~~~~~~~~~~~^^
+>    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 242, in check_schema_refs
+>      self._check_schema_refs(resolver, self)
+>      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+>    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
+>      self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
+>      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>                              has_constraint=has_constraint)
+>                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
+>      self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
+>      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>                              has_constraint=has_constraint)
+>                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 203, in _check_schema_refs
+>      ref_sch = resolver.lookup(schema['$ref']).contents
+>                ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+>    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 682, in lookup
+>      retrieved = self._registry.get_or_retrieve(uri)
+>    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 422, in get_or_retrieve
+>      registry = self.crawl()
+>    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 500, in crawl
+>      id = resource.id()
+>    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 231, in id
+>      id = self._specification.id_of(self.contents)
+>    File "/usr/local/lib/python3.13/dist-packages/referencing/jsonschema.py", line 50, in _dollar_id
+>      return contents.get("$id")
+>             ^^^^^^^^^^^^
+> AttributeError: 'list' object has no attribute 'get'
+> Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.example.dtb: /example-0/dvo@324c0000: failed to match any schema with compatible: ['mediatek,mt8196-edp-dvo']
+> 
+> doc reference errors (make refcheckdocs):
+> 
+> See https://patchwork.kernel.org/project/devicetree/patch/20260701122057.19648-24-angelogioacchino.delregno@collabora.com
+> 
+> The base for the series is generally the latest rc1. A different dependency
+> should be noted in *this* patch.
+> 
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> date:
+> 
+> pip3 install dtschema --upgrade
+> 
+> Please check and re-submit after running the above command yourself. Note
+> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+> your schema. However, it must be unset to test all examples with your schema.
+> 
 
-[Severity: Low]
-Will this devicetree compile cleanly? It appears that the included files
-(mt8189.dtsi and mt8391-genio-common.dtsi) rely on headers and dtsi files
-that are missing from the tree (such as <dt-bindings/clock/mediatek,mt8189-=
-clk.h>,
-mt6365.dtsi, and mt8189-pinfunc.h).
-
-Additionally, mt8391-genio-common.dtsi overrides MT6359 PMIC nodes
-(e.g., &mt6359_va09_ldo_reg), which seem undefined since the board uses
-an MT6365 PMIC.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-add-mediat=
-ek-genio-520-720-evk-v2-0-19d5da4ef984@collabora.com?part=3D4
