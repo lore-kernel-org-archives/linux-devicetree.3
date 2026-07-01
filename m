@@ -1,115 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D8D28CF6F;
-	Wed,  1 Jul 2026 09:34:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276903B52FA;
+	Wed,  1 Jul 2026 09:34:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782898472; cv=none; b=hSrhnLIDJLrfjAqt3qWc2QV7LXnHaNRidbOeCRKj0VrMZ5INeUaGL/EnvvSBCzJBdWP/0A0WCE7twIZiqGFz5yjHLcMJ5gdCzWWKSCHWfoyASh4lMDcCG2CQOTI3C4zQvLSP1CAexHQIgO5W9NEgUhe4+JlvhCr+d1/JFV2AweE=
+	t=1782898486; cv=none; b=h44QaYfs72J1TEgxzYMav8ZAY1GrLVikmLarsvIDGdIbImy4eLWShhjA2IkfSrsP6H0Ru7Zph80ckoxfdt9alIHL/SYHuwuZI2Od/mECx2Y5YD7lN4yT/z0Nu5PekbUFHxFe7l73q5DJP6UzK3QdI6FIANHuC6C1B6G5/+tdS0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782898472; c=relaxed/simple;
-	bh=VdVAQH51z1JneD4lUy1OLITxgDH/WGQepnDJf3i1SLM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VV0ItHtl22v+HpT1I3sArLBrZf+GAgQoHtcvaCQS2AMXRLMqnZBqi1YtIEWMMAvcD1g3ii+kToRDwG7c66WEluloZzOv0zq/hjGDN5EUqs25DHo3KjbmITjzXPb1VPDwvLdMy1y5mirWQ9sQ7kkzhbyMJ3pmAcWV7lzbEOzWh1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=auGels14; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782898486; c=relaxed/simple;
+	bh=LomHJHSBbrbrPpJfgrszjuD/iO9ifK+o001M0/h4E24=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cNZCWY+p/CKP0ZlqrTA55i9OorADx+H6dyBpzZs160y7bfTguDVLp9MvCU0QWd1QmcJfwYbQITxf9EJKid5gwbD+H5vBTRkW66brXyGHApbqxi3SeYmIQgxNWJlZe/6A2knmJXgXeqcqijz/EYD92n9zkM4FiREj2RJpogol5C8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hmLH5pxe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="auGels14"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782898471; x=1814434471;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=VdVAQH51z1JneD4lUy1OLITxgDH/WGQepnDJf3i1SLM=;
-  b=auGels149RM9ZZ6mqRgzLs5y6ZxsGFORAqiv0NwE50nAFjFXSdJMpK5W
-   GIgI978KSflkliuI39VZXcx6Vnk5Rv3+//jss2ZtMqbW1B60KCvRXKTTb
-   cdpNPlLv9BmJqh5oea+FlLNhTZYoTOSvKoPAptMKBKfqNUbo1oxxJgIqj
-   ZHK1Wx4fdTtkZekHj7hl4SEI+juO1UKHkV8HKsNenf1Y7NIbypEzww0Aq
-   FVvjM7zztDUMqwRKrk+fjpjXSM+owL9WfB7olGWKie0a199F8qIJZCoLO
-   A3Yy1YuzOAjUNgzfW/tgVveu35hXy2vVkn71tk/1N9S9k9ujk4AsaRudb
-   w==;
-X-CSE-ConnectionGUID: biUyjRYbTsKWKLF2p9rjrw==
-X-CSE-MsgGUID: oMt0VwzbRqyO+dwnSy7jfw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="101052593"
-X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; 
-   d="scan'208";a="101052593"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 02:34:31 -0700
-X-CSE-ConnectionGUID: 9y6Pkw4RQseSVmAMN5Onkg==
-X-CSE-MsgGUID: sI1qyMCQRG2+RlL2SRKAMA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; 
-   d="scan'208";a="246160470"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.65])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 02:34:27 -0700
-Date: Wed, 1 Jul 2026 12:34:25 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Lukas Metz <lukas.metz@gmx.net>, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] iio: dac: dac8163: Add driver for DAC8163
-Message-ID: <akTfIdkH10Qq4G16@ashevche-desk.local>
-References: <20260623-dac8163-work-v1-0-5b508158faa0@gmx.net>
- <20260623-dac8163-work-v1-1-5b508158faa0@gmx.net>
- <akP2RSriqaN8qqQT@monoceros>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hmLH5pxe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 817D81F00AC4;
+	Wed,  1 Jul 2026 09:34:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782898484;
+	bh=8pToScgcy0iBzj4LPIt1TkgFIE6I0OLg9YG7jH/ubhk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hmLH5pxeRwG01g8EFUoECJCSm/tdr/cjgX3l5jR09+exFyQ1qGAAhF2iDdHnXatX5
+	 9GrTneTL2p6mnaWvFHB7/tP1pz38FZTLMMXiRqlplaNhQkeKc3aOEJrJakHhCaxtIH
+	 5H6Zl3r2KVOtttLmdZCYSxs0qYOS7T1tZRt2fW9cOHStCf13ELs7+VorQ3qfsmEniD
+	 ggcRYc6fghv//LjUNZ6znbLBMZUqsuQBvnkCfoN277j0fSp93+Du+eptk71PYRqq2R
+	 yb7xBW+Amx9MlJNl6KVg+7GM9QQlcNbyF38ftur8xusX8ILhB3V+Movb4K7EbsxA+M
+	 P8Nc6kZrtOzEg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 22/22] TEST(do-not-upstream): fake qemu vendor JSON +
+ mapfile entry for CounterIDMask path
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atish Patra" <atish.patra@linux.dev>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-perf-users@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260701-counter_delegation-v8-22-7909f863a645@meta.com>
+References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
+ <20260701-counter_delegation-v8-22-7909f863a645@meta.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 09:34:43 +0000
+Message-Id: <20260701093443.817D81F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <akP2RSriqaN8qqQT@monoceros>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Jun 30, 2026 at 07:03:01PM +0200, Uwe Kleine-König wrote:
-> On Tue, Jun 23, 2026 at 06:07:27PM +0200, Lukas Metz wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] This patch contains fake test data and is explicitly marked as '=
+do-not-upstream'.
+- [Medium] The patch adds a mapfile entry for '0x0-0x2a-0x0' which is not d=
+ocumented in the commit message.
+--
 
-...
+commit 2c14c47c4b1f0c0aa09f9d1287cb457e27674f5b
+Author: Atish Patra <atishp@meta.com>
+Subject: TEST(do-not-upstream): fake qemu vendor JSON + mapfile entry for C=
+ounterIDMask path
 
-> > +	{ "dac7562", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7562] },
-> > +	{ "dac7563", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7563] },
-> > +	{ "dac8162", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8162] },
-> > +	{ "dac8163", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8163] },
-> > +	{ "dac8562", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8562] },
-> > +	{ "dac8563", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8563] },
-> 
-> please also use named initializers, i.e.
-> 
-> 	static const struct spi_device_id dacxx6x_id_table[] = {
-> 		{ .name = "dac7562", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7562] },
-> 		{ .name = "dac7563", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7563] },
-> 		{ .name = "dac8162", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8162] },
-> 		{ .name = "dac8163", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8163] },
-> 		{ .name = "dac8562", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8562] },
-> 		{ .name = "dac8563", .driver_data = (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8563] },
-> 		{ }
-> 	};
+This commit adds fake JSON events and mapfile entries for a QEMU virt
+environment to test the CounterIDMask path in jevents.
 
-These lines are way too long in IIO. The usual approach in this case is to have
-it split on per device standalone initialisers. At the end it will look like
+> diff --git a/tools/perf/pmu-events/arch/riscv/mapfile.csv b/tools/perf/pm=
+u-events/arch/riscv/mapfile.csv
+> --- a/tools/perf/pmu-events/arch/riscv/mapfile.csv
+> +++ b/tools/perf/pmu-events/arch/riscv/mapfile.csv
+> @@ -24,3 +24,5 @@
+>  0x602-0x3-0x0,v1,openhwgroup/cva6,core
+>  0x67e-0x80000000db0000[89]0-0x[[:xdigit:]]+,v1,starfive/dubhe-80,core
+>  0x31e-0x8000000000008a45-0x[[:xdigit:]]+,v1,andes/ax45,core
+> +0x0-0x0-0x0,v1,qemu/virt,core
+> +0x0-0x2a-0x0,v1,qemu/virt,core
 
-	static const struct spi_device_id dacxx6x_id_table[] = {
-		{ .name = "dac7562", .driver_data = (kernel_ulong_t)&dac7562_chip_info },
-		{ .name = "dac7563", .driver_data = (kernel_ulong_t)&dac7563_chip_info },
-		{ .name = "dac8162", .driver_data = (kernel_ulong_t)&dac8162_chip_info },
-		{ .name = "dac8163", .driver_data = (kernel_ulong_t)&dac8163_chip_info },
-		{ .name = "dac8562", .driver_data = (kernel_ulong_t)&dac8562_chip_info },
-		{ .name = "dac8563", .driver_data = (kernel_ulong_t)&dac8563_chip_info },
-		{ }
-	};
+[Severity: Medium]
+The commit message explicitly states that it adds a mapfile entry for
+0x0-0x0-0x0, but it looks like a second entry for 0x0-0x2a-0x0 was also
+included here. Should this additional entry be documented in the commit
+message, or was it included by mistake?
 
--- 
-With Best Regards,
-Andy Shevchenko
+> diff --git a/tools/perf/pmu-events/arch/riscv/qemu/virt/events.json b/too=
+ls/perf/pmu-events/arch/riscv/qemu/virt/events.json
+> new file mode 100644
+> --- /dev/null
+> +++ b/tools/perf/pmu-events/arch/riscv/qemu/virt/events.json
+> @@ -0,0 +1,26 @@
+> +[
+> +  {
+> +    "EventName": "fake-json-any",
 
+[Severity: Medium]
+Since the commit subject explicitly marks this as a test that should not be
+upstreamed, and it populates the PMU event list with artificial hardware
+events, was this patch included in the series by accident?
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-counter_de=
+legation-v8-0-7909f863a645@meta.com?part=3D22
