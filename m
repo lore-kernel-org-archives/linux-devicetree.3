@@ -1,36 +1,36 @@
-Received: from out-181.mta1.migadu.com (out-181.mta1.migadu.com [95.215.58.181])
+Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3F43EEAD2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782C43EF0D3
 	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 08:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782895655; cv=none; b=f2fJDM3XBvdmuPsaTBwVaRuYq83ypxFWZE/BM6EAN5wf46ZfZhcJN+qnfG0Rv3FVGcsHiuEQhdUlPl08/Vd4i1OhFfan9zt7lLsZC2ph+RfkdN/7J8j6VFvtXuEMsvueEy6hoTMqrTGbHZHkmE82523E4F4ud50vZMU2UBtr9+U=
+	t=1782895656; cv=none; b=ZGyj8g0tb15UpRauvZzap48ra9NqkZyjqz344aiRPoYuydHasvxp21bkE8vSaYHH1Xrz/AgbZwzvLGir4vDDf6WQVes/+fYg77e+kc+TgctdvAXd6PSWbyKWCO8sS8fMNkdUHv3CrVt0DsWiPqzVPIiz4if1qDbzhm18f9/WTD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782895655; c=relaxed/simple;
-	bh=A3gRyl4ltUH9yUsRKVqvAMCjF315BmzM3okD18OgTNY=;
+	s=arc-20240116; t=1782895656; c=relaxed/simple;
+	bh=9VOnVvzjsZzR8hJplWz7LMgbcZ7QnXk10tohv83NyKA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Hp5Ud7oOZWWrZo4YRV4Cu9NruQFDbzxqAu5Xd4kLoY1P3rSPNyHI6QTPHgHCE9g4UDaU9XC3/KtULsublhEioWKKu2UoJbjwXUZ6qPSvEIN7nbCYOCl6kJC3Mwe+eEOLjojxqruptbECSv4uCVMo4exkOMdrQ4M0I2oipeKD0MY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h4ZVPuN7; arc=none smtp.client-ip=95.215.58.181
+	 In-Reply-To:To:Cc; b=anpJaiWkDnSFre84XlFsOvsDEXwKr+yH5aiyYTd/KCkGcSESMbGZoNlXag7ihR12pTb9b4sEMvjGUciefulhDfcaxS1Vy52/W0fp2HozivgHf7lljIki4evRMVJqEhL0ECcR/Vx1txxHjiy6ehcOFFlEIE/JVmaBHP/IGc5f4Qs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=viR8aRra; arc=none smtp.client-ip=91.218.175.183
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h4ZVPuN7"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="viR8aRra"
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782895652;
+	t=1782895642;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=q3CU0znujUTwcxjeKNolaCbQsHD6AswnEQkiO1fL85Y=;
-	b=h4ZVPuN74ylcIjDvtDiE9C6IU/R16DyA59zWn/3nQKQidAqMCx8sdQv7Amia68ooxMEwQz
-	mlyA7yuRlFOjNn5Zblo29Zy1Fc2IxS+BQoaCEuJfeUsM4EwVv7ttTMZfZxwESQmUuCmocr
-	/6IkNJqlll6D/svFSUmOWZU2DxUo1po=
+	bh=9jkYTJZ76o1QfeUeruk/BApgLfDf2mjQsJprrfSgBCQ=;
+	b=viR8aRra2txaWnJTugOoW7+0kM9QWgabNryKjWO2M3CkuQ5Fxi/WApRf8MqOM3omSVqx8U
+	8yq/pM6cTJhEXNkauymsk1cZ7x8YNrpEOb5kfQeKBUV349+tUy0AMs5/15VmmvIgQEAVGe
+	QfG6yuER74q3Tt+b/Qsk/bmlP27zJUI=
 From: Atish Patra <atish.patra@linux.dev>
-Date: Wed, 01 Jul 2026 01:46:52 -0700
-Subject: [PATCH v8 04/22] dt-bindings: riscv: add Sxcsrind ISA extension
- description
+Date: Wed, 01 Jul 2026 01:46:49 -0700
+Subject: [PATCH v8 01/22] RISC-V: perf: fix resource cleanup on driver
+ probe failure
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,7 +39,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-counter_delegation-v8-4-7909f863a645@meta.com>
+Message-Id: <20260701-counter_delegation-v8-1-7909f863a645@meta.com>
 References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
 In-Reply-To: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
 To: Jiri Olsa <jolsa@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
@@ -54,50 +54,123 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org,
  linux-perf-users@vger.kernel.org, Conor Dooley <conor@kernel.org>
 X-Migadu-Flow: FLOW_OUT
 
-From: Atish Patra <atishp@rivosinc.com>
+From: Atish Patra <atishp@meta.com>
 
-Add the S[m|s]csrind ISA extension description.
+Sashiko pointed out various UAF and memory leak issues around
+pmu_sbi_device_probe() error paths.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Atish Patra <atishp@rivosinc.com>
+If the probe fails, here are list of cleanups needed.
+a. Already registered pmu must be freed
+b. per cpu IRQ must be released
+c. pmu_ctr_list data structure must be freed
+d. cpu hotplug state must be cleaned up only if added.
+
+Fix the resource cleanup by reorganizing the code around probe failure.
+
+Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+Signed-off-by: Atish Patra <atishp@meta.com>
 ---
- Documentation/devicetree/bindings/riscv/extensions.yaml | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/perf/riscv_pmu_sbi.c | 33 +++++++++++++++++++++++++++------
+ 1 file changed, 27 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Documentation/devicetree/bindings/riscv/extensions.yaml
-index 2b0a8a93bb21..15cf0e2ee3ed 100644
---- a/Documentation/devicetree/bindings/riscv/extensions.yaml
-+++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
-@@ -181,6 +181,14 @@ properties:
-             changes to interrupts as frozen at commit ccbddab ("Merge pull
-             request #42 from riscv/jhauser-2023-RC4") of riscv-aia.
+diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+index 385af5e6e6d0..5c8924ce1f38 100644
+--- a/drivers/perf/riscv_pmu_sbi.c
++++ b/drivers/perf/riscv_pmu_sbi.c
+@@ -1220,22 +1220,29 @@ static int pmu_sbi_setup_irqs(struct riscv_pmu *pmu, struct platform_device *pde
+ 					  DOMAIN_BUS_ANY);
+ 	if (!domain) {
+ 		pr_err("Failed to find INTC IRQ root domain\n");
+-		return -ENODEV;
++		ret = -ENODEV;
++		goto err;
+ 	}
  
-+        - const: smcsrind
-+          description: |
-+            The standard Smcsrind machine-level extension extends the
-+            indirect CSR access mechanism defined by the Smaia extension. This
-+            extension allows other ISA extensions to use indirect CSR access
-+            mechanism in M-mode as ratified in the 20240326 version of the
-+            privileged ISA specification.
-+
-         - const: smmpm
-           description: |
-             The standard Smmpm extension for M-mode pointer masking as
-@@ -226,6 +234,14 @@ properties:
-             Profiles Version 1.0, with commit b1d806605f87 ("Updated to
-             ratified state.")
+ 	riscv_pmu_irq = irq_create_mapping(domain, riscv_pmu_irq_num);
+ 	if (!riscv_pmu_irq) {
+ 		pr_err("Failed to map PMU interrupt for node\n");
+-		return -ENODEV;
++		ret = -ENODEV;
++		goto err;
+ 	}
  
-+        - const: sscsrind
-+          description: |
-+            The standard Sscsrind supervisor-level extension extends the
-+            indirect CSR access mechanism defined by the Ssaia extension. This
-+            extension allows other ISA extensions to use indirect CSR access
-+            mechanism in S-mode as ratified in the 20240326 version of the
-+            privileged ISA specification.
+ 	ret = request_percpu_irq(riscv_pmu_irq, pmu_sbi_ovf_handler, "riscv-pmu", hw_events);
+ 	if (ret) {
+ 		pr_err("registering percpu irq failed [%d]\n", ret);
+-		return ret;
++		irq_dispose_mapping(riscv_pmu_irq);
++		riscv_pmu_irq = 0;
++		goto err;
+ 	}
+ 
+ 	return 0;
++err:
++	riscv_pmu_use_irq = false;
++	return ret;
+ }
+ 
+ #ifdef CONFIG_CPU_PM
+@@ -1302,7 +1309,8 @@ static void riscv_pmu_destroy(struct riscv_pmu *pmu)
+ 		}
+ 	}
+ 	riscv_pm_pmu_unregister(pmu);
+-	cpuhp_state_remove_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
++	if (!hlist_unhashed(&pmu->node))
++		cpuhp_state_remove_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
+ }
+ 
+ static void pmu_sbi_event_init(struct perf_event *event)
+@@ -1424,6 +1432,7 @@ static int pmu_sbi_device_probe(struct platform_device *pdev)
+ 	struct riscv_pmu *pmu = NULL;
+ 	int ret = -ENODEV;
+ 	int num_counters;
++	bool irq_requested = false;
+ 
+ 	pr_info("SBI PMU extension is available\n");
+ 	pmu = riscv_pmu_alloc();
+@@ -1452,6 +1461,7 @@ static int pmu_sbi_device_probe(struct platform_device *pdev)
+ 		pmu->pmu.capabilities |= PERF_PMU_CAP_NO_INTERRUPT;
+ 		pmu->pmu.capabilities |= PERF_PMU_CAP_NO_EXCLUDE;
+ 	}
++	irq_requested = (ret == 0);
+ 
+ 	pmu->pmu.attr_groups = riscv_pmu_attr_groups;
+ 	pmu->pmu.parent = &pdev->dev;
+@@ -1470,11 +1480,11 @@ static int pmu_sbi_device_probe(struct platform_device *pdev)
+ 
+ 	ret = riscv_pm_pmu_register(pmu);
+ 	if (ret)
+-		goto out_unregister;
++		goto out_destroy;
+ 
+ 	ret = perf_pmu_register(&pmu->pmu, "cpu", PERF_TYPE_RAW);
+ 	if (ret)
+-		goto out_unregister;
++		goto out_destroy;
+ 
+ 	/* SBI PMU Snapsphot is only available in SBI v2.0 */
+ 	if (sbi_v2_available) {
+@@ -1515,9 +1525,20 @@ static int pmu_sbi_device_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ out_unregister:
++	perf_pmu_unregister(&pmu->pmu);
 +
-         - const: ssnpm
-           description: |
-             The standard Ssnpm extension for next-mode pointer masking as
++out_destroy:
+ 	riscv_pmu_destroy(pmu);
++	if (irq_requested) {
++		free_percpu_irq(riscv_pmu_irq, pmu->hw_events);
++		irq_dispose_mapping(riscv_pmu_irq);
++		riscv_pmu_irq = 0;
++	}
+ 
+ out_free:
++	free_percpu(pmu->hw_events);
++	kfree(pmu_ctr_list);
++	pmu_ctr_list = NULL;
+ 	kfree(pmu);
+ 	return ret;
+ }
 
 -- 
 2.53.0-Meta
