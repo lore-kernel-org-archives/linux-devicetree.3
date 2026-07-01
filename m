@@ -1,43 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A19379973;
-	Wed,  1 Jul 2026 16:59:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED38372064;
+	Wed,  1 Jul 2026 16:59:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782925143; cv=none; b=qK4MD7aZ6zOA5jrqpp5StoL2bRvifvSrnPDqVpdYg2naD44EFNppIBPzOGOaTpMxK3srWiaciSHFtV858J5OY2IB9rxwOjW/OTYr5WFdAYbL1Ojb/jmAwvon3crQyKAubsCvQMgu3lMw4FjgcRg4cZX7jiDcfahIF9H7kbOBGTY=
+	t=1782925167; cv=none; b=OpxtkbhBl5ynkocIGN8lSFgYvuYthOgtF41G0/EHJFgUUvLU1qrQd28K8MxKh81Y4wHqjtzViEYTWL7EtwtkmGVGqhfLpFP5DFaw987Ojw+C39fNjbGG8N0lIG/TGqvIy/1GxvFxNvER8x+v9c1ybUw5L6Y8TrIfpWoKno+rcNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782925143; c=relaxed/simple;
-	bh=sNfs+r3mGXCxNKcrz9Bz8i2bMU7tp4eprDqgvBk6tWM=;
+	s=arc-20240116; t=1782925167; c=relaxed/simple;
+	bh=IrFZsnUmW0yIArlQLTrgfC5aQins48K9v6hYbAT2Tl0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hGjEg+x66lXiHN65Ibu6bDz4IG0ex/lt6FVBy1NSxBD7lF4EoN34bHP/Q1fKb/81aGNxDac6Hbrk+VTdiZI5MZW3fk6q1SDvwHqUd6qUUJqhdvKnv56Uj97G4Xq2noy1NqAU8mls3/qoprgLi0HqF13ky2JDVbacXgHFRsCT4bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eu7X1u0N; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=MVTs2ac5Bsp92a79YPzIhbhmqzLoLnhsPwb54eLIeP1VbJ3LYd7SIp8yq0gRhtdcChgmXZ+1X0vPBGMOlgsk+jdgGxpWsXRiT+kaliOOWGnMqrX6HNevaAg1eI09xIt/SsqzBMdTunlpbUv5Ck7vtMVqgyp4ozz/XxFfZichKpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f/w4hSph; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eu7X1u0N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E2E11F000E9;
-	Wed,  1 Jul 2026 16:59:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f/w4hSph"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EA861F000E9;
+	Wed,  1 Jul 2026 16:59:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782925142;
-	bh=sNfs+r3mGXCxNKcrz9Bz8i2bMU7tp4eprDqgvBk6tWM=;
+	s=k20260515; t=1782925166;
+	bh=IrFZsnUmW0yIArlQLTrgfC5aQins48K9v6hYbAT2Tl0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eu7X1u0NY58H/eEk2EZdSCM04IZYHGSrD0Mm6aGoYG/LfULu1CVbp0XtOoLxxV1RA
-	 7JLIDXV6oDOANCtlVsLE74wN1ejb7XWEX0d/ouHyCVsNEuglGoBKou8/VLdMljGILe
-	 m+88k86MK5J+k/q0jFYnKIUb5fr1sqxxkrP/Bz8oBpBGNGzqzl27pM9lOvmmEq5Jvm
-	 WRtkRVTiFVJ+h1YMnqnvAUEiw10UeQ4E55K7Yc/k0UbdtHrAhR6EgM5OXhUSbF1sjG
-	 WK4mYi770fiuT6EikrNDbLBqzi3sAsAIEknjjzXTKpIZxpP6vZ7CTscKjKchIic2rv
-	 MPy60NGrE968A==
-Date: Wed, 1 Jul 2026 17:58:58 +0100
+	b=f/w4hSphSkhrF275HYBKpE3cR+xWiEZ6Grf+3aTfW9XXs7R0IzjxQdU0iZc9POURe
+	 I4//UBTHXLfdBFJ1R1WNUouug6IAbNvaAkfdt4hqzriT3dtdeZW+CBASufQCich8/U
+	 iix2Y1E+qWlNTh3oR8ag9en4qbl70CYHtavF2Xqp3l5g9ZySLDqjLzm86/W0k6UlpM
+	 kBna67CTm73CFdyaZQOCIk1c8OWQ5VwXLys/qw2iHzAQZByoYacrUvjP3PAqtdRBTT
+	 /D6XlIe/T/UuzEZ+t6s91f1oDe3E0ftrJ6kRHSgwJSjS68V5WGLi3jNgf0O2sDPij9
+	 ZpJqFtEeJOabg==
+Date: Wed, 1 Jul 2026 17:59:21 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Mikko Perttunen <mperttunen@nvidia.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Rob Herring <robh@kernel.org>,
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Sean Wang <sean.wang@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: gpu: host1x: Fix email address
-Message-ID: <20260701-prolonged-banknote-35f4d4b7ab7e@spud>
-References: <20260701160655.725111-1-thierry.reding@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Long Cheng <long.cheng@mediatek.com>, kernel@collabora.com,
+	dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: dma: mediatek,uart-dma: add support for
+ MT8189 SoC
+Message-ID: <20260701-escargot-unearth-233b3f1da093@spud>
+References: <20260701-mt8189-dt-bindings-uart-dma-v1-1-c7106216a40d@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,27 +50,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="YFyC9i6Hf+SPbcoG"
+	protocol="application/pgp-signature"; boundary="LiqYd8uyhb+nmNno"
 Content-Disposition: inline
-In-Reply-To: <20260701160655.725111-1-thierry.reding@kernel.org>
+In-Reply-To: <20260701-mt8189-dt-bindings-uart-dma-v1-1-c7106216a40d@collabora.com>
 
---YFyC9i6Hf+SPbcoG
+--LiqYd8uyhb+nmNno
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-prob not needed, but
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---YFyC9i6Hf+SPbcoG
+--LiqYd8uyhb+nmNno
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakVHUgAKCRB4tDGHoIJi
-0tNKAQClH1QBTUn7HapHVDyBr8qG/fXejVU+Jj4rWD7A1b90eQEA3Upqx8wXhJ7u
-cI544GzJn1gjEHDT5Zi6VQDsGRrkZgc=
-=pees
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakVHaQAKCRB4tDGHoIJi
+0iAeAQDw8UZ2gVBadrMgzz0CFwnC6zMw9K3G93fmyHt5QjKqawD8CT22JOXLwJgl
+07e428SiKjL2teJ4dkqvY5MIihGKSgQ=
+=8VBS
 -----END PGP SIGNATURE-----
 
---YFyC9i6Hf+SPbcoG--
+--LiqYd8uyhb+nmNno--
