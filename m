@@ -1,126 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F053E0251;
-	Wed,  1 Jul 2026 08:44:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DFBB3EA97E;
+	Wed,  1 Jul 2026 08:45:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782895496; cv=none; b=oCrx/CVF+lGsQMx+mm5iKajwavmFHLeHVbPR3Jx0b5jfGFmlc4hYQwkCov0p3gAM6ZVSLOn4cC+jCLyrrLX4xGNsXqUgyI7W0/P5bTm5KF/3aZtT5v45SJb2hiyxuIuc9cEPstJ9GslMPnlq9mo4Q7l6RFngc8MSaf1XOkjHw+I=
+	t=1782895502; cv=none; b=L7/gfpLkeOwwh7m+UgMsa1cigZ3lN6wETejzop1ElfderU5aVHlMYdc5SSoz/9QfHs4/IW1ikSl40S6+sXAD4zxf1SdWV7blwngjMET76Tkwb+v67Xc7gllhmQjA/kignrVbFWcx9eETctOJgWNDlZL/PxuOwbj1IGnlVnH8lBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782895496; c=relaxed/simple;
-	bh=SM1GnM3FZH6KNcTrP19RmJuHes6Nt+u+2Rizwvv6xXU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=tFB85aA/2Joa5bJQyLUgUPJ8p33b1dRZDlTaV3xjpscgfimL3m7xP0o8DthjQwieMMoCLO5kJTG/+G6Xnkzerem2FPsdP3b359U+XFu02kMXcW2xoJsRysUkUIFOsT1NbQyAz3y8bJ3QWCHAfv/R9D/ETLxeMtQQ33F/ovbhnFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K4q9bOBG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782895502; c=relaxed/simple;
+	bh=GC8QAIxrt0LSwhZktWa2RaSNGPdZzdF5sT9WQCMTBC8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=O1fuasKfjHc9giCXY0vLyhWHExqfzz2+LbRWRSU8FQ4kH1d9bOoVrzArrClP6TFxqrYu4P/hizxzDxkGzu9sfWf3w7Yv+BpR/obdty/KwZMCw8slXnd4UrNF7gS4UodjXwap1U6ElFE5ejYQ/me/TRjAvCLv+bG0Gd0szvG7ehE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O2MoZLir; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K4q9bOBG"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EA7DA1F00A3A;
-	Wed,  1 Jul 2026 08:44:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O2MoZLir"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7351F00A3A;
+	Wed,  1 Jul 2026 08:45:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782895495;
-	bh=SM1GnM3FZH6KNcTrP19RmJuHes6Nt+u+2Rizwvv6xXU=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To;
-	b=K4q9bOBG9Kb6RxXPQiTbJLl/vCMKDv8pUVjbrb2R6/Uly5XcmTYkqDGA9tKMFow6E
-	 1h3L3P5YCThmlnVOcIFDDzlnxYVhUtw5kWg/peIEAkhnhymPhC95xcCse7uZH0p0Td
-	 OpwfVJm+/ktVneJcYCCVolHLFsQ68qqW2kl9tHlhAEGLe3P0ll4EUIolWK+hYfjXfy
-	 P4MjOUk5ZY/MdLwDu0cW9SMIo9nLiDNc4Ja97Zsq5we6+VsvBspOVD7UR/cwv81Y15
-	 ArYUAKhgEDNAJPztX6EHCwNpkfQMLgAiL6UYgNhgg1bb2o8g3Ca9/fyPY8nRIEmRWO
-	 dRhQRQk2E6fAw==
+	s=k20260515; t=1782895501;
+	bh=B9O1FfwfOGxuhO1XNaDk5FHpRsvFW/TF2WbDzvyyT9o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=O2MoZLirwR/igytQGAbm2goB2KiPZ4YktDBNXQMEwlRpLN6rf1AEDcd0oMT/6KqLi
+	 LxXIRuvz6kTBtEeJq/RedBclMv09gyDOLqlIV6i8J0RAQe1Frc/0sUxxzJkoC8JvSS
+	 RUxrOyOSzn5wEnbXyhfTkMkZcAWv8xd1v/clmbcRATvdBQzVkbRV2ipWxu5W0QEEK8
+	 lWnb6CFB8FpgX4e2qRBTDPg8+/KB01yV0oXEfEV2x8QfHAB1RXwuRzcVmirXUPbScu
+	 Whmf9g8jATEA+hKC4Z9y+XWAA+/uPHNJKtFDRJzbvUkpYEblOY6xCspyHyOSBUWC1L
+	 yt7LYZDf1pEFA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] arm64: dts: imx8mp-skov: support new 7inch panel
+ board
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Steffen Trumtrar" <s.trumtrar@pengutronix.de>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, robh@kernel.org
+In-Reply-To: <20260701-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v3-2-d74f7e3f8293@pengutronix.de>
+References: <20260701-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v3-0-d74f7e3f8293@pengutronix.de>
+ <20260701-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v3-2-d74f7e3f8293@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 08:45:00 +0000
+Message-Id: <20260701084500.AC7351F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=9135228af664d572f1986b21b4fb54103924b9231b5a0e744b356b75f7b8;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Wed, 01 Jul 2026 10:44:51 +0200
-Message-Id: <DJN3PDTPJ3L6.24P71OQFB6C98@kernel.org>
-Subject: Re: [PATCH v3 2/7] gpio: regmap: add gpio_regmap_get_gpiochip()
- accessor
-Cc: "Bartosz Golaszewski" <brgl@kernel.org>, "Andy Shevchenko"
- <andriy.shevchenko@intel.com>, "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
- <conor+dt@kernel.org>, "afaerber@suse.com" <afaerber@suse.com>,
- "wbg@kernel.org" <wbg@kernel.org>, "mathieu.dubois-briand@bootlin.com"
- <mathieu.dubois-briand@bootlin.com>, "lars@metafoo.de" <lars@metafoo.de>,
- "Michael.Hennerich@analog.com" <Michael.Hennerich@analog.com>,
- "jic23@kernel.org" <jic23@kernel.org>, "nuno.sa@analog.com"
- <nuno.sa@analog.com>, "andy@kernel.org" <andy@kernel.org>,
- "dlechner@baylibre.com" <dlechner@baylibre.com>,
- =?utf-8?b?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-realtek-soc@lists.infradead.org"
- <linux-realtek-soc@lists.infradead.org>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, =?utf-8?b?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?=
- <cy.huang@realtek.com>, =?utf-8?b?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?=
- <stanley_chang@realtek.com>, =?utf-8?b?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?=
- <james.tai@realtek.com>, =?utf-8?b?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?=
- <eleanor.lin@realtek.com>
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Linus Walleij" <linusw@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260512033317.1602537-1-eleanor.lin@realtek.com>
- <20260512033317.1602537-3-eleanor.lin@realtek.com>
- <agMM9soiqpG-TRSb@ashevche-desk.local>
- <adff3a2d21a64d3ea3b408d62157ee1e@realtek.com>
- <ah92oEavMu4QRn8y@ashevche-desk.local>
- <CAMRc=MdA24z-tB_D8CTw68Di8e4OVQJ1QH4+rDskFzq=xjJ5BQ@mail.gmail.com>
- <DJ3QVMZ6XLW9.1M9W541O92QWJ@kernel.org>
- <CAD++jLncD2ZjH3aedOkGNYP3FyZ=i7Pb0OcKKZKuMOPGNjM_nQ@mail.gmail.com>
-In-Reply-To: <CAD++jLncD2ZjH3aedOkGNYP3FyZ=i7Pb0OcKKZKuMOPGNjM_nQ@mail.gmail.com>
 
---9135228af664d572f1986b21b4fb54103924b9231b5a0e744b356b75f7b8
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] DT Schema Validation Failure: missing fallback compatible string fo=
+r touchscreen.
+- [Low] Documentation error in LVDS clock calculation comment.
+- [Low] Makefile Ordering Violation.
+--
 
-On Fri Jun 19, 2026 at 11:08 PM CEST, Linus Walleij wrote:
-> On Mon, Jun 8, 2026 at 4:41=E2=80=AFPM Michael Walle <mwalle@kernel.org> =
-wrote:
->
->> >>> Without an accessor like gpio_regmap_get_gpiochip(), we cannot retri=
-eve the
->> >>> gpio_chip instantiated inside gpio-regmap.c to fulfill these require=
-ments in our
->> >>> map() function.
->>
->> Why is gpiochip_irq_reqres() called in the first place? Isn't that
->> only called if the irq handling is set up via gc->irq.chip and not
->> via gpiochip_irqchip_add_domain() like in gpio-regmap?
->
-> Not really, the gpiochip_irq_reqres() is called to mark that a
-> GPIO line is used for IRQ, so the gpiolib cannot turn this
-> GPIO into an output line, gpiod_direction_out() will fail
-> on lines used for IRQ. So it's a failsafe.
->
-> You can live without it of course, but then you don't get
-> this failsafe.
+commit 3b909b83ea0bf98186df799556b414671ad39311
+Author: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 
-Thanks for the explanation! So did I make a mistake years ago by
-adding the gpiochip_irqchip_add_domain(), see commit 6a45b0e2589f
-("gpiolib: Introduce gpiochip_irqchip_add_domain()")
+arm64: dts: imx8mp-skov: support new 7inch panel board
+   =20
+This board is similar to the already upstream
+imx8mp-skov-revc-tian-g07017.dts but uses a different 7" panel with a
+different touch controller.
 
-As Yu-Chun found, gpiochip_irq_reqres() expect the irq chip data
-to be a gpio_chip, which isn't the case (in general) for an
-externally allocated domain, is it?
+> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts=
+/freescale/Makefile
+> index 8ddaab127ab9c..efca29735b2cb 100644
+> --- a/arch/arm64/boot/dts/freescale/Makefile
+> +++ b/arch/arm64/boot/dts/freescale/Makefile
 
--michael
+[ ... ]
 
---9135228af664d572f1986b21b4fb54103924b9231b5a0e744b356b75f7b8
-Content-Type: application/pgp-signature; name="signature.asc"
+> @@ -435,6 +435,7 @@ dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-skov-revb-mi1010ai=
+t-1cp1.dtb
+>  dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-skov-revc-bd500.dtb
+>  dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-skov-revc-hdmi.dtb
+>  dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-skov-revc-tian-g07017.dtb
+> +dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-skov-revc-jutouch-jt070tm041.dtb
 
------BEGIN PGP SIGNATURE-----
+[Severity: Low]
+This isn't a bug, but should this new entry be sorted alphabetically?
+Placing jutouch after tian breaks the expected ordering in the Makefile.
 
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCakTThBIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/hRPAGAqo6DNepJTnnCNzb/3GwKnJXqVuz6ob9v
-5QmRvDiF57B2o/TvziZGaN2H5NzwI+VXAX9U4o48VR1vxZAo8Rz2J/Lz3hBMf9Jn
-hz6tFnYqWzJmQPwvHzOfkIbQr8fbtkj9Tlc=
-=Vyla
------END PGP SIGNATURE-----
+>  dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-skov-revc-jutouch-jt101tm023.dtb
+>  dtb-$(CONFIG_ARCH_MXC) +=3D imx8mp-toradex-smarc-dev.dtb
 
---9135228af664d572f1986b21b4fb54103924b9231b5a0e744b356b75f7b8--
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070=
+tm041.dts b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm0=
+41.dts
+> new file mode 100644
+> index 0000000000000..56374f1e67663
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.d=
+ts
+
+[ ... ]
+
+> +&i2c2 {
+> +	clock-frequency =3D <100000>;
+> +	status =3D "okay";
+> +
+> +	touchscreen@2a {
+> +		compatible =3D "eeti,exc81w32";
+
+[Severity: Low]
+Does this compatible string also require the fallback string eeti,exc80h84
+to pass dtbs_check validation? The schema for the eeti,exc3000 touchscreen
+typically expects both strings to be present.
+
+> +		reg =3D <0x2a>;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&pinctrl_touchscreen>;
+
+[ ... ]
+
+> +&lvds_bridge {
+> +	assigned-clocks =3D <&clk IMX8MP_CLK_MEDIA_LDB>,
+> +				 <&clk IMX8MP_VIDEO_PLL1>;
+> +	assigned-clock-parents =3D <&clk IMX8MP_VIDEO_PLL1_OUT>;
+> +	/* IMX8MP_VIDEO_PLL1 =3D IMX8MP_CLK_MEDIA_DISP2_PIX * 2 * 7 */
+
+[Severity: Low]
+This isn't a bug, but is the * 2 multiplier in this comment correct?
+
+With the single-link pixel clock of 51.2 MHz for this panel and the assigned
+rate of 358400000 Hz, the calculation appears to be exactly 51.2 MHz * 7.
+Including the * 2 multiplier would result in 716.8 MHz instead.
+
+> +	assigned-clock-rates =3D <0>, <358400000>;
+> +	status =3D "okay";
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-v7-0-topic=
+-imx8mp-skov-dts-jutouch-7inch-v3-0-d74f7e3f8293@pengutronix.de?part=3D2
