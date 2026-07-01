@@ -1,150 +1,103 @@
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41AB4349B1F
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 14:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782916376; cv=pass; b=SPOPTRG++XRyIhnsLkLKDyrOPub/M4UOcih4gkuZZ/aRzMh5nuG3n/qM5Vx+LE43GClpEVZhC8Vsrhx/fzmxntQVbZsAd7DWxP5mAkfV8NZzHivrM3TlH8w7ML/bDegv7Qkc821bHnqE1M7O0tvp+6x2OuK5Db2btfakMpDYB5E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782916376; c=relaxed/simple;
-	bh=sZ+JoBpUWCF0i/dfiNw2PzLfB8Xqm/+jouOkAHa0NR4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N8W/fHHfUTCcvI2Khd3W26uv/Eu5r4WpZvdM3BVzf7tMUd8Ku7YBtrvuk/yYElQrU0iPWt8r0rI95EQvvgk4HuENcq2SYpFndYArFIMGuVCyRrDp1wHVIUVVVDGXld4/vTijd/xXDCbi5PT+0oYbt1ufNFfEtjsWoQ3uY3E+Ip4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bm4srtnb; arc=pass smtp.client-ip=74.125.224.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DCDF349CD2
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 14:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782916467; cv=none; b=k483Rbcc41T1C4QzB0whUIivvGaHN0s3DHtgVCLsfITXLjrPbhycuUCJ/HNn4YExElSVqkiKT21zEFG6S0NjGlfG3YHJsny3lW6lRqXMI8w4f+y4KalfjX0ps9Rl+v7MDAGred+WFm47OcVSWdgQh21TVk0ZY3E50EDXZrYTqcY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782916467; c=relaxed/simple;
+	bh=rU7AxkopJJIzxZFPA4XMAO205pRBP6wKHWPrqtVv5yE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LfAbNO9h/5EMZt+AaDkj6X1NKFnlPssHSPI68VyZgYGHoC4mP+eYSayU6DQC8c/YcxHtXuMBcZe9hglltMiw9/dCdp6jDpQcuQ9JBAGhUXicjtyhCS6uqgr3pbAf/YijdzvTu7DFJW1SCRAdc9FyAgzTg07JpbIAcFNjzZPpREA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVDjVM2W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bm4srtnb"
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-664ee752958so965560d50.1
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 07:32:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782916374; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KQziN+CvBUzy3kuqSgbgIbOfk2NbEPF26BJ03To72FVNsLO1YINWjYZUFG23LlRjGz
-         P5FHWGhT0KGd6vwQc+ud4ynb97Juy8ulsq0qoouR9fN7I2QBYtqvUOaiNzECs00BDT/Z
-         Lk3/LDeZlzwVYZTblgStuMOx32czjbOmu7SS3pFB98iRVaG69rNpZTqOpnB0kD0Lq7/2
-         omAsZQeKKmhL5dbMgrWRBrf+wBAibBBNjobnHbJmsE+w2yFGM8v3mno3BMJNvTGqwPGE
-         IhisbdU61fbgOJPVNobUulv93Hvep/0envN5zCGikzypNJBXRE34G9GP62ij9Pwx0vXR
-         zx5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/PMJfwXDmjutwz2ZqUdHqOQ1qGXDhEDRkGoA21ZDRuY=;
-        fh=8GgG6xYetNpXYsLn/b6phIrJfbDyO1RjUa++TlUF4KY=;
-        b=O08dRu2tgCEMS/RBCBgzKiZ7Ou4XjBvpXRQmoDfvfSJ6Rn5rQvMcZtEji5Aizj3FxN
-         AyBnNwFd6VAgzrp7rSOU40jP2FIjnzO8Lmd0siDPBOuZ90faE8EXa0xYfNid9xKW72qR
-         +ot+VHvHiUxnAbrRZYOzKtz/VeHVkzwRe6t4FR9P/pwNQc5VKtC/aNprFBBQypvAYXZZ
-         yW/MfL8UP6gK8sThhyhNwlrqwN88fCOzstG+4ajHOI3K07OBe3cMfnQSa3ZqZixpTo1P
-         8TViAK2zAPETSdjegPlnyH/2RUvrFbVn50906g+YN7TFkKuwOj6/v9P55qW3/4UJZCQz
-         NAjQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782916374; x=1783521174; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/PMJfwXDmjutwz2ZqUdHqOQ1qGXDhEDRkGoA21ZDRuY=;
-        b=Bm4srtnbXfxE08SMcdbDuXZbfjIn44GxLF+Kz6nSzEvVIRh4iW8SHYds4De8tHXlck
-         DmmulFqBuElueQnM3orb6L6+Q3AUgov0KmW2edGUJoax8/Vw1K5cSOeUbLEXxnDcD91x
-         DxjsD7njYS2beekHon5d4L1ObOE6dCJFXHy5Zi2KtV7FDcXDBoya4U1Z/RqnkkHMWPqE
-         FJaNMdFJuP6r/VW7qo3et9CAxXZymhu0XEjdVVkJd7YZfAajN1Rws9gPrwBIEXnpgxq6
-         B8GGeuDC4jJeRTLd07Gqlg4LNkQ/bbuI3OKX0bqVlegEQWgGt/s6QPovWgXKUcP8cOEp
-         YP2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782916374; x=1783521174;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/PMJfwXDmjutwz2ZqUdHqOQ1qGXDhEDRkGoA21ZDRuY=;
-        b=ZtAfTxz8HumImqoYcjXwPUolQBWGanq4rUzlM3Bn0t/4LpNpQV8Q2Z77X75fhrYjvp
-         Z5gkqh52DqeI36x1L6OvhLvrnTnhY4rGNH8StGyH+DgqGdm675N5iRXJXL5yE/iIY3pi
-         5qDoKUTRsReWFPVpcVnn3gTeCR0U7941sB6fw6xf/80MnPp/4DFX/8mpP2RhlDOg9wJQ
-         xJ2ZpezVeTb/dtQUWkQ2MFvYirFHddkNS7K8TbuEVnkHHOqqbVAXsxV5hzqD2/x15ade
-         2auarHV+9fpUs35p/JlljF1n0tSvYDyZRRcj5rfiO4Pyaad8JqV2fgpSom+k/vecg6Iy
-         ns7Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrNsk/9E3J5Q8MLsZh8dkb4d/g8Nxm1duo0nUSiAg52a3crd87hu4Ysc9AWUMZ4Bp12qXlINZEe9apN@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXLAJIRZmbUzUeQJ8bqxpB+7Fng3a5QZ6+6EoRFtmR9IBd6mtI
-	zqX2drVYc3kX3SLBqpgF7E2iTvZiztWrjw4+sK9ykLi5bd2moKWLd38ttC1oru4UYXSLqRjsWNf
-	S6B/w86Noc9t8OHddFmCg/o2WoSeeLIw=
-X-Gm-Gg: AfdE7ckR5fGkSFvWIfZPYT2VhvGZqIcz1caoKjFc0i8KUFEXDnobnE6eAZFm9KkhaBp
-	O3J4wGD4aFkLnLWKFN4mjGfH0+7M2BX4ptqj1uCbkFdQBXj93BMZgKo67+NaQEfTuTIVKNgk8YT
-	8biECsECgpSXj21j3HNEPZ+/6RbZFSznsK4N1NHswIEzX9omA9XID6i66otb8CVQD0lBh25VqcN
-	MmBO5woK5d+nTyVaj9eZsE9ZxOy6KELXqMXyB5mGVaNSxzO4xoobM8vYxeSeAzvDLJCxuxrObPt
-	1JP/7V1aHWrxrPTHEICWzMTyXfWZ0li8i/V8m7f7/sANjSu5QgljKW6tArkbZg==
-X-Received: by 2002:a05:690e:bce:b0:660:a41d:d175 with SMTP id
- 956f58d0204a3-66521b945c8mr1896345d50.55.1782916373989; Wed, 01 Jul 2026
- 07:32:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVDjVM2W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97F101F000E9;
+	Wed,  1 Jul 2026 14:34:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782916466;
+	bh=m8Ep+WztZKrXzs6aDdcLp08aRmZN/JP7RHztmzoUg70=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XVDjVM2W+LtBln79oqh1lxaXq75t1lo3qu/Glu5hGIdHX9CkKIvyyG9ke07HqTAC+
+	 s04MIqelE/9OSSasprfamkN3ApTEz9tg9m0aDueZDenypb1zItWSSmOyxgQhx3yIop
+	 Ly4yYdvynGEpfSJYsiE2lT589Pk53VHgMfLD9vbh/euFmlNqs5kBNR564hRI83TKLd
+	 LyV7gs5p9Wucvp+T8EMeD91hnQJ5jb4YCYTr2JymZlizpne7FB1Q/thoMAk9Q/fQRo
+	 5/EW7+LrMs+uHJ23Rom4dnPxT3dW8mlxfS6jiKTmWj8IrRZEWUnEPwhdGhYcqKV8X0
+	 f3ezpyZ/RdjCQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 net-next 2/2] arm64: dts: ti: Add PLL1 refclk to
+ J784S4 SoC SERDES node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gokul Praveen" <g-praveen@ti.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, olteanv@gmail.com
+In-Reply-To: <20260701142457.81874-3-g-praveen@ti.com>
+References: <20260701142457.81874-1-g-praveen@ti.com>
+ <20260701142457.81874-3-g-praveen@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 14:34:24 +0000
+Message-Id: <20260701143425.97F101F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260630-apple-mtp-keyboard-final-v1-0-506d936a1707@gmail.com>
- <20260630-apple-mtp-keyboard-final-v1-8-506d936a1707@gmail.com> <05d39c4d-8405-4fe7-a798-c8a9c92699ed@cyberchaos.dev>
-In-Reply-To: <05d39c4d-8405-4fe7-a798-c8a9c92699ed@cyberchaos.dev>
-From: Michael Reeves <michael.reeves077@gmail.com>
-Date: Thu, 2 Jul 2026 00:32:42 +1000
-X-Gm-Features: AVVi8Cf357Gij5feihuaNZJkJ4WRqS0nufoZDV_3Bt4D6iI9pAVwxlHJbwtr7a8
-Message-ID: <CANpmGNs3s2yLw05jkpZ9mscQNZ9JvfbqEgyW8V=cMD29aU8c2A@mail.gmail.com>
-Subject: Re: [PATCH 08/10] HID: apple: Add DockChannel HID transport driver
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
-	Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Hector Martin <marcan@marcan.st>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, asahi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, iommu@lists.linux.dev, 
-	linux-input@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Yureka,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Thank you for the review and the feedback.
+Pre-existing issues:
+- [High] The Cadence Torrent PHY multilink configuration will fail on other=
+ K3 platforms (e.g., J721S2) due to a missing pll1_refclk property in ident=
+ical serdes nodes.
+--
 
-On Tue, Jun 30, 2026 at 11:21=E2=80=AFPM Yureka Lilian <yureka@cyberchaos.d=
-ev> wrote:
-[...]
-> > +     strscpy(hid->uniq, dchid->serial, sizeof(hid->uniq));
-> If the keyboard appeared before stm, dchip->serial might be uninitialized=
-.
-Yes, true, thank you for picking this up!
-[...]
-> > +     /*
-> > +      * Prefer to enable STM first, since it provides device IDs. Some
-> > +      * firmware versions do not expose STM, so let the keyboard start
-> > +      * without it.
-> > +      */
-> > +     if (iface->dchid->id_ready || !strcmp(iface->name, "stm") ||
-> > +         !strcmp(iface->name, "keyboard"))
->
-> I specifically asked for a mechanism to let the keyboard probe even on
-> devices which do not expose/have stm. Thanks for adding that!
-> However, I think this might need some more sophisticated mechanism to
-> decide whether the stm is still going to appear after the keyboard, or
-> not at all. I'm not sure if there is a way to tell this at this point,
-> or we need to add a timeout for the stm to appearing, which needs to
-> expire before we create the other interfaces with fake serials.
->
-I do not think there is a way to tell at this point, unfortunately.
+commit cad292e544578dc0fc4b900abd68b229a97dc116
+Author: Gokul Praveen <g-praveen@ti.com>
 
-I think the best way to resolve this would be to implement a delayed work
-item that is scheduled during probe. If STM appears and initalises before
-the timer (I'm not sure how long it should be right now, I will prototype a=
-nd
-experiment) we cancel the delayed work, get the real serial, and spin up
-the keyboard. If the timeout expires without seeing the STM interface, we
-assume the platform does not have one, mark id_ready as true, and
-proceed to init the keyboard.
+arm64: dts: ti: Add PLL1 refclk to J784S4 SoC SERDES node
 
-I will work on this and experiment to see if it's the best solution or
-if there's
-any others as well as to find the ideal timeout, and submit as part of v2.
-[...]
+This commit adds the PLL1 reference clock to the clocks and clock-names
+parameters of the SERDES nodes for the J784S4 and J742S2 SoCs. This resolves
+an issue where serdes multilink configurations fail without PLL1.
 
-Thanks again,
-Michael
+> diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi b/a=
+rch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi
+> index c2636e624f18b..e5224bd7f5383 100644
+> --- a/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi
+> +++ b/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi
+> @@ -1149,8 +1149,9 @@ serdes0: serdes@5060000 {
+>  			resets =3D <&serdes_wiz0 0>;
+>  			reset-names =3D "torrent_reset";
+>  			clocks =3D <&serdes_wiz0 TI_WIZ_PLL0_REFCLK>,
+> +				 <&serdes_wiz0 TI_WIZ_PLL1_REFCLK>,
+>  				 <&serdes_wiz0 TI_WIZ_PHY_EN_REFCLK>;
+> -			clock-names =3D "refclk", "phy_en_refclk";
+> +			clock-names =3D "refclk",	"pll1_refclk", "phy_en_refclk";
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the same multilink
+configuration failure occur on other K3 platforms like J721S2?
+
+Looking at serdes0 in arch/arm64/boot/dts/ti/k3-j721s2-main.dtsi, it lacks
+the pll1_refclk property in the clocks array:
+
+    clocks =3D <&serdes_wiz0 TI_WIZ_PLL0_REFCLK>,
+             <&serdes_wiz0 TI_WIZ_PHY_EN_REFCLK>;
+    clock-names =3D "refclk", "phy_en_refclk";
+
+When a multilink configuration is requested on these platforms (e.g., PCIe =
+on
+lane 0 and SGMII on lane 1), will the phy-cadence-torrent driver fail to
+enable the PLL1 reference clock?
+
+Could this cause essential peripheral initialization to fail when the
+PHY is unable to lock PLL1?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701142457.8187=
+4-1-g-praveen@ti.com?part=3D2
