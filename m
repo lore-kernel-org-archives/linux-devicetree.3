@@ -1,207 +1,319 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE78233953
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 14:03:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA11A13D8B1;
+	Wed,  1 Jul 2026 14:05:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782914638; cv=none; b=qNUBscYtudSFXgXOgWHO67UmxmuWNkKTbAQzs9hwdwGQVcN17u3LbdWJwE2oi3u/A6ovOYE/+x9+fkv+oZWYDEv8pg6DAb+HnuU0eCxpL1gwjTAbQ/wFxPMeU+TM+Wmr+8cTUyx9e3nTznXnQSrBezNOOigPmda1Jo0tX+KakzY=
+	t=1782914714; cv=none; b=NafnWZ5T6sqsVnnxxYOotcz7vOXLHh84Lud9Uaa9DX+DsDz0TNuCAl8EjttGWU6veI8k4fjGDgf4UdWMVj1r4THsartnOP29ZqPYn50bv6fwf6fj4WQqXbBFMIep+skpF3NYzFUJ6tbN5kViMKi9b5CdXryrFEdK15gXcg594do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782914638; c=relaxed/simple;
-	bh=TCN5hGAbc0oqLHsMMoJdp8/Vz6qpVDX1zHZJrF/Pub0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uAmEtsw91hv+h43QyA2wBssGqnvRTbaqTqbffboEF7JEeYJWdHQT4I/SXKClPnSDYiW+AQpd91OJRcidiqDJOf2KdtLSu2z5wlXdocFXWKbNl9MJ4kKeyApRus22sOt/PyTl7EKConhCO8xwfdAKW5SREUjIa+bEuYG9PxHRZP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G4HZKJRx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782914714; c=relaxed/simple;
+	bh=0nvsHBmf2FE5rKBPPsN+DZAsBkoyqvfDWlJWrgesl9A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u+4x1bK75VK2Fmb3FZkQV2f0cwn8cdhb7OXWGOxxgK76uQ44BXhqkrhrYHVAEQuxXtisvwjv+qeW+HxTolgGSUJFLzQt9mDWpANmbf/nIZYFAFXlxBvH5FuSA+uxYYj4Ah3yUhfdebXkOeVLFY6SymP/9AKtJBhTIp0dqjowSyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HkdidmL8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G4HZKJRx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 489D41F000E9;
-	Wed,  1 Jul 2026 14:03:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HkdidmL8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60A6B1F000E9;
+	Wed,  1 Jul 2026 14:05:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782914636;
-	bh=fSxLhZL6LMdZZwCThbrEs6bzCY8M3xVKr+vtVj4jAGk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G4HZKJRxUf2FE05x949C1QvTlEUP82/OTv2WGVu4pGuLNS98fCrDH3zeNzf9LAUEx
-	 FKVgFj/KEPxnuaTQrhapiiCW8ux4iMhU+Q1BI7SGESNb+ZL1MZxUHPFM08q+yIobgC
-	 SXsj+Fp7Bv6I1mjW4gkU6tU7BsdZhUBRzH+pJdB8eiocIXGPaPqT+wEYbsMAEB2Cpv
-	 ei+Xjc9KoV9cKjq8RhxyTl8n+6zk3gytHzm4yBpoI8XaYdkWo4OzrLrT+y/fClYo4V
-	 ZBW1k/AEOkUG8Ug+JudSoOL4qh+fw3vudIUWfIZepFch0EwWJJifQV1akFtf7LMDcP
-	 oHMTzYTUKwnJA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/11] drm/mediatek: mtk_dp: Add support for eDP1.5 IPs
- and MT8196 SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260701122024.19557-11-angelogioacchino.delregno@collabora.com>
-References: <20260701122024.19557-1-angelogioacchino.delregno@collabora.com>
- <20260701122024.19557-11-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 14:03:55 +0000
-Message-Id: <20260701140356.489D41F000E9@smtp.kernel.org>
+	s=k20260515; t=1782914712;
+	bh=KN1ZZoShUes6sGFwycYM2qI4rRpQvujeGBBYwd462qg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HkdidmL8i7jVnVEjIIcgCKSXScek/60dRiwAAP4oj30EEDyou9nVafCvtV0b4RP5P
+	 6onzkAjRbCfPb+7nwMtEcqM11iptMzCwQddnSVo3pbpwJbuJSuxkJ6irwsfaosg3H8
+	 GEDGaZH8D1YX8evg5Hr0wbpPaL22jF0c2eBjNDroBmoZAuhg+AYByAFvS0bOCGtafy
+	 xzbTcAvQRWGD0mivnctUacPxws5yxqWSHTpw1rI92Wa6W1690Y2FNWtUiTvGNIBWLJ
+	 T2jxlffovycLkIGQ62LA/zrL2J/YDc1YECLvNM2/zsHFENrUJbUr5LxWbk0rxtvG/4
+	 fq79uJdC33FWg==
+Message-ID: <70068ae8-ede1-41d2-899b-98ed11e19953@kernel.org>
+Date: Wed, 1 Jul 2026 16:05:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] dt-bindings: firmware: add mbedtee,rpc binding
+To: Xing Loong <xing.xl.loong@gmail.com>,
+ Jens Wiklander <jens.wiklander@linaro.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Sumit Garg <sumit.garg@kernel.org>, op-tee@lists.trustedfirmware.org,
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260701132514.186953-1-xing.xl.loong@gmail.com>
+ <20260701132514.186953-3-xing.xl.loong@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260701132514.186953-3-xing.xl.loong@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On 01/07/2026 15:25, Xing Loong wrote:
+> Add YAML devicetree binding for the MbedTEE Trusted Execution
 
-New issues:
-- [High] Newly introduced sleeping function msleep() is used in an atomic c=
-ontext path via bridge atomic_disable.
-- [High] The SDP_DP13_EN_DP_ENC1_P0 bit is added to the value but omitted f=
-rom the mask, preventing SDP from actually being enabled.
-- [High] NULL pointer dereference when parsing calibration data due to miss=
-ing efuse_fmt.
+Drop YAML, there is no such thing as YAML binding.
 
-Pre-existing issues:
-- [High] Preexisting sleeping functions used in atomic context via atomic e=
-nable/disable callbacks.
---
+> Environment driver.
 
-commit c515b507239926f8609226c47569e9b95e171972
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+We don't take bindings for drivers but for hardware or firmware. Please
+describe these instead.
 
-drm/mediatek: mtk_dp: Add support for eDP1.5 IPs and MT8196 SoC
-
-This commit adds support for MediaTek's Embedded DisplayPort (eDP) v1.5 IP =
-as
-found in the MT8196 SoC and other variants. It introduces new data structur=
-es,
-modifies encoder paths, and encloses register writes in platform data boole=
-ans.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
-/mtk_dp.c
-> index 2d58eacb3d3e6..605ead7fa9bf6 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-
-[ ... ]
-
-> @@ -647,7 +668,16 @@ static void mtk_dp_setup_encoder(struct mtk_dp *mtk_=
-dp)
->  	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC1_P0_3364,
->  			   FIFO_READ_START_POINT_DP_ENC1_P0_VAL << 12,
->  			   FIFO_READ_START_POINT_DP_ENC1_P0_MASK);
-> -	mtk_dp_write(mtk_dp, MTK_DP_ENC1_P0_3368, DP_ENC1_P0_3368_VAL);
+> 
+> The binding covers two platform configurations:
+>   - ARM/AArch64 (TrustZone, SMC): two reserved-memory regions
+>     (rpc-t2r-ring and rpc-t2r-shm) plus a GIC SPI edge interrupt
+>     for TEE-to-REE notifications.
+>   - RISC-V (IMSIC): three reserved-memory regions, adding
+>     rpc-r2t-ring for REE-to-TEE command submissions; no interrupts
+>     property (T2R notifications use IMSIC MSI allocated at runtime).
+> 
+> Signed-off-by: Xing Loong <xing.xl.loong@gmail.com>
+> ---
+>  .../bindings/firmware/mbedtee,rpc.yaml        | 221 ++++++++++++++++++
+>  1 file changed, 221 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/firmware/mbedtee,rpc.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/firmware/mbedtee,rpc.yaml b/Documentation/devicetree/bindings/firmware/mbedtee,rpc.yaml
+> new file mode 100644
+> index 0000000..08ae255
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/firmware/mbedtee,rpc.yaml
+> @@ -0,0 +1,221 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/firmware/mbedtee,rpc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	mask =3D VIDEO_SRAM_FIFO_CNT_RESET_SEL_DP_ENC1_P0 | VIDEO_STABLE_CNT_TH=
-RD_DP_ENC1_P0;
-> +	mask |=3D BS2BS_MODE_DP_ENC1_P0;
+> +title: MbedTEE Trusted Execution Environment
 > +
-> +	val =3D mask;
+> +maintainers:
+> +  - Xing Loong <xing.xl.loong@gmail.com>
 > +
-> +	if (mtk_dp->data->sdp_encoder1_enable)
-> +		val |=3D SDP_DP13_EN_DP_ENC1_P0;
+> +description: |
+> +  MbedTEE is a Trusted Execution Environment for embedded systems.
+> +  This binding describes the shared-memory regions used for RPC
+
+Describe firmware, not the binding. It's redundant to say what the
+binding is about, just say what is the hardware.
+
+> +  communication between the Linux REE driver and MbedTEE OS.
 > +
-> +	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC1_P0_3368, val, mask);
->  }
-
-[Severity: High]
-Does this code successfully enable the Secondary Data Packet (SDP)?
-
-The SDP_DP13_EN_DP_ENC1_P0 bit is added to the val variable, but it does
-not appear to be added to the mask. Since mtk_dp_update_bits() applies
-the mask before writing, won't this omit the bit and prevent SDP from
-actually being enabled?
-
-[ ... ]
-
-> @@ -1106,6 +1136,72 @@ static void mtk_dp_hwirq_enable(struct mtk_dp *mtk=
-_dp, bool enable)
->  			   IRQ_MASK_DP_TRANS_P0_MASK);
->  }
-> =20
-> +static void mtk_dp_encoder_force_bias_power_on(struct mtk_dp *mtk_dp)
-> +{
-> +	/* Force MCU to enable BIAS */
-> +	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
-> +			   ENC_PHY_PWR_OVERWRITE_EN, ENC_PHY_PWR_OVERWRITE_EN);
-> +	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
-> +			   FIELD_PREP_CONST(ENC_PHY_PWR_STATE_OVERWRITE_MASK,
-> +					    ENC_PHY_BIAS_PWR_ON),
-> +			   ENC_PHY_PWR_STATE_OVERWRITE_MASK);
+> +  The REE and TEE CPUs sharing the RPC memory must be in a
+> +  hardware-coherent domain (same CPU cluster, coherent caches).
 > +
-> +	/* Wait for the MCU to get LDO ready in PHYD */
-> +	msleep(50);
+> +  Two or three reserved-memory regions are required:
 > +
-> +	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
-> +			   0, ENC_PHY_PWR_OVERWRITE_EN);
-> +}
-
-[Severity: High]
-Is it safe to use msleep() in this context?
-
-This function is called from mtk_dp_bridge_atomic_disable(), which runs as
-part of the atomic commit tail. According to DRM subsystem guidelines,
-atomic commit callbacks execute in an atomic context where sleeping
-functions are unsafe and can lead to warnings or system instability.
-
-[ ... ]
-
-> @@ -2583,6 +2796,9 @@ static void mtk_dp_bridge_atomic_disable(struct drm=
-_bridge *bridge,
->  	/* SDP path reset sw*/
->  	mtk_dp_sdp_path_reset(mtk_dp);
-> =20
-> +	if (mtk_dp->data->force_pwr_states)
-> +		mtk_dp_encoder_force_bias_power_on(mtk_dp);
+> +    rpc-t2r-ring  ring buffer for TEE-to-REE notifications (all platforms)
+> +    rpc-t2r-shm   shared memory for TEE-to-REE RPC payloads (all platforms)
+> +    rpc-r2t-ring  ring buffer for REE-to-TEE command submissions (RISC-V only)
 > +
->  	/* Ensure the sink is muted */
->  	msleep(20);
->  }
-
-[Severity: High]
-This is a pre-existing issue, but is it safe to have msleep(20) here?
-
-The mtk_dp_bridge_atomic_disable() callback executes in an atomic context
-during display modeset or disable. Calling sleeping functions like msleep()
-or usleep_range() (inside the preceding mtk_dp_sdp_path_reset() call) from
-an atomic context violates core DRM atomic context rules and can cause
-system instability.
-
-[ ... ]
-
-> @@ -3107,6 +3325,19 @@ static const struct mtk_dp_data mt8195_dp_data =3D=
- {
->  	.audio_supported =3D true,
->  	.audio_m_div2_bit =3D MT8195_AUDIO_M_CODE_MULT_DIV_SEL_DP_ENC0_P0_DIV_2,
->  	.hw_max_link_rate =3D DP_LINK_BW_5_4,
-> +	.sdp_encoder1_enable =3D true,
-> +};
+> +  On ARM/AArch64 the transport uses SMC calls; TEE-to-REE
+> +  notifications use a GIC SPI edge interrupt.
 > +
-> +static const struct mtk_dp_data mt8196_edp_data =3D {
-> +	.bridge_type =3D DRM_MODE_CONNECTOR_eDP,
-> +	.smc_cmd =3D MTK_DP_SIP_ATF_EDP_SET_VID_MUTE,
-> +	.audio_supported =3D false,
-> +	.audio_m_div2_bit =3D MT8195_AUDIO_M_CODE_MULT_DIV_SEL_DP_ENC0_P0_DIV_2,
-> +	.hw_max_link_rate =3D DP_LINK_BW_8_1,
-> +	.hwip_v1p4 =3D true,
-> +	.aux_hpd_supported =3D true,
-> +	.force_pwr_states =3D true,
-> +	.psr_supported =3D true,
->  };
+> +  On RISC-V the TEE notifies the REE via IMSIC MSI; the REE submits
+> +  commands via shared-memory rpc-r2t-ring that the TEE polls. No
+> +  REE-to-TEE interrupt is used. No SBI ecall is involved.
+> +
+> +properties:
+> +  $nodename:
+> +    const: mbedtee
 
-[Severity: High]
-Can this structure lead to a NULL pointer dereference?
+Drop, why would it be relevant?
 
-The mt8196_edp_data definition lacks the efuse_fmt field. If the devicetree
-node for the MT8196 eDP lacks a phys property, the driver will fall back to
-its legacy PHY registration path.
+> +
+> +  compatible:
+> +    const: mbedtee,rpc
 
-The legacy path calls mtk_dp_get_calibration_data() which attempts to
-iterate over the array:
+Feels way too generic. First, Google results on mbedtee are basically
+non-existing, so what sort of company is that?
 
-	for (i =3D 0; i < MTK_DP_CAL_MAX; i++) {
-		fmt =3D &mtk_dp->data->efuse_fmt[i];
-		...
-	}
+Second, rpc is just not specific enough. Please carefully read writing
+bindings doc.
 
-Because efuse_fmt is NULL, wouldn't this cause a kernel panic during probe?
+> +
+> +  interrupts:
+> +    description:
+> +      GIC interrupt used by the TEE to notify the REE of pending RPC
+> +      responses (ARM/AArch64 only). Not present on RISC-V platforms which
+> +      use IMSIC platform MSI interrupts allocated dynamically at runtime.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122024.1955=
-7-1-angelogioacchino.delregno@collabora.com?part=3D10
+Please read writing bindings doc.
+
+> +
+> +  msi-parent:
+> +    maxItems: 1
+> +    description:
+> +      IMSIC MSI controller used by the Linux driver to allocate the
+
+Again drivers...
+
+> +      TEE-to-REE notification interrupt on RISC-V platforms. Not present on
+> +      ARM/AArch64 platforms, which use the interrupts property.
+> +
+> +  memory-region:
+> +    minItems: 2
+> +    maxItems: 3
+> +    description:
+> +      References to reserved-memory regions for REE<->TEE communication.
+> +      Entries must match memory-region-names order.
+
+Obvious. Please do not come with your own style of bindings.
+
+> +
+> +  memory-region-names:
+> +    minItems: 2
+> +    maxItems: 3
+
+Why is this flexible?
+
+> +    items:
+> +      enum:
+> +        - rpc-t2r-ring
+
+rpc is redundant, drop
+
+> +        - rpc-t2r-shm
+> +        - rpc-r2t-ring
+> +
+> +required:
+> +  - compatible
+> +
+> +allOf:
+> +  - if:
+> +      required:
+> +        - interrupts
+> +    then:
+> +      required:
+> +        - interrupts
+> +        - memory-region
+> +        - memory-region-names
+> +      properties:
+> +        msi-parent: false
+> +        memory-region:
+> +          minItems: 2
+> +          maxItems: 2
+> +        memory-region-names:
+> +          items:
+> +            - const: rpc-t2r-ring
+> +            - const: rpc-t2r-shm
+> +    else:
+> +      required:
+> +        - msi-parent
+> +        - memory-region
+> +        - memory-region-names
+
+So memory-region is always required?
+
+> +      properties:
+> +        memory-region:
+> +          minItems: 3
+> +          maxItems: 3
+> +        memory-region-names:
+> +          items:
+> +            - const: rpc-t2r-ring
+> +            - const: rpc-t2r-shm
+> +            - const: rpc-r2t-ring
+
+Your top level schema said that. You only need minItems.
+
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    /* ARM TrustZone (SMC) */
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    / {
+> +      #address-cells = <2>;
+> +      #size-cells = <2>;
+> +
+> +      gic: interrupt-controller@2f000000 {
+> +        compatible = "arm,gic-v3";
+> +        reg = <0 0x2f000000 0 0x10000>,
+> +              <0 0x2f100000 0 0x200000>;
+> +        interrupt-controller;
+> +        #interrupt-cells = <3>;
+> +      };
+> +
+> +      reserved-memory {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +        ranges;
+> +
+> +        mbedtee_t2r_ring: rpc-t2r-ring@85f10000 {
+> +          reg = <0 0x85f10000 0 0x20000>;
+> +          no-map;
+> +        };
+> +
+> +        mbedtee_t2r_shm: rpc-t2r-shm@85f30000 {
+> +          reg = <0 0x85f30000 0 0x40000>;
+> +          no-map;
+> +        };
+> +      };
+
+None of the above is relevant, drop.
+
+
+> +
+> +      firmware {
+> +        mbedtee {
+> +          compatible = "mbedtee,rpc";
+> +          interrupt-parent = <&gic>;
+> +          interrupts = <GIC_SPI 72 IRQ_TYPE_EDGE_RISING>;
+> +          memory-region = <&mbedtee_t2r_ring>, <&mbedtee_t2r_shm>;
+> +          memory-region-names = "rpc-t2r-ring", "rpc-t2r-shm";
+> +        };
+> +      };
+> +    };
+> +
+
+
+Best regards,
+Krzysztof
