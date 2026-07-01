@@ -1,114 +1,195 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 861C0224AF2;
-	Wed,  1 Jul 2026 20:52:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DA0349CC2;
+	Wed,  1 Jul 2026 20:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782939161; cv=none; b=mylvh85PSTq9TELcvR2KzQslQdp6NOxsR2rN52nlc5UdKn4a4S3Fvt1J7j5SR/7+xsd+CdrU6FDktXLt+eiL3PZT+67kziUlfgM1ONxf27/UK0080sEwcMpOdNQuljTwz5EvpKOxb/pTvZKJ6kTQ8vZ+7VbAtTWWQAOokK+xCi0=
+	t=1782939176; cv=none; b=bK8ulepgtLaSgThnImlP5CPaQaVr/lh0HJJinfgILVytJcP4L+D3eVj6GINM/rU6Q2pB0KMuGtUpWO022yGCpfZcw3uZmKwI6FjqTBNumHa75pYhISvqPLLRF+Xm8UOJUMLh5ejFx8vq5HxOidlmkmOLQuHtPCc3cayDlpc5wbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782939161; c=relaxed/simple;
-	bh=x18UYCOnTafTkUw1henYF1Zm3Dti3RwUnI6LNphuT+8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=n6uV6UCoFsVv3J8DbrMnFeBKQMIc2sM492+PjVshhfeMrsb9LhjrGqpF1cUpZuE5zBu9c87QKWCDkd3ujdXuLMITwBzacG3M/0BwiH5XFt1M0rLXQm2Y419XSVk4/5j92jG0nKYOOmBjeoWww9sCOoMxFyKYMeZGAjbh08GJF7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ec1fwqbX; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=D5cTYaIh; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1782939176; c=relaxed/simple;
+	bh=2YlDhGN/bU/PSRMNbE96AWQ5T72iWW/Ex5jsIdupOI8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=POKHqXGKCvkXaOg4cNlA6kiG8Ey+78ZvU3q/WmrrwJo6XpsA7ZwgsRB1MPb6awwUsibjcIctwv2FVpzJQoNET49WBM1PJc+7Ob73EL0EYE9gtBtp4GcIoOM3AB323swBQxaOtlHI+3jf8zkeXrllD+7P4nV6bOMFn9QAUK3gLYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AvNie/9P; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ec1fwqbX";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="D5cTYaIh"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4grBzN2zPsz9v0M;
-	Wed,  1 Jul 2026 22:52:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1782939152;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=B0St7A+bM7xpXZZOVB/XPO0PsDqfIv4E00jty33/c8Y=;
-	b=ec1fwqbXQwarcLEaXC8UsjFFr42kwtKI/ZS95BCs5NW7z3V9oPgeA2CdrRcFA0/5zA5xZx
-	a/JerRdN9Mb2Y3WqxtVnqD5GYvfRAZKibc3pGmD8Q4EX/lNh9KFgwPA574ORw8xph6amrU
-	opaWN17gl2DFROMjfQg1BW+R2cICggKF9dXRYBWmdRtapCXFpMeDu5msgd3N0bRucrB089
-	NMZvqCWXqynapGcrdvcC5y+yyc4HodjQb6U25C7hhdxJNyYAbvTi/ZdH8ETOly/IxHsqDJ
-	uAd/1yRX+V8DIzn8bqbTnx4pZFfAWDkhLIE6selrUn4XKb+JdL2vHMs3gpJ/WA==
-Message-ID: <495cb1ae-f11b-4f92-85d4-59b2250db34e@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1782939150;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=B0St7A+bM7xpXZZOVB/XPO0PsDqfIv4E00jty33/c8Y=;
-	b=D5cTYaIh9L6fuPd7PYJvhu3auo30ngDcq+z9g7rp2mzq5wS8APc6fzEIv3EkKdcfRcpup2
-	Xx3cSUaghqnvks8OwsYVpsv86178E6Tp949pL1VWkSGpQ+IbdkZk2PJWTEioYFMkDk7K2G
-	7LTtjm4FCX2/Byb97P4aqHFZoapDaR8mrsjdbLSp3Tx0bBQsGms8NQmMpOPVE74d0K1+N9
-	o7a94nkLEI7wT/mi+K7EGzNvrV/JXDFEANUuvm1YfDiPnVlGBPdwAIKl5mcQ29yDTrJqqm
-	zbjkec22/4SbNy4mE/woiGHekzF90ttuGvuEDTVxV4ZhtPM3yqqf5onX4g1HQg==
-Date: Wed, 1 Jul 2026 22:43:41 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AvNie/9P"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1B3D3C2BCF4;
+	Wed,  1 Jul 2026 20:52:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1782939176;
+	bh=2YlDhGN/bU/PSRMNbE96AWQ5T72iWW/Ex5jsIdupOI8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=AvNie/9PxKLUN03sgHFcANLfObgjnVpA0FY4vjj5pCeyEAxNmQ24bJshz2QD+tLW+
+	 jVfKPZ6iLq7ueiG9LZje8rhRavso4/+dCX7BiOZbBhoIESk7xMcbxLQSBV1e26juid
+	 flpFGZh1MzIMw7ya7AGgQHY4G+vUKhLSsvPeDKcJck/h1PRRHm1TvDj7tbS0hwhIm0
+	 yPkslC1KTv/ShBGwJ0t2M5WzW1mAPcLdUJ9ojgGsNaVi0ePtnLls/Ga7JF68qRaPBC
+	 R1+uwZBPISfVTrARrQyGL5vF6X5CeQTfAQ2CTPwlClXfNhs7TX82I74/bf41YUErnq
+	 QMTfjrqI0TJXw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 00C4CC43327;
+	Wed,  1 Jul 2026 20:52:56 +0000 (UTC)
+From: Cristian Cozzolino via B4 Relay <devnull+cristian_ci.protonmail.com@kernel.org>
+Date: Wed, 01 Jul 2026 23:55:54 +0200
+Subject: [PATCH v6 1/4] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
+ display and GPU
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 1/4] PCI: rcar-gen4: Configure AXIINTC if iMSI-RX not
- used
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-References: <20260618220427.14325-1-marek.vasut+renesas@mailbox.org>
- <20260618220427.14325-2-marek.vasut+renesas@mailbox.org>
- <CAMuHMdV3tyZk8ckL-ihdbVcGV9tQumdntPc_nJB6HXEkZLytfw@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAMuHMdV3tyZk8ckL-ihdbVcGV9tQumdntPc_nJB6HXEkZLytfw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: ub6t7dpfuhwtpwyhgrnpcye9afenpdm9
-X-MBO-RS-ID: c7dec5a8f8a3f8f14ef
+Message-Id: <20260701-rimob-new-features-v6-1-be7d5d1e007f@protonmail.com>
+References: <20260701-rimob-new-features-v6-0-be7d5d1e007f@protonmail.com>
+In-Reply-To: <20260701-rimob-new-features-v6-0-be7d5d1e007f@protonmail.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ Cristian Cozzolino <cristian_ci@protonmail.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782942968; l=2566;
+ i=cristian_ci@protonmail.com; s=20250620; h=from:subject:message-id;
+ bh=JuCU1pE0+0lvM8kuKiy/BFRbd08GXSc2r+jPT6oN2Xo=;
+ b=et0KJ9GZbZoioy7N11n18rD2tpIWxq3mY94zOMOrkqYOfJP2yeSoatX6N6wO6HANkCEb3KzTT
+ 6zct88Mp0NYDTrPwb3OxL41JdcYR/zDr5tvt3jjdvBBzWXKC/6umIOq
+X-Developer-Key: i=cristian_ci@protonmail.com; a=ed25519;
+ pk=xH5IvIPUNHV1Q8R0/pq2CfuVFR/wTiAyuyi6IwedjZY=
+X-Endpoint-Received: by B4 Relay for cristian_ci@protonmail.com/20250620
+ with auth_id=438
+X-Original-From: Cristian Cozzolino <cristian_ci@protonmail.com>
+Reply-To: cristian_ci@protonmail.com
 
-On 6/30/26 8:04 PM, Geert Uytterhoeven wrote:
+From: Cristian Cozzolino <cristian_ci@protonmail.com>
 
-Hello Geert,
+Add the description for the display panel found on this phone.
+And with this done we can also enable the GPU and set the zap shader
+firmware path.
 
->> +static int rcar_gen4_pcie_host_msi_addr(struct dw_pcie_rp *pp, u32 *msi_addr)
->> +{
->> +       struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
->> +       struct device_node *msi_node = NULL;
->> +       struct device *dev = dw->dev;
->> +       struct resource res;
->> +       u64 addr;
->> +       int ret;
->> +
->> +       /*
->> +        * Either the "msi-parent" or the "msi-map" phandle needs to exist
->> +        * to obtain the MSI node.
->> +        */
->> +       of_msi_xlate(dev, &msi_node, 0);
->> +       if (!msi_node)
->> +               return -ENODEV;
-> 
-> This is not backwards-compatible with existing DTBs.
-> I noticed because PCIe is broken on Gray Hawk Single with R-Car V4M
-> after this series.  Indeed, "[PATCH v2 4/4] arm64: dts: renesas:
-> r8a779g0: Add GICv3 ITS and update PCIe nodes" only covers R-Car V4H,
-> but not R-Car S4-8 and R-Car V4M.
-Thank you for spotting this, and, this code is not supposed to be 
-reached. It turns out, pp->use_imsi_rx is not assigned yet in the .init 
-callback. I hope this is addressed in V3 with a new patch:
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
+---
+ .../arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 73 ++++++++++++++++++++++
+ 1 file changed, 73 insertions(+)
 
-[PATCH v3 1/5] PCI: dwc: Determine whether iMSI is used before calling .init
+diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+index ef4faf763132..5a9d71d1e466 100644
+--- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
++++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+@@ -78,6 +78,13 @@ vph_pwr: vph-pwr-regulator {
+ 	};
+ };
+ 
++&gpu {
++	status = "okay";
++};
++
++&gpu_zap_shader {
++	firmware-name = "qcom/msm8953/flipkart/rimob/a506_zap.mbn";
++};
+ 
+ &hsusb_phy {
+ 	vdd-supply = <&pm8953_l3>;
+@@ -87,11 +94,70 @@ &hsusb_phy {
+ 	status = "okay";
+ };
+ 
++&ibb {
++	qcom,discharge-resistor-kohms = <32>;
++};
++
++&lab {
++	qcom,soft-start-us = <800>;
++};
++
++&mdss {
++	status = "okay";
++};
++
++&mdss_dsi0 {
++	vdda-supply = <&pm8953_s3>;
++	vddio-supply = <&pm8953_l6>;
++
++	status = "okay";
++
++	panel: panel@0 {
++		compatible = "flipkart,rimob-panel-nt35532-cs";
++		reg = <0>;
++
++		backlight = <&pmi8950_wled>;
++		reset-gpios = <&tlmm 61 GPIO_ACTIVE_LOW>;
++		avdd-supply = <&lab>;
++		avee-supply = <&ibb>;
++		vci-supply = <&pm8953_l17>;
++		vddi-supply = <&pm8953_l6>;
++
++		pinctrl-0 = <&panel_default>;
++		pinctrl-names = "default";
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&mdss_dsi0_out>;
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	data-lanes = <0 1 2 3>;
++	remote-endpoint = <&panel_in>;
++};
++
++&mdss_dsi0_phy {
++	vcca-supply = <&pm8953_l3>;
++
++	status = "okay";
++};
++
+ &pm8953_resin {
+ 	linux,code = <KEY_VOLUMEDOWN>;
+ 	status = "okay";
+ };
+ 
++&pmi8950_wled {
++	qcom,current-limit-microamp = <10000>;
++	qcom,num-strings = <3>;
++	qcom,ovp-millivolt = <29500>;
++
++	status = "okay";
++};
++
+ &rpm_requests {
+ 	regulators {
+ 		compatible = "qcom,rpm-pm8953-regulators";
+@@ -238,6 +304,13 @@ &sdhc_2 {
+ &tlmm {
+ 	gpio-reserved-ranges = <0 4>, <135 4>;
+ 
++	panel_default: panel-default-state {
++		pins = "gpio61";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
+ 	gpio_key_default: gpio-key-default-state {
+ 		pins = "gpio85";
+ 		function = "gpio";
+
+-- 
+2.53.0
+
+
