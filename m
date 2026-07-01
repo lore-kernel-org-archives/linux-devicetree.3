@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F5F4963A2;
-	Wed,  1 Jul 2026 12:20:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DB04963C0;
+	Wed,  1 Jul 2026 12:20:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782908419; cv=none; b=kQyxcK/MVt6jolx3T4NDpActUJIjgC1ptspKXw4fuRZ+JjOOvrkucXuaY97W1RujVs/g0INecraIAGPS+up23qqxtHbxeTeBUOuXTwFYxFCMVCCi6Uf5pyaOO3yeCyYH450QF2itwojeaPxEsRJZP/Dc3KKDPfj3iaxkUEA0NxQ=
+	t=1782908420; cv=none; b=U0NhILjQVLFrd2EcmIPTQiFBBDwIshqJzrzW11ZESH3JUE2qmP+MGcxGaUJe+qUQNtW4rbpxnqjyrlyH6gQ08KOaHjbI/0K3c0O0uXh8WPFdzwZhn3tjRAWDCuLquxFwIITqGHDqzw+7mZuKplRgTW7ZkQhPyJLoa+U+qHuntHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782908419; c=relaxed/simple;
-	bh=GZx1BpRsJ1/r23jIc+VNsKGA3T7ArkhsjieJzJ25f8s=;
+	s=arc-20240116; t=1782908420; c=relaxed/simple;
+	bh=3xaFVtB+sdmI4U8DTkJvH4kHZiMSV8phaSXhpZ/6ybk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BrKFXkgauCUPZoUHPO/+hSyG35CYWzWfyJC4gQi40oJz2/nlWtzflhKfp2khq8YRCvshhbeExztg9FlQ98bltvanadCeBLPOYOZBho2ZvZkty5kugJOdh3LoSe/nceB4YAWZqNfr3/HKa9i5rhLVVIr7UIYJ20Bp9p4uHbwF7yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Ztp9vqbS; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=dfpUWyNOi5OjHZjOz0E3wj4aIN1ciEjiucv/CudvU4aI6WZxgd5YDyppc7SEqWeVBlpuptqeb7nP8F+VT9sG2PWnuAVqFlfddoH1fqbaayiv6zA/aBaZtv+P2phpRT9Y/YWGB3gpGrZPI9jvUkKarQKRG2gqP1Dq05wTtyKEg7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=oR3U6+qv; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Ztp9vqbS"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="oR3U6+qv"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1782908416;
-	bh=GZx1BpRsJ1/r23jIc+VNsKGA3T7ArkhsjieJzJ25f8s=;
+	s=mail; t=1782908417;
+	bh=3xaFVtB+sdmI4U8DTkJvH4kHZiMSV8phaSXhpZ/6ybk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Ztp9vqbSRIwEWQQfxHbnTRyB8eBxPlyEbbpzZqsSXyziUL1IbUj1VfJ0KiqkjJ8w5
-	 lvfg0x63LuzHxzeR0+/c3b60YtqYx+ynyMN/2ufnTIwJYutZrl+s7si+h7XKhdhBRv
-	 XrnWQGQJRp7V/fquuaCYMzBrEK5ZaDkhRC1/LAU/NtFZzIb90f1mBZRk+04NcTdAOv
-	 wXoKldWhKYtgggVALplYBkNhC3ftuIyGtIXMjQrKz7uU18ESu3yqTREsP70sfHAVJL
-	 8TfBdiAUTnINp7Z8tYfxqlmrsngg1yzSTTGuv+Fyjh3m4gYT0iz0rWpI8+Hlenq5Fa
-	 PoPqSstZnUWoA==
+	b=oR3U6+qvJvnxvweoNtdQ082mX9WW9RtmOMwPnF6m2VO/g8CTfarJ3ao9jnYBRAtXX
+	 wk5WTMwXmKfYkvKTvnQYNhHAYUwdt3S++rqhOo2wT4qdB+DSRnJAu+PLkifjN09r1V
+	 nPK/UJm+DPwVkZbK8doDBTu7RPfx2d/LJqVhBnm8AWch9Rg9hehxDtmeljTFoOkG8E
+	 LIQ+hcgXcsFIkP2sKnP8OpTDDwSeKyHeRB8D9bUIBjnd+l4syHap57GmjzefeAuDCT
+	 1blqqsY14pixbE4qqYytWqdxY02rngtWiTsLKcfbIxQhDEO0AaaGwp2AHZ8nNclFfy
+	 cBQo+ccR6tlIg==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C312717E1553;
-	Wed,  1 Jul 2026 14:20:15 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A1C5417E1583;
+	Wed,  1 Jul 2026 14:20:16 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunfeng.yun@mediatek.com
 Cc: vkoul@kernel.org,
@@ -52,9 +52,9 @@ Cc: vkoul@kernel.org,
 	linux-kernel@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	kernel@collabora.com
-Subject: [PATCH 06/12] phy: phy-mtk-dp: Support set_lanes in configure and properly cleanup
-Date: Wed,  1 Jul 2026 14:20:02 +0200
-Message-ID: <20260701122008.19509-7-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 07/12] phy: phy-mtk-dp: Support setting volt swing and preemphasis values
+Date: Wed,  1 Jul 2026 14:20:03 +0200
+Message-ID: <20260701122008.19509-8-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
 References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
@@ -66,127 +66,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for enabling a specifically requested number of lanes
-in the .configure() callback and disable all lanes in power off
-and reset callbacks for proper hardware cleanup.
+Add support for honoring the set_voltages request to set the
+voltage swing and preemphasis values in the .configure() callback.
+
+For proper hardware cleanup, reset both in the .reset() callback.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/phy/mediatek/phy-mtk-dp.c | 49 ++++++++++++++++++++++++++++++-
- 1 file changed, 48 insertions(+), 1 deletion(-)
+ drivers/phy/mediatek/phy-mtk-dp.c | 41 ++++++++++++++++++++++++++++++-
+ 1 file changed, 40 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
-index 586e72795633..a2cd22b9da06 100644
+index a2cd22b9da06..17d871530cca 100644
 --- a/drivers/phy/mediatek/phy-mtk-dp.c
 +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-@@ -45,6 +45,9 @@
- #define PHYD_DIG_XTP_GLB_CKDET_EN	BIT(1)
- #define PHYD_DIG_DPAUX_RX_DEGLITCH_EN	BIT(2)
+@@ -48,6 +48,11 @@
+ /* DP_PHYD_TX_CTL_0 */
+ #define PHYD_TX_LN_EN			GENMASK(7, 4)
  
-+/* DP_PHYD_TX_CTL_0 */
-+#define PHYD_TX_LN_EN			GENMASK(7, 4)
++/* DP_PHYD_DRIVING_FORCE */
++#define PHYD_DP_TX_FORCE_VOLT_SWING_EN	BIT(0)
++#define PHYD_DP_TX_FORCE_VOLT_SWING_VAL	GENMASK(2, 1)
++#define PHYD_DP_TX_FORCE_PRE_EMPH_VAL	GENMASK(4, 3)
 +
  #define XTP_LN_TX_LCTXC0_SW0_PRE0_DEFAULT	BIT(4)
  #define XTP_LN_TX_LCTXC0_SW0_PRE1_DEFAULT	(BIT(10) | BIT(12))
  #define XTP_LN_TX_LCTXC0_SW0_PRE2_DEFAULT	GENMASK(20, 19)
-@@ -108,6 +111,7 @@ enum mtk_dp_phyd_dig_glb_regidx {
- 	DP_PHYD_SW_RST,
- 	DP_PHYD_BIT_RATE,
- 	DP_PHYD_AUX_RX_CTL,
-+	DP_PHYD_TX_CTL_0,
- 	DP_PHYD_GLOBAL_MAX
+@@ -101,6 +106,7 @@ enum mtk_dp_phya_ana_glb_regidx {
  };
  
-@@ -126,6 +130,7 @@ static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
- 	[DP_PHYD_SW_RST] = 0x38,
- 	[DP_PHYD_BIT_RATE] = 0x3c,
- 	[DP_PHYD_AUX_RX_CTL] = 0x40,
-+	[DP_PHYD_TX_CTL_0] = 0x44,
+ enum mtk_dp_phyd_dig_lane_regidx {
++	DP_PHYD_LAN_DRIVING_FORCE,
+ 	DP_PHYD_LAN_DRIVING_PARAM_0,
+ 	DP_PHYD_LAN_MAX
+ };
+@@ -121,6 +127,7 @@ static const u8 mt8195_phy_ana_glb_regs[DP_PHYA_GLOBAL_MAX] = {
  };
  
- /**
-@@ -192,6 +197,7 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
- 	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
- 	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
- 	u32 val;
-+	int i;
+ static const u8 mt8195_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
++	[DP_PHYD_LAN_DRIVING_FORCE] = 0x18,
+ 	[DP_PHYD_LAN_DRIVING_PARAM_0] = 0x2c,
+ };
  
- 	if (opts->dp.set_rate) {
- 		const u32 reg_bit_rate = pdata->regs_dig_glb[DP_PHYD_BIT_RATE];
-@@ -223,7 +229,7 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
- 
- 		val = 0;
- 		for (i = 0; i < opts->dp.lanes; i++)
--			val |= FIELD_PREP(PHYD_TX_LN_EN, i);
-+			val |= FIELD_PREP(PHYD_TX_LN_EN, BIT(i));
- 
- 		regmap_update_bits(dp_phy->regmap, pdata->off_dig_glb + reg_dig_tx_ctl,
+@@ -235,6 +242,28 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
  				   PHYD_TX_LN_EN, val);
-@@ -261,6 +267,35 @@ static int mtk_dp_phy_power_on(struct phy *phy)
- 	return 0;
- }
+ 	}
  
-+static int mtk_dp_phy_disable_all_lanes(struct mtk_dp_phy *dp_phy)
-+{
-+	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
-+	const u8 *regs = pdata->regs_dig_glb;
-+	int ret;
-+	u32 val;
++	if (opts->dp.set_voltages) {
++		const u32 reg_drv_force = pdata->regs_dig_lane[DP_PHYD_LAN_DRIVING_FORCE];
 +
-+	ret = regmap_read(dp_phy->regmap, pdata->off_dig_glb + regs[DP_PHYD_TX_CTL_0], &val);
-+	if (ret)
-+		return ret;
++		if (opts->dp.lanes > 4) {
++			dev_err(&phy->dev, "Wrong lanes config %u\n", opts->dp.lanes);
++			return -EINVAL;
++		}
 +
-+	/* Get mask of currently enabled lane */
-+	val = FIELD_GET(PHYD_TX_LN_EN, val);
++		for (i = 0; i < opts->dp.lanes; i++) {
++			const u32 off_dig_lane = pdata->off_dig_lane[i];
++			u32 val;
 +
-+	/* Disable all lanes (needs to be done one by one, from last to first) */
-+	do {
-+		u32 lane_num = fls(val) - 1;
-+		val &= ~BIT(lane_num);
++			val = FIELD_PREP(PHYD_DP_TX_FORCE_VOLT_SWING_VAL, opts->dp.voltage[i]);
++			val |= FIELD_PREP(PHYD_DP_TX_FORCE_PRE_EMPH_VAL, opts->dp.pre[i]);
 +
-+		ret = regmap_clear_bits(dp_phy->regmap,
-+					pdata->off_dig_glb + regs[DP_PHYD_TX_CTL_0],
-+					FIELD_PREP(PHYD_TX_LN_EN, lane_num));
-+		if (ret)
-+			return ret;
-+	} while (val);
-+
-+	return 0;
-+}
-+
- static int mtk_dp_phy_power_off(struct phy *phy)
- {
- 	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
-@@ -280,6 +315,12 @@ static int mtk_dp_phy_power_off(struct phy *phy)
- 	if (ret)
- 		return ret;
- 
-+	ret = mtk_dp_phy_disable_all_lanes(dp_phy);
-+	if (ret) {
-+		dev_err(dp_phy->dev, "Could not disable lanes for poweroff!\n");
-+		return ret;
++			regmap_update_bits(dp_phy->regmap, off_dig_lane + reg_drv_force,
++					   PHYD_DP_TX_FORCE_VOLT_SWING_VAL |
++					   PHYD_DP_TX_FORCE_PRE_EMPH_VAL,
++					   val);
++		}
 +	}
 +
- 	return 0;
- }
- 
-@@ -288,6 +329,7 @@ static int mtk_dp_phy_reset(struct phy *phy)
+ 	regmap_update_bits(dp_phy->regmap,
+ 			   pdata->off_dig_glb + pdata->regs_dig_glb[DP_PHYD_PLL_CTL_1],
+ 			   TPLL_SSC_EN, opts->dp.ssc ? TPLL_SSC_EN : 0);
+@@ -329,7 +358,8 @@ static int mtk_dp_phy_reset(struct phy *phy)
  	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
  	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
  	const u32 reg_rst = pdata->regs_dig_glb[DP_PHYD_SW_RST];
-+	int ret;
+-	int ret;
++	const u32 reg_drv_force = pdata->regs_dig_lane[DP_PHYD_LAN_DRIVING_FORCE];
++	int i, ret;
  
  	/* Clearing bits sets reset state */
  	regmap_clear_bits(dp_phy->regmap, pdata->off_dig_glb + reg_rst, DP_GLB_SW_RST_PHYD);
-@@ -298,6 +340,11 @@ static int mtk_dp_phy_reset(struct phy *phy)
- 	/* Setting bits means go out of reset */
- 	regmap_set_bits(dp_phy->regmap, pdata->off_dig_glb + reg_rst, DP_GLB_SW_RST_PHYD);
+@@ -345,6 +375,15 @@ static int mtk_dp_phy_reset(struct phy *phy)
+ 	if (ret)
+ 		dev_err(dp_phy->dev, "Could not disable lanes during reset!\n");
  
-+	/* Disable all lanes and continue reset even if this fails, but notify */
-+	ret = mtk_dp_phy_disable_all_lanes(dp_phy);
-+	if (ret)
-+		dev_err(dp_phy->dev, "Could not disable lanes during reset!\n");
++	/* Reset Voltage Swing and Preemphasis values */
++	for (i = 0; i < MTK_DP_PHY_MAX_LANES; i++) {
++		const u32 off_dig_lane = pdata->off_dig_lane[i];
++
++		regmap_clear_bits(dp_phy->regmap, off_dig_lane + reg_drv_force,
++				   PHYD_DP_TX_FORCE_VOLT_SWING_VAL |
++				   PHYD_DP_TX_FORCE_PRE_EMPH_VAL);
++	}
 +
  	return 0;
  }
