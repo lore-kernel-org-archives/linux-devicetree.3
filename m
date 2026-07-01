@@ -1,148 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA9F2D0C89;
-	Wed,  1 Jul 2026 14:37:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF78834C140;
+	Wed,  1 Jul 2026 14:38:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782916662; cv=none; b=gSA4SxBLSichtR0hhUXmSfETPUXq1TCyowgfwliYJjO0gxgHFdSEH4ZJ4LNJlUXrWq/aquLbn07EzNp+DpiYuB3ivBZjRijYheNk+Kaifizsw9Cxbb6xox0WzkywHyyc+CKh9X1pmAKILe4zTdL2hFEFOhnISbh42J7LDLzWbCo=
+	t=1782916732; cv=none; b=DCXi2Ry/BTrCfqSJ3cGS3PwYJNPxyOAugbb86tuKiB8/0eI0dhj7E7fNZqJ1XukFmoIPJYHUHBKci5Z8oIK/vQSA6UmI7pvL83GeuJeUk6zJnRMp1Ldiwo8wZMgj2vuxmIbN7RoNtQyK8W36YfNfvrGr79d93K6ypeAaNWAxeEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782916662; c=relaxed/simple;
-	bh=q7YnJoFgZYK136rRY4DZuAs3QWIZAxCw6TpuCeVhNgc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=j2zF0OCUpBm/RUNJtmh6E78e9/CnYfby1kiA5KgOyV/PenLrcYesJxWtukz35dbgLGQolnR7nGJtgtlgNspDL622c2KEpiU0mIZr7uzvVROgLe6S054xPwRE/2xmzAzNxUtcvIGGwpXtJJRVYySPGHZszwut2S4AiwsUDdbH9ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lb0CSpzB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782916732; c=relaxed/simple;
+	bh=yzRKbSUVbKg2djvPtyoy9fBJPb9029uBSoNo3kArwRU=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=Vu6YvuHa8O6gCSi/fsh9xlexH8zietNAWiJnm6l3xFPp1p2hvCNtqyLZxFZ5IkK/3W6AHDK/GSnGMLs5PoFshxyr/LD4iLcAREh8xXYd/eyE+jTHiLio5k8Q0JZJew4fYfH6GrgWae/O859D13VqyS54CMTq49fUzG8YMFCwc+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ePjixhTP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lb0CSpzB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DF3F1F00A3A;
-	Wed,  1 Jul 2026 14:37:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ePjixhTP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34EC81F000E9;
+	Wed,  1 Jul 2026 14:38:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782916661;
-	bh=ih8VI3akqdV46XsDgt7LH8Bzy+tTYmREoOv79UKcJro=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Lb0CSpzBNMtYKCOss+E8Zo7rqOU/BCoor3uQEMe5WmqY2V1FabHF1Hm5ivjAoHwUZ
-	 n4RaO0/1Jw6OnT0c5FKuDuabNnLydlJw/7DIJA52HG53hCLHgi49zRdwQ5a2WpE3M3
-	 Ti2CbcOTrJniLipt9H92uU7Aqd17PCtxO5w2koBvHdAsrlEycJZDHQRwuoJT8ko6ao
-	 FrO8Br5+oluj8TF7yq2V9lUbBYs1ajdZ7QeGFqTAiSx59EQ4a5XcaoZk+ATT52QtzQ
-	 xVYi1dWUcWEBOwOe6OrpvX/Tb5h2hkCEQRdUP1E/J5OHmw1JndmU5UQlOEfGb4tg9E
-	 E4r6QX9OligyQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wew4I-00000000MEg-3kwO;
-	Wed, 01 Jul 2026 14:37:38 +0000
-Date: Wed, 01 Jul 2026 15:37:38 +0100
-Message-ID: <86tsqipyh9.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: linux-arm-kernel@lists.infradead.org,	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,	devicetree@vger.kernel.org,
-	"linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,	Lorenzo
- Pieralisi <lpieralisi@kernel.org>,	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,	Catalin Marinas
- <catalin.marinas@arm.com>,	Will Deacon <will@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,	Mark Rutland
- <mark.rutland@arm.com>,	Daniel Lezcano <daniel.lezcano@kernel.org>,	Thomas
- Gleixner <tglx@kernel.org>,	Rob Herring <robh@kernel.org>,	Krzysztof
- Kozlowski <krzk+dt@kernel.org>,	Conor Dooley <conor+dt@kernel.org>,	Chen-Yu
- Tsai <wens@kernel.org>,	Jernej Skrabec <jernej.skrabec@gmail.com>,	Samuel
- Holland <samuel@sholland.org>,	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,	Ge Gordon
- <gordon.ge@bst.ai>,	BST Linux Kernel Upstream Group
- <bst-upstream@bstai.top>,	Jesper Nilsson <jesper.nilsson@axis.com>,	Lars
- Persson <lars.persson@axis.com>,	Alim Akhtar <alim.akhtar@samsung.com>,
-	Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,	Pengutronix Kernel Team
- <kernel@pengutronix.de>,	Fabio Estevam <festevam@gmail.com>,	Dinh Nguyen
- <dinguyen@kernel.org>,	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Thierry Reding <thierry.reding@kernel.org>,	Bjorn Andersson
- <andersson@kernel.org>,	Konrad Dybcio <konradybcio@kernel.org>,	Andreas
- =?UTF-8?B?RsOkcmJlcg==?= <afaerber@suse.de>,	=?UTF-8?B?Ill1LUNodW4gTGlu?=
- =?UTF-8?B?IFvmnpfnpZDlkJtdIg==?= <eleanor.lin@realtek.com>,	Heiko Stuebner
- <heiko@sntech.de>,	Shawn Lin <shawn.lin@rock-chips.com>,	Orson Zhai
- <orsonzhai@gmail.com>,	Baolin Wang <baolin.wang@linux.alibaba.com>,	Michal
- Simek <michal.simek@amd.com>
-Subject: Re: [PATCH v3 12/17] arm64: dts: nvidia: Add EL2 virtual timer interrupt
-In-Reply-To: <00da7fd4-68a4-4a92-b4a1-600b5a2b72f4@nvidia.com>
-References: <20260523140242.586031-1-maz@kernel.org>
-	<20260523140242.586031-13-maz@kernel.org>
-	<3c714ae3-8f62-4785-9f61-ba9899fd70d8@nvidia.com>
-	<86wlvgpacz.wl-maz@kernel.org>
-	<00da7fd4-68a4-4a92-b4a1-600b5a2b72f4@nvidia.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1782916731;
+	bh=DoAPIKHlQF01BQdUW983/8p5nb/vO5Fh5kJQWUG/dxQ=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=ePjixhTP3XZgrzhZdeHkU+VCPkYuzgpl2DzTg6EuV5D7zoGrCxE0H4loNSi3lbqPB
+	 MNpNB+p5gzVEaG47iCyZ4SXEN3tuV4PQXnjqaJqWIoWDU+CZVLWoKOQAqOeyVREenz
+	 0znKSxkVXVcTPQm9s0hgMVON/QEjwg6v+AEr+0fusTrOfe/Uxlg61jXskQP/77qw5R
+	 4MD7BSMdgHs0ENBjVjyKjrkouPznJtTI3qYypogcwNTr1a+0ZAzLGizfVYHGO5NT/G
+	 mKHNPd3iTm80lkGSARlqEXZSJoWXuynP0L5f9lodG2UxDokboZhdPa57EWFTKPbzU3
+	 0jk3Ld++wS1Ww==
+Date: Wed, 01 Jul 2026 09:38:50 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: jonathanh@nvidia.com, linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, lpieralisi@kernel.org, guohanjun@huawei.com, sudeep.holla@kernel.org, catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org, mark.rutland@arm.com, daniel.lezcano@kernel.org, tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, gordon.ge@bst.ai, bst-upstream@bstai.top, jesper.nilsson@axis.com, lars.persson@axis.com, alim.akhtar@samsung.com, ivo.ivanov.ivanov1@gmail.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, dinguyen@kernel.org, matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, thierry.reding@kernel.org, andersson@kernel.org, konradybcio@k
- ernel.org, afaerber@suse.de, eleanor.lin@realtek.com, heiko@sntech.de, shawn.lin@rock-chips.com, orsonzhai@gmail.com, baolin.wang@linux.alibaba.com, michal.simek@amd.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, 
+ p.zabel@pengutronix.de, linux-mediatek@lists.infradead.org, 
+ vkoul@kernel.org, chunfeng.yun@mediatek.com, linux-phy@lists.infradead.org, 
+ matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org, 
+ kernel@collabora.com, linux-kernel@vger.kernel.org, 
+ neil.armstrong@linaro.org, justin.yeh@mediatek.com, krzk+dt@kernel.org, 
+ devicetree@vger.kernel.org, chunkuang.hu@kernel.org
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260701122008.19509-2-angelogioacchino.delregno@collabora.com>
+References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
+ <20260701122008.19509-2-angelogioacchino.delregno@collabora.com>
+Message-Id: <178291673047.19807.6106947084460440701.robh@kernel.org>
+Subject: Re: [PATCH 01/12] dt-bindings: phy: Document MT8195 and MT8196
+ DisplayPort PHYs
 
-On Tue, 30 Jun 2026 13:09:20 +0100,
-Jon Hunter <jonathanh@nvidia.com> wrote:
-> 
-> Hi Marc,
-> 
-> On 30/06/2026 11:54, Marc Zyngier wrote:
-> 
-> ...
-> 
-> >> Sorry for the delay. I gave this a test because I observed the warning
-> >> that was added on the Tegra194 and Tegra234 platforms. This change
-> >> fixes the warning for Tegra234, but on Tegra194 the platforms I tested
-> >> hang on boot. It appears to be similar to the issue that Marek saw on
-> >> his platforms and so I am wondering if Tegra194 also doesn't have this
-> >> wired up?
-> > 
-> > I think you are in a better position than me to find out. It also
-> > could be a firmware issue not making the PPI a Group-1 interrupt, and
-> > therefore not allow Linux to configure the interrupt.
-> 
-> Yes absolutely. I will see what I can find out.
-> 
-> >> Was there any resolution to the issue reported by Marek?
-> >> 
-> >> FYI, the Tegra194 SoC has the 'NVIDIA Carmel ARM v8.2' CPUs [0].
-> > 
-> > There is no resolution so far. Florian was going to check what the
-> > deal is with the Broadcom-related systems, but hasn't come back with
-> > an answer yet.
-> > 
-> > The possibilities are as follows:
-> > 
-> > - remove the interrupt for the EL2 virtual timer and live with the
-> >    warning
-> > 
-> > - add a patch such as [1], which should document the reason why this
-> >    is now working (and fallback to the EL2 physical timer)
-> > 
-> > I'm happy either way, as long as we know exactly what we are dealing
-> > with on each affected platform.
-> 
-> I would like to get the warning fixed for Tegra234. Do you want to
-> split that part out of your patch and then I can test and we can at
-> least fix for that device while I see whats up with Tegra194?
 
-Getting the warning fixed for Tegra234 is probably limited to fixing
-the DT, Feel free to lift that from my original patch and slap your
-name on it.
+On Wed, 01 Jul 2026 14:19:57 +0200, AngeloGioacchino Del Regno wrote:
+> This adds bindings for the DisplayPort and Embedded DisplayPort
+> PHYs found in the MediaTek MT8195 SoC (and variants of) and for
+> the Embedded DisplayPort found in the MT8196 SoC (and variants).
+> 
+> This PHY supports varying impedance calibrations for the various
+> signals to reach an optimal EYE signal pattern for any specific
+> board(s), especially useful for very high bitrates such as HBR3
+> and higher, depending on board design.
+> 
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  .../bindings/phy/mediatek,mt8195-dp-phy.yaml  | 77 +++++++++++++++++++
+>  1 file changed, 77 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
+> 
 
-Also consider fixing most of the PPI interrupt specifiers while you're
-at it, because aside from the PMU, they are all awfully wrong.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Thanks,
+yamllint warnings/errors:
 
-	M.
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.example.dtb: phy@1c500000 (mediatek,mt8195-dp-phy): reg: [[0, 475004928], [0, 8192]] is too long
+	from schema $id: http://devicetree.org/schemas/phy/mediatek,mt8195-dp-phy.yaml
 
--- 
-Without deviation from the norm, progress is not possible.
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260701122008.19509-2-angelogioacchino.delregno@collabora.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
