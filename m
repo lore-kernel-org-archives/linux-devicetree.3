@@ -1,188 +1,215 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B19481679
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 13:25:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B2F481FBC
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 13:25:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782912345; cv=none; b=Z7H0MyLm3PnKUsGIYajLGGyeda5jda+6sUthOJ8p1gcHOdSZTiLFJ1G1ehZ6ixUdr0AINWAad8R+GzGupXIISWb864zwW/22gAZD8nM57mfjru8kuZm6+p9SzzDkKIm5gaslBHufNzBU7ZTl7TiuvMxJS+5PiNle5746Jn9dtuw=
+	t=1782912353; cv=none; b=maHZhln20NKo/FfQhUMW9Q2VgsZWP+4H/ZfyrXPDPKcQYtE2baYgoxbWTWm387NgPxTJQoFw+iqEOWtdhANRTkXWUbKSne5BDxHuKm7Q20hYNRabqZ8XSjrNULp0qt4DT+clKUokPvlceTIkJyzGweLoL93ONqHmYWRCuGeUKUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782912345; c=relaxed/simple;
-	bh=F7xPlX5Up0dNlN3O/LVJt1+uOSHUlkhvPzH88oAA5BY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NWc+ydAkpYNB0NpnoUa161F2fjglUwmtnnt6CizaLQbYDQ/X61jf1ZzoNEWoSNfOmN0E/oLP85KxxnmZBpyR95JiiV92ViLbadSb8CDL5v2XUoDCDAhI/M1ib34VSyRxE8x/ukiu0/5bUz1Ajq10NEnVqSiInOVOnGbd1DIfrGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QC4cQ4Ma; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jqx8YrXY; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782912353; c=relaxed/simple;
+	bh=dl02RFf8AY28wqYtWzRYHJ20QelKfp7SUPcU3Oa8w40=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WzJQlRNvupU3cp1hyO/KjEK60iCU1uapVZH2DojUxezPvR3kFhiIiL8vCKTQX1ARG2phlXOXnHcgFFCPXJgEv/qGLg68ONmZZGizrGG055L2vOApEV4NeYZ4I4vaDU3MhRCsltDPGz6ZHp1vPvFKKWvj0nYQ2HTsqoayAL406Uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=KOnh0Hog; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QC4cQ4Ma";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jqx8YrXY"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 661A8kLu762819
-	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 13:25:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=OEHtM9VnNMryK1PFmC2g6kaA
-	Km+UjqsYWUcgciyfgN0=; b=QC4cQ4MaRmKJKpK06C50ldxbl0RezQ1k/DwY82s0
-	V8jZjd5cSAbWLUuKj8J3MMxNzRRyIJbDUYim/rMImHN8CXwn/e3nsBHGZaj6uHMp
-	S2ypriDeZoVk+WbrPT1yKyq+zUxhdnst4yd+Vy1jkZI8pyHsSbVcxgmWlCzG68sl
-	vXyk3PEoMIQy+XsKR+n8Z2WqmP5kl9ab64Mk7DR8Pk7LhVPLuVwfOJxr7BUjqItR
-	QiOJT7bWklTlC6ND5HXyZ9fVvSFbvEJqDcrkmYTMsP0yXYhsZDlRuXJM4NgXkp1v
-	WSjCMupU8uJs+GxFAjVTIRbqHT4B1rhJRS6taVnQMnqmAQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4jktcc7p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 13:25:43 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92b4b575561so90559385a.1
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 06:25:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782912343; x=1783517143; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=OEHtM9VnNMryK1PFmC2g6kaAKm+UjqsYWUcgciyfgN0=;
-        b=jqx8YrXYQVFC+nuSN8qgd/TseIW3t+X9/+cUOY18EnF8LmnowilP4hB7uylRDCgIh3
-         iOQjK31XI+D1AuFdJhcK1qWTzPIkIf+nuk9ZmMy08iMoIytDBTBlPORA39zWHF6pH0Zr
-         FiG6jAXvxx4fEcvWowLAAIGVZ+kNvmO/FCtepS3brNjmBBG3uqBALgQWt1B/TmFGf5me
-         Shy7yHEZWTM17a88+52w1/i8u8dZX4DH3D7Vu5psLw5t20m2c/WRWG3b18H7HpNpwwX1
-         ezFdSZr+jiP5bNP+NQFQAQIFEyntK1O9ERmSk+d9L8GDYI3oUskJlOyf6HM+jMykrNR7
-         QihA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782912343; x=1783517143;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=OEHtM9VnNMryK1PFmC2g6kaAKm+UjqsYWUcgciyfgN0=;
-        b=bVWMqVtsClGg3Mg1zp7hAeAWzEYOLWh5HXh7CDXRhwnrc6k+qd9ScjHNROeMXxoPPg
-         svXkljmaNLpzmQ6JxKrJY5KrIIxFvU2RCdXo/HbxwCFA986yau1KJMiDW/eoUT3Nt+OD
-         XDwO7rjqyK3imJKSVD829XPjToZV2+uDxcHtVgXRRgR1mj2qphKneLvH8PHNERi1CNl8
-         U9LPdNnlsPCQmI2X/Tqd9HshNFU0b6Tvxc8yznNyhkbxbsLOMCBLdQT+qeqMdqy7ylwf
-         Y07PCxotWx+Im0iQLEBfXlZRR+4h0A29VlOEANo40dK2EIjIzSAHp3Fga1ZyK+2iER5F
-         u7rA==
-X-Forwarded-Encrypted: i=1; AFNElJ8Am8+73vXhx/T61lGYEBYxp3KedIUiQJNFEUJfyH9yQqI6+2YT2e3h/i5pCzkZdaraBa7LtRfspw0S@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxwdf+Yga7F5+rgHiBP5VwwBVa0NdYeMVLdbAJZi0MP6PUCQee/
-	oASlCNkkYPG5byczfVLW1Mu1vPEucku2Oy63kF1KTEoDzJ/QcZghdF0QMZxfk7s+F7uBMjiYwvE
-	0FuOnFZEYY6kAtf6irWO98z0dpfoGuVBfoex9wHsECPCN88Yi/tTgpPnKrryIaX7D
-X-Gm-Gg: AfdE7cm6nTlJcnclGQVBSDLrcD+quMvUgLvXW+EL4ooEGK6UdSDemrRdacYEvs8jdVn
-	Zt4QdGRbV8Y6BSHTaTzQxVkLAVlWoFqPnEkhJXlIh/axrREupp9HTxb4sE7DJKHspn544JKm3uc
-	Mgv2ZMBjQddpqAmRsxCpsVg9s/kTi66JS12qMN1yDLBYyUHviCM3F8RRSWc+AU5GgqHu1JTMjUZ
-	YWiOq8iXLKAsrTWAQSjJtDhbAHnVCQ7Qx3+oFQFSs8q+b34JpFo1gXVm9Wnzkjo7O2rckVkUvAD
-	wavuohQ5RYjksK2ZQ9s3ubewzXDzBKZmj0d7sIhOrcV2bRVD39Tqgl7WUs/vlJZU/Vu3FWCSivc
-	ul3ln0SYExQ6EOZ82leioB3+CjM7neXzT2ziroAjgPOWKPPN5cN3H8r6TdP2g1fGSh5JQak+MA+
-	K0Jnk35bWRtVXf7u27NAEEwpyU
-X-Received: by 2002:a05:620a:17a5:b0:92e:5949:3563 with SMTP id af79cd13be357-92e696e9158mr824508385a.15.1782912342663;
-        Wed, 01 Jul 2026 06:25:42 -0700 (PDT)
-X-Received: by 2002:a05:620a:17a5:b0:92e:5949:3563 with SMTP id af79cd13be357-92e696e9158mr824502985a.15.1782912342141;
-        Wed, 01 Jul 2026 06:25:42 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39b2f70e51dsm4422291fa.16.2026.07.01.06.25.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 06:25:40 -0700 (PDT)
-Date: Wed, 1 Jul 2026 16:25:39 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-Subject: Re: [PATCH v5 11/16] media: iris: update buffer requirements based
- on received info
-Message-ID: <cxlhuzzvst3joilbhglxogx5hedqx6esbo3j4o3qzkeevqkrt2@47aaykt6z7yc>
-References: <20260616-iris-ar50lt-v5-0-583b42770b6a@oss.qualcomm.com>
- <20260616-iris-ar50lt-v5-11-583b42770b6a@oss.qualcomm.com>
- <6f7622c5-2bfe-49f1-ac05-81e33c8bd66a@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="KOnh0Hog"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id E2203240101
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 15:25:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+	t=1782912342; bh=VxEq/S494Z5PbRo663SR5Dd2jfwNSj1QIO3Pt6Fy5pw=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=KOnh0HogLDcANJ6lTCZfT7PJNzL/xDxBIIxhHtWtTpjlVTRL3BSQa8/mR9dh56ScP
+	 Vzxz+O2fbLCXciVvbu10ICs0WCehoslUc5TXR/B9if4cK7NuW/N3gzSdqDwaKfYzKY
+	 pAhvTmKkJxERZIXiBmuvkMXu77YYauqziGDnZhBj1rsM8PZywe9lz21y1mJwml7BEf
+	 ptG0V1t/EWlQ17LPHAqnKBQXXzCVq9r1eXoGn9mN3fq+vPK5XJjpP0axyecez+1q2V
+	 ZnJjyXOtL+PyiggtHilWeUdTz5vMrYurXZA3EnxxNGWv0oZHZeoRBdGqusMaBMC4b+
+	 aTvuZWSZUDWBg==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4gr13m2Pn5z6ty8;
+	Wed,  1 Jul 2026 15:25:40 +0200 (CEST)
+Message-ID: <45e8157be53c3d8827fcccece7f706968bc056d3.camel@posteo.de>
+Subject: Re: [PATCH 1/3] dt-bindings: rtc: Add sii,wakealarm-output-pin
+ property for S35390A
+From: Markus Probst <markus.probst@posteo.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring
+	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	 <conor+dt@kernel.org>, Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
+	 <uwe@kleine-koenig.org>, Andrew Lunn <andrew@lunn.ch>, Gregory Clement
+	 <gregory.clement@bootlin.com>, Sebastian Hesselbarth
+	 <sebastian.hesselbarth@gmail.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Wed, 01 Jul 2026 13:25:41 +0000
+In-Reply-To: <20260701-bronze-jaguar-of-perfection-028bac@quoll>
+References: <20260630-rtc_s35390a_int1-v1-0-1b2239e16be2@posteo.de>
+	 <20260630-rtc_s35390a_int1-v1-1-1b2239e16be2@posteo.de>
+	 <20260701-bronze-jaguar-of-perfection-028bac@quoll>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-Y0mVF0q2Sx3qDWBOxLMy"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6f7622c5-2bfe-49f1-ac05-81e33c8bd66a@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDE0MCBTYWx0ZWRfX2SUH+ANeW8Yo
- RWfVkWo8K+27DFJFEcSNwfxkzjfYDce+jOB/sO27FGy89UuccQRUWgi9fgTPIzCKgNfxBDCAOo7
- US5cEd5KNvG4gr7fsANxTUzXPqw03jo=
-X-Proofpoint-GUID: Rvfn3KHUKnMYV5ryrVf83uzH0XSaN7_X
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDE0MCBTYWx0ZWRfX31K9AkIG14dY
- pKAmkB3H1l5Ih7mWGngtcJ/tvDlJ7xbVfZQOA/a+pznoGfmTVpcnXhG3ctIBL7JPO2t/EUXkZh2
- pOJ7iogcZGUj19pVdOR1u7VcbGbDvoJUUP69C2uU6Ek2e75ZxrSt/mKIn5ZVcu5PaoREp538eMU
- H2cJVtanw12nzKejHAA4jr4hmipUZ/wxWtz7VxouyhGbPw7rbEoOevlqFKUhkT0Saa+IS4f3m2R
- z1wqOWvkF/pR/k5YeELSM2KJYlfgk2As0j/gCr2gCBmTfR0oH9UYmMKcKKW72l+afv+eUrJ2/8e
- 3IGXbk84YsF1FWS2q1R+BZOy2WSfqJeDg+ni1y7kYOrjFF7BC8SbnXkWq8NWBz9cjCeVdZDiU3P
- XMxKvsT+qwxXnBTjiwUMO68Rg98wvclbts3QPpLkPhpXFfW9KUCFiVRhTMw87bEiQxHKeZ8yc9b
- DYFJSYvQEn+uQqMHAuA==
-X-Authority-Analysis: v=2.4 cv=R+wz39RX c=1 sm=1 tr=0 ts=6a451557 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=3EHR-On4ZTnEfFEao4MA:9 a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: Rvfn3KHUKnMYV5ryrVf83uzH0XSaN7_X
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-01_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 priorityscore=1501 impostorscore=0
- adultscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010140
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-On Wed, Jun 24, 2026 at 01:37:12PM +0530, Vikash Garodia wrote:
-> 
-> On 6/16/2026 5:34 AM, Dmitry Baryshkov wrote:
-> > Upon receiving data for HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS the
-> > driver should update buffer sizes and counts from the received data.
-> > Implement corresponding functionality updating buffers data. This will
-> > be used for upcoming support of AR50Lt platforms with Gen1 firmware.
-> > 
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+--=-Y0mVF0q2Sx3qDWBOxLMy
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2026-07-01 at 09:35 +0200, Krzysztof Kozlowski wrote:
+> On Tue, Jun 30, 2026 at 07:22:21PM +0000, Markus Probst wrote:
+> > Synology NAS devices use the output pin for interrupt signal 1 to wake =
+up
+> > the system.
+> >=20
+> > Move devicetree bindings for sii,s35390a into its own file.
+> > Add sii,wakealarm-output-pin property to enable the use of the output
+> > pin for interrupt signal 1 for the wake alarm, which makes it possible =
+to
+> > set an wake alarm on Synology NAS devices.
+> >=20
+> > Signed-off-by: Markus Probst <markus.probst@posteo.de>
 > > ---
-> >   .../platform/qcom/iris/iris_hfi_gen1_response.c    | 75 +++++++++++++++++++++-
-> >   1 file changed, 74 insertions(+), 1 deletion(-)
-
-> > +static void iris_hfi_gen1_session_property_info(struct iris_inst *inst, void *packet)
-> > +{
-> > +	struct hfi_msg_session_property_info_pkt *pkt = packet;
+> >  .../devicetree/bindings/rtc/sii,s35390a.yaml       | 54 ++++++++++++++=
+++++++++
+> >  .../devicetree/bindings/rtc/trivial-rtc.yaml       |  3 --
+> >  MAINTAINERS                                        |  1 +
+> >  include/dt-bindings/rtc/s35390a.h                  |  9 ++++
+> >  4 files changed, 64 insertions(+), 3 deletions(-)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml b/D=
+ocumentation/devicetree/bindings/rtc/sii,s35390a.yaml
+> > new file mode 100644
+> > index 000000000000..31a578673870
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
+> > @@ -0,0 +1,54 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/rtc/sii,s35390a.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > > +
-> > +	if (!pkt->num_properties) {
-> > +		dev_err(inst->core->dev, "error, no properties\n");
-> > +		goto out;
-> > +	}
+> > +title: S-35390A 2-WIRE REAL-TIME CLOCK
 > > +
-> > +	switch (pkt->property) {
-> > +	case HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS:
-> 
-> If i check the venus message parsing logic, it loops through the packet till
-> it hits the case.
+> > +maintainers:
+> > +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
+>=20
+> This should be someone caring about this hardware.
+He does have the majority of commits on this driver (excluding merge
+commits and commits not exclusive to this driver), although most of
+them are pretty tiny.
 
-It doesn't, see hfi_session_prop_info()
-
-> Here, we are assuming the first packet type, in the pkt to
-> be the property "HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS". There can be
-> multiple properties in the packet, and if
-> "HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS" is not the first one, the usecase
-> would break with incorrect buffer sizes.
-> 
-> > +		iris_hfi_gen1_session_buffer_requirements(inst, pkt->data,
-> > +							  pkt->shdr.hdr.size - sizeof(*pkt));
-> > +		break;
-> > +	default:
-> > +		dev_warn(inst->core->dev, "unknown property id: %x\n", pkt->property);
-> > +	}
+Who would you suggest instead?
+>=20
 > > +
-> > +out:
-> > +	complete(&inst->completion);
-> > +}
+> > +description:
+> > +  The S-35390A is a CMOS 2-wire real-time clock IC which operates with=
+ the
+> > +  very low current consumption in the wide range of operation voltage.
 > > +
-> >   struct iris_hfi_gen1_response_pkt_info {
-> >   	u32 pkt;
-> >   	u32 pkt_sz;
+> > +allOf:
+> > +  - $ref: rtc.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: sii,s35390a
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  sii,wakealarm-output-pin:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    enum: [1, 2]
+> > +    description: |
+> > +      The output pin to wake up the system.
+> > +      Default will use the output pin for interrupt signal 2.
+> > +        <S35390A_OUTPUT_PIN_INT1> : Output pin for interrupt signal 1
+> > +        <S35390A_OUTPUT_PIN_INT2> : Output pin for interrupt signal 2
+>=20
+> Does that mean device generates the interrupts?
+Yes.
 
--- 
-With best wishes
-Dmitry
+Thanks
+- Markus Probst
+
+>=20
+> Best regards,
+> Krzysztof
+
+--=-Y0mVF0q2Sx3qDWBOxLMy
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmpFFT4bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSF9QQAIlTW2RitdXOXXdYqEfk
+gbi0hd5i1sym518x5IFnTKhoNfTK3T1sRGdCwHcYFNq/0irFoR8/1YqVrxgDNFk0
+v/iWAn5C/nRGtEEQZdjvUppCLNuoAI+QRvIt4k5IburQvSvxUPPT8ECBSAiIK4EV
+PP3JRa3iXzkJ8Q1NFnuH6RPvLmy39c83MPyX4z3U8UtZ+HfNLGEs16r7qbVe8P4I
+15WtPSbL9Swc3lSoXkg0qbEXvM1OXFNSlsMxoOb8H6k7/kX0o6lciod+22z94793
+KY7ld20AOGLoKhuYakfVHIl2tvKcv/0wZjc+hF8BvOyx9fTryaqTpHPz1dthJnZh
+6UW02DpAgFoBjlX+lp8ertDYQjLufEHLeL1rOGyGqYpFNpWd86pYTSDSuI6Gr00s
+8i1Rt758ZPOTwCZzqb/dZxnQzMDcttVr/UYxIILxTLNQvYQbAbsgkxW1/wvnokXl
+wNVcxkM/mKYpjGYcv1YC/58VOhCvZpMjNr1GqB9U61Wl72PsWAXJ0bgmOC1bC5mH
+7Z9rqCiPvUMix+u+jqc/O9ULvV3F2vOUVEA4cG0mE8ApIbqaDOvFXiI7pCZlHVq5
+5q2roctL6f0VtHKh0JKNQiac97LYACaEL3gEueC2ZH2FOU2io9/gmSWoAmec3BBz
+keH8uBR9oM7tSDmKPOpSyupZ
+=oQ4z
+-----END PGP SIGNATURE-----
+
+--=-Y0mVF0q2Sx3qDWBOxLMy--
