@@ -1,118 +1,134 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5A63101C2
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 15:53:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A84E416D01;
+	Wed,  1 Jul 2026 15:54:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782921218; cv=none; b=JhKBFQPyGiQfeQbqk0J0Hbe7lhx/6aogYz0VJ48OAIlpEocrAPyi3ms5/o44Qnl+Taqg+R4R6i7VUyP7uR8aJFi+gRNnmGwnphnuoAi2OZnQihk53p2dodhnn4D9ICT9TXOWFBHUEmgFuYoQQVxFAmoExI9PRdhMdr5agLAGabk=
+	t=1782921254; cv=none; b=Cp09jOrbfXRzB4W5Bddfpr63TcfFVIeE329oGd/HPbqk/yRY3w9PinJ1ZkxkspkwyLeMVbsTbXwTbWLsbqjg0ufVKEM0aTuHnS3+hpnpHSXXI+BVFLZtlfe4yMQRLDzHRw7UEsseIuSFhz+RuMlmTTbT4/ZRgI30H9qu7Ec1sVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782921218; c=relaxed/simple;
-	bh=gHoW9k3dTGKJFXX0o0/bJ6XuuZ6pUUQjAI5TE+D+E2Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gRDKKae18XrPI4l+mno7DL/Bi5ifBHI9SGOEOqOkr398LxFqYF/Gd0/Vw2aqkWhg+gltsteFIHYzAHRmNLfG81DTPeiNUdcczqB5/tNK9XmF9PSykQ+2Je0pBQRVqq/GCRMFYs/gOq/RYyxZtkL1ZPofaYQcgKM04UDaU/4sjPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wxv8oyJm; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782921254; c=relaxed/simple;
+	bh=G1qx4lJ/FOReXWbODYP3XMesRUo+qlxSfgomKdm87DA=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=f7zTUP98vzOFo1KFPqQMogXU9/vbSR71GFOOcgYLw+8l3yAa8eXfzQS7OEQdr6i9sqsecVBjmdPl+E3AfAXoza7SLO97G0UEDuFCgLaV0GjfhpxB+c1BUpEEJpyC6RXpIK1oCdEZhNu3c4HgdJsXsqeWQF0nPHcg9qDk99sPZ/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OEOXN1Cb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wxv8oyJm"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4629051c946so623950f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 08:53:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782921216; x=1783526016; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+ci+x4l7rGyX9PL16Opy1ybmCZaX0NHOsnDWtrHzkaw=;
-        b=Wxv8oyJmVfz0kN6BrmtSCL6v3jhFZ+paynrCkQi8oBJhFTR1T1oy5jBS7ttQIP6/VB
-         0e1aZ895pGwYYLdUzX5pRx5lv5E+BsvPAj3wJFHwga8KAymWhXBJlxcQD/D3g7yOL9yM
-         lDWoK/fJUp8egEOB7+TFF6ffk5CaVNZeM/LimdH36h8Yls5MuOHPE9WPX2PobK5yxw6c
-         WlPh/yo3NB8/YoLdMMqVfcM1tDS1mEreIrnE6atb6C1Pe21Wr8sjTXUl/JWPxE43FnJv
-         cstD1RRsx5QNEsMlkybrFHHvN4IZr+RFBwPSjqB+K1/1ZmmM0SZ5y9i5usfg/LuN2O8d
-         RUcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782921216; x=1783526016;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+ci+x4l7rGyX9PL16Opy1ybmCZaX0NHOsnDWtrHzkaw=;
-        b=lvlgKoKD5FG0OqCsrIdho9BXPFJ2+0Pk3pEM2k6MKQVl4483r9i86Ik7zrIa0ruiM7
-         NBc8mh0a8ZYxPOINQDamm92Es6z1j+Els+EAqXnZSEFgTTMT++tLNptCzxe7iaZuWjYj
-         JpJi8IE/k4JXLwA3y382QjGXgcFv3wmwl61x+PtXM9DYKxtK8Q+oEqF7GrEeVHvOQ1KN
-         mlpXHvr+5VIIMd2NoADmYWWJRuhWlhh9QdEmKcxnZ94Tu+GDb1io2WKGYFrhP1/26S5k
-         b38QVOxsU56WUqOXT9l46z6yCLS2lrjutlnC9qrYc/72nOSU9bJ+ASoMLxncmFIBr+5E
-         QjHg==
-X-Forwarded-Encrypted: i=1; AHgh+RpF0TgsoHnlQkmWtg58GKRq5QU8IXwnVXDOoMAqiP6yWaS/VzFQL1DWuu7uRznhkW83wC+1rkWih70D@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw3SnSBm9DWJd4nSUHkrrbf3pFlLed6o4zzag46UjJgm8YDFXGH
-	qUYRmgKhYUr9nMm05V37Gx0uMRrp1ySPYQC1X2JV/II2Jm3FWOiWBr3F
-X-Gm-Gg: AfdE7cnzp/JtDZX1tudiqgqiWEGxMTzOENG4BLs0opSVTUT0AgTvmAdkYgt7eCp9SKT
-	CEb5+r8gI6bSDoAvnW2lad73SXtH50tdxglWKBasARPaW8tZeMwtpl/Cu0YuHg/K5fg0B8j2gBI
-	GszpC1TWP+ZFunvlFBGJA2nz4fzcZdAJVP6tGoOL4ivURdVLxLQ6nHgQna5Rm5ic+t0+jypXH1g
-	LjX5dscZu8pCleddPli1RUhi8AoH8XqIFNyA1Onahj5Bc6K2NapoVH1qPTFLo4+5ABb64Rc4Dmn
-	Q7iHj/Cu/y55i0dTEel6ki/siwLCE6w+Gvj1hPOGnSETkxoAbMQDCul/yLPflBhcVolrKYvGAtB
-	TdpmGJKZY8DYm/hAe9m7X9eAdwEeD9NE5Esj3qvADpZMz/CzzG8sayZf2wL654NHgmotcJ4bFjr
-	iBcemqX7W4sZXDkQCcbPD43hAz+/9rCE2MINF1pebDZ3MQWkduqg9+nBU6BVhXUuV3uMxj5wIvD
-	Ja6pfZ3lvP3phY02YKQ+0QT5Q==
-X-Received: by 2002:a05:6000:61e:b0:473:1e79:87e6 with SMTP id ffacd0b85a97d-477437a9a5fmr3750786f8f.3.1782921215516;
-        Wed, 01 Jul 2026 08:53:35 -0700 (PDT)
-Received: from Lord-Beerus.station (net-93-144-65-248.cust.dsl.teletu.it. [93.144.65.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db3db964sm803715f8f.8.2026.07.01.08.53.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 08:53:35 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Alexander Herfurtner <alexander.h@variscite.com>
-Subject: [PATCH v1 1/1] arm64: dts: imx95-var-dart: wm8904: Add INL1 as DMICDAT1
-Date: Wed,  1 Jul 2026 17:53:08 +0200
-Message-ID: <20260701155308.40612-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OEOXN1Cb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90E71F000E9;
+	Wed,  1 Jul 2026 15:54:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782921253;
+	bh=Day1pHQbKZLb168bI+sP1UZxbLRw56ZZ/BDr3gtOMiQ=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=OEOXN1CbmqbmzOHS4xMU9zz61FwVoCI0s68qSt/fMFnPQAtQDSI9WRjlK+tUTfm7W
+	 YMGFkMn0G8o79DO1GWLJHoAFBmpvbYb7AMyNFQ1CBAOH3lIZ1XdwqwfXztENUdEGOP
+	 VsJ8LHmL5fgC5eFahjw3d+/4fx6zGP30xf5NOjXyx57RHcxnBNqPOqpIcjlEu09pgX
+	 kM2HD76Qskh2xjdNXvo423hw6HGkgGW4VB6wuRzMNJ90GISmxlQfHInTfCe6v9hs0B
+	 S3fk2J2JC82vh8hKsk0tW2YbnNLhgV8eJWG7PcgoKKGbVj8C8+JV1L+g+4CbHU04gr
+	 MuldJFsj5M1IQ==
+Date: Wed, 01 Jul 2026 10:54:12 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Deepak Gupta <debug@rivosinc.com>, sophgo@lists.linux.dev, 
+ Conor Dooley <conor.dooley@microchip.com>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Jonathan Corbet <corbet@lwn.net>, Inochi Amaoto <inochiama@gmail.com>, 
+ kvm@vger.kernel.org, spacemit@lists.linux.dev, 
+ Jesse Taube <jtaubepe@redhat.com>, Atish Patra <atish.patra@linux.dev>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Chen Wang <unicorn_wang@outlook.com>, linux-doc@vger.kernel.org, 
+ Zong Li <zong.li@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Anup Patel <anup@brainfault.org>, 
+ Charlie Jenkins <thecharlesjenkins@gmail.com>, 
+ Andrew Jones <andrew.jones@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-riscv@lists.infradead.org, 
+ Chen Wang <chen.wang@linux.dev>, linux-kselftest@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, Palmer Dabbelt <palmer@dabbelt.com>
+To: Guodong Xu <docular.xu@gmail.com>
+In-Reply-To: <20260701-rva23u64-hwprobe-v2-v5-8-2c61f94a695a@gmail.com>
+References: <20260701-rva23u64-hwprobe-v2-v5-0-2c61f94a695a@gmail.com>
+ <20260701-rva23u64-hwprobe-v2-v5-8-2c61f94a695a@gmail.com>
+Message-Id: <178292125218.626337.4829523300943840761.robh@kernel.org>
+Subject: Re: [PATCH v5 08/17] dt-bindings: riscv: Require block-size for
+ Zicbom, Zicbop, and Zicboz
 
-From: Stefano Radaelli <stefano.r@variscite.com>
 
-On the DART-MX95 platform, INL1/DMICDAT1 is used as the DMIC data line.
+On Wed, 01 Jul 2026 08:52:21 -0400, Guodong Xu wrote:
+> Zicbom, Zicbop, and Zicboz have no default cache block size, so a
+> devicetree that declares one must also provide the matching
+> riscv,cbom/cbop/cboz-block-size property. Make it required so a
+> missing block-size property can be caught by dtbs_check.
+> 
+> Suggested-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
+> ---
+> v5: New patch.
+> ---
+>  .../devicetree/bindings/riscv/extensions.yaml      | 26 ++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+> 
 
-Add the wlf,in1l-as-dmicdat1 property to reflect this configuration.
-This enables the internal MUX to switch between the ADC and DMIC as the
-capture input.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Co-developed-by: Alexander Herfurtner <alexander.h@variscite.com>
-Signed-off-by: Alexander Herfurtner <alexander.h@variscite.com>
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
- arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+yamllint warnings/errors:
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi b/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi
-index a20fadacaa6d..d43270a1d907 100644
---- a/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi
-@@ -158,6 +158,8 @@ wm8904: audio-codec@1a {
- 				   /bits/ 16 <0x04af 0x324b 0x0010 0x050e>;
- 		/* GPIO1 = DMIC_CLK, don't touch others */
- 		wlf,gpio-cfg = <0x0018>, <0xffff>, <0xffff>, <0xffff>;
-+		/* DMIC is connected to IN1L */
-+		wlf,in1l-as-dmicdat1;
- 	};
- };
- 
--- 
-2.47.3
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@0 (riscv): 'riscv,cbom-block-size' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@0 (riscv): 'riscv,cbop-block-size' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@0 (riscv): 'riscv,cboz-block-size' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@0 (riscv): Unevaluated properties are not allowed ('riscv,isa' was unexpected)
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@1 (riscv): 'riscv,cbom-block-size' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@1 (riscv): 'riscv,cbop-block-size' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@1 (riscv): 'riscv,cboz-block-size' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@1 (riscv): Unevaluated properties are not allowed ('riscv,isa' was unexpected)
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@10 (riscv): 'riscv,cbom-block-size' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@10 (riscv): 'riscv,cbop-block-size' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@10 (riscv): 'riscv,cboz-block-size' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@10 (riscv): Unevaluated properties are not allowed ('riscv,isa' was unexpected)
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@11 (riscv): 'riscv,cbom-block-size' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@11 (riscv): 'riscv,cbop-block-size' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@11 (riscv): 'riscv,cboz-block-size' is a required property
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/cpu/idle-states.example.dtb: cpu@11 (riscv): Unevaluated properties are not allowed ('riscv,isa' was unexpected)
+	from schema $id: http://devicetree.org/schemas/riscv/cpus.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260701-rva23u64-hwprobe-v2-v5-8-2c61f94a695a@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
