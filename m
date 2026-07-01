@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B01C394464
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 06:52:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B242394464
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 06:52:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782888748; cv=none; b=m3uAOdBKh/i485s0a2Rq7BpImcn6qsj8A6wKW288QeGxhiuqewMSNv7Sp+s1mSjLUPSLKpLIuzLPMgx2KvlXyJ+AUFBPRlhOknfzdzENzEW1jdzJ9fg6jMpvtUI8VqO0Ou9SxntKixCcWm9dXRssc4kp9cVdcTeN1oB5BMEWz38=
+	t=1782888760; cv=none; b=lNSg6R7PDfNCn/Z8DXagbnuOqpOOOtl7e1fTFCIfvQuhANKgHOsMgGfnwy6NdKbe3QrW5viXFcvLsColFE4NKno4SHB7ooecO+lBXINhynJchxaM1Jlvdnm0RcBcj8fIB8vSugTM4iFOVyn9qQHL/0RoCRgZbH/pzdmzrq4Zdmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782888748; c=relaxed/simple;
-	bh=X1CjqdGyh3qN4GmaY9uFJ273JrzfZ38owoQ6ADu1ti0=;
+	s=arc-20240116; t=1782888760; c=relaxed/simple;
+	bh=cdRJHhhaorlopohfnbweSKw/LsxARRMMD75FKnurig8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Q+baR/sYfk7N3a4cfd6NhUNm/c9ylnQ5Y0qaGtjsWs0qVp/N0ji+oRcnO0Z8TQfL2Q+xInKTZDXQ0yY/Kbw0qTx52LNlWUo7BU/m68rnIIJN/mjdLu/oLT2wOSjpwBUbR4Doy9dbkk8691DEKb7aGxldxHKJkzsuIKm301IVyW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z99ZYzOP; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=b9I+2pvPr4RuPNIFq9NaXF7o4wzjmDtnZ4QOsswlkVTEbTtWSLuKhaGWWDOXDv7AhpxQNahGDYJQImmZKdR7jVLttlqbAHAzyg2tlVc3bT82G4wGLVUoXdNOjnfB4sMuiEefxR95yCyD8lZnYje2X9GXGq/IiobADFw3OxeB3hU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XamqQPcS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z99ZYzOP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7735D1F00A3D;
-	Wed,  1 Jul 2026 06:52:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XamqQPcS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DD671F00A3A;
+	Wed,  1 Jul 2026 06:52:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782888746;
-	bh=Yrd7RfbVXmiusiCIws3v5chow8YghllGfKiaK2hyMII=;
+	s=k20260515; t=1782888758;
+	bh=0ALanpgDRgZ4JRoDVrqVK3LvtFDtWFxJe8hdOk33WU8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z99ZYzOPoDMc2TqrkaGyRX4g5DHASBRPQCQITy5cY3KQ9JG+PwFc7P1dTloAlU3Qf
-	 MI4Ff54k+SP7rX/Wr/poDSQYTnLPJ7zge+6KseSlClqP9MQJskaZj4Ii52Ien1HC/l
-	 z+K0m8NugpfeHcRiAjcf4SgL4jXsjGYaStMlxqCiVWdx8VfNN7opq9Z7sWKks0BFqE
-	 zHgGk/gQ5kU0D5/LG3lFEXjEeSbKQPPONmzWfPmZXJ6nAOI4qhJSgDQSGzKogXRkfC
-	 8YCQGvfZROwZx+P9z5SaQBUEDxh3kf8UTCKCi7CrwD2P71up6qrregZHKbTSkvJu5K
-	 LftOwIHiDzsVg==
+	b=XamqQPcSSeH35t66bBBctofyLWPnC4EzxV8lbPWdsRWu2haUbA+pR5tQ5Ccegzj0B
+	 uKPL8Oh8o7tdeCJ+yFpke8iAnyMeXZFSe5DYiuMvsZ65KsU+JgyfWEQZeOBefMhKJc
+	 OhCL4YfFj1or5v+eXBlqH1hcWhcqXJhaJar5mBUtPTIvxL0AB9T8oiBcRc41o+KCtm
+	 QtFcpLZmmWnLkQiVSGvQOXfAJfkWLI5XIHtGT6gKBoOXyVLmtkvtoYAnu5AQ6bchJ4
+	 1JKqagpMqKL8/0j6RDjdn/TKSm1ZsiY9/ADO7gBOY3KyN3RTX/a2a6YDzXV6CaZ/i2
+	 LGV+MeNtUHM2A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/3] dt-bindings: iio: dac: Add AD5529R
+Subject: Re: [PATCH v5 3/3] iio: dac: Add AD5529R DAC driver support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Janani Sunil" <janani.sunil@analog.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260701-ad5529r-driver-v5-2-ed087900e642@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260701-ad5529r-driver-v5-3-ed087900e642@analog.com>
 References: <20260701-ad5529r-driver-v5-0-ed087900e642@analog.com>
- <20260701-ad5529r-driver-v5-2-ed087900e642@analog.com>
+ <20260701-ad5529r-driver-v5-3-ed087900e642@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 06:52:26 +0000
-Message-Id: <20260701065226.7735D1F00A3D@smtp.kernel.org>
+Date: Wed, 01 Jul 2026 06:52:38 +0000
+Message-Id: <20260701065238.8DD671F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,73 +46,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The Device Tree binding incorrectly aggregates up to four separate=
- physical AD5529R chips into a single logical DT node, misplacing the `spi,=
-device-addr` property into individual IIO channel subnodes and extending th=
-e channel `reg` limit to 63.
+- [High] Channels not specified in the device tree are exposed to userspace=
+ but their hardware range is not explicitly configured.
 --
 
-commit 8170de6b140882817db48df2f479428c10fc9dbc
+commit eb86f7024ceca6fa634016d239f7ccfbf35f6a11
 Author: Janani Sunil <janani.sunil@analog.com>
+Date:   Wed Jul 1 06:40:41 2026 +0000
 
-dt-bindings: iio: dac: Add AD5529R
+iio: dac: Add AD5529R DAC driver support
 
-This commit adds Devicetree bindings for the Analog Devices AD5529R, a
-16-channel 12/16-bit high voltage DAC. It includes properties for
-power supplies, PWM, GPIOs, and channel configurations.
+This commit adds support for the Analog Devices AD5529R 16-channel, 12/16-b=
+it
+Digital to Analog Converter. The device communicates over SPI and supports
+per-channel output range configuration.
 
-> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml b=
-/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
+> diff --git a/drivers/iio/dac/ad5529r.c b/drivers/iio/dac/ad5529r.c
 > new file mode 100644
-> index 0000000000000..97075b1c919d1
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
+> +++ b/drivers/iio/dac/ad5529r.c
 [ ... ]
-> +patternProperties:
-> +  "^channel@([0-9a-f]{1,2})$":
-> +    type: object
-> +    description: Child nodes for individual channel configuration
+> +static int ad5529r_parse_channel_ranges(struct device *dev,
+> +					struct ad5529r_state *st)
+> +{
+> +	s32 vals[2];
+> +	int ret, range_idx;
+> +	u32 ch;
 > +
-> +    properties:
-> +      reg:
-> +        description: Channel number.
-> +        minimum: 0
-> +        maximum: 63
+> +	device_for_each_child_node_scoped(dev, child) {
+> +		ret =3D fwnode_property_read_u32(child, "reg", &ch);
+> +		if (ret)
+[ ... ]
+> +		st->output_range_idx[ch] =3D range_idx;
+> +		ret =3D regmap_write(st->regmap_16bit,
+> +				   AD5529R_REG_OUT_RANGE(ch), range_idx);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to configure range for ch %u\n",
+> +					     ch);
+> +	}
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static int ad5529r_probe(struct spi_device *spi)
+> +{
+[ ... ]
+> +	ret =3D ad5529r_parse_channel_ranges(dev, st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	indio_dev->name =3D st->model_data->model_name;
+> +	indio_dev->info =3D &ad5529r_info;
+> +	indio_dev->modes =3D INDIO_DIRECT_MODE;
+> +	indio_dev->channels =3D st->model_data->channels;
+> +	indio_dev->num_channels =3D st->model_data->num_channels;
 
 [Severity: High]
-Does this topology correctly model the hardware? The AD5529R is a 16-channel
-DAC, but setting the maximum to 63 implies flattening up to four separate
-physical chips into a single logical Device Tree node.
+If a channel is omitted from the device tree during
+ad5529r_parse_channel_ranges(), will it remain uninitialized in hardware
+while still being unconditionally exposed to userspace here?
 
-By aggregating multiple chips into a single node, they are forced to share a
-single reset-gpios, clear-gpios, and interrupts definition. If a board wires
-these physical pins to different SoC GPIOs or interrupts for each chip, it
-would be structurally impossible to describe that hardware using this bindi=
-ng.
+Since ad5529r_parse_channel_ranges() only configures the output range
+registers for channels explicitly defined in the device tree child nodes,
+unlisted channels will retain whatever state the hardware bootloader or res=
+et
+left them in.
+
+The software state for these unlisted channels in st->output_range_idx
+defaults to 0 (AD5529R_RANGE_0V_5V). Could this discrepancy cause unexpected
+high-voltage outputs if userspace writes to these unconfigured hardware
+channels?
 
 > +
-> +      spi,device-addr:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1, 2, 3]
-> +        description:
-> +          Device address selected by the ID0 and ID1 pins. Up to four AD=
-5529R
-> +          devices can share a single SPI chip select; each device respon=
-ds only
-> +          to transfers whose address bits [13:12] match its configured a=
-ddress.
-
-[Severity: High]
-Should spi,device-addr be defined inside the channel subnode scope?
-
-Since this property represents the physical ID0 and ID1 pins on the chip it=
-self,
-placing it in every single channel subnode seems semantically incorrect and
-redundant. Should the child nodes represent the physical chips (allowing
-per-chip physical properties like spi,device-addr and reset-gpios) rather t=
-han
-flattening all channels across chips into one level?
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-ad5529r-dr=
-iver-v5-0-ed087900e642@analog.com?part=3D2
+iver-v5-0-ed087900e642@analog.com?part=3D3
