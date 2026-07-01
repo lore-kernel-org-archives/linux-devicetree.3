@@ -1,271 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E98531159C
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 14:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78A93446AF
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 14:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782915277; cv=none; b=K8VrOZaN/QpSuvEDAEjKj4F9OVTjuBb+l43LFAv6tBQf3wMi6PEfLQANNELO60VC77HCmoKeFyy2Fhw6hjQ+er7Fonzwb2xzcaXhMcjQlXd7PgJfP3FSmAy58PdwTgAblQxByj8dsoR6kb0tWq2MXuRraNk+6NPa2oNCpVkXdBU=
+	t=1782915570; cv=none; b=cDGFgBcPVExzl81Yn0KTFeYD3eVlBBM87PfSdTimQW+h6eBldgC+jknKkwkRaNBtuq415KxKsMX9b4xAYLM1hrMt4dOO++21+71H4pAZsonCLVVfKPhdFVHnXFiMPCTboFjsfTOvo4EdMLyuB999Vfd1M2gi/mUrmqZlqKBywKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782915277; c=relaxed/simple;
-	bh=u2s+oqKRyhdPfqsTDFcgCUAohKm8o9KV5WUohUD0hFg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=o8hAgoz8RtPq0ya9HO4tjgST+Lcl2M4NQSBw9VkVbQpB2lvdKGRz0YEZ+dxNGorw4Q8RaKdaYhjIfjD8FSRO825+C+BQ49Q53t2d8Xj4xp5lvya5S97TQby9KyopnqjrAgLZG02s01y9vUQeWrVx2u1Tbb15iyYQuxk9jtNtk+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UzkhlMxM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782915570; c=relaxed/simple;
+	bh=vH8nvZeHSmN2/0es/LDZtMNIDHkJrInk6Hj1SdBcrE4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hBzaU/QlAlc9eVMBA8QjIUjD5F0Uo3mdITwYyeQE5/2CUiq8t6+Je+qey6hL91bnJkypmVrTW9hLHX59FAsKPCY3iWHBGSUjFNoiIm7nVLscgHwDj/Y/ozX9zMhiWm3rnn97E2IQD2DnksV6mL/kkGQ9X3l7uo5sQRZpjIuFpgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lwx6xUrp; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UzkhlMxM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E93DD1F000E9;
-	Wed,  1 Jul 2026 14:14:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782915276;
-	bh=wRK4K42U4ia6LiMedFMH1b/P2RZCArwmzGOfAG49ZAY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UzkhlMxMR8rRlAWSnxiVrobwmDjTz2c0HBjzxoBkfEjWzTSKXHW97IknI0V9Zt1A6
-	 MTU1LO3gwa/Z/tRE75UGnQJp19Qw+3KiVjo5mnl6MKXT2kxs51zdwrrHcR0wQSRaOf
-	 ja5hbUU/4S0B8mV816VIaJs6QwpzOstVOY8fs4dU01On3uOxDzLOWcP26ota0+QX5D
-	 BZhFNYV4JPVQvvACwM5/26f82B6jSkytL/iGJd1C/B2CA3pjH3HihzoswYSJnDCDsu
-	 r3+bdz74Nap28JhfWUuObbqcw7+rk8K0KiXVLABTi7mCXrq3XSq/psdqcNkcMVBdaD
-	 o5wruCoXJsAZA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] ASoC: codecs: add Qualcomm WSA885X codec driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Prasad Kumpatla" <prasad.kumpatla@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260701135913.1641328-3-prasad.kumpatla@oss.qualcomm.com>
-References: <20260701135913.1641328-1-prasad.kumpatla@oss.qualcomm.com>
- <20260701135913.1641328-3-prasad.kumpatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 14:14:35 +0000
-Message-Id: <20260701141435.E93DD1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lwx6xUrp"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-846970f0acaso543463b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 07:19:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782915568; x=1783520368; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=6U+/o0tXXBCTuwlnimqkfxQsRgMwYtbQ9Z14+685ECQ=;
+        b=lwx6xUrpMIxYooSy42nVx9T1M0j1gjHyZ16ZANuJdD+3YbTdoILI8EvqCwlbSmBMV3
+         wJyWvONKxMXdMU1GzjdVPVkYOmqy83+eDJYhKpvFMRQmP5x3NJEfNdS9gZdl+MLERoD+
+         91ndmXoRz4WTn7C937I+Qzxdi9GH8Kb2O+QqDuD5oBy4qw3ljbc79LnEYxqaQJgLVVpn
+         QH9NXTg4yj5OtHKimHYnJ2qWUR/4XIT2JNrV5Zmx3ZJtV0suTlLGdKlw9Bi1zZTXP7Bu
+         xDkkGDTezPFA3JFyV7tRNygWNGB6J5hcA/neBGqDT7dKY4KOrp3KmwP5g3Ru4BK2vMWZ
+         IzOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782915568; x=1783520368;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6U+/o0tXXBCTuwlnimqkfxQsRgMwYtbQ9Z14+685ECQ=;
+        b=aWRlnuYfe7xL0DsdkD5ooPh+UvLDrSsu05x9YB1EFTc/zIdMtXnwAQB210oUXI8fcU
+         P9q5Gm/03BjcdeBE4I07aCQ/R9VAdtJpQS6GOA2gprjf5hfEZZndVC+Xhe2wyJpsdg9o
+         44ZgtEQngd1HMZc80I7JGH+lCwK+36WYv8HpYLm4mFvuT8cTdKycXkqFhJgjTdafkZN+
+         ysAK4f06dWE5zappst/hV59RVAl4QosoBNN8kGG/bUmQdwSRrm1DCmCT8NhE0Lnba7M4
+         LTtR+ozaBZV/u7O4w/ecXKSDc4yL/BqssN0eB8AyDiOgfJU0Vt6vjKD8bA/6lGdulRuu
+         3tdQ==
+X-Gm-Message-State: AOJu0YzjGHRjiYerZjxM1yejyW6dUggVMecnu1J7ILcOEYzg7F0BCC0d
+	mQqBKNNQBDqDBbqvbQSCT3kGVOJ+TerzLxnlVLwLK9RndRPSNRgto+vb
+X-Gm-Gg: AfdE7ckwOWDD2ABEaGfO+ICcOzODPh8rH26aG3MS5pTzBsgdgg9G3i/gi06+C7xS88n
+	JZHQWs7IJccaPyA3roIJ7OLHfFxnyL9NKLRb7GozDQeQrFi3IAO6WYNP+7xIhEJRtw3SA/9OkcU
+	LhXBTx6+UbvmA1vCPn29RdC6CQpKPIUBx7k2r++gXnpCUsBEfBqjIwwbRmjau6xI0E/PNPFV2wN
+	k664TLGDEG3MF0BOeT93mWrJHW4fyaWSizPbPUYPxJsGg/FhW/YHTTHNc1oCZeqfGP4e/Kt5RWN
+	7hmZtiYNTl6uxBziMKXNd2p6orFUoJlh/UBfUx+8QYskBw3owrbHPMUlsq/rftesYCwDhrtjJ8U
+	sbqPkVVbyE8pYEygEwkOTEc7Z0DQtsAcecVuy1PdwKRpfHCKiae7J/AcgYn/tRJhWDlf9OdDq8W
+	BFy6JDRgDBfK6cMb2+wa71/W0i+vgfr/etMU787IgM+yq019G8Kr29rj/Ppbj6Zk6U0S1zP4i9
+X-Received: by 2002:a05:6a00:98d:b0:847:85b6:1f53 with SMTP id d2e1a72fcca58-847c08822b1mr1757403b3a.44.1782915568012;
+        Wed, 01 Jul 2026 07:19:28 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847a03a9185sm4242095b3a.55.2026.07.01.07.19.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Jul 2026 07:19:26 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <86b84aaf-a5ad-41db-a765-eddfbfdb07f8@roeck-us.net>
+Date: Wed, 1 Jul 2026 07:19:25 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: hwmon: Document SMSC
+ EMC1402/1403/1404/1428
+To: sashiko-reviews@lists.linux.dev, Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org
+References: <20260619103153.216444-1-clamor95@gmail.com>
+ <20260619103153.216444-2-clamor95@gmail.com>
+ <20260619104041.8ED151F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260619104041.8ED151F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] The `hw_free` callback destructively resets persistent DAI configu=
-rations, breaking subsequent playback.
-- [High] Calling `snd_soc_component_exit_regmap` on a devm-managed regmap c=
-auses a double free and Use-After-Free.
-- [Medium] Missing state_lock acquisition in ALSA kcontrol put handlers cau=
-ses data races with DAI callbacks.
-- [Medium] Incomplete hardware state restoration in `mute_stream` leaves th=
-e receiver path latched in mono configuration.
-- [Medium] Misleading DAI capabilities advertise unsupported sample rates.
-- [Medium] Speculative missing spin-up delay after powerdown GPIO deasserti=
-on.
---
+On 6/19/26 03:40, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] The device tree binding schema fails to correctly restrict the maximum number of channels for the `smsc,emc1402` and its variants (emc1412, emc1422, emc1442). By grouping it alongside `emc1403` under the `not` condition for `emc1404`/`emc1428`, it inadvertently sets the channel `reg` maximum to 2 instead of 1.
+> --
+> 
+> commit 5a834c50ed998e304e4c00fb64e4e434cbd93896
+> Author: Svyatoslav Ryhel <clamor95@gmail.com>
+> 
+> dt-bindings: hwmon: Document SMSC EMC1402/1403/1404/1428
+> 
+> This commit documents the basic hardware layout of SMSC (now Microchip)
+> EMC1402/1403/1404/1428 thermal sensors.
+> 
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml
+> 
+> [ ... ]
+> 
+>> +allOf:
+>> +  - if:
+>> +      not:
+>> +        properties:
+>> +          compatible:
+>> +            contains:
+>> +              enum:
+>> +                - smsc,emc1404
+>> +                - smsc,emc1428
+>> +    then:
+>> +      patternProperties:
+>> +        "^channel@([0-7])$":
+>> +          properties:
+>> +            reg:
+>> +              items:
+>> +                maximum: 2
+> 
+> [Severity: Low]
+> Does this conditional block correctly restrict the channel limits for the
+> smsc,emc1402 device and its variants (emc1412, emc1422, emc1442)?
+> 
+> By grouping the emc1402 variants with the emc1403 under the fallback
+> condition (not containing emc1404/emc1428), it applies a maximum reg value
+> of 2. This appears to allow up to 3 channels (0, 1, 2) to pass schema
+> validation.
+> 
+> Since the emc1402 hardware only supports 2 channels (local and 1 remote),
+> should there be a separate conditional for the emc1402 family setting the
+> maximum to 1?
+> 
 
-commit e15bd0da567eddb8e96d21ded36e450db91c562c
-Author: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+I am by no means a devicetree expert, but it seems to me that Sashiko
+has a point. Please take a look.
 
-ASoC: codecs: add Qualcomm WSA885X codec driver
-   =20
-Add an ASoC codec driver for the Qualcomm WSA885X stereo smart speaker
-amplifier controlled over I2C.
+Thanks,
+Guenter
 
-> diff --git a/sound/soc/codecs/wsa885x.c b/sound/soc/codecs/wsa885x.c
-> new file mode 100644
-> index 0000000000000..7a3f6373f5d95
-> --- /dev/null
-> +++ b/sound/soc/codecs/wsa885x.c
-> @@ -0,0 +1,1490 @@
-
-[ ... ]
-
-> +static int wsa885x_codec_hw_params(struct snd_pcm_substream *substream,
-> +				   struct snd_pcm_hw_params *params,
-> +				   struct snd_soc_dai *dai)
-> +{
-> +	struct wsa885x_priv *wsa885x;
-> +	u8 pcm_rate, cs21_sample_rate_idx, cs24_sample_rate_idx;
-> +
-> +	wsa885x =3D snd_soc_component_get_drvdata(dai->component);
-> +
-> +	switch (params_rate(params)) {
-> +	case 8000:
-
-[ ... ]
-
-> +	case 352800:
-> +	case 384000:
-> +		pcm_rate =3D WSA885X_I2S_CTL0_PCM_RATE_384_OR_352KHZ;
-> +		cs21_sample_rate_idx =3D WSA885X_RX_RATE_384000HZ;
-> +		cs24_sample_rate_idx =3D WSA885X_VI_RATE_384000HZ;
-> +		break;
-> +	default:
-> +		dev_err(wsa885x->dev, "sampling rate %d is not supported\n", params_ra=
-te(params));
-> +		return -EINVAL;
-> +	}
-
-[ ... ]
-
-> +static int wsa885x_codec_mute_stream(struct snd_soc_dai *dai, int mute, =
-int stream)
-> +{
-
-[ ... ]
-
-> +		if (wsa885x->rx_slot_mask =3D=3D WSA885X_CHANNEL_STEREO) {
-> +			regmap_write(wsa885x->regmap, WSA885X_DIG_CTRL0_PA_FSM_CTL, 0x03);
-> +		} else if (wsa885x->rx_slot_mask =3D=3D WSA885X_CHANNEL_MONO_LEFT) {
-> +			regmap_write(wsa885x->regmap, WSA885X_DIG_CTRL0_PA_FSM_CTL, 0x01);
-> +		} else if (wsa885x->rx_slot_mask =3D=3D WSA885X_CHANNEL_MONO_RIGHT) {
-> +			regmap_write(wsa885x->regmap, WSA885X_DIG_CTRL0_PA_FSM_CTL, 0x02);
-> +			regmap_write(wsa885x->regmap, WSA885X_DIG_CTRL1_I2S_TDM_CH_RX, 0x01);
-> +		}
-
-[Severity: Medium]
-Does this leave the hardware latched in a mono right configuration?
-
-If the active rx_slot_mask is WSA885X_CHANNEL_MONO_RIGHT,
-WSA885X_DIG_CTRL1_I2S_TDM_CH_RX is explicitly set to 0x01. If the mask is
-later changed to STEREO or MONO_LEFT via kcontrol, the subsequent un-mute
-operation evaluates the other branches but doesn't restore
-WSA885X_DIG_CTRL1_I2S_TDM_CH_RX back to its default (0x08).
-
-[ ... ]
-
-> +static int wsa885x_codec_hw_free(struct snd_pcm_substream *substream,
-> +				 struct snd_soc_dai *dai)
-> +{
-> +	static const struct reg_sequence regs[] =3D {
-> +		{ WSA885X_DIG_CTRL1_I2S_RESET_CTL, 0x00 },
-> +		{ WSA885X_DIG_CTRL1_I2S_CFG0_TDM_TX, 0x00 },
-> +		{ WSA885X_DIG_CTRL1_I2S_CFG1_TDM_TX, 0x00 },
-> +		{ WSA885X_DIG_CTRL1_I2S_TDM_CTL1, 0x05 },
-> +		{ WSA885X_DIG_CTRL1_I2S_TDM_CTL0, 0x00 },
-> +		{ WSA885X_DIG_CTRL1_I2S_TDM_CH_TX, 0x00 },
-> +		{ WSA885X_DIG_CTRL1_I2S_CTL0, 0x06 },
-> +		{ WSA885X_DIG_CTRL1_I2S_TDM_CH_RX, 0x08 },
-> +		{ WSA885X_DIG_CTRL0_PA_FSM_CTL, 0x00 },
-> +		{ WSA885X_DIG_CTRL0_POWER_FSM_CTL1, 0x00 },
-> +		{ WSA885X_DIG_CTRL0_CLK_SOURCE_ENABLE, 0x00 },
-> +		{ WSA885X_DIG_CTRL0_SYS_CLK_SEL, 0x00 },
-> +		{ WSA885X_ANA_TOP_BG_TVP_OVRD_CTL, 0x00 },
-> +	};
-
-[Severity: High]
-Does clearing these registers break subsequent audio playback?
-
-These register sequences clear persistent TDM and clock configurations like
-WSA885X_DIG_CTRL0_SYS_CLK_SEL and WSA885X_DIG_CTRL0_CLK_SOURCE_ENABLE.=20
-
-Since machine drivers often invoke set_sysclk and set_tdm_slot only once
-during machine initialization or startup, won't hw_free leaving the codec
-without a clock source cause the next stream to fail?
-
-[ ... ]
-
-> +static struct snd_soc_dai_driver wsa885x_dai[] =3D {
-> +	{
-> +		.name =3D "wsa885x_dai_drv",
-> +		.playback =3D {
-> +			.stream_name =3D "WSA885X TDM Playback",
-> +			.channels_min =3D 1,
-> +			.channels_max =3D 2,
-> +				.rates =3D SNDRV_PCM_RATE_8000_192000 |
-> +					 SNDRV_PCM_RATE_352800 |
-> +					 SNDRV_PCM_RATE_384000,
-
-[Severity: Medium]
-Does this inadvertently advertise unsupported intermediate sample rates?
-
-SNDRV_PCM_RATE_8000_192000 includes intermediate rates like 11025Hz, 22050H=
-z,
-and 64000Hz, but wsa885x_codec_hw_params() falls through to the default
-case and returns -EINVAL for them. This can cause userspace applications to
-fail abruptly when they try to negotiate formats.
-
-[ ... ]
-
-> +static void wsa885x_component_remove(struct snd_soc_component *component)
-> +{
-> +	if (!component)
-> +		return;
-> +
-> +	snd_soc_component_exit_regmap(component);
-> +}
-
-[Severity: High]
-Can this lead to a double free and use-after-free?
-
-wsa885x->regmap is allocated via devm_regmap_init_i2c(), so devres will
-automatically call regmap_exit() on device unbind. Calling
-snd_soc_component_exit_regmap() here explicitly calls regmap_exit() early.=
-=20
-
-If the sound card unbinds the ASoC component first, the regmap is freed, but
-the I2C device is still bound and its IRQ handler remains active. If an
-interrupt triggers, wsa885x_interrupt_handler() will access the freed regmap
-resulting in a use-after-free. Later, devres will double-free the regmap
-when the I2C device is actually removed.
-
-[ ... ]
-
-> +static int wsa885x_rx_slot_mask_put(struct snd_kcontrol *kcontrol,
-> +				    struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
-> +	struct wsa885x_priv *wsa885x =3D snd_soc_component_get_drvdata(componen=
-t);
-> +	u32 mask =3D ucontrol->value.integer.value[0];
-> +
-> +	if (!wsa885x_is_valid_rx_slot_mask(mask))
-> +		return -EINVAL;
-> +
-> +	if (wsa885x->rx_slot_mask =3D=3D mask)
-> +		return 0;
-> +
-> +	wsa885x->rx_slot_mask =3D mask;
-
-[Severity: Medium]
-Should this modification be protected by wsa885x->state_lock?
-
-wsa885x_codec_mute_stream() evaluates rx_slot_mask multiple times in an
-if-else if chain. If this kcontrol is written concurrently, mute_stream()
-could see different values for rx_slot_mask during the same invocation,
-potentially skipping all conditional branches and leaving
-WSA885X_DIG_CTRL0_PA_FSM_CTL unconfigured.
-
-[ ... ]
-
-> +static int wsa885x_probe(struct i2c_client *client)
-> +{
-
-[ ... ]
-
-> +	wsa885x->sd_n =3D devm_gpiod_get(dev, "powerdown", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(wsa885x->sd_n))
-> +		return dev_err_probe(dev, PTR_ERR(wsa885x->sd_n),
-> +							 "Shutdown Control GPIO not found\n");
-> +
-> +	gpiod_set_value_cansleep(wsa885x->sd_n, false);
-> +
-> +	ret =3D devm_add_action_or_reset(dev, wsa885x_gpio_powerdown, wsa885x);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "devm_add_action_or_reset failed\n");
-> +
-> +	i2c_set_clientdata(client, wsa885x);
-> +
-> +	ret =3D devm_snd_soc_register_component(dev, component_driver,
-> +					      wsa885x_dai,
-> +					      ARRAY_SIZE(wsa885x_dai));
-
-[Severity: Medium]
-Does the codec require a stabilization delay after deasserting the shutdown
-GPIO?
-
-Hardware audio codecs typically need a short delay (e.g. 5-20ms) after
-coming out of hard reset before their internal digital logic can acknowledge
-I2C traffic. Since wsa885x_component_probe() will issue I2C commands
-immediately upon component registration via wsa885x_hw_init(), could this
-lead to I2C NACKs or timeouts on some platforms?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701135913.1641=
-328-1-prasad.kumpatla@oss.qualcomm.com?part=3D2
