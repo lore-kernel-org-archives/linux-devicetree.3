@@ -1,184 +1,209 @@
-Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483073783BB;
-	Wed,  1 Jul 2026 17:25:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DB2492185
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 17:34:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782926737; cv=none; b=PtiuIH7I3V0ARNHs3XkG878LLHIwUUM5JaVECqvo48A0uZklziMTN58MmfoLNdrquBWKMaVSXobdM5N1aG5UWiMscVq+XyjOtL5CFwUTN723XkLXe7oPil5mKBV8Wwl3MxGVObiCYM1q7I5pSLeapy5VlaDJUP3UpNp/C6leMD8=
+	t=1782927280; cv=none; b=ZHwvzd9tVkJOlFh08Ii6IRxzNIZYwGK/7y/QKHL4Vo+xvwf0VHj6DhswjF5U2+vpkFvytDxcytmutI+vCp0Eek+CMdCOg+tqAW1lB8zqU5oPdKN7z4Zky9s7UCSk9ohdJcYkxY79H3unBv7VaHD+zRT4n63n7xo1X5fj50EQkfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782926737; c=relaxed/simple;
-	bh=fyf0et18Ak+1WNJ/SM7FwYaR7+j/tgOuZyhk+0BqUok=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qelsj5+hnjiGzy5PF7OZ2V9EI8YDRbUlVZnAKUro3cb1JdGKX/sIeHglFsRtAQmlkYfBud52Qy+NfRLw3GRbnt018dyNFr3mYYgZQ5PvgtCiq8QvLaZYL/8aeVwI4zYo6/UdTtAEuJLVc7CVxXqL6SIlOCeP82URinfY2bcFsxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=wPKv/JO9; arc=none smtp.client-ip=31.31.198.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
+	s=arc-20240116; t=1782927280; c=relaxed/simple;
+	bh=eHGNBE2w8Y2zj+A2WcojaLqI1MnU7Rum4rNO8bnYQno=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=e8sxqUpWba4AEwqdUxZsiQ9ntNE5u0qJDNOVtKf+oZaTQdXFtbSMquR7CbCvXNNhc4TtDZtybroviJkX/dYsNyhk/LwiqlFcafnXjtKt6tAkULIiiyW54xlsinVKRq+f+Z/zolQRcFQ7VtQUUzgROKiLwpbP3TNPwqkisQW1In4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=jLZaxhpB; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="wPKv/JO9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
-	s=dkim; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
-	Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=TGGt91UsYTiqS1Elo4/qTSmCTRCpPxNHdDW4fXvC2rY=; b=wPKv/JO9OhTirG4J/wC6VNs8qs
-	eT1via8JqfY1AfI8V0EbKm4WlrquMWRwPL8e55qNSRgJhfxJrjYU6u8LZy/xue1aZ+CGIH8FyN19k
-	nKtxIqFVdEyfc8gXvsHzLIYuMWnPJW/Y/YFOPhwVc5EvdJ+PWpkz++bjMusqmH8vrYh4=;
-Received: 
-	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(envelope-from <alexeymin@minlexx.ru>)
-	id 1wewup-00000009kKT-0VMb;
-	Wed, 01 Jul 2026 18:31:55 +0300
-Message-ID: <edf331e2-73a5-4afd-9a44-56cb786626c5@minlexx.ru>
-Date: Wed, 1 Jul 2026 18:31:54 +0300
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="jLZaxhpB"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 8C50F240101
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 19:34:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+	t=1782927275; bh=sFnduIEfzTelI/qGOJcaAiSoi1cQ4sBh6Iidu4lwHVM=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=jLZaxhpBkB2C+nX53mkmVQQ1cLHk2n0MumxeYnYmF45PSydMvivtn3flsJuJ8yFAA
+	 GVu/LP8uQy62Zy+fJQ60lM20kgiB7pxCmw3AqgSo3asDRS7s86j/XOOnoprqU+OQQE
+	 2Xai7dCch2NHSHy+LW2sJODVuZJCFm6SIpe7NFjbAV6ilMhLH1466ytYGrTQa3DP+Q
+	 X2KcFfPvx/PR1QQ2uzOMvmgbs+caVAhTZtqZCA6jFq/gFC7wRJxaezvFKw/Vfc0Vtz
+	 bVWbd2rL9pUXWNIJlJDGNVBoiZAwbI6H+vUmc3F4gsdMip+vQPd3F8zIxtWnGZSsTZ
+	 G0ZR7lXyVbbfw==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4gr6Zy27LVz9rxD;
+	Wed,  1 Jul 2026 19:34:34 +0200 (CEST)
+Message-ID: <c2b910e58bc523f2cb83df28400a675385ef65d2.camel@posteo.de>
+Subject: Re: [PATCH 1/3] dt-bindings: rtc: Add sii,wakealarm-output-pin
+ property for S35390A
+From: Markus Probst <markus.probst@posteo.de>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
+ <uwe@kleine-koenig.org>, Andrew Lunn <andrew@lunn.ch>, Gregory Clement
+ <gregory.clement@bootlin.com>, Sebastian Hesselbarth	
+ <sebastian.hesselbarth@gmail.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Wed, 01 Jul 2026 17:34:35 +0000
+In-Reply-To: <202607011506045358209c@mail.local>
+References: <20260630-rtc_s35390a_int1-v1-0-1b2239e16be2@posteo.de>
+	 <20260630-rtc_s35390a_int1-v1-1-1b2239e16be2@posteo.de>
+	 <202607011506045358209c@mail.local>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-/2u+iIun9SPxCmVGLVKh"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: sdm630: describe adsp_mem region
- properly
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Nickolay Goppen <setotau@mainlining.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
-References: <20260422-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v3-0-274ba3715db0@mainlining.org>
- <20260422-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v3-3-274ba3715db0@mainlining.org>
- <337d362d-93de-4e81-8141-a51fa75d615c@oss.qualcomm.com>
- <e282acd6-dfcb-45a6-977d-eb71b2619b7d@mainlining.org>
- <976824fc-335a-4f47-a4b6-29966137f2bf@oss.qualcomm.com>
-Content-Language: en-US
-From: Alexey Minnekhanov <alexeymin@minlexx.ru>
-In-Reply-To: <976824fc-335a-4f47-a4b6-29966137f2bf@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-On 01.07.2026 15:48, Konrad Dybcio wrote:
-> On 4/27/26 5:20 PM, Nickolay Goppen wrote:
->>
->> 27.04.2026 14:49, Konrad Dybcio wrote:
->>> Please make this = <0x0 0x80000000 0x0 0x80000000>; instead, since the RAM
->>> starts at 0x80000000
->>
->> +Alexey Min found out that on 3 GiB xiaomi-lavender RAM starts at 0x40000000
->>
->> 40000000-855fffff : System RAM
->>    40080000-41bfffff : Kernel code
->>    42600000-42fd0fff : Kernel data
->> 88f00000-8abfffff : System RAM
->> 95000000-feabffff : System RAM
-> 
-> My docs happen to be silent on this subject..
-> Do you have a device that has more/less RAM to compare?
-> 
 
-I do have quite a bunch of devices based on sdm630/636/660.
-Logs from UART including longs from stock bootloader are only
-available for lavender,  though. For others I collected dumps
-of /proc/iomem (and debug/memblock/memory):
+--=-/2u+iIun9SPxCmVGLVKh
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-* sdm630-sony-pioneer (3 Gb, phone):
-   80000000-855fffff : System RAM
-     80080000-81dfffff : Kernel code
-     82600000-82e30fff : Kernel data
-   88f00000-8abfffff : System RAM
-   94b00000-ffafffff : System RAM
-   ffc00000-ffcfffff : persistent_ram
-   ffd00000-13eabffff : System RAM
+On Wed, 2026-07-01 at 17:06 +0200, Alexandre Belloni wrote:
+> On 30/06/2026 19:22:21+0000, Markus Probst wrote:
+> > Synology NAS devices use the output pin for interrupt signal 1 to wake =
+up
+> > the system.
+> >=20
+> > Move devicetree bindings for sii,s35390a into its own file.
+> > Add sii,wakealarm-output-pin property to enable the use of the output
+> > pin for interrupt signal 1 for the wake alarm, which makes it possible =
+to
+> > set an wake alarm on Synology NAS devices.
+> >=20
+> > Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> > ---
+> >  .../devicetree/bindings/rtc/sii,s35390a.yaml       | 54 ++++++++++++++=
+++++++++
+> >  .../devicetree/bindings/rtc/trivial-rtc.yaml       |  3 --
+> >  MAINTAINERS                                        |  1 +
+> >  include/dt-bindings/rtc/s35390a.h                  |  9 ++++
+> >  4 files changed, 64 insertions(+), 3 deletions(-)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml b/D=
+ocumentation/devicetree/bindings/rtc/sii,s35390a.yaml
+> > new file mode 100644
+> > index 000000000000..31a578673870
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
+> > @@ -0,0 +1,54 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/rtc/sii,s35390a.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: S-35390A 2-WIRE REAL-TIME CLOCK
+> > +
+> > +maintainers:
+> > +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
+> > +
+> > +description:
+> > +  The S-35390A is a CMOS 2-wire real-time clock IC which operates with=
+ the
+> > +  very low current consumption in the wide range of operation voltage.
+> > +
+> > +allOf:
+> > +  - $ref: rtc.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: sii,s35390a
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  sii,wakealarm-output-pin:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    enum: [1, 2]
+> > +    description: |
+> > +      The output pin to wake up the system.
+> > +      Default will use the output pin for interrupt signal 2.
+> > +        <S35390A_OUTPUT_PIN_INT1> : Output pin for interrupt signal 1
+> > +        <S35390A_OUTPUT_PIN_INT2> : Output pin for interrupt signal 2
+> > +
+>=20
+> Ideally, we'd get a proper pinctrl driver part for this because what
+> happens if you want interrupts on both pin or clock output on both pins
+> or any combination of interrupts and clocks?
+>=20
+Yes.
 
-   Similarly:
-   H4113:/ # cat /sys/kernel/debug/memblock/memory 
-  
-  
+Thanks
+- Markus Probst
 
-    0: 0x0000000080000000..0x00000000855fffff
-    1: 0x0000000088f00000..0x000000008abfffff
-    2: 0x0000000094b00000..0x00000000ffafffff
-    3: 0x00000000ffd00000..0x000000013eabffff
 
-* sdm636-xiaomi-whyred (3 Gb, phone):
-   40000000-855fffff : System RAM
-     40080000-41dfffff : Kernel code
-     42600000-42e46fff : Kernel data
-   88f00000-8abfffff : System RAM
-   94b00000-9fffffff : System RAM
-   a0000000-a01fffff : persistent_ram
-   a0200000-a03fffff : persistent_ram
-   a0400000-feabffff : System RAM
 
-   whyred:/ # cat /sys/kernel/debug/memblock/memory 
-  
-  
 
-    0: 0x0000000040000000..0x00000000855fffff
-    1: 0x0000000088f00000..0x000000008abfffff
-    2: 0x0000000094b00000..0x000000009fffffff
-    3: 0x00000000a0400000..0x00000000feabffff
+--=-/2u+iIun9SPxCmVGLVKh
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-* sdm636-asus-x00td (4Gb, phone)
-   80000000-855fffff : System RAM
-     80080000-815fffff : Kernel code
-     81a00000-82057fff : Kernel data
-   88f00000-8abfffff : System RAM
-   94b00000-17e4bffff : System RAM
+-----BEGIN PGP SIGNATURE-----
 
-* sdm660-xiaomi-clover-plus (4 Gb, tablet)
-   80000000-855fffff : System RAM
-     80080000-81dfffff : Kernel code
-     82600000-82e46fff : Kernel data
-   88f00000-8abfffff : System RAM
-   95100000-9fdfffff : System RAM
-   9fe00000-9fefffff : persistent_ram
-   9ff00000-17e4bffff : System RAM
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmpFT6IbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSS/EP/0InCbRWpPfmdYxplz+y
+bKjJSHRM3BwQuvuXPYfYS5+tMDRqz4uvEY8hZg64argZ409I7EKKqqD7oX6Cczk2
+kYW8fOI0Cskw8CqB299LPx0KwrI7iwW9tSoKK4NGOlYX11Cjq2OJSqnE2Ft+fpy7
+Fz0ji9bvl3RAyUCamxbWJTRrdtIMiW2Y6PhHFBVoE4FWLIDBTkuV4MftrkUOWt2S
+1o2jgOiOG1vqzOvg5INJOoDC5LoPagqqkBXxxTutMvz5qHJRUun7VXecZ2bVi7It
+7cm9rTtv0iUNke5jTsLPzOAhk8GkPNlIK0Bt21eM/Q5Xfo3pyz5ATCo8+7l83SGe
+5sEyB8jOYG4xTg1d55sndZZUG36z2Z+Jtfr8h+lT+P4q6oz2RMbeAeHeQZ8SgzSA
+G0R1qtvysseC61tvLbnCd06VKPIilTVgyLMPR7jXwwu7QOieoJz2mM5HgWXyguoO
+DnbifMSazYmqcIGm7oGiK06wYJ3/tG7j1kxQ2I2wEOr5wPzMkW5ehsR+t3tBDWXr
+DdSW+iFL56mzzTy+Nq+tbOfw8UzWR4dYXIbE0Wg77Lv/570yYPPnomOA5SBrZzag
+U+MfPCtxGLxADbH8hZPcF+KaqLg+tRW5a2BcLFI83gCuBlYUkGdlPLmA5OCqG6O3
+WhhPPl0fGrF7P8YX0aIMahbw
+=ITFG
+-----END PGP SIGNATURE-----
 
-* sdm660-xiaomi-jason (6 Gb, phone)
-   80000000-855fffff : System RAM
-     80080000-81dfffff : Kernel code
-     82600000-82e41fff : Kernel data
-   88f00000-8abfffff : System RAM
-   95400000-afffffff : System RAM
-   b0000000-b01fffff : persistent_ram
-   b0200000-b03fffff : persistent_ram
-   b0400000-1fd8bffff : System RAM
-
-   jason:/ # cat /sys/kernel/debug/memblock/memory 
-  
-  
-
-    0: 0x0000000080000000..0x00000000855fffff
-    1: 0x0000000088f00000..0x000000008abfffff
-    2: 0x0000000095400000..0x00000000afffffff
-    3: 0x00000000b0400000..0x00000001fd8bffff
-
-* sdm660-xiaomi-jasmine_sprout (6 Gb, phone)
-   80000000-855fffff : System RAM
-     80080000-81bfffff : Kernel code
-     82400000-82c1afff : Kernel data
-   88f00000-8abfffff : System RAM
-   95000000-1fd8bffff : System RAM
-
-* sdm660-xiaomi-lavender (3 Gb, phone), for completeness
-   40000000-855fffff : System RAM
-     40080000-41bfffff : Kernel code
-     42600000-42fd0fff : Kernel data
-   88f00000-8abfffff : System RAM
-   95000000-feabffff : System RAM
-
-   lavender:/ # cat /sys/kernel/debug/memblock/memory 
-  
-  
-
-    0: 0x0000000040000000..0x00000000855fffff
-    1: 0x0000000088f00000..0x000000008abfffff
-    2: 0x0000000095000000..0x00000000feabffff
-
---
-Regards,
-Alexey Minnekhanov
+--=-/2u+iIun9SPxCmVGLVKh--
