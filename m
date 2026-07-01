@@ -1,139 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E205481644;
-	Wed,  1 Jul 2026 12:26:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0737C481A88
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:26:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782908808; cv=none; b=gi5Cw48ye/8x5yD+e12yU2xvAR+ps8Wmj70/iHf5gXLId8w18kKSs6oXnIB11jhAk0dPTK8VAhF6PSFWjxMgl3M+mF+aK5Ks8MUU46xq/srn0QvUlnVjtI7eQPKlgLLMRehVHHmwnjQjwXwtP+tJW7WWhAuPo8oK3M8zvgO7XSw=
+	t=1782908820; cv=none; b=E3Ia35d9f1DasPsqvkaX9YN1yQpBhwoKe8uXxq8Nit+0Ml40pAhP7qDfBHVYtEe02iEfrd0NDsy/QCMsc0DhP8K9O0a3kPbJSYzRSxpXTwRCk/XxjnDNrKqq7iBa5r7PPI7Fv9aHUkhtpmOlhnmgq3kUAadbHBU8oiMUyUoCsJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782908808; c=relaxed/simple;
-	bh=GS76Wwm9YAF1UZr1a9Vc3sWYHAAD/DqvFgLPc6onfrg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gbq/wLzpqOKd8+WkEWwFiEWDD3bcjCW29BvhzQorU8Rg6Ucdl9P6OxZEeNMB59U5Ne908T60xjXdoFnEl0BRCVjsniy8H3oyYrfdfAN2Ko07NOKnayg8ZJzY+EWsifvjLX1Cbz2oOgPupp8X+2UIGXMtId6pZ/0n3+vlEweGQaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LfhwzKjI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782908820; c=relaxed/simple;
+	bh=KHghZi445oQc7YCgSSynxc3ak3EQr1zWxMm3fZUH74E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Uqi+2L3StQPUY4mRi3jwyPVUW+1gYHiW6YyWtBxg3vIqA2juf8BbJ/xOMJjzzV+J5C8FavqBKQ8c0fCkM6Gp39af42WiVh7pEPACEUBWq3u6oXwMIbeEPi1R3eK2nFHS9mAPABu4k/dd75bnuj15pyzDMrF7XsZ7SE+lJwrfMK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YMX46vOG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LfhwzKjI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 202201F000E9;
-	Wed,  1 Jul 2026 12:26:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YMX46vOG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 307E21F000E9;
+	Wed,  1 Jul 2026 12:26:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782908807;
-	bh=N6kwCdWJBKPVdEt2jNaPpGQsVTRJbFu2V70/cjRIUSw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LfhwzKjIgvYEo+DtBKmLhAyQhpBerPQlhdbFYRi7/bxUIwyYgreJJkAmpjaf0+5p9
-	 oeDHA0jDyOSJlKS+SY2Spjwb4+R/gq0I5eMjv0/hX+8Y0DcxxyGlmwq2zBNbjxKm0r
-	 1slrM/MjdT8iOUDtdzRCl0kqpVHS0Gbm88RnHTEmH8r2IBs+8uFghLDsx8D2wSQakx
-	 TVli7/Fx11KGwUzUXgIWaPUL/ExC4NsV7A/G7d4S2ZYQ591PQh008B7p0lAe/Vo7tA
-	 fKVLYhBoKJF3g+u/uP8UvZ8ZMjg/qqNG84iUVxxotXPdWSCnczopmgDEwvveeAFvlQ
-	 3tYB2XZlb0j6w==
-Date: Wed, 1 Jul 2026 13:26:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 01/11] dt-bindings: sound: qcom,qaif-cpu: Add binding
-Message-ID: <03377bc3-5328-4f38-add7-026ceaf56f1e@sirena.org.uk>
-References: <20260701105757.2779738-1-harendra.gautam@oss.qualcomm.com>
- <20260701105757.2779738-2-harendra.gautam@oss.qualcomm.com>
+	s=k20260515; t=1782908818;
+	bh=52TWOxi0a9pzDOPVJc9NbYPQ8WvoOLt636S3MKAbHJA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YMX46vOGtug9PRPhaH8+H3L/5/KdufZTz7PM5e2MY4oETmZAvnVYqLv2bcaIMiV1c
+	 185urfMN9u5KoQo7IamVLySokmd0AMTJrlbag6A6ilUyW4Wa6YRh/cyNPsLhNDil1J
+	 gj6SZsmezNXYB3La4yiM+5mLoRVJaHbQ3bMYV9RQFIz7/3XrT+vf1PpMWaCsxd1H1v
+	 o5+bFg8JZM5+RDVXjcY69jNUYF6OwIA9G3qm8cOL0mcf72CxTh6QB8xDCPDWArDp9w
+	 WBvKt5DYeDLvxYgYIStdw/mR7Mkm24Nq2tFDGLbuHEAk5tKO3UaqsbAOoEKMHiM8UM
+	 sZvd//fWXmbvQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 02/12] phy: phy-mtk-dp: Rename regs to regmap in struct
+ mtk_dp_phy
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: linux-phy@lists.infradead.org, neil.armstrong@linaro.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, vkoul@kernel.org
+In-Reply-To: <20260701122008.19509-3-angelogioacchino.delregno@collabora.com>
+References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
+ <20260701122008.19509-3-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 12:26:57 +0000
+Message-Id: <20260701122658.307E21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cny0c8Dr8y1s+2mj"
-Content-Disposition: inline
-In-Reply-To: <20260701105757.2779738-2-harendra.gautam@oss.qualcomm.com>
-X-Cookie: Do unto others before they undo you.
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
---cny0c8Dr8y1s+2mj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Pre-existing issues:
+- [High] Missing NULL check for `dev->platform_data` before dereferencing.
+- [High] Missing `remove` callback to clean up PHY lookup leads to a memory=
+ leak and use-after-free.
+--
 
-On Wed, Jul 01, 2026 at 04:27:47PM +0530, Harendra Gautam wrote:
-> Add a dt-bindings header for the Qualcomm Audio Interface (QAIF) controller
-> DAI IDs. This provides shared constants for devicetree sound-dai references
-> and QAIF aif-interface reg values instead of using raw numeric IDs.
+commit a1a96e429cf3345472aae1b06f6ffe5b31edee81
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-> Depends-on: [PATCH 0/4] clk: qcom: Add Audio Core clock controller
->   support on Qualcomm Shikra SoC
->   https://lore.kernel.org/linux-clk/20260605-shikra-audiocorecc-v1-0-7ee6b5f2d928@oss.qualcomm.com/
+phy: phy-mtk-dp: Rename regs to regmap in struct mtk_dp_phy
 
-Is this an actual dependency of some kind or is this just something
-that's randomly on the same board?  We do seem to be getting an awful
-lot of serieses from Qualcomm with some random unclear stack of in
-flight dependencies of various kinds which is not particularly helpful.
+In preparation to perform further cleanups and to extend the driver to
+support more SoCs, rename the regs member to regmap to improve readability,
+as this is a common name across many kernel drivers for a struct regmap.
 
-> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-> +patternProperties:
-> +  "^aif-interface@[0-9a-f]+$":
-> +    type: object
-> +    description:
-> +      AIF interface configuration child node. The compatible string
-> +      identifies the serial protocol the interface is wired for on the
-> +      board. The unit address matches the hardware AIF interface index.
-> +    properties:
-> +      compatible:
-> +        enum:
-> +          - qcom,qaif-pcm-dai
-> +          - qcom,qaif-tdm-dai
-> +          - qcom,qaif-mi2s-dai
+> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
+-mtk-dp.c
+> index d7024a1443358..bf7b3a95e72d2 100644
+> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
+[ ... ]
+> @@ -176,7 +176,7 @@ static int mtk_dp_phy_probe(struct platform_device *p=
+dev)
 
-This just sounds like a generic serial port being programmed to
-different formats, why do we need all these compatibles?
+[Severity: High]
+This is a pre-existing issue, but is it possible for dev->platform_data to =
+be
+NULL here?
 
-> +      reg:
-> +        maxItems: 1
-> +        description: |
-> +          Hardware AIF interface index (AUD_INTFa block index). This value
-> +          also serves as the ALSA DAI ID; it corresponds directly to the
-> +          QAIF_MI2S_TDM_AIFn constants in <dt-bindings/sound/qcom,qaif.h>
-> +          (e.g. reg = <2> selects QAIF_MI2S_TDM_AIF2).
+Earlier in mtk_dp_phy_probe(), dev->platform_data is dereferenced directly
+without a check:
 
-Details of Linux software interfaces should not be in the DT.
+drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_probe() {
+	...
+	struct regmap *regs;
 
-> +      qcom,qaif-aif-sync-mode:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1, 2]
-> +        description:
-> +          Defines the FRAME SYNC mode for the audio interface.
-> +            0 = SHORT - FRAME SYNC is high for 1 INTF clock cycle per frame
-> +            1 = ONE_SLOT - FRAME SYNC is high for 1 slot per frame (pulse
-> +                stretched by MIN(RPCM_WIDTH, TPCM_WIDTH))
-> +            2 = LONG - FRAME SYNC is high for half the frame duration
+	regs =3D *(struct regmap **)dev->platform_data;
+	if (!regs)
+	...
+}
 
-This is a detail of how the various interface formats are specified,
-just specify interface formats in a standard manner.  Similar issues
-apply to many other properties here, it really feels like this is just
-inventing things from scratch rather than working like other audio
-bindings and using standard properties.
+If the driver is manually bound via sysfs (or otherwise instantiated without
+platform data), dev->platform_data will be NULL.
 
-> +          Sync clock/frame source. Independent of sync-mode;
-> +          all combinations of sync-mode and sync-src are valid.
-> +            0 = External source (slave)
-> +            1 = Internal source (master)
+Should the code validate that dev->platform_data is not NULL before
+dereferencing it to avoid a kernel panic?
 
-Consumer and provider.
+[Severity: High]
+This isn't a bug introduced by this patch, but does this driver leak the
+phy_lookup struct and leave a dangling pointer if it gets unbound?
 
---cny0c8Dr8y1s+2mj
-Content-Type: application/pgp-signature; name="signature.asc"
+In mtk_dp_phy_probe(), when !dev->of_node is true, a lookup entry is
+registered:
 
------BEGIN PGP SIGNATURE-----
+drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_probe() {
+	...
+	if (!dev->of_node)
+		phy_create_lookup(phy, "dp", dev_name(dev));
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpFB4EACgkQJNaLcl1U
-h9A0ogf+K3E919LqhxSrvQkn1qD3wEBOvTAIPg73+xCPCPAU1UmX4hBt2u35g1d3
-rURfvBC0O9ZwO/5/9mGMyYuOJJXnNpi1XTaCPUeg7sHNJj6IaB63F2tCgVojW8u+
-OK6Ejl9qZA0RO12oP6hoB50b3hn5qJEHVKthHoTC8otzsM5CRdXZd3+ia6Y0okqg
-RRkjp77NfahPDNlpH+9P2y/+SoBrmouhZwx7RlL3LoSf40kJPR6nimecVBHiydy4
-PAKG44CwI9u6fRc/csLiGBhaohYkpqmy7YHbu5QnTZrFqMANT99c+AVjompd6hVd
-ymNVDhEYCUbwgkjr/3Nh3gRa3xaVIA==
-=D5Yx
------END PGP SIGNATURE-----
+	return 0;
+}
 
---cny0c8Dr8y1s+2mj--
+However, mtk_dp_phy_driver does not have a .remove callback to call
+phy_remove_lookup():
+
+drivers/phy/mediatek/phy-mtk-dp.c:
+static struct platform_driver mtk_dp_phy_driver =3D {
+	.probe =3D mtk_dp_phy_probe,
+	.driver =3D {
+		.name =3D "mediatek-dp-phy",
+	},
+};
+
+If the driver is unbound, the phy_lookup struct is leaked and remains linked
+in the global phys list. Since the phy struct gets freed by the
+device-managed subsystem, subsequent device probes iterating the PHY lookup
+list would trigger a use-after-free.
+
+Could a .remove callback be added to unregister the lookup and prevent this?
+
+>  	if (!dp_phy)
+>  		return -ENOMEM;
+> =20
+> -	dp_phy->regs =3D regs;
+> +	dp_phy->regmap =3D regs;
+>  	phy =3D devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
+>  	if (IS_ERR(phy))
+>  		return dev_err_probe(dev, PTR_ERR(phy),
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
+9-1-angelogioacchino.delregno@collabora.com?part=3D2
