@@ -1,124 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50156369D45
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 16:43:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD4B224FA
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 16:46:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782924227; cv=none; b=QRsbMtb20mUibPJjoq8lS/ON3gSJr73mISgQj/2+rijS/VRIWu3X7nnlu6GnD/DpJkX4Wjqx5Ft7iyFLYKwPv2no6NwQwCDhAJNgch0/k7CoIKQmA9KXxg3893D6JKSQjAD8YIm81VlmFT4ShX4EsD3T7UB+1KbX/c+VodYoUPY=
+	t=1782924395; cv=none; b=Dp8/OAR3cxT6yAROKgp11EpqnBtd01bfqECmYJA7qvudqZsiMXRR3ceiJTUIYUhqaNgdLpHTk3c4K4dvyqhjh62appj5Glemwo6bH4cvyflEKUkcWrzTEzD/lXDOTh4X7pAh+UtXeuD/hnLlIFYf7qAu0CLCf6veofhI/2xgsVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782924227; c=relaxed/simple;
-	bh=pO4ldEloWxlZ+aRYlnQ+pVOJCXWQFAPe3fq0SeehWnc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iUBc1pmbEBbrXOinMYzYNDbEqLC219G2pXyPJZcO/ANxHiDnsSMgzYyRqdsRLlTFhSRoGeHPQzYB75z2r3lO54gEYK+JrxyjponIePuL+hAoffCuQeV5JLYhoC2kLXCrcJOrNw8O5PPl7q5WVnsKS9LUjv5yR1r60UmO0MjFTx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jDAHBjDT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782924395; c=relaxed/simple;
+	bh=Y2ot24RtOf+fR+WFuDosKmSoacrMFzUEexqbkUEE4v8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Pwf1LGQYTUOH0BOirZm7OusSzocM2dPqT2la3D2+mKat3PdbEGtk832amaDKZzfWfAXxpTn3Oip58qMe9hJl5V4SkP/zjFZYdHUczEn3uXm2s5PGo8ZaGqjJ37M04PX6eupMSpfyuKlDth2CPsmCcUmMpJLYcTaatQ0beCw4D0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dn+AURP0; arc=none smtp.client-ip=74.125.227.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jDAHBjDT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 938751F000E9;
-	Wed,  1 Jul 2026 16:43:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782924226;
-	bh=UT7ynAjt4HPCevSjF90eLaSL7DoO/spqHdAKFw5O15Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jDAHBjDTFlsQl4dRPESWjlcwtEok+xvvVMrLlzyEElke9p1mPa2+Nk7tjUsHRDSvB
-	 lyYjB2muJyb73dzvvd5GPvvrMQr2IrVM+OuUqBec1scMJTwc19uYcwpq8GBRxQK86W
-	 nt34XMXARIAWDCQgtfnIArZAGhHk4Y2oEJGHiIWSX1hPvduECrkTr08fMO2YjagPJx
-	 fBdR4ja8CJiXrEhzQ14NepVFd+CrSxyV2ITO23+EC/YDd8NjmDVd9rTY29rsUKnEa+
-	 aQS9Q0yxAP5Lg6czyT0jFqrTpGuWsRVsQ9/UKEBnLcPAZ363GAaE+2ldn07GBKc+yb
-	 2n/IXRwQl5oUA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 1/3] dt-bindings: soundwire: qcom: Increase max data
- ports to 17
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260701163115.3701298-2-srinivas.kandagatla@oss.qualcomm.com>
-References: <20260701163115.3701298-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260701163115.3701298-2-srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 16:43:45 +0000
-Message-Id: <20260701164345.938751F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dn+AURP0"
+Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2c92ee66a21so2560855ad.0
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 09:46:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782924394; x=1783529194; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=BH3aXRPDtZZz9bN5AoHSMjbqzIj/NyvWxAh/Zcap9hc=;
+        b=dn+AURP0cYtm1Aw0A9W6A3aD2nY5IQ3dTekUXEJTfcS9x+hPsup9fEHf4w4QNQYx+C
+         bX621ivgz/Va7za752p0HYsTLVAI15BBPKRbGJ0dmau3PRTAHj2uyLj9P7spt6Msmdud
+         HKRspKfz/QGiJBpa/Daj1ExGeJ81kDAdEBvIB07rt70yNYmi/knA1qgPCaK+5ZGM+iG+
+         f2ItP5ve0WPC9stQTB8iX1zMw1YAPpvFhG+a5sCM+C+KHKdOGNQArQOtRiaE/A1iWN0Q
+         dL6Us+hG7ZCbmaTUoFtFbU0kIwmr9HYoRYulyYJe2z70Bj0M0RZV0TgBCAH4xaY+LwQE
+         xWqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782924394; x=1783529194;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BH3aXRPDtZZz9bN5AoHSMjbqzIj/NyvWxAh/Zcap9hc=;
+        b=QdMK7meba/iPzNBCeu6T6YPp/ArDTAFI8PRU31x1tL3h/MOLDs5CzW3dW9FaLh//dV
+         +Cu3ZRP/foO18YMuFu60KKuZkNBjDVf+qnYXyHnpJEddUluCZMHfwTgtXtdrxv4nmvgh
+         NOZ4872eB7kVq3ItMgFhnuyKblF5bxH6b1NjlfLGtNgWZq9IjPbf/S2+eYZPhwhB17mw
+         XjgUUuBQu8szi8QO+M4yKPjk5dvtS/++07Tej5FBT4oKobZFp+Lnz4S7uYQrBKqU3Zty
+         LTZ41OysqAP4yxfardkgkq214XNOWSgr54sYZVKJEUVtuIXukVFQHwncJ/ZvTdTLwX+Y
+         gHjg==
+X-Gm-Message-State: AOJu0Yy7SM62hwxUcW3MTcHJl9sG3WaEZBLUMnGNaIvrUSem4tyxTKER
+	Ax1D9TtVy9WIdQ4lXp/F/5HzvHv8tsAu85YFiKr39m3mpJ8Eip9Q6Ri9
+X-Gm-Gg: AfdE7clrKzDpCAa+B6M4mrFAin8fpEwOr5cTTj7+UJ7R0JGnZ7PtDgFFgZRfPPx0RPy
+	ePrc45Lt9dKrLrXToWy4dT/+O8nQxIGLYdYoi5ngUvYGLvzP4/D9ztqzILU9qiLyeG3UTksV5hP
+	BI06lq9/RNFYMIiPX8H01dn7getz46zlkyuq2Rp8fF6Qp/9C7xtEs8i6dROF5y8VmUYRK0eTZWb
+	/5dY6+Pf5/502xuJmuVW0TKQsCdEBGlob9jCyWIrFRttPgscR3qkIBtnyh+FaSZKFIgE/QX9Hnu
+	tla4Xbt7VTmv3pcgTjG6IJd3iV1HNqoI9YoYScGdItCYas3DgAZtfV3Rix/kmaDUyONoUUxtAJF
+	/gtxRw64JnGla6a5/MOnC7ueIJsHj+T3FIyYkCCYC2gg1RtCuZuPfJZHzyEyyjodu0W/+u0e1UU
+	WnNzFfIDTg4Pc=
+X-Received: by 2002:a17:903:19ed:b0:2ca:594f:feb8 with SMTP id d9443c01a7336-2ca7e942459mr25214065ad.47.1782924393632;
+        Wed, 01 Jul 2026 09:46:33 -0700 (PDT)
+Received: from server.lan ([150.230.217.250])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca9a911f4csm985015ad.29.2026.07.01.09.46.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Jul 2026 09:46:33 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Dragan Simic <dsimic@manjaro.org>,
+	Jonas Karlman <jonas@kwiboo.se>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Coia Prant <coiaprant@gmail.com>
+Subject: [PATCH v3 0/3] Add devicetree for the Graperain G3568 v2
+Date: Thu,  2 Jul 2026 00:45:41 +0800
+Message-ID: <20260701164543.3967388-3-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Changes in v2:
+- Fix trailing whitespaces and other formatting issues.
 
-Pre-existing issues:
-- [High] Incorrect search size in find_first_zero_bit prevents -EBUSY on po=
-rt exhaustion and causes silent double-allocation of the highest port.
-- [High] The dt-bindings now allow up to 17 SoundWire data ports, but the c=
-orresponding driver internal structures have a hardcoded limit of 15 DAIs, =
-leading to a buffer overflow.
---
+Changes in v3:
+- Picked up Acked-by tag for patch 1.
+- Fixed text wrapping in the commit message of patch 2.
+- Replace the legacy 'gpio' label with 'gpios'.
+- Add the Bluetooth UART child node.
 
-commit bfff7ab83551c0958297b1c39b25931747061203
-Author: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Notes/Unchanged from v1:
+- ADC keys have been verified with evtest and works fine; kept unchanged.
+- The 'regulator-off-in-suspend' property for vqmmc-supply is retained.
+  This is a known issue shared by most similar boards and should be
+   addressed globally later.
+---
+Coia Prant (3):
+  dt-bindings: vendor-prefixes: Add graperain
+  dt-bindings: arm: rockchip: Add Graperain G3568 series
+  arm64: dts: rockchip: Add devicetree for the Graperain G3568 v2
 
-dt-bindings: soundwire: qcom: Increase max data ports to 17
+ .../devicetree/bindings/arm/rockchip.yaml     |   6 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../rockchip/rk3568-graperain-g3568-v2.dts    | 931 ++++++++++++++++++
+ 4 files changed, 940 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3568-graperain-g3568-v2.dts
 
-Bump the maxItems from 16 to 17 for all qcom,ports-* properties to
-accommodate SoundWire controllers v3.1.0 with 17 data ports.
+-- 
+2.47.3
 
-> diff --git a/Documentation/devicetree/bindings/soundwire/qcom,soundwire.y=
-aml b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-> index 9447a2f371b56..8e6973fa229c9 100644
-> --- a/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-> +++ b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-> @@ -90,7 +90,7 @@ properties:
->        or applicable for the respective data port.
->        More info in MIPI Alliance SoundWire 1.0 Specifications.
->      minItems: 3
-> -    maxItems: 16
-> +    maxItems: 17
-
-[Severity: High]
-This is a pre-existing issue, but does increasing the number of ports to 17
-expose an out-of-bounds write in the qcom soundwire driver?
-
-In drivers/soundwire/qcom.c, SWRM_MAX_DAIS is hardcoded to 15:
-
-#define SWRM_MAX_DAIS						0xF
-
-Which bounds the sruntime array in struct qcom_swrm_ctrl:
-
-	struct sdw_stream_runtime *sruntime[SWRM_MAX_DAIS];
-
-If a device is configured with 17 ports, will this lead to an out-of-bounds
-write when setting up streams on the 16th or 17th port?
-
-drivers/soundwire/qcom.c:qcom_swrm_set_sdw_stream() {
-	...
-	ctrl->sruntime[dai->id] =3D stream;
-	...
-}
-
-[Severity: High]
-This is a pre-existing issue, but the port exhaustion check in the driver
-appears to have a logic error that could be impacted by changing port count=
-s.
-
-In drivers/soundwire/qcom.c:qcom_swrm_stream_alloc_ports():
-
-	pn =3D find_first_zero_bit(port_mask, maxport);
-
-	if (pn > maxport) {
-		dev_err(ctrl->dev, "All ports busy\n");
-		return -EBUSY;
-	}
-	set_bit(pn, port_mask);
-
-Since find_first_zero_bit() returns the size parameter (maxport) if no zero
-bits are found, the check if (pn > maxport) will be false when all ports
-are busy.
-
-Will this cause the driver to bypass the -EBUSY check and repeatedly assign
-the highest port instead of handling resource exhaustion properly?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701163115.3701=
-298-1-srinivas.kandagatla@oss.qualcomm.com?part=3D1
