@@ -1,139 +1,140 @@
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D2A481656
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DED0481A98
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:40:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782909653; cv=none; b=OigLQPzDYW7++vo2DVThKcn6o9pAWV8dHbIWNG3kCTPnDidFUKMvzdEg7Fe38zOhRDFNp1IEIleRQL/HfsVXL7YxlwGC9JUN70uMJXVxojcz4sUN6r/j0sQNhGKJ6Fyem/sEjKsk/L/jHC2G6meIHM9/Tk+Kb+VTsuHGC67nsEA=
+	t=1782909653; cv=none; b=gawDCYWWsd+IGTvku1NF5tB6D22UHujd9qCSHDDd5Tz7M1z1mjhVePYJpMoUBcRfC0ZL6Y7/6M84pnY/FK3dZkchQZMaT9z0YYrnbF8I2iTRyolZWmXjGuE3yPVu1SI53fBJAX9ByoCczEypldg9ojWpLyAFJSQqf03AQW0VHDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782909653; c=relaxed/simple;
-	bh=u7rlk6WjnZJ8yyBEjOlow02CVcCwL5fGiUnXZ5iRM1o=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=W5BMGBZBZ5+2MfB4njekH5jFvs26EdmiXmhh8lkvy1QdaUD5CFfOHwv3cOrl7RXmGkc3gnvxSKSocPMHGXkzXDjkvwA1EsXzgLaZ9NCtaZHj3HzCEuXvSwVsqcjyYq0j+5XGOu+QISJyvO8yXw9iJT7j0VQVj/06/9GlGSqps6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gQvYCKzM; arc=none smtp.client-ip=91.218.175.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	bh=UdYuVybQFPSsAf2RKB3eRhJbIK1t6vhvF1XRjODHB+U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=IWbSCe2JJsBWY3aLvcW8MwCBG3uoGVoDCp3T6vD+ONw3XR8dPGCN4c1pwPkmcD+axzHnHAQjcowKWSJfkV3Z6Mkyql81k3huNldXYkxqgTX+c/9RxMow31B4J8j80jOcZsEs1UZU8Bnr1Fi3CUdZWSeVjKwrlmlOi6yvn+s8tdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=jG3bvZF5; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gQvYCKzM"
-Date: Wed, 1 Jul 2026 15:40:29 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782909639; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type; bh=aK3bC/Yk0HPeufinAbygJPny8WFgvPaMtUqpGTyHhJE=;
-	b=gQvYCKzMuitnqCrr9yMf4pAiAN3VWLV15XONb6CIKdJdwmtC+o0aSHBQwI6IPX3U1t4DNP
-	2Pg96KIEo1TWYH0rAdmfLWX3TEdb/sudtr11QYhDxP5QVCE7DBCyAuT3HgVH5RYhl0M9vd
-	3x5uc7UAClug1VBWlUtWaNSlITOrV1k=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Matti Vaittinen <matti.vaittinen@linux.dev>
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-rtc@vger.kernel.org
-Subject: [PATCH 0/8] Support ROHM BD73800
-Message-ID: <cover.1782909323.git.mazziesaccount@gmail.com>
-Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="jG3bvZF5"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-493c2c0b9a8so3255195e9.1
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 05:40:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1782909651; x=1783514451; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0l2hO7jjnBbgc4FxNyXYuaniEG5v8NsDWwg8qmCQlzE=;
+        b=jG3bvZF5xvZUIKLz50JR1PSPvt/sGzNQP5nq3aWZKhD6bvVGaBFavGKV4fPqt7bauJ
+         0+U0+Q8EVSmk1nxoSStS5OuEWcAwctCGxJpvulQNVtcSeWL0crfr7xUmrXKTb71D2zWr
+         D+gpvzaSk/ndKRu9xxhChnyf3wateyCtLtBnVJclNXF28hU6CfCM0+uhn35mRldrEz4I
+         E1UuP5zvlVNarZgxWp8Ag+UeOMrUwN8rkTHbMnONe1QwAn7lMrg12m4q7A/N89bBqR30
+         sAL3SrPozNUYikWzT2ireUjhjUXGU52TpgrQm/8iyL7NYJcYq0qV08/V2cSUqtaKXWxm
+         1d0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782909651; x=1783514451;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=0l2hO7jjnBbgc4FxNyXYuaniEG5v8NsDWwg8qmCQlzE=;
+        b=CEq2AxGNC5D8Vf29ndD//zjThKIfjFdQM7DpJ85GkF3CnGXTWgGiYU/rzg+oybQX9N
+         82Ac4HI3LDSQuu6+qgpfORmfrV43qcyIYYo3vh976lFZaeePUq/0+U/5KIAQS3PO5X3A
+         BU9Q9iIjEqpKvVE/oX15dOZC015573F+Uy2TuUcxQzEhnj7eAjWaIxzlelytoKxyIP7Q
+         G+F2XCqpE+/tsHG4/+uyaST4p/ESW6z7kIj5h4oIwn0HG4jRO1Z9FqNlsaYwhYrp3FKl
+         2BKMP75GGoVPs+068tm1HK/UosNL0DhHk9ivYd3s0RyVFYi1oYEn+ix9sf02eLPD7YC4
+         Ca0Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8t+RoplnsLO+WCS4uw6ZN1qjW00J+9lFzjL2pJxN9aljUJfZFYoFYbS2c+DHU/KAMv58R0VEGu0Jka@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/ahy5S2IGRMCEiqVZnVJIk4+C6gp6DZn/j9F6G+MsSWzGvX1p
+	UFJcJ7EYoc7y8yJPv4ildfpukCcrsxBHD9nlvX24pON/3C4VJkojStPJSN4K3YaxDyA=
+X-Gm-Gg: AfdE7clpZo+111HPfY73PA0OEFNOHkmEnDGgYkZuqiGJUzxcGLKeRCr04Qrw+hAJeHP
+	VwHcA0uToIfw907c+WSYfEaP/iKRMbpZ0rP73krHHVPs1dHeulG9xU/5TgiPq9GYtcXedrlEBKF
+	+o7x0U1vGX/sy99BP7S3Pm/HFpCa8z3GekiUdgrVp03+hrkrVgzIuwdZ3Yl0LHSo8mMu49n5Ob2
+	xMmEnKWqfJ4UuNCsAmymQmuLsSsL0TiHgpal9OSzLT12oFra7XFtaw3cWKxz9e/C2u30O5Zanzn
+	l96IGEJ3fOuxRXOEmXhilU+DCdHdjHmIhVGSN2NnPAtWg4WitHs+eVUF2ZnkiOSWBCOIREPVEM5
+	dqVfM4KJr1Ia6p83zvvUj87MdmvWLk1s/mFW9OlE/njlOVrj2Gn8kPDDf/glWkOq36jaFGzfm6S
+	J/pPYRTDZUVg==
+X-Received: by 2002:a05:600d:15a:10b0:492:6f6f:fa42 with SMTP id 5b1f17b1804b1-493c3dfc883mr5371895e9.37.1782909650717;
+        Wed, 01 Jul 2026 05:40:50 -0700 (PDT)
+Received: from localhost ([2001:4090:a246:8638:a73d:f626:6582:90ca])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493be4bfd47sm101422335e9.2.2026.07.01.05.40.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Jul 2026 05:40:50 -0700 (PDT)
+From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+Date: Wed, 01 Jul 2026 14:39:15 +0200
+Subject: [PATCH v7 03/11] arm64: dts: ti: k3-am62a7-sk: Fix wkup R5F memory
+ region size
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3MnEKyKDxsefSFik"
-Content-Disposition: inline
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260701-topic-am62a-ioddr-dt-v6-19-v7-3-e9db8b16821a@baylibre.com>
+References: <20260701-topic-am62a-ioddr-dt-v6-19-v7-0-e9db8b16821a@baylibre.com>
+In-Reply-To: <20260701-topic-am62a-ioddr-dt-v6-19-v7-0-e9db8b16821a@baylibre.com>
+To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Judith Mendez <jm@ti.com>, Daniel Schultz <d.schultz@phytec.de>, 
+ Andrew Davis <afd@ti.com>, Siddharth Vadapalli <s-vadapalli@ti.com>, 
+ Paresh Bhagat <p-bhagat@ti.com>, Bryan Brattlof <bb@ti.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, Devarsh Thakkar <devarsht@ti.com>, 
+ Beleswar Padhi <b-padhi@ti.com>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Vishal Mahaveer <vishalm@ti.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Sebin Francis <sebin.francis@ti.com>, Kendall Willis <k-willis@ti.com>, 
+ Akashdeep Kaur <a-kaur@ti.com>, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, Hari Nagalla <hnagalla@ti.com>, 
+ "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1490; i=msp@baylibre.com;
+ h=from:subject:message-id; bh=UdYuVybQFPSsAf2RKB3eRhJbIK1t6vhvF1XRjODHB+U=;
+ b=owGbwMvMwCXWejAsc4KoVzDjabUkhixXru7duROEp2t5R1p8Wr4nxuTpxLDWRlPmwv/Rh6R6U
+ pvefprfUcrCIMbFICumyNKZGJr2X37nseRFyzbDzGFlAhnCwMUpABN5ZMbwz9Jn6QGWbx4yFV8u
+ Zu1pcPYVEXuiHLA5UO+fZfU6jn8REQz/jGskusKMXsTVVzwOm14a3nSXzSK79/avqprbT5feF09
+ nBQA=
+X-Developer-Key: i=msp@baylibre.com; a=openpgp;
+ fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
 
+The wkup_r5fss0_core0_memory_region was reserved with only
+0x0f00000 but the MCU SDK linker for the wkup R5F firmware on
+AM62A defines the DM code/data DDR footprint differently:
 
---3MnEKyKDxsefSFik
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+    /* DDR for DM R5F code/data [ size 27 MiB + 364 KB ] */
+    DDR                         : ORIGIN = 0x9CAA5000 LENGTH = 0x1B5B000
 
-Add support for the ROHM BD73800 PMIC and compatibles.
+which results in an end at 0x9e600000. For this memory region which
+starts at 0x9c900000 this means a length of:
 
-The ROHM BD73800 is a power management IC which integrates 8 BUCKs and 4
-LDOs. There is also an ADC and operation amplifier intended for current
-/ temperature measurement and accumulation. RTC and 32.768 kHz clock
-gate are also included. The PMIC can be customized via OTP and it has
-options for operating as a main PMIC in multi-PMIC installation. Some
-of the pins can also be used for GPO or GPI (including interrupt support).
+    0x9e600000 - 0x9c900000 = 0x1d00000
 
-There are also ROHM BD71851 and BD71885 PMICs out there. These are, from
-the SW-perspective, similar to the BD73800. There is only some different
-default values and OTP settings. The driver should be able to handle them
-just fine.
-
-Oh, finally - there is absolutely no rush reviewing this. I am likely to
-be (mostly) offline for (at least) 3 weeks. So please, take your time, I
-probably will spin the next version only somewhere at August.
-
+Link: https://github.com/TexasInstruments/mcupsdk-core-k3/blob/k3_main/examples/drivers/ipc/ipc_rpmsg_echo_linux/am62ax-sk/r5fss0-0_freertos/ti-arm-clang/linker.cmd
+Fixes: 77c29ebe76d8 ("arm64: dts: ti: k3-am62a7-sk: Enable IPC with remote processors")
+Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
 ---
+ arch/arm64/boot/dts/ti/k3-am62a7-sk.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Matti Vaittinen (8):
-  dt-bindings: regulator: ROHM BD73800 regulators
-  dt-bindings: mfd: ROHM BD73800 PMIC
-  mfd: Support for ROHM BD73800 PMIC core
-  rtc: bd70528: Support RTC on ROHM BD73800
-  regulator: bd71828: Support ROHM BD73800
-  clk: bd718x7: Support ROHM BD73800
-  gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
-  MAINTAINERS: Add ROHM BD73800 PMIC files
+diff --git a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts b/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
+index 821a9705bb7d42091d4ad0e68d8769b49c115bcd..08c73cae26c73993a613372110bfd5611c403846 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
++++ b/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
+@@ -61,7 +61,7 @@ wkup_r5fss0_core0_dma_memory_region: memory@9c800000 {
+ 
+ 		wkup_r5fss0_core0_memory_region: memory@9c900000 {
+ 			compatible = "shared-dma-pool";
+-			reg = <0x00 0x9c900000 0x00 0xf00000>;
++			reg = <0x00 0x9c900000 0x00 0x01d00000>;
+ 			no-map;
+ 		};
+ 
 
- .../bindings/mfd/rohm,bd73800-pmic.yaml       | 229 ++++++++
- .../regulator/rohm,bd73800-regulator.yaml     | 119 ++++
- MAINTAINERS                                   |   2 +
- drivers/clk/clk-bd718x7.c                     |   8 +
- drivers/gpio/Kconfig                          |  11 +
- drivers/gpio/Makefile                         |   1 +
- drivers/gpio/gpio-bd73800.c                   | 234 ++++++++
- drivers/mfd/Kconfig                           |  15 +-
- drivers/mfd/rohm-bd71828.c                    | 145 ++++-
- drivers/regulator/Kconfig                     |   4 +-
- drivers/regulator/bd71828-regulator.c         | 555 +++++++++++++++++-
- drivers/rtc/rtc-bd70528.c                     |   8 +
- include/linux/mfd/rohm-bd73800.h              | 307 ++++++++++
- include/linux/mfd/rohm-generic.h              |   1 +
- 14 files changed, 1629 insertions(+), 10 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/mfd/rohm,bd73800-pmic=
-=2Eyaml
- create mode 100644 Documentation/devicetree/bindings/regulator/rohm,bd7380=
-0-regulator.yaml
- create mode 100644 drivers/gpio/gpio-bd73800.c
- create mode 100644 include/linux/mfd/rohm-bd73800.h
+-- 
+2.53.0
 
-
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
---=20
-2.54.0
-
-
---3MnEKyKDxsefSFik
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmpFCr0ACgkQeFA3/03a
-ocW39Qf+JhmHKD3YmwcPiXyAzs4+zjXCf/hmvseRMrfUZMcPgd6wzSdfwW5tjREO
-ZvjBKwewGLKu9DhRuOOx4SvTFW2nTIgALznjjX5CKWVfZf+Rh1SOAHL/A6knt/CP
-4+aQrY6CG0wX/zrrFLcoGpU7pPeyhgyn+QZ+h3azfcW4+RQmYpAv/oYteFXs5bPX
-YZD3k/t+2y9xFTbSEcurR7zSNqcCWn8/blvs6h9o25PI7XvctsvYJ8I/jxAw1Vd/
-mrNMSPWEHuGf8Y0O0Hy/YhhRluR1zszWcFOxHKynorjn73os+O5EMBe3zmRUK/ti
-sFS8Dn4YqrvMUyMhhPtbpdci+o/m6A==
-=zQEM
------END PGP SIGNATURE-----
-
---3MnEKyKDxsefSFik--
