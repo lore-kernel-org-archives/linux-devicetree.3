@@ -1,145 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFD924293C
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 13:19:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4DA43CEFE
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 13:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782911941; cv=none; b=YUY266XMwCa7c/JIFlUGasnIk7/TeAstaQQza7XK+XQHag0mb2vFygS2WuWU7vP4OEZpPHdkIpOhCVCevjtpUxWYdTPOVxKzFokFbUXE7wFcwRox1dPxXjTZTMElKPzp9QZl7mSRSSGyvh30UGCDn53Ukqz6bUyOoUXD5jtibuU=
+	t=1782912126; cv=none; b=hzQStstWVM/hyWPRCo7m2mmqVetBVK4/PfYyvKuPOG4HoFp09W8vWTwafBueC1ERdDfD2KA0T2Z3lygzv81WPOwItsf7+cpme65mRkfLc0i5z3u+XZJt9q3q25xomqIhiN7YPE+BYJybCM39hGJXD9fgA7+mg2ZVo9YZo4jrFU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782911941; c=relaxed/simple;
-	bh=gJyLwKpJvVZZCP0scbW88kpGlchAXqCtHUOBGTGpYTE=;
-	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LAdLanH6ZTKE+ow+Tb78iylKiFuent/eWEx8ICSWnZXJ6+iECCwtyL7Z/pW7HO/k29ak4YAo7EjOG3CDVIk+STSnq+cjQ0REFBrDLWdYBhOSnNMC3i8vW0m8LoiyTyTtWjl7WPy4s9YodcVEIKkJENoTuilAoTP/j/WLrSuryKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XcAURDLr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782912126; c=relaxed/simple;
+	bh=imUYo300ApW9+d4uFzn0MvuMBA15s6GsjOB9vKaypgg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TRisqRO7SRzTH9mA+sDehs/VudvaYZ/AFGdx9HKej9bpRJEVa+RuXE12hNqvoJgdmz6YQDsKtl//AW0vZyz8SPuimSoYvm4kTZSBPJH+Q2JtIHrVWLMPe49A1z/k5T+PVoLwUJWjTxqdBYxeQUEOMT5nub1WY45c7QoJzvpH0JQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PT6eI/e5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hm1/60bm; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XcAURDLr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47481F00A3A;
-	Wed,  1 Jul 2026 13:18:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782911940;
-	bh=W/VBuNX84f6BXNw0mY4rwNp/3vsmdH8FrZKwDCR9nm8=;
-	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
-	b=XcAURDLr3DZQ88I2yqbGXohIlZ/OU1j284IrfilUX+gP8xEqY/2lPIcp+y7VPbw98
-	 v9TYcqZax7tiDrxyCdWCrrX0lE1Fi3Z+GV7UwJ7vbBqvrACnwuAtjKdKI7TOCms6Dt
-	 p17u07SX/46XikkRLd7S2kMfo1QAqPfIvcFgDEhvFzdzGcAuiWVtt7duS8ZwyVW/lC
-	 32YKdSTHhqBsawGlaPofUsMB0Lk9Uf8J86fg5o/IwoUXQMhoGuUQafYaPq6k2R9MvT
-	 pRGOVFiUK4qIXJIJbFH6dN998f5OI3v4Q7UY2XHDhaE0r58VSHG1w16flhFVR1t2W0
-	 BRbPYeM3hzbJA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 09/11] arm64: dts: ti: k3-am62a-ti-ipc-firmware:
- Split r5f memory region
-Reply-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260701-topic-am62a-ioddr-dt-v6-19-v7-9-e9db8b16821a@baylibre.com>
-References: <20260701-topic-am62a-ioddr-dt-v6-19-v7-0-e9db8b16821a@baylibre.com>
- <20260701-topic-am62a-ioddr-dt-v6-19-v7-9-e9db8b16821a@baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 13:18:59 +0000
-Message-Id: <20260701131859.A47481F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PT6eI/e5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hm1/60bm"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 661A8hFf744622
+	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 13:22:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	323+8Lo9ghlx0OGQxYVl+sZMRdS8gaUESvkTn31utjQ=; b=PT6eI/e5XC3Vp+2L
+	u72/5Hg9ONZgRtEGOgS2NqthBrvy+0pT8hADKp49sRvtfvoc+G69iQHTMEhyhBEt
+	ZLjXkMqLDjURVp2PfLKH09eNBt8SneTzD6uWVkFH3n8sdZp3H8V3OQorqgIi1X1H
+	Ur0MfOjpN5ZPjgTMmbb5xFe/gwvPk6gPmLWE0JM5eU1R1nz8kfW2+gznY7BE2GFL
+	tjcbVWk/4pCGcKjVfklbTMPNxpdICaEk1STSzx3Ivd6xRf8SE6oRrrlbkjTjxmL2
+	4bpxjKr2/dFF8KQZ8XpW8QqGIB5taBFFhNO6Mvz3Xczr3u31FYA3lSXDSpFLxDqn
+	ImNjPA==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4x0thp71-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 13:22:03 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-734f7d8bb37so42577137.3
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 06:22:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782912123; x=1783516923; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=323+8Lo9ghlx0OGQxYVl+sZMRdS8gaUESvkTn31utjQ=;
+        b=Hm1/60bmq4wQfX1QHE6HC7YtdigXG/0gTxJPO7idh4v7dc7PgLBGIil9IQ/BQxhf/d
+         jhrMLQz6g7ce6oNITR7vU+DwEK6RBiejmvN2XpcTuc674VTLIz84zFR4OlD8o4JE3mwP
+         y7WKK/myZZRvfL/11iRGtmnhIslEh97Gt0mGzfDVnyvK2Am3Ym3ljTJs2lFPcuCxb4nR
+         DrKKBYEfFGqI4hoddtQJ9gr4SQWbv7O+yre1Yry3uCRqGm40H6QgCKuN9+mN58csAAHy
+         Kk5+3ndYjRmaHMQsWuVjZbTwya44Jy0D2IoZcT5UumFNL1QGJvUcVohZNFkKemfx2NtD
+         +EHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782912123; x=1783516923;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=323+8Lo9ghlx0OGQxYVl+sZMRdS8gaUESvkTn31utjQ=;
+        b=OhpNe+xyLH7cM7inSDRBL3IGJE2YdE/DK/jk01dhH+MlTvLl7szj19fxbFOiu7kLew
+         Xt2kVtOgdFvpaloyFGmBqUZg9wODgcfAgvorVUAqrqAS1nZ1WfxwI43TDLIYV3krq9p6
+         NBINJOuqc6IF3Dme2gEwsdkjLf6HdSW9cO8iC22/z7QMkMxyuRpu1xBW+w8iRtgui+EQ
+         Si1A7g28lA3td5A7bz2Yp+U8SdtbYJLj96VhocPtLCREQHTnfz91ybfh9bhhFR23dHn9
+         990tgawUt6ZRcOwsA9N0EZZf7LnsQrAUe7VXOXKCiSUMG0tayoeycEWKZIG2N6reDzkV
+         k/JQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoERryuKlG5dMRSld1jICjEqrXzuxAc6oZs4eDC/hTwlnMn2XOYLCJ2rx3fQNR7ke9B8PtqwpShCY4s@vger.kernel.org
+X-Gm-Message-State: AOJu0YxXp4o6a9PeKA/HhtpzT/bcnfpf40d8fN/fikPOHdmGdifrIlOo
+	ywN1psCQlwc3lHdc2yLKyF/i25o9ub2aDhQ6s8U5Vrya2KSh20rN/UFI2ISD3iwTXhYCG01Mg8D
+	GZMPuJqCGVZKqH/NhYGKMnuZl6P3hecGEYE8TfgmJ5O+ZXzjJV9ZPka7k0z+KCW39
+X-Gm-Gg: AfdE7cnzbhuqJCSA6hQ3faG8+4BIuydSv1BIJOPfd4v9ig9kZQaejAQObZvBKRNtAbf
+	CbeL9nt1Frs1w8dQ1iYqX+DxnxEvjjsT+q0IWwXoDm4Cjyk0HcB0nc514Hiwa/D6VdAFiExJD+4
+	T3TSpwSH9WgVz2CxG2VU0ij+Nn8tGsDbnuIamqi9Fhng0b2a0wg8YWDfTNwWoUsdtivwhr6qHJx
+	2Yjeygz4JsztkCWi9hnQADH0J2LZPtvwidt1gMwx2li2LAIi5k+DVp6Ok8BIcElCxuZ4yUgSEwh
+	n8PZ9pNXQp5uT62TZy6g9Ln4xHQ+Twc+QFqsRzuqsGaN4pqYANxZuLEWpwze77cGeDu6auyAKVs
+	dOFj+yAeAadIWkL67V2QxnnT3fb/yGdXNszk=
+X-Received: by 2002:a05:6102:4415:b0:729:5cd5:8cc4 with SMTP id ada2fe7eead31-73da9af5eeamr199504137.4.1782912123374;
+        Wed, 01 Jul 2026 06:22:03 -0700 (PDT)
+X-Received: by 2002:a05:6102:4415:b0:729:5cd5:8cc4 with SMTP id ada2fe7eead31-73da9af5eeamr199495137.4.1782912122983;
+        Wed, 01 Jul 2026 06:22:02 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1288dbf4b4sm274203066b.28.2026.07.01.06.22.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Jul 2026 06:22:02 -0700 (PDT)
+Message-ID: <e232f53c-e610-4c73-b1f4-2015f50569fc@oss.qualcomm.com>
+Date: Wed, 1 Jul 2026 15:21:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/6] clk: qcom: negcc-nord: keep GPU2 CFG clock enabled
+ via critical CBCR
+To: Taniya Das <taniya.das@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260623-nords_mm_v1-v1-0-860c84539804@oss.qualcomm.com>
+ <20260623-nords_mm_v1-v1-2-860c84539804@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260623-nords_mm_v1-v1-2-860c84539804@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: NheBKiGUQcIZ8oqlQwXWhqdzpDWbAqI6
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDEzOCBTYWx0ZWRfX5OD1XatmLyGZ
+ 2uykp/1lueFPdRDnuyqpSk+opTSsioyPgieFWM5AB8UV/k4MMOBOq4eYiq/7n2e9x5qqtLAEVRm
+ 8IS5+i3dPmzfnbZQCyooCpz1EgeLjzE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDEzOCBTYWx0ZWRfX1PcVr8m/Ubom
+ MmGsC5kNwyrCkTV7W0yIIJ3PMkkdTl3kGtrcfey6zeMxz7paVpR1o6rUMteM73RJ+mabShB4ViM
+ gdGC/o9IlRgYmulwhSwRunqw7qmIVx5a0uGPbr0QEO9GhjaVJ2iownlfsLVpmQPEca77ceGiy1g
+ 2O6UQZ3zFbgR2tODbO1gMxR8bt3QLwznNBNF2XhjuD7qRQuhxMFbEie3H04aWIf+El6pB6bxbx5
+ Ukzz8GV1NdYnnfQ2YgHAx/vJMcAItMslJ5GZ4g6Lm1A3Bf8Qoth3WsM26M1jJGhQ2I1Sc4S8rqu
+ 3pjyZdZYoeWNAumDqW3YVWYku4V+3vYPvQ3GpT2e4Waw7IaphPfvkn+0TPZlf7QpvNxXnO+cxi9
+ 2huBnSmGUXMBOM9jHzHhx8xrg9worIFiEXvJ2fAjwkhj95RzD2TAMSyD7gVdbIoHxvHvTS5D2j6
+ VMMDY3dggYiv5T4F+xA==
+X-Authority-Analysis: v=2.4 cv=T5+8ifKQ c=1 sm=1 tr=0 ts=6a45147b cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=hEmD_o_XFUzyhzP6z_0A:9 a=QEXdDO2ut3YA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-ORIG-GUID: NheBKiGUQcIZ8oqlQwXWhqdzpDWbAqI6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-01_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ bulkscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010138
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing `bootph-pre-ram` properties on newly split firmware memory=
- regions will leave dangling phandles in U-Boot SPL and risks memory corrup=
-tion.
-- [High] Arbitrarily subdividing the firmware carveout breaks `rproc_da_to_=
-va` translation for existing firmware ELF segments that span the new bounda=
-ries.
---
+On 6/23/26 12:54 PM, Taniya Das wrote:
+> The GPU2 CFG clock must remain enabled for correct operation and
+> should not be exposed as a controllable clk_branch.
+> 
+> Remove the clk_branch and mark its CBCR as critical instead to
+> prevent unintended gating. This follows the same approach as
+> 'nw_gcc_gpu_cfg_ahb_clk' and aligns with other always-on clocks in
+> Qualcomm CC drivers.
+> 
+> Fixes: a4f780cd5c7a ("clk: qcom: gcc: Add multiple global clock controller driver for Nord SoC")
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> ---
 
-commit 235186e608d68e805ecd28c0d36c56c91fb3c688
-Author: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-arm64: dts: ti: k3-am62a-ti-ipc-firmware: Split r5f memory region
-   =20
-Split the firmware memory region in more specific parts so it is better
-described where to find which information. Specifically the LPM metadata
-region is important as bootloader software like U-Boot has to know where
-that data is to be able to read that data.
-
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62a-ti-ipc-firmware.dtsi b/arch/=
-arm64/boot/dts/ti/k3-am62a-ti-ipc-firmware.dtsi
-> index 682b1c9f3071d..fe10d3e75ceee 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62a-ti-ipc-firmware.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-am62a-ti-ipc-firmware.dtsi
-
-[ ... ]
-
-> -	wkup_r5fss0_core0_memory_region: memory@9c900000 {
-> +	wkup_r5fss0_core0_ipc_region: memory@9c900000 {
->  		compatible =3D "shared-dma-pool";
-> -		reg =3D <0x00 0x9c900000 0x00 0x01d00000>;
-> +		reg =3D <0x00 0x9c900000 0x00 0x100000>;
-> +		no-map;
-> +	};
-
-[Severity: High]
-Does subdividing this contiguous region break backwards compatibility for
-existing firmware binaries?
-
-Looking at drivers/remoteproc/ti_k3_common.c:k3_rproc_da_to_va():
-
-    if (da >=3D dev_addr && ((da + len) <=3D (dev_addr + size))) {
-        offset =3D da - dev_addr;
-        va =3D kproc->rmem[i].cpu_addr + offset;
-        return (__force void *)va;
-    }
-
-The translation logic requires a firmware ELF segment to fit entirely withi=
-n a
-single parsed device tree memory region.
-
-If an older monolithic firmware binary has a segment that spans across these
-new boundaries (for example, from lpm_metadata into lpm_rest), won't this
-check fail and return NULL?
-
-[ ... ]
-
-> @@ -78,8 +102,14 @@ &wkup_r5fss0 {
->  &wkup_r5fss0_core0 {
->  	mboxes =3D <&mailbox0_cluster0>, <&mbox_r5_0>;
->  	memory-region =3D <&wkup_r5fss0_core0_dma_memory_region>,
-> -			<&wkup_r5fss0_core0_memory_region>;
-> -	memory-region-names =3D "dma", "firmware";
-> +			<&wkup_r5fss0_core0_ipc_region>,
-> +			<&wkup_r5fss0_core0_lpm_fs_stub_region>,
-> +			<&wkup_r5fss0_core0_lpm_metadata_region>,
-> +			<&wkup_r5fss0_core0_lpm_rest_region>,
-> +			<&wkup_r5fss0_core0_dm_region>;
-> +	memory-region-names =3D "dma", "ipc", "lpm-stub",
-> +			      "lpm-metadata", "lpm-context",
-> +			      "dm-firmware";
->  	bootph-pre-ram;
->  	status =3D "okay";
->  };
-
-[Severity: High]
-Will this cause issues during the U-Boot SPL build?
-
-Since this node retains the bootph-pre-ram property, but newly added regions
-like wkup_r5fss0_core0_dm_region and wkup_r5fss0_core0_ipc_region do not ha=
-ve
-it, won't fdtgrep strip out the new regions?
-
-If they are stripped, the memory-region array here will contain dangling
-phandles, which could cause U-Boot's remoteproc driver to fail probing.
-
-Additionally, because the stripped regions lose their no-map status in the
-SPL device tree, is there a risk the SPL allocator might overwrite and corr=
-upt
-the Device Manager firmware or IPC data?
-
-I've also checked later commits in this series (e.g., commit e36960554d0b),
-and it appears the bootph-pre-ram property remains absent for these other
-memory regions.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-topic-am62=
-a-ioddr-dt-v6-19-v7-0-e9db8b16821a@baylibre.com?part=3D9
+Konrad
