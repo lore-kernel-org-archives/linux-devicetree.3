@@ -1,245 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E4C3B52FA;
-	Wed,  1 Jul 2026 09:35:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6F63F0AA6
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 09:36:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782898503; cv=none; b=Z+cvOwGMkTao5B8CeKY9eiltYsrR+AOaYcq1MM1Mnqqv+u1VrIH9eRPUbg7FEgi37KU6bM3bYdsbfeNpEbvEbDQNuokuf2ubCdhwBVr8lBhDp+i8KI1BQJpReD1Fa+nuRQHm+jxEXkzpd5EZE1yN33M4yCT+6kWqX1VaUrCex5A=
+	t=1782898573; cv=none; b=TKAHHa52TmBgsctbXFm8D3IAAUR99zX+NFqnNlTHu0coeIR18TKFxMg5TqHWX7hkEKCEybVr5+4nxAIgSdOo7zZ2WnR9DYHFCPEZRlM9nBIFGD5R/fx906fPOITCO+AXKoV4hbpxl2KhimrBePhE+b/c2yX7WE8X2Y5Lt/8hIlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782898503; c=relaxed/simple;
-	bh=faqnTWTtcQfKTHim8oRoH2UTFBwHg8sNGDM+1wt/lp4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=G+oxpqNH8khw+qA879Uqf86N5cyzGTb4L9WVzq1+REn1PG84jMez9Ub7Gi8OGW2UIVvKmUdZ+kOg+eDmWyHVg2b4PnLNFbfXY4wParYNdsucOg0/iFsVsWOhQGceAmnttK5B5oxvzdCQln2aHsnWLhtsm6jzKBugh8IaOHytWbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dad113SM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782898573; c=relaxed/simple;
+	bh=mVZqFnycurtuDznERqwMW8/MXoyewmD/ojvJPP6GatU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CvdiWpokxOJ/rRD+/aOCfD4XlfXSwlX1VOjbgFz14UwFE+bn495GHEjDTskFxQlLQBf5b99fgIhbZjp16xbGK3hExXQsW2Hd01SUeAGH5h941ONMAud1Gd5XDjQiwlYHh4GQY2ZtPkbUh+GFtvjQ1J9YMjrnpzGm3iKJixUsFxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gp7+nsgm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=B3+aF9+j; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dad113SM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A6F01F000E9;
-	Wed,  1 Jul 2026 09:35:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782898501;
-	bh=KERyTwkwr3x7M2tugfO07wLcOOuYVicRsU/Ed7+YXKo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dad113SM+mo/3YUehAKBfbsmshcWCR7BgQzDdj4IuegOGhNaVZYXEU1LyZLn+/d64
-	 mXpWoB0IYs1LTe2MWrO+eIR1kcuY7ZS5aoraffSvrwPJQfhhPdZFSf7BNgcm+PRbdw
-	 Mw5tUhSj5gBuQKZKdU8r3UNnQFS+jOmur8Pr/d/0cfgmhmxTiwymyFo0ohOoDdZh7L
-	 +c7xN59KLjP53QkTKdLptZZgvYV7oBwYHBcckAO0gm5C6d4Z0SGBaYpPL20/8NVXy+
-	 LUH41pX+pAdWyknem+zhtJGdwF51g4Uw0bo4xlQl+cjW4DYI7D9V0myyOL+nMfTjtL
-	 kLa/RVP1lLNmQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 16/22] RISC-V: perf: Use config2/vendor table for
- event to counter mapping
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Atish Patra" <atish.patra@linux.dev>
-Cc: robh@kernel.org, linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260701-counter_delegation-v8-16-7909f863a645@meta.com>
-References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
- <20260701-counter_delegation-v8-16-7909f863a645@meta.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 09:35:00 +0000
-Message-Id: <20260701093500.6A6F01F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gp7+nsgm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="B3+aF9+j"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6618GLfB488690
+	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 09:36:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	K3Bghfts1KMXiRIbApQGUhol7516KKzKEK47Hv6j33w=; b=gp7+nsgmQufQaOUI
+	nEYVxB6u8cO17HNLSUbSYugVt+MuNogkKXR/FJhr7kUvSIqX2RF7j4qYDwfKJAPj
+	/SIOi3lemw6p4XqFdply/9H7TSWmq+VWGNPM3Olwvhe8jAxHATiNo0ekErjHT5Ym
+	S5XTi76DOkP0NiYZjwO+u7TLgCp6LetbwjoWLBuJt6th9fGQ+oio5mnOyqNi6Ggi
+	jOhG3ijsfXY69vQ6FIQHrJBBVomdNG4ISR7qUe9A5jRNfta5sXKUAw4GINA9NdD+
+	/Jmu4cJW9f+kxttHx5FjkNz5cmpjg7HDSDP4EXPyV2OWEJVw2rOwYhSTPQUHiHJf
+	Zpx2mA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4rsy1yfp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 09:36:11 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c1fc94a11so471401cf.1
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 02:36:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782898571; x=1783503371; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K3Bghfts1KMXiRIbApQGUhol7516KKzKEK47Hv6j33w=;
+        b=B3+aF9+jnPsBY0IfWZ6Z0PtJ4LpRk89M5q6xOLnXQZDFo8tK3UIkrh+5SsYp2c7nu3
+         8UvSd9630nSGOWf8+dDGcJfW4z3mp+ifHAYNi7E5wnr0jBmUcjvkM9fj1DNQ9wf72fue
+         alB/W1Yj1Lh0OiVVwqPjpyKFHhKNDHEU3Y+CKeDC47Qj3qu86UfkPw9Et/1WOAx7Y45C
+         AoEscuZuH67IbyUNKDlhqJ0iw/9T0riKKQt7U2xdX/9+4nnJKHpSBdfioIrvfTrrF1pQ
+         iMLgl5GBOwGenWaRYMzKX+SyUx2/q7o78R25BS/YmvxV5Zp/zaG3AJU79905Qrm+fXTe
+         GaUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782898571; x=1783503371;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K3Bghfts1KMXiRIbApQGUhol7516KKzKEK47Hv6j33w=;
+        b=BSfynALUOEZhPTBzZyf2/QrgrxQTjNzWOF3YqDzOaIi7DJ+bFKtinIqeObHNzTu0Jl
+         ZEdzjWBWNTtn6DuVE1+EgedvwPJHh9dX+M7UvwOSO+zE0gg4PciFQf1TwDzsd0/6z4yu
+         kJPmgMJhiPjIVEw00Kf+V3M4NEpgjh3l8+1nCw9odtldES00fw4VfrcaQFAKsLqKrF/F
+         WdeAHBoJVC44FKlG5dm5GhepVc1MyH9IwyHHQzB0bTHQcBPBGbcfpPUQF28jy2eHx3fk
+         EGn+T7odzTHmO1Gc9/2KEpgSfhaXElbEq4Ddy9+uoryFOuDeIVcfS4XwxX8uyspxIPgQ
+         +ccA==
+X-Forwarded-Encrypted: i=1; AFNElJ8TrSJeNqB6MiRoyi5Fm6nW+KA0zEllJ1NiI4tJg35RzAsYyIJL4OTg2qjicqTxyCFnyL2NzFgib/sP@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHtuFU3I1yntKhUa4OmGMLj2ZBkGG2NkooUiGdCa91XPwC1EeH
+	2tMBQVVK8qEnwcUtzzWDdroR3v1hSGN9TFFd8+Isp/L+KzxTT2gMyQwX0i53l0z6Vnlx2t7bNWu
+	VwuLaUEHsSN9TTTgLoIff6Bi4Mk10+eVm2M2Tv9peJ0NtLqYGaAxV7WNELK/616nv
+X-Gm-Gg: AfdE7ckJVWd+0Zy4e9wSl9U6ZAmbXJVod/pzKkfn5K3iFtnuIJs3OzrbPqbo5X+78HY
+	qkZmG6efu8hXUwIxMUhV3e127Eb96mtGhp9CSMptoL9IXS5ANECC62bUc9exbOGqiSS/cIyKkvK
+	k0Deha2bo76tD5gZJl4r0ZwQlmEjM2hGi9djbemVrGT3L6qSDi5WffA/u+qiT+AvUEsP3ucP7nx
+	3vwgx0MRsIHpMkLSNS018aFpwcVdjbOboa8HFD2JwFGj0+wz4AUgOn8my6iW4xIFqbNErlswQ0o
+	NCQUKu7sEhwaFEa4j2+0LMQGdL+1ptkZK/hoGMhetAjatHCWLl5A9FaecHYw7NKn7yo2DKfTtiR
+	dL9SNdXfPhd5k4bR0A0Vr390NhtgbbDaWpec=
+X-Received: by 2002:a05:620a:3195:b0:92e:6071:7cc4 with SMTP id af79cd13be357-92e782ab5demr67630485a.4.1782898570714;
+        Wed, 01 Jul 2026 02:36:10 -0700 (PDT)
+X-Received: by 2002:a05:620a:3195:b0:92e:6071:7cc4 with SMTP id af79cd13be357-92e782ab5demr67627985a.4.1782898570107;
+        Wed, 01 Jul 2026 02:36:10 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1288f0cb71sm243963466b.39.2026.07.01.02.36.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Jul 2026 02:36:09 -0700 (PDT)
+Message-ID: <09de0dd0-343a-40bf-a8ce-f28c3624e6eb@oss.qualcomm.com>
+Date: Wed, 1 Jul 2026 11:36:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] cpufreq: qcom-nvmem: Add IPQ5210 support
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>, Ilia Lin <ilia.lin@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260701-cpufreq-v1-0-98656ad20ff3@oss.qualcomm.com>
+ <20260701-cpufreq-v1-2-98656ad20ff3@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260701-cpufreq-v1-2-98656ad20ff3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: g-dmDArgI6lYM2Re0jYDwj2QCTe4eCMg
+X-Authority-Analysis: v=2.4 cv=fLgJG5ae c=1 sm=1 tr=0 ts=6a44df8b cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=OoMFzGetkEUzUeWJbX4A:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDA5NyBTYWx0ZWRfX94RR/jBAafts
+ fiGiAUQQhHjnDYZhtjyG03UXgVG9wURmZDSQjK40p786CoIm+omnhP7AJRDqL4angG+wUuk40nQ
+ 5qLLeAL9zcacvRCdAF6FdOxSKDMU0ZmTsJRmwFNcYYYZzTSSUvcOng8MwWus/2vz4up/P85ZgOR
+ ix4e2q8Y998z3yuk2SKTkq1+1/5ChnCFqO4Wv00CbuMJbwxIJpx2U1hDwVhldBhoJ+fZG3taiLG
+ YssfWdZJuF8I15LncaXcaUTZKIJ7uW2vO3B2DRoKNRSeNNDwktSqpzwik2CN9XKKcSc/m14JX2+
+ zGRRT+vLgEFI8YyilrLQcnrLugl3ilZB+avJRTafOZQsCZmwMePtLYhhcH/Z3KRCBiP6majOgZp
+ WQgy3iZEUxK85WDqMaEU4sx8JBKTaaM9ZsbnC7NJ3BNl/5ye7Rs3cKimtOatXR1jnSyBtHX8Aet
+ 2aNLZD0p84yofdT/sxQ==
+X-Proofpoint-ORIG-GUID: g-dmDArgI6lYM2Re0jYDwj2QCTe4eCMg
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDA5NyBTYWx0ZWRfX2jV20G6W5F2W
+ ZrfHCi8MiEDioMGmOQZ/luo4BgkDuJSuF9yJ9QJIp9IA2XqgrYmj7n1lamuE6fHlKESUe9orwzD
+ 06GClK4qGqPfuCAWe7/1eWUmjvC9e7g=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-01_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010097
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Legacy perf tools fail to profile hardware cycle and instruction e=
-vents on platforms with counter delegation, rendering fixed counters and ve=
-ndor mappings unusable.
-- [High] Standard hardware events (PERF_TYPE_HARDWARE) fail unconditionally=
- on platforms supporting counter delegation unless a vendor-specific event =
-table is present.
-- [Medium] The 64-bit `event->attr.config2` mask is truncated to a 32-bit i=
-nteger `temp_mask`, causing invalid user constraints to be silently bypasse=
-d.
---
+On 7/1/26 10:46 AM, Varadarajan Narayanan wrote:
+> IPQ5210 SoCs expose CPU frequency limits through an eFuse speed bin, and
+> the valid CPU OPPs depend on the SoC variant.
+> 
+> Add IPQ5210 support to the Qualcomm NVMEM cpufreq driver so the supported
+> OPPs can be selected at runtime using the eFuse value and the opp-
+> supported-hw OPP property. Also block the generic cpufreq-dt platform
+> device for IPQ5210 so the NVMEM-based driver is used.
+> 
+> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> ---
+>  drivers/cpufreq/cpufreq-dt-platdev.c | 1 +
+>  drivers/cpufreq/qcom-cpufreq-nvmem.c | 8 ++++++++
+>  2 files changed, 9 insertions(+)
+> 
+> diff --git a/drivers/cpufreq/cpufreq-dt-platdev.c b/drivers/cpufreq/cpufreq-dt-platdev.c
+> index ff1204c666b1..284eece9e230 100644
+> --- a/drivers/cpufreq/cpufreq-dt-platdev.c
+> +++ b/drivers/cpufreq/cpufreq-dt-platdev.c
+> @@ -200,6 +200,7 @@ static const struct of_device_id blocklist[] __initconst = {
+>  	{ .compatible = "ti,am62l3", },
+>  	{ .compatible = "ti,am62p5", },
+>  
+> +	{ .compatible = "qcom,ipq5210", },
+>  	{ .compatible = "qcom,ipq5332", },
+>  	{ .compatible = "qcom,ipq5424", },
+>  	{ .compatible = "qcom,ipq6018", },
+> diff --git a/drivers/cpufreq/qcom-cpufreq-nvmem.c b/drivers/cpufreq/qcom-cpufreq-nvmem.c
+> index e6d28d162442..b2aeda7c564a 100644
+> --- a/drivers/cpufreq/qcom-cpufreq-nvmem.c
+> +++ b/drivers/cpufreq/qcom-cpufreq-nvmem.c
+> @@ -200,6 +200,13 @@ static int qcom_cpufreq_kryo_name_version(struct device *cpu_dev,
+>  	case QCOM_ID_IPQ9574:
+>  		drv->versions = 1 << (unsigned int)(*speedbin);
+>  		break;
+> +	case QCOM_ID_IPQ5200:
+> +	case QCOM_ID_IPQ5210:
+> +	case QCOM_ID_QCF2200:
+> +	case QCOM_ID_QCF3200:
+> +	case QCOM_ID_QCF3210:
+> +		drv->versions = (*speedbin != 0xcd) ? BIT(0) : BIT(1);
 
-commit 25bb8be42a29d054e5ce833c3ed3ff8935990ee1
-Author: Atish Patra <atishp@rivosinc.com>
+nit: checking for == is easier to read
 
-RISC-V: perf: Use config2/vendor table for event to counter mapping
+anyway
 
-This commit allows platform vendors to define custom mappings between
-performance events and hardware counters via the config2 attribute. Legacy
-events can either map to ISA-defined fixed counters or fall back to
-alternate programmable counters as specified by the platform driver.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-> index fcf8fbb6fd864..19d9e47504247 100644
-> --- a/drivers/perf/riscv_pmu_sbi.c
-> +++ b/drivers/perf/riscv_pmu_sbi.c
-[ ... ]
-> @@ -1501,24 +1503,85 @@ static int rvpmu_deleg_find_ctrs(void)
->  	return num_hw_ctr;
->  }
-> =20
-> +/*
-> + * The json file must correctly specify counter 0 or counter 2 is availa=
-ble
-> + * in the counter lists for cycle/instret events. Otherwise, the drivers=
- have
-> + * no way to figure out if a fixed counter must be used and pick a progr=
-ammable
-> + * counter if available.
-> + */
->  static int get_deleg_fixed_hw_idx(struct cpu_hw_events *cpuc, struct per=
-f_event *event)
->  {
-> -	return -EINVAL;
-> +	bool guest_events =3D event->attr.config1 & RISCV_PMU_CONFIG1_GUEST_EVE=
-NTS;
-> +	int idx;
-> +
-> +	/* event_base is 0 on the delegation path; match via the original perf =
-attrs. */
-> +	if (guest_events) {
-> +		if (event->attr.type !=3D PERF_TYPE_HARDWARE)
-> +			return -EINVAL;
-> +		if (event->attr.config =3D=3D PERF_COUNT_HW_CPU_CYCLES)
-> +			idx =3D 0; /* CY counter */
-> +		else if (event->attr.config =3D=3D PERF_COUNT_HW_INSTRUCTIONS)
-> +			idx =3D 2; /* IR counter */
-> +		else
-> +			return -EINVAL;
-> +	} else if (event->attr.config2 & RISCV_PMU_CYCLE_FIXED_CTR_MASK) {
-> +		idx =3D 0; /* CY counter */
-> +	} else if (event->attr.config2 & RISCV_PMU_INSTRUCTION_FIXED_CTR_MASK) {
-> +		idx =3D 2; /* IR counter */
-> +	} else {
-> +		return -EINVAL;
-> +	}
+Konrad
 
-[Severity: High]
-Does this break legacy perf tools (like 'perf stat -e cycles') on platforms
-with counter delegation?
-
-Older tools don't set config2, so legacy events without config2 set are
-explicitly rejected here. The code then falls back to
-get_deleg_next_hpm_hw_idx(), which excludes fixed counters:
-
-    hw_ctr_mask =3D cmask & (~0x7) & ~(cpuc->used_hw_ctrs[0]);
-
-If the vendor table mapped the event to a fixed counter, the mask evaluation
-will result in 0, causing the allocation to fail with -EINVAL.
-
-> +
-> +	/* Take the fixed counter only if delegated and free, else fall back. */
-> +	if (!(cmask & BIT(idx)) || test_bit(idx, cpuc->used_hw_ctrs))
-> +		return -EINVAL;
-> +
-> +	return idx;
->  }
-> =20
->  static int get_deleg_next_hpm_hw_idx(struct cpu_hw_events *cpuc, struct =
-perf_event *event)
->  {
-> -	unsigned long hw_ctr_mask =3D 0;
-> +	u32 hw_ctr_mask =3D 0, temp_mask =3D 0;
-> +	u32 type =3D event->attr.type;
-> +	u64 config =3D event->attr.config;
-> +	int ret;
-> =20
-> -	/*
-> -	 * TODO: Treat every hpmcounter can monitor every event for now.
-> -	 * The event to counter mapping should come from the json file.
-> -	 * The mapping should also tell if sampling is supported or not.
-> -	 */
-> +	/* Select only available hpmcounters */
-> +	hw_ctr_mask =3D cmask & (~0x7) & ~(cpuc->used_hw_ctrs[0]);
-> +
-> +	switch (type) {
-> +	case PERF_TYPE_HARDWARE:
-> +		temp_mask =3D current_pmu_hw_event_map[config].counter_mask;
-
-[Severity: High]
-Do standard hardware events (PERF_TYPE_HARDWARE) fail unconditionally on
-platforms supporting counter delegation if a vendor-specific event table is
-missing?
-
-In rvpmu_event_map(), it appears that all non-firmware events are intercept=
-ed
-when counter delegation is available:
-
-    if (riscv_pmu_cdeleg_available() && !pmu_sbi_is_fw_event(event))
-        return rvpmu_cdeleg_event_map(event, econfig);
-
-Then in rvpmu_cdeleg_event_map(), it hard-fails standard hardware events if
-the vendor table is missing:
-
-    case PERF_TYPE_HARDWARE:
-        if (config >=3D PERF_COUNT_HW_MAX)
-            return -EINVAL;
-        if (!current_pmu_hw_event_map)
-            return -ENOENT;
-
-Without a fallback to the SBI PMU, does this completely break legacy hardwa=
-re
-events on new platforms that don't yet have a vendor-specific driver table?
-
-> +		break;
-> +	case PERF_TYPE_HW_CACHE:
-> +		ret =3D cdeleg_pmu_event_find_cache(config, NULL, &temp_mask);
-> +		if (ret)
-> +			return ret;
-> +		break;
-> +	case PERF_TYPE_RAW:
-> +		/*
-> +		 * Mask off the counters that can't monitor this event (specified via =
-json)
-> +		 * The counter mask for this event is set in config2 via the property =
-'Counter'
-> +		 * in the json file or manual configuration of config2. If the config2=
- is not set,
-> +		 * it is assumed all the available hpmcounters can monitor this event.
-> +		 * Note: This assumption may fail for virtualization use case where th=
-ey hypervisor
-> +		 * (e.g. KVM) virtualizes the counter. Any event to counter mapping pr=
-ovided by the
-> +		 * guest is meaningless from a hypervisor perspective. Thus, the hyper=
-visor doesn't
-> +		 * set config2 when creating kernel counter and relies default host ma=
-pping.
-> +		 */
-> +		if (event->attr.config2)
-> +			temp_mask =3D event->attr.config2;
-
-[Severity: Medium]
-Will this silently bypass user-provided counter constraints if only bits ab=
-ove
-31 are set in config2?
-
-event->attr.config2 is a u64, but temp_mask is defined as a u32. When confi=
-g2
-is assigned to temp_mask, the upper 32 bits are truncated. If the resulting
-temp_mask evaluates to 0, it skips the constraint application entirely:
-
-    if (temp_mask)
-        hw_ctr_mask &=3D temp_mask;
-
-Would this result in the kernel incorrectly programming the event on any
-available programmable counter instead of rejecting the invalid constraint?
-
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	if (temp_mask)
-> +		hw_ctr_mask &=3D temp_mask;
-> +
-> +	if (!hw_ctr_mask)
-> +		return -EINVAL;
-> =20
-> -	/* Select only hpmcounters */
-> -	hw_ctr_mask =3D cmask & (~0x7);
-> -	hw_ctr_mask &=3D ~(cpuc->used_hw_ctrs[0]);
->  	return __ffs(hw_ctr_mask);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-counter_de=
-legation-v8-0-7909f863a645@meta.com?part=3D16
