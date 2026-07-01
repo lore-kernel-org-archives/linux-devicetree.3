@@ -1,38 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E8CF397E91;
-	Wed,  1 Jul 2026 20:52:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58C236F908;
+	Wed,  1 Jul 2026 20:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782939176; cv=none; b=UnU6om/UEZm47OJOJjI+HgoCtvDDrFfkYefRZECYN2R22cZQTgNa9TIpr1buIEGTSZffqAUjRksiEaXe54e2olEe5Pind5iMcParDlDNVUsyZ0KerelqKBgfZUnjdwjnmb1NWAUR7D9bQ14jsZ1sjU4t/OEV4oNoTTSPFucTCtQ=
+	t=1782939190; cv=none; b=bTGnPhw+zoHVKbFOzYRdKCWwN6RcaRBvVQ636Td1SHQW2TX6I3X1T3/+5MJnFjTTwsVBiIlEL6dOZh8EnhwLukl27rU+Rv2d9v4XoYLoUMRZfNBpiNG9WY0qNugstCcDd4RhEfImQz7dcf90Ivz0nCOVIRcAkyLGq3uwrNSasQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782939176; c=relaxed/simple;
-	bh=oaYZShcYSsUTL1sFhW4dwU2LORUl0MIO6MwurlQVDR0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KBQmtRNpLqsVyRiOaceUzh+Qf6IDdhvkhkFgGAnD0FRoWpkd03sBUPVBDTOU6GcAE81WftqDSea4Pa1HqubL6I3pxX8KKIKGnI/ZnS6UNihPZNRxprnjdTNS6bikW4xKVIlINs3iTXx4S0nWHjnZofin09WJnbrLceYtyA6Q6fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZtLtJuIg; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1782939190; c=relaxed/simple;
+	bh=W1u/u9I7Mdb7Fyk6vKElrcWw59Y/M86Vrm6KeTI1Vuo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=t62LYguCTf4Cv/QIw4qKDTKtcwbMEKjkpKzZxWl+iWhDbtEb/vu2xariUxZ+pvHSMwij/6w+zwqLP/x1CQs15EIci7INKI23jOvEtP7UrHkQ4wHEJ6pB7oEwwrYT4rO6UoDmY2ZybmbPWpWndKe0pA32Mbmcm6QBWEbsrcWSYAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VgcoBnz1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZtLtJuIg"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 40B94C2BCFB;
-	Wed,  1 Jul 2026 20:52:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782939176;
-	bh=oaYZShcYSsUTL1sFhW4dwU2LORUl0MIO6MwurlQVDR0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ZtLtJuIgOIfy7Y2e+/sz8TcaJSBbabCMM0wj8gWopTfAGnrwlp0Wl0hl1Fg5Tcg4y
-	 1HmFeUzAvHfyVpoWp5IUphrY+gkDMJcnB0nJkXr2qyrMXQGV9WGQiQbdlgo5rR1jpz
-	 VQfGbnsKTyo5UPzfK3XvHMm+HL6DShiKkWNKmK53uFTjbvRcW7aWsN+6kGWTuBKHOZ
-	 lzr71nr4g7MfLGdUL38YEP18fbtV7IBPsvMGnJSEBe3PtG4NNtie7qKgPWPd8himTg
-	 /vZy5Zv0pk2bjt0gKCe7MOP16YWXnGtdA5PBBFA2svSr7z0buvoXDSUu8TWduYgT8L
-	 TXULzVz/6rY3g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35325C43602;
-	Wed,  1 Jul 2026 20:52:56 +0000 (UTC)
-From: Cristian Cozzolino via B4 Relay <devnull+cristian_ci.protonmail.com@kernel.org>
-Date: Wed, 01 Jul 2026 23:55:57 +0200
-Subject: [PATCH v6 4/4] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
- Hall sensor
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VgcoBnz1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBBA71F000E9;
+	Wed,  1 Jul 2026 20:52:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782939189;
+	bh=7M91Rv72KHh7M9FZ0CmnYhdPGBP68afS6WXdN8YtNj0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VgcoBnz10Qa1Gkuzcssprc6joaa//pD6PzIXkCbBvwt/AwdKDdLOxJgee309c3gAG
+	 1PcbEDa7qNFWrrtZHad/wVyaq18HsGxNl0qhx8faWtQGjCnCiuHsJyQJy5vLU9D+UG
+	 KpWxrpXHcB1u3Yn+LWAuAgfp62T6i6QoLcxPx6rqbCGjxqCK95tKHut2saFBaoN+Ib
+	 UDOSCS0Gq+VZGet94hQykwExdOjpdLeY/7EF9WQBN6jpSvUN29SzF/7OKOYoUA/yrS
+	 zAPI/PzLCx3N3uhgKG8scXsZCaehpjDlVsP82DJ3xOYD2MR0jQI0iovi7GiCoFHjHw
+	 SYy1Jnh718mpA==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Kumar Patro <bibek.patro@oss.qualcomm.com>,
+	Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Cc: aiqun.yu@oss.qualcomm.com,
+	tingwei.zhang@oss.qualcomm.com,
+	trilok.soni@oss.qualcomm.com,
+	yijie.yang@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>,
+	Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v7 0/6] Add binding and driver for Kaanapali SoCCP
+Date: Wed,  1 Jul 2026 15:52:41 -0500
+Message-ID: <178293915913.25903.13824914328733420314.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260623-knp-soccp-v7-0-1ec7bb5c9fec@oss.qualcomm.com>
+References: <20260623-knp-soccp-v7-0-1ec7bb5c9fec@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,90 +65,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-rimob-new-features-v6-4-be7d5d1e007f@protonmail.com>
-References: <20260701-rimob-new-features-v6-0-be7d5d1e007f@protonmail.com>
-In-Reply-To: <20260701-rimob-new-features-v6-0-be7d5d1e007f@protonmail.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- Cristian Cozzolino <cristian_ci@protonmail.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782942968; l=1612;
- i=cristian_ci@protonmail.com; s=20250620; h=from:subject:message-id;
- bh=cmgghYxm9rnYA/NOEwStAlhNOC2KrHXp4tSkINzV8xY=;
- b=QzEbjX6MoyHh7TW7QMWrjyxq5aO73H0ns0TKZTvHiomRl9M83q5/FVEFbGq9MXO4BDrcyiDNt
- rL/KUABWSdDCAT8f7Qxp73E3MGnmpuzs0INYziFadoOAe9lO28dCwO8
-X-Developer-Key: i=cristian_ci@protonmail.com; a=ed25519;
- pk=xH5IvIPUNHV1Q8R0/pq2CfuVFR/wTiAyuyi6IwedjZY=
-X-Endpoint-Received: by B4 Relay for cristian_ci@protonmail.com/20250620
- with auth_id=438
-X-Original-From: Cristian Cozzolino <cristian_ci@protonmail.com>
-Reply-To: cristian_ci@protonmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Cristian Cozzolino <cristian_ci@protonmail.com>
 
-Enable the Hall effect sensor (flip cover) for Billion Capture+.
-The GPIO is mapped to SW_LID events as in other qcom devices.
+On Tue, 23 Jun 2026 03:05:16 -0700, Jingyi Wang wrote:
+> Add initial support for SoCCP on Qualcomm Kaanapali platform. SoC Control
+> Processor (SoCCP) is loaded by bootloader on Kaanapali. PAS loader will
+> check the state of the subsystem, and set the status "attached". As the
+> interrupts are redefined differently for Kaanapali SoCCP, list for the
+> interrupt properties are moved out of pas-common.
+> 
+> When we return fail in the rproc attach op, current remoteproc core cannot
+> handle it correctly for further recovery/firmware loading, which should be
+> generic problem shared across all remoteproc drivers that do attach and
+> not mandatory for normal bring up, a separate series is used for resolving
+> this:
+> https://lore.kernel.org/all/20260623-rproc-attach-issue-v3-0-8e24310707ce@oss.qualcomm.com/
+> 
+> [...]
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Cristian Cozzolino <cristian_ci@protonmail.com>
----
- arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+Applied, thanks!
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-index 060129c72264..978820348fa5 100644
---- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-@@ -47,9 +47,18 @@ framebuffer@90001000 {
- 	gpio-keys {
- 		compatible = "gpio-keys";
- 
--		pinctrl-0 = <&gpio_key_default>;
-+		pinctrl-0 = <&gpio_hall_sensor_default>, <&gpio_key_default>;
- 		pinctrl-names = "default";
- 
-+		event-hall-sensor {
-+			label = "Hall Effect Sensor";
-+			gpios = <&tlmm 46 GPIO_ACTIVE_LOW>;
-+			linux,input-type = <EV_SW>;
-+			linux,code = <SW_LID>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+
- 		key-volume-up {
- 			label = "Volume Up";
- 			gpios = <&tlmm 85 GPIO_ACTIVE_LOW>;
-@@ -329,6 +338,13 @@ &sdhc_2 {
- &tlmm {
- 	gpio-reserved-ranges = <0 4>, <135 4>;
- 
-+	gpio_hall_sensor_default: gpio-hall-sensor-default-state {
-+		pins = "gpio46";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	panel_default: panel-default-state {
- 		pins = "gpio61";
- 		function = "gpio";
+[1/6] dt-bindings: remoteproc: qcom: cleanup qcom,adsp.yaml
+      commit: 9698acea9b21937877d7d301883a6c8277a08900
+[2/6] dt-bindings: remoteproc: qcom: move interrupts and interrupt-names list out of pas-common
+      commit: 5eb8427596322c9c51638b906f39acff7c10c963
+[3/6] dt-bindings: remoteproc: qcom: Document pas for SoCCP on Kaanapali and Glymur platforms
+      commit: 8b54bacadc0c17e735ea8cb45e78ff360803a302
+[4/6] dt-bindings: remoteproc: qcom: Document pas for SoCCP on Hawi and Maili SoC
+      commit: f45ec01bae29a96374690fa323b42717e62aa575
+[5/6] remoteproc: qcom: pas: Add late attach support for subsystems
+      commit: 16472c99f4699cb28f2f5f946400ead02f58a15e
+[6/6] remoteproc: qcom_q6v5_pas: Add SoCCP node on Kaanapali
+      commit: 1f9ecae2ec6aa473825d713221d43bae72fcdfe9
 
+Best regards,
 -- 
-2.53.0
-
-
+Bjorn Andersson <andersson@kernel.org>
