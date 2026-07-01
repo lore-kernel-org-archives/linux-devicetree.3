@@ -1,186 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F3F1481665
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC2348C40B
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:31:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782909005; cv=none; b=jJUExUsyC2+3P0EBd9AgkA5LfDakI3iZM1mQLP9bWCxhL/Zuv8GPu+vmjvQuCqAqkeQdKe1uOZz4mb9v7/bZKc/zJ3wiZDs2dpbCxbIdMpo2YRTRm5Ls1LFKghMZ/3gyfevph0JvWUzfmWKMpAaPNQm5BdWH2F/ieJj7YO3bWek=
+	t=1782909099; cv=none; b=YnpQTquVhh9LyEbU3+F3JrEGJRcT2tDENWQp1KLlgsqcbSx0bYzOosIIp7YBi35cbNa03QE2+KL3IbWpYYNFa1iugEo1lwXW/8cKxpj2PHmZqnQVimxx9Cs1gw1TYs2Uk5Pm4Vmqic1756b2Q5ZutuH2+pCEIEMkPqsmof/5cGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782909005; c=relaxed/simple;
-	bh=qC2R9B5pwevwtmupxdX8wEkzy5I3qPUw7O/avmV0ZAw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ikvpJTEnYcKbuYEU6eZ266+gwP2kBR5recNrEjyP1KYU/+x3Dv/x4DSxqU/ch3d5VI1Dli2R7fAhhn1aXKDjTp2SJJ/K6I/6v1mK9AK1p90Pxl4PhJYaBlbaW1euAnB+bOwnTdi2fGpdmAJKrLOzU299Hxn0vff24ODfh9v519k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHwzDOgx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782909099; c=relaxed/simple;
+	bh=eFH/sjnt4IEYz5mhll8WepPz7x2qr9e2I1hac3rv1iY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nn7lyWqAwa/Bp4mrIpUpYogvnBEc29aGsWS/MIdXMl7vpHs/yvpu1tMzyRWWxil+GvW6nCax6vsOevARl455GNgUkgDY+rjBvttYgu4sEo1JAfyPNw9itki/iW6exqBbJ5qOfvbka91FF4vrpRYMI3Fue7fPynqW8ek6gtP3EI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com; spf=pass smtp.mailfrom=vayavyalabs.com; dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b=l954fuF1; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vayavyalabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHwzDOgx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B65211F000E9;
-	Wed,  1 Jul 2026 12:30:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782909004;
-	bh=p/Ltph7WWF2KDaFV2op4D3gJpqRALqGdOM9Gv3W8WeQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fHwzDOgxbOKw/V1SMc/+aZnecLypCRVbcTaY3+V03yNMZd90Zk6V7xzEXVo5YIpdV
-	 y4FfwpeCKFvhFz8+HreE8DMw+CF+fVr9MJB6mqYvVYG0tgIxiVu0ca24S+9LY5hF+x
-	 1rXYXogTKejG8oVVzugfhAyFz087KSrhGKBWLJRyrk5OPxfiBMGshRADyeIdEVmLlF
-	 2c59A7XUigU7yYeAm/FTGgCf2fMLQxePzMvMpqovSwckqH+4iMgprZprNNR3GoiYhb
-	 8N1eErELMv9vr2RVGIbEVmhXM2WkITzhYibFQRum6LxvzRMF3op862J2K9eYcdEjjq
-	 njzk20pc1Zdgg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/12] phy: phy-mtk-dp: Allow probing with devicetree
- match
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: neil.armstrong@linaro.org, vkoul@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, olteanv@gmail.com, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260701122008.19509-4-angelogioacchino.delregno@collabora.com>
-References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
- <20260701122008.19509-4-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 12:30:03 +0000
-Message-Id: <20260701123003.B65211F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b="l954fuF1"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-30b9e755555so614587eec.1
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 05:31:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=vayavyalabs.com; s=google; t=1782909097; x=1783513897; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0OJMmZXivl0437Eltoxt1oS/HCivx4gHSaPKhSGtPQo=;
+        b=l954fuF1cBmqZsb8N75YHfaXNFtv1TCUezPLIkubHp7H9Oy7UhZ4nTBGIIbzQRUu0s
+         0T43vKGas/CCnU6R/H9lYWUuQ/zq03zvN2oOPgOqwYC/HXZG/FRaogsxSNA87s3aCoo+
+         g49VQXEjVqfBnfplBgfKBqGt5DDL2Wcg8YxAM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782909097; x=1783513897;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0OJMmZXivl0437Eltoxt1oS/HCivx4gHSaPKhSGtPQo=;
+        b=aaukfbLZdNh5rBg7N1UJ5f9YE1iZv8dlIbni5SXB3j86lXIDYSFIrFyORAUFey6BLN
+         YhPW0LriWasAthGSiGQsYsiHCPibxfFL9pkbnbxVbDS0LshH1P+dGtlmh//QCds3fU1z
+         mZJQq4oWtg/+jRqkUDvTh6wr/rteyFGPo9yZrB+86YJctSz9wk0WDOFfnkMazVNebgp1
+         UwJBXVcbTC8XyiFSzDwo3YyyY0Cgf8GXXST/08HDfORmoIxTkQwgoQM+jAAJK/XEK0Q4
+         n/hsve5LDNHTPYymudwdZT6szIZ5kcgCezh1uDgZ9yNEmdRGXesZ7gpwHq7/sK2l10oy
+         SLhw==
+X-Forwarded-Encrypted: i=1; AHgh+RpdYn5PDdt8L/vMeFvsY89jnP/Wuk7FoRmHzY1Xh5JO/bKzu1Ck5sIB6jQjMAAii4AXg+TZSfsl3Kci@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVI2iwMF14HEP4xRH2ToX4LiCCRaQ2z6FJSeDilXY4rmpvaYqW
+	Gt2L4Zs5LR1Jwf/ND9hB0ppwEGgxD2EPhGvZhRlfdv9WyzzJicF6x5EMNINU9E8t/lA=
+X-Gm-Gg: AfdE7cn/4KYMZEBPcF0mP5ayT1JToueNNfjURXx0Zjx2NbpAxrafdCYxXsJGzCvk2Kk
+	eRbirxnOtmHo6GvQfNG78wIJT05epHc37h6b64Af57Mq7BPOaN2bAKMFrJKef32cPopwGzWEKHc
+	kbY3m8UosfOk3MClTf7S7J9by5AyuCRUA83brLUw8KTeXwZCKWtzGDa0DerESKOejvlYiofY+c4
+	Pkj3bXhge8gXfWJurlM1A1cTFUhgDglzgeE4sH0MHlgWCvyqbF2JtCHWps9rL0vevdXIWEEikuB
+	A8qkHhX2M+rTVJPgJiG9X/5P3jmSD3ZZYy3S7QOBkMidgi6JoOiHu82xqClP/fHboEZO7YKhDR5
+	OnGY3JF+tamVR8KGeBGkuxW2ewhFy+Buxp8ZjR2J4K8QjdikxPVR1bkCGvLQ8CRTM5opd/EWJ3w
+	mL+8LdUCVfKHllKqfUqvsBTNquN/wW0TC7BKPghkXxaRPUD5xZhRo7HCIuO5OBfFDJzn4If9uPv
+	Pt1d4oxPRWrxk8qf8gpx3Cu9WIJoCPeuBUCo6ZWOnnSU9s0B5pq115V
+X-Received: by 2002:a05:693c:2286:b0:30c:d60:a879 with SMTP id 5a478bee46e88-30eff329b8amr1942342eec.35.1782909097097;
+        Wed, 01 Jul 2026 05:31:37 -0700 (PDT)
+Received: from localhost.localdomain ([103.108.57.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30ee2cd21bcsm40776402eec.0.2026.07.01.05.31.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Jul 2026 05:31:36 -0700 (PDT)
+From: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+To: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	herbert@gondor.apana.org.au,
+	robh@kernel.org
+Cc: krzk@kernel.org,
+	conor+dt@kernel.org,
+	Ruud.Derwig@synopsys.com,
+	rbannerm@synopsys.com,
+	manjunath.hadli@vayavyalabs.com,
+	adityak@vayavyalabs.com,
+	navami.telsang@vayavyalabs.com,
+	bhoomikak@vayavyalabs.com,
+	Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+Subject: [PATCH v15 0/4] crypto: spacc - Add SPAcc Crypto Driver
+Date: Wed,  1 Jul 2026 17:59:37 +0530
+Message-Id: <20260701122941.2149121-1-pavitrakumarm@vayavyalabs.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Add the driver for SPAcc(Security Protocol Accelerator), which is a
+crypto acceleration IP from Synopsys. The SPAcc supports multiple ciphers,
+hashes and AEAD algorithms with various modes. The driver currently supports
+below
 
-New issues:
-- [High] The return value of `pm_runtime_get_sync()` is ignored, which can =
-lead to hardware register accesses on an unpowered device.
-- [Medium] Missing `.remove` callback leaves PM runtime enabled and usage c=
-ounter unbalanced on driver unbind.
+hash:
+- cmac(aes)
+- xcbc(aes)
+- cmac(sm4)
+- xcbc(sm4)
+- hmac(md5)
+- md5
+- hmac(sha1)
+- sha1
+- sha224
+- sha256
+- sha384
+- sha512
+- hmac(sha224)
+- hmac(sha256)
+- hmac(sha384)
+- hmac(sha512)
+- sha3-224
+- sha3-256
+- sha3-384
+- sha3-512
 
-Pre-existing issues:
-- [High] Missing `phy_remove_lookup()` causes a memory leak and a dangling =
-pointer in the global PHY lookup list.
-- [High] Unconditional dereference of `dev->platform_data` before validatin=
-g it.
+changelog:
+  v1->v2 changes:
+    - Added local_bh_disable() and local_bh_enable() for the below calls.
+      a. for ciphers skcipher_request_complete()
+      b. for aead aead_request_complete()
+      c. for hash ahash_request_complete()
+    - dt-bindings updates
+      a. removed snps,vspacc-priority and made it into config option
+      b. renamed snps,spacc-wdtimer to snps,spacc-internal-counter
+      c. Added description to all properties
+    - Updated corresponding dt-binding changes to code
+
+  v2->v3 changes:
+    - cra_init and cra_exit replaced with init_tfm and exit_tfm for hashes.
+    - removed mutex_lock/unlock for spacc_skcipher_fallback call
+    - dt-bindings updates
+     a. updated SOC related information
+     b. renamed compatible string as per SOC
+   - Updated corresponding dt-binding changes to code
+
+  v3->v4 changes:
+   - removed snps,vspacc-id from the dt-bindings
+   - removed mutex_lock from ciphers
+   - replaced magic numbers with macros
+   - removed sw_fb variable from struct mode_tab and associated code from the
+     hashes
+   - polling code is replaced by wait_event_interruptible
+
+  v4->v5 changes:
+   - Updated to register with the crypto-engine
+   - Used semaphore to manage SPAcc device hardware context pool
+   - This patchset supports Hashes only
+   - Dropping the support for Ciphers and AEADs in this patchset
+   - Added Reviewed-by tag on the Device tree patch since it was reviewed on
+     v4 patch by Krzysztof Kozlowski and Rob Herring (Arm)
+
+  v5->v6 changes:
+   - Removed CRYPTO_DEV_SPACC_CIPHER and CRYPTO_DEV_SPACC_AEAD Kconfig options,
+     since the cipher and aead support is not part of this patchset
+   - Dropped spacc_skcipher.o and spacc_aead.o from Makefile to fix build errors
+     reported by kernel test robot
+   - Added Reported-by and Closes tags as suggested
+
+  v6->v7 changes:
+   - Fixed build error reported by Kernel test robot
+   - Added Reported-by and Closes tags as suggested
+
+  v7->v8 changes:
+   - Fixed misleading comment: Clarified that only HMAC key pre-processing
+     is done in software, while the actual HMAC operation is performed by
+     hardware
+   - Simplified do_shash() function signature by removing unused parameters
+   - Updated all do_shash() call sites to use new simplified signature
+   - Fixed commit message formatting by adding "crypto: spacc - <subject>" to
+     all patches
+   - used __free() for scope based resource management
+
+  v8->v9 changes:
+   - Updated the software fallback implementation to use HASH_FBREQ_ON_STACK
+   - Corrected dynamic allocation of statesize and reqsize in init_tfm
+   - Fixed synchronization issues in the digest request
+
+  v9->v10 changes:
+   - Fixed unused variable warning
+
+  v10->v11 changes:
+   - Removed the redundant crypto_alloc_ahash in the init_tfm function
+   - Removed the redundant crypto_free_ahash in exit_tfm function
+   - Removed the redundant crypto_ahash_setkey call in setkey function
+
+  v11->v12 changes:
+   - Removed do_shash() and switched to lib/crypto API in spacc_hash_setkey
+   - Dropped support for SM3 algorithm
+   - Improved multi-device safety by encapsulating handling within priv
+   - Added memzero_explicit() in sensitive paths
+   - Minor code cleanups and style fixes
+   - Algorithm registration cleanups
+
+  v12->v13 chnages:
+   - Removed all the sleep function from setkey function
+   - Added shash implemntation for aes algorthims
+
+  v13->v14 chnages:
+   -Added fixes based on the reports by Sashiko
+   -Removed the spacc_is_mode_keysize_supported call from do_one_request
+
+  v14->v15 chnages:
+   -Added fixes based on the reports by Sashiko on 19/jun/2026
+   -Fixed styling in the Kconfig
+
+Pavitrakumar Managutte (4):
+  dt-bindings: crypto: Document support for SPAcc
+  crypto: spacc - Add SPAcc ahash support
+  crypto: spacc - Add SPAcc AUTODETECT Support
+  crypto: spacc - Add SPAcc Kconfig and Makefile
+
+ .../bindings/crypto/snps,dwc-spacc.yaml       |   50 +
+ drivers/crypto/Kconfig                        |    1 +
+ drivers/crypto/Makefile                       |    1 +
+ drivers/crypto/dwc-spacc/Kconfig              |   83 +
+ drivers/crypto/dwc-spacc/Makefile             |    8 +
+ drivers/crypto/dwc-spacc/spacc_ahash.c        |  929 ++++++
+ drivers/crypto/dwc-spacc/spacc_core.c         | 2532 +++++++++++++++++
+ drivers/crypto/dwc-spacc/spacc_core.h         |  853 ++++++
+ drivers/crypto/dwc-spacc/spacc_device.c       |  286 ++
+ drivers/crypto/dwc-spacc/spacc_device.h       |  241 ++
+ drivers/crypto/dwc-spacc/spacc_hal.c          |  371 +++
+ drivers/crypto/dwc-spacc/spacc_hal.h          |  114 +
+ drivers/crypto/dwc-spacc/spacc_interrupt.c    |  328 +++
+ drivers/crypto/dwc-spacc/spacc_manager.c      |  612 ++++
+ 14 files changed, 6409 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/crypto/snps,dwc-spacc.yaml
+ create mode 100644 drivers/crypto/dwc-spacc/Kconfig
+ create mode 100644 drivers/crypto/dwc-spacc/Makefile
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_ahash.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_core.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_core.h
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_device.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_device.h
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_hal.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_hal.h
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_interrupt.c
+ create mode 100644 drivers/crypto/dwc-spacc/spacc_manager.c
+
+
+base-commit: 6ea0ce3a19f9c37a014099e2b0a46b27fa164564
 --
+2.25.1
 
-commit e3a3844cc6f977665174375e23735f789c04a772
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
-phy: phy-mtk-dp: Allow probing with devicetree match
-
-This commit introduces a devicetree match table to decouple the DP PHY driv=
-er
-from the DP IP driver. It adds an OF PHY provider and MMIO regmap registrat=
-ion
-for the devicetree case, while maintaining a legacy probe path for older
-devicetrees without a separate PHY node.
-
-> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
--mtk-dp.c
-> index bf7b3a95e72d2..98e05fe05ce3b 100644
-> --- a/drivers/phy/mediatek/phy-mtk-dp.c
-> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-
-[ ... ]
-
-> @@ -160,43 +161,92 @@ static const struct phy_ops mtk_dp_phy_dev_ops =3D {
->  	.owner =3D THIS_MODULE,
->  };
-> =20
-> +static int mtk_dp_phy_legacy_probe(struct platform_device *pdev, struct =
-mtk_dp_phy *dp_phy)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct phy *phy;
-> +
-> +	dp_phy->regmap =3D *(struct regmap **)dev->platform_data;
-
-[Severity: High]
-This is a pre-existing issue, but does this code unconditionally dereference
-dev->platform_data before verifying it is not NULL?
-
-If the platform device is instantiated without platform data, would this
-dereference cause a kernel panic before the subsequent check for
-!dp_phy->regmap can execute?
-
-> +	if (!dp_phy->regmap)
-> +		return dev_err_probe(dev, -EINVAL, "No platform data available\n");
-> +
-> +	phy =3D devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
-> +	if (IS_ERR(phy))
-> +		return dev_err_probe(dev, PTR_ERR(phy),
-> +				     "Failed to create DP PHY\n");
-> +
-> +	phy_set_drvdata(phy, dp_phy);
-> +	phy_create_lookup(phy, "dp", dev_name(dev));
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this leak the lookup
-entry and create a dangling pointer?
-
-phy_create_lookup() dynamically allocates a phy_lookup structure and links =
-it
-into the global phys list. Since there is no driver .remove callback calling
-phy_remove_lookup(), when the driver unbinds, the devres-managed phy is fre=
-ed
-while still in the global list, which could cause a use-after-free when oth=
-er
-drivers call phy_find().
-
-> +
-> +	return 0;
-> +}
-> +
-
-[ ... ]
-
->  static int mtk_dp_phy_probe(struct platform_device *pdev)
->  {
-
-[ ... ]
-
-> +	provider =3D devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-> +	if (IS_ERR(provider))
-> +		return PTR_ERR(provider);
-> +
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_get_sync(dev);
-
-[Severity: High]
-Is it safe to ignore the return value of pm_runtime_get_sync() here?
-
-If the generic power domain or clock fails to enable, pm_runtime_get_sync()
-will return a negative error code. Without checking this, the PHY provider =
-is
-registered even if the hardware is off, which could lead to a synchronous
-external abort when attempting to write to the MMIO registers later.
-
-> =20
->  	return 0;
->  }
-> =20
-> +static const struct of_device_id mtk_dp_phy_of_match[] =3D {
-> +	{ .compatible =3D "mediatek,mt8195-dp-phy" },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, mtk_dp_phy_of_match);
-> +
->  static struct platform_driver mtk_dp_phy_driver =3D {
->  	.probe =3D mtk_dp_phy_probe,
->  	.driver =3D {
->  		.name =3D "mediatek-dp-phy",
-> +		.of_match_table =3D mtk_dp_phy_of_match,
->  	},
->  };
-
-[Severity: Medium]
-Does this driver need a .remove callback to clean up the PM runtime state?
-
-Since pm_runtime_enable() and pm_runtime_get_sync() are called in probe
-without devm_ handlers or registered teardown actions, unbinding the driver
-appears to leak the usage counter and leave PM runtime permanently enabled.
-
->  module_platform_driver(mtk_dp_phy_driver);
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
-9-1-angelogioacchino.delregno@collabora.com?part=3D3
