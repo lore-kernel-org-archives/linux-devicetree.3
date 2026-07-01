@@ -1,217 +1,473 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60388495519
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:55:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9937C48A2C2
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:55:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782910528; cv=none; b=o08NW7oSRkvyDuHs7c5ESC+lLY4sRXsXgIB1Yx6wJRl0o9w4pnmSqmOOTGK5AIxU7Qd/rvezlLnWFk2O6BMUOxZ5+2lTTvY5sEByk4l1pMQSEFBORX/BO0eJ6Efii4xI7honJ/OQMx2dX6TuKvXGJlAUjrxYw1Ip7BZBFvwFOk0=
+	t=1782910551; cv=none; b=B5XErR+QRTh165EVZxFyMNM+Ffud2SQG39pfk9nPqvBEsErPJQWlzFZFHLY5HBSIIjysBL0M3qM8Uu9V1sf1fmePHo6UpvTpgUIzFB7h5Co39MR15Z/MH5eoR/wwGb2XenF5feNJGbujGiZa16/x5R+jEynt+1aW+OFWDd4PlmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782910528; c=relaxed/simple;
-	bh=JS2yG9pDjGwh3KA79+kpc5rS+oVEF7mlXGQkOFvbxFc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tBUGiTAjgsQm+yvRIr1THJeLofEEtk2SutumChFBHjVCqqAKeVi41NQHNxHnKnRfMvx3G/KnREDgZHlgXjBFoYUrWuE3716ZFK0kSYegVcVMQ/gMrs6AwkdK9CkfU/SoQl9u7ZGcND3oYD6/6SqB2UCO475f/CMUYe5uBAeE5aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BR4aiH8B; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782910551; c=relaxed/simple;
+	bh=RKmgfYyPmjXUj8whEN9uP9lTy7zr30W/RRxnTv3SKsk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eNXAhQT6SRqe0/upFDcR5eqp0roYVRbU5jZnhwsm4D5cSUEltaGa/2vL9/V8plpyPrmGkf5AIBzuKUFdaNLsDPZDSq0rg76ZC6HvXj3GTr0crD1U1Ii0kuPDjvg71nMU/b/Sn0khtVa0hMxyOsPcHPxVVqBcaa+W6hetup6r/Bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H+nqNnyh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BR4aiH8B"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-84783bce476so508577b3a.0
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 05:55:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782910527; x=1783515327; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0UYpoyK5fl+7ujxdLva1zphzrbPXeYkLwxH26RQow7w=;
-        b=BR4aiH8BOQQC2xNpBAVnQ9us6xtKwlsSiuxwOCRxI5J21LC7jQduRS/v10pTc3eVdf
-         Javdycerofv65LDjN4/bpn1DXW5x5fuWGcIfghurFf2XyVf59Vfjq2D7sWZ19EygHGHr
-         VTfLIOTWTgfKf6nNduq4U6Knkk7XhSYVK1z+Pv6Rx0DQ649+Y0M6HonulyAxKzsUcwo1
-         BPjDW4/r3EgIOv71Q6DZUu7g6gePUA8rn7tLbzfvOjGUJbjKq+TYK2fsYiJPuFf3R5Pe
-         CaBuD7H6xtilHhpMrnl1q9iSU1W34MjLDOGP3QBMoK8lhFu8JD/PNfuW9fBZbaen5ufq
-         ezzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782910527; x=1783515327;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=0UYpoyK5fl+7ujxdLva1zphzrbPXeYkLwxH26RQow7w=;
-        b=VuQQzhzLW5RaIVwiFIKiRDpwbf95inMWKvHZ+ia3gW/y+hauJNNkTN49Mjd7QIVk0Z
-         M3gZPDgcOQYEcTpIiOjLieM7znubHI4DEzb8B8rcLI+nif+XWtSy0dEy6UXJHCNXzxOs
-         Rb+kQIr0Ogje3Q6QyyBdVRkp/uhLs+KL35fC70s+2S49bhFkEOYWpjlfgyZ7Ldt4CXTW
-         eAvjdLJJmhRq9WfzBpf8QKgwW8L2BeqFuDqQoBeaCQFjiLV14NKqx4gLoA/wp0ZzRE7z
-         0lh6P0MPjJqOGyb6g3coFJh6hOvejgl7t9Ti1WaOGD3cxrOtmKMR7KorTQV6VzQWckt/
-         vpaw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq/PcMvi39Cxw8rrTLRg/c2yfpWYkCbeljSGDFju9nheOs0LPV2xXIfTHUX2RqoLZwUU1borxsjxrLN@vger.kernel.org
-X-Gm-Message-State: AOJu0YwQqXF5WaYar61s49X0/VMXD/xou8iwFCB8E5mmtaO27DE8NfuX
-	WQPgFLzQVZmy6nsGFJiGxxNR93nYoq+fIN/CvkelRhIwE089RLwYeO3B
-X-Gm-Gg: AfdE7clRgh2rGcqbH/szUFZAkI+8UnCt4f2mE3N2IkZlpLEsnNt4d5/X5KHsUGmW1GT
-	DJzG4RALUE15Mo7wKlAYM7LGtds4VdL3ClB/UxU7g569/nZKYYK+ZESbh+369oZUmr1s5iL85m0
-	DwDSi2qOLA9XPlP9Oo3bAbhQszPZuC73C4IiKudQloDD7O5lxsJEkZLcjd5fWvJTjxkjpecjB6m
-	CXeE3/qjQrVsDe/XVYfHgCHQ5MlFGTzvhwG+mEFVeRkBYGxJ9Uqqi+v/A33opXcpQCjBHRpFXZ1
-	7VhMifWXWqncB8jwTDDlXLVFS8BIfs8dE1bjAOvbLVH6EJZ+HokmZRA/gEl5IqOlFK1gFmh5+Vy
-	zTMKhHDpDJScLnnLo6iPTxaBzkhGEo2s7NRwk3QVXwckiPATLny9wh6uKcyY8hf3DicGC3wzPGa
-	MaNSKzw1OuZtYB1jwA557o
-X-Received: by 2002:a05:6a00:8d0:b0:847:83bd:6676 with SMTP id d2e1a72fcca58-847c0797314mr1543138b3a.17.1782910526573;
-        Wed, 01 Jul 2026 05:55:26 -0700 (PDT)
-Received: from [127.0.1.1] ([120.244.9.45])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847a03778basm3999403b3a.49.2026.07.01.05.55.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 05:55:26 -0700 (PDT)
-From: Guodong Xu <docular.xu@gmail.com>
-Date: Wed, 01 Jul 2026 08:52:30 -0400
-Subject: [PATCH v5 17/17] riscv: hwprobe: Introduce rva23u64 base behavior
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H+nqNnyh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 021471F00A3E;
+	Wed,  1 Jul 2026 12:55:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782910549;
+	bh=ZWY3SRNTumOES75pwRqf9iGq2fldhm1EiABrgQN3OcA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=H+nqNnyhhg2vOU8JasyXYq/pT9x7uvJx+NXBMi45SeDRljMj4YBbTKieuEQxJUEjA
+	 dDTcjpH7x6LPFFpF/RugU7nt2JxjDJCO+2dOsGLPCXTwfPw0uQq8PjgVB3BSfqBqCN
+	 aDB6Pohoy/9E2UQ87yqAKYZqtj38JNqZQC4iVL2BhkAvwzjqQ7XWPm1s2hrrSj1YaH
+	 yEI1aRW1tTZr6UkpPSGiClPHACc1jubcvQL8wjotDChEoUEG1u1Am60pocd8gk5m3D
+	 TL97bjSjzWgLRLr50GKl0Ca5molsuwbhrZyeGpZW+OphT+LWshvYkEh0wuD6hpklaC
+	 Puexn1JMoOKww==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v15 2/4] crypto: spacc - Add SPAcc ahash support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pavitrakumar Managutte" <pavitrakumarm@vayavyalabs.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260701122941.2149121-3-pavitrakumarm@vayavyalabs.com>
+References: <20260701122941.2149121-1-pavitrakumarm@vayavyalabs.com>
+ <20260701122941.2149121-3-pavitrakumarm@vayavyalabs.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 12:55:48 +0000
+Message-Id: <20260701125549.021471F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-rva23u64-hwprobe-v2-v5-17-2c61f94a695a@gmail.com>
-References: <20260701-rva23u64-hwprobe-v2-v5-0-2c61f94a695a@gmail.com>
-In-Reply-To: <20260701-rva23u64-hwprobe-v2-v5-0-2c61f94a695a@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Zong Li <zong.li@sifive.com>, 
- Deepak Gupta <debug@rivosinc.com>, Anup Patel <anup@brainfault.org>, 
- Atish Patra <atish.patra@linux.dev>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>, 
- Chen Wang <chen.wang@linux.dev>
-Cc: linux-doc@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>, 
- Conor Dooley <conor@kernel.org>, Jesse Taube <jtaubepe@redhat.com>, 
- Charlie Jenkins <thecharlesjenkins@gmail.com>, 
- Andrew Jones <andrew.jones@oss.qualcomm.com>, devicetree@vger.kernel.org, 
- spacemit@lists.linux.dev, sophgo@lists.linux.dev, 
- linux-kselftest@vger.kernel.org, Guodong Xu <docular.xu@gmail.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4859; i=docular.xu@gmail.com;
- h=from:subject:message-id; bh=JS2yG9pDjGwh3KA79+kpc5rS+oVEF7mlXGQkOFvbxFc=;
- b=owGbwMvMwCXWtEl1Z3CGpCDjabUkhixX3vaDBvML16z7O4dpxQF11qYlJadmHrDpqhEv/rXBV
- 9tr7sX4jlIWBjEuBlkxRZbDR1uyt77yifZ9zvkDZg4rE8gQBi5OAZiI4i6G//W2Nn4L07wviPnP
- LdUK7wr5wKn66Jh0oNmqaTU/WmetLGNkuBHhnqF5wDSfY9vegt8vfd7POrRq0kY2Y3mJhecqlh3
- h4gEA
-X-Developer-Key: i=docular.xu@gmail.com; a=openpgp;
- fpr=90B1DC3DF0BD10FD1227BD6344F254AF42F143EE
 
-Provide a hwprobe base-behavior bit so userspace can check RVA23U64
-support in one call.  Without it, a consumer needs five hwprobe
-calls and four prctl calls, which is error-prone to require of every
-caller.  Most software treats RVA23U64 as a new base anyway, so
-expose it directly.
+Thank you for your contribution! Sashiko AI review found 13 potential issue=
+(s) to consider:
+- [High] Crypto engine worker thread deadlocks due to context exhaustion.
+- [High] Use-After-Free during device teardown due to premature algorithm d=
+eallocation.
+- [High] Returning a negative error code from `do_one_request` stalls the c=
+rypto engine indefinitely.
+- [High] SM4-CMAC and SM4-XCBC skip software fallback initialization and fa=
+lsely advertise `CRYPTO_ALG_OPTIONAL_KEY`, leading to kernel panic.
+- [High] Incorrect teardown order in `spacc_crypto_remove` causes Use-After=
+-Free during workqueue execution.
+- [High] Global DMA pools break multi-device support, causing IOMMU faults =
+and Use-After-Free.
+- [High] Shared IRQ is not freed in `spacc_init_device` error paths, causin=
+g a destroyed workqueue to execute.
+- [High] Unbalanced semaphore release in `spacc_open` inflates context capa=
+city and breaks bounds logic.
+- [High] Concurrent lockless mutation of `spacc_crypto_ctx` during `setkey`=
+ causes NULL pointer dereferences in active hardware requests.
+- [High] `spacc_job_release` leaves a stale job mapping, causing delayed ha=
+rdware responses to falsely execute the callback of unrelated requests.
+- [High] Jobs are silently discarded if buffered queue processing encounter=
+s a validation failure, permanently hanging the crypto engine.
+- [Medium] Uninitialized memory read of `ctx->acb.new_handle` leading to ac=
+tive job corruption.
+- [Medium] Software fallback truncates data and returns false success upon =
+scatterlist length mismatch.
+--
 
-Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
-Signed-off-by: Guodong Xu <docular.xu@gmail.com>
----
-v5: No change.
-v4: No change.
-v3: No change.
-v2:
-- Detect RVA23U64 by reading from the cached hart_isa[].isa_bases
-  bitmap populated by riscv_init_isa_bases() at init time, sharing
-  one source of truth with /proc/cpuinfo.
----
- Documentation/arch/riscv/hwprobe.rst               |  8 ++++++++
- arch/riscv/include/uapi/asm/hwprobe.h              |  3 ++-
- arch/riscv/kernel/sys_hwprobe.c                    | 23 +++++++++++++++-------
- tools/testing/selftests/riscv/hwprobe/which-cpus.c |  2 +-
- 4 files changed, 27 insertions(+), 9 deletions(-)
+commit 5c2742d7183ca1c1ee4b0693c617c98d1a483ad4
+Author: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+crypto: spacc - Add SPAcc ahash support
 
-diff --git a/Documentation/arch/riscv/hwprobe.rst b/Documentation/arch/riscv/hwprobe.rst
-index 32a14331eb9de..dc70470093b1b 100644
---- a/Documentation/arch/riscv/hwprobe.rst
-+++ b/Documentation/arch/riscv/hwprobe.rst
-@@ -67,6 +67,14 @@ The following keys are defined:
-       programs (it may still be executed in userspace via a
-       kernel-controlled mechanism such as the vDSO).
- 
-+  * :c:macro:`RISCV_HWPROBE_BASE_BEHAVIOR_RVA23U64`: Support for all mandatory
-+    extensions of RVA23U64, as defined in the RISC-V Profiles specification
-+    starting from commit 0273f3c921b6 ("rva23/rvb23 ratified").
-+
-+    The RVA23U64 base is based upon the IMA base and therefore IMA extension
-+    keys (e.g. :c:macro:`RISCV_HWPROBE_KEY_IMA_EXT_0`:) may be used to probe
-+    optional extensions.
-+
- * :c:macro:`RISCV_HWPROBE_KEY_IMA_EXT_0`: A bitmask containing extensions
-   that are compatible with the :c:macro:`RISCV_HWPROBE_BASE_BEHAVIOR_IMA`:
-   base system behavior.
-diff --git a/arch/riscv/include/uapi/asm/hwprobe.h b/arch/riscv/include/uapi/asm/hwprobe.h
-index 36ec8ab470423..50733d3db7633 100644
---- a/arch/riscv/include/uapi/asm/hwprobe.h
-+++ b/arch/riscv/include/uapi/asm/hwprobe.h
-@@ -21,7 +21,8 @@ struct riscv_hwprobe {
- #define RISCV_HWPROBE_KEY_MARCHID	1
- #define RISCV_HWPROBE_KEY_MIMPID	2
- #define RISCV_HWPROBE_KEY_BASE_BEHAVIOR	3
--#define		RISCV_HWPROBE_BASE_BEHAVIOR_IMA	(1 << 0)
-+#define		RISCV_HWPROBE_BASE_BEHAVIOR_IMA		(1 << 0)
-+#define		RISCV_HWPROBE_BASE_BEHAVIOR_RVA23U64	(1 << 1)
- #define RISCV_HWPROBE_KEY_IMA_EXT_0	4
- #define		RISCV_HWPROBE_IMA_FD		(1 << 0)
- #define		RISCV_HWPROBE_IMA_C		(1 << 1)
-diff --git a/arch/riscv/kernel/sys_hwprobe.c b/arch/riscv/kernel/sys_hwprobe.c
-index 3e80e5551ae0d..3f66f2e99d41a 100644
---- a/arch/riscv/kernel/sys_hwprobe.c
-+++ b/arch/riscv/kernel/sys_hwprobe.c
-@@ -226,6 +226,17 @@ static bool hwprobe_ext0_has(const struct cpumask *cpus, u64 ext)
- 	return (pair.value & ext);
- }
- 
-+static bool hwprobe_has_isa_base(const struct cpumask *cpus, unsigned int base)
-+{
-+	int cpu;
-+
-+	for_each_cpu(cpu, cpus) {
-+		if (!test_bit(base, hart_isa[cpu].isa_bases))
-+			return false;
-+	}
-+	return true;
-+}
-+
- #if defined(CONFIG_RISCV_PROBE_UNALIGNED_ACCESS)
- static u64 hwprobe_misaligned(const struct cpumask *cpus)
- {
-@@ -308,14 +319,12 @@ static void hwprobe_one_pair(struct riscv_hwprobe *pair,
- 	case RISCV_HWPROBE_KEY_MIMPID:
- 		hwprobe_arch_id(pair, cpus);
- 		break;
--	/*
--	 * The kernel already assumes that the base single-letter ISA
--	 * extensions are supported on all harts, and only supports the
--	 * IMA base, so just cheat a bit here and tell that to
--	 * userspace.
--	 */
- 	case RISCV_HWPROBE_KEY_BASE_BEHAVIOR:
--		pair->value = RISCV_HWPROBE_BASE_BEHAVIOR_IMA;
-+		pair->value = 0;
-+		if (hwprobe_has_isa_base(cpus, RISCV_ISA_BASE_IMA))
-+			pair->value |= RISCV_HWPROBE_BASE_BEHAVIOR_IMA;
-+		if (hwprobe_has_isa_base(cpus, RISCV_ISA_BASE_RVA23U64))
-+			pair->value |= RISCV_HWPROBE_BASE_BEHAVIOR_RVA23U64;
- 		break;
- 
- 	case RISCV_HWPROBE_KEY_IMA_EXT_0:
-diff --git a/tools/testing/selftests/riscv/hwprobe/which-cpus.c b/tools/testing/selftests/riscv/hwprobe/which-cpus.c
-index 587feb198c049..f8c797b1d0fd9 100644
---- a/tools/testing/selftests/riscv/hwprobe/which-cpus.c
-+++ b/tools/testing/selftests/riscv/hwprobe/which-cpus.c
-@@ -105,7 +105,7 @@ int main(int argc, char **argv)
- 	pairs[0] = (struct riscv_hwprobe){ .key = RISCV_HWPROBE_KEY_BASE_BEHAVIOR, };
- 	rc = riscv_hwprobe(pairs, 1, 0, NULL, 0);
- 	assert(rc == 0 && pairs[0].key == RISCV_HWPROBE_KEY_BASE_BEHAVIOR &&
--	       pairs[0].value == RISCV_HWPROBE_BASE_BEHAVIOR_IMA);
-+	       (pairs[0].value & RISCV_HWPROBE_BASE_BEHAVIOR_IMA));
- 
- 	pairs[0] = (struct riscv_hwprobe){ .key = RISCV_HWPROBE_KEY_IMA_EXT_0, };
- 	rc = riscv_hwprobe(pairs, 1, 0, NULL, 0);
+Add ahash support to SPAcc driver.
 
--- 
-2.43.0
+> diff --git a/drivers/crypto/dwc-spacc/spacc_ahash.c b/drivers/crypto/dwc-=
+spacc/spacc_ahash.c
+> --- a/drivers/crypto/dwc-spacc/spacc_ahash.c
+> +++ b/drivers/crypto/dwc-spacc/spacc_ahash.c
+[ ... ]
+> +static int spacc_hash_init_dma(struct device *dev, struct ahash_request =
+*req)
+> +{
+[ ... ]
+> +err_free_dst:
+> +	/*
+> +	 * If the handle was already cloned (semaphore count and job slot
+> +	 * taken) before this failure, release it.  Clone-failure paths
+> +	 * leave new_handle < 0, so the guard skips them.
+> +	 */
+> +	if (ctx->acb.new_handle >=3D 0) {
+> +		spacc_close(&priv->spacc, ctx->acb.new_handle);
+> +		ctx->acb.new_handle =3D -1;
+> +	}
 
+[Severity: Medium]
+Can ctx->acb.new_handle be read uninitialized in this error path?=20
+
+If this function is called with req->nbytes > 0 but ctx->total_nents =3D=3D=
+ 0
+due to a scatterlist mapping failure, both initialization branches are
+skipped and the function jumps to err_free_dst. The uninitialized stack or
+heap memory of ctx->acb.new_handle would then be evaluated, potentially
+closing an unrelated active handle if it evaluates to >=3D 0.
+
+[ ... ]
+> +static int spacc_hash_setkey(struct crypto_ahash *tfm, const u8 *key,
+[ ... ]
+> +	if (tctx->handle >=3D 0) {
+> +		spacc_close(&priv->spacc, tctx->handle);
+> +		tctx->handle =3D -1;
+> +	}
+> +
+> +	if (tctx->dev) {
+> +		put_device(tctx->dev);
+> +		tctx->dev =3D NULL;
+> +	}
+> +
+> +	tctx->ctx_valid =3D false;
+> +	tctx->dev =3D get_device(salg->dev);
+
+[Severity: High]
+Is it safe to modify tctx->dev and other context fields without
+synchronization here?
+
+The crypto API permits setkey to run concurrently with do_one_request on the
+same tfm. If spacc_hash_do_one_request() reads tctx->dev to extract drvdata
+at the exact moment it is set to NULL here, it could result in a NULL
+pointer dereference.
+
+[ ... ]
+> +static int spacc_hash_do_one_request(struct crypto_engine *engine, void =
+*areq)
+> +{
+[ ... ]
+> +		/*
+> +		 * Open the HW context here, not in setkey.  spacc_open()
+> +		 * acquires ctx_sem which may sleep; do_one_request runs in
+> +		 * the crypto_engine workqueue which is a sleepable context,
+> +		 * so this is safe.
+> +		 */
+> +		tctx->handle =3D spacc_open(&priv->spacc, CRYPTO_MODE_NULL,
+> +				salg->mode->id, -1, 0,
+> +				spacc_digest_cb, reqtfm);
+
+[Severity: High]
+Could this lead to a deadlock of the crypto engine worker thread?
+
+When spacc_hash_do_one_request() calls spacc_open() with ctxid=3D-1, it
+triggers down_interruptible(&spacc->ctx_sem). If userspace opens more tfm
+instances than the hardware limit, the single engine worker thread will blo=
+ck
+indefinitely on this semaphore, completely stalling all crypto operations.
+
+[ ... ]
+> +	rc =3D spacc_packet_enqueue_ddt(&priv->spacc, ctx->acb.new_handle,
+> +			&ctx->src, &ctx->dst, req->nbytes,
+> +			0, req->nbytes, 0, 0, 0);
+> +	if (rc < 0) {
+> +		spacc_free_mems(ctx, tctx, req);
+> +
+> +		dma_pool_free(priv->hash_pool, ctx->digest_buf,
+> +					ctx->digest_dma);
+> +		pdu_ddt_free(&ctx->dst);
+> +
+> +		if (ctx->acb.new_handle >=3D 0) {
+> +			spacc_close(&priv->spacc, ctx->acb.new_handle);
+> +			ctx->acb.new_handle =3D -1;
+> +		}
+> +
+> +		if (rc =3D=3D -EBUSY) {
+> +			dev_dbg(salg->dev, "HW full, engine retry\n");
+> +			return -ENOSPC;
+> +		}
+> +
+> +		return rc;
+
+[Severity: High]
+Does returning an error directly here stall the crypto engine indefinitely?
+
+Since the engine was initialized with retry_support =3D false, returning a
+negative error code directly without calling crypto_finalize_hash_request()
+will fail to clear engine->cur_req. The engine pump loop then permanently
+aborts because engine->cur_req remains populated.
+
+[ ... ]
+> +fallback:
+> +	kfree(tctx->tmp_sgl);
+> +	tctx->tmp_sgl =3D NULL;
+> +
+> +	if (tctx->shash_fb) {
+> +		SHASH_DESC_ON_STACK(desc, tctx->shash_fb);
+> +
+> +		desc->tfm =3D tctx->shash_fb;
+> +
+> +		rc =3D crypto_shash_init(desc);
+> +		if (!rc) {
+> +			struct sg_mapping_iter miter;
+> +			unsigned int remaining =3D req->nbytes;
+> +
+> +			sg_miter_start(&miter, req->src,
+> +				       sg_nents_for_len(req->src, req->nbytes),
+> +				       SG_MITER_ATOMIC | SG_MITER_FROM_SG);
+
+[Severity: Medium]
+How does this handle a mismatch in scatterlist lengths?=20
+
+If req->nbytes exceeds the actual sum of the scatterlist lengths,
+sg_nents_for_len() returns -EINVAL. This negative error code is implicitly
+cast to an unsigned integer in sg_miter_start(), causing the miter to
+iterate to the end of the available data and the software fallback to
+falsely return success for a partial MAC.
+
+[ ... ]
+> +static int spacc_hash_init_tfm(struct crypto_ahash *tfm)
+> +{
+[ ... ]
+> +	if (salg->mode->id =3D=3D CRYPTO_MODE_MAC_CMAC ||
+> +	    salg->mode->id =3D=3D CRYPTO_MODE_MAC_XCBC) {
+> +		tctx->shash_fb =3D crypto_alloc_shash(
+> +				salg->alg.hash.base.halg.base.cra_name, 0, 0);
+
+[Severity: High]
+Do SM4-CMAC and SM4-XCBC properly initialize their software fallbacks?
+
+This condition only checks for AES MACs, meaning spacc_hash_init_tfm() does
+not allocate tctx->shash_fb for SM4 MACs. If an unkeyed MAC is requested,
+it falls back to the generic HASH_FBREQ_ON_STACK. Because the fallback TFM =
+is
+NULL, this triggers a guaranteed NULL pointer dereference.
+
+[ ... ]
+> +static int spacc_register_hash(struct spacc_alg *salg)
+> +{
+[ ... ]
+> +	if (salg->mode->id =3D=3D CRYPTO_MODE_MAC_CMAC ||
+> +	    salg->mode->id =3D=3D CRYPTO_MODE_MAC_XCBC) {
+> +		salg->alg.hash.base.halg.base.cra_flags =3D
+> +			CRYPTO_ALG_TYPE_AHASH | CRYPTO_ALG_ASYNC |
+> +			CRYPTO_ALG_NO_FALLBACK;
+> +	} else {
+> +		salg->alg.hash.base.halg.base.cra_flags =3D
+> +			CRYPTO_ALG_TYPE_AHASH | CRYPTO_ALG_ASYNC |
+> +			CRYPTO_ALG_OPTIONAL_KEY;
+> +	}
+
+[Severity: High]
+Similar to the fallback allocation above, SM4 MACs fall into the else branch
+here, falsely advertising CRYPTO_ALG_OPTIONAL_KEY despite requiring a key
+and missing their software fallback initialization.
+
+[ ... ]
+> +int spacc_unregister_hash_algs(struct spacc_priv *priv)
+> +{
+[ ... ]
+> +	list_for_each_entry_safe(salg, tmp, &priv->hash_alg_list, list) {
+> +		crypto_engine_unregister_ahash(&salg->alg.hash);
+> +		list_del(&salg->list);
+> +		kfree(salg);
+> +	}
+
+[Severity: High]
+Is it safe to unconditionally kfree(salg) here?
+
+While crypto_engine_unregister_ahash() removes the algorithm from the
+registry, any currently open TFMs will continue to retain a pointer to the
+freed salg memory. This results in a use-after-free when the device unbinds.
+
+> diff --git a/drivers/crypto/dwc-spacc/spacc_core.c b/drivers/crypto/dwc-s=
+pacc/spacc_core.c
+> --- a/drivers/crypto/dwc-spacc/spacc_core.c
+> +++ b/drivers/crypto/dwc-spacc/spacc_core.c
+[ ... ]
+> +int spacc_open(struct spacc_device *spacc, int enc, int hash, int ctxid,
+> +	       int secure_mode, spacc_callback cb, void *cbdata)
+> +{
+[ ... ]
+> +	if (ctxid =3D=3D -1) {
+> +		if (down_interruptible(&spacc->ctx_sem)) {
+> +			dev_dbg(spacc->dptr, "ERR: Interrupted by signal\n");
+> +			return -ERESTARTSYS;
+> +		}
+> +	}
+> +
+> +	spin_lock_irqsave(&spacc->ctx_lock, flags);
+> +	job_idx =3D spacc_job_request(spacc, ctxid);
+> +
+> +	if (job_idx < 0) {
+> +		spin_unlock_irqrestore(&spacc->ctx_lock, flags);
+> +		dev_dbg(spacc->dptr, "Failed to acquire context\n");
+> +		ret =3D -EIO;
+> +		goto err_release_sem;
+> +	}
+[ ... ]
+> +err_release_job:
+> +	spacc_job_release(spacc, job_idx);
+> +err_release_sem:
+> +	if (!ctx_reused)
+> +		up(&spacc->ctx_sem);
+> +
+> +	return ret;
+> +}
+
+[Severity: High]
+Can this error path result in an unbalanced semaphore release?
+
+The spacc->ctx_sem semaphore is only acquired if ctxid =3D=3D -1, but the
+err_release_sem path unconditionally calls up(&spacc->ctx_sem) since
+ctx_reused defaults to false. This grants an extra phantom permit to the
+semaphore, allowing concurrent callers to bypass context limits and access
+out-of-bounds memory.
+
+> diff --git a/drivers/crypto/dwc-spacc/spacc_device.c b/drivers/crypto/dwc=
+-spacc/spacc_device.c
+> --- a/drivers/crypto/dwc-spacc/spacc_device.c
+> +++ b/drivers/crypto/dwc-spacc/spacc_device.c
+[ ... ]
+> +static int spacc_init_device(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	irq_ret =3D devm_request_irq(&pdev->dev, irq_num, spacc_irq_handler,
+> +			     IRQF_SHARED, dev_name(&pdev->dev),
+> +			     &pdev->dev);
+> +	if (irq_ret) {
+> +		dev_err(&pdev->dev, "Failed to request IRQ : %d\n", irq_ret);
+> +		err =3D irq_ret;
+> +		goto free_spacc_workq;
+> +	}
+[ ... ]
+> +	err =3D spacc_autodetect(&priv->spacc);
+> +	if (err < 0) {
+> +		spacc_irq_glbl_disable(&priv->spacc);
+> +		goto free_spacc_workq;
+> +	}
+[ ... ]
+> +free_spacc_workq:
+> +	destroy_workqueue(priv->spacc_wq);
+> +
+> +free_engine:
+> +	crypto_engine_exit(priv->engine);
+
+[Severity: High]
+Does the error path need to manually free the shared interrupt?
+
+The interrupt is registered as IRQF_SHARED via devm, but if initialization
+fails (e.g., during spacc_autodetect), the workqueue is destroyed while the
+interrupt remains active until devres cleanup runs later. If another device
+triggers the shared interrupt line in this window, the handler could try to
+queue work to the destroyed workqueue.
+
+[ ... ]
+> +static void spacc_crypto_remove(struct platform_device *pdev)
+> +{
+> +	struct spacc_priv *priv =3D platform_get_drvdata(pdev);
+> +
+> +	spacc_irq_glbl_disable(&priv->spacc);
+> +
+> +	devm_free_irq(&pdev->dev, priv->irq, &pdev->dev);
+> +
+> +	spacc_unregister_algs(priv);
+> +
+> +	if (priv->engine)
+> +		crypto_engine_exit(priv->engine);
+> +
+> +	if (priv->spacc_wq)
+> +		destroy_workqueue(priv->spacc_wq);
+> +
+> +	spacc_remove(pdev);
+> +}
+
+[Severity: High]
+Is the teardown order correct here?
+
+The driver calls spacc_unregister_algs() (which destroys priv->hash_pool)
+before flushing and destroying priv->spacc_wq. If there are pending work
+items in spacc_wq, spacc_pop_jobs() could run concurrently and attempt to
+free memory from the already destroyed pool.
+
+> diff --git a/drivers/crypto/dwc-spacc/spacc_hal.c b/drivers/crypto/dwc-sp=
+acc/spacc_hal.c
+> --- a/drivers/crypto/dwc-spacc/spacc_hal.c
+> +++ b/drivers/crypto/dwc-spacc/spacc_hal.c
+[ ... ]
+> +static struct dma_pool *ddt_pool, *ddt16_pool, *ddt4_pool;
+> +static struct device *ddt_device;
+> +
+> +int pdu_mem_init(void *device)
+> +{
+> +	if (ddt_device)
+> +		return 0; /* already setup */
+> +
+> +	/* max of 64 DDT entries */
+> +	ddt_device =3D device;
+> +	ddt_pool =3D dma_pool_create("spaccddt", device,
+> +				   DDT_MAX_ENTRIES, 8, 0);
+
+[Severity: High]
+Could the use of global static variables for the DMA pools cause issues on
+systems with multiple SPAcc engines?
+
+If multiple instances probe, they will all share the pool allocated against
+the first device's struct, which violates IOMMU isolation. Additionally, if
+the first device is removed, it destroys the pool for all active instances,
+leading to use-after-free crashes.
+
+> diff --git a/drivers/crypto/dwc-spacc/spacc_manager.c b/drivers/crypto/dw=
+c-spacc/spacc_manager.c
+> --- a/drivers/crypto/dwc-spacc/spacc_manager.c
+> +++ b/drivers/crypto/dwc-spacc/spacc_manager.c
+[ ... ]
+> +int spacc_job_release(struct spacc_device *spacc, int job_idx)
+> +{
+[ ... ]
+> +	job	      =3D &spacc->job[job_idx];
+> +	/* release context that goes with job */
+> +	ret	      =3D spacc_ctx_release(spacc, job->ctx_idx);
+> +	job->ctx_idx  =3D SPACC_CTX_IDX_UNUSED;
+> +	job->job_used =3D SPACC_JOB_IDX_UNUSED;
+> +	/* disable any callback */
+> +	job->cb       =3D NULL;
+> +
+> +	/* NOTE: this leaves ctrl data in memory */
+> +	spin_unlock_irqrestore(&spacc->lock, lock_flag);
+> +
+> +	return ret;
+> +}
+
+[Severity: High]
+Should spacc->job_lookup be cleared for this swid during release?
+
+If a request is software-aborted, the job slot is freed but the swid mapping
+remains. When the hardware eventually completes the orphaned job, the IRQ
+handler might read this stale mapping and fire the callback of a newly
+allocated, completely unrelated request.
+
+[ ... ]
+> +int spacc_process_jb(struct spacc_device *spacc)
+> +{
+[ ... ]
+> +		if (spacc->job_buffer[tail].active) {
+> +			ret =3D spacc_packet_enqueue_ddt_ex
+> +			      (spacc, 0, spacc->job_buffer[tail].job_idx,
+> +			       spacc->job_buffer[tail].src,
+> +			       spacc->job_buffer[tail].dst,
+> +			       spacc->job_buffer[tail].proc_sz,
+> +			       spacc->job_buffer[tail].aad_offset,
+> +			       spacc->job_buffer[tail].pre_aad_sz,
+> +			       spacc->job_buffer[tail].post_aad_sz,
+> +			       spacc->job_buffer[tail].iv_offset,
+> +			       spacc->job_buffer[tail].prio);
+> +
+> +			if (ret !=3D -EBUSY)
+> +				spacc->job_buffer[tail].active =3D 0;
+> +			else
+> +				return -EBUSY;
+> +		}
+
+[Severity: High]
+What happens to the pending request if spacc_packet_enqueue_ddt_ex() returns
+an error other than -EBUSY (such as -EINVAL for LINEAR mode errors)?=20
+
+By setting active to 0 and not invoking the job's callback, this silently
+drops the request and leaves the crypto engine waiting forever.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122941.2149=
+121-1-pavitrakumarm@vayavyalabs.com?part=3D2
