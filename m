@@ -1,112 +1,150 @@
-Received: from mxb.seznam.cz (mxb.seznam.cz [77.75.76.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C7DEEB3;
-	Wed,  1 Jul 2026 14:52:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.75.76.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976F134D90D;
+	Wed,  1 Jul 2026 14:54:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782917550; cv=none; b=QEQfQuKn5gDFz9SE6Flb7nrXoVp+RnWVDcVpEGvvBN6eD3IWef1Wdewo2dFl8ZP2yzbv6yeTTPASWWJ+F9OrCew2Kd9tOyEfFtXOP7zW0v5bjc9MmoidYHvEV/V/Mt7SFpAmiJ82JQac5KIsu8Dbt7aNzwYTJzLNC7Q04C+tsL0=
+	t=1782917696; cv=none; b=Iad02pwdUK22XmVMYAwxBdJ8p0BXsT7oRSclBZ9cRQaUGuxKI/eqd9JCEUWRg2YnknAy52dYNPU9dcxigVK4AhzxxmVg00X9F7Fz6+ijwbvub4x04F1DhiVMJ10Wo0nTr/7pSjTI8u8Ly5mzXJ6zOOVvtgY32QLqMAC8H8W9F8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782917550; c=relaxed/simple;
-	bh=ika0BrSNQoltLJqUAR1RwAjrRKCr5c1SgU5LtyaOsdQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=K1roQHT9C5hFvmNrZMQyXQRxockfuwpjycNsBSSaIbYlKrtq8UXNGxRNTHTkG3q2xZvSyVKesaxCe1yLsD69Xr/VB8CgNhBfYGzMX7zSIDfNA1Sxb0ltj2sZ/FmdU208YorrS1/DSw3yAuZFCwji5TDD8OY0oOhGE2wAJeg2PR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loebl.cz; spf=none smtp.mailfrom=loebl.cz; dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b=VnM2bm+E; arc=none smtp.client-ip=77.75.76.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loebl.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=loebl.cz
+	s=arc-20240116; t=1782917696; c=relaxed/simple;
+	bh=gOB6MCVt61sAymgIqsQEgtwiydK+N8TrTVRMuQ1j7Ek=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KJmoVJryYxmCyskPM1JSb7JkVc/dnWX4luZNqHYDBTMeOFWikF27WY6w8gb/ix1R75u7OA3IfRs2QdGyKqqk0vZuyM5EULMQzII+1V5uOEQwgSKRYRkdM1TL7fdhtcjw3StBgZJ45NolyRcanXn96FTrmXfNEac9L03L2ulytys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=owKcthBT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b="VnM2bm+E"
-Received: from email.seznam.cz
-	by smtpc-mxb-55bd7c95dc-hrn5m
-	(smtpc-mxb-55bd7c95dc-hrn5m [2a02:598:96:8a00::1200:50c])
-	id 44b5930f5f271edb40502a8d;
-	Wed, 01 Jul 2026 16:52:19 +0200 (CEST)
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=emailprofi.seznam.cz; s=szn1; t=1782917539;
-	bh=us0nAeHD3vBIcCOehjkvttvj8zYNKPFSkGMChTkflDE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	b=VnM2bm+E0qbTzLlfXP2BQEo/x3vR6XUvns/j9J6AszsWRQxGF2ymGbOsA+2NyGORE
-	 Vum3oZbG9APyNuZaqmPmuOsojftnVD+emLkPM952rDAisVNX1o+KfxQodaGD1M6Nb9
-	 v2IvS3yumvBFQV/UxN66by8OghQ9d3JzxIcbCfR02CvV5jSIk8haLp/c2TKRyimRXl
-	 2EZKftbbi62hYj9juDRytIA3MjavSttxgz6wA3bbHL6M+ghY7Xs18GJjDOBxvKiZfk
-	 l9o6ttVJP6AJfiyHEbZzPI31IUcxq/+0HUXZhr2+DZrd+Doo4o5LTsEhzBH3BHkDft
-	 JMQsewixa9v3A==
-Received: from localhost (109-81-118-98.rct.o2.cz [109.81.118.98])
-	by smtpd-relay-f8b496c7c-25jvs (szn-email-smtpd/2.0.76) with ESMTPA
-	id 5109345c-e1c2-4b17-ab47-f09211e5ee9b;
-	Wed, 01 Jul 2026 16:51:46 +0200
-From: =?UTF-8?q?Pavel=20L=C3=B6bl?= <pavel@loebl.cz>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	=?UTF-8?q?Pavel=20L=C3=B6bl?= <pavel@loebl.cz>
-Subject: [PATCH v2 1/2] dt-bindings: clock: si544: add si549 compatible
-Date: Wed,  1 Jul 2026 16:51:00 +0200
-Message-ID: <20260701145101.3932655-2-pavel@loebl.cz>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260701145101.3932655-1-pavel@loebl.cz>
-References: <20260701145101.3932655-1-pavel@loebl.cz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="owKcthBT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02B451F000E9;
+	Wed,  1 Jul 2026 14:54:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782917695;
+	bh=SDR3KQw9qtIa5D9+VfKzhnvqQCKPssYPjRfAjZS0Jq0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=owKcthBT8KfImP7ppFbeEpd++V8mdALHFfA1kFZQB895D73tcfNTm371VhfBF0E6d
+	 zxQDHd3EPMflYFkOpIHvuGxRz4SqfQfbrOb/U6dXKjxeu5+GzmOUauY1TfcgFfHzcE
+	 Of567sU5Pnlx8oDGDFYU9OULzzal9sQ09NPUSjM0053NOxOCrg5d5GCmAuETAANXle
+	 mhsCrVKP7ii58UFDYcI9svSnVv7R+3vxcUEtjzXP5bQoTf5gvxnPZ90C9PDnXtsIPF
+	 e7aKC9/blzFN3eeHZp361PDFAMCawu7NH3AMRrTY3D53YxV62WvZCWa4YaLIk9tExS
+	 21o309jBfpDgQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 10/10] rtc: rzn1: Add support for Renesas RZ/T2H and
+ RZ/N2H SoCs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, linux-rtc@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20260701142953.2014895-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260701142953.2014895-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260701142953.2014895-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 14:54:54 +0000
+Message-Id: <20260701145455.02B451F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Adding Si549 compatible, which uses different internal oscillator
-frequency. Like in Si544 case, there are three types ending with
-latters a,b and c. Each with different maximum output frequency.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The driver does not enforce SCMP mode for the new RZ/T2H compatibl=
+e, allowing an unsafe fallback to SUBU mode that accesses the unimplemented=
+ RTCA0SUBU register.
+- [Medium] The driver clears the entire `RZN1_RTC_CTL1` register to disable=
+ interrupts, which inadvertently destroys the state of the RZ/T2H-specific =
+1 Hz output control bit.
+--
 
-Also fix datasheet links after Silicon Labs acquisition by
-Skyworks Solutions.
+commit a19c5bdab6f846898749c84cf9743ad18017cdd8
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Signed-off-by: Pavel Löbl <pavel@loebl.cz>
----
- .../devicetree/bindings/clock/silabs,si544.yaml        | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+rtc: rzn1: Add support for Renesas RZ/T2H and RZ/N2H SoCs
+   =20
+Add support for the RTC block found on the Renesas RZ/T2H (R9A09G077)
+and RZ/N2H (R9A09G087) SoCs by matching the new
+renesas,r9a09g077-rtc compatible string.
 
-diff --git a/Documentation/devicetree/bindings/clock/silabs,si544.yaml b/Documentation/devicetree/bindings/clock/silabs,si544.yaml
-index f87e71867108..c58171f1bc5b 100644
---- a/Documentation/devicetree/bindings/clock/silabs,si544.yaml
-+++ b/Documentation/devicetree/bindings/clock/silabs,si544.yaml
-@@ -4,7 +4,7 @@
- $id: http://devicetree.org/schemas/clock/silabs,si544.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Silicon Labs SI514/SI544 clock generator
-+title: Silicon Labs SI514/SI544/SI549 clock generator
- 
- maintainers:
-   - Mike Looijmans <mike.looijmans@topic.nl>
-@@ -13,8 +13,9 @@ description: >
-   Silicon Labs 514/544 programmable I2C clock generator. Details about the device
-   can be found in the datasheet:
- 
--    https://www.silabs.com/Support%20Documents/TechnicalDocs/si514.pdf
--    https://www.silabs.com/documents/public/data-sheets/si544-datasheet.pdf
-+    https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si514.pdf
-+    https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/si544-datasheet.pdf
-+    https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/si549-datasheet.pdf
- 
- properties:
-   compatible:
-@@ -23,6 +24,9 @@ properties:
-       - silabs,si544a
-       - silabs,si544b
-       - silabs,si544c
-+      - silabs,si549a
-+      - silabs,si549b
-+      - silabs,si549c
- 
-   reg:
-     maxItems: 1
--- 
-2.53.0
+>     These SoCs integrate a closely related variant of the RZ/N1 RTC IP.
+>     Unlike the RZ/N1 implementation, the RZ/T2H and RZ/N2H variants lack
+>     the RTCA0SUBU register. However, this register is not accessed when
+>     operating in SCMP mode using the existing rzn1_rtc_ops_scmp
+>     configuration, allowing the current driver infrastructure to be reused
+>     without modification.
 
+[Severity: High]
+Does the current driver infrastructure guarantee SCMP mode is always used?
+
+If the xtal clock is missing (since devm_clk_get_optional() is used) or
+if its rate is exactly 32768 Hz, scmp_val remains 0:
+
+drivers/rtc/rtc-rzn1.c:rzn1_rtc_probe() {
+	...
+	xtal =3D devm_clk_get_optional(dev, "xtal");
+	if (IS_ERR(xtal)) {
+		...
+	} else if (xtal) {
+		rate =3D clk_get_rate(xtal);
+		...
+		if (rate !=3D 32768)
+			scmp_val =3D RZN1_RTC_CTL0_SLSB_SCMP;
+	}
+	...
+
+This causes the driver to fall back to the SUBU ops:
+
+	if (scmp_val) {
+		writel(rate - 1, rtc->base + RZN1_RTC_SCMP);
+		rtc->rtcdev->ops =3D &rzn1_rtc_ops_scmp;
+	} else {
+		rtc->rtcdev->ops =3D &rzn1_rtc_ops_subu;
+	}
+
+If this happens, the SUBU ops will access the missing RTCA0SUBU register,
+which can trigger a synchronous external abort. Should the driver use OF ma=
+tch
+data to identify variants lacking the SUBU register and explicitly prevent
+assigning rzn1_rtc_ops_subu?
+
+>     The RZ/T2H RTC variant also supports a 1 Hz output signal on the
+>     RTCAT1HZ pin, controlled by the RTCA0CTL1[RTCA01HZE] bit. This bit is
+>     marked as reserved in the RZ/N1 hardware manual, making RZ/T2H a
+>     distinct RTC variant despite its overall compatibility with the RZ/N1
+>     implementation.
+
+[Severity: Medium]
+Will this 1 Hz output signal be inadvertently disabled during probe and rem=
+oval?
+
+During probe and removal, the driver unconditionally clears the entire
+RZN1_RTC_CTL1 register to disable interrupts:
+
+drivers/rtc/rtc-rzn1.c:rzn1_rtc_probe() {
+	...
+	/* Disable all interrupts */
+	writel(0, rtc->base + RZN1_RTC_CTL1);
+	...
+
+If the bootloader or firmware previously configured the 1 Hz output signal,
+won't this unconditional write to 0 destroy that state? Could the driver
+perform a read-modify-write operation to clear only the interrupt enable bi=
+ts
+instead?
+
+> diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
+> index e77b7e7bcd5bd..26a5cde41c6b2 100644
+> --- a/drivers/rtc/rtc-rzn1.c
+> +++ b/drivers/rtc/rtc-rzn1.c
+> @@ -518,6 +518,7 @@ static void rzn1_rtc_remove(struct platform_device *p=
+dev)
+>  }
+> =20
+>  static const struct of_device_id rzn1_rtc_of_match[] =3D {
+> +	{ .compatible	=3D "renesas,r9a09g077-rtc" },
+>  	{ .compatible	=3D "renesas,rzn1-rtc" },
+>  	{},
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701142953.2014=
+895-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D10
