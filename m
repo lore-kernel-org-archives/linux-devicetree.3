@@ -1,119 +1,119 @@
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B7E35E1C9
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 14:48:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1E43546FE;
+	Wed,  1 Jul 2026 14:49:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782917290; cv=none; b=kQV0DbqnidYdbqIytCqpkA9f9/Wex+vpiaka/uAs19X2M5CtMlO7Lz630Ao90dXj3iGpIImMa8V9djyFLToYK2f3427LJh2Jnz0fBwW5S87vsvMj1N5l/m6tMToClX0A5tRix4y2yexcGIfGjuXf12Ro6e/HxolUCFE1WcuZzr4=
+	t=1782917383; cv=none; b=heSPwlUy8FNw4/NzEjiPqTnSiP5+b3I0yJM0RtyqhqrZAig/idyhSpGWCukyGqhQhWKfcq1h+JR6JS+mA7Y2aOlsZZbpaN26JjlNIJ29yH+l33m7OPeL1XlUWtAdXHBRr7IHZFxmeok8vf50Nv1VotkAH1Fu52pEyxbDUkNJtC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782917290; c=relaxed/simple;
-	bh=mbYj/DgxQsH01Bs5jx6IuDvkCh8mMCApKMcE8PUQ/Qo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GKcjFYg3rCdF3Simk/Tcrzq1eeW7+kiF3y0FinoOx9ykPJP6YochWL3egoI6GWbpto6tymrNpMPxl++uawPx2Rp1iMao97X9QNlBrnoQ9/WIymniWZLba6bVBBoiqxOTrsSedpnLlhYMx07tC8FXPPIrP+IGEeMxnUukDb4Nwtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-966d7738c3bso413905241.0
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 07:48:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782917288; x=1783522088;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fn5x9jVdVZoiN333nyZT+iD2lKvbWjTH6VHWdCyr2L4=;
-        b=snqY6o2Hya7lLzhcNza95gru6mrIGKQhQyKcZjd1apMO3xV6n9hZqsocDO8J7PCzNd
-         OAoKNsn8uGMcp4cJSeVz1wa5YUj7Xa1N1Mulq79DwB9EcaIzpK/C1hu6AU2/C97ybc5v
-         p75N/4q7x5OTLANXB5fYErlH5ssyFBGEyR+oKTeESOMCDYhFlM/O9J2pkUBON4vS3krz
-         +DeEHIYJcREUDeG51dPU5GCaP3Wq0SpQ3SMvkEtPXXuA4dS9C26z6lSH9DKJ0JuZic55
-         pk9/dAUxgiSwjdLlkONmF1QVBP11UVbDd7aRtqUEuAXo4TZIKjLkhZXSIAvwobQHZIWj
-         jV9Q==
-X-Forwarded-Encrypted: i=1; AHgh+Ro27RAIQdR0Yu6K+pkupA8+UkqYP9enoy54i1WuibEFGArrl//o711n2h491bYdV9mFgzCi8gmxLHjb@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw2bN34kuV7pr5XgwAcZ9IfXrrXkLUstZZ5jVJSuuXW/zy5ygwh
-	4MHe3FHAh/22bDb8hr4Ha3FrRUWWEkziSZvW7nrUe5rpH8Z7tYQaJ6m8yTX4bJ39A7c=
-X-Gm-Gg: AfdE7cm2xaKCkPQLb5LjqCrO1d2BQtixN5TrDeooj8IBuaGX1at6DjK5XrXshil3I7j
-	Moh6L2LGX+V53n2HlEFHzM/p4knF/8TRLLuR83crBua6AtV4GTio451FdNoAjB1Ma97c4oobNEi
-	VtHYLTuey8WzLYsMs7eFSuf7+fLTHkYS2v7kzNYa4++ws2L8pFMygoKzR7ki0pp7jJk79NqSofv
-	2hJoJZmNHYNs2Ykn9XnMYjUJViDL+K16oL+SpzWrfRreluvYzCF4oRpAB9W0veeeaGG1/m3gc47
-	jJTsLEEc0CWmZ0bW3j9w1jlsP8ziEp2kOsGiXoWkBPb+gcXTUB8YA0kvSIOO/pWqTFU4t3FuNCo
-	UlA7dWbDKvhRCYM+pYs10sj+fDpu5B1VfbLLYROr5/31zpsj8+yPHUkkQln/E5/OAE9E5tDXIOe
-	MzA9ai60X3+fmeLmIzjc13VGUM4GfvdVHPi9RiumsAZdFXOE0D5Q==
-X-Received: by 2002:a05:6102:4191:b0:737:d2e8:d64b with SMTP id ada2fe7eead31-73dbfaac828mr629755137.20.1782917287948;
-        Wed, 01 Jul 2026 07:48:07 -0700 (PDT)
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com. [209.85.222.54])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96965e91cb7sm2525856241.4.2026.07.01.07.48.07
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Jul 2026 07:48:07 -0700 (PDT)
-Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-96387efc30aso382888241.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 07:48:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpBAo3hgj/zDLD8lWhhhyn6TZw+rfTxUyY+Hl7hAIoV9UOyNG2nfBHJXkwP0rBYz+O3+bgIvXo/nEMd@vger.kernel.org
-X-Received: by 2002:a05:6102:4414:b0:739:4fa1:50aa with SMTP id
- ada2fe7eead31-73dbf3a292dmr614675137.14.1782917287445; Wed, 01 Jul 2026
- 07:48:07 -0700 (PDT)
+	s=arc-20240116; t=1782917383; c=relaxed/simple;
+	bh=L0xWX7Wtx9qwHDdwcxyDAdRmlOY0qKyCfbuY5UD+zuM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=C5G/j7cgtgxFW+x/wE4Buoiw3dbK/r5tjw/+6V/XPZFNLXcaSM6BLuyFvApHa7wZR5RDZaZjqn+T5CClu5nfhnqz4PDeTRzQAao8kiCe0UAT7pE+ePqbLSX4nQQ6Ooep3rwZ9sKj1PUC1BMwuLuQreGT1ZNvNz+GUkJzBwt9t38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I9pD6tKO; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I9pD6tKO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69FD71F000E9;
+	Wed,  1 Jul 2026 14:49:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782917380;
+	bh=mj6pPtJ0VEAuuFxI6oWIODyCrQlhIOR3jB/m96+kxsw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=I9pD6tKOEz4wEP1wzacLCXKcCGhM1xEW8o8aSd0EQ2fAbxrE/ILX1B3SnsZgJGNCH
+	 IiUxWZKn9gTpOUcTrYaR2apB6S+1Y+1uc5xCXopTPegrtG9Yu+XwG10opDooHe6vp6
+	 +YeSwI60hS88eKoxRMU1SVl2rrscBJZhfGOTiT5K24yV1hTYboj3Js8sJO5zpNpqhE
+	 6o9pG5wg4dHNrkQGM5VLg2tYCBk2+p2U+VLQidatsOXWaF6oyNrndaC/uVrnbCa3lD
+	 mLZF4IESstatxr9XlqZh69FqZpizQDx6/o9jSda4BUXIpUbulFDFoj98spxxz5Nis9
+	 RvbRa/UpEf1sQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 06/10] rtc: rzn1: Dynamically calculate
+ synchronization delay based on clock rate
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: linux-rtc@vger.kernel.org, conor+dt@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260701142953.2014895-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260701142953.2014895-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260701142953.2014895-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 14:49:39 +0000
+Message-Id: <20260701144940.69FD71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260602204707.1920839-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260602204707.1920839-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260602204707.1920839-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 1 Jul 2026 16:47:55 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUCzxRRK8oZvHmHFHCUN2v_kn69_8pzCVrW9RPk9FRA0Q@mail.gmail.com>
-X-Gm-Features: AVVi8CcnXjaDrB2t_UaCpLhZ82qgKt5I5D4N9jNEZBN_xFIuCBoqVp036vPforE
-Message-ID: <CAMuHMdUCzxRRK8oZvHmHFHCUN2v_kn69_8pzCVrW9RPk9FRA0Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Enable PCIe
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Prabhakar,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On Tue, 2 Jun 2026 at 22:47, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Enable the PCIE1 slot which is connected to PCIe0 channel.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+New issues:
+- [Low] Incorrect time conversion macro NSEC_PER_MSEC used instead of USEC_=
+PER_SEC for microsecond calculation.
 
-Thanks for your patch!
+Pre-existing issues:
+- [High] Race condition between PM runtime teardown and devres device unreg=
+istration can lead to accessing powered-down hardware.
+--
 
-> --- a/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
+commit f3a6e4b28e451318639b10e7927bf136a7d225d3
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-> @@ -430,6 +442,12 @@ i2c8_pins: i2c8 {
->                          <RZV2H_PORT_PINMUX(0, 7, 1)>; /* I2C8_SCL */
->         };
->
-> +       pcie0_pins: pcie {
+rtc: rzn1: Dynamically calculate synchronization delay based on clock rate
 
-pcie0
+This patch replaces hardcoded hardware synchronization delays with a
+calculated time window derived from the runtime clock rate. It stores this
+synchronization time in the driver private structure to dynamically adjust
+wait boundaries.
 
-> +               pins = "PCIE0_RSTOUTB";
-> +               slew-rate = <0>;
-> +               renesas,output-impedance = <2>;
-> +       };
-> +
->         scif_pins: scif {
->                 pins = "SCIF_TXD", "SCIF_RXD";
->                 renesas,output-impedance = <1>;
+> diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
+> index 9969bcefede72..583d174954043 100644
+> --- a/drivers/rtc/rtc-rzn1.c
+> +++ b/drivers/rtc/rtc-rzn1.c
+[ ... ]
+> @@ -432,12 +433,20 @@ static int rzn1_rtc_probe(struct platform_device *p=
+dev)
+>  			scmp_val =3D RZN1_RTC_CTL0_SLSB_SCMP;
+>  	}
+> =20
+> +	/*
+> +	 * The internal clock counter operates in synchronization with the
+> +	 * RTC_PCLK clock. Calculate the duration of two RTC_PCLK clock
+> +	 * cycles in microseconds required for operations to complete.
+> +	 */
+> +	rtc->sync_time =3D DIV_ROUND_UP(2 * NSEC_PER_MSEC, rate);
 
-The rest LGTM.
+[Severity: Low]
+This isn't a bug, but should this macro be USEC_PER_SEC instead?
 
-Gr{oetje,eeting}s,
+The comment mentions calculating the duration in microseconds. While
+NSEC_PER_MSEC evaluates to 1,000,000 which produces the correct runtime
+result for converting cycles per second into microseconds, using
+USEC_PER_SEC would more accurately reflect the intended units and improve
+readability.
 
-                        Geert
+[Severity: High]
+This is a pre-existing issue, but is there a race condition between the
+PM runtime teardown and devres cleanup?
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+In drivers/rtc/rtc-rzn1.c, the RTC device is registered via devres
+during rzn1_rtc_probe():
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+    ret =3D devm_rtc_register_device(rtc->rtcdev);
+
+Devres runs its cleanup (which calls rtc_unregister_device()) strictly
+after the driver's remove callback returns. However, in rzn1_rtc_remove(),
+the driver manually drops the PM runtime reference:
+
+    pm_runtime_put(&pdev->dev);
+
+This powers down the hardware while the RTC character device is still
+registered and exposed to userspace. If a userspace process calls an ioctl,
+such as RTC_RD_TIME, during this window, the driver's rzn1_rtc_read_time()
+callback executes and attempts to access unclocked registers, which could
+lead to a synchronous external abort or bus fault.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701142953.2014=
+895-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D6
