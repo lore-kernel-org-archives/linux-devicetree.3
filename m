@@ -1,223 +1,231 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFCF18C02E
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 00:56:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D777538DD3;
+	Wed,  1 Jul 2026 00:59:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782867377; cv=none; b=BYLlKt51LsWGg4xGNKpOFiz9RLqw0twK9eVWSGt7V8VbVpuE7l1s39I1IyqgQ3walhcHoHaNPqldIhK5PJLdARsKCWksmbw+1mP09Xok/ZLuR7J1x0RE8faITpBmM4i3RuQbDZS2q/Cx0Bz2zJ0W1wu8YBK/qJfZlgMzlhL/S5U=
+	t=1782867594; cv=none; b=Z/17P2BJiqpysOAjZeyqaPsfAGjPX2+RhANcGo+weospm0ud+RtptMHPhERCwwe0++gPh1emkF5em/iirNfM8AVJoJYJKtMijds5ySZkRlm6ewjPZpPgz5+UJg/StaVpZRzFY/9q4z8yIu9N4KlyASX1fM+uTx6PWdzLgut82n8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782867377; c=relaxed/simple;
-	bh=EnddDlqu6Ygn6I/PxhncETcxAO4SYuCZ70lGaX0VVps=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=g9cyaO9tjzuqrwRlfNsk98mdrFsXyWt4YV1KdbCWrsVieAgRzGuwsJQwl8x4zWTkP5R2RvpGwRK3yISkKqjpHdA533HEdBGPCSqxhJMNC3w3siJPzq2Vrx91HxWuLyOi5fWM56SiOda3/xwPvysrSbrVSQoWQDivSDiVFH16GQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JIelweuf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782867594; c=relaxed/simple;
+	bh=n3/zdA2DbajTQhBJP5rWC/+JdKL34hTR2IrEMC2A/VQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZyJNJXFURLi5rEhJD9RZJYqHvYkdSOgIvsx0+z4BvxnN5ss0eeZ//X49YRHxHFCm8psbZZbYgEqWzrMHMns7JcREu60F8OixbEz6GU1/IKXwyosFcXoOyM9qZk5O2EBJVKDJSzNi4nfPJnPOQ+1M4CjksT4WZVVvUJJFI9ypu0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zyw5Ho4i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JIelweuf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662951F000E9;
-	Wed,  1 Jul 2026 00:56:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zyw5Ho4i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DCB81F000E9;
+	Wed,  1 Jul 2026 00:59:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782867375;
-	bh=XqosKA9YVAlok8pGfMGE23uct/bkrZ80NV/xUnx9H9A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JIelweufdJFVQ8lWcYzwjsK9TTyuP9VppQhIBQ9kMrVEN8rawtqDgk+U25KoYNoPz
-	 YGM85YSVoucTwmH7GBM+vQRBtzirA8kzQ3vDXFRIgEzL9OFcpI1ffnlnv0YP8K/PyC
-	 7tjsygWAikvNS/aikw8rTKr+VZFEiUsWi9MlHrKK+tiiLuw5rVmHbGTeBAgUQB5hIV
-	 rv2ayyXZ2y7v0/3zvx6oszdOfg2237pbudg+mTTahNmfPJDrvfq74+G6ogxlez2cpu
-	 5ySta2rt387Lndn5qY7O43oMCUHwy9NJfP5V5BVQRXXQ+ZO4vsyU4gPV1adn3Og7zE
-	 P+GcsNK8B69qw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 3/3] pwm: dwc: add of/platform support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: dongxuyang@eswincomputing.com
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260701004334.515-1-dongxuyang@eswincomputing.com>
-References: <20260701004139.347-1-dongxuyang@eswincomputing.com>
- <20260701004334.515-1-dongxuyang@eswincomputing.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 00:56:12 +0000
-Message-Id: <20260701005613.662951F000E9@smtp.kernel.org>
+	s=k20260515; t=1782867592;
+	bh=2t7u5S0N+F8wKA12XkGWMQb/d1YC5Ddu/4G62sn+ja0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Zyw5Ho4iIoMXd/kuEf+/kMLyw66AsmBOqm/mPnQ1IRqaOc+zXELRRCmUMJxWQppBq
+	 NH4mBg/lv4yRZp8sO/BFnQDl02O8812mQ0xavOxO5Dkeb3MJw41LZbnKJaxGhWzHfP
+	 ahWC1XVSb93jS5yKW9u7RToh6HA8jp97i6zQyq+0hSiz6GjM/fLuvOLugmNaOGRNS/
+	 LOyIZVTE1oQxk7ks/RIhJPxYPFMMYaxwEPv+RPasL2+Qji0JrARhQaiypTyf86nSAO
+	 XSnhJ4+g2QAejKJEmrfYxebF+nZAyVvgU5+k7EQBeeWKXtbiqzaXWG/2hfIg4a3lVr
+	 RqZQ3Vd0b+qyQ==
+Date: Wed, 1 Jul 2026 01:59:48 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nikhil Gautam <nikhilgtr@gmail.com>
+Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andy@kernel.org, u.kleine-koenig@baylibre.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] iio: magnetometer: add support for Melexis
+ MLX90393
+Message-ID: <20260701015948.20fb7289@jic23-huawei>
+In-Reply-To: <20260627095519.8377-3-nikhilgtr@gmail.com>
+References: <20260627095519.8377-1-nikhilgtr@gmail.com>
+	<20260627095519.8377-3-nikhilgtr@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Missing CONFIG_PM dependency leads to unclocked MMIO accesses and =
-kernel panics.
-- [High] Bypassing the PM framework during system suspend causes bus faults=
- on devices attached to a PM domain.
-- [High] Reading MMIO registers while the device is in reset causes a bus s=
-tall and kernel panic.
-- [Medium] Data race on the shared `dwc->clk_rate` variable.
---
+On Sat, 27 Jun 2026 15:25:19 +0530
+Nikhil Gautam <nikhilgtr@gmail.com> wrote:
 
-commit f417f1c0148d8abb6dc7081bbc13d8a85dcc173e
-Author: Xuyang Dong <dongxuyang@eswincomputing.com>
+> Add Industrial I/O subsystem support for the Melexis
+> MLX90393 3-axis magnetometer and temperature sensor.
+> 
+> The driver currently supports:
+> 
+> raw magnetic field measurements
+> raw temperature measurements
+> configurable gain/scale selection
+> configurable oversampling ratio
+> direct mode operation
+> 
+> The MLX90393 supports both I2C and SPI interfaces. This
+> initial implementation adds support for the I2C interface.
+> 
+> The device uses a command-based communication protocol
+> rather than a conventional register-addressed interface.
+> A small transport abstraction layer is therefore used
+> instead of regmap to share the common sensor logic
+> between the current I2C implementation and future SPI
+> support without duplicating code.
+> 
+> Signed-off-by: Nikhil Gautam <nikhilgtr@gmail.com>
+Hi Nikhil,
 
-pwm: dwc: add of/platform support
+You have a lot of review already so I'm only going to take a very quick
+look at this version.
 
-This patch adds platform and OF device tree support for the DesignWare PWM
-controller. It introduces runtime PM support, manages clock enabling and
-disabling based on PWM channel usage, and implements polarity control by
-swapping load count registers.
+Also take a look at:
+https://sashiko.dev/#/patchset/20260627095519.8377-1-nikhilgtr%40gmail.com
 
-> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
-> --- a/drivers/pwm/Kconfig
-> +++ b/drivers/pwm/Kconfig
-> @@ -249,6 +249,16 @@ config PWM_DWC
-[ ... ]
-> +config PWM_DWC_OF
-> +	tristate "DesignWare PWM Controller (OF bus)"
-> +	depends on HAS_IOMEM && (OF || COMPILE_TEST)
+The osr2_avail comment at least looks superficially valid as an oversampling
+ratio of 0 means you don't read the value at all.
 
-[Severity: High]
-Should this include a dependency on PM?
+I2C dma safety one is wrong (that keeps coming up) as you have to opt in
+to use DMA directly on buffers when using the Linux I2C stack.
 
-If the kernel is compiled without CONFIG_PM, Kconfig allows building
-PWM_DWC_OF. During probe(), if no PWMs are enabled, the driver explicitly
-disables dwc->clk and dwc->bus_clk and relies on PM runtime to re-enable
-them. Because CONFIG_PM is disabled, pm_runtime_resume_and_get() evaluates =
-to
-a stub that returns 1 (success) without calling the runtime resume callback.
-This leads to unclocked register accesses and kernel panics.
+Some of the later ones look plausible but over to you to analyse them.
+It can be useful to address any you don't agree with by replying to this
+thread to quote them and say why they are wrong
 
-> diff --git a/drivers/pwm/pwm-dwc-core.c b/drivers/pwm/pwm-dwc-core.c
-> --- a/drivers/pwm/pwm-dwc-core.c
-> +++ b/drivers/pwm/pwm-dwc-core.c
-> @@ -44,21 +46,73 @@ static int __dwc_pwm_configure_timer(struct dwc_pwm *=
-dwc,
-[ ... ]
-> -	high =3D tmp - 1;
-> +	if (dwc->clk)
-> +		dwc->clk_rate =3D clk_get_rate(dwc->clk);
+Thanks,
 
-[Severity: Medium]
-Can this write to dwc->clk_rate cause a data race?
+Jonathan
 
-The PWM framework serializes operations on a per-channel basis, but not
-across the entire controller. If multiple threads concurrently request state
-changes (apply) or state reads (get_state) on different PWM channels of the
-same controller, they might simultaneously write to this shared variable.
 
-> @@ -121,10 +183,23 @@ static int dwc_pwm_get_state(struct pwm_chip *chip,=
- struct pwm_device *pwm,
-[ ... ]
-> +	if (dwc->clk)
-> +		dwc->clk_rate =3D clk_get_rate(dwc->clk);
-
-[Severity: Medium]
-Does this introduce a similar data race on dwc->clk_rate as the one mention=
-ed
-above in __dwc_pwm_configure_timer()?
-
-> diff --git a/drivers/pwm/pwm-dwc-of.c b/drivers/pwm/pwm-dwc-of.c
+> diff --git a/drivers/iio/magnetometer/mlx90393_core.c b/drivers/iio/magnetometer/mlx90393_core.c
+> new file mode 100644
+> index 000000000000..78fcab8a2b56
 > --- /dev/null
-> +++ b/drivers/pwm/pwm-dwc-of.c
-> @@ -0,0 +1,356 @@
-[ ... ]
-> +static int dwc_pwm_plat_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	ret =3D clk_prepare_enable(dwc->clk);
-> +	if (ret) {
-> +		dev_err(dev, "failed to enable timer clock\n");
-> +		goto disable_busclk;
+> +++ b/drivers/iio/magnetometer/mlx90393_core.c
+
+> +static const int mlx90393_scale_table[MLX90393_AXIS_MAX][MLX90393_GAIN_MAX]
+> +				      [MLX90393_RES_MAX] = {
+> +	/* XY axis */
+> +	{
+> +		{ 751, 1502, 3004, 6009},
+> +		{ 601, 1202, 2403, 4840},
+> +		{ 451, 901, 1803, 3605},
+> +		{ 376, 751, 1502, 3004},
+> +		{ 300, 601, 1202, 2403},
+> +		{ 250, 501, 1001, 2003},
+> +		{ 200, 401, 801, 1602},
+> +		{ 150, 300, 601, 1202},
+> +	},
+> +	/* Z axis */
+> +	{
+> +		{ 1210, 2420, 4840, 9680},
+
+Space before } on all these
+
+> +		{ 968, 1936, 3872, 7744},
+> +		{ 726, 1452, 2904, 5808},
+> +		{ 605, 1210, 2420, 4840},
+> +		{ 484, 968, 1936, 3872},
+> +		{ 403, 807, 1613, 3227},
+> +		{ 323, 645, 1291, 2581},
+> +		{ 242, 484, 968, 1936},
 > +	}
+> +};
 > +
-> +	/*
-> +	 * Check all channels to see if any channel is enabled.
-> +	 * Read the control register of each channel and extract the enable bit
-> +	 */
-> +	for (i =3D 0; i < chip->npwm; i++) {
-> +		ctrl[i] =3D dwc_pwm_readl(dwc, DWC_TIM_CTRL(i)) & DWC_TIM_CTRL_EN;
-> +		if (ctrl[i])
-> +			pwm_en =3D true;
-> +	}
-> +
-> +	/*
-> +	 * Only issue a reset pulse when all channels are disabled, so a PWM
-> +	 * channel already running (e.g. configured by firmware before Linux
-> +	 * took over) is left undisturbed.
-> +	 */
-> +	if (!pwm_en) {
-> +		ret =3D reset_control_reset(dwc->rst);
+> +static const int mlx90393_osr2_avail[MLX90393_OSR2_MAX] = {
+> +	0, 1, 2, 3,
+> +};
 
-[Severity: High]
-Could this read from DWC_TIM_CTRL(i) cause a bus stall and kernel panic if =
-the
-device is currently in reset?
-
-Module removal explicitly asserts the reset line in dwc_pwm_plat_remove(),
-leaving the device in reset. On a subsequent probe (e.g., reloading the
-module), this loop attempts to read from the MMIO space before the reset is
-deasserted.
-
-[ ... ]
-> +	if (pwm_en) {
-> +		pm_runtime_set_active(dev);
-> +		for (i =3D 0; i < chip->npwm; i++) {
-> +			if (ctrl[i])
-> +				pm_runtime_get_noresume(dev);
-> +		}
-> +	} else {
-> +		clk_disable_unprepare(dwc->clk);
-> +		clk_disable_unprepare(dwc->bus_clk);
-> +	}
-
-[Severity: High]
-If CONFIG_PM is disabled in the kernel, does gating these clocks here cause
-subsequent unclocked register accesses?
-
-Since pm_runtime_resume_and_get() becomes a stub that returns 1 without
-re-enabling clocks, subsequent operations like apply() or get_state() would
-perform unclocked MMIO accesses leading to panics.
-
-[ ... ]
-> +static void dwc_pwm_plat_remove(struct platform_device *pdev)
+> +static int mlx90393_read_raw(struct iio_dev *indio_dev,
+> +			     const struct iio_chan_spec *chan,
+> +			     int *val, int *val2, long mask)
 > +{
-[ ... ]
-> +	if (!pm_runtime_status_suspended(&pdev->dev)) {
-> +		clk_disable_unprepare(dwc->clk);
-> +		clk_disable_unprepare(dwc->bus_clk);
-> +	}
-
-[Severity: High]
-If CONFIG_PM is disabled, pm_runtime_status_suspended() will always return
-false. Does this cause a double-disable of the clocks if they were already
-gated in probe?
-
-[ ... ]
-> +static int dwc_pwm_suspend(struct device *dev)
-> +{
-> +	struct dwc_pwm_drvdata *data =3D dev_get_drvdata(dev);
-> +	struct pwm_chip *chip =3D data->chips[0];
-> +	struct dwc_pwm *dwc =3D to_dwc_pwm(chip);
-> +	unsigned int idx;
+> +	struct mlx90393_data *data = iio_priv(indio_dev);
 > +	int ret;
 > +
-> +	if (pm_runtime_status_suspended(dev)) {
-> +		ret =3D dwc_pwm_runtime_resume(dev);
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW: {
+> +		guard(mutex)(&data->lock);
+> +		ret = mlx90393_read_measurement(data, chan->address, val);
 > +		if (ret)
 > +			return ret;
-> +	}
 > +
-> +	for (idx =3D 0; idx < chip->npwm; idx++) {
-> +		dwc->ctx[idx].cnt =3D dwc_pwm_readl(dwc, DWC_TIM_LD_CNT(idx));
+> +		return IIO_VAL_INT;
+> +		}
+> +	case IIO_CHAN_INFO_SCALE:
+> +		switch (chan->type) {
+> +		case IIO_MAGN:
+> +			return mlx90393_get_scale(data, chan, val, val2);
+> +
+> +		case IIO_TEMP:
+> +			/*
+> +			 * Datasheet Table 7: Thermal Specification
+> +			 */
 
-[Severity: High]
-Does calling the local dwc_pwm_runtime_resume() directly bypass the PM
-framework?
+Single line comment.
 
-If the device is attached to a generic power domain (genpd) and is
-runtime-suspended, the PM domain itself might be powered off. Bypassing
-pm_runtime_resume_and_get() means the PM domain is never powered back on,
-and the subsequent dwc_pwm_readl() calls will access unpowered hardware
-causing a bus fault.
+> +			*val = 0;
+> +			*val2 = 22124;
+> +			return IIO_VAL_INT_PLUS_MICRO;
+> +
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +
+> +	case IIO_CHAN_INFO_OFFSET:
+> +		if (chan->type != IIO_TEMP)
+> +			return -EINVAL;
+> +		/*
+> +		 * Datasheet Table 7: Thermal Specification
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701004139.347-=
-1-dongxuyang@eswincomputing.com?part=3D3
+Single line comment.
+
+> +		 */
+> +
+> +		*val = -45114;
+> +		return IIO_VAL_INT;
+> +
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		switch (chan->type) {
+> +		case IIO_TEMP:
+> +			return mlx90393_get_temp_osr2(data, val);
+> +		case IIO_MAGN:
+> +			return mlx90393_get_osr(data, val);
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+> diff --git a/drivers/iio/magnetometer/mlx90393_i2c.c b/drivers/iio/magnetometer/mlx90393_i2c.c
+> new file mode 100644
+> index 000000000000..a9f0a40d15e8
+> --- /dev/null
+> +++ b/drivers/iio/magnetometer/mlx90393_i2c.c
+>
+...
+
+> +
+> +static const struct mlx90393_transfer_ops mlx90393_i2c_ops = {
+> +	.xfer = mlx90393_i2c_xfer,
+> +};
+> +
+> +static int mlx90393_i2c_probe(struct i2c_client *client)
+> +{
+> +	return mlx90393_core_probe(&client->dev, &mlx90393_i2c_ops, client);
+> +}
+
+
+Drop this blank line. It is a common convention to not have one here
+as it visually associates the macro with the data it is using
+(which isn't used anywhere else!)
+
+> +module_i2c_driver(mlx90393_i2c_driver);
+> +
+> +MODULE_IMPORT_NS("IIO_MLX90393");
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Nikhil Gautam <nikhilgtr@gmail.com>");
+> +MODULE_DESCRIPTION("MLX90393 magnetometer sensor driver");
+
