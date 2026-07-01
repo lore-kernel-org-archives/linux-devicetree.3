@@ -1,40 +1,40 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04B074C14;
-	Wed,  1 Jul 2026 16:53:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844C0370ACD;
+	Wed,  1 Jul 2026 16:55:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782924815; cv=none; b=fl3B1pgK39MZv1bfMn+AQ/AFJZ0qajtpJ3NfPqFYPSPvek5boeDdgQhpErBElB5pnEHLH7UsjIoa+ka3FP91gBRClqOMK7QnQHewXy2z9wottU0BPClKhf/oK5ZGwLIX9+8aQoIdXH0muZI6DpyJlUU7e5s8NEHPdtb0H0fF+8s=
+	t=1782924920; cv=none; b=VLMC3ONh1hKnY/LrzssMMZ5DDnM3OskjVwV41nrQkea3tQV/8LiFX+mwK5uO8g+cNd7Rs77Uce5/Nuo3wdkn+w1/2ZMoi/jlFwghpQXXvx80SsacxxORhF9+pYiN/ITgmqpge2Uwq57w4HGnlp3pceirbfcSiarHSxHN530aekQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782924815; c=relaxed/simple;
-	bh=F3uHPVS1XECBg+1FJgBsfQzbfVfb5e4T+gqzbMq2A5Q=;
+	s=arc-20240116; t=1782924920; c=relaxed/simple;
+	bh=cmD1OfhdgkZYg7FYTHmyqOWvRC0DoAw418/B4w7hUhk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Da5ZrtDVOhZT8t0BLc+lIjnc4fcY1ltVHnn4PCVrou2sIOnbJbDlYHFiKcEHpnhZTMQ6lpHnEGOcPWTayKaPEjkMdzp+T3Tpr4YE8YxNBeDWA/Y1woGx2KDfEebwhNjSM0RbaGaNYzvnkF/IS8Xi+9BWTkB/3fgwRFKnzEvfMtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=foSZak7+; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:Content-Type; b=JcVeeV5yPL3IlRVgnpV8MaklRG1p4U4V7hAGHpz9Ia6Bh+edAvKfFjtUz7gp8RrGBE9f0fUNTGbSj8Klh2OF/7w7oX3SgXyP8QOLq3dFvXebVkmJT0dV9Ce9Xt4ZyQzY1MOxKJi32l4VKS4BMpT9fGxUkpF9VzC+kdWUOSlgXQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=D+AH1r5G; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="foSZak7+"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="D+AH1r5G"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1782924811;
-	bh=F3uHPVS1XECBg+1FJgBsfQzbfVfb5e4T+gqzbMq2A5Q=;
+	s=mail; t=1782924917;
+	bh=cmD1OfhdgkZYg7FYTHmyqOWvRC0DoAw418/B4w7hUhk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=foSZak7+BxtLEwRYgivu+0IOUXwZ3OQ04aj+NCtX/mR7oZk0d2+9TLw6JHLv9hqvH
-	 gD+XAmcBQwF9Oo0c9klBThjh/SCCPAsGPNYZvpyVx+o+lBUT9/m3TPgWlvBT64AESc
-	 1VYYtkRp2dAH/mYKaR93afRjTL1tHfoNvFgEK3LH0j/n6D8lm89ZeViVFCEzORlOM+
-	 NO6a2s0LYpYd1YW3iAgo9LPKspHAlUFw/CVSibbOudHrMQUoG3fqEVt3205ewyFn69
-	 a+j72Ht3QSFWjtbjkcndWh+WwsAmy/6BqWzY3mmuyvE8chms1hnDugSMwuCq/S4Le6
-	 LfnTMMuWfCOpQ==
+	b=D+AH1r5GH9ujUL8tJqGzluGTZjxMS5fgy+Mx3d5Wu0EpUIXgHUujv9ZVhrFxkM6ZA
+	 OyP2X/uPDUMjVzm7v7F/V62Kg8F1/YZxXJgUldYQFPlnin6R8UlmhQjiLNkXFrKBUw
+	 aX/lPqElceZtAcp8QH7GXZm97tZMh+MSlyLSX/As7EZ5n4YS19uFtpGRLoYFDRRr52
+	 NXZ8t5eawRotF76S4FBDym7zg3EKOfiXPrj9mzfFfY5fp4FUKRCEakEyEh3WWugxTl
+	 9k20ZxuPuRnVqca5w4ndppDaXLKXv9R+t3BSFWcmigiQqK4nb3bH8XlNWlpG5cV0SB
+	 3Bkths3eO1adQ==
 Received: from [100.64.1.21] (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A56B317E0CA2;
-	Wed,  1 Jul 2026 18:53:30 +0200 (CEST)
-Message-ID: <f56fcbae-3ff5-46c3-bbe7-7eac462f7dd2@collabora.com>
-Date: Wed, 1 Jul 2026 18:53:30 +0200
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4B9AE17E0521;
+	Wed,  1 Jul 2026 18:55:17 +0200 (CEST)
+Message-ID: <672ed995-7386-457a-a013-9816ed413057@collabora.com>
+Date: Wed, 1 Jul 2026 18:55:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,120 +42,28 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 23/42] dt-bindings: display: mediatek: Introduce Digital
- Video Output HW
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: krzk+dt@kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, p.zabel@pengutronix.de, kernel@collabora.com,
- tzimmermann@suse.de, chunkuang.hu@kernel.org, simona@ffwll.ch,
- linux-arm-kernel@lists.infradead.org, jason-jh.lin@mediatek.com,
- airlied@gmail.com, conor+dt@kernel.org, maarten.lankhorst@linux.intel.com,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
- mripard@kernel.org, devicetree@vger.kernel.org, justin.yeh@mediatek.com
-References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
- <20260701122057.19648-24-angelogioacchino.delregno@collabora.com>
- <178291581273.4115171.8214844308967079622.robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: phy: mediatek,tphy: Add support for MT8189
+ SoC
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
+Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260701-mt8189-dt-bindings-tphy-v1-1-5848a2be8303@collabora.com>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-In-Reply-To: <178291581273.4115171.8214844308967079622.robh@kernel.org>
+In-Reply-To: <20260701-mt8189-dt-bindings-tphy-v1-1-5848a2be8303@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 7/1/26 16:23, Rob Herring (Arm) wrote:
+On 7/1/26 17:36, Louis-Alexis Eyraud wrote:
+> Add a compatible string for the MediaTek MT8189 SoC, that integrates a
+> MediaTek generic T-PHY version 3.
 > 
-> On Wed, 01 Jul 2026 14:20:38 +0200, AngeloGioacchino Del Regno wrote:
->> Add documentation for the Digital Video Output (DVO) IP found in
->> the newer generation SoCs MT8196, MT8189 and their variants.
->>
->> This is effectively a more capable block replacing the DisplayPort
->> Interface (DPI/DP_INTF) one found in older SoCs.
->>
->> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->> ---
->>   .../display/mediatek/mediatek,mt8196-dvo.yaml | 142 ++++++++++++++++++
->>   1 file changed, 142 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
->>
-> 
-> My bot found errors running 'make dt_binding_check' on your patch:
-> 
+> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-Those errors on literally all bindings are quite embarassing. Oops.
-
-Already fixed locally, but since this is a huge series, I will allow some time
-for reviews before compulsively pushing a v2.
-
-Cheers,
-Angelo
-
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: ignoring, error in schema: properties: compatible
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> 	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> Traceback (most recent call last):
->    File "/usr/local/bin/dt-doc-validate", line 8, in <module>
->      sys.exit(main())
->               ~~~~^^
->    File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 66, in main
->      ret |= check_doc(f)
->             ~~~~~~~~~^^^
->    File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 37, in check_doc
->      dtsch.check_schema_refs()
->      ~~~~~~~~~~~~~~~~~~~~~~~^^
->    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 242, in check_schema_refs
->      self._check_schema_refs(resolver, self)
->      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
->    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
->      self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
->      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->                              has_constraint=has_constraint)
->                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
->      self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
->      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->                              has_constraint=has_constraint)
->                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 203, in _check_schema_refs
->      ref_sch = resolver.lookup(schema['$ref']).contents
->                ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
->    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 682, in lookup
->      retrieved = self._registry.get_or_retrieve(uri)
->    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 422, in get_or_retrieve
->      registry = self.crawl()
->    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 500, in crawl
->      id = resource.id()
->    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 231, in id
->      id = self._specification.id_of(self.contents)
->    File "/usr/local/lib/python3.13/dist-packages/referencing/jsonschema.py", line 50, in _dollar_id
->      return contents.get("$id")
->             ^^^^^^^^^^^^
-> AttributeError: 'list' object has no attribute 'get'
-> Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.example.dtb: /example-0/dvo@324c0000: failed to match any schema with compatible: ['mediatek,mt8196-edp-dvo']
-> 
-> doc reference errors (make refcheckdocs):
-> 
-> See https://patchwork.kernel.org/project/devicetree/patch/20260701122057.19648-24-angelogioacchino.delregno@collabora.com
-> 
-> The base for the series is generally the latest rc1. A different dependency
-> should be noted in *this* patch.
-> 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
-> 
-> pip3 install dtschema --upgrade
-> 
-> Please check and re-submit after running the above command yourself. Note
-> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> your schema. However, it must be unset to test all examples with your schema.
-> 
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
