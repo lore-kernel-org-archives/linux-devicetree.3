@@ -1,170 +1,240 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812913B38AA;
-	Wed,  1 Jul 2026 11:13:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCB142EEAC
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 11:14:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782904404; cv=none; b=hWEtsrxig5dcz1lPce9giWhSaeWQ7Jkf/dV+QlmbKh1o8g03WLFovQQP1q5z44smpeOMNwxVjkQikJ3dmaLmbA7k6spEaWbgu89GlUbSN4jXvmUAIAhgNRaTGb0+u6pSfUvw3iR0wx9W7ZeKe+U/5/ctiOhFPpBCqHPEE4qf9gY=
+	t=1782904490; cv=none; b=iQQgwpLM0Tb2WEJZlP78Cj2geC/JYtZjHobt3gj7i05AAifcsAMjyAUyoWwor+7oc+6RGwKSY0oqsGunUKspiVP2UiauTHrW3t5/OIRVfqOAxUfg0nVyatuqj7oDdNzeQUAO+9Sav6aNYkTKT7c0ny+pYTL5L1Mx8vs27qB2+Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782904404; c=relaxed/simple;
-	bh=5FrAyB/XyQAjH/KpqVQfvZUYk852wAlTGT371rCbJQI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VTF8MNmFsync5DA1GamOC6js7Kpb81qx+1DH0eOap9dLAdr5fN1mMbP0cNGt7fPmHdCBOpFd5v34kt5wF4fzj8VybM96tpFP6gMwzU3eAXvGRUf+ip9fabxgzp4pb5IXNyhkurI65QKTbEtuynDVBZgtzdlIgkJ6Z+9JFnDErZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HIk+5ig0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782904490; c=relaxed/simple;
+	bh=k0xgMjeN9v9yssEMVqNl2D808IlahkrdQuJTDGZU/go=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TsiZJidRxtcmQQyc+IQtpN61aqARrv3joLKlh6ok1P5hWWmBf8BhNq/VdZgN8Hp/W8Tx+WneubbsLC6EcdaxEnx6sHBfdQP3wLeBNfxREFLnUAnQbr4LSi5CPSoWD/6m5SSTYpj0OXqea6cgGv2oF2NSQbmLMCMfgG1c/M5zfzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RMpWLqAi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HIk+5ig0"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 661A90Af753610;
-	Wed, 1 Jul 2026 11:12:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=dhzeSQip8Gjy3p4Lm10/yF
-	WnFdFOU+tDXO7CBNq76zo=; b=HIk+5ig0YwzADAhR534s27zEFn4sJ9cZi4PGSd
-	apIQt5FUhsgBddBDm+EdZSucB0lxraGbpsG9wZtjI7xxPlfzRISjcuiL9L92aLNd
-	ptraL8U0PdVYSxl5+NWOd7/kXWgg+Jky1WeDvd2eI9YL3lENPgb/b0xJhTyhmitL
-	t5XCTSW36tpYXftPbPidtN9SAv4RPd1FpRBsz06uKqp7+0ZuKUyJq4u/fVPCY75/
-	A1RGCVWXqYK/dqYoniZb0Ay1MgXyq1Rrq9A+h3B2EKnLCapc+arjcUl1EU3dFn06
-	7pa+8ZrCD3FeR7aVZDL++mLmmVoXV+BvTTGRjyfC5FUj4S8A==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4rsy2cfy-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 01 Jul 2026 11:12:55 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 661BCqWs031719;
-	Wed, 1 Jul 2026 11:12:52 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4f27kk0333-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 01 Jul 2026 11:12:52 +0000 (GMT)
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 661BCpMM031702;
-	Wed, 1 Jul 2026 11:12:51 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-arpisain-hyd.qualcomm.com [10.147.248.17])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 661BCp6b031697
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 01 Jul 2026 11:12:51 +0000 (GMT)
-Received: from hu-arpisain-hyd.qualcomm.com (localhost [127.0.0.1])
-	by hu-devc-hyd-u22-c.qualcomm.com (Postfix) with ESMTP id ACE7F631;
-	Wed,  1 Jul 2026 16:42:50 +0530 (+0530)
-From: Arpit Saini <arpit.saini@oss.qualcomm.com>
-Subject: [PATCH v4 0/2] drm/panel: add support for Ilitek ILI7807S DSI
- panels
-Date: Wed, 01 Jul 2026 16:42:48 +0530
-Message-Id: <20260701-ili7807s-v4-0-c7d76d4780a5@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RMpWLqAi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14C6D1F000E9;
+	Wed,  1 Jul 2026 11:14:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782904489;
+	bh=oNrf7lC9jUXK6BtN5F1AxxpX+nebIxHHtjHwaxUIcYw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RMpWLqAiK4R4b4yhmSbWSuG78t0Xsv0yiNAPxi8Pp90BgrDjBmCdNBXiXBehOcUWy
+	 YymDKrkJ+sT9kJZZ02qn1AMv2PVhmex7n801hbh9820OcLF3ejYcBm3zE6pdveAXgm
+	 AASqnxedpESZ3k75U7LMUpcB7q2FXJ/qp+kU1IuYIkG/Zbs5JY5K/CO+5GsEDDnoWH
+	 S/7GCW4QINxv/p6KBDKcKWpNkyco4KRkcpYpdTcJ7upZsTjwgwI4NRBk+OU3KK5d9k
+	 /IPllhs3e8z9pfUqvNB2whnEF+irs4G9yyMCermkBXbKfmBHKbN5Gwu1Jh/ji98DL+
+	 lD5T33s4Soj1w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 05/11] ASoC: qcom: Add QAIF AIF DAI ops
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260701105757.2779738-6-harendra.gautam@oss.qualcomm.com>
+References: <20260701105757.2779738-1-harendra.gautam@oss.qualcomm.com>
+ <20260701105757.2779738-6-harendra.gautam@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 11:14:48 +0000
+Message-Id: <20260701111449.14C6D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADD2RGoC/22NzQ6DIBCEX8VwLgYXf3vqezQ9AGIlUbBgiY3x3
- Qs2TT30ssnszDezIietkg6dkxVZ6ZVTRgeRnxIkeqbvEqs2aAQESlJmBVaDqmpSOTwxLQcUcpw
- 5ibllWvQxqeUy408caPQnKzu17BvXW9C9crOxr33SQ/x+2+tfuwdMMKcdERlpeEbgYpxLH082C
- DOOaTgodnl64CE/8DTwbdvRihTAoG7+8Nu2vQHd6jbfAAEAAA==
-X-Change-ID: 20260615-ili7807s-panel
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: arpit.saini@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, ayushi.makhija@oss.qualcomm.com,
-        rajeevny@qti.qualcomm.com,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782904370; l=2350;
- i=arpit.saini@oss.qualcomm.com; h=from:subject:message-id;
- bh=5FrAyB/XyQAjH/KpqVQfvZUYk852wAlTGT371rCbJQI=;
- b=Vw776Mt+81eIsITAPIuu8eyNmb6W+801G9ZBsK/83NwgtP10Dmam/l0d+5IajvikzwMywfKE7
- Y7gKplkrA/qBfOwn2yq9M0EdxlxwXljhk54B69Fk6MLcCQAHvBMv8Iv
-X-Developer-Key: i=arpit.saini@oss.qualcomm.com; a=ed25519;
- pk=OGOh7FGwrnkILHNlcTTABbBMQxxo319duzbTg0YPDAc=
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: 0KsCgq6Q0jIC-7MS-sl1QVrn-dH6buMN
-X-Authority-Analysis: v=2.4 cv=fLgJG5ae c=1 sm=1 tr=0 ts=6a44f638 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=7NJfoTriyfkdjGHd6h8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDExOCBTYWx0ZWRfXyLv+0xsG2nii
- 3VWzuht3SOjImwW4aD/R3fElfmbsMJPUcUw1ZGgPmSH0Rz6iK2vhbsb2mT3Brsg2L9N+8zbZ/Sx
- qHYopwlN02nVeCjfF8Z0Bmo1ylFW4NHE6hefFrR7YTTZk01DdpHDneRXtx7PGAN/DluBD0Til8f
- oOk1vGZQkXsz5hRfNJdRb8tfPL0G3njFiwEKv8Nr55lE7VwDVx9eBndMsPs6arXkWZzwsWhwHV6
- EbLGz9V8GNMdnYh9veRbR4h54xiHZHEPc/0Fz7eIL5HQLIUsyQXL6WXCdQ/yUI4p2TdNkJcUUES
- QEjLaTtt5MeJQlnEO2337t9sx3R1yZiqYLuuCJ+oWAoJOgxwV46OSSs8UIuvo44MiQwON/OVHdp
- uJlSonFa7i1lMKiu8T+4tzimAOvbz1FLl8rxl56nf3n7/pIb+m1sMHd0Zt3CRemGsUNIAs5TTcv
- MIbMF/D3XmSg7+TXHSg==
-X-Proofpoint-ORIG-GUID: 0KsCgq6Q0jIC-7MS-sl1QVrn-dH6buMN
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDExOCBTYWx0ZWRfX96JmCICWrt5M
- pDt/hvQGZ3omXUwLMALb/qUUu7UKSSP5NcdpKby3CGdy2Y3jA/GQXaUhQFSOH4wB1b+d4noBsUH
- IQPfRSUosgZLehJYakpmpPUcOqdexRA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-01_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010118
 
-Add DT bindings and a DRM panel driver for panels based on the Ilitek
-ILI7807S display controller. The first supported panel is the DLC
-DLC0697 1080x1920@60Hz MIPI DSI panel.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Clock reference tracking bugs leading to unbalanced clk_disable an=
+d power management failure.
+- [High] Silent failure on stream trigger (START) due to overwritten error =
+code and missing hardware rollback.
+- [High] The CPU DAI directly configures the Codec DAI with hardcoded slots=
+, causing out-of-bounds array reads and violating ASoC component architectu=
+re.
+- [High] Concurrent playback and capture streams on the same MI2S interface=
+ will overwrite and corrupt shared hardware registers and clock rates.
+- [Low] Useless NULL check on an inline array element address.
+--
 
-Changes in v4:
-- Use active-low reset GPIO semantics: define reset-gpios as active-low
-  in DT and use hold=1/drop=0 in the driver (Dmitry Baryshkov)
-- Replace raw DCS writes with proper helpers: mipi_dsi_dcs_set_tear_on_multi(),
-  MIPI_DCS_SET_CABC_MIN_BRIGHTNESS, MIPI_DCS_WRITE_CONTROL_DISPLAY,
-  MIPI_DCS_WRITE_POWER_SAVE (Dmitry Baryshkov)
-- Use mipi_dsi_dcs_set_display_brightness_multi() with 0x1fff initial
-  brightness (Dmitry Baryshkov)
-- Move MIPI_DSI_MODE_LPM to probe(), drop toggling in on()/off()
-  (Dmitry Baryshkov)
-- Express .clock as arithmetic expression for clarity (Dmitry Baryshkov)
-- Update panel physical dimensions width_mm/height_mm (Dmitry Baryshkov)
-- Link to v3: https://lore.kernel.org/r/20260624-ili7807s-v3-0-ddf37052a289@oss.qualcomm.com
+commit d1f7f6e70f39b363c15c95838477463b38010acc
+Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Subject: ASoC: qcom: Add QAIF AIF DAI ops
 
-Changes in v3:
-- Return devm_mipi_dsi_attach() directly (Neil Armstrong)
-- Link to v2: https://lore.kernel.org/all/20260618-ili7807s-v2-0-b3f0c109b102@oss.qualcomm.com/
+This commit adds CPU DAI operations and regmap field setup needed to use the
+QAIF AIF (MI2S) path. This allows QAIF to route playback through RDDMA
+channels and capture through WRDMA channels to external serial audio devices
+over MI2S.
 
-Changes in v2:
-- Drop MAINTAINERS entry (Dmitry Baryshkov)
-- Use devm_drm_panel_add() instead of drm_panel_add() to avoid
-  manual drm_panel_remove() in the error path (Dmitry Baryshkov)
-- Rework backlight: call drm_panel_of_backlight() first and fall back
-  to creating a DCS backlight device if panel->backlight is still NULL
-  (Dmitry Baryshkov)
-- Remove backlight-en-gpios from the binding (Dmitry Baryshkov)
-- Fix mode_flags LPM not restored on backlight update error path
-- Link to v1 : https://lore.kernel.org/all/20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com/
+> diff --git a/sound/soc/qcom/qaif-cpu.c b/sound/soc/qcom/qaif-cpu.c
+> index 072c1bec078aa..08c7aa4779382 100644
+> --- a/sound/soc/qcom/qaif-cpu.c
+> +++ b/sound/soc/qcom/qaif-cpu.c
+[ ... ]
+> +static int qaif_aif_cpu_daiops_hw_free(struct snd_pcm_substream *substre=
+am,
+> +				       struct snd_soc_dai *dai)
+> +{
+> +	struct qaif_drv_data *drvdata =3D snd_soc_dai_get_drvdata(dai);
+> +	const struct qaif_variant *v =3D drvdata->variant;
+> +	int idx =3D v->get_dma_idx(dai->driver->id);
+> +
+> +	if (idx < 0)
+> +		return 0;
+> +
+> +	clk_disable(drvdata->mi2s_bit_clk[idx]);
 
----
-Arpit Saini (2):
-      dt-bindings: display: panel: add Ilitek ILI7807S panel controller
-      drm/panel: add Ilitek ILI7807S panel driver
+[Severity: High]
+If hw_params fails early, it might not enable the clock. Will the ALSA core
+still call hw_free during stream cleanup? If so, does calling clk_disable()
+on a clock that was never enabled cause a reference underflow and kernel
+warning?=20
 
- .../bindings/display/panel/ilitek,ili7807s.yaml    |  71 +++++
- drivers/gpu/drm/panel/Kconfig                      |  12 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-ilitek-ili7807s.c      | 285 +++++++++++++++++++++
- 4 files changed, 369 insertions(+)
----
-base-commit: 4e5dfb7c84012007c3c7061126491bbc92d71bf1
-change-id: 20260615-ili7807s-panel
+Also, since the clock is enabled in both hw_params and trigger(START), but
+only disabled in trigger(STOP) and hw_free, could this lead to an unbalanced
+enable count that prevents the clock from ever powering down?
 
-Best regards,
--- 
-Arpit Saini <arpit.saini@oss.qualcomm.com>
+> +	return 0;
+> +}
+> +
+> +static int qaif_aif_cpu_daiops_hw_params(struct snd_pcm_substream *subst=
+ream,
+> +					 struct snd_pcm_hw_params *params,
+> +					 struct snd_soc_dai *dai)
+> +{
+> +	struct qaif_drv_data *drvdata =3D snd_soc_dai_get_drvdata(dai);
+> +	struct snd_soc_pcm_runtime *rtd =3D substream->private_data;
+> +	struct snd_soc_dai *codec_dai =3D snd_soc_rtd_to_codec(rtd, 0);
 
+[Severity: High]
+Is it possible for the CPU DAI to be part of a link with no codecs, such as
+certain dummy or hostless links? If rtd->dai_link->num_codecs is 0, will
+snd_soc_rtd_to_codec(rtd, 0) read past the end of the rtd->dais array?
+
+> +	const struct qaif_variant *v =3D drvdata->variant;
+> +	struct qaif_aud_intfctl *aif_intfctl =3D drvdata->aif_intfctl;
+> +	const struct qaif_aif_config *aif_intf_cfg =3D NULL;
+[ ... ]
+> +	idx =3D v->get_dma_idx(dai->driver->id);
+> +
+> +	if (idx < 0) {
+> +		dev_err(dai->dev, "%s: Invalid DMA index: %d\n", __func__, idx);
+> +		return -EINVAL;
+> +	}
+> +
+> +	aif_intf_cfg =3D &drvdata->aif_intf_cfg[idx];
+> +
+> +	if (!aif_intf_cfg) {
+
+[Severity: Low]
+Does evaluating the address of the array element &drvdata->aif_intf_cfg[idx]
+always result in a non-NULL pointer offset from the parent structure, making
+this NULL check structurally impossible to fail?
+
+> +		dev_err(dai->dev, "AIF interface config not found\n");
+> +		return -EINVAL;
+> +	}
+> +	bitwidth =3D snd_pcm_format_width(format);
+> +	if (bitwidth < 0) {
+> +		dev_err(dai->dev, "invalid bit width given: %d\n", bitwidth);
+> +		return bitwidth;
+> +	}
+> +
+> +	/* SYNC_CFG: write all four sync fields */
+> +	ret =3D regmap_fields_write(aif_intfctl->inv_sync, idx, aif_intf_cfg->i=
+nvert_sync);
+
+[Severity: High]
+Since the hardware supports concurrent, full-duplex playback and capture on=
+ the
+same DAI physical index, what happens if one stream is actively playing whi=
+le
+the opposite stream is started? Does unconditionally overwriting shared
+physical interface registers and resetting the clock rate corrupt the ongoi=
+ng
+audio stream?
+
+> +	if (ret) {
+> +		dev_err(dai->dev, "Failed to write inv_sync: %d\n", ret);
+> +		return ret;
+> +	}
+[ ... ]
+> +	ret =3D clk_set_rate(drvdata->mi2s_bit_clk[idx],
+> +			   rate * slot_width * aif_intf_cfg->bits_per_lane);
+> +	if (ret) {
+> +		dev_err(dai->dev, "error setting mi2s bitclk to %u: %d\n",
+> +			rate * slot_width * aif_intf_cfg->bits_per_lane, ret);
+> +		return ret;
+> +	}
+> +	dev_dbg(dai->dev, "setting IBIT clock to %u\n",
+> +		rate * slot_width * aif_intf_cfg->bits_per_lane);
+> +
+> +	ret =3D clk_enable(drvdata->mi2s_bit_clk[idx]);
+> +	if (ret) {
+> +		dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
+> +		return ret;
+> +	}
+> +	snd_soc_dai_set_tdm_slot(codec_dai, 0x0f, 0b11, aif_intf_cfg->bits_per_=
+lane, slot_width);
+> +	snd_soc_dai_set_sysclk(codec_dai, 0, rate * aif_intf_cfg->bits_per_lane=
+ * slot_width, 0);
+
+[Severity: High]
+Is it standard for a CPU DAI driver to directly configure the Codec DAI usi=
+ng
+snd_soc_dai_set_tdm_slot and snd_soc_dai_set_sysclk? This appears to bypass
+the machine driver, which is typically responsible for linking and configur=
+ing
+both endpoints.
+
+Additionally, since the return values of these configuration calls are igno=
+red,
+will the CPU DAI proceed incorrectly if the codec rejects these parameters?
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int qaif_aif_cpu_daiops_trigger(struct snd_pcm_substream *substre=
+am,
+> +				       int cmd, struct snd_soc_dai *dai)
+> +{
+[ ... ]
+> +	switch (cmd) {
+> +	case SNDRV_PCM_TRIGGER_START:
+> +	case SNDRV_PCM_TRIGGER_RESUME:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> +		if (aif_intf_cfg->loopback_en)
+> +			ret =3D regmap_fields_write(drvdata->aif_intfctl->enable,
+> +						  idx, QAIF_AIF_CTL_ENABLE_ON);
+> +		else if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
+> +			ret =3D regmap_fields_write(drvdata->aif_intfctl->enable_tx,
+> +						  idx, QAIF_AIF_CTL_ENABLE_ON);
+> +		else
+> +			ret =3D regmap_fields_write(drvdata->aif_intfctl->enable_rx,
+> +						  idx, QAIF_AIF_CTL_ENABLE_ON);
+> +		if (ret)
+> +			dev_err(dai->dev, "error writing to AIF CTL reg: %d\n", ret);
+> +
+> +		ret =3D clk_enable(drvdata->mi2s_bit_clk[idx]);
+
+[Severity: High]
+If the regmap_fields_write() call fails and logs an error to 'ret', does
+execution continue to clk_enable()? If clk_enable() succeeds and returns 0,
+will it overwrite the previous error code in 'ret', causing the function to
+return success while the hardware interface is left disabled?
+
+Also, if the regmap write succeeds but clk_enable() fails, should the hardw=
+are
+state be rolled back to QAIF_AIF_CTL_ENABLE_OFF before returning the error?
+
+> +		if (ret) {
+> +			dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
+> +			return ret;
+> +		}
+> +		break;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701105757.2779=
+738-1-harendra.gautam@oss.qualcomm.com?part=3D5
