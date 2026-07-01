@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B5648A2DC;
-	Wed,  1 Jul 2026 12:20:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794C44ADD90;
+	Wed,  1 Jul 2026 12:20:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782908438; cv=none; b=sLe2UD+B/6e72Fh+dyLc8HAe6zBCIMOEFMQzi/BfFh3S1bdXNQZ6kOh5/53IJoZb71ISkHa8Pfq4jWP7XONP+9yiHkr9D4/Uox5cDxPZbZwTfbwaNCYilTQ5lgyiN3r1pgaCaxSLlBZljC+FAT4gVWlrKxYr9Wz05bBUYUNBrO8=
+	t=1782908440; cv=none; b=o/bQzubK+8C32yGdYkWqVPPwYdVZijyX4rzn5jPD6DcZUezCFGCA/iIYVx/5xobE4ANcmGSdm4KVK1XzKlFYyoQWQCFCj1/gM9KTCBjqSPVimZrYxS7R7N2WzaKC8S421C0xubkffpyBLHFA4If6N5xPQNRorupN3QiGW4/FEhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782908438; c=relaxed/simple;
-	bh=5qrR17bDP11PF0Y+AWGupsl3Ns6N2I8PqUxjSFIFbA0=;
+	s=arc-20240116; t=1782908440; c=relaxed/simple;
+	bh=2D0aTJgmzWJqvGnR/9KkzM/quY9ZK6V/tZuS6gdte3E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CyW6w0vJPW9Y8AznWh7LZwZGXxj3x8ByumktYG7h54vlJvWfikJuY00LSZTcpDarWAbq85y5/P1YT0VwMOJ9eavtSWRdx4/o00o9EsLxkZr1jEsMJSfQDT5OF0sMMc3lpGXyGYzdFUCVODhP0ECEWsGKiz8NqRiwoP/KELBDEV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=e2kPL7Mn; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=qrWqIBp5bE0l6foXZvfzcA0XT3zjud+W2RyIIN4IAbn3x6AeRW+K1N5uLIjxezlQUgR375DOI/nx5WkRSDjeq1VqMIbszGTk881NiDgKGrblx8xK9NJm/J9sNiRsiEHgPOmjJyy32sGwNPNxD46LLXrdhuK7aUxxgxfE0X6CJm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=d+Brl2jG; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="e2kPL7Mn"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="d+Brl2jG"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1782908436;
-	bh=5qrR17bDP11PF0Y+AWGupsl3Ns6N2I8PqUxjSFIFbA0=;
+	s=mail; t=1782908437;
+	bh=2D0aTJgmzWJqvGnR/9KkzM/quY9ZK6V/tZuS6gdte3E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=e2kPL7MnT2+MWveBSV0kY0rYIVauYSqzQ6zmGgJAnbd76UlhZ2PxS2PvZBSa4rkHg
-	 xHy5g6sN41ZRPZBWxQbKqSXoZxkB6Wassddep/2xT/ZGUxsDS+OX/JcZyE9tLRvzOq
-	 sVe+HrxgXEyN2M4FT43cFh8e5oJsVb5q+eYDVGaa35ELmScxxscZmB9Z0+WqRXjOoH
-	 Ph/Ffs2zieRN1L7knpO03t/GxLuHQlIaTVhara3PXQhNc9tLMDpT8//J6wnrxX7WiN
-	 /c85/rKFf09TXBpv+OLh4XZTdSoOYT5FkmhP1mVCRcao3eG64xPU9edt0esiBXrsJ/
-	 OTVW0FESC9YTQ==
+	b=d+Brl2jGq9m9uvwYzGjjGmzwnHum+t7VA/Vb9i7FFITIItXbSwuRob/SPoJCBN8nM
+	 WFe6PHLe6uF2940W/1M1hvXT4XTAt3UPYobG42CG6sYglxOYL6+lbiVXwmctoBu80f
+	 lb7MdbBoCovorE0fZw6PBo2mH/QLWJDA0VYMUa3Z7Y7eEGdlDmDhE/hB46V8wwKgzT
+	 DkOqvmST6/4Yro2o3JhTXo0kpVE4EAaRtAwuIALZuxWKa980ZTXKcWrrs0mAUhrJiy
+	 9WA7l9mbxhoQgPtVv/ukciTPavMEapmeuF5HAouHWcmBtUi/P/7SEgPc83ciymGrPy
+	 TLC/hc7x3pkvQ==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0671B17E0857;
-	Wed,  1 Jul 2026 14:20:34 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2C89E17E15A5;
+	Wed,  1 Jul 2026 14:20:36 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de,
@@ -60,9 +60,9 @@ Cc: p.zabel@pengutronix.de,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	kernel@collabora.com
-Subject: [PATCH 07/11] drm/mediatek: mtk_dp: Add support for PHY from devicetree
-Date: Wed,  1 Jul 2026 14:20:20 +0200
-Message-ID: <20260701122024.19557-8-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 08/11] drm/mediatek: mtk_dp: Move max link rate to SoC specific data
+Date: Wed,  1 Jul 2026 14:20:21 +0200
+Message-ID: <20260701122024.19557-9-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701122024.19557-1-angelogioacchino.delregno@collabora.com>
 References: <20260701122024.19557-1-angelogioacchino.delregno@collabora.com>
@@ -74,123 +74,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for specifying `phys` in devicetree to pass handle
-to the DisplayPort PHY.
-
-In order to retain compatibility with older devicetrees, check if
-`phys` was specified: if not, initialize the regmap_mmio with the
-legacy configuration and register the mediatek-dp-phy platform
-device from this driver, and get the PHY calibration data.
+In preparation for adding support for the eDP IP found in the
+MT8196 SoC, having a higher supported maximum link rate, move
+this parameter to SoC data instead of statically assigning it
+to the training info during initialization.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_dp.c | 50 ++++++++++++++++++++++++++-----
- 1 file changed, 43 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/mediatek/mtk_dp.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
-index 3b5348ab487d..bf3a4b15f3ec 100644
+index bf3a4b15f3ec..5272e717bfda 100644
 --- a/drivers/gpu/drm/mediatek/mtk_dp.c
 +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-@@ -426,6 +426,15 @@ static const struct regmap_config mtk_dp_regmap_legacy_config = {
- 	.name = "mtk-dp-registers",
+@@ -167,6 +167,7 @@ struct mtk_dp_data {
+ 	bool audio_supported;
+ 	bool audio_pkt_in_hblank_area;
+ 	u16 audio_m_div2_bit;
++	u8 hw_max_link_rate;
  };
  
-+static const struct regmap_config mtk_dp_regmap_config = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+	.max_register = SEC_OFFSET + 0x90,
-+	.name = "mtk-dp-registers",
-+};
-+
-+
- static struct mtk_dp *mtk_dp_from_bridge(struct drm_bridge *b)
+ static const struct mtk_dp_efuse_fmt mt8188_dp_efuse_fmt[MTK_DP_CAL_MAX] = {
+@@ -1481,7 +1482,7 @@ static void mtk_dp_initialize_priv_data(struct mtk_dp *mtk_dp)
  {
- 	return container_of(b, struct mtk_dp, bridge);
-@@ -1298,7 +1307,13 @@ static int mtk_dp_phy_configure(struct mtk_dp *mtk_dp,
- 	if (ret)
- 		return ret;
+ 	bool plugged_in = (mtk_dp->bridge.type == DRM_MODE_CONNECTOR_eDP);
  
--	mtk_dp_set_calibration_data(mtk_dp);
-+	/*
-+	 * For legacy, deprecated strategy, set partial PHY calibration here.
-+	 * New-style will set all PHY calibrations with phy ops instead.
-+	 */
-+	if (mtk_dp->phy_dev)
-+		mtk_dp_set_calibration_data(mtk_dp);
-+
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE,
- 			   DP_PWR_STATE_BANDGAP_TPLL_LANE, DP_PWR_STATE_MASK);
+-	mtk_dp->train_info.link_rate = DP_LINK_BW_5_4;
++	mtk_dp->train_info.link_rate = mtk_dp->data->hw_max_link_rate;
+ 	mtk_dp->train_info.lane_count = mtk_dp->max_lanes;
+ 	mtk_dp->train_info.cable_plugged_in = plugged_in;
  
-@@ -2132,8 +2147,9 @@ static int mtk_dp_wait_hpd_asserted(struct drm_dp_aux *mtk_aux, unsigned long wa
- static int mtk_dp_dt_parse(struct mtk_dp *mtk_dp,
- 			   struct platform_device *pdev)
- {
--	struct device_node *endpoint;
-+	const struct regmap_config *regmap_cfg;
- 	struct device *dev = &pdev->dev;
-+	struct device_node *endpoint;
- 	int ret;
- 	void __iomem *base;
- 	u32 linkrate;
-@@ -2143,7 +2159,12 @@ static int mtk_dp_dt_parse(struct mtk_dp *mtk_dp,
- 	if (IS_ERR(base))
- 		return PTR_ERR(base);
+@@ -3013,6 +3014,7 @@ static const struct mtk_dp_data mt8188_dp_data = {
+ 	.audio_supported = true,
+ 	.audio_pkt_in_hblank_area = true,
+ 	.audio_m_div2_bit = MT8188_AUDIO_M_CODE_MULT_DIV_SEL_DP_ENC0_P0_DIV_2,
++	.hw_max_link_rate = DP_LINK_BW_5_4,
+ };
  
--	mtk_dp->regs = devm_regmap_init_mmio(dev, base, &mtk_dp_regmap_legacy_config);
-+	if (!mtk_dp->legacy_regoff)
-+		regmap_cfg = &mtk_dp_regmap_config;
-+	else
-+		regmap_cfg = &mtk_dp_regmap_legacy_config;
-+
-+	mtk_dp->regs = devm_regmap_init_mmio(dev, base, regmap_cfg);
- 	if (IS_ERR(mtk_dp->regs))
- 		return PTR_ERR(mtk_dp->regs);
+ static const struct mtk_dp_data mt8195_edp_data = {
+@@ -3021,6 +3023,7 @@ static const struct mtk_dp_data mt8195_edp_data = {
+ 	.efuse_fmt = mt8195_edp_efuse_fmt,
+ 	.audio_supported = false,
+ 	.audio_m_div2_bit = MT8195_AUDIO_M_CODE_MULT_DIV_SEL_DP_ENC0_P0_DIV_2,
++	.hw_max_link_rate = DP_LINK_BW_5_4,
+ };
  
-@@ -2769,6 +2790,7 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_dp)
- 				     "Failed to add phy unregister devm action");
- 	}
+ static const struct mtk_dp_data mt8195_dp_data = {
+@@ -3029,6 +3032,7 @@ static const struct mtk_dp_data mt8195_dp_data = {
+ 	.efuse_fmt = mt8195_dp_efuse_fmt,
+ 	.audio_supported = true,
+ 	.audio_m_div2_bit = MT8195_AUDIO_M_CODE_MULT_DIV_SEL_DP_ENC0_P0_DIV_2,
++	.hw_max_link_rate = DP_LINK_BW_5_4,
+ };
  
-+	/* PHY calibration data is in mtk_dp only for legacy devicetree */
- 	mtk_dp_get_calibration_data(mtk_dp);
- 
- 	mtk_dp->phy = devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
-@@ -2821,7 +2843,12 @@ static int mtk_dp_probe(struct platform_device *pdev)
- 
- 	mtk_dp->dev = dev;
- 	mtk_dp->data = (struct mtk_dp_data *)of_device_get_match_data(dev);
--	mtk_dp->legacy_regoff = MTK_DP_TOP_OFFSET_LEGACY;
-+
-+	/* Prefer PHY from devicetree - if not found, this is legacy */
-+	if (of_property_present(dev->of_node, "phys"))
-+		mtk_dp->legacy_regoff = 0;
-+	else
-+		mtk_dp->legacy_regoff = MTK_DP_TOP_OFFSET_LEGACY;
- 
- 	ret = mtk_dp_dt_parse(mtk_dp, pdev);
- 	if (ret)
-@@ -2872,9 +2899,18 @@ static int mtk_dp_probe(struct platform_device *pdev)
- 					     "Failed to register audio driver\n");
- 	}
- 
--	ret = mtk_dp_register_phy(mtk_dp);
--	if (ret)
--		return ret;
-+	if (!mtk_dp->legacy_regoff) {
-+		mtk_dp->phy = devm_phy_get(dev, NULL);
-+		if (IS_ERR(mtk_dp->phy))
-+			return dev_err_probe(dev, PTR_ERR(mtk_dp->phy),
-+					     "Failed to get phy\n");
-+
-+		mtk_dp->phy_dev = NULL;
-+	} else {
-+		ret = mtk_dp_register_phy(mtk_dp);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	mtk_dp->bridge.of_node = dev->of_node;
- 	mtk_dp->bridge.type = mtk_dp->data->bridge_type;
+ static const struct of_device_id mtk_dp_of_match[] = {
 -- 
 2.54.0
 
