@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F94236F8E4;
-	Wed,  1 Jul 2026 16:39:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9D03546F4;
+	Wed,  1 Jul 2026 16:39:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782923980; cv=none; b=YbEG07uBnrecLENSgU519hKVqihDbzWtn0SOe5HzdWXscoovoEN/uz9uTrBy6uvnShfxNjldwDEI6teDSIBFHUPkd3pATQ/iD4gBVev1Pu0mKEBkLcUJiJ0WXNJHNBUvcnfR98NaZpF+9xrGNv3LARw/4/RHHb5d0ZEXFL4y2JA=
+	t=1782923981; cv=none; b=MbVtXMSWXI8wmSC2lr5g7MZaMRW6XKR/x9Ruk6Onp/88fE4MgMl0Vg6vZy95spHRPKdylwhUqqntq7QhhR/Y8J1gfXEq6TnTlhv86QUDXNDfTQj785wunJKikDEwC4cRyFfhJYHJFxjwJXzhIqGwrdIyZnxWyP0xo1gfqEHZoIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782923980; c=relaxed/simple;
-	bh=gLQxvbQOOLcY/4e+Bw2EjCkQkfwPZzWVFEDv9j/iY/k=;
+	s=arc-20240116; t=1782923981; c=relaxed/simple;
+	bh=lyrUvzj5pLlGxX1N07kXljqauk/KN3qGL9p1a8s1nqg=;
 	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=E3PeruIbGLcviDDCCSQ8BARy8NXiudpT4AdQXL5myZ9IDAFfXDcdH02zNlLnv2xCikdyG7GBFv8/SnfxfZ8znAh1/ltrpzQbwPXqQNFwGjxMc1Bd36zEgXeO9L+nsKW4pRbaPW32O2joRlBzMrHbzUZMBAC8zR+7Z8yU6PDGic0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOTlHssS; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id:Subject; b=q/oimM3Or0ZpFay4g9bVXR1iGPJCqJ2uwyLLjfPFXW4LwxHiOwlTC1yeWWE3SEZenSZ/AJMCXAs1+/2PC1grUrXmkB5XUHCdPn3t27t/52fAiVvhS577l31apxMquz0HfGxg6gGvgCOkJ1t/8k4RWkqXrMWq66SutqsJlfPgwao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cVmeTFIC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOTlHssS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CA6B1F000E9;
-	Wed,  1 Jul 2026 16:39:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cVmeTFIC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B971F00A3A;
+	Wed,  1 Jul 2026 16:39:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782923978;
-	bh=i2S2b9gwlzlrq71xUZnAbbsrQZGU2konPvu0kspaKrc=;
+	s=k20260515; t=1782923979;
+	bh=iFJvphVUXGIaYZvKHbf0CeauF0PeInNAnQUDmyOVt+s=;
 	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=TOTlHssS4K3aSspdhrVxeLftNotWdK7iHpbdaKmIjM4RlIP1tQpKAnW8SMm6VCRat
-	 /39KMMz3+qgUW5Naj0+z7EEn2VMW7tj4PGoQW44+mu/3BS6defuPfg0W5coObmn/WU
-	 AcF1n9KzA0Hh3hEUNDIjrdVU5sm0pegEydrZsMFQl2gRLji8CiW3poGMOtDItqDytl
-	 mUMq3BfN/jtR1F3yM4y/+Nakjjewv7zf3/Y+OU+eWvLkQXAnuXm/4XxVbUz1D7B9DK
-	 coxemdeSqIbktji1xhEiS38VZ8Am6tF49pdaGEb8EIqqpYPs3TCAhXNf8YLCiz+/TI
-	 om/TA0lzfDh9g==
-Date: Wed, 01 Jul 2026 11:39:37 -0500
+	b=cVmeTFICLio+/M6sDlp7kqNetzFOziVDjnPdGSa4kCvThn4Zn3TCsIjodRgwxucYe
+	 y3hto3FtmItD/mRog59T6Dphf0zAj+hOZbLHi01NtHbjMqnICpvBjemVVShXL2KWlp
+	 FPdtET7XzPdnA12N6CNfkug9hV144FQQRWkLMPBvd/N+vtcB4Enfy0OOQSO4HFdoB1
+	 wwRzDOzbOa9uuZnBnB/YI+q+DMNzoCL8TUhPgxdu3mPFBqDQ7X89dkO2MKyBlInFo5
+	 Y/ggflvCfGc3aLgPAhy89W10hAP/N4AYDGaYfJStLGqwKqwgc7JgbqOFfZ572meOK4
+	 Cm4o37QLVGd/g==
+Date: Wed, 01 Jul 2026 11:39:39 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -36,36 +36,34 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, op-tee@lists.trustedfirmware.org, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-riscv@lists.infradead.org, 
- Sumit Garg <sumit.garg@kernel.org>, 
- Jens Wiklander <jens.wiklander@linaro.org>
-To: Xing Loong <xing.xl.loong@gmail.com>
-In-Reply-To: <20260701132514.186953-3-xing.xl.loong@gmail.com>
-References: <20260701132514.186953-1-xing.xl.loong@gmail.com>
- <20260701132514.186953-3-xing.xl.loong@gmail.com>
-Message-Id: <178292397672.969186.6837238120896509616.robh@kernel.org>
-Subject: Re: [PATCH 2/3] dt-bindings: firmware: add mbedtee,rpc binding
+Cc: linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>, 
+ Srinivas Kandagatla <srini@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org, 
+ Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Conor Dooley <conor+dt@kernel.org>
+To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+In-Reply-To: <20260701135913.1641328-2-prasad.kumpatla@oss.qualcomm.com>
+References: <20260701135913.1641328-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260701135913.1641328-2-prasad.kumpatla@oss.qualcomm.com>
+Message-Id: <178292397778.969422.10745443574988528449.robh@kernel.org>
+Subject: Re: [PATCH v2 1/2] dt-bindings: sound: add WSA8855 bindings
 
 
-On Wed, 01 Jul 2026 21:25:13 +0800, Xing Loong wrote:
-> Add YAML devicetree binding for the MbedTEE Trusted Execution
-> Environment driver.
+On Wed, 01 Jul 2026 19:29:12 +0530, Prasad Kumpatla wrote:
+> Document the Qualcomm WSA8855 stereo smart speaker amplifier.
 > 
-> The binding covers two platform configurations:
->   - ARM/AArch64 (TrustZone, SMC): two reserved-memory regions
->     (rpc-t2r-ring and rpc-t2r-shm) plus a GIC SPI edge interrupt
->     for TEE-to-REE notifications.
->   - RISC-V (IMSIC): three reserved-memory regions, adding
->     rpc-r2t-ring for REE-to-TEE command submissions; no interrupts
->     property (T2R notifications use IMSIC MSI allocated at runtime).
+> The device uses a PCM audio interface and is controlled over I2C. Add the
+> required supplies, powerdown GPIO, interrupt line and optional battery
+> topology property.
 > 
-> Signed-off-by: Xing Loong <xing.xl.loong@gmail.com>
+> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
 > ---
->  .../bindings/firmware/mbedtee,rpc.yaml        | 221 ++++++++++++++++++
->  1 file changed, 221 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/firmware/mbedtee,rpc.yaml
+>  .../bindings/sound/qcom,wsa8855.yaml          | 83 +++++++++++++++++++
+>  1 file changed, 83 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wsa8855.yaml
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -73,14 +71,24 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/firmware/mbedtee,rpc.example.dtb: /: 'compatible' is a required property
-	from schema $id: http://devicetree.org/schemas/root-node.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/firmware/mbedtee,rpc.example.dtb: /: 'model' is a required property
-	from schema $id: http://devicetree.org/schemas/root-node.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,wsa8855.example.dtb: speaker@c (qcom,wsa8855): compatible: 'oneOf' conditional failed, one must be fixed:
+	'qcom,wsa8855' does not match '^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+(pro)?-.*$'
+	'qcom,wsa8855' does not match '^qcom,sar[0-9]+[a-z]?-.*$'
+	'qcom,wsa8855' does not match '^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$'
+	'qcom,wsa8855' does not match '^qcom,(glymur|milos)-.*$'
+	'qcom,wsa8855' does not match '^qcom,[ak]pss-wdt-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$'
+	'qcom,wsa8855' does not match '^qcom,gcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$'
+	'qcom,wsa8855' does not match '^qcom,mmcc-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$'
+	'qcom,wsa8855' does not match '^qcom,pcie-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$'
+	'qcom,wsa8855' does not match '^qcom,rpm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm)[0-9]+.*$'
+	'qcom,wsa8855' does not match '^qcom,scm-(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|x1[ep])[0-9]+.*$'
+	'qcom,wsa8855' is not one of ['qcom,dsi-ctrl-6g-qcm2290', 'qcom,gpucc-sdm630', 'qcom,gpucc-sdm660', 'qcom,lcc-apq8064', 'qcom,lcc-ipq8064', 'qcom,lcc-mdm9615', 'qcom,lcc-msm8960', 'qcom,lpass-cpu-apq8016', 'qcom,usb-ss-ipq4019-phy', 'qcom,usb-hs-ipq4019-phy', 'qcom,vqmmc-ipq4019-regulator']
+	'qcom,wsa8855' is not one of ['qcom,ipq806x-gmac', 'qcom,ipq806x-nand', 'qcom,ipq806x-sata-phy', 'qcom,ipq806x-usb-phy-ss', 'qcom,ipq806x-usb-phy-hs']
+	from schema $id: http://devicetree.org/schemas/arm/qcom-soc.yaml
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260701132514.186953-3-xing.xl.loong@gmail.com
+See https://patchwork.kernel.org/project/devicetree/patch/20260701135913.1641328-2-prasad.kumpatla@oss.qualcomm.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
