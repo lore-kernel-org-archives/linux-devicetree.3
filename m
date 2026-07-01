@@ -1,137 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996B63451CC
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 15:05:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC3D401492;
+	Wed,  1 Jul 2026 15:06:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782918329; cv=none; b=gHNtkbJg2LvazaTa0x29zwUbSAYUxSnZi9EpNNweGoPcwNsqDmht97Iz2TNr1qTqQ0WfOvVAE94an4c7KnvDhTSOdvlW07DVFMVrQOx5jTJaNwn1XcsaXVdpbp8NLahD33irWWbaAO+j8G8/Ta0yrXAN9lI213vkHTJyqZJCe58=
+	t=1782918374; cv=none; b=VgMVPRR3Ts4QTUTATvH07idaTcGGq6MJz5w7mq/zySGqGx0CeUnQYdzsu5pvJOllM45yNHwH6ai0MCH0FLy36w99YHYQX8rQMZIIxB82K8Rs6VoXzxD+31xtOr5tce5i5IeZPqNHz2ZboJL0nWnW+fEk5eFkFhXryXN55PEtyhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782918329; c=relaxed/simple;
-	bh=JiDKJzHuXulezD2Km6oke/ZQ7KtSNy7rcdgMzCqEFFE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=m9GjwJOai/+uiDbeZYUEB3OoUx+dimLkJvl5FP+n3W9VBUOHHKrhLMIXBnFWUd/jjMMnatDViZGZsOTxmNZnzaxIqkOh7F92BQt5+ZrNkNC4inmXPWUVzd6WQ5d2oe/+6uSwTk5HFxIKZSQmuQ0pQDhUsqEr6MAuBgdW24oKUes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yh7i9q4l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782918374; c=relaxed/simple;
+	bh=40DAFIKcf6IQceQcuuDpe4FoxoaNob9uttMJyD75Zbo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L+/LD/E1FgqqvxHDgrhO1almo1eXzCRBbLBMD4OL6CPgYwOt8Oah4RHwNLAEzNyxoS2jLuOoEUF32IsIdQGMPHvLrjKXZBSitLr1RcXP2Zqkzu0mxnPNSp74dmJwL5Pu6roSSpGc5ShpLGYfkFMmCBA/DMhjGEPTgtI03LhuPg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JLv7Ai2y; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yh7i9q4l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6DAA1F000E9;
-	Wed,  1 Jul 2026 15:05:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782918326;
-	bh=AdIX5gokl7HvkqnfiN/dAFzirwJk5AUF/GJsvW5jnmU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Yh7i9q4lMU5t0ErV/ojxvfrz319KByZkw29Nf4LeSpAlD4MT5kduN1bqAvgF4M7lI
-	 dZfbgQWI68Y6Xf0Q/BvsEDs/OtLAI2hlsKKE+K875pAAfyV8ltlvs5zI+FHtCmTXm6
-	 dj9UJ4b42ezksyp6BTm2vrJXLt0sXDkAcIBbWOdS3ABkBrusKsORJMtQD9qeBmLWuH
-	 OsqkWa94NlxZK+S4Hj4T+WgRsDD1HrY6koSolGFMedTvDKHNyXBs4TrF6RW0737BCo
-	 4IBXR9GA31eFB8yaQvgg9StlW61Qn/GPH/pnsGA6HwsXXq8kdbdrFMtcdGF0eGansX
-	 5tccSPscx/yWw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] clk: si544: add support for si549
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGF2ZWwgTMO2Ymw=?= <pavel@loebl.cz>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260701145101.3932655-3-pavel@loebl.cz>
-References: <20260701145101.3932655-1-pavel@loebl.cz>
- <20260701145101.3932655-3-pavel@loebl.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 15:05:25 +0000
-Message-Id: <20260701150525.C6DAA1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JLv7Ai2y"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 15531C504E2;
+	Wed,  1 Jul 2026 15:06:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0A64460288;
+	Wed,  1 Jul 2026 15:06:09 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 89E6C104C9645;
+	Wed,  1 Jul 2026 17:06:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1782918368; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=BjhULqYYe7aqWqvOdN5jU6JmlKc3RFwCqnUuIsbeyD4=;
+	b=JLv7Ai2yY6blvstUvW3ztpWuaqzlMgb1OZsGbyufFN0tuKY8MF14/EhvfK0iqJTIXYxXlC
+	iMcc82BsKs1eFYCi64PUIyx/sgXkAePL9LOu99ZRKfga6KlmHwH2aAnm3C7Et2GJATOKU8
+	baSQvvz2LReir8Hs+pjfJ0l7W2Vnv3cZT6azWlATwKH0gIsABHhGjZBjPL2qexVbZoTjUg
+	ooOYoyhyobJJHbxIKLSPAKArlZlbBwMgNk6k0osnpkyLmMpRPGM8NDM9FIHsvs6Pk9ZJQA
+	K/ChPLWTCUx4tc+MLKzOS+tVJE0cgRDIxwgB8LulUCm3txoxgRX73ne7mtMbgA==
+Date: Wed, 1 Jul 2026 17:06:04 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Markus Probst <markus.probst@posteo.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: rtc: Add sii,wakealarm-output-pin
+ property for S35390A
+Message-ID: <202607011506045358209c@mail.local>
+References: <20260630-rtc_s35390a_int1-v1-0-1b2239e16be2@posteo.de>
+ <20260630-rtc_s35390a_int1-v1-1-1b2239e16be2@posteo.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260630-rtc_s35390a_int1-v1-1-1b2239e16be2@posteo.de>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [High] Unconditional dereference of `client->dev.of_node` during probe fa=
-llback path causes a kernel panic on non-DT systems.
-- [High] Untrusted or unprogrammed hardware input causes a divide-by-zero k=
-ernel panic.
---
-
-commit 8414d21feff1150c560a77278d7dec845cbe570f
-Author: Pavel L=C3=B6bl <pavel@loebl.cz>
-
-clk: si544: add support for si549
-
-Add support for Si549, which only differs from Si544 in internal
-oscilator frequency. Si549 also comes in three types A,B and C.
-Each having different maximum output frequency.
-
-This patch also fixes maximum frequency of Si544 C. Which should
-be 325MHz according to datasheet.
-
-> diff --git a/drivers/clk/clk-si544.c b/drivers/clk/clk-si544.c
-> index 09c06ecec1a52..b13aeead9c028 100644
-> --- a/drivers/clk/clk-si544.c
-> +++ b/drivers/clk/clk-si544.c
-
-[ ... ]
-
-> @@ -145,6 +153,8 @@ static int si544_get_muldiv(struct clk_si544 *data,
->  	settings->delta_m =3D reg[0] << 8 | reg[1] << 16 | reg[2] << 24;
->  	settings->delta_m >>=3D 8;
-> =20
-> +	settings->xo_freq =3D data->chip_info->xo_freq;
+On 30/06/2026 19:22:21+0000, Markus Probst wrote:
+> Synology NAS devices use the output pin for interrupt signal 1 to wake up
+> the system.
+> 
+> Move devicetree bindings for sii,s35390a into its own file.
+> Add sii,wakealarm-output-pin property to enable the use of the output
+> pin for interrupt signal 1 for the wake alarm, which makes it possible to
+> set an wake alarm on Synology NAS devices.
+> 
+> Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> ---
+>  .../devicetree/bindings/rtc/sii,s35390a.yaml       | 54 ++++++++++++++++++++++
+>  .../devicetree/bindings/rtc/trivial-rtc.yaml       |  3 --
+>  MAINTAINERS                                        |  1 +
+>  include/dt-bindings/rtc/s35390a.h                  |  9 ++++
+>  4 files changed, 64 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
+> new file mode 100644
+> index 000000000000..31a578673870
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
+> @@ -0,0 +1,54 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/rtc/sii,s35390a.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
->  	return 0;
->  }
+> +title: S-35390A 2-WIRE REAL-TIME CLOCK
+> +
+> +maintainers:
+> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
+> +
+> +description:
+> +  The S-35390A is a CMOS 2-wire real-time clock IC which operates with the
+> +  very low current consumption in the wide range of operation voltage.
+> +
+> +allOf:
+> +  - $ref: rtc.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: sii,s35390a
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  sii,wakealarm-output-pin:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [1, 2]
+> +    description: |
+> +      The output pin to wake up the system.
+> +      Default will use the output pin for interrupt signal 2.
+> +        <S35390A_OUTPUT_PIN_INT1> : Output pin for interrupt signal 1
+> +        <S35390A_OUTPUT_PIN_INT2> : Output pin for interrupt signal 2
+> +
 
-[Severity: High]
-This is a pre-existing issue, but I noticed that si544_get_muldiv() reads t=
-he
-high-speed divider (hs_div) directly from the I2C device registers without
-validation.
+Ideally, we'd get a proper pinctrl driver part for this because what
+happens if you want interrupts on both pin or clock output on both pins
+or any combination of interrupts and clocks?
 
-Could this lead to a division by zero later?
 
-If the hardware is unprogrammed or an I2C device returns zero for these
-registers, settings->hs_div becomes 0. Then, when si544_calc_center_rate() =
-is
-called:
-
-si544_calc_center_rate() {
-	u32 d =3D settings->hs_div * BIT(settings->ls_div_bits);
-	...
-	do_div(vco, d);
-}
-
-d would evaluate to 0, triggering a divide-by-zero kernel panic. Is it worth
-adding a check for hs_div =3D=3D 0 after reading the registers?
-
-[ ... ]
-
-> @@ -446,7 +458,7 @@ static int si544_probe(struct i2c_client *client)
->  	init.num_parents =3D 0;
->  	data->hw.init =3D &init;
->  	data->i2c_client =3D client;
-> -	data->max_freq =3D (uintptr_t)i2c_get_match_data(client);
-> +	data->chip_info =3D i2c_get_match_data(client);
-> =20
->  	if (of_property_read_string(client->dev.of_node, "clock-output-names",
->  			&init.name))
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can this fallback cause a NU=
-LL
-pointer dereference on non-DT systems?
-
-If the driver is instantiated via a mechanism that does not use Device Tree
-(such as sysfs new_device), client->dev.of_node will be NULL.
-
-When of_property_read_string() detects the NULL node, it returns an error,
-which triggers the fallback logic right below this diff:
-
-		init.name =3D client->dev.of_node->name;
-
-This unconditionally dereferences the NULL of_node pointer. Should this code
-check if client->dev.of_node is valid before attempting to use it?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701145101.3932=
-655-1-pavel@loebl.cz?part=3D2
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
