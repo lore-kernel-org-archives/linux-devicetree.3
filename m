@@ -1,172 +1,137 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2094.outbound.protection.partner.outlook.cn [139.219.146.94])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68BBB40801E;
-	Wed,  1 Jul 2026 10:20:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.94
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782901232; cv=fail; b=oxr/1Vc4IU/SNLL50+PpejLz+WGjwJAW2/psOiQTqJbH4a/g80DfO/OPoYZIbaEN4pYqqM83fibBrGLrsldGUxYCaJoIK2BR4SP/dLcNysNQ55g0DYyXtJhf1njECflLmO1iHrZf283oeqozq7AUbmY+z6Y9L3W9oYDx4lqm+/U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782901232; c=relaxed/simple;
-	bh=11LLsd8v/iKCSo4bV2NQM8dnGyS+MLkzJp81qnhMwdI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Km7+WV9k8gF5+NGkfJ3Ed5H1r8PvYpi8jkZSuUVIdagE1SzZj95gsMx0JKdqjW8cZ9NP3BmpuECKFNpznEH29EDMCt1mpEelx0wGPWzMqXTSVdl8Ngtl5nTKYFHDgbRIGAuu7P/zYFrw8dQhoY93K3H4zs5mhgAXXcnah1PdieA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QSut3H1JeZhJUUsGyYWUUPYfqhM0mJJp2rKC4NDpp9hA3V/1elytWm7SMCrnfCcmK1GFbPK8j4317grsAkq5Bp1Aq0Z7dMUqmLOiwj0bzZ+4IAm3WXBsOt8uqCi1bqAPGh9rgqsZhpUYuQ9pNog/N8CsWVrniUrzZupQC9zA+HAB/1dhN8JsjW5KU/gcOmTE/OcHsy9sOOMLJ5OGHBY29OIjxxTM+E3CCXVSUuRCbQiLFTE0B79zhH97B/IzP62TAM4sx2WXOAzzSQk8ASzJOqDlhlRr/qzg4GD80w7DNOc5i5mfILtm6fh+DCe24eYRpr6EM9yWabIRFKSh1MS8Tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8YBV86v3nflUO674Q+hvLcTmmy+Ukq1Nv/1bEE7q5W8=;
- b=iTtlf2xXkTPccfDqoFBFlCRXgYgJyP3ygnAB7NGXpQcjCfQI8jUu+l4m9AAVJOOz13arq/8Rk3A0j8C+8of3UMn3gPafjQhuPrZTskH/Kf8IhApbTC7GNtdYC+GzF4ddNHMCB30VrgUC6o243tQkXt9BhM5G016B7CkKklZgAe3k4BNRBbqmAea5KltYf5MSKslh1oRc+c0Fo0lh7Ol3m138XlhHwvKWrol7MzkIXQoCbKG+JQjI2GV/bMR2GiXPkUKuB7uopj7PVbXrBtVWCBNyRSgp8KDvPhVc3g21wo5rQQchIjzTJU7aFVHVP2DfExS0bSWz6ZLqTXwDoQfuMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:7::14) by ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:7::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.25; Wed, 1 Jul
- 2026 07:44:50 +0000
-Received: from ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
- ([fe80::4386:5cc4:3bc4:4795]) by
- ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn ([fe80::4386:5cc4:3bc4:4795%3])
- with mapi id 15.21.0139.024; Wed, 1 Jul 2026 07:44:50 +0000
-From: Hal Feng <hal.feng@starfivetech.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor@kernel.org>,
-	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: Hal Feng <hal.feng@starfivetech.com>,
-	linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v21 1/3] dt-bindings: pwm: opencores: Update compatibles, examples and maintainers
-Date: Wed,  1 Jul 2026 15:44:40 +0800
-Message-ID: <20260701074442.7714-2-hal.feng@starfivetech.com>
-X-Mailer: git-send-email 2.43.2
-In-Reply-To: <20260701074442.7714-1-hal.feng@starfivetech.com>
-References: <20260701074442.7714-1-hal.feng@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SHXPR01CA0026.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:1b::35) To ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:7::14)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F01B403151
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 10:23:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782901422; cv=none; b=LnVNwlzF/N8RRokdWkqQLkimyjW/TyIYWwtchI2jLgqaxo+Fy4pGriS/kUMIkB03GJi/S/oGlImpMNmMj1A4Ky14AS+1BEQpsSYL7nkas+1kWEurifyB6gJRrfBbg+GgOEGQq/plsu3hrwPJTTUVO8M2kHrwPHLZU3xdIb2f9Ys=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782901422; c=relaxed/simple;
+	bh=0xtJi14Zr6Fb2zwnaRm26ImI73MCZPBC9d1hLJbhjRY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jO2oeuxqg9hvU4gGONBJfn1LLeOumOe6x79YnMt8VeHD1Z85/aBnv5K8bpqdCZnkhVxjVKAZimjj/6tBQqZAI0okQhRx5jZJBnoJixxsEIvlFP6lt94OBfIp0CRdJ1obeHN3etZexUB0dv/9fT+8cxcqZM1SmSW0OM6fgdEA9Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ktpD3a0G; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ktpD3a0G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19B4A1F000E9;
+	Wed,  1 Jul 2026 10:23:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782901419;
+	bh=5Rsn7FVbdeQAvhYlmCgY+e9t1aFxrmBfQn6YiiR2jB4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ktpD3a0GzB2y5SIXKELWjEF+chS8CqJeZ0Fnf270GtCgP5LjYDw1tU5/JVIVFQXyR
+	 S6HIKHpF3Z+yNKQFR6axFSnysPW/NgmHKUt6LtEtIYbnjuN6VMGZYfx8gwK9DKTm6i
+	 VGLkAWbI03iziMxaX5LQP8C9XbNFlkd+/M84zjyRuDSnI/69FWKmV/OLpSLkJ80kTy
+	 FCEe+p2y4DQXh3/RUhZSUC/XzAp9Xp8evU6lVxoeqHlGo9GgHpbj5lmKSdKxDj44qd
+	 fXthqUqendb2Am7VCs+r2AxEkMPcJxJPmBUDuhmoE0avuKHj3b0w6hUxwqEK0+tS3N
+	 5u12BsmpBcpFQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Add memory-region for audio
+ PD
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vinayak Katoch" <vinayak.katoch@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260701-glymur-audio-v1-1-2c3862d95a09@oss.qualcomm.com>
+References: <20260701-glymur-audio-v1-1-2c3862d95a09@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 10:23:38 +0000
+Message-Id: <20260701102339.19B4A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ2PR01MB1307:EE_
-X-MS-Office365-Filtering-Correlation-Id: 592f924f-8be6-4bf6-e0ee-08ded744a1be
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|366016|23010399003|7416014|376014|1800799024|38350700014|22082099003|3023799007|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	FGvCEY6V/I99GKpXo4xStdzXYG8/nK2Vv740UQGSz/gTd+T8Klnavr3WqSKSVYSfJ5sNRR+S9kbnYZgQdc7msb/Dz/1vQuFKsi8AViHDyH96SKVMTNMsT7UoIrE1hKmJ9JkbCGWWD7e21gWnojzE3wWRn98b9ihJSB6gxMpKzIetswXXNuosI2sschMAxAqr5TGNrcE3JcMSVNR38LLWxZL7rk/2KCYlYOqfOD4EM9E7RA3TU7BIEscmqPGWh3x82K9O8OTiw64LGAHYhuMBBOeahKeqJ0yaafCFJapMTrqLjxWE1FGpgwY/gQ1B1m8uWai+QX/rvUlVDll7LWelD6N/ZIjWTc5UJzkZLG0hhneL1RzNQzMRNqgV1Ya/THCV/onEK/RBrOAjXa/YFapjBdAyZQ/j3XYLAz42ysKemxpBIGmolVv7VC56DawGJB0jSqZkXavqZO4/F8SzapHsvtk0MCPxedTnXrpRMpf6EgEOhR4GN44rQbjgJ4WSyYGVK2rehryiFSnITpaqcyRLN6tcEewZVR0zxBCOeMZeJj8c6/1LlbF9jj59sX8FkD7n
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(366016)(23010399003)(7416014)(376014)(1800799024)(38350700014)(22082099003)(3023799007)(56012099006)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?SjLDGiShlVwjK58byUWj9Qsc4xI+/Y2guQCwx7ausRZQnjdi9i31rcK446nC?=
- =?us-ascii?Q?pM0SoATo+Rp3Lj2ZOfG91CGo7PTi4MUcQs7wk63+tx8FdlOcfuIfardwn7Ss?=
- =?us-ascii?Q?GTu43HY2Y1/jIwskkHhpPxra+aIoFoles3WHjMj5R8lP+3N2iKtHmhv3JB8+?=
- =?us-ascii?Q?DTTmr61Ly4hVtXX97cwobcqcnq3wKk9DECyUcsn89kJvwOZJ+w62r2PrBRt5?=
- =?us-ascii?Q?AwAp1XeXTorcUDx2l7db/qHSvEeh/1M6WUoX1cLe4hvYghqt7ZbBNGzPZAPs?=
- =?us-ascii?Q?q31OfItAB/MiPW747EC6RYWKPVUucWwt9GhBod26pWPjsAa1NJy3YwJ1D9yL?=
- =?us-ascii?Q?Was9CSZfIAr3MsntnX9IHYsv0MdWl2nsMrAKsc9RdzEqAlMsMekXkADS5n3U?=
- =?us-ascii?Q?7L9bVkemt405AjZf65sfgfCuxfsajxSzkILSigdVA3iZnoh1ak1xlx6L47oz?=
- =?us-ascii?Q?D5bFApH3cZ3tjcrxzcFH+SH9ePiuZ3E6Dku8wDX01b7gOuols4pBZnn06ozP?=
- =?us-ascii?Q?8M3ik4GfZ5fcJLuo5C+8FmkubVYOTTyd6+4pTmqKBuMrDc/CRvpGvJuGuBcE?=
- =?us-ascii?Q?0f86KssB5H8VVVtAdXH/hhQtKKvVjRsmv92P8gmMrl/7PfB9ipgHsc2tVVhz?=
- =?us-ascii?Q?U9RZXVPs/e3DkpJTzvPeL2BIo0AZFf/zEeOIxGBo7BZV3g/95h4UpMXuldhu?=
- =?us-ascii?Q?clBcJQcOIZGS4mUkrtVfvZSsszjjLufO7yJpQLFWVfopmqV3pE2HeFykE+aG?=
- =?us-ascii?Q?PFDbbdpOB+mah0wXwygJIqJS2+2vbHSlnn6HC9JkunIunMU20ZJ8xIxyt/5k?=
- =?us-ascii?Q?vHeEVJz7S4BqzDrZrx8cW/EcT0Xjnct12vFYZZSlvMEHXpSZ0KidVaOLKAXq?=
- =?us-ascii?Q?wWnlim5Dd9BzkDWkFvjqkTctdlEnuPcaQl4BYl2A6JUkTt7VkE2+38tfnuO6?=
- =?us-ascii?Q?GF5EUEgJSiPht05385ArZRyLO2rLfpJSfStKEa9s6xDAKNG8/zId1iJ1lQ0g?=
- =?us-ascii?Q?ygD3bowhhHQHh0gNkvoRa9afAJXAmGG+FNyvrRshqLL3FyYqkc3ia468zIDp?=
- =?us-ascii?Q?legy4p3RcmwyQ6SAIKFiQ3o9MTv7e3n6g+Qr1sFS8Z9vXsO8XyH5avBsI+4z?=
- =?us-ascii?Q?vhAMgdUzJ8BZRn72/7rrEnd9OU+2qtp5TcOa9xP6/IhUyAOaXlZtVDqKm6fj?=
- =?us-ascii?Q?5pRsgJDU6yB6H5nk1a331w66gTlMiEPSjxxUs/xwv7iBUL32vV03pbDrHVST?=
- =?us-ascii?Q?Y0QvDFJjjMVFCCHe0MXcIZoq6IxMhIZSBfqo1Uxyxmn4y2juPQNvAbferddk?=
- =?us-ascii?Q?/6sn2zWTRRFpL6QbcRipIloi7T8Y6Of08C3tJuo4s4Y3ckVfClah9pbSvSZp?=
- =?us-ascii?Q?WGZwzuSQUoFeJd1E1RrnroMLRvY+vjhkUicsSO8Q+R/xBxQWC8NdwEnP0fAf?=
- =?us-ascii?Q?uNoAuUhz25wdT5i7VbC69ra29LpNKOxwd4acz23ThInVaYYVt6kLu5dobYB1?=
- =?us-ascii?Q?Ufz/Zdm/yS2lZ34mp+ttJkC+x7M56ZpYp+C+j50TBxKgUwZoigHjORJlqZWn?=
- =?us-ascii?Q?m8i2rfpRUOZ588givfXn1ggUIcnYLYZdaz2dZwYJKs70yzbrVoSJW4YHwn4f?=
- =?us-ascii?Q?EwK+zmUih6dqXPo9YryDUfcwmLCcg4d5z5pIwKbzu5e04/qtqzseE2I44Po+?=
- =?us-ascii?Q?hFyB9yjtDGIg+KUslNYie3IOgZrHofgqLwxXflnNGRqR1tA76Ij8KL6jGhqh?=
- =?us-ascii?Q?WG6BpElm10WBja8OODs5tEKGgX2N4VA=3D?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 592f924f-8be6-4bf6-e0ee-08ded744a1be
-X-MS-Exchange-CrossTenant-AuthSource: ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 07:44:50.5563
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A62TTCKo3UuTwulE+1ynFaL/2Ye9Mw0KgFZB9JAB42gw8K1kTscdcDf0TibaGAQJfP4z4tU+EOMJuAhwtd3pp54jcRlgcK70WRmuKq4Pgzs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ2PR01MB1307
 
-Remove the jh8100 compatible since the JH8100 SoC has been canceled and
-will not be released. Add the jhb100 compatible to replace it.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Change the register size in examples to 0x10, since an OpenCores PTC IP
-has only 4 32-bit registers: CNTR, HRC, LRC and CTRL.
+New issues:
+- [High] The `adsp-rpc-remote-heap` memory region uses `reusable` without r=
+etaining HLOS access, leading to fatal hypervisor faults due to speculative=
+ execution.
 
-I will maintain this pwm module in place of William.
+Pre-existing issues:
+- [High] The fastrpc driver does not restore memory ownership to HLOS befor=
+e freeing the remote_heap, causing a fatal XPU violation on memory reuse.
+--
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Fixes: 2529085831b0 ("dt-bindings: pwm: Add bindings for OpenCores PWM Controller")
-Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
----
- Documentation/devicetree/bindings/pwm/opencores,pwm.yaml | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+commit 39381f5de37bbf0f0366047bc842de4cb219a1ec
+Author: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 
-diff --git a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
-index 52a59d245cdb..42c5d2b6326d 100644
---- a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
-+++ b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
-@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: OpenCores PWM controller
- 
- maintainers:
--  - William Qiu <william.qiu@starfivetech.com>
-+  - Hal Feng <hal.feng@starfivetech.com>
- 
- description:
-   The OpenCores PTC ip core contains a PWM controller. When operating in PWM
-@@ -23,7 +23,7 @@ properties:
-       - enum:
-           - starfive,jh7100-pwm
-           - starfive,jh7110-pwm
--          - starfive,jh8100-pwm
-+          - starfive,jhb100-pwm
-       - const: opencores,pwm-v1
- 
-   reg:
-@@ -49,7 +49,7 @@ examples:
-   - |
-     pwm@12490000 {
-         compatible = "starfive,jh7110-pwm", "opencores,pwm-v1";
--        reg = <0x12490000 0x10000>;
-+        reg = <0x12490000 0x10>;
-         clocks = <&clkgen 181>;
-         resets = <&rstgen 109>;
-         #pwm-cells = <3>;
--- 
-2.43.2
+arm64: dts: qcom: glymur: Add memory-region for audio PD
 
+Reserve memory region for audio PD dynamic loading and remote heap
+requirements. Add the required VMID list for memory ownership
+transfers.
+
+> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/q=
+com/glymur.dtsi
+> index 20b49af7298e9..f403f542aa00c 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+[ ... ]
+> @@ -663,6 +664,14 @@ smem_mem: smem@ffe00000 {
+>  			hwlocks =3D <&tcsr_mutex 3>;
+>  			no-map;
+>  		};
+> +
+> +		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
+> +			compatible =3D "shared-dma-pool";
+> +			alloc-ranges =3D <0x0 0x80000000 0x0 0x80000000>;
+> +			reusable;
+> +			alignment =3D <0x0 0x400000>;
+> +			size =3D <0x0 0x800000>;
+> +		};
+>  	};
+> =20
+>  	smp2p-adsp {
+[ ... ]
+> @@ -3845,6 +3854,9 @@ fastrpc {
+>  					compatible =3D "qcom,glymur-fastrpc", "qcom,kaanapali-fastrpc";
+>  					qcom,glink-channels =3D "fastrpcglink-apps-dsp";
+>  					label =3D "adsp";
+> +					memory-region =3D <&adsp_rpc_remote_heap_mem>;
+> +					qcom,vmids =3D <QCOM_SCM_VMID_LPASS
+> +						      QCOM_SCM_VMID_ADSP_HEAP>;
+
+[Severity: High]
+Since this memory region is defined with the reusable property, it is placed
+in the CMA pool and the kernel's linear mapping. When the fastrpc driver
+allocates this memory and assigns it, it strips QCOM_SCM_VMID_HLOS because =
+it
+is missing from this qcom,vmids array.
+
+Because the pages remain mapped in the kernel's linear mapping, will any
+speculative CPU fetch to these addresses immediately trigger a hypervisor
+protection fault?
+
+Should this region use no-map instead, or should QCOM_SCM_VMID_HLOS be
+included in the qcom,vmids array?
+
+[Severity: High]
+This is a pre-existing issue, but I noticed a related problem in the fastrpc
+driver when handling this remote heap memory.
+
+When the driver frees the remote heap during channel teardown or module
+removal, it returns the buffer to the CMA pool:
+
+drivers/misc/fastrpc.c:fastrpc_rpmsg_remove() {
+        ...
+        if (cctx->remote_heap)
+                fastrpc_buf_free(cctx->remote_heap);
+        ...
+}
+
+Does this free the memory without restoring ownership to QCOM_SCM_VMID_HLOS?
+
+If so, could this cause an XPU/SMMU violation when the CMA allocator
+subsequently reuses these freed pages for another kernel component?
+
+>  					#address-cells =3D <1>;
+>  					#size-cells =3D <0>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-glymur-aud=
+io-v1-1-2c3862d95a09@oss.qualcomm.com?part=3D1
