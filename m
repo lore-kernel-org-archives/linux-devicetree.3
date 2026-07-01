@@ -1,83 +1,110 @@
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F42C3B3C0D;
-	Wed,  1 Jul 2026 06:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28F132AAC5;
+	Wed,  1 Jul 2026 07:01:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782889122; cv=none; b=OkjyfpO3vy4zRnbfoyTa0nREVkYKunyX9MQwwFuFMR+yhI879sJZ2R7KiegWa914esKl4YCdzdca0oDNaWnNxbDaaFXGBEVjfSHceQ/XPdDS7tWk3Jkn4rH+8GYJqfTBtLli5+QgNN1i7XZhjuwWYSk8rJvL7BXtsQJpCy0VqzI=
+	t=1782889318; cv=none; b=S8HlCgpmDG+e0/ad3lBPHy2soufWFoKzusqL1okdrBwzXO29EAq14TX4CilhSGHcaA8Foi2810kP+XRUQBZah2FLNSGQPfeacU20WDgerIHoZT2zihMgSv9Xi12HbcV+KGiUhiE+xqiBHBofscFBGfT+22DAC9DNEqBY0smJDxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782889122; c=relaxed/simple;
-	bh=njRESqLfQG7J4os1F1U/PJtipN00LX9glpTZuXwuxRE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=c2QjhG4tEQHHiRJH3eZY2Ld85vfnvm+NgXaL1EczItChCrr7ug26It3iuXBl3cLqK7j4PjqxAlg7YZc5DWANl6HcRqtGnBu22jIDO05zI+1aLTqnQ45BOOibWWdB71MqhVbC+CoyzrVkejnbBkqeOYLoja7q404NzHX/2vqk1eI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 1 Jul
- 2026 14:58:18 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Wed, 1 Jul 2026 14:58:18 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Wed, 1 Jul 2026 14:58:19 +0800
-Subject: [PATCH v3 3/3] MAINTAINERS: Add ASPEED USB3 PHY driver
+	s=arc-20240116; t=1782889318; c=relaxed/simple;
+	bh=sjN+zSOrb+uCyCmWhfBsuqL1TU667U7SFjPwKN7eBtU=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=bFVuTp43ZRgMNSaaX751RHJZjook33sOzmAupjqPc1l5Hf4cV+bGd0QgH8KuNV2WmNapvIannFLGdtrXDyrPaqXGEqGYD7BoEhTjuDBOiWDilSkmrJAmeoMxyYXUVdWx5Wg5it+5le3XIkL0nANg+HHNbwJ8wIx4b+j9/9LGtZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=FxeBYoB6; arc=none smtp.client-ip=203.205.221.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="FxeBYoB6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1782889313; bh=QR9RBoB1Xmuk4gv9Ndt2VcbKJ9ZdwkH84K6Kq+4ROVI=;
+	h=From:To:Cc:Subject:Date;
+	b=FxeBYoB6puju4Hin+GuVVFvY0evwWhdzBR3P/8SBqH/gxVmwmgcia7CXogCppqSi9
+	 4KjUue0uxR+TXGl7ZFGShRAX2lKJQG4RRSnKYrHkiISO7b3tY4+3a0DhJEm5DXCaio
+	 aW4PMbsRBhBUqfq9/ojnUAuJxybx60Mp/esYVKxQ=
+Received: from localhost.localdomain ([2409:8d20:2a:1b57:9e54:40ff:fe02:3f0f])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id 71832C3; Wed, 01 Jul 2026 15:01:49 +0800
+X-QQ-mid: xmsmtpt1782889309t62leqei9
+Message-ID: <tencent_1A4614039A100DFD8A9AE2692865FE126009@qq.com>
+X-QQ-XMAILINFO: MQAOa38Yz/8/h5mNRBixUf9sGBvjbDPTpGQYlPe1/W7Je2YVdByg9DNAmYCwnu
+	 z1/Zxh4RpOppC3m6mSnmBWZc5sgV5oqdxMUxPWGscfEQ9nWr3S4nvGUI/24nXv0hzAJ/531B9K36
+	 roUixxW5N3vrXCTqW9TW9rJcH2kHkw8gGJBS03gtvLir0ls9hs0J/mL4GJaaAw92TqLYW1OYXX3Y
+	 IG3DMEhfjE/vikZrt6sxYSDKQVZ1I2aVKsgKZgePGAdhdUWP9/7A4UgiiEA4k8dJWKPmuRx3Ce+J
+	 V+1vH4tlPCcVMuJ1uuXOC75eMduywjiZ9nYvu6hXorjieuM+5p7jrhkEP7bIW62yx4jX30ROQkbG
+	 RlNqz9OFSbpaiVenuZEVaumQwB+L0SjhIiu7Mi+4Q8IRh4LHg0w/sSv+rADFVQi5Xp3ZG6My0gJE
+	 1TSd14IW/YQgnDqtwweogZWZNssn1LSzHofdhC6ZqRz3Y/9foxitDdJNxayK5yRe4pRxPfhA/lAE
+	 +rg70fBZcBIIlKX76DfekzDNZVN+wyQV56t3JrfRuoQQGjynJqmCnhlguDScea/eqmEzW7ki0n40
+	 OBdGTsZCAmVHIahs9pP5Yegx9xs54xY/oPF4YTzhTdYgc8s8uoYfTAWHtUpXqZKzvUMGFfwjCjLv
+	 NCI3RrU4obRgkZGqp57FVB6Vbp6UbmQpR7KQCVntf5PQgvEhA0DW5RTyfcMdv5BPAhhT59fR81oJ
+	 snOCZPlvw1dF38VRZ1/YyJBgBXMpC+pta5I3yBtYpuYeJjH+WWBv1juRNAGsb7AXVV7W1BnJ20zh
+	 Ws2GbDnx+dUzu+8My8RkkH9cZEdM/jXsmhUofoqO16AUf0xXLCZCr2isoJTfLALYeR5aWYyGqjU0
+	 xRC7J9FRtapIgEAwfY+XzyPYVZPzc5NSCYEBGO2TM0Z3siwt+s3hrVFwAydsQsd598WeclGD0E2h
+	 VVj5D3OEa4AKo+PUXD27ZM6daxN0kzD+iqb6+pO4BRCy9TQ2RF14VKZUh1bxSlP9lzdxG/W2xUkm
+	 AuPA31ZcCycKTHttoYgvyoB+Abtsj66Z+zOpDm7KO/5Oiiy/7cxIlB9pClCEG+QDML8aUpeEaPht
+	 HGMt4b
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: 1579567540@qq.com
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	linux-can@vger.kernel.org
+Cc: Vincent Mailhol <mailhol@kernel.org>,
+	kernel@pengutronix.de,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	luch00 <1579567540@qq.com>
+Subject: [PATCH 0/3] can: rockchip: add RK3588 CAN-FD support
+Date: Wed,  1 Jul 2026 15:01:25 +0800
+X-OQ-MSGID: <20260701070128.2096267-1-1579567540@qq.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260701-upstream_usb3phy-v3-3-00e12315b6f9@aspeedtech.com>
-References: <20260701-upstream_usb3phy-v3-0-00e12315b6f9@aspeedtech.com>
-In-Reply-To: <20260701-upstream_usb3phy-v3-0-00e12315b6f9@aspeedtech.com>
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
- Jeffery" <andrew@codeconstruct.com.au>, Philipp Zabel
-	<p.zabel@pengutronix.de>
-CC: <linux-phy@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
-	<linux-kernel@vger.kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782889098; l=861;
- i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=njRESqLfQG7J4os1F1U/PJtipN00LX9glpTZuXwuxRE=;
- b=9nDC6roHxfGcpoe43h1qTGG9AwTHok6mjgtTbKiriMRNV5LYvorZCkvRv1RyoRS7m+iQGHzcm
- V8uVk5DQGeSBKe0/CjGZXbG8nfFOos6gvV42A+70KRo+SPXsxdJ0+vv
-X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
- pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
+Content-Transfer-Encoding: 8bit
 
-Add maintainer entry for ASPEED USB3 PHY driver.
+From: luch00 <1579567540@qq.com>
 
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
----
- MAINTAINERS | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Add initial support for the RK3588v2 CAN-FD controller.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 895a87b571c3..10c08f322618 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4062,6 +4062,14 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/usb/aspeed,ast2600-udc.yaml
- F:	drivers/usb/gadget/udc/aspeed_udc.c
- 
-+ASPEED USB3 PHY DRIVER
-+M:	Ryan Chen <ryan_chen@aspeedtech.com>
-+L:	linux-aspeed@lists.ozlabs.org (moderated for non-subscribers)
-+L:	linux-phy@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/phy/aspeed,ast2700-usb3-phy.yaml
-+F:	drivers/phy/aspeed/phy-aspeed-usb3.c
-+
- ASPEED VIDEO ENGINE DRIVER
- M:	Eddie James <eajames@linux.ibm.com>
- L:	linux-media@vger.kernel.org
+RK3588 integrates three CAN-FD controllers that are closely related to
+the existing Rockchip CAN-FD IP already supported in the kernel, but
+they cannot reuse the rk3568v2 description unchanged.
+
+This series therefore:
+
+- extends the existing Rockchip CAN-FD binding with the
+  rockchip,rk3588v2-canfd compatible
+- adds a dedicated RK3588v2 match entry and devtype in the driver
+- describes the three CAN-FD controller nodes in rk3588-base.dtsi
+
+The dedicated driver data is needed because RK3588v2 encodes
+RX_FIFO_CNT in bits 7:5 instead of 6:4. Runtime validation on RK3588v2
+also showed that its observed errata profile differs from rk3568v2 and
+rk3568v3, so using a fallback compatible would be misleading.
+
+Tested on an embedfire,rk3588-lubancat-5io board with can0/can1
+directly connected. Runtime testing used a 198 MHz CAN clock, nominal
+bitrate 500 kbit/s, data bitrate 1 Mbit/s, and included stress and
+error-path coverage for the existing Rockchip errata handling.
+
+luch00 (3):
+  dt-bindings: can: rockchip: add rk3588v2 CAN-FD compatible
+  can: rockchip: add RK3588 CAN-FD support
+  arm64: dts: rockchip: add CAN-FD nodes for RK3588
+
+ .../net/can/rockchip,rk3568v2-canfd.yaml      |  1 +
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 39 +++++++++++++++++++
+ .../net/can/rockchip/rockchip_canfd-core.c    | 14 +++++++
+ drivers/net/can/rockchip/rockchip_canfd-rx.c  |  5 ++-
+ drivers/net/can/rockchip/rockchip_canfd.h     | 12 +++++-
+ 5 files changed, 69 insertions(+), 2 deletions(-)
 
 -- 
 2.34.1
