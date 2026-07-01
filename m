@@ -1,177 +1,272 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F257D3E3165
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 08:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782896357; cv=none; b=nffUZJ0bHAkBPvmS6Zlyg/n3VtMUIJ/fTi/sAlcI6e6CFQUGSW2SPTPNDoRravj2F2W0IJw4COV3HZZ1sMIhQQl1QK+cgFooUIRvfZLAi6IVJnL4fljLtZaClmitpM9XFtuVZzi80nvvIRgf1rl5+lspcfIyR9sPeC082vPmkQo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782896357; c=relaxed/simple;
-	bh=vYhW6sp2VV3qy2pd5m+ykuHKAdjzoYeYYAcYIKeSnL0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gX9LL1ob6JysMiBS8wYIffH4JjDPX2vfWpWrSsgwj2Jim98x2o4dQ8ZapQkDV2BuuoC1mWR8VpcBcjS249nXt4VDZAFiW0faxLTqrtVXjvf7yBU5fBWLLrszHKisywHNKzRi8QF1d4cYrwmWZ/mPAvyai4uXclGcsKKhYG9ctSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FaVAN2Y+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DO+Pc8y7; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09CCF3603E9;
+	Wed,  1 Jul 2026 08:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782896361; cv=fail; b=J9DNOQy1SZH1RHYFgHyrZEynWhiEkEbQQ+g/aXWTa3XKLMGriRUKlac7hIg7vRtkLCDsMEo8aMH4OJHeGwKoFBNB9/3xIgOlgK2Q6T96F+I6JBoar9SyMAYmk+kz4V/IjoXEF6iyy70QtV9U1YjORxNy9gHTjyQ6aplFkDGIvJY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782896361; c=relaxed/simple;
+	bh=m2K2x2E1R9OUPZ1bR/xvhck9z3JIyDJrkDDScP1NkbM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RzfAMxTqLQdlWTVTAuWPYJ5Yl9fr7d94KUHAlIwAQd1I8EGhW8K+rvVSrHyc8LDKsXA57fNWufhkdGrr1vFk6YkyqbMl2ParsHJF7tiQlkse9BCvyPdYI2UmdaU4hwHL6ElyJokUboyO35rQdyWKuFwumrpFjaXhnCytLdM+hec=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=QPouVZMm; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=yfT4qyZr; arc=fail smtp.client-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FaVAN2Y+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DO+Pc8y7"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6618GL0G489280
-	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 08:59:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=dY4DQsLIWN155WO3Hf1JbtTF
-	IG9I3zBKpW9XXTHmvwk=; b=FaVAN2Y+xPKmLXoLUyXMYC350Ng210RlU6vx1Un7
-	FmCUvk/yIePvFjvrrTpjuKl/ONbmkE5uau2kgNKW0krAnwHTEYWqLUAKgYsAkzxZ
-	60e+NzfL+VctU83Pqh+E8qP9uiQT9J8qT9icZrId1ZUohgoK1Ph2ZUaK2/aEam00
-	QZZa2lQkklga54EWLulbqob9f+URu2DWKiULCGZMjaoZyJOGRWsWgCOwKYJ6MLMN
-	e2rKr/mirjC572wrH7NDKKMq3odbc+ITqzegpbnTlP53DzghhNXg5+En203Jo4IL
-	ONqQJwiwhv0aIK7whz9wvJxUjoguyhMlA0pZk0VaTHHkBg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4h0auux1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 08:59:14 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2c80be91ea3so9474965ad.1
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 01:59:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="QPouVZMm";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="yfT4qyZr"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65UNjL7s882835;
+	Wed, 1 Jul 2026 03:59:15 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=VIDDiKd1uUBP5hklo+VMVUHD2GxCbX9QZH2F1xGUNW0=; b=
+	QPouVZMmwgVIV0ndPer+ww2LzE2A4YdyffdRhy+qIVVId9gFPOy569Be34g0kGhV
+	VmhNCidM0o7Tlg17mIKFX9SW4FLyu2e8McfC2J9q0gPvrunwlRJwR1GYrS8gOm9C
+	/T2UnUh96i4i17O8xyex6I2TSpuZCikVeoTYRXP/T0CBJ+YeuhHT7gmyW7Aep+PR
+	tkwZO+zoCn1WxLm88V7kqCHPlEnkS0A+KWGDXKVdhbC7cP1xUU74x9PLK46DbnvV
+	ihplz9JmXE1UonKZdw3kSmVqfvp8GoJI+Fzkz5EJesec4dMn17u7LitnSOrp1+8H
+	M9S8KhDrz3nH1yY9A5MbeQ==
+Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11022105.outbound.protection.outlook.com [52.101.48.105])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4f4e5r1kgq-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 01 Jul 2026 03:59:15 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=artEEgMro2Isf3LpvYGFmC13yz9THCOrR3B4bC987qpGKiuLBKvQXaxhv0RUM8xW/sl/lF+9hDXjnV5Sq97K6FWgVMMBj8CYz/VVaPeWBB0I/OSxHLp5Enxtvob3n1dvrKdbBXeFawTVx2NIndaW/nqoJ0guQMpDVR7RLbScwhDlt5xnbnH80THMcWvphRA0T3C35sCEtz3AaLA3/ipdquHztQG7etV6VOGaWuZbgFExT7pp8nc5b3SH3mhQ0GY0UuW2AZTH8mtWEDG28HUsqjXgRXvTTeg22hwDTfMnJOrmh6tDTVgtngKd6HtQCaPHo3vtb7FvTDIRzvLN+unsLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VIDDiKd1uUBP5hklo+VMVUHD2GxCbX9QZH2F1xGUNW0=;
+ b=XvQufrU4pw3TizxrBYRIvlqfFIlXo6hVRqkXCjJvBQEF3RtbWtL/QxElm7TswY0xKz7mUQjnwQ82BzK9VQVY72MRiO1HV+7rcivRZPe85gjYidmKWeFGxUTxaSchUrSDWwAXSg0qytWYemWUJ4bo5cOXPYKLbxywIp8ZKns0aVA52sSWCaviynPb29HLDP4tGzEqpCuX8q148abfQeCrZJoRC/JDXU74C4w+SaCVY39t+Xff1WWQfSE5Y0MXRc6IvhB89JgzxlS/KQlEDt2LRUxp/G205P8WdMrrd4AVy9BISsZ6n7f+tRMO4AAfE++CaQfHXaq+yFp6iyu7o3k+mg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=baylibre.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782896354; x=1783501154; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=dY4DQsLIWN155WO3Hf1JbtTFIG9I3zBKpW9XXTHmvwk=;
-        b=DO+Pc8y784mDXDGdKGJfoT6xYmkc/bTmb3nD2wasjiGkNBOgpO8j+2WLqYcpDl6WCC
-         E/8gerkFIBUl/00oX4VtRJECK4AL4Z4vsAfXi8gDkZgQL6gNFHoCO+mTZrfH+ocvcQbW
-         rIB4asYqjebGvTwKAIgoWVvluitMSZ73DpIBj+w9l4MwuV9BGBE3S0JfNm5gE9e/lLdx
-         jbPYSANddO0BhyvNb504oKEQa6vynhyhnNMHTuXwRuznqp1Es4cMC6syZrzO8GGo0M3r
-         lmHNJkv2QJv7sf5xrrb74wHmYf8o+w22Q5QlG7cOyhbNuLU+0W5EBu3JVeF/YG9qHLFb
-         aTHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782896354; x=1783501154;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dY4DQsLIWN155WO3Hf1JbtTFIG9I3zBKpW9XXTHmvwk=;
-        b=P50Nj0RZwavGdRoShXERGuxYgK7n11+WZGI7Ykcs1pGiQPZdN9Rr/EYmges5Qt+tpd
-         6hcm/githr+piNhG9Am95DZj8nRU6kgmmLvnxW4QoRzSVmRsTVVlzEVc/uOH2BAhWqW6
-         AMru/lFWvGbIW6Y47cJRJ7BYAYeUIFvMn15J3ulwBNv1rlxMEipEtd7PLNrTF9iLvzYB
-         IiUzL4kJdg3VGzsJf36VCLUCkiL4oIn/yJotAmiC5sg18LDtfaiQwuGhkQ/WDk4qv1xt
-         pfC0LCTL/53qaxP0yE+luKQzDcllCZ4u7sqObt6uet96U/MHNj4Y9Bvx6hcLZT0amPF1
-         OIqg==
-X-Forwarded-Encrypted: i=1; AHgh+RpYExIRb1dUcLBeL8t1+c3Dqsy3X2nV8gvgyJlnyX3J/xVKC987sGdlQFnDP4wJsjr7otHTG9B/r5Gh@vger.kernel.org
-X-Gm-Message-State: AOJu0YyE2mm9NT9lY6SkM1bEAIIo8du4yulaAe6C4ZDK6E6XBnxNyjjy
-	GssO4bwiSawKVru1EnUm41ZPvktEayIoaoSFDMGbp26KFUZG/ClLwnXf4C439vF69ZD0iQ+rfEh
-	O2igEJ6Qxr6rhn/ovH2ciEl2YnQTk9midnhk30D7rn14cHgfosj/MFiYBx6Il+BjL
-X-Gm-Gg: AfdE7ckr9bx0pDHJ8GIlhTqTYwIr4gR28G5xNFZm6C3B3nsIs3872rsGlkBZL30Xp5A
-	HBawrV8AKml8+9/Ojj+nAIeEfUBDvPbmcyklsUkTzeiW+PO764DZhXDuv7cdxPeiMlvq5+NjPcH
-	0ufBfQ8NM4KCNSMSqrCkzSAuTZ3wkryJzKG9w3PhGTRgdolwHk1Hr5N2atdQfhtsSpItOsJxV72
-	B0EJtyGtk668X/vw/FBxVlldz31VFF3A2q4XBAX4yuK4WvS8JRA+zAUn2Yh2UvnIsgs55roaJpa
-	Eumcja+Zb9ZEEaXX08b3jynRmIQVfGEvEdwvQa+BTly7UIbjbgzjKGrGgAfQgTUXNvV1s1EYTmw
-	RaKjvYBx/1+g1y5EIfXt1ZACyCW3EZZt1oJsYxDKKj7KHjw==
-X-Received: by 2002:a17:902:f711:b0:2ca:302:2a36 with SMTP id d9443c01a7336-2ca7e678096mr9413075ad.2.1782896353932;
-        Wed, 01 Jul 2026 01:59:13 -0700 (PDT)
-X-Received: by 2002:a17:902:f711:b0:2ca:302:2a36 with SMTP id d9443c01a7336-2ca7e678096mr9412865ad.2.1782896353497;
-        Wed, 01 Jul 2026 01:59:13 -0700 (PDT)
-Received: from hu-mchunara-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca382b8fcfsm28370085ad.64.2026.07.01.01.59.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 01:59:12 -0700 (PDT)
-Date: Wed, 1 Jul 2026 14:29:07 +0530
-From: Monish Chunara <monish.chunara@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, mani@kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, sarthak.garg@oss.qualcomm.com,
-        pradeep.pragallapati@oss.qualcomm.com
-Subject: Re: [PATCH V1 0/2] arm64: dts: qcom: lemans-evk: Update SDHC storage
- support via overlays
-Message-ID: <akTW29UMV9L/TK9D@hu-mchunara-hyd.qualcomm.com>
-References: <20260227102405.2339544-1-monish.chunara@oss.qualcomm.com>
- <fg4lxixp4fekhxbvisohgxoiaqya6gvuw5czflkk54kvr75xs4@nnze5nvbk2ix>
- <aaWh9ThZJK49Ex4o@hu-mchunara-hyd.qualcomm.com>
- <ioyvbf5wqfvu6ddl4ua2upow7wdw2xmdjszuoubh5cbsko2ovg@gilcelxn77di>
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VIDDiKd1uUBP5hklo+VMVUHD2GxCbX9QZH2F1xGUNW0=;
+ b=yfT4qyZr63yiHD/S9u/pNk/5qG02UiTo/jcjAJwV7ad9wSy7wbxqf+OxiDjz3Dx+0HofFXWc34K5qGtb8mS07ea7fDYZ3X616kUp4o6i5+sRo+/q3NWKPI8jeDDONIp4+j5kCT68rtnSeaz/QWguLU716cs7eelNb/SL/zjcRUU=
+Received: from SJ0PR05CA0029.namprd05.prod.outlook.com (2603:10b6:a03:33b::34)
+ by BY5PR19MB3730.namprd19.prod.outlook.com (2603:10b6:a03:225::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Wed, 1 Jul
+ 2026 08:59:09 +0000
+Received: from SJ1PEPF000023D6.namprd21.prod.outlook.com
+ (2603:10b6:a03:33b:cafe::d) by SJ0PR05CA0029.outlook.office365.com
+ (2603:10b6:a03:33b::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Wed, 1
+ Jul 2026 08:59:09 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ SJ1PEPF000023D6.mail.protection.outlook.com (10.167.244.71) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.0
+ via Frontend Transport; Wed, 1 Jul 2026 08:59:08 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 99D3A406543;
+	Wed,  1 Jul 2026 08:59:06 +0000 (UTC)
+Received: from [198.90.208.11] (ediswws06.ad.cirrus.com [198.90.208.11])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 87C7F820244;
+	Wed,  1 Jul 2026 08:59:06 +0000 (UTC)
+Message-ID: <83e6beb5-9686-4897-b6aa-66266df0edcf@opensource.cirrus.com>
+Date: Wed, 1 Jul 2026 09:59:06 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ioyvbf5wqfvu6ddl4ua2upow7wdw2xmdjszuoubh5cbsko2ovg@gilcelxn77di>
-X-Authority-Analysis: v=2.4 cv=OuF/DS/t c=1 sm=1 tr=0 ts=6a44d6e2 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=yZ2IDrj3TD960BM_Nr8A:9 a=CjuIK1q_8ugA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: p9tLg9NXc9aecQ4gcvlC0HeZ5jm6gq-d
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDA5MSBTYWx0ZWRfXwyEPCLInni8k
- 2OLVojW9DA6wL838i6lgu29ITbfI+2EKVXIcDzfaKZFGSt1i8IC++oz6h5aJroH9mD36CEM5B+i
- GEdPEZdGG1I1zyyV8HLzh41GXfH0Er0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDA5MSBTYWx0ZWRfXxWEQv4PghwK+
- V1/FoN2rapx53dtrd/0mSjBYJAi8WixP5VrzPKQEzK+a4k6sniqM201fU3WlEhUlDYekd5FVNJc
- gMAgGheLnDQ7wk+MnTWIxVWgbTPaH5agH5PV8afq29rqbU661bcwsUjW2ekUWefD0HuTjEC45Ua
- XIGtOFBuGlWnWv7HeiCoKSsre6BFzlFA4OaJrB7DGZc+i8rSOXhwEduh4aTcgSAK9HfA1M5mBlC
- 4GykoYsdx6YtNz1P3wq2j2NFwM6SN1xii6nuEyEuhFR1t5zwW0U7rV/MSKzWJSWNb0nLN1To5Lq
- 2ZaIwQNx2WXGrp/aEScDk8j2FVIDsFk7ZgKKnEh/hum41liGMiyCPmIqTy5agpJeJFZJy/9aSV5
- t/E+hIdqLpeANMvKpdbwOnyJiBw/WXl3XXaC+aXIpD71pStEh1qA4NvYTr7jCar/mMgLy0lvHxI
- AS2HkPXp6inwPcVn7RA==
-X-Proofpoint-GUID: p9tLg9NXc9aecQ4gcvlC0HeZ5jm6gq-d
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-01_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
- impostorscore=0 clxscore=1015 adultscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010091
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/3] dt-bindings: clock: cs2600: Add support for the
+ CS2600
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, bmasney@redhat.com,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+References: <20260630155549.824059-1-rf@opensource.cirrus.com>
+ <20260630155549.824059-2-rf@opensource.cirrus.com>
+ <20260701-optimal-honest-earthworm-db18cf@quoll>
+Content-Language: en-GB
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <20260701-optimal-honest-earthworm-db18cf@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D6:EE_|BY5PR19MB3730:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56c39c56-acc2-4d59-6b77-08ded74f0307
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|61400799027|82310400026|376014|7416014|23010399003|36860700016|18002099003|22082099003|16102099003|4143699003|5023799004|3023799007|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	cPEjej2wvdyj3ioUUcSx8wob1MYK0K4PtBAg63tppGAAqwDoLCJ10qA00+obJi0LeS1wRZ8Y86IYBiQzQbDH5S0wYBqjCWy8h3t4T7EC2y339nDCPiHgYVpQ7g2zDg2RttAr/vz9pKHvlF29PRPsLcm60fIRIfeFwkIlLExqafbYU0003/tlrAhK9x2UAMVBGOoJACaZoGZkKXG4d/u1v1P7ztCbAmqP/5Zk97V3zKWcf6wbApGQehTYBvV+oNxrd93K3uXLcmjFvwg0FWnxUqpxoLw11Cht2FOl1Jt43spToUXfuskqu+5IbydChr3Fm5kFtBb+OL9mft8X5NPoEwxo9KSJuQk/9WFFGtEs2Yo9Dcay6LLLrfsPWXDbY+HsoRvKiuu3nhgrW6U2JzLguzF9cF/GCxXjTHaUUoNkwq8bhr2lXkfXuIVkACKcsuH9mcswBplRVT5bp8w2wTYQdMqFXaHbTJIQ0Ceem25k/4TU898Z4GZFKuGZRCcFUOqrhi6K0SRaBSBMP5YZPcsEbvYVSMdZ840NLO+zYPcxovgdEYwZ7YHQm8kTKYUVXYcdLn0TRaBlADDMwG+oGAeCfWLKX3OJDKONU6IduFuNh/5TGnxyTALYm8sa/pJjKnqz4hJGb2r3rXkQTaTeqt90valCfWvaVigcf1YYBUwwpXQwr/0Cjgm/T/r1j4cXdp7qvxr3ekcp75lPEFEpGmPzlw==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(82310400026)(376014)(7416014)(23010399003)(36860700016)(18002099003)(22082099003)(16102099003)(4143699003)(5023799004)(3023799007)(11063799006)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	6RBBZ4J1kQhy5OF6kRmKGvF9vyVLkzEiigFaRs3f1FyS+Y4Xc/LmssvrklolicU/TQz0q87VOKbcWtbTKiZ3LR0f7be87v4J/+5tkF2IxRAJMn5izVO2iVgaxANzimH+VCrVJzMvrVx5wOCrFs0vlBJJUKRgRn3f14pajJnMOkkhD+pcBYqSJ6T/Uur6EsKQei5EeAzKp2SOJWO3dKzHN1Sv1fyPvACvqEr6ETWty5c3VQIbrzsP2K16wSBPcNTxHj+Xrx0VGAn0+o5PQrBlZCF8xoXoDNkiWNVtGKblVKpZ7OAY6Nrol8fWaitME37dkLwKpXdNYx3RE885azh/O98K+d0hCVvYkFxYPB8NRLoaIPHNbD950QSPN3f9MzoUtnruPibIuIFJ9vZUmm/gOUYbLzNxmw2BR61pxPdnqVGfTwkFm1ju+ceIOKaQJevR
+X-Exchange-RoutingPolicyChecked:
+	ZQvYNleEY3VARjA66zpQIS8U2WGJYkym8iD99ImJnnOn9mSe/Oi0aIkTemCpI/e3T/Ri+IjHP3iGMmhNRkkKfmxrDj/UGTtXdAGcuCiizaFdvy+K0huYN1Je+Zhh99zSakDpbFNbM8SrwYw54Wci8LY37YB4LoXqGgWv0G6owxHj1p8IjJfqUov8kEqxAai2Z5QvjzLxloe622nm7JngkLbTtbaRAyuiVXJG2itvOrGKhxXrzrliX30P/ds87sAoROaATuFF3BqEir3N9YkW2EiJ/puqusUc+tgcvsyWfDXFoc7d6xSEOJ9sHpRY3oAcaPwPKvyL1DtHFCEAwKOpfA==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 08:59:08.3185
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56c39c56-acc2-4d59-6b77-08ded74f0307
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SJ1PEPF000023D6.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR19MB3730
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDA5MSBTYWx0ZWRfXwPp+azH4U3t5
+ PdnZt0aGlSL8kmp11phAjI6pXf6BdAH6/JKvMY7vMTJg9SpC0I47q0g2dFsFfpfrJZZjhdawbnW
+ mNXbseY3t75pgsS7aFOWo/yE3CfLvLE=
+X-Proofpoint-ORIG-GUID: 5m9Wp8A_qE2NSH9LFCu0yr-dRYm0E2cI
+X-Proofpoint-GUID: 5m9Wp8A_qE2NSH9LFCu0yr-dRYm0E2cI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDA5MSBTYWx0ZWRfXytFrdS5CV+pA
+ UIYbRqBaGGhW/lv9BksPXE4QZRNysjCeOTILMMV1hCAOKW3C5J2oxVzlQZdmoyvzFOGU32qBL/7
+ v8CrjrerrVTfc0OJOphbdAf2bssYt8LbNF8sI3PV9PwrYCy0VyQdpCjmU6SxPtTxwdc7TIT/rz/
+ gdsCT7mCbSlaDNlH4YDQ2Ay4Z4b/0k9ukPn+ng+3k3VbU+RhLviCHvEcr4VmlmRbGCsRgfLYXn9
+ SPHZgEbLHO7fN4qh29j9SIBqRKvSWK6++rVFTkPQVbG6OxmxkePzwHUFvoN2COnXrnBAMtvknMV
+ swqIkn07hx+Rjnu2qTsoH2VNm5hOJ23QsliL3lvgDNakEHgnvxJTEUo7/GfW187zxm1nYsizzEo
+ THsRdSmpUY1WNiVI5rtlZNrO6l52IM/gCxJHBoLP3/Eme6LL+7o8JGuSVBVXeC/mjz1/yPVaMEV
+ gf+fHWrhY3/FG4j44pg==
+X-Authority-Analysis: v=2.4 cv=eLojSnp1 c=1 sm=1 tr=0 ts=6a44d6e3 cx=c_pps
+ a=mtSqpVOEitwwaRRTiGNoZQ==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=w1d2syhTAAAA:8 a=KKAkSRfTAAAA:8 a=iT2qJT8EYCgS6yjfehUA:9 a=QEXdDO2ut3YA:10
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Reason: safe
 
-On Thu, Mar 05, 2026 at 06:52:17AM +0200, Dmitry Baryshkov wrote:
-> On Mon, Mar 02, 2026 at 08:13:01PM +0530, Monish Chunara wrote:
-> > On Fri, Feb 27, 2026 at 10:07:33PM +0200, Dmitry Baryshkov wrote:
-> > > On Fri, Feb 27, 2026 at 03:54:03PM +0530, Monish Chunara wrote:
-> > > > This series updates the device tree configuration for the LeMans EVK
-> > > > board to support dynamic selection between SD card and eMMC storage.
-> > > > 
-> > > > The LeMans EVK hardware supports either an SD card or eMMC, but the
-> > > > interfaces are mutually exclusive as they share the same controller and
-> > > > resources. Previously, SD card support was hardcoded in the main device
-> > > > tree, preventing easy switching to eMMC.
-> > > > 
-> > > > This series refactors the SDHC configuration by:
-> > > > 
-> > > > 1. Moving the existing SD card configuration into a dedicated overlay.
-> > > > 2. Adding a new overlay to support eMMC.
-> > > > 3. Updating the common SDHC node in the SoC dtsi to include necessary
-> > > > resources (clocks, register ranges) required by the eMMC configuration.
-> > > > 
-> > > > This allows the bootloader to apply the appropriate overlay based on the
-> > > > desired storage medium.
-> > > 
-> > > Is there a default mode of operation / extension? If there is one,
-> > > please define it in the base DT and override it in a single overlay
-> > > rather than having two mutually exclusive overlays.
-> > > 
-> > 
-> > The LeMans EVK has SD card slot onboard and eMMC support via a mezzanine card.
-> > 
-> > However, if SD card is configured to be a default case in plaform DT, some of
-> > the properties like 'no-mmc' would conflict for eMMC use case which cannot be
-> > deleted in an overlay file, and vice versa. To avoid such issues, definied
-> > separate overlays for both which gets selected based on the actual connection on
-> > the board.
+On 01/07/2026 7:48 am, Krzysztof Kozlowski wrote:
+> On Tue, Jun 30, 2026 at 04:55:47PM +0100, Richard Fitzgerald wrote:
+>> From: Paul Handrigan <paulha@opensource.cirrus.com>
+>>
+>> Add device tree schema for the Cirrus Logic CS2600 clock generator.
+>>
+>> The majority of the schema is typical clock, power and I2C
+>> properties.
+>>
+>> Passes dt_binding_check:
+>> make dt_binding_check DT_SCHEMA_FILES=clock/cirrus,cs2600.yaml
+>>    SCHEMA  Documentation/devicetree/bindings/processed-schema.json
+>>    CHKDT   ./Documentation/devicetree/bindings
+>>    LINT    ./Documentation/devicetree/bindings
+>>    STYLE   ./Documentation/devicetree/bindings
+>>    DTEX    Documentation/devicetree/bindings/clock/cirrus,cs2600.example.dts
+>>    DTC [C] Documentation/devicetree/bindings/clock/cirrus,cs2600.example.dtb
 > 
-> What would be the result of not specifying the no-mmc in the base DT?
+> Why is this in the commit msg? What is its purpose? Do you see any of
+> this in any commits?
 >
 
-If 'no-mmc' is not specified for SD card use-case, then during boot-up, it
-would unnecessarily attempt for eMMC and sdio paths which are not required and
-can be optimized with this property. Hence it needs to be added for SD card
-use-case.
+Purpose is to inform people that I ran the check and it passes.
+If you don't want that information I'm fine with that. I'll leave it out
+in V7.
 
-If SD card is made default in SoC DT, these properties will conflict as per the
-above explanation.
+> 
+>>
+>> Signed-off-by: Paul Handrigan <paulha@opensource.cirrus.com>
+>> Co-developed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+>> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+>> ---
+>>
+>> Changes in V6:
+>> - Fixed clock naming in descriptions to match datasheet.
+>> - Fixed clock-names property values to match datasheet names.
+>>
+>> - Added cirrus,internal-oscillator boolean to flag that the internal
+>>    oscillator is the clock source. Previously the driver inferred this
+>>    if clock-names did not contain "ref_clk_in", but this made it difficult
+>>    to enforce dts correctness because there was no way to tell whether
+>>    ref_clk_in was intentionally or accidentally missing.
+>>
+>> - Changed the cirrus,clock-mode enum property into two booleans, since
+>>    effectively it was two separate features masquerading as an enum:
+>>    - cirrus,smart-mode present to enable smart mode.
+>>    - cirrus,smart-mode-clkin-only to enable a feature where the output will
+>>      be suppressed until both input clocks are present.
+>>
+>> - Changes to cirrus,aux-output-source property:
+>>      - Renamed to cirrus,aux1-output-source because it's for the AUX1 pin.
+>>      - Added more options.
+>>      - Renamed the "no_clkin" option to "clkin_missing".
+>>      - Reformatted the description as a list instead of one long sentence.
+>>
+>> - Changed clock-names from an enum to an ordered list of const.
+>>    This implicitly ensures ref_clk_in is always required.
+>>
+>> - Added properties to invert bclk and fsync outputs.
+>> - Added property cirrus,fsync-duty-cycles.
+>> - Added #clock-cells and vdd-supply to the list of required properies.
+>> - Rewritten description description section.
+>> - Reordered the property list to put common properties before custom
+>>    cirrus properties.
+>> - Added more examples.
+>> - Added header file to define the clock indexes for DT consumers of the
+>>    CS2600 clocks.
+>>
+>>   Note:
+>>   V5 was Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>>   but I haven't carried this forward because the changes in V6 are large.
+> 
+> Dropping my tag is right thing to do, but making significant changes to
+> hardware at v6 is very odd. Bindings represent here the hardware, so how
+> is that v5 had one view of hardware and the next revision rewrites it
+> completely.
+>
+> Probably answer - v5 was heavily incomplete - but we do ask to make it
+> complete in the first place (see writing bindings), so all my previous
+> review was waste of time.
 
-Regards,
-Monish
+Unfortunately I can't do anything about previous versions. I apologize
+on behalf of Cirrus that they could have been better. I've made what I
+think are improvements in V6.
+
+V5 was sent in Dec 2024. That's over a year to (a) find issues with V5
+and (b) incorporate learnings from non-Linux products about how the
+CS2600 will be used by manufacturers.
+
+> 
+> This will wait for review.
+> 
+>> +examples:
+>> +  - |
+>> +    /* Smart mode */
+>> +    i2c {
+>> +      #address-cells = <1>;
+>> +      #size-cells = <0>;
+>> +
+>> +      clock-controller@2c {
+>> +        compatible = "cirrus,cs2600";
+>> +        reg = <0x2c>;
+>> +        #clock-cells = <1>;
+>> +        clocks = <&xtl_clk>, <&sync_clock>;
+>> +        clock-names = "ref_clk_in", "clk_in";
+>> +        vdd-supply = <&vreg>;
+>> +        cirrus,smart-mode;
+>> +      };
+>> +    };
+>> +
+> 
+> Two examples max.
+> 
+
+That's an unfortunate rule. But if that's the rule I'll trim it
+to 2.
+
+> Best regards,
+> Krzysztof
+> 
+
