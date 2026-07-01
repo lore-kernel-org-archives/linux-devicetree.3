@@ -1,105 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCE23446DE
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 08:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BEB13B9929;
+	Wed,  1 Jul 2026 08:38:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782894710; cv=none; b=D/RB9N8DASc4e7hQlsx8u+WoMCx4ji3aEzgg5DF2XgnP7tGbjf4//pN1jYra/jc7Uri4IG2f5JrFPAuPT7CgD/jhtDHNQVCf5fXpbBGCXI1Eft4wdWHu22URcCuRoHG5GSneBo1nPFw9gzO7AoIddxjfHmLCJYag1ajyHYtrsr4=
+	t=1782895122; cv=none; b=CFxKYQ0qAOB0O6DA/tgWApqGE8f32mk15ExvENpyn8ikVLAjvIDpeowDgYN2n5TOmSS5RQw4oQs1fRDy98JAy/sjX4II8sBHUj9QwOddiGl51wLSxucLjiVQZxJEyxHagb1ZSjea8JWQtb/s5MINP4C9Oe0IyVPK10VoqitAgJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782894710; c=relaxed/simple;
-	bh=4oqb5tigzr7j4QjLRdaYGwHCBq364XduzEAFDJboV8g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VFgMRjNhPm1+rlV1yztEs1lhlvnRIzyO69Pn/Iug4+bZsdHJ14sngDSLNABC1cZT+NqXhxqMl56TNfVONI9ozFBnn91f0fHJw3yNnK4ApJeK2BkMsBqkVhhSMpaWFM8goiGFRlzoOO3c1HKr7WeqV10wpQTHitEWi4HBrBnt4lE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xu8UXhtD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782895122; c=relaxed/simple;
+	bh=naKCm2AE7MiKT2DcwqT2cgOCma8bbUjR3ekPlXMemSE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=XhfbvdqnLO0qCWDrzCEyGFKPaXhew70F1EVUOwErNv0i6L/RvQtttqVFI/RLR79TOqb9xCBmNgDGRuZxZz7xb9IkrP8OWQSr4wIqNokxd4VOoGS5pxwQNyOLkFCcbHXNqtqU+kb+bViKyU4jrWGHeB881JBFRaasVF8AIeuIC4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=gINkERXC; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xu8UXhtD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F8341F00A3A;
-	Wed,  1 Jul 2026 08:31:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782894709;
-	bh=4oqb5tigzr7j4QjLRdaYGwHCBq364XduzEAFDJboV8g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Xu8UXhtDkLSr72MUoJXrSYnEakURHb+OXLHGOGOqfopehq0EaSvmltobKb7Bv89D2
-	 Nh4C+FsbUVbae+9UZzovJyFOqq+QMv8PClKNp8YgyL++TbpGoXalqOD2buOaZ6AiF2
-	 Ba4/Mi5LlUX0xERF/fsf3KiFtAo59KzkHwSDSwzGfMTgFoB1XZdbC1fAuzM0ruC9+b
-	 sy8aDVAJk5g6gtLJIUvrmIROZdsk8OCChrHmVynzJd91PZbe7QyU0fHbLu857Vwjj7
-	 QKYR3c/CGhIVmEX7Kh5x2d/H+Ofq4lK93Iq6A/Nyz5goC9VPUFBE04LpBcuRWqawkm
-	 X1doGA/Qp2wcg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V3 2/3] arm64: dts: qcom: monaco-evk: Enable SDHCI for
- SD Card via overlay
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Monish Chunara" <monish.chunara@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260701081715.2580329-3-monish.chunara@oss.qualcomm.com>
-References: <20260701081715.2580329-1-monish.chunara@oss.qualcomm.com>
- <20260701081715.2580329-3-monish.chunara@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 08:31:47 +0000
-Message-Id: <20260701083148.0F8341F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="gINkERXC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1782895112;
+	bh=naKCm2AE7MiKT2DcwqT2cgOCma8bbUjR3ekPlXMemSE=;
+	h=From:Date:Subject:To:Cc:From;
+	b=gINkERXCikBLW89Y87lnOP+6v1dCnilw7ungWlAedJYPlIduDawPGWPG+WloE9je7
+	 G8togEiidEbm4clFu7exbu67ha3GTSjsW0HSEN2S3QHFPLXb1gQ1iR8fkZciniJara
+	 e+Ptgqd+DVJ0znJDlHJjutJ8j0H2JNz8piLPB65wfEEaQFTLnoLcQ/tyUaYp6Ts0Rj
+	 kJSABXvmqxn2AmKi1J1lOwpxtXkbvRm2kl2BoCtOnWtBsYq+b9cxfomtrE7EnpoAuQ
+	 HK1KuuwR1xwpmNbcGNStQIKNoL+cWLvFQVft/w+Hzh3OkDy4uC+HvbfSrCsEwIdep3
+	 glpP8XSW+ilBQ==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 400DD17E0E1C;
+	Wed,  1 Jul 2026 10:38:32 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Date: Wed, 01 Jul 2026 10:38:21 +0200
+Subject: [PATCH v2] arm64: dts: mediatek: mt6359: use proper compatible for
+ rtc
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260701-mediatek-genio-mt6365-cleanup-v2-1-78e3d63b8c05@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WOwQ7CIBBEf6XZs2sQKqGe/A/jgdKtbmxBARuN6
+ b+L1bvHN8nMmxckikwJdtULIk2cOPgCclWBO1t/IuSuMEghtailwZE6tpkueCLPAcesld6iG8j
+ 6+xW16zpTO9WLxkDZuEbq+bHsH45fjnS7F03+htDaROjCOHLeVZ4eGReVVgI+hTOnHOJz+Tdtl
+ sbvSvPnyrRBgbqvlVGmpUb2exeGwbYh2nXxwXGe5zfiNShN/wAAAA==
+X-Change-ID: 20260428-mediatek-genio-mt6365-cleanup-6cdd84c3f098
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782895112; l=2356;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=naKCm2AE7MiKT2DcwqT2cgOCma8bbUjR3ekPlXMemSE=;
+ b=wpW/x97FpY0cRMwaxoQ3gorpZVrPs11uJxeofBcqfxIJBnhyulrIUSTlhWKUgCwBW7lQDdjmO
+ k8pRm1br4zkCwiGkPquoVz1B9CUymnjhdXu5AZIlhj77S4zXwgCFiZH
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The SD card overlay fails to remove conflicting eMMC properties (`=
-no-sd` and `non-removable`) inherited from the base device tree, rendering =
-the SD controller non-functional.
-- [Medium] The overlay configures 1.8V regulator states and high-speed OPPs=
- for UHS-I, but explicitly disables 1.8V support via `no-1-8-v`, rendering =
-the high-speed configurations unreachable.
---
+The MT6359 PMIC include file uses directly "mediatek,mt6358-rtc"
+compatible string for the rtc subnode, but not its own compatible
+string.
+Now that the "mediatek,mt6359-rtc" compatible is properly declared in
+the dt-bindings, use it with "mediatek,mt6358-rtc" as fallback.
 
-Note: The format of this review is altered to provide a free-form summary
-of the findings rather than inline quotes due to recitation restrictions.
+Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+---
+Several Mediatek and Radxa boards, based on MT8370, MT8390 or MT8395
+SoC, integrate the MT6365 PMIC, that is a MT6359P variant:
+ - Mediatek Genio 1200-EVK
+ - Mediatek Genio 700-EVK
+ - Mediatek Genio 510-EVK
+ - Radxa NIO-12L
+It is compatible with the MT6359 PMIC.
 
-commit 8700d2dd7b89a43576ae3f5ad283ea9e832db05a
-Author: Monish Chunara <monish.chunara@oss.qualcomm.com>
+But both MT6365 PMIC support and compatibility were never expressed in
+the dt-bindings and there is no MT6365 include file as well.
+So, since these board support was introduced, their devicetrees use the
+mt6359 include file to enable this PMIC support. 
 
-arm64: dts: qcom: monaco-evk: Enable SDHCI for SD Card via overlay
+The goal of this series is to clean this support by adding the missing
+compatible strings for this MFD main and subdevices in the dt-bindings,
+and add a include for MT6365 definitions to replace the MT6359 include
+in these board devicetrees and for future ones (like Genio 520/720
+EVKs).
 
-The monaco EVK board supports either eMMC or SD-card, but only one
-can be active at a time. This enables the SDHCI for SD Card support
-via a device tree overlay.
+The series is based on linux-next tree (tag: next-20260630) and has
+been tested on Mediatek Genio 510, 700 and 1200-EVK boards.
+---
+Changes in v2:
+- Rebased over next-20260630 tag
+- Removed already merged patches from series
+- Removed useless regulator label addition from patch
+- Link to v1: https://lore.kernel.org/r/20260429-mediatek-genio-mt6365-cleanup-v1-0-6f43838be92f@collabora.com
+---
+ arch/arm64/boot/dts/mediatek/mt6359.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[Severity: High]
-In arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso, the overlay modifies
-the &sdhc_1 node by adding no-mmc and cd-gpios, but it doesn't explicitly
-delete the conflicting properties inherited from the base device tree.
+diff --git a/arch/arm64/boot/dts/mediatek/mt6359.dtsi b/arch/arm64/boot/dts/mediatek/mt6359.dtsi
+index a953fb527b69..52fb0f832260 100644
+--- a/arch/arm64/boot/dts/mediatek/mt6359.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt6359.dtsi
+@@ -287,7 +287,7 @@ mt6359_vsram_others_sshub_ldo: ldo_vsram_others_sshub {
+ 		};
+ 
+ 		mt6359rtc: rtc {
+-			compatible = "mediatek,mt6358-rtc";
++			compatible = "mediatek,mt6359-rtc", "mediatek,mt6358-rtc";
+ 		};
+ 	};
+ };
 
-Since device tree overlays merge nodes and do not implicitly overwrite
-boolean properties, does this resulting merged node contain both no-sd
-(from the base) and no-mmc (from the overlay)?
+---
+base-commit: ba7c57499e5999aeae8dd4f954eb2600589d80aa
+change-id: 20260428-mediatek-genio-mt6365-cleanup-6cdd84c3f098
 
-If both properties are present, will the MMC subsystem set both
-MMC_CAP2_NO_SD and MMC_CAP2_NO_MMC flags and refuse to initialize any
-card? Additionally, won't leaving the non-removable property from the
-base tree intact cause mmc_of_parse() to bypass requesting the newly
-added cd-gpios?
+Best regards,
+-- 
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-Should this overlay explicitly use /delete-property/ no-sd; and=20
-/delete-property/ non-removable; to clear the base configuration?
-
-[Severity: Medium]
-Also in arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso, the &sdhc_1
-node is configured with the no-1-8-v property. However, the overlay
-configures vreg_sdc with a 1.8V state (states =3D <1800000 1>) and sets up
-sdhc1_opp_table with opp-100000000 and opp-202000000, which correspond
-to SDR50 and SDR104 modes requiring 1.8V.
-
-Does setting no-1-8-v force the MMC core to disable UHS capabilities and
-artificially restrict the SD card to 50MHz?
-
-If the board genuinely supports 1.8V, should the no-1-8-v property be
-removed? Alternatively, if the board cannot support 1.8V, should the
-unused 1.8V regulator configurations and high-speed OPP additions be
-dropped to avoid contradictory configurations?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701081715.2580=
-329-1-monish.chunara@oss.qualcomm.com?part=3D2
