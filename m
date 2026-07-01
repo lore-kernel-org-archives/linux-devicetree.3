@@ -1,103 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D1238D
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 20:59:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B142C11E4;
+	Wed,  1 Jul 2026 21:02:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782939598; cv=none; b=VCKNkUavxPYWMP2eMlJ1+nTHQQobSS8GcnvbrSF/sTOS2btOxWG5X3mStDk+gtq0DAq7sGskA2GQefOCBQ+6WBGngexjxpw4B+fY9FV75yImFsCe/yCFT4BVthYu8CNisVmNMB04V1IBsQwAgI/sss55DAetfRjTDyVl8/n3bPs=
+	t=1782939738; cv=none; b=azS3BPb9TUND3oOqOWC4idl9QRetCmgqgo+y3naTZtXskwCQdoQpZNDh3J1ToR1CPzHTrsk4f/nOkpDmCCpJzMAfJZqsgLOxD10PT+Ig2RSYITQexVUB1JT3ULfOvZwmmBq7zX/OqMKSBfFPWHYgJMpsZ2hPRU4Rly/NwFIdnHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782939598; c=relaxed/simple;
-	bh=FHHiQssL3tQC722lOqnrqxOi/4/l2ElscF07dCkNt1I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QlPqjROsrglmbJDIBcpDhDiWYw+wD5VOEKdzDtvhyF80VamHVLFu5ePWpyBm6UIiFIjT8ryrQwDHyRSOwk06Ap6cjCcoBk+BvwQTB7sB0Ddh++2NVTptVYzL/tgzK3cERf51umpo+whPK+vj+fdk5cU19T4j05NvwsLniu2FUkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTb/xXVr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782939738; c=relaxed/simple;
+	bh=bBxKTCuVG/kqzi9PHZORxAaQ6e5TWwycVpaSLpxaraA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=F9EQLd9/bqOv9KwsKlpCvNEDdjz3EuKw/d+ZaPGWqavYLwf5SFNzMmgS05wCUkaSmlnQ88rsqok55Y3HQlt2WFndubOUFVuQq8Xj4PdCu1+bVUuYfy2cQwFEHXRRRs9woh6jDZeUQB99S/oesz+ufUPIEsK7Ri3TR3Z+iZIYxYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VofUYjdW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTb/xXVr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE121F000E9;
-	Wed,  1 Jul 2026 20:59:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VofUYjdW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48C011F000E9;
+	Wed,  1 Jul 2026 21:02:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782939597;
-	bh=bkKUvCtM0kKvV4ZEaYFCMgMq8+ov6kQny5Xhp2bmuC4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CTb/xXVrHaxJO+tBr/YcMgPIObq4u5EZh+r9kFGOEmW1AcbEha9y1lYW/Nl0zP0s2
-	 Z8BTJ9YkVUN0ubxWlDPNzXc+WEhr8fn5/gMT0LnB0N8VG7tSk7gU4tZvT1SlIF2SMM
-	 zubCxJgyZ5TI7uFdJFGAUexyHRPMaoPduH3QYRiNnUc1EZA4l6fHcOLmU40YGM2HD1
-	 Jf6fqJyFeBXkZ9YXumoStedrgLHw0b5m6Pw1QfiSE+wqpt/fiG7SdsuSsHVZv3hNRq
-	 lt9bHBlqX0m/V3dtodSa37EDz+9UoZqHGOIylwuMPGGgpRHAnU78rpxYA0xxAF7im8
-	 qeC8ZPwpP5/qg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/4] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
- display and GPU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Cristian Cozzolino" <cristian_ci@protonmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260701-rimob-new-features-v6-1-be7d5d1e007f@protonmail.com>
-References: <20260701-rimob-new-features-v6-0-be7d5d1e007f@protonmail.com>
- <20260701-rimob-new-features-v6-1-be7d5d1e007f@protonmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 20:59:56 +0000
-Message-Id: <20260701205956.EDE121F000E9@smtp.kernel.org>
+	s=k20260515; t=1782939737;
+	bh=fDYzkfD03QCemnZAongM476f9RM73y8sVoEYcrmB+04=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VofUYjdWJWrF+6tGCKvfwHMXju9c+U2sGOf5WjZk4Y1Ff8an6PDSNiEOdr4pYJZEq
+	 eV6gIfhT25BWm5G8icoxXZR4tFt/Ub7nfZIUJD//tEm265KGI4a/9bu1DsOAqDw6GA
+	 zhhmnUjl4Wx9gKs0nXuSo4+MK8cRkAat3rfTS84wVXLsBKa+zp8a08CIt/4JXFp0Hw
+	 SAxEVNYiuxJAzk5ZGfbK55kzN0e7PZpFOtvWvMacYCXXONvEeA+SiB2/YsheCFDZF9
+	 EajUUmNHO8b1FCMr2lWFeocN2hNHvHrUS/aE0Gm+15upioDbcK9AXXRzs1AYMGxeI9
+	 YZDK4yFXdxhiw==
+Date: Wed, 1 Jul 2026 22:02:13 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Chi-Wen Weng <cwweng.linux@gmail.com>, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, nuno.sa@analog.com,
+ andy@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cwweng@nuvoton.com
+Subject: Re: [PATCH 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
+Message-ID: <20260701220213.499ed6da@jic23-huawei>
+In-Reply-To: <66ad5723-6589-473a-91da-b13e2ba90aeb@baylibre.com>
+References: <20260625110638.38438-1-cwweng.linux@gmail.com>
+	<20260625110638.38438-3-cwweng.linux@gmail.com>
+	<66ad5723-6589-473a-91da-b13e2ba90aeb@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The panel's compatible property is missing the mandatory generic fa=
-llback string.
---
 
-commit 14ab3e4951175e1cf33309cf294f421f36606cd0
-Author: Cristian Cozzolino <cristian_ci@protonmail.com>
 
-arm64: dts: qcom: msm8953-flipkart-rimob: Enable display and GPU
-   =20
-This commit adds the description for the display panel found on the phone.
-It also enables the GPU and sets the zap shader firmware path.
 
-> diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch/a=
-rm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-> index ef4faf7631327..5a9d71d1e4664 100644
-> --- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-> +++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-[ ... ]
-> @@ -87,11 +94,70 @@ &hsusb_phy {
->  	status =3D "okay";
->  };
-> =20
-[ ... ]
-> +&mdss_dsi0 {
-> +	vdda-supply =3D <&pm8953_s3>;
-> +	vddio-supply =3D <&pm8953_l6>;
-> +
-> +	status =3D "okay";
-> +
-> +	panel: panel@0 {
-> +		compatible =3D "flipkart,rimob-panel-nt35532-cs";
+> This field has a new name:
+> 
+> 	chan->scan_type.format = IIO_SCAN_FORMAT_UNSIGNED_INT;
+> 
+> > +	chan->scan_type.realbits = 12;
+> > +	chan->scan_type.storagebits = 16;
+> > +	chan->scan_type.endianness = IIO_CPU;
+> > +
+> > +	if (differential) {
+> > +		chan->differential = 1;
+> > +		chan->channel2 = vinn;
+> > +		snprintf(name, MA35D1_EADC_CHAN_NAME_LEN, "in%d-in%d", vinp,
+> > +			 vinn);
+> > +	} else {
+> > +		snprintf(name, MA35D1_EADC_CHAN_NAME_LEN, "in%d", vinp);
+> > +	}
+> > +
+> > +	chan->datasheet_name = name;  
+> 
+> We usually don't use datasheet_name. It would make more sense to implement
+> labels and get the label from devicetree.
 
-[Severity: Low]
-Is the generic fallback string missing from this compatible property?
+It is used by the consumer interface to find the right channel if we
+are using hardcoded iio_map rather than dt based association.
 
-The DT schema for this panel (novatek,nt35532.yaml) strictly requires two i=
-tems
-for the compatible property: the device-specific string and the generic fal=
-lback
-"novatek,nt35532". Providing only the device-specific string violates the
-binding and will trigger a dtbs_check warning.
+Given this is a SoC ADC it is possible this will be needed. All depends
+on how tightly coupled other components are.
 
-> +		reg =3D <0>;
-> +
-> +		backlight =3D <&pmi8950_wled>;
-> +		reset-gpios =3D <&tlmm 61 GPIO_ACTIVE_LOW>;
-> +		avdd-supply =3D <&lab>;
-> +		avee-supply =3D <&ibb>;
-> +		vci-supply =3D <&pm8953_l17>;
-> +		vddi-supply =3D <&pm8953_l6>;
+It can come in as part of a later series adding such a consumer rather
+than now. 
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-rimob-new-=
-features-v6-0-be7d5d1e007f@protonmail.com?part=3D1
+Thanks,
+
+Jonathan
