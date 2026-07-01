@@ -1,196 +1,123 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32C8421A02
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 10:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC91F426EAE;
+	Wed,  1 Jul 2026 10:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782902452; cv=none; b=YJ2D45/vLk5s0nwXYeUQYLJ+yh5Nxa4DKu9dspnACPKmXgwnLPM7iE8maKcFYYHYYoNwPiq0fZvyeaJNWvpjYzEwI//Pv9cnSLE/BanN+j60Usti6iaCZrphkjxOrTIDOVF3uWlqkit4wy065O61XHwPCzriFdZCD92IpNhTH7M=
+	t=1782902547; cv=none; b=XpJRj/vsyHoud5n7fAs86KhUfwOaTUiOBdfAi60JbCG6++jfXXpmgGIngwLVtUQJhqwq9VtBgG8sFn2T1SQ++xPZm7CFGfavpstBGokC62GQud9Cn/ZqQPrPRaIb92BoQFMVm/XxP6xVdAGdkNE3TU7EXP95mQxHqkb13e9TE/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782902452; c=relaxed/simple;
-	bh=HOn0CaCePfNgAAG9q0s3jJIiPvvFTH5KrOgQqhOkSqw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YG0c5GT+e6K/z1gNLypEFNIXSLL2Zxan35q5f02RIx6+vI2h4OnyA/jdR11lb2G8SOMsybXcw3Ddy8USgduYm9dxuHDXapbYYb1Hht8EvFyzfSvoHvcvGhzGXpVHIDFm3dX1qtkBWQE3T/fgKf/o2KOsHpDTsmGGsLm7vFXOkHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nsg+7PGS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GyL4FosQ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782902547; c=relaxed/simple;
+	bh=zY2o5dWEAvddugmQW/vs6ACDRe9NBEJocX+1e1hRgcw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=dsD+eMeUVrT0SbPCxLeDdo+gHBQR4SO5QzIeVyi8ilJnX1WPmFqsPwhgmDC3MaRYYbIyQdenoRz+Ym9l6JA6moCxb0YG+hTJeTJ6m33wgpfBwg4Nco+mRJZSkfGuVLIAzPPgQHQoQSCZpumvQjLMmg/HMhnR9pNhi8DluQkWdHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=fptQfysD; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nsg+7PGS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GyL4FosQ"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 661A8l8L681875
-	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 10:40:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	m/6nkzPv+WrZ0PcEEcEQEu660EWyt8TZ3LWKgMKw0Bc=; b=nsg+7PGSN9LMaaHb
-	vP7qwVAt0LvmfNhpwCNGGrHCO3fVvstLF7mT3Di+sWTZork4SslT9bHt26h9Mi92
-	IaYhXfMfqJWclBMkqxErZVX/sXvQ1vvohbsCRngPa0TuPp5VB+JOzvndmxfZnSkJ
-	ieUI1piKVL7WKls80+Aju0hIxcycUnroOorlyO/9M8hEMVrMg9Pyrww7Lxd0qWPN
-	ZqzULmqFpA7/z9kemgHxgGkpVUbrJUSJzUqeFMWkqUtdHdrWDrwwRvgol4kD4Mps
-	FMcvtl/2AdFVVCEzWSJDZwHSG2iEjIVD+UGCQ4/eUewg5ouFQT6h713Po8G7SAkB
-	+O7xfA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4k3skqhb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 10:40:49 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c267931ebso1500381cf.2
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 03:40:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782902448; x=1783507248; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m/6nkzPv+WrZ0PcEEcEQEu660EWyt8TZ3LWKgMKw0Bc=;
-        b=GyL4FosQWSFeMIENYzn5k8JSIEfI2ZrGYNpC1fKjjmS6BTMlrw4rxicSfTG4qjXnIS
-         9+CZ3gwlOkhoeRZcwnQ0b6/iEy4VFcwtGAfWMcCC6SddQdXl7UZc862VOOwZn/5Y34Mw
-         FA59JJ+0GbiFvCry5GBqdGRKHBNyXTjoCEPdFTN7jrt7Tp1GF/CsiBad/vFQWNmP2Q8U
-         +6JzkSpZsT3BOUv9RqiZzOYkPZcdR0S+7Odk37PqsVEGPqI1rCzZfz6VT5Don0LtgZen
-         rSOTEplzWuWhvChXWd4lm9B0fx0lROoKOZLkV5qzDxDiADLi6Fy0zCPvHzltp3aRKxnt
-         rscQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782902448; x=1783507248;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m/6nkzPv+WrZ0PcEEcEQEu660EWyt8TZ3LWKgMKw0Bc=;
-        b=p2va34r5bg31mPHnUpirfj1LhwK689OB9fv27f356LXBJBfYf0AZUbCXvWojsDkJ/q
-         zPi4gFmTofVQ8I0WIxSoUvAMFxwHfLWk5jEC879muzFlhwbJntG6gfv0rb+QHQQFnQxl
-         6mtzg8zOkzRfYDKoKO69qb3ViCjYaJ46cUljPKfTHkqkDQ9yxMe3OD02KA+Vv8iFcDDC
-         XPGu9mWjXRSiNKCTxhqcKrCxW9OvU2b0mz9WyDI+Fnwjn0TwlFDbvS9J9OLb9188DlOu
-         hg2IyQzzSw64mRtqT799FDvP4rPadgWkbeu5dAse/+bUKjHltwryDB4/GMndo3fw/QDy
-         Xd+g==
-X-Forwarded-Encrypted: i=1; AFNElJ/DnGWuhVf4KDoH52QcQ7G672TPrXdKoJpVfqMobcwWposwlPqo4hzuw9uPCHhQaAqgMK4kAOxN+jB2@vger.kernel.org
-X-Gm-Message-State: AOJu0YyveR2l8o+k+eGQWYBGX/rkkFJoZj0jDiIlWBjJ/da1wpVPTq+h
-	LzuKAh/rMpOZAMYHn5Xoihu7jjEMrpunYsFiTmbCLOF6JkorvpldFEGEk+//Xns1VvgijhqjwWQ
-	iUGQLcvNVgO4Xd7sZTVvwzQp/nq7UMqTrf0e+CgMEPkjNwHy72AUqriEJmtRvnBEe
-X-Gm-Gg: AfdE7cmLY85kq3Cl5yTJ9IyOxvR7MhBWd9FjbDd/UTFPrju4TcBFrYsj7EEUOD8RH7R
-	iPxo6WdZDy636adKv9Andn4w/PichyeKHS+YcUyaOfR11H9XlkikUvAuy4iFM8MbAp+j8NT2G3c
-	opZQRv30Aii0mcRPIJ9R+jBQGbNJy49rLXDAcEITRk5aG5qV+JZW62mS8ygp7iRuDmEE5HV7TrU
-	5BX3didT/dlEGvPhDpqrrCSxorxAXwSLd9o1S1RDcqR/1iv7bwzvkd/kFyQgHQuddFnpVmINxcf
-	VQcqM4MX+jnjLZ+D05h9fJCwsrsPYe8MJJ/ct32xmNHbtmPjyqYTHRJH1mJateCb3FY1cFIKAs9
-	Ke2SHwOp5h3f9vjMs+PLSjd+kNWQWPtmEGO4=
-X-Received: by 2002:ac8:590d:0:b0:51a:8c9b:6492 with SMTP id d75a77b69052e-51c26b25d63mr7031611cf.9.1782902447977;
-        Wed, 01 Jul 2026 03:40:47 -0700 (PDT)
-X-Received: by 2002:ac8:590d:0:b0:51a:8c9b:6492 with SMTP id d75a77b69052e-51c26b25d63mr7031251cf.9.1782902447419;
-        Wed, 01 Jul 2026 03:40:47 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1296b1f9cesm165809466b.16.2026.07.01.03.40.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Jul 2026 03:40:45 -0700 (PDT)
-Message-ID: <175f7835-df18-4bc6-8267-ceef35696af8@oss.qualcomm.com>
-Date: Wed, 1 Jul 2026 12:40:42 +0200
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="fptQfysD"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 661AVSAL01060427, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1782901888; bh=zY2o5dWEAvddugmQW/vs6ACDRe9NBEJocX+1e1hRgcw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=fptQfysDkOaqFFxM3SYMPybfkJ4BveTUE/3J/VPXssmowtbicMhcPH4AeImK6gKAE
+	 srgAU5pBFXxxkkAgf749/dEpJDU+Nb3oxq/9sqpQTzWW4M0zTjzi6R+EMRunMrEpl/
+	 PaXLYedqPmiRl7MfIBNObrkdgSClVOhqLqBgDwH27yR7+cU5WbwUKGrrQbr8h5ogBO
+	 8g98+bXalDNJU6UJ/wHLZDouVVUUKXcuRMB8iOWQLq6/916OYAhKh5nOvO3nlW67eg
+	 URtqpJSk375FtZv8I6CqaXD2euQ/bUkK/BsV70Jt8JqHaIfCUaTtMCxRRVdL1SvwP7
+	 bKN2vhpXgaFAg==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 661AVSAL01060427
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 1 Jul 2026 18:31:28 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Wed, 1 Jul 2026 18:31:29 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Wed, 1 Jul 2026 18:31:28 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
+ 15.02.2562.017; Wed, 1 Jul 2026 18:31:28 +0800
+From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+To: Linus Walleij <linusw@kernel.org>
+CC: "brgl@kernel.org" <brgl@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "afaerber@suse.com" <afaerber@suse.com>,
+	"mwalle@kernel.org" <mwalle@kernel.org>, "andriy.shevchenko@intel.com"
+	<andriy.shevchenko@intel.com>, =?utf-8?B?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?=
+	<tychang@realtek.com>, "linux-gpio@vger.kernel.org"
+	<linux-gpio@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+	"linux-realtek-soc@lists.infradead.org"
+	<linux-realtek-soc@lists.infradead.org>,
+	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+	=?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>,
+	=?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>, "Krzysztof
+ Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: RE: [PATCH v4 1/4] dt-bindings: gpio: realtek: Add
+ realtek,rtd1625-gpio
+Thread-Topic: [PATCH v4 1/4] dt-bindings: gpio: realtek: Add
+ realtek,rtd1625-gpio
+Thread-Index: AQHdAijOAwCaZwN04Eyh2gkxEUiUVrZWmzIAgAHmnoA=
+Date: Wed, 1 Jul 2026 10:31:28 +0000
+Message-ID: <56be68cba7d9461d9a1ec66ed1a1417a@realtek.com>
+References: <20260622092335.1166876-1-eleanor.lin@realtek.com>
+ <20260622092335.1166876-2-eleanor.lin@realtek.com>
+ <CAD++jL=6pqEA0-vs_J57MnhmLmLwrTj7-syOL8E7PLYW-vUBvg@mail.gmail.com>
+In-Reply-To: <CAD++jL=6pqEA0-vs_J57MnhmLmLwrTj7-syOL8E7PLYW-vUBvg@mail.gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/6] firmware: qcom: scm: Add support for setting
- Bluetooth power modes
-To: george.moussalem@outlook.com, Jens Axboe <axboe@kernel.dk>,
-        Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        Saravana Kannan
- <saravanak@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King
- <linux@armlinux.org.uk>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
-        linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-        netdev@vger.kernel.org, linux-remoteproc@vger.kernel.org
-References: <20260629-ipq5018-bluetooth-v2-0-02770f03b6bb@outlook.com>
- <20260629-ipq5018-bluetooth-v2-3-02770f03b6bb@outlook.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260629-ipq5018-bluetooth-v2-3-02770f03b6bb@outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: I9WExeXIcuX3mNwkZ0AEpfKGH4ylAmIP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDExMSBTYWx0ZWRfX3SUzaHXti0Wc
- 903hKMUQdeVVbSBVT8Y/TuuXkZov+sssHnOjLSpFmcaDeBzmBoQuSS4AeYyRSIWsJVz3OzMiO7Z
- MszT0Jeszo/zq9zGURXfmxTMrQ7fXTtzOqVS8t6SDUwW7cbaO3+QVSEucbviRJqz+lQ/Ahfpt7a
- +5rp6Hvl40GLa5q57cL84H8+I3/zZiAzsxDYidojQW3/E44WkuOtRErpxpI8trEX7yQzNc3lha6
- vFPcsHu+QzTmHOtgHTjMbWx9ojkuR9rK1CyRidNUnGm2dl9xA8udZHaQvXtlz8cCYB1jY+LTLDj
- okd4qNMw0ocmfyRQ0DYZGtQM3wXNV3YcS43mnyGVcrqlP8bCQlDO+7Aqo7R0HnGFXGoEMygPIfk
- 46kRgB6tzvwdhekeglu9mGQAnDiBnRJRQVEDVXiP7DuxYHlFYPxsF5GmDxcqpFmq7m99yjJJ5XV
- WDONtqHNOB4zs//8Ulg==
-X-Proofpoint-ORIG-GUID: I9WExeXIcuX3mNwkZ0AEpfKGH4ylAmIP
-X-Authority-Analysis: v=2.4 cv=Ff4HAp+6 c=1 sm=1 tr=0 ts=6a44eeb1 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=UqCG9HQmAAAA:8 a=506_Lbxh6H-Y4vAdgPkA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDExMSBTYWx0ZWRfXy7HqV6WeE0+h
- nrAdHLq1h0RMuX2LQqvi/vOpsWd/IPvrFoTG1FMnGvCggIeEoXlaUt169xKS7CVoQJLDfjDgJiS
- pLQT0z0O62+agQ12C0iLa7FVGmPbajw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-01_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 impostorscore=0 phishscore=0 clxscore=1015
- lowpriorityscore=0 malwarescore=0 spamscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010111
 
-On 6/29/26 3:01 PM, George Moussalem via B4 Relay wrote:
-> From: George Moussalem <george.moussalem@outlook.com>
-> 
-> The Bluetooth subsystem (BTSS) on the IPQ5018 SoC supports setting power
-> modes which are required to be configured through a Secure Channel
-> Manager (SCM) call to TrustZone. However, not all Trusted Execution
-> Environment (QSEE) images support this call, so first check if the call
-> is available.
-> 
-> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
-> ---
-
-I'm amazed changing this setting is a secure operation
-
-[...]
-
-> +/**
-> + * qcom_scm_pas_set_bluetooth_power_mode() - Configure power optimization mode
-> + *					     for the Bluetooth subsystem (BTSS)
-> + * @pas_id:	peripheral authentication service id
-> + * @val:	0x0 for normal operation, 0x4 for ECO mode
-
-If there's just two values, maybe we should make this take a `bool eco_mode`?
-
-> + *
-> + * Return: 0 on success, negative errno on failure.
-> + * Returns -EOPNOTSUPP if the firmware configuration call is unavailable.
-> + */
-> +int qcom_scm_pas_set_bluetooth_power_mode(u32 pas_id, u32 val)
-> +{
-> +	if (!__qcom_scm_is_call_available(__scm->dev, QCOM_SCM_SVC_PIL,
-> +					  QCOM_SCM_PIL_PAS_BT_PWR_MODE))
-> +		return -EOPNOTSUPP;
-> +
-> +	return __qcom_scm_pas_set_bluetooth_power_mode(pas_id, val);
-
-Let's just inline the whole definition here - it's single-use anyway
-
-Konrad
+SGkgTGludXMsDQoNCj4gSGkgWXUtQ2h1biwNCj4gDQo+IHRoYW5rcyBmb3IgeW91ciBwYXRjaCEN
+Cj4gDQo+IE9uIE1vbiwgSnVuIDIyLCAyMDI2IGF0IDEwOjMz4oCvQU0gWXUtQ2h1biBMaW4gPGVs
+ZWFub3IubGluQHJlYWx0ZWsuY29tPg0KPiB3cm90ZToNCj4gDQo+ID4gRnJvbTogVHp1eWkgQ2hh
+bmcgPHR5Y2hhbmdAcmVhbHRlay5jb20+DQo+ID4NCj4gPiBBZGQgdGhlIGRldmljZSB0cmVlIGJp
+bmRpbmdzIGZvciB0aGUgUmVhbHRlayBESEMgKERpZ2l0YWwgSG9tZSBDZW50ZXIpDQo+ID4gUlRE
+MTYyNSBHUElPIGNvbnRyb2xsZXJzLg0KPiA+DQo+ID4gVGhlIFJURDE2MjUgR1BJTyBjb250cm9s
+bGVyIGZlYXR1cmVzIGEgcGVyLXBpbiByZWdpc3RlciBhcmNoaXRlY3R1cmUNCj4gPiB0aGF0IGRp
+ZmZlcnMgc2lnbmlmaWNhbnRseSBmcm9tIHByZXZpb3VzIGdlbmVyYXRpb25zLiBJdCB1dGlsaXpl
+cw0KPiA+IHNlcGFyYXRlIHJlZ2lzdGVyIGJsb2NrcyBmb3IgR1BJTyBjb25maWd1cmF0aW9uIGFu
+ZCBpbnRlcnJ1cHQgY29udHJvbC4NCj4gPg0KPiA+IFJldmlld2VkLWJ5OiBLcnp5c3p0b2YgS296
+bG93c2tpDQo+ID4gPGtyenlzenRvZi5rb3psb3dza2lAb3NzLnF1YWxjb21tLmNvbT4NCj4gPiBT
+aWduZWQtb2ZmLWJ5OiBUenV5aSBDaGFuZyA8dHljaGFuZ0ByZWFsdGVrLmNvbT4NCj4gPiBTaWdu
+ZWQtb2ZmLWJ5OiBZdS1DaHVuIExpbiA8ZWxlYW5vci5saW5AcmVhbHRlay5jb20+DQo+ICguLi4p
+DQo+IA0KPiA+ICsgIGludGVycnVwdC1jb250cm9sbGVyOiB0cnVlDQo+ID4gKw0KPiA+ICsgICIj
+aW50ZXJydXB0LWNlbGxzIjoNCj4gPiArICAgIGNvbnN0OiAyDQo+ID4gKw0KPiA+ICsgIGdwaW8t
+cmFuZ2VzOiB0cnVlDQo+ID4gKw0KPiA+ICsgIGdwaW8tY29udHJvbGxlcjogdHJ1ZQ0KPiA+ICsN
+Cj4gPiArICAiI2dwaW8tY2VsbHMiOg0KPiA+ICsgICAgY29uc3Q6IDINCj4gDQo+IEFmdGVyIGxv
+b2tpbmcgYXQgdGhlIGRyaXZlciBJIG11c3QgY2hhbGxlbmdlIHRoaXMgYmluZGluZy4NCj4gDQo+
+IFlvdXIgZHJpdmVyIGlzIGZ1bGwgb2YgKG9mZnNldCAlIDMyKSBhbmQgZXZlbiAob2Zmc2V0ICUg
+MzIpICo0IHRvIGp1c3Qgd29yayBhcm91bmQNCj4gdGhlIGZhY3QgdGhhdCB0aGUgaGFyZHdhcmUg
+aW5oZXJlbnRseSBoYXMgMzItcGluIGJhbmtzLg0KPiANCj4gSW5zdGVhZCBvZiB1c2luZyB0d29j
+ZWxsIEdQSU8gYW5kIGlycXMsIGp1c3QgdXNlIHRocmVlY2VsbCwgaW50ZXJydXB0LWNlbGxzIGFu
+ZA0KPiBncGlvLWNlbGxzIDMuDQo+IA0KPiBGaXJzdCBjZWxsIGlzIGJhbmssIHNlY29uZCBjZWxs
+IGlzIG9mZnNldCBpbnNpZGUgZWFjaCBiYW5rLg0KPiANCj4gRm9yIExpbnV4IHNwZWNpZmljYWxs
+eSB0aGVyZSBhcmUgaGVscGVycyBmb3IgZGVhbGluZyB3aXRoIHRoaXMgaW4gZ3Bpb2xpYiwgYW5k
+DQo+IGZ1cnRoZXIgeW91IHdpbGwgYmUgYWJsZSB0byB1c2UgdGhlIEdQSU9fR0VORVJJQyBsaWJy
+YXJ5LCB3aGlsZSB0aGlzIGlzIGJlc2lkZQ0KPiB0aGUgcG9pbnQgZm9yIHRoZSBiaW5kaW5nIGl0
+c2VsZi4NCj4gDQo+IFlvdXJzLA0KPiBMaW51cyBXYWxsZWlqDQoNClRvIGNsYXJpZnkgdGhlIGhh
+cmR3YXJlIGRlc2lnbjogdGhpcyBTb0MgZG9lcyBub3QgdXNlIGEgYmFua2VkIEdQSU8NCmFyY2hp
+dGVjdHVyZS4NCg0KRWFjaCBHUElPIHBpbiBoYXMgaXRzIG93biBkZWRpY2F0ZWQgMzItYml0IGNv
+bnRyb2wgcmVnaXN0ZXIgdGhhdCBoYW5kbGVzDQpib3RoIEdQSU8gY29uZmlndXJhdGlvbiBhbmQg
+aW50ZXJydXB0IHNldHRpbmdzIChlLmcuLCBlZGdlL2xldmVsIGVuYWJsZSkuDQpUaGUgb25seSBl
+eGNlcHRpb24gaXMgdGhlIGludGVycnVwdCBzdGF0dXMgcmVnaXN0ZXIsIHdoaWNoIGlzIGdyb3Vw
+ZWQgaW50bw0KMzItYml0IHdvcmRzLg0KDQpTaW5jZSBwaHlzaWNhbCBHUElPIGJhbmtzIGRvIG5v
+dCBleGlzdCwgdXNpbmcgYSAzLWNlbGwgPGJhbmsgb2Zmc2V0IGZsYWdzPg0KZm9ybWF0IHdvdWxk
+IG1pc3JlcHJlc2VudCB0aGUgaGFyZHdhcmUuIFRoZXJlZm9yZSwNCmtlZXBpbmcgI2dwaW8tY2Vs
+bHMgPSA8Mj4gYW5kICNpbnRlcnJ1cHQtY2VsbHMgPSA8Mj4gaXMgdGhlIG1vc3QgYWNjdXJhdGUN
+CnJlZmxlY3Rpb24gb2YgdGhlIGFjdHVhbCBzaWxpY29uLg0KDQpCZXN0IFJlZ2FyZHMsDQpZdS1D
+aHVuDQo=
