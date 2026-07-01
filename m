@@ -1,87 +1,36 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from out-189.mta1.migadu.com (out-189.mta1.migadu.com [95.215.58.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA203E8695
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 08:46:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B78DB3B19B5
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 08:47:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782895604; cv=none; b=Me4Lze+MbGMhEAQ//t2v1DNLlVy3jnQXrMYOKaE+6fSE2Uj4SRVzJZcJKMUJi230+OesLEcYb7ZihJquEZiy1guiHxzYp6ZE4JqOIZdsWupkbUVVPKMjYflOS32rv6rWhuhOFD1uP7x1zB1LH//eFNQsk7nvwAO+sY10ah/N/Ks=
+	t=1782895649; cv=none; b=pFMF9GPmfzOs/b4cY+nhyS/x/BQ1A8PfhQoBfxRai3TQbeQ1eX2+LQfJZ81Z0ddOa+Kdoh4pjQqT500wQ0KexF9b2NBj8SfQ+a3g1KndoymDkbK/hCxqfCjwSf/QU804/caLbRaMi785gV0XOeb20DwRthoh1lM8gLx8vznTNTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782895604; c=relaxed/simple;
-	bh=GRbWxHCWK5woHSJmqcg4vZ8zKDdAitOAXTLbGcGk20k=;
+	s=arc-20240116; t=1782895649; c=relaxed/simple;
+	bh=49sToyKTSjS66TuV/1Gvj6ise9Amt4gQHPByMHgSiiE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AwKTrMFvaNB9JLHictsyoFqfgo4tadf2RQxTizMc4G+a2rIv2ku0bew25ynfFsvgiwU79DwkyIvbk2qKDcNugvvXhROYzf74P0l05BDasOetiqJpfdDrayKkrtahfxQ6z6Ho7tOImK18KVhoiBggWokOnhq7wTA+NDfqSDmqDrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CMC47t7s; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EkK3EZbQ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:To:Cc; b=HdUClvbRB9uggCkV+IaXUWOsfCAPsBZ5a0FU5l7WYwVl/iLWWAOmMf1Qfbji22YEaKR70PIEaY2VbQYl2a1T6tpafowVhoLJzV5RMVK8IIjnlDXrHJpuffGZ23eOfDEUmvz7btftkwPK3y+2cuf/F+J1Zc0iE7ctLevnPEOG0Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mGAu0O5p; arc=none smtp.client-ip=95.215.58.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CMC47t7s";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EkK3EZbQ"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6618GEiu497043
-	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 08:46:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kTd/R/2EJF/1DHxNw7D2N/60ZnX+FUJkLfb7saHZSjQ=; b=CMC47t7sQVuxQ6B3
-	hC8OA3TwKerLajEDnYVXu4ESqdt7sH6pcKdMySNpfLcH42rMZImeoVkiE/NSZIve
-	wSgwpTyq6E6PJhyBBmzPi1HPbkQZELeVYnj+21O+8EtMQVhXoeqEEu5zal2hFt8J
-	pkyNJNuQrUyKYRd4jSZMY1WH/pI4kfJugc9400mc075bYgzvuZUYAqAW4Ej0UW6A
-	sxgQgmlPda3j03NUK2Pm7ftfPav+kva7BT1zkDikGoCjnpIFiKiVkV1qfrjuSpjP
-	Om+2PivcK4Fl1NJmWucqDUxgoe1SqQTSwAkKbXPiPm2Rv+iORJfyrwtMz7t7gAAM
-	tPShJQ==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4jktb715-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 08:46:41 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30ecfc5dea0so729490eec.0
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 01:46:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782895601; x=1783500401; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kTd/R/2EJF/1DHxNw7D2N/60ZnX+FUJkLfb7saHZSjQ=;
-        b=EkK3EZbQMtG09hwHvn9EDIcaXvg+otFd26XVv9vcpdp3b0o1xDVkPoouN29iuYxShs
-         vsXRcXDWDkwaNVa4aB8CVvpgygb8bQVsVTKZPTyqIbkb/g0VIrcDhtRI8Y6N8qs/KcZo
-         rjn0qxLd7IUfQWtIjqV3uYDZ+fY5pJsAfDSkllGBVfaDRFjK4qrcjElQeEof9GzXEjAr
-         /n3m3RqAonR1OWWU7IT19/4a0aUOi5fKNh+TkAlpLop/P03YwAfp/Oh2KqhxH9dmDoA2
-         SBC5w9l85cK0uAYqfJQo4VsMVihLPEmajez6CMzf5OXCy3AOx/BMaJJwrQQqwQM6q0Di
-         z63w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782895601; x=1783500401;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=kTd/R/2EJF/1DHxNw7D2N/60ZnX+FUJkLfb7saHZSjQ=;
-        b=G6k92tJJ32T3HyPPwhSAC9rIaK75CF6jD/RgMo74haF2nToufJOoJ0o09lmHbn45RF
-         XI4cZpKGooJsJAJfw+Cy1rEej128r5yeNRtOYZOniYkpWdAg3p+L6P8oG/0Hv5jxoxKH
-         NOmebnTA+PJ4W/G1hQbw0fN8b0UD23w5e/THPX6nfzxEpTTYnL+kAhvFP5/tzMKSM0JT
-         swM6Y8DCL96tutLLR9wKTEnC4E6UdWuSRuBsse7Mz+wuwfIP2i/Lgxvu1oy4BnB8rKoH
-         PaT1A4311ysgGZyVRfH8DeqVKo8u/wD9opIkCqvAhk9bfwFDCVVGSZDx0cCFjcZFEzsG
-         dYsw==
-X-Forwarded-Encrypted: i=1; AHgh+RqIKULiW94Erl0IfCc9tLDfp20GxBd63PNNcbJgt90LyLr1ZjcAUHV2PsfdmYkG7OM43q8vYjMFfU2N@vger.kernel.org
-X-Gm-Message-State: AOJu0YypKOOHLf2qC9YIRda07P0TH1fQGPhdwySUn8BBvMzCKsnMR083
-	w8SL+CEMaTxepLlwVNXkP2CZq4FOKHHtpl3KOurXmQhkyddJGv1DcoRIG9MkemDOTHOIRjwi33C
-	vqFr8QYiZkwphcDsavFnfMgmlNQVLotCwyfQ1+LaH64o/NEiLO5lcLWnGhCCiQoTL
-X-Gm-Gg: AfdE7cm65IvWSy5rSzyi0tjaUtqY1xTM29TxCUwyQaow2jwR3UO3D84EKttM/Tm1vhX
-	brzMwndmCOuQLd6IB0W3GwxN7E4zPaVTdauyf2/RNlM6cZGTkJtokJM+ZeDggRQ/hyppJ0Xu+rv
-	xDKUZmes6yylsmnxxfX6YfCBzBVwcJ/pgoRnqvxPUMFiEeY5mCePAStnCWlzIa59/LKZNHtsJhj
-	ojW8GK9Vi39h+jnblDDDJkiiEDuotq/Uoakjc5bQ2xJKTnzgXLISX+zyDLactPlU7jAuQk/lnS8
-	J/2xa9RurYikSTDRQPEM65ylSivBtspY78YNoeN44ziQWyRv/ODHNT2sz8lZw+0F2FU5YXDDgqN
-	0sSV6OM9/T/KxZ07J22jJiISAY5ONUiYuo2VlD9flg0dOgqLiW47MnZqgtK9cWRiFX+SFiabg3X
-	fSqD2xkJxaM7shI8OgnsUgPXQ74qDz6xYsVjq+e41u
-X-Received: by 2002:a05:7300:2211:b0:30c:536e:3a8a with SMTP id 5a478bee46e88-30eff0534bbmr843573eec.6.1782895600785;
-        Wed, 01 Jul 2026 01:46:40 -0700 (PDT)
-X-Received: by 2002:a05:7300:2211:b0:30c:536e:3a8a with SMTP id 5a478bee46e88-30eff0534bbmr843543eec.6.1782895600255;
-        Wed, 01 Jul 2026 01:46:40 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30efaadc5bfsm4891524eec.28.2026.07.01.01.46.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 01:46:39 -0700 (PDT)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Date: Wed, 01 Jul 2026 14:16:25 +0530
-Subject: [PATCH 2/2] cpufreq: qcom-nvmem: Add IPQ5210 support
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mGAu0O5p"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782895645;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gg1b4NvG9irnTlONKFumTIckFqfflTt6uFIpf+8fltI=;
+	b=mGAu0O5p3zzJMOJu8qMNFgcSKrgX6osZU3GAoSLRlOMN10orW6+CZfaU9yfENWqMHTFSsP
+	8YFkH7Qt9+3dgkbpQpQdYAn0ouLmDSJtQMJCltLHCnJTEOrwsW4eaaCCpx4LALgw1sHTzt
+	1Qk1rPXD5165bCku5pIxwAFiDvCL690=
+From: Atish Patra <atish.patra@linux.dev>
+Date: Wed, 01 Jul 2026 01:46:50 -0700
+Subject: [PATCH v8 02/22] RISC-V: Add Sxcsrind ISA extension CSR
+ definitions
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,100 +38,106 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-cpufreq-v1-2-98656ad20ff3@oss.qualcomm.com>
-References: <20260701-cpufreq-v1-0-98656ad20ff3@oss.qualcomm.com>
-In-Reply-To: <20260701-cpufreq-v1-0-98656ad20ff3@oss.qualcomm.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>, Ilia Lin <ilia.lin@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDA4OSBTYWx0ZWRfX6474vbyoGFQX
- +hN3oCIaIe5wYPkypfDPaCQzQAFXFt19w9v+776t480Sy7IIWULFxQ0mYwQ0/mYb4pcgyGImLfh
- 7DfofBKTV0e2l8GW9TvIvFHXxRgy1Vg=
-X-Proofpoint-GUID: EcLnC6Y9pwIoJgZE5kg1wkXteRhk5mev
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDA4OSBTYWx0ZWRfX2oJxFgy2TuG2
- EEiilqUIMloiqcJfgUu4avzBIabGPaAQLoDoTAW1TubHcYph1IJeda6enI9a1FtnsY2GjmvWhpf
- KLqOpaDSmcyLfLr4Ot2iZrj6RGm2SPfg6TSHj1MjzdPdeYVoLzh0OulIzxbBP44MQ2oUcTOnoLT
- wHpI/+sXJ388HZoVqql6tdYUU+QZr6Y4wHVkoaT8U4RnvKr/yv43K7HhLbLNjOUSZdf0mIv14lc
- ikgtaLqdOsUY27b3zQAF0aUcWI3k0fLDiitD+9sRIU7vBYP4HWDfg01mGzBqFGgYS7o2gOFyCl7
- LB/Us2WpWzEvE9zt3GkFz6G3NVuDG7OGiQzGxNKYo6aCoMEdC1qa0kUCzFaPCsfd8uwa3ljmN+4
- EmP11xgRvqJKN5xTYEeCOJdscZlBFndKbPjghp1b58Qhf0m6BYhxzmh5ILIQXU/pss6EhLhWn8z
- NmumpnsYdMBhNaPQa1w==
-X-Authority-Analysis: v=2.4 cv=R+wz39RX c=1 sm=1 tr=0 ts=6a44d3f1 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=3tsBT5a87JaRe40zvzIA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-ORIG-GUID: EcLnC6Y9pwIoJgZE5kg1wkXteRhk5mev
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-01_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 priorityscore=1501 impostorscore=0
- adultscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010089
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260701-counter_delegation-v8-2-7909f863a645@meta.com>
+References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
+In-Reply-To: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
+To: Jiri Olsa <jolsa@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>, 
+ Anup Patel <anup@brainfault.org>, Namhyung Kim <namhyung@kernel.org>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Atish Patra <atish.patra@linux.dev>, Ian Rogers <irogers@google.com>, 
+ Will Deacon <will@kernel.org>, James Clark <james.clark@linaro.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, Conor Dooley <conor@kernel.org>
+X-Migadu-Flow: FLOW_OUT
 
-IPQ5210 SoCs expose CPU frequency limits through an eFuse speed bin, and
-the valid CPU OPPs depend on the SoC variant.
+From: Kaiwen Xue <kaiwenx@rivosinc.com>
 
-Add IPQ5210 support to the Qualcomm NVMEM cpufreq driver so the supported
-OPPs can be selected at runtime using the eFuse value and the opp-
-supported-hw OPP property. Also block the generic cpufreq-dt platform
-device for IPQ5210 so the NVMEM-based driver is used.
+This adds definitions of new CSRs and bits defined in Sxcsrind ISA
+extension. These CSR enables indirect accesses mechanism to access
+any CSRs in M-, S-, and VS-mode. The range of the select values
+and ireg will be define by the ISA extension using Sxcsrind extension.
 
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Signed-off-by: Kaiwen Xue <kaiwenx@rivosinc.com>
+Reviewed-by: Clément Léger <cleger@rivosinc.com>
+Signed-off-by: Atish Patra <atishp@rivosinc.com>
 ---
- drivers/cpufreq/cpufreq-dt-platdev.c | 1 +
- drivers/cpufreq/qcom-cpufreq-nvmem.c | 8 ++++++++
- 2 files changed, 9 insertions(+)
+ arch/riscv/include/asm/csr.h | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-diff --git a/drivers/cpufreq/cpufreq-dt-platdev.c b/drivers/cpufreq/cpufreq-dt-platdev.c
-index ff1204c666b1..284eece9e230 100644
---- a/drivers/cpufreq/cpufreq-dt-platdev.c
-+++ b/drivers/cpufreq/cpufreq-dt-platdev.c
-@@ -200,6 +200,7 @@ static const struct of_device_id blocklist[] __initconst = {
- 	{ .compatible = "ti,am62l3", },
- 	{ .compatible = "ti,am62p5", },
+diff --git a/arch/riscv/include/asm/csr.h b/arch/riscv/include/asm/csr.h
+index 31b8988f4488..b4551a6cf7cb 100644
+--- a/arch/riscv/include/asm/csr.h
++++ b/arch/riscv/include/asm/csr.h
+@@ -347,6 +347,12 @@
+ /* Supervisor-Level Window to Indirectly Accessed Registers (AIA) */
+ #define CSR_SISELECT		0x150
+ #define CSR_SIREG		0x151
++/* Supervisor-Level Window to Indirectly Accessed Registers (Sxcsrind) */
++#define CSR_SIREG2		0x152
++#define CSR_SIREG3		0x153
++#define CSR_SIREG4		0x155
++#define CSR_SIREG5		0x156
++#define CSR_SIREG6		0x157
  
-+	{ .compatible = "qcom,ipq5210", },
- 	{ .compatible = "qcom,ipq5332", },
- 	{ .compatible = "qcom,ipq5424", },
- 	{ .compatible = "qcom,ipq6018", },
-diff --git a/drivers/cpufreq/qcom-cpufreq-nvmem.c b/drivers/cpufreq/qcom-cpufreq-nvmem.c
-index e6d28d162442..b2aeda7c564a 100644
---- a/drivers/cpufreq/qcom-cpufreq-nvmem.c
-+++ b/drivers/cpufreq/qcom-cpufreq-nvmem.c
-@@ -200,6 +200,13 @@ static int qcom_cpufreq_kryo_name_version(struct device *cpu_dev,
- 	case QCOM_ID_IPQ9574:
- 		drv->versions = 1 << (unsigned int)(*speedbin);
- 		break;
-+	case QCOM_ID_IPQ5200:
-+	case QCOM_ID_IPQ5210:
-+	case QCOM_ID_QCF2200:
-+	case QCOM_ID_QCF3200:
-+	case QCOM_ID_QCF3210:
-+		drv->versions = (*speedbin != 0xcd) ? BIT(0) : BIT(1);
-+		break;
- 	case QCOM_ID_IPQ5424:
- 	case QCOM_ID_IPQ5404:
- 		drv->versions = (*speedbin == 0x3b) ? BIT(1) : BIT(0);
-@@ -618,6 +625,7 @@ static const struct of_device_id qcom_cpufreq_match_list[] __initconst __maybe_u
- 	{ .compatible = "qcom,msm8909", .data = &match_data_msm8909 },
- 	{ .compatible = "qcom,msm8996", .data = &match_data_kryo },
- 	{ .compatible = "qcom,qcs404", .data = &match_data_qcs404 },
-+	{ .compatible = "qcom,ipq5210", .data = &match_data_kryo },
- 	{ .compatible = "qcom,ipq5332", .data = &match_data_kryo },
- 	{ .compatible = "qcom,ipq5424", .data = &match_data_kryo },
- 	{ .compatible = "qcom,ipq6018", .data = &match_data_ipq6018 },
+ /* Supervisor-Level Interrupts (AIA) */
+ #define CSR_STOPEI		0x15c
+@@ -394,6 +400,14 @@
+ /* VS-Level Window to Indirectly Accessed Registers (H-extension with AIA) */
+ #define CSR_VSISELECT		0x250
+ #define CSR_VSIREG		0x251
++/*
++ * VS-Level Window to Indirectly Accessed Registers (H-extension with Sxcsrind)
++ */
++#define CSR_VSIREG2		0x252
++#define CSR_VSIREG3		0x253
++#define CSR_VSIREG4		0x255
++#define CSR_VSIREG5		0x256
++#define CSR_VSIREG6		0x257
+ 
+ /* VS-Level Interrupts (H-extension with AIA) */
+ #define CSR_VSTOPEI		0x25c
+@@ -436,6 +450,12 @@
+ /* Machine-Level Window to Indirectly Accessed Registers (AIA) */
+ #define CSR_MISELECT		0x350
+ #define CSR_MIREG		0x351
++/* Machine-Level Window to Indirectly Accessed Registers (Sxcsrind) */
++#define CSR_MIREG2		0x352
++#define CSR_MIREG3		0x353
++#define CSR_MIREG4		0x355
++#define CSR_MIREG5		0x356
++#define CSR_MIREG6		0x357
+ 
+ /* Machine-Level Interrupts (AIA) */
+ #define CSR_MTOPEI		0x35c
+@@ -498,6 +518,11 @@
+ # define CSR_IEH		CSR_MIEH
+ # define CSR_ISELECT	CSR_MISELECT
+ # define CSR_IREG	CSR_MIREG
++# define CSR_IREG2	CSR_MIREG2
++# define CSR_IREG3	CSR_MIREG3
++# define CSR_IREG4	CSR_MIREG4
++# define CSR_IREG5	CSR_MIREG5
++# define CSR_IREG6	CSR_MIREG6
+ # define CSR_IPH		CSR_MIPH
+ # define CSR_TOPEI	CSR_MTOPEI
+ # define CSR_TOPI	CSR_MTOPI
+@@ -523,6 +548,11 @@
+ # define CSR_IEH		CSR_SIEH
+ # define CSR_ISELECT	CSR_SISELECT
+ # define CSR_IREG	CSR_SIREG
++# define CSR_IREG2	CSR_SIREG2
++# define CSR_IREG3	CSR_SIREG3
++# define CSR_IREG4	CSR_SIREG4
++# define CSR_IREG5	CSR_SIREG5
++# define CSR_IREG6	CSR_SIREG6
+ # define CSR_IPH		CSR_SIPH
+ # define CSR_TOPEI	CSR_STOPEI
+ # define CSR_TOPI	CSR_STOPI
 
 -- 
-2.34.1
+2.53.0-Meta
 
