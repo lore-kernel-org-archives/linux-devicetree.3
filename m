@@ -1,254 +1,239 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB4547885C
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 11:27:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E062D738A;
+	Wed,  1 Jul 2026 11:28:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782905265; cv=none; b=qYJCA4rYwMV1B9uiBhq5a2jw33En4maSUEiIQ/LvY+2ALLOVZ71Wvg2OEenDEzQOZP28f1aN+z2QUuieK6R+bM5jMW7bZWXZem5cI5wmT2gQ5zdWYiwmu1d0s01gfPx+g6jVECpt7Q1klCxC+vP4vw67MEOBYOrBUOm1djGAmc0=
+	t=1782905287; cv=none; b=omUi71rUUUIa1Bpb20F9Lde41yhBIXm2dpAOcS4E6Vi7ijc7ADro2O2TTpbCPV0ElGOXkdjUGe3f9IpSt1MugH65xxl3rt/MnDnIcTusLE42iseRylgP8LUZPoXDo9hiuCRL1eMBJdqOjbczlwVGsfJK2w8GQq8VGQeUIEt2eJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782905265; c=relaxed/simple;
-	bh=sTW7LrJhOsRjrcrzX6hGhVpGvI4WNxIXeSZd77Z9r5M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mj4IM/DQVWon7UpTLJyBpNsN0qM+SAqmXzpqduXXc0yDZLOh3NcOs1uQv4rM+5L0XP6tlKkrYc6xxjsWAAJP8xarkEc0X90gxwqEUH1yNjacSgi8wwQuh9ZIrsrMCXf1dciXsVtRJX9oICm/94jCzqV4k7GVary8geScwEGGXTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IHWQa37a; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IHWQa37a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6401F000E9;
-	Wed,  1 Jul 2026 11:27:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782905261;
-	bh=6TzNnqMJMxobiHxKW4Zjgqw/Tclyi4oOIAuFAi+4FcA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IHWQa37agC5PSHVdT1ZPKfLdAARp5+doySYWkcmxrpuFQXZip5aVphZXc/RkyRNl1
-	 2DMbSMOrixMJ3c1lY5FDTMV9+u74YKo6KHzUgKjRxziOKc6mOlqa2ULDYSAna7r/sE
-	 qlgOB05sxiIezX0p7vZZJvmZZKWZTGP+IajtIcMGVUPSA5rnMWmXvbIf4DrYZgm3GX
-	 rRHZZWgLxh3ezvMrgjoYHWBQbZLxRqGxNsc6wltJidgkPd+Sz/IHNG3mNVZfhmIgba
-	 5mqlVwLkMmntnmA95a8n62tOTAv8QoZ77L/TMbNVrROAf9gMezhG19NMW4I9o/YSsL
-	 KOJ21ev+EGkqA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 09/11] ASoC: qcom: Add QAIF IRQ handling,
- suspend/resume and platform register
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260701105757.2779738-10-harendra.gautam@oss.qualcomm.com>
-References: <20260701105757.2779738-1-harendra.gautam@oss.qualcomm.com>
- <20260701105757.2779738-10-harendra.gautam@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 11:27:40 +0000
-Message-Id: <20260701112741.0C6401F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1782905287; c=relaxed/simple;
+	bh=LiZmvTOHP2ZinLiEwJaSXQWDUCsKtfS8dJwqwE9/4jI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N/g8mP+vjVKE0O+1ApXaqWfpDhZvIPRJd8tZoIM51RnfMqLtMEpIEq7dKD2iYtvR7KEGRFYvQ+NcjoaW4D3NveN/oRVQokqHWIMfVkOxOmEMssZuVAy6m77eBo5BJUZ5Nt2IaeKXTS3ncNqOw42lRuGNG//IPkSLdSFQnSGVf3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6EFC1F000E9;
+	Wed,  1 Jul 2026 11:28:01 +0000 (UTC)
+Message-ID: <0e2c6127-0150-4cad-b602-078d499be6c5@nxsw.ie>
+Date: Wed, 1 Jul 2026 12:28:00 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] regulator: qcom_usb_vbus: add support for
+ qcom,pm4125-vbus-reg
+To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, jishnu.prakash@oss.qualcomm.com,
+ kamal.wadhwa@oss.qualcomm.com
+References: <20260701-add_pm4125-vbus-reg-v2-0-6bac2bac7131@oss.qualcomm.com>
+ <ZkhgnHpgeMHGG5XXFho_yGMh29vJq4gi3Q3c3whfUfY96JLxZVFJtAbHAATuBl1PecwYh3BS9VAhZfv2biT2Fg==@protonmail.internalid>
+ <20260701-add_pm4125-vbus-reg-v2-2-6bac2bac7131@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod.linux@nxsw.ie>
+Content-Language: en-US
+In-Reply-To: <20260701-add_pm4125-vbus-reg-v2-2-6bac2bac7131@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] Incorrect Device Tree parsing for the SMMU Stream ID breaks probin=
-g on systems without an SMMU or with different #iommu-cells.
-- [High] regcache_sync() in the component resume callback executes without =
-enabling the required audio clocks, causing a bus fault.
-- [High] snd_pcm_stop() is called from the IRQ handler without holding the =
-required PCM stream lock.
-- [High] Setting regmap to cache_only mode during component suspend without=
- disabling the interrupt creates an unhandled IRQ storm.
-- [Medium] The IRQ handler incorrectly returns IRQ_NONE after successfully =
-clearing a hardware interrupt if the substream is NULL.
-- [Medium] Undefined behavior from a negative bitshift when using GENMASK()=
- on zero-count DMA channels.
-- [Medium] The driver fails to notify the ALSA core when a hardware XRUN (o=
-verflow/underflow) occurs.
---
+On 01/07/2026 11:28, Rakesh Kota wrote:
+> The PM4125 PMIC uses a different register layout for USB VBUS control
+> compared to PM8150B. On PM4125, CMD_OTG is at offset 0x50, OTG_CFG is
+> at 0x56, and offset 0x52 is a 2-bit VBOOST voltage selector rather than
+> a current-limit selector.
+> 
+> Introduce per-compatible regulator descriptor data to accommodate these
+> differences. This keeps the existing PM8150B current-limit logic intact
+> while adding a dedicated voltage-selector path for PM4125.
+> 
+> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+> ---
+>   drivers/regulator/qcom_usb_vbus-regulator.c | 102 ++++++++++++++++++++++++----
+>   1 file changed, 88 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/regulator/qcom_usb_vbus-regulator.c b/drivers/regulator/qcom_usb_vbus-regulator.c
+> index cd94ed67621fee9f6d7a0327054db0ebab6cc7ee..40e7e5589d5b499b2e84a00b2cfa754fba7e2f0f 100644
+> --- a/drivers/regulator/qcom_usb_vbus-regulator.c
+> +++ b/drivers/regulator/qcom_usb_vbus-regulator.c
+> @@ -20,10 +20,35 @@
+>   #define OTG_CFG				0x53
+>   #define OTG_EN_SRC_CFG			BIT(1)
+> 
+> +#define PM4125_VBOOST_EN		0x50
+> +#define PM4125_VBOOST_CFG		0x52
+> +#define PM4125_VBOOST_CFG_MASK		GENMASK(1, 0)
+> +#define PM4125_VBOOST_CFG		0x56
+> +#define PM4125_OTG_EN_SRC_CFG		BIT(0)
+> +
+> +struct qcom_usb_vbus_reg_data {
+> +	u16 cmd_otg;
+> +	u16 otg_cfg;
+> +	u8  otg_en_src_cfg;
+> +	u16 csel_reg;
+> +	u8 csel_mask;
+> +	const unsigned int *curr_table;
+> +	unsigned int n_current_limits;
+> +	u16 vsel_reg;
+> +	u8 vsel_mask;
+> +	const unsigned int *volt_table;
+> +	unsigned int n_voltages;
+> +	const struct regulator_ops *ops;
+> +};
+> +
+>   static const unsigned int curr_table[] = {
+>   	500000, 1000000, 1500000, 2000000, 2500000, 3000000,
+>   };
+> 
+> +static const unsigned int pm4125_vboost_table[] = {
+> +	4250000, 4500000, 4750000, 5000000,
+> +};
 
-commit 28e9637822bfe9fbb6803c1d7c7e397c87d18f6e
-Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Should vboost_table be absent for pm8150b ?
 
-ASoC: qcom: Add QAIF IRQ handling, suspend/resume and platform register
+> +
+>   static const struct regulator_ops qcom_usb_vbus_reg_ops = {
+>   	.enable = regulator_enable_regmap,
+>   	.disable = regulator_disable_regmap,
+> @@ -32,19 +57,43 @@ static const struct regulator_ops qcom_usb_vbus_reg_ops = {
+>   	.set_current_limit = regulator_set_current_limit_regmap,
+>   };
+> 
+> -static struct regulator_desc qcom_usb_vbus_rdesc = {
+> -	.name = "usb_vbus",
+> -	.ops = &qcom_usb_vbus_reg_ops,
+> -	.owner = THIS_MODULE,
+> -	.type = REGULATOR_VOLTAGE,
+> +static const struct regulator_ops qcom_usb_vbus_pm4125_reg_ops = {
+> +	.enable = regulator_enable_regmap,
+> +	.disable = regulator_disable_regmap,
+> +	.is_enabled = regulator_is_enabled_regmap,
+> +	.get_voltage_sel = regulator_get_voltage_sel_regmap,
+> +	.set_voltage_sel = regulator_set_voltage_sel_regmap,
+> +	.list_voltage = regulator_list_voltage_table,
+> +};
+> +
+> +static const struct qcom_usb_vbus_reg_data pm8150b_data = {
+> +	.cmd_otg = CMD_OTG,
+> +	.otg_cfg = OTG_CFG,
+> +	.otg_en_src_cfg = OTG_EN_SRC_CFG,
+> +	.csel_reg = OTG_CURRENT_LIMIT_CFG,
+> +	.csel_mask = OTG_CURRENT_LIMIT_MASK,
+>   	.curr_table = curr_table,
+>   	.n_current_limits = ARRAY_SIZE(curr_table),
+> +	.ops = &qcom_usb_vbus_reg_ops,
+> +};
 
-This patch completes the QAIF PCM platform support by adding IRQ handling
-for DMA events and platform registration. It also introduces suspend and
-resume callbacks to handle register state while clocks are toggled, and
-reads the SMMU stream ID from the device tree.
+I think you should split this patch up
 
-> diff --git a/sound/soc/qcom/qaif-platform.c b/sound/soc/qcom/qaif-platfor=
-m.c
-> index 85964a1760e50..d0738d85f5947 100644
-> --- a/sound/soc/qcom/qaif-platform.c
-> +++ b/sound/soc/qcom/qaif-platform.c
-[ ... ]
-> +static irqreturn_t qaif_process_dma_irq(struct qaif_drv_data *drvdata,
-> +					u32 stat_reg_addr,
-> +					u32 clr_reg_addr,
-> +					enum qaif_irq_type irq_type,
-> +					enum qaif_dma_dir dma_type,
-> +					enum qaif_irq irq,
-> +					struct snd_pcm_substream **substream)
-> +{
-[ ... ]
-> +	if (dma_type =3D=3D QAIF_DMA_WRDMA)
-> +		num_dma =3D (irq_type =3D=3D QAIF_AIF_IRQ) ? v->num_wrdma : v->num_cod=
-ec_wrdma;
-> +	else
-> +		num_dma =3D (irq_type =3D=3D QAIF_AIF_IRQ) ? v->num_rddma : v->num_cod=
-ec_rddma;
-> +	mask =3D GENMASK(num_dma - 1, 0);
+#1 introduces the abstraction for the existing device
+#2 introduces the new PM4125
 
-[Severity: Medium]
-Does this code cause undefined behavior if num_dma evaluates to 0?
-
-Depending on the architecture and compiler, GENMASK(-1, 0) expands to a shi=
-ft
-by a negative number. This could create an invalid mask that accidentally
-clears all interrupts or misconfigures the hardware for non-existent channe=
-ls.
-
-> +	rv =3D regmap_read(drvdata->audio_qaif_map, stat_reg_addr, &reg);
-> +	if (rv) {
-> +		dev_err(regmap_get_device(drvdata->audio_qaif_map),
-> +			"error reading stat reg 0x%x: %d\n", stat_reg_addr, rv);
-> +		return IRQ_NONE;
+> +static const struct qcom_usb_vbus_reg_data pm4125_data = {
+> +	.cmd_otg = PM4125_VBOOST_EN,
+> +	.otg_cfg = PM4125_VBOOST_CFG,
+> +	.otg_en_src_cfg = PM4125_OTG_EN_SRC_CFG,
+> +	.vsel_reg = PM4125_VBOOST_CFG,
+> +	.vsel_mask = PM4125_VBOOST_CFG_MASK,
+> +	.volt_table = pm4125_vboost_table,
+> +	.n_voltages = ARRAY_SIZE(pm4125_vboost_table),
+> +	.ops = &qcom_usb_vbus_pm4125_reg_ops,
+>   };
+> 
+>   static int qcom_usb_vbus_regulator_probe(struct platform_device *pdev)
+>   {
+>   	struct device *dev = &pdev->dev;
+> +	const struct qcom_usb_vbus_reg_data *data;
+>   	struct regulator_dev *rdev;
+> +	struct regulator_desc *rdesc;
+>   	struct regmap *regmap;
+>   	struct regulator_config config = { };
+>   	struct regulator_init_data *init_data;
+> @@ -57,27 +106,51 @@ static int qcom_usb_vbus_regulator_probe(struct platform_device *pdev)
+>   		return ret;
+>   	}
+> 
+> +	data = of_device_get_match_data(dev);
+> +	if (!data)
+> +		return -EINVAL;
+> +
+>   	regmap = dev_get_regmap(dev->parent, NULL);
+>   	if (!regmap) {
+>   		dev_err(dev, "Failed to get regmap\n");
+>   		return -ENOENT;
+>   	}
+> 
+> -	init_data = of_get_regulator_init_data(dev, dev->of_node,
+> -					       &qcom_usb_vbus_rdesc);
+> +	rdesc = devm_kzalloc(dev, sizeof(*rdesc), GFP_KERNEL);
+> +	if (!rdesc)
+> +		return -ENOMEM;
+> +
+> +	rdesc->name = "usb_vbus";
+> +	rdesc->ops = data->ops;
+> +	rdesc->owner = THIS_MODULE;
+> +	rdesc->type = REGULATOR_VOLTAGE;
+> +	rdesc->enable_reg = base + data->cmd_otg;
+> +	rdesc->enable_mask = OTG_EN;
+> +
+> +	if (data->curr_table) {
+> +		rdesc->curr_table = data->curr_table;
+> +		rdesc->n_current_limits = data->n_current_limits;
+> +		rdesc->csel_reg = base + data->csel_reg;
+> +		rdesc->csel_mask = data->csel_mask;
 > +	}
 > +
-> +	regmap_write(drvdata->audio_qaif_map, clr_reg_addr, reg & mask);
-> +
-> +	for (dma_idx =3D 0; dma_idx < num_dma; dma_idx++) {
-> +		stream_dma_idx =3D dma_idx + stream_offset;
-> +		if ((reg & BIT(dma_idx)) && substream[stream_dma_idx]) {
-> +			stream =3D substream[stream_dma_idx];
-> +			switch (irq) {
-> +			case QAIF_IRQ_PERIOD:
-> +				snd_pcm_period_elapsed(stream);
-> +				ret =3D IRQ_HANDLED;
-> +				break;
-> +
-> +			case QAIF_IRQ_OVERFLOW:
-> +			case QAIF_IRQ_UNDERFLOW:
-> +				dev_warn_ratelimited(regmap_get_device(drvdata->audio_qaif_map),
-> +						     "QAIF DMA xRun\n");
-> +				ret =3D IRQ_HANDLED;
-> +				break;
-
-[Severity: Medium]
-Does this miss notifying the ALSA core about the xrun condition?
-
-The hardware interrupt is caught and logged, but it doesn't appear
-snd_pcm_stop_xrun() is called. This might leave userspace applications
-unaware of dropped audio frames or stream stalls, leading to broken
-synchronization.
-
-> +
-> +			case QAIF_IRQ_ERROR:
-> +				snd_pcm_stop(stream, SNDRV_PCM_STATE_DISCONNECTED);
-
-[Severity: High]
-Can this cause data races or waitqueue corruption?
-
-Calling snd_pcm_stop() requires the caller to hold the PCM stream lock. Sin=
-ce
-this is called directly from the IRQ handler in qaif_process_dma_irq()
-without holding snd_pcm_stream_lock_irqsave(), it seems unsafe.
-
-> +				dev_err(regmap_get_device(drvdata->audio_qaif_map),
-> +					"QAIF bus error\n");
-> +				ret =3D IRQ_HANDLED;
-> +				break;
-> +			}
-> +		}
-> +	}
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Will this return IRQ_NONE after successfully clearing a hardware interrupt?
-
-If a hardware interrupt fires and the handler successfully clears it via
-the regmap_write() call earlier in qaif_process_dma_irq(), but the
-corresponding substream is NULL (for example, due to a race during stream
-teardown), ret remains IRQ_NONE.
-
-If the generic IRQ subsystem registers this as unhandled multiple times,
-could it permanently disable the IRQ line?
-
-[ ... ]
-> +static int qaif_platform_pcmops_suspend(struct snd_soc_component *compon=
-ent)
-> +{
-> +	struct qaif_drv_data *drvdata =3D snd_soc_component_get_drvdata(compone=
-nt);
-> +	struct regmap *map =3D drvdata->audio_qaif_map;
-> +
-> +	regcache_cache_only(map, true);
-> +	regcache_mark_dirty(map);
-> +	return 0;
-> +}
-
-[Severity: High]
-Could this lead to an interrupt storm during suspend?
-
-If a system suspend is initiated, qaif_platform_pcmops_suspend() sets the
-regmap to cache_only mode without calling disable_irq(). If an active
-hardware IRQ fires before the kernel reaches the suspend_device_irqs() phas=
-e,
-asoc_platform_qaif_irq() will attempt to read the volatile IRQSTAT register.
-
-Since the regmap is in cache_only mode, it will return an error, causing
-the handler to return IRQ_NONE without clearing the interrupt, leading to
-an endless loop.
-
-> +
-> +static int qaif_platform_pcmops_resume(struct snd_soc_component *compone=
-nt)
-> +{
-> +	struct qaif_drv_data *drvdata =3D snd_soc_component_get_drvdata(compone=
-nt);
-> +	struct regmap *map =3D drvdata->audio_qaif_map;
-> +
-> +	regcache_cache_only(map, false);
-> +	return regcache_sync(map);
-> +}
-
-[Severity: High]
-Does regcache_sync() safely execute here without clocks enabled?
-
-It looks like regcache_sync() attempts to flush dirty register values
-to the hardware over MMIO. If the audio clocks were disabled upon PCM close
-and have not been re-enabled yet, this might cause a bus fault or
-Data Abort during system resume.
-
-[ ... ]
-> +static int qaif_parse_smmu_sid(struct platform_device *pdev,
-> +			       struct qaif_drv_data *drvdata)
-> +{
-> +	struct device_node *np =3D pdev->dev.of_node;
-> +	int ret;
-> +	u32 sid;
-> +
-> +	ret =3D of_property_read_u32_index(np, "iommus", 1, &sid);
-
-[Severity: High]
-Does this incorrectly assume the format of the iommus property?
-
-Manually reading index 1 of the iommus property bypasses the standard
-of_parse_phandle_with_args() API. This could break probing on perfectly
-valid hardware setups, such as systems without an SMMU or systems where
-the SMMU has a different number of iommu-cells.
-
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "failed to read SMMU SID from iommus property: %d\=
-n", ret);
-> +		return ret;
+> +	if (data->volt_table) {
+> +		rdesc->volt_table = data->volt_table;
+> +		rdesc->n_voltages = data->n_voltages;
+> +		rdesc->vsel_reg = base + data->vsel_reg;
+> +		rdesc->vsel_mask = data->vsel_mask;
 > +	}
 > +
-> +	drvdata->smmu_csid_bits =3D sid & 0x1;
-> +	dev_dbg(&pdev->dev, "sid=3D0x%x csid=3D0x%x\n", sid, drvdata->smmu_csid=
-_bits);
-> +	return 0;
-> +}
-[ ... ]
+> +	init_data = of_get_regulator_init_data(dev, dev->of_node, rdesc);
+>   	if (!init_data)
+>   		return -ENOMEM;
+> 
+> -	qcom_usb_vbus_rdesc.enable_reg = base + CMD_OTG;
+> -	qcom_usb_vbus_rdesc.enable_mask = OTG_EN;
+> -	qcom_usb_vbus_rdesc.csel_reg = base + OTG_CURRENT_LIMIT_CFG;
+> -	qcom_usb_vbus_rdesc.csel_mask = OTG_CURRENT_LIMIT_MASK;
+>   	config.dev = dev;
+>   	config.init_data = init_data;
+>   	config.of_node = dev->of_node;
+>   	config.regmap = regmap;
+> 
+> -	rdev = devm_regulator_register(dev, &qcom_usb_vbus_rdesc, &config);
+> +	rdev = devm_regulator_register(dev, rdesc, &config);
+>   	if (IS_ERR(rdev)) {
+>   		ret = PTR_ERR(rdev);
+>   		dev_err(dev, "not able to register vbus reg %d\n", ret);
+> @@ -85,13 +158,14 @@ static int qcom_usb_vbus_regulator_probe(struct platform_device *pdev)
+>   	}
+> 
+>   	/* Disable HW logic for VBUS enable */
+> -	regmap_update_bits(regmap, base + OTG_CFG, OTG_EN_SRC_CFG, 0);
+> +	regmap_update_bits(regmap, base + data->otg_cfg, data->otg_en_src_cfg, 0);
+> 
+>   	return 0;
+>   }
+> 
+>   static const struct of_device_id qcom_usb_vbus_regulator_match[] = {
+> -	{ .compatible = "qcom,pm8150b-vbus-reg" },
+> +	{ .compatible = "qcom,pm8150b-vbus-reg", .data = &pm8150b_data },
+> +	{ .compatible = "qcom,pm4125-vbus-reg", .data = &pm4125_data },
+>   	{ }
+>   };
+>   MODULE_DEVICE_TABLE(of, qcom_usb_vbus_regulator_match);
+> 
+> --
+> 2.34.1
+> 
+> 
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701105757.2779=
-738-1-harendra.gautam@oss.qualcomm.com?part=3D9
