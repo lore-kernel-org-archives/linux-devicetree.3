@@ -1,107 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F0F3BB102
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 10:57:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A633655D6
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 10:57:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782903433; cv=none; b=TdoE+PUBHD9vC5MJ0z0Q4ZtV6W+5F1MGNCAVX/bDcoraVJA2T7V5CuavVZL+Doj3jtTJKEmeamKbxliHgwrzajSqPNHZlYmwiVkVUx/byXS7BLY7+urhW0GmB5CmuN9V6tgtmiln4nLpkIaliRF84EvmcRGhzzcwnOzT+CrUuXc=
+	t=1782903465; cv=none; b=cgjNDyPuxylGMNa3WgtUa8sSDPvTFbkowzmIuX4F5BIjXdkwynmNU/HdTwle8BvX7zgv37ZnEBeLkFaRWEaE0o//8bxaJ24NXQv9vfWYAQ92RwbO5ZYe3wd9CBDwaopzSBJmfIimocSxFL1522uu/7ingSquRc3kki9gGN6ay/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782903433; c=relaxed/simple;
-	bh=RyDjfIfFxu4w0JNE7bHpdPPm0w1XLNjxhRx6CSky4/s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=O6ebht5OIEjfXIjm3YzHfhw3VYhRXxYIle4GT5NksW1bCcic73imkK2FxnKHjFSIdI0V1XbYSuKAtTpOgnVAR0Mr/fV7Z17IiQ9Ys+aIckqeUGEDQR0rCFRHneBW+beibvk2r6d1v8PDvuNS6UPeqWERy2+dQnb/W7ZS3IW0zr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dls+X2GR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782903465; c=relaxed/simple;
+	bh=nvB5KtefDLzhGr4nr8PZc5L3d0KZFe1ZJDlxsS3K7x0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HIyPyUd8nKDRcAGGcFW3IfCk2vSKmxXpRSsDy78oRM26si33BX+WwpX1i1uteTvRlG3icJz9xkTelU6skrK3VRxRdNviGo3Xnas9f/87Zwo+XsvYszRcqJM7R74DJK2NQgkhxpVET5+H08QLreOWC1NWtmUDaufWskdiDzd/Xto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nR7DbFs4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YrDbkR0n; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dls+X2GR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A59BE1F000E9;
-	Wed,  1 Jul 2026 10:57:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782903429;
-	bh=ZGLts+3bOniJYL1S9gZlAlhyvwtZ03zc77vQOgGNi5c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Dls+X2GRSZPiT/O5TdMAlEimrDlUvedSk3v7UJNWbzQ9Jtqz1SJpw94InwA1MYbkQ
-	 p4aErzC0tI3E9y36TZU5uI67RNlUb4p29Dw9MV5blLdb8WoIzumsqFhWrqWrUwygnc
-	 tKKJW2GcYGvknDf64tnFZbDSyUML2a3SYHYclRYoNHgTCWKCep58AX2CqDemOn8/Uw
-	 wFQqGu1Jm9NQIc1cLRbNmsRvcDGfVgDuD4Z9pawnz1K7hvNT5zVRdZfKh4k4aZNNX3
-	 KdMhEvq+vdvMfU4DnShGaEXLiuOHuFAD/jdnp9RTBSuyg45KsKyzwTchdKRocdc9nq
-	 QkwHZZJfDR9yg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v4 2/2] net: pse-pd: add Realtek/Broadcom PSE
- MCU driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jonas Jelonek" <jelonek.jonas@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260630105651.756058-3-jelonek.jonas@gmail.com>
-References: <20260630105651.756058-1-jelonek.jonas@gmail.com>
- <20260630105651.756058-3-jelonek.jonas@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 10:57:09 +0000
-Message-Id: <20260701105709.A59BE1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nR7DbFs4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YrDbkR0n"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 661AGeHH794311
+	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 10:57:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=jXHclo5dQ540crOYbfBiFzJOGlNRFUHjEdG
+	h+kXSkiI=; b=nR7DbFs4d6K9ViBI8donvO0Pl/D18a9VYh3S+5SlmOYRyLqf0Bt
+	Zob/IRQzxPKHg/08xOZGt4oLY8goikgHavGn+7mCfTurL9WBRyeSDOQyoQGLOW6p
+	Ezr6VXBeboWcBGb9ZZM/tuulOfBMcEUJuv6biGTi+Q4nafh1d2rAsxI/ma0nL24B
+	vLWbfaCa3Wbmt52RyPIrdb8i7KghLdlk551npxurn1gpdtsYtIB6nxdcwvQZEYZp
+	G0NZDnvkO/3bPrDIX5S7rDNcuEf9KOtrt88E1gFHX9xK2t45EdY6at7HZvtTHPm+
+	wMgE3V1iGaoCrhbmxzEuYEoQ93kZ5wA+82A==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f510ag5x6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 10:57:42 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92ac0a54110so66111885a.2
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 03:57:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782903462; x=1783508262; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=jXHclo5dQ540crOYbfBiFzJOGlNRFUHjEdGh+kXSkiI=;
+        b=YrDbkR0nirHjY1Cb6o2wjCT6sPlPpw5/eSV3vhqmm0mq2nag3ZCzlqfNITvnAI/mLa
+         f1BaUpLLihUmdTk0HTHAzSAi8CrIBFjQfgZhx2bNVfFotWLdavVmZbG62OKsa2Xo7ZNA
+         aET2TNSTNalO9zQF/ZQy3c9TGk4GDQVEkG7hiHJAEJe/KEy8b3rbOwclJj5e0/CrDGGe
+         wd5+KfgN0u5THFp/U6pA/GgTRf3pV8WYg7cbQfyIqLBKDg5oP+T6Qaki4hMu5/oekbGS
+         3qm6msbeFOen1r+Hu8NOiZNTzg73jFPS8YWwZnYoDQnV37vNAn2MVzZ7vFBOdkw1NJpQ
+         BSAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782903462; x=1783508262;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jXHclo5dQ540crOYbfBiFzJOGlNRFUHjEdGh+kXSkiI=;
+        b=nYj34qJ2Iaok3D5Xyrq9gXXoT0ivurkDve79LHIFpUvmeCiWSafbwYFri1aEx85eE3
+         tVD7vZJ+qX5FbwbRdQuUw37GOxYWl2Td/5FBFDAWgpGxzAiJm7eRVQn56XkbDeCNCYn2
+         /eQg9LWInZNmpnA6bJ4vejmP/74DAhzKk7j5KSsB5Sj2jC+zikqlHiiyw5DwUFGBXKNf
+         1bgcUGSSEsMsMUc4BIbsBAhzKnhUdl/QdTE+mcxncX58t4n+T1jEinG8v6kbC1NAxCof
+         7iLhQvnYrq2bg+VCsBEFzY3jhN7BVQiHBzvppN+TyardbOTnL1c6bCV6bF0m1flBh4Uw
+         DA6A==
+X-Forwarded-Encrypted: i=1; AFNElJ9Uf+hVKDNb5rfFYQTABNplLEojfqlO4zhJlRAPNcop1wFaciVOC7/1qhDGNPBM5w7ZS7pyi80jGwbD@vger.kernel.org
+X-Gm-Message-State: AOJu0YwTdzStIhZFs/Nd5sia764735X6bYZeOLmS0tV4BPe7k/j8Kji9
+	sFR35/g6ISsiPRzxukzFDmkAfi1DqPV0LJwBBDjY2OZcJI5U8pGVrRNSKCFlReYXRFjgWC5r8Sk
+	52F3DyORCH+wfyNW6XWA5Td0v/K9j14XpeQjQFDquMqlTEoP9mAHjO83JJbT8Lu3J
+X-Gm-Gg: AfdE7cliO0Vlp0hsrWvyk1b4cncxakf3qwfFlR1oEuBH++wzX97O5CzQe5aniXYmpSt
+	x+F1hLpgXoUUOdvHYBIGx/HLmqBV8/If4gQQqv9RD5OTd0CB9ZWFQUC6hAU6QceaslT1vthGajJ
+	ig1ZxfLUyiCVbWU5d4nJKGy59HkjpGpyQwkkc5vkxyyKGAebmE6EXYGjcOTeEyD58EREaRP8KA+
+	ngJw381+qh5rixP5B/xBiBGq7vOhKHaxNX+qklvhrvrR9xzexRdKkjO8COqLDGmJnrrbiu6mwIJ
+	YR7t45i/HATrDeSMdktmjcr/bUGIQw8dnrH/SSI43jqk4GRXCBKroMa7j0dvanO7Tj9pruveBz7
+	V+6GqsXDSV1BpCIy6WGWtG3I90io=
+X-Received: by 2002:a05:620a:4587:b0:915:9a39:1d68 with SMTP id af79cd13be357-92e781f1acfmr143339185a.5.1782903461601;
+        Wed, 01 Jul 2026 03:57:41 -0700 (PDT)
+X-Received: by 2002:a05:620a:4587:b0:915:9a39:1d68 with SMTP id af79cd13be357-92e781f1acfmr143335585a.5.1782903461099;
+        Wed, 01 Jul 2026 03:57:41 -0700 (PDT)
+Received: from quoll ([178.197.223.174])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4756636cf1asm17497188f8f.18.2026.07.01.03.57.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Jul 2026 03:57:39 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Peter Griffin <peter.griffin@linaro.org>,
+        Alim Akhtar <alim.akhtar@samsung.com>, devicetree@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH 1/2] dt-bindings: samsung: exynos-pmu: Restrict children with unevaluatedProperties
+Date: Wed,  1 Jul 2026 12:57:32 +0200
+Message-ID: <20260701105731.196618-3-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1398; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=nvB5KtefDLzhGr4nr8PZc5L3d0KZFe1ZJDlxsS3K7x0=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqRPKbRUdQOwIDyfyaqWgK6R82z+GIgTQdCcFMg
+ WauwIeUnlGJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCakTymwAKCRDBN2bmhouD
+ 12X0D/wNn40TkXCRuOnNGT6ZJw2wZckXeRfoRB1t+2ktYzZFh+lVfWUKVuX48KkrCPPgOiG8aSp
+ aeH6EKKJbHZZJhDiT8air+5RnLqBztu2MQzYXSe/kHtH/gOtRp6WsDCcxR5P7ox751ykBzIb2Gq
+ T7HvXzINZtJAOn6qkX14xii9yPvH+S8ArFdvai+mqdMn2DIbJhKEaJtbmVcgeKBl4SDJdKxxiUT
+ n7td248voGqiCaCHIqKvRZHfV9z7ONa2C8ySUfbohzTZri8pTm1A2tCmi1sSrqeiaogcXqJIpgC
+ 17nJGcRU2zs9eTOUWc6xP260h4L3YCnqXu9658nqr3Tp2Mr31YZbFhDZmYN+9akb2mplGbYxsCg
+ 0NwexnFrvnI+OtKP+85A/exJ3pwkDacXejpZtU7IN5JR5OiB/nkuB3PreP0mw55fczYKN+2L6MT
+ m3ypiUIzsOs310hhZD1V1WNtdKaNQwCcxsB94DarD+Pzv7OVanv++zeQeHWdv34tCHf+ZBZwNUS
+ xapkIaf6uuaeULsw//raOs5DlunQHM6Snn7gURxxUwGFHVznuzklIfkzPsTsHANDoLD/FmyNE2j
+ z7lnksiXxbjcgSNSi1TTRr6iawIV8pMZcJ0t61rrd9+YcF7yKJjRRntqDV4L4jvlpb5VfA2fse5 vG015S/FlpPI8Wg==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: oksYmOueaIyJ3ICtn39X66mNe_y3SRt-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDExNCBTYWx0ZWRfX2ZpW8dxAsTi/
+ ohpI2ff9Ujr2HmhEzUuqSUNFndWQ/qZN5Kz6PZKckwFdXnxg3z0iKax1iByKk1f1J//1fVhnBcN
+ VPoVe6F3PW9YlrIs0EYpXnfiESOfCYHiX5MwXPQRRARdAx8lfdYaPcupnim9VgkKap7OwF6yHMU
+ rduOcAoxy07QTVauvM1fJZvGGX/CCdR7jvCFI3/7uuAPWrqijPgQTx556P6hYHnIVYqbOMWpJ/x
+ KltIOdJKIXf+akrmMFkPy0YXZ4S1smfTI9F/9HuO4hpHtm0b6jaD2qg0HNWQr4uRX44umOQ67Yc
+ +lh+vj+pMbGrKcuh9barW5Z/78O4a+aQTVa2YCQWE9wBn751t7iz+YfPXqP5OJixwMZEqjIOCfs
+ T7PDIyR4TsXmZXC+dTvRx4v3b8WMQqUHYgsffJv1R4AK86UtOZVc+3B/ff6JwZvv4dTRMkbqttF
+ Ztcpn9H2QXcuV/SiMzA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDExNCBTYWx0ZWRfXwqYxAKzN6Neu
+ UPi92glnGvuQyFhlIRY3pGc8n7b19De73sPrOipcEOI0Q+cj//HVt15nif8nCHOknC0F2wJrj0r
+ LOsurGX55SYi2e8wRtaIdmPPWn1UM+w=
+X-Authority-Analysis: v=2.4 cv=JpXBas4C c=1 sm=1 tr=0 ts=6a44f2a6 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=Hh4MFFtu-RRkeg1_9cEA:9 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: oksYmOueaIyJ3ICtn39X66mNe_y3SRt-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-01_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 malwarescore=0 impostorscore=0 clxscore=1015
+ spamscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010114
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Premature probe failure due to unhandled -EBADMSG during MCU dis=
-covery.
---
+Each schema for a child node should end with either additionalProperties
+or unevaluatedProperties, so add missing one making the schema tighter.
+Defining 'type: object' is on the other hand not necessary when other
+schema is referenced.
 
-commit f15f1883adfcb0dd6df322e408ed55d0bfd48ac7
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Subject: net: pse-pd: add Realtek/Broadcom PSE MCU driver
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../devicetree/bindings/soc/samsung/exynos-pmu.yaml         | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-This commit adds a driver for the microcontroller fronting Realtek and
-Broadcom PSE chips over I2C or UART. It abstracts the underlying protocol
-dialects behind shared core logic and transport modules.
+diff --git a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+index 76ce7e98c10f..d124f3ae9fbd 100644
+--- a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
++++ b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+@@ -94,19 +94,19 @@ properties:
+ 
+   reboot-mode:
+     $ref: /schemas/power/reset/syscon-reboot-mode.yaml
+-    type: object
++    unevaluatedProperties: false
+     description:
+       Reboot mode to alter bootloader behavior for the next boot
+ 
+   syscon-poweroff:
+     $ref: /schemas/power/reset/syscon-poweroff.yaml#
+-    type: object
++    unevaluatedProperties: false
+     description:
+       Node for power off method
+ 
+   syscon-reboot:
+     $ref: /schemas/power/reset/syscon-reboot.yaml#
+-    type: object
++    unevaluatedProperties: false
+     description:
+       Node for reboot method
+ 
+-- 
+2.53.0
 
-> diff --git a/drivers/net/pse-pd/realtek-pse-mcu-core.c b/drivers/net/pse-=
-pd/realtek-pse-mcu-core.c
-> new file mode 100644
-> index 0000000000000..11a0abece37bd
-> --- /dev/null
-> +++ b/drivers/net/pse-pd/realtek-pse-mcu-core.c
-[ ... ]
-> +static int rtpse_mcu_discover(struct rtpse_mcu_ctrl *pse, struct rtpse_m=
-cu_info *info)
-> +{
-> +	struct rtpse_mcu_ext_config ext_config;
-> +	unsigned long deadline;
-> +	int ret;
-> +
-> +	/*
-> +	 * The MCU may not answer on the bus yet right after power-up or
-> +	 * enable-gpios assertion: depending on the transport it either stays
-> +	 * silent (-ETIMEDOUT) or does not ACK its address at all (-ENXIO /
-> +	 * -EREMOTEIO). Retry within a bounded wall-time window so a slow boot
-> +	 * still probes, while a genuinely unresponsive MCU fails with its real
-> +	 * error instead of deferring forever and masking it.
-> +	 */
-> +	deadline =3D jiffies + msecs_to_jiffies(RTPSE_MCU_BOOT_TIMEOUT_MS);
-> +	do {
-> +		ret =3D rtpse_mcu_get_info(pse, info);
-> +		if (ret !=3D -ETIMEDOUT && ret !=3D -ENXIO && ret !=3D -EREMOTEIO &&
-> +		    ret !=3D -EAGAIN)
-> +			break;
-
-[Severity: Medium]
-Will this prematurely abort the probe if the MCU emits transient garbage
-during its boot sequence?
-
-Looking at rtpse_mcu_do_xfer(), it returns -EBADMSG if there is a checksum
-mismatch, or if the MCU responds with RTPSE_MCU_OPCODE_BAD_CSUM. If a parti=
-ally
-booted MCU produces invalid bytes on the bus during this startup window,
-rtpse_mcu_discover() will immediately break out of the retry loop and fail
-the probe since -EBADMSG is not in the allowed list of retry errors.
-
-> +		msleep(RTPSE_MCU_BOOT_RETRY_MS);
-> +	} while (time_before(jiffies, deadline));
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630105651.7560=
-58-1-jelonek.jonas@gmail.com?part=3D2
