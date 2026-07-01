@@ -1,100 +1,116 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA593655D7;
-	Wed,  1 Jul 2026 15:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05473101C2
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 15:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782920862; cv=none; b=taWc4nCy6Uf3Qui21pZaIvzO1fdPvlye6/mE3DjstpeN9t0+AlXsxY5BCPNdApnK8KmiI4+EZQ6sFkYQnPQQWA9IyvsDYQJI7e0g4rNrfPRd3bxXPLXKQwk9OoJY7h0RFny2EQZt1KjUd3SMOn87z+IeKVXwdJiB4rp9BigmWFM=
+	t=1782921213; cv=none; b=oYSZ5L7m5KvPYqFY2D2oUSp85+FUx4444LhvLdenywMYjpQJs3pA9NY3SfXLgCAAAcduRnH2MdnoM0N+A8g4hTkkxvvBk8Q/vLkYc2TqSxI3ixqUFoHP01Ib6feLKE0Y73iMJX1Ua3SenLhpQfdXVfvSlRC8LQLXYKb6WIDDnkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782920862; c=relaxed/simple;
-	bh=Ky9AIH6/lq3FHpbsWjW7cQtA0kjqF07M4MVwKxOHcRs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gI90PNxs7g0mratJmUXH9mIGLDRotabS3BP7g9wxj3YBQ7Ur4LUK2q5i8SkH8KVtL+vd8DkMhsLp+J8yP7KGlW/tjI+OLSwxSu0QfyWsVjLHnuGzphsKImMM3Gyal943cOaTnQpCauJVis9H2vCAo3QN+nI5znhoY2Jbma6H1wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mHpvIqwN; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1782921213; c=relaxed/simple;
+	bh=W5gcoFcrKtfbOQRmfiTSBojpOsV5BPmx6vA/jpWZ35Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a50Msfcjv8P/ZcrgJ+pJRItZFTT8hyPX+fbye+CIxfnpkluNLWWnCyuGInJH6yOLlIysyLT8k8+Ww280nOsN9+gurXTmq3s4Gsa+HS7ol16Btixxh15R+3eu0NxjiHa14lF9OPm7wYBEf+OxvKFwtu4je5eiogn21+t4pwpuM88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=sRXLRewA; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mHpvIqwN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1782920859;
-	bh=Ky9AIH6/lq3FHpbsWjW7cQtA0kjqF07M4MVwKxOHcRs=;
-	h=From:Date:Subject:To:Cc:From;
-	b=mHpvIqwNp84u6/vvEm9g+BG98EFMuN+XKb/mWOpwbdTBqqkoW4jbvWpoqticz77at
-	 tJaBSxNVfU5jTcA1Dqy17ROjbdQR0XdHldSAIWOLdSoxLDm4BtTNZ2fl34Ak6Qy3hi
-	 xtvYsRUi+bmjICiJCukTyrwjy5VzY/c1sXw1WGSmNlERYFCjlR7x1lp8bS8T/Hsjm7
-	 w9w/eaUo/5beDO/ZqtzTUnURFVyvqegw3C4pWlLStn7+tvygo222Pep/zk2+ZPg5j1
-	 H1imdLxDMYAlFoClXT+8W2O3OQPV78xgbfEwfMxEQshAM9ZNrhysQYvVnoNO7dnq4G
-	 9tTShUonVWYPg==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 093D817E02CB;
-	Wed,  1 Jul 2026 17:47:38 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Wed, 01 Jul 2026 17:47:20 +0200
-Subject: [PATCH] dt-bindings: dma: mediatek,uart-dma: add support for
- MT8189 SoC
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="sRXLRewA"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4926bd21aa1so5261985e9.3
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 08:53:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1782921210; x=1783526010; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=upLoHwuqws7rrBOx3O6MmxFWpeRxrfgF8hyyVKwGdoE=;
+        b=sRXLRewAcpxywLpg1fpYvOCs8BbfGI8w7bxzyV1vma0L0NnTzAbZlGY+nFzUpmz5nq
+         bTGf02X0WsqjcjPU/Loxj7Ckz+6X/eS/ki+FlIvwX2EnMxfKJlktdHHvQ6t8iYJrGbyF
+         2juAxahR6Xhc/2cHdL3LacMcYI3jt55uX1K6tHT+A3iySWMdlB5QmLqlQj/gsYnR4XWw
+         miycVchiLl24iOMcAR6IVW4b7CoHtw722ASrYs2qE6gp+6+/Ux1YAx8AU2oqx64OSsug
+         dsnrjjV7OqhfrGkejEANc6Cnk5PpGZ/r1AE2An4aIPQUfx8i0vesJcCv/u05F0dHV1wf
+         X47Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782921210; x=1783526010;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=upLoHwuqws7rrBOx3O6MmxFWpeRxrfgF8hyyVKwGdoE=;
+        b=q/HbfnOV6Kv8wlybW1+1rIdmqmSodfOXtNR9749ogZOTlKLbv8zAjBR5fudSw7o0uu
+         51pUUbFiCVcbn+X8iXlD83aJBn3sI47rvxS7WSDl3g74ZWPfbepLGGGFECAVbBL0cNCE
+         Nqp2fOMB9paDX2GJJgkd7HU8fdCWVw89+KAhdb34VnIfo8biZ990B34kyG0VJdalVMCf
+         aNRDWkaiw7hIxbEP4JriiVdx2fdmaOBr4nL+WkTMqa7h0wF61Uce7Ji1ofxc3PiLIIC7
+         1+6yx4m43OhNvcxk7qizQJEC4ajvFBGMyJeSFbYjfzdBgZq259zciaBY3lXYcUUkWrIb
+         fclA==
+X-Forwarded-Encrypted: i=1; AFNElJ/FmoN0ZrvzHfNtR0Dyt6AfQldkAmtCO9XJOctw0Uma+D25Iiwj4JQ6dSg00CY3SCMxTRL1rgA4wGgI@vger.kernel.org
+X-Gm-Message-State: AOJu0YybRlKu5aOlaHZSSNMg1MCMvpNCkO6telUOKOhAm5zSgTtxp+1S
+	QGb2YJ9DLu7SFfGx7N+OQHkF7AGQFIRL1Xfb0lClWZqXvQn21ihWJLA+g1E+V29Ln9A=
+X-Gm-Gg: AfdE7ckGWPtLaliq2iBL30AkM2F7GW3Qilsg+BQxdJn3HmX2ag5QqNN/hptchS/t7qv
+	ADoFHzaDuWa+P57ciB92g6rdAzKTW3Ku/Pf2TAsWdriIu+GklvYQiUs5ZgNdhVCdKmRsStKEjNX
+	DPNFTIM1/i7QxT7SC3ywvoi040NPIR39VTkgjfaSVcQWaDc583zZ5yoXA/+5fQ6qlxNHHzWjH/r
+	spJYCiLB1G9yTTwJuQhl85in2TiiFf6MXw1UD4qtj2vLqe8ELhR7qzYo1CZLo/iZRE9OuicqHi6
+	a5sNbYQ/Govi2TKBVGY8Fmw2IXlXO9/2hPOMNxfFAuj4gJioEDzZqNihjwEoFBnJtCNFCPYdOHS
+	mtWZ2Rrn7V5/lRJEy6UMapt/jtIVFCXIWhyRMfVm6myYns0BviQbrClxP92EIypdPguPgF86ueF
+	sdNi3H3zheknohmCuHATxO6w8=
+X-Received: by 2002:a05:600c:c171:b0:493:b6e2:1b0f with SMTP id 5b1f17b1804b1-493c2b99a63mr35052815e9.33.1782921210480;
+        Wed, 01 Jul 2026 08:53:30 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.66.240])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493be4d8f5asm127457835e9.8.2026.07.01.08.53.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Jul 2026 08:53:29 -0700 (PDT)
+Message-ID: <cdcea32f-0160-4501-9dfd-9103807c4d93@linaro.org>
+Date: Wed, 1 Jul 2026 16:53:28 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-mt8189-dt-bindings-uart-dma-v1-1-c7106216a40d@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQ6DIBAAv0L23E3AppT6lcYDyGL3ALaAxsT49
- xI9zhxmdiiUmQr0YodMKxeeUwN1EzB+bJoI2TeGTnZaPqXCWI0yL/QVHSfPaSq42FzRR4vBBO/
- IPDSRgVb4Zgq8nfX3cHGm39Im9ZLgbCEc5xi59iLRVvEc6buE4Tj+p2kPCp4AAAA=
-X-Change-ID: 20260701-mt8189-dt-bindings-uart-dma-f8fdbe856ee8
-To: Sean Wang <sean.wang@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Long Cheng <long.cheng@mediatek.com>
-Cc: kernel@collabora.com, dmaengine@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782920858; l=1072;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=Ky9AIH6/lq3FHpbsWjW7cQtA0kjqF07M4MVwKxOHcRs=;
- b=ofMvNwFJxd2WVq31avixKD4TbRj35vFDFtRR0jcj91McrJ+rG7GfQZ47Vwn2QS6H9O8ZGXCOp
- xmk7QNrBj7BBEHNOkJQLU2Oeu5O4fFX1HVyVk6W14l0cMXrxUhzUck5
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Bryan O'Donoghue
+ <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
+ <20260523-x1e-csi2-phy-v8-2-a85668459521@linaro.org>
+ <54904b61-222d-4600-ad4c-c03a9952d337@linaro.org>
+ <be3e1abe-5148-4247-930b-2e23164eea73@linaro.org>
+ <c6aetoiz3dcedlxwjmt5cqh2mngswtmanf6p4s2molemnviwdc@btotpaqwcsoy>
+ <f6c91099-0002-4580-a5e8-5611b089024b@linaro.org>
+ <v4vz7cistjb2iuzha4oykglar7duw4y2uuyhumzs33yvpwrxcu@i5tsg4uzpuwc>
+ <8eb709ce-3469-4303-9c3d-8d1a221cb8de@linaro.org>
+ <b6a8c860-8b47-4250-a428-5225d0e64a1c@oss.qualcomm.com>
+ <htxqjgwjczsghunsbvo44lwkadzeg2kp6wfcksf3hkmcubvs2d@cw5r67uxskvu>
+ <59331aa7-8430-4754-861c-4ba6a4810ccd@oss.qualcomm.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <59331aa7-8430-4754-861c-4ba6a4810ccd@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Add the compatible string for the APDMA IP found in MT8189 SoC,
-that supports 35-bits addressing as MT6985 SoC.
+On 05/06/2026 10:31, Nihal Kumar Gupta wrote:
+>> Having clock-names property doesn't mean that all values are valid.
+>>
+> CSI_COMMON_CTRL5 is a physical lane power-up bitmap:
+> - Bits [0,2,4,6] → D-PHY data lanes(LN0, LN2, LN4, LN6)
+> - Bits [1,3,5] → C-PHY trio lanes(LN1, LN3, LN5)
+> - Bit [7] → D-PHY clock lane(LNCK) dedicated clock enable
+> 
+> In combo mode, only LN6 can be configurable as a clock lane.
 
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml | 1 +
- 1 file changed, 1 insertion(+)
+This is a really excellent comment and I'm going to copy/paste the text 
+entirely into the driver as a comment.
 
-diff --git a/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml b/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
-index 3708518fe7fc..bba20e88a6dc 100644
---- a/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
-+++ b/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
-@@ -40,6 +40,7 @@ properties:
-       - items:
-           - enum:
-               - mediatek,mt6991-uart-dma
-+              - mediatek,mt8189-uart-dma
-               - mediatek,mt8196-uart-dma
-           - const: mediatek,mt6985-uart-dma
-       - enum:
+ty
 
 ---
-base-commit: ba7c57499e5999aeae8dd4f954eb2600589d80aa
-change-id: 20260701-mt8189-dt-bindings-uart-dma-f8fdbe856ee8
-
-Best regards,
--- 
-Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-
+bod
