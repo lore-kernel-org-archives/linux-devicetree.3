@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBEA4252DE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E84425CD8;
 	Wed,  1 Jul 2026 23:35:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782948959; cv=none; b=FhQR/4mQss+s/hjCX6rjjNkTP9klbljEAdBj83pPKgGhfp4YsH0Tf4cZx798cue9qr4ido7v7mhnB6uPa6bO9DMrOH/oieww+ppJX9HcDBZyHVF/GDYWhlrxXBJpczlyr7FrZJzcIx5cdXNrKgzRwbJJ7aqNKm0NfdCdBGDcL1Q=
+	t=1782948958; cv=none; b=Oi7Z2nnKWPTcvrGvC5qlGC/A1KZudetnbjU4Xgsc6TPQ08tNxobbokkc7kJd5lnjvDQj9gI0BBoaJ3f2XBBnpY3hYc/LP+OWXHycFrplJX3RhY5EqnW9LVhpRT8JaRDz0CAgQPibPzUkeukwUW75THukF5BRRoh4S1Weq+hgcyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782948959; c=relaxed/simple;
-	bh=nnGI5Llfx315OSkr3KF85F4G29O47I0rAPMmwlSB0jg=;
+	s=arc-20240116; t=1782948958; c=relaxed/simple;
+	bh=HgvCiSF6+HBl1ARUC+1/hn82j4mjb1gI150BiAa3wPc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BPK/1njKQZsFijq9UUMkOiVz1D8/WjhX8xV2QhodECtt83LFLKJ6kaXLXRrtVAdPSPDZbD8gV+Diosl94YhLxsoMZE8UU8lrQOt0XXlZFuktbbsSQK0qSj8xHJXDS703Gp2ojAciWoxrI46leO1oCirSghZzHLd1+57u+WVGQUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=fA5gwduv; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=SqGdNhexAVW9FejFCZ60PWFc4+ep+zmcDcBW4W3PIUlsQl2GLA0a6V0uJpIsr341ajRzneozertVJNjrcmRy5gFpFMwUd1rAp2NkVsen6M3osObhuL9PhrT+Pt/NgDU2bm//2WYbj31wL4p+R2OBa1M87xF5A3JgtdESMXLy+i4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=jQXZhI2F; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="fA5gwduv"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="jQXZhI2F"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1782948950;
-	bh=nnGI5Llfx315OSkr3KF85F4G29O47I0rAPMmwlSB0jg=;
+	s=mail; t=1782948949;
+	bh=HgvCiSF6+HBl1ARUC+1/hn82j4mjb1gI150BiAa3wPc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=fA5gwduv4R6PCj6Ok4lDpi6RVT1C3/7Uu/Lw1NASH9nRtG8pqN4lnk0vZ7S2RmBZt
-	 20rFSvjQVW6NHCbweNAHvZcQKrQHnpZO3PpICDPYfYwCjMmdln9MT3G/0XTohHpatE
-	 BDHk6wl6Xs8IwjZ3dbrkEeUo7m/hr+tx8uSIubtxDCJY2IIDVnU6IFHxoSc5WIij7U
-	 vJHG78Z0YHy6YgzHk3zb7aenRptWDzwb74lgouFfDDenojzQkwKpEVR4/igxDa6fKN
-	 eXUk2ffd2h0rX+1jt+trsW9F3cFZCcFMsvqDed0IT654Q1+oCo+GK8u75oKY2HmPgK
-	 tck9usm8/7wvg==
+	b=jQXZhI2F19+oNO5OTfyvbIgRjOTRRyepGicrMXucZ3j6qN/FhWGXk5GvcWKM5CrWD
+	 VY6cq5oBcvEhEICHyZu2fiFKU9sOiRCYI16Zh6BSmc8HI42uyoRNVd8t3ScCkwEjfW
+	 kOQOyeFcY2bRZEhXe9o8B+DpJ6UsDj9ds7NZfGihukNpp073TMFJLbxA/qpYyGxImo
+	 l2IUhxoIM8PRBxesLdAXGa5Ckm8BncJzf0CffrYZb2tg9upX/3LNv3SFqChqaMOsuV
+	 99icaamdBgdPAxW/YaZvSDShU9Aa7dr7q79R4YmanGXy8hjBI5bJLuC4lT6KfWLMl0
+	 5QsEJENeuUOjQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C25C017E35D6;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A1EF417E35CD;
 	Thu,  2 Jul 2026 01:35:49 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id CA3A9480066; Thu, 02 Jul 2026 01:35:48 +0200 (CEST)
+	id C4527480061; Thu, 02 Jul 2026 01:35:48 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 02 Jul 2026 01:35:58 +0200
-Subject: [PATCH v9 20/38] phy: rockchip: usbdp: Re-init the PHY on
- orientation change
+Date: Thu, 02 Jul 2026 01:35:54 +0200
+Subject: [PATCH v9 16/38] phy: rockchip: usbdp: Cleanup DP lane selection
+ function
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-rockchip-usbdp-cleanup-v9-20-e31efbb62d2e@collabora.com>
+Message-Id: <20260702-rockchip-usbdp-cleanup-v9-16-e31efbb62d2e@collabora.com>
 References: <20260702-rockchip-usbdp-cleanup-v9-0-e31efbb62d2e@collabora.com>
 In-Reply-To: <20260702-rockchip-usbdp-cleanup-v9-0-e31efbb62d2e@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -65,57 +65,75 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1257;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1889;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=nnGI5Llfx315OSkr3KF85F4G29O47I0rAPMmwlSB0jg=;
- b=kA0DAAoB2O7X88g7+poByyZiAGpFpFPInzjXhLNL4pI3uR+HYQuPhnN6adGQreWXl1Kh076J7
- okCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqRaRTAAoJENju1/PIO/qaoxMP/16M
- cEZhplt5kwN1JyGbK2tJIrSl0vOFds5VTRuaJj+JL+sT2Mkjf8D1URyLZCGjGrflfXuhm+0q21Y
- 1ALF9hDW2OB8KewwAmnpqiiQpyng8C4FUxmOgK/1sxoVbLpD2Ynn0HX6rfQX+AcSK3DL6Bxrw1Q
- trDWka1EE5c5TypxhhjjePEappHGkixSRyUTM3Sc71kC/7TcmQQOau7OLVEyw1muJeRkAzhmbTt
- zKSis51m7N+fbAmiDdUJyVbKrlcnq+1EVOug7Xiv4sV4rrb/Ze4C0J6ghw+7WXvZ/B8IFyBJmk2
- zJVDnrJ1XpFZ7+vyj5frByLbOOdAAD60dtQnblDhveeTp/qXLcCQgag5gy+XRc6WAQKdUYyU1yB
- hXLieBJEN2PgsXu9sB6tNzochL4zcV6Q+e7nRbzrzKRxQhriX2bGSBu0MPw+cVwDwzYySjvXf+n
- z9/Uoo62joG3JCYz25aqiXDL5V0chfHUQSTHtKQuL533TjqOQOMZoLAytR/VsRNmK7QckHDd4mA
- eQ2lxrPdwh7AWV+1/rRhlOLBKqPuwnjaqa7ffkX6hzk1q40xigeGT4I8HIenMtc20R4+rL7FSnC
- ZxHk5jblixl1xEl+G23XiAbhKL3l0QOWRlAE5opNarIj3kwXDbhSjH3WXu0I6yU7IFLDG4Q8Fyx
- CfDWx
+ bh=HgvCiSF6+HBl1ARUC+1/hn82j4mjb1gI150BiAa3wPc=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpFpFPhr6P5DH9X4SAWGs08kT5cI59v70Kop
+ L8K86P2KPMuBokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqRaRTAAoJENju1/PI
+ O/qaMuQQAIAD3pNVdDoe1r8m+0WUzJkMml1+HvXbVbFkWN7uFQmILJHOcpGC9IYz9Mxu8ZgPVxQ
+ XyR2QfX6wwgcw67GExh4rIUkrr403KP4sRKxaNUWhIrfBy+Eyh74LtVNTph8zTxBqIsvsIWY8lJ
+ wYBuYyhwf5a78Xr/ggYKgXqsN1iV8WubWy01g4rL+sjmu/uBpSioL2fNtftw5PXRW8dRmqiW4x6
+ wq702EKBzMIpS6mPjls0wH/HnCjMJ2260Ju9LziZh2V2HBkajEjb+hyLd7v5ahnZ6zMqgAUv9tg
+ k3Rln3sITR90SBMPr6D3XLZZtyX7AmXVdMPvAO9pUW0LgUxASw0cYBzi2m6uzcTBxLzf+OCpRir
+ RikfBzpdVTdHfhuUZXwJUQe7ttswNFdx2RAwFfjEShPbxgr6J9h18wm9TbZKBCNFwR0FfV7zAMA
+ 87RZsP48k+BumWrsqNY2n1i849I7ujuFlXUTv0tE3WaH0Exnf4DirMEcwAwS3uHom+GI5EeK9o6
+ zXBjsDhZqH731Z3AaGyFILflrFDRpSiHAjp2ifYcz1VpUi8R7DgzY9jsEwSRfgKo4/sOkj2y3kK
+ YehWAOh/ppGZXSrXMiWZAdf/xRPOAUDYg9ERg5uRqW7BJF3bd0UzakAeC1eVp5Tdpk8EpAqKuYs
+ swfj06E1RppmwyT4dWu8ntw==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Changing the cable orientation reconfigures the lane muxing, which
-requires re-initializing the PHY. Without this DP functionality
-breaks, if the cable is re-plugged with swapped orientation.
+Use FIELD_PREP_WM16() helpers to simplify the DP lane selection
+logic.
 
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 28 +++++++---------------------
+ 1 file changed, 7 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index 8f06bb9b1fcb..eab9e82dbfe4 100644
+index 3124bcfed031..5d3db696d51f 100644
 --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -626,6 +626,7 @@ static int rk_udphy_orien_sw_set(struct typec_switch_dev *sw,
- 				 enum typec_orientation orien)
+@@ -553,30 +553,16 @@ static void rk_udphy_usb_bvalid_enable(struct rk_udphy *udphy, u8 enable)
+ static void rk_udphy_dp_lane_select(struct rk_udphy *udphy)
  {
- 	struct rk_udphy *udphy = typec_switch_get_drvdata(sw);
-+	bool flipped = orien == TYPEC_ORIENTATION_REVERSE;
+ 	const struct rk_udphy_cfg *cfg = udphy->cfgs;
+-	u32 value = 0;
+-
+-	switch (udphy->dp_lanes) {
+-	case 4:
+-		value |= 3 << udphy->dp_lane_sel[3] * 2;
+-		value |= 2 << udphy->dp_lane_sel[2] * 2;
+-		fallthrough;
+-
+-	case 2:
+-		value |= 1 << udphy->dp_lane_sel[1] * 2;
+-		fallthrough;
++	u32 value = FIELD_PREP_WM16(DP_LANE_SEL_ALL, 0);
++	int i;
  
- 	mutex_lock(&udphy->mutex);
+-	case 1:
+-		value |= 0 << udphy->dp_lane_sel[0] * 2;
+-		break;
++	for (i = 0; i < udphy->dp_lanes; i++)
++		value |= field_prep(DP_LANE_SEL_N(udphy->dp_lane_sel[i]), i);
  
-@@ -637,7 +638,10 @@ static int rk_udphy_orien_sw_set(struct typec_switch_dev *sw,
- 		goto unlock_ret;
- 	}
+-	default:
+-		break;
+-	}
++	value |= FIELD_PREP_WM16(DP_AUX_DIN_SEL, udphy->dp_aux_din_sel);
++	value |= FIELD_PREP_WM16(DP_AUX_DOUT_SEL, udphy->dp_aux_dout_sel);
  
--	udphy->flip = orien == TYPEC_ORIENTATION_REVERSE;
-+	if (udphy->flip != flipped)
-+		udphy->phy_needs_reinit = true;
-+
-+	udphy->flip = flipped;
- 	rk_udphy_set_typec_default_mapping(udphy);
- 	rk_udphy_usb_bvalid_enable(udphy, true);
+-	regmap_write(udphy->vogrf, cfg->vogrfcfg[udphy->id].dp_lane_reg,
+-		     ((DP_AUX_DIN_SEL | DP_AUX_DOUT_SEL | DP_LANE_SEL_ALL) << 16) |
+-		     FIELD_PREP(DP_AUX_DIN_SEL, udphy->dp_aux_din_sel) |
+-		     FIELD_PREP(DP_AUX_DOUT_SEL, udphy->dp_aux_dout_sel) | value);
++	regmap_write(udphy->vogrf, cfg->vogrfcfg[udphy->id].dp_lane_reg, value);
+ }
  
+ static void rk_udphy_dp_lane_enable(struct rk_udphy *udphy, int dp_lanes)
 
 -- 
 2.53.0
