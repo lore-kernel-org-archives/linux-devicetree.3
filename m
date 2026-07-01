@@ -1,130 +1,141 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931033C4B9A
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 23:38:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608F03BA249;
+	Wed,  1 Jul 2026 23:44:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782949083; cv=none; b=TH/31Vrn/rjEEhCjFwDIxb+47Y3ElVN7jwrd0s6P0COr8QOEkf+ydESGpK6N482R7qRcTi/nZexDWheQiEQ8Q6cN6KvlULWng80xPgceCwrOtZNY+ljo6m1Z07F519PQ1mJtGKoE5khjmR+V6g5FSp7mdiAlPZVnJr09unFaYII=
+	t=1782949488; cv=none; b=JnRHSUJ40ms1LS5FcRfYFEeLfWu4TbPgihM3j6U0r2d3AMgT2KU4pyA2o8XwsdH+5MB+inlMzasfZfHn3kIKO1SBnxO/TNbAkmDmBhKAzLeB3CNhTJkHu6wrIUGNGLr0wKEGw8ljnNRgmeoYr5CRKGSzMwQL8r3Pxb59YaC8rZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782949083; c=relaxed/simple;
-	bh=Ul+8pa7VUBwqQ9vUFj7cuT/cSE751FIa+VX8ioXeBlo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QqnNGNV5fdFs/Ro+3sUPf95pNOutXRDi4oPJ6AyQFYMMwXNuCmQpDAeb+5ZqcQlt3GBb9CcjapKLk/MSWRarlNRsA19h5zNDa6BrVtSCiMBrX98DvBV1uJH87pUBAcZTHDENa1lB9vr5iAtRyS4uVWQzq5IhwTDxnMXFISWv+BU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=au6dbQ19; arc=none smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1782949488; c=relaxed/simple;
+	bh=7diGI02GCWZKUn3vBo9B3r9E4Cu/890upFuPLoECFbQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=UPl0QhJGw7Tel2Hxs961Tbo7XFrJ5eIBVAVxNgn52kth2lEbx86MSVrJEN7ZRabTONSgJUfUIkwxWfmjrWdWzwckjiFb6l5ZeckdszbxiGF04S/bQGn0+SSd4qbyfUltr+e+wPILRDy9uZUhDUanDjVfplAsEWoO4syYosdp3z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=nf/tI/te; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="au6dbQ19"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5aeb36c46bbso140284e87.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 16:38:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1782949080; x=1783553880; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=OVCh6Lf8+nzzdAxzyPMuHDYAnEuNDpXn+opdGjJoaxg=;
-        b=au6dbQ19ocDmFW8BHJn9lEOMKFQxa57yUbSs2zRJi99wQw+wZvrKCbkurmaCo1z6ba
-         QqM2NXH4gWIXH+y1SspK8t40P1Q3TSZVDI/a69Lwf0KUdbQMnQBnZ9pkPaEQ0lCDYBrx
-         14+O5E19dxpdNBt2Fi2znI4X9LzOa6UX6FgZKAO8B/l0GcqH+RzLAs6PGLJ9a6CTr9j5
-         O11S5Bx7XBBec1iTqvBjlrAJHz4STwdd5cWuvF3505igPFahuo2K6LYpBaWIT8X0BQJU
-         nDtmRGDQ+9IkksZVfVem2NBE23modaHpD8AmkTAi5DQcbyiypS/zQ1zp7dgHVK94vuo0
-         Gxfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782949080; x=1783553880;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OVCh6Lf8+nzzdAxzyPMuHDYAnEuNDpXn+opdGjJoaxg=;
-        b=Axt0pVCtsODsJeslvtthGJX5HnA2+QG1I+CKbDQEnog2msZ0xBauAGe+vLsawT47cx
-         7jjvx+C+7oBKY/T4cm40WSECumElGh6TYX2B+fDKXxlCdTxr5Vo3cpxz8OXBGOwtREfr
-         EFC5UAlbS/Ww+gAYP3yl7VhS0kCnZK/ync3kLo7MHfOtaDOVg2AawyXJPQOhNwvTiuuW
-         0urVRM55B9v3FWpt+M21brg8H8OrfQKoAaFUI44dsURDjzBRYkZ9q4frKFttf4DnMORn
-         dn3LkIYNtR2OwB859083x+f+FUauZrdTxLfWXdp2VPABS21RAL+R+GjW7g9gC+w7RhZ2
-         Hbqw==
-X-Forwarded-Encrypted: i=1; AHgh+RroFdjnCDg7ov9jwkV4Zfe5kbQtYDDyVMO8NSZlCBNUnSn7ziRXIQM0X7z9E2PNm2FXgR7VamJ4GySN@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyqx2807wXSOAnEHBTiAcPTE4CchCGRf7MkZbpFFVP6RKNMC+mP
-	CVGMGonf1N5md8m3kfpC6NKOFmMH8+mt+oDEUMQy/sBRSLh6kBasiasM+avU7CNCXTY=
-X-Gm-Gg: AfdE7cmgQcPU9wS3bRbwE1MRVAaKkIBgrskFCutucRuTQLX3i02VT0FCvE2Ojex1sQG
-	Q8Wta2mx6/d/r81MtpZrETyf5CFFPbpSyW1IWMLrRN0ArteGsxIkmVLPflbbUxdVt2ljb7WKu38
-	Vt36iEpWaw+1sjq41EzYfozciqypmTmemNgvLGTdCbnSn9srVexDtp91cYDomsn6hv6Fjk59lPA
-	LlNN/Q9YSSnBJf45uCLzequByi4gQkNSi7jKSRF0w9BP3IhWPBBTIDceNObzb5X9agM9YNiZIZZ
-	2maA3fvfZkFDqglpKYLz3EdlPgzK8SNXtcv21NAh5fVZP734Sn2Z540rOskC5FtYP6SsM2w7dNK
-	TViinQ0g1oYLrLcfiavLMpKExibdatOv+SESFC5aja+Zii8jNfc2hfKEEdtW/ZUHIDvHo0HZvPw
-	8gmI9cL+dBz7vnV5GLJ7idpuxUjyE9ZmVyRWXXlqH1XttsTV4TzypoRUwBkmXqQ7zpLZY=
-X-Received: by 2002:a05:6512:4613:b0:5ae:b17a:2617 with SMTP id 2adb3069b0e04-5aec7435771mr533633e87.6.1782949079808;
-        Wed, 01 Jul 2026 16:37:59 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aec89dc478sm300818e87.68.2026.07.01.16.37.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Jul 2026 16:37:58 -0700 (PDT)
-Message-ID: <ae3a381b-5697-43ee-bdfd-aaf2d22ceedf@linaro.org>
-Date: Thu, 2 Jul 2026 02:37:58 +0300
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="nf/tI/te"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1782949485;
+	bh=7diGI02GCWZKUn3vBo9B3r9E4Cu/890upFuPLoECFbQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=nf/tI/teIWrSJBG5SHVoXuY7R34ebMkWMEJXSpOX7Or9Sd4lPiCZG0zPydIm/vMfK
+	 RPWIa/+nPQIuTOV08TddYsM84Bf9Vc7XmBhnPwG0AK82BozUv1kLN9C9pLOerzHOM/
+	 Uv78Bzft0jyqW3fynhALxfvrIdz+XX0Jm9Fjv1GBdTN5zMzeYk6ziwMG5zLw+ClWmj
+	 VJM1pS8jZ4ypoIw/H0HKJ//xL/j7HdQaUdi0W9+6nQ8pcrXob5yfhOj/uGOph7kQW8
+	 ymNZwhW1yFuQtKYaAOX0dlIFQL4PTpeWO6EuYzz9ww2v1unKSxJBK9dZaMLMqoLdPi
+	 IWwzcLnzDczZw==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id BB2C817E03ED;
+	Thu,  2 Jul 2026 01:44:45 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id DD95F480077; Thu, 02 Jul 2026 01:35:48 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Thu, 02 Jul 2026 01:36:11 +0200
+Subject: [PATCH v9 33/38] phy: rockchip: usbdp: Add phy reset notification
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
- <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
- <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
- <7c564df8-5c5a-4b43-806e-5e017e5c51db@kernel.org>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <7c564df8-5c5a-4b43-806e-5e017e5c51db@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260702-rockchip-usbdp-cleanup-v9-33-e31efbb62d2e@collabora.com>
+References: <20260702-rockchip-usbdp-cleanup-v9-0-e31efbb62d2e@collabora.com>
+In-Reply-To: <20260702-rockchip-usbdp-cleanup-v9-0-e31efbb62d2e@collabora.com>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Yubing Zhang <yubing.zhang@rock-chips.com>, 
+ Alexey Charkov <alchark@gmail.com>, linux-phy@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, kernel@collabora.com, 
+ devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1856;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=7diGI02GCWZKUn3vBo9B3r9E4Cu/890upFuPLoECFbQ=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpFpFQemQKLe05xUGJZBdSBiGLUJMgN3JrsO
+ AJalSzF6dmlk4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqRaRUAAoJENju1/PI
+ O/qamqYP/jiYDz9utrAcJVetNblxXZQ1QB8DQVwZxzn+zqJSvH+jRtXAOm3guCGuSq3A5kPKdv/
+ xzQ7KbfoSh4slxE2XRIPmKdp6oxYK9Uezh0mRbDH8KpGuUqPAtXQYWceHcGPjmJgD0GwMbCkehP
+ FS3rIhqf2BB8Lm2TE2K6M0JbIOTDhTDX+4WpnGIcm58jOuIUbxVTQHl6B8PEu2ShRlj0x61PgUg
+ B5QVYDTmNWDaQur9uXqX2CqgXRvRPyGHyLImZOkvbKR3Dk6dgMpODJHc3/c1mM7UgjBczYSzIc9
+ jyj0LDp3FFfVL68J7AwNSYvxsjd6A58ezY0yeRNk9vDmbJwe35o5EOwxQCWFPYyQB+Ysz1JUTN7
+ 5AG4YqKv48lY/AxhXBpjXIZDKY89npbOxjKpSn5cy2N78lstMtwoCY/hVLiRtDg45NtObFiw7Sa
+ 6ZmD9HyY+LvaBrVDApzYw5SE4Iggc5Dm9ozLYMHxNZHawiksy7AD5WvUTaa0+DNZX53V+f3fw4w
+ 8O9JNaBNXAf+Yl/g/WB+G5BxfDimfBwJ9JF4k2RSf0+dl1DzXpGBZfuthVPYxndv92wzzEFeXqD
+ 9pT2SNIOFm9pEyjo032B2n2Alyv20F+gMkXGzzXtD47wK/B7O2KHXR0JeQqR9gLc6MFXmkWmnVc
+ fSQg4F3HOLhDK86BpsOsh7g==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On 7/2/26 01:54, Bryan O'Donoghue wrote:
-> On 02/06/2026 22:59, Vladimir Zapolskiy wrote:
->>> +
->>> +  "#phy-cells":
->>> +    const: 1
->>> +    description:
->>> +      The single cell specifies the PHY operating mode.
->> #phy-cells should be 0, because the PHY operating mode is well defined
->> by 'bus-type' property of an endpoint on the sensor side, the opposite
->> side of CAMSS/CSID as a CSIPHY "consumer" should not dictate the PHY type.
-> 
-> So going through the list I don't believe this is correct.
+To resolve issues with running into permanent "cmn ana lcpll lock
+timeout" errors after a few device replugs, add support for reset
+notifications, which will be handled by the DWC3 driver to gracefully
+handle the PHY being disabled. This avoids corrupting the controller's
+internal state and the PIPE interface between the USB3 controller and
+the PHY, thus fixing the issue.
 
-Be specific what is incorrect.
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-> 
-> Inserting bus-type into the PHY layer is borrowing from one domain
-> linux-media and pushing the concept into PHYs.
-
-It's the other way around, "bus-type" is an endpoint property of media
-devices, reference to video-interfaces.yaml to get more details about it.
-
-> phy-cells = 1 with CPHY/DPHY specified in the consumer, as was Rob's
-> suggestion will specify the mode.
-
-This cell is just not needed, and unneeded complexity should not be added.
-
-> Then to understand if we are in regular or combo mode, we parse the
-> ports/endspoints in the PHY node as we've agreed already.
-> 
-
-That's correct, and while it's unavoidable to parse endpoint properties,
-a phy cell value will not bring any additional information, in the best
-case it's useless, or it opens a door to a clash, if different phy types
-are occasionally specified twice.
+diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+index c69766929b3a..ad594bb3962a 100644
+--- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
++++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+@@ -1033,6 +1033,11 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 	}
+ 
+ 	if (udphy->status == UDPHY_MODE_NONE) {
++		phy_notify_reset(udphy->phy_u3, PHY_NOTIFY_PRE_RESET);
++
++		rk_udphy_u3_port_disable(udphy, true);
++		udelay(10);
++
+ 		ret = rk_udphy_setup(udphy);
+ 		if (ret)
+ 			return ret;
+@@ -1040,13 +1045,22 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 		if (!udphy->hs && udphy->mode & UDPHY_MODE_USB)
+ 			rk_udphy_u3_port_disable(udphy, false);
+ 		udphy->phy_needs_reinit = false;
++
++		phy_notify_reset(udphy->phy_u3, PHY_NOTIFY_POST_RESET);
+ 	} else if (udphy->phy_needs_reinit) {
++		phy_notify_reset(udphy->phy_u3, PHY_NOTIFY_PRE_RESET);
++
+ 		rk_udphy_u3_port_disable(udphy, true);
+ 		udelay(10);
+ 
+ 		ret = rk_udphy_init(udphy);
+-		if (ret)
++		if (ret) {
++			phy_notify_reset(udphy->phy_u3, PHY_NOTIFY_POST_RESET);
+ 			return ret;
++		}
++
++		phy_notify_reset(udphy->phy_u3, PHY_NOTIFY_POST_RESET);
++
+ 		udphy->phy_needs_reinit = false;
+ 	}
+ 
 
 -- 
-Best wishes,
-Vladimir
+2.53.0
+
