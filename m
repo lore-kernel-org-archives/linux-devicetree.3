@@ -1,123 +1,106 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347713F8236;
-	Wed,  1 Jul 2026 09:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10983F44DC
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 09:50:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782899127; cv=none; b=h+zn9DUsg6HEAqmpVv1l4PcfYm6PGbCf00CfYabDMPZfFL/sMy7cmxIRkMNBbsVUdLeAk4hVKCvbYFskoaaPh2364zDt+ZgYLPC+8X1PRuSpQYRWtWc4pGhmfXIGWKwYOKD7Z0jOxKvQ00zDpN2HS8fZ9JB1uMnFYOJ27MXriNI=
+	t=1782899445; cv=none; b=qoDPSEdiiw5PYiUJYyyrpxqaKTHO/m/WT6QjrHI/HNZhb2onFmHsfLuV1LJoGpDYm2R/ipLxGKQVjt6FAbogJ9F/0c9Kj0YDjWRsegEiJPdxR5OEMSThCwzt/ej7TotQrju4bhPIUtcREfZhwi+SFXWmiDVWJw4JK3i9he9EP8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782899127; c=relaxed/simple;
-	bh=RHuTnTruQ9oJg5y7F/Q1JPAzF2SlrZEoHfcl3aFighs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tmGnp03gbdUdBJtETzBqTMs+f8gr+Kji0P3wgUU4pBme+JJG3ydBk3uWOmDxEPD77jYeEGzIeli87nwu6Eje8eqdsNQGZpmZEb4ylWT5lKjgMZBwB7G3gKsM2tdwu40qP7oZ/HznwSRlFLZKGtp2RveTMzb5TelHr9ROTLfOSyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=jQrFf5/I; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1782899445; c=relaxed/simple;
+	bh=dYYh9cE3305jsTNSwHjTFgDi5DODHJI+GKtgWf9EeY0=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Wd1dQrsp+N/fVrDbMmtWweGYN+az7U9J0gvEldmGXN25W2vEdp5vBodsXduztPEDG4nVHrAklSbT2Mot0x5xzSuB3lcY04jQkUBxiwNA2LRp4j49dUGiBzAk57OYjj6Oo5Rr++PlMjvMl+Zz+wWk6uFFQe/JYOhxVFJm+MXKTVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ovsz+Yel; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="jQrFf5/I"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=S5CD9RCGzTJ8lEWCXCyIZVGHOFsiCgVXwE8Z7g69M4c=; b=jQrFf5/IjpRWnpMNXSB11D6z+8
-	zzx6sCrx6XRbFWE3+I/L/ThV1vsBBSW2gWNmf1jMIsXIoUmd9n1ioU2iIRUATvigGkNkXZ2D7Dfp1
-	YtN8xXr3otSf0zQnN18xGcDprra3IefSKll4N3TxBRDik4MeoWjqu+ll3tvuNZB9/yqdLNHPpBggn
-	azRfeBdA62Ryx1vPeoGgHUXnohYgj+YNzsTVFaZOLPMTEpniJXPJAoUbmZpF/AdD8wyFxedNWKVY3
-	DAWzWQZyOWRxzCkpf9lOT4FsutupWe5kFUn3Cz7bTi+xDakejCH/yWXag6EUDruS8eIUeE/632B6v
-	U/b2VZHA==;
-Received: from sslproxy07.your-server.de ([78.47.199.104])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <Max.Merchel@ew.tq-group.com>)
-	id 1werVT-000Fue-2j;
-	Wed, 01 Jul 2026 11:45:23 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <Max.Merchel@ew.tq-group.com>)
-	id 1werVT-000DCq-1P;
-	Wed, 01 Jul 2026 11:45:23 +0200
-From: Max Merchel <Max.Merchel@ew.tq-group.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Max Merchel <Max.Merchel@ew.tq-group.com>,
-	linux@ew.tq-group.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ARM: dts: imx6qdl-tqma6: add nvmem-layout
-Date: Wed,  1 Jul 2026 11:45:18 +0200
-Message-ID: <20260701094520.1482697-1-Max.Merchel@ew.tq-group.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ovsz+Yel"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 631951F00ACA
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 09:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782899443;
+	bh=CYGZFzyPZ+A2YYB3ropIX8iebOcV3V3VZwIWp6S8JQM=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=ovsz+YelOrq+1skD75xSG5EORRjD0cTTOcWfjmNL1AE9OSsCsfZjJp8XxxnkiUAcg
+	 P+abid/4QGDt7gX6rEmPOu/VcNzmUDeaCsph0bEI5G2ZBM756c+SPKBHfxhAfNqZVw
+	 mElrkhKwEzEm8A6sScqGt9rfi2+uIc2CPoQ5vo4bi69uMhjvNM7S+laUTGgzHzhx+h
+	 R38HmKICmEJs1YdCuGnRmbrznzgZczz/T7WE4l0mpNrxhJred0aed7bjS24lYbyHiI
+	 1PmPdRZXOUVe38kyHbGRHLtz9q+GicbDgaldjuYPzchLjKtzQM/Em7bqSFFTRjfkQW
+	 5xc/tFJrhG/sg==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-39af64026dcso3784421fa.1
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 02:50:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RohgMPK7rFKJ3ceVf5b5ZykVwXop5ky2LRhAFlt1Ta+Wc258oewdG3mE5V2yvQU6vHSPtTYQNb+PKZg@vger.kernel.org
+X-Gm-Message-State: AOJu0YySo09LjbLl5eHKR3uu3FVA93FsUo2WePzRzm/9zdm1mRNJgBG4
+	NlIAWO0l7Dsk0k72qu621EPEwu93oft+f8N+ONDxTQKMNIGRtqp7/197hnL0Hv0IymF2CiYEXJr
+	ZpAlqDyhSm6z2bRNlZXg7wRLX+oWV8CWPxdzQaKrpuw==
+X-Received: by 2002:a2e:9a0e:0:b0:396:9966:50e4 with SMTP id
+ 38308e7fff4ca-39b33fcfac5mr2066541fa.14.1782899442056; Wed, 01 Jul 2026
+ 02:50:42 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 1 Jul 2026 04:50:40 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 1 Jul 2026 04:50:40 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260701-shikra-upstream-v1-1-e1a721eb8943@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28047/Tue Jun 30 23:29:24 2026)
+References: <20260701-shikra-upstream-v1-0-e1a721eb8943@oss.qualcomm.com> <20260701-shikra-upstream-v1-1-e1a721eb8943@oss.qualcomm.com>
+Date: Wed, 1 Jul 2026 04:50:40 -0500
+X-Gmail-Original-Message-ID: <CAMRc=Mey1em0BBUUuyLTpVfq8u4Xn8jZMhE4g+HpdrojZ8MXEQ@mail.gmail.com>
+X-Gm-Features: AVVi8CflDzWyc0cIuHDaH0TTpmlFBQDWQvxDBA8MQsFXpL6lUrYdBoN6qFDa_4c
+Message-ID: <CAMRc=Mey1em0BBUUuyLTpVfq8u4Xn8jZMhE4g+HpdrojZ8MXEQ@mail.gmail.com>
+Subject: Re: [PATCH 1/9] dt-bindings: phy: sc8280xp-qmp-pcie: Document Shikra
+ PCIe phy
+To: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pci@vger.kernel.org, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-TQMa6x has board-information located in EEPROM at offset 0x20.
-Add necessary nodes and properties for nvmem cell.
+On Tue, 30 Jun 2026 21:02:43 +0200, Sushrut Shree Trivedi
+<sushrut.trivedi@oss.qualcomm.com> said:
+> Document the compatible of the Shikra PCIe phy which supports
+> Gen2x1.
+>
+> Signed-off-by: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
+> index 108cf9dc86ea..b9b0fa26347b 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
+> @@ -34,6 +34,7 @@ properties:
+>        - qcom,sdm845-qmp-pcie-phy
+>        - qcom,sdx55-qmp-pcie-phy
+>        - qcom,sdx65-qmp-gen4x2-pcie-phy
+> +      - qcom,shikra-qmp-gen2x1-pcie-phy
+>        - qcom,sm8150-qmp-gen3x1-pcie-phy
+>        - qcom,sm8150-qmp-gen3x2-pcie-phy
+>        - qcom,sm8250-qmp-gen3x1-pcie-phy
+> @@ -166,6 +167,7 @@ allOf:
+>                - qcom,sdm845-qhp-pcie-phy
+>                - qcom,sdm845-qmp-pcie-phy
+>                - qcom,sdx55-qmp-pcie-phy
+> +              - qcom,shikra-qmp-gen2x1-pcie-phy
+>                - qcom,sm8150-qmp-gen3x1-pcie-phy
+>                - qcom,sm8150-qmp-gen3x2-pcie-phy
+>                - qcom,sm8250-qmp-gen3x1-pcie-phy
+>
+> --
+> 2.43.0
+>
+>
 
-Signed-off-by: Max Merchel <Max.Merchel@ew.tq-group.com>
----
- arch/arm/boot/dts/nxp/imx/imx6qdl-tqma6a.dtsi | 10 ++++++++++
- arch/arm/boot/dts/nxp/imx/imx6qdl-tqma6b.dtsi | 10 ++++++++++
- 2 files changed, 20 insertions(+)
-
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-tqma6a.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-tqma6a.dtsi
-index 67f8f59aff5ae..2fa116e1ca9a6 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-tqma6a.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-tqma6a.dtsi
-@@ -39,6 +39,16 @@ m24c64_50: eeprom@50 {
- 		reg = <0x50>;
- 		pagesize = <32>;
- 		vcc-supply = <&sw4_reg>;
-+
-+		nvmem-layout {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			module_info: module-info@20 {
-+				reg = <0x20 0x60>;
-+			};
-+		};
- 	};
- };
- 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-tqma6b.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-tqma6b.dtsi
-index db552802554d4..4361c7efb9d73 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-tqma6b.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-tqma6b.dtsi
-@@ -32,6 +32,16 @@ m24c64_50: eeprom@50 {
- 		reg = <0x50>;
- 		pagesize = <32>;
- 		vcc-supply = <&sw4_reg>;
-+
-+		nvmem-layout {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			module_info: module-info@20 {
-+				reg = <0x20 0x60>;
-+			};
-+		};
- 	};
- };
- 
-
-base-commit: be5c93fa674f0fc3c8f359c2143abce6bbb422e6
--- 
-2.43.0
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
