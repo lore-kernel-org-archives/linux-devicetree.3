@@ -1,160 +1,262 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SEVP216CU002.outbound.protection.outlook.com (mail-koreacentralazon11022086.outbound.protection.outlook.com [40.107.43.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4D62E974D
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 04:58:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782881938; cv=none; b=dauZatLfJmoA7SAvyvmu07nUAgj9TlMLlAP9lOwQye5jMmojruSCMbWL3iegAfWKw6CRqKmvDILkU0RpM4v5eu9C2ag5ukLrQIPQ4/0As0aByUN3+ZNvjLYOHYef7vFOg2mmATukX109ZzjG6riBXolkUnUyiZb4oBm8ayalcC8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782881938; c=relaxed/simple;
-	bh=GvSvSQA1fVYRi5RaPQgbeGIS4REMzN/bvQWTsKF5fD4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GxbsHDd6+ah6jQlrWZCQE841ipp6lx7GOCGp4qXq+pPhnrUYng5flBLn/mv4ejo0leVkpgRNgVc0aHkqAC01r/j/1TfKwkxstq77T7oLCCJzJcF21oOka9jl1L7Sflfmor2b3lbVK2/BIVTvNTEs0U2nTEffE6LgxfNEgeY0j0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jijyk4uB; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF21C3655E5;
+	Wed,  1 Jul 2026 05:14:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.43.86
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782882887; cv=fail; b=F0nd6+2x8fHdd0rq+Wxq40xA4KGha8ioDr1jxPlsllC2wY6ZrxP6z6+zJ1o896y/qYtF9bKIbKDS/Zemyf008hO4Qnz435lI4q99gmLC6f+Qa5yQJ6xwKwY+M4/LN9aEPx0+3uOagPgga2QAQAfpJ/1Bx+WSJLHUkEsHBGNlCeY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782882887; c=relaxed/simple;
+	bh=A0bVP5KTEI15Uv1AXmkinjR02Y0AqHqyNzVsnAmP1S0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=eCB8zv6dVJZgpiNsMJ3sTng7ShubEDsqwADrhe9v+rmcj6/YOYQ+w85k8E1pWMCdcLuExK5VDIM6/AcsjoTxC94IgnfkyFdx3CkjCjsDOUBAGXx8T4jub9Se3D4b2e3XrRTbfRH54r39UIRkPYqjJ59oSSSll4t+cn0OCbo+J3Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chipsnmedia.com; spf=fail smtp.mailfrom=chipsnmedia.com; dkim=pass (1024-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b=QctOYKzT; arc=fail smtp.client-ip=40.107.43.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chipsnmedia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jijyk4uB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FFA61F000E9;
-	Wed,  1 Jul 2026 04:58:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782881936;
-	bh=ZUFJWEaID1ToPozKQNYF8iR9KY+kApNY156lFPpktLw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jijyk4uB3KAqXrkmr7jO0X8LTzNRw10ipmiJ6GNlvDvs0Xki0EBEsS14IAwdUkgAI
-	 /Jda8LfbyS8NRRJh7Bm/9bHHqvLHTD0nhp0aVpYNdhlMV2ZjmvYiRGlfp3uhZJomfg
-	 ZlrMqO5ENEVXXAVIPsnWKGDjeWoP3fucvPW31UaYc+vrLey69Md8+zKA3pnJ/2Fwa+
-	 4+8YH2E9nrylDmjNfP7ra+O1b5WztLVMuuI30bD2nh6DxG3573rTp7iomXMtb9XOt5
-	 zL8MqtV8NEfG3f1K8Ieqlz/lsNEzdtmKOKkEI10GzdnewOMiZrhDud8OHoCTMwdC6m
-	 Hatv3eIl4SEqw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] i2c: cadence: Add support for Axiado AX3000
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Swark Yang" <syang@axiado.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260630-axiado-ax3000-cadence-i2c-support-v3-2-4e217cfe5904@axiado.com>
-References: <20260630-axiado-ax3000-cadence-i2c-support-v3-0-4e217cfe5904@axiado.com>
- <20260630-axiado-ax3000-cadence-i2c-support-v3-2-4e217cfe5904@axiado.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (1024-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b="QctOYKzT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eGRrjkjJpyK+DN6+0lezfLeiihH55ytqxCDkBkdgLUlH7GFs8+9bhF5Kc0XG4qTeAgCFy6/fh5k4c+cS3QUxKce6l16SUx6dmoItAAhzcgJQoOChATqetyhs8Rq/XExlAa1Sl23o4XCQXre4W20rv6hsqngZQaUhSoIReF1PYWBZKov/K98I8RFd/DM0Jc/Q+N9jlks3SXyqL0z36r2EhKm3ih7Q080hf1HvtU//kuD86MqZFCPlW7yUmNWNHRnfg8Oap1guWR2XigHKTzRePTonOroubkfKZo/pD++oFaL21pBaMJ+TlUzgeJ404JvWg892lGqDPv+uiluN1cbiyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IG/AeT59YYxMomMzUJJnXjhlORehsdJS+Eexq17Pk04=;
+ b=Eyr0RBOrZ8I4ctDAzhuo/W8UADdrejIt96LrBIVIynR/FWxEfF9OFknGUGnw7524D0nIPBcCpr+NUkECK5AJGlODvnI3ytYpEjJp/kZRrHXMy28MJ61y8hhIrHsTVKLAUMWr/DSSIdXdc8LVWf+gUNoex3fQc75bI5P85tgs1mTTtPzg1hsXnpJXCxWgUcD8Rn0XRjMsKzsGI7EOEGyESOrhqhGbgRdwsgWYd0ZqS1e594POoLAhSmeLdw1RpaGw1pUdql8qrNcCfgab+iF4U+uZh3I1Eg7JqYdBOeveFUvCUe2oMNfatmALlqn697ROwtQtByjWjYwUvEMzveqjww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
+ header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IG/AeT59YYxMomMzUJJnXjhlORehsdJS+Eexq17Pk04=;
+ b=QctOYKzTb7e/wNaL8A3oD2MVO8ezVAl2HIpqzJgkWQgF3gCWbK7uig+4p7xJf//WQ9miUTDXw2fCi2T2QNn+G9y1XF2EcPzEqLYStzn9iybokSXQOAIWl27K1OsJEiBz3Fa7pvZa9D9AJeLQu2TlFo9p6HyGsTBaJSto768v4EM=
+Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM (2603:1096:101:1b9::8)
+ by SEWP216MB3107.KORP216.PROD.OUTLOOK.COM (2603:1096:101:299::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 1 Jul 2026
+ 05:14:40 +0000
+Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
+ ([fe80::f234:3bc6:9197:8232]) by SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
+ ([fe80::f234:3bc6:9197:8232%6]) with mapi id 15.21.0181.008; Wed, 1 Jul 2026
+ 05:14:40 +0000
+From: Nas Chung <nas.chung@chipsnmedia.com>
+To: Rob Herring <robh@kernel.org>
+CC: "mchehab@kernel.org" <mchehab@kernel.org>, "hverkuil@xs4all.nl"
+	<hverkuil@xs4all.nl>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "shawnguo@kernel.org"
+	<shawnguo@kernel.org>, "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-imx@nxp.com" <linux-imx@nxp.com>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, jackson.lee
+	<jackson.lee@chipsnmedia.com>, lafley.kim <lafley.kim@chipsnmedia.com>,
+	"marek.vasut@mailbox.org" <marek.vasut@mailbox.org>
+Subject: RE: [PATCH v6 2/9] dt-bindings: media: nxp: Add Wave6 video codec
+ device
+Thread-Topic: [PATCH v6 2/9] dt-bindings: media: nxp: Add Wave6 video codec
+ device
+Thread-Index: AQHdA6oA4dFGLrgtZ0GgpOtEiXsOgLZXT3mAgADVOqA=
+Date: Wed, 1 Jul 2026 05:14:39 +0000
+Message-ID:
+ <SL2P216MB2441F1A181D06D6BC09E18FCFBF62@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
+References: <20260624072043.238-1-nas.chung@chipsnmedia.com>
+ <20260624072043.238-3-nas.chung@chipsnmedia.com>
+ <20260630161335.GA3699737-robh@kernel.org>
+In-Reply-To: <20260630161335.GA3699737-robh@kernel.org>
+Accept-Language: en-US, ko-KR
+Content-Language: ko-KR
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SL2P216MB2441:EE_|SEWP216MB3107:EE_
+x-ms-office365-filtering-correlation-id: f3111610-580b-47d4-1f3a-08ded72fa6f1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|3023799007|6133799003|4143699003|56012099006|38070700021|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ 6yCX15fLMLq8VX90wB8aUbRRuNvx5KFYTwS+79ePLdzIQ126cwrlrT/tfKEMMyauFmrM1+NfBD82Yn2YZQTQQzzecaERQt8q2Px+YNXOm0oh+zsGmlADOVw8VKAE7MexDyvND0M5TEoYXCsfVj0h/seHBSX75nUEWVb8eZNCRcSyumB8sQbgmZ+EP6qYSQxPiR3BgWsGiTuatCVfP4lL7bd7c5vNLwVIHt3Wl8yM/H759CCxy+gXhr9DiTDPEla2/1T69F0c6d9JfI1y8oSiqFRnq+LJePO0aiVROWYG/B5RY6MPJcgxELjlRFhcYrC271+t4PAz17vOQuOAwkOv8WKiPxm4XHXzfFGUKftdnbn9M32NR3HKMlAwHyoa9WyQgOycE8GE0gSAxskTz6CmOrOeC+ozQR+Qm86x0CxWvXwpJPFrHDI8RyIGWQQFUbUMp7xRMJNAvn/aAhvoFGHArEXFFhGze/fly0lg5jwH+UJZINF5YTQvyl5y+e73EejZAnOo+BUvzSl97XWTWhwNRnYKXTgfx36ZQGttSxNTsrwUofW/UV9EabLtkPqC8ndNWYdzo+VMQpHm2nFbLjwkGrSYV5hT41IgiWRH1nYneOpiOyGnyf0w5cOcv0swZnV3t5GHaWuwFJYlQofp9JQIxkiwvs/VLm6MIbyf++AtjDc=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2P216MB2441.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(3023799007)(6133799003)(4143699003)(56012099006)(38070700021)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?W2tZCva9xcCpBAVv1p9jf6vu7UxmUNFjAFx+4xT2BocdwLFHSRx9n+zWM+f/?=
+ =?us-ascii?Q?/ugmYNbgNMemc4qJFPOfdRe/8T57eYdGMW53N/avI83nVGHXK8aiuoujzkrU?=
+ =?us-ascii?Q?29immxGIOV1ERwKE96X+Kbn9WMq8t7igGKyFq+fYQCzgaFCsmUn0nDgXfY26?=
+ =?us-ascii?Q?iHuwIUPXbtt3U7IF9dYRfeVcIMf0iWUHWB+m7e5Il7iTaSsYX+4X1bk7Cinz?=
+ =?us-ascii?Q?huMLnASPp9dEiM2hjOwiEKRdX4rR46lJoWMA7NAjcmOMu4XxjXA+10KZUWFO?=
+ =?us-ascii?Q?vRkfVz2EZZ/FJsCsSVOBypfl83kEb7S9JeEbttMHpGBc5G2NOkAMvtvYo/tI?=
+ =?us-ascii?Q?qrRQ2oWl2gIIpwMzmQNKptk527WzXy1eDeZNCFS6rGmUQHnzcJgIfDW25MBI?=
+ =?us-ascii?Q?nCyk5UppyGiURuJht1sQvc5CI6JBmSuRccdrhztYwP5DIODwRgzfY9CZGbkt?=
+ =?us-ascii?Q?5NS4qLdimIBpz3ljmBXNEOS6BsVbNHnDaX59t573LwdK9pSgstqNAjlDT0HM?=
+ =?us-ascii?Q?WhUS1hrlqFGMBvRaVCJxurE/66sxjFyanWR67Rh0glgYVAzNaBBdd4OS71Ls?=
+ =?us-ascii?Q?r5+es8AJ/hmT8nZ3mQIyXP8ZXxJXGfUGxVX1uEOWPbReEd8OYt8tdpCfmu/T?=
+ =?us-ascii?Q?GDOEix7hrqHbe/CG1jejBZ/wmFQmg0ObkXpowofTFM3DY2VoRxKUCKXZRDhL?=
+ =?us-ascii?Q?bz0KQdaoxYV1meS9uBPdjUpOwnpU1a6VxWgqsDQ1rfzMkiySCoPUG/outiXZ?=
+ =?us-ascii?Q?Gj3DPUfZFHvpF1Im/AOM7yk06n5KIRwyqcgOIzDgEa2KZwGLuL+LTkXaxqq6?=
+ =?us-ascii?Q?ZzjDFZgC9it8Rj9F5xA/D9rH6ZUsKS3pKEIG/2V6FMA3kBxGome7BTzcckzu?=
+ =?us-ascii?Q?Dl2R7diac3PQvhk7Z2kmpq2IyGzaNN6E+JQ4n9Yl/XcznBWtBf1qcgpGWcgq?=
+ =?us-ascii?Q?pMrAC5tWZyIwWp8M6R3W0OdPHtk0gkidr0+jtTCHrUbK6RMjObWnMuRcNYci?=
+ =?us-ascii?Q?UYtTBX1/1lSmfDnJrQPpyMWGYwZRz3lYMT9UmuXikl/+fOSAK1bToSRKtbP5?=
+ =?us-ascii?Q?EglzkKxqwSJbYXInmK1CrCtiXKB8Iu7ah29sb/1JAXiR4zgOOGBXEWWbvbU9?=
+ =?us-ascii?Q?068NeS3pkb81sg6xNhyVkTbQP1VnO14a7882xD1xYbrcb2Z8moIMYR9VVsxk?=
+ =?us-ascii?Q?0OkeZPImR0vs5i+GYBBA63qrj6jW4LXEAbpboo3j8kpskEnf2KgYD6mnh2KM?=
+ =?us-ascii?Q?jUMwA+RM9WD75dPdQ/Kpgyihl0bKrZhOqihbPS2zG8Op9YnicTX4621HPVkl?=
+ =?us-ascii?Q?FUnjDVYn/HNdytH6AzQCUfB6kK3mhyxfmUg+2TbbHm34fpGHWPs+maPEiQcg?=
+ =?us-ascii?Q?PkX2NYxz/zBu/hbHyHaAGvyPKzy4/idXnTObvr5H8vmoDfK/6GZyDYTvDlbt?=
+ =?us-ascii?Q?XVbJysmjYLcG3JUVdgOQX3iFWcGOrizrOFAoZGiB2i5BAdu2qFL0LvCycWjw?=
+ =?us-ascii?Q?390o+yFk5xmqxIq3ZKj+pUJUrS0D8EJ5fhJJG54ERtyZMVpI00PUdZcTGdYh?=
+ =?us-ascii?Q?KHiCx8JRSdRFQTfu7Nh2rrZuhRhDsYi2HcTGTO0lE80p7s0DF4lQHifNKFYT?=
+ =?us-ascii?Q?09A3ebHhH9r/LLcQXIuLUWcjWWX6MYchinocMNwkNwziRHWMHIG6esSrOHVC?=
+ =?us-ascii?Q?CHLhVfTamebjejGF9DyiK7+Gzf8/XTvLvn3vG9j6pEXJMFBM9uAwBGe1J8AI?=
+ =?us-ascii?Q?SCn6Ja8QVQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 04:58:56 +0000
-Message-Id: <20260701045856.9FFA61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: chipsnmedia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3111610-580b-47d4-1f3a-08ded72fa6f1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jul 2026 05:14:39.7034
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2uYj/QMBJQ+OPjgxb0nY/YmQUjYYheKVhkZXSdRtfghEnVl3U2GIE6MSmpOFXkb0aXw9xXFARjEPL6ZoU8feA5SuuWpNY5HyzBDS6cSzb3A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEWP216MB3107
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Hi, Rob.
 
-Pre-existing issues:
-- [High] The I2C_AQ_NO_ZERO_LEN_READ adapter quirk is conditionally applied=
- only when CDNS_I2C_ENABLE_SMBUS_QUICK is set, leaving all other Cadence I2=
-C controllers vulnerable to unprivileged hardware hangs triggered by 0-leng=
-th reads.
-- [High] Atomic mode transfers completely bypass error checking for short m=
-essages, silently ignoring NACKs and incorrectly reporting success.
-- [High] Incorrect teardown order in `cdns_i2c_remove` disables runtime PM =
-before unregistering the I2C adapter, preventing client devices from commun=
-icating during removal.
---
+>-----Original Message-----
+>From: Rob Herring <robh@kernel.org>
+>Sent: Wednesday, July 1, 2026 1:14 AM
+>
+>On Wed, Jun 24, 2026 at 04:20:36PM +0900, Nas Chung wrote:
+>> Add documentation for the Chips&Media Wave6 video codec on NXP i.MX SoCs=
+.
+>>
+>> The hardware contains one control register region and four interface
+>> register regions for a shared video processing engine. The control regio=
+n
+>> manages shared resources such as firmware memory, while each interface
+>> region has its own MMIO range and interrupt.
+>>
+>> The control region and each interface region are distinct DMA requesters
+>> and can be associated with separate IOMMU stream IDs. Represent the
+>> control region as the parent node and the interface register regions as
+>> child nodes to describe these resources.
+>>
+>> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
+>> ---
+>>  .../bindings/media/nxp,imx95-vpu.yaml         | 163 ++++++++++++++++++
+>>  MAINTAINERS                                   |   7 +
+>>  2 files changed, 170 insertions(+)
+>>  create mode 100644 Documentation/devicetree/bindings/media/nxp,imx95-
+>vpu.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml
+>b/Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml
+>> new file mode 100644
+>> index 000000000000..9a5ca53e15a3
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml
+>> @@ -0,0 +1,163 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/media/nxp,imx95-vpu.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Chips&Media Wave6 Series multi-standard codec IP on NXP i.MX SoC=
+s
+>> +
+>> +maintainers:
+>> +  - Nas Chung <nas.chung@chipsnmedia.com>
+>> +  - Jackson Lee <jackson.lee@chipsnmedia.com>
+>> +
+>> +description:
+>> +  The Chips&Media Wave6 codec IP is a multi-standard video
+>encoder/decoder.
+>> +  On NXP i.MX SoCs, the Wave6 codec IP exposes one control register
+>region and
+>> +  four interface register regions for a shared video processing engine.
+>> +  The parent node describes the control region, which has its own MMIO
+>range and
+>> +  manages shared resources such as firmware memory. The child nodes
+>describe the
+>> +  interface register regions. Each interface region has its own MMIO
+>range and
+>> +  interrupt.
+>> +  The control region and the interface regions are distinct DMA
+>requesters.
+>> +  The control region and each interface region can be associated with
+>separate
+>> +  IOMMU stream IDs, allowing DMA isolation between them.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    enum:
+>> +      - nxp,imx95-vpu
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+>> +    items:
+>> +      - description: VPU core clock
+>> +      - description: VPU associated block clock
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: core
+>> +      - const: vpublk
+>> +
+>> +  power-domains:
+>> +    items:
+>> +      - description: Main VPU power domain
+>> +      - description: Performance power domain
+>> +
+>> +  power-domain-names:
+>> +    items:
+>> +      - const: vpu
+>> +      - const: perf
+>> +
+>> +  memory-region:
+>> +    maxItems: 1
+>> +
+>> +  sram:
+>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>
+>Already has a type. You just need to define how many phandles (maxItems: 1=
+).
 
-commit 64d28f7fd176831d6ec144e8d435ebe00982b497
-Author: Swark Yang <syang@axiado.com>
+Thanks for your feedback.
 
-i2c: cadence: Add support for Axiado AX3000
+I see sram-consumer.yaml provides the type now.
+I'll address this in v7.
 
-The Axiado AX3000 SoC integrates a Cadence I2C controller that supports
-SMBus Quick commands. This introduces the compatible string and a quirk
-to enable this functionality. It also adds I2C_AQ_NO_ZERO_LEN_READ to
-prevent hardware hangs from 0-length reads.
+>
+>> +    description:
+>> +      phandle to the SRAM node used to store reference data, reducing D=
+MA
+>> +      memory bandwidth.
+>
+>Drop 'phandle to the SRAM node'
 
-> diff --git a/drivers/i2c/busses/i2c-cadence.c b/drivers/i2c/busses/i2c-ca=
-dence.c
-> index 0fb728ade92e4..1964ea1650c59 100644
-> --- a/drivers/i2c/busses/i2c-cadence.c
-> +++ b/drivers/i2c/busses/i2c-cadence.c
-[ ... ]
-> @@ -1175,10 +1176,14 @@ static int cdns_i2c_master_xfer_atomic(struct i2c=
-_adapter *adap, struct i2c_msg
->   */
->  static u32 cdns_i2c_func(struct i2c_adapter *adap)
->  {
-> +	struct cdns_i2c *id =3D adap->algo_data;
->  	u32 func =3D I2C_FUNC_I2C | I2C_FUNC_10BIT_ADDR |
->  			(I2C_FUNC_SMBUS_EMUL & ~I2C_FUNC_SMBUS_QUICK) |
->  			I2C_FUNC_SMBUS_BLOCK_DATA;
-> =20
-> +	if (id->quirks & CDNS_I2C_ENABLE_SMBUS_QUICK)
-> +		func |=3D I2C_FUNC_SMBUS_QUICK;
-> +
+Okay.
 
-[Severity: High]
-This is a pre-existing issue, but enabling SMBus Quick exposes a bug in
-atomic transfers where short messages bypass error checking.
+Thanks.
+Nas.
 
-When performing a short write in atomic mode (like an SMBus Quick write
-for bus scanning), cdns_i2c_msend() writes data to the FIFO and decrements
-id->send_count to 0. This bypasses cdns_i2c_msend_rem_atomic(), which means
-cdns_i2c_error_check() is never invoked.
-
-cdns_i2c_process_msg() then polls for the completion bit but fails to
-verify the NACK error bits because id->err_status was not updated.
-
-Does this completely break atomic bus scanning, since all polled addresses
-will falsely appear to exist and ACK? Furthermore, if the hardware does not
-set the completion bit on a NACK, could the polling loop hit its maximum
-timeout in atomic context for every NACKed address, leading to stalls?
-
->  #if IS_ENABLED(CONFIG_I2C_SLAVE)
->  	func |=3D I2C_FUNC_SLAVE;
->  #endif
-[ ... ]
-> @@ -1510,6 +1530,9 @@ static int cdns_i2c_probe(struct platform_device *p=
-dev)
->  		id->quirks =3D data->quirks;
->  	}
-> =20
-> +	if (id->quirks & CDNS_I2C_ENABLE_SMBUS_QUICK)
-> +		id->adap.quirks =3D &cdns_i2c_quirks;
-> +
-
-[Severity: High]
-This isn't a bug introduced by this patch, but should the 0-length read
-quirk be applied unconditionally to all Cadence controllers?
-
-The commit message notes that writing 0 to the transfer size register leaves
-the hardware in an unsupported state. As written, the quirk is conditionally
-applied only when CDNS_I2C_ENABLE_SMBUS_QUICK is set.
-
-Does this leave other Cadence I2C controllers (like legacy Zynq platforms)
-vulnerable to unprivileged hardware hangs triggered by 0-length reads via
-the I2C_RDWR ioctl?
-
-[Severity: High]
-This is another pre-existing issue, but there appears to be an incorrect
-teardown order in cdns_i2c_remove() that prevents client devices from
-communicating during removal:
-
-drivers/i2c/busses/i2c-cadence.c:cdns_i2c_remove() {
-    ...
-	pm_runtime_disable(&pdev->dev);
-	pm_runtime_set_suspended(&pdev->dev);
-	pm_runtime_dont_use_autosuspend(&pdev->dev);
-
-	i2c_del_adapter(&id->adap);
-    ...
-}
-
-Because runtime PM is disabled before unregistering the adapter and its
-child devices, any child driver's remove callback that performs I2C
-transfers to quiesce the hardware will fail. The transfer invokes
-cdns_i2c_master_xfer(), which calls pm_runtime_resume_and_get(). Since
-runtime PM is already disabled, this returns -EACCES.
-
-Could this prevent clean module unloads or suspend by leaving hardware in a
-bad state?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630-axiado-ax3=
-000-cadence-i2c-support-v3-0-4e217cfe5904@axiado.com?part=3D2
+>
+>Rob
