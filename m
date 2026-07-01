@@ -1,67 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F03434CFC2;
-	Wed,  1 Jul 2026 14:39:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2058346A08;
+	Wed,  1 Jul 2026 14:43:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782916785; cv=none; b=YawVjjH7mQBCXBizPQUrN2RK3Z40eTY5GK1HejYq5cE5TI1RKUFlC5eJIopS1esXcxMyiGc+tIscCSA8Isb1v0OFhPkdYhFZDwaQR1gY/kpmPMq9xV+rGK5oUinDvdBSNxBMKMretHq05uHZ3dnXbMHslzyDJolQ16tk/8/Rv8Y=
+	t=1782916994; cv=none; b=gIX9Xe3F6BesVGAJe97/y4Tj35ZjWpzwnwUjWigLO+euFEWE9Zq4QdACzjaTb344AI0gk0/Lfvf9RTJEpgnKZfQBpJgTAkKIgBor1oHBt076qXoxxIl8PySy0KigWgxspy6aeci2GjEQLmi/8lGi7MfhYaOLzrKDwNBrGkPo2Ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782916785; c=relaxed/simple;
-	bh=AwT5jHczuFsyL24kzI0tWJ4zJxW9vzjzRH6TtZXYya0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ge2wrizVnTW8kYl/N11Ls6kfVaEI2KFU6a2n3KbzVgJWpYluwRIs8dMDWeEaOiYbr3sU7xRrtJYPM/31DWgTPmt0foVVVNgFgEumdZhxrxJ1tFvs6NlgioY2mcmmHYgj7m65CAqfpu2DAnk3udr9CyqvqKrntl6I2o/Fs+FBojA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dyobOuTX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782916994; c=relaxed/simple;
+	bh=W2v3V4in/7G/PNiCx7Bo6y+UOkoiifug0X4J3Tm9pF8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RLkebt80jvX9v9P/riJeEK07Vbh5eh0Km1cgBmhFrwX9LcVqX26ZbD8r9yHRIcnsiMQugFQI1jCZ6n5m+4vBShu4gtU/tCuaGCSPYltOEnhDsrf7gqz6hKzr2JQ6wBNv6/Awi5CuF7b5PxHDiP9uo2y3SAuUN7fLvABafczAUQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=OPGqidVo; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dyobOuTX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECE731F000E9;
-	Wed,  1 Jul 2026 14:39:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782916784;
-	bh=AwT5jHczuFsyL24kzI0tWJ4zJxW9vzjzRH6TtZXYya0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dyobOuTXc0JIJOUp5XX76Uvgu3TzZx+w93jn5VJdg+m+E8DZrqkfDAKaka8UkxE3H
-	 ra+rlQ/BxMSW0Z/kvZkAsj6zZT5DMi4cBZuY4b3b/hJw+TM3aTuL7jIv3NVONsS5Q5
-	 CPmzULRRKXVOPqkY38/9MOLcOJsv9bLiYOh6JvvnbMAOce8gALFr0DlYmMUZ4risOz
-	 tBjizHw/d+7G4QmX/Hyr8TJSiC1zsNWPhqWtJUalxhakTLKoWUWOjdceS1AZ2/Q2zy
-	 SkbrGfRJpdshkmZRiHU6ds3bhTVyK0cHsjOwnnZtroznE3/Q0A+5eKmKQ5h3jSy5da
-	 cp11GbMO0BMVQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 04/10] rtc: Kconfig: Broaden RTC_DRV_RZN1 dependency
- to ARCH_RENESAS
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260701142953.2014895-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260701142953.2014895-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260701142953.2014895-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 14:39:43 +0000
-Message-Id: <20260701143943.ECE731F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="OPGqidVo"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=GBCvyH3YtvkpXtOPlGLQiWEsgokOQEtClJ0E/kQYkoU=; b=OPGqidVoJyb+oeiZIjLeJI+cwy
+	fYnYlX2dPelUiaiwKyYW64KtiZmA/kbKqOlxmGSTuC6yoQKnzJ9dEqJVcuVEAJCaiQAXxKvW0Wz4f
+	Wx+wdVPn6cMWpxWZeuB3Jp8aryxD+9en+Rn6MmCWIkuOyglGxITpTaOXC1daGb03QYK0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wew9X-00ABS3-J4; Wed, 01 Jul 2026 16:43:03 +0200
+Date: Wed, 1 Jul 2026 16:43:03 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: muhammad.nazim.amirul.nazle.asmade@altera.com
+Cc: dinguyen@kernel.org, maxime.chevallier@bootlin.com,
+	rmk+kernel@armlinux.org.uk, krzk+dt@kernel.org, conor+dt@kernel.org,
+	robh@kernel.org, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] net: stmmac: dwmac-socfpga: Add mac-mode DT property
+ support
+Message-ID: <e489be4a-5940-46e5-ae06-b78f1c919352@lunn.ch>
+References: <20260630133108.27244-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <20260630133108.27244-4-muhammad.nazim.amirul.nazle.asmade@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260630133108.27244-4-muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->=20
-> Replace the ARCH_RZN1 dependency with ARCH_RENESAS for the RTC_DRV_RZN1
-> config option to make the driver available across both ARM32 and ARM64
-> Renesas architectures.
->=20
-> The newer RZ/T2H and RZ/N2H ARM64 SoCs integrate a closely related variant
-> of the RTC IP block found on the RZ/N1 SoCs. Update the build dependency
-> and expand the Kconfig help text to allow this driver to be selected for
-> these additional platforms.
->=20
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Tue, Jun 30, 2026 at 06:31:08AM -0700, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
+> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+> 
+> Russell King's commit de696c63c1dc ("net: stmmac: socfpga: convert to
+> use phy_interface") replaced mac_interface with phy_interface in
+> socfpga_get_plat_phymode(), noting that no upstream DTS files set the
+> "mac-mode" property, making the two values identical.
+> 
+> The Agilex5 SoCDK TSN Config2 board is an exception: its gmac1 TSN
+> port uses GMII internally in the MAC while the PHY-side interface is
+> RGMII, so mac-mode and phy-mode differ. Without restoring mac_interface
+> support, the MAC is configured with RGMII instead of GMII, causing
+> connectivity failures on this board.
+> 
+> Add socfpga_of_get_mac_mode() to read the optional "mac-mode" DT
+> property and store it in a new mac_interface field. When the property
+> is absent, mac_interface falls back to phy_interface, preserving
+> the existing behaviour for all other boards.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+I don't actually see a need for mac-mode. From what you are saying,
+there is no choice. The MAC is hard wired to the converter block. So
+you can just look at the compatible. You are going to need to use the
+compatible anyway, to mask the phy-mode to handle the "MAC" doing the
+RGMII delays.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701142953.2014=
-895-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D4
+      Andrew
 
