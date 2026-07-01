@@ -1,209 +1,209 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f1.google.com (mail-ed2-f1.google.com [74.125.228.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DB2492185
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 17:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782927280; cv=none; b=ZHwvzd9tVkJOlFh08Ii6IRxzNIZYwGK/7y/QKHL4Vo+xvwf0VHj6DhswjF5U2+vpkFvytDxcytmutI+vCp0Eek+CMdCOg+tqAW1lB8zqU5oPdKN7z4Zky9s7UCSk9ohdJcYkxY79H3unBv7VaHD+zRT4n63n7xo1X5fj50EQkfg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782927280; c=relaxed/simple;
-	bh=eHGNBE2w8Y2zj+A2WcojaLqI1MnU7Rum4rNO8bnYQno=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e8sxqUpWba4AEwqdUxZsiQ9ntNE5u0qJDNOVtKf+oZaTQdXFtbSMquR7CbCvXNNhc4TtDZtybroviJkX/dYsNyhk/LwiqlFcafnXjtKt6tAkULIiiyW54xlsinVKRq+f+Z/zolQRcFQ7VtQUUzgROKiLwpbP3TNPwqkisQW1In4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=jLZaxhpB; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1E4349B15
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 17:38:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782927500; cv=pass; b=h6yNl8M1ZKHFxcfzDj3n6H1yon6nZf5YibxIocK8UpPA3OjNt05W/I7Yu/JAKi1odB8Id3H9qH9zY3StVSNSoKzRyyMD+hSrFPyURcPFWpeiPeVD/fJixg1D5BpMicacGvxAzV7rOl05L6w0ZBuPdgETsISS1bETKbMbJYwwlQA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782927500; c=relaxed/simple;
+	bh=RaqQM8sVfRXFrgVuicFiQ+T4/q8FUzfsNzlzFRbxu1I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fuVXldvRAmv2bJOsqJNL5Fh1hzvt/ECmnwryJf3zcGl1Xg92P+uePo+M3acmTNB8q5cPlLi3XrWJVE57XSEdTDRAyTmkiOc/0bUKLEDq6ArPsmhcmkV3qze/T1cIE1s5PM0Udd53lMTj2nbWlJnAQNtf8zbjTKidKvpE72AGEQY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aK9Vckm9; arc=pass smtp.client-ip=74.125.228.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="jLZaxhpB"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 8C50F240101
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 19:34:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
-	t=1782927275; bh=sFnduIEfzTelI/qGOJcaAiSoi1cQ4sBh6Iidu4lwHVM=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=jLZaxhpBkB2C+nX53mkmVQQ1cLHk2n0MumxeYnYmF45PSydMvivtn3flsJuJ8yFAA
-	 GVu/LP8uQy62Zy+fJQ60lM20kgiB7pxCmw3AqgSo3asDRS7s86j/XOOnoprqU+OQQE
-	 2Xai7dCch2NHSHy+LW2sJODVuZJCFm6SIpe7NFjbAV6ilMhLH1466ytYGrTQa3DP+Q
-	 X2KcFfPvx/PR1QQ2uzOMvmgbs+caVAhTZtqZCA6jFq/gFC7wRJxaezvFKw/Vfc0Vtz
-	 bVWbd2rL9pUXWNIJlJDGNVBoiZAwbI6H+vUmc3F4gsdMip+vQPd3F8zIxtWnGZSsTZ
-	 G0ZR7lXyVbbfw==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4gr6Zy27LVz9rxD;
-	Wed,  1 Jul 2026 19:34:34 +0200 (CEST)
-Message-ID: <c2b910e58bc523f2cb83df28400a675385ef65d2.camel@posteo.de>
-Subject: Re: [PATCH 1/3] dt-bindings: rtc: Add sii,wakealarm-output-pin
- property for S35390A
-From: Markus Probst <markus.probst@posteo.de>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
- <uwe@kleine-koenig.org>, Andrew Lunn <andrew@lunn.ch>, Gregory Clement
- <gregory.clement@bootlin.com>, Sebastian Hesselbarth	
- <sebastian.hesselbarth@gmail.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Wed, 01 Jul 2026 17:34:35 +0000
-In-Reply-To: <202607011506045358209c@mail.local>
-References: <20260630-rtc_s35390a_int1-v1-0-1b2239e16be2@posteo.de>
-	 <20260630-rtc_s35390a_int1-v1-1-1b2239e16be2@posteo.de>
-	 <202607011506045358209c@mail.local>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=mQINBGiDvXgBEADAXUceKafpl46S35UmDh2wRvvx+UfZbcTjeQOlSwKP7YVJ4JOZrVs93
- qReNLkOWguIqPBxR9blQ4nyYrqSCV+MMw/3ifyXIm6Pw2YRUDg+WTEOjTixRCoWDgUj1nOsvJ9tVA
- m76Ww+/pAnepVRafMID0rqEfD9oGv1YrfpeFJhyE2zUw3SyyNLIKWD6QeLRhKQRbSnsXhGLFBXCqt
- 9k5JARhgQof9zvztcCVlT5KVvuyfC4H+HzeGmu9201BVyihJwKdcKPq+n/aY5FUVxNTgtI9f8wIbm
- fAjaoT1pjXSp+dszakA98fhONM98pOq723o/1ZGMZukyXFfsDGtA3BB79HoopHKujLGWAGskzClwT
- jRQxBqxh/U/lL1pc+0xPWikTNCmtziCOvv0KA0arDOMQlyFvImzX6oGVgE4ksKQYbMZ3Ikw6L1Rv1
- J+FvN0aNwOKgL2ztBRYscUGcQvA0Zo1fGCAn/BLEJvQYShWKeKqjyncVGoXFsz2AcuFKe1pwETSsN
- 6OZncjy32e4ktgs07cWBfx0v62b8md36jau+B6RVnnodaA8++oXl3FRwiEW8XfXWIjy4umIv93tb8
- 8ekYsfOfWkTSewZYXGoqe4RtK80ulMHb/dh2FZQIFyRdN4HOmB4FYO5sEYFr9YjHLmDkrUgNodJCX
- CeMe4BO4iaxUQARAQABtCdNYXJrdXMgUHJvYnN0IDxtYXJrdXMucHJvYnN0QHBvc3Rlby5kZT6JAl
- QEEwEIAD4CGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQSCdBjE9KxY53IwxHM0dh/4561
- D0gUCaIZ9HQIZAQAKCRA0dh/4561D0pKmD/92zsCfbD+SrvBpNWtbit7J9wFBNr9qSFFm2n/65qen
- NNWKDrCzDsjRbALMHSO8nigMWzjofbVjj8Nf7SDcdapRjrMCnidS0DuW3pZBo6W0sZqV/fLx+AzgQ
- 7PAr6jtBbUoKW/GCGHLLtb6Hv+zjL17KGVO0DdQeoHEXMa48mJh8rS7VlUzVtpbxsWbb1wRZJTD88
- ALDOLTWGqMbCTFDKFfGcqBLdUT13vx706Q29wrDiogmQhLGYKc6fQzpHhCLNhHTl8ZVLuKVY3wTT+
- f9TzW1BDzFTAe3ZXsKhrzF+ud7vr6ff9p1Zl+Nujz94EDYHi/5Yrtp//+N/ZjDGDmqZOEA86/Gybu
- 6XE/v4S85ls0cAe37WTqsMCJjVRMP52r7Y1AuOONJDe3sIsDge++XFhwfGPbZwBnwd4gEVcdrKhnO
- ntuP9TvBMFWeTvtLqlWJUt7n8f/ELCcGoO5acai1iZ59GC81GLl2izObOLNjyv3G6hia/w50Mw9MU
- dAdZQ2MxM6k+x4L5XeysdcR/2AydVLtu2LGFOrKyEe0M9XmlE6OvziWXvVVwomvTN3LaNUmaINhr7
- pHTFwDiZCSWKnwnvD2+jA1trKq1xKUQY1uGW9XgSj98pKyixHWoeEpydr+alSTB43c3m0351/9rYT
- TTi4KSk73wtapPKtaoIR3rOFHLQXbWFya3VzLnByb2JzdEBwb3N0ZW8uZGWJAlEEEwEIADsWIQSCd
- BjE9KxY53IwxHM0dh/4561D0gUCaIO9eAIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCR
- A0dh/4561D0oHZEACEmk5Ng9+OXoVxJJ+c9slBI2lYxyBO84qkWjoJ/0GpwoHk1IpyL+i+kF1Bb7y
- Hx9Tiz8ENYX7xIPTZzS8hXs1ksuo76FQUyD6onA/69xZIrYZ0NSA5HUo62qzzMSZL7od5e12R6OPR
- lR0PIuc4ecOGCEq3BLRPfZSYrL54tiase8HubXsvb6EBQ8jPI8ZUlr96ZqFEwrQZF/3ihyV6LILLk
- geExgwlTzo5Wv3piOXPTITBuzuFhBJqEnT25q2j8OumGQ+ri8oVeAzx24g1kc11pwpR0sowfa5MvZ
- WrrBcaIL7uJfR/ig7FyGnTQ1nS3btf3p0v8A3fc4eUu/K2No3l2huJp3+LHhCmpmeykOhSB63Mj3s
- 3Q87LD0HE0HBkTEMwp+sD97ZRpO67H5shzJRanUaDTb/mREfzpJmRT1uuec0X2zItL7a6itgMJvYI
- KG29aJLX3fTzzVzFGPgzVZYEdhu4y53p0qEGrrC1JtKR6DRPE1hb/OdWOkjmJ75+PPLD9U5IuRd6y
- sHJWsEBR1F0wkMPkEofWsvMYJzWXx/rvTWO8N4D6HigTgBXAXNgbc3IHpHlkvKoBJptv6DRVRtIrz
- 0G0cfBY0Sm7he4N2IYDWWdGnPBZ3rlLSdj5EiBU2YWgIgtLrb8ZNJ3ZlhYluGnBJDGRqy2jC9s1jY
- 66sLA9rQZMHhJTzMyIDwweGlvMzJAcG9zdGVvLmV1PokCbQQTAQgAVxYhBIJ0GMT0rFjncjDEczR2
- H/jnrUPSBQJpa71VGxSAAAAAAAQADm1hbnUyLDIuNSsxLjExLDIsMgIbAwULCQgHAgIiAgYVCgkIC
- wIEFgIDAQIeBwIXgAAKCRA0dh/4561D0gKJD/9uOQKYlsDoQX65Gd0LiMT0C+5vXgr3VI0PHDOwcv
- 51fJ3A1vNyPZRFPGrz8+mDEXUQOF/INfnz5Tu1QHwf+iYcWcTGAN/FHgVR6ET6VBNU2hJaKhu+Ggo
- kjYyJTOvyX+3yNRUfSny0GjTjIPuPTErjqmHF+BtjXslpgwqnNMznf3lRIuUjRORupos6p3k1DndE
- 5vzUTmXSvMyXyOD2KhBl/kL76k0bHYyAQytZPag12pltrtFbA/r2phDGN2si8PooDT99bSTJjaM45
- MTAAHbHKJfvgfK41bNFD5mMtpWpL195XRtS0Nrxdg3PaYBxN5gtTG0RyZfpYRlkdEhm+jj/8RxuSG
- i/qdhRdbiI7K2IELWeQVHSNDi9JabR/UzlR4NSnhfAjRIVlRM+eFbUl8XwxwVrAkojF5IraH2qRvg
- VCmuFsHUW07FUlrDrzpjXsD73cKppoFGDCdDR0BHJepXbFLS9+AqkT+guRJlnCTg2p+TQtnbwPgKp
- Vj98JixovCl99zRYTsL2bRNU5+q8iET65VMJ1ydyNanvLd5vI/NqDkXhlXLsGmdaDTtu4R21PkToX
- dQNGrZ91M9nlIBKw8Y7c7xZ4098qX2b8JX/CxD+gC1r4C8vuA3GkhFLx+KlkON7LyiJPkrePp6Qky
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-/2u+iIun9SPxCmVGLVKh"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aK9Vckm9"
+Received: by mail-ed2-f1.google.com with SMTP id 4fb4d7f45d1cf-6976c1916b0so197339a12.0
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 10:38:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782927497; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mSEYQ1XeVWdnKlCTW3QAL/uulfXgVwD2Fmvhot0NpMG3D61JK9OccmQI7Wt+CLx6F9
+         zrBS8l2FLPRpxsQiUOtNdYWZc18ErTKJCiiYKksEmr8XLALojke5sNw4wRiRLf48yrSz
+         FmsUfpWTrIX+bd0+3nG3fb9MbasRPeeL9dAvenKczr3wpJe27dS+g8QYNHKvyvAN1BsO
+         pV2uj6H+8i48BxpkiKPnFnvN6OZHeLTYIp3/vf6yCtkj2QPBllNKVO9UjVe7QFZRbuMJ
+         6/ikpl4ZzdhLPw1qLWGXbLGDVq0ES1pETAaevYjVMBu2NsFQ3M7d+LkTa3Gj6GqQK8Eb
+         pnxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=rYXi9m66KNbs9Qfb5jrT4uIyu4GUnnRMQ9zeXoOeZJI=;
+        fh=ig1aUfNPRQ9C1VhGpYZjsJrxIvEVQs0QBGqvg3Xvc1U=;
+        b=aUYfvrulAYb/0B+xAMNuFyb0FUbP5HP6V3iEOUZ60Ub+HpVzGokzKMa2xwkLsVOycj
+         i7jQ3DGwKprs3cxU2gPfk7xne3mM3uCkgw7NZrERB16Av26BGSAx24gh+h+llCuJfhVN
+         bJEP/+oNVSD2ZyMa35pyrQ/H5yMx455TxlAdq37VDDx7uKinOv6J66Uo5xABIfUAlLMR
+         eQeg7t/e7Tbg8bRpU6hEmd+bH2q4TMM8c67lIE7H7lbkqYdS5mCfTp/6kmWYeSfnZuuG
+         TOnbbGnWkDqO1cKj+L5HW6Px2GmibGf8TaQhETv0lOZvqvltcY3yIue6pahMqWXdiwne
+         OZDA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782927497; x=1783532297; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=rYXi9m66KNbs9Qfb5jrT4uIyu4GUnnRMQ9zeXoOeZJI=;
+        b=aK9Vckm9FpfD7ljuevl2pYYESywR6Dnba1XveCOyNDF8p2S372hAOyAkmNWciEoUti
+         Jbq4ArnDWiVCJCTAE1eUIQ70bgAoIpRTsl6drnndSL4eMq7sNDNoaq88gr5xp2HSqAiL
+         SCa0UB2XxoGkPkcVd6kToMGw6qUjgctoyRtYcvlYTaVPmtt8Etwlxc5J6zMCbDKXpjRa
+         /AwzWusaCJOE0cqls2+cpRHyehSOu7hn8BN24yzH8qawjAu9J1Dk9evpdaHy3+pV7en8
+         4gYQIWQK1nkJyyu712lTVRkXdAKRQcSCcVKwU1aJLu2ni9JnFkN56HKNTQ8qhdcNXWbf
+         gLPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782927497; x=1783532297;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rYXi9m66KNbs9Qfb5jrT4uIyu4GUnnRMQ9zeXoOeZJI=;
+        b=JvTjrBu5BvV20pYq3SQVY1lVPKZRNrcMFtsHdMR2Cd0INX3F5whxDMZPAe9qhAfA3U
+         GlnABaNO8cU11bPybmRG8NWCRPESl9BNkWaGKzlDIZ7MM4PEGVQM6XTeLLub7zgs67qa
+         +gcDwcXDIbzsG9d0/lvpdKEw/c8kJqC+0V5XiTlhRxetlF4A24LednYeU1qhYOnWtB20
+         8rRRcTSCje4rULckNUqVcUhNqoCGcJffj+b0YBXd9GrtNpHlEtXPfn2iEijRhcaVV0mC
+         5zvkN77MrPASFGo9tNBNexnYFoFZil3CnQ3r3PO6uHFWoH1cjOPL04RM5VWxq5g4uXBA
+         BHGA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr7BJ+B/1tub3NJlCSSqU69Sc3eiaGjXqfwImNjf0cgoUSbd4H+Ozk01QAgsCyj1Rp4Pn4cMw61o5Ug@vger.kernel.org
+X-Gm-Message-State: AOJu0YzgyYPSGQvZtTeuPyD8r8NJ7VAGQEdITaZwRGONCNEhPMPcyQLm
+	tQg+hWlrd9F4H8M1wdFHmgKdG2/CnI/brpMMDzeoLCsNiZmgLULtkrf0PK9IzS47LVx4Oj2fDk+
+	PywFtHzDFIYAAdPOOZ6WURM6Hr3LCQQ8=
+X-Gm-Gg: AfdE7cnC9nlQnKi7t6T7hzz3CWHKZTfK64PwNOEGC5WkV0wjYOmfGDzq7j9mZJ1ysyE
+	+xny4GXC9VLzHA7jimJ232OjVOqVnDA+UyGqEyhcnqFZ1QMsO1NrLdj/wRR2A4XS/LdOj05ekr6
+	fufGxk5lUt/pJpZT6VNvcV0FCssWRoh2LSZxVTijmpNtZGrTafG3b6gjw/TRKbnxvfxz529Tlor
+	BWc7faexqtHFer4ELhK2+L/bFObPY9NQQFg88aOYHdamkXSMjymF6JhURpn0motUxD5SswzuYk=
+X-Received: by 2002:a17:907:3f97:b0:c12:1eb:892e with SMTP id
+ a640c23a62f3a-c12a79b77acmr146967566b.6.1782927496879; Wed, 01 Jul 2026
+ 10:38:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
-
-
---=-/2u+iIun9SPxCmVGLVKh
+References: <20260701164543.3967388-3-coiaprant@gmail.com> <20260701164543.3967388-9-coiaprant@gmail.com>
+ <20260701165958.BC7CB1F000E9@smtp.kernel.org>
+In-Reply-To: <20260701165958.BC7CB1F000E9@smtp.kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Thu, 2 Jul 2026 01:38:07 +0800
+X-Gm-Features: AVVi8CeL00GpCHEQIZu5-z1-920rDCQqSuFCtbUcdM8yj0kiyDqMC7ciYSSV00M
+Message-ID: <CALj3r0h-8cSDNcYW03yy=eUJUcLq-Lbq=85juNE=mYApPQBGwA@mail.gmail.com>
+Subject: Re: [PATCH v3 3/3] arm64: dts: rockchip: Add devicetree for the
+ Graperain G3568 v2
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2026-07-01 at 17:06 +0200, Alexandre Belloni wrote:
-> On 30/06/2026 19:22:21+0000, Markus Probst wrote:
-> > Synology NAS devices use the output pin for interrupt signal 1 to wake =
-up
-> > the system.
-> >=20
-> > Move devicetree bindings for sii,s35390a into its own file.
-> > Add sii,wakealarm-output-pin property to enable the use of the output
-> > pin for interrupt signal 1 for the wake alarm, which makes it possible =
-to
-> > set an wake alarm on Synology NAS devices.
-> >=20
-> > Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> > ---
-> >  .../devicetree/bindings/rtc/sii,s35390a.yaml       | 54 ++++++++++++++=
-++++++++
-> >  .../devicetree/bindings/rtc/trivial-rtc.yaml       |  3 --
-> >  MAINTAINERS                                        |  1 +
-> >  include/dt-bindings/rtc/s35390a.h                  |  9 ++++
-> >  4 files changed, 64 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml b/D=
-ocumentation/devicetree/bindings/rtc/sii,s35390a.yaml
-> > new file mode 100644
-> > index 000000000000..31a578673870
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
-> > @@ -0,0 +1,54 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/rtc/sii,s35390a.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+Thanks for the review.
+
+> > +     adc-keys {
+> > +             compatible = "adc-keys";
+> > +             io-channels = <&saradc 0>;
+> > +             io-channel-names = "buttons";
+> > +             keyup-threshold-microvolt = <1800000>;
+> > +             poll-interval = <100>;
 > > +
-> > +title: S-35390A 2-WIRE REAL-TIME CLOCK
+> > +             button-esc {
+> > +                     label = "esc";
+> > +                     linux,code = <KEY_ESC>;
+> > +                     press-threshold-microvolt = <1250000>;
+> > +             };
 > > +
-> > +maintainers:
-> > +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
+> > +             button-menu {
+> > +                     label = "menu";
+> > +                     linux,code = <KEY_MENU>;
+> > +                     press-threshold-microvolt = <1600000>;
+> > +             };
+>
+> [Severity: Medium]
+> Will this configuration correctly identify the MENU button? The commit message
+> notes the hardware voltage for MENU is 1400000 microvolts.
+>
+> Because the adc-keys driver matches based on the smallest absolute difference,
+> a 1400000 microvolt reading is closer to the ESC threshold
+> (1400000 - 1250000 = 150000) than the MENU threshold
+> (1600000 - 1400000 = 200000).
+>
+> Could this cause pressing the MENU button to register as an ESC key press
+> instead?
+The ADC keys have been verified with evtest on actual hardware and
+they work perfectly fine.
+Keep it.
+
+> [ ... ]
+>
+> > +/* used for AP6356S Bluetooth Sound */
+> > +&i2s3_2ch {
+> > +     status = "okay";
+> > +};
+>
+> [Severity: Medium]
+> Does this node require pinctrl and a simple-audio-card binding to function?
+> It appears the I2S interface is enabled, but without routing the signals to
+> the external AP6356S chip pins and linking the I2S CPU DAI to the Bluetooth
+> codec DAI, ALSA might not register the sound card.
+
+Yes, it requires rk3568-codec-digital for Bluetooth audio support.
+Since it's currently unavailable in the mainline, I will disable the
+i2s3_2ch node in v4 to avoid an incomplete configuration.
+
+> [ ... ]
+>
+> > +&pinctrl {
+> > +     bluetooth {
+> > +             bt_reg_on_h_gpio3_a0: bt-reg-on-h-gpio4-b2 {
+> > +                     rockchip,pins = <3 RK_PA0 RK_FUNC_GPIO &pcfg_pull_none>;
+> > +             };
 > > +
-> > +description:
-> > +  The S-35390A is a CMOS 2-wire real-time clock IC which operates with=
- the
-> > +  very low current consumption in the wide range of operation voltage.
+> > +             bt_wake_host_h_gpio3_a1: bt-wake-host-h-gpio4-b4 {
+> > +                     rockchip,pins = <3 RK_PA1 RK_FUNC_GPIO &pcfg_pull_down>;
+> > +             };
 > > +
-> > +allOf:
-> > +  - $ref: rtc.yaml#
+> > +             host_wake_bt_h_gpio3_a2: host-wake-bt-h-gpio4-b5 {
+> > +                     rockchip,pins = <3 RK_PA2 RK_FUNC_GPIO &pcfg_pull_none>;
+> > +             };
+> > +     };
+>
+> [Severity: Low]
+> This isn't a functional bug, but do the node names here have a copy-paste
+> error? They indicate gpio4-b2, gpio4-b4, and gpio4-b5, but the contents
+> configure pins on GPIO bank 3 (RK_PA0, RK_PA1, RK_PA2).
+
+Good catch, this is indeed a copy-paste error. I will fix the pinctrl
+node names to match the actual GPIO bank 3 pins in v4.
+
+> [ ... ]
+>
+> > +/* used for AP6356S WiFi */
+> > +&sdmmc2 {
+> > +     bus-width = <4>;
+> > +     cap-sd-highspeed;
+> > +     cap-sdio-irq;
+> > +     keep-power-in-suspend;
+> > +     mmc-pwrseq = <&sdio_pwrseq>;
+> > +     non-removable;
+> > +     pinctrl-names = "default";
+> > +     pinctrl-0 = <&sdmmc2m0_bus4 &sdmmc2m0_cmd &sdmmc2m0_clk>;
+> > +     sd-uhs-sdr104;
+> > +     vmmc-supply = <&vcc3v3_sys>;
+> > +     vqmmc-supply = <&vcc_1v8>;
+> > +     status = "okay";
 > > +
-> > +properties:
-> > +  compatible:
-> > +    const: sii,s35390a
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  sii,wakealarm-output-pin:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    enum: [1, 2]
-> > +    description: |
-> > +      The output pin to wake up the system.
-> > +      Default will use the output pin for interrupt signal 2.
-> > +        <S35390A_OUTPUT_PIN_INT1> : Output pin for interrupt signal 1
-> > +        <S35390A_OUTPUT_PIN_INT2> : Output pin for interrupt signal 2
-> > +
->=20
-> Ideally, we'd get a proper pinctrl driver part for this because what
-> happens if you want interrupts on both pin or clock output on both pins
-> or any combination of interrupts and clocks?
->=20
-Yes.
+> > +     wifi@1 {
+> > +             compatible = "brcm,bcm4356-fmac";
+> > +             reg = <1>;
+> > +     };
+> > +};
+>
+> [Severity: Medium]
+> Is the generic fallback compatible string missing here? The brcmfmac driver
+> explicitly checks for brcm,bcm4329-fmac during OF probing. Without this
+> fallback, the driver's OF parser aborts and properties like a
+> bootloader-injected local-mac-address might be ignored.
 
-Thanks
-- Markus Probst
+Understood. I will add the generic "brcm,bcm4329-fmac" fallback string
+to the Wi-Fi node in v4.
 
+I'll wait a moment for further feedback from human maintainers before
+submitting v4.
 
-
-
---=-/2u+iIun9SPxCmVGLVKh
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmpFT6IbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSS/EP/0InCbRWpPfmdYxplz+y
-bKjJSHRM3BwQuvuXPYfYS5+tMDRqz4uvEY8hZg64argZ409I7EKKqqD7oX6Cczk2
-kYW8fOI0Cskw8CqB299LPx0KwrI7iwW9tSoKK4NGOlYX11Cjq2OJSqnE2Ft+fpy7
-Fz0ji9bvl3RAyUCamxbWJTRrdtIMiW2Y6PhHFBVoE4FWLIDBTkuV4MftrkUOWt2S
-1o2jgOiOG1vqzOvg5INJOoDC5LoPagqqkBXxxTutMvz5qHJRUun7VXecZ2bVi7It
-7cm9rTtv0iUNke5jTsLPzOAhk8GkPNlIK0Bt21eM/Q5Xfo3pyz5ATCo8+7l83SGe
-5sEyB8jOYG4xTg1d55sndZZUG36z2Z+Jtfr8h+lT+P4q6oz2RMbeAeHeQZ8SgzSA
-G0R1qtvysseC61tvLbnCd06VKPIilTVgyLMPR7jXwwu7QOieoJz2mM5HgWXyguoO
-DnbifMSazYmqcIGm7oGiK06wYJ3/tG7j1kxQ2I2wEOr5wPzMkW5ehsR+t3tBDWXr
-DdSW+iFL56mzzTy+Nq+tbOfw8UzWR4dYXIbE0Wg77Lv/570yYPPnomOA5SBrZzag
-U+MfPCtxGLxADbH8hZPcF+KaqLg+tRW5a2BcLFI83gCuBlYUkGdlPLmA5OCqG6O3
-WhhPPl0fGrF7P8YX0aIMahbw
-=ITFG
------END PGP SIGNATURE-----
-
---=-/2u+iIun9SPxCmVGLVKh--
+Best,
+Coia
