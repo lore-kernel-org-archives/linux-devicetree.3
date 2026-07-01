@@ -1,48 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB60368294;
-	Wed,  1 Jul 2026 16:58:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A19379973;
+	Wed,  1 Jul 2026 16:59:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782925100; cv=none; b=rA1xHDbTqSVyAqaKpsXzbKF6wV/mikQ1Rjy7p4/S7+hg2zaEdWiAv5BqbCfVxVfq6txG9M3oEQm5OTS9JnY+OVZCw0K+cbClmt05+RTe+vTUE6isgZZTC0oqAvDxiPWklJrpGq1mX3t7Wo03H77oW3F7lmYG7Y30YYg2DyKHCWQ=
+	t=1782925143; cv=none; b=qK4MD7aZ6zOA5jrqpp5StoL2bRvifvSrnPDqVpdYg2naD44EFNppIBPzOGOaTpMxK3srWiaciSHFtV858J5OY2IB9rxwOjW/OTYr5WFdAYbL1Ojb/jmAwvon3crQyKAubsCvQMgu3lMw4FjgcRg4cZX7jiDcfahIF9H7kbOBGTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782925100; c=relaxed/simple;
-	bh=AoAfkmpCa83AYF9tpSps33nLvi8T24R1Zg/25DsXJMQ=;
+	s=arc-20240116; t=1782925143; c=relaxed/simple;
+	bh=sNfs+r3mGXCxNKcrz9Bz8i2bMU7tp4eprDqgvBk6tWM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kKpb3EL5ncNjBDXiDYHIkU3my056I6c53MXaBLtyuPUoqT6uTNjsg7xobk06MKM9K0AKvjlmJtMeFdZpVqspYTM5D3qUptOhjhJsLupp7NISc2rws4UDY2T5VOreJTeJEkXFPcQXJCOT9zgkQhaKiFhIeEVM8XVCEOIdQRj4vEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Chidscy3; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hGjEg+x66lXiHN65Ibu6bDz4IG0ex/lt6FVBy1NSxBD7lF4EoN34bHP/Q1fKb/81aGNxDac6Hbrk+VTdiZI5MZW3fk6q1SDvwHqUd6qUUJqhdvKnv56Uj97G4Xq2noy1NqAU8mls3/qoprgLi0HqF13ky2JDVbacXgHFRsCT4bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eu7X1u0N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Chidscy3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 394831F000E9;
-	Wed,  1 Jul 2026 16:58:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eu7X1u0N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E2E11F000E9;
+	Wed,  1 Jul 2026 16:59:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782925099;
-	bh=xpVzsEDIFY7sYQ5kJnyoteoMVjNL0xWvbFaPAsmlDCY=;
+	s=k20260515; t=1782925142;
+	bh=sNfs+r3mGXCxNKcrz9Bz8i2bMU7tp4eprDqgvBk6tWM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Chidscy3tigzXOLPce6Siv1WdtepGs9egaDQ6E1A01OO3Y59lIq7WOkwxdbqPWN8n
-	 MzlgccN6aXYDCLNEqqLJXRBC2t/4DIijmOTQyM9LPmvadzZKh1dP9IqpLOdHn/DK9Z
-	 N5xGvNQu18JuUlh57FECrOm7IL0TLpj4sdvkwUsfK2HikEwq9rti4NCa+MFFPCeBtX
-	 uVBAmw0zZsLeYt6iIX7rUfNMsELdUJYevW4E3tzE/iotxoPAcMpUMnOxtOi4BTOl5Q
-	 T+yYxealjKCMaSjcfmMF3OyW8gPhcQ4MnkYGEJ9O5OdCc6Psew2KxoiIcqzQ4fkObg
-	 tbkZ3zsPgYZMw==
-Date: Wed, 1 Jul 2026 17:58:15 +0100
+	b=eu7X1u0NY58H/eEk2EZdSCM04IZYHGSrD0Mm6aGoYG/LfULu1CVbp0XtOoLxxV1RA
+	 7JLIDXV6oDOANCtlVsLE74wN1ejb7XWEX0d/ouHyCVsNEuglGoBKou8/VLdMljGILe
+	 m+88k86MK5J+k/q0jFYnKIUb5fr1sqxxkrP/Bz8oBpBGNGzqzl27pM9lOvmmEq5Jvm
+	 WRtkRVTiFVJ+h1YMnqnvAUEiw10UeQ4E55K7Yc/k0UbdtHrAhR6EgM5OXhUSbF1sjG
+	 WK4mYi770fiuT6EikrNDbLBqzi3sAsAIEknjjzXTKpIZxpP6vZ7CTscKjKchIic2rv
+	 MPy60NGrE968A==
+Date: Wed, 1 Jul 2026 17:58:58 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Mikko Perttunen <mperttunen@nvidia.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: leds: nxp,pca963x: add multicolor
- LED support
-Message-ID: <20260701-pulmonary-passably-c9272ba25533@spud>
-References: <20260701-monza-leds-v2-0-c1be0b472926@oss.qualcomm.com>
- <20260701-monza-leds-v2-1-c1be0b472926@oss.qualcomm.com>
+	Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: gpu: host1x: Fix email address
+Message-ID: <20260701-prolonged-banknote-35f4d4b7ab7e@spud>
+References: <20260701160655.725111-1-thierry.reding@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,150 +45,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PvaMzznafJtcc5y5"
+	protocol="application/pgp-signature"; boundary="YFyC9i6Hf+SPbcoG"
 Content-Disposition: inline
-In-Reply-To: <20260701-monza-leds-v2-1-c1be0b472926@oss.qualcomm.com>
+In-Reply-To: <20260701160655.725111-1-thierry.reding@kernel.org>
 
---PvaMzznafJtcc5y5
+--YFyC9i6Hf+SPbcoG
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 01, 2026 at 06:15:51PM +0200, Loic Poulain wrote:
-> Add support for grouping individual PCA963x channels into a multicolor
-> LED by introducing a multi-led@N node pattern. This follows the
-> convention established by other multicolor LED drivers such as
-> kinetic,ktd202x.
->=20
-> This is necessary to support and model hardware setups where multiple
-> PWM channels drive a single physical RGB LED.
->=20
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/leds/nxp,pca963x.yaml      | 79 ++++++++++++++++=
-++++++
->  1 file changed, 79 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml b/Do=
-cumentation/devicetree/bindings/leds/nxp,pca963x.yaml
-> index 938d0e48fe51bce82779c4457c8e99cb6d80fe70..04b05b8195c18ae9fc1c1cb9d=
-3c694d819ea88e5 100644
-> --- a/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml
-> +++ b/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml
-> @@ -74,6 +74,39 @@ patternProperties:
->      required:
->        - reg
-> =20
-> +  "^multi-led@[0-9a-f]+$":
-> +    type: object
-> +    $ref: leds-class-multicolor.yaml#
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      reg:
-> +        minimum: 0
+prob not needed, but
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Some valid looking stuff from Sashiko here.
-On this, was this meant to be minItems?
-
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
-> +
-> +      "#address-cells":
-> +        const: 1
-> +
-> +      "#size-cells":
-> +        const: 0
-> +
-> +    patternProperties:
-> +      "^led@[0-9a-f]+$":
-> +        type: object
-> +        $ref: common.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          reg:
-> +            minimum: 0
-> +
-> +        required:
-> +          - reg
-> +
-> +    required:
-> +      - reg
-> +      - "#address-cells"
-> +      - "#size-cells"
-> +
->  allOf:
->    - if:
->        properties:
-> @@ -137,4 +170,50 @@ examples:
->          };
->      };
-> =20
-> +  - |
-> +    #include <dt-bindings/leds/common.h>
-> +
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        led-controller@62 {
-> +            compatible =3D "nxp,pca9633";
-> +            reg =3D <0x62>;
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +
-> +            /* Three channels controlling one RGB LED */
-> +            multi-led@0 {
-> +                    reg =3D <0>;
-> +                    color =3D <LED_COLOR_ID_RGB>;
-> +                    function =3D LED_FUNCTION_STATUS;
-> +                    #address-cells =3D <1>;
-> +                    #size-cells =3D <0>;
-> +
-> +                    led@0 {
-> +                            reg =3D <0>;
-> +                            color =3D <LED_COLOR_ID_RED>;
-> +                    };
-> +
-> +                    led@1 {
-> +                            reg =3D <1>;
-> +                            color =3D <LED_COLOR_ID_GREEN>;
-> +                    };
-> +
-> +                    led@2 {
-> +                            reg =3D <2>;
-> +                            color =3D <LED_COLOR_ID_BLUE>;
-> +                    };
-> +            };
-> +
-> +            /* Remaining channel used as a plain white LED */
-> +            led@3 {
-> +                    reg =3D <3>;
-> +                    color =3D <LED_COLOR_ID_WHITE>;
-> +                    function =3D LED_FUNCTION_STATUS;
-> +            };
-> +        };
-> +    };
-> +
->  ...
->=20
-> --=20
-> 2.34.1
->=20
-
---PvaMzznafJtcc5y5
+--YFyC9i6Hf+SPbcoG
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakVHJwAKCRB4tDGHoIJi
-0s1mAQDqox5Ow4/RT0Vy/4ZAZkraI5VibF8pZooYyuWMCI8piAEAiTdOpmHGFG4C
-xBX1Hl95digAHCC1eq4ZNLJFr/cB6gc=
-=OgnZ
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakVHUgAKCRB4tDGHoIJi
+0tNKAQClH1QBTUn7HapHVDyBr8qG/fXejVU+Jj4rWD7A1b90eQEA3Upqx8wXhJ7u
+cI544GzJn1gjEHDT5Zi6VQDsGRrkZgc=
+=pees
 -----END PGP SIGNATURE-----
 
---PvaMzznafJtcc5y5--
+--YFyC9i6Hf+SPbcoG--
