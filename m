@@ -1,103 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA3E480DF4
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D3E4A138D;
+	Wed,  1 Jul 2026 12:29:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782908877; cv=none; b=Cb8qhWitBAFg0yoeiVXDAB4UPYS7eO91dfS3lWBc6lnCGJX9xG6MZu+85zLnoCgGairD57dBRxb12bc85BgLVDxhzSRnQqkWvHfj8Ha+4Rn1AltT4zQ9bCINTfjnWCz6L8T601AdDqzRysLJlswpnTkIoa1z4CGV4+p3XFwcPds=
+	t=1782908977; cv=none; b=VLbOdtOX+/sqmXmO7H9LmKdgguyjc7C2cf6+gwpgR6ITlqtCvXIA9NOinx4bf8l6oi2nZU3CrgbEmhiJGbbSb2pdlhFSdC37lGrV/+2izlZlmlp/vZP+AZmQx7aFh6aivHirQHFWvg7O+Ai1d6AXZWsP63EWjieseQ8q8MbCpQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782908877; c=relaxed/simple;
-	bh=uH+tHAu1oMsIrFclpVW6q5vgBGBh0i/iN6YPqW16YYo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pvKYjdHnFc2NIYpU85lmR8LJWFi3jkwA4UlZpZ14Ackk3y93zwyI2VZPjJU3DpaN4vFoZ2NjHGknStHH6B9hQxva25oh9A0CLwAY3MtGDvw8agCSnzoKluxenMFz54yXPW9eiqnt6O4xg41yjmAYvB0hkU2tBsOXLLbY1p1PpSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k+QFUUL9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782908977; c=relaxed/simple;
+	bh=vFMix5jjhR7CuzRHrIrbVr963oFYqy5Wi9Dt2KRuMXo=;
+	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
+	 References:In-Reply-To; b=DdIDjzwN/FwbN2Z4POgtus7Woyy3E3k62JLl7QUQvdtLfGewIvjrY0OnlOUbYa3YeZ2PKNsaPp/4BmZckeIN74rjW+Ul38h6b9O35W1se1oecAA2FV1wBuSnGWZgXz98tXF7aeT7t5T0QRFcInDVDco4pAJvHr8yq1Cx/7CIdBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=hCjy7Uh0; arc=none smtp.client-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k+QFUUL9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D031B1F000E9;
-	Wed,  1 Jul 2026 12:27:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782908876;
-	bh=dpF9Ah1JqyA2hm8UXbH4GPZaMqGAhXDZ4O8SylEiMng=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k+QFUUL9JXDqsqKPuAfY73B6jmndK1V70+CX+wbbOx/fnUG2a3kMHKi0/YVgv3lGc
-	 kykBN5IdWMHa7DZa4vTFxUovhg82L7M8HlumInPcJJIf1AM5asCAW2UcpuP0fDr5Bp
-	 prZMHpOzVi1ZrADzGutugmmu9uJTLb9HnGbfvpdhUxcaIslsyLUO8/8atK/ri18mZ8
-	 AmtzHIJ1iyQGaxaeoFRJuAGmo/ZdrhFm8sDKkG6gBh12Kgj/UQRtUqQgmLex7ZYnfq
-	 3YN88/QiP/Q5ar7IV7hXqqRlElX+HNXFVRi/7f5ss6UUELHgl42sN7Vug11iAgEpOW
-	 UAN2HiMu9kHfg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 01/12] dt-bindings: phy: Document MT8195 and MT8196
- DisplayPort PHYs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: neil.armstrong@linaro.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, vkoul@kernel.org, olteanv@gmail.com
-In-Reply-To: <20260701122008.19509-2-angelogioacchino.delregno@collabora.com>
-References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
- <20260701122008.19509-2-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 12:27:55 +0000
-Message-Id: <20260701122755.D031B1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="hCjy7Uh0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1782908965; bh=vFMix5jjhR7CuzRHrIrbVr963oFYqy5Wi9Dt2KRuMXo=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=hCjy7Uh0cBMtP8derjlGLRzEEXOJtvhlC+H85NdHJwQMkeJkGIEcu6s7DsekJ/zuz
+	 uAfhpCMSZVKnfWG/yhC0hh//tuYLF8D/wKVz1aFly2uZbRpMdUgFsjjh1Ey4sBgqH6
+	 cetm/QRcdiDTeCIoLYbNcw+prtbr2WAizWIq+i4E=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-XMAILINFO: M0br9f/jyDWJRwU2R/Y3fvOY8mFCAJQk4lt4V9BBWTZ2xvRTvDhO2Gu5Z+nDsb
+	 tWjKraDb/+FxIs7nrb6N6op9DWQhpss4qO5vFlEduJ49SWQaGH0FbY8hY3UMckWHV7MgJM9pgn3bf
+	 spM9U+eKNKr7FyWgcoQYMUJWiBJW+6xcZ8/i8l7y3SWjk5a9+cbDqRyVZMItQgz8cVYokvlpup9zs
+	 bxvnA/iWhPzwpX1GVwIm2wMD/fLAoQUz9i+nSO/JYP6RthJYRKPW05kT4ihVaMvNwL1mYmlNXg3sZ
+	 tCShDBuxEWJ/+ftVWrhaVmHsDjsmQL4UP9owHXca7FkiHN2tgedM24moVaXrXTsnZTObq5MfqLMzO
+	 KxCkPYPG5344KbRHFaYiwAzRioN7sx/M3fhT7iI8BvuRDUpkNP3xy/JnS/b/J+sahA+hSkMK2dufx
+	 gduWGnfxf1DXs/BcH9ofK0WCo05f/FGAkwFvzIPe+Z5AJGoJ0Ja27uOHQha9QdM2f1a+KVhHlvNfY
+	 3cgm7JcjmE29xuz8OiC1jjYGF05rsuY+M8KgzguJ1AuVJHB9V9Yjpx4NP504CF8JVFTAqv/uoZmIc
+	 Lf/hpukp2x1bUKqPHoT+NakXTvFk2eDB5m6TyyZFl4Mf/jsmblckHPjdW5uKd/XDjFGtfvRe8Aj9b
+	 FG/uWvDOMqsAN4Sw3JJv4ByoDKoyaHK+Guk+8qXPyV6PiWrrNGuL07qMvvJN0jG6mIymFkj2JJSf1
+	 O60uHKua+/4qflhSnucQ0kSZO076IzCxE3tj7BE47pMUfYEp17KMMrgaDorC/i+hyIhCp4aIOtY0e
+	 PvPsNAls4ePgtAs9rcnxRQzaI8ygkFP3O8nuUl2GO59PktnXtdtyZedgj7q5eIxRMUjzIRkThzFxQ
+	 z9fY4xi5Hd6myM+X9SZzOT8ZHE6GMDEeGQtQfgaVBJZ126bsLoMVlb5Mr5wAjKnYiidYPXE6qfZWY
+	 DS0oLnB7Lp6WU+w75sMzYNfeGxn5994Xap9d0wNefwa5ggen7VdxbfdQnjxx+h+KTyNeFT0bgpcUp
+	 7LkzD2ItDKQcVx2WmKcQkzlLEr+vf6iSDe39dgdlZrBuKxLc=
+From: "=?utf-8?B?8J+Sqy4yMjA=?=" <1579567540@qq.com>
+To: "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>, "=?utf-8?B?aGVpa28=?=" <heiko@sntech.de>
+Cc: "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?cm9iaA==?=" <robh@kernel.org>, "=?utf-8?B?a3J6aytkdA==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Y29ub3IrZHQ=?=" <conor+dt@kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] can: rockchip: add RK3588 CAN-FD support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Wed, 1 Jul 2026 20:29:22 +0800
+X-Priority: 3
+Message-ID: <tencent_AF88C27E354DFF34B132BC0906236A01A408@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20260701070128.2096267-1-1579567540@qq.com>
+ <tencent_124D6134EB32480979234201E688087E5408@qq.com>
+ <2064877.jZfb76A358@diego>
+	<20260701-flashy-crocodile-of-flowers-a6a23e-mkl@pengutronix.de>
+In-Reply-To: <20260701-flashy-crocodile-of-flowers-a6a23e-mkl@pengutronix.de>
+X-QQ-mid: xmsezb41-0t1782908962t510hyevl
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The device tree example will fail `make dt_binding_check` validatio=
-n due to a 64-bit `reg` property at the root level without `#address-cells =
-=3D <2>` and `#size-cells =3D <2>`.
---
+SGkgSGVpa28sIE1hcmMsCgp0aGFua3MgZm9yIHRoZSByZXZpZXcuCgo+IHBsZWFzZSB1c2Ug
+YSByZWFsIG5hbWUsIG5vdCBhbiBhbGlhcy4KCkkgd2lsbCB1c2UgbXkgcmVhbCBuYW1lIGlu
+IGZ1dHVyZSByZXZpc2lvbnMuCgo+IEZ1bm5pbHkgZW5vdWdoLCB3ZSBzZWVtIHRvIGhhdmUg
+d29ya2VkIG9uIHRoZSBzYW1lIHRvcGljCj4gYXQgdGhlIHNhbWUgdGltZSA6LSkKPgo+IGh0
+dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvMjAyNjA2MzAxNjQzMzYuMzQ0NDU1MC0xLWhl
+aWtvQHNudGVjaC5kZS8KCkkgbWlzc2VkIEhlaWtvJ3Mgc2VyaWVzIGJlZm9yZSBzZW5kaW5n
+IG1pbmUsIHNvcnJ5IGZvciB0aGUgbm9pc2UuCihCdXQgaXQgcmVhbGx5IGlzIGEgdmVyeSBp
+bnRlcmVzdGluZyBjb2luY2lkZW5jZS4pClNpbmNlIHRoZSBzZXJpZXMgb3ZlcmxhcCwgSSBh
+bSBoYXBweSB0byBiYXNlIGZ1cnRoZXIgd29yayBvbiBIZWlrbydzCnNlcmllcywgb3IgdG8g
+bGV0IEhlaWtvIGZvbGQgdGhlIFJLMzU4OCBSWF9GSUZPX0NOVCBiaXRmaWVsZCBjaGFuZ2Ug
+aW50bwpoaXMgdjIgaWYgdGhhdCBpcyBwcmVmZXJyZWQuCgo+IEhlcmUgSSBjb3VsZCByZXBy
+b2R1Y2UgZXJyYXR1bSA2IHRob3VnaDoKPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9sa21s
+LzIwMjYwNjMwMTY0MzM2LjM0NDQ1NTAtNC1oZWlrb0BzbnRlY2guZGUvCgpUaGFua3MgZm9y
+IHBvaW50aW5nIHRoaXMgb3V0LiBNeSBsb2NhbCB0ZXN0IHNldHVwIGRpZCBub3QgcmVwcm9k
+dWNlIGl0LApidXQgZ2l2ZW4gSGVpa28ncyByZXN1bHQgSSBhZ3JlZSB0aGF0IFJLMzU4OHYy
+IHNob3VsZCBrZWVwIHRoZSBlcnJhdHVtIDYKd29ya2Fyb3VuZCBlbmFibGVkLiBJZiBJIHJl
+c3BpbiB0aGlzIHNlcmllcywgSSB3aWxsIHJlbW92ZSB0aGUgIm5vdApyZXByb2R1Y2VkIiBz
+dGF0ZW1lbnQgYW5kIGVuYWJsZSBSS0NBTkZEX1FVSVJLX1JLMzU2OF9FUlJBVFVNXzYgZm9y
+ClJLMzU4OHYyLgoKPiBUaGUgIlJvY2tjaGlwIFJLMzU4OCBUUk0gVjEuMC1QYXJ0MS0yMDIy
+MDMwOS5wZGYiIGRhdGFzaGVldCBzYXlzIGJpdHMKPiAiNzo1IiBhcmUgUlhfRklGT19GUkFN
+RV9DTlQsIHdoaWxlIGJpdCAiNiIgaXMgbWFya2VkIGFzIHJlc2VydmVkLgoKRm9yIFJYX0ZJ
+Rk9fQ05ULCBJIGZvdW5kIHRoZSBiaXRmaWVsZCBkaWZmZXJlbmNlIGJ5IHJlYWRpbmcgUm9j
+a2NoaXAncwp2ZW5kb3Iga2VybmVsIDYuMSBkcml2ZXIgYW5kIGNvbXBhcmluZyB0aGUgQ0FO
+IHN1cHBvcnQgZm9yIFJLMzU2OCBhbmQKUkszNTg4LiBUaGUgdmVuZG9yIGRyaXZlciB1c2Vz
+IGRpZmZlcmVudCBSWCBGSUZPIGNvdW50IGJpdGZpZWxkcyBmb3IgdGhlCnR3byBTb0NzLCBh
+bmQgbXkgdGVzdGluZyBvbiBSSzM1ODh2MiBhbHNvIGluZGljYXRlcyB0aGF0IGJpdHMgNzo1
+IGFyZQpuZWVkZWQuIEkgY2FuIGFkZCBhIHNob3J0IG5vdGUgYWJvdXQgdGhpcyBpbiB0aGUg
+Y29tbWl0IG1lc3NhZ2Ugb3IKY29kZSBjb21tZW50LgoKT25lIG1vcmUgcXVlc3Rpb24gYWJv
+dXQgUktDQU5GRF9RVUlSS19DQU5GRF9CUk9LRU46IGluIG15IFJLMzU4OHYyIHRlc3QKc2V0
+dXAgdGhlIHR3byBrbm93biBDQU4tRkQgdHJpZ2dlciBmcmFtZXMgZGlkIG5vdCBjYXVzZSBh
+biBFcnJvcgpJbnRlcnJ1cHQgb3IgRXJyb3ItV2FybmluZy4gSSBhbHNvIHJhbiBhIDEyIGhv
+dXIgQ0FOLUZEIHN0cmVzcyB0ZXN0IHdpdGgKY2FuMC9jYW4xIGRpcmVjdGx5IGNvbm5lY3Rl
+ZCwgMjAwIE1IeiBDQU4gY2xvY2ssIDUwMCBrYml0L3Mgbm9taW5hbApiaXRyYXRlIGFuZCAx
+IE1iaXQvcyBkYXRhIGJpdHJhdGUuIFRoYXQgdGVzdCBpbmNsdWRlZCBwZXJpb2RpYwp0cmFu
+c21pc3Npb24gb2YgdGhlIHR3byBDQU5GRF9CUk9LRU4gZnJhbWVzLCB2YXJpYWJsZSBETEMg
+Q0FOLUZEIGZyYW1lcywKQ0FOLUZEK0JSUytFRkYgbG9hZCwgYW5kIGEgY2FuZmR0ZXN0IHJ1
+biB3aXRoIDE5LDQxNywxMjkgZnJhbWVzIHdpdGhvdXQKZGF0YSBtaXNtYXRjaC4KCldvdWxk
+IGl0IG1ha2Ugc2Vuc2UgdG8gbGVhdmUgUktDQU5GRF9RVUlSS19DQU5GRF9CUk9LRU4gZGlz
+YWJsZWQgZm9yClJLMzU4OHYyLCBvciBoYXZlIHlvdSBzZWVuIHRoaXMgaXNzdWUgb24gUksz
+NTg4IGFzIHdlbGw/CgpUaGFua3MsCkN1bmhhbyBMdQo=
 
-commit c7b476cde050e045aaa56bae9dd7ecc7b3d34ced
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-dt-bindings: phy: Document MT8195 and MT8196 DisplayPort PHYs
-
-This adds bindings for the DisplayPort and Embedded DisplayPort PHYs found =
-in
-the MediaTek MT8195 and MT8196 SoCs. The PHY supports varying impedance
-calibrations for the signals to reach an optimal EYE signal pattern.
-
-> diff --git a/Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy=
-.yaml b/Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
-> new file mode 100644
-> index 0000000000000..5847963a7085e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    phy@1c500000 {
-> +        compatible =3D "mediatek,mt8195-dp-phy";
-> +        reg =3D <0 0x1c500000 0 0x2000>;
-
-[Severity: Low]
-Looking at the examples section in mediatek,mt8195-dp-phy.yaml, will this
-example pass make dt_binding_check validation? The reg property contains 4
-cells, but since the example node is at the root level without a parent node
-explicitly defining #address-cells =3D <2> and #size-cells =3D <2>, the dum=
-my
-root node defaults to 1 for both. This causes the 4 cells to be parsed as 2
-separate items, which violates the schema's maxItems: 1 constraint.
-
-> +        #phy-cells =3D <0>;
-> +        nvmem-cells =3D <&edp_glb_bias_trim>, <&edp_clktx_impsel>,
-> +                      <&edp_imp_ln0_pmos>, <&edp_imp_ln0_nmos>,
-> +                      <&edp_imp_ln1_pmos>, <&edp_imp_ln1_nmos>,
-> +                      <&edp_imp_ln2_pmos>, <&edp_imp_ln2_nmos>,
-> +                      <&edp_imp_ln3_pmos>, <&edp_imp_ln3_nmos>;
-> +        nvmem-cell-names =3D "rbias-trim", "impedance-txclk",
-> +                           "impedance-lane0p", "impedance-lane0n",
-> +                           "impedance-lane1p", "impedance-lane1n",
-> +                           "impedance-lane2p", "impedance-lane2n",
-> +                           "impedance-lane3p", "impedance-lane3n";
-> +    };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
-9-1-angelogioacchino.delregno@collabora.com?part=3D1
