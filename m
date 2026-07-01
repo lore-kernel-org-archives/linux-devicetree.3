@@ -1,132 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC6C53A3E76
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 23:57:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546DA1A238F
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 23:59:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782950273; cv=none; b=tpCwex6/8vyt3a2AF9kdtGSnwBl5uU8cGZMP1YBI6CEN9ClTW4R994IQmvso4UXDod5esEion0WFT+cdya8ZkEti43Nssz+dtjfzSqwBG190Mi96ClE7OFv3+J1IOHQUJtqUVRfphQOf1iWXd5wI6+FWrkcdfXzTHXjAh77YWn4=
+	t=1782950344; cv=none; b=T6WDkrlToLI66FdYyl4lCrDk1V65efRzOa2LqBPI9yIHkXfdWJQsJeXGBJEUZw4tEoWMtXnS8o4REhRLmHMkSIXTahwj5VayMs6n94kaG9U617TpZI4KNiVrD6v5nXbsILMHBjIszNtCO77AlpvqhtdjHKqK0QzqcdJncjfEAtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782950273; c=relaxed/simple;
-	bh=l0wWOzWcNjTasSm2lPYP+8SAIv5cNwM2sANv6EzP1LI=;
+	s=arc-20240116; t=1782950344; c=relaxed/simple;
+	bh=NqjiYJRN9eke/4mseL9qWyf/DXDnNd5Ln1JsWiQjJ7o=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=l4817tPfvlP/DbzmjvtqDtAVAHGID1vc3HuulVd+VNPzqhZWY+uubS3R7C/NMJndUoGQOlkOlV+BvvhccVqfCSwh5CVNa5qvtgp7hmEAwctsrrrTf2mNxVXgs85rXz/0tT7qsZLqjlkXpDQcA6Hv0tHzAUwtMZnbc9LOWW7JU9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vff2MXLj; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ISH8Ybrt3A1wlj6OW/cTF9wJJlDDy2dguRvSaH8TRTRClqMgOihqPbRhh3BQpiJlGEYeCJlrAFr+6CH9G6yvN2ieOC7iEu0OesVt1IQl6i8QZiCySVmgi6Xh2jClT72NGZNsjz2PMrZr7qKalJv8W7XEf4f5Hu6JO3nqYrZDUHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O2WtNhji; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vff2MXLj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B1B41F000E9;
-	Wed,  1 Jul 2026 23:57:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O2WtNhji"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8800B1F000E9;
+	Wed,  1 Jul 2026 23:59:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782950272;
-	bh=RhHB9fd4GiFtDnkrU/6QH+iCke89EIsXTQOsDoSI4W8=;
+	s=k20260515; t=1782950343;
+	bh=bIy4jNIZE4AKwiaiANhfC8Sexabsd1MckjNxwJlu4fs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Vff2MXLj31dFLiShVTFTgRI78xeBV6zVCa+iy7VqpGRIhuNxGGmEkHIVU+CR9vyYr
-	 Y4iQaP0TtciQphhCp1pYnCd/8+IXdez0Cb1PpEI6vH0M34204yqKHFioCsM/N/iYnq
-	 zxt/IGBmdHmDBJ/dYrngZ0yt2XU+4NMkTYqMaZKaUE0gPW9kq0sIckoW082b29ITuB
-	 F60CAjTlBcQATPOryJpBJFLspxLbBPY2RLQN8glwx5PmLE+Q7tnrBiXiPM2vV7j/n3
-	 IH9TAYWvrWX+yGu1RmNEvmEf5retuMs+SyyA2wATXK0SaU/Sxmxs9AH/+PcWsNsx9B
-	 UliosvPvYanBA==
+	b=O2WtNhjiBwQejsKy3chFeaGs0FfPNS5MjQHC5fQSrVcHsLaBpQaXAqywQqua/FIGD
+	 t6gw/povquKny2RNxA+NfdJ/0N+C3nLcq+6LlWLDeK2VB+/Uk+Iy22UbZORkPpwc+c
+	 CNhZZ/G+AbZsxlilzg11wG0fWWt2NGOPOKeKrAxli4WAQAtvkjHwdlMf9L43uZwsA9
+	 Il+TFqIJ5heoFcSSMDUTHmRiccrEClV5N2qZLcvRzGbixAP9ERnEpUajBN2uSpcZu9
+	 EewrN7e+PsEu0OEmzQcjGMDuSgjqq5X/UClvtAfiTrb4ruEk7v7WFzuB9weivCRa+O
+	 uXRLBLIzs1ohQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 08/38] phy: rockchip: usbdp: Keep clocks running on
- PHY re-init
+Subject: Re: [PATCH v9 06/38] phy: rockchip: usbdp: Drop seamless DP
+ takeover
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, olteanv@gmail.com, conor+dt@kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260702-rockchip-usbdp-cleanup-v9-8-e31efbb62d2e@collabora.com>
+Cc: olteanv@gmail.com, conor+dt@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, vkoul@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260702-rockchip-usbdp-cleanup-v9-6-e31efbb62d2e@collabora.com>
 References: <20260702-rockchip-usbdp-cleanup-v9-0-e31efbb62d2e@collabora.com>
- <20260702-rockchip-usbdp-cleanup-v9-8-e31efbb62d2e@collabora.com>
+ <20260702-rockchip-usbdp-cleanup-v9-6-e31efbb62d2e@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 23:57:51 +0000
-Message-Id: <20260701235752.0B1B41F000E9@smtp.kernel.org>
+Date: Wed, 01 Jul 2026 23:59:02 +0000
+Message-Id: <20260701235902.8800B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but `rk_udphy_dp_phy=
-_power_on()` returns 0 (success) when the DP mode is unsupported by the cur=
-rent Type-C state, leading callers to access clock-gated MMIO registers and=
- causing a Synchronous External Abort (SError).
+- [High] Permanently breaks native DP and eDP displays if the bootloader pr=
+e-enables the PHY.
+- [High] Unconditionally disabling a pre-enabled DP PHY during probe withou=
+t deterministic synchronization with the display controller (VOP) will caus=
+e a hardware lockup.
 --
 
-commit 1135135471c21f67a83c25aab8254a6056976c31
+commit b62be7660327d19c538f4a7e04fe1f77ddb82d23
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-    phy: rockchip: usbdp: Keep clocks running on PHY re-init
+phy: rockchip: usbdp: Drop seamless DP takeover
 
-This commit modifies the PHY mode change logic in rk_udphy_power_on() to av=
-oid
-unnecessarily toggling the clocks off and on again. It skips the clock disa=
-ble
-and setup steps, directly calling rk_udphy_init() instead.
+This commit removes support for seamless DP takeover in the Rockchip USBDP =
+PHY
+driver. It attempts to work around active bootloader configurations by forc=
+ing
+HPD low and waiting before shutting down the PHY.
+
+Link: https://lore.kernel.org/linux-phy/20260612164107.C7DB21F000E9@smtp.ke=
+rnel.org/
 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
 chip/phy-rockchip-usbdp.c
-> index 5d0e4f82de2f8..2b27fd1c15d8d 100644
+> index 3fc8222fcaec2..d734553701134 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -1022,8 +1022,7 @@ static int rk_udphy_power_on(struct rk_udphy *udphy=
-, u8 mode)
->  		if (udphy->mode =3D=3D UDPHY_MODE_DP)
->  			rk_udphy_u3_port_disable(udphy, true);
+
+[ ... ]
+
+> @@ -938,10 +939,14 @@ static int rk_udphy_get_initial_status(struct rk_ud=
+phy *udphy)
+>  	rk_udphy_reset_deassert_all(udphy);
 > =20
+>  	regmap_read(udphy->pma_regmap, CMN_LANE_MUX_AND_EN_OFFSET, &value);
+> -	if (FIELD_GET(CMN_DP_LANE_MUX_ALL, value) && FIELD_GET(CMN_DP_LANE_EN_A=
+LL, value))
+> -		udphy->status =3D UDPHY_MODE_DP;
+> -	else
 > -		rk_udphy_disable(udphy);
-> -		ret =3D rk_udphy_setup(udphy);
-> +		ret =3D rk_udphy_init(udphy);
+> +	if (FIELD_GET(CMN_DP_LANE_MUX_ALL, value) && FIELD_GET(CMN_DP_LANE_EN_A=
+LL, value)) {
+> +		dev_info(udphy->dev, "Started with DP PHY pre-enabled; seamless takeov=
+er unsupported\n");
+> +		rk_udphy_grfreg_write(udphy->vogrf, &cfg->vogrfcfg[udphy->id].hpd_trig=
+ger, false);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but rk_udphy_power_on() returns 0
-(success) when the requested mode is not supported by the current Type-C
-state, which can lead to a Synchronous External Abort (SError).
+Does this permanently break native DP and eDP displays if the bootloader
+pre-enables the PHY?
 
-If rk_udphy_dp_phy_power_on() calls rk_udphy_power_on() before a Type-C Alt
-Mode is negotiated, rk_udphy_power_on() returns 0 without enabling the APB
-clocks:
+By writing false to the hpd_trigger register, this forces a software overri=
+de
+of the physical HPD pin to a low state. Since this override is never revert=
+ed
+anywhere in the driver, will the hardware DP controller permanently read HPD
+as low, preventing native displays from link training?
 
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_power_on() {
-	if (!(udphy->mode & mode)) {
-		dev_info(udphy->dev, "mode 0x%02x is not support\n", mode);
-		return 0;
-	}
-...
-}
+> +		/* Wait for VOP side to shut up */
+> +		msleep(100);
+> +	}
+> +
+> +	rk_udphy_disable(udphy);
 
-Because rk_udphy_power_on() returns success, rk_udphy_dp_phy_power_on()
-assumes the PHY is powered on and proceeds to access clock-gated MMIO
-registers:
+[Severity: High]
+Can unconditionally disabling a pre-enabled DP PHY here cause a hardware lo=
+ckup?
 
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_dp_phy_power_on() {
-...
-	ret =3D rk_udphy_power_on(udphy, UDPHY_MODE_DP);
-	if (ret)
-		goto unlock;
+Since the PHY driver probes very early, the DRM driver has not yet bound,
+meaning no interrupt handler is present to process the HPD drop, and the Vi=
+deo
+Output Processor (VOP) continues streaming. After the 100ms delay,
+rk_udphy_disable() abruptly turns off the PHY and its PLL.
 
-	rk_udphy_dplane_enable(udphy, dp_lanes);
-...
-}
+Does halting the pixel clock while the VOP is actively transacting cause an
+interconnect stall on Rockchip SoCs?
 
-Here, rk_udphy_dplane_enable() performs read/modify/write operations on
-udphy->pma_regmap. Accessing these registers with disabled APB clocks
-triggers an SError system crash.
-
-The same vulnerability exists in rk_udphy_dp_phy_power_off() and
-rk_udphy_dp_phy_configure(), which unconditionally access the PMA registers
-before updating or checking the power state.
-
-Could rk_udphy_power_on() return an error code instead of 0 when the mode
-is unsupported, or could the callers verify if the PHY actually powered on
-before accessing the registers?
-
->  		if (ret)
->  			return ret;
->  		udphy->mode_change =3D false;
+> =20
+>  	return 0;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-rockchip-u=
-sbdp-cleanup-v9-0-e31efbb62d2e@collabora.com?part=3D8
+sbdp-cleanup-v9-0-e31efbb62d2e@collabora.com?part=3D6
