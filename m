@@ -1,174 +1,94 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B04442EEAD;
-	Wed,  1 Jul 2026 12:09:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A913FC5A7;
+	Wed,  1 Jul 2026 12:19:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782907748; cv=none; b=PWT8xXx1ixCXWl7KhhV/bUKhxjbFRBZ/cQBqZI0ojTagOc0G/6H3Sq3fwXcOS8pczNT3zaqEGzSdCR/4u8w8mGjlr5OJ63XSuh1oeazNo1FmWNxf/qez+MkzSvOY1KEYI4ldj1rM1ti282I96BMKfE7Z9lNu/gdKjvCKSaCIG4c=
+	t=1782908366; cv=none; b=vBY1i6a/7aWrRnWTT0zQ3TbZUOlwafJ/kPoZJFaoXfMgW7+SBzQn/rz3UwxrzcMhCt/VJd9uIaTq56BojCYNKKMW+4OuNf/847WiiQmI1cJ3PFBKVRgYL6kv59fvyuwT0Cc7f8cFRBEAs+DA+nLo5xT9Ty1yIWQ8Nta49Iy70X0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782907748; c=relaxed/simple;
-	bh=08ry/i3F382Lh0S0s/t9xY0zSs5C1Db8yjNFGTPWguY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TmA3seBIXMJGO5nq637fEPQ1ZhB0y7OC+VAH8FN+RPXcSTpZEFSIgTssfP0QG2CD0e5odbZmczdNDew3odXBBUC0XYmk1zReHZuo2lSvKyI4LzL7mQcTR+WVjNQ1+2TaR+XsrW/06fONITS2BaZATuSqAPwEUcZ7F7dc2utNVUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oDZMOmqT; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782908366; c=relaxed/simple;
+	bh=RIGHToQ86+80dzU39WU9it8zdhmzP6nEWWQjnFhwEXU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=vGk5JOiz/PQPstHet5YKHisahaFY7ynj5RCA3sah4Yz06X38TI/mH+23H+WoDYNDomIycpnHAsRs8FlK4ZWP4og+dpzH4sfMQHOi2jd1KNBpXO9miWmNWFzxFmyDPMG51kYxZnmQCDVZ6rHAb1rLjesxaGn1/jycGYdRU/gy5zA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=SLOOeJbw; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oDZMOmqT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782907747; x=1814443747;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=08ry/i3F382Lh0S0s/t9xY0zSs5C1Db8yjNFGTPWguY=;
-  b=oDZMOmqTFZTrt9fYwHfWJq8QIq2F6Fn6nGE63kiXTgrkBtEKHwKB1Boe
-   6umJsleD0mJvyFV42jFNSxnBWsXdBex9wbT+iJgVQrYJwhAPKbacEJssd
-   G6SAbuYRiBfeyYQvqFod+A1L3j/6SRqCeNilJ1ITa5S1wcW5DUw89KfcH
-   UwUlsQ2W+GXRSfQc853qTLbs4cPBTrBZe/KgVBST9IXpkWH0QGfq0V5Qc
-   BPZSY/uJi2bIQ3h/+tmMruxo/PG/2giOveW5DoCCUzndTcgeGiC2H0wr0
-   4riGdbBQXUa6JiiRG8Yt9I3hNYpdMDwWwZa0OyeYRPqQlQhygd+YIVM1n
-   g==;
-X-CSE-ConnectionGUID: G13uG0NGSHGCVUKvsTqLhg==
-X-CSE-MsgGUID: /S8p7V7uTIeSUezhksr19Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="93994695"
-X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
-   d="scan'208";a="93994695"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 05:09:06 -0700
-X-CSE-ConnectionGUID: zSNBwqYBSpup2dxfqAqjrA==
-X-CSE-MsgGUID: lvaVgl7QSza6Rq5O2mrj3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; 
-   d="scan'208";a="249187367"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.65])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jul 2026 05:09:00 -0700
-Date: Wed, 1 Jul 2026 15:08:57 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Michael Walle <mwalle@kernel.org>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"afaerber@suse.com" <afaerber@suse.com>,
-	"wbg@kernel.org" <wbg@kernel.org>,
-	"mathieu.dubois-briand@bootlin.com" <mathieu.dubois-briand@bootlin.com>,
-	"lars@metafoo.de" <lars@metafoo.de>,
-	"Michael.Hennerich@analog.com" <Michael.Hennerich@analog.com>,
-	"jic23@kernel.org" <jic23@kernel.org>,
-	"nuno.sa@analog.com" <nuno.sa@analog.com>,
-	"andy@kernel.org" <andy@kernel.org>,
-	"dlechner@baylibre.com" <dlechner@baylibre.com>,
-	=?utf-8?B?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-realtek-soc@lists.infradead.org" <linux-realtek-soc@lists.infradead.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
-	Stanley =?utf-8?B?Q2hhbmdb5piM6IKy5b63XQ==?= <stanley_chang@realtek.com>,
-	James Tai =?utf-8?B?W+aItOW/l+WzsF0=?= <james.tai@realtek.com>,
-	Yu-Chun Lin =?utf-8?B?W+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-Subject: Re: [PATCH v3 2/7] gpio: regmap: add gpio_regmap_get_gpiochip()
- accessor
-Message-ID: <akUDWZo-hpIhjmW3@ashevche-desk.local>
-References: <agMM9soiqpG-TRSb@ashevche-desk.local>
- <adff3a2d21a64d3ea3b408d62157ee1e@realtek.com>
- <ah92oEavMu4QRn8y@ashevche-desk.local>
- <CAMRc=MdA24z-tB_D8CTw68Di8e4OVQJ1QH4+rDskFzq=xjJ5BQ@mail.gmail.com>
- <DJ3QVMZ6XLW9.1M9W541O92QWJ@kernel.org>
- <CAD++jLncD2ZjH3aedOkGNYP3FyZ=i7Pb0OcKKZKuMOPGNjM_nQ@mail.gmail.com>
- <DJN3PDTPJ3L6.24P71OQFB6C98@kernel.org>
- <CAHp75VeTp4eYQ4QBoeH2VyVhUivxNn1CaC9jskmeg-1zTAOYLQ@mail.gmail.com>
- <akTyDzdrt949VnWK@ashevche-desk.local>
- <DJN7EN61AJGW.2TV8JLMVRFTJ@kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="SLOOeJbw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1782908363;
+	bh=RIGHToQ86+80dzU39WU9it8zdhmzP6nEWWQjnFhwEXU=;
+	h=From:To:Cc:Subject:Date:From;
+	b=SLOOeJbwtD22khwDQNSCEIXb2djNF8mPJ225Fxb0j2ZXY8SEJJO92p6+bQqCzsezh
+	 1/viTRmV6/yR+CyoDSt52XoWDvHOYZr8XHE7I94fBo7wgN2yDTmTfWR3F4yMQD3GTe
+	 rvo6g34jnhqocWbpq3W6Hewb3+WqdR8T+h4Gr3TN2Z/Ir8GoDfbal9lje7Njw3qwLa
+	 qlYluFXthnKidoLpxu8zkA6+RwRGlY2+UBrwqUuLXwFEtPZcD7ZvLXGW2asJq3NIWr
+	 R6VnCG6CrzclJa7IcoPwYk7k2hMrgPK4QypVgO3RazmTPYujnGKmvHvYiiW2VWj1kH
+	 WOA1ZujbOgcbg==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 257A017E0909;
+	Wed,  1 Jul 2026 14:19:23 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: ulfh@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	nfraprado@collabora.com,
+	irving-ch.lin@mediatek.com,
+	macpaul.lin@mediatek.com,
+	aford173@gmail.com,
+	mbrugger@suse.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	justin.yeh@mediatek.com,
+	kernel@collabora.com
+Subject: [PATCH 0/4] pmdomains: Fixes and add support for HFRP Direct
+Date: Wed,  1 Jul 2026 14:19:16 +0200
+Message-ID: <20260701121920.19347-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <DJN7EN61AJGW.2TV8JLMVRFTJ@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Jul 01, 2026 at 01:38:54PM +0200, Michael Walle wrote:
-> On Wed Jul 1, 2026 at 12:55 PM CEST, Andy Shevchenko wrote:
-> > On Wed, Jul 01, 2026 at 01:01:10PM +0300, Andy Shevchenko wrote:
-> >> On Wed, Jul 1, 2026 at 11:44 AM Michael Walle <mwalle@kernel.org> wrote:
-> >> > On Fri Jun 19, 2026 at 11:08 PM CEST, Linus Walleij wrote:
-> >> > > On Mon, Jun 8, 2026 at 4:41 PM Michael Walle <mwalle@kernel.org> wrote:
-> >> > >
-> >> > >> >>> Without an accessor like gpio_regmap_get_gpiochip(), we cannot retrieve the
-> >> > >> >>> gpio_chip instantiated inside gpio-regmap.c to fulfill these requirements in our
-> >> > >> >>> map() function.
-> >> > >>
-> >> > >> Why is gpiochip_irq_reqres() called in the first place? Isn't that
-> >> > >> only called if the irq handling is set up via gc->irq.chip and not
-> >> > >> via gpiochip_irqchip_add_domain() like in gpio-regmap?
-> >> > >
-> >> > > Not really, the gpiochip_irq_reqres() is called to mark that a
-> >> > > GPIO line is used for IRQ, so the gpiolib cannot turn this
-> >> > > GPIO into an output line, gpiod_direction_out() will fail
-> >> > > on lines used for IRQ. So it's a failsafe.
-> >> > >
-> >> > > You can live without it of course, but then you don't get
-> >> > > this failsafe.
-> >> >
-> >> > Thanks for the explanation! So did I make a mistake years ago by
-> >> > adding the gpiochip_irqchip_add_domain(), see commit 6a45b0e2589f
-> >> > ("gpiolib: Introduce gpiochip_irqchip_add_domain()")
-> >> >
-> >> > As Yu-Chun found, gpiochip_irq_reqres() expect the irq chip data
-> >> > to be a gpio_chip, which isn't the case (in general) for an
-> >> > externally allocated domain, is it?
-> >> 
-> >> So the whole issue comes from the fact that the IRQ chip is not marked
-> >> as immutable. For immutable IRQ chips (which all GPIO provides should
-> >> have) there is no such issue to begin with, id est there is no
-> >> gpiochip_irq_reqres() callback assigned (and respective _relres).
-> >
-> > Ah, for immutable chips we put either custom ones or
-> > GPIOCHIP_IRQ_RESOURCE_HELPERS which actually refers to those callbacks.
-> >
-> > So, if the domain is external, it should also provide irq_request_resources
-> > and release callbacks. In the custom case we can wrap gpiochip_reqres_irq()
-> > and gpiochip_relres_irq() respectively.
-> 
-> Exactly. And its seems that this should have been possible with this
-> series, too.
-> 
-> Apart from that, most drivers use regmap-irq with gpio-regmap. For
-> this we'd probably have to add something to regmap-irq because that
-> module owns the irq_chip.
-> 
-> > But we need to have a struct gpio_chip pointer for them. And note, the
-> > IRQ chip data can be anything in that case, so it's not a requirement.
-> 
-> That's what I've meant. Conceptionally, it should be part of
-> gpiochip_irqchip_add_domain()/gpiolib, so a user doesn't have to
-> have that knowledge. But I don't see how this could be achieved.
+This series adds support for the DirectCTL HFRPSYS power domains found
+on the MT8196 SoC (the ones without HW Voter support) and also adds a
+fix to respect the power domain relationships during error cleanup,
+which avoids HW lockups in case probe deferrals in the specific case
+of "almost fully probed" power domains (where most of them probed and
+got set up but a probe deferral happened almost at the end), behavior
+seen on the MT8189 SoC during bringup (but honestly I have no idea how
+are the current ones working fine without this fix...!).
 
-But it can be hidden in gpio-regmap + regmap-irq.
+This was tested on MT8173, MT8186, MT8188, MT8189, MT8192, MT8195 and
+also on MT8196, over months of development, both manually and over CI,
+with no regressions detected.
 
-So, what we need is:
-- patch regmap-irq to be able to customize irq_request_resources and release
-- provide default callbacks in gpio-regmap (and export for external domains)
-- use those callbacks by default when gpio-regmap creates an IRQ chip
+AngeloGioacchino Del Regno (4):
+  dt-bindings: power: mediatek: Add support for MT8196 direct HFRP
+  pmdomain: mediatek: Respect PD relationships during error cleanup
+  pmdomain: mediatek: Add support for Direct CTL simple power sequence
+  pmdomain: mediatek: Add support for MT8196 HFRP DirectCTL domains
 
-The leftovers are the drivers that use gpio-regmap + their own call to
-regmap-irq. I haven't looked into them closely, they usually have custom
-xlate and something else. OTOH, they will be able to customize the resource
-handling as well.
+ .../power/mediatek,power-controller.yaml      |   1 +
+ drivers/pmdomain/mediatek/mt8196-pm-domains.h |  27 ++++
+ drivers/pmdomain/mediatek/mtk-pm-domains.c    | 134 ++++++++++++++----
+ drivers/pmdomain/mediatek/mtk-pm-domains.h    |   1 +
+ .../dt-bindings/power/mediatek,mt8196-power.h |   4 +
+ 5 files changed, 141 insertions(+), 26 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.54.0
 
