@@ -1,230 +1,166 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EDA5481A8B
-	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D69E481AB2
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 12:32:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782909161; cv=none; b=Iw3oaegIH853mI/6v29qTMhdBkeSs6kHAZsWkTBm3g+VYNsqPXpJQokWjA4Zxg+nAP4S7BISo7803lQdvMGA1p78S+nYaKs9WMnYnzlZDMNPDjmOI0ZkEPmpHqebk1owRWYmQ6qjUY+htuSBcZvXwjmyzTvcvSi4PfPJzOOAEvQ=
+	t=1782909179; cv=none; b=PlCz6TAUl5Ddf0xD75h/ayWjLHoQrKGn+hrIQD8Mn1IcodKs60TRFFiQAQ3EnFpnBNsYCFSI08tvcQNawDtU1ZI0r556en8WX1IVYKAlyJoXEUEYv3iduCC9Cnu8C029HfoUGKxxbErjJu70boJfRu8hmIK45DSYNpxDoDP143U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782909161; c=relaxed/simple;
-	bh=FnbUb2fj7mS8FvtSY2ctYhOyvfQQIyc9xP4UTl5q0N0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Qn4THKB/j+QI5mirVWux1QbehNTHdQu5cgLF5Y6r+9hmiVX8U72sdQL37uBAfQ3fV9vBL00E3DIySQ7fn8Y/NC47vp9pZAeeuqkTOr4Ra3JV8GBsqM6uc2+k9nDr1mR06eMfPAj9sVh+9z54uiHHJVy5yDPTdbPIYnpl7Wy6iMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com; spf=pass smtp.mailfrom=vayavyalabs.com; dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b=BZWl0fQ1; arc=none smtp.client-ip=74.125.82.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vayavyalabs.com
+	s=arc-20240116; t=1782909179; c=relaxed/simple;
+	bh=Pl/jaYutAsLOekERsjFqYW4Vc6EzbCUDbOIg698qPwk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ICLttNF9m5kwkMBJRkC+v91RPJROtr1titl0Re1INAw85s6XNskP2r6mQEsOE0JxqaMSPmRnX4vW2JOjd/gEcGjXw5hB6a9nmOyXIpyLLcIh/eRQTWKbCnu1qNtIGHRq/fYBWUhS+JnwK0d6U7hJ/zPkdm+5xifOCHXRp0GUHvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GtV9vcWe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b="BZWl0fQ1"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-30ec3dfbcd1so992005eec.0
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 05:32:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=vayavyalabs.com; s=google; t=1782909159; x=1783513959; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/PsSIQ+vvmUu7ZGpNEkF3m3d7FEgCmZo5EF6wbWhukY=;
-        b=BZWl0fQ1WmPWGjgMYwtXbpGIclfyi9M76KZ7DbIclCka53SBKxoprdW6CeEXzk6XOj
-         dAYb5gJtev2BPqh+mfAwYTMq7pT/P52NYz7MkK+eGyniqst2KnVDAECyT3huwf0tEvVr
-         af838+M1g53EWqjgBfmbVOKkBaku8RZVgTlAs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782909159; x=1783513959;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/PsSIQ+vvmUu7ZGpNEkF3m3d7FEgCmZo5EF6wbWhukY=;
-        b=s8fgwjkgP2tTXo8i07dIGVOw2zFJtUML6JKyMgr0cSTnwNiC9GUudlm6pIGTfNtahv
-         Rn7GY/Gm0WZCxCticMvpQHxaY2e2mDmgzWGP0N+WXNX5VU8yp2tKohcVifEITDtdJLA5
-         AMTNhvNaVkmWBB91rs6G4lz15ZAwjcpfoC3FOAbvTKJ+jropjCcOGCg8go8WS4lcg9WA
-         FQP7AqyMbJSkp1Hv1RmTmQg8rwC/baI9IgXphSpBk+TmB461+/wlJuCtd3oF334h5jhH
-         7ARAzRwl7/WmT6OGVoGzQKCP50N8dQHUYJgD2fbjPDWej+rFGwuzdAATx896U6XczGXl
-         Xj7w==
-X-Forwarded-Encrypted: i=1; AHgh+Rot/mZ+v8ZPzsBKUrkyQrXRp1+r4pTb8dPUsZ5LyFxQdTA971iUfk674SLjzM7q1zcjWu3ycKck5EJ+@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUeEA6zGLidRSmaYIfhOHuTJgYBdBJIXbYliLokwZpbJWUlhn5
-	uFGZzYsQQnlmmIYR2YxNJ6Rh7oJr/HvEW7os+4dnblxBmK7Cw8D6mer8jj4QK5CjYfw=
-X-Gm-Gg: AfdE7ck0US61TIS2hyfEyVkfl8bTtv2lfJkI4vEl2luC9qo3/aoalVC9W0crtsmbKn1
-	iyGXMyJ1uyT7rswfExG7txiZZYyNq+C1gsGDwPPyPHi56fRWIaWzMK1uCt1QAsof2tNZwLzDHwZ
-	kAwuNS2W7sdUFzDoKsmFHPBGcT3brP3MCowTv/JO2aNBHvr+ef7mu+GcNXXLZFBM84l83qQGkiu
-	5QRdh3vUjPM5ACwztwWXGnkVReHDD2WKH/75P6MXo+mxC4BMK6u4ohvc0c2vcIqfEeuyqUZdP6/
-	4OJu6j/sa8dLPqa/c28QMOzpF6m8vu1cwt2JXQlDlt8tRewaSjeNZGEmAK/fi9OGjhwSqUYUCQt
-	0iWbwm9gYDzcOXTO5POxuouZDcxJ2lVS6+koZ2rJHjTosnpOY+0x0T+/9t+AjJjVCoIrWt4pqIB
-	PNyAMw89f5+4QfLKiEFyeCEOrX+weGlE/fxPfvxFfh/iaJ15BNnOthSWCqAEoLjhyElB+1Y/PFB
-	1HSJ9D1ZmOvc+4lWKm6RBHqD6AcNt9aHQwnV1JVb8TI3d8qYhkCAVh1
-X-Received: by 2002:a05:7300:3b28:b0:304:bce9:25fa with SMTP id 5a478bee46e88-30f0524f50amr706702eec.4.1782909158919;
-        Wed, 01 Jul 2026 05:32:38 -0700 (PDT)
-Received: from localhost.localdomain ([103.108.57.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30ee2cd21bcsm40776402eec.0.2026.07.01.05.32.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 05:32:38 -0700 (PDT)
-From: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-To: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	herbert@gondor.apana.org.au,
-	robh@kernel.org
-Cc: krzk@kernel.org,
-	conor+dt@kernel.org,
-	Ruud.Derwig@synopsys.com,
-	rbannerm@synopsys.com,
-	manjunath.hadli@vayavyalabs.com,
-	adityak@vayavyalabs.com,
-	navami.telsang@vayavyalabs.com,
-	bhoomikak@vayavyalabs.com,
-	Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-Subject: [PATCH v15 4/4] crypto: spacc - Add SPAcc Kconfig and Makefile
-Date: Wed,  1 Jul 2026 17:59:41 +0530
-Message-Id: <20260701122941.2149121-5-pavitrakumarm@vayavyalabs.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260701122941.2149121-1-pavitrakumarm@vayavyalabs.com>
-References: <20260701122941.2149121-1-pavitrakumarm@vayavyalabs.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GtV9vcWe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264E41F000E9;
+	Wed,  1 Jul 2026 12:32:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782909178;
+	bh=8Wqg6vwaB2WZcRomvBZS2whfJdMLY3bMu1eEIH5uhrc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GtV9vcWeJa0Nq6CgkhRbuoYd0UToILJgOt6KFUCQXj249tPrBcwd0SVv6ZIFmXNab
+	 OHydU4ZvDxmvOCYo+qlP2hTrkFAmJHIWcCSn8rOaJKBIDslsFYgCcuY5U3t/g9rPYq
+	 5lIqyvlPsC/BsbLnStMYX4OnCSfWh9iuUy4mp1g/4OjKhapzhQ3YXFFnRIytikXIuD
+	 UGGYsLwrsEGCvR/Mwgo0H4eX0QWLlP9goTLkbzKuLjbQhzUIv6vvHhsEzXAG/T5EK4
+	 zjrBX6h9Ss+dAfqXybFL4cu/58vg9zq3UG2R3FfzA8Ploqoqd5hcf3CyHLMXYxEzue
+	 WuktBJtzqUW/w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 03/11] drm/mediatek: mtk_dp: Fix hdmi codec and phy
+ driver unregistration
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260701122024.19557-4-angelogioacchino.delregno@collabora.com>
+References: <20260701122024.19557-1-angelogioacchino.delregno@collabora.com>
+ <20260701122024.19557-4-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 12:32:57 +0000
+Message-Id: <20260701123258.264E41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add Makefile and Kconfig for SPAcc driver.
-
-Acked-by: Ross Bannerman <rbannerm@synopsys.com>
-Signed-off-by: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
----
- drivers/crypto/Kconfig            |  1 +
- drivers/crypto/Makefile           |  1 +
- drivers/crypto/dwc-spacc/Kconfig  | 83 +++++++++++++++++++++++++++++++
- drivers/crypto/dwc-spacc/Makefile |  8 +++
- 4 files changed, 93 insertions(+)
- create mode 100644 drivers/crypto/dwc-spacc/Kconfig
- create mode 100644 drivers/crypto/dwc-spacc/Makefile
-
-diff --git a/drivers/crypto/Kconfig b/drivers/crypto/Kconfig
-index 216a00bad5d70..280a0165ddfdf 100644
---- a/drivers/crypto/Kconfig
-+++ b/drivers/crypto/Kconfig
-@@ -742,6 +742,7 @@ config CRYPTO_DEV_BCM_SPU
- 	  ahash, and aead algorithms with the kernel cryptographic API.
-
- source "drivers/crypto/stm32/Kconfig"
-+source "drivers/crypto/dwc-spacc/Kconfig"
-
- config CRYPTO_DEV_SAFEXCEL
- 	tristate "Inside Secure's SafeXcel cryptographic engine driver"
-diff --git a/drivers/crypto/Makefile b/drivers/crypto/Makefile
-index 5a950c7abc393..d463a3f101963 100644
---- a/drivers/crypto/Makefile
-+++ b/drivers/crypto/Makefile
-@@ -41,6 +41,7 @@ obj-$(CONFIG_CRYPTO_DEV_BCM_SPU) += bcm/
- obj-y += inside-secure/
- obj-$(CONFIG_CRYPTO_DEV_ARTPEC6) += axis/
- obj-y += xilinx/
-+obj-y += dwc-spacc/
- obj-y += hisilicon/
- obj-$(CONFIG_CRYPTO_DEV_AMLOGIC_GXL) += amlogic/
- obj-y += intel/
-diff --git a/drivers/crypto/dwc-spacc/Kconfig b/drivers/crypto/dwc-spacc/Kconfig
-new file mode 100644
-index 0000000000000..a9172606d77aa
---- /dev/null
-+++ b/drivers/crypto/dwc-spacc/Kconfig
-@@ -0,0 +1,83 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+config CRYPTO_DEV_SPACC
-+	tristate "Support for dwc_spacc Security Protocol Accelerator"
-+	depends on HAS_DMA
-+	select CRYPTO_ENGINE
-+	default n
-+
-+	help
-+	  This enables support for SPAcc Hardware Accelerator.
-+
-+if CRYPTO_DEV_SPACC
-+
-+config CRYPTO_DEV_SPACC_HASH
-+	bool "Enable HASH functionality"
-+	default y
-+	select CRYPTO_HASH
-+	select CRYPTO_SHA1
-+	select CRYPTO_MD5
-+	select CRYPTO_SHA256
-+	select CRYPTO_SHA512
-+	select CRYPTO_HMAC
-+	select CRYPTO_SM3
-+	select CRYPTO_CMAC
-+	select CRYPTO_XCBC
-+	select CRYPTO_AES
-+	select CRYPTO_SM4_GENERIC
-+
-+	help
-+	  Say y to enable Hash functionality of SPAcc.
-+
-+config CRYPTO_DEV_SPACC_AUTODETECT
-+	bool "Enable Autodetect functionality"
-+	default y
-+	help
-+	  Say y to enable Autodetect functionality of SPAcc.
-+
-+config CRYPTO_DEV_SPACC_DEBUG_TRACE_IO
-+	bool "Enable Trace MMIO reads/writes stats"
-+	default n
-+	help
-+	  Say y to enable Trace MMIO reads/writes stats.
-+	  To Debug and trace IO register read/write oprations.
-+
-+config CRYPTO_DEV_SPACC_DEBUG_TRACE_DDT
-+	bool "Enable Trace DDT entries stats"
-+	default n
-+	help
-+	  Say y to enable Enable DDT entry stats.
-+	  To Debug and trace DDT opration
-+
-+config CRYPTO_DEV_SPACC_SECURE_MODE
-+	bool "Enable Spacc secure mode stats"
-+	default n
-+	help
-+	  Say y to enable SPAcc secure modes stats.
-+
-+config CRYPTO_DEV_SPACC_PRIORITY
-+	int "VSPACC priority value"
-+	range 0 15
-+	default 1
-+	help
-+	  Default arbitration priority weight for this Virtual SPAcc instance.
-+	  Hardware resets this to 1. Higher values means higher priority.
-+
-+config CRYPTO_DEV_SPACC_INTERNAL_COUNTER
-+	int "SPAcc internal counter value"
-+	range 100000 1048575
-+	default 100000
-+	help
-+	  This value configures a hardware watchdog counter in the SPAcc engine.
-+	  The counter starts ticking when a completed cryptographic job is
-+	  sitting in the STATUS FIFO. If the job remains unprocessed for the
-+	  configured duration, an interrupt is triggered to ensure it is serviced.
-+
-+config CRYPTO_DEV_SPACC_CONFIG_DEBUG
-+	bool "Enable SPAcc debug logs"
-+	default n
-+	help
-+          Say y to enable additional debug prints and diagnostics in the
-+	  SPAcc driver. Disable this for production builds.
-+
-+endif # CRYPTO_DEV_SPACC
-diff --git a/drivers/crypto/dwc-spacc/Makefile b/drivers/crypto/dwc-spacc/Makefile
-new file mode 100644
-index 0000000000000..45d0166dfc8f7
---- /dev/null
-+++ b/drivers/crypto/dwc-spacc/Makefile
-@@ -0,0 +1,8 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_CRYPTO_DEV_SPACC) += snps-spacc.o
-+snps-spacc-objs = spacc_hal.o spacc_core.o \
-+spacc_manager.o spacc_interrupt.o spacc_device.o
-+
-+ifeq ($(CONFIG_CRYPTO_DEV_SPACC_HASH),y)
-+snps-spacc-objs += spacc_ahash.o
-+endif
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Double unregister of platform device in error paths causes Use-Aft=
+er-Free
+- [Medium] Incorrect pointer passed to devm_add_action_or_reset causes reso=
+urce leak of audio platform device
 --
-2.25.1
 
+commit 2bc8391d481088826fa13d96d05225e5c15e6457
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
+drm/mediatek: mtk_dp: Fix hdmi codec and phy driver unregistration
+
+This commit introduces devm actions to unregister the HDMI Codec and
+DisplayPort PHY platform devices, preventing multiple instantiations
+during probe deferrals.
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
+/mtk_dp.c
+> index eefbc7e0f9c8d..2c738c16dafab 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+
+[ ... ]
+
+> @@ -2680,18 +2687,29 @@ static int mtk_dp_register_audio_driver(struct de=
+vice *dev)
+>  		.data =3D mtk_dp,
+>  		.no_capture_mute =3D 1,
+>  	};
+> +	int ret;
+> =20
+>  	mtk_dp->audio_pdev =3D platform_device_register_data(dev,
+>  							   HDMI_CODEC_DRV_NAME,
+>  							   PLATFORM_DEVID_AUTO,
+>  							   &codec_data,
+>  							   sizeof(codec_data));
+> -	return PTR_ERR_OR_ZERO(mtk_dp->audio_pdev);
+> +	if (IS_ERR(mtk_dp->audio_pdev))
+> +		return PTR_ERR(mtk_dp->audio_pdev);
+> +
+> +	ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs, mtk_dp->=
+phy_dev);
+
+[Severity: Medium]
+Is the correct platform device pointer being passed here?
+
+This registers a cleanup action using mtk_dp->phy_dev rather than the
+newly created mtk_dp->audio_pdev. This will likely leak the audio device on
+probe deferral or driver unbind, and may attempt to unregister the PHY devi=
+ce
+at the wrong time instead.
+
+> +	if (ret) {
+> +		platform_device_unregister(mtk_dp->audio_pdev);
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to add codec unregister devm action");
+> +	}
+> +	return 0;
+>  }
+> =20
+>  static int mtk_dp_register_phy(struct mtk_dp *mtk_dp)
+>  {
+>  	struct device *dev =3D mtk_dp->dev;
+> +	int ret;
+> =20
+>  	mtk_dp->phy_dev =3D platform_device_register_data(dev, "mediatek-dp-phy=
+",
+>  							PLATFORM_DEVID_AUTO,
+> @@ -2701,6 +2719,13 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_=
+dp)
+>  		return dev_err_probe(dev, PTR_ERR(mtk_dp->phy_dev),
+>  				     "Failed to create device mediatek-dp-phy\n");
+> =20
+> +	ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs, mtk_dp->=
+phy_dev);
+> +	if (ret) {
+> +		platform_device_unregister(mtk_dp->phy_dev);
+
+[Severity: High]
+Could this cause a use-after-free?
+
+When devm_add_action_or_reset() fails, it automatically executes the cleanup
+action, which calls platform_device_unregister() on mtk_dp->phy_dev. Calling
+platform_device_unregister() a second time here would double-free the devic=
+e.
+
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to add phy unregister devm action");
+> +	}
+> +
+>  	mtk_dp_get_calibration_data(mtk_dp);
+> =20
+>  	mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
+
+[Severity: High]
+Can the error path for devm_phy_get() also trigger a double-free?
+
+Looking at the rest of mtk_dp_register_phy() just below this diff:
+
+mtk_dp_register_phy() {
+    ...
+    mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
+    if (IS_ERR(mtk_dp->phy)) {
+        platform_device_unregister(mtk_dp->phy_dev);
+        return dev_err_probe(dev, PTR_ERR(mtk_dp->phy), "Failed to get phy\=
+n");
+    }
+    ...
+}
+
+Since the devm unregister action was successfully registered above, returni=
+ng
+an error here will trigger the devm unwind loop. That will unregister the
+device a second time after this explicit platform_device_unregister() call.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122024.1955=
+7-1-angelogioacchino.delregno@collabora.com?part=3D3
