@@ -1,108 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61CD248BD26;
-	Wed,  1 Jul 2026 13:35:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA7448C8AE
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 13:35:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782912939; cv=none; b=GwcsJQusExiFwHXCrUjBavgd8A0Yj0H2mp9L9yDjvkU7k9cPi2yoyXPEnWsgm8Uh4b9Dp56vFKXSwbQrB+A/AxeJ2vXZub/YoMind97tX/6UQwatD3sH8gbhFTAZ3hCP8mwOo5E+zpQiFvXcJkgIw/NkgCBVYf4Hnzpi/euA70s=
+	t=1782912958; cv=none; b=MgCBJljw45LEPfaaqn1DbJYv3ia8zg+UEy7k838yUNi2qWhaAHowmJp1865XGCEkbeihRdX8zEPNBQ1tyStRhBnaDltaSnQUf8GY9hzQMYMUdjkQXZWkOQ469OBKbEsuSwxItLd5cWsndi1h1rAWR9DutzxP6vKtnINNWdNxuWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782912939; c=relaxed/simple;
-	bh=oKA2/aIIdCx1Ob+N9y4UF6SYs35YBxPL3Bef+Olofuk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bD8GV7p4uJvtfRzuSwKx1nMaR0V4yEfJsTq4VsIK9J12QhKj9KcpRLIHOAyOGwFU18zuyaCavHEY00Y7Te7oDgGCOdNIDmarsU8dJB36n0SuJxJS3re/kk2qlo1pB0V+hJylvCf1fpvPkQRzYXkUSwpMEewuGZVDkjqp2A6RicM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eA8vzGeo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782912958; c=relaxed/simple;
+	bh=6DJigN4I4SAlN7nMr118xnnj9J041tKQeW4PuGMliso=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X0bqQ9jt4/jCXgPAzkKRckI1k8KoQGeFR0j1WxKQbureZ5uCM+y1so6p2HGvHjCdqTAbwPcp4K3xzNaUVGP19czgw3pyBCc+IJI1uWcr/98grcf3zZFDyolfv45RyjMh4vJ2WsYGc46AimvMm88SgCP99jRA2EhxGSsq61puy0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=D5XddRBu; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eA8vzGeo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 480731F000E9;
-	Wed,  1 Jul 2026 13:35:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782912936;
-	bh=OObo0zXZJwbEpskHy2AgbBJPVuIP4M++hFxwfUMrzmk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eA8vzGeo4MPnFh2+R6PtIZlbLyFj+SGEnOw5PHWdoQsqduzwk9fEgyKaBpWK3agwR
-	 QwGXs39ZI8no+D7JnvF4JwKwkcy5rUxRA0Uiq2OTgp4eEyKcJq4NlX4l7sb6ZkDEpc
-	 awNJsORjTVnmqHRqiXfjcsWXp7uwrk/1ehGrepnowGzkLcm8ejY/aMNlxY4ZLKrNbY
-	 iAtUnXTY8UxdQP1oH/cNMw7z0WCufQSOzUuESWQhCHn9oDTjZJ4LED6Cy37MBNEku0
-	 jT6jUQ2oAoSC8Io+lqDVpQFzU4iI8qNtjJZMK7tOacAIKlyDCbW4l1asEcLlZZcdBZ
-	 EInAJ9VuhRlYw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 08/17] dt-bindings: riscv: Require block-size for
- Zicbom, Zicbop, and Zicboz
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Guodong Xu" <docular.xu@gmail.com>
-Cc: robh@kernel.org, kvm@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260701-rva23u64-hwprobe-v2-v5-8-2c61f94a695a@gmail.com>
-References: <20260701-rva23u64-hwprobe-v2-v5-0-2c61f94a695a@gmail.com>
- <20260701-rva23u64-hwprobe-v2-v5-8-2c61f94a695a@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 13:35:35 +0000
-Message-Id: <20260701133536.480731F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="D5XddRBu"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1782912942;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=3U5I5+kmoGCK4gGnO/dG/F8gz5KLK0+aaV/C/LxSk6Q=;
+	b=D5XddRBux8wC/vqh8JsVO2WHl/FYKMO1VA+ky2XLT5HZ7+b2xJNyWUgFd/SARHt6jEJqpG
+	EYEIqL2hw/+/4QRDuGDt4Ouj92pxKmyMggxphd67XNuX3nQQ3tAOLiQoAQZRnZdF7ZILeg
+	ZYgShhd2S17ahPLv/ahTBMjTV1IcfNI=
+From: Junjie Cao <junjie.cao@linux.dev>
+To: Lee Jones <lee@kernel.org>,
+	Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	caojunjie650@gmail.com,
+	junjie.cao@linux.dev
+Subject: [PATCH] MAINTAINERS: update my email address for the AW99706 backlight driver
+Date: Wed,  1 Jul 2026 21:35:33 +0800
+Message-ID: <20260701133533.32585-1-junjie.cao@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] JSON schema 'if' blocks incorrectly match nodes missing the 'ris=
-cv,isa-extensions' property, erroneously enforcing block-size requirements =
-on legacy device trees.
---
+Switch my maintainer entry for the Awinic AW99706 WLED backlight
+driver from my personal Gmail address to junjie.cao@linux.dev.
 
-commit 08f47eb689e1ffc05b399844b4f633278d53641f
-Author: Guodong Xu <docular.xu@gmail.com>
+Update both MAINTAINERS and the device-tree binding maintainers field.
 
-dt-bindings: riscv: Require block-size for Zicbom, Zicbop, and Zicboz
+Signed-off-by: Junjie Cao <junjie.cao@linux.dev>
+---
+ .../devicetree/bindings/leds/backlight/awinic,aw99706.yaml      | 2 +-
+ MAINTAINERS                                                     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-This commit updates the RISC-V extensions schema to make block-size propert=
-ies=20
-mandatory for the Zicbom, Zicbop, and Zicboz extensions. The goal is to cat=
-ch=20
-missing properties during dtbs_check since these extensions do not have a=20
-default cache block size.
+diff --git a/Documentation/devicetree/bindings/leds/backlight/awinic,aw99706.yaml b/Documentation/devicetree/bindings/leds/backlight/awinic,aw99706.yaml
+index f48ce7a3434d..60eae50ff742 100644
+--- a/Documentation/devicetree/bindings/leds/backlight/awinic,aw99706.yaml
++++ b/Documentation/devicetree/bindings/leds/backlight/awinic,aw99706.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Awinic AW99706 6-channel WLED Backlight Driver
+ 
+ maintainers:
+-  - Junjie Cao <caojunjie650@gmail.com>
++  - Junjie Cao <junjie.cao@linux.dev>
+ 
+ allOf:
+   - $ref: common.yaml#
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 0dfad67f66c0..8dc6da0b8055 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4296,7 +4296,7 @@ F:	Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
+ F:	drivers/iio/adc/hx711.c
+ 
+ AWINIC AW99706 WLED BACKLIGHT DRIVER
+-M:	Junjie Cao <caojunjie650@gmail.com>
++M:	Junjie Cao <junjie.cao@linux.dev>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/leds/backlight/awinic,aw99706.yaml
+ F:	drivers/video/backlight/aw99706.c
+-- 
+2.43.0
 
-> diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Do=
-cumentation/devicetree/bindings/riscv/extensions.yaml
-> index 5ffc40d599c02..f4dd34d446c02 100644
-> --- a/Documentation/devicetree/bindings/riscv/extensions.yaml
-> +++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
-
-[ ... ]
-
-> @@ -1142,6 +1142,32 @@ allOf:
->            not:
->              contains:
->                const: zilsd
-> +  # All three Zicbo* extensions require their block size property as the=
-re's no
-> +  # default.
-> +  - if:
-> +      properties:
-> +        riscv,isa-extensions:
-> +          contains:
-> +            const: zicbom
-> +    then:
-> +      required:
-> +        - riscv,cbom-block-size
-
-[Severity: Medium]
-Does this JSON schema 'if' block inadvertently evaluate to true for nodes
-missing the 'riscv,isa-extensions' property entirely?
-
-In JSON schema validation, the 'properties' keyword only applies constraints
-to properties that are actually present in the instance. If a device tree
-node lacks 'riscv,isa-extensions' (such as legacy nodes using only the
-deprecated 'riscv,isa' property), this 'if' condition will vacuously succee=
-d.
-
-Will this erroneously enforce the 'riscv,cbom-block-size' requirement on
-all those legacy nodes during dtbs_check?=20
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-rva23u64-h=
-wprobe-v2-v5-0-2c61f94a695a@gmail.com?part=3D8
