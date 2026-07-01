@@ -1,133 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2993642DFF6;
-	Wed,  1 Jul 2026 11:07:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAB1416D16
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 11:09:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782904070; cv=none; b=AleJkUBWvLXF38qtmKajfrhGQADOLXu842u4lsMIvSBIU2c7Ynauo4JSpW6rTvpCu6wPJ43QCKUR+mvP/y7kHtRNyEywskGLWbFwcvrQV6WurACxTYJ7VUDkRTV5mZeDhIvcWIofm48guqfEXnS6wCgUJh+Cp+YUjCbg7Tw6UDo=
+	t=1782904165; cv=none; b=Aw19Md/pY8zIOgcQF8ZUhOcbjfq5RKJ0Iu8i0ULskf6sJ3qcokC8dL4yeiEbeG6Nn+PdWk7JXiaxIO90qaPa8k/Yh8CfRftglsrecE7RM2sxjZgodkvuoPmqOYEgFiVidJEBUvFmRvuKA/MG6nQs1l6EE4NRjyEIoliNBjsHVZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782904070; c=relaxed/simple;
-	bh=NJLKXuAy7Y09RSdhb1EYekxiJOEEQTEVUn+u+kA7hG8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mSvzBMFgkK4gWxpzrKJARgy1bSHNPDRAey4o/71Kk4LL5bUDfmarGAj0P1qBCD8/vUEB9XctWyWfIn9gFko9dUBXkF1YOWWcM2euhFNINcgsN756AmQChZCCJ9Ee6deJrqbfjxFYJmsTm31nebz+Hn9+MxxLU/AItKs6MfM2S5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCBpK/qC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782904165; c=relaxed/simple;
+	bh=jESHDdA8x3mWH3IsCTNGzTWp1ISN/ZwUIyAAtipKeBw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hwX/3ClCrWidgyfXLiP6hXTl4EdlIlkAbvnfy/uzArXUaeGxVO6QEbKMyqSm9mZUqYk3fMnzijx8IU663FAV1kNzOI4tsW0qDCt1OtkO2wQpsfbhCEoH3ribx3Irf3Zchhx3DP+0o49xHJb08o4PQAXud5r9sctJzgGsN6Lnvx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JvvcEWZp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCBpK/qC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED5681F000E9;
-	Wed,  1 Jul 2026 11:07:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JvvcEWZp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCA301F000E9;
+	Wed,  1 Jul 2026 11:09:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782904068;
-	bh=nQ4PsDHYabC62Okbc3S5UnoU2U7Ydz2PKMaX+5DJstc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lCBpK/qCLR0Wp8AMFtVO2ZYKGh9TJDJPL16mIuJ2LZBUdPDw0MaNMgtyuiuCaPChT
-	 M+8NfHmujqdqKDN0WuRF13M6FiO7GqG+2tudMLyW41C2O1Oowh+ty83dVJ/bAQuIwY
-	 mIAuBL2zzyd9UZTAelVEZjhAkYYYsDUJXJHi8DubvpitE6aKob3L2hzZTQgSa4HBPp
-	 oGVjBe4yS5HDCYir4Jkfe4jcnGp5FNv7PBAJT9B4amHZffTze/tFBA4QosYBlhSj/3
-	 r40OIoXB0aaove71G2aMs/TB7eE4jEcUP0AdbW9sX7TZ2aCO/Fij19i8EnJeBt09J1
-	 09V/U5cvYPh/Q==
-Date: Wed, 1 Jul 2026 12:07:43 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>,
-	linux-spi@vger.kernel.org
-Subject: Re: [PATCH v5 2/3] dt-bindings: iio: dac: Add AD5529R
-Message-ID: <20260701-ardently-sloping-2d5ba83b61fb@spud>
-References: <20260701-ad5529r-driver-v5-0-ed087900e642@analog.com>
- <20260701-ad5529r-driver-v5-2-ed087900e642@analog.com>
+	s=k20260515; t=1782904163;
+	bh=S2NhhsjLN3A3Wrr2tLs2fbX1psMtv9WLhbWia3EQGlI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JvvcEWZpEhuxmQ2RbwHTPFpOCFe4AdH2Lp+ofJVmJPVvkPavbWBFbCLbB20M81rYF
+	 4AlRsou/qMfGiEWcJaepgODJnN0Vejcm0CtSTKvBg6tMS8loEuhecA2eB+iw+S7u18
+	 FbcL7XRTEHmKz+r5MKTlYQdOzC3q6iM+Yz058FYpv1RFEcgAi56z5o+5jgKPLzJpwY
+	 0A1ZWF2Uc/6JbR6VVhHU2ILvKJKRLqY9fv+U+nJtgMBHwtjMLjwu6YLiGXXMYYSvPg
+	 q8J077BxN2RcREigHQHrPm4Q+KsFNto/FQ+dzePwPV3AG9az66x5A4DQIolgrKWZbJ
+	 Dk/encuKRe8Dg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 01/11] dt-bindings: sound: qcom,qaif-cpu: Add binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260701105757.2779738-2-harendra.gautam@oss.qualcomm.com>
+References: <20260701105757.2779738-1-harendra.gautam@oss.qualcomm.com>
+ <20260701105757.2779738-2-harendra.gautam@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 11:09:21 +0000
+Message-Id: <20260701110922.BCA301F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0M00TNO2mVEAmOIw"
-Content-Disposition: inline
-In-Reply-To: <20260701-ad5529r-driver-v5-2-ed087900e642@analog.com>
 
---0M00TNO2mVEAmOIw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The property `qcom,qaif-aif-bits-per-lane` is fundamentally misnam=
+ed relative to its description and usage, creating a dangerous contradictio=
+n that will lead to incorrect hardware configurations.
+- [Medium] The `qcom,qaif-aif-lane-config` matrix schema fails to enforce t=
+he exact length of each row, allowing malformed configurations to silently =
+pass validation.
+- [Low] The `compatible` property schema forbids standard specific-to-gener=
+ic fallback chains.
+--
 
-On Wed, Jul 01, 2026 at 08:40:40AM +0200, Janani Sunil wrote:
+commit 766077d779dbf4ceb1f7492bb1a02c81dfc5f0d3
+Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
 
-> +patternProperties:
-> +  "^channel@([0-9a-f]{1,2})$":
-> +    type: object
-> +    description: Child nodes for individual channel configuration
-> +
-> +    properties:
-> +      reg:
-> +        description: Channel number.
-> +        minimum: 0
-> +        maximum: 63
-> +
-> +      spi,device-addr:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
+dt-bindings: sound: qcom,qaif-cpu: Add binding
 
-Same comments apply here about whether this is a channel or a spi
-peripheral level property.
+Add a dt-bindings header and devicetree binding for the Qualcomm Audio
+Interface (QAIF) CPU DAI controller. This allows platform devicetree
+files to describe the controller's MMIO region, IOMMU stream, clocks,
+interrupts, and per-interface AIF configuration.
 
-> +        enum: [0, 1, 2, 3]
+Depends-on: [PATCH 0/4] clk: qcom: Add Audio Core clock controller support =
+on Qualcomm Shikra SoC
+  https://lore.kernel.org/linux-clk/20260605-shikra-audiocorecc-v1-0-7ee6b5=
+f2d928@oss.qualcomm.com/
+
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,qaif-cpu.yaml b=
+/Documentation/devicetree/bindings/sound/qcom,qaif-cpu.yaml
+> new file mode 100644
+> index 0000000000000..672f40df877be
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/qcom,qaif-cpu.yaml
+> @@ -0,0 +1,358 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/qcom,qaif-cpu.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,qaif-cpu
+> +      - qcom,shikra-qaif-cpu
+
+[Severity: Low]
+Does this strict enum restrict the compatible property to a single string,
+preventing standard specific-to-generic fallback chains? If a device tree
+attempts to use a fallback like "qcom,shikra-qaif-cpu", "qcom,qaif-cpu",
+it looks like dt_binding_check validation would fail.
+
+[ ... ]
+
+> +      qcom,qaif-aif-lane-config:
+> +        $ref: /schemas/types.yaml#/definitions/uint32-matrix
 > +        description:
-> +          Device address selected by the ID0 and ID1 pins. Up to four AD5529R
-> +          devices can share a single SPI chip select; each device responds only
-> +          to transfers whose address bits [13:12] match its configured address.
-> +
-> +      adi,output-range-microvolt:
+> +          Lane configuration matrix. Each row is a pair <enable directio=
+n>
+> +          for one lane starting from lane 0, up to 8 lanes.
+> +          enable: 0 =3D disabled, 1 =3D enabled (QAIF_AIF_LANE_ENABLE).
+> +          direction: QAIF_AIF_LANE_DIR_TX (0) for TX (playback),
+> +                     QAIF_AIF_LANE_DIR_RX (1) for RX (capture).
+> +        maxItems: 8
+> +        items:
+> +          items:
+> +            - description: Lane enable (0 =3D disabled, 1 =3D enabled)
+> +              enum: [0, 1]
+> +            - description: Lane direction (0 =3D TX/speaker, 1 =3D RX/mi=
+c)
+> +              enum: [0, 1]
 
-I didn't notice this on the previous versions, but doesn't this
-duplicate the common output-range-microvolt in dac.yaml, which you
-should be including here because these channels are dacs?
+[Severity: Medium]
+Should this inner items list include minItems: 2 and maxItems: 2?
 
-pw-bot: changes-requested
+Since JSON Schema Draft 7 doesn't implicitly restrict array tuple lengths,
+omitting the bounds allows extra elements per row to silently pass validati=
+on.
 
-Cheers,
-Conor.
+If malformed arrays are provided, it looks like the driver's flat array
+parsing would misalign and misinterpret the values.
 
-> +        description: |
-> +          Output voltage range for this channel as [min, max] in microvolts.
-> +          If not specified, defaults to 0V to 5V range.
-> +        oneOf:
-> +          - items:
-> +              - const: 0
-> +              - enum: [5000000, 10000000, 20000000, 40000000]
-> +          - items:
-> +              - const: -5000000
-> +              - const: 5000000
-> +          - items:
-> +              - const: -10000000
-> +              - const: 10000000
-> +          - items:
-> +              - const: -15000000
-> +              - const: 15000000
-> +          - items:
-> +              - const: -20000000
-> +              - const: 20000000
+> +      qcom,qaif-aif-full-cycle-en:
+> +        type: boolean
+> +        description: Enable full-cycle sync (effective in sync master mo=
+de).
+> +      qcom,qaif-aif-bits-per-lane:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description:
+> +          Number of slots per lane. Maps to hardware register
+> +          BITS_PER_LANE as (slot_width * bits_per_lane - 1).
+> +          For example, 2 slots with a 32-bit slot width gives
+> +          63 (=3D 32 * 2 - 1) in the register, representing 64
+> +          bits per lane per frame.
 
---0M00TNO2mVEAmOIw
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: High]
+Is this property fundamentally misnamed? The description says it represents
+the number of slots per lane, and the driver code also appears to treat
+it as slots to calculate the final register value.
 
------BEGIN PGP SIGNATURE-----
+If a device tree author follows the property name qcom,qaif-aif-bits-per-la=
+ne
+and provides the actual number of bits (like 64), wouldn't this cause a
+register overflow and clock miscalculation when the driver multiplies
+it by slot_width?
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakT0/gAKCRB4tDGHoIJi
-0pnQAQD9lhRrxn1NbXQ8zdd56gFpnXVgtHwgo/R9/U8JU6MARgEAuKhd4IqN1Y05
-FDtxSXMlM8NIEpnzxf86fNIaYlXdcgc=
-=Qn0X
------END PGP SIGNATURE-----
-
---0M00TNO2mVEAmOIw--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701105757.2779=
+738-1-harendra.gautam@oss.qualcomm.com?part=3D1
