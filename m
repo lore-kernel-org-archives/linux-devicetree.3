@@ -1,101 +1,129 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B446F42AA6;
-	Wed,  1 Jul 2026 09:09:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1604339FCCC;
+	Wed,  1 Jul 2026 09:11:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782896993; cv=none; b=LURxlP3xrd26GFiYv1rGjw4uCOVkaZvYOqWBtKeNyEExEDyLLfPqnD2kzNv2aZ7btzudfF89MTNa36l+MArKoUIEEo4fusZ2uBdMC2c7EyOtenV1x6tfhma6mPE99GWiXh3ga/+TdMKw7edCjFiA9x0LCGuxMqevPxuYASKuwgo=
+	t=1782897088; cv=none; b=l5hM6MtyhO1E6B9e9J2yLXrQyCgDc+Z/fv83YIClLjHIWwRzFbuX2HnKSaiAXT+h98y0fU2GUcYXWmcMH23H1X9g0iomvhQ5gw8zFJuGe1yCqkj+HUGkytGj9X7RqSn9XsflSaah9A7NGZ9Eh4xy23ufJ28Sq2/7Lj8wMzYrjfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782896993; c=relaxed/simple;
-	bh=noJn7mJQsgWOgz52G8yMKwzjXPPCN+EoHw/1TvTzXmI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A5jguICL00znsFnlXcPrzVPOF7SoHhAYOtDNXuhXEVOugn2iwBbqdE0ABDANYPPx8yMgufwvazACDyPbti9Pd8ekEYCgKdmZGa6IIi7H0QziWcKmGhT2oO51sWH1F12o9UdLAJjFtnwTiWyiElzzT6Rn9nF+aTn9/ntLzkHI2Fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=iKN4FMG+; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1782897088; c=relaxed/simple;
+	bh=0qwRH0VpthamnGatXs3UZ5lbAY9w8bFYaMwIvglhzHU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=t9JhhnZYfkh5S/+tYHbDgCfJhH+Ccl8xUJWZYn6so/NRCoxJyIu4FWWyXgc5/3ibfhCncaoxxNNb6H8DgNMhxL5wqMl8ydV9mYn5XgxIJBdR+fgRjhUhqBKxSV6+WU72sn30I6lqZ+gbOgWOVdSzx+JIVUZK0QUTkUbnVmyifsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QQs/i7KM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="iKN4FMG+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=F3tUEC7RtYlVbwWQFfwwdFjjsr90lp0ihCLoI0ydDyQ=; b=iKN4FMG+lZhmANi3WAwUcoL3GK
-	kNhJxc8LmIwWnlYROVGRbBdG1yll15aFzSjDcdeAuO/6BvNnn9D677pkbx4LbeSez5JeQ6jeytlEM
-	5Y75HoKrYSUH5lR3s2jVnvCNegGxP0DpYB6YVynY+JnJPQDznStyrydE2jd/TWm8MFXBpS7Zy7xEi
-	B46oBIR0Zi2i/P7fWA7TSRaSgiDXjLpRIwnpikv09RxAixvwEArLzkIK63zDV2C4O9EieIi1epaSo
-	MPzes+gMx77gbxJBNLJyPFTNyy6Vi8xRuwEQu36DeGeRlk61yeAPvXS5jqvFCPaxno4isgNzkS2He
-	T9LwR3ZA==;
-Received: from sslproxy05.your-server.de ([78.46.172.2])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <Max.Merchel@ew.tq-group.com>)
-	id 1weqx3-0009s4-1P;
-	Wed, 01 Jul 2026 11:09:49 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy05.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <Max.Merchel@ew.tq-group.com>)
-	id 1weqx3-000GWG-2O;
-	Wed, 01 Jul 2026 11:09:48 +0200
-From: Max Merchel <Max.Merchel@ew.tq-group.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Max Merchel <Max.Merchel@ew.tq-group.com>,
-	linux@ew.tq-group.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ARM: dts: imx6ul-tqma6ul: add nvmem-layout
-Date: Wed,  1 Jul 2026 11:09:44 +0200
-Message-ID: <20260701090946.1479190-1-Max.Merchel@ew.tq-group.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QQs/i7KM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8F191F000E9;
+	Wed,  1 Jul 2026 09:11:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782897086;
+	bh=jvTFl5vL211K5skStsWaWiAI6JmtKkjQ0Ig2NpqnZWc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QQs/i7KMSkvh+ekY2x0/OAXsSuNhJ9YIfOx6oto+gsH2rHsaAjMuNjOM86kasakSe
+	 G8cXZKinJe6n0Qp1OUC7LklGf+sWRYRfE7ddndvEXChi+5JOlkxIJpvshEMALuHlQs
+	 /avWHwncqbKgj7MpAkekAphFv0O6//shwbNVt6U2H/C7FmZLD3JOtvSj3RdtS4V0bm
+	 6wuaX0geLAmRy3h6FJRXho6hBJPsnYt8rg4X/+Sadgz9TbHcHey/kzu3mq3QJlnzAB
+	 vn7MZYPAunW0JSCbjdiF2J+iM1XdvnuwyJlPOQT8zV8go1ONaKH3tnapyxFOwdCx0g
+	 cXYDKcNJw+T6w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 09/22] RISC-V: Add Ssccfg/Smcdeleg ISA extension
+ definition and parsing
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atish Patra" <atish.patra@linux.dev>
+Cc: linux-perf-users@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260701-counter_delegation-v8-9-7909f863a645@meta.com>
+References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
+ <20260701-counter_delegation-v8-9-7909f863a645@meta.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 09:11:25 +0000
+Message-Id: <20260701091125.C8F191F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28047/Tue Jun 30 23:29:24 2026)
 
-TQMa6UL has board-information located in EEPROM at offset 0x20.
-Add necessary nodes and properties for nvmem cell.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The Supervisor-level `Ssccfg` extension validation strictly requir=
+es the Machine-level `Smcdeleg` extension, breaking S-mode guest VMs.
+- [Medium] riscv_ext_ssccfg_validate passes the wrong context pointer to ri=
+scv_ext_smcdeleg_validate and performs a logically redundant check.
+--
 
-Signed-off-by: Max Merchel <Max.Merchel@ew.tq-group.com>
----
- arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul-common.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+commit 6cf182c3b2cfda28c919d7041cfd7b6c8a237b86
+Author: Atish Patra <atishp@rivosinc.com>
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul-common.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul-common.dtsi
-index 4fa98e6a66d7c..9b70e58868b08 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul-common.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul-common.dtsi
-@@ -126,6 +126,16 @@ m24c64_50: eeprom@50 {
- 		compatible = "atmel,24c64";
- 		reg = <0x50>;
- 		pagesize = <32>;
-+
-+		nvmem-layout {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			module_info: module-info@20 {
-+				reg = <0x20 0x60>;
-+			};
-+		};
- 	};
- 
- 	m24c02_52: eeprom@52 {
+RISC-V: Add Ssccfg/Smcdeleg ISA extension definition and parsing
 
-base-commit: be5c93fa674f0fc3c8f359c2143abce6bbb422e6
--- 
-2.43.0
+This commit introduces definitions and parsing for the Smcdeleg and Ssccfg
+ISA extensions on RISC-V. It adds validation logic to ensure that required
+dependencies are present before enabling these extensions.
 
+> diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeatur=
+e.c
+> index 1452521d740a6..1fe647e035157 100644
+> --- a/arch/riscv/kernel/cpufeature.c
+> +++ b/arch/riscv/kernel/cpufeature.c
+> @@ -330,6 +330,27 @@ static const unsigned int riscv_a_exts[] =3D {
+>  	RISCV_ISA_EXT_ZKNE,	\
+>  	RISCV_ISA_EXT_ZKNH
+> =20
+> +static int riscv_ext_smcdeleg_validate(const struct riscv_isa_ext_data *=
+data,
+> +				       const unsigned long *isa_bitmap)
+> +{
+> +	if (__riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_SSCSRIND)=
+ &&
+> +	    __riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_ZIHPM) &&
+> +	    __riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_ZICNTR))
+> +		return 0;
+> +
+> +	return -EPROBE_DEFER;
+> +}
+> +
+> +static int riscv_ext_ssccfg_validate(const struct riscv_isa_ext_data *da=
+ta,
+> +				     const unsigned long *isa_bitmap)
+> +{
+> +	if (!riscv_ext_smcdeleg_validate(data, isa_bitmap) &&
+> +	    __riscv_isa_extension_available(isa_bitmap, RISCV_ISA_EXT_SMCDELEG))
+
+[Severity: High]
+Does this code inadvertently break Ssccfg support in S-mode guest VMs?
+
+When Linux runs as a guest VM under a hypervisor, M-mode extensions like
+Smcdeleg are hidden from the guest OS. Since this validation strictly requi=
+res
+RISCV_ISA_EXT_SMCDELEG to be present in the ISA string, Ssccfg will always
+return -EPROBE_DEFER and be disabled.
+
+Should a Supervisor-level extension depend on the presence of a Machine-lev=
+el
+extension?
+
+[Severity: Medium]
+Is it intentional to pass the SSCCFG data pointer to a function expecting
+SMCDELEG's context?
+
+While it currently doesn't crash because riscv_ext_smcdeleg_validate() igno=
+res
+the data pointer, this seems to violate the validation callback API contrac=
+t.
+
+Additionally, is it necessary to call riscv_ext_smcdeleg_validate() directly
+here? If RISCV_ISA_EXT_SMCDELEG is present in the resolved isa_bitmap, it
+should already be guaranteed to have passed its own validation function dur=
+ing
+a previous loop iteration.
+
+> +		return 0;
+> +
+> +	return -EPROBE_DEFER;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-counter_de=
+legation-v8-0-7909f863a645@meta.com?part=3D9
