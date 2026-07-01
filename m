@@ -1,319 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA11A13D8B1;
-	Wed,  1 Jul 2026 14:05:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193E02459E1
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 14:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782914714; cv=none; b=NafnWZ5T6sqsVnnxxYOotcz7vOXLHh84Lud9Uaa9DX+DsDz0TNuCAl8EjttGWU6veI8k4fjGDgf4UdWMVj1r4THsartnOP29ZqPYn50bv6fwf6fj4WQqXbBFMIep+skpF3NYzFUJ6tbN5kViMKi9b5CdXryrFEdK15gXcg594do=
+	t=1782914928; cv=none; b=Mz6TUrWmvPYYQbmX+2BMekqfqDEvoAUIodnKH2OPIYd4xtRfjcC8/2FWvErBWOKUSDGmYsCn3JG2Yw109CNZ4sPczi56wYbLMyBOiVDpDJSbRs+0TxoqYyzALGC7JKONOW/y4USc60JW3AzYM9k2bN0LgQ+B98dJX5DAfoFOoiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782914714; c=relaxed/simple;
-	bh=0nvsHBmf2FE5rKBPPsN+DZAsBkoyqvfDWlJWrgesl9A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u+4x1bK75VK2Fmb3FZkQV2f0cwn8cdhb7OXWGOxxgK76uQ44BXhqkrhrYHVAEQuxXtisvwjv+qeW+HxTolgGSUJFLzQt9mDWpANmbf/nIZYFAFXlxBvH5FuSA+uxYYj4Ah3yUhfdebXkOeVLFY6SymP/9AKtJBhTIp0dqjowSyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HkdidmL8; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HkdidmL8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60A6B1F000E9;
-	Wed,  1 Jul 2026 14:05:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782914712;
-	bh=KN1ZZoShUes6sGFwycYM2qI4rRpQvujeGBBYwd462qg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HkdidmL8i7jVnVEjIIcgCKSXScek/60dRiwAAP4oj30EEDyou9nVafCvtV0b4RP5P
-	 6onzkAjRbCfPb+7nwMtEcqM11iptMzCwQddnSVo3pbpwJbuJSuxkJ6irwsfaosg3H8
-	 GEDGaZH8D1YX8evg5Hr0wbpPaL22jF0c2eBjNDroBmoZAuhg+AYByAFvS0bOCGtafy
-	 xzbTcAvQRWGD0mivnctUacPxws5yxqWSHTpw1rI92Wa6W1690Y2FNWtUiTvGNIBWLJ
-	 T2jxlffovycLkIGQ62LA/zrL2J/YDc1YECLvNM2/zsHFENrUJbUr5LxWbk0rxtvG/4
-	 fq79uJdC33FWg==
-Message-ID: <70068ae8-ede1-41d2-899b-98ed11e19953@kernel.org>
-Date: Wed, 1 Jul 2026 16:05:05 +0200
+	s=arc-20240116; t=1782914928; c=relaxed/simple;
+	bh=kNtTO1INuRHYWt6yzqLSNxzy+LAJmIkn/k6NL9upXHw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=T6hNaw7Juw+9vWh7axnFgg7Qdz8inPm+pXnOcmvvJ02/8y9AdWwLejuSKqzmNBR6P4bvcvRoGulN53gBelQRGwPIzzRmwCSLzXc84GSWDXZOtzvw2vVOVeSPS67SGkK9Epdrkyi/uXNumM5pQx0QEINu4CoSQMlp1HOsO4cQGPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-9696369925aso238200241.0
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 07:08:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782914926; x=1783519726;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RFL0tXfq6K363hDxIcn9nBKOJixuNA4hvLi7p3y+LRk=;
+        b=W30hMaP0J9pJ6wXKqmaUfGI/DqAUAzrKuFA0qUV3aeTg6l/kgN0NQyuno+A+2597Cl
+         PLIyvFB04XLYcp2UzrUdnMoP5Ze5H40nGyN5fOc7DKVwbrAUGioApVNSnUig8oq+Zhyp
+         AokmYSPE9ek6nG0SM3eBIxR6GvtN/qqiLt1KzpR2LhMwZ+DErDpAPSNcQ9UC0MFJlq75
+         b+IW+ExWxC2AqeQ41n9dw3LG8SZwGhL67F3c//Zwq8SQqcW5q4uwQ52z4LFKuF7p+LAV
+         /ewF7NyyTtoRwUkvNukgqUGPp15zRQAv9kBHSnbIltfzcl0f6sCEAJk7wQo51iM/k4iM
+         ZeDQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoNFiwya4C8djJK3hzfmtegpLlOGfTbufHEkW78XQgAzlIJvMOyPp3pINsANzkKZXCaFm4uwo25D2H+@vger.kernel.org
+X-Gm-Message-State: AOJu0YydBGjiBLN7KO2aitOVVCd7ae+Ck0xMP5sG2Sec9zOVEGAevwYE
+	ssIC3j9M2IDnU8JXxkwfMtU8lfGI5wPjuyAYmMUhViMRWvLNkR3QZlBSRLUOz+eAHNY=
+X-Gm-Gg: AfdE7ckr+k4DiV1ZvFiGAbtBs3FuJqKpHSzKvd0WhenSnDfyzzh6xbwqXFn8uuAOX65
+	D1vSEn7x6Dej/WhdOWyv+U23jaMrVxc1rgUTZ04fWMWFLu0FLNINIjDBkPiZ3/hVSteMyxaTUwm
+	R0KubGiRX/Zp3DLyynRQ4tukB2h6gLU88wvMcx1vdU35rBI3d3btCHfipPNQPiZg9jqYz0NUgry
+	runpqNx+BlwC0Q5Q9IvzuNqfrSY3heJIIKXyVzA5E2/9/32qkiK9Y05Vo4JPbj1kN0LI9Blgyv4
+	STgHogAHCre4RqZZXWKhemVup58Nkz2Qpm9yMNV+Cxa2DsDH5ZDe4NuEO12xLv0Y3s7fxdHPa/w
+	mcLXmNTFQjsdx9Ui1g8K4yY1mX87bo2DnSz29ZqJ85rd/kCBPV7nc2r3aduAtSEWxgieqMHTxrw
+	beABEPyAdytgUbPER4hrsVV5WGCY0zqWenLqA7cFjo4PcUaJVp9dVSOykqqHEr
+X-Received: by 2002:a05:6102:3047:b0:728:53be:7c87 with SMTP id ada2fe7eead31-73da96bd48cmr695764137.7.1782914925866;
+        Wed, 01 Jul 2026 07:08:45 -0700 (PDT)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com. [209.85.217.53])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96966904ec6sm2252802241.13.2026.07.01.07.08.45
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Jul 2026 07:08:45 -0700 (PDT)
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7389cff36bdso175657137.1
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 07:08:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqVLRmodL645P9Rx2M4o/T95GltAg5bXa/udLKvKpuVUlF5hXlLnvng3Tr97Bq8JWR+vK0wprd2bOov@vger.kernel.org
+X-Received: by 2002:a05:6102:3581:b0:738:befe:8f7e with SMTP id
+ ada2fe7eead31-73da98ca868mr783407137.11.1782914925090; Wed, 01 Jul 2026
+ 07:08:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dt-bindings: firmware: add mbedtee,rpc binding
-To: Xing Loong <xing.xl.loong@gmail.com>,
- Jens Wiklander <jens.wiklander@linaro.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Sumit Garg <sumit.garg@kernel.org>, op-tee@lists.trustedfirmware.org,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260701132514.186953-1-xing.xl.loong@gmail.com>
- <20260701132514.186953-3-xing.xl.loong@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260701132514.186953-3-xing.xl.loong@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260602204707.1920839-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260602204707.1920839-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260602204707.1920839-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 1 Jul 2026 16:08:33 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdX9S18T8fou_pGGYFGPbMSLohfJp=QS-LTHA0rFbL6zpQ@mail.gmail.com>
+X-Gm-Features: AVVi8CdfZF1yWLhCxDdc26YNvQVH2ivJvmcjIMBdE0JNnn5HxaUZcvezjp7UyKc
+Message-ID: <CAMuHMdX9S18T8fou_pGGYFGPbMSLohfJp=QS-LTHA0rFbL6zpQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] arm64: dts: renesas: r9a09g057: Add PCIe nodes
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 01/07/2026 15:25, Xing Loong wrote:
-> Add YAML devicetree binding for the MbedTEE Trusted Execution
+Hi Prabhakar,
 
-Drop YAML, there is no such thing as YAML binding.
+On Tue, 2 Jun 2026 at 22:47, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Add PCIe nodes to Renesas RZ/V2H(P) ("R9A09G057") SoC DTSI.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-> Environment driver.
+Thanks for your patch!
 
-We don't take bindings for drivers but for hardware or firmware. Please
-describe these instead.
+> --- a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+> @@ -1025,6 +1025,146 @@ rsci9: serial@12803000 {
+>                         status = "disabled";
+>                 };
+>
+> +               pcie0: pcie@13400000 {
+> +                       compatible = "renesas,r9a09g057-pcie";
+> +                       reg = <0 0x13400000 0 0x10000>;
+> +                       ranges = <0x02000000 0 0x30000000 0 0x30000000 0 0x8000000>,
 
-> 
-> The binding covers two platform configurations:
->   - ARM/AArch64 (TrustZone, SMC): two reserved-memory regions
->     (rpc-t2r-ring and rpc-t2r-shm) plus a GIC SPI edge interrupt
->     for TEE-to-REE notifications.
->   - RISC-V (IMSIC): three reserved-memory regions, adding
->     rpc-r2t-ring for REE-to-TEE command submissions; no interrupts
->     property (T2R notifications use IMSIC MSI allocated at runtime).
-> 
-> Signed-off-by: Xing Loong <xing.xl.loong@gmail.com>
-> ---
->  .../bindings/firmware/mbedtee,rpc.yaml        | 221 ++++++++++++++++++
->  1 file changed, 221 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/firmware/mbedtee,rpc.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/firmware/mbedtee,rpc.yaml b/Documentation/devicetree/bindings/firmware/mbedtee,rpc.yaml
-> new file mode 100644
-> index 0000000..08ae255
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/firmware/mbedtee,rpc.yaml
-> @@ -0,0 +1,221 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/firmware/mbedtee,rpc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: MbedTEE Trusted Execution Environment
-> +
-> +maintainers:
-> +  - Xing Loong <xing.xl.loong@gmail.com>
-> +
-> +description: |
-> +  MbedTEE is a Trusted Execution Environment for embedded systems.
-> +  This binding describes the shared-memory regions used for RPC
+(kast cell) 0x08000000, for better alignment with the next line?
 
-Describe firmware, not the binding. It's redundant to say what the
-binding is about, just say what is the hardware.
+> +                                <0x43000000 4 0x40000000 4 0x40000000 6 0x00000000>;
+> +                       dma-ranges = <0x42000000 0 0x40000000 0 0x40000000 4 0x00000000>;
 
-> +  communication between the Linux REE driver and MbedTEE OS.
-> +
-> +  The REE and TEE CPUs sharing the RPC memory must be in a
-> +  hardware-coherent domain (same CPU cluster, coherent caches).
-> +
-> +  Two or three reserved-memory regions are required:
-> +
-> +    rpc-t2r-ring  ring buffer for TEE-to-REE notifications (all platforms)
-> +    rpc-t2r-shm   shared memory for TEE-to-REE RPC payloads (all platforms)
-> +    rpc-r2t-ring  ring buffer for REE-to-TEE command submissions (RISC-V only)
-> +
-> +  On ARM/AArch64 the transport uses SMC calls; TEE-to-REE
-> +  notifications use a GIC SPI edge interrupt.
-> +
-> +  On RISC-V the TEE notifies the REE via IMSIC MSI; the REE submits
-> +  commands via shared-memory rpc-r2t-ring that the TEE polls. No
-> +  REE-to-TEE interrupt is used. No SBI ecall is involved.
-> +
-> +properties:
-> +  $nodename:
-> +    const: mbedtee
+Sashiko wonders if the first cell should be 0x43000000, as the window
+is 16 GiB large, i.e. larger than 4 GiB.  I don't know...
+If Sashiko is right:
+  - RZ/G3E is also wrong.
+  - Should there be a second line for the 32-bit window, covering all
+    low 4 GiB RAM?
 
-Drop, why would it be relevant?
+> +               pcie1: pcie@13410000 {
+> +                       compatible = "renesas,r9a09g057-pcie";
+> +                       reg = <0 0x13410000 0 0x10000>;
+> +                       ranges = <0x02000000 0 0x38000000 0 0x38000000 0 0x8000000>,
 
-> +
-> +  compatible:
-> +    const: mbedtee,rpc
+0x0 and 0x080000000, for better alignment with the next line?
 
-Feels way too generic. First, Google results on mbedtee are basically
-non-existing, so what sort of company is that?
+> +                                <0x43000000 0xa 0x40000000 0xa 0x40000000 5 0xc0000000>;
+> +                       dma-ranges = <0x42000000 0 0x40000000 0 0x40000000 4 0x00000000>;
 
-Second, rpc is just not specific enough. Please carefully read writing
-bindings doc.
+Same as above.
 
-> +
-> +  interrupts:
-> +    description:
-> +      GIC interrupt used by the TEE to notify the REE of pending RPC
-> +      responses (ARM/AArch64 only). Not present on RISC-V platforms which
-> +      use IMSIC platform MSI interrupts allocated dynamically at runtime.
+The rest LGTM.
 
-Please read writing bindings doc.
+Gr{oetje,eeting}s,
 
-> +
-> +  msi-parent:
-> +    maxItems: 1
-> +    description:
-> +      IMSIC MSI controller used by the Linux driver to allocate the
+                        Geert
 
-Again drivers...
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-> +      TEE-to-REE notification interrupt on RISC-V platforms. Not present on
-> +      ARM/AArch64 platforms, which use the interrupts property.
-> +
-> +  memory-region:
-> +    minItems: 2
-> +    maxItems: 3
-> +    description:
-> +      References to reserved-memory regions for REE<->TEE communication.
-> +      Entries must match memory-region-names order.
-
-Obvious. Please do not come with your own style of bindings.
-
-> +
-> +  memory-region-names:
-> +    minItems: 2
-> +    maxItems: 3
-
-Why is this flexible?
-
-> +    items:
-> +      enum:
-> +        - rpc-t2r-ring
-
-rpc is redundant, drop
-
-> +        - rpc-t2r-shm
-> +        - rpc-r2t-ring
-> +
-> +required:
-> +  - compatible
-> +
-> +allOf:
-> +  - if:
-> +      required:
-> +        - interrupts
-> +    then:
-> +      required:
-> +        - interrupts
-> +        - memory-region
-> +        - memory-region-names
-> +      properties:
-> +        msi-parent: false
-> +        memory-region:
-> +          minItems: 2
-> +          maxItems: 2
-> +        memory-region-names:
-> +          items:
-> +            - const: rpc-t2r-ring
-> +            - const: rpc-t2r-shm
-> +    else:
-> +      required:
-> +        - msi-parent
-> +        - memory-region
-> +        - memory-region-names
-
-So memory-region is always required?
-
-> +      properties:
-> +        memory-region:
-> +          minItems: 3
-> +          maxItems: 3
-> +        memory-region-names:
-> +          items:
-> +            - const: rpc-t2r-ring
-> +            - const: rpc-t2r-shm
-> +            - const: rpc-r2t-ring
-
-Your top level schema said that. You only need minItems.
-
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    /* ARM TrustZone (SMC) */
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    / {
-> +      #address-cells = <2>;
-> +      #size-cells = <2>;
-> +
-> +      gic: interrupt-controller@2f000000 {
-> +        compatible = "arm,gic-v3";
-> +        reg = <0 0x2f000000 0 0x10000>,
-> +              <0 0x2f100000 0 0x200000>;
-> +        interrupt-controller;
-> +        #interrupt-cells = <3>;
-> +      };
-> +
-> +      reserved-memory {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +        ranges;
-> +
-> +        mbedtee_t2r_ring: rpc-t2r-ring@85f10000 {
-> +          reg = <0 0x85f10000 0 0x20000>;
-> +          no-map;
-> +        };
-> +
-> +        mbedtee_t2r_shm: rpc-t2r-shm@85f30000 {
-> +          reg = <0 0x85f30000 0 0x40000>;
-> +          no-map;
-> +        };
-> +      };
-
-None of the above is relevant, drop.
-
-
-> +
-> +      firmware {
-> +        mbedtee {
-> +          compatible = "mbedtee,rpc";
-> +          interrupt-parent = <&gic>;
-> +          interrupts = <GIC_SPI 72 IRQ_TYPE_EDGE_RISING>;
-> +          memory-region = <&mbedtee_t2r_ring>, <&mbedtee_t2r_shm>;
-> +          memory-region-names = "rpc-t2r-ring", "rpc-t2r-shm";
-> +        };
-> +      };
-> +    };
-> +
-
-
-Best regards,
-Krzysztof
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
