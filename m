@@ -1,252 +1,316 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67EC83A48F4;
-	Wed,  1 Jul 2026 09:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6843EF0DC
+	for <devicetree@vger.kernel.org>; Wed,  1 Jul 2026 09:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782897650; cv=none; b=klogvj3cX3YI5G9gim1vXPZY/KSqjCKoYWQBYqmmX4LJf+zWu5dOoUqhqzrI3zqZx5HEvsabDUfprs+T3EHkbB3Ce2K03zh2c2bQjTmQCC7lqd4QVLoAdPwjLPQErVY9LyEX2Q/ymUpVPbSFcGFl7jK8/v0dkuAYFtGNw1zWcDQ=
+	t=1782897927; cv=none; b=DNA77WXa0K4dzqBLnQJ+HbQ18yGrDvLsRBzeFpSAC5K+QUC6kUn0bofHQRxgceNZHhAV3ZQ7+y+QJDHeNgBKxoiH8dZ7UoVTAik+reb1ODfdi902JksntKVAKdE/G8EY+iUuVeCImOiisYk3xSbK2iXTmgST5n8Go6ll5BlHn1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782897650; c=relaxed/simple;
-	bh=PIMoTpWEDv6PtVd6AZbffHeGKRgsNc9MHG0HSKGKeLM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hWjYp99zct7FJi4Q9ozepEgOps2kcESB9lc8JiO4mY5I6/C02zX7UuOjc7P7Sjb8od9P5bE1LanMz7pGAIQFn/P/zDdUgzghSgW5mx48vcMV5Yv/v+pU9pX8BLO/uSZU2MjwQJ3tdHHBX02TTTCClSrurfRYXEFvnu2AZYAsMm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wq1jFYQ+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782897927; c=relaxed/simple;
+	bh=mrZJL0wWuiBiYZaLKVduTJdGQVMOqrorjV68LoyJ6uA=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=RH+8R3/CgjEbMtJmOuvhMRv4tpnpv4g0qtl9bmGftMLuNFjK7VT8Zv3am86sEgXP0ADTd3sxuKVMGLztwmWO/cQ6ZtE+JnnPuxpJWPmvg/TagNJNKpTXnb1sRJHBqpDiWmPDtEq6cI3dKIEIr+Fiea9gqPPZYzaAA2ofafzzvdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AX+PgbEy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OuEr57O1; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wq1jFYQ+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBE991F00AC4;
-	Wed,  1 Jul 2026 09:20:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782897649;
-	bh=Q25jbUiUkD8jh5m/zMKgF/DrmWCsWp20fD/1JrDao/U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Wq1jFYQ+ZTutakzyFQODujgJ6PKAPMidQZxYr29gwoJmUo6eaIai5D8Xv0TRCUHKj
-	 35P1+OvKVpjBfKzbz4LEicGqwZcYXsJ0sfNDNOi8ACyEzzBRS2gN4yXUS8m5kffCvP
-	 F0x+ZTRsVAUihf9rD7Nc7lSbw3wyh9KvlkT0ZLDYSBUkhrauG603cGac8W1DeHGCR+
-	 Pq9KTTrAHLkf8VrWxnc2PEZvxmu47DX6l78lw/tJ6uC19bxBN7HDCulhM56kYsFxjv
-	 FmLhVSoCQyi3fpGXO9Fb02dQ2b/4AT1A1Jywdn7R5BYpmj3O9TIEkfMNi73shs1GMl
-	 3qtAITyfkZvwQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 12/22] RISC-V: perf: Modify the counter discovery
- mechanism
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Atish Patra" <atish.patra@linux.dev>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-perf-users@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260701-counter_delegation-v8-12-7909f863a645@meta.com>
-References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
- <20260701-counter_delegation-v8-12-7909f863a645@meta.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 09:20:48 +0000
-Message-Id: <20260701092048.BBE991F00AC4@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AX+PgbEy";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OuEr57O1"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6618GLED489279
+	for <devicetree@vger.kernel.org>; Wed, 1 Jul 2026 09:25:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4oM/c+Ilwmkiwi8yamCajo3c+lZrBmHM5pAIIsPN0Jw=; b=AX+PgbEy+fWhvRrN
+	CYcu5+4NKk7khAXp8M4ypaxPZTiVM3e01J+ps9xiTeTCAwmRnuPKWi5grTkJVTiE
+	adWCwGu2E/k4K//sLbmkagCrdwKnRRpssKAZwaywPD8mlcRGlnY+RzMZqDijm/Jq
+	Wa3MgRqvV63HL03YqRhv7uBbYicO+gwcnZgxMl7k9fU7+PHSqO+ZDo6zdM2sfrer
+	qdLJXU0+i6v5WeOxg2s0pjhdknXSw59cS2h3hhpY30bH3PwTHXWmidhjxF1oi8m3
+	qWTX82Uq9ml+eiA9gLI5hNUOguekqJjkxZzhIrpfl8IYK52KrARsidYfK3aDSeBS
+	q7Gnbw==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4h0auymv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 09:25:23 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ca53c486f2so6100075ad.3
+        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 02:25:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782897923; x=1783502723; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4oM/c+Ilwmkiwi8yamCajo3c+lZrBmHM5pAIIsPN0Jw=;
+        b=OuEr57O1GGdzjxOTZegQUP1J+8mNMvB6fgA2gzaZSHt1vRCpjjB7O3mb/i/pITUaBx
+         gtipaGeocXzWBggRkXqd40vnQJYew4tBG6SFzc7aBEduRb2X/r6kaEAq5c8CgTjPpvrd
+         L7ZxxQKzCM7wGKd/PbAdUeXgZDe49MypH8Q/1NCZBkjbHA8t4yxHIjOqUD8XwuEpwc/8
+         WwI4SqIkw7AhLXSUJnbu/towS8D08y/R5IuaM6jUduy4WrBEj8ogyniKmEawDjgAGw5m
+         TJF4RIxDGqXQvYSAF0PoLqB3NHTbEqAXWq5AVIcsIv7lkfoekf3FI05f7pXQNoLLj3rA
+         igVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782897923; x=1783502723;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4oM/c+Ilwmkiwi8yamCajo3c+lZrBmHM5pAIIsPN0Jw=;
+        b=aqy8qVmcxwcDJYo5OzY+fbuRsX+g9ve04aBMhYkpmgzul1oEJ3v8i38TtUTyTLRs75
+         nJIgGKkF0PCykVpwCk7WI84CdCEEs/kXVqtqxiju9TI76TQQUee5PxF5jppI/hyNRwof
+         6SDQJsq4935sI9Wdbu3rs4iuAuGs+KPPZs9cXuA8RpBOAS/MMxWvIB6fy0lqGgenHEMv
+         ixjUKs3wJcSy+0yevOtLYUFjAKk1cytFucY1saLLR1hvLSXNVs9GHBA2xO+zJxS3jRry
+         BzwbzTLoPZV+gxWJvjgsqn2k0Rpc1th/FwhFn5s5ZYuZPNCxIqZHlcn3qshEiCDCm1mI
+         Ya3g==
+X-Forwarded-Encrypted: i=1; AHgh+RrVtWUo0mOmJAth0r3Gkjdrt7zBqzzUMWKY9CFfXecKBR9SJxEyG2fQUdv6mn/wdz7THhaUZWI3Utb+@vger.kernel.org
+X-Gm-Message-State: AOJu0YyA/JQyEyKXFkNmn1W7bCxP/iHnAVtCYlC9i3u6dHkVteCyjIyQ
+	FK3NziqKwrNNR5XH0q9AONl2Na7Dcrh475xZGDfZ+V3yppeKN0o8bz4PHPGQBk35q/8wn8aKo9q
+	VfC9lx7e5ZlrhoxDwJ6h3WXFVN97v+C7f7QuGToV0kC3f6dLvyvGwtRz++8brchc/3rBbIbSj
+X-Gm-Gg: AfdE7clUApmsUB/38m5x3fy2hs4H63LocfnuyYnLvGH7PeRGiuytiz95l+b4HnU/u5Z
+	8caYDQcEb1wQOPNhgl/oFdz0JLuvSNksWPxr+LRi+xvdCP/1CORS7NFJj/9FkFmjytpyfoSri8p
+	V/YOTD1hzWCjXjVejYZ45A6ArZ1VJ9xMsypqcCcOHAaZWuopHzYeBCF1ljMYUhnBU5ptLzqngPy
+	7GbiH8LF1hQfJXf4Sgjs4eoWb4kQaCkUgxlIjQE4bO4Z2sJk/8jG9qXfqk9e+D++ph+djqPEKZg
+	IaXKK/tgIyeiUNvME3bonZ0jjcu+vxKnuKJ4f4wW31pVlB3PSrFRPrlJRJ5qvHVYyhyVGO0/2JV
+	MEqTladuxydQveDRgjdNI/DQHwFGg+XcjwkmypYzF
+X-Received: by 2002:a17:903:4688:b0:2c9:99a2:d108 with SMTP id d9443c01a7336-2ca7e8b53f8mr11354285ad.37.1782897922745;
+        Wed, 01 Jul 2026 02:25:22 -0700 (PDT)
+X-Received: by 2002:a17:903:4688:b0:2c9:99a2:d108 with SMTP id d9443c01a7336-2ca7e8b53f8mr11353945ad.37.1782897922220;
+        Wed, 01 Jul 2026 02:25:22 -0700 (PDT)
+Received: from [10.206.100.243] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca37c82810sm28865905ad.28.2026.07.01.02.25.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Jul 2026 02:25:21 -0700 (PDT)
+Message-ID: <25a71fc7-6eaf-4a6f-b511-26e1827ddc7a@oss.qualcomm.com>
+Date: Wed, 1 Jul 2026 14:55:16 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] arm64: dts: qcom: shikra-cqm-evk: Enable display and
+ add ili7807s panel
+From: Arpit Saini <arpit.saini@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        mohit.dsor@oss.qualcomm.com
+References: <20260627-shikra-dt-changes-v1-0-449a402673d0@oss.qualcomm.com>
+ <20260627-shikra-dt-changes-v1-2-449a402673d0@oss.qualcomm.com>
+ <ypic3vctnnci7mkv4bg62n5xsgzpd4e3mam5kt2nvt7dxzyim4@zdzpup6uydtl>
+ <f46b78cb-cee7-46ea-985c-6fb1c2f21071@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <f46b78cb-cee7-46ea-985c-6fb1c2f21071@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=OuF/DS/t c=1 sm=1 tr=0 ts=6a44dd03 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=ni_s6_Wbm9bTVVOsB1UA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-ORIG-GUID: JryQ4ewzBfJNrlgGDvMEYcn6hGMkmQh1
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDA5NiBTYWx0ZWRfX3FX4oM290IvB
+ rUfoNCe0zLoo6Cvur56q0TH5fLzVkeNr8ClYb7fQyqjExh/XI67SjRZVoxqwBeBw7eSgTAvpTTy
+ SRucp5hs4jmxnpXw6odG6GKn+RGOhBE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDA5NiBTYWx0ZWRfX6RRToZAlL4Ez
+ OZDF6uZKiXDHenNllQPyi5G4kIogm3bShWrg2b4fnTTXAveqqZ4WmrWkAT2NUAPF8hhkt2cDC8o
+ pRqIj8D+jMyUERBu5vmDx/Rb0/jhq2uxqToqqlNTqZt+9mrcwuVXls7UMyDuGZHcJupVlht8wvt
+ Wo1Uy4G6pIq9LwE3mshoasInImkljnV3QNy2cjW0Y084pz1JinTK047qeDVacVfcyB90MFkI759
+ fzGChPT597rstIkWsz35UtYpF8MXHqYw4wjugYOpXWEbfI0ZYxhL7FL/0RwitoCZYQosT8XJCHm
+ ciE1hFs/uP38dGp2z8XQZiIpphRnQr+pEM9CW7SSKpVrvc67W0aNBLLTxO8FAiGM5JmMhytsdu5
+ BtbrkFmrR7gcy7RpTMxKvyk9uDdxNZtJK8okOj1JLpr3Ahvw1YpQyBA3iG6O2e8e5CCcYPH/QjW
+ st6u870om0tMUh+/A1w==
+X-Proofpoint-GUID: JryQ4ewzBfJNrlgGDvMEYcn6hGMkmQh1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-01_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 clxscore=1015 adultscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010096
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Hi Dmitry,
 
-New issues:
-- [High] Hardware counter CSR indices and firmware counter SBI logical indi=
-ces share the same index namespace, leading to silent overwriting of hardwa=
-re counters in `pmu_ctr_list`.
-- [High] Bitwise shift overflow on 32-bit architectures when processing PMU=
- firmware counters with indices >=3D 32.
-- [Medium] A failure to discover firmware counters unconditionally aborts P=
-MU initialization, erroneously discarding successfully delegated hardware c=
-ounters.
+On 6/29/2026 4:24 PM, Arpit Saini wrote:
+> Hi Dmitry,
+>
+> On 6/28/2026 6:00 PM, Dmitry Baryshkov wrote:
+>> On Sat, Jun 27, 2026 at 03:31:36PM +0530, Nabige Aala wrote:
+>>> From: Arpit Saini <arpit.saini@oss.qualcomm.com>
+>>>
+>>> Enable the Shikra MDSS display subsystem on the Shikra CQM EVK
+>>> board and add the DLC0697 MIPI DSI display panel node.
+>>> Pin pm4125_l5 to 1.232V with regulator-allow-set-load
+>>> for DSI PHY PLL stability.
+>>>
+>>> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
+>>> ---
+>>>   arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 104 
+>>> ++++++++++++++++++++++++++++
+>>>   1 file changed, 104 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts 
+>>> b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
+>>> index 683b5245923b..c9ea093cd8ca 100644
+>>> --- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
+>>> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
+>>> @@ -23,6 +23,18 @@ chosen {
+>>>           stdout-path = "serial0:115200n8";
+>>>       };
+>>>   +    lcd_bias: regulator-lcd-bias {
+>>> +        compatible = "regulator-fixed";
+>>> +        regulator-name = "lcd_bias";
+>>> +        regulator-min-microvolt = <3300000>;
+>>> +        regulator-max-microvolt = <3300000>;
+>>> +        vin-supply = <&pm4125_l17>;
+>>> +        gpio = <&tlmm 151 GPIO_ACTIVE_HIGH>;
+>>> +        enable-active-high;
+>>> +        pinctrl-0 = <&lcd_bias_en>;
+>>> +        pinctrl-names = "default";
+>>> +    };
+>>> +
+>>>       wcn3988-pmu {
+>>>           compatible = "qcom,wcn3988-pmu";
+>>>   @@ -60,6 +72,52 @@ vreg_pmu_ch1: ldo4 {
+>>>       };
+>>>   };
+>>>   +&mdss {
+>>> +    status = "okay";
+>>> +};
+>>> +
+>>> +&mdss_dsi0 {
+>>> +    vdda-supply = <&pm4125_l5>;
+>>> +    status = "okay";
+>> Empty lines before the status property, please.
+>
+> Ack, will update.
+>
+>
+>>> +
+>>> +    panel@0 {
+>>> +        compatible = "dlc,dlc0697", "ilitek,ili7807s";
+>>> +        reg = <0>;
+>>> +
+>>> +        reset-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
+>>> +
+>>> +        vddi-supply = <&pm4125_l15>;
+>>> +        avdd-supply = <&lcd_bias>;
+>>> +        avee-supply = <&lcd_bias>;
+>> AVEE is typically the negative / ground supply. How can it be supplied
+>> by the same regulator as AVDD?
+>
+> Ack , I will update this using two seperate regulator-fixed nodes, 
+> vreg_disp_p and vreg_disp_n
+>
+> as defined in schematics.
+>
+> Thanks for pointing out.
+>
+In LCD Display Bias driver , it takes vin from vph_pwr along with LCD 
+Bias enable (GPIO 151 controlled supply) and it outputs two signals 
+vreg_disp_p as (+5.5v)
 
-Pre-existing issues:
-- [High] Invalid counter base index passed to `sbi_ecall` in `rvpmu_sbi_sta=
-rt_ovf_ctrs_snapshot`.
---
+and vreg_disp_n as (-5.5v). I will update the dts as per this.
 
-commit 96c77115054b0358f4d8c8c58dd7977dd68ff1d2
-Author: Atish Patra <atishp@rivosinc.com>
+Thanks
 
-RISC-V: perf: Modify the counter discovery mechanism
+Arpit
 
-This commit modifies the PMU counter discovery mechanism to support a hybrid
-scheme where hardware counters use counter delegation and firmware counters
-use the SBI PMU extension. It queries the counters info via SBI PMU to
-distinguish the firmware counters and track them in separate bitmasks.
 
-> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-> index 74d9342388212..c20f1e33c65d5 100644
-> --- a/drivers/perf/riscv_pmu_sbi.c
-> +++ b/drivers/perf/riscv_pmu_sbi.c
-[ ... ]
-> @@ -868,34 +885,38 @@ static int rvpmu_sbi_find_num_ctrs(void)
->  		return sbi_err_map_linux_errno(ret.error);
->  }
-> =20
-> -static int rvpmu_sbi_get_ctrinfo(int nctr, unsigned long *mask)
-> +static u32 rvpmu_deleg_find_ctrs(void)
-> +{
-> +	/* TODO */
-> +	return 0;
-> +}
-> +
-> +static int rvpmu_sbi_get_ctrinfo(u32 nsbi_ctr, u32 *num_fw_ctr, u32 *num=
-_hw_ctr)
->  {
->  	struct sbiret ret;
-> -	int i, num_hw_ctr =3D 0, num_fw_ctr =3D 0;
-> +	int i;
->  	union sbi_pmu_ctr_info cinfo;
-> =20
-> -	for (i =3D 0; i < nctr; i++) {
-> +	for (i =3D 0; i < nsbi_ctr; i++) {
->  		ret =3D sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_GET_INFO, i, 0, 0, =
-0, 0, 0);
->  		if (ret.error)
->  			/* The logical counter ids are not expected to be contiguous */
->  			continue;
-> =20
->  		cinfo.value =3D ret.value;
-> -		if (cinfo.type =3D=3D SBI_PMU_CTR_TYPE_FW)
-> -			num_fw_ctr++;
-> -		else
-> -			num_hw_ctr++;
-> -		pmu_ctr_list[i].value =3D cinfo.value;
-> +		if (cinfo.type =3D=3D SBI_PMU_CTR_TYPE_FW) {
-> +			/* Track firmware counters in a different mask */
-> +			firmware_cmask |=3D BIT(i);
-
-[Severity: High]
-Does this code trigger a bitwise shift out of bounds on 32-bit architecture=
-s?
-
-The firmware_cmask variable is an unsigned long, which is 32 bits wide on R=
-V32.
-Since the SBI PMU specification allows up to 64 counters, and standard firm=
-ware
-implementations (like OpenSBI) typically assign firmware counters to logical
-indices 32 and above, the BIT(i) macro will execute a shift greater than or
-equal to the width of the type when i >=3D 32.=20
-
-Will this cause firmware counters to be dropped or corrupted on 32-bit
-platforms?
-
-> +			pmu_ctr_list[i].value =3D cinfo.value;
-
-[Severity: High]
-Can this overwrite hardware counter entries in the pmu_ctr_list array?
-
-The rvpmu_deleg_find_ctrs() function iterates over hardware counters and ma=
-ps
-them using their architectural CSR indices (0-31). The rvpmu_sbi_get_ctrinf=
-o()
-function then maps firmware counters using their SBI logical indices ('i'
-from 0 to N-1).
-
-Since the SBI PMU specification does not restrict firmware counters to indi=
-ces
->=3D 32, if a platform assigns a firmware counter to a logical index <=3D 3=
-1,
-wouldn't using 'i' directly here silently overwrite the delegated hardware
-counter entry?
-
-> +			*num_fw_ctr =3D *num_fw_ctr + 1;
-> +		} else if (cinfo.type =3D=3D SBI_PMU_CTR_TYPE_HW &&
-> +			   !riscv_pmu_cdeleg_available_boot()) {
-> +			*num_hw_ctr =3D *num_hw_ctr + 1;
-> +			cmask |=3D BIT(i);
-> +			pmu_ctr_list[i].value =3D cinfo.value;
-> +		}
->  	}
-> =20
->  	return 0;
->  }
-[ ... ]
-> @@ -1159,16 +1180,48 @@ static void rvpmu_ctr_stop(struct perf_event *eve=
-nt, unsigned long flag)
->  	/* TODO: Counter delegation implementation */
->  }
-> =20
-> -static int rvpmu_find_num_ctrs(void)
-> +static int rvpmu_find_ctrs(void)
->  {
-> -	return rvpmu_sbi_find_num_ctrs();
-> -	/* TODO: Counter delegation implementation */
-> -}
-> +	int num_sbi_counters =3D 0;
-> +	u32 num_deleg_counters =3D 0;
-> +	u32 num_hw_ctr =3D 0, num_fw_ctr =3D 0, num_ctr =3D 0;
-> +	/*
-> +	 * We don't know how many firmware counters are available. Just allocate
-> +	 * for maximum counters the driver can support. The default is 64 anywa=
-ys.
-> +	 */
-> +	pmu_ctr_list =3D kcalloc(RISCV_MAX_COUNTERS, sizeof(*pmu_ctr_list),
-> +			       GFP_KERNEL);
-> +	if (!pmu_ctr_list)
-> +		return -ENOMEM;
-> =20
-> -static int rvpmu_get_ctrinfo(int nctr, unsigned long *mask)
-> -{
-> -	return rvpmu_sbi_get_ctrinfo(nctr, mask);
-> -	/* TODO: Counter delegation implementation */
-> +	if (riscv_pmu_cdeleg_available_boot())
-> +		num_deleg_counters =3D rvpmu_deleg_find_ctrs();
-> +
-> +	/* This is required for firmware counters even if the above is true */
-> +	if (riscv_pmu_sbi_available_boot()) {
-> +		num_sbi_counters =3D rvpmu_sbi_find_num_ctrs();
-> +		if (num_sbi_counters < 0) {
-> +			kfree(pmu_ctr_list);
-> +			pmu_ctr_list =3D NULL;
-> +			return num_sbi_counters;
-
-[Severity: Medium]
-Should this gracefully continue with the available delegated hardware count=
-ers
-instead of aborting PMU initialization?
-
-If counter delegation for hardware performance counters succeeds, but the
-optional firmware extension returns an error via rvpmu_sbi_find_num_ctrs(),
-this error path frees the entire pmu_ctr_list array and returns an error.
-
-This unnecessarily disables the system's hardware performance monitoring
-instead of simply ignoring the broken firmware counters.
-
-> +		}
-> +		if (num_sbi_counters > RISCV_MAX_COUNTERS)
-> +			num_sbi_counters =3D RISCV_MAX_COUNTERS;
-> +	}
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but there appears to be a logic error in
-rvpmu_sbi_start_ovf_ctrs_snapshot() when passing the counter base index to
-the firmware:
-
-drivers/perf/riscv_pmu_sbi.c:rvpmu_sbi_start_ovf_ctrs_snapshot() {
-    ...
-    for (i =3D 0; i < BITS_TO_LONGS(RISCV_MAX_COUNTERS); i++) {
-        ...
-        for_each_set_bit(idx, &cpu_hw_evt->used_hw_ctrs[i], BITS_PER_LONG)
-            sdata->ctr_values[idx] =3D
-                cpu_hw_evt->snapshot_cval_shcopy[idx + i * BITS_PER_LONG];
-       =20
-        /* Start all the counters in a single shot */
-        sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_START, idx * BITS_PER_LO=
-NG,
-                  cpu_hw_evt->used_hw_ctrs[i], flag, 0, 0, 0);
-    ...
-}
-
-Because idx is the exhausted iterator of for_each_set_bit(), its value will=
- be
-BITS_PER_LONG. When multiplied by BITS_PER_LONG, the base index evaluates to
-an invalid out-of-bounds value (e.g., 4096 on RV64).=20
-
-Should this pass i * BITS_PER_LONG instead of idx * BITS_PER_LONG to correc=
-tly
-start the chunk?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-counter_de=
-legation-v8-0-7909f863a645@meta.com?part=3D12
+>>> +
+>>> +        pinctrl-0 = <&panel_bl_en &panel_rst_n &panel_te_pin>;
+>>> +        pinctrl-1 = <&panel_bl_en_suspend &panel_rst_n_suspend>;
+>>> +        pinctrl-names = "default", "sleep";
+>>> +
+>>> +        port {
+>>> +            panel_in: endpoint {
+>>> +                remote-endpoint = <&mdss_dsi0_out>;
+>>> +            };
+>>> +        };
+>>> +    };
+>>> +};
+>>> +
+>>> +&mdss_dsi0_out {
+>>> +    remote-endpoint = <&panel_in>;
+>>> +    data-lanes = <0 1 2 3>;
+>>> +};
+>>> +
+>>> +&mdss_dsi0_phy {
+>>> +    status = "okay";
+>>> +};
+>>> +
+>>> +&pm4125_l5 {
+>>> +    /* DSI VDDA - must be at NOM voltage for PHY PLL lock */
+>>> +    regulator-min-microvolt = <1232000>;
+>>> +    regulator-max-microvolt = <1232000>;
+>>> +    regulator-allow-set-load;
+>>> +};
+>>> +
+>>>   &remoteproc_cdsp {
+>>>       firmware-name = "qcom/shikra/cdsp.mbn";
+>>>   @@ -116,3 +174,49 @@ &wifi {
+>>>         status = "okay";
+>>>   };
+>>> +
+>>> +&tlmm {
+>>> +    lcd_bias_en: lcd-bias-en-state {
+>>> +        pins = "gpio151";
+>>> +        function = "gpio";
+>>> +        drive-strength = <2>;
+>>> +        bias-disable;
+>>> +    };
+>>> +
+>>> +    panel_bl_en: panel-bl-en-state {
+>>> +        pins = "gpio91";
+>>> +        function = "gpio";
+>>> +        drive-strength = <2>;
+>>> +        bias-disable;
+>>> +        output-high;
+>> I think, recent recommendation is to sort these entries by the pin
+>> number.
+>
+> Ack, will update.
+>
+>
+>>> +    };
+>>> +
+>>> +    panel_bl_en_suspend: panel-bl-en-suspend-state {
+>>> +        pins = "gpio91";
+>>> +        function = "gpio";
+>>> +        drive-strength = <2>;
+>>> +        bias-pull-down;
+>>> +        output-low;
+>>> +    };
+>>> +
+>>> +    panel_rst_n: panel-rst-n-state {
+>>> +        pins = "gpio3";
+>>> +        function = "gpio";
+>>> +        drive-strength = <8>;
+>>> +        bias-disable;
+>>> +    };
+>>> +
+>>> +    panel_rst_n_suspend: panel-rst-n-suspend-state {
+>>> +        pins = "gpio3";
+>>> +        function = "gpio";
+>>> +        drive-strength = <2>;
+>>> +        bias-pull-down;
+>>> +    };
+>>> +
+>>> +    panel_te_pin: panel-te-pin-state {
+>>> +        pins = "gpio86";
+>>> +        function = "mdp_vsync_p";
+>>> +        drive-strength = <2>;
+>>> +        bias-pull-down;
+>>> +    };
+>>> +};
+>>>
+>>> -- 
+>>> 2.34.1
+>>>
