@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544CE3033E1;
-	Wed,  1 Jul 2026 19:57:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99CC431E6D;
+	Wed,  1 Jul 2026 19:58:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782935868; cv=none; b=iRPQKt1w30gwnHpmQXXRlBIoNZ8bLHE+0E+E/LjIYnrp7SQi+cVKeGI+KMFA0WyNr+oU8B64f3b0aKIiRSPUuPjDWsL/WNpfKuKSh/7zsE7lbMNoshaupMTdsMy/WqAWu5FSLdRzJSx/HIxpn0qw74maG8TgOFCQmIAAVR0ZLy0=
+	t=1782935916; cv=none; b=fN54nT6kjAJPibWifrRuifgTJXirHBCZrSNhO6/ZN6CU3pAq9V35pllcGUKFJpWHTArSm34ymTeMt2gO3gMm6n3WkDwSQSSEGMcwbpaTbxJ2N8MEgwaT9vbOPS8wizoLyhRQPH88z9Tkb7/9IRx42e9OK942MXFZWCx62RwUS4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782935868; c=relaxed/simple;
-	bh=CxLRqTBgzkQaCEBILNZMW3t/HVZ9PM6TBFwHKmFqjDU=;
+	s=arc-20240116; t=1782935916; c=relaxed/simple;
+	bh=LZs/Y8uZzTpFOx6D6uKCbnmfZT7JxrIJwfXq7FRM9Do=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pkjCLf4sMx4hggxlkg+evWvhzVPWfdK9C+Nm4dbTuAB3ujgygdFIHatq7iVOKz4/PWwpai7CpZcv4eVEQZOKJcYUSsWvsvMcDsFpe5iwgyffzrVWOAtK2GsP7dDxrAxWdncmOJeZckXH8g63Sfu0/uZ753fUYwGV2J7k/4t176g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yr5NZeCZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tZCtnVksPFzWd1x041W4Zp7fc8HynIztUUKedarWS9MLwNPDjDpHJmdsCipL1nw/nXoJE6yud+WfAabjWufvwXa2KVdxM6eoQu+qVZer912KJsD3Go65YJ8YPORL2ee3TGrY+Z0f1Jc4Fn7nw73dnsAAgmdXj7sD1LaQ1rfFDZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K1bwuJyU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yr5NZeCZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE1AD1F000E9;
-	Wed,  1 Jul 2026 19:57:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K1bwuJyU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F8381F000E9;
+	Wed,  1 Jul 2026 19:58:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782935866;
-	bh=+arrMtj0DzOjS+9coYsG+5hWSiHSvK3/4PG3jfqqWpM=;
+	s=k20260515; t=1782935915;
+	bh=snLU1eFT4LzsIrtC77An4/P+s5Ttcpj33qcJtxNCgOs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Yr5NZeCZXMQmA5hZ9BLTzxWyf0sMBJtUAh93FS0JWrS/CdsboO/vt63wwXZH6iFC+
-	 t+X4Z8AF9n3L0gM1g9aSWugOXbgNRCsIHsT2HOnt6kELthS6/Di4isS9ASFJ7I58V8
-	 QFzVFxElIhiU2jwyi69Ge1hQ1tKiv0fMN2IC4JKIKPVXUkZjMomiX7fHV8Idbd/Bc5
-	 Bqmj0MBrdu9jOiOP7zZxHMaWyIg79f6mPNJJx6u/VXtbkmDHjcVEcQB560fd+bswqV
-	 bK5Rrh7hdBJdmxXl/Rg+gtT/aZGOa1RE7vlIbb96TrP3w3kgBlvjV/zTm9nf1lL6BD
-	 tWCJ5HRr0fRVQ==
-Date: Wed, 1 Jul 2026 14:57:46 -0500
+	b=K1bwuJyUPO0aoycSbE7Ytyuv8rtNs7TE4RRDVr1hEF/h2qpeHZOWdL4i1d9ilHhND
+	 S/OUeqX1ClXRuXlhFswDzqlULH0DF4fwVMWfF+YptjbnZ9GsyN720btSxBornoAUYR
+	 BA+cjDEWQV/iRwejBxNvd+VyGJLnjof1FhViHLpRybxmPLSK/s75dSjCL6llZ7PHWk
+	 qsNIjuSlArXURCjSSra3BdboeK2Nv6Z4iStXVQeXVSlne7/IPPMlvBtwEbtG/CKcVs
+	 g+Sbb4PE7EhzjjYv4Mu7wxvpFZNmwLHvujOd8ooycwKhN5Y18Snv05PSDdxEtRwkhw
+	 UZdNhQBnRh8aQ==
+Date: Wed, 1 Jul 2026 14:58:34 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bjorn Andersson <andersson@kernel.org>
-Subject: Re: [PATCH] dt-bindings: sram: qcom,imem: Narrow allowed reboot modes
-Message-ID: <178293586432.1654597.1308385994723132950.robh@kernel.org>
-References: <20260701105832.197036-2-krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Peter Griffin <peter.griffin@linaro.org>, devicetree@vger.kernel.org,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: samsung: exynos-pmu: Restrict children
+ with unevaluatedProperties
+Message-ID: <178293591372.1662355.5233552174253951440.robh@kernel.org>
+References: <20260701105731.196618-3-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,24 +47,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260701105832.197036-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260701105731.196618-3-krzysztof.kozlowski@oss.qualcomm.com>
 
 
-On Wed, 01 Jul 2026 12:58:33 +0200, Krzysztof Kozlowski wrote:
-> Only few Qualcomm IMEM devices actually provide interface for setting
-> reboot modes, but top-level schema allows "reboot-mode" child for
-> everyone.  Narrow this to specific compatibles.
-> 
-> syscon-reboot-mode schema allows arbitrary "mode-.* properties but only
-> a subset actually makes sense and is valid.  Provide negative look-ahead
-> pattern to disallow any modes not supported by the device, which
-> tightens the binding even more.
+On Wed, 01 Jul 2026 12:57:32 +0200, Krzysztof Kozlowski wrote:
+> Each schema for a child node should end with either additionalProperties
+> or unevaluatedProperties, so add missing one making the schema tighter.
+> Defining 'type: object' is on the other hand not necessary when other
+> schema is referenced.
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
->  .../devicetree/bindings/sram/qcom,imem.yaml   | 20 +++++++++++++++++++
->  1 file changed, 20 insertions(+)
+>  .../devicetree/bindings/soc/samsung/exynos-pmu.yaml         | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 > 
 
-Applied, thanks!
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
