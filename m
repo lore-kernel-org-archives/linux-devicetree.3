@@ -1,48 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5BC379EDC;
-	Wed,  1 Jul 2026 17:06:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BFA379EDC;
+	Wed,  1 Jul 2026 17:07:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782925605; cv=none; b=LEX0f49HasjzzqnS/bO4vvTh+JMMG/5EvZrKsbn7T3TCQsYZyDlYXN3wjHezOT90FxXjVUpUjBnKjutPqwpVHA93WWs5HeMos6lauMOjKo1q1V9WW///iT+VgdIMOQ1yyuqTG06S8q4pMU3vuC+4xrEt715awHaZbdLg5An5wLI=
+	t=1782925642; cv=none; b=kvuaVI3GPhKAVZGOhPxFngYFL5o0MIQyIzF5znHe0t75nYS9OVvThI7Dkur3z28L7nhYoIiARphs9Qmot6wsaYx4Y6RSrR6z+dTLFS8pOG3vapGVcwMgsvJrDBEXGvZVSAmcr0IN5uE8hKIm/eHAVd6RAnIA8ztweNvqYrrQmAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782925605; c=relaxed/simple;
-	bh=21H7aoLhZHneFF0SXyyRN9vo3BQfDQoYg4sqYzX4QPU=;
+	s=arc-20240116; t=1782925642; c=relaxed/simple;
+	bh=jQjO0POpW5npv7gePynnmnZhFEpgwRLzhnQyTwlih9E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cZHo+AjW0RzqdoMNfor4E971yxNN+gsVNhu21pz7lkjWQxAvIUJSwJBq7KarBIILQqVBn2o8xEwSIgcPWIxujqY761yrGk5I2TndfTmvzh+0gUiwlqg2l0Dj2hMYVFhl1mWb/cP20ugZF2uXIH8ggXhi23wbUOo3821cpswsBGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E6NVltWq; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=RvAQnkMkj+S6lMMW2muKi0Zx/yk/1AOKzyudMifkfNysBglYuNei1+5Ug4636z6/KxQCBuYrSVHnFE040cNKHSpzG+/KUIs2wwAByaqjO5jyg/RpNO6XrZhgCGs24y+p8WOww69ARotD+phuMHlwv3pczo9xNvy5lakCASiclGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d4C6p94J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E6NVltWq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AED6D1F00A3A;
-	Wed,  1 Jul 2026 17:06:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d4C6p94J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24E291F000E9;
+	Wed,  1 Jul 2026 17:07:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782925604;
-	bh=21H7aoLhZHneFF0SXyyRN9vo3BQfDQoYg4sqYzX4QPU=;
+	s=k20260515; t=1782925641;
+	bh=jQjO0POpW5npv7gePynnmnZhFEpgwRLzhnQyTwlih9E=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E6NVltWqWbvIUpRDtHaBUrZBc4dttdN9on4CFmxs6qgHofyIjEKwJYBqJ4wK+qY/B
-	 yem+6USo5kwgvRBMybOP/HAW5QfpANLwKI0rqBvEIY/y1seEhf4ahhgPRPsu1zJFsK
-	 rp8C9MGc3IqfV+O6Kv2gI74Z+tWFh0bHo+tiZaRbb+j0ayRYV+g9O6Romx3MVSBt+k
-	 FwZc4eiko1JdRv0UQlf7P8QvOGNyYu3n5W2DTFSYi2lyglOgLAhqbCrLCFSAN75ldU
-	 tC4nwWKLTBfQ22HoBmSZqo73kPb/vUWMrCALH/oqyoPsX3DcHSdE9V3XcUTW/1O8Xg
-	 f67dV+3MIqCuQ==
-Date: Wed, 1 Jul 2026 18:06:39 +0100
+	b=d4C6p94JW+TBVhPikzZjIEPEzISzz+e4aGhdMTzu8fjimtFMF5ANFijXKXsbMI5m3
+	 4b64KGe2iAMmj7T9XmkS02AlhwA/TIHGhP7eaoQYqsDwBjYwnEsDK5ZhdAnZDXWiD9
+	 SvhN+RUFoYRF718u6rSzZbRUXP/zd0jOCaW6OEsD3d4ascqQzTT7EnqLhJKvJ2bEY7
+	 YpqqlcAws1S9ihtwO6F7ZAxVr9MOHn9e1XpFprKMb7KMUg4vTW4A5Tt8elReYyDTKD
+	 Wp9WQBQ/0x1SOs6H/Zyu0aY0UMA3rSjANO4Ygpg33g9a8QGiba3pZLDfEDAw272Fo0
+	 c7gOl4Dba8a5A==
+Date: Wed, 1 Jul 2026 18:07:17 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Ramshouriesh R <rshouriesh@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] media: dt-bindings: Add Himax HM1092 NIR sensor
-Message-ID: <20260701-clay-sleeve-c133875faa1d@spud>
-References: <20260701-hm1092-driver-v1-0-d1bd81e233b5@gmail.com>
- <20260701-hm1092-driver-v1-1-d1bd81e233b5@gmail.com>
+To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: arm: fsl: add compatible for new
+ Skov I.MX8MP variant
+Message-ID: <20260701-tingly-splendor-490c985bb91f@spud>
+References: <20260701-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v3-0-d74f7e3f8293@pengutronix.de>
+ <20260701-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v3-1-d74f7e3f8293@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,35 +48,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hXiR048/qsb0TuVm"
+	protocol="application/pgp-signature"; boundary="2nTvnn+3qjdlH96h"
 Content-Disposition: inline
-In-Reply-To: <20260701-hm1092-driver-v1-1-d1bd81e233b5@gmail.com>
+In-Reply-To: <20260701-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v3-1-d74f7e3f8293@pengutronix.de>
 
---hXiR048/qsb0TuVm
+--2nTvnn+3qjdlH96h
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 01, 2026 at 02:25:23PM +0530, Ramshouriesh R wrote:
-> Add a dt-binding schema for the Himax HM1092, a 1 megapixel monochrome
-> near-infrared CMOS image sensor used as the face-authentication IR
-> camera on laptops. The sensor streams 10-bit RAW over a single MIPI
-> CSI-2 data lane.
->=20
-> Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
-
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---hXiR048/qsb0TuVm
+--2nTvnn+3qjdlH96h
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakVJHwAKCRB4tDGHoIJi
-0jvFAQCbcADycv3e56G0sQFpf0YBUNgRtDjHzw7R1gu4252gNwD7BEuLlafP59xz
-cs8dpydvrjX5VL0xn+rDDLa+O/LX8w0=
-=9pEg
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakVJRQAKCRB4tDGHoIJi
+0pNVAPwNAlfWYnCiw8kwj89N3eXDVY04B4SiP+XAAonRzhCV0AEAtSursEhGx4D1
+IRD7ENVrg8nW3zpXj2penFbCtfIjIAE=
+=4KXq
 -----END PGP SIGNATURE-----
 
---hXiR048/qsb0TuVm--
+--2nTvnn+3qjdlH96h--
