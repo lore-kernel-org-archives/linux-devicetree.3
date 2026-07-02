@@ -1,169 +1,184 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB7C47F2C1
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 12:47:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782996422; cv=pass; b=TJnQD60uNIwI/Pg5AKUyqSEj5/kGSXzIsRVl6zRsyW+lafgDDaUvg8S8OYv8dR400VkGY9Qh/2Bt/5jIQ2+t2l0o2jhL1Jj+u7427IqFIfQs6OikDUZRVj+LTnjbjXZxZxOT60C/tckpd/C9qTRLrG547wmQxEA1MTnhcWhwuHQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782996422; c=relaxed/simple;
-	bh=oNckSp1C/TB12p42yk8TUfLXS/YDIbgZNDslJOayYZE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h+cW6dlfnj6WNHenvYu8x9my9z7imeFtQdmMUrgZigan6MTRuYlRinomeYQgDTfAVLv8HXqFwwHbljXn5WyXEYTNED11AQN/+aWfYEAIUhK3m8IkSyy6jNZbjrTs3PVSf8/F/u2m2IC2GePDgVtuKK8GwPjBF5yAd1HuxpiwC5A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OGSf3pvA; arc=pass smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A520431E5B;
+	Thu,  2 Jul 2026 12:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782996503; cv=none; b=ajbbU+/h7/kno2qKxpiG+30MIeXtoCUeZqUEHy8uc04ZrilP9wzmpWB8YloiwyH1UKUdNTJynZv5I5hEyfXVa4g80Hs6v/2hronfavFtURq3lQOPrAgrdbu0NII5EsWB8z63oP7r0J0FSAuuvE5TY/+w6d3S6q4mX8auJrwLc/0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782996503; c=relaxed/simple;
+	bh=g7TjNTM67Xpdul/ROc1W9DFiqNC3L8ojRae16cGX9eo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KVkRqRQc8H7mXJcU2vb8Sb8WPS99Oe+u3rJXQtFLlkZCvNxLLYDfcIhSixTdyonorNYnmzQq1ZtHMCfWkUIgWJl8/KuLsOUypiJ6unjGVfjb8kXAz3U3LZEp6McDqyDQJafBVQL0RfiVjo9dx8RICk0A+DWAeBXTW/1CcGAhRIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j1PnXlC1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OGSf3pvA"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-691c5776f95so3339583a12.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 05:47:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782996419; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VRq/lG5mB3AYQwplwKpY/5LwifM15SDNqfsT5IMP2ive+w/qCvo/K7/k9FEx9FQOkX
-         U6MHAClpRqW4AauT4stUSUXQB7SHn5yhQiG1WnGwUymefp/R3X+vatzYcxvi2bm3OifN
-         +CW3b/JEjvwd8c8NGZaunRuabUpXGfR59N0yT+RUNvuqPuBjkMqkF5y9vaYylr6UQRqk
-         AJfKfGaPrmM0tBDIddSVz7eR9boluUOaO7cryPIQCn0TtrLKnmAUnaaeykBGcBDZ6W/0
-         2fxdV144DV37uirGytHkWojAeJG3xi4XcX/By4F1rDyqZ+b0X7PGVOOFJviYVzwuBFBJ
-         iCUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=210HKleKgbmFKKFSqfRC++HOJhEM15Vlg9VXrqpCJ6A=;
-        fh=FhT8DRHdGvy2pjOzXIy4xLPXe6k2EZRzNj1DymgNGoQ=;
-        b=Jk3FSI28cPm3M++RCURj5QlBfFQ0e4zub8ZXpxuGSHEuUcQrLExPI76tJff0u+anZo
-         t+bnzOgHymoDQf04IxiDQACc3PEc52A1DjJhArZJteY9lhPPuor2fdQMrmo7epkt1HiR
-         DehpIS/cEAIN/uAKTiJXchu+9IGnYq5VzVQIcGkkV6G2oQZqkaq8jxDUc/3WgUyR0+S+
-         e4RLt+aZFVxo28TiuZw3dfKEYPPNN6p2i/0hw7JCqcaK9sr4RZQUTqpP7y/ngfyEodiP
-         J8GaFoOeop6jvhFrDLa6S9EX0RBLiF9AL3SxUeiKbqX3P+AgS3HCpG2Q1eYxapZXN7ce
-         jQew==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1782996419; x=1783601219; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=210HKleKgbmFKKFSqfRC++HOJhEM15Vlg9VXrqpCJ6A=;
-        b=OGSf3pvAfDCo/V8/DLpcvstiZ/O4yTF2dUdmcfLLtHBGexjBgka30990f3A8qcHTxJ
-         qoxy4cIqycg2kJAV8SvAEP1n4Pyk9JJ7sLDcPwphZuOSdBuZNjnoAQWOXhFRsMAYbjMk
-         Y8klX6PaAhmM5VZp7aLxZwbzHrirR9mnREYXDDZendu7UhN/AC17l2BLFUaJ/rYdZ2gQ
-         rEM0bmvBKFlprmi80+nFPEnEiFnPQodDNjX94WJkibPud7mlfruF5INplFaRDOjtwHNa
-         Ys1N8sUk9xKMlmUtB06B5i2bGSYUGEhX+i0FF26Nm8Y+pSW/1R30K/Evz/w5bq9h//o5
-         LEFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782996419; x=1783601219;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=210HKleKgbmFKKFSqfRC++HOJhEM15Vlg9VXrqpCJ6A=;
-        b=Ct7YUQ7agMgXmdJTHDiOH7IHHzCad+nWiIGlakqwxaAIYHU1jAbsSAl5dTiVpoLW1/
-         Oorp60Pp2KxlAVUqv9tCNSN4N1LOIDnPGrX6vb3FPckcj/35VOtZ5Rmn+RlCkyOWlJtL
-         H2tVKXh2AQBLQj/PGXdtKkgEouK33PZv/WaxW+AkbiOJgwVUyoKFb7THhCTm9biw7gYL
-         T0hho4VOK8VmORg4kKVwb13wVJzi7x7NrICjCjnmAQD/7A2k3AmEvm1XKolB4f+ymH/l
-         LSk4lIG9ONiqC8sQEzoicCBj1lwDpQlgDcl9XQ4aarBttgj1Y0lv82Vpixd0u0CDSG0T
-         bUiA==
-X-Forwarded-Encrypted: i=1; AHgh+RraaXGwcrVa8liaWDfg4lh+kGJgjNoTN8HV/CGWW5iY0hL06cZFjC1izmyz0tb5uiPJxa3/YmAdiHFl@vger.kernel.org
-X-Gm-Message-State: AOJu0YyE3PkILFWp9zybMaTZj6ExY7AMsuFH2XAygRLR7r9K76NUJVSD
-	aR/aTcKnZSRpZ9o1rvvCHR5FVfHy1G0/JII/rfsaaaiYsPTMk0qvehef/xOAzhtQEQMpUVZB/8M
-	GPWBEaHyBwjbaGSkrbOPiStO4Wzk8fob2W8lN+GhcAw==
-X-Gm-Gg: AfdE7clqurxoI4nbYOZYTXRYqr1JSN3/696nelGtvvZSfST67LRHLjpP2QPBKkdpGBC
-	QKc+/cMm/Hde/zsj1Q+MuxmlpWgYP7o590/BGPeHmzqABMBAagg2M+SoCMLvSTkAACV9nEy3Ow2
-	ptNJaTUqd899mouOiydYIV1UF2cJp733E4DPkSYpwiAF9RFjulYgP1l5ZbNpyCbdQJBO2UEZa5Y
-	Rn6mK0TbFg+xiAXk1yZbHOMporIMralgLxEcS3Yv21BukThCu7T2x4bHTcFOWDoVmQK5qmR8woA
-	trxDv2bAAjtNLvge21/2cZjS5Q==
-X-Received: by 2002:a17:906:d0da:b0:c12:64c6:bd7 with SMTP id
- a640c23a62f3a-c12a9e053e3mr203835966b.21.1782996418879; Thu, 02 Jul 2026
- 05:46:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j1PnXlC1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045D01F000E9;
+	Thu,  2 Jul 2026 12:48:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782996502;
+	bh=IAPEUqxh/3TXXQMx85kkuQrK8pLxgA0XcCdqj5b9bQg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=j1PnXlC1xxT2dlKK4QopmgIPf0DUlJWWIeL1khKclpkfCKByRaDm4HOp+q8dkmYrZ
+	 UBv/8zUDZ5SJ9T7qKHe6sf3SkT9E4pBDG37Q2T588jOw/LsAXDcibIOrE1kGZiu/Dd
+	 h0pbWVkFavOM5DtuYx0Y5afjJ7o1kOvrjYlapcnAMx/kASAIPhvkZb+qO1ACJPZza1
+	 Ri+scmn0Md2Y9t6iJCbJWUw13t2rXzHYO44VErQBMy+243wjh5t0hAv3DDIVaLVQIy
+	 4iHKhsjTQ3Hod+aoUtC6EAOrzvTACT7zdwkU2nsaLoBEEG/UDslasrL/GoeMt+N0Sn
+	 Q31oOuZLkLy/w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v2 2/9] clk: renesas: r9a09g077: Add SYSC regmap
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, linux-watchdog@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260702123112.161160-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260702123112.161160-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 12:48:21 +0000
+Message-Id: <20260702124822.045D01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260203161917.1666696-1-vincent.guittot@linaro.org> <akZcpgDSjAg6gcok@lsv051416.swis.nl-cdc01.nxp.com>
-In-Reply-To: <akZcpgDSjAg6gcok@lsv051416.swis.nl-cdc01.nxp.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Thu, 2 Jul 2026 14:46:47 +0200
-X-Gm-Features: AVVi8CfnsNCvDc67RDsUnObGKCXWxD40T6JSCY5QNMiAlpanyxUGcJsCLPpkpdE
-Message-ID: <CAKfTPtDT5NiFcgozfxec0vBi4663fhnNdQGRdGpF6VwpKSJU-g@mail.gmail.com>
-Subject: Re: [PATCH 0/4 v2] Serdes: s32g: Add support for serdes subsystem
-To: Jan Petrous <jan.petrous@oss.nxp.com>
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, ciprianmarian.costea@oss.nxp.com, s32@nxp.com, 
-	p.zabel@pengutronix.de, linux@armlinux.org.uk, ghennadi.procopciuc@nxp.com, 
-	Ionut.Vicovan@nxp.com, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org, 
-	horms@kernel.org, Frank.li@nxp.com
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 2 Jul 2026 at 14:42, Jan Petrous <jan.petrous@oss.nxp.com> wrote:
->
-> On Tue, Feb 03, 2026 at 05:19:13PM +0100, Vincent Guittot wrote:
-> > s32g SoC family includes 2 serdes subsystems which are made of one PCIe
-> > controller, 2 XPCS and a shared Phy. The Phy got 2 lanes that can be
-> > configured to output PCIe lanes and/or SGMII.
-> >
-> > Implement PCIe phy and XPCS support.
-> >
-> > Change since v1:
-> > - Fix compile_test
-> > - Use devm_reset_control_get_exclusive()
-> > - Fix s32g_serdes_phy_set_mode_ext()
-> > - Manage devm_clk_bulk_get_all() returns 0
-> > - Fix s32g_serdes_parse_lanes() error management
-> > - Move xpcs filein drivers/net/pcs/
-> > - Add pcs_inband_caps()
-> > - Fix functions in phylink_pcs_ops
-> > - Fix MAINTAINERS
-> >
-> >
-> > Vincent Guittot (4):
-> >   dt-bindings: serdes: s32g: Add NXP serdes subsystem
-> >   phy: s32g: Add serdes subsystem phy
-> >   phy: s32g: Add serdes xpcs subsystem
-> >   MAINTAINERS: Add MAINTAINER for NXP S32G Serdes driver
-> >
-> >  .../bindings/phy/nxp,s32g-serdes.yaml         |  154 +++
-> >  MAINTAINERS                                   |   10 +
-> >  drivers/net/pcs/Makefile                      |    1 +
-> >  drivers/net/pcs/pcs-nxp-s32g-xpcs.c           | 1006 +++++++++++++++++
-> >  drivers/phy/freescale/Kconfig                 |   10 +
-> >  drivers/phy/freescale/Makefile                |    1 +
-> >  drivers/phy/freescale/phy-nxp-s32g-serdes.c   |  953 ++++++++++++++++
-> >  include/linux/pcs/pcs-nxp-s32g-xpcs.h         |   50 +
-> >  8 files changed, 2185 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml
-> >  create mode 100644 drivers/net/pcs/pcs-nxp-s32g-xpcs.c
-> >  create mode 100644 drivers/phy/freescale/phy-nxp-s32g-serdes.c
-> >  create mode 100644 include/linux/pcs/pcs-nxp-s32g-xpcs.h
-> >
-> > --
-> > 2.43.0
-> >
->
-> Hi Vincent, all,
-> I'm taking over the S32G SerDes/XPCS upstreaming. The effort has moved in-house
-> at NXP and I'll be carrying it forward, continuing from this v2 rather than
-> restarting from zero.
->
-> Vincent, thanks for the v1->v2 groundwork. I'll keep your authorship on the
-> patches that originate from your series (Co-developed-by plus your
-> Signed-off-by) and build on top; I'll send you v3 off-list first, as you
-> offered.
->
-> A v3 is in preparation and will come as an RFC, with the v2 review comments
-> addressed.
->
-> Vincent, if you're OK with the handoff, a short ack here would help make the
-> transition visible to the reviewers.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Ack
+New issues:
+- [High] Registering a devres-managed regmap with the global syscon_list ca=
+uses a Use-After-Free upon probe failure.
+- [High] Missing of_node_get() before registering the child node with sysco=
+n risks a Use-After-Free of the device node.
+- [Medium] The commit message contradicts the implementation regarding whic=
+h device node the regmap is registered against.
 
-Thanks
-Vincent
+Pre-existing issues:
+- [High] Failing to explicitly remove the PM domain provider on probe error=
+ leaves a dangling provider pointing to freed memory.
+--
 
+commit db570cc0b618206556f7cc6978347f7824aa7f3f
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+
+clk: renesas: r9a09g077: Add SYSC regmap support
+
+Add System Controller (SYSC) regmap support for the RZ/T2H SoC.
+
+The RZ/T2H SoC features two System Controller (SYSC) blocks that handle
+low-power management and access control. These blocks are defined as child
+nodes within the Clock Pulse Generator (CPG) address space in the device
+tree. Implement support for creating regmaps for these SYSC blocks.
+
+> Register the regmap using of_syscon_register_regmap() against the CPG
+> device node so that consumers can access SYSC registers via the existing
+> syscon phandle.
+
+[Severity: Medium]
+The commit message states the regmap is registered against the CPG device
+node, but the code actually registers it against the "system-controller"
+child node. Could the commit message be updated to match the implementation?
+
+> Add a sysc_init() callback to the CPG/MSSR core to allow SoC-specific
+> initialization of the SYSC regmap.
+>=20
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+
+> diff --git a/drivers/clk/renesas/r9a09g077-cpg.c b/drivers/clk/renesas/r9=
+a09g077-cpg.c
+> index 5640c2035e5a4..33aec2f272df4 100644
+> --- a/drivers/clk/renesas/r9a09g077-cpg.c
+> +++ b/drivers/clk/renesas/r9a09g077-cpg.c
+[ ... ]
+> +static int r9a09g077_sysc_init(struct device *dev)
+> +{
+> +	struct device_node *child, *np =3D dev->of_node;
+> +
+> +	for_each_child_of_node_scoped(np, child) {
+> +		struct regmap_config *regmap_cfg __free(kfree) =3D kzalloc_obj(*regmap=
+_cfg);
+> +		struct r9a09g077_sysc_reg *sysc_reg;
+> +		struct regmap *regmap;
+> +		void __iomem *base;
+> +		char *name;
+> +		u32 index;
+> +		int ret;
+[ ... ]
+> +		regmap =3D devm_regmap_init(dev, &rzt2h_sys_regmap_bus, sysc_reg, regm=
+ap_cfg);
+> +		if (IS_ERR(regmap))
+> +			return PTR_ERR(regmap);
+> +
+> +		ret =3D of_syscon_register_regmap(child, regmap);
+
+[Severity: High]
+If the probe fails on a subsequent step (for instance, during the next loop
+iteration), devres will automatically free the regmap since it was allocated
+using devm_regmap_init().
+
+However, of_syscon_register_regmap() saves the regmap pointer in a permanent
+global list (syscon_list), which has no unregistration mechanism. Does this
+leave a dangling pointer in the global list, leading to a use-after-free on
+subsequent syscon lookups?
+
+[Severity: High]
+Additionally, the child node reference is borrowed by
+for_each_child_of_node_scoped() and will be automatically dropped at the end
+of the loop iteration.
+
+Since of_syscon_register_regmap() internally saves the raw device_node poin=
+ter
+into its global list without incrementing its reference count, could this
+result in a use-after-free of the device node if the device tree node is ev=
+er
+dynamically removed? Should we call of_node_get() before registering it?
+
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> diff --git a/drivers/clk/renesas/renesas-cpg-mssr.c b/drivers/clk/renesas=
+/renesas-cpg-mssr.c
+> index 4ed056b18d31f..a46ea82ed85e0 100644
+> --- a/drivers/clk/renesas/renesas-cpg-mssr.c
+> +++ b/drivers/clk/renesas/renesas-cpg-mssr.c
+> @@ -1415,6 +1415,9 @@ static int __init cpg_mssr_probe(struct platform_de=
+vice *pdev)
+> =20
+>  	error =3D cpg_mssr_reset_controller_register(priv);
+> =20
+> +	if (!error && info->sysc_init)
+> +		error =3D info->sysc_init(priv->dev);
+> +
+
+[Severity: High]
+This is a pre-existing issue, but this new error path exposes it more easil=
+y.
+
+Earlier in cpg_mssr_probe(), cpg_mssr_add_clk_domain() adds an OF genpd
+provider. While devres is set up to call pm_genpd_remove(), that function
+refuses to remove domains that still have active OF providers (returning
+-EBUSY).
+
+If probe fails here in info->sysc_init(), devres will proceed to free the
+cpg_mssr_clk_domain structure. Because the domain wasn't actually removed
+from the global lists, the active OF provider remains pointing to freed mem=
+ory.
+
+Does the driver need to explicitly call of_genpd_del_provider() on error pa=
+ths
+to prevent this use-after-free?
+
+>  reserve_exit:
+>  	cpg_mssr_reserved_exit(priv);
 >
-> Thanks.
-> /Jan
->
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702123112.1611=
+60-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D2
