@@ -1,115 +1,231 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00D4477E2E
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:12:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59509357CFA
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:16:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782983572; cv=none; b=k85cyYn9iTzNpNvYgjPZ9yeF4lX8pqrzJ17z/y/EhskRgMIrvQI8mYOzkYTUm+EuzZaZcDXWVVKhwsEEM5adruONZ3NTNbul+t5k+zCuyOzxwmKkI7qOa7aDx/LgWKiEPzjb5H9n8yuTGuJE+qs2GOFYDRdnNQ06meQRtFN7BFQ=
+	t=1782983778; cv=none; b=L1RsyXCVVUx+ryodx854aXxsEchNa0iOAf9LvviBwVfjdIpF/HmoDMiLCsqvtnzGY1MGKQ5u8CuA95MiAbLDPjZi4z1whYgYFv2eMyivfjYgrGhbqti1ml9MWyGYAhmpDIqeI9d/Hm61GAqqN2okhsUVLs3tDZoAebBLmjQ0p+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782983572; c=relaxed/simple;
-	bh=z3us1EYcPhA08D2V/YJ+nWiOnRiCmeZ4lZeMhncdG0g=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=unQRpnvCrF9PxrREZFJyu3ciZXjrxz385KhcrwI9iJd2R66eEMbHAF4zsGSvIfZnR6bAf7+LVaI3DRBF87kGOniDkhajZbIxOdBg9rPj79VoEAmZWxBOZRMOLr36K4bIRLQANGi4ujmN8hn+hjiKuEHNgHDrpubTFMYM0rxKVLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CkM0BKN2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782983778; c=relaxed/simple;
+	bh=9lP4WZl+My2EqHnu2HYzTjfVpiAN91JRvSWJizSaRaA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Oe85rH9996mZTU0ZwwdF4K+SYPBYw22G0xdKdFw19Oqi4FRvbFTd+Px/UkjQuSNDPYLQTRZYZAIGyIRi69i7BNIMxDOWKJ5eIrEJ+QbyC3zaOAdcmC6BXlwp3fFpHr4rzwp210yVXPdUgfGj6G3an0XZrHDOSRotbSqSsFMOTqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EUDKcmHX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CkM0BKN2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B8681F00A3E
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:12:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EUDKcmHX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B16081F000E9;
+	Thu,  2 Jul 2026 09:16:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782983571;
-	bh=z3us1EYcPhA08D2V/YJ+nWiOnRiCmeZ4lZeMhncdG0g=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=CkM0BKN24F+HnXi4WaE+4fAv5Vr7UTY8L9dUWejrdBJF/jPRDOuV//xYqUgtFJazT
-	 yKqnvPZ4Z6zQClmiWicl1ZQIjIBR7wR46f+31rNYfwqn4cQYLWsye7jQCr65Leb+/4
-	 zzgcGpZ2d3pKBzx7dY2dnHBNE29vOmxpqRR3npVJZTkScJEVgs6av6H8IvDPg+MH5r
-	 AVEKQgo74mXWKKBqPyyavnRneQqrcsFo/8XpA4lXns6tLezgzz4pvY5TFk4LEHT+Zv
-	 6K5/hLayKxOm9GehXu/SwzR0dzDugS3Gm9SE14B9ca6fEL8XWopQoPgbmTQhBCuH9a
-	 780RmwAwFHpVg==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-39b1eb7bd9bso15323151fa.2
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:12:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RohWMdNrSRrafULnqmYVtNMrhCu68S/ElrVKoD/fqAy3l1io0W3o5fDLnDrW7JFAAccH7b5zf3qGV5Q@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVchaUIufWwF5mjZm/xpDoLnhnK6LfB1IYaCACtpfdgxUI4R9n
-	1QKRVuToe4bCuwOoo7Sm/132RhGknI6yd//PEQDPfRCJbJtW+kro79OmRuRm6O/iFKQf1NN/Ix8
-	meHL5Xhw18j3vpssidxxD3foyO7S8TPoQZS76VoUZ6g==
-X-Received: by 2002:a2e:9c86:0:b0:39b:35bd:e705 with SMTP id
- 38308e7fff4ca-39b35bdebfemr6340391fa.37.1782983570078; Thu, 02 Jul 2026
- 02:12:50 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 2 Jul 2026 04:12:46 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 2 Jul 2026 04:12:46 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <akOZFIowVvprnAMf@vaman>
+	s=k20260515; t=1782983777;
+	bh=sxyDinjyNxN3IuKwCdyUTrKFGGNilM5rlnzj/8NECPg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EUDKcmHXJiNCrp+Q5ZcAxZoo0sD+/LB0Q/L6rob860xMimHnjKCoADP0ho7Ov1c9O
+	 c3RTg25FMf5c5jWIVcKAgYZg7L15/wyUfhgHR9vYUgfil/OzeZqvm97YVL0woTZuId
+	 MTqdmFBbiMxJSOWIN5qjojj6tDCxe3ej/jCI0CyuKUeMfDh89B2DowRkGjaPOzsphO
+	 9psEBxArqXrdYic5nqYelRR/6F6ewwatMiTaD2SlW1g0UoBIDPfTOiw+qSUWKoulNS
+	 03uKbnw/Ep4HnagmkfwuD9pkP4IqswZfoIfex2tAirvzTPpUwzua9qHCFznRdGes07
+	 Jkaf0FjKUL0bA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/4] gpio: realtek: Add driver for Realtek DHC
+ RTD1625 SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260702090115.2564318-4-eleanor.lin@realtek.com>
+References: <20260702090115.2564318-1-eleanor.lin@realtek.com>
+ <20260702090115.2564318-4-eleanor.lin@realtek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 09:16:16 +0000
+Message-Id: <20260702091616.B16081F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260629-qcom-sa8255p-emac-v11-0-1b7fb95b51f9@oss.qualcomm.com>
- <20260629-qcom-sa8255p-emac-v11-1-1b7fb95b51f9@oss.qualcomm.com>
- <CAMuHMdXen+E-Ai51aWBa_KV9W8Fz2cQPpT-FG_kQ7akhrrYa_A@mail.gmail.com>
- <CAMRc=Me3jaZXiXa1sFXr=8Do4sCd+XN1pKTcWC8-0j78SjCkKA@mail.gmail.com>
- <CAMuHMdVUBgG0EFB16OxHisbxx-sBvDKvBPNZdpyDnmBrnX4ptQ@mail.gmail.com> <akOZFIowVvprnAMf@vaman>
-Date: Thu, 2 Jul 2026 04:12:46 -0500
-X-Gmail-Original-Message-ID: <CAMRc=MfBcOhbj=ETxy2Xz9o_nyzykrEhKAc3jYi6V5_jMZEE3Q@mail.gmail.com>
-X-Gm-Features: AVVi8Cc0cbGsvWIHn6Ltbm1wzcUWjyqAHy25YdAMNK19MIl0j9ziewcxopNMKrw
-Message-ID: <CAMRc=MfBcOhbj=ETxy2Xz9o_nyzykrEhKAc3jYi6V5_jMZEE3Q@mail.gmail.com>
-Subject: Re: [PATCH net-next v11 1/7] dt-bindings: phy: document the serdes
- PHY on sa8255p
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>, 
-	Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com, 
-	Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, Romain Gantois <romain.gantois@bootlin.com>, 
-	Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
-	Christophe Roullier <christophe.roullier@foss.st.com>, Radu Rendec <rrendec@redhat.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, Drew Fustini <dfustini@tenstorrent.com>, 
-	linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org, 
-	linux-mips@vger.kernel.org, imx@lists.linux.dev, 
-	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	sophgo@lists.linux.dev, linux-riscv@lists.infradead.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>
-Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 30 Jun 2026 12:23:16 +0200, Vinod Koul <vkoul@kernel.org> said:
-> On 29-06-26, 16:51, Geert Uytterhoeven wrote:
->> > Russell King asked me to put the PHY logic for SCMI pm domains into the PHY
->> > driver instead of the MAC driver where it was previously. Instead of cramming
->> > both HLOS and firmware handling into the same driver, I figured it makes more
->> > sense to have a dedicated, cleaner driver as the two share very little code (if
->> > any).
->>
->> I think you are mixing up DT bindings and driver implementation?
->
-> Should the bindings change if we have different driver and firmware
-> implementations? Isn't binding supposed to be agnostic of
-> implementations..?
->
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Incorrect implementation of IRQ_TYPE_EDGE_BOTH causes double-dispa=
+tch on rising edges and missed falling edges.
+- [High] Missing bounds check on computed hwirq causes out-of-bounds proces=
+sing and infinite interrupt storms.
+- [High] Missing interrupt enable sanitization and flawed mask/ack logic ca=
+uses kernel hangs from bootloader-enabled interrupts.
+- [Medium] The driver returns -ENOTSUPP for a debounce value of 0, breaking=
+ standard API requests to disable debouncing.
+--
 
-I've thought about it some more and I believe this question is philosophical in
-nature.
+commit 70be814576adfb9c031580980614a470a5f6afe1
+Author: Tzuyi Chang <tychang@realtek.com>
+Subject: gpio: realtek: Add driver for Realtek DHC RTD1625 SoC
 
-sa8775p and sa8255p are *the same* hardware. I can flash different firmware on
-the same Lemans Ride board and it becomes one or the other. Yet they are not
-described by the same DTS and the bindings differ as well. I don't see why we
-wouldn't allow the same approach for the this PHY.
+This commit introduces a new GPIO driver for the Realtek DHC RTD1625 SoC,
+which uses a per-pin register architecture. It supports basic GPIO operatio=
+ns
+and optional interrupt handling, addressing a hardware quirk where both
+assert and de-assert interrupts fire simultaneously on edge toggles.
 
-We treat it as different HW variant when it's managed by firmware - just like
-we do with the rest of the SoC.
+> diff --git a/drivers/gpio/gpio-rtd1625.c b/drivers/gpio/gpio-rtd1625.c
+> new file mode 100644
+> index 0000000000000..27af1ac65d281
+> --- /dev/null
+> +++ b/drivers/gpio/gpio-rtd1625.c
+[ ... ]
+> +static int rtd1625_gpio_set_debounce(struct gpio_chip *chip, unsigned in=
+t offset,
+> +				     unsigned int debounce)
+> +{
+> +	struct rtd1625_gpio *data =3D gpiochip_get_data(chip);
+> +	u8 deb_val;
+> +	u32 val;
+> +
+> +	switch (debounce) {
+> +	case 1:
+> +		deb_val =3D RTD1625_GPIO_DEBOUNCE_1US;
+> +		break;
+[ ... ]
+> +	case 50000:
+> +		deb_val =3D RTD1625_GPIO_DEBOUNCE_50MS;
+> +		break;
+> +	default:
+> +		return -ENOTSUPP;
+> +	}
 
-Bart
+[Severity: Medium]
+Will this return -ENOTSUPP if callers request a debounce value of 0?
+
+Standard kernel callers, such as gpiolib or the input subsystem, typically
+pass a debounce value of 0 to disable GPIO debouncing. By not handling
+debounce =3D=3D 0, does this break standard API requests to disable debounc=
+ing?
+
+[ ... ]
+> +static void rtd1625_gpio_irq_handle(struct irq_desc *desc)
+> +{
+[ ... ]
+> +	for (i =3D 0; i < data->info->num_gpios; i +=3D 32) {
+> +		reg_offset =3D get_reg_offset(data, i);
+> +		status =3D readl_relaxed(data->irq_base + reg_offset);
+> +
+> +		/*
+> +		 * Hardware quirk: The controller fires both "assert" and "de-assert"
+> +		 * interrupts simultaneously on any edge toggle.
+> +		 * We must pre-clear edge interrupts here. If we drop an unwanted
+> +		 * de-assert interrupt below, it will never reach the IRQ core
+> +		 * (generic_handle_domain_irq), meaning ->irq_ack() won't be called.
+> +		 * Failing to clear it here leads to an interrupt storm.
+> +		 */
+> +		if (irq !=3D data->irqs[RTD1625_IRQ_LEVEL])
+> +			writel_relaxed(status, data->irq_base + reg_offset);
+> +
+> +		for_each_set_bit(j, &status, 32) {
+> +			hwirq =3D i + j;
+> +			irq_type =3D irq_get_trigger_type(irq_find_mapping(domain, hwirq));
+
+[Severity: High]
+Is there a missing bounds check on the computed hwirq against num_gpios?
+
+If num_gpios is not a multiple of 32 (like 166 or 4), the final iteration
+could include unused or reserved hardware bits. If any of these bits read
+as 1, hwirq will exceed num_gpios. Calling generic_handle_domain_irq() with
+an unmapped hwirq returns -EINVAL.
+
+For level interrupts where the status is not pre-cleared, since the unmapped
+IRQ is rejected, irq_ack() would never be invoked. Could this leave the lev=
+el
+interrupt unacknowledged in hardware and cause an infinite interrupt storm?
+
+> +
+> +			/*
+> +			 * Filter out the hardware-forced de-assert interrupt unless
+> +			 * the user explicitly requested IRQ_TYPE_EDGE_BOTH.
+> +			 */
+> +			if (irq =3D=3D data->irqs[RTD1625_IRQ_DEASSERT] &&
+> +			    irq_type !=3D IRQ_TYPE_EDGE_BOTH)
+> +				continue;
+> +
+> +			generic_handle_domain_irq(domain, hwirq);
+> +		}
+> +	}
+> +
+> +	chained_irq_exit(chip, desc);
+> +}
+> +
+> +static void rtd1625_gpio_ack_irq(struct irq_data *d)
+> +{
+> +	struct rtd1625_gpio *data =3D irq_data_get_irq_chip_data(d);
+> +	irq_hw_number_t hwirq =3D irqd_to_hwirq(d);
+> +	u32 irq_type =3D irqd_get_trigger_type(d);
+> +	u32 bit_mask =3D BIT(hwirq % 32);
+> +	int reg_offset;
+> +
+> +	if (irq_type & IRQ_TYPE_LEVEL_MASK) {
+> +		reg_offset =3D rtd1625_gpio_level_offset(data, hwirq);
+> +		writel_relaxed(bit_mask, data->irq_base + reg_offset);
+> +	}
+> +}
+
+[Severity: High]
+Does this correctly handle unrequested interrupts, where irq_type defaults
+to 0 (IRQ_TYPE_NONE)?
+
+If a bootloader leaves a GPIO interrupt active, it can fire as soon as the =
+OS
+registers the IRQ domain. Because the interrupt isn't requested, irq_type i=
+s 0.
+
+In rtd1625_gpio_ack_irq(), the code only acks if the type matches
+IRQ_TYPE_LEVEL_MASK.
+
+Similarly, in rtd1625_gpio_disable_irq(), it fails to mask the interrupt if
+the type is 0:
+
+	if (irq_type & IRQ_TYPE_EDGE_BOTH)
+		rtd1625_gpio_disable_edge_irq(data, hwirq);
+	else if (irq_type & IRQ_TYPE_LEVEL_MASK)
+		rtd1625_gpio_disable_level_irq(data, hwirq);
+
+Could this cause the driver to do nothing to clear or mask the interrupt,
+defeating the core IRQ subsystem's spurious interrupt handling
+(handle_bad_irq) and causing a hang from an infinite interrupt storm?
+
+[ ... ]
+> +static int rtd1625_gpio_irq_set_type(struct irq_data *d, unsigned int ty=
+pe)
+> +{
+> +	switch (type & IRQ_TYPE_SENSE_MASK) {
+> +	case IRQ_TYPE_EDGE_RISING:
+> +		return rtd1625_gpio_irq_set_edge_type(d, 1);
+> +
+> +	case IRQ_TYPE_EDGE_FALLING:
+> +		return rtd1625_gpio_irq_set_edge_type(d, 0);
+> +
+> +	case IRQ_TYPE_EDGE_BOTH:
+> +		return rtd1625_gpio_irq_set_edge_type(d, 1);
+
+[Severity: High]
+Does this code configure EDGE_BOTH identically to EDGE_RISING by passing 1 =
+to
+rtd1625_gpio_irq_set_edge_type()?
+
+If the hardware only detects the configured edge, will all falling edges be
+completely missed? Additionally, in rtd1625_gpio_irq_handle(), the code
+explicitly skips filtering the DEASSERT interrupt for EDGE_BOTH requests:
+
+	if (irq =3D=3D data->irqs[RTD1625_IRQ_DEASSERT] &&
+	    irq_type !=3D IRQ_TYPE_EDGE_BOTH)
+		continue;
+
+Since a rising edge fires both ASSERT and DEASSERT simultaneously due to the
+hardware quirk, will a single rising edge be processed twice, leading to
+incorrect input event counting and dropped events?
+
+> +
+> +	case IRQ_TYPE_LEVEL_HIGH:
+> +		return rtd1625_gpio_irq_set_level_type(d, 0);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702090115.2564=
+318-1-eleanor.lin@realtek.com?part=3D3
