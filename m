@@ -1,148 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACC9B306774;
-	Thu,  2 Jul 2026 09:55:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540E5494A0E;
+	Thu,  2 Jul 2026 09:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782986142; cv=none; b=qfiCTNmE5N3L/fj6Ozdk+pWus8XdAM7YZv7eqZsuus2HLI0m+pvqvdRdMTdCMWnv0V5l9RL3QlIUcJTHhZShpvl5LsgGWVh2pP/iyAbV/3Nlxe0pOCB+r0le/J6VCJhhstxw4/x9fi6USfXNXl0L/Tlpphgu/fVu57gSvH9Z3RQ=
+	t=1782986243; cv=none; b=mde0xeDDlgZgj8hgQ2qI/KGF20h3EkrCR0p/hVA3tO4xCdf7CE4c0UiJUsu7C3LuLOHofvZOn6UHLAXld+IR8IuZBoDdtqaSGBC0kXgDvRCnQ6ktoql3TDWx+jYYsoNUTmUC56dB7+jatgRD+5W/6s8xlHYPiawbWwhVFERaKI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782986142; c=relaxed/simple;
-	bh=IOa4YslObpuFsuhBaR58lK5hBi6uKmAYtLXUzJaRgAw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tmHCLpDtmuQMdf2M0TolTX+901Acv64ZJCNcdn2dT02blKBx/2sXVF38pTWVJ0mDZsdjI43t6fObuprG5WoktinLDQuLnawVU6zCJ7XXI4YgJsGIDwFZ6VWTi+DUprQBU6syYyxff0eweklGAEzLIYuqpBQSzBkKYba11xJlHuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rs7a3hQ+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782986243; c=relaxed/simple;
+	bh=mdko54FYHW1Y4Fx45AjmFQXhB8/L+lPNnWi64EUhCbo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dhNOPqusFyFWUEsrSr9JaQlexb3+pwpPcbpUAueVDVchesl6tT34Df6v6sp7kzM9OS6yOVAimxaS/lY315ntMir9yhwH9MBuyuKsVOXjvuEON4b/b4asEFQ7Oswon8lSgFw9lR8ADBjx61OFMemhQg7tgFsok3Re7RyCFFuHDvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cSxLkMwA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rs7a3hQ+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E01341F000E9;
-	Thu,  2 Jul 2026 09:55:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782986141;
-	bh=4qcmjnN61flgnSmJnX9vkEpulIuleuHhC+4NM6pKryo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Rs7a3hQ+yWyG8E7ofxueyAjg/1hdYLXsWfo79nxtd7LEqGPwyknnt7DzFmxajI6WA
-	 4XLPNhh/P/wWv2tanBym1j3fWIJWF+nn56Xww26szI72yn1RbXlsesVfo31+dverNa
-	 GVjrav2HOPVXm1zA9g8THFnPFUYDxVSSaEclO5ZAqgE0ONlxNLc9HtNyC2I6L8KR+3
-	 VEJTXW8jWWawr6zI7aZKch9B2j0PG6M+whMtCqp/vHQ+JJ/NPATUc6354GJNdrhrp5
-	 4NhyQG826JkQoLSzrXfnGoqqFVj/C3phrHDNvHUiMWYKyC9IGME89PscNmBKrGI6tt
-	 y4hF0hbvhxO7w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/18] arm64: dts: ti: k3-j721s2-main: Add multiple
- channels for CSI2RX DMA
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yemike Abhilash Chandra" <y-abhilashchandra@ti.com>
-Cc: conor+dt@kernel.org, imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260702093123.1048575-4-y-abhilashchandra@ti.com>
-References: <20260702093123.1048575-1-y-abhilashchandra@ti.com>
- <20260702093123.1048575-4-y-abhilashchandra@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 09:55:39 +0000
-Message-Id: <20260702095540.E01341F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cSxLkMwA"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E6F62C2BCF4;
+	Thu,  2 Jul 2026 09:57:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1782986243;
+	bh=mdko54FYHW1Y4Fx45AjmFQXhB8/L+lPNnWi64EUhCbo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=cSxLkMwA+1v8J6sbKgIuDA+k7WXE3nBxR00coS1kORu4MLERM+qO0NHOZi8czD/r9
+	 xMP30klkiTpSJd2vxayYHO3dRMGqbq7TRpcPgBiCb7cjInGqQ3dySrcSahWO/HbTW2
+	 +C6E8dJJBYuhDf72xknq5sXaOAKURmLwBQiGZmzclcjuCw1ms5oWszGEQBxam1tRSB
+	 CD6NmSCWY8qaEpB0BqA+QSIIeDMyH+DcVB3nGc1eKG3PBjyY8KKyvA8NLQ6KRG3YY6
+	 K1agjs6l7v0hSxCNJQIPCRvkwuzXjMHD2z7TVXmCI+4OuUBinAsc+s8DiLCc3/pr5p
+	 Q9lq0ma1/3XOQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C95E1C44500;
+	Thu,  2 Jul 2026 09:57:22 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Thu, 02 Jul 2026 11:55:55 +0200
+Subject: [PATCH v8 2/8] dt-bindings: i2c: amlogic: Add compatible for T7
+ SOC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260702-add-mcu-fan-khadas-vim4-v8-2-244feee91a36@aliel.fr>
+References: <20260702-add-mcu-fan-khadas-vim4-v8-0-244feee91a36@aliel.fr>
+In-Reply-To: <20260702-add-mcu-fan-khadas-vim4-v8-0-244feee91a36@aliel.fr>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Beniamino Galvani <b.galvani@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1314;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=UhqbrsqWdh/iR+BhkbanI5uJd+ofvIkQdzdIbbn4Ngk=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ5ab6Y9Xykrm1T41a5nvHOs4Eh2d5Lbxpkt+oMb7NeXTO
+ FrjT/N1lLIwiHExyIopsvTPtTzx7vLRM1/3qKfAzGFlAhnCwMUpABPh5GH4nxDqkpAx7/Lp7QKz
+ m/k+nEx4cMUjVaXmw6K5Gmo9ujvmZzD8T3o7X3HN8g9fnse9fX59S8PXlxMSn8XO28myZyGT05b
+ eCTwA
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Pre-existing issues:
-- [High] DMA channels are permanently leaked during early probe failures an=
-d during module unbind due to a flawed PM runtime status check.
-- [High] Missing `pm_runtime_disable()` in the `probe` function's error pat=
-hs leads to an unbalanced and permanently enabled PM runtime state.
---
+Add the T7 SOC compatible which fallback to AXG compatible.
 
-commit 79fa01b02ba17aabe215aeb8794e92dac90f80ad
-Author: Vaishnav Achath <vaishnav.a@ti.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Acked-by: Andi Shyti <andi.shyti@kernel.org>
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+ .../devicetree/bindings/i2c/amlogic,meson6-i2c.yaml         | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-arm64: dts: ti: k3-j721s2-main: Add multiple channels for CSI2RX DMA
+diff --git a/Documentation/devicetree/bindings/i2c/amlogic,meson6-i2c.yaml b/Documentation/devicetree/bindings/i2c/amlogic,meson6-i2c.yaml
+index c4cc8af182807..7b59b60b62e5b 100644
+--- a/Documentation/devicetree/bindings/i2c/amlogic,meson6-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/amlogic,meson6-i2c.yaml
+@@ -16,10 +16,15 @@ allOf:
+ 
+ properties:
+   compatible:
+-    enum:
+-      - amlogic,meson6-i2c # Meson6, Meson8 and compatible SoCs
+-      - amlogic,meson-gxbb-i2c # GXBB and compatible SoCs
+-      - amlogic,meson-axg-i2c # AXG and compatible SoCs
++    oneOf:
++      - items:
++          - enum:
++              - amlogic,t7-i2c
++          - const: amlogic,meson-axg-i2c
++      - enum:
++          - amlogic,meson6-i2c # Meson6, Meson8 and compatible SoCs
++          - amlogic,meson-gxbb-i2c # GXBB and compatible SoCs
++          - amlogic,meson-axg-i2c # AXG and compatible SoCs
+ 
+   reg:
+     maxItems: 1
 
-J721E CSI2RX SHIM layer can support up to 32 DMA channel contexts. Add
-additional DMA channels to enable multistream support for CSI2RX.
+-- 
+2.49.0
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-j721s2-main.dtsi b/arch/arm64/boot=
-/dts/ti/k3-j721s2-main.dtsi
-> index 5cac119e4292a..f4b8713873b17 100644
-> --- a/arch/arm64/boot/dts/ti/k3-j721s2-main.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-j721s2-main.dtsi
-> @@ -1239,8 +1239,11 @@ ti_csi2rx0: ticsi2rx@4500000 {
->  		ranges;
->  		#address-cells =3D <2>;
->  		#size-cells =3D <2>;
-> -		dmas =3D <&main_bcdma_csi 0 0x4940 0>;
-> -		dma-names =3D "rx0";
-> +		dmas =3D <&main_bcdma_csi 0 0x4940 0>, <&main_bcdma_csi 0 0x4941 0>,
-> +		       <&main_bcdma_csi 0 0x4942 0>, <&main_bcdma_csi 0 0x4943 0>,
-> +		       <&main_bcdma_csi 0 0x4944 0>, <&main_bcdma_csi 0 0x4945 0>,
-> +		       <&main_bcdma_csi 0 0x4946 0>, <&main_bcdma_csi 0 0x4947 0>;
-> +		dma-names =3D "rx0", "rx1", "rx2", "rx3", "rx4", "rx5", "rx6", "rx7";
 
-[Severity: High]
-This isn't a bug introduced by this patch, but increasing the channel
-allocations from 1 to 8 will exhaust the system's DMA engine much faster due
-to an existing channel leak in the driver.
-
-During an early probe failure before pm_runtime_set_active() is called, the
-device status defaults to RPM_SUSPENDED.
-
-In drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c:ti_csi2rx_cleanup_=
-ctx(),
-the driver checks this status:
-
-    if (!pm_runtime_status_suspended(ctx->csi->dev))
-        dma_release_channel(ctx->dma.chan);
-
-Because the status is already suspended, it wrongly assumes the channels we=
-re
-freed by a suspend callback and skips releasing them.
-
-This same leak also happens on module unbind. In ti_csi2rx_remove(), if the
-device is active, the driver forces the state to suspended without disablin=
-g PM
-runtime first:
-
-    if (!pm_runtime_status_suspended(&pdev->dev))
-        pm_runtime_set_suspended(&pdev->dev);
-
-This alters the status without invoking the runtime_suspend callback that w=
-ould
-normally free the channels. Does it make sense to fix this PM state handling
-so these newly added DMA channels aren't permanently leaked?
-
-[Severity: High]
-This is a pre-existing issue, but there is also a missing pm_runtime_disabl=
-e()
-in the probe error path that could cause PM state tracking issues when this
-node fails to probe.
-
-If ti_csi2rx_notifier_register() or devm_of_platform_populate() fails, the =
-code
-jumps to err_ctx:
-
-drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c:ti_csi2rx_probe() {
-    ...
-err_ctx:
-    while (i--)
-        ti_csi2rx_cleanup_ctx(&csi->ctx[i]);
-    ti_csi2rx_cleanup_v4l2(csi);
-err_dma_chan:
-    ...
-}
-
-This error path misses a call to pm_runtime_disable(), leaving the PM runti=
-me
-disable_depth unbalanced. When a subsequent probe attempt calls
-pm_runtime_enable() again, could the disable_depth underflow and break power
-management for the device?
-
->  		power-domains =3D <&k3_pds 38 TI_SCI_PD_EXCLUSIVE>;
->  		status =3D "disabled";
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702093123.1048=
-575-1-y-abhilashchandra@ti.com?part=3D3
