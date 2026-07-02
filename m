@@ -1,111 +1,101 @@
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0C247F2FB;
-	Thu,  2 Jul 2026 12:42:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7309D48124E;
+	Thu,  2 Jul 2026 12:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782996143; cv=none; b=Tj5Mp8GlhHIqrPk149qYrZF5ejyvi7FatfRIvMItnjI3iAe23bwS53ZaFCebemZ/JtAJB45gNp7rPUp9FJdNKdkUVpiCr8RJ1wPh1xYw+frZupGu5GRV6OGzKe4JkbYIEQhUEA5mHDVZHPOG5w1+eeaiXEe3Gswp5weuoSHH9P8=
+	t=1782996174; cv=none; b=MV2R4Dp12gkZ7qOQqv/OXq25OgkNDgjKvC4nm7fyQsioHvq3w+k7Cj2f/uRcRgP9CxAxoagSnpTyrTTDGDdQEGuxFx8EGoyRg0rTu9G4mE/cB4W72mcIQobJX8+hO5J4xJHXJAmdbKLc+6HuVcmen0qGmmjxrv1bd4LfqwcOxNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782996143; c=relaxed/simple;
-	bh=NBx2DennnSX1r9HIDzwT5gU80RQbv6zzbDgws8jF9QY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KWAEaKD9ekTlysbMA2CwcVDErCrDq+fGehof7pBqk5qjNgZZ0Ks4X00DGIT+OZSYtCxAcZOKrSw0hlGYfV4MYV+F7/5l/ai7uJeAzMzDSOOkewHMPRgfXLMD5xw7hPlJRZP65cSwQ0lqat2Llszd1Q8OyXqSVQUBjKnmigxxaDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; arc=none smtp.client-ip=92.121.34.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id C5B572004C9;
-	Thu,  2 Jul 2026 14:42:14 +0200 (CEST)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id AC91D200445;
-	Thu,  2 Jul 2026 14:42:14 +0200 (CEST)
-Received: from lsv051416.swis.nl-cdc01.nxp.com (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
-	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 196A9202A8;
-	Thu,  2 Jul 2026 14:42:14 +0200 (CEST)
-Date: Thu, 2 Jul 2026 14:42:14 +0200
-From: Jan Petrous <jan.petrous@oss.nxp.com>
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ciprianmarian.costea@oss.nxp.com, s32@nxp.com,
-	p.zabel@pengutronix.de, linux@armlinux.org.uk,
-	ghennadi.procopciuc@nxp.com, Ionut.Vicovan@nxp.com,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	netdev@vger.kernel.org, horms@kernel.org, Frank.li@nxp.com
-Subject: Re: [PATCH 0/4 v2] Serdes: s32g: Add support for serdes subsystem
-Message-ID: <akZcpgDSjAg6gcok@lsv051416.swis.nl-cdc01.nxp.com>
-References: <20260203161917.1666696-1-vincent.guittot@linaro.org>
+	s=arc-20240116; t=1782996174; c=relaxed/simple;
+	bh=OzV8cP9QZGr+41f8NmTp8mZKxv03Jpl2DNS9zZ8Xr+I=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XZ0NB9XjGDn12os5Qo58DkpMJbfKMuHd+t/xxLWq5Zb4Y3Y/+FBpwsenEWOODhmIPCEXTOszs+qp63sOKXQfB4CHlLBlNvFZ0heT71mczOqyWh5tHyI0oO+vays6qT5W5Zd0ZTWUwIhel3i0y6kxIAKYrUwbS5gUF7rMsq1gv/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MDCsjV81; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MDCsjV81"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C1B51F000E9;
+	Thu,  2 Jul 2026 12:42:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782996173;
+	bh=SF9O4nRzwUFA6GE0sxzFCpvmzTqtQjXTF7DW/vG1rYY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MDCsjV81/TbU5kSNRY3lOjyL5NZGQBwKL677GX9JrEMfEmLREzJUEipcdYWTM0tEj
+	 1o31KrYEjNxpHTpBlDUb9Jr8TGevVSUrc2NG9Gc6NIrdHxE37ED3s5NFFC0I6yxqOW
+	 5Wa5BrQDv6GvqHNPEMpz8X2h4IDT3DzLUq6f9eYHpLLqdZoyr86DcMk/INRu7vhOaW
+	 cVpUoW4f59sTpkgV/1tymJaStgyMTIOdnhDNCbef/A35n+Yk/I/OmU/+jrJeHdR/Iy
+	 rDaEVK15wsAahTy/KQKqrATNlUpACxKUTRsCxUlzk7O+WNumM7zxfCHVbfdgYF6gSI
+	 iZQKOtWtnJAqw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v2 7/9] watchdog: rzv2h: Add syscon support for
+ RZ/T2H and RZ/N2H WDT control register
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: linux-watchdog@vger.kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260702123112.161160-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260702123112.161160-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 12:42:51 +0000
+Message-Id: <20260702124252.8C1B51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260203161917.1666696-1-vincent.guittot@linaro.org>
-X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Tue, Feb 03, 2026 at 05:19:13PM +0100, Vincent Guittot wrote:
-> s32g SoC family includes 2 serdes subsystems which are made of one PCIe
-> controller, 2 XPCS and a shared Phy. The Phy got 2 lanes that can be
-> configured to output PCIe lanes and/or SGMII.
->     
-> Implement PCIe phy and XPCS support.
->     
-> Change since v1:
-> - Fix compile_test
-> - Use devm_reset_control_get_exclusive()
-> - Fix s32g_serdes_phy_set_mode_ext()
-> - Manage devm_clk_bulk_get_all() returns 0
-> - Fix s32g_serdes_parse_lanes() error management
-> - Move xpcs filein drivers/net/pcs/
-> - Add pcs_inband_caps()
-> - Fix functions in phylink_pcs_ops
-> - Fix MAINTAINERS
-> 
-> 
-> Vincent Guittot (4):
->   dt-bindings: serdes: s32g: Add NXP serdes subsystem
->   phy: s32g: Add serdes subsystem phy
->   phy: s32g: Add serdes xpcs subsystem
->   MAINTAINERS: Add MAINTAINER for NXP S32G Serdes driver
-> 
->  .../bindings/phy/nxp,s32g-serdes.yaml         |  154 +++
->  MAINTAINERS                                   |   10 +
->  drivers/net/pcs/Makefile                      |    1 +
->  drivers/net/pcs/pcs-nxp-s32g-xpcs.c           | 1006 +++++++++++++++++
->  drivers/phy/freescale/Kconfig                 |   10 +
->  drivers/phy/freescale/Makefile                |    1 +
->  drivers/phy/freescale/phy-nxp-s32g-serdes.c   |  953 ++++++++++++++++
->  include/linux/pcs/pcs-nxp-s32g-xpcs.h         |   50 +
->  8 files changed, 2185 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/phy/nxp,s32g-serdes.yaml
->  create mode 100644 drivers/net/pcs/pcs-nxp-s32g-xpcs.c
->  create mode 100644 drivers/phy/freescale/phy-nxp-s32g-serdes.c
->  create mode 100644 include/linux/pcs/pcs-nxp-s32g-xpcs.h
-> 
-> -- 
-> 2.43.0
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The error rollback path in `rzv2h_wdt_stop()` leaves the watchdog =
+deasserted but unconfigured, breaking the hardware state machine and potent=
+ially causing spurious resets.
+--
 
-Hi Vincent, all,
-I'm taking over the S32G SerDes/XPCS upstreaming. The effort has moved in-house
-at NXP and I'll be carrying it forward, continuing from this v2 rather than
-restarting from zero.
+commit e9173a2a019341cec05cdc87e042bd8dd2f92721
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Vincent, thanks for the v1->v2 groundwork. I'll keep your authorship on the
-patches that originate from your series (Co-developed-by plus your
-Signed-off-by) and build on top; I'll send you v3 off-list first, as you
-offered.
+watchdog: rzv2h: Add syscon support for RZ/T2H and RZ/N2H WDT control regis=
+ter
 
-A v3 is in preparation and will come as an RFC, with the v2 review comments
-addressed.
+On RZ/T2H and RZ/N2H SoCs, the WDTDCR register is shared and managed by a
+dedicated SYS driver. This commit updates the WDT driver to support a syscon
+regmap interface for WDTDCR control while maintaining backward compatibility
+with direct mapping.
 
-Vincent, if you're OK with the handoff, a short ack here would help make the
-transition visible to the reviewers.
+> diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
+> index e9545b8f5fd09..e14ff853a4e9f 100644
+> --- a/drivers/watchdog/rzv2h_wdt.c
+> +++ b/drivers/watchdog/rzv2h_wdt.c
 
-Thanks.
-/Jan
+[ ... ]
 
+> @@ -179,8 +208,13 @@ static int rzv2h_wdt_stop(struct watchdog_device *wd=
+ev)
+>  	if (ret)
+>  		return ret;
+> =20
+> -	if (priv->of_data->wdtdcr)
+> -		rzt2h_wdt_wdtdcr_count_stop(priv);
+> +	if (priv->of_data->wdtdcr) {
+> +		ret =3D rzt2h_wdt_wdtdcr_count_stop(priv);
+> +		if (ret) {
+> +			reset_control_deassert(priv->rstc);
+> +			return ret;
+> +		}
+> +	}
+
+[Severity: High]
+When rzt2h_wdt_wdtdcr_count_stop() fails, this rollback path deasserts the
+reset line and returns an error without reconfiguring the hardware.
+
+Because rzv2h_wdt_stop() returns an error, the watchdog subsystem will keep
+the device marked as active and continue pinging it via rzv2h_wdt_ping().
+
+Since the earlier reset_control_assert() wiped the configuration registers,
+will the subsequent ping lock the unconfigured control registers and
+potentially cause an immediate spurious system reset?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702123112.1611=
+60-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D7
