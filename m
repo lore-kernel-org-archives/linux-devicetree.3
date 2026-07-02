@@ -1,78 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5739306764;
-	Thu,  2 Jul 2026 22:18:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16CD538F93B
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 22:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783030739; cv=none; b=H/6OW5Wzn9iLjdFvL3cjHcAEDMzaaMpri+lJGNwP/jH+4J+/r0MRt9PzuayqvSyZ5ZHS+ooP3cSUtJD05rS4sttJhGPoHR5Vr68Ib4H4GwTevJZ1JG+AcVDIobLwMVuFhflSLQL3RgYEjiqS0hnu0exVhJntkPoYOAL2+0PtGG0=
+	t=1783031400; cv=none; b=WgEbPMaG5kbqAg2McOt03Rz85xdqgSnH9vSRN0QBjd+FJqzuWaVkCkFu7tejk5hPPNCk1GZezSYIQ2dWLSHq541pTr4938UC+7+E2qWS9XiA0+4tJoKqIolMzzD0rHXzpsGSUZ1minALvS/PwXXCxvS4rSmnfS6LuPamj+twEPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783030739; c=relaxed/simple;
-	bh=uIK2wXZt6lpexw1RHubScXDuScpKzH+Rgz4MJDFq5qU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Bq9uR+djqQK7ZoqxU2AgDDhqB76MFDQLs2Aq0R/A33l7Zr9cDX5SSRHDDVmNZ7R5E0QvciuVCRsuG1dTWyR0NXQtB6+7qTi5Lrs9SrEN6aZfWWBOMBlNHLd6SO8VS8HlqjNqP4FWjbflOHODXR7WnI8Yn9uslt+LCcRrXL0ArBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CREfmupk; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CREfmupk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C475C1F000E9;
-	Thu,  2 Jul 2026 22:18:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783030738;
-	bh=uIK2wXZt6lpexw1RHubScXDuScpKzH+Rgz4MJDFq5qU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=CREfmupkg9nGL3Ew/EXkU+T+JQ5dKch4+F69AFVz1GLhUkftCOhcFGPBzPexsATpg
-	 mQiSkKSBD25mkuLuGkKyDmZzv9I/Ro+8oHqZgvFQhJMxhSecuVGMJmDJSx4ogYFZC3
-	 B2mOYGl5oqKY53a/9CJUhZ6HYNzvYlB0GhRiadeHqeHGmna98l/U9FJc2ewjiKekPw
-	 O32zadvoqu44Ue+iLi3eIufTKALzVX4kdUczoVvbSQbq/rxYndz2l9HM2NvqxeQAW5
-	 dTlVRvBWatCFscdttyyBGR44vNEBXE08f7/eboDUucWlsy7T53xYTmGa0ElJSEheJH
-	 eVIO69EYIlprQ==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>, linux-pci@vger.kernel.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, Marc Zyngier
- <maz@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn
- Helgaas
- <bhelgaas@google.com>, Catalin Marinas <catalin.marinas@arm.com>, Conor
- Dooley <conor+dt@kernel.org>, Geert Uytterhoeven
- <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Manivannan Sadhasivam
- <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v3 4/5] irqchip/gic-v3: Add Renesas R-Car Gen4 erratum
- workaround
-In-Reply-To: <20260701203918.63189-5-marek.vasut+renesas@mailbox.org>
-References: <20260701203918.63189-1-marek.vasut+renesas@mailbox.org>
- <20260701203918.63189-5-marek.vasut+renesas@mailbox.org>
-Date: Fri, 03 Jul 2026 00:18:55 +0200
-Message-ID: <87wlvdm3w0.ffs@fw13>
+	s=arc-20240116; t=1783031400; c=relaxed/simple;
+	bh=QBVPiLZntn2OgtRozbNIN0eLE84VM0ciMJhKWr14BtU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=eeLqo45q1R8LAOJrfsXI466YH3elt0/wUqiC7iJp4sdZjLC123uWUhL+u4q7ZkgZE/HVYvXOGDGJStCxwYgAbhu9siG3p04osURn3Km+P2ZOxheoE30Q48gLkH5U8IUnX2I2ogcb1+0FSED76ImyMQLuCbmKo6dz1exxKcJzb5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <m.felsch@pengutronix.de>)
+	id 1wfPuh-0007oz-JW; Fri, 03 Jul 2026 00:29:43 +0200
+From: Marco Felsch <m.felsch@pengutronix.de>
+Date: Fri, 03 Jul 2026 00:29:25 +0200
+Subject: [PATCH v6 1/4] firmware_loader: expand firmware error codes with
+ up-to-date error
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260703-v6-10-topic-touchscreen-axiom-v6-1-1aa50ba3bc5a@pengutronix.de>
+References: <20260703-v6-10-topic-touchscreen-axiom-v6-0-1aa50ba3bc5a@pengutronix.de>
+In-Reply-To: <20260703-v6-10-topic-touchscreen-axiom-v6-0-1aa50ba3bc5a@pengutronix.de>
+To: andrew.thomas@touchnetix.com, Luis Chamberlain <mcgrof@kernel.org>, 
+ Russ Weight <russ.weight@linux.dev>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Kamel Bouhara <kamel.bouhara@bootlin.com>, 
+ Marco Felsch <kernel@pengutronix.de>, Henrik Rydberg <rydberg@bitmath.org>, 
+ Danilo Krummrich <dakr@kernel.org>, Danilo Krummrich <dakr@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-input@vger.kernel.org, kernel@pengutronix.de, 
+ Marco Felsch <m.felsch@pengutronix.de>
+X-Mailer: b4 0.14.2
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:1101:1d::28
+X-SA-Exim-Mail-From: m.felsch@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On Wed, Jul 01 2026 at 22:37, Marek Vasut wrote:
-> Renesas R-Car S4/V4H/V4M GIC600 integration has address width for AXI
-> or APB interface configured to 32 bit, it can therefore access only
-> the first 4 GiB of physical address space. This information comes from
-> R-Car V4H Interface Specification sheet, there is currently no technical
-> update number assigned to this limitation. Further input from hardware
-> engineer indicates that this limitation also applies to R-Car S4 and V4M.
-> Name the limitation GEN4GICITS1, and add a driver quirk to mitigate this
-> limitation.
->
-> The quirk is keyed on the combination of the GIC implementation
-> and the platform identification in the device tree.
->
-> Acked-by: Marc Zyngier <maz@kernel.org>
-> Co-developed-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Add FW_UPLOAD_ERR_DUPLICATE to allow drivers to inform the firmware_loader
+framework that the update is not required. This can be the case if the
+user provided firmware matches the current running firmware.
 
-Assuming this goes through the PCI tree:
+Sync lib/test_firmware.c accordingly.
 
-Acked-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Russ Weight <russ.weight@linux.dev>
+Reviewed-by: Luis Chamberlain <mcgrof@kernel.org>
+Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
+---
+ drivers/base/firmware_loader/sysfs_upload.c | 1 +
+ include/linux/firmware.h                    | 2 ++
+ lib/test_firmware.c                         | 1 +
+ 3 files changed, 4 insertions(+)
+
+diff --git a/drivers/base/firmware_loader/sysfs_upload.c b/drivers/base/firmware_loader/sysfs_upload.c
+index efc33294212fd82bb1a8c426d7430ef96c6620b2..82c4b1fedf4cdd0b41fd9acb0cfc1688d726a6fd 100644
+--- a/drivers/base/firmware_loader/sysfs_upload.c
++++ b/drivers/base/firmware_loader/sysfs_upload.c
+@@ -28,6 +28,7 @@ static const char * const fw_upload_err_str[] = {
+ 	[FW_UPLOAD_ERR_RW_ERROR]     = "read-write-error",
+ 	[FW_UPLOAD_ERR_WEAROUT]	     = "flash-wearout",
+ 	[FW_UPLOAD_ERR_FW_INVALID]   = "firmware-invalid",
++	[FW_UPLOAD_ERR_DUPLICATE]    = "firmware-duplicate",
+ };
+ 
+ static const char *fw_upload_progress(struct device *dev,
+diff --git a/include/linux/firmware.h b/include/linux/firmware.h
+index 0fa3b027f02f16ffc4a28d4209c3af9319dd8bea..86a2f010e0c1e833d8456cadf21743b9f86dbde5 100644
+--- a/include/linux/firmware.h
++++ b/include/linux/firmware.h
+@@ -29,6 +29,7 @@ struct firmware {
+  * @FW_UPLOAD_ERR_RW_ERROR: read or write to HW failed, see kernel log
+  * @FW_UPLOAD_ERR_WEAROUT: FLASH device is approaching wear-out, wait & retry
+  * @FW_UPLOAD_ERR_FW_INVALID: invalid firmware file
++ * @FW_UPLOAD_ERR_DUPLICATE: firmware is already up to date (duplicate)
+  * @FW_UPLOAD_ERR_MAX: Maximum error code marker
+  */
+ enum fw_upload_err {
+@@ -41,6 +42,7 @@ enum fw_upload_err {
+ 	FW_UPLOAD_ERR_RW_ERROR,
+ 	FW_UPLOAD_ERR_WEAROUT,
+ 	FW_UPLOAD_ERR_FW_INVALID,
++	FW_UPLOAD_ERR_DUPLICATE,
+ 	FW_UPLOAD_ERR_MAX
+ };
+ 
+diff --git a/lib/test_firmware.c b/lib/test_firmware.c
+index 7459bba65444d1d153667ab3fc447c375418e938..a822d9641eb4c4db01d9966f76f080ede31027f3 100644
+--- a/lib/test_firmware.c
++++ b/lib/test_firmware.c
+@@ -1134,6 +1134,7 @@ static const char * const fw_upload_err_str[] = {
+ 	[FW_UPLOAD_ERR_RW_ERROR]     = "read-write-error",
+ 	[FW_UPLOAD_ERR_WEAROUT]	     = "flash-wearout",
+ 	[FW_UPLOAD_ERR_FW_INVALID]   = "firmware-invalid",
++	[FW_UPLOAD_ERR_DUPLICATE]    = "firmware-duplicate",
+ };
+ 
+ static void upload_err_inject_error(struct test_firmware_upload *tst,
+
+-- 
+2.47.3
+
