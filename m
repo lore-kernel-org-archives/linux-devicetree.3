@@ -1,86 +1,147 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F82B386426;
-	Thu,  2 Jul 2026 19:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77ECC38553F;
+	Thu,  2 Jul 2026 19:05:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783019114; cv=none; b=BCxWTUnPMoSL4v5mO+KPMO83q8/AdWa1RxfLr5TT1r5ilPaQodpGJY9scFDjtJpFzG9sbI6tF9z9E5EGfwbarOo7cMDxc3PoDyuxkL1/rKcW40QD1IAQVO6TiWQFOX0t9WLo6BVRxByIj2HPbnZyK3Cr5u7RaGf6XWcuBkMHcTA=
+	t=1783019121; cv=none; b=LF/m8OlS3IdoR0FJGCtQkVtN6dwhFdoXToSqGJztQJSfgYR/OLNHH40+uw8H7AbbSIayi37qj3YR73UPVzmDCmKq+vlCNK7vgZCNpqcoSuetDVdlgMAUkg3p4MwUgOyWmR+RfzlHGv1G4FD9E54Jvlp7yY7SVb295vbZUQ22N3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783019114; c=relaxed/simple;
-	bh=Nh9E4VW2GnoVPEdX4ZqXN985eAQk/nBhv1kChPSeph0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jgpJYik9sFOjJzdXwAudtnWtHfCwgXWPCpn24NCpz9kyGiabb1FOAgw6UpJU3ro4vX3G+jx3aVwNAKqxYcWBditJZZ9hpekRvhQP3+YBbWR5ZsHm5fzwNhed8BoByfha92VpKi/acgVUXnRZRaoz22osaX8mO3AnCRflKSiO0+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=LsfxnjEK; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1783019121; c=relaxed/simple;
+	bh=LCLDDCKtmZNL1Th80foxOZecq8OHiutL4enntKJtc9k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gj6KBqUWx9cAfshc3zRCO3rdU+3TABm3nvDH+XR457UrbJ8uDXXTmC7U7avXJqqW8LN/HrOQukUSDgiSp0HLUjA2+T3fAMloatpDDm44ZE8C1Jecpv1RfaLD5W9+dqRu6pQPDDvrKVb2VY6/hb/AvPVSIBtYFmhvAzrPb/gYVPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BpfolKN2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="LsfxnjEK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=t0NNRG9w6w6jCTySSfCRM9uqcR86GLmzg5Z0J050DYU=; b=LsfxnjEKjnc97llUKZA01GgdJd
-	dFnlBw7l7/cyde3yav7xw1ZgV/I7vQ7VBnX/NxjAz/cIbvF6F3jDbB3NBeojbS22ZS6I0XPVI6Ux3
-	1b65moljWbK2+G0pczunZ1v3OE0/yT/ERdYmNTd8cXcDSsVDCvQ05cZLffLCVW1ccobviW+3mGvh/
-	6xoTGiP4j2YPEKwTOqHmGaJCdFIuVSZeCHd3UaSWC5mlaO0IlwuADLRUOeuXANg/3qaeom/T/3maN
-	3Q0dXJCQnr+unhryQgoAqGqRw5CA5Vc3m4zDZkddVop5OYEtnom5Q3eBHmfE+1+F4JUONB9nN39Wo
-	kJ9pBXYQ==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	sebastian.reichel@collabora.com,
-	nicolas.frattaroli@collabora.com,
-	alchark@gmail.com,
-	detlev.casanova@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	michael.riesch@collabora.com,
-	andy.yan@rock-chips.com,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v11 0/3] Add eDP support for RK3576
-Date: Thu,  2 Jul 2026 21:04:51 +0200
-Message-ID: <178301901908.3838694.14923342654854634320.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260605022305.3058853-1-damon.ding@rock-chips.com>
-References: <20260605022305.3058853-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BpfolKN2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C09E1F00ADB;
+	Thu,  2 Jul 2026 19:05:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783019118;
+	bh=ts0JUqI/UQtpggkPbz8ec50NHpUrsHW9mROWrvo34io=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BpfolKN29Ql/zs4jLL/uQI1Kq/bcwoinu+Hx2O+DTwS6qRSA7Sf53w505wlmGyHQb
+	 01kfEiaFHA2zOzHR2Juy3SSBIAyHk4Xu1m1EZydiyYLJne2Zeq5MzCJZbe2HGX7Z8G
+	 slbSLMlL5GXdwdfwR3mbo9/NlOAgEFNF+7a3KjPCLD/60ymU6+suGXAAc5DaYBBmw9
+	 ydSwd4wbDJuw/cfefH/ZLKr2MdjY/Hr3s9UHsgPMd3Ixfr+DbntgKbun7dc7RIgMra
+	 xGa+cMmzxRqsk4wkIL7Tb+peMCf60K3Vxstbeaqrn8aQz3RDlel+rhFNhS/CLJP/Jg
+	 LNqWyC91fkR+A==
+Date: Thu, 2 Jul 2026 20:05:14 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Brian Masney <bmasney@redhat.com>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC v5 00/12] ZTE zx297520v3 clock bindings and driver
+Message-ID: <20260702-frequent-refreeze-9850982156cb@spud>
+References: <20260628-zx29clk-v5-0-79ff044e4192@gmail.com>
+ <20260629-unwelcome-raking-3df3d8ff0422@spud>
+ <ihPM7P2dSn-oiyaL8fageA@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uabdFokmh9zu64R+"
+Content-Disposition: inline
+In-Reply-To: <ihPM7P2dSn-oiyaL8fageA@gmail.com>
+
+--uabdFokmh9zu64R+
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Jul 01, 2026 at 08:22:21PM +0300, Stefan D=F6singer wrote:
+> Am Montag, 29. Juni 2026, 18:49:08 Ostafrikanische Zeit schrieb Conor Doo=
+ley:
+>=20
+> > Bindings seem fine to me, I'll be happy to give you some r-b tags when
+> > you go non-RFC. To be frank, I think you should drop them as you've got
+> > no significant questions here I think and you'll be taken a bt more
+> > seriously.
+>=20
+> Thanks for all the advice so far!
+>=20
+> Here's one more binding related question: Philipp's request to give the P=
+HY=20
+> reset its own reset ID means I need a node and driver to consume that res=
+et.=20
+> My question is if it should be another MFD subdevice of topcrm or not. I =
+am=20
+> leaning towards not:
+>=20
+> usb_phy: phy@2 {
+> 	compatible =3D "zte,zx29-usb2-phy";
+> 	interrupts =3D <GIC_SPI 42 IRQ_TYPE_EDGE_RISING>, <GIC_SPI 43=20
+> IRQ_TYPE_EDGE_RISING>;
+> 	interrupt-names =3D "powerup", "powerdown";
+> 	syscon =3D <&topcrm 0x84 0x2>;
+> 	resets =3D <&topcrm ZX297520V3_USB_PHY_RESET>;
+> 	reset-names =3D "phy";
+> 	#phy-cells =3D <0>;
+
+Where is this node's reg property?
+What bus is this node on?
+
+It looks like the answer to both is that it should be a child of the
+topcrm and this "syscon" property should be replaced by "reg".
+
+> };
+>=20
+> usb0: usb@1500000 {
+> 	compatible =3D "snps,dwc2";
+> 	reg =3D <0x01500000 0x1000>;
+> 	...
+> 	phys =3D <&usb_phy>;
+> 	phy-names =3D "usb2-phy";
+> };
+>=20
+> I am not aware of any IO region to configure the PHY, although one may ex=
+ist.=20
+> topcrm + 0x84 has two status bits reporting if USB and HSIC are powered a=
+nd=20
+> out of reset. Nevertheless, the PHY feels distinct enough from topcrm tha=
+t it=20
+> should have its own binding. The phy driver would merely deassert the res=
+et=20
+
+This is the sort of thing that should be a child node of the syscon,
+rather than integrated into the parent, given it consumes resources from
+another feature of the syscon.
+
+> and wait for the ready bit and maybe in the future do something useful wi=
+th=20
+> the connect/disconnect IRQs.
+>=20
+> Interestingly the USB IO region is actually downstream of the AHB bus and=
+=20
+> matrix controller, but it has its clocks and resets in topcrm. I suspect =
+the=20
+> purpose of this setup is to allow wake-by-USB IRQs while shutting down th=
+e=20
+> main data path.
+>=20
+> Cheers,
+> Stefan
 
 
-On Fri, 05 Jun 2026 10:23:02 +0800, Damon Ding wrote:
-> Picked from:
-> https://lore.kernel.org/all/20260601065100.1103873-1-damon.ding@rock-chips.com/
-> 
-> Patch 1-2 are to add missing clock "hclk" for RK3588 eDP nodes.
-> Patch 3 is to add the RK3576 eDP node.
-> 
-> Damon Ding (3):
->   arm64: dts: rockchip: Add missing hclk for RK3588 eDP0
->   arm64: dts: rockchip: Add missing hclk for RK3588 eDP1
->   arm64: dts: rockchip: Add eDP node for RK3576
-> 
-> [...]
 
-Applied, thanks!
+--uabdFokmh9zu64R+
+Content-Type: application/pgp-signature; name=signature.asc
 
-[1/3] arm64: dts: rockchip: Add missing hclk for RK3588 eDP0
-      commit: 5603ce4f1d470af29e0cc76e36ea99e62fa07151
-[2/3] arm64: dts: rockchip: Add missing hclk for RK3588 eDP1
-      commit: 6f1ed82b7f084c13bffcaa9e2c7acf5bc64b659b
-[3/3] arm64: dts: rockchip: Add eDP node for RK3576
-      commit: 65bdf72f7fda3b1a24bd6f5ea15ce40ec2cc3e0a
+-----BEGIN PGP SIGNATURE-----
 
-Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaka2agAKCRB4tDGHoIJi
+0gdQAP9SW0nb5swJHYPwKFbOAuwicY4LMenlLRlsYlYGO0fb6QD+Mf9ROZAatBx5
+9zeKEpLv/VLnYldfI4wgADXKMReGqQg=
+=VHSW
+-----END PGP SIGNATURE-----
+
+--uabdFokmh9zu64R+--
