@@ -1,110 +1,212 @@
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713CB4DBD74
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 14:18:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB2E44BC91;
+	Thu,  2 Jul 2026 14:21:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783001929; cv=none; b=o76s6lFnU86iLoODnoRG8X7NUT6btgYEMf09t7XFFfQQKmLq+hrAkX2b1R4fEr/WIlaZQ+QTZY9YiK1wH5+pU7qXIWWJEqBpoot5ksy1s9m2zi3KAJftoDlehRV4DQhbRWnl8fa2ZAZD5bvV1py1yHX4Rjk6E0xIxTHd9qtj2is=
+	t=1783002068; cv=none; b=bNGaQG0ehu/KTcKyC7H3YDDa2dkVzpwKRSUcx6psbxxXM994MrM3OmGD9efmS6ev+2sfEBdAB7aFmgMqfgkSbV2/KVHEPjO0FZrTVLOE/2ZT16NXx0coGqhujqsviNFiEuo9UnyC1uBVNYKYDy+nQhl35r2rUVl2mSpkelQCN1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783001929; c=relaxed/simple;
-	bh=FzlQ4dU8Y7So5+PoKuqx2vCx/5MPgXqpsLfNBx+XtJI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=toN41MHuiP696FDPT97Wl2zlQM/yZorABpts1//m0larCrOpPhhrZsMA3Vclw6LmDk1GnwjJWlQUaw0wl3Bg/4s0PqPuOlsBH2BKZaD1QBVmz4kPw2D1Escu68iqS+wKgMlTnf0RlYBFhD+rxjq9LM3slMiDGFlq6BuYlsgX4XI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=SefeOP/8; arc=none smtp.client-ip=209.85.160.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1783002068; c=relaxed/simple;
+	bh=ZSvNhTvUjy47N2InS3xAFiokaoCBQ/g+EMZgoRUuUSo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ca8y/wH2P3n7ZM+ES+4gNlMNS47BLz95gvAj8sMdPtuJHSQmwgDH+RbqG2dMItpAwsrMs0nWvrWQZX4j7fvkHLvpCDlskbyhTh9CAbkyMCwkbad6LIQhUw3CSYsELE931GuLHxGHE1sAIidTUEedEOnjUjC1Hu/7BzNH+rXrPeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aDmlilRd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="SefeOP/8"
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-4487b0f9b20so732892fac.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 07:18:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783001923; x=1783606723; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=D3aJl8QhQEFbQbyrb9zx0aFaFWiPGxodfC82XFdOcZ0=;
-        b=SefeOP/8wupF+nUFeWKGg9bdzKJHS14dotjJBUP95kU68lu/bstckB3fZElv823DDO
-         bfk7ZgVMZ9Utd2C3DHb6vmt9U3MassvQwQdVz5V+G/VybSCuA+OBHfxbSaCTjEpIj20J
-         uAxWi4q2wXC1yjf+JNEP2CiigBAbGX0O6nZag8IWkOdYFpRqVLUJX1sRmA7qaFpYlxIW
-         Nh2ZbHlm3KeyOhy9T9bthrD4Fm2sojoROpWKq7rx0YYPH0+Nw4MTgQxd07TMN96rw2db
-         849dWaf6hWSay7c+3JtjMVpNdGSLyg0kawt1OH01clcw1KYG6cSoozdh9VoyDlx5gCRj
-         glHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783001923; x=1783606723;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=D3aJl8QhQEFbQbyrb9zx0aFaFWiPGxodfC82XFdOcZ0=;
-        b=qxubmXxRpDcpyQO7gNRVqxZthRvKZ9BUstzzliBuVQjwo/mbrih97G0C20hd6dmvFt
-         2H85LBqxQ3ypmnhUvjXKTR61c6qqal3o24qvBXSGVR1VvdXn/CUEAhMyUusSy9XNICsT
-         44PPI8nlj0zkext+g4tx9wG+aduxdmgYB9UhMgw1oo0S8w5nBfd/dcsb92ZscMmi2GfD
-         3CxSmfbWmDD1wQO9rZitN2C6WSvO90LOas+lvTXOhODqke0pP+IjQ0z1eUpk1vfC3TMK
-         5zNMWi2d5V5/g/LK9UxE7HFx5acUnSOAFuBRQ+nb5RdCxxlw7lnqZVRQL3d5eqgk7sKV
-         zl9Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqUSdu31ef6lKhCm51ipWbfA5zkQZVynMK8TJjHpG52Q2f0sJ3NoweVYhtgGfuJllxBkpck0cIQOmrO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy21peV4VqL59ICrSPArufHfhsZdjbQIkEKZ8kjx8mcjXX7Um+x
-	cQ2YkeRjGkx1eCDeJ8gqC/ksOibmep36u3xjGJuprd2JITRzM9bp0sy3IjTpV0uLD2c=
-X-Gm-Gg: AfdE7cms/DaJ3LPPDFjHo5wB50rBJ0immrOmm6pnorFlmoAEF80nQK29CEKU9+/FG/Z
-	+hwwTnzY+UZRJgxDyTim7OaVUSJnXntT+OnLIUEpj6RD/JJPAjyvoepZoB6ldjbEOBmHaeMYprN
-	dTebfLARCNWi4LoUB97fapBxHPsnm5qNcqt/gicAFQ4xQJAbeP21BbHY+0uwYfZLdihbXBAOuyk
-	FtbMeaHDJJ3pzmz5rdHCLnWG5JIAtZX7tgzwEYS+gmhIjGyfiz1ispj7vyOK66xbv2yytORAv1l
-	gTmiHtwUIbBciXvecu+0PqUsEJy1NmuWBRU2Lzw8vHHsR23OfcD1iGyiW6Hs5J2Gq+wtuHxeF4l
-	YIleXnRruxGoYj0OWDIs1z+WW4qfMDrsW61YGNUQnwYqn539J/1gTGj1sqv6TpOuMkZGwM6C+3N
-	i5rM1iN58y4FBP6bpyeOeCLaHlXJVMn+7kcEkl3n2DGDqq8PA280OaqBBwCZ2rsTa6Qu+iI0Yo/
-	g==
-X-Received: by 2002:a05:6870:8899:b0:44a:e965:b9dd with SMTP id 586e51a60fabf-44cabcb3840mr3681787fac.42.1783001923076;
-        Thu, 02 Jul 2026 07:18:43 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:6a9f:626e:95c4:2a80? ([2600:8803:e7e4:500:6a9f:626e:95c4:2a80])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44cbec92bbbsm3013174fac.10.2026.07.02.07.18.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jul 2026 07:18:42 -0700 (PDT)
-Message-ID: <544fbdef-268d-49cc-ae9e-b18907d9382b@baylibre.com>
-Date: Thu, 2 Jul 2026 09:18:41 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aDmlilRd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A085C1F000E9;
+	Thu,  2 Jul 2026 14:21:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783002066;
+	bh=df6LfzLONmMQAUaiwMvWWDldSQQnzM7+5gHi3uIJi8M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aDmlilRdBvtkl8PWXVLFRuYsbzS1UOvQEQ/wM9u0F6kvxd7/RyqEZcr/ZVRgrL6ij
+	 6LNMN1ATeHuDRnCMgrJJ0eFL7unwRL8znS44Guv1bMOIbVCrdXxn2Ctldygu7Js71c
+	 AacDjq8BvHG0tE697b/ylATk5lWgeKJh921JW3msfcRff47iGa1Qu+lxnGkMTULXds
+	 ZQgYPOn+9I774wiiodLg+bLKmjubjXKIOXNRf18Te146BkVkCgCtwuCeUYBVadRZAK
+	 RbdWwPukOUjTTZcSNisG+z4Vb0J5IBjOHmi0ONPDPiyf/t99xsInyEv88Yc2gPwxB6
+	 mX+xbLcX9p5bw==
+Date: Thu, 2 Jul 2026 16:20:57 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+	devicetree@vger.kernel.org, Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH v2 3/4] Bluetooth: hci_qca: Support QCA2066 on M.2
+ connector via pwrseq
+Message-ID: <asftjtxfgabkq4og7yl2ukffywbhi6n6gyrsy3ukrymbkbil4a@iyjit6xojjvl>
+References: <20260702-monza-wireless-v2-0-7b56e2a6a6d4@oss.qualcomm.com>
+ <20260702-monza-wireless-v2-3-7b56e2a6a6d4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 8/8] iio: adc: ti-ads112c14: add measurement channel
- support
-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
- Jonathan Cameron <jic23@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chris Hall <c-hall@ti.com>,
- Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
- Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
- <20260625-iio-adc-ti-ads122c14-v2-8-ceb9b0b561cb@baylibre.com>
- <20260701212019.12757df3@jic23-huawei> <akYs-QgyjN-nmjq-@ashevche-desk.local>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <akYs-QgyjN-nmjq-@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260702-monza-wireless-v2-3-7b56e2a6a6d4@oss.qualcomm.com>
 
-On 7/2/26 4:18 AM, Andy Shevchenko wrote:
-> On Wed, Jul 01, 2026 at 09:20:19PM +0100, Jonathan Cameron wrote:
->> On Thu, 25 Jun 2026 16:55:10 -0500
->> "David Lechner (TI)" <dlechner@baylibre.com> wrote:
+On Thu, Jul 02, 2026 at 12:46:15PM +0200, Loic Poulain wrote:
+> For QCA2066 (and other QCA chips) on M.2 connectors, the UART enable
+> is controlled by the W_DISABLE2# signal managed by the pcie-m2 power
+> sequencer rather than a dedicated BT enable GPIO.
 > 
-> ...
+> When the serdev controller has an OF graph (indicating it is connected
+> to an M.2 connector), acquire the 'uart' pwrseq target from the
+> connector's power sequencer and use it to control BT power instead of
+> the bt-enable GPIO.
 > 
->>> +	device_for_each_named_child_node_scoped(dev, child, "channel") {
->>> +		struct ads112c14_measurement *measurement = &data->measurements[i];
->>> +		struct iio_chan_spec *spec = &channels[i];
+> Also allocate bt_power unconditionally for all SOC types since the
+> pwrseq path is independent of the SOC type switch.
 > 
->>> +		if (!fwnode_device_is_available(child))
->>> +			continue;
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+
+Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+
+- Mani
+
+> ---
+>  drivers/bluetooth/hci_qca.c | 81 ++++++++++++++++++++++++---------------------
+>  1 file changed, 43 insertions(+), 38 deletions(-)
 > 
-> Also drop this dup check.
+> diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+> index e09debdb00a1b8e74ccd5de6147e240e533b4594..b04593a96e14ac9e87ae76fa00eda308e81dea25 100644
+> --- a/drivers/bluetooth/hci_qca.c
+> +++ b/drivers/bluetooth/hci_qca.c
+> @@ -1872,6 +1872,9 @@ static int qca_power_on(struct hci_dev *hdev)
+>  			/* Controller needs time to bootup. */
+>  			msleep(150);
+>  		}
+> +
+> +		if (qcadev->bt_power->pwrseq)
+> +			pwrseq_power_on(qcadev->bt_power->pwrseq);
+>  	}
+>  
+>  	clear_bit(QCA_BT_OFF, &qca->flags);
+> @@ -2256,7 +2259,7 @@ static void qca_power_off(struct hci_uart *hu)
+>  		break;
+>  	}
+>  
+> -	if (power && power->pwrseq) {
+> +	if (power->pwrseq) {
+>  		pwrseq_power_off(power->pwrseq);
+>  		set_bit(QCA_BT_OFF, &qca->flags);
+>  		return;
+> @@ -2387,6 +2390,35 @@ static int qca_init_regulators(struct qca_power *qca,
+>  	return 0;
+>  }
+>  
+> +/*
+> + * Acquire the M.2 connector power sequencer.
+> + *
+> + * An OF graph link on the serdev controller is only present when the BT
+> + * device is attached through an M.2 Key E connector. In that case the UART
+> + * enable (W_DISABLE2#) is driven by the pcie-m2 power sequencer instead of a
+> + * dedicated BT enable GPIO, so grab the "uart" pwrseq target from it.
+> + *
+> + * Returns 0 if no M.2 connector is present (nothing to do), a negative errno
+> + * on error, otherwise 0 with qcadev->bt_power->pwrseq populated.
+> + */
+> +static int qca_serdev_get_m2_pwrseq(struct qca_serdev *qcadev, bool *bt_en_available)
+> +{
+> +	struct serdev_device *serdev = qcadev->serdev_hu.serdev;
+> +	struct device *dev;
+> +
+> +	if (!of_graph_is_present(dev_of_node(&serdev->ctrl->dev)))
+> +		return 0;
+> +
+> +	qcadev->bt_power->pwrseq = devm_pwrseq_get(&serdev->ctrl->dev, "uart");
+> +	if (IS_ERR(qcadev->bt_power->pwrseq))
+> +		return PTR_ERR(qcadev->bt_power->pwrseq);
+> +
+> +	dev = pwrseq_to_device(qcadev->bt_power->pwrseq);
+> +	*bt_en_available = device_property_present(dev, "w-disable2-gpios");
+> +
+> +	return 0;
+> +}
+> +
+>  static int qca_serdev_probe(struct serdev_device *serdev)
+>  {
+>  	struct qca_serdev *qcadev;
+> @@ -2417,25 +2449,13 @@ static int qca_serdev_probe(struct serdev_device *serdev)
+>  	else
+>  		qcadev->btsoc_type = QCA_ROME;
+>  
+> -	switch (qcadev->btsoc_type) {
+> -	case QCA_QCA6390:
+> -	case QCA_WCN3950:
+> -	case QCA_WCN3988:
+> -	case QCA_WCN3990:
+> -	case QCA_WCN3991:
+> -	case QCA_WCN3998:
+> -	case QCA_WCN6750:
+> -	case QCA_WCN6855:
+> -	case QCA_WCN7850:
+> -		qcadev->bt_power = devm_kzalloc(&serdev->dev,
+> -						sizeof(struct qca_power),
+> -						GFP_KERNEL);
+> -		if (!qcadev->bt_power)
+> -			return -ENOMEM;
+> -		break;
+> -	default:
+> -		break;
+> -	}
+> +	qcadev->bt_power = devm_kzalloc(&serdev->dev, sizeof(struct qca_power), GFP_KERNEL);
+> +	if (!qcadev->bt_power)
+> +		return -ENOMEM;
+> +
+> +	err = qca_serdev_get_m2_pwrseq(qcadev, &bt_en_available);
+> +	if (err)
+> +		return err;
+>  
+>  	switch (qcadev->btsoc_type) {
+>  	case QCA_WCN3950:
+> @@ -2446,24 +2466,9 @@ static int qca_serdev_probe(struct serdev_device *serdev)
+>  	case QCA_WCN6750:
+>  	case QCA_WCN6855:
+>  	case QCA_WCN7850:
+> -		/*
+> -		 * OF graph link is only present for BT devices attached through
+> -		 * the M.2 Key E connector.
+> -		 */
+> -		if (of_graph_is_present(dev_of_node(&serdev->ctrl->dev))) {
+> -			struct device *dev;
+> -
+> -			qcadev->bt_power->pwrseq = devm_pwrseq_get(&serdev->ctrl->dev,
+> -								   "uart");
+> -			if (IS_ERR(qcadev->bt_power->pwrseq))
+> -				return PTR_ERR(qcadev->bt_power->pwrseq);
+> -
+> -			dev = pwrseq_to_device(qcadev->bt_power->pwrseq);
+> -			if (!device_property_present(dev, "w-disable2-gpios"))
+> -				bt_en_available = false;
+> -
+> +		/* M.2 connector modules are powered by the pwrseq acquired above. */
+> +		if (qcadev->bt_power->pwrseq)
+>  			break;
+> -		}
+>  
+>  		if (!device_property_present(&serdev->dev, "enable-gpios")) {
+>  			/*
+> @@ -2545,7 +2550,7 @@ static int qca_serdev_probe(struct serdev_device *serdev)
+>  			return PTR_ERR(qcadev->bt_en);
+>  		}
+>  
+> -		if (!qcadev->bt_en)
+> +		if (!qcadev->bt_en && !qcadev->bt_power->pwrseq)
+>  			bt_en_available = false;
+>  
+>  		qcadev->susclk = devm_clk_get_optional_enabled_with_rate(
+> 
+> -- 
+> 2.34.1
 > 
 
-How is this duplicate? device_for_each_named_child_node_scoped()
-doesn't check this.
+-- 
+மணிவண்ணன் சதாசிவம்
