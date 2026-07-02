@@ -1,108 +1,205 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9F733F8CA
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 21:52:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E793BB11B;
+	Thu,  2 Jul 2026 22:00:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783029156; cv=none; b=lwSjnRUytbM9ovKrjuD4+Fo/3y/W1PrBsnCgEjmahBS5uKczt5S7M8XTYTTSHwX4jsHKPMsZGWgDceVP7tMSgxrT7G/FnLv5EmquGS91L9WJDHDrgMH5rPRioDkduCkil9N4ww7L6RYws8dJm1WvSQxIXEVcliTKbr62lfrKNnk=
+	t=1783029621; cv=none; b=rTAQ1rmQOJi/FZKJcxHWyiGhMLknnNUAUV5B5iKcmeayueSLVmo5z2TR3aB7N6FUIbxopN8N9W4E/iY8RbH5ymc2FYIZUcBdZZcpyH15HfVzchK/o0hSeaZ2YRb4Z2bCu2XLV+qulvukR8WNaylCnkS5SKLmHLx9CBY+3JPHmmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783029156; c=relaxed/simple;
-	bh=Xrw93ugYzKntx8/NfRls3d7TzE+GKxRGA0mJo0JjH1A=;
+	s=arc-20240116; t=1783029621; c=relaxed/simple;
+	bh=4E3uPmJLTzLPGnGXylvlBTY1e4qEddtq/7fqpn07zyU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=goBcQkO/YMZTuyxPgMUetm8LkaMrA/3cB2Sov1hGMUt6eNdDj+RIv4MMBT4p9gtAMDzXEWgKYjNM69ueJCFP4HsQcJaocrYvSs4yHFEUiC1+VgeH5HzdcA+JwoCkKmWP0oVniO5aR9OuIgH1EE6V9Am3Lmg+xXpdvGl1oBIBmgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GIT4kfE5; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=eJuI1778uLK9UyCbrWu2r6k6j8DrAHoMyCfV0l+yqGms2zrIZx69kmavtlPVHiqphxFaSv7YoEFLxWJv6L8AoXrM7dto2eOzLYpIY4Q6yn/Drxmyrmhk/E/cJXBrQwTgnMY8BfilY8vYG+6/rIdytobxFxpoiUCoo3a/a4w+r1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dKUMrAgV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GIT4kfE5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517FC1F000E9;
-	Thu,  2 Jul 2026 21:52:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dKUMrAgV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2FBD1F000E9;
+	Thu,  2 Jul 2026 22:00:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783029155;
-	bh=C1dOobLa6pFGU5E5LDmsCXiuU/cV0mlqJ0nNFhKvD+8=;
+	s=k20260515; t=1783029620;
+	bh=oQIjLP9TVDNz4PvVPK5lkW7gtFo4dqmaY71KLP+cN6E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GIT4kfE5B5/8+q4oPlaE5AGxaHah7RiUlf4i/j9cY8Jn5SofpHWyaHAj4hqfcXat/
-	 Kcg8ltjWY1rKUk+1n6R9Y2RAg8n532ay6ScuEIGO5DGFoEVw7WL5/agtuMO9xqVPxv
-	 lrrjF6535UctzCooYRuGCDCO4zZwhUqqy1VoBNdiUATGzDSq2vpNOTPt2kwm9ILsV5
-	 +QkCblhKY12ddLP9+FlQiHSj9VND965/J1X7Re6hTf0JogGcrfi2oWFbgXy/5xFTgF
-	 2i++90fwiWAXC8vgk7IcfFCMBPN/jdyxPaXTDhlNc6R3pMtB2CcNSn5VHjTcI4Q73V
-	 letAEXkWir34w==
+	b=dKUMrAgVYTo9Za2RVN1i5hj7nHube0IIi/UzQ0+i/ic05Y5/qq/EtXVlPyDQCuS6M
+	 CI4sY0K6KulUmJAkDYL5aVsOPHP1istqeDvU5Wa1/xWlges7iqp3V4abfOe172tzOd
+	 xdOMnH86nZ/MNSSg9EY5eKlsgoTEpjqWBisYvcXoGKAhv5Mb5Nvczy7h+QnsZ84pQ8
+	 /MJzfPscERCEuoXA8ew1PcCNOXO/pYLDPoKsPExMITelI1NuPuH793KOaGWS81Yn0f
+	 wgBmT5lVPKgkncXhiyxS9cE1T0eIh6hUzw5jO1Xt0TeAAUtThDLZpnAH6lYBPrHDxZ
+	 lzFqbn7yBpeHA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/4] dt-bindings: iio: adc: Add ltc2378
+Subject: Re: [PATCH 2/4] media: rc: sunxi-cir: add support for the A523
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <fa15b8fe33541fa2e8c7a3f124b2482872fdcf26.1783028033.git.marcelo.schmitt@analog.com>
-References: <cover.1783028033.git.marcelo.schmitt@analog.com>
- <fa15b8fe33541fa2e8c7a3f124b2482872fdcf26.1783028033.git.marcelo.schmitt@analog.com>
+To: "Justin Suess" <utilityemal77@gmail.com>
+Cc: linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260702214750.3428694-3-utilityemal77@gmail.com>
+References: <20260702214750.3428694-1-utilityemal77@gmail.com>
+ <20260702214750.3428694-3-utilityemal77@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 21:52:34 +0000
-Message-Id: <20260702215235.517FC1F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 22:00:18 +0000
+Message-Id: <20260702220019.E2FBD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Low] Compatible strings with required fallbacks are incorrectly allowed =
-as standalone strings.
+
+Pre-existing issues:
+- [High] Incorrect device registration order in probe and missing `rc_unreg=
+ister_device` on failure leads to race conditions and Use-After-Free.
+- [High] Rounding mismatch in timeout calculations causes the maximum timeo=
+ut to wrap around to 0, breaking IR reception.
+- [Medium] Malformed `clock-frequency` causes a division by zero kernel pan=
+ic during timeout calculations.
+- [Medium] Inconsistent use of DT-requested clock frequency versus actual c=
+lock rate introduces timing inaccuracies.
 --
 
-commit fff47614872c95c6a481f63da8b14dfcedd0bb53
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+commit ca10429d8baf92c8b3413bded6e91ab88182edf2
+Author: Justin Suess <utilityemal77@gmail.com>
 
-dt-bindings: iio: adc: Add ltc2378
+media: rc: sunxi-cir: add support for the A523
 
-Document how to describe LTC2378-20 and similar ADCs in device tree.
+This patch adds support for the A523 (sun55i) SoC to the sunxi-cir
+driver. It introduces support for programming pulse polarities and a
+parameterized sample clock divider required by the newer IP revision.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml b=
-/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      # Single compatible string match.
-> +      - enum:
-> +          - adi,ltc2338-18
-> +          - adi,ltc2364-16
-> +          - adi,ltc2364-18
-> +          - adi,ltc2367-16
-> +          - adi,ltc2367-18
-> +          - adi,ltc2368-16
-> +          - adi,ltc2368-18
-> +          - adi,ltc2369-18
-> +          - adi,ltc2370-16
-
-[Severity: Low]
-Does this standalone enum allow devices that should require a fallback
-to pass schema validation with only a single compatible string?
-
-Because parts like "adi,ltc2370-16" and "adi,ltc2367-16" are listed here in
-the single enum match, a device tree node specifying only
-compatible =3D "adi,ltc2370-16" will satisfy this block and successfully pa=
-ss
-schema validation.
-
-This seems to bypass the fallback requirements defined below in the items
-blocks:
+> diff --git a/drivers/media/rc/sunxi-cir.c b/drivers/media/rc/sunxi-cir.c
+> --- a/drivers/media/rc/sunxi-cir.c
+> +++ b/drivers/media/rc/sunxi-cir.c
 
 [ ... ]
-> +      # Low sample rate fallback for 16-bit unipolar sensors.
-> +      - items:
-> +          - enum:
-> +              - adi,ltc2370-16 # 2 MSPS
-> +              - adi,ltc2368-16 # 1 MSPS
-> +              - adi,ltc2367-16 # 500 kSPS
-> +          - const: adi,ltc2364-16 # fallback (250 kSPS)
 
-Should the parts that require a fallback be removed from the single
-compatible string enum so the schema correctly enforces the fallback?
+> @@ -140,17 +165,19 @@ static irqreturn_t sunxi_ir_irq(int irqno, void *de=
+v_id)
+> =20
+>  /* Convert idle threshold to usec */
+> -static unsigned int sunxi_ithr_to_usec(unsigned int base_clk, unsigned i=
+nt ithr)
+> +static unsigned int sunxi_ithr_to_usec(unsigned int base_clk, unsigned i=
+nt div,
+> +				       unsigned int ithr)
+>  {
+>  	return DIV_ROUND_CLOSEST(USEC_PER_SEC * (ithr + 1),
+> -				 base_clk / (128 * 64));
+> +				 base_clk / (128 * div));
+
+[Severity: Medium]
+This is a pre-existing issue, but does this calculation risk a division by
+zero panic during device probe?
+
+If the clock provider rate evaluates to a value smaller than 128 * div,
+base_clk / (128 * div) evaluates to 0. This resulting zero is then passed
+as the divisor to DIV_ROUND_CLOSEST(), which would cause a panic.
+
+>  }
+> =20
+>  /* Convert usec to idle threshold */
+> -static unsigned int sunxi_usec_to_ithr(unsigned int base_clk, unsigned i=
+nt usec)
+> +static unsigned int sunxi_usec_to_ithr(unsigned int base_clk, unsigned i=
+nt div,
+> +				       unsigned int usec)
+>  {
+>  	/* make sure we don't end up with a timeout less than requested */
+> -	return DIV_ROUND_UP((base_clk / (128 * 64)) * usec,  USEC_PER_SEC) - 1;
+> +	return DIV_ROUND_UP((base_clk / (128 * div)) * usec,  USEC_PER_SEC) - 1;
+>  }
+> =20
+>  static int sunxi_ir_set_timeout(struct rc_dev *rc_dev, unsigned int time=
+out)
+>  {
+>  	struct sunxi_ir *ir =3D rc_dev->priv;
+>  	unsigned int base_clk =3D clk_get_rate(ir->clk);
+> =20
+> -	unsigned int ithr =3D sunxi_usec_to_ithr(base_clk, timeout);
+> +	unsigned int ithr =3D sunxi_usec_to_ithr(base_clk, ir->sample_divisor,
+> +					       timeout);
+> =20
+>  	dev_dbg(rc_dev->dev.parent, "setting idle threshold to %u\n", ithr);
+> =20
+> -	/* Set noise threshold and idle threshold */
+> -	writel(REG_CIR_NTHR(SUNXI_IR_RXNOISE) | REG_CIR_ITHR(ithr),
+> +	/* Set sample clock divider, noise threshold and idle threshold */
+> +	writel(REG_CIR_SDIV(ir->sample_div_sel) |
+> +	       REG_CIR_NTHR(SUNXI_IR_RXNOISE) | REG_CIR_ITHR(ithr),
+>  	       ir->base + SUNXI_IR_CIR_REG);
+
+[Severity: High]
+This is a pre-existing issue, but does the rounding mismatch between
+sunxi_ithr_to_usec() and sunxi_usec_to_ithr() cause the maximum timeout
+to wrap around to 0?
+
+Because sunxi_ithr_to_usec() uses DIV_ROUND_CLOSEST, it can round the
+fractional value up when calculating the maximum timeout. If userspace
+requests this maximum timeout, sunxi_usec_to_ithr() uses DIV_ROUND_UP,
+which pushes the resulting threshold over the maximum of 255 to 256.
+
+Since REG_CIR_ITHR masks the value to 8 bits, passing 256 wraps it to 0
+when written to the hardware, which would immediately break IR reception.
+
+[ ... ]
+
+> @@ -325,10 +363,10 @@ static int sunxi_ir_probe(struct platform_device *p=
+dev)
+>  	ir->rc->dev.parent =3D dev;
+>  	ir->rc->allowed_protocols =3D RC_PROTO_BIT_ALL_IR_DECODER;
+>  	/* Frequency after IR internal divider with sample period in us */
+> -	ir->rc->rx_resolution =3D (USEC_PER_SEC / (b_clk_freq / 64));
+> +	ir->rc->rx_resolution =3D (USEC_PER_SEC / (b_clk_freq / ir->sample_divi=
+sor));
+
+[Severity: Medium]
+This is a pre-existing issue, but does this calculation introduce timing
+inaccuracies by using the DT-requested clock frequency instead of the
+actual clock rate?
+
+If the clock provider rounds the requested rate set earlier in
+sunxi_ir_probe(), using the raw b_clk_freq here instead of
+clk_get_rate(ir->clk) means the software's sample period drifts from the
+actual hardware timing.
+
+[Severity: High]
+This is a pre-existing issue, but does the registration order in
+sunxi_ir_probe() create a race condition and potential Use-After-Free?
+
+Looking later in sunxi_ir_probe(), rc_register_device() is called before
+sunxi_ir_hw_init() enables the hardware clocks:
+
+sunxi_ir_probe() {
+    ...
+    ret =3D rc_register_device(ir->rc);
+    ...
+    ret =3D sunxi_ir_hw_init(dev);
+    ...
+}
+
+If userspace accesses the device via ioctl before the hardware clocks are
+enabled, it will access clock-gated memory and cause a bus fault.
+
+Additionally, if probe fails during hardware initialization or IRQ request,
+it branches to the exit_free_dev label:
+
+exit_free_dev:
+    rc_free_device(ir->rc);
+
+This only calls rc_free_device() without calling rc_unregister_device()
+first. The device remains exposed to userspace while its backing driver
+data is freed, which could lead to a Use-After-Free memory corruption.
+
+>  	ir->rc->timeout =3D IR_DEFAULT_TIMEOUT;
+> -	ir->rc->min_timeout =3D sunxi_ithr_to_usec(b_clk_freq, 0);
+> -	ir->rc->max_timeout =3D sunxi_ithr_to_usec(b_clk_freq, 255);
+> +	ir->rc->min_timeout =3D sunxi_ithr_to_usec(b_clk_freq, ir->sample_divis=
+or, 0);
+> +	ir->rc->max_timeout =3D sunxi_ithr_to_usec(b_clk_freq, ir->sample_divis=
+or, 255);
+>  	ir->rc->s_timeout =3D sunxi_ir_set_timeout;
+>  	ir->rc->driver_name =3D SUNXI_IR_DEV;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783028033.gi=
-t.marcelo.schmitt@analog.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702214750.3428=
+694-1-utilityemal77@gmail.com?part=3D2
