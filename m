@@ -1,66 +1,87 @@
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB69A420E87
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:28:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604B739182F
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782984521; cv=none; b=nM7wHbmty6MoRlH9xts83aVk4+87S2PfbVHXd636K2mLZDh7VYQSXK1SkJncpsAtPF+Spiwfm6HNPqKAWwAreXxDMtatA+E3iaru00RuABcrx4HkWQQCAGGykHH3KqsLfwA1rSYmWMaTjb3+KvtiEVh3DdDSZ6Aw2xlyCrsb2oc=
+	t=1782984582; cv=none; b=dqLUgA4NNhtpBKv8uxfc0ICn8HgQylErqYFTz2aUE+8koriu3lTeLOaQx196+lSNeSvmVpXcNaJmiwMatzuxr/Zpfv4GclyJNoIgNUWyLqRxshgx8RTp39C7L5It9v+XcafnGnx1QSuis2zIG/FxDqxYX0wL9ba+jdUYIr+ke8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782984521; c=relaxed/simple;
-	bh=ord1rspkjMh6vVxNgvwjzy4OsLQIgtGKKriwINUPMpY=;
+	s=arc-20240116; t=1782984582; c=relaxed/simple;
+	bh=yU/jpemcy7tvW3jtXBoDI4E00wHWts8RzfqbrMOa93c=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qx/mLDqWTrwD9mvBLHaLvqBacmdJzwxzakNQVx5kZzRFEFHRy553GmDQk69s9SqGu77KH308fBOZhSfRYHrC8VXamhl92M0MsEfvvD6v+om9oLe0vhPxsFK42YmYuItt5ZYyYx+70xUY5JhzeZprSU5ioJqdajlnKWGbtTxA+cc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=YQYaexdT; arc=none smtp.client-ip=209.85.208.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=omM30tZLsJvyGdxWSIMefNdj2JCLMztXcjUpJtNlS7Qc8ds+xj10otVjhhZjZHjMD0ex1YFUMh2Arj5pl03VwEZn2UxWIOKpB3EhgDNdUuQdnV+7ED1dkZcYgWNkC/D4P+I7mbNyjbFJP9HRvw3YA+qp+PYuoiosytfiFuWYhnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ago6FKts; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WvuLy1By; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="YQYaexdT"
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-39b1593e87bso1467701fa.0
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:28:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ago6FKts";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WvuLy1By"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66242tXg3460377
+	for <devicetree@vger.kernel.org>; Thu, 2 Jul 2026 09:29:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7W0SwLJtrgKGcsnXDnu66SKr8OYCgeg1052OhuL06O0=; b=ago6FKtsuAh0thR4
+	vgWMmcmuhEcLEEA95YZaPo2CnT4Xsr8gbODgmvQbKMQN9YW+sqheZsZLflSMwpy0
+	3946ZOI7AvCTBOwzf5Qllf2tcYLYQGHEquoddNJGJhsoDSP3fAQzxkLk50XIvdvM
+	vwheQ6SgQLDccCieknY7jKi174/gh416HDQ4QrnI4mg9Y6zyc2HT7IEXKmT7/52k
+	NkyTNTKNogvWO8XqXAyDUlPh0r8u5LOwemQAhThQznKHI088QQ9/hsePmWOgW/Le
+	dGI+dl8gCtb32GVjPtrH0rt/tVCvYK+xz7OfSgWhb7myliguUrJe5Oq2KRITTtt4
+	QhwR1g==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5gmb154v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 09:29:40 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8ef4a54f86fso3467576d6.0
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:29:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1782984518; x=1783589318; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=r0zPwWUyPadxaQfjwDx9HdrEaUrpGJfxmRrHbmv0dro=;
-        b=YQYaexdTUYAtdzI5NH0jhExR8JRDWYN7NKyityvCvkG0CGq6DxVN2TCob1NOX2EF7L
-         UK4+lVhhbwmZf5FlzNs+XXXsBe9GbNIyC1wbjbFp1s7YeFwAbtGB5PooLThWejdQbL2u
-         LNQIiPgQA5PU1719aXuaJSQAJL0xAfr3cheSEWlWIhVMcBJ5zTyd8fm7s+JsSHaHZ7h0
-         DoHo0/y6SbGxwwIjBa7INa1C9dOHxzAjprJPwsLvVN8sCOb/5YHy7Pw/pnx3YAEp4Vky
-         wAJa+89qHOaqArj4awKg0FHgr7gTWAw43ZeJ7PIXflMnkCUNfqNYIBfq6qCjpa4HN2pp
-         /HEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782984518; x=1783589318;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1782984580; x=1783589380; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=r0zPwWUyPadxaQfjwDx9HdrEaUrpGJfxmRrHbmv0dro=;
-        b=kYLalmAthzf5rjMCrLNU8QhPf10p2UIKPtBWQgq6tuGift3JUyto7YMZrovq70SUWP
-         GEReuxqgnN7ECyeX62Ol4wJNRzy7oLRryput24SNPuDlEVPBLNov03gAE9OcQlW+bpcG
-         M3s+EkJ3J/p5HWZsiDxyts3FXlAeG1wzQkO96vMhFJhKZKYVHNCehrvcTRNG8axk9LXW
-         UJgWqSZpzIAyNwrOp2VMxbz+dNRj2QAL9AZeKOT/3o7AxT75eZK38FPzjcYas2RxqksQ
-         QP2y9mvVTL0vGHCUlt8lRUdAcSKV3pFhsHiNfRhgUou97nKxcLMjw1mbTWNCuyGXOzi/
-         6vbA==
-X-Forwarded-Encrypted: i=1; AHgh+RrSM9RDLjEAdcymADuyGkOPbDhb+eJK5oZg76qzNCbBP5muWnyeGfveTS8FZIq6NXAkrzLr4PAR6Sog@vger.kernel.org
-X-Gm-Message-State: AOJu0YztOHhx9lBBbFSjIG3DFcGmoiy+b62YzKfTW8pFucvYYmCzxUPv
-	yerBKGL+WNbbTJJ8arRLflSaA515Bcp5s8vjyqWc3G50J5sus/o9hSatZO5agXoEs/w=
-X-Gm-Gg: AfdE7cnOBo+cZzA3MGYvMvIIuPvpbwj7zyfcOU2UHsJ6kpbG1Z+uR3q5end0Cq8qQVg
-	pB8W4Fdmk0ogxfJUK5WrqZpvagOTZvReGRuytRO5Y/B+SR7iUyMnVLII+0TsxiWO4xb+dqHX8md
-	iRNxyFxqa19bcAVkls2UEakE2cm8SfqzYm8dcy/7QvL4WTewyD3Thw+EDyEnWJK/H1dlokKhSoa
-	LeD4BBjpX8eHuboFQbpEoGJcwzRtfIk1UYUbJOCFiMQf/kPfodFzgVPxfv1NYMMugD1idB/xCRj
-	C8tuuMWjKy4kQtDX3DGb67VH+7cCy01CAhxhpq9Ew4e91XME0vp6LY0ClVfCsyyY7WRUYOLAESk
-	sUAnJRIdt6KrP6MV5IB0PMAuYJusc/3NBlA67JYxQfmFA6LZws2f9d3pXije7bOI1/b3BH+9fyd
-	kofrxJekImbnq62pbns0TSgpAAhxbxj4LyIjMch60gGsqpY4SRwsWXS95pCjSrnPlxGsM=
-X-Received: by 2002:a2e:be03:0:b0:396:67c6:9338 with SMTP id 38308e7fff4ca-39b33c3891fmr7815541fa.0.1782984517842;
-        Thu, 02 Jul 2026 02:28:37 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39b38004dbasm4980591fa.40.2026.07.02.02.28.36
+        bh=7W0SwLJtrgKGcsnXDnu66SKr8OYCgeg1052OhuL06O0=;
+        b=WvuLy1ByE0o7lUTqvjflTbDrOPVaI9vU4pu0Lpi8iwFOSNC0AX277E7Bvo9oVQRtcn
+         icuo4F/As8lVUJaMOl+mrm9jykQXdfuAMxs91euLqL28JWUDuWNACUULfoIPBur3MtYn
+         VRnTr1PzO1D4GCk87+taB53iZrGhMUb0feoCn81lHEqI3X6/o5PQ5KjZ7c9mCMS4bmDm
+         jcIrElS3+gqQL1DgD1CXIznYzrT5T9HfGQ63rFEPBgdrHwZ4okJiJk3Ur1XUajqBYipf
+         rarpAbwekQToVWWvZEnAYpVm1o5PUXqfC0D6lLn59zudkZLeblYBeeAs7To51E6UCYu7
+         5I1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782984580; x=1783589380;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7W0SwLJtrgKGcsnXDnu66SKr8OYCgeg1052OhuL06O0=;
+        b=jo+Y+XOOM9WfKLGp4RmldAOgYg4FpEHhvqkWm5JMT73iYjvi+7cC/4I/AzLXLFbfdf
+         wenRATZa+xRnEt2RE/wbDuCPkzTKZ9gpTJIGQJglCY9LNb45O0bfKYhF9TDEtvzAlPCB
+         +P6Escv58NBg3WzPw1Tj4jfdnbhthUigisjsVYT5SZl1dmP/B7thXxpIT5ESj8x+1blm
+         V46X2cKngFkIPJHQQ/nYcqr0adCKenEd8BQnjYY+6FyAPkIEPQlrxsu2EI2qskLa+Y6l
+         P09Hkc21gyqEjh3wNiRhkaTeUzWPZZBqhtGGosZtfl0bDRpm+Zo5puy2LGu8gjDoBv4f
+         t0Hw==
+X-Forwarded-Encrypted: i=1; AHgh+RrsAAuAquKXQ5A6KmTVPFs6liau1fV1KgHG7mG2SWGA1LDtFwUITwxpZ//osmS3uaHdwU5AwKBBx+Dc@vger.kernel.org
+X-Gm-Message-State: AOJu0YxYPvFOfMAbkyTsE0YcF4eYutMUjTGDjTKuvU5wpI/XJ7fxLzk2
+	CzlpD64IwLuy7P8Mt2YRRTYsI+DFlUvxD/KzUEpnQFJ2XqFQbA/8vEY1Pml1HH/mtDdmCdUsUXn
+	4OIBp131RQADbRhcUQykAkbTPGHhEF/JfZAh8ybnQ4UUOvvJqU+5Jy19H5ffaeby+
+X-Gm-Gg: AfdE7clLeU1e1U5M3+zV/iZZNviNuSkGgHMlaKCOCLHUAYqp4r8+2Zxpuicfii8wriq
+	BZ4Clcs/LA0rOyWab+zUURx/7661uuVWbhrKGlbxeHsluhgiYQWpNfh5KH4rgEvEi6Lj8+oMF1L
+	91urgywLA8XPHjBF3ZHc0yua1UuwpWD1PhjNGAWZ2yup9s8wHnUtCsn8O65ADoTu/0ZTRcEcXU1
+	KgIdyoAQ8/iNr/hqcMwnmDm8Uo4gaGRAYlTAj/VxExg857lDBuxr49OvZaLzMWiVNtu5W4jKfAk
+	ss74edzpHzfTwTpnhoehWlbz1QAk46aYOjVV8mxgziIJq5jythRmJv0xBP4l12fazPa1eipm+UO
+	Ilzpt30cVAcvtNMuIKKVY8xyJSTc4Xf4nDmk=
+X-Received: by 2002:a05:6214:238f:b0:8db:edd0:98d4 with SMTP id 6a1803df08f44-8f3c5afce03mr48023466d6.1.1782984579641;
+        Thu, 02 Jul 2026 02:29:39 -0700 (PDT)
+X-Received: by 2002:a05:6214:238f:b0:8db:edd0:98d4 with SMTP id 6a1803df08f44-8f3c5afce03mr48023266d6.1.1782984579167;
+        Thu, 02 Jul 2026 02:29:39 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-698ad13426fsm669267a12.26.2026.07.02.02.29.37
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jul 2026 02:28:37 -0700 (PDT)
-Message-ID: <b8226ab3-2ff8-42db-8110-7947c59cf343@linaro.org>
-Date: Thu, 2 Jul 2026 12:28:36 +0300
+        Thu, 02 Jul 2026 02:29:38 -0700 (PDT)
+Message-ID: <bdac77fc-41a2-4c89-9f60-3a8eefc9b9a4@oss.qualcomm.com>
+Date: Thu, 2 Jul 2026 11:29:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,75 +89,88 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
- <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
- <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
- <7c564df8-5c5a-4b43-806e-5e017e5c51db@kernel.org>
- <ae3a381b-5697-43ee-bdfd-aaf2d22ceedf@linaro.org>
- <6b6492a4-7610-4dce-a81c-8dc0387a4061@linaro.org>
- <1c583e24-09db-4d90-8f32-d3d3961188a0@linaro.org>
- <3e2e6184-e020-49cc-9a4b-609c05aed846@linaro.org>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <3e2e6184-e020-49cc-9a4b-609c05aed846@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom: Add Acer Swift Go Pro AI
+ (SFA14-11)
+To: Krzysztof Kozlowski <krzk@kernel.org>, Kaipeng Zeng
+ <kaipeng94@gmail.com>,
+        devicetree@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org,
+        robh@kernel.org, konradybcio@kernel.org, andersson@kernel.org
+References: <20260702063156.35169-1-kaipeng94@gmail.com>
+ <20260702063156.35169-2-kaipeng94@gmail.com>
+ <9d9645e5-2e63-4c22-8b5f-b0f4368c581f@kernel.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <9d9645e5-2e63-4c22-8b5f-b0f4368c581f@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: v5IJq7zNUWiVso-GSz5rjXTShTRGJyU3
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDA5NyBTYWx0ZWRfX4ZKq1qNnIjCU
+ zKOQeRrWi5ERTjuKRHUREHQXkCH2TSJBGtbOPM/AZwUPNBy4S9veWSUT7ivl987mvCRY8ippnV1
+ ZrYEWXeTKQcPoetNvRJ5kDZ6Oqm2y1g=
+X-Authority-Analysis: v=2.4 cv=aJ7Ab79m c=1 sm=1 tr=0 ts=6a462f84 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=pGLkceISAAAA:8 a=HugCYbCrTmYlQir9MvkA:9 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDA5NyBTYWx0ZWRfX8QX0kfJJPVrx
+ GVXZiraQWed6J8MD8g1pxm80fvYud9lmvxSvVRKdWRz8rdmtd/VwWSua+kNm7K5kyp8Y233EdXy
+ i65/yQajAkOvv3voiNmD3sGnNmL7V+UChlU1DsOtH4Ud4mRix+hCBBfU23VouK1SdI10vExMKD+
+ IdExGrslBDibhgFuPPiUuIdAl1iRUpe1BCTgahiYJbr04eXK7HYBG2z+PBRZZmMQHGdSMZavtXb
+ ZCIy/gBSCKax7Woo93HqLp1s/Bo2/cWrZRm9ThEuSWNoUO9lD/izt7uT9mzjStg+cjCwAcVV2xX
+ 8RJKfAsie4eezDml9x93ppLYIdubuRl4HfhwnPo8CiKmWa3eocoTD1msZeTkF1ueY4uMkXUoIAr
+ xc4ch3E/AArLjtYmRYZfIRRyulumf5Oc0UUjZQlrqKL4HoOkm38BMNLVKC81FMSGfo0eJguaMQq
+ m6V7LBk+0zEm+ijTeqg==
+X-Proofpoint-ORIG-GUID: v5IJq7zNUWiVso-GSz5rjXTShTRGJyU3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 clxscore=1015
+ spamscore=0 priorityscore=1501 impostorscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020097
 
-On 7/2/26 11:46, Bryan O'Donoghue wrote:
-> On 02/07/2026 09:31, Vladimir Zapolskiy wrote:
->>>>> phy-cells = 1 with CPHY/DPHY specified in the consumer, as was Rob's
->>>>> suggestion will specify the mode.
->>>>
->>>> This cell is just not needed, and unneeded complexity should not be
->>>> added.
->>>
->>> I'm going to stick to Rob's initial guidance on this.
->>>
->>> https://lore.kernel.org/linux-media/20250710230846.GA44483-
->>> robh@kernel.org/
->>>
+On 7/2/26 8:27 AM, Krzysztof Kozlowski wrote:
+> On 02/07/2026 08:31, Kaipeng Zeng wrote:
+>> Add compatible values for the Acer Swift Go Pro AI (SFA14-11),
+>> using "acer,sfa14-11".
+> 
+> "Add Acer Swift Go Pro AI (SFA14-11), a laptop based on the Snapdragon X
+> Elite (X1E78100) SoC."
+> 
+> That's it. Don't add unnecessary boilerplate.
+> 
+> 
 >>
->> Sure, the discussion will be continued abouve v9 of the series, it's
->> just a chance to do it now. Rob properly pointed out, that the invented
->> "phy-type" is not needed at all.
+>> The laptop is based on the Snapdragon X Elite (X1E78100) SoC.
+>>
+>> Signed-off-by: Kaipeng Zeng <kaipeng94@gmail.com>
+>> ---
+>>  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+>> index 50cc18a6ec5e..6b997d615bad 100644
+>> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+>> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+>> @@ -1142,6 +1142,7 @@ properties:
+>>  
+>>        - items:
+>>            - enum:
+>> +              - acer,sfa14-11
 > 
-> I'll quote here
-> 
->   >> +  phy-type:
->   >> +    description: D-PHY or C-PHY mode
->   >> +    enum: [ 10, 11 ]
->   >> +    $ref: /schemas/types.yaml#/definitions/uint32
-> 
->   > Perhaps putting this in phy cells would be better because the consumer
->   > decides on the mode.
-> 
-> A clear instruction which I'm implementing.
+> Why no user-recognizable name is used? Look at other consumer products:
+> lenovo,thinkpad-x13s, lenovo,flex-5g, microsoft,surface-prox,
+> lenovo,thinkpad-t14s-lcd, tuxedo,elite14gen1, microsoft,denali,
+> asus,vivobook-s15... and so on.
 
-It has no contradiction with what I've said above, you have a chance to
-discuss the matter now or at v9 time.
+We have a good mix of both. I tend to dislike relying on marketing
+names, as they may be similar (or identical) across wholly different
+products.
 
->> Ther fact is that the whole placement of the CSIPHY to phy subsystem
->> looks execessive, since you add a driver for a media device, there will
->> be nothing PHY driver specific left in the CSIPHY driver but name.
-> No, a block with its own pins, external voltage rails, even its own
-> specific votes to scale individual clocks, is a distinct PHY.
-> 
-> There will be no further CSIPHY init sequences getting buried in CAMSS.
-> It is well past time to dispense with the monolith.
-> 
+e.g. microsoft,denali that you mentioned is a MS codename for the
+Surface Pro something something
 
-Again, there is no contradiction with what I've said above, so far there
-is no argument to support CSIPHY driver registration within phy framework.
-
--- 
-Best wishes,
-Vladimir
+Konrad
