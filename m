@@ -1,56 +1,50 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CED92D7DF1;
-	Thu,  2 Jul 2026 15:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8049433E70;
+	Thu,  2 Jul 2026 15:09:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783004890; cv=none; b=o97KQaflpnvJuUlo9IKZ6VPzREePAzz4WTk+qVdW6jG5oyAZfNkVKDJlfMQLT7Y7yOQkRs4jxMpn4b1sW2eSpAZwtjUJ0GW0y5foN5zRUXmq3yHzferhlEQhOU3COuYEWxvFTfdGgnwazea7djvGcvEyQAZ/ZJ6dveU1I03TLdo=
+	t=1783004948; cv=none; b=XCVaPpqAauurkDl/cdGARIlsmUgeByVlUnPB7ocZlfXMznNx8KSS6ueAH9E6GqVZN+7qld/QvsCPS2hShymPyM4w8hPbR2noXsrmakqx8U3m5/IRzmyoUOnO1A7Sg38efYRsJUfbaIiE2g/GPDNMxYuwijbvjasd5OFEwqddJoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783004890; c=relaxed/simple;
-	bh=uRXk7IpS0wFu3ywjC32sSrvBhgbyOYWYQsk3/STViQQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ZKbcXWVM1xtkLojFCfhgV04iJfG9V4Zkyc53iE3lgaAkG7f07C9bTSqaUSZZTN3vB0o9dVYmIusFOhqcPwDUeFTS6BxkmI8oOXMdbD880w9kmYF8JzKPnvN18NABRMdqUOQeY4IG9U5XjU1Hg4ZsgyPIeeKOsqPiljKlCVS1xEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Cgb+nrv/; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1783004948; c=relaxed/simple;
+	bh=LLkHWrOMD63/9p70rDW1VrXtSZnGGOWJdRZK4hmTXHU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IpxySKPoSIWjWGsDXIPL7eDRmsg2LIxkI3I+kxi8WV7xglyD158G7aVODUzMbXOsT0lx/4biuXOreSDngJXLl0PVi4r7hijVrqLh2TryI8iuKbGFyXLEOW0EYoDQ+E1dxrDh3Ika28PHg9yd+ftqPPMKDRKbhPs6dHm4zgzgiqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AW05xYDs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Cgb+nrv/"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 1E3BAC4FEE3;
-	Thu,  2 Jul 2026 15:08:17 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7C8B75FF03;
-	Thu,  2 Jul 2026 15:08:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F2B6C104C9546;
-	Thu,  2 Jul 2026 17:08:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783004884; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=1F6WcObOnrqVzWCe6S/Ifbf3Oxz0U7OhbfWsObhKvwM=;
-	b=Cgb+nrv/thIirZ882qafwmxhh7CtfuS++fJG7QYKjG4kOJhnLe7LtUlnUvr1Q5rNM8EpJP
-	uvrcGu0WIkD7RMendKazlcQ3S67K+4x8cNTYNV64hrEajOnWVfQspJxjBjAkA4pAPS3wQB
-	gIRoCHNaye50g22c0oJbFrobwtfhzojXLCLMZKjQIqsBSzk4yGOuEqyO/rgiBwZGRkgAS/
-	kc8zJac8o2iaYWSFXcsuc/lhHe8ZaAqo6MaQEaQ2BRF+FgxF00Rhf+HG9P1UveMa0NkqkM
-	TXuSgXwyJSfOT/t8GmAjOQ59o2aHOtsQBpT3ZmC0meoRff8V7vsBCv8O2rULNQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Santhosh Kumar K <s-k6@ti.com>
-Cc: <broonie@kernel.org>,  <robh@kernel.org>,  <krzk+dt@kernel.org>,
-  <conor+dt@kernel.org>,  <richard@nod.at>,  <vigneshr@ti.com>,
-  <pratyush@kernel.org>,  <mwalle@kernel.org>,
-  <takahiro.kuwano@infineon.com>,  <linux-spi@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
-  <linux-mtd@lists.infradead.org>,  <praneeth@ti.com>,  <u-kumar1@ti.com>,
-  <a-dutta@ti.com>
-Subject: Re: [PATCH v4 14/16] mtd: spinand: negotiate optimal PHY operating
- point before dirmap creation
-In-Reply-To: <20260618073725.84733-15-s-k6@ti.com> (Santhosh Kumar K.'s
-	message of "Thu, 18 Jun 2026 13:07:23 +0530")
-References: <20260618073725.84733-1-s-k6@ti.com>
-	<20260618073725.84733-15-s-k6@ti.com>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Thu, 02 Jul 2026 17:08:00 +0200
-Message-ID: <87pl15pgz3.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AW05xYDs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D70281F000E9;
+	Thu,  2 Jul 2026 15:09:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783004946;
+	bh=QNIEFVldnfVEUV19RPlvKaoxSz33OpCUlGBniTtIzbw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AW05xYDsdvfgnVzB8HRyv3z9EU8TK33a+ymYgDW8QSn3uNOObfBq314IjboD1w1AY
+	 XrWxw7igHDiWZl/01h2Wn1NddXeuvoW/9LSafQbHZwIPrgSWIW95dlBHPD/AZ2iKeS
+	 ZEF9yi1rXSmOe26iQbRyr1WVOVr/qzi3ptJ7i0go/BHSPQJUpsr78qeSnovbQbnHgq
+	 yAFxD0Ll/hV1Xmrm8M0SqUhXnTr815ED+f0SvJ4GiowrTwUrIbW2o8QgZDdIbBPh14
+	 krAmsetbWhygP0mzeWMmyjMQoDC88V9yP1ODhIfg5GtI4e0ibi7xSQTfBS04u+cr2j
+	 7EUA5E2O57AUA==
+Date: Thu, 2 Jul 2026 17:08:56 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org, 
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH v2 3/4] Bluetooth: hci_qca: Support QCA2066 on M.2
+ connector via pwrseq
+Message-ID: <zat6uuvh7jwfxajvqtif6d67osf6h5b2vxig3bmuch76btpdkj@bfxjj7kk5fjk>
+References: <20260702-monza-wireless-v2-0-7b56e2a6a6d4@oss.qualcomm.com>
+ <20260702-monza-wireless-v2-3-7b56e2a6a6d4@oss.qualcomm.com>
+ <43re752djujsh2kiyvjlkpmztxsh4atg6472qhir4lgay24zbo@mtlkn2xc2ors>
+ <rxt4n6vuscu33mrw24af72lb3s6urqfpkhtia44yfo4j7wtu6o@3xp57owekrgj>
+ <u5ieok3hgjcf74sxjdzv6xurmlbve46xa3imgfnom4hpjarmxa@fna5daqpyk3r>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -58,420 +52,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <u5ieok3hgjcf74sxjdzv6xurmlbve46xa3imgfnom4hpjarmxa@fna5daqpyk3r>
 
-On 18/06/2026 at 13:07:23 +0530, Santhosh Kumar K <s-k6@ti.com> wrote:
+On Thu, Jul 02, 2026 at 05:34:31PM +0300, Dmitry Baryshkov wrote:
+> On Thu, Jul 02, 2026 at 04:17:43PM +0200, Manivannan Sadhasivam wrote:
+> > On Thu, Jul 02, 2026 at 03:14:49PM +0300, Dmitry Baryshkov wrote:
+> > > On Thu, Jul 02, 2026 at 12:46:15PM +0200, Loic Poulain wrote:
+> > > > For QCA2066 (and other QCA chips) on M.2 connectors, the UART enable
+> > > > is controlled by the W_DISABLE2# signal managed by the pcie-m2 power
+> > > > sequencer rather than a dedicated BT enable GPIO.
+> > > > 
+> > > > When the serdev controller has an OF graph (indicating it is connected
+> > > > to an M.2 connector), acquire the 'uart' pwrseq target from the
+> > > > connector's power sequencer and use it to control BT power instead of
+> > > > the bt-enable GPIO.
+> > > > 
+> > > > Also allocate bt_power unconditionally for all SOC types since the
+> > > 
+> > > Can we just fold it into the main struct?
+> > > 
+> > > > pwrseq path is independent of the SOC type switch.
+> > > > 
+> > > > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > > > ---
+> > > >  drivers/bluetooth/hci_qca.c | 81 ++++++++++++++++++++++++---------------------
+> > > >  1 file changed, 43 insertions(+), 38 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+> > > > index e09debdb00a1b8e74ccd5de6147e240e533b4594..b04593a96e14ac9e87ae76fa00eda308e81dea25 100644
+> > > > --- a/drivers/bluetooth/hci_qca.c
+> > > > +++ b/drivers/bluetooth/hci_qca.c
+> > > > @@ -1872,6 +1872,9 @@ static int qca_power_on(struct hci_dev *hdev)
+> > > >  			/* Controller needs time to bootup. */
+> > > >  			msleep(150);
+> > > >  		}
+> > > > +
+> > > > +		if (qcadev->bt_power->pwrseq)
+> > > > +			pwrseq_power_on(qcadev->bt_power->pwrseq);
+> > > >  	}
+> > > >  
+> > > >  	clear_bit(QCA_BT_OFF, &qca->flags);
+> > > > @@ -2256,7 +2259,7 @@ static void qca_power_off(struct hci_uart *hu)
+> > > >  		break;
+> > > >  	}
+> > > >  
+> > > > -	if (power && power->pwrseq) {
+> > > > +	if (power->pwrseq) {
+> > > >  		pwrseq_power_off(power->pwrseq);
+> > > >  		set_bit(QCA_BT_OFF, &qca->flags);
+> > > >  		return;
+> > > > @@ -2387,6 +2390,35 @@ static int qca_init_regulators(struct qca_power *qca,
+> > > >  	return 0;
+> > > >  }
+> > > >  
+> > > > +/*
+> > > > + * Acquire the M.2 connector power sequencer.
+> > > > + *
+> > > > + * An OF graph link on the serdev controller is only present when the BT
+> > > > + * device is attached through an M.2 Key E connector. In that case the UART
+> > > > + * enable (W_DISABLE2#) is driven by the pcie-m2 power sequencer instead of a
+> > > > + * dedicated BT enable GPIO, so grab the "uart" pwrseq target from it.
+> > > > + *
+> > > > + * Returns 0 if no M.2 connector is present (nothing to do), a negative errno
+> > > > + * on error, otherwise 0 with qcadev->bt_power->pwrseq populated.
+> > > > + */
+> > > > +static int qca_serdev_get_m2_pwrseq(struct qca_serdev *qcadev, bool *bt_en_available)
+> > > > +{
+> > > > +	struct serdev_device *serdev = qcadev->serdev_hu.serdev;
+> > > > +	struct device *dev;
+> > > > +
+> > > > +	if (!of_graph_is_present(dev_of_node(&serdev->ctrl->dev)))
+> > > > +		return 0;
+> > > > +
+> > > > +	qcadev->bt_power->pwrseq = devm_pwrseq_get(&serdev->ctrl->dev, "uart");
+> > > > +	if (IS_ERR(qcadev->bt_power->pwrseq))
+> > > > +		return PTR_ERR(qcadev->bt_power->pwrseq);
+> > > > +
+> > > > +	dev = pwrseq_to_device(qcadev->bt_power->pwrseq);
+> > > > +	*bt_en_available = device_property_present(dev, "w-disable2-gpios");
+> > > 
+> > > I think here you are looking into the exact details of the other of the
+> > > graph. There might be other devices on that side, while the code now
+> > > assumes M.2. Or, consider having an M.2 controller which handles
+> > > W_DISABLE2# internally rather than through the GPIO.
+> > > 
+> > 
+> > This code only deals with M.2 connector in specific, so I'm not sure why we need
+> > to worry about *other* kind of devices. Let's worry about them when they show up
+> > (with graph interface ofc).
+> 
+> I don't think we want to go through the drivers using M.2 connectors in
+> such a case. In the end, the contract should be that there is a power
+> sequencer on the other side of the graph, but the specifics of the
+> connector should be abstracted out. Do you know, if in the x86 world the
+> W_DISABLE2# is a GPIO or is controleed by the hub.
+> 
 
-> Dirmap descriptors encode the op template including the operating
-> frequency at creation time, so PHY tuning must complete before dirmaps
-> are created to ensure the validated frequency is embedded in the
-> descriptors from the start.
+I tried to abstract out, but Bartosz didn't want pwrctrl APIs to do that level
+of abstraction as pwrctrl APIs should be generic and should not be bind to a
+specific connector and exposing its internals.
 
-Good idea.
+That's why we ended up having pwrctrl core exposing the 'struct dev' using
+pwrseq_to_device() and letting the consumer extracting whatever information it
+needs.
 
-> Move dirmap creation from spinand_init() to spinand_probe(), after a
-> new spinand_configure_phy()
+- Mani
 
-Fine with the idea, but in the core I would like to avoid TI specific
-naming. We can call this helper spinand_optimize_controller(); for
-instance.
-
-Please, do not use "PHY" in the SPI NAND core, because I find it too TI
-specific and we need generic enough naming so that we can include other
-controller's optimizations in this logic, if ever needed.
-
-> call that negotiates the best available PHY
-> operating point. spinand_configure_phy() tries the pre-selected variant
-> first. If the controller signals that PHY tuning is not applicable for
-> that op, spinand_try_phy_ranked() iterates remaining variants in
-> performance order =E2=80=94 DTR variants first, then SDR variants after
-> switching the bus interface if needed. On full failure the device falls
-> back to the best available non-PHY mode.
-
-Makes sense.
-
-> Add spinand_reset_max_ops() to copy op templates with max_freq zeroed
-
-spinand_reset_max_freq_ops()?
-
-> before each execute_tuning call, enforcing the invariant that a non-zero
-> max_freq only results from a successful tuning.
->
-> PHY failure is non-fatal; the device operates at the conservative base
-> rate.
->
-> Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
-> ---
->  drivers/mtd/nand/spi/core.c | 214 ++++++++++++++++++++++++++++++++++--
->  include/linux/mtd/spinand.h |  11 ++
->  2 files changed, 216 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-> index b678d0534297..5dcfaabaf2cc 100644
-> --- a/drivers/mtd/nand/spi/core.c
-> +++ b/drivers/mtd/nand/spi/core.c
-> @@ -1280,10 +1280,16 @@ static int spinand_create_dirmap(struct spinand_d=
-evice *spinand,
->  	/* The plane number is passed in MSB just above the column address */
->  	info.offset =3D plane << fls(nand->memorg.pagesize);
->=20=20
-> +	/*
-> +	 * Propagate the validated PHY frequency into the dirmap op templates
-> +	 * at construction time.
-> +	 */
-> +
->  	/* Write descriptor */
->  	info.length =3D nanddev_page_size(nand) + nanddev_per_page_oobsize(nand=
-);
->  	info.primary_op_tmpl =3D *spinand->op_templates->update_cache;
->  	info.primary_op_tmpl.data.ecc =3D enable_ecc;
-> +	info.primary_op_tmpl.max_freq =3D spinand->max_write_op.max_freq;
->  	desc =3D devm_spi_mem_dirmap_create(&spinand->spimem->spi->dev,
->  					  spinand->spimem, &info);
->  	if (IS_ERR(desc))
-> @@ -1294,9 +1300,11 @@ static int spinand_create_dirmap(struct spinand_de=
-vice *spinand,
->  	/* Read descriptor */
->  	info.primary_op_tmpl =3D *spinand->op_templates->read_cache;
->  	info.primary_op_tmpl.data.ecc =3D enable_ecc;
-> +	info.primary_op_tmpl.max_freq =3D spinand->max_read_op.max_freq;
->  	if (secondary_op) {
->  		info.secondary_op_tmpl =3D *spinand->op_templates->cont_read_cache;
->  		info.secondary_op_tmpl.data.ecc =3D enable_ecc;
-> +		info.secondary_op_tmpl.max_freq =3D spinand->max_read_op.max_freq;
->  	}
->  	desc =3D spinand_create_rdesc(spinand, &info);
->  	if (IS_ERR(desc))
-> @@ -1744,6 +1752,17 @@ int spinand_match_and_init(struct spinand_device *=
-spinand,
->  				spinand->cont_read_possible =3D false;
->  		}
->=20=20
-> +		/*
-> +		 * Save the full read variant list (ODTR and SSDR ops) for PHY
-> +		 * tuning iteration. Only saved when all ODTR templates are
-> +		 * valid so spinand_configure_phy() knows ranked fallback is
-> +		 * available.
-> +		 */
-> +		if (spinand->odtr_op_templates.read_cache &&
-> +		    spinand->odtr_op_templates.write_cache &&
-> +		    spinand->odtr_op_templates.update_cache)
-> +			spinand->phy_read_variants =3D info->op_variants.read_cache;
-> +
->  		return 0;
->  	}
->=20=20
-> @@ -1922,7 +1941,6 @@ static int spinand_mtd_suspend(struct mtd_info *mtd)
->=20=20
->  static int spinand_init(struct spinand_device *spinand)
->  {
-> -	struct device *dev =3D &spinand->spimem->spi->dev;
->  	struct mtd_info *mtd =3D spinand_to_mtd(spinand);
->  	struct nand_device *nand =3D mtd_to_nanddev(mtd);
->  	int ret;
-> @@ -2014,14 +2032,6 @@ static int spinand_init(struct spinand_device *spi=
-nand)
->  	mtd->ecc_step_size =3D nanddev_get_ecc_conf(nand)->step_size;
->  	mtd->bitflip_threshold =3D DIV_ROUND_UP(mtd->ecc_strength * 3, 4);
->=20=20
-> -	ret =3D spinand_create_dirmaps(spinand);
-> -	if (ret) {
-> -		dev_err(dev,
-> -			"Failed to create direct mappings for read/write operations (err =3D =
-%d)\n",
-> -			ret);
-> -		goto err_cleanup_ecc_engine;
-> -	}
-> -
->  	return 0;
->=20=20
->  err_cleanup_ecc_engine:
-> @@ -2050,6 +2060,178 @@ static void spinand_cleanup(struct spinand_device=
- *spinand)
->  	kfree(spinand->scratchbuf);
->  }
->=20=20
-> +/*
-> + * spinand_try_phy_ranked() - Try PHY tuning on variants in performance =
-order.
-> + * @spinand:    SPI NAND device
-> + * @mem:        SPI memory device
-> + * @odtr:       true to iterate ODTR variants, false for SSDR variants
-> + * @tried_mask: bitmask of already-tried variant indices; updated on eac=
-h try
-> + *
-> + * Iterates the full read variant list in descending performance order,
-> + * skipping variants in @tried_mask, and calls execute_tuning on each un=
-til one
-> + * succeeds. The fastest PHY-tunable variant is chosen regardless of whi=
-ch was
-> + * pre-selected at init; ranked iteration finds the best available varia=
-nt
-> + * without re-trying already-attempted ones.
-> + *
-> + * On success, sets spinand->max_read_op and updates the matching
-> + * odtr_op_templates.read_cache or ssdr_op_templates.read_cache.
-> + */
-> +static bool spinand_try_phy_ranked(struct spinand_device *spinand,
-> +				   struct spi_mem *mem, bool odtr,
-> +				   u32 *tried_mask)
-> +{
-> +	const struct spinand_op_variants *variants =3D spinand->phy_read_varian=
-ts;
-> +	const struct spi_mem_op *best;
-> +	int ret;
-> +
-> +	if (!variants)
-> +		return false;
-> +
-> +	while ((best =3D spinand_op_find_best(spinand, variants, odtr,
-> +					    *tried_mask))) {
-
-Ok, now I get the mask.
-
-Why do you care about odtr flag at all? We should just take the fastest
-modes in descending order, I don't really understand why mentioning odtr
-is needed? Maybe your goal is to make a faster loop, taking the fastest
-mode in each case and compare? This should work in most cases, given the
-fact that we tend to order the variants by speed, but they are not
-always in perfect order. I already faced cases where faster modes
-appeared to be down the list because of the game of dummy cycles. But
-that is probably not impacting PHY mode since we are using the fastest
-speed (with only the mode with the maximum number of dummy cycles)
-usable.
-
-So in the end, if you sort ODTR vs. SSDR for optimization reasons, ok.
-
-> +		*tried_mask |=3D BIT(best - variants->ops);
-> +		spinand->max_read_op =3D *best;
-> +		spinand->max_read_op.max_freq =3D 0;
-> +		ret =3D spi_mem_execute_tuning(mem, &spinand->max_read_op,
-> +					     &spinand->max_write_op);
-> +		if (ret && ret !=3D -EOPNOTSUPP)
-> +			dev_warn(&mem->spi->dev, "%s PHY tuning failed: %d\n",
-> +				 odtr ? "ODTR" : "SSDR", ret);
-> +		if (!ret && spinand->max_read_op.max_freq) {
-> +			if (odtr)
-> +				spinand->odtr_op_templates.read_cache =3D best;
-> +			else
-> +				spinand->ssdr_op_templates.read_cache =3D best;
-> +			return true;
-> +		}
-> +	}
-> +	return false;
-> +}
-> +
-> +/*
-> + * spinand_reset_max_ops() - Copy op templates and zero max_freq on both.
-> + * @spinand:    SPI NAND device
-> + * @templates:  op template set to copy from
-> + *
-> + * Called before execute_tuning so max_freq starts at zero; execute_tuni=
-ng sets
-> + * it to the validated clock rate only on success. A non-zero max_freq m=
-eans
-> + * PHY-validated; zero means the base rate applies.
-> + */
-> +static void spinand_reset_max_ops(struct spinand_device *spinand,
-> +				  struct spinand_mem_ops *templates)
-> +{
-> +	spinand->max_read_op =3D *templates->read_cache;
-> +	spinand->max_read_op.max_freq =3D 0;
-> +	spinand->max_write_op =3D *templates->write_cache;
-> +	spinand->max_write_op.max_freq =3D 0;
-> +}
-> +
-> +/*
-> + * spinand_configure_phy() - Negotiate the optimal PHY operating point.
-> + * @spinand:    SPI NAND device
-> + * @mem:        SPI memory device
-> + *
-> + * Tries the pre-selected variant first.  If the controller signals that
-> + * PHY tuning is not applicable for that specific op, iterates all remai=
-ning
-> + * variants in performance order.  For devices that support both DTR and=
- SDR
-> + * interfaces, DTR variants are tried first; if all fail the device is
-> + * switched to SDR mode and SDR variants are tried.  On full failure the
-> + * device falls back to the best available non-PHY mode.  Devices that
-> + * support only SDR skip the DTR ranked pass entirely.
-> + *
-> + * PHY failure is never fatal.
-> + *
-> + * Note: tried_mask is u32, supporting up to 32 variants total across bo=
-th
-> + * ODTR and SSDR. Flash devices with more than 32 read variants are not
-> + * supported.
-> + */
-> +static void spinand_configure_phy(struct spinand_device *spinand,
-> +				  struct spi_mem *mem)
-> +{
-> +	u32 tried_mask;
-> +	int ret;
-> +
-> +	spinand_reset_max_ops(spinand, spinand->op_templates);
-> +
-> +	ret =3D spi_mem_execute_tuning(mem, &spinand->max_read_op,
-> +				     &spinand->max_write_op);
-> +	if (ret && ret !=3D -EOPNOTSUPP)
-> +		dev_warn(&mem->spi->dev, "Failed to execute PHY tuning: %d\n",
-> +			 ret);
-
-I guess we don't want to warn in this case. You can keep it as a dbg log
-if you want.
-
-> +	/*
-> +	 * Any non-zero return or a set max_freq means we are done (error,
-> +	 * unsupported, or success). Fallback only for the op-specific "skip"
-> +	 * signal: ret =3D=3D 0 with max_freq still 0.
-> +	 */
-> +	if (ret || spinand->max_read_op.max_freq)
-> +		return;
-> +
-> +	if (!mem->spi->post_config_max_speed_hz || spinand->bus_iface =3D=3D SS=
-DR ||
-> +	    !spinand->phy_read_variants)
-> +		return;
-
-Why not moving this earlier? (except the SSDR check) this way we return
-even earlier if the tuning cannot happen.
-
-I am not sure I understand your use of phy_read_variants here. Can it
-really be NULL?
-
-> +	if (WARN_ON(spinand->phy_read_variants->nops > 32))
-> +		return;
-> +
-> +	/* Mark the pre-selected ODTR variant as already tried */
-> +	tried_mask =3D BIT(spinand->odtr_op_templates.read_cache -
-> +			 spinand->phy_read_variants->ops);
-> +
-> +	dev_dbg(&mem->spi->dev,
-> +		"PHY tuning skipped for current op; searching for best PHY variant\n");
-> +
-> +	/* Pass 1: try all remaining ODTR variants in performance order */
-> +	if (spinand_try_phy_ranked(spinand, mem, true, &tried_mask))
-> +		return;
-> +
-> +	/*
-> +	 * Pass 2: switch to SSDR and try all SSDR variants in performance
-> +	 * order.
-> +	 *
-> +	 * Only enter if we actually have SSDR support and a reconfigure
-> +	 * callback.
-
-It is not possible to enable ODTR without the configure callback.
-
-> The hardware is still in ODTR mode here so no
-> +	 * configure_chip call is needed to undo; just set up the ODTR non-PHY
-> +	 * fallback and return.
-> +	 */
-> +	if (!spinand->ssdr_op_templates.read_cache ||
-> +	    !spinand->ssdr_op_templates.write_cache ||
-
-I don't think this is ever possible, is it?
-
-> +	    !spinand->configure_chip)
-> +		goto use_odtr_non_phy;
-
-I don't think we will ever use this path.
-
-> +
-> +	if (spinand->configure_chip(spinand, SSDR))
-> +		goto use_odtr_non_phy;
-
-We should handle chips with no ODTR support. I'm not sure the logic is
-robust enough for them. Have you tried by commenting out the ODTR
-variants of your chip?
-
-> +
-> +	spinand->op_templates =3D &spinand->ssdr_op_templates;
-> +	spinand->bus_iface =3D SSDR;
-> +	spinand->max_write_op =3D *spinand->ssdr_op_templates.write_cache;
-> +	spinand->max_write_op.max_freq =3D 0;
-> +
-> +	/*
-> +	 * Only ODTR variants were candidates in Pass 1; SSDR bit positions
-> +	 * are clear
-> +	 */
-> +	if (spinand_try_phy_ranked(spinand, mem, false, &tried_mask))
-> +		return;
-> +
-> +	/*
-> +	 * All PHY attempts exhausted.  Revert to ODTR for non-PHY DTR
-> +	 * operation.  If revert fails, stay in SSDR =E2=80=94 a mode mismatch
-> +	 * (ODTR op templates on SSDR-mode device) would corrupt data.
-> +	 */
-> +	if (spinand->configure_chip(spinand, ODTR)) {
-> +		dev_warn(&mem->spi->dev,
-> +			 "Failed to revert to ODTR, staying in SSDR non-PHY\n");
-> +		spinand_reset_max_ops(spinand, &spinand->ssdr_op_templates);
-> +		return;
-> +	}
-> +
-> +use_odtr_non_phy:
-> +	spinand->op_templates =3D &spinand->odtr_op_templates;
-> +	spinand->bus_iface =3D ODTR;
-> +	spinand_reset_max_ops(spinand, &spinand->odtr_op_templates);
-> +}
-
->  static int spinand_probe(struct spi_mem *mem)
->  {
->  	struct spinand_device *spinand;
-> @@ -2072,6 +2254,20 @@ static int spinand_probe(struct spi_mem *mem)
->  	if (ret)
->  		return ret;
->=20=20
-> +	/*
-> +	 * Negotiate the best PHY operating point before creating dirmaps so
-> +	 * the validated frequency is available at dirmap construction time.
-> +	 */
-> +	spinand_configure_phy(spinand, mem);
-> +
-> +	ret =3D spinand_create_dirmaps(spinand);
-> +	if (ret) {
-> +		dev_err(&mem->spi->dev,
-> +			"Failed to create direct mappings for read/write operations (err =3D =
-%d)\n",
-> +			ret);
-> +		goto err_spinand_cleanup;
-> +	}
-> +
->  	ret =3D mtd_device_register(mtd, NULL, 0);
->  	if (ret)
->  		goto err_spinand_cleanup;
-> diff --git a/include/linux/mtd/spinand.h b/include/linux/mtd/spinand.h
-> index ec6efcfeef83..50a8319cf11e 100644
-> --- a/include/linux/mtd/spinand.h
-> +++ b/include/linux/mtd/spinand.h
-> @@ -791,8 +791,19 @@ struct spinand_device {
->  	struct spinand_mem_ops *op_templates;
->  	enum spinand_bus_interface bus_iface;
->=20=20
-> +	/*
-> +	 * Full read variant list (ODTR and SSDR ops together), saved when ODTR
-> +	 * templates are valid. Used by spinand_configure_phy() to iterate all
-> +	 * candidates when the pre-selected variant cannot be PHY-tuned.
-> +	 */
-> +	const struct spinand_op_variants *phy_read_variants;
-
-Why do you prefix this pointer name with "phy"? The variants pointed are
-basically all read variants, no more no less. Even though you want to
-use them for PHY tuning purposes, I don't think it is wise to name the
-member here.
-
-> +
->  	struct spinand_dirmap *dirmaps;
->=20=20
-> +	/* Persistent op templates updated by execute_tuning with validated spe=
-ed. */
-> +	struct spi_mem_op max_read_op;
-> +	struct spi_mem_op max_write_op;
-> +
->  	int (*select_target)(struct spinand_device *spinand,
->  			     unsigned int target);
->  	unsigned int cur_target;
-
-Thanks,
-Miqu=C3=A8l
+-- 
+மணிவண்ணன் சதாசிவம்
