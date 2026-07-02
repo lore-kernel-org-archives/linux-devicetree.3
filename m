@@ -1,52 +1,44 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0C038E8DC;
-	Thu,  2 Jul 2026 07:13:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C599726B2AD;
+	Thu,  2 Jul 2026 07:15:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782976389; cv=none; b=PCsS2uJS+06LGvIeMK0rnNvulXPyj9fGb7RBC50zlCmRIUCQVtZZXsImeEhnogXtFVoRVyI0hsToDBLvmq7PSBqrmfBi60muxgUibi+t+K3S7OaIzAkK7+OUPWZrsHrq7t0MoKCO+1RDLnRKfRXcG9GfumvNdUez2FOZLCVnaic=
+	t=1782976561; cv=none; b=LDSQOnjXJ4UWULV3SecCfcraUHzG2T/XIhKeMjc0tv4zadBoagCEZnd5eSKdB49j0i6yUfHPEhpGkxN6bmQ9hnE8dYDDFdufPaDR0LDnLzqmqSzdLadcJKVWvGP8N5uOMLMa1djy8NKVY2oLOM2zDFrocifyZw8Ufo61YcnWLgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782976389; c=relaxed/simple;
-	bh=QypvFCHvOgZ4g7vX3sMWHeIMkrjkcfjm8eROUXTFqk0=;
+	s=arc-20240116; t=1782976561; c=relaxed/simple;
+	bh=uK+tGcHuxumpn0r/HhEEvO6qoUSxEA+hXCbeP4IU0Pg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ps/TG/B/alBwUufoZUzHZb702JFrSgBxqkN9KruVYXv5FBIGkA5Xj2onjxOe/lxl/xdjbWWhkNOpTG8lFK3e7zZOeVpMb1nbeShFcbb93cEcoe30Wn1x6Gm9w9WUgHDaPHlg4tfgAnwRiPAvcbmdQy4CSCRcSUgx1VsVs69GnvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4694B2003DD;
-	Thu, 02 Jul 2026 09:13:02 +0200 (CEST)
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wfBba-005hya-0Y;
-	Thu, 02 Jul 2026 09:13:02 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wfBba-0000000DEQZ-0Bxw;
-	Thu, 02 Jul 2026 09:13:02 +0200
-Date: Thu, 2 Jul 2026 09:13:02 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Jonas Jelonek <jelonek.jonas@gmail.com>
-Cc: Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Daniel Golle <daniel@makrotopia.org>,
-	=?utf-8?B?QmrDuHJu?= Mork <bjorn@mork.no>
-Subject: Re: [PATCH net-next v4 2/2] net: pse-pd: add Realtek/Broadcom PSE
- MCU driver
-Message-ID: <akYPfkRbEzWFuC6j@pengutronix.de>
-References: <20260630105651.756058-1-jelonek.jonas@gmail.com>
- <20260630105651.756058-3-jelonek.jonas@gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=IxM3rtcwiRtRhVbyL/vyg+QtQefgG5BGENDki9/WYorD9L0F5W2WIqlZrOHobARvYjP3egO44sYciQ1keNacFr9bYNnchK5ev4nDWlhJwYvYM97hjbrQvW0ZTEeVc70q5guufTrz5tH0esYxPI2hPASqnmYtXtHk9Xf/2xWdmts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aeSWiXWa; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aeSWiXWa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 363341F000E9;
+	Thu,  2 Jul 2026 07:15:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782976559;
+	bh=xZuexnlIldizIVI1ciEFra7BMFjhF1yUKSWEY9COTh4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aeSWiXWaQQIWTt4l9QAaCxpHwXHTI+Lty6LIowreHGecvLHHGRLw5wo5bWzvMYxNU
+	 aMzZQb2gpbZt6HTNqDKHm+zFCMDiZEkswMpvPFCRSerbHyHb5BIX2OrZNXCmqYXman
+	 lCYYw1KyxxSKeAexFq5tRgq2LyZGSSd/401+jBSGlZaBHKflHuy/lMlDD0t7Ae/3ZE
+	 KygDCQCPzUn+T6Y+piOolYNHwFBlm5rcCWaIwx5d7kQDO+H/8w6NqJfJhrA91M4Exy
+	 MwE0U1dHUmoPSr2nXSHWq0swbDzdBTo6IRd7kf3PTNM7npqG+c1wMQ386d/IgRXgFm
+	 WYeALd8Xt6QCA==
+Date: Thu, 2 Jul 2026 09:15:55 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ramshouriesh R <rshouriesh@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] media: dt-bindings: Add Himax HM1092 NIR sensor
+Message-ID: <20260702-generous-beaver-of-perception-f2a9bd@quoll>
+References: <20260702-hm1092-driver-v2-0-4f9f369d6a48@gmail.com>
+ <20260702-hm1092-driver-v2-1-4f9f369d6a48@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,228 +47,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260630105651.756058-3-jelonek.jonas@gmail.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+In-Reply-To: <20260702-hm1092-driver-v2-1-4f9f369d6a48@gmail.com>
 
-Hi Jonas,
-
-On Tue, Jun 30, 2026 at 10:56:50AM +0000, Jonas Jelonek wrote:
-> A range of PoE switches use a small microcontroller on the PCB to front
-> the actual PSE silicon. The host CPU talks to that MCU over I2C/SMBus or
-> UART using a fixed 12-byte request/response protocol with a trailing
-> checksum; the PSE chips are managed by the MCU and are not accessed
-> directly. The same protocol family is spoken by Realtek and Broadcom PSE
-> MCUs, diverging in opcode numbering and a few response layouts, which the
-> driver abstracts behind a per-dialect opcode table and parser hooks
-> selected by the compatible. The specific PSE chip behind the MCU is
-> detected at runtime and only influences per-chip constants (power scaling
-> and the per-port cap).
+On Thu, Jul 02, 2026 at 07:02:37AM +0530, Ramshouriesh R wrote:
+> Add a dt-binding schema for the Himax HM1092, a 1 megapixel monochrome
+> near-infrared CMOS image sensor used as the face-authentication IR
+> camera on laptops. The sensor streams 10-bit RAW over a single MIPI
+> CSI-2 data lane.
 > 
-> The driver is split into a shared core and two transport modules:
+> Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
+> ---
+>  .../bindings/media/i2c/himax,hm1092.yaml           | 107 +++++++++++++++++++++
+>  1 file changed, 107 insertions(+)
 > 
-> - PSE_REALTEK_MCU: protocol, message framing, dialect machinery, and the
->   pse_controller_ops glue.
-> - PSE_REALTEK_MCU_I2C / PSE_REALTEK_MCU_UART: transport modules
->   registering the MCU on an I2C bus or a serdev port respectively.
-> 
-> The realtek-pse-mcu-* files and PSE_REALTEK_MCU* symbols match the
-> realtek,pse-mcu-rtk / realtek,pse-mcu-brcm compatibles: all name the
-> Realtek PSE-MCU front-end, not the MCU silicon or the PSE chip behind
-> it (see the binding for the prefix rationale). Broadcom PSE MCUs speak
-> the same protocol family and are handled by the same shared core
-> through the dialect abstraction selected by the '-brcm' compatible.
-> 
-> Power budgeting is left to the MCU firmware; the driver advertises
-> PSE_BUDGET_EVAL_STRAT_DYNAMIC (controller-managed budget) accordingly.
-> 
-> Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
 
-LGTM, there are some nitpicks from my side
-otherwise:
-Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
+<form letter>
+This is a friendly reminder during the review process.
 
-...
-> +/* Shorthand for the designated-initializer entries in dialect opcode tables. */
-> +#define RTPSE_MCU_OP(opc)	{ .op = (opc), .valid = true }
-> +
-> +/* Forward-declared so dialects can supply response parsers (defined below). */
+It looks like you received a tag and forgot to add it.
 
-No forward declarations please move the structs here.
+If you do not know the process, here is a short explanation:
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new
+versions of patchset, under or above your Signed-off-by tag, unless
+patch changed significantly (e.g. new properties added to the DT
+bindings). Tag is "received", when provided in a message replied to you
+on the mailing list. Tools like b4 can help here. However, there's no
+need to repost patches *only* to add the tags. The upstream maintainer
+will do that for tags received on the version they apply.
 
-> +struct rtpse_mcu_info;
-> +struct rtpse_mcu_port_status;
-> +
-> +struct rtpse_mcu_dialect {
-> +	struct rtpse_mcu_opcode opcode[RTPSE_MCU_NUM_CMDS];
-> +
-> +	/*
-> +	 * Response parsers. Each dialect must supply its own; the core calls
-> +	 * these unconditionally rather than carrying a default that would
-> +	 * silently mis-decode bytes from a dialect that forgot to set them.
-> +	 */
-> +	int (*parse_system_info)(const u8 *payload, struct rtpse_mcu_info *info);
-> +	int (*parse_port_class)(const struct rtpse_mcu_port_status *status);
-> +	const char *(*mcu_type_str)(unsigned int mcu_type);
-> +};
-> +struct rtpse_mcu_port_config {
-> +	bool enable;
+Please read:
+https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
 
-in this struct we use only enable, do you plan to wire it somewhere
-later? I assume you wont to keep it as documentation. May be add some
-debug traces? And add some comments what do you already know about this
-fields.
+If a tag was not added on purpose, please state in the patch changelog
+or cover letter why and what changed.
+</form letter>
 
-> +	u8 function_mode;
-> +	u8 detection_type;
-> +	u8 cls_type;
-> +	u8 disconnect_type;
-> +	u8 pair_type;
-> +};
-> +
-> +struct rtpse_mcu_port_ext_config {
+Best regards,
+Krzysztof
 
-Same here.
-
-> +	u8 inrush_mode;
-> +	u8 limit_type;
-> +	u8 max_power;
-> +	u8 priority;
-> +	u8 chip_addr;
-> +	u8 channel;
-> +};
-
-
-> +static int rtpse_mcu_port_set_pw_limit(struct pse_controller_dev *pcdev, int id, int max_mW)
-> +{
-> +	const struct rtpse_mcu_opcode *type_opc, *val_opc;
-> +	struct rtpse_mcu_ctrl *pse = to_rtpse_mcu_ctrl(pcdev);
-> +	const struct rtpse_mcu_chip_info *chip = pse->chip;
-> +	unsigned int prg_val;
-> +	int ret;
-> +
-> +	if (max_mW < 0 || max_mW > chip->max_mW_per_port)
-> +		return -ERANGE;
-> +
-> +	type_opc = &pse->dialect->opcode[RTPSE_MCU_CMD_PORT_SET_POWER_LIMIT_TYPE];
-> +	val_opc = &pse->dialect->opcode[chip->pw_set_cmd];
-> +	if (!type_opc->valid || !val_opc->valid)
-> +		return -EOPNOTSUPP;
-> +
-> +	/*
-> +	 * Switch the port to user-defined limit mode first, then program the
-> +	 * limit value. If the second cmd fails, the port is left in
-> +	 * user-defined mode but with the previous limit value; the next
-> +	 * successful set_pw_limit call recovers it.
-> +	 */
-> +	ret = rtpse_mcu_port_cmd(pse, id, type_opc->op, RTPSE_MCU_PORT_PW_LIMIT_TYPE_USER);
-> +	if (ret)
-> +		return ret;
-> +
-> +	prg_val = min_t(unsigned int, max_mW / chip->pw_set_lsb_mW, 0xff);
-
-Add some define for 0xff.
-Can max_mW be zero?
-
-> +
-> +	return rtpse_mcu_port_cmd(pse, id, val_opc->op, prg_val);
-> +}
-> +
-> +static int rtpse_mcu_port_get_pw_limit_ranges(struct pse_controller_dev *pcdev, int id,
-> +					      struct pse_pw_limit_ranges *out)
-> +{
-> +	struct ethtool_c33_pse_pw_limit_range *range;
-> +	struct rtpse_mcu_ctrl *pse = to_rtpse_mcu_ctrl(pcdev);
-
-In the drivers/net, All declarations should be in reverse tree style.
-
-> +	range = kzalloc_obj(*range, GFP_KERNEL);
-> +	if (!range)
-> +		return -ENOMEM;
-> +
-> +	range[0].min = 0;
-> +	range[0].max = pse->chip->max_mW_per_port;
-> +
-> +	out->c33_pw_limit_ranges = range;
-> +	return 1;
-> +}
-> +
-
-
-> +static int rtpse_mcu_discover(struct rtpse_mcu_ctrl *pse, struct rtpse_mcu_info *info)
-> +{
-> +	struct rtpse_mcu_ext_config ext_config;
-> +	unsigned long deadline;
-> +	int ret;
-> +
-> +	/*
-> +	 * The MCU may not answer on the bus yet right after power-up or
-> +	 * enable-gpios assertion: depending on the transport it either stays
-> +	 * silent (-ETIMEDOUT) or does not ACK its address at all (-ENXIO /
-> +	 * -EREMOTEIO). Retry within a bounded wall-time window so a slow boot
-> +	 * still probes, while a genuinely unresponsive MCU fails with its real
-> +	 * error instead of deferring forever and masking it.
-> +	 */
-> +	deadline = jiffies + msecs_to_jiffies(RTPSE_MCU_BOOT_TIMEOUT_MS);
-> +	do {
-> +		ret = rtpse_mcu_get_info(pse, info);
-> +		if (ret != -ETIMEDOUT && ret != -ENXIO && ret != -EREMOTEIO &&
-> +		    ret != -EAGAIN)
-
-For this section sashiko has an opinion:
-https://sashiko.dev/#/patchset/20260630105651.756058-1-jelonek.jonas%40gmail.com
-
-> +			break;
-> +		msleep(RTPSE_MCU_BOOT_RETRY_MS);
-> +	} while (time_before(jiffies, deadline));
-> +	if (ret)
-> +		return dev_err_probe(pse->dev, ret, "failed to read MCU info\n");
-> +
-> +	switch (info->device_id) {
-> +	case RTPSE_MCU_DEVICE_ID_RTL8238B:
-> +		pse->chip = &rtl8238b_info;
-> +		break;
-> +	case RTPSE_MCU_DEVICE_ID_RTL8239:
-> +		pse->chip = &rtl8239_info;
-> +		break;
-> +	case RTPSE_MCU_DEVICE_ID_RTL8239C:
-> +		pse->chip = &rtl8239c_info;
-> +		break;
-> +	case RTPSE_MCU_DEVICE_ID_BCM59111:
-> +		pse->chip = &bcm59111_info;
-> +		break;
-> +	case RTPSE_MCU_DEVICE_ID_BCM59121:
-> +		pse->chip = &bcm59121_info;
-> +		break;
-> +	default:
-> +		return dev_err_probe(pse->dev, -EINVAL, "unknown PSE id 0x%x\n",
-> +				     info->device_id);
-> +	}
-> +
-> +	if (!info->max_ports || info->max_ports > RTPSE_MCU_MAX_PORTS)
-> +		return dev_err_probe(pse->dev, -EINVAL,
-> +				     "MCU reports invalid port count %u\n", info->max_ports);
-> +
-> +	ret = rtpse_mcu_get_ext_config(pse, &ext_config);
-> +	if (ret)
-> +		return dev_err_probe(pse->dev, ret, "failed to read MCU ext config\n");
-> +
-> +	dev_info(pse->dev, "%s MCU, %s (id 0x%04x), %u ports across %u PSE chip(s)\n",
-> +		 pse->dialect->mcu_type_str(info->mcu_type), pse->chip->name,
-> +		 info->device_id, info->max_ports, ext_config.num_of_pses);
-
-Reduce it to debug level print.
-
-> +	return 0;
-> +}
-> +
-
-Best Regards,
-Oleksij
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
