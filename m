@@ -1,223 +1,226 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0229847D955
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:31:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782984720; cv=none; b=YLUJ/yLlJB+4I7qR4dfk3mSkH7SUDqEZsHP0rj+A8LVMk+0ryUUErzInxAk2VxIG80vVwsZcTsjrYz7np6BXp9RvzuFU1yoUxPHmUzVou7TS/IcRRECYGrrSGSkIkK2rNF4WjrSp9mN7BEaZnQBIXmmu9fDHKbNGj8IfZ35j0Ss=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782984720; c=relaxed/simple;
-	bh=dSRGE2gG5y+XHfmGJNi1YtW71vSb/d7oJ5hM5okZmCw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=B7Ge3lr2w8QhYXYEeiV36X4JUE3a8X3wSIvulo1+vva6QOnEl9mAmOZJsvI379Vdl8luXexr6vGjxQdemut2lvxUcVIOPmQcmfC8/o1kcx/pb/cgBZ7ZYgHlZQcOcKdGtjwdKPckGzEo6p8OjTs3mNe/UqC8gK+b697PMWNqnhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=X6gKeW2J; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63C53CAE93;
+	Thu,  2 Jul 2026 09:32:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782984741; cv=fail; b=X7/Cq8OWhB2PqXu3qT8Nrj4bMJLvJDT+XD/7S1N89KkgmPAEzAiZA37T93XscMxzz+IkEpaWGaEvddGjsnymcOoJEScOprSitY6kECyNrT4DoGxNgujNkuA1BKQrBKnlDm5NeLl5zYIUh7Aao+1jKXQifrxTa7TkI39iB7wdUF0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782984741; c=relaxed/simple;
+	bh=yokJhcsCnHQOJ3qQcEBIkNr74YxYVao9DKzuJArScGk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IF0+zIiWOo8Ext7ZuiL/TiM6WzSxIDrRDgVPvnmhaJfW7Xhk5N3KfM0w13Lu5WlLdeGQft6B6rppLY9/W5hhjG3JuOECFo3iRHwR6D08lqb817uDco/mD+q+oKZmEaox8g7n2M0RWXMeKRQIGteMMfsZ8CiLRfzNMs1hW8w+TuI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=TIJ/Xhd+; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=UVPb2m/j; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="X6gKeW2J"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-474e7ba9fd6so907887f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:31:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1782984713; x=1783589513; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qnJMy0IHuM7TC3zCK26WMiUEt5og2YU7Uc9moZwoWL4=;
-        b=X6gKeW2Jkw+13FAsP3TAhA7scAoYEMPKTKosoVTAQzHnoCC4xw7eV88Hg8zMO89ASg
-         oyb6nyvsjJXxU59ieI4WUh8Uhr1I8WDPDLBl6FxpCdW1GXjbWgtjg8UnucHEa9datVM2
-         6zWtRqY7Bjqe9GGWePEMu+wwUmoF5qEFfvYnhjYXcsKl8zBqWRZBd6EJ7TutQbCCboih
-         jCszxGioY4IspSExmaai/4XohUZQAT4oIMosUXn9nhA2D18Ei6UyHJP2jL4IhaxRLKkM
-         vwkbgXapy5IDeM7JBY/kNyrBJ+P6J0iTBmZRPbUzrPglEXkUYINnfMNChvjWeHGPbY0x
-         +9lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782984713; x=1783589513;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=qnJMy0IHuM7TC3zCK26WMiUEt5og2YU7Uc9moZwoWL4=;
-        b=Ui3ABp+vTGGLUxHneabnl1XQR08L5Bep7PS+SGtHCaseJd+HZU/UxgansiPb2t6QPT
-         8nYn4eV5RwTrOknHTB/W8w7NL8BsrD2PVcQx194ccy/CcIxCNlHhb5iX65e3m6IIZApy
-         miKDgQfDwbdn3SrAr+x7m5D9oAqL6fIb/EClfNf/b0CwEkQzcokYMXjsWgqwoaqKQxq6
-         TSb7ZZKRNaORFb0Oo0qteAEw2Vq4ltJe78Ai4CE4uDquEVgV3hgQK1pWO6AnBcRo4qZp
-         vxZph1VZPd1sTyYVnhhcFnAOFx7GWQOs0dBaGA8M8lolpAx3qZsILvfUGvs2h6rlHjl0
-         ejwQ==
-X-Forwarded-Encrypted: i=1; AHgh+RomYAA1urkFj9OGuwuFDsEuQj9TpksSbB6KC43wcTFG0yeBfqK55KTIFHMU7iOUgaqG2UlxV4c8WgBx@vger.kernel.org
-X-Gm-Message-State: AOJu0YyqFd1k1Pe94U4IWU57m2aHQLSFeuQM/uA/xXErP+qqbcTFCLdZ
-	MZHbcxRY1hOkuchgTrPz2fuoIs/aP9agGW/EKEeZY1WDBvwiqZFKkCiPhihOMNGcyqY=
-X-Gm-Gg: AfdE7ck/MKFWDujt+6ZUKbK1kqyMlqmguwnHcRR26HSkLwbWw5mbwXOkI4+31jLRtIY
-	FiP00iLLESjSmlxJW7/XVZr6Bs9mLgCC0r+tY5kM5mbiNFtRdGpAG35I8LXeKdHAd4gMF3EOg4f
-	aDf43AJl0//XR0qq4dMPU52dtyP4xux/MooOvKe2XTChcKqpzTHjL4o2QX0Dy/r/Hs/mNMpHEGb
-	zo/Cl1p1LGN5qukXUp0KfVB20JBX4SUvAx3ZQ/cV10Ct/OY1O2dlAcwLzvPmIa8H3pB9FTduUL6
-	/imjjnXrvzYn+3LFadM8G5RJtyRXYEsuQIYI2yGgAbe2unXNauiEnayjnEQPsjPtx5DT0zwgols
-	u6CK9WWzM/HhKF2jWyZaavblsnaJPdP63PzO9P08Jk6k/iYz5ShwR3nNlyT9Lq71wB8VaDTlm2d
-	yiDcbMFWsU03a1gHQhQuVqk9LM1+PSH/0Fug==
-X-Received: by 2002:a05:6000:29c6:b0:476:504f:7a1 with SMTP id ffacd0b85a97d-47757e57eeamr5261411f8f.7.1782984713014;
-        Thu, 02 Jul 2026 02:31:53 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477de3dd53fsm7102571f8f.37.2026.07.02.02.31.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 02:31:52 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 02 Jul 2026 11:31:47 +0200
-Subject: [PATCH v2 3/4] ASoC: qcom: sc8280xp: add Ayaneo Pocket S2 card
- with special WSA channel mapping
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="TIJ/Xhd+";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="UVPb2m/j"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6628bmMn1954209;
+	Thu, 2 Jul 2026 04:31:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=SBseymnSJoK+d4hkQwAtonAY/12QBIWhVRAYaPsDu
+	s0=; b=TIJ/Xhd+B5KG87nqJNIw1R81yK1JRR/XQIAnHIauf1pzysckMX0wGVGpZ
+	edjBB4wS19R3FFKjWS4JmKf/tISjjJKmxtKiVkYaXZ7RiGl32zQOfzaIIoR4ZHLh
+	eFTmkghutomzePdUq3EmGNtsvCpKXf2G1WntmgyYLKfl8sfE5g3h5tckx0fRhxUC
+	m3hpg8sMjuMbOfj/klmfoZNyVqUc01Qu89oNp/D/EWBkXYoR3ie6ROm5WKxMJoqa
+	vU32gfnLm4ZtUAE9ijXXupfMEfq6Zji6EmHsoMPyGbrUNTooauzOaQJaF07HElR+
+	3lS1pcKu/TAVjPWSw0BR0PrwXjqqA==
+Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011005.outbound.protection.outlook.com [52.101.62.5])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4f5mn588sn-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 02 Jul 2026 04:31:54 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zGrD10A4821Jg3lSyqUafjX+SybaCjrRdo6oDepFNh5AksPrNc1Y5C/B/umG+DJQMqn/hS1L2jhGP+w6wDdK+SAUYh4SLLz6tEXfqs8StqXja63ZvMl1k8+zChgNyL8O6uYGCM6Cun3Zrjw4XYCJW68DuBsGWHbt12Ep7PxfbFQtvRwT7IumVf9b+eMTzkJSaUPpbus19Xput+WFk4wWcGgqKiBbz6Rx+4CFqjwQOakgqOUb7a+WywXsrj14oIQHCbrznYtuHcrmxgQID8MdzrQO3CU5LOD2V2qspmoS3Yulikojxk64DcqbYWGCfMCeVJ5O1nnObMV5aU4dyCqALA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SBseymnSJoK+d4hkQwAtonAY/12QBIWhVRAYaPsDus0=;
+ b=QZu3KZTnzoTLTgYIMqnTmlReZCFkvX8R5ZjgYXRSM6q/hqx+iyIMg9rQZ7CCJ3nMnxJpaN1K2uXpOUK5v+YIJm+78TrkXXwkWGTc3m2AQTmOEvLMxrGS9b5wJfZ25Wel6+EoDiiyASvXiDoX8GVK/l/4nNXJA2BzlRd7c7wmXKI0ZGsGIjbBwB7M5ECjWthKArtxJoImvPVdKMq7VC0RmnhRRXJqVLcMp0hYJJq6s0ciGWh+V8iemUIyMDqvhPuYdrOIMD6TozsKOTx1woy3JzfkGCCmai8rlYHjjn58C+/iyLH+10iySw/62u+BUqau8N+oXAGjJu2lkGacwdp1sA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SBseymnSJoK+d4hkQwAtonAY/12QBIWhVRAYaPsDus0=;
+ b=UVPb2m/jME8uEsAVUQaBifVFqLwZyDKLGWUNDVI6wdyWkrb18myMxO2aW8fiT0Fi4Y/Avq4bW8yKXcMxhvpYMpYMbElnrRdalWFe30NirfqposKV4ngMkuex7XzuCVbzJHBcYC8NcCrrGziODhlW+l4uVIyYhMAJ4XiFHtj+1Hg=
+Received: from BN0PR02CA0016.namprd02.prod.outlook.com (2603:10b6:408:e4::21)
+ by IA3PR10MB8042.namprd10.prod.outlook.com (2603:10b6:208:50c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
+ 09:31:51 +0000
+Received: from BN3PEPF0000B371.namprd21.prod.outlook.com
+ (2603:10b6:408:e4:cafe::91) by BN0PR02CA0016.outlook.office365.com
+ (2603:10b6:408:e4::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.10 via Frontend Transport; Thu, 2
+ Jul 2026 09:31:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ BN3PEPF0000B371.mail.protection.outlook.com (10.167.243.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.0 via Frontend Transport; Thu, 2 Jul 2026 09:31:51 +0000
+Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 2 Jul
+ 2026 04:31:50 -0500
+Received: from DLEE212.ent.ti.com (157.170.170.114) by DLEE200.ent.ti.com
+ (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 2 Jul
+ 2026 04:31:50 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Thu, 2 Jul 2026 04:31:49 -0500
+Received: from abhilash-HP.dhcp.ti.com (abhilash-hp.dhcp.ti.com [10.24.51.219])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6629VYas3611021;
+	Thu, 2 Jul 2026 04:31:43 -0500
+From: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>
+CC: <Frank.Li@nxp.com>, <s.hauer@pengutronix.de>, <kernel@pengutronix.de>,
+        <festevam@gmail.com>, <andersson@kernel.org>, <geert@linux-m68k.org>,
+        <dmitry.baryshkov@oss.qualcomm.com>, <arnd@arndb.de>,
+        <ebiggers@kernel.org>, <luca.weiss@fairphone.com>,
+        <michal.simek@amd.com>, <sven@kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
+        <r-donadkar@ti.com>, <devarsht@ti.com>, <u-kumar1@ti.com>
+Subject: [PATCH 01/18] arm64: dts: ti: k3-{j721e/j721s2}-main: Fix indentation in CSI2RX node
+Date: Thu, 2 Jul 2026 15:01:06 +0530
+Message-ID: <20260702093123.1048575-2-y-abhilashchandra@ti.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260702093123.1048575-1-y-abhilashchandra@ti.com>
+References: <20260702093123.1048575-1-y-abhilashchandra@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v2-3-1ef8ceb8c9ec@linaro.org>
-References: <20260702-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v2-0-1ef8ceb8c9ec@linaro.org>
-In-Reply-To: <20260702-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v2-0-1ef8ceb8c9ec@linaro.org>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: kancy2333@outlook.com, linux-sound@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4129;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=dSRGE2gG5y+XHfmGJNi1YtW71vSb/d7oJ5hM5okZmCw=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqRjAD4cWKkbUcXh28fayUai0Z/JDQ1oMabHtaOnuv
- H1Cd7W+JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCakYwAwAKCRB33NvayMhJ0ZWUD/
- 9xyaaBzmMFdgQ3nBsFIZq8sznnXdWHXjG6RZCFFoparJxyFCDDO4oFMLVuUTdbIyO1efYuDGfEeH4r
- I/v44+1Ju2Rj7w/JkbsGeyK8fOs/yEp9jZV7+yVOmFA6rrzzKDMOSOn82nEqapchmiIjF3WzaobPhu
- Jb4kWbDHSqx70iSuHAgZ/RiAzaRqvY6WuG4Y3a3Or4VXrskfaVaS87TazMqbvRDp5oRaG4Tlz50asa
- MuI2NViLfNaWxJdxQTFj+rjn3ITztaHClHMW0l/pW31Rmhjne5FpzAjtNnS54bDNly9WVL2puCXykv
- gKYhlKLD/D14CDcH0gmPIoCeQor3/iRBnO6h3O7aiDrodWn9JDYKZyjkl/eKnyd3XvTF3oZXXcPoT0
- PUym5zqzYrnrU8bqdjtNLKOF4u5HkoeFSO84IIPlwgkDfVPtlsAbXw5cu4JFxJFQYCgg087TuL57R0
- 4rYU/rqrKTGIBVbrd90Fg/l7c2lQDXppSITs9qy7BI7mG5FXsC9ByGhs6JMZmYAfHshBNaSBuqAT4s
- op+uZ3wh/UgTUzVZApMSbmEUowmSOM9/58YfyeqQ2hZ8aPje7aaWTxrAUW45MFLOra301cvDMuskRq
- i5fCrFFiiAH4X84m15bPw9NUNpbEBa60ZAspflU7RKZmV95RXgqgTYJC5NnQ==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B371:EE_|IA3PR10MB8042:EE_
+X-MS-Office365-Filtering-Correlation-Id: f65570c6-30c1-430f-a0f8-08ded81cbf58
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|36860700016|82310400026|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	mM46J3lQlPzT2cuLUHJvMGoh8/iRpY149Bqj39LzPErH+LO3ijtsgZ1kpY/Wu/CXMa7T0MB5THV5Ddv6TAQAMIPxre0A/VrhSYgy988LUURXZbP4+MP3H6wP66xPFC4OugbtePlq+M+qtrzoNy9tAfyQairM3dnsqJvnBBrIfopFFbPhTF/xrM4R2Pk1krBAfKs9rnBrXUR7UPDRu3jwLvzSuJaL5zej4aL4fRbBJA6YHRcZdr9Gh6rGeuxq1odb/k4qdkMxzzRHDEBPdps3OW8sI9Py5WlIqQszq/2smvoWhPEN3hQz6+OvLG4gpZZ0iamhIzNtHWs1qIPp07w3E+nXDQzbxm3Wpnbz+djoNRezm9PW49R8LshuRvUAx1ZmUd7x5h/R9GtsQ2hr+Sb2JkNFwhWKsqaimQNQNbODmKSgIOm1x+sO2bRA2Hw0VfGjH1jBqFnepPi1lG2pAcbJV5ugaUu7WNB0eD5S+FHnEx7KlF5Mws2Ak+5/npiLhVTgbz1AblML8ojRWNiys7DEH0Pgi8Bd/diq6ZTM8mVwiffhfFq/yDOamDkm4eqoLVOuR/8Az4O6QYpqXYR6hcG4hEPqXYKmBaF3voG3sCloxxc8Grng5WYvffhb2SIQ2GJCuCvDhDKcw5n02oE84v39815KP7mJG+ZC6TjL67voq1QhGhuYglsw79hSlX872Ab+wXeF782gOFOt165JoSCTcA==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(36860700016)(82310400026)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	FpUWVv1iu/7JKD+KTNqRwBgZ9nJ28fuXisCDlH1at5/QQ9+Ml0KnLCeB0zhzlfRR8icb8zQz0Q4PBgMXshh2H2bin6gS8ZdQ6gUUQDcauVedKQZG2slfsRRcmQpJz/yPs8l+9wke2HhWfmMLJ9ceMrJ5UqSU925Zoff8ezRSO/wO6l3DQZEw2YrD9NbsDZA44bvj4cyHILgrne2+mUB1VzTpSx/a5QFNRAFiTrvVH1YaNPafV8F+kIKDqHcy9MrcErbyFH/TECgCu43YoJd556jvZwi0qsdhz85cmwjYVeImA5nMeIl5npVutiDYg9vEFW6eMP9Z2Gm99qN1z0Gur7QyYIP/wke68wMLs5h0peiqjpPM35EqAqzzSoWnJEv/Ce9bdv46WJUN2y+/Ms+qDQAAkyBLrd1PDZmAHXlokfmcKbCRIvsEcMY5+Y90QV4b
+X-Exchange-RoutingPolicyChecked:
+	W4adO4JA1UqevVv71WxqOiSkF8pQJ7OVZb5QKW0nPq56dRoXE6FaKrbsDohITFejYyySyZqjkXhkb8WCQaJOQZ0dViuWvncvgMqIX+z3RmD04vyJE2FoMjpud2E8djBPCdj3G1YOCg3nRIIBX+oUPm6O55QUAXAqA8OlrbfQvAVakoEdzkLe3XGWUHuGh2wxQWwRRHWMNVsDEwrTx2aH9khp52nmOZrIcfwsp6gO91I90+JVwmrLqpcX4x2tBogNihzlfz723lOUnnweZYdq7TzVFRh0HagYD82+h9QGJftFvJLb6vmLlttGWWvlO9axTmYn01pU6NsIMHJw9N/R4w==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 09:31:51.2879
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f65570c6-30c1-430f-a0f8-08ded81cbf58
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B371.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR10MB8042
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDA5OCBTYWx0ZWRfX3buH5R00ZOwR
+ FysAA60XAthV8SgHiJluLKiBZEhwKtGTsUh5A5FPXooVSH4VChKg3G6FF1KdY7CrC/zX+OiW7Hl
+ YaCaKK5sbXhl7i5oIExipPh6AwTfdO5pShMfz1qyfvdulzHKoGpgCUNvvjXCs0tBwnjvAgiN2Ly
+ jGiJQHSn6gISZ/4c/Jwvy4AQprlY3nVU0yHaaZI/qVf/koYH1WiGZW20lteRUtZZH5EwNbpV1w0
+ x4XmO5W3j2+/YTH8VBXk2ydqooVkwdhE7zdWPV0BN7U7fydtVMV1e1JfgnwoJt9oMNhNkYOwcRn
+ u5EomlSLple2y4xA0psyuVbJbv9QaxXPChTK/MfGxLbHMy0YmYE21Lz3V85nP4ISdbSkAV0qfbq
+ Qn/XHJkyk5NkAE/CLstpylkoj483RJeLFzgGO/O8fY0cs25cc/b4HWbvcCemj1kjcxMLaPxDud5
+ 4IeoITJ3zyMfdOtg6Bw==
+X-Authority-Analysis: v=2.4 cv=EMA2FVZC c=1 sm=1 tr=0 ts=6a46300a cx=c_pps
+ a=F30aWN9Bm7kNfdI93JtEUg==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=RAioF0-LDSMA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8 a=e96LkNGndUTIoZmP6FEA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDA5OCBTYWx0ZWRfXxDbNTqcWTKyh
+ kp7K5dIk5b/K88syikVp6aRwQHEHvIr/E65pxVVPCp5idbkfPEXXHi342DGkaIcxfGi/78d3b5U
+ JQXw31K8FeA7q+rMurE/61lKL7BsOAU=
+X-Proofpoint-GUID: jzJOGIl_HkDFkXCM84-6b2wrvM6UrmlR
+X-Proofpoint-ORIG-GUID: jzJOGIl_HkDFkXCM84-6b2wrvM6UrmlR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 clxscore=1011 spamscore=0
+ adultscore=0 suspectscore=0 malwarescore=0 phishscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020098
 
-The WSA Speakers are connected on the WSA2 interface, but the
-WSA and WSA2 links are handled as a single dai and DSP interface, so
-we need to specify the channel mapping of the Ayaneo Pocket S2 for the
-WSA dai in order to have functional playback and avoid DSP errors.
+From: Vaishnav Achath <vaishnav.a@ti.com>
 
-Let's add a special entry for the Ayaneo Pocket S2 adding a prepare
-callback in order to set the proper channel mapping.
+Fix a few minor indentation errors in the cdns csi2rx clocks and
+clock-names properties.
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Vaishnav Achath <vaishnav.a@ti.com>
+Signed-off-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
 ---
- sound/soc/qcom/sc8280xp.c | 56 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
+ arch/arm64/boot/dts/ti/k3-j721e-main.dtsi  | 4 ++--
+ arch/arm64/boot/dts/ti/k3-j721s2-main.dtsi | 8 ++++----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index 1f3afc6d015c..2f1688c9f317 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -14,6 +14,7 @@
- #include "qdsp6/q6afe.h"
- #include "qdsp6/q6apm.h"
- #include "qdsp6/q6prm.h"
-+#include "qdsp6/q6dsp-common.h"
- #include "common.h"
- #include "sdw.h"
+diff --git a/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi b/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi
+index d5fd30a01032..5a8414fc5751 100644
+--- a/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi
+@@ -612,9 +612,9 @@ cdns_csi2rx0: csi-bridge@4504000 {
+ 				     <GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "error_irq", "irq";
+ 			clocks = <&k3_clks 26 2>, <&k3_clks 26 0>, <&k3_clks 26 2>,
+-				<&k3_clks 26 2>, <&k3_clks 26 3>, <&k3_clks 26 3>;
++				 <&k3_clks 26 2>, <&k3_clks 26 3>, <&k3_clks 26 3>;
+ 			clock-names = "sys_clk", "p_clk", "pixel_if0_clk",
+-				"pixel_if1_clk", "pixel_if2_clk", "pixel_if3_clk";
++				      "pixel_if1_clk", "pixel_if2_clk", "pixel_if3_clk";
+ 			phys = <&dphy0>;
+ 			phy-names = "dphy";
  
-@@ -49,6 +50,7 @@ struct snd_soc_common {
- 	bool codec_sysclk_set;
- 	bool mi2s_mclk_enable;
- 	bool mi2s_bclk_enable;
-+	int (*snd_prepare)(struct snd_pcm_substream *substream);
- };
+diff --git a/arch/arm64/boot/dts/ti/k3-j721s2-main.dtsi b/arch/arm64/boot/dts/ti/k3-j721s2-main.dtsi
+index 1228ac5711bf..5cac119e4292 100644
+--- a/arch/arm64/boot/dts/ti/k3-j721s2-main.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j721s2-main.dtsi
+@@ -1251,9 +1251,9 @@ cdns_csi2rx0: csi-bridge@4504000 {
+ 				     <GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "error_irq", "irq";
+ 			clocks = <&k3_clks 38 3>, <&k3_clks 38 1>, <&k3_clks 38 3>,
+-				<&k3_clks 38 3>, <&k3_clks 38 4>, <&k3_clks 38 4>;
++				 <&k3_clks 38 3>, <&k3_clks 38 4>, <&k3_clks 38 4>;
+ 			clock-names = "sys_clk", "p_clk", "pixel_if0_clk",
+-				"pixel_if1_clk", "pixel_if2_clk", "pixel_if3_clk";
++				      "pixel_if1_clk", "pixel_if2_clk", "pixel_if3_clk";
+ 			phys = <&dphy0>;
+ 			phy-names = "dphy";
  
- struct sc8280xp_snd_data {
-@@ -193,12 +195,58 @@ static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
+@@ -1307,9 +1307,9 @@ cdns_csi2rx1: csi-bridge@4514000 {
+ 				     <GIC_SPI 156 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "error_irq", "irq";
+ 			clocks = <&k3_clks 39 3>, <&k3_clks 39 1>, <&k3_clks 39 3>,
+-				<&k3_clks 39 3>, <&k3_clks 39 4>, <&k3_clks 39 4>;
++				 <&k3_clks 39 3>, <&k3_clks 39 4>, <&k3_clks 39 4>;
+ 			clock-names = "sys_clk", "p_clk", "pixel_if0_clk",
+-				"pixel_if1_clk", "pixel_if2_clk", "pixel_if3_clk";
++				      "pixel_if1_clk", "pixel_if2_clk", "pixel_if3_clk";
+ 			phys = <&dphy1>;
+ 			phy-names = "dphy";
  
-+/*
-+ * WSA and WSA2 are handled as a single interface with the
-+ * following channels mask:
-+ *  __________________________________________________
-+ *  | Bits  |     3    |     2    |   1     |     0   |
-+ *  ---------------------------------------------------
-+ *  | Line  | WSA2 Ch2 | WSA2 Ch1 | WSA Ch2 | WSA Ch1 |
-+ *  ---------------------------------------------------
-+ *
-+ * The Ayaneo Pocket S2 speakers are connected only to
-+ * the WSA2 interface and the WSA interface is not enabled.
-+ *
-+ * Set the channel mapping on the WSA2 channels only.
-+ */
-+static const unsigned int ayaneo_ps2_channels_mapping[] = {
-+	0,			/* WSA Ch1 */
-+	0,			/* WSA Ch2 */
-+	PCM_CHANNEL_FL,		/* WSA2 Ch1 */
-+	PCM_CHANNEL_FR		/* WSA2 Ch2 */
-+};
-+
-+static int ayaneo_ps2_snd_prepare(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-+	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-+	unsigned int channels = substream->runtime->channels;
-+
-+	if (cpu_dai->id != WSA_CODEC_DMA_RX_0)
-+		return 0;
-+
-+	if (channels != 2)
-+		return -EINVAL;
-+
-+	return snd_soc_dai_set_channel_map(cpu_dai, 0, NULL,
-+					   ARRAY_SIZE(ayaneo_ps2_channels_mapping),
-+					   ayaneo_ps2_channels_mapping);
-+}
-+
- static int sc8280xp_snd_prepare(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
- 	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
- 
-+	if (data->snd_soc_common_priv->snd_prepare) {
-+		int ret;
-+
-+		ret = data->snd_soc_common_priv->snd_prepare(substream);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	return qcom_snd_sdw_prepare(substream, &data->stream_prepared[cpu_dai->id]);
- }
- 
-@@ -273,6 +321,13 @@ static int sc8280xp_platform_probe(struct platform_device *pdev)
- 	return devm_snd_soc_register_card(dev, card);
- }
- 
-+static struct snd_soc_common ayaneo_ps2_priv_data = {
-+	.driver_name = "ayaneo-ps2",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+	.snd_prepare = ayaneo_ps2_snd_prepare,
-+};
-+
- static struct snd_soc_common kaanapali_priv_data = {
- 	.driver_name = "kaanapali",
- 	.dapm_widgets = sc8280xp_dapm_widgets,
-@@ -341,6 +396,7 @@ static struct snd_soc_common sm8750_priv_data = {
- };
- 
- static const struct of_device_id snd_sc8280xp_dt_match[] = {
-+	{.compatible = "ayaneo,pocket-s2-sndcard", .data = &ayaneo_ps2_priv_data},
- 	{.compatible = "qcom,kaanapali-sndcard", .data = &kaanapali_priv_data},
- 	{.compatible = "qcom,qcm6490-idp-sndcard", .data = &qcm6490_priv_data},
- 	{.compatible = "qcom,qcs615-sndcard", .data = &qcs615_priv_data},
-
 -- 
 2.34.1
 
