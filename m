@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E562C17A3
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 07:49:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E17271CD1E4
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 07:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782978589; cv=none; b=c5AWtjsqj3ft44efR3PjJ8kfP6iSJnPM4ZpzAB2og+D23B2+F4KLzH3dss4JvHrcUXiTU70cnYMAUD6ybSx8xssGVpon2wcEgXKANNAFZGRn6JbXJp3ponn04gSCEhsmPQNQjieItnjdR3twmoG3CV3A1Lix7fmDD9iM1ieb8lM=
+	t=1782978606; cv=none; b=OM1w/ij3uj1WfFrCYbdh+gpZg3qSfoLO3hiaHDNZsirUJ0FfUr30jy/BzSm1QzXxRcx9yxDcpAI8EVGNSc6pEYZ/yrMaz2OZ6c1nUMWxn+kZT8B3rmUlDSgB0FKFHBhXm92xC6F1ugdI6YQVeGILvZ+8BIgxBrG9JZWPp7PrJ3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782978589; c=relaxed/simple;
-	bh=KMaTfYt6wxdt8KIwgxKDuJ3zIZ8AQCsh2hPjsB4AuAk=;
+	s=arc-20240116; t=1782978606; c=relaxed/simple;
+	bh=ZiALEzFU3UDQnFlhWw/kOwAueAiOjwE9T0SPmq9HkrI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tiHXf/BWKaHZT8XX/dn+osYqKoNmIfI+T9ubQ+TroNsTIhD7yrp9neghU3RMztrdVwEg6K7DCwjRnHDytlbFa/fd8LCfFyejwXxVJK6F1dhjmo9KYQe0QO/BqO23Ok/2aAlEBYa9v275c7PXHLFQazCI9/Uck8KbEpCrtutz5n4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZLp5G4wH; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=gvhixgkklZJkYMT/RN4YrhlEusO7Qq8Tx+Pkv34gteeabbfqofwbQqoO2FCB5SBfpwHmmYKJgZUp155NnUjJIof9Z7SFpL+gPwNeauNSjovnNfGuPmnBZ+Xbp9V5HhVjfwkWo7fIIqEhkSOm8jXfRqA7evy+91k2Td0bqgA9wHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vu19Mwkn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZLp5G4wH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF8051F000E9;
-	Thu,  2 Jul 2026 07:49:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vu19Mwkn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30FBF1F00A3A;
+	Thu,  2 Jul 2026 07:50:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782978587;
-	bh=i94FNgnCSp7KpZH9772R/FKkYZ6R9k3eroSfUbMW7+g=;
+	s=k20260515; t=1782978603;
+	bh=/lv0/1b/k0J2CdEMz+hCskRhbsaIBHdyIjQEga0mk+U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZLp5G4wHJQMvjcVAFVnstYa6HgvtAvVbFUBT59EXHEySckpe2e/lundr6lCU22wHr
-	 UKINVEialRdDmJVDsvGP3nxu6U2zm1AnyP+J7Aeg/56a+5YBJK+bmwJxCz/rDDEdjT
-	 fW6AfRy1L4uJuflUd2NKEkVmtVqhp1mJ2ZiTifGoLTZuIWctx1CHEJP9D+p4lqxnsT
-	 KjX8M6cetKlsN5A72naSGVO8WYLKDpXZ+WBDv6Jcw3hJ8XxV5By+HfadCvF+NyWnk+
-	 zaXB0ftIlxGSSfjqeQKUJkdvaB+cEfTLnUKYEDmLEnjYfUyEnnvf92NoSgssFXI6S9
-	 4lsFhkH2ZRrLA==
+	b=Vu19MwknaHLEOBxbejpSy343BHXmJefLjgak6uk0ziEfUJJXrnxYWjGnLWpm5yQKa
+	 3tR6i/eQDBT+AF1fLxzSmomduA5KM86L+L+CEN5J5kl5GwfR+LQGXjO+JK35geZjzO
+	 ZjXodMZhYv7vOMlxcObFjb6WfL3ZfDNL2mmdQbcZP43+5zBNiMe2voYt6U4N3w/CnM
+	 x8aOYbJX4KJFcHWOn8t1vvUTYb7VYy00fuau9QJkgJhC6pnxsA0nknX44x/OPKIdJ5
+	 MV4EHgrH9axKGXdmjR+Q6zG6DYzou51jtY74n4mK2lXh3VNXb/dmAVKKskde6z6+Aq
+	 K/sm/3hUC44+w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 10/12] media: dt-bindings: mediatek,jpeg: Add
- mediatek, mt8196-jpgenc compatible
+Subject: Re: [PATCH v15 02/12] media: mediatek: jpeg: fix jpeg buffer
+ payload size setting
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260702072614.10373-11-kyrie.wu@mediatek.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260702072614.10373-3-kyrie.wu@mediatek.com>
 References: <20260702072614.10373-1-kyrie.wu@mediatek.com>
- <20260702072614.10373-11-kyrie.wu@mediatek.com>
+ <20260702072614.10373-3-kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 07:49:46 +0000
-Message-Id: <20260702074946.DF8051F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 07:50:02 +0000
+Message-Id: <20260702075003.30FBF1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,104 +47,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The schema update adds support for MT8196 but omits definitions fo=
-r its newly advertised hardware features. While DVFS relies on existing sta=
-ndard `power-domains` properties without needing schema additions, the adve=
-rtised SMMU support introduces a hard dependency on a new `mediatek,smmu-co=
-nfig` property in the child nodes (implemented in a subsequent patch 'media=
-: mediatek: jpeg: add jpeg smmu sid setting'). Because `additionalPropertie=
-s: false` is enforced, any device tree attempting to specify this property =
-will fail schema validation. Conversely, if the property is omitted to sati=
-sfy validation, the driver will fail to probe.
-- [Low] The `iommus` property description incorrectly references the MediaT=
-ek IOMMU binding for hardware that explicitly uses an SMMU.
+
+New issues:
+- [Low] Misuse of the untyped MIN() macro instead of standard min_t().
+
+Pre-existing issues:
+- [High] V4L2 API violation and data corruption due to unconditionally over=
+writing and clamping the payload size for OUTPUT buffers.
 --
 
-commit 375a0f1aaa853e038449c5b8176a2c5ea4a805df
+commit d7dd9a5c943d9d5a39c948601677f1b3e207a5e1
 Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-media: dt-bindings: mediatek,jpeg: Add mediatek, mt8196-jpgenc compatible
+media: mediatek: jpeg: fix jpeg buffer payload size setting
 
-This commit adds the mediatek,mt8196-jpgenc compatible string to the bindin=
-g.
-It notes that the MT8196 hardware uses an SMMU instead of an IOMMU and
-supports dynamic voltage and frequency scaling.
+For multi-core jpegdec, a resolution change event requires the payload size=
+ to
+change, but concurrent decoding by other cores prevents immediate updates.
+This results in payload sizes mismatching the real buffer length. This patch
+clamps the payload size to be less than the real buffer length to suppress
+warning logs.
 
-> diff --git a/Documentation/devicetree/bindings/media/mediatek,mt8195-jpeg=
-enc.yaml b/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegenc.=
-yaml
-> index 596186497b684..e2d772ea0fb01 100644
-> --- a/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegenc.yaml
-> +++ b/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegenc.yaml
-> @@ -14,7 +14,9 @@ description:
-> =20
->  properties:
->    compatible:
-> -    const: mediatek,mt8195-jpgenc
-> +    enum:
-> +      - mediatek,mt8195-jpgenc
-> +      - mediatek,mt8196-jpgenc
-
-[Severity: Low]
-The commit message notes that MT8196 uses an SMMU instead of the proprietary
-MediaTek IOMMU. Does the existing description for the iommus property need
-updating to reflect this?
-
-Currently, the property definition explicitly points to the IOMMU bindings:
-
-  iommus:
-    maxItems: 4
-    description:
-      Points to the respective IOMMU block with master port as argument, see
-      Documentation/devicetree/bindings/iommu/mediatek,iommu.yaml for detai=
-ls.
-      Ports are according to the HW.
-
-Could this static reference cause confusion for developers configuring the
-new MT8196 hardware?
-
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
+rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> index 1e014fd698ae0..3960ad21d7f0c 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
 [ ... ]
-
-> @@ -44,7 +46,9 @@ patternProperties:
+> @@ -710,12 +711,20 @@ static int mtk_jpeg_buf_prepare(struct vb2_buffer *=
+vb)
 > =20
->      properties:
->        compatible:
-> -        const: mediatek,mt8195-jpgenc-hw
-> +        enum:
-> +          - mediatek,mt8195-jpgenc-hw
-> +          - mediatek,mt8196-jpgenc-hw
+>  	for (i =3D 0; i < q_data->fmt->colplanes; i++) {
+>  		plane_fmt =3D q_data->pix_mp.plane_fmt[i];
+> +		max_size =3D plane_fmt.sizeimage;
+> +
+>  		if (ctx->enable_exif &&
+> -		    q_data->fmt->fourcc =3D=3D V4L2_PIX_FMT_JPEG)
+> -			vb2_set_plane_payload(vb, i, plane_fmt.sizeimage +
+> -					      MTK_JPEG_MAX_EXIF_SIZE);
+> -		else
+> -			vb2_set_plane_payload(vb, i,  plane_fmt.sizeimage);
+> +			q_data->fmt->fourcc =3D=3D V4L2_PIX_FMT_JPEG) {
+> +			max_size +=3D MTK_JPEG_MAX_EXIF_SIZE;
+> +
+> +			vb2_set_plane_payload(vb, i,
+> +					      MIN(vb->planes[i].length,
+> +						  max_size));
+> +		} else {
+> +			vb2_set_plane_payload(vb, i,
+> +					      MIN(plane_fmt.sizeimage,
+> +						  vb->planes[i].length));
 
 [Severity: High]
-Since this child node is enforced by additionalProperties: false, will addi=
-ng
-support for MT8196 without defining its new SMMU features cause validation =
-or
-probe failures?
+This is a pre-existing issue, but does unconditionally clamping and
+overwriting the payload size here violate the V4L2 API for output buffers?
 
-The commit message advertises SMMU support, which introduces a dependency
-on a new mediatek,smmu-config property in the child nodes. Because the child
-node enforces additionalProperties: false:
+For the compressed bitstream queue, userspace sets bytesused to the exact
+bitstream length during QBUF. mtk_jpeg_buf_prepare() unconditionally
+overwrites this with the clamped value. Because mtk_jpeg_set_dec_src()
+calculates the hardware DMA end_addr using vb2_get_plane_payload():
 
-    required:
-      - compatible
-      - reg
-      - iommus
-      - interrupts
-      - clocks
-      - clock-names
-      - power-domains
+mtk_jpeg_set_dec_src()
+    bs->end_addr =3D bs->str_addr +
+                   round_up(vb2_get_plane_payload(src_buf, 0), 16);
 
-    additionalProperties: false
+the hardware and software parsers are forced to read up to the full buffer
+capacity, which can lead to parsing uninitialized memory or trailing garbag=
+e.
 
-If device tree authors provide the mediatek,smmu-config property, it will
-cause dtbs_check validation failures.
+Additionally, for capture buffers during a resolution change, if userspace
+queues an old, undersized buffer, plane_fmt.sizeimage will exceed
+vb->planes[i].length. Instead of returning -EINVAL to synchronously reject
+the buffer as V4L2 requires, this clamping merely silences the framework's
+WARN_ON_ONCE. The undersized buffer is accepted and will fail asynchronously
+later.
 
-If they omit it to pass validation, the driver will fail to probe since it
-won't be able to look up the syscon regmap.=20
 
-Should mediatek,smmu-config be added to the properties list for the child
-node to prevent this issue?
+[Severity: Low]
+Is it safer to use min_t() instead of the untyped MIN() macro here?
+
+vb->planes[i].length is an unsigned int, while max_size (and
+plane_fmt.sizeimage) is a size_t. Using min_t(size_t, ...) maintains proper
+type safety and adheres to kernel coding standards, avoiding potential type
+mismatch issues.
+
+> +		}
+>  	}
+> =20
+>  	return 0;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702072614.1037=
-3-1-kyrie.wu@mediatek.com?part=3D10
+3-1-kyrie.wu@mediatek.com?part=3D2
