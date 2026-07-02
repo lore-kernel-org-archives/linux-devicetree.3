@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2773B9D94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1E43B895D
 	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 22:08:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783030104; cv=none; b=hb9BhwLk3/stMq+2P6pn/FcmF4AhSvUZGRA58bTeHDu8HG29Q23i4L8rqeKnSAQGANwe5ZBLLg9iRItTs6LkFburmdU5rNi0tkrAFuk7reW+LD2LnOjp5em36F2eNNwJ2TQc23FVqGqkaltqENr7nqy8lXqBt66seR76MgCYs14=
+	t=1783030104; cv=none; b=sB/BBy+z0ej8X9pul35QNRbSPznIQw3a3XOcvd/OsIuB4u9iZFTuZfdFPApvfWTSCV0IaAJvpfcHCj791tuM3MgXTVa3RK4szUx89fYkmBQfHla/oOQQRhyDwz7E+2wS2F4kneMMOFW7hoSO14sSKEqlJP8hsZ/7MMUNg6pp70M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783030104; c=relaxed/simple;
-	bh=nJFIVRllr6lBbEH5QrCyHfVsOTw/A4aUo1durTpSg3E=;
+	bh=7kThHoU7NfVa2SrQo4njFM/R/gQef5vJsZCKo0knqPU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ea7qESSaafTg/hBI8olEV/DldpUDGQJf2oTlrDG3ejKRxcG3/eCaJeYKKZvFxdKADTB6DKpW1/+kxaNK/3x93wSV3xWRcafrjgnVlqtivyU0hUgFdHheIdujZcFwP3jbI/v3iFmCVlP0AaxeGZ3bjZBmqOQWde2GeVZwT/Mu7Qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JHqfIw7E; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=lA48KDlwmGijm1wwqaN1/5ZeZZrNKX1LBqgRSEhp9C5v6OKsZ8XDa8QCokPBm+hci++vEM1OJK1HUpKwB1T1SEpYsWtCGh9k+AeHAb3y7Ux0Yed2ug/GtLrHHQSkyEemVoxW9Zodhwx5MgVf9/h1G40vwST6qXhGH4unvT1XJho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JBJxSZPG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JHqfIw7E"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 173FEC32786;
-	Thu,  2 Jul 2026 22:08:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JBJxSZPG"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 02DF4C2BCFB;
+	Thu,  2 Jul 2026 22:08:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1783030104;
-	bh=nJFIVRllr6lBbEH5QrCyHfVsOTw/A4aUo1durTpSg3E=;
+	bh=7kThHoU7NfVa2SrQo4njFM/R/gQef5vJsZCKo0knqPU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=JHqfIw7ErnRLHXSVnE0xlFBC3Daw75fAq8fhtyOAVU0Ov6t7cVPe6KmwLjB5yEEeh
-	 qbvTTu5jMgngmra6/sCzDQ3qKTVQRnLNLOt+JViD1wHH1oCezbPbssdYszhK8mFOU3
-	 O2TdY5/NHHlTb02Zx93YCn+bIe0I9uf6PYfc1h+1V/K+d6IBv2Y48TkS+ltren/lhR
-	 ATqNXWkp4Q1Ji1062vBrabi85pJUnt+PJlx6UZyFuICMaHmULk9+XAMzIho9ALCIJ6
-	 HCvT9LAu9+teh9QF7QCQovuUxwFJdy07UnDV2A80s9yDNXZxVQPLu1iNmA63B2yr3q
-	 cQJ0WJ6PxVveA==
+	b=JBJxSZPG0d7reF9bn82RBCFkm1ikQdVMZMIUQ/C9NxWs3Y9AZevqwmDhCDEy3U6r7
+	 NHgBQx+wk5AqZLveOppc5dwYSsQQhKhbMgwHRsnr4pLxMbO49pQ4Dk3yk5I2pSeiBp
+	 MIjs4nD6pEXgwWo15Q/FASJBqPAxyMSiGQw4gwzYYOuLIf39iIe8Iu6GavCUCY2Ry6
+	 opn0SiqONkMpCyeucS0CJ+Jb584DutugtajZSsPnqTQyJ9pCEPOjTq/CNKJGRTm29h
+	 qzdWoB4nSPfNOO2ZEivAUFqEiKEpsf+hFmS8Q+pCwgIa6+Q+1t4Ki1e1drKWP6Gb98
+	 V81TjYhFRQ6vQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06188C43602;
-	Thu,  2 Jul 2026 22:08:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E003CC43458;
+	Thu,  2 Jul 2026 22:08:23 +0000 (UTC)
 From: Joachim Eastwood via B4 Relay <devnull+joachim.eastwood.gmail.com@kernel.org>
-Date: Fri, 03 Jul 2026 00:07:22 +0200
-Subject: [PATCH 07/12] arm64: dts: rockchip: rk3588s-nanopi: pcie2x1l2: add
- clkreq
+Date: Fri, 03 Jul 2026 00:07:20 +0200
+Subject: [PATCH 05/12] arm64: dts: rockchip: rk3588s-nanopi: remove pull up
+ on rtc int pin
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260703-nanopi-m6-v1-7-8344a1559519@gmail.com>
+Message-Id: <20260703-nanopi-m6-v1-5-8344a1559519@gmail.com>
 References: <20260703-nanopi-m6-v1-0-8344a1559519@gmail.com>
 In-Reply-To: <20260703-nanopi-m6-v1-0-8344a1559519@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -50,11 +50,11 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org, 
  Joachim Eastwood <joachim.eastwood@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783030102; l=817;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783030102; l=834;
  i=joachim.eastwood@gmail.com; s=20260701; h=from:subject:message-id;
- bh=UdSN50l8fPPMDfJY8YaQToVjBNdxjR3Y9tdra7aQfto=;
- b=33qo2mouC7p3XEOVXak9y0hbIO5U89q9bndd02lpu/wuvl4S9Kx3HFzCX7erCAZ9BazI6DtJn
- 0T/wSi48Dy8CTDLhNafk0nYTJFnLjIhkVtYoydMwjPgr7Q2hkVL3TM4
+ bh=8bK9qjPaJeH5DZSNwTRXo86eIiea6f1QVJhbeEdJZoQ=;
+ b=M5GvjoFyQM7vUcv4AXzMBIyLW12TYwl8mVGascoP4M00Q2BaUYDMtdimfvixcMc8xzO7TkPGJ
+ 7PmAFnjndqCD/ZRy81pvbPOYbFrDWpYQbypzevbLnAgFXq/TWJRJWUI
 X-Developer-Key: i=joachim.eastwood@gmail.com; a=ed25519;
  pk=ZN/8xWtdYaSd5oEfloYSZ1a+/ri0n0VZqjlEeHlbXFU=
 X-Endpoint-Received: by B4 Relay for joachim.eastwood@gmail.com/20260701
@@ -64,27 +64,27 @@ Reply-To: joachim.eastwood@gmail.com
 
 From: Joachim Eastwood <joachim.eastwood@gmail.com>
 
-The clkreq is present on the board, so hook it up in DT.
+All boards in the RK3588S NanoPi familiy has a pull on the PCB for the
+RTC interrupt pin. So there is no need to enable the pull-up in the SoC.
 
 Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi
-index 361682c18e69..bcb2f5d63a61 100644
+index a8f32b994b10..f3a240b48a2a 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi
 +++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi
-@@ -312,7 +312,8 @@ &pcie2x1l1 {
+@@ -331,7 +331,7 @@ hdmi0_tx_on_h: hdmi0-tx-on-h {
  
- &pcie2x1l2 {
- 	pinctrl-names = "default";
--	pinctrl-0 = <&pcie2_2_rst>;
-+	pinctrl-0 = <&pcie2_2_rst>, <&pcie20x1m0_clkreqn>;
-+	supports-clkreq;
- 	reset-gpios = <&gpio3 RK_PD1 GPIO_ACTIVE_HIGH>;
- 	vpcie3v3-supply = <&vcc_3v3_pcie20>;
- 	status = "okay";
+ 	hym8563 {
+ 		rtc_int: rtc-int {
+-			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_up>;
++			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
+ 	};
+ 
 
 -- 
 2.55.0
