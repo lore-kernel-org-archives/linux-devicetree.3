@@ -1,107 +1,126 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E13032B10D;
-	Thu,  2 Jul 2026 15:45:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862043403E1
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 15:49:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783007121; cv=pass; b=HihNW9PowX13iHTiY+hgwAqiWMuLrJYQRAqfi7ALZQW9g8zGFSFfMRC3CleCcRZRivv5W9KCBPXarhDSh8s1fG9G62BsNdJjc/Mm4TdbwlaJ7RUip+Yyxk7/jIh95bN8LztPQ95YxwIbGputBF5Jrj5IoYkXi8aut1eR9SIaoyo=
+	t=1783007379; cv=pass; b=nc4oTd+JeZbJW7U/LkKlMqY8m6OSb1E5MM0fpszBk6DOFwx7h7uALQ219VUPKsYVQ7zeypPkc+Cp4OOxjaL9alcWKUbVAk+IJlsRN0eMNtQ8G8Qsyl7lJLpTFa2GVdtvVLis8NIP3C6kooGr8VjzD370GrICBbwkyCNXbnyehhM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783007121; c=relaxed/simple;
-	bh=QQJMn8myl3NxMk5d1ZskradRQLy1mGcGTZNCkisiW0A=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=Rq7JdUbDde3x5KZTKDcbDpCPnM5F39rBA59GoBngEVEK9dfguy5HaGR8mmr5OJri07Kzpv0+MIYqTmXyPM2G1Z6vXJ8m0GxoSt/4X3qR2yaKDibbD7YNunlYT54uXNRPi7Cuu0HlnBxZNc0H5SAVPWKhk8uNJ1GFFj34guaOeeo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=rVuYw//9; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	s=arc-20240116; t=1783007379; c=relaxed/simple;
+	bh=s7xLGTh7VkzLeGxMGgeKXQvvrQFuqhBJGNmgswF8J14=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aItjkFzwD9EnDgNfRzx2VGJBlok5mjUKrTk+RZ4wQ3ZiteEi7u8ScZrV+fCAQWAZzI23OkXDmM7Wm7rM8LGG9Iga7ptCko5MBGCAcDS8Gkdu7gxcaMhdE+UkC2jYb29FfAjeSlc0+WSykHBXn25wBhVZcF2bOU7OBAwIffVdAFE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qKwTqrFz; arc=pass smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="rVuYw//9"
-ARC-Seal: i=1; a=rsa-sha256; t=1783007077; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=XzPzW8zhLp1++PSVm0XzKWsrOZe0GF0flkwjFuZNZHAbfp3EbOvXla2d8vVLXu4SoFnIAxWM4Byk1PJ9sTLiCfay62YbaFkuqplK64t2ZCQIfp0gbxGYikxtNkArcPWlMjme19GUtG1bsX/sl/nAniBlw5tDzm0LmvNuO07ddSU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1783007077; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QQJMn8myl3NxMk5d1ZskradRQLy1mGcGTZNCkisiW0A=; 
-	b=cZITeNJ+oB4/NZ4WmLa/xHrbEsSBgeiBrjRV2n4kupPlFJfA4UPPpJUf8EwoC+2vSKDD4DsINTRoHCUFwWRJM8CkMgkobPxSpMVT8Yd3FNcBd5NzCrceQGol68xpwXkUgd1/lpJTeEUdiNUyeZwNg1dnhz3XWTeji5uRNe+jtoo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783007077;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Reply-To;
-	bh=QQJMn8myl3NxMk5d1ZskradRQLy1mGcGTZNCkisiW0A=;
-	b=rVuYw//9Vqqpy+NtvvJiCkynLOyTnT0LaFydnguLYH+L0sLNxWoO3Tad7/s2IvHB
-	bwPg2n34dOQHorMZ+339GS0RwlHTKXOVP38cU2B2spDAaJK8lfvL+U9jO8HRl55nMer
-	Ynf1o9j9pTrE4eK0GKeHM/fXbBpOuuv0kLxpNrcM=
-Received: by mx.zohomail.com with SMTPS id 1783007074425420.57335506567745;
-	Thu, 2 Jul 2026 08:44:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qKwTqrFz"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c12a430d71dso188790766b.3
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 08:49:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783007374; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qjEDuU2dZoXhX4x1COa8op9vUhzYL52Lt+pTToahJYnie4EVDV2fd30eISIb3z84DC
+         whlSk1WHP/y7INXla8m/ffuY4FBDpmdnQCI2HBw7gYr6uUtHjc++ulFjun3TsXnHfCmb
+         z7fLSIr54AzH3WQdlkc9kNE3VBC3PIdqJvX9dxIBGZ64niAd3zBOgniVDr5/680tS8OB
+         KnQkkU7lOt5n210CvIF2Mcv6vsvsQOxGK2bfBgri1ssl5JGklOYsgNDWhB7ii4hbNOD4
+         7HK5ppyu9EjmGhtOczMmZLRvdfMFt2qLNllKdDIwie58GoyWpATbo1Geol0MGA9fQDoX
+         /rBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=s7xLGTh7VkzLeGxMGgeKXQvvrQFuqhBJGNmgswF8J14=;
+        fh=qzrRUXBW6W7V9ng57uXmupOJwJvb4L0b11tavX4HaG0=;
+        b=ObQSaGw2AJrSbMnDwOrkHqCxDEsDvmTBxGlXMWUwyJhLqbw4FFAmOI1urJaM6yi3yj
+         u/avqRuNj/m6kKIXUMJUD3URVbZDxRaeIZnyHA7GidYywTZEM29GkTdCpUEVlGyIwcBh
+         W+vgtwhbanQFG1hIXmhJgetuVP156AKZj9VNKCshMQ4JRJQsQk2fne3NCdBR0y6L30bw
+         MVMs8zzr1dd7s6ltxJJQ2EChGBLR/tQOhvyQJK1TJKObnnNTsitaCBtczlGcUDFtIYK2
+         9sQWGHx51Ka9f1PdP0OYTrsTpj8x90695u7lyPOsFvwvnmqYsYfboy9pvF2SA7baHp8g
+         DDBA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783007374; x=1783612174; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=s7xLGTh7VkzLeGxMGgeKXQvvrQFuqhBJGNmgswF8J14=;
+        b=qKwTqrFz2i+hBD2/LzbP2kMWsZO4bxw0s/Lipdbke91f1TMcEiUCL5Sq+x/y58/6d2
+         6jC4SHF+X+MDIEQwDW9H/nizhBnY7BuhnAkqhcYRuAVqFh6Vg7hnnLs3TDBWDy/q4AJc
+         BvpHpu4o7EeyENiAWjDOgeUJl3KYZCPUmsv6niemxhUJfZPytC8ZgKcQGzA06b4Fg6wl
+         Jwskz78ffCEt4Tg+YBDhJDTsJhcKXINAs2sv2JnDmaW3sspOBxjG7a9dlpUPqdeMOXwI
+         R79AjM6uew/Wvk02c2i8yyg7PyNhydgUMvD3Z6gm7yjAG5yttGizckUJD4Q5+OUb0W5l
+         1g1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783007374; x=1783612174;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=s7xLGTh7VkzLeGxMGgeKXQvvrQFuqhBJGNmgswF8J14=;
+        b=chO+yLHVyJVQo1p1Qm7rwgbDm56Gbt/+MGONY1Bhuh+bIeK7YvNWv5ZBZEZViB3ids
+         QRcxlzaI+yI2t/IAGalJMEXfEeC40Q7ax02TzS08ISszZ0r2L7e0B1SgIa/2M1hu4iXj
+         59Skws4ipe5vt7p9uWUtnVT0dotFojms492pNIrHGfKerk0dod12Kj0eLJMOsx118gVh
+         730RT8vVs644qz8cLhFOc2SWdvF1cINNXcMxSQHSMNh67YskoRlT5FAZaiVt3jC+9bHo
+         RrpE2E74baMSmWxbaQKOjymQSFT3fhBDab00m3uZMI+qYj0BCfDD1DKJI0O7VttLeYEW
+         UBEg==
+X-Forwarded-Encrypted: i=1; AHgh+RpWJiD7vJbIhFcaAjwXw2MYDm8uqcS/PYTtCfwHxEWoaRLAvSYHtnb75ORekmSOHwotvbwV7qce9rRO@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMMKiKkqLGM3OjnLFj70CPoQsk7KrQXsfnDCHTxN1Y5dQXtlzI
+	EYnps1wWq930r4PXRaLBK+/SSd/Lj/E6VIDaDCF8WhBzfhKoOhVLKa41n6+aRO84KZ4IlHzCSf7
+	Q1XDRbxdxypk32XNZRPXXmoXMEpAseksyqn/BGR0=
+X-Gm-Gg: AfdE7cnPPAUqXSePftCT+j1CFnEIRnb4zegrPcymZViEPw4z8VHoOSsuQTJl7ZWC8PO
+	hDOmKILY4iRUYSnE5LVhzTS9ayIsJv69hyDsr84AOVgoaN2nPB33kGv2DPRyqDOQ8+rIzpoDKrF
+	OauWp4CoILdspl3VH5gnG6JAy3L24jS2GTH3ZgmPLAPFobtvHEvT2vbUkJm9g4swrjSjXpS0/yb
+	Wo7apzp6P4j20cWXCal19qt9OwDNv3grgadA20keyTq70VVZ3734T6mc9jn8yJ8YfWf1oeVYT14
+	iRtGnuaoZVgcQvVOfRl7d5Gg1xtb5jUsuY6dSQh03pvKezmcdD1mzfC4lGn221M=
+X-Received: by 2002:a17:907:a80b:b0:c0c:fb79:ef83 with SMTP id
+ a640c23a62f3a-c12a9d70fc9mr313164166b.19.1783007374262; Thu, 02 Jul 2026
+ 08:49:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 02 Jul 2026 23:44:18 +0800
-Message-Id: <DJO79318OW0A.2RDQOAXRTHNCW@pigmoral.tech>
-Subject: Re: [PATCH RFC 0/8] clk: sunxi-ng: Add support for Allwinner A733
- CCU and PRCM
-From: "Junhui Liu" <junhui.liu@pigmoral.tech>
-To: "Enzo Adriano" <enzo.adriano.code@gmail.com>, "Junhui Liu"
- <junhui.liu@pigmoral.tech>
-Cc: "Michael Turquette" <mturquette@baylibre.com>, "Stephen Boyd"
- <sboyd@kernel.org>, "Brian Masney" <bmasney@redhat.com>, "Chen-Yu Tsai"
- <wens@kernel.org>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel
- Holland" <samuel@sholland.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Philipp Zabel" <p.zabel@pengutronix.de>, "Andre Przywara"
- <andre.przywara@arm.com>, "Jerome Brunet" <jbrunet@baylibre.com>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Richard
- Cochran" <richardcochran@gmail.com>, <linux-clk@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-sunxi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <netdev@vger.kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260310-a733-clk-v1-0-36b4e9b24457@pigmoral.tech>
- <20260701160055.320000-a733-ccu-status-enzo.adriano.code@gmail.com>
-In-Reply-To: <20260701160055.320000-a733-ccu-status-enzo.adriano.code@gmail.com>
-X-ZohoMailClient: External
+MIME-Version: 1.0
+References: <20260630132857.3007019-1-egbostina@gmail.com> <20260630132857.3007019-3-egbostina@gmail.com>
+ <20260702-comical-accelerated-labrador-a06ad7@quoll> <CAEFOc63tOQ-uUoL-2kefU-X=SwLqhVG5rE64E8cm1eSeHnTFsw@mail.gmail.com>
+ <16acd740-9f1f-46d0-b5e0-41f26350c263@kernel.org>
+In-Reply-To: <16acd740-9f1f-46d0-b5e0-41f26350c263@kernel.org>
+From: Eddie <egbostina@gmail.com>
+Date: Thu, 2 Jul 2026 18:49:22 +0300
+X-Gm-Features: AVVi8Cfmnv5EONPBfRHZa2M0oJCldKlA-9-KSBFdQ1HzcLXRdEWuNKB71S9tnqI
+Message-ID: <CAEFOc62wAUaoV+pqQ-4LjPNi3ULoZOEpcPAcBxM39D3TdSxCiw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] dt-bindings: arm: omap: Convert IVA to DT schema
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, daniel.baluta@nxp.com, 
+	simona.toaca@nxp.com, goledhruva@gmail.com, m-chawdhry@ti.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Enzo,
+On Thu, Jul 2, at 18:03, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 
-On Thu Jul 2, 2026 at 12:07 AM CST, Enzo Adriano wrote:
-> Hi Junhui,
+> > I will add the justification to the commit message in v2: the TI hwmod
+> > framework is legacy and is being phased out, so new device tree nodes
+> > should not be required to include it.
 >
-> Thanks for the A733 CCU/PRCM RFC v1. I've been reading through the
-> series and the review feedback, including the NSI clock/reset handling,
-> the binding naming and ordering comments, the SDM macro cleanup, and the
-> question around modeled but otherwise-unused clocks such as the GIC clock=
-.
->
-> I do not see a v2 on the list yet, so I wanted to check in: are you still
-> planning to take this series forward? No rush at all, and I am happy to
-> leave it entirely with you if so.
->
-> If you have moved on to other things, I would be glad to help carry the
-> series forward and address the review comments, keeping your authorship
-> and prior work intact. I have A733 hardware here and can help test the
-> changes.
->
-> Either way, please let me know what works best for you.
+> This should not be part of the conversion but separate commit with
+> separate reason and analysis of actual ABI usage. During conversion you
+> only make changes necessary to finish it, not things you in general find
+> better.
 
-Thanks for reaching out. I have already been preparing a v2 based on
-Jerome's new RTC patch series. I moved to a new city this week though,
-so there may be some delay, but I will try to get it out as soon as
-possible.
+Understood. The reason I included it in the conversion was that
+keeping hwmods required causes dtbs_check warnings as several dts
+files omit it.
+However, I completely understand the need to separate it.
+For v2, I will structure this as a two patch series per component:
+1. A 1:1 conversion keeping ti,hwmods required.
+2. A separate patch dropping the requirement, including the ABI
+analysis in the commit message.
 
->
-> Thanks,
-> Enzo
-
---=20
-Best regards,
-Junhui Liu
-
+Quick question regarding the general rule of thumb for these
+conversions. I understand the expected pattern is Patch 1 (strict 1:1
+conversion) followed by patches fixing the dtbs_check warnings (adding
+undocumented properties that are used or dropping requirements). For
+those follow-up fixes, do you prefer one commit per property changed,
+or is it ok to group all the warning fixes for a specific file into a
+single follow-up commit?
+Thanks for the guidance.
