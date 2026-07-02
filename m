@@ -1,121 +1,139 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F464A33F3
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 13:41:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB522224D6;
+	Thu,  2 Jul 2026 13:46:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782999695; cv=none; b=RqJBgbGTQegTGguUzgMAjKb3l9diLtU6rx+DbF+tqg51HQ40+DgU2Dp5qUttf6IY/Hv2AiII2RkS+81LXW0Z2PUBaVwNb7AmMmK4h2x+0SX1eupFJn60k/fmtb12hEq3s9wfec/biOrN1pDSIRdi+1IpUKkUtDzTG4ylo6REmc0=
+	t=1783000008; cv=none; b=ppGmd06w8G9iDgS0CVs2kRWjjdKVwP573VWBy7EtHS3/wMSes9t+fuWbvB4g9/2eepVRHcc7ANg3gmC3NXHf+gBl47ATRlGgwpO1Df/XSQfmV6DrQtAzjOaVApI9injaPhcMAAZZ5HcTac30Pq9fd0FZjZ6a5VwLxuyDBGT3RBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782999695; c=relaxed/simple;
-	bh=3NlBw7T5nabuhOxxhmeklPLxyEetO10ugW8lwBtpDek=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=sYbFWhzeBKlLXboxF5LfLp3F66wwSMIEjDGnUCV5hemEIsPIId4i1GJfcfA/L7hOutBlmG1q1+UITCGZjOwPziSrfudW7oaWkDcpbSNteMEPDnVknFKFEjVDlCxwleCYgS8VpXv5ibJmKSXZbJAPLh0iMZEW9hyY3zuNvu3Atno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tbkQTnk/; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1783000008; c=relaxed/simple;
+	bh=3qJMtAUXDn9RpNt1LPF4J3Xl09oLERq9LyVPGpSghqc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FohPr7T3K3fGD14/ZpLAnv9sNoSlgVfk2Xs0x4K2bBaEQ1f9SzVb9q/76jRrvF41gj9dOS5W7hokaf80sVXFPC3chwOQviUSErGoBcFnHQOpvPEg3ryr/6cJ6K0mvlOOK+Uo3eR52uLQBOayozZy+QwU4f/1BqwL/lK0JlCo9vU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bXx3Ps4Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tbkQTnk/"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 3E59F4E40C30;
-	Thu,  2 Jul 2026 13:41:32 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 11DAB5FF03;
-	Thu,  2 Jul 2026 13:41:32 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 932EC104C9577;
-	Thu,  2 Jul 2026 15:41:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1782999691; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=3kbHnC3x3hEpbNdF+qEJ6jzcXt/7SmkG5FNSavJE8Ds=;
-	b=tbkQTnk/xbfoAM1MziLjXUidjKag65lxh3C+w2AFcWUZt8jrhqRqMPrg+jKMq44qEJjJ/3
-	S58xyi4QHP3dVJpYcHhRSTg5RB7KbihIDrQ5kmQtOldRZ1FoU2LtPDRUs+ga2ePuqILrpu
-	HXGE46szPIgoxkCSgPain7ryJrFwd0w0MVqwbdI6hw0VKdIw8gxKybMWbny+XRNdvKVnJq
-	wqSw7Fcd41VTUVWDrj2UsLksij0fbna6g8CZOSGP7/kam31vZTd3uKs2SYaI6mBZON3mON
-	C0/YkQEIrUlgE1+SjUoeisGO3DLktE99SA+6cmrFuolFSxK9mR/L/2k89ng8ZQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Santhosh Kumar K <s-k6@ti.com>
-Cc: <broonie@kernel.org>,  <robh@kernel.org>,  <krzk+dt@kernel.org>,
-  <conor+dt@kernel.org>,  <richard@nod.at>,  <vigneshr@ti.com>,
-  <pratyush@kernel.org>,  <mwalle@kernel.org>,
-  <takahiro.kuwano@infineon.com>,  <linux-spi@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
-  <linux-mtd@lists.infradead.org>,  <praneeth@ti.com>,  <u-kumar1@ti.com>,
-  <a-dutta@ti.com>
-Subject: Re: [PATCH v4 13/16] mtd: spinand: extract variant ranking logic
- into spinand_op_find_best()
-In-Reply-To: <20260618073725.84733-14-s-k6@ti.com> (Santhosh Kumar K.'s
-	message of "Thu, 18 Jun 2026 13:07:22 +0530")
-References: <20260618073725.84733-1-s-k6@ti.com>
-	<20260618073725.84733-14-s-k6@ti.com>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Thu, 02 Jul 2026 15:41:27 +0200
-Message-ID: <87v7axpkzc.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bXx3Ps4Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E281F00A3D;
+	Thu,  2 Jul 2026 13:46:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783000007;
+	bh=3qJMtAUXDn9RpNt1LPF4J3Xl09oLERq9LyVPGpSghqc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bXx3Ps4ZOSZ9QseiOa68Wf2XJmIG2ypp21x4BlQ2u1RNq02WvSk5T2wvMjOzuXzXf
+	 7cTcGLIEYZQm1Gjz0wLs73YzT6tT58oeXXlaBAi2Zv0iiaFv343Z2f8B5s3vPSxLH8
+	 Mui8YUY799Sax7adHs66K3/OcHFYtFKMOoaKiZKcm3riW6fptEqT8boSIs/pQN3Llo
+	 7hf1CgvOctaXCqje50lEm02Iq9dOG7KrdF+l1Z6s+Zjk6lg/POZHITm9ImODz1kZ9+
+	 ab26w1b0e6otPoVcF8jeDXwO20FJ5FHMGOLGRLY3dR8uSWir/iUY+p4VdhyqXJAP3V
+	 ZWinGwYzXbAZQ==
+Date: Thu, 2 Jul 2026 15:46:44 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Sowjanya Komatineni <skomatineni@nvidia.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+	"T.J. Mercier" <tjmercier@google.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, linux-mm@kvack.org, 
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+	linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>, Chun Ng <chunn@nvidia.com>
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+Message-ID: <akZkuwktaXFTrASP@orome>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
+ <akYs91INHMXMTI-t@willie-the-truck>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kdpw3ftelwhct6ta"
+Content-Disposition: inline
+In-Reply-To: <akYs91INHMXMTI-t@willie-the-truck>
+
+
+--kdpw3ftelwhct6ta
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+MIME-Version: 1.0
 
-On 18/06/2026 at 13:07:22 +0530, Santhosh Kumar K <s-k6@ti.com> wrote:
+On Thu, Jul 02, 2026 at 10:18:47AM +0100, Will Deacon wrote:
+> On Wed, Jul 01, 2026 at 06:08:15PM +0200, Thierry Reding wrote:
+> > From: Chun Ng <chunn@nvidia.com>
+> >=20
+> > Add helpers to swap PROT_NORMAL and PROT_DEVICE_nGnRnE protection bits
+> > on a kernel-linear-map range.
+>=20
+> That sounds like a really terrible idea. Why is this necessary and how
+> does it interact with things like load_unaligned_zeropad()?
 
-> spinand_select_op_variant() open-codes a loop that finds the fastest
-> eligible op variant by transfer duration. Extract this into a shared
-> helper spinand_op_find_best() that accepts a skip_mask bitmask of
-> already-tried variant indices, enabling callers to iterate variants in
-> ranked order while skipping previously attempted ones.
->
-> spinand_select_op_variant() becomes a one-liner. No functional change.
->
-> Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
-> ---
->  drivers/mtd/nand/spi/core.c | 32 +++++++++++++++++++++++++++-----
->  1 file changed, 27 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-> index f86786344d52..b678d0534297 100644
-> --- a/drivers/mtd/nand/spi/core.c
-> +++ b/drivers/mtd/nand/spi/core.c
-> @@ -1541,9 +1541,22 @@ static int spinand_init_odtr_instruction_set(struc=
-t spinand_device *spinand)
->  	return 0;
->  }
->=20=20
-> +/*
-> + * spinand_op_find_best() - Find the fastest eligible op variant.
+This is necessary because once the memory controller has walled off the
+new memory region the CPU must not access it under any circumstances or
+it'll cause the CPU to lock up (I think technically it'll hit an SError
+but in practice that just means it'll freeze, as far as I can tell).
 
-Should definitely be named spinand_op_find_best_variant(). find_best is
-way too wide.
+Probably doesn't interact well at all with load_unaligned_zeropad().
 
-> + * @spinand:    SPI NAND device
-> + * @variants:   full variant list to search
-> + * @odtr:       true to consider ODTR ops, false for SSDR ops
-> + * @skip_mask:  bitmask of variant indices to skip (already tried)
+> I think you should unmap the memory from the linear map and memremap()
+> it instead.
 
-The flag seems to be quite overlapping with the odtr flag. Shouldn't we
-have a single way to filter operations?
+Given that the memory can never be accessed by the CPU after the memory
+controller locks it down, I don't think we'll even need memremap(). The
+only thing we really need is the sg_table we hand out via the DMA BUFs
+so that they can be used by device drivers to program their DMA engines
+internally.
 
-Also, why are you switching from an interface enumeration to a boolean?
-Some day we might need to support things like 4D-4D-4D. That is where an
-enumeration is better than a boolean. If you want to drop the
-enumeration, it shall be done everywhere else, but I don't think it is a
-good approach.
+Looking through some of the architecture code around this, shouldn't we
+simply be using set_memory_encrypted() and set_memory_decrypted() for
+this? While they might've been created for slightly other use-cases,
+they seem to be doing exactly what we want (i.e. remove the page range
+=66rom the linear mapping and flushing it, or restoring the valid bit and
+standard permissions, respectively).
 
-> + * Iterates @variants, evaluates transfer duration for each eligible op,=
- and
-> + * returns a pointer to the fastest one not in @skip_mask.  Returns NULL=
- when
-> + * no eligible variant remains.  Used by both variant selection at init =
-time
-> + * (skip_mask =3D=3D 0) and ranked PHY tuning iteration.
-> + */
+Thierry
 
-I haven't seen what is the use case of this mask yet, let's see in the
-following patches.
+--kdpw3ftelwhct6ta
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
-Miqu=C3=A8l
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpGa8AACgkQ3SOs138+
+s6GyRxAAoXRwCQvIsIZ5khXDx6SMkmNAcO9Cg8l493HodYcUGDpoLnzmSZIuBH6O
+7EzGu627WVHBzlzvdm7rW4Dix6iPF+U3Ehyr8iAUivu1yot53889neKKrC1eq9PD
++6Sz4xi37yCt4pfcPy/EWe9YYafql6PLeE3Hw0T0Tt151D1INADFoGoxNpoVcIih
+Ycz/Fn0urZbUgme+pxUKTIi9ZA6mbGsQvkAVVgV7FS6NoeBO7XXr/JuLf9SdRQEj
+wqGLPjfEi5yGiOAzPf5ooFKfZeczBJYU1nVrP7Pick0O8xErv2/yM51/zGFj+ZEg
+9t6g/PfZ5EecBc3eS/6GNUwBG2hiV3d41NiQT1YeLHEUAqdDOJpU2pV+kIUHDH0f
+cOyYPNKAAHm6yWdq4BXm+sZeIO9ULQYZfu6S4tZERgdSECiTUNFQjWcp4GXta/ag
+SkK60DzHjQDDOeQ+NwA/bXJ02cVI3RMS7K/vdkbHlKrnU3gQrWNy3e2sUvl3oiuz
+7gDzuZsnqiCPflZLPmYgwF4wvANcCBXsSn1QliB12LV03+muKxvZA662AtFMeiea
+J+c9tkznLG8FBRWbhAyS3835rmwnxvIAte6vZsQBWnVpJQtig0tnJGkRICAS6l+E
+oJ5FhyWV+jtHiSiExs+MuqQX8qR1sGnVKd7UwksFFMecrO7KvIw=
+=m+eo
+-----END PGP SIGNATURE-----
+
+--kdpw3ftelwhct6ta--
