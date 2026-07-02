@@ -1,147 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012024.outbound.protection.outlook.com [52.101.66.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26203090C6;
-	Thu,  2 Jul 2026 18:58:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783018718; cv=none; b=LvijITpUojcRvasBo46pnLuruiywS6bMw8l0udttCCzIRMWjr7R5otWzkQMDxVNJAIv0rBZUXLOp1eD9fztSSyunbWfPbRYsQTr8LbBp3yoUX9NAhauH27BHN2GtxnVLQ0dhZGtxf4gPwxY7eXw/K/ctZ258YhOaU4IcFvnSdvY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783018718; c=relaxed/simple;
-	bh=5gTnWXwVf0NN7KXfWtRBTcyb7greoDovJVGEu3Wai1g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tMuAPShHvzgYJkMU70RMljJKfavXmDBc+2sHm2Opi5SuyipwjUESti1joHFQs5jrSfEzklosb6LARIhz0aNIiegnyarYSLmLj/TOS0k9tj+GNYordqvMtiUtzzzzufiZ4pKJKSPqFqnIbqmM5qewxaW9a6bp05dgty4oG3iTxcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FO0JcdZ1; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF7C372055;
+	Thu,  2 Jul 2026 18:59:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783018801; cv=fail; b=irsCkTwh3BOAc2fxaoBDT3O1hCHkivE/d03imGbY8UlETjY7ZZlbxLkLqHi7NZ/COyTHrBclU/SJLa4OTRsGwbNlM7Fo0J28xHaFgXMMlV4zZNuMa/yo2cp+DxdxpkQn4kPiwk8e9wlpTvVfEE0Xu+veU3RirXSmt6MEdhl8GHM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783018801; c=relaxed/simple;
+	bh=wJkyAFlBL9UguzFac1zTtX83kUekBA+QIwn1Y2uhNNY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=LPr6JWaF8pY5F58pLH0Qnz4nRtiyppmRCPwaW4JYmprZy8bnlBwFnVoPfO47vNLno/alY3JzD01Wsrj8JL/htjw5QvsqK9Gg+vYhUs+bpPPTmFOIg8rJsT/dz5Yotf+GZRNIdMWhJN4wA0vU4ipGH3y5yPtBGlVLkIDMmlkiHSM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=s1ZYim2k; arc=fail smtp.client-ip=52.101.66.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FO0JcdZ1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EADE1F000E9;
-	Thu,  2 Jul 2026 18:58:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783018717;
-	bh=RLgkpaVMPnO09LsCHhzeAVGJhguWzFrcOs/hWhZGsxs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FO0JcdZ1SVtbGnPMI77Ssf/jj/ZNg6YAxDYuinNm9ZmXQVlVzrnkMhGE0sQDTHYZS
-	 uBWvw8yjkt6LyXKxfnJS1m6DYuv7ynIdK+B8CYvpTWarN5PfyeGHjLGsdyz4UaCF5v
-	 le/UcYR7m1yd6KM7w9EB22Yh0aFvhyjdOO3Iagu9Q9cvOKcSoibFV8OIE2MorBqzHJ
-	 2gearSF40MWnM3LFvjLRCn0kh3AR5zJ/fPGMEG01zFHTkC9WXF0yKf6LvQ9uUnCSP7
-	 PnpS+0KAdxNio2SaxsMcTtMC5l3APdvoYf6kWrVZK8Qch38UtcvTUJnG6+mecEzORf
-	 Trak3DRTDAoYg==
-Date: Thu, 2 Jul 2026 19:58:32 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="s1ZYim2k"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xefZsPHiqWlRCZiS63YGoG8EGjr6r8FLb0xdGDLMsP5iMf5t/Mi1DyLq9vyDrfiqgsgPc8a+O8S/onB+qYm4TafFSWUo5ksa4o9PiSVZKphgbQCzEFbMNb8NgloCsXg6G3u9iqcObOeh/friBFkCV2r+y9oFCGcMyya28o89Y8YDsBCFJVy/tESmkHsbUh4jVgK7YPjLMO23++ME8mUK/AqTcCa5YzjEnW8nI/g+kCNe6OspHemDtZo1ZcbHeF11fjoHmDjfO5hCyqz1XsTzof8sIKBesqXJFbFk18sbj05VBbejIZLa0eYtcEIBZvqQywn4iaQG4NiMm84M+Gc7RA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wJkyAFlBL9UguzFac1zTtX83kUekBA+QIwn1Y2uhNNY=;
+ b=WkOOUHRSEPyCxObiD0Izc6jWzFVn4lZHdhHoZ6Ok6PwouT/bZ5gSFJz3mD4VslFJxSAzvkjS77L/gxhLacteV5DcJ3y3sRln2NUPZhPDiXEEBbDQGnFhq6uQcmpGujN9u9gTatf49q29ef/LStdORLYSJHcOA/RklYBFfHclbiaAVt0qZD7fsY9sL8zOtNuriB/m07tNlxnntq0cION0L424kXo02fW0rmhJ/PUJou8faeEonIvHotOwc8M3Y0vqOib2rgjYTS480yeHuk6JKXXMSvYhsPP8G5iUeymp3UfjTPe9HMiQT8o5VHlg/hTXByytY44FWuJQr5pxduORmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wJkyAFlBL9UguzFac1zTtX83kUekBA+QIwn1Y2uhNNY=;
+ b=s1ZYim2k85INqrjtvDb48SvZHeWrdCphzB+Uh61+Ipk7omLtj6KwF4ZAm9Rq6TFXs4au06SiwP3qLk0+be7q1RnTRrWnSIh7I5ps9pcnuTwoneIN0nLZ/1JCGamVJbtevQwdzPz/78MoHz22Mj65kQ7fRjrYk50sfmUFBWHR4wlAfDHML2o32TWPKgkXGar8UdOvEd9EI+csz9aNq2YI/apB/VdeQQ47keJqnDyHKW2zGFWzNUlLjgns5bOTXjdpu0RJ+ZY3blPWmkO3HUwDgygokRPjlST5cshIL+mV8utAF0CkT0AgjYeFLyALK0ccr4OMOCnHa1laHZA91NFMTQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DU2PR04MB9194.eurprd04.prod.outlook.com (2603:10a6:10:2f9::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Thu, 2 Jul
+ 2026 18:59:54 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Thu, 2 Jul 2026
+ 18:59:53 +0000
+Date: Thu, 2 Jul 2026 13:59:44 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Martin Kepplinger-Novakovic <martink@posteo.de>,
+	Rui Miguel Silva <rmfrfs@gmail.com>,
+	Purism Kernel Team <kernel@puri.sm>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chris Hall <c-hall@ti.com>,
-	Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
-	Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/8] dt-bindings: iio: adc: add input-channel-rotation
- property
-Message-ID: <20260702-litigator-commuting-5a3a37a7fb40@spud>
-References: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
- <20260625-iio-adc-ti-ads122c14-v2-4-ceb9b0b561cb@baylibre.com>
- <20260626-retinal-thrash-1095940e36ab@spud>
- <4a2c4c42-69fb-4491-ba77-b858623275ec@baylibre.com>
- <20260701204133.2b77edab@jic23-huawei>
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	Guoniu Zhou <guoniu.zhou@nxp.com>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v7 2/8] media: subdev: Add media_async_register_subdev()
+ helper
+Message-ID: <aka1IHI3ar8FS0ei@SMW015318>
+References: <20260702-imx8qxp_pcam-v7-0-b47d9e363400@nxp.com>
+ <20260702-imx8qxp_pcam-v7-2-b47d9e363400@nxp.com>
+ <20260702161519.GI3534761@killaraus.ideasonboard.com>
+ <akapt6v_DBJSAnj0@SMW015318>
+ <20260702181920.GJ3534761@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260702181920.GJ3534761@killaraus.ideasonboard.com>
+X-ClientProxiedBy: SA1P222CA0077.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:2c1::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HU32OjTorvqjRu33"
-Content-Disposition: inline
-In-Reply-To: <20260701204133.2b77edab@jic23-huawei>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU2PR04MB9194:EE_
+X-MS-Office365-Filtering-Correlation-Id: e47510ba-ef2f-4955-3aeb-08ded86c1996
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|376014|19092799006|7416014|366016|22082099003|18002099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+ R0d/VAxblMc1WSfqHxGjdVKMqquOFPzIsoeHds8p+F7n6sPDt3YiKd+XXuE5ON2+jFZJZqjjSlpb/KF9QKyU5M5MSfevX5gfup3P+W2BKDlwjKgirV+pHbzItwRm6gCoWv6l6CQAh97P3+MvpGRrqf9hVoXwXFwmJgN1QNL0Nlb071qIPOYgt4hIpKu7wvazNJnHQiqrgYDhiEzOsq9umF2+KHQHm1nG4tLUHSm84y9H2n5h0QF+eznxwD0gN8vcPeOvCo3o302tLyhImXEXd/jJku3Rd8w0Ql+yPhFx2Jp6t7gIHsxOh9UWMBtbYvN9N1BgzN1u8KZCkHx1WikvJtlcEqB/4S3IDyUCF74F409o8oRe6BOnDMO9NR/7mSl2O/+b/ogqp14E6ohFR3M72l7mXprf+fJGu9CDhsDyEpyUwOD4x2xII6HMP/C6ev+Mw/x1T4qtFQBezMiD5iB4uRqL+meqkHRWZIc4Nx5qxUYyBuh7qY85f62YlNW5dUqjVFzs+cRgbv4bfvt3oeN9l+mV97XNxzvEPmDc4aZC5Q4ti/pZQE+YZidX5rBPuvvG7Fju1h9iDlzvJ6/FDUOOs8vM/2UeXbHzpt1Dy4QHsy7j6ezvf4mc79iJNaMV6eHxnDQ83Eh5Iuo/6oLjqB2D130m/GSP85rchgtkvKdFe14=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(19092799006)(7416014)(366016)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?25v3w16HdBAyXQIIO77aDGsR6wJxcKfjHAl2wEyTZWi3fVFTppVNRJEl7ucN?=
+ =?us-ascii?Q?m8lFvLa2I1D7YgKSWWbkQ0u+6Pf2fYeCYwbwvxqTLot1O7kdv2AgS7Mj0afq?=
+ =?us-ascii?Q?Uj7VZuBJZZevmatUI5sDNNiBsLj7vFMLbJ/xczTWs/LOTKURi3uMYPo5+z9H?=
+ =?us-ascii?Q?lCYhh2ky1URiNLiHZ0qC3+Geee64GL3coJJPB8DaI22q0A+XNfwfU0tPKBmU?=
+ =?us-ascii?Q?OQW338wefFtrkeWgcD0wBz8bgFPEsVocQBP3X7FkyX8OOAM+o0ljavRwAe4Q?=
+ =?us-ascii?Q?dKsyiIDbm6ZVmniH8QrYOgxD88lSqFr+j7hjuToUsiwBzeu55CHtMuLCpLX5?=
+ =?us-ascii?Q?JZG9KHwSrGmxIIoyeXHceTE/DdaHl9SuVTid3YEGdp/eJOT+0z/uOFCCBYye?=
+ =?us-ascii?Q?snqIVfuamuVbcMXExKG2EBO5hhxwbQXjM50TOSEn5Dp8hCf1It1PfnbE7c0w?=
+ =?us-ascii?Q?AEwiwk8qY8jNN1yFroZn/h42hYFso0jzDmxX7NEir9koDkjhRO0piwU4lWRP?=
+ =?us-ascii?Q?E5L8UP9OB+3ngYBa5QzAm7rEabETtkRGrxxG1ivPH4gsUq/N9vl0tFzS2AWZ?=
+ =?us-ascii?Q?sOrGMLXh91pdm6JngbAdSoxxY6gKPuOcMWxC+2G2UnhcX1SmC0KrteKT+JzZ?=
+ =?us-ascii?Q?lWC03CzySKPKujfgBaNBwR7LSuDN5R5zcd9Codha6rMYkaWzSdwmAkDe6aiU?=
+ =?us-ascii?Q?UtS2mSwN7PcvnT7o+suNIQDn01YPcCvQOxc6obn15bNgl5ib0nwpMY6iRwEw?=
+ =?us-ascii?Q?BtyTJgRrLb8oiBrHAzBJAwkdq9p1dfq2s9GFh9XPzpjcWvaKposC/E8XeIja?=
+ =?us-ascii?Q?EY5iYZLTVtqIbuzXxATh+OyQGGEqQ4y7QpflgttxxDBQf53+W40UryGcUGwF?=
+ =?us-ascii?Q?LCPviupQOxPDAlSK2r/UBIBQbkBhA+SuFXzSOHrS7HgODhW3R/ezz9lBOT4/?=
+ =?us-ascii?Q?GkgLpcdYSrvlOJtQ7q7CC1xXCfd+sL3TJgBfD16nHkuw6vGXihaixLFpDHuN?=
+ =?us-ascii?Q?HusgBTz61HVjaIv1Ye4b/2ls87+0lglickkd/oR7EZFrEWFOfsgfD3PACrEm?=
+ =?us-ascii?Q?LhFv+whIbDSPyyq7XS1PO57FQbETVIlqVf8YNpZyjzXz0qXNYZCSzlTIN4L5?=
+ =?us-ascii?Q?4LXSaq05a3IdTTCtWOnICr/zJ+59rzcmPQH6baGCBfUD7sZQKVAF8PhmUKL0?=
+ =?us-ascii?Q?Mt/s+HDjPCM35b4w2l6blIks4qQ/MLmvECrs/B1BaGBKzZBwqzb/Kd2wlE41?=
+ =?us-ascii?Q?Km5ng1OPTmBB+FF42CksJcWduIxS5MQjZOpuJZ9+cEnlF8KCr+Gn0AzzmjlR?=
+ =?us-ascii?Q?4HLs4+Gj0vjkACHZvxsF8wVH+UZ3a06Is9AoMCOhEYJmzjTRg408B5taftmW?=
+ =?us-ascii?Q?K7tZD9l2zHn5NVFlLxI46vaGzCH8sItM5UKwiHszV0SnkPChOjYuRrXJDNtM?=
+ =?us-ascii?Q?LQblKFdY4eb1/LWFAzrkJF5slLQMoJddD+Rpdeq80ElEZ4O27J4186faoH/W?=
+ =?us-ascii?Q?5PvTDocVYHGoeQA//aXfkHtXdT9GJ2CWU3y16tJNZ5V1DsEBwyN06wxF0zg8?=
+ =?us-ascii?Q?GOY2cpuor7RUg/YrZ4LWpQYhY3wWt0Isgorum6laFoHDgtN60Y1xllxbIDCz?=
+ =?us-ascii?Q?lkzIXogg339qGExKMu3rP99oDvS/SaQ/pk77zPJ+UaWgreqEzzjGXXtukqse?=
+ =?us-ascii?Q?1R1RnFHgufSIl5R3HOVClbqIpjSbaPlqhxAH1+32LyYA5KVlhD1GyIVj+qyD?=
+ =?us-ascii?Q?Jv6JhuTtV2fycXimR8CzKhqnmCf4kgFq+c3+vvb/CceNctjSxEHm?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e47510ba-ef2f-4955-3aeb-08ded86c1996
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 18:59:53.7406
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7wO7jDaWNyKidJ8NMuKCzTKy35iNwoJ/9q/23P32MX9kcckxy2eupy0FFc9ljjAV8pup31xWl+XNJDh6rLnz8M3LDScTqps29cgjj1YSlgF9ibD9BGf+6uyCeDmVlJWk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9194
 
---HU32OjTorvqjRu33
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Thu, Jul 02, 2026 at 09:19:20PM +0300, Laurent Pinchart wrote:
+> On Thu, Jul 02, 2026 at 01:11:03PM -0500, Frank Li wrote:
+> > On Thu, Jul 02, 2026 at 07:15:19PM +0300, Laurent Pinchart wrote:
+> > > Hi Frank,
+> > >
+> > > Have you missed the comment in v6 ?
+> > >
+> > > https://lore.kernel.org/all/20260629084654.GB3054459@killaraus.ideasonboard.com/
+> >
+> > Sorry, I forget emphased it in change log.
+> >
+> > "For the reason stated by Sakari in patch 1/9 (dependency from MC to
+> > V4L2), I don't think a "media_async_register_subdev()" function is a
+> > good idea."
+> >
+> > The reason already NOT existed in v7, I removed v4l2_fwnode_endpoint from
+> > media_pad. So MC will not depdent to V4L2.
+> >
+> > So this comments is not suit for this version.
+>
+> media_async_register_subdev(), with its "media_" prefix, appears part of
+> the MC API, but it operates on a subdev. At least the function name
+> should be changed in my opinion.
 
-On Wed, Jul 01, 2026 at 08:41:33PM +0100, Jonathan Cameron wrote:
-> On Fri, 26 Jun 2026 13:27:44 -0500
-> David Lechner <dlechner@baylibre.com> wrote:
->=20
-> > On 6/26/26 11:14 AM, Conor Dooley wrote:
-> > > On Thu, Jun 25, 2026 at 04:55:06PM -0500, David Lechner (TI) wrote: =
-=20
-> > >> Add a generic input-channel-rotation property to adc.yaml. This is a
-> > >> feature seen frequently in ADCs that are designed to measure resisti=
-ve
-> > >> loads, such as RTDs and strain gauges. Enabling this can reduce offs=
-et
-> > >> errors by swapping the positive and negative input channels on every
-> > >> other conversion. This can have side-effects in timing and filter
-> > >> response, so it is not always desirable to enable this feature in so=
-me
-> > >> applications. Therefore, it is best to make this a property that can=
- be
-> > >> enabled or disabled in the device tree.
-> > >>
-> > >> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
-> > >> ---
-> > >> v2 changes:
-> > >> * New patch.
-> > >> ---
-> > >>  Documentation/devicetree/bindings/iio/adc/adc.yaml | 7 +++++++
-> > >>  1 file changed, 7 insertions(+)
-> > >>
-> > >> diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Do=
-cumentation/devicetree/bindings/iio/adc/adc.yaml
-> > >> index 9ec1f447b565..3d52c00922c9 100644
-> > >> --- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
-> > >> +++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
-> > >> @@ -81,6 +81,13 @@ properties:
-> > >>        ADCs usually allow choosing between internal reference source=
-s or a pair
-> > >>        of external pins.
-> > >> =20
-> > >> +  input-channel-rotation: =20
-> >=20
-> > I got some internal feedback after I sent this patch that "chopping" is=
- the
-> > more common terminology for this feature industry-wide, so in the next =
-revision
-> > I plan to change it into `input-chopping`.
-> >=20
-> > >> +    type: boolean
-> > >> +    description:
-> > >> +      If set, the positive and negative input channels are allowed =
-to be swapped
-> > >> +      on every other conversion to reduce offset errors. This is al=
-so referred
-> > >> +      to as "chop" in some datasheets. =20
-> > >=20
-> > > "allowed to be swapped" means that this property says the feature can=
- be
-> > > used, but userspace may have to be the thing that ultimately turns it
-> > > on? =20
-> >=20
-> > No, I don't expect a userspace control for it. More like the driver sho=
-uld
-> > enable it when possible, but a driver doesn't necessarily have to imple=
-ment
-> > it and everything will still work, just with less accuracy.
->=20
-> Perhaps we need something in this text to say when it should not be set
-> in dt?
+Name is easy to fix. The key is if the overall direction and method is
+good enough to go futher.
 
-I think I would like a wording change from "allowed", to something that
-is akin to "If set, the hardware supports swapping...". Allows sounds
-too much like something that should be a userspace control.
+Optional naming here
 
---HU32OjTorvqjRu33
-Content-Type: application/pgp-signature; name=signature.asc
+v4l2_async_register_subdev_with_created_pad()
+v4l2_create_pad_and_async_register_subdev()
+v4l2_async_register_subdev_from_fw_ports()
+...
 
------BEGIN PGP SIGNATURE-----
+Frank
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaka02AAKCRB4tDGHoIJi
-0jr7APwO7Ude3skjABcUuWYTPKzO6hHSJsyl0gGTftkdKlxVRgD7B0reiQ1vsJg3
-33K1ztXCj9tJIjcux5iN5sT+Zkee8Ac=
-=6j0A
------END PGP SIGNATURE-----
-
---HU32OjTorvqjRu33--
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
