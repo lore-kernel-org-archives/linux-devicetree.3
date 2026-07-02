@@ -1,109 +1,160 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF66233943
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 05:04:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9208433B6EF;
+	Thu,  2 Jul 2026 05:34:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782968666; cv=none; b=Cucv3mmUJxqj3f/ZSN5+pilXdW76c4pGn3/Bbf19n3cqX8rgrKvuUQuxBaJcBuF4N9rx/u59Jk7Cb0MJnWXxkRPyCMxIzkrxilOKF5yNUjWOnf4Sp8/Ar4vShW+ppAWircQ0aCcCZLwf0LvRvyym5n/XIljxLKD5nJ8lwANt47g=
+	t=1782970491; cv=none; b=bxUpopIs3kMv+X3aU2czODEz/OlPB7nCLxTGbdjB5wgLpmoqnQ2QV3MdulTp9PMI2pWnKMmw4GEJwAs/yd7uDwBLhYQVWXZn3ENdNrITzemFZnzZn3DOPOwdvfC80XTBZaUnbLGdWgkyhkYAIdxIJUYqMzQP/QbipDMhhTLiNUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782968666; c=relaxed/simple;
-	bh=KY8isj8qnfFeVbnhDgajn0TKgbt63r5onHjMkJEDVBc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G2/CxmoNLrSDyCaQs9gCq3KmBXSL1ekBkk6HOHR1nRQdt+65qoVz8KHd/3tyLKY+wIjfEkkolGd32VDJIPTL6ygLM7L5cdZx7DTgY0UAmiAI5gL8doJMHQfEnvBxW+mSa1F3FIvct9Jw88YnT2bgsZC48XhUn5tTkF7Y0X7APxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=snWr05SU; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1782970491; c=relaxed/simple;
+	bh=VROx4UNHpouW8fr4aaiSqX4i8MowYxEzhLMqqRSl1Zc=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=Akb0iIU5P3rj4hoRwgOuCmsMVPoUyb4fDS29d/B9iPbRsVaiB67Ag+TvfV5g39fqqUqRAvzgHBuaEqT20DS276iYyVILH6aEkc7TFlbu1i3YM9q6WBvZ0VtpXdTFkLS/WB9hPeOC6HPv8e10nkL6K47/Xn+4sz/5+p4Jyv+eHOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=WuzXtBN/; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="snWr05SU"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-36b9d265355so926474a91.2
-        for <devicetree@vger.kernel.org>; Wed, 01 Jul 2026 22:04:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="WuzXtBN/"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1782968664; x=1783573464; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7Oy0cfahmYAXjNqu8zns/MhJDGK3lg7nw8uo1AFuaGQ=;
-        b=snWr05SUa29AgH5E2w3tvi2Q0PLnBP04IEEhVsVBUrbGf3cBT84L0lQXqzBu+g+BI9
-         LNxJVjsnrz/fpi3dg3X2twVaZyxrkkA17a+8BicPLJ7yfG8rg9RFTyY9Achz+Z5KtJ5m
-         mDLXB/YrRlkTYo0DsoEbLGDB5MM17s80Hs/JxGDJ3D4i5Lv4HBBPzL3jS8KFPcD635n/
-         UJXriLSDYTwDwQz9h3pu7tIaPTvmjbOJI6BBGS3Upo84oi21H771GYbYrBimXG2gejvE
-         MBoZBTVIFkNb628aPEwmbQZmo2gD09oz4qov+6YEQyHzOFTEFi8c4KO0/g4MbBKArkcp
-         PUyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782968664; x=1783573464;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7Oy0cfahmYAXjNqu8zns/MhJDGK3lg7nw8uo1AFuaGQ=;
-        b=foYHkAhQXU/TtUaC4HG7vU0ON1vW1ySfrDYhhaSaoJ0zAPf67iafiRhDZ9oMUcya6w
-         +Qp4Qgkj+qG+a1xEnflcVYZ7qxyTeHqRWzZ1tBnUU8N0sWCvYz+/nIzprW/haCu6rlCp
-         jitWi8DhpJQGjSSDYNRnRW3YJJtYzDrFmwAcxIp10QY1Mpn+Ea75/v69H39jGqBz7GMh
-         hsydHyjah9oP7IkfNRqyNokAaEv6bZf4v4Pqr7NHBLF+3v3M24a/tAVDrna0ajfQlWXM
-         j1ji7XYh3CRhL0Trs9yf0eMP4UijUR55ZnDd4ujSbkagSZdZpLSKok5wGMokLltrjBT7
-         MRkQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoZgAehFeJMHZAeIZD7bqy2AM7M/rAWlv9EfJFJWEpAf9aKoDitHvJ+p9NXSwt/dSBdzuTjF4M4Z7me@vger.kernel.org
-X-Gm-Message-State: AOJu0YxwNrebjKdFAlRChzWNrlVtLXPfIfWq0PhQ4xhDn62bH3MjoLtz
-	nNml51hXs1/gJFa+Ay3aoSWqH8att21htQLGe+CtjiASHxs1rrtGP4pF05sz94Y4/4Y=
-X-Gm-Gg: AfdE7cn9yeRYG1DmrlkpuL0G9UNtdhaaJDGH1/8VcTd5GxV54fmUmeKtq19J7jc7QUa
-	5e3D6djbgwIp/cjDg3EXXAslRst4sXz/cM8U9Tuz4NnKQc+z2IR7znh2yv1mZrh4+ZuoUVmwXqz
-	OF2bRltyAkFd6k4KTYc/KUlB7K+SplTyhK+5xd5qa9cKmyqoqH0Ne1qb/C5nHokY/OCWGIs6615
-	fR8nsJPfTSwnfegHus4DT+fTIlOjYdPq2aPPFkNQ7DwhT5tk8J0mJdLKEZ6V7Y3YSXDdEbejUD+
-	Ey1xa0QBy0fD8/2EgxcTq9EK1Jyo1oAljq6tPb8tqGBbK8r/gx/pAUYEyEiLZEPO/lNzi8pZXXN
-	WIrj2KqrxHFxPqKcEjrs9+DLrHtM+tHGNo0NChsyx4pHCdzgcFQ6cQBncKBeVjVXoTWJrQx+Uhh
-	PTzkkJ96pgR0gxgiE7gMSthx8=
-X-Received: by 2002:a17:90a:e7cd:b0:37f:464d:ea38 with SMTP id 98e67ed59e1d1-380ba70e00cmr3476721a91.0.1782968663686;
-        Wed, 01 Jul 2026 22:04:23 -0700 (PDT)
-Received: from localhost ([122.172.82.94])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f0bb84366sm6143858eec.16.2026.07.01.22.04.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jul 2026 22:04:22 -0700 (PDT)
-Date: Thu, 2 Jul 2026 10:34:19 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Ilia Lin <ilia.lin@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 2/2] cpufreq: qcom-nvmem: Add IPQ5210 support
-Message-ID: <k5lgi2x5y3li2cwqdcznfgupd3fhbvrcgepf56ukahlrexyofc@moqiz6k7x24r>
-References: <20260701-cpufreq-v1-0-98656ad20ff3@oss.qualcomm.com>
- <20260701-cpufreq-v1-2-98656ad20ff3@oss.qualcomm.com>
- <09de0dd0-343a-40bf-a8ce-f28c3624e6eb@oss.qualcomm.com>
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=nvXrvmnXXqNldJyOx7EZECCIGfEQxkabt
+	waPOi8tNh4=; b=WuzXtBN/t7dkWDL01vmOznAVNkV5yZZvRqoN65f5iW8i2N0fn
+	y9UT/IRVWJxFSLGmuxbDAfMKUTnC3RlYLn5anlKDnGCu9Lrh2OlJzRuYKd/tx0SK
+	VMsI0foLvwuF6IiRA6CEX9Fvhyv1Or+5B7aHcskScFTHlX+NydYdrjyr/0=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwDXEEKM+EVqOpYOAA--.14792S2;
+	Thu, 02 Jul 2026 13:35:08 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <09de0dd0-343a-40bf-a8ce-f28c3624e6eb@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/2] dt-bindings: pci: ultrarisc: add required DP1000
+ PCIe clocks
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: wangjia@ultrarisc.com, Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260629-caboose-outpour-6e1df34112ef@spud>
+References: <20260629-ultrarisc-pci-clk-v1-0-5ea3308fdab3@ultrarisc.com>
+ <20260629-ultrarisc-pci-clk-v1-1-5ea3308fdab3@ultrarisc.com>
+ <20260629-caboose-outpour-6e1df34112ef@spud>
+Date: Thu, 02 Jul 2026 13:34:35 +0800
+Message-Id: <178297047541.1082377.2444224045999313609.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782970475; l=2479;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=VROx4UNHpouW8fr4aaiSqX4i8MowYxEzhLMqqRSl1Zc=;
+ b=p1J13cGbI19FzOi+1qjcrOy8zvXYB18rPgdNggmPvk4uTg47lcXc1o1d/bE7EE03FPWa9WbQI
+ VJrVP2Zki/dB/FyAXJfP4M0BEYorKwKGbzJ5RQAgcqSOx9AwRJBZqJT
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwDXEEKM+EVqOpYOAA--.14792S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tF4rWryfuryrKrWDZw4xZwb_yoW8try5pF
+	W3C3W5CF4ftr13Zwnaq3WUtF15Jr4IkFy5tr18Gr1UtFs0gr1vqFsxK343Ga45Zr47ZFyj
+	vF45uw17tw4UC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
+	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
+	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
+	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
+	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
+	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUonmRUUUUU
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAPEWpEjs0AFwAKsv
 
-On 01-07-26, 11:36, Konrad Dybcio wrote:
-> nit: checking for == is easier to read
+On 2026-06-29 16:27 +0100, Conor Dooley wrote:
+> On Mon, Jun 29, 2026 at 01:59:50PM +0800, Jia Wang via B4 Relay wrote:
+> > From: Jia Wang <wangjia@ultrarisc.com>
+> > 
+> > Require the DP1000 PCIe controller nodes to provide clocks and
+> > clock-names, using the standard DesignWare clock names "core",
+> > "dbi", and "aux".
+> > 
+> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
 > 
-> anyway
+> Probably should have a fixes tag here because the clocks are mandatory
+> and were missing.
+> With one,
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> pw-bot: not-applicable
+>
+
+Thanks, Conor.
+
+I'll add the `Fixes:` tag in v2.
+Thanks for the Acked-by!
+ 
+> Thanks,
+> Conor.
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Applied 2/2 with this:
+Best regards,
+Jia Wang
 
-diff --git a/drivers/cpufreq/qcom-cpufreq-nvmem.c b/drivers/cpufreq/qcom-cpufreq-nvmem.c
-index b2aeda7c564a..efa766e98d86 100644
---- a/drivers/cpufreq/qcom-cpufreq-nvmem.c
-+++ b/drivers/cpufreq/qcom-cpufreq-nvmem.c
-@@ -205,7 +205,7 @@ static int qcom_cpufreq_kryo_name_version(struct device *cpu_dev,
-        case QCOM_ID_QCF2200:
-        case QCOM_ID_QCF3200:
-        case QCOM_ID_QCF3210:
--               drv->versions = (*speedbin != 0xcd) ? BIT(0) : BIT(1);
-+               drv->versions = (*speedbin == 0xcd) ? BIT(1) : BIT(0);
-                break;
-        case QCOM_ID_IPQ5424:
-        case QCOM_ID_IPQ5404:
+> > ---
+> >  .../devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml   | 16 ++++++++++++++++
+> >  1 file changed, 16 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml b/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
+> > index 512b935bf5d1..d9d1488e915a 100644
+> > --- a/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
+> > +++ b/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
+> > @@ -43,6 +43,18 @@ properties:
+> >        - description: Legacy INTC interrupt
+> >        - description: Legacy INTD interrupt
+> >  
+> > +  clocks:
+> > +    items:
+> > +      - description: PCIe core clock
+> > +      - description: Data Bus Interface (DBI) clock
+> > +      - description: Auxiliary clock
+> > +
+> > +  clock-names:
+> > +    items:
+> > +      - const: core
+> > +      - const: dbi
+> > +      - const: aux
+> > +
+> >    interrupt-names:
+> >      items:
+> >        - const: msi
+> > @@ -55,6 +67,8 @@ required:
+> >    - compatible
+> >    - reg
+> >    - reg-names
+> > +  - clocks
+> > +  - clock-names
+> >    - interrupts
+> >    - interrupt-names
+> >  
+> > @@ -71,6 +85,8 @@ examples:
+> >          reg = <0x0 0x21000000 0x0 0x01000000>,
+> >                <0x0 0x4fff0000 0x0 0x00010000>;
+> >          reg-names = "dbi", "config";
+> > +        clocks = <&clkc 9>, <&clkc 7>, <&clkc 10>;
+> > +        clock-names = "core", "dbi", "aux";
+> >          ranges = <0x81000000 0x0 0x4fbf0000 0x0 0x4fbf0000 0x0 0x00400000>,
+> >                   <0x82000000 0x0 0x40000000 0x0 0x40000000 0x0 0x0fbf0000>,
+> >                   <0xc3000000 0x40 0x00000000 0x40 0x00000000 0xd 0x00000000>;
+> > 
+> > -- 
+> > 2.34.1
+> > 
+> > 
 
 
--- 
-viresh
