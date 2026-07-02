@@ -1,148 +1,113 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9673EBF0C;
-	Thu,  2 Jul 2026 11:17:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5CF3B442F
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 11:20:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782991065; cv=none; b=eC10vu8P4AzbGQolpTztkNzBkeRII3T6eentp4MFoGhfg4B+Cu6U8jmL4yKjEsBf0gg1tGXSl3A18zVlF9Xbpz0ihZ28CZCUVWVOR7zO4OBa60cob2Pi0V+UAnK86OzhfyQ4lsczMsDqDGWsnel7BWmcfnNc1aMmF/b7aNjIM8Y=
+	t=1782991245; cv=none; b=giPFjGLa/t4qYy0+fuG4i9AHUhGQI1mnn1HFW22fz6TSU0HedzHv1p5Ru0cArXJI2A5IHf7/wSxAIW8aat4Lsgcy4KrbXH9Be6YF21Wxc+IBC5nvk5ZetR12Jhxi3iS+K08aXQu3AZd2hzuBoLsgQdvrriz/VmEnTrPN+C24ALw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782991065; c=relaxed/simple;
-	bh=P3JiAGbDg4lRW35azb1NvvsrWLy/3LSZZpRD/4IX9rc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OoCBxhAXVzScDsehuW1QyC8M2klaSs+Cz7IoYolDzfliKrNTbky5PfCzGIGAQU6yH9luEl4ixKbetBmA3r1zSc8oqePXXCjuL8sbWDnuJ7q6w4VKnYwUZ1aN7N7x0ks70mf7T5waZwKyWpMPn4lKX5S6WeUmKbn9bRcxQQyASS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eWw6GL+D; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1782991245; c=relaxed/simple;
+	bh=Sqw8D9ezrF+3PH75GoDhMjTdZtP6AMaBZDJvAG8uucI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PwL2pbIqL617dZ66eANXHnQji7Vypkozhf2kggG8hERrCYPiP4PB3RGV3yEL+hJU9J/ga09UNV104gZ8SiR66uX3gll8Z+QturBpBEcdeIc8S2fmpq/BbXV6d2SYtym8oqIgOrvJXES+07t/GlLSbQs5TG82MjrTxON7FZsEIwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XrCTKMKS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eWw6GL+D"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 662AK89c3591746;
-	Thu, 2 Jul 2026 11:17:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kiBxJJmXOECFdmxongIy/JqOSdBSDGfMbux3k8lSCMQ=; b=eWw6GL+D2iBh7Oi0
-	+Vufi25nmSu3jbeOI9pDG/BiQeaHY6X7BNrHTQNRO4nIG1/o9yKr/wMrK/nTU+yP
-	/MlCpF+RUuzKOSzw1mR9otZfKpCm9nCATPsLyCTQuNfTiWrTyu01dSt/TQEnTsO8
-	8xkQPtylv9Rzsa2Qd0hagreKKjuT+PzDcFKw95M8gbupGZ8CDdX8dyLyrgxJJiWq
-	TelSIURA1jB7PJ+8ROToR3KquI+tlRAuwXXy751DnkE5mtoPCxmWQ9Oc4yn/TfPp
-	Prt7QPWxyuIjhqqktQbcvuXdmr+xTlKzZYWKHWBuLiEf3edu1BEf8oQenII3KDzm
-	DqUSYw==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5h7n9e13-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 11:17:42 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 662BHckS003320;
-	Thu, 2 Jul 2026 11:17:38 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4f27kkrtnv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 11:17:38 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 662BHcnc003312;
-	Thu, 2 Jul 2026 11:17:38 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 662BHc60003310
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 11:17:38 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id B6225B2A; Thu,  2 Jul 2026 16:47:37 +0530 (+0530)
-Date: Thu, 2 Jul 2026 16:47:37 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
-Subject: Re: [PATCH 0/2] qcom_battmgr: Add batteryless DC-adapter MAINS
- support
-Message-ID: <20260702111737.2qtjcfskulav4usd@hu-kotarake-hyd.qualcomm.com>
-References: <20260518-add_dc_in_support-v1-0-31fbaa329879@oss.qualcomm.com>
- <56a54a34-1040-44ae-92e2-ce65a3d3acb5@oss.qualcomm.com>
- <20260519065938.4i5wot72pfxy4m3d@hu-kotarake-hyd.qualcomm.com>
- <ag-NLvh4ROgTCs_L@baldur>
- <d4001407-cdb0-48ee-a138-87c94b5dab01@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XrCTKMKS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6585A1F000E9;
+	Thu,  2 Jul 2026 11:20:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782991244;
+	bh=rDVpU5hVsxexcZEb9VIKROWXnzpTkE7Yf2aGGMorG3Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XrCTKMKS75Xk3ZnhY+DNB+xxBOcxq3xANCot0zdyG/9Ie5AKRnBlxFy0VfRidG+UM
+	 mMXuXiBfcgS4uvpI16UkVg2y/YYcgOIND+pAa0w0fydKK8BFvsBPn/lnxyBfhvKTO7
+	 8Qhd+AnY6sXdW5RGG3RZdFfCwKHwzlJkJEgsLBC1f2FHsNe8jp8mVrRdK6GkxekJyl
+	 4JEwqvBHzDZdH7zuoBoRnfAzehmDlIIr00pCn7BZxLajqu1bKJbdH3C/92WsmsgTIp
+	 dzLdftl6ME9zPIxFnlnZHNF4TJ9WpqO+Nx32MhXS0M/RJIz4NuejbryBWel5WJ9Vaa
+	 0+JeVtaM107sw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 5/5] arm64: dts: qcom: sm8650-hdk: add SPMI ADC
+ channels and thermal nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260702-topic-sm8x50-adc5-gen3-v5-5-8169953634ad@linaro.org>
+References: <20260702-topic-sm8x50-adc5-gen3-v5-0-8169953634ad@linaro.org>
+ <20260702-topic-sm8x50-adc5-gen3-v5-5-8169953634ad@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 11:20:42 +0000
+Message-Id: <20260702112043.6585A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d4001407-cdb0-48ee-a138-87c94b5dab01@oss.qualcomm.com>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDExNyBTYWx0ZWRfXyYByk+sXxYPn
- XT9LQIh7icAdsb8HhZpxyoND/X7iKG0kJdcHbzdRIq9wj7ajawAm9RarCr88Hlq3WZ2SjzZl7dC
- DBTVCtT9A0UYCClokuEG9r9rE5MVzNZU+b81+f1L1H6/bB30TC8D1FXYBtCCMq+vtEGj9QLicRP
- dbmIR4oMG1lN3W4dYKQDLgP0c92NzMz0qfPOGYZgONr6wJaGlzUXbGM8fU+iopOuGlWqj0JEDWI
- 3EvKujCyueZsroHKGeSm1SFwPfgrN2+1xHMXaEoxeQbDCs++tCz+dVpliv7aQX9yWLOcT7Ks4H/
- /9wIgvPw4d7KENLkxklQnyU7q/xagjUqsPlE0Kqr35/IsuktQR5f73vGb1xPRoU1Kz97tDke0nZ
- 1wCs9cqs6VQhDjE75vVGPo8xFIfDPnWaH+Db2eqb/e33uLEIXJvtHTNN8K4PSEcioVlWvmzzwrT
- PlbSGjo/xE6alz8upMg==
-X-Proofpoint-ORIG-GUID: rZErlqHlfuQnaVqnt9nPvJ5yjAf5z3eP
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDExNyBTYWx0ZWRfX1GVxP672Bijo
- tZjQVpOpzgw7XcJoO8A24o9I9LxgkONMiumEYPvy9ZUvpo04WZ2LdKv7M/PrcOOiIyKiOTcHWkN
- OBMB+0pO4sPMC9pM0LiN5hdl4Jp6hho=
-X-Proofpoint-GUID: rZErlqHlfuQnaVqnt9nPvJ5yjAf5z3eP
-X-Authority-Analysis: v=2.4 cv=WMBPmHsR c=1 sm=1 tr=0 ts=6a4648d6 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=ikGL0yQhr-kLhHwnVnYA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 adultscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020117
 
-On Tue, Jun 30, 2026 at 04:16:13PM +0200, Konrad Dybcio wrote:
-> On 5/22/26 12:56 AM, Bjorn Andersson wrote:
-> > On Tue, May 19, 2026 at 12:29:38PM +0530, Rakesh Kota wrote:
-> >> On Mon, May 18, 2026 at 04:36:32PM +0200, Konrad Dybcio wrote:
-> >>> On 5/18/26 3:49 PM, Rakesh Kota wrote:
-> >>>> On batteryless boards powered by 12V DC adapters, registering the
-> >>>> power supply as BATTERY causes userspace to incorrectly trigger
-> >>>> battery power-saving sequences.
-> >>>
-> >>> Does battman really offer no way of differentiating whether a battery
-> >>> is *actually* present in such cases?
-> >>>
-> >>> What boards are affected?
-> >>>
-> >> Currently, batteryless support is only implemented for the
-> >> qcs6490-rb3gen2(Kodiak) board.
-> >>
-> > 
-> > What do you mean?
-> > 
-> > Are you saying that the pmic_glink firmware in Kodiak has a one-off hack
-> > that no other implementation of this firmware has?
-> > 
-> > My Lenovo IdeaCentre (hamoa) doesn't have battery, what should I do now?
-> 
-> I was going through my inbox.
-> This remains unanswered, and I don't see the discussion progressing
-> without resolving this.
->
-To clarify — there is no platform-side hack involved. The Kodiak board
-has a batteryless variant, but the pmic_glink firmware provides no way
-to distinguish whether a battery is physically present or not. Since
-this can't be determined from firmware, we introduced a DT-based
-property to describe the hardware configuration explicitly.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] Device tree compilation fails due to a missing header file and synt=
+ax errors from undefined parameterized macros.
+- [Low] The unit address for the `pm8550ve_die_temp` channel node incorrect=
+ly diverges from its evaluated `reg` property value.
+--
 
-This is not Kodiak-specific — any batteryless board, including hamoa,
-can use the same DT property to avoid incorrect BATTERY registration
+commit 566210e29c0d3e21f9b57c08b13ab044688d190b
+Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-regards
-Rakesh Kota
+arm64: dts: qcom: sm8650-hdk: add SPMI ADC channels and thermal nodes
+   =20
+Add the SPMI ADC channels on the PMK8550 SPMI5 ADC3 for the other PMICS on
+the system. The thermal nodes are sorted by the sensor channel to be
+coherent with the system thermal nodes ordering.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts b/arch/arm64/boot/dt=
+s/qcom/sm8650-hdk.dts
+> index eabc828c05b4c..3a4a27e528c5f 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
+> @@ -220,6 +220,92 @@ platform {
+>  		};
+>  	};
+> =20
+> +	thermal-zones {
+> +		skin-thermal {
+> +			thermal-sensors =3D <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
+
+[Severity: Low]
+Does this device tree compile successfully with these changes? It appears
+parameterized macros like ADC5_GEN3_AMUX1_THM_100K_PU(1) are being used
+here, as well as ADC5_GEN3_DIE_TEMP(1) later in the patch, without their
+definitions being included.
+
+Could this file be missing a header inclusion (such as qcom-adc5-gen3.h)
+that would prevent a compilation failure during make dtbs?
+
+[ ... ]
+
+> +	/* PM8550VS_E Channel nodes */
+> +	channel@403 {
+> +		reg =3D <ADC5_GEN3_DIE_TEMP(4)>;
+> +		label =3D "pm8550vs_e_die_temp";
+> +		qcom,pre-scaling =3D <1 1>;
+> +	};
+> +
+> +	/* PM8550VE Channel nodes */
+> +	channel@503 {
+> +		reg =3D <ADC5_GEN3_DIE_TEMP(PMK8550VE_SID)>;
+
+[Severity: Low]
+Does this unit address match the evaluated reg property?
+
+If PMK8550VE_SID evaluates to 8 on this board, the reg property resolves
+to 0x803 instead of 0x503. This mismatch would trigger a unit_address_vs_reg
+warning during dtbs_check validation.
+
+> +		label =3D "pm8550ve_die_temp";
+> +		qcom,pre-scaling =3D <1 1>;
+> +	};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-topic-sm8x=
+50-adc5-gen3-v5-0-8169953634ad@linaro.org?part=3D5
