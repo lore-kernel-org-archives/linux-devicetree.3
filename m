@@ -1,67 +1,66 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E4FE4189A8
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 08:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2BA41C30A
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 08:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782979848; cv=none; b=oWyeCg2nxzW2wXW2XO+6FouVp7Q+LrUxezif4R3DvgNUoA/peDJIy03qtOju8Fhi0pNHR3YA1YbIERCDYlzD9XfM8jqkPNJ3hk244GGH1ZYMZPLMf21GLTHxfkyPwtbpnRiHKd58BEB7sT9noxxsR8VakPh8my++rGmtoeYDpZs=
+	t=1782979851; cv=none; b=e4tP4Y0Hf1zL7WSEHwaFXEQtZdlps8X3Llaf51b91ZZtD/oNdUlS3b7zL5G1VwXftkKcO6eg9IYJGkoiwvD65YY/TNi7NEHKlPbO0cHmjlbFMxzp7OT+G0yZpcTZcjXKQyn54NTS5RLZTX+cQ1y7QwDRpTpHrjvibduwj8+E8LY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782979848; c=relaxed/simple;
-	bh=0RrokHtYa2cUv4xV/HjfdQdge3X2ED1AmM/T8cwvnI4=;
+	s=arc-20240116; t=1782979851; c=relaxed/simple;
+	bh=CzBUXV7sOVhx3D4ZGCj9tufXm0ii5Jrd89A5CtNYTv4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jPRd8c53kF8qaLPwEsij1P0Gq8y7jxUb7A/IvsaN0PinNdSoeU4sBeCpbtoFdkBj/WyxPptqJUm4L4LHehddhovMnB8jWBNogvh4uAQ0p3PDpitw74++K1a55xCS3V7uQnFGIypEJ7E2qVS1RciY0+L9C2NguFpxqLj3g4X/S4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Z+AyNf5l; arc=none smtp.client-ip=209.85.221.52
+	 In-Reply-To:To:Cc; b=dSztvqWc3aHaPLdCP5jkyVhlAavWPtFe4Jic5Fw+kKRrwbmorXSJ4UhKYKXsWWTTvwAF1oTjjIbS2+HlvgmzlqTumCbxhz/ICEYGB9Fh1zGHrqwr2nwGYZbCwqVHjjYmW8G3Sm81EuDdMqdeOJtAQYZtls9ruxtnc5BhRgvP6m0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=nQlvWCLE; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Z+AyNf5l"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-46ed4f66256so1283308f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 01:10:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="nQlvWCLE"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-474e7ba9fd6so853810f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 01:10:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782979846; x=1783584646; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1782979848; x=1783584648; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=TYGMlfq+GfXXzZc3hVZ9rsCaJpaLl9f+A3Em9EwRMIA=;
-        b=Z+AyNf5lEUjIOh2cv5/Dz1beFEy7GWCRBmOAvqlTdtWQIovBobDWjO8141bekwTJYO
-         VUbTORa/7csr/q4Xc4KGsCsRWYxicgYrpWiV4Q7sieCfp8nM4qpqRJlgoPLpQXjpZAZ0
-         A3dA1oCGu44CjliJB3uuifKdKPviGySsQp0Uj4DI+YC1ufg+XaGNtj7vgH3uS0Yg3Li1
-         GzRs6A1yoOojXaSSeqBlBvqDPfjIkm3ghMF803odZO8vZr9XvJPgVQQZ2wz5fyUEongq
-         nfGO+ihuvhbb8VlYBxtZ2yHTQOipfzPZBs5sYGcwoS+6IGiqOYmgcab0UpXH43+qXjbs
-         rjcw==
+        bh=XOiiEpGpIC5lxOzEa7sAsZH1/Y83nzXYTBPvtikqmXw=;
+        b=nQlvWCLEPlHDW/pUxu38mncdVLzDn6n9Pv/pyUqEW2loAADwDYlLTS82eya7dv1b0F
+         1LnxN43oXYC5ygOn/YdX+f1VALXJo2k8QQf2WnUfz0JxbbfoxV1xJFQU/iAhMe7d9gEB
+         LgwIw3clh1kJtsrcGsgCa3P91j4zQeOy8+IOWJYbQIXUSLID6BgyAIrMDLa9Ikk+Tnvo
+         Kjl/KqhHnZ9OnHhLRTgIlKvXKrKzfsrs97AncHGtOmRqxCs5gbngLjrvPNE9Z8Pi9V7R
+         azaccBga62+15UXUarzY3RkAqFz4BwYqLUhZjp5CWwOZgyflyYt0P16b6IiiFOh1bYoF
+         zqpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782979846; x=1783584646;
+        d=1e100.net; s=20251104; t=1782979848; x=1783584648;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=TYGMlfq+GfXXzZc3hVZ9rsCaJpaLl9f+A3Em9EwRMIA=;
-        b=oufQCu0k1EUriXGNMdKCmMz2nvHpgQwJonTLg23B5fpVYfvDjuABHyGbc/HxwhIHha
-         etDHA8dO5WrVl3zeN1TYITVfTSWhCv3YBPWjsU730Vlc5hcM97kGtTOY7xGmQEjv8Pfn
-         ecL9DwRocm5E5Mf8QoH1s5gMncCu1X6LGaMyjddnn8TXqh07FH0FEDq35GDjvXk1Qaee
-         V+1Py3GuwTEUOcDzO9SMi6OB8lytIfnUJ08uyztWt2nqaLytponNJkztZrTEZu2nN5Eb
-         WF9nORcKOU01JZ3Lf1SA1FCtsVftFJbIZBcWKpp0aWn6ZXRX+qdjKNO2t1eExiRFg2P5
-         EVQw==
-X-Forwarded-Encrypted: i=1; AHgh+RroRhIKPWhyaihNxuXbQGP5a0tSneguaPsMkU6MOFw4YjXg8BJK6jjEiCh7fPqGt+vhNJ4vYMF1kJqr@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTWw6H7dZkZbI3PFKHUbvw4l82OcMRu9mViqr9JxnlI8G7FZHG
-	+L3UGQu52zUort/502PD7uhuPQegjKVHC1SZdrfqSnOULBIAXaKEEZ1AvKWyzFom7+E=
-X-Gm-Gg: AfdE7ckF8oE4rG2gktVFEeRF0YUsQj77TmiF7QsRPkFPEm/tuU51FoSkAFag2f1Rzmm
-	o28dmrNkYTOotXVDXLYnpK+wYbGhqO0MjJyJhfq5b/eWRQvOC0AtNLWz5c1tdxwIkQ0m4tU/f6Z
-	NrYf0g/cj3AdeZWeqPSZmgWVW3jbJ2iL5MtcBjlrdfnjZ86+t2LOM0VEVOLANDAprRhY4sf8j6N
-	HlVw3zKTqlKE4lE6SgWIRBcmIVdUvf2NMOX09Plf2HT18BEbXY25z1jmm9bIJLnwHwq3Fjv0BQX
-	TVpGMbIOZkNJcOxTgZdHzkLIGVSi6d4eyfJKdCEkvi7pesKeuQVPN1uMu73BAdzftrdez3TNt2z
-	rZFKsdWCIza5RZ7wyeuWDH88+uNL6GYj3QxZiqPTX2SLv7AoySfJC+mq6I6yKTCZYcPdDPewFrA
-	JMgebJLNtgGhzVfdcQ/No27A==
-X-Received: by 2002:a05:6000:601:b0:475:c578:b619 with SMTP id ffacd0b85a97d-4775bd0ecf9mr6698699f8f.30.1782979845774;
-        Thu, 02 Jul 2026 01:10:45 -0700 (PDT)
+        bh=XOiiEpGpIC5lxOzEa7sAsZH1/Y83nzXYTBPvtikqmXw=;
+        b=iW/vHrRtYuHrrmABFUphApN+rBNP1Z7anwj2vcsjxtd+Ap3pPxd6sZcHXilh015Gob
+         6OY1mWZ3MzASCGNB6lI63mg6zEL3sufGezCoPjvIKPY/HbnmOHXc9rPQnl6iGUOd5/jX
+         KvX8WvRMg23G9m+BQnfJV3etjYv98oODAXgMXlds09JYrfFZHfNxnFDGG8qQcG9VYw5A
+         W7maBMxpad1tjhzJxOHnSrofCJR90McwqfZMwa9x7rF5Wet5XznrXz03nvmqgCffTGDM
+         DOv9ulZ94vA4xrRbiru1HpxdXx/l37uZnBNv1EYkm5ockIJgMbDbbsHe/b8dUuwET+KZ
+         w0fQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrUQ2XqSu3CbzQnHDMKhiKnJ3x5v8Xs74QYs+MxLjFYR7HbL1SMQ9GoTndjJgBCLqfJn1P9QoAY91CA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7TsCbBM9//7YxqVQaSNf6roeZ5Oh+VgQgwTX699/Oq9V5wTC8
+	9fQi1uL4S1kkDZK2VF1gp3xrgBF/IHoF/psYaJQoDfUGdS4r2SkqcZ92NFOggt0KLN0=
+X-Gm-Gg: AfdE7cmXeP+zTdjG4UQ2jSae2HhbekHlfpj6aSLYVWwWDHLcSg3S1X4KSAfgdmQ440e
+	ImPotkmTwkXUAH66HLSgbSgizLLHK9Qx/AGdwpkapufmEoV8M8m3SKr25LMkQ7g/g5Up6lq84Es
+	P6ILhOTZSCfKN/bjedUCNO9jrNXcKr+A8FSEZdyBVgvUxpIqtHcQvuZKWBvwcg7uWGOk3o76xOh
+	9iwQVBSl3HJ5eQEk9dxCaKO88qbALLX5qYu0qk6rxQFL3eLI4HO/TTDu180eRUDkr98iD5FtRrT
+	Dbm8sFOGoQ7b3tM6BeEIKlX5iIT9AwfRArohP8WvwCLnhAW821CK4qed4gRGGLcBOqCIXw+hGm0
+	fY7g2dPw1j5a4FQj5wh1CtCcP7Ma2eYQRyiDy2JuHR9yPmxDHuLF4EX3zMXPFZAM34RX+DiPx89
+	t6jDhA7ETz3sw=
+X-Received: by 2002:a05:6000:18a4:b0:465:ba53:a006 with SMTP id ffacd0b85a97d-477588e7d03mr7472094f8f.23.1782979847883;
+        Thu, 02 Jul 2026 01:10:47 -0700 (PDT)
 Received: from localhost ([2a01:e0a:3c5:5fb1:2e3a:7dcd:d2a4:6556])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-477de3dd46asm6536252f8f.36.2026.07.02.01.10.45
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-477dd94c829sm6374826f8f.24.2026.07.02.01.10.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 01:10:45 -0700 (PDT)
+        Thu, 02 Jul 2026 01:10:47 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 02 Jul 2026 10:10:00 +0200
-Subject: [PATCH v3 1/8] dt-bindings: rtc: sun6i: no clock-output-names on
- h616/r329
+Date: Thu, 02 Jul 2026 10:10:01 +0200
+Subject: [PATCH v3 2/8] dt-bindings: rtc: sun6i: add sun60i-a733 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +69,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-a733-rtc-v3-1-eb2580374de6@baylibre.com>
+Message-Id: <20260702-a733-rtc-v3-2-eb2580374de6@baylibre.com>
 References: <20260702-a733-rtc-v3-0-eb2580374de6@baylibre.com>
 In-Reply-To: <20260702-a733-rtc-v3-0-eb2580374de6@baylibre.com>
 To: Junhui Liu <junhui.liu@pigmoral.tech>, 
@@ -84,58 +83,60 @@ To: Junhui Liu <junhui.liu@pigmoral.tech>,
 Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
  linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>
+ Jerome Brunet <jbrunet@baylibre.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1184; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=0RrokHtYa2cUv4xV/HjfdQdge3X2ED1AmM/T8cwvnI4=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqRhz2fMF2sbd/orrOrcVKsxCiTA6ndgnw6zaG9
- gF/0t0uH8eJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCakYc9gAKCRDm/A8cN/La
- hZHKD/9Ta2ZnK32lHMVoKaep+EmFCig9bncFhk9h9fFDao10aAE8gADLH1+PGGugqeUWMjQqMEm
- AC+KCbuiAbunDWvJy7SFsEIg24VljmT1jCYsb1Pb2zIcNCvmIevcWSEG1mHYPZFLVvtNC0FGaE4
- U8dfpLU8EVw4V9CYpYOHJL5h+m7OQuj3XmhOCrt9m9h5AQ3bJ0CjHhZ9G7vnXcmI075jZl9PctP
- nhj1RCC+Fn9VPOEGBdBuM/ck8l6KKzu64UCJ67YTWch2/STBZMvdhjhLpr7JQgOih9K7ZQbX3QC
- b0Re9Wxuy6HqmKb+cCBASAuFEnOUEXW8ErKD9/GDdH7KIKcZy8PNlgrtcbicP31Rx8EDCme0ndR
- TzuPFzT6iuVJ4+WyIJHLwypT4Q/VKl/3iOrB6EJ07PC81E4GSHAvUQ1xhAYs7HuTUMjviDnu4lG
- iHRlgi9rKfnXjQRwH4ZMI7cd4oF4w24b0bZW4gdb023lqmtml5TVHGw51QgShFWaNYsIaNV33Rf
- b4h7ldNt1wZrf2lynVLBMs4iVD+Z8k8902KQ5sNQpgwpxFxWqmBYsHjN71NSY4OCh9gTk/GKT2+
- WFefYnLwMEdOO6L4A3LXeoY/1UCryjYoOPm7YzQz/2FB9t+z8CHv015xBiQZkqVtedcPcujP+a2
- xRBrmiLz4T9INZw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1439; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=CzBUXV7sOVhx3D4ZGCj9tufXm0ii5Jrd89A5CtNYTv4=;
+ b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqRhz3c3Z+CDWtJbpQmgihyGCywyiqoUE3JkQyt
+ 6xSTIHXDA6JAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCakYc9wAKCRDm/A8cN/La
+ hev+D/9qqaYp4+SX4EN+QRwhZL9SKx/Rjuxo5TLCmPxSfNWP/r82A0hPjW8lkiXBaHr0JFpStVl
+ jzHLZcQ93NroFjk9JyixfEnW2GKdPE/DADdhVBQBRnB8rwQxJHJWFuWFL6JrbU1MW9Wj48laRaa
+ 6cmou7Koc4vN+e9OClHXcB+Nw8NQ1okWbDUzwmbsZfMypkIyQnIPsvc/HX4u5tsUDCfVbU3x8+n
+ iyPB2URXAHkgLi2muc2ZWr2FTnuSYE7rFOjsax5ymg7+CQzHWLED0nz8JFxqd2BaraF+Qeg95T/
+ +fCm1g8Rjb4/vkW63foqIcmbd4PdtFdq5SPpcG5jWN8PXRcU+PrZ3gng3z2/Yl9+lSZtxJHplnG
+ rM7K78UOnSYxqV0XZb75pVHjQSkgFC1JNOk+XtV3dTi1Oc7o21Twp4ct6qLAeJ5vV+WWYivLCPR
+ t9TGq2qozq7pQPVtqppeCAXrgwi3U4O2bWOu3CYOv3ZJrVvXScRmFujVs8Gr5p1N5y4w2Rf9p/a
+ 3PKVMaOyiM1tf8rUsiCGqyl8HffUlRS/Ih34/QYfrutYr/EJfx7lTzxu6Guntcq93hoEVXn7vsy
+ I69t0vQV7mb0t2d+pLhEXvDPk+OaCQ2lD2nOrPz0aMGgCg8r/ez2P+dYIfEpxKh5fqfbk1zpoqw
+ 3YvXKzSzMXDUKZQ==
 X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
  fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-On h616 and r329 chips, clock output names are never defined through DT and
-are not meant to be. Just disallow the property for those chips.
+Add a new rtc compatible for the sun60i-a733 SoC and new IDs for the
+peripheral oscillator clock gates of this SoC.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: http://lore.kernel.org/r/20260629125305.0DF981F000E9@smtp.kernel.org
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- .../devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml     | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml | 1 +
+ include/dt-bindings/clock/sun6i-rtc.h                              | 4 ++++
+ 2 files changed, 5 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml
-index 9df5cdb6f63f..959a012c626f 100644
+index 959a012c626f..f2b91186ed37 100644
 --- a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml
 +++ b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml
-@@ -175,6 +175,18 @@ allOf:
-         interrupts:
-           minItems: 2
+@@ -33,6 +33,7 @@ properties:
+           - enum:
+               - allwinner,sun20i-d1-rtc
+               - allwinner,sun55i-a523-rtc
++              - allwinner,sun60i-a733-rtc
+           - const: allwinner,sun50i-r329-rtc
  
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - allwinner,sun50i-h616-rtc
-+              - allwinner,sun50i-r329-rtc
-+
-+    then:
-+      properties:
-+        clock-output-names: false
-+
- required:
-   - "#clock-cells"
-   - compatible
+   reg:
+diff --git a/include/dt-bindings/clock/sun6i-rtc.h b/include/dt-bindings/clock/sun6i-rtc.h
+index 3bd3aa3d57ce..5132a393ca4b 100644
+--- a/include/dt-bindings/clock/sun6i-rtc.h
++++ b/include/dt-bindings/clock/sun6i-rtc.h
+@@ -6,5 +6,9 @@
+ #define CLK_OSC32K		0
+ #define CLK_OSC32K_FANOUT	1
+ #define CLK_IOSC		2
++#define CLK_HOSC_UFS		8
++#define CLK_HOSC_HDMI		9
++#define CLK_HOSC_SERDES0	10
++#define CLK_HOSC_SERDES1	11
+ 
+ #endif /* _DT_BINDINGS_CLK_SUN6I_RTC_H_ */
 
 -- 
 2.47.3
