@@ -1,322 +1,125 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012002.outbound.protection.outlook.com [52.101.53.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3587A2DC79F;
-	Thu,  2 Jul 2026 08:58:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782982710; cv=fail; b=AJrVoL5O+xAB+xTOlQrf7fN2sqG+xQZEBjM39MyIgIcX2tab0sD04n/+kfskDCe+gUkcS/RQJJMjSqI3xcD2d73POpopS8a0fxjvNAHeXSOCR/cHkME0avTDd4jpgzvX2NWSqASTZBF6jf4BCygZfiqVd5k0OIQL2NBLH0DZ7MI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782982710; c=relaxed/simple;
-	bh=kIbx0Ga1Fy3REHmsMMqQ7VMgZ0W/cexK94vr0hrwmaU=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=dJppMExFwbZNAujzm1ZdPssrpJ/Oj1fiPceKzXI4q8JwnozE72pOzUET9yNUcCUAGooogzpZgH/58HlG/Nn//j5tawy0II1zKzXvASepyiRZvqu4Q+suKk9FNsgygIGP57hUkVNFR7nDwFkhNzVbixKy4r7Z5Sq9XEW6qrWmub8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=FdibQQlx; arc=fail smtp.client-ip=52.101.53.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4987466B59
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:00:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782982831; cv=none; b=tkkOXQYZ6KMHg4rx4ELOrU1K6wQ9AAhA6W33ALcTgF7zRGdeaSvKtIaA6nOOpscITac637Fizk0+ROOX8X8JfvFMHII1Y3EVZDldoeFdzqlGOnLdHCjkRAswuEMM//Pcdiwl4eUr7+n0TI21HIhXLWKdCX4FQfCt0HpLob+7txE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782982831; c=relaxed/simple;
+	bh=Sbsb6lIL/NE/wDWeCdsOaBLRIRMz/GZlFGrm9hCwqo0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H3PYXDYUWWWzoWoAB0SK35z0f23ehJbvQbjVUVapg3xukJvQmXgyU9ui1hW8hJG8tEcrp5oYgCbY30vMNiCo9onqXmujzoYmvJDbeL9HpVT2Idzggmnhtnl1mdA+vmHNep4jey2tLsvuHlvIcF8ktflyIhoxGMudKCnCKypWS34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G3376acy; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="FdibQQlx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vaXUS94ibkLIJpHpqVZ66oDw1DV/W8toWnDlw5uVk0HYbt/UrDi34zLKSphVcq0SA3Jo2b5zruYB3ePHy6P4PHnYUlkvY3GchlnuTAZI8FX1yEg1dU5G6WsUoOLciAdFUlz7Adw45YOXs//NM4H+iOYpUyv1CVsSCuKrnPyBI98GkqV+Y6+wA2Gk0e5nJKju+KWqpwTp8Ve6ZdbkIu5RYXeRKqVAlA2AQcs1eHkLAeyguitUhvcr7lSU+Yst7mF8j0Qevl0ec+1rLejeR4ZZ5smrubrrPhF/vwN7XAKupQmTbyQ+2KwAmLNE3QYeX7cR/mqht5A8JzOqaUBAcDk66g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QyMAxJvHc6B9t3Y2OVGaJTzCJJBjg2LZRjsBIyEI5+E=;
- b=hWAXDL8RxRsHlJngP4J9rSasWemoNR9pVoMu+g7UsEwJM1v/xTEk4UkjJZDBkQJmegh0mxevN8nIYvovLyh2JtDb2GpTuVnPWPrSM4xLvUjgNet35W6uOy2AdyOMvJQqMvB4sY4q1ZaJbqYp+Zbibbru6TJajoKyjsQ6dx+PKfZENBCqgk7GTP8TykjivhaP+l8VVnuy7fjWU3/NxkR47J366tnuBMQMIDa+x1WauYYt5jYzD8m1vrGKLMYR3UgIQF5ksWTLGeiyoSBU89RF5WRxFmFKVnMMPxu/3xtnh2v1beBj8uFWLKRPbLSuQVktmlL3n2zASy5siZA2iDdHlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QyMAxJvHc6B9t3Y2OVGaJTzCJJBjg2LZRjsBIyEI5+E=;
- b=FdibQQlxJ5sWndDvluNhwFFyv49+UzjbUjQfijAH8/39lHKIsmilH13d4nbqhAI1zi0giOFlwGs2sCGrHjVGJ2gkZr+Z5dda+scDuxwsn8VvByXAhWbMtaAugHFe7VKD7pNSCUiNJVnENwHZZyojGWFYbYP5stQN7+LQIjGtM7gSZ9OkhrilQ/x0Ni4qLrtd53Ucywox/D9v9Z9X54dT83CY48vWvKhmQCwa4D9IfqvscqHMiZ7j04QO9BYsBUQE3WmizFtK6HctiOzXgtUfNn6hXxpdL74TO+SnVxQvtoQtvt8sIoCf7G0Dw/4D63f0UbTNaAK9h6KptabVtTFPWw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM4PR03MB6208.namprd03.prod.outlook.com (2603:10b6:5:39c::19)
- by MW4PR03MB6921.namprd03.prod.outlook.com (2603:10b6:303:1b8::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 2 Jul
- 2026 08:58:19 +0000
-Received: from DM4PR03MB6208.namprd03.prod.outlook.com
- ([fe80::2216:93ef:67b:9e04]) by DM4PR03MB6208.namprd03.prod.outlook.com
- ([fe80::2216:93ef:67b:9e04%3]) with mapi id 15.21.0181.009; Thu, 2 Jul 2026
- 08:58:19 +0000
-Message-ID: <6b7251f7-8231-44a6-a4bc-34e61f0e4669@altera.com>
-Date: Thu, 2 Jul 2026 14:28:09 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/9] dt-bindings: mmc: cdns,sdhci: add SD6HC support
- and PHY properties
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G3376acy"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-45fd464d51fso743662f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:00:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782982828; x=1783587628; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=rf72hkVbbdWwb9P5XxaucOhOUznb7Z4SYShC8Uf5GQw=;
+        b=G3376acycPTbnZfuDjSk0M8RDLdG6GtVf0oWh5IMQ1o5x+NC2DNFZ12bmVvLqEm62D
+         Gw1LlA0oGYpaS6u7oMsKo2Gc7ujs4Amy5cYtqeHaZx1/e2rtu0rCgolhKi99kEpfni6b
+         n5CQKozzL1tojzagABFdiis0ipxWUiY1mPhbU2KyjmPxX4mTVCNkWfjQpq2rfrACVULs
+         auc/L2kTN9/11tKXz+htW+am71Y/ovj2dKp2xbIlmjz53/Byl9XTCxUxJYt73aD0kYfd
+         wU0+HVZHI54zsCPaumHoNGYGOPEanaRp8kWKKFHXBD6XU8WNvYgJEKms2ZEt/de7sjK0
+         uAWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782982828; x=1783587628;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=rf72hkVbbdWwb9P5XxaucOhOUznb7Z4SYShC8Uf5GQw=;
+        b=FQ5LgB5VSWU5KpgO6KTR+d/7j9L0pFKDqia2QDb0a2fPYdX1FdjxWV2hpsKXWSuqHp
+         QjdZuKhuPqpwFWj2rKDsSC/fTukWHkyMCIdPqusvhckLtpbASf0vooKFYzBiwZpc1I9a
+         vDsnL2CddvIbh2l5mrLLirMoPth3wqVU48RTQkFuFj/HUliJ16PPUW/ZB9fGIDb2/tXk
+         CVAQ6TtcaJVF9+RVA+IrBljXQTqqcb6W3MdPY+XuYT8hbi21yhHhRsrAiW3SgF196m5Q
+         rTcFowWhiiSSdPxNrklrCfBPBrOvnZnTKzjEFbVlLLd8E2c2KvWrUuPyyzjP2qF1OMWX
+         06Fg==
+X-Forwarded-Encrypted: i=1; AHgh+RrI3DpP/OWoLImaSuDpvmCDVEvAYneBRmk7aP/qmjWr8HmA281/bL8AvuR5eyVu7MiSEobnejzYP5Dq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7ZYqgerhbzezyVnbpMKeyt06u9FRZWIS1qZlpYVhh9wKPLSm9
+	s1bsZvNrvfD9SrwBuGlkng+LIJtGUDJgXw30+GbOXluBqtPhi9WnW11KqW5ddg9o
+X-Gm-Gg: AfdE7cka9+XIcczZXFJ0YsR0C15jsPbzIWBDlhtXZ8W2o9e/nOy4dM1ZWKoHI3e7/8g
+	c06uHHS3jOK66w2jmgXikZzoqOaR95uRbAKRjrvX9cl4PLtHq0DhdHE/cbPfrdLMLHeH96ilzD+
+	ylr3dXYuou8yvNQzqo1Pcxjia0EgAuCJlQg79rCP3x6lVYhPoK5X+4AZdw7jjNjH0K5G/ACRnKb
+	pu8aK1EChJf6TI3EXQbMNDP/qzlFHXjW7BTPsuvwyb1WAPXpCovvEj5seFno0vOLXj2EM3+p4sE
+	yp9lCO5Ux0sEP1F/yJofZALLC01gBu02l8VuBEW8CrynV8rg6cFUbQdIHRA8/JiGm4yMqvKAse2
+	A33vpbIghI6vwVwmymDD7yA6nH6MhWYBMTGkUYwNAiFKJ2akgNT2LQ5LWEO6y+NgOx1k0hWTUdr
+	CIO3mC9zKRVHU/j21i65cgBLxWc1WILCvyfN9u7y6mCgLpjaV0gl7rLEXnAvKuNWXhSedac2cTH
+	6GUQFhaBCuezRFqXJRYHcn1aGc=
+X-Received: by 2002:a05:6000:2087:b0:475:f100:360c with SMTP id ffacd0b85a97d-4775a6d52d5mr8157295f8f.59.1782982827830;
+        Thu, 02 Jul 2026 02:00:27 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477de3dd46asm6934267f8f.36.2026.07.02.02.00.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 02:00:26 -0700 (PDT)
+Date: Thu, 2 Jul 2026 11:00:24 +0200
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-mmc@vger.kernel.org, ulf.hansson@linaro.org,
- Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Masahiro Yamada <yamada.masahiro@socionext.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260627201457.12318-1-tanmay.kathpalia@altera.com>
- <20260627201457.12318-3-tanmay.kathpalia@altera.com>
- <20260629-elegant-furry-fossa-1fd2ae@quoll>
-Content-Language: en-US
-From: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>
-In-Reply-To: <20260629-elegant-furry-fossa-1fd2ae@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0148.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b9::13) To DM4PR03MB6208.namprd03.prod.outlook.com
- (2603:10b6:5:39c::19)
+Cc: Johannes Berg <johannes@sipsolutions.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>, 
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>, Andrew LaMarche <andrewjlamarche@gmail.com>, 
+	linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, ath12k@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH] dt-bindings: wireless: ath12k: allow calibration variant
+ for WCN7850
+Message-ID: <zglhxxu6txw2xvz4vcyu32v6722hqppcfvntan5ho32ak2y6tw@2mvfuaoxcvss>
+References: <20260701-ath12k-calibration-variant-v1-1-d3eddaabf026@toradex.com>
+ <20260702-beneficial-hopeful-binturong-a0bee9@quoll>
+ <a0cb02e3-0566-4294-b41c-3b156ecda5e0@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR03MB6208:EE_|MW4PR03MB6921:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8c999aa-9a3f-4318-e181-08ded8180f7b
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|3023799007|4143699003|18002099003|56012099006|11063799006|22082099003|55112099003;
-X-Microsoft-Antispam-Message-Info:
-	eN3yof7QZBkvbclQb7qoVJejm2fmvgZ9ID3bSwKT/ggDC3y42CuSVm7eAl8tdMt5KuvdNahJGzJbIcl/RW/96OqVexdp5miOJoijKD8qSGf25H9R0mVnQclVpfiYJZ8KRwViLn/iU/IQ89CaUB9IyhaQG5OAEon/qJuaW9OfG0AXGuHgx0Ss2ZuSwV19ESJSvIbiPzAeEFLFDkse/PknKqzoH1CsoF3pGwPqRA+BJ8tCObyJmpzzH3jKtmH2lK6RtNZYm65htSKRfFJo21WMNEDaYS+clFeF4hksLh5Df96uJKqbfnpvlj1UB2tmzBdsUasioTDMKqVjISp48NcNaqlGjg968W+LPwmtnp1R47Sgg/ujBaCSp+IWUb7LQO2rH9F6dc5Z5HaqL4f7Rfyc2IKjq6alBOoGLsaZSV/modWlaVM9o8NyaAlRnJlBOf+M+5LggSuL6WTOmAeu9oPoxfsCO7DyV956HUPweqCY4BZ2Vghp9QaxhS00mWWJ+uBGk5Rqz43Mo1Frf5rqpWxR/GWd27MXoRAoTmL5mbUO9VThf5j4Qs1AWrHEKwynV0qQZmd/DQ+7oQtKlrML7Am6ocF/vNvd+KriJ+ehPNhNiaccAJaWrhGV8LoiODcdc7O2
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(3023799007)(4143699003)(18002099003)(56012099006)(11063799006)(22082099003)(55112099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Yk9OT3N3VlFYdXpTYWZCZ1BKWnlxV2Z4MWxFL295Q2RnTmpkNFZCbzZxQVRw?=
- =?utf-8?B?blVkTWdhVllsWG45Y3h1ZmVFNXk1RWc0TTJsN2lpK0NBTXFTSkRacHBSZlp1?=
- =?utf-8?B?Rkp0RW85Y1hobCs3N1k2TWsyWittZUtxSzZpYWE3bGpWRHUxU3Zzd0x0K2JG?=
- =?utf-8?B?Q0xwZjZPTk9aaExSbERBVEtMZFpyKzZPazRJZXV3a2VabTNsNTJIL1FvcnIy?=
- =?utf-8?B?NHFLY2Rmck5sK2owUVhxMW5Zc0daVTI3ejRKR0QrcTl3ZEk5NTg0WmJFWGxu?=
- =?utf-8?B?T05xRHpPNmx0WE5FSXhkdjJSODlSdCtaSEJrcDZoVWVXZVNEZ0UwcHY0RU9n?=
- =?utf-8?B?TDZYNEV1dWtCU1FIaFVYYytBMkowekZOeTRHS3BTOGRkSzVQZzNLQWJYazcw?=
- =?utf-8?B?NVowcWdDekExSGZabXJWbXV2MmRpNnFSKzBNS2x0akY3WVEvdTlyS3VKdWNF?=
- =?utf-8?B?NCsweHg2ZGMyazBGZkZIU0YrNVYwdyt6MHJSakU3ZHdKSGJuTDFscGFsWGNY?=
- =?utf-8?B?WUxGVFNxNDVkQ0dHVFFsemFhY0tmTTNDSWJNRGpwWE5xbEZWeURWYWQyZjI0?=
- =?utf-8?B?K0p3NVNrSzlJT3dHdUtXZkl2aEoyQ2ZjaUhGd0N1UGsvS094cjlGMm9hZ0tE?=
- =?utf-8?B?dUlGRk9TTEJVVjZVNmFHOHpCK3dKUTNuSFdiemsrRUoyeTQ1bFZqa2FZK3dF?=
- =?utf-8?B?c0VmVjhsWFo1RDk4UEdBRzZleEllNEtVMnhkZ3M5a0oyQ0RWUXFaNDYrcEpC?=
- =?utf-8?B?MmxsSHVPbEhRQnYwajhxTEp5anpROUMybDNvdXU3a0NIWURtV0hqSEY5Mkhp?=
- =?utf-8?B?QjV6RWNCbmlhMkxpdHZndzRLM0kzWGpxK2VYZGZ2OXYwLzc2dUpyOWdicWhv?=
- =?utf-8?B?UFZtMXRQTWlNRWR3bnN4eDVVL3p4VTV0eHk4SFA1a0ZYYnhrN1RXamRCejQy?=
- =?utf-8?B?VzdyOFQwT0plR1E5akt2Y0tJcEV3bVNXRFA4RFJlK3NKbkgrUGJOVkFkYUMy?=
- =?utf-8?B?dXoxRkF2NlBNa3NpQ0tEcmc0RGRMTXlVVUhKbFBjMGtPY3JDdHNNRzVtTFJr?=
- =?utf-8?B?OW9YWEYyMXk4SE9TTXFVcjhrQVQ0VXRFcXd4QThER3BMbkNiV3dmY1ZyV3Jy?=
- =?utf-8?B?M1lJbUdmMHlwTFZvQjMzM1BpaDdXYTVkWndYWmVXSDJwdEdHM0t3dlAyOWhT?=
- =?utf-8?B?WERUT28vdEd6eFhHOGRiYlMzRFJiT1VUamE1ZlRNcWtaR3FGN1RUdkZYR05Z?=
- =?utf-8?B?Q2kydkI1eDQzeXhWS3FUTmVvcG9PYStubWxJMzlqWVFPQXNia3ZtejJ4T0cy?=
- =?utf-8?B?ZDV2Z1hxb3BsdlRwdXlmNWFjeURYWTVaWTJNWlMyb05ldnc3OXdFendOTG1z?=
- =?utf-8?B?c3VJZFlaOHBJYjcvZ1dkOUQ4WmtzTGd5MFpJT2RMcy9ORFJBT3RYOW1vVWxG?=
- =?utf-8?B?blhrMWF5akgra1FqQ2tzU0tId3hGdEdsWDlCOVVTL2ZLenFXa3VuaVRuUGRa?=
- =?utf-8?B?cGpkeHBwOU1jcHB5Ukg2WGVJc1ZQMVFTN2U4L1hyS0hUSXJoZXZyNVNXVmY0?=
- =?utf-8?B?cWpTRWUxRmZXekpNdk5kZXI2cVovSmIxRG95NE93Uy9PdVJ5bHFzYXJ6NXhS?=
- =?utf-8?B?a01TNkVIdnR0cHc0azNBT2JDWGFzSnhxMnU1UkIzemZ2cnl3UUVGWC9vVlZN?=
- =?utf-8?B?TktQOFBSWkhZRnJDZGdnSE5KWHdKOFpsRmRhbHliak04WG1TWjArM3pDcktZ?=
- =?utf-8?B?RjFhdHJGOGdwbWp4YjBYcWtGekRvS0xqSTFlQ2JoK2VtaUNwT1RydStEQ1dR?=
- =?utf-8?B?d2xPRW4yM0xtdVNLWW05S1ZEOW5nMFgwQzhxbERvK3BaZlhmT056Rys5NjN5?=
- =?utf-8?B?TWIrTU1zTlA3c0dNWlVNS0pPOUtkbjBYOGZBNkdLczRUb3FiVE9OSit4VUM3?=
- =?utf-8?B?NXFvbzRIdC8yL2FCZzFUYXpmdFZwbU9Oc3VUbDBTT1JCckxOM0VzOWNwOVRw?=
- =?utf-8?B?RFRxVjF4RG1XQ2pSVStvT1VVaVlZclprTmJlS1FpeEJ1U1dmUEV1dWVJL0NP?=
- =?utf-8?B?aTgxeS9obU9hM0psREtwd0hEaml5K0QrQ3FuNW8xZldHeU5POEZ2aGtiRjNF?=
- =?utf-8?B?YzdKMEhTQ0d0OFhQa0dGeFVhc1dKbkI5eXVmbXZ1TTJDS2duZVJWdjVEbXkx?=
- =?utf-8?B?NWhvQkE0RmlLVnE1M3d0cjY3cXJ1UWphNnYwOXVzYzVNZ3E2YSt2a2NuY1RQ?=
- =?utf-8?B?VFJIb3pGa25TVTJWZjRqU1A4K2dBWGl2a2R6K3llSWZMUVp3bnc1THJwbVoz?=
- =?utf-8?B?WTEyVi93QkdkZTlpL3dSL3Btc253SWw5MVBKQjhuOG5wdlo0ZCtxMUYyUzBo?=
- =?utf-8?Q?c0U5wbi+TYPWeHBk=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8c999aa-9a3f-4318-e181-08ded8180f7b
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 08:58:19.6828
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ywbz6908Kzo0P06YMhsPZ3i7gJlg0f0aLbmVe4gnquIVloV+fHNQaDwn7qchGHmnLS0QZRTujp9ZWBJMnyZOkY44CfOjKp4UeYPGZlyzn3s=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6921
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a0cb02e3-0566-4294-b41c-3b156ecda5e0@kernel.org>
 
-Hi Krzysztof,
+On Thu, Jul 02, 2026 at 10:29:51AM +0200, Krzysztof Kozlowski wrote:
+> On 02/07/2026 10:27, Krzysztof Kozlowski wrote:
+> > On Wed, Jul 01, 2026 at 05:42:24PM +0200, Ernest Van Hoecke wrote:
+> >> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> >>
+> >> qcom,calibration-variant selects board-specific calibration data for
+> >> systems where the bus and device IDs are not unique.
+> >>
+> >> This is not specific to WSI-capable QCN9274 devices. The WSI binding
+> >> already allows the property, so allow it in the WCN7850 PCI binding too.
+> > 
+> > Why? You need to provide reasons WHY do we want this.
+> > 
 
-Thanks for the review.
+We (Toradex) have SoMs with the SX-PCEBE from Silex, which uses the
+WCN7850. Silex provided multiple board files for this to deal with
+separate regulatory regions. Thus, we need a mechanism to select which
+one to use even though the PCI ID and machines are the same.
 
-On 6/29/2026 12:34 PM, Krzysztof Kozlowski wrote:
-> On Sat, Jun 27, 2026 at 01:14:47PM -0700, Tanmay Kathpalia wrote:
->> Extend the Cadence SDHCI binding to support the sixth-generation SD6HC
->> controller. Add the cdns,sd6hc compatible string with two named clocks
->> (ciu and biu) and three SD6HC-specific PHY timing properties for iocell
->> input/output delay and delay element size.
->>
->> Add the altr,agilex5-sd6hc compatible string with three named reset
->> lines from the Altera HPS Reset Manager. Introduce per-variant
->> constraints so SD6HC and SD4HC each enforce their own clock, reset, and
->> PHY property requirements independently.
-> You just repeated the diff. Instead describe the hardware.
+> >>
+> >> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > 
+> > Where is any user of this?
+> > 
+> 
+> Actually I missed your link in changelog section. I still however do not
+> understand why these are separate. Separate means they are completely
+> independent and thus my question about the user stays.
+> 
+> Best regards,
+> Krzysztof
 
-Ack, I'll update the commit message to describe the SD6HC hardware
-instead of summarizing the changes.
->
->> Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
->> ---
->>   .../devicetree/bindings/mmc/cdns,sdhci.yaml   | 122 ++++++++++++++++--
->>   1 file changed, 111 insertions(+), 11 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
->> index 6c7317d13aa6..edd96e1d2bdc 100644
->> --- a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
->> +++ b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
->> @@ -4,21 +4,29 @@
->>   $id: http://devicetree.org/schemas/mmc/cdns,sdhci.yaml#
->>   $schema: http://devicetree.org/meta-schemas/core.yaml#
->>   
->> -title: Cadence SD/SDIO/eMMC Host Controller (SD4HC)
->> +title: Cadence SD/SDIO/eMMC Host Controller (SD4HC and SD6HC)
->>   
->>   maintainers:
->>     - Masahiro Yamada <yamada.masahiro@socionext.com>
->> +  - Tanmay Kathpalia <tanmay.kathpalia@altera.com>
->>   
->>   properties:
->>     compatible:
->> -    items:
->> -      - enum:
->> -          - amd,pensando-elba-sd4hc
->> -          - microchip,mpfs-sd4hc
->> -          - microchip,pic64gx-sd4hc
->> -          - mobileye,eyeq-sd4hc
->> -          - socionext,uniphier-sd4hc
->> -      - const: cdns,sd4hc
->> +    oneOf:
->> +      - description: Cadence SD4HC controller
-> Drop description, you repeat the fallback compatible, so this is obvious.
+I agree that they could be one patchset and considered replying there,
+but felt it easier to discuss this with the relevant patch already
+attached. As the other binding already validates this property there is
+no real dependency or ordering problem, and I thought this would ease
+review.
 
-I'll remove the redundant descriptions.
->
->> +        items:
->> +          - enum:
->> +              - amd,pensando-elba-sd4hc
->> +              - microchip,mpfs-sd4hc
->> +              - microchip,pic64gx-sd4hc
->> +              - mobileye,eyeq-sd4hc
->> +              - socionext,uniphier-sd4hc
->> +          - const: cdns,sd4hc
->> +      - description: Cadence SD6HC controller
-> Same here
-
-Ack.
-
->
->> +        items:
->> +          - enum:
->> +              - altr,agilex5-sd6hc
->> +          - const: cdns,sd6hc
->>   
->>     reg:
->>       minItems: 1
->> @@ -28,10 +36,12 @@ properties:
->>       maxItems: 1
->>   
->>     clocks:
->> -    maxItems: 1
->> +    minItems: 1
->> +    maxItems: 2
->>   
->>     resets:
->> -    maxItems: 1
->> +    minItems: 1
->> +    maxItems: 3
->>   
->>     # PHY DLL input delays:
->>     # They are used to delay the data valid window, and align the window to
->> @@ -115,6 +125,25 @@ properties:
->>       minimum: 0
->>       maximum: 0x7f
->>   
->> +  # SD6HC PHY timing properties:
->> +  cdns,iocell-input-delay:
-> Use standard unit suffixes from dtschema. I am pretty sure we have
-> picoseconds.
-
-I'll rename these properties to use the standard dtschema unit
-suffixes.
-
->
->> +    description: Input delay across IO cells in picoseconds
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    minimum: 0
->> +    maximum: 20000   # 20 ns
->> +
->> +  cdns,iocell-output-delay:
->> +    description: Output delay across IO cells in picoseconds
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    minimum: 0
->> +    maximum: 20000   # 20 ns
->> +
->> +  cdns,delay-element:
->> +    description: Delay element size in picoseconds
-> None of these are deducible from the compatible? IOW, they differ in
-> each board with the same SoC?
-
-These values are board/platform dependent and are provided by
-the platform integration rather than being fixed by the controller
-compatible.
-
->
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    minimum: 1
->> +    maximum: 1000    # 1 ns
->> +
->>   required:
->>     - compatible
->>     - reg
->> @@ -139,6 +168,77 @@ allOf:
->>           reg:
->>             maxItems: 1
->>   
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: cdns,sd6hc
->> +    then:
->> +      description: SD6HC variant - use IO-cell and delay element properties
->> +      properties:
->> +        clocks:
->> +          minItems: 2
->> +          maxItems: 2
->> +        clock-names:
->> +          items:
->> +            - const: ciu
->> +            - const: biu
-> There is no property like clock-names. Look at the schema/binding.
-
-Ack, I'll fix this.
-
->
->> +        dma-coherent: true
->> +        iommus:
->> +          maxItems: 1a
-> Do not define properties in conditional block, but top level.
-
-I'll move them to the top level as suggested.
-
->
->> +        cdns,phy-input-delay-sd-highspeed: false
->> +        cdns,phy-input-delay-legacy: false
->> +        cdns,phy-input-delay-sd-uhs-sdr12: false
->> +        cdns,phy-input-delay-sd-uhs-sdr25: false
->> +        cdns,phy-input-delay-sd-uhs-sdr50: false
->> +        cdns,phy-input-delay-sd-uhs-ddr50: false
->> +        cdns,phy-input-delay-mmc-highspeed: false
->> +        cdns,phy-input-delay-mmc-ddr: false
->> +        cdns,phy-dll-delay-sdclk: false
->> +        cdns,phy-dll-delay-sdclk-hsmmc: false
->> +        cdns,phy-dll-delay-strobe: false
->> +      required:
->> +        - clock-names
-> All this clearly suggests you should have own binding file.
-
-Agreed. I'll split the SD6HC support into a separate binding
-file and address the above comments in v3.
-
->
+Kind regards,
+Ernest
