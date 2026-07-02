@@ -1,152 +1,288 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D900349AF6
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 17:35:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE16B37A84D
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 17:36:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783013705; cv=none; b=MkGxGDbg0L9rccI3k+ExDMBhG1KrrrTRrayQhW2YgReJwoJo5i3CdlddKrEev3Sufo7KSiXb0ItM9J1O9S51vIWn2Hnkc5lwTGGeA2x1nQuynlZj48/TfBJpg15rpO3Dd6B0VBeaRDmrSzHxmihMKofa9cGZSUXXAg0vPyZFzFw=
+	t=1783013789; cv=none; b=Rux35wR48EEkx3NWpUGyN8YSNEr1XsziOp4E5mOPa19+UeJvK7pI1mkHd+GLFRFdX2iaWC1Md4/f3b4ZrUVXYzknxdJZ/eiPZ2eFMr3WLzkquUcafVGgGv9YiWuT81yTkisOeMxCnfGdNdFAIxVdoi4uXQMmgK8ybRM3XbMOOlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783013705; c=relaxed/simple;
-	bh=hEhWSLr++Q/ZGR1Ejsv0vtyDLrUAeGLaq6Kk+8WBNuU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C+wGJsqZ3KpvM5fHIB2M+NlZZP97OVwPL+66Erk4+GtcQMdobC+XlsNj9gt+T4HIqMOrCyfq8fqHvW55CkjHPLHM0CGeaF2GGz+waZUfUvs4Rt3mrSb3hdNzoPHBHaKqPzl/Tl0DbVzIuP3mvA7CxsXoRXVdEfwAnZduNzF0KKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nQm1+0LQ; arc=none smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783013789; c=relaxed/simple;
+	bh=DzsJDXTEbIZ86VKBJ/JdH9Gsh2BjnVLf9Lc7y+Tk6ok=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rxdcuKAQ1oUaGdq8Ycdsj5pSFIJvLIB5zV6dHbBWKuE+olHxq6aava5cx+8dvQBK4FBqwfJaNZM8mc6cZRTUa5yrOOBJCKqkC54hhLVZzhJgZZs+39WaIjbkSkRzTST9Z9ACLE8uFtdUq4upK+Dwdc+PlZeN8uFQkfacmpecJxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i7x46v7i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nQm1+0LQ"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-92e50979c71so204462885a.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 10:35:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783013703; x=1783618503; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7qJKEGc46A6MaBdapnr1AnlxGbrLJznLMC+lsm+gAYE=;
-        b=nQm1+0LQyM9vEm9n2kCqV1hHLXUq0Suz+isMNUytI1vJ3jpuJtUK/xZBo/CqjkO1lR
-         Ylj7hz28FvAOAaiFEopghyY//q5B5FGxDyXahDIQqgouGXDOmqlruLORcb8co+jy8OAQ
-         DeRYVhLI7qurA8FSsjwcat9N6dmKpKuAw9L1VOt5gRj0E+li5HUi5V4BeIV2Hr4FJifB
-         E6NPX9hKQT9iCrkl2ot2N6x+qgO1B4vQr+G2XHlcPlizBy6NDL7MJ/ltOa+GoBjJOrQH
-         4qrx6Ex8rt/Owk3oGNGFpTqzqdvzOLMSo+jb7SNe8gEUuGugn34LVLDkMUD2hw3pcAw0
-         zWRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783013703; x=1783618503;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=7qJKEGc46A6MaBdapnr1AnlxGbrLJznLMC+lsm+gAYE=;
-        b=bZwgDxX7oxA8I1FelNNufENYawczW5R6sC0ASQysJdLdAhjfKz4U3bWADWNYZJ8q3b
-         0Hq2/E76X60oCx6JMJiJoEuFyY2Qf4Lr3p7+8Zso++PkumsABYQm8xTqc0ruH5ZFDdbj
-         89oAhwLXkoQ5p2xRCbIx7XG5a6UrBr4YC+EV0ndli9byyZzXim6DJsqaUD1610yNjtsa
-         /cccPxXOso3lR8FtAc9lnseUU+AFnW1x5ECzkQRnc4oOGc0c3fmEIXOMLqMHGlh9xbmA
-         E0l44CTPL3Lzz55JszWJiGjpjNjLp98SjiYBfVwkyS/H9zMxsJcl0xSa3VPZjrbbUB2m
-         8U1A==
-X-Forwarded-Encrypted: i=1; AFNElJ+G9XMZIWjiW08J8AHKqwWEIjTPQ6LZHPTWmYo0BXmQoGLsA7TZ0sSezM1KCjnygnG2QSHIqUJKPfKZ@vger.kernel.org
-X-Gm-Message-State: AOJu0YweknkfqPwiLfFu+D+xmyVFz364QBpnqvXCxbP0uLfOUAC5h0zD
-	B5WD13Xr1YpzkBWrKG+TA1/YWJ0it3RPLk35YvUbenOf3LaGFdH/gQm9
-X-Gm-Gg: AfdE7cndvWasEqPRyCmoh30SHJ8gDdGTOjPZN+7l/XPSZhUaD/P8XCNOKbvE5RZco/S
-	5zSaP4BMJmbfRTvXp6xzWGxILRGr/xDs4q8yhsp9Ms5X0lGW23je0FCoUnYP6mT20WEffQYTSTE
-	K4USBSOiiyqqTpKRKr09i4pQFdIQvwS+8j+ykdvm7fO8TZlJ8DR7nVc3Bm0sMLW0nYWGrntttrz
-	SXlAzZk52MW4BMgA/lB+Z/BE+lgJ61wi7xE3yZixRRcJ1RAZUjxCj7WoK6VfphHjy2hxWHsjyAD
-	dXYpUFoqkM+P+jw58L9l/+yzuK6Pgfiocs2ifFcIxd3ylf8f1HtA+4l2OYVryXgYmpF8zSf3U/C
-	ZDEO/SqgA+OCkA4mJRmXl3i+azhSgXIlvbdPO/4otYRWeiuav03y7VwB3zZTDRNqaNMjZdUrcnK
-	CXmy4HjntMod2FTYsz8wzIu3uP1BisEeCfkBTq68DeWg1Dodnxd3HbjL7vAxUB
-X-Received: by 2002:a05:620a:468e:b0:923:8612:f15 with SMTP id af79cd13be357-92e7823fc78mr907524385a.18.1783013698575;
-        Thu, 02 Jul 2026 10:34:58 -0700 (PDT)
-Received: from AMD.home.local (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92e80162220sm268889985a.25.2026.07.02.10.34.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 10:34:58 -0700 (PDT)
-From: Enzo Adriano <enzo.adriano.code@gmail.com>
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Andre Przywara <andre.przywara@arm.com>,
-	Brian Masney <bmasney@redhat.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 7/8] clk: sunxi-ng: a733: Add bus clock gates
-Date: Thu,  2 Jul 2026 13:34:54 -0400
-Message-ID: <20260702173454.855897-1-enzo.adriano.code@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260310-a733-clk-v1-7-36b4e9b24457@pigmoral.tech>
-References: <20260310-a733-clk-v1-7-36b4e9b24457@pigmoral.tech>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i7x46v7i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91B611F000E9;
+	Thu,  2 Jul 2026 17:36:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783013787;
+	bh=AwMMsz/yDH0Itd5k8eeU3efLUdwfmXkR8FJkPrJC2I0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=i7x46v7i038e6PTSUIUbGj1bs04fJvjcGEG0lnxDA69PpipKxg5Ux3vPWLaWf66JO
+	 LVRNiYlEH0mbWXVi8zzi5MzpkWIi4DtxxmKFj9iWB1dUckydT6eDGxB/Tnrwj8nIRz
+	 1kWm4gtXYMxHzCLN9OtsQxTWB5ftHbVI8wiOZFWS0yDVsAm1s5tpbVyGaFydW8GC4/
+	 GHZlkbTqf/4aYtnKq56s5RCXclnbRwHFYsCwpWmKSpApAmHcCWQy/R+vbWzKvJdzFk
+	 ZmI8zu/quEwas0J/VHupOEGoSDDLk/EI2Ew0Zn5ESAhTxmdz8fCA8PI1K/OfJxOMTo
+	 cN/UVVCYshENA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/4] powercap: qcom: Add SPEL powercap driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Manaf Meethalavalappu Pallikunhi" <manaf.pallikunhi@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260702-qcom_spel_driver_upstream-v3-3-434d50f0c5b0@oss.qualcomm.com>
+References: <20260702-qcom_spel_driver_upstream-v3-0-434d50f0c5b0@oss.qualcomm.com>
+ <20260702-qcom_spel_driver_upstream-v3-3-434d50f0c5b0@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 17:36:27 +0000
+Message-Id: <20260702173627.91B611F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Junhui,
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] Calculation of `time_unit` can result in 0 due to integer truncati=
+on, leading to a division-by-zero kernel panic on sysfs writes.
+- [High] The `sp->domains` array containing `struct device` objects is free=
+d prematurely when the SYS domain is unregistered, leading to a Use-After-F=
+ree.
+- [High] Double free of the `sp->domains` array occurs in the `spel_probe` =
+error path.
+- [Medium] Large user inputs for power limits or time windows can silently =
+overflow during translation, bypassing bounds checks.
+- [Low] The driver unconditionally exposes non-functional `POWER_LIMIT1` sy=
+sfs attributes for domains that lack hardware constraints.
+- [Low] Missing `mutex_destroy()` on initialized domain locks during the ea=
+rly error path in `spel_probe()`.
+--
 
-Following Andre's suggestion I went through the bus gates in this patch
-and compared every register offset and bit position against the public
-A733 User Manual V0.92. Findings below; everything not listed matched
-the manual (122 of the 135 gate entries verified clean).
+commit a896bac2c899d892a5883e225ce50e98f4608e61
+Author: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
 
-1) UART1-UART6 gate bits look wrong:
+powercap: qcom: Add SPEL powercap driver
+   =20
+The Qualcomm SoC Power and Electrical Limits (SPEL) provides hardware
+based power monitoring and limiting capabilities for various power
+domains including System, SoC, CPU clusters, GPU, and various other
+subsystems.
 
-> +static SUNXI_CCU_GATE_HWS(bus_uart1_clk, "bus-uart1", apb_uart_hws, 0xe04, BIT(1), 0);
-> +static SUNXI_CCU_GATE_HWS(bus_uart2_clk, "bus-uart2", apb_uart_hws, 0xe08, BIT(2), 0);
-> +static SUNXI_CCU_GATE_HWS(bus_uart3_clk, "bus-uart3", apb_uart_hws, 0xe0c, BIT(3), 0);
-> +static SUNXI_CCU_GATE_HWS(bus_uart4_clk, "bus-uart4", apb_uart_hws, 0xe10, BIT(4), 0);
-> +static SUNXI_CCU_GATE_HWS(bus_uart5_clk, "bus-uart5", apb_uart_hws, 0xe14, BIT(5), 0);
-> +static SUNXI_CCU_GATE_HWS(bus_uart6_clk, "bus-uart6", apb_uart_hws, 0xe18, BIT(6), 0);
+> diff --git a/drivers/powercap/qcom_spel.c b/drivers/powercap/qcom_spel.c
+> new file mode 100644
+> index 0000000000000..e4ddf73903915
+> --- /dev/null
+> +++ b/drivers/powercap/qcom_spel.c
 
-Each UART has its own BGR register, and in every one of them the
-gating bit is bit 0. Manual section 4.1.6.141 (0x0E04 UART1 Bus Gating
-Reset Register): bit 16 "UART1_RST", bits 15:1 reserved ("/"), bit 0
-"UART1_GATING - Gating Clock for UART1, 0: Mask, 1: Pass". Sections
-4.1.6.142-4.1.6.146 have the same layout for UART2-UART6. So these six
-entries should all use BIT(0); as written, enabling any of bus-uart1..6
-sets a reserved bit and the UART clock stays gated. (bus-uart0 at 0xe00
-BIT(0) and the uartN resets at bit 16 all match the manual.)
+[ ... ]
 
-2) SYSDAP gate offset looks wrong:
+> +static u64 spel_unit_xlate(struct spel_domain *sd, enum unit_type type,
+> +			   u64 value, int to_raw)
+> +{
+> +	struct spel_system *sp =3D sd->sp;
+> +	u64 units, scale;
+> +
+> +	switch (type) {
+> +	case POWER_UNIT:
+> +		units =3D sp->power_unit;
+> +		scale =3D 1;
+> +		break;
+> +	case ENERGY_UNIT:
+> +		units =3D sp->energy_unit;
+> +		scale =3D ENERGY_UNIT_SCALE;
+> +		break;
+> +	case TIME_UNIT:
+> +		units =3D sp->time_unit;
+> +		scale =3D 1;
+> +		break;
+> +	default:
+> +		return value;
+> +	}
+> +
+> +	if (to_raw)
+> +		return DIV_ROUND_CLOSEST_ULL(value * scale, units);
 
-> +static SUNXI_CCU_GATE_HWS(bus_sysdap_clk, "bus-sysdap", apb1_hws,
-> +			  0x88c, BIT(0), 0);
+[Severity: High]
+Can the time_unit calculation result in 0?
 
-Manual section 4.1.6.92 puts SYSDAP_BGR_REG at 0x07AC (bit 16
-"SYSDAP_RST", bit 0 "SYSDAP_GATING"), and patch 8/8's reset map already
-uses { 0x7ac, BIT(16) } for RST_BUS_SYSDAP, so the gate here presumably
-wants 0x7ac as well. There is no CCU register at 0x88C in the manual.
+If the hardware register provides a shift >=3D 10, the time_unit calculatio=
+n in
+spel_update_unit() evaluates to 0 due to integer truncation:
 
-3) Gates without a register in the public manual (V0.92) - these could
-use a short provenance note near the entry, as discussed for other IDs:
+	sp->time_unit =3D 1000 / (1 << shift);
 
-  - bus-spi4   (0x0F2C)
-  - bus-sgpio  (0x1064)
-  - bus-lpc    (0x1084)
-  - bus-gmac1  (0x142C)  [same question as the GMAC1 clock IDs]
-  - bus-tcon-lcd2 (0x1514, and the tcon-lcd2 mod clock at 0x1510) - the
-    manual documents only VO0_TCONLCD0 (0x1500/0x1504) and VO0_TCONLCD1
-    (0x1508/0x150C)
-  - mbus-gmac1 (0x05E4 bit 12) - bit 12 is not described in the MBUS
-    Gate Enable Register section
+If units is 0, the DIV_ROUND_CLOSEST_ULL() macro here will perform a divisi=
+on
+by zero, triggering a kernel panic.
 
-The remaining bus/mbus gate entries in this patch all match the manual's
-offsets and bit positions.
+[ ... ]
 
-Thanks,
-Enzo
+> +static int spel_write_pl_data(struct spel_domain *sd, int pl,
+> +			      enum pl_ops_type pl_op, unsigned long long value)
+> +{
+> +	struct spel_system *sp =3D sd->sp;
+> +	void __iomem *reg_addr;
+> +	u64 reg_val, new_val;
+> +	int offset;
+> +
+> +	if (!is_pl_valid(sd, pl))
+> +		return -EINVAL;
+> +
+> +	offset =3D get_pl_ops_offset(sd, pl, pl_op);
+> +	if (offset < 0)
+> +		return offset;
+> +
+> +	guard(mutex)(&sd->lock);
+> +
+> +	reg_addr =3D sp->constraint_base + offset;
+> +	reg_val =3D readl(reg_addr);
+> +
+> +	switch (pl_op) {
+> +	case PL_LIMIT:
+> +		new_val =3D spel_unit_xlate(sd, POWER_UNIT, value, 1);
+> +		if (new_val > FIELD_MAX(POWER_LIMIT_MASK))
+
+[Severity: Medium]
+Could large user inputs silently overflow during translation?
+
+The user-provided 64-bit value via sysfs is passed to spel_unit_xlate(), wh=
+ich
+uses the DIV_ROUND_CLOSEST_ULL() macro. If the user provides a very large
+value, the internal addition of units / 2 within the macro could overflow t=
+he
+64-bit unsigned integer, wrapping around to a small number.
+
+This wrapped value would then pass the FIELD_MAX(POWER_LIMIT_MASK) check,
+converting an intended boundary violation into a near-zero limit that could
+aggressively throttle the hardware domain.
+
+> +			return -EINVAL;
+
+[ ... ]
+
+> +static int spel_release_zone(struct powercap_zone *power_zone)
+> +{
+> +	struct spel_domain *sd =3D power_zone_to_spel_domain(power_zone);
+> +
+> +	/*
+> +	 * Free the domains array when the last zone (SYS domain) is released.
+> +	 * This ensures proper cleanup even if sysfs files are held open during=
+ unbind.
+> +	 */
+> +	if (sd->id =3D=3D SPEL_DOMAIN_SYS) {
+> +		struct spel_domain *domains =3D sd;
+> +
+> +		/* Destroy all mutexes before freeing the domains array */
+> +		for (int i =3D 0; i < ARRAY_SIZE(spel_domain_names); i++)
+> +			mutex_destroy(&domains[i].lock);
+> +
+> +		kfree(domains);
+
+[Severity: High]
+Does this prematurely free the sp->domains array?
+
+The driver allocates all domain device objects in a single contiguous array=
+ and
+frees the entire array when the SYS domain's release callback fires. Howeve=
+r,
+during driver unbind in spel_remove(), unregistering a child domain calls
+device_unregister(), which synchronously drops the child's reference to its
+parent.
+
+This could allow the SYS domain to reach a refcount of 0 and be released,
+freeing the domains array while a child domain's device is still in use
+(e.g., if a user is holding open a sysfs file). When the user later closes =
+the
+file, the core would dereference the freed memory.
+
+> +	}
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static void spel_init_domains(struct spel_system *sp)
+> +{
+> +	unsigned int i;
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(spel_domain_names); i++) {
+> +		struct spel_domain *sd =3D &sp->domains[i];
+> +
+> +		sd->sp =3D sp;
+> +		snprintf(sd->name, SPEL_DOMAIN_NAME_LENGTH, "%s",
+> +			 spel_domain_names[i]);
+> +		sd->id =3D i;
+> +		sd->status_reg =3D sp->node_base + glymur_domain_offsets[i];
+> +
+> +		/* PL1 is always supported (required for powercap registration) */
+> +		sp->limits[i] =3D BIT(POWER_LIMIT1);
+
+[Severity: Low]
+Does this unconditionally expose non-functional POWER_LIMIT1 sysfs attribut=
+es
+for domains that lack hardware constraints?
+
+For domains like IGPU that have no constraint register offsets defined in t=
+he
+constraints array, reading or writing the exposed PL1 sysfs files will fall
+through to get_pl_ops_offset() which returns -EOPNOTSUPP.
+
+> +	}
+> +}
+
+[ ... ]
+
+> +static int spel_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	ret =3D spel_register_powercap(sp);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to register powercap zones\n");
+> +		/*
+> +		 * If SYS zone was registered, err_cleanup inside spel_register_powerc=
+ap
+> +		 * already unregistered all zones and spel_release_zone freed sp->doma=
+ins.
+> +		 * If SYS was never registered (sp->power_zone =3D=3D NULL), free manu=
+ally.
+> +		 */
+> +		if (!sp->power_zone)
+> +			kfree(sp->domains);
+
+[Severity: High]
+Can this result in a double free of the domains array?
+
+If powercap_register_zone() for the SYS domain fails deep within its execut=
+ion
+(such as during device_add()), it internally cleans up, triggering the
+spel_release_zone() callback which executes kfree(domains).
+
+The registration function would return an error and sp->power_zone remains =
+NULL.
+The error handler here checks if (!sp->power_zone) and calls kfree(sp->doma=
+ins)
+again, mistakenly double-freeing the array because it assumes NULL means the
+release callback was never invoked.
+
+[Severity: Low]
+If we free sp->domains here before the devices are registered, do we leak
+the debugging state of the mutexes?
+
+spel_init_system() initializes a mutex for each of the 16 domains. If zone
+registration fails early and we directly free the array, mutex_destroy() is
+never called.
+
+> +		kfree(sp);
+> +		powercap_unregister_control_type(ct);
+> +		return ret;
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-qcom_spel_=
+driver_upstream-v3-0-434d50f0c5b0@oss.qualcomm.com?part=3D3
