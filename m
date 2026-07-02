@@ -1,184 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A520431E5B;
-	Thu,  2 Jul 2026 12:48:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6491480DFD;
+	Thu,  2 Jul 2026 12:55:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782996503; cv=none; b=ajbbU+/h7/kno2qKxpiG+30MIeXtoCUeZqUEHy8uc04ZrilP9wzmpWB8YloiwyH1UKUdNTJynZv5I5hEyfXVa4g80Hs6v/2hronfavFtURq3lQOPrAgrdbu0NII5EsWB8z63oP7r0J0FSAuuvE5TY/+w6d3S6q4mX8auJrwLc/0=
+	t=1782996961; cv=none; b=F73Lhl+LbUdLImUkgbLZfWy6yKS3YPbbBWMCpwEiH52//WQPyCnhC84+67k/yk6IykAmFc9CBKE6xSkUKWowIOnyHeBc6ESJalG57c+gmehxu0lxBWxXzLSf7NHhByAgzGHB6VwQkQHbwvMKuhH5sR6D+w8h/CCqY/9wqeaY+vw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782996503; c=relaxed/simple;
-	bh=g7TjNTM67Xpdul/ROc1W9DFiqNC3L8ojRae16cGX9eo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KVkRqRQc8H7mXJcU2vb8Sb8WPS99Oe+u3rJXQtFLlkZCvNxLLYDfcIhSixTdyonorNYnmzQq1ZtHMCfWkUIgWJl8/KuLsOUypiJ6unjGVfjb8kXAz3U3LZEp6McDqyDQJafBVQL0RfiVjo9dx8RICk0A+DWAeBXTW/1CcGAhRIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j1PnXlC1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782996961; c=relaxed/simple;
+	bh=VVkOx/pl0nqwcqU+UhdGCchizgtqM7Wp70kbPtz82V8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DjMD7WckwdNvDrqo7Zj6BCchJn9la1OyQ29W2i4HAg1ZnyfdNR4KS2u2FmD1XscxlhWW47U89wqzFMECW4bmB/HaNDoCoQiMaX+NB/H/uJKh5OOQp4Atp8opl3zyPkynDoQ+5SCFSk004ax0H4s2snn1NQrbE5apY1Gy56cjO0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=sNQQcxCc; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=dYXGlSoY; arc=none smtp.client-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j1PnXlC1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045D01F000E9;
-	Thu,  2 Jul 2026 12:48:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782996502;
-	bh=IAPEUqxh/3TXXQMx85kkuQrK8pLxgA0XcCdqj5b9bQg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=j1PnXlC1xxT2dlKK4QopmgIPf0DUlJWWIeL1khKclpkfCKByRaDm4HOp+q8dkmYrZ
-	 UBv/8zUDZ5SJ9T7qKHe6sf3SkT9E4pBDG37Q2T588jOw/LsAXDcibIOrE1kGZiu/Dd
-	 h0pbWVkFavOM5DtuYx0Y5afjJ7o1kOvrjYlapcnAMx/kASAIPhvkZb+qO1ACJPZza1
-	 Ri+scmn0Md2Y9t6iJCbJWUw13t2rXzHYO44VErQBMy+243wjh5t0hAv3DDIVaLVQIy
-	 4iHKhsjTQ3Hod+aoUtC6EAOrzvTACT7zdwkU2nsaLoBEEG/UDslasrL/GoeMt+N0Sn
-	 Q31oOuZLkLy/w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 2/9] clk: renesas: r9a09g077: Add SYSC regmap
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, linux-watchdog@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260702123112.161160-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260702123112.161160-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 12:48:21 +0000
-Message-Id: <20260702124822.045D01F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="sNQQcxCc";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="dYXGlSoY"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 10D0D1400112;
+	Thu,  2 Jul 2026 08:55:58 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Thu, 02 Jul 2026 08:55:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm1; t=1782996958; x=1783083358; bh=OI
+	BoTG3m+ZLjVvWVyzuv1s+K0G5DoWBp2QWvVMwCqWE=; b=sNQQcxCc2pmtxX4AZr
+	Qa5rEZJYl/1BdyJru5GdEAiUobApgaXWKF/s59wZt2RdUK8SicgyOPE0/i/3/kNL
+	WDJGCXHnu7DipLXrMYvUMannWmethFDfZ5sTXdGXr30K1M+urSrYD0yWOBZ5Nozi
+	9qzRFvLnasDdbr1AI8K+MqPXsxzPXaLYM5MgU9+Yg/J6TvetAj23JV93SMg4n1zk
+	87XMskQKuTmtnOZy1vc7t598/SVQL6OQXVCfD6eakoFnRQ8rBGBsrfx1X1i7QpBR
+	XYfxzeFyDxytx7D8s4JGkxjScYzpJaeOBggEfpvGHYF+mMRz8izI9c5iSxPalEJl
+	eH2A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1782996958; x=1783083358; bh=OIBoTG3m+ZLjVvWVyzuv1s+K0G5D
+	oWBp2QWvVMwCqWE=; b=dYXGlSoYXf/2qwJ1Ixr3wassZ9PtjalVVl4WJux8kuz+
+	IV7P+xS4UVCW2zu8I0+uFKgs4VuXW6/MKQefUbYTQ4hydsfyflQtXf7AecvsYzvj
+	XbPed21s3EzASFmWlUUnUzMFIiO/kNb8YQ8Gkp0est8WrBeAH78HoCcY9m8j8kZ1
+	sshf+wsB46cInPogdTtS/hCB3H/bahopq+9I/TmUoonOhMJ7Fj6hfroWMQPSEulg
+	iRgknDLcpr0CZTzJImRPtYHjrgZvt39he1Uca8s7VgM2j6MTV4xOgYd1drqGuNn3
+	ok5qtRB98TxSMMg/4+wohaRoilvxKicTNvaX3YeBvw==
+X-ME-Sender: <xms:3V9Gai8JMvaeEu4OLVz7HzaWMCuGcQBZpvFU4O5sKA-y6MJertwQzQ>
+    <xme:3V9GahNhaOBJm_uyIyXw0t4ae8ympgQ2JFKmf_C9iy3Lm7F2v1ZIttm52U1m_4dRR
+    64WE8RkAp28WyskcAJMvuIc03PJ3awF8J81-zaLUs8kvnx4LkTwKKM>
+X-ME-Received: <xmr:3V9Gau2CKMER4o5pY9ehXrgzTDq0Nh055f_T6aSuZAO3vhTw-kg28ib5Wl7Q8inKxP-XLQvkbbIH73sMEYXlyPe2UMm1p5g>
+X-ME-Proxy-Cause: dmFkZTFbZziLa5In7Qp+RN8g7UI3r+GfJ6m4zcwZx7doSFwm/ggeGzJQkqb79Iejdux3G0
+    cK790cskk70AYiKa0MV/ybtH4U5E6tAHR2U0pnhM2abrQXPbfm3YVaRcZ5JNQG6WtEVwoE
+    xiQeQQR3cPsTkZ9kOxFefa0O3ofKJENPQ98cW8HIleMaLTuYLAy5QcNRIoEPcOUoA9FMjo
+    RMk202jaBgb3OluGjMjNLocXq40i+EOAcI3fQGFb1fCro8BOp7Wjf58OI1/wFOJokAmTP9
+    5gHYObiEPUyhdoymF1viytsalIGnB/8I0djTVSHS6DT2LdwH6dBkAcKzNV/hgCrdv6wuFJ
+    z8Rw//5dn/HSQae2k6mu2ta05qSt6zR3NX8itMQwAceDGg7Dysgzr+M8fHY1O1ZtTlJ+m0
+    Jf9ZO1UFCoY94xDdXNQvK2C4o2eAZFSkfwxfNJnzChjHPu2t02FxEJnmkosMQEIMiqcg/P
+    4UedEg6IgWm/pRbBFGZq9PrbUrjThVd4Y/Hbus/WraOGTcpaetVaLoZOBE19QMuWqhow8I
+    Os1vCeUWISuf1bDKgq+ZCR3M+K/n7/v264izMi9nMesJGrhJ3D7DGfQyAhNio2zIf7MRMw
+    WkHSzqI+cxOKAGPQb1j6Ryf49PArJ6WU/S15cOvg3gR91544mbhVDsp19rvQ
+X-ME-Proxy: <xmx:3V9Gaqf4wq3fU-uIPWDi1jO8fdDUkI2Y1yYefY_zSPwWRgQs86D3gg>
+    <xmx:3V9GavYmXQNS99UKJ1gY4a6nvNXhw_pQKw3nfCtd8q-YTL-OwDSU3w>
+    <xmx:3V9GavUYq5rBXqVfr36rsJ8uUavDvesjCAVinhR5ntth9Yenn-sqOA>
+    <xmx:3V9GaiTEzumFa4mvi2BdqIZya24ZShCwFYoZX12WmPSEMg-mT06tdw>
+    <xmx:3l9GaibOXQ3D6CMFRWTtkm-byGMMZK7KdQeP2SJBHOmbUpCXtyqPw8Py>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 2 Jul 2026 08:55:57 -0400 (EDT)
+From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"DavidS. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+Subject: [PATCH net-next v4 0/3] ptp: Add driver for R-Car Gen4 gPTP timer
+Date: Thu,  2 Jul 2026 14:55:22 +0200
+Message-ID: <20260702125525.2230427-1-niklas.soderlund+renesas@ragnatech.se>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Hello,
 
-New issues:
-- [High] Registering a devres-managed regmap with the global syscon_list ca=
-uses a Use-After-Free upon probe failure.
-- [High] Missing of_node_get() before registering the child node with sysco=
-n risks a Use-After-Free of the device node.
-- [Medium] The commit message contradicts the implementation regarding whic=
-h device node the regmap is registered against.
+This series is the first part cleaning up how PTP timer support is
+implemented on R-Car Gen4. Currently there is partial support for it in
+some of the Ethernet devices that can use it, but not all.
 
-Pre-existing issues:
-- [High] Failing to explicitly remove the PM domain provider on probe error=
- leaves a dangling provider pointing to freed memory.
---
+The partial support have been implemented by hacking the gPTP module
+directly into the first Ethernet device driver that used it, RTSN for
+V4H and RSWITCH for S4. This is understandable as earlier R-Car
+generations had a dedicated gPTP timer for each Ethernet device, but on
+Gen4 there is a single system-wide PTP timer shared by all.
 
-commit db570cc0b618206556f7cc6978347f7824aa7f3f
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+The current implementation makes it impossible for other Ethernet
+devices on the platform to use the PTP timer without messing around with
+other Ethernet device drivers.
 
-clk: renesas: r9a09g077: Add SYSC regmap support
+The effort to clean this up starts with this series which adds the
+system-wide gPTP timer as its own driver and device tree node.
 
-Add System Controller (SYSC) regmap support for the RZ/T2H SoC.
+This series will then be followed by work to add proper PTP support to
+the R-Car RAVB Gen4 driver, which currently advertises to user-space it
+supports PTP but which implementation is broken and does not work.
 
-The RZ/T2H SoC features two System Controller (SYSC) blocks that handle
-low-power management and access control. These blocks are defined as child
-nodes within the Clock Pulse Generator (CPG) address space in the device
-tree. Implement support for creating regmaps for these SYSC blocks.
+This will in turn be followed by work to the RTSN and RSWITCH drivers
+will be be switched from its current partial support by mapping the gPTP
+address space directly to instead use this driver.
 
-> Register the regmap using of_syscon_register_regmap() against the CPG
-> device node so that consumers can access SYSC registers via the existing
-> syscon phandle.
+Having both this and RTSN/RSWITCH described and enabled (!) in device
+tree will not work as they will try to use the same memory region. For
+this reason this new solution will only be enabled on platforms
+after all user's of the gPTP clock have moved to only use the new
+centralized timer. But in the interim both devices will be described
+(but not enabled) in the platforms base dtsi file.
 
-[Severity: Medium]
-The commit message states the regmap is registered against the CPG device
-node, but the code actually registers it against the "system-controller"
-child node. Could the commit message be updated to match the implementation?
+For some platforms this is straight forward, such as V4H Sparrow Hawk,
+which only have the RAVB Ethernet interface. This platform currently
+have no users of the PTP timer, but still advertise it supports it. This
+and the soon to be posted RAVB patches solves that.
 
-> Add a sysc_init() callback to the CPG/MSSR core to allow SoC-specific
-> initialization of the SYSC regmap.
->=20
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+As the RAVB patches depends on this series the device tree node for the
+gPTP clock is added in this series but will be enabled and linked to
+consumers in the RAVB gPTP series for platforms where it will not
+conflict with RTSN and RSWITCH. And further enabled as more of this is
+cleaned up.
 
-> diff --git a/drivers/clk/renesas/r9a09g077-cpg.c b/drivers/clk/renesas/r9=
-a09g077-cpg.c
-> index 5640c2035e5a4..33aec2f272df4 100644
-> --- a/drivers/clk/renesas/r9a09g077-cpg.c
-> +++ b/drivers/clk/renesas/r9a09g077-cpg.c
-[ ... ]
-> +static int r9a09g077_sysc_init(struct device *dev)
-> +{
-> +	struct device_node *child, *np =3D dev->of_node;
-> +
-> +	for_each_child_of_node_scoped(np, child) {
-> +		struct regmap_config *regmap_cfg __free(kfree) =3D kzalloc_obj(*regmap=
-_cfg);
-> +		struct r9a09g077_sysc_reg *sysc_reg;
-> +		struct regmap *regmap;
-> +		void __iomem *base;
-> +		char *name;
-> +		u32 index;
-> +		int ret;
-[ ... ]
-> +		regmap =3D devm_regmap_init(dev, &rzt2h_sys_regmap_bus, sysc_reg, regm=
-ap_cfg);
-> +		if (IS_ERR(regmap))
-> +			return PTR_ERR(regmap);
-> +
-> +		ret =3D of_syscon_register_regmap(child, regmap);
+The gPTP driver itself is heavily influence by the existing partial
+support for gPTP in the RTSN and RSWITCH drivers and the Renesas BSP.
 
-[Severity: High]
-If the probe fails on a subsequent step (for instance, during the next loop
-iteration), devres will automatically free the regmap since it was allocated
-using devm_regmap_init().
+Niklas Söderlund (3):
+  dt-bindings: ptp: renesas,rcar-gen4-gptp: Add R-Car Gen4
+  ptp: Add driver for R-Car Gen4
+  arm64: dts: renesas: r8a779g0: Add gPTP node
 
-However, of_syscon_register_regmap() saves the regmap pointer in a permanent
-global list (syscon_list), which has no unregistration mechanism. Does this
-leave a dangling pointer in the global list, leading to a use-after-free on
-subsequent syscon lookups?
+ .../bindings/ptp/renesas,rcar-gen4-gptp.yaml  |  64 +++++
+ MAINTAINERS                                   |   7 +
+ arch/arm64/boot/dts/renesas/r8a779g0.dtsi     |   9 +
+ drivers/ptp/Kconfig                           |  12 +
+ drivers/ptp/Makefile                          |   1 +
+ drivers/ptp/ptp_rcar_gen4.c                   | 232 ++++++++++++++++++
+ 6 files changed, 325 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+ create mode 100644 drivers/ptp/ptp_rcar_gen4.c
 
-[Severity: High]
-Additionally, the child node reference is borrowed by
-for_each_child_of_node_scoped() and will be automatically dropped at the end
-of the loop iteration.
+-- 
+2.55.0
 
-Since of_syscon_register_regmap() internally saves the raw device_node poin=
-ter
-into its global list without incrementing its reference count, could this
-result in a use-after-free of the device node if the device tree node is ev=
-er
-dynamically removed? Should we call of_node_get() before registering it?
-
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> diff --git a/drivers/clk/renesas/renesas-cpg-mssr.c b/drivers/clk/renesas=
-/renesas-cpg-mssr.c
-> index 4ed056b18d31f..a46ea82ed85e0 100644
-> --- a/drivers/clk/renesas/renesas-cpg-mssr.c
-> +++ b/drivers/clk/renesas/renesas-cpg-mssr.c
-> @@ -1415,6 +1415,9 @@ static int __init cpg_mssr_probe(struct platform_de=
-vice *pdev)
-> =20
->  	error =3D cpg_mssr_reset_controller_register(priv);
-> =20
-> +	if (!error && info->sysc_init)
-> +		error =3D info->sysc_init(priv->dev);
-> +
-
-[Severity: High]
-This is a pre-existing issue, but this new error path exposes it more easil=
-y.
-
-Earlier in cpg_mssr_probe(), cpg_mssr_add_clk_domain() adds an OF genpd
-provider. While devres is set up to call pm_genpd_remove(), that function
-refuses to remove domains that still have active OF providers (returning
--EBUSY).
-
-If probe fails here in info->sysc_init(), devres will proceed to free the
-cpg_mssr_clk_domain structure. Because the domain wasn't actually removed
-from the global lists, the active OF provider remains pointing to freed mem=
-ory.
-
-Does the driver need to explicitly call of_genpd_del_provider() on error pa=
-ths
-to prevent this use-after-free?
-
->  reserve_exit:
->  	cpg_mssr_reserved_exit(priv);
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702123112.1611=
-60-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D2
