@@ -1,162 +1,100 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 545191A267;
-	Thu,  2 Jul 2026 05:46:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F59243964;
+	Thu,  2 Jul 2026 05:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782971214; cv=none; b=Ck0Tvyt3Ob2y5iMahcm6ISsuUjBeIlWLtKQNZuBRkXd7F4lfBiEZbSsSd1/oM5DwKeKIR7PZwUeC+fC9dEWeflFbYSP536K5+GFlmCBE1stpl3z6oaxxkCaHtzsjExqwRZle6SIO+b/Qr32IVVfT1pyKBBnSLdetJzl2RUPPsIM=
+	t=1782971312; cv=none; b=bPhZDCjDMFUXHoaSOwxSo0xajpfRKlUsqV6lWOcyjsfOTU6jFzcdhoWf0oWhcGZJmCMxs4SLC1/XHDIf5y2qtQ+OpxFs7blJWEguItay21mCwfLaBOAcG4cxD+jB4W6ivuhFyc3lqa41f9vl9lSEVuc9fQo6kfhdyIjlEtn9Jic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782971214; c=relaxed/simple;
-	bh=2/UPohXtF/RlpLf0bukLvCQ2jrR0nDgq2a/0z8yUTk8=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=hjW1XSm93M0pbnYDUkQqiVhmVpCH8D2wFy2ST0uFxitGP01OeIm1xyM7Q5fdk0KPiHpxkpizIfQ2tBIJG9T/pR0EZ58qgXtC+IaNXlNPGBjrc8kcwNP6SNT0SOLQpFj9APQc1qfAmrtFcXjnGbp3/K2EFuIRgJYKxJKFlpmN9JM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=NAVGcx6T; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="NAVGcx6T"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=Dp5I5nX/cyO1ESS5RZKGaCiXFk+SLn9TG
-	BatcMDF9pk=; b=NAVGcx6TritpuUrFAgClgboDDIZXyo/d+voPXFgu5GYqxTco0
-	SSr2R00dUj83+AH/bz8kL0b+n3lpx1MVlRMdbUZXNUgV8a4S6xTbstbLSIZvmQmt
-	7k+TsgFzcy86oo8gIvI3uUmGdgkZPqFi9SJpFp8K8j/duIkGM3lHnIUSg0=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cUJl+0VqvZYOAA--.14864S2;
-	Thu, 02 Jul 2026 13:47:17 +0800 (CST)
+	s=arc-20240116; t=1782971312; c=relaxed/simple;
+	bh=epT/YAflznsFXfr8QM8Vmu2aErymUyKm6/W0jelkg7I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s/GaKJj8B7Zn+a4JD0n6yvJlm9DfcXbnCEZnt/oLXtQtDtJDmKbve4QsokGP+Qe1bJUKlAFciQR6nCsqwMrbOhISo6IDFnmB3/A1pX7NIe7SPvHIbbHg3tn6vh8+iWYsR5zX1jiTXtkdgaX3veLsaI5AMBsr1e+RN/6/zXqbnsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.93])
+	by APP-03 (Coremail) with SMTP id rQCowAAX_OKV+0VquqinFg--.7549S2;
+	Thu, 02 Jul 2026 13:48:07 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joey Lu <a0987203069@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v2] dt-bindings: display: verisilicon,dc: make resets non-optional
+Date: Thu,  2 Jul 2026 13:48:04 +0800
+Message-ID: <20260702054804.164820-1-zhengxingda@iscas.ac.cn>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 2/2] PCI: ultrarisc: get and enable DP1000 PCIe clocks
-From: Jia Wang <wangjia@ultrarisc.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>, 
- conor+dt@kernel.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
- robh@kernel.org
-In-Reply-To: <20260629060959.7A2201F000E9@smtp.kernel.org>
-References: <20260629-ultrarisc-pci-clk-v1-0-5ea3308fdab3@ultrarisc.com>
- <20260629-ultrarisc-pci-clk-v1-2-5ea3308fdab3@ultrarisc.com>
- <20260629060959.7A2201F000E9@smtp.kernel.org>
-Date: Thu, 02 Jul 2026 13:46:44 +0800
-Message-Id: <178297120412.1082377.7888497236569602999.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782971204; l=3301;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=2/UPohXtF/RlpLf0bukLvCQ2jrR0nDgq2a/0z8yUTk8=;
- b=24+o748ePAtDV33ZqcsxnzBTFNcqLDe9gfflAqw+Q1qYllBaPvj5XfWuSvBY7+F8VKN8wwVyT
- GF6AzGTC26FAdfWeD/MZovdSq9fTuWqksAgkKR7ni9Lp1YSSt7LYqDX
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwA3cUJl+0VqvZYOAA--.14864S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuryDJr43Zr1rJFWkJry5Jwb_yoW5Zw4fp3
-	yUGayFkF1DJrWY9rsav3WrZ3WjvrnIkrZ8AFZrKr12gw1a9r97Gr15W34agF92kr1qkw1q
-	kF4UKa4UAw1jyFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv0b7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l
-	c2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWU
-	twCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5
-	kxhtUUUUU==
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAQEWpF4E0ABwAAsF
+X-CM-TRANSID:rQCowAAX_OKV+0VquqinFg--.7549S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AFyDGFWDuw1xWw1DCF1kGrg_yoW8JFykpF
+	Z3uF47t3W2qr13W3yvqFW0krW3u3Zay3WYgFn2qw1UG3Z8XF45Xw45Kr98W3WDAFZ7ZFW3
+	uFWqkrWYvF1qyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On 2026-06-29 06:09 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] If dw_pcie_resume_noirq() fails, the driver disables the clocks, which will cause a bus fault and kernel crash on the next system suspend when the DWC core attempts to read the DBI registers.
-> --
-> 
-> commit 7bdde7bd97edc4ae25c337b51b52e18bb46e6424
-> Author: Jia Wang <wangjia@ultrarisc.com>
-> 
-> PCI: ultrarisc: get and enable DP1000 PCIe clocks
-> 
-> This commit adds the required core, dbi, and aux clocks for the DP1000 PCIe
-> controller and enables them before initializing the DesignWare host. It also
-> manages the clocks across system suspend and resume.
-> 
-> > diff --git a/drivers/pci/controller/dwc/pcie-ultrarisc.c b/drivers/pci/controller/dwc/pcie-ultrarisc.c
-> > index 6ee661ceff67a..74010a86244e7 100644
-> > --- a/drivers/pci/controller/dwc/pcie-ultrarisc.c
-> > +++ b/drivers/pci/controller/dwc/pcie-ultrarisc.c
-> [ ... ]
-> > @@ -135,16 +174,37 @@ static int ultrarisc_pcie_probe(struct platform_device *pdev)
-> [ ... ]
-> >  static int ultrarisc_pcie_suspend_noirq(struct device *dev)
-> >  {
-> > -	struct dw_pcie *pci = dev_get_drvdata(dev);
-> > +	struct ultrarisc_pcie *ultra = dev_get_drvdata(dev);
-> > +	struct dw_pcie *pci = &ultra->pci;
-> > +	int ret;
-> > +
-> > +	ret = dw_pcie_suspend_noirq(pci);
-> > +	if (ret)
-> > +		return ret;
-> >  
-> > -	return dw_pcie_suspend_noirq(pci);
-> > +	if (pci->suspended)
-> > +		clk_bulk_disable_unprepare(ARRAY_SIZE(ultra->clks), ultra->clks);
-> > +
-> > +	return 0;
-> >  }
-> >  
-> >  static int ultrarisc_pcie_resume_noirq(struct device *dev)
-> >  {
-> > -	struct dw_pcie *pci = dev_get_drvdata(dev);
-> > +	struct ultrarisc_pcie *ultra = dev_get_drvdata(dev);
-> > +	struct dw_pcie *pci = &ultra->pci;
-> > +	int ret;
-> > +
-> > +	if (pci->suspended) {
-> > +		ret = clk_bulk_prepare_enable(ARRAY_SIZE(ultra->clks), ultra->clks);
-> > +		if (ret)
-> > +			return ret;
-> > +	}
-> > +
-> > +	ret = dw_pcie_resume_noirq(pci);
-> > +	if (ret && pci->suspended)
-> > +		clk_bulk_disable_unprepare(ARRAY_SIZE(ultra->clks), ultra->clks);
-> 
-> [Severity: High]
-> Will this cause a kernel crash on the next system suspend if
-> dw_pcie_resume_noirq() fails?
-> 
-> If dw_pcie_resume_noirq() fails (for example, due to a link training
-> timeout), it returns an error but leaves pci->suspended as true. This error
-> path then disables the clocks.
-> 
-> However, the PM core continues and marks the device as resumed. On the next
-> system suspend, ultrarisc_pcie_suspend_noirq() will unconditionally call
-> dw_pcie_suspend_noirq().
-> 
-> Since dw_pcie_suspend_noirq() accesses DBI registers by calling
-> dw_pcie_link_up(), and the clocks were left disabled, does this read
-> trigger a synchronous external abort and crash the kernel?
->
+The only variant supported by the binding now, the DC8200 controller on
+T-Head TH1520, requires three reset lines.
 
-Yes, good catch. If dw_pcie_resume_noirq() fails, pci->suspended remains
-set, so disabling the clocks here can indeed cause problems on a subsequent
-suspend.
+Add the reset properties to the required list to clarify this. The
+in-tree th1520.dtsi file isn't affected by this change because the reset
+lines are already populated there.
 
-I'll fix this in v2 by keeping the clocks enabled on the resume failure
-path.
+The driver still considers the resets optional, so if another variant
+with no reset line appears, only the binding needs tweaking.
 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260629-ultrarisc-pci-clk-v1-0-5ea3308fdab3@ultrarisc.com?part=2
-> 
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+---
+Changes in v2:
+- Fixed wrong reset line count of TH1520 in the commit message (Thanks
+  to Sashiko).
+- Added Conor's R-b.
 
-Best regards,
-Jia Wang
+ Documentation/devicetree/bindings/display/verisilicon,dc.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-
+diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+index 9dc35ab973f20..919a900122012 100644
+--- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
++++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+@@ -75,6 +75,8 @@ required:
+   - interrupts
+   - clocks
+   - clock-names
++  - resets
++  - reset-names
+   - ports
+ 
+ additionalProperties: false
+-- 
+2.52.0
 
