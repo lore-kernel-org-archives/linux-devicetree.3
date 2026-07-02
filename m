@@ -1,50 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA25A339844;
-	Thu,  2 Jul 2026 16:18:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD5430E82D;
+	Thu,  2 Jul 2026 16:21:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783009115; cv=none; b=jHgxesjydP+TroYSxWTyjhyYNvO46JiDmzELgiBouQMj4KekOJzBfcCzDrfsXZCKs3sTh3y+0gU+60zah0d4g9OXY2dU+igqcGLT9x+OFhYMkDCwjdPzL6PuqKEVHISS7VZhRzRLB9CjTVtJb4A1Y7zznmtLkPF5RWIjEhLgMwc=
+	t=1783009312; cv=none; b=tQze58PAFZEsifhTCHnlwXoGV7xeSu+qJcYxScG4+0Lob+8rksZDOAUoM4FIdKhZe9el0v3mW3oFw16E7gKWp8bIHdBl8YbJFJP5z8q/f/Xw6vTuGutjQfFfKirYyiv3ddTxQqAGUIJwDr5BaG3MdqZCoTIiMq3ijFXP4Wenxxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783009115; c=relaxed/simple;
-	bh=kbMVKXOX8SCr6JbCks28PC928ssdxo4qHNutrvGZHUY=;
+	s=arc-20240116; t=1783009312; c=relaxed/simple;
+	bh=xoB4QKoKSGUO8hwA/LhK2647SYVdpl8JBmdlUfzDB3g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hJDfaqLzjP92B8QvZZ8NYrOPXfLIRfPgkNYM/22n7JcfcljSLCbkRixiFQqgY51lFIyZv3BL79Vx1xWjxNjUMeyzsEluFAftgTziGlhYs3k11AFOKbihmgq1y6Fr4L17RdRGd8+rbvGo829y8KSszh8uyDVSSdRKwYQF3ZBVp3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Boem+Th2; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=OTRGXWWNDF/xVElffoRp/2C1CU0nHYUXA5wOlGfC4pRbaZCEg0Iv/TYmmshwF31R39LBbcMYTgQpkLvbnAaOgjGXq9zsPMPS4kPytOoDncljl1DYzI56F0RFt9Ndnzthzl3qJ7jr2Co5SdN9Otm7NXh3GN5CBHQU5gX4NmwyIHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=htVfk/tr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Boem+Th2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB8181F000E9;
-	Thu,  2 Jul 2026 16:18:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="htVfk/tr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEAEF1F00A3D;
+	Thu,  2 Jul 2026 16:21:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783009114;
-	bh=IkM3i77YEX756C+1EiUCu7s5eiNq08LZMZb9R/S6UVM=;
+	s=k20260515; t=1783009311;
+	bh=lRYYfuzSFOeRYJmv5cGsJm2KFhklobIhVjufiS+redM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Boem+Th2L4HdoWEQTaxNWFMH7uToI7We2Tpm4ZgaNjG5LlRIJUY59A8IPMjF7fuhn
-	 FNE0C0yd6ubUt3G98s90QSUZrdIuHvGW7kWfKgYyZgkZiTLdMByC56vhyoJaImJUDe
-	 C1eRQUPxmaUs2CusAXna5pu46Bz0iVlySFCQlG1h5NN86hZRcBUZtBUOZG4Da/m2MY
-	 qvSi4aUyUC2kuecKH3CO+8AlyeI5SbDa26w2X35rhmihRNIxRf+F1PW5kfZVBWewhC
-	 Ej/Xgj74nB1y+sO3gHPQV0yR3w/aEsGvkzN/zsUWAht8t6Qh+ZX5ewdeaZYrWj2TRn
-	 Kh1cP2ydiQvaQ==
-Date: Thu, 2 Jul 2026 17:18:28 +0100
+	b=htVfk/trvNAhdz5EgvVqZggl3T8bU4hz3U6oSLizhXEk3qThqH20gxrU5CiwHTRsU
+	 9EnrfDOZxbrZQI1ZBdWAxM9SQr/A5duQR1wxwTi8k300wQiY0mnyNDgjxteyX09xlc
+	 5kBywlNeIjzldoQUpMHO335lTjyYrrvwuuAPwrXvSRc2YVMpekFs3EN5fwAdRx58Gh
+	 aHFob/YFUb7yh2hvOR0bkTQS3Heimnq2veu2PW4zpmsznZ0g+729gQDUDUI6bjQDuJ
+	 7kF8HLbvNoyabpInTuS72WHN7MVqpsVnpFP4mFCkLuyyz7nXOE4bUdy//+qHvG07Fr
+	 Gws/FRVC2IlNg==
+Date: Thu, 2 Jul 2026 17:21:45 +0100
 From: Lee Jones <lee@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
-	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
-	Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v5 00/14] mfd: lm3533: convert to OF bindings, improve
- support
-Message-ID: <20260702161828.GB2108533@google.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
+To: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Min Lin <linmin@eswincomputing.com>,
+	Yulin Lu <luyulin@eswincomputing.com>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Darshan Prajapati <darshan.prajapati@einfochips.com>,
+	Pritesh Patel <pritesh.patel@einfochips.com>
+Subject: Re: [PATCH 4/7] dt-bindings: mfd: syscon: add ESWIN EIC7700
+ compatible
+Message-ID: <20260702162145.GC2108533@google.com>
+References: <20260615122016.1110206-1-pinkesh.vaghela@einfochips.com>
+ <20260615122016.1110206-5-pinkesh.vaghela@einfochips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,32 +53,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260617080031.99156-1-clamor95@gmail.com>
+In-Reply-To: <20260615122016.1110206-5-pinkesh.vaghela@einfochips.com>
 
-On Wed, 17 Jun 2026, Svyatoslav Ryhel wrote:
+On Mon, 15 Jun 2026, Pinkesh Vaghela wrote:
 
-> Convert LM3533 to OF bindings, add missing VIN supply, add support for
-> setting mapping mode and LED sources based on device tree. 
+> Document ESWIN EIC7700 SoC compatible for syscon registers.
 > 
+> Signed-off-by: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
 > ---
-> Changes in v2:
-> 
-> schema
-> - maximum led sources for leds set to 4
-> - anyOf > oneOf in ALS
-> - improved ALS descriptions
-> - adjusted example
-> drivers
-> - dropped devm convertion of irq and mfd helpers
-> - all als configuration moved into lm3533_als_setup
-> - added regulator/consumer.h
-> - lm3533_bl_setup set before sysfs_create_group in backlight
-> - added check if LVLED is valid
-> - LM3533_REG_OUTPUT_CONF1 > LM3533_REG_OUTPUT_CONF2 for LVLED4 and LVLED5
+>  Documentation/devicetree/bindings/mfd/syscon.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-This set looks good to me now.
-
-Let me know when you have all of the Acks and I'll merge it via MFD.
+Doesn't apply.  Please rebase.
 
 -- 
 Lee Jones
