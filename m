@@ -1,383 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA1C3A9D88
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 07:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782978310; cv=none; b=Dbru0wJR1T6Ko5BnwoBs9Ifa6pcjRRnVRIIOGEDyzeGQCQkY6DoN1/4JKXCgVgviVE/SC2/XTsycDk5dz2m9/dWBPPx46W0sZIUsBn+iSFVyR8rPxb9vZvBWJm+W59iGSoZOsK+iMt76ssAd/66M5PO5O/l9vgKlC4SFbSPQhS4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782978310; c=relaxed/simple;
-	bh=mfUe9CUm9dkCHxIK/jz+QATBw29nt7BTLVnTMtCkxK4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YZOt1crNoFO+Z+nrpXLP6/+kXqxxKOSjqv+ZVvtFNc1QxAYqJjf41ZhIrCWPdKr6UtPTb4T3YTZ+878rzD1KBQFwrN5A1f/IV8Pb0TwOuFDdME8x4OFV5c4snQ7PdyPfj32jHCOQyz6iGrTy/pgnF2bj7KIx5/DkF/qZ011uX+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WQuABcd0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0888D3A9D84
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 07:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782978365; cv=pass; b=SUuWqTGpRo+4Q10yLl2C/mv1ynS7xECpwsGEuv27hpxo4WqcxfPdW9osN5H2049hTa1pKDi+/iCWvrKRkHOsUyc3hG+Nuc5oLmjr+eyRXHsUoXs1ODor77z0mWWqU2UY1R4HXlTP2n0vHy8AuwXeoYOos1lUSq4lL7/PhLVRR6o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782978365; c=relaxed/simple;
+	bh=WA/QTtHldG6wj8ZWzUjJhPHU56GUOZu7i3gAkeYtcFI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Mpc58QmZBT+Gu7CkEvDMr4yaKatexu2xvMtJFic8yDGM67M1iKrOCQxsb8ElSlujbfmc6s8mGxQ+VA/UH+5aDflk+E3zIgfWI+7B1RIwolXEmitwtY3G0t0ZamA3ut5EsFArll7F6y5ZePCe/xGCVAV+f6HbF5Ja25nWF5hGCm4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cwjz88pd; arc=pass smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WQuABcd0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03BCD1F000E9;
-	Thu,  2 Jul 2026 07:45:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782978305;
-	bh=fpxIi43onm4CjbJdLICU88MVshx5nJaGGDnNVJFQRHY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WQuABcd0AOIp0WinAa7R0sDDI205HJ3Wj5zWsnnhayyI0dc4ziiMhKOecb+1Bmodx
-	 21lylkELSOu3qXwTM2Ntaq57DI2l+DJJ7KCOM8zIKM8TlDTBpUiylPFQRZ/u157mqh
-	 M/q2CNBXj+FcOHq20xUKMRq7atgT+bGdF3tnRztWy7oLyh6UAJUX7H/LwabP90Ragz
-	 ubtm2/zHz8ZR3zyclr4i8rLM9HhsX4VdzT127bnuPwZirjB1XOPJlyBI0jgWZ5CS0B
-	 N62iczLUOw8uvAE00EyRB6YnZmT9/vIXEDlXNPDMechcfBO8BJjf3yeh8Hk6K6b5u8
-	 2kAYQ9NdWzq1Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 05/12] media: mediatek: jpeg: Fix multi-core clk
- suspend and resume setting
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260702072614.10373-6-kyrie.wu@mediatek.com>
-References: <20260702072614.10373-1-kyrie.wu@mediatek.com>
- <20260702072614.10373-6-kyrie.wu@mediatek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 07:45:04 +0000
-Message-Id: <20260702074505.03BCD1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cwjz88pd"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c125c082ee2so165861966b.0
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 00:46:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782978362; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IVeu/FTH2mwNna7RzV5PBbLspZu+ZJrOtPgb1MbcVYbguGF5z+VpNxTNJAjU0qI/dU
+         8pkBOUVvDdDXTHUohTixtxJEnFxuj8XRkGpp0NQ6z1ez9wS3yl020mWxfHYe/nEEXVKT
+         8ZuCkLl3bou0c06drLqrNvD9G+dVCOYGxx2zDohaIrnK/GCCtUmjYruZ+oPpmtkhj9Qh
+         AGuEl3iZlfQDMat/Ji7fpKk5c1V6NMnq5vFHyqg6WXFZhnTPt+miPcPZz+rjNwFPwXT3
+         PdCEeFT8QbeOTcDBNoUOJjIXKbBZDTR7H23aAUmP8dvCXcT9CJixzX0jkv0oZmOeEwbO
+         JcIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=WA/QTtHldG6wj8ZWzUjJhPHU56GUOZu7i3gAkeYtcFI=;
+        fh=+xNCFHPmHO7n+VXOcHcBVpGkJrqGXPqNStQrbyfedL8=;
+        b=bMBNsBx9rGH7+DhPUhD8nWvmntStVC6nNp0d2BJPO5YY/RszhyHySVpvPhXZrs36aj
+         2SnD06GNdqSSKWnbzSFlKGGuc39sydojmBsO/XvYhtC1ho6uTo9ust+iFwSgj5tyvx47
+         SBhar9hwpP5VoqyIZ6DdIv7fGHgd/LZXabKmtIK/ItfhwyID9nfrUXUR2E+EVbeKuBoT
+         HmsofiRYd8uqkewAmM+tGoOMwS3TBx7AXMXJq1d5NcsSXjoI46TVrnMY4FHyRkeFvU6A
+         zcQErwKsT0ZgvURMGXKfUgQGc6eUtzd+9g/otIIHE7y6v+M6l3p8co3bAPykQB3kihTP
+         8Y4w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782978362; x=1783583162; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=WA/QTtHldG6wj8ZWzUjJhPHU56GUOZu7i3gAkeYtcFI=;
+        b=cwjz88pdWIVMCjBO8rpxoDnZLqXzYoO7sd24/1oxtUDkvBQdoSPrViGuq/tUImaEOB
+         i9PpR3pEgX/Idj3zEB/1aUxO7al20vdxOt9oLCtG/PtylGqbKszWj+pbow6BfQ3VXLc6
+         Fs9dnUoDijH7LESf61rsP03IOtwfJV3xp1Jy5mJ+VTH+2AvJvBnYo2CNyCGH4Aw2q/hL
+         XUMonMgAOXSBmnSIapKXnauionGRTu8A1iXhzXm6omIpr2FDMrjfbMzTwo0GJv4uzOFP
+         E9rST9Uz98PlIBajZAG575AnOXCxLlFdkkkCCuiTOI/cm/LaMEzGAElLP7AZilkfOXdW
+         UyOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782978362; x=1783583162;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WA/QTtHldG6wj8ZWzUjJhPHU56GUOZu7i3gAkeYtcFI=;
+        b=d+/St9PvoyUaXVQRDz/Psh2Te7qkmzbF9Kpumv6YiyevApRT8I/TCoVSOpfh+TYJQa
+         ifKRStjATxTve89+ITSqJVTo1/h4fsdzxv/56hmRTPGSI5lk0ANQzMoHvqkUOSJugeRa
+         zcQPFPVJjG1cBtluh0AR6J0p7tT1NE3BEry8stuaOnvs6HgdopCHLupZXPZeIgnIjC4q
+         VS50f8RLM14iJNSwfaSaXIHfyl0J5vesioGwNlR6xguCDVFieNnbbZxaQGnfXzF6hQbH
+         p4QKCQAQjnmrqregY/8sueyZdJ8i34WWukr4ZSyJFLLzvwOanEv5banvay2HkSFJXHuq
+         KZTQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoNW+ah+j4STL5NIKPAeZ5C5t1UY15cASB5BDsWVs6TjjKQJEcGBs3RvEtdNnJengbcZBSWpyBWaIGn@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvQjD6MrbYClQQb+5DaHSXjq721neBYWCBOWys7QCJr/GPdmDv
+	s0C35bYN+5vU9jWe8VbjxsOfwHAkXjs8rK4kr+kPN45pymiUqIRYu0RpnJLZZwgA1nhadI/uIOo
+	UQTnCm+VEbE0ZUcrrz2xeFuDH002EZIA=
+X-Gm-Gg: AfdE7ckXhrGvwUVJGSeXRSoAG8CLJZT805EUwfNMEw4/HFpbsGUy+kVswqCuYAKaMQB
+	1IkdVZJ/BKQo+5gdQ86ZZfPVoo4n/k3tk1eDLO/3QZrQOwLuCtFhiYa0KNaPxi+V2RtSxkE6oDA
+	n74CBDjLD7VJhr+YIiABYAKIW1hnDVpj0yxMeSNQSp94XqNGq6QN4dfD9nbHs4asK/7ko+88kWb
+	FsgSsol6hJprB5V4zYfhP8rgEEkW1YHiVuQHT7p3MZazZ750MX+i5SWTCEtKk04JGltEFK4iykb
+	mR2AC5OF1INa9sEgs+q8W2hu4e2IGORUuHZt5jmbpgs+1zckFWiWKpfMrakFGqBOYJFE5zZCSQ=
+	=
+X-Received: by 2002:a17:906:2c58:b0:c12:8ade:dce1 with SMTP id
+ a640c23a62f3a-c12aa195546mr174594066b.48.1782978362078; Thu, 02 Jul 2026
+ 00:46:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260702-hm1092-driver-v2-0-4f9f369d6a48@gmail.com>
+ <20260702-hm1092-driver-v2-1-4f9f369d6a48@gmail.com> <20260702-generous-beaver-of-perception-f2a9bd@quoll>
+ <CAJTcUFR08TXjOeQSxdBhoqHe94+7G_HLSrCN00BB8cHmBgTpZg@mail.gmail.com> <a599eafd-dc72-48d4-80fa-1d24529ce2a7@kernel.org>
+In-Reply-To: <a599eafd-dc72-48d4-80fa-1d24529ce2a7@kernel.org>
+From: Ramshouriesh R <rshouriesh@gmail.com>
+Date: Thu, 2 Jul 2026 13:15:50 +0530
+X-Gm-Features: AVVi8CcJrihge9Vtg-yG5wKIfjbofuNQF6xrktFDGlhntbksLe1RJmHnqJjcInY
+Message-ID: <CAJTcUFSZC0S06kcJ+=R6vUsPN5jCO7ZmX7ibqM-TYY52XGE5oQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] media: dt-bindings: Add Himax HM1092 NIR sensor
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, "Bryan O'Donoghue" <bod@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
+I sincerely apologise for my ignorance.
+This will not happen again
 
-New issues:
-- [High] Component-level system resume callbacks unpause the shared V4L2 M2=
-M queue prematurely, causing jobs to be dispatched to components that are s=
-till in system suspend.
-- [High] Missing pm_runtime_disable() on the probe error path leaves runtim=
-e PM enabled.
-- [Medium] Double acquisition of clocks via devm_clk_bulk_get() causes dupl=
-icate resources and leaks original references.
-- [Low] Unconditional assignment of dev_pm_ops produces dead code when PM i=
-s disabled.
-
-Pre-existing issues:
-- [Critical] Race condition between timeout work and IRQ handler leads to d=
-ouble-completion and PM usage underflow.
-- [High] Unfixed pm_runtime_get_sync() usage counter leak in the encoder wo=
-rker error path.
-- [High] The worker threads call v4l2_m2m_job_finish() immediately after st=
-arting the hardware, leading to a UAF upon device release.
-- [High] Missed wakeup in IRQ handler due to incorrect ordering of wake_up(=
-) and atomic_inc().
---
-
-commit 5cd8fa923e48c4448d2b551ff3153b7043979096
-Author: Kyrie Wu <kyrie.wu@mediatek.com>
-Subject: media: mediatek: jpeg: Fix multi-core clk suspend and resume setti=
-ng
-
-This commit adds component-level suspend and resume callbacks for the Media=
-Tek
-JPEG multi-core architecture. It registers power management operations for
-each hardware driver to handle clock preparation and power management across
-system sleep states.
-
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
-rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-
-[ ... ]
-
-> @@ -1647,13 +1653,6 @@ static void mtk_jpegenc_worker(struct work_struct =
-*work)
->  		goto enc_end;
->  	}
-
-[Severity: High]
-This is a pre-existing issue, but if pm_runtime_get_sync() fails earlier in
-mtk_jpegenc_worker(), does the error path to enc_end skip calling
-pm_runtime_put_noidle() and leak the usage counter?
-
-The same fix applied to mtk_jpegdec_worker() using pm_runtime_resume_and_ge=
-t()
-does not appear to be applied here.
-
-[Severity: High]
-This is a pre-existing issue, but does calling v4l2_m2m_job_finish()
-immediately after starting the hardware cause a use-after-free upon device
-release?
-
-In mtk_jpegenc_worker() and mtk_jpegdec_worker(), the hardware starts and
-then the worker calls v4l2_m2m_job_finish() prematurely:
-
-    mtk_jpeg_enc_start(comp_jpeg[hw_id]->reg_base);
-    v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
-    v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
-    v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
-
-When a user closes the file descriptor, v4l2_m2m_ctx_release() and
-stop_streaming() are called. The interrupt handler could then call
-v4l2_m2m_buf_done(), immediately waking up the waiter in stop_streaming().
-This allows the context to be freed while the interrupt handler is still
-manipulating it, causing a use-after-free write.
-
-> -	ret =3D clk_prepare_enable(comp_jpeg[hw_id]->venc_clk.clks->clk);
-> -	if (ret) {
-> -		dev_err(jpeg->dev, "%s : %d, jpegenc clk_prepare_enable fail\n",
-> -			__func__, __LINE__);
-> -		goto enc_end;
-> -	}
-> -
->  	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
->  	v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c b/dri=
-vers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
-
-[ ... ]
-
-> @@ -547,7 +546,6 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int irq=
-, void *priv)
->  	struct vb2_v4l2_buffer *src_buf, *dst_buf;
->  	struct mtk_jpeg_src_buf *jpeg_src_buf;
->  	enum vb2_buffer_state buf_state;
-> -	struct mtk_jpeg_ctx *ctx;
->  	u32 dec_irq_ret;
->  	u32 irq_status;
->  	int i;
-> @@ -557,7 +555,6 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int irq=
-, void *priv)
-> =20
->  	cancel_delayed_work(&jpeg->job_timeout_work);
-
-[Severity: Critical]
-This is a pre-existing issue, but does calling cancel_delayed_work() instead
-of cancel_delayed_work_sync() here cause a race condition if the timeout
-handler is concurrently executing on another processor?
-
-Since neither path takes a lock to serialize completion, both could proceed
-to reset the hardware, call v4l2_m2m_buf_done() on the same buffer, increme=
-nt
-the ready counter twice, and invoke pm_runtime_put(). Could this corrupt the
-buffer linked list or cause a power management usage counter underflow?
-
-> -	ctx =3D jpeg->hw_param.curr_ctx;
-
-[ ... ]
-
-> @@ -580,12 +577,11 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int i=
-rq, void *priv)
->  	buf_state =3D VB2_BUF_STATE_DONE;
->  	v4l2_m2m_buf_done(src_buf, buf_state);
->  	mtk_jpegdec_put_buf(jpeg);
-> -	pm_runtime_put(ctx->jpeg->dev);
-> -	clk_disable_unprepare(jpeg->jdec_clk.clks->clk);
-> =20
->  	jpeg->hw_state =3D MTK_JPEG_HW_IDLE;
->  	wake_up(&master_jpeg->hw_wq);
->  	atomic_inc(&master_jpeg->hw_rdy);
-
-[Severity: High]
-This is a pre-existing issue, but does calling wake_up() immediately before
-atomic_inc() cause a missed wakeup?
-
-If the waiting worker thread wakes up and checks atomic_read() before the
-increment happens, it will go back to sleep. Since the subsequent atomic_in=
-c()
-is not followed by another wake_up(), could the worker thread hang
-indefinitely?
-
-> +	pm_runtime_put(jpeg->dev);
-> =20
->  	return IRQ_HANDLED;
->  }
-
-[ ... ]
-
-> @@ -668,15 +664,69 @@ static int mtk_jpegdec_hw_probe(struct platform_dev=
-ice *pdev)
-> =20
->  	platform_set_drvdata(pdev, dev);
->  	pm_runtime_enable(&pdev->dev);
-> +	ret =3D devm_clk_bulk_get(dev->dev,
-> +				jpegdec_clk->clk_num,
-> +				jpegdec_clk->clks);
-
-[Severity: Medium]
-Does this second devm_clk_bulk_get() overwrite the clocks already acquired
-by devm_clk_bulk_get_all() earlier in the probe function?
-
-This appears to acquire the clocks a second time, overwriting the array
-pointers and leaking the original references until device unbind.
-
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "Failed to init clk\n");
-> +		return ret;
-> +	}
-
-[Severity: High]
-If devm_clk_bulk_get() fails here, does the probe function return without
-disabling the runtime power management?
-
-Returning directly leaves the power management core tracking runtime status
-as enabled for a device that failed to probe. Should pm_runtime_disable()
-be called in this error path?
-
-> +
-> +static int mtk_jpegdec_resume(struct device *dev)
-> +{
-> +	struct mtk_jpegdec_comp_dev *jpeg =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_force_resume(dev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	v4l2_m2m_resume(jpeg->master_dev->m2m_dev);
-
-[Severity: High]
-When a component resumes, does calling v4l2_m2m_resume() on the single shar=
-ed
-master queue unpause it prematurely?
-
-If the shared queue is unpaused while sibling components are still suspende=
-d,
-could a job be immediately dispatched to a suspended sibling, causing
-pm_runtime_resume_and_get() to fail or block improperly?
-
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct dev_pm_ops mtk_jpegdec_pm_ops =3D {
-> +	SYSTEM_SLEEP_PM_OPS(mtk_jpegdec_suspend, mtk_jpegdec_resume)
-> +	RUNTIME_PM_OPS(mtk_jpegdec_pm_suspend, mtk_jpegdec_pm_resume, NULL)
-> +};
-> +
->  static struct platform_driver mtk_jpegdec_hw_driver =3D {
->  	.probe =3D mtk_jpegdec_hw_probe,
->  	.driver =3D {
->  		.name =3D "mtk-jpegdec-hw",
->  		.of_match_table =3D mtk_jpegdec_hw_ids,
-> +		.pm             =3D &mtk_jpegdec_pm_ops,
-
-[Severity: Low]
-Does unconditionally assigning mtk_jpegdec_pm_ops produce dead code when
-power management is disabled?
-
-Guidelines suggest wrapping the assignment with pm_ptr() to eliminate dead
-code and compiler warnings when power management support is disabled.
-
->  	},
->  };
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c b/dri=
-vers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
-
-[ ... ]
-
-> @@ -304,12 +303,11 @@ static irqreturn_t mtk_jpegenc_hw_irq_handler(int i=
-rq, void *priv)
->  	buf_state =3D VB2_BUF_STATE_DONE;
->  	v4l2_m2m_buf_done(src_buf, buf_state);
->  	mtk_jpegenc_put_buf(jpeg);
-> -	pm_runtime_put(ctx->jpeg->dev);
-> -	clk_disable_unprepare(jpeg->venc_clk.clks->clk);
-> =20
->  	jpeg->hw_state =3D MTK_JPEG_HW_IDLE;
->  	wake_up(&master_jpeg->hw_wq);
->  	atomic_inc(&master_jpeg->hw_rdy);
-
-[Severity: Critical]
-This is a pre-existing issue, but does calling cancel_delayed_work() earlier
-in this interrupt handler cause a race condition if the timeout handler is
-executing concurrently? Both paths could proceed to reset the hardware and =
-call
-v4l2_m2m_buf_done() on the same buffer locklessly.
-
-[Severity: High]
-This is also a pre-existing issue, but does calling wake_up() immediately
-before atomic_inc() here cause a missed wakeup if the worker thread checks =
-the
-counter before the increment?
-
-> +	pm_runtime_put(jpeg->dev);
-> =20
->  	return IRQ_HANDLED;
->  }
-
-[ ... ]
-
-> @@ -390,15 +388,69 @@ static int mtk_jpegenc_hw_probe(struct platform_dev=
-ice *pdev)
-> =20
->  	platform_set_drvdata(pdev, dev);
->  	pm_runtime_enable(&pdev->dev);
-> +	ret =3D devm_clk_bulk_get(dev->dev,
-> +				jpegenc_clk->clk_num,
-> +				jpegenc_clk->clks);
-
-[Severity: Medium]
-Similarly for the encoder, does this devm_clk_bulk_get() overwrite the cloc=
-ks
-acquired by devm_clk_bulk_get_all() earlier in the probe function?
-
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "Failed to init clk\n");
-> +		return ret;
-> +	}
-
-[Severity: High]
-If devm_clk_bulk_get() fails here, does this error path also skip calling
-pm_runtime_disable()?
-
-> +
-> +static int mtk_jpegenc_resume(struct device *dev)
-> +{
-> +	struct mtk_jpegenc_comp_dev *jpeg =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_force_resume(dev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	v4l2_m2m_resume(jpeg->master_dev->m2m_dev);
-
-[Severity: High]
-Like the decoder, does calling v4l2_m2m_resume() here unpause the shared
-master queue prematurely while other siblings might still be suspended?
-
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct dev_pm_ops mtk_jpegenc_pm_ops =3D {
-> +	SYSTEM_SLEEP_PM_OPS(mtk_jpegenc_suspend, mtk_jpegenc_resume)
-> +	RUNTIME_PM_OPS(mtk_jpegenc_pm_suspend, mtk_jpegenc_pm_resume, NULL)
-> +};
-> +
->  static struct platform_driver mtk_jpegenc_hw_driver =3D {
->  	.probe =3D mtk_jpegenc_hw_probe,
->  	.driver =3D {
->  		.name =3D "mtk-jpegenc-hw",
->  		.of_match_table =3D mtk_jpegenc_drv_ids,
-> +		.pm =3D &mtk_jpegenc_pm_ops,
-
-[Severity: Low]
-Should this assignment be wrapped with pm_ptr() to avoid dead code when
-power management is disabled?
-
->  	},
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702072614.1037=
-3-1-kyrie.wu@mediatek.com?part=3D5
+Best Regards,
+Ramshouriesh
