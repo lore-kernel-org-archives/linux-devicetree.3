@@ -1,148 +1,144 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F252571A0;
-	Thu,  2 Jul 2026 21:08:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9645B1A6835;
+	Thu,  2 Jul 2026 21:24:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783026541; cv=none; b=YtKjo2cl3yHVMv+WU9WQTbIX4hb13PC3UrZ6ebEUH857EiJX8Q9fDTYLG1NmHiss0PjRd/90HYMy64+IBAN7R0UVZ+1Qkx+Dwmhegk8DCDbslCr3UgJOAEQmz7w0lutYh1ytEEnik4iwc7vDqc96G9T4iiB7qIDlMxvOI8jApTs=
+	t=1783027470; cv=none; b=A2Mv4EcTRB7HsAaaSj68poHsb9NEZ2zfbY7zI/yk/RCtc/4N7KYIOHlAamexUW3qsO+b1hJmhqYjbDdaYVOnWtcC1fi97ovThI+AW6rX3JHMQsXSs6dN0ykUKWlDa0T7EHLithF0sw0MkWGxHPTltBdMgEuxyHg0+SgKvrSQM14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783026541; c=relaxed/simple;
-	bh=4JophHAYan6pShvOawHRd5pLvehfV5UKdWKk7t7kdzo=;
+	s=arc-20240116; t=1783027470; c=relaxed/simple;
+	bh=7h8p5JymaPl6j2G50UYplFLnTLxP1bHA5e/xdPIdqPo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BrYciUA5Rv5+EDxRkj857s9yXUsXjU5JEXWLsd8T0c/J5Ethd+XAF6GurSOp21C8YPgguP+Icu3wHALlk8B89UxmuWGjArwFmAeJOBgTuyOKMMjF7NG6lCfM/Wunq+CX9Dy3VWwI71Ze44V33x77yBdCsJ4QXDnvI2QUDt1UDDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=3OJXP7RL; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=SdcL/J8I56gmd7m1M+Z/7OkoqjNsZfwesxkpIZ8K5fsYDe5MUneSAGR8BFp9b+AS8vJB0rM+RKXrrkbwtcEfkvIlc/VUDDyU5wHI6Vr+Syc0LZmkdNfNHOMnFyHLgtqJfVM8/NaXVZNKbEUhy9EWZT/J+eZ6XFEvdg719rgy0kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=IBPp5alA; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="3OJXP7RL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=VsU0GKlpFen3bVJtWCMmvE5FPpCnuu0a3JfblASDukw=; b=3OJXP7RLiMfKVDA9EBfQIOFHkz
-	jS/DJTx6LqCN2l432ngygfgLUogxS7Ko1t035kcDafAQgVRcrTXxsv8/Z5vN/Y7zJTzR8E/QpKu97
-	TmgJVzbEJRMnj1IUGzHOvI9XtaDfydCTx5U3ThojEtVLFGoMwAI2um+GdUeLI1Pnzqlw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wfOeM-00ARGv-DY; Thu, 02 Jul 2026 23:08:46 +0200
-Date: Thu, 2 Jul 2026 23:08:46 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IBPp5alA"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8EEE3517;
+	Thu,  2 Jul 2026 23:23:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1783027419;
+	bh=7h8p5JymaPl6j2G50UYplFLnTLxP1bHA5e/xdPIdqPo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IBPp5alAe2KGTmJ2fOV0p9hAaIyV+xM2eG0an2/7GOgZRazZE1wqoU6V32WJnZEmn
+	 d68yhWXdD95YPckw68EKGX0RM6wZ5emQgqlWkai+pL35nMYeF6jvjxECVM1hkeHEGV
+	 gBdsxA5V7Tsp4EpIfEyp7C1pvH9o9yszsdLpZQ4Y=
+Date: Fri, 3 Jul 2026 00:24:23 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, Dragan Simic <dsimic@manjaro.org>,
-	Jonas Karlman <jonas@kwiboo.se>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/3] arm64: dts: rockchip: Add devicetree for the
- Graperain G3568 v2
-Message-ID: <fb1b5c32-9dfb-43b9-85a3-2adff2bc4a66@lunn.ch>
-References: <20260702204628.2407308-2-coiaprant@gmail.com>
- <20260702204628.2407308-5-coiaprant@gmail.com>
+	Magnus Damm <magnus.damm@gmail.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
+Message-ID: <20260702212423.GA3662157@killaraus.ideasonboard.com>
+References: <20260615-rcar-du-dsc-v5-0-aed1a28610e4@ideasonboard.com>
+ <20260615-rcar-du-dsc-v5-4-aed1a28610e4@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260702204628.2407308-5-coiaprant@gmail.com>
+In-Reply-To: <20260615-rcar-du-dsc-v5-4-aed1a28610e4@ideasonboard.com>
 
-> +&gmac0 {
-> +	assigned-clocks = <&cru SCLK_GMAC0_RX_TX>, <&cru SCLK_GMAC0>;
-> +	assigned-clock-parents = <&cru SCLK_GMAC0_RGMII_SPEED>;
-> +	assigned-clock-rates = <0>, <125000000>;
-> +	clock_in_out = "output";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&gmac0_miim
-> +		     &gmac0_tx_bus2
-> +		     &gmac0_rx_bus2
-> +		     &gmac0_rgmii_clk
-> +		     &gmac0_rgmii_bus>;
-> +	phy-handle = <&rgmii_phy0>;
-> +	phy-mode = "rgmii-id";
-> +	status = "okay";
-> +};
-> +
-> +&gmac1 {
-> +	assigned-clocks = <&cru SCLK_GMAC1_RX_TX>, <&cru SCLK_GMAC1>;
-> +	assigned-clock-parents = <&cru SCLK_GMAC1_RGMII_SPEED>;
-> +	assigned-clock-rates = <0>, <125000000>;
-> +	clock_in_out = "output";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&gmac1m1_miim
-> +		     &gmac1m1_tx_bus2
-> +		     &gmac1m1_rx_bus2
-> +		     &gmac1m1_rgmii_clk
-> +		     &gmac1m1_rgmii_bus>;
-> +	phy-handle = <&rgmii_phy1>;
-> +	phy-mode = "rgmii-id";
-> +	status = "okay";
-> +};
+Hi Tomi,
 
-> +&mdio0 {
-> +	rgmii_phy0: ethernet-phy@1 {
-> +		compatible = "ethernet-phy-ieee802.3-c22";
-> +		reg = <1>;
-> +		reset-assert-us = <20000>;
-> +		reset-deassert-us = <100000>;
-> +		reset-gpios = <&gpio2 RK_PD3 GPIO_ACTIVE_LOW>;
-> +
-> +		leds {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			led@1 {
-> +				reg = <1>;
-> +				color = <LED_COLOR_ID_GREEN>;
-> +				function = LED_FUNCTION_LAN;
-> +				default-state = "keep";
-> +			};
-> +
-> +			led@2 {
-> +				reg = <2>;
-> +				color = <LED_COLOR_ID_AMBER>;
-> +				function = LED_FUNCTION_LAN;
-> +				default-state = "keep";
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&mdio1 {
-> +	rgmii_phy1: ethernet-phy@1 {
-> +		compatible = "ethernet-phy-ieee802.3-c22";
-> +		reg = <1>;
-> +		reset-assert-us = <20000>;
-> +		reset-deassert-us = <100000>;
-> +		reset-gpios = <&gpio2 RK_PD1 GPIO_ACTIVE_LOW>;
-> +
-> +		leds {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			led@1 {
-> +				reg = <1>;
-> +				color = <LED_COLOR_ID_GREEN>;
-> +				function = LED_FUNCTION_LAN;
-> +				default-state = "keep";
-> +			};
-> +
-> +			led@2 {
-> +				reg = <2>;
-> +				color = <LED_COLOR_ID_AMBER>;
-> +				function = LED_FUNCTION_LAN;
-> +				default-state = "keep";
-> +			};
-> +		};
-> +	};
-> +};
+Thank you for the patch.
 
-For these nodes only:
+On Mon, Jun 15, 2026 at 04:11:57PM +0300, Tomi Valkeinen wrote:
+> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
+> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
+> crtc, when enabling the crtc.
+> 
+> With DSC (added in upcoming patch) in the pipeline, between the DU and
+> the DSI, the above call path is broken as the crtc tries to call
+> rcar_mipi_dsi_pclk_enable() on the DSC.
+> 
+> To solve this problem, make sure we store the DSI bridge to the
+> rcdu->dsi[] array, instead of the first bridge in the DSI pipeline
+> (which can be DCS), by checking the bridge's bridge->type.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> ---
+>  drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c | 18 ++++++++++++++++--
+>  drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c   |  1 +
+>  2 files changed, 17 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> index db2088529b48..ac85838ab3b8 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> @@ -89,9 +89,23 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
+>  				drm_bridge_get(bridge);
+>  
+>  		if (output == RCAR_DU_OUTPUT_DSI0 ||
+> -		    output == RCAR_DU_OUTPUT_DSI1)
+> +		    output == RCAR_DU_OUTPUT_DSI1) {
+> +			struct drm_bridge *dsi_bridge;
+> +
+> +			/*
+> +			 * When we have a DSC block between the DU and the DSI,
+> +			 * the "bridge" points to the DSC. Detect the DSC by looking
+> +			 * at the bridge type, and skip the DSC if the bridge is not
+> +			 * the DSI bridge.
+> +			 */
+> +
+> +			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI ?
+> +						     bridge :
+> +						     bridge->next_bridge;
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+The indentation looks weird.
 
-    Andrew
+			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI
+				   ? bridge : bridge->next_bridge;
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+
+> +
+>  			rcdu->dsi[output - RCAR_DU_OUTPUT_DSI0] =
+> -				drm_bridge_get(bridge);
+> +				drm_bridge_get(dsi_bridge);
+> +		}
+>  	}
+>  
+>  	/*
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> index aaafee1c060b..f429f03a380c 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> @@ -957,6 +957,7 @@ static int rcar_mipi_dsi_host_attach(struct mipi_dsi_host *host,
+>  
+>  	/* Initialize the DRM bridge. */
+>  	dsi->bridge.of_node = dsi->dev->of_node;
+> +	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
+>  	drm_bridge_add(&dsi->bridge);
+>  
+>  	return 0;
+
+-- 
+Regards,
+
+Laurent Pinchart
