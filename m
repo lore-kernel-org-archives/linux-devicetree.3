@@ -1,97 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C992480340
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 10:02:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F2847DF9B;
+	Thu,  2 Jul 2026 10:04:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782986528; cv=none; b=q1AVBSJHm5SlquZ+WRTcA5sLBxtvkhy06knEszINSelc8wRCtfHlGG0Lt1NWTmH7O7OpZlahQeMuAbjln3u74vnDV2kM6XusCa9V7pWlOzTqyi0vxEnH2KTS/flHKNkKfbExbC+Tk1z/XGctz448+H6L9dIuuTh7rDFpeqQwRv8=
+	t=1782986656; cv=none; b=kxGr3G/agvsvoCYJa0hEFmTVLgp6i+WLenApdyshOCQGCLxWxF1BFUNG/qm6zwey3XYF5HWs2NaONu6g2BZ7RjIv/DU9ssBp7r1yw0RrInQxSIMJ7EmQMicJi6XrM8Qxr9g2/i7HLkdtHAmEVpCUoaXonEfG97Ka6mj9NgaoNVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782986528; c=relaxed/simple;
-	bh=oHsT66r4irgiz4I5DzzQpBo3Nz+hVkDfm4ANgfDp1Xs=;
+	s=arc-20240116; t=1782986656; c=relaxed/simple;
+	bh=ZRGpjkJ93shwUISXhW252f+zLVenavzxC/zBbhFez3M=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rjC8HbU0BCFAo/ZlxSVUaQksAvmOIBn2QYHwTtkEKgY7C+5CuFd19jPQpSDrGtdMlP14KE9UsZnfsHrU8pEQouHuIpHZ4jax6MTyrs53SCY9uo6rvM7kDgcf3twpIzK5nIFQ1tsmCDDg7EtF3rEAMZM58z9KVHh/XepygSZJ5Pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C1ABDGro; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=I3yi3B9etvA65cy6QnIYz0J7yxXHSlBHje3e2rJp+o26y6gnT68nrV+GjzAE5kL0wISyYMeyIQ4cUEgNMjUGrbqO56gAigytHvtTlvul+v2swtZRDlR76oFvbvhb8coMLxbgweBSz9vtyiSIJDudglq5D1XDzJkIlnuS6fWHHmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VglY5scX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C1ABDGro"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC1931F000E9;
-	Thu,  2 Jul 2026 10:02:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VglY5scX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A19D91F000E9;
+	Thu,  2 Jul 2026 10:04:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782986527;
-	bh=sSBYrb2wBa7cP7bYcdIEJ8iHAzSekDcyv0g6261Bp3Y=;
+	s=k20260515; t=1782986654;
+	bh=WQaF7rTVqSHSrYtPJmSms0JLoNisFqAbqetnMdl8guc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=C1ABDGroO28HN3G18j9Lhu/Ut9xOLQ59Xf7cdDLbnn0VNPIh+qXrOhl1Wxw9Z83fc
-	 0TJgEhwtfGdBz7/CkTF1K1kRHFDqdMvGzjXZzaDiKiNBN7PLyXD8GcYkDnLyLJ1zty
-	 q28CbUQ0kIhVi398zZ6Oi6gYmEVBNmOHO216zF8jz4XWR/EfD5tL/gI0nGJYwbv3qa
-	 nYS+8otVXHguUW8thgB90yXKGy1OfV497eQjD4rQvfViWci2uNB3NF3IveyftYcziu
-	 NMbfBIwhkmKpFUrpOUz/15K9cNdq99eQkKvL+Q0YQ7HTJC+F+8gIuaLOPw7xteJbYm
-	 iK8yo+NvyyMig==
+	b=VglY5scXrhUwu5Ctk7gRV/tq5ZU0TfCwD2O7TfS5BM6ts9Udc6RZRJZjtn9KCZ4ih
+	 INWV/34XL6T0LZlqLPwbHioTL1QKi4MerLyi1mgewI8cOr5GkpAtFM375KnW7o/Wyj
+	 eAWSWCkE5j0Z6ZW7Iqig9VoB5Y8Ne9WYzC9WTRoBMiz9Dl2omB1YmRf6gq+BUDo7Y7
+	 iDInsWXxP2X7/DCviDH2H9PcY43MJQtHfSOuM5I6wC/ayafe9ad2K+vNE5bQM8bq3a
+	 1i6DZTZVCMjWFfSOdtc2ySSVEY3VkZTMqx5r5tuA3iy3aBDS9XYXf5Tv0bsR35N+Ml
+	 sUdVXaxEjoZ2A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/5] arm64: dts: qcom: pmk8550: add VADC node
+Subject: Re: [PATCH 17/18] arm64: dts: ti: k3-v3link: Add overlay for
+ IMX219+UB953 serializer
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260702-topic-sm8x50-adc5-gen3-v5-1-8169953634ad@linaro.org>
-References: <20260702-topic-sm8x50-adc5-gen3-v5-0-8169953634ad@linaro.org>
- <20260702-topic-sm8x50-adc5-gen3-v5-1-8169953634ad@linaro.org>
+To: "Yemike Abhilash Chandra" <y-abhilashchandra@ti.com>
+Cc: imx@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260702093123.1048575-18-y-abhilashchandra@ti.com>
+References: <20260702093123.1048575-1-y-abhilashchandra@ti.com>
+ <20260702093123.1048575-18-y-abhilashchandra@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 10:02:06 +0000
-Message-Id: <20260702100206.DC1931F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 10:04:12 +0000
+Message-Id: <20260702100413.A19D91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Low] The devicetree header file `qcom-adc5-gen3.h` is missing from the p=
-atch and the repository, causing a fatal build failure.
+- [High] The device tree overlay extends `port@0` of the deserializer but f=
+ails to override its `status =3D "disabled"` property to `"okay"`.
+- [Medium] The Makefile edits replace the generic V3Link fusion board DTB t=
+argets with camera-specific IMX219 targets, removing the ability to build t=
+he base fusion board device tree.
+- [Medium] Fixed regulators for the IMX219 sensor are defined in the root n=
+ode with generic names, which will cause collisions if multiple cameras are=
+ connected.
+- [Low] The clock node name `imx219-xclk-00` does not conform to the `fixed=
+-clock` binding schema.
 --
 
-commit f729ded8a3dc9a334b27b383ee9e5744b3564db8
-Author: Neil Armstrong <neil.armstrong@linaro.org>
+commit a4f2bcb00cd6e7f16649b1b005247013f5bca8a0
+Author: Jianzhong Xu <xuj@ti.com>
 
-arm64: dts: qcom: pmk8550: add VADC node
+arm64: dts: ti: k3-v3link: Add overlay for IMX219+UB953 serializer
 
-This commit adds the VADC node and the initial pmk8550 adc channels.
+Arducam V3Link camera solution is shipped with an UB953 serializer
+and an IMX219 sensor. Add an overlay for interfacing the UB953 serilaizer
+and IMX219 sensor with the RX0 port on the UB960 deserializer.
 
-> diff --git a/arch/arm64/boot/dts/qcom/pmk8550.dtsi b/arch/arm64/boot/dts/=
-qcom/pmk8550.dtsi
-> index 3049eb6b46d7a..3a9d9f7c37426 100644
-> --- a/arch/arm64/boot/dts/qcom/pmk8550.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/pmk8550.dtsi
-> @@ -7,6 +7,7 @@
->  #include <dt-bindings/input/linux-event-codes.h>
->  #include <dt-bindings/interrupt-controller/irq.h>
->  #include <dt-bindings/spmi/spmi.h>
-> +#include "qcom-adc5-gen3.h"
+Link: https://docs.arducam.com/V3Link-Camera-Solution/V3Link-Camera-Solutio=
+n-on-TI-Platform/Introduction/
 
-[Severity: Low]
-Is the qcom-adc5-gen3.h header missing from this patch series? It doesn't
-appear to be present in the repository, which causes a build failure when
-the device tree compiler preprocessor tries to include it.
+> diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Mak=
+efile
+> index 824acb0d8ee3c..c8e29fdbe37f5 100644
+> --- a/arch/arm64/boot/dts/ti/Makefile
+> +++ b/arch/arm64/boot/dts/ti/Makefile
+[ ... ]
+> @@ -318,16 +321,18 @@ k3-am68-sk-base-board-pcie1-ep-dtbs :=3D k3-am68-sk=
+-base-board.dtb \
+>  	k3-am68-sk-base-board-pcie1-ep.dtbo
+>  k3-am68-sk-fpdlink-fusion-dtbs :=3D k3-am68-sk-base-board.dtb \
+>  	k3-j721e-sk-fpdlink-fusion.dtbo
+> -k3-am68-sk-v3link-fusion-dtbs :=3D k3-am68-sk-base-board.dtb \
+> -	k3-am68-sk-v3link-fusion.dtbo
+> +k3-am68-sk-v3link-fusion-imx219-dtbs :=3D k3-am68-sk-base-board.dtb \
+> +	k3-am68-sk-v3link-fusion.dtbo \
+> +	k3-v3link-imx219-0-0.dtbo
+
+[Severity: Medium]
+Does replacing these generic V3Link fusion board DTB targets instead of
+appending new ones break the ability to build the base fusion board device
+tree?=20
+
+It appears users relying on the generic fusion board DTB to attach different
+types of camera modules will no longer have those generic targets generated.
 
 [ ... ]
-
-> +		pmk8550_vadc: adc@9000 {
-> +			compatible =3D "qcom,spmi-adc5-gen3";
-
+> diff --git a/arch/arm64/boot/dts/ti/k3-v3link-imx219-0-0.dtso b/arch/arm6=
+4/boot/dts/ti/k3-v3link-imx219-0-0.dtso
+> new file mode 100644
+> index 0000000000000..049438f9fc898
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/ti/k3-v3link-imx219-0-0.dtso
+> @@ -0,0 +1,127 @@
 [ ... ]
-
-> +			channel@0 {
-> +				reg =3D <ADC5_GEN3_REF_GND(0)>;
+> +&{/} {
+> +	clk_imx219_fixed_00: imx219-xclk-00 {
 
 [Severity: Low]
-Are the ADC5_GEN3_REF_GND and related parameterized macros expected to be
-defined in the missing qcom-adc5-gen3.h header? Without the header, these
-channel definitions won't compile.
+Does the node name imx219-xclk-00 conform to the fixed-clock binding schema?
+It looks like this might trigger a dtbs_check warning and should perhaps be
+named clock-imx219-00 instead.
 
-> +				label =3D "pmk8550_offset_ref";
-> +				qcom,pre-scaling =3D <1 1>;
-> +			};
+> +		compatible =3D "fixed-clock";
+> +		#clock-cells =3D <0>;
+> +		clock-frequency =3D <24000000>;
+> +	};
+> +
+> +	reg_2p8v: regulator-2p8v {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "2P8V";
+
+[Severity: Medium]
+Will these generic regulator node and string names cause collisions if mult=
+iple
+cameras are connected?
+
+If another similar overlay is applied for a second port, would it merge the
+identical node names or fail to register due to a duplicate regulator-name?
+Could these include port-specific suffixes like regulator-imx219-0-0-2p8v?
+
+> +		regulator-min-microvolt =3D <2800000>;
+> +		regulator-max-microvolt =3D <2800000>;
+> +		regulator-always-on;
+> +	};
+[ ... ]
+> +&deserializer_0_ports {
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +
+> +	/* FPDLink RX 0 */
+> +	port@0 {
+> +		reg =3D <0>;
+> +
+> +		ub960_fpd3_1_in: endpoint {
+> +			remote-endpoint =3D <&ub953_1_out>;
+> +		};
+> +	};
+
+[Severity: High]
+Does this port@0 extension need to include a status =3D "okay" property?
+
+If the base board overlay k3-am68-sk-v3link-fusion.dtso initialized port@0
+with status =3D "disabled", would the OF graph API skip endpoints because t=
+he
+parent port remains disabled in the final DTB?
+
+> +};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-topic-sm8x=
-50-adc5-gen3-v5-0-8169953634ad@linaro.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702093123.1048=
+575-1-y-abhilashchandra@ti.com?part=3D17
