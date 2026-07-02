@@ -1,121 +1,108 @@
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CE042A798
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 08:31:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E35342A798;
+	Thu,  2 Jul 2026 08:35:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782981115; cv=none; b=rzdh3yWH7EbTdWcwv5DZA+4sb9aXjvk9YpbvYz9x8ybTSM1VymuHVKMnw8aW5iWRzswOsKcxVYDZyw/bJx5H0F9IhWiKukbVyNq8VxBSwsXjZT4Jkk/7YTcFIuSwZBrmnijGqFiZOCRulBjOT7G7T0qzprdXkuN8vT7E+TgOKog=
+	t=1782981326; cv=none; b=E8pwrMJbRGYVo5i5m3CaTxmsDXvbqVPUK3D5C2A9lQoAl/9SrbFf+GTS0mRl8dqr4+WVxunfqnL56QFY0h8VaAxWtC0d7A/XSQLT8b7JjmK6bYcyjvNr0Z1lh/tDz9za3pHezIoNANIzYE9hyDFbw46EJcVD36zHB8R1fJWub3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782981115; c=relaxed/simple;
-	bh=SxEdWObSZbUYZ46vS/JBccmLuboyk8r+0BnZw9wrUVE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uQHSlYqMdkIKZEQv66PfnPb8VdXI6njrfJXxJcHdjf/BP00IdJDSrt/oVUc6ksQZkKrj5mzhU961W5zyaqd2ioYqbQxHIhNLsfLtjYuDUqMtPIl1Xg8NSrLwgDpoMwfejU663cgCVGWSQBDFrTNAQfaV+V3U2S2/tbJBDHM2qXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xznNSid3; arc=none smtp.client-ip=209.85.167.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1782981326; c=relaxed/simple;
+	bh=Ui5nKZ9kIlm2Qxi2QG/TTlT978eJ07IL4k6NbZcpY2c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uM8M5r6vjXBymwxYafXUu01Jcd9QnPOd13TYp9Ugrwk2Rpv1eZz0LlfQ/WKiPRljKzm0Pxbn4WTi96dn8EtIM/JSaT0hT/9OuYWhgu4fca+gxsntUd7Xrx1uwK8A376LgfXRw1glstIKmJWrCxRx1xZfhYAoy1nixJqnhGwXtjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=saszGIV/; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xznNSid3"
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5aebd7da975so195972e87.2
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 01:31:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1782981111; x=1783585911; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uyIInBymlHfz7VGDGtgQL8R4WXsM/iu4ZoItEUD8FE0=;
-        b=xznNSid3qZdqU7P6bAKbpcOEZxAKn7KjZc4V13PhEH0U0EWnKFfY/ITq0as/wtKTrW
-         aB5+63ertkdXpbV4PMl7/h9UxRITtFyK5i/rdSEFPvl/AXxI6lZ1nHDwPQ6QPT0qPzvg
-         PFXgA3RKWq5FhXRDSK6ZsTgLu1jC2723te1fpkVGjEn8Xkn3Gq6Db08yFtJFfhz92DXO
-         s0Nu470vVSoKjA8GSQVJMNlLRb8rgn8xK9/seajmpZlVB4tWNS6UHO4yt+E5BMPuEjPQ
-         YcrvyAZGOF/hAKZHiYDfFl91Q6A4Hr1RIIhRlFAvx6ssRJ+4X3EK7QYaWqUjOO8jVAQx
-         m+cQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782981111; x=1783585911;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uyIInBymlHfz7VGDGtgQL8R4WXsM/iu4ZoItEUD8FE0=;
-        b=NVilUo+WfPm/UyqoCKOZ8YOk45nMxk6CPsAA0R+qK5MqFm5e4Dr2YaP2rYZYKkpyfC
-         I7KUElDMInHxAtAUb3JVUG1dx6Xj84BTupZV/nlqFjQ91QvTdynvXMkLYHuSNdLGircD
-         1kmtWamjua8NYJmlfpbHgTLu8u1P4xeLm7WTQtsfvkFGPrWSvG0NPj6Qz4p+L15uq0h2
-         z+byxKGHFV33FPvbW2NR/EXesXe6dyo0oTIymen1fvvp65nlf4hNlbJ70Ns1t2WzQMDI
-         PXkV0DzLtOyXbXoi4B6m/P6I8YcBv4L0xt97L1dp9aE8nvQ8r6X6FdbEYJuFV1/ahqLf
-         Iq8w==
-X-Forwarded-Encrypted: i=1; AHgh+Rqd2b7LjuojKKKOjTwN7OsnuxYb9Yt8dDGqqHYVJJ9LEX8pwOxYoLMHZw4VB3bu//E0uQxUJiDPKGF9@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKkBJ94ry9BBsBNg6cOB6TX8u5Rg0G7qSmE9uGcXshI12nCRjf
-	Lq2viJvpXdDKd+S6UHiY6cTrANVNOOu3E6EQ1/k/jIS10/M5TVfGpkmxy5ZdMuLdvlk=
-X-Gm-Gg: AfdE7ckPzOrFntdWztuElMI7b0nJIR08fNZ0GckrEFY1MY+iMooi/Hs78AyZe9tMVar
-	sM/awaae8NCT0PU1mxkoB1gXbVZlonGlo5B87P+lZPFPSqlWFTJJdfxAKcg+Je/CRo2gR30IIFV
-	vAQ/ocynbUwGIAaNrZHCmTKFSKzdgbUcvOrxjH7Biov11RoQqCKfR4B2oOKVtsAHYNkJgM+31Ig
-	FTm+ps95QDnMwXE73bdpQRmVL+xS7DC9QRsSMbtUWQpJFFbqSS6xExyAlUPPSIY4BcE1T6xcytK
-	dmh92QG8InEc84ODfJbTTlDGGzogxlQDcQZ0zkfPjcoofYF+dyxkTIpZSFrXucbdkphpBENmNRY
-	2yjj11Q0dYK6PmqPS/7/CLjIPxOl/CrFJk53ZXdbq0JntV4XpBZRFkyWGva/V3o5Yh82Ps3rMI9
-	AIgmM+PWSF7sDePl5bUkdzsPykMN5gAFEWmgZlO74v6dpAqM8Xscjgpvdi1mJKIez/blI=
-X-Received: by 2002:a05:6512:1319:b0:5ae:b6cf:2864 with SMTP id 2adb3069b0e04-5aec676a8f3mr825148e87.0.1782981110761;
-        Thu, 02 Jul 2026 01:31:50 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aec899171asm537377e87.16.2026.07.02.01.31.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jul 2026 01:31:49 -0700 (PDT)
-Message-ID: <1c583e24-09db-4d90-8f32-d3d3961188a0@linaro.org>
-Date: Thu, 2 Jul 2026 11:31:42 +0300
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="saszGIV/"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id DC97B4E40C29;
+	Thu,  2 Jul 2026 08:35:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B12185FF03;
+	Thu,  2 Jul 2026 08:35:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 486C3104C960E;
+	Thu,  2 Jul 2026 10:35:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1782981321; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=v3XoWcvCU8wzeGoOynPkYxwnAByrmkOU41swl4JF6g4=;
+	b=saszGIV/t7Y7j0JCiRiMUZrrUjHgBxZCHRP9SZrxi6DyLprb0yS0sqEUUCgbVRd1j2kDc0
+	mmV+Laa54Jw23TXNMja9633XtjD8NiBsMe3Kp2lBv2d+oAdyoaAQaSjr/yx/Rw3AXjVS48
+	/7gmJKz2k6Xxff3YAjAbIvnU7lUZF9MhDwYr/j0imQtjLeJiPpaCC0fbG5OYSbto/VEO02
+	MwGmNXVAzg2tf90MBY0RClJyont9a5FyoivIAuz6GiJYx8vrtvTv3ImtWQwrkR/i5SPe0F
+	XNqBBcQuTOxaC+xM5I56CdSoyn18G8woFKkwT49z17GjmweTSDTvd+qX8fls7w==
+Date: Thu, 2 Jul 2026 10:35:17 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Markus Probst <markus.probst@posteo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: rtc: Add sii,wakealarm-output-pin
+ property for S35390A
+Message-ID: <20260702083517a6b67a86@mail.local>
+References: <20260630-rtc_s35390a_int1-v1-1-1b2239e16be2@posteo.de>
+ <20260701-bronze-jaguar-of-perfection-028bac@quoll>
+ <45e8157be53c3d8827fcccece7f706968bc056d3.camel@posteo.de>
+ <7de66163-369e-4118-af51-6913b565fa4b@kernel.org>
+ <d06dd0726aa3795ae99df5fa8a9c05d6e2001efd.camel@posteo.de>
+ <20260701164821b7492eac@mail.local>
+ <74b32ed0a700e3900c0f34d730b2b5b69eb2ca19.camel@posteo.de>
+ <187099d0-5e09-49c2-b67d-8bd4366ff1a0@kernel.org>
+ <202607020817017cde494f@mail.local>
+ <887cb4e9-d60d-47b5-9110-e00d18e9e46c@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
- <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
- <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
- <7c564df8-5c5a-4b43-806e-5e017e5c51db@kernel.org>
- <ae3a381b-5697-43ee-bdfd-aaf2d22ceedf@linaro.org>
- <6b6492a4-7610-4dce-a81c-8dc0387a4061@linaro.org>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <6b6492a4-7610-4dce-a81c-8dc0387a4061@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <887cb4e9-d60d-47b5-9110-e00d18e9e46c@kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 7/2/26 03:08, Bryan O'Donoghue wrote:
-> On 02/07/2026 00:37, Vladimir Zapolskiy wrote:
->>>
->>> Inserting bus-type into the PHY layer is borrowing from one domain
->>> linux-media and pushing the concept into PHYs.
->>
->> It's the other way around, "bus-type" is an endpoint property of media
->> devices, reference to video-interfaces.yaml to get more details about it.
->>
->>> phy-cells = 1 with CPHY/DPHY specified in the consumer, as was Rob's
->>> suggestion will specify the mode.
->>
->> This cell is just not needed, and unneeded complexity should not be added.
+On 02/07/2026 10:20:20+0200, Krzysztof Kozlowski wrote:
+> On 02/07/2026 10:17, Alexandre Belloni wrote:
+> > On 02/07/2026 08:09:55+0200, Krzysztof Kozlowski wrote:
+> >>>> Then you need proper wakeup-source support
+> >>> Wouldn't that break existing devicetrees?
+> >>
+> >> How?
+> >>
+> >>>
+> >>> The current driver allows to wake up the system, even without
+> >>> having wakeup-source set.
+> >>
+> >> Anyway, wakeup-source is already there in rtc, so this would be done. I
+> >> don't get though, why there is no benefit of routing it to interrupt
+> >> controller (interrupt controllers do wake up the system). Additionally,
+> >> if you do not connect it to any interrupt, then how does it wake up the
+> >> system?
+> >>
+> > 
+> > Some systems are routing the interrupt output of the RTC directly to the
+> > PMIC and the PMIC is the one responsible for waking the rest of the
+> > system, including the SoC.
 > 
-> I'm going to stick to Rob's initial guidance on this.
-> 
-> https://lore.kernel.org/linux-media/20250710230846.GA44483-robh@kernel.org/
+> Yeah, then the PMIC has interrupt line to the SoC and the PMIC is the
+> wakeup-source, not RTC.
 > 
 
-Sure, the discussion will be continued abouve v9 of the series, it's
-just a chance to do it now. Rob properly pointed out, that the invented
-"phy-type" is not needed at all.
+This would be case 3 of Documentation/devicetree/bindings/power/wakeup-source.txt
 
-Ther fact is that the whole placement of the CSIPHY to phy subsystem
-looks execessive, since you add a driver for a media device, there will
-be nothing PHY driver specific left in the CSIPHY driver but name.
+> Best regards,
+> Krzysztof
 
 -- 
-Best wishes,
-Vladimir
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
