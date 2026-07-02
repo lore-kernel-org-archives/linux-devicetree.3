@@ -1,72 +1,85 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C056544E021;
-	Thu,  2 Jul 2026 13:22:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC3248034E
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 13:23:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782998560; cv=none; b=THBPeI0CKHsWUhwLcFh8D7ALcFyD4XC0AIrBHdX01/eTYEIqutiR5OFJHSibbBVVZysvIZoT+jW/CDl2C1ei2E2U4GhbDpwF9Jg1k4/cHMWV2HGNIF6mamkZco14WaLEa6+DnvgHE1azPVAXIrb7dFzRDjpvvp6XvtL3hwTM3Ok=
+	t=1782998607; cv=none; b=hTppAmZSkV6+dGAxbj6hbDciE/rACSaeio4msF0NSAxzjULzpD2imPxun2PH0LHxxFSW5Cmrg5Ekh24kT82UtvViNQ0GrRKhAkPYJWSIKkgrMx10JhwsACG9u86Y6XDqeSSY46WxDyJhkcUXoaVgMiYITaBKUq5Gok4Njp7VMA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782998560; c=relaxed/simple;
-	bh=zR2ssBTJ0hc8qe+ldHpvUptRAIZg+VWONUgR5PKlGfY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W9aQWTkEY/k68AcAeoHI9J4CvYeevr1y4qox5KVjr/AtjoZ4AQTQMSFhlIyhZAToOuhxeOxtD2awr/0PdCdAfpa6WHtydmzMjRAk0/F5sLKJ6Ux4+iWRGm1KwDSn7SX7VHes9luQSTqUYupeaNC8flHYnTr4SzstuG8q0CIdpso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zbKFCrLI; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1782998607; c=relaxed/simple;
+	bh=O/+xDYMCTDVOyhlY3bdOgfogvDZjRIBQUbYt9QjBRk0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CCKH9Ai5dg8bLQ7+ZW0drBF5TsViU/gFXKrtVyT4rJKnsXBg8UdDzXHXK105i0nVAXO/OVa/70xE8hIk/t0zyABfC2jw+GRx1AUSZXm6oNc2qjYE++uO1inuQeau5bg1hQl3ZTaxJUzSwQMQDWDLGJkGFEZNV6JG3ozTnRyycig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lqbaxj3f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zbKFCrLI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=tWlnBBIqu+jwhvkKN/N5JYkj1UlSldgA+HsxEGOrqnM=; b=zbKFCrLI1i8pQY9ZY7jVNYvcYe
-	RDv8omyGh7Ow2IczFdscKKXjBPx2kY8e/hioXEUYEofi0EzIBJOZD0pI2iMXWY3guOv1Gb80lOzNS
-	Vyjh7E16J3p2Qu0syeu8I4sXQscmfKYfcdETJhkJMErFiQi54pNekZnWDWbbGcprOqQ0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wfHNC-00ANLw-SO; Thu, 02 Jul 2026 15:22:34 +0200
-Date: Thu, 2 Jul 2026 15:22:34 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: =?utf-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org,
-	devicetree@vger.kernel.org, Min Lin <linmin@eswincomputing.com>
-Subject: Re: Re: [PATCH net-next v9 6/6] riscv: dts: eswin:
- eic7700-hifive-premier-p550: enable Ethernet controller
-Message-ID: <58532b95-bb74-4d87-acae-e67b41dd7d57@lunn.ch>
-References: <20260630063123.1118-1-lizhi2@eswincomputing.com>
- <20260630063445.1226-1-lizhi2@eswincomputing.com>
- <20260701063512.9ED051F000E9@smtp.kernel.org>
- <5de09a24.a11e.19f2207d7d2.Coremail.lizhi2@eswincomputing.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lqbaxj3f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F16B1F000E9
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 13:23:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782998606;
+	bh=O/+xDYMCTDVOyhlY3bdOgfogvDZjRIBQUbYt9QjBRk0=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=lqbaxj3f3sxqz5zXLRjl2SjXgVF2ARha+OAma9+j1biQ+VwgoG5UBa4YwqGIrw3uS
+	 1qXzdt/kY8BGNTq0nRffGkovhq/FPQcFGuitj/QOQh4EVlvdOZjtgdCwAMXR3crPKv
+	 a9p3F2iAwPgNyMfH9exKu+FoPlltpsyR9b9tti3TCPhqnPtCTm3FBQ4s0qsXadd0xT
+	 Yy0vWhz0rVsw4Hnhvys4WT4ssEcGUKzRkUD0kWUCf4Vd1poFUxp4OZI0dSRrN36wIG
+	 WSKkFehInXE4OnsbaDnNoqkgYFelTo+mIqZMKTkCgNTC+Qjl40HI5eZ7o/QPdhhjNJ
+	 hc25E3eOqDpOg==
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39b093b42b4so17176301fa.3
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 06:23:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rr1FUL/ge8GUKQjnna+s43R4PeMBW2h29wPVRKKG5IGnfksfCwL+7EYK5m+k9PtWVJF2v+qBbAOG3J3@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw61A11/M5PjHJWpQyE3P7VYQDutlyvv9B47/dWUx5E74RWuyrF
+	LA58Sa6x2qRzBai3wwOoLyUzb9zgv/otGUQHEFhT4M7z3R9FS5+8Ui0yuNUiydPMXxMY3TzHrJp
+	/Y83L99PlLRtadNlsOvj8E2Bwk9g8TWw=
+X-Received: by 2002:a05:651c:993:b0:39b:4231:8b85 with SMTP id
+ 38308e7fff4ca-39b42318d0dmr2458931fa.40.1782998604620; Thu, 02 Jul 2026
+ 06:23:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5de09a24.a11e.19f2207d7d2.Coremail.lizhi2@eswincomputing.com>
+References: <20260702-a733-rtc-v3-0-eb2580374de6@baylibre.com> <20260702-a733-rtc-v3-3-eb2580374de6@baylibre.com>
+In-Reply-To: <20260702-a733-rtc-v3-3-eb2580374de6@baylibre.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Thu, 2 Jul 2026 21:23:11 +0800
+X-Gmail-Original-Message-ID: <CAGb2v66KapepNOPf7ef5dd_AqDQdVBo-cFOJrR_Deu0zA0xWaQ@mail.gmail.com>
+X-Gm-Features: AVVi8CeV6-IjWgsA2LmKA_98iO6chNHg3C1q7oOyJiDDAU0-Mdj71gMQi3ZmkpE
+Message-ID: <CAGb2v66KapepNOPf7ef5dd_AqDQdVBo-cFOJrR_Deu0zA0xWaQ@mail.gmail.com>
+Subject: Re: [PATCH v3 3/8] clk: sunxi-ng: fix ccu probe clock unregister on error
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Hi Andrew,
-> 
-> One question before I prepare the next revision.
-> 
-> As discussed previously, the DTS patch was included only to provide the overall
-> Ethernet design context during the review of the binding and driver patches:
-> 
-> https://lore.kernel.org/lkml/64bf6b40-b947-4ffa-8d48-4d6341931327@lunn.ch/
-> 
-> For the next revision, would it be acceptable to drop the DTS patch from this
-> series and post only the binding and driver patches? The complete DTS
-> enablement is planned to be submitted later as a separate series after the
-> binding and driver have been merged.
+On Thu, Jul 2, 2026 at 4:10=E2=80=AFPM Jerome Brunet <jbrunet@baylibre.com>=
+ wrote:
+>
+> When registering clocks with sunxi_ccu_probe(), the number of ccu_clocks
+> and the number of hw clocks might be different, eventhough they usually a=
+re
+> the same.
+>
+> If they are different, it could lead to out-of-bound access or registered
+> clock left behind on error.
+>
+> Use a different variable when iterating on hw clocks so every registered
+> clock, and only those, gets unregistered on error.
+>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/r/20260629131254.7E34C1F00A3A@smtp.kernel=
+.org
+> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 
-What normally happens is that I give an Acked-by: or a Reviewed-by:
-for the DT patch, and you submit it for merging via the DT Maintainer.
-Everything then meets up in linux-next.
-
-Why do you need to do this later? Why not now?
-
-	Andrew
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
