@@ -1,368 +1,141 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9574A33F2
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:49:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6526B4D8D83;
+	Thu,  2 Jul 2026 09:50:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782985747; cv=none; b=PeTICSZjYOIZDVUhACTgUAZgy63MLfvXF36e20LZWiwLSY4S7kDffi+2IBPIDI+M5wGz7IeA+sJo3eELCDV3Hrj7A1DoA/EB45VJciTVamgtyl6lJS15YRCCvDeXMiQGdBoGCAFH6qOFyoqhNWF7Ux/ql/M7sACUPBcmlx/NpMo=
+	t=1782985805; cv=none; b=jh/B+U/3L4MsQwn9QQiWMn11aTO4QW7q4RiEroZaXhgk2YPnqdBgBIXl/2SG3kR16MenIWBYtRiu0KvWfgTxBn0zXyQw9/ekH6oBbgERPgEWAkUYoPNnm/Sek6jWdPqWEaCLLbwr/+KTnJCUUebMNXC7k8miTgPFUDdk6oO42YI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782985747; c=relaxed/simple;
-	bh=iniF0tSViInEh1MMLv25tzxSwqEs76/kr8afwqrlSZE=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kHCeSfasS9IZHzmql/UFF9m3P4TI2p/OzMaLJiBiZYg3R4S9sgFaXomFuEbxsun/Oa31jqihHmtcM5XChmv9L1Ak9g/FkvMqpregDY8vC86X40y+PNYWdz5zVNw97d5e738O0AeKZ0jMqjE2/mz24z5TfUKI/onmzvhvcl1C2UA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DT+5iPee; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782985805; c=relaxed/simple;
+	bh=L6Qq3uruWQZ9MQS+XgdfCBx9XCyavONZ41mp4BOL+rI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=L7nKzNwcSRQfpj22sscyb+pVkUrWzVYJtwonkV26m0OKee8azNwwqxS7ccXwFY5XbXzqOfOdqrKNTG3JYTZbDG16gsnTaqNZ1UXxaTlaIO+uc3p1A8uXFtCY5KHcPUHfL+PCQ0Z1Ij7BNwFnqepIeF+Q8q6v+PNOKfsAEcO2xUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2+/Rav5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DT+5iPee"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-475cb71a4ebso1534030f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:49:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782985744; x=1783590544; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=uOBI/76zfymmsnLabP6yGWPMsg68pHJzFMjvw0nPsIU=;
-        b=DT+5iPeeuOJHkSLGtg8MRKj9lAs6a7R+5Mxc1a3Rg0w9/lHNoOjc+yZXRtdY3RMXAu
-         1tILxroXxVq36HJGv+sg0T6fXW6b1bRW6ZaXDT0djIK44zt5MtLGGsFea25T15TrGRcE
-         PeRBK7KQkEXHUv7l5p06GMmVhu5mXgZU1M8jrqwEnmRRdQ5iSdeh0tT8IXWD2Y00rCNB
-         4npqelzxwYWTLwyVIVR794mPPZluKEJxbnNXRpppJ4y++KeVnGHJ3QDdk+j3Eu85Cbbn
-         P069GK/vjdDNw3PkERJAmjDQSZyU6K5TWjgV5Vr/NQ+j3vWy0yaogLhoAtOTw2yBXiiV
-         hwkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782985744; x=1783590544;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=uOBI/76zfymmsnLabP6yGWPMsg68pHJzFMjvw0nPsIU=;
-        b=RyVYf/ralpv7m/Un4JA4ndDp3O0iB5Sa6c0SQ8Pw8mJNRnXBax2DVYf2xRigvx1i0B
-         AhCg3F3j5y2yc6ABTyeMEcNQS49+iB6+H/PHVXbG/voBciDpK8vUKroftb24vQIS2OQl
-         Ad9o+Ii+BVUzvgYy5On0zGT7oRv6L14FaEBCCUhQcvX8kpaVv3IkbXgJrvdvgdj3imIz
-         bshDelyoKMEJfrh8bLGhgcaqkRoypkLcfRowOfgQctt/lcxkxHzP1juI0mfBs/NDO7DY
-         9lT77xR3hchsAkbuu5hVBViG4zZNBitobinvp9L3chpvl4lgQ9PfE+h3t+MI0vq8ABcm
-         9LIQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpqKxM3lvheks4Y6iwsPqUmMFntGoR38Fa1Axijb4tkQVJa5RbKjpPngWyG2wIv60NJ33sEMUoTqlK6@vger.kernel.org
-X-Gm-Message-State: AOJu0YyFp3504j4rDWO3QskfVpRPSpzPApP1KyLi6RxNj/rOjsp03xBP
-	yD4Z3IH3UiCkifPeozDw231PdQCZgXxBqYIHgwLOUsj4Ru5hLU+t8SfZ
-X-Gm-Gg: AfdE7clUdfKBvv61SWcNrMrd04Lo0GEMJBVoj51cFZkP7CAyE4lpVpyd1DyyA6Ld6bj
-	Zy00Se9VT/nzTL0At/7DdzcffxcoPGDd3Lfaxd8A12sNDUv4iigvhf4+0wTakTwOSz6ksmK2Lyo
-	76cp6dud0B7FKpeWRm6oomSaSokiwdnMI3ajB8y8BCCxN3PZZCtCRJYOvd8j4i+pID/g9/j6fRq
-	RiAvkFVXqeCU1Usxc1ByWPsvW2L8xxyP38FUIZ7EiXLAZmZ/4GYuP0hzT2z6FyJWgt6j+iwR24L
-	9u5H8vfx9+lo8D0rR6IqChIIEHc6yxl8v1c6iWo5QTYmF9JjOkvcOnSNNInK2gOvdXIVm47gGDt
-	rcH34RXozo+82UdXyaoaXNB9U1L1J8AcO+LLc9gfDNZR4ytRc//sATTgzSnURojE1Rj3IpitJ3C
-	71TZnip+VTYTSU4OQ+bXpa/VHizUIPLZiyfMuU1WHCXMw9m04+0guFkVGsNNqbOf59sj3qcqjr7
-	64Ho7rM+O27gohR
-X-Received: by 2002:a05:6000:2506:b0:475:69ce:ac4a with SMTP id ffacd0b85a97d-4775a100fc5mr8013251f8f.33.1782985743675;
-        Thu, 02 Jul 2026 02:49:03 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-79-52-250-217.retail.telecomitalia.it. [79.52.250.217])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-477dbe617b1sm7381364f8f.16.2026.07.02.02.49.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 02:49:03 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: [PATCH v6 7/7] thermal/drivers: airoha: Add support for AN7583 Thermal Sensor
-Date: Thu,  2 Jul 2026 11:48:35 +0200
-Message-ID: <20260702094846.17325-8-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260702094846.17325-1-ansuelsmth@gmail.com>
-References: <20260702094846.17325-1-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2+/Rav5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75BA61F01814;
+	Thu,  2 Jul 2026 09:50:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782985802;
+	bh=QAt8IkPU78AUXj470E16sbWH2G3KHOHy3Bnt2mFNG+w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=l2+/Rav5RUI4Bom64i5UgoF5NRaFjer5MVBYETWPlbXTTcvEmeZ18xbeGkC55q9kf
+	 i1N2tjQFS30CG59hBZCbbzQGue6tPloAwQ7GgjDHbUiSSzSWNKpD5WrrE5bRA7ci+x
+	 z7V3YGwHv7s6UFtrKst5JY2OYbv7MpgnX/pqTgyYiWdTPj2g3OILLECJgmg4q6N+9/
+	 qxW973/we32IYU3hVwJaJU2YXeoQWUxPYSUfiG0S4MDt9YvHY/6aUidEuF1jQTamRw
+	 zXbzD5V14pgjDAaFuC9KviOSqi3rjAORGweb8tNHNB9QdxVC4dh2UHvGXBiJlIwvgm
+	 JklBHKQZZiwiA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 09/18] arm64: dts: ti: k3-j721e-sk: Add overlay for
+ fusion application daughter board
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yemike Abhilash Chandra" <y-abhilashchandra@ti.com>
+Cc: conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260702093123.1048575-10-y-abhilashchandra@ti.com>
+References: <20260702093123.1048575-1-y-abhilashchandra@ti.com>
+ <20260702093123.1048575-10-y-abhilashchandra@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 09:50:01 +0000
+Message-Id: <20260702095002.75BA61F01814@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add support for Airoha AN7583 Thermal driver. This apply similar logic
-on how to read the temperature but totally drop support for the
-PTP_THERMAL subsystem. PTP_THERMAL subsystem was a way to trigger trip
-point from hardware by configuring how to read the temperature
-internally.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] Inconsistent definition of the `bus-type` property between CSI-2 en=
+dpoints.
+- [Low] Minor DTS styling and whitespace inconsistencies in port definition=
+s.
+--
 
-This subsystem has been totally removed from Airoha AN7583 permitting
-only to read the temperature.
+commit 6e2c6c33cfd930bf555fb197269fc8e707df6261
+Author: Vaishnav Achath <vaishnav.a@ti.com>
 
-The SoC support up to 3 sensor but the original driver always read the
-BGA sensor hence it's currently implemented reading only this specific
-sensor. Reference and values for the other 2 sensor are defined for
-further implementation if confirmed working.
+arm64: dts: ti: k3-j721e-sk: Add overlay for fusion application daughter bo=
+ard
 
-set_thermal_mux() is extended to also address muxing the sensor as
-AN7583 use a different way to read the temperature from 3 different
-diode. The EN7581 code is updated to account for these changes.
+This commit adds a device tree overlay for the Fusion application daughter
+board, enabling FPDLink-III based sensors to connect to TI EVMs. It
+configures two DS90UB960 deserializers and is compatible with J721E SK,
+AM68-SK, and AM69-SK boards.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/thermal/airoha_thermal.c | 161 ++++++++++++++++++++++++++++++-
- 1 file changed, 157 insertions(+), 4 deletions(-)
+> diff --git a/arch/arm64/boot/dts/ti/k3-j721e-sk-fpdlink-fusion.dtso b/arc=
+h/arm64/boot/dts/ti/k3-j721e-sk-fpdlink-fusion.dtso
+> new file mode 100644
+> index 0000000000000..dd82ec3accfed
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/ti/k3-j721e-sk-fpdlink-fusion.dtso
+[ ... ]
+> +		deserializer_0_ports: ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			port@0{
+> +				reg=3D <0>;
 
-diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_thermal.c
-index 249abbbd46bc..c84b5c36e880 100644
---- a/drivers/thermal/airoha_thermal.c
-+++ b/drivers/thermal/airoha_thermal.c
-@@ -18,6 +18,12 @@
- #define EN7581_DOUT_TADC			0x2f8
- #define   EN7581_DOUT_TADC_MASK			GENMASK(15, 0)
- 
-+#define AN7583_MUX_SENSOR			0x2a0
-+#define   AN7583_LOAD_ADJ			GENMASK(3, 2)
-+#define AN7583_MUX_TADC				0x2e4
-+#define   AN7583_MUX_TADC_MASK			GENMASK(3, 1)
-+#define AN7583_DOUT_TADC			0x2f0
-+
- /* PTP_THERMAL regs */
- #define EN7581_TEMPMONCTL0			0x800
- #define   EN7581_SENSE3_EN			BIT(3)
-@@ -181,6 +187,11 @@
- #define EN7581_SCU_THERMAL_PROTECT_KEY		0x12
- #define EN7581_SCU_THERMAL_MUX_DIODE1		0x7
- 
-+#define AN7583_SCU_THERMAL_PROTECT_KEY		0x80
-+#define AN7583_NUM_SENSOR			3
-+
-+#define AIROHA_THERMAL_NO_MUX_SENSOR		-1
-+
- /* Convert temp to raw value as read from ADC	((((temp / 100) - init) * slope) / 1000) + offset */
- #define TEMP_TO_RAW(priv, temp)			((((((temp) / 100) - (priv)->init_temp) * \
- 						  (priv)->default_slope) / 1000) + \
-@@ -193,8 +204,39 @@
- 
- #define AIROHA_MAX_SAMPLES			6
- 
-+/*
-+ * AN7583 supports all these ADC mux but the original driver
-+ * always checked temp with the AN7583_BGP_TEMP_SENSOR.
-+ * Assume using the other sensor temperature is invalid and
-+ * always read from AN7583_BGP_TEMP_SENSOR.
-+ *
-+ * On top of this it's defined that AN7583 supports 3
-+ * sensor: AN7583_BGP_TEMP_SENSOR, AN7583_GBE_TEMP_SENSOR,
-+ * AN7583_CPU_TEMP_SENSOR.
-+ *
-+ * Provide the ADC mux for reference.
-+ */
-+enum an7583_thermal_adc_mux {
-+	AN7583_BGP_TEMP_SENSOR,
-+	AN7583_PAD_AVS,
-+	AN7583_CORE_POWER,
-+	AN7583_AVSDAC_OUT,
-+	AN7583_VCM,
-+	AN7583_GBE_TEMP_SENSOR,
-+	AN7583_CPU_TEMP_SENSOR,
-+
-+	AN7583_ADC_MUX_MAX,
-+};
-+
-+enum an7583_thermal_diode_mux {
-+	AN7583_D0_TADC,
-+	AN7583_ZERO_TADC,
-+	AN7583_D1_TADC,
-+};
-+
- enum airoha_thermal_chip_scu_field {
- 	AIROHA_THERMAL_DOUT_TADC,
-+	AIROHA_THERMAL_MUX_SENSOR,
- 	AIROHA_THERMAL_MUX_TADC,
- 
- 	/* keep last */
-@@ -208,6 +250,7 @@ struct airoha_thermal_priv {
- 	struct resource scu_adc_res;
- 
- 	u32 pllrg_protect;
-+	int current_adc;
- 
- 	struct thermal_zone_device *tz;
- 	int init_temp;
-@@ -224,6 +267,24 @@ struct airoha_thermal_soc_data {
- 	int (*post_probe)(struct platform_device *pdev);
- };
- 
-+static const unsigned int an7583_thermal_coeff[AN7583_ADC_MUX_MAX] = {
-+	[AN7583_BGP_TEMP_SENSOR] = 973,
-+	[AN7583_GBE_TEMP_SENSOR] = 995,
-+	[AN7583_CPU_TEMP_SENSOR] = 1035,
-+};
-+
-+static const unsigned int an7583_thermal_slope[AN7583_ADC_MUX_MAX] = {
-+	[AN7583_BGP_TEMP_SENSOR] = 7440,
-+	[AN7583_GBE_TEMP_SENSOR] = 7620,
-+	[AN7583_CPU_TEMP_SENSOR] = 8390,
-+};
-+
-+static const unsigned int an7583_thermal_offset[AN7583_ADC_MUX_MAX] = {
-+	[AN7583_BGP_TEMP_SENSOR] = 294,
-+	[AN7583_GBE_TEMP_SENSOR] = 298,
-+	[AN7583_CPU_TEMP_SENSOR] = 344,
-+};
-+
- static int airoha_get_thermal_ADC(struct airoha_thermal_priv *priv)
- {
- 	u32 val;
-@@ -234,7 +295,7 @@ static int airoha_get_thermal_ADC(struct airoha_thermal_priv *priv)
- }
- 
- static void airoha_set_thermal_mux(struct airoha_thermal_priv *priv,
--				   int tdac_idx)
-+				   int tdac_idx, int sensor_idx)
- {
- 	u32 pllrg;
- 
-@@ -245,9 +306,20 @@ static void airoha_set_thermal_mux(struct airoha_thermal_priv *priv,
- 	regmap_write(priv->chip_scu, EN7581_PLLRG_PROTECT,
- 		     priv->pllrg_protect);
- 
-+	/*
-+	 * Configure Thermal Sensor mux to sensor_idx.
-+	 * (if not supported, sensor_idx is AIROHA_THERMAL_NO_MUX_SENSOR)
-+	 */
-+	if (sensor_idx != AIROHA_THERMAL_NO_MUX_SENSOR)
-+		regmap_field_write(priv->chip_scu_fields[AIROHA_THERMAL_MUX_SENSOR],
-+				   sensor_idx);
-+
- 	/* Configure Thermal ADC mux to tdac_idx */
--	regmap_field_write(priv->chip_scu_fields[AIROHA_THERMAL_MUX_TADC],
--			   tdac_idx);
-+	if (priv->current_adc != tdac_idx) {
-+		regmap_field_write(priv->chip_scu_fields[AIROHA_THERMAL_MUX_TADC],
-+				   tdac_idx);
-+		priv->current_adc = tdac_idx;
-+	}
- 
- 	/* Restore PLLRG value on exit */
- 	regmap_write(priv->chip_scu, EN7581_PLLRG_PROTECT, pllrg);
-@@ -361,7 +433,8 @@ static void en7581_thermal_setup_adc_val(struct device *dev,
- 	u32 cpu_sensor = 0;
- 
- 	/* Setup Thermal Sensor to ADC mode and setup the mux to DIODE1 */
--	airoha_set_thermal_mux(priv, EN7581_SCU_THERMAL_MUX_DIODE1);
-+	airoha_set_thermal_mux(priv, EN7581_SCU_THERMAL_MUX_DIODE1,
-+			       AIROHA_THERMAL_NO_MUX_SENSOR);
- 
- 	regmap_read(priv->map, EN7581_EFUSE_TEMP_OFFSET_REG, &efuse_calib_info);
- 	if (efuse_calib_info) {
-@@ -477,6 +550,10 @@ static int en7581_thermal_probe(struct platform_device *pdev,
- 	for (i = 0; i < AIROHA_THERMAL_FIELD_MAX; i++) {
- 		struct regmap_field *field;
- 
-+		/* Skip registering MUX_SENSOR field as not supported */
-+		if (i == AIROHA_THERMAL_MUX_SENSOR)
-+			continue;
-+
- 		field = devm_regmap_field_alloc(dev, priv->chip_scu,
- 						en7581_chip_scu_fields[i]);
- 		if (IS_ERR(field)) {
-@@ -519,6 +596,74 @@ static int en7581_thermal_post_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static int an7583_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
-+{
-+	struct airoha_thermal_priv *priv = thermal_zone_device_priv(tz);
-+	int sensor_idx;
-+	int delta_diode, delta_gain;
-+	int coeff, slope, offset;
-+
-+	int diode_zero, diode_d0, diode_d1;
-+
-+	/* Always read sensor AN7583_BGP_TEMP_SENSOR */
-+	sensor_idx = AN7583_BGP_TEMP_SENSOR;
-+
-+	coeff = an7583_thermal_coeff[sensor_idx];
-+	slope = an7583_thermal_slope[sensor_idx];
-+	offset = an7583_thermal_offset[sensor_idx];
-+
-+	airoha_set_thermal_mux(priv, AN7583_ZERO_TADC, sensor_idx);
-+	diode_zero = airoha_get_thermal_ADC(priv);
-+	airoha_set_thermal_mux(priv, AN7583_D0_TADC, sensor_idx);
-+	diode_d0 = airoha_get_thermal_ADC(priv);
-+	airoha_set_thermal_mux(priv, AN7583_D1_TADC, sensor_idx);
-+	diode_d1 = airoha_get_thermal_ADC(priv);
-+
-+	delta_diode = diode_d1 - diode_d0;
-+	delta_gain = (delta_diode * coeff) / 100 + (diode_zero - diode_d1);
-+	if (!delta_gain)
-+		return -EINVAL;
-+
-+	*temp = (slope * delta_diode * 10) / delta_gain - offset * 10;
-+	*temp *= 100;
-+
-+	return 0;
-+}
-+
-+static const struct thermal_zone_device_ops an7583_tz_ops = {
-+	.get_temp = an7583_thermal_get_temp,
-+};
-+
-+static const struct reg_field an7583_chip_scu_fields[AIROHA_THERMAL_FIELD_MAX] = {
-+	[AIROHA_THERMAL_DOUT_TADC] = REG_FIELD(AN7583_DOUT_TADC, 0, 31),
-+	[AIROHA_THERMAL_MUX_TADC] = REG_FIELD(AN7583_MUX_TADC, 1, 3),
-+	[AIROHA_THERMAL_MUX_SENSOR] = REG_FIELD(AN7583_MUX_SENSOR, 2, 3),
-+};
-+
-+static int an7583_thermal_probe(struct platform_device *pdev,
-+				struct airoha_thermal_priv *priv)
-+{
-+	struct device *dev = &pdev->dev;
-+	int i;
-+
-+	priv->chip_scu = device_node_to_regmap(dev->of_node);
-+	if (IS_ERR(priv->chip_scu))
-+		return PTR_ERR(priv->chip_scu);
-+
-+	for (i = 0; i < AIROHA_THERMAL_FIELD_MAX; i++) {
-+		struct regmap_field *field;
-+
-+		field = devm_regmap_field_alloc(dev, priv->chip_scu,
-+						an7583_chip_scu_fields[i]);
-+		if (IS_ERR(field))
-+			return PTR_ERR(field);
-+
-+		priv->chip_scu_fields[i] = field;
-+	}
-+
-+	return 0;
-+}
-+
- static int airoha_thermal_probe(struct platform_device *pdev)
- {
- 	const struct airoha_thermal_soc_data *soc_data;
-@@ -533,6 +678,7 @@ static int airoha_thermal_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	priv->pllrg_protect = soc_data->pllrg_protect;
-+	priv->current_adc = -1;
- 
- 	if (!soc_data->probe)
- 		return -EINVAL;
-@@ -561,8 +707,15 @@ static const struct airoha_thermal_soc_data en7581_data = {
- 	.post_probe = &en7581_thermal_post_probe,
- };
- 
-+static const struct airoha_thermal_soc_data an7583_data = {
-+	.pllrg_protect = AN7583_SCU_THERMAL_PROTECT_KEY,
-+	.thdev_ops = &an7583_tz_ops,
-+	.probe = &an7583_thermal_probe,
-+};
-+
- static const struct of_device_id airoha_thermal_match[] = {
- 	{ .compatible = "airoha,en7581-thermal", .data = &en7581_data },
-+	{ .compatible = "airoha,an7583-chip-scu", .data = &an7583_data },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, airoha_thermal_match);
--- 
-2.53.0
+[Severity: Low]
+This isn't a bug, but there are a few minor formatting inconsistencies with
+whitespace before braces and around equal signs (e.g., port@0{ instead of
+port@0 {, and reg=3D <0>; instead of reg =3D <0>;). Should these be adjuste=
+d to
+match standard device tree style?
 
+> +				status =3D "disabled";
+> +			};
+[ ... ]
+> +&cdns_csi2rx0 {
+> +	ports {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		csi0_port0: port@0 {
+> +			reg =3D <0>;
+> +			status =3D "okay";
+> +
+> +			csi2_phy0: endpoint {
+> +				remote-endpoint =3D <&ds90ub960_0_csi_out>;
+> +				clock-lanes =3D <0>;
+> +				data-lanes =3D <1 2 3 4>;
+> +				link-frequencies =3D /bits/ 64 <800000000>;
+> +
+> +			};
+
+[Severity: Low]
+Is it intentional that the bus-type property is omitted here in csi2_phy0,
+while it is explicitly defined in csi2_phy1 below? While the V4L2 framework
+might infer V4L2_MBUS_CSI2_DPHY automatically from the clock and data lanes,
+would it be better to keep the property definitions consistent between the
+two endpoints?
+
+> +		};
+> +	};
+> +};
+> +
+> +&cdns_csi2rx1 {
+> +	ports {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		csi1_port0: port@0 {
+> +			reg =3D <0>;
+> +			status =3D "okay";
+> +
+> +			csi2_phy1: endpoint {
+> +				remote-endpoint =3D <&ds90ub960_1_csi_out>;
+> +				bus-type =3D <4>; /* CSI2 DPHY */
+> +				clock-lanes =3D <0>;
+> +				data-lanes =3D <1 2 3 4>;
+> +				link-frequencies =3D /bits/ 64 <800000000>;
+> +			};
+> +		};
+> +	};
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702093123.1048=
+575-1-y-abhilashchandra@ti.com?part=3D9
