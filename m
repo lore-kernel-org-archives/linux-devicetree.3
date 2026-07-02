@@ -1,102 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE24363C53
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 17:44:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D9B33F5A3;
+	Thu,  2 Jul 2026 18:00:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783014274; cv=none; b=gJ332zhfynJ7JcLGzZ2xGHVSKQfNcgeKMGGjY2BwFI09mL7zQ/1TEiC0qsMf1yZscorWn/JRyT5P7v5MoYtEVpR3FXfblUR8iD5JODMzaqVGNr6gAN/PzJrCoFs5sye1ZATeQ8c/ov5ONcRTghL5whCbyigA8j/FTOay6unGliE=
+	t=1783015243; cv=none; b=Tn4Sq0kF3kKgJnAi/QSpCwFZznhYtwRluSqTmQv0gSy8Ro3jggFsEcBe95NpFxciHEBzypCLd8uOXw8AjhTLFT0sr9ySCPb4BKrfauZKhqdhx0EVYrOQZ1RosI7Y5yFe2fCtM0XsdyhTBK4/FF/fMT39NfYAXFTnhoLFAs4AQiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783014274; c=relaxed/simple;
-	bh=tGXRNw1xX7Rl4+njFnZPL7WNnHxLlP0oZIJQ0NUrD6E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gc20ZFUetRsUpHQKg9ERF4cii3sxvFdDh3/qKezwgPHr9fOtsDn2R/iMnqHf7OaqsI/gHGhigAlAEuunFxZfoPI28EMMzFtJ///5Rahk3s045fAo13vQ+OQ47OrKAW/09MXJ85dUe+GOUWLSijlOLsP4U1T4tT0aXeJT7zW+xvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VsUXGVuA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783015243; c=relaxed/simple;
+	bh=81uAQatl5Nl0YNAIsvEn3//lHmBMS9i4BFnmP8wt9LY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fl6s0ZUTSbL0lR8U6LBScvW7VDv6fj/8dpicV3cRitQXzszyUPqdROxIzv7VBgVvcXFw6NREVgOzX6gcbYo97+o+N3CIbjPsjvXQrOKNKehUC+35gZ2UnGpeqGukFoMe6hMBF1L+B/OzKxkdb7YhCaTP1hlGdboflWF95Qrg+CY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=Eskz2zrs; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VsUXGVuA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D24CA1F000E9;
-	Thu,  2 Jul 2026 17:44:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783014273;
-	bh=ZsNdJ0n4r3jOc1wdUGLe+K9RJc3vqjAxyN9NJde7uVs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VsUXGVuAg7Z49TpSJ7NiZeJB3wBcmh/ro62BpIHD+hNlcUl9eEd7+mTU+33jaaxqu
-	 X6eo9Z0QzWFgg5HV1lnI0tQnn1N0v20iqb2bG7VF/TYboLKmlFPy8nUCq2cmZo6a42
-	 5/OyMKaO+CyxwBuYVEu1K/c3CdtYS3pAwoZBnbWD6xesfMsK+0T/Lr/UT+Nlprv91F
-	 PkxrpSsQIG+EduWweWpG+8oH38MA4LxOuGP4AvXVJM9Qilmr8nJHxvvCEjFpsBjwFW
-	 pJtZBzJjri7Pp6gcshrVrMXl0+iogp/Ux23deLhcFuxB5ihz6smzqC+MrOKW7v2I4D
-	 1RGzy65Co+2rw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: power: Add common power limit
- controller schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Manaf Meethalavalappu Pallikunhi" <manaf.pallikunhi@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260702-qcom_spel_driver_upstream-v3-1-434d50f0c5b0@oss.qualcomm.com>
-References: <20260702-qcom_spel_driver_upstream-v3-0-434d50f0c5b0@oss.qualcomm.com>
- <20260702-qcom_spel_driver_upstream-v3-1-434d50f0c5b0@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 17:44:32 +0000
-Message-Id: <20260702174432.D24CA1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="Eskz2zrs"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=xebSVH9btvoOA5wd7jjkFogUQ3KfJvU2qpvSEydg5Yc=; b=Eskz2zrsAbkrle95IzFL6WFPYp
+	vzn1wrAtXWwesXNsY8DQ6r1kiiuT9A9+DV5hhILJE/ps4aaDJ1Gi8+h6lU54Qr0wxF50SUu3ar2R4
+	dIKbvO1KKyEoyJvW7xVkbL+GZnKjEewoBjNGrWgvVKLEjKxQq10zMdcZC02VOjJgIIPlZIb1N8Hiu
+	JzXUv1WAgEfK6+Xf8Cbeceqzcxfkk03qW43BZ5Qmx15pzN5Q9LO0B6/awajLOwQoCONl9bsdrNS5e
+	jOJ/VamA0aB47VHoHD566MtaJ3gdB6MrwoSTmgUl8X5o7VYBZWgWzxwsFHNZxGd6AIlrfGUqsgaDW
+	B+rHYTrQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonas Karlman <jonas@kwiboo.se>
+Cc: Diederik de Haas <diederik@cknow-tech.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, devicetree@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-usb@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jonas Karlman <jonas@kwiboo.se>
+Subject:
+ Re: [PATCH v2 0/2] rockchip: Fix devices suspend freeze on RK3568/RK3566
+Date: Thu, 02 Jul 2026 20:00:32 +0200
+Message-ID: <9647226.A5hrfCrGMc@phil>
+In-Reply-To: <20260624192726.781864-1-jonas@kwiboo.se>
+References: <20260624192726.781864-1-jonas@kwiboo.se>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] YAML formatting disruption due to missing block scalar indicator in=
- description
---
+Hi Jonas,
 
-commit 10d28ed72d993f07d4586a72f1c37a8d7f35d2eb
-Author: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Am Mittwoch, 24. Juni 2026, 21:27:23 Mitteleurop=C3=A4ische Sommerzeit schr=
+ieb Jonas Karlman:
+> This series fixes a system freeze during suspend in ohci_suspend() due
+> to clk_usbphy1_480m not being enabled when EHCI/OHCI registers are
+> accessed on e.g. a Raxa ROCK 3C board.
+>=20
+> Following pm_test modes work on my ROCK 3C with the missing usbphy clk
+> refs added:
+>=20
+>   echo N > /sys/module/printk/parameters/console_suspend
+>=20
+>   echo devices > /sys/power/pm_test
+>   echo platform > /sys/power/pm_test
+>   echo processors > /sys/power/pm_test
+>   echo core > /sys/power/pm_test
+>=20
+>   echo mem > /sys/power/state
+>=20
+> Changes in v2:
+> - Include rockchip,rk3588-ehci in the EHCI constraint
+> - Make clocks prop required for EHCI and OHCI
+> - Collect t-b tag
+>=20
+> Jonas Karlman (2):
+>   dt-bindings: usb: Add Rockchip RK3568 compatible for EHCI and OHCI
 
-dt-bindings: power: Add common power limit controller schema
+it seems I wasn't in Cc for the first patch, so can't know if and when
+that gets/got applied.
 
-This commit adds a common device tree binding schema for power limit
-controller devices. It defines the base properties and node naming pattern
-for hardware blocks that enforce power consumption limits on SoC power doma=
-ins.
+Also I think I remember Greg preferring not having to split apart patch
+series', so I think the binding patch might be better off standing alone.
 
-> diff --git a/Documentation/devicetree/bindings/power/limits/power-limit-c=
-ontroller.yaml b/Documentation/devicetree/bindings/power/limits/power-limit=
--controller.yaml
-> new file mode 100644
-> index 0000000000000..a00548fdc79e2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/power/limits/power-limit-controll=
-er.yaml
-[ ... ]
-> +maintainers:
-> +  - Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-> +
-> +description:
 
-[Severity: Low]
-Should this description field include a block scalar indicator (like | or >=
-)?=20
+Heiko
 
-Without it, the YAML parser will treat the multi-paragraph text as a plain
-scalar. This will fold the adjacent lines and the bulleted list below into a
-single run-on sentence, which disrupts the formatting in the generated
-documentation.
 
-> +  Power limit controllers are hardware blocks that enforce power consump=
-tion
-> +  limits on SoC power domains to prevent thermal overload, maintain syst=
-em
-> +  stability, and comply with platform power budgets.
-> +
-> +  These controllers typically provide
-> +    - Hardware-enforced power capping for one or more power domains
-> +    - Configurable power limits (e.g., sustained, burst, peak)
-> +    - Time window controls for power averaging
-> +    - Energy or power monitoring and reporting capabilities
-> +    - Power balancing algorithms across domains
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-qcom_spel_=
-driver_upstream-v3-0-434d50f0c5b0@oss.qualcomm.com?part=3D1
