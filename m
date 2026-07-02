@@ -1,146 +1,179 @@
-Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88EC4DC550
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 14:39:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783003184; cv=none; b=YE8Rq70/nZX/BQa6MSfjtGI7QVf+4XBOqS7FnxvIfvlDCMDQ8ElpP4chegCcEiZMlxF/Tp2SfCVpdZURP4YQrUBZUnLHx/SjgGQXHjLvA7BgoKXp5rgeQm+TsN7x9PeQUW1DRnfDDU9LPK+t/V4OCTzpvAfXsglN3bNvMuR208c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783003184; c=relaxed/simple;
-	bh=L/NPPzq5kHhvrv6QsuzJnS6MZrQcmR/YB+ex+RGiEMA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=a+4ZpY5POYtbwduEYpjXxbwZgIY/5edOScvES0ZY8+7Br0Ad9gth1zETLLbgZ0wwjAiYV+SXe+k0cd/u/9Taidy6LLclNgDlY9S+tntDooqqkW/ocPeIomBLAxIP/qQqHO+mvYuhS6wmUcT131nDZPFvxNndLlm7TfZ5ZKB+e9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lqcrlSz1; arc=none smtp.client-ip=91.218.175.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C02433E72
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 14:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783004294; cv=pass; b=urzReWBW/6viU84NNaNp7/bzRPjMH8n6xKSYNJhvzf4JaI1d527ACDhxNOyHPtS2CtvxT3PX4TXz9Ui9wsbon6n5I2ccCnFR4JtpaQt2U8pWpOkOoo/Z8HtGd6sV55sMpyOg+/0399K5pPMsrhwSFCOs445tUqxrcFR9B8jp1oo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783004294; c=relaxed/simple;
+	bh=14iIHIXuN4BEUTqiDd4CGi/IiORqRTcti8JQlEfOoGo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SNCtSGpFei2qBxZ6traZLaNYlPpgtbQ7A7femka+Rd6b2u7So5RIC0LaPi8s4nLzfVwbucWMu9yQxMMe5oz0tRRUGsVCeRk5jz33SDqwy5skSYklX538cP2F6UhX/4XHwJQMrpJvKfyaQ1thh7uoNzOcU0TDPVh6rZ+kcCYRB/U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UociRQqo; arc=pass smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lqcrlSz1"
-Message-ID: <21d2e632-5307-4b48-be7b-1269b55f70fe@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1783003170;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LWjwaroNdzliIQJ8UoOAO9arkJPTrD2GvIpHaj+RIz0=;
-	b=lqcrlSz1fHkJhbMBRjSnMc+0uyXmMqsNEOivvoO232q2zS5L+FCwL7znNbdfBU0rIGJPS1
-	k0SK5PYtKW9lC66EN1q1YhuWJV3cnOIPrhL2Ue6DXuWsSydBFqD7U34bbsPZjAmTPzhHsL
-	iJ9gK2/z/XDYUrGqSqj6ES0aNqb+/ys=
-Date: Thu, 2 Jul 2026 15:39:25 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UociRQqo"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-697bd21fdc2so3796280a12.1
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 07:58:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783004291; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GXMZIVyoK3WY416L5ie5gs6kbIxIUebcPz0wxgTn0toDFtMZucvPShrvkwIhINGuKp
+         m8quAdjU/Qw6AF0dREQ+2uG5g2wbARj8QExh/Tyw2Ut2ZY/QCfQwJiNF8AaxuyxA20IY
+         l8lxRi9guIP3h+ckYODmO6L5qlGVGP/2A4Jx2jvqj7gFb2vNfFfwPjZaconpafU8P6qH
+         OhqCKvF1izsOhFOOeHyDQfi1Q97jDsLPFsmua43YY4b4EzBYF/+kT+nn6KRQCEQ6CRMB
+         2lsN9GDgOAVplUJo5wG9PT0MAu4tqsi/2E/jivBN3yJUDlmAWzRg8QDs3iKAeIb9GKMu
+         k3Jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=5rWUuW36bw2Cjg4ZK5Axjo/whs6KUO2dBV3JzHn1K0w=;
+        fh=rJc2BKdnjtij3Y7LX2xw6B61pg0OO1C4QctrtfG7seo=;
+        b=mGrdxvijdylOxzCt6NU8UCVBQZ4lWncBSTXM2EF56BQuSFiF0Np3wqnjXSHD5AK+Fr
+         hd6Jp1EuQ8Z4uk3gxhw0wic/HuCp6Y0+cDCDQ/x/4Nzi1RMJEfBrqMJd1a1xBfGxily4
+         YTAM2I/OnxPXl4QekRvsnkMq+Fxxj8ZuSaMPS3dbKk2rqtYwrthAarcBf9Bz4QumyVtQ
+         E32kW0RdCbaQusaIbmzkBII/jmi62ySBsmwh6b4An+9uByIB1N4s3r4PJDmK6bYY9phx
+         Az8jCn84uA5eiiOjb7ubAT8CB3FaP7CbwWMGcuEyhsYS0TPjPWdhmcZaMhuph8u2Olpl
+         Ojtg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783004291; x=1783609091; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=5rWUuW36bw2Cjg4ZK5Axjo/whs6KUO2dBV3JzHn1K0w=;
+        b=UociRQqoDEDNn8X1sFKLJbf2o/LaP6yPdR2TzUbmum1d9GCevsJuybe+hXHzhbVLSx
+         /yTn3uFLcZYd+kQbXY/5lVt95CyBQ87X/lSF5Lou6czfgBqFPjJkcyYIOZ6gZJF1A7EJ
+         s3AC+jZKR9O4y1xQR3W6uADfmu3TMAtSz/FKaJ43kBablPatjeR8Ei5pzDkmFlt0Z4Ot
+         9A0JrLP20ulhUpvj7jWRPELK1n7AyezUWkflDY335otiago/xkQalTPkoawZ98wy6IiQ
+         lZG4XPTJSwPaK2UYVyxUrKFiu3pELY8X9diyPZb5urpxv5yKhPDKy+cejwcDhHT21Hs+
+         /8bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783004291; x=1783609091;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5rWUuW36bw2Cjg4ZK5Axjo/whs6KUO2dBV3JzHn1K0w=;
+        b=AKXeupbk8/EV+OzoEGlUdpXN4SUB4LdqxmgecH7LXhGmK5i8NyhJCUA+XYXOJaG01C
+         1d2w6DhNuCSsV0LFxirPrE5Ji6zH/hCqzeMTNvkr6+s0wED0kdHJNMtT/BNWvQ/gH7Au
+         L4aFzKS2ZEokUMjXfLhSj1uVaekOOBLf9DtTb6vxUDnoQdHT09xWj1MjGzYc+xViF9gW
+         MtbeFFXtSAvbytye721nRlrE1MPZB+XdeOW1GNJmug8f5A6sYRpv4qPkSuvnDqZCqH+m
+         kZ4SHziUxyvsUEmda2ZP0RYFriPIpiT9Z2uYdGs/PGlMnGT3G9aTDgsQ+3/YgVkRPqvJ
+         n1lw==
+X-Forwarded-Encrypted: i=1; AHgh+RqLSrNUyK/96Ubl1puovDAkzNfuHF4DXAEZ7ioTwrbcf0mSpdNIdvayKDf21ychMHMRhVHB+IfpefFi@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+0cbYMZu61AOE0BlJL0fnDQq5KgHpSI3kTYsZetkgcOKbRcU9
+	SPIDPUcGzJDQ4DCxMmHmHsB7oTOrO6SDx98ut9WWvSIxHltE5XsXDM0H4ZJ9MMdjsVv4r2mgOUf
+	RpqA7vvS01ypDWnLVhNSoeRVi0T1ZH+8=
+X-Gm-Gg: AfdE7cmafILNstr1Z7htwYaCw3nVihv7QOjoUWU9PxBaXjO8dRk85d8yFnq20/vq2O3
+	PAwjzhgiUMPy6Nt+O6R8mv2j8Z40QRm34sGDVrd60DXd7mlR2qgd8qvo85/vG9WqgNTR/EQ38Qm
+	PgeqEx8XMO+XudHRWsZ8DA/MOjpRKJt0Cvp6GA/pGO4AhuM/wBOmtZEeDSrNCn8itKhaG4qHDKQ
+	rmZ3Elb7C0+xm4e+mPU+5wq1wLZekfmHkxTDRBrDUzh6Yw1B/ugAD5bVMYq09/FL8FFkJ+xDg9I
+	ulMDqQTNRInJlS8ttxtfR6mNTwpcXbOhEyyTsNu+v8m4F25YxCFa30WTpJiJAWY=
+X-Received: by 2002:a05:6402:42d0:b0:697:e93d:6da6 with SMTP id
+ 4fb4d7f45d1cf-698a2c5e5d8mr2750339a12.1.1783004291308; Thu, 02 Jul 2026
+ 07:58:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH net-next v4 2/3] ptp: Add driver for R-Car Gen4
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?=
- <niklas.soderlund+renesas@ragnatech.se>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "DavidS. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20260702125525.2230427-1-niklas.soderlund+renesas@ragnatech.se>
- <20260702125525.2230427-3-niklas.soderlund+renesas@ragnatech.se>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20260702125525.2230427-3-niklas.soderlund+renesas@ragnatech.se>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+References: <20260630132857.3007019-1-egbostina@gmail.com> <20260630132857.3007019-3-egbostina@gmail.com>
+ <20260702-comical-accelerated-labrador-a06ad7@quoll>
+In-Reply-To: <20260702-comical-accelerated-labrador-a06ad7@quoll>
+From: Eddie <egbostina@gmail.com>
+Date: Thu, 2 Jul 2026 17:57:59 +0300
+X-Gm-Features: AVVi8CdcFykAeMgW-GeVE8gd5BASK1DpQvsz_SsJrsA3ixt9h0rRYc8i3-D-3Ng
+Message-ID: <CAEFOc63tOQ-uUoL-2kefU-X=SwLqhVG5rE64E8cm1eSeHnTFsw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] dt-bindings: arm: omap: Convert IVA to DT schema
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, daniel.baluta@nxp.com, 
+	simona.toaca@nxp.com, goledhruva@gmail.com, m-chawdhry@ti.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 02/07/2026 13:55, Niklas SÃ¶derlund wrote:
-> Add driver for the gPTP timer found on R-Car Gen4 devices. The timer is
-> system-wide and shared by different Ethernet devices on each Gen4
-> platform. The operation of the timer is however not completely in
-> depended of the systems Ethernet devices.
-> 
->    - On R-Car S4 is gated by the RSWITCH Ethernet module clock.
-> 
->    - On R-Car V4H is gated by the RTSN Ethernet module clock.
-> 
->    - On R-Car V4M is gated by its own module clock, the system have
->      neither RTSN or RSWITCH device. But the module clock is the same as
->      RTSN on V4H and the documentation referees to it as tsn (EtherTSN).
-> 
-> The gPTP device do have its own register space on all three platforms.
-> But on S4 and V4H it will share its clock and reset property with
-> RSWITCH or RTSN, respectively.
-> 
-> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> ---
-> * Changes since v3
-> - Clamp increment calculated to register limitations.
-> - Check return value of clk_get_rate().
-> - Disable PM if ptp_clock_register() fails.
-> ---
+On Thu, Jul 2, 2026 at 10:27 AM, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On Tue, Jun 30, 2026 at 01:28:56PM +0000, Eduard Bostina wrote:
+> > Convert the Texas Instruments IVA bindings to DT schema.
+> >
+> > During the conversion, several updates were made to reflect actual hardware
+> > usage and resolve dtbs_check warnings:
+> >  - Added a dsp sub node that references the new ti,omap3-c64.yaml
+> > schema to support OMAP3 configurations where the DSP is defined as a
+> > child of the IVA node.
+> >  - Updated the compatible property to allow ti,ivahd as a standalone
+> > string.
+>
+> Heh? Old binding already said that, so you did not implement such
+> change. Instead you invented ti,iva without a reason...
 
-[...]
+I copied ti,iva from the old example and failed to check if it's
+actually used anymore.
+I will drop it in v2.
 
-> +struct ptp_rcar_gen4_priv {
-> +	void __iomem *base;
-> +	struct clk *clk;
-> +
-> +	struct ptp_clock *clock;
-> +	struct ptp_clock_info info;
-> +
-> +	spinlock_t lock;	/* Registers access. */
-> +	s64 default_addend;
-> +};
-> +
-> +#define ptp_to_priv(ptp) container_of(ptp, struct ptp_rcar_gen4_priv, info)
-> +
-> +static int ptp_rcar_gen4_adjfine(struct ptp_clock_info *ptp, long scaled_ppm)
-> +{
-> +	struct ptp_rcar_gen4_priv *priv = ptp_to_priv(ptp);
-> +	s64 addend = priv->default_addend;
-> +	bool neg_adj = scaled_ppm < 0;
-> +	unsigned long flags;
-> +	s64 diff;
-> +
-> +	if (neg_adj)
-> +		scaled_ppm = -scaled_ppm;
-> +	diff = div_s64(addend * scaled_ppm_to_ppb(scaled_ppm), NSEC_PER_SEC);
-> +	addend = neg_adj ? addend - diff : addend + diff;
-> +
-> +	/* Clamp value to register limits, defined as in nanoseconds.
-> +	 * bit[31:27] - integer
-> +	 * bit[26:0]  - decimal
-> +	 */
-> +	addend = clamp_val(addend, 0, UINT_MAX);
+> >  - ti,hwmods has been made optional.
+>
+> Why?
 
-is it always positive number?
+I will add the justification to the commit message in v2: the TI hwmod
+framework is legacy and is being phased out, so new device tree nodes
+should not be required to include it.
 
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +	iowrite32(addend, priv->base + PTPTIVC0_REG);
-> +	spin_unlock_irqrestore(&priv->lock, flags);
-> +
-> +	return 0;
-> +}
+> > +properties:
+> > +  compatible:
+> > +    oneOf:
+> > +      - items:
+> > +          - const: ti,ivahd
+> > +          - const: ti,iva
+>
+> From where did you get such list (ti,iva fallback)? ti,iva is completely
+> undocumented and completely unused (not existing), so why it did come up
+> with it?
 
-[...]
+As mentioned above, this was a mistake carried over from the old .txt
+example. I will remove it.
 
-> +static struct ptp_clock_info ptp_rcar_gen4_info = {
-> +	.owner = THIS_MODULE,
-> +	.name = "R-Car Gen4 gPTP",
-> +	.max_adj = 50000000,
+> > +      - enum:
+> > +          - ti,iva1
+> > +          - ti,iva2.1
+> > +          - ti,iva2.2
+> > +          - ti,ivahd
+>
+> This is wrong. ti,ivahd cannot be both: compatible and not compatible
+> with ti,iva
 
-even though clamping addend may work, I would suggest adjusting
-".max_adj" value to the one which will not make addend overflow.
-And as a reminder, .max_adj is the absolute value in ppb that can be set
-for a single call of .adjfine - the value is checked against
-[-(.max_adj),.max_adj] range.
+Will clean this up by removing the items list and just using a single
+enum containing the valid strings in v2.
 
-> +	.adjfine = ptp_rcar_gen4_adjfine,
-> +	.adjtime = ptp_rcar_gen4_adjtime,
-> +	.gettime64 = ptp_rcar_gen4_gettime,
-> +	.settime64 = ptp_rcar_gen4_settime,
-> +};
+> > +
+> > +  ti,hwmods:
+> > +    description: Name of the hwmod associated to the iva
+> > +    $ref: /schemas/types.yaml#/definitions/string
+>
+> And here it is a string. Confusing.
+
+I will change the DSP ti,hwmods to string too.
+
+> > +    const: iva
+> > +
+> > +  dsp:
+> > +    type: object
+> > +    $ref: /schemas/arm/omap/ti,omap3-c64.yaml#
+>
+> Missing unevaluatedProperties: false.
+>
+> Actually the other binding could be squashed/folded into this place...
+> but split is fine as well.
+
+I will add unevaluatedProperties: false in v2.
+I will keep them split for now, but I will also move this IVA binding
+to bindings/soc/ti/ in v2 so that both live in the appropriate
+directory.
+Thanks for the review.
+
+Best regards,
+Eduard
