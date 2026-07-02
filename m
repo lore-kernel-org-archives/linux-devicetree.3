@@ -1,73 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0FD320A37;
-	Thu,  2 Jul 2026 18:55:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26203090C6;
+	Thu,  2 Jul 2026 18:58:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783018530; cv=none; b=opdB3kLDFJ4P0PS8e81GzOYKPmKvC4qhxCyJTtm/GoajUGDrNqqBcJVMgC9wz6ektqQTxpdDI71DIWBBdIf1EKc3RWG9nh7D68ziFj/aeJcm5Ozvng4eHbdCalYUpNlFiwcOfrjcd2mMnQLtUR9qOUHRFUwZYGGOo6Daup8Dk7U=
+	t=1783018718; cv=none; b=LvijITpUojcRvasBo46pnLuruiywS6bMw8l0udttCCzIRMWjr7R5otWzkQMDxVNJAIv0rBZUXLOp1eD9fztSSyunbWfPbRYsQTr8LbBp3yoUX9NAhauH27BHN2GtxnVLQ0dhZGtxf4gPwxY7eXw/K/ctZ258YhOaU4IcFvnSdvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783018530; c=relaxed/simple;
-	bh=fZoXJ0otB5ZNc3pKIpIeJIi0McT27o2uRePOmhSRLr4=;
+	s=arc-20240116; t=1783018718; c=relaxed/simple;
+	bh=5gTnWXwVf0NN7KXfWtRBTcyb7greoDovJVGEu3Wai1g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fxUfKUJTfYo9wh1e1mzLzf707cEG3rLVCDH1OnenmwLlsCiIhzfQbpMCSfNVOVuTCOSpuRC3zNrKTL08dHc8dsvkT4MW7bq910i8L7Pfm5deYrjkul4JynhQ8UlMKHiGQWcLTSh40qyBtihuA1KriADGH7XeHdvtweYwxPLFtT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NacNS6bg; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tMuAPShHvzgYJkMU70RMljJKfavXmDBc+2sHm2Opi5SuyipwjUESti1joHFQs5jrSfEzklosb6LARIhz0aNIiegnyarYSLmLj/TOS0k9tj+GNYordqvMtiUtzzzzufiZ4pKJKSPqFqnIbqmM5qewxaW9a6bp05dgty4oG3iTxcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FO0JcdZ1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NacNS6bg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FB9B1F000E9;
-	Thu,  2 Jul 2026 18:55:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FO0JcdZ1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EADE1F000E9;
+	Thu,  2 Jul 2026 18:58:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783018529;
-	bh=fNS4tqccb04+QtS0h43Z588lZs7oUTCl9VD/wpTFlbQ=;
+	s=k20260515; t=1783018717;
+	bh=RLgkpaVMPnO09LsCHhzeAVGJhguWzFrcOs/hWhZGsxs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NacNS6bg/nGPS5YUVw5jH76wz5YShTWSyyE8s+P9wfrl2yzgf4tTqcvZHd84S/7Dg
-	 DDaRntRlSXAQmnWC9ElrOfi+TuWSbnb7FQi3I4Te4lO1VsC4K6hrneeJsRSTr2B5hG
-	 v60VUaXomKc6i8I8XKVWIzjnJsOPFhn0XrSMskbWikxlCGMT2LKUKUChoG6CXUGT5h
-	 koccK0yAKwj+292C599zTt87zjQ+SsCFkTAFkjKlxCEFClwz47A+xtLqXaKv6pEn3h
-	 51yzH/sYvncroPFkvHbxw8GTs8sxwIWGve6jNtawVKeMepHRu8pziEf52iuZ80c7LE
-	 4SHH3bL6VawbA==
-Date: Thu, 2 Jul 2026 19:55:21 +0100
+	b=FO0JcdZ1SVtbGnPMI77Ssf/jj/ZNg6YAxDYuinNm9ZmXQVlVzrnkMhGE0sQDTHYZS
+	 uBWvw8yjkt6LyXKxfnJS1m6DYuv7ynIdK+B8CYvpTWarN5PfyeGHjLGsdyz4UaCF5v
+	 le/UcYR7m1yd6KM7w9EB22Yh0aFvhyjdOO3Iagu9Q9cvOKcSoibFV8OIE2MorBqzHJ
+	 2gearSF40MWnM3LFvjLRCn0kh3AR5zJ/fPGMEG01zFHTkC9WXF0yKf6LvQ9uUnCSP7
+	 PnpS+0KAdxNio2SaxsMcTtMC5l3APdvoYf6kWrVZK8Qch38UtcvTUJnG6+mecEzORf
+	 Trak3DRTDAoYg==
+Date: Thu, 2 Jul 2026 19:58:32 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Kyrie Wu =?utf-8?B?KOWQtOaZlyk=?= <Kyrie.Wu@mediatek.com>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"laurent.pinchart+renesas@ideasonboard.com" <laurent.pinchart+renesas@ideasonboard.com>,
-	"nicolas.dufresne@collabora.com" <nicolas.dufresne@collabora.com>,
-	"jacopo.mondi@ideasonboard.com" <jacopo.mondi@ideasonboard.com>,
-	Yunfei Dong =?utf-8?B?KOiRo+S6kemjnik=?= <Yunfei.Dong@mediatek.com>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	Irui Wang =?utf-8?B?KOeOi+eRnik=?= <Irui.Wang@mediatek.com>,
-	"rongqianfeng@vivo.com" <rongqianfeng@vivo.com>,
-	"tzungbi@kernel.org" <tzungbi@kernel.org>,
-	"tfiga@chromium.org" <tfiga@chromium.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"wenst@chromium.org" <wenst@chromium.org>,
-	"benjamin.gaignard@collabora.com" <benjamin.gaignard@collabora.com>,
-	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
-	"haoxiang_li2024@163.com" <haoxiang_li2024@163.com>,
-	"ribalda@chromium.org" <ribalda@chromium.org>,
-	Tiffany Lin =?utf-8?B?KOael+aFp+ePiik=?= <tiffany.lin@mediatek.com>,
-	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
-	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	"sebastian.fricke@collabora.com" <sebastian.fricke@collabora.com>,
-	"fshao@chromium.org" <fshao@chromium.org>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"mchehab@kernel.org" <mchehab@kernel.org>,
-	"fanwu01@zju.edu.cn" <fanwu01@zju.edu.cn>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	Andrew-CT Chen =?utf-8?B?KOmZs+aZuui/qik=?= <Andrew-CT.Chen@mediatek.com>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"hverkuil+cisco@kernel.org" <hverkuil+cisco@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"kees@kernel.org" <kees@kernel.org>,
-	"sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
-Subject: Re: [PATCH v5 11/14] dt-bindings: media: mediatek: vcodec: add
- decoder dt-bindings for mt8196
-Message-ID: <20260702-parlor-disband-fdc2f049336c@spud>
-References: <20260603084045.17488-1-kyrie.wu@mediatek.com>
- <20260603084045.17488-12-kyrie.wu@mediatek.com>
- <20260603-pentagram-unleveled-8729d0003aa7@spud>
- <6cb7ae4a09d476a04ceefca50564646712ad391b.camel@mediatek.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chris Hall <c-hall@ti.com>,
+	Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
+	Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/8] dt-bindings: iio: adc: add input-channel-rotation
+ property
+Message-ID: <20260702-litigator-commuting-5a3a37a7fb40@spud>
+References: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
+ <20260625-iio-adc-ti-ads122c14-v2-4-ceb9b0b561cb@baylibre.com>
+ <20260626-retinal-thrash-1095940e36ab@spud>
+ <4a2c4c42-69fb-4491-ba77-b858623275ec@baylibre.com>
+ <20260701204133.2b77edab@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -75,96 +52,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JdEKl3bSogEo/Lcd"
+	protocol="application/pgp-signature"; boundary="HU32OjTorvqjRu33"
 Content-Disposition: inline
-In-Reply-To: <6cb7ae4a09d476a04ceefca50564646712ad391b.camel@mediatek.com>
+In-Reply-To: <20260701204133.2b77edab@jic23-huawei>
 
---JdEKl3bSogEo/Lcd
-Content-Type: text/plain; charset=utf-8
+--HU32OjTorvqjRu33
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 02, 2026 at 05:39:24AM +0000, Kyrie Wu (=E5=90=B4=E6=99=97) wro=
-te:
-> On Wed, 2026-06-03 at 17:14 +0100, Conor Dooley wrote:
-> > On Wed, Jun 03, 2026 at 04:40:41PM +0800, Kyrie Wu wrote:
-> > > From: Yunfei Dong <yunfei.dong@mediatek.com>
-> > >=20
-> > > The MT8196 decoder differs from previous generations in several
-> > > key aspects, most notably in its use of VCP instead of SCP.
-> > > Additionally, the MT8196 enhances codec capabilities by supporting
-> > > HEVC Main10 profile decoding. To accommodate these hardware
-> > > changes,
-> > > the binding constraints specify a total of 12 clock inputs,
-> > > consisting of 9 decoder clocks and 3 VCP interface clocks,
-> > > along with 2 power domains covering both the decoder and VCP
-> > > subsystems.
-> >=20
-> > I'm pretty pretty confused by this statement about constraints, since
-> > there's none added?
-> > The vcodec-dec node doesn't even seem to permit clocks at all?
-> >=20
-> Dear Conor,
+On Wed, Jul 01, 2026 at 08:41:33PM +0100, Jonathan Cameron wrote:
+> On Fri, 26 Jun 2026 13:27:44 -0500
+> David Lechner <dlechner@baylibre.com> wrote:
 >=20
-> I apologize for any confusion my commit message caused. What I wanted
-> to convey was the hardware differences between the MT8196 and previous
-> ICs. If you feel that the VCP and clock information are not suitable
-> for this location, I would like to rewrite the commit message as
-> follows:
-> Compared to previous ICs, the MT8196 supports a 10-bit decoder and has
-> a decoding capability of 4K@120fps, using a dual hardware decoding
-> architecture of LAT+CORE.
-
-Sure? But your comments about the constraints are odd and I do not know
-if that means you omitted changing constraints when you should have?
-For example, using lat+core only permits you 10 input clocks but your
-commit message talks about 12.
-
->=20
-> Thanks.
->=20
-> Regards,
-> Kyrie.
-> > >=20
-> > > Signed-off-by: Yunfei Dong <yunfei.dong@mediatek.com>
-> > > Acked-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> > > ---
-> > >  .../bindings/media/mediatek,vcodec-subdev-decoder.yaml           |=
+> > On 6/26/26 11:14 AM, Conor Dooley wrote:
+> > > On Thu, Jun 25, 2026 at 04:55:06PM -0500, David Lechner (TI) wrote: =
 =20
-> > > 1 +
-> > >  1 file changed, 1 insertion(+)
+> > >> Add a generic input-channel-rotation property to adc.yaml. This is a
+> > >> feature seen frequently in ADCs that are designed to measure resisti=
+ve
+> > >> loads, such as RTDs and strain gauges. Enabling this can reduce offs=
+et
+> > >> errors by swapping the positive and negative input channels on every
+> > >> other conversion. This can have side-effects in timing and filter
+> > >> response, so it is not always desirable to enable this feature in so=
+me
+> > >> applications. Therefore, it is best to make this a property that can=
+ be
+> > >> enabled or disabled in the device tree.
+> > >>
+> > >> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+> > >> ---
+> > >> v2 changes:
+> > >> * New patch.
+> > >> ---
+> > >>  Documentation/devicetree/bindings/iio/adc/adc.yaml | 7 +++++++
+> > >>  1 file changed, 7 insertions(+)
+> > >>
+> > >> diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Do=
+cumentation/devicetree/bindings/iio/adc/adc.yaml
+> > >> index 9ec1f447b565..3d52c00922c9 100644
+> > >> --- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
+> > >> +++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
+> > >> @@ -81,6 +81,13 @@ properties:
+> > >>        ADCs usually allow choosing between internal reference source=
+s or a pair
+> > >>        of external pins.
+> > >> =20
+> > >> +  input-channel-rotation: =20
+> >=20
+> > I got some internal feedback after I sent this patch that "chopping" is=
+ the
+> > more common terminology for this feature industry-wide, so in the next =
+revision
+> > I plan to change it into `input-chopping`.
+> >=20
+> > >> +    type: boolean
+> > >> +    description:
+> > >> +      If set, the positive and negative input channels are allowed =
+to be swapped
+> > >> +      on every other conversion to reduce offset errors. This is al=
+so referred
+> > >> +      to as "chop" in some datasheets. =20
 > > >=20
-> > > diff --git
-> > > a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-
-> > > decoder.yaml
-> > > b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-
-> > > decoder.yaml
-> > > index bf8082d87ac0..74e1d88d3056 100644
-> > > --- a/Documentation/devicetree/bindings/media/mediatek,vcodec-
-> > > subdev-decoder.yaml
-> > > +++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-
-> > > subdev-decoder.yaml
-> > > @@ -76,6 +76,7 @@ properties:
-> > >        - mediatek,mt8186-vcodec-dec
-> > >        - mediatek,mt8188-vcodec-dec
-> > >        - mediatek,mt8195-vcodec-dec
-> > > +      - mediatek,mt8196-vcodec-dec
-> > > =20
-> > >    reg:
-> > >      minItems: 1
-> > > --=20
-> > > 2.45.2
-> > >=20
+> > > "allowed to be swapped" means that this property says the feature can=
+ be
+> > > used, but userspace may have to be the thing that ultimately turns it
+> > > on? =20
+> >=20
+> > No, I don't expect a userspace control for it. More like the driver sho=
+uld
+> > enable it when possible, but a driver doesn't necessarily have to imple=
+ment
+> > it and everything will still work, just with less accuracy.
+>=20
+> Perhaps we need something in this text to say when it should not be set
+> in dt?
 
---JdEKl3bSogEo/Lcd
+I think I would like a wording change from "allowed", to something that
+is akin to "If set, the hardware supports swapping...". Allows sounds
+too much like something that should be a userspace control.
+
+--HU32OjTorvqjRu33
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaka0GAAKCRB4tDGHoIJi
-0gcwAQCtMtUoW/cbg4OpVaaf+u+0oq30lr9mkXMb60IDpSgRaQEAsdk2ey0KDekc
-nYS63SVumLqJUdoy4hxVqlFifZehUQo=
-=16wN
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaka02AAKCRB4tDGHoIJi
+0jr7APwO7Ude3skjABcUuWYTPKzO6hHSJsyl0gGTftkdKlxVRgD7B0reiQ1vsJg3
+33K1ztXCj9tJIjcux5iN5sT+Zkee8Ac=
+=6j0A
 -----END PGP SIGNATURE-----
 
---JdEKl3bSogEo/Lcd--
+--HU32OjTorvqjRu33--
