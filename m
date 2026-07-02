@@ -1,46 +1,47 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF21384CE6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB05F384CDA;
 	Thu,  2 Jul 2026 19:05:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783019111; cv=none; b=YHxrxkYR378LoMKuS6OplKakLMquopeLdIuDm+6iX7o9CWf2t4bMMJ7xpdH7cNbhfwojX2m4Oto0QTZj4pE4ff8CP3AREOIVw+9Zts7kPRDdp7ap4vDhCnQOAKj2aOiRLWknRlL2oSF3+OvJoZEe5i0uIpqX+OX4O5T4HjmMYYE=
+	t=1783019112; cv=none; b=FSNlF0oT7GnWxlE23d0AhcfCHthmGax57Axs2ewXLjgkvU/mPj6QmdyOwuLPMd5dwNqXTB1FOQ1tMT2TwuAp4keVvNfMdrMBJ9iZgraWsLpSCU65IgCmGB2bDtDqRYThzJfc9VC7vQxbwOpF/tShsMta91I8TEuJHLvPjMAal1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783019111; c=relaxed/simple;
-	bh=z7/w/pYYW2C0//0iZWTY5xIDGiNhY5WNZKz21cDtZlo=;
+	s=arc-20240116; t=1783019112; c=relaxed/simple;
+	bh=h2fX8z1BnmmnU1na9hryUTqTDEa1BzR7e8dEdv2Rzro=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QlcowwGRIFDcpZLV8CCNv4ClQiK/ZWpz179dTnbG3/mQ/Crjwlq32/ug6vUR1M8e7H9DNOUbQ7U/xOTWiygEduhz4x9pAHu/8UId3XPviR3nvXVXA8sUOgyCRk7X7lxvDm4x9tbNud4PnDclgO1H9nODe5cq6nj+A3wIXTfCsH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=GnNg4Icb; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=tPLOq7MVYkfVqzHd/m/tJJC0bSXIqxy2iKn55Q/ksoqCORKOKFRU4v3B9GAa41TtxXm9YDBtUEGZ/v6zwlPsbJvCqDlWGzRq7i12dig5JElftYnUc9oStj7H2XYcV6mTpm69ZustDsnAMsTmpYYYJc9x3wuuqZY6HqS+URiIbek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=YEKfePcZ; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="GnNg4Icb"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="YEKfePcZ"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=kwkpuFiJFSig1yrgIRHVrq1BQtVphda099BHLY4gXx8=; b=GnNg4IcbGHj4LG3T+K83pcS4qd
-	g1bV+9BkUhKcRb20kwj58+CxUOs7De7lebEY06waM02j88XzE13GSkX4jwLL0ebUnOYw9ojoZUtTW
-	jIMnYrZuIL5i8e27f2CXf6jcA+kvgOm9Aj8/S3h+myUR6FZiTVPcF4v47aDTwCrUeUaMYv8nXJlm6
-	2JynNtRFpf2i/fL8kFsAI6jXv/Vib0HWY+UL0VzeGGw5IfqSVEYPHm6vz5ocSIKShLKu5jBYG1Jq7
-	39+58w0Q8cW5sa/mG5wh+QX5s9W2gPRnpjpGD6GfYivmtxnVyddQTrhiTeVHO1T5D4YYrwUds32lv
-	gjLwNegA==;
+	bh=ILx4u100roKSNdt62g0vCVIzu5pk0TzDJDZVD8Hhcks=; b=YEKfePcZJ66Vv0BDxc4KeXTSIv
+	FDr1kCdSRTOHlgrLRJ+5jvXRu88+gx6MENusUTuCv/fT84nk/0UC3CEYLbMq/Y2/N3pWKhzVvsDLB
+	Id+5l7pyRIFfMVVIqdXv5oqgYHpxgHTGpJTqEOjRG8Tm6E4FXkAl37yHurwlJL0ZCpdl+eOtyZyVP
+	DEWFrX4j4Pk+PBTWb1fg12ub3y3dgMfPTdKDGLCpg9GRgn2di3FsSN9fA3rogzpvS1GO1QbMt6Cyj
+	V6+/I9UNIBK01n/VJiEhyqr6J/APWIX76ecrTQehy1YRhlbVyr5iPDR9/y3XZRi+qDK4BM78HuGyW
+	zjt5hZ/g==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Ricardo Pardini <ricardo@pardini.net>
+Cc: Heiko Stuebner <heiko@sntech.de>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 0/2] arm64: dts: rockchip: add Vicharak Axon board support
-Date: Thu,  2 Jul 2026 21:04:55 +0200
-Message-ID: <178301901903.3838694.3276523670393868229.b4-ty@sntech.de>
+	linux-kernel@vger.kernel.org,
+	Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: Re: [PATCH] arm64: dts: rockchip: fix regulator names on NanoPC-T6
+Date: Thu,  2 Jul 2026 21:04:56 +0200
+Message-ID: <178301901912.3838694.17963295262868921590.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260608060940.52549-1-hrushirajg23@gmail.com>
-References: <20260608060940.52549-1-hrushirajg23@gmail.com>
+In-Reply-To: <20260605-rk3588-dts-rockchip-nanopct6-fix-schematic-names-v1-1-15dd3b23ab1a@pardini.net>
+References: <20260605-rk3588-dts-rockchip-nanopct6-fix-schematic-names-v1-1-15dd3b23ab1a@pardini.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,35 +52,32 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 08 Jun 2026 11:39:38 +0530, Hrushiraj Gandhi wrote:
-> This series adds initial device tree support for the Vicharak Axon
-> single-board computer, which is based on the Rockchip RK3588 SoC.
+On Fri, 05 Jun 2026 13:54:35 +0200, Ricardo Pardini wrote:
+> Three fixed-regulator names on the NanoPC-T6 don't match the board
+> schematic [1].
 > 
-> The Vicharak Axon is a feature-rich SBC targeting developer and embedded
-> use cases. It ships with:
-> 
->   - Rockchip RK3588 (4x Cortex-A76 + 4x Cortex-A55)
->   - RK806 PMIC providing all SoC power domains
->   - eMMC 5.1 (on-board) and microSD slot
->   - Gigabit Ethernet via RGMII (RTL8211F)
->   - Dual HDMI 2.1 output and one HDMI 2.0 input (receiver)
->   - PCIe 3.0 x4 and two PCIe 2.0 slots
->   - SATA 3.0
->   - USB 2.0 host ports (EHCI/OHCI)
->   - NXP PCA9554 I/O expander for status LEDs
->   - Haoyu HYM8563 RTC
+> - vcc3v3_pcie2x1l0 -> vdd_mpcie_3v3
+>   This GPIO-switched 3v3 regulator is labeled vcc3v3_pcie2x1l0, but
+>   it is wired to and consumed by &pcie2x1l1. Per the schematic,
+>   the GPIO PCIE_M2_1_PWREN controls the power net VDD_MPCIE_3.3V;
+>   rename to match.
+> - vdd_2v0_pldo_s3 -> vcc_2v0_pldo_s3
+>   Typo in the regulator-name property of RK806-1 DCDC reg7. The node
+>   label and the schematic power-net name both already use the vcc_
+>   form; only the regulator-name string had vdd_.
+> - vcc3v3_pcie30 -> vcc3v3_pcie_m2_0
+>   The GPIO-switched 3v3 feeding the M.2 M-Key (NVMe) slot is named
+>   after the PCIe controller it sits behind rather than the schematic
+>   power net. The schematic names it VCC3V3_PCIE_M2_0 (produced by an
+>   MP2143-based buck off VCC_5V0, enabled by PCIE_M2_0_PWREN); rename
+>   to match.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] dt-bindings: arm: rockchip: add Vicharak Axon board
-      commit: e0008b108aaf8c5aa22930b2ceadf8f894562acb
-[2/2] arm64: dts: rockchip: add Vicharak Axon board
-      commit: e08c3389c78dbefd31a57df8807cf57ef6f3c9b1
-
-Please check for double empty lines and ordering in future patches.
-I've cleaned up some things.
+[1/1] arm64: dts: rockchip: fix regulator names on NanoPC-T6
+      commit: e53bb7bffd4d359b68e8256bc0ebf5a119ba3c71
 
 Best regards,
 -- 
