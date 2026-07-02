@@ -1,80 +1,180 @@
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.43])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A45433E9D
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 15:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187683FCC;
+	Thu,  2 Jul 2026 15:27:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783006016; cv=none; b=XGvQq0yh7zWpe8nfQIbNPBt4awV2ptPzYrWtE7m/I/7OdF/CSgVL24E+bVr2NpVBza5L0mBOsg1UfeetRM8pKXbS48+lsXs1uH6dfGMUHF7oDmgE1vkq9HuU1jTKda5mWn0RMm9W2RXChMwA+24NTyQXllR+XPeXiQpuETjb+x8=
+	t=1783006055; cv=none; b=uOHD5jY9v4F0wfpIhcwEysPuAHaR0xxDWM5CpaPbXflbJoijNPlVk7w/5ULp7jMJ/cAYszbCXOCvNmnpLdBErLk/F8nNVRsqwE8HJocz2ljEEfPa1UFYUd1zrPGnQVk79qtNPeqg0upagtXNhPWCU8fjivDqrYbw5jhjlopncsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783006016; c=relaxed/simple;
-	bh=/fVlbPyZGXATH2z5WzJ6VMWNrQv8f/QALE3Mh5Gazek=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=RchrSvzqRqVrISRzsxsQ//AlRrgmNmH7IaMCb5DXIMIHCo8xYPfN7NZckvWSEf3hbf33M7AA/SBQX1bMOL0Sj23buwhY/USWwwQO+Duy9XpoXThUhWXF4qbasxZb0k1VUUhiMxBzw32vrNznGyuyHznRfwIkC+rZPjpbmaRct7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=J5Mmzc5E; arc=none smtp.client-ip=43.163.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1783006055; c=relaxed/simple;
+	bh=00nLy8MHONEe2/MDd6GcLVMZbNylKTJzr+Z++oYeX2U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=saVsY/nLYdOBP/aDMfky0gjGSAaUnsZ/S0/9LyWrLpGFapAFQP5DY2KUvdGILPgRK84kfbABJxqPTPRdtZglSKv+IAvJreaDD5dIYPK/T6yunLrtSAJzfSUx6xMNUZV8qDGnVnyXsIkUjNh1WohNYOlPuV0IsAkY+mpLEtAFSXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dzVzO9rx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="J5Mmzc5E"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1783006006; bh=/fVlbPyZGXATH2z5WzJ6VMWNrQv8f/QALE3Mh5Gazek=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=J5Mmzc5Eg6w+Wn0IrCPB7I1aVMDiAF+ZdXvJq9kL/omh/BRSpOFtX+iWd169RAz5t
-	 FYbl1MYaV8WIYrYM+BY+dJGVrJByEFYuudyeoThk5+T+c6sMy+9fI3QWDdV7Vd/eaZ
-	 +L1aasTQPLDsqMdcPTv97gKgfyQTkBBhyF9pcztA=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-XMAILINFO: OMqlb7aP4Kjek7vshZOnZvDZb5+pT3yBZiNHZ2hUy7w914sLyLT+p04C4P4x9K
-	 rkZ+UKZDF1Ze7T+AawbmzHHGc26F1svH7n53Pvt+ALBPPxl0IPtoRBjpyAJa//Esxs17tB/Auzk6u
-	 1Lajtt9xuWDgjgrIjlher+7Hl63RNJawzBh26kiI8HTEW7VCfaHYk1NUFjjwLB3HgoBfJKB4EZ5ig
-	 oCav9Hj+HJ/1LklYGXN+XwS9+3qQc6feB0IVzWrvgZg82gW45ooi3e2LaeHj8eULaFH88D1vtIIeK
-	 aRJ8FQ/0gnwG2d8Qc0WE8fy4tIfo+SGJZ2CMSCuldorzRe0jzui3TVT/d2Z1rYDbB3okr2mC6Xbcg
-	 WmcdNFUq92zXv+2WD1HcQJxAMK8TmZ+cjFKsVMCgu8qw1I6veBYoegqV1FK4vpAcHWrt7qhQG1+oA
-	 57TMkADUVea3y7+vBjr4hLDQ1rRKOYeIue1+tepREdsO6WMXGjiLoD4L/up6XbC4JV2vAXqliu1Di
-	 lo9Tyqbtg73CTbtd+xPA84EFFoas8G7kI5JGaKZl/EPw7CZXoOFe9pw8iE/P2Q6VzzSyqu0lwUzzj
-	 rGPtrF5sxqDcCPEoMYs0tSA73FRjVaU2ACsERW1/O+iT/m3u6qCaKUBtp7xbtrf8kQNdKEHWLNOOq
-	 RfRgsqQlQAr9asLRI1XXDQsfiSaQ3JKY2Fe9gcGuk4501d1ceO389TNWiSnbrP+969Ap0kvgP1u3q
-	 tL8gcilPGFjtI1bRpu+oI64kWmPJHE5aNl+iGuW2GLaRzJKymPzMWa4hnF4YN5qTiYFoDRrAzKvOv
-	 MpvRkwsqG+nL1+o6H0bdP96Niaz3Kx8ekjPGky+WG9QryPnXSD2+jeiSx/WwQCB7vCgiXVQI6JdOe
-	 0lNdNfU8d6yxbgOp/yTbeZ3liRCydfFKcFefzHxySIvRVU4NKKyeKcdXJ1QsAiE0+xpr3HqsJpSfQ
-	 KwymHuUnQhjREoVqEjPLCOqZ4Am0ruyU/Ej1t43Yo++L6XbjHzGMomiwFxp05yhQbm3wGZYN46kWD
-	 6G7VmL3dax4MsHfb3Lx972hi5U4ZlXAyBeiI9w9WZKxkMkXiBgcx/x+e2vWeJh291utzlraY9looR
-	 5LW5dLsDH1GlvTOz97hK3tRe
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk@kernel.org>, "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>
-Cc: "=?utf-8?B?VmluY2VudCBNYWlsaG9s?=" <mailhol@kernel.org>, "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?RG1pdHJ5IFRvcm9raG92?=" <dmitry.torokhov@gmail.com>, "=?utf-8?B?U2hlbmdqaXUgV2FuZw==?=" <shengjiu.wang@nxp.com>, "=?utf-8?B?UGVuZ3BlbmcgSG91?=" <pengpeng@iscas.ac.cn>, "=?utf-8?B?UnVzc2VsbCBLaW5n?=" <rmk+kernel@armlinux.org.uk>, "=?utf-8?B?RXJpYyBCaWdnZXJz?=" <ebiggers@kernel.org>, "=?utf-8?B?TWFyaW8gTGltb25jaWVsbG8=?=" <mario.limonciello@amd.com>, "=?utf-8?B?S2FybCBNZWhsdHJldHRlcg==?=" <kmehltretter@gmail.com>, "=?utf-8?B?WWl4dW4gTGFu?=" <dlan@kernel.org>, 
-	"=?utf-8?B?U3RlcGhlbiBCb3lk?=" <sboyd@kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 1/4] dt-bindings: can: rockchip: add rk3588 CAN-FD compatible
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dzVzO9rx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 543E81F000E9;
+	Thu,  2 Jul 2026 15:27:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783006054;
+	bh=cEk3W3lizBUZfsulzFqYmAOYLzNf3b65ISLECKrKSas=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dzVzO9rxa+s+zlk9tebkHcboJ/TilCie+zjXBszJVjzUhbyOW9LnSEPQhUTC4IN5v
+	 JzNozJRLVaWij5NqMhTShnnRa/nSszoa2Ijf4gx+o/Dksaclx9MG5jdLAkcFv4ICg9
+	 EBnRanjvFSexO2ZkF7UjGqEuePNMUd7CcjZ2EfSvbaWi5/fLYBgGIyi1uQFM1oRGG3
+	 i/XIPGNtcD3DBnL9AJebvJ6KW/loqa6KXfqsQm9AEdu4sw5BnzqdVW/xSSTGvr4giI
+	 8MqwLt7QSRIHq9lV09czgPadJJAvL1uE7HODeNVKx8j5zb87qcGLbeWTUSVyLApmWi
+	 siNRPYnRHCrZQ==
+Message-ID: <f5f6aa5f-8c28-43eb-b254-17816f976f19@kernel.org>
+Date: Thu, 2 Jul 2026 17:27:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Thu, 2 Jul 2026 23:25:31 +0800
-X-Priority: 3
-Message-ID: <tencent_190046D203F61069FC109A4268AC654C1309@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20260702140654.2961561-1-1579567540@qq.com>
- <tencent_3B2B6003D1DE4FB7A984665A062581766405@qq.com>
-	<ec548326-dd8d-4d81-8500-ed4c4c30ddb2@kernel.org>
-In-Reply-To: <ec548326-dd8d-4d81-8500-ed4c4c30ddb2@kernel.org>
-X-QQ-mid: xmsezb41-0t1783005931tqwjx3m1m
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] dt-bindings: firmware: add mbedtee,tee binding
+To: Xing Loong <xing.xl.loong@gmail.com>, Jens Wiklander <jenswi@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Sumit Garg <sumit.garg@kernel.org>, op-tee@lists.trustedfirmware.org,
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260701132514.186953-1-xing.xl.loong@gmail.com>
+ <20260702151115.544016-1-xing.xl.loong@gmail.com>
+ <20260702151115.544016-3-xing.xl.loong@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260702151115.544016-3-xing.xl.loong@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-CkhpIEtyenlzenRvZiwKClRoYW5rcyBmb3IgcG9pbnRpbmcgdGhpcyBvdXQuCgo+ID4gQWRk
-IGEgZGVkaWNhdGVkIHJvY2tjaGlwLHJrMzU4OC1jYW5mZCBjb21wYXRpYmxlIHRvIGRlc2Ny
-aWJlIHRoaXMKPiA+IHZhcmlhbnQuIERvIG5vdCB1c2Ugcm9ja2NoaXAscmszNTY4djItY2Fu
-ZmQgYXMgYSBmYWxsYmFjaywgYmVjYXVzZSB0aGF0Cj4gPiB3b3VsZCBkZXNjcmliZSBhIHJl
-Z2lzdGVyIGxheW91dCB0aGF0IGRvZXMgbm90IG1hdGNoIHRoZSBoYXJkd2FyZS4KPiA+IAo+
-ID4gQ2hhbmdlcyBpbiB2MjoKPiAKPiBDaGFuZ2Vsb2cgZ29lcyB0byBjaGFuZ2Vsb2csIHNv
-IC0tLS4KPiAKPiBTZWUgYWxzbyBzdWJtaXR0aW5nIHBhdGNoZXMgb3IganVzdCBzdGFydCB1
-c2luZyBiNCwgd2hpY2ggd291bGQgc29sdmUKPiBhbHNvIHlvdXIgYnJva2VuIHRocmVhZGlu
-ZyBwcm9ibGVtLgo+IAoKSSB3aWxsIG1vdmUgaXQgYmVsb3cgLS0tIGluIHYzLiBBdCB0aGUg
-c2FtZSB0aW1lLCBJJ2xsIGFsc28gc3BlbmQgc29tZSB0aW1lCmxlYXJuaW5nIGhvdyB0byB1
-c2UgYjQsIGFuZCB3aWxsIHVzZSBiNCB0byBzZW5kIHRoZSBuZXh0IHYzIHN1Ym1pc3Npb24u
-CgpCZXN0IHJlZ2FyZHMsCkN1bmhhbwo=
+On 02/07/2026 17:11, Xing Loong wrote:
+> +
+> +  On RISC-V the TEE signals the REE via IMSIC MSI; the REE submits
+> +  commands via r2t-ring that the TEE polls. No REE-to-TEE interrupt
+> +  is used. No SBI ecall is involved.
+> +
+> +properties:
+> +  compatible:
+> +    const: mbedtee,tee
 
+
+No, you need to respond to feedback instead of sending the same code
+called v2. You received comments for a reason. Sending v2 now hides all
+this comments and people might think discussion is resolved. This is
+very bad practice.
+
+Also,
+Do not attach (thread) your patchsets to some other threads (unrelated
+or older versions). This buries them deep in the mailbox and might
+interfere with applying entire sets. See also:
+https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
+
+...
+
+> +
+> +examples:
+> +  - |
+> +    /* ARM TrustZone (SMC) */
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    firmware {
+> +      mbedtee {
+> +        compatible = "mbedtee,tee";
+> +        interrupts = <GIC_SPI 72 IRQ_TYPE_EDGE_RISING>;
+> +        memory-region = <&mbedtee_t2r_ring>, <&mbedtee_t2r_shm>;
+> +        memory-region-names = "t2r-ring", "t2r-shm";
+> +      };
+> +    };
+> +
+> +    /* memory-region phandle targets */
+> +    mbedtee_t2r_ring: t2r-ring {};
+> +    mbedtee_t2r_shm: t2r-shm {};
+
+I asked you to drop all these irrelevant entries.
+
+> +
+> +  - |
+> +    /* RISC-V IMSIC (ring-buffer polling REE->TEE, MSI TEE->REE) */
+> +
+> +    firmware {
+> +      mbedtee {
+> +        compatible = "mbedtee,tee";
+> +        msi-parent = <&imsic>;
+> +        memory-region = <&rv_t2r_ring>, <&rv_t2r_shm>,
+> +                        <&rv_r2t_ring>;
+> +        memory-region-names = "t2r-ring", "t2r-shm",
+> +                              "r2t-ring";
+> +      };
+> +    };
+> +
+> +    /* msi-parent phandle target */
+> +    imsic: imsic {
+> +      msi-controller;
+> +      #msi-cells = <0>;
+> +    };
+
+Also drop.
+
+> +
+> +    /* memory-region phandle targets */
+> +    rv_t2r_ring: t2r-ring {};
+> +    rv_t2r_shm: t2r-shm {};
+> +    rv_r2t_ring: r2t-ring {};
+
+Also not relevant.
+
+I will not continue the review. Please go back to v1 and continue the
+discussion.
+
+I consider this version NAKed.
+
+
+Best regards,
+Krzysztof
