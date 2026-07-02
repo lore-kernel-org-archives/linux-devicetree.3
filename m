@@ -1,136 +1,77 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07C3199920
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 15:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783005208; cv=pass; b=ieVXDPIhqJzqX3qltMAuChYqezp6xyFbuMIM6bNCY5IhIDDcTyEydjZsWVN3zZbd6jDLSK0bb9cuRvWIWqLcVb3e5W3xBzWbRw850RJfwVH2q/dNQeFPylxEbCQKacpXWeMbHBXvxEbXKWSC7pL4ShlVH7mgRXLcQi1A+R6B9Ks=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783005208; c=relaxed/simple;
-	bh=/4egXjCN8R7F9xxzpwAYPp/3i0iFE+B6QSqkJayqSxw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AHeIFUCJWJNZt65ZyG7NhweIWEbg7iI8MOwvqsJ95o8QW6iQ/CMRLhXZOoQtC4KItX/z7oEv2yFuTFjvbOY1f78me3jmYQqygSouVFYClogxz0MF52q/EjunKAtaHHUyCMwEFb33nIZSz0LxiAdvh+JDunlsKNx+XZpdOkH9xfw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mxwtnWgX; arc=pass smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BEC432B981;
+	Thu,  2 Jul 2026 15:14:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783005285; cv=none; b=aeZgPsMEr9LBPF48peGUuShJg8jJcWNXIxQoFXnf8xIMP6zW32GkRVXLUj0e+ytexoj0LYykk+D64t8aN7NvJcIu+GcN9qwdnUGVrvi0Nl5FJOboaoWomARHNR0ozy4wrf0j3KRR3L8qAeTejG1v2IWCCL8BxkeOmkofg0ZchpM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783005285; c=relaxed/simple;
+	bh=d2YVhtbaFzSgYBANw71BSYMMHHk4SZ1Y76sHIatqV1I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NCMZAInsOHZcFmsgTcvCEfXU5RBXYinMbD6aEoUJkDTEFyb3NPLLjYJWBiiaqE9KUdZuMyn+SFIiI7TeSSzn9MfVaJD0bkitECgpnmpoZT0kU6KCJZwf+rmIUAwOVIG5f2B1OVSIwH+rsjt16AR0+GusVlwZn+4pdMG3skRZvcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HUo7JOYa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mxwtnWgX"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-474303f3c72so1266862f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 08:13:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783005205; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kzUDEg+pTh0w3NxcB2IYuXskieDCjw/WavpMLJKdthb4mZBFIBGvJw31+Rk62aC2xV
-         SUk5MgstHyKBdSgYSDZxE3IAnj+O9cj5kRAd+trYrAtuIbrllXH6Rrle1MtbBv2rREiN
-         V+ObfeD/6UIAiqcjX0sj/AKm7Eb9QhNnnsq3318xE2z67k8aW7aBMivsUHFKioa9uCSS
-         /XPQ/5AumcHQBgMk5R9N5ydRmwPiBvJpEv4zL3zRIbdzxi/mdyAI4vShlzfF/sa9P4A2
-         Y9MIYSq2P8pSVDfqXKi1Lgpwaoy0k9w2upffavhVqvRU6ARaJ1DalSqx619f5XU09laF
-         K+sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/4egXjCN8R7F9xxzpwAYPp/3i0iFE+B6QSqkJayqSxw=;
-        fh=1XMpycCqgCS82WzUccPaEYerWadrKrzJF6+wTziDzqA=;
-        b=iGtcE+TnLfwtGwkMdkeFUiKBOOMFF1NxrDW9rEUHKolmQOpn6OYl4kVmCQIbMnp5M+
-         X+JAV+7A5RzpgvCW7DhB6jiCe7L0kaDoN4zu1rh5xQ32uU1ToPyAkMfnQ+/mIl4Bfu3+
-         X+QuQeE4ikzQUjn2cCf7RmVRL7E7BQHAEN5N61ulcD7nCbU1vs91HR42oyL1h7zf1Van
-         +da2xLNPVT0JcN20eGxarpM8fXIe53EO3iWMNY3NZKJbFn5WoprFtKCoPLRyx5JBCrPn
-         GKZbBXfUepOciBw5ZG98FcEVZh/boVMKcWzJ5W04AVhOvMrzdMyUoi97RGAPIJA4wXvk
-         BThQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783005205; x=1783610005; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/4egXjCN8R7F9xxzpwAYPp/3i0iFE+B6QSqkJayqSxw=;
-        b=mxwtnWgXSUJ2VTpxDgjhS7KhZUtoDgNgcYhnNevbp0k93vTeIRBovOxpbe5r1n55F7
-         xgz4dC9vIg2GhR9kdP6BneN7wjbA6SE2DHVfqYBYMEeXqnwoAMZuxFFPm1LDoLmwYqHC
-         XuYg+ywghF8myR54ikxzuuvjyJ+czHEqRHrlN15XDfqhqO5HTVvgxeCxfP3kpovvTQ7n
-         hD1AwUBGhVSWrmu/JRUY7J7cRSgiCgJ2BTtLrCIgU3qiqiZyEu7YlJ1NxiGtsjaiSG2L
-         pnKQFxVKoDksdl6k5lB5rvynD9icKEJgOqrzNslpia7bb7ryDROwsLjQmP2K/pijmFYi
-         rrHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783005205; x=1783610005;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/4egXjCN8R7F9xxzpwAYPp/3i0iFE+B6QSqkJayqSxw=;
-        b=jLT2dlfblxNFuQM7Y88punyF16O39sIqLw6UpuylwDv/ZAOq3YDWkRTWCwdWUWVxyP
-         fb41l5W4m8feE0mV7tD6CqDEAerozrLbpRvpqxyQ/fgb1FPomIgx9HlaxEkRG74OQuNp
-         HmQIa0/CeMz1zmAe/0bQobNNRf1OYr7vw+I+UjKTS/5qkuAE9vVWNfUTw6Itj8QBtm6X
-         878h0xcvtlP5A5q8gHZFz4j9X1rqqqSHuJE+tTRgkempPo7ADnoeqluoG4myKKlTZ5B9
-         PDsGrs2MiMCNnWy+qCsCDuSJ58pVwXDPMtBy8qkzQCtwkFN/8XzVYIzuCa7GhRceg/6T
-         NobQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrLWpNawohhCKx+92zhDaYvJ7aDqyE5XbRZgSBxvIDQc2VZnrPxZQSbDccVSsntUJ7PcEkR2hww0B4J@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw5AoiFUabFzX7Nmd9i0kJARXSaOkDL0ZzD0tihQ5US/ROI+E8M
-	vAGho8vzk2P74iJJT2F2fdSifIdz0ZWkvSPH2cjYkS2rSxRJQ44bubuirjGlHS9zOIvTl4mucCL
-	bh4zS1qwgQIOos8b4V95fNr7W4/ESmZA=
-X-Gm-Gg: AfdE7cmp59na1ryOIEoRBD75/HKduCasBhhQTC49DTKWWfCcag/CBcCPvpfw/ig4yWh
-	75kqmbhyGfroc4rv7YuPTtqHlPO0gNvFJ58jXPY0lP5q0VS9xo8Df9WYTpOlGGUSKreUgygQC6+
-	qhAIRnkgDi9z9OPZNB2yRF5ytTek0rK22dIX+yQGPYR8VU23cuaCJDVgy4qFLhwTeuS08IEMMa0
-	8EiCX9teSOY22/WkPYPxPRaf67BhNCUDw9iU8uY1avFmIuL0oUY2v80R9qfV3WoA8GBZFWfXoCa
-	7cQtrHmmsFumY/FSu3Z2U1fPTriRjOyVagB+BfJ2tjdoS3nEcSaJwSdThA==
-X-Received: by 2002:a05:6000:310a:b0:474:b860:b7b1 with SMTP id
- ffacd0b85a97d-477573bbc08mr9500811f8f.9.1783005204503; Thu, 02 Jul 2026
- 08:13:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HUo7JOYa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10A251F000E9;
+	Thu,  2 Jul 2026 15:14:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783005284;
+	bh=c3jiJOSpZWo7w985LQh4Y0OVG7Wd0IptXa6TBfu7SkU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HUo7JOYaEFRyzC9WdCBlCVlgDUpNNKf60fUSfKcmOEFfPx6Gx/TIWQAqNaTgJ6l95
+	 s5d7UbA2rhO7yf1OJWfXmqRbEwUHh1HnVQAz2Y6AReUm2EsqWMUDsXogc1B/cSOmZT
+	 b0ZygJ6FBQJf0LlZ+3TSRNuxTcyx0QQj47zR8yUANchvZx5BArgFp3liFOTvhrSvBu
+	 mHLHeDFfxw2YKCn16UpvqX4MFOYxEGGYjCoJiYXpUXNT86DCanxssuXq+Ei+I/0B0b
+	 Vuo9qq1SewwmZlNtoNtYxp6f91VkU0YZdAqrkBZ32Q7yEYqjzZM7VrbUzHh4AD2Vv6
+	 yH01KvWQjWDFg==
+Date: Thu, 2 Jul 2026 16:14:36 +0100
+From: Lee Jones <lee@kernel.org>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Macpaul Lin <macpaul.lin@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+	Val Packett <val@packett.cool>,
+	Julien Massot <julien.massot@collabora.com>,
+	Fabien Parent <parent.f@gmail.com>,
+	Akari Tsuyukusa <akkun11.open@gmail.com>,
+	Chen Zhong <chen.zhong@mediatek.com>, linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v9 0/9] Add support for MT6392 PMIC
+Message-ID: <20260702151436.GS2108533@google.com>
+References: <20260621081634.467858-1-l.scorcia@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260702123112.161160-8-prabhakar.mahadev-lad.rj@bp.renesas.com> <c3ef312a-4c26-498c-90c8-118c6dc035a0@roeck-us.net>
-In-Reply-To: <c3ef312a-4c26-498c-90c8-118c6dc035a0@roeck-us.net>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 2 Jul 2026 16:12:58 +0100
-X-Gm-Features: AVVi8Cc-s3hEJSawL1gEVp8kBOMXlVewT2dK4bhHbDClofCdIh5uSGgHTJrBYuY
-Message-ID: <CA+V-a8tcFzoGBZ0NBE=612Py+E6gJ4MRqyT2QjxSN1s6Dv5CvQ@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 7/9] watchdog: rzv2h: Add syscon support for RZ/T2H
- and RZ/N2H WDT control register
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260621081634.467858-1-l.scorcia@gmail.com>
 
-Hi Guenter,
+On Sun, 21 Jun 2026, Luca Leonardo Scorcia wrote:
 
-Thank you for the review.
+> The MediaTek MT6392 PMIC is usually found on devices powered by
+> the MT8516/MT8167 SoC and is yet another MT6323/MT6397 variant.
 
-On Thu, Jul 2, 2026 at 2:27=E2=80=AFPM Guenter Roeck <linux@roeck-us.net> w=
-rote:
->
-> On 7/2/26 05:31, Prabhakar wrote:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > On RZ/T2H and RZ/N2H SoCs the WDTDCR register resides in the second
-> > region of the System Controller (SYS) block at 0x81290000, which is
-> > shared with other peripherals. A dedicated SYS driver now manages this
-> > region and exposes it via a syscon regmap interface, making direct
-> > mapping of the WDTDCR register by the WDT driver no longer viable.
-> >
-> > Update the WDT driver to support both access methods to maintain
-> > backward compatibility with old device trees that use direct mapping:
-> >
->
-> WHy don't you convert the driver to use regmap first and then just
-> update the regmap pointer for syscon support ? If that is not possible
-> for some reason, I would expect to see a detailed explanation.
->
-Good point. I will send patch 6/9 and the regmap conversion patch
-separately, and I will send the syscon patch when the syscon changes
-are accepted.
+The MFD pieces look fine to me.
 
-Cheers,
-Prabhakar
+I'm assuming this will go in via MFD.
+
+Just let me know when you have all of the remaining Acks.
+
+-- 
+Lee Jones
