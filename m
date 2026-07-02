@@ -1,93 +1,245 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B330647ECF8
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:54:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27AE448164B
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:54:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782986088; cv=none; b=Dbeg8BKvaXHZYm4QRbfCCSX6lMuaGUrvNyWMKSjsDrnlflg0kezqFKwjNJRRWuuoR3/MUicjxBjrmAy+37aN52E9GaYoLRjw9+NUbYjeYLINsTKSzKMTqtY4eB7YemQidnQMkMe07LGsS1lGyJYFdhThsmmjJZt9ZKkjmYB7G/8=
+	t=1782986099; cv=none; b=e9cKwax1VKtnUYwokTSiynXr/5C9PP59wqFik2g3+JTMdkUK/nuuM/JcH4R/3r32mshOG/Mf/9FQQgKKY8tCzsoyii1J9/flG5fxL8BZWNCowC2Va9JQCAPmIjL/8kYMw8MisJpKijjVkqUrqEBodBud/2eOa3bGOHZQwGrDXH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782986088; c=relaxed/simple;
-	bh=e/TuqT3odxENflUq4nELweue3ysV9mVZKR6/9T8pVMI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=b/KcgGSK0IIHrE0KUNfVb70lfHS/VCfOWGCY7Ggep+8BUYfj3RIZzttmji0riP9UHtG3kE+AWISgoOYBxuurL0UKC0ZOtdGOxoeIP3YZycTe2cCyjA57puoqU435lK+valG6Vlol8KgxairrJ5iEQO2MYEAF4Hj9c+2YcdyYRNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jFr/BDZS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782986099; c=relaxed/simple;
+	bh=9+mJfEnVorck3wjjVgsHy0HRFt4p7NG0puSJtIQtINI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EkB7ymfK0SZQJtRW5bh9RXlDvT4yfTbypsIPKYiJyiMqTuMLp3pjLPJdY7JT+sfAEIZgChzjrbUgqPm0TvdD2e9frRrm3IUpe/rx3D/1Wl3ThGJKqrRMaV0csy/GQxf8e7QFWx/47RuhL+d+JR6KYH/X0nUwotnva1R9r0XJPm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=c8Nx3JNU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VvMIM05t; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jFr/BDZS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1214F1F00A3A;
-	Thu,  2 Jul 2026 09:54:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782986087;
-	bh=ro0zTJboIfGrRuxPQGgkKGLyXmwoOATJUe2tUHEOc3E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jFr/BDZSdLoqWm6hw36EvhFoVFrfUrDeIXXO+Z4ntlOlProf9tACD+0UL1jbft8/Z
-	 l1GP29NLAM/3AfhrISONIY1E1gSHMEdggALxY0iJz5c/nIZjohPmI9qijGzST7KqkJ
-	 b+6baoBRXZho9G+SAswulveCE424eKd1yewVpKCuBkFlCKPCVQjDCNHbF+R/yckyIg
-	 RquylLBBk+RXyVfxCCdWgUOjOFh7Nm3NH/viN7H8+piY7EIdcG4NOAjWjlt3/669t8
-	 XIll9xr5YJ+HLos/fDPZSdTsK94zFLQEcfWBKG/ABDYm7YJ+lwewXO29UC74aysI2t
-	 RfHNnCxSyKuMQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 2/5] dt-bindings: phy: Add documentation for Airoha
- AN7581 USB PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: robh@kernel.org, vkoul@kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org
-In-Reply-To: <20260702093812.15918-3-ansuelsmth@gmail.com>
-References: <20260702093812.15918-1-ansuelsmth@gmail.com>
- <20260702093812.15918-3-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 09:54:46 +0000
-Message-Id: <20260702095447.1214F1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="c8Nx3JNU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VvMIM05t"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6628VGfc3046717
+	for <devicetree@vger.kernel.org>; Thu, 2 Jul 2026 09:54:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	dYmKx8C4KL+AfADa68PgM8oiVSYr3E5AIIZlvJogQIA=; b=c8Nx3JNUwFLZzGF0
+	AyMuXjXDhht9hEwU/DgXjgh2AMlxEMerL2yHcLjBqpBM8L3grbG9LWoDV56dl8Rc
+	ESc2sdljK4/nBv65Wb+RCmTBndayvaUx7gsqiTa4I653Xjh8nZ4BsjQoU0sjXCef
+	hBA+INt09UdXKNkzK1/4UurgrQqy4AiCu7cehBMYJZ259SodFpldboH0fnFNWWqX
+	Qn8+jBp6oIto+LJ4yArtuCX85ELR6edDjd+AsTzEzyZ4CVDxCStLq1Hcvt/B2hdl
+	gDIPYYLoq9gbzFPlAJugY8LsQi/oSn/tfClhk6ghKJ8Zw3q/K8DKg3AH96MUvr9Y
+	2luicg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f58k3awr3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 09:54:57 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2c9b71388fbso34475615ad.1
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:54:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782986096; x=1783590896; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=dYmKx8C4KL+AfADa68PgM8oiVSYr3E5AIIZlvJogQIA=;
+        b=VvMIM05tDqhdQ8E9Grs4vmGF4jFeb26QR8oFhceYK05zcXgDgYReHIuMTDXzlWPUX2
+         Kntp+FC9me7xkyQuR2OoyWyoLo4DGrc4/Q/VWBrtMhuzx2CMOiAEpl1i6FsnSU4rne1P
+         UDbShO3M1OgwFpa1QjpBvPe2nFRy1v8sSPRqCaAM4b2xT6okWUy6F2QcVhJ30ogXz12o
+         BZmd2ejjt7bKxB/RymBGPcy/gdx3dBXR9EJJhVXqil1rRLUmvglAVftCxkhGJWnu7f6e
+         Xf/+xpswXCdGbNVfVi+pI1E+yx4Cd64mmmXIDQHNseZAwaAY3NcPfafw0z2izosoBRlL
+         dEhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782986096; x=1783590896;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dYmKx8C4KL+AfADa68PgM8oiVSYr3E5AIIZlvJogQIA=;
+        b=lP0u/t38MYL6IeQkfSNDoGVUop/VAZYjcMVDeBgrj7XaxfdAtB+qVontx7ef6SUIzj
+         u3lwmeBbE1q+rq8LV6+weRU8uY+k7JxmAjCm7E4L925SpzPmthUk9C5jyxpWdht2O7hH
+         XyGnYACVZOQMQeho8RNs8/fuJPD+yxKwxDFfxn+H6OrHPaQcUzQgSoH/fdPhla5YNZbC
+         cSDcIs3LmzYAtkm/LjKifyeKuCgUj7Hl4HP0PNsdJr3ax9ly3oH69vPf85Lj1XdoJ3Ns
+         PnIx/fHRkba8Zbmpaa4yTV4u441/qSSXCi/cYvRl7ec2PgxGXKoY75PJYRcgRe4qGnei
+         KMxw==
+X-Forwarded-Encrypted: i=1; AHgh+Rrbi8TyR79Xi0eThBSNeL2wPhzkpx0mrVO/e4Sjr9Q3xSQ/0BCICoNuQOmKtzc4xCBWHyZbMDV1yPjE@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHHjqD6RU4OXmPA0SBg1CpHIFhIdsst82772EPNcqRdelNR91m
+	SWujnMtq3YtWdSTRdqOhXeqvNvVO7AoDUbl8SfCuRa4PxlyHlWjIda9vM3x1Cx9lEMP2YTNAbcx
+	IlvvInz1/2qLDWx5dOE3HPVnfit0d7/PeNPPon4HdBVknbPXvEZnj03mvosOygvdn
+X-Gm-Gg: AfdE7clW8DQKHlHLMXiLYzKphy/DoUEz7jNoyy5RxokAYjgshFXgYJ2IP6r7z6/QqRB
+	lbj1fHrAeN6y4whmFQGJhRSs45WICsSapRomSKGw0daSggDlcwzf9zzAryV+U3AZMTOsTTjUggv
+	pAb3Sw/CCJgB4ROqj8OJ5XFWb+ffVXbcvFiQbrKchSUU3/1mkuhi38nQhnEK3BZ3u51oAcCngAG
+	QYX6kX2ivmHL/08nbE6WYrp3/OCqZSB8O5LC4Rpiha4+BnDa4p08CgCznp7yVwRl9Z/Iun+0QV7
+	KylfuClwvamkTdQb8zBPlm03Ax+10y8gYYQ1q47EmG265c6aLbl/JTsX+/MnWH+UhldhTns3F0a
+	mAhb1wNfxjQoaYh66XEfJvE4zYpzjWIbxCKxz1sqT
+X-Received: by 2002:a17:902:da89:b0:2c0:db23:4c4 with SMTP id d9443c01a7336-2ca7e6b3396mr57806165ad.16.1782986096186;
+        Thu, 02 Jul 2026 02:54:56 -0700 (PDT)
+X-Received: by 2002:a17:902:da89:b0:2c0:db23:4c4 with SMTP id d9443c01a7336-2ca7e6b3396mr57806025ad.16.1782986095672;
+        Thu, 02 Jul 2026 02:54:55 -0700 (PDT)
+Received: from [192.168.1.6] ([182.77.29.27])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca9a8dadbbsm11149905ad.3.2026.07.02.02.54.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 02 Jul 2026 02:54:55 -0700 (PDT)
+Message-ID: <751ca9d2-a264-4533-98ba-7b7b9d489fe4@oss.qualcomm.com>
+Date: Thu, 2 Jul 2026 15:24:50 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: Add SD Card support for Glymur SoC
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
+        Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Sachin
+ <ssachin@qti.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260610111508.3941207-1-mchunara@oss.qualcomm.com>
+ <20260610111508.3941207-4-mchunara@oss.qualcomm.com>
+ <6a1fdadb-6a52-427c-b65d-70dbe80ccacc@oss.qualcomm.com>
+Content-Language: en-US
+From: Monish Chunara <monish.chunara@oss.qualcomm.com>
+In-Reply-To: <6a1fdadb-6a52-427c-b65d-70dbe80ccacc@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDEwMiBTYWx0ZWRfX1Dc0KDZmNtR/
+ EXYZIWPfAZUXf7dqkgK/v3hEJT/Ot39U5N9nNFzHUHyLmlsTYtnzGQ3nBPLUxrkWpHQWbDaN13H
+ yqgJ/ICS4IprE7eIFeQsN5lxWVC/9trLrUcYgyGPBIuYmYb7QwIAJmHa630+ikazr6kWr4pKFD6
+ 8C0yDcOUi8Z1HfZsbs1LwNrjFxWt5vfzmS6/mR5p8GRJfa3TXhLC1Gh23CP/Zt47wE5YxVfylyX
+ u/sShEVGdOmSkDBK8cfbflwJH0fO9fzomylRGYO/cOmVerIMOvL55C03M0J1Rm+nqEOCIfzkpXK
+ P0uSVeExgNfX2zNPh/JA9M5E2UygnUGebh5z3HC1GNER46JrOtqVRypuIzdFDluOQ1FmpUl4GMH
+ jl3f/1QkZr53Kpo4r0ix+S7Y9ooSx2yDyezVkTtunKrIf+LTQSrjYhCJaPQLg5tTQ1XTNHGYvMx
+ GmntYlvFwkiTAHGfEjw==
+X-Authority-Analysis: v=2.4 cv=SuGgLvO0 c=1 sm=1 tr=0 ts=6a463571 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=1qKOYMtCOh3zOq8T1Y2cZw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=UCYWkEfTB1DHydHpn7IA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDEwMiBTYWx0ZWRfX5Tw5klQdCl5m
+ AiFCEHjqFBP/AiAPw/su0HuZ82Eubs8Lz+wSmTs/lIv8vmPUZFr5MtMfInFhiZVYxwVk8BsG1/F
+ CCzfkwKIsM/Y8Rp7JMCPknWfxiwWTQY=
+X-Proofpoint-ORIG-GUID: f7U_BCgoE0gzf9rS4vR3CzTh5zFrYz8W
+X-Proofpoint-GUID: f7U_BCgoE0gzf9rS4vR3CzTh5zFrYz8W
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0 phishscore=0
+ malwarescore=0 suspectscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020102
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Encoding fixed internal SoC routing in the device tree via the `air=
-oha,usb2-monitor-clk-sel` property.
---
 
-commit 82d75d6a8695c967604982f45c3db95efe45a784
-Author: Christian Marangi <ansuelsmth@gmail.com>
 
-dt-bindings: phy: Add documentation for Airoha AN7581 USB PHY
+On 6/11/2026 2:34 PM, Konrad Dybcio wrote:
+> On 6/10/26 1:15 PM, Monish Chunara wrote:
+>> From: Monish Chunara <monish.chunara@oss.qualcomm.com>
+>>
+>> Add support for SD card on Glymur SoC and enable the required pinctrl
+>> configurations.
+>>
+>> Co-developed-by: Sachin <ssachin@qti.qualcomm.com>
+>> Signed-off-by: Sachin <ssachin@qti.qualcomm.com>
+> 
+> Firstname Lastname?
 
-This commit adds device tree binding documentation for the Airoha AN7581
-USB PHY. It details properties for configuring the always-supported USB 2.0
-mode and the optional USB 3.0 mode, including slew rate calibration and
-Serdes configuration.
+The mentioned name was the preferred full name of the co-developer.
 
-> diff --git a/Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.=
-yaml b/Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
-> new file mode 100644
-> index 0000000000000..f42e3d49a61fd
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
-> @@ -0,0 +1,62 @@
-[ ... ]
-> +  reg:
-> +    maxItems: 1
-> +
-> +  airoha,usb2-monitor-clk-sel:
-> +    description: Describe what oscillator across the available 4
-> +      should be selected for USB 2.0 Slew Rate calibration.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [0, 1, 2, 3]
+> 
+>> Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
+>> ---
+>>  arch/arm64/boot/dts/qcom/glymur.dtsi | 91 ++++++++++++++++++++++++++++
+>>  1 file changed, 91 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+>> index 20b49af7298e..0989fe39e7ef 100644
+>> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+>> @@ -3927,6 +3927,57 @@ lpass_ag_noc: interconnect@7e40000 {
+>>  			#interconnect-cells = <2>;
+>>  		};
+>>  
+>> +		sdhc_2: mmc@8804000 {
+>> +			compatible = "qcom,glymur-sdhci", "qcom,sdhci-msm-v5";
+>> +
+>> +			reg = <0x0 0x08804000 0x0 0x1000>;
+> 
+> nit: Let's drop the \n above
 
-[Severity: Low]
-Since the commit message mentions that each port has only one of the 4 moni=
-tor
-clocks actually connected in HW, does this property encode a fixed internal
-SoC routing rather than a board-specific configuration?
+ACK, corrected in v2: https://lore.kernel.org/all/20260702094056.3755467-1-mchunara@oss.qualcomm.com/
 
-Could the driver deduce the correct clock selection internally (for example,
-from the port's register address) instead of requiring a DT property for a
-fixed SoC hardware characteristic?
+>> +
+>> +			interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 223 IRQ_TYPE_LEVEL_HIGH>;
+>> +			interrupt-names = "hc_irq",
+>> +					  "pwr_irq";
+>> +
+>> +			clocks = <&gcc GCC_SDCC2_AHB_CLK>,
+>> +				 <&gcc GCC_SDCC2_APPS_CLK>,
+>> +				 <&rpmhcc RPMH_CXO_CLK>;
+>> +			clock-names = "iface",
+>> +				      "core",
+>> +				      "xo";
+>> +
+>> +			iommus = <&apps_smmu 0xd00 0>;
+> 
+> '0x0' for the second value as it's a mask, please
+> 
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702093812.1591=
-8-1-ansuelsmth@gmail.com?part=3D2
+ACK, corrected in v2.
+
+>> +			qcom,dll-config = <0x0007442c>;
+>> +			qcom,ddr-config = <0x80040868>;
+>> +
+>> +			power-domains = <&rpmhpd RPMHPD_CX>;
+>> +			operating-points-v2 = <&sdhc2_opp_table>;
+>> +
+>> +			interconnects = <&aggre3_noc MASTER_SDCC_2 QCOM_ICC_TAG_ALWAYS
+>> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+>> +					<&hsc_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+>> +					 &config_noc SLAVE_SDCC_2 QCOM_ICC_TAG_ACTIVE_ONLY>;
+>> +			interconnect-names = "sdhc-ddr",
+>> +					     "cpu-sdhc";
+>> +
+>> +			bus-width = <4>;
+>> +			dma-coherent;
+>> +
+>> +			status = "disabled";
+>> +
+>> +			sdhc2_opp_table: opp-table {
+>> +				compatible = "operating-points-v2";
+>> +
+>> +				opp-100000000 {
+>> +					opp-hz = /bits/ 64 <100000000>;
+>> +					required-opps = <&rpmhpd_opp_low_svs>;
+>> +				};
+> 
+> The SDC doc says this should be 50 MHz> +
+
+Frequencies below 100 MHz would be taken care off by the 100 MHz opp 
+entry.
+
+>> +				opp-202000000 {
+>> +					opp-hz = /bits/ 64 <202000000>;
+>> +					required-opps = <&rpmhpd_opp_svs_l1>;
+> 
+> And that this should be opp_nom
+> 
+> But the clock plan doc has info that corresponds with the content of
+> your patch, please check which one is correct and file a request for
+> fixing the wrong one
+> 
+> Konrad
+
+This has been checked from the clocks plan PoV and referenced based on 
+similar architecture targets. Updated the corners in the v2 series.
+
+Thanks and Regards,
+Monish
