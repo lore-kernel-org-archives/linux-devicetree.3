@@ -1,114 +1,179 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B6FE82441B8;
-	Thu,  2 Jul 2026 05:58:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4A6352026;
+	Thu,  2 Jul 2026 06:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782971935; cv=none; b=BGciS5pOLvtpAuHCrYV7NuXYeIiWflLyfCvCxMlO+4kdUNRrkccWnkWOT5mzjRTBhgg5fJ+qTlN9dkdlIS7cexJV2UUAmK1/ja++1ncO7+Ueuk3RQlRxQUP9pFcbkI43TO0Fk498TeSTsil0ZVuGzaRldw1NeU3P9K3xWdbKsCE=
+	t=1782972605; cv=none; b=NodcXwjpII+L69WPPF/dVQqnDm0LQEaaLU941UHvdp2CIVX8vFOaJ+bIXI9plMF+adD8CCgkr1n2lHN2plGhNtKDAe1J0OPNJTp8+WYCQpN8+bfgHsGzSlzrQ3KlGpNxZOFW5Tmd7Sg6YTRI0p8C42+G+SHRJ2ujru7sxxoSdJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782971935; c=relaxed/simple;
-	bh=y2p0gjiPOwrEc3XzZXHJ62SUJPKrNMOkfmMY/0J6koM=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=cIFMKhB7U4cL9m84l0xwCCoGDbXgUm0NBwjU92IniRcFmOjOz2eI/DgRDGNT0kzTqMA14QtEFrIqTCbHlnPMGDEpwYGTODJxRPoct6WBvW1S3yibiv6fiOMx4z3jzO9Fsf5W9TDo2u8c5g9NT/lMOJ76xuF2cKrwpJUu/BLaCfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=aq94dnQl; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1782972605; c=relaxed/simple;
+	bh=oLoYn99X/SazLQXvVOfP3J7ocjldfwdmWmUOwcf6yIg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HEjN/pRA+46gAfAOBXC8GCvbAzB6AM4MLDvrAzVGdle1q/N3fWCqfZ0Sd16ho8FqwqucPSCxUdoebevvUyZjCQXZMFiIszuiJjsbayUVvMQfyZbSlHAlMmNtIvx41BX4+9xccZVF8Fy1dpIUxQcdj8lcT6MEnIGNuWxFKzMzueA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XXIjb2fG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="aq94dnQl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=ORVIGs5+w2VfIVxGHbwVMrjmoIw9Iy4Bl
-	uP20V3Fm9Y=; b=aq94dnQlnSrUemOPW8MSyPBiIaZOK2lZAtTIhUiqtz3BdNLUI
-	r7O2zQo4H/G9SYUKnU7ADp7mqCvcUHfwqlNERUlZp8Sb4dcicb+/0+N3NRP9lp3w
-	uBkZ8sJYiZXZ2GVQ0ye10gUBnmv6tnBcY6xggdSE2Qy59jAAYGALyGP3BE=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnYUIy_kVqNpcOAA--.14655S2;
-	Thu, 02 Jul 2026 13:59:14 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XXIjb2fG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97FEC1F000E9;
+	Thu,  2 Jul 2026 06:09:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782972603;
+	bh=Jt8J1JxAG/g5bLol8oJcYaANKEU/YkVoUby7a61ZLDo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XXIjb2fGtvZ4+UQBTSD3JAxKvK5AL4kbaVV8X9fWd3iSNzEmOrOhmWyfdb468iSIp
+	 tIaJ8gOYF+sw00A9sayHhMYil6fSxMMX7hoWzqsQkm+pdGVuoAdGRD+E/aXC2ew6wn
+	 11Kelyfp67IpHh8wGcTzkPbvmLLNWhUhmTh4VJ/uPX3yqCWjNxj/qdeuAxPhWEkT3h
+	 60qv6OouYWA+0J5WtBOjkEule6gBWS+PiPGWIsVJsfaxIoc215wa5t18E3UdXKU0XP
+	 nZ3NM4JdY40BzcxhwaTPuV5j5PLV/HBWgHvKEq4Dsz6Xh6KRVUBAOYDGPabfwPluyh
+	 1QiDDkFXAnvwg==
+Message-ID: <187099d0-5e09-49c2-b67d-8bd4366ff1a0@kernel.org>
+Date: Thu, 2 Jul 2026 08:09:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/2] PCI: ultrarisc: get and enable DP1000 PCIe clocks
-From: Jia Wang <wangjia@ultrarisc.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: wangjia@ultrarisc.com, Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: rtc: Add sii,wakealarm-output-pin
+ property for S35390A
+To: Markus Probst <markus.probst@posteo.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <uwe@kleine-koenig.org>, Andrew Lunn <andrew@lunn.ch>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260630165550.GA131410@bhelgaas>
-References: <20260630165550.GA131410@bhelgaas>
-Date: Thu, 02 Jul 2026 13:58:41 +0800
-Message-Id: <178297192123.1082377.12406016413212102294.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782971921; l=1312;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=y2p0gjiPOwrEc3XzZXHJ62SUJPKrNMOkfmMY/0J6koM=;
- b=rZMl+Of2QSZsGWMGj2JCHw9MkfA/u5sZMfv6bp0els7RfydAXj98Q1B+fYqay8h/XJMnEzBZ8
- CDifbVk8s9YCfqnkFGDjdEg27ee/CXCmsw/8v+nDceS5EdjdZphG7xi
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwAnYUIy_kVqNpcOAA--.14655S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KFWxGr18Ary3Zw1UJrWDArb_yoW8JF4DpF
-	W8G3WYkayDAa45Kwnaqr1fZFnxtr10yFWUKa1FgasayFW5uFZ7tw4rG343Xa4v9r1vy3Za
-	qF4Y93WfAayYgaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9G14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
-	WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMx
-	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
-	wI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
-	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v2
-	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
-	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU13ku3UUUUU==
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAQEWpF4E0ABwABsE
+References: <20260630-rtc_s35390a_int1-v1-0-1b2239e16be2@posteo.de>
+ <20260630-rtc_s35390a_int1-v1-1-1b2239e16be2@posteo.de>
+ <20260701-bronze-jaguar-of-perfection-028bac@quoll>
+ <45e8157be53c3d8827fcccece7f706968bc056d3.camel@posteo.de>
+ <7de66163-369e-4118-af51-6913b565fa4b@kernel.org>
+ <d06dd0726aa3795ae99df5fa8a9c05d6e2001efd.camel@posteo.de>
+ <20260701164821b7492eac@mail.local>
+ <74b32ed0a700e3900c0f34d730b2b5b69eb2ca19.camel@posteo.de>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <74b32ed0a700e3900c0f34d730b2b5b69eb2ca19.camel@posteo.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2026-06-30 11:55 -0500, Bjorn Helgaas wrote:
-> On Mon, Jun 29, 2026 at 01:59:51PM +0800, Jia Wang via B4 Relay wrote:
-> > From: Jia Wang <wangjia@ultrarisc.com>
-> > 
-> > Add the required core, dbi, and aux clocks for the DP1000 PCIe
-> > controller and enable them before initializing the DesignWare host.
+On 01/07/2026 19:08, Markus Probst wrote:
+> On Wed, 2026-07-01 at 18:48 +0200, Alexandre Belloni wrote:
+>> On 01/07/2026 16:43:07+0000, Markus Probst wrote:
+>>> On Wed, 2026-07-01 at 17:14 +0200, Krzysztof Kozlowski wrote:
+>>>> On 01/07/2026 15:25, Markus Probst wrote:
+>>>>>>> +
+>>>>>>> +maintainers:
+>>>>>>> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
+>>>>>>
+>>>>>> This should be someone caring about this hardware.
+>>>>> He does have the majority of commits on this driver (excluding merge
+>>>>> commits and commits not exclusive to this driver), although most of
+>>>>> them are pretty tiny.
+>>>>>
+>>>>> Who would you suggest instead?
+>>>>
+>>>> Someone adding features for this driver, maybe driver maintainers. But
+>>>> if Alexandre is fine, you can leave him.
+>>>>
+>>>>>>
+>>>>>>> +
+>>>>>>> +description:
+>>>>>>> +  The S-35390A is a CMOS 2-wire real-time clock IC which operates with the
+>>>>>>> +  very low current consumption in the wide range of operation voltage.
+>>>>>>> +
+>>>>>>> +allOf:
+>>>>>>> +  - $ref: rtc.yaml#
+>>>>>>> +
+>>>>>>> +properties:
+>>>>>>> +  compatible:
+>>>>>>> +    const: sii,s35390a
+>>>>>>> +
+>>>>>>> +  reg:
+>>>>>>> +    maxItems: 1
+>>>>>>> +
+>>>>>>> +  sii,wakealarm-output-pin:
+>>>>>>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>>>>>>> +    enum: [1, 2]
+>>>>>>> +    description: |
+>>>>>>> +      The output pin to wake up the system.
+>>>>>>> +      Default will use the output pin for interrupt signal 2.
+>>>>>>> +        <S35390A_OUTPUT_PIN_INT1> : Output pin for interrupt signal 1
+>>>>>>> +        <S35390A_OUTPUT_PIN_INT2> : Output pin for interrupt signal 2
+>>>>>>
+>>>>>> Does that mean device generates the interrupts?
+>>>>> Yes.
+>>>>>
+>>>>
+>>>>
+>>>> Then I think you miss interrupts property.
+>>> From what I can tell the line is used to generate a system wakeup
+>>> event.
+>>>
+>>> There would be no obvious benefit of connecting it to an interrupt
+>>> controller, so this property would be obsolete?
+>>>
+>>
+>> Then you need proper wakeup-source support
+> Wouldn't that break existing devicetrees?
+
+How?
+
 > 
-> > +static int ultrarisc_pcie_init_clks(struct ultrarisc_pcie *ultra)
-> > +{
-> > +	struct device *dev = ultra->pci.dev;
-> > +	int ret;
-> > +
-> > +	ultra->clks[0].id = "core";
-> > +	ultra->clks[1].id = "dbi";
-> > +	ultra->clks[2].id = "aux";
-> > +
-> > +	ret = devm_clk_bulk_get(dev, ARRAY_SIZE(ultra->clks), ultra->clks);
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret, "Failed to get clocks\n");
-> 
-> This would be the first use of devm_clk_bulk_get() in drivers/pci.
-> There are several users of devm_clk_bulk_get_all(), which looks pretty
-> similar.  Unless there's a specific reason to use devm_clk_bulk_get(),
-> could this use devm_clk_bulk_get_all() instead?
->
+> The current driver allows to wake up the system, even without
+> having wakeup-source set.
 
-Thanks for the review.
-
-I used devm_clk_bulk_get() intentionally because I wanted the driver to
-enforce the fixed clock names required by the binding.
-
-That said, if you prefer following the existing drivers/pci pattern, I can
-switch to devm_clk_bulk_get_all() in v2.
+Anyway, wakeup-source is already there in rtc, so this would be done. I
+don't get though, why there is no benefit of routing it to interrupt
+controller (interrupt controllers do wake up the system). Additionally,
+if you do not connect it to any interrupt, then how does it wake up the
+system?
 
 Best regards,
-Jia Wang
-
-
+Krzysztof
