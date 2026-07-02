@@ -1,67 +1,66 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF8741C30A
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 08:10:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB2C4219ED
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 08:10:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782979852; cv=none; b=DCVQkxOhlyR7Hg56I/j7fwqblNvGIW041dpy56mutreV9egpK1HaQ9D/oP4zPwSXr/58R/zTvud5NGP9eTiCPmyJYstWnXNZNXjxdGdNKd/YrKuyj0969mHTfyhTdfw72lsxIxLJkEafZXeu2FQUZPqlshYbX3lQZzyfq+1CQto=
+	t=1782979856; cv=none; b=WLTTqCLnObMpNmew9hMVeKtfq99VHc6Ymgi2Xc8HO/5jzKffacsdx6inELGHJMUteHPu+S+kTph3LBiPL9lBlF/np1fobyKMJz1keR8LWMR+aZwWFjG9sgl4Q/8P0d+Ge+EtoRHk8Z5ZupcQ/JTIWQTDarGM1+IVd3DmX5gi3bc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782979852; c=relaxed/simple;
-	bh=xEow9YFv9tWxKuTGRmYBanqZYgnlQCz+XPTruWbAxlY=;
+	s=arc-20240116; t=1782979856; c=relaxed/simple;
+	bh=0uBL/FtS3qxYddEpWPm85zwv8RTdX1Kl9yqgj170ams=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mLLSVPdWUcyz167lXgtnOK0DUbZKfdzgSU5PL5eqtrsA7OxONrHQgA1SE+5lpUttkk3zYEy9PY2BazEfsUpRU08AzZfyoFOBYEvHIK8z3aIlnjOtp7k9IOCUYKpgrqNktEwj7+0NMEsyi2Evf8mMRbV8YHC4HF6Tqv60LkSzWJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ZE6IuqGW; arc=none smtp.client-ip=209.85.128.52
+	 In-Reply-To:To:Cc; b=HwACRKdEI3nh0iY15aNlJu6SUjtj1KFTlqPZwp1350cHZvqML/bXdhtZMYnHcipTMRlXWujwrZUiIVtNFRl+kduMPnEx0DL2zgpFdMmhDmKmG1+5smOueX07w4Vsb/r4S0D1UHTozrzf//a20P/RHXIF4e2SIbQ/mk2RoKG/kw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=kJugaat4; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ZE6IuqGW"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493c52cde9eso6435985e9.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 01:10:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="kJugaat4"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-461edb387ddso1378381f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 01:10:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782979850; x=1783584650; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1782979853; x=1783584653; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=n4DUzlDYde7+nlA7K6gg98zrSYXmo4pVwxHlPtRIQOc=;
-        b=ZE6IuqGW/XCDIfi+4yOik3qLAUFuqsFD646rK+ZhZKnIc73JkNI1iuuBlun0SCCdHr
-         CdHjCCtY6nQamF+4nDuxtte4Ia4CAiGdlEoAahzdhGErcfInrhm6v45b3zZJhnauEac6
-         yBWHBpNpEllCbRoz5MdqOAXZZ1BxvN5pjp2YgbXiS4XpJXZaXUsePaSf+wC5QS4It/nW
-         VPreHekyTuWSqay+MbirOTYifQGNAbBAHG7VSLkIRCpZ9e7Kg43bJbcYSl2k5EtmvdSO
-         xxFvm2w+1yxbEl2SX1+e4J8RegE0CJDEIIgaK7ki2UhyvBR9VpRSKIupfjXTx8mkK4Vq
-         6gUg==
+        bh=1QZ/tzJaIkMNpKGsZtD20B+8zLkYYTOKlJtJuY0qjaA=;
+        b=kJugaat4h4Myzwry9c8tX9puD7aD2Wg/LhZ8Fe12dHc04XPId4xU0Nk4CCN2pRE9Ss
+         k6GmI9mSY2w33BDE370S6nFQucosLDoQkNnrzPDmBGd1a+JBf+1STSel57sA6nELBMzA
+         qm2pzP2XuQwhXmPuK2kbCutYaTfoQJ9l9cj/Bq9/0uI8SeWJyabuaSAcWGlUVvDgU07b
+         +O52ROrQNBxANmLuzM1L0tAKUBMGWxAxdQwwyrg3IKKomiDku2XrjWlwN+7k8XkDDusa
+         bdxCMDU+TtuI57KeEbmLt+uYFmhMEO3ckei2XqjKKyALMdykB5PxBQhW1r1bL6OmF6Fz
+         VyIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782979850; x=1783584650;
+        d=1e100.net; s=20251104; t=1782979853; x=1783584653;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=n4DUzlDYde7+nlA7K6gg98zrSYXmo4pVwxHlPtRIQOc=;
-        b=RLaCeUT2p5fBuvs5rCT0ZP7iYjew/kJMEyNjyd8XgTXQ/vq+9sSuNcPr5kV4Y53cHr
-         jSc085Mwr8BsIG8zJla15U3wAhyp4dgNeBwq5P5il9emA/y8ZpIZem/WFpkfVRi3zWaS
-         9ZlXsmuKHAM/2YeCd4LbKD3un+p580/2r5KHZZf7CCuLVJ8a7L2bSTMgl/Z44ML8Lk29
-         ys/FwcG5Ty8ocNsBD6xKMpfr6io6fvKB94OEB+scU8qyr/vxmIyeIpcZNUcJxj8xDieh
-         iWhAw55VlE1cZkrB1WhodBcRlDCw2NwgtTL92sc9qXZuydpmgXSmN9H+ZiaLLhdVfMPD
-         9lJg==
-X-Forwarded-Encrypted: i=1; AFNElJ9OAJIZDNxmwpDCYAquTDI0TDQCMVHT/DWfo2g8GYVpbKeYqMStlo978CHbRlI6sM3s3ovFKHpZaDHO@vger.kernel.org
-X-Gm-Message-State: AOJu0YwuqtF9E4ytQ3Yo3xnniVT+9/HlGwtYcgdGQKqL6uaRd8nj/1j3
-	3T6UrT8OTz34qRAxmniYk3NKMuf/aUzi4S1ufu44hrpJ/brsJxokfDUUXgHRShuTzEE=
-X-Gm-Gg: AfdE7cn2xvtoyjyB1KMFhGlwqX6LqVaJX2vsL3KwOSLbxjZZn1YkqgWpZeQaLgzsVIf
-	TnuPKFnh30u4l/5tFNf9fhelwyQOCfYcbj1427GF4dX38a17fLOBC07sd3HIeSCjV4uManlis/G
-	5eeaxYDxpvLMWoDOoFtftljOj9Izn69Tztl1+o2aTmxqAVk3SXgLqda4l5IRxER3B5TVLwf05qY
-	OKhH0CStXZKBPwa/qETgwAS+w1Fp2y/3Q7C+mzq+eswkXbAoy5CvqzC0H1eXSOvy6BS/TS9oK+X
-	decB+bxCeqxoI5N+TIK9lob9iOFrt5S57mhYQv3toJLGweL+Oxk3z6Bev++p4l/YB5ayLhqTP7Q
-	Z102o9Y98x53t0kzXzXI2HLBz8DZKJpbTB4yEJzrTBrNW1ZtRXHaG2TkNH6QHMjPntp9LFkrXXZ
-	Iy/vvWxYwgdf8=
-X-Received: by 2002:a05:600c:4ba1:b0:493:af56:8e64 with SMTP id 5b1f17b1804b1-493c2b9e74fmr46177105e9.32.1782979849885;
-        Thu, 02 Jul 2026 01:10:49 -0700 (PDT)
+        bh=1QZ/tzJaIkMNpKGsZtD20B+8zLkYYTOKlJtJuY0qjaA=;
+        b=HyCVjJ552kRZR7ncG/Qs1HiBT20wPwuFfyA0BvsD0bzElWIEQL24tXXWrHoZ6x/3Ch
+         clezG1VtaeWAblh2Vf3LRKErqoBoD07t4BwO/LYDW036Js6chTn4HdkNFnd6JTOmHqFo
+         BL9VTzm8/GiaBT/5CaTqSxaJZlTOgzYyVFDM1YfPHU0FCnyLP6nCZXhojKCaTMtvbf02
+         QHI2ioh7C5+qCLQdOJ4dPpht3Z9mM35PTNCAUerSAVSKbDptis+3VFkjHIhQ+NcUMLfD
+         7YdRwyCZR3WxXqD4LWifUhPIwE3fpppoA/JFLBsHBjI5nyJ7adlDXu+62drxtBr44eOV
+         zQMA==
+X-Forwarded-Encrypted: i=1; AFNElJ9/dzJBTcD0V3EDzB/NT1Asrl4M+wAGbAuAjPyBfTjHmCuAv54EDmA2mysHCnSFfs1N7gL5yfjxvtk4@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx0RyV9ps50W+f5pwDwlDChd6dRSs3UtOoBeWvQkAClzVeMOFJv
+	vyplZFdEpPri2FTj3vdzEfrzuOmRHfONk+T8uetEB839kRq0oUjsaVz971tyd8gi67I=
+X-Gm-Gg: AfdE7cmiKmnXvhZicT9VHnlB8dMUsUjlJM2O9AMwWh/LTIGiMi0G97yN1AIVDiMXQhU
+	aLbPSnQeGqJROnfaEK66IuRL2M6R25DdHVHdSMAxnNnZU4QyIVzSOPJxxgHBJ74zWaFPqA9hbEP
+	o6gM30l4hRBVyT2Cv742QxaNNrnIRJ6Q1s6DdKLwrciO0BbvKCsLv2OW0KhQUVfa9tSMj4Xn5oG
+	JdMVlzhj2sIlxjDjGr7Z2lLldAPM4vVgwE/bqWrxnqnjW16l54TiK/COD+eoinSO6XqMmlKEGMs
+	+autVVpzGAigyDSi644JkQOcDwfkKDwRj1PIp9P/sf/wxHaMMNHCX3C6x4wfVWKB/Yw3NG8eY03
+	YuoAffuC4/KntVFRx7gDB/RH8EEItNXpK90oUsAi8et+eZ9VX1btRodwCH6YOUFGEt5gPN/gL1V
+	12RSyEK8ShZvI=
+X-Received: by 2002:a05:600c:a4b:b0:493:bef8:ba8 with SMTP id 5b1f17b1804b1-493c3dfc635mr53639805e9.39.1782979852907;
+        Thu, 02 Jul 2026 01:10:52 -0700 (PDT)
 Received: from localhost ([2a01:e0a:3c5:5fb1:2e3a:7dcd:d2a4:6556])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-493c636ea60sm26008745e9.3.2026.07.02.01.10.49
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-493bfe7427dsm70001875e9.2.2026.07.02.01.10.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 01:10:49 -0700 (PDT)
+        Thu, 02 Jul 2026 01:10:51 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 02 Jul 2026 10:10:02 +0200
-Subject: [PATCH v3 3/8] clk: sunxi-ng: fix ccu probe clock unregister on
- error
+Date: Thu, 02 Jul 2026 10:10:03 +0200
+Subject: [PATCH v3 4/8] clk: sunxi-ng: sun6i-rtc: clean up DT usage
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +69,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-a733-rtc-v3-3-eb2580374de6@baylibre.com>
+Message-Id: <20260702-a733-rtc-v3-4-eb2580374de6@baylibre.com>
 References: <20260702-a733-rtc-v3-0-eb2580374de6@baylibre.com>
 In-Reply-To: <20260702-a733-rtc-v3-0-eb2580374de6@baylibre.com>
 To: Junhui Liu <junhui.liu@pigmoral.tech>, 
@@ -84,86 +83,90 @@ To: Junhui Liu <junhui.liu@pigmoral.tech>,
 Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
  linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>
+ Jerome Brunet <jbrunet@baylibre.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2127; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=xEow9YFv9tWxKuTGRmYBanqZYgnlQCz+XPTruWbAxlY=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqRhz4y0UzWpG2vq9pNsBeXNaVPQAXpCwoH/CqF
- 5UKSr9tabGJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCakYc+AAKCRDm/A8cN/La
- heBcEACG7fRdAKaggYdYW+Kmy5AukfFGo0WDxvZitKeqqERRluPiowtv+fiW72Eh+xmI6rB88xT
- A9NgJkcYyLsMKEa30ZOg6paZS/e1Wyfg3apNWs04HXG/SCHZ1TO5FUrXxjDAynwHEvOprtof54n
- ZLep4U6cVL48VOhgvX+nqF5WLDhVSQbK1jnIVR2kaMNj7a/240tzf/mAmrrUKOJMVH5qzNP1+qZ
- /PR38HOQLqe+7u8mM3QBRDraZ2jCio4OxQy1IgVN5hXCEXCiCf2FmN+bmfZ/jcJNZlBJ9GPgz4W
- G8PAZ3AvDVIcT8KAtgqJ2tCqZ3yeKPrXB28FAJc+40ocBqjJBa+LUWI+KqyRQe014Xyl/FMvbSf
- gQ3jd+LBj+Rzu0p6SMgkS1qdOhtsYBT3FX4LMuKFGeU66/pWtS8JorozPyetUsdhu1jVEafMysx
- EAdBUqHexlFlrIaiRITCK2q72pAO87AEBno0EjyJp50T3JM+X3TuZ3Q5DxPQeiLA6go+cc8p3yn
- w5SNHC+GNWQK3GXnqjK5KaUQkw0IJu/QZIk+UadfkrPS8A6qY8+MmDPytdCqXoXBn5SzIHQ6uGI
- lr7rCwIHXbb0Zb9O2YfDG2T/vooP48C9zFfsO9fx6pXw5qjqEWU64yAokgm1wxnnYPZJjKY4a5s
- LgBFgUmnX/HASMQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2679; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=0uBL/FtS3qxYddEpWPm85zwv8RTdX1Kl9yqgj170ams=;
+ b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqRhz5uKxhDHKubvZxQtlYpXYIvwPrXCLC0seV1
+ WNDhZX/FeWJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCakYc+QAKCRDm/A8cN/La
+ hUh9EACSTxeO/WGvg3k425s7xQALo9JT+meGwuevXCEpXNGpfJmYnCeWBOdYw76IaUfLZz8piWu
+ fiie9pcLKv1IbGsRhzkUQ7XXb+AWMbWYTy18NjnDAw3JR02bSjqY31qrNTtj82Ih153RgolV+R3
+ GGRtx8Uz1+F/a/RDy5GWAInXgSjazJtka1+8wQIXbpx6Tb4fnXXhUEsROIJlCGLx+GYAGM2Jo6N
+ Yb/OBdqgFyOez1K4IgYerUPByqDRq9jRpN0FOR436buNMnAT+gAt7crVCsKOTHpE1TEkTqmbvUs
+ abVPh1Xlf0XYjv/t8Pu9E/jCgA2illPyEo2OHZWAqfDexBOATbzlUJHAIiMOGrHEIGgipt81JtU
+ dC1hmgoUzL1fkDvnkbwya7VSwPMtCYVTLNAvvPNu+UPq76zDxvG5xNmJGbJaAdFp/nZShjy2l1x
+ KaBHVbcJxomgjd7eHdzdAaygeCz1OFPyd2iSNaTPCme9xFnKGDbC07oxPyYMsWHz807sGzm8lbE
+ P8Z2fu5YN0DeEEZvIcTDYh5B7kTyjcpDYeYF7tPnQXGnnJ5aihpkIZMs1R1IPavzLOosR+BAXzm
+ VU84Lp4KFojc8TShzVyouOFSlPDx9zE8qRCNN14oHHIJb6hMwcqlSMXGCMk09BFbGUt8yq0HLrL
+ vPhFA0vSiaoyD0Q==
 X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
  fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-When registering clocks with sunxi_ccu_probe(), the number of ccu_clocks
-and the number of hw clocks might be different, eventhough they usually are
-the same.
+With sun6i-rtc compatible devices, the "ext-osc32k" clock input
+is optional for the devices that support this input (r329 and onward).
 
-If they are different, it could lead to out-of-bound access or registered
-clock left behind on error.
+Probably preparing for older SoC support, the driver does something funny
+when parsing DT. It check if "ext-osc32k" is present in the clock-names and
+if it is not, it uses the first clock as "ext-osc32k". This clock will
+actually be the rtc bus clock so what the driver does is wrong.
 
-Use a different variable when iterating on hw clocks so every registered
-clock, and only those, gets unregistered on error.
+At the moment, the driver does not support the older SoCs that would have
+an external 32k clock provided on index #0 so just remove this quirk.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/20260629131254.7E34C1F00A3A@smtp.kernel.org
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- drivers/clk/sunxi-ng/ccu_common.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/clk/sunxi-ng/ccu-sun6i-rtc.c | 23 +++--------------------
+ 1 file changed, 3 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/clk/sunxi-ng/ccu_common.c b/drivers/clk/sunxi-ng/ccu_common.c
-index 1c083b4d0b7e..43d8eca6abee 100644
---- a/drivers/clk/sunxi-ng/ccu_common.c
-+++ b/drivers/clk/sunxi-ng/ccu_common.c
-@@ -114,7 +114,7 @@ static int sunxi_ccu_probe(struct sunxi_ccu *ccu, struct device *dev,
- 			   const struct sunxi_ccu_desc *desc)
+diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
+index f6bfeba009e8..0f528bfaed00 100644
+--- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
++++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
+@@ -191,10 +191,8 @@ static struct ccu_common iosc_32k_clk = {
+ 					 CLK_GET_RATE_NOCACHE),
+ };
+ 
+-static const struct clk_hw *ext_osc32k[] = { NULL }; /* updated during probe */
+-
+-static SUNXI_CCU_GATE_HWS(ext_osc32k_gate_clk, "ext-osc32k-gate",
+-			  ext_osc32k, 0x0, BIT(4), 0);
++static SUNXI_CCU_GATE_FW(ext_osc32k_gate_clk, "ext-osc32k-gate",
++			  "ext-osc32k", 0x0, BIT(4), 0);
+ 
+ static const struct clk_hw *osc32k_parents[] = {
+ 	&iosc_32k_clk.hw,
+@@ -352,7 +350,6 @@ MODULE_DEVICE_TABLE(of, sun6i_rtc_ccu_match);
+ int sun6i_rtc_ccu_probe(struct device *dev, void __iomem *reg)
  {
- 	struct ccu_reset *reset;
--	int i, ret;
-+	int i, j, ret;
+ 	const struct sun6i_rtc_match_data *data;
+-	struct clk *ext_osc32k_clk = NULL;
+ 	const struct of_device_id *match;
  
- 	ccu->desc = desc;
+ 	/* This driver is only used for newer variants of the hardware. */
+@@ -363,21 +360,7 @@ int sun6i_rtc_ccu_probe(struct device *dev, void __iomem *reg)
+ 	data = match->data;
+ 	have_iosc_calibration = data->have_iosc_calibration;
  
-@@ -130,8 +130,8 @@ static int sunxi_ccu_probe(struct sunxi_ccu *ccu, struct device *dev,
- 		cclk->lock = &ccu->lock;
- 	}
- 
--	for (i = 0; i < desc->hw_clks->num ; i++) {
--		struct clk_hw *hw = desc->hw_clks->hws[i];
-+	for (j = 0; j < desc->hw_clks->num ; j++) {
-+		struct clk_hw *hw = desc->hw_clks->hws[j];
- 		const char *name;
- 
- 		if (!hw)
-@@ -143,7 +143,7 @@ static int sunxi_ccu_probe(struct sunxi_ccu *ccu, struct device *dev,
- 		else
- 			ret = of_clk_hw_register(node, hw);
- 		if (ret) {
--			pr_err("Couldn't register clock %d - %s\n", i, name);
-+			pr_err("Couldn't register clock %d - %s\n", j, name);
- 			goto err_clk_unreg;
- 		}
- 	}
-@@ -186,8 +186,8 @@ static int sunxi_ccu_probe(struct sunxi_ccu *ccu, struct device *dev,
- err_del_provider:
- 	of_clk_del_provider(node);
- err_clk_unreg:
--	while (--i >= 0) {
--		struct clk_hw *hw = desc->hw_clks->hws[i];
-+	while (--j >= 0) {
-+		struct clk_hw *hw = desc->hw_clks->hws[j];
- 
- 		if (!hw)
- 			continue;
+-	if (data->have_ext_osc32k) {
+-		const char *fw_name;
+-
+-		/* ext-osc32k was the only input clock in the old binding. */
+-		fw_name = of_property_present(dev->of_node, "clock-names")
+-			? "ext-osc32k" : NULL;
+-		ext_osc32k_clk = devm_clk_get_optional(dev, fw_name);
+-		if (IS_ERR(ext_osc32k_clk))
+-			return PTR_ERR(ext_osc32k_clk);
+-	}
+-
+-	if (ext_osc32k_clk) {
+-		/* Link ext-osc32k-gate to its parent. */
+-		*ext_osc32k = __clk_get_hw(ext_osc32k_clk);
+-	} else {
++	if (!data->have_ext_osc32k) {
+ 		/* ext-osc32k-gate is an orphan, so do not register it. */
+ 		sun6i_rtc_ccu_hw_clks.hws[CLK_EXT_OSC32K_GATE] = NULL;
+ 		osc32k_init_data.num_parents = 1;
 
 -- 
 2.47.3
