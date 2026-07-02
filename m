@@ -1,295 +1,246 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2CBE3939D2;
-	Thu,  2 Jul 2026 07:36:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782977767; cv=fail; b=a2S/gMKklj6yUITnRaiYLlEwAKVWvIAK75fV76pDNi/n1E6sHheCg0bJ+xtDAgV3QQF6a1Xyt+H8EWJH0omdKRJeAsSpJMZ2p9ZQ/tYDPtDVYmOZdZi3FKGMxXQyX5nSQwQl5U8JVxtznz9deeGZctFe+aFbOVYJC97mtpTmcbc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782977767; c=relaxed/simple;
-	bh=p2AoHFAZP1CsYznxSqpZpXzlZzK8dP7lw13/83epuFY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=N28q5DCH9IFMXXmV7BQD+LFXwkG+4j+lwTej8uRey504ZqAZDulrPPvIY2NRcpDWHK0jtl5B39fMSUyZHvj3eeeRnQhEUJh2BKZdZS3ZQ88F9bRbBmBVSYeFMOnk+vkKr3kNr3AaexzxzH821qjBWhlZ80OmQARSa/iBtIlfPbI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=D700PdZK; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Rr+8jMRF; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94DD3955FD
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 07:36:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782977779; cv=none; b=J96l5LVSX4hvchLrWxMI+AuvbC+4j64x7lUgrly+jU5t1XvFi76Tq2ViuKy8RBdWjViEK4PM30O/dcGjwRNSRBWzVUySLopBzlJrysth1uuv7xfjBlU02NGJFEYISlblEWR9i0kVnngV0e8AFZylI+Tdh/ymgx2ds1BM6rjNpeE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782977779; c=relaxed/simple;
+	bh=+rRbjOQEJVB7oAEtMoR+MjQTM7mfWC0gwMJWvhFdC4Y=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=erl0/A7fGFdqsOTjKQXyxdOHMDj1Eyafd4Jtr4zRtG4ccPEB1WlNNwqDb/HVLQLeh5+qBYLRXCA9e1zNswQq7q/7t8wnbYY286++kIlVGf9tRaOthuMGiM0remfWQv8Ebv83DjZ5vC46Pw070WP9qWPFgEQPmBYnpdB9QgqO7jY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KGvNjU3s; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iVSSzlnf; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="D700PdZK";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Rr+8jMRF"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6623D8h71285453;
-	Thu, 2 Jul 2026 02:35:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=B/16Nrq2j3v0Luk3AI9685O9jsDTRih6ilCrnv5xa
-	pI=; b=D700PdZKIz457V5Thh8jFcje/Njpg6M1hNROEIW0BmmW2qzKhsvmu31uu
-	+LkFZNB2szr0bTjx8Gl6zdH6Zj7tZwptVn03MkxHp6T/HrF/4wwpEgUT6xRKsooj
-	QOy9M31w1uvSELWLHqOOfkjcwk9RXd6JBIY4Ylm2GvV6g4qAJSQDIq+wWPvzhmJ8
-	lgDLiu3HF5HNzFP0kb+37n1Oit0fSXk/nUoft655RiTYxngKYwppYhMa9euGq0ck
-	+Y7NnZIOMXmmOFHkIV+aPETDKvuuA//tAmblCUXxpqnPLQjc+bRHO26b3N45WNH2
-	hy0Da5YLGg5w9mCay9mdwAwdwCI0g==
-Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011033.outbound.protection.outlook.com [52.101.62.33])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4f5fvyh7f0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 02:35:49 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aO5UvjdLq6DLs4jyFF8hIiQGu/7QzSM5Q/E1E4TUm0s5mTYNVmD7ffuSUUs1oozPg8R8x2vdD0UEq1lRpnr4IoHNsdShE+O12R0usBdThcfCBIOiPre7/cE9HRM/Pswjyovv2sVVtiWMmixmEoFyHop1fclCOqGS9HodYOmY8zviBu1CE6o4CKCoZMxaF9q+ZbAAz5ES2A9ta0DeRmHMaX8rkZd7alxXOboYahDS6PrQ4REsgqxwe7LPcRVNxGSOS7djtWCYMl0fBctuVhBjgtrt+i15hILCJwCJqzbvmI/8C6hOKnwG6I73LvjichtgWMTVTfuZisyRBBv8o/f+QQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B/16Nrq2j3v0Luk3AI9685O9jsDTRih6ilCrnv5xapI=;
- b=ShjpESxtmikdChXY7ZB4a4LRsUVLyleCegoupp4uw/uN0EoEej2BidRKIXc2lwcKz6LqJgZjxvWh7c7Ze5irgKRQ9pdQOUd/R5+va3k6at6uvKCvNX5On4/Qpq5OQ5WAXXwJb5yWAMBgMXjbzDnR9w7Gbjxbu7a6sSlAUZScj374YeXOPxZqTMmKTL0PYrI8wq9EYLlHcJZl/GIgdE5M7K0tbHUiAAGjRWyF7QQF2mX26EUiseSMzIh5xtqTGi9emBw3h644YK2Pko4mTDdWJpWZiRupzkDwWcWTK2LPpEcYY7F2V4rZZQ5/0RjjVYVtcXS5LX8YzsdjrzF/XXjkoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=cadence.com smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B/16Nrq2j3v0Luk3AI9685O9jsDTRih6ilCrnv5xapI=;
- b=Rr+8jMRFSCaV4hQ8vt+mZVDiHPQQn2jnqrxAkWYeVe4A9IllAKmTwBomOT/5AaY2APAiIZKkRk2XATwP61tiK6zrx/8RGhRaIO2ojfg+w7vOLyhApH+SneIy6h98DTg3uczrNZZvQXzwj2Zhl/PsYxe4nWQUGHb9dSW/ODWKeR8=
-Received: from DSZP220CA0006.NAMP220.PROD.OUTLOOK.COM (2603:10b6:5:280::14) by
- DM4PR10MB6231.namprd10.prod.outlook.com (2603:10b6:8:8e::21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.8; Thu, 2 Jul 2026 07:35:41 +0000
-Received: from DS2PEPF000061C6.namprd02.prod.outlook.com
- (2603:10b6:5:280:cafe::7e) by DSZP220CA0006.outlook.office365.com
- (2603:10b6:5:280::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.10 via Frontend Transport; Thu, 2
- Jul 2026 07:35:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- DS2PEPF000061C6.mail.protection.outlook.com (10.167.23.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 2 Jul 2026 07:35:39 +0000
-Received: from DFLE206.ent.ti.com (10.64.6.64) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 2 Jul
- 2026 02:35:39 -0500
-Received: from DFLE203.ent.ti.com (10.64.6.61) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 2 Jul
- 2026 02:35:39 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE203.ent.ti.com
- (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Thu, 2 Jul 2026 02:35:39 -0500
-Received: from [10.24.50.145] (a0507176-hp-z2-tower-g9-workstation-desktop-pc.dhcp.ti.com [10.24.50.145])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6627ZYCp3385141;
-	Thu, 2 Jul 2026 02:35:34 -0500
-Message-ID: <f40839d9-445e-4e48-ada9-97feb8e40584@ti.com>
-Date: Thu, 2 Jul 2026 13:05:33 +0530
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KGvNjU3s";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iVSSzlnf"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66242uBO3460384
+	for <devicetree@vger.kernel.org>; Thu, 2 Jul 2026 07:36:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=xnfuZZRf9JLy8gf5Kw3Awl
+	zTM+tJaop5EysewtXJkBE=; b=KGvNjU3shnswNgaogJiezWwMhBYs0w50mFgj0x
+	xDdz57e5R5MpjmrkT8vzene7z/Q0JMTWqHGHSQieZ6wiOFwLRmCUwT/PRmp4zJSo
+	txesravP6V6tc9FFEThkyIoKMDzdsk5afGhQO8yROf4E/VEGIVPWe/2FS6RdCsy2
+	TJD3/HzEZdJjS22UV9AM0O+Z/Z2QYwnUnVuQ9Y2Z7xFEAmHJLgxO3u1HEhXkyO2u
+	cc1DIQo8uNzDwcCBtETXUZz/aypX02SbDWkcahirOlyOHRAmT5YifZp+6aHrUkNt
+	v9vSOyEa3wBUbDavv7LYhKTUgRIRExhzpiHs99GTVvQ0WUdg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5gmb0p5x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 07:36:16 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2c9f452d260so26475225ad.2
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 00:36:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782977775; x=1783582575; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=xnfuZZRf9JLy8gf5Kw3AwlzTM+tJaop5EysewtXJkBE=;
+        b=iVSSzlnflIicq3dNNeVW0YhIzwivo5Lg1GpOLoNdOQ9cjmqYpGs9KaA9Gg1bdjE9gN
+         K2/xL7jEMK8zxLtNsAgVOJNpNolqaTcmhNw3bJBLXfW/aAO0Hvs5D+a60uBSdvaoSJYe
+         HdSgs8vfyRr1UQXbqPrQorszB4938giUwOdlJ210jTAGHANBl1aB85IV9glhdg0Q6gdR
+         mFxzIjxmtI7HxDt+uSwdFEVXgjpJWhsFspTrH91W/aOmk9H/Dpgh7Sm9DgdBGBkoks0e
+         3oLsHScXNABNCMmVOLV68SuTpc2XQoL5pQyngBipaOdRF3ICracO2LtsYEMkkPbGp6zN
+         jTfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782977775; x=1783582575;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xnfuZZRf9JLy8gf5Kw3AwlzTM+tJaop5EysewtXJkBE=;
+        b=Ct28mWIusqAa80X+SNwRamGnfSLvmQRYay7q68PbH4prQqr4KlBjbVVlKEFRjqcENA
+         OCIGkXx9stlC3shVIWvpu0MO0Bf/OPLOzYjTo4fwnfIovRlrkmw6ALn/evL8+xrY3Ia9
+         7D4Ef1o7OFUN6uSh+gq2XaojTAQPizawGtrJ48XbVFiQvu+XuJncSQxMLklVGJi8osC8
+         DFNGWwWZmwqLbj/tWi00SwkrEslV+AbMUqT1DJttf6jGyA06FNLHWjUtEA6SYKTo9RuY
+         55QQNCrjk0Tbla3/XfA7aNPrmw8hnJEolxrHC0XH4UNWNlkETltx/AMd0bQOBjvdXKmV
+         3L6Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqItpaIHSofgc5Wfqqa8m3A5ByfT893RioxKJyQMZvA8mbm83lDX8ksMQTQkWG496QeMcmsSMY4sYCQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxpZR6hYT0r5TZir0LPrtDNn/HJMPLkfZy8Q2IG93zuU0PSiXXQ
+	3injD6LyASOjdBnnUUqZif+qGBY+RdGK1VQ6jwDkDZjbN7mCMJHmXOj9VdJLEQkTsVyif7+DsDE
+	HQdE0ZROFSWTQy3WnWmkhGZnFHnEnC9faxa6ycTGpPusPA7r6oOO+EhVffVokmUkr
+X-Gm-Gg: AfdE7cliGS1JcNBXmYR4kyrwqaIN1JlAcAYmwgdzR4/c3815aYrPrFWN1mQjc9n93ti
+	HKBuf74B2mKeBra9dxN7/8xjoMnfhHWAVB391l/zm3SCfB3Z7+InTF3b+ppJDU9kANoqFgxN0kq
+	PG1OOBNWn1Qz6XG+XNz8O4chyesc3o/JV4MqGIBUvtLvmQioYX8dRzjDmfvmP/PWscfKtuLJHZA
+	biz6LUp5n6OJkRvNldD0nQjLEYvDBiVCfWAydpe/yzrR/qzZ+L6B8XwYjgFUx79HdlgWsMPMiAH
+	tSnHz1hqUOujOOzpcfZ6Vq5AmWZrFWaZt7YkZyf6fIfRJuJ09l/PRt5UPWVXDaYEmn8PQjqQpuy
+	yIRtfukr9dk2Tz5iT09j2su4SEMjDkqBu2m4BQLncxf6C0ntp81LAGNZ0QA==
+X-Received: by 2002:a17:903:2288:b0:2ca:bba:b35c with SMTP id d9443c01a7336-2ca7e8db6b0mr47607115ad.31.1782977775240;
+        Thu, 02 Jul 2026 00:36:15 -0700 (PDT)
+X-Received: by 2002:a17:903:2288:b0:2ca:bba:b35c with SMTP id d9443c01a7336-2ca7e8db6b0mr47606535ad.31.1782977774542;
+        Thu, 02 Jul 2026 00:36:14 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca9a905d0dsm9342275ad.24.2026.07.02.00.36.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 00:36:13 -0700 (PDT)
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Subject: [PATCH v7 0/7] clk: qcom: Add common clkref support and migrate
+ Glymur and Mahua
+Date: Thu, 02 Jul 2026 00:36:10 -0700
+Message-Id: <20260702-tcsr_qref_0702-v7-0-776f2811b7af@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 net-next 1/2] dt-bindings: phy: cadence-torrent: Update
- property values to support 3 clocks
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: <conor+dt@kernel.org>, <devicetree@vger.kernel.org>, <krzk+dt@kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-        <linux-phy@lists.infradead.org>, <neil.armstrong@linaro.org>,
-        <nm@ti.com>, <robh@kernel.org>, <sjakhade@cadence.com>,
-        <kristo@kernel.org>, <vigneshr@ti.com>, <vkoul@kernel.org>,
-        <yamonkar@cadence.com>, Gokul Praveen
-	<g-praveen@ti.com>
-References: <20260701142457.81874-1-g-praveen@ti.com>
- <20260701142457.81874-2-g-praveen@ti.com>
- <20260702-vigilant-tody-of-inquire-ffbede@quoll>
-Content-Language: en-US
-From: Gokul Praveen <g-praveen@ti.com>
-In-Reply-To: <20260702-vigilant-tody-of-inquire-ffbede@quoll>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C6:EE_|DM4PR10MB6231:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0b05625-500c-4e34-f38d-08ded80c83f7
-X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|23010399003|82310400026|7416014|1800799024|4143699003|56012099006|6133799003|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	2SXoqBKi0XiZg/doC7mVMEdyOBqtvWY6nXjlUZhU2om63X5Eovc2pOscjhfdwGD3XqXcN0SOyK0mc+oHXFyOPL/gqJEMpic0yKMt3FPtoZf3xrWA5mL+gbinnDmGUCSyrKLrQrOBF4N8z9EwSwvbbDa8SDy13m3GsJxp/AgpxC9xSx2QlnmwVsX5zOPENmWt3xnX31utSps1dgyhRqh1XFjgzfKh+8yzl/iUh/b1MDZARl5wTbjkAh37iJSFNySKitStvpH4+W19WYXNWaqIwq8YZW5a78hRZirwbnERqmuUhdMP20v4zhUGAOScPU2A3YVrr5GOMua5KwN9LBH59Z4KL8yQi9r6cNykCefQ9yoX2CFoVqKnMy8ZBiNsGTKvBnFPgklnOig6BqVMevPHOPp8kOeVe9haQ+fAZqOMAXcrQD+ZsGE3+Z++WgrMSeFOKe5gsRzYcMFU7AU2xQE35/E2EpLVTdIRwi4L960H/Gnrdy+DGC3khWzVBue19o185LRlE/hVhkye6mHx8i+BmcyxJldI4ia0NgPgn4tPIxsQONX5SrZCX4miCNcSFKbbC9jIt0IfdjKfcKqjR7FbDeLwBki46XBQhjhEBd5Ye9NCxlwzJLqPKkkbdztEnvmJXClfPW0m7vJ0ufhDWoV7+G5kfcXKvWquFO967meKXR4L/MOb4HNkcNQ4Cem5UW3gV+i6GKu6rrhpnixoaYPHOA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(7416014)(1800799024)(4143699003)(56012099006)(6133799003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	En+DtNA3/tlivybXJPaowVQdt7hQ0fwNA8BtTB9vx60g2qEk1x8Jm6NFa1GCp1DJGVADeCI+f2GZUranrb2Hs3JTPKgIWheA8/qah3c2mflQkthzrjVA1Y5aV+SDjX3HqqgAlciCee5qnAL1RZmfMIvM9uKu3ymQH1gfEbNCKg3sfwP4whLrVYtnvXdRT/XlPTYbZ7UGGBzmCNTQPEAM+t6faQXcNJcGwsxLbaUm33BjSR989bidg5wl5K4Dz9HFbCZNE0SLPgozl7fbCW6UWG+XgQ31qwABQAIvJx/SRMtJWExq4uLjqoBQHUDzTO5RuZbjJQXt+GoowzDHKcLo3suLgCP46WrutOVJtIXlU4IrdcQOupjDgiQAo0mdNCQMfgMygC7OuIcp5wfClX07bGaSuPgqfQTC6Q2AoWLoCyujvbbCpo4yd/w1af9mDhxn
-X-Exchange-RoutingPolicyChecked:
-	hZOu0qx08HeZbUBpT3kaNS4JltDQYfyMwFM3dgICNbKC4j0ZXSOn4MX9RF7pdk/z0NRn+VwGU80i3mE9IViIJ8Zgt1TzotsGf9oq0B4YFdxibRb1lDVI8wTE5MKSfn9mmrK5+LXYbIxUXGcUm7eHRqNSG+I/uBtyIMPggtWIgeQhvnFjQ5kX/U85F5t5QvyMAGOjlCFcWOgt/B43hlFeez1ceD/3an31n67qHlR5/j2MPxynW6IDMp4jB/7TvOZ798iElxGippbeqlkcLk29eVxrdkx45YVmm03TA3oHEOU5Ffxq4BdV/4kMpxaSM8UbPgkP0d57zAKSDDpMfyPn1Q==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 07:35:39.7534
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0b05625-500c-4e34-f38d-08ded80c83f7
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF000061C6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR10MB6231
-X-Proofpoint-ORIG-GUID: F7BCffdAdQAikAqgKYr5uV7wITr39Ktv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDA3NyBTYWx0ZWRfX/ceV7oBJqSJR
- G8U94KUOX4kOP8gGVIdPZwntW3Ca0EevkVTTqpqnI5iJ6neHoSnopI7bStgNqZqcpt+LHAmfwPu
- KygWpoE6Bi5Zy/+HZnUdrBaZ9LmxNU8MM7Cf5XJefZ8lyGkIE55bzEF5AHOKGngyU31NE7klgW5
- bbtJigL8sCRta42mohmFP8m4no038/LRWgXTJKDgKEiIhvj4Pj4JuA0a9UTZrpuQGNDkGDYYSPL
- TllZCYGuTOzE1aY1tykwSPT4aAXn/ePggvbNaCV6Oy7QRmPostu0V7qPScwmcXNLOTgjLCcAZ9i
- s83/CJQqHkYUirXqzhaJ16WcDelv86mFUAkYD+sCQPXFtfNGETRtojIz+OMhdLK8TyXxpQlzVrf
- P1jAb0GIiINw0turfjESgzr0fVgYRHVhoavd+SSs/9dOVbvvjA+rXvlgXPmAxcpEcXM9l18cFoE
- /rVN0YQQm140KWsF+OQ==
-X-Proofpoint-GUID: F7BCffdAdQAikAqgKYr5uV7wITr39Ktv
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDA3NyBTYWx0ZWRfXyrF8r40g/nGQ
- Df9aAhSCgdayGwoWrcG/YHZcqjmdb9rQcmzh+gVFg4lDA5pYk2XusQcny0QPYB7V688dJAx3M0k
- vh6yJGrs1uQcmzkA2O71j5njSPfsCPk=
-X-Authority-Analysis: v=2.4 cv=T+q8ifKQ c=1 sm=1 tr=0 ts=6a4614d5 cx=c_pps
- a=4QVYENZnsEoURNel/cbnog==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=fPAWb5peG099m5CrUpKH:22 a=sozttTNsAAAA:8 a=CLAEbvughUuGTxuK6hcA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOoURmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyzHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDcwND3ZLk4qL4wqLUtHgg10jXPNHS0swoLdHAJDFNCaipACiTWQE2MDo
+ Wwi8uTcpKTS4BmaJUWwsAdtX9YXIAAAA=
+X-Change-ID: 20260701-tcsr_qref_0702-7a9962fa04af
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>, krishna.chundru@oss.qualcomm.com,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782977772; l=5473;
+ i=qiang.yu@oss.qualcomm.com; s=20250513; h=from:subject:message-id;
+ bh=+rRbjOQEJVB7oAEtMoR+MjQTM7mfWC0gwMJWvhFdC4Y=;
+ b=B7/DzyxrYgARr9EmRwOJS6Afl2xOxLT9lC4SKABIQ05+HWDoMoxGNNq9e1pjuUe4zglDKsOck
+ DJ0XSmaBfLFDhHv4yUY29EdMol7jmRajqABN3oHNdBAlSdV6CrXdy9s
+X-Developer-Key: i=qiang.yu@oss.qualcomm.com; a=ed25519;
+ pk=Rr94t+fykoieF1ngg/bXxEfr5KoQxeXPtYxM8fBQTAI=
+X-Proofpoint-GUID: hzRf7JR7LJ3ohhvf-EmTGZlrdNqzCDbN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDA3NiBTYWx0ZWRfX0cuFq21PBQkN
+ hf1TCY5iYyF/oY8ZDuKZxPvSeENP8yYm1wqJd4emVCo4QZ7CYymx6E9SqFGYKKISUE9LNn7IeMA
+ 3Sys0Pt/OZpkWqIBrrSWKv40T/j+gi0=
+X-Authority-Analysis: v=2.4 cv=aJ7Ab79m c=1 sm=1 tr=0 ts=6a4614f0 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=zitRP-D0AAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8
+ a=VBF_zcjmYl_iqrD6TbIA:9 a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
+ a=xwnAI6pc5liRhupp6brZ:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDA3NiBTYWx0ZWRfX5ArNoz82clBE
+ CNat5LRnRm/tI7JsDCBqEKkj1//9Nx6rEeqoI30TJbvcNXJ3JcxZHrE7CD/BRtwGDUFUT0p3ZiR
+ O4F+P/a/ZySjAeHQyAgD12vE3qTcId+SDE4PMlXaY1QuTLlJzRMomUtNgMnyywu8lDc9bPW9fmw
+ X8KFNMNpSBXrxDiQzAkdqmRaqyI1L947FA1ciEyyIsfBzYtunEGoGVojdwuSeW+73S0vHMeXwvI
+ Sajyp2735GoiJ7gVmoWG0GAEF4g+Lgc6YDXb0gEpe1x0zyHWoX2enpnQ3w+/Os3m0C53JSAb2S+
+ shwaAkLa92xSEAS9psan7vq0DiMHQXJgskd/OLLi40/ogmACl2Gj0SZ3Vdf0XVvBSI5WVjPenDi
+ T1gm22ZO+jKjzHZ4mDkyI/M/tCXIkk0CkOcI4ld9jOqRXE2nRLYC6JVn4QQKzZAQZ1TFnVjlr5m
+ rTkqr6zJG+YzExPfppQ==
+X-Proofpoint-ORIG-GUID: hzRf7JR7LJ3ohhvf-EmTGZlrdNqzCDbN
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 adultscore=0 spamscore=0
- priorityscore=1501 bulkscore=0 lowpriorityscore=0 impostorscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607020077
+ bulkscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 clxscore=1015
+ spamscore=0 priorityscore=1501 impostorscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020076
 
-Hi Krzystof,
+This series adds a common clkref_en implementation and converts glymur
+and mahua to use it, along with the related binding and DTS updates.
 
-On 02/07/26 11:53, Krzysztof Kozlowski wrote:
-> On Wed, Jul 01, 2026 at 07:54:56PM +0530, Gokul Praveen wrote:
->> Update maxItems value of "clocks" property to 3 as description of
->> this parameter already indicates 3 clocks(refclk,pll1_refclk(optional)
->> and phy_en_refclk(optional)).
-> But what if description is wrong? You need to provide rationale why you
-> are doing it and you cannot use existing code alone as that rationale,
-> because as you pointed out - existing code is not fully correct.
+The PCIe clkref clocks on Glymur and Mahua gate the QREF block which
+provides reference clocks to the PCIe PHYs. QREF requires LDO supplies
+and a reference voltage from the refgen block to operate. The refgen
+block itself requires vdda-refgen_0p9 and vdda-refgen_1p2 LDOs to
+function.
 
-The description is correct because not all device may have 2 input  
-reference clocks , hence keeping the requirement of the 2nd reference 
-clock(pll1_refclk) optional.
+Previously, these QREF votes were done in PHY drivers. In earlier
+discussion [1], the feedback was that this is the wrong ownership point:
+those supplies are for the QREF controlled by clkref registers, not for
+the PHY directly. Based on that feedback, this series keeps the
+regulator handling with the clkref control path.
 
-Just as a note: phy_en_refclk is an output clock.
+Another reason for this series is reuse. clkref_en registers may live in
+different blocks across platforms (for example TCSR on Glymur, TLMM on
+SM8750 [2]), while the behavior is the same. The common helper lets each
+driver provide simple descriptors (name, offset, optional supplies) and
+reuse shared registration and runtime logic.
 
-In those cases the multilink serdes configurations requiring 2 different 
-input reference clocks will not work due to the limitation of having 
-only 1 clock.
+Glymur and Mahua share the same QREF TX/RPT/RX component naming but
+have different PCIe QREF topologies. Both are handled in tcsrcc-glymur.c
+via match_data to select the correct descriptor table per compatible.
 
-However, when it comes to devices where 2 different input reference 
-clocks are supported and a multilink serdes configuration is 
-needed(where the links require separate reference clocks for each 
-protocol so as to cater to the  different clocking speed requirements of 
-these links).
+[1] https://lore.kernel.org/lkml/aEBfV2M-ZqDF7aRz@hovoldconsulting.com/
+[2] https://lore.kernel.org/linux-arm-msm/20260202-topic-8750_tcsr-v1-0-cd7e6648c64f@oss.qualcomm.com/
 
-Hence, in this case ,2 different input clocks are needed so as to cater 
-to 2 different clock speeds.
+Changes in v7:
+  - Define compatible as an enum and add the per-compatible allOf/if/then block upfront for glymur. Reword commit msg for patch1
+  - Added a comment noting that on Mahua the REFGEN4 block is supplied by the vdda-refgen3-* regulators, and mentioned this in the commit message for patch2.
+  - Change the descriptor array to an array of pointers (const struct qcom_clk_ref_desc * const *). Skip unpopulated indices with if (!desc)
+  - Convert tcsr_cc_glymur_clk_descs[] and tcsr_cc_mahua_clk_descs[] to a pointer array.
+  - Add regulator lists for clkref_en on Mahua.
+  - Null-check device_get_match_data() result in probe.
+  - Add rx0 regulator in mahua tcsr node
+  - Squashed the former patch 8 (switch pcie5_phy ref clock to RPMH_CXO_CLK) into patch7, so Mahua PCIe probes at every commit.
+ - Link to v6: https://lore.kernel.org/all/20260621-tcsr_qref_0622-v6-0-c939c22ded0c@oss.qualcomm.com/
 
-For eg: In the USXGMII+SGMII multilink serdes configuration which I had 
-tested, it failed because
+Changes in v6:
+- Split dt-bindings patch into two: one to move glymur-tcsr to its own
+  binding file, and one to add mahua support
+- Use regmap_set_bits()/regmap_clear_bits() instead of regmap_update_bits()
+  in clk-ref.c
+- Move clk_init_data from struct qcom_clk_ref to a stack variable in
+  qcom_clk_ref_register()
+- Add Co-developed-by/Reviewed-by tags from Konrad Dybcio
+- Add missing regulator supplies for EDP and USB clkref_en on glymur
+- Link to v5: https://patch.msgid.link/20260602-tcsr_qref_0527-v5-0-8ea174a59d7e@oss.qualcomm.com
 
-USXGMII requires an input clock speed of 156.25 Mhz and SGMII protocol 
-requires an input clock speed of 100 Mhz.
+Changes in v5:
+- Return 0 if regmap_read fail
+- Add a separate file for glymur-tcsr and mahua-tcsr
+- Link to v4: https://patch.msgid.link/20260527-tcsr_qref_0527-v4-0-ded83866c9d9@oss.qualcomm.com
 
-But, since there was only one input clock(refclk) mentioned in the 
-clocks and clock-name parameter , this multilink serdes configuration 
-failed.
+Changes in v4:
+- Add mahua QREF support (binding, driver, DTS) to avoid dtb check error
+- Override pcie5_phy ref clock to RPMH_CXO_CLK on mahua since
+  TCSR_PCIE_1_CLKREF_EN is not available
+- Rename regulator arrays to topology-based names and merge duplicates
+- Remove else: false blocks from binding
+- Sort supply properties alphabetically in binding and DTS
+- Link to v3: https://lore.kernel.org/all/20260506-qref_vote_0506-v3-0-5ab71d2e6f16@oss.qualcomm.com/
 
-Hence, to make it work, the pll1_refclk had to be added which provided a 
-clock speed of 156.25 Mhz for USXGMI and the refclk provided
+Changes in v3:
+- Fix dtb check error: allOf:0: 'then' is a dependency of 'if'.
+- Link to v2: https://lore.kernel.org/all/20260420-vote_qref_in_tcsrcc-v2-0-589a23ae640a@oss.qualcomm.com/
 
-a clock speed of 100 Mhz  for SGMII.
+Changes in v2:
+- RFC tag dropped
+- Changed back to additionalProperties: false
+- Moved all Glymur supply properties into top-level properties so they are explicitly defined.
+- Link to v1: https://lore.kernel.org/all/20260331-qref_vote-v1-0-3fd7fbf87864@oss.qualcomm.com/
 
->> Update the maxItems and items value of "clock-names" property with multiple
->> combination of clock-names possible since pll1_refclk and phy_en_refclk are
->> optional clocks.
-> Why? You need to describe why you are doing this, not what you are
-> doing.
-Sure , Krzysztof, I will be careful about that and prioritize that in 
-the commit message.
->> Signed-off-by: Gokul Praveen <g-praveen@ti.com>
->> ---
->>   .../bindings/phy/phy-cadence-torrent.yaml        | 16 ++++++++++++----
->>   1 file changed, 12 insertions(+), 4 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml b/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
->> index 9af39b33646a..96c664d50629 100644
->> --- a/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
->> +++ b/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
->> @@ -34,7 +34,7 @@ properties:
->>   
->>     clocks:
->>       minItems: 1
->> -    maxItems: 2
->> +    maxItems: 3
->>       description:
->>         PHY input reference clocks - refclk (for PLL0) & pll1_refclk (for PLL1).
->>         pll1_refclk is optional and used for multi-protocol configurations requiring
->> @@ -45,9 +45,17 @@ properties:
->>   
->>     clock-names:
->>       minItems: 1
->> -    items:
->> -      - const: refclk
->> -      - enum: [ pll1_refclk, phy_en_refclk ]
->> +    maxItems: 3
-> Drop
-Sure, i will do that Krzysztof.
->> +    oneOf:
->> +      - items:
->> +          - const: refclk
->> +      - items:
->> +          - const: refclk
->> +          - enum: [ pll1_refclk, phy_en_refclk ]
-> Drop these, pointless. You were supposed to grow existing syntax.
->
->> +      - items:
->> +          - const: refclk
->> +          - const: pll1_refclk
-> So here is the enum.
->
->> +          - const: phy_en_refclk
-> And this stays.
->
-> You make changes which do not make the binding better and are not
-> explained in commit msg. Focus on WHY you are doing things and also
-> explain WHY you did such complicated syntax (if you insist on rewriting
-> correct code into something odd we do not expect).
+Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+---
+Qiang Yu (7):
+      dt-bindings: clock: qcom: Move glymur TCSR to own binding
+      dt-bindings: clock: qcom,glymur-tcsr: Add mahua support
+      clk: qcom: Add generic clkref_en support
+      clk: qcom: tcsrcc-glymur: Add regulator supplies and migrate to clk_ref helper
+      clk: qcom: tcsrcc-glymur: Add Mahua QREF regulator support
+      arm64: dts: qcom: glymur: Add QREF regulator supplies to TCSR
+      arm64: dts: qcom: mahua: Add QREF regulator supplies to TCSR
 
-So, the reason I added the oneOf property is to support the following 
-combinations because pll1_refclk and phy_en_refclk are optional clocks. 
-With the earlier enum , only either of pll1_refclk or phy_en_refclk
+ .../bindings/clock/qcom,glymur-tcsr.yaml           | 146 +++++++
+ .../bindings/clock/qcom,sm8550-tcsr.yaml           |   2 -
+ arch/arm64/boot/dts/qcom/glymur-crd.dts            |  20 +
+ arch/arm64/boot/dts/qcom/mahua-crd.dts             |  16 +
+ arch/arm64/boot/dts/qcom/mahua.dtsi                |  13 +
+ drivers/clk/qcom/Makefile                          |   1 +
+ drivers/clk/qcom/clk-ref.c                         | 209 +++++++++
+ drivers/clk/qcom/tcsrcc-glymur.c                   | 471 +++++++++++----------
+ include/linux/clk/qcom.h                           |  67 +++
+ 9 files changed, 708 insertions(+), 237 deletions(-)
+---
+base-commit: 4f441960e691d37c880d2cc004de06bb5b6bd5e4
+change-id: 20260701-tcsr_qref_0702-7a9962fa04af
 
-can be used and both cannot be used at the same time.
+Best regards,
+--  
+Qiang Yu <qiang.yu@oss.qualcomm.com>
 
-Combination 1: refclk
-
-Combination 2 : refclk, pll1_refclk
-
-Combination 3: reclk, phy_en_refclk
-
-Combination 4: refclk, pll1_refclk, phy_en_refclk
-
-
-Please feel free to suggest any alternative solution to support these 
-combinations .
-
->
-> Best regards,
-> Krzysztof
->
->
