@@ -1,119 +1,342 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4CC130E82D;
-	Thu,  2 Jul 2026 16:12:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A143B298CAF;
+	Thu,  2 Jul 2026 16:15:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783008778; cv=none; b=Hm6jXi2bAD8/MjOoRdQ/CGLhqTCSZJHvhQfi0zr2cbjClDcN+Jec3zUeXzlo+iQYjGmp+DLTMw5CUbpjGXhL/zC8GNDfdzM+UO2EB0zNVKB52BpwC5W7C7KXx4DqhDAMca5dSGeqkntaA7DyNcDUGUCZfjYmWiSO//4/Eu0jVV0=
+	t=1783008925; cv=none; b=ew42toFQU40HShkoa3EmwYaSJLNDOvXQJkG7NBj8y61za381J/6k9M9Qn26cZKXAwPSmxpP1V1SerZH4A8PB8e2TTnYr+272kubM+dD33pYFNZ0eZNVaccSAhCGi7xMd6l8gtBlKemPbBCG32Yi525I8OLFlfsA+NsckygayKDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783008778; c=relaxed/simple;
-	bh=Zh3mLY54aGC7XZ1QXAM+vF14TG/FCYJr3S1ymEdMxb0=;
+	s=arc-20240116; t=1783008925; c=relaxed/simple;
+	bh=FaARUEjrFyJuj8uGntTCA4eGDykM1s2cESVLncfkhos=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FEQ9j+mQuTBETPgtwCpFMtavoTbpbqp5eGTVEQm3bhyKx9upWt3acDk8gDRAfLOfhKYhxuj4hcDrkJwNhBH/2FpDV/y4uMw5VpRA+H8M8rCMAppOiOJ18loMoyd2JwecrDV7Dy3/cGe63dcQuwshbj1PjPaVaQCdWHMxVd1Nc1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iGC65vUG; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=mZIATyPluZdbjG1cnsWCaGNsN0rwXaszVfHKvniGsjeQ1QzmwoRxEjgPFJwdtd30UiZw4BW/gy0vQbbXiBr/5JlG/N+DFByUXIUoJkSg9wUcvW4jCi4fMJL5N9EZrojMshxZQSrq2dyHjUl/M2gLbi1sBzgS9poBUWVumstFL8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dxdAH/ca; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iGC65vUG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4CEC1F000E9;
-	Thu,  2 Jul 2026 16:12:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783008777;
-	bh=jgZ5PGASijShP5pC5l8zHhdOpozcuS9KxV5TuCHWvA4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iGC65vUGDqogOIGJx6iAzvePK4nQgsbNW6n2puBfcxRlF/iW6l85Ti0n4337btxCs
-	 AAhgmXx0m+4kppoTDcvJUeuFBYvHbveuMHtPWIDt/aLgi/W5g766w4uHI4NCNLbY+Y
-	 o55EovSIK51IrXtGhUckpB+JwHC/yjMiyxVG9I3HanKrV69OXNsstHmewI3Lk7N+9H
-	 pr04fOotyHQtLJ29VRJPP56stS74kaIr7IL2eOM6AeMlWINKJJ75OVokh38/8Auf08
-	 9hDw9O4qyE8W2H15CY0fDS69UReoN+tPNueMI79ooE1XbbQNBgcic36HvhYi35cUzn
-	 8Vdoq7K2fGplg==
-Date: Thu, 2 Jul 2026 17:12:51 +0100
-From: Lee Jones <lee@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Svyatoslav Ryhel <clamor95@gmail.com>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dxdAH/ca"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8B8C88CB;
+	Thu,  2 Jul 2026 18:14:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1783008875;
+	bh=FaARUEjrFyJuj8uGntTCA4eGDykM1s2cESVLncfkhos=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dxdAH/caapOtAKAs+fQGBJuECOgXbJMXWbNP6VbeHZ4/7smBFbzgFixqa/HlBNRMQ
+	 yGEADDco/OnHTJ3Xh+etq/6dTqCa3ui6QzWcT8gfpqSzVPpk2lxS8hYR/MB8QMSHm1
+	 KLsVLKDhjEu64NJFHfqsi8O3S4vG0DDKwsYPknRw=
+Date: Thu, 2 Jul 2026 19:15:19 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Frank.Li@oss.nxp.com
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Martin Kepplinger-Novakovic <martink@posteo.de>,
+	Rui Miguel Silva <rmfrfs@gmail.com>,
+	Purism Kernel Team <kernel@puri.sm>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
-	Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v5 02/14] mfd: lm3533: Remove driver specific regmap
- wrappers
-Message-ID: <20260702161251.GA2108533@google.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-3-clamor95@gmail.com>
- <ajJ30lHG5lEXri7I@ashevche-desk.local>
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	Guoniu Zhou <guoniu.zhou@nxp.com>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v7 2/8] media: subdev: Add media_async_register_subdev()
+ helper
+Message-ID: <20260702161519.GI3534761@killaraus.ideasonboard.com>
+References: <20260702-imx8qxp_pcam-v7-0-b47d9e363400@nxp.com>
+ <20260702-imx8qxp_pcam-v7-2-b47d9e363400@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <ajJ30lHG5lEXri7I@ashevche-desk.local>
+In-Reply-To: <20260702-imx8qxp_pcam-v7-2-b47d9e363400@nxp.com>
 
-On Wed, 17 Jun 2026, Andy Shevchenko wrote:
+Hi Frank,
 
-> On Wed, Jun 17, 2026 at 11:00:19AM +0300, Svyatoslav Ryhel wrote:
-> > Remove driver-specific regmap wrappers in favor of using regmap helpers
-> > directly.
-> 
-> OK, let's go with this variant.
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> 
-> Some side notes below for the record.
-> 
-> ...
-> 
-> >  	struct lm3533_led *led = to_lm3533_led(led_cdev);
-> >  	unsigned enable;
-> 
-> Oh, besides using the old way of declaring unsigned int, it most likely
-> just needs to be kstrtobool().
-> 
-> >  	u8 reg;
-> > -	u8 mask;
-> > -	u8 val;
-> >  	int ret;
-> >  
-> >  	if (kstrtouint(buf, 0, &enable))
-> >  		return -EINVAL;
-> 
-> We should unshadow error codes (it may return more than -EINVAL).
+Have you missed the comment in v6 ?
 
-Right, this masks -ERANGE.
+https://lore.kernel.org/all/20260629084654.GB3054459@killaraus.ideasonboard.com/
 
-We should fix that.
-
-> >  	reg = lm3533_led_get_lv_reg(led, LM3533_REG_CTRLBANK_BCONF_BASE);
-> > -	mask = LM3533_REG_CTRLBANK_BCONF_ALS_EN_MASK;
-> >  
-> > -	if (enable)
-> > -		val = mask;
-> > -	else
-> > -		val = 0;
-> > -
+On Thu, Jul 02, 2026 at 12:03:58PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> ...
+> Add media_async_register_subdev(), a helper to register a V4L2 sub-device
+> with the asynchronous sub-device framework.
 > 
-> > -	if (kstrtou8(buf, 0, &val))
-> > +	if (kstrtou32(buf, 0, &val))
-> >  		return -EINVAL;
+> The helper requires each port to contain a single endpoint, with port
+> addresses starting at 0 and increasing consecutively.
 > 
-> Like in the previous case we should unshadow error codes.
+> During registration it parses the firmware graph, creates media pads for
+> all endpoints, and registers common asynchronous notifiers for sink
+> endpoints. These notifiers automatically create media links when the
+> corresponding remote source devices become available.
 > 
-> -- 
-> With Best Regards,
-> Andy Shevchenko
+> The set_pad_by_ep() callback allows drivers to determine the media pad
+> associated with a firmware endpoint and identify whether the endpoint
+> represents a sink pad.
 > 
+> By centralizing firmware graph parsing, media pad creation, notifier
+> registration, and link creation, this helper reduces duplicated code and
+> simplifies error handling in V4L2 sub-device drivers.
 > 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+> change in v7
+> - don't use saved vep informaiton from media pand
+> - fix sashiko report problem
+> 
+> change in v6
+> - new patch
+> ---
+>  drivers/media/v4l2-core/v4l2-fwnode.c | 169 ++++++++++++++++++++++++++++++++++
+>  include/media/v4l2-async.h            |  39 ++++++++
+>  2 files changed, 208 insertions(+)
+> 
+> diff --git a/drivers/media/v4l2-core/v4l2-fwnode.c b/drivers/media/v4l2-core/v4l2-fwnode.c
+> index 62a3a452f7884..4e15adc1af065 100644
+> --- a/drivers/media/v4l2-core/v4l2-fwnode.c
+> +++ b/drivers/media/v4l2-core/v4l2-fwnode.c
+> @@ -26,6 +26,7 @@
+>  
+>  #include <media/v4l2-async.h>
+>  #include <media/v4l2-fwnode.h>
+> +#include <media/v4l2-mc.h>
+>  #include <media/v4l2-subdev.h>
+>  
+>  #include "v4l2-subdev-priv.h"
+> @@ -1302,6 +1303,174 @@ int __v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *m
+>  }
+>  EXPORT_SYMBOL_GPL(__v4l2_async_register_subdev_sensor);
+>  
+> +static int v4l2_common_notifier_bound(struct v4l2_async_notifier *notifier,
+> +				      struct v4l2_subdev *sd,
+> +				      struct v4l2_async_connection *asd)
+> +{
+> +	struct media_pad *pad = NULL;
+> +	struct fwnode_endpoint ep;
+> +	int ret;
+> +
+> +	if (asd->match.type != V4L2_ASYNC_MATCH_TYPE_FWNODE)
+> +		return -EINVAL;
+> +
+> +	if (!asd->match.fwnode)
+> +		return -EINVAL;
+> +
+> +	struct fwnode_handle *remote __free(fwnode_handle) =
+> +		fwnode_graph_get_remote_endpoint(asd->match.fwnode);
+> +
+> +	ret = fwnode_graph_parse_endpoint(remote, &ep);
+> +	if (ret)
+> +		return -EINVAL;
+> +
+> +	for (int i = 0; i < notifier->sd->entity.num_pads; i++) {
+> +		if (notifier->sd->entity.pads[i].index == ep.port) {
+> +			pad = &notifier->sd->entity.pads[i];
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!pad) {
+> +		dev_err(notifier->sd->dev, "failed to find sink pad\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret = v4l2_create_fwnode_links_to_pad(sd, pad, MEDIA_LNK_FL_ENABLED);
+> +	if (ret) {
+> +		dev_err(sd->dev, "failed to link source pad\n");
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct v4l2_async_notifier_operations v4l2_common_notifier_ops = {
+> +	.bound = v4l2_common_notifier_bound,
+> +};
+> +
+> +/*
+> + * The only one endpoint under one port. And all ports number is continues.
+> + */
+> +static int
+> +v4l2_async_nf_parse_fwnode(struct device *dev, struct media_pad *pads, u32 pads_count,
+> +			   struct v4l2_async_notifier *notifier)
+> +{
+> +	struct v4l2_subdev *sd = notifier->sd;
+> +	struct v4l2_async_connection *asd;
+> +	struct v4l2_fwnode_endpoint vep;
+> +	struct media_pad *pad;
+> +	int ret;
+> +
+> +	if (!sd->internal_ops || !sd->internal_ops->set_pad_by_ep)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "Missed set_pad_by_ep() callback\n");
+> +	pad = pads;
+> +
+> +	fwnode_graph_for_each_endpoint_scoped(dev_fwnode(dev), ep) {
+> +		u32 flags;
+> +
+> +		ret = v4l2_fwnode_endpoint_parse(ep, &vep);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "failed to parse endpoint\n");
+> +
+> +		if (vep.base.port >= pads_count)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "port number bigger than pad number\n");
+> +
+> +		pad = pads + vep.base.port;
+> +
+> +		ret = sd->internal_ops->set_pad_by_ep(sd, pad, &vep);
+> +		if (ret < 0)
+> +			return dev_err_probe(dev, ret, "Can support endpoint\n");
+> +
+> +		flags = pad->flags;
+> +
+> +		if (flags & MEDIA_PAD_FL_SOURCE)
+> +			continue; /* Bypass source port */
+> +
+> +		notifier->ops = &v4l2_common_notifier_ops;
+> +
+> +		asd = v4l2_async_nf_add_fwnode_remote(notifier, ep,
+> +						      struct v4l2_async_connection);
+> +		if (IS_ERR(asd))
+> +			return dev_err_probe(dev, PTR_ERR(asd),
+> +					      "failed to add notifier\n");
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +void media_async_subdev_cleanup(struct v4l2_subdev *sd)
+> +{
+> +	v4l2_async_unregister_subdev(sd);
+> +	v4l2_subdev_cleanup(sd);
+> +	media_entity_cleanup(&sd->entity);
+> +	v4l2_async_nf_unregister(sd->subdev_notifier);
+> +	v4l2_async_nf_cleanup(sd->subdev_notifier);
+> +	kfree(sd->entity.pads);
+> +}
+> +EXPORT_SYMBOL_GPL(media_async_subdev_cleanup);
+> +
+> +int __media_async_register_subdev(struct v4l2_subdev *sd, struct module *module)
+> +{
+> +	struct device *dev = sd->dev;
+> +	u32 ep_count;
+> +	int ret;
+> +
+> +	if (WARN_ON(!sd->dev))
+> +		return -ENODEV;
+> +
+> +	struct v4l2_async_notifier *notifier __free(kfree) = kzalloc_obj(*notifier);
+> +	if (!notifier)
+> +		return -ENOMEM;
+> +
+> +	v4l2_async_subdev_nf_init(notifier, sd);
+> +
+> +	ep_count = fwnode_graph_get_endpoint_count(dev_fwnode(dev),
+> +						   FWNODE_GRAPH_DEVICE_DISABLED);
+> +	if (!ep_count)
+> +		return dev_err_probe(dev, -EINVAL, "No connected endpoints\n");
+> +
+> +	struct media_pad *pads __free(kfree) = kzalloc_objs(struct media_pad, ep_count);
+> +	if (!pads)
+> +		return -ENOMEM;
+> +
+> +	ret = v4l2_async_nf_parse_fwnode(dev, pads, ep_count, notifier);
+> +	if (ret < 0)
+> +		goto out_cleanup;
+> +
+> +	ret = media_entity_pads_init(&sd->entity, ep_count, pads);
+> +	if (ret)
+> +		goto out_cleanup;
+> +
+> +	ret = v4l2_async_nf_register(notifier);
+> +	if (ret < 0)
+> +		goto out_cleanup;
+> +
+> +	ret = v4l2_subdev_init_finalize(sd);
+> +	if (ret)
+> +		goto out_unregister;
+> +
+> +	ret = __v4l2_async_register_subdev(sd, module);
+> +	if (ret < 0)
+> +		goto out_unregister;
+> +
+> +	sd->subdev_notifier = no_free_ptr(notifier);
+> +	retain_and_null_ptr(pads);
+> +
+> +	return 0;
+> +
+> +out_unregister:
+> +	v4l2_async_nf_unregister(notifier);
+> +	v4l2_subdev_cleanup(sd);
+> +out_cleanup:
+> +	v4l2_async_nf_cleanup(notifier);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(__media_async_register_subdev);
+> +
+>  MODULE_DESCRIPTION("V4L2 fwnode binding parsing library");
+>  MODULE_LICENSE("GPL");
+>  MODULE_AUTHOR("Sakari Ailus <sakari.ailus@linux.intel.com>");
+> diff --git a/include/media/v4l2-async.h b/include/media/v4l2-async.h
+> index 54a2d9620ed5b..ca41820f776c5 100644
+> --- a/include/media/v4l2-async.h
+> +++ b/include/media/v4l2-async.h
+> @@ -345,4 +345,43 @@ __v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *modul
+>   * @sd: pointer to &struct v4l2_subdev
+>   */
+>  void v4l2_async_unregister_subdev(struct v4l2_subdev *sd);
+> +
+> +enum v4l2_subdev_1to1_pads {
+> +	V4L2_SUBDEV_1TO1_PADS_SINK,
+> +	V4L2_SUBDEV_1TO1_PADS_SOURCE,
+> +	V4L2_SUBDEV_1TO1_PADS_TOTAL,
+> +};
+> +
+> +/**
+> + * media_async_register_subdev - registers a sub-device to the asynchronous
+> + *				 sub-device framework and parse set up common
+> + *				 related devices
+> + *
+> + * @sd: pointer to struct &v4l2_subdev
+> + *
+> + * Register a V4L2 sub-device with the asynchronous sub-device framework.
+> + * In addition to v4l2_async_register_subdev(), this function parses the
+> + * firmware graph, creates media pads for the endpoints, and registers common
+> + * notifiers to create media links between connected devices.
+> + *
+> + * This function also init media_pads.
+> + *
+> + * The sub-device is unregistered and cleanup by media_async_subdev_cleanup()
+> + *
+> + * While registered, the subdev module is marked as in-use.
+> + *
+> + * An error is returned if the module is no longer loaded on any attempts
+> + * to register it.
+> + */
+> +#define media_async_register_subdev(sd_1to1) \
+> +	 __media_async_register_subdev(sd_1to1, THIS_MODULE)
+> +
+> +int __media_async_register_subdev(struct v4l2_subdev *sd_1to1, struct module *module);
+> +
+> +/**
+> + * media_async_subdev_cleanup - unregistered and cleanup subdev and media pads
+> + * @sd_1to1: pointer to struct &v4l2_subdev_1to1
+> + */
+> +void media_async_subdev_cleanup(struct v4l2_subdev *sd_1to1);
+> +
+>  #endif
 
 -- 
-Lee Jones
+Regards,
+
+Laurent Pinchart
