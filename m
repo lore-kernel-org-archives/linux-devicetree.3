@@ -1,108 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24F347DD58
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:07:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00D4477E2E
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:12:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782983269; cv=none; b=uWFCz1D+kWcfZ8CEdD8cC9BuBoqgthBdMT1L9oZXIIgIJ4zBF8difNGWcsN1+faM2E8BnH2LjVse9oF+km5WnnHKXHoS6gRUuANDO8OzbeVN5w22KYNYYoBEN9UVC7Hf3X88JvEQpwA7DcefMQ4GscMOcYW1UTbVFDcGW6k+OSw=
+	t=1782983572; cv=none; b=k85cyYn9iTzNpNvYgjPZ9yeF4lX8pqrzJ17z/y/EhskRgMIrvQI8mYOzkYTUm+EuzZaZcDXWVVKhwsEEM5adruONZ3NTNbul+t5k+zCuyOzxwmKkI7qOa7aDx/LgWKiEPzjb5H9n8yuTGuJE+qs2GOFYDRdnNQ06meQRtFN7BFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782983269; c=relaxed/simple;
-	bh=HBkefB7x96oKwGQlLbHmpLtBxzPdAGJ1kHf71RbfxgU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jduBnR51l/8OnJ1YnhtfrhxzLV+dinVR2nhJIbZlEYui3JPBwIE7nT+sYP+M/3iPbiQ4TetTJhfSksxSbLX3nmdh/KXrCUuVQ79W28zWuZ2cQ9gA6mWirhHLqtkuFaa15os+M2cN/VQu8LSrL2+e4VrPBxtD4pNUBXH9ftFkQFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SkwwL2r5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782983572; c=relaxed/simple;
+	bh=z3us1EYcPhA08D2V/YJ+nWiOnRiCmeZ4lZeMhncdG0g=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=unQRpnvCrF9PxrREZFJyu3ciZXjrxz385KhcrwI9iJd2R66eEMbHAF4zsGSvIfZnR6bAf7+LVaI3DRBF87kGOniDkhajZbIxOdBg9rPj79VoEAmZWxBOZRMOLr36K4bIRLQANGi4ujmN8hn+hjiKuEHNgHDrpubTFMYM0rxKVLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CkM0BKN2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SkwwL2r5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2958F1F00A3D;
-	Thu,  2 Jul 2026 09:07:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CkM0BKN2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B8681F00A3E
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:12:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782983268;
-	bh=sfQJdhwPVhbgBEzXkE4VFdyHCTHzwch5B9PKJQndVC8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SkwwL2r5og6rnIgfBI20ws6S4k9k61CMC7CeqzNYiBwv6bmPo9ovpxERtmW374D6P
-	 xqJUE7KVpIINkO/hXMRdEq2TFULnyEkej73mM6ehZs+dKs/cWOy/MW/2/pizLCBArm
-	 o7gyGFRbgV8vBbNz2MYv2nXbgSnyDOgsBElvvHCRbGd7NMi8rQXwUO5PArFFnAzQgI
-	 ChDDhyK0cR6+qcgq1ADd7RS4AUw5FQFPyipAMjcGWcnsxjhnr4P/9ONUNy634ZrQh/
-	 iMAbIlnuCoRO2k+Ndc22kc2U98sWgc44y7UMTcP3qIi339MTdaL9C7EDe7tvM8hwI+
-	 yEc93BnT8FOCg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/4] arm64: dts: realtek: Add GPIO support for
- RTD1625
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260702090115.2564318-5-eleanor.lin@realtek.com>
-References: <20260702090115.2564318-1-eleanor.lin@realtek.com>
- <20260702090115.2564318-5-eleanor.lin@realtek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 09:07:47 +0000
-Message-Id: <20260702090748.2958F1F00A3D@smtp.kernel.org>
+	s=k20260515; t=1782983571;
+	bh=z3us1EYcPhA08D2V/YJ+nWiOnRiCmeZ4lZeMhncdG0g=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=CkM0BKN24F+HnXi4WaE+4fAv5Vr7UTY8L9dUWejrdBJF/jPRDOuV//xYqUgtFJazT
+	 yKqnvPZ4Z6zQClmiWicl1ZQIjIBR7wR46f+31rNYfwqn4cQYLWsye7jQCr65Leb+/4
+	 zzgcGpZ2d3pKBzx7dY2dnHBNE29vOmxpqRR3npVJZTkScJEVgs6av6H8IvDPg+MH5r
+	 AVEKQgo74mXWKKBqPyyavnRneQqrcsFo/8XpA4lXns6tLezgzz4pvY5TFk4LEHT+Zv
+	 6K5/hLayKxOm9GehXu/SwzR0dzDugS3Gm9SE14B9ca6fEL8XWopQoPgbmTQhBCuH9a
+	 780RmwAwFHpVg==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-39b1eb7bd9bso15323151fa.2
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:12:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RohWMdNrSRrafULnqmYVtNMrhCu68S/ElrVKoD/fqAy3l1io0W3o5fDLnDrW7JFAAccH7b5zf3qGV5Q@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVchaUIufWwF5mjZm/xpDoLnhnK6LfB1IYaCACtpfdgxUI4R9n
+	1QKRVuToe4bCuwOoo7Sm/132RhGknI6yd//PEQDPfRCJbJtW+kro79OmRuRm6O/iFKQf1NN/Ix8
+	meHL5Xhw18j3vpssidxxD3foyO7S8TPoQZS76VoUZ6g==
+X-Received: by 2002:a2e:9c86:0:b0:39b:35bd:e705 with SMTP id
+ 38308e7fff4ca-39b35bdebfemr6340391fa.37.1782983570078; Thu, 02 Jul 2026
+ 02:12:50 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 2 Jul 2026 04:12:46 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 2 Jul 2026 04:12:46 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <akOZFIowVvprnAMf@vaman>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260629-qcom-sa8255p-emac-v11-0-1b7fb95b51f9@oss.qualcomm.com>
+ <20260629-qcom-sa8255p-emac-v11-1-1b7fb95b51f9@oss.qualcomm.com>
+ <CAMuHMdXen+E-Ai51aWBa_KV9W8Fz2cQPpT-FG_kQ7akhrrYa_A@mail.gmail.com>
+ <CAMRc=Me3jaZXiXa1sFXr=8Do4sCd+XN1pKTcWC8-0j78SjCkKA@mail.gmail.com>
+ <CAMuHMdVUBgG0EFB16OxHisbxx-sBvDKvBPNZdpyDnmBrnX4ptQ@mail.gmail.com> <akOZFIowVvprnAMf@vaman>
+Date: Thu, 2 Jul 2026 04:12:46 -0500
+X-Gmail-Original-Message-ID: <CAMRc=MfBcOhbj=ETxy2Xz9o_nyzykrEhKAc3jYi6V5_jMZEE3Q@mail.gmail.com>
+X-Gm-Features: AVVi8Cc0cbGsvWIHn6Ltbm1wzcUWjyqAHy25YdAMNK19MIl0j9ziewcxopNMKrw
+Message-ID: <CAMRc=MfBcOhbj=ETxy2Xz9o_nyzykrEhKAc3jYi6V5_jMZEE3Q@mail.gmail.com>
+Subject: Re: [PATCH net-next v11 1/7] dt-bindings: phy: document the serdes
+ PHY on sa8255p
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>, 
+	Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com, 
+	Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, Romain Gantois <romain.gantois@bootlin.com>, 
+	Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
+	Christophe Roullier <christophe.roullier@foss.st.com>, Radu Rendec <rrendec@redhat.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, Drew Fustini <dfustini@tenstorrent.com>, 
+	linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org, 
+	linux-mips@vger.kernel.org, imx@lists.linux.dev, 
+	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	sophgo@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Device Tree mapping conflict where two distinct GPIO controllers=
- claim the exact same pins from the `isom_pinctrl` controller.
---
+On Tue, 30 Jun 2026 12:23:16 +0200, Vinod Koul <vkoul@kernel.org> said:
+> On 29-06-26, 16:51, Geert Uytterhoeven wrote:
+>> > Russell King asked me to put the PHY logic for SCMI pm domains into the PHY
+>> > driver instead of the MAC driver where it was previously. Instead of cramming
+>> > both HLOS and firmware handling into the same driver, I figured it makes more
+>> > sense to have a dedicated, cleaner driver as the two share very little code (if
+>> > any).
+>>
+>> I think you are mixing up DT bindings and driver implementation?
+>
+> Should the bindings change if we have different driver and firmware
+> implementations? Isn't binding supposed to be agnostic of
+> implementations..?
+>
 
-commit ca40dcb33ea07a0408e101ec08ff651fed48479b
-Author: Yu-Chun Lin <eleanor.lin@realtek.com>
+I've thought about it some more and I believe this question is philosophical in
+nature.
 
-arm64: dts: realtek: Add GPIO support for RTD1625
+sa8775p and sa8255p are *the same* hardware. I can flash different firmware on
+the same Lemans Ride board and it becomes one or the other. Yet they are not
+described by the same DTS and the bindings differ as well. I don't see why we
+wouldn't allow the same approach for the this PHY.
 
-This commit adds the GPIO nodes for the Realtek RTD1625 SoC.
-It configures multiple GPIO controllers and establishes their=20
-pin controller mapping ranges.
+We treat it as different HW variant when it's managed by firmware - just like
+we do with the rest of the SoC.
 
-> diff --git a/arch/arm64/boot/dts/realtek/kent.dtsi b/arch/arm64/boot/dts/=
-realtek/kent.dtsi
-> index 8d4293cd4c036..228b82dfdb7ac 100644
-> --- a/arch/arm64/boot/dts/realtek/kent.dtsi
-> +++ b/arch/arm64/boot/dts/realtek/kent.dtsi
-> @@ -151,6 +151,37 @@ uart0: serial@7800 {
->  				status =3D "disabled";
->  			};
-> =20
-> +			gpio: gpio@31000 {
-> +				compatible =3D "realtek,rtd1625-iso-gpio";
-> +				reg =3D <0x31000 0x398>;
-> +				gpio-controller;
-> +				gpio-ranges =3D <&isom_pinctrl 0 0 2>,
-> +					      <&ve4_pinctrl 2 0 6>,
-> +					      <&iso_pinctrl 8 0 4>,
-[ ... ]
-> +					      <&iso_pinctrl 26 4 2>,
-> +					      <&isom_pinctrl 28 2 2>,
-[ ... ]
-> +			iso_m_gpio: gpio@89100 {
-> +				compatible =3D "realtek,rtd1625-isom-gpio";
-> +				reg =3D <0x89100 0x30>;
-> +				gpio-controller;
-> +				gpio-ranges =3D <&isom_pinctrl 0 0 4>;
-
-[Severity: Medium]
-Is it intended for both the gpio@31000 and iso_m_gpio controllers to claim
-the exact same pins from the isom_pinctrl controller?
-
-Looking at gpio@31000, it maps pins 0-1 and 2-3 from isom_pinctrl. Down here
-in iso_m_gpio, the gpio-ranges property identically maps isom_pinctrl pins =
-0,
-1, 2, and 3.
-
-Could this cause unexpected behavior in the pinctrl subsystem? Functions li=
-ke
-pinctrl_find_gpio_range_from_pin() strictly return the first matched range,
-which might silently shadow the other controller's reverse lookups. Also, if
-both controllers attempt to request the same pin via pinctrl_gpio_request(),
-would the second request fail because the pin will be marked as already in-=
-use?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702090115.2564=
-318-1-eleanor.lin@realtek.com?part=3D4
+Bart
