@@ -1,175 +1,189 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC153D47D4
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 07:54:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE3129B200
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 07:56:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782978897; cv=none; b=GwHJbGbc1duO4MUbSDpGv+hXh+IpRPaa8jFVfr5g3P+79bCNivQe3MFmwOMX++gvkeJ4/UG4VY1q6ye3oSUZyCjS1gN6CHUQzWdXA2YcNPHnqYH1pDrVTMcdSCAmbM5gh2VnB15aJhrYQpfk71NAm3mj9JhiZrFshu1U8jIZAWg=
+	t=1782978992; cv=none; b=tklCQjLXvElIWx2Y9+SFB2XNr+XGnFDV37Ez4ReGef7AZsfTN8QE/GcxAnXNR4Rjal84lJP7PtJSiuVxIt9qcC9jU+F+5NuTxGdoOgHNdlR2Xp384o1H5Qt7RoLCvldqCnZS4t3Z5u96hYdzzRE6uowaRoi2jopR2/tmOKgEAnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782978897; c=relaxed/simple;
-	bh=PQ/dmRtf/ED613hJIk9cmMPEYLShtFG+4DQzkZ7n9XI=;
+	s=arc-20240116; t=1782978992; c=relaxed/simple;
+	bh=FQrfYENcwvOpAsgO6Or/j7+HRvvXw8UGcNsEwKfcdBg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZzXLT94xjGesuFA3xYg2djQzTsa0xwWKzsoD+dWtVjIB/TfTYZuxrwisIYOPikVm5EXTzQ5koo78d6PdjtaNWkYoHjcf2YubKhHh+Ck04CJ2/JMnwTajTYBIOYli0m50kjAoy5pAb1GdOa+LCAtwK6UFjGD0LGCa1Oo1/7uiYr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JxMAK9WN; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Ql6GwujqfkeqQPNI+m+ej7m9n2gsmhEabLR9PsDSvTpvbVFWwfhrRDshxjec9z3SVBYfPXUeeq6Obbjlkel305vL3cEE7GJwXSpDPcGJAHaJk4tERZXKZ6LVF8cLyba7rUDQFCtYP0ZqyUAguZ+kYVoyn5fjc9OKKkBmalDTh48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IQ1AEwET; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JxMAK9WN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6691F000E9;
-	Thu,  2 Jul 2026 07:54:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IQ1AEwET"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 005AD1F000E9;
+	Thu,  2 Jul 2026 07:56:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782978889;
-	bh=+tP/MD0aWHTlDiQxaoBQFFMi5TZ5D2O4P6sV/008M6k=;
+	s=k20260515; t=1782978991;
+	bh=00XyTAI5EQeL+TgW+wM+jy0EdqBX1c+3vLzmPqsnXh8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JxMAK9WNpwiWBNnBXb7lvzJwuK0xOPvq/rIlbv0gOk1EOa341kcIV1n4vE/Me0ZEa
-	 esdpaXgDslwp2RMKBnZC0r6jmL863QQKgbjOZcV2QHxcijw+foSBmr2UfQm4uzmJJ1
-	 nkeidaCP/EY8I7nHB0OXrosZCrzFUuFvOEvFShgHpJFQXXXosl2HRuJ0o3Bw0hiKNi
-	 30woEFOv6C0TwgH7yxByhlQksrXPaE4GrIBND4erEd4gvsPp9PwyejXoTOH8nb3cRg
-	 Aj5cXgz14n0+lPiCXjDiOAAxYRZ9JqqmBOTCiGLlV0UjBpCLQSe97+2eRo6k8Yw3lO
-	 9KAjO3HKDdVWQ==
+	b=IQ1AEwEThAYZpYxxv7PCzy7Eesu//yFZ/J30JgYrdfbdBbe4VwI8Z64JzeHTQpsql
+	 4qGCZRut/kp3TRUNFr0TTpyYcXBCApu+K3B+Ce+8K5DQaCsxVZ5LS2SpwU5QT0Ngry
+	 ZhKg0PjFyIC6jd+pVcs75LvbW6N8kAvNWDeu1sfEV1p2vceIAtjl2xZBSP4c9O2+P2
+	 0ppxj94evRPKiFtKOT3+Pu6ZZB5/DN4rXniexExnjuSyY/5Q9fy1/MmDw6Dt8MwI7U
+	 qy4HXelbqPTwkqsvXJSgkgr+T+hMmvvw+muqhxljPGu8q0xiH3NCz2GKUxiNYCC/Xz
+	 z1jhG3zPTpyBg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 08/12] media: mediatek: jpeg: fix remove buffer
- removal timing for multi-core
+Subject: Re: [PATCH v15 12/12] media: mediatek: jpeg: add jpeg smmu sid
+ setting
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260702072614.10373-9-kyrie.wu@mediatek.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260702072614.10373-13-kyrie.wu@mediatek.com>
 References: <20260702072614.10373-1-kyrie.wu@mediatek.com>
- <20260702072614.10373-9-kyrie.wu@mediatek.com>
+ <20260702072614.10373-13-kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 07:54:48 +0000
-Message-Id: <20260702075449.1A6691F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 07:56:30 +0000
+Message-Id: <20260702075631.005AD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
-New issues:
-- [High] In `mtk_jpegenc_worker`, `v4l2_m2m_src_buf_remove()` and `v4l2_m2m=
-_dst_buf_remove()` are incorrectly called after `mtk_jpeg_enc_start()`. Thi=
-s introduces a severe race condition where an early hardware completion int=
-errupt can process the buffers before they are removed from the ready queue.
-
 Pre-existing issues:
-- [High] The job timeout delayed work is scheduled before acquiring the har=
-dware lock, creating a window where it can execute prematurely and lead to =
-DMA memory corruption or list corruption.
-- [High] Concurrent execution of the hardware IRQ handler and the timeout w=
-ork leads to list corruption and state desynchronization.
-- [Medium] `mtk_jpegenc_worker` leaks a PM runtime usage counter reference =
-on error paths.
+- [Critical] Permanent increment of `hw_index` and `max_hw_count` on probe =
+failure leads to Buffer Overflow and Use-After-Free.
+- [High] Missing `pm_runtime_put_noidle()` when `pm_runtime_get_sync()` fai=
+ls in the encoder worker.
+- [High] Race condition between HW IRQ handler and timeout worker leading t=
+o double buffer completion.
 --
 
-commit 4ce8f75cccbcd44894ec25eb120040d2e022ccdb
+commit 4f42651eeefeb9f2b2cb2fedba4846b1c45e369e
 Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-media: mediatek: jpeg: fix remove buffer removal timing for multi-core
-   =20
-Move calls to v4l2_m2m_src/dst_buf_remove() inside of the spinlock
-protected scope to ensure all necessary operations are performed
-before buffers are removed from their queues and ensure proper
-synchronization of buffer handling to avoid buffer lost.
+media: mediatek: jpeg: add jpeg smmu sid setting
 
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
-rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> index 02efaed198b85..0b9a3b66895a0 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> @@ -1653,9 +1653,6 @@ static void mtk_jpegenc_worker(struct work_struct *=
-work)
->  		goto enc_end;
->  	}
+This commit adds a configuration to set the JPEG decoder and encoder SMMU S=
+ID.
+It maps the SMMU register base from the device tree and updates the SID
+settings during worker initialization.
 
-[Severity: Medium]
-This is a pre-existing issue, but does pm_runtime_get_sync() increment
-the usage counter even on failure?
-
-If it fails here in mtk_jpegenc_worker() and jumps to enc_end without
-dropping the reference, couldn't this leak the usage counter and prevent
-the device from suspending?
-
-Would using pm_runtime_put_noidle() in the error path fix this?
-
-> -	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
-> -	v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
-> -
->  	schedule_delayed_work(&comp_jpeg[hw_id]->job_timeout_work,
->  			      msecs_to_jiffies(MTK_JPEG_HW_TIMEOUT_MSEC));
-
-[Severity: High]
-This is a pre-existing issue, but by scheduling the timeout work before
-acquiring the hw_lock, could the timeout expire while the worker is
-preempted?
-
-If the worker thread is preempted or suspended longer than the timeout
-period, the lockless timeout handler could execute, reset the hardware,
-and return the buffer to userspace.
-
-When the worker thread resumes, it blindly acquires the lock and configures
-the hardware with pointers to the now-completed buffers. Could this result
-in the hardware forcing DMA into memory that has already been freed or
-reused by userspace?
-
-This same pattern appears in mtk_jpegdec_worker() as well.
-
-> @@ -1673,6 +1670,8 @@ static void mtk_jpegenc_worker(struct work_struct *=
-work)
->  			     &src_buf->vb2_buf);
->  	mtk_jpeg_set_enc_params(ctx, comp_jpeg[hw_id]->reg_base);
->  	mtk_jpeg_enc_start(comp_jpeg[hw_id]->reg_base);
-> +	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
-> +	v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
-
-[Severity: High]
-By moving the buffer removal after mtk_jpeg_enc_start(), does this create a
-race condition where the hardware completion interrupt processes the buffers
-before they are removed from the V4L2 M2M ready queue?
-
-If the hardware finishes instantly and triggers mtk_jpegenc_hw_irq_handler()
-on another CPU, the IRQ handler will complete the buffer and return it to
-userspace.
-
-If userspace quickly dequeues and requeues it via VIDIOC_QBUF before the
-worker thread calls v4l2_m2m_src_buf_remove(), the framework might call
-list_add_tail() on a node already linked in the ready queue. Could this
-corrupt the list pointers and lead to a kernel panic?
-
-Should the buffers be removed from the queues before starting the hardware
-to avoid this window, similar to how it is correctly handled in the decoder
-modifications below?
-
->  	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
->  	spin_unlock_irqrestore(&comp_jpeg[hw_id]->hw_lock, flags);
-
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c b/dri=
+vers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> index 5a485e905787d..2e079a6e5d5d3 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
 [ ... ]
+> @@ -666,6 +685,10 @@ static int mtk_jpegdec_hw_probe(struct platform_devi=
+ce *pdev)
+>  	dev->master_dev =3D master_dev;
+>  	master_dev->max_hw_count++;
+> =20
+> +	ret =3D mtk_jpegdec_smmu_init(dev);
+> +	if (ret)
+> +		return ret;
+> +
 
+[Severity: Critical]
+This is a pre-existing issue, but can this early return cause an out-of-bou=
+nds
+array write on subsequent probe attempts?
+
+In drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c:mtk_jpegdec_hw_pr=
+obe(),
+the counters are incremented prior to this block:
+
+	i =3D atomic_add_return(1, &master_dev->hw_index) - 1;
+	master_dev->dec_hw_dev[i] =3D dev;
+	master_dev->reg_decbase[i] =3D dev->reg_base;
+	dev->master_dev =3D master_dev;
+	master_dev->max_hw_count++;
+
+If mtk_jpegdec_smmu_init() (or the pre-existing devm_clk_bulk_get() call be=
+low
+it) returns an error such as -EPROBE_DEFER, the probe aborts without
+decrementing master_dev->hw_index or max_hw_count.=20
+
+When the system retries probing, these counters will be permanently
+incremented, rapidly exceeding the bounds of the dec_hw_dev array and
+leading to memory corruption.
+
+>  	platform_set_drvdata(pdev, dev);
+>  	pm_runtime_enable(&pdev->dev);
+>  	ret =3D devm_clk_bulk_get(dev->dev,
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c b/dri=
+vers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+> index 1cfdfac98829b..0001d69ae7bab 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+[ ... ]
+> @@ -390,6 +409,10 @@ static int mtk_jpegenc_hw_probe(struct platform_devi=
+ce *pdev)
+>  	dev->master_dev =3D master_dev;
+>  	master_dev->max_hw_count++;
+> =20
+> +	ret =3D mtk_jpegenc_smmu_init(dev);
+> +	if (ret)
+> +		return ret;
+> +
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but could this early return also
+lead to an out-of-bounds write here?
+
+Just like in the decoder, if mtk_jpegenc_smmu_init() fails in
+drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c:mtk_jpegenc_hw_probe=
+(),
+the function returns without rolling back master_dev->hw_index and
+max_hw_count. Subsequent probe retries will use an out-of-bounds index for
+the enc_hw_dev array.
+
+>  	platform_set_drvdata(pdev, dev);
+>  	pm_runtime_enable(&pdev->dev);
+>  	ret =3D devm_clk_bulk_get(dev->dev,
 
 [Severity: High]
-This is a pre-existing issue not touched by this patch, but could there be a
-race condition between the hardware IRQ handler and the timeout work?
+This isn't a bug introduced by this patch, but does this error handling path
+leak the PM runtime usage counter?
 
-In drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c,
-mtk_jpegenc_hw_irq_handler() calls:
+In drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:mtk_jpegenc_worker(=
+):
 
-    cancel_delayed_work(&jpeg->job_timeout_work);
+	ret =3D pm_runtime_get_sync(comp_jpeg[hw_id]->dev);
+	if (ret < 0) {
+		dev_err(jpeg->dev, "%s : %d, pm_runtime_get_sync fail !!!\n",
+			__func__, __LINE__);
+		goto enc_end;
+	}
 
-If the timer expires at the exact same moment the hardware finishes,
-cancel_delayed_work() will return false, meaning the timeout work could
-execute concurrently on another CPU.
+If pm_runtime_get_sync() fails, the code jumps directly to enc_end without
+calling pm_runtime_put_noidle() to drop the acquired reference, potentially
+preventing the device from ever entering a low-power state.
 
-Since both threads process the same buffers and simultaneously call
-mtk_jpegenc_put_buf() (which executes list_add_tail()), could this corrupt
-the list structure by adding the same node concurrently? Would it also lead
-to double-incrementing master_jpeg->hw_rdy and double-decrementing PM
-runtime?
+[Severity: High]
+This is a pre-existing issue, but is there a race condition between the
+hardware IRQ handler and the timeout worker?
 
-This same vulnerability appears to exist in mtk_jpegdec_hw_irq_handler()
-for the decoder.
+In drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c:mtk_jpegenc_hw_ir=
+q_handler():
+
+	cancel_delayed_work(&jpeg->job_timeout_work);
+
+	ctx =3D jpeg->hw_param.curr_ctx;
+	src_buf =3D jpeg->hw_param.src_buffer;
+	dst_buf =3D jpeg->hw_param.dst_buffer;
+
+If the hardware times out, mtk_jpegenc_timeout_work() executes and
+unconditionally completes the buffers and drops PM references:
+
+	v4l2_m2m_buf_done(src_buf, buf_state);
+	mtk_jpegenc_put_buf(cjpeg);
+	pm_runtime_put(cjpeg->dev);
+
+If the hardware interrupt fires concurrently on another CPU,
+cancel_delayed_work() will return false without waiting. Both contexts will
+proceed to process the completion, potentially leading to double buffer
+completion and a double PM runtime put.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702072614.1037=
-3-1-kyrie.wu@mediatek.com?part=3D8
+3-1-kyrie.wu@mediatek.com?part=3D12
