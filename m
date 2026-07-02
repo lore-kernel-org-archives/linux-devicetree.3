@@ -1,204 +1,266 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B908481648
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:51:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4274EA372
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782985917; cv=none; b=CXOF9+/DWcscGYQqzwtHfQHp5xQ9tLJ0SfcY1o5+xgnx8xLLH3dU453hC+KU1oSzNNHhGJUXJoCn9x4GOVBOOtw6x95m2ai4kVwnXlUkhJXDo/nonlaM7Kf0AjVzIllnv60gsgwYTvJqW1Q7w70s7hM6tCuLcOtJgtxKrPXcyhc=
+	t=1782985921; cv=none; b=b3ckNTJbr09DP8ft6WAtUKlm+4ZfuSi3pjaJPAee7sUx84+/i2uph4z1HRWVebxhBy6oDZY0zGdL5zAKvblNFbTFLNq7AAcXz0TowWYVBVrXsB9BiWh/Sr7FiYAzUZIKecdJKVB1SWyWOjtEkrmofCDAbNzaK6CA2K/wVFVvtu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782985917; c=relaxed/simple;
-	bh=zrxJFa4VPwsYcw8XwQGDYVBpixFGlco1FfRkuJ8EAgA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EsEveJB12aGJhtiBmokxGiU1rKpcQ7DlWoxOEvDYf7ruLC7wwguYcTOVu9OmLGX0M7e5ktgcK8osd04IhaEX3YLEeBbS+ARbedfJrnd7bP9FQAx+up6KIlYg8KaUDq1tlNoAZbNe1xG/RtY+g94CS/3w3ciN48rwhO/0Gklog3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jpRsmq4t; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fFuZDmzZ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782985921; c=relaxed/simple;
+	bh=Aa+4CLq/1lEPi+3KENlRBYE/WUmOxjgIgxXkSN2a0b4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qqC0ABVUa/iYAxtECYll6x/CG3j3TSjnElrSM1U4Lax+esv+DCnTIp0CD+gEQ2D2PJAwMxH/ivHvsX9og4x5w+Huhq7hWasXPPwLFBMdyBlVZZ+/SFNOB7yUUDnIS6pf7TLG/gHlnlrJp9yw3HcfG4sf6+DkZLVNegH0jDaF/Gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l+yAHKqO; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jpRsmq4t";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fFuZDmzZ"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6629Knp24116732
-	for <devicetree@vger.kernel.org>; Thu, 2 Jul 2026 09:51:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	755Kmru2NNLSqWs38B8De3HgJThqhmh0GCRqXzxW0lM=; b=jpRsmq4t/cp/kxQK
-	HLI/vN1cBYfP5j7CzPNM4KXL5hC7zTh4lIKd+OSTRA8WxYrnLcsGCTG/BiUdyhG8
-	Fhgyb43+jZn7VggmFRfBZbsbE4yrW74emmSa0Y/uh9Tpi3Leg9/+m2LJsx6wiQag
-	ycynclZHqPY3U7qzJBOVmFUuewvHGeOlh86UgbQ1RF4oDQ+zAbu1EsUeVJfwHQHz
-	fNRTP2F+GVliIZxw+CLGAuLK9zcehya5UuDrZT7RvAgR1SyFI2+jBueuKt5PMc5g
-	8QgWqIakNWbgr+DgNgsCvYG2rOEyY+pYK1dZfWP5Ks4ELUyYiO5/xSBnQZIkkDuE
-	lvejkg==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5n9bg459-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 09:51:55 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84777e9b51bso3171222b3a.2
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:51:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l+yAHKqO"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-845b6d9bf39so383630b3a.1
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:51:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782985915; x=1783590715; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=755Kmru2NNLSqWs38B8De3HgJThqhmh0GCRqXzxW0lM=;
-        b=fFuZDmzZtjiLjab4X5om41m6olxx+q3owYCd3eY2jN6lJcNTWCpdQCQBG/iYrgPcF4
-         5BX+sjUVe6mQxwtysKnGRO71x8YewrkTLQ093+KVVDjGBuSzvxRMg0YKVdjAgDm5wVqZ
-         ICyDHgO5L8b9tJRU21rRXnfWW7wp/r4R2HZinq2J6IYpqfEV/f0JsLxcG/EIHAwhexJb
-         jtKc4ZcgRTLcs2XCW83EhnxHT4ZXvCfGfDg/SkX5V0ApJNuupwEqKsdUns1IHwXnXlgb
-         YjU9jiydSSPq9NhilhF3N3UfizqAxLNMp16+qh2hJZ+eWZzC50jLzNLrc5vLKJmoiOUY
-         lEjQ==
+        d=gmail.com; s=20251104; t=1782985919; x=1783590719; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=YDRpB2DKaayDiWw9YLXhH5c/W2DOhBpZscwPdMD2aSs=;
+        b=l+yAHKqOBx55NlRBGjnNHDeGxvEXt17mHfuZkapqemGoHchd+3xemhyspeTFf/DkVC
+         bmXqQkfNd6LLQjtbvYEfu+H7HITOtHPUFL86V/RzZmf7GKuHJUz2XmMHevFYA6WQBPj4
+         yC1lLvpKY9rYJuZogLp6An5FabWSczpHSEAEcpR77JHCE/M3lWaXVMCaWRT8hLxwy//v
+         B7Ekv/fc6ABf0ZUQkkkjEU6tw7yULYNMnkqdST+1DFpJtVpcql3h3ZxgTcJK+5YUiLxG
+         ZIa09R5kGRkkhaO4wfQ9qBu91haZz10SI/F9tcDYwzKYLimRHlUaKT5ZrW2L4r7rguDS
+         HO9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782985915; x=1783590715;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=755Kmru2NNLSqWs38B8De3HgJThqhmh0GCRqXzxW0lM=;
-        b=fvS0d+ZKXgKTvmtZAqJqvnxOZOmYUpwvEWf1738jOcdZ08L+qNN8EetrYHW33FXfL8
-         FKG4kFWNy30+fSy0xqCwXG4s+mbl6E/4vDGd4VCJan9VWVBLuWpyDap3bxSVYciUwQd1
-         F36cfpOtlx9vX2G/GKAS3XZb7W/v3DLXMr/oBOHpCgOCsFJdzU43/hQ0qqHABpFsxr8t
-         jIDY4Avrk1h56hiqICezfBiQL95SwmOQhMN2N1M37q9m/+NDaZCJXArl743w41+TLsaC
-         GtawQD5XyVoY7wklzDBN31Akb4lS2fiYI20u8/hgs0BZmNlmTjI3iWAi2RtcJGunGv0g
-         NpnQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/6JnZFxSMxnklpp540kn1lMFFn+qZlyBIwqXjsdWpTzA1mu5zBbZeHW8StLtKRN+dGdf4HLX8j29kH@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBt3I1b8xIUQXNo6ESJGF+WCtslaxsrVSwbftVOGuespsy9zeP
-	li3oXB3svrv/wrSP7z1s71JsRC8nfxM3zWe6m0cJdOdjlMvqzF5tZVCYHDtr0xYq33zuNe3iSfn
-	b10GW77bZ5BsIN9TDrgPMNnMJHIqbQs2GIwXZ0M4JYz3o7yE/N1r46rA0ys+pnkM3
-X-Gm-Gg: AfdE7cnuOc/zlZuXWRRtCOsK5BoY+f17+YebT/y+++44i5jQKRhpht6xwO3n8vTVsG/
-	uJjAUDqypo8liT1TNZF2n9OB7t0rIsrh6JEUeGyEZwT0mQ0y76u+VkAHht8fVBqPjf7Vy4br/0Z
-	yfd+2rA3QXLvKdSVDW1dAp2hBt95oPbEPDcyKxbA8GWD06GqkJohLkUgvTzhjWJYD47n5hx2Qfo
-	03JjPWNCvjSHHDOAuGa8lPzNa4rOO+rFcVqa7+yKBY6ACmtQGDNPfWHR2MF4SxFWsRh2Bn/8M+Y
-	tghCMZpjHyuQ5hIxftBkB1h6+s280Ryjtrya7Y691PFJ269xwjQGA5yi9LndJ9ertWsKfMqKSoL
-	YDq36Aci4CiBDePHKG+VchT/MAA==
-X-Received: by 2002:a05:6a00:908c:b0:847:752e:3631 with SMTP id d2e1a72fcca58-847c5168793mr4391062b3a.46.1782985914511;
-        Thu, 02 Jul 2026 02:51:54 -0700 (PDT)
-X-Received: by 2002:a05:6a00:908c:b0:847:752e:3631 with SMTP id d2e1a72fcca58-847c5168793mr4391012b3a.46.1782985913936;
-        Thu, 02 Jul 2026 02:51:53 -0700 (PDT)
-Received: from [10.213.101.118] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847cb78ee2esm1110051b3a.24.2026.07.02.02.51.49
+        d=1e100.net; s=20251104; t=1782985919; x=1783590719;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=YDRpB2DKaayDiWw9YLXhH5c/W2DOhBpZscwPdMD2aSs=;
+        b=Jj+ENBf5dsfxw0VYDeSUai8ntsouI1SjwBrGggyOTEcBEdPccl2d9t+Qql7Hm5C295
+         2vPsCJXo9Ci125/MEQRzDEQzA6/BAsD3hOzbtdzgkddCDnW+z458gpOlu0TxauEUvsF6
+         9K2nyLvVm6Q6CZ7cdKbMAKIaeasBTyaaFKMThqBBBzHqBDEfgGR/0Z1+kF+y72BORaNT
+         IT/ZfVD25t6xvgbAxtKGBaYDODIE8PI8wodFpk/qAHR4KclZH/Pgc6GpqekwDweeK2H3
+         DAqFvqUEobuE3PkMceOolhuWac3Uo0Ak0BdUX8WOkmjLjH3wR3NqzF6s+RSGOT6SvTFv
+         sbpw==
+X-Forwarded-Encrypted: i=1; AFNElJ/n+7EKcjdPyvOBj/YVkHeewh6Q0UxXETfx/Ewa3kgch0XycycaCKnXP8I5Ev3nO6AP44vsDGpp+kdg@vger.kernel.org
+X-Gm-Message-State: AOJu0YwS0UY1QpjWzvWyoRJHJdHd14vwrdPsGKI+9nx3bTVcXTe2VT4Q
+	aSSnQvGOO56+i7L2R2J7+ibifemCJjy4oFiDr2tiEJCvGJRY8xnytp/K
+X-Gm-Gg: AfdE7cnhalKKEhe87EDqduIy9vKDxNHj5Z3gU3wpHmHwrFxFqTPlSl+HFTeXr99iC4g
+	dNKDYo+O3I6UXpK0v6U7+gtUaGaxQjDzq2eiax3OD4q8SCBujPz1ZuzPcsJO/vWJsjn+gympHrD
+	25NYCGUlwihuuQmp4+5kl4NqLWySubc+3p/5hID3d+oMvrmq28mpFhBsx3T/FlOnhfOzTVV0gcK
+	jhmK1FN19i7Ha+49U3i1q09FpycxR3131hZD8KPw15kQa/01E9MiK06//mMLptzJeNVXXxGi3LJ
+	9qSkAvagRPk+pBP4sF9p21FO076HgNnJovkzZqvmjPMK7tIXmj8Xo2vkEADFpA1Q5GrwSgOnu8M
+	Ex+YRgm47xhT1enTpDryuprI84E6nLP3WDRygLDKLS6XeP2HkR4iwo4nCwYAETRfz
+X-Received: by 2002:a05:6a00:13a1:b0:847:8bd0:1b96 with SMTP id d2e1a72fcca58-847bf9d4b0amr4742033b3a.23.1782985918713;
+        Thu, 02 Jul 2026 02:51:58 -0700 (PDT)
+Received: from localhost ([2001:da8:7001:11::cb])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847cb7933e1sm1069821b3a.26.2026.07.02.02.51.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 02:51:53 -0700 (PDT)
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Date: Thu, 02 Jul 2026 15:20:53 +0530
-Subject: [PATCH v5 11/11] arm64: dts: qcom: shikra: Add
- gpio-reserved-ranges to tlmm
+        Thu, 02 Jul 2026 02:51:58 -0700 (PDT)
+Date: Thu, 2 Jul 2026 17:51:28 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Chen-Yu Yeh <chenyou910331@gmail.com>, unicorn_wang@outlook.com, 
+	inochiama@gmail.com
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Han Gao <rabenda.cn@gmail.com>, 
+	Nutty Liu <liujingqi@lanxincomputing.com>, Longbin Li <looong.bin@gmail.com>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, 
+	"open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>, 
+	"open list:SOPHGO DEVICETREES and DRIVERS" <sophgo@lists.linux.dev>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] riscv: dts: sophgo: Add Milk-V Duo 256M board
+ support
+Message-ID: <akY0kY8yWAU_J3Eu@inochi.infowork>
+References: <20260610121026.1517621-1-chenyou910331@gmail.com>
+ <20260610121026.1517621-2-chenyou910331@gmail.com>
+ <akXbk7l9bZ_W0GLR@inochi.infowork>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-shikra-dt-m1-v5-11-f911ac92720c@oss.qualcomm.com>
-References: <20260702-shikra-dt-m1-v5-0-f911ac92720c@oss.qualcomm.com>
-In-Reply-To: <20260702-shikra-dt-m1-v5-0-f911ac92720c@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        Anurag Pateriya <apateriy@qti.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782985846; l=1832;
- i=komal.bajaj@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
- bh=zrxJFa4VPwsYcw8XwQGDYVBpixFGlco1FfRkuJ8EAgA=;
- b=I5ZZiEPU5ocYeFh6TIaMz/FgAsPVoIRMynonz30ynq7Dr+IIy9F9bKY74X0pIfNiKV7EWueOq
- aJGqc0zwFjNATrCR14kATNFy8eVmtsN+hrbza266iZXRgLbeHHwdbQc
-X-Developer-Key: i=komal.bajaj@oss.qualcomm.com; a=ed25519;
- pk=wKh8mgDh+ePUZ4IIvpBhQOqf16/KvuQHvSvHK20LXNU=
-X-Proofpoint-ORIG-GUID: tP6aWaaq0dbbztsjkoVfIv0qTlgF2LZU
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDEwMSBTYWx0ZWRfX39FIZMWifezk
- qb9fKHi6vAp+zV06k1ZSJ6bl8Bp64Hv27YvEkukbehEFJ4PTvrPMbZmKflNwq5L5u+JHu1bp94F
- IUsCrDnDqFcvUYK+62umzw9ZOP9OaKA=
-X-Proofpoint-GUID: tP6aWaaq0dbbztsjkoVfIv0qTlgF2LZU
-X-Authority-Analysis: v=2.4 cv=bOom5v+Z c=1 sm=1 tr=0 ts=6a4634bb cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=wm8cDCIBuLkz8hnEg_gA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDEwMSBTYWx0ZWRfX6pb1bxOdi8k7
- 7rt2KercnPta5IvsJfcCzkWNIeQfbrqXpIjpFib9LYBJdskv7jlYG9OTnjuA+HMFYfHAm8YGkPU
- 10+p3ORfcwMXPz8AbvBU/y9WKn9h2x+ovUzI4L9HF4+/3GwL6A9U4Q8FH054eum00L/pEPHna0K
- 1WmB6zSpajS3f6My/dqsWdgFqqdSCapamjdrCtajPm9nF/cp6k7rdz2AMwyRTQbiCnjE8H6Xxz0
- 9cMfwb4+qcl1zPMXCnX1a+EE3+PgqW3FGYrdX6KQLq8wj1ugrM11ZYY3C+5Lk57eA8oUOydtevX
- Anwm56vsC4HgzVREOoXTO0z5/lD+YmE3TkCdiJSh95hZB3XjA0DxDElGAguDFZD/srS/9j3wj+l
- AzxFWLCBh2FLE9euVSxCShzyMhMCqYzr2VBEj4U+Hd5S8W/jPhF5wG9GLjK3D04nsH9JUjzVReI
- NhwertFrO6qCcgbmq/A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015 suspectscore=0
- phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020101
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <akXbk7l9bZ_W0GLR@inochi.infowork>
 
-Add gpio-reserved-ranges property to the tlmm node for all three
-Shikra EVK variants (CQM, CQS, IQS) to mark GPIOs used by the
-SoC internally and not available for general use.
+On Thu, Jul 02, 2026 at 11:38:09AM +0800, Inochi Amaoto wrote:
+> On Wed, Jun 10, 2026 at 08:10:10PM +0800, Chen-Yu Yeh wrote:
+> > The Milk-V Duo 256M is a small form factor development board based on
+> > the Sophgo SG2002 SoC.
+> > 
+> > This patch adds basic device tree support for the board, including:
+> > - UART console
+> > - SD/MMC controller
+> > - USB host
+> > - Onboard blue status LED (connected to PWR_GPIO[2] / porte 2)
+> > 
+> 
+> > Tested on actual Milk-V Duo 256M hardware, verified boot to shell and
+> > heartbeat LED functionality.
+> > 
+> 
+> IIRC the led is not controlled by the small core, so the node should
+> be described in the dts.
+> 
+> I see the Sashiko does provide some good question, please check.
+> 
+> > Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
+> > ---
+> > Changes since v1:
+> > - Removed the leds node because &porte is not yet supported in cv180x.dtsi,
+> >   which would cause a dtc compilation error.
+> > - Retained the &usb node because it is already defined in cv180x.dtsi.
+> > - Cleaned up the trailing blank line in the Makefile.
+> > 
 
-Signed-off-by: Anurag Pateriya <apateriy@qti.qualcomm.com>
-Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 4 ++++
- arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 4 ++++
- arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 4 ++++
- 3 files changed, 12 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-index c9409ab0a3f1..269e11bd44f6 100644
---- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-@@ -66,6 +66,10 @@ &sdhc_1 {
- 	status = "okay";
- };
- 
-+&tlmm {
-+	gpio-reserved-ranges = <6 4>, <14 4>, <30 2>, <115 2>, <138 1>, <155 11>;
-+};
-+
- &uart8 {
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-index 58fed6cc5925..ccf8f856e994 100644
---- a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-@@ -66,6 +66,10 @@ &sdhc_1 {
- 	status = "okay";
- };
- 
-+&tlmm {
-+	gpio-reserved-ranges = <6 4>, <14 4>, <30 2>, <115 2>, <138 1>, <155 11>;
-+};
-+
- &uart8 {
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-index 864c0d2636e6..743979b5ed5e 100644
---- a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-@@ -74,6 +74,10 @@ &sdhc_1 {
- 	status = "okay";
- };
- 
-+&tlmm {
-+	gpio-reserved-ranges = <6 4>, <14 4>, <30 2>, <115 2>, <138 1>, <155 11>;
-+};
-+
- &uart8 {
- 	status = "okay";
- };
+So why not adding the porte?
 
--- 
-2.34.1
+Regards,
+Inochi
 
+> >  arch/riscv/boot/dts/sophgo/Makefile           |   3 +-
+> >  .../boot/dts/sophgo/sg2002-milkv-duo256m.dts  | 108 ++++++++++++++++++
+> >  2 files changed, 110 insertions(+), 1 deletion(-)
+> >  create mode 100644 arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
+> > 
+> > diff --git a/arch/riscv/boot/dts/sophgo/Makefile b/arch/riscv/boot/dts/sophgo/Makefile
+> > index 6f65526d4193..f9415c30a2c5 100644
+> > --- a/arch/riscv/boot/dts/sophgo/Makefile
+> > +++ b/arch/riscv/boot/dts/sophgo/Makefile
+> > @@ -2,7 +2,8 @@
+> >  dtb-$(CONFIG_ARCH_SOPHGO) += cv1800b-milkv-duo.dtb
+> >  dtb-$(CONFIG_ARCH_SOPHGO) += cv1812h-huashan-pi.dtb
+> >  dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-licheerv-nano-b.dtb
+> > +dtb-$(CONFIG_ARCH_SOPHGO) += sg2002-milkv-duo256m.dtb
+> >  dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-milkv-pioneer.dtb
+> >  dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-evb-v1.dtb
+> >  dtb-$(CONFIG_ARCH_SOPHGO) += sg2042-evb-v2.dtb
+> > -dtb-$(CONFIG_ARCH_SOPHGO) += sg2044-sophgo-srd3-10.dtb
+> > +dtb-$(CONFIG_ARCH_SOPHGO) += sg2044-sophgo-srd3-10.dtb
+> > \ No newline at end of file
+> 
+> 
+> Why you change this? Please do not touch unrelated things.
+> 
+> > diff --git a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts b/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
+> > new file mode 100644
+> > index 000000000000..4cf441ab3790
+> > --- /dev/null
+> > +++ b/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
+> > @@ -0,0 +1,108 @@
+> > +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+> > +/*
+> > + * Copyright (C) 2023 Jisheng Zhang <jszhang@kernel.org>
+> 
+> I guess a right copyright is needed for your code.
+> 
+> > + */
+> > +
+> > +/dts-v1/;
+> > +
+> > +#include "sg2002.dtsi"
+> > +#include <dt-bindings/gpio/gpio.h>
+> > +
+> > +/ {
+> > +	model = "Milk-V Duo 256M";
+> > +	compatible = "milkv,duo256m", "sophgo,sg2002";
+> > +
+> > +	aliases {
+> > +		serial0 = &uart0;
+> > +		serial1 = &uart1;
+> > +		serial2 = &uart2;
+> > +		serial3 = &uart3;
+> > +		serial4 = &uart4;
+> > +	};
+> > +
+> > +	chosen {
+> > +		stdout-path = "serial0:115200n8";
+> > +	};
+> > +
+> > +	reserved-memory {
+> > +		#address-cells = <1>;
+> > +		#size-cells = <1>;
+> > +		ranges;
+> > +
+> > +		coprocessor_rtos: region@83f40000 {
+> > +			reg = <0x83f40000 0xc0000>;
+> > +			no-map;
+> > +		};
+> > +	};
+> > +};
+> > +
+> > +&osc {
+> > +	clock-frequency = <25000000>;
+> > +};
+> > +
+> > +&pinctrl {
+> > +	uart0_cfg: uart0-cfg {
+> > +		uart0-pins {
+> > +			pinmux = <PINMUX(PIN_UART0_TX, 0)>,
+> > +				 <PINMUX(PIN_UART0_RX, 0)>;
+> > +			bias-pull-up;
+> > +			drive-strength-microamp = <10800>;
+> > +			power-source = <3300>;
+> > +		};
+> > +	};
+> > +
+> > +	sdhci0_cfg: sdhci0-cfg {
+> > +		sdhci0-clk-pins {
+> > +			pinmux = <PINMUX(PIN_SD0_CLK, 0)>;
+> > +			bias-pull-up;
+> > +			drive-strength-microamp = <16100>;
+> > +			power-source = <3300>;
+> > +		};
+> > +
+> > +		sdhci0-cmd-pins {
+> > +			pinmux = <PINMUX(PIN_SD0_CMD, 0)>;
+> > +			bias-pull-up;
+> > +			drive-strength-microamp = <10800>;
+> > +			power-source = <3300>;
+> > +		};
+> > +
+> > +		sdhci0-data-pins {
+> > +			pinmux = <PINMUX(PIN_SD0_D0, 0)>,
+> > +				 <PINMUX(PIN_SD0_D1, 0)>,
+> > +				 <PINMUX(PIN_SD0_D2, 0)>,
+> > +				 <PINMUX(PIN_SD0_D3, 0)>;
+> > +			bias-pull-up;
+> > +			drive-strength-microamp = <10800>;
+> > +			power-source = <3300>;
+> > +		};
+> > +
+> > +		sdhci0-cd-pins {
+> > +			pinmux = <PINMUX(PIN_SD0_CD, 0)>;
+> > +			bias-pull-up;
+> > +			drive-strength-microamp = <10800>;
+> > +			power-source = <3300>;
+> > +		};
+> > +	};
+> > +};
+> > +
+> > +&sdhci0 {
+> > +	pinctrl-0 = <&sdhci0_cfg>;
+> > +	pinctrl-names = "default";
+> > +	status = "okay";
+> > +	bus-width = <4>;
+> > +	no-1-8-v;
+> > +	no-mmc;
+> > +	no-sdio;
+> > +	disable-wp;
+> > +};
+> > +
+> > +&uart0 {
+> > +	pinctrl-0 = <&uart0_cfg>;
+> > +	pinctrl-names = "default";
+> > +	status = "okay";
+> > +};
+> > +
+> > +&usb {
+> > +	dr_mode = "host";
+> > +	status = "okay";
+> > +};
+> > -- 
+> > 2.43.0
+> > 
