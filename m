@@ -1,114 +1,110 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3F538E5DE
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:06:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782983164; cv=pass; b=rGVsG87I6Fs4sA/yg4oisgedr6nHJuZp8bm1mkKZTvQL1xR4Lr2wFQIOX628/DB2hg3eDSlQ8bHmOrfcUNbwikh2p/cRbjLrufvxdGF3xbYoz4vRChE4FwY6WBApgzpTwd2228ZaXxOTfMZFfhhr3YEElr7df9GyMhJAbe2YYHg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782983164; c=relaxed/simple;
-	bh=OLbJZmEN48Bpb3YwVZB+cvbIxBezJ3Tv0MKyhyRFS2c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W0PEM94bCZ72GaoahsAy2Goda54tR8aZyHk8s2x5RnmyN13DZcHKs7f3De68tXKpzw8hSIXmOQoor75Hdc2DfqF/xE6lun/ZFPu3WEpmEPtK4iboNFGNILfMCRlObf1SJe9YkXIBISPYY6xdVkOU3IXByJ2zAOjLt/actxm3/w0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp; spf=pass smtp.mailfrom=0x0f.com; dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b=js42Jsn0; arc=pass smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC783EB7FE
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:06:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782983215; cv=none; b=eP7DXxy0aKe5GBoe4QL2IQwcLcoJIOs/O4wmOBfvCKy5pcInQA0bKLK+qWrG5DGYpmS48CSPQr0BvbYjYsmuiQPCziwsT/QwemxI4qNfiG4qIXhQw0RD/ScnJihPnmOc/vjkoDuvMtFA19our3Yv4TQn3rXeXp2xTxgf4uFMC0A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782983215; c=relaxed/simple;
+	bh=m3ZoRQ8XFi4O6c2bDok1nUQhJbi/sIGxJLPW4WcGgz0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Joy985jZCPVVZKVJXYs3jWYCjlbZ7kHVKwQ3Xk7Fu6fn42gpFuWpp0l2oLHusG6J40B+mjC/O6y7Qk2QmiSw3lVvvD/PWrDRNxIZJvTH6BT0n1wUHRtgoOU2cI7W9SUh+PbqzH+y5aXc/8rrI+0cs5+xhl3Ct8mFExKBWBgnS9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQF3SWr6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b="js42Jsn0"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c96d2bebca3so811828a12.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:06:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782983162; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Z5FCFVvgsnADFaeoF6YXzOZe+N2K6Fkxg49LA50XREmEeGaKDUNc913H5EDCJR8RNb
-         KmTabwEieXSSig3ttxGYa73RG1VpyEC/feqI3Fai+fMFFAEgxqk8us6uIb1RZWRAN1NB
-         P8eYQXOAzHHFX9u/mR8Xm4Y7wrvQJjCo7e6ky7KqAQqCPmNc0dtRMHLWkd6J1mCFL+H+
-         eOe3F7ZPbZ5CmLWVCmu0qnyGY5DFkRZ+VmM4baBcrsaz4Wp/0jVDlJPKQwxoaJKBABC3
-         CQNy8/Gfeisje1ittF3pxz6ZRCo0aocEA0vf+7dPT/fY1MhOGOTu9+DPpSbQNqeXFNIS
-         KlCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=OLbJZmEN48Bpb3YwVZB+cvbIxBezJ3Tv0MKyhyRFS2c=;
-        fh=7lKKt7zNhevpdyzMZc6m/VyS2Idb7LaMvFoEWNeJycs=;
-        b=cCHT98U2BLH4eTFizTwL61V4ntD42kbGQkif2tFsjyjex+6esmI+cvHUlnc3Zdixny
-         D8DbaIHGbYexgXf0ENWXHCJVyR8VehXf2csvifAYGwO0H6Hr67lIYfkJ8ktdcHnWht+A
-         TJqPb1Swrg0LZfhdLF1lfVKTedqDLKJZKGXDEoPGSDd789GSTHacn+9O7xZ0936Hyz7h
-         tYiobkppyuoZODn6hXC5OP39CUtcIO60O5fTpRoGx9DeYQv/sY3GzUIKSHHmRzBDUG9+
-         Jvfir1+w7fwadqZkjMvobSW9qSfNrQRBjEjncRwqNJHYe9s4XlHuGujXPs1kR4+DRzRh
-         25lQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thingy.jp; s=google; t=1782983162; x=1783587962; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=OLbJZmEN48Bpb3YwVZB+cvbIxBezJ3Tv0MKyhyRFS2c=;
-        b=js42Jsn03/prpdYz9xPxnTQSEFbcbdDZoQ/rDV5M/lMzOI3BO54oaAdSfKeQJogULZ
-         RO310UvUibVhhD3LY6KBNm6HBSeg8fkNoA2AFwEHimkyfRBjWWmT4tGtAbGOMNZOB5wQ
-         I1urdtavd0xi3LSm8+HVpXCyrx3qp9+MoeTxI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782983162; x=1783587962;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OLbJZmEN48Bpb3YwVZB+cvbIxBezJ3Tv0MKyhyRFS2c=;
-        b=dpSSNfv1VQL7PX8l5q4lAq62bEwgd6ZkrivNC30PXa8xIsLdQL4F3G7Qmlyis99Ys6
-         g6w9W6AL+FkFGcfvGndXCxQQJ8/vIReusYK8JIgrV4EhRrtbGtjpmb4k6+OobnyAWUAM
-         vnWSvLCRUkv3sNedJieogwMunCWkvr87VbziznKD7gxaTCFA9DP2axUnMkVpUwbmflF1
-         FNCsibB0A0NYBiCetbjSqJkQ8RiDSgyRz6xelwm8BwRgRu/lO3vKIeqmZr5+6jLNzleP
-         ui+UnmRab3DgIAF6Aq/qP2tExY6J5+KWPjRpgezj5sjiUfSMabub4mLiAGMSfB/p2iOK
-         CUfA==
-X-Forwarded-Encrypted: i=1; AFNElJ/yiobhdoQUtB3bHL1onvGUHZMpMpO6YAuUNo7IUaHgWypChHDT1mU5oP6hQoGYhFdEK574vCoSSrXI@vger.kernel.org
-X-Gm-Message-State: AOJu0YwGSMmoCXjp5sKAjJR9ULiqA+zhE/ArQFtBf2z9qy3hSt0h2FT2
-	Oa4t7VDGV2xRuFIhpLukL3MkICgQ/CSLQrMTmYvUBZOSv3b0xBTcBhm3y6eYZNwoP8+A+iB98tu
-	opWe9qGNEKvQwbtG7emoQa9p/BgOxNMdjtOHXTJQZHQ==
-X-Gm-Gg: AfdE7ckTtpe79gl0M1f+WORSu62p3d4k1XZsejJwktllXuX95KS8Q46P9Y0D0tbYlVR
-	jZd7rw7MzF5rDqt3c/vNKcbVvtw/bAQ0cQDKYVe31vXnVPYXkIniJjJsV7ut511Klr5L46oypJo
-	DekradXrJLprl7DD07zXv3ou5psGSAdFpnMJ7xpLqW2hY5Fo5e/ASvTnJoD8z8wV2XXCpThPwSQ
-	nNRODD9q7sJvsVIwtGbwxA3jnpczmeyziPP8erUIf5tPS6ZukVQHVP8JO6meClj3zbinGWtz6aM
-	BeYR4HTBNlIRhirAZxxTVR1p/YOBplA=
-X-Received: by 2002:a05:6a20:729f:b0:3bd:394d:addd with SMTP id
- adf61e73a8af0-3bfed470172mr6117379637.33.1782983162281; Thu, 02 Jul 2026
- 02:06:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQF3SWr6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 297201F00A3D;
+	Thu,  2 Jul 2026 09:06:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782983212;
+	bh=qPzmLDX3QxQ4GdsnHCWxejMVlk9a6dOmUOtu2sWT4oQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hQF3SWr6Bw2ii+KN9MLhChWH6WFvITesXMIk8xoirQhhUV+rehaz9aenfCcM5P0ap
+	 B50G/j8kApZfLDRnq/mIy46PKTz+hKl3NHKoj5oKojC83j+v9aMuBsmysbcFVjxXJW
+	 Y2Agi1IK6v3pbmWDgxECaTbTXCI4FmPOD4Mc2Mp7g4D61QrSpbuio4d/HRgGEZ50P+
+	 ADL0ieScwwDJFeAD5Q6vweaxVDu7ZGhBNATL8Q6oTGnbaqm/IVFS2rbuP7i1FRc9do
+	 yg/UY642PW/Ka3Kt9zwitOXBZBlSdpdZrtOkivPQXPbGYzdvv+s3L6Bo5/MDeh8HDm
+	 tCnOG4zpfVzWQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v3 3/3] arm64: dts: renesas: r8a779g0: Add gPTP
+ node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?TmlrbGFzIFPDtmRlcmx1bmQ=?= <niklas.soderlund+renesas@ragnatech.se>
+Cc: conor+dt@kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org
+In-Reply-To: <20260701090607.1108208-4-niklas.soderlund+renesas@ragnatech.se>
+References: <20260701090607.1108208-1-niklas.soderlund+renesas@ragnatech.se>
+ <20260701090607.1108208-4-niklas.soderlund+renesas@ragnatech.se>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 09:06:51 +0000
+Message-Id: <20260702090652.297201F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260626171906.476688-1-daniel@thingy.jp> <CAFr9PXmAtnLSzA3GLb4qKvrs1X6aD+DNPSoEBXhSzkL7oPHBig@mail.gmail.com>
- <20260630164804.GA3920230-robh@kernel.org>
-In-Reply-To: <20260630164804.GA3920230-robh@kernel.org>
-From: Daniel Palmer <daniel@thingy.jp>
-Date: Thu, 2 Jul 2026 18:05:47 +0900
-X-Gm-Features: AVVi8CcpyFXk8N1oXXA3N0fWYxrJuxEd4xgluAOW0hV3iND-geXqEiQpHEjA-WA
-Message-ID: <CAFr9PXkG9CKAF-cGQfOKhkysADTKSNmmyNmbC8kG1cOp=dcBfA@mail.gmail.com>
-Subject: Re: [PATCH] of/address: Drop ISA parts when !CONFIG_ISA
-To: Rob Herring <robh@kernel.org>
-Cc: saravanak@kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Rob,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The newly added `gptp` node claims the exact same memory and reset=
+ resources as the existing `tsn0` node, leading to `-EBUSY` probe failures =
+and hardware state corruption if both are enabled.
+--
 
-On Wed, 1 Jul 2026 at 01:48, Rob Herring <robh@kernel.org> wrote:
-> > I made a series that adds CONFIG_OF_ISA to enable this code, selects
-> > it in the places that needs it, and then does the original part of
-> > disabling the code if not needed. I will wait a bit before sending.
-> > The reason to do this is I am using devicetree to boot a machine with
-> > 4MB of RAM and a 7MHz CPU. Removing dead code/data like this helps.
->
-> I tend to not want more CONFIG_OF_foo options, but okay I guess.
->
-> Alternatively, maybe CONFIG_ISA should just be enabled with these
-> drivers. Doesn't really look like there's actually much or any code for
-> CONFIG_ISA. The biggest issue might be the option doesn't exist on
-> arm64.
+commit c52da814d390d81d618c033aea857f507bdb9ae0
+Author: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.se>
 
-I guess I'll try sending a patch for arm64 to add CONFIG_ISA and
-select it for the drivers that need the ISA bits in address.c
+arm64: dts: renesas: r8a779g0: Add gPTP node
 
-Thanks,
+This commit adds a new gPTP module node to the r8a779g0 device tree, sharing
+the hardware between the RAVB and RTSN Ethernet devices.
 
-Daniel
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/=
+dts/renesas/r8a779g0.dtsi
+> index 82a7278836e57..b9b860ef70351 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> @@ -589,6 +589,15 @@ tmu4: timer@ffc00000 {
+>  			status =3D "disabled";
+>  		};
+> =20
+> +		gptp: ptp@e6449000 {
+> +			compatible =3D "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
+> +			reg =3D <0 0xe6449000 0 0x500>;
+> +			clocks =3D <&cpg CPG_MOD 2723>;
+> +			power-domains =3D <&sysc R8A779G0_PD_ALWAYS_ON>;
+> +			resets =3D <&cpg 2723>;
+> +			status =3D "disabled";
+> +		};
+> +
+
+[Severity: High]
+Does adding this gptp node cause resource conflicts with the existing tsn0
+node?
+
+The new gptp node claims the 0xe6449000 memory region and the 2723 reset li=
+ne.
+However, looking at the existing tsn0 node right below it, tsn0 also claims
+the exact same memory region and reset line.
+
+If both nodes are enabled in a board device tree, this will lead to probe
+failures when the drivers request exclusive access to the 0xe6449000 MMIO
+region. Whichever driver probes second will receive an -EBUSY error.
+
+Additionally, the rtsn driver explicitly asserts the 2723 reset line during
+interface bring-up via rtsn_reset(), which would silently wipe the hardware
+registers configured by the gptp driver.
+
+Should the tsn0 node be updated to drop its gptp memory region and reset li=
+ne
+to safely extract the shared module?
+
+>  		tsn0: ethernet@e6460000 {
+>  			compatible =3D "renesas,r8a779g0-ethertsn", "renesas,rcar-gen4-ethert=
+sn";
+>  			reg =3D <0 0xe6460000 0 0x7000>,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701090607.1108=
+208-1-niklas.soderlund+renesas@ragnatech.se?part=3D3
