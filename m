@@ -1,53 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9D2E3DC4BC;
-	Thu,  2 Jul 2026 23:40:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04FA3D79FE;
+	Thu,  2 Jul 2026 23:40:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783035658; cv=none; b=fq1V2kcSykyB7P3ohfz3ceouuaw/3rI9+fnRPLph31+NvKgtmQ/6/3/oGVpTBuWn/gmEg0Ma7pPGorAweEHVKztXJayQ3JkadOM6S4lm8zhfwK7IdCkwcedSuHIXyNaKoNktBoC+dy4meFhFwnTxTnrJsdGTrDa/TqQsr5leTg0=
+	t=1783035658; cv=none; b=aNgs9O594f4bS0ltKLKIZaboAglJYNfpPfm0scCPE3rJwylg8nAw4CDGlBaXo1Gv8EEZdRfz31lPqUB/qMn2ZK7gjQo8AQ5NDDBbhJthLsRo+RHYEdualqI4iQi+Qy9ICANvayGtfenN6bsNiRaxFbYdopkGuEQq9QXqNgows7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783035658; c=relaxed/simple;
-	bh=52BbPqmqw18QYb4zQynmhqg3NV2jojPQPfsmN69a8Us=;
+	bh=a5qDTT1vAdJ5zW+rC2VpVB5wc13PzgKBANBcJcM+mYQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dflmxiww+KuaL/uLtaP46Z697HX8pYx/Ii5grDDuX2UQtEU2UirsER5lhpk2Cw82V0VZFSEQFUTQQwYSjBrMoePEoxvXR6AkVfX3xYE24iPfwIRwp/6vvfKmu4ppGd46gX2+Ku5IFtH3FqqlGT5llcoMyQ5QsMBCs0/OkQeAJQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hl2Tis5b; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=M5jYE2P9d+MZ+Ljt+JxiyXeoedwA9uUa1/zU2QUlLVnku6Oliy+teWhFzRMerghU8/bYFLKhiIu/WsZMtp5V8ykk71G3GeYaFczCPHSUt7oq1/gEjDLW+jJNK2wnkbRgrnxkFg9HbHV2eK8LHQ2IXq0L+6Dt+TXi44nHz1u2M28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RGHbJuKM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hl2Tis5b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA8B31F00A3A;
-	Thu,  2 Jul 2026 23:40:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RGHbJuKM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5E171F000E9;
+	Thu,  2 Jul 2026 23:40:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783035656;
-	bh=ls3FCpuFNdNYGB6fMaBWscTranOem0ggKcMVmzo+9lA=;
+	s=k20260515; t=1783035657;
+	bh=Ax6PNAj1kRbCmbXiqX/sgXM4yh+jpxRW7jnLP/dr5V8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hl2Tis5bNPiRavztTLfrF8q5jqtC4IWpe8weu9IL0FmM5RPoa669TRFvPceyAgHfC
-	 5CUceorA4P06nuO4rXGLf6DllromvNC6UWo42UfD7J7HaJSgZ9wdi//5c7QW1IgfEp
-	 VGHN4FpAp5j3L4Pi9TGxmYpMrsa9DDDwYT4VuAdXZDzYnSqd/TPu//2H6DNwSUABwX
-	 VRkbmqgKgRvbiy+Oa3Omo9980j23kcu92OjbzwvwcR1yarzbUuCWp7sTZMBSTClBYS
-	 nnci7jodlZyucbcRme4Bnwwqc9gDbxj48ZQB0FJNMxDQMO7qZCrGIh4vrwodumPUip
-	 n7EjBa4DbAKUQ==
+	b=RGHbJuKMpAd3v/cCCwKeUjKCYQNXnrqEGbGQHcLcEd9xhYmYlbBwmo2Tf3CETtsBq
+	 bZmPEIFRT7enTNq7n+3QbWmmDPYL8C/gDoiHzEMD739+YOPKEUtNPUR01BF1xh1zFV
+	 md/btYnzpGU5eo6C0xEBiutcjLHk+Z6T+JmADkMD2ndKGdHptTgcR9gemhQ9fRwpWw
+	 aqY7r3fPch+y9A0akx3dSbKof7H6H+n5AqCTTMxzsz1m8i4qmDD6MbrhBZCr6r29ay
+	 HJNotI3oPaBtW/zIi1zTJv5R5W7aucLC8yhJq6bDNcPY7J7sbvt9+lG6KVYBLHXcul
+	 Y3iUG2yi+RqnA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	George Moussalem <george.moussalem@outlook.com>
+	Joe Sandom <jsandom@axon.com>
 Cc: linux-arm-msm@vger.kernel.org,
-	linux-pwm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Devi Priya <quic_devipriy@quicinc.com>,
-	Baruch Siach <baruch.siach@siklu.com>,
 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
 	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: (subset) [PATCH v21 0/6] Add PWM support for IPQ chipsets
-Date: Thu,  2 Jul 2026 18:40:30 -0500
-Message-ID: <178303563655.359079.10399699991247881677.b4-ty@kernel.org>
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 0/5] arm64: dts: qcom: add QCS8550 RB5Gen2 support
+Date: Thu,  2 Jul 2026 18:40:31 -0500
+Message-ID: <178303563663.359079.15659991488178026650.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260406-ipq-pwm-v21-0-6ed1e868e4c2@outlook.com>
-References: <20260406-ipq-pwm-v21-0-6ed1e868e4c2@outlook.com>
+In-Reply-To: <20260420-rb5gen2-dts-v4-0-b461909c2de8@axon.com>
+References: <20260420-rb5gen2-dts-v4-0-b461909c2de8@axon.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -58,26 +55,29 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 06 Apr 2026 22:24:37 +0200, George Moussalem wrote:
-> Add PWM driver and binding support for IPQ chipsets.
-> Also, add nodes to add support for pwm in ipq6018, ipq5018, ipq5332, and
-> ipq9574.
+On Mon, 20 Apr 2026 10:13:12 +0100, Joe Sandom wrote:
+> This series adds device tree support for the Thundercomm RB5Gen2
+> development kit, based on the Qualcomm QCS8550 chipset.
 > 
-> I've picked up work based on Devi's last submission (v15) which dates
-> back to 05 October 2023 as below SoCs are still active.
+> Patches 1-3 prepares for the RB5gen2 device tree by adding MHI register
+> regions and port labels to the PCIe controller nodes, as well as moving
+> common IPA properties into sm8550.dtsi. Then update the existing HDK
+> and QRD board files accordingly.
 > 
 > [...]
 
 Applied, thanks!
 
-[3/6] arm64: dts: qcom: ipq6018: add pwm node
-      commit: 6cc812b7435a64cd9d66af107c6dfefb2e77a7cb
-[4/6] arm64: dts: qcom: ipq5018: add pwm node
-      commit: 4b00afd17a28f44dc63a8602143f84e5f3fa592c
-[5/6] arm64: dts: qcom: ipq5332: add pwm node
-      commit: 70900a931713888b63c8daec10e708dad1d6e160
-[6/6] arm64: dts: qcom: ipq9574: add pwm node
-      commit: 35d89e1e12f297b1dce579cbae924e087451acc7
+[1/5] arm64: dts: qcom: sm8550: add PCIe MHI register regions
+      commit: 347318325974e888dc18d9fd15dcc48f671886c9
+[2/5] arm64: dts: qcom: sm8550: add PCIe port labels
+      commit: a23536d85805e455cbb6b101f05e48ab672edf9d
+[3/5] arm64: dts: qcom: sm8550: move IPA properties to SoC device tree
+      commit: e60ad1f5206bc8029c0b087846e12c715792b201
+[4/5] dt-bindings: arm: qcom: document QCS8550 RB5Gen2 board
+      commit: c70e25c221cee14c4bcd51ff763b697a2d7096b4
+[5/5] arm64: dts: qcom: qcs8550: add QCS8550 RB5Gen2 board support
+      commit: 33cae252054a694269f9dcd41b354063193c8f59
 
 Best regards,
 -- 
