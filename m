@@ -1,112 +1,104 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A291934FF78
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 17:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69393349AF5
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 17:30:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783013103; cv=none; b=LzengzEMb7Cv1arQuADR53duknQZ1S4VtNGMelHqdgPAgv4coFcRbIsYRo1a0HAvZjEgi3jLRke0G4PgL6rF1ddlE4smFTvMgPTfQtAFX+vhOGJfO1Cwf+opGP7Qfm+d11nJO8UTqepGmIjQQXTet2ruCUoBmU43fsXH5JjMPPU=
+	t=1783013405; cv=none; b=KXWUx1/z7UrRriage4TTPHTEz+E7UlUzh8tdLNXEu1nEOvXQ4ABVE8RUDWdGJfmIR6rHLgDFhqcY709C6TB0P531OQpND1ngm/wS6ZJePVH0y116d68uyw8jix2ASjcGZlv5+q4oqMseNJivj1wIKPP2h/GVT3bR4+Z/a9Drqao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783013103; c=relaxed/simple;
-	bh=wYofpd20/2MAY28qjdWeuTMS8chWG/vFjgq7i852FNw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vw6pjn8A+JOiu6lmCajH4piW4IHD6zvnNox0RYRXIyVWcV1GfpyC1neHYJnaRu52NwYc92+6GVmAHL8GWUVmLlnqTprYgB9F2LkhDCP8dA4ynlhwtW+BHwtHc7bqzzozwJFzuSGblHlcQyHiG9TN8hRiAKjHrn5ahpl7648V37U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lbDJUUcA; arc=none smtp.client-ip=209.85.222.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783013405; c=relaxed/simple;
+	bh=RlUoIzmsvU5FdPnsuPTf+Q4BBqRDJ5ScMRNvfXZ91ZU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=R0qWk+h7A71rJ31P0/TCWbohyUgGOMWhyf0jddosA0yvu5m5VhlaL+Fs63q9ImqU+gu60KWT6eCJRs1GUhkEcJRN2gHhcEA6nIZlilRfNz+Du2nfzCnqokis4eHs8fv7PhbuoWykNVDBN4P3gdeFMAABDbHL9Ah9KROry3hindQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ohA/yMml; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lbDJUUcA"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-92e85499ffbso62934685a.0
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 10:25:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783013101; x=1783617901; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wYofpd20/2MAY28qjdWeuTMS8chWG/vFjgq7i852FNw=;
-        b=lbDJUUcASoJwiJutICwz8ij3ML+QnftQqwday3upc1aZ+MkcGlcYXIGkeAr0MvnjYU
-         h01qd/slnALp6AAXGlkKcWkM3VVJPhR59Z0+rUrOaS0nLjMF0qI9XgXUJlCASRh4saNJ
-         c71RkGiYm6PkutNHLMBGBsy7KwFqMdgLzyw+kPGzP1MOpTPkVkYjv0+t3uf7+THkfUDx
-         7HzJ8QLlwISfmMrvjxImj9zTQ01FDsuLPjN8oYhhCBjVxHNL7+mTn0RKEOFq4wYMQL/M
-         Wf4SvAsev+9AV4WCSxz6gQNftrQj2jC/9T4/jmftvsvoNpT4cjTDnADzmBjqRS7NRtkE
-         LLoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783013101; x=1783617901;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wYofpd20/2MAY28qjdWeuTMS8chWG/vFjgq7i852FNw=;
-        b=mBuzy+wHSvsDcTn3hUPrPufSBhyHPjoRtY4ZZB1sdNmCesJCd87cVU1iedqB8LdwPs
-         KwppkIaMzzlR9T64iAWak2HtaXxW6unld0t/oRJO+rFzxhvb7BpPBZMZRyWNyr7V4/od
-         Fp8rDBCyc3sAnugMA0o7i/X0/9KxhqzRnkOPo7b+xbxOS1Zy2diFhp0RKG/IKSfhZ1LC
-         MRgW3ryHswk7EJ77JVMCQGPu3O81t9e36Clw5WJ5/9BmW0Eq2f+xXsXCp4Wh+ggZ/QWb
-         RHeuzOmUowShffu7PS9netSUboEoyIjuZJDBcRQeVfZrlKz1HfNZGCoRBJ6OpMWLrFjC
-         sBQQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+nZHL9ReGSbdgSmrP/5k6iQyYgwILme52Ze6iENWEMsomZ4PxXlvQ+ZLBPi/S89V8hqzQOG6/dj3Ne@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKG56X5Zh4jzqysLvtsCtZinnmdTJuJKe9I08YndFvcN98ruVt
-	OsHy6hMWORqv3+V2ruH6pHXkPakGJhPVB1n04qZ6u5xE51X9i50YAAYZ
-X-Gm-Gg: AfdE7ckLr8+2c8UdhEtOSpBsLdDc3deQNmHfqaP5kOat5AsV8scKlNrDC01sTNabwBg
-	483LO9nUUNlE2WaRpeGlMW/IIL6fuirJNsEy7yIQGyOGmIb99jOV4cy01XK7EGceqEbWjxOk65W
-	p9/3YlWOArY+r2oaTKNuXqOcvpGWIVsabyvowGGrE1g86lXUP3vA+8LtCNs4uBr3H9RPgQufag2
-	NshA75ZAsAFijPTTj1aJxotLmxGOMd616olE4IhxK9MLIOfixrmXj3FyrbB2765J+B74nvL9sMy
-	R2X0cY0HGTcZ6ltfBViYelBGn+FDLuiOs8iPYSNQA5+89cXsEtatv8M4UKyyPXRdHEFJX08OkLd
-	rtwqHwqNDYTEuSP8uGWKDwAXkAyS+2unVyxLNLKEFH9Ql6oUZxnCzPr5DJgtPorAsEzUAjUMoUp
-	/yKNbAFA02EPD5MeN5/3OaFRUEjlTIJZE0SPmc/P8F2g6gkC4jbj4X3O4NfYcCrHvOAF4H5U8=
-X-Received: by 2002:a05:620a:4555:b0:92e:44be:bbd2 with SMTP id af79cd13be357-92e7afb2399mr780848785a.9.1783013100344;
-        Thu, 02 Jul 2026 10:25:00 -0700 (PDT)
-Received: from AMD.home.local (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-92e801948a8sm265545285a.35.2026.07.02.10.24.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 10:24:59 -0700 (PDT)
-From: Enzo Adriano <enzo.adriano.code@gmail.com>
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Andre Przywara <andre.przywara@arm.com>,
-	Brian Masney <bmasney@redhat.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 6/8] clk: sunxi-ng: a733: Add mod clocks support
-Date: Thu,  2 Jul 2026 13:24:56 -0400
-Message-ID: <20260702172456.848487-1-enzo.adriano.code@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260310-a733-clk-v1-6-36b4e9b24457@pigmoral.tech>
-References: <20260310-a733-clk-v1-6-36b4e9b24457@pigmoral.tech>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ohA/yMml"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7FBD1F000E9;
+	Thu,  2 Jul 2026 17:30:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783013404;
+	bh=vSR/PnTza24pZPOZ41yYm98am9qU10zypTt4Jvcq9Dk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ohA/yMmlv1dAfb7B8dW2rDaN0axZUDRTgcS5PDFMG4rmVTP5mY6jwLEYBzcsglkYq
+	 YqShLxMlKOMmhSgwRWAPqUfriHtGa0+2M/vcIpcRTcMCTBPrwMoLHG1wsNE0IESu4G
+	 +uRQ8d+y/NN3lV5TUFe2MPZDeT6SVSKxlps4Wc8Dg6RqJHt0Iq+x8ziW0IADNSfQqe
+	 /O0k+Z1UTq1RigOIe1Q1u/6NPl4yxVdXRp6/2Q/+mr4pkVOzNTjzb/UoeyMENZaYMe
+	 J2B6V0Pkijo4jbEYK8kgy4C8YBt/zFe7TCvmHLDI+HifzUfym0pJRP9q550tga/kbz
+	 9tUIQjsYQTTNg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/4] dt-bindings: power: limits: Describe Qualcomm
+ SPEL hardware
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Manaf Meethalavalappu Pallikunhi" <manaf.pallikunhi@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260702-qcom_spel_driver_upstream-v3-2-434d50f0c5b0@oss.qualcomm.com>
+References: <20260702-qcom_spel_driver_upstream-v3-0-434d50f0c5b0@oss.qualcomm.com>
+ <20260702-qcom_spel_driver_upstream-v3-2-434d50f0c5b0@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 17:30:03 +0000
+Message-Id: <20260702173003.C7FBD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Junhui,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The YAML `description` string will lose its structural formatting (=
+specifically the bulleted list) because it is defined as a plain scalar.
+--
 
-Register check for the mod clocks in this patch against the public A733
-User Manual V0.92: 88 of the 94 mod/mux clock entries match the manual's
-register offsets, with the documented gating/mux/divider layout at each
-offset. The six that have no register in the public manual are the set
-already discussed in this thread for provenance notes - avs (0x0880),
-spi4 (0x0F28), sgpio (0x1060), lpc (0x1080), gmac1-phy (0x1420) - plus
-one more: tcon-lcd2 (0x1510); the manual only documents VO0_TCONLCD0
-(0x1500) and VO0_TCONLCD1 (0x1508).
+commit 2a8dfbf8a7cefb27618383801964875a7eaac9ea
+Author: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
 
-Thanks,
-Enzo
+dt-bindings: power: limits: Describe Qualcomm SPEL hardware
+
+This commit adds a DeviceTree binding to describe the Qualcomm SPEL
+(SoC Power and Electrical Limits) hardware block. SPEL provides power
+monitoring and limiting capabilities for various power domains in
+Qualcomm SoCs.
+
+> diff --git a/Documentation/devicetree/bindings/power/limits/qcom,glymur-s=
+pel.yaml b/Documentation/devicetree/bindings/power/limits/qcom,glymur-spel.=
+yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/power/limits/qcom,glymur-spel.yaml
+
+[ ... ]
+
+> +maintainers:
+> +  - Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+> +
+> +description:
+
+[Severity: Low]
+This isn't a bug, but should this use the literal block scalar indicator
+(description: |) to preserve the line breaks?
+
+Because this is currently defined as a plain scalar, the YAML parser will f=
+old
+single newlines into spaces. This will cause the bulleted list below to
+collapse into a single unformatted run-on sentence when the documentation
+is generated by tools like dt_binding_check.
+
+> +  The Qualcomm SPEL (SoC Power and Electrical Limits) is a hardware bloc=
+k that
+> +  provides power monitoring and limiting capabilities for various power =
+domains
+> +  in Qualcomm SoCs.
+> +
+> +  SPEL enforces power consumption limits to prevent thermal overload, ma=
+intain
+> +  system stability, and comply with platform power budgets. It provides
+> +    - Hardware-enforced power capping with configurable power limits
+> +    - Time window controls for power averaging
+> +    - Energy counter monitoring for each power domain
+> +    - Automatic throttling when power limits are exceeded
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-qcom_spel_=
+driver_upstream-v3-0-434d50f0c5b0@oss.qualcomm.com?part=3D2
