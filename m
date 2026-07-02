@@ -1,134 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2CC30DD30
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 15:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A45433E9D
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 15:26:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783005695; cv=none; b=uMnSa12SheM4/ZqrJOSNevDzxLQwTWJfYB0PT9AB+2oytLH1s5nROvPnFOh/KrEXMNGs1n6TnzgGB32E4gh4I6Qq+mZNv4SZEV4fpsTbh29usWnj1YrPWLMTOKYvLkRhsDg8p9Xg34SME34z7ot4btHbFQVgS/5+bS1fAsGqo78=
+	t=1783006016; cv=none; b=XGvQq0yh7zWpe8nfQIbNPBt4awV2ptPzYrWtE7m/I/7OdF/CSgVL24E+bVr2NpVBza5L0mBOsg1UfeetRM8pKXbS48+lsXs1uH6dfGMUHF7oDmgE1vkq9HuU1jTKda5mWn0RMm9W2RXChMwA+24NTyQXllR+XPeXiQpuETjb+x8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783005695; c=relaxed/simple;
-	bh=01XzJAN7ZQ9KmAZrs/Mp+427irZmkzqxCbwA1obWb7w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YbgVUh/Va84o9ti8QN2AHq/wMWievRJj1khS1iNZCLOXbj5yUGK01BUzAd9EZYTUKhoe+ZMn9qN9KoGkpAKd/5SfFdNRn7ian4lAx5raMeFFwIcHmLnSdWb96oNekiIl0+YiTawO2WusHB0wSCpR6Tk2fuRVYp5F/R1yxo5owps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=APXuh9fA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783006016; c=relaxed/simple;
+	bh=/fVlbPyZGXATH2z5WzJ6VMWNrQv8f/QALE3Mh5Gazek=;
+	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
+	 References:In-Reply-To; b=RchrSvzqRqVrISRzsxsQ//AlRrgmNmH7IaMCb5DXIMIHCo8xYPfN7NZckvWSEf3hbf33M7AA/SBQX1bMOL0Sj23buwhY/USWwwQO+Duy9XpoXThUhWXF4qbasxZb0k1VUUhiMxBzw32vrNznGyuyHznRfwIkC+rZPjpbmaRct7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=J5Mmzc5E; arc=none smtp.client-ip=43.163.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="APXuh9fA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86C7B1F000E9;
-	Thu,  2 Jul 2026 15:21:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783005693;
-	bh=OfxB+4eob962IBGwuxqZk+f5BNGB5u/kytdByCVnMqs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=APXuh9fANNfL3g97frE419O2o5ft+/5U3UeqDMeBqgco7yGihf2CymidVVgfYaJIV
-	 TZc2LtFjjFkYDjuvei/GDnwGiOLNTPNaTIR96wnP7l5F3ruvtI/4Pq/xeloLIFhg4/
-	 2gdzHGtTS5SHQK5pAtz5AGh/JArxySqXBfTEvISkzPwyR2zfCPmrMiPFwHEneHk0MI
-	 w7IqlTSmq18VkvBnyzSk4ndQJYQ7g9lrAzNgdHwXyHjGZfveyXBR3o4r+gWx0yfoGw
-	 XT8EswslTy7RjWj+5JqD4NytIhldWJ7JJWp6Ox6anbe03P1+kC6QIB+Mgr2cY1ZhHH
-	 Q4hZ643zFJ2Bg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: firmware: add mbedtee,tee binding
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xing Loong" <xing.xl.loong@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260702151115.544016-3-xing.xl.loong@gmail.com>
-References: <20260701132514.186953-1-xing.xl.loong@gmail.com>
- <20260702151115.544016-1-xing.xl.loong@gmail.com>
- <20260702151115.544016-3-xing.xl.loong@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 15:21:33 +0000
-Message-Id: <20260702152133.86C7B1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="J5Mmzc5E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1783006006; bh=/fVlbPyZGXATH2z5WzJ6VMWNrQv8f/QALE3Mh5Gazek=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=J5Mmzc5Eg6w+Wn0IrCPB7I1aVMDiAF+ZdXvJq9kL/omh/BRSpOFtX+iWd169RAz5t
+	 FYbl1MYaV8WIYrYM+BY+dJGVrJByEFYuudyeoThk5+T+c6sMy+9fI3QWDdV7Vd/eaZ
+	 +L1aasTQPLDsqMdcPTv97gKgfyQTkBBhyF9pcztA=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-XMAILINFO: OMqlb7aP4Kjek7vshZOnZvDZb5+pT3yBZiNHZ2hUy7w914sLyLT+p04C4P4x9K
+	 rkZ+UKZDF1Ze7T+AawbmzHHGc26F1svH7n53Pvt+ALBPPxl0IPtoRBjpyAJa//Esxs17tB/Auzk6u
+	 1Lajtt9xuWDgjgrIjlher+7Hl63RNJawzBh26kiI8HTEW7VCfaHYk1NUFjjwLB3HgoBfJKB4EZ5ig
+	 oCav9Hj+HJ/1LklYGXN+XwS9+3qQc6feB0IVzWrvgZg82gW45ooi3e2LaeHj8eULaFH88D1vtIIeK
+	 aRJ8FQ/0gnwG2d8Qc0WE8fy4tIfo+SGJZ2CMSCuldorzRe0jzui3TVT/d2Z1rYDbB3okr2mC6Xbcg
+	 WmcdNFUq92zXv+2WD1HcQJxAMK8TmZ+cjFKsVMCgu8qw1I6veBYoegqV1FK4vpAcHWrt7qhQG1+oA
+	 57TMkADUVea3y7+vBjr4hLDQ1rRKOYeIue1+tepREdsO6WMXGjiLoD4L/up6XbC4JV2vAXqliu1Di
+	 lo9Tyqbtg73CTbtd+xPA84EFFoas8G7kI5JGaKZl/EPw7CZXoOFe9pw8iE/P2Q6VzzSyqu0lwUzzj
+	 rGPtrF5sxqDcCPEoMYs0tSA73FRjVaU2ACsERW1/O+iT/m3u6qCaKUBtp7xbtrf8kQNdKEHWLNOOq
+	 RfRgsqQlQAr9asLRI1XXDQsfiSaQ3JKY2Fe9gcGuk4501d1ceO389TNWiSnbrP+969Ap0kvgP1u3q
+	 tL8gcilPGFjtI1bRpu+oI64kWmPJHE5aNl+iGuW2GLaRzJKymPzMWa4hnF4YN5qTiYFoDRrAzKvOv
+	 MpvRkwsqG+nL1+o6H0bdP96Niaz3Kx8ekjPGky+WG9QryPnXSD2+jeiSx/WwQCB7vCgiXVQI6JdOe
+	 0lNdNfU8d6yxbgOp/yTbeZ3liRCydfFKcFefzHxySIvRVU4NKKyeKcdXJ1QsAiE0+xpr3HqsJpSfQ
+	 KwymHuUnQhjREoVqEjPLCOqZ4Am0ruyU/Ej1t43Yo++L6XbjHzGMomiwFxp05yhQbm3wGZYN46kWD
+	 6G7VmL3dax4MsHfb3Lx972hi5U4ZlXAyBeiI9w9WZKxkMkXiBgcx/x+e2vWeJh291utzlraY9looR
+	 5LW5dLsDH1GlvTOz97hK3tRe
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk@kernel.org>, "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>
+Cc: "=?utf-8?B?VmluY2VudCBNYWlsaG9s?=" <mailhol@kernel.org>, "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?RG1pdHJ5IFRvcm9raG92?=" <dmitry.torokhov@gmail.com>, "=?utf-8?B?U2hlbmdqaXUgV2FuZw==?=" <shengjiu.wang@nxp.com>, "=?utf-8?B?UGVuZ3BlbmcgSG91?=" <pengpeng@iscas.ac.cn>, "=?utf-8?B?UnVzc2VsbCBLaW5n?=" <rmk+kernel@armlinux.org.uk>, "=?utf-8?B?RXJpYyBCaWdnZXJz?=" <ebiggers@kernel.org>, "=?utf-8?B?TWFyaW8gTGltb25jaWVsbG8=?=" <mario.limonciello@amd.com>, "=?utf-8?B?S2FybCBNZWhsdHJldHRlcg==?=" <kmehltretter@gmail.com>, "=?utf-8?B?WWl4dW4gTGFu?=" <dlan@kernel.org>, 
+	"=?utf-8?B?U3RlcGhlbiBCb3lk?=" <sboyd@kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 1/4] dt-bindings: can: rockchip: add rk3588 CAN-FD compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Thu, 2 Jul 2026 23:25:31 +0800
+X-Priority: 3
+Message-ID: <tencent_190046D203F61069FC109A4268AC654C1309@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20260702140654.2961561-1-1579567540@qq.com>
+ <tencent_3B2B6003D1DE4FB7A984665A062581766405@qq.com>
+	<ec548326-dd8d-4d81-8500-ed4c4c30ddb2@kernel.org>
+In-Reply-To: <ec548326-dd8d-4d81-8500-ed4c4c30ddb2@kernel.org>
+X-QQ-mid: xmsezb41-0t1783005931tqwjx3m1m
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] The `memory-region-names` property incorrectly defines `items` as a=
-n object instead of an array of schemas.
-- [Low] The provided DT binding examples contain malformed root-level nodes=
- that will cause `dt_binding_check` to fail.
---
+CkhpIEtyenlzenRvZiwKClRoYW5rcyBmb3IgcG9pbnRpbmcgdGhpcyBvdXQuCgo+ID4gQWRk
+IGEgZGVkaWNhdGVkIHJvY2tjaGlwLHJrMzU4OC1jYW5mZCBjb21wYXRpYmxlIHRvIGRlc2Ny
+aWJlIHRoaXMKPiA+IHZhcmlhbnQuIERvIG5vdCB1c2Ugcm9ja2NoaXAscmszNTY4djItY2Fu
+ZmQgYXMgYSBmYWxsYmFjaywgYmVjYXVzZSB0aGF0Cj4gPiB3b3VsZCBkZXNjcmliZSBhIHJl
+Z2lzdGVyIGxheW91dCB0aGF0IGRvZXMgbm90IG1hdGNoIHRoZSBoYXJkd2FyZS4KPiA+IAo+
+ID4gQ2hhbmdlcyBpbiB2MjoKPiAKPiBDaGFuZ2Vsb2cgZ29lcyB0byBjaGFuZ2Vsb2csIHNv
+IC0tLS4KPiAKPiBTZWUgYWxzbyBzdWJtaXR0aW5nIHBhdGNoZXMgb3IganVzdCBzdGFydCB1
+c2luZyBiNCwgd2hpY2ggd291bGQgc29sdmUKPiBhbHNvIHlvdXIgYnJva2VuIHRocmVhZGlu
+ZyBwcm9ibGVtLgo+IAoKSSB3aWxsIG1vdmUgaXQgYmVsb3cgLS0tIGluIHYzLiBBdCB0aGUg
+c2FtZSB0aW1lLCBJJ2xsIGFsc28gc3BlbmQgc29tZSB0aW1lCmxlYXJuaW5nIGhvdyB0byB1
+c2UgYjQsIGFuZCB3aWxsIHVzZSBiNCB0byBzZW5kIHRoZSBuZXh0IHYzIHN1Ym1pc3Npb24u
+CgpCZXN0IHJlZ2FyZHMsCkN1bmhhbwo=
 
-commit 5f6618bd551455752fa4251daab79dbc393c89d6
-Author: Xing Loong <xing.xl.loong@gmail.com>
-
-dt-bindings: firmware: add mbedtee,tee binding
-
-This commit introduces a new device tree binding for MbedTEE, a Trusted
-Execution Environment for embedded systems. It supports both ARM/AArch64
-using SMC and RISC-V using IMSIC configurations, communicating via shared
-memory ring buffers.
-
-> diff --git a/Documentation/devicetree/bindings/firmware/mbedtee,tee.yaml =
-b/Documentation/devicetree/bindings/firmware/mbedtee,tee.yaml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/firmware/mbedtee,tee.yaml
-
-[ ... ]
-
-> +  memory-region-names:
-> +    minItems: 2
-> +    maxItems: 3
-> +    items:
-> +      enum:
-> +        - t2r-ring
-> +        - t2r-shm
-> +        - r2t-ring
-
-[Severity: Low]
-Does this items definition violate the dt-schema constraints for properties
-ending in -names?
-
-dt-schema typically requires an array of schemas for items to enforce strict
-sequence order, rather than an enum object. This could cause make
-dt_binding_check to fail against the core meta-schema.
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    /* ARM TrustZone (SMC) */
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    firmware {
-> +      mbedtee {
-> +        compatible =3D "mbedtee,tee";
-> +        interrupts =3D <GIC_SPI 72 IRQ_TYPE_EDGE_RISING>;
-> +        memory-region =3D <&mbedtee_t2r_ring>, <&mbedtee_t2r_shm>;
-> +        memory-region-names =3D "t2r-ring", "t2r-shm";
-> +      };
-> +    };
-> +
-> +    /* memory-region phandle targets */
-> +    mbedtee_t2r_ring: t2r-ring {};
-> +    mbedtee_t2r_shm: t2r-shm {};
-
-[Severity: Low]
-Will placing these memory region nodes at the root level instead of inside a
-reserved-memory node cause dt_binding_check to reject the example?
-
-The root node schema typically rejects arbitrary children lacking compatible
-strings.
-
-[ ... ]
-
-> +    /* msi-parent phandle target */
-> +    imsic: imsic {
-> +      msi-controller;
-> +      #msi-cells =3D <0>;
-> +    };
-
-[Severity: Low]
-Can this dummy node cause schema validation failures?
-
-It lacks a compatible string and is placed directly at the root level, which
-dt-schema usually flags as malformed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702151115.5440=
-16-1-xing.xl.loong@gmail.com?part=3D2
