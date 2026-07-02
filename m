@@ -1,43 +1,48 @@
-Received: from out-179.mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4943242B8
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 11:07:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77DD3EAC84;
+	Thu,  2 Jul 2026 11:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782990477; cv=none; b=p0lS5W1p0Oyuk3kDfgIC5uHAmyMrFnQPxwOgJWXnvME4GHMNkmqe7qCTnmG0sHvChGTz+rVKOGmlNES+01hTelDk/9LamiRkxYTKTIdGT2VW59pPDv30xAgAQjd+CF6a0AHyQvazbnvIsSo0T23o/9ciwboVuXSBOTxM8wc7+UE=
+	t=1782990719; cv=none; b=mzmofRbXgnwGXqcwf/laixK6m5PuFW2vfmOktXx/1LdHqDuaObp026EtCcTtb+dFaabUeCUROSRBnvx+ez/So2ScVTImUifxI4EwUkJwiFa9d2wYTNCgWrnRx0iLBljNDUP9LTe6DXydUBgwhowCLkS9GmnUjq/+c/t1H2GGPZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782990477; c=relaxed/simple;
-	bh=o1m9M/JFUfT7TSuGV5Bt1WSxNIWjFLdXG8UFWA7w0BE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=PG25biMhvpD2vMlsiaZ6pL/b/g0RxyiBvOgu0mUx7YrArViW3bvy29CHPjNyhb2ijAxcQD0I6XRxEYN7m8kRRL94sSURrfIoFB4uTdqAMRHLg8VU5KUykSA17g5r+U+13pJfV1TZ4K/DI/dwYxL5cdZcg2u6iHt1VAF5rdZeMj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ShHdLked; arc=none smtp.client-ip=91.218.175.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ShHdLked"
-Date: Thu, 2 Jul 2026 14:07:39 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782990474; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type; bh=9ogwjo3FQNfPyMRSaQH/cxCQyqF4UEQyAc9VNNI+d8c=;
-	b=ShHdLkedRMq+cKgV2KZnaoSGDbk0kdZ00QQa6Bv9wv6Y7uNotJNaDJjO4loWaqWmqV0mA4
-	kkz+vTMBxtBVIQPXkysUqKODiFKkkvLKQlImIqovUuRYEa1e9kCugeuwX4Tc2k76s4U2mq
-	KdIQy0ZyA13/vg81r7itPlkgC1VAS5c=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Matti Vaittinen <matti.vaittinen@linux.dev>
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: [PATCH] dt-bindings: regulator: ROHM PMIC state-machine voltages
-Message-ID: <akZGe1CaQFDd3idm@mva-rohm>
-Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
+	s=arc-20240116; t=1782990719; c=relaxed/simple;
+	bh=cdJr/kOzbXQE8tDPk0CbR1Qy+r4K+Zj0csh//ZnLIak=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dJbjGijtQYasQ+qxB+/ySfTBck+P+0Df01YvZ7U5xsN7CfjhqOYFj4/7GSN9T6jaUnKrPi8gqN+w8ueCpf5b+u6ahOqAxE7CUydtc+GYCeIR/S7OcAFAwvUIj/Varxgz5JRBTfU8e4C8URth2trB16k46IusK42uUhuKGwCo33Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C89A0200A6D;
+	Thu, 02 Jul 2026 13:11:47 +0200 (CEST)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1wfFKd-005jUk-2D;
+	Thu, 02 Jul 2026 13:11:47 +0200
+Received: from pengutronix.de (ip-185-104-138-148.ptr.icomera.net [185.104.138.148])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 00F2F55E2E3;
+	Thu, 02 Jul 2026 11:11:44 +0000 (UTC)
+Date: Thu, 2 Jul 2026 13:11:43 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Cunhao Lu <1579567540@qq.com>
+Cc: heiko <heiko@sntech.de>, linux-can <linux-can@vger.kernel.org>, 
+	mailhol <mailhol@kernel.org>, kernel <kernel@pengutronix.de>, robh <robh@kernel.org>, 
+	krzk+dt <krzk+dt@kernel.org>, conor+dt <conor+dt@kernel.org>, 
+	devicetree <devicetree@vger.kernel.org>, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, 
+	linux-rockchip <linux-rockchip@lists.infradead.org>, linux-kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] can: rockchip: add RK3588 CAN-FD support
+Message-ID: <20260702-accelerated-shoebill-of-elevation-76f536-mkl@pengutronix.de>
+X-AI: stop_reason: "refusal"
+References: <tencent_C422347432620914231601BC882C7E604D08@qq.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,475 +50,109 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tO1kyZ9j32SlCKKJ"
+	protocol="application/pgp-signature"; boundary="g3juocogafd37lbu"
 Content-Disposition: inline
-X-Migadu-Flow: FLOW_OUT
+In-Reply-To: <tencent_C422347432620914231601BC882C7E604D08@qq.com>
 
 
---tO1kyZ9j32SlCKKJ
-Content-Type: text/plain; charset=us-ascii
+--g3juocogafd37lbu
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/3] can: rockchip: add RK3588 CAN-FD support
+MIME-Version: 1.0
 
-=46rom: Matti Vaittinen <mazziesaccount@gmail.com>
+On 02.07.2026 17:23:59, Cunhao Lu wrote:
+> Hi Marc,
+>
+> > Is the SoC you're using actually a 'v2' silicon revision? At least on
+> > the rk3568 the downstream kernel has code to read the revision.
+>
+> The kernel reports the CAN-FD controller as rk3588v2 rev2.2:
+>
+>   rockchip_canfd fea60000.can can0: Rockchip-CANFD rk3588v2 rev2.2 (errat=
+a 0x0000) found
+>   rockchip_canfd fea70000.can can1: Rockchip-CANFD rk3588v2 rev2.2 (errat=
+a 0x0000) found
+>
+> Following your earlier feedback, I have changed the v2 series to use
+> rockchip,rk3588-canfd instead of rockchip,rk3588v2-canfd unless we get
+> more information about RK3588 CAN-FD errata and SoC silicon revisions
+> from Rockchip.
+>
+> > Compile the latest https://github.com/linux-can/can-utils/ and test:
+> >
+> > $ cangen can0 -I 2 -Li -Di -p 10 -f -g 1 -c32 -b
+> > $ cansequence -rv can1 -f
+>
+> I tested with can0 and can1 directly connected. The CAN clock was
+> 200 MHz, and the interfaces were configured as follows:
+>
+>   ip link set can0 down
+>   ip link set can0 type can bitrate 500000 sample-point 0.8 dbitrate 1000=
+000 dsample-point 0.8 fd on
+>   ip link set can0 up
+>
+>   ip link set can1 down
+>   ip link set can1 type can bitrate 500000 sample-point 0.8 dbitrate 1000=
+000 dsample-point 0.8 fd on
+>   ip link set can1 up
+>
+> Without BRS, this test ran for 15 minutes without problems:
+>
+>   cangen can0 -I 2 -Li -Di -p 10 -f -g 1 -c32
+>
+> With BRS enabled:
+>
+>   cangen can0 -I 2 -Li -Di -p 10 -f -g 1 -c32 -b
+>
+> the test only worked when dbitrate was equal to bitrate, for example
+> with both set to 1M. If dbitrate differed from bitrate, the
+> controller went bus-off immediately.
+>
+> So my current conclusion is that CAN-FD itself works on RK3588, but the
+> support appears incomplete: using a faster data phase with BRS does not
+> work in my setup.
 
-A few of the ROHM PMICs have a state-machine corrsponding to the SOC
-power-states. Idea is that by changing the PMIC state, all power-outputs
-will be switched to a pre-defined state. As an example, the SOC may use
-a low-power state when system is suspended, and when transitioning  from
-the normal operation to suspend, the PMIC can be told to go to
-SUSPEND-state - which will then switch outputs of all power-rails to
-pre-defined low-power state matching the SOC expectation for SUSPEND.
-In addition to the SUSPEND, there are a few other states as well.
+Then CAN-FD is broken. :/
 
-The voltage values & enable / disable -states matching the SOC
-expectations can be set for the PMIC states using
-rohm,dvs-<state>-voltage -properties. It all started with the BD71837
-supporting this, but over the years these same properties have been used
-for a few other PMICs, and seems like this HW-state machine design is not
-going away.
+Maybe in a later patch we can hack something, to allow working
+configurations.
 
-Copying the descriptions and types in each PMIC specific binding, and
-discussing them during the reviews is getting tedious for the reviewers
-and author(s) alike. Furthermore, having separate descriptions makes it
-very easy to add errors, or differing, and even contradicting
-documentation for properties with same name.
+> This looks different from the issue described by the current
+> RKCANFD_QUIRK_CANFD_BROKEN comment. That quirk is about specific
+> CAN-FD frames triggering Error Interrupt or Error-Warning during
+> reception. In my test the non-BRS CAN-FD frames work, while the failure
+> is tied to using BRS with a data bitrate different from the nominal
+> bitrate, which immediately drives the controller bus-off.
 
-Avoid these issues by using one common file for the common ROHM PMIC
-state-machine definitions and only referencing this from the individual
-PMIC bindings.
+Can you update the description of the quirk for the rk3588 and add how
+to reproduce it?
 
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Suggested-by: Rob Herring <robh@kernel.org>
+> Given this result, should I still keep CAN-FD disabled for RK3588, or is
+> it acceptable to enable CAN-FD but document that BRS with a faster data
+> phase is currently not working?
 
----
-This was discussed briefly here:
-https://lore.kernel.org/all/20260701192559.GA1313239-robh@kernel.org/
+Please keep it disabled for now.
 
-I will send this separately from the BD73900 -series to keep the series
-a bit smaller and to allow this to get merged independently. I can
-however send the further revisions in the BD73900 -series if that's
-preferred by reviewers.
----
- .../regulator/rohm,bd71815-regulator.yaml     | 27 +++------
- .../regulator/rohm,bd71828-regulator.yaml     | 20 +------
- .../regulator/rohm,bd71837-regulator.yaml     | 16 +-----
- .../regulator/rohm,bd71847-regulator.yaml     | 16 +-----
- .../regulator/rohm,bd72720-regulator.yaml     | 40 ++-----------
- .../bindings/regulator/rohm,pmic-states.yaml  | 57 +++++++++++++++++++
- 6 files changed, 79 insertions(+), 97 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/regulator/rohm,pmic-s=
-tates.yaml
+regards,
+Marc
 
-diff --git a/Documentation/devicetree/bindings/regulator/rohm,bd71815-regul=
-ator.yaml b/Documentation/devicetree/bindings/regulator/rohm,bd71815-regula=
-tor.yaml
-index cc4ceb32e9d6..68b5e579e2d3 100644
---- a/Documentation/devicetree/bindings/regulator/rohm,bd71815-regulator.ya=
-ml
-+++ b/Documentation/devicetree/bindings/regulator/rohm,bd71815-regulator.ya=
-ml
-@@ -38,7 +38,9 @@ patternProperties:
-     type: object
-     description:
-       Properties for single LDO/BUCK regulator.
--    $ref: regulator.yaml#
-+    allOf:
-+      - $ref: regulator.yaml#
-+      - $ref: rohm,pmic-states.yaml#
-=20
-     properties:
-       regulator-name:
-@@ -51,15 +53,6 @@ patternProperties:
-         description:
-           GPIO used to control ldo4 state (when ldo4 is controlled by GPIO=
-).
-=20
--      rohm,dvs-run-voltage:
--        description:
--          PMIC "RUN" state voltage in uV when PMIC HW states are used. See
--          comments below for bucks/LDOs which support this. 0 means
--          regulator should be disabled at RUN state.
--        $ref: /schemas/types.yaml#/definitions/uint32
--        minimum: 0
--        maximum: 3300000
--
-       rohm,dvs-snvs-voltage:
-         description:
-           Whether to keep regulator enabled at "SNVS" state or not.
-@@ -71,21 +64,15 @@ patternProperties:
-         minimum: 0
-         maximum: 3300000
-=20
-+      rohm,dvs-run-voltage:
-+        minimum: 0
-+        maximum: 3300000
-+
-       rohm,dvs-suspend-voltage:
--        description:
--          PMIC "SUSPEND" state voltage in uV when PMIC HW states are used.=
- See
--          comments below for bucks/LDOs which support this. 0 means
--          regulator should be disabled at SUSPEND state.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-       rohm,dvs-lpsr-voltage:
--        description:
--          PMIC "LPSR" state voltage in uV when PMIC HW states are used. See
--          comments below for bucks/LDOs which support this. 0 means
--          regulator should be disabled at LPSR state.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-diff --git a/Documentation/devicetree/bindings/regulator/rohm,bd71828-regul=
-ator.yaml b/Documentation/devicetree/bindings/regulator/rohm,bd71828-regula=
-tor.yaml
-index d898800d6bca..8cba397678a6 100644
---- a/Documentation/devicetree/bindings/regulator/rohm,bd71828-regulator.ya=
-ml
-+++ b/Documentation/devicetree/bindings/regulator/rohm,bd71828-regulator.ya=
-ml
-@@ -40,7 +40,9 @@ patternProperties:
-     type: object
-     description:
-       Properties for single BUCK regulator.
--    $ref: regulator.yaml#
-+    allOf:
-+      - $ref: regulator.yaml#
-+      - $ref: rohm,pmic-states.yaml#
-=20
-     properties:
-       regulator-name:
-@@ -49,34 +51,18 @@ patternProperties:
-           should be "buck1", ..., "buck7"
-=20
-       rohm,dvs-run-voltage:
--        description:
--          PMIC default "RUN" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-       rohm,dvs-idle-voltage:
--        description:
--          PMIC default "IDLE" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-       rohm,dvs-suspend-voltage:
--        description:
--          PMIC default "SUSPEND" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-       rohm,dvs-lpsr-voltage:
--        description:
--          PMIC default "LPSR" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-diff --git a/Documentation/devicetree/bindings/regulator/rohm,bd71837-regul=
-ator.yaml b/Documentation/devicetree/bindings/regulator/rohm,bd71837-regula=
-tor.yaml
-index 29b350a4f88a..efb38dd15145 100644
---- a/Documentation/devicetree/bindings/regulator/rohm,bd71837-regulator.ya=
-ml
-+++ b/Documentation/devicetree/bindings/regulator/rohm,bd71837-regulator.ya=
-ml
-@@ -44,7 +44,9 @@ patternProperties:
-=20
-   "^BUCK[1-8]$":
-     type: object
--    $ref: regulator.yaml#
-+    allOf:
-+      - $ref: regulator.yaml#
-+      - $ref: rohm,pmic-states.yaml#
-     description:
-       Properties for single BUCK regulator.
-=20
-@@ -55,28 +57,16 @@ patternProperties:
-           should be "buck1", ..., "buck8"
-=20
-       rohm,dvs-run-voltage:
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 1300000
--        description:
--          PMIC default "RUN" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
-=20
-       rohm,dvs-idle-voltage:
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 1300000
--        description:
--          PMIC default "IDLE" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
-=20
-       rohm,dvs-suspend-voltage:
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 1300000
--        description:
--          PMIC default "SUSPEND" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
-=20
-         # Supported default DVS states:
-         #
-diff --git a/Documentation/devicetree/bindings/regulator/rohm,bd71847-regul=
-ator.yaml b/Documentation/devicetree/bindings/regulator/rohm,bd71847-regula=
-tor.yaml
-index 7ba4ccf723d8..ef6f69be24ae 100644
---- a/Documentation/devicetree/bindings/regulator/rohm,bd71847-regulator.ya=
-ml
-+++ b/Documentation/devicetree/bindings/regulator/rohm,bd71847-regulator.ya=
-ml
-@@ -43,7 +43,9 @@ patternProperties:
-=20
-   "^BUCK[1-6]$":
-     type: object
--    $ref: regulator.yaml#
-+    allOf:
-+      - $ref: regulator.yaml#
-+      - $ref: rohm,pmic-states.yaml#
-     description:
-       Properties for single BUCK regulator.
-=20
-@@ -54,28 +56,16 @@ patternProperties:
-           should be "buck1", ..., "buck6"
-=20
-       rohm,dvs-run-voltage:
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 1300000
--        description:
--          PMIC default "RUN" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
-=20
-       rohm,dvs-idle-voltage:
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 1300000
--        description:
--          PMIC default "IDLE" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
-=20
-       rohm,dvs-suspend-voltage:
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 1300000
--        description:
--          PMIC default "SUSPEND" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
-=20
-         # Supported default DVS states:
-         #
-diff --git a/Documentation/devicetree/bindings/regulator/rohm,bd72720-regul=
-ator.yaml b/Documentation/devicetree/bindings/regulator/rohm,bd72720-regula=
-tor.yaml
-index 5518082129bd..76747bf2bbdd 100644
---- a/Documentation/devicetree/bindings/regulator/rohm,bd72720-regulator.ya=
-ml
-+++ b/Documentation/devicetree/bindings/regulator/rohm,bd72720-regulator.ya=
-ml
-@@ -26,41 +26,27 @@ patternProperties:
-     type: object
-     description:
-       Properties for single LDO regulator.
--    $ref: regulator.yaml#
-+    allOf:
-+      - $ref: regulator.yaml#
-+      - $ref: rohm,pmic-states.yaml#
-=20
-     properties:
-       regulator-name:
-         pattern: "^ldo([1-9]|1[0-1])$"
-=20
-       rohm,dvs-run-voltage:
--        description:
--          PMIC default "RUN" state voltage in uV. See below table for
--          LDOs which support this. 0 means disabled.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-       rohm,dvs-idle-voltage:
--        description:
--          PMIC default "IDLE" state voltage in uV. See below table for
--          LDOs which support this. 0 means disabled.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-       rohm,dvs-suspend-voltage:
--        description:
--          PMIC default "SUSPEND" state voltage in uV. See below table for
--          LDOs which support this. 0 means disabled.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-       rohm,dvs-lpsr-voltage:
--        description:
--          PMIC default "deep-idle" state voltage in uV. See below table for
--          LDOs which support this. 0 means disabled.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-@@ -82,7 +68,9 @@ patternProperties:
-     type: object
-     description:
-       Properties for single BUCK regulator.
--    $ref: regulator.yaml#
-+    allOf:
-+      - $ref: regulator.yaml#
-+      - $ref: rohm,pmic-states.yaml#
-=20
-     properties:
-       regulator-name:
-@@ -97,34 +85,18 @@ patternProperties:
-         maximum: 300000
-=20
-       rohm,dvs-run-voltage:
--        description:
--          PMIC default "RUN" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-       rohm,dvs-idle-voltage:
--        description:
--          PMIC default "IDLE" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-       rohm,dvs-suspend-voltage:
--        description:
--          PMIC default "SUSPEND" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-       rohm,dvs-lpsr-voltage:
--        description:
--          PMIC default "deep-idle" state voltage in uV. See below table for
--          bucks which support this. 0 means disabled.
--        $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-         maximum: 3300000
-=20
-diff --git a/Documentation/devicetree/bindings/regulator/rohm,pmic-states.y=
-aml b/Documentation/devicetree/bindings/regulator/rohm,pmic-states.yaml
-new file mode 100644
-index 000000000000..f09f021bdde4
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/rohm,pmic-states.yaml
-@@ -0,0 +1,57 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/rohm,pmic-states.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ROHM PMICs' hardware state machine descriptions
-+
-+maintainers:
-+  - Matti Vaittinen <mazziesaccount@gmail.com>
-+
-+description:
-+  Many of the ROHM PMICs have internal state-machine designed to provide
-+  correct voltages for different SOC states. In many cases the states and
-+  transitions are SOC specific, but ones described here can be found from a
-+  few of the different ROHM PMICs.
-+
-+properties:
-+  rohm,dvs-run-voltage:
-+    description:
-+      PMIC "RUN" state voltage in uV when PMIC HW states are used. 0 means=
- the
-+      regulator should be disabled at RUN state. Some regulators do not su=
-pport
-+      setting HW state specific voltage but do support enable/disable cont=
-rol.
-+      For them any positive value means the regulator should be enabled wi=
-thout
-+      touching the voltage.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  rohm,dvs-suspend-voltage:
-+    description:
-+      PMIC "SUSPEND" state voltage in uV when PMIC HW states are used. 0 m=
-eans
-+      the regulator should be disabled at SUSPEND state. Some regulators d=
-o not
-+      support setting HW state specific voltage but do support enable/disa=
-ble
-+      control. For them any positive value means the regulator should be
-+      enabled without touching the voltage.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  rohm,dvs-idle-voltage:
-+    description:
-+      PMIC "IDLE" state voltage in uV. 0 means the regulator should be dis=
-abled
-+      at IDLE state. Some regulators do not support setting HW state speci=
-fic
-+      voltage but do support enable/disable control. For them any positive
-+      value means the regulator should be enabled without touching the vol=
-tage.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  rohm,dvs-lpsr-voltage:
-+    description:
-+      PMIC "LPSR" state voltage in uV when PMIC HW states are used. 0 mean=
-s the
-+      regulator should be disabled at LPSR state. Some regulators do not
-+      support setting HW state specific voltage but do support enable/disa=
-ble
-+      control. For them any positive value means the regulator should be
-+      enabled without touching the voltage. Some PMICs' documentation may =
-refer
-+      to this state as a "deep-idle state".
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+# The schema is expected to be reference by PMIC schemas, which may introd=
-uce
-+# other properties that must be allowed.
-+additionalProperties: true
-
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
 --=20
-2.54.0
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
 
-
---tO1kyZ9j32SlCKKJ
-Content-Type: application/pgp-signature; name=signature.asc
+--g3juocogafd37lbu
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmpGRncACgkQeFA3/03a
-ocV8iggAtwCuOvNIqSM7BHg3Sw6/kJZjDCMrw3+VBnA8Z/FCobClDUct6DR/IQvE
-rDSkB+pUrsx9r1QzNz8iLoCaeJiMzpV780SgPPUErAfpub9KKM0sJ1gReHg18p8s
-ZbN+nUdUw3cKcPBZzUQpIR3uRbQ0ZIXEbbCZMI4JR9EhkiHyhl51cUEzhpWX3mMh
-gomSe5J9KwsG+I9KZn91st6dqe0i7g/S2BtzhzJdE7gbDq1dIxc4p+BrGIlV0CV4
-yrCch55JEvauwPPPz29m5824hTKcZRT1wDRDQL1uGEX7iWFJ4ZHPg34AUrwL6BTo
-PNx3ltP3G9JNCgKpwWIlw6Zz3lHTnA==
-=5FDZ
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCakZHbAAKCRDMOmT6rpmt
+0kH7APkB+Ph02O8jbLwNPVHdiuMu717y5tk5YAdnacU9kEQ/+gEAieWkfM/cPVcW
+4Yv+JL1RKIjpy4cM0fRvq9mHrjox3QQ=
+=m2rP
 -----END PGP SIGNATURE-----
 
---tO1kyZ9j32SlCKKJ--
+--g3juocogafd37lbu--
