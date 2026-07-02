@@ -1,115 +1,135 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE2336E48E
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 19:24:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8507B384254
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 19:27:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783020272; cv=none; b=LlGNBuowX76AdGnk/YgWfnRraMPouSOR4jcYL8CIepeTNMZvAx7M7SzGL1Iz60uPpdMiOQApi+FKOnAwmBwIMe6t2dSXdaVBBx4K8pYqL29mL3C6f9zpgsess67EkgeYOEPfS+hwIzO8bOdNGBKNe6Ad6nQzacLIV1hKCFSpdic=
+	t=1783020427; cv=none; b=nL6vGKmwrmD6PXPbPqtFtcwNOOhjOukYdkX2Z2R+7QAoeQ3GnzObYoKhz2bFCkHYlYtPxKiBHkzjzPL4jlGlgd3jUatR08yTCeGlVj4pzd38jY8A22dCs/TbGXSQaEQ2G0nD5NA6Hgmq5ava7ixAiPkUzEFIqQWnkvYOXaUWVpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783020272; c=relaxed/simple;
-	bh=STqErUIB6lQ1GSgE/uIqGk2C0fbKhYjGQq1Fu1HrLJY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BbwcXWinZfxm2NxtxvPK4c8pYOQDxKpMmQEW8021u2tQDUAvrOHShgX+lnaXDoJv4ny4FVhyR1PafPB1Inum2wNhg9aYL1HE1ndaVjjQ5gWwW57EAq2QUQr/RaDWp+8rkKMReHTnCUIUF7/YZnHB16Rb++bGzo6u8GXXShkPx28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eZGkYXrk; arc=none smtp.client-ip=209.85.128.52
+	s=arc-20240116; t=1783020427; c=relaxed/simple;
+	bh=wR1st3jTX6RTY7WDDJ1RrWd/15qri5Ffv6wmA971dXU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FMWGxNJafaRmZ9uz0MBzUOA6bo2NBYNwsL44E3qGeDPc3JR0c+zlFKbZs2M/8fEUFxLDluv9ZYJsMSHm4C/agIOayQr+ReeRnAgCwkRPnH5kxaF1g2CTZp18EokDIpbACZXUl3gVPu8203CclMItjzr6EHuYDCQRz99mSkMTOpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TPoBC7bF; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eZGkYXrk"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493b1710405so11900895e9.2
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 12:24:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TPoBC7bF"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493bab44440so6167085e9.0
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 12:27:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783020269; x=1783625069; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=1iJoqMShC+TvOCSI7HOO+Cah5rIfKqS+yxnlq3esHG0=;
-        b=eZGkYXrkdy5dByHa3w+pYBeGU9pXw0FMVms6cyobrSNyaOWCdB9UYVUvlGqej5cF6b
-         Jn5jejXXkLeQXDt3X16Q3xruUfSy9oxTktyrdDYDjEYxlOOWFaZr+ZwINAFfAzWTjH+Z
-         M+Pk8UFMUvHX7t6IVOQf7DM9J0BXnRhxifIfWKFcx0OSdMR5bSKaTrSGwQHQ39pZ/diD
-         M5UX0ylnoNLkZgv5sZoLNw+TRq+FL210lZuK1ul5bBIb3hGebwxzabyeYu96qW7RmPXy
-         Mqhn+6Ifp7Okgavgvu6dhayQiBb6gKgdOSyxWta/65INXPazYUFvEX5zFgY/H/nlIr8R
-         rUjQ==
+        d=gmail.com; s=20251104; t=1783020425; x=1783625225; darn=vger.kernel.org;
+        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z1JUyIG3DwbeOPJPxX3RcLVRRPcM09xsVDoLHi5o4rk=;
+        b=TPoBC7bFS3CezUu88WEQT1acocu18NekcJ43zpRzZq4WR3MrC9wJNmZ7QJOwQ8LY7G
+         8MDtzO2CchBgkjZ30A++bmpA6ljH/H2pGpbOtJXfF5XlmFYSMPSjxg9itAVvg9hVocfj
+         3uzBZeaMysfGSEpm0xkcbdEkUlfVn3qsDsTc40PLqkm/dgqJjQgsyMNWacA5Pnh9HUIC
+         PEx9KpjIUxFYjvX/divAr/rARCub1wYfjCpppZZoVk3CqGgh1j+Xoq2CiU4RPpOZH4Gy
+         0F05YBVyRs0Anl32wHQpmczI4pkzQI2kpT+Jbbo47ux9nRD/iWn7bvD6L/2lAfY3TGkC
+         CjOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783020269; x=1783625069;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1iJoqMShC+TvOCSI7HOO+Cah5rIfKqS+yxnlq3esHG0=;
-        b=CIvWutI4He180CYv2H8sAqWeJ33Jut2rYLyL9Zg8XnZkvRX3OtZJe1JUotmr+EVBuQ
-         gRKstZkrt7M0ki5Zz1XvXWGAHrDbF0YreFEGQE6wh0+8nWayfPw1fT8jDbwxz5aGwKaP
-         g+FZW2Szo4gEUEchDiQL5QeihZc8t/z8Oyqw4BNNZ4KOtdZY1QRGkue4AbidGJAc1quE
-         O5yvv+BXDfCALxqyxQjrJ+DDqwgJwMPdMaZhzwYTDfMFgsYUkJ1FWXZIBlWrABxjze+W
-         9suzKq+01PiCSYfIa0fYvmu5f++5puqptcJcvcoDvh1saTTKX6y42NM3ui5DZx9/Etlq
-         bxAw==
-X-Forwarded-Encrypted: i=1; AFNElJ/Detjdy9arzyRQ5FialWMRWoy/vbvRln1frGHegOqpqoNPpKZQ+HqpKuJP/tG7B78oYIuMh5W+/l2X@vger.kernel.org
-X-Gm-Message-State: AOJu0YyFRokVT0reL6LOOOc/URKyu0q6HWT0SY53+WWWx4zuTiS95glg
-	rYecfQWxI3NEOMMQb9b/+fJxY4xS/iFPup1qySNrWPgMt5la/JxjdDC+
-X-Gm-Gg: AfdE7ck+pyzQCtF3NIlAqrks3J0aOtoKQzHo1dg/QNgvLs6VHVcvrUplhxZHr/BxteY
-	JqkLQdzFJcpy5PR2xpeeEI3LeasuO94KUkmWItGBeU5pCb8Js4cnL14tVUbjf4CItDpDlC1Eeld
-	9/a8HwcJ6C3UDCW3f2zz8mFvTOA3/KDh/yGghY8PADGdJGwmx8uNH8raiKMeLCUzxNuzZPJU6Kb
-	jDPoVQm62WIpCxbFF+xrJOdpwxbiIqdVx4oB5fMJkYGfiKVIJrRQh4tCYFk0kou0DqiIiDkEgWk
-	O6X3B5BTFiLLyZR+VxlwDntqMFQbhBCy6slApgzScNS1wkiJG4A+THlt1z3OK5dNP0wQ3ElJoV6
-	EhvTiOiZ1Dt/Eui5ThQxpFbq/YABKn/PTzklNydt4YP5j4zQhwj2j3aarjhfi9DLgFsVdsP5plZ
-	pZzTGsIJsvyTCTPlb/E9RRsDjK/kUKw7l5Zv9dRRBV43gent1+ScYdc+5OcEV2a6xMVXj45lhHI
-	10CQZXb
-X-Received: by 2002:a05:600d:8649:10b0:490:44eb:c1ea with SMTP id 5b1f17b1804b1-493c2b905d3mr87929245e9.24.1783020269382;
-        Thu, 02 Jul 2026 12:24:29 -0700 (PDT)
-Received: from [10.128.11.240] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c6381e4fsm82751675e9.8.2026.07.02.12.24.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jul 2026 12:24:28 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <2723c6d5-7a3e-436b-9ac2-12e5b0a3d1c5@gmail.com>
-Date: Thu, 2 Jul 2026 20:24:27 +0100
+        d=1e100.net; s=20251104; t=1783020425; x=1783625225;
+        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Z1JUyIG3DwbeOPJPxX3RcLVRRPcM09xsVDoLHi5o4rk=;
+        b=S239KxlIK0VSzAo97uG0U9tf3PB5OKX0ngqG7IOrCnYdMLVCk8Ju2hqWzKL0+r/43w
+         zPqaqrpe3d4bX7y+pesX/Bgu+cNtls5Vs3TqPi8tWAKFmPNwEsCr5Y8qpPmLOCf7+wIO
+         F4AlX70YnS3HrpJL231Z9jw/+k7xj7aF+uwaLIuSkbijoWdhNKagfGJEXYkhSPmYmIPQ
+         HJz648xAl6wAJhl9aKwgGODNnBtq8I0CLS2lJ3wZA8F387jCYy2saek/vTsZgXPWkEYx
+         JcYw/I/P2MOTHb6+kuuHHk6NmZYG3bAnN3ccYmZcaXp8ZNAVpOT7h3zNOE81EORVvWJf
+         fYLQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+FsIecDNAu1MQ1r0zhq/Dtqg17sILqMbm3Sa4AHC6O9dAQ/Ol6yhvqwrqtCSTmi6s+yZXGu4g0/Nh3@vger.kernel.org
+X-Gm-Message-State: AOJu0YwcC7B4G2i6rbD3lsG5HYb+8Xi4dzegR23AcybyCAIzvH6lkey4
+	qxPfyEgVkEF9U8Q/JSKE2LiRLRHiwc0OKPdgwjGJudifTkpfk0cDoXzq
+X-Gm-Gg: AfdE7cn0cIGKuqWtqxulMgMlI7GuLY/z9ZLJ08dxb50eUoS/fnASBjU4NeoMzevj9S9
+	IOE4PUEBpQJRbjp8RQTjyhOL757Jtz7eNGqoPBQTVPEwToNBfUtjYcSFWTMXBdnySxysRcXxuWP
+	IKkAU/TwXQoq4MsIl8rznuTuPiwBWxeNGwf36ejCoyXrzoJOJtAT/ffz2WavFLzNUr0oCROpGus
+	Slfcn/+0lThGmbp/AuZnBadkHpg+/DDp+PXn6Ap8JblEqhYB8lAyg052mDx+kGyvMvGlbnW0v0d
+	UTuuJjvUoa/ahV1qbAU93r96xj8CXdrx1Pe59lTE8+icDfF5bO9RTlllK+40yyyIzvR6v3leYxB
+	KCqgk+yc+/lHI1dNxkPPw1pNByDP7m5D1z7ng6lp/rLUP8W4YmP5RSbbDXCohWkU7FO4RfA20Fk
+	hpH/z81Ly4Z68zPldWwjywJo26
+X-Received: by 2002:a05:600c:4eca:b0:493:c600:e1a6 with SMTP id 5b1f17b1804b1-493c9b5da18mr16908965e9.12.1783020424838;
+        Thu, 02 Jul 2026 12:27:04 -0700 (PDT)
+Received: from strix.localnet ([197.250.51.120])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c63ba971sm107245475e9.13.2026.07.02.12.27.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 12:27:03 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Brian Masney <bmasney@redhat.com>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC v5 00/12] ZTE zx297520v3 clock bindings and driver
+Date: Thu, 02 Jul 2026 22:26:54 +0300
+Message-ID: <-YnKrFIxSsqt7IlbKzex9w@gmail.com>
+In-Reply-To: <20260702-frequent-refreeze-9850982156cb@spud>
+References:
+ <20260628-zx29clk-v5-0-79ff044e4192@gmail.com>
+ <ihPM7P2dSn-oiyaL8fageA@gmail.com>
+ <20260702-frequent-refreeze-9850982156cb@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/3] clk: cs2600: Add KUnit test for CS2600 driver
-To: Richard Fitzgerald <rf@opensource.cirrus.com>, mturquette@baylibre.com,
- sboyd@kernel.org, bmasney@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
-References: <20260630155549.824059-1-rf@opensource.cirrus.com>
- <20260630155549.824059-4-rf@opensource.cirrus.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260630155549.824059-4-rf@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="nextPartCXp0dzo7QVWFrQBb7b6M4w";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-Hi Richard,
+--nextPartCXp0dzo7QVWFrQBb7b6M4w
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Subject: Re: [PATCH RFC v5 00/12] ZTE zx297520v3 clock bindings and driver
+Date: Thu, 02 Jul 2026 22:26:54 +0300
+Message-ID: <-YnKrFIxSsqt7IlbKzex9w@gmail.com>
+In-Reply-To: <20260702-frequent-refreeze-9850982156cb@spud>
+MIME-Version: 1.0
 
-On 6/30/26 16:55, Richard Fitzgerald wrote:
-> +++ b/drivers/clk/cirrus/Kconfig
-> @@ -8,3 +8,16 @@ config COMMON_CLK_CS2600
->  	help
->  	  If you say yes here you get support for the CS2600 clock synthesizer
->  	  and multiplier.
-> +
-> +config COMMON_CLK_CS2600_KUNIT_TEST
-> +	tristate "KUnit test for CS2600 clock driver" if !KUNIT_ALL_TESTS
-> +	depends on COMMON_CLK_CS2600
-> +	depends on KUNIT
-> +	depends on REGULATOR
-> +	depends on REGULATOR_FIXED_VOLTAGE
-> +	default KUNIT_ALL_TESTS
-> +	help
-> +		Build the KUnit tests for the Cirrus Logic CS2600
-> +		clock driver.
-> +
-> +		If unsure say N.
+Am Donnerstag, 2. Juli 2026, 22:05:14 Ostafrikanische Zeit schrieben Sie:
+> > I am not aware of any IO region to configure the PHY, although one may
+> > exist. topcrm + 0x84 has two status bits reporting if USB and HSIC are
+> > powered and out of reset. Nevertheless, the PHY feels distinct enough
+> > from topcrm that it should have its own binding. The phy driver would
+> > merely deassert the reset
+> This is the sort of thing that should be a child node of the syscon,
+> rather than integrated into the parent, given it consumes resources from
+> another feature of the syscon.
+Ok, I'll go that route then
 
-Could you format your kconfig help text with a tab + 2 spaces, as the
-kconfig documentation shows in its example?
+I think I can add the phy child to the binding later without breaking the ABI 
+if I make it an optional member of the binding.
+--nextPartCXp0dzo7QVWFrQBb7b6M4w
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
-In fact, your previous patch in this series (adding COMMON_CLK_CS2600)
-formatted it correctly.
+-----BEGIN PGP SIGNATURE-----
 
-- Julian Braha
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmpGu34bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoiPQMP/1oytiyuDough6TAKI1g
+pyPuNyWA1l0TbqIZQujcStqcihL5JOYZo7eK/Z5amGdaD0EMEfB4eWYwsapRjRlj
+hihS2WiWMGoowwNEvDsUAlxraWTwlDXpANEJtXNMPrVvOOPGin6OHFPquo3v+4vB
+vgmM1r2MMacaCuuFEFn/m7NRHBuXA1QJzNXuyzCdHxwQEamNKV0SEVWp6mMnvypn
+1wzXqXJjcyzbinxUBA42WiUaK8xfvna5CQAzqnqMVeS16C+Salhv41WhEDN3kMag
+xjMXR6L4g04Su0MdhmssQGfE185ULucGWxSR+FZyqCvUuTOZnL1keHMtETLbQ2C0
+Hafwvn0IUJiCzNhGjSzPgbzWIhe9xV7DLw9CxOjW07IVenrRoeZQr4G9/8f9ICYA
+n7Zy8REW5Clmm2VfDSpsF2YLPuA39xv7TAopwUWmf+X4XqhxJvZIZVHL0B2lXQrH
+CkKtc6AgRWV0Tb4wz66UK8QJCeJubNwYlHHkD7xbKt9NG+ZorwuIFxSoReT0+UVV
+R77MUxXv618CXy2iN8UwCjFJ/hEl2Ffkw4c07QrqMG7HJNFkOtKBvYuvDGeseSTa
+5GVk0b9cADBbSdwPkP1juTnjgYheY26U5Ru8lI5O+7zoAIrdzYik8OKkutQjbtus
+ZycegPP8luJaanrjrM6flc+9
+=zmEp
+-----END PGP SIGNATURE-----
+
+--nextPartCXp0dzo7QVWFrQBb7b6M4w--
+
+
+
