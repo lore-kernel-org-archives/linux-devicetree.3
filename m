@@ -1,125 +1,109 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4987466B59
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:00:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E871FB1;
+	Thu,  2 Jul 2026 09:01:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782982831; cv=none; b=tkkOXQYZ6KMHg4rx4ELOrU1K6wQ9AAhA6W33ALcTgF7zRGdeaSvKtIaA6nOOpscITac637Fizk0+ROOX8X8JfvFMHII1Y3EVZDldoeFdzqlGOnLdHCjkRAswuEMM//Pcdiwl4eUr7+n0TI21HIhXLWKdCX4FQfCt0HpLob+7txE=
+	t=1782982906; cv=none; b=BBrybQc/axNu3eciXQ4Pyd0f64kH0kgbFNNQ2HZ0O8NRpEBHd9nn7YfHh6FG0RUNDxCe//0uo0ojYdby1+o+R2zmwC4dvVvkt0C6vE99Cji4rB6vK5OkNv5LjXv6AZTcf6cIreRpTv5CYF+RS14MraW/bpz6QWx9ZiYiJtgApJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782982831; c=relaxed/simple;
-	bh=Sbsb6lIL/NE/wDWeCdsOaBLRIRMz/GZlFGrm9hCwqo0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H3PYXDYUWWWzoWoAB0SK35z0f23ehJbvQbjVUVapg3xukJvQmXgyU9ui1hW8hJG8tEcrp5oYgCbY30vMNiCo9onqXmujzoYmvJDbeL9HpVT2Idzggmnhtnl1mdA+vmHNep4jey2tLsvuHlvIcF8ktflyIhoxGMudKCnCKypWS34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G3376acy; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G3376acy"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-45fd464d51fso743662f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:00:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782982828; x=1783587628; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=rf72hkVbbdWwb9P5XxaucOhOUznb7Z4SYShC8Uf5GQw=;
-        b=G3376acycPTbnZfuDjSk0M8RDLdG6GtVf0oWh5IMQ1o5x+NC2DNFZ12bmVvLqEm62D
-         Gw1LlA0oGYpaS6u7oMsKo2Gc7ujs4Amy5cYtqeHaZx1/e2rtu0rCgolhKi99kEpfni6b
-         n5CQKozzL1tojzagABFdiis0ipxWUiY1mPhbU2KyjmPxX4mTVCNkWfjQpq2rfrACVULs
-         auc/L2kTN9/11tKXz+htW+am71Y/ovj2dKp2xbIlmjz53/Byl9XTCxUxJYt73aD0kYfd
-         wU0+HVZHI54zsCPaumHoNGYGOPEanaRp8kWKKFHXBD6XU8WNvYgJEKms2ZEt/de7sjK0
-         uAWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782982828; x=1783587628;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=rf72hkVbbdWwb9P5XxaucOhOUznb7Z4SYShC8Uf5GQw=;
-        b=FQ5LgB5VSWU5KpgO6KTR+d/7j9L0pFKDqia2QDb0a2fPYdX1FdjxWV2hpsKXWSuqHp
-         QjdZuKhuPqpwFWj2rKDsSC/fTukWHkyMCIdPqusvhckLtpbASf0vooKFYzBiwZpc1I9a
-         vDsnL2CddvIbh2l5mrLLirMoPth3wqVU48RTQkFuFj/HUliJ16PPUW/ZB9fGIDb2/tXk
-         CVAQ6TtcaJVF9+RVA+IrBljXQTqqcb6W3MdPY+XuYT8hbi21yhHhRsrAiW3SgF196m5Q
-         rTcFowWhiiSSdPxNrklrCfBPBrOvnZnTKzjEFbVlLLd8E2c2KvWrUuPyyzjP2qF1OMWX
-         06Fg==
-X-Forwarded-Encrypted: i=1; AHgh+RrI3DpP/OWoLImaSuDpvmCDVEvAYneBRmk7aP/qmjWr8HmA281/bL8AvuR5eyVu7MiSEobnejzYP5Dq@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx7ZYqgerhbzezyVnbpMKeyt06u9FRZWIS1qZlpYVhh9wKPLSm9
-	s1bsZvNrvfD9SrwBuGlkng+LIJtGUDJgXw30+GbOXluBqtPhi9WnW11KqW5ddg9o
-X-Gm-Gg: AfdE7cka9+XIcczZXFJ0YsR0C15jsPbzIWBDlhtXZ8W2o9e/nOy4dM1ZWKoHI3e7/8g
-	c06uHHS3jOK66w2jmgXikZzoqOaR95uRbAKRjrvX9cl4PLtHq0DhdHE/cbPfrdLMLHeH96ilzD+
-	ylr3dXYuou8yvNQzqo1Pcxjia0EgAuCJlQg79rCP3x6lVYhPoK5X+4AZdw7jjNjH0K5G/ACRnKb
-	pu8aK1EChJf6TI3EXQbMNDP/qzlFHXjW7BTPsuvwyb1WAPXpCovvEj5seFno0vOLXj2EM3+p4sE
-	yp9lCO5Ux0sEP1F/yJofZALLC01gBu02l8VuBEW8CrynV8rg6cFUbQdIHRA8/JiGm4yMqvKAse2
-	A33vpbIghI6vwVwmymDD7yA6nH6MhWYBMTGkUYwNAiFKJ2akgNT2LQ5LWEO6y+NgOx1k0hWTUdr
-	CIO3mC9zKRVHU/j21i65cgBLxWc1WILCvyfN9u7y6mCgLpjaV0gl7rLEXnAvKuNWXhSedac2cTH
-	6GUQFhaBCuezRFqXJRYHcn1aGc=
-X-Received: by 2002:a05:6000:2087:b0:475:f100:360c with SMTP id ffacd0b85a97d-4775a6d52d5mr8157295f8f.59.1782982827830;
-        Thu, 02 Jul 2026 02:00:27 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477de3dd46asm6934267f8f.36.2026.07.02.02.00.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 02:00:26 -0700 (PDT)
-Date: Thu, 2 Jul 2026 11:00:24 +0200
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Johannes Berg <johannes@sipsolutions.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>, 
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>, Andrew LaMarche <andrewjlamarche@gmail.com>, 
-	linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, ath12k@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH] dt-bindings: wireless: ath12k: allow calibration variant
- for WCN7850
-Message-ID: <zglhxxu6txw2xvz4vcyu32v6722hqppcfvntan5ho32ak2y6tw@2mvfuaoxcvss>
-References: <20260701-ath12k-calibration-variant-v1-1-d3eddaabf026@toradex.com>
- <20260702-beneficial-hopeful-binturong-a0bee9@quoll>
- <a0cb02e3-0566-4294-b41c-3b156ecda5e0@kernel.org>
+	s=arc-20240116; t=1782982906; c=relaxed/simple;
+	bh=Ci5DBXRn+5kdYcV4syoJ/nlrfafCD6IBrci7rpIgT7k=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=AewDd6Xt2CsL1fi9vgZ1IBQLtJmGZubhwnwGN5uCwdNwM+a1ZZlDflLyFCI87kZ3dzhXI7gMCCwrMo/appy4Ld7nk+vhVEDpR14SZ2IgykFQEe26HKZLTmnV50px5N6BMwhe0vshHq8o0Nm+skUNOu9bATU8+DN0bsDRKgdUinw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E3D852003DD;
+	Thu, 02 Jul 2026 11:01:34 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wfDIc-005iZG-2i;
+	Thu, 02 Jul 2026 11:01:34 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wfDIc-000000005AH-3BGi;
+	Thu, 02 Jul 2026 11:01:34 +0200
+Message-ID: <1ef8b2e4ab588aac1dae737541240e698fcf26a7.camel@pengutronix.de>
+Subject: Re: [PATCH RFC v5 05/12] clk: zte: Add Clock registration
+ infrastructure.
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Stefan =?ISO-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>,  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,  Brian Masney
+ <bmasney@redhat.com>, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Date: Thu, 02 Jul 2026 11:01:34 +0200
+In-Reply-To: <84C4450E-7355-48CD-BCBB-CF619C27EBED@gmail.com>
+References: <20260628-zx29clk-v5-0-79ff044e4192@gmail.com>
+	 <20260628-zx29clk-v5-5-79ff044e4192@gmail.com>
+	 <c59fab242716c80250a66707d7ccaaf243a85aac.camel@pengutronix.de>
+	 <84C4450E-7355-48CD-BCBB-CF619C27EBED@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a0cb02e3-0566-4294-b41c-3b156ecda5e0@kernel.org>
 
-On Thu, Jul 02, 2026 at 10:29:51AM +0200, Krzysztof Kozlowski wrote:
-> On 02/07/2026 10:27, Krzysztof Kozlowski wrote:
-> > On Wed, Jul 01, 2026 at 05:42:24PM +0200, Ernest Van Hoecke wrote:
-> >> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> >>
-> >> qcom,calibration-variant selects board-specific calibration data for
-> >> systems where the bus and device IDs are not unique.
-> >>
-> >> This is not specific to WSI-capable QCN9274 devices. The WSI binding
-> >> already allows the property, so allow it in the WCN7850 PCI binding too.
-> > 
-> > Why? You need to provide reasons WHY do we want this.
-> > 
+On Di, 2026-06-30 at 11:53 +0300, Stefan D=C3=B6singer wrote:
+> Hi Philipp,
+>=20
+> > Am 30.06.2026 um 11:27 schrieb Philipp Zabel <p.zabel@pengutronix.de>:
+> >=20
+> > I think the MFD driver is unnecessary overhead. Can't you just keep the
+> > reset controllers as auxdev and use of_platform_populate() to create
+> > devices for clock-controller child nodes such as syscon-reboot?
+>=20
+> MFD for top and matrix was the suggestion of Conor:
+>=20
+> https://lore.kernel.org/linux-arm-kernel/20260618-fantasy-estimate-6c52ed=
+bc6890@spud/
+>=20
+> To quote:
+>=20
+> > I think aux bus makes perfect sense when you have a clock/reset
+> > controller, but once you start expanding past that and you have reboot
+> > or hwmon or hwspinlock then mfd starts to make sense.
 
-We (Toradex) have SoMs with the SX-PCEBE from Silex, which uses the
-WCN7850. Silex provided multiple board files for this to deal with
-separate regulatory regions. Thus, we need a mechanism to select which
-one to use even though the PCI ID and machines are the same.
+Note how the example Conor gives is introduced with:
 
-> >>
-> >> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > 
-> > Where is any user of this?
-> > 
-> 
-> Actually I missed your link in changelog section. I still however do not
-> understand why these are separate. Separate means they are completely
-> independent and thus my question about the user stays.
-> 
-> Best regards,
-> Krzysztof
+> > Because I messed up stuff in the past, reset-mpfs.c has both aux bus
+> > and mfd probing in it, [...]
 
-I agree that they could be one patchset and considered replying there,
-but felt it easier to discuss this with the relevant patch already
-attached. As the other binding already validates this property there is
-no real dependency or ordering problem, and I thought this would ease
-review.
+So while, yes, this is possible, I'd like to avoid it if not necessary.
 
-Kind regards,
-Ernest
+> I can go either way. To me aux vs mfd seems like a distinction without a =
+difference.
+
+I think that's because the main difference doesn't apply here:
+
+MFD comes from aggregate devices where a shared register space
+accessible via a physical bus (which we have) can be partitioned out to
+child devices. Reset controls are often just individual registers or
+even bits scattered around the CRU register space, so we can't make use
+of the MFD framework's IO/IRQ resource partitioning infrastructure at
+all.
+
+Auxiliary devices were introduced to separate functionality of a single
+device into subsystem drivers (which applies here) for devices that are
+not just controlled via direct register access, for example via a
+firmware interface. That's not the case here, we usually can just share
+a regmap.
+
+Either way, I'd prefer the reset driver to not carry more boilerplate
+than actual reset code, so if you can either put all of them into a
+single auxiliary_driver or into a single platform_driver, I would be
+happier.
+
+regards
+Philipp
