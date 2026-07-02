@@ -1,108 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out203-205-221-191.mail.qq.com (out203-205-221-191.mail.qq.com [203.205.221.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A70480DC4;
-	Thu,  2 Jul 2026 12:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EF747ECE6;
+	Thu,  2 Jul 2026 12:46:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.191
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782996297; cv=none; b=eMsIj6VyXQMCwqF8oG2WhzoFPGYfqfcCBEfy42ccwpnIn3r+sQB7pZhz7v56tm8jmVNX/eHY5pP6wv4WBf4kDGGjgYvCinorDasrs216P23EJrUiA60MgOuG+CNgBLiqrHvQp5XFn9Os1rGQy3JiKYNULvRTnfZGxxc7zdI1yFw=
+	t=1782996411; cv=none; b=h/FlKdh0+jShIAnK+ZQjrfQU2H8kf02v7/hmddcf2SYxIyhhL4iuSRrZX0e/NsSsQDS+jW4wFoWDlQaZ66801IwWeOUpCTeNbAQmB+or0t7jJPnQBQr89woWVkTqgza2m4z7XaoeiiIyi0NTypXgdmYzEUDvdviuylfct1oy1ww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782996297; c=relaxed/simple;
-	bh=6cgPhejUfVXrEPjqwpp2ynVTYCcvQ4BrOtZeweqsOVM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kuOKVgozyr/+VvpmDVD9Zfai2kd1Z7ez301o/GMc+nzF4QDjTxamPDK+xW+pgbt1fIgi4D8Qyo5/T4OroU1jTmW2yIwX4F2uwpEU/wRKW1pmqubaODTtP+M6It7ojdWJojyoVqa7IANlnREBI322JqUdIvrcoksAyBfs4V7wjlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mxlQLvmV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782996411; c=relaxed/simple;
+	bh=cZ82wpzG4dEDpgB0onYrYhbBV1XpTLYDCKUM8jFjHJ8=;
+	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID; b=b/Lh3JRpg9zQ64dx/iQAbOxq828oBBBEZyICOEWbWjFTOLGXFjFhE1w8Jds81L7QCHpa3e9A29X62iBEv0gT0mbgJ/tB2MkzU/CztDmbr3dbgvRQZd2G0q+cVxoIadf5yLeAwECB5bsyM+pEAdyoFTSDQaIwQol9QKFzXQD6wIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=azV2hz4t; arc=none smtp.client-ip=203.205.221.191
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mxlQLvmV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74FD01F000E9;
-	Thu,  2 Jul 2026 12:44:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782996296;
-	bh=bVlHfhnFKZio0CEVyLyDHlAdW0yRJtbWDG+DW8K6srY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mxlQLvmVHgy54lNUxKowi+B6F55dMmonfTq2Wndj1uKAXQQRA0hoJpCzJ1vNlKKmQ
-	 K2B08QUJoJdOV7qY5hCXCV7jwBME6DJExx6J4MLhxxWZ3tQie5KakakueSG946Gu+c
-	 BMaEHQsX5Nl8XqcAkmCbvfrCnndxLhinKu1hLZkVGXSurLstVgADwW/lN4ecMy0Jc7
-	 MWkTAWo0Xte9AwS5O6aIN7OJd3QMzt+Mzbu63eWQu3JekI1gWOf4TBg6F0airw4U/x
-	 Dmphz7AJyypcqi8edCDlguucwCfh6OeVcORZjwHFZ8n+d6gufBB1rGY64k66UZeTsZ
-	 gW4+I0uOPal/g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 8/9] arm64: dts: renesas: r9a09g077: Use SYS
- syscon for WDTDCR access
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: conor+dt@kernel.org, linux-watchdog@vger.kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260702123112.161160-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260702123112.161160-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 12:44:54 +0000
-Message-Id: <20260702124455.74FD01F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="azV2hz4t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1782996401; bh=cZ82wpzG4dEDpgB0onYrYhbBV1XpTLYDCKUM8jFjHJ8=;
+	h=From:To:Cc:Subject:Date;
+	b=azV2hz4tgzVRPzqUT1cmejO8zhXMUF+PRp5a0TeWOS3nj3nJsAknPEBmkV5OcSaza
+	 tYWDF9PoWx2dX14KRA/UHEOCKBwVCZ5bWPc52ThbhhOaXk8Rm5agePaGLplcsDS7Em
+	 7kAYtamYNHRiwhXD7rahRxO1sCW4NaNaqmnXH1iE=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-XMAILINFO: McF9JvsryK5JD7mWECZX57rL5Rprn8Mk7XTA5UJtsp7kYfow6fxNMQoWuwoNn4
+	 tVNny0O4V2vpwvGzR8je738IRA73nQ9hA5I5rcMIdTzKVx9EGI1zSQxUlfeg6uNX6coG0Lu0rFrZM
+	 Gc2hC1WBmGJS+vZOXQnEEGnrm3PJhaq8gTjLC79BGpyYMM6oSPKeefpCufewFwvgu816KhSivasKC
+	 68Zm4+ENlNp2iAdgXSsvyjHmLAhVgSS5v5+CYo38hQpEHAmCY2sDnrhqddBJdT7NNRIGbixFpLUjD
+	 7NjyU0kZnFNrO+mnW28uCsZf5ezJwS7kFne5/aQb7ulFhvU9VtxmokbMXBZtQmtMjKf/CtnlPUcRc
+	 QMa8jw7A4oA0xECBhNx5+oZqpPVFqOX7uBs1MkcJqDhCl+1pA8y129xhO6bP4x+iCk+kkoh1P70/Y
+	 xflsNu4w6e6HRkDFDjzwxHKVdlW7H9IoqWwEslXZxxqYOOnqe3SyMTwZNW3w0CVtKtToykPYHT0Yn
+	 kLqkw4s2narZarifHngjrPdFqkge1/1F5HLpjdTxMC2oE3M49xXGn/5M4203ckggz17/d+QEl7IGX
+	 mO1VZSp2i1skxVN+4QK+AgcRnH+1jGkdpv8yh4aBSkxfrcn2MMaYhahjahYtxpyrmR8ZovLKRFd3q
+	 Gw+/UVFPGGE0JAqe1dLgGYJRRDaCe14wQdiBGlCfzqsqN18MDsA3EU33ecHvh6ggTce5K1E5sLzNB
+	 lcvu2q5VJ08cW4lhqGpEchzKAobjVkEltnK4ZZozgEzKxT3UaHIpH2OBBXolwM6/U/m/lp4VJJq8y
+	 2tzifYVJXW9X/BPK6fNpVd7iiMmbIrOYzhtAmTETMByvXutnrPpEJ02/pu3/sUS6wB0iW0B/MbO1c
+	 OKm6WYyr4dBRmA7AMjJtV/fifAnIdaE8R9gqLQPfD/nqsI2TxO2XU1iRkEeiMQ9JwlJB2QEIgdVWh
+	 ix/6ITZu4TUSDeQcfFBcwXRnTzupl1aSIoKu0GS6FBL8kFlI3DzzZBijXcnkyg4in4sDL6FxBxPT5
+	 ddNgfrREJIzrdxV1gFatoJa7EzOOHwf6iAM/phNxLQMe3rNzg+YD+R9SdvA==
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>
+Cc: "=?utf-8?B?aGVpa28=?=" <heiko@sntech.de>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?cm9iaA==?=" <robh@kernel.org>, "=?utf-8?B?a3J6aytkdA==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Y29ub3IrZHQ=?=" <conor+dt@kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] can: rockchip: add RK3588 CAN-FD support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Thu, 2 Jul 2026 20:45:27 +0800
+X-Priority: 3
+Message-ID: <tencent_2AA2119D8067447DBFA826619A5419878407@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-mid: xmsezb41-0t1782996327t5ajzis1k
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Transitioning to a syscon regmap introduces a spinlock into the wa=
-tchdog restart path, creating a severe deadlock risk during kernel panics o=
-r reboots.
---
+SGkgTWFyYywKCnRoYW5rcyBmb3IgdGhlIGZlZWRiYWNrLgoKPiBUaGVuIENBTi1GRCBpcyBi
+cm9rZW4uIDovCj4KPiBNYXliZSBpbiBhIGxhdGVyIHBhdGNoIHdlIGNhbiBoYWNrIHNvbWV0
+aGluZywgdG8gYWxsb3cgd29ya2luZwo+IGNvbmZpZ3VyYXRpb25zLgoKVW5kZXJzdG9vZC4g
+SSB3aWxsIGtlZXAgQ0FOLUZEIGRpc2FibGVkIGZvciBSSzM1ODggaW4gdjIuCgpJIHdpbGwg
+YWxzbyB0cnkgdG8gaW52ZXN0aWdhdGUgd2hldGhlciB0aGUgZmFpbGluZyBCUlMvZGF0YS1w
+aGFzZSBzZXR1cApjYW4gYmUgZml4ZWQuIElmIEkgY2FuIGZpbmQgYSBwcm9wZXIgZml4LCBJ
+IHdpbGwgc2VuZCBpdCBhcyBhIGZvbGxvdy11cApwYXRjaCBpbnN0ZWFkIG9mIG1peGluZyBp
+dCBpbnRvIHRoaXMgdjIgc2VyaWVzLgoKPiBDYW4geW91IHVwZGF0ZSB0aGUgZGVzY3JpcHRp
+b24gb2YgdGhlIHF1aXJrIGZvciB0aGUgcmszNTg4IGFuZCBhZGQgaG93Cj4gdG8gcmVwcm9k
+dWNlIGl0PwoKWWVzLiBJIHdpbGwgdXBkYXRlIHRoZSBSSzM1ODggcXVpcmsgZGVzY3JpcHRp
+b24gYW5kIGFkZCB0aGUgcmVwcm9kdWNlCnN0ZXBzIGZvciB0aGUgQlJTL2RhdGEgYml0cmF0
+ZSBpc3N1ZS4KCj4gUGxlYXNlIGtlZXAgaXQgZGlzYWJsZWQgZm9yIG5vdy4KCkkgd2lsbCBr
+ZWVwIFJLQ0FORkRfUVVJUktfQ0FORkRfQlJPS0VOIGVuYWJsZWQgZm9yIFJLMzU4OCBpbiB2
+Miwgc28KQ0FOLUZEIHN0YXlzIGRpc2FibGVkIGZvciBub3cuCgpUaGFua3MsCkN1bmhhbyBM
+dQ==
 
-commit f54f749e298c48411aae186783c11b3cc40d3738
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-
-arm64: dts: renesas: r9a09g077: Use SYS syscon for WDTDCR access
-
-This commit updates the device tree for the r9a09g077 watchdog nodes
-to use the new System Controller (SYS) syscon interface. It replaces
-the direct MMIO region mapping with a "renesas,sys" phandle.
-
-> diff --git a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi b/arch/arm64/boot=
-/dts/renesas/r9a09g077.dtsi
-> index 208287f7b7442..ae69a01d60427 100644
-> --- a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
-> @@ -327,61 +327,61 @@ channel1 {
-> =20
->  		wdt0: watchdog@80082000 {
->  			compatible =3D "renesas,r9a09g077-wdt";
-> -			reg =3D <0 0x80082000 0 0x400>,
-> -			      <0 0x81295100 0 0x04>;
-> +			reg =3D <0 0x80082000 0 0x400>;
->  			clocks =3D <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
->  			clock-names =3D "pclk";
->  			power-domains =3D <&cpg>;
-> +			renesas,sys =3D <&sys1 0>;
-
-[Severity: High]
-Does adding this property introduce a deadlock during system panic or reboo=
-t?
-
-By pointing the watchdog at the syscon regmap, the driver transitions
-from lockless MMIO to a spinlocked regmap access path. If the system panics
-and smp_send_stop() stops a CPU while it is holding the syscon regmap lock,
-the watchdog restart handler could hang indefinitely.
-
-The triggering sequence looks like this:
-
-machine_restart()
-  smp_send_stop()
-  do_kernel_restart()
-    watchdog_restart_notifier()
-      rzv2h_wdt_restart()
-        rzt2h_wdt_wdtdcr_count_start()
-          regmap_update_bits()
-
-Since regmap_update_bits() uses a standard spinlock, the restart path will
-spin forever waiting for the locked CPU. Is there a way to bypass the lock
-during the restart sequence?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702123112.1611=
-60-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D8
