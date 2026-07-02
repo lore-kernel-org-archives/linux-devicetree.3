@@ -1,177 +1,166 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE9735CB81
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 10:12:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7870B30F7EA
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 10:14:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782987126; cv=none; b=VvmGXQDowaTjl++CYdwDf5OmdAZRgHUlAP2Cr7H+3AjZT3YvkTyQOsw6QQlMrQu3DOe+XgglrM6SqvpED8qKY+ikEN1Kn7SV522lV687BU6hVbmaKM3wFPz7XkUCJuMYHu+TeXDJLK7UjYNWaOruAzQiAzz13JypRsTozbvBePA=
+	t=1782987271; cv=none; b=cTMr0E1Wmyr4SK4dVSaVSUBZGfpGJMEcFzge+6O1D2DQUfCq65124ywtdh9OaaHWdE6bK5doOEzc9ko3oGey3yxKjeFHYEnDFuhIYoFIlC1QIZikB2lBWQrOMO5TdQRFETQxbTAGQ3a1TqMwDFYKr+SVOPmP16q5NB1NFOow+jY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782987126; c=relaxed/simple;
-	bh=WPbU9zyN41Kz3ts39tgtUWXwby7aflswHhIE3AAgyTU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=In/XMRW6ENxqbYdz3TJwMpRqy/tSuRph65/upl9vbkybjJCLa41U9pGnr0VzysTVnq3F/INhx+Sc8jFlFQxUN9MS/H+krmmvu29fjQfk14MExr+MCgNcUdFDKOWKrm51dfVcZbde45Op1Y2AmLCHAwPJSyzTTq7FU3H5CJeNyPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LdJKowK/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C6xyaoF9; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782987271; c=relaxed/simple;
+	bh=u6ETMTchOoN0b7cHQdwyqA+5c8Qn2b4VENKBRB4rEd8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LdoJx7oy5in40kg+bhhZj4taRSCoMjRL1A8MZx17LKNU/YNk9fIX4NfvvxhRloH5r+DIH/QOyvlzHjacXQm8hPSbW92541p7M6zyqgD9669z4mT3yi4wx3XYYGgsd6h19tkRqAnsWm+VpaNX/pdas3v6cmWbqBxIxSNPNDogzms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=If5odQ3Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LdJKowK/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C6xyaoF9"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6629nNCx4139472
-	for <devicetree@vger.kernel.org>; Thu, 2 Jul 2026 10:12:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/W4rwTUsblVQUb2azkuxNIAxMmfdF2CA50hNgiVoaSw=; b=LdJKowK/UY8C+Tgp
-	s3AfQxglZDGApN7sw5NlfvC8YAZZE/C58SrRlFq/0StdAGctnYD+hcAhXCL+v1Jh
-	/fSHn6kTl/tynImwlqXCCUgBmTcTN5JHmgW5hNJDBmT1ElbUzSG6MPKmQ6eWJmL2
-	egV8ddqzeqBpZfFvbZ91c7QvkBsAqHJaM25X7JGHWHRPmet6vdDaCrPzl/qo7jxs
-	sfYOsNKsfD+oTvcRitul9tbDVb6zBoTyvcKehYjyX+8MsntIN16KiNvci0L/DJWS
-	FSfcSbJTH2OS4uniCv4bEjbPhmpU4K0uDWd8DibMnha6Om7wi+mBx+NysW0HaJp7
-	bqpQJg==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5npr82yt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 10:12:04 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-847ac21582cso1934804b3a.2
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 03:12:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782987124; x=1783591924; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=/W4rwTUsblVQUb2azkuxNIAxMmfdF2CA50hNgiVoaSw=;
-        b=C6xyaoF9S/q92mHdKhu8HYXUcJsP49nF6X2/FLwTrk9BuKfYTpQSoIRANu5NEEkFn5
-         njdLO4NHC6rSAVdLpWTUCeUGEHlRRi0qTnw4b3ayMmOIzmDPFdUyFQtuB1mPT/pRkMJb
-         M3xypQjjH2gYVsSQ8hnIzXjobv65tz2HV8K35mBkrtjthujlbAM6LhM0tiw3kWN34daU
-         eVjgWQkCvh+l0ISY8EzzWPUvsQg37zZYwFOvztdRvVtvA45BMrl2vvALujingo+AWU/s
-         Be9InDN2/nD6Y9wN2h3eXyOFKK50jZ5gTJrrI+y4t1ogCVVoWzJvH2GFfFv6JsT7JWds
-         2L8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782987124; x=1783591924;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/W4rwTUsblVQUb2azkuxNIAxMmfdF2CA50hNgiVoaSw=;
-        b=kbQ7LqRYy09GqOLCNgtjEdzVT/rVBwRi6UF2j8LoG8BQz1pOl97zd5dr4qAlrgBZsy
-         cAIcjUd7zNTjjuo4hzAdca53uRIFCUQPMntZgRkv+Z3PsVfJLk++mw7asKempJua96Ta
-         kGOpufK56pK7QjLxwbO4rVJc+rDOlcgShpe+nRND8t3sB4E6z5gSWwkCZVLWH2/M5Pp4
-         1YhZmnEjmW5T0V2Nu/Emuv+US6ioooZsibRBDgJbje4I0vEdFUlY+W6n/CudwzlHvp2X
-         d8Dmqya9UyGXUd5D983M3qitXbs+etx1LsiVl/migGD415IO0Qqulqk5geVpPpbvV3uN
-         iZSQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/yLbT/65aHnUQC2TvQ29IZDY3P1ZXTgSAemUgN5i/kPJU+8HLN7g3fC7D9UNPP7YyFviXdMz18pkbd@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzbn9nxUABJAhbT3xfkm/67AN2YxtfH2fGYNTZslxfXF/6gC0ie
-	P1XOroIzkAddDX3TiZjOoTezQoBQNS+JXA8dRMly5W105arOIVmfG/jlj1Mo9HxLheiGl81DNcl
-	FyG0Hd4VZcCbx4ygwVRdbgyg6IYfDhBCnWjLssvvt61XBNlOJA9sWnI90b7cjs0J8
-X-Gm-Gg: AfdE7cm51Pk61N4xcN8pXDV3lsfP5OCx3yd6CiudO2evF2DsWfvYgUF/JtCvvQH+qHA
-	EhHSkNm6DpcvrmpOeGDpKs+M1vY0nzLRF787wWhRli814VwDGrgiDK4qYjM03naAQBKR8OWKJmB
-	Wobkj7mm1phybg5YIrhp2Mf+tFjA/uT5kCye7zgxMjEFu28GEXs7EdTnsvrDzET57NfjGwjUUYV
-	hdey7HMbGH63bw2yCg7jJZcrYm7U3qZ0e6CS8Ms+JUkdAxjMSLESx3HdBzvSZRFdYxreWSj1UYc
-	Ap4Pvi4sx3CrB42MWmn6k9ztJj/a1gZ5OAo0DvcirDoKBb3fTJ6Rq1H5qgUIHqTL2qMNLhQJhB6
-	aCczTVK43591ghqM2GQ+i8aRmy4AArpO568dpFUmI
-X-Received: by 2002:a05:6a00:1798:b0:845:df39:b15c with SMTP id d2e1a72fcca58-847c08956fbmr5292514b3a.37.1782987123960;
-        Thu, 02 Jul 2026 03:12:03 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1798:b0:845:df39:b15c with SMTP id d2e1a72fcca58-847c08956fbmr5292472b3a.37.1782987123492;
-        Thu, 02 Jul 2026 03:12:03 -0700 (PDT)
-Received: from [10.218.39.201] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847cb9b409fsm1130752b3a.52.2026.07.02.03.11.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jul 2026 03:12:03 -0700 (PDT)
-Message-ID: <88770279-0c63-4c56-a727-dcebf03c32c5@oss.qualcomm.com>
-Date: Thu, 2 Jul 2026 15:41:56 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="If5odQ3Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B07141F00A3A;
+	Thu,  2 Jul 2026 10:14:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782987270;
+	bh=ZnQ3BPWD2sLXVOQ9o1oEN4tGqdYuwLCGKdjzo5zdpSo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=If5odQ3QTEH8iSDvU5xuZSbWJ3LaklsJwuaiOqATtdPZ7T0NexPW+19fxt4MW9Wvm
+	 LhRVxNKzD7Nf03e8uM8LDyMhIXtQXokXjpDVtJiB5Zcd5GU9q2BPkMyu0euqUR0VVy
+	 KEWNd6rmg4ZJ5rWAtCvKBwNPEvdO2M3+L3forR9a9cFA32B0xXsceov+aPkVprOYHh
+	 lgvNgyuZnm7kFnbEeOktdqfVYbR0oz+nrgxt2Ttsn85ZzmXW3sMhwxt4Ax2CUXRjOh
+	 iEhr+KVM5b5TeVRgqLeww8qB3QdrhGbV0La3vS/Cgc9L5Vq3hPqNpnuUQ+Ag5tcK0J
+	 ny/vRZod48imA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 4/5] phy: move and rename Airoha PCIe PHY driver to
+ dedicated directory
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260702093812.15918-5-ansuelsmth@gmail.com>
+References: <20260702093812.15918-1-ansuelsmth@gmail.com>
+ <20260702093812.15918-5-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 10:14:29 +0000
+Message-Id: <20260702101429.B07141F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] arm64: dts: qcom:
- qcs6490-rb3gen2-industrial-mezzanine: Add QCC2072 Bluetooth M.2 overlay
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann
- <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>
-Cc: quic_mohamull@quicinc.com, quic_hbandi@quicinc.com,
-        rahul.samana@oss.qualcomm.com, harshitha.reddy@oss.qualcomm.com,
-        dishank.garg@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260529180234.3373056-1-yepuri.siddu@oss.qualcomm.com>
- <8ba8a59c-fb80-45e3-b4b7-0db06614df49@oss.qualcomm.com>
-Content-Language: en-US
-From: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
-In-Reply-To: <8ba8a59c-fb80-45e3-b4b7-0db06614df49@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: g4hr52qc_JlZZQ0rEbryOY94To_hP67E
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDEwNSBTYWx0ZWRfX/GYxJrq0sArn
- mAzNwY2iXyP9a56sEI5Y8OHQswTZDZ6gMicSsZfqCSW8i7ZYH/W+En4vwqGreCAy6lW21Lqk/fQ
- 1JZ+twmwBl1UeYIcr3hImjtSJVi71Iw=
-X-Authority-Analysis: v=2.4 cv=NsvhtcdJ c=1 sm=1 tr=0 ts=6a463974 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=kG7O8nbCROFF2r-TvSsA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-GUID: g4hr52qc_JlZZQ0rEbryOY94To_hP67E
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDEwNSBTYWx0ZWRfX3T6rHAbn28Ee
- /dhMs/rKVTaaCkGxTFBf1SfMWXrPYNRfOJ+t6EUityyMQPFeiXL1MpZ3wo0WoAn8wBrr+hw4Yfq
- GEj3xgKvceTJGTMnAO4Codd3QUyO6sBH33T3oN/3GiQWY2Qsw160lN1CeaqS8Kwc7iXySMVHa+O
- NEwp6Y6LNltrH2XbDwUVBjqao3+LHE+1/tjCR7Pj6U8uxImZAcAVgQqdeJcCXv7LnzjE1WQjEgI
- oGEazghzCuGpV0irkPn+qasGHL0+hrgjmXP9rKUddrLYz3mvO3L/7eiV7MUL9JVv6m6sx6gzPU/
- 3MxldIsNAP7FAxcF5VurlavRPHjTQO1k5YCP7Ayyy9Z0LtkIodjNl2n8Su3yO3+tlx8CzuJBE+8
- XtmlGPNbsCz/M1FMOqf55FRIwmnXlzVtFPVbSUCBUKXXkK0pHePrulTxdvLehPAhrVVnOm9ZOi1
- MBNYHWE6NwvD0vdYYnA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 phishscore=0 suspectscore=0
- malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020105
 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Low] The driver Kconfig symbol, file names, and platform driver name are=
+ incorrectly renamed using the 'AN7581' prefix instead of 'EN7581', creatin=
+g a mismatch with the hardware name and device tree bindings.
+- [Low] The include guard in `phy-an7581-pcie-regs.h` was not updated after=
+ the file was renamed.
+- [Low] Incorrect SPDX-License-Identifier comment style for a C header file.
+- [Low] The newly added `Kconfig` and `Makefile` for the `drivers/phy/airoh=
+a/` directory are missing from the `MAINTAINERS` file.
+--
 
+commit 6b7c73648fcebc4627d82c8ab33128623756a453
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-On 6/30/2026 5:03 PM, Konrad Dybcio wrote:
-> On 5/29/26 8:02 PM, Yepuri Siddu wrote:
->> Add a DTSO overlay for the M.2 E-key slot on the QCS6490 RB3 Gen2
->> industrial mezzanine board when populated with a QCC2072 Bluetooth
->> module.
->>
->> The overlay configures UART4 (gpio16-19) for Bluetooth communication
->> at up to 3.2 Mbps. Sleep pin states are defined for all four UART
->> lines to minimize power consumption when Bluetooth is inactive. Host
->> wakeup is handled via a GPIO interrupt on the RX line (gpio19), and
->> SW_CTRL is mapped to gpio86 for power sequencing.
->>
->> Disable UART7 in the base industrial mezzanine overlay as it is
->> not used when the M.2 slot is populated.
->>
->> Signed-off-by: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
->> ---
-> 
-> This seems to be a single, unthreaded message. Please switch to
-> using the b4 tool for submitting patches - https://b4.docs.kernel.org/
+phy: move and rename Airoha PCIe PHY driver to dedicated directory
 
-QCC2072 is an M.2 E-key chip. As M.2 Power Sequencing changes are being 
-upstreamed, we will reupdate our existing patches to align with M.2 
-power sequencing approach.
-This includes aligning the bindings, DT and also BT driver changes.
+This commit moves the PCIe PHY driver for the Airoha AN7581 SoC to a dedica=
+ted
+directory to keep the generic PHY directory tidy. It also renames the driver
+and files to include the specific SoC name in preparation for adding AN7583
+support, and updates the Kconfig symbol accordingly.
 
-Thanks,
-Siddu
+> To keep the generic PHY directory tidy, move the PCIe PHY driver for
+> Airoha AN7581 SoC to a dedicated directory.
+>=20
+> Also rename the driver and add the relevant SoC name to the .c and .h
+> file in preparation for support of PCIe and USB PHY driver for Airoha
+> AN7583 SoC
 
-> 
-> Konrad
+[Severity: Low]
+This isn't a bug, but there might be a typo in the commit message. Is the
+SoC name EN7581 instead of AN7581, given the existing device tree bindings
+mention en7581?
 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index cb7836a27b177..bbfaca572118c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -765,8 +765,8 @@ M:	Lorenzo Bianconi <lorenzo@kernel.org>
+>  L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/phy/airoha,en7581-pcie-phy.yaml
+> -F:	drivers/phy/phy-airoha-pcie-regs.h
+> -F:	drivers/phy/phy-airoha-pcie.c
+> +F:	drivers/phy/airoha/phy-an7581-pcie-regs.h
+> +F:	drivers/phy/airoha/phy-an7581-pcie.c
+
+[Severity: Low]
+By explicitly listing only the source files, the newly added Kconfig and
+Makefile in the drivers/phy/airoha/ directory are left without a maintainer
+mapping. Would it be better to use a directory wildcard like
+F: drivers/phy/airoha/ to include the new build files?
+
+> diff --git a/drivers/phy/airoha/Kconfig b/drivers/phy/airoha/Kconfig
+> new file mode 100644
+> index 0000000000000..9a1b625a77012
+> --- /dev/null
+> +++ b/drivers/phy/airoha/Kconfig
+> @@ -0,0 +1,13 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +#
+> +# Phy drivers for Airoha devices
+> +#
+> +config PHY_AIROHA_AN7581_PCIE
+> +	tristate "Airoha AN7581 PCIe-PHY Driver"
+
+[Severity: Low]
+Does this Kconfig symbol and prompt incorrectly use the AN7581 prefix
+despite the SoC hardware and device tree binding being named EN7581?
+
+> diff --git a/drivers/phy/phy-airoha-pcie-regs.h b/drivers/phy/airoha/phy-=
+an7581-pcie-regs.h
+> similarity index 99%
+> rename from drivers/phy/phy-airoha-pcie-regs.h
+> rename to drivers/phy/airoha/phy-an7581-pcie-regs.h
+> index 58572c7937223..b938a7b468fee 100644
+> --- a/drivers/phy/phy-airoha-pcie-regs.h
+> +++ b/drivers/phy/airoha/phy-an7581-pcie-regs.h
+> @@ -1,4 +1,4 @@
+> -/* SPDX-License-Identifier: GPL-2.0-only */
+> +// SPDX-License-Identifier: GPL-2.0-only
+
+[Severity: Low]
+Does this change to a C++ style line comment violate the kernel's SPDX
+license identifier rules for C header files, which require the /* ... */
+block comment style?
+
+[Severity: Low]
+Also, since this file was renamed, does the include guard further down in t=
+he
+file (currently #ifndef _PHY_AIROHA_PCIE_H) need to be updated to match the
+new filename?
+
+> diff --git a/drivers/phy/phy-airoha-pcie.c b/drivers/phy/airoha/phy-an758=
+1-pcie.c
+> similarity index 99%
+> rename from drivers/phy/phy-airoha-pcie.c
+> rename to drivers/phy/airoha/phy-an7581-pcie.c
+> index 56e9ade8a9fd3..81ddf0e7638b7 100644
+> --- a/drivers/phy/phy-airoha-pcie.c
+> +++ b/drivers/phy/airoha/phy-an7581-pcie.c
+
+[ ... ]
+
+> @@ -1279,12 +1279,12 @@ MODULE_DEVICE_TABLE(of, airoha_pcie_phy_of_match);
+>  static struct platform_driver airoha_pcie_phy_driver =3D {
+>  	.probe	=3D airoha_pcie_phy_probe,
+>  	.driver	=3D {
+> -		.name =3D "airoha-pcie-phy",
+> +		.name =3D "airoha-an7581-pcie-phy",
+
+[Severity: Low]
+Does this platform driver name incorrectly use the misspelled an7581 prefix
+instead of en7581?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702093812.1591=
+8-1-ansuelsmth@gmail.com?part=3D4
