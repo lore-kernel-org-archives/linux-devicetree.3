@@ -1,74 +1,62 @@
-Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com [203.205.221.205])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0367339B3D
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 16:32:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB7B342510;
+	Thu,  2 Jul 2026 16:33:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783009953; cv=none; b=jQ0nqvoXzDnvUrYhnLqjHc1sGf8o5jNx+SWR0Hd3Rc2BYQTW6FsVsZQQkBoqz8ORAFpzEgtCBvOUdh+FIykxZbjV2Pxo3xoXGC5hDxO5VSx0LXuTGfYUbGxbqlIqUpLz8Xsr5cX4wxwyhyJqvaxKyKrqRh+INKSGkq0xs0OAOt0=
+	t=1783009990; cv=none; b=Sy/o76iS+t+hRyc+VdPeC5YsKu2YZgIl+95y0cfnMOZCTRkFgwppzIv7/Hc9sogUeGYjWzEIos9aD8fCXM7EqlALEvt2DlYC8uLM9FmD+ObuU3/VOHMd6Iwt7LUiGaYeVbTRdXdLSuNTl3yyVksM61aFmS7x3t8nmp9ifbNBnSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783009953; c=relaxed/simple;
-	bh=OnW870l0yC9mr/LlBv2UdLFBV+iCbhzmV8aj4QwT7js=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=kO5W2VaJ8OElpovkkiDUQKej4WzeEQwONVGIop14OxX8YxuVUCqQhxkltsymxsLHdey0LfpkKu0DhIx5S5Sbkmh+nIOrOhLF2XPQcwCnMiGQvTLpGLAil86LIDPwenOhwqbpPciOIFJo+REmBg5HX+ADrD9RcKO1uO7VNez24hU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=QU0osGOy; arc=none smtp.client-ip=203.205.221.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1783009990; c=relaxed/simple;
+	bh=LUHLzc9vtYgcx1VUvgtFxwMPwTgm6tvzpzaxpB2WqwA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LsktvIWuJH+INdVL1uOTBPu2qiwCt+iMQw9jTH0uAUdnO0bPmgwrwjv6rMb2px/uBKEII/sYWxU32UUeQNac8zX/E5+vHNRApest953XnKJoMJpZkhvzRwc/AFEIz3i2SpHGzw6Z48cKg7o+BEscFtxVH85rbvrvMnnTcWwcMpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZuJWP9ZD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="QU0osGOy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1783009949; bh=OnW870l0yC9mr/LlBv2UdLFBV+iCbhzmV8aj4QwT7js=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=QU0osGOyGI/BXIufuCqgEKLUvS13kiSG1XC/OC14urB7LTIPReyVlR760ZG/2Wy7k
-	 CozVNZw/3xXIzg4dXANourDVd0ebKApkV2P0uokrASkzkKIybKjOOLEcHEYjq9qx0r
-	 1gq5unV8ilAv9KsYXBoQpzZAi1wsHpun5mkxIFZE=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-XMAILINFO: McF9JvsryK5J2MbxooxpFinMQvrcWw5im6o2Q6S6gW5u3vK+e7cbb8hasHzSKI
-	 bcHTBt+6j2qlIdyMSYAtV4T4FkElEeOkhPgUjutEqxSZlE9pwpXcmYwVL07UwlPWfKyDB/k7yJPCd
-	 O/FwzzTIDfS6OMkFEs9WAYsIQIOWNO+byR197KMqoN69geEX3QNLF4uCZeS9sssoBvgUbE7eHtJ73
-	 uLxAtB59HYqah38S61HXgi7+ecvVPE2eAoocyRHDXxtREgZE4n9kB0+cKPWhgzNQ+RcWfexXszztR
-	 KKTxN+RDMYhH2tZox94LMxZO0QxJbV5OWgEt4ZPNBgosE6wmjyU/kWY/ynBS9NjV4CrEGBhpP8pgE
-	 kKrx5xDLW7Ylf7x0n03qpySTyuk/y0P5ENgh4lsbd6nCPP2SjYirm2UbNATs1ARVThiRQAHR7xeCH
-	 RjHXuoZE4ISLTI5Hnyca1FBFBMtv+PU1e+c/xx10pOFi/TwkxfRYWjFHw50+m0Okder38GSiOXR1F
-	 NQn9PFhTcEYqsMInYAQKW6uXJqoaqRpX0Li+7TJ9wk4jjsiOMq5Z7AApJpHGDojBEsJt7QXt74oS/
-	 BveXTjV0ZYpWevj3fD4aDytAo018wnoFb86DPsGuqMP2/bcOtManjx+CPn20yxVDKYJh3s+HrgNiA
-	 XG9+uNODenrAhEugrR4mfA7ABssjjmXFuMCrO4RILgfAhB1ODwR5n9ZyAJK2AY+egS64dNI/yBh35
-	 dWDV/jSUyjbuGIj7bWQsbElPpuRt3+IsuVqI/yeyc2TPQBlIx2msP+v0VbJ76S8MUsWMCakJIAh3/
-	 E/ae8K8VWzdLV9aTnQbFO9FZC+kCGg3TrgUdiIeMs6ZTDxVMNskXs0B0FRJzhkYWMO29QCZyU9B1Z
-	 bZL4rWB///fCE/W1WnSv9GkSXF0IJaInY+mpYt2RpXvX3E5R7vbjg4jDjvJjCGiaxvjx3rJUSXJin
-	 U8zbkaK2CTClnmuU97UpOUqyzo4h+otk3jvZMDkV6x7EOylkMw1ZhITE52UobaUR1DcJqfl/BRLS3
-	 hqOio78a22z1UZ2t25FSQnHF27mNnp4CrZgQK4EAhmPoLjDt9DfTyU0c6vQ==
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?SGVpa28gU3TDvGJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>
-Cc: "=?utf-8?B?VmluY2VudCBNYWlsaG9s?=" <mailhol@kernel.org>, "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?RG1pdHJ5IFRvcm9raG92?=" <dmitry.torokhov@gmail.com>, "=?utf-8?B?U2hlbmdqaXUgV2FuZw==?=" <shengjiu.wang@nxp.com>, "=?utf-8?B?UGVuZ3BlbmcgSG91?=" <pengpeng@iscas.ac.cn>, "=?utf-8?B?UnVzc2VsbCBLaW5n?=" <rmk+kernel@armlinux.org.uk>, "=?utf-8?B?RXJpYyBCaWdnZXJz?=" <ebiggers@kernel.org>, "=?utf-8?B?TWFyaW8gTGltb25jaWVsbG8=?=" <mario.limonciello@amd.com>, "=?utf-8?B?S2FybCBNZWhsdHJldHRlcg==?=" <kmehltretter@gmail.com>, "=?utf-8?B?WWl4dW4gTGFu?=" <dlan@kernel.org>, "=?utf-8?B?U3RlcGhlbiBCb3lk?=" <sboyd@kernel.org>, 
-	"=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 1/4] dt-bindings: can: rockchip: add rk3588 CAN-FD compatible
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZuJWP9ZD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBC151F00A3A;
+	Thu,  2 Jul 2026 16:33:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783009989;
+	bh=4wEpUXkmsP1DNoZiV6C9HSFYH86wdjNGmyW8b2NmQlI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZuJWP9ZDaqqwqxRudD3zV+dMjeZN91pCEKHowDyAUOdfIrSpQs0uH82+UdGZyR7/o
+	 QTiQNMH1gt6NQUgPMr2eOogDAL22+1Psl19PY/5X7t9VNkw0Tz9sAsdtteXI22J6FZ
+	 WvmXKyj7dZFYUNKS6W+pw812LRYEMgQkcZPRoWKgfY3MM2MzYssGJOhQ6XOclwfXNV
+	 m8gArmkB/H+k/eiSDywnb4RPlWQhCb00SF+mdirf620Xzj25P4nXy8FHkPsYd+uECv
+	 KL7Dbh03TIvHEr9akS79ZBXXpT5vil7dTj+s6ET9sfyOz6mxjLOIgQYPFFad0Rjl2Q
+	 BRne9OZBCDhzw==
+Date: Thu, 2 Jul 2026 11:33:08 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Santhosh Kumar K <s-k6@ti.com>
+Cc: krzk@kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: memory: Add TI FSS_FSAS binding
+Message-ID: <178300998778.226038.13730513508067454723.robh@kernel.org>
+References: <20260629072055.896322-1-s-k6@ti.com>
+ <20260629072055.896322-2-s-k6@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Fri, 3 Jul 2026 00:32:26 +0800
-X-Priority: 3
-Message-ID: <tencent_E65CC81827F48E7C0708213AFA3934F9D00A@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20260702140654.2961561-1-1579567540@qq.com>
- <tencent_3B2B6003D1DE4FB7A984665A062581766405@qq.com>
-	<2459655.BjyWNHgNrj@diego>
-In-Reply-To: <2459655.BjyWNHgNrj@diego>
-X-QQ-mid: xmsezb41-0t1783009946tqms5g9r6
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260629072055.896322-2-s-k6@ti.com>
 
-PiBhZnRlcsKgZml4aW5nwqDCoEtyenlzenRvZidzwqBjb21tZW50Ogo+IFJldmlld2VkLWJ5
-OsKgSGVpa2/CoFN0dWVibmVywqA8aGVpa29Ac250ZWNoLmRlPgo+Cj4gYW5kwqBkb2luZ8Kg
-ZHRic2NoZWNrwqBvZsKgdGhlwqBiaW5kaW5nwqBhZ2FpbnN0wqB0aGXCoGR0LXBhdGNoZXM6
-Cj4gVGVzdGVkLWJ5OsKgSGVpa2/CoFN0dWVibmVywqA8aGVpa29Ac250ZWNoLmRlPgoKSGkg
-SGVpa28sCgpUaGFua3MgZm9yIHRoZSByZXZpZXcgYW5kIHRlc3RpbmcuCgpJIHdpbGwgYWRk
-IHlvdXIgUmV2aWV3ZWQtYnkgYW5kIFRlc3RlZC1ieSB0YWdzIGluIHYzLgoKQmVzdCByZWdh
-cmRzLApDdW5oYW8KCgoKCgo=
+
+On Mon, 29 Jun 2026 12:50:54 +0530, Santhosh Kumar K wrote:
+> Add DT binding for the TI Flash Subsystem Application Subsystem
+> (FSS_FSAS_GENREGS) wrapper present in TI K3 SoCs. This block controls
+> XIP read prefetch for the OSPI controller.
+> 
+> Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
+> ---
+>  .../memory-controllers/ti,am62a-fsas.yaml     | 39 +++++++++++++++++++
+>  1 file changed, 39 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/memory-controllers/ti,am62a-fsas.yaml
+> 
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
