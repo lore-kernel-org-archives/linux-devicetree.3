@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E793BB11B;
-	Thu,  2 Jul 2026 22:00:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D208381E9D
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 22:02:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783029621; cv=none; b=rTAQ1rmQOJi/FZKJcxHWyiGhMLknnNUAUV5B5iKcmeayueSLVmo5z2TR3aB7N6FUIbxopN8N9W4E/iY8RbH5ymc2FYIZUcBdZZcpyH15HfVzchK/o0hSeaZ2YRb4Z2bCu2XLV+qulvukR8WNaylCnkS5SKLmHLx9CBY+3JPHmmE=
+	t=1783029745; cv=none; b=UsTN9xXqkbujAZ/N4MFN5FZ48KhR6by8KpIGS9oqOWb9w2In29O502zPZDz84WlpjH9weABQQgOqN+nox5VY0LQIvUaoohEa6AN3oABEVG6Bwl894pBLLSm+jKIt6JEaaBhCzBaUK39znkHkfYYEY9FU9K/V/scTJlrGsOWOOAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783029621; c=relaxed/simple;
-	bh=4E3uPmJLTzLPGnGXylvlBTY1e4qEddtq/7fqpn07zyU=;
+	s=arc-20240116; t=1783029745; c=relaxed/simple;
+	bh=LJpXYnMaidJoD1PICtCWH2r125k5Vn9wwi8G6fxXG0I=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eJuI1778uLK9UyCbrWu2r6k6j8DrAHoMyCfV0l+yqGms2zrIZx69kmavtlPVHiqphxFaSv7YoEFLxWJv6L8AoXrM7dto2eOzLYpIY4Q6yn/Drxmyrmhk/E/cJXBrQwTgnMY8BfilY8vYG+6/rIdytobxFxpoiUCoo3a/a4w+r1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dKUMrAgV; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=e6LaZw+3zW5VWpbWBenyM/+/G/uPw9lNXn3mBdMs3EMfzQIQp1D0XauNaft6uwoad9oBfHXfIlsIAJnxi42IRe+JVWlRo58xCUcEi3QnQLTOOAlirQDrpmL4Gfztt5BzJvornPAlBWsFYf8zg70bGV6yfrD4hfaG5JkFK/1CUD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kIVA940j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dKUMrAgV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2FBD1F000E9;
-	Thu,  2 Jul 2026 22:00:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kIVA940j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C717E1F00A3A;
+	Thu,  2 Jul 2026 22:02:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783029620;
-	bh=oQIjLP9TVDNz4PvVPK5lkW7gtFo4dqmaY71KLP+cN6E=;
+	s=k20260515; t=1783029744;
+	bh=YcNwIA5KirJdPQWSXlUYGKfUA6g5xz5BTUfUivNJZ3Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dKUMrAgVYTo9Za2RVN1i5hj7nHube0IIi/UzQ0+i/ic05Y5/qq/EtXVlPyDQCuS6M
-	 CI4sY0K6KulUmJAkDYL5aVsOPHP1istqeDvU5Wa1/xWlges7iqp3V4abfOe172tzOd
-	 xdOMnH86nZ/MNSSg9EY5eKlsgoTEpjqWBisYvcXoGKAhv5Mb5Nvczy7h+QnsZ84pQ8
-	 /MJzfPscERCEuoXA8ew1PcCNOXO/pYLDPoKsPExMITelI1NuPuH793KOaGWS81Yn0f
-	 wgBmT5lVPKgkncXhiyxS9cE1T0eIh6hUzw5jO1Xt0TeAAUtThDLZpnAH6lYBPrHDxZ
-	 lzFqbn7yBpeHA==
+	b=kIVA940j91ZMXJVXbFqyNM60Vd7m6l921gQkjmYs6JF3vpaplbWIDKVT9e4lpcz/g
+	 N8+2AJQZ7ZQwAA2HWGCCrJ6IXc8BQA8lm/lRGwzsrlMFvOG7ooc7bhQg/UW3r3WiBi
+	 S53Oi8+QxgEwqFgrMflY/IIInITJ6GnB6uSgVQZorPmyr0Q12/GOo4qb/uy7bQh6NK
+	 fIbYVK39CME6sfp4mD8uUuRo7JngV38+tClyVV3U/TI/rEwhF24nB5c+trnYK5HlpQ
+	 YNhm1ig+bQwETweMsqTmkkcXVIhAIIOaVASqY/rQ4SnNgFLJPV9NVYP7DdoGu+1gae
+	 9ZrL9rDLNB7/g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] media: rc: sunxi-cir: add support for the A523
+Subject: Re: [PATCH v5 2/4] iio: adc: ltc2378: Add support for LTC2378-20
+ and similar ADCs
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Justin Suess" <utilityemal77@gmail.com>
-Cc: linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260702214750.3428694-3-utilityemal77@gmail.com>
-References: <20260702214750.3428694-1-utilityemal77@gmail.com>
- <20260702214750.3428694-3-utilityemal77@gmail.com>
+To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <724f2408cb84bf4546115408fc9857777e6f2fd7.1783028033.git.marcelo.schmitt@analog.com>
+References: <cover.1783028033.git.marcelo.schmitt@analog.com>
+ <724f2408cb84bf4546115408fc9857777e6f2fd7.1783028033.git.marcelo.schmitt@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 22:00:18 +0000
-Message-Id: <20260702220019.E2FBD1F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 22:02:23 +0000
+Message-Id: <20260702220223.C717E1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,160 +47,157 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Incorrect device registration order in probe and missing `rc_unreg=
-ister_device` on failure leads to race conditions and Use-After-Free.
-- [High] Rounding mismatch in timeout calculations causes the maximum timeo=
-ut to wrap around to 0, breaking IR reception.
-- [Medium] Malformed `clock-frequency` causes a division by zero kernel pan=
-ic during timeout calculations.
-- [Medium] Inconsistent use of DT-requested clock frequency versus actual c=
-lock rate introduces timing inaccuracies.
+- [High] Hardware protocol violation: CNV is held high during SPI read
+- [High] SPI bus not locked during ADC conversion phase
+- [Medium] Incorrect scale calculation for LTC2338-18 and similar ADCs
+- [Low] Undefined direct mode macros lead to build failure
 --
 
-commit ca10429d8baf92c8b3413bded6e91ab88182edf2
-Author: Justin Suess <utilityemal77@gmail.com>
+commit b74b536d18af0084ea31bd1e1e8cf9454da5e29c
+Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-media: rc: sunxi-cir: add support for the A523
+iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
 
-This patch adds support for the A523 (sun55i) SoC to the sunxi-cir
-driver. It introduces support for programming pulse polarities and a
-parameterized sample clock divider required by the newer IP revision.
+This commit adds support for the Analog Devices LTC2378-20 and similar
+analog-to-digital converters. It introduces a new IIO driver using the
+SPI subsystem.
 
-> diff --git a/drivers/media/rc/sunxi-cir.c b/drivers/media/rc/sunxi-cir.c
-> --- a/drivers/media/rc/sunxi-cir.c
-> +++ b/drivers/media/rc/sunxi-cir.c
-
-[ ... ]
-
-> @@ -140,17 +165,19 @@ static irqreturn_t sunxi_ir_irq(int irqno, void *de=
-v_id)
-> =20
->  /* Convert idle threshold to usec */
-> -static unsigned int sunxi_ithr_to_usec(unsigned int base_clk, unsigned i=
-nt ithr)
-> +static unsigned int sunxi_ithr_to_usec(unsigned int base_clk, unsigned i=
-nt div,
-> +				       unsigned int ithr)
->  {
->  	return DIV_ROUND_CLOSEST(USEC_PER_SEC * (ithr + 1),
-> -				 base_clk / (128 * 64));
-> +				 base_clk / (128 * div));
-
-[Severity: Medium]
-This is a pre-existing issue, but does this calculation risk a division by
-zero panic during device probe?
-
-If the clock provider rate evaluates to a value smaller than 128 * div,
-base_clk / (128 * div) evaluates to 0. This resulting zero is then passed
-as the divisor to DIV_ROUND_CLOSEST(), which would cause a panic.
-
->  }
-> =20
->  /* Convert usec to idle threshold */
-> -static unsigned int sunxi_usec_to_ithr(unsigned int base_clk, unsigned i=
-nt usec)
-> +static unsigned int sunxi_usec_to_ithr(unsigned int base_clk, unsigned i=
-nt div,
-> +				       unsigned int usec)
->  {
->  	/* make sure we don't end up with a timeout less than requested */
-> -	return DIV_ROUND_UP((base_clk / (128 * 64)) * usec,  USEC_PER_SEC) - 1;
-> +	return DIV_ROUND_UP((base_clk / (128 * div)) * usec,  USEC_PER_SEC) - 1;
->  }
-> =20
->  static int sunxi_ir_set_timeout(struct rc_dev *rc_dev, unsigned int time=
-out)
->  {
->  	struct sunxi_ir *ir =3D rc_dev->priv;
->  	unsigned int base_clk =3D clk_get_rate(ir->clk);
-> =20
-> -	unsigned int ithr =3D sunxi_usec_to_ithr(base_clk, timeout);
-> +	unsigned int ithr =3D sunxi_usec_to_ithr(base_clk, ir->sample_divisor,
-> +					       timeout);
-> =20
->  	dev_dbg(rc_dev->dev.parent, "setting idle threshold to %u\n", ithr);
-> =20
-> -	/* Set noise threshold and idle threshold */
-> -	writel(REG_CIR_NTHR(SUNXI_IR_RXNOISE) | REG_CIR_ITHR(ithr),
-> +	/* Set sample clock divider, noise threshold and idle threshold */
-> +	writel(REG_CIR_SDIV(ir->sample_div_sel) |
-> +	       REG_CIR_NTHR(SUNXI_IR_RXNOISE) | REG_CIR_ITHR(ithr),
->  	       ir->base + SUNXI_IR_CIR_REG);
-
-[Severity: High]
-This is a pre-existing issue, but does the rounding mismatch between
-sunxi_ithr_to_usec() and sunxi_usec_to_ithr() cause the maximum timeout
-to wrap around to 0?
-
-Because sunxi_ithr_to_usec() uses DIV_ROUND_CLOSEST, it can round the
-fractional value up when calculating the maximum timeout. If userspace
-requests this maximum timeout, sunxi_usec_to_ithr() uses DIV_ROUND_UP,
-which pushes the resulting threshold over the maximum of 255 to 256.
-
-Since REG_CIR_ITHR masks the value to 8 bits, passing 256 wraps it to 0
-when written to the hardware, which would immediately break IR reception.
+> diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
+> new file mode 100644
+> index 0000000000000..b5cf2e974daca
+> --- /dev/null
+> +++ b/drivers/iio/adc/ltc2378.c
+> @@ -0,0 +1,404 @@
 
 [ ... ]
 
-> @@ -325,10 +363,10 @@ static int sunxi_ir_probe(struct platform_device *p=
-dev)
->  	ir->rc->dev.parent =3D dev;
->  	ir->rc->allowed_protocols =3D RC_PROTO_BIT_ALL_IR_DECODER;
->  	/* Frequency after IR internal divider with sample period in us */
-> -	ir->rc->rx_resolution =3D (USEC_PER_SEC / (b_clk_freq / 64));
-> +	ir->rc->rx_resolution =3D (USEC_PER_SEC / (b_clk_freq / ir->sample_divi=
-sor));
+> +static const struct ltc2378_chip_info ltc2338_18_chip_info =3D {
+> +	.name =3D "ltc2338-18",
+> +	.internal_ref_uV =3D 4096000,
+> +	.chan =3D LTC2378_BIPOLAR_DIFF_CHANNEL(18),
+> +};
 
-[Severity: Medium]
-This is a pre-existing issue, but does this calculation introduce timing
-inaccuracies by using the DT-requested clock frequency instead of the
-actual clock rate?
+[ ... ]
 
-If the clock provider rounds the requested rate set earlier in
-sunxi_ir_probe(), using the raw b_clk_freq here instead of
-clk_get_rate(ir->clk) means the software's sample period drifts from the
-actual hardware timing.
+> +static int ltc2378_convert_and_acquire(struct ltc2378_state *st)
+> +{
+> +	int ret;
+> +
+> +	/* Cause a rising edge of CNV to initiate a new ADC conversion */
+> +	gpiod_set_value_cansleep(st->cnv_gpio, 1);
+> +	fsleep(4);
 
 [Severity: High]
-This is a pre-existing issue, but does the registration order in
-sunxi_ir_probe() create a race condition and potential Use-After-Free?
+Can this sequence cause data corruption on a shared SPI bus?
 
-Looking later in sunxi_ir_probe(), rc_register_device() is called before
-sunxi_ir_hw_init() enables the hardware clocks:
+The CNV pin is toggled and an fsleep(4) occurs before spi_sync_transfer()
+locks the bus. If another SPI transaction occurs during this sleep window,
+could it toggle the SCK line and prematurely clock data out of the ADC?
 
-sunxi_ir_probe() {
-    ...
-    ret =3D rc_register_device(ir->rc);
-    ...
-    ret =3D sunxi_ir_hw_init(dev);
-    ...
-}
+Should the conversion-and-read sequence be wrapped in spi_bus_lock()
+and spi_bus_unlock()?
 
-If userspace accesses the device via ioctl before the hardware clocks are
-enabled, it will access clock-gated memory and cause a bus fault.
+> +	ret =3D spi_sync_transfer(st->spi, &st->xfer, 1);
 
-Additionally, if probe fails during hardware initialization or IRQ request,
-it branches to the exit_free_dev label:
+[Severity: High]
+Does reading from the SPI bus while CNV is held high violate the hardware
+protocol?
 
-exit_free_dev:
-    rc_free_device(ir->rc);
+The ADC requires the CNV pin to be brought low to enable the SDO
+output before clocking out data via SPI, but spi_sync_transfer() happens
+before gpiod_set_value_cansleep(st->cnv_gpio, 0), which might result in
+reading high-impedance garbage data.
 
-This only calls rc_free_device() without calling rc_unregister_device()
-first. The device remains exposed to userspace while its backing driver
-data is freed, which could lead to a Use-After-Free memory corruption.
+> +	gpiod_set_value_cansleep(st->cnv_gpio, 0);
+> +
+> +	return ret;
+> +}
 
->  	ir->rc->timeout =3D IR_DEFAULT_TIMEOUT;
-> -	ir->rc->min_timeout =3D sunxi_ithr_to_usec(b_clk_freq, 0);
-> -	ir->rc->max_timeout =3D sunxi_ithr_to_usec(b_clk_freq, 255);
-> +	ir->rc->min_timeout =3D sunxi_ithr_to_usec(b_clk_freq, ir->sample_divis=
-or, 0);
-> +	ir->rc->max_timeout =3D sunxi_ithr_to_usec(b_clk_freq, ir->sample_divis=
-or, 255);
->  	ir->rc->s_timeout =3D sunxi_ir_set_timeout;
->  	ir->rc->driver_name =3D SUNXI_IR_DEV;
+[ ... ]
+
+> +static int ltc2378_read_raw(struct iio_dev *indio_dev,
+> +			    const struct iio_chan_spec *chan,
+> +			    int *val, int *val2, long mask)
+> +{
+> +	struct ltc2378_state *st =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW: {
+> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +			return -EBUSY;
+
+[Severity: Low]
+Will this cause a build failure?
+
+The macros IIO_DEV_ACQUIRE_DIRECT_MODE and IIO_DEV_ACQUIRE_FAILED appear
+to be undeclared in the kernel tree.
+
+> +
+> +		ret =3D ltc2378_channel_single_read(chan, st, val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		return IIO_VAL_INT;
+> +	}
+> +	case IIO_CHAN_INFO_SCALE:
+> +		*val =3D st->ref_uV / MILLI;
+
+[Severity: Medium]
+Does this calculate an incorrect IIO scale for the LTC2338-18?
+
+Does this miss the 2.5x input span multiplier unique to the LTC2338-18
+when calculating the IIO scale here?
+
+> +		/*
+> +		 * For all LTC2378-like devices, the amount of bits that express
+> +		 * voltage magnitude depend on the polarity / output code format:
+> +		 * - straight binary: All precision/resolution bits are used.
+> +		 * - 2's complement: One of the precision bits is used for sign.
+> +		 */
+> +		if (chan->scan_type.format =3D=3D IIO_SCAN_FORMAT_SIGNED_INT)
+> +			*val2 =3D chan->scan_type.realbits - 1;
+> +		else
+> +			*val2 =3D chan->scan_type.realbits;
+> +
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+[ ... ]
+
+> +static int ltc2378_refin_setup(struct device *dev, struct ltc2378_state =
+*st)
+> +{
+> +	int ret;
+> +
+> +	/*
+> +	 * The internal reference buffer amplifies both the internal reference
+> +	 * and REFIN by a factor of 2.
+> +	 */
+> +	ret =3D devm_regulator_get_enable_read_voltage(dev, "refin");
+> +	if (ret =3D=3D -ENODEV) /* refin is optional */
+> +		st->ref_uV =3D st->info->internal_ref_uV * 2;
+
+[Severity: Medium]
+Does this incorrectly double the internal reference voltage?
+
+The ltc2338_18_chip_info already defines internal_ref_uV as the post-buffer
+value of 4096000 (4.096V). Multiplying it by 2 here would result in an
+incorrect scale value.
+
+> +	else if (ret < 0)
+> +		return dev_err_probe(dev, ret, "failed to read refin regulator\n");
+> +	else
+> +		st->ref_uV =3D ret * 2;
+> +
+> +	return 0;
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702214750.3428=
-694-1-utilityemal77@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783028033.gi=
+t.marcelo.schmitt@analog.com?part=3D2
