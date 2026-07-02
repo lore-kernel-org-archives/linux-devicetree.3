@@ -1,95 +1,81 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB502D8DC4;
-	Thu,  2 Jul 2026 16:36:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C79830B53F;
+	Thu,  2 Jul 2026 16:37:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783010217; cv=none; b=JmVBhv8Ap8iXnzScgurrTMOwF4NxTKKU9C7OcT+tt4QcC4ez2xOv/evr1uDzk7MsuxTM9d/GYzr5wOYQiaDj6Hq4BJmEi6feZkookjGIZGeMQ9u9x2RBGKBStdUgz8fPOS1Ogmxk4aZNjJmETdBtABijuMlIe5sTHHJBu7sgung=
+	t=1783010245; cv=none; b=t+9var2BPaSSn6Whxoqy7EzxCXMBvjaqFuuhgIW81QSr/MEPE4WgRCX5kSZBG7HvM5VYEhjbDpF5E3ulJFRNSnsuUUrvvLOCUQi5HE1ra71MWsA4/LKWdnqtnRt81mBR6y6ve8hh4Lhh6EZEM5aInznr29E92Gj8xRl+JJjjAr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783010217; c=relaxed/simple;
-	bh=dUpLWUSZeHCbnarM9STL88HVq9YMEGabh6ksEsFN9PE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OhyJ4ibOEv2Qzw6+M9393plybxif/jkEXHhdxR3U9PKW0P8sOzUfm32DmyxZd6MtQvbDlnMNP6dFhw0yRlu1YM5CjMrJeWFn5WU1zfpJyoEhwkjVF9LFv/Zw4VF7IIyic1CoFQx1JxNa84IVTbWxVhLJPw9h5+4R3XfhZVZUhVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=Num2A+5+; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1783010245; c=relaxed/simple;
+	bh=OVh5hq9AqE98I+fD5XeI33KlTHSAGbbN7vCuIRJjZ0A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PRbfN1RPmEGvZYqsvFeZUH/Bt/6zCWF684g//zcN/0oIOOeBX6yKX0gsIFKbtNMlNWF+6Hk9cgroZb3ZHq6lFDax/hiFoRM2WkiZm8aWHoucTdP/ZmFa6EtY10dOfdMKCl+SAyoN9xSqWwKUwzhzsIyiL+skQr1Ecgzz4qU9gpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WZST56m1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="Num2A+5+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=dUpLWUSZeHCbnarM9STL88HVq9YMEGabh6ksEsFN9PE=; b=Num2A+5+4Fd1ZIrorLsEytnkVt
-	9jN67/IIhlYNOJDwVyAVNKx5NjRVrouv4JpQ43ezzCpdzqHbJimO1FbKa9rDe5UJr7IorYmoo2jDo
-	nUu4F/0XaZVYH8CoKWyMI1Z+GYpvY3rIWAeYPlH1hL8uHLZlN3S5gmWR8cLQwtPUTX294vlC4pFRM
-	g89ajIdO2CgdqBy3kfm8zurgzeGZ893srcJ9SRbrsUI/coucNboYla5laznUD/GrmDRRcjcXylSNB
-	Vhfo+wNqbk1WsOue/TX4vEah44zz3m6kv2Evow1EeCucsxhOJs1MJLQcxi5KivPCmHu/DalMxTq93
-	A1IVo5ug==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
- linux-can <linux-can@vger.kernel.org>, Cunhao Lu <1579567540@qq.com>
-Cc: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, kernel <kernel@pengutronix.de>,
- Conor Dooley <conor+dt@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
- Russell King <rmk+kernel@armlinux.org.uk>,
- Eric Biggers <ebiggers@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Karl Mehltretter <kmehltretter@gmail.com>, Yixun Lan <dlan@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, devicetree <devicetree@vger.kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- linux-rockchip <linux-rockchip@lists.infradead.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Heiko Stuebner <heiko.stuebner@cherry.de>
-Subject: Re: [PATCH v2 2/4] can: rockchip: add RK3588 CAN support
-Date: Thu, 02 Jul 2026 18:36:41 +0200
-Message-ID: <6281926.UjTJXf6HLC@diego>
-In-Reply-To: <tencent_8BE421601F31C26FB9E99FA6440629016D05@qq.com>
-References:
- <20260702140654.2961561-1-1579567540@qq.com> <3527453.usfYGdeWWP@diego>
- <tencent_8BE421601F31C26FB9E99FA6440629016D05@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WZST56m1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51DE21F00A3A;
+	Thu,  2 Jul 2026 16:37:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783010244;
+	bh=JYz2t9rOB6Xr/OOk1r6hBAPIGizcFH6efsw9sdj+Wuk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WZST56m12/dPfMnjxUmbQmp1RfAlmgKoAVEw4PIMZ4PlBncoDVOpPHLhXYP7UxCWh
+	 w2WX+KHS3/yrMGg5LCd2XYhuAdJMjDQxwlHGKGw9jqZsaKzD+/KFXkvXy7F7G5Qsg3
+	 knE0Vqs2EZSNPAXhvJCivRI9fSLzOrLQ269grsez37WOv08gbDiYAht7bRYkYFPRE6
+	 ISdshM4ZM+9IRGOao127qU4ICBLcYBvu8TPw2ecv6dw6wdipSuAmq03smCaRYbYvJO
+	 pDlvHdbEJApBzIrzmr/WVzeLXYTFZPdGSv7hCjscCBFhpbkozKXxQQAaUzW7F3vlOu
+	 CltxHKPd6Du9A==
+Date: Thu, 2 Jul 2026 11:37:23 -0500
+From: Rob Herring <robh@kernel.org>
+To: Manikandan.M@microchip.com
+Cc: krzk@kernel.org, pratyush@kernel.org, mwalle@kernel.org,
+	takahiro.kuwano@infineon.com, miquel.raynal@bootlin.com,
+	richard@nod.at, vigneshr@ti.com, krzk+dt@kernel.org,
+	conor+dt@kernel.org, srini@kernel.org, Nicolas.Ferre@microchip.com,
+	alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev,
+	linux@armlinux.org.uk, richardcochran@gmail.com, linusw@kernel.org,
+	arnd@arndb.de, michael@walle.cc, linux-mtd@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org
+Subject: Re: [PATCH v4 1/7] dt-bindings: mtd: jedec,spi-nor: allow the SFDP
+ to be exposed via NVMEM
+Message-ID: <20260702163723.GA227454-robh@kernel.org>
+References: <20260630092406.150587-1-manikandan.m@microchip.com>
+ <20260630092406.150587-2-manikandan.m@microchip.com>
+ <20260702-utopian-termite-of-perfection-f1f3ec@quoll>
+ <860213fd-6a4b-42d4-a8f7-7308e070f09e@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <860213fd-6a4b-42d4-a8f7-7308e070f09e@microchip.com>
 
-Am Donnerstag, 2. Juli 2026, 18:34:04 Mitteleurop=C3=A4ische Sommerzeit sch=
-rieb Cunhao Lu:
-> > I think you might want to drop that above. If anything a Co-developed-by
-> > would be applicable, but from the (small) size of the change, that also
-> > isn't really necessary for me :-)
-> >
-> >
-> > > Signed-off-by: Cunhao Lu <1579567540@qq.com>
-> >
-> > Tested-by: Heiko Stuebner <heiko@sntech.de>
-> > Reviewed-by: Heiko Stuebner <heiko@sntech.de>
->=20
-> Sorry about that. This is my first contribution to the Linux kernel, and
-> I have not fully understood yet which tags are appropriate in which
-> situations. Please bear with me.
+On Thu, Jul 02, 2026 at 06:55:15AM +0000, Manikandan.M@microchip.com wrote:
+> Hi Krzysztof,
+> 
+> On 7/2/26 11:46 AM, Krzysztof Kozlowski wrote:
+> > EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+> > 
+> > On Tue, Jun 30, 2026 at 02:54:00PM +0530, Manikandan Muralidharan wrote:
+> >> Add an optional "sfdp" child node (compatible "jedec,sfdp") that
+> >> describes the SFDP as a read-only NVMEM provider via nvmem.yaml, so its
+> > 
+> > What is SFDP?
+> > 
+> SFDP is the Serial Flash Discoverable Parameters -- a JEDEC-standardised
+> (JESD216) read-only parameter table present in most SPI NOR flashes, the 
+> table contents provide basic information about the flash. There are 
+> standard tables which are specified by the JEDEC standard and there are 
+> vendor tables.
 
-no worries, I think you're doing really great for your first contribution
+Is SFDP present or not discoverable? Or we have a table of discoverable 
+parameters that itself is not discoverable.
 
+If it is discoverable, why does this need to be in DT?
 
-Heiko
-
-> I will add your Co-developed-by tag in v3, together with your
-> Signed-off-by as required for Co-developed-by.
->=20
-> Best regards,
-> Cunhao
->=20
->=20
->=20
->=20
->=20
-
-
-
-
+Rob
