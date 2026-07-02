@@ -1,128 +1,178 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D933D1CC1;
-	Thu,  2 Jul 2026 08:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77F140E8CA;
+	Thu,  2 Jul 2026 08:05:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782979357; cv=none; b=JRZdeaE9kglBXyD5gdH9bh9bAwkC8Prvj2lIpbQNkrPY9aCs7opThLP0JjIuOCdOiB3lsJ2C0LO2jS7NMd6zMHWHw0Ucn6MKJfGCHcD5grfovotgD7cVuamXUBN5vIRmzngi7YN2Ugm0kjJobMjxlJWWFDb43p3Kv4hIBvhqUDM=
+	t=1782979523; cv=none; b=A2TKG9eMt+YUhg5kbbgNWuQCuNIF96kMpu6HfdtXsmqAiLHcm+5YlTVIkzoHNVNRUBtKksgbGonCzfwlPlD861YxwLrWD+iaPNLfX0DU1BQyALtEdgrwBXVDL8losjtR1E0rwKX2jIyP/z9tvSLqlwNHY5Pb3rf4pqHquHEI+bA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782979357; c=relaxed/simple;
-	bh=aI0BDCXKz6wl49Bv34eWd7tI7KHNsGMj4xTuBowEV7w=;
+	s=arc-20240116; t=1782979523; c=relaxed/simple;
+	bh=lIGdA+N87kLAaNftQNzuYOuWQ9CkU1HJ9/YY7IXJCzY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AkoWAFnRq64zYUzvcTbpZl9PIav2KDkHHRROQrbEZYOPUpZddg5q0L79h25Ed+rHey9KI6ts3RQ4ZazAHm8xEZMHIZI73R2epqdkD32/JAO1F29K3UUTacfbq3AXNK6Tfdjj1u/+7+9E9YGupkqqmjV7qK1hoZMR8KEa2oJQwpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D8QNFENZ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=emgaPobzDDN1U1HPCHejxBVZpelphgHzhnKiGgCg5/YP0EBd+b0VV6lBhf2SBKAI58WcdhjHPWLPT0ULaAn1HOye1PK6nRaL92bvOEzQ8nDCUfid2qcrO0W0j8Ofj3EeORDD9FGQGktAytn/mxbQzMdZ1or0aSOdplJSVUwcppg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egutJy/t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D8QNFENZ"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6621KPIi3067831;
-	Thu, 2 Jul 2026 08:02:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=zfPzTrZwZls4md/D9e7b/2zG
-	B8v+IVxpFyXQuLD8cfE=; b=D8QNFENZboa97D9Tq0cFK2bOkm3mZ/V0ilHwo4Og
-	knyoXR0vZw1gef0Q+6n+ZNVxoIrYQWcBL6SrGmJBImzHkc5k3YYb8xrJqvwjEmwO
-	A7OVYA1CTJHQpuXdvKgBXxg1gQzAMhpC7XGPbyGv1WkybvAlfFncJXbsL7ZCU5M/
-	IEwuVJhSvhBClVsghLPp1erQeV1WrUp1j6d9Hj04ATHJhxCtJ5iC1FZiXt1lH+Ja
-	kDqBxBdH52Cp7hYdpWwqLU3ZwsE4N0JGbJVcnZH8xiZno+zQEiOhRKOAtbm8+72o
-	G78Bwwwp/DqXDQbVEfKRTrap3hBIQXPmZPDl9jZIM9kmRQ==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f510amh19-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 08:02:33 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66282TjR023647;
-	Thu, 2 Jul 2026 08:02:29 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4f27kkpbj9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 08:02:29 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66282TwL023639;
-	Thu, 2 Jul 2026 08:02:29 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 66282T6s023637
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 08:02:29 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id 644C0B2B; Thu,  2 Jul 2026 13:32:28 +0530 (+0530)
-Date: Thu, 2 Jul 2026 13:32:28 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: Fix pm4125 vbus regulator
- compatible and constraints
-Message-ID: <20260702080228.tegosnl6uwt5hy7c@hu-kotarake-hyd.qualcomm.com>
-References: <20260701-add_pm4125-vbus-reg-v2-0-6bac2bac7131@oss.qualcomm.com>
- <F11CmcSG0NfJxCD_094ercweXNrSY-fxOnTpyBxukPPcM3UdumRt4yZahLT-uKJabq_1WaDBldjbgUvBxpeAQA==@protonmail.internalid>
- <20260701-add_pm4125-vbus-reg-v2-3-6bac2bac7131@oss.qualcomm.com>
- <3a0e3c81-b559-4961-8e58-cad8dc171578@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egutJy/t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEB8B1F000E9;
+	Thu,  2 Jul 2026 08:05:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782979521;
+	bh=huzjTih/oMQnqYJQsq5M5ph36hb9my807TEq3W+gvR4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=egutJy/tPCJB8rJprKL8ATQYzX0Vz3cjGxj5lhnEo+wBXJXZKhhTRO0Z5+fgPQJ9p
+	 0BZgC/L+K+sKJQfnl6eP2OtGyKgtn7YeuZhwgHW9K7W27Q3h3l3D3qskiHCbuRy4SF
+	 pBGuSCIGRELz95fzPKRLKfyPkRsblEHoYXJwwgPvYykji3qg9UnLXkIhre9yFExij+
+	 W4n52J9AU67/Fh7fwCpc6pY7i20w71q607iHKzEnnsAhl2hK+Wgn3pgMugKqHLnUy1
+	 RIYAcd7hudTqnVhKkiK0H5E4SInwG9tSza9OL6X/+l2SGF6Ht2LGzUj6Ic2iID8DwG
+	 HviFMshouuJ5A==
+Date: Thu, 2 Jul 2026 10:05:17 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>, 
+	Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-rtc@vger.kernel.org
+Subject: Re: [PATCH 2/8] dt-bindings: mfd: ROHM BD73800 PMIC
+Message-ID: <20260702-refreshing-terrific-tarsier-f56ada@quoll>
+References: <cover.1782909323.git.mazziesaccount@gmail.com>
+ <3e700a3fa7872a96257ff25a77670ec05cfd239c.1782909323.git.mazziesaccount@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <3a0e3c81-b559-4961-8e58-cad8dc171578@kernel.org>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: 545p74l3GeezOqaFPcMY7XxC_S70n4-h
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDA4MSBTYWx0ZWRfXzEsn35tQ5NE8
- 4+K5kIZmOeCB3liV03GKHw47z/7fugjHbnp1Ejn7Fmc2vj1Zi8ekdYY9S/mjXL1CrSSdIIa8BzM
- 1EBB9U7HsffhZc2rqfXLJM7tMEZDnhMC1Io+LKDDbTAIQ/fMnK9geonmw4heUMHW/OyjFe4yIvC
- pAkL1iLHYzGaOdQwcs1HqNvb345ohMmN08plz9E52AdrsEvLseCBoX1x+lGCO/XlgLejSbrF8jw
- 0JXP7wtGv70Cjsg3t/N4oQxJrw6xUTVobpMNpNiBCV9OhBq8StVSS0KITzgmvDIRub8nC3Q1nbu
- JrzLXRT1TmFdDZQS/SfVQjlyF1g916TI1nnqkvbh3FQ05I4JFHvamshh+gGb8sZnyvov27ZVp99
- 4yCLJ5Cw7PoWFiW2IiSEzQEey29ndPdVxHJMRH5qKqpqnM+ewramjdwUfewEL3Oy/wqvYX3X2Z2
- lfNB/CYgnJ+1Yd7WmtQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDA4MSBTYWx0ZWRfXxhsw9KsTjteJ
- NUU6wHAwp3SKHfCcfn9A664BeVJrlP+wldV/d90+a4dx46XB62WzMT2t3CuZzghfLAdvjfiqsn9
- lyeuSQo1QSpxNeeXH3PQJuNVFAv7n/4=
-X-Authority-Analysis: v=2.4 cv=JpXBas4C c=1 sm=1 tr=0 ts=6a461b19 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=aWefJ__BOnlCMLiTjL0A:9
- a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
-X-Proofpoint-ORIG-GUID: 545p74l3GeezOqaFPcMY7XxC_S70n4-h
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 malwarescore=0 impostorscore=0 clxscore=1011
- spamscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020081
+In-Reply-To: <3e700a3fa7872a96257ff25a77670ec05cfd239c.1782909323.git.mazziesaccount@gmail.com>
 
-On Wed, Jul 01, 2026 at 12:29:35PM +0100, Bryan O'Donoghue wrote:
-> On 01/07/2026 11:28, Rakesh Kota wrote:
-> > Remove pm8150b fallback compatible from pm4125_vbus and fix regulator
-> > constraints in qrb2210 DTS files to use microvolt instead of
-> > microamp.
-> 
-> Break this patch up at the and
-> 
-> - Remove compatible
-> - Fix the voltages
-> 
-> Separate things should be separate patches.
->
-Thanks for the review.
+On Wed, Jul 01, 2026 at 03:41:34PM +0300, Matti Vaittinen wrote:
+> +description:
+> +  BD73800GW is a single-chip power management IC for battery-powered
+> +  portable devices. It integrates 8 buck converters, 4 LDOs and a current
+> +  sense amplifier with ADC. Also included is a Real Time Clock (RTC) and a
+> +  32.768 kHz clock gate. Depending on the OTP configuration the BD73800
+> +  may also have interrupt controller and GPIOs.
+> +
+> +  There are also different variants called BD71851 and BD71885 which are
+> +  almost identical from the software point of view.
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: rohm,bd73800
+> +
+> +      - items:
+> +          - const: rohm,bd71851
+> +          - const: rohm,bd73800
+> +
+> +      - items:
+> +          - const: rohm,bd71885
 
-We kept these together to avoid intermediate breakage since the .yaml
-compatible removal and voltage fix are coupled. Happy to split if you
-have a suggestion on how to do so cleanly.
+items:
+  - enum:
+      -
+      -
+  - const: rohm,bd73800
 
-regards
-Rakesh Kota
+> +          - const: rohm,bd73800
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  # The GPIO1, CLKOUT (GPIO2), FAULT_B and EXTEN_OUT pins can be
+> +  # configured to interrupt pins by OTP.
+> +  interrupt-controller: true
+> +
+> +  "#interrupt-cells":
+> +    const: 1
+> +    description:
+> +      The IRQ number. 0 is GPIO1, 1 CLKOUT (GPIO2), 2 FAULT_B and 3 EXTEN_OUT.
+> +      NOTE, A pin can operate as IRQ source only when the OTP
+> +      configuration for it has been set to GPI.
+> +
+> +  gpio-controller: true
+> +
+> +  "#gpio-cells":
+> +    const: 2
+> +
+> +# The GPIO1, CLKOUT, FAULT_B and EXTEN_OUT pins may be configured for a
+
+Missing two spaces (indent) before the comment, although this should be
+put into description. I understand it applies to each description - it
+is fine to add to the first one. Descriptions might be used to generate
+user-friendly representation of bindings (PDF). Comments won't, so
+comments are only to explain the binding/schema syntax choices.
+
+> +# specific purpose (like ADC input, 32.768 clk output, fault indicator or
+> +# delivering power sequence to a companion PMIC when multiple PMICs are
+> +# used) - but also to be either a GPO or GPI. (When used as a GPI the pin
+> +# can also be used as an IRQ source). The pin purpose is determined by
+> +# OTP (One Time Programmable memory), typically during device manufacturing.
+> +# The OTP can't be read at runtime so device-tree should describe the pins.
+> +  rohm,pin-gpio1:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description:
+> +      Indicate if the GPIO1 pin has been set to GPI or GPO at manufacturing.
+> +    enum: [gpi, gpo]
+> +
+> +  rohm,pin-clkout:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description:
+> +      Indicate if the CLKOUT pin has been set to GPI or GPO at manufacturing.
+> +    enum: [gpi, gpo]
+> +
+> +  rohm,pin-fault-b:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description:
+> +      Indicate if the FAULT_B pin has been set to GPI or GPO at manufacturing.
+> +    enum: [gpi, gpo]
+> +
+> +  rohm,pin-exten:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description:
+> +      Indicate if the EXTEN_OUT pin has been set to GPI or GPO at
+> +      manufacturing.
+> +    enum: [gpi, gpo]
+> +
+> +  # The CLKOUT pin may have its purpose overridden by OTP configuration. It is
+> +  # possible the BD73800 does not output a clock signal. Hence the optional clk
+> +  # properties.
+
+Same here
+
+items:
+  - description: foo bar
+
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  "#clock-cells":
+> +    const: 0
+> +
+> +  clock-output-names:
+> +    const: bd73800-32k-out
+
+If this is fixed, then drop clock-output-names. Otherwise should be just
+maxItems: 1
+
+
+> +
+> +  rohm,clkout-open-drain:
+> +    description: clk32kout mode. Set to 1 for "open-drain" or 0 for "cmos".
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 1
+
+Best regards,
+Krzysztof
+
