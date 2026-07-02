@@ -1,152 +1,148 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B34A3D34B6;
-	Thu,  2 Jul 2026 07:53:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334A23D47BF;
+	Thu,  2 Jul 2026 07:54:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782978832; cv=none; b=F/sVCDgMqT2CMj81ZHhk9xT1AmFws4E18EjaFFwSF1X2GLbX3GXdU7HtvXz/hKA4qm7Yo4X4Nm7uX9aj7JUr5vhx+5/+tqdzSKYTJEIAC8qSOAMq4nPxfT1Y91Bnesp/Jb9Ya21CNvED9vNEc/u/CzsoDDbODk24kvLHMHcTW70=
+	t=1782978896; cv=none; b=A7H7xtKzMwXGEqDl5LcWtWA5E2HY+71PnX8E+LzYpr73EFk85GP62KjY8trxXGHfbcaBKrltAVmMYSBT9YwA8cU8OWdQswEKV6VFe9G85Be5Ld+ywFHtqTydwNOZtBHL5UdkGpGVX+diCWG+aA61imgeYeh699brMVNuru3TaC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782978832; c=relaxed/simple;
-	bh=Pe93Bh10IOKLtnaCQ1jZVfixg2proisvXEBBme7mEZ4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=q3exHeIwMtvPp5HaAlTyLUYbOERATDlXTUz3b/BR9j1i6Hzmfw/5b90YHy+SyHw417edeVSv+XK9vDNF+1H+Rji5B529QkcmgQ4hG9nM0WKQBigCW4yfj4ykNkuh3ORhp6dVX20kDn2x/vwRlbxdjxa2oTV3WgrpUbkp33XEkHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 1A7AC2003DD;
-	Thu, 02 Jul 2026 09:53:41 +0200 (CEST)
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wfCEv-005i6i-02;
-	Thu, 02 Jul 2026 09:53:41 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wfCEp-0000000032p-3mmg;
-	Thu, 02 Jul 2026 09:53:35 +0200
-Message-ID: <c49d9bea7f9a172a97d0acfaa9680bdac80f75e1.camel@pengutronix.de>
-Subject: Re: [PATCH 2/3] scsi: ufs: spacemit: k3: Add UFS Host Controller
- driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Yixun Lan <dlan@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, Avri
- Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, Rob
- Herring	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley	 <conor+dt@kernel.org>, "James E.J. Bottomley"	
- <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"	
- <martin.petersen@oracle.com>, Paul Walmsley <pjw@kernel.org>, Palmer
- Dabbelt	 <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
- Ghiti	 <alex@ghiti.fr>
-Cc: linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Date: Thu, 02 Jul 2026 09:53:35 +0200
-In-Reply-To: <20260702-08-k3-ufs-support-v1-2-1a64a3ab128f@kernel.org>
-References: <20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org>
-	 <20260702-08-k3-ufs-support-v1-2-1a64a3ab128f@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1782978896; c=relaxed/simple;
+	bh=80s9GqBed33BTqAr0bOpFD9qjRzOfdOb4OEY6M5BgaA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=imjw7EHlQjohmJXvqeNiI4CKx0jCw4tlsNf8W7B87m85i3a8aGIpHDWm9pJ8mm12z5+IuNE3UYh/FzhymEv3wg1epzAKfDZa5jbaQ+KZ/pfJ5+mgAZQbzTb/ddnzOFbem2fCWZtXLylqbkGfvByGUl2hfSHkkPLHXD0okLX2JC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ThNwbo9Z; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ThNwbo9Z"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6621KFQ23067557;
+	Thu, 2 Jul 2026 07:54:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=OZS+zf+/UEerlnFGIPRniLxy
+	9S9bycWifzRaL6XflGk=; b=ThNwbo9ZAKsu3NGd/WWfE2qGDUji4yrnnWSkLA/c
+	H2GY475tkyCUBvsSz6oU49bnRD5du8HzMvnkvs8KzlYPI/DDBhK3KDzHuRBpKRQ0
+	OIRv5rQxx1OEaWxGBx3Ig5Vo1kLaJrj+EBcaSQl94RjXWKcQyPKygsgQxm0f/mKi
+	J0Zhj+3pM2TzBa+U7jKICTXvD6BquBLZH/vfx+4RqeTSrl+qYoGfpetnIzhXhzSt
+	H0YZc/xhhMp3u+EDh7m8uDaZ0sMh7uhd5henZUtOTGlkS3nbtmX8CnEL3ZxsRioy
+	kQtTgvSX2WEAIEp1ySCwdOK55e4qreCBMdyvAk2P/duD+g==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f510amg0n-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 02 Jul 2026 07:54:46 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 6627sh90012955;
+	Thu, 2 Jul 2026 07:54:43 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4f27kkp82w-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 02 Jul 2026 07:54:43 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 6627shBs012947;
+	Thu, 2 Jul 2026 07:54:43 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6627shdD012945
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 02 Jul 2026 07:54:43 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id 6D200B2B; Thu,  2 Jul 2026 13:24:42 +0530 (+0530)
+Date: Thu, 2 Jul 2026 13:24:42 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+Subject: Re: [PATCH v2 2/3] regulator: qcom_usb_vbus: add support for
+ qcom,pm4125-vbus-reg
+Message-ID: <20260702075442.tc4kbudjbfg75oom@hu-kotarake-hyd.qualcomm.com>
+References: <20260701-add_pm4125-vbus-reg-v2-0-6bac2bac7131@oss.qualcomm.com>
+ <20260701-add_pm4125-vbus-reg-v2-2-6bac2bac7131@oss.qualcomm.com>
+ <20260701103435.D6DEA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260701103435.D6DEA1F000E9@smtp.kernel.org>
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: z48GGNNx5UdkzEnGG7vzdSDsRTVTKe31
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDA4MCBTYWx0ZWRfXzWQWrAbTrXP3
+ qDJlaQaBfcJByAaJ+zbyFOwMVvfimyzkMeKlietXE9vi2F0AKiIu86YrQBReWP1MtUrhXptSs4A
+ N3XHZsXZEsd2ORCaVSt+poWAxvF02vCtrpUz23F/TsLaaTRdYO4ZWPd5XnTjh1YLCUEmeh1xSEy
+ 6sqPTf5ZkAeLM0uPHTUQreeByl+WAe0cqTp6uzVjnbNyaiQ5hXU3ouqHHgBqOG+iNosPAXIEBfz
+ SYULhhlJzG4fvcoFNo9UUJlK5qkRBo4XrmjS5st1gyf9gqalBoZz6v8VaJTX++cKL0CA1MKXVcn
+ +bDZCC8Yqt+kIMVc7PO8Oa1E1AKZmmyS9O8Qygl5Ey3v1r5U9hNZNs8BTNLB+3oL4v52NS++YIY
+ qy3uT7XHHSrEICyy/EsSBttcebihOw38oDuHT4KpYUmozRMhDJDOHdxeSQzhCp0rxOphn/tSqG9
+ 3ytC711ZFPlGeOhc96w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDA4MCBTYWx0ZWRfXxxpWOyUa3nq+
+ 33W9v/jerKi53weAlOT5h3PbcsAFBeQiS6935UwXeOinTyYT4Kd+0AmNuOcMldfdYBzo/GuvlnB
+ wgmiviSAkmmpN60H6wrXGFjhT3g/cxY=
+X-Authority-Analysis: v=2.4 cv=JpXBas4C c=1 sm=1 tr=0 ts=6a461947 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=IoUS9DNabq0DWTRCKIYA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: z48GGNNx5UdkzEnGG7vzdSDsRTVTKe31
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 malwarescore=0 impostorscore=0 clxscore=1015
+ spamscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020080
 
-On Do, 2026-07-02 at 02:31 +0000, Yixun Lan wrote:
-> SpacemiT K3 SoC consist of UFS (Universal Flash Storage) Host Controller
-> which has features compatible with JEDEC UFS 2.2, MIPI UniPro v1.61 and
-> M-PHY v3.0 standard.
->=20
-> Signed-off-by: Yixun Lan <dlan@kernel.org>
-> ---
->  drivers/ufs/host/Kconfig        |  12 +
->  drivers/ufs/host/Makefile       |   1 +
->  drivers/ufs/host/ufs-spacemit.c | 931 ++++++++++++++++++++++++++++++++++=
-++++++
->  drivers/ufs/host/ufs-spacemit.h |  90 ++++
->  4 files changed, 1034 insertions(+)
->=20
-[...]
-> --- /dev/null
-> +++ b/drivers/ufs/host/ufs-spacemit.c
-> @@ -0,0 +1,931 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/delay.h>
-> +#include <linux/io.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
+On Wed, Jul 01, 2026 at 10:34:35AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] The macro `PM4125_VBOOST_CFG` is defined twice with conflicting values (`0x52` and `0x56`), causing the voltage selector to write to the wrong register and corrupt the OTG configuration.
+> --
+> 
+> commit 3778477cc88a05791ed34dc272e50cbdb4893643
+> Author: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+> 
+> regulator: qcom_usb_vbus: add support for qcom,pm4125-vbus-reg
+> 
+> The PM4125 PMIC uses a different register layout for USB VBUS control
+> compared to PM8150B. On PM4125, CMD_OTG is at offset 0x50, OTG_CFG is
+> at 0x56, and offset 0x52 is a 2-bit VBOOST voltage selector rather than
+> a current-limit selector. Introduce per-compatible regulator descriptor
+> data to accommodate these differences.
+> 
+> > diff --git a/drivers/regulator/qcom_usb_vbus-regulator.c b/drivers/regulator/qcom_usb_vbus-regulator.c
+> > index cd94ed67621fe..40e7e5589d5b4 100644
+> > --- a/drivers/regulator/qcom_usb_vbus-regulator.c
+> > +++ b/drivers/regulator/qcom_usb_vbus-regulator.c
+> > @@ -20,10 +20,35 @@
+> >  #define OTG_CFG				0x53
+> >  #define OTG_EN_SRC_CFG			BIT(1)
+> >  
+> > +#define PM4125_VBOOST_EN		0x50
+> > +#define PM4125_VBOOST_CFG		0x52
+> > +#define PM4125_VBOOST_CFG_MASK		GENMASK(1, 0)
+> > +#define PM4125_VBOOST_CFG		0x56
+> 
+> [Severity: High]
+> Will this redefine PM4125_VBOOST_CFG to 0x56 and silently override the
+> intended 0x52 offset?
+> 
+> When pm4125_data.vsel_reg is assigned PM4125_VBOOST_CFG, it appears the
+> regulator core will write to 0x56 instead of the 0x52 VBOOST selector
+> register.
+> 
+> Should the 0x56 definition be named PM4125_OTG_CFG instead?
+>
+Yes, you're correct, I will fix in the next patch by splitting the
+defines:
 
-Missing #include <linux/reset.h> for
-devm_reset_control_get_optional_exclusive_deasserted() below.
-Don't rely on indirect includes.
-
-[...]
-> +/**
-> + * ufs_spacemit_init - init phy and prepare clk
-> + * @hba: host controller instance
-> + */
-> +static int ufs_spacemit_init(struct ufs_hba *hba)
-> +{
-> +	int err =3D 0;
-> +	struct device *dev =3D hba->dev;
-> +	struct ufs_spacemit_host *host;
-> +
-> +	host =3D devm_kzalloc(dev, sizeof(*host), GFP_KERNEL);
-> +	if (!host)
-> +		return -ENOMEM;
-> +
-> +	host->rst =3D devm_reset_control_get_optional_exclusive_deasserted(dev,=
- NULL);
-
-Why is this stored in struct ufs_spacemit_host at all? As far as I can
-see it is never used again, so this could be a local variable.
-
-[...]
-> diff --git a/drivers/ufs/host/ufs-spacemit.h b/drivers/ufs/host/ufs-space=
-mit.h
-> new file mode 100644
-> index 000000000000..6ae3c263a360
-> --- /dev/null
-> +++ b/drivers/ufs/host/ufs-spacemit.h
-> @@ -0,0 +1,90 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * SpacemiT UFS Host Controller driver
-> + *
-> + * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
-> + */
-> +
-> +#ifndef _UFS_SPACEMIT_H_
-> +#define _UFS_SPACEMIT_H_
-> +
-> +#include <linux/reset-controller.h>
-
-Drop this, we are not implementing a reset controller driver here.
-
-> +#include <linux/reset.h>
-
-You could replace this with a struct reset_control forward declaration.
-Or drop it ...
-
-[...]
-> +struct ufs_spacemit_host {
-> +	struct ufs_hba *hba;
-> +	struct ufs_pa_layer_attr dev_req_params;
-> +	struct reset_control *rst;
-
-... if you end up removing the rst field entirely.
+#define PM4125_VBOOST_OTG_CFG   0x50
+#define PM4125_VBOOST_SEL       0x52
+#define PM4125_VBOOST_CFG_MASK  GENMASK(1, 0)
+#define PM4125_VBOOST_CFG       0x56
 
 regards
-Philipp
+Rakesh Kota
