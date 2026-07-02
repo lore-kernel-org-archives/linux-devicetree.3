@@ -1,108 +1,100 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E35342A798;
-	Thu,  2 Jul 2026 08:35:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889493D967F
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 08:37:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782981326; cv=none; b=E8pwrMJbRGYVo5i5m3CaTxmsDXvbqVPUK3D5C2A9lQoAl/9SrbFf+GTS0mRl8dqr4+WVxunfqnL56QFY0h8VaAxWtC0d7A/XSQLT8b7JjmK6bYcyjvNr0Z1lh/tDz9za3pHezIoNANIzYE9hyDFbw46EJcVD36zHB8R1fJWub3Q=
+	t=1782981477; cv=none; b=VBE0qJmC9DIVZ20OqnvqLQGN+mBrIp3yKZA5gVdRnoaz9gxUbaAOo5hkSfspbdV7KtbqXuc9LyphE8YIuhEbtsfBR3P5GU+OWXTa5NRXBlrZvZPEOuFOF4G9IL8tuHa5B4ZOIvJQS5yeRioZ1DeOip84uzBaNL6jY1j+cewhSVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782981326; c=relaxed/simple;
-	bh=Ui5nKZ9kIlm2Qxi2QG/TTlT978eJ07IL4k6NbZcpY2c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uM8M5r6vjXBymwxYafXUu01Jcd9QnPOd13TYp9Ugrwk2Rpv1eZz0LlfQ/WKiPRljKzm0Pxbn4WTi96dn8EtIM/JSaT0hT/9OuYWhgu4fca+gxsntUd7Xrx1uwK8A376LgfXRw1glstIKmJWrCxRx1xZfhYAoy1nixJqnhGwXtjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=saszGIV/; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1782981477; c=relaxed/simple;
+	bh=0PLPyKZ+Zc9ZwvjPXMBK030Hi7vLfG42r8ZnnL7xa6c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KKsmoVfsHYJ+t0CvLtKs+410q4azSwoRK9+7HiXeve07xnMR+nRkPMTdORPtPbLOV8A5p9d+wRu/bs8r24QsatWvKYhdFKhkN8AfsyQycH8jxb+bOjcPxuUdW5mv/a3mNf+edDuCddhRkCziU7lj+Y196qCQrvCoG5/bcKdYUjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=kc2EL8Qa; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="saszGIV/"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id DC97B4E40C29;
-	Thu,  2 Jul 2026 08:35:22 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B12185FF03;
-	Thu,  2 Jul 2026 08:35:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 486C3104C960E;
-	Thu,  2 Jul 2026 10:35:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1782981321; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=v3XoWcvCU8wzeGoOynPkYxwnAByrmkOU41swl4JF6g4=;
-	b=saszGIV/t7Y7j0JCiRiMUZrrUjHgBxZCHRP9SZrxi6DyLprb0yS0sqEUUCgbVRd1j2kDc0
-	mmV+Laa54Jw23TXNMja9633XtjD8NiBsMe3Kp2lBv2d+oAdyoaAQaSjr/yx/Rw3AXjVS48
-	/7gmJKz2k6Xxff3YAjAbIvnU7lUZF9MhDwYr/j0imQtjLeJiPpaCC0fbG5OYSbto/VEO02
-	MwGmNXVAzg2tf90MBY0RClJyont9a5FyoivIAuz6GiJYx8vrtvTv3ImtWQwrkR/i5SPe0F
-	XNqBBcQuTOxaC+xM5I56CdSoyn18G8woFKkwT49z17GjmweTSDTvd+qX8fls7w==
-Date: Thu, 2 Jul 2026 10:35:17 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Markus Probst <markus.probst@posteo.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: rtc: Add sii,wakealarm-output-pin
- property for S35390A
-Message-ID: <20260702083517a6b67a86@mail.local>
-References: <20260630-rtc_s35390a_int1-v1-1-1b2239e16be2@posteo.de>
- <20260701-bronze-jaguar-of-perfection-028bac@quoll>
- <45e8157be53c3d8827fcccece7f706968bc056d3.camel@posteo.de>
- <7de66163-369e-4118-af51-6913b565fa4b@kernel.org>
- <d06dd0726aa3795ae99df5fa8a9c05d6e2001efd.camel@posteo.de>
- <20260701164821b7492eac@mail.local>
- <74b32ed0a700e3900c0f34d730b2b5b69eb2ca19.camel@posteo.de>
- <187099d0-5e09-49c2-b67d-8bd4366ff1a0@kernel.org>
- <202607020817017cde494f@mail.local>
- <887cb4e9-d60d-47b5-9110-e00d18e9e46c@kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="kc2EL8Qa"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2c7cfa17fedso15553155ad.3
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 01:37:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1782981473; x=1783586273; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+F7a9l8CBrmgZJ21cRo2dmJRdbnrg/txunQ3NzKsCjo=;
+        b=kc2EL8QaLgnKmGnOeVeoW+rvzg4Vwfljz2wSjifxNWyoUI6sSCgs6V6qqurVHwjk0n
+         1GVzDu9L4xfKDVIxiCsNdFZoyDDfW3GMm/niNHjXeGa0VqrNqVWSZKDvtUNn86ccKTm2
+         MVdwMSseiRPET0YJJAe3nLWiEkgz9H3kTpc6o=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782981473; x=1783586273;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+F7a9l8CBrmgZJ21cRo2dmJRdbnrg/txunQ3NzKsCjo=;
+        b=PWxr31zhpgiEDqjciTisLoUsKyk6v9GOHpWy6b+Ayhjbd0t42t2+ThulqlQG13Zb8v
+         nXptVtJV3CcTSQ73BCdW3GqOxJGOmk5LWuNm74KtoYovxRg3kEBxkXLKffsJKWaFUzF/
+         +Plq4mmcDtPc3U190J8YXYEQ9rnReiXgbTgCGZ9nNi/xVQmAmYUe4UL4Ovkbyfg/Mb2Z
+         d+2hK4zaXIiFIlAQ4aGALli7K+D0vwHrTErDhYrhZktCw8lBQLHRCmVoG97GrtwAO7V8
+         ji7UZWPLpvaRR1YAnBp59Q6CFPio17sSYYq9xkR53YpUUN+8C3Ss9u6yINoz0HlJ8goC
+         EoWg==
+X-Forwarded-Encrypted: i=1; AHgh+RroasN472SShyhJTqvfSZizHs+gHv2eDu0VKAyshPlE85Ha1H9+UoPXIXLtqjNfQR4nDZb334xcJiIJ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy5M7AlYMsUZnNsnP/2aI96qhNAWG4OY6CKUUu8OF61+iQcgnaq
+	WKWT0F0nRRy5u0xfwaz4BbXCm5U8oI1yMgBfm8nXPFhJRbbwLfl9y5RnI+vKrybhng==
+X-Gm-Gg: AfdE7cnu2jMqA9jmXWQLlk0AYyQSGXORkkMtGd8saOaMVCMkbLKiGLok5ghK9/eTRvr
+	bJHf+0eifWDRJENEc+5vuYWDrDHP9NU3V7p5+pK1kwOf1xT8Z2dG50m/NoMJXFNgC0e1o84vf30
+	6hGUZYEqCFfHyiABoGutCWlUA1uED3e/B5Hlv/WkVCj8pBY21m9+Njyedi7KipaQWi01D+6/ykQ
+	uAm1gLcdqVZe84cJInt5pHw6rPv50UZrMswbQuNKhBrzhlC6OWSK2ImF+o41svpUVzVnFCILZY6
+	KPbig+/h7uHL5zin7vV+eN+Tbi+mPP2HL7IrS157V4Kicq7+GtoenRix9qLAFSq5uCnT8E1N7yC
+	/iVsy0E/KovGQK7yKcEBLsJc3TZqljSE51UGLWtzFUxH2fC5vW3kICELZ0rlTfSER0mGbbVFRuq
+	2dweTmhK3YzFd7N7VS6VeONBhVdfgVsA/nxZ9c4bHOM7Tkr47QFPt3Gx2vsVNENqlUImtsSoTTQ
+	ydftUCd
+X-Received: by 2002:a17:903:22ca:b0:2ca:17e2:2acc with SMTP id d9443c01a7336-2ca7e706861mr54959555ad.21.1782981473366;
+        Thu, 02 Jul 2026 01:37:53 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:7869:7870:7da3:7288])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca9a8fac27sm10102495ad.20.2026.07.02.01.37.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 01:37:52 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: mediatek: mt8183-kukui: Add supply for SPI NOR flash
+Date: Thu,  2 Jul 2026 16:37:45 +0800
+Message-ID: <20260702083746.578461-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <887cb4e9-d60d-47b5-9110-e00d18e9e46c@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 02/07/2026 10:20:20+0200, Krzysztof Kozlowski wrote:
-> On 02/07/2026 10:17, Alexandre Belloni wrote:
-> > On 02/07/2026 08:09:55+0200, Krzysztof Kozlowski wrote:
-> >>>> Then you need proper wakeup-source support
-> >>> Wouldn't that break existing devicetrees?
-> >>
-> >> How?
-> >>
-> >>>
-> >>> The current driver allows to wake up the system, even without
-> >>> having wakeup-source set.
-> >>
-> >> Anyway, wakeup-source is already there in rtc, so this would be done. I
-> >> don't get though, why there is no benefit of routing it to interrupt
-> >> controller (interrupt controllers do wake up the system). Additionally,
-> >> if you do not connect it to any interrupt, then how does it wake up the
-> >> system?
-> >>
-> > 
-> > Some systems are routing the interrupt output of the RTC directly to the
-> > PMIC and the PMIC is the one responsible for waking the rest of the
-> > system, including the SoC.
-> 
-> Yeah, then the PMIC has interrupt line to the SoC and the PMIC is the
-> wakeup-source, not RTC.
-> 
+The SPI NOR flash is powered from the always on 1.8V power rail through
+a load switch that is controlled by the security chip.
 
-This would be case 3 of Documentation/devicetree/bindings/power/wakeup-source.txt
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+ arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> Best regards,
-> Krzysztof
-
+diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
+index b8d261b375d4..ed552f023cb4 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
+@@ -980,6 +980,8 @@ w25q64dw: flash@0 {
+ 		compatible = "winbond,w25q64dw", "jedec,spi-nor";
+ 		reg = <0>;
+ 		spi-max-frequency = <25000000>;
++		/* Power actually controlled by security chip */
++		vcc-supply = <&pp1800_alw>;
+ 	};
+ };
+ 
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.55.0.rc0.799.gd6f94ed593-goog
+
