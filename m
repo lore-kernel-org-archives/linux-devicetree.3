@@ -1,164 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8049433E70;
-	Thu,  2 Jul 2026 15:09:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01569433E6D
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 15:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783004948; cv=none; b=XCVaPpqAauurkDl/cdGARIlsmUgeByVlUnPB7ocZlfXMznNx8KSS6ueAH9E6GqVZN+7qld/QvsCPS2hShymPyM4w8hPbR2noXsrmakqx8U3m5/IRzmyoUOnO1A7Sg38efYRsJUfbaIiE2g/GPDNMxYuwijbvjasd5OFEwqddJoo=
+	t=1783005116; cv=none; b=hwQW6bVBy0HmcVgFJkQCkHweD6BnUk9y6o+Lo2vjpnZgmMi7SMuH2aqjgc4mAa4DU0qnCdWYa6T+CfM59SgkNVuWnYJYSDZYwwD1kW7yepppNxpvIz2xb1lmkketi3OoHnBrRWAHPE57oDk0nL9zTT8EnV5c3+sNbH48XJUDtFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783004948; c=relaxed/simple;
-	bh=LLkHWrOMD63/9p70rDW1VrXtSZnGGOWJdRZK4hmTXHU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IpxySKPoSIWjWGsDXIPL7eDRmsg2LIxkI3I+kxi8WV7xglyD158G7aVODUzMbXOsT0lx/4biuXOreSDngJXLl0PVi4r7hijVrqLh2TryI8iuKbGFyXLEOW0EYoDQ+E1dxrDh3Ika28PHg9yd+ftqPPMKDRKbhPs6dHm4zgzgiqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AW05xYDs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783005116; c=relaxed/simple;
+	bh=vogw8/m1WBs8eRFkl3Qggb0JXZDIM+VoWFUkxzTU9pY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Y/J8oerPgzd0aqE/HQS/2u+UlHvmsr6kn4tSPXC2QIaP2G2M4ZCefQBGdjh1fPeSErGI7NUQ8Dlf3ZC/kK45xUEID20Sffm4Hppz4Sqj58LA4rLW7Fivp+P9reMJHFdLC4XLrYDY6y38L2/b4eqeF3E9PrtNWiqakX6QzwsoioU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IMvITVFg; arc=none smtp.client-ip=74.125.231.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AW05xYDs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D70281F000E9;
-	Thu,  2 Jul 2026 15:09:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783004946;
-	bh=QNIEFVldnfVEUV19RPlvKaoxSz33OpCUlGBniTtIzbw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AW05xYDsdvfgnVzB8HRyv3z9EU8TK33a+ymYgDW8QSn3uNOObfBq314IjboD1w1AY
-	 XrWxw7igHDiWZl/01h2Wn1NddXeuvoW/9LSafQbHZwIPrgSWIW95dlBHPD/AZ2iKeS
-	 ZEF9yi1rXSmOe26iQbRyr1WVOVr/qzi3ptJ7i0go/BHSPQJUpsr78qeSnovbQbnHgq
-	 yAFxD0Ll/hV1Xmrm8M0SqUhXnTr815ED+f0SvJ4GiowrTwUrIbW2o8QgZDdIbBPh14
-	 krAmsetbWhygP0mzeWMmyjMQoDC88V9yP1ODhIfg5GtI4e0ibi7xSQTfBS04u+cr2j
-	 7EUA5E2O57AUA==
-Date: Thu, 2 Jul 2026 17:08:56 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org, 
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: Re: [PATCH v2 3/4] Bluetooth: hci_qca: Support QCA2066 on M.2
- connector via pwrseq
-Message-ID: <zat6uuvh7jwfxajvqtif6d67osf6h5b2vxig3bmuch76btpdkj@bfxjj7kk5fjk>
-References: <20260702-monza-wireless-v2-0-7b56e2a6a6d4@oss.qualcomm.com>
- <20260702-monza-wireless-v2-3-7b56e2a6a6d4@oss.qualcomm.com>
- <43re752djujsh2kiyvjlkpmztxsh4atg6472qhir4lgay24zbo@mtlkn2xc2ors>
- <rxt4n6vuscu33mrw24af72lb3s6urqfpkhtia44yfo4j7wtu6o@3xp57owekrgj>
- <u5ieok3hgjcf74sxjdzv6xurmlbve46xa3imgfnom4hpjarmxa@fna5daqpyk3r>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IMvITVFg"
+Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-4489b7aa0e7so130569fac.1
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 08:11:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783005114; x=1783609914; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gUoKcMNp1i0OsjwBDMTVKkf2BV13qPTJjkx+a7eS6X8=;
+        b=IMvITVFgSLf1kCwNe7ytSBw6wFNfDjkTLxrGHdsLQBOuubHnM4IxbSRUMPnuT/XVNU
+         W+31jpc/swn8lygg2/6uX28A79/7NsTYNCUzQJbfkuJLIcTuGM+8/pQyvCjUqpv3tkAn
+         8mVhzAA1GBwVA3nGZWpewZqU0qbijWpuN4zNKTUPGSxkTn0M0cp3BnqRiBN31hmwT9ON
+         hevDemEKkWgk3LSEw6zKoYshIoo+SOm1lFS5dcuAnvrhUNj04hSUnx/fTKGbGx+MPGHM
+         MZMO4zlErLjOPNe6NrrQs1Yv2rFGjeRbAe7W5eET+UmbVE8E34cAgI2HZZCVa2QRrpiK
+         EHvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783005114; x=1783609914;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=gUoKcMNp1i0OsjwBDMTVKkf2BV13qPTJjkx+a7eS6X8=;
+        b=QbdVpgrMxwK1UkUIOq+uT25zuANgNGXiRJGIXzF1GLFVycqqcC1VnGqxgzu3h8jLNd
+         3+eljY9eh0JsFyGLFUGSyGR7nFQ5BjNlyxNB8EjFtIrOuiotHdEkasP/tnLHFlt3TOYI
+         ZzEC8tv0dP0XeoPeDsAizApadvrZS6+8SVxky6BWixFefWNEGTc5/okMQehzTTDEQzbt
+         pp+Nzfqd1YhocyCfq97XqFNjI+mCwnv1P5tH4aMi4SjbhEa7GYC6xclOuRZCGynsffTE
+         UVE5PeBhAyNhpmpHoXY1NyXMVDaKkFKj7nwVFMJZbw88Eubx4DoiAE++hBVIzGCXju1u
+         l61Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rp6JN377pjtSdp8ij2GSVN4DaGu6nRRI1zCxFEfYs8Hc4bR7yVP+/ArENLQydpOTVyznOR0y3Nksuzj@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxliqYvR+TPc2ypDRYSCoc9QdWVC96f3+vip4n9UC5Mpsy/sCU
+	QJGH+jn4P3qp+idJRS82ulTwmPPr1cGjoJMYxCVzozPgDtnWTjgLiSlc
+X-Gm-Gg: AfdE7ckurslEd8zVFkRqhALpEmLHx1M1qI8T3AxcZ3cvn3j6OOkEt6SZ8CmNiMsAjwv
+	jAMQv120FqZJ5nfY6mDQCHCtnzJdFOskLxRFkC6/1Flf7AVElst2nz0X9V2Zndmp/NJRm1Gr0q9
+	UhxofKS9Yc8Y5HcwNRzx/wBcLM/+1RnmqvY3io59pMvoRIB0WTay3qKO5sk5+9tK2QtLAVmoNgB
+	repjY8YBrj0tYoh3nh/gHNuKf6EJwJWcd7wYs315K6gF48PTQcs9w6tQ+MKSznLbxYCvxyyrmTe
+	iAau9YuqnPy6psxf3/dv+cwYNxVpKOwN+7uLMRPVmPQtdlULLYV7vCqwr9VJrgaGSyCMe9JNdrH
+	u/kb+Is0zmnVm+nsMZHcaERGmL3WLTlJTw5Ngv/64cQ3HPScmb7Ma26N+RgPk5bkjV1+/YmXiMz
+	5XqGQ9HMrdutui0jtbeNfbxKO/11sXnXhCHHfuIjcCiZKOVvHn5eC3iHQ=
+X-Received: by 2002:a05:6871:d3:b0:447:3be4:44d with SMTP id 586e51a60fabf-44cabc00880mr4009842fac.33.1783005113834;
+        Thu, 02 Jul 2026 08:11:53 -0700 (PDT)
+Received: from ubuntu24.. (dsl092-249-254.sfo4.dsl.speakeasy.net. [66.92.249.254])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44cbec9a113sm3094561fac.9.2026.07.02.08.11.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 08:11:53 -0700 (PDT)
+From: Xing Loong <xing.xl.loong@gmail.com>
+To: Jens Wiklander <jenswi@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Sumit Garg <sumit.garg@kernel.org>,
+	op-tee@lists.trustedfirmware.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Xing Loong <xing.xl.loong@gmail.com>
+Subject: [PATCH v2 0/3] tee: add MbedTEE driver
+Date: Thu,  2 Jul 2026 23:11:12 +0800
+Message-ID: <20260702151115.544016-1-xing.xl.loong@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260701132514.186953-1-xing.xl.loong@gmail.com>
+References: <20260701132514.186953-1-xing.xl.loong@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <u5ieok3hgjcf74sxjdzv6xurmlbve46xa3imgfnom4hpjarmxa@fna5daqpyk3r>
 
-On Thu, Jul 02, 2026 at 05:34:31PM +0300, Dmitry Baryshkov wrote:
-> On Thu, Jul 02, 2026 at 04:17:43PM +0200, Manivannan Sadhasivam wrote:
-> > On Thu, Jul 02, 2026 at 03:14:49PM +0300, Dmitry Baryshkov wrote:
-> > > On Thu, Jul 02, 2026 at 12:46:15PM +0200, Loic Poulain wrote:
-> > > > For QCA2066 (and other QCA chips) on M.2 connectors, the UART enable
-> > > > is controlled by the W_DISABLE2# signal managed by the pcie-m2 power
-> > > > sequencer rather than a dedicated BT enable GPIO.
-> > > > 
-> > > > When the serdev controller has an OF graph (indicating it is connected
-> > > > to an M.2 connector), acquire the 'uart' pwrseq target from the
-> > > > connector's power sequencer and use it to control BT power instead of
-> > > > the bt-enable GPIO.
-> > > > 
-> > > > Also allocate bt_power unconditionally for all SOC types since the
-> > > 
-> > > Can we just fold it into the main struct?
-> > > 
-> > > > pwrseq path is independent of the SOC type switch.
-> > > > 
-> > > > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> > > > ---
-> > > >  drivers/bluetooth/hci_qca.c | 81 ++++++++++++++++++++++++---------------------
-> > > >  1 file changed, 43 insertions(+), 38 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
-> > > > index e09debdb00a1b8e74ccd5de6147e240e533b4594..b04593a96e14ac9e87ae76fa00eda308e81dea25 100644
-> > > > --- a/drivers/bluetooth/hci_qca.c
-> > > > +++ b/drivers/bluetooth/hci_qca.c
-> > > > @@ -1872,6 +1872,9 @@ static int qca_power_on(struct hci_dev *hdev)
-> > > >  			/* Controller needs time to bootup. */
-> > > >  			msleep(150);
-> > > >  		}
-> > > > +
-> > > > +		if (qcadev->bt_power->pwrseq)
-> > > > +			pwrseq_power_on(qcadev->bt_power->pwrseq);
-> > > >  	}
-> > > >  
-> > > >  	clear_bit(QCA_BT_OFF, &qca->flags);
-> > > > @@ -2256,7 +2259,7 @@ static void qca_power_off(struct hci_uart *hu)
-> > > >  		break;
-> > > >  	}
-> > > >  
-> > > > -	if (power && power->pwrseq) {
-> > > > +	if (power->pwrseq) {
-> > > >  		pwrseq_power_off(power->pwrseq);
-> > > >  		set_bit(QCA_BT_OFF, &qca->flags);
-> > > >  		return;
-> > > > @@ -2387,6 +2390,35 @@ static int qca_init_regulators(struct qca_power *qca,
-> > > >  	return 0;
-> > > >  }
-> > > >  
-> > > > +/*
-> > > > + * Acquire the M.2 connector power sequencer.
-> > > > + *
-> > > > + * An OF graph link on the serdev controller is only present when the BT
-> > > > + * device is attached through an M.2 Key E connector. In that case the UART
-> > > > + * enable (W_DISABLE2#) is driven by the pcie-m2 power sequencer instead of a
-> > > > + * dedicated BT enable GPIO, so grab the "uart" pwrseq target from it.
-> > > > + *
-> > > > + * Returns 0 if no M.2 connector is present (nothing to do), a negative errno
-> > > > + * on error, otherwise 0 with qcadev->bt_power->pwrseq populated.
-> > > > + */
-> > > > +static int qca_serdev_get_m2_pwrseq(struct qca_serdev *qcadev, bool *bt_en_available)
-> > > > +{
-> > > > +	struct serdev_device *serdev = qcadev->serdev_hu.serdev;
-> > > > +	struct device *dev;
-> > > > +
-> > > > +	if (!of_graph_is_present(dev_of_node(&serdev->ctrl->dev)))
-> > > > +		return 0;
-> > > > +
-> > > > +	qcadev->bt_power->pwrseq = devm_pwrseq_get(&serdev->ctrl->dev, "uart");
-> > > > +	if (IS_ERR(qcadev->bt_power->pwrseq))
-> > > > +		return PTR_ERR(qcadev->bt_power->pwrseq);
-> > > > +
-> > > > +	dev = pwrseq_to_device(qcadev->bt_power->pwrseq);
-> > > > +	*bt_en_available = device_property_present(dev, "w-disable2-gpios");
-> > > 
-> > > I think here you are looking into the exact details of the other of the
-> > > graph. There might be other devices on that side, while the code now
-> > > assumes M.2. Or, consider having an M.2 controller which handles
-> > > W_DISABLE2# internally rather than through the GPIO.
-> > > 
-> > 
-> > This code only deals with M.2 connector in specific, so I'm not sure why we need
-> > to worry about *other* kind of devices. Let's worry about them when they show up
-> > (with graph interface ofc).
-> 
-> I don't think we want to go through the drivers using M.2 connectors in
-> such a case. In the end, the contract should be that there is a power
-> sequencer on the other side of the graph, but the specifics of the
-> connector should be abstracted out. Do you know, if in the x86 world the
-> W_DISABLE2# is a GPIO or is controleed by the hub.
-> 
+This series adds a Linux TEE driver for MbedTEE, a Trusted
+Execution Environment for embedded systems
+(https://github.com/mbedtee).
 
-I tried to abstract out, but Bartosz didn't want pwrctrl APIs to do that level
-of abstraction as pwrctrl APIs should be generic and should not be bind to a
-specific connector and exposing its internals.
+Two RPC transports are provided for systems where platform
+firmware or board configuration has already established the
+REE/TEE separation before Linux boots:
 
-That's why we ended up having pwrctrl core exposing the 'struct dev' using
-pwrseq_to_device() and letting the consumer extracting whatever information it
-needs.
+  - ARM/ARM64: SMC calls and GIC SPI notifications (TrustZone)
+  - RISC-V: shared-memory ring buffers and IMSIC MSI notifications
 
-- Mani
+The driver implements the TEE subsystem interface (tee_driver_ops)
+and provides GlobalPlatform TEE Client API support, dynamic shared
+memory registration, and tee-supplicant support for REE filesystem
+and RPMB operations.
 
+The series is structured as follows:
+  [1/3] dt-bindings: vendor-prefixes: add mbedtee
+  [2/3] dt-bindings: firmware: add mbedtee,tee binding
+  [3/3] tee: add MbedTEE driver
+
+---
+Changes in v2:
+- 0002: Fix DT binding review comments from Krzysztof Kozlowski:
+  - Drop $nodename, "YAML devicetree binding" wording, property descriptions
+  - Rename compatible string to mbedtee,tee
+  - Rename memory regions: rpc-t2r-ring -> t2r-ring, rpc-t2r-shm -> t2r-shm,
+    rpc-r2t-ring -> r2t-ring
+  - Add memory-region / memory-region-names to required
+  - Simplify allOf constraints (drop redundant else-branch items)
+  - Rewrite description to describe hardware/firmware, not the binding or driver
+  - Drop all irrelevant platform nodes (gic, cpus, reserved-memory
+    containers, reg addresses, riscv wrapper); the ARM example now
+    uses bare interrupts (matching arm,sbsa-gwdt.yaml precedent)
+    with only phandle-required stubs (imsic, t2r-ring, r2t-ring)
+  - Add maxItems: 1 constraint to interrupts property (Sashiko AI review)
+- 0003:
+  - Fix supp_release incorrectly aborting unclaimed requests on close
+  - Fix potential tee_shm double-free on supp_recv error path
+  - Fix async RPC ring skip leaving orphaned payload bytes
+  - Fix COMPLETE_TEE retry to also handle transient -ENOMEM on RISC-V
+  - Fix session leak on close_session allocation failure:
+    release kernel resources before sending RPC
+
+---
+
+Xing Loong (3):
+  dt-bindings: vendor-prefixes: add mbedtee
+  dt-bindings: firmware: add mbedtee,tee binding
+  tee: add MbedTEE driver
+
+ .../bindings/firmware/mbedtee,tee.yaml        | 132 ++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ Documentation/tee/index.rst                   |   1 +
+ Documentation/tee/mbedtee.rst                 | 155 +++++
+ MAINTAINERS                                   |   9 +
+ drivers/tee/Kconfig                           |   3 +-
+ drivers/tee/Makefile                          |   1 +
+ drivers/tee/mbedtee/Kconfig                   |  20 +
+ drivers/tee/mbedtee/Makefile                  |  11 +
+ drivers/tee/mbedtee/core.c                    | 236 +++++++
+ drivers/tee/mbedtee/mbedtee_drv.h             | 269 ++++++++
+ drivers/tee/mbedtee/mbedtee_msg.h             | 219 +++++++
+ drivers/tee/mbedtee/rpc_callee.c              | 618 ++++++++++++++++++
+ drivers/tee/mbedtee/rpc_callee_arm.c          |  91 +++
+ drivers/tee/mbedtee/rpc_callee_riscv.c        | 203 ++++++
+ drivers/tee/mbedtee/rpc_caller.c              | 532 +++++++++++++++
+ drivers/tee/mbedtee/rpc_caller_arm.c          |  66 ++
+ drivers/tee/mbedtee/rpc_caller_riscv.c        | 192 ++++++
+ drivers/tee/mbedtee/shm_pool.c                | 105 +++
+ drivers/tee/mbedtee/shm_pool.h                |  15 +
+ drivers/tee/mbedtee/supp.c                    | 310 +++++++++
+ include/uapi/linux/tee.h                      |   1 +
+ 22 files changed, 3190 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/firmware/mbedtee,tee.yaml
+ create mode 100644 Documentation/tee/mbedtee.rst
+ create mode 100644 drivers/tee/mbedtee/Kconfig
+ create mode 100644 drivers/tee/mbedtee/Makefile
+ create mode 100644 drivers/tee/mbedtee/core.c
+ create mode 100644 drivers/tee/mbedtee/mbedtee_drv.h
+ create mode 100644 drivers/tee/mbedtee/mbedtee_msg.h
+ create mode 100644 drivers/tee/mbedtee/rpc_callee.c
+ create mode 100644 drivers/tee/mbedtee/rpc_callee_arm.c
+ create mode 100644 drivers/tee/mbedtee/rpc_callee_riscv.c
+ create mode 100644 drivers/tee/mbedtee/rpc_caller.c
+ create mode 100644 drivers/tee/mbedtee/rpc_caller_arm.c
+ create mode 100644 drivers/tee/mbedtee/rpc_caller_riscv.c
+ create mode 100644 drivers/tee/mbedtee/shm_pool.c
+ create mode 100644 drivers/tee/mbedtee/shm_pool.h
+ create mode 100644 drivers/tee/mbedtee/supp.c
+
+base-commit: 03e2778d1f11de9260543f969e9e888a1c2bf830
 -- 
-மணிவண்ணன் சதாசிவம்
+2.43.0
+
