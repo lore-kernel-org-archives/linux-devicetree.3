@@ -1,67 +1,33 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC383EDACC
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 11:22:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593B33EDAD7;
+	Thu,  2 Jul 2026 11:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782991377; cv=none; b=Vkts5jTijupeJMcDGgXgt0QuFDCFKImPVVIhAgOTVbo0D20Cbvw+7AO9TvjsYGoWyoFajpnt5p5jHNsWEL+CWBHVjHMTX1q0YnSeSdRgzj6p4NMibQmGler1MEgkR9Wg61L0bHa97T9yWFhciPR2fs3u3P/MYlgv95UKOuBmijY=
+	t=1782991725; cv=none; b=oZsr+GjHXqsHYOLrxgZS3PsFgxJzco4SbEyks5J2YWy65h5W23jij8Z5E85wPJQ8vxc2Zml5gCUtLZLwxztETDY0ha1GikhZmIYdq0tc3YU5pHPqAq0LNgx6+4OK3fBSQyktEbtl6tzYK6wdnkmGie5sVFmaL1QCk+xplbnB2uI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782991377; c=relaxed/simple;
-	bh=BjCZldRmVu7iIL1qiFQiiS2rf7b4kgTkGMTTxWONjr4=;
+	s=arc-20240116; t=1782991725; c=relaxed/simple;
+	bh=1nALJb+YA7y5h8aPBgSeA8j2VmbMtrXkD/kdNDKRMkk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GuB6L8usuqTXIS0vB9pTY4Qk6aOrgw8xN+BGf9UkYn0VnKZoLyC07++26Uvx7I7/ITWQ9NmXql8894HGbchz+PHbrVV+lw82wS0NAa+KA0CNlioWarm3OFKvrbxGDNac6mfDrCGHvXTPQj8/zn3riz/oXfJkifHchtEat0JJKSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JWKLBOQv; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=sFf1rTyEYECxZ6igpqZ8VoSJlYkiADkwG9BrfXtZwFpqbpdhfvRRAlcxcAT/3wwIkPOjKkSnXGzttwAFVElm2YWuM7qbCvV4GacVgC2Sj+xegC4MVEl7GKkVEhEYSzCYpps4iiT4NIyW0cgVCgS9QXq/zs4Oj9SDJS77Ulg1xAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EvTdZVOG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JWKLBOQv"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so11455835e9.1
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 04:22:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782991374; x=1783596174; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KhhtWV7Ryh6pz9r0SAzNB6C4UPIw4trYcrpHGw3+K5E=;
-        b=JWKLBOQv5td84hv0LK8aQzdZA2lyEh7d9gRVfDeBB8SdxKlt0gnfGWOikEZPu5cY3y
-         EItywlxa6yN8bfbDDYTD5KW7b7IFEU/Im8Ub/ObaE37pM9a3UqgxsFhlNd3CUk0wJQHv
-         XlxxIRe3pjBZP0fWL8KydwRmfzBkRVI8hWJMDKVhONFgrXvnzvGkLhlHMljngpERSCj6
-         1h/0aG9ybpn+3ReLLDjgqUu3XiHd9lQEx/zHQMkjDwlON+F8geXVo9cFaVpm5wPIzQal
-         ik9n8ZbJSBWaQzWvat9vZIImq5Zxf8+0dOAE6FhJkmvghyxSvoVqkGUMonKqmT5ERqGl
-         LG7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782991374; x=1783596174;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KhhtWV7Ryh6pz9r0SAzNB6C4UPIw4trYcrpHGw3+K5E=;
-        b=WQbvTS1DnUAEpJhs1hoaC12XyFtmfffqoxmjemDhHyCWklwR1hPAxxFHoEwQiR97wc
-         5/DBSuMWxKrTp/vi1ZIQk/jr1bceIJjwk5wFwLvG3wMZHWeThpvksq22v/2A1rlMVMT5
-         iScFOuSJMsbuSl05NsFoLShPccTy+BkZZjUj7+1A0fZq2EJZkCupifEFSTayf50/8S9a
-         HbRU6Fe2+0yDkglEd9H3G1uIKiy5ns/RpH++BJUEToC59btYX2zG6V+ZI/E1nSzQ8xsm
-         gm4R5vEsNOe+trv813h8NYXbFwn1XkNVf866zOjZNn122JAl2V8akKxYudwTmT60to6v
-         mYqQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8/3j3CG2eqX6Efc97e7n6y2Gv9IByaDmAa9OHU37k+fg6CKV16TtFbo1Sns9ViRNFRC/kgiSqGfWWs@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxt7+0oTpoc1/gaI1PjOkNjc5KKIbGSFEIVn2Lj3HXexvUhcsHO
-	OxB5IPA8m62LMNWO5P0li6PKvxqpPdFKCkhA5DX1Jd5/LtWEWAxSVUj1
-X-Gm-Gg: AfdE7cnhooBV5G7zVTqwaO3nYiOUE6+sHJpgoMBT+Jjs5sSYlfwksIQdhuznGujdAyC
-	6rLx9bPHxfPvJaWhnzWX0MnAE1rd4pfiV0rv6qnZ2QJuWGfRcGuXNMydnz7ai7KosXLwD8jU6aj
-	oYML16HwA/xtAfRt5WJfpQuKj3YLaDIXKGZ/yLl/wMyAAMRInl9q+8NPTnvddBeg/NkAn7thK8U
-	GgJE3KR9wE9gcD1hcqcoNTn8tMjfS49DDHbfaFlzVVXeM3wzeGxnC0X8KgTOAF3JhagZAJ1E2H3
-	UcNJ9ckdpq6k15Kk52ZXD31NH19Y1OzIa6FymUfjgFN65ozJ+fxP/Lpv6kID1wJ94Itd6J13oKu
-	woSNWBvT3FLNG2SrwWKDxIo+Rg8luMhOxiH5mGKPkbWKTxs2v2nyErVe160+wRdI4yoL6t22RC6
-	7Tm2NAT7x/6eTG5fu3NTBdtA2ecVRZR9I+UWkAjMFHPu7V9y0FwSktsRnXrqm2y2W6vb8eUPfzd
-	RgJbkRRdyn3nkA=
-X-Received: by 2002:a05:600c:6986:b0:493:bb23:152a with SMTP id 5b1f17b1804b1-493c2baca0cmr76877265e9.34.1782991374089;
-        Thu, 02 Jul 2026 04:22:54 -0700 (PDT)
-Received: from ?IPV6:2001:9e8:f125:6a01:ed38:5886:81fd:d626? ([2001:9e8:f125:6a01:ed38:5886:81fd:d626])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493bfe7427dsm76413895e9.2.2026.07.02.04.22.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jul 2026 04:22:53 -0700 (PDT)
-Message-ID: <5177c53c-3885-410e-8f6c-e40e38677b32@gmail.com>
-Date: Thu, 2 Jul 2026 13:22:52 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EvTdZVOG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151691F000E9;
+	Thu,  2 Jul 2026 11:28:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782991724;
+	bh=j+2496+EdZL1GqvlfPj2h34a+6w39M+uQkYKjHLslWY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EvTdZVOGcpfVSh7Dgurtt83ghAxAI83lL+mOJlhatiiCZvGl2cWNag8tAyn/Pslen
+	 5jkNEgzssFxl4rJfxBfJzjOPOyFMCW795DYy6c0Gt2db+2ce5qhaSO6V7uRWT+cy2L
+	 zYIw8pJ2hu5s3lfgY4FByH/12vnUvuXNbJ+orjjCujzNpWHisr3mxQvwcQWpkvISKc
+	 Ft3avPhW0R2YhTkzP+Y/5lHmO3rJEQpzNWA/fB4T/DD7aq+yY1FTqye6HoDnd83rWN
+	 vcq1Ado2XtV62z9AUxYCSwPeWldZ98OllaFGlOMd6AR6KUYAoTpNXJjstEPJWmryIY
+	 Hp0scf2/Im6tg==
+Message-ID: <5d5c693b-bd07-40a4-aea5-d9e1884aac50@kernel.org>
+Date: Thu, 2 Jul 2026 13:28:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,127 +35,117 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 2/2] net: pse-pd: add Realtek/Broadcom PSE MCU
- driver
+Subject: Re: [PATCH 0/2] qcom_battmgr: Add batteryless DC-adapter MAINS
+ support
+To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+References: <20260518-add_dc_in_support-v1-0-31fbaa329879@oss.qualcomm.com>
+ <56a54a34-1040-44ae-92e2-ce65a3d3acb5@oss.qualcomm.com>
+ <20260519065938.4i5wot72pfxy4m3d@hu-kotarake-hyd.qualcomm.com>
+ <ag-NLvh4ROgTCs_L@baldur>
+ <d4001407-cdb0-48ee-a138-87c94b5dab01@oss.qualcomm.com>
+ <20260702111737.2qtjcfskulav4usd@hu-kotarake-hyd.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Kory Maincent <kory.maincent@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Daniel Golle <daniel@makrotopia.org>, =?UTF-8?Q?Bj=C3=B8rn_Mork?=
- <bjorn@mork.no>
-References: <20260630105651.756058-1-jelonek.jonas@gmail.com>
- <20260630105651.756058-3-jelonek.jonas@gmail.com>
- <akYPfkRbEzWFuC6j@pengutronix.de>
-From: Jonas Jelonek <jelonek.jonas@gmail.com>
-In-Reply-To: <akYPfkRbEzWFuC6j@pengutronix.de>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260702111737.2qtjcfskulav4usd@hu-kotarake-hyd.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Oleksij,
-
-thanks for your review.
-
-On 02.07.26 09:13, Oleksij Rempel wrote:
-> Hi Jonas,
->
-> On Tue, Jun 30, 2026 at 10:56:50AM +0000, Jonas Jelonek wrote:
->> [...]
+On 02/07/2026 13:17, Rakesh Kota wrote:
+> On Tue, Jun 30, 2026 at 04:16:13PM +0200, Konrad Dybcio wrote:
+>> On 5/22/26 12:56 AM, Bjorn Andersson wrote:
+>>> On Tue, May 19, 2026 at 12:29:38PM +0530, Rakesh Kota wrote:
+>>>> On Mon, May 18, 2026 at 04:36:32PM +0200, Konrad Dybcio wrote:
+>>>>> On 5/18/26 3:49 PM, Rakesh Kota wrote:
+>>>>>> On batteryless boards powered by 12V DC adapters, registering the
+>>>>>> power supply as BATTERY causes userspace to incorrectly trigger
+>>>>>> battery power-saving sequences.
+>>>>>
+>>>>> Does battman really offer no way of differentiating whether a battery
+>>>>> is *actually* present in such cases?
+>>>>>
+>>>>> What boards are affected?
+>>>>>
+>>>> Currently, batteryless support is only implemented for the
+>>>> qcs6490-rb3gen2(Kodiak) board.
+>>>>
+>>>
+>>> What do you mean?
+>>>
+>>> Are you saying that the pmic_glink firmware in Kodiak has a one-off hack
+>>> that no other implementation of this firmware has?
+>>>
+>>> My Lenovo IdeaCentre (hamoa) doesn't have battery, what should I do now?
 >>
->> +struct rtpse_mcu_port_config {
->> +	bool enable;
-> in this struct we use only enable, do you plan to wire it somewhere
-> later? I assume you wont to keep it as documentation. May be add some
-> debug traces? And add some comments what do you already know about this
-> fields.
->
->> +	u8 function_mode;
->> +	u8 detection_type;
->> +	u8 cls_type;
->> +	u8 disconnect_type;
->> +	u8 pair_type;
->> +};
->> +
->> +struct rtpse_mcu_port_ext_config {
-> Same here.
->
->> +	u8 inrush_mode;
->> +	u8 limit_type;
->> +	u8 max_power;
->> +	u8 priority;
->> +	u8 chip_addr;
->> +	u8 channel;
->> +};
+>> I was going through my inbox.
+>> This remains unanswered, and I don't see the discussion progressing
+>> without resolving this.
+>>
+> To clarify — there is no platform-side hack involved. The Kodiak board
+> has a batteryless variant, but the pmic_glink firmware provides no way
+> to distinguish whether a battery is physically present or not. Since
+> this can't be determined from firmware, we introduced a DT-based
+> property to describe the hardware configuration explicitly.
+> 
+> This is not Kodiak-specific — any batteryless board, including hamoa,
+> can use the same DT property to avoid incorrect BATTERY registration
 
-This might be good for follow-up patches. Right now, I don't get
-the full complexity of the pse-pd framework so I'll rather keep it
-simple. I see that at least some of this information is reportable,
-though not configurable (yet).
-
-I suppose it's preferred to not add unused stuff so I should just
-drop the unused fields and add them later as needed. There isn't
-an urgent need to document it here either, the guide I based my
-driver on is quite available here and there in the web. I haven't
-actually dealt with all those fields close enough, so adding
-half-baked comments about them isn't good either.
-
->> +			break;
->> +		msleep(RTPSE_MCU_BOOT_RETRY_MS);
->> +	} while (time_before(jiffies, deadline));
->> +	if (ret)
->> +		return dev_err_probe(pse->dev, ret, "failed to read MCU info\n");
->> +
->> +	switch (info->device_id) {
->> +	case RTPSE_MCU_DEVICE_ID_RTL8238B:
->> +		pse->chip = &rtl8238b_info;
->> +		break;
->> +	case RTPSE_MCU_DEVICE_ID_RTL8239:
->> +		pse->chip = &rtl8239_info;
->> +		break;
->> +	case RTPSE_MCU_DEVICE_ID_RTL8239C:
->> +		pse->chip = &rtl8239c_info;
->> +		break;
->> +	case RTPSE_MCU_DEVICE_ID_BCM59111:
->> +		pse->chip = &bcm59111_info;
->> +		break;
->> +	case RTPSE_MCU_DEVICE_ID_BCM59121:
->> +		pse->chip = &bcm59121_info;
->> +		break;
->> +	default:
->> +		return dev_err_probe(pse->dev, -EINVAL, "unknown PSE id 0x%x\n",
->> +				     info->device_id);
->> +	}
->> +
->> +	if (!info->max_ports || info->max_ports > RTPSE_MCU_MAX_PORTS)
->> +		return dev_err_probe(pse->dev, -EINVAL,
->> +				     "MCU reports invalid port count %u\n", info->max_ports);
->> +
->> +	ret = rtpse_mcu_get_ext_config(pse, &ext_config);
->> +	if (ret)
->> +		return dev_err_probe(pse->dev, ret, "failed to read MCU ext config\n");
->> +
->> +	dev_info(pse->dev, "%s MCU, %s (id 0x%04x), %u ports across %u PSE chip(s)\n",
->> +		 pse->dialect->mcu_type_str(info->mcu_type), pse->chip->name,
->> +		 info->device_id, info->max_ports, ext_config.num_of_pses);
-> Reduce it to debug level print.
-
-Is there any guideline about what drivers are allowed to print during
-probe? Usually, I'm a fan of at least seeing an immediate sign of life
-from a driver, even in success case. And I also see that from drivers in
-other subsystems, e.g. fan controllers or GPIO expanders.
-
->> +	return 0;
->> +}
->> +
-> Best Regards,
-> Oleksij
-
-I'll address the other points I've not reacted to explicitly in the next
-version then. Same for the low-severity sashiko-nipa issues.
+Unfortunately the answer might be: fix your firmware. Since your
+firmware is the interface and we do not expose battery in DT, then you
+do not get additional properties. You made conscious design choice of
+abstracting some things in the firmware, so you do control that part of
+the software stack. If you make one choice, it might lead to other, like
+rejecting such properties.
 
 Best regards,
-Jonas
+Krzysztof
