@@ -1,165 +1,146 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91FB477E43;
-	Thu,  2 Jul 2026 09:02:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BFB3C553A;
+	Thu,  2 Jul 2026 09:03:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782982926; cv=none; b=Gismw+bRRVCoM2ex+f3jll/vrYZtxsra4J4Kfxc3aX52nUpmgNeSN8E7ZMArFIZHuwnhaL5NaHGm2TcJxewKLPvN5PuYvZsHK1bcWOojG4ZDSmTbOJqtzzJo3eKb8vUSwCfxjhVWWT57q3IMFGQfc+5WyMw0CJeXJevdtvTLT2k=
+	t=1782982999; cv=none; b=iTpVBixZ/UEGb1R/v0cXdEm1Cu4fT3EWaMkXvwS3xi3Y7hStnzfWcZ0Z62hp4Ev5fAiyAet0Wf5KwhhOVdwUtpyKz7a4oF8UA4fnQ4Z4kyUs8BnCVWE/2F4Jio9m9nqDvfQoWhNCcpNBOpCjTOQVDkt7NiSeybRTZktutSWSqyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782982926; c=relaxed/simple;
-	bh=EhlRFh2BDaoz1geWgLdcLwQxLNfFxyn3mEmmrQ/pnMY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tuYfxsoZQrs5ZGsp7ex0uE9uM7n5IgYM69Ra1Q8bwz8gpzLdqz3Y6eDmMHyyTIuvX2jxMfvZ5RTI341Zsls8W6DIoTjqOZXNRZaA3KhhTy0S93LG2LutjW6Ms6purhs5HUQLLR2XTK/P8Wx2yAgQZqT/6YoL8fg+XSgfbXTtVLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=D5Ty5PWl; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1782982999; c=relaxed/simple;
+	bh=A2QPmou/sUM1xp54Di+ELV+NZQMa3cx4J4pvykikIn4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KbF8GtOu/+itpIPVgL7ElXgs8XEAXlRWCE+6kJr1sQkmH/tR56DNWRbF9bwdhrjCzPHhOyxuOKYb2422GNfNRDI02nZSaXt8O8cUvfyC5ACLEPSiycA8OCq3wHe7NThKjAh1+jZQ8iCno3G+TEMctQqdHcbc82eZreKL2tqnuZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aUBRs9uP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="D5Ty5PWl"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66291GYZ01817127, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1782982876; bh=N/jJq83KWKt0QCWjI+OidApVFhXZRn6PdIkpN8WZmB4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=D5Ty5PWl6LZA9BnV7NKrp9PU9jXGYQWUxQxELBmTbZ+j0k+E5qqU8zSWDkLJmcLzq
-	 GkAcC92UfBQQ377koFU4P352AwLj2IbwHrLewVzwolmwHCJe+3QjsCUbfHgZbQlFIP
-	 Hi1Y3+L9CriR6WtfTjU4OXr2LDuT3VjIlbDQedDSrQfV/vooxDTxYSiVYPr7HYAfwD
-	 T2z25w6PZ7F0k/Wj5nPJzyLPQ+BWt1pR5iMVvQXLVlHC4eRBAParDYv1wsHdNDCA6c
-	 pvW50XJdXkR6tFIlxVwyyIudyhypn8jxinoEpASGSusWp21oR4IQu7wOqVSVUaZiT8
-	 xqq7/2zDkRz8Q==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66291GYZ01817127
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 2 Jul 2026 17:01:16 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Thu, 2 Jul 2026 17:01:16 +0800
-Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS03.realtek.com.tw
- (10.21.1.53) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 2 Jul 2026 17:01:16 +0800
-From: Yu-Chun Lin <eleanor.lin@realtek.com>
-To: <linusw@kernel.org>, <brgl@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <afaerber@suse.com>,
-	<mwalle@kernel.org>, <andriy.shevchenko@intel.com>, <tychang@realtek.com>
-CC: <linux-gpio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-realtek-soc@lists.infradead.org>, <cy.huang@realtek.com>,
-	<stanley_chang@realtek.com>, <eleanor.lin@realtek.com>,
-	<james.tai@realtek.com>, Krzysztof Kozlowski
-	<krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v5 1/4] dt-bindings: gpio: realtek: Add realtek,rtd1625-gpio
-Date: Thu, 2 Jul 2026 17:01:12 +0800
-Message-ID: <20260702090115.2564318-2-eleanor.lin@realtek.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260702090115.2564318-1-eleanor.lin@realtek.com>
-References: <20260702090115.2564318-1-eleanor.lin@realtek.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aUBRs9uP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264911F00A3D;
+	Thu,  2 Jul 2026 09:03:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782982998;
+	bh=Bwvb6hHj9l6Yne/LOBL2AhqvJDVM5cGE5+22179LIpk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aUBRs9uPdJcAAhzxzoMgW/3Z8S0pOAwjv5caiflPdwTXjAm0IeEhsGP406EUAC/Yp
+	 GKkmwK3elRu2hl2GtMQCNo7XmKPZvFdI0pRlW++JwycKPUAnEOSStkylnZDM66Nmn8
+	 5bxyH5qL57GMGhWBHW/Oj1YzpgzirKUzpJWK8F9Bx96+2Y2CvBrkW17ACfqmfkPt3Q
+	 U2VhCzpyTIlBAFwZ5XwqT/Svq33gM3ehpnCF2uSDgPFGJQmOS1HAx9wFyut6D085xo
+	 0XkvDp+SpPC/7rBm7FT5EZsgPiJxhVotj4eUZE8lRiLkga9G3KHnm6hi3eCqSW43mX
+	 jrAhmMKtANZBg==
+Message-ID: <40d95b47-d7ce-4e0a-ab25-8adce6851aa9@kernel.org>
+Date: Thu, 2 Jul 2026 11:03:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: wireless: ath12k: allow calibration variant
+ for WCN7850
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
+ Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+ Andrew LaMarche <andrewjlamarche@gmail.com>, linux-wireless@vger.kernel.org,
+ devicetree@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+References: <20260701-ath12k-calibration-variant-v1-1-d3eddaabf026@toradex.com>
+ <20260702-beneficial-hopeful-binturong-a0bee9@quoll>
+ <a0cb02e3-0566-4294-b41c-3b156ecda5e0@kernel.org>
+ <zglhxxu6txw2xvz4vcyu32v6722hqppcfvntan5ho32ak2y6tw@2mvfuaoxcvss>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <zglhxxu6txw2xvz4vcyu32v6722hqppcfvntan5ho32ak2y6tw@2mvfuaoxcvss>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Tzuyi Chang <tychang@realtek.com>
+On 02/07/2026 11:00, Ernest Van Hoecke wrote:
+> On Thu, Jul 02, 2026 at 10:29:51AM +0200, Krzysztof Kozlowski wrote:
+>> On 02/07/2026 10:27, Krzysztof Kozlowski wrote:
+>>> On Wed, Jul 01, 2026 at 05:42:24PM +0200, Ernest Van Hoecke wrote:
+>>>> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+>>>>
+>>>> qcom,calibration-variant selects board-specific calibration data for
+>>>> systems where the bus and device IDs are not unique.
+>>>>
+>>>> This is not specific to WSI-capable QCN9274 devices. The WSI binding
+>>>> already allows the property, so allow it in the WCN7850 PCI binding too.
+>>>
+>>> Why? You need to provide reasons WHY do we want this.
+>>>
+> 
+> We (Toradex) have SoMs with the SX-PCEBE from Silex, which uses the
+> WCN7850. Silex provided multiple board files for this to deal with
+> separate regulatory regions. Thus, we need a mechanism to select which
+> one to use even though the PCI ID and machines are the same.
+> 
+>>>>
+>>>> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+>>>
+>>> Where is any user of this?
+>>>
+>>
+>> Actually I missed your link in changelog section. I still however do not
+>> understand why these are separate. Separate means they are completely
+>> independent and thus my question about the user stays.
+>>
+>> Best regards,
+>> Krzysztof
+> 
+> I agree that they could be one patchset and considered replying there,
+> but felt it easier to discuss this with the relevant patch already
+> attached. As the other binding already validates this property there is
+> no real dependency or ordering problem, and I thought this would ease
+> review.
 
-Add the device tree bindings for the Realtek DHC (Digital Home Center)
-RTD1625 GPIO controllers.
+If you do not have user in this patchset then your commit msg must
+explain why you are adding this, otherwise it just looks like you are
+adding unused ABI.
 
-The RTD1625 GPIO controller features a per-pin register architecture
-that differs significantly from previous generations. It utilizes
-separate register blocks for GPIO configuration and interrupt control.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Tzuyi Chang <tychang@realtek.com>
-Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
----
-Changes in v5:
-- None.
----
- .../bindings/gpio/realtek,rtd1625-gpio.yaml   | 71 +++++++++++++++++++
- 1 file changed, 71 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/gpio/realtek,rtd1625-gpio.yaml
-
-diff --git a/Documentation/devicetree/bindings/gpio/realtek,rtd1625-gpio.yaml b/Documentation/devicetree/bindings/gpio/realtek,rtd1625-gpio.yaml
-new file mode 100644
-index 000000000000..f13c910b73c6
---- /dev/null
-+++ b/Documentation/devicetree/bindings/gpio/realtek,rtd1625-gpio.yaml
-@@ -0,0 +1,71 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+# Copyright 2023 Realtek Semiconductor Corporation
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/gpio/realtek,rtd1625-gpio.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Realtek DHC RTD1625 GPIO controller
-+
-+maintainers:
-+  - Tzuyi Chang <tychang@realtek.com>
-+
-+description: |
-+  GPIO controller for the Realtek RTD1625 SoC, featuring a per-pin register
-+  architecture that differs significantly from earlier RTD series controllers.
-+  Each GPIO has dedicated registers for configuration (direction, input/output
-+  values, debounce), and interrupt control supporting edge and level detection
-+  modes.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - realtek,rtd1625-iso-gpio
-+      - realtek,rtd1625-isom-gpio
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    items:
-+      - description: Interrupt number of the assert GPIO interrupt, which is
-+                     triggered when there is a rising edge.
-+      - description: Interrupt number of the deassert GPIO interrupt, which is
-+                     triggered when there is a falling edge.
-+      - description: Interrupt number of the level-sensitive GPIO interrupt,
-+                     triggered by a configured logic level.
-+
-+  interrupt-controller: true
-+
-+  "#interrupt-cells":
-+    const: 2
-+
-+  gpio-ranges: true
-+
-+  gpio-controller: true
-+
-+  "#gpio-cells":
-+    const: 2
-+
-+required:
-+  - compatible
-+  - reg
-+  - gpio-ranges
-+  - gpio-controller
-+  - "#gpio-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    gpio@89100 {
-+      compatible = "realtek,rtd1625-isom-gpio";
-+      reg = <0x89100 0x30>;
-+      interrupt-parent = <&iso_m_irq_mux>;
-+      interrupts = <0>, <1>, <2>;
-+      interrupt-controller;
-+      #interrupt-cells = <2>;
-+      gpio-ranges = <&isom_pinctrl 0 0 4>;
-+      gpio-controller;
-+      #gpio-cells = <2>;
-+    };
--- 
-2.43.0
-
+Best regards,
+Krzysztof
