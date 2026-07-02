@@ -1,119 +1,239 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598263168E6;
-	Thu,  2 Jul 2026 06:35:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0723168E6
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 06:40:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782974149; cv=none; b=Md16JpVZgaKXF6Wuz+VQnV9ibxBnFPB9cAQK7SIBLbEoo/uFb3FYoSC/Gq44talUY1Vv7CIAWEJU/cFJigPSWbj1CNj6cEYxIo309wwZfbuBTA9tjFt9/Siis596YOwsUlfq09nzR3bmUaPLJmwUIB7jQQv9a5L92sk70FafAoc=
+	t=1782974437; cv=none; b=MMZ1UovbMHEgMAg3BWJQXZP2zLK95ZuaNGIIE3zgwiqOxv+aTYdr1vlu7l9MuQcYIn7J+/JEwlcgT3PDKDgCdN3dAXJlj3Yf4KJVwVtw0ICdSXTk8xA2FbEjpsp1bYRT+3TfsEcfwCWbfOmS1ZXLtw7LYABNY0paWS9CQr2v6TA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782974149; c=relaxed/simple;
-	bh=eQMesfG1s9X4KbRuNXPGTEN6apyrRMbb5BWl39T+s+4=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=JHYb2hMYVeXTJaEOluu764D8XfYd9ADJLZzZ04dBdSw6BY070BHLONOPjgb5L2iQ93GIUKWcWGq030hRDHqPsW3gDflJePPh1FNIZvOyiRKK994wU5USbUoyoRmlTZXH637rFZcyVJJSQghkRylwfM1RZj+KeSCpiqwZTJ7x7AU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lC0BZ0he; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782974437; c=relaxed/simple;
+	bh=0z7/4j6tHGwsl8r4/H0yk0Hz5ZQgqY8A6PN1dEdHsxo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=txfeXO52z4ogNBdja1gURwe9SafGowbvIqU+AamhMHGDPOQtj5sAIOaoJhRnzG8tX7slbjMFVeibRhjubRlNGXG31pZtWqDh6BBqADPAD9srLx0mre4Pe5pDVxEF3if8408j5ZFJeAyDy4yRRI1xqvR2nVNPpiYWZUsRT8EJicE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BOFbQfOd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lC0BZ0he"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9EC51F00A3D;
-	Thu,  2 Jul 2026 06:35:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BOFbQfOd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09ED1F000E9;
+	Thu,  2 Jul 2026 06:40:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782974147;
-	bh=eFngxlCEGIGaxJMMkCSyGAW+lgQ3qM9bZm3PtAsro/o=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=lC0BZ0heCoqM7vyBz0g9g+aM/sD2D0EHORwFMB70VWqcKguRJar/CGi+avRaircqp
-	 MaQXqsGgaEXPLUuL0si8rnopVNKTRpHEw2LGWwrBkwSYNFbZ2GLTOduHcsZgIN1gk8
-	 iJnFPgWLEKIV30MBed+p6bQuGuzWGwPv663+0EVXCIzXF4HuoVaVqjY3ycwAeJz+n3
-	 X9fDxJkm7b3Fa1E/fg3euAmNfMVYsNHcz3Cga9zzED8jjgk3fp3iF/Fph6UmcM6B0A
-	 LqvPqs9TaC56l/6xaUJElmtGDM0jYErGe9uYuM6iEBEkd50CEHFyyMx5bGeUmpBFl9
-	 lGUZnEoviVZPg==
-Message-ID: <af2c4b60-7e75-4568-a47c-7198c771e771@kernel.org>
-Date: Thu, 2 Jul 2026 08:35:41 +0200
+	s=k20260515; t=1782974435;
+	bh=XII9l7pBJZTD4zeWP9LHyd9dCH1+Ruxr765ghyq7kiY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BOFbQfOdSMrjhmcpq+BzQGwqp3JIk5Dh54DcEgvJOC8SwZ9XTJ+XAuYaph2Cl54xz
+	 bgSc8Y4aQLb7KtXUlZAuk8MtTYdcLJsw9pS53ahSu98boyNtd/sE8DENDLM+qxb4Ia
+	 mZzMxo8jUhuuJ3PKhj08auKoF+eyrNipKD3YX1mXDNfOHyBP82s2JTRxlv5SPLMxX/
+	 J94H/FIoZpL7oq5HWOHo6/+WsBdaCCZWtkM2pQMa/iQhHaxwuuZl3wMmG455+AXeDp
+	 n3xSPSiZUZOznon3jbdHbnH6E4oQ+LXWRQKz5D4KFXK/R6DeYfqLWvKytXhl5HlA3r
+	 o/V3P5OLB07Nw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: Add support for Acer Swift Go Pro
+ AI (SFA14-11)
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kaipeng Zeng" <kaipeng94@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260702063156.35169-3-kaipeng94@gmail.com>
+References: <20260702063156.35169-1-kaipeng94@gmail.com>
+ <20260702063156.35169-3-kaipeng94@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 06:40:35 +0000
+Message-Id: <20260702064035.A09ED1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom: Add Acer Swift Go Pro AI
- (SFA14-11)
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kaipeng Zeng <kaipeng94@gmail.com>, devicetree@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org,
- robh@kernel.org, konradybcio@kernel.org, andersson@kernel.org
-References: <20260702063156.35169-1-kaipeng94@gmail.com>
- <20260702063156.35169-2-kaipeng94@gmail.com>
- <9d9645e5-2e63-4c22-8b5f-b0f4368c581f@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <9d9645e5-2e63-4c22-8b5f-b0f4368c581f@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 02/07/2026 08:27, Krzysztof Kozlowski wrote:
-> On 02/07/2026 08:31, Kaipeng Zeng wrote:
->> Add compatible values for the Acer Swift Go Pro AI (SFA14-11),
->> using "acer,sfa14-11".
-> 
-> "Add Acer Swift Go Pro AI (SFA14-11), a laptop based on the Snapdragon X
-> Elite (X1E78100) SoC."
-> 
-> That's it. Don't add unnecessary boilerplate.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] WSA8845 speakers use `reset-gpios` instead of `powerdown-gpios` an=
+d share the GPIO incorrectly.
+- [High] Type-C Switch Configuration Error on Type-A Port due to inherited =
+PHY properties.
+- [Medium] Missing Audio DAI Link for HDMI output.
+- [Medium] Commit message claims 'Webcam' support but no camera nodes are a=
+dded.
+- [Low] Inaccurate `orientation-gpios` array length in `pmic-glink`.
+- [Low] The High-Speed USB PHY `usb_1_ss2_hsphy` is enabled despite no USB =
+controller consuming it.
+--
 
-Also, please fix time on your machine, so you do not send emails
-claiming they are in the future. This affects how they are seen in the
-inbox. Look:
+commit 61c654b8218e8d2d66d2d6d5ec3990a2ffe03533
+Author: Kaipeng Zeng <kaipeng94@gmail.com>
+Subject: arm64: dts: qcom: Add support for Acer Swift Go Pro AI (SFA14-11)
 
-1. Your email:
-Thu, 2 Jul 2026 14:31:55 +0800
-so, 8:31 +0200
+This commit introduces the device tree for the Acer Swift Go Pro AI (SFA14-=
+11)
+laptop, based on the Snapdragon X Elite SoC. It enables core hardware featu=
+res
+including internal display, USB, Wi-Fi, audio routing, and HDMI output.
 
-2. My answer:
-Thu, 2 Jul 2026 08:27:21 +0200
+> Supported features:
+>=20
+>  - Internal display & Brightness control
+>  - Keyboard & Touchpad
+>  - USB Type-C, Type-A
+>  - Wi-Fi & Bluetooth
+>  - ADSP & CDSP
+>  - Adreno X1-85 GPU
+>  - HDMI & USB Type-C display
+>  - Webcam
 
-I went back in time, did I?
+[Severity: Medium]
+Is the webcam feature fully implemented in this patch? The commit message
+lists Webcam as a supported feature, but a review of the device tree reveals
+no camss, cci, or image sensor nodes added in this patch.
 
-Best regards,
-Krzysztof
+> diff --git a/arch/arm64/boot/dts/qcom/x1e78100-acer-sfa14-11.dts b/arch/a=
+rm64/boot/dts/qcom/x1e78100-acer-sfa14-11.dts
+> new file mode 100644
+> index 0000000000000..f5d91abf11f1d
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/x1e78100-acer-sfa14-11.dts
+
+[ ... ]
+
+> +	pmic-glink {
+> +		compatible =3D "qcom,x1e80100-pmic-glink",
+> +			     "qcom,sm8550-pmic-glink",
+> +			     "qcom,pmic-glink";
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		orientation-gpios =3D <&tlmm 121 GPIO_ACTIVE_HIGH>,
+> +				    <&tlmm 123 GPIO_ACTIVE_HIGH>,
+> +				    <&tlmm 125 GPIO_ACTIVE_HIGH>;
+
+[Severity: Low]
+Does this array length match the number of connectors? The qcom,pmic-glink
+bindings require the orientation-gpios array to contain exactly one GPIO en=
+try
+per connector node. This board explicitly defines only one connector, but
+supplies three GPIOs here.
+
+[ ... ]
+
+> +	sound {
+> +		compatible =3D "qcom,x1e80100-sndcard";
+> +		model =3D "X1E80100-CRD";
+> +		audio-routing =3D "WooferLeft IN", "WSA WSA_SPK1 OUT",
+> +				"TweeterLeft IN", "WSA WSA_SPK2 OUT",
+> +				"WooferRight IN", "WSA2 WSA_SPK1 OUT",
+> +				"TweeterRight IN", "WSA2 WSA_SPK2 OUT",
+> +				"IN1_HPHL", "HPHL_OUT",
+> +				"IN2_HPHR", "HPHR_OUT",
+> +				"AMIC2", "MIC BIAS2",
+> +				"VA DMIC0", "MIC BIAS3",
+> +				"VA DMIC1", "MIC BIAS3",
+> +				"VA DMIC2", "MIC BIAS1",
+> +				"VA DMIC3", "MIC BIAS1",
+> +				"TX SWR_INPUT1", "ADC2_OUTPUT";
+> +
+> +		displayport-0-dai-link {
+> +			link-name =3D "DisplayPort0 Playback";
+> +
+> +			codec {
+> +				sound-dai =3D <&mdss_dp0>;
+> +			};
+> +
+> +			cpu {
+> +				sound-dai =3D <&q6apmbedai DISPLAY_PORT_RX_0>;
+> +			};
+> +
+> +			platform {
+> +				sound-dai =3D <&q6apm>;
+> +			};
+> +		};
+> +
+> +		wcd-playback-dai-link {
+
+[Severity: Medium]
+Will audio work over HDMI without a DAI link for mdss_dp2? The board routes
+HDMI through a bridge connected to mdss_dp2, but the sound node only defines
+a DAI link for mdss_dp0. Without displayport-2-dai-link, the audio driver
+may not expose the HDMI audio endpoint to userspace.
+
+[ ... ]
+
+> +	swr0 {
+> +		pinctrl-0 =3D <&wsa_swr_active>, <&spkr_01_sd_n_active>;
+> +		pinctrl-names =3D "default";
+> +
+> +		status =3D "okay";
+> +
+> +		/* WSA8845, Left Woofer */
+> +		left_woofer: speaker@0,0 {
+> +			compatible =3D "sdw20217020400";
+> +			reg =3D <0 0>;
+> +			reset-gpios =3D <&lpass_tlmm 12 GPIO_ACTIVE_LOW>;
+
+[Severity: High]
+Should this use powerdown-gpios instead of reset-gpios? The ASoC WSA884x co=
+dec
+driver does not look for reset-gpios, which means the GPIO is never toggled=
+ and
+the speaker amplifiers might fail to power up.
+
+Additionally, will sharing the GPIO directly here cause a failure when prob=
+ing
+the tweeter? The gpiod_get requests exclusive access, so the second probed
+device could fail with -EBUSY. A gpio-reset controller is usually required =
+to
+share the line properly.
+
+[ ... ]
+
+> +	swr3 {
+> +		pinctrl-0 =3D <&wsa2_swr_active>, <&spkr_23_sd_n_active>;
+> +		pinctrl-names =3D "default";
+> +
+> +		status =3D "okay";
+> +
+> +		/* WSA8845, Right Woofer */
+> +		right_woofer: speaker@0,0 {
+> +			compatible =3D "sdw20217020400";
+> +			reg =3D <0 0>;
+> +			reset-gpios =3D <&lpass_tlmm 13 GPIO_ACTIVE_LOW>;
+
+[Severity: High]
+Similar to the left woofer, does this need to use powerdown-gpios and a
+gpio-reset controller to avoid probe failures?
+
+[ ... ]
+
+> +&usb_1_ss1_qmpphy {
+> +	vdda-phy-supply =3D <&vreg_l2j_1p2>;
+> +	vdda-pll-supply =3D <&vreg_l2d_0p9>;
+> +
+> +	status =3D "okay";
+> +};
+
+[Severity: High]
+Does this node need to explicitly delete the mode-switch and orientation-sw=
+itch
+properties? In hamoa.dtsi, usb_1_ss1_qmpphy is defined as a combo PHY and
+contains those properties, which causes the PHY driver to register a Type-C
+switch and default to TYPEC_ORIENTATION_NONE.
+
+Since this board uses a regular Type-A port here and won't receive Type-C
+orientation events, this can leave the USB 3.0 lanes permanently disabled,
+degrading the port to USB 2.0.
+
+[ ... ]
+
+> +&usb_1_ss2_hsphy {
+> +	vdd-supply =3D <&vreg_l3j_0p8>;
+> +	vdda12-supply =3D <&vreg_l2j_1p2>;
+> +
+> +	status =3D "okay";
+> +};
+
+[Severity: Low]
+Is it necessary to enable this High-Speed PHY? The usb_1_ss2 controller is
+disabled because this port is exclusively used for DisplayPort output.
+Enabling the PHY without a USB controller to consume it leaves a dangling
+device probing indefinitely.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702063156.3516=
+9-1-kaipeng94@gmail.com?part=3D2
