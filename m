@@ -1,164 +1,244 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04EDD4189D9;
-	Thu,  2 Jul 2026 11:30:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF2C47884F
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 11:45:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782991821; cv=none; b=jLlAcTdDSUCyRuO//xI/S5iFqGMu/Tb+m+0AT/kM6+K1nQHpLPPLP+xKG1+gjNATRw3jo4g7JqNuwwH99x1bCm1f3DkK/VXUF5kbEib8yxWN+rBWXOO+lE7aNaaBJfkH+IPRl0MVpi54tKoQMZ2Kqm+MnTW25wrNzNg81E6CZFs=
+	t=1782992746; cv=none; b=swMEXEwZbtgBVMe58DTfgrgRJi2z52j39ccuXLfg7K9O5CarF4q3FvFnSs6uOGQM/iggmbMe8a/Sz7JTFYyYaPDpD4TotT3elHrKEgfRPVMuR5D393m4xM+JAGl2gV4EE3zEY0Va9pdkpc8c1tEIudNwKH0ie5jExmKbYXl/glE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782991821; c=relaxed/simple;
-	bh=l0w+n8I3EpX5DnM9hbiDuz6Ka4fy/n+CmFn4TLF8cJQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kQFQCH1xo0xIhvD/Ux/Mbux/IrSnvu6qtTrFqwukecBG29K/sLh2XfgswkAAVFYGkWysfConzDP+PqfRhr4xHte3DKfZxSk2NhxSYY64kgUxMs68IO8aszPDswERujInLIIuPJZaR7jNmKiMpJr7rEbapwbXgnrYeyfsYgjrnYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZolEsJ49; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1782992746; c=relaxed/simple;
+	bh=wOlWyg/m5+WBA5guaBklrIRBbI18xdA/OgntwyXfss8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VpmhVlwrGV/XGFsriC07mj7cx1oV4jolwGHke+WF0ViBEVCQ0CaCz18A8lMeOq7FuM6hzimwuT+53YcvYFbTOGq99p2l7ADKl19n2hGRDGqiJyggmhIrhccLndOEztrP5TtzIZ6b1IU3ZvXWhzKGR8KVMizrw76xZRNLwB3qNVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LFzsrvZ5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ARS4i+kr; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZolEsJ49"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 662AaK8E3591072;
-	Thu, 2 Jul 2026 11:30:15 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LFzsrvZ5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ARS4i+kr"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6629KLTj4115374
+	for <devicetree@vger.kernel.org>; Thu, 2 Jul 2026 11:45:41 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0n6T3VUvqrwQFYo+kQxR/wRZf/y5fYIkYNo6YhrKNpY=; b=ZolEsJ49ukzOSasW
-	T894XcZxOqQOTpMm31kZ2YTt6S0fT480TnKEiUin8l35m0GKa0swO0wHgIB4XiCb
-	Q/2ap1LAtPPKBaphVqH0nWxea16QmoFiYOXkUtWegyjmOmJqXAxX+fZEZJF3RY8T
-	Zo1Pr4dUr4ZsGG2O4nT9TilqReARzKDCEuvFsKtWnCYfnk+Fgokb/bloinQkK9zP
-	P5JP7ihpB+xln4bbF78YZV5Tu8mnfyd7ESd7L+p0ur19g+lK8M14cQ+9DGKh12S5
-	aIRMEKjvFwiOISFi26KOjgGo1fbQO6rPoWQ3RbzZGMjdkvt3kQYp/tq4yWw5RvQc
-	+rwHXQ==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5h7n9fdf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 11:30:15 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 662BUB4J021139;
-	Thu, 2 Jul 2026 11:30:11 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4f27kkryx4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 11:30:11 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 662BUBKR021132;
-	Thu, 2 Jul 2026 11:30:11 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 662BUAwb021127
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 11:30:11 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id 4E76FB2B; Thu,  2 Jul 2026 17:00:10 +0530 (+0530)
-Date: Thu, 2 Jul 2026 17:00:10 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        jishnu.prakash@oss.qualcomm.com,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: soc: qcom: pmic-glink: Document
- batteryless property
-Message-ID: <20260702113010.zjrk4kr7fpjp6asj@hu-kotarake-hyd.qualcomm.com>
-References: <20260518-add_dc_in_support-v1-1-31fbaa329879@oss.qualcomm.com>
- <fd58d6d7-26cf-4b11-82ad-05b4863b6dd1@kernel.org>
- <20260519082526.odmn5dqi2jftwnln@hu-kotarake-hyd.qualcomm.com>
- <20260519-first-wine-bulldog-a6a4c7@quoll>
- <20260521071341.q4efqssppvettaey@hu-kamalw-hyd.qualcomm.com>
- <86f76a81-832d-4ba5-81d5-38b46b7dc0a7@kernel.org>
- <6c595a5f-b979-4e8b-ae77-d28d24700588@oss.qualcomm.com>
- <e07085c5-0fe8-4ea7-8e51-ebe104e7aa2d@kernel.org>
- <82019c2e-6b6e-4edd-91b3-a28ef6eb09eb@oss.qualcomm.com>
- <20260525120139.dyfnm6nwfzuoxd7p@hu-kotarake-hyd.qualcomm.com>
+	dybK6HRyXiWQKemurPx7YNQf+boY3o1Qdlwxmz9ca4Y=; b=LFzsrvZ5A7pGSBNk
+	XWxleAYj5ipCTX633CvsB4kd5ZsE0n/g0PxT1Ct1374Dfucd5rfRUEvUTxXV9v0s
+	qERrTX4CM5J6Cbnu5l/V76DZpEXeyMKC9CodTOnaq4m+p30JPdFtBc/VS4R1kuZ7
+	naXWRieOu3ghYbIwbFVR62CHmjx4xN1+uBXFgmRNzDdi5XuE9oL+aPm00IRi8+BV
+	ZtAdhfodnMIybkddG/oryYwwXzTAnD6ww9uUQR39jyh3iH+dnuKbrQZpMXYBnNo3
+	NDugDpV9zl8oO+0ozXUHj1SStEBjYiiy/agn6aAwvXi2rmtwtCIl4USLJ306ZkYR
+	XmhxOA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5n940hh9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 11:45:40 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e7579ded2so19614085a.1
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 04:45:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782992740; x=1783597540; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dybK6HRyXiWQKemurPx7YNQf+boY3o1Qdlwxmz9ca4Y=;
+        b=ARS4i+krX7ckTiA7ylt/PLsfOEy+1tk8bWx/BeJOhnidX9Q3CedtfNoi7YzkCnooD7
+         AzbvBBnPWrCZmANAaZrCDU+AMtgNL+L8g5S0XWcEUlxNVQom+WmmJjDq3UdltnCucTKh
+         Xu4vnXHtiQaoApy+u7JuQ+p0DYOJLYzH/2CWbpugW8bN7hwXDeqR5m8PIG8SBdvDw7fq
+         4cCJ7Y8mpVruC8fedrFwHSewyy4L3Xhz+xS8QdjCkpgOQC1FVAuG5Ha5qt/MoHRMZThi
+         OuptT4HQvuET2yeUyZISjP3N9qcER3ltKEMPSeSC5aOaNAHO6jQOmWC5VDSwGRmSGZCR
+         l1RA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782992740; x=1783597540;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dybK6HRyXiWQKemurPx7YNQf+boY3o1Qdlwxmz9ca4Y=;
+        b=d07RVKkSs4Z4d4HslPaPqXXlMhSmQhgW2Szt/z3slJpCympUeTI2BY/Vfhl4naebeb
+         /HA6Bm4SoKxNYqh/Axb5UQMiPHUr1Jz4/INwi2fI8vledts+H1hp0MQxTQqNPH7pVTmS
+         kIlYvWukGU8cumKJHLd80PTDCBLL2or+6iObHe8Pdi2DzOLCu2f00WKIetGsfDHUcNbz
+         fdTsxYY3YHdCDSshf7mL4WgKhW+qpGsDxNcnfnWkALdzVe2IwXTMvj2kL2lifCrwrhVt
+         E7XP9MrHvWFlBaa6xlPSeWoNaNVNo7CoaUpQEtKqm0KWd48d8qC7ZVXdVcfUMEIEZf9R
+         8+uA==
+X-Forwarded-Encrypted: i=1; AFNElJ8qdYROWopSa8CotRDUnTlrugSqKW09OTZP0TrC2vszdsqUeupRwOk2Cvr4Q3NNeUcAHGwcoygB1PR1@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVfL3qWxRh1n1XoA5x1MvKSxXmgujg1h736DbgjGUi7B8kpGgq
+	QQmD+uvDR1aqr3bLVXWZmuLwZPd57C5wJvzeCGL4O+791pUpPgPelAEbnM6Z4wfTncqtGJqt9H/
+	nVrHIGo0WpxC/LC2Qov83SNuo/9KraoYeVm6SnTxcyFiIEolvRl59PlN7VD5UN39E
+X-Gm-Gg: AfdE7cnNCkykehEhaQFARJUKQqoySUbytEd2IkwHDbesA2B19zND8AntCenbmOAqdhH
+	4+Pcs1NKP3cTGvo9CgIbrfekhkgTx6/1UkUbLeUiHBbD8tJPVKXZ25dNYM7q4QfyoGD6vHWtqUU
+	TYl4Y78Y2BsxUSagDkLb+muLKxT0EETDOU0ZI06wRkb57CZ2AiYSiGANWxx1CqhmaMecb0onvMd
+	Awsvi9ioO0N0H03l0YQ702Ei+82ya1CQ8fTbbWb/FdE3FNN3J/6So2gKtyXRT+7v2TFWDW2e460
+	qGj6vYC4hc3yYfVSsEWfE1nJD/Ea/I4e6wNO9OHRw4IpcUK1N4XdAIdvQeZsfPTZpuCpfWKVyE5
+	j5fE/D6WRdjDaG5LQA5OHjyCDRDMdONllXu8=
+X-Received: by 2002:a05:620a:4612:b0:92b:55d5:ba3 with SMTP id af79cd13be357-92e7809b875mr489468485a.0.1782992739821;
+        Thu, 02 Jul 2026 04:45:39 -0700 (PDT)
+X-Received: by 2002:a05:620a:4612:b0:92b:55d5:ba3 with SMTP id af79cd13be357-92e7809b875mr489465285a.0.1782992739297;
+        Thu, 02 Jul 2026 04:45:39 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c12b6095b7dsm117572666b.19.2026.07.02.04.45.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 02 Jul 2026 04:45:38 -0700 (PDT)
+Message-ID: <5791feda-226a-4a22-a79e-e6b72be141b8@oss.qualcomm.com>
+Date: Thu, 2 Jul 2026 13:45:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260525120139.dyfnm6nwfzuoxd7p@hu-kotarake-hyd.qualcomm.com>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDEyMCBTYWx0ZWRfX6eM9A/hXnY2Z
- hO13vnuPXA1g5JvYJzqX0JkicqcED1tJYXE7YnlPYUFgPKWvtXJ5K9lRQ30X/+vPwtUNP8d+/Yp
- zccrrFkXHwZ8RXRx4hFGZuG5XKFN6GYzA2V12KBjHdQVlr/TGPzhE0J/okhhbd26VzP0ge1JOIc
- W1DKkurZRwuod5B24+0AnNdZeFaydRBq1nJKq848kE0AQfUpq/SKued/7Q5jL0afddn8IGidcqh
- V2BbkCqrQAOOwH6bFBJ6nUNkC3W7Jc7Ui1UqtB6g3qWHLh93JgZg+KzH8UmOL1rZg3nCtb+BUTL
- dXEv/JPD5tnmfizu31RX+jk68diBDD0A4MnLNLtTBO63sgih+qIiA0gciLSndcJWKLFdMVvzFOO
- aF+a3s5ixk+0jr2FUE6X28sbzkrwUvQ/4qYIr8+SovCW7q5t6+PcBv95OUtdF108f9BkrCDG5yE
- 9aujSVaBk/AeGHetBtg==
-X-Proofpoint-ORIG-GUID: 0eCh5IeNmFv2zlTB2dxGDAB3_trdEPJi
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDEyMCBTYWx0ZWRfX3fqQtvjvGAd7
- JqPgrcj3ExiYxgKHz4FyRyvIxAJMan95/ZB5hkh1WqTU9Zgz+fWghtkywVp4TKVEZrU8dzD2W8K
- CcPc2EUWDUn5hgddO3l2IJKtltA/Jqo=
-X-Proofpoint-GUID: 0eCh5IeNmFv2zlTB2dxGDAB3_trdEPJi
-X-Authority-Analysis: v=2.4 cv=WMBPmHsR c=1 sm=1 tr=0 ts=6a464bc7 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=vq6V-Kc8it9GCgzh-0QA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: Add support for Acer Swift Go Pro
+ AI (SFA14-11)
+To: Kaipeng Zeng <kaipeng94@gmail.com>, devicetree@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org,
+        robh@kernel.org, konradybcio@kernel.org, andersson@kernel.org
+References: <20260702063156.35169-1-kaipeng94@gmail.com>
+ <20260702063156.35169-3-kaipeng94@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260702063156.35169-3-kaipeng94@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDEyMSBTYWx0ZWRfX22GY6UklyDnC
+ k9s+pH5BKfLKi2bZ41B9S0ci3+qBjfZLP9O5qWcwk1ENnAobhUTN6BHJs1i+hl6BiNjhXKTTv0/
+ H221Jr4+2AlmBI1H9JzT0tfR6P7B62tNuVSz+mWmPNL3ltQJFroZRB5JSU8RwhbKIRb/SmwVwoH
+ tjJpOBZUTEQxnKl3avofoQk/Scf1RX5O5Va2SJmm6d1xrlT3wji1onL8Cfhwk6O2MWn2fdbKvrJ
+ 0o/CQIU5QvRzvK9asRKWVsIcCx6nQ0z0IhPgOumotFYpuqCu9ZNt2l+iWcZU6c2YS4La8EbSze/
+ zyrzJAGV7SpJvTrmxHsRB3lH+SFlZEUiSie5VnfzgB2rhZR7Q5hU5y9AHQpPIC6WIsJu+q0wk/Q
+ byBFlv6lqZFvFyjoYyNtylqc3gyIxX8QpQX2TUw+wDiNorBGNLbR02er9wCLP3UkNecQXP2MQOi
+ 4hT05JcKTlyMPjtb7AQ==
+X-Authority-Analysis: v=2.4 cv=Lv+iDHdc c=1 sm=1 tr=0 ts=6a464f64 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=R6a7uwYVqKW5caTnw1UA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: mge1OwaBMRkK4o5BLFSUMhgX1tFVZO4S
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDEyMSBTYWx0ZWRfX7k1OLmx0rXrl
+ p4n/ioCFdcO3Eg0DxKAyN6D9nG2r/JaijT0JdwTe+/FND96f2jOz8w9UPGPkBgLV1izCb2dn4GX
+ PVhCxbX4P9wkikgHG/RLDzVh+SJ+JY4=
+X-Proofpoint-GUID: mge1OwaBMRkK4o5BLFSUMhgX1tFVZO4S
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 adultscore=0 impostorscore=0 malwarescore=0
+ phishscore=0 impostorscore=0 spamscore=0 priorityscore=1501 clxscore=1015
+ bulkscore=0 suspectscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020120
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020121
 
-On Mon, May 25, 2026 at 05:31:39PM +0530, Rakesh Kota wrote:
-> On Fri, May 22, 2026 at 11:24:19AM +0200, Konrad Dybcio wrote:
-> > On 5/21/26 11:58 AM, Krzysztof Kozlowski wrote:
-> > > On 21/05/2026 10:46, Konrad Dybcio wrote:
-> > >> On 5/21/26 9:20 AM, Krzysztof Kozlowski wrote:
-> > >>>> Since firmware does not have a way to dynamically tell if it on a
-> > >>>> debug-board powered device or a DCIN powered device, We are required to
-> > >>>> add this new DT property.
-> > >>>
-> > >>> Neither debug-board powered device nor battery-less will have
-> > >>> monitored-battery, thus again, why lack of that property cannot tell you
-> > >>> what you need?
-> > >>
-> > >> A device with a battery will not have a monitored-battery either
-> > > But why? If for such device property "no battery" is suitable, then for
-> > > me "monitored-battery" is suitable as well. IOW, if you say that having
-> > > a property describing batter is not a accurate hardware property here,
-> > > then neither saying "no battery" is, because no batter is basically some
-> > > sort of battery (just like empty set is still a set, empty array is
-> > > still an array).
-> > 
-> > The battmgr service running on one of the remoteprocs already has all
-> > the information about the battery and it also handles all the type-c,
-> > PD and charger configuration, only letting the OS know about the
-> > results.
-> > 
-> > Hence, unless there's some other hardware at play (e.g. for custom
-> > 200 W charging), which wasn't fully implemented in the QC firmware,
-> > there is no reason to describe a battery separately, since the OS
-> > can't do anything useful with that information
-> > 
-> > In some abstract way, perhaps monitored_battery = <&pmic_glink> could
-> > be thought of as valid (since that's the data source the OS gets to
-> > see)
+On 7/2/26 8:31 AM, Kaipeng Zeng wrote:
+> Introduce device tree for the Acer Swift Go Pro AI (SFA14-11).
+> It is a laptop based on the Qualcomm Snapdragon X Elite (X1E78100) SoC.
+> This device tree implementation references nodes from the x1-crd.dtsi.
 > 
-> Should we use monitored-battery = <&pmic_glink>; If so, would it be
-> incorrect to mark pmic_glink as simple-battery, as that may cause the
-> schema validation to fail?
+> Supported features:
+> 
+>  - Internal display & Brightness control
+>  - Keyboard & Touchpad
+>  - USB Type-C, Type-A
+>  - Wi-Fi & Bluetooth
+>  - ADSP & CDSP
+>  - Adreno X1-85 GPU
+>  - HDMI & USB Type-C display
+>  - Webcam
+> 
+> Signed-off-by: Kaipeng Zeng <kaipeng94@gmail.com>
+> ---
 
-Hi @Konrad Dybcio, @Krzysztof Kozlowski , 
+[...]
 
-Following up on the earlier discussion — is monitored-battery =
-<&pmic_glink>; a valid pattern? And if so, would marking pmic_glink as
-simple-battery cause DT schema validation failures?
+> +	pmic-glink {
+> +		compatible = "qcom,x1e80100-pmic-glink",
+> +			     "qcom,sm8550-pmic-glink",
+> +			     "qcom,pmic-glink";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +		orientation-gpios = <&tlmm 121 GPIO_ACTIVE_HIGH>,
+> +				    <&tlmm 123 GPIO_ACTIVE_HIGH>,
+> +				    <&tlmm 125 GPIO_ACTIVE_HIGH>;
+> +
+> +		nvmem-cells = <&charge_limit_en>,
+> +			      <&charge_limit_end>,
+> +			      <&charge_limit_delta>;
+> +		nvmem-cell-names = "charge_limit_en",
+> +				   "charge_limit_end",
+> +				   "charge_limit_delta";
+> +
+> +		/* have only one typec */
 
-Any guidance would be appreciated!
+I think this comment is superfluous
 
-regards
-Rakesh 
+[...]
+
+> +	reserved-memory {
+> +		linux,cma {
+> +			compatible = "shared-dma-pool";
+> +			size = <0x0 0x8000000>;
+> +			reusable;
+> +			linux,cma-default;
+> +		};
+> +		adsp_fastrpc_mem: fastrpc-adsp {
+> +			compatible = "shared-dma-pool";
+> +			reusable;
+> +			size = <0x0 0x800000>;
+> +		};
+> +		cdsp_fastrpc_mem: fastrpc-cdsp {
+> +			compatible = "shared-dma-pool";
+> +			reusable;
+> +			size = <0x0 0x800000>;
+> +		};
+> +	};
+
+The latter two will (likely?) be assigned in the common DTSI soon, you
+can drop them
+
+
+> +
+> +	sound {
+> +		compatible = "qcom,x1e80100-sndcard";
+> +		model = "X1E80100-CRD";
+
+This must match your machine
+
+[...]
+
+> +	wcd938x: audio-codec {
+
+Nodes should be sorted - by 'reg' and unit address if there's one,
+by name if there isn't (minus some special cases like GPIOs), see:
+
+https://docs.kernel.org/devicetree/bindings/dts-coding-style.html
+
+> +		compatible = "qcom,wcd9385-codec";
+
+
+> +
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&wcd_default>;
+
+property-n
+property-names
+
+in this order, file-wide, please
+
+[...]
+
+> +&apps_rsc {
+> +	regulators-0 {
+> +		compatible = "qcom,pm8550-rpmh-regulators";
+> +		qcom,pmic-id = "b";
+
+Have you verified this against the DSDT of your device? Incorrect
+settings may lead to hw damage
+
+[...]
+
+> +&iris {
+> +	status = "okay";
+
+You need to specify a firmare path
+
+Konrad
