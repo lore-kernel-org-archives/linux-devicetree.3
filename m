@@ -1,133 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012003.outbound.protection.outlook.com [40.93.195.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61A33A7198
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:06:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782983217; cv=none; b=XstMd3C/EEt+0cITF0daBbARA4YdARGpe5vgFsgVZLERH1Z/P5y7EhVqDGBngUucrzj5m2aePs+CYjNWqR1eHsy77iKY5F1wGUinbwr/XSL4IJhBkOu/3nIWNLWwOUg05IQMy1xxtq0KWBVnWqghwvMLwvUFwNxsGB7FQSEUrUk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782983217; c=relaxed/simple;
-	bh=iehAO73JyOw0K5COyUzsmTuJ1OlZPjr1Bgn89AV3gy0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Wz31pTlT4CKMOzhjg4OAd89opMex0P4R2e+fd69cp8eugX72wdCXvpzvWqMZKWBKJ2a8ZBkrzg5Rac/n1vxSA3I3J3Ph8in9rOQUMtcBttulkQZctT+gArPje5bAn47CYQcdqYofUjv0oCrxqIUUcfvIOWJkiVRD/J2VmjwprH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wx6D+vws; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF1A3B52FA;
+	Thu,  2 Jul 2026 09:07:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782983247; cv=fail; b=bEDvDeyi9TfpcN839MHBnDrUwxGxZ0RjpbDRXUcK9sqJw2gzIaBXNP1WYEq5rOp0NDEiq2YXd0u7GoEGuVfOgDY0UHmiO8HEWSNQfBLFqDzyzMkCoO3vP40nD0ThyZF7gMinXlE599nTvwilv45LLAPLviq9bbnBx2wxkTZTbN8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782983247; c=relaxed/simple;
+	bh=6ZbewZU9z6WuxufRL33Gl6IvVzMUdt+z1+KetmUkVSs=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=jiXXzBMNTCzXmt51Eho6q6iIXKFNffp4dn4Fen2C94cmSbdOnUGf5AQMWCpKDB+QtqOnht3WvRe+aUdE2JAWXnBoyoKw7UNe2dFZT9vYZacjaOexrPrB/KG3wgxxOUkcxEQU92UWBs5dn9ZBKXO9ZIjPWtYWgNZzKMy3andPbRE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=iDXHXCSK; arc=fail smtp.client-ip=40.93.195.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wx6D+vws"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E80891F00A3E;
-	Thu,  2 Jul 2026 09:06:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782983215;
-	bh=8aIq+scFpw3Wg3iKx7gnHUSfgRPO8ouhG+eofb95Ezk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Wx6D+vwsdp/XHbyOVInh0Y1ND3BiAjWI5+nYzXQcIyoK3cDioDYO8ZubL71jY5O1Q
-	 f2ORtmrfPohRjSzu5orekYtEbEZ4fWm3c9zm7QIhCx4gSQe5MUJKkUbS4y7OimKbM9
-	 kdmgY9/DUlRRG8Q+Dw6wjJgLwehUIFwv3bIzpLv9GdjLYZGbrY63EFIHL3UyzuWj2Y
-	 JSk9OruaQKVNAnz8eD0/i5K5uOOeyjncUB9sFLiLqb4Ofg+LBK+EhxqXyUcxdgxrfR
-	 OQtnwencT7rR+Zb2RtL9pC90M7ZG20IJMXGuoUScNar1LmQojQgDtra/YArI0KRcpO
-	 rn4llfMStJi4g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 2/3] ptp: Add driver for R-Car Gen4
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TmlrbGFzIFPDtmRlcmx1bmQ=?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260701090607.1108208-3-niklas.soderlund+renesas@ragnatech.se>
-References: <20260701090607.1108208-1-niklas.soderlund+renesas@ragnatech.se>
- <20260701090607.1108208-3-niklas.soderlund+renesas@ragnatech.se>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 09:06:54 +0000
-Message-Id: <20260702090654.E80891F00A3E@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="iDXHXCSK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BXpXTrMJOjEHknW+pyQu7ZTmTfvnNzDS3i76LiqBfnxMEGd8E2dYKk4ZZYeW3FWPUiDQaE39HTITNQcfjCFkNLdQlM/ju+68GS09CxlgE63Crr2KgzWaRLGVZ1Eouh4ttxNpaz7+yYaW+pLySbeG473Zb3P3WbnQASLVILMHBsziL/cpa1Stqq7rUBbW3hj+Sr6kh8+VuX/DcoPnNjs+/O8jcqmSSSEgOV6Exos7HVPfz9Vo0Z77uoAYYcDk25qYt5eqNHRmaz/x5Gf2zhrd2lDtcyPUGEMK6TG2tB+ZucuMjm0iKnJyaI87Ce1U2giFQmjltbEBU9eCmly4oF3CTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0+lJVApwtga1Mh13KWEr2rP9V1+6kEdfmvnFnQ1usq8=;
+ b=MKCBcsSo2bzG+NeVH4gI0FDncMlmpvdNm7K5blF0X1VmwgVKwPjUGwVSdmLPhyN7ujqInhsHhqp9hMcTa2g3eJY1hOPYJKYntCA1M1VmwNPwf2b+ZN15IVf4Zt1i7pyUqCRh6O8Yh+f24wCQZh49LtelDfFasfxiZ0RZV00aynaDtfAKOfNbtExUiENC3O8GHrIBW3H2KcnqXqM12IaJPGIdxhHURrsI+cXSRG96UAfZgevmzopEZka8rc+v6Cb275Qii2pKy82TDvhWkC5fTv06Bek0QTA8StUqMso9PfLhT9QlUBCU/r+cnWwtvR+v9VALD57kDlZquBnZODkmMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0+lJVApwtga1Mh13KWEr2rP9V1+6kEdfmvnFnQ1usq8=;
+ b=iDXHXCSK4KHpk4iuXNp3W9Ew92GdxrRht9jvxKyfzE5TblajVvLTQ0spj3SVonzMypbCi460M7yXflGq9HnLhWPm3SD6yR8GBVIJJ2GWg2byg9gdQGnxN96aRNG9R5JiX0reyBncljEPMvDgGXDXn2oz3g7Uqjg99aR2A5lyLs4s457HGLgpsj9kLeKqOcqedEuZ3I0zK6Y8pjsnVl6FcZdjpquJHL6jYJ0wJ3/Lj1BykZSmpxqB7m8JlQx/RzsyTgEdIPOenBrExwwniOLJK6uvVGcgFNWHuH06eO/F/AVX+h9GKxcT1mYzOdHUOmzZwFXgpu/F9PthycipxdBa+Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com (2603:10b6:5:39c::19)
+ by CH0PR03MB6050.namprd03.prod.outlook.com (2603:10b6:610:bd::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 2 Jul
+ 2026 09:07:22 +0000
+Received: from DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04]) by DM4PR03MB6208.namprd03.prod.outlook.com
+ ([fe80::2216:93ef:67b:9e04%3]) with mapi id 15.21.0181.009; Thu, 2 Jul 2026
+ 09:07:22 +0000
+Message-ID: <4b2e395e-136a-4600-9d8c-16c444bded08@altera.com>
+Date: Thu, 2 Jul 2026 14:37:12 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/9] dt-bindings: arm: intel: add Agilex5 SOCDK eMMC
+ board variant
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-mmc@vger.kernel.org, ulf.hansson@linaro.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260627201457.12318-1-tanmay.kathpalia@altera.com>
+ <20260627201457.12318-5-tanmay.kathpalia@altera.com>
+ <20260629-venerable-zealous-dinosaur-c7efe0@quoll>
+Content-Language: en-US
+From: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>
+In-Reply-To: <20260629-venerable-zealous-dinosaur-c7efe0@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0192.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b6::10) To DM4PR03MB6208.namprd03.prod.outlook.com
+ (2603:10b6:5:39c::19)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR03MB6208:EE_|CH0PR03MB6050:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6182b9f4-f9aa-4eaf-08ac-08ded8195325
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|55112099003|22082099003|18002099003|4143699003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	/BTsTf+8SMir8+QnPaH18KydX957hJgZtOW1dX8tB2J8nvzXAQrWHjBi9IXYm9Gg7Uriu5nAXHm+y2cl/k2w+foje+pc0/2zu5hYIAg+CujXihlLq01Nu0Yz4kcICiZ3zLwxXEFMGQDIZyPQY6Wq5ijFv0rUOEl7p2i8SA4oqN17k1WLEftPm/sDbzjrX9+h3Hrm7F3A4OBfKcGxsmNCeKHqCFUAtrT1gucBwMRvUEPZ4wjXohfw5ezndr4knqLLrATRhQks6Ddqs/brW/HIuwAYtd1GGgMvy8re6nyLjIIwPfFT7H+YHFsbgigcss9/d3P5JlVgyXvRFAV7K8RszdjHynIJo95mVrTv5TyHeBQRFyXNwxqDMaFdqc/yZFoGPdhK2+WiQ4EBFb+HgJZ99d74oD+X33WffypQjHdUvVBsiDKMCnnH0PKGcVwzDsEOX9qu/yc/R2UZNmDCxNQ3Zh/7b5WadxZXF5BsGStoEssu0ByfV1egeaN5UKasshqMhAmTiv0sgANRXWMhFQ9Yezt6oUfzDcRO9kyC0q44GmP7xJHBbuA5sTAB6EowXuEBLaRKTkRKuiEJ6QRyhgodZOR/x4mVM6lHhve3nZTow+yNvgSvyYRApTuVB2UwRPZ3ikuRnh1fmuo7xF/PCJ6oMLS0ybVBmyI1D8ctcC1N8uc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(55112099003)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WFlOVzU2clllV3JqaFVRNVRHUEdOb1pRT2NhMlRoTEUvSFZLbG9yRm1tQzJv?=
+ =?utf-8?B?Y01DK3oycjVPRFE4bkFUWUk0c0RnT1F0Sld3c3dNUkZuUVdtYUNiaGp3akpj?=
+ =?utf-8?B?bk03L1BBckZpcXlnSExtekxiMERVWU4yQk5nSWptZTZVblVSRWhJL0lOWVRK?=
+ =?utf-8?B?dUJMYmlwR0RHU3RGdWhCT0tsaFVTK0JFTG1QM0ptWHVzT29xcS9McHM4Ry9K?=
+ =?utf-8?B?eVpWcjlhQmhXMWpCMzY4RGY0dlczQjArdlBJVi91YWVydlllZWJxL3o2OCtr?=
+ =?utf-8?B?MFJ3VjY3Z1JFdHZLMmNrc1JqMmh5emQrTVNYWFluYmFMYXlCZStQa3NaRjA2?=
+ =?utf-8?B?UHRNWWhqYitHWUY2WDMxVFM1UVdON1VPM2tBL2hydzJ5UFl0QXM0UUJndjhx?=
+ =?utf-8?B?eFA5UkQ5b21OUS9aTjJBOE56N3E0bVliRjNBREJadk9oWVB2dTJMWnp6MHZ0?=
+ =?utf-8?B?NTJaQ0Q4SExLUUVLa2loeDVaMmJOei9yYTliOWJzblQ3R2RxRjVqMEVRbU1E?=
+ =?utf-8?B?OHEvQkc5QTRRNk5sejdnTW4vS2grb3ZVUUI5dGFIK2VyYzJNNllXNlh0a3VQ?=
+ =?utf-8?B?VWVVSHFGUlpRVjFYT1l4TTdOTy9EMXFRdUczNmYwZ0ZqdHI2dUZveFVxZVBk?=
+ =?utf-8?B?aXNYb2lPQkxzQjEwUE1UbGhxdXFrdXpidkFoeWNIemFwUk5HbGFMYVk0TXBx?=
+ =?utf-8?B?YXUzUzNrTnNxa0ZhenBLelk2eFZ4RlJJMENTS0Y1OENjNWlKYjFiMzExTU54?=
+ =?utf-8?B?d254THR3MkZXVGxsckJoVWsyMmI2a2NlRkx6R0ZpUVN4UzZDQTZNL1JUTElh?=
+ =?utf-8?B?QnExVEcxaERBRDB3MVVIclc2Z3o3WlVYNzlGMDJSZWpSOGpwQitna1hkckp1?=
+ =?utf-8?B?bkZQQ0NzbDFhajZ0Z3lJZFNXdC9ZRmRBT0ZKaVo0ZnBGK2M0QjlkMUVVRG9T?=
+ =?utf-8?B?clRBSHVxVEpwUmRiUHEvZGF0amlKNHhSalZwU2JhbnQ2SCtQSHZVdi93NU90?=
+ =?utf-8?B?RGUrRFJiOHVtR0RiSzB0YUQ2QW9zWnhuVFdMbndZTEZrWjF4ODRqZk95TTJS?=
+ =?utf-8?B?NGxOLzVicHJxUE92Z3lqR3pycU5SWGFGVXVoRUxZZlNEcmR3c1FrdHFrMDll?=
+ =?utf-8?B?RFBsUzA1UWZtQmRLektGL3dhUFVlTFZDVUNzQkZqTXdoMWwzNnppajNuQzJa?=
+ =?utf-8?B?NkUyNi91RStvYW51QnpNSDErOEd2SjdvYzZhcEVOZEJmSkVCb0pteUhsbUZp?=
+ =?utf-8?B?RUhTUFZhYzlrZ2MvWlRZbTR2clRCeWJMelEzQi8xeG00UXNQenRZK3M1Qmtk?=
+ =?utf-8?B?bGE0OFVMcVhQcENCTm9kV0ZVK004LzBDMC9abnJmamE0M1pXUmppQmNjRVhF?=
+ =?utf-8?B?OFlCUU9uVzhUOWxyRE56ODViamtVWGJQWWY5cWRubThJeTgvNjlvRXRheXk1?=
+ =?utf-8?B?Q3cyMElORDZJb2VFMXF6TWt1dmJuUWE2ZG05d0Z2b1UveWJQR3grc0xiT2Y0?=
+ =?utf-8?B?bjZUdG9GQ2tuV0RnSW81VlFEMUJPWnQ3aFoycWZtMW5hS0ZZWC9WelpNRHVE?=
+ =?utf-8?B?SVdPQndTZnJQZUYvOVAwV3lqRDFxYW14bVV0T0RMb0g4QTExWk5VVlNMempm?=
+ =?utf-8?B?SzNSOE1XSldYR2NWTXdoR2JQM2hiNzRXUlFZOVNoUWhDNGt5YXg2TG1ocjQr?=
+ =?utf-8?B?QnBvY1MrdDgrL1R2TG4vN3RhZ3hEa3J5UDRSOTMySk5MOVk0dXNtZi8yZ25T?=
+ =?utf-8?B?YlVCcjhTNHRwVnR2bURmWkd6R1l6VFVhMmZRdGphKzBpTXdselFIUmRWd1M5?=
+ =?utf-8?B?R0Z5eCtkQjlPcSttRHE0VXYxWEgvUXh2WDl5Z1Uvb3N4TGVidmI2VWlRMHIy?=
+ =?utf-8?B?VjRXWGhkd3RaOG9mUmltOUxxV3lsTmN1bUV0VHF5Mjl2Z3RaU2hpamRQT1R1?=
+ =?utf-8?B?Q0sxb2lsTTFNa243TXdtODFiSlh2cW4xc3ptdStVYU5EMURWY3dhRHY5dkRT?=
+ =?utf-8?B?cnZSdEJobFkzNTV0TmhWTm01SEN4VHQvSE0wcUV0R2dUOFNSS0hYZnF2MStP?=
+ =?utf-8?B?b2tNL0NmNWZYeHd6b3M2VHZldzRqL3dCTzhtUFA0dUxxM3djRXp3UlRWZjlx?=
+ =?utf-8?B?cGVGZElBOEhaU2VNaHlwYkJkSnVUNHhzNVZwUHBuL1U5eGUzTlZVNi8zVkJy?=
+ =?utf-8?B?K3hXM3dMTU5rVVk4WHVrTlJpVDFDM3VLb2ZPTjhQaDd6RjNHcXR2NUxCZ2JF?=
+ =?utf-8?B?d09CKzk4ZnBBYXA4OXhHbVlMOFVTWklES1Rwa2VKQnpQWC85UjN3SDNXdjNJ?=
+ =?utf-8?B?ZUtBeE9kK0QxczN6MlJMV2g1VmVjazBqMzZlcHl2TFJCTG1XNWtQWmRzc25E?=
+ =?utf-8?Q?zPtDtIuQ7B/RF26k=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6182b9f4-f9aa-4eaf-08ac-08ded8195325
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 09:07:22.4510
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Sspo+UvDDnr0RTJW8HKXXeBK6h0QDSmsUDO6/0/uhc5PYlQPfsNgNBx58bVh2lHqfNRSPjEwUGNQ7cm/h2PXlY4ZhqHnepst0fyUiYnR2ZE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR03MB6050
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] The probe function leaks runtime PM references and leaves the devi=
-ce active if `ptp_clock_register()` fails.
-- [High] The return value of `pm_runtime_get_sync()` is unchecked, which ca=
-n lead to a synchronous external abort if powering the device fails.
-- [High] The driver divides by the unchecked result of `clk_get_rate()`, ri=
-sking a division by zero panic and potential type overflow.
-- [Medium] The PTP clock is registered and exposed to user-space before the=
- underlying hardware timer is enabled.
---
 
-commit 523fe97d56330aedad6aa7c19dcf2bc206269fe3
-Author: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.se>
-ptp: Add driver for R-Car Gen4
+On 6/29/2026 12:36 PM, Krzysztof Kozlowski wrote:
+> On Sat, Jun 27, 2026 at 01:14:49PM -0700, Tanmay Kathpalia wrote:
+>> Add "intel,socfpga-agilex5-socdk-emmc" compatible string for the
+>> Agilex5 SOCDK board variant configured with eMMC storage.
+>>
+>> Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+>> ---
+>>   Documentation/devicetree/bindings/arm/altera.yaml | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/arm/altera.yaml b/Documentation/devicetree/bindings/arm/altera.yaml
+>> index 206686f3eebc..f5efcbc381b8 100644
+>> --- a/Documentation/devicetree/bindings/arm/altera.yaml
+>> +++ b/Documentation/devicetree/bindings/arm/altera.yaml
+>> @@ -113,6 +113,7 @@ properties:
+>>                 - intel,socfpga-agilex5-socdk-013b
+>>                 - intel,socfpga-agilex5-socdk-modular
+>>                 - intel,socfpga-agilex5-socdk-nand
+>> +              - intel,socfpga-agilex5-socdk-emmc
+> Do not break the order of entries.
 
-Add driver for the gPTP timer found on R-Car Gen4 devices. The timer is
-system-wide and shared by different Ethernet devices on each Gen4
-platform.
-
-> diff --git a/drivers/ptp/ptp_rcar_gen4.c b/drivers/ptp/ptp_rcar_gen4.c
-> new file mode 100644
-> index 0000000000000..ab0be2431be8d
-> --- /dev/null
-> +++ b/drivers/ptp/ptp_rcar_gen4.c
-[ ... ]
-> +static int ptp_rcar_gen4_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	priv->info =3D ptp_rcar_gen4_info;
-> +
-> +	/* Default timer increment in ns.
-> +	 * bit[31:27] - integer
-> +	 * bit[26:0]  - decimal
-> +	 * increment[ns] =3D perid[ns] * 2^27 =3D> (1ns * 2^27) / rate[hz]
-> +	 */
-> +	priv->default_addend =3D
-> +		div_s64(1000000000LL << 27, clk_get_rate(priv->clk));
-
-[Severity: High]
-Could this lead to a division by zero if clk_get_rate() returns 0?
-
-Also, since div_s64() takes an s32 divisor, would an unsigned long clock ra=
-te
-overflow to a negative value for rates above 2.14 GHz?  Should this verify
-the rate is non-zero and use div64_ul() instead?
-
-> +
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_get_sync(dev);
-> +
-> +	iowrite32(priv->default_addend, priv->base + PTPTIVC0_REG);
-
-[Severity: High]
-Does this need to check the return value of pm_runtime_get_sync()?
-
-If the PM domain fails to power on and returns a negative error code,
-unconditionally proceeding to write to the MMIO registers might cause a
-synchronous external abort.
-
-> +
-> +	priv->clock =3D ptp_clock_register(&priv->info, dev);
-> +	if (IS_ERR(priv->clock))
-> +		return PTR_ERR(priv->clock);
-
-[Severity: High]
-If ptp_clock_register() fails, does this leave the PM usage counter
-unbalanced?  It looks like this error path returns without calling
-pm_runtime_put_sync() or pm_runtime_disable() to clean up the state
-initialized earlier in ptp_rcar_gen4_probe().
-
-[Severity: Medium]
-Is there a race condition here?
-
-By calling ptp_clock_register() before enabling the hardware timer on the
-next line, is it possible for a fast user-space process to execute a gettime
-or settime request on disabled hardware?
-
-> +
-> +	iowrite32(1, priv->base + PTPTMEC_REG);
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701090607.1108=
-208-1-niklas.soderlund+renesas@ragnatech.se?part=3D2
+Ack.
+>
+>
