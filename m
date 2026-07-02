@@ -1,87 +1,67 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC74D2C0268
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 15:54:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C375158535
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 16:01:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783007654; cv=none; b=Fm6RVwARMVv7FI+JzgSLRKCbQE3eCW3jBZJsG52w/pvVrrC6pos+UXoduCYylpQZ1Z9cmw98SQknhBiQky6UCmUpcmcsXf4TRomWDjYX/KP1rzR6fEaxFWGegAT2KHH5iDq5pMp9zGDbGwc6xRTUtueIFob3GrwX0um67oKHQgA=
+	t=1783008083; cv=none; b=RZPUtow01/dhE6ykqGF/N7+6dKTjtqb17CJIBpAJ5fW1ch0s9gNt0GC0MSsbCKIrCntd/kEhrAIP4Sx5hxTAmG8cFIBiuux7TiKoLcnPV6rnIFLJAIgrW1cMuqL46tfR9ELgBnRPIiYs1PaxM2N8TEaldgvlN4lamFPYFyt9LRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783007654; c=relaxed/simple;
-	bh=PGzJjQyVASOY296cJVlGrJNRwLME7uZqzZPl1eLmGjc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NNSaySHI59I98uDfFy6uThjvAdcnNJta3I9cOIz7nPWI0sEB0DjJ7EEAZQ7gV26K87n5hl8sGC3JiL0LqjdI2vd00yPvT/pCGMImsXB63E5fUdY2LVGt1zp1jd8c8Jth2Kdc1wb1sLtM+9XelQ66PMIjK1UivHBBpsIrO4YjHKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Mw2aa2ms; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aanIRs7R; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783008083; c=relaxed/simple;
+	bh=Wi7FTA7/FWqXYIGy0SyezV0+LAlg4PCtYmH5TCN9lNQ=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=LQRgLku5q0miLPa9N/he5593V+35cTul9LZJ0rmjChg5K9QhafZIPL8z1iqgmdnJ2tZ8UCPuUOeTPSzct3fyJLKJqyVA+z2rmBgAH7B+PQRhZyiQAwnuTopruxbeFvzq3hLyDNvV8yYDLxYYAZYUgLEDuaWazybHlwHFH22vQmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qcvu0ze9; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mw2aa2ms";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aanIRs7R"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 662E3Sl2683740
-	for <devicetree@vger.kernel.org>; Thu, 2 Jul 2026 15:54:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Q6x2cFE6unxjGxiwK8PfHeJpInWtKm5Zn24hzqi4dKk=; b=Mw2aa2msrY9PB3KR
-	N9wAOvyqGE2xQzgyGNTRTOIlKOROsnyWxpvFQRyHqaqGVNuyaXUKHpTjvdYQogmp
-	W+r1/ToinuV19jDmUkhCNgmbGjVtETUE88WGw4p52krmO49VOnYsLvI61+7KTW3o
-	Bx2eVzDNJv2Lkf+EZ9V+kl9t7Nbm15qEXYnUY1CoUcbw2nuG2iqhN/iYbiiRDGTa
-	ALCUU2VGmeh4oKr00BzgET9IG4vefrwC6WMbZYRKaRoImtPwX/8OnZoA/T0iRfG+
-	B3ZbuduyEudcSVCjbvTjoNa9LH+d6AevQuoD7IGsX2RGPCVkYD4AB2am/FvWMeXt
-	6S2OOQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5mvwsqrt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 15:54:12 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-36d97955899so2887117a91.0
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 08:54:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qcvu0ze9"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4629051c9d1so1320252f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 09:01:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783007652; x=1783612452; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Q6x2cFE6unxjGxiwK8PfHeJpInWtKm5Zn24hzqi4dKk=;
-        b=aanIRs7RiJzNZXffBTGjD8S07JPYB7dra+nU8soqI2izEAoo98sUpanv+ZLTPSkKIg
-         Wxaf1Py8cHbDm6obsjO0MZDm1ZY/24SNmqjc3Vh8nQAl8Hjs6lB4KEilIdHoTIYDSeXX
-         fe0iW00EFZm3Zk27EvJvfNJ2lcCzJ7IIBIDK1wNyDvaZlexVIvOlF224dIPl5za23Wyg
-         FXwMnMTfrZb3+f0o/p1hBs524DYtk3PX2w86FEVZweZY2GuNDum19WxDKYpq4Ahp2pS0
-         owdoPXsTadhejADvzFbnLW/ChP4uR/IOUYlT6jblwpb3dP4SfLufNlJYyQSYwCfXC5TN
-         TpTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783007652; x=1783612452;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=linaro.org; s=google; t=1783008079; x=1783612879; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Q6x2cFE6unxjGxiwK8PfHeJpInWtKm5Zn24hzqi4dKk=;
-        b=N0y8joqEWnTRD76udlSiS5ulSN+uz6/OZ1+TTvX3QKw2mIt3HpY9Jp1rdEgWpzZiM2
-         c5c2WzBTkZ7nVXHbM5UoEZahflaJglN+Yb05Ek+62uc0KB0Z4JRIWwjElTHkucM2qptT
-         yiRHwYlyj4pKKz+EQiaB/uYsCPPZFZo3PRfeGqBNYCP/mFuLJYFSfLkL6hVqcJ6+akKZ
-         1sm01KwB8855kzQj4efKTgAVF6JSVHt2wwjp++mDptb3BAUOSFMCYRgcB5M/vftWUZ3a
-         Ly2l261Zrl2V215Sph+MRs3r6gBhrCZHI4m9u0y4RFIJRLRQQyFUGXrQDbf2aYlLp6R8
-         1kMg==
-X-Forwarded-Encrypted: i=1; AHgh+RoqPgAhwYrquy95c6u9/Cc9itrdcrFlFEjMSEI4fwIvBQdeWrvXQ4vXb3wxsTnMKmlykqT1WVCL8VS4@vger.kernel.org
-X-Gm-Message-State: AOJu0YyaYcQehIAHVyK+OZWe3maBEeKVz7Nb502PR0Lr0JxRm4ssTg+J
-	SuAqbWNZXUBLJxJJR2pIZtPv2N7OuSPkWzunGZT+PeNp46xsIUqGxjvBPjUMD/BE+tK2h4dRrEQ
-	48otwgVX+92Lr/7m9pd9bQKCvmlShjWuL411mNmvlsrMrZGncfp4f008Vzu3xn6ZL
-X-Gm-Gg: AfdE7clEi95ig2/p03oUtvY+V+aDyas2fKghNu9aG2jQMBytJQ4g1Pxz2dwe9if++cp
-	VvHq4fixM/oSGlSJ2W/hmCbzqkd4ipTy9M9Z5mefitwhXPsFZ63zTPMJYKml+ADeXOXz/YqbOA4
-	OlQHxTWVQf+fc1e5azsaUT7eag/5noAQF0tL99Sqt+vDeluHxGqWZDs+gRLv0nWFpmApj211kwM
-	wQV5d2locGY0AUa45Ir2Jvjx/Sxins4hv4IgUvI3fTLozTcKoNZULv7iJ63dmvKflpVcg0z91mC
-	VYf2FhutZe+BfG303AzJ78lSly7Su0wzykMIDLDPDWhqCN3umO3onx+FcN/oMtEY4rrMv02eoYp
-	d893CLfpVK4bnqTlVwAy6QF17kPDaswoax3UWip/xf2F8yBKdAXd0Ek6QvjWbbj9h3YfW4e3PP6
-	lGJA==
-X-Received: by 2002:a17:902:eccc:b0:2bf:23c3:34ba with SMTP id d9443c01a7336-2ca7e756e2dmr67124825ad.28.1783007652391;
-        Thu, 02 Jul 2026 08:54:12 -0700 (PDT)
-X-Received: by 2002:a17:902:eccc:b0:2bf:23c3:34ba with SMTP id d9443c01a7336-2ca7e756e2dmr67124515ad.28.1783007651867;
-        Thu, 02 Jul 2026 08:54:11 -0700 (PDT)
-Received: from [192.168.1.7] ([122.177.240.71])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ca9a9fee7csm15691255ad.69.2026.07.02.08.54.06
+        bh=hyBy6M8pfJIet42O2HWF6w856c4etTz6bW2vlxGM7bE=;
+        b=qcvu0ze9knQdyy7XSpg0RxIBvyDILTQ1jwB++2I7RgGltyi6TfCMP4RFvEa51zlhpm
+         vjlNcgjYyD8BaLM29TzSfc1EWh1YTddYZkZlu8zZbnwiOhP0VFM29mJLOna5hDPKlAYt
+         +kmbM5KOmW+l5JCP+PKge4LTd1SESq/M5LgyA8zoxqleLTb4cLepiG80Riu6oJXRd+4n
+         dQekd6oLKSusQp1Itjb1HsXRvVTgRRZxKbnfmHT28lh3cAcjz9h0TpLgwEjEUveLpyGX
+         dethFK015mZqebhXYxROzoxDo9dfbQIrxHbVPVV19es5tr7ENZvUluVoFNKWOIr6IKaP
+         CYcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783008079; x=1783612879;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=hyBy6M8pfJIet42O2HWF6w856c4etTz6bW2vlxGM7bE=;
+        b=nnzsnBM50PFSB3vKGVhEAL0IR5ropmZ9H4cLKB2EToKyj8mZDVVsQg31RAMD3Orw0/
+         3J5RwgSVuBWlbFpYHC416YKDaPvnd+CK3rDUKbUALbb8cgccXgJBG8DXAibSWnL+Hkcp
+         qm/GtR7tPe4oQ3DkWdBX+zT57xzZ7ma+p+Vz14vlNig9A+ANQN74wdDQ24BarQs7uhs6
+         ELxLfcMVWDrSh+IN2uD+4sE63yFQoHmmvjOCn4rEJtuPTwlurkdwYgrg3jI5aPC5tlBX
+         zgcOfQ0+6jLADK30kOH+7NiReIV1ABjA5q1DA71nF4vgAnLJaCRn9oNh2di3X9OLt/qG
+         OT6A==
+X-Forwarded-Encrypted: i=1; AHgh+RrudM/Q18qxyYwzcY75xT0xJxIDg1HAr8imPSyRoMneNT1TZ00dyAC8qHmMOcRBcTzf413Mks7KUCSB@vger.kernel.org
+X-Gm-Message-State: AOJu0YxeQcjgOn/ZC+SmtHTIrP+Dn51UDvJJFm4MINlVubOf8eq9K48Y
+	Uqmw/yL73XuVivIBKZV6rR7Awp/FfQh56U2gthNuoHTmu4luQyIpLd4bh7VyHaHAc8k=
+X-Gm-Gg: AfdE7cmrRA0nsUrsaiyjyypRLHNdFTkQkJXE2pCYUo9BGBnhc+O5jPxxQT1Hr9ILR1j
+	krwyRm68zT1rQtrSWx/9HuRd0ncKfmLTpG3DkMr/2t4eBNH/XS/dqbwNs9TyaCMV5bnsqqOL76D
+	OirAezUH8dUboIxgwoN+tNQWIOfggZ73tTtH/r1gSPr/eRZg5iQe5SOT1rR+lSPkPiP1WrCz8F+
+	rKJaXXAuiKNo/AA3mgJfoG4JN56wHG1XuoFLntUCKX5MZGn6EMu35r6V3WYRhlhsbih+799eud7
+	2YehxDzhQ7Y0EF1aal2XVmGb0acBA6iK34Zsx65pAVLYhkWuzOL5WGHDegbKVK9Hudzx/ZWKZFo
+	GSitZJ/WSodqXPsqBCvHeh5y1DAJ9YfhT4D9kMCXJRz3YuhXS2X5KJLLM8bOiMDqKs7dB/mlLZn
+	D92rYOTdGdfSejJ0em8BscTLVXw2cYHZi4p2/cmqcZpUBQEgcw7g10D/BammKLvDgthKeI
+X-Received: by 2002:a05:6000:2c0d:b0:460:3234:4472 with SMTP id ffacd0b85a97d-477b5487cb9mr8516113f8f.40.1783008079349;
+        Thu, 02 Jul 2026 09:01:19 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:bbc2:d1c5:84fa:44fb? ([2a01:e0a:106d:1080:bbc2:d1c5:84fa:44fb])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db8a4b73sm10118644f8f.15.2026.07.02.09.01.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jul 2026 08:54:11 -0700 (PDT)
-Message-ID: <b4527f73-1884-4a85-bf65-288309d040e6@oss.qualcomm.com>
-Date: Thu, 2 Jul 2026 21:24:04 +0530
+        Thu, 02 Jul 2026 09:01:17 -0700 (PDT)
+Message-ID: <a3c69349-2be8-486e-adba-55df32c291db@linaro.org>
+Date: Thu, 2 Jul 2026 18:01:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,116 +69,435 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/4] phy: qcom-qusb2: Add support for Shikra
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Vinod Koul
- <vkoul@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>,
-        Johan Hovold <johan+linaro@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260701165051.4122259-1-krishna.kurapati@oss.qualcomm.com>
- <20260701165051.4122259-4-krishna.kurapati@oss.qualcomm.com>
- <ym4zec5vw2mudnvhw36w6vkuqupbl6up4dqmhk2sqeabphotsf@sudiy6poyjyx>
-Content-Language: en-US
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-In-Reply-To: <ym4zec5vw2mudnvhw36w6vkuqupbl6up4dqmhk2sqeabphotsf@sudiy6poyjyx>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v5 2/2] backlight: Add SY7758 6-channel High Efficiency
+ LED Driver support
+To: Lee Jones <lee@kernel.org>
+Cc: Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
+References: <20260529-topic-sm8650-ayaneo-pocket-s2-sy7758-v5-0-03aacd49747c@linaro.org>
+ <20260529-topic-sm8650-ayaneo-pocket-s2-sy7758-v5-2-03aacd49747c@linaro.org>
+ <20260702155157.GX2108533@google.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260702155157.GX2108533@google.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Lpsb-_BLvRPBXAScDHiziUAMd6bBjKib
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDE2NyBTYWx0ZWRfX5JhsBoPFNJn5
- luO8LzJfFTiXucVTBeTmZsuOEsJGJM/wJG4V8s/9u74WSZsa9CYBSMwE7NolHQ7QaZknnp4zZ74
- TYXoSrPkY2oBQD00SfPcHBE/yrlOQtbj6YfwRcVIHRM1pFZ0zmN0lyJ4PRkrJ7yNl/Gq1bt7dU5
- 5UGTaoqI1TgtC/+w0SCskb9MuvwydNa1CCminUb7p2ahkUWGkm9WjGZ61cu9dtt80kCW8S5KBbd
- 8k65Tj+Zdvnd2pPD1C83mJdbs4lZCpLWJtLXq7UVIm/LJDxNHp9XkVohhr5gRS/NIXM0MrAOpW4
- 4BLuZSyBpwGTvYXhPD1U7qLXdNF4LyECr+7aYOGNx+xm51XKkOPZqJ96+/eiWuQ4a2jsA4OcSrP
- ET28Q6lzbRpBEsOmYHR+EnqMMwVoxr4q2gIYafIIxHAHqHAhJ/2WjRUNysx6Xy5UgzdxJiW1lD5
- BddPR4m+YpPhJSsAgYg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDE2NyBTYWx0ZWRfX0N03+O30ZUsp
- T6drhTMfRw6zHP9gtaX1/dbrlbO+4MdQzrUqYRK45Se8oBoBHV3KRv293tGTsO8IzhzyfU3/MUs
- P+bvSAvyBwq085eR3wTbmUqjwfkoEo8=
-X-Authority-Analysis: v=2.4 cv=N+UZ0W9B c=1 sm=1 tr=0 ts=6a4689a5 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=WwE2FERyN8QvVYJ+zedRYQ==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=FLyz3zfJLnz1irVRmH8A:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: Lpsb-_BLvRPBXAScDHiziUAMd6bBjKib
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-02_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 spamscore=0
- priorityscore=1501 phishscore=0 adultscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020167
 
+Hi Lee,
 
-
-On 7/2/2026 7:18 PM, Dmitry Baryshkov wrote:
-> On Wed, Jul 01, 2026 at 10:20:50PM +0530, Krishna Kurapati wrote:
->> Add init sequence and phy configuration for Shikra.
+On 7/2/26 17:51, Lee Jones wrote:
+> Please consider these:
+> 
+> /* Sashiko Automation: Issues Found (4 Findings) */
+> 
+> On Fri, 29 May 2026, Neil Armstrong wrote:
+> 
+>> From: KancyJoe <kancy2333@outlook.com>
 >>
->> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+>> Implement support for the Silergy SY7758 6-channel High Efficiency LED
+>> Driver used for backlight brightness control in the Ayaneo Pocket S2
+>> dual-DSI panel.
+>>
+>> Signed-off-by: KancyJoe <kancy2333@outlook.com>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 >> ---
->>   drivers/phy/qualcomm/phy-qcom-qusb2.c | 16 ++++++++++++++++
->>   1 file changed, 16 insertions(+)
+>>   drivers/video/backlight/Kconfig  |   8 ++
+>>   drivers/video/backlight/Makefile |   1 +
+>>   drivers/video/backlight/sy7758.c | 259 +++++++++++++++++++++++++++++++++++++++
+>>   3 files changed, 268 insertions(+)
 >>
->> diff --git a/drivers/phy/qualcomm/phy-qcom-qusb2.c b/drivers/phy/qualcomm/phy-qcom-qusb2.c
->> index eb93015be841..ab7437e7b751 100644
->> --- a/drivers/phy/qualcomm/phy-qcom-qusb2.c
->> +++ b/drivers/phy/qualcomm/phy-qcom-qusb2.c
->> @@ -381,6 +381,19 @@ static const struct qusb2_phy_cfg sdm660_phy_cfg = {
->>   	.autoresume_en	 = BIT(3),
->>   };
+>> diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
+>> index a7a3fbaf7c29..a1f70a2bae99 100644
+>> --- a/drivers/video/backlight/Kconfig
+>> +++ b/drivers/video/backlight/Kconfig
+>> @@ -207,6 +207,14 @@ config BACKLIGHT_KTZ8866
+>>   		Say Y to enable the backlight driver for the Kinetic KTZ8866
+>>   		found in Xiaomi Mi Pad 5 series.
 >>   
->> +static const struct qusb2_phy_cfg shikra_phy_cfg = {
->> +	.tbl            = qcs615_init_tbl,
->> +	.tbl_num        = ARRAY_SIZE(qcs615_init_tbl),
->> +	.regs           = ipq6018_regs_layout,
-> 
-> msm8996_regs_layout (otherwise you are programming the wrong register).
-> 
-
-ACK. Will send v5 on top of your upcoming v2.
-
-Regards,
-Krishna,
-
+>> +config BACKLIGHT_SY7758
+>> +	tristate "Backlight Driver for Silergy SY7758"
+>> +	depends on I2C
+>> +	select REGMAP_I2C
+>> +	help
+>> +	  Say Y to enable the backlight driver for the Silergy SY7758
+>> +	  backlight controller found in Ayaneo Pocket S2.
 >> +
->> +	.has_pll_test	= true,
->> +	.se_clk_scheme_default = true,
->> +	.disable_ctrl   = CLAMP_N_EN | FREEZIO_N | POWER_DOWN,
->> +	.mask_core_ready = PLL_LOCKED,
->> +	.autoresume_en   = BIT(3),
->> +	.update_tune1_with_efuse = false,
+>>   config BACKLIGHT_LM3533
+>>   	tristate "Backlight Driver for LM3533"
+>>   	depends on MFD_LM3533
+>> diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
+>> index 794820a98ed4..39ef588b1cf2 100644
+>> --- a/drivers/video/backlight/Makefile
+>> +++ b/drivers/video/backlight/Makefile
+>> @@ -56,6 +56,7 @@ obj-$(CONFIG_BACKLIGHT_PWM)		+= pwm_bl.o
+>>   obj-$(CONFIG_BACKLIGHT_QCOM_WLED)	+= qcom-wled.o
+>>   obj-$(CONFIG_BACKLIGHT_RT4831)		+= rt4831-backlight.o
+>>   obj-$(CONFIG_BACKLIGHT_SAHARA)		+= kb3886_bl.o
+>> +obj-$(CONFIG_BACKLIGHT_SY7758)		+= sy7758.o
+>>   obj-$(CONFIG_BACKLIGHT_SKY81452)	+= sky81452-backlight.o
+>>   obj-$(CONFIG_BACKLIGHT_TPS65217)	+= tps65217_bl.o
+>>   obj-$(CONFIG_BACKLIGHT_WM831X)		+= wm831x_bl.o
+>> diff --git a/drivers/video/backlight/sy7758.c b/drivers/video/backlight/sy7758.c
+>> new file mode 100644
+>> index 000000000000..786589cb8df9
+>> --- /dev/null
+>> +++ b/drivers/video/backlight/sy7758.c
+>> @@ -0,0 +1,259 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Silergy SY7758 6-channel High Efficiency LED Driver
+>> + *
+>> + * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
+>> + * Copyright (C) 2026 Linaro Limited
+>> + * Author: Neil Armstrong <neil.armstrong@linaro.org>
+>> + */
+>> +#include <linux/backlight.h>
+>> +#include <linux/module.h>
+>> +#include <linux/i2c.h>
+>> +#include <linux/of.h>
+>> +#include <linux/err.h>
+>> +#include <linux/bits.h>
+>> +#include <linux/delay.h>
+>> +#include <linux/regmap.h>
+>> +#include <linux/bitfield.h>
+>> +#include <linux/gpio/consumer.h>
+>> +#include <linux/regulator/consumer.h>
+>> +
+>> +#define DEFAULT_BRIGHTNESS	1024
+>> +#define MAX_BRIGHTNESS		4080
+>> +#define REG_MAX			0xAE
+>> +
+>> +/* Registers */
+>> +#define REG_DEV_CTL		0x01
+>> +#define REG_DEV_ID		0x03
+>> +#define REG_BRT_12BIT_L		0x10
+>> +#define REG_BRT_12BIT_H		0x11
+>> +
+>> +/* OTP memory */
+>> +#define REG_OTP_CFG0		0xA0
+>> +#define REG_OTP_CFG1		0xA1
+>> +#define REG_OTP_CFG2		0xA2
+>> +#define REG_OTP_CFG5		0xA5
+>> +#define REG_OTP_CFG9		0xA9
+>> +
+>> +/* Fields */
+>> +#define BIT_DEV_CTL_FAST	BIT(7)
+>> +#define MSK_DEV_CTL_BRT_MODE	GENMASK(2, 1)
+>> +#define BIT_DEV_CTL_BL_CTLB	BIT(0)
+>> +
+>> +#define MSK_BRT_12BIT_L		GENMASK(7, 0)
+>> +#define MSK_BRT_12BIT_H		GENMASK(3, 0)
+>> +
+>> +#define MSK_CFG0_CURRENT_LOW	GENMASK(7, 0)
+>> +
+>> +#define BIT_CFG1_PDET_STDBY	BIT(7)
+>> +#define MSK_CFG1_CURRENT_MAX	GENMASK(6, 4)
+>> +#define MSK_CFG1_CURRENT_HIGH	GENMASK(3, 0)
+>> +
+>> +#define BIT_CFG2_UVLO_EN	BIT(5)
+>> +#define BIT_CFG2_UVLO_TH	BIT(4)
+>> +#define BIT_CFG2_BL_ON		BIT(3)
+>> +#define BIT_CFG2_ISET_EN	BIT(2)
+>> +#define BIT_CFG2_BST_ESET_EN	BIT(1)
+>> +
+>> +#define BIT_CFG5_PWM_DIRECT	BIT(7)
+>> +#define MSK_CFG5_PS_MODE	GENMASK(6, 4)
+>> +#define MSK_CFG5_PWM_FREQ	GENMASK(3, 0)
+>> +
+>> +#define MSK_CFG9_VBST_MAX	GENMASK(7, 5)
+>> +#define BIT_CFG9_JUMP_EN	BIT(4)
+>> +#define MSK_CFG9_JUMP_TH	GENMASK(3, 2)
+>> +#define MSK_CFG9_JUMP_VOLTAGE	GENMASK(1, 0)
+>> +
+>> +struct sy7758 {
+>> +	struct i2c_client *client;
+>> +	struct regmap *regmap;
+>> +	struct gpio_desc *gpio;
+>> +	struct backlight_device *bl;
 >> +};
 >> +
->>   static const struct qusb2_phy_cfg sm6115_phy_cfg = {
->>   	.tbl		= sm6115_init_tbl,
->>   	.tbl_num	= ARRAY_SIZE(sm6115_init_tbl),
->> @@ -958,6 +971,9 @@ static const struct of_device_id qusb2_phy_of_match_table[] = {
->>   	}, {
->>   		.compatible	= "qcom,sdm660-qusb2-phy",
->>   		.data		= &sdm660_phy_cfg,
->> +	}, {
->> +		.compatible	= "qcom,shikra-qusb2-phy",
->> +		.data		= &shikra_phy_cfg,
->>   	}, {
->>   		.compatible	= "qcom,sm4250-qusb2-phy",
->>   		.data		= &sm6115_phy_cfg,
+>> +static const struct regmap_config sy7758_regmap_config = {
+>> +	.reg_bits = 8,
+>> +	.val_bits = 8,
+>> +	.max_register = REG_MAX,
+>> +};
+>> +
+>> +static int sy7758_backlight_update_status(struct backlight_device *backlight_dev)
+>> +{
+>> +	struct sy7758 *sydev = bl_get_data(backlight_dev);
+>> +	unsigned int brightness = backlight_get_brightness(backlight_dev);
+>> +	int ret;
+>> +
+>> +	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_L,
+>> +			   FIELD_PREP(MSK_BRT_12BIT_L,
+>> +				      brightness & 0xff));
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_H,
+>> +			   FIELD_PREP(MSK_BRT_12BIT_H,
+>> +				      (brightness >> 8) & 0xf));
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static const struct backlight_ops sy7758_backlight_ops = {
+>> +	.options = BL_CORE_SUSPENDRESUME,
+>> +	.update_status = sy7758_backlight_update_status,
+>> +};
+> 
+> [Severity: High]
+> This driver sets the BL_CORE_SUSPENDRESUME option, which relies on the
+> backlight core to blank and unblank the brightness on suspend and resume.
+> However, if the system's power management cuts power to the vdd regulator
+> during suspend, won't the device lose all the configuration state established
+> in sy7758_init()?
+
+This will never happen, if we don't disable the regulators they will stay on during system suspend.
+
+> 
+> Because there are no standard pm_ops to re-apply this initialization sequence
+> upon resume, it seems the backlight might operate with incorrect parameters or
+> fail to turn on. Should this driver implement a resume callback to restore the
+> volatile hardware configuration?
+> 
+> 
+> 
+>> +
+>> +static int sy7758_init(struct sy7758 *sydev)
+>> +{
+>> +	int ret = 0;
+>> +
+>> +	ret = regmap_write(sydev->regmap, REG_DEV_CTL,
+>> +			   BIT_DEV_CTL_FAST | BIT_DEV_CTL_BL_CTLB |
+>> +			   FIELD_PREP(MSK_DEV_CTL_BRT_MODE, 2));
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_L,
+>> +			   FIELD_PREP(MSK_BRT_12BIT_L,
+>> +				      DEFAULT_BRIGHTNESS & 0xff));
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_H,
+>> +			   FIELD_PREP(MSK_BRT_12BIT_H,
+>> +				      (DEFAULT_BRIGHTNESS >> 8)));
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = regmap_write(sydev->regmap, REG_OTP_CFG5,
+>> +			   FIELD_PREP(MSK_CFG5_PS_MODE, 6) |
+>> +			   FIELD_PREP(MSK_CFG5_PWM_FREQ, 4));
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = regmap_write(sydev->regmap, REG_OTP_CFG0,
+>> +			   FIELD_PREP(MSK_CFG0_CURRENT_LOW, 85));
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = regmap_write(sydev->regmap, REG_OTP_CFG1,
+>> +			   BIT_CFG1_PDET_STDBY |
+>> +			   FIELD_PREP(MSK_CFG1_CURRENT_MAX, 1) |
+>> +			   FIELD_PREP(MSK_CFG1_CURRENT_HIGH, 10));
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = regmap_write(sydev->regmap, REG_OTP_CFG9,
+>> +			   FIELD_PREP(MSK_CFG9_VBST_MAX, 4));
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = regmap_write(sydev->regmap, REG_OTP_CFG2,
+>> +			   BIT_CFG2_BL_ON | BIT_CFG2_UVLO_EN);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int sy7758_probe(struct i2c_client *client)
+>> +{
+>> +	struct backlight_properties props = { };
+>> +	struct device *dev = &client->dev;
+>> +	struct sy7758 *sydev;
+>> +	unsigned int dev_id;
+>> +	int ret;
+>> +
+>> +	sydev = devm_kzalloc(dev, sizeof(*sydev), GFP_KERNEL);
+>> +	if (!sydev)
+>> +		return -ENOMEM;
+>> +
+>> +	i2c_set_clientdata(client, sydev);
+>> +
+>> +	/* Initialize regmap */
+>> +	sydev->client = client;
+>> +	sydev->regmap = devm_regmap_init_i2c(client, &sy7758_regmap_config);
+>> +	if (IS_ERR(sydev->regmap))
+>> +		return dev_err_probe(dev, PTR_ERR(sydev->regmap),
+>> +				     "failed to init regmap\n");
+>> +
+>> +	/* Get and enable regulator */
+>> +	ret = devm_regulator_get_enable(dev, "vdd");
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "failed to get regulator\n");
+>> +
+>> +	fsleep(100);
+>> +
+>> +	/* Get enable GPIO and set to high */
+>> +	sydev->gpio = devm_gpiod_get(dev, "enable", GPIOD_OUT_HIGH);
+>> +	if (IS_ERR(sydev->gpio))
+>> +		return dev_err_probe(dev, PTR_ERR(sydev->gpio),
+>> +				     "failed to get enable GPIO\n");
+> 
+> [Severity: Medium]
+> Is it possible for the enable pin to be hardwired to a power rail on some
+> hardware designs? Using devm_gpiod_get() makes this GPIO strictly mandatory
+> and fails the probe if the enable-gpios property is absent in the Device Tree.
+> Would devm_gpiod_get_optional() be more appropriate here?
+> 
+
+This makes no sense, the enable gpio is required per the spec, and is required in the bindings.
+
+> 
+> [Severity: High]
+> The enable GPIO is asserted high here, but is there a mechanism to ensure it
+> is explicitly driven low during driver removal or if the probe fails later?
+
+This is not an issue, the enable is required to be high when operating the IC
+which depends on vdd to be on. No need to put it back.
+
+> 
+> If devres automatically disables the vdd regulator while the host is still
+> driving the GPIO high, couldn't this back-power the chip through its internal
+> ESD protection diodes and cause hardware damage? Using
+> devm_add_action_or_reset() to drive the GPIO low before the regulator is
+> disabled might prevent this.
+
+No, spec says this won't happen and is safe.
+
+> 
+> 
+> 
+>> +
+>> +	/* Let some time for HW to settle */
+>> +	fsleep(10000);
+>> +
+>> +	/* try read and check device id */
+>> +	ret = regmap_read(sydev->regmap, REG_DEV_ID, &dev_id);
+>> +	if (ret < 0)
+>> +		return dev_err_probe(dev, ret, "failed to read device id\n");
+>> +	if (dev_id != 0x63) {
+>> +		dev_err(dev, "unexpected device id: 0x%02x\n", dev_id);
+>> +		return -ENODEV;
+>> +	}
+>> +
+>> +	/* Initialize and set default brightness */
+>> +	ret = sy7758_init(sydev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	props.type = BACKLIGHT_RAW;
+>> +	props.max_brightness = MAX_BRIGHTNESS;
+>> +	props.brightness = DEFAULT_BRIGHTNESS;
+>> +	props.scale = BACKLIGHT_SCALE_LINEAR;
+>> +
+>> +	sydev->bl = devm_backlight_device_register(dev, "sy7758-backlight",
+>> +						   dev, sydev, &sy7758_backlight_ops,
+>> +						   &props);
+>> +	if (IS_ERR(sydev->bl))
+>> +		return dev_err_probe(dev, PTR_ERR(sydev->bl),
+>> +				     "failed to register backlight device\n");
+>> +
+>> +	return backlight_update_status(sydev->bl);
+>> +}
+>> +
+>> +static void sy7758_remove(struct i2c_client *client)
+>> +{
+>> +	struct sy7758 *sydev = i2c_get_clientdata(client);
+>> +
+>> +	backlight_disable(sydev->bl);
+>> +}
+> 
+> [Severity: Medium]
+> Since the backlight was registered using devm_backlight_device_register(),
+> devres will unregister the sysfs interface after sy7758_remove() returns.
+
+this will never happen.
+
+> 
+> Does this leave a race window where userspace could concurrently write to the
+> sysfs brightness file and re-enable the hardware right after
+> backlight_disable() turns it off?
+> 
+>> +
+>> +static const struct i2c_device_id sy7758_ids[] = {
+>> +	{ "sy7758" },
+>> +	{ }
+>> +};
+>> +MODULE_DEVICE_TABLE(i2c, sy7758_ids);
+>> +
+>> +static const struct of_device_id sy7758_match_table[] = {
+>> +	{ .compatible = "silergy,sy7758", },
+>> +	{ },
+>> +};
+>> +MODULE_DEVICE_TABLE(of, sy7758_match_table);
+>> +
+>> +static struct i2c_driver sy7758_driver = {
+>> +	.driver = {
+>> +		.name = "sy7758",
+>> +		.of_match_table = sy7758_match_table,
+>> +	},
+>> +	.probe = sy7758_probe,
+>> +	.remove = sy7758_remove,
+>> +	.id_table = sy7758_ids,
+>> +};
+>> +
+>> +module_i2c_driver(sy7758_driver);
+>> +
+>> +MODULE_DESCRIPTION("Silergy SY7758 Backlight Driver");
+>> +MODULE_AUTHOR("Kancy Joe <kancy2333@outlook.com>");
+>> +MODULE_AUTHOR("Neil Armstrong <neil.armstrong@linaro.org>");
+>> +MODULE_LICENSE("GPL");
+>>
 >> -- 
 >> 2.34.1
 >>
 > 
 
+Thanks,
+Neil
