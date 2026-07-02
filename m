@@ -1,46 +1,46 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB25384CDD;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF21384CE6;
 	Thu,  2 Jul 2026 19:05:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783019111; cv=none; b=ClhYWR0vxXewQ+vFQr1WFhmOmpIraVT4RAtT2/FZQEJ0ipYWWmpQcQv6qF0ddK4yHiqKPsM0jQDLX8r5ZTpf3jw1fy694tVf76xSpySCi8JX+o+E5scqW3R/uxcWZ0BqRRuutyiD7QW+e3DU56lfbYoUYAUIwcJkMAlUPUg7HWU=
+	t=1783019111; cv=none; b=YHxrxkYR378LoMKuS6OplKakLMquopeLdIuDm+6iX7o9CWf2t4bMMJ7xpdH7cNbhfwojX2m4Oto0QTZj4pE4ff8CP3AREOIVw+9Zts7kPRDdp7ap4vDhCnQOAKj2aOiRLWknRlL2oSF3+OvJoZEe5i0uIpqX+OX4O5T4HjmMYYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783019111; c=relaxed/simple;
-	bh=wFScMTA0aeosbk+Qcsd4y2LEslJSobKkD7dgWff6iYU=;
+	bh=z7/w/pYYW2C0//0iZWTY5xIDGiNhY5WNZKz21cDtZlo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bmy1rfoaH38Hv2c/nHVfr7pPd3AexrTnu6DzHwI3Ve0tCWhDnM90IFkf0q/p2N17vUuVt7LUiwLpzvcECqzHZKVZr+FgBnaklFd9VzJ3vfxBbYoD2Q/XN/K8/QzSvcrUNKCz4bSwcOc54huQRKVRnSidm1cEMc02AVxpgwEQ9ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=Jt7tc2xh; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=QlcowwGRIFDcpZLV8CCNv4ClQiK/ZWpz179dTnbG3/mQ/Crjwlq32/ug6vUR1M8e7H9DNOUbQ7U/xOTWiygEduhz4x9pAHu/8UId3XPviR3nvXVXA8sUOgyCRk7X7lxvDm4x9tbNud4PnDclgO1H9nODe5cq6nj+A3wIXTfCsH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=GnNg4Icb; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="Jt7tc2xh"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="GnNg4Icb"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=m7PQ37TP8TLSa3Y3Mh+GfctL0Wog2HZY6fsfi5VePvQ=; b=Jt7tc2xhJjWGJQavuRgUHV+ifa
-	AF2X59WYmK0VSW8hgH+znp+G7NDBzxiYvfWopRG1R2YBftbapRvA2HqK+3aVWF3tR9qFfiCCjljCr
-	/0Q2tGJu3BWzgKNWrPhaODRK7pzblPOiBZipq397eqYyrrj0dvgqPAsgOjAbjp5ZXImtwuTzt7iCy
-	kS+ngbY1gvR845pAYYd/Hvh0XLkJQl7eS3XxOncQSPdrnKlTrGvN1pQNggaVPOogVgMgw2PrHFZQr
-	t3QAo0x//o6NJHvcYfpUAlg0PUYntH5iEtXybCK+UZ2GNGlcfob7zB1Pz60wGYPeXOCk4JOebyEc5
-	Vw07ddog==;
+	bh=kwkpuFiJFSig1yrgIRHVrq1BQtVphda099BHLY4gXx8=; b=GnNg4IcbGHj4LG3T+K83pcS4qd
+	g1bV+9BkUhKcRb20kwj58+CxUOs7De7lebEY06waM02j88XzE13GSkX4jwLL0ebUnOYw9ojoZUtTW
+	jIMnYrZuIL5i8e27f2CXf6jcA+kvgOm9Aj8/S3h+myUR6FZiTVPcF4v47aDTwCrUeUaMYv8nXJlm6
+	2JynNtRFpf2i/fL8kFsAI6jXv/Vib0HWY+UL0VzeGGw5IfqSVEYPHm6vz5ocSIKShLKu5jBYG1Jq7
+	39+58w0Q8cW5sa/mG5wh+QX5s9W2gPRnpjpGD6GfYivmtxnVyddQTrhiTeVHO1T5D4YYrwUds32lv
+	gjLwNegA==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniele Briguglio <hello@superkali.me>
+To: Hrushiraj Gandhi <hrushirajg23@gmail.com>
 Cc: Heiko Stuebner <heiko@sntech.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 0/3] arm64: dts: rockchip: Add Youyeetoo YY3588
-Date: Thu,  2 Jul 2026 21:04:53 +0200
-Message-ID: <178301901896.3838694.11723513577053090499.b4-ty@sntech.de>
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 0/2] arm64: dts: rockchip: add Vicharak Axon board support
+Date: Thu,  2 Jul 2026 21:04:55 +0200
+Message-ID: <178301901903.3838694.3276523670393868229.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260610-yy3588-board-v1-0-4bb7176b6826@superkali.me>
-References: <20260610-yy3588-board-v1-0-4bb7176b6826@superkali.me>
+In-Reply-To: <20260608060940.52549-1-hrushirajg23@gmail.com>
+References: <20260608060940.52549-1-hrushirajg23@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,24 +51,35 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 10 Jun 2026 15:58:57 +0200, Daniele Briguglio wrote:
-> This series adds support for the Youyeetoo YY3588, a single board
-> computer built around the Rockchip RK3588.
+On Mon, 08 Jun 2026 11:39:38 +0530, Hrushiraj Gandhi wrote:
+> This series adds initial device tree support for the Vicharak Axon
+> single-board computer, which is based on the Rockchip RK3588 SoC.
 > 
-> Both Ethernet ports, eMMC, SD card, USB, Type-C, HDMI output, WiFi on
-> the Mini PCIe slot, audio, the recovery key and the fan have been
-> tested on the board.
+> The Vicharak Axon is a feature-rich SBC targeting developer and embedded
+> use cases. It ships with:
+> 
+>   - Rockchip RK3588 (4x Cortex-A76 + 4x Cortex-A55)
+>   - RK806 PMIC providing all SoC power domains
+>   - eMMC 5.1 (on-board) and microSD slot
+>   - Gigabit Ethernet via RGMII (RTL8211F)
+>   - Dual HDMI 2.1 output and one HDMI 2.0 input (receiver)
+>   - PCIe 3.0 x4 and two PCIe 2.0 slots
+>   - SATA 3.0
+>   - USB 2.0 host ports (EHCI/OHCI)
+>   - NXP PCA9554 I/O expander for status LEDs
+>   - Haoyu HYM8563 RTC
 > 
 > [...]
 
 Applied, thanks!
 
-[1/3] dt-bindings: vendor-prefixes: Add youyeetoo
-      commit: fe76e3493f9ea5e927f9ce6bfe7f8785ba2d0c44
-[2/3] dt-bindings: arm: rockchip: Add Youyeetoo YY3588
-      commit: 1e476370fbb1def308e6da3785843f1d34529721
-[3/3] arm64: dts: rockchip: Add Youyeetoo YY3588
-      commit: 19847bde695f7bc65b16840c91cda4c2e35b36ce
+[1/2] dt-bindings: arm: rockchip: add Vicharak Axon board
+      commit: e0008b108aaf8c5aa22930b2ceadf8f894562acb
+[2/2] arm64: dts: rockchip: add Vicharak Axon board
+      commit: e08c3389c78dbefd31a57df8807cf57ef6f3c9b1
+
+Please check for double empty lines and ordering in future patches.
+I've cleaned up some things.
 
 Best regards,
 -- 
