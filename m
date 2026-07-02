@@ -1,89 +1,106 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D9B33F5A3;
-	Thu,  2 Jul 2026 18:00:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FFF32937A
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 18:06:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783015243; cv=none; b=Tn4Sq0kF3kKgJnAi/QSpCwFZznhYtwRluSqTmQv0gSy8Ro3jggFsEcBe95NpFxciHEBzypCLd8uOXw8AjhTLFT0sr9ySCPb4BKrfauZKhqdhx0EVYrOQZ1RosI7Y5yFe2fCtM0XsdyhTBK4/FF/fMT39NfYAXFTnhoLFAs4AQiU=
+	t=1783015566; cv=none; b=UgRCvEUKWxOTc+y6UmzNe1XPGYhHf3KNaektNF+H5EllsDQKRINIQ6Tqkj8OXQE8t6RVjvY+AgCiTSnJRKpF8ysJVe5sPm0gMgXT2rPfJUy5K2VdWvbyrXL7GX896HjslWDpAKLz2IvBDTv2tnCQADZddPue20li6gb+LzCZi/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783015243; c=relaxed/simple;
-	bh=81uAQatl5Nl0YNAIsvEn3//lHmBMS9i4BFnmP8wt9LY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fl6s0ZUTSbL0lR8U6LBScvW7VDv6fj/8dpicV3cRitQXzszyUPqdROxIzv7VBgVvcXFw6NREVgOzX6gcbYo97+o+N3CIbjPsjvXQrOKNKehUC+35gZ2UnGpeqGukFoMe6hMBF1L+B/OzKxkdb7YhCaTP1hlGdboflWF95Qrg+CY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=Eskz2zrs; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1783015566; c=relaxed/simple;
+	bh=3y9r5Q6P/3Rt6lgO5y7EACxVG+8Vi4wJsxk0jVODmsk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rJEeMRc8iRL1/CSgaO6Ee4wkvhU5f7n3hvJeug1MhUMEVNTmgYnQ69l4F/G50KwcRq9Yf2OQjXQST+pB8/XNvFOzbe/GvKiqO95ht9pPcNkCS4PO+j/0WE9mQ3Mn3fDAVsAnckztdrhRsFZ7IDVZ2ai2+qTlmefuIK4/h2O+hhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nCGcwuAj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="Eskz2zrs"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=xebSVH9btvoOA5wd7jjkFogUQ3KfJvU2qpvSEydg5Yc=; b=Eskz2zrsAbkrle95IzFL6WFPYp
-	vzn1wrAtXWwesXNsY8DQ6r1kiiuT9A9+DV5hhILJE/ps4aaDJ1Gi8+h6lU54Qr0wxF50SUu3ar2R4
-	dIKbvO1KKyEoyJvW7xVkbL+GZnKjEewoBjNGrWgvVKLEjKxQq10zMdcZC02VOjJgIIPlZIb1N8Hiu
-	JzXUv1WAgEfK6+Xf8Cbeceqzcxfkk03qW43BZ5Qmx15pzN5Q9LO0B6/awajLOwQoCONl9bsdrNS5e
-	jOJ/VamA0aB47VHoHD566MtaJ3gdB6MrwoSTmgUl8X5o7VYBZWgWzxwsFHNZxGd6AIlrfGUqsgaDW
-	B+rHYTrQ==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonas Karlman <jonas@kwiboo.se>
-Cc: Diederik de Haas <diederik@cknow-tech.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, devicetree@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-usb@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jonas Karlman <jonas@kwiboo.se>
-Subject:
- Re: [PATCH v2 0/2] rockchip: Fix devices suspend freeze on RK3568/RK3566
-Date: Thu, 02 Jul 2026 20:00:32 +0200
-Message-ID: <9647226.A5hrfCrGMc@phil>
-In-Reply-To: <20260624192726.781864-1-jonas@kwiboo.se>
-References: <20260624192726.781864-1-jonas@kwiboo.se>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nCGcwuAj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799121F000E9;
+	Thu,  2 Jul 2026 18:06:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783015564;
+	bh=mkqgXXxE2TZfezQnrVdIKW/6o9RQtpkemSZ9PTvzpJY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nCGcwuAj0QUXyZj8TVtUKg1zcZrcA9IP82vGDuOj0RDbf/gbXmt+hUY17CALD5RXI
+	 SMPkMhPitke+f8jnQ5huqGcOYVtva1GeTFNPLtRJuI+xwJpclCHO5yZvHey3wNPPgK
+	 Mb6o8mrCnE618mlNoID7JVdgNp81XCVzt4BwYqjFM1e/NSDeOO7lvGJU67fgr25ulP
+	 I8mLwkELatoyd1A6im9o0yxr75xKsmCM6IsIzltm93pBcvdRYgntzttVHcGrKkxV9C
+	 QrxC0oKP3nXEOc3n1mtyXOUfoYDrXG/2Sg99njPcznBsiiNE0EI91ak72VvlibRB2M
+	 cF1yv5tVdbqlQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 03/15] dt-bindings: clock: mediatek: regroup MT8192
+ dt-bindings into MT8186
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260701-mt8189-clocks-system-base-v1-3-2b048feea50a@collabora.com>
+References: <20260701-mt8189-clocks-system-base-v1-0-2b048feea50a@collabora.com>
+ <20260701-mt8189-clocks-system-base-v1-3-2b048feea50a@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 18:06:02 +0000
+Message-Id: <20260702180603.799121F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Hi Jonas,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Am Mittwoch, 24. Juni 2026, 21:27:23 Mitteleurop=C3=A4ische Sommerzeit schr=
-ieb Jonas Karlman:
-> This series fixes a system freeze during suspend in ohci_suspend() due
-> to clk_usbphy1_480m not being enabled when EHCI/OHCI registers are
-> accessed on e.g. a Raxa ROCK 3C board.
->=20
-> Following pm_test modes work on my ROCK 3C with the missing usbphy clk
-> refs added:
->=20
->   echo N > /sys/module/printk/parameters/console_suspend
->=20
->   echo devices > /sys/power/pm_test
->   echo platform > /sys/power/pm_test
->   echo processors > /sys/power/pm_test
->   echo core > /sys/power/pm_test
->=20
->   echo mem > /sys/power/state
->=20
-> Changes in v2:
-> - Include rockchip,rk3588-ehci in the EHCI constraint
-> - Make clocks prop required for EHCI and OHCI
-> - Collect t-b tag
->=20
-> Jonas Karlman (2):
->   dt-bindings: usb: Add Rockchip RK3568 compatible for EHCI and OHCI
+Pre-existing issues:
+- [High] The `if` conditionals in `allOf` incorrectly use `enum:` instead o=
+f `contains: enum:`, causing the condition to never match.
+--
 
-it seems I wasn't in Cc for the first patch, so can't know if and when
-that gets/got applied.
+commit 422b32e17fa321946e679002f4f6f7b6b918fe88
+Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-Also I think I remember Greg preferring not having to split apart patch
-series', so I think the binding patch might be better off standing alone.
+dt-bindings: clock: mediatek: regroup MT8192 dt-bindings into MT8186
 
+This commit regroups the MT8192 clock and system clock dt-bindings into
+the MT8186 files. This simplifies maintainability and establishes common fi=
+les
+for SoCs with similar clock controller designs.
 
-Heiko
+> diff --git a/Documentation/devicetree/bindings/clock/mediatek,mt8186-cloc=
+k.yaml b/Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml
+> index 28e05b5fb23bb..3b543c810f18d 100644
+> --- a/Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml
+> +++ b/Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml
+> @@ -58,7 +58,26 @@ properties:
+>            - mediatek,mt8188-vencsys
+>            - mediatek,mt8188-wpesys
+>            - mediatek,mt8188-wpesys-vpp0
+> -
+> +          - mediatek,mt8192-camsys
 
+[ ... ]
 
+[Severity: High]
+This isn't a bug introduced by this patch (it appears to have been introduc=
+ed
+in the previous patch of the series), but looking at the allOf block further
+down in this file:
 
+allOf:
+  - if:
+      properties:
+        compatible:
+          enum:
+            - mediatek,mt8188-adsp-audio26m
+
+Does this condition fail to match because it uses enum: instead of
+contains: enum:?
+
+Since the compatible property is evaluated as an array of strings, comparing
+it directly against a string enum prevents the condition from matching when
+running dt_binding_check on any device tree containing the affected MT8188
+compatibles.
+
+This causes the schema validation to silently fail to enforce the
+#clock-cells and #reset-cells requirements for all MT8188 compatibles.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-mt8189-clo=
+cks-system-base-v1-0-2b048feea50a@collabora.com?part=3D3
