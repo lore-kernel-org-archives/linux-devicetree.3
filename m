@@ -1,33 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE9B360EDC;
-	Thu,  2 Jul 2026 08:29:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CE042A798
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 08:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782980999; cv=none; b=hDHLqNRUHxkfo7ZJoGb2f4Qt8YcEwbOiMs6qoox1O1wg4SqhbTVPAvO4HAAjN4UtQEM/0EDZLvi/S62GpLxfuwafgvX9Ib3ulAQlGLkKcMzatQSDuVrWvT3Yea27GzXMZqxSPcC8ldHhLTfhZKbzos5AGaHUS5PZsOy3mO3GLXg=
+	t=1782981115; cv=none; b=rzdh3yWH7EbTdWcwv5DZA+4sb9aXjvk9YpbvYz9x8ybTSM1VymuHVKMnw8aW5iWRzswOsKcxVYDZyw/bJx5H0F9IhWiKukbVyNq8VxBSwsXjZT4Jkk/7YTcFIuSwZBrmnijGqFiZOCRulBjOT7G7T0qzprdXkuN8vT7E+TgOKog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782980999; c=relaxed/simple;
-	bh=hzEpoNuqcVQ616Na6CUNOWd0qYGP2Rwkasc1Vav739M=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=YU3R2KR5NmWZdgsci2xS8mo0KfXXeOK79Bas3bx73L0X7gJfwVck6wpix6EfmGBh1cpg750imTwMGCDvgkZkpHlqJUxWxXP0tQLQ0VDqIjLK3A1yYxFGPIzR+N0nEjoc5CnDELIlPC/d/U/7g8du52MH5elsOl8DCxIZ4oPR8AY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IZvlQTEz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782981115; c=relaxed/simple;
+	bh=SxEdWObSZbUYZ46vS/JBccmLuboyk8r+0BnZw9wrUVE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uQHSlYqMdkIKZEQv66PfnPb8VdXI6njrfJXxJcHdjf/BP00IdJDSrt/oVUc6ksQZkKrj5mzhU961W5zyaqd2ioYqbQxHIhNLsfLtjYuDUqMtPIl1Xg8NSrLwgDpoMwfejU663cgCVGWSQBDFrTNAQfaV+V3U2S2/tbJBDHM2qXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xznNSid3; arc=none smtp.client-ip=209.85.167.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IZvlQTEz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98FA31F000E9;
-	Thu,  2 Jul 2026 08:29:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782980997;
-	bh=Y5Bz1aHBSPw3uFsYVazQ7avmz8IgK+3F3iSAoWEvwwE=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=IZvlQTEzCP9UgmRTIEpNhOivJkOXb1QZD6teHYKSmQ9k/8GPMlB/79q+3H3nI8IyH
-	 6Kp/jHdLgpyQ6eOMvLqyUwuIDr+M8oBSYsOQiY2PS5Legaxfx1iDST5qKzUyFP6a5E
-	 opLz3gNzwe8VPExl5SNYhi8AOAzpMSnSJ9c/WLB0oez8xZX8IIrix3CAQHuiaQu+8o
-	 QLLTpoUjr3SN4DzURILjG8QlUe/+h90gkFgVR6Fics+IN8McBeed/8xD2/xkodWjk9
-	 5khenTtNBTvYH4BKbboQWnDHS3Hwfu0dU9PYKdcJIvJcM9n2k1jC5iNs917N+EaKdV
-	 F5YwkSaPFmCIw==
-Message-ID: <a0cb02e3-0566-4294-b41c-3b156ecda5e0@kernel.org>
-Date: Thu, 2 Jul 2026 10:29:51 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xznNSid3"
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5aebd7da975so195972e87.2
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 01:31:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1782981111; x=1783585911; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uyIInBymlHfz7VGDGtgQL8R4WXsM/iu4ZoItEUD8FE0=;
+        b=xznNSid3qZdqU7P6bAKbpcOEZxAKn7KjZc4V13PhEH0U0EWnKFfY/ITq0as/wtKTrW
+         aB5+63ertkdXpbV4PMl7/h9UxRITtFyK5i/rdSEFPvl/AXxI6lZ1nHDwPQ6QPT0qPzvg
+         PFXgA3RKWq5FhXRDSK6ZsTgLu1jC2723te1fpkVGjEn8Xkn3Gq6Db08yFtJFfhz92DXO
+         s0Nu470vVSoKjA8GSQVJMNlLRb8rgn8xK9/seajmpZlVB4tWNS6UHO4yt+E5BMPuEjPQ
+         YcrvyAZGOF/hAKZHiYDfFl91Q6A4Hr1RIIhRlFAvx6ssRJ+4X3EK7QYaWqUjOO8jVAQx
+         m+cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782981111; x=1783585911;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uyIInBymlHfz7VGDGtgQL8R4WXsM/iu4ZoItEUD8FE0=;
+        b=NVilUo+WfPm/UyqoCKOZ8YOk45nMxk6CPsAA0R+qK5MqFm5e4Dr2YaP2rYZYKkpyfC
+         I7KUElDMInHxAtAUb3JVUG1dx6Xj84BTupZV/nlqFjQ91QvTdynvXMkLYHuSNdLGircD
+         1kmtWamjua8NYJmlfpbHgTLu8u1P4xeLm7WTQtsfvkFGPrWSvG0NPj6Qz4p+L15uq0h2
+         z+byxKGHFV33FPvbW2NR/EXesXe6dyo0oTIymen1fvvp65nlf4hNlbJ70Ns1t2WzQMDI
+         PXkV0DzLtOyXbXoi4B6m/P6I8YcBv4L0xt97L1dp9aE8nvQ8r6X6FdbEYJuFV1/ahqLf
+         Iq8w==
+X-Forwarded-Encrypted: i=1; AHgh+Rqd2b7LjuojKKKOjTwN7OsnuxYb9Yt8dDGqqHYVJJ9LEX8pwOxYoLMHZw4VB3bu//E0uQxUJiDPKGF9@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKkBJ94ry9BBsBNg6cOB6TX8u5Rg0G7qSmE9uGcXshI12nCRjf
+	Lq2viJvpXdDKd+S6UHiY6cTrANVNOOu3E6EQ1/k/jIS10/M5TVfGpkmxy5ZdMuLdvlk=
+X-Gm-Gg: AfdE7ckPzOrFntdWztuElMI7b0nJIR08fNZ0GckrEFY1MY+iMooi/Hs78AyZe9tMVar
+	sM/awaae8NCT0PU1mxkoB1gXbVZlonGlo5B87P+lZPFPSqlWFTJJdfxAKcg+Je/CRo2gR30IIFV
+	vAQ/ocynbUwGIAaNrZHCmTKFSKzdgbUcvOrxjH7Biov11RoQqCKfR4B2oOKVtsAHYNkJgM+31Ig
+	FTm+ps95QDnMwXE73bdpQRmVL+xS7DC9QRsSMbtUWQpJFFbqSS6xExyAlUPPSIY4BcE1T6xcytK
+	dmh92QG8InEc84ODfJbTTlDGGzogxlQDcQZ0zkfPjcoofYF+dyxkTIpZSFrXucbdkphpBENmNRY
+	2yjj11Q0dYK6PmqPS/7/CLjIPxOl/CrFJk53ZXdbq0JntV4XpBZRFkyWGva/V3o5Yh82Ps3rMI9
+	AIgmM+PWSF7sDePl5bUkdzsPykMN5gAFEWmgZlO74v6dpAqM8Xscjgpvdi1mJKIez/blI=
+X-Received: by 2002:a05:6512:1319:b0:5ae:b6cf:2864 with SMTP id 2adb3069b0e04-5aec676a8f3mr825148e87.0.1782981110761;
+        Thu, 02 Jul 2026 01:31:50 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aec899171asm537377e87.16.2026.07.02.01.31.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 02 Jul 2026 01:31:49 -0700 (PDT)
+Message-ID: <1c583e24-09db-4d90-8f32-d3d3961188a0@linaro.org>
+Date: Thu, 2 Jul 2026 11:31:42 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,89 +68,54 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: wireless: ath12k: allow calibration variant
- for WCN7850
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
- Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
- Andrew LaMarche <andrewjlamarche@gmail.com>, linux-wireless@vger.kernel.org,
- devicetree@vger.kernel.org, ath12k@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-References: <20260701-ath12k-calibration-variant-v1-1-d3eddaabf026@toradex.com>
- <20260702-beneficial-hopeful-binturong-a0bee9@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260702-beneficial-hopeful-binturong-a0bee9@quoll>
-Content-Type: text/plain; charset=UTF-8
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
+ <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
+ <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
+ <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
+ <7c564df8-5c5a-4b43-806e-5e017e5c51db@kernel.org>
+ <ae3a381b-5697-43ee-bdfd-aaf2d22ceedf@linaro.org>
+ <6b6492a4-7610-4dce-a81c-8dc0387a4061@linaro.org>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <6b6492a4-7610-4dce-a81c-8dc0387a4061@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/07/2026 10:27, Krzysztof Kozlowski wrote:
-> On Wed, Jul 01, 2026 at 05:42:24PM +0200, Ernest Van Hoecke wrote:
->> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+On 7/2/26 03:08, Bryan O'Donoghue wrote:
+> On 02/07/2026 00:37, Vladimir Zapolskiy wrote:
+>>>
+>>> Inserting bus-type into the PHY layer is borrowing from one domain
+>>> linux-media and pushing the concept into PHYs.
 >>
->> qcom,calibration-variant selects board-specific calibration data for
->> systems where the bus and device IDs are not unique.
+>> It's the other way around, "bus-type" is an endpoint property of media
+>> devices, reference to video-interfaces.yaml to get more details about it.
 >>
->> This is not specific to WSI-capable QCN9274 devices. The WSI binding
->> already allows the property, so allow it in the WCN7850 PCI binding too.
-> 
-> Why? You need to provide reasons WHY do we want this.
-> 
+>>> phy-cells = 1 with CPHY/DPHY specified in the consumer, as was Rob's
+>>> suggestion will specify the mode.
 >>
->> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+>> This cell is just not needed, and unneeded complexity should not be added.
 > 
-> Where is any user of this?
+> I'm going to stick to Rob's initial guidance on this.
+> 
+> https://lore.kernel.org/linux-media/20250710230846.GA44483-robh@kernel.org/
 > 
 
-Actually I missed your link in changelog section. I still however do not
-understand why these are separate. Separate means they are completely
-independent and thus my question about the user stays.
+Sure, the discussion will be continued abouve v9 of the series, it's
+just a chance to do it now. Rob properly pointed out, that the invented
+"phy-type" is not needed at all.
 
-Best regards,
-Krzysztof
+Ther fact is that the whole placement of the CSIPHY to phy subsystem
+looks execessive, since you add a driver for a media device, there will
+be nothing PHY driver specific left in the CSIPHY driver but name.
+
+-- 
+Best wishes,
+Vladimir
