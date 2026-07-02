@@ -1,146 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BFB3C553A;
-	Thu,  2 Jul 2026 09:03:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075B2472771
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:04:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782982999; cv=none; b=iTpVBixZ/UEGb1R/v0cXdEm1Cu4fT3EWaMkXvwS3xi3Y7hStnzfWcZ0Z62hp4Ev5fAiyAet0Wf5KwhhOVdwUtpyKz7a4oF8UA4fnQ4Z4kyUs8BnCVWE/2F4Jio9m9nqDvfQoWhNCcpNBOpCjTOQVDkt7NiSeybRTZktutSWSqyk=
+	t=1782983096; cv=none; b=H5LqIhO9DYZNegKHTk/RLsOel5pdFnkeTzQQ+OroVq/550mbT6swNRR6Z6e+bVQpq6BLctTW6vRQAjdZOjWDvhfPPpOWCGVm5+FzwWc7LGYkQDil9TouCV79gzqQomvbA/s07WSe7XN3tj6KViHcW++NxHndd4NfXxR0nT2Z8tI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782982999; c=relaxed/simple;
-	bh=A2QPmou/sUM1xp54Di+ELV+NZQMa3cx4J4pvykikIn4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KbF8GtOu/+itpIPVgL7ElXgs8XEAXlRWCE+6kJr1sQkmH/tR56DNWRbF9bwdhrjCzPHhOyxuOKYb2422GNfNRDI02nZSaXt8O8cUvfyC5ACLEPSiycA8OCq3wHe7NThKjAh1+jZQ8iCno3G+TEMctQqdHcbc82eZreKL2tqnuZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aUBRs9uP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782983096; c=relaxed/simple;
+	bh=KuUldqSBvNUBw35ye/ZZ9kP2NkGYAK2SlfUkqDDVXZo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Z/Ylgmn13NaVtU47dc6lwa+KN/u093Tvy5aub6dOAVpjQRiB/xDTHuc5dfXJUb35/k+mg26unfxiQMPRCwg2XYsrjDZvWrSG0DgXM4/Dsb8nDaHQ4OFuIge6QSpvyN3MY2M5ngYcfl7+wYatKYaE+BFBya4V4rccoL0QXqhEBmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=CpFAchRf; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aUBRs9uP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264911F00A3D;
-	Thu,  2 Jul 2026 09:03:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782982998;
-	bh=Bwvb6hHj9l6Yne/LOBL2AhqvJDVM5cGE5+22179LIpk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aUBRs9uPdJcAAhzxzoMgW/3Z8S0pOAwjv5caiflPdwTXjAm0IeEhsGP406EUAC/Yp
-	 GKkmwK3elRu2hl2GtMQCNo7XmKPZvFdI0pRlW++JwycKPUAnEOSStkylnZDM66Nmn8
-	 5bxyH5qL57GMGhWBHW/Oj1YzpgzirKUzpJWK8F9Bx96+2Y2CvBrkW17ACfqmfkPt3Q
-	 U2VhCzpyTIlBAFwZ5XwqT/Svq33gM3ehpnCF2uSDgPFGJQmOS1HAx9wFyut6D085xo
-	 0XkvDp+SpPC/7rBm7FT5EZsgPiJxhVotj4eUZE8lRiLkga9G3KHnm6hi3eCqSW43mX
-	 jrAhmMKtANZBg==
-Message-ID: <40d95b47-d7ce-4e0a-ab25-8adce6851aa9@kernel.org>
-Date: Thu, 2 Jul 2026 11:03:12 +0200
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="CpFAchRf"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-36b9d265355so1073303a91.2
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:04:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sifive.com; s=google; t=1782983094; x=1783587894; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rYOUNaGMGZsPlGyhqLkbebVXqK7qfkK62tQGnVDlaQc=;
+        b=CpFAchRfQ+uNLyC3bracfodFVnQc0mUl8RT+FrY0il9+6tp7XLeptQk0nGgSBoZf/N
+         H7OBEnFB55VdLLyOs3QLAyGg7/5/YSBEvTleiNEFyVDhutPDc+KUf5udeyTKiGawBv4J
+         K/8wIWq+ErmC08sUcHhEFgh0SY0PNI2y0wdAFB1YRFIliEWqFds7Dg0Oe1GpZbeyMRpR
+         IzqcWWt5badk5pl/MNHhSFxGgO6HUyNeoCcCgUmZpJ3XoVwYzz6jqx4KErWvmC+ebJtj
+         vlP1ISW0+lh5Bm8dtdZ3beu2Cmps34d/De7c2H98DsyVVsFW04Jrw+QjfbO3Bm98CjQw
+         jgMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782983094; x=1783587894;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=rYOUNaGMGZsPlGyhqLkbebVXqK7qfkK62tQGnVDlaQc=;
+        b=V6bC1k84Cw5TnSV6D+UN9iCsCxCHs2ONZ78EnaFNljo0Hus7E/tiDQIrO6VWwn6qP0
+         v15WzwyslE/O/Thp49qaP/qNBtBwLQo5mp34mRRNSa6fGZfe5esrm9VK7O2zTng8pH7I
+         n8M81+nnNuMMi0pvUS4QRDPdFqjOrv5sEVGotEXj06asYFe6qfMMDo9ejAXb5JPV+qMq
+         /38th/J1WUns15bZWSn9R+2834m11Bk3BqYFXB3s2hbAARFLeppygxV8VTHxsawUn7vF
+         T3myYTU1hPyG6l89TS9DoOwVIRSk4v0T9g5LYlYcC17T5CBm6LMzRz9rYDDtBYVe9CC4
+         Q3og==
+X-Forwarded-Encrypted: i=1; AHgh+Rpcc7esAIzI1Bki2z4CKNt/X14wLrafAGnh8CGhXkpQZfqQ7/luBKpHwiAKewG8NrFMJ+UHkGWpJj31@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWcuO3B/z5om/4irJZRfB1Rr/uTMkcTetFXBCO9Oy6BXjYdaVf
+	8uPdyBMLOrQqTPdrEJ8uC7ZaaSN8ervFZBNJbZdF1iAykrYMoGp4XJ7g749dTnrxge+lZ6JbTyz
+	hzmx8lHEQNg==
+X-Gm-Gg: AfdE7ckcs03msUONqnWj9tIB+NH+Y/6xaI7Y7UElgAVma3ulM4RsbhkE6ftathGIftH
+	VrZgZA81NuqITTECR6LFugp07CD9GlA7M5HWvHBRkZLuFm1LDIwJbYtKwqRSpi35TYLcDTFJCWp
+	4wcNL3pxCbilC9lhs8PNBsdHMP/eYC12+Rmfsh78rUeEUhFxxapFjZQH8jjz0Aa5rnvJ19WqNkb
+	1AyVuLsgV1T0HkYZJcz/1Vk84XFy26I2kb51FB1aTA/MOX8lke3azjv47kt/YD7s7SfJf3TzPu2
+	kxYxGXxfN0TqGqyz9MhJFE7HtcLwiPxhuc1sPgZ5Jc5wzTyDjw60F8tARbmLs+FbIXbwdw07qs1
+	pCMkAh3spkifUGcChJEXGYv6Tu2+jCwqc6NS3Pm2KqbxX00LB//+uKNn1CvUs6PxJCDBsJIF9+I
+	pkR9+wo6JSLfif6jWpkUnQ07Zj116gE4w=
+X-Received: by 2002:a17:90b:3e45:b0:37f:d27f:5186 with SMTP id 98e67ed59e1d1-380ba91d167mr4114967a91.25.1782983094001;
+        Thu, 02 Jul 2026 02:04:54 -0700 (PDT)
+Received: from EricL-ThinkPadX1-TW.local ([136.226.240.163])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-380e15c362asm725719a91.1.2026.07.02.02.04.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 02:04:53 -0700 (PDT)
+From: Eric Lin <eric.lin@sifive.com>
+Date: Thu, 02 Jul 2026 17:04:31 +0800
+Subject: [PATCH RFC] dt-bindings: perf: riscv,pmu: Add interrupts-extended
+ property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: wireless: ath12k: allow calibration variant
- for WCN7850
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
- Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
- Andrew LaMarche <andrewjlamarche@gmail.com>, linux-wireless@vger.kernel.org,
- devicetree@vger.kernel.org, ath12k@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-References: <20260701-ath12k-calibration-variant-v1-1-d3eddaabf026@toradex.com>
- <20260702-beneficial-hopeful-binturong-a0bee9@quoll>
- <a0cb02e3-0566-4294-b41c-3b156ecda5e0@kernel.org>
- <zglhxxu6txw2xvz4vcyu32v6722hqppcfvntan5ho32ak2y6tw@2mvfuaoxcvss>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <zglhxxu6txw2xvz4vcyu32v6722hqppcfvntan5ho32ak2y6tw@2mvfuaoxcvss>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260702-pmu-dt-property-v1-1-a7a7737afb72@sifive.com>
+X-B4-Tracking: v=1; b=H4sIAJ4pRmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDcwND3YLcUt2UEt2CovyC1KKSSt20NEOjJGPTtFSDtGQloK6CotS0zAq
+ widFKQW7OSrEQweLSpKzU5BKQWUq1tQBQgp8DeAAAAA==
+X-Change-ID: 20260701-pmu-dt-property-ff12b35fe0fc
+To: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Atish Patra <atishp@rivosinc.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Nick Hu <nick.hu@sifive.com>, 
+ Eric Lin <eric.lin@sifive.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782983089; l=2327;
+ i=eric.lin@sifive.com; s=20260630; h=from:subject:message-id;
+ bh=KuUldqSBvNUBw35ye/ZZ9kP2NkGYAK2SlfUkqDDVXZo=;
+ b=r6xyJqLl12BSFPk0mVYjvI1fgO5czZqFRAdildvZY941PKjeY6XoAQqsZmgQVjkkNpPNiA/st
+ /OSxALCjIC8As7kr5tTMspJ7rxU3VdXQOpNyeo7jc8yONMLS0Jk9Ffa
+X-Developer-Key: i=eric.lin@sifive.com; a=ed25519;
+ pk=RLPQN6uNJ1cSM8GhP+L++2j3pf5ohznFbkNdwIO1XDw=
 
-On 02/07/2026 11:00, Ernest Van Hoecke wrote:
-> On Thu, Jul 02, 2026 at 10:29:51AM +0200, Krzysztof Kozlowski wrote:
->> On 02/07/2026 10:27, Krzysztof Kozlowski wrote:
->>> On Wed, Jul 01, 2026 at 05:42:24PM +0200, Ernest Van Hoecke wrote:
->>>> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->>>>
->>>> qcom,calibration-variant selects board-specific calibration data for
->>>> systems where the bus and device IDs are not unique.
->>>>
->>>> This is not specific to WSI-capable QCN9274 devices. The WSI binding
->>>> already allows the property, so allow it in the WCN7850 PCI binding too.
->>>
->>> Why? You need to provide reasons WHY do we want this.
->>>
-> 
-> We (Toradex) have SoMs with the SX-PCEBE from Silex, which uses the
-> WCN7850. Silex provided multiple board files for this to deal with
-> separate regulatory regions. Thus, we need a mechanism to select which
-> one to use even though the PCI ID and machines are the same.
-> 
->>>>
->>>> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->>>
->>> Where is any user of this?
->>>
->>
->> Actually I missed your link in changelog section. I still however do not
->> understand why these are separate. Separate means they are completely
->> independent and thus my question about the user stays.
->>
->> Best regards,
->> Krzysztof
-> 
-> I agree that they could be one patchset and considered replying there,
-> but felt it easier to discuss this with the relevant patch already
-> attached. As the other binding already validates this property there is
-> no real dependency or ordering problem, and I thought this would ease
-> review.
+The interrupts-extended property is used to specify the connection
+between the PMU counter overflow interrupt and the corresponding CPU
+local interrupt controller (riscv,cpu-intc).
 
-If you do not have user in this patchset then your commit msg must
-explain why you are adding this, otherwise it just looks like you are
-adding unused ABI.
+This property also allows the software to associate a PMU node with a
+specific CPU. To support future heterogeneous systems, where different
+CPUs may support different PMU events, this property allows the driver
+to identify the correct PMU capabilities for each hart.
+
+Reviewed-by: Nick Hu <nick.hu@sifive.com>
+Signed-off-by: Eric Lin <eric.lin@sifive.com>
+---
+ Documentation/devicetree/bindings/perf/riscv,pmu.yaml | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/perf/riscv,pmu.yaml b/Documentation/devicetree/bindings/perf/riscv,pmu.yaml
+index d01c677ad3c7..13aceb3d42b9 100644
+--- a/Documentation/devicetree/bindings/perf/riscv,pmu.yaml
++++ b/Documentation/devicetree/bindings/perf/riscv,pmu.yaml
+@@ -34,6 +34,13 @@ properties:
+   compatible:
+     const: riscv,pmu
+ 
++  interrupts-extended:
++    minItems: 1
++    maxItems: 4095
++    description:
++      Specifies the interrupt-parent and local interrupt index for each CPU's
++      PMU counter overflow. Each item points to a riscv,cpu-intc node.
++
+   riscv,event-to-mhpmevent:
+     $ref: /schemas/types.yaml#/definitions/uint32-matrix
+     description:
+@@ -101,6 +108,7 @@ examples:
+   - |
+     pmu {
+         compatible = "riscv,pmu";
++        interrupts-extended = <&cpu0_intc 13>;
+         riscv,event-to-mhpmevent = <0x0000B 0x0000 0x0001>;
+         riscv,event-to-mhpmcounters = <0x00001 0x00001 0x00000001>,
+                                       <0x00002 0x00002 0x00000004>,
+@@ -127,6 +135,9 @@ examples:
+      */
+     pmu {
+           compatible = "riscv,pmu";
++          interrupts-extended = <&cpu0_intc 13>,
++                                <&cpu1_intc 13>,<&cpu2_intc 13>,
++                                <&cpu3_intc 13>,<&cpu4_intc 13>;
+           riscv,event-to-mhpmevent =
+               /* SBI_PMU_HW_CACHE_REFERENCES -> Instruction or Data cache/ITIM busy */
+               <0x00003 0x00000000 0x1801>,
+
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260701-pmu-dt-property-ff12b35fe0fc
 
 Best regards,
-Krzysztof
+--  
+Eric Lin <eric.lin@sifive.com>
+
