@@ -1,276 +1,110 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF5E4252A2
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 08:11:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52DD0420E92;
+	Thu,  2 Jul 2026 08:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782979864; cv=none; b=H0Pbv7Uf6cWUfRqhEDtMG8xEo4E1hiX1EspameMlAy81MfwZtrw2je+TyWKJOps+1T57/37GDR+UCgXJ+R5aKtfHhRk7eQ8xs3YF85NrNdnlxIJQD4eGZ66oRo7E9Bv4T9NTP29UiNz4JCadL07sDIepa6iED9ZECm9m+kYSY0Y=
+	t=1782980148; cv=none; b=oDhKqdplm5+di2BTPdFMFv2wWWARAFur7KKFNGZn7VJNbpvIYLaAKtPduQNsR0VY8un7U8tPrICJdktpDawAHXOD5rGHQ7bmnlJNU49iDHT8TUQ4g2T4Lqoc/oybn8QY3b6pmvluOr97O3D54h2zKStIQxlBW7+hoyQWwpkQkMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782979864; c=relaxed/simple;
-	bh=rBendd4uuEhgkyP4RE0zkVRJMkAWDgIQr5V1OAvN0oA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fgqOFpKWbtMd1ibGYvfuA1Rju7dQMU4P7G2t9I0dBHltbJPNly5XwVqAHR4p1+MSLyAtUA84gTmAV/cMGH3srW6SAoZ5nWQW3t6oO0Zl0PROzqsonV7eMnbk7kUtsHbz5g3ZD2QwI7Cy/gzmfCB47w2I8LCAAqLSo+VLd2cp1Ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=OwVGq9qA; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="OwVGq9qA"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-493c52cde9eso6438295e9.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 01:11:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782979861; x=1783584661; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9owqjjgV0H2CtePOueZPc6abek2AjkJLNAZcj3bC1qU=;
-        b=OwVGq9qAPmyoLub7KfDWVSiPj10Esw1wttEWI9qP1jjdPIiiZYQs492ZQmScQ2Nw+Y
-         upyA0tMseRe0mbKH2HLEcIxYvjpLupyWAks3+usQpMQUFG+TiAbhdoWwqyAIrwjLSNY0
-         a4Q0RNWf0vFQCOHZoSRMFCZPLzQWjq/pfTW45smyMrrSQE72x1shnX8pRYtx2ST0ytZG
-         TWZ4fi5pRLXQyZjt1Q64GUzFcjgqZxWjdQekebufxOwQamrX8sMCEd14hGa5sJblsABE
-         RQCTiPsOCWLviOW34qksAPL7u55jvZO50ZWQL9PKHqQnjCSR/6dL3cStN3EVpJ/e6KDq
-         CARg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782979861; x=1783584661;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=9owqjjgV0H2CtePOueZPc6abek2AjkJLNAZcj3bC1qU=;
-        b=SQjsJkvR1IZEy3hdJR8Xv2xnmq9Vc81tqkS0b2Ku0irN18Eif4fpHl3w8j1T7aowkf
-         1QrKZf5oArK/NpjKNIbVoeKv01eZ/t63M8dmL89OsP6lXqZqQCAyGHYRkCO7WI8ijZyI
-         X/flCOPoCsgmy1BKPnt8OIUVk1dx1GI3/gDGtCahel6DFk9NPwlwAxUFi10uPcpJX15z
-         aMirtHkR9mBfpFF6E5qWqLqVBSlTfAwkxLhvjalygGdILr7KiP/LeX8JlEbpZOQWxuPV
-         N4JJMu+AuQSPiB0VJrj6JbKgzigjhj2A9/OtrjdXCFv7sGl2Z5TpuPiplHVi62KcnePz
-         8WUA==
-X-Forwarded-Encrypted: i=1; AFNElJ+sLOgkQ7Pb2t4c3z0AdDsvMkE8njyOjEPokO+/1LA5Jf5aUY9JCHgJTFUloJF4NweM7W0MgxLESO5f@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSH1/s/2poeIrEzgVV4KkGFN4tI/YjjAi3jgL2m7Z5YP0couFk
-	WB0kHO++Jv8UZOsFzVHt1xiASGgyLvFFtdJSiHvYK9Ohmdg8IYzqbZ3//YkrxAnLNqs=
-X-Gm-Gg: AfdE7cn5XvE/u2ulbdxH5G8k9h5Y+TNmOQonUdwzMdWd273I//+c4k4GLbsCp84tGs8
-	3IKZjMPNPZbEuZFNcOTsO3YJTvbgjv1yrs4RyR9Tgahe4oup1h98EFvR/wqF/VGUIhrrRQgN253
-	+fWBW0Pd2vZEGJco99xZl3lEXNmq40jvwbaBixp+NbnyizcyF0V6CVrld0HsV/TKsjUizAcdk7s
-	CwCyjOJN1W3ZKFdS+YvnFcB5qUbypLKfPi1GXlsRybPoCiaJAgQfdWHPbyLLjGDYlZesRbJ2B8P
-	/4fRw6SOEhMQlqXeNfaUri/wSxSAikh1DFVbXazX6R6FcvA7EGGoeBx8qRjlLqYexHS3LtXwE4S
-	emfHyGCDF+ny2G0FJEadm6bmPDWrFsTu50Lkyv6XNd7rTg0xwr5QGR9xJl9ZG/4ek+opRr3lWHB
-	GnoqhDyMYISM0=
-X-Received: by 2002:a05:600d:3:b0:492:523f:a3df with SMTP id 5b1f17b1804b1-493c2b161b3mr65913275e9.5.1782979861478;
-        Thu, 02 Jul 2026 01:11:01 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:2e3a:7dcd:d2a4:6556])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-493c6372c52sm28787545e9.14.2026.07.02.01.11.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 01:11:00 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 02 Jul 2026 10:10:07 +0200
-Subject: [PATCH v3 8/8] clk: sunxi-ng: sun6i-rtc: add a733 support
+	s=arc-20240116; t=1782980148; c=relaxed/simple;
+	bh=olv9L47YZtyhJBBLjkc5FHSFI+CVW3FRTTeji02CqVY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SiBlrNaWcqlyX1FYF2ZYSwi+7zNa0hMwlRI3KnqpPslkPPRiT2KKdmLEnlqTfN47AtM+tKPS/hx21qSu7X2vWctzxzm6/dXZGVBEjqcwOohz3AckbXP0upmwNMLVSXgPLsy7FdTUcuuwQY3XTc79ykNngxAl1l0NR9DAFjry5CI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6AF33200F84;
+	Thu, 02 Jul 2026 10:15:36 +0200 (CEST)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1wfCa8-005iP3-16;
+	Thu, 02 Jul 2026 10:15:36 +0200
+Received: from pengutronix.de (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 0C16455E028;
+	Thu, 02 Jul 2026 08:15:35 +0000 (UTC)
+Date: Thu, 2 Jul 2026 10:15:35 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Cunhao Lu <1579567540@qq.com>
+Cc: heiko <heiko@sntech.de>, linux-can <linux-can@vger.kernel.org>, 
+	mailhol <mailhol@kernel.org>, kernel <kernel@pengutronix.de>, robh <robh@kernel.org>, 
+	krzk+dt <krzk+dt@kernel.org>, conor+dt <conor+dt@kernel.org>, 
+	devicetree <devicetree@vger.kernel.org>, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, 
+	linux-rockchip <linux-rockchip@lists.infradead.org>, linux-kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] can: rockchip: add RK3588 CAN-FD support
+Message-ID: <20260702-deft-grebe-from-camelot-1bf360-mkl@pengutronix.de>
+X-AI: stop_reason: "refusal"
+References: <tencent_534F9A1699EA04B091BF8003C479BFA32607@qq.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-a733-rtc-v3-8-eb2580374de6@baylibre.com>
-References: <20260702-a733-rtc-v3-0-eb2580374de6@baylibre.com>
-In-Reply-To: <20260702-a733-rtc-v3-0-eb2580374de6@baylibre.com>
-To: Junhui Liu <junhui.liu@pigmoral.tech>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Maxime Ripard <mripard@kernel.org>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- Jerome Brunet <jbrunet@baylibre.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5987; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=rBendd4uuEhgkyP4RE0zkVRJMkAWDgIQr5V1OAvN0oA=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqRhz9MfScamz8f3pP7xitK//ZEvxJoGjJ0MX75
- 2HPdtq2wluJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCakYc/QAKCRDm/A8cN/La
- hf3tD/4qrfRYAsDWz3OImGSBlUMd9kVZBJFcHpm6lgnF7Xz5khE8dx91e2N/LsXXZ80MMe8QZt+
- tadCt3+gZ7NmM+EaoPyD4JqtQjUU8nn01d2z0GHtytQU0fAT8p99uponfmU15Zb4muhQ2nZ+Pjd
- y9LwLf2oc5qoD8Ms61OJ66IE12pEYJLM5ngg6wjgWyja8uouZTTXtvjb1cHSyCp4KM4fvOA4yf+
- 0RUBLu9sgeBbYCQa0wxbAfbx6bknmOAPkx9p/CXO3o+kuB+qRJLdLSPaaFodWhhyEn1h3NX/Ufl
- NvLFPbe5y2IHk9Blfh1QA4eImXCkxVVMv95kTEouSJ3LpEmos26iV1ZCQ2kaUtV/+d/G2cufvMh
- E/DAXhp8iIgWaKtlg8P62ol8Ku3UUOMkn42CgxmSzzhdHCAXTCEuRTTJLSlc4gbrLAziINHYO8H
- j4dmB6JOTCrbXOCFhFwGlnrGMdo0ZVZWc+g4fXobq+W6vpTjEpkw7D7V9dRKQHJmk7/lrUgyZy4
- MjRMJoMrCIw2/ZUUcTgsZlLy8UMSuE9CKYYIHjySqwQcI3YS0OhVobpIurMybhv2ryoziwLmmrU
- SgpR9Ncy46g5XqoQUr7b+WfOMyuT0jHDalAj6OnRP76+VOvImO+Ob6XwgYAX4rWGy3348xv2Cyu
- Rn4LEty4+fXIIxw==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vcp7brl22t3ha7yd"
+Content-Disposition: inline
+In-Reply-To: <tencent_534F9A1699EA04B091BF8003C479BFA32607@qq.com>
 
-Add support for the sun60i a733 CCU RTC.
 
-Compared to the a523, this SoC has a different input oscillator divider
-which auto-detects the oscillator rate and select a divider to provide
-a fixed 32768Hz clock. It also provides several phy reference clocks
-with dedicated clock gates.
+--vcp7brl22t3ha7yd
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/3] can: rockchip: add RK3588 CAN-FD support
+MIME-Version: 1.0
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
- drivers/clk/sunxi-ng/ccu-sun6i-rtc.c | 73 ++++++++++++++++++++++++++++++++++--
- drivers/clk/sunxi-ng/ccu-sun6i-rtc.h |  2 +-
- 2 files changed, 71 insertions(+), 4 deletions(-)
+On 02.07.2026 10:53:53, Cunhao Lu wrote:
+> That works for me. I will prepare a v2 with:
+>
+> - the binding schema changed to use enum as suggested by Krzysztof
+> - RKCANFD_QUIRK_RK3568_ERRATUM_6 enabled for RK3588v2
+> - your Haikou patch added to the series
 
-diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
-index 25dd87e78eb7..6b71bbd80255 100644
---- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
-+++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
-@@ -44,9 +44,13 @@
- #define DCXO_CTRL_REG			0x160
- #define DCXO_CTRL_CLK16M_RC_EN		BIT(0)
- 
-+#define DCXO_GATING_REG			0x16c
-+
- struct sun6i_rtc_match_data {
- 	bool				have_ext_osc32k		: 1;
- 	bool				have_iosc_calibration	: 1;
-+	bool				have_dcxo_status	: 1;
-+	bool				have_phy_ref_gates	: 1;
- 	bool				rtc_32k_single_parent	: 1;
- 	const struct clk_parent_data	*osc32k_fanout_parents;
- 	u8				osc32k_fanout_nparents;
-@@ -213,7 +217,12 @@ static struct ccu_mux osc32k_clk = {
- 	},
- };
- 
--/* This falls back to the global name for fwnodes without a named reference. */
-+/*
-+ * This falls back to the global name for fwnodes without a named reference.
-+ * NOTE: osc24M name might be misleading the oscillator could also be a 26MHz
-+ * or a 19.2MHz one starting with the a733. The original name is kept anyway
-+ * in case anything is relying on it.
-+ */
- static const struct clk_parent_data osc24M[] = {
- 	{ .fw_name = "hosc", .name = "osc24M" }
- };
-@@ -227,8 +236,28 @@ static struct clk_fixed_factor osc24M_32k_div_clk = {
- 					    0),
- };
- 
--static SUNXI_CCU_GATE_HW(osc24M_32k_clk, "osc24M-32k", &osc24M_32k_div_clk.hw,
--			 LOSC_OUT_GATING_REG, BIT(16), 0);
-+static struct clk_div_table osc24M_32k_div_a733_table[] = {
-+	{ .val = 0, .div = 732 },
-+	{ .val = 1, .div = 586 },
-+	{ .val = 2, .div = 793 },
-+	{ .val = 3, .div = 732 },
-+	{ /* Sentinel */ },
-+};
-+
-+static struct ccu_div osc24M_32k_div_a733_clk = {
-+	.enable = BIT(1),
-+	.div	= _SUNXI_CCU_DIV_TABLE(14, 2, osc24M_32k_div_a733_table),
-+	.common	= {
-+		.reg		= DCXO_CTRL_REG,
-+		.hw.init	= CLK_HW_INIT_PARENTS_DATA("osc24M-32k-div",
-+							   osc24M,
-+							   &ccu_rodiv_ops,
-+							   0),
-+	},
-+};
-+
-+static SUNXI_CCU_GATE(osc24M_32k_clk, "osc24M-32k", "osc24M-32k-div",
-+		      LOSC_OUT_GATING_REG, BIT(16), 0);
- 
- static const struct clk_hw *rtc_32k_parents[] = {
- 	&osc32k_clk.common.hw,
-@@ -267,6 +296,15 @@ static struct ccu_mux osc32k_fanout_clk = {
- 	},
- };
- 
-+static SUNXI_CCU_GATE_FW(hosc_serdes1_clk, "hosc-serdes1", "hosc",
-+		      DCXO_GATING_REG, BIT(5), 0);
-+static SUNXI_CCU_GATE_FW(hosc_serdes0_clk, "hosc-serdes0", "hosc",
-+		      DCXO_GATING_REG, BIT(4), 0);
-+static SUNXI_CCU_GATE_FW(hosc_hdmi_clk, "hosc-hdmi", "hosc",
-+		      DCXO_GATING_REG, BIT(1), 0);
-+static SUNXI_CCU_GATE_FW(hosc_ufs_clk, "hosc-ufs", "hosc",
-+		      DCXO_GATING_REG, BIT(0), 0);
-+
- static struct ccu_common *sun6i_rtc_ccu_clks[] = {
- 	&iosc_clk,
- 	&iosc_32k_clk,
-@@ -275,6 +313,11 @@ static struct ccu_common *sun6i_rtc_ccu_clks[] = {
- 	&osc24M_32k_clk.common,
- 	&rtc_32k_clk.common,
- 	&osc32k_fanout_clk.common,
-+	&osc24M_32k_div_a733_clk.common,
-+	&hosc_serdes1_clk.common,
-+	&hosc_serdes0_clk.common,
-+	&hosc_hdmi_clk.common,
-+	&hosc_ufs_clk.common,
- };
- 
- static struct clk_hw_onecell_data sun6i_rtc_ccu_hw_clks = {
-@@ -288,6 +331,10 @@ static struct clk_hw_onecell_data sun6i_rtc_ccu_hw_clks = {
- 		[CLK_OSC24M_32K]	= &osc24M_32k_clk.common.hw,
- 		[CLK_RTC_32K]		= &rtc_32k_clk.common.hw,
- 		[CLK_OSC24M_32K_DIV]	= &osc24M_32k_div_clk.hw,
-+		[CLK_HOSC_UFS]		= &hosc_ufs_clk.common.hw,
-+		[CLK_HOSC_HDMI]		= &hosc_hdmi_clk.common.hw,
-+		[CLK_HOSC_SERDES0]	= &hosc_serdes0_clk.common.hw,
-+		[CLK_HOSC_SERDES1]	= &hosc_serdes1_clk.common.hw,
- 	},
- };
- 
-@@ -330,6 +377,15 @@ static const struct sun6i_rtc_match_data sun55i_a523_rtc_ccu_data = {
- 	.osc32k_fanout_nparents	= ARRAY_SIZE(sun50i_r329_osc32k_fanout_parents),
- };
- 
-+static const struct sun6i_rtc_match_data sun60i_a733_rtc_ccu_data = {
-+	.have_ext_osc32k	= true,
-+	.have_iosc_calibration	= true,
-+	.have_dcxo_status	= true,
-+	.have_phy_ref_gates	= true,
-+	.osc32k_fanout_parents	= sun50i_r329_osc32k_fanout_parents,
-+	.osc32k_fanout_nparents	= ARRAY_SIZE(sun50i_r329_osc32k_fanout_parents),
-+};
-+
- static const struct of_device_id sun6i_rtc_ccu_match[] = {
- 	{
- 		.compatible	= "allwinner,sun50i-h616-rtc",
-@@ -343,6 +399,10 @@ static const struct of_device_id sun6i_rtc_ccu_match[] = {
- 		.compatible	= "allwinner,sun55i-a523-rtc",
- 		.data		= &sun55i_a523_rtc_ccu_data,
- 	},
-+	{
-+		.compatible	= "allwinner,sun60i-a733-rtc",
-+		.data		= &sun60i_a733_rtc_ccu_data,
-+	},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, sun6i_rtc_ccu_match);
-@@ -375,6 +435,13 @@ int sun6i_rtc_ccu_probe(struct device *dev, void __iomem *reg)
- 	osc32k_fanout_init_data.parent_data = data->osc32k_fanout_parents;
- 	osc32k_fanout_init_data.num_parents = data->osc32k_fanout_nparents;
- 
-+	if (data->have_dcxo_status)
-+		sun6i_rtc_ccu_hw_clks.hws[CLK_OSC24M_32K_DIV] =
-+			&osc24M_32k_div_a733_clk.common.hw;
-+
-+	if (!data->have_phy_ref_gates)
-+		sun6i_rtc_ccu_hw_clks.num = CLK_OSC24M_32K_DIV + 1;
-+
- 	return devm_sunxi_ccu_probe(dev, reg, &sun6i_rtc_ccu_desc);
- }
- 
-diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
-index ab7b92b47f59..4f4f4cb00f1d 100644
---- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
-+++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
-@@ -11,6 +11,6 @@
- #define CLK_RTC_32K		6
- #define CLK_OSC24M_32K_DIV	7
- 
--#define CLK_NUMBER		(CLK_OSC24M_32K_DIV + 1)
-+#define CLK_NUMBER		(CLK_HOSC_SERDES1 + 1)
- 
- #endif /* _CCU_SUN6I_RTC_H */
+Is the SoC you're using actually a 'v2' silicon revision? At least on
+the rk3568 the downstream kernel has code to read the revision.
 
--- 
-2.47.3
+> > But if it actually works, then personally I'm more than fine with
+> > enabling CAN-FD :-D .
+> >
+> > I guess Marc might have more insight where the FD issue triggered on
+> > the RK3568.
+>
+> I will also double-check that CAN-FD still works with the v2 changes and
+> wait for Marc's feedback on the CAN-FD issue before deciding whether
+> RKCANFD_QUIRK_CANFD_BROKEN should stay disabled for RK3588v2.
 
+Compile the latest https://github.com/linux-can/can-utils/ and test:
+
+$ cangen can0 -I 2 -Li -Di -p 10 -f -g 1 -c32 -b
+$ cansequence -rv can1 -f
+
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--vcp7brl22t3ha7yd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCakYeJQAKCRDMOmT6rpmt
+0ijEAQCCAxydwZ3i3hutlhk/dlVU3grIENXTT9QhVTiaGUAU4AEAg2reTTImi5Jb
+Wd8vJRDW/vzbjqvE0edXoMky/cI/Ggo=
+=ZccD
+-----END PGP SIGNATURE-----
+
+--vcp7brl22t3ha7yd--
