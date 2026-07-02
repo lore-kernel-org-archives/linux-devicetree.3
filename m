@@ -1,176 +1,215 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604B739182F
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06CF47CC89
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782984582; cv=none; b=dqLUgA4NNhtpBKv8uxfc0ICn8HgQylErqYFTz2aUE+8koriu3lTeLOaQx196+lSNeSvmVpXcNaJmiwMatzuxr/Zpfv4GclyJNoIgNUWyLqRxshgx8RTp39C7L5It9v+XcafnGnx1QSuis2zIG/FxDqxYX0wL9ba+jdUYIr+ke8M=
+	t=1782984713; cv=none; b=iCU7hVm2d+HSawSOhfqxwFoBRTarBP1KhnV1pCtiEDUNIlU5eapSNJoBj3TM4uoGrExaVCA3/NRJh3srvbYW3bhLah4635EIPIMeInQYiLi2mRFmQVZHhclZ3f1NvK/PGVdV+vOq+40D33Z3Dz076gKEveT8iqkx8fkBLTqzBz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782984582; c=relaxed/simple;
-	bh=yU/jpemcy7tvW3jtXBoDI4E00wHWts8RzfqbrMOa93c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=omM30tZLsJvyGdxWSIMefNdj2JCLMztXcjUpJtNlS7Qc8ds+xj10otVjhhZjZHjMD0ex1YFUMh2Arj5pl03VwEZn2UxWIOKpB3EhgDNdUuQdnV+7ED1dkZcYgWNkC/D4P+I7mbNyjbFJP9HRvw3YA+qp+PYuoiosytfiFuWYhnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ago6FKts; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WvuLy1By; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782984713; c=relaxed/simple;
+	bh=VLV6wU8QRGGOnGFH2E3sthlWCqQKEf1XkIhY/2Ftu4o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=T3mOErIUThj7RKSa0preHl8HOwaVyZKKFKsUJwoNptgPHpavLLQyGzZuvjgrZ4WagduPcsbo7f3K+GkP5IxS8m4SDQo+vcCIxYWR4jVpuroXTJK0YBadiil1ioLmUM8GjuRMQt6HRAvMCiwnOCVGk+1EKjNq4VW6rS57AMNgjIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=cYvxx/8e; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ago6FKts";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WvuLy1By"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66242tXg3460377
-	for <devicetree@vger.kernel.org>; Thu, 2 Jul 2026 09:29:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7W0SwLJtrgKGcsnXDnu66SKr8OYCgeg1052OhuL06O0=; b=ago6FKtsuAh0thR4
-	vgWMmcmuhEcLEEA95YZaPo2CnT4Xsr8gbODgmvQbKMQN9YW+sqheZsZLflSMwpy0
-	3946ZOI7AvCTBOwzf5Qllf2tcYLYQGHEquoddNJGJhsoDSP3fAQzxkLk50XIvdvM
-	vwheQ6SgQLDccCieknY7jKi174/gh416HDQ4QrnI4mg9Y6zyc2HT7IEXKmT7/52k
-	NkyTNTKNogvWO8XqXAyDUlPh0r8u5LOwemQAhThQznKHI088QQ9/hsePmWOgW/Le
-	dGI+dl8gCtb32GVjPtrH0rt/tVCvYK+xz7OfSgWhb7myliguUrJe5Oq2KRITTtt4
-	QhwR1g==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5gmb154v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 09:29:40 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8ef4a54f86fso3467576d6.0
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:29:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="cYvxx/8e"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-461edb387ddso1466851f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:31:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782984580; x=1783589380; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7W0SwLJtrgKGcsnXDnu66SKr8OYCgeg1052OhuL06O0=;
-        b=WvuLy1ByE0o7lUTqvjflTbDrOPVaI9vU4pu0Lpi8iwFOSNC0AX277E7Bvo9oVQRtcn
-         icuo4F/As8lVUJaMOl+mrm9jykQXdfuAMxs91euLqL28JWUDuWNACUULfoIPBur3MtYn
-         VRnTr1PzO1D4GCk87+taB53iZrGhMUb0feoCn81lHEqI3X6/o5PQ5KjZ7c9mCMS4bmDm
-         jcIrElS3+gqQL1DgD1CXIznYzrT5T9HfGQ63rFEPBgdrHwZ4okJiJk3Ur1XUajqBYipf
-         rarpAbwekQToVWWvZEnAYpVm1o5PUXqfC0D6lLn59zudkZLeblYBeeAs7To51E6UCYu7
-         5I1Q==
+        d=linaro.org; s=google; t=1782984709; x=1783589509; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=EpWN5prfDcpDg4wTEr+SUZl03GRcoGKno1bsz3weOCk=;
+        b=cYvxx/8e/SE4KRatonyM3uwuNABvdqRR62Kbsa8SIkNBOiC02BRFd6OYiSv0ha92Ik
+         2xMlUQiRnMQYIN5WLhTpQOhkLwumck3+7ExuUP9WjzJDt9/ysd1DORgXEFA6ujSz91Ug
+         ZXkcPROs5cVp9qgPDQDa5UVZivkBRZxxTrqntiRovxTnLAHDkpSWVK6f0lGFeDG9nVcx
+         XphQtlYoh24lc7PZjumwicVH/Jmtn2sNX1qOdLz6PvBuXK70HsYVxBB8pOLqcSZNHeRZ
+         MtjW92kOwN3Au5ZHATng1z4ebiJHRIEu7GzAZ1Lox4d0rTGfw965ZOGLKmbVElIrh8Mp
+         HHYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782984580; x=1783589380;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7W0SwLJtrgKGcsnXDnu66SKr8OYCgeg1052OhuL06O0=;
-        b=jo+Y+XOOM9WfKLGp4RmldAOgYg4FpEHhvqkWm5JMT73iYjvi+7cC/4I/AzLXLFbfdf
-         wenRATZa+xRnEt2RE/wbDuCPkzTKZ9gpTJIGQJglCY9LNb45O0bfKYhF9TDEtvzAlPCB
-         +P6Escv58NBg3WzPw1Tj4jfdnbhthUigisjsVYT5SZl1dmP/B7thXxpIT5ESj8x+1blm
-         V46X2cKngFkIPJHQQ/nYcqr0adCKenEd8BQnjYY+6FyAPkIEPQlrxsu2EI2qskLa+Y6l
-         P09Hkc21gyqEjh3wNiRhkaTeUzWPZZBqhtGGosZtfl0bDRpm+Zo5puy2LGu8gjDoBv4f
-         t0Hw==
-X-Forwarded-Encrypted: i=1; AHgh+RrsAAuAquKXQ5A6KmTVPFs6liau1fV1KgHG7mG2SWGA1LDtFwUITwxpZ//osmS3uaHdwU5AwKBBx+Dc@vger.kernel.org
-X-Gm-Message-State: AOJu0YxYPvFOfMAbkyTsE0YcF4eYutMUjTGDjTKuvU5wpI/XJ7fxLzk2
-	CzlpD64IwLuy7P8Mt2YRRTYsI+DFlUvxD/KzUEpnQFJ2XqFQbA/8vEY1Pml1HH/mtDdmCdUsUXn
-	4OIBp131RQADbRhcUQykAkbTPGHhEF/JfZAh8ybnQ4UUOvvJqU+5Jy19H5ffaeby+
-X-Gm-Gg: AfdE7clLeU1e1U5M3+zV/iZZNviNuSkGgHMlaKCOCLHUAYqp4r8+2Zxpuicfii8wriq
-	BZ4Clcs/LA0rOyWab+zUURx/7661uuVWbhrKGlbxeHsluhgiYQWpNfh5KH4rgEvEi6Lj8+oMF1L
-	91urgywLA8XPHjBF3ZHc0yua1UuwpWD1PhjNGAWZ2yup9s8wHnUtCsn8O65ADoTu/0ZTRcEcXU1
-	KgIdyoAQ8/iNr/hqcMwnmDm8Uo4gaGRAYlTAj/VxExg857lDBuxr49OvZaLzMWiVNtu5W4jKfAk
-	ss74edzpHzfTwTpnhoehWlbz1QAk46aYOjVV8mxgziIJq5jythRmJv0xBP4l12fazPa1eipm+UO
-	Ilzpt30cVAcvtNMuIKKVY8xyJSTc4Xf4nDmk=
-X-Received: by 2002:a05:6214:238f:b0:8db:edd0:98d4 with SMTP id 6a1803df08f44-8f3c5afce03mr48023466d6.1.1782984579641;
-        Thu, 02 Jul 2026 02:29:39 -0700 (PDT)
-X-Received: by 2002:a05:6214:238f:b0:8db:edd0:98d4 with SMTP id 6a1803df08f44-8f3c5afce03mr48023266d6.1.1782984579167;
-        Thu, 02 Jul 2026 02:29:39 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-698ad13426fsm669267a12.26.2026.07.02.02.29.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jul 2026 02:29:38 -0700 (PDT)
-Message-ID: <bdac77fc-41a2-4c89-9f60-3a8eefc9b9a4@oss.qualcomm.com>
-Date: Thu, 2 Jul 2026 11:29:36 +0200
+        d=1e100.net; s=20251104; t=1782984709; x=1783589509;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EpWN5prfDcpDg4wTEr+SUZl03GRcoGKno1bsz3weOCk=;
+        b=J2zlKmw7AdwEEis/kxAItz3o/1hJMyd6sC+U/S0PWVZxU2gIf1cN1eu8o4PVeBNkUL
+         uqiKSEWlFECCPnlo4ZeMHtznaYko0xJ8Hu78KdI0Vulx1PtwHCY7f0Ie0xHcPHQoa6sQ
+         ewfy8H3Jo75YZYC/g37YEYPVaE/lpa4U/Tcp4+AfndFcR7F0ouLaMVh/ZUN5NeHMYJD3
+         SLDqRRzS6ZdKTudkdCzS+qmdZ5DWV+re+N2LA6EIRBcqVw10tE6Z5qsK9d2U029rPdcB
+         /sabhaywbzf/TH/rYzZhhNfAfpJVT4ah6zP6hoSyisFNMn5bACi5mK7c/k+l3ZB01B1l
+         qhew==
+X-Forwarded-Encrypted: i=1; AHgh+Romj3KpjJx9trK0YC1ie7kbt2cHUf7ZKG7IN2Zy2LZrQuHQVin6BlO+jQrmsPxmMS9Vn6J/t+rbVO4K@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3g5bwRyTLSA2r+1gVC+5HTXwu/Ek+MR5orAJYMAcpTmZapUhK
+	/f0Q7ndcSgqmh+miyEBJuRErgfUKP72nfFHvGptlgnU0tRhFtn05/7KGkOzrzRQp8OM=
+X-Gm-Gg: AfdE7clGUJKf3JOgjhZPAnm9b/HTx+nUv3SZ7T5l7AhXFbly6hNCpyMH8Trgs9T6MCK
+	Q+LqQNqS/0RjQaSZK/0wqgp6lO21g0gwQfm54ukXfWcogVRQWqSzCI3lXHw3k+KtXjHCgZWK8Wy
+	Kg0x5oyBmOdgFkdW9VCBZGqisY+LB4noI58Cx1nePbLr36hoDOQPKUGz5hpagO6L2w7WuTMtBr/
+	/Uv4bMjkrg/OLlq+B7a3mHg7+UEr1VfA6m5YPI0kDsfS5o0R8UDAhF+fEgan5haNYKVeS4OA+Qb
+	SLjVVeYOW+3U/jntiMv+uifN9S5NcYpp+18THTDELGxOo/OpjF2485cS8JaH2njolT5PUm9vgQl
+	CANXIabbGcX+aDiQyDhNBeO5jmkUtb/19Q1GHnBf3PvLqiOD/K0Q3rt5hcmidiLlJsMqS3moyTX
+	Mpn46zTfcA3Egn8NN1wucjpGek4yWiYF2glA==
+X-Received: by 2002:a05:6000:27c3:b0:472:55a:ef9c with SMTP id ffacd0b85a97d-477aeb5c6a4mr4678918f8f.9.1782984709236;
+        Thu, 02 Jul 2026 02:31:49 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477de3dd53fsm7102571f8f.37.2026.07.02.02.31.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 02:31:48 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v2 0/4] sound: qcom: audioreach: support WSA speakers only
+ on WSA2
+Date: Thu, 02 Jul 2026 11:31:44 +0200
+Message-Id: <20260702-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v2-0-1ef8ceb8c9ec@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom: Add Acer Swift Go Pro AI
- (SFA14-11)
-To: Krzysztof Kozlowski <krzk@kernel.org>, Kaipeng Zeng
- <kaipeng94@gmail.com>,
-        devicetree@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org,
-        robh@kernel.org, konradybcio@kernel.org, andersson@kernel.org
-References: <20260702063156.35169-1-kaipeng94@gmail.com>
- <20260702063156.35169-2-kaipeng94@gmail.com>
- <9d9645e5-2e63-4c22-8b5f-b0f4368c581f@kernel.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <9d9645e5-2e63-4c22-8b5f-b0f4368c581f@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: v5IJq7zNUWiVso-GSz5rjXTShTRGJyU3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDA5NyBTYWx0ZWRfX4ZKq1qNnIjCU
- zKOQeRrWi5ERTjuKRHUREHQXkCH2TSJBGtbOPM/AZwUPNBy4S9veWSUT7ivl987mvCRY8ippnV1
- ZrYEWXeTKQcPoetNvRJ5kDZ6Oqm2y1g=
-X-Authority-Analysis: v=2.4 cv=aJ7Ab79m c=1 sm=1 tr=0 ts=6a462f84 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=pGLkceISAAAA:8 a=HugCYbCrTmYlQir9MvkA:9 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDA5NyBTYWx0ZWRfX8QX0kfJJPVrx
- GVXZiraQWed6J8MD8g1pxm80fvYud9lmvxSvVRKdWRz8rdmtd/VwWSua+kNm7K5kyp8Y233EdXy
- i65/yQajAkOvv3voiNmD3sGnNmL7V+UChlU1DsOtH4Ud4mRix+hCBBfU23VouK1SdI10vExMKD+
- IdExGrslBDibhgFuPPiUuIdAl1iRUpe1BCTgahiYJbr04eXK7HYBG2z+PBRZZmMQHGdSMZavtXb
- ZCIy/gBSCKax7Woo93HqLp1s/Bo2/cWrZRm9ThEuSWNoUO9lD/izt7uT9mzjStg+cjCwAcVV2xX
- 8RJKfAsie4eezDml9x93ppLYIdubuRl4HfhwnPo8CiKmWa3eocoTD1msZeTkF1ueY4uMkXUoIAr
- xc4ch3E/AArLjtYmRYZfIRRyulumf5Oc0UUjZQlrqKL4HoOkm38BMNLVKC81FMSGfo0eJguaMQq
- m6V7LBk+0zEm+ijTeqg==
-X-Proofpoint-ORIG-GUID: v5IJq7zNUWiVso-GSz5rjXTShTRGJyU3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 clxscore=1015
- spamscore=0 priorityscore=1501 impostorscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020097
+X-B4-Tracking: v=1; b=H4sIAAAwRmoC/42PUW6DMBBEr4L83bVstxBAUZV7VPlYnCW4iTHxA
+ m0U5e41kAP0Z6VZjebNPARTdMSizh4i0uzYhT4J85YJ22F/JnCnpIVRplCFqmAMg7PAvixyBXj
+ HngIMwV5oBDbww2igdb9ATaXyYtcWFnORwoZI6b2Cvo6b5qn5Jjsu6YujczyGeF+bzHrxvaBa/
+ Rc6a1Cgy6bRlc0tGnO4uh5jkCGexfG5YSPdpjRz3LqIBpnABu/dWGfzTuqliydmXLfX2f41vVT
+ mXWktqw9jTAkafOjQezzJiK2T3KG7HAKzvE14XQJlOp8J+/wDb4OTN2UBAAA=
+X-Change-ID: 20260609-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-eb90567f6ca5
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: kancy2333@outlook.com, linux-sound@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4384;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=VLV6wU8QRGGOnGFH2E3sthlWCqQKEf1XkIhY/2Ftu4o=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqRjACSRG0TFFDZKenmQTCQKoNjghpCtOXTh/uQEZF
+ QVHlGVCJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCakYwAgAKCRB33NvayMhJ0f54EA
+ DG+4LM+Env4Hh+v74dbsuIVNi+hY62NSxgSFpjtnqURtu2FIlR/B7XMOmedQ0Ucy7bhNd41zwMySTi
+ +B2zN/dsmYIsDq9UugKRFAfvVYOyTWY8JuXk9L/TNEqPmLfqfI7v6l6RRayvLcILybOI6+6ZjDx9C2
+ AbmdtsWutum5fpJmQ/raSs3IsYfPEnJRPIcfu8s22J3tIAL4C7l13DzqTk2IyjATIKo0xHsjzB4i+S
+ eeGP/PCsT5kEVqERRERZbfKhQq6fN5hXdDy/i5iVLHL28aQJyeYgfSw6Y2qSx33NfJl3O8EgoMlX5D
+ uhleBDoqQYTuEThtTGrf+v12egjD3egFZgbAT5q5aAEqfM/3uDrqj9bSV1BWHdNSG3wGRgb8Xj7lhR
+ mT/e8RgYr9+HF7srZxOYWGY2WOjRsl+OGg4Oln+uNVIsrVje/VT9mPHyJzTrjyHbDCc2ow0IiOS176
+ Dm1hRhW621qyxcaKtolPUeU66sDDZQdLVVx065myo29KNRzHiF9HDwbMnSLkWoTt2Uxg7RUaRNzCPK
+ TjMWgT36zBUKeetp5B+n4kr4Uo/uTVzelIpGeexFa2FPN1EcPrehl2g7GE4v8j4QJ28JUdUDv/GkIz
+ dV9SOgOJhPg/SQY/DSqmzQHMpquG85knTD0nelRB2naUkCUHOxn/T+SPXU0Q==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-On 7/2/26 8:27 AM, Krzysztof Kozlowski wrote:
-> On 02/07/2026 08:31, Kaipeng Zeng wrote:
->> Add compatible values for the Acer Swift Go Pro AI (SFA14-11),
->> using "acer,sfa14-11".
-> 
-> "Add Acer Swift Go Pro AI (SFA14-11), a laptop based on the Snapdragon X
-> Elite (X1E78100) SoC."
-> 
-> That's it. Don't add unnecessary boilerplate.
-> 
-> 
->>
->> The laptop is based on the Snapdragon X Elite (X1E78100) SoC.
->>
->> Signed-off-by: Kaipeng Zeng <kaipeng94@gmail.com>
->> ---
->>  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->>  1 file changed, 1 insertion(+)
->>
->> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
->> index 50cc18a6ec5e..6b997d615bad 100644
->> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
->> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
->> @@ -1142,6 +1142,7 @@ properties:
->>  
->>        - items:
->>            - enum:
->> +              - acer,sfa14-11
-> 
-> Why no user-recognizable name is used? Look at other consumer products:
-> lenovo,thinkpad-x13s, lenovo,flex-5g, microsoft,surface-prox,
-> lenovo,thinkpad-t14s-lcd, tuxedo,elite14gen1, microsoft,denali,
-> asus,vivobook-s15... and so on.
+The Qualcom SM8650 based Ayaneo Pocket S2 gaming device has a set
+of 2 WSA speakers connected on the WSA2 lines.
 
-We have a good mix of both. I tend to dislike relying on marketing
-names, as they may be similar (or identical) across wholly different
-products.
+But the Audioreach DSP only handles WSA2 in pair with the WSA
+interface by using the upper bits of the active_channels_mask
+for WSA2 and the lower bits for WSA:
 
-e.g. microsoft,denali that you mentioned is a MS codename for the
-Surface Pro something something
+ __________________________________________________
+| Bits  |     3    |     2    |   1     |     0   |
+---------------------------------------------------
+| Line  | WSA2 Ch2 | WSA2 Ch1 | WSA Ch2 | WSA Ch1 |
+---------------------------------------------------
 
-Konrad
+Setting only the WSA2 upper bits is perfectly valid and
+functional but the current Audioreach code builds the bitmask
+from the channels count with:
+	active_channels_mask = (1 << num_channels) - 1;
+
+In order to enable the WSA2 bits the channel count should be 4,
+but the lower WSA bits are then also enabled and the DSP errors
+out when trying to play on the disabled WSA interface.
+
+A solution would've been to add a fake WSA2 topology element which
+would be translated into the top bits only, but it's not clean and
+add some special exceptions in the generic Audioreach code.
+
+The solution suggested by Srinivas is to use the channel mapping to
+set this bitmask.
+
+This works but makes all the other calls using the channel mapping fail
+because the DSP requires the channel_mapping table to start from index 0
+and using num_channel length in order to apply the mapping on the
+active_channels_mask bits in order.
+
+So if you have an active_channels_mask like:
+ _______________________
+| Bits  | 3 | 2 | 1 | 0 |
+-------------------------
+| Mask  | 1 | 1 | 0 | 0 |
+------------------------
+
+And the channel mapping:
+ _________________________________
+| Channel |  3 |  2 |   1  |   0  |
+-----------------------------------
+| Mapping | FR | FL | NULL | NULL |
+-----------------------------------
+
+Will need to be converted to:
+ ____________________
+| Channel |  1 |  0 |
+---------------------
+| Mapping | FR | FL |
+---------------------
+
+And the DSP will map FR on WSA2 Ch2 and FL on WSA2 Ch1 as:
+ _________________________________
+| Line    |  WSA2 Ch2 | WSA2 Ch1 |
+----------------------------------
+| Mapping |     FR    |     FL   |
+----------------------------------
+
+So we need to skip the empty channel mapping entries in all other
+users of the channel_map to build valid channel_mapping tables.
+
+This should not break any other usecases since the default channel
+mapping always start from index 0, and will add flexibilty to allow
+some special non linear mapping for other interfaces as well.
+
+Finally we add a special prepare callback for the Ayaneo PS2 sound card
+which sets the custom channel mapping for the WSA interface to make audio
+work properly on the gaming device.
+
+Depends on:
+- https://lore.kernel.org/all/20260608023011.942228-1-mohammad.rafi.shaik@oss.qualcomm.com/
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v2:
+- Collected review tags
+- Reordered bindings patch before card and DT changes
+- Fixed DT patch commit message
+- Link to v1: https://patch.msgid.link/20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-0-18bb19c5ca22@linaro.org
+
+---
+Neil Armstrong (4):
+      ASoC: qcom: audioreach: compute active channel maps from channel_map
+      ASoC: dt-bindings: qcom,sm8250: Add Ayaneo Pocket S2 sound card
+      ASoC: qcom: sc8280xp: add Ayaneo Pocket S2 card with special WSA channel mapping
+      arm64: dts: qcom: sm8650-ayaneo-pocket-s2: switch sound card to ayaneo,pocket-s2-sndcard
+
+ .../devicetree/bindings/sound/qcom,sm8250.yaml     |  1 +
+ .../boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts      |  2 +-
+ sound/soc/qcom/qdsp6/audioreach.c                  | 47 ++++++++++++++----
+ sound/soc/qcom/sc8280xp.c                          | 56 ++++++++++++++++++++++
+ 4 files changed, 95 insertions(+), 11 deletions(-)
+---
+base-commit: b3f94b2b3f3e51ab880a51fc6510e1dafba654ed
+change-id: 20260609-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-eb90567f6ca5
+prerequisite-message-id: <20260608023011.942228-1-mohammad.rafi.shaik@oss.qualcomm.com>
+prerequisite-patch-id: 047b4fb1894b92109aa7afcebd7d5c7988ec5379
+prerequisite-patch-id: 222630a15afc952683d954a3c66617a223546de0
+prerequisite-patch-id: 3c55edb41f1e25920a350ce1c6f31fde67fee45a
+
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
+
