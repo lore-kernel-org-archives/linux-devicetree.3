@@ -1,283 +1,167 @@
-Received: from MA0PR01CU012.outbound.protection.outlook.com (mail-southindiaazon11021116.outbound.protection.outlook.com [40.107.57.116])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2002A38D412;
-	Thu,  2 Jul 2026 07:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.57.116
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782977131; cv=fail; b=iHT6aOFz2vH6ggF006pUCf0GhgGAAsVQcaeW7jgfwl4KoOWbicR+pcQaVEa2KW3+0U7+o1VMLmNXQQoP4VYNIGaaorjBuQiwrGoOdIrPCD13c8p+TiM3RSEKqQOaMd64+slMcZ+kmzHxK94mhuG4zK8jSRsnMcxYjqLypmf1A4o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782977131; c=relaxed/simple;
-	bh=Tvw4lJFhNRom08G8P1TW9z7g9AhMvtWX6azEdRXzO7k=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=j5G9MIi1BSkPhxVS/lZDGhOdyVXuOMLHH8Ungre+gpvWA7DyRrv64g3mB4zxGFnDNNiOLYwwYEBBboA3I1L/Xe8SvAfNKBqrAPH4prCx1FsXFcWCkZtq0jeeeVTJyaUiK8W+kDgyYqBw1n5Mr126ToxkjySfk8XTnGl8QScAdsA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=eAOr47jS reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.57.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D2038B135;
+	Thu,  2 Jul 2026 07:25:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782977140; cv=none; b=cTI/v9Hf5oV6vr42YWKS/GzlAlbTVV5Iv79s7PARZwOK+dg52rlDeMshA1/TTwL9tLP+PnONdzQWnHE/QbRIvPHiR6zIQTBSOpIXvUrycGEkBCv8//7wG+mGeTRO98izcSrLBChkKL7rq7+6Q4o4abh2PNdl1zCzIry7rMxVUpU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782977140; c=relaxed/simple;
+	bh=0iiVKVZWDyomns5F+CK/MTgpBarFr0OL/0hjPk+/6E8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ykpneu5nDPqpJAL6nguzzEuYEFh4dUX+0xXsXSdVQpz/zruvOYoDBgvrodkqw0FZNCsG4IB0G2cKkMxw3bSejh/w6T+nJ2gAz5ObozFKuOXy06ScP/8dvKy4lioBM+vR3DPQI8DOeGjCDa9XtdBN8Ti4CbPcwD9yyAIWVqs3uJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NT9EfwBM; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="eAOr47jS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KbdXeAhSfU00v7K+sKtDI8fuIhImGUs1JbQMe7gebdYg4NQDJRSDJH82T2oTMQ+KW7RAbS5fDdH8qDAEURuRy0GiKs4SAX0sBsuOWSbHz0gtkhWTXBjzqwy6KpR3uV/uMMdhnOh9f42jVL6+U2pKNQMWaVGYTEIGeyzy6HTv2Sl+g5ofcJ97mrpYUscY8SUOtPJUeNFPxRQoAExu9/bdLV4Nfygiyt/9qJOW1GkBKGcFdqbTEBcJTj3T5R7RA/ntGBYZWpLaD3WR6ZL8f2YvTiDjvpLw73+XV52oh/iuYIRabruzqgie3l/jFhkdRmFo6jls9/TI69KnjSD57u76lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4pBIlMyB02NLP8AV1vxv9irujmeJA8WBGSdOAIQLIMo=;
- b=CXVh7q8NDunGO25leqAbTk1WKJVmNdvxS4EMW5aJZAAmum7K1rzuuAubyZRbxwecS//JX2/Pgg8Yb7uY84STfIRPiTKBWfPtYGaDgX2/XoAyANUZMZoVRt+GExagk9T6sV6BE9Bj0Jnx84CD3VbGoEsm+2UjvlCHmBVbS9eC325Nd5V1vGf9ZDiDeuxNAlnVb8ZnwQUzvTbA3raEatt2Zsf4NWYDxZIO5q1WP0vq8mt1yXRNMrCsULHGNDkAjXh8ZEQcYM8iKtl+xBaFnwJHLh/TI082UdJh4/BQeM5Bk19DSQ701rWdDZRv6DLtYCz7qQMV1uyLC6l5ZeZfA3GILg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4pBIlMyB02NLP8AV1vxv9irujmeJA8WBGSdOAIQLIMo=;
- b=eAOr47jSu8YzGxxwmQPF6aef2Z4efb6FJsda2hvk7O7SRs2LVFPdiXiDAxkwbyRWKIRVCNzUQm0f7JlZNKFubQKov679Bs8aX50JIrup4gWJtRoAzLAhOwt3jIGgY5h8GXsygPrxl+TmbibKq7VdMULqZQq0FcfUFxx52GO/pUL9vobpTlZESNLPfFlrrXD12MFz6kdo0oAy4pmFxP6qbt5rnagHZJBXJ6KlO79UFOIRGIYH0iOC+g4+/0QUC2t4NynMNXKxpdzoKYZNxom4sOl7ACEczMrwHPll/F/Jk6yu9Ntkt/AJSmY+t/MOigxJnOvg6iONrtJFa9Sgs44hkw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:11e::14)
- by PNWP287MB6008.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:335::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
- 07:25:26 +0000
-Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
- ([fe80::f8da:c075:cde1:e167]) by MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
- ([fe80::f8da:c075:cde1:e167%6]) with mapi id 15.21.0181.009; Thu, 2 Jul 2026
- 07:25:26 +0000
-From: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
-To: sakari.ailus@linux.intel.com,
-	vladimir.zapolskiy@linaro.org,
-	laurent.pinchart@ideasonboard.com
-Cc: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
-	Xiaolei Wang <xiaolei.wang@windriver.com>,
-	Walter Werner Schneider <contact@schnwalter.eu>,
-	Kate Hsuan <hpa@redhat.com>,
-	Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
-	Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/2] media: i2c: Add os02g10 camera sensor driver
-Date: Thu,  2 Jul 2026 12:54:51 +0530
-Message-Id: <20260702072502.7907-1-elgin.perumbilly@siliconsignals.io>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PNYP287CA0036.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:23e::11) To MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:11e::14)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NT9EfwBM"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6621KF8p3009445;
+	Thu, 2 Jul 2026 07:25:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=1KgI9KYgIHfDrgS6mLJj5Qx+
+	J6n7/Xh9H91frP5TMXk=; b=NT9EfwBMIFsTkhUcTaoTrZaIh7Te9Kr00UpBhGkB
+	OoSXklIbMbqYIgheYl4WfGLijZQBXkiSeW+mN0AqAoL2AnHS9iI0PRIyQjI02k0D
+	DAmmS5RWg8hl9jtva6IGV6hcFNhOpdg/01jLQ7reOaxZ9vK3fLeCfoQwbZ4uhfAQ
+	2r+2KZWWjj4KTTRIusvSVGprEFDstrOpVzReS1TtOT5dzNpL3LnPakFithPv+cQN
+	nM5kdypDKwb59ckLVBZ/Z22M1zHlvWxsxyLQRJX2UzgRkVedQfaxy/3t8CeMCRHA
+	Mm//NrPgXdeHfApDn3j8e/ur8fa1bIM9oWQ2rCMt6rByKA==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f579rts50-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 02 Jul 2026 07:25:35 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 6627PWkl003794;
+	Thu, 2 Jul 2026 07:25:32 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4f27kknuc1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 02 Jul 2026 07:25:32 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 6627PWNw003786;
+	Thu, 2 Jul 2026 07:25:32 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6627PWeS003785
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 02 Jul 2026 07:25:32 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id 6B7D5B2B; Thu,  2 Jul 2026 12:55:31 +0530 (+0530)
+Date: Thu, 2 Jul 2026 12:55:31 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
+        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: Fix pm4125 vbus regulator
+ compatible and constraints
+Message-ID: <20260702072531.bs2242bgfcvpuyh7@hu-kotarake-hyd.qualcomm.com>
+References: <20260701-add_pm4125-vbus-reg-v2-0-6bac2bac7131@oss.qualcomm.com>
+ <20260701-add_pm4125-vbus-reg-v2-3-6bac2bac7131@oss.qualcomm.com>
+ <20260701103457.73E251F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MA0P287MB2178:EE_|PNWP287MB6008:EE_
-X-MS-Office365-Filtering-Correlation-Id: b940b11a-0978-4c9d-9207-08ded80b163e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|7416014|52116014|1800799024|38350700014|18002099003|5023799004|56012099006|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	ckL2o8WS6EXggiUSC/gckZyHjuXMRtfgU+IzbIK8eDwQUil4N79IxdxXkK+FNcDoIoHYqCfigVuu3X/TKWfTW6qD+N2YyNoFXKTA6VlX4rXL+gSBVccfK5xB3nq8erfUFJHqx5ppWmlOq4I0oUXRt6NYg03RkxeaRifFHnsVgB4aivPnRPx7n5PMM/cSAl1M21RIImsNvlWTjBWQGFp102Xf8l/mv0MFNfHsbJyEpXp+a5pjAy0EyU1g79WewegZCGMIrvDd/iVvbY1Y+7Ly46tWj050/ojShrY9pMuMQb7Zr7gq994fWzoR0HxON9S9Kw7NhM0PNUtp6wBUQO/jp/vY7yOwuWYdkDREDcFwBT0iErVxrUD4SzUy0G3EBrqxv/wKxC599DlFIkHhfYDDZ8TRp0rciknPpt7AIBcTZNb4rnt8kDssACaRsWK2Fc+yH9/MRW6/IodzSTy3vxJSuqsRt1jMz/3JKVwnOxOuGsYWQxfRaspVBjGEpLYyrxG0vTI9lGv0vKw23XMsUZBLMeJOPwfgScZLGwJoNKiELfpXXtrwHNxqYmmT8t44iiQl90j8n3d7ssVu81n/SeI5AmEfGg7dpMYvXKcADUOGH/EI2JzN2J1L0C61Y+uHjKug4CDg8nwDMzrYbpR/RGXHgjelkz75krbeWaqAA+HUKyy1drx+xVslbLVlntWv/4ZSagJCJafM8aNskxhm/VJlyzARxtRNBPA/1c6cSGy0lFs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MA0P287MB2178.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(7416014)(52116014)(1800799024)(38350700014)(18002099003)(5023799004)(56012099006)(6133799003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2jwEXes1NSZEdLFvhXoJ6DkmUZngdrLQv3WyEhA70Qbs9G+UhA8+QttJplha?=
- =?us-ascii?Q?VdQgKh8Qfd8veoQ1vOi5AFETdcVxsM5xwlODse2uu9X5phIHwu3+RSyPNlTo?=
- =?us-ascii?Q?Xwmq1GC8p1F8fm4xIh1jY0r8PG6EFHOB1d2YEMFVaw+Kx6qqRrUgZ5m5t+9W?=
- =?us-ascii?Q?ZtM1L0YWwES8k4zfD2v8xbzgBi01EbRw7NcPTrVmxZtonRdIoy2r+ZynzouB?=
- =?us-ascii?Q?aG1fEhawVs6/A9U3l2qg6OHqbJZd6xz+p3UBckuq6pOTg+oAEy+pOJrP2EGC?=
- =?us-ascii?Q?NE0sei0o4jReXeDSGz7dtnwxTDq0zeRogw+bcDJVqyf74jTFUkfgOIiDl9F/?=
- =?us-ascii?Q?tw5CMIV3boG08rb1vyMOXJwTkr7rB+a54rIzu15SCW8bz7cCJH+vPsJHEIfk?=
- =?us-ascii?Q?9nlG9cDcf0P3xJg9kuqu+rjOB+jH4dEK9Ahhph/QVX9lq5tGDluewKWdAYwr?=
- =?us-ascii?Q?wPTTv1OxgXRzJsXDZtQhixD1Vo71wJ80idCMj5mEgOSYbs6Vg2sWdqcV1BYm?=
- =?us-ascii?Q?EGVNjBm0xUA/qmovttGwXuAZ7LphHrzLc7tJfvf+42CPve03i9BnM94tchd9?=
- =?us-ascii?Q?Ko3mEMqN7gGkTEGvVKNe7Vh2maTzxPol0o11I6NU/aavgDOd4ZcUF6/j+9UG?=
- =?us-ascii?Q?ZrLPHDNTCrwd+1C6/yv0njYS2MmVYJQNHWS7ZsMzwYdUQ4DpdbuS+LBMjzds?=
- =?us-ascii?Q?vN+jyRS/RpzlbbpjGgDYbHlE5y4JfOGYL5CGW8BrCYJQ+iFsDgsME7dj/Vuy?=
- =?us-ascii?Q?7er+q1K/heYblqaWM0Sy+Q0ST9OFCSnI7NOcdHW97n76jCMMpyAKOBcTWA4d?=
- =?us-ascii?Q?6GebT48A1oMDRgG9CdF8HutL/aRTQYmNA/8jCcxBabSO50RUZhUdshhucHAy?=
- =?us-ascii?Q?7HYl17v8mJcZOmLDHiwxKRj9KzhpI34YDrMWngnuvs0vkgt0JfXFk2U7g2ia?=
- =?us-ascii?Q?sx8a5bv06QkIAmG3LtOKUP1nKAR5RBmTQK2rSk05c+7iakx69HfeLvZLzYV7?=
- =?us-ascii?Q?n5bWL8bK3zH9f3hUAKbZOqaYtYfhRTpLaJmibi+WqqhwYeuth2hqMYQGDQr0?=
- =?us-ascii?Q?7aHUZZi0Lu4d0yLQLwFPy4vV51rojQrnalmfAOJ69Rt2aYy2WpQ2XeG2mBFW?=
- =?us-ascii?Q?XysWPZTG7IMhrfpj7maDKmN3k6nwSidXqK3tlSoEvevCYQRWmLfjJNEdcaG0?=
- =?us-ascii?Q?h4vWE+cTJOop5K5Qbrxe8vshKypo4waLAm4yx6RPdB7/Gjy0fFvkcHsoW4EK?=
- =?us-ascii?Q?Gs/jX4LRvd26rIAA6nIzOeasoc4nF37z9SgjluRZme2J7Wnvn2TPntjBLj1T?=
- =?us-ascii?Q?lwG/AbGVMmTKXVbqvj3h7aeCkuFMGzWUrcojVtC6PJ9xOWdLalIlw2VaSTho?=
- =?us-ascii?Q?ZafdP7PgEEOIiTusHQajnsgSN4kZ4a14DrWtRQ/HyhC3onuV6l+35A/LPeKL?=
- =?us-ascii?Q?KCNAwdYFHNxOezYiuC7komgTf3jT0gznDjH9j9B12XKUZBPpleWUZ37w/A9t?=
- =?us-ascii?Q?r/AiKpavrudVwegY2TeaLIYRjqHPfzQaOZh1gQLWGFIvK4+Gdbjn91O5pPzS?=
- =?us-ascii?Q?ov7Hji5FAD9T3UvMPdZrD/L02tO9HE7d8m8bBLoZQwvKDFa0K3rdFtkoBnUf?=
- =?us-ascii?Q?YONRVCjzBIMK7S5bZlasRyVatpuOH+6cBqYcoPrn7xKelk8AAGpEUAOJ0ZdZ?=
- =?us-ascii?Q?MYTSJRENbGO5rzt8rlutvcEaDg7YYEHfZR7OtDvI1ZET3bSIseKYalbBp1Tg?=
- =?us-ascii?Q?BImqDjvLrSiCB2bUylw84kevOrRUqkI=3D?=
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: b940b11a-0978-4c9d-9207-08ded80b163e
-X-MS-Exchange-CrossTenant-AuthSource: MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 07:25:26.4638
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O++lNQizntJmqL0rqn4PmwioM6t1B4uh0/6jFDGveF9xhPx7/2SvniGnD6oZNSeH5/RKqsTpXm2OCwFO7ZH298OOVUWzxsSwXmG0MTX2GuLNELeKEn02pGvB5ZH9Z5iM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNWP287MB6008
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260701103457.73E251F00A3A@smtp.kernel.org>
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDA3NCBTYWx0ZWRfXwjL/P5oXaSNW
+ TqTisV2CRtR0au+E9aj8OxPn4zMGAKL1O/JSn+rg6fdTgA70KSdAMPXVV4OvkAOwTq9Qgvf3e+m
+ hH6vgcctYekBLwFd1k9eXYTzk0wPG1ANI11zqQ5FMB8f0prsvB9jCQBXPogqGmENzPG989zTQpp
+ K4sGjXZraDLeXAbVDGWZmxHCu5XUmt25yx66t+55yvUJFrra/87PtEfy66UyfC8PbuW1lBl1dgm
+ 5co7Q8nzFe0Bb+6Ugu8Y+7qNczZSNg/fUeBgJ8Fu7wiFS2jBcBpiHcBJMdYq4UEQXKhmWO3jE24
+ PWtzOYo1B9ccrl7w5Mk+TOBzl/2cjUamJgcMHDftBbiFP2ZWzd6mIDhzFkXUoXtVoNqYUzTbg5A
+ ALcyKs2V/Z5XqoYsOfHlV4MxdpqVAVxf83nD1/NTia6ntU8NNJbquyhbgY4Mv3fZAVaLrw/uYqU
+ u6zFVJUvl2kVddB6YAQ==
+X-Authority-Analysis: v=2.4 cv=X8pi7mTe c=1 sm=1 tr=0 ts=6a46126f cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=LV1d6kUfYfGFZ_KTQQsA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: lu_KQoT83fvN7rQTuekGCn3jfE-n4rFK
+X-Proofpoint-ORIG-GUID: lu_KQoT83fvN7rQTuekGCn3jfE-n4rFK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDA3NCBTYWx0ZWRfX6o5Ii8rnHl2h
+ xhLaJnPu+cnRxFsjbYsPK/MWJ6TWkz8o+j4vWIwRJc9we/9cdSMxa9dzfwf0S3NvGiE1+NoNfrp
+ GFHPDK/xoYaFbkyZIzOAEVVAEJpA8IQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 priorityscore=1501 impostorscore=0 bulkscore=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020074
 
-The following features are supported:
-- Manual exposure an gain control support.
-- vblank/hblank control support.
-- vflip/hflip control support
-- Test pattern control support.
-- mode support 1920 x 1080 @ 30 fps, SBGGR10
+On Wed, Jul 01, 2026 at 10:34:56AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [High] The `PM4125_VBOOST_CFG` macro is defined twice in the driver with different values, causing the voltage selector address to be shadowed by the OTG configuration address. This leads to register corruption when applying the new device tree constraints.
+> --
+> 
+> commit ee5aeefd579f49a0fd9de6178216fb53f958a898
+> Author: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+> 
+> arm64: dts: qcom: Fix pm4125 vbus regulator compatible and constraints
+>     
+> Remove pm8150b fallback compatible from pm4125_vbus and fix regulator
+> constraints in qrb2210 DTS files to use microvolt instead of
+> microamp.
+> 
+> > diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
+> > --- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
+> > +++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
+> [ ... ]
+> > @@ -235,8 +235,8 @@ &mdss_dsi0_phy {
+> >  };
+> >  
+> >  &pm4125_vbus {
+> > -	regulator-min-microamp = <500000>;
+> > -	regulator-max-microamp = <500000>;
+> > +	regulator-min-microvolt = <4250000>;
+> > +	regulator-max-microvolt = <5000000>;
+> 
+> [Severity: High]
+> This is a pre-existing issue, but does adding these voltage constraints now
+> trigger a hardware register corruption in the regulator driver?
+> 
+> Looking at the driver in drivers/regulator/qcom_usb_vbus-regulator.c,
+> PM4125_VBOOST_CFG is defined twice with different values:
+> 
+> drivers/regulator/qcom_usb_vbus-regulator.c:
+>     #define PM4125_VBOOST_CFG		0x52
+>     #define PM4125_VBOOST_CFG_MASK		GENMASK(1, 0)
+>     #define PM4125_VBOOST_CFG		0x56
+> 
+> Because of this shadowing, the pm4125_data struct initializes both .otg_cfg
+> and .vsel_reg to 0x56:
+>
+> drivers/regulator/qcom_usb_vbus-regulator.c:
+>     .otg_cfg = PM4125_VBOOST_CFG,
+>     .otg_en_src_cfg = PM4125_OTG_EN_SRC_CFG,
+>     .vsel_reg = PM4125_VBOOST_CFG,
+> 
+> With the new regulator-min-microvolt constraints added by this device tree
+> change, the regulator core will now call .set_voltage_sel on this regulator.
+> 
+> Will this cause the driver to incorrectly write the voltage selector mask
+> to the OTG config register at 0x56 instead of the intended voltage selector
+> register at 0x52, thereby overwriting OTG configuration bits?
+> 
+Yes, you're correct, I will fix in the next patch by splitting the defines:
 
-The driver is tested on mainline branch v7.0-rc2 on IMX8MP Debix Model a.
+#define PM4125_VBOOST_OTG       0x50
+#define PM4125_VBOOST_SEL       0x52
+#define PM4125_VBOOST_CFG_MASK  GENMASK(1, 0)
+#define PM4125_VBOOST_CFG       0x56
 
-v4l2-compliance 1.31.0-5387, 64 bits, 64-bit time_t
-v4l2-compliance SHA: 5508bc4301ac 2025-08-25 08:14:22
+And updating pm4125_data to use PM4125_VBOOST_SEL for .vsel_reg so
+.set_voltage_sel writes to the correct register.
 
-Compliance test for device /dev/v4l-subdev3:
-
-Driver Info:
-        Driver version   : 7.0.0
-        Capabilities     : 0x00000000
-        Client Capabilities: 0x0000000000000002
-interval-uses-which
-Required ioctls:
-        test VIDIOC_SUDBEV_QUERYCAP: OK
-        test invalid ioctls: OK
-
-Allow for multiple opens:
-        test second /dev/v4l-subdev3 open: OK
-        test VIDIOC_SUBDEV_QUERYCAP: OK
-        test for unlimited opens: OK
-
-Debug ioctls:
-        test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-        test VIDIOC_ENUMAUDIO: OK (Not Supported)
-        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-        test VIDIOC_G/S_AUDIO: OK (Not Supported)
-        Inputs: 0 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-        test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-        Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-        test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Control ioctls:
-        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-        test VIDIOC_QUERYCTRL: OK
-        test VIDIOC_G/S_CTRL: OK
-        test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-        Standard Controls: 12 Private Controls: 0
-
-Format ioctls:
-        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-        test VIDIOC_G/S_PARM: OK (Not Supported)
-        test VIDIOC_G_FBUF: OK (Not Supported)
-        test VIDIOC_G_FMT: OK (Not Supported)
-        test VIDIOC_TRY_FMT: OK (Not Supported)
-        test VIDIOC_S_FMT: OK (Not Supported)
-        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-        test Cropping: OK (Not Supported)
-        test Composing: OK (Not Supported)
-        test Scaling: OK (Not Supported)
-
-Codec ioctls:
-        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls:
-        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-        test CREATE_BUFS maximum buffers: OK
-        test VIDIOC_REMOVE_BUFS: OK
-        test VIDIOC_EXPBUF: OK (Not Supported)
-        test Requests: OK (Not Supported)
-        test blocking wait: OK (Not Supported)
-
-Total for device /dev/v4l-subdev3: 46, Succeeded: 46, Failed: 0, Warnings: 0
-
-V3 -> V4
-
-Patch 1/3:
-- Add the required endpoint.
-- Carry Vladimir's Reviewed-by tag.
-
-Patch 2/3:
-- Address small review comments from Vladimir and Sakari.
-- Drop Patch 3/3 as suggested by Sakari.
-
-
-V2 -> V3
-
-Patch 1/3:
-- Drop the fixed data-lanes property, as the sensor supports only a 2-lane MIPI interface.
-
-Patch 2/3:
-- Use regmap paging features for page selection.
-- Use sd instead of _sd.
-- Remove an extra blank line.
-- Remove hblank control, as it is not used to set hblank on this sensor.
-- Remove an unnecessary error check.
-- Reduce the scope of the ret variable in os02g10_set_pad_format().
-- Rely on the control value for link_freq_index.
-- Call os02g10_parse_endpoint() before initializing regulators, GPIOs, and the clock in probe().
-
-Add new Patch 3/3:
-- Add dynamic mode configuration instead of using a hardcoded specific mode, as suggested by Laurent.
-
-V1 -> V2
-
-patch 1/2:
-- Corrected $id to ovti,os02g10.yaml
-- Fixed data-lanes property structure to use proper items format
-
-patch 2/2:
-- Mode-specific register writes handled dynamically.
-- Moved page 2 registers into a dedicated page 2 block.
-- Used pm_runtime_get_if_active() in set_ctrls.
-- Resolved negative hblank issue.
-- Improved error messages in disable_stream.
-- Updated V4L2_SEL_TGT_CROP and V4L2_SEL_TGT_CROP_BOUNDS.
-- Added my name to the author list.
-
-Elgin Perumbilly (2):
-  dt-bindings: media: i2c: Add os02g10 sensor
-  media: i2c: add os02g10 image sensor driver
-
- .../bindings/media/i2c/ovti,os02g10.yaml      |  94 ++
- MAINTAINERS                                   |   8 +
- drivers/media/i2c/Kconfig                     |  10 +
- drivers/media/i2c/Makefile                    |   1 +
- drivers/media/i2c/os02g10.c                   | 945 ++++++++++++++++++
- 5 files changed, 1058 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,os02g10.yaml
- create mode 100644 drivers/media/i2c/os02g10.c
-
---
-2.34.1
+regards
+Rakesh Kota
