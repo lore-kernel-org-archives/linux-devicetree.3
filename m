@@ -1,108 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F757395AF4
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 11:04:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E873C9EC2
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 11:04:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782990274; cv=none; b=a98Fu1OKGMM06B5MdnmVLLBfV70SIjI+kjChsLZ2uOTwsXFJVA6p7K3k5XPRn6M87/+yE8tD0PvHzX4rK69se5NM3klnpFMARtRyo36mMgTRX8DxP2RDYyIUyLnTq9Lr46KINKkbVdR83Icz5HNJI+/PcZqqQan8k5ZSF/ZbJU8=
+	t=1782990275; cv=none; b=b45U4w1nlPXQ7tbkhmi9vjZ+7z4YYvnkx8bRa88SEGR+yCDyl7EEERoSeQ9M/OQzlUH1GuROU/H3x7d8GYWcIXTCig7Ur+Mk5VoMcLzQhVBSoDj3wAGK+mUuVNzY6QhYNxSMIj+OAOwUHnFCue0EvsttAKQqY8aOWGWdSwOL0/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782990274; c=relaxed/simple;
-	bh=rzdxML8WMqB1xSDl0o3jwpSjzWPAzR+Wylgwl7PuL38=;
+	s=arc-20240116; t=1782990275; c=relaxed/simple;
+	bh=WOvnAqyd9suiKkPSQRDTLhMYKHvt18IBkdwyyayNtxs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Iy4XC9q29qZ6ZEOxMESibuj8GmjsP/gcV0LFamxZfVzAVhBMRuw9osw0/3H/5NUSa0p/GXUCeNgX9od9TUML3MivVcEqhJig6eWBUQ6SgL3gkF4wE8F3sX+DJ1lLHdltsS/p9JQ7m4VF2V8xibC7t1SL64u50ZyFQ3P+n55v9TM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/ZrHDTV; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=kM5pOItIqQ9rKIFJYV0mx/lq91Nu0y/CEFllgOIHIA2/TeoEvWIK85pZxkFPUTT8JmjF8u4CN5KzqsiCxnHuuHU+jdByoeXaLHfDOm373KUYMnXVYiDCY841f0mn8bZJyyaG5b8W1C+jvkwgyhUdyewWdWKXRiDOVkIKTqvCrVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k0HR7WU2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/ZrHDTV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441311F000E9;
-	Thu,  2 Jul 2026 11:04:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k0HR7WU2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C18AB1F00A3A;
+	Thu,  2 Jul 2026 11:04:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782990272;
-	bh=grDjBxYEW5NN9ucTbpvuhTB4YzloklBtpg5I+JEXoN0=;
+	s=k20260515; t=1782990274;
+	bh=WOvnAqyd9suiKkPSQRDTLhMYKHvt18IBkdwyyayNtxs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=I/ZrHDTVb6ItgVhNOnWytyrQYi0mSyBNzKlk03VrI97jCYyzY6FvdDN6frxfAmgPG
-	 G4xLfXP0hEP4kpOpH7dgOpXMZ6IDgglfqWwTeMZI/Kvb6YuZaYxAsgqyVg1hsPbrcR
-	 LiK92yoiU5W1wqBlTdFQxGSyQ4sjhybDuJvwxZeJqrrbESp5ggTNWLoHHqb8F2iJJD
-	 5+Nvx4zdeo/Mapvrfrp4gZzAA1w0mwBNdF+Eahfd0xCnpOZt1eKN8EO517wo6YriSt
-	 xZNVM49r5LW3K6I4lsoVSarOuakGfuMYE/JFeae6tZ0Of9hKbDoJ9J4FxRb5yk/p+d
-	 cyLTOUz+yH8DQ==
+	b=k0HR7WU2f4bU2gdySbZFUVAYbtHpMRhl6MBWqRGb3Az3q7k5GWWeL3w1FHfAF1c2K
+	 j3E02La3kP010HCEyoa5Qo24c/PEAL1z9AKGJgoWX9LD/Bo+4JDuHFW6ikhznIxIGE
+	 RFfh8EuICPDoCquc0URR/n66VGwNpw9zJAKTrEIx2bx2jXx7LqB3WfiSMdg5KqNCUr
+	 P+XkuMYDWtIetLn6S89qQT3mZN2jBcG8hq5ybKhrbNEW6rDo+n5NKfGuL67KswU3wc
+	 s1KTQpblcgxCIyVoh97HxsV1FdFcuLmUW6G+29RD2nUOSmagzcai9mUFn0fRTdtOh7
+	 8iohzc19FPmgA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] media: i2c: og0ve1b: Introduce per-sensor data
- structure
+Subject: Re: [PATCH v6 7/7] thermal/drivers: airoha: Add support for AN7583
+ Thermal Sensor
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wenmeng Liu" <wenmeng.liu@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260702-og0va1b-v2-2-0071442caa2a@oss.qualcomm.com>
-References: <20260702-og0va1b-v2-0-0071442caa2a@oss.qualcomm.com>
- <20260702-og0va1b-v2-2-0071442caa2a@oss.qualcomm.com>
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260702094846.17325-8-ansuelsmth@gmail.com>
+References: <20260702094846.17325-1-ansuelsmth@gmail.com>
+ <20260702094846.17325-8-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 11:04:31 +0000
-Message-Id: <20260702110432.441311F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 11:04:33 +0000
+Message-Id: <20260702110433.C18AB1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] The AIROHA_THERMAL_MUX_SENSOR regmap field is defined as 2 bits =
+wide, which will silently truncate valid sensor enum values.
+- [Medium] Potential signed integer overflow in temperature calculation.
+
 Pre-existing issues:
-- [High] Incorrect return value check of pm_runtime_get_if_active() leads t=
-o unbalanced PM usage count and potential log-spam.
+- [High] Devm registration order causes a Use-After-Free of the thermal zon=
+e if an interrupt fires during driver unbind.
 --
 
-commit 77fd9b09419f467242cfd9a487b0ac45ff5344ef
-Author: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Note: The format of this review has been altered to a free-form summary
+rather than an inline diff review to comply with automated code recitation
+restrictions.
 
-media: i2c: og0ve1b: Introduce per-sensor data structure
+commit 20661087884d15a906fbdeeb53c5ad53bd3cd15e
+Author: Christian Marangi <ansuelsmth@gmail.com>
+Subject: thermal/drivers: airoha: Add support for AN7583 Thermal Sensor
 
-This patch moves sensor-specific parameters into a new
-struct og0ve1b_sensor_data to prepare for supporting additional
-OmniVision sensors. The sensor data is selected at probe time
-using i2c_get_match_data().
-
-> diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
-> index 84a28cdcade10..acc06b10bf896 100644
-> --- a/drivers/media/i2c/og0ve1b.c
-> +++ b/drivers/media/i2c/og0ve1b.c
-[ ... ]
-> @@ -261,23 +272,39 @@ static const struct og0ve1b_mode supported_modes[] =
-=3D {
-[ ... ]
->  static int og0ve1b_set_ctrl(struct v4l2_ctrl *ctrl)
->  {
->  	struct og0ve1b *og0ve1b =3D container_of(ctrl->handler, struct og0ve1b,
->  					       ctrl_handler);
-> -	const struct og0ve1b_mode *mode =3D &supported_modes[0];
-> +	const struct og0ve1b_mode *mode =3D &og0ve1b->sensor->modes[0];
->  	s64 exposure_max;
->  	int ret;
+Summary: This patch adds support for the Airoha AN7583 Thermal driver,
+dropping the PTP_THERMAL subsystem, modifying mux logic, and updating
+the EN7581 code to account for these changes.
 
 [Severity: High]
-This isn't a bug introduced by this patch, but I noticed a pre-existing
-issue in this function regarding the return value check of
-pm_runtime_get_if_active().
+This isn't a bug introduced by this patch, but there appears to be a
+pre-existing devres registration order issue that could lead to a
+use-after-free during driver unbind.
 
-Later in og0ve1b_set_ctrl(), the code does:
+In en7581_thermal_probe(), devm_request_threaded_irq() is called to
+request the IRQ early. Later, in airoha_thermal_probe(), the thermal zone is
+registered via devm_thermal_of_zone_register() and assigned to priv->tz.
 
-    if (!pm_runtime_get_if_active(og0ve1b->dev))
-        return 0;
+Because devres frees resources in the reverse order of allocation, during
+an unbind or module removal, the thermal zone will be unregistered and
+freed first, leaving the IRQ still active. If a hardware thermal interrupt
+fires in this small window, en7581_thermal_irq() will execute and
+dereference priv->tz, which has already been freed.
 
-Because pm_runtime_get_if_active() can return a negative error code
-(like -EINVAL when PM is disabled), the logical NOT operator will evaluate
-the negative error as false. This bypasses the error condition entirely,
-allowing execution to proceed to I2C hardware register writes and
-unconditionally calling pm_runtime_put().
+Should the IRQ registration be moved after the thermal zone registration,
+or perhaps use devm_add_action_or_reset() to ensure safe cleanup ordering?
 
-Since the initial 'get' call did not increment the usage counter on error,
-the subsequent 'put' call decrements it improperly. Could this cause an
-unbalanced PM usage count underflow and trigger kernel warnings?
+[Severity: Medium]
+In an7583_chip_scu_fields, the AIROHA_THERMAL_MUX_SENSOR regmap field is
+defined with LSB 2 and MSB 3, making it exactly 2 bits wide.
 
-Should this condition be updated to explicitly check if the return value
-is less than or equal to zero?
+However, the an7583_thermal_adc_mux enum defines sensor indices that go
+up to 6 (e.g., AN7583_CPU_TEMP_SENSOR). While the code currently only
+reads sensor 0, if future or modified code attempts to select sensors 5
+or 6 as provisioned by the newly added arrays, regmap_field_write() will
+silently mask and truncate the value to fit into the 2 bits.
+
+Does the AN7583_MUX_SENSOR register field span more than 2 bits in
+hardware, or are the higher sensor indices handled differently?
+
+[Severity: Medium]
+In an7583_thermal_get_temp(), is there a risk of a signed integer overflow
+during the temperature calculation?
+
+The formula used is:
+*temp =3D (slope * delta_diode * 10) / delta_gain - offset * 10;
+
+Since slope can be up to 8390 (for the CPU sensor), multiplying slope by
+delta_diode and 10 results in 83900 * delta_diode. If the ADC values
+diverge such that delta_diode exceeds around 25,595, the multiplication
+could overflow a 32-bit signed integer before the division by delta_gain
+occurs.
+
+Could this be mitigated by casting to s64 or using mul_u32_u32() if the
+hardware ADC resolution allows for such large delta values?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-og0va1b-v2=
--0-0071442caa2a@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702094846.1732=
+5-1-ansuelsmth@gmail.com?part=3D7
