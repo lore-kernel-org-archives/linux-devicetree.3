@@ -1,133 +1,118 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAF444DB64
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 08:46:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E73C34F498;
+	Thu,  2 Jul 2026 08:49:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782981970; cv=none; b=AVgVJylqvQBPgicWD/1JZxjlrdn5N35yo1r6S/qROPGD9Z+0vxCmuvjbidEny1WLHZjJJiOrRHOT2ElNP7Wz9ntXr37Ba6yLdDT9jE1tmWUwq6q7d6ytpdlNY1PdBZqtc7mu+Kj9K8XKAr/I+FB4CGRgCGLlvFbNbpS9IEfJi5w=
+	t=1782982153; cv=none; b=fqZIgCxSh0DZENIR0Sv7yE1ZNF/l/DxaGD/YghXUGG0UVy4dKy6Ty69bXCu9nq0oVYm50gPBRD++0yFRBUgLMsx/FMwSY+WpRdS2V9YsBqHXqmJ+NZDerstylj7I0/BroR9TnkjLpbFQXE3twQxGfPRx8hMU8EetLhlgnCYf0tc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782981970; c=relaxed/simple;
-	bh=MS5mWFwy5vf0hf4HoyQCtkkdTuvb0vq8o19bZAWxSgE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s7wiuN70mOx8EQTJZbQAaqso4Oe9F92/mXWtKGK6URiSJ3jsi1FYE8GUMS/zIrOdHqPAD9BaCpV5D9aJeNWbYQvj8EI88wcMvPuXQRG5tC6hlNl8LZPQ22s3KgS/hw2Xg5ucCcNkpS3WV8Ap+389zLcqOv/WDWf/Dn5faWd/r0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nheqRINr; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nheqRINr"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c12a430d71dso147345866b.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 01:46:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1782981966; x=1783586766; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=XTERvRmf6CZrO5bc1Pl8xU9eJ7e9Wlwnz0/kVW1zl8I=;
-        b=nheqRINrw8OuAzndytOu+U0QWFfYPNF1JD9cSK+I+G7nlr4N9TjerS2hZFQUpTNCkn
-         FNLWVeCDnsGuEetWuhqiZLF83EhZL6V0gEBfT29X9sZ+8jj5ysod+s49WmgzOLq6un9n
-         AlY4Hc/NJbqX53jNeop1y3rwiVUJ4pjVOR7CeDrP5/a+5GICf//1RhbzLcuWwZ46n4PO
-         JcZcZvjnQRbiV3FlxLw7CgLvDKUjZjYxmrhCWSaSDSGjg73CDYrvrdumLtj8fh47uNdO
-         Fd1s9E87rZWnmOz8MhcKvZsljcVOZ3X7eo/R8S9u4kkCGvdbxR3th46Yibx0rx5oUjRr
-         acow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782981966; x=1783586766;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=XTERvRmf6CZrO5bc1Pl8xU9eJ7e9Wlwnz0/kVW1zl8I=;
-        b=oAhwD8687wpMqu9sT0GmxLy1TPxPm7qHIXW/Ejg6TrSwlSxiFfufa0RFNORz6UeLEC
-         pP9L/GJN8NFfKtMEjtcfdH2HlZWOVWOO39svG4Q97wzeAAxvbag/tuFs6uZvicsr9qpe
-         zh9h5Kwg3B4+C+l6lR1pAwD7EO/rlhFOyVHWUYsclyOFLM5mH933kyBYhw37ygxBOQAl
-         5lnp70mS7r2BRKrmj6WTOqdQkLgzmpEomO40HY0zWcLIRzDw7d9qLwQ8L6rRXhKmd5/c
-         wmAbNtK9Dd/hK7PVpmB2YwEJHYf7GXSkrittKENb3A8LF8xTa9WrsCVqN9Qh1mjKSoAc
-         6Uhg==
-X-Forwarded-Encrypted: i=1; AHgh+RoJxxCXyRNNq1rRLbYPJZz5/p4nxZt6nC+BX2R2j3uJdkuomGtVuqKMHxpF3AH3HBVYmllwJ5GDXIdi@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy1An9XGa0/nWeHr6CPrPqvca8t7RdYV6WhcH3Nop5ChXzD6Ncn
-	nuMId1TGrggsH6gk82zj11yRlZhLpYKsQHH7xinboZHxphhgfUtIgohVbUuOgvwhZhU=
-X-Gm-Gg: AfdE7clMttFDCyySjKmhRnTMwNRisEcqMKJs0J8CXfrk281OdKL80JjuUS4V83Mi5ND
-	akg9EY8PD4CeJrG9H6ziBHgFWFgV9tGd22BGhJR7XoQelYzKXBuWU/PVT7NxAQoUUJhPimTTTXx
-	VsCSarBcPD3eyVbgOFmScNNOildC3aL79mGxOsfUeCn+ZLevm42VJSluAfhMz3npDMaqWIFgdsS
-	D+oTJvz/zkjvFqikQNq/8J5BQazHnzgrP8cyh/CXdpdN6FZTxL7ec/mM8vHwPr3Uw+R0HwdmhNy
-	Hh315WmcklS904uXSjB0f/Rtd25fkVKNgmp+2Vo3DLGU7hp/TGTpR+AIKqkW17W6pTptlyN/JwZ
-	+O2s9cG+PoNHEgxZvX2kztNepyY6fuvfskWyjjQnBtF9hZmIQvSPc0jaS87TZB0AM9dXajkSNO7
-	2sPRkvuJOeVAEM5M0cLQb5FtM=
-X-Received: by 2002:a17:906:6a07:b0:c12:706f:c8ee with SMTP id a640c23a62f3a-c12a9d385e9mr217162766b.11.1782981966186;
-        Thu, 02 Jul 2026 01:46:06 -0700 (PDT)
-Received: from [192.168.0.101] ([109.76.47.17])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c12b62f6e3dsm89006666b.62.2026.07.02.01.46.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jul 2026 01:46:05 -0700 (PDT)
-Message-ID: <3e2e6184-e020-49cc-9a4b-609c05aed846@linaro.org>
-Date: Thu, 2 Jul 2026 09:46:04 +0100
+	s=arc-20240116; t=1782982153; c=relaxed/simple;
+	bh=7wSPEAvHVPKDCi5YqK0yrAD5Yqjwtx8pW9dn4Px3iF4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YIu9vBVSGy85EB6jJAhyDWYj5kNRo37XdhmjEuf4npnmgDs09U7vNm+Ye+jJZL7SBbb+BdLa/PAcmc9LfNc3M9fcSiERrBbHrlOE11HKwC/JaJKnXZ+t4uLBl5Qw5ygHz0P8jiAILEFb6lRB6TAL3+WVQ9Fgv5+UZQT627fnwog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 9E5A7201223;
+	Thu, 02 Jul 2026 10:49:07 +0200 (CEST)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1wfD6Z-005iXJ-1Y;
+	Thu, 02 Jul 2026 10:49:07 +0200
+Received: from pengutronix.de (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 1628755E0B7;
+	Thu, 02 Jul 2026 08:49:07 +0000 (UTC)
+Date: Thu, 2 Jul 2026 10:49:06 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Cunhao Lu <1579567540@qq.com>
+Cc: krzk <krzk@kernel.org>, heiko <heiko@sntech.de>, 
+	linux-can <linux-can@vger.kernel.org>, mailhol <mailhol@kernel.org>, kernel <kernel@pengutronix.de>, 
+	robh <robh@kernel.org>, krzk+dt <krzk+dt@kernel.org>, conor+dt <conor+dt@kernel.org>, 
+	devicetree <devicetree@vger.kernel.org>, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, 
+	linux-rockchip <linux-rockchip@lists.infradead.org>, linux-kernel <linux-kernel@vger.kernel.org>, 
+	shawn.lin@rock-chips.com
+Subject: Re: [PATCH 1/3] dt-bindings: can: rockchip: add rk3588v2 CAN-FD
+ compatible
+Message-ID: <20260702-urchin-of-abstract-fruition-25a192-mkl@pengutronix.de>
+X-AI: stop_reason: "refusal"
+References: <tencent_97F21396469202221027FD429A6E69DA6409@qq.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
- <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
- <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
- <7c564df8-5c5a-4b43-806e-5e017e5c51db@kernel.org>
- <ae3a381b-5697-43ee-bdfd-aaf2d22ceedf@linaro.org>
- <6b6492a4-7610-4dce-a81c-8dc0387a4061@linaro.org>
- <1c583e24-09db-4d90-8f32-d3d3961188a0@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <1c583e24-09db-4d90-8f32-d3d3961188a0@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5reivf23ta633xqa"
+Content-Disposition: inline
+In-Reply-To: <tencent_97F21396469202221027FD429A6E69DA6409@qq.com>
 
-On 02/07/2026 09:31, Vladimir Zapolskiy wrote:
->>>> phy-cells = 1 with CPHY/DPHY specified in the consumer, as was Rob's
->>>> suggestion will specify the mode.
->>>
->>> This cell is just not needed, and unneeded complexity should not be 
->>> added.
->>
->> I'm going to stick to Rob's initial guidance on this.
->>
->> https://lore.kernel.org/linux-media/20250710230846.GA44483- 
->> robh@kernel.org/
->>
-> 
-> Sure, the discussion will be continued abouve v9 of the series, it's
-> just a chance to do it now. Rob properly pointed out, that the invented
-> "phy-type" is not needed at all.
 
-I'll quote here
+--5reivf23ta633xqa
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/3] dt-bindings: can: rockchip: add rk3588v2 CAN-FD
+ compatible
+MIME-Version: 1.0
 
- >> +  phy-type:
- >> +    description: D-PHY or C-PHY mode
- >> +    enum: [ 10, 11 ]
- >> +    $ref: /schemas/types.yaml#/definitions/uint32
+On 02.07.2026 16:17:25, Cunhao Lu wrote:
+> > And why is this different from rk3588?
+>
+> The reason I used rk3588v2 is that this is how the controller identifies
+> itself at runtime:
 
- > Perhaps putting this in phy cells would be better because the consumer
- > decides on the mode.
+There are 2 silicon revision (v2 and v3) of the rk3568 available on the
+market. The v2 has several errata in the CAN-FD core, the v3 has some of
+them fixed...
 
-A clear instruction which I'm implementing.
+>   rockchip_canfd fea60000.can can0: Rockchip-CANFD rk3588v2 rev2.2 (errat=
+a 0x0000) found
+>   rockchip_canfd fea70000.can can1: Rockchip-CANFD rk3588v2 rev2.2 (errat=
+a 0x0000) found
 
-> Ther fact is that the whole placement of the CSIPHY to phy subsystem
-> looks execessive, since you add a driver for a media device, there will
-> be nothing PHY driver specific left in the CSIPHY driver but name.
-No, a block with its own pins, external voltage rails, even its own 
-specific votes to scale individual clocks, is a distinct PHY.
+However, the version register _in_ the CAN-FD was not changed. :/
+This is why we have a rockchip,rk3568v2-canfd and a
+rockchip,rk3568v3-canfd compatible.
 
-There will be no further CSIPHY init sequences getting buried in CAMSS. 
-It is well past time to dispense with the monolith.
+> I also checked Rockchip's vendor kernel 6.1 sources. The RK3588 DTS uses
+> the binding name "rockchip,can-2.0" for these controllers, while the
+> upstream driver has SoC-specific compatibles for the Rockchip CAN-FD IP.
+> That is why I chose the SoC/IP variant name rockchip,rk3588v2-canfd.
+>
+> If the preferred binding name is rockchip,rk3588-canfd instead, I can
+> change the compatible in v2.
 
----
-bod
+Yes, please use rockchip,rk3588-canfd, unless we get information from
+rockchips about CAN-FD errata and SoC silicon revisions.
+
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--5reivf23ta633xqa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCakYl/wAKCRDMOmT6rpmt
+0rfWAP9/cy8OIXtO2OsLEOg1oWmpztwHSI3qImvegZ3uAfi0ewEAuNTEKGjvR8Zk
+lIRDOsvwwOhBdVLvPlX2tiOSHSCDaAU=
+=sMDb
+-----END PGP SIGNATURE-----
+
+--5reivf23ta633xqa--
