@@ -1,47 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CA83D0BE1;
-	Thu,  2 Jul 2026 23:40:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 617383D891D;
+	Thu,  2 Jul 2026 23:40:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783035653; cv=none; b=L++B5pdQiRp/CIkMbRu4D4LheOvTSoMUCcf53XCeIuuLsptZepQYZdFBmMsmFpazFb/Hp+naWovxfEiPo3k0Mgzv1r+mPuYBxwYjZuSWfyUEa8LhIn7GgQRtb1dEgfJ1eoo72PX2esyNYh3AklCEdBksaGyPznJqgbpJJ5zfB3M=
+	t=1783035654; cv=none; b=jDfW74qpS6QVj1KjoLNR6uK+IIZMBDXWW1O4gfTVuFii0TPiRbKb/HbuUWwz+IhP/eX00oXL21yRWlh3i4JMEKoKKMjeQQ/2ATd0AwAUEbJWw4pmXuwqZEsFMPmTUBgmijPEVEdcfrGkDWFXKtsvGIZumGegr3DpPS6jA41/fgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783035653; c=relaxed/simple;
-	bh=HvbELMq7ISPfqslk2/mUbTSL4u2IYIdSkb49Tr3BMR0=;
+	s=arc-20240116; t=1783035654; c=relaxed/simple;
+	bh=l9spci7wDEpJLZ0ISA3p5a9l5hv3zc/skWpsshTrmPk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kezPkzM/3eBezMSYnja7AazLMjED28P0P1UeYjZ3pGUmVVHLeA6yme4uUwb75Vm9+xm33/xjkM/Me+nyoCDC04MEFszdIyGDntz/tuOxJ+8IzM4tIKVO+gaY/BcUL4zjgy4fl5SVfajQN2jt+cdLzKBBpeJwtkCzO90vlqsC8Jg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=huoTh3DQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=TFyQzJUnfMoJGTxvJzzYfSdB8DpSR/JWf6mhJ26u36cn3/WUtcB9YwhNdx39P7YYQnFbXsI8eX62miAEl0vunjCa7BCVhjHf2bx93FXkR6cg3MkKsIBGc6lm62LczaePCfRIzxlU+G6dMHzw+yRNLMuLtaShz9S+nqJZsOMnvFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kYU47413; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="huoTh3DQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EF311F00A3D;
-	Thu,  2 Jul 2026 23:40:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kYU47413"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25B0B1F00AC4;
+	Thu,  2 Jul 2026 23:40:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783035651;
-	bh=pEsxl+SQAqfXnopdDYCp8eBwJkEWaZnY3gq8g8Mwtis=;
+	s=k20260515; t=1783035653;
+	bh=g3FFvyyIDJyPhTD9hVaJeHaGOhq5im2CkZNBhxhPR74=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=huoTh3DQYLFQ28umQTve0BAFE2XeUXvlje6eSD2oTaI6c9+7YuQejtHnTDXDpPAkv
-	 t8plZODMuu02c1Op6KaGieIR/uhMPNedm0fRi0sW61BabKb1T1zg6SqoinioiMUda2
-	 k59QCAtOHr2vpPDLmqtTNbxZoFUaSXm1NbAvYmX0q9PdFJS5KSO6M2ikq6X3KeBTns
-	 /YxkE2QZGU/eoGKpktGouV/+Sz4dD5yap7Axgdrd27nwmmfp6o+umGYDDgBiOZ8iLt
-	 c6tI31kNNtmfGTGvyfHL+P+IoX3W2oXYVu+Qq4p29GQTtvSpjHsbdr6/Vk6IKnVeOm
-	 F2gNC8amii8Bw==
+	b=kYU47413wWq1KYgWZ17lzcJGfgkFzNeIjFtc05YpxkiD4Vm5jBPkcC6ayeOQk0NOr
+	 4WMQqm78fOW+znc311V5lqLIE1N42bJ3e5DGxw0dnsjbjzj70YZlv3LETnJuOW5moG
+	 CHCEaoQE1o+g2ZbeL1mhFOIw+A4Ms4JdYn1Y2OSyZ8BHseIF2G8Dli7kElWr6itWcb
+	 UZIRhRQBEG3GvqWsz+hCaFc3vvtL/Zz5FoCPPZ1qQQoWatnSdjfKYkwLZxZmGgN5QZ
+	 QwVGdiIMV9C2Cwdxhc31u/FSgUKIcHQq0OrFZnFIbgSZkedLdQ6jynBbR3sSd+qw5D
+	 cHCRsTALpdh8A==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Herring <robh@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Ananthu C V <ananthu.cv@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	Qiang Yu <qiang.yu@oss.qualcomm.com>,
+	Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+	Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v5 0/2] arm64: dts: qcom: add IMEM and PIL regions for glymur
-Date: Thu,  2 Jul 2026 18:40:26 -0500
-Message-ID: <178303563662.359079.16563239156520939989.b4-ty@kernel.org>
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: fix PCIe SMMU interrupts
+Date: Thu,  2 Jul 2026 18:40:27 -0500
+Message-ID: <178303563638.359079.11959685663538758993.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260424-glymur-imem-v5-0-18ede63cf063@oss.qualcomm.com>
-References: <20260424-glymur-imem-v5-0-18ede63cf063@oss.qualcomm.com>
+In-Reply-To: <20260611-glymur-pcie-smmu-espi-v1-1-5effbaa3e1af@oss.qualcomm.com>
+References: <20260611-glymur-pcie-smmu-espi-v1-1-5effbaa3e1af@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,22 +59,17 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 24 Apr 2026 03:36:12 -0700, Ananthu C V wrote:
-> This series adds dt binding and node for IMEM on glymur.
+On Thu, 11 Jun 2026 19:00:44 +0000, Bjorn Andersson wrote:
+> The PCIe SMMUv3 wired interrupts are routed to GIC extended SPI INTIDs
+> 4100, 4098 and 4096. Describe them as ESPIs with the ESPI-relative
+> interrupt numbers instead of regular SPIs 964, 962 and 960.
 > 
-> changes in v5:
-> - updated reg size to cover the whole imem region instead of only the shared imem
-> - picked up reviewd-by for the dt node
-> - Link to v4: https://lore.kernel.org/all/20260327-glymur-imem-v4-0-8fe0f20ad9fd@oss.qualcomm.com/
 > 
-> [...]
 
 Applied, thanks!
 
-[1/2] dt-bindings: sram: document glymur as compatible
-      commit: fdb2f446c4e6758802d678858b5811d46709d0e6
-[2/2] arch: arm64: boot: dts: qcom: add IMEM and PIL regions for glymur
-      commit: 4c53f51b442ae8cc4545fc5ec349ce6ed7afb4cf
+[1/1] arm64: dts: qcom: glymur: fix PCIe SMMU interrupts
+      commit: 52c7084c8fe57c259e50ff0a7d4f99ccecfc4c7a
 
 Best regards,
 -- 
