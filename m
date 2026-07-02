@@ -1,259 +1,110 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF1EE3D649D
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 10:46:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FE72DA76A
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 10:48:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782989202; cv=none; b=HdTR4riaQzJERDG4MnVCUV7V/7bSnvFirJ62IFIeUlCxvYIxjarQNdRdY7uwbXJzj024aPJu9IZqlOYhfy/jKgCZVEHIjAdHReaylHbdP+eBXuSlLoE+5Au4EA0T3s3+0UjydKte4MSVjclTEsr45+p6V6Be/alRxWNvpviIF+k=
+	t=1782989310; cv=none; b=mqSnJgcdjUNz3O+JF4MTc2WZrLck6RFNamwIQQAfpRP18PHjv65iQOHcb+ir0MEduuBNbfFlpyg4IQyxlRtKxGz5yF8845gvCk1BF2hp7wqwEZXakKO9Kff12xCTCCF26qJ7Sco5FodMNZatrKwbt0HoUsMaBqTiqhHO6ogHH+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782989202; c=relaxed/simple;
-	bh=3DSVzwIlnQfv+D7lfNEK0mAhgs9cSZ6PohGta8ETunw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=g4s0gNuc0f1UKyUSuHnpyd86mK40JFgBAcPSh3onmYfwJi897Atf0XQBbqSCfpJTHcEfscq0egDSn8XG6fuiRAqPQfWoZzsS6Kcy5x319wov+jUB4m/xsQo0fxaxUWXSbm/hOnhlzHMI1i1Uj/VR888aVftS9+4SDon4SyQbLeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T4ItMzV4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UcHrN8bf; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782989310; c=relaxed/simple;
+	bh=aSgR0BZbDX5F+yB0CFZHk4ErklV6S+gUzOLSPfMiQBE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JORYW14flCXZGKqDiP6URprBV46UyjNArrFJuKZQ+KhbghXlLO+yp5qL1SZFA2VsmyJSRwXWNGAaSdMi6XbemyLEuVc9322xYli/bU1AMgnUONO31Pzt3osO2htjlIY4XpLXf5An3nS/nYvSd9LcfqkSHVI+c5bJ8yGMKeYaods=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3QNpopv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T4ItMzV4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UcHrN8bf"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6629Kot74116826
-	for <devicetree@vger.kernel.org>; Thu, 2 Jul 2026 10:46:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Wa7zNeg/NowcWs39grlG3DDJYgS0nuGoGJSwyYi+7Oo=; b=T4ItMzV4QpaTtcBx
-	XsVrhIVkfIpAIf5yUx+JRAUEB2piepvOZfe4XDKmVQxNjAPWFesCq4qSmt9KLGw5
-	vqQhsBW1Kc7XW3WE/IP2o9jc8N+svf3miupUWM7ZoOhxdM/YoDFpRrAJ7xRJznhl
-	4rpkL/EgCj5BDT41MBHUADyfLGSZoWJvHiqd7Sao9BIELkkQPpK5CYeSrj9RUTrc
-	MQb8fJXzlvz270zHmi2onpJqZlTKIDB5il+7Ls1cu80idVKSt9SzNnE92QOzfhRY
-	BQ2m9iq7wN5JPksKS4U/DjyqCoX7TjP2vYsv8d3tVHqFaXYi5KQJhKuvbFn5F+Fn
-	y1jTgw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5n9bgagk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 10:46:37 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e53b8a302so170910085a.1
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 03:46:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782989197; x=1783593997; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Wa7zNeg/NowcWs39grlG3DDJYgS0nuGoGJSwyYi+7Oo=;
-        b=UcHrN8bfSR6RgK9NtvaXhvHVROBc/o13hdfG5xmWpUATvmV5xu8/VcqU779U2Aafgw
-         yd8y+fIxiSE200ohu0SaFY1bC93gwnxLonGvue2NH7yiAjdVKtNxwBi9BCEFkoLHatcC
-         Gic6np0+8IP1RBZLPbEceYlRZL1dT/EpaG+fih2mOYNW9hPuwAVF/NRoNTjE9GIDFhFY
-         W7sv5+c9G1KQUduFfv+Z2iZ4JOTXsFtQOtE3z9Yh/p2f6P6ODNudhRbChsGASYJ2aEhk
-         CstwZuIo5HfSJxUFNKZfpWA3UazwmDabpgDZ80u2H9sQ+l1+uXZEN1mJqhIhPfRAvAYm
-         nhsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782989197; x=1783593997;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Wa7zNeg/NowcWs39grlG3DDJYgS0nuGoGJSwyYi+7Oo=;
-        b=a8U3EcMF95sm7hI4AwViAXrn19qe0HPvJONxfJ7TQOJM7FYwvxIFx/CTOk6exvq9R2
-         C5YCtSP6ocS8yKm/UnD/bCmt/5PRQwm61FjjELEIBV+ScnqzdQm0J9nFhVWteqjNKOT/
-         V20OPRg87Uwl6AiGyJ4sviDgB1o4ESz/SDfteZsV6RXJsO1JbWHdFNktiN4XpMKpqJPO
-         y0aY5K68S0WQ6PUXUOsK1bvgxsu9ZOmPtSJA1YHfLR+iLHQHW6j1EhYSFElll2HRVIVF
-         w54c8zAW9jzmBA9aXoh/rmjDQYRHwuzKdXGn1YzR08ejEagXoHiUAw6BT+XfA7zkk0VJ
-         nK0Q==
-X-Forwarded-Encrypted: i=1; AFNElJ+rpMBDoki19uG9/RRbRrli4a1RJocPip5X0KvRo0FLS/j0k98B91Q+arOFqsT2SXMnX/qWG+GVufIs@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKEO6QfPVuaBR1DZySMDDAgydwXhK5F4y57DwI58YEnPoEQrSd
-	NJKg7tHorbVFsaQC6tPFG99PqY/MnALFbiAgIri/eP/rfg4K51A0T6lOLohAfXWNFenqs6jEIG3
-	S4XAo/jLmlhdNCqF2TE1rD4tnceL0Th3GkdHKblRLocaOiMvgrc5SRfBkHcz88/Up
-X-Gm-Gg: AfdE7cmEPWuhuETAc8U+AiYv+kb86xpeiALu31UT/HnqrwdmiBLTuQuxRxT868ch5X3
-	wiTbWvP8hPOIimHQNjgWQVpFWcDbG2e3zoJ/akDZUzUhOvNO9putrtF6lZcqN3yKNf9nmgjqsxf
-	m+RxVtHY42+h6S6M3Tr0cVYnTO5JjHvEkMSgCHZmo69wMaRvipWDxWcVdZiHragaeIGXRtSRBDw
-	80J/0N55MQL4h5d44B8m05fApUIDtcdUqukIuhbWWdMSjeL3od/ZmBv2snWUVo5Isnupt8Z1MjR
-	EWrFf3eHmMez6RRuhkL40qE6vD1W1vVxl/reMthRIX4nvyjPlJ1Q8nwxH4GsScl6D+bI4DCAmBh
-	+Jl6JRCrmUb8PjNz3LqUPJXGS6bACAQ69LuUK9FiHjRciXiVlwE2bTLsroBAWNexUznnqeUjJ/S
-	cDl17lp6oGt6FiZOTewj+XxVHz44YjPnq+NshhT3CTvjou14bqxRtmA4RM0wfdKOI=
-X-Received: by 2002:a05:620a:444f:b0:92e:5610:e479 with SMTP id af79cd13be357-92e784db52fmr656334685a.52.1782989196821;
-        Thu, 02 Jul 2026 03:46:36 -0700 (PDT)
-X-Received: by 2002:a05:620a:444f:b0:92e:5610:e479 with SMTP id af79cd13be357-92e784db52fmr656332885a.52.1782989196333;
-        Thu, 02 Jul 2026 03:46:36 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:809d:5d56:19d9:ff8b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c12b5ae4959sm109689666b.0.2026.07.02.03.46.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 03:46:35 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Thu, 02 Jul 2026 12:46:16 +0200
-Subject: [PATCH v2 4/4] arm64: dts: qcom: monaco-arduino-monza: Add QCA2066
- M.2 WiFi/BT support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3QNpopv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BB0A1F000E9;
+	Thu,  2 Jul 2026 10:48:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782989309;
+	bh=NFrDCEAIJ5zCwfJSOsof5DCSd9bqWCaukbFE6APHNXc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K3QNpopvU+El+zc9jMHERCE6FhZCSSpHMN7jdF3Zp+DMJNRZ1kzl6+hDRhdDjarK4
+	 fslW26ZY3XHa7RLl4zGU+F5QEf0VWkdrrEMW4ZdZ4eMESpdsdBFhJFMRmeUqTCId1g
+	 F8KIA2u7LioN7s+vUaC9wcBrPtbikv2PMJs+7w5+AOLOQ0Ic+tcVXwfE1jRnNQrEZV
+	 lnPbfJ9OkiVKPt2zijfiTaosAjjLQwZZLpKP+KoABoWd6PLBKjqDnNogv1RnoJWDn2
+	 wcGCkZY9d7F4LdSIHp7Gl1WpkGEKzKxKn+Cd4/MdrOSVgvHTCFrmCK+ftN6FDMyifC
+	 oshH4kDtB4JNQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 6/7] dt-bindings: arm: airoha: Add the chip-scu node
+ for AN7583 SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260702094846.17325-7-ansuelsmth@gmail.com>
+References: <20260702094846.17325-1-ansuelsmth@gmail.com>
+ <20260702094846.17325-7-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 10:48:28 +0000
+Message-Id: <20260702104829.5BB0A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-monza-wireless-v2-4-7b56e2a6a6d4@oss.qualcomm.com>
-References: <20260702-monza-wireless-v2-0-7b56e2a6a6d4@oss.qualcomm.com>
-In-Reply-To: <20260702-monza-wireless-v2-0-7b56e2a6a6d4@oss.qualcomm.com>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-ORIG-GUID: Rcs2zVaC_t647e4m_Et1OYFzRTDP8dDF
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDExMSBTYWx0ZWRfX6+cfx3cIJZAu
- fbWMDciGRlhDgX4eWt/gPPDjR6RHuFPeECYB+hqDA09LlkpxK99oVi4Q/40QcubSSR6IU6c/dPk
- fU29sLSwOHx5RwYXYbHlCW9uoimxu9Y=
-X-Proofpoint-GUID: Rcs2zVaC_t647e4m_Et1OYFzRTDP8dDF
-X-Authority-Analysis: v=2.4 cv=bOom5v+Z c=1 sm=1 tr=0 ts=6a46418d cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=EzCDy3pf2FPqfMyO2-oA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDExMSBTYWx0ZWRfX6z+F8bos76KW
- OHUjqJRI+XKG4eF3a++b32m3XRVB3mjj9joE0L04Q8hf2Ne3yDchUn+JNCDuLvWjlnPz6Te8sh4
- BCrSr6ryc889phRc3W+EwMI4vJObW+DQPbBYWz057GYISNP6kyrXH+Q0lq+KEkMhn+ewXnMSak0
- Bm5tiewYfQRmWofvuliK+rdos0kuC5KK1T7YVOyxkv4Nfo+6yeEa925PsqYoloj5AizZHWuEcok
- EinnIiB79QRfo7tvYUXVXao0yeAt7NzwWi1YMtwybOJEgg/BNjbPwwYcJRxMXLaw3OGw4/mJB1b
- pZpYg08id6uF72biPWPKbQpZvbKDIbU8rb64l1c/85+/019jHZT32NTLU5AC7PCcaR5wrZMB7GH
- ol2zw1Zmxx7U9VDuqQaFz4Mqsd4A651UVJHl/9S5uKTxrJWP3ACbWT04cXl8pBtYiOkbVzrtfo6
- ocmHgEQ3XTTnG46qTJw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015 suspectscore=0
- phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020111
 
-Add support for the QCA2066 (QCNFA765) WiFi/Bluetooth module on the
-Arduino VENTUNO Q board. The module is interfaced via LGA and is
-compatible with the M.2 Key E.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `#thermal-sensor-cells` property is missing from the require=
+d list for the new `airoha,an7583-chip-scu` variant.
+--
 
-Add wireless-lga-connector node using pcie-m2-e-connector binding,
-connecting PCIe port 0 to the WiFi interface and UART10 port 3 to
-the Bluetooth interface.
+commit a9f67eec355a32d0b9aed09bea5f0bd79ecbc7c5
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-Add pcie@1,0 downstream port node with pciclass,0604 compatible so
-the pci-pwrctrl driver can acquire the power sequencer and enable
-the M.2 slot before PCIe enumeration.
+dt-bindings: arm: airoha: Add the chip-scu node for AN7583 SoC
 
-Add nfa725b_default_state pinctrl for the W_DISABLE1/2 GPIOs
-(gpio56/gpio55) used by the power sequencer.
+This commit documents support for the Airoha AN7583 chip-scu node. It is
+similar to the EN7581 SoC but adds support for a thermal sensor.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts | 64 +++++++++++++++++++++--
- 1 file changed, 60 insertions(+), 4 deletions(-)
+> diff --git a/Documentation/devicetree/bindings/arm/airoha,en7581-chip-scu=
+.yaml b/Documentation/devicetree/bindings/arm/airoha,en7581-chip-scu.yaml
+> index 67c449d804c22..cc564dc7b414d 100644
+> --- a/Documentation/devicetree/bindings/arm/airoha,en7581-chip-scu.yaml
+> +++ b/Documentation/devicetree/bindings/arm/airoha,en7581-chip-scu.yaml
+[ ... ]
+> @@ -19,15 +19,29 @@ properties:
+>      items:
+>        - enum:
+>            - airoha,en7581-chip-scu
+> +          - airoha,an7583-chip-scu
+>        - const: syscon
+> =20
+>    reg:
+>      maxItems: 1
+> =20
+> +  '#thermal-sensor-cells':
+> +    const: 0
+> +
+>  required:
+>    - compatible
+>    - reg
+> =20
+> +if:
+> +  properties:
+> +    compatible:
+> +      contains:
+> +        const: airoha,en7581-chip-scu
+> +
+> +then:
+> +  properties:
+> +    '#thermal-sensor-cells': false
+> +
 
-diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-index f67a554adf956696aeac2348e478dbd0b74f0e62..e3d3d68932efff494f3c7ab96d75869be24c4a94 100644
---- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-+++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-@@ -155,6 +155,40 @@ vreg_nvme: regulator-3p3-m2 {
- 		enable-active-high;
- 		startup-delay-us = <20000>;
- 	};
-+
-+	wireless-lga-connector {
-+		compatible = "qcom,pcie-m2-1418-lga-connector",
-+			     "pcie-m2-e-connector";
-+		vpcie3v3-supply = <&vdc_3v3>;
-+		vpcie1v8-supply = <&vdc_1v8>;
-+		w-disable1-gpios = <&tlmm 56 GPIO_ACTIVE_LOW>;
-+		w-disable2-gpios = <&tlmm 55 GPIO_ACTIVE_LOW>;
-+		pinctrl-0 = <&nfa725b_default_state>;
-+		pinctrl-names = "default";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			/* WiFi/PCIe */
-+			port@0 {
-+				reg = <0>;
-+
-+				lga_pcie_ep: endpoint {
-+					remote-endpoint = <&pcie_bridge_ep>;
-+				};
-+			};
-+
-+			/* Bluetooth/UART */
-+			port@3 {
-+				reg = <3>;
-+
-+				lga_uart_ep: endpoint {
-+					remote-endpoint = <&uart10_ep>;
-+				};
-+			};
-+		};
-+	};
- };
- 
- &cci1 {
-@@ -409,6 +443,22 @@ pci@0,0 {
- 		ranges;
- 		reg = <0x010000 0x00 0x00 0x00 0x00>;
- 
-+		pcie@1,0 {
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+			device_type = "pci";
-+			compatible = "pciclass,0604";
-+			bus-range = <0x00 0xff>;
-+			ranges;
-+			reg = <0x020800 0x00 0x00 0x00 0x00>;
-+
-+			port {
-+				pcie_bridge_ep: endpoint {
-+					remote-endpoint = <&lga_pcie_ep>;
-+				};
-+			};
-+		};
-+
- 		pci@2,0 {
- 			#address-cells = <3>;
- 			#size-cells = <2>;
-@@ -501,6 +551,12 @@ max98091_default: max98091-default-state {
- 		bias-pull-up;
- 	};
- 
-+	nfa725b_default_state: nfa725b-default-state {
-+		pins = "gpio55", "gpio56";
-+		function = "gpio";
-+		bias-disable;
-+	};
-+
- 	pcie1_default_state: pcie1-default-state {
- 		wake-pins {
- 			pins = "gpio21";
-@@ -544,10 +600,10 @@ &uart7 {
- &uart10 {
- 	status = "okay";
- 
--	bluetooth: bluetooth {
--		compatible = "qcom,qca2066-bt";
--		enable-gpios = <&tlmm 55 GPIO_ACTIVE_HIGH>;
--		clocks = <&sleep_clk>;
-+	port {
-+		uart10_ep: endpoint {
-+			remote-endpoint = <&lga_uart_ep>;
-+		};
- 	};
- };
- 
+[Severity: Medium]
+Since the AN7583 variant adds thermal sensor capabilities, shouldn't=20
+#thermal-sensor-cells be conditionally added to the required properties lis=
+t=20
+for airoha,an7583-chip-scu?
 
--- 
-2.34.1
+Without enforcing this via an else block or an additional conditional, devi=
+ce=20
+tree nodes for the new AN7583 variant might silently pass schema validation=
+=20
+even if they omit the #thermal-sensor-cells property.
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702094846.1732=
+5-1-ansuelsmth@gmail.com?part=3D6
