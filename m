@@ -1,133 +1,162 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5613ACA60;
-	Thu,  2 Jul 2026 07:41:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A433ACA6F
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 07:41:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782978084; cv=none; b=X9DHgCrjkFCn++lA4wvnXs+HKbgkyUOngu+sLYcBPAcFTNSc/iU2tZZnE31s1ltwTtL1EWoUA29abJXiZ7FQ6fBZdsV8ltBnFsdoLqJWpJZUA+HU3eea2f0uoZPeXqR1dsaoxO/5PybDmavKmCnBTtl5dNOscXqj0+DggRG9haQ=
+	t=1782978086; cv=none; b=A3CjlT6/74zKrzQ5v9Vf+KDnjxgSOrlI9KsBa8YZvoZ2Y2ta0sXuDTFS2Xj9j9zkv5pO2JiV975V9goYT4kQhuIaC89yyikl0nqoJ4bUMnqEIFLcrsXGPNYn3Q66e6M0lygjHt0IEayEeFVFiJHKB70UiaPOlbyEcH82GqxYMX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782978084; c=relaxed/simple;
-	bh=Y1lEoXB1q8ODD2dPeFqJs0cT8OUXcE9qfDbAofVEUyg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rwvAo9YjudISNc0snIkbjeJIJ5mHYt4Ln33i7gxDzhSYu6XAuZHL9IqSm1ZzluThbgT0ETslOGfgNh5g3gJ0qQQpTc3yOgIfzoYZkfUr+AIQCOh1nNqUJWGMMlg0l2ST7sfIXSWRLJF2xMu+OcAO2LkgcDpUO4YLhLUCsJJQtmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RE7qpIWD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782978086; c=relaxed/simple;
+	bh=gB4HycPTso9HPw/J40AqDQhfwDjF/49m/PB6JHnvZ+c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZX8hkl1t0cxDpG36+JK3VDwPAV30WClyjXGQSg9k9KeqdwqHG/aTCFWpFdH/KxfU7JED/UP2eIeIgGWjrppQzmak7m8A14fxIAS8nWncnoKKIsaLk1HIjre1dOBvm76U6A39KaSMoT0V/fAAHElWoaJwhnf8LuQFlRwijxL7vaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WmXam2gJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RE7qpIWD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E7E1F000E9;
-	Thu,  2 Jul 2026 07:41:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WmXam2gJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC90D1F00A3A;
+	Thu,  2 Jul 2026 07:41:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782978080;
-	bh=cKqUiiAwoZ18B5OzBlf5xsymkGlzdDRplWzjdRUKEns=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RE7qpIWDFvo/kbkXhBKnXNzmqeP1VK2Np/NOC2qLWTzvljfC4B/Li1kfU/zKf7I+q
-	 EwCslNpsXmT7dpP36awFLSAzjtLL4i8bqiICcbvXOU2fj/xvmWT9HOi6Rf/LXKvKwN
-	 OkJJsmjb+X4L5oz1IDwNF05sFIM+/FJ4darGhAZeWDaNbbrDzQRbXEe5gXzBoHPd47
-	 WbSVjDDEpINOOnRL9LPrxQuKqCNBbLPuSSAZGHiCKr+KXI5BJ5OsCrFKQJDKCnthbZ
-	 tUv1olcdNycuQcUjCr6AfIcr2UvWH6dytiiqqDQCTlW1pImFKs8FWHsY6tBAtD2IDD
-	 UAy91J9IWupDw==
-Message-ID: <a599eafd-dc72-48d4-80fa-1d24529ce2a7@kernel.org>
-Date: Thu, 2 Jul 2026 09:41:14 +0200
+	s=k20260515; t=1782978083;
+	bh=ZmRLFtjT2Uq3EIgk9v6vAjjSldCPBCSFqR+yu3JXWwM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WmXam2gJIAjTgpL2kWgkbuXtKcP5efNs4VoT9jrihgF3iD4WIyzB//ei0gWKUe2H0
+	 3HtNUcuO8Mbnx8Uo8KB54f5JMAkfG2P/MKfqdNEDgYggsdddaOvc8oSjCBKXRbb8x0
+	 k03SJkpvvB6b8/OUf84qvl/TmHarwXTFY2Sfl1vgU8nDS0Di88mLAw1hTZf0e4lzkW
+	 +JidjTmRSaF5+npTVGg5rQjz5iQ3wO1rhA+ebYkxIwZyi0QfkR5e64C2Dv/s84bjiG
+	 9QHKdacMY5DYKpG3RTgmSXMtK5f1tjohqLne/Lfb1B4k53AK2WRy+Ridg2HEHFTrPp
+	 OW0LK5aGRlLSA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v15 06/12] media: mediatek: jpeg: fix decoding buffer
+ number setting timing issue
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260702072614.10373-7-kyrie.wu@mediatek.com>
+References: <20260702072614.10373-1-kyrie.wu@mediatek.com>
+ <20260702072614.10373-7-kyrie.wu@mediatek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 07:41:22 +0000
+Message-Id: <20260702074122.DC90D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] media: dt-bindings: Add Himax HM1092 NIR sensor
-To: Ramshouriesh R <rshouriesh@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260702-hm1092-driver-v2-0-4f9f369d6a48@gmail.com>
- <20260702-hm1092-driver-v2-1-4f9f369d6a48@gmail.com>
- <20260702-generous-beaver-of-perception-f2a9bd@quoll>
- <CAJTcUFR08TXjOeQSxdBhoqHe94+7G_HLSrCN00BB8cHmBgTpZg@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAJTcUFR08TXjOeQSxdBhoqHe94+7G_HLSrCN00BB8cHmBgTpZg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 02/07/2026 09:30, Ramshouriesh R wrote:
->> This is a friendly reminder during the review process.
->>
->> It looks like you received a tag and forgot to add it.
->>
->> If you do not know the process, here is a short explanation:
->> Please add Acked-by/Reviewed-by/Tested-by tags when posting new
->> versions of patchset, under or above your Signed-off-by tag, unless
->> patch changed significantly (e.g. new properties added to the DT
->> bindings). Tag is "received", when provided in a message replied to you
->> on the mailing list. Tools like b4 can help here. However, there's no
->> need to repost patches *only* to add the tags. The upstream maintainer
->> will do that for tags received on the version they apply.
->>
->> Please read:
->> https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
->>
->> If a tag was not added on purpose, please state in the patch changelog
->> or cover letter why and what changed.
->>
->> Best regards,
->> Krzysztof
->>
-> 
-> I'm adding it in v3 along with changes suggested by sasiko bot.
-> I didn't check my mail or lore earlier before sending v2
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Then why should we check our mailboxes for emails? If you ignore our
-emails and then ask us to do the same work TWICE (!) then probably we
-should ignore your emails as well. Seems logical, no?
+New issues:
+- [High] Delayed initialization of `jpeg_dst_buf` metadata introduces a rac=
+e condition with the timeout worker.
 
-Best regards,
-Krzysztof
+Pre-existing issues:
+- [High] PM usage counter leak in `mtk_jpegenc_worker` on `pm_runtime_get_s=
+ync()` failure.
+- [High] Double completion and severe list corruption due to IRQ handler an=
+d timeout worker race condition.
+--
+
+commit 938df83523dee529816f6765923d0c66f07e6d22
+Author: Kyrie Wu <kyrie.wu@mediatek.com>
+
+media: mediatek: jpeg: fix decoding buffer number setting timing issue
+
+The patch delays the initialization of curr_ctx and frame_num for jpeg_dst_=
+buf
+by moving it into a spinlock-protected section in mtk_jpegdec_worker,
+aiming to ensure any later operations act on an accurate state.
+
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
+rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> index 89048aba8dca2..4dc574e03bd5a 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> @@ -1743,11 +1742,6 @@ static void mtk_jpegdec_worker(struct work_struct =
+*work)
+>  		goto getbuf_fail;
+>  	}
+> =20
+> -	jpeg_src_buf->curr_ctx =3D ctx;
+> -	jpeg_src_buf->frame_num =3D ctx->total_frame_num;
+> -	jpeg_dst_buf->curr_ctx =3D ctx;
+> -	jpeg_dst_buf->frame_num =3D ctx->total_frame_num;
+> -
+>  	mtk_jpegdec_set_hw_param(ctx, hw_id, src_buf, dst_buf);
+>  	ret =3D pm_runtime_resume_and_get(comp_jpeg[hw_id]->dev);
+>  	if (ret < 0) {
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while the decoder worker uses
+pm_runtime_resume_and_get() here, the encoder worker still uses
+pm_runtime_get_sync().
+
+In drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:mtk_jpegenc_worker(=
+),
+if pm_runtime_get_sync() fails, it jumps to enc_end without dropping the us=
+age
+counter via pm_runtime_put_noidle(). This PM usage counter leak prevents the
+device from entering deep sleep states.
+
+Does it make sense to update mtk_jpegenc_worker() to use
+pm_runtime_resume_and_get() as well?
+
+> @@ -1772,6 +1766,9 @@ static void mtk_jpegdec_worker(struct work_struct *=
+work)
+>  			      msecs_to_jiffies(MTK_JPEG_HW_TIMEOUT_MSEC));
+> =20
+>  	spin_lock_irqsave(&comp_jpeg[hw_id]->hw_lock, flags);
+> +	jpeg_dst_buf =3D mtk_jpeg_vb2_to_srcbuf(&dst_buf->vb2_buf);
+> +	jpeg_dst_buf->curr_ctx =3D ctx;
+> +	jpeg_dst_buf->frame_num =3D ctx->total_frame_num;
+
+[Severity: High]
+Does this delayed initialization introduce a race condition with the timeout
+worker?
+
+By moving the initialization of jpeg_dst_buf->curr_ctx and frame_num here,
+they are set after schedule_delayed_work() has already been called above.
+If the worker thread gets preempted before taking the spinlock, the timeout
+worker could execute and read hw_param.curr_ctx without taking the lock,
+observing uninitialized or stale frame numbers.
+
+>  	ctx->total_frame_num++;
+>  	mtk_jpeg_dec_reset(comp_jpeg[hw_id]->reg_base);
+>  	mtk_jpeg_dec_set_config(comp_jpeg[hw_id]->reg_base,
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c b/dri=
+vers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> index 9a8dbca6af006..e4d2c5d4ec73d 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> @@ -513,6 +513,7 @@ static void mtk_jpegdec_put_buf(struct mtk_jpegdec_co=
+mp_dev *jpeg)
+>  				v4l2_m2m_buf_done(&tmp_dst_done_buf->b,
+>  						  VB2_BUF_STATE_DONE);
+>  				ctx->last_done_frame_num++;
+> +				break;
+>  			}
+>  		}
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but can the IRQ handler and timeout worker
+concurrently execute mtk_jpegdec_put_buf() and corrupt the dst_done_queue?
+
+The hardware IRQ handler mtk_jpegdec_hw_irq_handler() calls
+cancel_delayed_work(&jpeg->job_timeout_work). If the timeout worker is
+already running on another CPU, it will not be stopped because this is
+not the sync variant.
+
+If both concurrently call mtk_jpegdec_put_buf() (and similarly
+mtk_jpegenc_put_buf() in the encoder), they will both execute
+list_add_tail(&dst_done_buf->list, &ctx->dst_done_queue). Adding a node
+that is already on the list overwrites its next and prev pointers,
+creating a circular link that can hang the kernel during traversal.
+
+Are there plans to synchronize these paths?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702072614.1037=
+3-1-kyrie.wu@mediatek.com?part=3D6
