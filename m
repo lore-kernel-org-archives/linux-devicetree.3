@@ -1,72 +1,97 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F51431E5B;
-	Thu,  2 Jul 2026 00:26:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB6E431E53;
+	Thu,  2 Jul 2026 00:32:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782951993; cv=none; b=DD69ZaPyO7rveCX8tfwQJGONLl+1hX6eUuPWuweoOiI1ReYCXikWZiVXna/IlZIaYohE+iibnPIKiFgf3Z9XOWZahvmNz/b3NawRWHQhhaQ56AKBomn7xfneBZZQARD8xilRkrVInY3W7KemfSjXIxFgQc7GBuKOGqjHJGERzoA=
+	t=1782952331; cv=none; b=si0f9i2YsL1i9V76nzg9qBTwMip75JwRT8B9i6+1SlGnhDFpw79CnHNnPArW1e6lHvQrDPIuymNo5YcS4arQNsShMHJ8lFXmuWt0EXQVrPlvJwiTXKnG7DLBQAVDMw6UpC7VUlXJiKE3ZSMwBwTlZKkWSRuSn8FuQVmn+oP0Ec4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782951993; c=relaxed/simple;
-	bh=ggKY+PiY/XL/TlUzVFfVrI+1Nd0wMZ3GupLpt3JkIXU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=G7ajdEq8Mbic6TZUx/hs43iYcwq5uTPh4nAqjy0Rx2WItgRtaJKeSAWLM25mx4eFue+wF/5UmJ3IetSakMAGTTQOVczfNqri4WYCiXDpJO6aQgYxUoohbq8zRyelSBg2hUNo401a2ZIqek/Y0eWz4IDGVn8ardg+OO7BhYx6NBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=MKVkLHEq; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1782952331; c=relaxed/simple;
+	bh=/NLffSrRaCTFhNhXhiOhKLtYBkouRMipNtuNOs5dlgs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nfXKTwk2N78VwjZECW8Lu7FRKMbmxa05HJCyUwXHUA7qezla14zDXsuR5bOsRHd0csbghnLSzRzXgNJbSUdnjMhFatoI5j1BdP0YKhHn2zJ6xSWyaXCj2kL01BLc6dm0j2NjM2pKDvbLM+YrgMH5NX+UD13+DuFds9Ec8hPU4WQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpmEXLlS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="MKVkLHEq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1782951990;
-	bh=ggKY+PiY/XL/TlUzVFfVrI+1Nd0wMZ3GupLpt3JkIXU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MKVkLHEqSw5DimCEOHwHKrc1/BWkRhGWgS5Xuz4jz5WMGFWR1Q3qEDr9EIkT0aFS/
-	 tCNZJOe6YNAuZaJ2pEPzl2Az7jcdQa/+9sDSgdDBKiSuiwZjRC0SUDD8Hia5/OTPUq
-	 9wxuDAcDZb0QZ5GAChaGAcBgBKksNBOb4ebOcb1EzxsoCylDdLUqLE8ZXuSs1HE17C
-	 kfFJJD3CePZ864ZkvjomXdPbKrcy/Bufc9Ee/efDWB0lOaftHpiNqnrYG1fvPZxzs9
-	 D5fS8nS8s1S5Ebax96vEavxOR1pKpPhV/qv8nCw66ABV0yc2K6znE/Z5Rm+NUwf7om
-	 Ab8Kw0tL+Y2pA==
-Received: from [192.168.68.117] (unknown [180.150.112.11])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id B84EF65871;
-	Thu,  2 Jul 2026 08:26:29 +0800 (AWST)
-Message-ID: <906cd5f479fe4b80ea3d66c236f259bdd644bf78.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v8 0/2] Add Meta(Facebook) ventura2 BMC(AST2600)
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Kyle Hsieh <kylehsieh1995@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
-	 <joel@jms.id.au>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, Krzysztof
- Kozlowski	 <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Thu, 02 Jul 2026 09:56:29 +0930
-In-Reply-To: <CAF7HswP25GXigSqL+bGBz=0=RST2XjS7fNmkKcsy-qjxfg_1jQ@mail.gmail.com>
-References: <20260615-ventura2_initial_dts-v8-0-c89f92c80447@gmail.com>
-	 <CAF7HswP25GXigSqL+bGBz=0=RST2XjS7fNmkKcsy-qjxfg_1jQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpmEXLlS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A201F000E9;
+	Thu,  2 Jul 2026 00:32:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782952330;
+	bh=iw+z57/78cbfnAiBvQk7R5b0U9mPbeM4OlgkLTJ1GsE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=cpmEXLlSdvOw4lpM5IJ5sB8nNFYnvnX+D9JK4lJy1xffVduT7Z6oXDszC5NRzpG6S
+	 k4Ar+s0Yj1IvvpZCfFROl+Gnz88amFP0dVnBksyBDYWvd/Q2nlS19KjPB4BDVO+Eti
+	 p3MtbNbN5cAjLxEA7AbpXW6bknyYNkpTTnCeUYv85Cm0vpaXTzUfe3vAKCwKtfIh6L
+	 vYT0lf8hOMcwyQtvCvQbuw/yK/sUmi4jZWHLRO4zi1/YdY97lF7NSXYipW/QBDjOoy
+	 kFTHLmCu6hN4roRGkxTXT9eGhSdhWbpPYw4vj+QyMMK7kqIGG52P7cusye8yShh2gI
+	 0ygqTQEPzdtFw==
+Date: Thu, 2 Jul 2026 01:32:03 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Lukas <lukas.metz@gmx.net>, Siratul Islam <siratul.islam@linux.dev>,
+ andy@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ krzk+dt@kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nuno.sa@analog.com, robh@kernel.org
+Subject: Re: [PATCH 1/2] iio: dac: dac8163: Add driver for DAC8163
+Message-ID: <20260702013203.46778542@jic23-huawei>
+In-Reply-To: <c64ed5e8-90b2-4898-b218-b1e41382765d@baylibre.com>
+References: <20260623-dac8163-work-v1-0-5b508158faa0@gmx.net>
+	<20260623-dac8163-work-v1-1-5b508158faa0@gmx.net>
+	<36ffe80feb5a521c28b1a6d10bf1338dc39ddef1.camel@linux.dev>
+	<ajuVjk-lw-DqUVnl@berta-MS-7693>
+	<c64ed5e8-90b2-4898-b218-b1e41382765d@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Kyle,
+On Wed, 24 Jun 2026 09:18:00 -0500
+David Lechner <dlechner@baylibre.com> wrote:
 
-On Thu, 2026-06-25 at 13:35 +0800, Kyle Hsieh wrote:
-> Hi Maintainers,
->=20
-> Just a gentle ping on this v8 series.
-> All review comments from the previous versions have been addressed.
-> Please let me know if there is anything else needed for this to be
-> applied.
->=20
+> On 6/24/26 3:30 AM, Lukas wrote:
+> > Thanks for the review. As i said this is my first time submitting a
+> > patch. I have looked at already existing spi dac drivers for reference
+> > but i seemed to have missed quite a lot. But the comments are greatly
+> > appreciated.
+> > 
+> > On Wed, Jun 24, 2026 at 12:56:15AM +0600, Siratul Islam wrote:  
+> >> A link to the datasheet here would be nice.  
+> > 
+> > I will try to add all the small suggestions i dont mention explicitly,
+> > like style issues or using guard instead of manual lock/unlock to v2.
+> >   
+> >>> +
+> >>> +	if (st->internal_ref) {
+> >>> +		st->vref_uv = 2500000; /* 2.5V internal reference */  
+> >> A note on where this value came from or why this was chosen, or a reference to datasheet would be better.  
+> > 
+> > I think i would add the suggestion from David Lechner to remove the
+> > internal_ref property completly and add "the way of doing optional
+> > voltage references". This includes using the macro
+> > DAC8163_INTERNAL_REF_mV. Would this be acceptable?
+> >   
+> >> You have a CMD_SOFT_RST defined but not used. Should this be used to reset before doing any configuration?  
+> > 
+> > Yes this is a command which isnt used at this point. But maybe it makes
+> > sense to reset the DAC first when probing.  
+> 
+> In general we tend to reset IIO devices during probe. DACs can be an exception
+> though since they are output devices and resetting it could change the output.
+> This device is quite simple anyway, so reset probably isn't needed.
 
-Sorry for the delay. Your series is in my queue of patches to review,
-but it's competing with other priorities.
+If this one is write only (based on another comment - I haven't read the code
+yet), then I think we might need to reset anyway so that we can bring state
+in sync and allow readback of the current channel values.
 
-Thanks,
+> 
+> > 
+> > Best regards
+> > Lukas  
+> 
 
-Andrew
