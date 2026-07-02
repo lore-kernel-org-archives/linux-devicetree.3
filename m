@@ -1,109 +1,144 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0CF847CC70
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 10:16:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262E7393DF0
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 10:16:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782987377; cv=none; b=UfQZBYr603eXi4EZG8o0zv441/FD5AD+AqRossBlsbEQNNmU0Bf0p2yP5pB1zqV0XDxJLDfNux9XZc7mHbRWxOctsInw7pynUQdq1Nn+62w3qrJiFqupiDT7Cbmfh+rCHFd/Tj0PmiUmQOdaf9Fyl374wO0K7VSrg7SLjOXhslA=
+	t=1782987406; cv=none; b=OXtSpvxCa0V4+7sVpo6z+43XydlIgnyOhEMWiP3qH+oxc7KedFcQZejbWLLpgvS3YoQagxtRPQms1NU9q+PWssYwKefO9PjtIrOxdofiAIP2XxZ0f795IxjGDBQD1yyRy+YPE+vH8lwATpIXPYd/rGyDZSibkbKS2bJ5rkAHwMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782987377; c=relaxed/simple;
-	bh=+gyMFDd3UGCiQVMjZG64h9pWiJy6JoobOQgBOqWr6sk=;
+	s=arc-20240116; t=1782987406; c=relaxed/simple;
+	bh=3AtQm/ru6rvP5C+CROj4yKuPB9my0yqL387PqImQoQQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hPYCLZIhG0oX36pjZ8WP8qbzUp2ynBrtGACxlyvv5skaiYPo32BkYPEf0Vb0VC/aQ9RlM0s3e381igAbeFGxA+bC8RDVuFfXS7f0bdUybcvSzmBAT2exWKoydMS4CcTuARo75yfhxTWKbuCuZFqaOKWQ0egNJLLgovc9tmCLeNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqDG+etC; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=tQvCLuo+QgwmEUVezwyojCDE3Jeqqh9C/F9+XbJt9LEwGwre0eqHfUj6rHrcXUtNOSO1OZLrY5oBgceQuK9NsC7jRxeLJs7xXfd5791KOqusg1E7ePoOEcf3CL0BtesZNTL1w1gITiEzTVO6AdMCBBLyoenzr266/Ovzm3OnpuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ezYvg/9t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqDG+etC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 609071F000E9;
-	Thu,  2 Jul 2026 10:16:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ezYvg/9t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E8021F000E9;
+	Thu,  2 Jul 2026 10:16:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782987375;
-	bh=EbsHyjYE10IPTU26pbLUdZjkxeU3qQmsQ8bvUK7agwc=;
+	s=k20260515; t=1782987404;
+	bh=te35Z0Ygna6XoHRU9BhnDkNQr2LVR4uilRuCA7RCEoI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SqDG+etCU/bZ1m80th7MS6/nU9QTbpIjOSHC2gYT6XhdJpPN0GGW8djhqyykZFM0u
-	 YDEqRbwCozKfrjT5TcyClx09twP5O2PuxGrYW8Ppu/frU/tUlarwjY8vZ0AjECMRK0
-	 60ujeMA5WYYLekoxDRKH7JA9I16ByC2Ydnn44OgE4IQiPgSyQdyyS2s6UwHVkkedpL
-	 oZSkh2ysHYYNvvtR4iMTEDtRFbVOLNCple9Xs86Gk+glLl3vZW4ZyglXGr9fh929GQ
-	 jYbS8trd2jeZRLzHvdg1f8fyrlD0VLa9p/sci358mMCRIwGBppzGCJUr0Y7XYfbA9E
-	 zqepNFevoT+fQ==
+	b=ezYvg/9tNku9TG7kvlNBLqQzfHM21rgq91fwSK/FXk6wnOVSY9VworGC+a+9qB+MG
+	 /5FvOZWjmS3qVyV+j40YvUo807+gIrIwYMA300p26AK8B4N13GU4FDlfIKul3rYjRM
+	 VxiTcn5CqmaMlT6Gg0Vj5iDm7Xxu1YYnqdyMK+YhV78Ryjhja+Ga/Pex+6OlSG1rmO
+	 3Z6ImD2okQ3Vo/jbnlvEwdiOYn1yWENA9srX6czEmH8M8nQJGB1O5aasWy/tguqVYn
+	 ynI/ceL8v3P8eCZ73YPvJYFDaUmpv9mhVwCBu7e30gUIJOSodLJAF+iVQ4bh4VI52y
+	 6MA/va05OaqQw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/5] arm64: dts: qcom: sm8550-qrd: add SPMI ADC
- channels and thermal nodes
+Subject: Re: [PATCH v6 3/7] thermal/drivers: airoha: Convert to regmap API
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260702-topic-sm8x50-adc5-gen3-v5-2-8169953634ad@linaro.org>
-References: <20260702-topic-sm8x50-adc5-gen3-v5-0-8169953634ad@linaro.org>
- <20260702-topic-sm8x50-adc5-gen3-v5-2-8169953634ad@linaro.org>
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260702094846.17325-4-ansuelsmth@gmail.com>
+References: <20260702094846.17325-1-ansuelsmth@gmail.com>
+ <20260702094846.17325-4-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 10:16:14 +0000
-Message-Id: <20260702101615.609071F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 10:16:44 +0000
+Message-Id: <20260702101644.8E8021F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The patch relies on a missing device tree header file `qcom-adc5-ge=
-n3.h` and undefined parameterized macros for ADC channel definitions, causi=
-ng a dtc syntax error and total build breakage.
+
+Pre-existing issues:
+- [High] The device interrupt is requested before the thermal zone is regis=
+tered, and hardware interrupts are not disabled on unbind.
+- [High] The interrupt handler silently drops events if both high and low t=
+hreshold interrupts are pending simultaneously.
 --
 
-commit 3bfb4c69433bbdcc629b30cb68184ebf16919c26
-Author: Neil Armstrong <neil.armstrong@linaro.org>
+commit ddea8884dc559f65dc6c31d8d784b42996724da4
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-arm64: dts: qcom: sm8550-qrd: add SPMI ADC channels and thermal nodes
+thermal/drivers: airoha: Convert to regmap API
 
-Add the SPMI ADC channels on the PMK8550 SPMI5 ADC3 for the other PMICS
-on the system. The thermal nodes are sorted by the sensor channel to be
-coherent with the system thermal nodes ordering.
+Convert the Airoha thermal driver to use the regmap API instead of direct M=
+MIO
+accesses. This refactoring prepares the driver for Airoha AN7583 support,
+which relies on a syscon regmap.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts b/arch/arm64/boot/dt=
-s/qcom/sm8550-qrd.dts
-> index 2fb2e0be5e4c6..6812e45d65e78 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
+> diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_th=
+ermal.c
+> index 829a7327fc403..b63893a8997a3 100644
+> --- a/drivers/thermal/airoha_thermal.c
+> +++ b/drivers/thermal/airoha_thermal.c
+
 [ ... ]
-> @@ -997,27 +1083,218 @@ led@3 {
->  	};
->  };
+
+> @@ -300,9 +300,9 @@ static irqreturn_t airoha_thermal_irq(int irq, void *=
+data)
+>  	struct airoha_thermal_priv *priv =3D data;
+>  	enum thermal_notify_event event;
+>  	bool update =3D false;
+> -	u32 status;
+> +	u32 status =3D 0;
 > =20
-> +&pm8550_temp_alarm {
-> +	io-channels =3D <&pmk8550_vadc ADC5_GEN3_DIE_TEMP(1)>;
+> -	status =3D readl(priv->base + EN7581_TEMPMONINTSTS);
+> +	regmap_read(priv->map, EN7581_TEMPMONINTSTS, &status);
+>  	switch (status & (EN7581_HOFSINTSTS0 | EN7581_LOFSINTSTS0)) {
+>  	case EN7581_HOFSINTSTS0:
+>  		event =3D THERMAL_TRIP_VIOLATED;
+> @@ -318,7 +318,7 @@ static irqreturn_t airoha_thermal_irq(int irq, void *=
+data)
+>  	}
 
-[Severity: Low]
-Does this rely on a missing device tree header file (qcom-adc5-gen3.h) and
-undefined parameterized macros for the ADC channel definitions?
+[Severity: High]
+This is a pre-existing issue, but does this switch statement drop events if
+both HOFSINTSTS0 and LOFSINTSTS0 are set?
 
-If the build falls back to a kernel-internal header where ADC5_GEN3_DIE_TEMP
-is defined as a constant, this expands to something like 0x03(1), causing
-a dtc syntax error and breaking the build.
+If the hardware latches both the high (EN7581_HOFSINTSTS0) and low
+(EN7581_LOFSINTSTS0) threshold interrupt bits simultaneously, the bitwise A=
+ND
+operation will yield both bits set. The switch statement will attempt an
+exact match and fall through to the default case. The interrupts are then
+cleared via regmap_write(), but thermal_zone_device_update() is never
+called because update remains false.
 
-> +	io-channel-names =3D "thermal";
-> +};
-> +
+> =20
+>  	/* Reset Interrupt */
+> -	writel(status, priv->base + EN7581_TEMPMONINTSTS);
+> +	regmap_write(priv->map, EN7581_TEMPMONINTSTS, status);
+> =20
+>  	if (update)
+>  		thermal_zone_device_update(priv->tz, event);
+
 [ ... ]
-> +	channel@701 {
-> +		reg =3D <ADC5_GEN3_1P25VREF(7)>;
-> +		label =3D "pm8550b_vref_1p25";
-> +		qcom,pre-scaling =3D <1 1>;
-> +	};
-> +
-> +	channel@703 {
-> +		reg =3D <ADC5_GEN3_DIE_TEMP(7)>;
 
-[Severity: Low]
-Is this another instance where a missing parameterized macro is used to
-calculate the ADC channel register, causing a dtc syntax error?
+> @@ -462,8 +475,8 @@ static int airoha_thermal_probe(struct platform_devic=
+e *pdev)
+>  	platform_set_drvdata(pdev, priv);
+> =20
+>  	/* Enable LOW and HIGH interrupt */
+> -	writel(EN7581_HOFSINTEN0 | EN7581_LOFSINTEN0,
+> -	       priv->base + EN7581_TEMPMONINT);
+> +	regmap_write(priv->map, EN7581_TEMPMONINT,
+> +		     EN7581_HOFSINTEN0 | EN7581_LOFSINTEN0);
+> =20
+>  	return 0;
+>  }
 
-> +		label =3D "pm8550b_die_temp";
-> +		qcom,pre-scaling =3D <1 1>;
-> +	};
-> +
+[Severity: High]
+This isn't a bug introduced by this patch, but does the probe function
+request the interrupt before the thermal zone is registered?
+
+It appears that devm_request_threaded_irq() is called earlier in
+airoha_thermal_probe(), enabling the interrupt before
+devm_thermal_of_zone_register() initializes priv->tz. If an interrupt fires
+during this window, the ISR will dereference a NULL priv->tz.
+
+Additionally, since there is no .remove callback to mask the hardware
+interrupt, could this cause a use-after-free during driver unbind? Devres
+executes cleanup in reverse order of creation, so priv->tz is destroyed
+first, leaving the IRQ handler active until the IRQ is freed. An incoming
+interrupt during this window might also lead to a use-after-free.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-topic-sm8x=
-50-adc5-gen3-v5-0-8169953634ad@linaro.org?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702094846.1732=
+5-1-ansuelsmth@gmail.com?part=3D3
