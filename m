@@ -1,44 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99AD0353A6D;
-	Thu,  2 Jul 2026 15:32:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6EB1353A63;
+	Thu,  2 Jul 2026 15:32:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783006326; cv=none; b=SrAlhS+Mhq64SjPCOOhmDGys/YA/cN8K89lsiKGrOfqmifVFejX7xy66j3O4VS9d6KrGsUxtae+q4m+vzdzmtg9vdXmLHBWmbTZ18kkg/7hHPOAkewjMjql0aIE5DsS00APv4HKrxbnJPdxmpBlvP6zvJ/bq5udTqZ8CWGnOgIo=
+	t=1783006333; cv=none; b=a/StOWVCHli+uvKuZHyfLQIRed2cZqaBDGHwuOCnS1GhzLS7kZ7+sPo3Kz5oviW6MTeNRCE6wdDM7rtbqfewtYvgizEitG5cq1fQnF2KxyDx4vK2T57cGRyjXsQ1LrG9dHYLdfPyUNYmPuL7/lBWPKKCVRP5ZGIckFJN4WDwwM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783006326; c=relaxed/simple;
-	bh=0Au11BzDoZ6WbYbD94/aWaC10QjLDWSQyE+SafPW5CM=;
+	s=arc-20240116; t=1783006333; c=relaxed/simple;
+	bh=Sb3LKkmQyqomKK27FPLNJF6IlkXvXhAyXMJUrV39tHw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ETZRzb5dJcGI291IV9WweFS04GZBNRoZwXtJxhaiM2/QHhrdA4XF0KtwE+OM9IOVQ7pH1Vh6/h75uRD19Dz7mefrHag7YDASWtctkRVsjIJWx2+BEDzc0U5BOIl0plULOyMSe121HyVva+ZnNL8Ldw3rldQn9IBKURdWsWz0IEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XaW+qLOr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=F1xKG3bqgmTne2VioyQmoX7I+QDGKWE99TPEIzJo3S+LVzalEr+MD5Pr42MNO/S4dKX5WutKfsG2R3yDKrLIqmmPK0dqSPoeujoCSO/yu+XDyKeYX3rDCLgmvUA99b23B/aHiWHvar4Rhm1MaDAByVosCHwz6jAxZG/rfsFrRIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h6+YRcEk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XaW+qLOr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F31601F00A3A;
-	Thu,  2 Jul 2026 15:32:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h6+YRcEk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F8741F00A3E;
+	Thu,  2 Jul 2026 15:32:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783006324;
-	bh=jJ3DLTIlknojKBYsHiBKYugHEIBfbYTLpD95P/rrvbo=;
+	s=k20260515; t=1783006332;
+	bh=lHqpWAShTGw0CBIGY4OTCZoZs2U3Gv9S6HeoH1CtmfE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=XaW+qLOrHSkDMzJu6XPRHmFIpYJdsCBqaciYzbaiRU3sanrl2ntlnm2T+/tI1AoFj
-	 aKbaNqItCSLp/5eKIQFZPwUXULZaKvTrXGoEt9/ysUR0Fa4U8pyXL4opAQ/wDz/RgQ
-	 M80RX2y574G+0W0rM3bU2iTRK/f5nHFrdIXZe7ANyY/dBUiYdJUtP06KsVemLe70re
-	 TGQAofhFPRrV0Ujg+0ea6JIEr4yKBoMfE5NxvrjIxuugAo2iXgR3iPw+htBwvJJVou
-	 iJWz2VH97MY5Dztk9FsFQQcAfe34YqWW8WvX2ENNDeXTG5u7GhNS7T0g+bZ4Ck6vnS
-	 D5B60OSW/o/zg==
+	b=h6+YRcEkDn01G0p4rOMjNZFGHjcAINtexYDwZ0siYrekxWvmW38iZUpWCVyYUvwAD
+	 Hi4W+jLzpb/jxSMqP9faj1i1wuaDFIKNvMa5+1Yx3I5vzkGGWBb28o74N9r6Dn9Z/i
+	 cgQKCV0UrqdJ8HVu35GdfZYcSY5ahlBs1+FlZ/Yf2xiJrMssyV42scsjajrtPFz0Rf
+	 KUdhwtQZZhPzTvoyyhZQ/2u9A/upgPtcF5PV2bw9iJ8ugjaS5pXwaIYHdtj9B30jGM
+	 +CaBtLeFtnz+vvtaJlxtNeyZK3sbFnVY1oQTEFA/sUv9Gm3nzIOAOR1/ZC1b/HQBoO
+	 5MZ4CN/mXFrkw==
 From: Vinod Koul <vkoul@kernel.org>
-To: Frank Li <Frank.Li@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>, 
- Shyam Pandey <radhey.shyam.pandey@amd.com>, 
- Abin Joseph <abin.joseph@amd.com>, "Rob Herring (Arm)" <robh@kernel.org>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260612215226.1887726-1-robh@kernel.org>
-References: <20260612215226.1887726-1-robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: dma: xilinx: Fix "xlnx,irq-delay" type
-Message-Id: <178300632060.735405.1201510775186759971.b4-ty@kernel.org>
-Date: Thu, 02 Jul 2026 21:02:00 +0530
+To: Sean Wang <sean.wang@mediatek.com>, Frank Li <Frank.Li@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Long Cheng <long.cheng@mediatek.com>, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: kernel@collabora.com, dmaengine@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260701-mt8189-dt-bindings-uart-dma-v1-1-c7106216a40d@collabora.com>
+References: <20260701-mt8189-dt-bindings-uart-dma-v1-1-c7106216a40d@collabora.com>
+Subject: Re: [PATCH] dt-bindings: dma: mediatek,uart-dma: add support for
+ MT8189 SoC
+Message-Id: <178300632766.735405.17747916047775158971.b4-ty@kernel.org>
+Date: Thu, 02 Jul 2026 21:02:07 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,21 +54,16 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13.0
 
 
-On Fri, 12 Jun 2026 16:52:25 -0500, Rob Herring (Arm) wrote:
-> "xlnx,irq-delay" programs an 8-bit delay field in the DMA control
-> register, and the driver stores and reads it as a byte. The binding
-> described the property as a uint32 cell, which made the helper type
-> check report the driver as wrong.
+On Wed, 01 Jul 2026 17:47:20 +0200, Louis-Alexis Eyraud wrote:
+> Add the compatible string for the APDMA IP found in MT8189 SoC,
+> that supports 35-bits addressing as MT6985 SoC.
 > 
-> Document "xlnx,irq-delay" as uint8 so the generated schema reflects
-> the hardware field width and the existing driver access.
 > 
-> [...]
 
 Applied, thanks!
 
-[1/1] dt-bindings: dma: xilinx: Fix "xlnx,irq-delay" type
-      commit: fa9cb11584851414b25fd8bf9f59518424b5917c
+[1/1] dt-bindings: dma: mediatek,uart-dma: add support for MT8189 SoC
+      commit: 0d2b094b1c10be619a63f53a610587bcabbee06b
 
 Best regards,
 -- 
