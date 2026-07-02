@@ -1,120 +1,113 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A56D3C584A;
-	Thu,  2 Jul 2026 07:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F023CC334
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 07:51:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782978632; cv=none; b=BKO+qf+f0v3WDjYwydFO4eg+dDJwfpLnXJgkpkmLYQoPWMqz9tlsJA8b2Lnoaw1anIG7M7PLzsGF6MAE+hpaMHvfZzv5lHzTW+rIUpNkTw/GLTD2I+bbPkHiykBwUt0JI2sqjs1hlkmdaIh0bkbeO8A0B33ATrpG95ZLycsKibs=
+	t=1782978691; cv=none; b=hop9gn5ZT5iwD/wLVTA9YyRCwx8jVkuhJlPx2GdtDeHvaIKIqR+yt2SmSOsNbfWOKnZ31pKuxNu7FVxr1VHCtcO6DS4PK769aMeByn7oqoQRtfOQ8B7lGtCpOC0jKkZ1hKh3+uIENwo+hI8XTdNYK54qY0O3BI2ZFELvDrj4bAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782978632; c=relaxed/simple;
-	bh=m1oakZ0c57ds/KFTaSp2WZgOckEbNhbCZ16+iE5NB5c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iNaRmFFJWaBWpbXQD0vf1UOJsWNmJYBGviFJtFFMy7dVtxcBhmzNrkoA1wnDEM2uBf7XFc9CgWoS1u0E6sLzyjYoktVOoKtGXPIp6fvRzLHQfyFzYpfL9ZKNx5rf52/FOjTLKql/4OIXtqS/l7GbgFw5d6b2t79B5nCnyZjj4m4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ktA+1FG0; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ASRxoRgb; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1782978691; c=relaxed/simple;
+	bh=cZ8bKTGVuCYPNKsrS5vvspH3cyObOF4olFs3CWYfGZs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ma6yoZq4gDk39RF8bEmEzbS5gNSygCvQM/zu/NslE0e04M5D5cEBSINOpAZ4oUpYOUr5DQ8Xh02sPDrdSHzHl4JRkXiZFlJewZvTMlkZxfmtIQ2PhSatvU7t1U4Yk1BZt7AZxifnRI/QoTcyv4xolH1BnMzVFKIyVHeil1FA/NA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eNyyo4P3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ktA+1FG0";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ASRxoRgb"
-Date: Thu, 2 Jul 2026 09:50:28 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1782978630;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RtPJKNaE4WcuVc5YwBiELvb87xQFlonOqEb7ycejGWs=;
-	b=ktA+1FG0uc0MpcfFBfjgObbpj1U2vTHJD+a8QZ9NUQoPTaxMTsh6sWdhKJ1TxSojJVe/5y
-	uCfgbvkxVCTLnNEwTHeIPd6GHouW/Vy6SLs+1thyxBndtqLpDau++4TxB3zCHqHYFJzPvL
-	q/RtS1gpvU2+ZnzrXhGSc0CDWHpdZ2jbOXXV1GHNM2kKUUTfTYNKrIBYX0uy6yNgSYdwu5
-	f71uxFyIAfcDu1dMpFVDA+ZVqtdLEswhlN3iI/WNQahncfppXIE8ps4ki5Jz4CEZMmJvW8
-	kPiKHzDzD9EMLcj3AJQiHSOUZIPj6hTBVSr2hGdKm7EojswHOH0BVzdTNZ0lJw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1782978630;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RtPJKNaE4WcuVc5YwBiELvb87xQFlonOqEb7ycejGWs=;
-	b=ASRxoRgbtWDj0QrDDU+aNK1aGddpBaqkCR+2bZ0jnK/9Tyl8Y+7xlRiZaRO6E+2t+KItnf
-	zmcuHR36FwVj+ODg==
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-To: Stefan Wahren <wahrenst@gmx.net>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Eric Anholt <eric@anholt.net>, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] firmware: raspberrypi: Add reboot mode support
-Message-ID: <6x2espobfxvtxoszno3fehzixc67e2cihjdsah3ge3qbrgjoeg@3ss4vdo2hz77>
-References: <20260630-rpi-tryboot-v2-0-f68d2dc6aa27@linutronix.de>
- <20260630-rpi-tryboot-v2-3-f68d2dc6aa27@linutronix.de>
- <628b2768-80e6-4a7b-846f-d1124059f899@gmx.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eNyyo4P3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1A41F000E9;
+	Thu,  2 Jul 2026 07:51:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782978682;
+	bh=cZ8bKTGVuCYPNKsrS5vvspH3cyObOF4olFs3CWYfGZs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eNyyo4P3cP0kEQieVIOoRWrjCSw3xhHZsvHnvnu8NVAaboZs61w+YKEP0uF20qcoo
+	 BUbf7TzDGXF0rpnTqSSNgt4GVchWgI4vJtNUzYmMAaW58saVLAbDfQHHtSCDirVGmK
+	 SVrH7qywWa0V/j7//QrtEYjb83jkcQLFFluxoHjN0STK+3Ze2wU4z7l9hdRJGTAonK
+	 CjQwIjaIMe+FThagC4E93Vr6qn7qWk6p0OX6JHK43yh/s29FTm2W5/eutwiDFgj1XN
+	 jNGv79Dvb9My6OT80sphWpdrliumBc4csPC2lf6Xtkk1vrzomZACwQzG9qPaT0/4RU
+	 tqbuwl8U0w5Rg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v15 11/12] media: mediatek: jpeg: add jpeg compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260702072614.10373-12-kyrie.wu@mediatek.com>
+References: <20260702072614.10373-1-kyrie.wu@mediatek.com>
+ <20260702072614.10373-12-kyrie.wu@mediatek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 07:51:21 +0000
+Message-Id: <20260702075122.6C1A41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <628b2768-80e6-4a7b-846f-d1124059f899@gmx.net>
 
-Hi Stefan,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-On Tue, Jun 30, 2026 at 11:57:49PM +0200, Stefan Wahren wrote:
-> Hi Gregor,
-> 
-> Am 30.06.26 um 22:59 schrieb Gregor Herburger:
-> > +static int rpi_firmware_reboot_mode_write(struct reboot_mode_driver *reboot,
-> > +					  unsigned int magic)
-> > +{
-> > +	struct rpi_firmware *fw = container_of(reboot, struct rpi_firmware,
-> > +					       reboot_mode);
-> > +	int ret = 0;
-> > +
-> > +	if (magic)
-> > +		ret = rpi_firmware_property(fw, RPI_FIRMWARE_SET_REBOOT_FLAGS,
-> > +					    &magic, sizeof(magic));
-> I think it's more elegant to check for !magic and return 0 directly. So we
-> can drop "ret".
-> > +
-> > +	return ret;
-> > +}
-> > +
-> >   static int rpi_firmware_probe(struct platform_device *pdev)
-> >   {
-> >   	struct device *dev = &pdev->dev;
-> >   	struct rpi_firmware *fw;
-> > +	int ret;
-> >   	/*
-> >   	 * Memory will be freed by rpi_firmware_delete() once all users have
-> > @@ -306,6 +323,12 @@ static int rpi_firmware_probe(struct platform_device *pdev)
-> >   	rpi_register_hwmon_driver(dev, fw);
-> >   	rpi_register_clk_driver(dev);
-> > +	fw->reboot_mode.dev = dev;
-> > +	fw->reboot_mode.write = rpi_firmware_reboot_mode_write;
-> > +	ret = devm_reboot_mode_register(dev, &fw->reboot_mode);
-> > +	if (ret)
-> > +		dev_err(dev, "Failed to register reboot mode: %d\n", ret);
-> I suggest to move all of this code into a function called
-> rpi_register_reboot_mode() ?
-> 
+New issues:
+- [Low] The `mtk8196_jpegenc_drvdata` structure is missing the `const` qual=
+ifier.
 
-Ok, will do. Will wait a bit for more feedback and add this to the next version.
+Pre-existing issues:
+- [High] Out-of-bounds array access when probing hardware child nodes.
+- [High] The upper 32 bits of the DMA stall address are incorrectly compute=
+d by adding the buffer size to the already-prepared extension bits.
+--
 
--- 
-Gregor Herburger
-Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
-Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
+Note: Due to recitation restrictions, the standard inline quoting format has
+been altered. The following is a free-form summary of the findings rather t=
+han
+an inline diff review.
 
-Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
-can be found here): https://linutronix.de/legal/data-protection.php
+commit a7e691d664fe928a3d65542a99e26554abd4f138
+Author: Kyrie Wu <kyrie.wu@mediatek.com>
+media: mediatek: jpeg: add jpeg compatible
 
-Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
-Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
-806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
-Katharina Kopp, Alexander Gieringer
+This commit adds jpeg dec and enc compatible for mt8196.
+
+[Severity: Low]
+Looking at the new mtk8196_jpegenc_drvdata structure in
+drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c, is it possible to
+declare this as const?
+
+The mtk8196_jpegdec_drvdata structure includes the const qualifier, but it
+appears to be missing from the encoder variant. Adding it would ensure the
+driver data is placed in the read-only .rodata section.
+
+[Severity: High]
+This is a pre-existing issue, but does the hardware probe logic overflow
+the device arrays if a device tree specifies too many cores?
+
+In drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c during
+mtk_jpegdec_hw_probe(), the code increments master_dev->hw_index and uses it
+to index master_dev->dec_hw_dev and master_dev->reg_decbase without a bounds
+check. The same pattern occurs in mtk_jpegenc_hw_probe() for the encoder.
+Could a malformed device tree cause this unbounded index to write past the
+end of these fixed-size arrays?
+
+[Severity: High]
+This is a pre-existing issue, but does enabling 34-bit support in this
+patch expose a bug in the DMA stall address calculation?
+
+In drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c, the new
+mtk8196_jpegenc_drvdata structure sets support_34bit to true.
+
+Looking at mtk_jpeg_set_enc_dst() in
+drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c, the stall extension
+address is calculated as:
+
+addr_ext =3D FIELD_PREP(MTK_JPEG_ADDR_MASK, upper_32_bits(dma_addr));
+writel(addr_ext, base + JPEG_ENC_DEST_ADDR0_EXT);
+writel(addr_ext + size, base + JPEG_ENC_STALL_ADDR0_EXT);
+
+Is it mathematically valid to add the buffer size directly to the shifted
+upper 32 bits? If the buffer crosses a 4GB boundary, wouldn't the large
+byte size overflow the extension bits and pass incorrect upper address bits
+to the hardware?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702072614.1037=
+3-1-kyrie.wu@mediatek.com?part=3D11
