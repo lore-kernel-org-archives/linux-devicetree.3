@@ -1,135 +1,156 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8507B384254
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 19:27:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937D23806B8
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 19:29:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783020427; cv=none; b=nL6vGKmwrmD6PXPbPqtFtcwNOOhjOukYdkX2Z2R+7QAoeQ3GnzObYoKhz2bFCkHYlYtPxKiBHkzjzPL4jlGlgd3jUatR08yTCeGlVj4pzd38jY8A22dCs/TbGXSQaEQ2G0nD5NA6Hgmq5ava7ixAiPkUzEFIqQWnkvYOXaUWVpo=
+	t=1783020579; cv=none; b=ZoWXlSPIMpHdulQuKy7ZLp6bn6T5CviRtz3uxn0azIYAeaf/47hyd4uOuw1OHZAS/CWg37UTMiusoobJJwmngKngIbrmsFgFK1WSdHmpjBt+MzCCVQ8KH6kuSbBZhsJ3FFPaBLwdrMEi8bH3VKutEHxm0PPZ02yR/GO88VT10Rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783020427; c=relaxed/simple;
-	bh=wR1st3jTX6RTY7WDDJ1RrWd/15qri5Ffv6wmA971dXU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FMWGxNJafaRmZ9uz0MBzUOA6bo2NBYNwsL44E3qGeDPc3JR0c+zlFKbZs2M/8fEUFxLDluv9ZYJsMSHm4C/agIOayQr+ReeRnAgCwkRPnH5kxaF1g2CTZp18EokDIpbACZXUl3gVPu8203CclMItjzr6EHuYDCQRz99mSkMTOpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TPoBC7bF; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1783020579; c=relaxed/simple;
+	bh=UdMJM06ebK67YQ2Mnbs0Jp1/l3ZNaXIh/MKaQ3oYKr4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lyX60fTxBYFZJPPbFLEmM2wzagWy4eovb0HUZyYYWu1FWej6keqooBYfJucw611jH2zkT6QjplP9w7PiHJGcdwy6MMsK2dnnbm8ZMutOgJ+By7ncdipgW7EftmMFQ2yFcosH97vTBmI+J0qY8rMktyGzcZz67py4Hfi9augybYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MOnhQbf1; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TPoBC7bF"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493bab44440so6167085e9.0
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 12:27:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MOnhQbf1"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-493c733f15aso7451945e9.0
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 12:29:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783020425; x=1783625225; darn=vger.kernel.org;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z1JUyIG3DwbeOPJPxX3RcLVRRPcM09xsVDoLHi5o4rk=;
-        b=TPoBC7bFS3CezUu88WEQT1acocu18NekcJ43zpRzZq4WR3MrC9wJNmZ7QJOwQ8LY7G
-         8MDtzO2CchBgkjZ30A++bmpA6ljH/H2pGpbOtJXfF5XlmFYSMPSjxg9itAVvg9hVocfj
-         3uzBZeaMysfGSEpm0xkcbdEkUlfVn3qsDsTc40PLqkm/dgqJjQgsyMNWacA5Pnh9HUIC
-         PEx9KpjIUxFYjvX/divAr/rARCub1wYfjCpppZZoVk3CqGgh1j+Xoq2CiU4RPpOZH4Gy
-         0F05YBVyRs0Anl32wHQpmczI4pkzQI2kpT+Jbbo47ux9nRD/iWn7bvD6L/2lAfY3TGkC
-         CjOQ==
+        d=gmail.com; s=20251104; t=1783020575; x=1783625375; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=zAwDyBfy9pmItaLqNOcnGFdZ3qhtmyuBm6fxfzFEds4=;
+        b=MOnhQbf1/CqJFRSRzJybl3CWwBroY7cPKOcHx4jCNrtLqHUMyB6ujxtqzQhD4Q4xDh
+         sudlR5oq3V72pp9i+NAt6O2GCCUkUdhSrA3AGe12ObYoXHPiguj9xOgRJ7m17BoLLkVO
+         /F+TD0qhA47QA4NF3Ziw/3TsbzePPCk6tDNX0VYltyakCRYMVig7jUAwZIE67tCxWvvJ
+         3VcdZMQyB793F7+xbGrSL3cMFnO/qVVWUDYuSYjeUTb6CdXMPPSFVHr1Xy1gJXBG1/fM
+         4/MGvCAXEPHeGMgK84h+38rMddq9Ozuv6Y2ITiznjFl7luuxkSUkr9A9HGWRPzREg024
+         In1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783020425; x=1783625225;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Z1JUyIG3DwbeOPJPxX3RcLVRRPcM09xsVDoLHi5o4rk=;
-        b=S239KxlIK0VSzAo97uG0U9tf3PB5OKX0ngqG7IOrCnYdMLVCk8Ju2hqWzKL0+r/43w
-         zPqaqrpe3d4bX7y+pesX/Bgu+cNtls5Vs3TqPi8tWAKFmPNwEsCr5Y8qpPmLOCf7+wIO
-         F4AlX70YnS3HrpJL231Z9jw/+k7xj7aF+uwaLIuSkbijoWdhNKagfGJEXYkhSPmYmIPQ
-         HJz648xAl6wAJhl9aKwgGODNnBtq8I0CLS2lJ3wZA8F387jCYy2saek/vTsZgXPWkEYx
-         JcYw/I/P2MOTHb6+kuuHHk6NmZYG3bAnN3ccYmZcaXp8ZNAVpOT7h3zNOE81EORVvWJf
-         fYLQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+FsIecDNAu1MQ1r0zhq/Dtqg17sILqMbm3Sa4AHC6O9dAQ/Ol6yhvqwrqtCSTmi6s+yZXGu4g0/Nh3@vger.kernel.org
-X-Gm-Message-State: AOJu0YwcC7B4G2i6rbD3lsG5HYb+8Xi4dzegR23AcybyCAIzvH6lkey4
-	qxPfyEgVkEF9U8Q/JSKE2LiRLRHiwc0OKPdgwjGJudifTkpfk0cDoXzq
-X-Gm-Gg: AfdE7cn0cIGKuqWtqxulMgMlI7GuLY/z9ZLJ08dxb50eUoS/fnASBjU4NeoMzevj9S9
-	IOE4PUEBpQJRbjp8RQTjyhOL757Jtz7eNGqoPBQTVPEwToNBfUtjYcSFWTMXBdnySxysRcXxuWP
-	IKkAU/TwXQoq4MsIl8rznuTuPiwBWxeNGwf36ejCoyXrzoJOJtAT/ffz2WavFLzNUr0oCROpGus
-	Slfcn/+0lThGmbp/AuZnBadkHpg+/DDp+PXn6Ap8JblEqhYB8lAyg052mDx+kGyvMvGlbnW0v0d
-	UTuuJjvUoa/ahV1qbAU93r96xj8CXdrx1Pe59lTE8+icDfF5bO9RTlllK+40yyyIzvR6v3leYxB
-	KCqgk+yc+/lHI1dNxkPPw1pNByDP7m5D1z7ng6lp/rLUP8W4YmP5RSbbDXCohWkU7FO4RfA20Fk
-	hpH/z81Ly4Z68zPldWwjywJo26
-X-Received: by 2002:a05:600c:4eca:b0:493:c600:e1a6 with SMTP id 5b1f17b1804b1-493c9b5da18mr16908965e9.12.1783020424838;
-        Thu, 02 Jul 2026 12:27:04 -0700 (PDT)
-Received: from strix.localnet ([197.250.51.120])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c63ba971sm107245475e9.13.2026.07.02.12.27.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 12:27:03 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Brian Masney <bmasney@redhat.com>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC v5 00/12] ZTE zx297520v3 clock bindings and driver
-Date: Thu, 02 Jul 2026 22:26:54 +0300
-Message-ID: <-YnKrFIxSsqt7IlbKzex9w@gmail.com>
-In-Reply-To: <20260702-frequent-refreeze-9850982156cb@spud>
-References:
- <20260628-zx29clk-v5-0-79ff044e4192@gmail.com>
- <ihPM7P2dSn-oiyaL8fageA@gmail.com>
- <20260702-frequent-refreeze-9850982156cb@spud>
+        d=1e100.net; s=20251104; t=1783020575; x=1783625375;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zAwDyBfy9pmItaLqNOcnGFdZ3qhtmyuBm6fxfzFEds4=;
+        b=FvKdhq6oSDBYcfWIhtw9GKyfnipdVh9Uv6WYcbpBfj2a8abdmI+NRY/vnCsYQ4jwWZ
+         WZiCW4Vvx5MLm8MZbGiedkyYv/OEyotk7pUhZ8EfY7waegAW9TMisNYn5tvXk8NUVpQe
+         5z9+Z5ZPpVXjUI/gY/cuqiqcA26AhqF6Q26jJiZlXnvMRi9gTG1aeFiioBeSKvALY4cA
+         3SjWGS9kSZanU8P81vXPvVCAXTUj7Cydvg3NkPm+kY1OdZLhzLFCM+KSBCvOvBEN8drP
+         5yiBlCPpaG1talYg93M5eM3st8KQFtaO/dQ9j7/F3LV8SWOveCaQ3Mr1eeOptdJzOxm1
+         lNVw==
+X-Forwarded-Encrypted: i=1; AHgh+RrcFZqJ+ct71PKkMZ7WzOxA4z0iQTwwg66ZcKHmoSjyGiHpXFXGGLyFYwwslAlM+6Spo4fu/2xz52TZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy8fZ5pJsH80HfMkuOZYlhR1pWJWc3dD9Ej90bjU9oH0wjT+TQG
+	hS1PU1BdxM/GUMQ2DxLO7Agkhxsd2PpSwjKX6+Kk8B66A06abhVwNjZi
+X-Gm-Gg: AfdE7ck1KzbeKW7ar2nS5zR33V7Y9qsaDdTtJfbh2HTKjeIXVT1XWxAnmNuDl3U4Tsz
+	Q0KabSrE7abPttwS8L4goE2pB6+Pn2/mdOq0clAYwnlIOehtbpMipkdTk4fTBA2MZnTe2BGZ4HD
+	kMvNJnfBI0WUen21rFOaCceYvNztSmKmzLcO7uzOitZ5cSRb/Me7OhzNX+Hy8XoZv4W/hSlPKJY
+	mXLsL9MYCmOEHM2TahQHKGVtb+8dgXsuEzb5q5nij++qse/764LO/ZGMvKYJYyk/4Meye0qkFR3
+	nsUDxrIBQjNoezM/aHxwqI5Q9XP4dPfWveyxErhR6uclVlkE82G9qL25enfjUhr9Hyb7yCVZrzk
+	Kr0MeXiTc9xGKAVJPlCPCLz74IbkQBdisxKBLgDBhcRYzEfH85zK6hhrNtoZkcm/jXJ1bOOII4J
+	AnmIlVq4cJkWd5sAsVPlOzmYkKmvx61WJNwUqtd+Fhs+JPWqfMg2E+HL/xlQY1MtKxopLQEtxm0
+	XeLCaWN
+X-Received: by 2002:adf:ea82:0:b0:475:a4ae:e630 with SMTP id ffacd0b85a97d-4775be03177mr9148509f8f.37.1783020574993;
+        Thu, 02 Jul 2026 12:29:34 -0700 (PDT)
+Received: from [10.128.11.240] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db3db964sm11113317f8f.8.2026.07.02.12.29.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 02 Jul 2026 12:29:33 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <d6a56d05-0c6f-49a5-9281-1194b62ab86e@gmail.com>
+Date: Thu, 2 Jul 2026 20:29:32 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartCXp0dzo7QVWFrQBb7b6M4w";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v6 12/15] onsemi: s2500: Add driver support for
+ TS2500 MAC-PHY
+To: Selvamani.Rajagopal@onsemi.com, Andrew Lunn <andrew@lunn.ch>,
+ Piergiorgio Beruto <pier.beruto@onsemi.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+ Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ Jerry Ray <jerry.ray@microchip.com>
+References: <20260629-s2500-mac-phy-support-v6-0-18ce79500371@onsemi.com>
+ <20260629-s2500-mac-phy-support-v6-12-18ce79500371@onsemi.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20260629-s2500-mac-phy-support-v6-12-18ce79500371@onsemi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---nextPartCXp0dzo7QVWFrQBb7b6M4w
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Subject: Re: [PATCH RFC v5 00/12] ZTE zx297520v3 clock bindings and driver
-Date: Thu, 02 Jul 2026 22:26:54 +0300
-Message-ID: <-YnKrFIxSsqt7IlbKzex9w@gmail.com>
-In-Reply-To: <20260702-frequent-refreeze-9850982156cb@spud>
-MIME-Version: 1.0
+Hi Selvamani,
 
-Am Donnerstag, 2. Juli 2026, 22:05:14 Ostafrikanische Zeit schrieben Sie:
-> > I am not aware of any IO region to configure the PHY, although one may
-> > exist. topcrm + 0x84 has two status bits reporting if USB and HSIC are
-> > powered and out of reset. Nevertheless, the PHY feels distinct enough
-> > from topcrm that it should have its own binding. The phy driver would
-> > merely deassert the reset
-> This is the sort of thing that should be a child node of the syscon,
-> rather than integrated into the parent, given it consumes resources from
-> another feature of the syscon.
-Ok, I'll go that route then
+On 6/29/26 18:23, Selvamani Rajagopal via B4 Relay wrote:
+> +if NET_VENDOR_ONSEMI
+> +
+> +source "drivers/net/ethernet/onsemi/s2500/Kconfig"
+> +
+> +endif # NET_VENDOR_ONSEMI
+> +
+> diff --git a/drivers/net/ethernet/onsemi/Makefile b/drivers/net/ethernet/onsemi/Makefile
+> new file mode 100644
+> index 000000000000..f3d4eb154313
+> --- /dev/null
+> +++ b/drivers/net/ethernet/onsemi/Makefile
+> @@ -0,0 +1,7 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +#
+> +# Makefile for the onsemi network device drivers.
+> +#
+> +
+> +obj-$(CONFIG_S2500_MACPHY) += s2500/
+> +
+> diff --git a/drivers/net/ethernet/onsemi/s2500/Kconfig b/drivers/net/ethernet/onsemi/s2500/Kconfig
+> new file mode 100644
+> index 000000000000..f2e8d5d1429d
+> --- /dev/null
+> +++ b/drivers/net/ethernet/onsemi/s2500/Kconfig
+> @@ -0,0 +1,21 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +#
+> +# onsemi S2500 Driver Support
+> +#
+> +
+> +if NET_VENDOR_ONSEMI
+> +
+> +config S2500_MACPHY
+> +	tristate "S2500 support"
+> +	depends on SPI
+> +	select NCN26000_PHY
+> +	select OA_TC6
+> +	help
+> +	  Support for the onsemi TS2500 MACPHY Ethernet chip.
+> +	  It works under the framework that conform to OPEN Alliance
+> +	  10BASE-T1x Serial Interface specification.
+> +
+> +	  To compile this driver as a module, choose M here. The module will be
+> +	  called s2500.
+> +
+> +endif # NET_VENDOR_ONSEMI
 
-I think I can add the phy child to the binding later without breaking the ABI 
-if I make it an optional member of the binding.
---nextPartCXp0dzo7QVWFrQBb7b6M4w
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
+S2500_MACPHY still has that duplicate dependency from being inside two
+of these:
+'if NET_VENDOR_ONSEMI..endif'
 
------BEGIN PGP SIGNATURE-----
+And I already pointed it out on v5:
+https://lore.kernel.org/all/90f84945-e83f-40a8-8d9e-a477c45579e9@gmail.com/
 
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmpGu34bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoiPQMP/1oytiyuDough6TAKI1g
-pyPuNyWA1l0TbqIZQujcStqcihL5JOYZo7eK/Z5amGdaD0EMEfB4eWYwsapRjRlj
-hihS2WiWMGoowwNEvDsUAlxraWTwlDXpANEJtXNMPrVvOOPGin6OHFPquo3v+4vB
-vgmM1r2MMacaCuuFEFn/m7NRHBuXA1QJzNXuyzCdHxwQEamNKV0SEVWp6mMnvypn
-1wzXqXJjcyzbinxUBA42WiUaK8xfvna5CQAzqnqMVeS16C+Salhv41WhEDN3kMag
-xjMXR6L4g04Su0MdhmssQGfE185ULucGWxSR+FZyqCvUuTOZnL1keHMtETLbQ2C0
-Hafwvn0IUJiCzNhGjSzPgbzWIhe9xV7DLw9CxOjW07IVenrRoeZQr4G9/8f9ICYA
-n7Zy8REW5Clmm2VfDSpsF2YLPuA39xv7TAopwUWmf+X4XqhxJvZIZVHL0B2lXQrH
-CkKtc6AgRWV0Tb4wz66UK8QJCeJubNwYlHHkD7xbKt9NG+ZorwuIFxSoReT0+UVV
-R77MUxXv618CXy2iN8UwCjFJ/hEl2Ffkw4c07QrqMG7HJNFkOtKBvYuvDGeseSTa
-5GVk0b9cADBbSdwPkP1juTnjgYheY26U5Ru8lI5O+7zoAIrdzYik8OKkutQjbtus
-ZycegPP8luJaanrjrM6flc+9
-=zmEp
------END PGP SIGNATURE-----
+:(
 
---nextPartCXp0dzo7QVWFrQBb7b6M4w--
-
-
-
+- Julian Braha
