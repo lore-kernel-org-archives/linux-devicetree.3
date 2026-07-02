@@ -1,121 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2423730C172
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 16:01:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8855B30D415
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 16:01:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783008088; cv=none; b=aQP2YMMUol1reaLxFHcEWaNoBmWvvURpjhoPP3EuuCj3fsMrH1J2s2Jr8JDaCAa8fD3ZC7+HOB96eIM/JDf5Na4PrTyGIpXIIQML2A9ajLOL42cbilPrUuag6NxVbrT9VBPHgrNDmt1Jm9ZJBpjhML1ZszKqgwKcVeS6FNazjoM=
+	t=1783008089; cv=none; b=SrkD9vYvhp0SZjD7eyP0pIMAzaKc+1hEmn8qmlL4sPJbimljNG821EKd3YqEhVCS9aZ9qg0iM+NG7xgbKflvBjFlm1FHLBMxp/Hzxiq1tLGh6ocdTyxaH2dM8zboerVhEg28JbeT37wqdRxGYfSri1xKPOIc9riZUqtXF9C9iy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783008088; c=relaxed/simple;
-	bh=wO3/LmVoxzfJfksjb3yFO0Dt2pbGjdQf5JMaTKc+SVo=;
+	s=arc-20240116; t=1783008089; c=relaxed/simple;
+	bh=SRSDzKlDCctcuXuxKJCEqjHS4xTBObko1jSBizja4MA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ArkaWRSWVANBGe/QHVm9mD7TYG1Kh+A9vxLw9ZoEGygCqdyxwQPev7alnqVFEMg1HNu5UtjG2KJPaN8yzTQ3A5frQJBD4TBRFHP8XV1HN2YUzO/4DdhAMJ732QyOYOp71hHBdl9W2v69QXd4lfo5uTzC0EZjarEjUVfWgsY3JqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ei/UGXxo; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=G+ZTWoItYqI0nUIhE+smni3QU3zIjMe3j/3hJ9NxKqjgu75nA1f+g7j2/GuakO0PIrAEEZpifRda/Nq4tj1A6R4o39+x4sgHRkWTLUOlnzcS4lOe762NUad9QZHjAYO+v/9hVdFrlTJOkIzDkcNMsAHB3PabG5JQHfPnSMh3Gqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XpXVWhdq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ei/UGXxo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 774D01F000E9;
-	Thu,  2 Jul 2026 16:01:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XpXVWhdq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6DE81F00A3A;
+	Thu,  2 Jul 2026 16:01:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783008086;
-	bh=gAjm7p0II1d9NELpv7akJMESZVw3RagS/obMCFFh3ic=;
+	s=k20260515; t=1783008088;
+	bh=Qfs2QTL8uxGAveHfQBWw2Abb6kWXWHTSgOpfali+bUA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ei/UGXxohjnKB/TFo+KDZiotTfRqNgIV+XwZJTehHcRquU6MutBUZbzA0/d23EAEz
-	 FuglEJ4n44j+mZNxM9Y9ZG+KQR2QqbLZ+COAe5CJhgwZYgGr/pYloK6tH+oeFfmZLM
-	 O774LDq8AjQljYYvIGw8RgfOJ4p/o2Z61CXjfSNw4sWfnK5ePbx06Nir1644pvdOsl
-	 kxIAOTCcyS4/cEMlw+nNFZcHb2ufFGr5NmFrq2RlhrfpZzr45cjtmVV2Czid36DFum
-	 H1Lph1oWaMWijpo0IcrD+Xyo06reAY3k4dMFk9X915S2GZZew169iLIMSOo0BijODY
-	 +DpzDKxITzG2A==
+	b=XpXVWhdqjvm6RaPSMPlzYPCs+u3PsP/Oa4jRGzz0fkuIlnk68nzM5Dh7yZSjvSRkY
+	 inM9nOIrbYifVU4BRWWpdaRQB+39Pb2tdzbGzdkus7KLSjky5RDQH9hxZk4jCY9awr
+	 GUc9IqhyO77STlSgz/FPpniJs5V0x7xGQ35feTems8vjsmjK61VgkTjVWF0clZyYLM
+	 Lg00NCGQDV0Dmug9q66HxAatNFu6damwTPv6CsMPgfXcJIvckyVQy+S9s2qQXDBDoS
+	 OZcweYPvfhQ9FoDf9b7bmNj24NunLKc2+jwsIfkgXn7LGHg7/6GvixUhmN6dgKc/rl
+	 jboU9MK++VciA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 6/9] net: of_net: Add of_get_nvmem_eui48() helper for
- EUI-48 lookup
+Subject: Re: [PATCH v7 7/9] Bluetooth: hci_sync: Add NVMEM-backed BD address
+ retrieval
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260701-block-as-nvmem-v7-6-3fe8205ef0a8@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260701-block-as-nvmem-v7-7-3fe8205ef0a8@oss.qualcomm.com>
 References: <20260701-block-as-nvmem-v7-0-3fe8205ef0a8@oss.qualcomm.com>
- <20260701-block-as-nvmem-v7-6-3fe8205ef0a8@oss.qualcomm.com>
+ <20260701-block-as-nvmem-v7-7-3fe8205ef0a8@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 16:01:26 +0000
-Message-Id: <20260702160126.774D01F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 16:01:27 +0000
+Message-Id: <20260702160127.D6DE81F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Replacing `memcpy()` with `ether_addr_copy()` introduces a strict =
-16-bit alignment requirement on the caller-provided address buffer, which w=
-ill cause unaligned access exceptions on architectures lacking CONFIG_HAVE_=
-EFFICIENT_UNALIGNED_ACCESS.
+- [High] Asynchronous NVMEM read silently swallows `-EPROBE_DEFER`, permane=
+ntly leaving the device without an address.
+- [High] Missing `HCI_QUIRK_USE_BDADDR_NVMEM` checks in MGMT interface caus=
+e unconfigured devices to report 0 missing options.
 --
 
-commit 4b3ab6cc908398547c262bcc34842d3a0a9fceab
+commit b5310ae697f8c9e43fa71d6c9350c84adcaff918
 Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-net: of_net: Add of_get_nvmem_eui48() helper for EUI-48 lookup
+Bluetooth: hci_sync: Add NVMEM-backed BD address retrieval
 
-This commit factors out the NVMEM EUI-48 retrieval logic into a new
-of_get_nvmem_eui48() helper. The of_get_mac_address_nvmem() function is
-updated to use this helper, changing how the MAC address is copied to the
-caller's buffer.
+This commit adds support for reading the Bluetooth BD address from a
+'local-bd-address' NVMEM cell, similar to Ethernet or WiFi MAC addresses.
+It introduces two new quirks, HCI_QUIRK_USE_BDADDR_NVMEM and
+HCI_QUIRK_BDADDR_NVMEM_BE, to indicate whether the platform should attempt
+to read the address from NVMEM and whether it is stored in big-endian byte
+order.
 
-> diff --git a/net/core/of_net.c b/net/core/of_net.c
-> index 93ea425b9248a..11c1acca15126 100644
-> --- a/net/core/of_net.c
-> +++ b/net/core/of_net.c
+> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+> index 3be8c3581c6ca..c0ed7fb14d19b 100644
+> --- a/net/bluetooth/hci_sync.c
+> +++ b/net/bluetooth/hci_sync.c
+
 [ ... ]
-> @@ -75,27 +73,54 @@ int of_get_mac_address_nvmem(struct device_node *np, =
-u8 *addr)
->  		return ret;
->  	}
-> =20
-> -	cell =3D of_nvmem_cell_get(np, "mac-address");
-[ ... ]
-> -	memcpy(addr, mac, ETH_ALEN);
-> -	kfree(mac);
-> +	ret =3D of_get_nvmem_eui48(np, "mac-address", mac);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!is_valid_ether_addr(mac))
-> +		return -EINVAL;
-> +
-> +	ether_addr_copy(addr, mac);
+
+> @@ -5072,12 +5106,17 @@ static int hci_dev_setup_sync(struct hci_dev *hde=
+v)
+>  	 * its setup callback.
+>  	 */
+>  	invalid_bdaddr =3D hci_test_quirk(hdev, HCI_QUIRK_INVALID_BDADDR) ||
+> -			 hci_test_quirk(hdev, HCI_QUIRK_USE_BDADDR_PROPERTY);
+> +			 hci_test_quirk(hdev, HCI_QUIRK_USE_BDADDR_PROPERTY) ||
+> +			 hci_test_quirk(hdev, HCI_QUIRK_USE_BDADDR_NVMEM);
 
 [Severity: High]
-Does this introduce an unaligned memory access issue on architectures lacki=
-ng
-CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS?
+Does net/bluetooth/mgmt.c also need to be updated to check for
+HCI_QUIRK_USE_BDADDR_NVMEM?
 
-By replacing memcpy() with ether_addr_copy(), the caller-provided 'addr' bu=
-ffer
-is now strictly required to be 16-bit aligned.
+In get_missing_options() and is_configured(), there are similar checks for
+HCI_QUIRK_INVALID_BDADDR and HCI_QUIRK_USE_BDADDR_PROPERTY. If this new
+quirk is missing from those checks, userspace might be informed that it
+has 0 missing options despite the device being unconfigured, preventing
+userspace from resolving the unconfigured state.
 
-Callers like of_get_ethdev_address() pass a stack-allocated, 1-byte aligned=
- u8
-array:
+>  	if (!ret) {
+>  		if (hci_test_quirk(hdev, HCI_QUIRK_USE_BDADDR_PROPERTY) &&
+>  		    !bacmp(&hdev->public_addr, BDADDR_ANY))
+>  			hci_dev_get_bd_addr_from_property(hdev);
+> =20
+> +		if (hci_test_quirk(hdev, HCI_QUIRK_USE_BDADDR_NVMEM) &&
+> +		    !bacmp(&hdev->public_addr, BDADDR_ANY))
+> +			hci_dev_get_bd_addr_from_nvmem(hdev);
 
-net/core/of_net.c:of_get_ethdev_address() {
-    ...
-    u8 addr[ETH_ALEN];
-    int ret;
+[Severity: High]
+Does this silently swallow -EPROBE_DEFER?
 
-    ret =3D of_get_mac_address(np, addr);
-    ...
-}
+If of_get_nvmem_eui48() returns -EPROBE_DEFER because the NVMEM provider
+has not yet probed, the return value of hci_dev_get_bd_addr_from_nvmem()
+is ignored here. Since hci_dev_setup_sync() runs asynchronously in a
+workqueue, the error cannot be propagated, and the device might be
+permanently left without an address.
 
-Since of_get_mac_address() can call of_get_mac_address_nvmem(), this will c=
-ause
-a hardware exception during probe when ether_addr_copy() casts the unaligned
-pointer to u16* on architectures like ARMv5 or SPARC.
-
-> +	return 0;
-> +}
+> +
+>  		if (invalid_bdaddr && bacmp(&hdev->public_addr, BDADDR_ANY) &&
+>  		    hdev->set_bdaddr) {
+>  			ret =3D hdev->set_bdaddr(hdev, &hdev->public_addr);
+>  			if (!ret)
+>  				invalid_bdaddr =3D false;
+>  		}
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-block-as-n=
-vmem-v7-0-3fe8205ef0a8@oss.qualcomm.com?part=3D6
+vmem-v7-0-3fe8205ef0a8@oss.qualcomm.com?part=3D7
