@@ -1,167 +1,270 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from MA0PR01CU012.outbound.protection.outlook.com (mail-southindiaazon11021119.outbound.protection.outlook.com [40.107.57.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D2038B135;
-	Thu,  2 Jul 2026 07:25:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782977140; cv=none; b=cTI/v9Hf5oV6vr42YWKS/GzlAlbTVV5Iv79s7PARZwOK+dg52rlDeMshA1/TTwL9tLP+PnONdzQWnHE/QbRIvPHiR6zIQTBSOpIXvUrycGEkBCv8//7wG+mGeTRO98izcSrLBChkKL7rq7+6Q4o4abh2PNdl1zCzIry7rMxVUpU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782977140; c=relaxed/simple;
-	bh=0iiVKVZWDyomns5F+CK/MTgpBarFr0OL/0hjPk+/6E8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ykpneu5nDPqpJAL6nguzzEuYEFh4dUX+0xXsXSdVQpz/zruvOYoDBgvrodkqw0FZNCsG4IB0G2cKkMxw3bSejh/w6T+nJ2gAz5ObozFKuOXy06ScP/8dvKy4lioBM+vR3DPQI8DOeGjCDa9XtdBN8Ti4CbPcwD9yyAIWVqs3uJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NT9EfwBM; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6893E3168E6;
+	Thu,  2 Jul 2026 07:25:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.57.119
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782977148; cv=fail; b=o7PgwhYT2WjyVNfTCP8vIsE8FU/irO7RvgULFphy4Wmd4kibOPuHAOOAzpgFhggMJ2L3JQuRSr5B3bKZwoP+p3qHzurB7mHE4TA7Wyc/stJcHuqg34TYQXiGE4awFG25H5qTyM7XB2Pf8uSTnJy8rS8zhydpt11PjI/7awuMVTg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782977148; c=relaxed/simple;
+	bh=NcXPXOiMK26Adt4M0/ZtkMOFYNzYRAbSrD7U2ukYVxI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ur7DFFCXtd34FvEklBAyv7XnQ+o0UGUu7gsdUiiX2A2jlmi1ARQuKU9EDdQdbmxSJpCJGVfHGx2UEcSYv2Ijy/vxTz4rBgpX8HOinyPrzOxAEfLJzOA5ry6ad1lWN4jmtTuGRqMgzjASDT6mq2eYAFrpPY/WdKJF667nyD07n+U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=KfyPzvOu reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.57.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NT9EfwBM"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6621KF8p3009445;
-	Thu, 2 Jul 2026 07:25:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=1KgI9KYgIHfDrgS6mLJj5Qx+
-	J6n7/Xh9H91frP5TMXk=; b=NT9EfwBMIFsTkhUcTaoTrZaIh7Te9Kr00UpBhGkB
-	OoSXklIbMbqYIgheYl4WfGLijZQBXkiSeW+mN0AqAoL2AnHS9iI0PRIyQjI02k0D
-	DAmmS5RWg8hl9jtva6IGV6hcFNhOpdg/01jLQ7reOaxZ9vK3fLeCfoQwbZ4uhfAQ
-	2r+2KZWWjj4KTTRIusvSVGprEFDstrOpVzReS1TtOT5dzNpL3LnPakFithPv+cQN
-	nM5kdypDKwb59ckLVBZ/Z22M1zHlvWxsxyLQRJX2UzgRkVedQfaxy/3t8CeMCRHA
-	Mm//NrPgXdeHfApDn3j8e/ur8fa1bIM9oWQ2rCMt6rByKA==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f579rts50-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 07:25:35 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 6627PWkl003794;
-	Thu, 2 Jul 2026 07:25:32 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4f27kknuc1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 07:25:32 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 6627PWNw003786;
-	Thu, 2 Jul 2026 07:25:32 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6627PWeS003785
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 02 Jul 2026 07:25:32 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id 6B7D5B2B; Thu,  2 Jul 2026 12:55:31 +0530 (+0530)
-Date: Thu, 2 Jul 2026 12:55:31 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
-        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: Fix pm4125 vbus regulator
- compatible and constraints
-Message-ID: <20260702072531.bs2242bgfcvpuyh7@hu-kotarake-hyd.qualcomm.com>
-References: <20260701-add_pm4125-vbus-reg-v2-0-6bac2bac7131@oss.qualcomm.com>
- <20260701-add_pm4125-vbus-reg-v2-3-6bac2bac7131@oss.qualcomm.com>
- <20260701103457.73E251F00A3A@smtp.kernel.org>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="KfyPzvOu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JecauaI4rt0NXrbHyBvnG2Z+ZFZlzJ5xQLbHZXp+VyhNweBwgqULPiFfV/atFsDAXJvyDuaWOc+A7RKfttZdF7iC49E+L+eAE524+x2ef5vXD2F64TnqDjFlSq0R7YjphfY41zNHyLTDeB1mOleStuP7l+Hsyil2GVo3aXVqun6rZUDsD71+8kqsvLKPf5xdfBWIoWkTyaeAReZZQKFutRZvzpN9MPTqF+3FeWAfjOOca8Ppg8q8HhtMOpdThmafTKooXtza8PE5OIRKR9xsLVnV4g9WdsfrDekew24vfk+RYAUDy2SKm9Bv8/jMwS7mIaxke4DXt2pMgCfb2tQ/Rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NLJhRTN3U9N6dNNk95F4frlbUZ6wO/ajXgslFixtnYw=;
+ b=W/gXCAcHxF+c5JRy1O/CEpNQOJ8pr90jaxLKuHaO4CotYnj/aebd8J3gXfAE7ru5E5RhkSqW9lAqAH0J25Ic/aPyFSs0HDabFoqGHSlof5jsNLHTT6u5B63GbzXgKGspuBjVS1SFgckMN8BtmHueI/BxcGHP8G8fN++NvduclF5qj3qLTQuXmBqANmopCJptWIXow5M14FiuBKDbuBU81ij1s2nl1nR02RjZ+qFAfHoZRbRUFwwCK8WQKxLMPLgYubDoJwEe469WFvSFQk2d1kh02RkThzm5gY2+4eLaB3TvB5px/rvhIc5shwYqkPz6s3PzMtiZNtgk0aCj6thXCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NLJhRTN3U9N6dNNk95F4frlbUZ6wO/ajXgslFixtnYw=;
+ b=KfyPzvOuKuIl0HlojybXPXrCYlGurcaFkHtd/W1k1xlpShoqU9uxlpD30BZpO+lYAHxVTQvQTNewrWSjAgdjYAeBHOFvmNU8arNof6I3OuXTxGgvksi8vdQhjwp6+HIF7EfZO/9YLNRyhGuAZMgOfByQRNYzRK0ZZZvCzBKdcQ/MYnOV16xwPGhhlAKbYsSzx++OaJiVMqRFyDhA0j5qZ220MR/DvrJfgLgM80Ce73G5xjVzsinDMsEPX8yXZEuS6Q/r5M/Yj9GUqwCRV/+sISmAhxgsC391ZNQbvDuygK3jY2xJ3513EYuQ/2MEuAmL40JXendL3FYbaAiZGFx7Bw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:11e::14)
+ by MA5P287MB5724.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:200::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
+ 07:25:43 +0000
+Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ ([fe80::f8da:c075:cde1:e167]) by MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ ([fe80::f8da:c075:cde1:e167%6]) with mapi id 15.21.0181.009; Thu, 2 Jul 2026
+ 07:25:42 +0000
+From: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+To: sakari.ailus@linux.intel.com,
+	vladimir.zapolskiy@linaro.org,
+	laurent.pinchart@ideasonboard.com
+Cc: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+	Xiaolei Wang <xiaolei.wang@windriver.com>,
+	Walter Werner Schneider <contact@schnwalter.eu>,
+	Kate Hsuan <hpa@redhat.com>,
+	Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 1/2] dt-bindings: media: i2c: Add os02g10 sensor
+Date: Thu,  2 Jul 2026 12:54:52 +0530
+Message-Id: <20260702072502.7907-2-elgin.perumbilly@siliconsignals.io>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260702072502.7907-1-elgin.perumbilly@siliconsignals.io>
+References: <20260702072502.7907-1-elgin.perumbilly@siliconsignals.io>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PNYP287CA0036.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:23e::11) To MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:11e::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260701103457.73E251F00A3A@smtp.kernel.org>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDA3NCBTYWx0ZWRfXwjL/P5oXaSNW
- TqTisV2CRtR0au+E9aj8OxPn4zMGAKL1O/JSn+rg6fdTgA70KSdAMPXVV4OvkAOwTq9Qgvf3e+m
- hH6vgcctYekBLwFd1k9eXYTzk0wPG1ANI11zqQ5FMB8f0prsvB9jCQBXPogqGmENzPG989zTQpp
- K4sGjXZraDLeXAbVDGWZmxHCu5XUmt25yx66t+55yvUJFrra/87PtEfy66UyfC8PbuW1lBl1dgm
- 5co7Q8nzFe0Bb+6Ugu8Y+7qNczZSNg/fUeBgJ8Fu7wiFS2jBcBpiHcBJMdYq4UEQXKhmWO3jE24
- PWtzOYo1B9ccrl7w5Mk+TOBzl/2cjUamJgcMHDftBbiFP2ZWzd6mIDhzFkXUoXtVoNqYUzTbg5A
- ALcyKs2V/Z5XqoYsOfHlV4MxdpqVAVxf83nD1/NTia6ntU8NNJbquyhbgY4Mv3fZAVaLrw/uYqU
- u6zFVJUvl2kVddB6YAQ==
-X-Authority-Analysis: v=2.4 cv=X8pi7mTe c=1 sm=1 tr=0 ts=6a46126f cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=LV1d6kUfYfGFZ_KTQQsA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: lu_KQoT83fvN7rQTuekGCn3jfE-n4rFK
-X-Proofpoint-ORIG-GUID: lu_KQoT83fvN7rQTuekGCn3jfE-n4rFK
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDA3NCBTYWx0ZWRfX6o5Ii8rnHl2h
- xhLaJnPu+cnRxFsjbYsPK/MWJ6TWkz8o+j4vWIwRJc9we/9cdSMxa9dzfwf0S3NvGiE1+NoNfrp
- GFHPDK/xoYaFbkyZIzOAEVVAEJpA8IQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 priorityscore=1501 impostorscore=0 bulkscore=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020074
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MA0P287MB2178:EE_|MA5P287MB5724:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36e016cf-9155-49f2-7029-08ded80b201a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|52116014|366016|1800799024|38350700014|18002099003|22082099003|3023799007|56012099006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	FDSOdRHY802JLQ8FmYWcLurw3SaL983fYKuaPbYKH4NSuFKHyCUuzw0mjk+3SAHelBSTl3o33YbS6cuS5mkkHXdJJB5VIUomhBdAzBAc7EIJ1rCfUoqo9hHtGUmthJZzB2uOOiGRWanHtLioUr0arV3PobJF6EL5hzgRzjYGPVJmRKcW6Ho5xKSJh6TbONvRSjZbzN3hR5u7YFhwlAR90ltTznOnwQdDWULFTucOtiR9nLZ4poCe/i54iHAJNmUEOcQsfJWGeZD+MmKIpjNefN5QlsiRh77LQA50wZ4/Bx/jOCtTT4/mHYZhzYXS0nQ6RTFQlprIYH14BYQVLBN04q6ZUGZ9+p/2vCYsIWFpqZseXf9PQve0VVGVMqFEOw5/89mgGpcslEHJFlfTLygQ5B/QmqLe/PICAsHf22WyEMeOm9oa9oQED4Ln5WpKr39vN9LTMlSUmMYg4j5gbw1hlJhCuuExKXOzRjV3eHRwR6LQQHAxqgItqj+VWXwcgFlJVGkQZ3+JwbJYi9BUVjxVnnmsaSpLdRJM/ZnREOmUQeNfBtXX7dLCdKlLo+aiHyjMEA6m7gsaXmsYXTsuBxft+6VOuwLvr6gxgvCIPySK6OeHZN1h8wS9mG0YGO7+YrdEov9Aa+pVv6et1r/rvDsSniwKiZj8Upcn+cDENP5D84U=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MA0P287MB2178.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(52116014)(366016)(1800799024)(38350700014)(18002099003)(22082099003)(3023799007)(56012099006)(5023799004);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?OEVMfJ07rpmv6DhVxlcvCOzaw7Wx0iWB+V5Ti63owWXyev06UBnco0AcThOI?=
+ =?us-ascii?Q?cySLEtDUiOukjodds9NoMQc7rK0aoyXuDloUd2gS63QBUWinRmiSzOZwa4Cp?=
+ =?us-ascii?Q?YYw4Wjgl7VCdayFsRTX3fLHMGPhcPuNIMyP1HspkXokvW9KIqsUWCzEWaSsh?=
+ =?us-ascii?Q?WO463WRgrqaiYSeQs4DcPMeMGQ0tTy8V9YvRL3GbaXp/pyFz8/IWbpkcHnpW?=
+ =?us-ascii?Q?vpeCDddI3XVvdBO7VuRJ2QZtTL140zihHas+a7XwCnDzZh1urMuc1QIPoF5Z?=
+ =?us-ascii?Q?2Gil3Y+qT5cZ72+hZmVj8jmOeCl59z3lUXDWmk6jky+kQTu4S+UFZcTr4znT?=
+ =?us-ascii?Q?Ykm16PRM5gmK1vycdhP/M9Zo2DV6Nu2R+kYN0y3k3UxdH7IpOedun0OC5HOH?=
+ =?us-ascii?Q?A+dENOPi2eBkq15thlgI/dk7DYalRmZnHYkc4S26FWkDr88DaQDdESrvoK5a?=
+ =?us-ascii?Q?A1V3vqlDkNOYZkN42lIn1SGRMHpmQlPa0cdmTwxOqehua01nXIhUu7RW16fV?=
+ =?us-ascii?Q?DcJzxRSZOa1W2fnvLAOq1e7LhaBMjBYL+eoioqmA3qHqljNR5CMqkNjr69g/?=
+ =?us-ascii?Q?J5NNwHVwgEE+0OQW2/MGX6G5991eG0fd0cMMcgv5KuWATf0qF1Y4kLPh0VIs?=
+ =?us-ascii?Q?jBFrjj3SWq40d8Kj9gw07Psgcdu0cweaUTx+5/4E5LZwYzu14QGHg3lVLEme?=
+ =?us-ascii?Q?HwkerRsRMV4bUCNiQEX5jfl7gGRplGXdlu8Olhn55ubNJOotM56cazXpH7cU?=
+ =?us-ascii?Q?y0N2B5PsEdgz6pbe7Yt5whY/nsWFGuaUTYyaUOBagf5rtWYoY0k1xdbVWYGo?=
+ =?us-ascii?Q?PV6DlN10hlo8GM7EyWwCygj7QaxM276Rm2GZCBjt+zZShjIrOVhSXJ0EToP6?=
+ =?us-ascii?Q?R/nuYJNWTOZnmGTggdyiQuzWh6tgHZZ0Z5tp4e4GPsepuKY5X472forTzICo?=
+ =?us-ascii?Q?YiHGKwWDY+B/e6SOtaIPvNGcvnJxVNp8WyBD2MUvpoVWtqmHDfhzoiJnkk/q?=
+ =?us-ascii?Q?FOSkAXUN9ccnAk0xBe6Q0VFvTwjXODmWZMxZ0RhmoFCtKQ3D1KOwMkqqLT2q?=
+ =?us-ascii?Q?tfK1GvH8ezmrM8RDlzSFzUmHpTQ/COFCAD7LTwWuc+dHjSuLpSdGOSzCM0Ii?=
+ =?us-ascii?Q?eow372rTkxIi541FFnRDB4Xs0JRCVpNKhpSmbBKHbhYSbWq9eyCAyHFFktk8?=
+ =?us-ascii?Q?OsxQBBd9Zg4RXptTh6NL5qXnXUJ5fbYc+wD0h/LTWjkr5FNTYPQrPHxQHha8?=
+ =?us-ascii?Q?7g65WOxlT68hcCtbhw7DDC/5fcvhY3V/ov48dnHznAAxFWR7/u2TefTDL7dZ?=
+ =?us-ascii?Q?q7BDDgyoZG6PFE7fIlVW7czsoBy354Icu41UPxcqEs7PhOB2Tw9yPwIlcYIB?=
+ =?us-ascii?Q?bsDEOWH/WnDmpmEKxrhyDaT4meSRnCy1h8KW1ydadDbMgWhwVuvbwokO0OtV?=
+ =?us-ascii?Q?jcKbCu85vxGXLdtWDDKpq0nAL6a3pfGjO6TN71Rjn7wiwQfPhKudBhwyxDrJ?=
+ =?us-ascii?Q?3nW30d8im66LC0l4bvSErFWAP/QL//jr1HFddoVwmhFQE5HEEukAmw1TJVOJ?=
+ =?us-ascii?Q?UvD/rA7rnUWCtZUSkBToMyppGIN4he9DoGmKkgnm8ikzPwrUIzETsDwof+M+?=
+ =?us-ascii?Q?v0KQ6+GS7ArXqPSNE+jtR1zWDO2Zr8/JkSFtIHsvFmr0bUMrl/96uN5Nj10F?=
+ =?us-ascii?Q?sIkAv5h78d/Mu9vprwOrst3EZf3dOxbl587b+PCV+ij9EkgjQAz7o5rgvCNE?=
+ =?us-ascii?Q?Th8Z7W0n02zKGOKBqgmGPTrHbul89OE=3D?=
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36e016cf-9155-49f2-7029-08ded80b201a
+X-MS-Exchange-CrossTenant-AuthSource: MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 07:25:42.9010
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ot630T4e/ZYw4nLaCvxuJOirxIkJ6Gme68pCR1UHBlsHxKXnfNEyUFiy04iWUTJfsxP7i0mJ/LsqC2BbjQdle8REG/XF4pDT0ZHrSi3fn1xpngv719cOkJcwcUjw6f5m
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA5P287MB5724
 
-On Wed, Jul 01, 2026 at 10:34:56AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> 
-> Pre-existing issues:
-> - [High] The `PM4125_VBOOST_CFG` macro is defined twice in the driver with different values, causing the voltage selector address to be shadowed by the OTG configuration address. This leads to register corruption when applying the new device tree constraints.
-> --
-> 
-> commit ee5aeefd579f49a0fd9de6178216fb53f958a898
-> Author: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> 
-> arm64: dts: qcom: Fix pm4125 vbus regulator compatible and constraints
->     
-> Remove pm8150b fallback compatible from pm4125_vbus and fix regulator
-> constraints in qrb2210 DTS files to use microvolt instead of
-> microamp.
-> 
-> > diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-> > --- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-> > +++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-> [ ... ]
-> > @@ -235,8 +235,8 @@ &mdss_dsi0_phy {
-> >  };
-> >  
-> >  &pm4125_vbus {
-> > -	regulator-min-microamp = <500000>;
-> > -	regulator-max-microamp = <500000>;
-> > +	regulator-min-microvolt = <4250000>;
-> > +	regulator-max-microvolt = <5000000>;
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does adding these voltage constraints now
-> trigger a hardware register corruption in the regulator driver?
-> 
-> Looking at the driver in drivers/regulator/qcom_usb_vbus-regulator.c,
-> PM4125_VBOOST_CFG is defined twice with different values:
-> 
-> drivers/regulator/qcom_usb_vbus-regulator.c:
->     #define PM4125_VBOOST_CFG		0x52
->     #define PM4125_VBOOST_CFG_MASK		GENMASK(1, 0)
->     #define PM4125_VBOOST_CFG		0x56
-> 
-> Because of this shadowing, the pm4125_data struct initializes both .otg_cfg
-> and .vsel_reg to 0x56:
->
-> drivers/regulator/qcom_usb_vbus-regulator.c:
->     .otg_cfg = PM4125_VBOOST_CFG,
->     .otg_en_src_cfg = PM4125_OTG_EN_SRC_CFG,
->     .vsel_reg = PM4125_VBOOST_CFG,
-> 
-> With the new regulator-min-microvolt constraints added by this device tree
-> change, the regulator core will now call .set_voltage_sel on this regulator.
-> 
-> Will this cause the driver to incorrectly write the voltage selector mask
-> to the OTG config register at 0x56 instead of the intended voltage selector
-> register at 0x52, thereby overwriting OTG configuration bits?
-> 
-Yes, you're correct, I will fix in the next patch by splitting the defines:
+Add bindings for Omnivision OS02G10 sensor.
 
-#define PM4125_VBOOST_OTG       0x50
-#define PM4125_VBOOST_SEL       0x52
-#define PM4125_VBOOST_CFG_MASK  GENMASK(1, 0)
-#define PM4125_VBOOST_CFG       0x56
+Signed-off-by: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+---
+ .../bindings/media/i2c/ovti,os02g10.yaml      | 94 +++++++++++++++++++
+ MAINTAINERS                                   |  7 ++
+ 2 files changed, 101 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,os02g10.yaml
 
-And updating pm4125_data to use PM4125_VBOOST_SEL for .vsel_reg so
-.set_voltage_sel writes to the correct register.
+diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,os02g10.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,os02g10.yaml
+new file mode 100644
+index 000000000000..72c6beff3625
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/ovti,os02g10.yaml
+@@ -0,0 +1,94 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/ovti,os02g10.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: OmniVision OS02G10 Image Sensor
++
++maintainers:
++  - Tarang Raval <tarang.raval@siliconsignals.io>
++
++description:
++  The OmniVision OS02G10 is a 2MP (1920x1080) color CMOS image sensor controlled
++  through an I2C-compatible SCCB bus. It outputs RAW10 format data and supports
++  a 2-lane MIPI interface.
++
++properties:
++  compatible:
++    const: ovti,os02g10
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: XCLK clock
++
++  avdd-supply:
++    description: Analog Domain Power Supply (2.8v)
++
++  dovdd-supply:
++    description: I/O Domain Power Supply (1.8v)
++
++  dvdd-supply:
++    description: Digital core Power Supply (1.5v)
++
++  reset-gpios:
++    maxItems: 1
++    description: Reset Pin GPIO Control (active low)
++
++  port:
++    description: MIPI CSI-2 transmitter port
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        required:
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - avdd-supply
++  - dovdd-supply
++  - dvdd-supply
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera-sensor@3c {
++            compatible = "ovti,os02g10";
++            reg = <0x3c>;
++            clocks = <&os02g10_clk>;
++            reset-gpios = <&gpio1 7 GPIO_ACTIVE_LOW>;
++
++            avdd-supply = <&os02g10_avdd_2v8>;
++            dvdd-supply = <&os02g10_dvdd_1v2>;
++            dovdd-supply = <&os2gb10_dovdd_1v8>;
++
++            port {
++                cam_out: endpoint {
++                    remote-endpoint = <&mipi_in_cam>;
++                    data-lanes = <1 2>;
++                    link-frequencies = /bits/ 64 <720000000>;
++                };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c9f2780b2d31..83bce5e9dc49 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -19829,6 +19829,13 @@ T:	git git://linuxtv.org/media_tree.git
+ F:	Documentation/devicetree/bindings/media/i2c/ovti,og0ve1b.yaml
+ F:	drivers/media/i2c/og0ve1b.c
 
-regards
-Rakesh Kota
++OMNIVISION OS02G10 SENSOR DRIVER
++M:	Tarang Raval <tarang.raval@siliconsignals.io>
++M:	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/i2c/ovti,os02g10.yaml
++
+ OMNIVISION OS05B10 SENSOR DRIVER
+ M:	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+ M:	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+--
+2.34.1
+
