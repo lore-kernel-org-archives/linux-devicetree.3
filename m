@@ -1,95 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA1242A793;
-	Thu,  2 Jul 2026 08:26:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C730D33F8CA;
+	Thu,  2 Jul 2026 08:27:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782980787; cv=none; b=eCiygI6lb26RhPCE4pVGHV+8xS2LXrYuP/c63AByX6XqiGH3HnPiXmZ5gLKnjIXTZekC6UnN3NxTgBC3DU3q+LnsabHtgwCPawW81+ZfkNt727MtWzNWiNIHZIAdqsP1w6ApdACen50s52MFx1IJr/jDZJVAtzYIMHXSgdGNEFc=
+	t=1782980846; cv=none; b=KYYCnAvx97xxjsqJotOSNS7eTSD3WW9og7wvt+ttGXQ/B8mw1KTHFbjbNpn6qmxMO5aZbAhiyzyDQoUJKdDS7joCYkzVCZ3kjpMhDZjlH9MBIOjnjJzj+CVtTYxwbPDJo9TxZAc5mS5aPGvdCANnYcrxVovasyz2H0cDLEfN9nE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782980787; c=relaxed/simple;
-	bh=cQRXf6ceBp0PQVF0NXLpsm76S87d1W1+E10MJf4GIaA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LoMluk5CbH6dD7m6VuAxBncx31iAqggGoaaOulDGtQOhuXg2GHqJaa5SDbC73PcJSxB55iilkOWLgD8y3b9JjW8iJ1r9W1q17h2tqi4ShfC6kPmmCDZV77/3gCoBzfJDlRig8fzsMxABbRoTeoVVfi+z0pbpe/wGFcJq7Mh9d2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yv18ov77; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782980846; c=relaxed/simple;
+	bh=+ngHn6uf+3LIKwi/2+6vVQprALRvSEsMi9V4LTgnpeU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DLEzGp/L9OweTjRBkB1OKwGDSyBFSQfEv+K0Elcu/U7xrDGwVzAZmtnRjZoNYEs7uxh11i8gBOh6M8UziOkrMdn0wuoWdOnDACRa5a8KQZuJ+njGrLIK0kADS4OlaIuLHcuKmoA/kZnnjxMxPO10VnpXh5sHN79vQ8qyIqQ8NYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hkYJjHhe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yv18ov77"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9FF81F000E9;
-	Thu,  2 Jul 2026 08:26:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hkYJjHhe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 851061F000E9;
+	Thu,  2 Jul 2026 08:27:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782980781;
-	bh=4oT17v1Ou6RaD6Z4K4iOm7mKLYuKxL7qii+MGUf6YTQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Yv18ov77wofXSSC3MNogefT6nH9Ui17HXRxy1Ptqrr5DZLsU0xCdeF+UyTGNWz9lw
-	 7ZKC5089xaU6upLZT+uafke0Z5lMx7ceNZHAk+B0jdkrUCLXbvH/d97Vn5T/7JEJ0O
-	 aZSxUi2GOeFV1d2I0BSr5DWNmrDlZYWrQNTggByrkVIoFfvohCiDim2EMqLC/XrylD
-	 spS3P+VlkzvbZTcC4EHWN7/D4+sJJT44GQWdG2q3zIdI7mXKUOxdowcQQJq6dTpGRZ
-	 S07dcmP92yp8J/UMqYUBD7fnWJbEbX3cOVpDlwsnN44y/68WBRfN32kbJCZMRxAvrk
-	 bkD2ULvIRoWiQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/8] clk: sunxi-ng: div: add read-only operation
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jerome Brunet" <jbrunet@baylibre.com>
-Cc: linux-rtc@vger.kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260702-a733-rtc-v3-6-eb2580374de6@baylibre.com>
-References: <20260702-a733-rtc-v3-0-eb2580374de6@baylibre.com>
- <20260702-a733-rtc-v3-6-eb2580374de6@baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 08:26:20 +0000
-Message-Id: <20260702082620.C9FF81F000E9@smtp.kernel.org>
+	s=k20260515; t=1782980845;
+	bh=vDQz+NYkTBHSULK0tw+Mm8elpzXTkLrFpJWp8OOPxRk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hkYJjHheBiigSCIoxAnmBnm2Bv2li9Wt0V/580iIt97g+Qrcrl/x51jeXGSSBer4N
+	 G8ZKzu71v+Ztthqr3JIPrs2YJj9D7qbkxUzhIYzarWZPgQiaBamvYPihvcQtIxaDpa
+	 rnh9tbuT81gfZDB+QWm7HZ6b2Fuj1Iqs6AZ2ft+3KAfMwrBosipBQB9reYyIz+THZV
+	 YRpOs2QdLr7ugW9crkovYbsPxYd+v1B0mMjw/cdJOcm71xTzmDe2rETZdLIqtOprgQ
+	 538oSgv1t2IdpzYrb02oFqE2FPspC5qTTb4RIneR8kbqhk8V8dooW047Fjf+FmWdPW
+	 ZbW0tPAXYrQRQ==
+Date: Thu, 2 Jul 2026 10:27:22 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>, 
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>, Andrew LaMarche <andrewjlamarche@gmail.com>, 
+	linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, ath12k@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH] dt-bindings: wireless: ath12k: allow calibration variant
+ for WCN7850
+Message-ID: <20260702-beneficial-hopeful-binturong-a0bee9@quoll>
+References: <20260701-ath12k-calibration-variant-v1-1-d3eddaabf026@toradex.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260701-ath12k-calibration-variant-v1-1-d3eddaabf026@toradex.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Wed, Jul 01, 2026 at 05:42:24PM +0200, Ernest Van Hoecke wrote:
+> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> 
+> qcom,calibration-variant selects board-specific calibration data for
+> systems where the bus and device IDs are not unique.
+> 
+> This is not specific to WSI-capable QCN9274 devices. The WSI binding
+> already allows the property, so allow it in the WCN7850 PCI binding too.
 
-Pre-existing issues:
-- [High] The existing ccu_div_determine_rate_helper incorrectly asks the ha=
-rdware parent for a non-predivided rate when CLK_SET_RATE_PARENT is set, re=
-sulting in unvalidated parent rate requests.
---
+Why? You need to provide reasons WHY do we want this.
 
-commit 20e3c89e1fcae37e3eaf3a9be6d0c4e28094d07d
-Author: Jerome Brunet <jbrunet@baylibre.com>
+> 
+> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-clk: sunxi-ng: div: add read-only operation support
+Where is any user of this?
 
-This commit adds support for sunxi-ng read-only dividers to be used
-by the a733 oscillator detection logic.
+Best regards,
+Krzysztof
 
-> diff --git a/drivers/clk/sunxi-ng/ccu_div.c b/drivers/clk/sunxi-ng/ccu_di=
-v.c
-> index 62d680ccb524b..d1c8c7baa12dc 100644
-> --- a/drivers/clk/sunxi-ng/ccu_div.c
-> +++ b/drivers/clk/sunxi-ng/ccu_div.c
-> @@ -84,6 +84,36 @@ static int ccu_div_determine_rate(struct clk_hw *hw,
->  					     req, ccu_div_determine_rate_helper, cd);
->  }
-
-[Severity: High]
-This is a pre-existing issue, but does ccu_div_determine_rate_helper
-incorrectly ask the hardware parent for a non-predivided rate when
-CLK_SET_RATE_PARENT is set?
-
-When ccu_div_determine_rate is called on a clock with a pre-divider, it
-delegates to ccu_mux_helper_determine_rate, which calls
-ccu_div_determine_rate_helper. That helper then directly invokes
-divider_determine_rate() which queries req->best_parent_hw for
-req->rate * div.
-
-Could this cause the clock core to query the upstream parent for a target
-rate without accounting for the pre-divider? If the core subsequently sets
-the parent rate to an unvalidated higher rate, it seems the parent PLL may
-fail or clamp because it was asked for an achievable rate that it cannot
-actually sustain when multiplied by the pre-divider.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-a733-rtc-v=
-3-0-eb2580374de6@baylibre.com?part=3D6
