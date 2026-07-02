@@ -1,132 +1,465 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CAE3CAE93
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:33:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4C147D94A
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:33:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782984799; cv=none; b=Bv2Bf1wAu17BpRqjwZT4+kTXskB9ydp/Uuv1IDqWM/bV1ipYyfbtSu7fU0wuY7jT2l48N1/JYAF9sg2ebXVfM4tp17y5ijRZMez9uapbGp/vyWqfHZ5EeUh1LBORWRGEUMk07rHLTOVxnoTtdi/udQ6q/COsyNQRDzO4uuq3wqc=
+	t=1782984803; cv=none; b=Ujg6v8Qe7b/rS9lXE2V9rAU4WBnIhXnyVAC/9Io1tn0ieWOslh7lsPxweQXkEL5v7aYPDmD2lDgh+Ra1zrpkkFetUMMBG0yvdiIoPqFHng8vSVMuvPpm4eRRHEt3vDaBJv9WPOzq+uXuD614NVFsGuFH9HtMbPNX8n7GQUDWr5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782984799; c=relaxed/simple;
-	bh=oaHVnd87z43W7j09tTxLlnmC4YG6JXhvjpcX3CpNAuk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OpGtVX1WcAK1UnNvqdCFVj/8Q8i3XW+u3yHNMxFFMsFHrL9XSYTFyu7+3xMHg/2atMPMgF0GQ+58r6PLr4Xl9/LPHI5RI5dhLP1m+FJnymT3PKJdY4gq1BlToyqkn8UTs+dodo0aTw+6hNnMvgjjfBF00F0WcjHO8Fwo7wD3Rao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8453427d3f4so1080833b3a.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:33:18 -0700 (PDT)
+	s=arc-20240116; t=1782984803; c=relaxed/simple;
+	bh=9g8rfBLzhKJqnNT5YxLMw808cqWQv0IfTcODTINMQ0Y=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jDrTPh8se57vLXC/0Umr8nt8r4RC94ZAitJaY8iloRQzZOT3C3XpkUlksARu4n91hQ3MzoUQ57SIFvZI2+ufcyc9IeTA8kxsO8fOVgxrelrO6ujAxWhHy8umGR01gvpmQmpqb+Dzz4IE6AjPI+aQNNNACsgWG/yK1wVmvnbJ0OU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dGX84rRB; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dGX84rRB"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493bf73ec2aso8903025e9.2
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:33:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1782984800; x=1783589600; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=xy882Y8GNds0v7W+NXQvp4lrh5LG/ciXurGQqDIREsQ=;
+        b=dGX84rRBL+G6wYpi+aipkuPY7YAkMkKoHU4kUUdOjccDxV5bat8eFpuzH+ICqQTxT0
+         THOE8eGF1PwIJEuZUwZZiIUfNLC2J4SU5J8kOQWaDNbo1mRanQZhZ2CGv6fOxWsglR6k
+         qJqfWoVPNxe6RS1Orps3sUVnX+UA9cCfKM0oop0NZ8f7nyHrjMrQDqPkN/BhTBdvlG6a
+         rrjh0yvcDMFlOzGL1/X6Q0YD/zrnqpxswiP2eO51uwI+60pgqF0qjLNDcLu4avv99JbE
+         Pl6XzXI+eGPJoW53wMTrS85LfpY6gRjnGVDr/AfLRWXL9XYejFCLtrRPrZ+9+kjLVEhP
+         2jNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782984797; x=1783589597;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1782984800; x=1783589600;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9xiqnp7i51oc7KGFElhrnKuIK1In1osntTe68gEGmGg=;
-        b=fkbdDIU+lMnBQwoBvCmLqLKP0WzsxtgkTk4LQUsmeAlVZwPowTKLRY5EHIGnctgR07
-         //LWQcGTHiOsHnaZhQdhF5dOvXyswqAxrMrBXImHInbY/jFbgstvmGDCBJhfrXWEqct1
-         SLfPifbU4Kkzw48Ow6sq4y5edy0zTAJ9YbHOFpcTd1mSFKlGlZcTRBTpz1W9Si5EqxIg
-         O1+gQrOTz21ibZPVp9Y96zwJhQahnbLva2Y4FmjGBfDlla1YSf7rniqMZzM6cIp2eIik
-         t8eBxN29AEI1+JRqucwBfg8Squke+ujzZSkk5XqJndQFU+1U0k7C7bnuJkcQQ0XVdQJp
-         xQRA==
-X-Forwarded-Encrypted: i=1; AFNElJ/bMQxaNtZrndtDFIh0ulEM0w6mL1TMOM1sIPlfWaEqFwGYUBjVsgHT30b40j69CgtxGPq7jSSc9b5k@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSexG8sEZ0VtOunjH6RFG5f2SyHs1DbkTlDxx2aAUDHt8rpYsd
-	U6Z1tIOgTNhukaKaKxm7FDXLRSaQaNjmV5/MaKFp5y4kQVdU7mkb+KQkDKNktBz4gjk=
-X-Gm-Gg: AfdE7clU3jdw6EPgIVOof7JTd8BXkIxyLVi9tzR4HNcAp9hl/2rvpWwTp1BIjR/JmpW
-	cCwCxnCSpHchfWjJg5KbJCaorkrcno8EhV4z+mxzuJv3XbbFXHCK22hvj+UfJZDTHxA91pNJ3i4
-	QiNJ16uaAVSE7iqzIJrp6EZcBcL9V1UvdDvjUn3W7RE/MTFDKFviZZDbQnnfVN6ILbM29GyK0fW
-	zQE0NnsYyGR4SbuE3RXdZ//6KGas3PoxsY2vUyJujnik7pUc3z5TtOtQFJtSs50YpZPZKNaUBrB
-	0dDDhumb31FK1jWmOwZCxRVxEB7Mg6iI5NddzcwTE1rtWlzWTt6WxKeUlliJXt3yGk1LJP80UWk
-	h5RMQWCdSAjurxAZJPhE4WXkIPDWkY3dg/JkIDYDPRTSKqxeMkrGQWMQMMTtT58v4ZA7asK+o8e
-	kIF+SlJcCLJN7R39Zpc5XP38OhTLpRJgfbUhNmqbmyDTL0TJ+e8bk1FA==
-X-Received: by 2002:a05:6a00:cd2:b0:847:8250:2b31 with SMTP id d2e1a72fcca58-847c0988750mr5192854b3a.38.1782984797277;
-        Thu, 02 Jul 2026 02:33:17 -0700 (PDT)
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com. [209.85.214.175])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847cb97d96fsm1089102b3a.40.2026.07.02.02.33.16
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jul 2026 02:33:17 -0700 (PDT)
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2c9ed0c7fc7so18561635ad.1
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:33:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpKajyxBpBz9SPiBOJ/tJyeEI+Y3BZ4VdPK+pP22nGmMDdmp2xlH/PI4aAbtyXdZcXW9hphXB3AnMhw@vger.kernel.org
-X-Received: by 2002:a05:6102:dd4:b0:650:aa33:5dd7 with SMTP id
- ada2fe7eead31-73da8519caamr2375794137.2.1782984487236; Thu, 02 Jul 2026
- 02:28:07 -0700 (PDT)
+        bh=xy882Y8GNds0v7W+NXQvp4lrh5LG/ciXurGQqDIREsQ=;
+        b=Pk3yOuG2c+jAWWoievy63sUqDgCIc1Fi7tv6qinzh9oJ4L9nTYZsHi73A9+x36jbiH
+         gIt5iGgWyCywLKc/ZLNL715fM/OvmQAF3u1VmBcN2bP6aO9hUxHd3vR9VMoHoTuoWVLl
+         B0qlHnF9UCqAefMA+vjhaAre3l2LmEvA2SQCugh1vDKyygJSj6WpyMIibdwrMTr6s8Cg
+         dXVBQza6nq/94Pq1OXAGUIzzFUbbbLL4gjHmK91zbnROgZmuZCXtS2mQ3mC67wGvxHAo
+         jT0ZFe44leuEG79QL3TErVIKVuVw/PA4k2OSBg4zbDO0Bnv+Pz27NxZR0O6arj0yV3uT
+         laJg==
+X-Forwarded-Encrypted: i=1; AFNElJ8SbCwC+95xbb0Qm4C4htjUz7qulkQZwj35eX+OAlnYSKQwHD7cZ/Npnewxhfojhh7QHp/8X8ov2P04@vger.kernel.org
+X-Gm-Message-State: AOJu0YwdkA2Soy9j7sQ3IfbRZ1msZoeBPRbAz+xs8jdg+36BGRB3Gmdh
+	8LSxqdP1NhG9nb6ieIEB6vAM9fuQrSIa90K5lQsJnvsY7cBMknGwQSrLOP+AgmW5Ta4=
+X-Gm-Gg: AfdE7cmqJY0XNwNs3NtfLtR1RKt4WQndnTrma5Znei7XHPlytcftYefERSWhfyDslee
+	JaSr9bbc7+qFYc57alFvdxNy016td2Q5vITPNL4SLQVHtmdvh1on161JKrSk5OlbklQ1GGI+aEP
+	9ww0LG6QFD+k8ohKd2rBxory6011fjzjRm8xs+o/SM5larrm2/lZy9QiM6gvMKY1cG1RrCE+qp2
+	F+lfmNJZtQTz+A6Srlshhm/I3i673JM7SVSNsUe8iYDAkwUihpWtATq+Xgtv1ddLanarpVaiCrz
+	89GTikN2903+BmDkuJA74K+Vd0yX1+Fx18Dbsi880qDIMubk2h39ovGgSdtxt1VABxp7Kb45kyZ
+	7YjD2qTBB8xkjd2XC2IF9vXRC0jf/qd/5hLXXTbCiKGRwDFLPIy2xpEiB/1FTbP1DTxHDzyHeyH
+	uMmicbKKGFax/hAC96Lwsiz2AFYDXKQ+QFjA==
+X-Received: by 2002:a05:600d:6450:10b0:493:bdf1:fcde with SMTP id 5b1f17b1804b1-493c2b7c8bcmr63837185e9.19.1782984800206;
+        Thu, 02 Jul 2026 02:33:20 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c636ea60sm31135825e9.3.2026.07.02.02.33.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 02:33:19 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Thu, 02 Jul 2026 11:33:16 +0200
+Subject: [PATCH v3] arm64: dts: qcom: sm8650-ayaneo-pocket-s2: add display
+ nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260615-rcar-du-dsc-v5-0-aed1a28610e4@ideasonboard.com> <20260615-rcar-du-dsc-v5-3-aed1a28610e4@ideasonboard.com>
-In-Reply-To: <20260615-rcar-du-dsc-v5-3-aed1a28610e4@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 2 Jul 2026 11:27:56 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUoR_dUG9gHKpaR_53EcS5gm68=gqF3UE3aNApBZ5Wd_g@mail.gmail.com>
-X-Gm-Features: AVVi8Ccj1J5pvkR0bSkeR64npr1GsYH8otXyCLdk_qEnm1EVAcQxHJFY-QII4Ko
-Message-ID: <CAMuHMdUoR_dUG9gHKpaR_53EcS5gm68=gqF3UE3aNApBZ5Wd_g@mail.gmail.com>
-Subject: Re: [PATCH v5 3/7] drm/rcar-du: dsc: Add rudimentary Renesas R-Car
- V4H DSC driver
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260702-topic-sm8650-ayaneo-pocket-s2-display-dt-v3-1-e6de68d33f9b@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAFswRmoC/52RwW7DIBBEf8Xi3I0AG4N96n9UPWBYJ7S1cYGgW
+ lH+vcSplPaW9DjS6M3szolEDA4j6asTCZhddH4uon6qiDnoeY/gbNGEU97ShitIfnEG4qRaQUG
+ vekYPizfvmCBysC4uH3oFm0DU3TDIDgdJO1JwS8DRfW1RL69XHY/DG5p04f84An4eS4d0td0q9
+ NWdBeJ+qhVtQMm2GUs+L/l9FuT3PffDVimFgpoqhihHhlz8mxXaumEdoORNK5HbgY59VhfWoCO
+ C8dPkUl9luWPk8p6Di8mHdRsms+0bj2+QGTAYR1ZzQ6mlsn3+cLMOfufDfkvJ/EYWnD9A5oVsr
+ G3KvCg0+0s+n8/fqJJ6vFoCAAA=
+X-Change-ID: 20260428-topic-sm8650-ayaneo-pocket-s2-display-dt-539bb79eb709
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ KancyJoe <kancy2333@outlook.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8749;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=Aw9la9+tGSm5Dx/RSVVnG/hB97dDKA8ifxBXaYrP9Xk=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqRjBeTpA5BQBqTR/aFYtrJdXd+NHoRqOfkrvLxFLX
+ yBYWFmyJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCakYwXgAKCRB33NvayMhJ0eUyD/
+ 4hdbVLkBJJaF9cUdpNJ9iq4P3S5vFQZwMXD2cgHlFCNWtTqlZCpw4VUJXbtYNO8/Q6jAoklHSZSlXY
+ nkvKdXbbiJTo8AapBGWwF7k7nbHRHJua+vvozDB9DVyfI+Bel+e2GZYtQo1L6BtCL0L/MQ4ZyiefHb
+ G1EavBx1acH//pumIDYFhspTuSQrl/EWwFg0txmZS5xfZmVNf3r3HLaOT9VxpmGjQDxljjAfdbJSLe
+ BWxvp6+UZehEm6lttKY3Jlk4eEAoOGFzVz+wcuvBZWpPDm1ykl8oJijZ607sRGAdleutdzcJv+Rid6
+ hnL/jr9A7icpw36/Ig22+KN1WvNBMXlR/or0mBuI+AKCUa47wr94JO5kTVtYVe5z0qtwsUbkJt22C2
+ 8DwgOAHgYECipjbJ2K3nXG9oVDyfBf7r7xy8SfV/aiMMBWZ7z20IPINVJDqDcsd/iwVFKDRh5MH2li
+ CsYi/2oQE7pCMLYY4LTnu17/aj7Wvs73SbwccEDNnVGX7TqlEcHCqWnB6rFCb+dCoGFDeB7UPR751l
+ 50TKMXZ3554N2eGtqHMz9TR4ypTlIP9XzW32fmFg36XPP0IW8WoKYidbshYGczbsDpMVLSl9Ej77GI
+ BEej0FDQ15QZyORwgUQH0cCRt8/H2NSYlCsr/KpZs2q9fWWsgwSsEDqmCcuQ==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Hi Tomi,
+From: KancyJoe <kancy2333@outlook.com>
 
-On Mon, 15 Jun 2026 at 15:12, Tomi Valkeinen
-<tomi.valkeinen+renesas@ideasonboard.com> wrote:
->
-> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
->
-> The Renesas DSC Display Stream Compression is a bridge embedded in the
-> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-> 8k or 400 Mpixel/s. Add rudimentary driver, which currently acts as a
-> pass-through bridge and allows DSI1 to be operational on R-Car V4H.
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> [tomi.valkeinen: use bridge->next_bridge, minor changes]
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Add nodes for the dual DSI panel, the SGM3804 regulator, the
+SY7758 backlight controller, the touch controller, and enable
+the GPU to enable full display support.
 
-> --- /dev/null
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: KancyJoe <kancy2333@outlook.com>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Depends on follwing bindings, all reviewed:
+- https://lore.kernel.org/all/20260522-topic-sm8650-ayaneo-pocket-s2-r63419-v7-1-16edddda9951@linaro.org/
+- https://lore.kernel.org/all/20260521-topic-sm8650-ayaneo-pocket-s2-sy7758-v4-1-73c732615e4a@linaro.org/
+- https://lore.kernel.org/all/20260522-topic-sm8650-ayaneo-pocket-s2-sgm3804-v5-1-bd6b1c300ecc@linaro.org/
+---
+Changes in v3:
+- renamed backlight label and node as "backlight"
+- reordered pinctrl properties
+- added regulator-boot-on to display regulators
+- Link to v2: https://patch.msgid.link/20260522-topic-sm8650-ayaneo-pocket-s2-display-dt-v2-1-cdd4b70e5a16@linaro.org
 
-> +static const struct drm_bridge_funcs rcar_dsc_bridge_ops = {
-> +       .attach = rcar_dsc_attach,
-> +       .atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-> +       .atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-> +       .atomic_reset = drm_atomic_helper_bridge_reset,
+Changes in v2:
+- Update for bindings changes
+- Remove empty line
+- Link to v1: https://patch.msgid.link/20260428-topic-sm8650-ayaneo-pocket-s2-display-dt-v1-1-ff132c00d076@linaro.org
+---
+ .../boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts      | 244 +++++++++++++++++++++
+ 1 file changed, 244 insertions(+)
 
-As of commit 57acfbe5bbc16624 ("drm/atomic-state-helper: Remove
-drm_atomic_helper_bridge_reset()") in drm-misc/for-linux-next, this
-no longer builds:
+diff --git a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
+index 0dc994f4e48d..56818fc9edbf 100644
+--- a/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
++++ b/arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts
+@@ -220,6 +220,23 @@ upd720201_vdd33_reg: upd720201-vdd33-regulator {
+ 		pinctrl-names = "default";
+ 	};
+ 
++	sy7758_vdd33_reg: sy7758-vdd33-regulator {
++		compatible = "regulator-fixed";
++
++		regulator-name = "sy7758_vdd33";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-boot-on;
++
++		gpios = <&tlmm 163 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		vin-supply = <&vph_pwr>;
++
++		pinctrl-0 = <&sy7758_vdd33>;
++		pinctrl-names = "default";
++	};
++
+ 	sound {
+ 		compatible = "qcom,sm8650-sndcard", "qcom,sm8450-sndcard";
+ 		model = "SM8650-APS2";
+@@ -986,6 +1003,14 @@ gpu7_active: trip-active {
+ 	};
+ };
+ 
++&gpu {
++	status = "okay";
++
++	zap-shader {
++		firmware-name = "qcom/sm8650/ayaneo/ps2/gen70900_zap.mbn";
++	};
++};
++
+ &i2c3 {
+ 	clock-frequency = <100000>;
+ 
+@@ -1016,6 +1041,30 @@ wcd_usbss_sbu_mux: endpoint {
+ 	};
+ };
+ 
++&i2c4 {
++	clock-frequency = <400000>;
++
++	status = "okay";
++
++	touchscreen@5d {
++		compatible = "goodix,gt911";
++		reg = <0x5d>;
++
++		interrupt-parent = <&tlmm>;
++		interrupts = <162 IRQ_TYPE_EDGE_FALLING>;
++
++		reset-gpios = <&tlmm 161 GPIO_ACTIVE_HIGH>;
++		VDDIO-supply = <&vreg_l14b_3p2>;
++		AVDD28-supply = <&vreg_l14b_3p2>;
++
++		touchscreen-size-x = <1440>;
++		touchscreen-size-y = <2560>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&ts_reset_default>, <&ts_irq_default>;
++	};
++};
++
+ &i2c6 {
+ 	clock-frequency = <100000>;
+ 
+@@ -1053,6 +1102,51 @@ redriver_ss_in: endpoint {
+ 	};
+ };
+ 
++&i2c9 {
++	status = "okay";
++
++	/* Screen power */
++	regulator@3e {
++		compatible = "sgmicro,sgm3804";
++		reg = <0x3e>;
++
++		pinctrl-0 = <&sgm3804_default>;
++		pinctrl-names = "default";
++
++		vin-supply = <&vph_pwr>;
++
++		sgm3804_pos: pos {
++			regulator-name = "panel-avdd-pos";
++			regulator-min-microvolt = <5200000>;
++			regulator-max-microvolt = <5200000>;
++			regulator-active-discharge = <1>;
++			regulator-boot-on;
++			enable-gpios = <&tlmm 59 GPIO_ACTIVE_HIGH>;
++		};
++
++		sgm3804_neg: neg {
++			regulator-name = "panel-avdd-neg";
++			regulator-min-microvolt = <5200000>;
++			regulator-max-microvolt = <5200000>;
++			regulator-active-discharge = <1>;
++			regulator-boot-on;
++			enable-gpios = <&tlmm 58 GPIO_ACTIVE_HIGH>;
++		};
++	};
++
++	/* Backlight */
++	backlight: backlight@2e {
++		compatible = "silergy,sy7758";
++		reg = <0x2e>;
++
++		pinctrl-0 = <&sy7758_default>;
++		pinctrl-names = "default";
++
++		vdd-supply = <&sy7758_vdd33_reg>;
++		enable-gpios = <&tlmm 164 GPIO_ACTIVE_HIGH>;
++	};
++};
++
+ &iris {
+ 	status = "okay";
+ };
+@@ -1065,6 +1159,93 @@ &mdss {
+ 	status = "okay";
+ };
+ 
++&mdss_dsi0 {
++	vdda-supply = <&vreg_l3i_1p2>;
++
++	qcom,master-dsi;
++	qcom,dual-dsi-mode;
++	qcom,sync-dual-dsi;
++
++	status = "okay";
++
++	panel@0 {
++		status = "okay";
++		compatible = "ayaneo,wt0630-2k", "renesas,r63419";
++		reg = <0>;
++
++		pinctrl-0 = <&disp0_reset_n_active>;
++		pinctrl-1 = <&disp0_reset_n_suspend>;
++		pinctrl-names = "default", "sleep";
++
++		vddio-supply = <&vreg_l12b_1p8>;
++		vdd-supply = <&vreg_l11b_1p2>;
++		vsp-supply = <&sgm3804_pos>;
++		vsn-supply = <&sgm3804_neg>;
++		vci-supply = <&vreg_l13b_3p0>;
++
++		backlight = <&backlight>;
++
++		reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
++
++		rotation = <90>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				panel0_in_0: endpoint {
++					remote-endpoint = <&mdss_dsi0_out>;
++				};
++			};
++
++			port@1{
++				reg = <1>;
++				panel0_in_1: endpoint {
++					remote-endpoint = <&mdss_dsi1_out>;
++				};
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	remote-endpoint = <&panel0_in_0>;
++
++	data-lanes = <0 1 2 3>;
++};
++
++&mdss_dsi0_phy {
++	vdds-supply = <&vreg_l1i_0p88>;
++
++	status = "okay";
++};
++
++&mdss_dsi1 {
++	vdda-supply = <&vreg_l3i_1p2>;
++
++	assigned-clock-parents = <&mdss_dsi0_phy DSI_BYTE_PLL_CLK>,
++				 <&mdss_dsi0_phy DSI_PIXEL_PLL_CLK>;
++
++	qcom,dual-dsi-mode;
++	qcom,sync-dual-dsi;
++
++	status = "okay";
++};
++
++&mdss_dsi1_out {
++	remote-endpoint = <&panel0_in_1>;
++
++	data-lanes = <0 1 2 3>;
++};
++
++&mdss_dsi1_phy {
++	vdds-supply = <&vreg_l1i_0p88>;
++
++	status = "okay";
++};
++
+ &mdss_dp0 {
+ 	status = "okay";
+ };
+@@ -1390,6 +1571,20 @@ sw-ctrl-pins {
+ 		};
+ 	};
+ 
++	disp0_reset_n_active: disp0-reset-n-active-state {
++		pins = "gpio133";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
++	disp0_reset_n_suspend: disp0-reset-n-suspend-state {
++		pins = "gpio133";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
+ 	fan_pwr_pins: fan-pwr-state {
+ 		pins = "gpio125";
+ 		function = "gpio";
+@@ -1411,6 +1606,20 @@ fan_int: fan-int-state {
+ 		bias-pull-up;
+ 	};
+ 
++	mdp_vsync_active: mdp-vsync-active-state {
++		pins = "gpio86";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	mdp_vsync_suspend: mdp-vsync-suspend-state {
++		pins = "gpio86";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
+ 	upd720201_avdd33: upd720201-avdd33-state {
+ 		pins = "gpio123";
+ 		function = "gpio";
+@@ -1440,6 +1649,13 @@ gamepad_pwr_en: gamepad-pwr-en-active-state {
+ 		output-high;
+ 	};
+ 
++	sgm3804_default: sgm3804-default-state {
++		pins = "gpio58", "gpio59";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
+ 	spkr_23_sd_n_active: spkr-23-sd-n-active-state {
+ 		pins = "gpio77";
+ 		function = "gpio";
+@@ -1454,6 +1670,34 @@ spkr_01_sd_n_active: spkr-01-sd-n-active-state {
+ 		bias-disable;
+ 	};
+ 
++	sy7758_default: sy7758-default-state {
++		pins = "gpio164";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	sy7758_vdd33: sy7758-vdd33-state {
++		pins = "gpio163";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	ts_irq_default: ts-irq-active-state {
++		pins = "gpio162";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
++	ts_reset_default: ts-reset-active-state {
++		pins = "gpio161";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-pull-down;
++	};
++
+ 	wcd_default: wcd-reset-n-active-state {
+ 		pins = "gpio107";
+ 		function = "gpio";
 
--       .atomic_reset = drm_atomic_helper_bridge_reset,
-+       .atomic_create_state = drm_atomic_helper_bridge_create_state,
+---
+base-commit: b3f94b2b3f3e51ab880a51fc6510e1dafba654ed
+change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-display-dt-539bb79eb709
+prerequisite-change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-8764fbb72eb7:v5
+prerequisite-patch-id: 901a0948e1afbb03ff78a063d4f66c17665588ef
+prerequisite-patch-id: 5ca959a92d05c86ae7a77400d5c4c9bb8bb214f4
+prerequisite-change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-3081ee7f1e25:v5
+prerequisite-patch-id: dd1c5acff71bcfe0730472051c0a5c7c339e2116
+prerequisite-patch-id: 30e1bf23756ac7de0e29e4c30e7c9737366cf856
+prerequisite-change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-r63419-e72467e2db0f:v8
+prerequisite-patch-id: 53130195c1df5886a953f3eb1ffea6e5b32257ec
+prerequisite-patch-id: 016545217702b15d67b3ac48392c2978fc04b000
 
-> +       .atomic_enable = rcar_dsc_atomic_enable,
-> +       .atomic_disable = rcar_dsc_atomic_disable,
-> +       .mode_valid = rcar_dsc_bridge_mode_valid,
-> +};
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
