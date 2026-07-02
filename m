@@ -1,197 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862234963B2;
-	Thu,  2 Jul 2026 09:57:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3A1477E34
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 10:00:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782986243; cv=none; b=rAXCMf06HMuxvE/m+4zsh9/6F9SoLPRsWrHeCbP9Xle+btEZC5CS7gv/WY29R+KEKbUACreoA6i6be5BQmz4ywRfTb/8JlpJzJx49q+W0eJTL4Lz+/hO8uTUkbkTdJxFVYCQVC58hQbM3JLhrc5nbCotjGNtUGm5NnLaf1tuc7w=
+	t=1782986413; cv=none; b=qmbylboZzoM2sJdtOsRcBmp3iJrVO9GhlKreTBx2qZux26amraQsmn347fTwcTdxCSTaQ0ofuQAoBDR32x3SFH30FaygYOcPNDwkNIqFQGCysszBtC+9ThYRJTXjy02kGPfQkOOCQLbZ3F2HTDi6+bryuyNjAqsPNVBxu4yNxoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782986243; c=relaxed/simple;
-	bh=dOoxnDlBmKRUEuWn0/9PCIB2WwlAKvILRj6iXjFR3rg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=j0CXlRZq1LeQn5kaPSIKCRfdQE2/qjTUh+MBYyJFOIe/mA/T5kFmSZLjza3HlQ7SaXdLQVJJ3gtMzqovd7IAR5LJGl0HPj/5XSP2aeYh7PUTrSCFBEXgkWJrRQW9GohFoHEjoIl4zgOCGHW2OkeHTdcZv6SQhlKtA9khWUDkLFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SRdj2j4F; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1782986413; c=relaxed/simple;
+	bh=iGIY3MHkjnJPNZ8uoxYoEZ8zBqyWFn6s/1eA+iOMU3k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mT3Wn5kgNe9G90deCoSpzkIJWwHS6Pc52iAnlJBHy3UBwYqKNz8bJ+LGMqigMYJQDfKldlTpKuRIOXfdSxmIbnDSBfuivuEQAa5Q0O6bLXEoD43Nwj8vNME5wLno8yxd+nrUwyTlDNa9egOG3JVbXYp+LEoWOjkAAWd1FWIRY6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ano9fLU0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SRdj2j4F"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 14A7EC4AF11;
-	Thu,  2 Jul 2026 09:57:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782986243;
-	bh=dOoxnDlBmKRUEuWn0/9PCIB2WwlAKvILRj6iXjFR3rg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=SRdj2j4FQZZ05lpQhaIbw/uKDKBrJMiEOT8E4ewmfG56mLHykpmg7lS5un5t8cIl6
-	 8Lvcm17cl5EiLOJ63EigkSCFHosaN4zRypJyYGvGB+wGyR4qHYWVA3kruPrIHQvcfY
-	 6GVUxvSwAWEO2nvKUw1HnNpoVsIJb7dUrPmXrfjSWvg4N1BmV8tsUk7QdjD7a2OmoZ
-	 +qAwOG+j7MbB2vZlK4ymJGG3L6iz9t2z6uuOVHC4lbQeq6dMLHZMfBnMLSHO5ofu0B
-	 y4oH5MGiPEl5Kt3vqX5vHT4ZCZ0WKSD1eUOYGCQVISFod+boIxVS43xkEn6aq5MAfh
-	 tnBRnHEcPemoQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2EFBC44501;
-	Thu,  2 Jul 2026 09:57:22 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Thu, 02 Jul 2026 11:55:58 +0200
-Subject: [PATCH v8 5/8] thermal: khadas-mcu-fan: Add fan config from
- platform data Add regulator support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ano9fLU0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E021F000E9;
+	Thu,  2 Jul 2026 10:00:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782986412;
+	bh=keMx1RpANlxX0sbmsUK8g3i33XhLoE7A/zsxY8xp4+Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ano9fLU0ENrBJ2BQZ8Rnq3JeIUnqMB4rl2qtopiesMmDBGWgKGw93Zqvug9zKvIHB
+	 j1c6vRoHBvFqJwBVHFNlKsQwExXYPeJmZoxdPrQsldi+WCqonP9DkWRuzev4eA8kwy
+	 KZ2AHJgXOOr5VIOSfpSUFEUXphqIFL9dhDNq55zjlLDyNvsSf/LGBC1Iglv4aVdFNQ
+	 oNGeYLfhO2LkibBispfqVKnVJnpiIE663zHueVlQaIqjQBjxw63Imh/ro/fXEr3KND
+	 nKi1D7kkp0yTa8FWGphk/Qns8q6yb/n4Y/jsjLUpyxN0eJ1KjWHobk92k+fQbsEfke
+	 0Fd7QeQg3h75Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/7] thermal/drivers: airoha: fix copy paste error on
+ clamp_t low temp
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260702094846.17325-2-ansuelsmth@gmail.com>
+References: <20260702094846.17325-1-ansuelsmth@gmail.com>
+ <20260702094846.17325-2-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 10:00:11 +0000
+Message-Id: <20260702100011.C7E021F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-add-mcu-fan-khadas-vim4-v8-5-244feee91a36@aliel.fr>
-References: <20260702-add-mcu-fan-khadas-vim4-v8-0-244feee91a36@aliel.fr>
-In-Reply-To: <20260702-add-mcu-fan-khadas-vim4-v8-0-244feee91a36@aliel.fr>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Beniamino Galvani <b.galvani@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3542;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=GAu0pdDCPzhOo5CdDYjBvtBNlGqzAQdEX8wTJo3sqIc=;
- b=kA0DAAoWKo0VA3vnMSIByyZiAGpGNfyib0qN+J2TQN6ck/OmCo4BaFIlme9J4vcdnMQoOmFuK
- oh1BAAWCgAdFiEEj505yO7Txcz1vCdkKo0VA3vnMSIFAmpGNfwACgkQKo0VA3vnMSIljgEA1D0a
- 8o0/ncpopYXsMqOvG//tk4tHoWp8XGxbtat4xQ8A/A8RHIoD+oRGZJkGfetgGOUaZvsnrdlk2Vc
- yVIvn2hYN
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Replace the hardcoded MAX_LEVEL constant and fan register
-with values read from platform_data (fan_reg, max_level),
-as new MCUs need different values.
+Pre-existing issues:
+- [High] The driver fails to update or disable hardware trip point threshol=
+ds when the thermal framework clears the boundaries, causing continuous spu=
+rious interrupts.
+- [High] The thermal IRQ handler silently drops valid thermal events if bot=
+h high and low interrupt status bits are asserted simultaneously.
+--
 
-Optionally acquire and enable a "fan" regulator supply
-at probe time and on resume,
-so boards that gate fan power through a regulator are handled.
+commit c9ebb221cc728a9aaa865333e7d5b41b485e09e1
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
----
- drivers/thermal/khadas_mcu_fan.c | 37 ++++++++++++++++++++++++++++++-------
- 1 file changed, 30 insertions(+), 7 deletions(-)
+thermal/drivers: airoha: fix copy paste error on clamp_t low temp
+   =20
+In airoha_thermal_set_trips, there is a copy paste error on clamping the
+value for the low trip temp point. Fix it to the correct value and actually
+clamp for the low variable.
 
-diff --git a/drivers/thermal/khadas_mcu_fan.c b/drivers/thermal/khadas_mcu_fan.c
-index d35e5313bea41..5603fa099a858 100644
---- a/drivers/thermal/khadas_mcu_fan.c
-+++ b/drivers/thermal/khadas_mcu_fan.c
-@@ -13,13 +13,15 @@
- #include <linux/regmap.h>
- #include <linux/sysfs.h>
- #include <linux/thermal.h>
--
--#define MAX_LEVEL 3
-+#include <linux/regulator/consumer.h>
- 
- struct khadas_mcu_fan_ctx {
- 	struct khadas_mcu *mcu;
-+	unsigned int fan_reg;
- 	unsigned int level;
-+	unsigned int max_level;
- 	struct thermal_cooling_device *cdev;
-+	struct regulator *power;
- };
- 
- static int khadas_mcu_fan_set_level(struct khadas_mcu_fan_ctx *ctx,
-@@ -27,8 +29,7 @@ static int khadas_mcu_fan_set_level(struct khadas_mcu_fan_ctx *ctx,
- {
- 	int ret;
- 
--	ret = regmap_write(ctx->mcu->regmap, KHADAS_MCU_CMD_FAN_STATUS_CTRL_REG,
--			   level);
-+	ret = regmap_write(ctx->mcu->regmap, ctx->fan_reg, level);
- 	if (ret)
- 		return ret;
- 
-@@ -40,7 +41,9 @@ static int khadas_mcu_fan_set_level(struct khadas_mcu_fan_ctx *ctx,
- static int khadas_mcu_fan_get_max_state(struct thermal_cooling_device *cdev,
- 					unsigned long *state)
- {
--	*state = MAX_LEVEL;
-+	struct khadas_mcu_fan_ctx *ctx = cdev->devdata;
-+
-+	*state = ctx->max_level;
- 
- 	return 0;
- }
-@@ -61,7 +64,7 @@ khadas_mcu_fan_set_cur_state(struct thermal_cooling_device *cdev,
- {
- 	struct khadas_mcu_fan_ctx *ctx = cdev->devdata;
- 
--	if (state > MAX_LEVEL)
-+	if (state > ctx->max_level)
- 		return -EINVAL;
- 
- 	if (state == ctx->level)
-@@ -78,6 +81,7 @@ static const struct thermal_cooling_device_ops khadas_mcu_fan_cooling_ops = {
- 
- static int khadas_mcu_fan_probe(struct platform_device *pdev)
- {
-+	const struct khadas_mcu_fan_pdata *pdata = dev_get_platdata(&pdev->dev);
- 	struct khadas_mcu *mcu = dev_get_drvdata(pdev->dev.parent);
- 	struct thermal_cooling_device *cdev;
- 	struct device *dev = &pdev->dev;
-@@ -87,7 +91,21 @@ static int khadas_mcu_fan_probe(struct platform_device *pdev)
- 	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
- 	if (!ctx)
- 		return -ENOMEM;
-+
- 	ctx->mcu = mcu;
-+	ctx->fan_reg   = pdata->fan_reg;
-+	ctx->max_level = pdata->max_level;
-+
-+	ctx->power = devm_regulator_get(dev->parent, "fan");
-+	if (IS_ERR(ctx->power))
-+		return PTR_ERR(ctx->power);
-+
-+	ret = regulator_enable(ctx->power);
-+	if (ret) {
-+		dev_err(dev, "Failed to enable fan power supply: %d\n", ret);
-+		return ret;
-+	}
-+
- 	platform_set_drvdata(pdev, ctx);
- 
- 	cdev = devm_thermal_of_cooling_device_register(dev->parent,
-@@ -124,12 +142,17 @@ static int khadas_mcu_fan_suspend(struct device *dev)
- 
- 	ctx->level = level_save;
- 
--	return 0;
-+	return regulator_disable(ctx->power);
- }
- 
- static int khadas_mcu_fan_resume(struct device *dev)
- {
- 	struct khadas_mcu_fan_ctx *ctx = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = regulator_enable(ctx->power);
-+	if (ret)
-+		return ret;
- 
- 	return khadas_mcu_fan_set_level(ctx, ctx->level);
- }
+> diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_th=
+ermal.c
+> index b9fd6bfc88e5e..439aa011b75c7 100644
+> --- a/drivers/thermal/airoha_thermal.c
+> +++ b/drivers/thermal/airoha_thermal.c
+> @@ -273,7 +273,7 @@ static int airoha_thermal_set_trips(struct thermal_zo=
+ne_device *tz, int low,
+> =20
+>  	if (low !=3D -INT_MAX) {
+>  		/* Validate low and clamp it to a supported value */
+> -		low =3D clamp_t(int, high, RAW_TO_TEMP(priv, 0),
+> +		low =3D clamp_t(int, low, RAW_TO_TEMP(priv, 0),
+>  			      RAW_TO_TEMP(priv, FIELD_MAX(EN7581_DOUT_TADC_MASK)));
+> =20
+>  		/* We offset the low temp of 1=C2=B0C to trigger correct event */
+>  		writel(TEMP_TO_RAW(priv, low) >> 4,
+>  		       priv->base + EN7581_TEMPOFFSETL);
+> =20
+>  		enable_monitor =3D true;
+>  	}
+> =20
+>  	/* Enable sensor 0 monitor after trip are set */
+>  	if (enable_monitor)
+>  		writel(EN7581_SENSE0_EN, priv->base + EN7581_TEMPMONCTL0);
+>
+> 	return 0;
+> }
 
--- 
-2.49.0
+[Severity: High]
+This is a pre-existing issue, but I noticed the hardware monitor thresholds
+aren't disabled when the boundaries are cleared.
+
+If the thermal framework passes INT_MAX for high and -INT_MAX for low
+to clear active trip points, enable_monitor will be false, but there is no
+code to write 0 to disable the hardware monitor.
+
+Could this lead to spurious interrupts since the stale thresholds remain ac=
+tive?
 
 
+Looking at airoha_thermal_irq() in the same file:
+
+static irqreturn_t airoha_thermal_irq(int irq, void *data)
+{
+	...
+	status =3D readl(priv->base + EN7581_TEMPMONINTSTS);
+	switch (status & (EN7581_HOFSINTSTS0 | EN7581_LOFSINTSTS0)) {
+	case EN7581_HOFSINTSTS0:
+		event =3D THERMAL_TRIP_VIOLATED;
+		update =3D true;
+		break;
+	case EN7581_LOFSINTSTS0:
+		event =3D THERMAL_EVENT_UNSPECIFIED;
+		update =3D true;
+		break;
+	default:
+		/* Should be impossible as we enable only these Interrupt */
+		break;
+	}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this switch statement
+silently drop events if both high and low interrupt status bits are asserted
+simultaneously?
+
+If status & (EN7581_HOFSINTSTS0 | EN7581_LOFSINTSTS0) results in both bits=
+=20
+being set, it will fall through to the default case and ignore the events.
+
+Since the IRQ handler is a threaded IRQ, could scheduling delays allow both
+bits to be latched before the thread executes and cause us to lose thermal
+notifications?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702094846.1732=
+5-1-ansuelsmth@gmail.com?part=3D1
