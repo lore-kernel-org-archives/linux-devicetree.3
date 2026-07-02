@@ -1,62 +1,64 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8885480325
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 12:31:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A4A480DD5
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 12:31:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782995490; cv=none; b=KIMkp3ghvSdZ/1u75DrqMarz6SJp9ipzuzS5ggBz3E8Z6TrvYEBd+xqIZMB5xWBnGYXcvEsq5SbF+Nyg01z5mtG4I+2c6E6pM8RJ4Dxy3p9KS4YS+cAR/oL6Hs2EJa7uHGp0ZmMDRiWiQslmzYdWfkewT2N38F98qGHN6aiZk5w=
+	t=1782995494; cv=none; b=gWHFKF8KVOTuSGvs2nmEyhZKtFlO6JVM8LNNGo31Ox2PxUiy6sKqRAXpaSQFCkM+RhkSyzXjK3NmGyT1bZzsTp9cwOfwNRpLsUbE9tVz/lgvUETm7AkcGGk7pLUtaLPaf7a9+pSpXn8fKCwiE5Z8lxYSzobIP0lgSj7SXoeDMSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782995490; c=relaxed/simple;
-	bh=PBsL63385RAQASu6cjiwEI5QAXcF98UXE3vaEk4luIs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gpwvNhUsKcIIDqhnCOPYpFu+pxmUHYsC07kg7nwEjUHJZkIHYcB4FbLVeZAylsluHmlN1eWLXLv0tjbFzg9OUoefV6WG85MMdg9xwmyzC12mM9A+3syLGXEDibxv4fr2DvWLKNfaPlTYKQb6XxsEeQ/rtVjBAYalslApB7BHzgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HUNdG64N; arc=none smtp.client-ip=209.85.218.54
+	s=arc-20240116; t=1782995494; c=relaxed/simple;
+	bh=KlT+vAqF3fImgRh+vi1G/HlEXKdYDmQI0eT/ODYlQg0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PM3imRwQGRQHAHRuOXmv75/9PBbJffJGLZw4+/Xtk4tmSJPY4AZNVnCpYrn2CPwDkuNg2vk96F2nwU6T9u1Y5pBSpmeul6vz1THW5gu9xuK4NsB9Rq1NShJjiUzrYRux6H8klIzNdKGFtZMNUGi6biGvJSL/zcU7Y5Kh2dhqEbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ice2rAme; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HUNdG64N"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c12788a75abso317410366b.2
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 05:31:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ice2rAme"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-470174001a0so1305428f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 05:31:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782995485; x=1783600285; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hSvByosXnUK2EIuN834ipW7Za/9pwuwT5oGO+dAubwY=;
-        b=HUNdG64ND2FTccFt5Vsb8lA3B4C3voUDeM1w9S+r5PT7TTQho7ti3C5BcZ09mXoKQg
-         AogwvIzvY6+6r4JAWVrQuNEsV3n3Vhay62VXmkAGN3ADT8qsQWzlom+CWoqecvDmXaHz
-         Wtx/xxMfJdJPCDzJclOmzprpGljhBvtHsypLzGKYPcpQjKcY4AGE1JPBC4AAJ+xPzi8v
-         h/byTwendsDBXmb8CRhElc/hYQDNkPiNJuq+gP77mIymxOfgA9crRbzTsZ+gFQ4aI1fJ
-         P1n/U5omtHa2heXofXlxIdh5tI4jujQeoIoykrNdvBU/pXVOK7tIJ4hlgyEMAujSFLAY
-         29Zw==
+        d=gmail.com; s=20251104; t=1782995488; x=1783600288; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Mht4rxb3FmKDNCITNNMglstOGe9jBi788HmIfrM2viw=;
+        b=ice2rAmewA/0cKlxCDUKDKvdKv1h1+21KuCop0o38Q0McCyZhPPs4Tao41bKvUlh1Q
+         RV2vfQNep18XHuZ5Uk3kOjZhK+K6tG9YroLfv7DJYHNaWiTICOe9hLP7EgheH9FoGEFN
+         /+bUiETQTDwHKwookLXP63o9/mz0mvVJ/gWzoGmSIxuH/D6XqJFQfgyQhnMGDQ2R4xbf
+         +N/ZTLVZt+bCR4dP+vwhcnk3avtSiWqdYN8dwMsYbPv7Q2zB9zVfiWRTG4KwQP0FiVeI
+         fuOMNw98y2myMypsIufofeJR1bLCfKlejSQuss48UvQOR85OZCeiX+c+HQKkPnpoAqiy
+         WVhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782995485; x=1783600285;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hSvByosXnUK2EIuN834ipW7Za/9pwuwT5oGO+dAubwY=;
-        b=XPFVwU3RJSVvM/I37E0v3Wwpc4MN4PC2IQdYCPMB0mjHCCJl3OmAuJkpTn/6d6yYPU
-         Puhb00+RcSaktSFYevlfWNb1J0slI1foDYsdI2fWz3EQgWt1Cx+JynVktNJZ+ePRiKVc
-         EuE8Tnm2xgcgFp3Ggw/ZWULfRBMcGCTZpualwvg0biytMsOSdcy4FuthrakoktRCEGv5
-         5NunaqapdqLgFr/eyXd0tVeYGOOrN1KNDDCvQpYKz1EPEtxHJroVWHhEifGrVHO8eFyy
-         GL/uqMPJeSSXNbF69fhJt0sUKufxL64n0tv7GqohfQkudu0GsJqzkCBEy5fwU9KE7B7m
-         qsAg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro1z32kL8XSGEvEuYdPJpif8J2v/nIJP/w5eVnDL6tLRQxgZM020QDP8wcL7oAOMpUrykFliW4huX0z@vger.kernel.org
-X-Gm-Message-State: AOJu0YxtMga5vITFBuHPoZqm/mAUPj6szHGndx4pEf6THOjGO/FVDsYo
-	M8eUBsaZFSGX2WDu+UVVwHG4U2RmQlgO12DEuGrVuTJhwqt8xIp2uBmC
-X-Gm-Gg: AfdE7ckyrexOlckhrU12o3/F9bOkyfOku2YVc4P9GjjI2q9HDcR1ofEm7btJbkoo+10
-	4h4yWfSwEd59VoAj9L2lGY+FEyH+NOvxFZdZ0TyvEpuxHk0AFYBFvgVmxnWSAj/XxE8K3xlcms5
-	BeAGrYXF6ZBzuldL/LB64P8oEDN2cnuiNeum2B3g1gOSkU+rInQXYtao0NAgX7nmPIRS4plHUqM
-	Pu+v9MP9nYnPcCsZ2z1Lhh4Ehrahd4vkLhSJMObkYBrlbI89cdmzGO6gxxQlgqVVNO8JKZ4cXV9
-	7lxwHyLNtg8v4Rgocj4ITV2Ox4/qikBNrEbp19LoW6W6kFNjEur4mW/9gERhfc2nSAEx8AKauOj
-	LocJHbDmgdD8k3NXrqNtvVoMtnGHuyu09XQNZArESXqoTOFTr/Zg/i5ibTD1vMEhV26EERCdqc0
-	kXWqLestiW8LHdx8w5/wYTFo38wYWh1YIHZrkSdzERFvVYtXkmGXsGDFuFCk7OSaqObtmPugyUQ
-	dH0MpGtyOOhjWVJZIKr3QPZksU=
-X-Received: by 2002:a17:907:a03:b0:c12:b2dc:4834 with SMTP id a640c23a62f3a-c12b2dc4a59mr204811966b.57.1782995484944;
-        Thu, 02 Jul 2026 05:31:24 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782995488; x=1783600288;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Mht4rxb3FmKDNCITNNMglstOGe9jBi788HmIfrM2viw=;
+        b=qoNgHsMwRulivxx/AAp5e5/N2jb7dLCQvhej24DZY23ZoZZTpk4wd3iV//9AdIod/Z
+         j8MjloN0WHwWuSVU082QAc/Emn3kwfK87COybHVJUC1X9XYt3cLNacIcgY9F86d8BQA7
+         obiCTTUxhYMhTPO9Mr13rFXe7HtfMNcMlfCZe+6SrQJf/y8u+XI0mT/+rWq/yYn8FPO9
+         cBqDen0Ol3OQYK0nqzarA1o6ZC5zo0geQfrEIIhUcMStS+Fv9jo+8Z3UfZsTaFe3aWty
+         esMmhDs5dJ3ADgjWoGi0ChOr/oyFR9rr1GH5b01Xfib4+wP73wJCwj0sM14CW4PaM/Ko
+         SwNQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrBz3UNqTVsc2vFmtYo33SMN96gHFRTobz2qACecoFMHt9BFzhyZXDM8oooC4QJia+ZKihaYU/+a4mn@vger.kernel.org
+X-Gm-Message-State: AOJu0YxT7R1JWXet7CxuBK+0pKM2Xmxtf6UvUXW+1EE6qSFGSGol1bY7
+	0qXqh77v3EDSXhaLGkBtsxdGZKlUPgMDmM8/8HBQLOuA8E/qqbTKTYON
+X-Gm-Gg: AfdE7cnJNMzZ/wn2xAW8ycoD3kARyukJGdQZm8T0kCRC6+l801hKETSDZu7fFC9PYlv
+	2vn9At8H0k8/KJ2iNaXFxvQuJydX0UhcIA0zrNX4KGW3bq1VmMUgxo6wGS0U9SfZfT0YnmFSc5w
+	gdV/BMpxXSBlQUww5cqWtqYx561SD94yFYB/OqPu0CkhrtHGdvHpxT050o3syv+jG2dzJYxvalg
+	5wjJ1Tpr+j0j4dphHTVcmSTa1uo1Et5w3yfMToq8tWF8ofnm3EVrO4QvtcT8ithqK2Fx6qBvM34
+	YSV7MngcwBalG1126Enc8FLJPupBdlQv/HsYpQ2+w0xBAdItM3Ww1OsJ7RsNsF999Yz2vtp3fAE
+	gE7i47mk+TqtyYV0K5AYlie+pzCf+NOY2HeOktsOarbcXEeWfQbx8oxmR6h/+408bz+0ucRSZ59
+	tu12PCKIY2daAeg8hlrQJdE+MmW3BR4IxPUaGnTsS46sSnnXJHCPJhiFB7/Ng6Ngs9ghQaF7tFU
+	tjyL6xkQLPWnESNvNWesei+aYw=
+X-Received: by 2002:adf:ec49:0:b0:475:f0f0:9ecb with SMTP id ffacd0b85a97d-477b5d37949mr5581503f8f.54.1782995487566;
+        Thu, 02 Jul 2026 05:31:27 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:7a4b:58b4:175e:8c2d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477ddf0f433sm9772923f8f.32.2026.07.02.05.31.24
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477ddf0f433sm9772923f8f.32.2026.07.02.05.31.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 05:31:24 -0700 (PDT)
+        Thu, 02 Jul 2026 05:31:27 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -79,10 +81,12 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH RFC v2 0/9] Add System Controller support for RZ/T2H and RZ/N2H SoCs
-Date: Thu,  2 Jul 2026 13:31:03 +0100
-Message-ID: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH RFC v2 3/9] arm64: dts: renesas: r9a09g077: Add system controller child nodes
+Date: Thu,  2 Jul 2026 13:31:06 +0100
+Message-ID: <20260702123112.161160-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -93,85 +97,44 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Hi All,
+The RZ/T2H SoC contains system controller (SYSC) blocks for low-power
+management and access control within the CPG/MSSR address space.
 
-This series adds support for the System Controller (SYSC) blocks found on
-the Renesas RZ/T2H and RZ/N2H SoCs. These blocks handle critical low-power
-management and access control functions.
+Represent these SYSC blocks as child nodes of the CPG/MSSR controller.
 
-Hardware Architecture & Dependency Challenges:
-----------------------------------------------
-The SYSC in these SoCs is a multi-functional block responsible for:
-    - Clock & Reset Control
-    - Low Power Management
-    - Clock Monitor (CLMA)
-    - Access Control
-
-A key architectural detail is that these SYSC blocks are physically located
-within the CPG/MSSR (Clock Pulse Generator / Module Standby Software Reset)
-address space. While the CPG/MSSR driver is already implemented and
-functional for these SoCs, the integration of SYSC adds a layer of
-complexity due to a cyclic dependency:
-    - SYSC requires CPG: The system controller needs a clock to operate.
-    - CPG requires SYSC: Access control registers within the SYSC contain
-      bits necessary to control the PLLs managed by the CPG.
-
-If implemented as a completely separate top-level system controller node, we
-would face a cyclic dependency between the CPG and SYSC drivers during the
-boot process.
-
-Proposed Implementation
-----------------------------
-To resolve this, the SYSC blocks are represented as child nodes of the
-CPG/MSSR controller in the device tree. The SYSC regmap is registered
-directly against the CPG device node. This hierarchy correctly models the
-hardware address space while allowing the drivers to share resources
-without deadlock.
-
-I am sending this as an RFC specifically to get feedback on the
-implementation of the SYSC as child nodes of the CPG to resolve the
-dependency cycle.
-
-I have also included patches which updates the WDT driver to use
-the SYS syscon for register access.
-
-Patches have been rebased on top of next-20260701.
-
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
 v1->v2:
-- Updated commit message for patch #1
-- Made use of for_each_child_of_node_scoped
-- Moved sysc_init() to the end of the probe function
+- No change.
+---
+ arch/arm64/boot/dts/renesas/r9a09g077.dtsi | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-v1: https://lore.kernel.org/all/20260511185058.1926869-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-
-Cheers,
-Prabhakar
-
-Lad Prabhakar (9):
-  dt-bindings: clock: renesas,cpg-mssr: Support RZ/T2H system
-    controllers
-  clk: renesas: r9a09g077: Add SYSC regmap support
-  arm64: dts: renesas: r9a09g077: Add system controller child nodes
-  arm64: dts: renesas: r9a09g087: Add system controller child nodes
-  dt-bindings: watchdog: renesas,r9a09g057-wdt: Add SYS syscon support
-  watchdog: rzv2h: Refactor WDTDCR start/stop handling
-  watchdog: rzv2h: Add syscon support for RZ/T2H and RZ/N2H WDT control
-    register
-  arm64: dts: renesas: r9a09g077: Use SYS syscon for WDTDCR access
-  arm64: dts: renesas: r9a09g087: Use SYS syscon for WDTDCR access
-
- .../bindings/clock/renesas,cpg-mssr.yaml      |  39 +++++
- .../watchdog/renesas,r9a09g057-wdt.yaml       |  29 +++-
- arch/arm64/boot/dts/renesas/r9a09g077.dtsi    |  38 ++--
- arch/arm64/boot/dts/renesas/r9a09g087.dtsi    |  38 ++--
- drivers/clk/renesas/Kconfig                   |   2 +
- drivers/clk/renesas/r9a09g077-cpg.c           | 164 ++++++++++++++++++
- drivers/clk/renesas/renesas-cpg-mssr.c        |   3 +
- drivers/clk/renesas/renesas-cpg-mssr.h        |   1 +
- drivers/watchdog/Kconfig                      |   1 +
- drivers/watchdog/rzv2h_wdt.c                  | 104 +++++++++--
- 10 files changed, 375 insertions(+), 44 deletions(-)
-
+diff --git a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
+index bc109035fbac..6f4c1086afcd 100644
+--- a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
++++ b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
+@@ -1055,6 +1055,20 @@ cpg: clock-controller@80280000 {
+ 			#clock-cells = <2>;
+ 			#reset-cells = <1>;
+ 			#power-domain-cells = <0>;
++
++			#address-cells = <2>;
++			#size-cells = <2>;
++			ranges;
++
++			sys0: system-controller@80290000 {
++				reg = <0 0x80290000 0 0x10000>;
++				renesas,sys-block = <0>;
++			};
++
++			sys1: system-controller@81290000 {
++				reg = <0 0x81290000 0 0x10000>;
++				renesas,sys-block = <1>;
++			};
+ 		};
+ 
+ 		icu: interrupt-controller@802a0000 {
 -- 
 2.54.0
 
