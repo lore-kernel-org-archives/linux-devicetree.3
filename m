@@ -1,103 +1,170 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F963B2FC6;
-	Thu,  2 Jul 2026 07:43:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404FB3A9625
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 07:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782978202; cv=none; b=T/8qOKewRESyN+vrE9oCE3pHkyYJ0SUiFKbZ5M+WbBpIGuFvxpwlr+ix/ERuHdPLYt5x7qnQ/H7DGBpm96dJ3LDPu/4ABk7mQ7mGZKlnKBPzs5Zz4REycy1w8QEytPCLCbBcOgV2APs7ICX0R8Zl104CaDRHAV7RoXFJ3YTkFxA=
+	t=1782978256; cv=none; b=KzGt1EA7UnBkdH3NrxN+ByUVNfj7aMy+hXN8pz/m1E1t+3FMzPwlrEzMAvUTkxcf5hEkikuawRrvD8+nZ10Nm1W4kDjLIcY8SPestcoGTygWak9E4zOK7s/yY3aYWbj7zX0cRxe7XaLv7/4RiuhdU024YByJHKZ7nGX9mqPcAkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782978202; c=relaxed/simple;
-	bh=rH+ajfe+rvPAYT5XzS1B7rNemJQPhlX6gUWSzcWbgLQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=APYWS5JNxGALjXA7VpVvlze8Jg1Ebp10e3/qock3vkzDI/W50ufmQJltRG+GCQ6Do49uGlhVsk7wlPbtR5N24M1YRYsAg/SSLGKKa6ifYiioPVXJ/yO67Uy03+sya9xWEv52ww4P5nQ7SYTUPkiFeIfhpIS54lXDt3IyhYAU3ww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QeKndD1j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782978256; c=relaxed/simple;
+	bh=VKPE1mIYb2CDkiwBs+cGn5L4WrThEUO0GtEBK6zJcVY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WT7b2QneIQToFWAUXmkePVRnYOlehe9+QRnGZnk6bpbjWnXpxhl0x1FUdffgv0pZg3gE3ng6hkZBFwF9bFFez4vOczUR3wHuJ4yQvizRWelBME2NAJQMAJ9d9EJrelyI+jMGUN8PdGFkiwc+4TJCDFn1jqzzJJRB7HpB8JIEvBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RThVq90y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QeKndD1j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82C71F000E9;
-	Thu,  2 Jul 2026 07:43:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RThVq90y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482F31F000E9;
+	Thu,  2 Jul 2026 07:44:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782978199;
-	bh=wB9kFnvBOQDELA0/LuNhygIBNyEdZSej8PAkRHVCjqE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QeKndD1jWyB9gTZ81Av+/zXi5j2zbSXhrQTXLFHordVsRkH4deRZX8bPKCSyl5Yj4
-	 zBuTuWtKj2W1PTTrMQnzTRDh9y5zGH71nfyvQ7nGQ5+nM/exM/LK38s8hyQWiv4ZC/
-	 w/lF0KgRbM4gOY1skAcLSafV1hgRkGWzIGSqK+PhTkauzSJOossHdTODh5+8nvpaiv
-	 JbSj9OpdmcuSDkyWwc/zVQOGFZkcq8gmhRR348rR+JfMt3FRBcDVi0J+1pYT3ukc6L
-	 kBOuaVQ6gndpeZ9j97DHSiKtQQTwGugnc1XWqVJtA6PdGwKV+vUDapDJiO1XTCRzg4
-	 vzS2Ftt0JJ7Tg==
-Date: Thu, 2 Jul 2026 09:43:16 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: 1579567540@qq.com
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, linux-can@vger.kernel.org, 
-	Vincent Mailhol <mailhol@kernel.org>, kernel@pengutronix.de, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: can: rockchip: add rk3588v2 CAN-FD
- compatible
-Message-ID: <20260702-quantum-hairy-quail-e3eee4@quoll>
-References: <20260701070128.2096267-1-1579567540@qq.com>
- <tencent_83A61C9A79199D04CC118A8026C435BFB907@qq.com>
+	s=k20260515; t=1782978253;
+	bh=YDuUoHGFIrqJKyv7357PwKoUtkePSyOenLv5iInky7I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RThVq90yATPiDHDXz5Pzey2/aND5+NkGE5QWaFNI9Ja3v8Ff7q9MtZr1cbXqKpx0K
+	 3ONZw7s0dKBjNgwpJb+ZqMsi4outqwscyblYv/8ZfKqIq7FuE13NMtUvP3shWlXPRg
+	 TJw4RkeWq7hL4/1PwGKw5KhUNDIk59XYj7YTOFgSih2ryGuXprYbNd2jCD4nwUz5NP
+	 343l2UQ6DPHxigN2dpA2j9W1Ko3RqXD9LXUuPafOkHwGCglDv15syMep7nj194nLCq
+	 o+dXIfVpPvd9JMsWRmbgNiRNoNYU3PhaoZbdoQpc4fBiAPn02dl727G4D5oxmU7PRX
+	 mYffqtQ3wRHgw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v15 04/12] media: mediatek: jpeg: Fix buffer completion
+ on multi-core streaming stop
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260702072614.10373-5-kyrie.wu@mediatek.com>
+References: <20260702072614.10373-1-kyrie.wu@mediatek.com>
+ <20260702072614.10373-5-kyrie.wu@mediatek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 07:44:12 +0000
+Message-Id: <20260702074413.482F31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <tencent_83A61C9A79199D04CC118A8026C435BFB907@qq.com>
 
-On Wed, Jul 01, 2026 at 03:01:26PM +0800, 1579567540@qq.com wrote:
-> From: luch00 <1579567540@qq.com>
-> 
-> The RK3588 CAN-FD controller uses the same DT properties as the
-> existing Rockchip CAN-FD blocks, so extend the current schema with a
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-DT properties have nothing to do here. Are you saying it is fully
-compatible? Then express it properly with fallback.
+New issues:
+- [High] Calling `vb2_wait_for_all_buffers()` in `stop_streaming` causes an=
+ unrecoverable deadlock.
 
-> SoC-specific rockchip,rk3588v2-canfd compatible instead of creating a
-> new binding file.
-> 
-> Keep RK3588v2 as its own compatible rather than an rk3568v2 fallback.
+Pre-existing issues:
+- [High] Multi-core worker threads intentionally call `v4l2_m2m_job_finish(=
+)` prematurely, breaking V4L2 M2M streamoff synchronization and causing UAF=
+/Deadlock.
+--
 
-Do not explain what you did. Explain WHY.
+commit adc05e09fb60cf68d6bb34203f2c1f593ffa1ccb
+Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-> Driver support uses separate match data and the RX FIFO count field
+media: mediatek: jpeg: Fix buffer completion on multi-core streaming stop
 
-Driver is irrelevant here.
+Enhances the Mediatek JPEG driver's stability and reliability by ensuring
+that all queued buffers are processed before stopping the streaming in
+multi-core environments.
 
-> layout differs from rk3568v2, so a dedicated compatible is the safer
-> description.
-> 
-> Signed-off-by: luch00 <1579567540@qq.com>
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
+rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> @@ -850,8 +850,12 @@ static struct vb2_v4l2_buffer *mtk_jpeg_buf_remove(s=
+truct mtk_jpeg_ctx *ctx,
+>  static void mtk_jpeg_enc_stop_streaming(struct vb2_queue *q)
+>  {
+>  	struct mtk_jpeg_ctx *ctx =3D vb2_get_drv_priv(q);
+> +	struct mtk_jpeg_dev *jpeg =3D ctx->jpeg;
+>  	struct vb2_v4l2_buffer *vb;
+> =20
+> +	if (jpeg->variant->multi_core)
+> +		vb2_wait_for_all_buffers(q);
 
-We do not take anonymous contributions.
+[Severity: High]
+Does this unconditional wait risk causing an unrecoverable deadlock?
 
-> ---
->  .../devicetree/bindings/net/can/rockchip,rk3568v2-canfd.yaml     | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/can/rockchip,rk3568v2-canfd.yaml b/Documentation/devicetree/bindings/net/can/rockchip,rk3568v2-canfd.yaml
-> index a077c0330..aa31ec78e 100644
-> --- a/Documentation/devicetree/bindings/net/can/rockchip,rk3568v2-canfd.yaml
-> +++ b/Documentation/devicetree/bindings/net/can/rockchip,rk3568v2-canfd.yaml
-> @@ -17,6 +17,7 @@ properties:
->    compatible:
->      oneOf:
->        - const: rockchip,rk3568v2-canfd
-> +      - const: rockchip,rk3588v2-canfd
+If a userspace application queues buffers, starts streaming, and then closes
+the device node before the hardware has processed them, mtk_jpeg_release()
+will cancel the background worker thread via cancel_work_sync().
 
-So that's just enum with previous entry
+After the worker is cancelled, any unprocessed queued buffers will never be
+sent to the hardware, and thus will never complete. Since
+v4l2_m2m_ctx_release() eventually calls stop_streaming(), wouldn't
+vb2_wait_for_all_buffers() block forever waiting for the driver to return
+the buffers?
 
-And why is this different from rk3588?
+Since the cleanup loop that aborts these buffers is located after this wait,
+it appears it will never be reached. Could this cause the process to hang
+indefinitely in uninterruptible sleep while holding the driver-wide mutex?
 
+> +
+>  	while ((vb =3D mtk_jpeg_buf_remove(ctx, q->type)))
+>  		v4l2_m2m_buf_done(vb, VB2_BUF_STATE_ERROR);
+>  }
 
->        - items:
->            - const: rockchip,rk3568v3-canfd
->            - const: rockchip,rk3568v2-canfd
-> -- 
-> 2.34.1
-> 
+[ ... ]
+
+> @@ -859,6 +863,7 @@ static void mtk_jpeg_enc_stop_streaming(struct vb2_qu=
+eue *q)
+>  static void mtk_jpeg_dec_stop_streaming(struct vb2_queue *q)
+>  {
+>  	struct mtk_jpeg_ctx *ctx =3D vb2_get_drv_priv(q);
+> +	struct mtk_jpeg_dev *jpeg =3D ctx->jpeg;
+>  	struct vb2_v4l2_buffer *vb;
+> =20
+>  	/*
+> @@ -866,6 +871,9 @@ static void mtk_jpeg_dec_stop_streaming(struct vb2_qu=
+eue *q)
+>  	 * Before STREAMOFF, we still have to return the old resolution and
+>  	 * subsampling. Update capture queue when the stream is off.
+>  	 */
+> +	if (jpeg->variant->multi_core)
+> +		vb2_wait_for_all_buffers(q);
+> +
+
+[Severity: High]
+Could the same deadlock occur here in the decoder's stop_streaming path?
+
+This isn't a bug introduced by this patch, but does the multi-core worker
+thread prematurely finish the V4L2 M2M job?
+
+Looking at mtk_jpegenc_worker() in
+drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:
+
+mtk_jpegenc_worker() {
+    ...
+    mtk_jpeg_enc_start(comp_jpeg[hw_id]->reg_base);
+    v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+    ...
+}
+
+And similarly in mtk_jpegdec_worker():
+
+mtk_jpegdec_worker() {
+    ...
+    mtk_jpeg_dec_start(comp_jpeg[hw_id]->reg_base);
+    v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+    ...
+}
+
+By calling v4l2_m2m_job_finish() immediately after starting the hardware,
+long before the asynchronous hardware interrupts arrive, the TRANS_RUNNING
+flag is cleared.
+
+Does this deceive the V4L2 framework into believing the hardware is idle
+while DMA operations are still ongoing?
+
+Because TRANS_RUNNING is cleared, v4l2_m2m_cancel_job() fails to wait for
+ongoing hardware operations during streamoff. Is this underlying breakage
+in the streamoff synchronization the root cause of the use-after-free and
+DMA corruption that the wait loop here is trying to fix?
+
+>  	if (ctx->state =3D=3D MTK_JPEG_SOURCE_CHANGE &&
+>  	    V4L2_TYPE_IS_CAPTURE(q->type)) {
+>  		struct mtk_jpeg_src_buf *src_buf;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702072614.1037=
+3-1-kyrie.wu@mediatek.com?part=3D4
