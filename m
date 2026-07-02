@@ -1,125 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F0438F65B
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 10:35:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652DF35F165;
+	Thu,  2 Jul 2026 10:39:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782988556; cv=none; b=MOkeOwtTI4ukiEhokktZiOKNKV34FXjlrmkvIJGSWvwFMK4cwcs1ra2imxJkB8O4iVHRzUiOyvgEkrVV5t8vl35N/8bd1ncCUuiiB88wlTbQqXx+ntl2Cgl0/VdVM1bXXk6YHaqaIy2W2UrnnkvSyZ6aDkSeTC7gkRvCL2ODS2A=
+	t=1782988767; cv=none; b=bCW3n5Iz3Y99Ifs4kMyr8QWo6F4MDCCgSXROBK1wTt1icXEd2Mj2bc5EOAsfRhEP80ggwFnLWJRszpUA8RUqsP32d6jB0DnalbzhfcvjZ0ZChRK9Q6z4jSmHHYvZVBYC+N5rcRQEbFvMnn/l2jPDo7zjOaabCq6hGkECiJpgrtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782988556; c=relaxed/simple;
-	bh=ExAya0N1MUhKoTzDL9IeLLik2BT8QpYoK1MwF8KUj10=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eZKAmW+Gy+ZWfHN4dNy0KB4M7W1gGyIH4eF78l+rjAyWpx5t2lgj6VlBX2DfJPh7/y8/wOJIMavizXLafHzU1NqxFRcFEyDGwdGU2XKpDRSZdkB6T6cBjTBx5TvC/3Eb0tVTjrprSfzg1ntj1Ki/taGHxWkuExBA1Vns8Dor8Pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oo0JY87/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782988767; c=relaxed/simple;
+	bh=M3zCXTiKd0xTuXuc/XyUnoJt84FG38wsL6zfIQOJbSI=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=H31IQYqibjc+jyzHZ0H+aLl9MHnUXK2TS8XILhPmKFiY/YSp3bnFLOyYVW47pzGxSnXLWSu5eFKQ7BGNMcgHnCYoGSL/ps4naXjo/PSAIEAewUWLxPQSRjgYyQ/qIHq19YUH9CMVQhPw72+hNtEfLpvXQ86nwbVfRJQjUpo55bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZNF+9+zi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oo0JY87/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E59601F000E9;
-	Thu,  2 Jul 2026 10:35:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZNF+9+zi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9430D1F000E9;
+	Thu,  2 Jul 2026 10:39:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782988553;
-	bh=ExAya0N1MUhKoTzDL9IeLLik2BT8QpYoK1MwF8KUj10=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oo0JY87/bz0l98QDLyrTZBOPogDo01vZ2i5/8JtnSwrJ5KgtcDfBpk/ebsFyEi3sP
-	 IewSn6Ha1hSdahjO5ZP8WA1f4By13ukdQLOb5UtnC6sYAzCHAfUYCvHjLhAqICLXcc
-	 Vt9q9nxvoH+BNafmbLs29qGwq0UkIWHKM6DeX6k3X/+a/wB5pXTmsqYtB7wXz6RQLs
-	 sj/K48s8UiZC21/xku660huT5cf8e8q+UPrPHUApFB2E6XXQ03kCbmG2078u9d6wwk
-	 euCHCTB0Wp+BHTrnWeJcLiB7Mt26sXroM/LBG19xRYL6CbLTgndYEPltrAyg5eM2Pz
-	 ct0NRGB4n/cLQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/7] thermal/drivers: airoha: Generalize probe
- function
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260702094846.17325-5-ansuelsmth@gmail.com>
-References: <20260702094846.17325-1-ansuelsmth@gmail.com>
- <20260702094846.17325-5-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 10:35:52 +0000
-Message-Id: <20260702103552.E59601F000E9@smtp.kernel.org>
+	s=k20260515; t=1782988766;
+	bh=qB0O4+vj8xCBDUmgP9F3sg9bDprAJ1KugUxJjWFYxW8=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=ZNF+9+ziJrQ/6Oo+8v3bgxvCQyRZ8P1F5iaOuNZ/uKew2EQ+sAZngVvWED4ce4fwF
+	 Fe/abxroPGxbacye/03crZyJam9aGojqEZLXIIvXnjY0JJJEK26BBnj62LJbSolewG
+	 bIujxYUL3dG+0T0ZRQ4PQFyp0s8mnMJSX/4KtdJ+CaplU3ABVFxEX5mA3Xq04xKWRf
+	 EidbKv9svobjGJn03LvNx5x19jaiLuT+NUxvuN7zuZQ63krup2Jog8lpagtxX/d8dg
+	 yhEfKlSXj/9LUMD7BjcE/glgXumuJIe0V/Zr9f9VtScxxmNwpwYgEiJY6YzdWZLaH7
+	 iOwN/tvumnjdQ==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 0/9] treewide, numa_memblks: remove redundant work
+ during NUMA init
+From: Mike Rapoport <rppt@kernel.org>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Huacai Chen <chenhuacai@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Mike Rapoport <rppt@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Saravana Kannan <saravanak@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ devicetree@vger.kernel.org, driver-core@lists.linux.dev, 
+ "H. Peter Anvin" <hpa@zytor.com>, Len Brown <lenb@kernel.org>, 
+ linux-acpi@vger.kernel.org, linux-mm@kvack.org, loongarch@lists.linux.dev, 
+ WANG Xuerui <kernel@xen0n.name>, x86@kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260628135828.1393120-1-ekffu200098@gmail.com>
+References: <20260628135828.1393120-1-ekffu200098@gmail.com>
+Date: Thu, 02 Jul 2026 13:39:17 +0300
+Message-Id: <178298875725.1436291.12024708198343441997.b4-review@b4>
+X-Mailer: b4 0.16-dev
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Hi,
 
-New issues:
-- [High] Missing NULL check for the result of `device_get_match_data()` lea=
-ds to a NULL pointer dereference.
+> Every existing numa_add_memblk() caller passes a valid node id and
+> separately marks that node in numa_nodes_parsed with node_set(). In
+> addition, numa_nodemask_from_meminfo() recomputes the same "nodes that own
+> memory" set from numa_meminfo, which numa_nodes_parsed already contains.
+> 
+> This redundancy implicitly depends on the callers' node_set(). So, before
+> removing the redundancy, make numa_add_memblk() set the node in
+> numa_nodes_parsed explicitly. Then remove the per-caller node_set() and
+> numa_nodemask_from_meminfo().
+> 
+> Also, since the generic numa_register_meminfo() already sets
+> node_possible_map to numa_nodes_parsed, remove the duplicate assignment in
+> arch_numa's numa_register_nodes().
+> 
+> Patch 1 adds the node_set() to numa_add_memblk() itself, so every memblk's
+> node is set in numa_nodes_parsed on add.
+> 
+> Patches 2-6 depend on patch 1 and remove the redundant per-caller node_set()
+> from all callers.
+> 
+> Patch 7 removes both numa_nodemask_from_meminfo() call sites and the unused
+> function itself.
+> 
+> Patch 8 removes the duplicate node_possible_map assignment in arch_numa.
+> 
+> Patch 9 is a minor cleanup, using the existing numa_add_reserved_memblk()
+> wrapper in numa_cleanup_meminfo().
+> 
+> No functional change.
 
-Pre-existing issues:
-- [High] Interrupt handler silently drops thermal events if both High and L=
-ow threshold interrupts fire simultaneously.
-- [High] Incorrect devres initialization order for IRQ causes race conditio=
-ns (early NULL pointer dereference) and Use-After-Free.
-- [High] Missing return value check for `of_address_to_resource()` allows u=
-sage of an uninitialized resource address.
---
+Looks good to me.
 
-(Note: The standard inline diff quoting format has been altered to a free-f=
-orm
-summary due to automated recitation restrictions. The original patch code is
-not quoted below.)
+Can you please address the small comment for patch 1?
 
-Commit: a66125bc561d9323e2561d461f2be68491469827
-Author: Christian Marangi <ansuelsmth@gmail.com>
-Subject: thermal/drivers: airoha: Generalize probe function
+-- 
+Sincerely yours,
+Mike.
 
-This commit generalizes the probe function in preparation for supporting
-the Airoha AN7583 SoC. It introduces a match_data struct to define specific
-probe and post_probe functions, thermal ops, and pllrg protect values.
-
-[Severity: High]
-Could device_get_match_data() return NULL in airoha_thermal_probe()?=20
-If the driver is bound manually via sysfs by matching the driver name
-without an underlying Device Tree node, the match data would be NULL.
-Dereferencing soc_data->pllrg_protect immediately after without validation
-would cause a NULL pointer dereference. Is there a need to check if
-soc_data is valid before accessing it?
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential flaw in how the
-interrupt status is handled in en7581_thermal_irq(). If the temperature
-fluctuates rapidly and both EN7581_HOFSINTSTS0 and EN7581_LOFSINTSTS0
-are set simultaneously in the status register before the IRQ is serviced,
-the bitwise AND yields the combination of both bits.
-
-The switch statement fails to match this combined value and falls through to
-the default case, dropping the event entirely. Would it be safer to process
-these bits individually rather than using a switch statement?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the devres initializati=
-on
-order leave a window for a race condition? devm_request_threaded_irq() is
-called in en7581_thermal_probe() before priv->tz is initialized via
-devm_thermal_of_zone_register() in airoha_thermal_probe().
-
-If an interrupt is already pending from the bootloader, it can fire
-immediately, passing a NULL priv->tz to thermal_zone_device_update().
-Furthermore, on driver unbind, devres frees the thermal zone before disabli=
-ng
-the IRQ, potentially leading to a use-after-free if an interrupt fires.
-Could moving the IRQ request after the thermal zone registration resolve th=
-is?
-
-[Severity: High]
-This is a pre-existing issue, but what happens if of_address_to_resource()
-fails in en7581_thermal_probe()? The return value is currently ignored.
-
-If it fails, for example due to a malformed device tree,
-priv->scu_adc_res.start would remain 0. Later, en7581_thermal_setup_monitor=
-()
-unconditionally uses this value to configure EN7581_TEMPADCVALIDADDR,
-instructing the ADC controller to read from an invalid physical address
-instead of the SCU block. Should the return value of
-of_address_to_resource() be validated?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702094846.1732=
-5-1-ansuelsmth@gmail.com?part=3D4
