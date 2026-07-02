@@ -1,119 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC01416D0C
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:48:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECD047F2C9
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 09:48:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782985717; cv=none; b=A3uqTFnvw2Z5kAWZ+kREAEbkXVV+QvaA489ne+A818/p6zSyNCb08GJINtLTUP8KPtcyw6AACi8AR3MuRNdBT80Lb0Kwns3+O1QTVSHK8WMQ0jaxi5IKupoHJwra3ftuPplnXgCtTz0KiDHGj54KS3V+TwOgRtS3p5DJ/oYtmJY=
+	t=1782985721; cv=none; b=g4aKD/U8reXvGvLA2gDFKEYXxTtVQZ02sKSAPBIK86HRlsoa1rRa/SfIn1XTm32AjSTuB5tR/zWcSbc+pI0NF9Z4qpiA6kxMU06F4WFqyohL9teyA/73Qc2qg4nZhS1hupBCo7IJlw4S6E+4mNPnoCfd48cse0ZB6RPBtlEOp5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782985717; c=relaxed/simple;
-	bh=2yPpFh1KhKGay/Ce1+fUKeKoY3zrQYP0qtYRPirWat0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lAMPsghXR3BD61w9EcrErQ1HcWmWxqFLzybSMm45dPKoxhSvSo2k+27nQu/tbNxURSfbZLFnDY4hGDZekFdne3cnyuP073uRGmhtXRtfbiBKLPLU15mcIOzPotYMprQGZi1a246owgOULj8D7GQtK4XF+ILyoy2YZdzP2Th0/tU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=laXk5rXI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782985721; c=relaxed/simple;
+	bh=DRcyK1Ists7LuW0qy2Nd7sDzgb/rxnBt67K668JzGgw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=aLWl0JvHDq8jzajFgUxHAgktRokhKsZHGKIx5BViCkN2yzJcVrgXu8EeIfGF9x5fCA+/0zu1xcQL6qYzggoKiRWyE9oanNs2yW8UmfcMf9pHjXwED9bMmt/ndhRQnaQ2IU7Q57kQVxyaWAaVH8a8Aatwmex5RzkchQIsOTZrA7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=zvQBA9+K; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="laXk5rXI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFDA11F00A3A;
-	Thu,  2 Jul 2026 09:48:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782985716;
-	bh=uvCew2dWaxcd307MeK3+Az1QWGDtYdmUj5QmNI8C2TM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=laXk5rXI0QYbTENyNc8qk5DAVp48ELeR6g5cB9bNAsWHDl+HEwqWWbnEinRaNJyoG
-	 XVH1/MYySWhaOq4uAYITA09m5eBAAR5URvD5qUqg3Xjsa1vJUiCMyPyVR1HO0xbi0O
-	 M1AWV8fQvBZ2VS13EssAmeQaPMtd+iNbujP1ODKauVjrOKiBOYN/sZyTuNkN66jemj
-	 hNTN0qRPIEyaBGJLZMQjhXfOEXxVsZhTebphtHo1+f2vuWj/LtFuoucmBfk6p+fKD2
-	 qeNHxFVbZITYkSiq3T4a+heiathmQZ3pc3mpZcFmTv8LrWBnzA6a+Guc95qrVjbdRp
-	 8RnUEx6vsj6sw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 1/5] dt-bindings: clock: airoha: Add PHY binding for
- Serdes port
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: linux-phy@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, vkoul@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20260702093812.15918-2-ansuelsmth@gmail.com>
-References: <20260702093812.15918-1-ansuelsmth@gmail.com>
- <20260702093812.15918-2-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 09:48:35 +0000
-Message-Id: <20260702094835.DFDA11F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="zvQBA9+K"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47248615e4dso1620374f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 02:48:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1782985718; x=1783590518; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3VK/id3xDnYoG4iGuWnhU+rvfM11chuqqRcmhfRmmpk=;
+        b=zvQBA9+KHwSkCCn9EZmZLCSiijJphlVFSTP0T3/gFsgR4L/kF1NLEnnbhtYrF9w5Lc
+         LaoDB5ALlzRqW1kh3aLQ62DXsG8Sx3Oy5GGhKxpHSM/oVjozaccdn8XzrkP5LpSGhJQ6
+         6Oa9mZ1ntvsmvUcRr28Ca7pw4/dTtAs1sCRYiXzHAztrvhcyU9Ezq4NB9ylRun13QRzw
+         eHkI0xDL3Sp1ZjED8wsxJbp85OUG02tjSMnTJn9pxcwLF/9yCZPWSu9iJg5hw/owj/ro
+         93ptp/DdQh7Vz3lnIEnYlF1WHwUHDYtySWN72N/dw1/SWTqdIdxoNReGP7UHcODZbzfN
+         r06w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782985718; x=1783590518;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=3VK/id3xDnYoG4iGuWnhU+rvfM11chuqqRcmhfRmmpk=;
+        b=kgO5+rQaeWFK5KKu0054fNdVoA47qD26xVtiQTdDtTv9dBnmQn0/toHGyrEif6R7mQ
+         YMz7xEfBOr10NzbDM4TqqPr2VeJvdqCNQQFiElj50YjCr0UJw7eV/hZ6WO4x/JT6q/eM
+         8ZVSwAuRFHvGJW77D/MyyUXdvXfkbM5RORZ4dKkobsbd2OL+ui8gbTaebDx4E3bdaJMZ
+         3P1V8B5qHSPUfCX5bUETDnLTeaaaEn4xCARpBrmyGxLUhlQpe5Vx9mzlMjqi3T2q7z/Q
+         4KTCuFr26hjf6ifPT+eQXGcGlzuUrxHB1IKtqmhHzfpjF+sJSAzGu4hi3hEBeBs8c+Ag
+         1Yaw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq0eBV1tL2CXI0uZNywzOjafv74ojTjAG7NpDRoslutB1GRqxJFoV3VpoZDgTbjiGfK0QIGl6KBNNsj@vger.kernel.org
+X-Gm-Message-State: AOJu0YzLc4PwWvTc3IAw6bsbToOLnfUDoJ0qZxPs5WxmgHWQ+ye3hiP0
+	gm54TtDT8ehkTeoK7bPCG6bw0SVaHCTIjYmReAJBaWn6YWsRFTYto5NC9dkFyABI2mQ=
+X-Gm-Gg: AfdE7cmAGA0NazdlmpSbCmCaWrAfJ5zrZLKPZUvEd4AFjz9cvQGyA7lePlYclFZ3loo
+	L7KJYGGNDnqxfyXOnN5TZY4+X9BXPr5uzTVgNrPLVcZRd5e6nz9+P5rjXl9TlAt5He07KTULbLz
+	/i7fzj5HAGhnPEZJiNWqdkVcs4AJ6FrQEWnSCOXqEp0bN+uC0G/p+Zl4AOohepxNp9yDkWozj1g
+	m0J7Bty0TO1u1NaafmF7dX1NXX2nPjb97bUu0/WrjhOcKyZFxTrYjZk+cPex1MSM+1UAyj3BeBb
+	Til90KqweO0j68wFIxEI2ei0K1YI5gp9v344ukAxkbAWKIY5qnTpWeRs8H/Uu2oUGCHCzLgt3Kt
+	nobQF5LDapuB4X0GIdv2iRrzsvgrUXZt1sm9t5Uk53TQKUfOdN0qSvSgvvn09d/fHQYTjT3nlWH
+	7LAZ+1RHKlhMMfxecFo9m0rDssFtqgndz2bA==
+X-Received: by 2002:a5d:5d09:0:b0:478:3f4b:348b with SMTP id ffacd0b85a97d-4783f4b365fmr2962717f8f.7.1782985717870;
+        Thu, 02 Jul 2026 02:48:37 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db8a4a09sm7656816f8f.13.2026.07.02.02.48.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 02:48:37 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Thu, 02 Jul 2026 11:48:31 +0200
+Subject: [PATCH v5 1/5] arm64: dts: qcom: pmk8550: add VADC node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260702-topic-sm8x50-adc5-gen3-v5-1-8169953634ad@linaro.org>
+References: <20260702-topic-sm8x50-adc5-gen3-v5-0-8169953634ad@linaro.org>
+In-Reply-To: <20260702-topic-sm8x50-adc5-gen3-v5-0-8169953634ad@linaro.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1684;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=DRcyK1Ists7LuW0qy2Nd7sDzgb/rxnBt67K668JzGgw=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqRjPxrLl+2y/YhpE14fa83jz+U1xKkplrS/FLk46p
+ N4w7FL6JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCakYz8QAKCRB33NvayMhJ0Vg4EA
+ ClIQuzY6rk9v07bZp9VUMVjRjDdINn6+4vVeNY2pnWDFZO2GuTGrC6NIPeW+BQdNdlS1SN95CnjV2C
+ VpSJG58Jr98qRiF+CaeHV0aVnPuU+3w2x2Xbx51UP6vDwDuhZlLRy7Jf9zjThDBhqdFbyDmhBV3gGP
+ joUEaJxtYt55yGxwmpqOXrP/4MeqFGDwj/WQcAE5TfRuWcyyMDbYOVmsskpuDu9t8WAPJN2cYghMNM
+ dhqH2Ya3AOJ1beBQoUWCVhThzAp4weHjTF+cIUwO/f32EDF+GQMqi0DaAe90INJaRlwmut7yjOehUN
+ awl4Da9WuwNqPsogKujkLIR/gkxMaIO8WXJukwYWdufEys9gbAo6yTrgNj/oLtgUCHRsPI+VMhANHJ
+ OvaiapbZTtPvCmuu0mvFUfcGDQ/w3zppO/psSc/U0sJAB2ddH+Ik/d8rbhMbQdYDz3R6WsI2MYdUs8
+ pDWTe7QbEh0jof1hiXbiauvBkFgzBTVUmUhQkFRPA7wV7Gof19NpZR39KPn6m+mBGVozc3w5lsCfoH
+ 2JqBigi/7R3tSeZhhco9+0q4ClxYxqigzmNOB2NuwPH2JzF7rV72FufIsmba54NKBlnBvx8zNuiUOX
+ 92amUAWi0tMnMV3W4SuaO8G8DFjRas0pat9A2N5Gd5TiN5iPWJbKwZFP6nzg==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The `#phy-cells` property is implicitly allowed for the `econet,=
-en751221-scu` compatible, contradicting the commit message which states it =
-is exclusive to the Airoha AN7581 SoC.
-- [Medium] The `airoha,en7581-scu` variant gains a new PHY provider capabil=
-ity, but `#phy-cells` is not added to its required properties, and the sche=
-ma example is not updated.
---
+Add the VADC node and the initial pmk8550 adc channels.
 
-commit 6d3a613072b0007e76d5846629212f75c8dfc300
-Author: Christian Marangi <ansuelsmth@gmail.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/pmk8550.dtsi | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-dt-bindings: clock: airoha: Add PHY binding for Serdes port
+diff --git a/arch/arm64/boot/dts/qcom/pmk8550.dtsi b/arch/arm64/boot/dts/qcom/pmk8550.dtsi
+index 3049eb6b46d7..3a9d9f7c3742 100644
+--- a/arch/arm64/boot/dts/qcom/pmk8550.dtsi
++++ b/arch/arm64/boot/dts/qcom/pmk8550.dtsi
+@@ -7,6 +7,7 @@
+ #include <dt-bindings/input/linux-event-codes.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
+ #include <dt-bindings/spmi/spmi.h>
++#include "qcom-adc5-gen3.h"
+ 
+ / {
+ 	reboot-mode {
+@@ -64,6 +65,35 @@ reboot_reason: reboot-reason@48 {
+ 			};
+ 		};
+ 
++		pmk8550_vadc: adc@9000 {
++			compatible = "qcom,spmi-adc5-gen3";
++			reg = <0x9000>, <0x9100>;
++			interrupts-extended = <&spmi_bus 0x0 0x90 0x1 IRQ_TYPE_EDGE_RISING>,
++					      <&spmi_bus 0x0 0x91 0x1 IRQ_TYPE_EDGE_RISING>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			#io-channel-cells = <1>;
++			#thermal-sensor-cells = <1>;
++
++			channel@0 {
++				reg = <ADC5_GEN3_REF_GND(0)>;
++				label = "pmk8550_offset_ref";
++				qcom,pre-scaling = <1 1>;
++			};
++
++			channel@1 {
++				reg = <ADC5_GEN3_1P25VREF(0)>;
++				label = "pmk8550_vref_1p25";
++				qcom,pre-scaling = <1 1>;
++			};
++
++			channel@3 {
++				reg = <ADC5_GEN3_DIE_TEMP(0)>;
++				label = "pmk8550_die_temp";
++				qcom,pre-scaling = <1 1>;
++			};
++		};
++
+ 		pmk8550_gpios: gpio@b800 {
+ 			compatible = "qcom,pmk8550-gpio", "qcom,spmi-gpio";
+ 			reg = <0xb800>;
 
-This commit adds the #phy-cells property for Serdes port selection,
-specifying that it is currently supported only for the Airoha AN7581 SoC.
+-- 
+2.34.1
 
-> diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.ya=
-ml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> index eb24a5687639e..913ddc16182b8 100644
-> --- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> +++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-[ ... ]
-> @@ -65,6 +72,8 @@ allOf:
->          reg:
->            minItems: 2
-> =20
-> +        '#phy-cells': false
-> +
->    - if:
->        properties:
->          compatible:
-
-[Severity: Medium]
-The commit message states that the #phy-cells property is currently support=
-ed
-only for the Airoha AN7581 SoC. However, looking at the allOf conditional
-block:
-
-  - if:
-      properties:
-        compatible:
-          enum:
-            - airoha,en7581-scu
-            - econet,en751221-scu
-
-Since econet,en751221-scu shares this block and does not explicitly have
-'#phy-cells': false like the previous block, does this implicitly allow the
-property for it and contradict the commit message?
-
-[Severity: Medium]
-Additionally, since the airoha,en7581-scu variant gains a new PHY provider
-capability, should #phy-cells be added to its required properties list?
-
-The example for airoha,en7581-scu in the same file is also missing the
-property:
-
-      scuclk: clock-controller@1fb00000 {
-        compatible =3D "airoha,en7581-scu";
-        reg =3D <0x0 0x1fb00000 0x0 0x970>;
-              #clock-cells =3D <1>;
-              #reset-cells =3D <1>;
-      };
-
-Would it be better to update the schema to mandate the property and update
-the example to include #phy-cells =3D <1> so incomplete device tree nodes do
-not silently pass schema validation?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702093812.1591=
-8-1-ansuelsmth@gmail.com?part=3D1
