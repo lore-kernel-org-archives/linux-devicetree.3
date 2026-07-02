@@ -1,139 +1,154 @@
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C376E48BD32;
-	Thu,  2 Jul 2026 12:56:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D106F492522;
+	Thu,  2 Jul 2026 12:58:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782996967; cv=none; b=BmCZq9P071U1Xe8TXCERh/UBD6gJA0DUURkEhiqhY049rdMmDbsIwKX+26o1exWhtEQE3Hrzm8gZhpmT3gFfa/nTtbAKh5tcx+2v4P1xT88PX2Dtp0SJsB+DvbMHxDDflOENeeU6kNobnTaInguHMqfiGz6wlpzTuHYOSJtDHNA=
+	t=1782997117; cv=none; b=rbbgvI1yJKi+BdqmKGDx0feVDDh4sQ4hqU1LxAidrPjsvNCDH57gmsnWQh+d/BnB+kFOmGtuOR0auNnG5fkae3aK4qAac5JyIb+91NkANLKcVMsKQPYu+T36KNRpwkNT4rXXI4CEVHMNxWJdSPwcZkpKwwEebZy3GVE1cd32gUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782996967; c=relaxed/simple;
-	bh=PpoJ8mSDeO5J500ag0sun37EeE6AvIqeZEsWDfHGEXw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cLf5eni1ZGcVRxOJy8q3LRCl9pd26DS38ZORQyUoJTVmSgiw03Y68+KaQW/uJWh+OujNwKnGqTsl1Fr07TULx0TQq09EwbRmjngb0hHM16n4Qv+vJ4G5x+b44yWctd6on6dQQaQ1lAdc9RqONlkm+8+FR3iME+UYi6DlzM1czLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=ifCXH/6L; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=RpParjzF; arc=none smtp.client-ip=103.168.172.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1782997117; c=relaxed/simple;
+	bh=ShsbAZ+6W71qAbfGXVC0TvICNAKnIcCP/PU8K2kCMHY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VI2FPfFps6xwl9YeMpdk2NehX0ip4NOJR6tuotz4hWqkmjjSL8HOiPbBYiC2KX4UPKcE9mamceyZ0q7FksYs53Vyabk8pc8in/6JW3I44WKcPZioVf4lTriwB65YtxfrKakK74FKIJn8l9ZV9P54TUfgZDoSP0sNOveJVNgaLx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kO4usZ5Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="ifCXH/6L";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RpParjzF"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id DC247EC00B1;
-	Thu,  2 Jul 2026 08:56:04 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Thu, 02 Jul 2026 08:56:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1782996964;
-	 x=1783083364; bh=sLmOrxWgSzKesbLl24YL8N9oK1UdIQD9gnT9tarZDw8=; b=
-	ifCXH/6LLWkX3f5iQmwzPX3gfOP7f2JI5CtXbBtP+wvK71Xmb84kH5g4lzr/R3OG
-	g7xuJkNC2HwrI+9che4RhfHRO60HSbrkzrZwiDaFEOtGXJBjeXP8ULwI7lHn9HiL
-	bMZ0FQYt7wyYe7zQcJQSKgRBFjxjjd25pS8E4MFGbGi161I9YShSGx83FkgzewqN
-	RDxLbWnxt4XjOrkUVX4Ytr54TKgER8iCgLgZnLjudSPZSDXJE5YT7QwhSTmkqkbi
-	If0SIlnCe7nafv3PWtx4lgcdxaTc9uxATTblORKF5OOfv9ZpIBT7Ukw/wTdOLe/s
-	m2XI+mcflNnkyrxzZFMhzg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1782996964; x=
-	1783083364; bh=sLmOrxWgSzKesbLl24YL8N9oK1UdIQD9gnT9tarZDw8=; b=R
-	pParjzFzwMbffdbLG5lU9OaDGqkuZ4eSA3Ko9nIXudFN1S6D8yYZiMSsuptNSrGc
-	YP7I7/PhpcCCsmGQBFE+Jz8r2DJXGGOQZpe/Jelzgk/z3CzCNwdqKMnRIxFTB6p0
-	I4ELSout5OHCfEZp2hPYYCEuWpkTrsfCjlEjHRteU167uagn3gumVeISbYPEDlp8
-	/HXqGvTKvd9mtw8soyS6+RPC96V7WtMY2CNBKD8rCNVT0maqu9/DGndlmhyMQqIe
-	MGG0HqFXqHYMPbOoLgR1AgmnAi6J4ShYVUUzmOplVhur8tJ988Y0xLoM8UHpq1vO
-	wpXux9eu1duenXLeVkh7w==
-X-ME-Sender: <xms:5F9GalhVWgykerBOaZ8O-TwRoUMMUpg5TzDCjPXY-Av4aIS0H0k-Rg>
-    <xme:5F9GaoikyUeixZzpgx-wOkqwOwz2YMeq7-BVZztYVFT0y1C1jRefHuWx_z2H6rlAu
-    wmrEOb5W2U776lsiP-vePgQlA0YBGZ1ZbtfGM79USgS9HSA9hP7diN1>
-X-ME-Received: <xmr:5F9Gar5ZCc4kGQFjDnYIWtxJh6mEyNDey53x0Wu0XCWyb1wX8iM5L7jbvQoLfQJUGaqA4QTz1dj2_BuCngwrA5jXxHx8-dA>
-X-ME-Proxy-Cause: dmFkZTF1Wm/hbx4wKB7RR77todSlySJTpNhfXOJ/yd2PhYYiPGw37qDK8rMMd09Q2azuE/
-    nzrscVUY4BHVBtAKg7TyEvnQ5ypyaNZ9h00nHDzh2cfuLJYphWxOdNDGjsapRO9spk4VLz
-    13GwkSociu8raM1MBsFFoKxoTVDG92zYimmUZQgGlhmdRaQjUqHsp5l2CPhB+Li3uKsDZC
-    LganBO/QY351N3JtlvNeOWULXzWrurPYpmanYzbpJmGeY1nD2SDhyvgz3wgbKAXjKrFDWj
-    2ERxE8D7j5v5wWaOtumcWVfyqy1KNwsDmoZjnyUodLtF11MG1q7Bc6vIpgpoCv1MCmgKIp
-    zHFTvDZ7XlKIx/EWcUP82IPlJW1eZroPjWcDM9hq+daonUwRRkCHGtkc83Zj54LUxDlvnU
-    z9xdy5taySFzJiVGuJX+nMh6KItuDdfRpPlYRotwW6mkOdNaNQp+9kUjRqQDbDPAZiIOWd
-    VVxbeCPzBqteBDXqhJ8cCR82sQOHRXzDqQzBFsiK4uFzAwEF3/p4P2OUNjzeY51MX1y2nB
-    lnwp8S+r8MNUS7mSu/XnpmNyg9D7KkV4B6oUT53dA71I9k5szVX6Vtm4k5vCC5RWjkO7iZ
-    40Qp/mGx7keO89RMAjDOi5d2LMJA9Cbr/9vspkjNsCyLNT+TIBBSXzpnLAAw
-X-ME-Proxy: <xmx:5F9GaqQ1KnHc5cud2lj5TEyk0BX_CATSV8cKsbJumWc7tUUD21pmoQ>
-    <xmx:5F9Gaq9sWZaKOl9qvPuHIPMAUpwZxhr-Z5sSeUvXqTp0wxIhzUbuug>
-    <xmx:5F9Garr-RIvrVCfV8WmsWAh3R3aHekBZcC6nwm9BPy-ZWysww0uWVg>
-    <xmx:5F9GagWXYEdLACJY6GTJUIuHXDBFMqn4fieccZ29vQOclS3Yb4skNQ>
-    <xmx:5F9Gal8mVKI3AqyOCxm8N7LvOoyHHI_STR7TF6JXty-Rt0MCFsHuh-C3>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 2 Jul 2026 08:56:04 -0400 (EDT)
-From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"DavidS. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: [PATCH net-next v4 3/3] arm64: dts: renesas: r8a779g0: Add gPTP node
-Date: Thu,  2 Jul 2026 14:55:25 +0200
-Message-ID: <20260702125525.2230427-4-niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260702125525.2230427-1-niklas.soderlund+renesas@ragnatech.se>
-References: <20260702125525.2230427-1-niklas.soderlund+renesas@ragnatech.se>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kO4usZ5Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEC311F000E9;
+	Thu,  2 Jul 2026 12:58:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782997116;
+	bh=E/1DCNOv6BvGR9MJ9FvUvqyYS0lnKrQcbwU1VR2yiNw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kO4usZ5QxTv0KTmHTZC/qASNpRJK/tbL1yjometAkq37XaVoiPj9yYNJYSMa/miOy
+	 WDumAgPKPoA6O+ZAhZknNP5uy3myN2YtroWwxIDDh/D9adoYaQBir+NbjrazmpzPB/
+	 G26xcrXk1KhYilWa5NJdthwc2uJy3iDeefPoHZlhdFDGTm+nZ6/SJsuST7sAsnkvJn
+	 dXE7Zj7K2yahM8tyC7aM0z9NdoTfrtRX0iFx9IZ2s+glDcBGyXLo+A5UHqZ60T2grQ
+	 plqvfAsOE08WmETjdkeuGfJSTD3aYifZvi/nV1eTiyVSnRKxXP1QYtapabLU1eTAKw
+	 hZ6pAM4+B/9zQ==
+Date: Thu, 2 Jul 2026 14:58:33 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, dri-devel@lists.freedesktop.org, 
+	David Hildenbrand <david@kernel.org>, Yury Norov <yury.norov@gmail.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>, 
+	Simona Vetter <simona@ffwll.ch>, linux-trace-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	linux-mm@kvack.org, Russell King <linux@armlinux.org.uk>, 
+	Will Deacon <will@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, linaro-mm-sig@lists.linaro.org, 
+	Heiko Carstens <hca@linux.ibm.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Thierry Reding <treding@nvidia.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thierry Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	Brian Starkey <Brian.Starkey@arm.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	Michal Hocko <mhocko@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Sowjanya Komatineni <skomatineni@nvidia.com>, Suren Baghdasaryan <surenb@google.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, devicetree@vger.kernel.org, 
+	"Liam R. Howlett" <liam@infradead.org>, linux-tegra@vger.kernel.org, 
+	Catalin Marinas <catalin.marinas@arm.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Andrew Morton <akpm@linux-foundation.org>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"T.J. Mercier" <tjmercier@google.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	iommu@lists.linux.dev, Mike Rapoport <rppt@kernel.org>, 
+	Sven Schnelle <svens@linux.ibm.com>
+Subject: Re: [PATCH v3 01/11] dt-bindings: reserved-memory: Document Tegra VPR
+Message-ID: <akZde-8lFvf8rPji@orome>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-1-d80f7b871bb4@nvidia.com>
+ <178293558945.1610040.13281502080616690110.robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jt3c4zsxeledpb4t"
+Content-Disposition: inline
+In-Reply-To: <178293558945.1610040.13281502080616690110.robh@kernel.org>
 
-The gPTP module is shared between the RAVB and RTSN Ethernet devices on
-the SoC.
 
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
----
-* Changes since v2
-- Preserve sort order by unit-address.
+--jt3c4zsxeledpb4t
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 01/11] dt-bindings: reserved-memory: Document Tegra VPR
+MIME-Version: 1.0
 
-* Changes since v1
-- Rename node ptp.
----
- arch/arm64/boot/dts/renesas/r8a779g0.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+On Wed, Jul 01, 2026 at 02:53:10PM -0500, Rob Herring (Arm) wrote:
+>=20
+> On Wed, 01 Jul 2026 18:08:12 +0200, Thierry Reding wrote:
+> > From: Thierry Reding <treding@nvidia.com>
+> >=20
+> > The Video Protection Region (VPR) found on NVIDIA Tegra chips is a
+> > region of memory that is protected from CPU accesses. It is used to
+> > decode and play back DRM protected content.
+> >=20
+> > It is a standard reserved memory region that can exist in two forms:
+> > static VPR where the base address and size are fixed (uses the "reg"
+> > property to describe the memory) and a resizable VPR where only the
+> > size is known upfront and the OS can allocate it wherever it can be
+> > accomodated.
+> >=20
+> > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> > Signed-off-by: Thierry Reding <treding@nvidia.com>
+> > ---
+> > Changes in v2:
+> > - add examples for fixed and resizable VPR
+> > ---
+> >  .../nvidia,tegra-video-protection-region.yaml      | 76 ++++++++++++++=
+++++++++
+> >  1 file changed, 76 insertions(+)
+> >=20
+>=20
+> My bot found errors running 'make dt_binding_check' on your patch:
+>=20
+> yamllint warnings/errors:
+>=20
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/r=
+eserved-memory/nvidia,tegra-video-protection-region.example.dtb: protected@=
+2a8000000 (nvidia,tegra-video-protection-region): reg: [[2, 2818572288], [0=
+, 1879048192]] is too long
+> 	from schema $id: http://devicetree.org/schemas/reserved-memory/nvidia,te=
+gra-video-protection-region.yaml
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/r=
+eserved-memory/nvidia,tegra-video-protection-region.example.dtb: protected@=
+2a8000000 (nvidia,tegra-video-protection-region): Unevaluated properties ar=
+e not allowed ('no-map', 'reg' were unexpected)
+> 	from schema $id: http://devicetree.org/schemas/reserved-memory/nvidia,te=
+gra-video-protection-region.yaml
 
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-index 82a7278836e5..b9b860ef7035 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-@@ -589,6 +589,15 @@ tmu4: timer@ffc00000 {
- 			status = "disabled";
- 		};
- 
-+		gptp: ptp@e6449000 {
-+			compatible = "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
-+			reg = <0 0xe6449000 0 0x500>;
-+			clocks = <&cpg CPG_MOD 2723>;
-+			power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
-+			resets = <&cpg 2723>;
-+			status = "disabled";
-+		};
-+
- 		tsn0: ethernet@e6460000 {
- 			compatible = "renesas,r8a779g0-ethertsn", "renesas,rcar-gen4-ethertsn";
- 			reg = <0 0xe6460000 0 0x7000>,
--- 
-2.55.0
+Any ideas why that second error shows up? It turns out that it goes away
+when the first one is fixed (which admittedly is a stupid mistake), but
+I spent quite a bit of time looking for a fix before realizing that it's
+only a side-effect of the first.
 
+Thierry
+
+--jt3c4zsxeledpb4t
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpGYHcACgkQ3SOs138+
+s6FXSg/8DETX0ZuK2IIeUJbIHp/syjqHI0/Rww4Pal6HHyPG1Nmh7Mw8aUeTurgJ
+joGwb1v3IfLcjn3lMb2FCqe/oBcRBhmc8WlGWIiqiFfoTtXAPo8Rg64dg0l2ndIV
+u9BZrRKqkWLAjjq8uSoXf/8ub0GjtRGMSEiRqa4adYKV0VAUPUbQjEzfikHg91aU
+kSrCvilTLa1KSh268wVWvSEKjraNsiSBq+IoZ3L641ddHo9unPIuXnoFTZzFam4o
+xj7cgpnuBO79MYgpv5vlyz3Rz9W1twGkNdysDqEVRuh8kHJLNsaFrWhMEOeoTcMX
+iCyp3WySjGD1yBTs7VM2RXj9RvBllF0DYKc142VSpEPhsy49wMcjv8Bag05Zwzys
+LHSKvs1SF/dN62tw1x2kZs+Jd4+QcwlTfGDQbtf3Xtf88MP6QcXUUWXB+VMcWumA
+K4mrmfHiRpBrk7IW3c+b4lGwZ6Tl72Z1c6LI07ju7x3DohTXat7hYT2+iDZI1xfA
+s47ub8HQS6xthrn9/xco8ZPWOOjizZiMRSe7l/2gbvrymb1LINSe8uL0W6CFPCJ6
+G37Ad7PfTI1b60hHNGhEGteQtvty4ZuUr126ehR9qrhkvpzYWRUT/ml5MeCYjsOY
+hJrS/jVvbJcphwokdb+6MUfkHN1EC7gbyLCALmMVjSqAec+7Ds0=
+=yG1A
+-----END PGP SIGNATURE-----
+
+--jt3c4zsxeledpb4t--
