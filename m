@@ -1,179 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4A6352026;
-	Thu,  2 Jul 2026 06:10:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A093D3750B6;
+	Thu,  2 Jul 2026 06:12:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782972605; cv=none; b=NodcXwjpII+L69WPPF/dVQqnDm0LQEaaLU941UHvdp2CIVX8vFOaJ+bIXI9plMF+adD8CCgkr1n2lHN2plGhNtKDAe1J0OPNJTp8+WYCQpN8+bfgHsGzSlzrQ3KlGpNxZOFW5Tmd7Sg6YTRI0p8C42+G+SHRJ2ujru7sxxoSdJ4=
+	t=1782972726; cv=none; b=hQd1R9vjRG+n9DgHq5uRByo6MViGBqOUhNV+rcHlDFZBCKd/0tcBpSru2lANHGUegUqursCaeUKcMH8D1/eA7i3om0pNkznfWKOVouFea8dGqu2CkOBm62gET9rcdXTvf+J7G/lAyY1LkpST/gHkAwTpUEqJHNMset/G8hDx8wM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782972605; c=relaxed/simple;
-	bh=oLoYn99X/SazLQXvVOfP3J7ocjldfwdmWmUOwcf6yIg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HEjN/pRA+46gAfAOBXC8GCvbAzB6AM4MLDvrAzVGdle1q/N3fWCqfZ0Sd16ho8FqwqucPSCxUdoebevvUyZjCQXZMFiIszuiJjsbayUVvMQfyZbSlHAlMmNtIvx41BX4+9xccZVF8Fy1dpIUxQcdj8lcT6MEnIGNuWxFKzMzueA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XXIjb2fG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782972726; c=relaxed/simple;
+	bh=hduswI07gJ0MhnGZKhJ1tUTJH2beaihRK9u1YpLbwcA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZROya9GPohkHv7pX00eflreIXgNmzBj/S/hA8u7l7Ul0j70PG+McRblMreHKVNql3s4CB2Q3oCYhdaWxavTar8FU1yjgxsFQlPw8+9XRj2tTFAW8zmATJitW+jCnU+cj7JSQ7iqCc2mIKUEg5mNirkHvRxQa/0I5CwLKOqSbG+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnUFleNc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XXIjb2fG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97FEC1F000E9;
-	Thu,  2 Jul 2026 06:09:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnUFleNc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84F1C1F000E9;
+	Thu,  2 Jul 2026 06:12:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782972603;
-	bh=Jt8J1JxAG/g5bLol8oJcYaANKEU/YkVoUby7a61ZLDo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XXIjb2fGtvZ4+UQBTSD3JAxKvK5AL4kbaVV8X9fWd3iSNzEmOrOhmWyfdb468iSIp
-	 tIaJ8gOYF+sw00A9sayHhMYil6fSxMMX7hoWzqsQkm+pdGVuoAdGRD+E/aXC2ew6wn
-	 11Kelyfp67IpHh8wGcTzkPbvmLLNWhUhmTh4VJ/uPX3yqCWjNxj/qdeuAxPhWEkT3h
-	 60qv6OouYWA+0J5WtBOjkEule6gBWS+PiPGWIsVJsfaxIoc215wa5t18E3UdXKU0XP
-	 nZ3NM4JdY40BzcxhwaTPuV5j5PLV/HBWgHvKEq4Dsz6Xh6KRVUBAOYDGPabfwPluyh
-	 1QiDDkFXAnvwg==
-Message-ID: <187099d0-5e09-49c2-b67d-8bd4366ff1a0@kernel.org>
-Date: Thu, 2 Jul 2026 08:09:55 +0200
+	s=k20260515; t=1782972724;
+	bh=jRGcvDR8CBDSOCR6Lp8cAuCESyy8VVvYP/0X1by0aKI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SnUFleNcPFIoaWoy6G/bsLb/VGB6k488wokGtCyxiFdgoiObEYFbslQia8LfZtFoL
+	 3XQZiPSTn1W6JoKPD7vhPqoTnhsYHqsePKdmtup4uFBBJ/K+CUyusCA5XlmlDBPfil
+	 40rhh9QDGFEK4oppNCCgFFVFOmcgpHlON0Hea2ktvQO+PmcjzAeH4t8BnD0EF51Zfk
+	 BNJnTinpX4YqEHrrbzA7dVH8/C0oFWTn9mGLEQJoExfdY3ceteirKCVLUc8NGxdH2I
+	 24dDGOzqierzJiImYzQvym0bI4jBHNgTSZ4My+FjyPHwi1ZlepdH5UOhmFRRrgJfBM
+	 /802g+lF6IhPA==
+Date: Thu, 2 Jul 2026 08:12:01 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, 
+	sibi.sankar@oss.qualcomm.com, prasad.kumpatla@oss.qualcomm.com, quic_srivasam@quicinc.com, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 1/3] dt-bindings: soundwire: qcom: Increase max data
+ ports to 17
+Message-ID: <20260702-monumental-inventive-malkoha-dcfe7d@quoll>
+References: <20260701163115.3701298-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260701163115.3701298-2-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: rtc: Add sii,wakealarm-output-pin
- property for S35390A
-To: Markus Probst <markus.probst@posteo.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <uwe@kleine-koenig.org>, Andrew Lunn <andrew@lunn.ch>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260630-rtc_s35390a_int1-v1-0-1b2239e16be2@posteo.de>
- <20260630-rtc_s35390a_int1-v1-1-1b2239e16be2@posteo.de>
- <20260701-bronze-jaguar-of-perfection-028bac@quoll>
- <45e8157be53c3d8827fcccece7f706968bc056d3.camel@posteo.de>
- <7de66163-369e-4118-af51-6913b565fa4b@kernel.org>
- <d06dd0726aa3795ae99df5fa8a9c05d6e2001efd.camel@posteo.de>
- <20260701164821b7492eac@mail.local>
- <74b32ed0a700e3900c0f34d730b2b5b69eb2ca19.camel@posteo.de>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <74b32ed0a700e3900c0f34d730b2b5b69eb2ca19.camel@posteo.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260701163115.3701298-2-srinivas.kandagatla@oss.qualcomm.com>
 
-On 01/07/2026 19:08, Markus Probst wrote:
-> On Wed, 2026-07-01 at 18:48 +0200, Alexandre Belloni wrote:
->> On 01/07/2026 16:43:07+0000, Markus Probst wrote:
->>> On Wed, 2026-07-01 at 17:14 +0200, Krzysztof Kozlowski wrote:
->>>> On 01/07/2026 15:25, Markus Probst wrote:
->>>>>>> +
->>>>>>> +maintainers:
->>>>>>> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
->>>>>>
->>>>>> This should be someone caring about this hardware.
->>>>> He does have the majority of commits on this driver (excluding merge
->>>>> commits and commits not exclusive to this driver), although most of
->>>>> them are pretty tiny.
->>>>>
->>>>> Who would you suggest instead?
->>>>
->>>> Someone adding features for this driver, maybe driver maintainers. But
->>>> if Alexandre is fine, you can leave him.
->>>>
->>>>>>
->>>>>>> +
->>>>>>> +description:
->>>>>>> +  The S-35390A is a CMOS 2-wire real-time clock IC which operates with the
->>>>>>> +  very low current consumption in the wide range of operation voltage.
->>>>>>> +
->>>>>>> +allOf:
->>>>>>> +  - $ref: rtc.yaml#
->>>>>>> +
->>>>>>> +properties:
->>>>>>> +  compatible:
->>>>>>> +    const: sii,s35390a
->>>>>>> +
->>>>>>> +  reg:
->>>>>>> +    maxItems: 1
->>>>>>> +
->>>>>>> +  sii,wakealarm-output-pin:
->>>>>>> +    $ref: /schemas/types.yaml#/definitions/uint32
->>>>>>> +    enum: [1, 2]
->>>>>>> +    description: |
->>>>>>> +      The output pin to wake up the system.
->>>>>>> +      Default will use the output pin for interrupt signal 2.
->>>>>>> +        <S35390A_OUTPUT_PIN_INT1> : Output pin for interrupt signal 1
->>>>>>> +        <S35390A_OUTPUT_PIN_INT2> : Output pin for interrupt signal 2
->>>>>>
->>>>>> Does that mean device generates the interrupts?
->>>>> Yes.
->>>>>
->>>>
->>>>
->>>> Then I think you miss interrupts property.
->>> From what I can tell the line is used to generate a system wakeup
->>> event.
->>>
->>> There would be no obvious benefit of connecting it to an interrupt
->>> controller, so this property would be obsolete?
->>>
->>
->> Then you need proper wakeup-source support
-> Wouldn't that break existing devicetrees?
-
-How?
-
+On Wed, Jul 01, 2026 at 05:31:13PM +0100, Srinivas Kandagatla wrote:
+> From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
 > 
-> The current driver allows to wake up the system, even without
-> having wakeup-source set.
+> Bump the maxItems from 16 to 17 for all qcom,ports-* properties to
+> accommodate SoundWire controllers v3.1.0 with 17 data ports.
+> 
+> WSA instances on Glymur has 6 DIN and 11 DOUT ports.
+> 
+> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> ---
+>  .../bindings/soundwire/qcom,soundwire.yaml    | 20 +++++++++----------
+>  1 file changed, 10 insertions(+), 10 deletions(-)
 
-Anyway, wakeup-source is already there in rtc, so this would be done. I
-don't get though, why there is no benefit of routing it to interrupt
-controller (interrupt controllers do wake up the system). Additionally,
-if you do not connect it to any interrupt, then how does it wake up the
-system?
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
+
