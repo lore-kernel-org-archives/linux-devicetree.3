@@ -1,91 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B017370D54;
-	Thu,  2 Jul 2026 19:10:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53ED0385D66
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 19:12:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783019457; cv=none; b=u8DuZAaxPlpEpLD4rMsTIPIenWDDV8IgIUOQpZAzITWQ13Qndldg5z/yEdinBuDxaz9gN5WfS0YsBOqkWO5KKRKB9vR4i2FdE9WcBtK+8lr7gb1ebQuPfYDAqUGomxDuS47Xin9t9A2AUu2pbOB6CWKfN0kvAcGSIHomDJsXhjw=
+	t=1783019539; cv=none; b=cRJiXXv9TzsnEK8NJ7WdDtowg+9pwX4dBrDBxlKHQPWlpx1HLhfPlewq2S6eZGaAg0UB8gBCDC5y8r99Kanw5vq/+81GDB2ebO9iQ3WoRtsePYZVP12b0wKvy2QxcSiE3a2fXlhAf3kcxsn02Ph/ibN14IwPHs8DyWwg1btI7CY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783019457; c=relaxed/simple;
-	bh=I5xwFfXJL/F23jY/UVU84QhVfYWMYpavgCY/6SVcqsE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=c8bR26s53w5rO7xXkN2TSRJKCErh5uSpFLilU6IhgCUuVXi/K7Be3kE/FcfGgI9mrCFwJTV9vGNCVTtX0JTxx+tFCga+Z1yiHPDTYfIE9RUwmtwffZ8v5Ibob1TdvZvviFOECIF3IcjVIY97RiMF6eYq8yi9qffRX73GocHJd4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l8IQYceY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783019539; c=relaxed/simple;
+	bh=AVIYuPCgubCuYve1OA2lx01GpnFJKVLmIPNWXCKWycQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F3x89jnmjuz1kMrl5HPlYi+JhrhF9Bq/UpvIWhaYL2FU00h02vwePPMPzuQIU47yK7+amO5rJWcqPYfyWMCha26K1Hbyysf11/LQj9HFoUJo0T2JOmFhxmj+6wQQTiMWgCAEYc7NWfsar2LqlJ/vrHN3BHoYP2PCuzr8LPBuCJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CQgTSdZ1; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l8IQYceY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD1C1F000E9;
-	Thu,  2 Jul 2026 19:10:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783019455;
-	bh=oTonvux7NCPyRZ3T4vDun5Mjs1cckhZark104izI2yc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=l8IQYceYuxBa80cAE/zYNtcw1EBS9gACjME8RB/t4FvoZm2tiSY16c1TSO7tlGCWH
-	 agggFSeR5rB46NWN7LAXudhWJQeh2FxoiXl8/kzvD4kEQfLCGi0RbnIhnoh383aWQW
-	 MTL4aCeIFkGfTZbd9cC41lw/xp82SdvJl0AwIrggOJ33GrK6QcAwolN1CrKrxBS54Q
-	 n9rcgtUDE4dShh90+yf+NuUOGh/fs+C1I5rX5flPNCnPaS4hOu2mKUn6HmQuMS/NQL
-	 PRMgBt8EU2VlRR+C1xdCuVdaU55r01RytABYnQwrwUfGFgrQXAQiskfBPCwAKdoNXf
-	 tVI1D+g83Pmqg==
-Date: Thu, 2 Jul 2026 20:10:49 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chris Hall <c-hall@ti.com>, Patrick Edwards
- <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>, Nguyen Minh Tien
- <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 8/8] iio: adc: ti-ads112c14: add measurement channel
- support
-Message-ID: <20260702201049.164d939f@jic23-huawei>
-In-Reply-To: <544fbdef-268d-49cc-ae9e-b18907d9382b@baylibre.com>
-References: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
-	<20260625-iio-adc-ti-ads122c14-v2-8-ceb9b0b561cb@baylibre.com>
-	<20260701212019.12757df3@jic23-huawei>
-	<akYs-QgyjN-nmjq-@ashevche-desk.local>
-	<544fbdef-268d-49cc-ae9e-b18907d9382b@baylibre.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CQgTSdZ1"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493ae59eca6so15288095e9.1
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 12:12:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783019535; x=1783624335; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yWVl92ySB0LOea/djTBKxUFhK5i6uFHRlukNHQHiJp8=;
+        b=CQgTSdZ1EJ9vC0pV0hRyu8KzEoFEX7w0dfkqChjBf7ehwthEQjfQlUeUkOaPX5Av3o
+         +VBg78ISUalx/kXmyqhgb0kCHoEpJWl2R0FZToH75WygA/M6dYT1h1S5fyXLtvwnEN57
+         QKHrfXLl69IVqofabhHiK5hBN6m4NYe08jkGfdp0hE1FQ5Y/qrFcnLmWy2fOog5nuH94
+         NMW+rvrjkAhFamtDmqf5Dl92yWE9D3YdpYNtrno6SefvbBMzQMGf0b9H5fIfsAf6qmw1
+         d5nmkSpsbhRfTB/RDAXYY60F8LUWKHIvG7mzVwahroQEEmRtX17iXTVt8IijMi92pi1t
+         rnXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783019535; x=1783624335;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yWVl92ySB0LOea/djTBKxUFhK5i6uFHRlukNHQHiJp8=;
+        b=DNfK+GG1nTvfZp1xpdir3rDNJhbxb8Hcc+uDwt9NnEuKJSGq+Q5Y6vcQ7sHeBTe/BM
+         oRcn+PNcB4balujYcpRWm43Z2wSyTL6h8UvvAv+gIpP59Yvv4c9F5FP5k0WI+466T1AP
+         KE/dXPzLSqox8kLTMStF82oKp6cxUuPL8lh1rBPBxl9m4Tkh4m2zJ4LFRqCf0bL1dx8J
+         at/yabKpK2z4WCEqQiqTgTLSp76vFmbjBIrm/xLBqf5BAksX051M+IhAdDms25BgC2k9
+         smQn1wTGcx0x7IOZXP296z9BuOAsBlQdoLCc68bE5VHuBG0eLzt5rPknT661xlqMohJZ
+         DOEg==
+X-Gm-Message-State: AOJu0YyZwdkYwDvsL1uJ4Y/PDCupdfvJhIA7gSitVNhH8KlL3oR6CkT8
+	lPKALTX3f7iNz9yDe+nm27DlONacsHceWgQ0TIyb9Gysj+jBPAuv/cpQ
+X-Gm-Gg: AfdE7cm51b5X1QL4qN6sb/EXBd+5IV2oM7YFExblPZn9Q2OoZl1YVh3N6wg3marSOtR
+	cA8BLTY3ISmrDzBfqX7R1Hb5INOc5Mq1V5+e3JBDgKY3VLyFBvYiGteQPGYclWzSUmuZfUtwXMG
+	hc1SaVxpzUWq5TjEKhO9hq6V1utw5IGsz4E6NVWofy8K1O3IUHclZMPfJhwLchrNX34MB8m46QH
+	Zb3kQ3jXu/IX0PVUGVIp5e688Gzm2iEmmM1NawvL03aqIkF0yLxkdjOPLy6da7aAIIhQjpzhPNk
+	0IrjFweE21yUGCOfxDgyN0MR2PHeD7fQTpDGRPJRjaLVwCRO3MCCFFZR+kACy9wl6k3DYtvUk4F
+	kCsjS+/f7B/iwDFFw+NZ06hchlP6smc1yHB58WnVhsuSfyWJIocW7KETw4J9kloxC0LeN99jLq/
+	O3jWzHnsGun+H+I9x3cTWAUmMeQZjFOWo02LyD2L8JWbnd+pQgJ81MncAqU16tD8O+GywVz4gQP
+	DHi8T6I
+X-Received: by 2002:a05:600c:290:b0:493:a613:56b2 with SMTP id 5b1f17b1804b1-493c3cd5967mr65147035e9.8.1783019535315;
+        Thu, 02 Jul 2026 12:12:15 -0700 (PDT)
+Received: from [10.128.11.240] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c636cc08sm83399065e9.11.2026.07.02.12.12.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 02 Jul 2026 12:12:13 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <eff80e31-f833-4790-8114-1ece4ed3a044@gmail.com>
+Date: Thu, 2 Jul 2026 20:12:12 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 3/5] mfd: aaeon: Add SRG-IMX8P MCU driver
+To: "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ =?UTF-8?B?SsOpcsOpbWllIERhdXRoZXJpYmVz?= <jeremie.dautheribes@bootlin.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+ <linux@roeck-us.net>, Lee Jones <lee@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>
+References: <20260630-dev-b4-aaeon-mcu-driver-v6-0-d66b5fcbd2f0@bootlin.com>
+ <20260630-dev-b4-aaeon-mcu-driver-v6-3-d66b5fcbd2f0@bootlin.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20260630-dev-b4-aaeon-mcu-driver-v6-3-d66b5fcbd2f0@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2 Jul 2026 09:18:41 -0500
-David Lechner <dlechner@baylibre.com> wrote:
+Hi Thomas,
 
-> On 7/2/26 4:18 AM, Andy Shevchenko wrote:
-> > On Wed, Jul 01, 2026 at 09:20:19PM +0100, Jonathan Cameron wrote:  
-> >> On Thu, 25 Jun 2026 16:55:10 -0500
-> >> "David Lechner (TI)" <dlechner@baylibre.com> wrote:  
-> > 
-> > ...
-> >   
-> >>> +	device_for_each_named_child_node_scoped(dev, child, "channel") {
-> >>> +		struct ads112c14_measurement *measurement = &data->measurements[i];
-> >>> +		struct iio_chan_spec *spec = &channels[i];  
-> >   
-> >>> +		if (!fwnode_device_is_available(child))
-> >>> +			continue;  
-> > 
-> > Also drop this dup check.
-> >   
-> 
-> How is this duplicate? device_for_each_named_child_node_scoped()
-> doesn't check this.
+On 6/30/26 13:51, Thomas Perrot (Schneider Electric) wrote:
+> +config MFD_AAEON_MCU
+> +	tristate "Aaeon SRG-IMX8P MCU Driver"
+> +	depends on I2C
+> +	select MFD_CORE
+> +    select REGMAP
+> +	help
 
-It is convoluted to show but it does (now)...
+Your REGMAP select here strangely indents with spaces, while the rest
+of your kconfig attributes (and this file) are using a tab.
 
-Ultimately for dt case it calls
- of_get_next_status_child(node, prev, __of_device_is_available);
-
-IIRC that didn't used to the be the case and we had iterators
-for available and not available both for DT they always meant
-available and more recently it got cleaned up as the number
-of places that need to pass non available nodes is tiny!
-
-Jonathan
+- Julian Braha
