@@ -1,64 +1,64 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4AE480979
-	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 12:31:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374C8481FA3
+	for <devicetree@vger.kernel.org>; Thu,  2 Jul 2026 12:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782995500; cv=none; b=QGsdDYm2osIOAGexbUqhQ0njhE1ZfqcIraEo32JHxXChtpuwi2Phbb3XuUr+CWotYMw3H6ODXHanqllLMomAXkW7NCiuLADrgawauJUIAOpqcvobLMvBouUVaDBoZfwRR52BISAIBY7rQSeiDHHjsBDMbhTWCM61gL+Wi5e51HE=
+	t=1782995502; cv=none; b=RgS9qWKjQAQ/K+ABQ6GjisGwpBFZ2W1XnLhA2AhMyrI5m6out5V2LikB0a3NGivMG1M628r3RKA0twzgpq7wW0yQkiKsdrk/0Ubm6J3jDKAzwLbWjI37pzOHUBurWDZIUmpEqsRQskRX+bPgZ/ix0A1GmX8HlxFN+7EbjyNoFFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782995500; c=relaxed/simple;
-	bh=8SJCiMa3lPfv/rTE+pQQTxr30mOA3gxwQGR0gmNnTo4=;
+	s=arc-20240116; t=1782995502; c=relaxed/simple;
+	bh=L2A0GzKH9EPwF0QTXt3G5lEq4T6+Kmo+xZFk8aeRjsc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TWNJ80LkAdLDexsbct/wAzNmF+37Kq0Rv0PcsNV088YNuEpvB+fTVinLPK5C0a2MvEUzjefIFRziCu9EvcPk0Do7PtgsLx7SNf5BZ9jh9wajg2SLOlO33z9BMpQnxtE7gmtNA1ynOdPx/rlV9agjNaqp2leQ4Nt5XjcNr/kyHfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fFtZPpZc; arc=none smtp.client-ip=209.85.128.47
+	 MIME-Version; b=qeLQ/jWYdzG+DGtYreUv/8bvKdPfSNlJOtaQLnRammUbHbC/Ves38x3F2YJApBLki0dpIQsgfKu5d8OTyyWLrykt60srYwSoj33LSySnUhH4SHvA6iHtO5GonLnhnDwZq+cIyHPMjzCf44GaKxEi7ho0V/SnWMtv2bQcpAtPk0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nl7zuOUD; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fFtZPpZc"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-493b61b52b6so11285965e9.1
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 05:31:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nl7zuOUD"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47362928f65so1723261f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 05:31:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782995493; x=1783600293; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782995492; x=1783600292; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eithLOELKkNE1v5JgvDJ80gc2YnZ90Sl+cwRSRw9Ky4=;
-        b=fFtZPpZcwflwpwdK16YVWrNmW7n/qa44AsCSQI07AHAuFa37DKYx6L4K9SbAkjzNUF
-         7IN4qTxFfj3OCbin1rZ6jD3wggKqO6v3urGiEjXI20ZJgf0wcr0ej2o1myZnGZVgGTPE
-         71i6Ia5NjM/Pq/tfKudmICHcT4VxH50VwaAvbpofgJ/BFM4QwSnZuubNjeRkTWpKwAkB
-         Wrh79oklEU/PJp3d24kjihwkT287j7EmXhxL2rB+MHJovEquSCTcrsTpQGcOjz9GLW2x
-         xtxWWjgcbgaYlKT4J3y638Ki+oKjfRJlG5rpIVyYrWoj3FH3eRl1fFz8KmZV0xSf9J5D
-         y+aQ==
+         :message-id:reply-to;
+        bh=L6muIoukBpYJpCaryUIHW0miALiF24vbZVpFhaej9tM=;
+        b=Nl7zuOUDjVjahQ9dDysYVGddey8LPUUincNs70vHHLxrUhvAK/n0MxF1ookRgz+K4Y
+         3XU1vwdPkM/ezoWGldoo2uNnM4nhugmAB2ZuRo8RzJor724W0XzmSwGenJdrjmwmSaPx
+         5JQLy/QQV6YFlQfCcWhjzHAlNve0Xz6+xI+nz6hLhT4H8GTma5ojeP48OFBEs1/XGZro
+         LTy0y1eaDfuBSghS3C0u0w1MRZp4fuX/vNmFunh7cAMNd+ost1CcwGyaslejC8CCEa9d
+         zb2OGN2l6/9QB9pcuWg8aHfZ5le8j1xj+Vmeita+si9mPRyhEfic5RjOyvJKEMfCTlQQ
+         EYHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782995493; x=1783600293;
+        d=1e100.net; s=20251104; t=1782995492; x=1783600292;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eithLOELKkNE1v5JgvDJ80gc2YnZ90Sl+cwRSRw9Ky4=;
-        b=ZUIcvbidsefNk80BrGMqaUFlVZgp87ijmiDiHliIvzUx95X0z/RTS9Ocp5OtIu4cXD
-         868T4Nui51TvR+Y2eBXGFj7R3R0AyODeNriI01Qn4iS0NgUXvpmKEa+/t81m8UyZf6r9
-         gVuBctUMnyJzpbNiyMGu5YFVI0gPDLXqMolZ6j2ygmGL+X+4A7SmxSNlk6gZfihGXDnp
-         xndLsT8lfIBK7MZdkuNKMD+RETTm6MHEUAyCk2ajmJGz2l4/iio48EX80djVaLB+qLJV
-         DJbk2mjZfxY2iS+uj1PwWWPwwYgzzhvm9OAol3InxKYgVnJn/3lPlMAEGx8Kp/SxT9P0
-         MbKQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+yYr8zG4kuAaDJCTLV5NkufZkBoZr8oWA1E7+bM9AGr2aSumc9g6lhGcp0fPpc7RPPQGcKxB2d/xqC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxuwb9vrA+/7FQR3132VGGVEA8VtdUcgDx6ux0WvNC+FKJqvq9N
-	EElPxJ5bx2m7q1mixmOTsREZzsaDZZJTMG9W126NR9dHFzM1pQD1lIxo
-X-Gm-Gg: AfdE7clPglMSlrlgBRDK7KKH31ra86TZucXBQEFaiiQXuQVFNY1idP4An0vdXlx2dCl
-	/TokWn9ozo7Pwb6N6s2TYxQLKaXy4qEm8UuqodExjx5KKbk9pRx8nbnr9x9cn0e4OSdR3kDU5cy
-	y8ExqU9VrWMG+Kt4JSKVh2ya8wBmrhl6tEi4HRvXcty+gUZebvtqqbeBnctdo5VB+Cv1y03Hc/i
-	hbZQEBwX7NYgxJ9jlH9q3gzIWIcmCIU2+/GVO57qyLNJTN+jn7b324TY4QWQkX11dhAEHAF30/8
-	yTyjWEyl3mv5l5tQywhSFz7TKpBnRfxuhuwPF7udVUODwcDzg8jM6ncL5E080dxvRE4HyPA5jVA
-	TWV3XGbUEqRrG53rhHu2L3FIU+/tfqTiSr3IDHiNjH+bHvDGjcwHIhgyqGX5hFv2JVghntHjgp3
-	9/PNWSDCMT8z+bmh8//SeVk4X75WNlhp9qe7wNdE0lMPTf1p5OgI03hjVl3yWjnmLu2JPkYfivA
-	aCl4y3QeJ3leRMLNk0qZ0EwSqs=
-X-Received: by 2002:a05:600c:34c8:b0:493:a5f9:d345 with SMTP id 5b1f17b1804b1-493c3cf0a35mr71155705e9.26.1782995492556;
-        Thu, 02 Jul 2026 05:31:32 -0700 (PDT)
+         :to:cc:subject:date:message-id:reply-to;
+        bh=L6muIoukBpYJpCaryUIHW0miALiF24vbZVpFhaej9tM=;
+        b=InImtOYKpGT9f2cqKjDRXPTWEr+RKMMZaTxQoKSq3LZ8L0+iDG9oGmqpUQHL/VjE8w
+         hXjexagYUHazLfZ8YSVwE7REZNFBy6J+GWYfzEaxsMJEcwYETeUoh2dDz7fpsY982fTp
+         MDtKNoUu9IzoSkjTcd9V2UtiSe3forSI2nj8pVEOtVKkRkuhV3+8qyPuvhHtsqSSki6f
+         O5uEKNJxYSCfESbdasmX6zKYQLskc5XBEhdXlVlt3tN8vnlAw1J+fynCpOFyYOTNKNGl
+         Fd+Vqi0pYbc0iRR11da/602dNhT41Vc1DY7/cJysOKGNOCbXIhr/gBpqkBg4PoDkL7Xv
+         gHbA==
+X-Forwarded-Encrypted: i=1; AHgh+RrjskQgrYeqPc0/jj964h0EOfsDpq+e3BvzlQCpIODzuUpEWWsrk1bxDNXN+9ADcu2zQk6Odme/h/zR@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCKzCThI1NFeMxfsLudSYIbCNfYbL1gp8zHfTDeO0xvrNh3U3V
+	G0qgSS+e+Zidt3GXLQzXomj/h1h0k28rXGerdbgNHGIaycv2qunvVQo/
+X-Gm-Gg: AfdE7cnWECgims1scqfrYSy9BwuklCl+GspJYiCNJ5Srw4khT7Ka2j9xLOuefYSSxbq
+	zoZM1njfDrXE7cU4pkeedmj/qrVd9QGSEFGEjEvlnUZ1DkHnCr8vYwM5NzmwXn6kex/BcIGkgP4
+	hfr1QhZkhFzd1Wj0Bs2Li1L47LhWxJ/wurW0T+ogkdOw1NRy2qMygoyqsT8DmuJzjVrggMFejlx
+	MK5mnZkgbeiOMa2XHLaeQCKO2LwWnCoYPKJQ+j9boqU7+I1694OrLuV/SyH30FAvbq/W8HszPmV
+	m2cplQsuLw+E7peHsXhpYwKOLSD55cswkDNYq40Lzim8/vgbYpLkB/00XQwZHnVerK+h3LammaJ
+	/YzEijjLGIPGt3t0gWJResUvYNffei3dzE46nfzKJ1fn8EgiTNV2Ncz5xonJoxjss5Wt5Zncqp4
+	0Br9vD+TJ8tf9Up8DLgRpPIVX0aK9BQ4Ex+haEZNc96w0uLUQXWOc3keMySeWE+hhH1rmyFMyL+
+	7j2yb5lGxOEpNHc8KBMopX4j6Y=
+X-Received: by 2002:a5d:518d:0:b0:46f:7d90:8128 with SMTP id ffacd0b85a97d-4775a2efbb4mr7323330f8f.14.1782995491590;
+        Thu, 02 Jul 2026 05:31:31 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:7a4b:58b4:175e:8c2d])
         by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477ddf0f433sm9772923f8f.32.2026.07.02.05.31.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 05:31:32 -0700 (PDT)
+        Thu, 02 Jul 2026 05:31:31 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -81,9 +81,9 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH RFC v2 9/9] arm64: dts: renesas: r9a09g087: Use SYS syscon for WDTDCR access
-Date: Thu,  2 Jul 2026 13:31:12 +0100
-Message-ID: <20260702123112.161160-10-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH RFC v2 8/9] arm64: dts: renesas: r9a09g077: Use SYS syscon for WDTDCR access
+Date: Thu,  2 Jul 2026 13:31:11 +0100
+Message-ID: <20260702123112.161160-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -98,34 +98,33 @@ Content-Transfer-Encoding: 8bit
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
 The WDTDCR registers for wdt0-wdt5 reside in the second region of the
-System Controller (SYSC) block at 0x81290000, which is now managed by
-the dedicated SYSC driver and exposed via a unified syscon regmap
+System Controller (SYS) block at 0x81290000, which is now managed by
+the dedicated SYS driver and exposed via a unified syscon regmap
 interface.
 
 Replace the direct mapping of the individual WDTDCR registers with the
-new "renesas,sys" phandle property pointing to the SYS syscon
-node.
+new "renesas,sys" phandle property pointing to the SYS syscon node.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
 v1->v2:
 - No change.
 ---
- arch/arm64/boot/dts/renesas/r9a09g087.dtsi | 24 +++++++++++-----------
+ arch/arm64/boot/dts/renesas/r9a09g077.dtsi | 24 +++++++++++-----------
  1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi b/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
-index 165c404dfd36..90a2fd02ae89 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
+diff --git a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
+index 6f4c1086afcd..27e0e278ab47 100644
+--- a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
++++ b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
 @@ -327,61 +327,61 @@ channel1 {
  
  		wdt0: watchdog@80082000 {
- 			compatible = "renesas,r9a09g087-wdt", "renesas,r9a09g077-wdt";
+ 			compatible = "renesas,r9a09g077-wdt";
 -			reg = <0 0x80082000 0 0x400>,
 -			      <0 0x81295100 0 0x04>;
 +			reg = <0 0x80082000 0 0x400>;
- 			clocks = <&cpg CPG_CORE R9A09G087_CLK_PCLKL>;
+ 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
  			clock-names = "pclk";
  			power-domains = <&cpg>;
 +			renesas,sys = <&sys1 0>;
@@ -133,11 +132,11 @@ index 165c404dfd36..90a2fd02ae89 100644
  		};
  
  		wdt1: watchdog@80082400 {
- 			compatible = "renesas,r9a09g087-wdt", "renesas,r9a09g077-wdt";
+ 			compatible = "renesas,r9a09g077-wdt";
 -			reg = <0 0x80082400 0 0x400>,
 -			      <0 0x81295104 0 0x04>;
 +			reg = <0 0x80082400 0 0x400>;
- 			clocks = <&cpg CPG_CORE R9A09G087_CLK_PCLKL>;
+ 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
  			clock-names = "pclk";
  			power-domains = <&cpg>;
 +			renesas,sys = <&sys1 1>;
@@ -145,11 +144,11 @@ index 165c404dfd36..90a2fd02ae89 100644
  		};
  
  		wdt2: watchdog@80082800 {
- 			compatible = "renesas,r9a09g087-wdt", "renesas,r9a09g077-wdt";
+ 			compatible = "renesas,r9a09g077-wdt";
 -			reg = <0 0x80082800 0 0x400>,
 -			      <0 0x81295108 0 0x04>;
 +			reg = <0 0x80082800 0 0x400>;
- 			clocks = <&cpg CPG_CORE R9A09G087_CLK_PCLKL>;
+ 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
  			clock-names = "pclk";
  			power-domains = <&cpg>;
 +			renesas,sys = <&sys1 2>;
@@ -157,11 +156,11 @@ index 165c404dfd36..90a2fd02ae89 100644
  		};
  
  		wdt3: watchdog@80082c00 {
- 			compatible = "renesas,r9a09g087-wdt", "renesas,r9a09g077-wdt";
+ 			compatible = "renesas,r9a09g077-wdt";
 -			reg = <0 0x80082c00 0 0x400>,
 -			      <0 0x8129510c 0 0x04>;
 +			reg = <0 0x80082c00 0 0x400>;
- 			clocks = <&cpg CPG_CORE R9A09G087_CLK_PCLKL>;
+ 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
  			clock-names = "pclk";
  			power-domains = <&cpg>;
 +			renesas,sys = <&sys1 3>;
@@ -169,11 +168,11 @@ index 165c404dfd36..90a2fd02ae89 100644
  		};
  
  		wdt4: watchdog@80083000 {
- 			compatible = "renesas,r9a09g087-wdt", "renesas,r9a09g077-wdt";
+ 			compatible = "renesas,r9a09g077-wdt";
 -			reg = <0 0x80083000 0 0x400>,
 -			      <0 0x81295110 0 0x04>;
 +			reg = <0 0x80083000 0 0x400>;
- 			clocks = <&cpg CPG_CORE R9A09G087_CLK_PCLKL>;
+ 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
  			clock-names = "pclk";
  			power-domains = <&cpg>;
 +			renesas,sys = <&sys1 4>;
@@ -181,11 +180,11 @@ index 165c404dfd36..90a2fd02ae89 100644
  		};
  
  		wdt5: watchdog@80083400 {
- 			compatible = "renesas,r9a09g087-wdt", "renesas,r9a09g077-wdt";
+ 			compatible = "renesas,r9a09g077-wdt";
 -			reg = <0 0x80083400 0 0x400>,
 -			      <0 0x81295114 0 0x04>;
 +			reg = <0 0x80083400 0 0x400>;
- 			clocks = <&cpg CPG_CORE R9A09G087_CLK_PCLKL>;
+ 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
  			clock-names = "pclk";
  			power-domains = <&cpg>;
 +			renesas,sys = <&sys1 5>;
