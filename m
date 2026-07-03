@@ -1,771 +1,245 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC83333A9CB;
-	Fri,  3 Jul 2026 11:03:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301B93B6378
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 11:03:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783076613; cv=none; b=AawL2d3XX+WXmKWow18r8bIpVNs4Y5oSQHgsMfiS1gP46zDVddSNvwsPBi5/lDVERtFVGTABccNWc74BFwVdstfC/oKCS5cIUVNr3k1VUFJoPOhvtXgtsyx2JibSedVikIMw3VnteTgF4gbihD2PY0/X5Bf5kjT/PobudJ/vfeg=
+	t=1783076620; cv=none; b=Am855oE/L1jeQxOIVDJie7zLQcswts6Vy8l+3RiAOCI2NP7f5cXqGN1XJVEqgdxGTrRTlRMXcTMWh/Te3h3h2mE6ewUya049qkhsEH1diUCcPAJjCdhtN7o6tGbZlnB/HODtDJiPuL84okF7FezSTz7zrv1LUJPaYAjOTaRAlDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783076613; c=relaxed/simple;
-	bh=4hb9PqTgHcMpimrLU4uTuGnwTmjyLSCZSnJhvYFeVZo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dbuxrgXivvot/21K3uZzsvwhpFseMykmQJ5WUdGePuLGkzUL0v22th9HbckGgzDvna6XNRw+t0RwLrKrFdhd3AfMcEl2K9I53eWcsqxG8qkzdY8+1+BzfzIM+0ZfVqy4VbpeEuebacjDIRVztQ2RcrCwW31xsFxB5rKffQEzrfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JJL2ju4D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783076620; c=relaxed/simple;
+	bh=ogikdSS5fM83wdUgSIeNaSuxlx1astWtdx5wvQV6XaE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SPOffi2jg0IY/G5Rhco5RVzBzxe1Hm92ek5abfqHWRToY3/DbG6/8haCKBv4R8UOLwk68LKSsgGmgQ9u7+aiT2xKyfrxeoFgWdbIiDa+EumH6O6nKRIpzueVpd527wX+L9a7DuXORjuNfwYbNkpZbW5k71lWdd7pq5nrda7Zjcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Lj4Fc1UX; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JJL2ju4D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34E1A1F000E9;
-	Fri,  3 Jul 2026 11:03:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783076611;
-	bh=MJwmfqxvvmXg7PRVlLP5qous35GydyXRIKiSBudfPmM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JJL2ju4DpuSqXH9uy9JmRK76ZybQHoX+J84ZABp0hGy+Oh0rin9jJFVRIGqU/Hu/z
-	 wnF8+00a09CUXMIlP0nLVnA973O+FWWZwPGu1gQkHzFO+kdWyKh7O8dIbL3C35pEtI
-	 w6hUsKWSo4wQ+dWoV9SVQAtDDkP0Bl3GYDdOayTsvtSHXD8cuvl8u6fUg1uWk25+4Z
-	 iVRXYr3Jaj/E53VZpYyqcODo2321WEJ2EskVw9ghc7tsOZ2MKyurEhG4qqRtpAw5rW
-	 8OfwrMEvYzx77pUUO1TJ0HsC6xPpdan5aNzwx9ukW6vD8938p5qJ0+ylkNgSR7ig+2
-	 3Z2gp41VuOKlA==
-Received: from johan by xi.lan with local (Exim 4.99.3)
-	(envelope-from <johan@kernel.org>)
-	id 1wfbg8-00000000j6F-3ioE;
-	Fri, 03 Jul 2026 13:03:28 +0200
-Date: Fri, 3 Jul 2026 13:03:28 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Lj4Fc1UX"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2caed617615so626505ad.3
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 04:03:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1783076617; x=1783681417; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Sqs/izjUXlQxLzNznfrFoz35GSBVfbHOxBq9DzMVAxY=;
+        b=Lj4Fc1UXcZsNnouZKNz4bKaDbqFcV0qn6QPXZMZBUhOoK8fe/TjN4OH83yvYkFYKqM
+         lLZrxRUtvhPl1pN151CDGuLpWonXJz/Ux8uFw8K2A28rYNPDyKDOFqmkl6XyU+Z9sEQb
+         qvxvxr4A+/1WjNpOsEPgd1gwVE64bZnNE6cG0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783076617; x=1783681417;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Sqs/izjUXlQxLzNznfrFoz35GSBVfbHOxBq9DzMVAxY=;
+        b=CAkgGIDGcezGj823CoVJJLPWz9eqKTeyMxG1HpZuQAJlZEEs4dds3DyIHaTNYJnlIL
+         5eqBHxXiWm884MKU+yN2QAO+YZCHqCzrJdyOEV4JKOWQqF1HFinOvqpJtOSaL3jXt03p
+         WC71ENmNa1Oaq065jJFQ++K19+55FMWMI9ebbIv/B233z9wwYWrLYv6HYtCz08tCOrMZ
+         biS8v/Oiu4Cc683STlZwnQhaIpWcASho1HkUnvp1vPmaIZNGuWHCs6VbASmZHaL2YhC6
+         gHyGXHwWiN5o15bNshTf9j+z4x+3GgEj4dR118gVumqUszifeQOKD/9+a38oH5G7hlX5
+         sWTg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr2kpxeA8neaQ9A2jgIxCxwr0/ibVyGx/ZjdQRh9Hb9S2ewwmKp8e/nQiptI29gdcMUW7oXSEkuPlyY@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy8+mFswCxKrE/bEZtATgKgZ3X9vijm6GuL/dl/29wzYHo8jE5m
+	zRRASAL2Ogrb4jCjBZs5J3Fbe0qQV/YgKXppDdXEz5plfxnEto4CSPDc2JDiE9lv3Q==
+X-Gm-Gg: AfdE7ckyymL4uT/t1+Fh0GU0P8NhTD+hn2vCTAYqzhIrQRv36p2MCQB7Odl9gLXnHlj
+	aXCyabuSFd3s9479FmuXz8UXk65hlAaI3XuLbc4cLBPMpOOuAJ3fGGto5PpYf4Gfz20mvABmMe9
+	bGfOO9i+j9beTVJVrzX7u0MhODn9JrxWBlmNMVV3KdGNcvIufrohsIGOW3fN4uS2bJPQHMnZHYP
+	YyHD3heg3pHXJDlYVSwYpXdGjpdLcrIo5MiWvTKcYtWdnWZVU3lte4gHVyJAWFdYNPAtyEDhzVq
+	Dtuy7TelXVUvSPfgFm9oorMvtQQFwx52HyJ3O2O0eCPQTLzGbf7ZhQCEWrKED20VKKD8I0A1oU/
+	xwDjZrdsPKaugHSW42RqLwAqIQfiKEViVgA3CD8XBXW51kxGjRpOgbfprzuwPjLtPn27v7H24SD
+	D+6BciUsgpPPWusJoD6EPO6joB6pMdwQchA2YEuY+7r+Nl5qNQ1GRUIYR7RByXs+Z3CjsNZg==
+X-Received: by 2002:a17:902:e54c:b0:2ca:d818:61e5 with SMTP id d9443c01a7336-2cad818638cmr21373785ad.26.1783076617402;
+        Fri, 03 Jul 2026 04:03:37 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:7bc5:6c83:76cd:cbd6])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad6f25e15sm7785315ad.13.2026.07.03.04.03.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jul 2026 04:03:35 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v5 08/14] mfd: lm3533: Convert to use OF bindings
-Message-ID: <akeXAOpb13hupUGM@hovoldconsulting.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-9-clamor95@gmail.com>
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: [PATCH v3 00/13] arm64: mediatek: Add M.2 E-key slot on Chromebooks
+Date: Fri,  3 Jul 2026 19:03:01 +0800
+Message-ID: <20260703110317.1283411-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617080031.99156-9-clamor95@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jun 17, 2026 at 11:00:25AM +0300, Svyatoslav Ryhel wrote:
-> Since there are no users of this driver via platform data, remove the
-> platform data support and switch to using Device Tree bindings.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org> #for backlight
-> ---
->  drivers/iio/light/lm3533-als.c      |  67 +++++---
->  drivers/leds/leds-lm3533.c          |  50 ++++--
->  drivers/mfd/lm3533-core.c           | 236 ++++++++++++----------------
->  drivers/mfd/lm3533-ctrlbank.c       |   5 -
->  drivers/video/backlight/lm3533_bl.c |  55 +++++--
->  include/linux/mfd/lm3533.h          |  52 +-----
->  6 files changed, 220 insertions(+), 245 deletions(-)
- 
->  static int lm3533_als_probe(struct platform_device *pdev)
->  {
-> -	const struct lm3533_als_platform_data *pdata;
->  	struct lm3533 *lm3533;
->  	struct lm3533_als *als;
->  	struct iio_dev *indio_dev;
-> @@ -803,12 +817,6 @@ static int lm3533_als_probe(struct platform_device *pdev)
->  	if (!lm3533)
->  		return -EINVAL;
->  
-> -	pdata = dev_get_platdata(&pdev->dev);
-> -	if (!pdata) {
-> -		dev_err(&pdev->dev, "no platform data\n");
-> -		return -EINVAL;
-> -	}
-> -
->  	indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*als));
->  	if (!indio_dev)
->  		return -ENOMEM;
-> @@ -817,25 +825,27 @@ static int lm3533_als_probe(struct platform_device *pdev)
->  	indio_dev->channels = lm3533_als_channels;
->  	indio_dev->num_channels = ARRAY_SIZE(lm3533_als_channels);
->  	indio_dev->name = dev_name(&pdev->dev);
-> -	iio_device_set_parent(indio_dev, pdev->dev.parent);
+Hi everyone,
 
-Why are you reparenting the iio device here? 
+This is v3 of my attempt at integrating the power sequencing API into
+the USB core to support the USB connection on M.2 E-key slots. M.2
+E-key was enabled in v7.1-rc1 with just PCIe and UART supported [1].
 
-That's an ABI break.
+Major changes since v2:
+- Removed changes for MT8192 Asurada family: one of the device is
+  shipped with RTL8822CE-VR, which is PCIe + UART and needs more work.
+- Removed changes for USB A ports: VBUS one the type A ports on
+  Chromebooks are not directly controllable from the OS and VBUS is
+  modeled as always on. As such the changes I made don't actually
+  change how the system works.
+- Added new pwrseq_power_is_on() function
+- Make new pwrseq integration effectively OF only by not assigning the
+  port fwnode if the hub's fwnode is an ACPI node
+- Added patch to convert remaining instances of directly setting/clearing
+  USB_PORT_FEAT_POWER to usb_hub_set_port_power()
+- Power sequencing state removed again in favor of state tracking by
+  pwrseq subsystem
+- Power sequencing descriptor again separately requested for HS and SS
+  ports
+- Dropped pwrseq_power_off() call before pwrseq_put(); the latter calls
+  the former implicitly if the power state was left on
+- Squashed DT binding revert and addition into one patch
 
-> +static const struct of_device_id lm3533_als_match_table[] = {
-> +	{ .compatible = "ti,lm3533-als" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, lm3533_als_match_table);
-> +
->  static struct platform_driver lm3533_als_driver = {
->  	.driver	= {
->  		.name	= "lm3533-als",
-> +		.of_match_table = lm3533_als_match_table,
->  	},
->  	.probe		= lm3533_als_probe,
->  	.remove		= lm3533_als_remove,
+- Link to v2:
+  https://lore.kernel.org/all/20260610084053.2059858-1-wenst@chromium.org/
 
-You should also remove the platform module alias below.
 
-> diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-> index 0cb0585eb960..ed810c23f30f 100644
-> --- a/drivers/leds/leds-lm3533.c
-> +++ b/drivers/leds/leds-lm3533.c
-> @@ -10,8 +10,10 @@
->  #include <linux/module.h>
->  #include <linux/leds.h>
->  #include <linux/mfd/core.h>
-> +#include <linux/mod_devicetable.h>
->  #include <linux/mutex.h>
->  #include <linux/platform_device.h>
-> +#include <linux/property.h>
->  #include <linux/regmap.h>
->  #include <linux/slab.h>
->  
-> @@ -50,6 +52,9 @@ struct lm3533_led {
->  	struct mutex mutex;
->  	unsigned long flags;
->  
-> +	u32 max_current;
-> +	u32 pwm;
-> +
->  	bool have_als;
->  };
->  
-> @@ -616,22 +621,20 @@ static const struct attribute_group *lm3533_led_attribute_groups[] = {
->  	NULL
->  };
->  
-> -static int lm3533_led_setup(struct lm3533_led *led,
-> -					struct lm3533_led_platform_data *pdata)
-> +static int lm3533_led_setup(struct lm3533_led *led)
->  {
->  	int ret;
->  
-> -	ret = lm3533_ctrlbank_set_max_current(&led->cb, pdata->max_current);
-> +	ret = lm3533_ctrlbank_set_max_current(&led->cb, led->max_current);
->  	if (ret)
->  		return ret;
->  
-> -	return lm3533_ctrlbank_set_pwm(&led->cb, pdata->pwm);
-> +	return lm3533_ctrlbank_set_pwm(&led->cb, led->pwm);
->  }
->  
->  static int lm3533_led_probe(struct platform_device *pdev)
->  {
->  	struct lm3533 *lm3533;
-> -	struct lm3533_led_platform_data *pdata;
->  	struct lm3533_led *led;
->  	int ret;
->  
-> @@ -641,12 +644,6 @@ static int lm3533_led_probe(struct platform_device *pdev)
->  	if (!lm3533)
->  		return -EINVAL;
->  
-> -	pdata = dev_get_platdata(&pdev->dev);
-> -	if (!pdata) {
-> -		dev_err(&pdev->dev, "no platform data\n");
-> -		return -EINVAL;
-> -	}
-> -
->  	if (pdev->id < 0 || pdev->id >= LM3533_LVCTRLBANK_COUNT) {
->  		dev_err(&pdev->dev, "illegal LED id %d\n", pdev->id);
->  		return -EINVAL;
-> @@ -659,8 +656,6 @@ static int lm3533_led_probe(struct platform_device *pdev)
->  	led->regmap = lm3533->regmap;
->  	led->have_als = lm3533->have_als;
->  
-> -	led->cdev.name = pdata->name;
-> -	led->cdev.default_trigger = pdata->default_trigger;
->  	led->cdev.brightness_set_blocking = lm3533_led_set;
->  	led->cdev.brightness_get = lm3533_led_get;
->  	led->cdev.blink_set = lm3533_led_blink_set;
-> @@ -668,6 +663,15 @@ static int lm3533_led_probe(struct platform_device *pdev)
->  	led->cdev.groups = lm3533_led_attribute_groups;
->  	led->id = pdev->id;
->  
-> +	led->cdev.name = devm_kasprintf(&pdev->dev, GFP_KERNEL, "%s-%d",
-> +					pdev->name, led->id);
+Major changes since v1:
+- No longer adding the "index" parameter the power sequencing API
+- Switched from OF graph to fwnode graph APIs
+- Tie "port@" node to usb_port device, and use this device as consumer
+  to acquire power sequencing descriptor
+- Power sequencing descriptor now only tied to USB 2.0 port to avoid
+  double reference
+- Power sequencing state tracking added
+- Link to v1
+  https://lore.kernel.org/all/20260515090149.3169406-1-wenst@chromium.org/
 
-Is "led-2", etc. unique enough here?
+The series is based on next-20260702.
 
-> +	if (!led->cdev.name)
-> +		return -ENOMEM;
-> +
-> +	led->cdev.default_trigger = "none";
-> +	device_property_read_string(&pdev->dev, "linux,default-trigger",
-> +				    &led->cdev.default_trigger);
-> +
->  	mutex_init(&led->mutex);
->  
->  	/* The class framework makes a callback to get brightness during
-> @@ -680,15 +684,22 @@ static int lm3533_led_probe(struct platform_device *pdev)
->  
->  	platform_set_drvdata(pdev, led);
->  
-> -	ret = led_classdev_register(pdev->dev.parent, &led->cdev);
-> +	ret = led_classdev_register(&pdev->dev, &led->cdev);
 
-Here too you appear to be reparenting the class devices.
+Patch 1 and 2 add new fwnode graph helpers. These are used by the patch
+5 and 8, respectively.
 
->  	if (ret) {
-> -		dev_err(&pdev->dev, "failed to register LED %d\n", pdev->id);
-> +		dev_err(&pdev->dev, "failed to register LED %d\n", led->id);
+Patch 3 adds a new pwrseq_power_is_on() for a power sequencer consumer
+to query the current request state. Note that this is not the _actual_
+state.
 
-This does not seem to be necessary.
+Patch 4 reworks the USB hub driver to return the actual error code from
+hub_configure() in hub_probe(). This is needed in the next patch to
+correctly return -EPROBE_DEFER returned by pwrseq_get() in patch 9.
 
->  		return ret;
->  	}
->  
->  	led->cb.dev = led->cdev.dev;
->  
-> -	ret = lm3533_led_setup(led, pdata);
-> +	device_property_read_u32(&pdev->dev, "led-max-microamp",
-> +				 &led->max_current);
-> +	led->max_current = clamp(led->max_current, LM3533_MAX_CURRENT_MIN,
-> +				 LM3533_MAX_CURRENT_MAX);
+Patch 5 makes the USB port device associated with a "port@" fwnode if
+available. This depends on patch 1.
 
-Why clamp instead of having lm3533_led_setup() fail below? 
+Patch 6 changes usb_port_is_power_on() so that |struct usb_port*| is
+passed in instead of |struct usb_hub*|. This patch does not change any
+functionality.
 
-> +
-> +	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->pwm);
-> +
-> +	ret = lm3533_led_setup(led);
->  	if (ret)
->  		goto err_deregister;
->  
-> @@ -725,9 +736,16 @@ static void lm3533_led_shutdown(struct platform_device *pdev)
->  	lm3533_led_set(&led->cdev, LED_OFF);		/* disable blink */
->  }
->  
-> +static const struct of_device_id lm3533_led_match_table[] = {
-> +	{ .compatible = "ti,lm3533-leds" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, lm3533_led_match_table);
-> +
->  static struct platform_driver lm3533_led_driver = {
->  	.driver = {
->  		.name = "lm3533-leds",
-> +		.of_match_table = lm3533_led_match_table,
->  	},
->  	.probe		= lm3533_led_probe,
->  	.remove		= lm3533_led_remove,
+Patch 8 lets the USB hub driver look for power sequencers for each port.
+Currently this only works for M.2 E-key connections, but it could be
+extended to cover other cases. It should also make port reset via turning
+off the port VBUS work, even when VBUS is not directly controlled by the
+hub. This depends on patch 2 and 3 for the new helpers.
 
-Remove platform alias below as well.
+Patch 9 reverts an incorrectly modeled OF graph connection for the
+MediaTek XHCI controller and adds a proper representation.
 
-> diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
-> index b03a3ae96c10..a5aa7da9668b 100644
-> --- a/drivers/mfd/lm3533-core.c
-> +++ b/drivers/mfd/lm3533-core.c
-> @@ -14,19 +14,26 @@
->  #include <linux/gpio/consumer.h>
->  #include <linux/i2c.h>
->  #include <linux/mfd/core.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/property.h>
->  #include <linux/regmap.h>
->  #include <linux/seq_file.h>
->  #include <linux/slab.h>
->  #include <linux/uaccess.h>
-> +#include <linux/units.h>
->  
->  #include <linux/mfd/lm3533.h>
->  
->  
->  #define LM3533_BOOST_OVP_MASK		0x06
->  #define LM3533_BOOST_OVP_SHIFT		1
-> +#define LM3533_BOOST_OVP_MIN		(16 * MICRO)
-> +#define LM3533_BOOST_OVP_MAX		(40 * MICRO)
->  
->  #define LM3533_BOOST_FREQ_MASK		0x01
->  #define LM3533_BOOST_FREQ_SHIFT		0
-> +#define LM3533_BOOST_FREQ_MIN		(500 * HZ_PER_KHZ)
-> +#define LM3533_BOOST_FREQ_MAX		(1000 * HZ_PER_KHZ)
->  
->  #define LM3533_BL_ID_MASK		1
->  #define LM3533_LED_ID_MASK		3
-> @@ -35,6 +42,7 @@
->  
->  #define LM3533_HVLED_ID_MAX		2
->  #define LM3533_LVLED_ID_MAX		5
-> +#define LM3533_CELLS_MAX		7
->  
->  #define LM3533_REG_OUTPUT_CONF1		0x10
->  #define LM3533_REG_OUTPUT_CONF2		0x11
-> @@ -42,44 +50,6 @@
->  
->  #define LM3533_REG_MAX			0xb2
->  
-> -
-> -static struct mfd_cell lm3533_als_devs[] = {
-> -	{
-> -		.name	= "lm3533-als",
-> -		.id	= -1,
-> -	},
-> -};
-> -
-> -static struct mfd_cell lm3533_bl_devs[] = {
-> -	{
-> -		.name	= "lm3533-backlight",
-> -		.id	= 0,
-> -	},
-> -	{
-> -		.name	= "lm3533-backlight",
-> -		.id	= 1,
-> -	},
-> -};
-> -
-> -static struct mfd_cell lm3533_led_devs[] = {
-> -	{
-> -		.name	= "lm3533-leds",
-> -		.id	= 0,
-> -	},
-> -	{
-> -		.name	= "lm3533-leds",
-> -		.id	= 1,
-> -	},
-> -	{
-> -		.name	= "lm3533-leds",
-> -		.id	= 2,
-> -	},
-> -	{
-> -		.name	= "lm3533-leds",
-> -		.id	= 3,
-> -	},
-> -};
-> -
->  /*
->   * HVLED output config -- output hvled controlled by backlight bl
->   */
-> @@ -301,125 +271,91 @@ static const struct attribute_group *lm3533_attribute_groups[] = {
->  	NULL,
->  };
->  
-> -static int lm3533_device_als_init(struct lm3533 *lm3533)
-> -{
-> -	struct lm3533_platform_data *pdata = dev_get_platdata(lm3533->dev);
-> -	int ret;
-> -
-> -	if (!pdata->als)
-> -		return 0;
-> -
-> -	lm3533_als_devs[0].platform_data = pdata->als;
-> -	lm3533_als_devs[0].pdata_size = sizeof(*pdata->als);
-> -
-> -	ret = mfd_add_devices(lm3533->dev, 0, lm3533_als_devs, 1, NULL,
-> -			      0, NULL);
-> -	if (ret) {
-> -		dev_err(lm3533->dev, "failed to add ALS device\n");
-> -		return ret;
-> -	}
-> -
-> -	lm3533->have_als = 1;
-> -
-> -	return 0;
-> -}
-> -
-> -static int lm3533_device_bl_init(struct lm3533 *lm3533)
-> -{
-> -	struct lm3533_platform_data *pdata = dev_get_platdata(lm3533->dev);
-> -	int i;
-> -	int ret;
-> -
-> -	if (!pdata->backlights || pdata->num_backlights == 0)
-> -		return 0;
-> -
-> -	if (pdata->num_backlights > ARRAY_SIZE(lm3533_bl_devs))
-> -		pdata->num_backlights = ARRAY_SIZE(lm3533_bl_devs);
-> -
-> -	for (i = 0; i < pdata->num_backlights; ++i) {
-> -		lm3533_bl_devs[i].platform_data = &pdata->backlights[i];
-> -		lm3533_bl_devs[i].pdata_size = sizeof(pdata->backlights[i]);
-> -	}
-> -
-> -	ret = mfd_add_devices(lm3533->dev, 0, lm3533_bl_devs,
-> -			      pdata->num_backlights, NULL, 0, NULL);
-> -	if (ret) {
-> -		dev_err(lm3533->dev, "failed to add backlight devices\n");
-> -		return ret;
-> -	}
-> -
-> -	lm3533->have_backlights = 1;
-> -
-> -	return 0;
-> -}
-> -
-> -static int lm3533_device_led_init(struct lm3533 *lm3533)
-> -{
-> -	struct lm3533_platform_data *pdata = dev_get_platdata(lm3533->dev);
-> -	int i;
-> -	int ret;
-> -
-> -	if (!pdata->leds || pdata->num_leds == 0)
-> -		return 0;
-> -
-> -	if (pdata->num_leds > ARRAY_SIZE(lm3533_led_devs))
-> -		pdata->num_leds = ARRAY_SIZE(lm3533_led_devs);
-> -
-> -	for (i = 0; i < pdata->num_leds; ++i) {
-> -		lm3533_led_devs[i].platform_data = &pdata->leds[i];
-> -		lm3533_led_devs[i].pdata_size = sizeof(pdata->leds[i]);
-> -	}
-> -
-> -	ret = mfd_add_devices(lm3533->dev, 0, lm3533_led_devs,
-> -			      pdata->num_leds, NULL, 0, NULL);
-> -	if (ret) {
-> -		dev_err(lm3533->dev, "failed to add LED devices\n");
-> -		return ret;
-> -	}
-> -
-> -	lm3533->have_leds = 1;
-> -
-> -	return 0;
-> -}
-> -
->  static int lm3533_device_init(struct lm3533 *lm3533)
->  {
-> -	struct lm3533_platform_data *pdata = dev_get_platdata(lm3533->dev);
-> +	struct device *dev = lm3533->dev;
-> +	struct mfd_cell *lm3533_devices;
-> +	u32 count = 0, reg, nchilds;
+Patch 10 adds matching pwrseq consumer by "port@" node to the M.2 slot
+driver. This is only used for the USB target, but there is no attempt
+to differentiate the connection type. The driver simply tries matching
+the "port@" node first, then falling back to the port parent or device's
+node.
 
-Don't mix multiple declarations with initialisation like this.
+Patch 11 reworks the power sequencing targets for the E-key connector in
+the pcie-m2 driver to add targets for USB and SDIO. The former is used
+later on in this series.
 
->  	int ret;
->  
-> -	dev_dbg(lm3533->dev, "%s\n", __func__);
-> +	nchilds = device_get_child_node_count(dev);
-> +	if (!nchilds || nchilds > LM3533_CELLS_MAX)
-> +		return dev_err_probe(dev, -ENODEV,
-> +				     "num of child nodes is not supported\n");
->  
-> -	if (!pdata) {
-> -		dev_err(lm3533->dev, "no platform data\n");
-> -		return -EINVAL;
-> -	}
-> +	lm3533_devices = devm_kcalloc(dev, nchilds, sizeof(*lm3533_devices),
-> +				      GFP_KERNEL);
-> +	if (!lm3533_devices)
-> +		return -ENOMEM;
->  
-> -	lm3533->hwen = devm_gpiod_get(lm3533->dev, NULL, GPIOD_OUT_LOW);
-> -	if (IS_ERR(lm3533->hwen))
-> -		return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen), "failed to request HWEN GPIO\n");
-> -	gpiod_set_consumer_name(lm3533->hwen, "lm3533-hwen");
-> +	device_for_each_child_node_scoped(dev, child) {
-> +		if (count >= nchilds)
-> +			break;
+Patches 12 and 13 enable the M.2 E-key slots (or slot-like integration)
+found on MT8195 and MT8188 MediaTek-based Chromebooks. 
 
-How could count be larger than nchilds?
 
-> +
-> +		if (fwnode_device_is_compatible(child, "ti,lm3533-als")) {
-> +			lm3533_devices[count].name = "lm3533-als";
-> +			lm3533_devices[count].of_compatible = "ti,lm3533-als";
-> +			lm3533_devices[count].id = PLATFORM_DEVID_NONE;
-> +
-> +			lm3533->have_als = true;
-> +			count++;
-> +		} else if (fwnode_device_is_compatible(child, "ti,lm3533-backlight")) {
-> +			ret = fwnode_property_read_u32(child, "reg", &reg);
-> +			if (ret || reg >= LM3533_HVLED_ID_MAX) {
-> +				dev_err(dev, "invalid backlight node %pfw\n", child);
-> +				continue;
-> +			}
-> +
-> +			lm3533_devices[count].name = "lm3533-backlight";
-> +			lm3533_devices[count].of_compatible = "ti,lm3533-backlight";
-> +			lm3533_devices[count].id = reg;
-> +			lm3533_devices[count].of_reg = reg;
-> +			lm3533_devices[count].use_of_reg = true;
-> +
-> +			lm3533->have_backlights = true;
-> +			count++;
-> +		} else if (fwnode_device_is_compatible(child, "ti,lm3533-leds")) {
-> +			ret = fwnode_property_read_u32(child, "reg", &reg);
-> +			if (ret || reg < LM3533_HVLED_ID_MAX ||
-> +			    reg > LM3533_LVLED_ID_MAX) {
-> +				dev_err(dev, "invalid LED node %pfw\n", child);
-> +				continue;
-> +			}
-> +
-> +			lm3533_devices[count].name = "lm3533-leds";
-> +			lm3533_devices[count].of_compatible = "ti,lm3533-leds";
-> +			lm3533_devices[count].id = reg - LM3533_HVLED_ID_MAX;
-> +			lm3533_devices[count].of_reg = reg;
-> +			lm3533_devices[count].use_of_reg = true;
-> +
-> +			lm3533->have_leds = true;
-> +			count++;
-> +		}
-> +	}
+This series unfortunately spans multiple trees. The way I see it:
 
-Why do you need the above at all? Shouldn't you be able to just use
-of_platform_populate().
+  - Patch 1 and 2 go through the driver core, and an immutable tag is
+    provided to be merged together with the USB patches.
 
->  
->  	lm3533_enable(lm3533);
->  
->  	ret = regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
->  				 LM3533_BOOST_FREQ_MASK,
-> -				 pdata->boost_freq << LM3533_BOOST_FREQ_SHIFT);
-> +				 lm3533->boost_freq << LM3533_BOOST_FREQ_SHIFT);
->  	if (ret) {
-> -		dev_err(lm3533->dev, "failed to set boost frequency\n");
-> +		dev_err(dev, "failed to set boost frequency\n");
->  		goto err_disable;
->  	}
->  
->  	ret = regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
->  				 LM3533_BOOST_OVP_MASK,
-> -				 pdata->boost_ovp << LM3533_BOOST_OVP_SHIFT);
-> +				 lm3533->boost_ovp << LM3533_BOOST_OVP_SHIFT);
->  	if (ret) {
-> -		dev_err(lm3533->dev, "failed to set boost ovp\n");
-> +		dev_err(dev, "failed to set boost ovp\n");
->  		goto err_disable;
->  	}
->  
-> -	lm3533_device_als_init(lm3533);
-> -	lm3533_device_bl_init(lm3533);
-> -	lm3533_device_led_init(lm3533);
-> +	ret = mfd_add_devices(dev, 0, lm3533_devices, count, NULL, 0, NULL);
-> +	if (ret) {
-> +		dev_err(dev, "failed to add MFD devices: %d\n", ret);
-> +		goto err_disable;
-> +	}
->  
->  	return 0;
->  
-> @@ -504,7 +440,26 @@ static int lm3533_i2c_probe(struct i2c_client *i2c)
->  		return PTR_ERR(lm3533->regmap);
->  
->  	lm3533->dev = &i2c->dev;
-> -	lm3533->irq = i2c->irq;
-> +
-> +	lm3533->hwen = devm_gpiod_get_optional(lm3533->dev, "enable",
-> +					       GPIOD_OUT_LOW);
-> +	if (IS_ERR(lm3533->hwen))
-> +		return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen),
-> +				     "failed to get HWEN GPIO\n");
+  - Patch 3 gets an ack from Bartosz, and goes through the USB tree.
 
-Please use brackets around multline statements for readability
-throughout.
+  - Patch 4 through 9 (all the USB related ones) go through the USB
+    tree, along with the dependencies above.
 
-> +
-> +	device_property_read_u32(lm3533->dev, "ti,boost-ovp-microvolt",
-> +				 &lm3533->boost_ovp);
-> +
-> +	lm3533->boost_ovp = clamp(lm3533->boost_ovp, LM3533_BOOST_OVP_MIN,
-> +				  LM3533_BOOST_OVP_MAX);
-> +	lm3533->boost_ovp = lm3533->boost_ovp / (8 * MICRO) - 2;
-> +
-> +	device_property_read_u32(lm3533->dev, "ti,boost-freq-hz",
-> +				 &lm3533->boost_freq);
-> +
-> +	lm3533->boost_freq = clamp(lm3533->boost_freq, LM3533_BOOST_FREQ_MIN,
-> +				   LM3533_BOOST_FREQ_MAX);
-> +	lm3533->boost_freq = lm3533->boost_freq / (500 * KILO) - 1;
+  - Patch 10 and 11 go through the power sequencing tree.
 
-Again, why clamp instead of failing probe?
+  - Patch 12 and 13 (device tree only) go through the soc tree via the
+    mediatek tree.
 
->  	return lm3533_device_init(lm3533);
->  }
-> @@ -518,6 +473,12 @@ static void lm3533_i2c_remove(struct i2c_client *i2c)
->  	lm3533_device_exit(lm3533);
->  }
->  
-> +static const struct of_device_id lm3533_match_table[] = {
-> +	{ .compatible = "ti,lm3533" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, lm3533_match_table);
-> +
->  static const struct i2c_device_id lm3533_i2c_ids[] = {
->  	{ "lm3533" },
->  	{ }
-> @@ -528,6 +489,7 @@ static struct i2c_driver lm3533_i2c_driver = {
->  	.driver = {
->  		   .name = "lm3533",
->  		   .dev_groups = lm3533_attribute_groups,
-> +		   .of_match_table = lm3533_match_table,
->  	},
->  	.id_table	= lm3533_i2c_ids,
->  	.probe		= lm3533_i2c_probe,
-> diff --git a/drivers/mfd/lm3533-ctrlbank.c b/drivers/mfd/lm3533-ctrlbank.c
-> index 91e13cfa3cf0..3aab8ece4e8c 100644
-> --- a/drivers/mfd/lm3533-ctrlbank.c
-> +++ b/drivers/mfd/lm3533-ctrlbank.c
-> @@ -13,11 +13,6 @@
->  
->  #include <linux/mfd/lm3533.h>
->  
-> -
-> -#define LM3533_MAX_CURRENT_MIN		5000
-> -#define LM3533_MAX_CURRENT_MAX		29800
-> -#define LM3533_MAX_CURRENT_STEP		800
-> -
->  #define LM3533_PWM_MAX			0x3f
->  
->  #define LM3533_REG_PWM_BASE		0x14
-> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backlight/lm3533_bl.c
-> index 9ef171d3aaea..2c24647fc17a 100644
-> --- a/drivers/video/backlight/lm3533_bl.c
-> +++ b/drivers/video/backlight/lm3533_bl.c
-> @@ -9,7 +9,9 @@
->  
->  #include <linux/module.h>
->  #include <linux/init.h>
-> +#include <linux/mod_devicetable.h>
->  #include <linux/platform_device.h>
-> +#include <linux/property.h>
->  #include <linux/backlight.h>
->  #include <linux/regmap.h>
->  #include <linux/slab.h>
-> @@ -29,6 +31,9 @@ struct lm3533_bl {
->  	struct backlight_device *bd;
->  	int id;
->  
-> +	u32 max_current;
-> +	u32 pwm;
-> +
->  	bool have_als;
->  };
->  
-> @@ -242,25 +247,25 @@ static const struct attribute_group *lm3533_bl_attribute_groups[] = {
->  	NULL,
->  };
->  
-> -static int lm3533_bl_setup(struct lm3533_bl *bl,
-> -					struct lm3533_bl_platform_data *pdata)
-> +static int lm3533_bl_setup(struct lm3533_bl *bl)
->  {
->  	int ret;
->  
-> -	ret = lm3533_ctrlbank_set_max_current(&bl->cb, pdata->max_current);
-> +	ret = lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current);
->  	if (ret)
->  		return ret;
->  
-> -	return lm3533_ctrlbank_set_pwm(&bl->cb, pdata->pwm);
-> +	return lm3533_ctrlbank_set_pwm(&bl->cb, bl->pwm);
->  }
->  
->  static int lm3533_bl_probe(struct platform_device *pdev)
->  {
->  	struct lm3533 *lm3533;
-> -	struct lm3533_bl_platform_data *pdata;
->  	struct lm3533_bl *bl;
->  	struct backlight_device *bd;
->  	struct backlight_properties props;
-> +	char *name = NULL;
-> +	u32 default_brightness = LM3533_BL_MAX_BRIGHTNESS;
->  	int ret;
->  
->  	dev_dbg(&pdev->dev, "%s\n", __func__);
-> @@ -269,12 +274,6 @@ static int lm3533_bl_probe(struct platform_device *pdev)
->  	if (!lm3533)
->  		return -EINVAL;
->  
-> -	pdata = dev_get_platdata(&pdev->dev);
-> -	if (!pdata) {
-> -		dev_err(&pdev->dev, "no platform data\n");
-> -		return -EINVAL;
-> -	}
-> -
->  	if (pdev->id < 0 || pdev->id >= LM3533_HVCTRLBANK_COUNT) {
->  		dev_err(&pdev->dev, "illegal backlight id %d\n", pdev->id);
->  		return -EINVAL;
-> @@ -292,13 +291,21 @@ static int lm3533_bl_probe(struct platform_device *pdev)
->  	bl->cb.id = lm3533_bl_get_ctrlbank_id(bl);
->  	bl->cb.dev = NULL;			/* until registered */
->  
-> +	name = devm_kasprintf(&pdev->dev, GFP_KERNEL, "%s-%d",
-> +			      pdev->name, pdev->id);
+Some of us discussed v1 at Embedded Recipes, and I believe Bartosz, Mani
+and I agree on this approach. The debate is likely going to be on
+whether this should be integrated into the USB core or not. I believe it
+should, so that the power sequencing timing is tied to the USB port
+being brought up. I do have a fallback option of just enabling the USB
+power sequencing target inside the M.2 slot driver if a valid OF graph
+connection is seen. But this is less desired for the reason given above.
 
-Unique enough (e.g. backlight-0)?
+Please have a look and share your thoughts.
 
-> +	if (!name)
-> +		return -ENOMEM;
-> +
-> +	device_property_read_u32(&pdev->dev, "default-brightness",
-> +				 &default_brightness);
-> +
->  	memset(&props, 0, sizeof(props));
->  	props.type = BACKLIGHT_RAW;
->  	props.max_brightness = LM3533_BL_MAX_BRIGHTNESS;
-> -	props.brightness = pdata->default_brightness;
-> -	bd = devm_backlight_device_register(&pdev->dev, pdata->name,
-> -					pdev->dev.parent, bl, &lm3533_bl_ops,
-> -					&props);
-> +	props.brightness = default_brightness;
-> +
-> +	bd = devm_backlight_device_register(&pdev->dev, name, &pdev->dev,
-> +					    bl, &lm3533_bl_ops, &props);
 
-Here too you are reparenting, which results in an ABI break.
+Thanks
+ChenYu
 
->  	if (IS_ERR(bd)) {
->  		dev_err(&pdev->dev, "failed to register backlight device\n");
->  		return PTR_ERR(bd);
-> @@ -309,12 +316,19 @@ static int lm3533_bl_probe(struct platform_device *pdev)
->  
->  	platform_set_drvdata(pdev, bl);
->  
-> -	backlight_update_status(bd);
-> +	device_property_read_u32(&pdev->dev, "led-max-microamp",
-> +				 &bl->max_current);
-> +	bl->max_current = clamp(bl->max_current, LM3533_MAX_CURRENT_MIN,
-> +				LM3533_MAX_CURRENT_MAX);
 
-Clamping instead of failing.
+[1] https://lore.kernel.org/all/20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com/
 
->  
-> -	ret = lm3533_bl_setup(bl, pdata);
-> +	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->pwm);
-> +
-> +	ret = lm3533_bl_setup(bl);
->  	if (ret)
->  		return ret;
->  
-> +	backlight_update_status(bd);
-> +
->  	ret = lm3533_ctrlbank_enable(&bl->cb);
->  	if (ret)
->  		return ret;
-> @@ -366,11 +380,18 @@ static void lm3533_bl_shutdown(struct platform_device *pdev)
->  	lm3533_ctrlbank_disable(&bl->cb);
->  }
->  
-> +static const struct of_device_id lm3533_bl_match_table[] = {
-> +	{ .compatible = "ti,lm3533-backlight" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, lm3533_bl_match_table);
-> +
->  static struct platform_driver lm3533_bl_driver = {
->  	.driver = {
->  		.name	= "lm3533-backlight",
->  		.pm	= &lm3533_bl_pm_ops,
->  		.dev_groups = lm3533_bl_attribute_groups,
-> +		.of_match_table = lm3533_bl_match_table,
->  	},
->  	.probe		= lm3533_bl_probe,
->  	.remove		= lm3533_bl_remove,
+Chen-Yu Tsai (13):
+  device property: Add fwnode_graph_get_port_by_id()
+  device property: Add fwnode_graph_get_next_port_endpoint()
+  power: sequencing: Add pwrseq_power_is_on()
+  usb: hub: Return actual error from hub_configure() in hub_probe()
+  usb: hub: Associate port@ fwnode with USB port device
+  usb: hub: Pass |struct usb_port*| to usb_port_is_power_on()
+  usb: hub: Use usb_hub_set_port_power() to control port power
+    everywhere
+  usb: hub: Power on connected M.2 E-key connectors with power
+    sequencing API
+  dt-bindings: usb: mediatek,mtk-xhci: Switch to ports for USB
+    connections
+  power: sequencing: pcie-m2: support matching on remote "port" node
+  power: sequencing: pcie-m2: Add usb and sdio targets for E-key
+    connector
+  arm64: dts: mediatek: mt8195-cherry: Add M.2 E-key slot
+  arm64: dts: mediatek: mt8188-geralt: Add WiFi/BT as M.2 E-key slot
 
-Drop platform module alias below.
+ .../bindings/usb/mediatek,mtk-xhci.yaml       | 17 +++-
+ .../boot/dts/mediatek/mt8188-geralt.dtsi      | 92 ++++++++++++++++++-
+ .../boot/dts/mediatek/mt8195-cherry.dtsi      | 73 ++++++++++++++-
+ drivers/base/property.c                       | 47 ++++++++++
+ drivers/power/sequencing/core.c               | 18 ++++
+ drivers/power/sequencing/pwrseq-pcie-m2.c     | 52 ++++++++---
+ drivers/usb/Kconfig                           |  1 +
+ drivers/usb/core/hub.c                        | 78 +++++++++++-----
+ drivers/usb/core/hub.h                        | 12 ++-
+ drivers/usb/core/port.c                       | 62 ++++++++++++-
+ include/linux/property.h                      |  3 +
+ include/linux/pwrseq/consumer.h               |  1 +
+ 12 files changed, 401 insertions(+), 55 deletions(-)
 
-Johan
+-- 
+2.55.0.rc0.799.gd6f94ed593-goog
+
