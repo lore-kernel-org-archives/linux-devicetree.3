@@ -1,396 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170143D34AB
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 13:11:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51FA032E729;
+	Fri,  3 Jul 2026 13:12:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783084300; cv=none; b=Vk6//nU7mWKztAjh1vfmaz5V3pypUUnPGQfxU8sKlO33dF5I+tSrCKDR/zXhN4MiyWyd2vmj9bD0BIB0ObfYYfaFot3E6VPXe1TrWPoT75H4+9YpWqRS5RF3HLBsYTb8fLLlqSZSmLm39Ymaw9b3DgyGrl6jBw8cAIcVxEu4YPw=
+	t=1783084332; cv=none; b=r2UAJ5l511HG9gGgxiLkdRzPWRMDmQgrjnxnHYBP3/GYmh3IK+LAGwlLdmy4N6fbXh5CAkjf+ddrnEhyFBA50BVkbdrKlhw6o2hiP4fNpK/vdL4UbQLoOWtEcZ2NMz8HzdHcvIeQyjyEhx/YMzsprHDLiitjb0HFCIZ0eWRXSak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783084300; c=relaxed/simple;
-	bh=xmey9e5/cxKXXSFCAnisuOsIuzPYDL8Ngb0teO9TvrE=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TWwxL6+AOxpyMLaQTvo6P1qc0OHXBb3ODfrCW4lPW8ourtlhFGB4FQzeqswl2gDrMIG3aprBFsbBJY9+DKmgezvXudPc+iov0ULI5sFEq/ZPodVzmd1Td6xWrUEHQxj16SBp+PbmV9cuXUx0FZUJPEvKKVgC8j6vdXrgpNGGeJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXYJqqPM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783084332; c=relaxed/simple;
+	bh=Z/2Hnfc9GB/OzugUkItSrufn1TDkO6pWeaSjkfUWplU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A4pjAYVQctKWq+SAi6/khYVTL0Q5BsfMPCQyWFvAtQX6Lu4SClXui/YfhBKSjOGkbb6KF/g38GMnT84kpWwe6cVD/JZuKHvt4auQPLCVLbh+XOUf9qkSi5Htc1IxvOKu1Td9vuW3NC48W4UWHD9O5YrO0jQLbrB7sj3+TfW5Bp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zyOXNe7e; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXYJqqPM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF7741F0155C
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 13:11:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783084298;
-	bh=UvmjYOgLC9fhdWPNTKBTToWNXYqkMPHeHSDluBZYtFA=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=CXYJqqPMTQ23OUbZme/20yc8xpMUwjDh1Ydx2nq1GniC5Me2s17ZItYYF7c6OL5pM
-	 i6fTQCwlhjMXJ8uzZA/fiQglPNBeXH0rDXUkoz6rFxFy5NnhTQsaDZvhC8op3GYH3S
-	 agZUx3PEK2eOuRrfSpAsADgVQ17ycnRjQcpH8l5oXwqTX1+j8RugQzPblQmgDTfCsI
-	 n+esjGYTFonksFCwLA7BKW4rCYlXxJL9agBtNje6vo+4puWuhj7tVYSYcxz1OYoM80
-	 tltMm/dRHMmX3smAREWZnhsOjAP1erg0KdyZSqEfDeUn3l2PwzQpj2WXiqtDc/Ao5N
-	 j0OX4ZJsaCVjQ==
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39b19e7d6fcso4854751fa.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 06:11:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoG7S96epaviLfZXNoTeghEJkz5IWVLRbUiIBuMJcYgKiGLIZ3RKqxU4zAnpApQkLmazN3pLqmujGSJ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz/9q64QVVkmHQJLHMWJiMyuqXC6E9K30UebQSm7RPdU5VMn6ie
-	fKdaUc5NRTkM9gfyAwa/bq057GGv5FNbjVvUuuB4O7pPMxImFPFyYbrbsmc12reHxSHtfOlUEdK
-	rp7SZDbfcvdQ0HjxzHnCBEfz2fMcQ8ESjnNr+nNc28g==
-X-Received: by 2002:a2e:beaa:0:b0:39b:156c:d097 with SMTP id
- 38308e7fff4ca-39b34028295mr24511591fa.13.1783084297476; Fri, 03 Jul 2026
- 06:11:37 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 3 Jul 2026 08:11:35 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 3 Jul 2026 08:11:35 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <27fb93d0e61704d495e3adf4ed614edac1642267.1782909323.git.mazziesaccount@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zyOXNe7e"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=Y2MPRqkyRTH14QDFfn7C5hyRL84ni46rfcjThNuG8gw=; b=zy
+	OXNe7enBL7WJDeN2aiPcHmlb5eLtMLuRE/p5xz5u3N3rebEjIzZ3X5gBn9Jejpb3BQxiFtJY5vzN9
+	nSl14zAnUCJz7XSx+u7QqMftzrzkCRGlbWerphQYl1Um8wFA/2fGuPXEHa+bX/2L21aBSX++LsnkE
+	8sZbOQC4HlAXbB8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wfdgW-00AYBV-MI; Fri, 03 Jul 2026 15:12:00 +0200
+Date: Fri, 3 Jul 2026 15:12:00 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Nazle Asmade, Muhammad Nazim Amirul" <muhammad.nazim.amirul.nazle.asmade@altera.com>
+Cc: "dinguyen@kernel.org" <dinguyen@kernel.org>,
+	"maxime.chevallier@bootlin.com" <maxime.chevallier@bootlin.com>,
+	"rmk+kernel@armlinux.org.uk" <rmk+kernel@armlinux.org.uk>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] arm64: dts: socfpga: agilex5: Add SoCDK TSN Config2
+ board
+Message-ID: <bf7c6343-e0c0-47bd-a857-0f1881fc8659@lunn.ch>
+References: <20260630133108.27244-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <20260630133108.27244-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <edf84080-a5e0-478c-9977-af2376cb71c5@lunn.ch>
+ <347c50ed-234a-4f29-b63a-1e0010c6b09d@altera.com>
+ <e4cf8d95-0467-4bdc-8e19-228ced3a8bbc@lunn.ch>
+ <5a0c962e-1af0-4d6a-b871-d8a0b0197ff5@altera.com>
+ <d70a6795-e1a2-43e2-b523-0fc668324674@lunn.ch>
+ <b8ca3bd8-af8f-43e7-904c-1ac45512296b@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1782909323.git.mazziesaccount@gmail.com> <27fb93d0e61704d495e3adf4ed614edac1642267.1782909323.git.mazziesaccount@gmail.com>
-Date: Fri, 3 Jul 2026 08:11:35 -0500
-X-Gmail-Original-Message-ID: <CAMRc=MccLRKb8ZjChcR7WK3TqV3=waSnKX=UX9LR=5hOT=_tsg@mail.gmail.com>
-X-Gm-Features: AVVi8CcUKnlhnq7EE36etK1w5TMl6FhgpT_im_vC2GAXFa9q-dLwI3b9jghl0D4
-Message-ID: <CAMRc=MccLRKb8ZjChcR7WK3TqV3=waSnKX=UX9LR=5hOT=_tsg@mail.gmail.com>
-Subject: Re: [PATCH 7/8] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-rtc@vger.kernel.org, 
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b8ca3bd8-af8f-43e7-904c-1ac45512296b@altera.com>
 
-On Wed, 1 Jul 2026 14:43:25 +0200, Matti Vaittinen
-<matti.vaittinen@linux.dev> said:
-> From: Matti Vaittinen <mazziesaccount@gmail.com>
->
-> The ROHM BD73800 PMIC has 4 pins (named GPIO1, CLKOUT, FAULT_B and
-> EXTEN_OUT) which might have been set to operate as a GPI or GPO when OTP
-> (One Time Programmable memory) is written at device manufacturing.
-> Support the GPI/GPO use-case via GPIO framework.
->
-> The default OTP for these pins is to not use any of them as GPI or GPO.
-> (The GPIO1 defaults as an ADC input regardless the naming). Hence the
-> driver assumes none of these pins is a GPI/GPO unless explicitly pointed
-> as GPI or GPO via device tree.
->
-> Furthermore, pin's direction can't be changed after OTP configuration is
-> done. Also the default drive type for a GPO (CMOS / Open Drain) is set
-> by the OTP configuration. The BD73800 has a set of undocumented test
-> registers which should allow changing the drive type. Access to the test
-> register area or the test registers aren't documented and so this driver
-> does not support configuring the drive type even though it might be
-> doable.
->
-> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-> ---
->  drivers/gpio/Kconfig        |  11 ++
->  drivers/gpio/Makefile       |   1 +
->  drivers/gpio/gpio-bd73800.c | 234 ++++++++++++++++++++++++++++++++++++
->  3 files changed, 246 insertions(+)
->  create mode 100644 drivers/gpio/gpio-bd73800.c
->
-> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-> index 28cf6d2e83c2..09d87c3b756f 100644
-> --- a/drivers/gpio/Kconfig
-> +++ b/drivers/gpio/Kconfig
-> @@ -1363,6 +1363,17 @@ config GPIO_BD72720
->  	  be configured to GPO on the ROHM PMIC. The pin configuration is done
->  	  on OTP at manufacturing.
->
-> +config GPIO_BD73800
-> +	tristate "ROHM BD73800 GPIO support"
-> +	depends on MFD_ROHM_BD71828
-> +	help
-> +	  Support for GPIOs on ROHM BD73800 PMIC. There can be up to 4
-> +	  GPI or GPO pins available on the PMIC in total. The purpose of
-> +	  the pins is decided at the device manufacturing by OTP
-> +	  configuration and can't be reconfigured later. Enable this
-> +	  if your PMIC has pins set as GPIs or GPOs and if you wish to
-> +	  control the pins via the GPIO framework.
-> +
->  config GPIO_BD9571MWV
->  	tristate "ROHM BD9571 GPIO support"
->  	depends on MFD_BD9571MWV
-> diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-> index 4d0e900402fc..3041c06aa933 100644
-> --- a/drivers/gpio/Makefile
-> +++ b/drivers/gpio/Makefile
-> @@ -45,6 +45,7 @@ obj-$(CONFIG_GPIO_BCM_XGS_IPROC)	+= gpio-xgs-iproc.o
->  obj-$(CONFIG_GPIO_BD71815)		+= gpio-bd71815.o
->  obj-$(CONFIG_GPIO_BD71828)		+= gpio-bd71828.o
->  obj-$(CONFIG_GPIO_BD72720)		+= gpio-bd72720.o
-> +obj-$(CONFIG_GPIO_BD73800)		+= gpio-bd73800.o
->  obj-$(CONFIG_GPIO_BD9571MWV)		+= gpio-bd9571mwv.o
->  obj-$(CONFIG_GPIO_BLZP1600)		+= gpio-blzp1600.o
->  obj-$(CONFIG_GPIO_BRCMSTB)		+= gpio-brcmstb.o
-> diff --git a/drivers/gpio/gpio-bd73800.c b/drivers/gpio/gpio-bd73800.c
-> new file mode 100644
-> index 000000000000..3fe4b7f167b8
-> --- /dev/null
-> +++ b/drivers/gpio/gpio-bd73800.c
-> @@ -0,0 +1,234 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Support to GPIOs on ROHM BD73800
-> + * Copyright 2024 ROHM Semiconductors.
-> + * Author: Matti Vaittinen <mazziesaccount@gmail.com>
-> + */
-> +
-> +#include <linux/gpio/driver.h>
-> +#include <linux/init.h>
-> +#include <linux/irq.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/mfd/rohm-bd73800.h>
-> +
-> +#define BD73800_GPIO_MAX_PINS 4
-> +/*
-> + * The BD73800 has several "one time programmable" (OTP) configurations which
-> + * can be set at manufacturing phase. Some of these options allow using
-> + * individual pins as GPI or GPO (not both at the same time). The OTP
-> + * configuration can't be read at run-time, so drivers rely on device-tree to
-> + * advertise the OTP programmed in manufacturing.
-> + *
-> + * The pins which can be used as GPIO are:
-> + * GPIO1, CLKOUT (GPIO2), FAULT_B, EXTEN_OUT.
-> + *
-> + * The OTP options 2 and 3 state for all the pins:
-> + *  - OTP2: GPI (also IRQ source)
-> + *  - OTP3: GPO (NOTE: This is actually 2 different OTP options. Either a
-> + *    register controllable output or a power-sequence controlled output.
-> + *    The "gpo" referred here means only the register controllable output.
-> + *    The datasheet refers to this as: "<pin> output is controlled by
-> + *    GPIO<N>_OUT or power on/off sequencer to control external VRs. ON/OFF
-> + *    sequence timing is configurable."
-> + *
-> + * The data-sheet further says that the GPI/GPO is not a default OTP
-> + * configuration for any of the pins. Hence the GPIO driver defaults to a pin
-> + * not being a GPI or GPO, but requires the pin to be explicitly marked as a
-> + * GPI or GPO in the device-tree.
-> + *
-> + * DT properties:
-> + * "rohm,pin-gpio1", "rohm,pin-clkout", "rohm,pin-fault-b", "rohm,pin-exten"
-> + * can be set to one of the values "gpi" or "gpo" to enable them to be used as
-> + * GPIO.
-> + */
-> +
-> +enum bd73800_gpio_state {
-> +	BD73800_PIN_UNKNOWN,
-> +	BD73800_PIN_GPI,
-> +	BD73800_PIN_GPO,
-> +};
-> +
-> +struct bd73800_gpio_pin_cfg {
-> +	enum bd73800_gpio_state state;
-> +	int mask; /* GPIO_OUT and INT_SRC have same bit offsets for GPIO */
-> +};
-> +
-> +struct bd73800_gpio {
-> +	/* chip.parent points the MFD which provides DT node and regmap */
-> +	struct gpio_chip chip;
-> +	struct bd73800_gpio_pin_cfg pin[BD73800_GPIO_MAX_PINS];
-> +	int num_pins;
-> +	/* dev points to the platform device for devm and prints */
-> +	struct device *dev;
-> +	struct regmap *regmap;
-> +};
-> +
-> +static int bd73800_gpio_get_pins(struct bd73800_gpio *g)
-> +{
-> +	static const char * const properties[] = {"rohm,pin-gpio1",
-> +		"rohm,pin-clkout", "rohm,pin-fault-b", "rohm,pin-exten"};
-> +	const char *val;
-> +	int i, ret;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(properties); i++) {
-> +		ret = fwnode_property_read_string(dev_fwnode(g->dev->parent),
+> >> The delays are provided by the FPGA GMII-to-RGMII converter soft IP,
+> >> which is hardcoded in the FPGA bitstream and cannot be disabled or
+> >> modified from the driver side.
+> >>
+> >> Using phy-mode = "rgmii" is intentional here — it prevents the PHY from
+> >> adding its own internal delays on top, since the FPGA converter already
+> >> provides the full required delay. This is consistent with how all other
+> >> Agilex5 SoCDK board variants are described, as seen in commit
+> >> c5637e5ceb4b ("arm64: dts: socfpga: agilex5: Fix phy-mode to rgmii as HW
+> >> provides clock delay") already in Dinh Nguyen's tree, which applies the
+> >> same rationale across all Agilex5 boards.
+> > 
+> > I've become more insistent that designs get this correct. So i don't
+> > care too much about past systems. Many vendors are having to fix up
+> > their drivers and DT in order to make new boards consistent.
+> > 
+> > You can look at your system as the FPGA being the MAC, and the PHY is
+> > the PHY. The PCB is not providing the delay, the MAC is. This exactly
+> > fits the description above.
+> > 
+> >       Andrew
+> Hi Andrew,
+> 
+> Thank you for the clarification. We agree with your framework in 
+> principle, but would like to explain why phy-mode = "rgmii" is the 
+> appropriate description for this specific case.
 
-It would be cleaner with device_property_read_string(g->dev->parent, ...)
+So you want to be different to every other system? Please extend the
+text in that document to say that this device is special and has a
+different definition of phy-mode to all other systems.
 
-> +						  properties[i], &val);
-> +
-> +		if (ret) {
-> +			if (ret == -EINVAL)
-> +				continue;
-> +
-> +			return dev_err_probe(g->dev, ret,
-> +					"pin %d (%s), bad configuration\n", i,
-> +					properties[i]);
-> +		}
-> +
-> +		if (strcmp(val, "gpi") == 0) {
-> +			g->pin[g->num_pins].state = BD73800_PIN_GPI;
-> +			g->pin[g->num_pins].mask = BIT(i);
-> +			g->num_pins++;
-> +		} else if (strcmp(val, "gpo") == 0) {
-> +			g->pin[g->num_pins].state = BD73800_PIN_GPO;
-> +			g->pin[g->num_pins].mask = BIT(i);
-> +			g->num_pins++;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int bd73800gpio_get(struct gpio_chip *chip, unsigned int offset)
-> +{
-> +	struct bd73800_gpio *bdgpio = gpiochip_get_data(chip);
-> +	struct bd73800_gpio_pin_cfg *pin = &bdgpio->pin[offset];
-> +	int ret, val;
-> +
-> +	/* Only pins configured as GPI via OTP can have their status read */
-> +	if (pin->state != BD73800_PIN_GPI) {
-> +		dev_dbg(bdgpio->dev, "pin %d (%x) not input. State %d\n",
-> +			offset, pin->mask, pin->state);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = regmap_read(bdgpio->regmap, BD73800_REG_INT_5_SRC, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return val & pin->mask;
-> +}
-> +
-> +static int bd73800gpo_set(struct gpio_chip *chip, unsigned int offset,
-> +			  int value)
-> +{
-> +	struct bd73800_gpio *bdgpio = gpiochip_get_data(chip);
-> +	struct bd73800_gpio_pin_cfg *pin = &bdgpio->pin[offset];
-> +
-> +	if (pin->state != BD73800_PIN_GPO) {
-> +		dev_dbg(bdgpio->dev, "pin %d (%d) not output. State %d\n",
-> +			offset, pin->mask, pin->state);
-> +
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (value)
-> +		return regmap_set_bits(bdgpio->regmap, BD73800_REG_GPO_OUT,
-> +				       pin->mask);
-> +
-> +	return regmap_clear_bits(bdgpio->regmap, BD73800_REG_GPO_OUT, pin->mask);
-> +}
-> +
-> +static int bd73800gpio_direction_get(struct gpio_chip *chip,
-> +				    unsigned int offset)
-> +{
-> +	struct bd73800_gpio *bdgpio = gpiochip_get_data(chip);
-> +
-> +	if (bdgpio->pin[offset].state == BD73800_PIN_GPO)
-> +		return GPIO_LINE_DIRECTION_OUT;
-> +
-> +	return GPIO_LINE_DIRECTION_IN;
-> +}
-> +
-> +/*
-> + * Template for GPIO chip. The BD73800 GPO supports both CMOS and open drain
-> + * configurations. The default however depends on the OTP. The runtime config
-> + * can be done via undocumented test registers - but at the moment there is no
-> + * support for this.
-> + *
-> + * NOTE: When the BD73800 GPIO pins are used as IRQ source, the users are
-> + * expected to request them directly from the regmap_irq IRQ-chip (implemented
-> + * in the MFD driver). This way we don't need to populate another IRQ-chip
-> + * here.
-> + */
-> +static const struct gpio_chip bd73800gpio_chip = {
-> +	.label			= "bd73800",
-> +	.owner			= THIS_MODULE,
-> +	.get			= bd73800gpio_get,
-> +	.get_direction		= bd73800gpio_direction_get,
-> +	.set			= bd73800gpo_set,
-> +	.can_sleep		= true,
-> +};
-> +
-> +static int gpo_bd73800_probe(struct platform_device *pdev)
-> +{
-> +	struct bd73800_gpio *g;
+> After getting more information from hw team, for Agilex specific device, 
+> the RGMII timing delays on this board are provided by an FPGA delay 
+> chain (Input/Output Delay Chain primitives in the FPGA fabric). The 
+> reason for using the FPGA rather than the PHY is that the Marvell PHY on 
+> this board only supports 0ns or 2ns delay steps — too coarse to meet the 
+> RGMII timing requirements. The FPGA delay chain provides up to 63 steps 
+> of ~0.1ns precision, which the hardware team has tuned at design time to 
+> achieve correct signal timing.
 
-May I suggest a slightly more descriptive name for driver data? Maybe at the
-very least... "data"? :)
+As the text says, fine tuning is different. You can have fine tuning,
+in both the MAC or PHY, while using either rgmii or rgmii-id.
 
-> +	struct device *parent, *dev;
-> +	int ret;
-> +
-> +	/*
-> +	 * Bind devm lifetime to this platform device => use dev for devm.
-> +	 * also the prints should originate from this device.
-> +	 */
+Also, you cannot fine tune just the MAC, tuning needs to take into
+account the PCB design, the length of the clock and data tracks on the
+PCB. You can however take into account the difference in timing within
+the FPGA.
 
-Why would you need to comment on it though? It's very much the standard
-approach, isn't it?
+Or does your FPGA team produce a different bitstream per board design,
+after some sort of calibration in order to determine what the PCB
+characteristics are?
 
-> +	dev = &pdev->dev;
-> +	/* The device-tree and regmap come from MFD => use parent for that */
-> +	parent = dev->parent;
-> +
-> +	g = devm_kzalloc(dev, sizeof(*g), GFP_KERNEL);
-> +	if (!g)
-> +		return -ENOMEM;
-> +
-> +	g->chip = bd73800gpio_chip;
-> +	g->chip.base = -1;
-> +	g->chip.parent = parent;
-> +	g->regmap = dev_get_regmap(parent, NULL);
-> +	g->dev = dev;
-> +
-> +	ret = bd73800_gpio_get_pins(g);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!g->num_pins) {
-> +		/*
-> +		 * The BD73800 may or may not have pins allocated for GPIO
-> +		 * depending on the OTP used at manufacturing. Free the memory
-> +		 * and go out if there is no pins as then we have nothing to do
-> +		 */
-> +		dev_dbg(dev, "no GPIO pins\n");
-> +		devm_kfree(dev, g);
+This however opens up a new possibility. It does sound like you can
+produce a new bitstream with the delays set to just the tuning delay,
+not the 2ns + tuning? You need to decide if this is simpler than
+changing the MAC driver to mask the phy-mode.
 
-No need for that, because...
+> Changing to phy-mode = "rgmii-id" and having 
+> the driver strip the delay before passing to the PHY would produce the 
+> same hardware behaviour (PHY adds zero delay), but would add driver 
+> complexity with no practical benefit, and would misrepresent the FPGA 
+> delay as a driver-managed MAC delay when it is actually a fixed, 
+> board-level hardware calibration.
 
-> +		return 0;
+Look at the wording again. It does not say it is driver managed.
 
-... this will still leave a bound device in the system, I'm not sure we want
-it? The correct error code in this case is -ENODEV.
+# There are a small number of cases where the MAC has hard coded
+# delays which cannot be disabled.
 
-> +	}
-> +	g->chip.ngpio = g->num_pins;
-> +
-> +	return devm_gpiochip_add_data(dev, &g->chip, g);
-> +}
-> +
-> +static const struct platform_device_id bd73800_gpio_id[] = {
-> +	{ "bd73800-gpio" },
-> +	{ },
-> +};
-> +MODULE_DEVICE_TABLE(platform, bd73800_gpio_id);
-> +
-> +static struct platform_driver gpo_bd73800_driver = {
-> +	.driver = {
-> +		.name = "bd73800-gpio",
-> +		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-> +	},
-> +	.probe = gpo_bd73800_probe,
-> +	.id_table = bd73800_gpio_id,
-> +};
-> +module_platform_driver(gpo_bd73800_driver);
-> +
-> +MODULE_AUTHOR("Matti Vaittinen <mazziesaccount@gmail.com>");
-> +MODULE_DESCRIPTION("GPIO interface for BD73800");
-> +MODULE_LICENSE("GPL");
-> --
-> 2.54.0
->
->
+This exactly fits your situation.
 
-Bart
+> Could you advise if you still prefer the rgmii-id approach given this 
+> constraint?
+
+rgmii-id is the correct value for your PCB design. Please follow what
+the text says.
+
+	Andrew
+
+	
