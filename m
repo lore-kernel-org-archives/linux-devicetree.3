@@ -1,135 +1,177 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B6F253340
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCAD3BB113
 	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 12:56:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783083371; cv=none; b=dDcsES7YyrU+DKpUSkNlGSF778XwSZdEDfxqlhOsEI5zxxYSOD0BE8+sno30WzG5HEqEGR5YQ2m06OEK4eDcOXT22apL6puV0Ia+f7tGVcZzw9uGtBlzIXZWPn0e8+cFnfF9x+N+zhA1HTJz1ibJ/98g7bEi00gJlq7A6rISH2k=
+	t=1783083372; cv=none; b=dTWSR2JYq8t2ADXcDURu3NCMGttap6Gaq2m5w6aki+ASR51Z340V3O82B/tGrhJCeOe8F5WW2d/jnUVqrQicZYank8yvV1jPMA/q/tLeWgbOvAk4HCHfTq0P6Z4CQrhSBF6Zfg9iJhXG3FUCcmLqRiWGqfKXH8IVYWEskHyEqcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783083371; c=relaxed/simple;
-	bh=XKenb24cyHA07A8u+hB3j6Qubru48od1kWVkkCKhjww=;
+	s=arc-20240116; t=1783083372; c=relaxed/simple;
+	bh=rsIjEYmnUG30OEmVtCLmqnWp5PvYvb5RAFBzLm6VxJY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QGem9h3yyYibP54rphLxZmsli2TMbOoS8m2wW2laTJUIY2wdhD8aRo0TlGQbQML7OSwn9X/K3AqBUAk3PmneO5jkI5bKbUViXNnX/U1rXukLmc3np2SgqD2NCZB/PtRAZ6umZ+beNOfCPiB1dI0B9H9P846LITdvOIHIfkMvdSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kcmlTrMC; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=bsbj7K0TmyfI5Guji1S7trwaslc1oE5tvf/6BTPM5wlevRvXS28VHa+Hs/302k+sVtheHQn3mnQfdac9Rf2HfBmtt55BBGvv7Wn7Z+/r1Xa4r/PLtDPuF3xAsr2K777kOQ9/f7osuPud4EGj6n/mpTu33e30+DUAAqwcofPeypc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D8qXCOMg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kcmlTrMC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C8511F000E9;
-	Fri,  3 Jul 2026 12:56:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D8qXCOMg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C6E21F00A3A;
+	Fri,  3 Jul 2026 12:56:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783083369;
-	bh=aKtJOQ1rHhkzGixkXPfLffFEwB1x7/PR7U2gCPhrnEc=;
+	s=k20260515; t=1783083370;
+	bh=M0vYzXpT7oYLkFSej4Sgo6FjNRhAeKMsVFAPUwCd9Bs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kcmlTrMC2NtVJ200PHdsBaMpYbxP/4KoeD1JSdWagNMiyOEiF8fru+hdeW4dMFEIL
-	 U1B0PoKYECeQ35cYsfR1gFknBhEfPe2ypLBkJLC6ZBJwfCW/92b3IkHxUAR6VMT7j9
-	 W6BnrIfTIWopaNPhnPSkv/upJbDyeOGOAxXJEY9XtECA2vVEf4frV7nOk5OuTgN4ti
-	 ogjZfFwn8dxSz1BfGP8P+XgJ8C2wCQ3Ft0JPju+1tK8MzGYqjX561ouS4iJnyikuOV
-	 7vCxheOO395you2Grburi6bEavNsu5ibN85kIoteZaMNKk99BO+hVg2FtkSd8bGzuc
-	 kjuYWKU9NcvVA==
+	b=D8qXCOMgPBWm2PsniORUnWO8RWzr3M2Y+SsfQiwcMPjqfC7XsUugWey3QesRDoAwO
+	 F8GHvpR2V7ysA9Sy1zBXnwJBotdWVlodaJ9FPI52BAGXB3WskGGMer+GI182OD81rd
+	 lm9uCF9bCnCHMJzdSoslcJ47C1l6jkr1e5Db+kBdpqGbAlBCzS5XdNM2rP/1WQwGZI
+	 FYmxxUXKiGbBJPWwP4t3vsZ/AHVks7UfZCQKu8ZDSgwv/418QXd/wZjqi2qh4LOY61
+	 /qQjS6CDc1L1or17nZjJrYff+j03LLs70Dga95ehN8RqmOD0hHNkXVI/JtEhbHclOQ
+	 HKdYD8Cacswdg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v4 3/3] arm64: dts: renesas: r8a779g0: Add gPTP
- node
+Subject: Re: [PATCH net-next v4 2/3] ptp: Add driver for R-Car Gen4
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?TmlrbGFzIFPDtmRlcmx1bmQ=?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260702125525.2230427-4-niklas.soderlund+renesas@ragnatech.se>
+Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260702125525.2230427-3-niklas.soderlund+renesas@ragnatech.se>
 References: <20260702125525.2230427-1-niklas.soderlund+renesas@ragnatech.se>
- <20260702125525.2230427-4-niklas.soderlund+renesas@ragnatech.se>
+ <20260702125525.2230427-3-niklas.soderlund+renesas@ragnatech.se>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 12:56:08 +0000
-Message-Id: <20260703125609.8C8511F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 12:56:10 +0000
+Message-Id: <20260703125610.6C6E21F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Resource conflict and probe failure due to overlapping MMIO mappin=
-gs between gptp and tsn0 nodes.
-- [High] Hardware state corruption of the shared gPTP module due to an unco=
-ordinated shared reset line.
+- [High] Missing error handling for `pm_runtime_get_sync()` leads to a pote=
+ntial kernel crash and PM usage counter leak.
+- [High] Lack of system suspend/resume callbacks causes the hardware timer =
+to lose its state after system sleep.
+- [High] Missing bounds validation for `priv->default_addend` allows silent=
+ integer truncation for low clock rates.
+- [High] Hardware reset coordination flaw allows Ethernet drivers to asynch=
+ronously wipe the PTP hardware state.
+- [Medium] The hardware timer is left enabled if `ptp_clock_register()` fai=
+ls during probe.
 --
 
-commit 6d2ee2b897e0e7be7fd397823f8cda63b923ce38
+commit 92b19ef008b7527d155231279eeb173dccb9a8de
 Author: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.se>
 
-arm64: dts: renesas: r8a779g0: Add gPTP node
+ptp: Add driver for R-Car Gen4
 
-The gPTP module is shared between the RAVB and RTSN Ethernet devices on
-the SoC.
+Add driver for the gPTP timer found on R-Car Gen4 devices. The timer is
+system-wide and shared by different Ethernet devices on each Gen4
+platform.
 
-> diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/=
-dts/renesas/r8a779g0.dtsi
-> index 82a7278836e57..b9b860ef70351 100644
-> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> @@ -589,6 +589,15 @@ tmu4: timer@ffc00000 {
->  			status =3D "disabled";
->  		};
-> =20
-> +		gptp: ptp@e6449000 {
-> +			compatible =3D "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
-> +			reg =3D <0 0xe6449000 0 0x500>;
+> diff --git a/drivers/ptp/ptp_rcar_gen4.c b/drivers/ptp/ptp_rcar_gen4.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/ptp/ptp_rcar_gen4.c
+
+[ ... ]
+
+> +static int ptp_rcar_gen4_probe(struct platform_device *pdev)
+> +{
 
 [Severity: High]
-Will this result in a probe failure when requesting the memory region?
+The commit message mentions this gPTP timer shares its reset property with
+the system's ethernet devices (like RTSN on V4H).
 
-The new gptp node claims the 0xe6449000 memory region here, but the
-existing tsn0 node below incorrectly retains the exact same region.
+What happens when the ethernet driver asserts this shared reset line, such
+as during network interface up/down cycles?
 
-The drivers for these nodes both request exclusive access to the memory:
+Since this driver doesn't manage the shared reset line or coordinate state
+restoration, it seems the ethernet driver's actions might asynchronously
+clear the PTP hardware state (resetting the increment and disabling the
+timer) and silently break system time synchronization.
 
-drivers/ptp/ptp_rcar_gen4.c:ptp_rcar_gen4_probe() {
-    ...
-    priv->base =3D devm_platform_ioremap_resource(pdev, 0);
-    ...
-}
+> +	struct ptp_rcar_gen4_priv *priv;
+> +	struct device *dev =3D &pdev->dev;
+> +	unsigned long rate;
 
-drivers/net/ethernet/renesas/rtsn.c:rtsn_probe() {
-    ...
-    ptpaddr =3D devm_ioremap_resource(&pdev->dev, res);
-    ...
-}
+[ ... ]
 
-Since these wrappers enforce exclusive access, whichever driver probes
-second will get an -EBUSY failure.
-
-Should the tsn0 node be updated to drop this overlapping region?
-
-> +			clocks =3D <&cpg CPG_MOD 2723>;
-> +			power-domains =3D <&sysc R8A779G0_PD_ALWAYS_ON>;
-> +			resets =3D <&cpg 2723>;
-
-[Severity: High]
-Can an interface reset corrupt the shared gPTP hardware state?
-
-The gptp node is assigned the shared reset line 2723 here, and the commit
-message notes that the gPTP module is shared between the RAVB and RTSN
-Ethernet devices.
-
-However, the rtsn driver aggressively asserts this shared reset line:
-
-drivers/net/ethernet/renesas/rtsn.c:rtsn_reset() {
-    ...
-    reset_control_reset(priv->reset);
-    ...
-}
-
-If a network administrator toggles the tsn0 interface state, will this
-abruptly wipe out the clock state of the shared gPTP hardware and break
-other consumers like RAVB that rely on it?
-
-> +			status =3D "disabled";
-> +		};
+> +	/* Default timer increment in ns.
+> +	 * bit[31:27] - integer
+> +	 * bit[26:0]  - decimal
+> +	 * increment[ns] =3D perid[ns] * 2^27 =3D> (1ns * 2^27) / rate[hz]
+> +	 */
 > +
->  		tsn0: ethernet@e6460000 {
->  			compatible =3D "renesas,r8a779g0-ethertsn", "renesas,rcar-gen4-ethert=
-sn";
->  			reg =3D <0 0xe6460000 0 0x7000>,
+> +	priv->default_addend =3D div_s64(1000000000LL << 27, rate);
+> +
+> +	pm_runtime_enable(dev);
+> +	pm_runtime_get_sync(dev);
+> +
+> +	iowrite32(priv->default_addend, priv->base + PTPTIVC0_REG);
+
+[Severity: High]
+Can priv->default_addend exceed the 32-bit limit of iowrite32() here?
+
+The default addend is calculated as a 64-bit value using div_s64(). If the
+clock rate is less than ~31.25 MHz (such as a standard 25 MHz Ethernet
+reference clock), the resulting value will be larger than UINT_MAX.
+
+Since iowrite32() expects a 32-bit integer, won't this silently truncate
+the upper bits and cause the timer to run at a severely skewed rate?
+
+[Severity: High]
+Is it safe to ignore the return value of pm_runtime_get_sync() here?
+
+If the device fails to power up, the subsequent iowrite32() could cause a
+synchronous external abort or bus error when accessing the powered-down IP
+block, leading to a kernel panic.
+
+Also, if pm_runtime_get_sync() fails, does this leak the runtime PM usage
+counter, since there is no matching pm_runtime_put_noidle() on the error
+path before returning?
+
+> +	iowrite32(1, priv->base + PTPTMEC_REG);
+> +
+> +	priv->clock =3D ptp_clock_register(&priv->info, dev);
+> +	if (IS_ERR(priv->clock)) {
+> +		pm_runtime_put_sync(dev);
+> +		pm_runtime_disable(dev);
+> +		return PTR_ERR(priv->clock);
+> +	}
+
+[Severity: Medium]
+If ptp_clock_register() fails, the driver aborts probe and cleans up the
+software PM state.
+
+Should it also disable the hardware timer by calling iowrite32(1,
+priv->base + PTPTMDC_REG) here? Otherwise, the hardware is left active and
+running while the driver unloads.
+
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static struct platform_driver ptp_rcar_gen4_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "ptp-rcar-gen4",
+> +		.of_match_table =3D ptp_rcar_gen4_of_match,
+> +	},
+> +	.probe    =3D ptp_rcar_gen4_probe,
+> +	.remove   =3D ptp_rcar_gen4_remove,
+> +};
+
+[Severity: High]
+Does this driver need to handle system suspend/resume events?
+
+When the system enters a sleep state like S3, the platform power domain
+typically powers down the device, clearing hardware registers like
+PTPTIVC0_REG and PTPTMEC_REG.
+
+Without dev_pm_ops suspend and resume callbacks to restore the timer
+increment and re-enable the timer, will the PTP hardware remain permanently
+uninitialized and broken after a system sleep cycle?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702125525.2230=
-427-1-niklas.soderlund+renesas@ragnatech.se?part=3D3
+427-1-niklas.soderlund+renesas@ragnatech.se?part=3D2
