@@ -1,134 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AAEA34041E;
-	Fri,  3 Jul 2026 12:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8B62D1907;
+	Fri,  3 Jul 2026 12:46:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783082689; cv=none; b=KMz6Gg19noKMqIikx7semi9l3oNdJ5Jl4b6Eka/7Tbf24HrgpLAVb3X/UBjQDgMB2JNe10g5xqRyOMSSukuqieUdk6kZVcNbTNQJB1XSkeUhNRT2p05z5gRyzGi3s+N1SvvWg41U5VGvHkkTFiti+EK6igGqskzUffWXCbAQ4Ww=
+	t=1783082803; cv=none; b=iNgqdhg6xyRwAbAPcwd55EI0XDrZHqMh4RufY2qFPHQGB6YkwYHcOqDCRZee++LVMv7Ja/XmCr5DsIjasC/gNNM7xxoAebXi/T9KNnLqrZhScSQBMU/6VW3c8/mCT0aWeA+6tbDIJC6sa/jDAedjOsb5CA8H0QKXIssrgv0YbaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783082689; c=relaxed/simple;
-	bh=b/WWAPYdRAjKErf0Eu7ZRh2UjM2MygsTpmXF+WndGzE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p8IFxk+kOS/X8CQDbKBaJ1e5CJ/YMWORJCAuXenGoyir7j+FbMCsUO8OdErSzrR6EVbEFxZvYj/N0mnspBGYvmZwc0ScBwsM+RZOaJJPhUTWPc2L1PdlQl20+gENW93xK504kS5j+/b84eJhgFcyCYHtzPZ6g1EWXMaEv8buJv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kafx6H3s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783082803; c=relaxed/simple;
+	bh=Bfe56DaBuMolh+4WBApbrq/tC7CCFTxnUcy4jtF9o7M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AMe0V3WG4qrJELILXun/E5Ekt5q+bW0ZGU9gz8stZZHAqQJIegevAbFK5TP3321gE9wa4l/GXJR05GPhH+hJkjKmuKN9+VBjrieB2QcBqc9ggrPiH2TVRm5AqU8o9WTDyMediL8fr0co7iV3VBaVJuMaDjCbfSxrplWE1VSAJcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FOKn6/i1; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kafx6H3s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462C51F000E9;
-	Fri,  3 Jul 2026 12:44:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783082688;
-	bh=BBDSXJplzut526vw//w0ovqRNPrNaoNvABnT0V7Jts8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kafx6H3se9JnIJCJzSSqdrVMxZ4SceV6FHYnKgaPo5VVgfTFajAT91h/PSoTlzV6U
-	 k2AOUFkFMfuJ0LL2YcP6Sc9m7cKme+LWW1TGpHF9f+XeS57L6nh27kkonOmMcZWhkN
-	 3iDg62JXqpfvT2QhTGw4QQ2Oi4YYpEMis2dnKtT92Niws0ly+GEu9E1IoYHN7dS7Gj
-	 3jdX8jIJxjGw/rlrt6fDU7hi42kVMv81H26bUqgB+1EVNhueHb1Fh8/W++BfqVNwI8
-	 RMF7Jv59tDEMARo5jBRa3IgWWFcjiqtNwaoYgJu2y62zxNqMyw77sHt4JuyP/n7R+r
-	 o3p07xJHya24A==
-Message-ID: <579360fe-9276-4d5b-9da3-e479ab8e5e37@kernel.org>
-Date: Fri, 3 Jul 2026 14:44:41 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FOKn6/i1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783082803; x=1814618803;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Bfe56DaBuMolh+4WBApbrq/tC7CCFTxnUcy4jtF9o7M=;
+  b=FOKn6/i1Db7f2+eXO+hPEI5mq6fNG+hszAk4T9xGnjlkvqRik8lAy5gz
+   jmiihNLORcSijQIhoUl7pEVT4eEVCydiZugf66IIKSFRS13waY7Weg6vW
+   /r013Q7OTMBp9XHMXem/2ZOouAkOYGklA6EyHV2+6IzXBJVc8tu1Br54E
+   JujRq4bVapyE/2Vjkczz8jhG+k1Hjcwj6v2LqmxzmrHuBmDaDg1Uu8BIc
+   gSJhVqnZ/O9Vdvyva36By2RqgAA29XR77e8pOAhWdysClGcMRbnEnP6AI
+   D6lwGHVhcaPbaE9SW1OCGtmm9c73Z/T6FsrU+duDBVqHZqakD/1M2cZyk
+   A==;
+X-CSE-ConnectionGUID: uP7oZA+aTbyeiHG4ESqzOA==
+X-CSE-MsgGUID: qZwqVvLESwykaYm/KpPDZQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="83613111"
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; 
+   d="scan'208";a="83613111"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jul 2026 05:46:42 -0700
+X-CSE-ConnectionGUID: CV+r/4VLRpuQT8//tAUw7Q==
+X-CSE-MsgGUID: n+bCD65wSTGlX5/jBvpc2Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; 
+   d="scan'208";a="249139803"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.80])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jul 2026 05:46:37 -0700
+Date: Fri, 3 Jul 2026 15:46:34 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: Re: [PATCH v3 02/13] device property: Add
+ fwnode_graph_get_next_port_endpoint()
+Message-ID: <akevKiryGPA0_vZx@ashevche-desk.local>
+References: <20260703110317.1283411-1-wenst@chromium.org>
+ <20260703110317.1283411-3-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] remoteproc: qcom: pas: add needs_tzmem flag to
- force shmbridge creation
-To: Ananthu C V <ananthu.cv@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org
-References: <20260703-glymur-soccp-v4-0-b706c4c9b3e2@oss.qualcomm.com>
- <20260703-glymur-soccp-v4-1-b706c4c9b3e2@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260703-glymur-soccp-v4-1-b706c4c9b3e2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260703110317.1283411-3-wenst@chromium.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 03/07/2026 14:31, Ananthu C V wrote:
-> Most Qualcomm platforms feature Gunyah hypervisor, which typically
-> handles Stage 2 IOMMU configuration. Additionally, SHM bridge setup
-> is required to enable memory protection for both remoteproc metadata
-> and its memory regions. When the aforementioned hypervisor is absent,
-> the operating system must perform these configurations instead. We've
-> been relying on the iommu property being present for this, but for
-> remoteprocs that are already running like SoCCP the mappings are already
-> in place, and any attempt to recreate them while active would lead to smmu
-> faults and a non-functional remoteproc. Fix this by adding a needs_tzmem
-> flag which ensures tzmem and SHM bridge setup is performed independent to
-> the iommu property being present.
-
-Looks awfully like LLM written and considering obvious problem, this
-feels vibe coded.
-
-According to current docs YOU SHOULD add vibe-coding tag to the commit
-when doing that.
-
->  static const struct of_device_id qcom_pas_of_match[] = {
->  	{ .compatible = "qcom,eliza-adsp-pas", .data = &sm8550_adsp_resource },
-> +	{ .compatible = "qcom,glymur-soccp-pas", .data = &glymur_soccp_resource },
-
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
-
->  	{ .compatible = "qcom,kaanapali-soccp-pas", .data = &kaanapali_soccp_resource },
->  	{ .compatible = "qcom,milos-adsp-pas", .data = &sm8550_adsp_resource },
->  	{ .compatible = "qcom,milos-cdsp-pas", .data = &milos_cdsp_resource },
+On Fri, Jul 03, 2026 at 07:03:03PM +0800, Chen-Yu Tsai wrote:
+> Due to design constraints of the power sequencing API, the consumer
+> must first be sure that the other side is actually a provider, or it
+> will continually get -EPROBE_DEFER when requesting the power
+> sequencing descriptor.
 > 
+> In the upcoming USB power sequencing integration, the USB hub driver
+> first needs to check whether a graph connection exists, and whether
+> the other side of the connection is a supported connector type. The
+> USB port is tied to a "port" firmware node, and this new helper will
+> be used to get the endpoint under the known "port" firmware node.
+
+This version is good.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Best regards,
-Krzysztof
