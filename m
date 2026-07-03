@@ -1,155 +1,110 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C60F53290A6
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 23:56:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8B22EEE97
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 23:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783122966; cv=none; b=PyqOxbQiGwEOV2nYpXEwBqfE6QAGCBTSKzqO0yfa4H8jq0YCSn20/kuFp8Gs1hbvSrYe6fnLiRMpi7BKLtgLFK0dhxc73PE5PL3k33HkVDE3ZU0ZSyWXCUX65MEzqqlaoJS9ghIzaKr7GN3GeO0pAZONu89wD4Ia9p8zvcc09FE=
+	t=1783123121; cv=none; b=jz53LRRwb1ZtvADRg0/mMsf5jDcwY3uYazSAQiTdLcuulC5/M7NrswbqpdcPxgT67L9NCoe3Aa5TOw5Z2Zt7iuEGtbJ7kyOzE9plbR59c62SHWuvwv7vdOdeHxlkLMYStcxYnWpmg5rexUaejjfbVh3RhbGoRAd7uFtdyMEjw44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783122966; c=relaxed/simple;
-	bh=ftRClBeYK8uSlbQPZhD1okyTCzkY7r+1vIQYxu6vxhw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IxyEU68XRkezQ0jHvT3eUma8M0+z6QtTgUHqrWVaj6MTZ5icdkWa33zOm/LLv6q3C49Fq3jrV5507p9tKcxsQQB5eZ6fz1l829WCqg20fdH/1VTDUnWTYYz2ySHwg/ll9hXBXmiqJH84jI9WYBQRTBDTUVen7KzO7nE3V4/3lFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mn75JHuM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RDMGQLk1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783123121; c=relaxed/simple;
+	bh=ZwkT63XaU1OapOIFMH7keUsb3qRdNriv51SLQV8iz1w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Wdy/Q2iti1aAabMV+XF6WFnQVJuKxvhHSCdjULlSfbZi+WSPCCsn5+9g/VVqZSVsHjBGNuJVZNuyclPhFh9xsb3D1GGJBPQBpLBTU4i75HGYPqYj3DzfCSOO8W3rIaRLotJMTjINjB9Sk/UnpTadx0+tzhCxjjCheLa6+IRo7sI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R6h7IJwX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mn75JHuM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RDMGQLk1"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663KQ2bR1021930
-	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 23:56:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=831YkkMtfz85xC+Ki05XtBOm
-	3sqOTqm30sA4vibS6XY=; b=mn75JHuM9d9DcziUCoj7eC4I3diociCa+WIkVbDD
-	F+9etyGe2nOFh5ooPwbolCQKZrwj+uIuzzEfVGE87mg9kTRaD2CmPESHScaGCw6Y
-	5neSQ4OUnuMNlMPRPBIbnXdjqq4wKoPu3wAcr+Dz9WRZBHM/loDC5TUCTor32nFF
-	Z+Z7Q34DEDmjb0k3xufCswKmr5IBjeynhilXXqBKsOq/1qXG5anbJIdGFfhBKK5z
-	dHCcoLNZHyrrItWKsaWzhWwDSJs6bUa6YgTcQkmUvSm7D7opHa8Tky72S37cMv0v
-	p7SWvzNSu/2pIInjNGb+XOViF4DBDy5jDzcTlz3HWPuWKg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f68u333bt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 23:56:03 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c1852a86fso11785511cf.0
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 16:56:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783122963; x=1783727763; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=831YkkMtfz85xC+Ki05XtBOm3sqOTqm30sA4vibS6XY=;
-        b=RDMGQLk1B0ysakg5JrWKprSIXA0WV2GnXs8jq4uuQMZxzSQmNjCt0ccWP4pO0Fd/C8
-         UF1slX8x6G0TaBt95/mCg20phDRww74Et9cTXseNJ+KWmZr/qQ23JI5VgTPnP1+pTpsO
-         QgLZVnArtZS8UoLP6FLJzAMA9zgyDCcz1gpbnyOOIpBOydtNl6a4Hevtpx7LSVrSSvj4
-         a728T87qvDmiaxykIITDxW1YeX/gycsSRJZCPdJbY838TpQmNGbTFIOfHvu9ZgAPtp0c
-         Nit8ewhB5o0s69i+EGZ0MHmvPVL++pp1FnYi8dshM4XuutSPdIYncXAxWia0nlWiM24j
-         z8kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783122963; x=1783727763;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=831YkkMtfz85xC+Ki05XtBOm3sqOTqm30sA4vibS6XY=;
-        b=fneBxjDAGDGMDh5Wt6C+lSTNrSZD5m+p5nPSIy9wuk4cUcJLmN/tfhmsMYzd7ZZc9B
-         X7cy0qK/LPI4xBpq2IOus9dy1BqC1LbaPzzB5rZ9fWVH/pJ0wbnnn6SduBHvKNVQImah
-         RL1SS2nYOPSJeDvhxmnwz8ajVttUCQAo4CWnaqHTo1XvmXta+REuBM19bNzIaccMXECC
-         yX7P31yy9YCzezQLL9R1z0arN9PEvuOqdJV43CAvsQrWOCydiEYDKzyMwXLkuij8hgJx
-         Lm/F+u4IQ90P43cZp7XJ/IMw2VporPmySb4SM7BESZzKsNeyOs3ofiskrSnGkS7p5mI9
-         aDKw==
-X-Forwarded-Encrypted: i=1; AFNElJ+OUBervMnxsDiYCduiiDsjkJTlkopsajwdnY88ufgJX4w3WqIx+dNSVxTm4hYNZesd9xzj9ROH3kDY@vger.kernel.org
-X-Gm-Message-State: AOJu0YyTs2aN2YFPCQn/ZM79yk8uEhIxVuWXlC1j6h2lGolWhCCZe7wX
-	aA55bxoJ1huq6przwJPu3TQ2ZthBt6lgnN4I0CpFEMDxr+YO1m9yaT+8tscZaAiVTukT2FmYRvm
-	q/pXmWft44X7d/B8sxjammHMbyKrytjOW7O+vre5KSgJ6eHA5JZOBqfMbNw/HJplz
-X-Gm-Gg: AfdE7clTYJNNpxyI+VDIvJOQvbpBLzbp9MeUE9qXjTCizw7pe2cUquKcwcqlZVenpDi
-	FnPGVy9eYR+w0jnngiAUamxrEbn5YlMf9TpgHtKCWzypxdCCI5USUa9UYr4DDKilSc3FeMAMS2N
-	ojqCyksWwo4ATzpM7HbGWYy0osOGNsU/ycBBwW480iXKCC9RloE6jU+ypc4QTvnuJ04vv0aPJJP
-	f6LMxwO05pAqo74TdFXxGRA/JUfeHAhIKT5hls9xkE6w2QC+Xsks2g82eE+gqx1S+AqZ2Ouuge0
-	7qw/3xt3C1R63M4w5OlDZgBslpCit6H52LViMdExAqyYdiZbENomYbUrA67jesT1nSfuCnb92VR
-	yJtJT9d0bD/z58LZlN6orOmCHUJ4td4KtWYx6g5WPH+fvTtGpfVDyQQxZq5CUthprZ583WEd/AN
-	kYaY+XdggEwBbTMgPJcvCpaFip
-X-Received: by 2002:a05:622a:1196:b0:51c:1fa1:80d3 with SMTP id d75a77b69052e-51c4c307336mr24520521cf.49.1783122962810;
-        Fri, 03 Jul 2026 16:56:02 -0700 (PDT)
-X-Received: by 2002:a05:622a:1196:b0:51c:1fa1:80d3 with SMTP id d75a77b69052e-51c4c307336mr24520261cf.49.1783122962434;
-        Fri, 03 Jul 2026 16:56:02 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed13bb714sm833240e87.51.2026.07.03.16.55.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 16:56:01 -0700 (PDT)
-Date: Sat, 4 Jul 2026 02:55:58 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org,
-        ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC 1/2] ASoC: codecs: lpass-tx-macro: Use correct config
- for sc7280
-Message-ID: <4rd4l5ioccdiggvlwl623qsdoy2udy5cr6sigyxrg5pbdll37g@sboebzvzlr6m>
-References: <20260526-sc7280-tx-macro-v1-0-1aad6900fec0@fairphone.com>
- <20260526-sc7280-tx-macro-v1-1-1aad6900fec0@fairphone.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R6h7IJwX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF30B1F000E9;
+	Fri,  3 Jul 2026 23:58:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783123119;
+	bh=mj8IHoa8G5A+dFcs3Q1Lz+9JAmCeDfdLd+QU4fe96DY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=R6h7IJwXgepfEYjHB62agjDJ3FnGEmTnUENtCveCpQSzIk3Yuz0WmHG5zGGsL3NLP
+	 63YEo3uPLLs1Ca5iSXifEkZPwC908Pf6m1nJZhGotal3Etnz/l4GIwv85sA9e+j0sF
+	 XU1JdpQgyLEUlqeai3vfyxOwJOSQ5yOWWFacou+TtTUtKGola69gu+/4jRB6Osp4wn
+	 vVem8pmgQ0wmZ7WTvv+6PQ+ztiKB2tc1De9qUA45oIn0v8SwLXoS99ac3PCQ29vpQ8
+	 BOvXY2Sbrn3xKGMRrQYSxOMarW2yhQE810AHn5j3wQyjA3RDXxnNSZkKfxTtUSIH6F
+	 dJL1XMU2aproA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 34/36] phy: rockchip: usbdp: Simplify power state
+ handling
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: olteanv@gmail.com, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260703-rockchip-usbdp-cleanup-v10-34-a392711ca8a9@collabora.com>
+References: <20260703-rockchip-usbdp-cleanup-v10-0-a392711ca8a9@collabora.com>
+ <20260703-rockchip-usbdp-cleanup-v10-34-a392711ca8a9@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 03 Jul 2026 23:58:38 +0000
+Message-Id: <20260703235838.EF30B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260526-sc7280-tx-macro-v1-1-1aad6900fec0@fairphone.com>
-X-Proofpoint-GUID: QPu4vHWVAaVnbDXYtFtukB1io74pVAp0
-X-Proofpoint-ORIG-GUID: QPu4vHWVAaVnbDXYtFtukB1io74pVAp0
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDI0MiBTYWx0ZWRfX7sExkNvzYJsw
- czg1t9zTOO3LpzBrcdENdyxL4YipjNsMZWl8MR+gpu+SEizkpc9sULyTO+6+VaeLrnI+V0sp0B5
- CGTLLP8TiJI+ko37b75oQ5ST09ati7E=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDI0MiBTYWx0ZWRfXzG8S3Zr7fA0c
- tjNgr9gsrEYqVin2sxXIzIvg0XzxxRrkm/Yq0yHSgl3YS1sVnf3B5cRq3xQWqIcdz9QJQ8hgNKB
- rWZSHWvMH3YhB5X+0PeiLKKlDhgrjeQyJm8SrHuVXvkA5AvJq/AIVX0MeMeamv9Q6AERX0uj8fv
- iRKa7pNda6xRJxnWeWsKrwpFtNysKmC2MUucugljzek2FaSd7Zu9ki+cwqh1K9eg74DfMZ83wQI
- AvDm2TEwLKnvhVpcAtrsU+1NNgYJwybOXsfbXfpjNloxiJpTztoJXxCtwRhCgyXdsSPCA9KLYbB
- xn3Am+83X6F4Ez/EGgJ8JQ8iGO+p+ngQtS4Gr0pgSgBWd8A7F88l9hxIqJYX94dkQu+K3B5Ew6n
- lXhUNeVUNMnJDJlNCB3j7vwUpUmvcnWfu4xkH6RIAR+hx6Vjv5MGQEijEFsD16jtQyFJ7mrn6w1
- X9O4w0PqZlIXKbEEXMw==
-X-Authority-Analysis: v=2.4 cv=OaKoyBTY c=1 sm=1 tr=0 ts=6a484c14 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=6H0WHjuAAAAA:8
- a=SMZjMqxzaKuBaJ7l-ysA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
- a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_04,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 spamscore=0 phishscore=0 malwarescore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607030242
 
-On Tue, May 26, 2026 at 05:29:54PM +0200, Luca Weiss wrote:
-> With the v9 data, the controls will have completely wrong names and
-> using wrong code paths that do not apply to v9.4.
-> 
-> Note, that this will change control names so it's a breaking change.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Missing USB3 port disable in high-speed mode causes DWC3 SErrors o=
+n probe.
+--
 
-Is it something that we want to keep as compatible for the old DTs? Or
-is it completely broken and unusable?
+commit e0219fd5f4d784e78ff969af266e10196367be69
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-> 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->  sound/soc/codecs/lpass-tx-macro.c | 9 ++-------
->  1 file changed, 2 insertions(+), 7 deletions(-)
-> 
+phy: rockchip: usbdp: Simplify power state handling
 
--- 
-With best wishes
-Dmitry
+This commit simplifies power state handling by introducing a sw_mode field =
+in
+addition to the hw_mode field. This allows the PHY to track hardware-suppor=
+ted
+modes, software-requested modes, and the actual hardware status.
+
+> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
+chip/phy-rockchip-usbdp.c
+> index e2cd72643a7d7..ca9418fab8f3a 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+
+[ ... ]
+
+> @@ -1288,16 +1311,22 @@ static const struct phy_ops rk_udphy_dp_phy_ops =
+=3D {
+>  static int rk_udphy_usb3_phy_init(struct phy *phy)
+>  {
+>  	struct rk_udphy *udphy =3D phy_get_drvdata(phy);
+> +	int ret;
+> =20
+>  	guard(mutex)(&udphy->mutex);
+> =20
+> -	/* DP only or high-speed, disable U3 port */
+> -	if (!(udphy->hw_mode & UDPHY_MODE_USB) || udphy->hs) {
+> -		rk_udphy_u3_port_disable(udphy, true);
+> +	if (udphy->hs)
+>  		return 0;
+
+[Severity: High]
+Does returning early here without disabling the U3 port cause DWC3 SErrors
+during probe in high-speed mode?
+
+Previously, this path explicitly called rk_udphy_u3_port_disable(udphy, tru=
+e)
+before returning. By returning early now, we completely bypass
+rk_udphy_update_power_state(), which leaves the U3 port enabled. When the
+DWC3 controller is probed, this can leave it clocked by the unpowered PHY
+instead of the safe UTMI fallback clock, resulting in an SError.
+
+> -	}
+> =20
+> -	return rk_udphy_power_on(udphy, UDPHY_MODE_USB);
+> +	udphy->sw_mode |=3D UDPHY_MODE_USB;
+> +
+> +	ret =3D rk_udphy_update_power_state(udphy);
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703-rockchip-u=
+sbdp-cleanup-v10-0-a392711ca8a9@collabora.com?part=3D34
