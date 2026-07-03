@@ -1,87 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD6038A729
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 07:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB1038A729;
+	Fri,  3 Jul 2026 07:10:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783062571; cv=none; b=UYWQg6diHFmokE0GSVnlS6+JSM988vDhtKzSNaZzR6FeZkqtZIQuzTO3o2NeHbd9EpcY5TSDmmMRQaZrbrFG/cRMqHbS132iEcoQGPeaPdlhAosC0FZ+D1uM9u+V/JxQEYjLuP213aMba8+A7kbCLn4ph3gEMcBISfQ2NaHCwBQ=
+	t=1783062622; cv=none; b=Bm2LfmlkB/eNFui4OQyZVcUvf/9N5EG98Qxh2wraDsNwe4IZ9vJf9qRhm4t+4GLoi7AggYYB9oIrQL4eN70IGt2mjE/agqzEnd8SGjorLzRrX7q2Hf6fEAMJkvsklbVn52iEF1Xa+W+Xvo/XAygUXc8BnZh93cH4NS9KmS9RN1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783062571; c=relaxed/simple;
-	bh=g68P9A+dHxeL+ip9hbd/hg7B855lI6NTTBSWmJGzM5U=;
+	s=arc-20240116; t=1783062622; c=relaxed/simple;
+	bh=Au7XCecHtF2tigo2BWCNwOZTr1iYKRba1SqJsXZfwIY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=khPGU2ku2LaJLVKTlik+fZLqH4ltea6ypTJeyHOwJ/B05SpIIqBZzwICAf9LpfdIdbK4Jh+S7MKI8um20FduIwyca8HNta7WIC4HLDU33EO8o2T0knR0g57vknLru45MRPTwiHOrAKRdmriUWb+UyrYH8VSPsQeij5u9R4A1KVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m7WEMdh7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KfgCORDQ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=gmXDgjzD1hmYHLR9XRaB2Sjw1dlWWzp7nyq1ZmMGu34ex/Ymy17BLmw/K6pJkYCiaNiLgqqBM1xesWyesmFKll/ZHAxOTTxEz56bKhVar1HuAz3akzVnHwoveJow6nHroq27996v8YpVzMgq3INLgjmu5/VbM8L4LnFH7Wi5MyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5p9sIR/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m7WEMdh7";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KfgCORDQ"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6635rwkf3126415
-	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 07:09:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7h7txza+udYa7xb1ypArvnZ7qpe+WLyJsm/FYYt7b6A=; b=m7WEMdh71Psqfl5n
-	7u3F9JF0IqWCcTOWexl6N0VvRfy5oMrOvc/BXkcpiHesjCL4ScP/VvOT+UlU3En6
-	awFbxrql5gP2jK+D1nmlz49QZ4/l6UwYMeU5/cO3NbZOD0X7xH/69k6IcrBHZ/Bh
-	8IlbLmIOXwy8cY19TnzkI7tecD/acGItQG6quWhy+q9jAdOzjolN0VOBxeENHrp7
-	98rvlNpETm6rqijSe/TOfkS5RsUKTANtNzT5UDlua9bkBZNEOYcpGx7U9qCOBoXx
-	bVqNiua1i39nlJsiNcT6TlmAG8TQdgqMyio4Eq4dA4JfVmxgFes4EVoxM0fr7EDl
-	v8dyWQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5tpnk84u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 07:09:28 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8f2747d334dso797306d6.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 00:09:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783062568; x=1783667368; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7h7txza+udYa7xb1ypArvnZ7qpe+WLyJsm/FYYt7b6A=;
-        b=KfgCORDQHktzNq4L1ngDUajDOA8mc4bkKDoSAo9W0R8OU/BCL+B3QqCSLnp1ZBAyIw
-         8FN/uyTXRZCND9aw5BIpxkle5U8bi4iJAt/69bFvsYRcSGVYPdDH7zdu5d8SrfyVi5hD
-         D7cJRbjjiR7KKQojEaaKo5FlyKvO7XNJ19pvV+tA7eVZYDsIKu0qi5mn2Wa/zT6qD4N3
-         XRS5yAIZoyOwFjGfGwFzteSe8VnqvaaaIFuWOs2T0a+7EAIo74ctwNrRK+hyO9kE8twk
-         vUuK1GmZ0c+wKKBdpJhkuDTJcVA2GNlNkhZPx0WFznvVEg8pNzo8kguHU8nhBCn7MvsY
-         xjow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783062568; x=1783667368;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7h7txza+udYa7xb1ypArvnZ7qpe+WLyJsm/FYYt7b6A=;
-        b=E6zvs5hq+Y+EDraVemvZJNVlhbsBPY4e8oLsmRZmHMvjhuL/wJ6VkKqhgAtNJa6Aa+
-         PtFl/kx0S/Q3tOIwncfaoiqvrVHR2DLf5STcfxW/F8mlAr1Ak/JfXf6F9xqNrlFerJa1
-         1MflpKl9EFSNSCm+cSkF0PMrG+rhNZxG5RmGL3CmlHBKQ6HwrBUadzqkpOqMbhYIvPpc
-         8lTNgkajb9+j2Xt1ZhGMy3qpb34WdRYrLu3u25B3Z8tx3SA50hrhOhEnvY3K8HfAGqZn
-         82MNI3unFZdZ8EPKPP4xwydH+uHVKlnSRg6QqH8n+HOWPPIGqN0cCLNs86aPh/EEj6QW
-         tCWA==
-X-Forwarded-Encrypted: i=1; AFNElJ+zurRwoPwdhOvNcxECAuD6ioM5peS0kqb6AipsMGJQlucKgTSN5RVU1VpU9Nj759zYQ8TRk9dMOb2z@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxazt4cT6alVVbmDXIN6G1cz/Hz1WUmBd8YFrCwNWwq2FBKGNz/
-	yQaaTXd/L07zWRogm7uHTDcYcFn4k8hGESMPLbXTW7qinX9JvNOCS6DhMn6zS3NKp0SXVsxnsfb
-	A9zZVnEIhhEAMEdRKANWZZHkXkOyzO2zMAbjW5eBncKqF5yvkCeKbLyIe+l6FCNgR
-X-Gm-Gg: AfdE7cm2CYZpOUZRiw3f6XGl/WTfJ6r0WbpxhBt1r7hDfbT/w8ZELHyP2iVGBgTmKYK
-	6KnIFoQDxVohcBbXTPf4VI20Im91fdWS3fSHPTBF6Vn0TineUvQZLo8viJMFnxmFQrXcx7bmkDn
-	9aFJu0uGt9tE9rrfWao0IcYdLhN4LIx07VRgFOoMYqs6E2gdqeDkBItrV8HRfoFRHASOZ4+0wcA
-	thha8uOnE76FVBFg4/r5vCG5nLIWTYrIMv4x9nixF5N7pB0zd63j2gjd5JsbeZmcQold877Qzdf
-	Rb71IPAk8hkQ1M9evEovafcY2clHslrWOTm55XCMe+GPgIoUjGmsu4QJB30ykm3BYSrKGz9MfVF
-	ANVPx7c3t5ntabjnizLIifaAUvapy+2lTE3A=
-X-Received: by 2002:a05:622a:1348:b0:51b:ff78:f229 with SMTP id d75a77b69052e-51c26a8ec25mr96521711cf.5.1783062568253;
-        Fri, 03 Jul 2026 00:09:28 -0700 (PDT)
-X-Received: by 2002:a05:622a:1348:b0:51b:ff78:f229 with SMTP id d75a77b69052e-51c26a8ec25mr96521421cf.5.1783062567659;
-        Fri, 03 Jul 2026 00:09:27 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c12b6290794sm236901566b.38.2026.07.03.00.09.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Jul 2026 00:09:26 -0700 (PDT)
-Message-ID: <d35dcc4c-7155-49c5-9283-a66174deadac@oss.qualcomm.com>
-Date: Fri, 3 Jul 2026 09:09:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5p9sIR/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CED571F000E9;
+	Fri,  3 Jul 2026 07:10:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783062619;
+	bh=5EHukF5H/z9l9uC2WxZRVzgW9mK1DchOxCTKztHSowk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=T5p9sIR/c3iKErjZCsuxu797uuaK++oKaepi2ujfJjvVEfav6h5ZRF8W/pqp46ZIN
+	 CSVbwulKUChwFEoTcKcogGloLiN0iOyozBS6wBJ4oJRMXyQsM0mZGjgWHybnAS6cF4
+	 8tKS6VNyxGNfCtfOd5PEKtOOE1Hefv0Vb7+FI8wsYKJJ8Y/8QXz9bmdwhUuTbAq6Mx
+	 VzJGQc0SxfYZRT1E3CvXpgLR5p/hG0MVEcjYHDlW8RHCE/eCsh+KbPiPZot1biRH6S
+	 0I2oNFToeebbrQoKt+0O6XDWa9Pak+hDp9hidHEDQzaz3KQ+hNGX4iEKhKo+96Kd0R
+	 KH6D41Ge2Wmtg==
+Message-ID: <7ecf28a5-1c69-41b9-a6ed-0bf14f62b9fa@kernel.org>
+Date: Fri, 3 Jul 2026 09:10:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,70 +35,131 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 18/19] arm64: dts: qcom: agatti: Add missing CX power
- domain to DISPCC
-To: Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Brian Masney <bmasney@redhat.com>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260703-shikra-dispcc-gpucc-v5-0-cc13826d4d5a@oss.qualcomm.com>
- <20260703-shikra-dispcc-gpucc-v5-18-cc13826d4d5a@oss.qualcomm.com>
+Subject: Re: [PATCH 2/4] dt-bindings: display: tegra: Add channel/syncpoint
+ range properties
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
+ <Np88My8kTE-rRphOw0a-Ew@nvidia.com>
+ <20260626-sceptical-aardvark-from-mars-cedf81@quoll>
+ <xLshrt-qQoOT-VB3QjfvBA@nvidia.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260703-shikra-dispcc-gpucc-v5-18-cc13826d4d5a@oss.qualcomm.com>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <xLshrt-qQoOT-VB3QjfvBA@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: EVt2uSeX5WD7ZGqOuCYUgYK0zDtvvLL3
-X-Proofpoint-ORIG-GUID: EVt2uSeX5WD7ZGqOuCYUgYK0zDtvvLL3
-X-Authority-Analysis: v=2.4 cv=UMft2ify c=1 sm=1 tr=0 ts=6a476028 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=aS16L__B_HUEhUwf3xkA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA2NiBTYWx0ZWRfXyGBuUDvPEqJ5
- rJwXknx/dRIHi6+WjLQNq+o3CL4QgYAsWHWDBhwlomEaldrdJvB5PuPPNU42IYna+ctyyFKfRUe
- eDidafU6NQSjFV0xo87/Nd/NputJQJ4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA2NiBTYWx0ZWRfX8eZ1jkm879uf
- mg+BnlIrriG+SG+Z4jP8WgjB7z60XtQuSSFEEdieZc2envlOxPcMFmU5olgzIUeFSRjeE81Z4r8
- 7eqQWThY9fDTVIz2npk8TTE2yTJPGoAlMsgvaPFKXu1TGBtf3GhPjgRtIccQEaExzB2Jnq8QfGO
- cp84Ri9GsYRxWwEnEez1sOPYqiIkCthZeWoyHwjF0XUUd9RvNmwxifKBUSYoK5fEF7SmoXa+o7v
- R9IKKmaUaFAFRKb5+F4J3XIuIaiRKVT0fDn5byKGBxhJaQYfke9GI+YigQgFnFpAj32BQtOKN+M
- 07icMoIn8l6KaTCrClwAaf0cIpvBjKj3f1psJ/sYdu/kBgvDKJU8KXqVb3bHULwQnNx2HxlHNEY
- UBgBctDMG0wA57Zc/NcAUgAsr9OXYV8GaETz8cNkc+B7trQfmzqv4pNz9yOz/MJi0a4JPz37FtW
- CHVAoYhBGsCeWyEAiJQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
- priorityscore=1501 bulkscore=0 impostorscore=0 spamscore=0 adultscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607030066
+Content-Transfer-Encoding: 8bit
 
-On 7/2/26 8:31 PM, Imran Shaik wrote:
-> Add the missing power-domains property to associate DISPCC with CX rail.
-> This is to ensure the genpd performance state votes on GDSC the to get
-> propagated to the CX rail and to avoid the rail under-voltage conditions.
+On 29/06/2026 06:02, Mikko Perttunen wrote:
+> On Friday, June 26, 2026 7:26 PM Krzysztof Kozlowski wrote:
+>> On Thu, Jun 25, 2026 at 06:26:43PM +0900, Mikko Perttunen wrote:
+>>> On Thursday, June 25, 2026 5:36 PM Krzysztof Kozlowski wrote:
+>>>> On Mon, Jun 22, 2026 at 05:22:51PM +0900, Mikko Perttunen wrote:
+>>>>> Channels and syncpoints available may be limited when other system
+>>>>
+>>>> What are channels and syncpoints?
+>>>
+>>> Very host1x-specific hardware resources. Somewhat close to GPU channels
+>>> and semaphores / fences if you're familiar with those.
+>>>
+>>>>
+>>>>> components are using them. Add properties nvidia,channels and
+>>>>> nvidia,syncpoints to limit the range of usable channels and/or
+>>>>> syncpoints.
+>>>>
+>>>> Why isn't this deducible from the compatible?
+>>>
+>>> When Host1x is partitioned, the hypervisor (or other software entity
+>>> with access to the non-vm host1x register regions) can configure which
+>>> channels and syncpoints are available to each partition arbitrarily.
+>>
+>> So you will have different boards for the same SoC with different
+>> values?
+>>
 > 
-> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-> ---
+> Yes -- even the same board will have different values depending on the
+> use case of the system. The hypervisor or bootloader has to update the
+> properties according to the configuration it has programmed in the
+> hardware.
+> 
+> I will update the commit message with clarification.
+> 
+>>>
+>>> How that partitioning was done is not discoverable through hardware
+>>> directly, so we need to pass that information through device tree.
+>>>
+>>>>
+>>>> Also, nvidia,channels is too broad/generic. This is not ADC, right? And
+>>>> channels is a common term in IIO. And in few other cases.
+>>>
+>>> It's not ADC. Yes, it's a common term in a lot of contexts. I can call
+>>> it nvidia,host1x-channels if you prefer but that seems a bit redundant
+>>> given the context.
+>>
+>> host1x is indeed poor, but maybe there is some way to be a bit more
+>> descriptive? message-channels?
+> 
+> I would prefer to keep these as is -- anyone working with host1x will
+> know what 'channels' and 'syncpoints' mean, and changing the name could
+> cause confusion since the name would not match other code or
+> documentation discussing these.
+> 
+> I can update the binding documentation with some more explanation about
+> what these properties mean.
 
-Fixes: a2b32096709d ("arm64: dts: qcom: qcm2290: Add display nodes")
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Property has only one meaning in DT schema, so basically you are now
+fixing nvidia,channels to uint32-array for all possible use cases and
+nvidia devices. Well, you have been warned.
 
-Konrad
-
+Best regards,
+Krzysztof
