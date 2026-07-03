@@ -1,91 +1,72 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10DA220F2A;
-	Fri,  3 Jul 2026 16:13:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5B6304976;
+	Fri,  3 Jul 2026 16:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783095185; cv=none; b=n53MxU1Gdt0OPwdkhml42ea96SXAZhPiPMD9CazQ2l+H0+qGkMiScjQelZF/zreOy2Tw/rfmj8OgDbWGwyrCn1uRjqeG/3V2Bt0dg3QyhKjQ5woYC/VXgfFy9RvzyfISNhcyezR4mryPXlAE+3eoSZWbyBHzpaN2DBpsX3S6fsA=
+	t=1783095554; cv=none; b=Yi2h1hAV+m0/+S8ZCCaHGRDRBoDDrPoLzbyvwl4jt8wmQUdspDfyXOD+QCu7pSCoo+V2KnhH4uOPBZ3JMze+yudvZ4Qt5WmZQkgAk1PdZgK4LhgN/Zwr1z0nteBLY1Dxn4WeYYEaO7aVVRXEWVUzGKlWCietnAFRdnyZMwPxiJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783095185; c=relaxed/simple;
-	bh=sEs4rY7eHqvNO9iNPud7g4FzDBOXrr28xDXC3lthqhM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bG4ZmvyQfkc26VCUfrAA1RePmxhjA5sYxvXHVwHmQGTTIA22zRQ3KeXC7UPFJa/zMPStklHxcHAN+Cs7hLTPm4H5i9blkFh9U+9wat25V8e3aQBu2l6f4a4m6cSbLdjoppdEoIya9LNfEk5gwurJZfGVFfNxGHuVAK2ldkFAUNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=Nvvw3IFW; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1783095554; c=relaxed/simple;
+	bh=MDqV3FE/QURKj47Ug9qhhO3Rw6xeNdaWbeaJ1FuMeXg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qlvc9EHGRmHzPlHq6our5QsaZNu5Af1YQf9rCYln36WggZX7dfppw17D5mUBgIsnGSIVOhu6erulRtrfjgM4x0KRYl8v9oHuwgabMhptlBgREeeF7Na60u+afTf/KpXZChZSAhkt6f7z3Z/l0f00dZoA1NRvrV+2Xj8GL0XUy2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/j4ZWUr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="Nvvw3IFW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=sEs4rY7eHqvNO9iNPud7g4FzDBOXrr28xDXC3lthqhM=; b=Nvvw3IFWR+JVGJVmxPzeEJSXsb
-	5aMY2F1V9t+poqC7mKWF2rFowHP+iGLhSVv3M21edc0tutACoaqePA2o7KuyiHQXfpKkq0HTHeD3+
-	y1zh48ybvfK/BXuQudhUtfPm2CXIThJlqDRxfP7rBkq627HZ2K2VDdyF2iF34xEW9MDohn7z6C8Da
-	KqmyvcIpVUrMlJFk2x84W/n7fMzNd1YjqO+sd83EyJJaEXgfcsqx4u/NWhYQDWnwSS2W3Gpbkgjog
-	iHRtxclyuNNsCK9iLyoTzH7qzAeD0YeFu0kESBaGSxSJEnAId7/u1uwb9SyOk4s1fcAPhDaGi2MTU
-	GaqHM7fg==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- Brian Mayer <bleemayer@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH] arm64: dts: rockchip: add HYM8563 RTC to Radxa CM5 IO board
-Date: Fri, 03 Jul 2026 18:12:47 +0200
-Message-ID: <2960762.AiC22s8V5E@diego>
-In-Reply-To:
- <CAB3eKoDcp=rVGDpvAHEeVLG3rHFw2E1XXxCe2QaApX0aLkyXyA@mail.gmail.com>
-References:
- <CAB3eKoDcp=rVGDpvAHEeVLG3rHFw2E1XXxCe2QaApX0aLkyXyA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/j4ZWUr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD6131F000E9;
+	Fri,  3 Jul 2026 16:19:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783095553;
+	bh=MDqV3FE/QURKj47Ug9qhhO3Rw6xeNdaWbeaJ1FuMeXg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=d/j4ZWUrtxifnX8y919J8kuQuU5DEj1oB14B6kihoAoypJZRemNaeQiPADNdNsyYm
+	 BKOCus/eZWIPGtPhqVi4YPlgvopBcbw1dilQiwOzO/FYzr0DfSHgaj6yNVGY3XW+U0
+	 u2IKQRCJPgCVFB7HMRVp8Bms73PRBDjuC+Jna+HUsDOJXbhlxA74ZekbcfutiNkFO1
+	 QMGAOrkyEpsVLwoDKqWVEIEFA7qYSS+i8Ns2MdC5hJfWNfyRAZwHLzOYxKigfjn3NN
+	 M1Gp70mq4T9ehJKkvaOroeS6O8RhG5l456YtAHQcErARJxNPRQZCjY5+Ne1fQyXTuk
+	 C4ZZaF2jOLRag==
+Date: Fri, 3 Jul 2026 17:19:08 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Sasha Finkelstein <k@chaosmail.tech>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: soc: apple: Add Apple PMGR misc
+ controls
+Message-ID: <20260703-acre-buffalo-815de034999e@spud>
+References: <20260703-pmgr-misc-v2-0-4b26ba10c5a4@chaosmail.tech>
+ <20260703-pmgr-misc-v2-1-4b26ba10c5a4@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Ew3fU/QzK+CdPJ5y"
+Content-Disposition: inline
+In-Reply-To: <20260703-pmgr-misc-v2-1-4b26ba10c5a4@chaosmail.tech>
 
-Hi Brian,
+--Ew3fU/QzK+CdPJ5y
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Am Donnerstag, 2. Juli 2026, 21:09:20 Mitteleurop=C3=A4ische Sommerzeit sch=
-rieb Brian Mayer:
-> Hi kernel team.
->=20
-> I was testing building the kernel for my radxa cm5+io shield, and it turns
-> out there is no rtc in the DTS, so I got it from the radxa files.
-> This is my first email to you, please help me correct it if something is
-> off the standards.
->=20
-> The commit attached does the trick. I used AI to assist me in this in
-> case you're
-> wondering.
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Generally, please don't post patches as attachments.
-=46or review comments it es expected to be able to comment
-inline in the patch.
-Ideally use git-send-email or b4 for sending patches.
+--Ew3fU/QzK+CdPJ5y
+Content-Type: application/pgp-signature; name=signature.asc
 
-=46or AI assisted changes, there is an Assisted-by: tag [0]
+-----BEGIN PGP SIGNATURE-----
 
-Please drop the Tested-by tag ... as you're sending in the patch and
-your signed-off-by is on it, it is expected that you tested that change :-)=
- .
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakfg/AAKCRB4tDGHoIJi
+0jYaAP0aSmWIipYQoz1Y9zbqOWoAnynQ5pXZqcKDuusK7Hf54gD/SC1++acH8F08
+FMU2DVs0tWppBFT9gNOmErqDtSCT+QA=
+=K5Z3
+-----END PGP SIGNATURE-----
 
-
-Patch contents:
-Please use names found in the schematics ... the pin is named
- rtc_int_l there ... so the pinctrl entry should be "rtc_int_l: rtc-int-l {=
- "...
-
-This allows easier lookups when going from DT to schematics and back.
-
-
-Thanks
-Heiko
-
-
-[0] https://docs.kernel.org/process/coding-assistants.html
-
-
+--Ew3fU/QzK+CdPJ5y--
