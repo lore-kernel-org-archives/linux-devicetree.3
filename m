@@ -1,339 +1,179 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52104279917;
-	Fri,  3 Jul 2026 15:33:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D87277007;
+	Fri,  3 Jul 2026 15:41:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783092819; cv=none; b=mqp811NjKKiXVdW98MBmpOVnJfLHDokep7bIQW/gKeVW3aZcgoHt+J9bnb95ykvhO2Wwq1s62InSx010XlME6ZHkWNLLxl1C5qKGdJ/PCXsQDo2ss8hHy41BHbX8VU97GyUfXv9qE0bQz+ZBl0xKSOLvuP/TnsL5R1nYehKoqu4=
+	t=1783093301; cv=none; b=YCFlSp2cp4O20I63U+UBJdVnqnRZv4E5+5IVwKxzeYFPP3uwZ+S/c9gjpjpe6UjSNnVpamarfLwEE4pkPE9fla8+XzKrgxqNzvuMI05auKEYc8kQk6v27/XSZbmvhXQ5NFyWyiq8kXHHy2Hncx3m/4vH/diP7EfibzUXRLxvi7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783092819; c=relaxed/simple;
-	bh=Kqx9wUCFM9/qBWSQCRYrQ/6Nmh3G78kJwf4apec+VQY=;
+	s=arc-20240116; t=1783093301; c=relaxed/simple;
+	bh=Fjo3cuWbsbC2T9TQ0UvPaekvgFSg1eYre8uhD4+fErg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rPyw20i5LvXGzUVUs9rDjW2K4L46gJUs+PWG5bvKYy8/TEg/kEeiRb4NxjDDtg79dZWqnPVP7AGwhd8PFMgwaLtI50Mvwm+bn095YBW2mBrTwFE27cpHispS7NU/SfbTadGnZgKhfkXlner8Udkwycw0B0XRH7yHDkJXMWj8oEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c2Q8yKTb; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=exzibRY8QV/aSWrgpDKH0dPSL6j2KnmoK1WStvmn7ux4TnupDuM4meRuxEfC2Hta6ZZT7muuR/KHM86DGoBqXelecNahvxEaYp9wibT66d0U8vMS1ypUL7dH/Afzz3RbnEuPVz2c3Et7+VgK15OEV3gggK+iZAkh9dHtCQecDLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2/MAfq6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c2Q8yKTb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5AFF1F000E9;
-	Fri,  3 Jul 2026 15:33:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2/MAfq6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AF511F000E9;
+	Fri,  3 Jul 2026 15:41:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783092818;
-	bh=EP6db0OmqHcY3WIp3R5BB2pZGmx1sQSCAis9bZ4x3vs=;
+	s=k20260515; t=1783093299;
+	bh=/qI+sP7d0y35kQBQDwCk76FmL/JdgN+0O6MrtOfev9E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=c2Q8yKTbdY2TItKN6Mko/CZCOuS/WWais9AY2lx7eyRMpCQ3R0Ivna3koCmkqflGd
-	 lldPHrloQssSZnZcodixz0aXiFiFYNUKHDJLSaC41k0zmJxkw9g6pz/zbkBN+lP+QZ
-	 2Z1XdX9oJGoQdNv7Y0d3oe0pVuaxWTkJMj/IuzxuqdgmwJKULMv8BD0zcqmktHMQgC
-	 UfBFy7CwIOyE6Vl2uS8VhiNC9EOPUgEzz1xhiiAjH/nxmbCaADK3Xvp6iHD6siZu6q
-	 HHv4Q60/NslYV0hZg4dnEoGThHvhypRPW2oJvR0XfIkMhgHshURi+9MF7Ooo4Hxr9Y
-	 ascqc5CNpohww==
+	b=e2/MAfq6t3WGKI/fZ/7c6eoNSqm53IfGpyI6djtlUjgfmxjx8gRv377mq9dG54HQF
+	 iY6Na8CYwZV2xwRrtabwSBE2vcTeJLpouUZDvFSHxr9g6cEZsVkMZd1zzRHK617UQn
+	 ks8kaKcr0PD1PuucvImns0n70wwOvuzNG6svppM9UYHyP3wh8Qcdp/C29zjAfo6x3d
+	 DFyegwpE/VZDfIRg/Ws5VvGFYVJIaC18zFc85jSasK4bRICc1sRGCppyS3Db+Et5G/
+	 kzV+8E+m1M/Zp/Y0vXXqYajKio/cUDl/9/Sn9B4lv1wDMg6IlYtP7dq7DSlQdz/eNk
+	 bs+3W/+/bSotw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/4] pwm: sun8i: Add H616 PWM support
+Subject: Re: [PATCH v1 1/1] arm64: dts: freescale: imx9-var-dart-sonata: fix
+ Ethernet PHY configuration
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Richard Genoud" <richard.genoud@bootlin.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org
-In-Reply-To: <20260703152215.192859-3-richard.genoud@bootlin.com>
-References: <20260703152215.192859-1-richard.genoud@bootlin.com>
- <20260703152215.192859-3-richard.genoud@bootlin.com>
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260703152731.236793-1-stefano.r@variscite.com>
+References: <20260703152731.236793-1-stefano.r@variscite.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 15:33:37 +0000
-Message-Id: <20260703153337.B5AFF1F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 15:41:38 +0000
+Message-Id: <20260703154139.8AF511F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Insufficient memory is allocated for the `parent_names` array, cau=
-sing a heap buffer overflow when the clock has multiple parents.
-- [High] The driver mutates statically allocated global clock templates dur=
-ing probe, causing MMIO address corruption and Use-After-Free.
-- [High] Computed PWM duty cycle suffers from integer truncation, resulting=
- in a 0% duty cycle when 100% is requested at the maximum period.
-- [High] Composite clocks manually registered during probe are leaked on er=
-ror paths.
-- [High] The driver registers clocks with the CCF before deasserting the ha=
-rdware reset control, risking MMIO accesses to a reset block.
-- [High] Error in `sun8i_pwm_request` leaks channel state, and `sun8i_pwm_f=
-ree` has a data race.
-- [High] Direct hardware modification inside the clock framework's `of_xlat=
-e` callback.
-- [High] Missing error check for `clk_round_rate()` return value assigned t=
-o an unsigned variable.
-- [High] Shared parent clock rate can be arbitrarily modified by sibling ch=
-annels, disrupting active waveforms.
+- [High] Removing the explicitly linked `reset-gpios` property from the PHY=
+ nodes without adding a corresponding `-supply` reference breaks `fw_devlin=
+k` dependency ordering, creating a probe race condition.
+- [Medium] Replacing the PHY reset configuration with a fixed regulator red=
+uces the post-enable delay from 100ms to 10ms, which may violate the PHY's =
+initialization timing requirements.
 --
 
-commit 0552ac994a2720884880e2f7a90a1ceb9b7e36e6
-Author: Richard Genoud <richard.genoud@bootlin.com>
+commit aa29283e1adc330c15b9cab63314f0eec59e0b65
+Author: Stefano Radaelli <stefano.r@variscite.com>
+arm64: dts: freescale: imx9-var-dart-sonata: fix Ethernet PHY configuration
 
-pwm: sun8i: Add H616 PWM support
-   =20
-Add driver for Allwinner H616 PWM controller, supporting up to 6
-channels.
-Those channels output can be either a PWM signal output or a clock
-output, thanks to the bypass.
+This commit corrects the Ethernet PHY description on DART-MX9 Sonata boards=
+ by
+modeling the PHY reset line as a fixed regulator instead. It removes the
+reset-gpios property from the PHY nodes and asserts the enable signal during
+boot to ensure initialization completes successfully.
 
+> diff --git a/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts b/ar=
+ch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
+> index 3f0fd321d95f0..f7e32f9375f50 100644
+> --- a/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
 [ ... ]
+> +	reg_phy1_supply: regulator-phy1 {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "SUPPLY_PHY1";
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		gpio =3D <&pca6408_2 0 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +		startup-delay-us =3D <10000>;
 
-> diff --git a/drivers/pwm/pwm-sun8i.c b/drivers/pwm/pwm-sun8i.c
-> new file mode 100644
-> index 0000000000000..8f1023e3a2e5a
-> --- /dev/null
-> +++ b/drivers/pwm/pwm-sun8i.c
-> @@ -0,0 +1,938 @@
+[Severity: Medium]
+Could reducing the post-enable delay from 100ms (originally in
+reset-deassert-us) to 10ms violate the PHY's initialization timing
+requirements?
 
+> +		regulator-always-on;
+> +	};
 [ ... ]
-
-> +static int sun8i_pwm_request(struct pwm_chip *chip, struct pwm_device *p=
-wm)
-> +{
-> +	struct sun8i_pwm_chip *sun8i_chip =3D sun8i_pwm_from_chip(chip);
-> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[pwm->hwpwm];
-> +
-> +	scoped_guard(spinlock_irqsave, &sun8i_chip->clk_pdata->lock) {
-> +		if (chan->mode =3D=3D SUN8I_PWM_MODE_CLK)
-> +			return -EBUSY;
-> +		chan->mode =3D SUN8I_PWM_MODE_PWM;
-> +	}
-> +
-> +	return clk_prepare_enable(chan->pwm_clk);
-> +}
+> @@ -139,9 +150,6 @@ mdio {
+>  		ethphy1: ethernet-phy@1 {
+>  			compatible =3D "ethernet-phy-ieee802.3-c22";
+>  			reg =3D <1>;
 
 [Severity: High]
-If clk_prepare_enable() fails and returns an error, does this leave the
-channel permanently marked as SUN8I_PWM_MODE_PWM? This could prevent future
-use of the channel.
+Since the explicitly linked reset-gpios property was removed below, shouldn=
+'t
+there be a corresponding phy-supply =3D <&reg_phy1_supply>; link here to ma=
+intain
+the device link dependency?
 
-> +static void sun8i_pwm_free(struct pwm_chip *chip, struct pwm_device *pwm)
-> +{
-> +	struct sun8i_pwm_chip *sun8i_chip =3D sun8i_pwm_from_chip(chip);
-> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[pwm->hwpwm];
-> +
-> +	clk_disable_unprepare(chan->pwm_clk);
-> +	chan->mode =3D SUN8I_PWM_MODE_NONE;
-> +}
+Without this link, fw_devlink no longer sees any dependency between the
+Ethernet subsystem and the GPIO expander. Could the MAC driver probe and sc=
+an
+the MDIO bus before the I2C GPIO expander (pca6408_2) and the new always-on
+regulator are initialized, resulting in get_phy_device() failing with -ENOD=
+EV?
+
+> -			reset-gpios =3D <&pca6408_2 0 GPIO_ACTIVE_LOW>;
+> -			reset-assert-us =3D <15000>;
+> -			reset-deassert-us =3D <100000>;
+> =20
+>  			leds {
+>  				#address-cells =3D <1>;
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts b/ar=
+ch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
+> index 5513d3b148a2f..1ca3ec8330d07 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
+[ ... ]
+> +	reg_phy1_supply: regulator-phy1 {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "SUPPLY_PHY1";
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		gpio =3D <&pca6408_2 0 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +		startup-delay-us =3D <10000>;
+
+[Severity: Medium]
+Does this same reduction to a 10ms startup delay also risk initialization
+failure here?
+
+> +		regulator-always-on;
+> +	};
+[ ... ]
+> @@ -180,9 +191,6 @@ mdio {
+>  		ethphy1: ethernet-phy@1 {
+>  			compatible =3D "ethernet-phy-ieee802.3-c22";
+>  			reg =3D <1>;
 
 [Severity: High]
-Is there a data race here?
+Does this node also need a phy-supply =3D <&reg_phy1_supply>; property to p=
+revent
+the probe race condition described above?
 
-The chan->mode state is modified without holding clk_pdata->lock, but it is=
-=20
-read and written concurrently under the lock in sun8i_pwm_request() and=20
-sun8i_pwm_of_clk_get().
-
+> -			reset-assert-us =3D <15000>;
+> -			reset-deassert-us =3D <100000>;
+> -			reset-gpios =3D <&pca6408_2 0 GPIO_ACTIVE_LOW>;
+> =20
+>  			leds {
+>  				#address-cells =3D <1>;
 [ ... ]
-
-> +static int sun8i_pwm_write_waveform(struct pwm_chip *chip,
-> +				    struct pwm_device *pwm, const void *_wfhw)
-> +{
-> +	const struct sun8i_pwm_waveform *wfhw =3D _wfhw;
-> +	struct sun8i_pwm_chip *sun8i_chip =3D sun8i_pwm_from_chip(chip);
-> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[pwm->hwpwm];
-> +	unsigned long flags;
-> +	u32 val;
-> +	int ret;
-> +
-> +	ret =3D clk_set_rate(chan->pwm_clk, wfhw->clk_rate);
-> +	if (ret)
-> +		return ret;
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts b/ar=
+ch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
+> index 7a58ad38ffb46..ccf7e77016e48 100644
+> --- a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
+[ ... ]
+> @@ -346,9 +346,6 @@ &netc_emdio {
+>  	ethphy1: ethernet-phy@1 {
+>  		compatible =3D "ethernet-phy-ieee802.3-c22";
+>  		reg =3D <1>;
 
 [Severity: High]
-Since the channel clocks are registered with the CLK_SET_RATE_PARENT flag,
-they share paired parent clocks. If clk_set_rate() changes the frequency of
-the shared parent to satisfy this request, will it transparently corrupt the
-active PWM waveform output of the sibling channel?
+Does this PHY node also require a phy-supply property to maintain its
+dependency ordering after the reset-gpios removal?
 
-[ ... ]
-
-> +static int sun8i_pwm_round_waveform_tohw(struct pwm_chip *chip,
-> +					 struct pwm_device *pwm,
-> +					 const struct pwm_waveform *wf,
-> +					 void *_wfhw)
-> +{
-
-[ ... ]
-
-> +	max_rate =3D clk_round_rate(chan->pwm_clk, U32_MAX);
-
-[Severity: High]
-Since clk_round_rate() returns a long that can contain a negative error
-code, will assigning it directly to the unsigned long max_rate cause issues=
-?=20
-
-If an error is returned, this would cast to a massive unsigned value and
-corrupt the subsequent period_ratio calculations.
-
-[ ... ]
-
-> +	wfhw->duty_ticks =3D mul_u64_u64_div_u64(calc_rate, duty_cycle,
-> +					       NSEC_PER_SEC);
-> +
-> +	if (wfhw->duty_ticks > wfhw->period_ticks)
-> +		wfhw->duty_ticks =3D wfhw->period_ticks;
-
-[Severity: High]
-Does this calculation suffer from integer truncation?
-
-The wfhw->duty_ticks field is declared as a u16. If the period is at its
-maximum (65536) and a 100% duty cycle is requested, the 64-bit calculation
-yields 65536. When assigned to the u16 field, this will silently truncate
-to 0.
-
-The subsequent bounds check:
-    if (wfhw->duty_ticks > wfhw->period_ticks)
-
-would evaluate as 0 > 65536, which is false, resulting in the hardware
-being programmed with a 0% duty cycle instead of 100%.
-
-[ ... ]
-
-> +static struct clk_hw *sun8i_pwm_of_clk_get(struct of_phandle_args *clksp=
-ec,
-> +					   void *data)
-> +{
-
-[ ... ]
-
-> +	if (IS_ERR(ret_clk))
-> +		goto out;
-> +
-> +	sun8i_pwm_set_bypass(sun8i_chip, idx, true);
-> +out:
-> +	return ret_clk;
-> +}
-
-[Severity: High]
-Is it safe to directly mutate hardware registers via sun8i_pwm_set_bypass()
-inside the clock framework's translation callback?
-
-Clock translation can happen speculatively or multiple times (for example,
-when a client driver defers probe). Mutating hardware state during
-translation bypasses standard clock lifecycle semantics (prepare/enable)
-and might leave the hardware in an unexpected state if the translation
-doesn't proceed to activation.
-
-[ ... ]
-
-> +static int sun8i_add_composite_clk(struct clk_pwm_data *data,
-> +				   void __iomem *reg, spinlock_t *lock,
-> +				   struct device *dev, struct clk_hw **hw)
-> +{
-> +	const struct clk_ops *mux_ops =3D NULL, *gate_ops =3D NULL, *rate_ops =
-=3D NULL;
-> +	struct clk_hw *mux_hw =3D NULL, *gate_hw =3D NULL, *rate_hw =3D NULL;
-> +	struct device_node *node =3D dev->of_node;
-> +
-> +	if (data->mux_hw) {
-> +		struct clk_mux *mux;
-> +
-> +		mux_hw =3D data->mux_hw;
-> +		mux =3D to_clk_mux(mux_hw);
-> +		mux->lock =3D lock;
-> +		mux_ops =3D mux_hw->init->ops;
-> +		mux->reg =3D (uintptr_t)mux->reg + reg;
-> +	}
-
-[Severity: High]
-Does this code mutate statically allocated global clock templates during pr=
-obe?
-
-The pwmcc_data array and its referenced clock component objects (like
-mux_xy_01) are globally static. Modifying these instances with per-device
-state (such as adding the current MMIO base via mux->reg) means if the
-driver probes multiple instances, or unbinds and rebounds, the global MMIO
-pointers will be offset multiple times, leading to bad memory accesses.
-
-[ ... ]
-
-> +	/*
-> +	 * Retrieve the parent clock names from DTS for pwm-clk-srcxy
-> +	 */
-> +	if (!data->parent_names) {
-> +		data->num_parents =3D of_clk_get_parent_count(node);
-> +		if (data->num_parents =3D=3D 0)
-> +			return -ENOENT;
-> +
-> +		data->parent_names =3D devm_kzalloc(dev,
-> +						  sizeof(*data->parent_names),
-> +						  GFP_KERNEL);
-> +		for (unsigned int i =3D 0; i < data->num_parents; i++)
-> +			data->parent_names[i] =3D of_clk_get_parent_name(node, i);
-> +	}
-
-[Severity: High]
-Is there a heap buffer overflow here if the device tree specifies multiple
-clocks?
-
-The allocation size is sizeof(*data->parent_names), which evaluates to the
-size of a single pointer (8 bytes on 64-bit systems). However, the loop
-writes data->num_parents pointers into this allocation.=20
-
-Also, as mentioned above, modifying data->parent_names mutates the static
-global template. If the device unbinds and rebounds, data->parent_names
-will hold a dangling pointer to freed devm memory, leading to a
-use-after-free on the next probe.
-
-[ ... ]
-
-> +static int sun8i_pwm_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	ret =3D sun8i_pwm_init_clocks(pdev, sun8i_chip);
-> +	if (ret)
-> +		return ret;
-> +
-> +	for (unsigned int i =3D 0; i < data->npwm; i++) {
-> +		struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[i];
-> +		struct clk_hw **hw =3D &sun8i_chip->clk_pdata->hw_data->hws[i];
-> +
-> +		chan->pwm_clk =3D devm_clk_hw_get_clk(dev, *hw, NULL);
-> +		if (IS_ERR(chan->pwm_clk)) {
-> +			ret =3D dev_err_probe(dev, PTR_ERR(chan->pwm_clk),
-> +					    "Failed to register PWM clock %d\n", i);
-> +			return ret;
-> +		}
-> +		chan->mode =3D SUN8I_PWM_MODE_NONE;
-> +	}
-> +
-> +	ret =3D devm_of_clk_add_hw_provider(dev, sun8i_pwm_of_clk_get, sun8i_ch=
-ip);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to add HW clock provider\n");
-> +
-> +	ret =3D devm_add_action_or_reset(dev, sun8i_pwm_unregister_clk,
-> +				       sun8i_chip->clk_pdata->hw_data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to add devm action\n");
-
-[Severity: High]
-Are the composite clocks leaked on early return paths?
-
-sun8i_pwm_init_clocks() manually registers clock objects with the CCF, but
-the teardown action (sun8i_pwm_unregister_clk) is only hooked up to devres
-much later. If an error occurs in the interim (like devm_clk_hw_get_clk()
-or devm_of_clk_add_hw_provider() failing), the probe routine returns early
-and the registered clocks are permanently leaked into the CCF.
-
-> +	/* Deassert reset */
-> +	sun8i_chip->rst =3D devm_reset_control_get_shared_deasserted(dev, NULL);
-> +	if (IS_ERR(sun8i_chip->rst))
-> +		return dev_err_probe(dev, PTR_ERR(sun8i_chip->rst),
-> +				     "Failed to get reset control\n");
-
-[Severity: High]
-Is it safe to register the clocks with the CCF before deasserting the
-hardware reset control?
-
-The CCF may read hardware registers immediately upon registration to query
-clock parents or rates. Accessing a peripheral's MMIO space while it is
-held in reset can cause synchronous external aborts, bus stalls, or kernel
-panics.
+> -		reset-gpios =3D <&pca6408_2 0 GPIO_ACTIVE_LOW>;
+> -		reset-assert-us =3D <10000>;
+> -		reset-deassert-us =3D <100000>;
+> =20
+>  		leds {
+>  			#address-cells =3D <1>;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703152215.1928=
-59-1-richard.genoud@bootlin.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703152731.2367=
+93-1-stefano.r@variscite.com?part=3D1
