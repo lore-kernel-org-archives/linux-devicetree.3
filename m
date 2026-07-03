@@ -1,119 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F2A3CBE7E
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 12:02:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3453C10A6
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 12:02:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783080167; cv=none; b=R9QZ6zw69xu7PSlEt0EPnpv3Hu5+Nx3RG5t/Qo9ocDRTg6NdsTNQY9+t/cWA2BVFXNbijydDb5pgzVqm0jTKNw89qc3mHlS1qQAfAmYiS3dM24axAmcxjoeuDoxptw3DbsyXsksggM+gE69DQhkommBTKNHg+hR18f3WHeDmhss=
+	t=1783080168; cv=none; b=bOLEiO03KGPo5saacVDVbKlnS7e7JB8p5QhOW0Q5hZonJw5ZUzaHx5BSKqpyFrtqy87d80m0sNciJjpULZihpf0OwuM9YmQ1E3y5hS6+7NDqdyJohqyNjJqmsNV8jr4QpmZSihCQj5Eihygd9OYeQrzDDPKcDWQfeWWA1ySid3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783080167; c=relaxed/simple;
-	bh=Ga8fxkmhVtRysrwAHQuEqU/NB1rFvG105KjQ/9gD+Z0=;
+	s=arc-20240116; t=1783080168; c=relaxed/simple;
+	bh=2FXm0wRzNDW+XPkhRl4d+1krW3yU1Bg71TxetOLLz9c=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RJ+i49xtKbChISuT+vpuCZxAV4TiygsBWe48ePHeG/5jeR2uCreGV/jh5ceR0ArfexjrBTLnXoYq1wN4jblvUoYTFuJhDQbkKfVXAEjy1Zgs8iFXHuiKpoIU5kluskzOTZ0ZrGvBk5xdYvCyneXki+wqH9/IfbAg6auaKnGuLgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+FCDf/j; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=eWtlBF/wazR963IFl4EAk20HdnbfT2TtqNt4x5ph+JW2gowN1IxdjWi+EzLxElOGydkHpLnp5iF6cbivsN4qhVQT5tQJCIVn1mK0wIfuISkKiB2pMYlrGyuC6B0t8MCtLHV2lhS1KMXWgatMHsiJq0jyn0dkx0KQnZrhK6BPlgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OfaXoLQw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+FCDf/j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF0B31F00A3A;
-	Fri,  3 Jul 2026 12:02:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OfaXoLQw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE1A1F000E9;
+	Fri,  3 Jul 2026 12:02:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783080166;
-	bh=Ga8fxkmhVtRysrwAHQuEqU/NB1rFvG105KjQ/9gD+Z0=;
+	s=k20260515; t=1783080167;
+	bh=2FXm0wRzNDW+XPkhRl4d+1krW3yU1Bg71TxetOLLz9c=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=W+FCDf/jePnfMYIOOTMKRWiu4B+w5aVNEXS94fdEfgkrnFz6WBG4lOEsPrQ5dCQQs
-	 pFfCmSZKvUPCaRMQo2m1m7JdVJj54biOt9LhfxmntKml5ysLswa6mNdNnpDPi75nY7
-	 ByPmQOEsKT2/b/Ed/AoECsPIES9etKt3iEqaCIFooG+YDf/9KcrYwsO/gaH/2ll/au
-	 BEIfVwFOg5J4EFW6RUN/nAh98joPErDRMKNPEGN23KVR7sNfUCQ63RyFWOqY1Ge08c
-	 i2nIXLDFdwzg71p4e0LTaDGB9i5Z3jX7mr/iINxnu5nvTla/fZFt6tHMUOTX4Pdfo9
-	 qiJlLFZct7W3Q==
+	b=OfaXoLQwcnyDnUcQ20w2VnTmkQc9Ck+6xshGcsXcQFgwPYbT2aYNPae2SFWP8vPSe
+	 DLipxMI38Oz813WsZ7B4D57lrEt84KULT/RgGagosuU74yqQ3vltbu1cMeQQkoZVeN
+	 Jzog+uuUlko80p3ihl8bXJgFDg1k7j/1NH2ijKa6zinJiVFLDeuvqRRQHBXJxJ3u4o
+	 03zurXCNz3N7z3tBPaVC3kl3vKtFrPqHLnuIMFcZuApNxStRqaJiuETTybMl7go46t
+	 Lf2H+WqGaUR5QLMX8O4EgKT4Mm+qTXFon8kiOszuD0Kq7EJ89XTbi2AsbJCAdL0B37
+	 mci7YVLTMRFUg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 01/14] firmware: qcom: Add a generic PAS service
+Subject: Re: [PATCH v9 03/14] firmware: qcom: Add a PAS TEE service
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sumit Garg" <sumit.garg@kernel.org>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260702115835.167602-2-sumit.garg@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+In-Reply-To: <20260702115835.167602-4-sumit.garg@kernel.org>
 References: <20260702115835.167602-1-sumit.garg@kernel.org>
- <20260702115835.167602-2-sumit.garg@kernel.org>
+ <20260702115835.167602-4-sumit.garg@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 12:02:45 +0000
-Message-Id: <20260703120245.EF0B31F00A3A@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 12:02:46 +0000
+Message-Id: <20260703120246.EEE1A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] TOCTOU data race and missing memory barriers in PAS wrapper functi=
-ons.
-- [High] Check-then-set race condition in qcom_pas_ops_register() allows co=
-ncurrent overwrites and unsafe reads.
-- [High] Missing module lifecycle management and reference counting for the=
- PAS backend provider.
-- [Medium] Resource leak when calling qcom_pas_metadata_release after provi=
-der unregistration.
-- [Medium] Missing NULL pointer validation for mandatory ops callbacks befo=
-re execution.
+- [High] qcom_pas_tee_remove() unconditionally unregisters the global PAS o=
+ps, which can corrupt system state by deregistering another active backend.
+- [High] qcom_pas_tee_get_rsc_table() fails with -EINVAL and aborts initial=
+ization when handling a zero-sized resource table.
+- [High] Broken TEE size-query logic in qcom_pas_tee_get_rsc_table() aborts=
+ on TEEC_ERROR_SHORT_BUFFER and passes a NULL buffer with a non-zero size.
+- [High] qcom_pas_tee_get_rsc_table() silently discards the resource table =
+if the TA requests a size smaller than input_rt_size.
+- [High] Lack of synchronization and module refcounting on the global ops_p=
+tr leads to TOCTOU and Use-After-Free bugs.
+- [High] Unvalidated TA-provided size leads to an out-of-bounds read of ker=
+nel memory in qcom_pas_tee_get_rsc_table().
 --
 
-Note: This review is provided in a free-form summary format without direct
-patch quotes due to system recitation restrictions.
+Note: The format of this report is altered due to system recitation
+restrictions. Instead of inline diff quotes, a free-form summary of the
+findings is provided below.
+
+commit c175d6ee38b74c2a77d95052360287597c771c21
+Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: firmware: qcom: Add a PAS TEE service
+
+This commit adds support for the Peripheral Authentication Service (PAS)
+driver based on the TEE bus with OP-TEE. It provides the backend PAS service
+implementation.
 
 [Severity: High]
-In wrapper functions like qcom_pas_init_image() and qcom_pas_get_rsc_table(=
-),
-the code checks if ops_ptr is NULL using a plain load, and then subsequently
-dereferences ops_ptr to call the provider.
+In drivers/firmware/qcom/qcom_pas_tee.c during driver removal, does
+qcom_pas_tee_remove() forcefully unregister the global PAS ops even if
+this driver wasn't the one that successfully registered them?
 
-Since these loads are not protected by a mechanism to fetch into a local
-variable, could the compiler fetch the pointer multiple times from memory?
-If the provider module is unloaded concurrently, might ops_ptr become NULL
-between the check and the dereference, leading to a crash?
-
-[Severity: High]
-Looking at qcom_pas_ops_register(), there appears to be a check-then-set ra=
-ce
-condition. If two threads call this simultaneously, both might check the
-availability, see NULL, and both perform the store release, allowing
-concurrent registrations to overwrite each other.
-
-Additionally, in the error path for this function, it directly reads the
-driver name from ops_ptr. If qcom_pas_ops_unregister() is called concurrent=
-ly,
-could this pointer become NULL and cause a crash when printing the error?
+Looking at qcom_pas_tee_probe(), it calls qcom_pas_ops_register() which
+returns void and only logs an error if another provider (like qcom_scm)
+is already registered. This allows the probe to succeed without aborting.
+However, upon module removal, qcom_pas_tee_remove() unconditionally calls
+qcom_pas_ops_unregister() which wipes the global pointer, potentially
+breaking subsequent operations for the actual active backend.
 
 [Severity: High]
-The qcom_pas_ops structure lacks a module owner field for lifecycle
-management.
+Does qcom_pas_tee_get_rsc_table() fail the initialization sequence for
+peripherals without dynamic resource requirements?
 
-When wrapper functions like qcom_pas_auth_and_reset() invoke these callback=
-s,
-they do not appear to pin the provider module in memory using a reference
-count. If the backend provider module is unloaded while its callbacks are
-actively executing, will the kernel jump to unmapped memory?
+If input_rt_size is 0 and the TA also returns a required size of 0, the
+driver allocates a 0-sized shared memory object and calls
+tee_shm_get_va(rt_shm, 0). This triggers a size check failure internally
+in the TEE subsystem because the offset (0) is not less than the size (0),
+returning -EINVAL and aborting the setup sequence.
 
-[Severity: Medium]
-In qcom_pas_metadata_release(), there is an early return if the operations
-pointer is NULL.
+[Severity: High]
+Could the TEE size-query logic in qcom_pas_tee_get_rsc_table() pass a NULL
+buffer with a non-zero size to the TA?
 
-If the backend provider is unregistered before the client releases its cont=
-ext,
-this bypasses the metadata release callback entirely. Does this early return
-permanently leak resources, such as DMA mappings or shared memory, that were
-allocated by the client during initialization?
+During the initial invocation, the driver sets the parameter size to
+input_rt_size but does not allocate a shared memory buffer, passing NULL.
+Additionally, if the TA correctly responds with TEEC_ERROR_SHORT_BUFFER
+to request a larger buffer, the driver treats any non-zero return code as
+a fatal error and aborts instead of proceeding to allocate the buffer.
 
-[Severity: Medium]
-Wrapper functions like qcom_pas_shutdown() directly execute callbacks from =
-the
-operations pointer without verifying if the specific function pointer is
-populated.
+[Severity: High]
+Will qcom_pas_tee_get_rsc_table() silently discard the resource table if
+the TA requires a smaller size than the original input_rt_size?
 
-If a registered backend provider fails to populate all mandatory callback
-function pointers during registration, could this lead to a NULL pointer
-dereference when the wrapper attempts to execute them?
+If the TA optimizes or removes entries and returns a required size strictly
+less than input_rt_size, the driver falls into the else block, sets the
+output size to 0, and returns NULL. This causes the original static resource
+table to be lost.
+
+[Severity: High]
+Are there missing concurrency protections for the global ops_ptr in the new
+core driver design?
+
+In wrappers like qcom_pas_shutdown(), the global ops_ptr is read twice
+(first to check for NULL, then to dereference) without any locking or RCU.
+If qcom_pas_tee_remove() is called concurrently, it sets ops_ptr to NULL,
+which could cause a NULL pointer dereference. Furthermore, since the
+operations structure lacks an owner field to pin the module in memory,
+the backend module could be unloaded while its functions are actively
+executing on another CPU.
+
+[Severity: High]
+Can qcom_pas_tee_get_rsc_table() read out of bounds from kernel memory if
+the TA provides an unexpectedly large size?
+
+During the second TA invocation, the driver unconditionally trusts the
+size returned by the TA and uses it in kmemdup(). If the returned size
+exceeds the originally allocated size of the rt_shm buffer, kmemdup()
+will read past the bounds of the buffer on the kernel heap, leaking
+sensitive memory.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702115835.1676=
-02-1-sumit.garg@kernel.org?part=3D1
+02-1-sumit.garg@kernel.org?part=3D3
