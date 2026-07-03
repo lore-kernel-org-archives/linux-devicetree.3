@@ -1,131 +1,155 @@
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480623D7D7F
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 13:26:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783085170; cv=pass; b=jCtgyiEydSTk9E4OlfQufDORe0n5u56N5koYvV3fX2Ua6diYKdOA3BH6jnW53P5kYJ7WG28u1pzdTBKiP5wQmqcUhqKcgj/05oFDhSGyM6drsuj3e7dUBfTiysgbABoGnI1+UnvhkzFkg4lbCc9H+OKRzUVINbUHqITuUxTgqjM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783085170; c=relaxed/simple;
-	bh=P4zhLhFMp7O4gmnRm5uDgMPugvo8rGAGH9W/oNg9Rsc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q95s6ja7ZB8SGSx92IAmZQ8IxUr0zeVNHdIV+2huIhAVXRm8XmS2g2E8VPLHNHtbANJnQZXyHzm8JNaeu0Xwby6HpgdyGaXV0EwwFsMCQej15prXiGMziEN1/XUudZeOwJWF6C7p0gOaLwL/KgALhI3Ebe/yurFeYqsngxAsvNE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=KJrt8HfN; arc=pass smtp.client-ip=74.125.224.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7E93C9890;
+	Fri,  3 Jul 2026 13:30:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783085433; cv=none; b=qfJ1bsWSokJBLDdnCELBukNn7ej36DPg15ivdWsq6xO/WhJ7XJnxjaK0jQSxMe0ir4ZxuCoxBcc+hJFBnJFP85rqPiA2lTbHXPpBQljR/HovA6KBEcpqipjtngjamszntncJ2tCBzgs3LirNGKQG0PnvNqN7ugCuALTZK4ZPl+k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783085433; c=relaxed/simple;
+	bh=1yGfD2Bn0HIgjtbHahbjnqvrsiBGIr12/iGNAQIsO4E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=GTXVLRHcxj+BDhN9P23U8h2BRydNgR2wFNF+GDXwD0RYQF5JEGRDs9X7jl8/z2zFrpnNjd9OilXN2MQHjCMqJjD1DYvZi6Mv3Z35VBp2byK2W3OpxsI9zcDNQEdZqsj6x2Lv5suq9bv9EtrV/AX7gTVNZRW9orVhE+cnowsBG5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=PKJdgbvB; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="KJrt8HfN"
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-664d35b4777so659805d50.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 06:26:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783085167; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JvWR9c4iuD0PU/y36kUps4YRI7FglURDdewQ4wiADWuAcypmlSebYaoo4VgdUVMESW
-         dUZlp25e+Cr6DCfIV6PeE1iDTLDW2UU6nsG8O7U+wOkB9GGcdek+lpDdl3HcToaI5KLN
-         qZ469Yeskvhw7r3b/TszVjKHyTR+6wP5uTzPQTs4s/VKIkKJl8DJC01SDmxbEFcjD7Bo
-         prA2hBTsk6o9AbQx8EngGYIzFPug/NAM3Dr5agwBMl/1NfNDl04DsrAZXIB7oZ4nT5lx
-         UQRhEfrvF8ZT3KnjramDtYvQTmKSRBQX7xLOiS6bM+QzaLcQHPhBeDhy0dwrTKO1rjoa
-         A9Uw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=P4zhLhFMp7O4gmnRm5uDgMPugvo8rGAGH9W/oNg9Rsc=;
-        fh=MJLO7yXTVXbU/XTONd/kUwXYwJnuDOFhtZkGmpjm7tQ=;
-        b=ZfLCP/LN1noAZ4ljEPy4D2QmtW6/XLoafjhS9IvG/oPcQLq2hQQNmY3zntSwNmCSSh
-         KGSABDU+W515gPlWyxWc30W2elkF/xDm0eoVCFPDqsBdxYYl7DT6bn+LwTqNrkx5SlNb
-         PUAdUIw4tlTH7OlJ129u7G7rmemjEY5Jv1rBa92jm99W0FpTtyT0uckCUAeDvVc8Mf9A
-         CsaZ795ezm+MTeBjvR/L0a9TYbpPXsMGIep5J/O/r3BXaNql72AL0a60Gc9vISJ/IcQV
-         V55hrcjufXKSoXRJg47bm5xq8yJBIzE/cuzIDyQgMcLi2x72b6Lxz6UVkc3j1GgcNNL+
-         /Mhg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1783085167; x=1783689967; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=P4zhLhFMp7O4gmnRm5uDgMPugvo8rGAGH9W/oNg9Rsc=;
-        b=KJrt8HfNHAIjRwl1rngsaRwQF/9FG/CBUQfLIs6l/S0TOIfaVompOtGsf8X3bPYz2D
-         RpHkamXeIR2v+GJi9wvXvM4EG3fqa1ExPuTLfmCtACLkWQ1SQRgq8Jnf8+Y6no5X9ShD
-         3ZnIRWkysCQxSmaWU1XoTY7M6QhPv0auFgUNY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783085167; x=1783689967;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=P4zhLhFMp7O4gmnRm5uDgMPugvo8rGAGH9W/oNg9Rsc=;
-        b=gI27pL9CtthM2xuPiwzIrDLDW9Fp7md+kGWtsMWsTGuHmrbGWk/Foowx46XinZofVh
-         OdiYx6Xz9SNmGnIhA871somRbe00YElchvbgHQYJbfNO/Z5WQDj+6Alhpbd8X4McOTwC
-         fl5iv0KnGQBdlFtb+9gBH62TfpOG+6UjGzutosZMmjR9JxQ8GlcdUVuJM6yNsAgYYkF2
-         d0eY2yBpPiqyabqHPJMfeZgNO+x9B39i5LV+jZ389HXNIJNIstaAoz5dAcY7JANmKpYq
-         KFLUgWUmn/zSmqGwHgMUOSjb0/yvvzADI8k4JWTXz0DKbAEq9H7WPUh+0+i+JST24lnu
-         sVxg==
-X-Forwarded-Encrypted: i=1; AHgh+RpwYWTAnTnvY5TQFpNzCVy0iWACZ7L3PBPNmEbxRT4BH3vyQj/gHby4dzWOAwM/Y0eytoImWkzC7okQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YyTFjlBxy3qGCYSA6swluQCJgiyl3pr/Kgx/VtGGD5ClBQs3yf+
-	IirB2N/XaCiFpIBSYD2at8dqd4dnTMd+dnV1lmYufrSs3tyvpvlHxpJ/OP9VfqK5AXSVAeCUKrw
-	M9oZPHK6ZdTNXB9MyZN+v0JSb2XNcY2P94B/yEPNI
-X-Gm-Gg: AfdE7cmV+BpKcm/DRijTss0H0MeWRH+afOiHoIxYin8X8cccujtemIR8r5IoBc1uTSy
-	xS5uyGeCKqwbkCdg5+joByiCzPGVSBxN0vPGf06u64E4Kt5aNGErPOeacIIGILeCt0A/lKZ6Etr
-	E105zRShAkU6MixRe/17zyBiEpVp9Iy7Fu665F7j/Wlu+9mNRASpUVVMge1yllWGZl7jsCMhp48
-	SrDgmPhDfXPn32DhjO/ZgTjbRs2chRZ2erh7K3ufwmph7hgjdwmdyB+Ft+aOf/Sk6MIdCQsuTIb
-	Ad1yvUkdv3SJQqfXco4E1UyEkU0wiDy+hx/klA==
-X-Received: by 2002:a05:690e:480f:b0:664:fc22:36cd with SMTP id
- 956f58d0204a3-66521ad34dcmr7426372d50.43.1783085167252; Fri, 03 Jul 2026
- 06:26:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="PKJdgbvB"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 61215C49F56;
+	Fri,  3 Jul 2026 13:30:41 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 81ADA60300;
+	Fri,  3 Jul 2026 13:30:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8C201104C94BE;
+	Fri,  3 Jul 2026 15:30:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783085428; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=5mFtqUYrNt5Jtcz5Xx0Xzx69WhDueky464L1flUsojc=;
+	b=PKJdgbvBwLLqmMSoSaXjSkq3tGVHqMcjpjd5puIh6yH03DJX7vw96fFOdAarNP7f+BhGHn
+	+9NyGhDJqf2uueK1833RPQDkoYzHmOtLhAF9erYuWoLt6e/H2eRA1cpjoqkzUCarHYbJl2
+	BNoHXFDd1X5M+z4/dRUlZ38YcFKsK7NduHk3fXp2uONjAolnyPCH5ulcC+IiQPvkG18mKl
+	VPMk//ST+d4Q0zlz5XwGvCiV5dy5OnOp2TNPy44DoT5KEQ55tNTfD4vg1YWVGtsGA4H18l
+	zLT98L+qt+ZUUt0rY7Hu726czmiwsF3cb20OnGFHVgoR4A8rIBS87WBmw6C+Yw==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Subject: [PATCH 00/12] soc: fsl: qe: QE PIC improvement and add support of
+ IRQs to QUICC ENGINE GPIOs
+Date: Fri, 03 Jul 2026 15:30:08 +0200
+Message-Id: <20260703-qe-pic-gpios-v1-0-6c3e706e27dc@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260703110317.1283411-1-wenst@chromium.org> <20260703110317.1283411-6-wenst@chromium.org>
- <akeyxn390mVmYo83@ashevche-desk.local>
-In-Reply-To: <akeyxn390mVmYo83@ashevche-desk.local>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Fri, 3 Jul 2026 21:25:56 +0800
-X-Gm-Features: AVVi8CePOG6OpnrlSpGFhkpL2GOtwCFUk_NB8IIc5qFTOLO5i-BW3OK69XKCfdo
-Message-ID: <CAGXv+5G3ETTGbgjWJCbQjn9yvRamx4GHPxjWPgmy_aXWUxm0iQ@mail.gmail.com>
-Subject: Re: [PATCH v3 05/13] usb: hub: Associate port@ fwnode with USB port device
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>, 
-	Alan Stern <stern@rowland.harvard.edu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XNTQ6CMBCG4auQrq3pD5TqynsYF7QMMkYptkg0h
+ LtbYIO4/JJ53hlIAI8QyDEZiIceA7omDr5LiK2L5goUy7iJYEKxjEv6BNqipdcWXaAslyB0qnh
+ WSBJJ66HC95w7X5YdXuYGtpsa00WNoXP+M//r+XS3pBXbpHtOGa2ktiAqJjSkJ+Ncd8dmb92DT
+ PFerHm64SJydSgMcK6rMjX/XK55tuEycs1AGW7y0gj5y8dx/ALAq6umOgEAAA==
+X-Change-ID: 20260513-qe-pic-gpios-073e284615a3
+To: Qiang Zhao <qiang.zhao@nxp.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, Paul Louvel <paul.louvel@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, stable@kernel.org, 
+ Christophe Leroy <chleroy@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783085423; l=3216;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=1yGfD2Bn0HIgjtbHahbjnqvrsiBGIr12/iGNAQIsO4E=;
+ b=t2Y0LBJysR5oFAc3K2X2asCnqDjMttKGixZaUW0InOOvdj8WRyWoVMgiIRfx74m+Uoi1nrRnF
+ O217geOIZWNCZVj68BVRyl0OWCN/WB+0HXOC0pdo0xoA6YKiO/eAq+r
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Jul 3, 2026 at 9:02=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Fri, Jul 03, 2026 at 07:03:06PM +0800, Chen-Yu Tsai wrote:
-> > When a USB hub port is connected to a connector in a firmware node
-> > graph, the port itself has a node in the graph.
-> >
-> > Associate the port's firmware node with the USB port's device,
-> > usb_port::dev. This is used in later changes for the M.2 slot power
-> > sequencing provider to match against the requesting port.
-> >
-> > To avoid potential conflicts with ACPI firmware nodes and then causing
-> > power management issues, only assign the firmware node if the hub's
-> > firmware node is not an ACPI firmware node.
->
-> Now I'm more confident that it does not mess up with ACPI case.
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+This series modernizes the QUICC Engine Port Interrupt Controller (QE
+PIC) driver and adds the ability for QE GPIO pins to generate interrupts
+through the QE PIC, completing Christophe Leroy's prior work [1].
 
-Thank you and Bartosz for the reviews.
+Christophe's series was partially merged; patches 4, 6 and 7 did not
+make it to mainline.
 
-FTR Sashiko pointed out that this is likely leaking a fwnode reference.
-I will add a fwnode_handle_put() call to usb_hub_remove_port_device()
-in the next version.
+The series is organized in three parts:
 
+1) Add missing chained_irq_{enter,exit}() calls
 
-ChenYu
+   - In a chained handler, the parent controller need to mask and ack
+     the interrupt source.
+
+2) DT binding updates
+
+   - Update #interrupt-cells from 1 to 2 in the QE PIC binding so
+     consumers can encode the interrupt type (falling-edge or
+     both-edges).
+
+   - Convert the QE GPIO binding from freeform text to DT schema.
+
+   - Extend the QE GPIO binding with an interrupt-map (nexus node) that
+     maps GPIO lines to parent QE PIC interrupts.  This approach was
+     suggested by Rob Herring [2] as an alternative to using compatible
+     strings and driver data to specify which pins support interrupts in
+     a given bank.
+
+3) QE PIC driver refactoring
+
+   - The QE PIC is a perfect fit to use the generic irq framework
+     instead. Perform the necessary changes to the driver to convert it.
+
+   - Minor cleanups.
+
+4) QE GPIO interrupt support
+
+   - Add a to_irq() method to the QE GPIO driver that perform the
+     mapping of the GPIO pin to the parent interrupt domain, allowing
+     GPIO pins to be used as interrupt sources through the QE PIC via
+     gpio_to_irq().
+
+[1] https://lore.kernel.org/all/cover.1758212309.git.christophe.leroy@csgroup.eu/
+[2] https://lore.kernel.org/all/20250919152414.GB852815-robh@kernel.org/
+
+Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+
+---
+Christophe Leroy (1):
+      dt-bindings: soc: fsl: qe: Convert QE GPIO to DT schema
+
+Paul Louvel (11):
+      soc: fsl: qe: Add chained_irq_{enter,exit}() calls in cascade handler
+      dt-bindings: soc: fsl: qe: Set #interrupt-cells to 2 to support interrupt type encoding
+      dt-bindings: soc: fsl: qe: Add support of IRQ in QE GPIO
+      soc: fsl: qe: Use generic_handle_domain_irq()
+      soc: fsl: qe: Iterate over all pending interrupts in cascade handler
+      soc: fsl: qe: Handle spurious interrupts
+      soc: fsl: qe: Convert to generic IRQ chip
+      soc: fsl: qe: Rename irq variable to parent_irq
+      soc: fsl: qe: Rename host member to domain in struct qepic_data
+      soc: fsl: qe: Remove useless struct member
+      soc: fsl: qe: Add support of IRQs in QE GPIO
+
+ .../bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml   | 108 ++++++++++++++++
+ .../interrupt-controller/fsl,qe-ports-ic.yaml      |   4 +-
+ .../bindings/soc/fsl/cpm_qe/qe/par_io.txt          |  26 +---
+ arch/powerpc/platforms/Kconfig                     |   1 +
+ drivers/soc/fsl/qe/gpio.c                          |  28 +++-
+ drivers/soc/fsl/qe/qe_ports_ic.c                   | 144 +++++++++++++--------
+ 6 files changed, 232 insertions(+), 79 deletions(-)
+---
+base-commit: f1b7f9c6e1a7fc549f37cafb48d233c9f7c26adc
+change-id: 20260513-qe-pic-gpios-073e284615a3
+
+Best regards,
+--  
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
