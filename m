@@ -1,80 +1,82 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6B532C942
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 19:39:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712A93314AC
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 19:39:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783107569; cv=none; b=ONmUbJYVzcFjai+9LaG3CVX2H8ebKSG1nU7Tbwu4qHVMUZYo+5CMUtLPuMGAMdyldzZ4D+yF1iFoDYZHytCpUxA8HSn4z/8RjMM+5k0HfEkM589naKlIgbexZlzaqv+YFRZf5DiNnfwJJrHiKYWxpWaBWTTT/4OkT7zRuujdI4s=
+	t=1783107594; cv=none; b=AhrbVInkmqM6fq2BXBAN6e1c6eWj5QyUrlJ8WMrX45pF1POlnHj6BLH19saZOpoZSFLG00/ndVdpXlP/foy/lVObQYsPBZu2TYy9rb5SI/dgQ7NknWacUZEspFhH7wYRs/PrwsXDqflBVeocVX2EscRF30h1oE4KtBiQdVDrHMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783107569; c=relaxed/simple;
-	bh=gf0y849jqsWicWT8x2zXtY5gzlbXBv3ZHwVF2zzNRiU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ilcBRiF3zuMm6dDscP6lQRUHq7CcIy+BSJv7dGkSFeTOT51QH5mxlOMG9N2rZQH5/g7X/6mhNJNyhgUFrIEhMMHAjn5NB5vl45C4Sue0QUoFlfnjk6dws4vRFTBwAvSCfLItiGTJNxXx1SD+paJGk8W0KVm52CT/jfZjw8g9CWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YEMeysY1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L4su3hCC; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1783107594; c=relaxed/simple;
+	bh=cqEZRJv7tWTgKRoN4adZzdInLmkRCuJ5Uo0VyqJuYaU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sS3H9nLRqjTdU7KfLlaKy9S8YX2h4WLPnoK5R1GmP3FpuVvrpmcrthmmxGNC704BfWWJmGGhSGA+Zan2CzWaZVW2kfckQqAjkmqYs+7s1XQWzcJiNZO0R7yKTDUziO7TcvPxIAa+69DhBlehwDsadMXQpC5KMX2kyQrRYRLUsqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iZuu44D6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=imCz7XTN; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YEMeysY1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L4su3hCC"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iZuu44D6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="imCz7XTN"
 Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663HjCok686575
-	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 19:39:27 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663HjCh8686578
+	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 19:39:51 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=yuDgKoAlw/JRHunDNfGXYB
-	YzhSRLVnjx2xmNmMEK1vs=; b=YEMeysY1/myhDao0i74e7TNlV74ktXTCfMwdq9
-	CR3QbS5AITeviE8hf9EJ30WAllVldtcYL4AMMm0/LzjQKzr0t0eqDF0S43incuSV
-	MyApeWy7M1IbpM60LNShiFzTpmwg+/W0PKTj+Lp+cXYVgARiHsuxhXD426SvD7cT
-	GGZrPR1QcL7iICOr24d23aBH8a/MPY5danZVa1/zTiMmF2fSUTDZMyH3oHPCfVAv
-	4nbvlJJiytEOZCVzenusm2J4e5XUbEHMVWQY64oswPjfiGG059bwY0hXxdENEoJ/
-	sJbKqjoPigEwtHk2s+fe6Ba9Tfz1f/tpFlGt1x1q0Mz2ipmQ==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f64b5brk0-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=kAqGWShsALr
+	UvOo44yJ9PZPqBuVxxzDIDv0SXARnsDY=; b=iZuu44D62fDE9nUkMGsQ/kikCWN
+	vJtcLEgw6+dGCeIIHuOlMsUIpFKZZGJPJqfdF+O1SYEhJ9Ewxr3bmWpbtRmLiIqQ
+	jYkNIvEv+KCpR6MtdXix1MGky2N2ZQ+IKKh/NsqwJzV4809aM+q8nNtoVSj4h9GS
+	7ZOJF8MX23ckx9HxrND4qmrfOFK47QtXOdWwXxI5gur6l6dxQmmA/LR6so3jKGq/
+	W7A00TMFaZJ0ko+VVC0tHFFvu0ryV81DeIP4S6UmjKnzb0SJmxCATCZFjAZe9zfa
+	KCzmbOBkJT97xvyMzhw69zt86W2jJf7+4G93pb8Mz+QzA56HX9qkqRm3E6A==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f64b5brnn-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 19:39:26 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c891ed872ddso1481015a12.2
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 12:39:26 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 19:39:51 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-37ca4367860so2242064a91.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 12:39:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783107566; x=1783712366; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=yuDgKoAlw/JRHunDNfGXYBYzhSRLVnjx2xmNmMEK1vs=;
-        b=L4su3hCCMdFYIuBJEM12NFaEaRw+ZWrpRoUoyVEDZh11YUI4DjvK9ddaNZ0BMExuOd
-         2hZlmHNXLfT5J8fol4KPgg59lbmOlBJHJLvtyeCImy1jF/kSMAwbrvs4EsymejeyhoUS
-         /D69VBuMEU9+bQrWlCo9Q4tGeOgT5oF8uflGGrEJlvxUMOhJacFTLRwWMaWR97u17Rpi
-         xXWAwefS+ZCjHSKA5lVMOmvVHyBlDrgnI830dGEmuQEet0ynOmFsg9X8jg2fsX8v2jSh
-         lnK1qZBLx5Yh+mty7iPWOejD9hF4OZEM8wC0ZwWLIYTv36W4CCsUu9hWMxrpqNm130fL
-         nHbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783107566; x=1783712366;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1783107591; x=1783712391; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yuDgKoAlw/JRHunDNfGXYBYzhSRLVnjx2xmNmMEK1vs=;
-        b=OMybU5+8Wk5RLiKQdfmSBu2tnM7xPRgG/GQtLBk4XVu08TjGPUVNBDxf+qQIY4ukSu
-         tpfdXSOIwvxmEzNfqD3T1XtNMFqeWyuKnLsTkt6ZpjNOms5k+7z67je0csUswpLqKssb
-         DxgKmcWsjhbn8UAk+qB4R7mICZ/klJe7NPaFgV9athKje9pMhHTmKSZjWnsXXadtHSAR
-         MjvZarfjY1QQ78KKlU4kxwkoUie7H54mfp0q49K6dcCIJqnr87pXNf3hmt6fKQPcdX94
-         9KPlb3sahV304evdUdXd4dpChpbecdJ0Y2mmX06RWRVVOqFdg1Sz5PXISokrl3Lc8sjc
-         v7Hw==
-X-Forwarded-Encrypted: i=1; AFNElJ/+0RR6UfyQqndT78x5Ju9lmB2iFyDf/akyi8RFZlsLlWcSFJh1ldzkOJZRMfhvvIXBNGdUPAm3WtVt@vger.kernel.org
-X-Gm-Message-State: AOJu0YwG7Wn22WUvu1Dg1T7vaz7a6TyI/Hff639HGORWxoFlbUAOw92B
-	uHVXpKpVD66zH63riqpBiq6uJAGi1nICEvu9iYTKZ0DnffOxrOeQuKnP+IZh+EG5ZY5xf38Na0r
-	TN7o/n1JcGhb+mkopbDYtv1hOivVqjYfjNLp5pQmClLukHhRNpPVtO+QvlGMkD4/N
-X-Gm-Gg: AfdE7ckMKBm6hWbj3Cn/Qlk/xoxV1Q3oXBENzO86t5pQD18exQ7DHwJKsevH0hZUA8u
-	PWhauh7M+DH41eg/db38rDhRfD1RwJXgnDrY6/xHZlooD4hs/f/VwNkbUOjr/k/BKB72MzHWm7g
-	HrfWZHzA5odwHbbI9z3qD4biPA5z/b3w9GykRQcV2+GHad58rNvXzdIVxs5IBExKXemc9wt1kU+
-	alVjIP60lJtPs+CFM4pA+DNYBYYJaiqf3e7WaDsYpt5xF1PREAeTH9sjEiTBbKn9rcqByvybIZP
-	E01e4sObBNvg6daFNO4pXVSPXMhq7qUzjPOvb8XJE0oJ23qgdOY+VrOtGcRWya98Jd0Ki2PRhBx
-	PlFgoAoUerVmQ4sj9gcPkaZGQ5A37jSlX2mXKRQ==
-X-Received: by 2002:a05:6a21:4c81:b0:3bf:e291:496c with SMTP id adf61e73a8af0-3c03e298475mr701941637.17.1783107565966;
-        Fri, 03 Jul 2026 12:39:25 -0700 (PDT)
-X-Received: by 2002:a05:6a21:4c81:b0:3bf:e291:496c with SMTP id adf61e73a8af0-3c03e298475mr701865637.17.1783107565344;
-        Fri, 03 Jul 2026 12:39:25 -0700 (PDT)
+        bh=kAqGWShsALrUvOo44yJ9PZPqBuVxxzDIDv0SXARnsDY=;
+        b=imCz7XTNXbbxst+q2sIytN6PFNeB73MLPbAvkC1cHwORS1GGW+IMJGRWSF5dap8Lpl
+         WnSCd7s9Dm7NTis237Lwd8OSC2ys+uLI/5JV1vFO81PgU6kto8u6rlHDDjAYAXHv0JEZ
+         UjJkDkuLVmFYDdPrk8TPC4tnXmPnnIIor4xdZcle9aOVUpC2iCL41L8C207+PzjVu0P5
+         ObdtEf1BzK/Qm6exA+zzkX92CsH0MDT1kaOf0iJYbtbNY9mFtzGB27IstY8fKOmXgzfY
+         EYcI7V1XRwpJ6CTprWCOl0IzDVN6A/zpkbV9Gt7yIzmHmouD7f5hDOb1o4RAT5Gkvcgq
+         YdWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783107591; x=1783712391;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=kAqGWShsALrUvOo44yJ9PZPqBuVxxzDIDv0SXARnsDY=;
+        b=fx+OPWbMzMIV2CgvMpYKoNzAsf0BxDLKOGJsipnNNm/ca5jdy4RoaJsCxDMZU4zt6H
+         qQHZOB75qYE8fkQidoDJdkl76Vs5p40PNWulEE6ZitOBWbQt9ZX1TVVmiV/72LTD3oyn
+         C6nyQZ/GefsaMxu8LFLyUtLl4iPug0pMERbg4RDkw9lQlxV27bpMXlHyeqH8UzDw0MBF
+         zdgIbvb/9pkLdm5mAjslkuD5qHcM4nk4QjN19+jDFWW5Rpx/De/zXKMYRBO1GTzXfK58
+         Q98oCajmH2g6tHW5o9RP1IdESjP3vRMuKUv5X41PVDI77nNhHBxWjdPFmm3bE3nwszpa
+         0MsQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpVw/t4Ton7jEOpViDltzsfG5sGvlleFOMuiqmHlKpZGO1/fbKmnsp3p9L1YG/fOjlv6VIucQFJT6Qd@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJesmmrIdH5yX9OYJCGb1afHAYoGb66TtDBEjtRK3V0QeitxI4
+	lUoq7YMx8514Y8Xt6fjWCvmyyS2xUFQPAgI7WCZcDMBoTTgR+pj10ZwageOAAiPofa+Y5dWEve2
+	/WSj9XtgT8/wBS8MjQdd50vSPas5rCt72TemO9+lW/x/JyFg488Nt+TI7ICN9+V7u
+X-Gm-Gg: AfdE7ck5Qg3T9W7uVNIwev/CQFpZ/AuVvBOF/7lG+Uxc7tsmk/12lXnoTVui4/vRmHS
+	0YbXDufqy92KF+YzUEjSkk1DH7IaKMHaWE9VwxeqD66a1jhMXbWyDV+0WYL5MwXpSgf+gMBmPuN
+	DtA61j5C7hcbeN8NDqYKje7a0QiGwCH1o40ujYi3NK5q6+hGuaxy0QVN3x4Kouj8ojSdOU8JcmW
+	0hzaQzZnO4GhFJuGjdqw3knHCgvYlihoxECOJB9+AK6aMpUd4uDGFrN5m5dZEh8bFp/+kWYkROm
+	Sgfd0fYmUZ2E1I6s2GHmbWy/lriFSkEiMt5k0sert0N1clkaZF7eIZ5Eb7sMDeAiWNlCw7OEs+c
+	ooKdF9V4gTfm9u7GQMDCpKeAOownpLZ/DrE21qw==
+X-Received: by 2002:a17:90a:e70c:b0:380:ce69:2669 with SMTP id 98e67ed59e1d1-381122ebda9mr5933746a91.9.1783107590252;
+        Fri, 03 Jul 2026 12:39:50 -0700 (PDT)
+X-Received: by 2002:a17:90a:e70c:b0:380:ce69:2669 with SMTP id 98e67ed59e1d1-381122ebda9mr5933658a91.9.1783107589588;
+        Fri, 03 Jul 2026 12:39:49 -0700 (PDT)
 Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f290b6bc2sm10065845eec.27.2026.07.03.12.39.01
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f290b6bc2sm10065845eec.27.2026.07.03.12.39.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 12:39:24 -0700 (PDT)
+        Fri, 03 Jul 2026 12:39:49 -0700 (PDT)
 From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>,
@@ -149,38 +151,39 @@ Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
         linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
         linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
         imx@lists.linux.dev, sound-open-firmware@alsa-project.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
         Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH 00/42] of: reserved_mem: Introduce devres helpers and convert drivers
-Date: Sat,  4 Jul 2026 01:08:13 +0530
-Message-ID: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH 01/42] of: reserved_mem: Introduce devres-managed initialization functions
+Date: Sat,  4 Jul 2026 01:08:14 +0530
+Message-ID: <20260703193855.110619-2-mukesh.ojha@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE5OCBTYWx0ZWRfX6f4+UIr0j3m8
- Ntx4Ku6lVP9KqYFSvBhQKovNcfNHEM/iw26Rbbx6hTYltTtidGLNvzRneLfVxGseg42TtDre092
- eDT1XjHj/JHY//2HQIX0mUn4ZU+MPho=
-X-Authority-Analysis: v=2.4 cv=FOQrAeos c=1 sm=1 tr=0 ts=6a480fee cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=c_1ikP4J58vCyc_cPHMA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-ORIG-GUID: jDY53ZJMamaRe90kLJb3XTFwapQHznz3
-X-Proofpoint-GUID: jDY53ZJMamaRe90kLJb3XTFwapQHznz3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE5OCBTYWx0ZWRfXwvlijkqV8hz1
- T3yvh9CQab9JJyuK0lZWLdupMkSY+WV3xRngau1xQl08FhSCgngZszcF85ZYDVCtJ4I9279lF9F
- uJAHGpXUP/pITgIvM2Y07QWIK2kSJEDN4WnBqZ19uLUzd4/zRHBYYbNgwS/dGFnvA3hKgucL7he
- Z8EUYeWn4aDnQplGi9dx7i2oGRxRKS9Em5C9carQVlagIoOlqEsTaXmTP1GO6o+x1ze89QGzGLw
- Ggczu/Crs+j4xDRo0USKP8nrsdem/O+wjrf3SrHsSqU7mn/jFEnN6E0rwFoxDoiYwfY+lCTN/W2
- HO6X5HvzFsX+TKyvDKC2NXs3HS/wokUgIvt15FaFaItolW74ZcuezEXTveSiQPg31wXzTVmZOkE
- YjhchtoRpDPb+RaNua94Y6/h66rh2dXzmpWswYTzNgShoaarxBcTZPBc6iKrayLcYczrPUudV/E
- UmS0HfOCamPF+TMC6yg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE5OCBTYWx0ZWRfXw4ZGeVcShg0g
+ iBq/VyFJV2vET7F3Nwn4v7sUhaSfRrBQgvCSZ4lBmEkRh6qKsDwZCO1siEElJUqZ3kxnumi5IoI
+ linlTXvPjWgvX62+UHPgzFIYxmeAjkw=
+X-Authority-Analysis: v=2.4 cv=FOQrAeos c=1 sm=1 tr=0 ts=6a481007 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=C96w-YAaP-Zupzk_Mv8A:9 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-ORIG-GUID: yioXcmJGYjMK1CUgC9PzB7BQY1M_u12b
+X-Proofpoint-GUID: yioXcmJGYjMK1CUgC9PzB7BQY1M_u12b
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE5OCBTYWx0ZWRfX9PQbElFc7chJ
+ TkCW+r+Hit2/HjKQNxa+BXS1VdQEup138oy0KkFVt/FrFx3NQQfAMb0r9Pf7tZnIuEjlQTgSN9K
+ bjvucIZTXLSOGPQzmwT52v/GBSLGq48gnjq2jcCmvGw+ZmRdswZA1BUKCmj13G9t/AjL+3HC3V1
+ AHVKgXq3duZ/NsrNHGI9QTZqrXY7iY5S4OhfWOKUes8SchSuHxM1l+zBggDmPxesUI6aA1c9+b6
+ JiaBpLKMEIM9Sn5PyxdoOcWJaiAqEM5UWT5GuXn6lr8Uhw5vdmT7lkNPOvFDhX9qiXKYQuO8uvZ
+ qdrCggGP5Fns7xoEWdeH1lNS5stMMFG8pe1bDwltcjKHjNSDq3XXOeUDX0md62eUUmPwSP6Nboa
+ de6lP2ZxSHZELDiKEmH9ptsLPPudGd0vmoHgg1y5ZPIy99WcYqM07x1kpYHAkK+0gJUxyxPmURn
+ Cukj3vCaMKR7IAV9iEA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-07-03_03,2026-07-03_01,2025-10-01_01
@@ -191,114 +194,119 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
  definitions=main-2607030198
 
-Drivers using of_reserved_mem_device_init() and its variants must
-manually call of_reserved_mem_device_release() in their remove and
-error-unwind paths. This is repetitive boilerplate that is easy to
-get wrong, and several drivers have open-coded the teardown
-inconsistently or skipped it entirely, leading to dangling reserved
-memory references.
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-This series introduces devres-managed wrappers —
-devm_of_reserved_mem_device_init(), devm_of_reserved_mem_device_init_by_idx(),
-and devm_of_reserved_mem_device_init_by_name() — that tie the reserved
-memory region lifetime to the device, releasing it automatically on
-unbind. The remaining 40 patches convert drivers across the drm, media,
-ASoC, remoteproc, firmware, mmc, memory and misc subsystems to use these
-helpers, yielding a net reduction of ~90 lines of boilerplate.
+Introduce devres-based helpers for of_reserved_mem_device_init(_by_idx)
+to help fight dangling references and ever so slightly reduce the
+number of boilerplate deinitialization calls.
 
-This series depends on  https://lore.kernel.org/lkml/20260703164457.4040457-1-mukesh.ojha@oss.qualcomm.com/
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+---
+ drivers/of/of_reserved_mem.c    | 41 +++++++++++++++++++++++++++++++++
+ include/linux/of_reserved_mem.h | 25 ++++++++++++++++++++
+ 2 files changed, 66 insertions(+)
 
-Konrad Dybcio (1):
-  of: reserved_mem: Introduce devres-managed initialization functions
-
-Mukesh Ojha (41):
-  of: reserved_mem: Add devm_of_reserved_mem_device_init_by_name()
-  firmware: qcom: scm: Use devm_of_reserved_mem_device_init()
-  remoteproc: da8xx: Use devm_of_reserved_mem_device_init()
-  remoteproc: keystone: Use devm_of_reserved_mem_device_init()
-  media: synopsys: hdmirx: Use devm_of_reserved_mem_device_init()
-  remoteproc: omap: Use devm_of_reserved_mem_device_init()
-  drm: logicvc: Use devm_of_reserved_mem_device_init()
-  drm: hdlcd: Use devm_of_reserved_mem_device_init()
-  drm: pl111: Use devm_of_reserved_mem_device_init()
-  remoteproc: mtk_scp: Use devm_of_reserved_mem_device_init()
-  media: aspeed: Use devm_of_reserved_mem_device_init()
-  media: nuvoton: npcm-video: Use devm_of_reserved_mem_device_init()
-  memory: tegra210-emc: Use devm_of_reserved_mem_device_init_by_name()
-  drm: komeda: Use devm_of_reserved_mem_device_init()
-  drm: malidp: Use devm_of_reserved_mem_device_init()
-  drm: ingenic: Use devm_of_reserved_mem_device_init()
-  drm: kmb: Use devm_of_reserved_mem_device_init()
-  drm: sun4i: Use devm_of_reserved_mem_device_init()
-  drm: xlnx: zynqmp_dpsub: Use devm_of_reserved_mem_device_init()
-  media: arm: mali-c55: Use devm_of_reserved_mem_device_init()
-  media: mediatek: vpu: Use devm_of_reserved_mem_device_init()
-  mmc: sdhci-of-bst: Use devm_of_reserved_mem_device_init_by_idx()
-  remoteproc: ti_k3: Use devm_of_reserved_mem_device_init()
-  ASoC: mediatek: mt8192: Use devm_of_reserved_mem_device_init()
-  ASoC: mediatek: mt8196: Use devm_of_reserved_mem_device_init()
-  ASoC: mediatek: mt8183: Use devm_of_reserved_mem_device_init()
-  ASoC: mediatek: mt8189: Use devm_of_reserved_mem_device_init()
-  ASoC: SOF: imx: Use devm_of_reserved_mem_device_init_by_name()
-  staging: media: cedrus: Use devm_of_reserved_mem_device_init()
-  ASoC: cix-ipbloq: Use devm_of_reserved_mem_device_init()
-  drm: aspeed: Use devm_of_reserved_mem_device_init()
-  drm: arcpgu: Use devm_of_reserved_mem_device_init()
-  ASoC: mediatek: mt8173: Use devm_of_reserved_mem_device_init()
-  ASoC: mediatek: mt8186: Use devm_of_reserved_mem_device_init()
-  ASoC: mediatek: mt8188: Use devm_of_reserved_mem_device_init()
-  ASoC: mediatek: mt8195: Use devm_of_reserved_mem_device_init()
-  ASoC: SOF: mediatek: mt8186: Use devm_of_reserved_mem_device_init()
-  ASoC: SOF: mediatek: mt8195: Use devm_of_reserved_mem_device_init()
-  misc: fastrpc: Use devm_of_reserved_mem_device_init()
-  ASoC: fsl: imx-rpmsg: Use devm_of_reserved_mem_device_init_by_idx()
-  ASoC: sprd: Use devm_of_reserved_mem_device_init()
-
- drivers/firmware/qcom/qcom_scm.c              | 22 +++------
- .../gpu/drm/arm/display/komeda/komeda_dev.c   |  4 +-
- drivers/gpu/drm/arm/hdlcd_drv.c               |  6 +--
- drivers/gpu/drm/arm/malidp_drv.c              |  4 +-
- drivers/gpu/drm/aspeed/aspeed_gfx_drv.c       |  2 +-
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c     | 13 +-----
- drivers/gpu/drm/kmb/kmb_drv.c                 | 12 +----
- drivers/gpu/drm/logicvc/logicvc_drm.c         | 21 ++++-----
- drivers/gpu/drm/pl111/pl111_drv.c             |  4 +-
- drivers/gpu/drm/sun4i/sun4i_drv.c             |  4 +-
- drivers/gpu/drm/tiny/arcpgu.c                 |  2 +-
- drivers/gpu/drm/xlnx/zynqmp_dpsub.c           |  4 +-
- .../platform/arm/mali-c55/mali-c55-core.c     | 12 ++---
- drivers/media/platform/aspeed/aspeed-video.c  | 12 ++---
- drivers/media/platform/mediatek/vpu/mtk_vpu.c |  3 +-
- drivers/media/platform/nuvoton/npcm-video.c   |  9 +---
- .../platform/synopsys/hdmirx/snps_hdmirx.c    | 16 +------
- drivers/memory/tegra/tegra210-emc-core.c      | 21 ++++-----
- drivers/misc/fastrpc.c                        |  2 +-
- drivers/mmc/host/sdhci-of-bst.c               |  7 +--
- drivers/of/of_reserved_mem.c                  | 41 +++++++++++++++++
- drivers/remoteproc/da8xx_remoteproc.c         | 10 +---
- drivers/remoteproc/keystone_remoteproc.c      | 16 +------
- drivers/remoteproc/mtk_scp.c                  |  3 +-
- drivers/remoteproc/omap_remoteproc.c          | 13 +-----
- drivers/remoteproc/ti_k3_common.c             | 13 +-----
- drivers/remoteproc/ti_k3_common.h             |  1 -
- .../staging/media/sunxi/cedrus/cedrus_hw.c    |  6 +--
- include/linux/of_reserved_mem.h               | 46 +++++++++++++++++++
- sound/hda/controllers/cix-ipbloq.c            |  2 +-
- sound/soc/fsl/imx-rpmsg.c                     |  2 +-
- sound/soc/mediatek/mt8173/mt8173-afe-pcm.c    |  2 +-
- sound/soc/mediatek/mt8183/mt8183-afe-pcm.c    | 13 +-----
- sound/soc/mediatek/mt8186/mt8186-afe-pcm.c    |  2 +-
- sound/soc/mediatek/mt8188/mt8188-afe-pcm.c    |  2 +-
- sound/soc/mediatek/mt8189/mt8189-afe-pcm.c    | 16 +------
- sound/soc/mediatek/mt8192/mt8192-afe-pcm.c    | 11 +----
- sound/soc/mediatek/mt8195/mt8195-afe-pcm.c    |  2 +-
- sound/soc/mediatek/mt8196/mt8196-afe-pcm.c    | 14 +-----
- sound/soc/sof/imx/imx-common.c                |  9 ++--
- sound/soc/sof/mediatek/mt8186/mt8186.c        |  2 +-
- sound/soc/sof/mediatek/mt8195/mt8195.c        |  2 +-
- sound/soc/sprd/sprd-pcm-dma.c                 |  3 +-
- 43 files changed, 162 insertions(+), 249 deletions(-)
-
+diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+index 82222bd45ac6..b35541e9fbe8 100644
+--- a/drivers/of/of_reserved_mem.c
++++ b/drivers/of/of_reserved_mem.c
+@@ -787,6 +787,47 @@ void of_reserved_mem_device_release(struct device *dev)
+ }
+ EXPORT_SYMBOL_GPL(of_reserved_mem_device_release);
+ 
++static void devm_of_reserved_mem_device_release(struct device *dev, void *res)
++{
++	of_reserved_mem_device_release(*(struct device **)res);
++}
++
++/**
++ * devm_of_reserved_mem_device_init_by_idx() - Resource managed of_reserved_mem_device_init_by_idx()
++ * @dev: Pointer to the device to configure
++ * @np: Pointer to the device node with 'memory-region' property
++ * @idx: Index of selected region
++ *
++ * This is a resource managed version of of_reserved_mem_device_init_by_idx().
++ * The reserved memory region will be released automatically when the device
++ * is unbound.
++ *
++ * Returns: Negative errno on failure or zero on success.
++ */
++int devm_of_reserved_mem_device_init_by_idx(struct device *dev,
++					    struct device_node *np, int idx)
++{
++	struct device **ptr;
++	int ret;
++
++	ptr = devres_alloc(devm_of_reserved_mem_device_release, sizeof(*ptr),
++			   GFP_KERNEL);
++	if (!ptr)
++		return -ENOMEM;
++
++	ret = of_reserved_mem_device_init_by_idx(dev, np, idx);
++	if (ret) {
++		devres_free(ptr);
++		return ret;
++	}
++
++	*ptr = dev;
++	devres_add(dev, ptr);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(devm_of_reserved_mem_device_init_by_idx);
++
+ /**
+  * of_reserved_mem_lookup() - acquire reserved_mem from a device node
+  * @np:		node pointer of the desired reserved-memory region
+diff --git a/include/linux/of_reserved_mem.h b/include/linux/of_reserved_mem.h
+index e8b20b29fa68..b9fd78123d77 100644
+--- a/include/linux/of_reserved_mem.h
++++ b/include/linux/of_reserved_mem.h
+@@ -40,6 +40,9 @@ int of_reserved_mem_device_init_by_name(struct device *dev,
+ 					const char *name);
+ void of_reserved_mem_device_release(struct device *dev);
+ 
++int devm_of_reserved_mem_device_init_by_idx(struct device *dev,
++					    struct device_node *np, int idx);
++
+ struct reserved_mem *of_reserved_mem_lookup(struct device_node *np);
+ int of_reserved_mem_region_to_resource(const struct device_node *np,
+ 				       unsigned int idx, struct resource *res);
+@@ -68,6 +71,13 @@ static inline int of_reserved_mem_device_init_by_name(struct device *dev,
+ 
+ static inline void of_reserved_mem_device_release(struct device *pdev) { }
+ 
++static inline int devm_of_reserved_mem_device_init_by_idx(struct device *dev,
++							  struct device_node *np,
++							  int idx)
++{
++	return -EOPNOTSUPP;
++}
++
+ static inline struct reserved_mem *of_reserved_mem_lookup(struct device_node *np)
+ {
+ 	return NULL;
+@@ -108,4 +118,19 @@ static inline int of_reserved_mem_device_init(struct device *dev)
+ 	return of_reserved_mem_device_init_by_idx(dev, dev->of_node, 0);
+ }
+ 
++/**
++ * devm_of_reserved_mem_device_init() - Resource managed version of of_reserved_mem_device_init()
++ * @dev:	Pointer to the device to configure
++ *
++ * This is a resource managed version of of_reserved_mem_device_init().
++ * The reserved memory region will be released automatically when the device
++ * is unbound.
++ *
++ * Returns error code or zero on success.
++ */
++static inline int devm_of_reserved_mem_device_init(struct device *dev)
++{
++	return devm_of_reserved_mem_device_init_by_idx(dev, dev->of_node, 0);
++}
++
+ #endif /* __OF_RESERVED_MEM_H */
 -- 
 2.53.0
 
