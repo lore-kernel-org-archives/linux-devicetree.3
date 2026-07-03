@@ -1,267 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403923264EB;
-	Fri,  3 Jul 2026 04:13:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6544E283FCE
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 04:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783052031; cv=none; b=dZUNoty0QW+sjfzmq6f/7oM3hbo5CmZ9g57XUr9rRwpWA/1CMdIBUtvB3Kb0/FyHbDY6gfprpsRE11V+9MjNavKPDl7RGbYUy39mBZEuoQ4D0ROfSmG+dn1TzCNMIlC1kYG7pTliS/aC0eZNdSonRk9L6nEYyBNT36n5s+YkQ1k=
+	t=1783052034; cv=none; b=YUhPlo6fmYRrBfz0JXmJaWSD3pIpY8s9ewhXA2NxJYW0u+73oI6zjHD2AD5uP9+DMh3jEbz0gaEqK6U+DFeGn2V/bAt9DhTonMM0sTxHZMqe9phFyFK8LhWkguNCbr+29da+GJBstj+GzeWE5Vbu5KhUwMiIzLdvz91XjGxTJ0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783052031; c=relaxed/simple;
-	bh=8h8TLpdiMaQIT6mx5dhbVG4KqtUPlTCi6PwK3JEVeNY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LJWcaoSQppFGrc2sMVPh6+F+mGt/twQK/985LQlyfGDkTVOmVH6+gU+WoDqOfLepdDUlN5lJY7wt0z6P8/0SFpUhNCdh25REb9ZUSRfEfg+/lhE4jrQT9eLiBipdxvXtmYU/NxW6CUMtbqFXwtqMZQ0O8qDHsQf/chg2r90aSoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uj8F8wmZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783052034; c=relaxed/simple;
+	bh=OUpPeEes/y+ArXs2upxEA1BNgKsnrkR9ayItzVy6vm0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SswKJs7bsXEkbBMpCuykA4O1rQlYdLmdnM6dnkK9STHoI4CeRH3sKABVkIR9zJikByROrgZBtpqumQATIGeywJviyxfuaVT26cJ8iclfnhSAaMe8PsLboG1vodyz2STlKjzuJHo9VaSFMXVCsmcQwq9/nw69N2epBaehg6ciQxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HKoDTSBU; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uj8F8wmZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EAC81F000E9;
-	Fri,  3 Jul 2026 04:13:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783052018;
-	bh=XLKVDQfsx9hZuipTAI+f27y7jhAau5VYS8053c6lGBE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Uj8F8wmZ+tjwYybD0ILNCuG9cg9/UTh0dnsYv5PvEEHPRYJcXrHBe/YtA1XQ+Bt5j
-	 fSuYrb2UtnrdJsGZaEsTOq+nFRxUFvjnGai4AR3JLyuAGIlyq/RJh4Fg0ZVUyTpye7
-	 BnKE6qNFt9LWzrP06cWdVPQ1Iffu7w4FGnk6k87jXWvu6PoecArR3sURE4IbAuyixt
-	 a369HkjK0Fr3bVKoo3K9DT6q+/FNFVquikETXxbba4eIx3NB3adQwgu9kGFiDgmwVi
-	 9k0oMh73t5fALUnl5GShBbDm/0UPkyU543XUwvy0nEsaOx5Zw32MAgn+Xv/noN1C+8
-	 zjrsjdWwEGAYw==
-Date: Fri, 3 Jul 2026 09:43:19 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: andersson@kernel.org, konradybcio@kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	linux-media@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-	linux-remoteproc@vger.kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	robin.clark@oss.qualcomm.com, sean@poorly.run,
-	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
-	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
-	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
-	bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
-	trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
-	pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
-	tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
-	srinivas.kandagatla@oss.qualcomm.com,
-	amirreza.zarrabi@oss.qualcomm.com, jenswi@kernel.org,
-	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
-	skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v9 00/14] firmware: qcom: Add OP-TEE PAS service support
-Message-ID: <akc23w16MeSu8ODb@sumit-xelite>
-References: <20260702115835.167602-1-sumit.garg@kernel.org>
- <CANLsYkyFJ+CbUJpwWAy28KHvmNz6rJRtM5KrEzHjyAha-7grTQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HKoDTSBU"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-845b6d9bf39so126315b3a.1
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 21:13:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783052021; x=1783656821; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=A6npnmvUqCM8/66CqqYCk/mzyWieSpjEbi8Gph9LP44=;
+        b=HKoDTSBUA6sKXVIX114K/UqgKvUb6Gw/qUAwGquRpCIDKfRQm6O6djVy11KUutiK9E
+         5QX2ldxj4DHothJbfWBU7eMHJdDM6R6lJ2i3nIJuEfI4f/fQw5Z1xp0VrbC2CanGVbJi
+         /arT5ZcjVb1sQTSa61TBP8X4y9dTm7icCFQA3Dt5xpTBOXgj2oP170LUsJPv4QKdQz9g
+         r0EBzkiczKVwyd06TjzuTBDLbU/ICaHi6UEt0SEZJb8rxvhdBKjaGZrJaqJAzpSQ+NDa
+         jbVwG7v1+FRWHnwwFYR9tNknIdGGKM3L61YngGLscSpCig2F60cWMJlSDfe+6g0jFrpx
+         1+Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783052021; x=1783656821;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=A6npnmvUqCM8/66CqqYCk/mzyWieSpjEbi8Gph9LP44=;
+        b=GWQxaQUKe7WF6FIYT+yTiWfNHTwxUOjoZBXps7+5yEHRr1K4j/zmS87U5hil1jG0kX
+         LrcUx0lhaBiQffolpbaNlhCeSXkvm4b0We5fw8iv8B+PYGLZzQAqfoD6gkbsI2XzPA9Z
+         8RumWfRnKTWttObx28x+sKBTT2JFZ9wxXoxCXRV6bD7ZAGdPjVjEC3KKoQxthG19xovd
+         Q2urgss2InWJ3hwoXCZGKaQcY6Ksrq3xTYH3aJ8B4CWI37lUX5Kj9RBpWr5RYD3UlqPG
+         ar4iBGc2ywVynbnUVjwbGBDV2nQne/eHJzd8p/5TQ72+HyIsV3gSs9EyON53WmqJJcu0
+         1jlw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp79mCkG6eG8eln3qPIDZgYHl0PpjyfcxhHH2/kvnP0JW/tdEtQge/dk1poo1gXrjdepgrazRn50gNg@vger.kernel.org
+X-Gm-Message-State: AOJu0YwPMGBm7k2VRIRK6NXeHtMy9KgzdzWlHghTvEkrRdFPq3cBTpt0
+	VkvV6Xn5sg+5Q2zpwDDLtb2vPymNfcNPKDjgzFtzHcgt+cLUDFrNAGP/
+X-Gm-Gg: AfdE7clCg8g5p7JGk4Q71jMXHJWab9zEcm3sDs5ZPdmmQrD09/guGuMM70l27odsyHa
+	JbqmkvLPb51hdkY9QUeS8Aswa0fBXLM3naG4GPbfQ8HKMgA7IgkyFh1cXt20o+WnYWALlmsfSC9
+	OxfkbA1+P+6eYn08GFDdMVqvcuLKRyvr+i/VVdyr+AogvTRjFwM6PAjErotMAf4CtLeUILgAt5I
+	/FcpmrS1wsNU7G0nb5TGcWnMcYCy767cfiMYZynTjW+Z67ifHRv/PKhctIPEWerC+zA9FzGKyfF
+	EDlG0yFj3QWdTbVe+5vaaTTDaGB5fFIfrhJjyxKCzhRem3VdafBFfz3cpppJKF+l3WCxQG5YHSJ
+	hLs/41jhIyYXmeU4q9zdrhFBU1uqbkEpRyMm3G1xwaph8EV47C+dqQZI1fYRDlPP2YdmwzbsxYj
+	xvvGnzKfOYdUlBr3HAHw==
+X-Received: by 2002:a05:6a00:244d:b0:842:63f5:d097 with SMTP id d2e1a72fcca58-847e17360d9mr2456212b3a.3.1783052020555;
+        Thu, 02 Jul 2026 21:13:40 -0700 (PDT)
+Received: from ubuntu.. ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847cb94bd7esm2207768b3a.38.2026.07.02.21.13.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 21:13:40 -0700 (PDT)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: rppt@kernel.org,
+	akpm@linux-foundation.org,
+	Andy Lutomirski <luto@kernel.org>,
+	Borislav Petkov <bp@alien8.de>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: linux-mm@kvack.org,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
+	devicetree@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Len Brown <lenb@kernel.org>,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	WANG Xuerui <kernel@xen0n.name>,
+	x86@kernel.org
+Subject: [PATCH v2 0/9] treewide, numa_memblks: remove redundant work during NUMA init
+Date: Fri,  3 Jul 2026 13:13:20 +0900
+Message-ID: <20260703041329.2797584-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANLsYkyFJ+CbUJpwWAy28KHvmNz6rJRtM5KrEzHjyAha-7grTQ@mail.gmail.com>
 
-Hey Mathieu,
+Every existing numa_add_memblk() caller passes a valid node id and
+separately marks that node in numa_nodes_parsed with node_set(). In
+addition, numa_nodemask_from_meminfo() recomputes the same "nodes that own
+memory" set from numa_meminfo, which numa_nodes_parsed already contains.
 
-On Thu, Jul 02, 2026 at 01:14:03PM -0600, Mathieu Poirier wrote:
-> Hey Sumit - nice hearing from you...
-> 
+This redundancy implicitly depends on the callers' node_set(). So, before
+removing the redundancy, make numa_add_memblk() set the node in
+numa_nodes_parsed explicitly. Then remove the per-caller node_set() and
+numa_nodemask_from_meminfo().
 
-Good to hear from you too.
+Also, since the generic numa_register_meminfo() already sets
+node_possible_map to numa_nodes_parsed, remove the duplicate assignment in
+arch_numa's numa_register_nodes().
 
-> Is there some kind of overarching design harminisation between what
-> you are proposing here and what Arnaud posted back in April [1] ?
+Patch 1 adds the node_set() to numa_add_memblk() itself, so every memblk's
+node is set in numa_nodes_parsed on add.
 
-The design here for remoteproc bringup on Qcom platforms for OP-TEE is
-carried forward from whatever existed earlier with QTEE. This patch-set
-just adds OP-TEE backend and replicate the same co-processor bringup
-design as QTEE.
+Patches 2-6 depend on patch 1 and remove the redundant per-caller node_set()
+from all callers.
 
-Co-processor bringup using a TEE is very different on Qcom platforms as
-compared to what ST did. The image formats for Qcom are custom ones
-using MBN format over ELF for which the MDT loader exists in the kernel
-only. Similarly the firmware image authentication is very tightly
-coupled with Qcom secure boot chain.
+Patch 7 removes both numa_nodemask_from_meminfo() call sites and the unused
+function itself.
 
-The ST framework rather uses an ELF loader in OP-TEE for image loading
-and have an authentication mechanism similar to TAs. Also, the OP-TEE
-ABI is altogether different from the PAS ABI that Qcom has for the TEE.
+Patch 8 removes the duplicate node_possible_map assignment in arch_numa.
 
--Sumit
+Patch 9 is a minor cleanup, using the existing numa_add_reserved_memblk()
+wrapper in numa_cleanup_meminfo().
 
-> 
-> [1]. https://lists.trustedfirmware.org/archives/list/op-tee@lists.trustedfirmware.org/thread/VMKTRATYUFWL2TP7NHN5KJ37MSVZZMPK/
-> 
-> On Thu, 2 Jul 2026 at 05:59, Sumit Garg <sumit.garg@kernel.org> wrote:
-> >
-> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> >
-> > Qcom platforms has the legacy of using non-standard SCM calls
-> > splintered over the various kernel drivers. These SCM calls aren't
-> > compliant with the standard SMC calling conventions which is a
-> > prerequisite to enable migration to the FF-A specifications from Arm.
-> >
-> > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
-> > support these non-standard SCM calls. And even for newer architectures
-> > using S-EL2 with Hafnium support, QTEE won't be able to support SCM
-> > calls either with FF-A requirements coming in. And with both OP-TEE
-> > and QTEE drivers well integrated in the TEE subsystem, it makes further
-> > sense to reuse the TEE bus client drivers infrastructure.
-> >
-> > The added benefit of TEE bus infrastructure is that there is support
-> > for discoverable/enumerable services. With that client drivers don't
-> > have to manually invoke a special SCM call to know the service status.
-> >
-> > So enable the generic Peripheral Authentication Service (PAS) provided
-> > by the firmware. It acts as the common layer with different TZ
-> > backends plugged in whether it's an SCM implementation or a proper
-> > TEE bus based PAS service implementation.
-> >
-> > The TEE PAS service ABI is designed to be extensible with additional API
-> > as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
-> > extensions of the PAS service needed while still maintaining backwards
-> > compatibility.
-> >
-> > Currently OP-TEE support is being added to provide the backend PAS
-> > service implementation which can be found as part of this PR [1].
-> > This implementation has been tested on Kodiak/RB3Gen2 and lemans
-> > EVK boards. In addition to that WIN/IPQ targets tested OP-TEE with
-> > this service too. Surely the backwards compatibility is maintained and
-> > tested for SCM backend.
-> >
-> > Note that kernel PAS service support while running in EL2 is at parity
-> > among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
-> > on proper IOMMU support being worked out on the PAS client end.
-> >
-> > Patch summary:
-> > - Patch #1: adds generic PAS service.
-> > - Patch #2: migrates SCM backend to generic PAS service.
-> > - Patch #3: adds TEE/OP-TEE backend for generic PAS service.
-> > - Patch #4-#12: migrates all client drivers to generic PAS service.
-> > - Patch #13: drops legacy PAS SCM exported APIs.
-> >
-> > The patch-set is based on v7.2-rc1 and can be found in git tree
-> > here [2].
-> >
-> > Merge strategy:
-> >
-> > It is expected due to APIs dependency, the entire patch-set to go via
-> > the Qcom tree. All other subsystem maintainers, it will be great if I
-> > can get acks for the corresponding subsystem patches.
-> >
-> > [1] https://github.com/OP-TEE/optee_os/pull/7721 (already merged)
-> > [2] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v9
-> >
-> > ---
-> > Changes in v9:
-> > - Rebased to 7.2-rc1.
-> > - Enable SCM backend similar to TEE if ARCH_QCOM is set.
-> > - Address misc. comments from Konrad.
-> > - Add checks for corner cases (although not reachable as per OP-TEE ABI)
-> >   reported by Shashiko on patch #3.
-> > - Picked up review tags from Konrad.
-> >
-> > Changes in v8:
-> > - Rebased on mainline tip (no functional changes).
-> > - Now Lemans EVK is also tested to support OP-TEE PAS here:
-> >   https://github.com/OP-TEE/optee_os/pull/7845
-> > - Drop Kodiak DT patch as it is carried independently by Mukesh here:
-> >   https://lore.kernel.org/lkml/20260624063952.2242702-1-mukesh.ojha@oss.qualcomm.com/
-> > - Regarding Sashiko comments, I have already replied in v6 the ones that
-> >   don't apply but in v7 I got the same comments again. Specific context
-> >   reasoning which Shashiko ignores:
-> >     - ABI contract between Linux and TZ
-> >     - No support for multiple concurrent backends
-> >     - The TZ backend doesn’t detach during the entire boot cycle
-> >
-> > Changes in v7:
-> > - Rebased to qcom tree (for-next branch) tip.
-> > - Merged patch #5 and #7 due to build dependency.
-> > - Disabled modem for kodiak EL2 as it isn't tested yet.
-> > - Fix an issue found out by sashiko-bot for patch #4.
-> >
-> > Changes in v6:
-> > - Rebased to v7.1-rc4 tag.
-> > - Patch #14: fixed ret error print.
-> > - Add Kconfig descriptions for PAS symbols such that they are visible
-> >   in menuconfig to update.
-> >
-> > Changes in v5:
-> > - Incorporated misc. comments from Mukesh.
-> > - Split up patch #11 into 2 to add an independent commit for passing
-> >   proper PAS ID to set_remote_state API.
-> > - Picked up tags.
-> >
-> > Changes in v4:
-> > - Incorporate misc. comments on patch #4.
-> > - Picked up an ack for patch #10.
-> > - Clarify in cover letter about state of media support.
-> >
-> > Changes in v3:
-> > - Incorporated some style and misc. comments for patch #2, #3 and #4.
-> > - Add QCOM_PAS Kconfig dependency for various subsystems.
-> > - Switch from pseudo TA to proper TA invoke commands.
-> >
-> > Changes in v2:
-> > - Fixed kernel doc warnings.
-> > - Polish commit message and comments for patch #2.
-> > - Pass proper PAS ID in set_remote_state API for media firmware drivers.
-> > - Added Maintainer entry and dropped MODULE_AUTHOR.
-> >
-> > Sumit Garg (14):
-> >   firmware: qcom: Add a generic PAS service
-> >   firmware: qcom_scm: Migrate to generic PAS service
-> >   firmware: qcom: Add a PAS TEE service
-> >   remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
-> >   remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
-> >   remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
-> >   remoteproc: qcom: Select QCOM_PAS generic service
-> >   drm/msm: Switch to generic PAS TZ APIs
-> >   media: qcom: Switch to generic PAS TZ APIs
-> >   media: qcom: Pass proper PAS ID to set_remote_state API
-> >   net: ipa: Switch to generic PAS TZ APIs
-> >   wifi: ath12k: Switch to generic PAS TZ APIs
-> >   firmware: qcom_scm: Remove SCM PAS wrappers
-> >   MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
-> >
-> >  MAINTAINERS                                   |   9 +
-> >  drivers/firmware/qcom/Kconfig                 |  22 +-
-> >  drivers/firmware/qcom/Makefile                |   2 +
-> >  drivers/firmware/qcom/qcom_pas.c              | 299 +++++++++++
-> >  drivers/firmware/qcom/qcom_pas.h              |  50 ++
-> >  drivers/firmware/qcom/qcom_pas_tee.c          | 479 ++++++++++++++++++
-> >  drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
-> >  drivers/gpu/drm/msm/Kconfig                   |   1 +
-> >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
-> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
-> >  drivers/media/platform/qcom/iris/Kconfig      |  27 +-
-> >  .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
-> >  drivers/media/platform/qcom/venus/Kconfig     |   1 +
-> >  drivers/media/platform/qcom/venus/firmware.c  |  11 +-
-> >  drivers/net/ipa/Kconfig                       |   2 +-
-> >  drivers/net/ipa/ipa_main.c                    |  13 +-
-> >  drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
-> >  drivers/net/wireless/ath/ath12k/ahb.c         |  10 +-
-> >  drivers/remoteproc/Kconfig                    |   4 +-
-> >  drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
-> >  drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
-> >  drivers/remoteproc/qcom_wcnss.c               |  12 +-
-> >  drivers/soc/qcom/mdt_loader.c                 |  12 +-
-> >  include/linux/firmware/qcom/qcom_pas.h        |  43 ++
-> >  include/linux/firmware/qcom/qcom_scm.h        |  29 --
-> >  include/linux/soc/qcom/mdt_loader.h           |   6 +-
-> >  26 files changed, 1095 insertions(+), 321 deletions(-)
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
-> >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
-> >
-> > --
-> > 2.53.0
-> >
-> 
+No functional change.
+
+---
+Changes from v1 [1]
+- remove warning in numa_add_memblk_to() when start == end
+- add Acked-by tag
+- rebased onto latest mm-new
+
+[1] https://lore.kernel.org/all/20260628135828.1393120-1-ekffu200098@gmail.com/
+--- 
+
+Sang-Heon Jeon (9):
+  mm: numa_memblks: set numa_nodes_parsed in numa_add_memblk()
+  ACPI: NUMA: remove redundant numa_nodes_parsed node_set()
+  of/numa: remove redundant numa_nodes_parsed node_set()
+  x86/numa: remove redundant numa_nodes_parsed node_set()
+  arch_numa: remove redundant numa_nodes_parsed node_set()
+  LoongArch: remove redundant numa_nodes_parsed node_set()
+  mm: numa_memblks: remove redundant numa_nodemask_from_meminfo()
+  arch_numa: remove redundant node_possible_map assignment
+  mm: numa_memblks: use numa_add_reserved_memblk() in
+    numa_cleanup_meminfo()
+
+ arch/loongarch/kernel/numa.c |  1 -
+ arch/x86/mm/amdtopology.c    |  1 -
+ arch/x86/mm/numa.c           |  1 -
+ drivers/acpi/numa/srat.c     |  2 --
+ drivers/base/arch_numa.c     |  4 ----
+ drivers/of/of_numa.c         |  5 +----
+ mm/numa_memblks.c            | 39 +++++++++++++++++-------------------
+ 7 files changed, 19 insertions(+), 34 deletions(-)
+
+-- 
+2.43.0
+
