@@ -1,132 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2474388885
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 06:46:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CC0382F03
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 06:46:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783061200; cv=none; b=mUcAwR/1V9JgxPFPEIz4Au4IB/EmaHqbcKIYgwVueEHll1CYmUQYLJ8O8RBPQnCEkieYXLFVsk0+zzXo0x+po5okZXFJYWynvbXu3odqPXmkXrJLIQRKwH6sTUBiqEwZBFBSBG8s8IW0W8vgjrZQx0qU1y8efnwJUxnrzhxttzA=
+	t=1783061203; cv=none; b=AWe7wOxCwUhj1NuzfU/Ma+S9cakc7wbwT5z7NoW4b2He9HPkp8yUuzUHpjsOAWX0evnY8xw9MfPz1G4OLsmXA2ILHaQfFnRii4jlCZSdnRENeP0ij6476Yo7nUUA4H6VZ9zuTP/PC86IeoCgKWaW9nK65jmza0lkOuiyNJnPslk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783061200; c=relaxed/simple;
-	bh=H0a+lHMoSDK6azr/7deuUEy08rwUViCo2qDXKBIGqtg=;
+	s=arc-20240116; t=1783061203; c=relaxed/simple;
+	bh=Zts4UVtKP7QBOXlwwmECpBPUlqIlpC7mMxj1aw/+G6U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XTbSSKiXqQcC+MV2WURdaQ6PTUXXiIxQmSt6fdIMNGeXZR9RBHdQvALFdGithQQkA8eID7S+5jSqHl6J3MLbUQvt6RD5tyjNUjhYijV98e/+BSUmOd/iR2dlEyJ8L8X/j2N52Glpj9QpvQhU0rExoMOgET8fv8MMlOJVqtHkHW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N7+vJzrH; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YDWcvjNN4FhUklsurAI96zK94jpEtiayHiJPMgD16NNkfl03aOwoU0ow1O8OLzOdyoefbVkq0tqHfxoJcKhgUDQu9zlBhF9X6Xoix02sVBW3Dwz0KfLipeYYC0mit/AwiLTnrX97q0zL9LwTYm5epLzIsGIsANokqZ9Un/HqHG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XEnRieQa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N7+vJzrH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA8A71F00A3D;
-	Fri,  3 Jul 2026 06:46:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XEnRieQa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8D271F00A3E;
+	Fri,  3 Jul 2026 06:46:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783061198;
-	bh=F4ZEAdTb7Ggzy8z9IXhXLg5gQOnz3372YSQVTXlLNWs=;
+	s=k20260515; t=1783061199;
+	bh=gqYNVd2aUt01dk6KibAexvXp7AR7dq58CQmQ0dAkunM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N7+vJzrHTU+aSj4V2AbrsNmf2yivQwrfqY3XvlfiYbiCuHJwGT18RtlF+eniRMF2d
-	 ANnB017RkV4bIucjAhq79M2GXt0F/F9aGNHsXtwqw2ak9lIzf0K618GLS4jExzIHwc
-	 b8qYes1QJ3iRt1zVebkS8IH5VE3qiCkq4jFlRcCrOU3dYbld/NBBXoCHgkC59aLkC6
-	 HPWIUl2qH9UxltaZHJA6OO4CwfyTPgKf15KvD5e58upawV5JiXVHjHVoids5xJy4Jk
-	 qpNMtV/ZDh01hsgBGnaqGVCzMfJUBmYZGSfxH60ek8XlidSCfzWOa/kgINOFzCPk1I
-	 qV0jstiznWMag==
+	b=XEnRieQaI+4vXD5hg7XYaRwFx9CwAkqdPVUrpWz98CpEFpk2ySpXFEhIXWeOVOGcX
+	 tODaFEZw8rQnMaKSEmJOIWT//RYYzk4JrQ0z3/ZjGAVMHzNw0Yf3x7lsVdSQ5CAyLJ
+	 R827g4oeK5sB3sp9OgAVdWeWQKiudNLXkPRLFtZUticCFfVKlMa+KXrPC33q9ByDxz
+	 /UssMMJhKA14xwUvDuzaxYY3DdH9Tk5cWx/O5Zu8eztSLcoWGOqm185JgLvtsfiXlX
+	 5kpFTw/4M1Xy4mYc6f7trIyUBi0Zimlns3KtZKgnORBxjFI7Wi9fm5fSdITB5kvQaf
+	 9VqEo316fFxLg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v8 1/9] net: dsa: add tag driver for LAN9645X
+Subject: Re: [PATCH net-next v8 5/9] net: dsa: lan9645x: add bridge support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260702-dsa_lan9645x_switch_driver_base-v8-1-90228d8bba58@microchip.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260702-dsa_lan9645x_switch_driver_base-v8-5-90228d8bba58@microchip.com>
 References: <20260702-dsa_lan9645x_switch_driver_base-v8-0-90228d8bba58@microchip.com>
- <20260702-dsa_lan9645x_switch_driver_base-v8-1-90228d8bba58@microchip.com>
+ <20260702-dsa_lan9645x_switch_driver_base-v8-5-90228d8bba58@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 06:46:37 +0000
-Message-Id: <20260703064637.EA8A71F00A3D@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 06:46:38 +0000
+Message-Id: <20260703064638.E8D271F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The driver mishandles valid VLAN-tagged packets if the VLAN header=
- resides in paged fragments, silently treating them as untagged.
-- [Medium] `vlan_remove_tag()` moves the MAC header in the SKB data buffer =
-but fails to update the `skb->mac_header` offset.
+- [Medium] Missing ds->ageing_time_min allows invalid ageing times to be si=
+lently rounded up to 2 seconds.
 --
 
-commit e26041faee6aff2a556fc66f9a08bab7e7391ab7
+commit c7bfc6b4bfe0c0efc661fd970da4660dc2b62c73
 Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
 ip.com>
 
-net: dsa: add tag driver for LAN9645X
+net: dsa: lan9645x: add bridge support
 
-Add tag driver for LAN9645x using a front port as CPU port. This mode
-is called an NPI port in the datasheet.
+This commit adds support for hardware offloading of the bridge on a single
+device. It configures basic bridge operations, flooding, and ageing time.
 
-> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
-> new file mode 100644
-> index 0000000000000..c9049e3620a12
-> --- /dev/null
-> +++ b/net/dsa/tag_lan9645x.c
-
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers=
+/net/dsa/microchip/lan9645x/lan9645x_main.c
+> index f95ce9e48a5c2..4dd449d9014bd 100644
+> --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
 [ ... ]
-
-> +static void lan9645x_xmit_get_vlan_info(struct sk_buff *skb,
-> +					struct net_device *br,
-> +					u32 *vlan_tci, u32 *tag_type)
-> +{
-> +	struct vlan_ethhdr *hdr;
-> +	u16 proto, tci;
+> @@ -268,15 +271,35 @@ static int lan9645x_setup(struct dsa_switch *ds)
+[ ... ]
+>  	ds->mtu_enforcement_ingress =3D true;
+>  	ds->assisted_learning_on_cpu_port =3D true;
+>  	ds->fdb_isolation =3D true;
+> =20
+> +	/* ANA_AUTOAGE_AGE_PERIOD is a seconds-based field and entries are
+> +	 * aged after 2 * AGE_PERIOD, giving (2 * FIELD_MAX) seconds of
+> +	 * maximum aging.
+> +	 */
+> +	ds->ageing_time_max =3D 2U * MSEC_PER_SEC *
+> +			      FIELD_MAX(ANA_AUTOAGE_AGE_PERIOD);
 > +
-> +	if (!br || !br_vlan_enabled(br)) {
-> +		*vlan_tci =3D 0;
-> +		*tag_type =3D LAN9645X_IFH_TAG_TYPE_C;
-> +		return;
-> +	}
-> +
-> +	hdr =3D (struct vlan_ethhdr *)skb_mac_header(skb);
-> +	br_vlan_get_proto(br, &proto);
-> +
-> +	if (skb_headlen(skb) >=3D VLAN_ETH_HLEN &&
-> +	    ntohs(hdr->h_vlan_proto) =3D=3D proto) {
-
-[Severity: High]
-Does this silently treat valid VLAN-tagged packets as untagged if the VLAN
-header resides in paged fragments?
-
-If a packet is transmitted where the linear part of the SKB is less than
-VLAN_ETH_HLEN (for example, exactly ETH_HLEN) and the VLAN tag is in a
-fragment, this check fails and bypasses tag extraction.
-
-This seems like it would inject the packet into the switch with the
-port's PVID instead of its actual VLAN tag, leaving the original VLAN tag
-in the payload. Should this use pskb_may_pull() or __skb_vlan_pop() to
-ensure the header is properly handled?
-
-> +		vlan_remove_tag(skb, &tci);
 
 [Severity: Medium]
-Does calling vlan_remove_tag() directly leave the SKB in an inconsistent
-state?
+Should ds->ageing_time_min be configured here as well?
 
-This internal helper moves the MAC header in the SKB data buffer but does
-not appear to update the skb->mac_header offset. If any downstream code
-(like a conduit driver or packet sniffer) relies on skb_mac_header(skb),
-it might read garbage bytes.
+Without a minimum, the DSA core's -ERANGE check is bypassed when
+userspace configures a bridge ageing time less than 2 seconds, which
+allows unsupported small values to reach the driver.
 
-Should __skb_vlan_pop() be used instead to ensure the metadata is correctly
-updated?
+>  	dev_info(lan9645x->dev,
+>  		 "SKU features: max_ports=3D%d\n",
+>  		 lan9645x->num_phys_ports - lan9645x->num_port_dis);
+> =20
+>  	return 0;
+[ ... ]
+> @@ -285,6 +308,282 @@ static void lan9645x_port_phylink_get_caps(struct d=
+sa_switch *ds, int port,
+[ ... ]
+> +static int lan9645x_set_ageing_time(struct dsa_switch *ds, unsigned int =
+msecs)
+> +{
+> +	u32 age_secs =3D max(1, msecs / MSEC_PER_SEC / 2);
 
-> +		*vlan_tci =3D tci;
-> +	} else {
-> +		rcu_read_lock();
-> +		br_vlan_get_pvid_rcu(br, &tci);
-> +		rcu_read_unlock();
-> +		*vlan_tci =3D tci;
-> +	}
+[Severity: Medium]
+Could this silently round up unsupported small ageing times?
+
+If msecs is non-zero but less than 2000, max(1, msecs / 2000) evaluates
+to 1 hardware unit (2 seconds). Because the driver doesn't return an
+error for unsupported values, the hardware is configured with an
+ageing time larger than requested by the user, which violates the
+switchdev API contract.
+
+> +	struct lan9645x *lan9645x =3D ds->priv;
 > +
-> +	*tag_type =3D (proto !=3D ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S :
-> +					     LAN9645X_IFH_TAG_TYPE_C;
+> +	/* Entry must suffer two aging scans before it is removed, so it is
+> +	 * aged after 2*AGE_PERIOD, and the unit is in seconds.
+> +	 * An age period of 0 disables automatic aging.
+> +	 */
+> +	lan_rmw(ANA_AUTOAGE_AGE_PERIOD_SET(msecs ? age_secs : 0),
+> +		ANA_AUTOAGE_AGE_PERIOD,
+> +		lan9645x, ANA_AUTOAGE);
+> +	return 0;
 > +}
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-dsa_lan964=
-5x_switch_driver_base-v8-0-90228d8bba58@microchip.com?part=3D1
+5x_switch_driver_base-v8-0-90228d8bba58@microchip.com?part=3D5
