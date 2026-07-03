@@ -1,162 +1,113 @@
-Received: from mail.3ffe.de (0001.3ffe.de [159.69.201.130])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0E31E5207;
-	Fri,  3 Jul 2026 13:05:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.201.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362E33D411A;
+	Fri,  3 Jul 2026 13:11:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783083930; cv=none; b=H4Xn5AoYPaQrSAAWwPYLs6CnAmzKJtQoPwDwqjx8VBBgGSDRRBQL3Hfo/YhLnW8SFz6rDUYYs+yr8zj88r2HUgbHbWf6pQf/qqu92EiqGuoqa3g+vLBIhEeT/FLWt6PQQBCKz3jk3aiaXOilPQqswYLbgFaEQyyIU/HjxwAVe1w=
+	t=1783084287; cv=none; b=ep9ARCvzZvyjoMQ9V+x4ChaE8Hq6xypKC9P5sUH/knTKjWGHZQJ6L0hLk88SXE48EwLgfwbkmZct+iP6egm52T+5n0c9UxsTuj0BasC1GhcMgN6Vh4yePI4zu3zSfAzVlPt1q17VG6kINPmaynEk6Zu+zcr2K/HNJ8M66EBhmMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783083930; c=relaxed/simple;
-	bh=pkRciNKbQ0ifl/vl6bLmmiWMxJohwsx+I+xkNEl8x9k=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=s63VMeNIJFSJK/tbXW/+RZzXnhVfspjtt+DfqrrEfeO4YTruDYXhBlf3/dqApkKTD25FeQT8n6qpekwIjWnJKGUJ6eWY0J0W9UdjAXtiaTfi0BWs2ETYmrb+by1WJSPLV5fS4v4578550qlxXjLjQsxS883q4JvtazgeM/y6mms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=walle.cc; spf=pass smtp.mailfrom=walle.cc; dkim=pass (2048-bit key) header.d=walle.cc header.i=@walle.cc header.b=nbrNh1zR; arc=none smtp.client-ip=159.69.201.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=walle.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=walle.cc
+	s=arc-20240116; t=1783084287; c=relaxed/simple;
+	bh=ur0KVXHfio32hANukgiS55qHcr/vid5LoYAKVA8ObVY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eNxSn+psdcFcJX5+dpYBL2tk7FiK5zRIc8CUM4SDqNnjCscnu3gu/q1Cs59MAO7ULujEVDMYGUGpZYBw+b9Twcbs2wfirB8/CJcBqeJzlXTPY7j/aTZemHvzZt5MSP40ha4ERFoxCjr5zRMjhMD97bDf3acZYcVtl0N7HOcqh34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ETgClG3D; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=walle.cc header.i=@walle.cc header.b="nbrNh1zR"
-Received: from localhost (unknown [IPv6:2a02:810b:4320:1000:4685:ff:fe12:5967])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.3ffe.de (Postfix) with ESMTPSA id 08A4D4E2;
-	Fri,  3 Jul 2026 15:05:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc; s=mail2022082101;
-	t=1783083920;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OreQQ0XdKsQWlU/ho4QuvNgm2eEyh+R1RO2QdadtGn8=;
-	b=nbrNh1zRQhB03C1yi+przXweH4RnERZffAT3vCSDaaxFgOrgAE3JWwxbVruloGmMtqMku6
-	T0AD0QKO85hwr06F2IJL9gKTBfGEYHPc9gCGM9BAbBkT9GLr6KFcq80FuRVMVlFY84ZJ01
-	/ZT59/9gw0hoskPrAhdBxSIlLd857e/7CKd0ZAYJ9GBaqAgTDBOp1pWkJR3y0eyVwj2C21
-	Wl+VrFYl3v7WRGDz8sjsns9LPSiqfPnjo2mf1c8lqxtacN2yZRDbCgvSHOFh1CVV6IH5ga
-	XVRmYNWdAmYfOXvdAT8gY979h7ypsdOF0e3iWSproq2mdHOZqf/rcwxsygAS6A==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ETgClG3D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783084286; x=1814620286;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ur0KVXHfio32hANukgiS55qHcr/vid5LoYAKVA8ObVY=;
+  b=ETgClG3D1EQeMLFzmtw6vJIEQFE8TIwPEiURekGiPldrPWxoHi/qeK3l
+   6e54VZYpGh2qCfzDpwHIN8vjmIViKDcuPyIuU0pEU/XUy67Sdkh2zo/ep
+   xJa0DHXBoe5C9peQBBwh/Bup0XG4/rAbFtp5UNUWHwNNlRoN2WiF+/GOa
+   oxhT0hrIGrBrtsTast0MvQigy7Y00RwG2viGVJTV+ZI6kUgUqf9bSPjJ8
+   5lg5/fureaiBcjXAvq9F88lWjwHBPhtrq9BH9aFLQEHjFoF2S6Al7MG9d
+   UXyZN35RQMCzIRfo3XyilCFLJ/nQuAWUwcNlggV3S9L17O7aT8YAzcKnE
+   A==;
+X-CSE-ConnectionGUID: MVh+SwvsTCigILiAZDb5gw==
+X-CSE-MsgGUID: 7C+Rlq3XRa6zAZwkfc0y4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="84028535"
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; 
+   d="scan'208";a="84028535"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jul 2026 06:11:25 -0700
+X-CSE-ConnectionGUID: OtKHXtZxRy+HZdZh/F4u3A==
+X-CSE-MsgGUID: 7twUTalZTUmLgv086/XQfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; 
+   d="scan'208";a="248664397"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.80])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jul 2026 06:11:20 -0700
+Date: Fri, 3 Jul 2026 16:11:18 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 06/13] usb: hub: Pass |struct usb_port*| to
+ usb_port_is_power_on()
+Message-ID: <ake09vk4fEv1D9QC@ashevche-desk.local>
+References: <20260703110317.1283411-1-wenst@chromium.org>
+ <20260703110317.1283411-7-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 03 Jul 2026 15:05:19 +0200
-Message-Id: <DJOYHWDYJUT1.2PIRY8CG488AY@walle.cc>
-Subject: Re: [PATCH v4 1/7] dt-bindings: mtd: jedec,spi-nor: allow the SFDP
- to be exposed via NVMEM
-Cc: <Manikandan.M@microchip.com>, <krzk@kernel.org>, <pratyush@kernel.org>,
- <mwalle@kernel.org>, <takahiro.kuwano@infineon.com>, <richard@nod.at>,
- <vigneshr@ti.com>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <srini@kernel.org>, <Nicolas.Ferre@microchip.com>,
- <alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
- <linux@armlinux.org.uk>, <richardcochran@gmail.com>, <linusw@kernel.org>,
- <arnd@arndb.de>, <linux-mtd@lists.infradead.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <netdev@vger.kernel.org>
-From: "Michael Walle" <michael@walle.cc>
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>, "Rob Herring"
- <robh@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260630092406.150587-1-manikandan.m@microchip.com>
- <20260630092406.150587-2-manikandan.m@microchip.com>
- <20260702-utopian-termite-of-perfection-f1f3ec@quoll>
- <860213fd-6a4b-42d4-a8f7-7308e070f09e@microchip.com>
- <20260702163723.GA227454-robh@kernel.org> <8733y0penb.fsf@bootlin.com>
-In-Reply-To: <8733y0penb.fsf@bootlin.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260703110317.1283411-7-wenst@chromium.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri Jul 3, 2026 at 12:10 PM CEST, Miquel Raynal wrote:
-> On 02/07/2026 at 11:37:23 -05, Rob Herring <robh@kernel.org> wrote:
->
->> On Thu, Jul 02, 2026 at 06:55:15AM +0000, Manikandan.M@microchip.com wro=
-te:
->>> Hi Krzysztof,
->>>=20
->>> On 7/2/26 11:46 AM, Krzysztof Kozlowski wrote:
->>> > EXTERNAL EMAIL: Do not click links or open attachments unless you kno=
-w the content is safe
->>> >=20
->>> > On Tue, Jun 30, 2026 at 02:54:00PM +0530, Manikandan Muralidharan wro=
-te:
->>> >> Add an optional "sfdp" child node (compatible "jedec,sfdp") that
->>> >> describes the SFDP as a read-only NVMEM provider via nvmem.yaml, so =
-its
->>> >=20
->>> > What is SFDP?
->>> >=20
->>> SFDP is the Serial Flash Discoverable Parameters -- a JEDEC-standardise=
-d
->>> (JESD216) read-only parameter table present in most SPI NOR flashes, th=
-e=20
->>> table contents provide basic information about the flash. There are=20
->>> standard tables which are specified by the JEDEC standard and there are=
-=20
->>> vendor tables.
->>
->> Is SFDP present or not discoverable? Or we have a table of discoverable=
-=20
->> parameters that itself is not discoverable.
->
-> SFDP is almost always there. I don't think there are any non SFDP chips
-> manufactured today (?).
+On Fri, Jul 03, 2026 at 07:03:07PM +0800, Chen-Yu Tsai wrote:
+> usb_port_is_power_on() currently takes |struct usb_hub*|, but only needs
+> it to tell if the hub/port is SuperSpeed or not.
+> 
+> In a subsequent change, usb_port_is_power_on() needs access to a pwrseq
+> state tracking field in |struct usb_port|. Either structure can be used
+> to identify whether a port/hub is SuperSpeed or not, as the field in
+> |struct usb_port| is inherited from the hub:
+> 
+>     port->is_superspeed = hub_is_superspeed(hub)
+> 
+> Replace usb_port_is_power_on()'s |struct usb_hub*| parameter with
+> |struct usb_port*| so a subsequent change can use it.
 
-Oh i bet there are, and IIRC there were some additions lately. Not
-sure if the chip was new though.
+At a brief look this will be the only function that takes usb_port
+instead of usb_hub in the entire hub.h (I don't count container_of()
+as a function). With that being said I would rather see it to be moved
+to port.c altogether (yes, it's more invasive change, but looks more
+consistent).  I would even dare to move struct usb_port (and container_of()
+accompanied with that) and this function to port.h. This might require
+a separate patch, though.
 
-> The thing is, even if we don't need to define it
-> in DT, we might need to point to it in order to extract eg. a unique ID
-> or a MAC address through the NVMEM interface.
+Perhaps something like: 1) "move struct usb_port and associated APIs to port.h";
+2) "...this patch...".
 
-Exactly. We can detect whether is a SFDP table or not, by trying to
-read its signature using the RDSFDP opcode. But as Miquel pointed
-out, that's not what this is about. For the nvmem part being useful,
-we have to have some node to point to. At the moment, there are
-three different kind of NVMEM devices an spi nor flash can create:
- - partitions
- - factory OTP (i.e. OTP by the flash manufacturer)
- - user OTP (i.e. what an OEM could write to)
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Now there's a fourth one: SFDP. It can contain vendor specific
-tables, which in the mchp case is used to store a mac address,
-which is then used for a NIC.
-
-So we somehow has to organize all of them, thus the sfdp node. A
-more complete example would be:
-
-flash@0 {
-	compatible =3D "jedec,spi-nor";
-
-	partitions {
-		compatible =3D "fixed-partitions";
-
-		partition@0 {
-			compatible =3D "nvmem-cells";
-		};
-	};
-
-	otp-1 {
-		compatible =3D "factory-otp";
-	};
-
-	otp-2 {
-		compatible =3D "user-otp";
-	};
-
-	sfdp {
-		compatile =3D "jedec,sfdp";
-	};
-};
-
-All being NVMEM devices and expose some kind of data used for
-drivers.
-
-HTH
--michael
-
-> SFDP is split into several sub-tables, the first one is mandatory, but
-> then there are optional tables which can be discovered dynamically.
->
-> Thanks,
-> Miqu=C3=A8l
 
