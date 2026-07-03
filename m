@@ -1,60 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCEB261B8A;
-	Fri,  3 Jul 2026 06:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF75D360EF4
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 06:42:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783060855; cv=none; b=FaSKBFbfD66f3Clu2hc+LzA0AyDVWixFRltyX4q2SecP3kvH8gizlFMHnYue6swT0eVLtHVQdW/Cu6l08bJ88ZtWLNYEW2ErPf5ZFigAGH5Lxgu/dYJtvTEA4qoPPrEDKSDNuiZ2CyK7c3EhUUQugv+J5Hj9o/85PUqwsO9QLao=
+	t=1783060981; cv=none; b=bTOq9IkSJyBRB+AADonmkksN6Zva3APvOSMQbz40xAVez2ExJDLEoOR3CuoWDMoKvbmOfNlTiQzxCcvm+qN6lR7KrSwPVCHeM6yKhk/NU49uUdV9VoRil9kf7DlWrij9Z7GZSvh1Apmy+uFztRYTMUBw1AxYMYXjfXh5Whvo4ZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783060855; c=relaxed/simple;
-	bh=TIqzdA7a2xvhZh1ZKXpTzCCagVZnj6YidoND4Ba1q60=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ExbuN1Jm6B6ewdJU3CSksGoUNGKmo26Ows6zyvP3iIk/lXMr4lcrgxM5el7jXBnFQIEEZdMA2vqbxEgFUkXrjE4SVoZWrLA2mmX/mcLW9VKgwU6HGkz5yzi0gnlz/SlXWEmuLJgCkgf6xGWKLRVdpU3hrWgM0vT75jiyX4tte9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T1idrGgm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783060981; c=relaxed/simple;
+	bh=Lv/QgXerDHkBYlnEgo+QNgRQf461nSCPNSQ9zeq+4Cg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=U5PDYGdEUq6MPb5H3lQrHVQoaCbH67ngUFSXZ89bc5/nC45OWQtU6rU8I1BGoix3cQ5xd4sOuiZr+N18qPGZ/176xHjfxTezm1MMW5/gI1pTbLHHe+4l3crUopVzCqJ3SloU2k2Ds6DwfX+rp76ARvhFhacHSi6X6a38ZB3tq+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D5cG1Fra; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T1idrGgm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329CB1F000E9;
-	Fri,  3 Jul 2026 06:40:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783060854;
-	bh=RE/Kuucppmu6ZKHFdvsbExbpc1QcN98NPkF1GrMK0D4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T1idrGgm58wjTAIKrIcbREvT3NBa4YEVKUiYT8tQSwQRZci6ffg192RdY42Zww9XH
-	 DjtauAZrR2VlAgDP1CVDDR9GEE+vsWvvj8CA0OezQrQBKkbX8Qxp1N4scsvRGxoA3M
-	 tDnSSZvdN4f9M90iJvx84Y41tMm68+V51qzJNqA/W8iqmS/i+O6odNtMHcmnRoWDcH
-	 x6Xu6Dv76oSNatqdl4UHmXC5qpL+9XjkaiX7cu0Fy4Z2hIY7/yq02YPq1kU5Uy/5xU
-	 KsT2jC3W3wzR4g2c6qXCWgLXaodza45xTK2JY+TG3RPc7z6v5IjFek2YRxyK//vUGp
-	 fHHqQbpSzEXSg==
-Date: Fri, 3 Jul 2026 08:40:50 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: mailbox: qcom: Add IPQ5210 APCS
- compatible
-Message-ID: <20260703-unbreakable-awesome-quail-ecfcac@quoll>
-References: <20260701-mailbox-v2-1-5e6ebc874e4e@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D5cG1Fra"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-476a130c138so228810f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 23:42:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783060978; x=1783665778; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=v+sqymlOvxvkOi7TZXL6sHTdLLN7fEoTwyaDCo9neQ4=;
+        b=D5cG1FraBR0T7TjrsVIaoo1a2AlkhqEG+LzZzAXlEygAGmdT9t8ZD1E19LS6dqPXLL
+         M1SJql0DIqIlvxVWKbwHrdJWvtOlHrrhAntBxwYZxgroNgZZtakxRPhbwNxmlVFTGZ3u
+         +tQIiYYrZAuRKDEbWV1LZIC3FDNpf0JbFpHVrIQHXNHvT0BXva4CG86IelZpyBSTP1qp
+         yc/A+KAlZTmiVmbxVpH7djQUYBA8lF+sr9FV99GGmVEBEia1BmPrnNpmAj9wBTq591/+
+         wRCQE49+/P25Qyvj1aMbbubpl0TuViOnGjwj/w0636mrPwg53rvlm+Rh4PvGi6HsLQjq
+         tVqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783060978; x=1783665778;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v+sqymlOvxvkOi7TZXL6sHTdLLN7fEoTwyaDCo9neQ4=;
+        b=Txo7I82tcC2CADA7sgIgjmglzwln1loJcGr5DRrDieYF0V3JqjSmc74ZweKPqE+SJk
+         WX4hH7mTtENPl/SoPFDkx+pVDE7M875M4K4tJvKIFDYNNBVq7cPAn8y5hwWQHiryXVB0
+         JyGMweaL82jjtzCDjxMnboTEp4qRIdyMiVCc7di8WfprpRnGmDr/RR9H+qK/k1eHn+Bq
+         V4SKqGlFYZpFs0MNmF5O9dTw4jzs9scfIl4gKfx1Zqa/2HWDsQQnhNU28JKaSLeY8GV5
+         ooOtdxx72YDYe79KC/uqVWB8vM9uXkw4xkglyS5DZTNEodIKqTkZTIYa/7T1A+q9CVh8
+         pBIA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqdiodng2ZE78eOesh4UpSnHFUqt5sk6wf5k/OWa3HopSolFFst+lR/FnedFLC7d84vOITze7Dq1DF3@vger.kernel.org
+X-Gm-Message-State: AOJu0YyKZ81UQi5DGu4s54la59ftVQoTkNptzX47TTGFe6zeFBAI9CxC
+	AkfXS2JzcWumqU7TboDi6xbueAvaPY3d6HV23LTHZTc0EIPip86pB+an
+X-Gm-Gg: AfdE7cm5r/A17UElbfe1t/FfYshF7/M0RiS58+kMmhMuPRSZYmJ8R3iqcP+Zr1x+BMm
+	mAtSA4uyJqv8npUhh1ZWjeSUCcDGLj/H9hwH1lnWBitVqUsPx52ChimJUegyCvxmFeJM9WodisM
+	4n92c69rXQy956k5xmYUOVVAEpULPAIJIc9rQdGv3LlxraE0o7M4/F+L0IONVf2XLbWNL2T6BPL
+	hZrjxNjYMCaL1f/aMDaWaHyGK+QqTbGmeUcF+CQcA8l2sJpJcAFE5XKXDrEO2cVYLIDd5MdbWL9
+	hwjf2Nr0D1wAVWN1hp+QJskOSoAhSFDSmQh4JejYPbXdMBYNQqleoVXREKdh0B9v9kmZiYabJDC
+	s8rToFsB7WTRocWNGIq1lqY59OxeBcx4VWfisrG0Uzyjf51uUTvXPEk2opAJwlcMg/PuAh/uOXR
+	61XdvIiSh0S40HfCVAM5L/8qVBu0r8AcGXvzCQ4z0bHom6eIq1rl2+pXLqhT8+K/7ogUoFPzsYn
+	iMvV4hrLzwFR9RYjPjSDlQVr+gRwJCpPAHkbn+38VoKm+P3CBkeno3iINzLNr/CdzoUGbOUEPYT
+	GGYwHlhS/WGAlnecko92NKq3hys3Chr9TkLBj6u1Qow7+gEJFReLEtY=
+X-Received: by 2002:a05:6000:26d1:b0:473:6e8d:7f3 with SMTP id ffacd0b85a97d-477b34b02f8mr12884086f8f.1.1783060978076;
+        Thu, 02 Jul 2026 23:42:58 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477dd94c829sm15326806f8f.24.2026.07.02.23.42.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 23:42:57 -0700 (PDT)
+Date: Fri, 3 Jul 2026 08:42:56 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Maxwell Doose <m32285159@gmail.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "open
+ list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>, "open
+ list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] iio: temperature: Add STS30 temperature sensor
+ driver
+Message-ID: <20260703084256.00001f7f@gmail.com>
+In-Reply-To: <20260703003159.44850872@jic23-huawei>
+References: <20260621004626.66629-1-m32285159@gmail.com>
+	<20260621004626.66629-3-m32285159@gmail.com>
+	<20260621203303.0f8c5d08@systembl0wer>
+	<CAKqfh0HUih0q9PEh+5pwwMuBBkm6nsaZP9e2yPjHO3+Yccuvgw@mail.gmail.com>
+	<CAKqfh0G1dcn4MLQ5jxjM8aDHVu=z-NEAR-y=xMjfOiW7M_HF-Q@mail.gmail.com>
+	<20260703003159.44850872@jic23-huawei>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260701-mailbox-v2-1-5e6ebc874e4e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 01, 2026 at 01:35:14PM +0530, Varadarajan Narayanan wrote:
-> Add the APCS mailbox compatible for the IPQ5210 SoC. It uses the IPQ6018
-> APCS mailbox compatible as a fallback, so document the valid compatible
-> string combination in the binding.
-> 
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+On Fri, 3 Jul 2026 00:31:59 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> On Sun, 21 Jun 2026 19:09:11 -0500
+> Maxwell Doose <m32285159@gmail.com> wrote:
+>=20
+> > On Sun, Jun 21, 2026 at 7:05=E2=80=AFPM Maxwell Doose <m32285159@gmail.=
+com> wrote: =20
+> > >
+> > > On Sun, Jun 21, 2026 at 1:33=E2=80=AFPM Joshua Crofts <joshua.crofts1=
+@gmail.com> wrote:   =20
+> > > >
+> > > > On Sat, 20 Jun 2026 19:46:24 -0500
+> > > > Maxwell Doose <m32285159@gmail.com> wrote:   =20
+> > > > > +#include <linux/array_size.h>
+> > > > > +#include <linux/bits.h>
+> > > > > +#include <linux/cleanup.h>
+> > > > > +#include <linux/crc8.h>
+> > > > > +#include <linux/delay.h>
+> > > > > +#include <linux/device.h>
+> > > > > +#include <linux/errno.h>
+> > > > > +#include <linux/export.h>
+> > > > > +#include <linux/i2c.h>   =20
+> > > >
+> > > > I am a numpty as I also forgot to mention a missing
+> > > > mod_devicetable.h header.
+> > > >   =20
+> > >
+> > > D'oh, I ought to look at my includes a lot more closely as well.   =20
+> >=20
+> > Forgot to mention, I'll be away for 2 weeks starting tomorrow so it'll
+> > have to wait :( =20
+>=20
+> Don't add mod_devicetable.h.  There is a series from Uwe that splits that=
+ header
+> up and puts the tables different headers. i2c.h is now enough.
+> (It's causing merge conflicts)
 
-Best regards,
-Krzysztof
+Cool, one include less to worry about.
 
+--=20
+Kind regards
+
+CJD
