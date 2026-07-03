@@ -1,121 +1,167 @@
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763F4356772
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 05:21:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E429B33BBBD
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 05:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783056110; cv=none; b=PnN0rIA3BOEYixdukZKdAko9Y1QS5/GuiRP7/oF05sZKgdoIQo7trknd8Zyn7DQxet4H05qe0ZAYU+2HcjWnfcWeYg/No/gkTOJGwnrKY/7Wes62CkIFFFjabrGw19LtBcaeePmLEUJN/1B6904NOdkd+V49R5kcR5BPeU1WfDY=
+	t=1783056134; cv=none; b=FuzCx4BAgJeehXqwCeUGI6BBxrTjjq6vTLVOTldsmBSbJK+1q1ZsW48iENkvs8cBWItIdaQb6TlaDQbLo26MdNv4ffkaKdKc0TiIQaEV+KLe6Dp4XWn7B0/V3QozWoOUANdbkqS2VnJnTFRgIRPP9i3sib+2ECnMGLopS7ceW20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783056110; c=relaxed/simple;
-	bh=ungXM+pGccTPmY4MYi+TOmQLabp5apMUzorBXrm5qVo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mm7zkjbV2v5IHQRTCRMk+/eBUtfarvlM7VmWzw2b1iJpSyoEaAuuXZxlrREGuvEn7+SZI59OA4Jtd5Y9zl6miBkT/JVd7dz5SiIq8KE0P5EaZlW9lm51TPbpw3jN8bfqHYVFjNDjkdyBVamhYuebiPFjY1ABhBiaIiVFAQ68m6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h+kVEf1z; arc=none smtp.client-ip=209.85.161.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783056134; c=relaxed/simple;
+	bh=Vf/yWxHFgfILzATmdSbQD89k07s6iOcYOVYdP32lsNw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JoMQ+P8igl9qUIIzS4CU493j3mPdrb2VkJfeo2cil+ctapwtrBvY8aUrcFrPafmhfzCSaBs9gWwBljldVzBHgeBy8Nm7RhQwQ3QoTceIh3npxqjkJc5F5Yh75qnYRcdZdhoP1bw9Dw7K0hoFrireuR1NhT0OgH4zxMJ27DlVSbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kTkORTKd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h+kVEf1z"
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-69ec2ebec61so68648eaf.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 22:21:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783056101; x=1783660901; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rbrF5PgluXo296yF8wu1iDrFOX+6QVWi9u8cpBpxPXM=;
-        b=h+kVEf1z6+OUrrAyxKRdwJjeEEDGg+rG8cF484EV4vUNX33SgP84/tqzO/tWZcxZZG
-         lLqZtJMpLTplvc5dNg09j5raiJ0qFSOMpngjR1Cv6YoO3+WP1vyenhsHoRMwIuZ05Cni
-         lC4VzpI+njML3iNw5w0E1aZRA2T5eOaRJU7uJAUCKhYf19vVLw/ZrcnDdS+qUtIZ/QG7
-         N/lOKYdlgHJeQ/VntPRGTXyJ0y94ci6Xk0T3JrQKK687yEEQ9s31ZApWcpdii4Y2hIq3
-         OLRIe7iHrAQScSLI1sg8oT89oDNPl+JGr4b4NaU7P2mZTofRTSCTvnLQK1JcV7XKomx9
-         Pzgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783056101; x=1783660901;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rbrF5PgluXo296yF8wu1iDrFOX+6QVWi9u8cpBpxPXM=;
-        b=nRLwRawvFn8udoNaaof3tH9ZaW1a8AZzMUCv1MXg0NLiTaUE/TYpx3f5VBS5vLNRy5
-         CbibmIYKMYQU+w8XcVIJ4uBx2DMChDHsJkI54MK+aA5Xto6FABV8t4DlyVgietKXqLso
-         XwVsOPLblupyyRlDPJxm3GkeyrQnUAiVuu32H6uC4a3gcFPYjoDvQPVRgDPfzKi4/pD6
-         342oxGb46+ZgxIU/m+3/q/1E+ZSPbO9CZQMW1CNxtRGzGsm7yfnP0RfXeAG75x1bsbhT
-         ycPuvfgSjpa9lPubuM36m3eOpfW56X04kd2FUCEueEWmmDqIuNlzDXqbQqEWfW/okC2s
-         78Sg==
-X-Forwarded-Encrypted: i=1; AFNElJ+NllM/pwoleBet8BeAURlm5sNj5sVtW5duhg4kIJTV6IQE5ozyT5m1q6RmTHoc1IEiShEvpI4o3+t/@vger.kernel.org
-X-Gm-Message-State: AOJu0YzNhNuI0nPynSE/BRYbB3Yf3S7jlD1QOljgom8Spj1esb67q056
-	L4gFVrbBZ8H5boYiUdZ/brKQhHwv9vJ5bqgy6Hdq9+gyOFrpHfqhhLnM
-X-Gm-Gg: AfdE7clTcwebamhcracKewJDri2sfco33FMG+f9QyYEfj115TWiQG4r2eDuZWSxLTRg
-	Fw5kYkNssAGg6O5EXfO7rqfaKZW0xyrkXgELS4Reyj+JqOBoCPrixl3tMk0uFSjZ2ftmAzRrkx9
-	zfDI1sjcXZnaudBmINCjsJw5QT4etrRqbksG3pIt+2mG7UtzP9jWY7aFVYKL9SkeIRaV1IUSWen
-	OAHcMt9QmduzjYzUQzYV1RGIfMRJVLlzgB8Yiy0hQsNwWEzo1k5Be98q4DOXchpoHnodzxyubMW
-	N0zP/FrEcdQQCrCOFfxetZ4PeZA+ztn9oaLXqg8yRWc2PDUQk+bVKJnWGVqDkNiv9ue8MpGcgLf
-	E4iDpxe7xypRzXJLkQJ+yBl+oY+tVG5jLe5fFP642fGZ661kYcRD9qCKtOnPIJjeCs/GxUET3Sw
-	hYv6mXOFwaUrITda3akZ3R
-X-Received: by 2002:a05:6820:4c01:b0:6a3:9ce:5412 with SMTP id 006d021491bc7-6a30d887c40mr4436494eaf.38.1783056101413;
-        Thu, 02 Jul 2026 22:21:41 -0700 (PDT)
-Received: from gmail.com ([2600:1702:56e9:4b40:ff21:65e6:6e3:5b43])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44cfb1d011asm894391fac.8.2026.07.02.22.21.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 22:21:41 -0700 (PDT)
-Date: Fri, 3 Jul 2026 00:21:38 -0500
-From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Jakub Kicinski <kuba@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org, 
-	linux-input@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Eric Dumazet <edumazet@google.com>, devicetree@vger.kernel.org, Simon Horman <horms@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
-	Andrew Lunn <andrew@lunn.ch>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Russell King <linux@armlinux.org.uk>, linux-doc@vger.kernel.org, netdev@vger.kernel.org, 
-	Vladimir Oltean <olteanv@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Thierry Reding <thierry.reding@kernel.org>
-Subject: Re: [PATCH v2 2/4] dt-bindings: media: remove obsolete rc.txt
-Message-ID: <akc_pO_ctTiZmbFw@gmail.com>
-References: <20260603-b4-remove-redirect-stubs-v2-0-c8c19876ab64@gmail.com>
- <20260603-b4-remove-redirect-stubs-v2-2-c8c19876ab64@gmail.com>
- <178052520503.2279647.12293343206224505400.robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kTkORTKd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A7A61F000E9;
+	Fri,  3 Jul 2026 05:22:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783056125;
+	bh=uedIfobgUAQY4ZrHsjkShZ5MztEETbzy8+yGGaUkFKs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kTkORTKdq17tgy941uK52qUjhOsmGveyNB0sFo2Yc4ft92bYefmG1VG10OY5DywU0
+	 SDkXTCNsII7fI8jpeZsSAEqhCSDXfSZtmBf80l0rtOYFuKUbTfpmen9cZeadX8ahnl
+	 FVCSIasUtVfWRInP69Xp/PQoRWsCobTjGTQ8a3J5JiEliSiDBesKxEq/hUv/l9MTOY
+	 QdWSZvR7z4FLdPK+/fMx9qOBPF7GnckSryuKSlgOFhSmUAq+pbaUVg9qVQR2JI13Tj
+	 he8rxAy37n2iwwyzYgjXrX8FJoJofMA4ZMpKYXQ338/21r02h8OxvVDbaRSgNbfMag
+	 EQ1VO1FHAmO4g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 04/10] remoteproc: qcom: pas: add support for TMD
+ thermal cooling devices
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gaurav Kohli" <gaurav.kohli@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260703-qmi-tmd-v4-4-3882189c1f83@oss.qualcomm.com>
+References: <20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com>
+ <20260703-qmi-tmd-v4-4-3882189c1f83@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 03 Jul 2026 05:22:04 +0000
+Message-Id: <20260703052205.2A7A61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178052520503.2279647.12293343206224505400.robh@kernel.org>
 
-On Wed, Jun 03, 2026 at 05:20:05PM -0500, Rob Herring (Arm) wrote:
-> 
-> On Wed, 03 Jun 2026 15:42:19 -0500, Akash Sukhavasi wrote:
-> > rc.txt has been a single-line redirect to rc.yaml since
-> > commit 7c31b9d67342 ("media: dt-bindings: media: Add YAML schemas for
-> > the generic RC bindings"), which introduced the .yaml schema and
-> > reduced the .txt to a stub in the same change. The .yaml has the same
-> > filename in the same directory, making this redirect unnecessary
-> > for discoverability.
-> > 
-> > One file still references rc.txt, forcing readers through an extra
-> > hop to reach the .yaml. The stub has not been touched since August
-> > 2019. Update the reference in hix5hd2-ir.txt to point directly to
-> > rc.yaml and remove the stub.
-> > 
-> > Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
-> > ---
-> >  Documentation/devicetree/bindings/media/hix5hd2-ir.txt | 2 +-
-> >  Documentation/devicetree/bindings/media/rc.txt         | 1 -
-> >  2 files changed, 1 insertion(+), 2 deletions(-)
-> > 
-> 
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] A race condition between `qmi_tmd_exit` and `qmi_tmd_new_server` c=
+an lead to a use-after-free of `qmi_tmd_cli`.
+- [High] TMD sysfs cooling device callbacks can race with teardown, leading=
+ to use-after-free on the QMI transaction IDR.
+- [High] Data race on `tmd->cur_state` during QMI server reconnect can resu=
+lt in the remote processor receiving an outdated cooling state.
+- [Medium] QCOM_Q6V5_PAS unconditionally selects QCOM_QMI_TMD, which lacks =
+a COMPILE_TEST dependency and indirectly depends on NET, leading to Kconfig=
+ unmet dependency warnings and potential build failures.
+--
 
-Friendly ping on this one. Rob's Acked-by has been on v2 since June 3
-and the patch still applies cleanly.
+commit 770900471517951fb204f7c5cc18bd57f37681a8
+Author: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
 
--- 
-Thanks,
-Akash
+remoteproc: qcom: pas: add support for TMD thermal cooling devices
+
+This commit registers Thermal Mitigation Devices (TMDs) for PAS-managed
+remote processors to enable thermal throttling through QMI. It allows
+the thermal framework to request mitigation when remote subsystems
+contribute to thermal pressure.
+
+> diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
+> index c521c744e7dbe..4fb2163c06556 100644
+> --- a/drivers/remoteproc/Kconfig
+> +++ b/drivers/remoteproc/Kconfig
+> @@ -228,6 +228,7 @@ config QCOM_Q6V5_PAS
+>  	select QCOM_PIL_INFO
+>  	select QCOM_MDT_LOADER
+>  	select QCOM_Q6V5_COMMON
+> +	select QCOM_QMI_TMD
+
+[Severity: Medium]
+Does this unconditionally select QCOM_QMI_TMD without fulfilling its
+underlying ARCH_QCOM and NET dependencies?
+
+According to Kconfig subsystem guidelines, selecting a config symbol without
+inheriting its dependencies can cause Kconfig unmet dependency warnings and
+potential build failures on architectures missing networking infrastructure
+or ARCH_QCOM.
+
+>  	select QCOM_RPROC_COMMON
+>  	select QCOM_SCM
+>  	help
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
+_q6v5_pas.c
+> index 808e9609988d3..a4756a449e64b 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+[ ... ]
+> @@ -730,6 +749,66 @@ static void qcom_pas_unassign_memory_region(struct q=
+com_pas *pas)
+[ ... ]
+> +static int qcom_pas_setup_tmd(struct qcom_pas *pas, const struct qcom_pa=
+s_data *desc)
+> +{
+[ ... ]
+> +	tmd_inst =3D qmi_tmd_init(pas->dev, desc->tmd_instance_id, tmd_names, d=
+esc->num_tmd);
+
+[Severity: High]
+Can a data race on tmd->cur_state during a QMI server reconnect result in t=
+he
+remote processor receiving an outdated cooling state?
+
+Looking at qmi_tmd_register() in drivers/soc/qcom/qmi_tmd.c:
+
+	if (tmd->cdev)
+		return qmi_tmd_send_state_request(tmd, tmd->cur_state);
+
+The current state is read locklessly without holding cdev->lock. This
+introduces a data race with concurrent sysfs updates to the cooling device's
+state, which could result in sending an outdated mitigation state over QMI.
+
+> +	if (IS_ERR(tmd_inst)) {
+> +		ret =3D PTR_ERR(tmd_inst);
+[ ... ]
+> @@ -852,12 +931,21 @@ static int qcom_pas_probe(struct platform_device *p=
+dev)
+[ ... ]
+> +remove_setup_tmd:
+> +	if (pas->tmd_inst)
+> +		qmi_tmd_exit(pas->tmd_inst);
+
+[Severity: High]
+Could a race condition between qmi_tmd_exit() and qmi_tmd_new_server() lead
+to a use-after-free of qmi_tmd_cli?
+
+Looking at qmi_tmd_exit() in drivers/soc/qcom/qmi_tmd.c:
+
+	cancel_work_sync(&qmi_tmd_cli->svc_arrive_work);
+	qmi_handle_release(&qmi_tmd_cli->handle);
+
+The work queue is canceled before shutting down incoming QMI notifications =
+via
+qmi_handle_release(). If qmi_tmd_new_server() is invoked concurrently, it
+could re-queue svc_arrive_work on the global system_highpri_wq, which then
+executes after qmi_tmd_cli has been freed.
+
+[Severity: High]
+Can TMD sysfs cooling device callbacks race with teardown, leading to a
+use-after-free on the QMI transaction IDR?
+
+In qmi_tmd_exit():
+
+	qmi_handle_release(&qmi_tmd_cli->handle);
+	qmi_tmd_unregister(qmi_tmd_cli);
+
+The QMI handle (and its IDR) is released before qmi_tmd_unregister() removes
+the thermal cooling devices from sysfs. Meanwhile, connection_active is sti=
+ll
+left as true. A concurrent sysfs write to the cur_state file exactly when t=
+he
+driver is being removed would attempt to call idr_alloc_cyclic() on the
+destroyed IDR.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703-qmi-tmd-v4=
+-0-3882189c1f83@oss.qualcomm.com?part=3D4
