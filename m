@@ -1,1142 +1,155 @@
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6DD3195FA
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 23:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BC832ED21
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 23:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783120931; cv=none; b=OXTCexnxURhQw2h8PgxS5GyHD4grVTZFJo9Pv8AC1tm/14d/mzz4VrmNgUssX7kigbrlUfOtMFZtq/EjHA2tKxrXSBOcHAIrdKWvw1h8+v0L3SYx1VVHK2D+ZVANRARGkDq06Dji36oosPQPUdDF/iWnf/GC7gFyEAeArwZg9Nw=
+	t=1783121028; cv=none; b=g2NVMHuIRTbtGbwc1w4+bM2F0Tf0Q/pZ/M7kNTQsZIt96ZXx4V04anudubJVexAbLluEsIvzx8EJIresookzbhM46BPxSUlYnYKBaeQqCPlQY+ZuZzOn6jzhqlySZqo4aIAd5OWTJEBT/C3zyGKjih9ZoLxpYZtNapvK+0a01vM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783120931; c=relaxed/simple;
-	bh=2B0WWlr/7sq+UM0zj2Cvin5LmqNSc0tlrynqzKC7GQo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t8xo962OUxKcsEBYpX8IB/NUacO4/9Q9SNYPktVG/0WwwhgRNgkCSxEgMU+bQqJjiFMjcIgoVIbXahd752wI4udomg8FfQOjv/JZffNAXT/KvmhDHvvJJ6/WKHyaVX0PP3qlTv1BVWU+piu4iMAjKEIBiOYulbbwgZu+zrIM7as=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mtrtWqLH; arc=none smtp.client-ip=209.85.208.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1783121028; c=relaxed/simple;
+	bh=Q6MpStlpatEJkDy1dODKrw+pHg/8lsoWpNmaJPV+J+g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZB1EhwN3x3iaJ6ddQd+EqCibo3rKuamaLmqXdZkqzn5A4+ArlvPIU7PPde3f+6H5X/kEJiJUP5xarXQs3+zRdOiuNmY2T7p0z8qjryfuDW+NYz1XN7bhNZyHfUSu69HWdYNGHglwFKCtseOzszhjaL7suPRva+1U20jK0rs/35I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VYD6IJD/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aQV1FoMO; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mtrtWqLH"
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-39b24dfddf7so949221fa.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 16:22:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VYD6IJD/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aQV1FoMO"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663KPYLa871844
+	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 23:23:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=WcTSMA6ScX6zdWc2oJ6SMCFD
+	q/6WkQB0iYOmZRp568g=; b=VYD6IJD/pYPHVAFazsqV0p5CfCOmIR2/XXiuz2YO
+	Z0h/XjKzvXGSHvxn2NPl9lBZNMg4FY5F972rC7A2NDN+5gF6v6PmJ0oBaGXvzOUw
+	Y/kTGvoddBw2llUHfgHqsmIPHN13K7Wh/TTLUSUCSpHlDnkL3akvT+HlapPVCw+t
+	hCShGGNSNsWNRY6zNd9tlT6G1gD/lWvJGBg1trbGsmfIAp45G9MYect1UqbAIJzW
+	QwTvuwZ3fgcR2YWWKOO9BNPy0UIn1sPExRNZijiJj7lwJvUUl4gyDmBK4tazgU9/
+	giWEiOXn3BzJm6ottFEFmC+NdtcNjnYk9RZ/ZEUrM1fWAQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f648n48s2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 23:23:45 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-91ed0e140c5so177142185a.0
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 16:23:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783120927; x=1783725727; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mSWkdr5A+of12fQqmUwXuZLqb/Sh2cIj4J6BnCLbVvs=;
-        b=mtrtWqLHEbJRn7N3HhvAuNvRc0smxN56X7zcZYC/Dzu/i0Bsub2kUChWKxmnOOSdnp
-         891KRwaoXcM4ucirO00/OM/fhCPwfPDyggsYe7m5z21zwkFcmLWzTJRwxyrJyjCylnAY
-         zsGtwTppUPgeRAfjBcYQLmmPQUrOjOTllri/yjqT5rJq8IdKohkj7DLLg17aciLCJh+V
-         M9aPAjFOcsn+yem8799MOMAjHdGNCQPVgixn0gZc7NSHmIrHfZObBRsydHumtE/cgswu
-         ZUMb3GYrU/UwD0FHGUayvbI5ap0oHOLYoqjPhNTMAgH2tIpalxaG94hT5yzRsyUXfVPR
-         Yzew==
+        d=oss.qualcomm.com; s=google; t=1783121025; x=1783725825; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=WcTSMA6ScX6zdWc2oJ6SMCFDq/6WkQB0iYOmZRp568g=;
+        b=aQV1FoMOGQxSZv5lmx/U2RslFPssjyvV0qsyYoxDBt0kGbN7EmDLim2rLFpttqZS1D
+         Fyh0k5cFBCtaMPfDZhLikWx1fGBMURMY3IJ6eaKvakWR0k4JGLnxmGh0Vg531uiyhXd/
+         VOz5nVEsZzQKzDS6X4XJSsuSSkLIW2H80q/RoMrVdPvv47RUFT0FXDHY9N3t1G5XMkQP
+         w/uxpvHoDWcNDf2ZSpOnDbFxEK4T9uoaVlFLCLX4X4mmwBlJUES6J5cJGqPDSc+hY3y8
+         DS4HjHzmgLVzQg4jUy0sQoQXSr7jhdq6XyfNJryZCAeHuxcZ/ChmPt+OTSJpGgHSZw5R
+         OH4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783120927; x=1783725727;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mSWkdr5A+of12fQqmUwXuZLqb/Sh2cIj4J6BnCLbVvs=;
-        b=gy+OecjdiekDF+BOKC1ICjlsl7tjZMDILKXJo8x1wewvipXWAZiaVZKvo36wzsn38r
-         iBHRbTHmCJNcZHNFUyvfzaCaH9SRqqrKteknrm3ZtY0+cRvYa7guFo+4KT6JSegB4RrW
-         EamQUU9dUMwbGFIZks8uZwQbuO9ma1impksLvf1qKJRT8+1JwHGozrIOlHt1FAAZEEFO
-         08zIe1L9oSMv4XZf5pLMpDwqHoOsJ9M/Aq7VFGtB/JDQf3+zFZ+deXIuMo3/UXptHOZ3
-         0U6vSO5TJtLbq8j/LW4C+YUnLcQulZEn7UeW53tyS/jLMSqvtixZuaJQ7IlIQzclg5KD
-         RqLQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqHM6spEJPtR7keICk/e207s/ET0dfTL0kQ+1H2qYJP0c+1MxoivYRJOw9eHKdNxEEmzigV+k6xEvVa@vger.kernel.org
-X-Gm-Message-State: AOJu0YxcdWO/tP86qKnneWEDZQiI2dRFfTxJgPYzRPnLVAiDCcfdkCOF
-	PzFOiDuwFVQR/WujRMf8jzaw/F+h0g8WzrVFYRAh85NtOCwlxqP+3o7bXRXe/75TzLA=
-X-Gm-Gg: AfdE7cm42AZRxmXCCxtbOLGMyf5TOd1ZKBY1XSzWphAshxB2TRr866b/EC0/KtY8Q7b
-	vRxu18Lciefy5nFVI/aXODWmvmhbb0hpFW7FTcOLP3Nw7JCkrViO7DGBEWh8fmhozIa/egXHEV+
-	9+hoI5mj/ZIDS0qMHSYivaHVp+7fSxD+NNPjVkHiTEHqKnNCnYn9H/93zGwAu/b1nhZ+d4GcepS
-	1mzA4fwI5a1YtISBwtmG1wOuDC/7lTXvPFZNaevXVz83F0+65ESrGRrBnwoYWHjWGHaMLDoYtUe
-	8BPcA+FzhrJqxyabhZ8PZNE6GMiio7yh6W4mz2KGQzMOGLp5PK/knKGBY0iEDP2O3chTYcMFZDi
-	ZBbms/Z24XYx9W6+GQuY+m100MD7pQ1tVy2bdIiHa9fZ6SAgbqPy3oFRQtmhMXv6Uj0iAZFGONu
-	jDaZDaSmmTyNRXLxI8UkoUmUTeYFrYCFAQjgMLnbev8R8HqD2jdjWAmTz6LUlM0cIAYGw=
-X-Received: by 2002:a2e:ac13:0:b0:396:a453:746d with SMTP id 38308e7fff4ca-39b540bf771mr843661fa.8.1783120926029;
-        Fri, 03 Jul 2026 16:22:06 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39b4aba9ef2sm5530211fa.0.2026.07.03.16.22.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Jul 2026 16:22:05 -0700 (PDT)
-Message-ID: <a39a48cd-bcaf-468d-ba43-5bbd05bcec4e@linaro.org>
-Date: Sat, 4 Jul 2026 02:21:48 +0300
+        d=1e100.net; s=20251104; t=1783121025; x=1783725825;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=WcTSMA6ScX6zdWc2oJ6SMCFDq/6WkQB0iYOmZRp568g=;
+        b=KoPzstwx7pjdSmwmbiWJW4pdb17xVjH4l55cjPSpJxV1VXRNkgWeobizGM5KAIpoX3
+         6pQ1EXFw6Qnb/Ch0iWITyQx5OdpifvBmYh3F6WPXC4maXWWsjc6wCXfRUyX4CWPtS6xN
+         hRIcIBCBKa8Wb6BHq64iOq/HXHRVrusCi2ISrNXLidhzL7cFMLzEmUIe/KTCFtlMoMFa
+         HHrhzg2xqGZwQyZ5ZwZEMlr+pbA14N+qTr9VDFtszaqIP00OTzmw1paGNtblOuQ7UllV
+         j1qhr1TptiKGL475Tn2GrF8u2oQT+0Ez8fe7XH6jt9PkelOglmMQ0p88KioOdWXxoaHf
+         VCzg==
+X-Forwarded-Encrypted: i=1; AFNElJ+6jG0vt3CHYhPtqb9blG4catn7vHSXmI07P/vHDFh6N6eUoE0287EpCnrIANWMVrIXKArwC7w19yxv@vger.kernel.org
+X-Gm-Message-State: AOJu0YyKbwcaYiwCdBTrDRjViX5Ifl3P8U3ckQYGUFmCYqUTGzMsEdIc
+	M24yhtaulAzAmwpM03DLjEZQA/p9jbvCZDTigiw3uRIbPivJGOxufBCGtkoTzsjrZLe39Ld4djl
+	j4MZlXGAitXP9gRPUc66DxbMgV3cjhLJK7UTZxbDnXhEOpT61eg27OyGlslgVTC17
+X-Gm-Gg: AfdE7cmSUeIvFR8C3tyFcRJd9Bctca6DiSqWG1jE37FDsIwrv6Hb2vPMt16Nd7Z7U+R
+	zGkiGZUnI1lXU36Zuv7MMFNMUhthBVbwYCBB1RbuVJa5f8zJTUCJr5At9bDTgf+WXOsoCSifnER
+	YJk3+s6O9Ra90pTLDXHzzqtKDNE4CFoOcURhHFJZHJNye5T4I9j9dRpYX7721HjL9H/K3b40Q1/
+	ehSrIvkTXi/0H1dJIEJ+WTbPCJ+4072zdFech6fXlZ6wv+hzD6OUOeDuVeUS+U7YLZH4KmtHbRZ
+	IjI/UQZLQ8SwPtGitGSxFzHxIK71jq+DousDEizjvBLq9j3VWdP475BC67sAiy+X1GprK9m2Xdf
+	AlrJ/x4Z4hXVPnGoyACEHdHV949xmEjt1twxzE7Z9ck6DMXqG1DNbkLSkgilPkQPVGof0nN/qlw
+	KDOZOZpjGiJm8KtzCjZkGZ4wRr
+X-Received: by 2002:a05:620a:4398:b0:915:de68:1802 with SMTP id af79cd13be357-92e9a48b911mr200515385a.41.1783121024793;
+        Fri, 03 Jul 2026 16:23:44 -0700 (PDT)
+X-Received: by 2002:a05:620a:4398:b0:915:de68:1802 with SMTP id af79cd13be357-92e9a48b911mr200512685a.41.1783121024441;
+        Fri, 03 Jul 2026 16:23:44 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39b4ae36f16sm5168201fa.31.2026.07.03.16.23.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jul 2026 16:23:42 -0700 (PDT)
+Date: Sat, 4 Jul 2026 02:23:39 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Erikas Bitovtas <xerikasxx@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, Kees Cook <kees@kernel.org>,
+        Tony Luck <tony.luck@intel.com>,
+        "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Stefan Hansson <newbyte@postmarketos.org>,
+        ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+        Vitalii Skorkin <nikroksm@mail.ru>
+Subject: Re: [PATCH 2/3] firmware: qcom: tzmem: disable SHM bridge for SM7125
+ platform
+Message-ID: <mv66rmk4ckke62zpz7wjbbzrxfumsjmvf5bpfr4al6zy35tg4f@45iknynh6rcd>
+References: <20260703-sm7125-samsung-v1-0-3e5f752048c1@gmail.com>
+ <20260703-sm7125-samsung-v1-2-3e5f752048c1@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] media: i2c: add os02g10 image sensor driver
-To: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
- sakari.ailus@linux.intel.com, laurent.pinchart@ideasonboard.com
-Cc: Tarang Raval <tarang.raval@siliconsignals.io>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
- Hans de Goede <johannes.goede@oss.qualcomm.com>,
- Xiaolei Wang <xiaolei.wang@windriver.com>,
- Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
- Walter Werner Schneider <contact@schnwalter.eu>, Kate Hsuan
- <hpa@redhat.com>, Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>,
- Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260702072502.7907-1-elgin.perumbilly@siliconsignals.io>
- <20260702072502.7907-3-elgin.perumbilly@siliconsignals.io>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20260702072502.7907-3-elgin.perumbilly@siliconsignals.io>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260703-sm7125-samsung-v1-2-3e5f752048c1@gmail.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDIzNyBTYWx0ZWRfX89fUbuKwo/qc
+ baKc2kzxRKH1cf0InjC9Iuong+y5TwbGIOvVjhtoiN+JAJBb6M9LK4fOLlwI5JBa/7Aq4QL+cEW
+ 8zIWR/o8+HGi5NKOZhGqqWdki4zihHo=
+X-Proofpoint-ORIG-GUID: nmGpl-efybNMLzBpaEgGF1ZIemA4fspI
+X-Authority-Analysis: v=2.4 cv=O4wJeh9W c=1 sm=1 tr=0 ts=6a484481 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=RgBw9RmQAAAA:8
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=xxd52h_9Px5NHeBr2ZkA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: nmGpl-efybNMLzBpaEgGF1ZIemA4fspI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDIzNyBTYWx0ZWRfX3MgFupQ/6glz
+ AKCyPSy1vLkmPec+Hp7YZJkwhZdx5BdCQW6aoCSoBm79Rmg9TjPw/CFZw6GaRBjO8oaDmB6EUZl
+ H2giT+6+9NDdpZ7aYkNY8gKtleVSGo3h8rDbwyTDNTojZ8BthCIz9BxJOPXnASbpct782ZaLpl0
+ ZRl8jMpuFkrgOOJmzgxPpfMm96yAsgfS5t34TX4IycLIE5BW3ZZS/y2CY+WW+DcypAfrpqIKW3S
+ ixhIw8s7XSs71fOmdywopddH9JYCi/2LLOnViAO3dBu6ADtv+1vR43TBBnLxfh7zbC4oPK1g9f+
+ PiPokTqv72pezAtHfN1Ez3sJWToNXwA2jB+1VsP5tTOquO4GFwI9j4aZ7VrRyzV/h5nt5aEcgz8
+ 4Rofth8bRPs254OmSdoahkdo/QmXY+pTD5sqAXnxb2DNypJdjKaPkFJsrENgJv9Jtbnx4qmls4O
+ HE9deRQ62cC2rVFFNvQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_04,2026-07-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0
+ suspectscore=0 malwarescore=0 spamscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030237
 
-On 7/2/26 10:24, Elgin Perumbilly wrote:
-> Add a v4l2 subdevice driver for the Omnivision os02g10 sensor.
+On Fri, Jul 03, 2026 at 10:59:39AM +0300, Erikas Bitovtas wrote:
+> From: Vitalii Skorkin <nikroksm@mail.ru>
 > 
-> The Omnivision os02g10 is a CMOS image sensor with an active array size of
-> 1920 x 1080.
+> Currently SHM bridge causes RCU stalls when booting. Disable it for
+> SM7125 until a fix is available.
 > 
-> The following features are supported:
-> - Manual exposure an gain control support
-> - vblank/hblank control support
-> - vflip/hflip control support
-> - Test pattern control support
-> - Supported resolution: 1920 x 1080 @ 30fps (SBGGR10)
-> 
-> Signed-off-by: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
-> Reviewed-by: Tarang Raval <tarang.raval@siliconsignals.io>
+> Signed-off-by: Vitalii Skorkin <nikroksm@mail.ru>
+> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
 > ---
->   MAINTAINERS                 |   1 +
->   drivers/media/i2c/Kconfig   |  10 +
->   drivers/media/i2c/Makefile  |   1 +
->   drivers/media/i2c/os02g10.c | 945 ++++++++++++++++++++++++++++++++++++
->   4 files changed, 957 insertions(+)
->   create mode 100644 drivers/media/i2c/os02g10.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 83bce5e9dc49..20f619149bfd 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -19835,6 +19835,7 @@ M:	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
->   L:	linux-media@vger.kernel.org
->   S:	Maintained
->   F:	Documentation/devicetree/bindings/media/i2c/ovti,os02g10.yaml
-> +F:	drivers/media/i2c/os02g10.c
-> 
->   OMNIVISION OS05B10 SENSOR DRIVER
->   M:	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
-> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-> index 5d173e0ecf42..d90fdba921d2 100644
-> --- a/drivers/media/i2c/Kconfig
-> +++ b/drivers/media/i2c/Kconfig
-> @@ -373,6 +373,16 @@ config VIDEO_OG0VE1B
->   	  To compile this driver as a module, choose M here: the
->   	  module will be called og0ve1b.
-> 
-> +config VIDEO_OS02G10
-> +        tristate "OmniVision OS02G10 sensor support"
-> +        select V4L2_CCI_I2C
-> +        help
-> +          This is a Video4Linux2 sensor driver for Omnivision
-> +          OS02G10 camera sensor.
-> +
-> +	  To compile this driver as a module, choose M here: the
-> +          module will be called os02g10.
-> +
->   config VIDEO_OS05B10
->           tristate "OmniVision OS05B10 sensor support"
->           select V4L2_CCI_I2C
-> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-> index e45359efe0e4..60eb6efd73e4 100644
-> --- a/drivers/media/i2c/Makefile
-> +++ b/drivers/media/i2c/Makefile
-> @@ -84,6 +84,7 @@ obj-$(CONFIG_VIDEO_MT9V032) += mt9v032.o
->   obj-$(CONFIG_VIDEO_MT9V111) += mt9v111.o
->   obj-$(CONFIG_VIDEO_OG01A1B) += og01a1b.o
->   obj-$(CONFIG_VIDEO_OG0VE1B) += og0ve1b.o
-> +obj-$(CONFIG_VIDEO_OS02G10) += os02g10.o
->   obj-$(CONFIG_VIDEO_OS05B10) += os05b10.o
->   obj-$(CONFIG_VIDEO_OV01A10) += ov01a10.o
->   obj-$(CONFIG_VIDEO_OV02A10) += ov02a10.o
-> diff --git a/drivers/media/i2c/os02g10.c b/drivers/media/i2c/os02g10.c
-> new file mode 100644
-> index 000000000000..105ca3d6322e
-> --- /dev/null
-> +++ b/drivers/media/i2c/os02g10.c
-> @@ -0,0 +1,945 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * V4L2 Support for the OS02G10
-> + *
-> + * Copyright (C) 2026 Silicon Signals Pvt. Ltd.
-> + *
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/bitops.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/clk.h>
-> +#include <linux/container_of.h>
-> +#include <linux/delay.h>
-> +#include <linux/err.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/units.h>
-> +#include <linux/types.h>
-> +#include <linux/time.h>
-> +
-> +#include <media/v4l2-cci.h>
-> +#include <media/v4l2-ctrls.h>
-> +#include <media/v4l2-device.h>
-> +#include <media/v4l2-fwnode.h>
-> +#include <media/v4l2-mediabus.h>
-> +
-> +#define OS02G10_XCLK_FREQ_24MHZ			(24 * HZ_PER_MHZ)
-> +
-> +/* Page 0 */
-> +#define OS02G10_REG_CHIPID			CCI_REG24(0x002)
-> +#define OS02G10_CHIPID				0x560247
-> +
-> +#define OS02G10_REG_PLL_DIV_CTRL		CCI_REG8(0x030)
-> +#define OS02G10_REG_PLL_DCTL_BIAS_CTRL		CCI_REG8(0x035)
-> +#define OS02G10_REG_GATE_EN_CTRL		CCI_REG8(0x038)
-> +#define OS02G10_REG_DPLL_NC			CCI_REG8(0x041)
-> +#define OS02G10_REG_MP_PHASE_CTRL		CCI_REG8(0x044)
-> +
-> +/* Page 1 */
-> +#define OS02G10_REG_FRAME_SYNC			CCI_REG8(0x101)
-> +
-> +#define OS02G10_REG_LONG_EXPOSURE		CCI_REG16(0x103)
-> +#define OS02G10_EXPOSURE_MIN			4
-> +#define OS02G10_EXPOSURE_STEP			1
-> +#define OS02G10_EXPOSURE_MARGIN			9
-> +
-> +#define OS02G10_REG_HBLANK			CCI_REG16(0x109)
-> +
-> +#define OS02G10_REG_FRAME_TEST_CTRL		CCI_REG8(0x10d)
-> +#define OS02G10_FRAME_EXP_SEPERATE_EN		BIT(4)
-> +#define OS02G10_TEST_PATTERN_ENABLE		BIT(0)
-> +
-> +#define OS02G10_REG_FRAME_LENGTH		CCI_REG16(0x10e)
-> +#define OS02G10_FRAME_LENGTH_MAX		(BIT(16) - 1)
-> +
-> +#define OS02G10_REG_ANALOG_GAIN			CCI_REG8(0x124)
-> +#define OS02G10_ANALOG_GAIN_MIN			16
-> +#define OS02G10_ANALOG_GAIN_MAX			248
-> +#define OS02G10_ANALOG_GAIN_STEP		1
-> +#define OS02G10_ANALOG_GAIN_DEFAULT		16
-> +
-> +#define OS02G10_REG_DIGITAL_GAIN_H		CCI_REG8(0x137)
-> +#define OS02G10_REG_DIGITAL_GAIN_L		CCI_REG8(0x139)
-> +#define OS02G10_DIGITAL_GAIN_MIN		64
-> +#define OS02G10_DIGITAL_GAIN_MAX		2048
-> +#define OS02G10_DIGITAL_GAIN_STEP		64
-> +#define OS02G10_DIGITAL_GAIN_DEFAULT		64
-> +
-> +#define OS02G10_REG_ULP_PWD_DUMMY_CTRL		CCI_REG8(0x13c)
-> +
-> +#define OS02G10_REG_FLIP_MIRROR			CCI_REG8(0x13f)
-> +#define OS02G10_FLIP				BIT(1)
-> +#define OS02G10_MIRROR				BIT(0)
-> +
-> +#define OS02G10_REG_DC_LEVEL_LIMIT_EN		CCI_REG8(0x146)
-> +#define OS02G10_REG_DC_LEVEL_LIMIT_L		CCI_REG8(0x147)
-> +#define OS02G10_REG_BLC_DATA_LIMIT_L		CCI_REG8(0x148)
-> +#define OS02G10_REG_DC_BLC_LIMIT_H		CCI_REG8(0x149)
-> +
-> +#define OS02G10_REG_H_SIZE_MIPI			CCI_REG16(0x18e)
-> +#define OS02G10_REG_V_SIZE_MIPI			CCI_REG16(0x190)
-> +
-> +#define OS02G10_REG_HS_LP_CTRL			CCI_REG8(0x192)
-> +#define OS02G10_REG_HS_LEVEL			CCI_REG8(0x19d)
-> +#define OS02G10_REG_HS_DRV			CCI_REG8(0x19e)
-> +
-> +#define OS02G10_REG_MIPI_TX_SPEED_CTRL		CCI_REG8(0x1a1)
-> +
-> +#define OS02G10_REG_STREAM_CTRL			CCI_REG8(0x1b1)
-> +#define OS02G10_STREAM_CTRL_ON			0x03
-> +#define OS02G10_STREAM_CTRL_OFF			0x00
-> +
-> +#define OS02G10_REG_GB_SUBOFFSET		CCI_REG8(0x1f0)
-> +#define OS02G10_REG_BLUE_SUBOFFSET		CCI_REG8(0x1f1)
-> +#define OS02G10_REG_RED_SUBOFFSET		CCI_REG8(0x1f2)
-> +#define OS02G10_REG_GR_SUBOFFSET		CCI_REG8(0x1f3)
-> +
-> +#define OS02G10_REG_ABL_TRIGGER			CCI_REG8(0x1fa)
-> +#define OS02G10_REG_ABL				CCI_REG8(0x1fb)
-> +
-> +/* Page 2 */
-> +#define OS02G10_REG_SIF_CTRL			CCI_REG8(0x25e)
-> +#define OS02G10_ORIENTATION_BAYER_FIX		0x32
-> +
-> +#define OS02G10_REG_V_START			CCI_REG16(0x2a0)
-> +#define OS02G10_REG_V_SIZE			CCI_REG16(0x2a2)
-> +#define OS02G10_REG_H_START			CCI_REG16(0x2a4)
-> +#define OS02G10_REG_H_SIZE			CCI_REG16(0x2a6)
-> +
-> +#define OS02G10_LINK_FREQ_720MHZ		(720 * HZ_PER_MHZ)
-> +#define OS02G10_DATA_LANES			2
-> +
-> +/* OS02G10 native and active pixel array size */
-> +static const struct v4l2_rect os02g10_native_area = {
-> +	.top = 0,
-> +	.left = 0,
-> +	.width = 1928,
-> +	.height = 1088,
-> +};
-> +
-> +static const struct v4l2_rect os02g10_active_area = {
-> +	.top = 4,
-> +	.left = 4,
-> +	.width = 1920,
-> +	.height = 1080,
-> +};
-> +
-> +static const char * const os02g10_supply_name[] = {
-> +	"avdd",		/* Analog power */
-> +	"dovdd",	/* Digital I/O power */
-> +	"dvdd",		/* Digital core power */
-> +};
-> +
-> +struct os02g10 {
-> +	struct device *dev;
-> +	struct regmap *cci;
-> +	struct v4l2_subdev sd;
-> +	struct media_pad pad;
-> +	struct clk *xclk;
-> +	struct gpio_desc *reset_gpio;
-> +	struct regulator_bulk_data supplies[ARRAY_SIZE(os02g10_supply_name)];
-> +
-> +	/* V4L2 Controls */
-> +	struct v4l2_ctrl_handler handler;
-> +	struct v4l2_ctrl *vblank;
-> +	struct v4l2_ctrl *exposure;
-> +	struct v4l2_ctrl *vflip;
-> +	struct v4l2_ctrl *hflip;
-> +};
-> +
-> +struct os02g10_mode {
-> +	u32 width;
-> +	u32 height;
-> +	u32 vts_def;
-> +	u32 exp_def;
-> +	u32 x_start;
-> +	u32 y_start;
-> +};
-> +
-> +static const struct cci_reg_sequence os02g10_common_regs[] = {
-> +	{ OS02G10_REG_PLL_DIV_CTRL,		0x0a},
-> +	{ OS02G10_REG_PLL_DCTL_BIAS_CTRL,	0x04},
-> +	{ OS02G10_REG_GATE_EN_CTRL,		0x11},
-> +	{ OS02G10_REG_DPLL_NC,			0x06},
-> +	{ OS02G10_REG_MP_PHASE_CTRL,		0x20},
-> +	{ CCI_REG8(0x119),			0x50},
-> +	{ CCI_REG8(0x11a),			0x0c},
-> +	{ CCI_REG8(0x11b),			0x0d},
-> +	{ CCI_REG8(0x11c),			0x00},
-> +	{ CCI_REG8(0x11d),			0x75},
-> +	{ CCI_REG8(0x11e),			0x52},
-> +	{ CCI_REG8(0x122),			0x14},
-> +	{ CCI_REG8(0x125),			0x44},
-> +	{ CCI_REG8(0x126),			0x0f},
-> +	{ OS02G10_REG_ULP_PWD_DUMMY_CTRL,	0xca},
-> +	{ CCI_REG8(0x13d),			0x4a},
-> +	{ CCI_REG8(0x140),			0x0f},
-> +	{ CCI_REG8(0x143),			0x38},
-> +	{ OS02G10_REG_DC_LEVEL_LIMIT_EN,	0x01},
-> +	{ OS02G10_REG_DC_LEVEL_LIMIT_L,		0x00},
-> +	{ OS02G10_REG_DC_BLC_LIMIT_H,		0x32},
-> +	{ CCI_REG8(0x150),			0x01},
-> +	{ CCI_REG8(0x151),			0x28},
-> +	{ CCI_REG8(0x152),			0x20},
-> +	{ CCI_REG8(0x153),			0x03},
-> +	{ CCI_REG8(0x157),			0x16},
-> +	{ CCI_REG8(0x159),			0x01},
-> +	{ CCI_REG8(0x15a),			0x01},
-> +	{ CCI_REG8(0x15d),			0x04},
-> +	{ CCI_REG8(0x16a),			0x04},
-> +	{ CCI_REG8(0x16b),			0x03},
-> +	{ CCI_REG8(0x16e),			0x28},
-> +	{ CCI_REG8(0x171),			0xc2},
-> +	{ CCI_REG8(0x172),			0x04},
-> +	{ CCI_REG8(0x173),			0x38},
-> +	{ CCI_REG8(0x174),			0x04},
-> +	{ CCI_REG8(0x179),			0x00},
-> +	{ CCI_REG8(0x17a),			0xb2},
-> +	{ CCI_REG8(0x17b),			0x10},
-> +	{ OS02G10_REG_HS_LP_CTRL,		0x02},
-> +	{ OS02G10_REG_HS_LEVEL,			0x03},
-> +	{ OS02G10_REG_HS_DRV,			0x55},
-> +	{ CCI_REG8(0x1b8),			0x70},
-> +	{ CCI_REG8(0x1b9),			0x70},
-> +	{ CCI_REG8(0x1ba),			0x70},
-> +	{ CCI_REG8(0x1bb),			0x70},
-> +	{ CCI_REG8(0x1bc),			0x00},
-> +	{ CCI_REG8(0x1c4),			0x6d},
-> +	{ CCI_REG8(0x1c5),			0x6d},
-> +	{ CCI_REG8(0x1c6),			0x6d},
-> +	{ CCI_REG8(0x1c7),			0x6d},
-> +	{ CCI_REG8(0x1cc),			0x11},
-> +	{ CCI_REG8(0x1cd),			0xe0},
-> +	{ CCI_REG8(0x1d0),			0x1b},
-> +	{ CCI_REG8(0x1d2),			0x76},
-> +	{ CCI_REG8(0x1d3),			0x68},
-> +	{ CCI_REG8(0x1d4),			0x68},
-> +	{ CCI_REG8(0x1d5),			0x73},
-> +	{ CCI_REG8(0x1d6),			0x73},
-> +	{ CCI_REG8(0x1e8),			0x55},
-> +	{ OS02G10_REG_GB_SUBOFFSET,		0x40},
-> +	{ OS02G10_REG_BLUE_SUBOFFSET,		0x40},
-> +	{ OS02G10_REG_RED_SUBOFFSET,		0x40},
-> +	{ OS02G10_REG_GR_SUBOFFSET,		0x40},
-> +	{ OS02G10_REG_ABL_TRIGGER,		0x1c},
-> +	{ OS02G10_REG_ABL,			0x33},
-> +	{ CCI_REG8(0x1fc),			0x80},
-> +	{ CCI_REG8(0x1fe),			0x80},
-> +	{ CCI_REG8(0x303),			0x67},
-> +	{ CCI_REG8(0x300),			0x59},
-> +	{ CCI_REG8(0x304),			0x11},
-> +	{ CCI_REG8(0x305),			0x04},
-> +	{ CCI_REG8(0x306),			0x0c},
-> +	{ CCI_REG8(0x307),			0x08},
-> +	{ CCI_REG8(0x308),			0x08},
-> +	{ CCI_REG8(0x309),			0x4f},
-> +	{ CCI_REG8(0x30b),			0x08},
-> +	{ CCI_REG8(0x30d),			0x26},
-> +	{ CCI_REG8(0x30f),			0x00},
-> +	{ CCI_REG8(0x234),			0xfe},
-> +	{ OS02G10_REG_MIPI_TX_SPEED_CTRL,	0x05},
-> +};
-> +
-> +static const struct os02g10_mode supported_modes[] = {
-> +	{
-> +		.width = 1920,
-> +		.height = 1080,
-> +		.vts_def = 1246,
-> +		.exp_def = 1100,
-> +		.x_start = 2,
-> +		.y_start = 6,
-> +	},
-> +};
-> +
-> +static const s64 link_freq_menu_items[] = {
-> +	OS02G10_LINK_FREQ_720MHZ,
-> +};
-> +
-> +static const char * const os02g10_test_pattern_menu[] = {
-> +	"Disabled",
-> +	"Colorbar",
-> +};
-> +
-> +static inline struct os02g10 *to_os02g10(struct v4l2_subdev *sd)
-> +{
-> +	return container_of_const(sd, struct os02g10, sd);
-> +}
-> +
-> +static u32 os02g10_get_format_code(struct os02g10 *os02g10)
-> +{
-> +	static const u32 codes[2][2] = {
-> +		{ MEDIA_BUS_FMT_SBGGR10_1X10, MEDIA_BUS_FMT_SGBRG10_1X10, },
-> +		{ MEDIA_BUS_FMT_SGRBG10_1X10, MEDIA_BUS_FMT_SRGGB10_1X10, },
-> +	};
-> +
-> +	return codes[os02g10->vflip->val][os02g10->hflip->val];
-> +}
-> +
-> +static int os02g10_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct os02g10 *os02g10 = container_of_const(ctrl->handler,
-> +						     struct os02g10, handler);
-> +	struct v4l2_subdev_state *state;
-> +	struct v4l2_mbus_framefmt *fmt;
-> +	int ret = 0;
-> +
-> +	state = v4l2_subdev_get_locked_active_state(&os02g10->sd);
-> +	fmt = v4l2_subdev_state_get_format(state, 0);
-> +
-> +	if (ctrl->id == V4L2_CID_VBLANK) {
-> +		/* Honour the VBLANK limits when setting exposure */
-> +		s64 max = fmt->height + ctrl->val - OS02G10_EXPOSURE_MARGIN;
-> +
-> +		ret = __v4l2_ctrl_modify_range(os02g10->exposure,
-> +					       os02g10->exposure->minimum, max,
-> +					       os02g10->exposure->step,
-> +					       os02g10->exposure->default_value);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	if (pm_runtime_get_if_active(os02g10->dev) == 0)
-> +		return 0;
-> +
-> +	switch (ctrl->id) {
-> +	case V4L2_CID_EXPOSURE:
-> +		cci_write(os02g10->cci, OS02G10_REG_LONG_EXPOSURE,
-> +			  ctrl->val, &ret);
-> +		break;
-> +	case V4L2_CID_ANALOGUE_GAIN:
-> +		cci_write(os02g10->cci, OS02G10_REG_ANALOG_GAIN,
-> +			  ctrl->val, &ret);
-> +		break;
-> +	case V4L2_CID_DIGITAL_GAIN:
-> +		cci_write(os02g10->cci, OS02G10_REG_DIGITAL_GAIN_L,
-> +			  (ctrl->val & 0xff), &ret);
-> +		cci_write(os02g10->cci, OS02G10_REG_DIGITAL_GAIN_H,
-> +			  ((ctrl->val >> 8) & 0x7), &ret);
-> +		break;
-> +	case V4L2_CID_VBLANK:
-> +		u64 vts = ctrl->val + fmt->height;
-> +
-> +		cci_update_bits(os02g10->cci, OS02G10_REG_FRAME_TEST_CTRL,
-> +				OS02G10_FRAME_EXP_SEPERATE_EN,
-> +				OS02G10_FRAME_EXP_SEPERATE_EN, &ret);
-> +		cci_write(os02g10->cci, OS02G10_REG_FRAME_LENGTH, vts, &ret);
-> +		break;
-> +	case V4L2_CID_HFLIP:
-> +	case V4L2_CID_VFLIP:
-> +		cci_write(os02g10->cci, OS02G10_REG_FLIP_MIRROR,
-> +			  os02g10->hflip->val | os02g10->vflip->val << 1, &ret);
-> +		cci_write(os02g10->cci, OS02G10_REG_SIF_CTRL,
-> +			  OS02G10_ORIENTATION_BAYER_FIX, &ret);
-> +		break;
-> +	case V4L2_CID_TEST_PATTERN:
-> +		cci_update_bits(os02g10->cci,
-> +				OS02G10_REG_FRAME_TEST_CTRL,
-> +				OS02G10_TEST_PATTERN_ENABLE,
-> +				ctrl->val ? OS02G10_TEST_PATTERN_ENABLE : 0,
-> +				&ret);
-> +		break;
-> +	default:
-> +		ret = -EINVAL;
-> +		break;
-> +	}
-> +	cci_write(os02g10->cci, OS02G10_REG_FRAME_SYNC, 0x01, &ret);
-> +
-> +	pm_runtime_put(os02g10->dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static const struct v4l2_ctrl_ops os02g10_ctrl_ops = {
-> +	.s_ctrl = os02g10_set_ctrl,
-> +};
-> +
-> +static int os02g10_init_controls(struct os02g10 *os02g10)
-> +{
-> +	const struct os02g10_mode *mode = &supported_modes[0];
-> +	struct v4l2_fwnode_device_properties props;
-> +	u64 vblank_def, exp_max, pixel_rate;
-> +	struct v4l2_ctrl_handler *ctrl_hdlr;
-> +	struct v4l2_ctrl *link_freq;
-> +	int ret;
-> +
-> +	ret = v4l2_fwnode_device_parse(os02g10->dev, &props);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ctrl_hdlr = &os02g10->handler;
-> +	v4l2_ctrl_handler_init(ctrl_hdlr, 11);
-> +
-> +	/* pixel_rate = link_freq * 2 * nr_of_lanes / bits_per_sample */
-> +	pixel_rate = div_u64(OS02G10_LINK_FREQ_720MHZ * 2 * OS02G10_DATA_LANES, 10);
-> +	v4l2_ctrl_new_std(ctrl_hdlr, &os02g10_ctrl_ops, V4L2_CID_PIXEL_RATE, 0,
-> +			  pixel_rate, 1, pixel_rate);
-> +
-> +	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &os02g10_ctrl_ops,
-> +					   V4L2_CID_LINK_FREQ,
-> +					   ARRAY_SIZE(link_freq_menu_items) - 1,
-> +					   0, link_freq_menu_items);
-> +
-> +	vblank_def = mode->vts_def - mode->height;
-> +	os02g10->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &os02g10_ctrl_ops,
-> +					    V4L2_CID_VBLANK, vblank_def,
-> +					    OS02G10_FRAME_LENGTH_MAX - mode->height,
-> +					    1, vblank_def);
-> +
-> +	exp_max = mode->vts_def - OS02G10_EXPOSURE_MARGIN;
-> +	os02g10->exposure =
-> +		v4l2_ctrl_new_std(ctrl_hdlr, &os02g10_ctrl_ops,
-> +				  V4L2_CID_EXPOSURE,
-> +				  OS02G10_EXPOSURE_MIN, exp_max,
-> +				  OS02G10_EXPOSURE_STEP, mode->exp_def);
-> +
-> +	v4l2_ctrl_new_std(ctrl_hdlr, &os02g10_ctrl_ops,
-> +			  V4L2_CID_ANALOGUE_GAIN, OS02G10_ANALOG_GAIN_MIN,
-> +			  OS02G10_ANALOG_GAIN_MAX, OS02G10_ANALOG_GAIN_STEP,
-> +			  OS02G10_ANALOG_GAIN_DEFAULT);
-> +
-> +	v4l2_ctrl_new_std(ctrl_hdlr, &os02g10_ctrl_ops,
-> +			  V4L2_CID_DIGITAL_GAIN, OS02G10_DIGITAL_GAIN_MIN,
-> +			  OS02G10_DIGITAL_GAIN_MAX, OS02G10_DIGITAL_GAIN_STEP,
-> +			  OS02G10_DIGITAL_GAIN_DEFAULT);
-> +
-> +	os02g10->hflip = v4l2_ctrl_new_std(ctrl_hdlr, &os02g10_ctrl_ops,
-> +					   V4L2_CID_HFLIP, 0, 1, 1, 0);
-> +
-> +	os02g10->vflip = v4l2_ctrl_new_std(ctrl_hdlr, &os02g10_ctrl_ops,
-> +					   V4L2_CID_VFLIP, 0, 1, 1, 0);
-> +
-> +	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &os02g10_ctrl_ops,
-> +				     V4L2_CID_TEST_PATTERN,
-> +				     ARRAY_SIZE(os02g10_test_pattern_menu) - 1,
-> +				     0, 0, os02g10_test_pattern_menu);
-> +
-> +	ret = v4l2_ctrl_new_fwnode_properties(ctrl_hdlr,
-> +					      &os02g10_ctrl_ops, &props);
-> +	if (ret)
-> +		goto err_handler_free;
-> +
-> +	if (ctrl_hdlr->error) {
-> +		ret = ctrl_hdlr->error;
-> +		goto err_handler_free;
-> +	}
-> +
-> +	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> +	os02g10->hflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
-> +	os02g10->vflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
-> +
-> +	os02g10->sd.ctrl_handler = ctrl_hdlr;
-> +
-> +	return 0;
-> +
-> +err_handler_free:
-> +	v4l2_ctrl_handler_free(ctrl_hdlr);
-> +
-> +	return ret;
-> +}
-> +
-> +static int os02g10_set_framefmt(struct os02g10 *os02g10,
-> +				struct v4l2_subdev_state *state)
-> +{
-> +	const struct v4l2_mbus_framefmt *format;
-> +	const struct os02g10_mode *mode;
-> +	int ret = 0;
-> +
-> +	format = v4l2_subdev_state_get_format(state, 0);
-> +	mode = v4l2_find_nearest_size(supported_modes,
-> +				      ARRAY_SIZE(supported_modes), width,
-> +				      height, format->width, format->height);
-> +
-> +	cci_write(os02g10->cci, OS02G10_REG_V_START, mode->y_start, &ret);
-> +	cci_write(os02g10->cci, OS02G10_REG_V_SIZE, mode->height, &ret);
-> +	cci_write(os02g10->cci, OS02G10_REG_V_SIZE_MIPI, mode->height, &ret);
-> +	cci_write(os02g10->cci, OS02G10_REG_H_START, mode->x_start, &ret);
-> +	cci_write(os02g10->cci, OS02G10_REG_H_SIZE, mode->width, &ret);
-> +	cci_write(os02g10->cci, OS02G10_REG_H_SIZE_MIPI, mode->width, &ret);
-> +
-> +	return ret;
-> +}
-> +
-> +static int os02g10_enable_streams(struct v4l2_subdev *sd,
-> +				  struct v4l2_subdev_state *state, u32 pad,
-> +				  u64 streams_mask)
-> +{
-> +	struct os02g10 *os02g10 = to_os02g10(sd);
-> +	int ret;
-> +
-> +	ret = pm_runtime_resume_and_get(os02g10->dev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = cci_multi_reg_write(os02g10->cci, os02g10_common_regs,
-> +				  ARRAY_SIZE(os02g10_common_regs), NULL);
-> +	if (ret) {
-> +		dev_err(os02g10->dev, "failed to write common registers\n");
-> +		goto err_rpm_put;
-> +	}
-> +
-> +	ret = os02g10_set_framefmt(os02g10, state);
-> +	if (ret) {
-> +		dev_err(os02g10->dev, "failed to set frame foramt\n");
-> +		goto err_rpm_put;
-> +	}
-> +
-> +	/* Apply customized values from user */
-> +	ret = __v4l2_ctrl_handler_setup(os02g10->sd.ctrl_handler);
-> +	if (ret)
-> +		goto err_rpm_put;
-> +
-> +	ret = cci_write(os02g10->cci, OS02G10_REG_STREAM_CTRL,
-> +			OS02G10_STREAM_CTRL_ON, NULL);
-> +	if (ret)
-> +		goto err_rpm_put;
-> +
-> +	/* vflip and hflip cannot change during streaming */
-> +	__v4l2_ctrl_grab(os02g10->vflip, true);
-> +	__v4l2_ctrl_grab(os02g10->hflip, true);
-> +
-> +	return 0;
-> +
-> +err_rpm_put:
-> +	pm_runtime_put(os02g10->dev);
-> +	return ret;
-> +}
-> +
-> +static int os02g10_disable_streams(struct v4l2_subdev *sd,
-> +				   struct v4l2_subdev_state *state, u32 pad,
-> +				   u64 streams_mask)
-> +{
-> +	struct os02g10 *os02g10 = to_os02g10(sd);
-> +	int ret;
-> +
-> +	ret = cci_write(os02g10->cci, OS02G10_REG_STREAM_CTRL,
-> +			OS02G10_STREAM_CTRL_OFF, NULL);
-> +	if (ret)
-> +		dev_err(os02g10->dev, "Failed to stop stream\n");
-> +
-> +	__v4l2_ctrl_grab(os02g10->vflip, false);
-> +	__v4l2_ctrl_grab(os02g10->hflip, false);
-> +
-> +	pm_runtime_put(os02g10->dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static int os02g10_get_selection(struct v4l2_subdev *sd,
-> +				 struct v4l2_subdev_state *sd_state,
-> +				 struct v4l2_subdev_selection *sel)
-> +{
-> +	switch (sel->target) {
-> +	case V4L2_SEL_TGT_CROP_BOUNDS:
-> +	case V4L2_SEL_TGT_NATIVE_SIZE:
-> +		sel->r = os02g10_native_area;
-> +		return 0;
-> +	case V4L2_SEL_TGT_CROP:
-> +	case V4L2_SEL_TGT_CROP_DEFAULT:
-> +		sel->r = os02g10_active_area;
-> +		return 0;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int os02g10_enum_mbus_code(struct v4l2_subdev *sd,
-> +				  struct v4l2_subdev_state *sd_state,
-> +				  struct v4l2_subdev_mbus_code_enum *code)
-> +{
-> +	struct os02g10 *os02g10 = to_os02g10(sd);
-> +
-> +	if (code->index)
-> +		return -EINVAL;
-> +
-> +	code->code = os02g10_get_format_code(os02g10);
-> +
-> +	return 0;
-> +}
-> +
-> +static int os02g10_enum_frame_size(struct v4l2_subdev *sd,
-> +				   struct v4l2_subdev_state *sd_state,
-> +				   struct v4l2_subdev_frame_size_enum *fse)
-> +{
-> +	struct os02g10 *os02g10 = to_os02g10(sd);
-> +
-> +	if (fse->index >= ARRAY_SIZE(supported_modes))
-> +		return -EINVAL;
-> +
-> +	if (fse->code != os02g10_get_format_code(os02g10))
-> +		return -EINVAL;
-> +
-> +	fse->min_width = supported_modes[fse->index].width;
-> +	fse->max_width = fse->min_width;
-> +	fse->min_height = supported_modes[fse->index].height;
-> +	fse->max_height = fse->min_height;
-> +
-> +	return 0;
-> +}
-> +
-> +static int os02g10_set_pad_format(struct v4l2_subdev *sd,
-> +				  struct v4l2_subdev_state *sd_state,
-> +				  struct v4l2_subdev_format *fmt)
-> +{
-> +	struct os02g10 *os02g10 = to_os02g10(sd);
-> +	struct v4l2_mbus_framefmt *format;
-> +	const struct os02g10_mode *mode;
-> +
-> +	format = v4l2_subdev_state_get_format(sd_state, 0);
-> +
-> +	mode = v4l2_find_nearest_size(supported_modes,
-> +				      ARRAY_SIZE(supported_modes),
-> +				      width, height,
-> +				      fmt->format.width, fmt->format.height);
-> +
-> +	fmt->format.code = os02g10_get_format_code(os02g10);
-> +	fmt->format.width = mode->width;
-> +	fmt->format.height = mode->height;
-> +	fmt->format.field = V4L2_FIELD_NONE;
-> +	fmt->format.colorspace = V4L2_COLORSPACE_RAW;
-> +	fmt->format.quantization = V4L2_QUANTIZATION_FULL_RANGE;
-> +	fmt->format.xfer_func = V4L2_XFER_FUNC_NONE;
-> +
-> +	*format = fmt->format;
-> +
-> +	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
-> +		u32 vblank_def = mode->vts_def - mode->height;
-> +
-> +		return __v4l2_ctrl_modify_range(os02g10->vblank, vblank_def,
-> +						OS02G10_FRAME_LENGTH_MAX -
-> +						mode->height, 1, vblank_def);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int os02g10_init_state(struct v4l2_subdev *sd,
-> +			      struct v4l2_subdev_state *state)
-> +{
-> +	struct v4l2_subdev_format fmt = {
-> +		.which = V4L2_SUBDEV_FORMAT_TRY,
-> +		.format = {
-> +			.width = supported_modes[0].width,
-> +			.height = supported_modes[0].height,
-> +		},
-> +	};
-> +
-> +	return os02g10_set_pad_format(sd, state, &fmt);
-> +}
-> +
-> +static const struct v4l2_subdev_video_ops os02g10_video_ops = {
-> +	.s_stream = v4l2_subdev_s_stream_helper,
-> +};
-> +
-> +static const struct v4l2_subdev_pad_ops os02g10_pad_ops = {
-> +	.enum_mbus_code = os02g10_enum_mbus_code,
-> +	.enum_frame_size = os02g10_enum_frame_size,
-> +	.get_fmt = v4l2_subdev_get_fmt,
-> +	.set_fmt = os02g10_set_pad_format,
-> +	.get_selection = os02g10_get_selection,
-> +	.enable_streams = os02g10_enable_streams,
-> +	.disable_streams = os02g10_disable_streams,
-> +};
-> +
-> +static const struct v4l2_subdev_ops os02g10_subdev_ops = {
-> +	.video = &os02g10_video_ops,
-> +	.pad = &os02g10_pad_ops,
-> +};
-> +
-> +static const struct v4l2_subdev_internal_ops os02g10_internal_ops = {
-> +	.init_state = os02g10_init_state,
-> +};
-> +
-> +static int os02g10_power_on(struct device *dev)
-> +{
-> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-> +	struct os02g10 *os02g10 = to_os02g10(sd);
-> +	int ret;
-> +
-> +	ret = regulator_bulk_enable(ARRAY_SIZE(os02g10_supply_name),
-> +				    os02g10->supplies);
-> +	if (ret) {
-> +		dev_err(os02g10->dev, "failed to enable regulators\n");
-> +		return ret;
-> +	}
-> +
-> +	/* Wait for T3/T4 timing requirements after supplies become stable */
-> +	fsleep(5 * USEC_PER_MSEC);
-> +
-> +	ret = clk_prepare_enable(os02g10->xclk);
-> +	if (ret) {
-> +		dev_err(os02g10->dev, "failed to enable clock\n");
-
-The error will be reported by the clock core, no need to add dev_err() here,
-please remove it.
-
-> +		goto err_regulator_off;
-> +	}
-> +
-> +	gpiod_set_value_cansleep(os02g10->reset_gpio, 0);
-
-If you have access to the spec, please double check the power on sequence, for
-some OmniVision sensors it's to deassert XSHUTDOWN and then to enable XVCLK.
-
-> +
-> +	/* T5: delay from sensor power up stable to SCCB initialization */
-> +	fsleep(5 * USEC_PER_MSEC);
-> +
-> +	return 0;
-> +
-> +err_regulator_off:
-> +	regulator_bulk_disable(ARRAY_SIZE(os02g10_supply_name), os02g10->supplies);
-> +
-> +	return ret;
-> +}
-> +
-> +static int os02g10_power_off(struct device *dev)
-> +{
-> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-> +	struct os02g10 *os02g10 = to_os02g10(sd);
-> +
-> +	clk_disable_unprepare(os02g10->xclk);
-> +	gpiod_set_value_cansleep(os02g10->reset_gpio, 1);
-> +	regulator_bulk_disable(ARRAY_SIZE(os02g10_supply_name), os02g10->supplies);
-> +
-> +	return 0;
-> +}
-> +
-> +static int os02g10_identify_module(struct os02g10 *os02g10)
-> +{
-> +	u64 chip_id;
-> +	int ret;
-> +
-> +	ret = cci_read(os02g10->cci, OS02G10_REG_CHIPID, &chip_id, NULL);
-> +	if (ret)
-> +		return dev_err_probe(os02g10->dev, ret,
-> +				     "failed to read chip id %x\n",
-> +				     OS02G10_CHIPID);
-> +
-> +	if (chip_id != OS02G10_CHIPID)
-> +		return dev_err_probe(os02g10->dev, -EIO,
-> +				     "chip id mismatch: %x!=%llx\n",
-> +				     OS02G10_CHIPID, chip_id);
-> +
-> +	return 0;
-> +}
-> +
-> +static int os02g10_parse_endpoint(struct os02g10 *os02g10)
-> +{
-> +	struct v4l2_fwnode_endpoint bus_cfg = {
-> +		.bus_type = V4L2_MBUS_CSI2_DPHY,
-> +	};
-> +	unsigned long link_freq_bitmap;
-> +	struct fwnode_handle *ep;
-> +	int ret;
-> +
-> +	ep = fwnode_graph_get_next_endpoint(dev_fwnode(os02g10->dev), NULL);
-> +	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
-> +	fwnode_handle_put(ep);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (bus_cfg.bus.mipi_csi2.num_data_lanes != OS02G10_DATA_LANES) {
-
-The sensor supports 2-lane interface only, therefore 'data-lanes' property
-can be omitted from the dt description, and then this check will fail.
-I believe it might be better to preset a default value to cover this case.
-
-> +		ret = dev_err_probe(os02g10->dev, -EINVAL,
-> +				    "only 2 data lanes are supported\n");
-> +		goto error_out;
-> +	}
-> +
-> +	ret = v4l2_link_freq_to_bitmap(os02g10->dev, bus_cfg.link_frequencies,
-> +				       bus_cfg.nr_of_link_frequencies,
-> +				       link_freq_menu_items,
-> +				       ARRAY_SIZE(link_freq_menu_items),
-> +				       &link_freq_bitmap);
-> +	if (ret) {
-> +		ret = dev_err_probe(os02g10->dev, -EINVAL,
-> +				    "only 720MHz frequency is available\n");
-> +		goto error_out;
-
-You don't need to goto here, do a fallback.
-
-Also I'm unsure that it's necessary to rewrite return codes to -EINVAL
-here and above.
-
-> +	}
-> +
-> +error_out:
-> +	v4l2_fwnode_endpoint_free(&bus_cfg);
-> +
-> +	return ret;
-> +};
-> +
-> +static const struct regmap_range_cfg os02g10_ranges[] = {
-> +	{
-> +		.range_min      = 0x0000,
-> +		.range_max      = 0x03ff,
-> +		.selector_reg   = 0xfd,
-> +		.selector_mask  = 0x03,
-> +		.selector_shift = 0,
-> +		.window_start   = 0x00,
-> +		.window_len     = 0x100,
-> +	},
-> +};
-> +
-> +static const struct regmap_config os02g10_regmap_config = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.reg_format_endian = REGMAP_ENDIAN_BIG,
-> +	.max_register = 0x3ff,
-> +	.ranges = os02g10_ranges,
-> +	.num_ranges = ARRAY_SIZE(os02g10_ranges),
-> +	.disable_locking = true,
-> +};
-> +
-> +static int os02g10_probe(struct i2c_client *client)
-> +{
-> +	struct os02g10 *os02g10;
-> +	unsigned int xclk_freq;
-> +	int ret;
-> +
-> +	os02g10 = devm_kzalloc(&client->dev, sizeof(*os02g10), GFP_KERNEL);
-> +	if (!os02g10)
-> +		return -ENOMEM;
-> +
-> +	os02g10->dev = &client->dev;
-> +
-> +	v4l2_i2c_subdev_init(&os02g10->sd, client, &os02g10_subdev_ops);
-> +	os02g10->sd.internal_ops = &os02g10_internal_ops;
-> +
-> +	/*
-> +	 * This is not using devm_cci_regmap_init_i2c(), because the driver
-> +	 * makes use of regmap's pagination feature. The chosen settings are
-> +	 * compatible with the CCI helpers.
-> +	 */
-> +	os02g10->cci = devm_regmap_init_i2c(client, &os02g10_regmap_config);
-> +	if (IS_ERR(os02g10->cci))
-> +		return dev_err_probe(os02g10->dev, PTR_ERR(os02g10->cci),
-> +				     "failed to initialize CCI\n");
-> +
-> +	ret = os02g10_parse_endpoint(os02g10);
-> +	if (ret)
-> +		return dev_err_probe(os02g10->dev, ret,
-> +				     "failed to parse endpoint configuration\n");
-> +
-> +	/* Get system clock (xvclk) */
-> +	os02g10->xclk = devm_v4l2_sensor_clk_get(os02g10->dev, NULL);
-> +	if (IS_ERR(os02g10->xclk))
-> +		return dev_err_probe(os02g10->dev, PTR_ERR(os02g10->xclk),
-> +				     "failed to get xclk\n");
-> +
-> +	xclk_freq = clk_get_rate(os02g10->xclk);
-> +	if (xclk_freq != OS02G10_XCLK_FREQ_24MHZ)
-> +		return dev_err_probe(os02g10->dev, -EINVAL,
-> +				     "xclk frequency not supported: %u Hz\n",
-> +				     xclk_freq);
-> +
-> +	for (unsigned int i = 0; i < ARRAY_SIZE(os02g10_supply_name); i++)
-> +		os02g10->supplies[i].supply = os02g10_supply_name[i];
-> +
-> +	ret = devm_regulator_bulk_get(os02g10->dev,
-> +				      ARRAY_SIZE(os02g10_supply_name),
-> +				      os02g10->supplies);
-> +	if (ret)
-> +		return dev_err_probe(os02g10->dev, ret,
-> +				     "failed to get regulators\n");
-> +
-> +	os02g10->reset_gpio = devm_gpiod_get_optional(os02g10->dev,
-> +						      "reset", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(os02g10->reset_gpio))
-> +		return dev_err_probe(os02g10->dev, PTR_ERR(os02g10->reset_gpio),
-> +				     "failed to get reset GPIO\n");
-> +
-> +	ret = os02g10_power_on(os02g10->dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = os02g10_identify_module(os02g10);
-> +	if (ret)
-> +		goto error_power_off;
-> +
-> +	ret = os02g10_init_controls(os02g10);
-> +	if (ret)
-> +		goto error_power_off;
-> +
-> +	/* Initialize subdev */
-> +	os02g10->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-> +	os02g10->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-> +	os02g10->pad.flags = MEDIA_PAD_FL_SOURCE;
-> +
-> +	ret = media_entity_pads_init(&os02g10->sd.entity, 1, &os02g10->pad);
-> +	if (ret) {
-> +		dev_err_probe(os02g10->dev, ret, "failed to init entity pads\n");
-> +		goto error_handler_free;
-> +	}
-> +
-> +	os02g10->sd.state_lock = os02g10->handler.lock;
-> +	ret = v4l2_subdev_init_finalize(&os02g10->sd);
-> +	if (ret) {
-> +		dev_err_probe(os02g10->dev, ret, "subdev init error\n");
-> +		goto error_media_entity;
-> +	}
-> +
-> +	pm_runtime_set_active(os02g10->dev);
-> +	pm_runtime_enable(os02g10->dev);
-> +
-> +	ret = v4l2_async_register_subdev_sensor(&os02g10->sd);
-> +	if (ret) {
-> +		dev_err_probe(os02g10->dev, ret,
-> +			      "failed to register os02g10 sub-device\n");
-> +		goto error_subdev_cleanup;
-> +	}
-> +
-> +	pm_runtime_idle(os02g10->dev);
-> +
-> +	return 0;
-> +
-> +error_subdev_cleanup:
-> +	v4l2_subdev_cleanup(&os02g10->sd);
-> +	pm_runtime_disable(os02g10->dev);
-> +	pm_runtime_set_suspended(os02g10->dev);
-> +
-> +error_media_entity:
-> +	media_entity_cleanup(&os02g10->sd.entity);
-> +
-> +error_handler_free:
-> +	v4l2_ctrl_handler_free(os02g10->sd.ctrl_handler);
-> +
-> +error_power_off:
-> +	os02g10_power_off(os02g10->dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static void os02g10_remove(struct i2c_client *client)
-> +{
-> +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> +	struct os02g10 *os02g10 = to_os02g10(sd);
-> +
-> +	v4l2_async_unregister_subdev(sd);
-> +	v4l2_subdev_cleanup(&os02g10->sd);
-> +	media_entity_cleanup(&sd->entity);
-> +	v4l2_ctrl_handler_free(os02g10->sd.ctrl_handler);
-> +
-> +	pm_runtime_disable(&client->dev);
-> +	if (!pm_runtime_status_suspended(&client->dev)) {
-> +		os02g10_power_off(&client->dev);
-> +		pm_runtime_set_suspended(&client->dev);
-> +	}
-> +}
-> +
-> +static DEFINE_RUNTIME_DEV_PM_OPS(os02g10_pm_ops,
-> +				 os02g10_power_off, os02g10_power_on, NULL);
-> +
-> +static const struct of_device_id os02g10_id[] = {
-> +	{ .compatible = "ovti,os02g10" },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, os02g10_id);
-> +
-> +static struct i2c_driver os02g10_driver = {
-> +	.driver = {
-> +		.name = "os02g10",
-> +		.pm = pm_ptr(&os02g10_pm_ops),
-> +		.of_match_table = os02g10_id,
-> +	},
-> +	.probe = os02g10_probe,
-> +	.remove = os02g10_remove,
-> +};
-> +module_i2c_driver(os02g10_driver);
-> +
-> +MODULE_DESCRIPTION("OS02G10 Camera Sensor Driver");
-> +MODULE_AUTHOR("Tarang Raval <tarang.raval@siliconsignals.io>");
-> +MODULE_AUTHOR("Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>");
-> +MODULE_LICENSE("GPL");
-> --
-> 2.34.1
+>  drivers/firmware/qcom/qcom_tzmem.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
-It's a nice written driver, please feel free to add my
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 
 -- 
-Best wishes,
-Vladimir
+With best wishes
+Dmitry
