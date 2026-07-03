@@ -1,170 +1,185 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831906FBF;
-	Fri,  3 Jul 2026 01:28:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D971D6BB;
+	Fri,  3 Jul 2026 01:33:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783042084; cv=none; b=R5nlfY8ImthLqCLSNSnCcaHlS6Eeue+X9IWEWI1/CWWtnHOCFWViLgN+X0gnLCsvqOXi6hGT8WT7mu3HF3zGK4eMgEIFyH7Zer83C0kn1Oed1D6Z2yl2x46+4nAI4+Gc/NCAO8e06jZ4nAgFUnY3KRT3XDf3374l3S8BrJpfc1c=
+	t=1783042419; cv=none; b=b8ZZVXOwe5oAMj86qNb/5B/c55yISBxQehgl0xxgHu+PEysOCdALC/MGz5ePDdSg0U5UDfeBCGVaYMhsP+IKaMGhJeVpf5KGjSznQ6Q3P+lbZjF/CuqafeDhriDsuczu+Z1AlPQERDJD7g4LgMTlVcc64DPi23dVDUEvvhHOCuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783042084; c=relaxed/simple;
-	bh=MUBvwv5+qEDS6F9yzR9TIwGgOKaDH1YKncy/OHf2mP4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CjFu88AX/wGeXOJ9RIkukWe7i8p7bPTWLXDxS+qzGDwEnY0Lz7MtoAx9ihsfZK5JAXuQf01E71/rvVhuW9PnuPrpIm52YWAV2wItkmE6vdC0z5rjJ+4N9ZSyUPY/y3q8aclP0/s43Bw6YBeIdzMw5ZabG+8N+GP4ulcS4tfsbn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TT0sywZD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783042419; c=relaxed/simple;
+	bh=t7p6dISSVB8lnZVanH8fynJR/7IRvjvGfqNSvKTAhI4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hdNSxe/SNhJOuFEPgcJChqSz/ae1pg7Xze9eOFSHFaPtrY2igCoC+NGBknC8ER2Ci2+XXyz2wLsYx26yHZsHM+hjJtbLzca7BbBnMuNA9RBiZwnflJ6iHytDrqAWqjvwC+rlLmCEl3hBi11fw2neI70L1JAFREr3SRZTa/Kw7gQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HVZDDHpC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TT0sywZD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CDDE1F000E9;
-	Fri,  3 Jul 2026 01:28:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HVZDDHpC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572951F000E9;
+	Fri,  3 Jul 2026 01:33:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783042083;
-	bh=0eXGKOcKQVdU/sbnJjxGRITWvo+67g14j4Em8TkDCvg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TT0sywZD2HYWh3962wb2Zk7EFaRUAkSkh8KYupweqLXhoGcHxJC/ftAv+XD3uz/oL
-	 yB6EGIyqj8DjKp9sgh6Sg7wD+CycIhRZtn/ZuFwTjj5osNGk6WXj0Yx0mTogfV7Py7
-	 WOuL31iMTiW25Swp2w4nr8gW5ehQTCOr8lPmzv9pXDAyG/lVgLFrxLMLbpq6H6eDZF
-	 M2s1yOH7D9PW5kZ6dOhr5mkwVVLvu8ks1acPWETCoKdLrDc+shDHScUms8ACZmrE8L
-	 wZythJEl7kTS3xNOK1q4GVfYDGZsqSn6YmKNVYLwte5fS5UYIrKQBzlHyDy7SzZDK7
-	 RVHk3MWL5Q/oA==
-Date: Fri, 3 Jul 2026 01:28:00 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Yao Zi <me@ziyao.cc>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] scsi: ufs: spacemit: k3: Add UFS Host Controller
- driver
-Message-ID: <20260703012800-GKC35811@kernel.org>
-References: <20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org>
- <20260702-08-k3-ufs-support-v1-2-1a64a3ab128f@kernel.org>
- <akaeBJv5T3YmlfpC@pie>
+	s=k20260515; t=1783042417;
+	bh=z1UJKnDhUjSBpg0SZM4+JMff/Bf70BA3nzIrzGyoKKw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HVZDDHpCKI4pCgTI9pT+GuZNj74Hyg0B8SAIbW/bmS/iaMjHVooyN4tn5vU9ECGKC
+	 C0hQIYuDAV8FiIOOeg/I2hVvEGeasHdti4sYkNohMiPeuBBKWBeuymKeYUSv4qLRTL
+	 HymV57vyiTYmZMbewyRJ2eDlAxsEt88JCID+SklxRz9e08RzdsZmM6lUSGzoXdC+mR
+	 TL48O54mUgZO9C0oguqFJ80OQ+iZRD19TpvgdTNCmJ3t87Af4LdAAyNLMAGjfUgsLK
+	 ZDvfbhFY1Xz+zwb/d6OxRT0Ud07Ph6akvxmk1DCK6K/GN9KB3VA+ncEIa1m3wx8eDn
+	 zKSSbsEVfp3JQ==
+Date: Fri, 3 Jul 2026 02:33:30 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
+ Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
+ R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v6 07/16] iio: core: add hierarchical channel
+ relationships
+Message-ID: <20260703023330.45916b4e@jic23-huawei>
+In-Reply-To: <20260618-ad9910-iio-driver-v6-7-79125ffbe430@analog.com>
+References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
+	<20260618-ad9910-iio-driver-v6-7-79125ffbe430@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <akaeBJv5T3YmlfpC@pie>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Yao,
+On Thu, 18 Jun 2026 14:27:23 +0100
+Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 
-On 17:21 Thu 02 Jul     , Yao Zi wrote:
-> On Thu, Jul 02, 2026 at 02:31:36AM +0000, Yixun Lan wrote:
-> > SpacemiT K3 SoC consist of UFS (Universal Flash Storage) Host Controller
-> > which has features compatible with JEDEC UFS 2.2, MIPI UniPro v1.61 and
-> > M-PHY v3.0 standard.
-> > 
-> > Signed-off-by: Yixun Lan <dlan@kernel.org>
-> > ---
-> >  drivers/ufs/host/Kconfig        |  12 +
-> >  drivers/ufs/host/Makefile       |   1 +
-> >  drivers/ufs/host/ufs-spacemit.c | 931 ++++++++++++++++++++++++++++++++++++++++
-> >  drivers/ufs/host/ufs-spacemit.h |  90 ++++
-> >  4 files changed, 1034 insertions(+)
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 > 
-> ...
+> Add parent-child relationship between iio channels by creating a parent
+> pointer field in iio_chan_spec struct and exposing a sysfs attribute that
+> returns the parent channel label.
 > 
-> > +static int ufs_spacemit_wait_mphy_pll_lock(struct ufs_hba *hba)
-> > +{
-> > +	int timeout = MPHY_PLL_LOCK_TIMEOUT_US;
-> > +	u32 val;
-> > +
-> > +	while (timeout-- > 0) {
-> > +		val = ufshcd_readl(hba, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
-> > +		if (val & MPHY_PLL_LOCK_BIT)
-> > +			return 0;
-> > +
-> > +		udelay(1);
-> > +	}
-> > +
-> > +	dev_err(hba->dev, "M-PHY PLL lock timeout\n");
-> > +	return -ETIMEDOUT;
-> > +}
-> 
-> Could this loop be replaced by read_poll_timeout() like
-> 
-> 	read_poll_timeout(ufshcd_readl, val, val & MPHY_PLL_LOCK_BIT,
-> 			 1, MPHY_PLL_LOCK_TIMEOUT_US, false, hba,
-> 			 UFS_PHY_MSG_BASE + UFS_MPHY_PU_CTRL);
-> 
-I think so, thanks for the suggestion
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Generally I like this.  A couple of trivial suggestions inline.
 
-> 
-> ...
-> 
-> > +/**
-> > + * ufs_spacemit_init - init phy and prepare clk
-> > + * @hba: host controller instance
-> > + */
-> > +static int ufs_spacemit_init(struct ufs_hba *hba)
-> > +{
-> > +	int err = 0;
-> > +	struct device *dev = hba->dev;
-> > +	struct ufs_spacemit_host *host;
-> > +
-> > +	host = devm_kzalloc(dev, sizeof(*host), GFP_KERNEL);
-> > +	if (!host)
-> > +		return -ENOMEM;
-> > +
-> > +	host->rst = devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
-> 
-> "resets" property is marked as required in the binding, but the optional
-> API is used here. Is this expected?
-> 
-Ok, I will switch to non-optional API and check return value
+Jonathan
 
-> ...
+> ---
+>  drivers/iio/industrialio-core.c | 44 +++++++++++++++++++++++++++++++++++++++++
+>  include/linux/iio/iio.h         |  5 +++++
+>  2 files changed, 49 insertions(+)
 > 
-> > +/**
-> > + * ufs_spacemit_hce_enable_notify - Configure HCE enable sequence
-> > + * @hba: host controller instance
-> > + * @status: notification status (PRE_CHANGE or POST_CHANGE)
-> > + *
-> > + * Configures host controller enable with proper sequencing.
-> > + * Handles crypto enable if supported.
-> > + *
-> > + * Returns: 0 on success
-> > + */
-> > +static int ufs_spacemit_hce_enable_notify(struct ufs_hba *hba,
-> > +					  enum ufs_notify_change_status status)
-> > +{
-> > +	struct ufs_spacemit_host *host = ufshcd_get_variant(hba);
-> > +	u32 enable_val, val;
-> > +
-> > +	if (status == PRE_CHANGE) {
-> > +		enable_val = CONTROLLER_ENABLE;
-> > +
-> > +		if (hba->caps & UFSHCD_CAP_CRYPTO)
-> > +			enable_val = CRYPTO_GENERAL_ENABLE | CONTROLLER_ENABLE;
-> > +
-> > +		if (!host->first_hce_done) {
-> > +			host->first_hce_done = true;
-> > +			dev_dbg(hba->dev, "First HCE enable\n");
-> > +		} else {
-> > +			val = ufshcd_readl(hba, REG_CONTROLLER_ENABLE);
-> > +			if (val == enable_val) {
-> > +				ufshcd_writel(hba, enable_val & (1 << CONTROLLER_ENABLE),
-> > +					      REG_CONTROLLER_ENABLE);
-> > +
-> > +				while (ufshcd_readl(hba, REG_CONTROLLER_ENABLE) ==
-> > +				       (enable_val & (1 << CONTROLLER_ENABLE)))
-> > +					;
-> 
-> Shouldn't we set a timeout for the polling loop?
-> 
-Yes, good idea and will do in next version
+> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
+> index 9373006235c8..3d12269f26f4 100644
+> --- a/drivers/iio/industrialio-core.c
+> +++ b/drivers/iio/industrialio-core.c
+> @@ -854,6 +854,21 @@ static ssize_t iio_read_channel_label(struct device *dev,
+>  					 to_iio_dev_attr(attr)->c, buf);
+>  }
+>  
+> +static ssize_t iio_read_channel_parent(struct device *dev,
+> +				       struct device_attribute *attr,
+> +				       char *buf)
+> +{
+> +	const struct iio_chan_spec *parent = to_iio_dev_attr(attr)->c->parent;
+> +	int len;
+> +
+> +	len = __iio_chan_prefix_emit(parent, IIO_SEPARATE, buf, PAGE_SIZE - 1);
+> +	if (len < 0)
+> +		return len;
+> +
+> +	buf[len - 1] = '\n'; /* replace underscore termination with newline */
 
--- 
-Yixun Lan (dlan)
+That's irritating.  Can we instead make __iio_chan_prefix_emit() not include the _ ?
+That might mean a wrapper to just do the last bit of logic in there.
+
+
+> +	return len;
+> +}
+> +
+>  static ssize_t iio_read_channel_info(struct device *dev,
+>  				     struct device_attribute *attr,
+>  				     char *buf)
+> @@ -1263,6 +1278,30 @@ static int iio_device_add_channel_label(struct iio_dev *indio_dev,
+>  	return 1;
+>  }
+>  
+> +static int iio_device_add_channel_parent(struct iio_dev *indio_dev,
+> +					 struct iio_chan_spec const *chan)
+> +{
+> +	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
+> +	int ret;
+> +
+> +	if (!chan->parent)
+> +		return 0;
+> +
+> +	ret = __iio_add_chan_devattr("parent",
+> +				     chan,
+> +				     &iio_read_channel_parent,
+> +				     NULL,
+> +				     0,
+> +				     IIO_SEPARATE,
+> +				     &indio_dev->dev,
+> +				     NULL,
+> +				     &iio_dev_opaque->channel_attr_list);
+
+Probably younger me style, but can we group a few of those into logical
+sets to reduce the number of lines?
+
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return 1;
+
+Hmm. Can we make it explicit this is about an attr in the function name.
+I think that would make the positive return more something we might expect
+than something that sounds like it is adding something non countable.
+
+> +}
+> +
+>  static int iio_device_add_info_mask_type(struct iio_dev *indio_dev,
+>  					 struct iio_chan_spec const *chan,
+>  					 enum iio_shared_by shared_by,
+> @@ -1401,6 +1440,11 @@ static int iio_device_add_channel_sysfs(struct iio_dev *indio_dev,
+>  		return ret;
+>  	attrcount += ret;
+>  
+> +	ret = iio_device_add_channel_parent(indio_dev, chan);
+> +	if (ret < 0)
+> +		return ret;
+> +	attrcount += ret;
+> +
+>  	if (chan->ext_info) {
+>  		unsigned int i = 0;
+>  
+> diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
+> index 1c7d12af22da..9470ab8eb726 100644
+> --- a/include/linux/iio/iio.h
+> +++ b/include/linux/iio/iio.h
+> @@ -264,6 +264,10 @@ struct iio_scan_type {
+>   * @ext_info:		Array of extended info attributes for this channel.
+>   *			The array is NULL terminated, the last element should
+>   *			have its name field set to NULL.
+> + * @parent:		Optional pointer to the parent channel spec for
+> + *			hierarchical channel relationships. When set, a read-only
+> + *			"parent" sysfs attribute is created containing the
+> + *			parent channel's sysfs name prefix (e.g. "in_voltage0").
+>   * @extend_name:	Allows labeling of channel attributes with an
+>   *			informative name. Note this has no effect codes etc,
+>   *			unlike modifiers.
+> @@ -309,6 +313,7 @@ struct iio_chan_spec {
+>  	const struct iio_event_spec *event_spec;
+>  	unsigned int		num_event_specs;
+>  	const struct iio_chan_spec_ext_info *ext_info;
+> +	const struct iio_chan_spec *parent;
+>  	const char		*extend_name;
+>  	const char		*datasheet_name;
+>  	unsigned int		modified:1;
+> 
+
