@@ -1,108 +1,130 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D773B19B1;
-	Fri,  3 Jul 2026 09:30:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D92739DBFC
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 09:30:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783071050; cv=none; b=cDhKKwJ3UIAL5UQURcZp+fTF3cQNN9DZlQtv/UWQyBkHmIfk+PxP13vUOQTLuMVddvIl/pzK1RibwhEUKco+5TT9KEw2e2U5HHws4mQSJqe9xY3yAmrpsjXKLcNecFNIh1GEXIXW3jdplLcCoZw/dgkWff3Og9JSSM+Q3jcVUJQ=
+	t=1783071061; cv=none; b=MOg+yH2Okpr3RInP0iR0ZuxFe6sG1hTp+7C6K+jnwKEpeyRn0m6AnvC7OXiYlOCmkeCr5W3ozfHf78U4kOujfPjG/RMLB6ktUFV3QA0q2lY/kkMpcPRxXiqwKo93Yjqv5xV56cqry8vkdLWiZ54hBzYLagTuhMvJbY5IoeZTc6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783071050; c=relaxed/simple;
-	bh=NQHTwQVxKIrakzWEpKeEM1SYUUSYpVwggw3gaJbnz1s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZzuUWapCyk+aMmV1AwG+J272YVe57LrfUv6kg/XfIxrimqOmzKoq80tkcNYL/nsmBmznRoKWtbMftdkBEGJPzVmrUMWEkyRDUFyAownKvQElmLgxErXOjLjK0RYP2T9juXUTb+1B1yLB36wMCW5kve2i6Ur9g9DIwvAu1g5z0vU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VHHhAUvO; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1783071061; c=relaxed/simple;
+	bh=PW1Gn2ZDRUx5qmvoCMyRof05YepCvm5bLOu2Pluzkug=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=EOMvKlll4bfq4DgU4QWrPMbuCUvz4YQ6JkUYA64DluDZffiX11GjnEGy0Ds3dqZYFSR8kgMd8HBBz2i7e5XB0Tq218JPaytu7x4Yi+WprAa1mldq/0C6s5RGg4DjueMtdo9RJXLFEZmEil07+E51LnoBOWjk2/1t/BErWb6t+vQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YN3VGnrQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V/KjpE5a; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VHHhAUvO"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YN3VGnrQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V/KjpE5a"
 Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6636gvT63144217;
-	Fri, 3 Jul 2026 09:30:41 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6636hE9G3144471
+	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 09:30:58 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HtDt4B684Zll7dWZtPuSlsvE4KEtQd+E3gb0x3Hoads=; b=VHHhAUvOHcJbwk9S
-	VdtNAZwpkTtOQZ1n8fsVa3vS4Omh2F+2LHwYi7A309d+nvDP56dZqmJALhwP0Cgy
-	u5ShiCN6mXay/KNlcx8IIUygqXEu1ZoUjCCfgIq5q37Q1CZDfGcsnJHmzLci3T2C
-	hcLSzDRIu5LGAAvmpQw91KT5yqgMZt4l5nfImJzCaRhLfMQ6vb3RWDiiQ36HPi1/
-	iBEnVXSkCXY+r2d+d1uhWdUtVbs71WH2nM74q7PN1sAnl7QHB3g2l0oDVv+Wyrnc
-	xyN7w+rIJAbfQnAESxqae7mawcwHue6er+CGil1c0N1rVeIv7wsDcdHW7aa9/NKq
-	3BIO6A==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f682brm4u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 03 Jul 2026 09:30:40 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 6639UaHB009558;
-	Fri, 3 Jul 2026 09:30:36 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4f27km9y91-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 03 Jul 2026 09:30:36 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 6639JWPk027666;
-	Fri, 3 Jul 2026 09:30:36 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6639UaBY009530
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 03 Jul 2026 09:30:36 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id 6421AB44; Fri,  3 Jul 2026 15:00:35 +0530 (+0530)
-Date: Fri, 3 Jul 2026 15:00:35 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        linux-arm-msm <linux-arm-msm@vger.kernel.org>,
-        sashiko-reviews@lists.linux.dev,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>, robh@kernel.org,
-        linux-phy@lists.infradead.org, neil.armstrong@linaro.org,
-        vkoul@kernel.org, olteanv@gmail.com, krzk+dt@kernel.org,
-        conor+dt@kernel.org, devicetree@vger.kernel.org,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: Add Shikra CQM SoM platform
-Message-ID: <20260703093035.q5xgljuigpt6zqt6@hu-kotarake-hyd.qualcomm.com>
-References: <20260513142936.kauwa3czigfs7qs5@hu-kotarake-hyd.qualcomm.com>
- <0ac665bb-1a21-4077-aa9e-97162f7f4784@oss.qualcomm.com>
- <20260514103918.cs5m5kcxcrcgukvx@hu-kamalw-hyd.qualcomm.com>
- <obdxony34ckfbtsqj66siszw44sgieskcye5hg66ulkisctpwl@fyqczpze5tnw>
- <20260518114927.edxbzvklqatlntv2@hu-kamalw-hyd.qualcomm.com>
- <CAO9ioeVMieo8HtpRw+n4ZU9uV-_RQM061q5XfAA1Dtk2fnp4+g@mail.gmail.com>
- <bvankzuazswuigrm7hvyjqigzfaru5o43wi3zvyphgme2pgqwz@pyspqky3u6cn>
- <5idu4ljmcvcvzqsr5g73h2roxzs36l6xxc5ju6ovc5aitt3gx4@wmfqueyf2rj6>
- <20260630124220.4lja4zshpf66kwj3@hu-kotarake-hyd.qualcomm.com>
- <33c74e59-076a-4877-9e62-83a8ebbf2d54@oss.qualcomm.com>
+	GgPcbKZq7cX2hR1BeKwBwVw/MUN21wkcUNYYxdi2Loc=; b=YN3VGnrQ8VkV3le+
+	NY0sCWKe3WFHuyO9eBWaJ+3D+VC1r+sfVNdalQPp4ez1Vvx1r0da+ou3RcaQQiXy
+	fvIqZcZ16Ohkek53MErE5qVT+ZfZImedOfPseQvdgDJ2Onnw7Sr2n09Gdvtwucvt
+	cvE9TLwGTP0G8zsgGhJPYT1hXe4SOp8LuACUJB+CZ2y1llqyv+klB2yyNB+F3DcN
+	ExKdqw2UfTwiqlazNsJD8TCYaOoZ12cDXB+Q2iTfW4YRra75oZMBZI4Qmz10vYA9
+	cMGAL0dw9jd1CgqWU1th75Y5hdGXKEWwKKAyPx5+HaCTQYfTms1R+78JCdrjw2kn
+	zcF41w==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f682brm66-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 09:30:58 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c89704da8c7so720102a12.0
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 02:30:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783071057; x=1783675857; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=GgPcbKZq7cX2hR1BeKwBwVw/MUN21wkcUNYYxdi2Loc=;
+        b=V/KjpE5aK6UVdji2tuyWeRo5F8HZRd0H/mWgPKLM9zX6jqV17rEygXq20Yvvy3bbL0
+         8iISGW4vmjOF9HUHsql0tKPZMCZICpo4X7xNv93k83G+xhK/eXVCdnf4hlWEb8taApzd
+         QWpLwvGhVACTpyFfWuLpaifUUGDwnFYgRMr3igjLY7eyM4aIpCX21jIAKLiq5lzQqRoH
+         AiczMVNJq9QhixYb81oJ2Dnmc9C6tUjuD2sioU0iUMmOoFO9rAyexRPn+1VtTLvLRy/Z
+         qgG+U0XmkYczNMuDWITBlNmE2pa23jcTsP9b8b0ttC8JQuHx5aOlSHLAgyw2q7hvvL41
+         DvlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783071057; x=1783675857;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GgPcbKZq7cX2hR1BeKwBwVw/MUN21wkcUNYYxdi2Loc=;
+        b=Xkv6dJyMsZpyKUpKjfe0usPlQp74qJtAfkBhEGWjUB5e3a3hLMKk7HuCwx4abg7WGo
+         laIF5MgZy1Tb1+6H8DPd/qO5f9jdR57FuqtJLei+M1NQZ0x2m/gEjQEGJ9Twf87gvyVF
+         DT0PXrXQsGOQYAxgWPknlByrEbXONjYxU8yo/ov5syEiS64p0kPZYxQjVfD7Kpf1stBK
+         JshoUHgTX/B1pSCWwjRwIdDc8UQfCJSyFxo2UYRVInY+5dQXr0H2O7HNLWW+KGATwjO/
+         2MFZxAR4a/UEsMPHrRaMvWElOCMjfRJ9hum77PrlGbEqNaYez9vKX/Gu6q0HY8JaM8DS
+         pCBQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8McSOKm4uCT76mkGw7nUMuOQ/TyXAR3FtgobCTjs9vBKf9B5ITyEkd4Ld05xxfamL2osqy1pYLLTxP@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOVUwsOA51HjLET/cTKeMBF3EP/XgcQU1rajlv818lRtcZYCdH
+	TkMROatCFznV5wJz6e4LWtxj4VjG11EtBQV77uELclaeOwZuzpGLv/4DGQ26bo50cs/QIG6j83t
+	5JPMTR+citA4ZGZjjNe2yRQcczcrf8xLKZzd6yaUPnQxS3HfNABBnbV2kRKgyWK1m
+X-Gm-Gg: AfdE7ckyklWFUMwQZ6+fl6XaTt9Co2NNBtvmJOtOGtapD25DdploCm0YFdD38VFNLZs
+	UJPqtOcqFjuYMERakpbnAN+MogardSZVY8dptwBwOjapUCLLum1shqicuRSA340huny7JHn0TrU
+	9jEOoOBEF/P/IrG/rbQ9V9YNjY3ogTJikqJwsQuM7zZMqX50srjPgzqaDw+9LlGhyo+z9KPOu7R
+	+6VQQgbYNHK0lXXDRFLx/WcPOWy6BaMQQwVFozRvTHRtWTHrKqGDZjJeFry48R//6R3apFgVhyV
+	dh0yTDRchfBREFbbF45guETW7vpHM6KG8i4UcXwOQtPiYdsaF9FYtiwsSIKAxwnEj0LC+UAFNjI
+	JfD5QY7HV+QxM+Vrx2W1pn33a6yVYRHdaID0du+RS
+X-Received: by 2002:a05:6300:6701:b0:3bf:d487:4b42 with SMTP id adf61e73a8af0-3bfed471dc5mr12533785637.35.1783071057523;
+        Fri, 03 Jul 2026 02:30:57 -0700 (PDT)
+X-Received: by 2002:a05:6300:6701:b0:3bf:d487:4b42 with SMTP id adf61e73a8af0-3bfed471dc5mr12533759637.35.1783071057123;
+        Fri, 03 Jul 2026 02:30:57 -0700 (PDT)
+Received: from [10.217.198.242] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c9e926a6e85sm2291087a12.27.2026.07.03.02.30.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 03 Jul 2026 02:30:56 -0700 (PDT)
+Message-ID: <20a98312-be6e-4743-b2c2-46cc084653fd@oss.qualcomm.com>
+Date: Fri, 3 Jul 2026 15:00:51 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+From: "Maulik Shah (mkshah)" <maulik.shah@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/8] x1e80100: Enable PDC wake GPIOs and deepest idle
+ state
+To: Val Packett <val@packett.cool>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+        Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>
+References: <20260616-hamoa_pdc_v3-v3-0-4d8e1504ea75@oss.qualcomm.com>
+ <439b81a5-b13c-4f1a-9c55-a8b0b56a4de6@packett.cool>
+Content-Language: en-US
+In-Reply-To: <439b81a5-b13c-4f1a-9c55-a8b0b56a4de6@packett.cool>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <33c74e59-076a-4877-9e62-83a8ebbf2d54@oss.qualcomm.com>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA5MCBTYWx0ZWRfX1RCRlVqMFoHs
- 8DI2LoZaHoyPV4GgiqzyjFkkd8HeWPu6jWkCi+4l9pqLBycFxGKY5bUgpQksvIdHRoNuhbVsAkJ
- Cptv7EbOaEaBsqFUGjDy4jme9wW3SbfQoatOJrVQa5ILV0nl5U5CQvadP9Yb2dhKj0TlkfnJuiY
- BhIPyU6CJB6pU9IMPbbcXgwcRMsu9injecq7aZewJ0qfAGYsVbGCqAfAEELQERTEvJHlJwyV0zm
- 4F6EBFb3164Vr9Rjf5PcDQWLK9+4rJQt0u3sbkci/Qwe6Bl8wVVGofuM0M/eEPxqzW4EoBUVea6
- UyAuosulVH6ti9PWBVxLmEYdsusIf/en+nuSnryaMyqiBiZMX9LabfxiBLBXrFA1lGy1EX0fzSi
- GumJNNoPCD98fGq5jGwO3Cv6hCdOPiA9gum35ZNxhX4LtfZ8v/O4Q+jnmHprcTg7nWvo10bBP+/
- 0pWsSBWipI2ZRDcu+pA==
-X-Proofpoint-ORIG-GUID: ez2J7FFhHf4E_2oBIynbM1_VHp0onUF9
-X-Authority-Analysis: v=2.4 cv=cc3iaHDM c=1 sm=1 tr=0 ts=6a478141 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=P18A6JamkcG4dG8q4dYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA5MCBTYWx0ZWRfX2gcQ9+nr4+y7
- WlTS8wkDs3NV8mxo+ciHJ3HWf8+nDxIWl2ehuHjwi7EeuNEf2MVFD8J92MNloq+Cqb9KJGzasdl
- QOZJgmFcCE1OVwMu0FhFfluGSN7WRsQ=
-X-Proofpoint-GUID: ez2J7FFhHf4E_2oBIynbM1_VHp0onUF9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA5MCBTYWx0ZWRfX4VfHjJEgN4Pd
+ rgy82+oe8YoQx7szCiccynDOSbUkdpugoFFcW036JsO0NPzMLqwqxiaQGUowLsenSYmw31HvH22
+ 9nl4OtYowupRRhrFv9f1QLG25FEfx2mVsOb/RlK6ESjriXfCdHJ1txaRtSxzvWcbb9LdzVSpdRU
+ 1Y3SsFgBRMwJj7nulAyXHxF9YzeVpM/i8Ze0xzQd6iu/1tb0NgrLTyE5SMCGJ15xZhm5u5g2gVb
+ mYfWd+8YhtpoxX16j7PxFJWOYpSp3UtlMgL/au6vQTmFU64Zq1Na/+YI6IQarYWCmri+bvDYsHA
+ O5WWCpcROAoCI0JE9l70ceUNL/uujN82mfXlVa3JmQXjJhdRtqD9fjC5QtuXHowTQ2/EehbiU1I
+ LffvBIA4G92f+YjLogL4SXVvBXp93PB/IW/YLKRp+BHos8xXL4ttxSPNYChg9foN/PFSSS7LJjN
+ MjZ8nhNdJWrQ0PVdyOA==
+X-Proofpoint-ORIG-GUID: wpg_RH6wSvaZvXXeB5I47aYFYePgj83l
+X-Authority-Analysis: v=2.4 cv=cc3iaHDM c=1 sm=1 tr=0 ts=6a478152 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=CzlgM8hXaGG7tx5CzA4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA5MCBTYWx0ZWRfX9WjtUJzmkCDr
+ AcXwDyhp9dBNw81+4IJN+QkVxwsuJ2CcT6ttmNFY3EcuiIrhFhgdJIz2ZPHlfYXGKPKUbr8zhZX
+ 9dOCGTNc6LClhNN4YPVUpLjLupYdsvQ=
+X-Proofpoint-GUID: wpg_RH6wSvaZvXXeB5I47aYFYePgj83l
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
@@ -112,118 +134,36 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030090
 
-On Tue, Jun 30, 2026 at 03:50:16PM +0200, Konrad Dybcio wrote:
-> On 6/30/26 2:42 PM, Rakesh Kota wrote:
-> > On Sun, Jun 28, 2026 at 03:33:23PM +0300, Dmitry Baryshkov wrote:
-> >> On Thu, Jun 25, 2026 at 09:11:19PM +0530, Kamal Wadhwa wrote:
-> >>> On Wed, Jun 17, 2026 at 03:48:14PM +0300, Dmitry Baryshkov wrote:
-> >>>> On Mon, 18 May 2026 at 14:49, Kamal Wadhwa
-> >>>> <kamal.wadhwa@oss.qualcomm.com> wrote:
-> >>>>>
-> >>>>> On Sun, May 17, 2026 at 08:18:15PM +0300, Dmitry Baryshkov wrote:
-> >>>>>> On Thu, May 14, 2026 at 04:09:18PM +0530, Kamal Wadhwa wrote:
-> >>>>>>> On Wed, May 13, 2026 at 06:14:20PM +0300, Dmitry Baryshkov wrote:
-> >>>>>>>> On 13/05/2026 17:29, Rakesh Kota wrote:
-> >>>>>>>>> On Wed, May 13, 2026 at 03:01:47PM +0300, Dmitry Baryshkov wrote:
-> >>>>>>>>>> On Wed, May 13, 2026 at 04:28:35AM +0000, sashiko-bot@kernel.org wrote:
-> >>>>>>>>>>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> >>>>>>>>>>> - [High] The PMIC regulator definitions omit their required input supply dependencies (e.g., `vdd_s2-supply`, `vdd_l3-supply`), breaking the power hierarchy.
-> >>>>>>>>>>> - [Medium] The device tree inaccurately hardcodes the `compatible` string to a different PMIC model (`qcom,rpm-pm2250-regulators`) instead of explicitly identifying the actual hardware (PM4125).
-> >>>>>>>>>>> --
-> >>>>>>>>>>>> +
-> >>>>>>>>>>>> +         pm4125_s2: s2 {
-> >>>>>>>>>>>> +                 regulator-min-microvolt = <1000000>;
-> >>>>>>>>>>>> +                 regulator-max-microvolt = <1200000>;
-> >>>>>>>>>>>> +         };
-> >>>>>>>>>>>
-> >>>>>>>>>>> Do these regulators need to explicitly define their input supply dependencies
-> >>>>>>>>>>> such as vdd_s2-supply?
-> >>>>>>>>>>>
-> >>>>>>>>>>> Without these properties, the regulator framework might be unaware that the
-> >>>>>>>>>>> PMIC regulators draw power from upstream supplies.
-> >>>>>>>>>>>
-> >>>>>>>>>>> If the kernel dynamically manages the upstream supply and its reference count
-> >>>>>>>>>>> drops to zero, could it be disabled, causing an unexpected power loss for
-> >>>>>>>>>>> downstream components?
-> >>>>>>>>>>
-> >>>>>>>>>> And this is a correct comment. Please provide missing supplies.
-> >>>>>>>>>>
-> >>>>>>>>> As per the Qualcomm system design, the parent-child supply relationship
-> >>>>>>>>> is managed by the RPM firmware, not the Linux regulator framework. The
-> >>>>>>>>> RPM ensures the parent supply is never disabled until all subsystem
-> >>>>>>>>> votes are cleared.
-> >>>>>>>>
-> >>>>>>>> How is this different from other, previous platforms?
-> >>>>>>>
-> >>>>>>> This is not different. In the previous platforms too this is taken care from the
-> >>>>>>> RPM/RPMH firmware side, the only case where we may need explicit vote to parent
-> >>>>>>> is for non-rpmh/rpm regulator rails (like i2c based regulator pm8008), which
-> >>>>>>> may have a RPM/RPMH regulator as a parent.
-> >>>>>>>
-> >>>>>>> Even on those previous targets the parent rail of all RPM/RPMH regulators are
-> >>>>>>> internally voted by RPM/RPMH FW at proper voltage with required headroom
-> >>>>>>> calculated based on the active child rails. This was done for all the
-> >>>>>>> subsystems (including APPS) regulators.
-> >>>>>>>
-> >>>>>>> So no explicit handling from the APPS is required for parent supply.
-> >>>>>>
-> >>>>>> You are explaining the driver behaviour. But the question is about the
-> >>>>>> hardware description. If there is no difference, please add necessary
-> >>>>>> supplies back.
-> >>>>>
-> >>>>> I understand your concern about descibing the parent-child relation in the
-> >>>>> devicetree, and given that we have been almost always followed this for all
-> >>>>> the previous targets, it will expected of us to add them.
-> >>>>
-> >>>> Yes.
-> >>>>
-> >>>>>
-> >>>>> However, we want to avoid the unnecessary access to the parent from APPS.
-> >>>>
-> >>>> Why? What is the reason? Do we want to do the same for all the
-> >>>> platforms? Only for Shikra? Something else?
-> >>>>
-> >>>>> At the moment, I do not see a way to avoid that, if we add the parent
-> >>>>> regulators.
-> >>>>
-> >>>> That depend on the answer to the previous question. In the end, we can
-> >>>> make the driver ignore the parents by removing them from the regulator
-> >>>> desc.
-> >>>
-> >>> Ok, this seems like a good suggestion, so you mean its ok if we define the
-> >>> regulator desc's supply column with NULL? And only keep that in the DT?
-> >>>
-> >>> you mean like this?
-> >>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/regulator/qcom-rpmh-regulator.c?h=v7.1#n1453
-> >>>
-> >>> (please let me know if i got that right. thanks)
-> >>
-> >> Yes. Don't forget to explain in the commit message, why you are doing
-> >> so.
-> > 
-> > Currently, Agatti uses the same PMIC, so we cannot set the driver
-> > supply name reference to NULL. Since it's an older target,
-> > we'll need to run a regression before making any driver-level changes.
-> > 
-> > Additionally, the child-to-parent regulator ganging differs between
-> > Shikra and Agatti:
-> > 
-> >  - On Agatti, l3 regulator is ganged with vdd_l13_l14_l15_l16
-> >  - On Shikra, l3 is ganged with vdd_l2_l3
+
+
+On 6/29/2026 12:09 AM, Val Packett wrote:
 > 
-> Is it configurable on the PMIC level? I was under the impression the
-> supply maps are fixed in hardware.  Is there a chance the agatti
-> description is just wrong?
+> On 6/16/26 6:25 AM, Maulik Shah wrote:
+>> [..]
+>> ---
+>> Maulik Shah (7):
+>>        irqchip/qcom-pdc: restructure version support
+>>        irqchip/qcom-pdc: Move all statics to struct pdc_desc
+>>        irqchip/qcom-pdc: Remove pdc_enable_intr() wrapper
+>>        irqchip/qcom-pdc: Differentiate between direct SPI and GPIO as SPI
+>>        irqchip/qcom-pdc: Configure PDC to pass through mode
+>>        Revert "pinctrl: qcom: x1e80100: Bypass PDC wakeup parent for now"
+>>        arm64: dts: qcom: x1e80100: Add deepest idle state
+>>
+>> Stephan Gerhold (1):
+>>        pinctrl: qcom: Acknowledge IRQs for PDC interrupt controller
+>>
+>> [..]
+> 
+> Something about this series breaks the touchscreen interrupt (<&tlmm 81 IRQ_TYPE_LEVEL_LOW>) on sm7325-motorola-dubai :(
+> 
+> With this series, that interrupt only happens once (stuck at 1 in /proc/interrupts) so events are not reported. Something something level triggered..??
+> 
 
-The supply ganging between child LDOs and parent supplies is not fixed
-at the PMIC hardware level — it varies per platform based on system
-design requirements. The same LDO can have a different parent supply on
-different SoCs.
+Hi Val,
 
-I have verified the Agatti parent-child supply mappings and they are
-correct. The difference between Agatti and Shikra is a legitimate
-platform-level design difference, not an error in the Agatti DT.
+Thanks for reporting this. This seems likely because patch 6 of the series adding IRQCHIP_EOI_THREADED flag for gpio irqchip.
+In v4, removing this flag and modifying .irq_mask/irq_unmask callback for secondary chip to have similar functionality as IRQCHIP_EOI_THREADED.
 
-regards
-Rakesh Kota
-
+Thanks,
+Maulik
