@@ -1,86 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB30375F83;
-	Fri,  3 Jul 2026 11:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0EAB3ACA77
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 11:13:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783076957; cv=none; b=W92MX6EP3hQpE8HqHuPkOVDYRDJdMrZ+83KaeJuPk74kOwDuBoSyv4j5Y+iL47fn5N2GuYjvyTH0dZ6FQxK3Er4KOoY0RXHHgD24hzSi4fKJyOY7PzSALL0MNXd2JUDyzDs0GGz4c5vPdOr/Jxqnw81gX986gnu+PgETg9tTfiU=
+	t=1783077235; cv=none; b=EVWYvkKQbH50CO7cAn4sJnjogdnwdQaz/xqhFk6nrqjZhrKxl+txJQeKNDfrJbAZ7hYwhhWZEftjRExX6pbymkGiY33PH34OYloSRPYSqWN/xfyIDvFJPY0CP7htx3RHhN3aNPJIaIO+m1bVR7CTvz0r1G3S9vyCR0a9IrrCT/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783076957; c=relaxed/simple;
-	bh=J4lbIewbp//OWqVawc0kwzLxFyB+WGnSs2Zv7Dy6SeQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GYrR2dC1jCUYmfziCLau4qDgRAqixlXz+JZWM/CR8QbaV8Ftu4VzXi2QoGxOxtUTXQZeCYj9rnwrY5ecPnfAQyTl8Ou8wwOpHrEmKVRL1flHZ2EOMfByi3u2QKEW9/pthLb9sDCIuG19T0kh9j+S9c710kmMg3Y1BoVZFR7dvqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LM3BmMC7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783077235; c=relaxed/simple;
+	bh=wRupe0MlkZhOO85ibdOrqq9qaUIxoP8EJ+7uaavq9T0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eAPQQ+m2jCRs7jZ33H3MWu3p5CTahxszHH7AnJkovZmntmaMVce0fp8qPYz4RBVviGONg0Q/R/4uyH4gqzD7jGxcqZ2gC04moJe1681Gl5xlRbpsM5g8TcBwroBtVEU8I3dZtWp7hgdCCp1gUAW4tjBMKcwxbjmwa9XeGY8cIVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EPhF7ygf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gd3f23Dp; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LM3BmMC7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96BA1F000E9;
-	Fri,  3 Jul 2026 11:09:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783076955;
-	bh=tuWJc8imFqb5FUwYOIHT8S1/CiCKvV///7YUxzwmiDA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LM3BmMC7MgYSpIzMfpzB+fFYNAhMe9wIo1o0OJLC1Kel2K2ZP/+VYxOAC9ivUroRz
-	 e4JPeoPiFFfqZ1qhYtgHkZfsdaJh8zcFkZV/66zPWGhUzxzaFzlF4vJpkPovVJSOtI
-	 lwj3dqu+64Kj8tRzc145Qxd72W41qMMdgRzcTAa273NCEWWlyJtiJvPgXzbS3Dgy7H
-	 MoZ72HwHtFSy9sa/vMxx7hgMY28svlczu2j7TqHWvEhRlnhjNiIsYAZQu4yNqsXE4d
-	 nuCScM8ZI10umNXmDNle0KarbBqoXiOd0UIayfbNh22N3Bes3fi6oQgXyA+zQkFa33
-	 pLJ/aYI5MisIg==
-Received: from johan by xi.lan with local (Exim 4.99.3)
-	(envelope-from <johan@kernel.org>)
-	id 1wfblh-00000000jBK-1vKA;
-	Fri, 03 Jul 2026 13:09:13 +0200
-Date: Fri, 3 Jul 2026 13:09:13 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v5 09/14] mfd: lm3533: Add support for VIN power supply
-Message-ID: <akeYWRF-wIlrHTF5@hovoldconsulting.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-10-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EPhF7ygf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gd3f23Dp"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6636gvJD3144214
+	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 11:13:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=5b3dZtJaNmgI8YPM0l57kc
+	xxs4hl4jphTHle7WAXjSc=; b=EPhF7ygf7DppTM9gvuDArY/R1+Pv1vY37RNefT
+	V3XCLnmogNFtR8UTkg017RBYMKE832A2RvPVUY/ka6ffougcvdGlVK+fXgWlvLXJ
+	gVFWCPTCEa8irNDEeehfWQGzzNOCqV8hYYOwBQp3qedhBcPavgqdBJ22OJoUEFiY
+	ZIMaFaI3KCPSR4ClDoWAg5IQ+zoXViomQwNtqRgYKHvG0V4dExzffGtkaXdT9UYl
+	ezKp4fiUEMPnN9/6zGybLezuII9dDqgf1YoHDgH9KehoIAFsc+oNs3MZjEN5H2eN
+	a3bhU6OsEKt67QhW8KL+oKZZ9xrZX+Y32199Q78OwlH6V5fA==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f682bryn3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 11:13:53 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-847e32ef4caso835172b3a.2
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 04:13:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783077232; x=1783682032; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=5b3dZtJaNmgI8YPM0l57kcxxs4hl4jphTHle7WAXjSc=;
+        b=gd3f23DpHXv0vmfBLdWFbB4Iz425C/6zlYRRbziaRI7DWg8JhAXmkXm9n+qV0D9q0t
+         TcW+V6UKFLDIrLoUdKbiMlso8mFZ4marP9EXFwDUmwGBmne/TFnk50wUdzV1H1Px+fE7
+         ExOtcM9azzEj9rPrO8CEw5Cgy1fixFvSaOkRM48Dk0gqVALVcgC+njZVZ1SqV6PWZxhS
+         iNqzw1aufLnk2scdSKE+jpkaqgTFg5Wd8OX0QFx6Axp5GqOkyE0DoMo+mTRPZUhfI5nq
+         z3B9HYkVMjXC+tOFj+v0uDI+lV0ZGwvYJWEb5bmEMxjKZfH4kbgrAQKZ765aW/WC8yvp
+         GPlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783077232; x=1783682032;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5b3dZtJaNmgI8YPM0l57kcxxs4hl4jphTHle7WAXjSc=;
+        b=TEGEWke2HAMaHP9lzE7ibHz0Z8QlpOoT7k7HyILCtkquyvvzs5ekPcXOdTE7ChfbBT
+         MiYKb5Oc2JkhNFhBa6E8RISzmLQogoROj3M5WJlMqF2SzJE1o6bbR1nsge0ARBx/8W6T
+         MIdZ3iaebYXam7E6iAdyVkwgRaP/jwnfiy8rj+nHHbSKGUArfnjEpJkFjvG/WYi2IueK
+         fF+moC5Bgdw/YkX/hwUIozFJNxSu3jXuLJ7rPYGZ/nOkIPDQ7JYYgBO2khkS+39hF4Ii
+         T596um5CoQk3Xslzo1WyDBhPnIFJq5/bVEy/6nc1hwn1Vp5VPmvug7JIqwCluJ3U8oQ9
+         MUug==
+X-Forwarded-Encrypted: i=1; AFNElJ9GrTvzLGLgHIO8rg1JnasGLC3dwiWfpGWxKzHQjkTz8choRRG+McbRYGd42JGBpI5xXMznxBeBS6Wm@vger.kernel.org
+X-Gm-Message-State: AOJu0Yywon4+Nf6fKNyqJQYKg5/fOcxm2uk2FWhAS+TEGXTKz+nM4eQY
+	j5cli7Zd2YdWeAhq3IXU+lEmht7X5LQ5O5ktgp/S+51T2ZIFx+DjCJ+zn/wbyqHXxJ499vNlt6u
+	95nzPPX5T8mTGoWpZJReyjUHdWStRputiV+3oydzqoD8MpnzPkukBLdlloWBZ2cHOYIPjBFWn
+X-Gm-Gg: AfdE7cm/j3HYbCHI1GLFsyeEF2+9mS6wL/qGa1RlacBniGMt7FbHDFQKgzf4kcH/AiT
+	HL11tXVYLxCVfqtun9Pw98VCQV2CIw906kJLKA4P/48UmHPPoGPx3ICEzFzUp5vBUTSuPZlX+6T
+	ndxmTgmaWQdhpErj1QooOpIAufSDiLvXzKamuAJZuIdohrNjKqgTAzGko4YvoMCDVzzqkKRYEzS
+	LTyycWxM0eqt0SWa5+ZZ06/0aoNahyMJdq7emV5GbzewNMTMsFGPD2yJEaJBRFC1jBfGxcX0+L+
+	SxI/r2u1xhQX8K0lqWnxrAXH2+kSH4n3k9rVqPyUa+/x5anc1+mnDU5LTGXGuQ6o6Zhmm64PgKg
+	GvNGCjzjEV1YArrYAlSk3DcMWuV2l2t7ZTupu1+59
+X-Received: by 2002:a05:6a00:21d2:b0:845:d274:bf88 with SMTP id d2e1a72fcca58-847c08d9f82mr9555457b3a.49.1783077232296;
+        Fri, 03 Jul 2026 04:13:52 -0700 (PDT)
+X-Received: by 2002:a05:6a00:21d2:b0:845:d274:bf88 with SMTP id d2e1a72fcca58-847c08d9f82mr9555425b3a.49.1783077231825;
+        Fri, 03 Jul 2026 04:13:51 -0700 (PDT)
+Received: from hu-smankad-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847cb94b3e6sm2729490b3a.33.2026.07.03.04.13.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jul 2026 04:13:51 -0700 (PDT)
+From: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+Subject: [PATCH 0/3] Add subsystem sleep stats support for Shikra
+Date: Fri, 03 Jul 2026 16:43:40 +0530
+Message-Id: <20260703-shikra_stats-v1-0-0aa0ec1fa83e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617080031.99156-10-clamor95@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGSZR2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDMyMT3eKMzOyixPjiksSSYl3jNAPDNENjs7Qkk2QloJaCotS0zAqwcdG
+ xtbUAJDanPV4AAAA=
+X-Change-ID: 20260624-shikra_stats-3f01f136fb4c
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Maulik Shah <quic_mkshah@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783077228; l=2593;
+ i=sneh.mankad@oss.qualcomm.com; s=20250818; h=from:subject:message-id;
+ bh=wRupe0MlkZhOO85ibdOrqq9qaUIxoP8EJ+7uaavq9T0=;
+ b=UbhsjIma7OzoziUiDCicRLirdHpWhpjGgmZR/dd7Yys5QDkfNDXjiIYzqJjEBFeDpP1gi3h+p
+ 44NNXp+L/ZdBFcSCHOdpwAIYXJJtOKxJfmRKm4d044VBMx18U/Xqmdu
+X-Developer-Key: i=sneh.mankad@oss.qualcomm.com; a=ed25519;
+ pk=sv57EGwdcfnp6xJmoBCIT1JFSqWI+gawRHkJWj/T2B0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDEwOSBTYWx0ZWRfX2KL0O5nto6h5
+ A2AV7WpXn//bG/L1bkqZBY0f38OyyWB0aEIJWiq3bMLo9Yi3qPEas8Zu2PMVq127AL3003jVb9r
+ 31LdvfEj4QqGC4U54QVvpcpvBD1ouL7zni0x8mayaSFYiFz+bYmgVy+To5Smyq0cRTPVU/Lb+rF
+ AeJoE+8r/K5gSxyGAUJn0jFo9e4/ENo5TsDMY94BGtBOaiCeNkqidAfbW3x5e0qYzEsASDe3+oP
+ AkgpmzfSVudtZ0LGszcP3tn+o71KtZ43pl0gCAfCAg3Lia4fcX4T2oyEwJKQ4EWp4GRVj4c6E4F
+ HwFo1hltb2ifbery4LF+vthVI0DEDA7lznN40QTv4ce2rDamBhW0cK1calA2SotDimptqfxQOBN
+ j/P6kohWL3AlDwwy3Gtft1W7VTtLQtPzwHx9jNQtAs0oaENJ8ZMX2jG6c84uEWBJ4tyNTgkiU0C
+ 0djC2n06pQll3vUwP2w==
+X-Proofpoint-ORIG-GUID: C2kz4WHEZuiY-rGgJ8G_AodbjMuCsV-8
+X-Authority-Analysis: v=2.4 cv=cc3iaHDM c=1 sm=1 tr=0 ts=6a479971 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=LOzubwnR8LFJbqqV4sUA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDEwOSBTYWx0ZWRfXwdyk6Km+iBlo
+ c4YRq2KygsnbFyJcodwSXzF9EEkpHAFJ0X41a7Xb8EfkOZbIiYzdXZwl6V7wxZUx3a+p6m45z44
+ kUJh9WOmK/ICpW9j9aeMHm61gH5wHVA=
+X-Proofpoint-GUID: C2kz4WHEZuiY-rGgJ8G_AodbjMuCsV-8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 adultscore=0 bulkscore=0 priorityscore=1501
+ phishscore=0 spamscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030109
 
-On Wed, Jun 17, 2026 at 11:00:26AM +0300, Svyatoslav Ryhel wrote:
-> Add support for 2.7V-5.5V VIN power supply.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
- 
-> -static void lm3533_enable(struct lm3533 *lm3533)
-> +static int lm3533_enable(struct lm3533 *lm3533)
->  {
-> +	int ret;
-> +
-> +	ret = regulator_enable(lm3533->vin_supply);
-> +	if (ret) {
-> +		dev_err(lm3533->dev, "failed to enable vin power supply\n");
-> +		return ret;
-> +	}
-> +
+SoC sleep stats are present in RPM message RAM and subsystem sleep
+stats are present in SMEM for Shikra.
 
-No delay needed?
+For earlier targets using RPM processor like msm8974, rpm_master_stat.c
+was used for subsystem sleep stats since those stats were populated in
+RPM MSGRAM.
 
->  	gpiod_set_value(lm3533->hwen, 1);
-> +
-> +	return 0;
->  }
+Here is a brief summary of previous targets and their stats
+configuration, along with the drivers used to display them.
 
-Johan
++---------------|----------------------------|---------------------------+
+| SoC           | subsystem sleep stats      | SoC sleep stats           |
+|---------------|----------------------------|---------------------------|
+| msm8974,      | RPM processor MSGRAM       | RPM processor MSGRAM      |
+| msm8226       | (rpm_master_stat.c)        | (qcom_stats.c)            |
+|---------------|----------------------------|---------------------------|
+| sm6350,       | SMEM (DDR)                 | AOP processor MSGRAM      |
+| sdm845, etc.  | (qcom_stats.c)             | (qcom_stats.c)            |
+|---------------|----------------------------|---------------------------|
+| Shikra        | SMEM (DDR)                 | RPM processor MSGRAM      |
+|               | (qcom_stats.c)             | (qcom_stats.c)            |
++---------------|----------------------------|---------------------------+
+
+qcom_stats.c supports both the configurations for shikra, reading
+subsystem sleep stats from SMEM and reading SoC sleep stats from RPM
+MSGRAM.
+
+A generic "qcom,rpm-stats" compatible only reads SoC sleep stats like vmin
+and vlow. Add shikra rpm compatible and config to read subsystem sleep
+stats too along with SoC sleep stats.
+
+Below is an example showing sleep stats for "apss" subsystem with this
+change:
+
+cat /sys/kernel/debug/qcom_stats/apss
+Count: 2192
+Last Entered At: 5498618336
+Last Exited At: 5498708046
+Accumulated Duration: 2046572620.
+
+Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+---
+Sneh Mankad (3):
+      dt-bindings: soc: qcom: stats: Add compatible for Shikra
+      soc: qcom: stats: Add stats compatible and config for Shikra
+      arm64: dts: qcom: shikra: Add LPM stats support for subsystems
+
+ Documentation/devicetree/bindings/soc/qcom/qcom-stats.yaml | 1 +
+ arch/arm64/boot/dts/qcom/shikra.dtsi                       | 2 +-
+ drivers/soc/qcom/qcom_stats.c                              | 9 +++++++++
+ 3 files changed, 11 insertions(+), 1 deletion(-)
+---
+base-commit: 4c9d9db1697a873f78d236b4ce304272206238ac
+change-id: 20260624-shikra_stats-3f01f136fb4c
+
+Best regards,
+-- 
+Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+
