@@ -1,44 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6421D32AAAB;
-	Fri,  3 Jul 2026 06:39:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCEB261B8A;
+	Fri,  3 Jul 2026 06:40:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783060756; cv=none; b=h7rHzaoiDeN960/8YQs/iyFXStYy75YFPVg3YzoZny9Qq3rVfCGNDpM64BWa2caU7CHORlNNQLXqe6dnid7FsfpgdepMktTLodqjLLmGGPOZQPOLfQJ8p2afvUevFr3rkPO7wv5F++pydXnp0ACT2g0h5yy0KYizHkejofpl7ZY=
+	t=1783060855; cv=none; b=FaSKBFbfD66f3Clu2hc+LzA0AyDVWixFRltyX4q2SecP3kvH8gizlFMHnYue6swT0eVLtHVQdW/Cu6l08bJ88ZtWLNYEW2ErPf5ZFigAGH5Lxgu/dYJtvTEA4qoPPrEDKSDNuiZ2CyK7c3EhUUQugv+J5Hj9o/85PUqwsO9QLao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783060756; c=relaxed/simple;
-	bh=6BxbcMdOIcZsfnhqpZbwKAM6k2MH606Q9Oi22O3Jxpk=;
+	s=arc-20240116; t=1783060855; c=relaxed/simple;
+	bh=TIqzdA7a2xvhZh1ZKXpTzCCagVZnj6YidoND4Ba1q60=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ev0gerzOIyCrUm6UXcYucH3MaQiOx9UIc31GtaIn39M2SbVJRrQTBbfAp62XXXflA5hY8yROInMOK/qg9+5PFBkOFy+bXJtfDsUPquNVKDOepq3+DNxZ/ZuvniFrkGByUN8P/XUNlZx6vmx18VFoHxtOdUnGBX9OYVQ+WQ7jlF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DXA1EWj8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ExbuN1Jm6B6ewdJU3CSksGoUNGKmo26Ows6zyvP3iIk/lXMr4lcrgxM5el7jXBnFQIEEZdMA2vqbxEgFUkXrjE4SVoZWrLA2mmX/mcLW9VKgwU6HGkz5yzi0gnlz/SlXWEmuLJgCkgf6xGWKLRVdpU3hrWgM0vT75jiyX4tte9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T1idrGgm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DXA1EWj8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 174F01F000E9;
-	Fri,  3 Jul 2026 06:39:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T1idrGgm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329CB1F000E9;
+	Fri,  3 Jul 2026 06:40:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783060755;
-	bh=D3QWF9QEhp1MYt6N9b3KeNj8xni59MRNrkc85etaxMw=;
+	s=k20260515; t=1783060854;
+	bh=RE/Kuucppmu6ZKHFdvsbExbpc1QcN98NPkF1GrMK0D4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DXA1EWj8RozS1lVUZfUQ23DjASd/q3OBgJzO5YP2g4jyXPNQCs2o6DbpQW/QPcp5p
-	 oX/s40PFzy+bCCx+bhYnj4pJqp/dpRESOObhZWyuVu2gM3D4vtIpg7b9QjUZIO5zxk
-	 1Fr6yQ7Z4LBDHHnP6hu3jGySPxnj/ldwDQRU7450Q6AUmlJPE0OdNE8BcknEv1fJx+
-	 MlVyumgmQvVzDCerFheHXCqJHXblkynw5hbXXvPnP+yOOnok0xcKArkv4sZU9hZMSn
-	 HL3o2SARmYIJ9/8YDk4Tjz7crpUW7oWgNCqnMhVEtv0ZY/vxfrfGN5sXs2dc+aVmGp
-	 WPspsgTGVzUDw==
-Date: Fri, 3 Jul 2026 08:39:11 +0200
+	b=T1idrGgm58wjTAIKrIcbREvT3NBa4YEVKUiYT8tQSwQRZci6ffg192RdY42Zww9XH
+	 DjtauAZrR2VlAgDP1CVDDR9GEE+vsWvvj8CA0OezQrQBKkbX8Qxp1N4scsvRGxoA3M
+	 tDnSSZvdN4f9M90iJvx84Y41tMm68+V51qzJNqA/W8iqmS/i+O6odNtMHcmnRoWDcH
+	 x6Xu6Dv76oSNatqdl4UHmXC5qpL+9XjkaiX7cu0Fy4Z2hIY7/yq02YPq1kU5Uy/5xU
+	 KsT2jC3W3wzR4g2c6qXCWgLXaodza45xTK2JY+TG3RPc7z6v5IjFek2YRxyK//vUGp
+	 fHHqQbpSzEXSg==
+Date: Fri, 3 Jul 2026 08:40:50 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Cunhao Lu <1579567540@qq.com>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
-	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: can: rockchip: add rk3588 CAN-FD
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: mailbox: qcom: Add IPQ5210 APCS
  compatible
-Message-ID: <20260703-truthful-aardwolf-of-spirit-b6bafc@quoll>
-References: <20260703-master-v3-0-6d56de6fd2f3@qq.com>
- <tencent_3E31CBEFAE0986665A26322171642BC00B05@qq.com>
+Message-ID: <20260703-unbreakable-awesome-quail-ecfcac@quoll>
+References: <20260701-mailbox-v2-1-5e6ebc874e4e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,22 +44,16 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <tencent_3E31CBEFAE0986665A26322171642BC00B05@qq.com>
+In-Reply-To: <20260701-mailbox-v2-1-5e6ebc874e4e@oss.qualcomm.com>
 
-On Fri, Jul 03, 2026 at 10:35:40AM +0800, Cunhao Lu wrote:
-> RK3588 integrates a Rockchip CAN-FD controller variant that is not
-> fully compatible with RK3568v2. The RX FIFO count register field is
-> encoded in bits 7:5 on RK3588, while RK3568v2 uses bits 6:4.
+On Wed, Jul 01, 2026 at 01:35:14PM +0530, Varadarajan Narayanan wrote:
+> Add the APCS mailbox compatible for the IPQ5210 SoC. It uses the IPQ6018
+> APCS mailbox compatible as a fallback, so document the valid compatible
+> string combination in the binding.
 > 
-> Add a dedicated rockchip,rk3588-canfd compatible to describe this
-> variant. Do not use rockchip,rk3568v2-canfd as a fallback, because that
-> would describe a register layout that does not match the hardware.
-> 
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
-> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-> ---
+> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
