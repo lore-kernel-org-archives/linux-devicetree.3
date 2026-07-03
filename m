@@ -1,191 +1,160 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011043.outbound.protection.outlook.com [52.101.65.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D283C9EF0;
-	Fri,  3 Jul 2026 11:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783078969; cv=fail; b=FN5LKGZczyNHxh5U0APYb9uVUwi2ixg7Xzz/et+2FTsLXnKX2gwrR6GL2mGDfUUoMM1ApzclUEexbjrEcmvl/MIb22+irhknjrDu9uSiMKI+3lQtkDUC1isKgMRP921xZQZz5QyK9j2hnLuLD9fz+zQAofyWJ85H7rupCAU3ft8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783078969; c=relaxed/simple;
-	bh=aTB9/mOlVLWFW9SCSDVPXKXWA93QwQPlkiFJkXtMLIs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=gi9M6Nl4Z+8v5odi2AAVO8lsfPeA4kVlfkTAXocWOZydGLV0Ga9WgF9Pl/s8TRlBsim8Wqqx0DqW9LbKoNOfNdhy7RTYAjg96DwQFfmhRUZ3joLm+B3s1GgnVq4IF9Wmnt3xfxiB84MFnbaJw3Nb7kJlFL+ehj8aJbaduUYRxhk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=X8YayfbD; arc=fail smtp.client-ip=52.101.65.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9133CB2E5
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 11:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783079773; cv=none; b=gHH5v8crBOHZIkicB9V8Ra2Fo62MnCiwUKxXPkTrLUR0d18SX0/6LNLQHnLbTVnECPslQifzPIjEnNj/Djgy5MkZKA1ubI3XIka1ptPVCGik07emXu2CD5kTC8gvigHXxBl41InISx1FlqKG3DTv0CVxxdqjvD+P0pbDczKi+J0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783079773; c=relaxed/simple;
+	bh=rrXrFfcpgUSDXcQY8qvwp2yElhHCMUlGClGvoeo/dXg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cyikilp6dYzFlVq2vdLsEAEKmaPZ/RdYB3ku5DUexiMDgxbmFP/BP4qSHYg3Fpf+tpSl1NJCKAQXQ3aQgbg7My6iRpYHFq8/f9S649nphL4e7KnUlgtCzSv8bqG+z8XzP+t5CuNm3rp14ARhSE7UvR+TBekUbCeZRT5287bTw3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Qsg8MNgx; arc=none smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="X8YayfbD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l+//Ga3zPPvaJrZhbCjSeb5NK2RgWl+xlzLb2XuzX+htqu9wCyZ9tDqLLPXSObUrV5FkfmfnUBPZjK44UGCFExwnNQxf6wXQxJgq0lHDW/L4Ib4AOXcB6CJyRjx3waS2u0kR9OFCVeqEVDRAhilaJro9wgEmEnd232GHT5jqOecBAltyh2JFqP8NFF6PWwlCC2nP9FVS5qeVvNJsmqXDsJN7eXrsZyFPwL4DNAr81Aszl+a6KYF54Rshx8Z8vw+6O0yRTF228wwNTbELDvw5rDFQKFZVeNkonC7JoxdNutu5Y6tV3u+QAL8NsBB9QJ0Ep+wNjmN7e6JgQXMPaDTRQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t80gl3IUWbK7cUtRimcj9he7fKdt0GDbnCJNahf+y1o=;
- b=ux+r1MMxsfDeVXDOeBDg1M2KoS53DNYu4G90v6Mg/g/O1SD5khNVLFBJYuWWW+tGEakscNXTHMosXgOO91D0pBVNu3gKZFuOQzZWmoIIycPTDNeRselLSR3lwhUqN/UaOAWs3J2mRLx6v5aOHYa/1ie8a3BuT5/iwHKvx1M8QoIKfDIGjVpGLPM/BGuMdG1FUj3vylmL5TFCfYUf/kg5QJ527Zoe/3YObGtqITo2a6tLmC144z8AbC/y/auX9gywGrebgFjZaix7zw/xbmigIqKQbUDkxxQVRmYWpguRBv6HLNOB+87Ft1weuYqzXXN64eX7rhsNLtOL30Fc3K/BIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t80gl3IUWbK7cUtRimcj9he7fKdt0GDbnCJNahf+y1o=;
- b=X8YayfbD4fPnJ7inXz1UCucqWGnKWKUq7QPPJVVpujGL85HhraaOowYvRi9YkcTi+V9DLjceI04OVc+wnZ65s1tyt831eEsM6jddyjZ6nzM7xADMctPezplJ9l8AArkU+8MTUgPr/prGJlewXCddH9wwK7aNBMxN9kwMvamYnN38KStPBGCQZzIfTRc8VHjv3Ck9njEFTFO7ZPP+Az/BfYjUXn3NzT1TyHh9PHcLWBGCy/JkJ7w3Si1c3V0mlPH9kqveWimPIVOpIPYQUoTUV92R3F6XiSVBbmPsmzmx4PWVrWcyXFlpfwP4p+Xxl3hSfChDUd7rJ8cBzEsszLXhSg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
- (2603:10a6:150:319::13) by AS1PR04MB9560.eurprd04.prod.outlook.com
- (2603:10a6:20b:470::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Fri, 3 Jul
- 2026 11:42:43 +0000
-Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
- ([fe80::1739:3404:2175:33dd]) by GVXPR04MB12290.eurprd04.prod.outlook.com
- ([fe80::1739:3404:2175:33dd%6]) with mapi id 15.21.0159.018; Fri, 3 Jul 2026
- 11:42:43 +0000
-Date: Fri, 3 Jul 2026 14:42:39 +0300
-From: Ioana Ciornei <ioana.ciornei@nxp.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank.Li@nxp.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, devicetree@vger.kernel.org, vladimir.oltean@nxp.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev
-Subject: Re: [PATCH v2 1/5] arm64: dts: lx2160a: transition to
- device-specific SerDes compatible strings
-Message-ID: <jzpkcoqnyl63w6ugyv6vph3yp7fsoiemutqknqsykd7ebyw3lo@qpkzhpknirk7>
-References: <20260701131137.940145-1-ioana.ciornei@nxp.com>
- <20260701131137.940145-2-ioana.ciornei@nxp.com>
- <akUjt5OPiO5cJ1D9@SMW015318>
- <b5lpw3xu6svsq7xmmgp3jn4cg455zhp3iw4q6lcsxq4bqy7mwh@guuitghg3xal>
- <akZYUNtEmdLp0Kvu@SMW015318>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akZYUNtEmdLp0Kvu@SMW015318>
-X-ClientProxiedBy: AM0PR02CA0158.eurprd02.prod.outlook.com
- (2603:10a6:20b:28d::25) To GVXPR04MB12290.eurprd04.prod.outlook.com
- (2603:10a6:150:319::13)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Qsg8MNgx"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-c96d2bebca3so288838a12.3
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 04:56:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1783079771; x=1783684571; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0B1463+Qr0zm+lZPP190miffZziNrhNxavOC7rjqnck=;
+        b=Qsg8MNgxHOiDVYwLJvnUZbkm5bpwUET7r1xC2E02Uvf5aGplsCvOlGYWuXogoR+5p3
+         1lautF1sisCpvXQcsbnA+tYiPy8P4+czKTXs7qajFt4w4dXawchCjijqliBWFCGX2Gte
+         fYPWTiLOCqET9QChst021pmTav38m+aHFp9pM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783079771; x=1783684571;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0B1463+Qr0zm+lZPP190miffZziNrhNxavOC7rjqnck=;
+        b=tN75mWspy2n74xLGIS0CCp7Jmp+NLK0X/njJ/jtVpJr3PFfKyfA8lkPTmh5OQ/Kuvb
+         czlBWuUSQQtw9Rn+h+WPbLAK89IUPEQ7aoY2Jge3AFzgKZSd97cTAz5eZmRR1Re5ZVcZ
+         FINI/9TBGIgG24Xs9eYOl2LF2gafKPWbHmlcQ6MZqUs+BeDT3t+Y8yQd/YbDg2p46iSf
+         0pTdHowQoRdEgiuZGI0QscLXAVKrgcmIQAHngVOMZVycJCL8C1fpJ08KhARK6HmmGCe6
+         eeS6LfiooFP3JpypUbcLd76NW//tdc5pSn81EmDa4xMsMFS6JgRGN2tVF1Bq09EnW1IB
+         Yhbw==
+X-Forwarded-Encrypted: i=1; AFNElJ/mPnZLFytsojxnObqdaI6YOSW1a0OzAJXrRvKU3bpcH65zrOi1YlokxK+aCpmxaL6ZZt04M2hpU4Rl@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz2lKQDeSAn+zfYCd7bQVN3IzYsmNEroLIniDwo8RTVj/TCjj5a
+	eSnvQw+q8bbdth3dCbtWYKHWLakAw5N4i1I38F0u6oDt+MkZw0msy1pn+rWYSiU4gg==
+X-Gm-Gg: AfdE7clTnAO9q1JjibeI1rGk7CkYsFswj7h6w3KBznfycdiPNJPTf07djXpXufk13Ez
+	fUaUy5OMEhsDKCQ1pY+yk/NU8CPMAE+cU86bSfuMewHAnXFiapGUF1lpYM/5KGD9tJady/+Sh/x
+	GhyunKxaBKmc6sR+z+dIInBgCHS055LveBtG/JSuCyGJ6zn8Gp2JASvcp4YcnWK9BxqIVRyiJF1
+	FxC+VPuZqWhPVUOeaDUzeit91JEG1rauNzUzQvvgbTqNTVxpkBzoxY/0FRpimvsCUobMatsI2gi
+	Dt/piqlsEdz/+7MuxL3y6ghejUsCfGsmi5i6pzeLd8B1waiwwwtYnNmdFreR/UGKMYs7iBzUqWH
+	1+XiaZ+8yoDcsUTiaWn6m49AZMmn5IBhPOH+2wUYl/LLILrLfrRwHW4AP5v6eUD0hc68pizgJU+
+	oID688rkGGKRdhz+XdEgku3TOhAJtdACqomJJh3dh45vwwfVVQFL5h+pbOWS/ccvtfV7t44Q==
+X-Received: by 2002:a05:6a20:1602:b0:3bf:6f30:1ccd with SMTP id adf61e73a8af0-3bfed505340mr13580575637.42.1783079771207;
+        Fri, 03 Jul 2026 04:56:11 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:7bc5:6c83:76cd:cbd6])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c9e8bd30ca5sm2569540a12.0.2026.07.03.04.56.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jul 2026 04:56:10 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Benson Leung <bleung@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	chrome-platform@lists.linux.dev,
+	linux-input@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/7] arm64: mediatek: Chromebook trackpad supply fixes
+Date: Fri,  3 Jul 2026 19:55:53 +0800
+Message-ID: <20260703115601.1323491-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB12290:EE_|AS1PR04MB9560:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0a2b5b19-bf72-4592-bec5-08ded8f831cd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|19092799006|23010399003|366016|22082099003|18002099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	adVv94MeSGGaYecl8Z/3qKJ3JXh2T9ENjvEjsuW58sxJawqz7r1CYpmWA1d8UakgS6aUelPLKwecVoZnvWLgpBMpVZd5GIHGL3V6212pMbvdwEGw+0vFkQqg2G0K7SYv//8ANRj/t6B/HI5dg9FN/UmdjgQFLXqWKU/f3vWEgToI9swp3fIpvbmh9+7UpdeMCG17iUzt50r3RrsKO1dVOivB+JFbmV1ZkcjTlhRnxkbnOEmi9vuxbcbUPUSmS/wmLCFnurcxfUwJcoRiJkYB3h+ihuFEEP5lxK/8yvLFjzOgdIqrR5lhofkyynyBIG6FlFbbkFWTJCdwuC6w8Xwk8hqAuObiqBylm5fECKzI28XnVjfASt33p8admhFeG6zgbreDmxcDC9fiOCx5krEOObspRk4LvetMGokKV0OWq8jtoeUyK0Ba13t5tKLS6PipYul9XsHPB6UFQZD5CpVJlPoRoYqyDdkenmYaKaJFROH80ZnSbRZXIRRfGpdWo9JancVlc/UeLC8FPp6Uq4UHamVNRuoXcP1FmabcN5zLSWl6qTPGkQVdXMlRGI5bsPV0ePEWLO1tAAKRfXhssgnC4gnl4aYyEiGyEuOtYssLpc5RJasvGXJYz2uVWk4fYl9I4Js+mOLQ+emFz8A2t7/uCZ4Ypmpe9vRn3OWjBziFCFA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12290.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(19092799006)(23010399003)(366016)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?tDhqms3J2v4W2ERRcvRPhhHSZ7rAWZy5hCPYLkM6x0do/CcDd8kA6IiT4NJl?=
- =?us-ascii?Q?Tz9qIo4g+LRE1EobuFcvg5/hVtUg/DwvBi4c/x2TrunIGOFxSmEXIJHYCv7y?=
- =?us-ascii?Q?3JsZ5DtgUWVlT+zIebMdFWapyCisnMltt9TuryCAIIJseIS1bbBZMcuK9kcW?=
- =?us-ascii?Q?ab6DgGR63QYVuzaOARHAXK71kqvw6GimwLNs1Z/0Nzts6wp8oQ8yd4jy7Zhp?=
- =?us-ascii?Q?Xc0nkIsXTjWNRDURoE8tztvL5tCGU3jmiuF43xYzmfzAbwDqv1hwBDqOz1OU?=
- =?us-ascii?Q?k2BrkFn2068+KDE9ZiFmqgdx8Lkb27BvRAyfFCCwnuwrAUttGVgLaMpDgUDj?=
- =?us-ascii?Q?qG7j0N14q5jmij3IP9MOD8G+TpasGxvdMKYwbmu9fJP992o/apSqUnAVDIDn?=
- =?us-ascii?Q?pB1Lua/bz8vVrTXittkcy2YMC0BtwE0yaLL1h05uquETFdLh+rTRulApKz8p?=
- =?us-ascii?Q?/s7y55D+Fq78g4HU7lgCQ2ns4uwACWY6WD3zzk7Kfa8f5iUp9z+rzQTOdyoj?=
- =?us-ascii?Q?M9otKV+UoYvLYno4COEJhHQWLY1/dsCh/4LBP0rHHUUVwlRjnu+YWZQCqWII?=
- =?us-ascii?Q?74INY94PDmlLA2EMGw4GYCOjlxQ0VhXwd48TxFvpu+iBwxCQCIsfJxkHE0vY?=
- =?us-ascii?Q?Dq3WBkoxjVmEakx1Tga4IjU7YlQXYx6uyadn65OSY2erSAZiX1z4E15QODco?=
- =?us-ascii?Q?84//T/ATLxnq2K8Y0vG5aNqRqSrjXQygwXl/nG77wTJOooKcpnQqCfJ6MuOn?=
- =?us-ascii?Q?2CkLiqV4IkQTvA0rEVqi5Hrh8tPyYcN73AimkLhUlaOk+5Blf6S2eUBN7HKF?=
- =?us-ascii?Q?5U57sahNCy75uK71CiDGlC1PbsSLDi1GyOmNl4KnU5PfEDVgxD7Z5gS3HNXP?=
- =?us-ascii?Q?u+rEqM6H2odxSbQgRXxjtMTFq9Q9vAmaczvVZ2wOVlYjuuyVgE0Y3F0RqAfa?=
- =?us-ascii?Q?UoIonoqLgDVaIf9gkH++P86H+csIB+1i+S7QzJ/fHf+x+Tme5bS9Q0GIiErC?=
- =?us-ascii?Q?oaus3oWXmGz4rsrtCqzg4emNyn04y5b3J+jD5JyEWiAIitPFguwpmvtWc6qy?=
- =?us-ascii?Q?h8S1iYCnKAjuBBtcx180tsBvSbICeyLz6XgrsT4aT7yjIRfbshQ/frPg/QQH?=
- =?us-ascii?Q?JBCO41brTLfrC4xS/c2wKQ71nqDOaW4OHKczsQRYrWEVFr13IEsUJJc0G4gX?=
- =?us-ascii?Q?xboonOcPw3jagUAk5UeAuZXqAWhQe2TZwhP/3KRfbtoCnYOg933itC235RlQ?=
- =?us-ascii?Q?NC4amXzQltMEgbd9rXvFbhg/10p+yu2OCZqoXVWiQOkLwciyVjsa9ebML3t/?=
- =?us-ascii?Q?tsGMT2SlD5b5oOFz7OuFCgma/+4OUe7N9CWtJG2H5bfljXfc9pIxrEJpMnq2?=
- =?us-ascii?Q?VaeuK+0c5URcl9Rtl+uoeV7fgDJS1PP9mTHpcBHX2XDFy0+qdD8C02hjhsZX?=
- =?us-ascii?Q?lBPJNhrLZpeutG0Klq0YZUh2G9nIFUWN259jXn19raCc0hnADP9AFpSkhFtm?=
- =?us-ascii?Q?tKZo6s2XAKZadgQGLPoLb58HyY4mR9sGafdSAQ2kECft1km0vnl964e/YwAU?=
- =?us-ascii?Q?Z0zutDKmYSVLh6V+eesmlVelY1aKp+vATLsE6GMpB/gbwYBAP8MSpv656yFR?=
- =?us-ascii?Q?vrFmownm742BHIHpc8RZrAryYrlQDiEayPTkOMhXvAwzk9kttl/NSeX+tI7r?=
- =?us-ascii?Q?MRpzagoMZB7F50fqr3dN1hyE/mr2+zuzo+5gim/qg70Voh4J02IyEfUTcWEe?=
- =?us-ascii?Q?icqTzasQZA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a2b5b19-bf72-4592-bec5-08ded8f831cd
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12290.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 11:42:43.3948
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0rd8Jk1yo+y/QgFQaB1m+P3f0NlcuHiaFu8OVpTvjDBsnRbePVieXxDUVmcIppuWsO/sFaeYaySvDwvmeSfLNg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9560
+Content-Transfer-Encoding: 8bit
 
-I just realized that I somehow didn't reply-all to this message and only
-responded to Frank. My response is copied below now.
+Hi everyone,
 
-> > > > +
-> > > > +#include "fsl-lx2160a-rev2.dtsi"
-> > > > +
-> > > > +&serdes_1 {
-> > > > +       compatible = "fsl,lx2162a-serdes1", "fsl,lynx-28g";
-> > > > +
-> > > > +       /delete-node/ phy@0;
-> > > > +       /delete-node/ phy@1;
-> > > > +       /delete-node/ phy@2;
-> > > > +       /delete-node/ phy@3;
-> > >
-> > > Now, do not perfer delete-node. if ver2 is not include phy@0, ...
-> > >
-> > > create ver2 files, let ver2 include it. Now most people like A + B, not
-> > > A - B.
-> > >
-> >
-> > I am not sure I follow what you say about the ver2 files - are you
-> > referring to -rev2 or LX2162A?
-> >
-> > The LX2162A is a version of the LX2160A SoC, also known as "LX2-Lite".
-> > And the main difference is that the LX2162A does not have the 3rd SerDes
-> > block and only 4 SerDes lanes on the first block.
-> 
-> If it is the same die and it is disable by fuse box. I suggest leave it here
-> now because default it is disabled and try to access-control-cell in future.
-> 
-> https://lore.kernel.org/imx/20241212-imx-ocotp-v1-1-198bb0af86a0@nxp.com/
-> 
-> That these nodes can be dymatically disabled it.
-> 
-> If it is difference die, it should lx2160a.dtsi include lx2-lite. you
-> can rename old lx2160a.dtsi to lx2-lites.dtsi. You need adjust file name
-> and I just said overwhole method.
+This series fixes the trackpad descriptions on some MediaTek-based
+Chromebooks: either the trackpad's supply was set as always-on to
+workaround missing delays in the driver, or the delay and supply
+are missing from the trackpad's device node.
 
-LX2160A and LX2162A are different dies but the process is not that
-simple as just a rename of the fsl-lx2160a.dtsi. First of all, because
-the LX2162A has the same PCIe controller as LX2160A Rev2
-(fsl-lx2160a-rev2.dtsi) and not LX2160A Rev1 (fsl-lx2160a.dtsi), so if
-there would be a rename it should be fsl-lx2160a-rev2.dtsi ->
-fsl-lx2162a.dtsi.
+v1 was just the first patch [1]. It has since grown to cover multiple
+drivers and devices.
 
-But even that rename is problematic. SerDes nodes currently live in the
-fsl-lx2160a.dtsi (common for Rev1 and Rev2) which would mean that
-fsl-lx2162a.dtsi would still inherit all the SerDes nodes, even the
-SerDes block #3 not present on LX2162A. I can combat this by keeping
-only the common SerDes nodes in fsl-lx2160a.dtsi and add the necessary
-extra SerDes nodes in fsl-lx2160a-rev2.dtsi. But this would leave the
-Rev1 dtsi without all the necessary nodes, which is not ok.
 
-In this context, I think that if there is a need to not use delete-node
-I need to come up with some kind of a scheme like below:
+Patch 1 adds the correct enable delay after enabling the supply regulator
+for the Elan trackpad to initialize. Compared to v1, the delay is now
+skipped if the regulator was already enabled to avoid impacting boot
+time or time before the trackpad is operational.
 
-fsl-lx216x.dtsi			---> fsl-lx2160a.dtsi (PCIe gen4, 3 SerDes blocks)
-(no PCIe, no SerDes)		---> fsl-lx2160a-rev2.dtsi (PCIe gen3, 3 SerDes blocks)
-				---> fsl-lx2162a.dtsi (PCIe gen3, 2 SerDes blocks)
+Patch 2 applies the same logic of skipping the power on delay to the
+i2c-hid-of driver.
 
-For the "PCIe gen4", "PCIe gen3", "3 SerDes nodes" and "2 SerDes blocks"
-above I would add independent .dtsi files that can be included as
-needed, so that there is no dt duplication.
+Patch 3 applies the same logic of skipping the power on delay to the
+i2c OF component prober library.
 
-That is why I said that there would be a lot of unnecessary churn.
+Patch 4 adds a delay between when the device node found is enabled and
+when regulator_disable() is called. This gives an asynchronously probing
+driver some time to increment the enable count of their regulator
+reference, thus keeping the device operational and allowing the driver
+to skip the initialization delay.
 
-Ioana
+Patch 5 adds the correct delay for probing trackpads for Hana devices
+to the ChromeOS OF component prober.
+
+Patch 6 removes the "always-on" setting from the trackpad supply for
+Elm / Hana and adds the correct delay to the second source trackpad.
+This corrects the hardware description.
+
+Patch 7 adds the supply and power on delay properties to the Synaptics
+trackpad on the Spherion device. Combined with previous driver changes
+this should cause no actual functional changes or delays.
+
+
+Please take a look. There are no build time dependencies between any
+of the patches, but the DT changes must go in after all the driver
+changes land, especially the first one adding delays to the Elan
+trackpad driver. Otherwise one could potentially end up with a
+non-functional trackpad on the device.
+
+
+Thanks
+ChenYu
+
+[1] https://lore.kernel.org/all/20241001093815.2481899-1-wenst@chromium.org/
+
+Chen-Yu Tsai (7):
+  Input: elan_i2c - Wait for initialization after enabling regulator
+    supply
+  HID: i2c-hid-of: skip post-power-on delay if already powered on
+  i2c: of-prober: skip post-power-on delay if already powered on
+  i2c: of-prober: Defer regulator_disable() on successful probe in
+    simple helper
+  platform/chrome: of_hw_prober: Add delay for hana trackpads
+  arm64: dts: mediatek: mt8173-elm-hana: Unmark trackpad supply as
+    always-on
+  arm64: dts: mediatek: mt8192-asurada-spherion: Add Synaptics
+    trackpad's supply
+
+ .../boot/dts/mediatek/mt8173-elm-hana.dtsi    |  8 +----
+ arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi  |  1 -
+ .../mediatek/mt8192-asurada-spherion-r0.dts   |  2 ++
+ drivers/hid/i2c-hid/i2c-hid-of.c              |  8 ++++-
+ drivers/i2c/i2c-core-of-prober.c              | 29 +++++++++++++++----
+ drivers/input/mouse/elan_i2c_core.c           | 13 +++++++++
+ .../platform/chrome/chromeos_of_hw_prober.c   |  4 +--
+ 7 files changed, 48 insertions(+), 17 deletions(-)
+
+-- 
+2.55.0.rc0.799.gd6f94ed593-goog
+
