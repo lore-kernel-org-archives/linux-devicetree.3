@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689E52010EE
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 23:42:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2111121146C
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 23:44:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783122144; cv=none; b=GU9LIHNp1einKJJB0uNjxQfVLqlflowEzOttGTTY/M6BT6K3W42uqPI8IOlUMUKwaGGFyj1WvuAPfyfWMbJ9SQsWWlDNOr+v1edhnw/pZghI1Z75/aWM9Aoojz23/K/LK6eKMMLH0w7WhufKiXLWphINi/IvspXa3LkliGHslBA=
+	t=1783122292; cv=none; b=DfCT4c1rL2Ud3oEywdtfH+hO/P2uVL5uG7Xtd6kozQVhjkfX+ro3ImgOSof3flTAGuvkFLxT2Bpl+8BZ2tMKfwhWqKr6rRz5BI5VshUd5vZXQQorcWrUWkJO7LLTA7SeX8WjjSZHtQSAng8GN0NqnK7DuulvhYsmpSzuw2TPIlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783122144; c=relaxed/simple;
-	bh=As2HAU5PuUJGendqz7wx3wFpfm0bI/OBSJZ7047wzOM=;
+	s=arc-20240116; t=1783122292; c=relaxed/simple;
+	bh=kxspGC99XiTZmFif1STuAohV312FH06dq/Dy5wn6/Vc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SwyOs3XzBDR6EGSd4Sg25AML5CLw6QGPiYQPKWdFwJjczyWwTtgHsU1QdyJu0+WmCf4e3C9BcOX1u4/64FEAtAzZ3Kthxl2+PAQPJQcbKSwHfxeSurk+4ofPGmR8EtnDA2nKeHwh3i6J2fGzqy2X+mCTUcpfAOvEVkCDHPVPrlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D2J3/49S; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=oEYDOgo521j5v2euWfF3wVQK9lS3ZXnEYq9n7aDVkqffcTOY/ea13rCv/U6s/FriUaHqMV3/6uNIbATWMKAgYLmJbnpe+U0ZFii6Qb4zTYCWPPjcN0cdCLRdrqXTuzwPOJJLIo910RwUei36yTIPRoxcdsoBKRWV+BpkaWXz2BE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RNnz1DZ/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D2J3/49S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ECFB1F000E9;
-	Fri,  3 Jul 2026 23:42:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RNnz1DZ/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C1801F000E9;
+	Fri,  3 Jul 2026 23:44:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783122142;
-	bh=OREPypUrPgy4y2miTeLz+RdBIlQ2Bblm2hWF7JX0EKo=;
+	s=k20260515; t=1783122290;
+	bh=rTA75vgJbDRlFFAx5Rl7dNhraSlgz69UMMDo4+AiSAg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D2J3/49StCzrp9LNOYpdmmjaUhYUmzy+QAzQRkzf8syH25cDfWLG9oatvKgNVpKIJ
-	 m1xA8eWzsIj0GgCHMXvHIBwkysRTIXKZ/UqetguH+dPq7Obj4bmpq03Ks9BXbBcBA3
-	 C3VOpfOp5trQvIkWucfDcXZ/Wz8wTlgOYEWRQtj/lBltKfVmcHrBVS0o54ChbSmdMD
-	 uMyq2fWLOrNzllRKiwUv+JXgfQT7dMfMx88xRxP3gKaPFFIwxDfY9sunTv3Bx8ghUE
-	 nxCVe/nNEo68HEx8CJurS/nKYWbZ+012cCxqUekJItRSaVRPd5uskIZgKpkEN9tllJ
-	 dZJwNScivYz2Q==
+	b=RNnz1DZ/Dsei0Nj3wvrHlSf5kNezOUIYCmGBd7PYzQAzN2xP9qJfZzibGvpe9ZVP3
+	 2dFvfGDU2Xk+v04z6CzkqohVI+X5jPdabqKMKl/dk2woAGsqUa0Bm6Bhrz5isIyTC+
+	 P8ghDEqFcjz4YndFBBQgwEP98JRIjKUp6Bzr/7uZgxx60b6cklIs3ivFIkghm7pI1s
+	 UR68daZ2AgmjsXCN1AoD1ug13K9OZ5klvEry6Bl3s/C50RTAxuZnCzdOYI9EFsU21m
+	 yMYgpVbmr4WJMAydnnrEDXzWRnFkS/jEGv2SwIg2NA9QR73EqcJHETWprTB3NUhgGP
+	 KqAJX0mIS8nng==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 01/36] dt-bindings: phy: rockchip-usbdp: add
- improved ports scheme
+Subject: Re: [PATCH v10 08/36] phy: rockchip: usbdp: Amend SSC modulation
+ deviation
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, vkoul@kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org
-In-Reply-To: <20260703-rockchip-usbdp-cleanup-v10-1-a392711ca8a9@collabora.com>
+Cc: neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, vkoul@kernel.org, robh@kernel.org
+In-Reply-To: <20260703-rockchip-usbdp-cleanup-v10-8-a392711ca8a9@collabora.com>
 References: <20260703-rockchip-usbdp-cleanup-v10-0-a392711ca8a9@collabora.com>
- <20260703-rockchip-usbdp-cleanup-v10-1-a392711ca8a9@collabora.com>
+ <20260703-rockchip-usbdp-cleanup-v10-8-a392711ca8a9@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 23:42:22 +0000
-Message-Id: <20260703234222.7ECFB1F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 23:44:49 +0000
+Message-Id: <20260703234449.7C1801F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,45 +47,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Typo in the deprecation keyword ('depreated' instead of 'deprecated=
-').
+
+Pre-existing issues:
+- [Medium] Partial state update during the configuration verification phase=
+ leaves inconsistent driver state on error.
 --
 
-commit 80cbcd5498584cd573a979a5b4e236da93d09776
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+commit 90f0c5bc1613dc3c61ed76de74f75f85b147f759
+Author: Frank Wang <frank.wang@rock-chips.com>
 
-dt-bindings: phy: rockchip-usbdp: add improved ports scheme
+phy: rockchip: usbdp: Amend SSC modulation deviation
+   =20
+Move SSC modulation deviation into private config of clock.
+   =20
+ - 24M: 0x00d4[5:0] =3D 0x30
+ - 26M: 0x00d4[5:0] =3D 0x33
 
-This commit introduces a proper port scheme to the Rockchip USBDP PHY bindi=
-ng
-to support USB-C DP AltMode, replacing an undocumented scheme. It deprecates
-the single port node in favor of a ports node containing multiple specific
-endpoints. The new design roughly follows the Qualcomm QMP USB4-USB3-DP PHY
-controller binding while adding an additional port for the USB-C SBU mux.
-
-> diff --git a/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yam=
-l b/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml
-> index 8b7059d5b1826..35d6717b9cc9e 100644
-> --- a/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml
-> +++ b/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml
-> @@ -110,10 +110,34 @@ properties:
-> =20
->    port:
->      $ref: /schemas/graph.yaml#/properties/port
-> +    depreated: true
-        ^^^^^^^^^
-
-[Severity: Low]
-This isn't a bug, but there is a typo here ("depreated" instead of
-"deprecated").
-
->      description:
->        A port node to link the PHY to a TypeC controller for the purpose =
-of
->        handling orientation switching.
+> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
+chip/phy-rockchip-usbdp.c
+> index e3f5a26c876a5..cb6acadfbccfb 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
 
 [ ... ]
 
+While reviewing this, I noticed a pre-existing issue in this file:
+
+drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_dp_phy_configure() {
+...
+	if (dp->set_rate) {
+		ret =3D rk_udphy_dp_phy_verify_link_rate(udphy, dp);
+		if (ret)
+			return ret;
+	}
+
+	if (dp->set_lanes) {
+		ret =3D rk_udphy_dp_phy_verify_lanes(udphy, dp);
+		if (ret)
+			return ret;
+	}
+
+	if (dp->set_voltages) {
+		ret =3D rk_udphy_dp_phy_verify_voltages(udphy, dp);
+		if (ret)
+			return ret;
+	}
+...
+}
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but does partial state update
+during the configuration verification phase leave inconsistent driver state
+on error?
+
+The helpers rk_udphy_dp_phy_verify_link_rate() and
+rk_udphy_dp_phy_verify_lanes() prematurely mutate the driver's internal
+state before guaranteeing overall configuration success.
+
+If a caller invokes phy_configure() with set_rate=3D1 and set_voltages=3D1,
+the verify_link_rate check might pass and immediately overwrite
+udphy->link_rate.
+
+If the verify_voltages check then fails, the function aborts without
+programming the hardware or restoring the old link_rate.
+
+Could a subsequent call setting only voltages then use the corrupted
+link_rate to configure the PHY clock inversion registers?
+
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703-rockchip-u=
-sbdp-cleanup-v10-0-a392711ca8a9@collabora.com?part=3D1
+sbdp-cleanup-v10-0-a392711ca8a9@collabora.com?part=3D8
