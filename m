@@ -1,359 +1,308 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1C2233939
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 15:48:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C2B2D1F40
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 15:51:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783093722; cv=none; b=Oliu1SFYs9NI/nBmrX7Jk1l+Vhwz2uksPMpg+tZe/RV9oyba7saTB4nDNhOCF4mHWi62XkobDs+SC9XBFb37Leq3X/Kmi/BmM7F5DJeurH2avhHB9FF/5YHGM+kVwleCO1qa3Ygc3QlJT9NnwRngQWIUw/9/9+LVEJv5At+mDGw=
+	t=1783093915; cv=none; b=SPjc4A3NDsBwFaiauHOfGVAkC5MXfgXVsfFxZnQehouMZBYnnNsiBHGGauYy1YgX/VI4mm5Wbr3/DtTpre97xZ6Wv71Jasvqgkz+6VV699loGqBp7egUWpkNcLh3wHeCNQ433B0M3B2vxBWh96PvSVbgMMPj28RE03LQXxaIqT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783093722; c=relaxed/simple;
-	bh=+kphoTvANLDKHMDgJNzN8NAjl3dMOmN6aFLAl4/R3qs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DP8JYD6BAIGa5tkhhKuwHzBWUInfQQYczZN1mPrLCRD2HA73f+wyKYEdlMpGfpzeN8mMjuSnoaSUvAy9R2DQMoxwLYY8oHYTd9qqM2PQDrsPDTZRYNY25+/GOz4KtgyHZ0CDPFtQq+BRHdGdq6pLmi8BhnXof86d8jrGkvoufB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dYBxKI8z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JkShtexq; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783093915; c=relaxed/simple;
+	bh=XR5GmfLppTRjfvh+jR6iAEUTO0QmhFRfwyLH9bqDL/o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cMNu5c6gDQpZc1dSSlgGBaYGuOTYIt8H3qG/RvCTMne2MhhhtdN674iDFVranqrYwzciSZFs3to7/21o5RP070q22E+RRJawvpASOg3SL2IjE0LAOMiC3zpw/qyih0bNC+1XZESR81O3wRCZxcwHv+xsZ9YWhp6qU7N6tknO/uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vBQIsHnw; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dYBxKI8z";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JkShtexq"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663D1Hnk054343
-	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 15:48:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6uEU2G8CSSk6Zshq/zPfEKAJegI9f9YQqTxeUAIwcCk=; b=dYBxKI8zcY3WHh5P
-	jPgSz3GQTvE6Zv2Z+SZKtYPmIqL5Y8kP0ydk5D+y6iAoBbW0BgP5AwPQw7h/q9GY
-	nNaxhQ4ijGe/wq87kbgyqipDDCB5GcbQu3YYSsQfsorkTYW06eOU0Y2g2q3s95u9
-	DUmwN6jOKDYnySPFykHDwvw2sWLBcaBF5JeGR6HJ8o3I9Hweqj1xQGc7cDLP3bKz
-	Kbg5AXqKe5lAjAY/hlBw5m/rmObsumiS4urriyjMAPCKG5xNYAnwHwtiJ0Zvc/bK
-	KJgyLuRaYs0Sl1JV0/fM4tfJpmfReEbb9JS6uOB74q0924VtduYXcBNbQV7KEQdm
-	QZ+B3A==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6dkkghrc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 15:48:39 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-59d595bfd94so247536e0c.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 08:48:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vBQIsHnw"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-493b77b150aso5764605e9.2
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 08:51:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783093719; x=1783698519; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=6uEU2G8CSSk6Zshq/zPfEKAJegI9f9YQqTxeUAIwcCk=;
-        b=JkShtexqH6RzXwU+XAxyabd9/GkNTaEtXv5mOpVjUPqcHZyJAagYHEPRI0b6VGS5Sp
-         i0eQ1hLaYQI9ltLFDFnFHk12KEdIJNWqlHQ9jms4va2XU/let8ac8Mo2LZ7rZ31oph37
-         fTytd4cRQTudmR0S+EkQvQfsJByDv6m2iGTs4+SJMCWcCLkcmyeFymTrF4adw+46+Lyh
-         MlwE7MrAbpODMLznzdrIrKMDv7Gw/JkimHQKDzXL1eFj3QEXQuYh4a7WrcCxVVTi/SMS
-         TVJrRU3fI7Yzmd8zgAS/H1OQ7Kjd6LliXQOE1Hm6ICJmpUPNZEE6574O8Md2aVpcX1Sx
-         ebhA==
+        d=linaro.org; s=google; t=1783093911; x=1783698711; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sWTYk/ImBGBMqdkQLWrj/FjPpL1zJsAf8G7wpBOF3BU=;
+        b=vBQIsHnwmVQ6eBGDE098B65etj0u1RXDlntT1qUZFNYxOwxo64M9vecYh8h1y2oMD0
+         RiNtN6kcl7W+v0JAmQfEuZ4hSh5+zHlB6hcqRzNNBjCW5ynzXa8122CoYtBxaa4b9h9u
+         N2SwnEe8m4BRplgeOl6Qbx8/13PIfnJugJTZ2HUUPSaIenxNNC9m8KQKf309KIjbsdBb
+         z2/3R55AlxsurWG2cf4xZKmZR1ujobwbQDOrL4cNQwnGIs96O/gkqfTVXJv8KT3bel05
+         YgERJL28bGdSNJ1KUUXXhiUhbm+2kgQULzrcJv4P/ynuf0jKwXFOtjYnkvVQThppyarv
+         8wPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783093719; x=1783698519;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6uEU2G8CSSk6Zshq/zPfEKAJegI9f9YQqTxeUAIwcCk=;
-        b=ODmcqAg0nfizp0hk4e5CVRRbia+Pjx13B8oQdLPKFJnkHpZnpvY4WWFohSa7yMf9dj
-         9YYLnJKkECllTRhteNJyrm59Bg/uLpNF/M+sM69TOglBdfdYifSdfAU83HcITvD64jyA
-         e7Ww0awdYPdP0pC9ijL82tyG6KnofvBeg1hhw9FpfFAxQbXJpjLd5QhiX6Czer0GwgiC
-         kvcxHcbS5TklHQ+woLpV6/4Y0mUitF9DHn/KUIUs6XWe3f18Fmv1yF2udGEEnu0ShSvM
-         XYKzxbYD5jmSLFwyyo29IAWOwV5hhAICiPP3YF8Veo8AaPqL4+Hy1Hncn5yTYOVR9zbW
-         wG2g==
-X-Forwarded-Encrypted: i=1; AHgh+RpjM1c29w0ktw+b3WzWaNxDLDoFSe8gcqmgyiu89Pe6C4KozpaQ4rY40SbLBcZ2OydQZ44vsjmlF/zM@vger.kernel.org
-X-Gm-Message-State: AOJu0YxmtDq3JeH4um6mbZEF2wvnfAcJgJQbinx5fp+Yk/RnYJB4L5s+
-	EhoQ/hBS+ApLz1Sk1SVM87PQEd6gQVIS4dtutcEni+n7w7qmlOFyzXwD/QjA7GC2MsDQrklzH3R
-	PD+aEea+3/dHu6MnzdT4oR5hydVvQ/mrzxwkeK3QtdouAF3ZHdlSZH1q+fmEsar9/
-X-Gm-Gg: AfdE7ckZqQd87xoGXyxGJsBzYSwfTzCQft7tOMV/4MN0lp7M8WThFN/v/d2/UjxVzXr
-	BaAEIzeG10uA1Jqe1et2zLlXSXr0m6PlsIwp6RNoa1FT3k/qfPHDV0aK0frIIpWw2buXGAuSv3j
-	b4gZFMoCic0wfWPgJMmcAe/oBFq7ZmU2TnSdwbBKg95yqEeq8JEiaR3G5f0B8rfUkBdKAz/G4XI
-	Z8FCTobqScr5+Igov3Zy39/Z3rX49rCX28uSARrpwaybBSTctR0ja9rRoneREFCOj6mhh432N42
-	XoJR4BADlZg4qIssFdUnZRCTaDfhNOpLIOXEBfM5EliBetTJAYUmnhpMoNgFfOznUu0nriHuxFI
-	q4zY0QqxEsHFGSyiM2b1Chx20Mt1uc78m5XnxeAdHF9zJKoZo+Qjp6xE8FLUhUlbtVEOEWo8mqN
-	eHSiuh8dGqHpYBJfgVrGsjr6nJ
-X-Received: by 2002:a05:6122:c83:b0:5bd:742d:ba77 with SMTP id 71dfb90a1353d-5be1028b9c1mr26723e0c.10.1783093718777;
-        Fri, 03 Jul 2026 08:48:38 -0700 (PDT)
-X-Received: by 2002:a05:6122:c83:b0:5bd:742d:ba77 with SMTP id 71dfb90a1353d-5be1028b9c1mr26696e0c.10.1783093718195;
-        Fri, 03 Jul 2026 08:48:38 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed137705dsm571958e87.32.2026.07.03.08.48.34
+        d=1e100.net; s=20251104; t=1783093911; x=1783698711;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sWTYk/ImBGBMqdkQLWrj/FjPpL1zJsAf8G7wpBOF3BU=;
+        b=tTiUfOkQ4TtB+kdpJa/+c2L9LPfqZWbTOFMybXHbb2iy/hYN0yoWPKwmvZITwGiTD6
+         eqrphkrZwCZhzBFtBTEzrettfsD3Frg3L8ooLlrQ15gR3dkB7bfDkGFenfqODVVSQOEt
+         KLHja87BuiT+wbVX95Qcu70Rq/9AHMCBBWxLV27fLNBAkoHjEjxFbDtcGo3vcdsKzJjZ
+         3sBOj6Eig5a32kvkprPnXSRQrqRHk4GFATFztVr5Pw8UUcVrnfeu8zoSMx0WUnLviIse
+         H7LpS84dIOLmkbdUTJIlpzQDQ50FLQiEvES0m1j+gm19WEOfCdIwOea+St3ZcraPwKkT
+         6KSQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/G9aNxIYPi4pH6ZKahr5URCs1xNUqKDnctUrf5TCkaH7kgb3G7tBt5jVYqBV+6RMjg1RcVj5GB9AzB@vger.kernel.org
+X-Gm-Message-State: AOJu0YzJR4X8HBtHI0MXBmkZPAqn+jRyrvfVKRzqMqup7KoEVW0phXgd
+	ccvKuvrnuvRfA4sohhTK5EOrX1eX328LCEl2DWrb6XId0+/ehDs448XRgtwiWZ+nG6Q=
+X-Gm-Gg: AfdE7ckLT8+5N6/FmirLigjAKLbXXd0oe2lboBVCBCBVWnXxDxBumm5bpRJkxElYuTM
+	8x7vnuzmTlqOuYNvM9KPGTSXq4qPPIaPtRQdGugpq68kxG8OIWNfkQopR3oQaenuBAOuihpVxIX
+	hDHaxWNDY9Cgc7BtqykaHVXrUWbcVu5kMIwqnkGFbOB+7Tst1u42KIvOFi8y45nGAcbYjYZG2gW
+	iRjSH+vreIurkZYbnhmlBD+X2mOdU5lnWMlMwVaCEgt6HDu8yD4Kv01BfwPR4NLXtybqnSqvfb0
+	bVZQeDbnLS0wMp9zU7hGPYNW6RA9XJHj2xNDW+Zm112MwNH3rFoE2Nmgp/238b8J3dT4zhuC9aP
+	24BEEVxgMDhpyKdMu4NDtuFeBYLwx/MtL20JG+Vo6bAF+fO7WNhqPTe5exNNJeNm/TfIFHLdtfS
+	tTbyGHiQ==
+X-Received: by 2002:a05:600c:8b61:b0:492:6447:7a7f with SMTP id 5b1f17b1804b1-493d0f0797dmr4957755e9.6.1783093910827;
+        Fri, 03 Jul 2026 08:51:50 -0700 (PDT)
+Received: from [127.0.0.1] ([78.152.220.181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c63ba97csm141294655e9.12.2026.07.03.08.51.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 08:48:35 -0700 (PDT)
-Date: Fri, 3 Jul 2026 18:48:33 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-Subject: Re: [PATCH v4 06/10] arm64: dts: qcom: kodiak: Enable CDSP & Modem
- cooling
-Message-ID: <pli4napz5xis7i24oum73wnaecvqz53nxy7ek6mftlxsq7qkyt@nc7jp6oi4fix>
-References: <20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com>
- <20260703-qmi-tmd-v4-6-3882189c1f83@oss.qualcomm.com>
+        Fri, 03 Jul 2026 08:51:50 -0700 (PDT)
+From: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+X-Google-Original-From: Bryan O'Donoghue <bod@kernel.org>
+Subject: [PATCH 0/7] media: qcom: camss: icp: Add HFI/ICP v4l m2m driver
+ for x1e80100 BPS/IPE
+Date: Fri, 03 Jul 2026 16:51:44 +0100
+Message-Id: <20260703-qcom-laptops-v6-18-rc4-camss-icp-bps-ipe-icp-boots-stats-b4-v1-0-595df9e67790@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260703-qmi-tmd-v4-6-3882189c1f83@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE1NyBTYWx0ZWRfX1Jiriy8z/IVx
- lz5r2+b53vhzf0jGnxKFDgj8TJKx+9TGszoBNYYt7fRDAd26JlMIGib8brl+LIT8taZqgDd0cFN
- h7pZSzH0buiF912rroRN8UAzrvSCrgd5n+lfSlHigiTHUhNEomUv9OLY87KkxCBImDtoLZoq5y7
- 0jFvmcVOGgIdbGwd8PXOUQPoxqRDso7ECf0EamEwYoUHA4HJ1KFQXE9hk3f5PxJpx/zi66wOehc
- v3oi5kxKS6Fdz1UsrxuRme9DY3EcRQLQ8fym/sVY7B5Q6xUCha11JZDX3UecN1Ggu/mRQS1DsYk
- UsvOtvdr1LPfwMEWw8FKsjzoaOGTLah+rZmghvr6Kzul2lAvliZRiZMbEllC/FmYNDpg+aRlMvH
- 0MTJ347j30Ng+3waezSpGfn5ZiC2x/TDbvoSQMbwQBH986Dn8UY2upYsF8TewwY2abAhYA/B3ob
- GfTxYlcwtrhfqvz39MQ==
-X-Authority-Analysis: v=2.4 cv=LeUMLDfi c=1 sm=1 tr=0 ts=6a47d9d7 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=FiV8zanugsH5vQb0BJEA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-ORIG-GUID: iaYgQQ2HuJkDqIapiHZ6tHnCrDEe-LGm
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE1NyBTYWx0ZWRfX+CtzI9VxNEbL
- coSmeFqd0vLFsLAyjWAwt3J0LhNexvvrsogAcQEgefah9FxLcjPDOXHVXEIdU3+TfoOV75Zzdt0
- a1+cnIsid18ibBOD/DBR9ctzZLL3KK4=
-X-Proofpoint-GUID: iaYgQQ2HuJkDqIapiHZ6tHnCrDEe-LGm
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
- suspectscore=0 bulkscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030157
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNSw7CMAwFr1J5jaU0hBa4CmKRjwEj2qRxqJCq3
+ p1AN09vZjMLCGUmgXOzQKaZheNYod014B92vBNyqAxa6U71ao+TjwO+bCoxCc4dtkfM3qC3gwi
+ yT+iq50Tbj7EISrF1nUGnD9r2p1YHE6AWUqYbf/71y3Vjebsn+fJLwrp+AV/cy3KfAAAA
+X-Change-ID: 20260703-qcom-laptops-v6-18-rc4-camss-icp-bps-ipe-icp-boots-stats-b4-b252a7912d4d
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+ Todor Tomov <todor.too@gmail.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14215; i=bod@kernel.org;
+ h=from:subject:message-id; bh=XR5GmfLppTRjfvh+jR6iAEUTO0QmhFRfwyLH9bqDL/o=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqR9qSpuluBcH1z22wmkzFKUo7B7CqIkzl9o6am
+ 2pkEwJfE3GJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCakfakgAKCRAicTuzoY3I
+ OoKND/908vDFQrpnjw2s4PPEJklVmtfO4FRMURq7L4j2XzhMSihi6Ee1dChFvGTUExSb99i3sOJ
+ 6+I4Q/SLdO9XYHcYep3w+fGo7Nro88zLScGZMIaXsJEFJOD3TDwiljXbaH0X3uKzfhRWsdlOedG
+ ItjVjTnwmRBTIToaLaA5pSwbOY2o2nko0pOfamBSQ7lRtEV9SmKDDSpuDkXxTtk+7kMQDRH+bHr
+ Z/j3ozcEP+9cPCaYgSChFT9CdBMRK7PWPC1rGs4GApzO737GajhJZnN1IamnVn+M+YSs4Ko+rGK
+ II3/q7RGJ0OdTYQfFModjesqruE72zmsQOsk1UgXq3T4Yet5om4pBgbjf5qwEUE8iZuXoSPpT4w
+ U7e06b+faIIV4nKQH0F5v2vHsMk20xE9e51uAAY6Z/iRaJ17K/Pr1pInZYcGWej84q31W4N5eqJ
+ TZ8G81btXzZ8nzp26HB4/jr0Mb64dCFPX4db08QNWjzrzVWbAgXI0vlwr64X0YH4ACIkVitNaQi
+ L7wx312ug7DI89g+DRVm5iqVGAiHeHW9upL+KEcQdK3gImYV6sV0AwlfUsni/KO3surZxvjCc+7
+ OgEmJUBR2WkZjkcvH81Baqfvt9bdrGTfd+C5BNA5JbwH1+m5sTr3CZeiB/bncTNkPhWomZdParU
+ mCNX5P+lwGhRmJg==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Fri, Jul 03, 2026 at 10:33:09AM +0530, Gaurav Kohli wrote:
-> Unlike the CPU, the CDSP/Modem does not throttle its speed automatically
-> when it reaches high temperatures in kodiak.
-> 
-> Set up CDSP cooling by throttling the cdsp when it reaches 100°C and
-> for modem when it reaches to 95°C.
-> 
-> Since the remoteproc_mpss node doesn't exist on non modem boards, the
-> cooling-maps that reference it cause DT compilation errors. To fix that
-> remove inherited mdmss cooling-map nodes.
-> 
-> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/kodiak.dtsi               | 134 ++++++++++++++++++++-
->  .../boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts     |  17 +++
->  arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts       |  17 +++
->  .../dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts  |  17 +++
->  .../boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts |  17 +++
->  .../boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi    |  17 +++
->  .../boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi   |  16 +++
->  7 files changed, 231 insertions(+), 4 deletions(-)
-> 
-> @@ -7716,6 +7722,8 @@ map0 {
->  		};
->  
->  		nspss0-thermal {
-> +			polling-delay-passive = <200>;
+This series is a very loose RFC for a block of code I've been developing to
+enable the firmware based camera path available on most recent Qualcomm
+platforms.
 
-Why? This applies to all added polling delays.
+The Image Control Processor (ICP) provides a Host Firmware Interface (HFI)
+which implements a session based system providing all of the most advanced
+Camera algorithms on the Qualcomm stack.
 
-> +
->  			thermal-sensors = <&tsens1 3>;
->  
->  			trips {
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
-> index bb5a42b038f1..400d128132fc 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
-> @@ -24,6 +24,23 @@
->  /delete-node/ &adsp_mem;
->  /delete-node/ &cdsp_mem;
->  /delete-node/ &ipa_fw_mem;
-> +
-> +&mdmss0_thermal {
-> +	/delete-node/ cooling-maps;
+Since it is firmware based with a session the ICP can achieve things like 
 
-Don't kill what is unnecessary to be killed. Remove only MPSS maps.
+IPE:
+- Motion Compensated Temporal Filtering - MCTF/temporal denoise
+- Image Correction Adjustment - ICA warp/geometric correction
+- Advanced noise reduction - ANR - multi-pass noise reduction in a single
+  frame
+- Electronic Image Stablisation - EIS
+- Upscaling
+  Not present in the inline hardware
+- Local Tone Mapping / LTM - done on current frame using current stats
 
-> +};
-> +
-> +&mdmss1_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss2_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss3_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
->  /delete-node/ &mpss_mem;
->  /delete-node/ &remoteproc_mpss;
->  /delete-node/ &remoteproc_wpss;
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> index 37a3b51323ce..187bc2899191 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> @@ -25,6 +25,23 @@
->  /delete-node/ &rmtfs_mem;
->  /delete-node/ &adsp_mem;
->  /delete-node/ &cdsp_mem;
-> +
-> +&mdmss0_thermal {
-> +	/delete-node/ cooling-maps;
+BPS:
+- Multi Frame Noise Reduction / MFNR
+- Bracketed HDR frames
 
-But MPSS is there. Why are you removing it?
+All of the same functionality as with Inline Image Front End (IFE) is
+available in the ICP version with the key differences that inline processes
+sensor data directly whereas the offline processes frames submitted to it
+via HFI.
 
-> +};
-> +
-> +&mdmss1_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss2_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss3_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
->  /delete-node/ &video_mem;
->  /delete-node/ &wlan_ce_mem;
->  /delete-node/ &wpss_mem;
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-> index a5ad796cb65d..1e190ed18ae5 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
-> @@ -22,6 +22,23 @@
->  /delete-node/ &cdsp_mem;
->  /delete-node/ &ipa_fw_mem;
->  /delete-node/ &mpss_mem;
-> +
-> +&mdmss0_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss1_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss2_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss3_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
->  /delete-node/ &remoteproc_mpss;
->  /delete-node/ &remoteproc_wpss;
->  /delete-node/ &rmtfs_mem;
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-> index f47efca42d48..8e8dd4efd8c0 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-> @@ -23,6 +23,23 @@
->  /delete-node/ &adsp_mem;
->  /delete-node/ &cdsp_mem;
->  /delete-node/ &ipa_fw_mem;
-> +
-> +&mdmss0_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss1_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss2_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss3_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
->  /delete-node/ &mpss_mem;
->  /delete-node/ &remoteproc_mpss;
->  /delete-node/ &remoteproc_wpss;
-> diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
-> index b721a8546800..1e9d7e7b5fa2 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
-> @@ -26,8 +26,25 @@ &ipa {
->  	status = "okay";
->  };
->  
-> +&mdmss0_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss1_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss2_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss3_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
->  &remoteproc_mpss {
->  	compatible = "qcom,sc7280-mss-pil";
-> +	/delete-property/ #cooling-cells;
->  	reg = <0 0x04080000 0 0x10000>, <0 0x04180000 0 0x48>;
->  	reg-names = "qdsp6", "rmb";
->  
-> diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi
-> index 3ebc915f0dc2..6642076f62c4 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi
-> @@ -7,6 +7,22 @@
->  
->  /* WIFI SKUs save 256M by not having modem/mba/rmtfs memory regions defined. */
->  
-> +&mdmss0_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss1_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss2_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
-> +&mdmss3_thermal {
-> +	/delete-node/ cooling-maps;
-> +};
-> +
->  /delete-node/ &mpss_mem;
->  /delete-node/ &remoteproc_mpss;
->  /delete-node/ &rmtfs_mem;
-> 
-> -- 
-> 2.34.1
-> 
+One thing I'd like to reason about is if the offline engine would be a
+better fit in driver/accel. This RFC solve the engineering problem of
+actually getting the ICP to boot and exchanging some data with it.
 
--- 
-With best wishes
-Dmitry
+A putative structure of bot the BPS and IPE appearing as /dev/videoX nodes
+in user-space is sketched out and the stastics and parameters the ICP/HFI
+expects are included in the drop for reference.
+
+As is obvious YAML is missing, uAPI documentation is missing.
+
+Speaking/listening to several people at the media summit in Nice this year
+got me to thinking v4l2 m2m might be a another solution for an offline
+engine like this one, with the inline engines fitting into v4l with the
+media-graph and the ability to route different sensor/PHY combinations to
+different CSI decoders.
+
+This version of the code uses simple-mfd to probe the bus but that is _not_
+my intention for a v1 and beyond. There is already code in-flight for
+CSIPHY to effectively make sub-nodes probe themselves so please ignore that
+part.
+
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/bod/linux.git/log/?h=qcom-laptops-v6.18-rc4-camss-icp-bps-ipe-icp-boots%2Bstats-b4
+
+Here's an example of the ICP log right now on my reference machine:
+camss -e csi
+[    0.000000] OF: reserved mem: initialized node camera_icp_mem, compatible id shared-dma-pool
+[    0.000000] OF: reserved mem: 0x0000000bef000000..0x0000000bffffffff (278528 KiB) map reusable camera_icp_mem
+[    0.000000] OF: reserved mem: 0x0000000081f20000..0x0000000081f2ffff (64 KiB) nomap non-reusable usb-ucsi-shared@81f20000
+[    1.443825] platform ac01000.icp: Adding to iommu group 5
+[    6.665683] camss-icp ac01000.icp: assigned reserved memory node camera_icp_mem
+[    6.673517] camss-icp ac01000.icp: clk=ahb
+[    6.687251] camss-icp ac01000.icp: clk=core
+[    6.704545] camss-icp ac01000.icp: clk=debug_xo
+[    6.716389] camss-icp ac01000.icp: clk=gcc_hf_axi
+[    6.727918] camss-icp ac01000.icp: clk=gcc_sf_axi
+[    6.727919] camss-icp ac01000.icp: clk=cpas_ahb
+[    6.727920] camss-icp ac01000.icp: clk=core_ahb
+[    6.727921] camss-icp ac01000.icp: clk=cpas_fast_ahb
+[    6.742587] camss-icp ac01000.icp: clk=camnoc_axi_rt
+[    6.742588] camss-icp ac01000.icp: clk=camnoc_axi_nrt
+[    6.742589] camss-icp ac01000.icp: clk=bps_ahb
+[    6.742591] camss-icp ac01000.icp: clk=bps_fast_ahb
+[    6.754909] camss-icp ac01000.icp: clk=bps
+[    6.754911] camss-icp ac01000.icp: clk=cpas_bps
+[    6.754912] camss-icp ac01000.icp: clk=ipe_ahb
+[    6.754913] camss-icp ac01000.icp: clk=ipe_nps_fast_ahb
+[    6.767222] camss-icp ac01000.icp: clk=ipe_pps_fast_ahb
+[    6.781681] camss-icp ac01000.icp: clk=ipe_nps
+[    6.803558] camss-icp ac01000.icp: clk=ipe_pps
+[    6.813041] camss-icp ac01000.icp: clk=cpas_ipe
+[    6.827852] camss-icp ac01000.icp: Voting for BW now ahb
+[    6.837128] camss-icp ac01000.icp: Voting for BW now hf_0
+[    6.871958] camss-icp ac01000.icp: Voting for BW now sf_0
+[    6.983317] camss-icp ac01000.icp: Voting for BW now sf_icp
+[    6.989219] camss-icp ac01000.icp: HW version: 0x20000000
+[    6.994830] camss-icp ac01000.icp: FW memory: phys=0x0x000000008e100000 size=8388608
+[    7.012769] camss-icp ac01000.icp: Firmware loaded: qcom/x1e80100/CAMERA_ICP.mdt (7340032 bytes)
+[    7.012770] camss-icp ac01000.icp: HFI struct sizes: q_hdr=956 q_tbl_hdr=24 (expect 956, 24)
+[    7.012962] camss-icp ac01000.icp: Allocated: vaddr=ffff800085201000 dma_addr=0xfff00000 size=0x100000
+[    7.013650] camss-icp ac01000.icp: Allocated: vaddr=ffff800087801000 dma_addr=0xff800000 size=0x700000
+[    7.013803] camss-icp ac01000.icp: Allocated: vaddr=ffff800085601000 dma_addr=0xff700000 size=0x100000
+[    7.013804] camss-icp ac01000.icp: HFI memory layout:
+[    7.013805] camss-icp ac01000.icp:   SHMEM:      dma=0xfff00000 size=0x100000
+[    7.013806] camss-icp ac01000.icp:   FwUncached: dma=0xff800000 size=0x700000
+[    7.013808] camss-icp ac01000.icp:   QDSS:       dma=0xff700000 size=0x100000
+[    7.013810] camss-icp ac01000.icp: QTBL initialized: ver=0xffffffff size=0xb4c
+[    7.013811] camss-icp ac01000.icp: Queue headers in QTBL:
+[    7.013813] camss-icp ac01000.icp:   Q[0]: status=1 start_addr=0xffb00000 type=0 q_size=262144
+[    7.013815] camss-icp ac01000.icp:   Q[1]: status=1 start_addr=0xffc00000 type=1 q_size=262144
+[    7.013817] camss-icp ac01000.icp:   Q[2]: status=1 start_addr=0xffd00000 type=2 q_size=262144
+[    7.086701] camss-icp ac01000.icp: Firmware ready! version=0x01000100
+[    7.098579] camss-icp ac01000.icp: CIRQ after FW init: MASK=0x0 STATUS=0x0
+[    7.098581] camss-icp ac01000.icp: GP registers after FW init:
+[    7.232986] camss-icp ac01000.icp:   GP0 (unused):        0x00000000
+[    7.239586] camss-icp ac01000.icp:   GP1 (FW_VERSION):    0x01000100
+[    7.246249] camss-icp ac01000.icp:   GP2 (INIT_REQ):      0x00000001
+[    7.252839] camss-icp ac01000.icp:   GP3 (INIT_RESP):     0x00000001
+[    7.259434] camss-icp ac01000.icp:   GP4 (SHMEM_PTR):     0xfff00000 (we wrote: 0xfff00000)
+[    7.268067] camss-icp ac01000.icp:   GP5 (SHMEM_SIZE):    0x00100000 (we wrote: 0x00100000)
+[    7.276691] camss-icp ac01000.icp:   GP6 (QTBL_PTR):      0xffa00000 (we wrote: 0xffa00000)
+[    7.285319] camss-icp ac01000.icp:   GP7 (SECHEAP_PTR):   0xff900000 (we wrote: 0xff900000)
+[    7.293949] camss-icp ac01000.icp:   GP8 (SECHEAP_SIZE):  0x00100000 (we wrote: 0x00100000)
+[    7.302710] camss-icp ac01000.icp:   GP9 (STATUS):        0x023200c3
+[    7.309294] camss-icp ac01000.icp:   GP10 (SFR_PTR):      0xffe00000 (we wrote: 0xffe00000)
+[    7.317920] camss-icp ac01000.icp:   GP11 (QDSS_IOVA):    0xff700000 (we wrote: 0xff700000)
+[    7.326559] camss-icp ac01000.icp:   GP12 (QDSS_SIZE):    0x00100000
+[    7.333141] camss-icp ac01000.icp:   GP17 (FWUNCACHED):   0xff800000 (we wrote: 0xff800000)
+[    7.341778] camss-icp ac01000.icp:   GP18 (FWUNC_SIZE):   0x00700000 (we wrote: 0x00700000)
+[    7.350447] camss-icp ac01000.icp: Starting HFI core init (SYS_INIT command)
+[    7.357741] camss-icp ac01000.icp: CMD_Q before: read=0 write=0
+[    7.363919] camss-icp ac01000.icp: MSG_Q before: read=0 write=0
+[    7.376337] camss-icp ac01000.icp: hdr->type 0x00010001 size 0x00000008 tx:00 00 00 00 00 00 00 00
+[    7.385590] camss-icp ac01000.icp: CMD_Q after write: read=0 write=2
+[    7.392168] camss-icp ac01000.icp: Raising HOST2ICPINT (CIRQ STATUS before: 0x0)
+[    7.399925] camss-icp ac01000.icp: CIRQ STATUS after HOST2ICPINT: 0x0
+[    7.430285] camss-icp ac01000.icp: MSG_Q has data (polled): read=0 write=14
+[    7.437487] camss-icp ac01000.icp: CMD_Q final: read=2 write=2 (FW consumed: YES)
+[    7.445226] camss-icp ac01000.icp: MSG_Q final: read=0 write=14 (FW responded: YES)
+[    7.453146] camss-icp ac01000.icp: hdr->type 0x00020001 size 0x00000038 rx:00 00 00 00 01 00 00 00 04 00 00 00 c3 00 32 02 05 09 06 00 00 03 01 01 00 00 00 20 00 00 01 20 02 00 00 20 02 00 00 30 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[    7.475216] camss-icp ac01000.icp: Parsed: size=56 type=0x20001 error=0x0 prop_num=0x1
+[    7.483406] camss-icp ac01000.icp: Props 04 00 00 00
+[    7.483409] camss-icp ac01000.icp: hdr->type 0x00020003 size 0x00000104 rx:08 00 00 00 e9 00 00 00 00 00 00 00 eb ca 70 01 43 49 43 50 5f 46 57 5f 45 20 3a 20 48 46 49 20 20 3a 51 43 5f 49 4d 41 47 45 5f 56 45 52 53 49 4f 4e 5f 53 54 52 49 4e 47 3d 43 49 43 50 2e 46
+[    7.483412] camss-icp ac01000.icp: ICP FW [24169195]: CICP_FW_E : HFI  :QC_IMAGE_VERSION_STRING=CICP.FW.5.0-00020,OEM_IMAGE_VERSION_STRING=CRM,BUILD_TIME: Feb  8 2023 03:05:23,CACHE_ENABLED at icphostinterface.c:683 QC_IMAGE_VERSION_STRING=CICP.FW.5.0-00020 OEM_IMAGE_VERSION_STRING=CRM
+[    7.483414] camss-icp ac01000.icp: hdr->type 0x00020003 size 0x000000ec rx:08 00 00 00 d1 00 00 00 00 00 00 00 ba 71 71 01 43 49 43 50 5f 46 57 5f 45 20 3a 20 48 46 49 20 20 3a 45 4c 46 20 76 61 72 69 61 6e 74 3a 20 43 41 43 48 45 2d 45 4e 41 42 4c 45 44 3a 54 34 38
+[    7.483416] camss-icp ac01000.icp: ICP FW [24211898]: CICP_FW_E : HFI  :ELF variant: CACHE-ENABLED:T480:API_V2:USE_CDM_1_1:T680:TCM_ENABLED: , API version: 0x23200c3 at icphostinterface.c:684 QC_IMAGE_VERSION_STRING=CICP.FW.5.0-00020 OEM_IMAGE_VERSION_STRING=CRM
+[    7.483419] camss-icp ac01000.icp: CMD_Q before: read=2 write=2
+[    7.483420] camss-icp ac01000.icp: MSG_Q before: read=14 write=14
+[    7.483421] camss-icp ac01000.icp: hdr->type 0x00010005 size 0x00000010 tx:be ba fe ca ef be ad de 00 00 00 00 00 00 00 00
+[    7.483423] camss-icp ac01000.icp: CMD_Q after write: read=2 write=6
+[    7.483425] camss-icp ac01000.icp: Raising HOST2ICPINT (CIRQ STATUS before: 0x0)
+[    7.483529] camss-icp ac01000.icp: CIRQ STATUS after HOST2ICPINT: 0x0
+[    7.650377] camss-icp ac01000.icp: MSG_Q has data (polled): read=14 write=18
+[    7.657677] camss-icp ac01000.icp: CMD_Q final: read=6 write=6 (FW consumed: YES)
+[    7.657679] camss-icp ac01000.icp: MSG_Q final: read=14 write=18 (FW responded: YES)
+[    7.657680] camss-icp ac01000.icp: hdr->type 0x00020006 size 0x00000010 rx:be ba fe ca ef be ad de 00 f5 b0 76 c9 78 e5 26
+[    7.657683] camss-icp ac01000.icp: Ping 0xdeadbeefcafebabe Pong 0xdeadbeefcafebabe
+[    7.685850] camss-bps ac2c000.bps: BPS registered as /dev/video18
+[    7.702906] camss-icp ac01000.icp: CMD_Q before: read=6 write=6
+[    7.711157] camss-icp ac01000.icp: MSG_Q before: read=18 write=18
+[    7.717472] camss-icp ac01000.icp: hdr->type 0x01010008 size 0x0000001c tx:01 00 00 00 00 80 4e 03 08 00 ff ff 00 00 00 00 00 00 00 00 00 80 ff ff 00 00 00 00
+[    7.732077] camss-icp ac01000.icp: CMD_Q after write: read=6 write=13
+[    7.738751] camss-icp ac01000.icp: Raising HOST2ICPINT (CIRQ STATUS before: 0x0)
+[    7.746535] camss-icp ac01000.icp: CIRQ STATUS after HOST2ICPINT: 0x0
+[    7.770466] camss-icp ac01000.icp: MSG_Q has data (polled): read=18 write=26
+[    7.777770] camss-icp ac01000.icp: CMD_Q final: read=13 write=13 (FW consumed: YES)
+[    7.785691] camss-icp ac01000.icp: MSG_Q final: read=18 write=26 (FW responded: YES)
+[    7.793701] camss-icp ac01000.icp: hdr->type 0x01020008 size 0x00000020 rx:00 00 00 00 98 19 29 00 00 80 4e 03 08 00 ff ff 00 00 00 00 00 00 00 00 00 d5 12 df c1 60 13 01
+[    7.809366] camss-icp ac01000.icp: fw_handle = 0x00291998
+[    7.815006] camss-icp ac01000.icp: CMD_Q before: read=13 write=13
+[    7.815008] camss-icp ac01000.icp: MSG_Q before: read=26 write=26
+[    7.815009] camss-icp ac01000.icp: hdr->type 0x0101000a size 0x00000028 tx:04 00 00 00 98 19 29 00 00 80 4e 03 08 00 ff ff 00 00 00 00 00 00 00 00 01 00 00 00 98 19 29 00 00 00 00 00 00 00 00 00
+[    7.815011] camss-icp ac01000.icp: CMD_Q after write: read=13 write=23
+[    7.815013] camss-icp ac01000.icp: Raising HOST2ICPINT (CIRQ STATUS before: 0x0)
+[    7.815116] camss-icp ac01000.icp: CIRQ STATUS after HOST2ICPINT: 0x0
+[    7.882581] camss-icp ac01000.icp: MSG_Q has data (polled): read=26 write=33
+[    7.891973] camss-icp ac01000.icp: CMD_Q final: read=23 write=23 (FW consumed: YES)
+[    7.899895] camss-icp ac01000.icp: MSG_Q final: read=26 write=33 (FW responded: YES)
+[    7.907896] camss-icp ac01000.icp: hdr->type 0x00020008 size 0x0000001c rx:ff ff ff ff 03 00 00 00 cc 00 00 00 28 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[    7.922501] camss-icp ac01000.icp: ack.hdr.type != HFI_MSG_IPEBPS_ASYNC_DIRECT_ACK
+[    7.930419] camss-bps ac2c000.bps: failed to destory handle -71
+
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+---
+Bryan O'Donoghue (7):
+      arm64: dts: qcom: x1e80100: Add ICP/BPS/IPE nodes
+      media: qcom: camss: Launch ICP from CAMSS
+      media: qcom: camss: qcom-icp: Add minimal ICP driver with HFI infrastrucutre
+      media: qcom: camss: qcom-icp: bps: Add initial v4l2 m2m BPS driver
+      media: qcom: camss: qcom-icp: ipe: Add initial v4l2 m2m IPE driver
+      media: qcom: camss: Switch on ICP and BPS as make options
+      media: uapi: qcom-camss-stats-params
+
+ arch/arm64/boot/dts/qcom/hamoa.dtsi                |  250 ++-
+ drivers/media/platform/qcom/camss/Kconfig          |   24 +
+ drivers/media/platform/qcom/camss/Makefile         |    8 +
+ drivers/media/platform/qcom/camss/camss-bps.c      |  684 +++++++
+ drivers/media/platform/qcom/camss/camss-bps.h      |   74 +
+ drivers/media/platform/qcom/camss/camss-icp-hfi.h  |  534 ++++++
+ drivers/media/platform/qcom/camss/camss-icp.c      |  623 ++++++
+ drivers/media/platform/qcom/camss/camss-icp.h      |   58 +
+ drivers/media/platform/qcom/camss/camss-ipe.c      |  558 ++++++
+ drivers/media/platform/qcom/camss/camss-ipe.h      |   69 +
+ drivers/media/platform/qcom/camss/camss.c          |   29 +
+ .../linux/media/qcom/camss/camss-stats-params.h    | 2022 ++++++++++++++++++++
+ 12 files changed, 4926 insertions(+), 7 deletions(-)
+---
+base-commit: ae28dda0ce21b86f8aa1c4456ede819d46eea536
+change-id: 20260703-qcom-laptops-v6-18-rc4-camss-icp-bps-ipe-icp-boots-stats-b4-b252a7912d4d
+
+Best regards,
+--  
+Bryan O'Donoghue <bod@kernel.org>
+
