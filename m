@@ -1,255 +1,207 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4475930D410
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 17:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783098845; cv=none; b=QDvw1HaZj4MrtBA5ByPBan30gfVG5J+p/4f2aq+XLwuiJYkP71H+maQUdLwTiS4IckyiGlnVQkcOaTwemRHT5klY7R2N5t5WqXNjFSCpZrA9+w4osO0zGc2O9j7KoAWKiytUxldeZs9In1u0G24x62lXkkqFnRAGlJr2w9iphBo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783098845; c=relaxed/simple;
-	bh=OonQPF5I7GcGEGSqLdKb//8FxMTxnN2jMAsNtpQQC0I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IFjZcYF9jqQMMOwma8FkGwu3+qSCR8hgD6msTSgKNcNWrp0+DRoRqb1zxP/KIDrvwer06uyw6MIEUDhF+MdTckYQjoTHWHAQuPEAzi/lgFnlEKwCHOyn0CHZyUKHl0QHqWHyYrE8PXI+KblFlrBbnUdVuTO5MAE+7BOY6El4Ej0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GXAkWN1I; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A112727EB
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 17:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783098856; cv=pass; b=W2KCEz7Bk29RIgZs6Yz1O0KkgyAUnuEw8Jb5AtWKFdsZgP4feIQB7WgqLE/ke3zUJKCsj11O4WQBxV7cChpQrrlEp+SHdv/Y7KCl9IwzjUwaYdI5zZuNYpAyNhx1yhLcJXAi5XNUiZaNuY5fKIGAkPW5/GhS1KsMYXHJRuUYRE0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783098856; c=relaxed/simple;
+	bh=VC7ZCv7+aslU/qQ/BrRdM0VLdD94B8717jq32y5ZOfI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BfJhT9hvDjZQU4A+lUEtmfEbe4XVsTbqnmJDbprl3bO+StXtWmXXMCbGtYiZhcRopTLIYzXkDocWKCsx/zGOVrHqAzGJzHWKJXFzNDCrzd5Sq1n2ouGI+DMX3KftnHZAOAXcGbaHfr94oYA6Mf0nYlv0I3swzkSuv4CkwrScEJU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KV6O6hck; arc=pass smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GXAkWN1I"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-380cda7f00cso698279a91.0
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 10:14:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KV6O6hck"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-37de8008910so720601a91.0
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 10:14:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783098854; cv=none;
+        d=google.com; s=arc-20260327;
+        b=W6tiwR9AjkSuVOIZWODU7z+BWI6mwUsC1xbtivslEmte9nAjJGE1z7oZG/p0wDal2I
+         Tc5J/wD1NzuLXUf3HfQaT1z9QC7dBoqI00GeVZKjbS/FWvn5448vn4R0z0LofKOEmREa
+         9G/ToXsyk/Wsq8S9SqFqLupB0aH4MY3MggKntvyTgEazvpLQjRcoXfnoTQ5BXrvwc8+u
+         PaRww2vocXiQpS+TdLyHSkVZn3ZPfrAQvkXu8UeTtkh/XDUfRjQH22hpgdFWt+V/ESVf
+         fBwTYvBKR3ASN9DdudhLmm+KX/rXQHSmFoHVH8A/79nM2d57vLPVQ/Ae+aEd+almvjwH
+         8yug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=uaErd3idfCYZ9nBzpwZ4jTIj75xKFGwhc0tNJS1QEx4=;
+        fh=7nWVnq5KBtVhthyY1kujNfogxhWHlwn8RUT+EhSz+7Y=;
+        b=Jv6RgBHYmVGcXxPzy2916udNDUU8Yj6UZLBF+Uq7fwUMDU9sAJJOm+Vvsmet0YHk61
+         fm35Er5eSJQzd8ejghIU31SW80sT4pXjqcAYLMtGHyt/Iuv0TeZi5W/qoTCpq5uB+rfx
+         nmd8rZ3tVU+uVlrQ8h3wrpCVdTBbypwha5RN3t1HytNQb4xekTV+OCTkUuoxxpYSk+y1
+         lUHPZTDj2dJz9ho26lFmTS9cd9WuGBFh6CZlRK70Yne1TFOUAEM0PktmjHEJ5q8dPb4O
+         PEuRgOrE/YAqhEzanfdz4x7gtGDgiqNuaFAFtG3uff5nu9KSGiFmSVoxJN9lZZJt/bmX
+         pmzw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783098842; x=1783703642; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=IwzAPzjMwDw5xOCIkXRylTPhzE1xkwbIJpXU1v7450o=;
-        b=GXAkWN1IlzNoLL6yQHcb19TADPGPzOnUxbTChZJRMkz8kGi7vUI48uuHNDljNj4QS8
-         rCJjUGOKeuU1SA38QLVFVSL83A2WHiPfMgRF9AGHgNHTYrTF1VyAO7xYnQlcNVg44ep5
-         oiJFuGKCCoUIhZGV6+w8A6dg9dHnqZ+K7pPFOFG+6dCR7PrmZLKYmg8h4UtSNpQ6w+Mo
-         3vR6hj8AFBsga3jwG4jyDqbUV4mwMWnsw1izi4OgtnaglwUL8Qdxfi1r+xTqB6vTOGKL
-         mA/LQiVhiFEMnwge21+C35Yaqnchv1FbG5OMjDPgKgQF5d1D5B+flInB4tVBEuS8G7bI
-         PcnQ==
+        d=gmail.com; s=20251104; t=1783098854; x=1783703654; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=uaErd3idfCYZ9nBzpwZ4jTIj75xKFGwhc0tNJS1QEx4=;
+        b=KV6O6hckO9VGpywVnRPjGbwu3De06i/K9OP4GhrZNZST84hj2usPh969YP811hl2/4
+         a2kDaWpxWa5IuzoXbEYeAlrVOgeaUHJy8ZkcQNu4QWgmzO4AXF2ANuL4jn7LC3XNQbGx
+         FFry70bGelHKebH6jztbois0zUjHvE6W3900mqTnDEvjUAqqgxAFJHOUEOXOMztMw03K
+         zbTA50ujpLQpiTwp3aasRdgTzhNCoTjtkvoplktltLlPhlWNRygOFo9Hcpy3PMtxWuyH
+         977L9NIiCWJFXAiUMGN63QV3sS33aWFWLnF6lYtLoh1Vl04dUGwNcBbHLGDwYjjB9o7Y
+         Rwhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783098842; x=1783703642;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IwzAPzjMwDw5xOCIkXRylTPhzE1xkwbIJpXU1v7450o=;
-        b=AJXasGZAIdgg98wfGUmZ5WrsQlQmEsa4YMhuV0jFvHAHn6GOiKwLVw2nRhP+iq2zyP
-         SjzjTC7d2YHMstb6zNL2pfJ2xPzsHHZTyHP5lhZ9APLF/+HIjUbGn0BSecOn/dea4hPE
-         zWGDqs14XK54mm+w21pfHeZ5BvLj1JNWdTWXnFmfaDy0Q4mN/gxR6mpwAVHAipLSZlyc
-         7a/0KoOZAgaZHRsgqjskanW5nY1/xsKLE7k+873oZFg2cq8oAMgvEe9d8G8yROye1js8
-         CnKumdYpELUtAgRAr8An11ZOwjO1uNwlcNwUU1Zb2JWNj/M17GCrxkxXWno5i41ozX48
-         OMyg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq8U05IcNXzGK5gdpxrv6uYEH0vSWAir5IUlkXvuznMgK49WJN4GrxyzI/eTb/Y+PNP9x8HL7g3xHap@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy4ARIiXiZF6f3vs63AJD4UYnvYSOS3HaKAPyPQoKbzWRCOcAwV
-	bOoDyL1jWKig07KwCRLg3avAzFP45tcf8y7g7/1MpM4DwEJSievX4hp08/TYlA==
-X-Gm-Gg: AfdE7cm1SkvdJNoEaIV//GyjAAsJuk3YEzDxtIdbG97wJVhHeYn0XEg9MflkFyz7NN0
-	+TpStdQrxfCOajD/ggiDGnuHWYrhkLH+2U/duf310kmd9QHZkqIqRcAN46R//o9BVpIDs64m8bS
-	SvU0RVC6c+fkMdZlVPvw57k6Wjhd9gQbpM3f4OWIF0CoGEvNz6kSQlYwRhANSIxcSo4wbT3RIiF
-	cJXI6aKJVwC6f3rfhhfS2Pu3rDME7VpnqzxrMtsWIdOAd/N1qoicYkDAnSr0J2Kx7yw74Wz7UqM
-	XlHymUbmeFPz63MO1Z+gywSJ0HnP18DQNrZ88Y1CvM6I7/ybCKXcz9NYjB/Xv9b/D2OQToJleGH
-	ps7K3eOPKdG3GtFYfQSqK/ByCW8RCP6mlw+gppwt5awXjTFf49ow059vMLCi3a/wkg2cTf9plkI
-	65HOKa8paT3yl5GYpUsXSivg==
-X-Received: by 2002:a17:90b:35cf:b0:381:9b7b:35e5 with SMTP id 98e67ed59e1d1-382800d1a6emr367212a91.4.1783098842338;
-        Fri, 03 Jul 2026 10:14:02 -0700 (PDT)
-Received: from localhost ([2804:30c:1618:8400:e838:86ad:21d4:de00])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f376bf710sm3780762eec.6.2026.07.03.10.14.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 10:14:01 -0700 (PDT)
-Date: Fri, 3 Jul 2026 14:14:50 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
-	linux-iio@vger.kernel.org, marcelo.schmitt1@gmail.com
-Subject: Re: [PATCH v5 2/4] iio: adc: ltc2378: Add support for LTC2378-20 and
- similar ADCs
-Message-ID: <akfuCoai4KAlt5QZ@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1783028033.git.marcelo.schmitt@analog.com>
- <724f2408cb84bf4546115408fc9857777e6f2fd7.1783028033.git.marcelo.schmitt@analog.com>
- <20260702220223.C717E1F00A3A@smtp.kernel.org>
+        d=1e100.net; s=20251104; t=1783098854; x=1783703654;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uaErd3idfCYZ9nBzpwZ4jTIj75xKFGwhc0tNJS1QEx4=;
+        b=FikUGFSspHAmxoGcJvE/DiWiqNiRg0LzUH8FmM/gjjdxtZJHdxutSid0ZbykBh9618
+         kmcr70NU6BuNaWRjdflt6Jega9gbJUMmiqC/GN660YTVmYm9nlB2Av9n+CZSZh9gslKW
+         9TsXV7b0KX3U80HOLdyrd1xSonuZkA1CE7dyk4KyZrHVedpc6YBo/A5i2Q8s081mlsJK
+         BLPY3eD7sHwkqc3dyLxUyrdvaK55bb5lLyiWfiQxKK5UbEChk1//RJqTU1QSU4/ssI6y
+         xEpjjVC4+P/osvY5rHYl2B663qmy5iccKk7jL5dWcKBEkmbarpqoZ2SBgEqyHck6cprc
+         2wSw==
+X-Forwarded-Encrypted: i=1; AHgh+RpZRf00lxAodtCV6P8cGh/22XB7P9X0C00/xIWlbuGrd5Mca/Uv501Zp2Gu7E9tSF8FT03vyuHbseeq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzcs/D8hl3wtDfE9Of3g2PeTjHtJVufoDHrd2bcsX9MCuj6mPrO
+	kOzfwvtj7/ZNaT/0Nywokvw2/Fgwzhn2Z34g3Ylwbkdqu90jvNBwFVQ5tuxVZEml8qDOoUoh4YS
+	e+z4q1Wei/w5orWXGeR5Hskc9iguXMDw=
+X-Gm-Gg: AfdE7cmHyfdqKFFUzud6snbBG6MMJaSx7JvSXH93N8JQ0C4BzPflqlEAmDHT+odfTOi
+	nD5Z/T7Cj1juX3e8kGoDby9Blql6gTeINpJZOHWV3q00LqaQt38l+6m2J1YHgXFdq6IQ19eTFEj
+	jaWh/28Hq6+t7TV1hsrEcpz5lTRoVzRaEIBYupSfziazV/SuW58hOTg26kJ/OBCOJcPl6xklsOh
+	eb2UM4vhM2d2B7ivUoMcC1LB1G3p8fqFJbpCieSjWtIDYufr3HrqBOurl+T4rLYToGCj+Bomk0A
+	Z1P+nQ9QXkBLsZf9V8YhyBDAoeX1brXZF3q9NWuMyqpc7RPF931h
+X-Received: by 2002:a17:90b:2fcc:b0:37d:f72c:9636 with SMTP id
+ 98e67ed59e1d1-38280e981b7mr406598a91.11.1783098854403; Fri, 03 Jul 2026
+ 10:14:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260702220223.C717E1F00A3A@smtp.kernel.org>
+References: <20260703-nanopi-m6-v1-0-8344a1559519@gmail.com>
+ <20260703-nanopi-m6-v1-12-8344a1559519@gmail.com> <DJOWK4QYYMI1.F1TOWMR4BM22@cknow-tech.com>
+In-Reply-To: <DJOWK4QYYMI1.F1TOWMR4BM22@cknow-tech.com>
+From: Joachim Eastwood <joachim.eastwood@gmail.com>
+Date: Fri, 3 Jul 2026 19:14:03 +0200
+X-Gm-Features: AVVi8CfY39OU8Il_NnWqBVTMmpRn6fLaUzCEyD6qk3aZNRwtsleLFP9BaGWo9Ss
+Message-ID: <CAPSPb=ustOuAkeWUL8x6aigO=5wkQUupZh2g5g0Pe=qTa3MeEA@mail.gmail.com>
+Subject: Re: [PATCH 12/12] arm64: dts: rockchip: add support for NanoPi M6 board
+To: Diederik de Haas <diederik@cknow-tech.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 07/02, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
-> - [High] Hardware protocol violation: CNV is held high during SPI read
-> - [High] SPI bus not locked during ADC conversion phase
-> - [Medium] Incorrect scale calculation for LTC2338-18 and similar ADCs
-> - [Low] Undefined direct mode macros lead to build failure
-> --
-> 
-> commit b74b536d18af0084ea31bd1e1e8cf9454da5e29c
-> Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> 
-> iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
-> 
-> This commit adds support for the Analog Devices LTC2378-20 and similar
-> analog-to-digital converters. It introduces a new IIO driver using the
-> SPI subsystem.
-> 
-> > diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
+Hi Diederik
+
+On Fri, 3 Jul 2026 at 13:34, Diederik de Haas <diederik@cknow-tech.com> wrote:
+>
+> Hi,
+>
+> On Fri Jul 3, 2026 at 12:07 AM CEST, Joachim Eastwood via B4 Relay wrote:
+> > From: Joachim Eastwood <joachim.eastwood@gmail.com>
+> >
+> > The NanoPi M6 board shares most of the features of the R6 boards.
+> >
+> > Main differences:
+> > * M.2 M-key slot with PCIe (Also present on R6C)
+> > * M.2 E-key slot with PCIe and USB (from hub)
+> > * 1 additional USB 2.0 port from an on-board USB hub
+> > * RT5616 audio CODEC
+> >
+> > Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
+> > ---
+> >  arch/arm64/boot/dts/rockchip/Makefile              |   1 +
+> >  arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dts | 200 +++++++++++++++++++++
+> >  2 files changed, 201 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+> > index 761d82b4f4f2..2867830eddf8 100644
+> > --- a/arch/arm64/boot/dts/rockchip/Makefile
+> > +++ b/arch/arm64/boot/dts/rockchip/Makefile
+> > @@ -218,6 +218,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-evb1-v10.dtb
+> >  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-gameforce-ace.dtb
+> >  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-indiedroid-nova.dtb
+> >  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-khadas-edge2.dtb
+> > +dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-nanopi-m6.dtb
+> >  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-nanopi-r6s.dtb
+> >  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-nanopi-r6c.dtb
+> >  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-odroid-m2.dtb
+> > diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dts b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dts
 > > new file mode 100644
-> > index 0000000000000..b5cf2e974daca
+> > index 000000000000..64448bf55cf7
 > > --- /dev/null
-> > +++ b/drivers/iio/adc/ltc2378.c
-> > @@ -0,0 +1,404 @@
-> 
-> [ ... ]
-> 
-> > +static const struct ltc2378_chip_info ltc2338_18_chip_info = {
-> > +	.name = "ltc2338-18",
-> > +	.internal_ref_uV = 4096000,
-> > +	.chan = LTC2378_BIPOLAR_DIFF_CHANNEL(18),
-> > +};
-> 
-> [ ... ]
-> 
-> > +static int ltc2378_convert_and_acquire(struct ltc2378_state *st)
-> > +{
-> > +	int ret;
+> > +++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dts
+> > @@ -0,0 +1,200 @@
+> > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 > > +
-> > +	/* Cause a rising edge of CNV to initiate a new ADC conversion */
-> > +	gpiod_set_value_cansleep(st->cnv_gpio, 1);
-> > +	fsleep(4);
-> 
-> [Severity: High]
-> Can this sequence cause data corruption on a shared SPI bus?
-> 
-> The CNV pin is toggled and an fsleep(4) occurs before spi_sync_transfer()
-> locks the bus. If another SPI transaction occurs during this sleep window,
-> could it toggle the SCK line and prematurely clock data out of the ADC?
-Makes sense. 
-> 
-> Should the conversion-and-read sequence be wrapped in spi_bus_lock()
-> and spi_bus_unlock()?
-Because these chips don't have CS line, it seems that locking the bus actually
-makes sense.
+> > +/dts-v1/;
+> > +
+> > +#include "rk3588s-nanopi.dtsi"
+> > +
+> > +/ {
+> > +     model = "FriendlyElec NanoPi M6";
+> > +     compatible = "friendlyarm,nanopi-m6", "rockchip,rk3588s";
+> > +
+> > +     sound {
+> > +             compatible = "simple-audio-card";
+> > +             pinctrl-names = "default";
+> > +             pinctrl-0 = <&hp_det>;
+> > +
+> > +             simple-audio-card,name = "realtek,rt5616-codec";
+> > +             simple-audio-card,format = "i2s";
+> > +             simple-audio-card,mclk-fs = <256>;
+> > +
+> > +             simple-audio-card,hp-det-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_LOW>;
+> > +
+> > +             simple-audio-card,widgets =
+> > +                     "Headphone", "Headphones",
+> > +                     "Microphone", "Microphone Jack";
+> > +             simple-audio-card,routing =
+> > +                     "Headphones", "HPOL",
+> > +                     "Headphones", "HPOR",
+> > +                     "MIC1", "Microphone Jack",
+> > +                     "Microphone Jack", "micbias1";
+> > +
+> > +             simple-audio-card,cpu {
+> > +                     sound-dai = <&i2s0_8ch>;
+> > +             };
+> > +
+> > +             simple-audio-card,codec {
+> > +                     sound-dai = <&rt5616>;
+> > +             };
+> > +     };
+> > +
+>
+> [...]
+>
+> > +&i2c7 {
+> > +     clock-frequency = <200000>;
+> > +     status = "okay";
+> > +
+> > +     rt5616: codec@1b {
+> > +             compatible = "realtek,rt5616";
+> > +             reg = <0x1b>;
+> > +             clocks = <&cru I2S0_8CH_MCLKOUT>;
+> > +             clock-names = "mclk";
+> > +             #sound-dai-cells = <0>;
+> > +             assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
+>
+> s/I2S0_8CH_MCLKOUT/I2S0_8CH_MCLKOUT_TO_IO/ ?
+>
+> See these links for details:
+> https://lore.kernel.org/linux-rockchip/DJGDSS875DDO.22TYPVYK5X8KZ@cknow-tech.com/
+> https://git.kernel.org/pub/scm/linux/kernel/git/mmind/linux-rockchip.git/commit/?h=v7.2-clk/fixes&id=946352b2f88fd2378f0341312e47dff1e8dc2fac
 
-> 
-> > +	ret = spi_sync_transfer(st->spi, &st->xfer, 1);
-> 
-> [Severity: High]
-> Does reading from the SPI bus while CNV is held high violate the hardware
-> protocol?
-No.
-> 
-> The ADC requires the CNV pin to be brought low to enable the SDO
-> output before clocking out data via SPI, but spi_sync_transfer() happens
-> before gpiod_set_value_cansleep(st->cnv_gpio, 0), which might result in
-> reading high-impedance garbage data.
-See 'Using a Single LTC23... in Normal Mode' diagrams (usually Figure 10, 13, or 15
-in datasheets). CNV can be either low or high during data transfers.
+Thanks for the feedback and pointers.
+I will use I2S0_8CH_MCLKOUT_TO_IO for the next version.
 
-> 
-> > +	gpiod_set_value_cansleep(st->cnv_gpio, 0);
-> > +
-> > +	return ret;
-> > +}
-> 
-> [ ... ]
-> 
-> > +static int ltc2378_read_raw(struct iio_dev *indio_dev,
-> > +			    const struct iio_chan_spec *chan,
-> > +			    int *val, int *val2, long mask)
-> > +{
-> > +	struct ltc2378_state *st = iio_priv(indio_dev);
-> > +	int ret;
-> > +
-> > +	switch (mask) {
-> > +	case IIO_CHAN_INFO_RAW: {
-> > +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> > +		if (IIO_DEV_ACQUIRE_FAILED(claim))
-> > +			return -EBUSY;
-> 
-> [Severity: Low]
-> Will this cause a build failure?
-> 
-> The macros IIO_DEV_ACQUIRE_DIRECT_MODE and IIO_DEV_ACQUIRE_FAILED appear
-> to be undeclared in the kernel tree.
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/iio/iio.h?h=v7.2-rc1#n785
-Outdated LLM?
+Grepping through the other boards there doesn't seem to any other users
+of I2S0_8CH_MCLKOUT_TO_IO right now. But I assume the other boards
+will be converted over later(?)
 
-> 
-> > +
-> > +		ret = ltc2378_channel_single_read(chan, st, val);
-> > +		if (ret)
-> > +			return ret;
-> > +
-> > +		return IIO_VAL_INT;
-> > +	}
-> > +	case IIO_CHAN_INFO_SCALE:
-> > +		*val = st->ref_uV / MILLI;
-> 
-> [Severity: Medium]
-> Does this calculate an incorrect IIO scale for the LTC2338-18?
-> 
-> Does this miss the 2.5x input span multiplier unique to the LTC2338-18
-> when calculating the IIO scale here?
-That's taken care of in ltc2378_refin_setup().
 
-> 
-> > +		/*
-> > +		 * For all LTC2378-like devices, the amount of bits that express
-> > +		 * voltage magnitude depend on the polarity / output code format:
-> > +		 * - straight binary: All precision/resolution bits are used.
-> > +		 * - 2's complement: One of the precision bits is used for sign.
-> > +		 */
-> > +		if (chan->scan_type.format == IIO_SCAN_FORMAT_SIGNED_INT)
-> > +			*val2 = chan->scan_type.realbits - 1;
-> > +		else
-> > +			*val2 = chan->scan_type.realbits;
-> > +
-> > +		return IIO_VAL_FRACTIONAL_LOG2;
-> > +
-> > +	default:
-> > +		return -EINVAL;
-> > +	}
-> > +}
-> 
-> [ ... ]
-> 
-> > +static int ltc2378_refin_setup(struct device *dev, struct ltc2378_state *st)
-> > +{
-> > +	int ret;
-> > +
-> > +	/*
-> > +	 * The internal reference buffer amplifies both the internal reference
-> > +	 * and REFIN by a factor of 2.
-> > +	 */
-> > +	ret = devm_regulator_get_enable_read_voltage(dev, "refin");
-> > +	if (ret == -ENODEV) /* refin is optional */
-> > +		st->ref_uV = st->info->internal_ref_uV * 2;
-> 
-> [Severity: Medium]
-> Does this incorrectly double the internal reference voltage?
-> 
-> The ltc2338_18_chip_info already defines internal_ref_uV as the post-buffer
-> value of 4096000 (4.096V). Multiplying it by 2 here would result in an
-> incorrect scale value.
-Indeed,
--       .internal_ref_uV = 4096000,
-+       .internal_ref_uV = 2048000,
-will solve the issue.
-
-> 
-> > +	else if (ret < 0)
-> > +		return dev_err_probe(dev, ret, "failed to read refin regulator\n");
-> > +	else
-> > +		st->ref_uV = ret * 2;
-> > +
-> > +	return 0;
-> > +}
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/cover.1783028033.git.marcelo.schmitt@analog.com?part=2
+best regards,
+Joachim Eastwood
