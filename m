@@ -1,36 +1,38 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AB43DB65A;
-	Fri,  3 Jul 2026 14:37:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543DF3ED5B3
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 14:37:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783089455; cv=none; b=JG0YRPxnIFnBgpWp4fmtScN4BJEVTNF2q+B1lsc4NhhZWnZxNGvBFZELtIRl30Hdm2t9GR1dFEU64LJOju6wYt8rKav+6umB8BG5NzFcTyjUoQWWXNdFC4gzLit3sjGDVge2PioIvklzo59YU5DioV/7nXV5lCRTKDpmHO90K0Q=
+	t=1783089458; cv=none; b=o6NnN2zTZQurZlqncVdwpaObWsoOrnbek2dpk66vrQ29Ufb0eEHmjx0u1JSdY+w08lyd9gu747H0chQ3SZvVvKwM4JhFEQPrEgoeqKWvAF5dM42jO0BdSIFspIWg7PO0DFiLvS10ALhVje3SXlbZCqVu+5UxAsIyEUYekUTR4uM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783089455; c=relaxed/simple;
-	bh=aZMB4JrYPQEVo+t0l3W8/nUb1VKe6TTZQl19BITycPQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Skm45+NyoEdJP5mNkgsTNwQLgz6FYYUayoZtUGtCCqpAdlIKyuWOKkRGiknE80vbytWVEp8kRk4wzJBGGoxdsTERGtErclRIx5L8hZwwNwuWjDPWv7ehLBC7RiE8Sz8MYNTw5e+W7fhAQKI2fDncVx73TkYgh9+sWKxhsAa/Lgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=NMvwH68N; arc=none smtp.client-ip=185.246.84.56
+	s=arc-20240116; t=1783089458; c=relaxed/simple;
+	bh=sDqM6J05m0JlTt87YFCL+e99a6pUfz55ki7f5AMUZbg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oYXNnlw9PJku3JKZGHM/IDhiCPc4YGXYP0eXWZTM0kTcbWeZujbASGtoDwdDx4fkca9EsnDMQtl/nkCtwggXtfQ9buHgQcv+D0A+ly6GBNhGxjBxvr3tA9ksYABJKAXs+vfM1gwUzhdbHFUN3Pz1IUIsnTwfAtDY2jMwZBnrQ5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vUEHy3Wf; arc=none smtp.client-ip=185.171.202.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="NMvwH68N"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vUEHy3Wf"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 9C7A81A0DE2;
-	Fri,  3 Jul 2026 14:37:28 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 247D0C49F60;
+	Fri,  3 Jul 2026 14:37:42 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6E25060300;
-	Fri,  3 Jul 2026 14:37:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D0258104C952E;
-	Fri,  3 Jul 2026 16:37:23 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4F6D860300;
+	Fri,  3 Jul 2026 14:37:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D8892104C9567;
+	Fri,  3 Jul 2026 16:37:27 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783089447; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=Q54AXXZibLac2loujR95LlShSMkgwbrUGcLWCDQjqww=;
-	b=NMvwH68N6nGwocQePGi76dtg1BIJt1/ZVE1kBfmqIZfGN1wUvER97WkeOi46prZjg6tHfv
-	no9Vzl795Utql7giF76e7b2UUN7QM6UKvhLY81KznCmfjgjVw13HmnTWXJvFTLAKf2+baA
-	+OHvmYoBuV/A9oaoR3b0d+UVnQ5ojoRT1EqtgPh8VQEGh8Ey0bz6Cacj9oF2rQmnQPUyDq
-	ccod81oe0YuvWwlwyP1azUXSWTS5lfstLsnJmloTak15Q5L+c9si/DZ4AFokWMhqKQk8tB
-	cK+Vi+Xnk8sU1S3UT5e37axIEHBMW9j18FSuZ/3hKJP593jbSPD2zDGq/FhVRg==
+	t=1783089449; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=eyxnSl+SAlk1ixTPdXrkFnr6s6HXnRifmslBmcN8Ynk=;
+	b=vUEHy3Wf3mLQQLoTxlALSzYEY9BEtJkpk5mreSUm+kbB31fVt0AN/P4rv478x7lrq9iQIR
+	obLQaS/Mk92doQ7JtJ3/xPUqfDH/RRrvybmb46zlggVx++7SDe5pnW51nH2xyucyfoBbla
+	Okn+l9S+3FpMX+y08yEusEUFsgoWozHbJ3prTDtUZC5sqBN/2c5+0yzdRoocc0FE92Leak
+	eYKd6p+B/6FLA9+eXmDavEyIp7H2rDhRtykgR9O9gx3+ihUMFrT7OVzbMF1jP4jYxbc8Em
+	VbOqpI+a58JDiTeLNqk6ia9GGzF3g54EvK1DcSDFRsmbLIC2AE/7khLdtFkY1g==
 From: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
 To: Nishanth Menon <nm@ti.com>,
 	Vignesh Raghavendra <vigneshr@ti.com>
@@ -47,10 +49,12 @@ Cc: Tero Kristo <kristo@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/6] dts: ti: k3-j7: Reserve memory for LPM metadata
-Date: Fri,  3 Jul 2026 16:37:11 +0200
-Message-ID: <20260703143717.177362-1-richard.genoud@bootlin.com>
+Subject: [PATCH v3 1/6] dt-bindings: remoteproc: k3-r5f: Add Jacinto LPM memory region
+Date: Fri,  3 Jul 2026 16:37:12 +0200
+Message-ID: <20260703143717.177362-2-richard.genoud@bootlin.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260703143717.177362-1-richard.genoud@bootlin.com>
+References: <20260703143717.177362-1-richard.genoud@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -60,71 +64,82 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-For TI Jacinto SoCs (J7200, J721S2, J784S4, J722S, J742S2) which support
-low power modes, a chunk of memory is reserved for LPM metadata, needed
-for saving ATF context and the certificate information of ATF and OPTEE
-and the DM image. This LPM metadata area is firewalled to be accessed
-only by TIFS.
+Declare a carveout memory region to store LPM metadata on Jacinto
+devices.
 
-At boot time, U-Boot R5 SPL copies the DM image into this memory region
-so that it doesn't have to be reloaded from storage at resume, speeding
-up the resume time.
+For Jacinto devices, this memory region is needed for saving ATF context
+and the certificate information of ATF and OPTEE and DM image. This LPM
+metadata area is firewalled to be accessed only by TIFS.
 
-U-Boot R5 SPL/TIFS use this area to save and restore:
+U-Boot R5 SPL/TIFS will use this area to save and restore:
 - ATF context
 - ATF certificate information
 - OPTEE certificate information
-- DM image
+- DM image (which has been copied in memory at boot time by U-Boot
+R5-SPL)
+
+At resume, U-Boot R5 SPL is executed and detects that the board is
+resuming (with a flag set in the PMIC), then it:
+- brings out of retention the DDR
+- retrieves the LPM memory region from DTS
+- authenticates certificates from LPM memory region and applies firewalls
+- asks TIFS to restore TFA and its own minimal context
+- starts TFA on remote proc
+- loads back DM image from memory and jumps to DM
 
 https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/pm/lpm.html#lpm-msg-lpm-save-addr
 
-NB: Unlike for Sitara, this memory region is not part of the DM memory,
-which is not retained across suspend, so the Sitara binding can't be
-re-used here.
+NB: This memory region is not part of DM memory (which is not retained
+at suspend)
 
-Patch 1 adds a new binding for this layout.
-The other patches add the memory region for the TI Jacinto SoCs (J7200,
-J721S2, J784S4, J722S, J742S2)
+Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
+---
+ .../bindings/remoteproc/ti,k3-r5f-rproc.yaml   | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-Changes since v2:
-- Split the DTS changes per ipc-firmware.dtsi
-- Reference the LPM carveout through a phandle
-- Add a dt-bindings patch documenting the "lpm-metadata" memory-region
-  name for the Jacinto layout.
-- Use the generic @memory node naming instead of @lpm-memory.
-- Clarify how the DM image is handled
-Link to v2: https://lore.kernel.org/lkml/20260427160326.370415-1-richard.genoud@bootlin.com/
-
-Changes since v1:
-- add specific lpm region for j742s2 and j784s4 instead of the common
-  one since the addresses are not the same.
-- add j721s2 lpm_memory_region
-- change j722s addresse to prevent holes
-Link to v1: https://lore.kernel.org/lkml/20260312113446.1857592-1-p-mantena@ti.com/
-
-Richard Genoud (TI) (6):
-  dt-bindings: remoteproc: k3-r5f: Add Jacinto LPM memory region
-  arm64: dts: ti: k3-j7200-ti-ipc-firmware: Reserve memory for LPM
-    metadata
-  arm64: dts: ti: k3-j721s2-ti-ipc-firmware: Reserve memory for LPM
-    metadata
-  arm64: dts: ti: k3-j784s4-ti-ipc-firmware: Reserve memory for LPM
-    metadata
-  arm64: dts: ti: k3-j722s-ti-ipc-firmware: Reserve memory for LPM
-    metadata
-  arm64: dts: ti: k3-j742s2-ti-ipc-firmware: Reserve memory for LPM
-    metadata
-
- .../bindings/remoteproc/ti,k3-r5f-rproc.yaml  | 18 +++++++++++---
- .../boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi | 12 ++++++++--
- .../dts/ti/k3-j721s2-ti-ipc-firmware.dtsi     | 12 ++++++++--
- .../boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi | 12 ++++++++--
- arch/arm64/boot/dts/ti/k3-j742s2-evm.dts      |  2 ++
- .../dts/ti/k3-j742s2-ti-ipc-firmware.dtsi     | 24 +++++++++++++++++++
- .../dts/ti/k3-j784s4-ti-ipc-firmware.dtsi     | 15 ++++++++++++
- 7 files changed, 86 insertions(+), 9 deletions(-)
- create mode 100644 arch/arm64/boot/dts/ti/k3-j742s2-ti-ipc-firmware.dtsi
-
+diff --git a/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml
+index 14e6b2f817b3..af2acd429974 100644
+--- a/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml
+@@ -155,9 +155,10 @@ patternProperties:
+         description: |
+           phandle to the reserved memory nodes to be associated with the
+           remoteproc device. There should be two reserved memory nodes defined
+-          for the basic layout or 6 partitions for a detailed layout. The
+-          reserved memory nodes should be carveout nodes, and should be defined
+-          with a "no-map" property as per the bindings in
++          for the basic layout, three for the Jacinto layout or 6 partitions
++          for a detailed layout. The reserved memory nodes should be carveout
++          nodes, and should be defined with a "no-map" property as per the
++          bindings in
+           Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
+         oneOf:
+           - description: Basic layout
+@@ -174,6 +175,12 @@ patternProperties:
+               - description: LPM metadata
+               - description: LPM FS context data and reserved sections
+               - description: DM RM/PM trace and firmware code/data
++          - description: Jacinto layout
++            items:
++              - description: region used for dynamic DMA allocations like vrings and
++                             vring buffers
++              - description: region reserved for firmware image sections
++              - description: LPM metadata
+ 
+       memory-region-names:
+         description: |
+@@ -192,6 +199,11 @@ patternProperties:
+               - const: lpm-metadata
+               - const: lpm-context
+               - const: dm-firmware
++          - description: Jacinto layout
++            items:
++              - const: dma
++              - const: firmware
++              - const: lpm-metadata
+ 
+ # Optional properties:
+ # --------------------
 -- 
 2.47.3
 
