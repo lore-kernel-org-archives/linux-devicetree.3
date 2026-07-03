@@ -1,228 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F55B386440
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 11:29:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FED37F741;
+	Fri,  3 Jul 2026 11:29:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783078171; cv=none; b=uJDzS6y2DROe7B+g4NXD9AAO3HodpXpyT/yM3n/KQFedzJ1ILeR8isZ4GN+lOoaVvcjwCKAGGDcCunQcm4LGpXo7SF/9E6MT4W25al+hC2c9c+prgnoRiwSN0Y68faZRv122eK3SxBGYfH/i75UB2D9I5NvyHLVcVKIZfm1edao=
+	t=1783078186; cv=none; b=OMi1m5/K9Mpeq3hw+U/XNJDqKgJtCGmKqXhxhQZqrFyibOKsFVf+qdY0zcBBxPnaZXpKEIU9pVEVvsG3uXRFRTupeRwU57+lC/hD9RYZzafMhmLveh7RAKrKpozQ8RhkwYlrtY4PVrWaXwdmcxyRIYhkQQxO1cjDEJNVrWusmkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783078171; c=relaxed/simple;
-	bh=9QB6ZOMvTWbv0jsY6jSxCpMYTInYzvFH49pQLdDa3Sc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dcfOS2NgomAFfdPzfgIyTSJowRKyQ0/GAvrrNQM3KWnDkEaADwPaYSPfx5giAAJLYG4LURhvhvhtrWyiix0HdXHs+f+6m5v9lFKXN22e1yYKul3ddl0y2kkQApbLjmfCHzNBsEtwJeA8xCqk2FrN2hS2KxXLLKFR+WLx7Uavnzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gxGIKHYP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783078186; c=relaxed/simple;
+	bh=0cYoLEYs9X9wTn88kAigm9XVjDA3+bWiT4BH16XqZrA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GM5+2GDuv6edbMoq4Fz+Pq0NCwFIYQQ6t9jm/lk6NHcS7NjPIYdXZf6lpZ0PGo0Y2ElpYXBgFN5RLFhfIOWBopnIuywFgfsBwxSwP15MCFw4lLvqHHOHsVrgVqidrOo+l9/Gj/+sWCdAOdgcGn2q4fHnHd0GDb9zB6rvR/91vf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GbhdNwgB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gxGIKHYP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 420A61F000E9;
-	Fri,  3 Jul 2026 11:29:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GbhdNwgB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18FF41F000E9;
+	Fri,  3 Jul 2026 11:29:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783078169;
-	bh=SqtxQboPkG19SI4FZUKSBHB5CNoqR5mAVLqPovUWpac=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gxGIKHYPRjSqWxfH/tQpjThXZDauYGOovxmr+IXSD2WcdQioCPdlK4IZzNDnN3UGH
-	 9zMMgmgX7P9LbfxOjRPxdo/p59xHcEvrdEciy8cTL58S/i02Kc9YQkkD5npTR2OWhS
-	 Jl2ZOi5lw6F94+UyDCx3qGMpOSVMDGPtITF1DzVDbvrKVAuC3H6BOUIbkXhkNniZEG
-	 7SfbnoFKMTvD5ZOwjssNpjdY97gDhvMeVqVzGz0i+l9WgI9lprZSV+ZPj/WMb8eESr
-	 ch12fi1DbL/wrJHtqyFnF+y/x/RFxdJ8C3iySjCepmrUh4ptJm0QdrgXRHdjuGRD3a
-	 pepJWU3SaNbNQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/13] usb: hub: Power on connected M.2 E-key
- connectors with power sequencing API
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260703110317.1283411-9-wenst@chromium.org>
-References: <20260703110317.1283411-1-wenst@chromium.org>
- <20260703110317.1283411-9-wenst@chromium.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 11:29:28 +0000
-Message-Id: <20260703112929.420A61F000E9@smtp.kernel.org>
+	s=k20260515; t=1783078185;
+	bh=1X0pwBrndRwtVXIIRI7/KtzrNV8k9Wlfh0Mwy1h+EW4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=GbhdNwgB5AHqZ4dZTAptUc9ANi8hcq5SKUOgKa+4Jv2A0KC45Ta1ezIXlPZzy5+m3
+	 7oOunAZKJxD7LZ2tonVzotEjgO5GmEWhYsGYaunfCE/uj+cyTEynyzjZPqmeNp+qdl
+	 iJKLSwnorM4wVGnEAnmb7x7/uF+/9n1zXwK3hJNFbBbo31rJQEXxhh1IX3qnicuV9N
+	 7IKibNaL7Gae/YH/0RiNmlRX1ZSO8T1J5MTLqRmL49/SqzhgbBhSAwsd7d5uWCe6b4
+	 KCvEsg4Qo2iJkaIaOdX7Nzi7CZ3AHgMO+4co2n3IISntkmq7gjFnGm81r9SuHsvOEH
+	 M7WvPtSJcOHbg==
+Message-ID: <b475b5d0-608b-4af3-a125-84cfdcddcfcd@kernel.org>
+Date: Fri, 3 Jul 2026 12:29:41 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: Fix pm4125 vbus regulator
+ compatible and constraints
+To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+References: <20260701-add_pm4125-vbus-reg-v2-0-6bac2bac7131@oss.qualcomm.com>
+ <F11CmcSG0NfJxCD_094ercweXNrSY-fxOnTpyBxukPPcM3UdumRt4yZahLT-uKJabq_1WaDBldjbgUvBxpeAQA==@protonmail.internalid>
+ <20260701-add_pm4125-vbus-reg-v2-3-6bac2bac7131@oss.qualcomm.com>
+ <3a0e3c81-b559-4961-8e58-cad8dc171578@kernel.org>
+ <HNlPJm_ENIaW7IC8zj9-9_SMwvX1l-pyFmJnf3dt53XeHI82XgSFYyD4obb2AEIe_2c-ev0MRppu3gYKgAU_LA==@protonmail.internalid>
+ <20260702080228.tegosnl6uwt5hy7c@hu-kotarake-hyd.qualcomm.com>
+ <4de2970b-884d-47e2-ba52-514f973f14b9@kernel.org>
+ <3DUPJ5lL3SFPZTl4vKlN6fZlPTssrNZX7FwuWHQnPsT2IlcFqBxq0DgGBVeOP35NZEbuBxExIv7kiAa9ea68Iw==@protonmail.internalid>
+ <20260703090012.wqpepzr24iaehpmr@hu-kotarake-hyd.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260703090012.wqpepzr24iaehpmr@hu-kotarake-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Off-by-one array access in `hub_is_port_power_switchable()` causes=
- an out-of-bounds read and potential use-after-free on the `hub->ports` arr=
-ay.
-- [High] Missing NULL check for `port->pwrseq` causes all USB ports to fail=
- to power on when `CONFIG_POWER_SEQUENCING` is disabled.
-- [Medium] Leaked firmware node reference count in `usb_hub_create_port_dev=
-ice`.
-- [Low] Missing dummy declaration for `pwrseq_power_is_on()` when `CONFIG_P=
-OWER_SEQUENCING` is disabled.
---
+On 03/07/2026 10:00, Rakesh Kota wrote:
+>> You can add the register abstraction logic, then add the new compatible no ?
+>>
+> Are you talking about the driver change ? if yes, for the driver change
+> I can split it into:
+>    - Patch 1: Add register abstraction logic + PM8150B support
+>    - Patch 2: Add PM4125 compatible
 
-commit d1a665b6f212fa1e434ea2cca8c69acf5a200a73
-Author: Chen-Yu Tsai <wenst@chromium.org>
+Exactly this.
+> However, splitting the DT change is not straightforward — the PM4125
+> compatible and its voltage constraints live in the same .yaml
+> file. If we split them, dtbs_check will fail on intermediate states
+> since the compatible would reference voltage properties that aren't yet
+> defined (or vice versa).
 
-    usb: hub: Power on connected M.2 E-key connectors with power sequencing=
- API
-   =20
-    The new M.2 E-key connector can have a USB connection. For the USB devi=
-ce
-    on this connector to work, its power must be enabled and the W_DISABLE2#
-    signal deasserted. The connector driver handles this and provides a
-    toggle over the power sequencing API.
+Driver only is the ask not DT.
 
-> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-> index 5969c55b2201f..5327ae179181d 100644
-> --- a/drivers/usb/core/hub.c
-> +++ b/drivers/usb/core/hub.c
-[ ... ]
-> @@ -871,6 +872,30 @@ static void hub_tt_work(struct work_struct *work)
->  	spin_unlock_irqrestore(&hub->tt.lock, flags);
->  }
-> =20
-> +static int usb_hub_set_port_pwrseq(struct usb_port *port, bool set)
-> +{
-> +	int ret =3D 0;
-> +
-> +	if (set)
-> +		ret =3D pwrseq_power_on(port->pwrseq);
-> +	else
-> +		ret =3D pwrseq_power_off(port->pwrseq);
-> +
-> +	return ret;
-> +}
+Go raibh maith agat.
 
-[Severity: High]
-Does this code correctly handle the case when CONFIG_POWER_SEQUENCING is
-disabled?
-
-When power sequencing is disabled, port->pwrseq is NULL. However, the
-inline stub for pwrseq_power_on() in include/linux/pwrseq/consumer.h blindly
-returns -ENOSYS.
-
-Because this return value is checked in usb_hub_set_port_power():
-
-drivers/usb/core/hub.c:usb_hub_set_port_power() {
-    ...
-    ret =3D usb_hub_set_port_pwrseq(pwrseq_port, set);
-    if (ret)
-        return ret;
-    ...
-}
-
-Could this cause all USB ports to completely fail to power on when the kern=
-el
-is built without CONFIG_POWER_SEQUENCING support, returning -ENOSYS before
-calling set_port_feature()?
-
-[ ... ]
-> @@ -3242,7 +3271,10 @@ int usb_port_is_power_on(struct usb_port *port, un=
-signed int portstatus)
->  			ret =3D 1;
->  	}
-> =20
-> -	return ret;
-> +	if (!port->pwrseq)
-> +		return ret;
-> +
-> +	return ret && pwrseq_power_is_on(port->pwrseq);
->  }
-
-[Severity: Low]
-Is there a missing dummy declaration for pwrseq_power_is_on() when
-CONFIG_POWER_SEQUENCING is disabled?
-
-It appears that the fallback #else block in include/linux/pwrseq/consumer.h
-is missing a dummy stub implementation for pwrseq_power_is_on(). This could
-lead to an implicit function declaration error when building the kernel with
-CONFIG_USB=3Dy and CONFIG_POWER_SEQUENCING=3Dn.
-
-> diff --git a/drivers/usb/core/hub.h b/drivers/usb/core/hub.h
-> index b65d9192379db..99bae6ace4da0 100644
-> --- a/drivers/usb/core/hub.h
-> +++ b/drivers/usb/core/hub.h
-[ ... ]
-> @@ -147,7 +149,13 @@ static inline bool hub_is_port_power_switchable(stru=
-ct usb_hub *hub)
->  	if (!hub)
->  		return false;
->  	hcs =3D hub->descriptor->wHubCharacteristics;
-> -	return (le16_to_cpu(hcs) & HUB_CHAR_LPSM) < HUB_CHAR_NO_LPSM;
-> +	if ((le16_to_cpu(hcs) & HUB_CHAR_LPSM) < HUB_CHAR_NO_LPSM)
-> +		return true;
-> +	/* check for controllable external power sequencers */
-> +	for (unsigned int i =3D 1; i <=3D hub->hdev->maxchild; i++)
-> +		if (hub->ports[i] && hub->ports[i]->pwrseq)
-> +			return true;
-> +	return false;
->  }
-
-[Severity: High]
-Does this loop index cause an out-of-bounds read and potential use-after-fr=
-ee
-on the hub->ports array?
-
-The loop iterates from i =3D 1 to hub->hdev->maxchild, skipping index 0 and
-reading one element past the allocated boundary (index maxchild).=20
-
-Additionally, if usb_hub_create_port_device() fails to initialize a port,
-the port device pointer is still assigned in the array:
-
-drivers/usb/core/port.c:usb_hub_create_port_device() {
-    ...
-    hub->ports[port1 - 1] =3D port_dev;
-    ...
-    retval =3D device_register(&port_dev->dev);
-    if (retval) {
-        put_device(&port_dev->dev);
-        return retval;
-    }
-    ...
-}
-
-If this initialization fails for port X, hub->ports[X-1] will retain a poin=
-ter
-to the freed port device. When hub_is_port_power_switchable() iterates,
-it will access hub->ports[1] through hub->ports[X-1], leading to a
-use-after-free when reading the ->pwrseq field.
-
-> diff --git a/drivers/usb/core/port.c b/drivers/usb/core/port.c
-> index 77dbf51f17604..87b8e4f90be68 100644
-> --- a/drivers/usb/core/port.c
-> +++ b/drivers/usb/core/port.c
-[ ... ]
-> @@ -809,10 +848,18 @@ int usb_hub_create_port_device(struct usb_hub *hub,=
- int port1)
->  		goto err_put_kn;
->  	}
-> =20
-> +	port_dev->pwrseq =3D usb_hub_port_pwrseq_get(port_dev);
-> +	if (IS_ERR(port_dev->pwrseq)) {
-> +		retval =3D PTR_ERR(port_dev->pwrseq);
-> +		dev_err_probe(&port_dev->dev, retval,
-> +			      "failed to get power sequencing descriptor\n");
-> +		goto err_put_kn;
-> +	}
-> +
-
-[Severity: Medium]
-Can this code leak a firmware node reference count?
-
-Earlier in usb_hub_create_port_device(), fwnode_graph_get_port_by_id()
-returns a fwnode_handle with its reference count incremented:
-
-drivers/usb/core/port.c:usb_hub_create_port_device() {
-    ...
-    if (!is_acpi_node(dev_fwnode(&hdev->dev)))
-        device_set_node(&port_dev->dev,
-                fwnode_graph_get_port_by_id(dev_fwnode(&hdev->dev), port1));
-    ...
-}
-
-This fwnode_handle is assigned to the device, but the device core does not
-automatically drop it on device_unregister(). Since fwnode_handle_put() is
-never called in usb_port_device_release() or usb_hub_remove_port_device(),
-is this reference permanently leaked during port device teardown?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703110317.1283=
-411-1-wenst@chromium.org?part=3D8
+---
+bod
