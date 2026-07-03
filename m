@@ -1,115 +1,116 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75DDD3D953D
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 14:57:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109AC374A03
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 14:58:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783090679; cv=none; b=kPLdkVLF6FP0ZG7gcaq+4S/KU6UhaK5835WnGFxUJ5pzeqLZgyrTBy43IwOPb4LxKF9lDFPis1PYmtfZgESZg+bsFVeCU7v9ohKZ43FjkWr7rPaqrvktixPN0ujaP4X2cLq8riTv4VqI0JzS647peWNCYiH8NIMz//Lh3om3XoM=
+	t=1783090709; cv=none; b=HWxGlBH4Kwx1Ww2oILIXLNyifTNvEI7aGFQxcCqrF4Fq4F18wnldQsypch9kY3ysELRKa2eA1XbkM6B8lxKJUgGyRlU/2glnQusEdiNKdiEJazKPGj5kp7Kt0jHVKxVHTdD//VKcvTVzvpBvRdDP/KJ1JnZXRVJEWCBsvBo4BYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783090679; c=relaxed/simple;
-	bh=H0fA7UXVvTZNMGM0szq2vnWgiH9jWNQNaiQNMYqM7dY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fTvo4QhzkeevcsmjcbqfM6hnc+rIbPxVeESO78Dz9U9yUj69o9jM+1hisouweOrqttl0DYz/XFSWz6R2jqMZG2+ifPboVeXba6oaTiSXb+OWvaqliWnPgMSkgZcYDhe+YoarVM5stciMwOdQMDI00aGfSS+bZUxPU3rB0fzC/VY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xf8x1uE0; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783090709; c=relaxed/simple;
+	bh=pYpYiqZ84jTXGXuySY4iYWw4iJlpR/Iq/n280XX5kXY=;
+	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ntrRKgaItgRJ/DuLwKFeco4cTEyw0Eo8PN2fUdZioJAcv1lDxC5qpUM+ZBB9o2jZEQpDl1RMFMHPVIgepmaXGYTD8nl4Xr7nT51X40aDGGMg4ir26CYunjL+sHydV8SEabR885n+Erdg62ZUYnlVGA+nRswMGq4WD7KKQckMO04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUbm3HzH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xf8x1uE0"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-68bd9fce347so1220905a12.2
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 07:57:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783090675; x=1783695475; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Yv5c3aAX22MotkI1huu0Usc8fAYg0ktXennCOkB+608=;
-        b=Xf8x1uE0KyMoZCiPIH8/6n4+u3x8UdBpC4g5ZejnrWJRkpPAi9VyrTAmsT54w8Nen9
-         QyUQi6IPECoqaIxTl135WtjhzO96q9RWgDm/w8tlzUlmF9tkdlIKykVWQIeGWpLDMmXB
-         iX/37hmYmpge9XdSqHzLp+63+lE2cCBYIVOgQBWiWtjR8VApxbP4lDyjz7xjaVnqqpXR
-         EmmMshpIfwUEFCTHYuJ7jt4PaXKwTaCJFHJ8RraB3PQb6uT9SyONqeyfJNzdmijWP9D1
-         XqFZAnEGoFj1/mHq0wgT129ipcLF5D26IEWzvpjtfcjheokloi1W9RPBm92PgrZ5ST+V
-         6osQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783090675; x=1783695475;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Yv5c3aAX22MotkI1huu0Usc8fAYg0ktXennCOkB+608=;
-        b=c5EU1hKkPmIsCB4Qc0tJwB5zawGyLIFdEF2af5WQpWHWuWo2wNZYOWk4I2+f6Pxz1Q
-         MPPH8wPU35V1n9Usj4oTa4vW5soduxYEHLwQCgy5Aqmid2ScBJ18M2fD6a2JamA0UYRR
-         SqKPFm1o+K3csw/dPG/vZ+Rl9AzZBecqWK6VhiTgZKwGsSJwEvDkySMBay5ntrY+doy9
-         NhA+h/qiLj263tcZNA0wn7C7HbBsMMSLKG6SnTI+gWzqh3SaO5DdMSqjOi5evh3eqfBB
-         75yBwi9S2zwYAhEdofN/TSrtZTX71LWDrbAjGJuxpzYnhXcXtG7ZRK9eUB7vSSujbi5H
-         vkPA==
-X-Forwarded-Encrypted: i=1; AHgh+RpKlcNLhmB67E2dadfS7wEqYUUq/ExGdej0VTqNPmyBNCLJex1ZwC3E8ewCyCq3/KsOMFETgYnuCy8L@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz32KTGjWU0DzVeAgIgqIgyEyMUxmINNKyxmk+VAHjsl49ZJA7j
-	sl2fR1sIT76Xq5MCyI2bMaRfyRP6RpXp8OY5xkQNcC7w04J+Pwe3b/mQQD9LLw==
-X-Gm-Gg: AfdE7clzK4R/5Chm5W8pKvdVqgC9ivpXvLQvYpKwu9pYo3qPQx61GnyI6QbFf2+7vky
-	r5Kzi3OS7S4hJblxzcV6p5ZVpOeO0xAUv3m2D8BXPkmx08XgqUlpKNGbNAryAXA4qQqZGp2HLjL
-	Jw19hz/1oS7LEQsEmpFOTpE6EO7eeIpYQKeiTEpXd58Jw6elsuCoK0Xk5KUZ0UiqPMiPIS+zq0z
-	qLTEn8wuA1ib9BN73lyZ9awKnEUMtwlR9olEpF9uptF23Cb6HVZoTpMyFu8noztwvBRrQvR8lxS
-	z8EbHVplInLN5CWzqJmCKdsrHahMZJCc+i6KlSv9DNIISpdQSUvgGdwF9w2+xW6ScFr1Us37v7N
-	V/qS1SM8uqgTgJ3IgDw+F2hQ/vwkVArJqxU8DpSMxZhm+vuYoqZ1xaVM6d+RuKly4fW1rFDalWn
-	1SN1AXvP2W/SBCIl8nLV2nXlzMhb/o2P4tt3KrB50qFsfhLBwf2o4g6E8RQoE1Jv0+Wsb96R+Jm
-	hRGNDXenR7FqcpryA94tTnvkoY=
-X-Received: by 2002:a5d:5f42:0:b0:46b:cab9:f697 with SMTP id ffacd0b85a97d-47758bca818mr13901139f8f.24.1783090208322;
-        Fri, 03 Jul 2026 07:50:08 -0700 (PDT)
-Received: from Lord-Beerus.station (net-93-144-65-248.cust.vodafonedsl.it. [93.144.65.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db8a4ad4sm20087616f8f.11.2026.07.03.07.50.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 07:50:07 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v1 1/1] arm64: dts: freescale: imx95-var-dart: enable NETC block control
-Date: Fri,  3 Jul 2026 16:49:22 +0200
-Message-ID: <20260703144922.231608-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUbm3HzH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09AA01F00A3A;
+	Fri,  3 Jul 2026 14:58:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783090706;
+	bh=DvrpvqGblID0rS++1Ub8v0LgvCo3/roEmjPgZqzuH4I=;
+	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
+	b=JUbm3HzH6+aLyYQrAOsDFNHakjwJIQmJn26TWpvgPJPr2fQ5Ls35GIRFiLwuLQ2wF
+	 0kWSm46NumbWHZW1aya31FnrS9IhfPEI6X+ikYhI6JjSCZ8UUPGYz54Wl0PgBqZRWO
+	 Ew7XPsPBi+pBTsVraeiAzTCrqsz76tj8cVEmPx2ccsKGMKPDUNh5nxNY9NAjeJisGa
+	 3LE8CWxBGWjSeZxky5Z94mW8g6r0DqLhC76N13SmH97Hd+qwCDkR7uRtLkTXi2nY4h
+	 Ii0aS5dJAiWOtSAketLzwanunYCwOvCzDpQ1iiis73k+gjgVMGGJJ9WPDJt6Io1Qm3
+	 7TDRGNZQLm46A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 6/6] arm64: dts: ti: k3-j742s2-ti-ipc-firmware:
+ Reserve memory for LPM metadata
+Reply-To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260703143717.177362-7-richard.genoud@bootlin.com>
+References: <20260703143717.177362-1-richard.genoud@bootlin.com>
+ <20260703143717.177362-7-richard.genoud@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 03 Jul 2026 14:58:25 +0000
+Message-Id: <20260703145826.09AA01F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Adding the firewalled LPM metadata region to the R5 core's `memory=
+-region` array causes the Linux remoteproc driver to unconditionally map it=
+ as Normal Non-Cacheable memory, creating a risk of speculative access viol=
+ations.
+- [Low] Typo in the device tree header comment: 'J42S2' instead of 'J742S2'.
+--
 
-Enable the NETC block control node on the DART-MX95 SoM.
+commit c8beda67fe9ff009082210810a32125f13239503
+Author: Richard Genoud (TI) <richard.genoud@bootlin.com>
 
-This is required for the NETC Ethernet ports to be enabled and used.
+arm64: dts: ti: k3-j742s2-ti-ipc-firmware: Reserve memory for LPM metadata
 
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
- arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+This commit declares a carveout memory region to store LPM metadata on
+J742S2. The memory region is firewalled to be accessed only by TIFS, and
+is used by U-Boot R5 SPL to save and restore context during suspend/resume.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi b/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi
-index d43270a1d907..174ded589d6f 100644
---- a/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi
-@@ -178,6 +178,10 @@ &mu7 {
- 	status = "okay";
- };
- 
-+&netc_blk_ctrl {
-+	status = "okay";
-+};
-+
- &netc_emdio {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_emdio>, <&pinctrl_phy0res>;
--- 
-2.47.3
+> diff --git a/arch/arm64/boot/dts/ti/k3-j742s2-ti-ipc-firmware.dtsi b/arch=
+/arm64/boot/dts/ti/k3-j742s2-ti-ipc-firmware.dtsi
+> new file mode 100644
+> index 0000000000000..d66bcd2f4e194
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/ti/k3-j742s2-ti-ipc-firmware.dtsi
+> @@ -0,0 +1,24 @@
+> +// SPDX-License-Identifier: GPL-2.0-only OR MIT
+> +/**
+> + * Device Tree Source for enabling IPC using TI SDK firmware on J42S2 So=
+Cs
 
+[Severity: Low]
+This isn't a bug, but there's a typo in the SoC name.
+Should this be J742S2 instead of J42S2?
+
+> + *
+> + * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.co=
+m/
+> + * Copyright (C) 2026 Bootlin
+> + */
+
+[ ... ]
+
+> +&mcu_r5fss0_core0 {
+> +	memory-region =3D <&mcu_r5fss0_core0_dma_memory_region>,
+> +			<&mcu_r5fss0_core0_memory_region>,
+> +			<&lpm_memory_region>;
+
+[Severity: High]
+Does adding the firewalled lpm_memory_region to the mcu_r5fss0_core0
+memory-region list risk speculative access violations?
+
+During probe in ti_k3_r5_remoteproc.c, k3_r5_cluster_rproc_init() iterates
+over all memory-region entries past index 0 and unconditionally maps them
+using devm_ioremap_resource_wc().
+
+This establishes a Normal Non-Cacheable memory mapping, which allows the
+architecture's prefetcher to issue speculative reads to the region.
+
+Since the commit message notes this memory is firewalled to be accessed
+only by TIFS, wouldn't a speculative read from Linux be blocked by the
+hardware firewall and trigger a fatal abort?
+
+> +	memory-region-names =3D "dma", "firmware", "lpm-metadata";
+> +	bootph-pre-ram;
+> +	status =3D "okay";
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703143717.1773=
+62-1-richard.genoud@bootlin.com?part=3D6
