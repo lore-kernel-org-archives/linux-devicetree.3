@@ -1,322 +1,80 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F81B360EF0
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 07:55:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CEEA352016;
+	Fri,  3 Jul 2026 07:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783065321; cv=none; b=mJMbczKg9jnc2WlA9ZraOlcrhwou4cNDy4rb1XizDVKuUb862IkVpV1twwgeNB9GKdr23sJet7qssuTUHVOHIHELOjN1SJDmGz/CqQOGU5ogAlPmcSvoC5dEM06fzU3dxvT2kFl1IcX2rLBLUNhjMvreOL9Fzq0Lj9gCsWlSW74=
+	t=1783065414; cv=none; b=HJoYPIy6dOeO6v8uX0tih6T7ZrkMQfMwbdYv0Vwisy8hbv5MA4nYDTq74E46LvtAItZydUCRvzZVGV8fpHtDoGVZm6DacDmSP8QD9VbizkbtVVMr4Ilqk5+w1ggLmKJ3F3PvqmbqFzbSO4ydyTEjYcuWVrNjyRGaLYq+2hszsbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783065321; c=relaxed/simple;
-	bh=m169FI8QpCgwLu9CM0yhyki6Voz15sEqpS/ntKWgsNQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g8ey8sBlLXzrbBP5dwv1TEya7Gec8RDaOWhFcr8XiEjtGeOw7Zy0tOSIN2DTXcZnCWn7h8kaDe82pIu8JRT7zF3XjYeCldVjmOe9ytAdqRW/HdLVZqU259rj9ZVafVG0BIZtx76Jn1Blwcs05SVk/OgdFxPvDwwhS1wGPyrcvdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YvOh1dPq; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ACZ6FleO; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1783065414; c=relaxed/simple;
+	bh=aQ3oEBTPhm1gryIRmhwlrfvRxDkq3jO2i7QNrtHN0YM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AZkd+tAE4YcEwmVgjn9nUr8JEaxlEEJ1MIjrwUEw0rpPjR9m7ggf9FzuQtoI4iviB81PiWTDwIZVxqyehmxqkIF1h6K0yi3vEl+NKj5zUBHhFVrohp9cbvCs4kmB4Jq9AL5y43UchlgoAPmkHa4LIcJZWTE1YvjKDJjEE7W8yaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+OzT5Er; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YvOh1dPq";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ACZ6FleO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1783065318;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iHAwS8ZSbUwA3UjJs/Cts2lFQD9OCf7Yj5tr+PYSsE8=;
-	b=YvOh1dPqqP3KAhmQcDR4QAewAje01D7vQTahOfI1S1yjylhYWOQ95i4cxSts3F5dIX/dOz
-	2ZgKmEY23xY2a283pJnZQ1rIwBJFgd6qbPzrNHcpNnuJURO7yuZQOgD6pbZVsTkDiXbydB
-	93GuoStaBXCf4MYxxYqJbc0yok6AFZ8=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-20-PgpdfVbnO5COuJYX4E4-sw-1; Fri, 03 Jul 2026 03:55:17 -0400
-X-MC-Unique: PgpdfVbnO5COuJYX4E4-sw-1
-X-Mimecast-MFC-AGG-ID: PgpdfVbnO5COuJYX4E4-sw_1783065316
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-47416fc1674so258412f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 00:55:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1783065316; x=1783670116; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iHAwS8ZSbUwA3UjJs/Cts2lFQD9OCf7Yj5tr+PYSsE8=;
-        b=ACZ6FleOH9xT2nvIDVnebKtQaaHp+WjmVgUsd9U1xJS3GUlS/wNXb7l8fS/JTAVuGP
-         e9XY39bVz+tmxYCSMZ8YrnTwse7n9YqMlWIHYX21iglZfI+cjn1MiAmanJDX1fPgreOt
-         EGtGZzQP8sfrCwyW4es7Gfgye9Mhg9Hbrj3HATRVwi6InpMevVFvPcLcd+VzjrC7TSE9
-         ZwyOP9fSJZqQPFTpK7+zHp2+yLQcuVpXQi57hz071KIFonCUgn9SEiXzexn+hCmOcfBj
-         pgwCI3rBmgE67dYqstxJ3urjHjP2zRJOnrlZciFN934d7NXpSjy4LR6q3BYMdEabsMMm
-         lKYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783065316; x=1783670116;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iHAwS8ZSbUwA3UjJs/Cts2lFQD9OCf7Yj5tr+PYSsE8=;
-        b=Pu5r+E2x4SCPhUj3wLkxepp77AJLOwsajhTx9HnFTHzsVrdujknr1SbaLuxefR6mq+
-         eJ9WWty/Azdm6SWPNES6RgT0UpA85wepVJPNB9QQ9oaDHXcQ5GpXULvHa4MaxryPcFaz
-         XrtTD6Z3/VWehC45Inv4PNOCHkTvXp2lGP+dcAb6voGnY2ttCNtjsAioaMDzrKxSxIOi
-         9gp3D1yyWGkbFTrWbpO2VGqthmrDRtlE9zpk2csuRYSv8i/V9D4xLByG6Ng7QHQbmgGy
-         xBvXpACQot/X3NONjjPZI8S6iTcvesLbnUJ9dLqffn5M6TKfRCdPVoEt9A8uaFYl7xbD
-         i0sg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro8HPBP5dWiRxzNbgX4OSQnsXh8K4OEHudFs5fAkXqV1qGMpKCt0LJ8HU6g5IieP6uSjxajmLt3LCF4@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx/KiA2HSATrcLiY5ExYlAN1Cbsw9kc0yXYe653zbXX2MPeQyCM
-	mBSDG7UGLoR8PnwaeaDvuqdV4/XeqmTv4m9bDlhgPzsjD3ZAa0ehmmIZEXKaVHjcLe8fKThGGED
-	A947HwqMPxYxV5HKkGeQqsfhQZxQuRb77ZxBPi2CvNU+VvIAChgUSECrE3yk216Y=
-X-Gm-Gg: AfdE7ckNRMuJIoch8r9qNscCIxAScOS34Yc/iqhjT41XobgJgLWvZasN20jMjVdnCdk
-	6HsMiJ4hoUh7rqIJzMMs6vIbbMy8MTFM2+ilaY9CvwXIeZX+6srq+ZwBnfRLhoitWBjnJbNcGKw
-	wUhK/x+DHQLSQKLgBRjWTUJcH4+2cfNb8nX9nfVeTNIPmHipP2mH+BvCQxIUobT6vzlw9noAPHm
-	h5ZNfmZA1Hr4ENABjP0kLgSBpCBI1e4Sp58Cf/RjXfcPnJyQ9bsN9qpGp0EhLj/7IvkqLmG45P0
-	jd85fC1jaKv0FfLTfu1umMkFU4Rc8NnZX9LZNMHvjWvV/hTA5kCcj0NVum0Cp5sriOiDIojcF/x
-	XkUW2zZHqdHKdpxUUU2kR+NxPa2enTRWaWWuJff2aKX3xgVerrXL76xNQXqmNOgsbr/vVD45Q10
-	GlaHG5WG4PJQ==
-X-Received: by 2002:a05:6000:46c6:b0:473:76a2:67ef with SMTP id ffacd0b85a97d-477af12155bmr9166160f8f.13.1783065315769;
-        Fri, 03 Jul 2026 00:55:15 -0700 (PDT)
-X-Received: by 2002:a05:6000:46c6:b0:473:76a2:67ef with SMTP id ffacd0b85a97d-477af12155bmr9166120f8f.13.1783065315107;
-        Fri, 03 Jul 2026 00:55:15 -0700 (PDT)
-Received: from ?IPV6:2a0d:3344:5521:6b10:2eb7:f61a:75:4534? ([2a0d:3344:5521:6b10:2eb7:f61a:75:4534])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477de3dcf59sm15991655f8f.34.2026.07.03.00.55.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Jul 2026 00:55:14 -0700 (PDT)
-Message-ID: <2ee45ab5-a329-4891-8326-ac8f14b6374a@redhat.com>
-Date: Fri, 3 Jul 2026 09:55:12 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+OzT5Er"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C961F000E9;
+	Fri,  3 Jul 2026 07:56:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783065413;
+	bh=wkiAfNgFKoP8g9PhbtCeDvi8bG+BrOFBZaoRy7ahfPc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Y+OzT5EroJvo39yBHYzrs3W0lOk8F7+Q1XtzJSTYv1MG5xZmMkS3r8VkZNTrbwieK
+	 2eUJX0IKJGtrE86viN9xz6mPRsWiik60STpWOfGr1xYtdEWEjUAMzmsRIbfoTzZJir
+	 l94wfRN4Z548JeJGcA95qlbeKz3eo1NTQ4hLLUmZrb+rGDG0f1/0O30yOg4TsIqWdk
+	 1CImlBy2+Z3uGPiVMxh38O+OahtqkU+uwfzzUqe/qpf8OpIcCJRLzenAURy/wthzIM
+	 WIrcRvAv6+JpfrVRnC6Q2D8GPpJgz0Aqdg+3d0w8+Zi6Au1Pee+F67eB76BN2BzXVP
+	 kZrzVlIJ/tTnw==
+Date: Fri, 3 Jul 2026 09:56:49 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, Amit Kucheria <amit.kucheria@oss.qualcomm.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, 
+	Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Subject: Re: [PATCH v4 04/10] remoteproc: qcom: pas: add support for TMD
+ thermal cooling devices
+Message-ID: <20260703-accurate-feathered-mammoth-11eaac@quoll>
+References: <20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com>
+ <20260703-qmi-tmd-v4-4-3882189c1f83@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 2/2] net: pse-pd: add Realtek/Broadcom PSE MCU
- driver
-To: Jonas Jelonek <jelonek.jonas@gmail.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Kory Maincent <kory.maincent@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Golle <daniel@makrotopia.org>,
- =?UTF-8?Q?Bj=C3=B8rn_Mork?= <bjorn@mork.no>
-References: <20260630105651.756058-1-jelonek.jonas@gmail.com>
- <20260630105651.756058-3-jelonek.jonas@gmail.com>
-From: Paolo Abeni <pabeni@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20260630105651.756058-3-jelonek.jonas@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260703-qmi-tmd-v4-4-3882189c1f83@oss.qualcomm.com>
 
-On 6/30/26 12:56 PM, Jonas Jelonek wrote:
-> A range of PoE switches use a small microcontroller on the PCB to front
-> the actual PSE silicon. The host CPU talks to that MCU over I2C/SMBus or
-> UART using a fixed 12-byte request/response protocol with a trailing
-> checksum; the PSE chips are managed by the MCU and are not accessed
-> directly. The same protocol family is spoken by Realtek and Broadcom PSE
-> MCUs, diverging in opcode numbering and a few response layouts, which the
-> driver abstracts behind a per-dialect opcode table and parser hooks
-> selected by the compatible. The specific PSE chip behind the MCU is
-> detected at runtime and only influences per-chip constants (power scaling
-> and the per-port cap).
-> 
-> The driver is split into a shared core and two transport modules:
-> 
-> - PSE_REALTEK_MCU: protocol, message framing, dialect machinery, and the
->   pse_controller_ops glue.
-> - PSE_REALTEK_MCU_I2C / PSE_REALTEK_MCU_UART: transport modules
->   registering the MCU on an I2C bus or a serdev port respectively.
-> 
-> The realtek-pse-mcu-* files and PSE_REALTEK_MCU* symbols match the
-> realtek,pse-mcu-rtk / realtek,pse-mcu-brcm compatibles: all name the
-> Realtek PSE-MCU front-end, not the MCU silicon or the PSE chip behind
-> it (see the binding for the prefix rationale). Broadcom PSE MCUs speak
-> the same protocol family and are handled by the same shared core
-> through the dialect abstraction selected by the '-brcm' compatible.
-> 
-> Power budgeting is left to the MCU firmware; the driver advertises
-> PSE_BUDGET_EVAL_STRAT_DYNAMIC (controller-managed budget) accordingly.
-> 
-> Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
-> ---
->  MAINTAINERS                               |    7 +
->  drivers/net/pse-pd/Kconfig                |   28 +
->  drivers/net/pse-pd/Makefile               |    3 +
->  drivers/net/pse-pd/realtek-pse-mcu-core.c | 1019 +++++++++++++++++++++
->  drivers/net/pse-pd/realtek-pse-mcu-i2c.c  |  163 ++++
->  drivers/net/pse-pd/realtek-pse-mcu-uart.c |  156 ++++
->  drivers/net/pse-pd/realtek-pse-mcu.h      |   87 ++
->  7 files changed, 1463 insertions(+)
->  create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-core.c
->  create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-i2c.c
->  create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-uart.c
->  create mode 100644 drivers/net/pse-pd/realtek-pse-mcu.h
-
-This is quite large, and shouls be split in smaller patches to help
-reviewers.
-
-[...]
-> +struct rtpse_mcu_dialect {
-> +	struct rtpse_mcu_opcode opcode[RTPSE_MCU_NUM_CMDS];
+On Fri, Jul 03, 2026 at 10:33:07AM +0530, Gaurav Kohli wrote:
+> +	tmd_inst = qmi_tmd_init(pas->dev, desc->tmd_instance_id, tmd_names, desc->num_tmd);
+> +	if (IS_ERR(tmd_inst)) {
+> +		ret = PTR_ERR(tmd_inst);
+> +		if (ret == -ENODEV)
+> +			return 0;
 > +
-> +	/*
-> +	 * Response parsers. Each dialect must supply its own; the core calls
-> +	 * these unconditionally rather than carrying a default that would
-> +	 * silently mis-decode bytes from a dialect that forgot to set them.
-> +	 */
-> +	int (*parse_system_info)(const u8 *payload, struct rtpse_mcu_info *info);
+> +		dev_err(pas->dev, "Failed to initialize TMD: %d\n", ret);
 
-The 2 existing implementation always return 0; you may consider change
-it to a void function.
+You already print error msg in qmi_tmd_init(), no?
 
-> +static int rtpse_mcu_port_get_voltage(struct pse_controller_dev *pcdev, int id)
-> +{
-> +	struct rtpse_mcu_ctrl *pse = to_rtpse_mcu_ctrl(pcdev);
-> +	struct rtpse_mcu_port_measurement measurement;
-> +	int ret;
-> +	u32 uV;
-> +
-> +	ret = rtpse_mcu_port_get_measurement(pse, id, &measurement);
-> +	if (ret)
+Is this probe path (looks like)? If so, why aren't you using
+dev_err_probe()?
+
 > +		return ret;
-> +
-> +	/* 64.45mV per LSB */
-> +	uV = (u32)measurement.voltage_raw * 64450U;
-
-This cast    ^^^^^ should be unneeded.
-
-> +	return min_t(u32, uV, INT_MAX);
-> +}
-> +
-> +static int rtpse_mcu_port_enable(struct pse_controller_dev *pcdev, int id)
-> +{
-> +	return rtpse_mcu_port_set_state(to_rtpse_mcu_ctrl(pcdev), id, true);
-> +}
-> +
-> +static int rtpse_mcu_port_disable(struct pse_controller_dev *pcdev, int id)
-> +{
-> +	return rtpse_mcu_port_set_state(to_rtpse_mcu_ctrl(pcdev), id, false);
-> +}
-> +
-> +static int rtpse_mcu_port_get_pw_limit(struct pse_controller_dev *pcdev, int id)
-> +{
-> +	struct rtpse_mcu_ctrl *pse = to_rtpse_mcu_ctrl(pcdev);
-> +	struct rtpse_mcu_port_ext_config config;
-> +	int ret;
-> +
-> +	ret = rtpse_mcu_port_get_ext_config(pse, id, &config);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return config.max_power * pse->chip->pw_read_lsb_mW;
-> +}
-> +
-> +static int rtpse_mcu_port_set_pw_limit(struct pse_controller_dev *pcdev, int id, int max_mW)
-> +{
-> +	const struct rtpse_mcu_opcode *type_opc, *val_opc;
-> +	struct rtpse_mcu_ctrl *pse = to_rtpse_mcu_ctrl(pcdev);
-> +	const struct rtpse_mcu_chip_info *chip = pse->chip;
-> +	unsigned int prg_val;
-> +	int ret;
-> +
-> +	if (max_mW < 0 || max_mW > chip->max_mW_per_port)
-> +		return -ERANGE;
-> +
-> +	type_opc = &pse->dialect->opcode[RTPSE_MCU_CMD_PORT_SET_POWER_LIMIT_TYPE];
-> +	val_opc = &pse->dialect->opcode[chip->pw_set_cmd];
-> +	if (!type_opc->valid || !val_opc->valid)
-> +		return -EOPNOTSUPP;
-> +
-> +	/*
-> +	 * Switch the port to user-defined limit mode first, then program the
-> +	 * limit value. If the second cmd fails, the port is left in
-> +	 * user-defined mode but with the previous limit value; the next
-> +	 * successful set_pw_limit call recovers it.
-> +	 */
-> +	ret = rtpse_mcu_port_cmd(pse, id, type_opc->op, RTPSE_MCU_PORT_PW_LIMIT_TYPE_USER);
-> +	if (ret)
-> +		return ret;
-> +
-> +	prg_val = min_t(unsigned int, max_mW / chip->pw_set_lsb_mW, 0xff);
-> +
-> +	return rtpse_mcu_port_cmd(pse, id, val_opc->op, prg_val);
-> +}
-> +
-> +static int rtpse_mcu_port_get_pw_limit_ranges(struct pse_controller_dev *pcdev, int id,
-> +					      struct pse_pw_limit_ranges *out)
-> +{
-> +	struct ethtool_c33_pse_pw_limit_range *range;
-> +	struct rtpse_mcu_ctrl *pse = to_rtpse_mcu_ctrl(pcdev);
-> +
-> +	range = kzalloc_obj(*range, GFP_KERNEL);
-
-or just:
-
-	range = kzalloc_obj(*range);
-
-
-> +static int rtpse_mcu_discover(struct rtpse_mcu_ctrl *pse, struct rtpse_mcu_info *info)
-> +{
-> +	struct rtpse_mcu_ext_config ext_config;
-> +	unsigned long deadline;
-> +	int ret;
-> +
-> +	/*
-> +	 * The MCU may not answer on the bus yet right after power-up or
-> +	 * enable-gpios assertion: depending on the transport it either stays
-> +	 * silent (-ETIMEDOUT) or does not ACK its address at all (-ENXIO /
-> +	 * -EREMOTEIO). Retry within a bounded wall-time window so a slow boot
-> +	 * still probes, while a genuinely unresponsive MCU fails with its real
-> +	 * error instead of deferring forever and masking it.
-> +	 */
-> +	deadline = jiffies + msecs_to_jiffies(RTPSE_MCU_BOOT_TIMEOUT_MS);
-> +	do {
-> +		ret = rtpse_mcu_get_info(pse, info);
-> +		if (ret != -ETIMEDOUT && ret != -ENXIO && ret != -EREMOTEIO &&
-> +		    ret != -EAGAIN)
-> +			break;
-> +		msleep(RTPSE_MCU_BOOT_RETRY_MS);
-> +	} while (time_before(jiffies, deadline));
-> +	if (ret)
-> +		return dev_err_probe(pse->dev, ret, "failed to read MCU info\n");
-> +
-> +	switch (info->device_id) {
-> +	case RTPSE_MCU_DEVICE_ID_RTL8238B:
-> +		pse->chip = &rtl8238b_info;
-> +		break;
-> +	case RTPSE_MCU_DEVICE_ID_RTL8239:
-> +		pse->chip = &rtl8239_info;
-> +		break;
-> +	case RTPSE_MCU_DEVICE_ID_RTL8239C:
-> +		pse->chip = &rtl8239c_info;
-> +		break;
-> +	case RTPSE_MCU_DEVICE_ID_BCM59111:
-> +		pse->chip = &bcm59111_info;
-> +		break;
-> +	case RTPSE_MCU_DEVICE_ID_BCM59121:
-> +		pse->chip = &bcm59121_info;
-> +		break;
-> +	default:
-> +		return dev_err_probe(pse->dev, -EINVAL, "unknown PSE id 0x%x\n",
-> +				     info->device_id);
 > +	}
 > +
-> +	if (!info->max_ports || info->max_ports > RTPSE_MCU_MAX_PORTS)
-> +		return dev_err_probe(pse->dev, -EINVAL,
-> +				     "MCU reports invalid port count %u\n", info->max_ports);
+> +	pas->tmd_inst = tmd_inst;
 > +
-> +	ret = rtpse_mcu_get_ext_config(pse, &ext_config);
-> +	if (ret)
-> +		return dev_err_probe(pse->dev, ret, "failed to read MCU ext config\n");
-> +
-> +	dev_info(pse->dev, "%s MCU, %s (id 0x%04x), %u ports across %u PSE chip(s)\n",
-> +		 pse->dialect->mcu_type_str(info->mcu_type), pse->chip->name,
-> +		 info->device_id, info->max_ports, ext_config.num_of_pses);
+> +	return 0;
 
-The general guidance is to try to avoid unneeded print on dmsg, as they
-tend to scary admins, but I personally agree on message on modprobe.
-
-No strong opionion either ways.
-
-/P
+Best regards,
+Krzysztof
 
