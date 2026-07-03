@@ -1,150 +1,170 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288701B78F3;
-	Fri,  3 Jul 2026 01:21:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831906FBF;
+	Fri,  3 Jul 2026 01:28:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783041671; cv=none; b=UUNqvgWbyHH4Z+W6ncp4fzohyycXNPxz/VTlCcK6xfUUzoz5zP96CopAh98Ukj8vWBCF8t//B2HL7ncFDMeSoIBLa3/DbySLTlN7IWunIfAEMhdn1aCV8YK4wYJSWUkrsc8Trn5VONqCtThMjfb10TQCrPFPhlOaa4Qlu29IhOo=
+	t=1783042084; cv=none; b=R5nlfY8ImthLqCLSNSnCcaHlS6Eeue+X9IWEWI1/CWWtnHOCFWViLgN+X0gnLCsvqOXi6hGT8WT7mu3HF3zGK4eMgEIFyH7Zer83C0kn1Oed1D6Z2yl2x46+4nAI4+Gc/NCAO8e06jZ4nAgFUnY3KRT3XDf3374l3S8BrJpfc1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783041671; c=relaxed/simple;
-	bh=61lpt2EEc8qNF+Y7FP5OwXW+R43dHh5LY0b3cyc0nC0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OPcGwiiYO2kDgJGfpyY3UI/JDNAAk7QpCYIhCl6GZfl9fdvZmu0hTHpHFl7/gS2Rrjc93sbdxsBcz3I1KhfIyMmxzEwEhacjVhaZ4cayfjLSLqqiTdsbaJy0DpquQInA1NLvcWeMvA9kRRj+DXA+/0CZDORIyhd1NRYgP24jY1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RGKp2wWE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783042084; c=relaxed/simple;
+	bh=MUBvwv5+qEDS6F9yzR9TIwGgOKaDH1YKncy/OHf2mP4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CjFu88AX/wGeXOJ9RIkukWe7i8p7bPTWLXDxS+qzGDwEnY0Lz7MtoAx9ihsfZK5JAXuQf01E71/rvVhuW9PnuPrpIm52YWAV2wItkmE6vdC0z5rjJ+4N9ZSyUPY/y3q8aclP0/s43Bw6YBeIdzMw5ZabG+8N+GP4ulcS4tfsbn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TT0sywZD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RGKp2wWE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6916F1F000E9;
-	Fri,  3 Jul 2026 01:21:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TT0sywZD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CDDE1F000E9;
+	Fri,  3 Jul 2026 01:28:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783041669;
-	bh=OkqLMtGim2VaPVghPaQAYErEwHkd6TWt5176otOORr8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RGKp2wWEAFuPHFB3CKx97VVnGS+SaBABIzrz3lAm3QJBoJQ/O8gkQsiivOU8tSnCM
-	 f0oZQi5sxauQe2Ly9K4rcVjPvBR1GCcAWIg//7Pc3zxK6pTmBWGM44DBEGVdtFqEx2
-	 oD0yObZqWU4I1oGs8M/WD3dkmM1CClvCTE5mhJooTTH21Qx2H59+YSkp5JiCpH5ZbB
-	 P5ZHXDMaNRcaPi59ClVQb5FDWS4H7WCqBsDnWGumX9a3pox+fkNFKtS69S39cd6oKq
-	 zB+A/ZistgCHE8jdR0qulcxtcmaM7Bdw1nIdKNNbovIBSLdyItRgYGFai60ve+3X7N
-	 mqQutEqI1V0VA==
-Date: Fri, 3 Jul 2026 02:21:04 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
-Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
- Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
- Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
- R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v6 05/16] iio: core: support 64-bit register through
- debugfs
-Message-ID: <20260703022104.5f452219@jic23-huawei>
-In-Reply-To: <ajQDsZWJQRKKM0dv@nsa>
-References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
-	<20260618-ad9910-iio-driver-v6-5-79125ffbe430@analog.com>
-	<ajQDsZWJQRKKM0dv@nsa>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1783042083;
+	bh=0eXGKOcKQVdU/sbnJjxGRITWvo+67g14j4Em8TkDCvg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TT0sywZD2HYWh3962wb2Zk7EFaRUAkSkh8KYupweqLXhoGcHxJC/ftAv+XD3uz/oL
+	 yB6EGIyqj8DjKp9sgh6Sg7wD+CycIhRZtn/ZuFwTjj5osNGk6WXj0Yx0mTogfV7Py7
+	 WOuL31iMTiW25Swp2w4nr8gW5ehQTCOr8lPmzv9pXDAyG/lVgLFrxLMLbpq6H6eDZF
+	 M2s1yOH7D9PW5kZ6dOhr5mkwVVLvu8ks1acPWETCoKdLrDc+shDHScUms8ACZmrE8L
+	 wZythJEl7kTS3xNOK1q4GVfYDGZsqSn6YmKNVYLwte5fS5UYIrKQBzlHyDy7SzZDK7
+	 RVHk3MWL5Q/oA==
+Date: Fri, 3 Jul 2026 01:28:00 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Yao Zi <me@ziyao.cc>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] scsi: ufs: spacemit: k3: Add UFS Host Controller
+ driver
+Message-ID: <20260703012800-GKC35811@kernel.org>
+References: <20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org>
+ <20260702-08-k3-ufs-support-v1-2-1a64a3ab128f@kernel.org>
+ <akaeBJv5T3YmlfpC@pie>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <akaeBJv5T3YmlfpC@pie>
 
-On Thu, 18 Jun 2026 15:45:23 +0100
-Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
+Hi Yao,
 
-> On Thu, Jun 18, 2026 at 02:27:21PM +0100, Rodrigo Alencar via B4 Relay wr=
-ote:
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> >=20
-> > Add debugfs_reg64_access function pointer field into iio_info and modify
-> > file operation callbacks to favor 64-bit variant when it is available.
-> >=20
-> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On 17:21 Thu 02 Jul     , Yao Zi wrote:
+> On Thu, Jul 02, 2026 at 02:31:36AM +0000, Yixun Lan wrote:
+> > SpacemiT K3 SoC consist of UFS (Universal Flash Storage) Host Controller
+> > which has features compatible with JEDEC UFS 2.2, MIPI UniPro v1.61 and
+> > M-PHY v3.0 standard.
+> > 
+> > Signed-off-by: Yixun Lan <dlan@kernel.org>
 > > ---
-> >  drivers/iio/industrialio-core.c | 33 ++++++++++++++++++++++++---------
-> >  include/linux/iio/iio-opaque.h  |  2 +-
-> >  include/linux/iio/iio.h         |  4 ++++
-> >  3 files changed, 29 insertions(+), 10 deletions(-)
-> >=20
-> > @@ -471,7 +485,8 @@ static void iio_device_register_debugfs(struct iio_=
-dev *indio_dev)
-> >  {
-> >  	struct iio_dev_opaque *iio_dev_opaque;
-> > =20
-> > -	if (indio_dev->info->debugfs_reg_access =3D=3D NULL)
-> > +	if (!indio_dev->info->debugfs_reg_access &&
-> > +	    !indio_dev->info->debugfs_reg64_access)
-> >  		return; =20
->=20
-> Not really that important but should dev_warn() in case someone gives
-> both callbacks? Can't use both anyways.
->=20
-> (We now have agentic help reviewing the code so maybe even if someone
-> does it for some reason it won't pass review :))
->=20
-Definitely marginal. Not sure I'd bother. However the docs
-could say something about the mutual exclusivity.  See below.
+> >  drivers/ufs/host/Kconfig        |  12 +
+> >  drivers/ufs/host/Makefile       |   1 +
+> >  drivers/ufs/host/ufs-spacemit.c | 931 ++++++++++++++++++++++++++++++++++++++++
+> >  drivers/ufs/host/ufs-spacemit.h |  90 ++++
+> >  4 files changed, 1034 insertions(+)
+> 
+> ...
+> 
+> > +static int ufs_spacemit_wait_mphy_pll_lock(struct ufs_hba *hba)
+> > +{
+> > +	int timeout = MPHY_PLL_LOCK_TIMEOUT_US;
+> > +	u32 val;
+> > +
+> > +	while (timeout-- > 0) {
+> > +		val = ufshcd_readl(hba, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> > +		if (val & MPHY_PLL_LOCK_BIT)
+> > +			return 0;
+> > +
+> > +		udelay(1);
+> > +	}
+> > +
+> > +	dev_err(hba->dev, "M-PHY PLL lock timeout\n");
+> > +	return -ETIMEDOUT;
+> > +}
+> 
+> Could this loop be replaced by read_poll_timeout() like
+> 
+> 	read_poll_timeout(ufshcd_readl, val, val & MPHY_PLL_LOCK_BIT,
+> 			 1, MPHY_PLL_LOCK_TIMEOUT_US, false, hba,
+> 			 UFS_PHY_MSG_BASE + UFS_MPHY_PU_CTRL);
+> 
+I think so, thanks for the suggestion
 
-> - Nuno S=C3=A1
-> > =20
-> >  	if (!iio_debugfs_dentry)
-> > diff --git a/include/linux/iio/iio-opaque.h b/include/linux/iio/iio-opa=
-que.h
-> > index b87841a355f8..98330385e08d 100644
-> > --- a/include/linux/iio/iio-opaque.h
-> > +++ b/include/linux/iio/iio-opaque.h
-> > @@ -73,7 +73,7 @@ struct iio_dev_opaque {
-> >  #if defined(CONFIG_DEBUG_FS)
-> >  	struct dentry			*debugfs_dentry;
-> >  	unsigned int			cached_reg_addr;
-> > -	char				read_buf[20];
-> > +	char				read_buf[24];
-> >  	unsigned int			read_buf_len;
-> >  #endif
-> >  };
-> > diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
-> > index 711c00f67371..1c7d12af22da 100644
-> > --- a/include/linux/iio/iio.h
-> > +++ b/include/linux/iio/iio.h
-> > @@ -484,6 +484,7 @@ struct iio_trigger; /* forward declaration */
-> >   * @update_scan_mode:	function to configure device and scan buffer when
-> >   *			channels have changed
-> >   * @debugfs_reg_access:	function to read or write register value of de=
-vice
-> > + * @debugfs_reg64_access: function to read or write 64-bit register va=
-lue of device
+> 
+> ...
+> 
+> > +/**
+> > + * ufs_spacemit_init - init phy and prepare clk
+> > + * @hba: host controller instance
+> > + */
+> > +static int ufs_spacemit_init(struct ufs_hba *hba)
+> > +{
+> > +	int err = 0;
+> > +	struct device *dev = hba->dev;
+> > +	struct ufs_spacemit_host *host;
+> > +
+> > +	host = devm_kzalloc(dev, sizeof(*host), GFP_KERNEL);
+> > +	if (!host)
+> > +		return -ENOMEM;
+> > +
+> > +	host->rst = devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
+> 
+> "resets" property is marked as required in the binding, but the optional
+> API is used here. Is this expected?
+> 
+Ok, I will switch to non-optional API and check return value
 
-Based on Nuno's observation above, I think this needs to say this and debug=
-fs_reg_access
-are mutually exclusive.
+> ...
+> 
+> > +/**
+> > + * ufs_spacemit_hce_enable_notify - Configure HCE enable sequence
+> > + * @hba: host controller instance
+> > + * @status: notification status (PRE_CHANGE or POST_CHANGE)
+> > + *
+> > + * Configures host controller enable with proper sequencing.
+> > + * Handles crypto enable if supported.
+> > + *
+> > + * Returns: 0 on success
+> > + */
+> > +static int ufs_spacemit_hce_enable_notify(struct ufs_hba *hba,
+> > +					  enum ufs_notify_change_status status)
+> > +{
+> > +	struct ufs_spacemit_host *host = ufshcd_get_variant(hba);
+> > +	u32 enable_val, val;
+> > +
+> > +	if (status == PRE_CHANGE) {
+> > +		enable_val = CONTROLLER_ENABLE;
+> > +
+> > +		if (hba->caps & UFSHCD_CAP_CRYPTO)
+> > +			enable_val = CRYPTO_GENERAL_ENABLE | CONTROLLER_ENABLE;
+> > +
+> > +		if (!host->first_hce_done) {
+> > +			host->first_hce_done = true;
+> > +			dev_dbg(hba->dev, "First HCE enable\n");
+> > +		} else {
+> > +			val = ufshcd_readl(hba, REG_CONTROLLER_ENABLE);
+> > +			if (val == enable_val) {
+> > +				ufshcd_writel(hba, enable_val & (1 << CONTROLLER_ENABLE),
+> > +					      REG_CONTROLLER_ENABLE);
+> > +
+> > +				while (ufshcd_readl(hba, REG_CONTROLLER_ENABLE) ==
+> > +				       (enable_val & (1 << CONTROLLER_ENABLE)))
+> > +					;
+> 
+> Shouldn't we set a timeout for the polling loop?
+> 
+Yes, good idea and will do in next version
 
-Otherwise LGTM.
-
-> >   * @fwnode_xlate:	fwnode based function pointer to obtain channel spec=
-ifier index.
-> >   * @hwfifo_set_watermark: function pointer to set the current hardware
-> >   *			fifo watermark level; see hwfifo_* entries in
-> > @@ -572,6 +573,9 @@ struct iio_info {
-> >  	int (*debugfs_reg_access)(struct iio_dev *indio_dev,
-> >  				  unsigned int reg, unsigned int writeval,
-> >  				  unsigned int *readval);
-> > +	int (*debugfs_reg64_access)(struct iio_dev *indio_dev,
-> > +				    unsigned int reg, u64 writeval,
-> > +				    u64 *readval);
-> >  	int (*fwnode_xlate)(struct iio_dev *indio_dev,
-> >  			    const struct fwnode_reference_args *iiospec);
-> >  	int (*hwfifo_set_watermark)(struct iio_dev *indio_dev, unsigned int v=
-al);
-> >=20
-> > --=20
-> > 2.43.0
-> >=20
-> >  =20
-
+-- 
+Yixun Lan (dlan)
