@@ -1,142 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B883BADB1
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 10:30:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CA63BB671;
+	Fri,  3 Jul 2026 10:30:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783074616; cv=none; b=bYMxfqF+KBSJl6EJObwyAH35PKlEMyeKd46FfdrIk/II3QhPkcS7LXqWqp2SJFgFjqMgvD8M4cKsLF/M8WDmazfzNUN1LsRvtJpbhSroLRkm5cyBiCV1cLX/ziNC7bn99M7dZSryDBONIdv5RdK6AjK7FLV0IYHyqIEWMATaKgY=
+	t=1783074621; cv=none; b=Xbd2Vcnh/A/91pjHSPr8YEL8p4wywIH6ioQkmMFYgIwDIwf8ZP/eQMgG1gkMZYTie7Zhzgjw3fRXtTzZrmJRPOFnMfjVvryXcSXgdZZ/0XlQNph1ozTDPsKL2kBvnCpyjriQDgdPKL+bHnDCHQViOPAOzCE8R8Ul/QAsB1NMIGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783074616; c=relaxed/simple;
-	bh=/VzsithZm+yJHsE/6vQH5YZjbsTm9cfGZNTVmmKzqT4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qdLr2gKOeJ9+Lt+EVlv6XmR+foMxSr5VV3Rzgej8s0x5sQm/8ZhSvRfqDp+4M2iggoC6F7KGt55kJnLjgwZHZgz2u8FOSxO2B4MKrA3Dxzj160l284LyyhAiZFJoMCOcEAN78z7W/A+oAw3wZOyxQfg32U5my4ARTl10Cwa29xM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KzdMIHFH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783074621; c=relaxed/simple;
+	bh=3GQqdOPoPivj+Ck8+ngkS0l798UXERywJkMkJAz3q6M=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ppLQNkkp3+z6/OB+GtLhYH/7NwXHYVXRTRTHWwWC0Rb/NLrWvIp2XGXzuyqk4B+HA9jtiJos5rAOcRCpGrzTZ2jlmFJ/1pKAe188zBwfhHQ6RV4LuRUJUUgKWPQBP4Gyq7+7tVsbJI32PtpRYxvDFEP9UJtc2CbPkCfjR2JE5sA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=FgXeDFdL; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KzdMIHFH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF1B1F000E9;
-	Fri,  3 Jul 2026 10:30:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783074614;
-	bh=KHOzUmKYKOogGnTf6pd5tg/Yl0vRSjTaIDS1cdmj99M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KzdMIHFH49vKuXPd1Y/QMIK7h+BJkTk2mqcrJK6rnlwzE0Mh8U0MKsZAsC1gbDVeE
-	 YDaozQKucWACgjcdOGVdr/yQ1S8aUhxq6o7a9yB3kSqU+ERfvrwPQvcKAF1UDahXSq
-	 cdTm72Mw/jiDJH0pNYKPU74hw5O9tk/ZWcnRjnAsVnBUQsH9LYiGk/29yf1NP5/n6j
-	 VWq2/h6bfd1MbO009R2JTh1D9/IJZSVuRpKJRfe7Sz5da7xIrJujLKVfIZmw7W0EH4
-	 H6YKWJ6nk+FI9vhr5QN7GIfTHEWbwQNlPEEQmFdLX4BLjUSSeenX6/14zuHNbkhiu1
-	 GlL6NsGw5voPA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 6/6] iio: dac: ad3530r: Add support for
- AD3532R/AD3532
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kim Seer Paller" <kimseer.paller@analog.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260703-iio-ad3532r-support-v4-6-69d9a336f4e8@analog.com>
-References: <20260703-iio-ad3532r-support-v4-0-69d9a336f4e8@analog.com>
- <20260703-iio-ad3532r-support-v4-6-69d9a336f4e8@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 10:30:13 +0000
-Message-Id: <20260703103014.8CF1B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="FgXeDFdL"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6635vrqD370739;
+	Fri, 3 Jul 2026 06:30:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=njsch5x3TVYB3665IfEalYahiFQ
+	wA6VpTPXJJnklDWM=; b=FgXeDFdLKMi7C4ykEtVNY/2VYJek1Ap1vdq4lOjkhwl
+	NzuYNYgmHiq20V61CxlRCLpPDmmATOuy9ze8SydCxSOjiLNV8ZNF9Su/sQchz/o9
+	UrkgOf7Kdve5NmegixCnKRlC1EeWCrWOj0HxjWjswIJ7WbSMy3FbVLnfBtdVZ8Ds
+	f1yb0yLkjcezn3Nl78ud0oJYzG3wXMsS5H5+uMcibromnczZNH71wjLETKmKYSmT
+	ZMjtXocxYNcGUMWX1vmgGasroAq+rDCrmRZKZMyJjvkX9a5IlXKuP5RpNbu4lKWw
+	O/Y7e+yhzWyZE+s0TQvyMEf+apQ1Tql3N+ACTti2dEg==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4f648x9rts-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 03 Jul 2026 06:30:15 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 663AUEIB012191
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 3 Jul 2026 06:30:14 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Fri, 3 Jul
+ 2026 06:30:14 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 3 Jul 2026 06:30:13 -0400
+Received: from HYB-JRXo5UEs61B.ad.analog.com ([10.66.6.190])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 663AU1SK025379;
+	Fri, 3 Jul 2026 06:30:03 -0400
+From: Stefan Popa <stefan.popa@analog.com>
+To: Jonathan Cameron <jic23@kernel.org>
+CC: David Lechner <dlechner@baylibre.com>,
+        =?UTF-8?q?Nuno=20S=C3=A1?=
+	<nuno.sa@analog.com>,
+        Andy Shevchenko <andy@kernel.org>, Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        Ciprian Hegbeli <ciprian.hegbeli@analog.com>,
+        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, Stefan Popa <stefan.popa@analog.com>
+Subject: [PATCH v1 0/2] iio: adc: add MAX40080 current-sense amplifier driver
+Date: Fri, 3 Jul 2026 13:29:30 +0300
+Message-ID: <20260703102941.1141341-1-stefan.popa@analog.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-ORIG-GUID: o2rJLDvYEEHB05sT1M4hvWKjlbd4eTbQ
+X-Proofpoint-GUID: o2rJLDvYEEHB05sT1M4hvWKjlbd4eTbQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDEwMSBTYWx0ZWRfXzHPDMDCHtjq1
+ zV10bi6liqx3M7fAhQk2e0tSLRlqSRfbDGZmHeV1PBt+02Jynl14s2t7m4RNjYWEWdtEY9XnjrU
+ /aZysZoD2jh6f/IANoLcyanBbilM0u+nRFDrY+FMWiX1nT3rjiBEm4ufjsaMfdUxGqF74AKyFQA
+ /fmyUGFFGcvdWzrKkV5cDYeKhfywcjyuc/Un18PEFoVV2eutGiTJvT3jlBkhtqjG2FTRG/5FU7N
+ wxGOiXFkQHvpxtc56KuY9o9b6H5JTP4AiHG55qtTTD/DrGXwodYvIFit564PKg9K8lskn/WsbNP
+ AK4l+fP5fKtPd9XGjl5FIdEvle/hNtrBvNiJ5jZIKQeQWRbMQZxg16DF9WMbkp1koKaECGruGIx
+ sFZAGTa34VxE3tSCIqUDRc9AEflgp/gSHL9KpOHCTu7MpBip84fMsL9kxboORmylAnEBWYsCzcN
+ WaOUM2dV/e75eE5/ocw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDEwMSBTYWx0ZWRfXwlVjPRbUPUeb
+ FMsNuQ26Nc2dCnawHIQXDOmggRvqpaFLHx0ZB+NOBG69QWH5xPPY4HlBFRf5VYRLu4igEzS/wOH
+ 9NTK5jkCWNDg+HHVuJYQg4lp5zkppU86oBj958VyubtFDW9Vi+LW
+X-Authority-Analysis: v=2.4 cv=Au3eGu9P c=1 sm=1 tr=0 ts=6a478f37 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=uXIjobp8t2wMuQ0fPvqm:22 a=OGqDcEpPKfH9cPnAXqQA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 adultscore=0 priorityscore=1501 phishscore=0
+ bulkscore=0 clxscore=1011 impostorscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030101
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The max_register parameter in the regmap config is incorrectly set=
- to the base address of the highest channel, preventing reading and writing=
- 16-bit values for the last channel.
---
+This series adds support for the Maxim MAX40080, a bidirectional
+current-sense amplifier with an integrated 12-bit ADC and an I2C/SMBus
+interface. It measures the voltage across an external shunt resistor and
+the input bus voltage.
 
-commit 977833b9e38150088aceb9bef325ef263ed54eee
-Author: Kim Seer Paller <kimseer.paller@analog.com>
+The driver operates in direct (INDIO_DIRECT_MODE) mode. Each raw read
+triggers a single on-demand conversion (SMBus Quick Command) and reads
+back the matched current/voltage pair, so results are always fresh. It
+exposes the current and voltage channels with raw and scale attributes,
+a configurable oversampling (digital averaging) ratio, and PEC-protected
+register access. The two selectable current-sense ranges are exposed
+through scale/scale_available (the range is chosen by writing the
+desired scale); the current scale is derived from the
+shunt-resistor-micro-ohms device-tree property.
 
-iio: dac: ad3530r: Add support for AD3532R/AD3532
-   =20
-This commit adds support for the AD3532 and AD3532R 16-channel 16-bit volta=
-ge
-output DACs. It adds a new register map, channel specifications, and powerd=
-own
-handlers while reusing shared table-driven configuration steps.
+Continuous FIFO buffering, threshold events and the alert interrupt are
+intentionally left out of this initial submission and may be added
+later.
 
-> diff --git a/drivers/iio/dac/ad3530r.c b/drivers/iio/dac/ad3530r.c
-> --- a/drivers/iio/dac/ad3530r.c
-> +++ b/drivers/iio/dac/ad3530r.c
-[ ... ]
-> @@ -39,6 +40,25 @@
->  #define AD3531R_SW_LDAC_TRIG_A			0xDD
->  #define AD3531R_INPUT_CH			0xE3
-> =20
-> +/* AD3532R/AD3532 bank 0 registers (channels 0-7) */
-> +#define AD3532R_INTERFACE_CONFIG_A_0		0x1000
-> +#define AD3532R_OUTPUT_OPERATING_MODE_0		0x1020
-> +#define AD3532R_OUTPUT_OPERATING_MODE_1		0x1021
-> +#define AD3532R_OUTPUT_CONTROL_0		0x102A
-> +#define AD3532R_REFERENCE_CONTROL_0		0x103C
-> +#define AD3532R_SW_LDAC_TRIG_0			0x10E5
-> +#define AD3532R_INPUT_CH_0			0x10EB
-> +
-> +/* AD3532R/AD3532 bank 1 registers (channels 8-15) */
-> +#define AD3532R_INTERFACE_CONFIG_A_1		0x3000
-> +#define AD3532R_OUTPUT_OPERATING_MODE_2		0x3020
-> +#define AD3532R_OUTPUT_OPERATING_MODE_3		0x3021
-> +#define AD3532R_OUTPUT_CONTROL_1		0x302A
-> +#define AD3532R_REFERENCE_CONTROL_1		0x303C
-> +#define AD3532R_SW_LDAC_TRIG_1			0x30E5
-> +#define AD3532R_INPUT_CH_1			0x30EB
-> +#define AD3532R_MAX_REG_ADDR			0x30F9
+Tested on hardware with four MAX40080 devices on an I2C bus.
 
-[ ... ]
+Patch 1 adds the device-tree binding; patch 2 adds the driver.
 
-> @@ -369,12 +490,40 @@ static const unsigned int ad3531r_op_mode[] =3D {
->  	AD3530R_OUTPUT_OPERATING_MODE_0,
->  };
-> =20
-> +static const unsigned int ad3532r_if_config[] =3D {
-> +	AD3532R_INTERFACE_CONFIG_A_0,
-> +	AD3532R_INTERFACE_CONFIG_A_1,
-> +};
-> +
-[ ... ]
-> +static const struct regmap_config ad3532r_regmap_config =3D {
-> +	.reg_bits =3D 16,
-> +	.val_bits =3D 8,
-> +	.max_register =3D AD3532R_MAX_REG_ADDR,
-> +};
+Stefan Popa (2):
+  dt-bindings: iio: adc: add maxim,max40080
+  iio: adc: add MAX40080 current-sense amplifier driver
 
-[Severity: High]
-Does this configuration prevent 16-bit reads and writes on the highest chan=
-nel
-(channel 15)?
+ .../bindings/iio/adc/maxim,max40080.yaml      |  55 ++
+ MAINTAINERS                                   |   9 +
+ drivers/iio/adc/Kconfig                       |  11 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/max40080.c                    | 587 ++++++++++++++++++
+ 5 files changed, 663 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/maxim,max40080.yaml
+ create mode 100644 drivers/iio/adc/max40080.c
 
-Looking at ad3532r_input_ch_reg(), the input register for channel 15 resolv=
-es
-to 0x30F9 (0x30EB + 2 * 7). Since ad3530r_dac_write() and ad3530r_read_raw()
-both perform a 2-byte bulk regmap access starting at this address:
+-- 
+2.51.0
 
-ad3530r_dac_write() {
-    ...
-    ret =3D regmap_bulk_write(st->regmap, st->chip_info->input_ch_reg(chan),
-                            &st->buf, sizeof(st->buf));
-    ...
-}
-
-Regmap will check if the start address + length - 1 <=3D max_register. For
-channel 15, this evaluates to 0x30FA <=3D 0x30F9, which fails the bounds ch=
-eck
-and returns -EINVAL.
-
-Should AD3532R_MAX_REG_ADDR be set to 0x30FA to accommodate the second byte=
- of
-the final channel's input register?
-
-(Note that AD3530R_MAX_REG_ADDR might also have this exact same issue for
-channel 7 in the pre-existing code).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703-iio-ad3532=
-r-support-v4-0-69d9a336f4e8@analog.com?part=3D6
