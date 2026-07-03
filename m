@@ -1,35 +1,37 @@
 Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DA538A73F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D0E378814;
 	Fri,  3 Jul 2026 12:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783082680; cv=none; b=KtiIcSYBLN2DkDNL/gT3rnczTbw9lJE7OBHn5usAz+UvcEvMfmP4fHpW9ClKu10AO4Us0yAmikamPbydVtvHdIiyo4LclFZtLAmBpElleBXgTsfubcu65BUpzJi20t8fKJv+rzNjYrw0MxjqHfz24zEvJVC0JK5qlQgDSeVyeyw=
+	t=1783082680; cv=none; b=uEdKrrk60r24KUkAU7GdP1zZsAqZoRogpNB3094hp91HnYCocDPOb1UqYG9ruONc7hlSB8zvCYC9SV74qnbeUevEbIMRuBxSK5DMiqOkqF6tGc63rolOnQSiNj73uradIkZqIgsEH8ZAh91FQlmi0Dl0EsIi3Cr2g1aJs6zhYgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783082680; c=relaxed/simple;
-	bh=8D7Po7SCptGVEHm0r1MA8F5t/rLXTgEyoB3RxAxQRVM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UEju+N3twyahduyu257OYAmXka6PLc+6HrYL1EtnpkvyMt3lU6eCHKvR3j4gK2FFXNOtJn1hp+UBSnFJJTpUSyzbf6WXY0ZZtB2pr+k6fIWc686iX87TE/PZbl3p8IZRgHlIqOfueC/J0etGs+RT/Ee+slcxM9tbuVLh6Q66l0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=fD0bWHtD; arc=none smtp.client-ip=77.81.229.115
+	bh=BJVjcPz/91pDy5lAxC0+QPRWdZ2oZGo0sATIv9YLulc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MAR9liuqEqCPvtaINyjIgL+f/1rsbUSPhu36SHXQpX5jg64vkPo55aDmpVJUOK69wEDQzwSmH48Vk7OaPcUTB0QbtZ78lIjXhZPIEufwkrRh2wuMqAP1LBh/ETmGM/5asL/TmXWTjVmgE29l2t5CkyzIiHgt2qpWh7WISnA0u8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=hwmvX7YL; arc=none smtp.client-ip=77.81.229.115
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="fD0bWHtD"
-Received: by chaosmail.tech (Postfix) id 61AC31CC21E;
-	Fri, 03 Jul 2026 12:44:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="hwmvX7YL"
+Received: by chaosmail.tech (Postfix) id 1E1C41CC21F;
+	Fri, 03 Jul 2026 12:44:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
 	s=mail; t=1783082669;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=8sQSDqAelniprUW0bjLh4r7TPdrV1wyI0a++eXewKTc=;
-	b=fD0bWHtD56p8eHPQqsgumvfj42tKkzjKFtun/Ui6JnVvuo3KeE5/XJTfv8TYl9UG4OTV7c
-	ENIt18XZMj3CVi3508IJK3cMRCTsf6GaaGGwHTBJnQcaj76xnIpqqYgrIjM8oN7MR0G1y5
-	TKIJya7jhsnnPE5ej/jB2AFU2XnJXiQ=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UO1z8xJoHZLlfly0VpQlILvMOLZUDXdV8Nv8wm0Dkis=;
+	b=hwmvX7YLo+Eaeq790/UkvPkwitIXG8Ibu/5kzNAp0h3WKL2V1Bp9oRQtXMrfru6eIIsTUo
+	EAZsYfNca0n3XnH6cqrs9cAzsEvAaYeRU/+l5HtqXPHMafv11nc4Zh7XJMqFqZFo50aYaF
+	j4tSMDeZKiy3Hh+BpQwLDHsgP3ElWqk=
 From: Sasha Finkelstein <k@chaosmail.tech>
-Subject: [PATCH v2 0/3] soc: apple: Add "PMGR misc" power controls driver
-Date: Fri, 03 Jul 2026 14:44:10 +0200
-Message-Id: <20260703-pmgr-misc-v2-0-4b26ba10c5a4@chaosmail.tech>
+Date: Fri, 03 Jul 2026 14:44:11 +0200
+Subject: [PATCH v2 1/3] dt-bindings: soc: apple: Add Apple PMGR misc
+ controls
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,62 +40,98 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Oyw6CMBBFf4XM2pq2Womu+A/DogwDjJFHOkg0h
- H+3xa3Lk5yce1cQCkwCt2yFQAsLj0MEe8gAOz+0pLiODFbbi861VVPfBtWzoPJksKpdhRZziP4
- UqOH33rqXP5ZX9SCcUyAZHcs8hs8+tpjk/esuRml1bnTu/MlfHZoiPhml9/w8zoQdlNu2fQH3x
- RwUuQAAAA==
-X-Change-ID: 20260702-pmgr-misc-ae1cbd5bc2c7
+Message-Id: <20260703-pmgr-misc-v2-1-4b26ba10c5a4@chaosmail.tech>
+References: <20260703-pmgr-misc-v2-0-4b26ba10c5a4@chaosmail.tech>
+In-Reply-To: <20260703-pmgr-misc-v2-0-4b26ba10c5a4@chaosmail.tech>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
  Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Sasha Finkelstein <k@chaosmail.tech>, Hector Martin <marcan@marcan.st>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783082668; l=1706;
+ Sasha Finkelstein <k@chaosmail.tech>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783082668; l=2534;
  i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=8D7Po7SCptGVEHm0r1MA8F5t/rLXTgEyoB3RxAxQRVM=;
- b=e3ZFilP3ziJzNDOl7lwPRWQtPWYiZ5G7wAfzdU4XPb501CsLWgxMMUj2XHpsqfs0+DPbrs0Ly
- fzzPfCV5UPwAkaC2yglrcnQKXYlcPbgI60fspd56MPuzJFdeX7Wu3y1
+ bh=BJVjcPz/91pDy5lAxC0+QPRWdZ2oZGo0sATIv9YLulc=;
+ b=cdXmE8f/Xz3ElHqQOsZwiEfiTKj8buduky9ERZpfPyn9OAz8VBR+OfQUloP3zmEWcEWBohonV
+ lpDGSfmuD8mCoBZXBXQMrMIPSohTT40I1i3tEMX7UQU5hAgRvEgFpAr
 X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
  pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-Certain Apple SoCs have additional power state controls that are using
-a separate "misc" mmio interface. Currently this includes the fabric
-and memory controllers on pro/max/ultra SoCs.
-
-This series adds a driver to put those in a low power state when the
-machine enters sleep. The power savings are SoC-dependent and are
-around 1W.
+Certain Apple SoCs include additional PMGR power states that are
+controlled via a different "misc" control block. On existing SoCs, this
+includes the fabric and memory controller state.
 
 Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
 ---
-Changes in v2:
-- Error handling fixes
-- Reword binding description
-- Link to v1: https://patch.msgid.link/20260702-pmgr-misc-v1-0-4f075a3a95c1@chaosmail.tech
+ Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ MAINTAINERS                                                            |  1 +
+ 2 files changed, 46 insertions(+)
 
----
-Hector Martin (1):
-      soc: apple: Add driver for Apple PMGR misc controls
+diff --git a/Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml b/Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml
+new file mode 100644
+index 000000000000..588100222f89
+--- /dev/null
++++ b/Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml
+@@ -0,0 +1,45 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/soc/apple/apple,t6000-pmgr-misc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Apple SoC PMGR Misc Power States
++
++maintainers:
++  - Sasha Finkelstein <k@chaosmail.tech>
++
++description: |
++  Certain Apple SoCs include additional PMGR power states that are controlled
++  via a different "misc" control block. This includes the fabric and memory
++  controller states.
++
++properties:
++  compatible:
++    enum:
++      - apple,t6000-pmgr-misc
++      - apple,t6020-pmgr-misc
++
++  reg:
++    maxItems: 2
++
++  reg-names:
++    items:
++      - const: fabric-ps
++      - const: dcs-ps
++
++required:
++  - compatible
++  - reg
++  - reg-names
++
++additionalProperties: false
++
++examples:
++  - |
++    power-management@8e20c000 {
++        compatible = "apple,t6000-pmgr-misc";
++        reg = <0x8e20c000 0x400>,
++              <0x8e20c800 0x400>;
++        reg-names = "fabric-ps", "dcs-ps";
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 15011f5752a9..5a29bb86499f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2607,6 +2607,7 @@ F:	Documentation/devicetree/bindings/power/apple*
+ F:	Documentation/devicetree/bindings/power/reset/apple,smc-reboot.yaml
+ F:	Documentation/devicetree/bindings/pwm/apple,s5l-fpwm.yaml
+ F:	Documentation/devicetree/bindings/rtc/apple,smc-rtc.yaml
++F:	Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml
+ F:	Documentation/devicetree/bindings/spi/apple,spi.yaml
+ F:	Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+ F:	Documentation/devicetree/bindings/usb/apple,dwc3.yaml
 
-Sasha Finkelstein (2):
-      dt-bindings: soc: apple: Add Apple PMGR misc controls
-      arm64: dts: apple: Add pmgr-misc nodes to t60xx
-
- Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml |  45 +++++++++++++++++++++++++++
- MAINTAINERS                                                            |   1 +
- arch/arm64/boot/dts/apple/t600x-die0.dtsi                              |   7 +++++
- arch/arm64/boot/dts/apple/t602x-die0.dtsi                              |   7 +++++
- drivers/soc/apple/Kconfig                                              |  10 ++++++
- drivers/soc/apple/Makefile                                             |   2 ++
- drivers/soc/apple/apple-pmgr-misc.c                                    | 179 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 7 files changed, 251 insertions(+)
----
-base-commit: e5d9690657844a2645a518cdf838206f6daf513e
-change-id: 20260702-pmgr-misc-ae1cbd5bc2c7
-
-Best regards,
---  
-Sasha Finkelstein <k@chaosmail.tech>
+-- 
+2.55.0
 
