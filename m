@@ -1,107 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D114041734E;
-	Fri,  3 Jul 2026 15:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF31417363
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 15:27:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783092392; cv=none; b=Do9hxGuAO1bVDj6AXFeSXMuzqcr6ihWAPZ9vMkLRG9d3AB5g8XU3uwT2nytFrWQxoW6+wy4ycU5DH3f0keiQ8OVVczCCnC2jExpPYzTmah8nvGErdkudF/kHXp1Iyw0CT9+vp86sD11RGiNNHBFmjwUa1dWiJLQA4UiEtScnxAY=
+	t=1783092461; cv=none; b=FlE6VrvYCsZokUfISsnnVvAIddehJK9nKY8EsP4pMaT9Un7Z3+b1VLljHVTYruOS7rjTeLeDeZ5lqWU4lgKr8dMoGb2InFWK9AMAYVmMKWFqiw0NX61pwbKRpQ7qnb8o9mPqrmqwpnSiAyb14I2kBsYRJNtsCNR/aaYH18uZv9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783092392; c=relaxed/simple;
-	bh=jNsOkMvAbe6OeR60F6oK7IXUHiY7gkhqpYS/Mz86qVw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qiBJHbikQkWP+OgDENGu7kehfQ8uBjzdRC4h0IkcjalTAsYYx7yIePFfGm5wFnSJHL22oIAS1fS2u12gsxJosWpwN+ztOs1KDvk3FaREUbx5Y8p5K8CDGY40nYD9NKkIeoxG6O/ubin0ZC8c2nuocF79uI+zEeyuOnTQKgmU+ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H0MtM+oa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783092461; c=relaxed/simple;
+	bh=3IRI+0YZ89YfdI6eLFQJsGv8r3K38cc+bhDF8g2QYh0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Lm8J8gxISrmfpqv+iscfFbt1eyWjpOwwwshYyco5sGov4JAoYPrqPP8oGlOBZVviEHMxjNKw9Q4ysjleHzuuO0BpohxQa27sbLPx0Nxj55H29MdHLJWlP8g1qnSFehLPlL9F6kXphrbM1+QMnYWJxY6G0Vk29ZF0G8n8K5prkQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iSUEWpfm; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H0MtM+oa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 305511F000E9;
-	Fri,  3 Jul 2026 15:26:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783092391;
-	bh=4CdOEYbJivtsUlimSZnXUz+KiLsZc2Vm+jKMEa9rKz8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H0MtM+oa19RttLAOBFGMLovJR/t/DPU49NNONtgRN+SSuk7Mb3uflus+zOjZTJMDx
-	 /hChFnnbN78osufPmVuvBMNcHW63h0g/el4GN4ojZJv+2nRi6pl8GdM78+ZjLktDJo
-	 kHLQneCcXGXhy547cGmT7FgDvmafxUYuj5kDuxMgm3PnTkE4gIDxPWCOLa7u0vGt8m
-	 v4sq+VdgB5Q7FUCXxxzUhg0N7RR+s+TWongsgcghxOX+pBh4NEONbDnk7Ttdt4Nl3T
-	 8DE1gxBf9BC+TV74aBqkApfyl4TRUelo8KD4MrxYxPmpPgdXPkT+AU7sIKoD4FU+0e
-	 5fqQzV3sty8Uw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/4] dt-bindings: pwm: allwinner: add h616 pwm
- compatible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Richard Genoud" <richard.genoud@bootlin.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260703152215.192859-2-richard.genoud@bootlin.com>
-References: <20260703152215.192859-1-richard.genoud@bootlin.com>
- <20260703152215.192859-2-richard.genoud@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 15:26:30 +0000
-Message-Id: <20260703152631.305511F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iSUEWpfm"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-46ed4f66256so627719f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 08:27:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783092458; x=1783697258; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=QGZm4+XMD1ngU96wT2Oojs/SHdS870fkpgs5aUT2QU0=;
+        b=iSUEWpfmf9AjL2WOzmmPEZlrvfWF+48/6x8Qi1T2pbkvtchYx4e3/yfut1tC+J005d
+         fYM1Y4kVKUf0/gKcn9CuEgMZKzRxPFFFIfvniH8RL6NLH8NHISxYjKVri3tuE9Qcjsxi
+         lzVL6JE+r6UuaDkj7hqqcvXMn84loqihtoKpUZIiouJb9p3iRhyqKjavsfAC65mkyw1R
+         1txSGG3fngpdYXceCf9yYT9anB21MtweTQ9ipUgXPAeGaylkU8RFOQeytuja41WfPQHX
+         cmlSbxWSzPAZsoQYCzWXkebXCewYoM/yDBtmOw/JhPSh4xzYthQ6UXB1FQzoTet8JYZf
+         udSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783092458; x=1783697258;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QGZm4+XMD1ngU96wT2Oojs/SHdS870fkpgs5aUT2QU0=;
+        b=a/4mPJSp0NkY6tP1vaHnAqQHSFmSdu4j4PugECVgv6selwBpXDSdyS42NZv+UxteEs
+         /KD0Z7o+Z7BdblmUPAOaAmoN7zp8IyqkKUvUG80woznkhvpq0HBigl0JHLVXc+qQ6uHs
+         NxU/N62a9Q+vN4i8/FrcZyPoh2wTCfgelYfwuYNOD8Ie30ABsguUP2N4pDlTJv3e7t4X
+         R0Hg7xYcu2cKS+x17T6/Q/UvIcDXtikDuhkAmYLT7G5Dsyzw7F5iicntc53SBUy/lt6E
+         HTObwM2eZIWnZEQaEvtcoYd6gTae26fThX30g84y6uOhIALNsQVJxnTUzew3MQ3D4r8s
+         g7cQ==
+X-Forwarded-Encrypted: i=1; AHgh+RofHDW6tvKgG7e1Khd4JgW4hHWNAMyLnrBgZE5faiXkYAhTpfY28ItkZEt8CVgMoIbevIVtRSut8NVD@vger.kernel.org
+X-Gm-Message-State: AOJu0YxraHsw9faKCgAEoRRj2Mj+q30RnrzKlga7D9dfVs0rHUUqmLYp
+	Yaaa0GvCoDAy1A+1DNbzJ129BSFm07p3bTcrpsWYgOzjAi+VKtq8KJCo
+X-Gm-Gg: AfdE7cnylyRgQScljr6p6VtVBrkSCVx+XgWPeMbWhD3n201jtGhJB8059z3sFOILySy
+	4By+AJEp0GnHnivklDpL0TYHfvZ/BuII/Ivao0QkS8XEl+ZyswsGf8LKBbtEQMUEvZzn2hN17US
+	nBAlW/LOPhA/E62R15SKuh9LcqRG/wJxJcxYOr1AKIsSSDvEetAhKoM7c8EpKPbP8H08ZQaWd4k
+	9V/X/m9vDaJccaGsLAPzx56oIywREa1Z5r9Uir1z0V2oDuNVsjOWv3sVdcz1rfWpmMyI5kH7fmS
+	ljksQug3H/lgACJritoLE7Y2o+q5cQIgJEUfbvMKSS/PiqqQVJhj0l607RSIVPZC566Kodi3RRL
+	SCsvHoYr6oGQ/XEKha6ECx73MrNmWWLzSn/GjSFcQoqM8/dW5Uq054icplW8R5K1Dd9mhzM3gwW
+	kVFm2nXocOCvjTt4md6eSJEDTW4QU7Bfae6APP8baxz/k0enOQctw7zJx8hpId24grEE5Ik1cAO
+	KB9RLAKyJpES3ucbaItcfOElRs=
+X-Received: by 2002:a05:6000:52:b0:46f:f12b:e44b with SMTP id ffacd0b85a97d-4775be03161mr11748719f8f.31.1783092458177;
+        Fri, 03 Jul 2026 08:27:38 -0700 (PDT)
+Received: from Lord-Beerus.station (net-93-144-65-248.cust.vodafonedsl.it. [93.144.65.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0960b06sm85460f8f.28.2026.07.03.08.27.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jul 2026 08:27:37 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH v1 1/1] arm64: dts: freescale: imx9-var-dart-sonata: fix Ethernet PHY configuration
+Date: Fri,  3 Jul 2026 17:27:31 +0200
+Message-ID: <20260703152731.236793-1-stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `#clock-cells` property is missing from the `required` list =
-for the `allwinner,sun50i-h616-pwm` compatible.
---
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-commit d7a701d864bf3d5f7e7d179d4498b5006b8bf3f7
-Author: Richard Genoud <richard.genoud@bootlin.com>
+Fix the Ethernet PHY description on the DART-MX9 Sonata boards.
 
-dt-bindings: pwm: allwinner: add h616 pwm compatible
+The GPIO previously described as the PHY reset line is actually a
+board-level enable signal required by the PHY. Model it accordingly and
+remove the incorrect reset GPIO description from the PHY nodes.
 
-This commit introduces the Allwinner H616 PWM block to the sun4i pwm
-binding. It adds the new compatible string and handles the new clock
-provider capabilities introduced by the H616 bypass mode.
+On i.MX91 and i.MX93 the signal is described as a fixed regulator,
+whereas the existing regulator description on i.MX95 is reused.
 
-> diff --git a/Documentation/devicetree/bindings/pwm/allwinner,sun4i-a10-pw=
-m.yaml b/Documentation/devicetree/bindings/pwm/allwinner,sun4i-a10-pwm.yaml
-> index 1197858e431f2..4f58110ec98f7 100644
-> --- a/Documentation/devicetree/bindings/pwm/allwinner,sun4i-a10-pwm.yaml
-> +++ b/Documentation/devicetree/bindings/pwm/allwinner,sun4i-a10-pwm.yaml
-[ ... ]
-> @@ -83,6 +89,17 @@ allOf:
->          clocks:
->            maxItems: 1
-> =20
-> +  - if:
-> +      not:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              const: allwinner,sun50i-h616-pwm
-> +
-> +    then:
-> +      properties:
-> +        "#clock-cells": false
-> +
+Keeping the PHY enable asserted during boot ensures that Ethernet
+initialization completes successfully.
 
-[Severity: Medium]
-Should #clock-cells be added to the required properties for the H616 varian=
-t?
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+---
+ .../boot/dts/freescale/imx91-var-dart-sonata.dts   | 14 +++++++++++---
+ .../boot/dts/freescale/imx93-var-dart-sonata.dts   | 14 +++++++++++---
+ .../boot/dts/freescale/imx95-var-dart-sonata.dts   |  3 ---
+ 3 files changed, 22 insertions(+), 9 deletions(-)
 
-The commit message mentions that the H616 PWM block can output a clock
-used as an input for other devices. While the conditional block above
-correctly prevents older hardware variants from using #clock-cells, it
-appears to leave the property optional for the H616.
+diff --git a/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
+index 3f0fd321d95f..f7e32f9375f5 100644
+--- a/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
++++ b/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
+@@ -97,6 +97,17 @@ reg_rgb_sel: regulator-rgb-enable {
+ 		enable-active-high;
+ 	};
+ 
++	reg_phy1_supply: regulator-phy1 {
++		compatible = "regulator-fixed";
++		regulator-name = "SUPPLY_PHY1";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&pca6408_2 0 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		startup-delay-us = <10000>;
++		regulator-always-on;
++	};
++
+ 	reg_usdhc2_vmmc: regulator-vmmc-usdhc2 {
+ 		compatible = "regulator-fixed";
+ 		pinctrl-names = "default";
+@@ -139,9 +150,6 @@ mdio {
+ 		ethphy1: ethernet-phy@1 {
+ 			compatible = "ethernet-phy-ieee802.3-c22";
+ 			reg = <1>;
+-			reset-gpios = <&pca6408_2 0 GPIO_ACTIVE_LOW>;
+-			reset-assert-us = <15000>;
+-			reset-deassert-us = <100000>;
+ 
+ 			leds {
+ 				#address-cells = <1>;
+diff --git a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
+index 5513d3b148a2..1ca3ec8330d0 100644
+--- a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
++++ b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
+@@ -103,6 +103,17 @@ reg_vref_1v8: regulator-adc-vref {
+ 		regulator-min-microvolt = <1800000>;
+ 	};
+ 
++	reg_phy1_supply: regulator-phy1 {
++		compatible = "regulator-fixed";
++		regulator-name = "SUPPLY_PHY1";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&pca6408_2 0 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		startup-delay-us = <10000>;
++		regulator-always-on;
++	};
++
+ 	reg_usdhc2_vmmc: regulator-vmmc-usdhc2 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "VDD_SD2_3V3";
+@@ -180,9 +191,6 @@ mdio {
+ 		ethphy1: ethernet-phy@1 {
+ 			compatible = "ethernet-phy-ieee802.3-c22";
+ 			reg = <1>;
+-			reset-assert-us = <15000>;
+-			reset-deassert-us = <100000>;
+-			reset-gpios = <&pca6408_2 0 GPIO_ACTIVE_LOW>;
+ 
+ 			leds {
+ 				#address-cells = <1>;
+diff --git a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
+index 7a58ad38ffb4..ccf7e77016e4 100644
+--- a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
++++ b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
+@@ -346,9 +346,6 @@ &netc_emdio {
+ 	ethphy1: ethernet-phy@1 {
+ 		compatible = "ethernet-phy-ieee802.3-c22";
+ 		reg = <1>;
+-		reset-gpios = <&pca6408_2 0 GPIO_ACTIVE_LOW>;
+-		reset-assert-us = <10000>;
+-		reset-deassert-us = <100000>;
+ 
+ 		leds {
+ 			#address-cells = <1>;
+-- 
+2.47.3
 
-If a device tree node for allwinner,sun50i-h616-pwm omits #clock-cells,
-it might silently pass schema validation but fail at runtime when dependent
-subsystems try to use it as a clock provider.
-
-Would it make sense to add an else clause here (or a separate conditional)
-to explicitly require #clock-cells when the H616 compatible is present?
-
->  required:
->    - compatible
->    - reg
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703152215.1928=
-59-1-richard.genoud@bootlin.com?part=3D1
