@@ -1,78 +1,228 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1DD2371056;
-	Fri,  3 Jul 2026 11:18:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F55B386440
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 11:29:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783077489; cv=none; b=WiSyDXupEUi8mj1+HioP+gslltRlTxdHRAlSaRhqcXr2Ami888Xi6QEesi3Ba2VUiUubtWmCONr+Idr/vkqQYAyDDgnTulj6isclZn6fOVg8b84BCxhekszCFXz/aFy9fcmnUvLte/KDvO/05kGlRTU3nMYOxxW/pLMivxbmlqI=
+	t=1783078171; cv=none; b=uJDzS6y2DROe7B+g4NXD9AAO3HodpXpyT/yM3n/KQFedzJ1ILeR8isZ4GN+lOoaVvcjwCKAGGDcCunQcm4LGpXo7SF/9E6MT4W25al+hC2c9c+prgnoRiwSN0Y68faZRv122eK3SxBGYfH/i75UB2D9I5NvyHLVcVKIZfm1edao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783077489; c=relaxed/simple;
-	bh=41uGX8RO/w3jEAgYTE+j+Eb+P9X0qrEzGvvzpOgrjC4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vDqlRPLmk+lOacb5KDV83KY+HKSf8f+1qx9Qn1v/aDbymg7rydoyWlIQMwj20rdj/nffev3Agq/35B3E5AV1sjtCEq1V2U6nlgnAl6eBKLVljQCiQLmlg85/xCE3RuSrPxeVxeBGVzEuAoXrQ5TyisyJB2NexjK9LN+qNE9s75w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mGfQ5ZjU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783078171; c=relaxed/simple;
+	bh=9QB6ZOMvTWbv0jsY6jSxCpMYTInYzvFH49pQLdDa3Sc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dcfOS2NgomAFfdPzfgIyTSJowRKyQ0/GAvrrNQM3KWnDkEaADwPaYSPfx5giAAJLYG4LURhvhvhtrWyiix0HdXHs+f+6m5v9lFKXN22e1yYKul3ddl0y2kkQApbLjmfCHzNBsEtwJeA8xCqk2FrN2hS2KxXLLKFR+WLx7Uavnzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gxGIKHYP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mGfQ5ZjU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 905191F000E9;
-	Fri,  3 Jul 2026 11:18:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gxGIKHYP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 420A61F000E9;
+	Fri,  3 Jul 2026 11:29:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783077487;
-	bh=jBXujYiah0WFXjqCSb0QoHYjXF1ucesux4IjvTi8SDE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mGfQ5ZjU2R3MTrqtdqmUxN6YkIz2SBGsy2hVkrCTzk17zE3FTrLva12V3atkAwX4a
-	 Og7Zls0uQgPw/vg60f9hI58BqMX3vss8vGYVjyKOysWp0KOpV8qaVHNz3KTw0b+tjj
-	 54+EZkxNRr/0h3IW0TaedL4u9Ye6yGJSaHCR+xycTjhRh5WD85qSZR2ReDISt8b+/0
-	 iZ3cIr/rtvYIdoI8mneUxpf1VcB+hu1d4wkApVf/etVercq9gscaxHSVte8wEgKlps
-	 kvR19qi0f71L9DRCal2xVNBN2L7FeCLMrDlt/iU+1XkNW1XcNDgQYgGlKdtMCKTKZ2
-	 cUuT/MRqDnGzw==
-Received: from johan by xi.lan with local (Exim 4.99.3)
-	(envelope-from <johan@kernel.org>)
-	id 1wfbuH-00000000jKL-17lX;
-	Fri, 03 Jul 2026 13:18:05 +0200
-Date: Fri, 3 Jul 2026 13:18:05 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v5 10/14] mfd: lm3533: Set DMA mask
-Message-ID: <akeabcriU7VBZCrp@hovoldconsulting.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-11-clamor95@gmail.com>
+	s=k20260515; t=1783078169;
+	bh=SqtxQboPkG19SI4FZUKSBHB5CNoqR5mAVLqPovUWpac=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gxGIKHYPRjSqWxfH/tQpjThXZDauYGOovxmr+IXSD2WcdQioCPdlK4IZzNDnN3UGH
+	 9zMMgmgX7P9LbfxOjRPxdo/p59xHcEvrdEciy8cTL58S/i02Kc9YQkkD5npTR2OWhS
+	 Jl2ZOi5lw6F94+UyDCx3qGMpOSVMDGPtITF1DzVDbvrKVAuC3H6BOUIbkXhkNniZEG
+	 7SfbnoFKMTvD5ZOwjssNpjdY97gDhvMeVqVzGz0i+l9WgI9lprZSV+ZPj/WMb8eESr
+	 ch12fi1DbL/wrJHtqyFnF+y/x/RFxdJ8C3iySjCepmrUh4ptJm0QdrgXRHdjuGRD3a
+	 pepJWU3SaNbNQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 08/13] usb: hub: Power on connected M.2 E-key
+ connectors with power sequencing API
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260703110317.1283411-9-wenst@chromium.org>
+References: <20260703110317.1283411-1-wenst@chromium.org>
+ <20260703110317.1283411-9-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 03 Jul 2026 11:29:28 +0000
+Message-Id: <20260703112929.420A61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617080031.99156-11-clamor95@gmail.com>
 
-On Wed, Jun 17, 2026 at 11:00:27AM +0300, Svyatoslav Ryhel wrote:
-> Missing coherent_dma_mask assigning triggers the following warning in
-> dmesg:
-> 
-> [    3.287872] platform lm3533-backlight.0: DMA mask not set
-> 
-> Since this warning might be elevated to an error in the future, set
-> coherent_dma_mask to zero because both the core and cells do not utilize
-> DMA.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Off-by-one array access in `hub_is_port_power_switchable()` causes=
+ an out-of-bounds read and potential use-after-free on the `hub->ports` arr=
+ay.
+- [High] Missing NULL check for `port->pwrseq` causes all USB ports to fail=
+ to power on when `CONFIG_POWER_SEQUENCING` is disabled.
+- [Medium] Leaked firmware node reference count in `usb_hub_create_port_dev=
+ice`.
+- [Low] Missing dummy declaration for `pwrseq_power_is_on()` when `CONFIG_P=
+OWER_SEQUENCING` is disabled.
+--
 
-IIUC this warning is introduced by the OF conversion and should
-therefore be moved before it as a preparatory patch.
+commit d1a665b6f212fa1e434ea2cca8c69acf5a200a73
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
-But you need to describe the problem in more detail here as this looks
-fishy.
+    usb: hub: Power on connected M.2 E-key connectors with power sequencing=
+ API
+   =20
+    The new M.2 E-key connector can have a USB connection. For the USB devi=
+ce
+    on this connector to work, its power must be enabled and the W_DISABLE2#
+    signal deasserted. The connector driver handles this and provides a
+    toggle over the power sequencing API.
 
-Johan
+> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+> index 5969c55b2201f..5327ae179181d 100644
+> --- a/drivers/usb/core/hub.c
+> +++ b/drivers/usb/core/hub.c
+[ ... ]
+> @@ -871,6 +872,30 @@ static void hub_tt_work(struct work_struct *work)
+>  	spin_unlock_irqrestore(&hub->tt.lock, flags);
+>  }
+> =20
+> +static int usb_hub_set_port_pwrseq(struct usb_port *port, bool set)
+> +{
+> +	int ret =3D 0;
+> +
+> +	if (set)
+> +		ret =3D pwrseq_power_on(port->pwrseq);
+> +	else
+> +		ret =3D pwrseq_power_off(port->pwrseq);
+> +
+> +	return ret;
+> +}
+
+[Severity: High]
+Does this code correctly handle the case when CONFIG_POWER_SEQUENCING is
+disabled?
+
+When power sequencing is disabled, port->pwrseq is NULL. However, the
+inline stub for pwrseq_power_on() in include/linux/pwrseq/consumer.h blindly
+returns -ENOSYS.
+
+Because this return value is checked in usb_hub_set_port_power():
+
+drivers/usb/core/hub.c:usb_hub_set_port_power() {
+    ...
+    ret =3D usb_hub_set_port_pwrseq(pwrseq_port, set);
+    if (ret)
+        return ret;
+    ...
+}
+
+Could this cause all USB ports to completely fail to power on when the kern=
+el
+is built without CONFIG_POWER_SEQUENCING support, returning -ENOSYS before
+calling set_port_feature()?
+
+[ ... ]
+> @@ -3242,7 +3271,10 @@ int usb_port_is_power_on(struct usb_port *port, un=
+signed int portstatus)
+>  			ret =3D 1;
+>  	}
+> =20
+> -	return ret;
+> +	if (!port->pwrseq)
+> +		return ret;
+> +
+> +	return ret && pwrseq_power_is_on(port->pwrseq);
+>  }
+
+[Severity: Low]
+Is there a missing dummy declaration for pwrseq_power_is_on() when
+CONFIG_POWER_SEQUENCING is disabled?
+
+It appears that the fallback #else block in include/linux/pwrseq/consumer.h
+is missing a dummy stub implementation for pwrseq_power_is_on(). This could
+lead to an implicit function declaration error when building the kernel with
+CONFIG_USB=3Dy and CONFIG_POWER_SEQUENCING=3Dn.
+
+> diff --git a/drivers/usb/core/hub.h b/drivers/usb/core/hub.h
+> index b65d9192379db..99bae6ace4da0 100644
+> --- a/drivers/usb/core/hub.h
+> +++ b/drivers/usb/core/hub.h
+[ ... ]
+> @@ -147,7 +149,13 @@ static inline bool hub_is_port_power_switchable(stru=
+ct usb_hub *hub)
+>  	if (!hub)
+>  		return false;
+>  	hcs =3D hub->descriptor->wHubCharacteristics;
+> -	return (le16_to_cpu(hcs) & HUB_CHAR_LPSM) < HUB_CHAR_NO_LPSM;
+> +	if ((le16_to_cpu(hcs) & HUB_CHAR_LPSM) < HUB_CHAR_NO_LPSM)
+> +		return true;
+> +	/* check for controllable external power sequencers */
+> +	for (unsigned int i =3D 1; i <=3D hub->hdev->maxchild; i++)
+> +		if (hub->ports[i] && hub->ports[i]->pwrseq)
+> +			return true;
+> +	return false;
+>  }
+
+[Severity: High]
+Does this loop index cause an out-of-bounds read and potential use-after-fr=
+ee
+on the hub->ports array?
+
+The loop iterates from i =3D 1 to hub->hdev->maxchild, skipping index 0 and
+reading one element past the allocated boundary (index maxchild).=20
+
+Additionally, if usb_hub_create_port_device() fails to initialize a port,
+the port device pointer is still assigned in the array:
+
+drivers/usb/core/port.c:usb_hub_create_port_device() {
+    ...
+    hub->ports[port1 - 1] =3D port_dev;
+    ...
+    retval =3D device_register(&port_dev->dev);
+    if (retval) {
+        put_device(&port_dev->dev);
+        return retval;
+    }
+    ...
+}
+
+If this initialization fails for port X, hub->ports[X-1] will retain a poin=
+ter
+to the freed port device. When hub_is_port_power_switchable() iterates,
+it will access hub->ports[1] through hub->ports[X-1], leading to a
+use-after-free when reading the ->pwrseq field.
+
+> diff --git a/drivers/usb/core/port.c b/drivers/usb/core/port.c
+> index 77dbf51f17604..87b8e4f90be68 100644
+> --- a/drivers/usb/core/port.c
+> +++ b/drivers/usb/core/port.c
+[ ... ]
+> @@ -809,10 +848,18 @@ int usb_hub_create_port_device(struct usb_hub *hub,=
+ int port1)
+>  		goto err_put_kn;
+>  	}
+> =20
+> +	port_dev->pwrseq =3D usb_hub_port_pwrseq_get(port_dev);
+> +	if (IS_ERR(port_dev->pwrseq)) {
+> +		retval =3D PTR_ERR(port_dev->pwrseq);
+> +		dev_err_probe(&port_dev->dev, retval,
+> +			      "failed to get power sequencing descriptor\n");
+> +		goto err_put_kn;
+> +	}
+> +
+
+[Severity: Medium]
+Can this code leak a firmware node reference count?
+
+Earlier in usb_hub_create_port_device(), fwnode_graph_get_port_by_id()
+returns a fwnode_handle with its reference count incremented:
+
+drivers/usb/core/port.c:usb_hub_create_port_device() {
+    ...
+    if (!is_acpi_node(dev_fwnode(&hdev->dev)))
+        device_set_node(&port_dev->dev,
+                fwnode_graph_get_port_by_id(dev_fwnode(&hdev->dev), port1));
+    ...
+}
+
+This fwnode_handle is assigned to the device, but the device core does not
+automatically drop it on device_unregister(). Since fwnode_handle_put() is
+never called in usb_port_device_release() or usb_hub_remove_port_device(),
+is this reference permanently leaked during port device teardown?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703110317.1283=
+411-1-wenst@chromium.org?part=3D8
