@@ -1,93 +1,145 @@
-Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08C3222597
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 02:24:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.36.163.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7D32BD02
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 02:36:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783045465; cv=none; b=nhNuCBi6O4ddSqYwjMx+kWz7KYppw+ED6kduixJKVnSyP/Q9M3jyMU65WJyTNNddto15p2IRZN8oFcts0lbHcYCUD2UFQYeJMAEfzRrIhJDR+vMz9jfozQKqN2jTgSB3kcSqK7zp06Scx3puSMRHQx8RZLtzN6eFCnF2NGFciMc=
+	t=1783046166; cv=none; b=t/QzOmuqpviX6d8wkOJ2o+biPOSRKk3apf4TACXdvjO1DesOuxexQke0CGbD9KGIjNvJG7Vr/FQHcaEormj2c5O42/9UBcZB+0QbVEJ9BjB1BJqFJUzZ5dAWz1bHLNEz+eianoPHyrGuba5QsQYbGVubJ17N0ZdnEx6HOouCE+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783045465; c=relaxed/simple;
-	bh=ldjRhuoUmm96yhd/jzbgrACvM+ER+HM+o73q4Xiahzg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ul07ATo9K8bLN7I4vnBjT4qCkn+js67xkYJlNmaO8mDN8zJeNFIZvuduqX5T1MRtJtTKWFEVjMMBCIW98BMhAz7vkNHvPePRuS1YedcNPuekMredFDGYdmBDGS1aIX4FhnT1dDam2cHIYANxhaam0OT/qRyaJcltswRwHrngyJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz; spf=pass smtp.mailfrom=alliedtelesis.co.nz; dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b=gdKnmIlw; arc=none smtp.client-ip=202.36.163.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
+	s=arc-20240116; t=1783046166; c=relaxed/simple;
+	bh=9LqzhRpYj9NYtU+MjfggZGnyythjraKKenuyIF9maDo=;
+	h=Message-ID:From:Subject:Date:MIME-Version:Content-Type:To:Cc; b=mCTQRVXfjopB/n9/WcTXZWsn5gBNZgdUi09tMqi4dDGn6puCdKzUL4+EkE31+vmjARpLMfRQrmdcz1dxfW7dJm/ArcZ8IHP9mqjjRxcawREZjLP2pzX3UOMneirjXIDnuXp2Vbea5MlBtA81am/oWLdXSKqPiLRjqlv8h3UwEkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=Yl70rcAL; arc=none smtp.client-ip=43.163.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b="gdKnmIlw"
-Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id B54DB2C05BD;
-	Fri,  3 Jul 2026 14:24:20 +1200 (NZST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
-	s=mail181024; t=1783045460;
-	bh=ldjRhuoUmm96yhd/jzbgrACvM+ER+HM+o73q4Xiahzg=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
-	b=gdKnmIlwWZQYJ08pUg4dtT4lXXeBM4NpFQ6xiRYjRXFeUvniXrMm4GSupAY4GXmPW
-	 JBmPo+iI6f0y6tG3t6wVWWTRg5cHn8qLEJ+8sntARAzkWL5Ag4Y7z9SA5+xkXJFk1g
-	 aZPjjFbkLc/uCF7M2XvFb2YAnLLnSWppTXkJ8V9RXRB4qFDKssFQm5cyP7P4F2IF6V
-	 RPHUp5sKmsNUJUZA03HEni43cj3+CwkIvuITWWIXHPytmDMcUCDo6gz8X8xX4gQfTV
-	 7lKXIURN2qg1FJlTZbXtlH7uzVKp++wCnJATYyIPGcDjdhSNmV/lPYtKLp/bMp+PgH
-	 m/nVDLLpkwrAw==
-Received: from svr-chch-ex2.atlnz.lc (Not Verified[2001:df5:b000:bc8::76]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
-	id <B6a471d540001>; Fri, 03 Jul 2026 14:24:20 +1200
-Received: from svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8::76) by
- svr-chch-ex2.atlnz.lc (2001:df5:b000:bc8::76) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Fri, 3 Jul 2026 14:24:20 +1200
-Received: from svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567]) by
- svr-chch-ex2.atlnz.lc ([fe80::a9eb:c9b7:8b52:9567%15]) with mapi id
- 15.02.1748.039; Fri, 3 Jul 2026 14:24:20 +1200
-From: Chris Packham <Chris.Packham@alliedtelesis.co.nz>
-To: Andrew Lunn <andrew@lunn.ch>, Markus Stockhausen
-	<markus.stockhausen@gmx.de>
-CC: "hkallweit1@gmail.com" <hkallweit1@gmail.com>, "linux@armlinux.org.uk"
-	<linux@armlinux.org.uk>, "davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
-	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "daniel@makrotopia.org"
-	<daniel@makrotopia.org>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 4/8] net: mdio: realtek-rtl9300: Configure
- hardware polling during probing
-Thread-Topic: [PATCH net-next v2 4/8] net: mdio: realtek-rtl9300: Configure
- hardware polling during probing
-Thread-Index: AQHdB9tQksraRZWC3EWnRbR6FKjf47ZU8muAgAVazwA=
-Date: Fri, 3 Jul 2026 02:24:20 +0000
-Message-ID: <eac9d8d1-0ebe-403f-9823-c676058cd9bb@alliedtelesis.co.nz>
-References: <20260629152336.2239826-1-markus.stockhausen@gmx.de>
- <20260629152336.2239826-5-markus.stockhausen@gmx.de>
- <6f0a60b2-5083-46c5-aae4-3197d66007da@lunn.ch>
-In-Reply-To: <6f0a60b2-5083-46c5-aae4-3197d66007da@lunn.ch>
-Accept-Language: en-NZ, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <A9B1A5ABFEF3034F873806BA723D5B57@alliedtelesis.co.nz>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="Yl70rcAL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1783046160; bh=Ygojyp0bDF3m1hG4wdzA6tVvoWHQZC539t+dNCrdS60=;
+	h=From:Subject:Date:To:Cc;
+	b=Yl70rcALW07TLVPgPd2M88mr9yTmmtLu2510EYrwHUwRcMgGaYwa6gxaIDoTxb2DE
+	 8fCgnzp4TfHFxr6uTY38/KQ7jzGRbeG3/5ESKO2yqQSF4aGfaSeAQRu/UT7MN/Vv7y
+	 g4bPctWCrfBfZbrfiQ9jzxza4E2WsgCbNnl/uXwI=
+Received: from ubuntu2204.localdomain ([218.4.149.66])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id 8F90EEF9; Fri, 03 Jul 2026 10:35:57 +0800
+X-QQ-mid: xmsmtpt1783046157t5fksbsjd
+Message-ID: <tencent_AA108D2806AC225EF9553469D218C8C0260A@qq.com>
+X-QQ-XMAILINFO: NGZp1yYNf7Y+3KmgUKGD76+hykZmOInL9Y0xSuZx+MoBIwu/ISbYLz5Ckgifd1
+	 LEj6XlcfWOBnhCaHt7hmCOoUoFzy+K/KXHUAQ88bxIAmBFfIlJQRqPHxkovI6oYbu7l6vH/T2/x6
+	 grZ/zZu2MzDH4meUIU45bntctml/qWhGkPjG6PyV0FZj92wfqCmJBX5AymIV07GpLuSuX6g0DCJO
+	 2eXQQv/fiYYGkr9i/ZE+2RxTZynau9CszCbCbNP/ZDhU+Mg2/weUzrZtT9Hky38D64V5Nq2BfYor
+	 6xTHeiPnOS5TrYoA5pElzXRbWDYyJCJxgJF87TqkWfB+XnTAbwpZ/kcMtHR4uxRN/u/DP9s2s8pl
+	 n38zjZvKhABIItsJcwJlVRB0RORSToaGS3CUea1e4mB2RrZLzYMx9Fi/GUuyeQpPBMEAVZ+83ipv
+	 Ls7uKh4QuL1myJkfC2uezCAaIGrz5Zj8JEe0wz8/R5C0+aasDI5lh5GgZ+7jnd32il9xhlbiPg6E
+	 Yip+Lca2WGTBqEFMbhvniWB1nhY0tiUWw0BEsGqnV525yO4mGharcsCPp7sZjQMTjFKP7l4qU8d9
+	 ZTqcllymiMIBP2JxCqKVqgEj8rnxOoAlu0M1DALXxeIXX7ku3I8SbVGU3pgMw2xFYAhs24X3J5i9
+	 4i3wQwBIyrTM6YS4prddpP2UdUFGZYNFFOx24yK0Rgdg5ECNSToHC5PRfbEq0WVdEBxTxAUukOil
+	 AQFIiUiGkwpHtuQhhf/Y6Xi5G3aXxUm/x75bP3+ClKVI6q9LlDE5KzqnIKo3OpWxF2l5+I5kqk4/
+	 yuxekeEquXx8FCmMp5VGzTdLFqv25P6/xlG9kUUSQI3w47MsU5LRrHXd0PKY2dCtAEaJusdbBd32
+	 dOm+fPb8ny+TGNc4k4GU6zsT6KRIlNT9qblq3ZD/KbBLRw/WrlCywBpRN/4n9L7VVPYVHRk5mpYe
+	 WFXlprbDUzca6QItRb+dlQu71RFzMbwMB/f/xgIcWD2GohxHurd5A300PXKoSzU6HRof3RQ8PXCH
+	 L3fCOS4uARZvMCvn1Ju7J1nd1UpHCamprjELEYASexwdEg/QUsGL/WxxwfT0/+K84fsRHkJpr6ML
+	 7BuGn8L3sqmy2FkhO+LJlvl+Uc4H6/Z/ATwwuPh0qhbmX2C/SjeRGvnRsUXA==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Cunhao Lu <1579567540@qq.com>
+Subject: [PATCH v3 0/4] can: rockchip: add RK3588 CAN support
+Date: Fri, 03 Jul 2026 10:35:39 +0800
+X-OQ-MSGID: <20260703-master-v3-0-6d56de6fd2f3@qq.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SEG-SpamProfiler-Analysis: v=2.4 cv=TI3mSEla c=1 sm=1 tr=0 ts=6a471d54 a=Xf/6aR1Nyvzi7BryhOrcLQ==:117 a=xqWC_Br6kY4A:10 a=drD7vYo3kbIA:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=5hFCTVTI1vfZqTqBIt8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-SEG-SpamProfiler-Score: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPsfR2oC/yXMSwqAMAxF0a1IxhZKxO9WxEGtUSP4oakiiHu36
+ vDAfe8CIcckUEUXODpYeF0CkjgCO5plIMVdMKDGTOca1WzEk1OFTbGlokST9BDizVHP53dUN79
+ lbyey/l3DfT9B5L3KagAAAA==
+X-Change-ID: 20260702-master-8c52be892a3f
+To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
+ Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Cunhao Lu <1579567540@qq.com>, 
+ Heiko Stuebner <heiko.stuebner@cherry.de>
+X-Mailer: b4 0.15.2
 
-DQpPbiAzMC8wNi8yMDI2IDA0OjM4LCBBbmRyZXcgTHVubiB3cm90ZToNCj4+ICtzdGF0aWMgaW50
-IG90dG9fZW1kaW9fbm90aWZ5X3BoeV9hdHRhY2goc3RydWN0IHBoeV9kZXZpY2UgKnBoeWRldikN
-Cj4+ICt7DQo+PiArCXN0cnVjdCBvdHRvX2VtZGlvX3ByaXYgKnByaXYgPSBvdHRvX2VtZGlvX2J1
-c190b19wcml2KHBoeWRldi0+bWRpby5idXMpOw0KPj4gKwlpbnQgcG9ydCA9IG90dG9fZW1kaW9f
-cGh5X3RvX3BvcnQocGh5ZGV2LT5tZGlvLmJ1cywgcGh5ZGV2LT5tZGlvLmFkZHIpOw0KPj4gKwlp
-bnQgcmV0Ow0KPj4gKw0KPj4gKwlpZiAocG9ydCA8IDApDQo+PiArCQlyZXR1cm4gcG9ydDsNCj4g
-SGVyZSBzZWVtcyBsaWtlIGEgZ29vZCBwbGFjZSB0byBjaGVjayB0aGUgUEhZIGlzIGEgcmVhbHRl
-ayBQSFksIGFuZA0KPiByZXR1cm4gLUVOT0RFViBpZiBub3QuIFRoYXQgc2hvdWxkIGNhdXNlIHBo
-eV9hdHRhY2hfZGlyZWN0KCkgdG8gZmFpbCwNCj4gbWFraW5nIGl0IGltcG9zc2libGUgdG8gY29u
-ZmlndXJlIHRoZSBwb3J0IHVwLg0KSSBkbyBrbm93IG9mIGF0IGxlYXN0IG9uZSBib2FyZCAoWnl4
-ZWwgWEdTMTIxMCkgdGhhdCB1c2VzIGEgUlRMOTN4eCBhbmQgDQphIEFRUiBQSFku
+Add support for the RK3588 CAN controller.
+
+RK3588 integrates three CAN-FD controllers that are closely related to
+the existing Rockchip CAN-FD IP already supported in the kernel. The
+RK3588 variant is not fully compatible with RK3568v2 because the RX
+FIFO count register field has a different layout.
+
+This series therefore:
+
+- extends the existing Rockchip CAN-FD binding with the
+  rockchip,rk3588-canfd compatible
+- adds a dedicated RK3588 match entry and devtype in the driver
+- describes the three CAN controller nodes in rk3588-base.dtsi
+- enables CAN on the RK3588 Tiger Haikou board
+
+RK3588 encodes RX_FIFO_CNT in bits 7:5 instead of 6:4. This
+difference was found by comparing Rockchip's vendor kernel 6.1 CAN
+support for RK3568 and RK3588, and was also confirmed by runtime
+testing.
+
+RK3588 uses the existing erratum 5 empty-FIFO workaround. Based on
+Heiko's testing, v2 also enables the erratum 6 workaround for extended
+frames being transmitted as standard frames.
+
+RKCANFD_QUIRK_CANFD_BROKEN remains enabled for RK3588, so CAN-FD stays
+disabled for now. Local testing did not reproduce the two known CAN-FD
+trigger frames that cause Error Interrupts on RK3568 variants. Instead,
+RK3588 shows a different CAN-FD failure mode: CAN-FD frames without BRS
+work in this setup, but BRS with a data bitrate different from the
+nominal bitrate immediately drives the controller bus-off.
+
+Tested on an embedfire,rk3588-lubancat-5io board with can0/can1
+directly connected. Runtime testing used a 200 MHz CAN clock, nominal
+bitrate 500 kbit/s, data bitrate 500 kbit/s and 1 Mbit/s, and included
+stress and error-path coverage for the existing Rockchip errata handling.
+
+v2 -> v3:
+- Move the Changelog below ---
+- Collect Heiko's Reviewed-by and the driver patch Tested-by tag
+- Use Co-developed-by for Heiko's RK3588 contributions and add his
+  Signed-off-by
+v1 -> v2:
+- use real author name
+- fold the single-compatible entries into an enum, as suggested by Krzysztof
+- enable the erratum 6 workaround for RK3588 based on Heiko's testing
+- add Heiko's RK3588 Tiger Haikou CAN enablement patch
+- keep RKCANFD_QUIRK_CANFD_BROKEN enabled for RK3588 so CAN-FD stays disabled
+- document the RK3588 CAN-FD/BRS bus-off failure mode
+
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+---
+Cunhao Lu (3):
+      dt-bindings: can: rockchip: add rk3588 CAN-FD compatible
+      can: rockchip: add RK3588 CAN support
+      arm64: dts: rockchip: add CAN-FD nodes for RK3588
+
+Heiko Stuebner (1):
+      arm64: dts: rockchip: Enable CAN controller on RK3588-Tiger-Haikou
+
+ .../bindings/net/can/rockchip,rk3568v2-canfd.yaml  |  4 ++-
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      | 39 ++++++++++++++++++++++
+ .../boot/dts/rockchip/rk3588-tiger-haikou.dts      |  6 ++++
+ drivers/net/can/rockchip/rockchip_canfd-core.c     | 12 +++++++
+ drivers/net/can/rockchip/rockchip_canfd-rx.c       |  5 ++-
+ drivers/net/can/rockchip/rockchip_canfd.h          | 26 ++++++++++++++-
+ 6 files changed, 89 insertions(+), 3 deletions(-)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260702-master-8c52be892a3f
+
+Best regards,
+--  
+Cunhao Lu <1579567540@qq.com>
+
