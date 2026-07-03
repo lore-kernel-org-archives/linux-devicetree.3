@@ -1,243 +1,735 @@
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07733376A0B;
-	Fri,  3 Jul 2026 08:01:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BC5372B3D;
+	Fri,  3 Jul 2026 08:03:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783065717; cv=none; b=sDGdGwG/xicSTUhe/sfRW5b95oRtjG39PLF3rdx0j+AJN/dZsV93cvt8U+ydbgYxWfm6dceb+8Z3jIfB8itDgxUuEYZaW/xgDbHCz1TpPvBeJ23uAnyAx3MNnACMZtGiRTEijszDcXTuDJSd8njBaYHrO9h+/zAJXQqzs3Tb5IA=
+	t=1783065794; cv=none; b=uCd49UnVDo7EUfDmpXWO2Sux8x7yzJgtWswGmum35lYa22q+124NAyG5sVIzFkHLz0Yk67JcHZbf19E2podYZp3KazXUeuxTmA1qDAPO3jijd30tk5tSAbllKyt98ynPnsafpbQrfK0g17PybOUM10mIwPrOWlKo3KvVeoPXkUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783065717; c=relaxed/simple;
-	bh=vrPHEB3+w5G35GPR9mPHQPx28fJ2c9qaFskX6Ayye+4=;
-	h=Message-ID:From:Date:Subject:MIME-Version:Content-Type:References:
-	 In-Reply-To:To:Cc; b=bhAQqRc/+yqeytARfxbr0lmv2t5XA9DJxFncNpXYxq3ONAwRRDN8ZKMHi4nmn7VZ3EAt8QlrHYkdPwRdlkcVLSUAH+HzDSuDQe/aRv3dusdc6HEGfK1lipRYlFmPNRbQMmFvNuws6AfY2hj3gh1bD8AO/8isPae2VFMj+ugaDIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=d0oxEXMm; arc=none smtp.client-ip=162.62.57.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1783065794; c=relaxed/simple;
+	bh=REbCYgzl3r1f86mbfFlyIgF4PYAw24I7tPjiMU8+gCU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LbajNS7wCrMn3PtVIUx2oZF5k4IPMmgvISLAqF0lkGdhSadSwAIMWJjZ016hgeBsjj7azJ56WdeF8D3nGUJhRwHvh5/Wzs5RF4KfhNjp4efqbXRSeVPpm5v5S5HxmDmI7rsFVS/ZuhW9py5XtuZuels4kyyMjVIRFa99NBgoR+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j61KGnJY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="d0oxEXMm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1783065704; bh=Qx4ZowKxWnzVWcBE/a6+0KeQkOIKkkshmtvZgxCaZNY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=d0oxEXMm3wA5E7HkRwAdI7wjyZ57jDNl2+q57m9zHZXcf2ERbxaAriGHyJSYsFZU9
-	 Z2G43P1ZkGA2fODkI7VBi4bkoz5rGG8Fu/2l7hNNRFGp1hN0ZOn8ty8Tw7+LNC0nHP
-	 IPXQM9DCCmv9TZwERmm3TULWdBjMH3kuo/Iv6fZk=
-Received: from ubuntu2204.localdomain ([218.4.149.66])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 6622C6D; Fri, 03 Jul 2026 16:01:38 +0800
-X-QQ-mid: xmsmtpt1783065701tm5a4i8ui
-Message-ID: <tencent_8AEC1180006A44113FE5A6679A6C99A60407@qq.com>
-X-QQ-XMAILINFO: NYtOCndYWoWXLyJADIv/+F8mwSH5x7aSzbP/duA0BYelxz5kQyrJaI2j8eY+aF
-	 SUp+eKZSXgDAwYOzSJJmTPdWuCRDhvCg+5bQJAxBmI5HP/QTPXT/dKqyAEaf8+GKRNePIoKsRl9F
-	 wMM46CTQIQAyHRG/5palpRMu1gTmakj1HLQ3UHYAw94brRwScxXnG8JJOiAdBDetO542gufaR/dW
-	 Twv7aGIsXLd0fPPPQuDMwLcUU0tJOBnfGttaDlrh+jfIJ587eNfyzQyEDHrDM3Ub2AfaMCxVUZ08
-	 ZY3GsO5sZD91QpxiCa4EAeBh3gITVHQxjTKuZTxvB3PRN7SLSyUoHr2ieGr+G/j1T+t9mAQxDA3n
-	 ciIBTAT6GEc2o0qJ8pewXdNq2IlkN1B+TJw6de1EGe2qPpiEPeEMljNvMmxd/sRdlZi8IPoOwQJW
-	 gfcPj9qQRtSoCirAHeSBEu1iNGXSX4w6XtB2MDMQu61spOvWmvukclswiTnq4n63RKUDn6BUHIkz
-	 9xwLLnCnm8Ay/Lg/yiyY1etWQ7cQ81ew+dNeoHmefcSeexoyi9NdorTNFB5cQCgVoSA2eMCfJabw
-	 cj2xygyU/1IYs40FbDq+usSzpFnCIxk4633cWcA3QlkeZp6c3t54vcgP+z5nG/kLov0b0OMKsogD
-	 OS7IlmoqVpTCXHPKr/31l+CZhP8Dg0p0NfwyKO6UuLQc7sgeL21paxYVitr3sG5tgIYAORVdSv83
-	 J6jkOBdFQj5lmLiZ2aSudGACEA6HWuJOWxkadM+RnFThdw6RIBwx3IDRk3Jg1edN0MkFrm1EGlrN
-	 YXew6V0XRBliAZQQ9dgEXDrWz4K3DdKyDAVHkdzaKae9gP5Tl5w4JDPK/LuICVPLWOuNMeQLfoo4
-	 sJZyxZzZbnopcwimMs4DGSsbYZ+ygwnA77KCbytWo01SknBfpxTKTAegicAOAKqcJOolWz8JNmzJ
-	 nzspljWt++HHJoe0290t33FGvgWoT7sT4zGDl3hhXjjCjhFlSw8fflxQhwg8s1aY0zO7Vyrt4g+L
-	 HkIUzd3Ce1Y5wxrtQsn6zkTKm+FJUdPa3rEEZpNVGNiRifaDjVBHH9PV2+4wnWnBQhMEmLabGEKP
-	 7bw1r/A+eOfaMkvsBCZOB1FvzNTG6iffEDS5swcEuN/bgvprRZFCEn3gHbPyxzQ+yw8UUo
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Cunhao Lu <1579567540@qq.com>
-Date: Fri, 03 Jul 2026 16:01:27 +0800
-Subject: [PATCH v4 2/4] can: rockchip: add RK3588 CAN support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j61KGnJY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4A01F000E9;
+	Fri,  3 Jul 2026 08:03:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783065792;
+	bh=QyDIKNGVyCv/6GXhHI7UOd5RxhyDn27UfpNmASSE4vM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=j61KGnJYZfNPglkNdPNMx37nFuSkQkdpDKfIrO58RkXUe6tUYR5VYnVCKlM4oWqGD
+	 /ZeUzdSQHrymYn1onS+Le+bv33RQh4Z0tfbtk+TvP4A3tTvsbWkVo2OFBHToVCOdCY
+	 LXbts/01YmL+5A6IAGDuqSrfRV5d8T2Qedhujm/6MNyNaqo1j6xlNoO+/SUrdP9c7b
+	 zdJReVF74LK2Arhskk3i1nhCcLLsDev68fqqIkv65aoTIrgFqhNbBHczcDEHO262+5
+	 FHZi6j0sVqztdizb2Im75TYt1+EWWIC0StZ44JgGW/7bnLInwEPcXXiAKp3tv4OPBk
+	 MlfNhTOi9giEw==
+Date: Fri, 3 Jul 2026 10:03:08 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, Amit Kucheria <amit.kucheria@oss.qualcomm.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, 
+	Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>, Casey Connolly <casey.connolly@linaro.org>
+Subject: Re: [PATCH v4 03/10] soc: qcom: Add QMI TMD support for remote
+ thermal mitigation
+Message-ID: <20260703-overjoyed-laughing-panda-ee7ecb@quoll>
+References: <20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com>
+ <20260703-qmi-tmd-v4-3-3882189c1f83@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-OQ-MSGID: <20260703-master-v4-2-47d40bbf5fda@qq.com>
-References: <20260703-master-v4-0-47d40bbf5fda@qq.com>
-In-Reply-To: <20260703-master-v4-0-47d40bbf5fda@qq.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
- Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Cunhao Lu <1579567540@qq.com>, 
- Heiko Stuebner <heiko.stuebner@cherry.de>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260703-qmi-tmd-v4-3-3882189c1f83@oss.qualcomm.com>
 
-Add support for the RK3588 CAN controller by introducing a dedicated
-model ID and OF match entry.
+On Fri, Jul 03, 2026 at 10:33:06AM +0530, Gaurav Kohli wrote:
+> From: Casey Connolly <casey.connolly@linaro.org>
+> 
+> Add support for Qualcomm Messaging Interface (QMI) based Thermal Mitigation
+> Device (TMD) cooling devices provided by remote subsystems.
+> 
+> On Qualcomm platforms where remote processors expose mitigation controls
+> through the TMD QMI service, client drivers need support to discover the
+> service, register cooling devices for available mitigation endpoints,
+> and forward cooling state updates to remote subsystems.
+> 
+> Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+> Co-developed-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> Co-developed-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> ---
+>  MAINTAINERS                      |   6 +
+>  drivers/soc/qcom/Kconfig         |  10 +
+>  drivers/soc/qcom/Makefile        |   1 +
+>  drivers/soc/qcom/qmi_tmd.c       | 581 +++++++++++++++++++++++++++++++++++++++
+>  include/linux/soc/qcom/qmi.h     |   1 +
+>  include/linux/soc/qcom/qmi_tmd.h |  23 ++
+>  6 files changed, 622 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index ffd85fd1dd80..251b1f583913 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -22287,6 +22287,12 @@ F:	Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+>  F:	Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst
+>  F:	drivers/net/ethernet/qualcomm/ppe/
+>  
+> +QUALCOMM QMI (REMOTEPROC THERMAL MITIGATION) TMD
+> +M:	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> +L:	linux-arm-msm@vger.kernel.org
+> +L:	linux-pm@vger.kernel.org
+> +F:	drivers/soc/qcom/qmi_tmd.c
+> +
+>  QUALCOMM QSEECOM DRIVER
+>  M:	Maximilian Luz <luzmaximilian@gmail.com>
+>  L:	linux-arm-msm@vger.kernel.org
+> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
+> index 2caadbbcf830..44c2b533b494 100644
+> --- a/drivers/soc/qcom/Kconfig
+> +++ b/drivers/soc/qcom/Kconfig
+> @@ -128,6 +128,16 @@ config QCOM_QMI_HELPERS
+>  	tristate
+>  	depends on NET
+>  
+> +config QCOM_QMI_TMD
+> +	bool "Qualcomm remote subsystem TMD" if COMPILE_TEST
+> +	depends on ARCH_QCOM
+> +	select QCOM_QMI_HELPERS
+> +	help
+> +	  This enables Qualcomm Messaging Interface (QMI) based Thermal Mitigation
+> +	  Device (TMD) support for Qualcomm remote subsystems. It manages
+> +	  TMD messaging and handles QMI communication with remote processors
+> +	  to exchange mitigation state and apply thermal mitigation requests.
+> +
+>  config QCOM_RAMP_CTRL
+>  	tristate "Qualcomm Ramp Controller driver"
+>  	depends on ARCH_QCOM || COMPILE_TEST
+> diff --git a/drivers/soc/qcom/Makefile b/drivers/soc/qcom/Makefile
+> index b7f1d2a57367..4544e61c74e7 100644
+> --- a/drivers/soc/qcom/Makefile
+> +++ b/drivers/soc/qcom/Makefile
+> @@ -14,6 +14,7 @@ obj-$(CONFIG_QCOM_PMIC_GLINK)	+= pmic_glink.o
+>  obj-$(CONFIG_QCOM_PMIC_GLINK)	+= pmic_glink_altmode.o
+>  obj-$(CONFIG_QCOM_PMIC_PDCHARGER_ULOG)	+= pmic_pdcharger_ulog.o
+>  CFLAGS_pmic_pdcharger_ulog.o	:=  -I$(src)
+> +obj-$(CONFIG_QCOM_QMI_TMD) += qmi_tmd.o
+>  obj-$(CONFIG_QCOM_QMI_HELPERS)	+= qmi_helpers.o
+>  qmi_helpers-y	+= qmi_encdec.o qmi_interface.o
+>  obj-$(CONFIG_QCOM_RAMP_CTRL)	+= ramp_controller.o
+> diff --git a/drivers/soc/qcom/qmi_tmd.c b/drivers/soc/qcom/qmi_tmd.c
+> new file mode 100644
+> index 000000000000..d82500415f8e
+> --- /dev/null
+> +++ b/drivers/soc/qcom/qmi_tmd.c
+> @@ -0,0 +1,581 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) 2025, Linaro Limited
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + * QMI Thermal Mitigation Device (TMD).
+> + * Provides cooling device support for remote subsystems
+> + * running the TMD service via QMI.
+> + */
+> +#include <linux/cleanup.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/module.h>
+> +#include <linux/net.h>
+> +#include <linux/of.h>
+> +#include <linux/slab.h>
+> +#include <linux/soc/qcom/qmi.h>
+> +#include <linux/soc/qcom/qmi_tmd.h>
+> +#include <linux/thermal.h>
+> +
+> +#define QMI_TMD_SERVICE_VERS_V01 0x01
+> +
+> +#define QMI_TMD_SET_LEVEL_REQ 0x0021
+> +#define QMI_TMD_GET_DEV_LIST_REQ 0x0020
+> +
+> +#define QMI_TMD_DEV_ID_LEN_MAX 32
+> +#define QMI_TMD_DEV_LIST_MAX 32
+> +#define QMI_TMD_RESP_TIMEOUT	msecs_to_jiffies(100)
+> +#define TMD_GET_LEVEL_REQ_MAX_LEN 36
+> +#define TMD_SET_LEVEL_REQ_MAX_LEN 40
+> +
+> +#define TMD_GET_DEV_LIST_REQ_MAX_LEN 0
+> +#define TMD_GET_DEV_LIST_RESP_MAX_LEN 1099
+> +
+> +struct tmd_dev_id {
+> +	char mitigation_dev_id[QMI_TMD_DEV_ID_LEN_MAX + 1];
+> +};
+> +
+> +static const struct qmi_elem_info tmd_dev_id_ei[] = {
+> +	{
+> +		.data_type = QMI_STRING,
+> +		.elem_len = QMI_TMD_DEV_ID_LEN_MAX + 1,
+> +		.elem_size = sizeof(char),
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = 0,
+> +		.offset = offsetof(struct tmd_dev_id,
+> +				   mitigation_dev_id),
+> +	},
+> +	{
+> +		.data_type = QMI_EOTI,
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = QMI_COMMON_TLV_TYPE,
+> +	},
+> +};
+> +
+> +struct tmd_dev_list {
+> +	struct tmd_dev_id mitigation_dev_id;
+> +	u8 max_mitigation_level;
+> +};
+> +
+> +static const struct qmi_elem_info tmd_dev_list_ei[] = {
+> +	{
+> +		.data_type = QMI_STRUCT,
+> +		.elem_len = 1,
+> +		.elem_size = sizeof(struct tmd_dev_id),
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = 0,
+> +		.offset = offsetof(struct tmd_dev_list,
+> +				   mitigation_dev_id),
+> +		.ei_array = tmd_dev_id_ei,
+> +	},
+> +	{
+> +		.data_type = QMI_UNSIGNED_1_BYTE,
+> +		.elem_len = 1,
+> +		.elem_size = sizeof(uint8_t),
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = 0,
+> +		.offset = offsetof(struct tmd_dev_list,
+> +				   max_mitigation_level),
+> +	},
+> +	{
+> +		.data_type = QMI_EOTI,
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = QMI_COMMON_TLV_TYPE,
+> +	},
+> +};
+> +
+> +struct tmd_get_dev_list_req {
+> +	char placeholder;
+> +};
+> +
+> +static const struct qmi_elem_info tmd_get_dev_list_req_ei[] = {
+> +	{
+> +		.data_type = QMI_EOTI,
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = QMI_COMMON_TLV_TYPE,
+> +	},
+> +};
+> +
+> +struct tmd_get_dev_list_resp {
+> +	struct qmi_response_type_v01 resp;
+> +	u8 mitigation_device_list_valid;
+> +	u32 mitigation_device_list_len;
+> +	struct tmd_dev_list
+> +		mitigation_device_list[QMI_TMD_DEV_LIST_MAX];
+> +};
+> +
+> +static const struct qmi_elem_info tmd_get_dev_list_resp_ei[] = {
+> +	{
+> +		.data_type = QMI_STRUCT,
+> +		.elem_len = 1,
+> +		.elem_size = sizeof(struct qmi_response_type_v01),
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = 0x02,
+> +		.offset = offsetof(struct tmd_get_dev_list_resp,
+> +				   resp),
+> +		.ei_array = qmi_response_type_v01_ei,
+> +	},
+> +	{
+> +		.data_type = QMI_OPT_FLAG,
+> +		.elem_len = 1,
+> +		.elem_size = sizeof(uint8_t),
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = 0x10,
+> +		.offset = offsetof(struct tmd_get_dev_list_resp,
+> +				   mitigation_device_list_valid),
+> +	},
+> +	{
+> +		.data_type = QMI_DATA_LEN,
+> +		.elem_len = 1,
+> +		.elem_size = sizeof(uint8_t),
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = 0x10,
+> +		.offset = offsetof(struct tmd_get_dev_list_resp,
+> +				   mitigation_device_list_len),
+> +	},
+> +	{
+> +		.data_type = QMI_STRUCT,
+> +		.elem_len = QMI_TMD_DEV_LIST_MAX,
+> +		.elem_size = sizeof(struct tmd_dev_list),
+> +		.array_type = VAR_LEN_ARRAY,
+> +		.tlv_type = 0x10,
+> +		.offset = offsetof(struct tmd_get_dev_list_resp,
+> +				   mitigation_device_list),
+> +		.ei_array = tmd_dev_list_ei,
+> +	},
+> +	{
+> +		.data_type = QMI_EOTI,
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = QMI_COMMON_TLV_TYPE,
+> +	},
+> +};
+> +
+> +struct tmd_set_level_req {
+> +	struct tmd_dev_id mitigation_dev_id;
+> +	u8 mitigation_level;
+> +};
+> +
+> +static const struct qmi_elem_info tmd_set_level_req_ei[] = {
+> +	{
+> +		.data_type = QMI_STRUCT,
+> +		.elem_len = 1,
+> +		.elem_size = sizeof(struct tmd_dev_id),
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = 0x01,
+> +		.offset = offsetof(struct tmd_set_level_req,
+> +				   mitigation_dev_id),
+> +		.ei_array = tmd_dev_id_ei,
+> +	},
+> +	{
+> +		.data_type = QMI_UNSIGNED_1_BYTE,
+> +		.elem_len = 1,
+> +		.elem_size = sizeof(uint8_t),
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = 0x02,
+> +		.offset = offsetof(struct tmd_set_level_req,
+> +				   mitigation_level),
+> +	},
+> +	{
+> +		.data_type = QMI_EOTI,
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = QMI_COMMON_TLV_TYPE,
+> +	},
+> +};
+> +
+> +struct tmd_set_level_resp {
+> +	struct qmi_response_type_v01 resp;
+> +};
+> +
+> +static const struct qmi_elem_info tmd_set_level_resp_ei[] = {
+> +	{
+> +		.data_type = QMI_STRUCT,
+> +		.elem_len = 1,
+> +		.elem_size = sizeof(struct qmi_response_type_v01),
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = 0x02,
+> +		.offset = offsetof(struct tmd_set_level_resp, resp),
+> +		.ei_array = qmi_response_type_v01_ei,
+> +	},
+> +	{
+> +		.data_type = QMI_EOTI,
+> +		.array_type = NO_ARRAY,
+> +		.tlv_type = QMI_COMMON_TLV_TYPE,
+> +	},
+> +};
+> +
+> +/**
+> + * struct qmi_tmd - A TMD cooling device
+> + * @name:	The name of this tmd shared by the remote subsystem
+> + * @cdev:	Thermal cooling device handle
+> + * @cur_state:	The current mitigation state
+> + * @max_state:	The maximum state
+> + * @qmi_tmd_cli:	Parent QMI TMD client
+> + */
+> +struct qmi_tmd {
+> +	const char *name;
+> +	struct thermal_cooling_device *cdev;
+> +	unsigned int cur_state;
+> +	unsigned int max_state;
+> +	struct qmi_tmd_client *qmi_tmd_cli;
+> +};
+> +
+> +/**
+> + * struct qmi_tmd_client - QMI TMD client state
+> + * @dev:		Device associated with this instance
+> + * @handle:		QMI connection handle
+> + * @mutex:		Serializes QMI request/response sequences (qmi_txn_init,
+> + *			qmi_send_request) during DSP subsystem restart and
+> + *			protects @connection_active flag
+> + * @connection_active:	Whether or not we're connected to the QMI TMD service
+> + * @svc_arrive_work:	Work item for initialising when the TMD service starts
+> + * @num_tmds:		Number of tmds described in the device tree
+> + * @tmds:		An array of tmd structures
+> + */
+> +struct qmi_tmd_client {
+> +	struct device *dev;
+> +	struct qmi_handle handle;
+> +	/* protects QMI transactions and connection_active */
+> +	struct mutex mutex;
+> +	bool connection_active;
+> +	struct work_struct svc_arrive_work;
+> +	int num_tmds;
+> +	struct qmi_tmd tmds[] __counted_by(num_tmds);
+> +};
+> +
+> +/* Notify the remote subsystem of the requested cooling state */
+> +static int qmi_tmd_send_state_request(struct qmi_tmd *tmd, int state)
+> +{
+> +	struct tmd_set_level_resp resp = { 0 };
+> +	struct tmd_set_level_req req = { 0 };
+> +	struct qmi_tmd_client *qmi_tmd_cli = tmd->qmi_tmd_cli;
+> +	struct qmi_txn txn;
+> +	int ret = 0;
+> +
+> +	guard(mutex)(&qmi_tmd_cli->mutex);
+> +
+> +	if (!qmi_tmd_cli->connection_active)
+> +		return 0;
+> +
+> +	strscpy(req.mitigation_dev_id.mitigation_dev_id, tmd->name,
+> +		QMI_TMD_DEV_ID_LEN_MAX + 1);
+> +	req.mitigation_level = state;
+> +
+> +	ret = qmi_txn_init(&qmi_tmd_cli->handle, &txn,
+> +			   tmd_set_level_resp_ei, &resp);
+> +	if (ret < 0) {
+> +		dev_err(qmi_tmd_cli->dev, "qmi set state %d txn init failed for %s ret %d\n",
+> +			state, tmd->name, ret);
+> +		return ret;
+> +	}
+> +
+> +	ret = qmi_send_request(&qmi_tmd_cli->handle, NULL, &txn,
+> +			       QMI_TMD_SET_LEVEL_REQ,
+> +			       TMD_SET_LEVEL_REQ_MAX_LEN,
+> +			       tmd_set_level_req_ei, &req);
+> +	if (ret < 0) {
+> +		dev_err(qmi_tmd_cli->dev, "qmi set state %d txn send failed for %s ret %d\n",
+> +			state, tmd->name, ret);
+> +		qmi_txn_cancel(&txn);
+> +		return ret;
+> +	}
+> +
+> +	ret = qmi_txn_wait(&txn, QMI_TMD_RESP_TIMEOUT);
+> +	if (ret < 0) {
+> +		dev_err(qmi_tmd_cli->dev, "qmi set state %d txn wait failed for %s ret %d\n",
+> +			state, tmd->name, ret);
+> +		return ret;
+> +	}
+> +
+> +	if (resp.resp.result != QMI_RESULT_SUCCESS_V01) {
+> +		dev_err(qmi_tmd_cli->dev,
+> +			"qmi set state %d failed for %s result %#x error %#x\n",
+> +			state, tmd->name,
+> +			resp.resp.result, resp.resp.error);
+> +		return -EREMOTEIO;
+> +	}
+> +
+> +	dev_dbg(qmi_tmd_cli->dev, "Requested state %d/%d for %s\n", state,
+> +		tmd->max_state, tmd->name);
+> +
+> +	return 0;
+> +}
+> +
+> +static int qmi_tmd_get_max_state(struct thermal_cooling_device *cdev,
+> +				 unsigned long *state)
+> +{
+> +	struct qmi_tmd *tmd = cdev->devdata;
+> +
+> +	*state = tmd->max_state;
+> +
+> +	return 0;
+> +}
+> +
+> +static int qmi_tmd_get_cur_state(struct thermal_cooling_device *cdev,
+> +				 unsigned long *state)
+> +{
+> +	struct qmi_tmd *tmd = cdev->devdata;
+> +
+> +	/* cur_state is protected by thermal core's cdev->lock */
+> +	*state = tmd->cur_state;
+> +
+> +	return 0;
+> +}
+> +
+> +static int qmi_tmd_set_cur_state(struct thermal_cooling_device *cdev,
+> +				 unsigned long state)
+> +{
+> +	struct qmi_tmd *tmd = cdev->devdata;
+> +	int ret;
+> +
+> +	if (state > tmd->max_state)
+> +		return -EINVAL;
+> +
+> +	/* cur_state is protected by thermal core's cdev->lock */
+> +	if (tmd->cur_state == state)
+> +		return 0;
+> +
+> +	ret = qmi_tmd_send_state_request(tmd, state);
+> +	if (!ret)
+> +		tmd->cur_state = state;
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct thermal_cooling_device_ops qmi_tmd_cooling_ops = {
+> +	.get_max_state = qmi_tmd_get_max_state,
+> +	.get_cur_state = qmi_tmd_get_cur_state,
+> +	.set_cur_state = qmi_tmd_set_cur_state,
+> +};
+> +
+> +static int qmi_tmd_register(struct qmi_tmd_client *qmi_tmd_cli,
+> +			    const char *label, u8 max_state)
+> +{
+> +	struct device *dev = qmi_tmd_cli->dev;
+> +	struct qmi_tmd *tmd;
+> +	int index;
+> +
+> +	for (index = 0; index < qmi_tmd_cli->num_tmds; index++) {
+> +		tmd = &qmi_tmd_cli->tmds[index];
+> +
+> +		if (!strncasecmp(tmd->name, label,
+> +				 QMI_TMD_DEV_ID_LEN_MAX + 1))
+> +			goto found;
+> +	}
+> +
+> +	dev_dbg(qmi_tmd_cli->dev,
+> +		"TMD '%s' available in firmware but not specified in DT\n",
+> +		label);
+> +	return 0;
+> +
+> +found:
+> +	tmd->max_state = max_state;
+> +
+> +	/*
+> +	 * If the cooling device already exists then the QMI service went away and
+> +	 * came back. So just make sure the current cooling device state is
+> +	 * reflected on the remote side and then return.
+> +	 */
+> +	if (tmd->cdev)
+> +		return qmi_tmd_send_state_request(tmd, tmd->cur_state);
+> +
+> +	tmd->cdev = thermal_of_cooling_device_register(dev->of_node, index,
+> +						       label, tmd, &qmi_tmd_cooling_ops);
+> +	if (IS_ERR(tmd->cdev))
+> +		return PTR_ERR(tmd->cdev);
+> +
+> +	return 0;
+> +}
+> +
+> +static void qmi_tmd_unregister(struct qmi_tmd_client *qmi_tmd_cli)
+> +{
+> +	struct qmi_tmd *tmd;
+> +	int index;
+> +
+> +	for (index = 0; index < qmi_tmd_cli->num_tmds; index++) {
+> +		tmd = &qmi_tmd_cli->tmds[index];
+> +
+> +		if (!tmd->cdev)
+> +			continue;
+> +
+> +		thermal_cooling_device_unregister(tmd->cdev);
+> +		tmd->cdev = NULL;
+> +	}
+> +}
+> +
+> +static void qmi_tmd_svc_arrive(struct work_struct *work)
+> +{
+> +	struct qmi_tmd_client *qmi_tmd_cli =
+> +		container_of(work, struct qmi_tmd_client, svc_arrive_work);
+> +
+> +	struct tmd_get_dev_list_req req = { 0 };
+> +	struct tmd_get_dev_list_resp *resp __free(kfree) = NULL;
+> +	int ret, i;
+> +	struct qmi_txn txn;
+> +
+> +	resp = kzalloc_obj(*resp, GFP_KERNEL);
+> +	if (!resp) {
+> +		ret = -ENOMEM;
+> +		goto out;
+> +	}
+> +
+> +	scoped_guard(mutex, &qmi_tmd_cli->mutex) {
+> +		ret = qmi_txn_init(&qmi_tmd_cli->handle, &txn,
+> +				   tmd_get_dev_list_resp_ei, resp);
+> +		if (ret < 0)
+> +			goto out;
+> +
+> +		ret = qmi_send_request(&qmi_tmd_cli->handle, NULL, &txn,
+> +				       QMI_TMD_GET_DEV_LIST_REQ,
+> +				TMD_GET_DEV_LIST_REQ_MAX_LEN,
+> +				tmd_get_dev_list_req_ei, &req);
+> +		if (ret < 0) {
+> +			qmi_txn_cancel(&txn);
+> +			goto out;
+> +		}
+> +
+> +		ret = qmi_txn_wait(&txn, QMI_TMD_RESP_TIMEOUT);
+> +		if (ret < 0)
+> +			goto out;
+> +
+> +		if (resp->resp.result != QMI_RESULT_SUCCESS_V01) {
+> +			ret = -EPROTO;
+> +			goto out;
+> +		}
+> +
+> +		qmi_tmd_cli->connection_active = true;
+> +	}
+> +
+> +	for (i = 0; i < resp->mitigation_device_list_len; i++) {
+> +		struct tmd_dev_list *device =
+> +			&resp->mitigation_device_list[i];
+> +
+> +		ret = qmi_tmd_register(qmi_tmd_cli,
+> +				       device->mitigation_dev_id.mitigation_dev_id,
+> +				       device->max_mitigation_level);
+> +		if (ret)
+> +			break;
+> +	}
+> +
+> +out:
+> +	if (ret)
+> +		dev_err(qmi_tmd_cli->dev, "Failed to initialize TMD service: %d\n", ret);
+> +}
+> +
+> +static void qmi_tmd_del_server(struct qmi_handle *qmi, struct qmi_service *service)
+> +{
+> +	struct qmi_tmd_client *qmi_tmd_cli =
+> +		container_of(qmi, struct qmi_tmd_client, handle);
+> +
+> +	scoped_guard(mutex, &qmi_tmd_cli->mutex) {
+> +		qmi_tmd_cli->connection_active = false;
+> +	}
+> +}
+> +
+> +static int qmi_tmd_new_server(struct qmi_handle *qmi, struct qmi_service *service)
+> +{
+> +	struct sockaddr_qrtr sq = { AF_QIPCRTR, service->node, service->port };
+> +	struct qmi_tmd_client *qmi_tmd_cli;
+> +	int ret;
+> +
+> +	qmi_tmd_cli = container_of(qmi, struct qmi_tmd_client, handle);
+> +
+> +	scoped_guard(mutex, &qmi_tmd_cli->mutex) {
+> +		ret = kernel_connect(qmi->sock, (struct sockaddr_unsized *)&sq,
+> +				     sizeof(sq), 0);
+> +	}
+> +
+> +	if (ret < 0) {
+> +		dev_err(qmi_tmd_cli->dev, "QMI connect failed for node %u port %u: %d\n",
+> +			service->node, service->port, ret);
+> +		return ret;
+> +	}
+> +
+> +	queue_work(system_highpri_wq, &qmi_tmd_cli->svc_arrive_work);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct qmi_ops qmi_tmd_ops = {
+> +	.new_server = qmi_tmd_new_server,
+> +	.del_server = qmi_tmd_del_server,
+> +};
+> +
+> +/**
+> + * qmi_tmd_init() - Initialize QMI TMD instance
+> + * @dev: Device pointer
+> + * @instance_id: QMI service instance ID for the remote subsystem
+> + * @tmd_names: Array of TMD names
+> + * @num_tmds: Number of TMD names
+> + *
+> + * Return: Pointer to qmi_tmd_client on success, ERR_PTR on failure
+> + */
+> +struct qmi_tmd_client *qmi_tmd_init(struct device *dev,
+> +				    unsigned int instance_id,
+> +				    const char * const *tmd_names,
+> +				    int num_tmds)
+> +{
+> +	struct qmi_tmd_client *qmi_tmd_cli;
+> +	int ret, i;
+> +
+> +	if (!dev || !tmd_names || num_tmds <= 0)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	qmi_tmd_cli = devm_kzalloc(dev, struct_size(qmi_tmd_cli, tmds, num_tmds), GFP_KERNEL);
 
-The block is closely related to the existing RK3568 variants, but it
-cannot reuse their match data unchanged. In particular, RK3588
-encodes RX_FIFO_CNT in bits 7:5 instead of 6:4, so the RX path needs
-SoC-specific handling.
+Either this is dedicated to probe path or can be called from any context
+(probe or not probe). If the first, above is correct, but then:
+1. kerneldoc is incomplete or function should be renamed to have _probe suffix,
+2. why aren't you using dev_err_probe()?
 
-The RX FIFO count bitfield difference was found by comparing Rockchip's
-vendor kernel 6.1 CAN support for RK3568 and RK3588. Runtime testing on
-RK3588 also confirms that bits 7:5 are needed.
+If the latter, then above code is not correct because you do not have
+cleanup in qmi_tmd_exit() part, which leads to unspecific/unorganized
+way of cleaning devm resources during cleanup calls. Plus actual cleanup
+does not happen when consumer/user calls exit() but when remove() is
+called, leading to possible huge memory usage (not leak technically but
+same effect).
 
-Enable the existing erratum 5 empty-FIFO workaround for RK3588.
-Heiko reproduced erratum 6 on RK3588, so enable that workaround as
-well.
+> +	if (!qmi_tmd_cli)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	qmi_tmd_cli->dev = dev;
+> +	qmi_tmd_cli->num_tmds = num_tmds;
+> +	mutex_init(&qmi_tmd_cli->mutex);
+> +	INIT_WORK(&qmi_tmd_cli->svc_arrive_work, qmi_tmd_svc_arrive);
+> +
+> +	for (i = 0; i < num_tmds; i++) {
+> +		qmi_tmd_cli->tmds[i].name = tmd_names[i];
+> +		qmi_tmd_cli->tmds[i].qmi_tmd_cli = qmi_tmd_cli;
+> +	}
+> +
+> +	ret = qmi_handle_init(&qmi_tmd_cli->handle,
+> +			      TMD_GET_DEV_LIST_RESP_MAX_LEN,
+> +			      &qmi_tmd_ops, NULL);
+> +	if (ret < 0) {
+> +		dev_err(dev, "QMI handle init failed: %d\n", ret);
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	ret = qmi_add_lookup(&qmi_tmd_cli->handle, QMI_SERVICE_ID_TMD,
+> +			     QMI_TMD_SERVICE_VERS_V01, instance_id);
+> +	if (ret < 0) {
+> +		dev_err(dev, "QMI add lookup failed: %d\n", ret);
+> +		goto err_release_handle;
+> +	}
+> +
+> +	return qmi_tmd_cli;
+> +
+> +err_release_handle:
+> +	qmi_handle_release(&qmi_tmd_cli->handle);
+> +
+> +	return ERR_PTR(ret);
+> +}
+> +EXPORT_SYMBOL_GPL(qmi_tmd_init);
+> +
+> +/**
+> + * qmi_tmd_exit() - Deinitialize QMI TMD instance
+> + * @qmi_tmd_cli: QMI TMD client to deinitialize
+> + */
+> +void qmi_tmd_exit(struct qmi_tmd_client *qmi_tmd_cli)
+> +{
+> +	if (!qmi_tmd_cli)
+> +		return;
+> +
+> +	cancel_work_sync(&qmi_tmd_cli->svc_arrive_work);
 
-CAN-FD is enabled for RK3588. The BRS bus-off issue seen in earlier
-testing was caused by the transmit delay compensation setting. With
-RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION programmed to 0 on RK3588,
-CAN-FD with BRS works in local testing.
+And what if work is re-queued now?
 
-Tested on an embedfire,rk3588-lubancat-5io board with can0/can1
-directly connected, no other device on the bus, 60 Ohm bus
-termination, and a 300 MHz CAN clock. Runtime testing used 500 kbit/s
-arbitration bitrate and 1, 3 and 5 Mbit/s data bitrates. The 5 Mbit/s
-data phase test ran for 15 minutes with cangen using BRS and
-cansequence on the receiver. Both interfaces reported 9528377 packets
-and 150667356 bytes, with 0 bus-errors, 0 error-warn, 0 error-pass and
-0 bus-off events.
+> +	qmi_handle_release(&qmi_tmd_cli->handle);
+> +	qmi_tmd_unregister(qmi_tmd_cli);
+> +
+> +	scoped_guard(mutex, &qmi_tmd_cli->mutex)
+> +		qmi_tmd_cli->connection_active = false;
+> +}
+> +EXPORT_SYMBOL_GPL(qmi_tmd_exit);
 
-Co-developed-by: Heiko Stuebner <heiko.stuebner@cherry.de>
-Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
-Tested-by: Heiko Stuebner <heiko@sntech.de>
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
----
-v3 -> v4:
-- Disable TDC on RK3588 by programming
-  RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION to 0.
-- Drop RKCANFD_QUIRK_CANFD_BROKEN for RK3588 and enable CAN-FD support.
-- Document successful RK3588 CAN-FD/BRS testing.
-v2 -> v3:
-- Use Co-developed-by for Heiko's RK3588 contributions and add his
-  Signed-off-by
-- Collect Heiko's Reviewed-by and Tested-by tags
----
- drivers/net/can/rockchip/rockchip_canfd-core.c | 17 +++++++++++++++++
- drivers/net/can/rockchip/rockchip_canfd-rx.c   |  5 ++++-
- drivers/net/can/rockchip/rockchip_canfd.h      | 14 +++++++++++++-
- 3 files changed, 34 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-core.c b/drivers/net/can/rockchip/rockchip_canfd-core.c
-index 29de0c01e4ed..37c1c22c40c9 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-core.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-core.c
-@@ -50,6 +50,12 @@ static const struct rkcanfd_devtype_data rkcanfd_devtype_data_rk3568v3 = {
- 		RKCANFD_QUIRK_CANFD_BROKEN,
- };
- 
-+static const struct rkcanfd_devtype_data rkcanfd_devtype_data_rk3588 = {
-+	.model = RKCANFD_MODEL_RK3588,
-+	.quirks = RKCANFD_QUIRK_RK3568_ERRATUM_5 |
-+		RKCANFD_QUIRK_RK3568_ERRATUM_6,
-+};
-+
- static const char *__rkcanfd_get_model_str(enum rkcanfd_model model)
- {
- 	switch (model) {
-@@ -57,6 +63,8 @@ static const char *__rkcanfd_get_model_str(enum rkcanfd_model model)
- 		return "rk3568v2";
- 	case RKCANFD_MODEL_RK3568V3:
- 		return "rk3568v3";
-+	case RKCANFD_MODEL_RK3588:
-+		return "rk3588";
- 	}
- 
- 	return "<unknown>";
-@@ -148,6 +156,12 @@ static int rkcanfd_set_bittiming(struct rkcanfd_priv *priv)
- 
- 	rkcanfd_write(priv, RKCANFD_REG_FD_DATA_BITTIMING, reg_dbt);
- 
-+	/* RK3588 CAN-FD BRS works with TDC disabled. */
-+	if (priv->devtype_data.model == RKCANFD_MODEL_RK3588) {
-+		rkcanfd_write(priv, RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION, 0);
-+		return 0;
-+	}
-+
- 	tdco = (priv->can.clock.freq / dbt->bitrate) * 2 / 3;
- 	tdco = min(tdco, FIELD_MAX(RKCANFD_REG_TRANSMIT_DELAY_COMPENSATION_TDC_OFFSET));
- 
-@@ -846,6 +860,9 @@ static const struct of_device_id rkcanfd_of_match[] = {
- 	}, {
- 		.compatible = "rockchip,rk3568v3-canfd",
- 		.data = &rkcanfd_devtype_data_rk3568v3,
-+	}, {
-+		.compatible = "rockchip,rk3588-canfd",
-+		.data = &rkcanfd_devtype_data_rk3588,
- 	}, {
- 		/* sentinel */
- 	},
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-rx.c b/drivers/net/can/rockchip/rockchip_canfd-rx.c
-index 475c0409e215..24e87daa1df0 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-rx.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-rx.c
-@@ -281,7 +281,10 @@ rkcanfd_rx_fifo_get_len(const struct rkcanfd_priv *priv)
- {
- 	const u32 reg = rkcanfd_read(priv, RKCANFD_REG_RX_FIFO_CTRL);
- 
--	return FIELD_GET(RKCANFD_REG_RX_FIFO_CTRL_RX_FIFO_CNT, reg);
-+	if (priv->devtype_data.model == RKCANFD_MODEL_RK3588)
-+		return FIELD_GET(RKCANFD_REG_RX_FIFO_CTRL_RX_FIFO_CNT_RK3588, reg);
-+
-+	return FIELD_GET(RKCANFD_REG_RX_FIFO_CTRL_RX_FIFO_CNT_RK3568, reg);
- }
- 
- int rkcanfd_handle_rx_int(struct rkcanfd_priv *priv)
-diff --git a/drivers/net/can/rockchip/rockchip_canfd.h b/drivers/net/can/rockchip/rockchip_canfd.h
-index 93131c7d7f54..95bea9bfd8a2 100644
---- a/drivers/net/can/rockchip/rockchip_canfd.h
-+++ b/drivers/net/can/rockchip/rockchip_canfd.h
-@@ -214,7 +214,8 @@
- #define RKCANFD_REG_TXEVENT_FIFO_CTRL_TXE_FIFO_ENABLE BIT(0)
- 
- #define RKCANFD_REG_RX_FIFO_CTRL 0x118
--#define RKCANFD_REG_RX_FIFO_CTRL_RX_FIFO_CNT GENMASK(6, 4)
-+#define RKCANFD_REG_RX_FIFO_CTRL_RX_FIFO_CNT_RK3568 GENMASK(6, 4)
-+#define RKCANFD_REG_RX_FIFO_CTRL_RX_FIFO_CNT_RK3588 GENMASK(7, 5)
- #define RKCANFD_REG_RX_FIFO_CTRL_RX_FIFO_FULL_WATERMARK GENMASK(3, 1)
- #define RKCANFD_REG_RX_FIFO_CTRL_RX_FIFO_ENABLE BIT(0)
- 
-@@ -331,6 +332,11 @@
-  * rarely with the standard clock of 300 MHz, but almost immediately
-  * at 80 MHz.
-  *
-+ * Tests on the rk3588 show the same empty FIFO condition.
-+ * In that setup rx_fifo_empty_errors increments when the bus
-+ * transitions from idle to high CAN-FD load and stops growing once
-+ * the bus reaches a steady state.
-+ *
-  * To workaround this problem, check for empty FIFO with
-  * rkcanfd_fifo_header_empty() in rkcanfd_handle_rx_int_one() and exit
-  * early.
-@@ -344,6 +350,8 @@
- /* Erratum 6: The CAN controller's transmission of extended frames may
-  * intermittently change into standard frames
-  *
-+ * Tests on the rk3588 show the same problem.
-+ *
-  * Work around this issue by activating self reception (RXSTX). If we
-  * have pending TX CAN frames, check all RX'ed CAN frames in
-  * rkcanfd_rxstx_filter().
-@@ -424,6 +432,9 @@
-  *     cansequence -rv -i 1
-  *
-  * - TX starvation after repeated Bus-Off
-+ *   Tests on the rk3588 show the same problem. In a
-+ *   10-cycle Bus-Off recovery test, 9 cycles failed to send after the
-+ *   controller restarted.
-  *   To reproduce:
-  *   host:
-  *     sleep 3 && cangen can0 -I2 -Li -Di -p10 -g 0.0
-@@ -434,6 +445,7 @@
- enum rkcanfd_model {
- 	RKCANFD_MODEL_RK3568V2 = 0x35682,
- 	RKCANFD_MODEL_RK3568V3 = 0x35683,
-+	RKCANFD_MODEL_RK3588 = 0x3588,
- };
- 
- struct rkcanfd_devtype_data {
-
--- 
-2.34.1
+Best regards,
+Krzysztof
 
