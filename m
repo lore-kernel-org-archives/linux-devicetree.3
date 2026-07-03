@@ -1,138 +1,128 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010014.outbound.protection.outlook.com [52.101.61.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F29C6270EC3
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 03:28:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783049316; cv=none; b=Ll6hZjw6jJr9MGFyhZxtYrT2Sh9LUZpcxVMNjst89qX8sKeHa+6XyFfBc765wBHyyOe4oxVDeRK8+YmYvUp2yJa4viB9pr9inWfnhnraK3kIBK6gB6EO6tVjA+laQ29qRlZPpPxCVNdBbJltoa25COpCOaGAFbA3sgj1RRl6Zuk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783049316; c=relaxed/simple;
-	bh=KETg63QyAVz8Iy3WXA/+HPsMDUaWHNzyo7wwIqK34zg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HL4USiMUIH9s1ihuN7xgAJMLy73PFEQyCblLpbPrwKlgS/LHZk4JOLLW8Ii0kXjVdwVtwvgEHS6ZhmpxYTv8mnYSQuEBk6b5kjBY7FLS4cgxZeOC0Ftk0EgCZE8o2o96cxVruFThJcAUKixeu6L3rkDOO8AEx4dGo/s5B5ylIyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eOkfPJyP; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0577D319848;
+	Fri,  3 Jul 2026 03:35:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783049763; cv=fail; b=r94Pjd1mAXODLbnZ+tFoOio5wDP8c9XAXvCVPU4DiuqxThM9sM9vqcv7gy3S+xDLR49LPrt/q8D6wL9kq5hanLjxAXOSSDAI4qjbtDuGxN+ptVljBXMwJFASb8jWSiKWmZW+VoTpYMsBe46RhhtWxcGV/RIxmLYHCUVy120+k1A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783049763; c=relaxed/simple;
+	bh=oljSYm54xnsmUbPHme0Vamq4799ZBbCONZsK4olCCqg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Qg8u11NUeLBErNE2bvc/c+50NusM++OF9hQ0sgjMGVBApFRgz00tI40dT1YV78onW5mDfr428yn9guVNo9P9hpToKRM5z7ScgplwEHgHuz0WlzbiUxARbi7APzG/TS6M3+Ed8F02vQtWugHCMbujZyoB+dbZcAvOnFSI1HnqrRI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RGLchBdd; arc=fail smtp.client-ip=52.101.61.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eOkfPJyP"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c9c26a5fb98so84886a12.0
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 20:28:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783049307; x=1783654107; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=9af5QJrOyBu/hey/MipR49TzaYy5BSj5PKVbFBhQuCc=;
-        b=eOkfPJyPdnFcFXt7dKGKly9fVWx9U9VUynCiTdrRVjhTAKkBUxbMxaLKk++Olhvl1b
-         RKpBLBGsOWAEC5ZFeYkK4T6IeMLe4axr0qebGcLP7hvjSGy+OYp54lqyb9aExmi0Pp0h
-         DSZYtCXyT49ZkVevLu4p+HuL0RWk0YvH7wYZ/nH+V7/oIW32uizqBVbDNbnSy7WL+EwS
-         S4rkV74Isk0JSShKX1K00d1EL/ni1Pz6K4sHNJ7cMI1rroOwvtfMEpZV17npeLlKki9f
-         q4mLoNVR3cooSpNr2JX59wm0dca4YQJuhGlBhP4AJ/ydMsi8oLpJ1Wg4KqpkP5RqJ6xk
-         3Z3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783049307; x=1783654107;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9af5QJrOyBu/hey/MipR49TzaYy5BSj5PKVbFBhQuCc=;
-        b=KRxUQp0pwD3r4rN0IsEp38kETLYmYMY/wRGCie4i9PbOcP1OGUNvAyMektIuufnZKh
-         a/+V7BjtGebq6CKJQvQg4eGZ5DPcpxhjLmLXqtUOHY9oW1AqWAtEhw3PH4VMk+4Njzif
-         YU0CNxOA31rJANOHF8zuJpxoP7tY7qf8G7JAHeLxfTCU8hd22OEQjf/LA3kO1lYlGWtC
-         wHdfb5/cNRALYMn69jQGva1S6H2YRawYNKS6HdLpfyJ0/iiixjZOYg0cuLdARyIAREkS
-         eM6n+rVrXdEeiRKT2qYndnbvDpUJLIRnqC3+Te+oQSqHy1NHUYAY8Pnq+p6yX6lcts0k
-         qIvg==
-X-Forwarded-Encrypted: i=1; AFNElJ9nCrbrsgg9wQTt5+vAyBJA4+LsFixRuSHXBkqdRmhXuldsZPutwaTaVQMXpAFIi6AeCPTJ3+O7zWeZ@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqupIByxw8DFLZAUQxsXkYYWUJGXwEzrGp8U8azXO6xEHJTHGm
-	TU4/AN0jL2HSDJkqscw5vfUfILINLubPYuEILNPEbauOF0mP4oCPLlwd
-X-Gm-Gg: AfdE7cnwgye2pgWqzo8qb191QD8mFL9VLmIw5plS/x6KZ8tb9wPBO9x2GtVBs5IGoL3
-	0g9x7WjlMXHr64L2iyjgej+KM/qRyfSiGLUtuRCi7uXSvNESbSQZEFFf8BNSe6HbqfcUn1tde37
-	rKI92vcIcgYInYMKKPl/qQVM4xY9PPLlt2ioociquQYV/+WC6GRJlAYPuHrAW/d3ckfatykP58c
-	jca+RG8v3b5liysOdSqJlUCgnQnAMHMM3EdduAL18hk2VMvcCwG0/XGr73Fu6VTo05Hr9j0INr7
-	wtc/flYZBq3y4XQ4bjNxq/M2bDEoQ83kGWiJm21QeAtLsvhBvUheZfDtgoWl68Gzka+5F1ZEoWI
-	Xs4U0/+BHUCwxm5jcMDmB7KadbZthyoqwNMQDCxszDaGWO0yIE2yqHuVQJAgRDG6O1p7xssOmRX
-	AjvYO58nFC+06aV4fuyEmAfkCetnCgHvN4y/cU7QWTNgqPQSwCLQ==
-X-Received: by 2002:a05:6a20:918b:b0:3bd:1cfc:1b9b with SMTP id adf61e73a8af0-3c01c65feb5mr2729058637.10.1783049306833;
-        Thu, 02 Jul 2026 20:28:26 -0700 (PDT)
-Received: from [172.20.10.3] (114-137-82-69.emome-ip.hinet.net. [114.137.82.69])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c9e91b0762esm1988467a12.20.2026.07.02.20.28.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jul 2026 20:28:26 -0700 (PDT)
-Message-ID: <3b32493b-b827-e4ed-3ad1-281dc19faf40@gmail.com>
-Date: Fri, 3 Jul 2026 11:26:12 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RGLchBdd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EqB8BFbD6eRplA64AxI+ggRHt1XMdYNfU8dQ76d7Ph7ikfjMSYO3hsIpGlXsfS0hj7iNwGrCJNhw0vSgB4Ep9pEtnSb0QbL6OHKpA8RojPMblV3qOcBeF9bFm44LHW7tFcfXOwTUKP74kqGxwjvLF2ghThVPT4FeSHgUlU7bWk6/Tv6CZOuiR3UUQkM74D1790v9xWlAFY58mcfGLWzRn4FnEv+mA1IDnweMJn1AI6j8bDEKnndhzXRZ8ZsFVDmZUYVJyfJYTuK/YC8C8KivK9hV6pVcXVHcoMDDVezglxWZkhxBpAOAI5ePw5krPXzMGVcVRdP+QYpOLEkEdivXUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oljSYm54xnsmUbPHme0Vamq4799ZBbCONZsK4olCCqg=;
+ b=NQ9FkHDYJTz3FsAk4FlFw2ezfOfeWN8gtIWX4ydhpxvbXxF4tz17z/nddanwCHs9v9YicrRY8hse3iCRo4e19ox4h1LGZ33QuFpEEu/wqRslF57Umqvn7NsLUVuNJlcLoCfJdtcARLjLw9+zFL/1YYuvVebLVjcDiZQPXiOuzcHMebTHqHnoh+IPP/yBPSg6O9XuT0AKuYe7/AcGoUciN3T2Yf2dr39SFYLe2M9dM3NMFsrtepamL5i5v8QYmIN25IG4o8lP/4lGoe14XKdv3PkRI1b6KCtzN3BRntEn979rAmkreStnQ1BwG/PUpxqhlRxnmb1O7PQ+36gUGzscyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oljSYm54xnsmUbPHme0Vamq4799ZBbCONZsK4olCCqg=;
+ b=RGLchBddhMN0BkE7W0mP0K25loGeykIYc10vg4iKQ1pSbAkPrNGtAqsZyCyHU+kjAIdgsIbHiWToUXPjfex2YOOHskAdMiIA3wOvHaonUERNyaw3FARJRuY03TdGh/PFnZJnLwVKsH5Rx3mrMr5ev3oXsPTkxTIjDbwrxjQgB8vXw8+1muP7g6dyprUViXrmDrD2fUapbK/DDvoem/LxyL+i0K02B6v3KmIwrkANTtBQw7Ns6YoPd8oNXpx5pNhFOfv60Fb7OXnok7evEQm1Rj3hiys+4V+BF1StCdbP+tViva/ycN0iHc6y3QJbcDC4NehKm7+aFwCEV3drGPcvKA==
+Received: from DS1PR06CA0003.namprd06.prod.outlook.com (2603:10b6:8:458::10)
+ by PH8PR12MB7184.namprd12.prod.outlook.com (2603:10b6:510:227::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Fri, 3 Jul
+ 2026 03:35:46 +0000
+Received: from DS3PEPF0000C37E.namprd04.prod.outlook.com
+ (2603:10b6:8:458:cafe::22) by DS1PR06CA0003.outlook.office365.com
+ (2603:10b6:8:458::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.11 via Frontend Transport; Fri, 3
+ Jul 2026 03:35:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ DS3PEPF0000C37E.mail.protection.outlook.com (10.167.23.8) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Fri, 3 Jul 2026 03:35:45 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 2 Jul
+ 2026 20:35:30 -0700
+Received: from nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 2 Jul
+ 2026 20:35:28 -0700
+From: Jacky Huang <jackyhuang@nvidia.com>
+To: Andrew Lunn <andrew@lunn.ch>
+CC: Jacky Huang <jackyhuang@nvidia.com>, Andrew Jeffery
+	<andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] ARM: dts: aspeed: Add NVIDIA VR-NVL BMC
+Date: Fri, 3 Jul 2026 12:31:23 +0900
+Message-ID: <20260703033401.2195572-1-jackyhuang@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <c43899a8-3d6a-4c94-b0c2-33c00a830610@lunn.ch>
+References: <20260702165524.2168091-1-jackyhuang@nvidia.com> <20260702165524.2168091-3-jackyhuang@nvidia.com> <c43899a8-3d6a-4c94-b0c2-33c00a830610@lunn.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v5 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
- amplifier
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>, Neo Chang <YLCHANG2@nuvoton.com>
-Cc: lgirdwood@gmail.com, perex@perex.cz, robh@kernel.org, krzk+dt@kernel.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, kchsu0@nuvoton.com, sjlin0@nuvoton.com
-References: <20260630021510.821919-1-YLCHANG2@nuvoton.com>
- <20260630021510.821919-3-YLCHANG2@nuvoton.com>
- <66ce56eb-95b9-4915-8658-a1e4d1eacd7f@sirena.org.uk>
-From: YLCHANG2 <neo.chang70@gmail.com>
-In-Reply-To: <66ce56eb-95b9-4915-8658-a1e4d1eacd7f@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37E:EE_|PH8PR12MB7184:EE_
+X-MS-Office365-Filtering-Correlation-Id: d83ff7be-cf88-4cc0-26cd-08ded8b42b0f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|7416014|11063799006|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	TSlaOx36X/PLQ/YphRpY3Bbk4tw3ItCikDuuTzZW77YC+/7CQzd6MxlbQSaDmhGQtp8Eoh+nOl1n8YmPF3ZIxQBrRSXA/iOJF8+ohB/7wipVn687m66Zy3cRBEjMB48xcF0ZEOUBGhfUpBYgv3xmw9BfP2D4ggPevNWRkWMoHsejkzra7/dy2W03+LW/qwSfSCl1tiN7tc/xOFY4syr77uI4FTmb80StX2Gogm9BXoD5RLzti1k2oyTBuiiMSRbWzBufJJCzgIX0zXaV1RWgPH8TAWdp3KCnNgpd5yPVI/E7sBxn/y4N72Cv58tN1TuqkkQa7K55s59uR3SCUL8fHYjEQNE8hNBKe1wOQyQKb+FAkzF+dx29l3XCiIPuD6Q5Fl+3+Q3NQPak4Y5o1QE6RrMfjw6pAUCxFB283CMh04CooV3JA+II41qb0mEdA/4X5UNcazBRn8KuouzdJnIdToxcC0qGOzReMmjnoZr4jI5G9eOHFxpWKh7tm3JR5wFpEgYSVL2bEtEkWcWrh2/RhRFasj1IqD/Gu5COuAMNqtdjiCjQwitnxyar8aKqpu49oq5dMX9X6jTOO8q53mYykGSmIz7IOjO9tEdrHMMQEzCU38wZr8dCRBrqxKRxCL8AcxkKlTrhDT3rAiLkGwU5kjQ7aL7iptxRDiGLpurBrTg1OErITePhFSqHi9c4hN0ocC4kdmVQ3GXgcoTeCwbV2w==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(7416014)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+Kkr5ewHeL3nVNKQe+7Xqs8iu0ntZQBJef914QrK9H3zQnLmZ+9P6d4gtSetAXE4u2ND57uhLHvhiPqkwMFFXi9tBOOze112ZbDx4Uv+9696RnTY/fftmOgPbZiLEt7MX+SaYgQSZtgmlsJ/N9R4EcFQES6vw2tQP1AtYFEnos3KTNkmLxNhW9XDTemNS8tAiT+wnwPVexwS8VqJtTQCdoL5+N/gOgrs7mx9LjIi6dwu5xxo8OcLv7/Hygk9cL7WE5JeRJSiqUpVzo/06RtPXKlujP7DvO0nR975yBnlHAHHWa6W0r9GOLqnm/nc6W0QCvn7lmkM2m24dIJs1LqcJimzxmvszJ9pDVPq1HNHcxMIhzmGecjizRl4UWVbt3E66ZtlqvQ3DgpoRXo5DSsq9It8ZHLeJtMjUvLekxkFxLDinWA/uzrTf32LGyNqSYan
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 03:35:45.9640
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d83ff7be-cf88-4cc0-26cd-08ded8b42b0f
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF0000C37E.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7184
 
+On Thu, Jul 02, 2026 at 07:16:29PM +0200, Andrew Lunn wrote:
+> No change required, just a comment. The strapping should not
+> matter. All Linux PHY drivers should configure the PHY based on
+> phy-mode, replacing the strapping settings. There have been cases
+> where the strapping is wrong...
 
-On 7/2/26 23:15, Mark Brown wrote:
-> On Tue, Jun 30, 2026 at 10:15:10AM +0800, Neo Chang wrote:
->> Add support for the Nuvoton NAU83G60 audio codec. The NAU83G60 is a
->> stereo 30W+30W smart amplifier with an integrated low-latency
->> Advanced Audio DSP.
->> +static const char *const tdm_data_length[] = { "16", "32" };
->> +
->> +static const char *const tdm_pdm_length[] = { "16", "32" };
->> +
->> +static const char *const tdm_data_n_length[] = { "8", "16" };
-> I would expect TDM to be configured by set_tdm_slot() from the machine
-> driver, not from userspace.  I see the driver does actually have a
-> set_tdm_slot() operation...
+Good to know, thanks for the explanation.
 
-Hi Mark,
-
-Thanks for the feedback. Regarding the TDM configuration:
-Our DSP functions require specific Slot mapping (e.g., Slot 0 for AECL, 
-Slot 1 for AECR).
-The standard set_tdm_slot() only defines active slots but doesn't handle 
-the functional mapping.
-We originally intended to allow dynamic mapping via UCM/userspacea and 
-then apply these settings using set_tdm_slot().
-How should we implement this mapping according to ASoC standards?
-Should we define the default mapping during the codec probe stage,
-or is there a preferred way to handle this via the machine driver?
-
+> For these nodes only:
 >
->> +static int nau8360_read_device_properties(struct nau8360 *nau8360)
->> +{
->> +	ret = device_property_string_array_count(dev, "firmware-name");
->> +	if (ret != NAU8360_DSP_FW_NUM) {
->> +		dev_err(dev, "Missing or invalid firmware-name property in DT\n");
->> +		return -EINVAL;
->> +	}
->> +static int nau8360_i2c_probe(struct i2c_client *i2c)
->> +{
->> +	ret = nau8360_read_device_properties(nau8360);
->> +	if (ret)
->> +		return ret;
-> This will fail the probe if we fail to read firmware-name from the DT so
-> the firmware name is a required property in DT (and ACPI systems will
-> have fun) even though it is not marked as such.  Either the driver needs
-> to tolerate not having the name configured one way or another or the
-> property needs to be mandatory in the bindings.
-Since the DSP firmware is mandatory for the NAU83G60 to function,
-I have updated the YAML binding to make firmware-name a required property.
-To ensure robustness, I have also added a fallback mechanism in the 
-driver to use default firmware paths
-if reading the firmware-name property fails, ensuring the driver probe 
-does not fail.
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+
+Thanks for the review and the Reviewed by, much appreciated.
+
+Jacky
