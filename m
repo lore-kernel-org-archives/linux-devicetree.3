@@ -1,156 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB834393DE2;
-	Fri,  3 Jul 2026 09:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CC73932C9
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 09:02:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783069329; cv=none; b=bYDEW0XXsdOiKqfJliU/WhCp+ErTpCLrjBfNqj+ywJ+WDKn1M70bT+yHFvnQVF6NiET+vVp5dEMd5uRv2vu5RyZEEZE2pdKD/B7fF/WIfVayOeMA0t9A/d6dYec71zaoGI6ZJRYkuoCxXEuU6ePbvTXyPLwpJsPeTjNvGsU9G7o=
+	t=1783069330; cv=none; b=r2Gs1bcD1s+bIuyfHS0f59158UPKNr7CdD4YPgBAnMNas1rMlSrN9P4ok/vDW4GWmNCdp/xnx5kuXpWgjon2TtL8XsJJ/qJnRd4gSLyTpauhucvXf9hm57xrXer9qGLYRBVCa3DwxppZ2+2vMocDYhQT5I8wlg+H2G6PYASJn0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783069329; c=relaxed/simple;
-	bh=eJrBuGFZgZF4RMf6yqEsQ9Rx/ltrIOc1uLak+lOCyv0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JcjsaKsqRn5rnUpzko9QFWYdRNPTceN2v4ZE5cqWWtN35ft1kzw9JwWa6/denO5RJtUSV0/euWXmg1s0KOIzT+6nPmTVdrvZOHeQ9+6Zoy+R0qH4nHGtA+rpn/JDoFc7wPBTWOQ+5NmUCajA7DqlqY8yOeILPFdIVgQKAReq5pA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KbEiP3JP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783069330; c=relaxed/simple;
+	bh=9IrDLhsIq5pxMA+Xyj7gedboJwc+A2jzTnMvFrrHZrs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=keH22weiczqIoyWOHGQOnnbyoOodMzN9hLOHrS7vq1+j7MWQeAr49RyQvL9EAa8uV+gohY2cBeLD6rAHrOEggeG16k1GAI7KL6nk721Xxc3IikP8WLrotjLFvzpTrW5GpcEdEd9BCQsBb50SEUTqcFTV17vHnMPfj9iqoNhhDIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nngNj7Cz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QgLtCjEq; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KbEiP3JP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329CF1F00A3A;
-	Fri,  3 Jul 2026 09:01:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783069319;
-	bh=YlOVBhdreTsAciXP5T3TjsYCUGA/iw3YUOyeUBoEIdQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KbEiP3JPlz5rhL5bdGNkD2uU/KkJVRHjl1b64jaoAjTKWcnadOmoLdqPXZMHB5u8g
-	 ztbV5x07P5AVRPM8g1/evjUNzwJ7DlnGlqDtAvcEfTgIF371MNfGUV0Rnv8sIlor/t
-	 bZJoEqqvNh2ej2FjQTKEW5/QfdSd6ESE5oP7Nm1iFduWWnrs1yfP5LgZM0BhYs4xRE
-	 UDKrvMzUC3ZUzJD/yl44/OV0LWw8mphtI9RqzXIEoHMmgwgCgHQOy0GqNmMdHIRmsf
-	 T0UFgLvoheKXxd6i9ZKtWNt2gi7g+KAEOVsrEb7WvIilPa7WJv4pDQRBCWppB04ZYm
-	 i3kpD+nxJbcsw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 04/15] arm64: dts: freescale: imx8mn-var-som: Update
- FEC support with MaxLinear PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <bd2a524c39372518dcdf128220f3bb210afa290b.1783067947.git.stefano.r@variscite.com>
-References: <cover.1783067947.git.stefano.r@variscite.com>
- <bd2a524c39372518dcdf128220f3bb210afa290b.1783067947.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 09:01:58 +0000
-Message-Id: <20260703090159.329CF1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nngNj7Cz";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QgLtCjEq"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6637Iq2F3195670
+	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 09:02:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Xh/lLxGT/43ZnY5veH+mk6rwqDnxwCL/BIwTp3/F1QM=; b=nngNj7CzYxeTmYMG
+	TF81T2Q2hEfwfW7HU8ssyMycqqbpofTvqzp4NLOVxYbj3R4vO2ne4VEcWRPxnVcJ
+	t7+c37NlQPL7gvPwDmBT6M1Kt6jjDiRLhIP89+TwxUqoHGdrgqy3sbtjXRbAK/qP
+	fymevA+TTgYYvLdKgO6UWCYrRheAMUbxryV9SNQ9NlKzOgSLZV8l5uIFuxpXQDlm
+	il/gBwxaRkwJKjMhEuQa5cKIkkLtEsPeb0bKFkpbTEVgR/19RV7ScpuSPaxalRoi
+	tBD8e5TAu9QCKs4xqXRQjVnd+nnhlvcLXnqQ/08FW7WZaX2NOrHtu++VgqGJRLSZ
+	dtsH1w==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f68jyrcay-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 09:01:59 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-380c178acfbso396496a91.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 02:01:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783069319; x=1783674119; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Xh/lLxGT/43ZnY5veH+mk6rwqDnxwCL/BIwTp3/F1QM=;
+        b=QgLtCjEq+YmAikXS9megB/kPD54P6sbfA/7ChxpOi03dt0pzx9G51mJ30j0NBM69HU
+         MsqmsJP09FcyZHH6GAtCohDn0G6UU2ajm/d0JOVIHJU/ymFLq441O1gZAuV4O6jY9jiY
+         aTES0wVYbJTxabxebQ55n1v+qWh3R9EoAB7tpD2+Xra6OVHSbKa/EdgVUHSc8yJxoGon
+         +uhl5qo2+VqkfE8ktzD//66R3K+Dr4M1LhQCg+Fa4xV2boZeSRoUVdHr/eSrC++Ndq8O
+         NsA6CXHNpcZsn1EzgnddFwW5wmJ3jpdJ6Js/Zc3RkdIA6xpDNqUp3HisQW9PvKtVSNcw
+         ZPSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783069319; x=1783674119;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Xh/lLxGT/43ZnY5veH+mk6rwqDnxwCL/BIwTp3/F1QM=;
+        b=JdTiSWWPeyBqINKYwU57t76PNS5tQ1f4II7z2XbjZNl+029cCIZ5V6eMZu7gqHCCL5
+         VoNeAlMlkZA6uFmfWI+T+NCke+at3DBzhAsH64JNpzbLnlo65blNk+CsLkLtmC/hWErM
+         UGQpn7V6rUunfSetBoNoF2cx1B7gqI3DvhYGx+mZg91re4HKatBE0ZFh/4CvIJ1dUiWA
+         Kpj06H1SC2dnGS+kp7mTZOLAUbNokrGq+fJGzcPmFIGEb9NuPOvHBLsOkQZ6kYwDevX1
+         x0/NK45VE4cYN9iupfLw0GiX9WkH6+rdDiB7No5Jt4k8T2WlZuRBlpvBpMPAoDaf86BQ
+         piWQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrVeJyMDY+22bIoT0KBBj0U2f5aIsqlCU0VDHQyS/eGkpXQatc0Wyg8N+XAhoNmBL8PtGcDuYIyI3Be@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLgqIpfMnrEnVYDD/YKBw+rxgmcXr6SsNU2cyewntzaQRxQL+M
+	kyXGI4uE64F9eQUYDEVNtAIlSiACLlzXf0U1kWNYT1uEs3SXbDELtsdxIkzy8nvJnosyz8G3r2H
+	BXsnaPZz13btwu3AY5hBvClem/noi7TYRK3/wo5j8aZndAPLCVMd8PAtpThG3/ycu
+X-Gm-Gg: AfdE7cm1tIUj3iXiglnv1iRIBjm/3DU2LybeuD8BA2BeaXFP7IVIcw6cDGahisy6ZqH
+	mTOXAMah5LaD08taU1mV4VtUyFKnrQL9Ckb7GNUPibUl3k09/+QPQJK522S3l3P6Ev6shSxVrDm
+	7ZwyQ4b3Hg7iFJ+Odw40r55zzh6jhSxHBv3cclE+Ms60jq0zqjklBiFtV9A0D7dh2lmSggqGAur
+	6FVhE3hfDJdjCNF54xpyZzde+G2dcSkVtKel/62gpVe0vc5EyGgfEPVFHVTl+qPEahLbPwPtJSZ
+	6VH4CGp3mxGjIjHdwr/xyvRhCMSOdvrAMb/e4NMMlhxJ4nWunFqGQ8ZNMW+MncozYRvJajcgO4Y
+	pQ+Zqz+z2QSc4OPbQOKJE3JOrd0zXtTFB9jETDh7sw60=
+X-Received: by 2002:a17:90b:4986:b0:37c:8628:f79e with SMTP id 98e67ed59e1d1-380baa6b3b8mr9269663a91.16.1783069319311;
+        Fri, 03 Jul 2026 02:01:59 -0700 (PDT)
+X-Received: by 2002:a17:90b:4986:b0:37c:8628:f79e with SMTP id 98e67ed59e1d1-380baa6b3b8mr9269581a91.16.1783069318454;
+        Fri, 03 Jul 2026 02:01:58 -0700 (PDT)
+Received: from [10.217.222.146] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3812815d3e7sm631015a91.14.2026.07.03.02.01.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 03 Jul 2026 02:01:57 -0700 (PDT)
+Message-ID: <bb8f2283-93b6-4ea7-ada0-875778c89b3a@oss.qualcomm.com>
+Date: Fri, 3 Jul 2026 14:31:49 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/6] dt-bindings: dma: qcom,bam-dma: Increase iommus
+ maxItems to seven
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Harshal Dev <harshal.dev@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Konrad Dybcio
+ <konradybcio@kernel.org>,
+        Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dmaengine@vger.kernel.org
+References: <20260702-b4-shikra_crypto_changse-v2-0-66173f2f28b3@qti.qualcomm.com>
+ <20260702-b4-shikra_crypto_changse-v2-5-66173f2f28b3@qti.qualcomm.com>
+ <20260703-steadfast-greedy-seagull-ad32ab@quoll>
+ <e53f9b7d-66f1-4922-ab20-f6e66015c912@oss.qualcomm.com>
+ <0b182566-2a54-4e31-9a1e-40bdbb0f4a65@oss.qualcomm.com>
+Content-Language: en-US
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+In-Reply-To: <0b182566-2a54-4e31-9a1e-40bdbb0f4a65@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA4NSBTYWx0ZWRfX1Pz4BrlMNrCV
+ UEKcHuUHN1mELObB5/Kk1BEGVnDPgrPOVO7pxdKPIhl796qwKRJzfV6yGVxFkE26EOdRCA16CAx
+ DcEcDRKARGGlWaiZ47l/DjVeMDLvUBKOYIfjEHYdQyCnCkvGCt5t9AOQVelBWdkpK65rAn1v07X
+ K/4IABJfeuJQiUa9PQxhV56nxfkHctYBHnGnB/HRHHRsBn0PfmyKVirGJRC/1Dqu2kMXtEhMOMt
+ AwESXcyz7sqUDZF+W9SWDYnH6X+UtM1DGcHEFLwXURBsqKKLP9SZRQLLrk9DnoRqWwiN33j331v
+ BzB2E4iZCFafs6Zjcbkczc4xTDmgW2J8GNdSNAHh13djESN5kVfZWfrtAAQuXinCIuPPK6tzjzH
+ bln5tIACAr8rC3FPQ1iX+u4lyZF2daBz7WqII7Q6jD5jjsaBqRgUUqOsmX37pBIFFsVJqrom26F
+ /II3CLnSeBDoEyPc7bQ==
+X-Proofpoint-GUID: hS9nOjfmmd3yozQpeL-Irlv89BOpl--T
+X-Authority-Analysis: v=2.4 cv=QbFWeMbv c=1 sm=1 tr=0 ts=6a477a88 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=jbDwVWhXRwVoBmlK3UIA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: hS9nOjfmmd3yozQpeL-Irlv89BOpl--T
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA4NSBTYWx0ZWRfX/YkzawnXXWK6
+ q6GcNIVZ0uj0PzhyiWnl0OFVoHu6annpV8jK7C0SUkDvrjRiKFO0jZ4HSijv9JaDUgGPjBsoYkb
+ P8CtffWkjSCm24VJ7hNWB9KuMriUCEM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 malwarescore=0 suspectscore=0 clxscore=1015
+ bulkscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030085
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Modifying the shared SOM `.dtsi` and carrier `.dts` in-place to su=
-pport the latest hardware revision breaks backwards compatibility with olde=
-r deployed SOMs and carrier boards.
-- [Medium] The commit message claims to add a pinctrl sleep state for low-p=
-ower operation, but the patch modifies the default active pinctrl state ins=
-tead, and the sleep state already existed.
---
 
-commit 5e21026bff4a0a2d4def4c7f976bcf398976eb95
-Author: Stefano Radaelli <stefano.r@variscite.com>
 
-arm64: dts: freescale: imx8mn-var-som: Update FEC support with MaxLinear PHY
+On 03-07-2026 14:27, Konrad Dybcio wrote:
+> On 7/3/26 10:38 AM, Kuldeep Singh wrote:
+>> On 03-07-2026 12:24, Krzysztof Kozlowski wrote:
+>>> On Thu, Jul 02, 2026 at 01:47:15AM +0530, Kuldeep Singh wrote:
+>>>> Upcoming Shikra BAM DMA uses 7 IOMMU entries and not 6, so increase the
+>>>> `iommus` maxItems constraint.
+>>>>
+>>>> Fix below error:
+>>>> dma-controller@1b04000 (qcom,bam-v1.7.4): iommus: [[25, 132, 17], [25,
+>>>
+>>> There is no dma-controller@1b04000 in DTS. Please drop all the warnings
+>>> which do not exist.
+>>
+>> Kindly check patch 6/6, it is introducing bam node with 7iommus which IP
+>> describes and hence, updated bindings before to accustom this which also
+>> helps in avoiding rob's dt-schema bot error.
+> 
+> Krzysztof is saying that the error doesn't exist in the tree (because
+> the offending DTS hunk is not merged), so you shouldn't claim this fixes
+> an error, rather that Shikra simply needs it
 
-Update the FEC Ethernet controller on the i.MX8MN VAR-SOM to match the
-latest SOM hardware revision using the integrated MaxLinear MXL86110 PHY.
+In previous patchset, krzysztof ask was to add error in commit log and
+hence updated that.
+Maybe some misunderstanding!
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dts b/=
-arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dts
-> index 7308613a48b2b..520aff23e5872 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dts
-[ ... ]
-> @@ -74,7 +75,24 @@ reg_per_3v3: regulator-peripheral-3v3 {
->  };
-> =20
->  &ethphy {
-> -	reset-gpios =3D <&pca9534 5 GPIO_ACTIVE_HIGH>;
-> +	leds {
-> +		#address-cells =3D <1>;
+I get the point, in that case I should simply say below and drop errors
+in commit message.
+"Upcoming Shikra BAM DMA uses 7 IOMMU entries and not 6, so increase the
+`iommus` maxItems constraint."
 
-[Severity: High]
-Does removing the carrier board reset GPIO override break backwards
-compatibility with older deployed SOMs and carrier boards?
+Hope this is fine.
 
-Booting a new kernel on older hardware (using AR8033 or ADIN1300 PHYs) will
-use the new MaxLinear PHY configuration and drop the carrier board's pca9534
-reset GPIO line.
+-- 
+Regards
+Kuldeep
 
-While later patches in this series add a legacy DTB to restore legacy Wi-Fi
-configuration, it includes imx8mn-var-som-symphony.dts without overriding
-the Ethernet configuration. Legacy boards might still receive the broken
-Ethernet bindings and lose networking.
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi b/arch/arm=
-64/boot/dts/freescale/imx8mn-var-som.dtsi
-> index 71a2f0866822f..09146ab763858 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi
-[ ... ]
-> @@ -96,24 +103,19 @@ &fec1 {
->  	phy-mode =3D "rgmii";
->  	phy-handle =3D <&ethphy>;
->  	phy-supply =3D <&reg_eth_phy>;
-> -	fsl,magic-packet;
->  	status =3D "okay";
-> =20
->  	mdio {
->  		#address-cells =3D <1>;
->  		#size-cells =3D <0>;
-> =20
-> -		ethphy: ethernet-phy@4 { /* AR8033 or ADIN1300 */
-> +		ethphy: ethernet-phy@4 {
->  			compatible =3D "ethernet-phy-ieee802.3-c22";
->  			reg =3D <4>;
->  			reset-gpios =3D <&gpio1 9 GPIO_ACTIVE_LOW>;
->  			reset-assert-us =3D <10000>;
-> -			/*
-> -			 * Deassert delay:
-> -			 * ADIN1300 requires 5ms.
-> -			 * AR8033   requires 1ms.
-> -			 */
-> -			reset-deassert-us =3D <20000>;
-> +			reset-deassert-us =3D <100000>;
-> +			vddio-supply =3D <&reg_phy_vddio>;
->  		};
->  	};
->  };
-
-[Severity: High]
-Similarly, overwriting the shared SOM description in-place for the new
-hardware revision effectively drops Ethernet support for older models.
-
-Will older revisions of the SOM that use the AR8033 or ADIN1300 PHYs fail
-to probe the Ethernet PHY after this change?
-
-[ ... ]
-> @@ -342,7 +344,7 @@ MX8MN_IOMUXC_ENET_TXC_ENET1_RGMII_TXC		0x1f
->  			MX8MN_IOMUXC_ENET_RXC_ENET1_RGMII_RXC		0x91
->  			MX8MN_IOMUXC_ENET_RX_CTL_ENET1_RGMII_RX_CTL	0x91
->  			MX8MN_IOMUXC_ENET_TX_CTL_ENET1_RGMII_TX_CTL	0x1f
-> -			MX8MN_IOMUXC_GPIO1_IO09_GPIO1_IO9		0x159
-> +			MX8MN_IOMUXC_GPIO1_IO09_GPIO1_IO9		0x19
->  		>;
->  	};
-
-[Severity: Medium]
-The commit message states this patch will "add a pinctrl sleep state for
-low-power operation." Is this description accurate?
-
-The patch modifies the default active pinctrl state, rather than adding or
-updating a sleep state, which already existed. Could the commit message be
-clarified to reflect that the pull-up configuration on the reset pin in the
-default state is being altered?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783067947.gi=
-t.stefano.r@variscite.com?part=3D4
