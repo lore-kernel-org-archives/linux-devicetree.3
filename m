@@ -1,253 +1,341 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92DE3D6475
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 12:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783083442; cv=none; b=E6EFUyMTTZ1YjY0YFCrUMuJVQjU7ETIGGfQLTV3OcQuWsIimlZ+ywlac3I0iwZXsdzlldmrK+GMi8RtgXIqQDCHD/289gTbp0Y6BxWr2oQBRkyCwGcAFQFciLwGYIO8U7VRnRM4eABa3PJhOn7GB5KizGClRQxscHN0vd95yhj4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783083442; c=relaxed/simple;
-	bh=+r4eZSF5wUW3eEj0XZ2FoYRZNS2r0b1z6KZW1+f1i5c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V+iVtNdoL2/Pn287QdUnjL1J7U4KOEgRRQZeHDI0z4GnSORCmb/K0rmAHYf7N/7Z9g1l+tt0Mq4N9MjUyZt3VGYz8bYHFK40BD/uHMp7IekgA1rqGkxHz4AUk+rgMWLglwioUoYUJUG/PDJJNQWnqj5V8v0U6553Nb894WK7CJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZLIw3pWO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GunTAkO9; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB89A3D410E
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 12:59:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783083551; cv=pass; b=gWrE7bd8NLhwYclKrAH7h/5xkRCOl0sLaU57jkitYRZsCMVo/MhqJoGO6sh/frcRyqvrJrxue066/tVbS8/llmkX8P25ZChbh4ZmEFzwUDjLXBhkT24ko+UVZTPX3mZqAdk3Z5VYAvTwJqUMMYD1+qQpes9R71IWq2VKUv8qM30=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783083551; c=relaxed/simple;
+	bh=5nft3AHBmBM/Bxl3hydeIyKsjDil7snVnqIN4LBKVNQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YTo9bwWKfGgtv3FIMty7Z0fvk4DIGaVmgPm7bcPiLYMJyY/eYxHwmNO2RU+d8yRmRe2HKYorKiIA6YSPw8Fie2lQqHTOsl5tZfve9ymMasz1Hronl8atsOER+ngXj5Ui1yo2GSrxP1BXEAPiJ8BScDUDAONxqHYxoOC/ZuzixmM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Extu2FZq; arc=pass smtp.client-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZLIw3pWO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GunTAkO9"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6639BqZv3694381
-	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 12:57:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=4MY2427j/ts83OjHXrzZDI75
-	V9a1sPHf8LfhklDWR+k=; b=ZLIw3pWODWerMjtOvtcf+P48gqgvZwhl+ZTY8Axd
-	0WVanM+2whMGmWoVTV6HmoMnsJBSDF1gNEJA40SwF5ERi8bG3QQsEfK3t0hURB55
-	0kQel7uGELv4AlkWTP8wfsOFUTHT0l8taUA3QrcDHivKFE/xld3niMuCMREBAVMP
-	sQkZNjZOsNfdx4OfP3A8jG5T906/Kba8T8lMch+iKK6aWBOOtU/+vj62WKWIFyYP
-	1nUiVMuufxHb7nJYyrjaMpyck7wrFa1bmKAR3JVP0iypt8ZE2IEAfJnDC+P5g0Dm
-	JEeE0zFsI3McHU8fuRT+anLHzeixU+QSyFZuPOIKUbTXIQ==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6a848tx0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 12:57:20 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c894c1c4aa9so898469a12.0
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 05:57:20 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Extu2FZq"
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-664ee752958so769367d50.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 05:59:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783083549; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ai7y0S9lMs9lUc3Y5gd0fZIFf4iWk/Ymybuxzsq9c7obfU7JIgXEZunHPer6PF3Q9S
+         HtOWNbrO5INSkD+sQW5nrIRPYjdA8g0t+a3gmSk3YaKGAjNppJPRUFu53bLsfvFlcp8s
+         brT1L3OrsNLINcWI3pa3bgrn0Z0iRPWRWLVdi1lc4QmbhAvBW2F6ZXEoz8jhwhGfI/Ox
+         SskL0AjnYiXLU6nINyNVFLQBeldEiPQoC/iZQTuKQO3bgbzVwNgs53KQSBYUO2ktuAdR
+         5zl6d01HSqNeImtW+ZWiU6Yhkvn+tfVAGlYhokm7rxWycsM1AHJvNtI6gMxwmK0vKMZb
+         bCBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZpEgYLnkdRe+6URxXdbXlH7fdAucEfU8965vZ1JNkpE=;
+        fh=VBnerwxbCNT4jVAKEoDvc91SnrSDYybpaw2b/Nu1WQk=;
+        b=oofD2Bs2LqaF3BKfWVf4XfM0s9lWvnk75dsdpWQDC+cXdZoOIpk+fCprah3VPmnlg1
+         em25CesU4JFlfDnspfcSBI0evo97d81KNz7XvchIpa0uaF44bQTiRNfG5ThShZospfAp
+         ThVU3fbv9TKwHRKayq6wXpuPGDu7riy8z/slxyZJYlGHMs1GXXJnV9Is8NurloQ5mknn
+         0b3Y6IdGETQHX/fg2vyNbskCPz3oStf7P+xBxGdha1gdMqf4eECRJee3As7/tJFD/BUm
+         lbhZ01kE0srgKdeORSZiI6oNNSqZGdTJd1GaGaeWFHDAVtTydxNoF07QrLCYzPklG28C
+         mkSg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783083439; x=1783688239; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=4MY2427j/ts83OjHXrzZDI75V9a1sPHf8LfhklDWR+k=;
-        b=GunTAkO9FIdmdyQRORl0d0ool9Ah41q4I2q6p7F2LO3Nz7cx12w6ZIw9Vz01w8cSnj
-         GREsCWZ7Fma1HUgvu1zNoJC7kk03Y3or1+J6WX8cvowaxv1MilV+ItiaY73LTrBAkKre
-         ckxp41N12Tz5fZpnWdaVgNzRkgyqog7/idLhi+l8CNCn4zI82ewOBJVjvD2Fi/W9rb2C
-         GCMoxRJdrZbBo3JjXE9iahe5McVKuxRBU8FEA2rgNLBFHopOCPnwCbHKeRiQ2yjZpfhp
-         +o94DIVkLyFVjUcgwB67TPvuUIyZAsN4yvhyPbll/1OM9DNteVQBTqMr51udEKOsjury
-         Rr+Q==
+        d=chromium.org; s=google; t=1783083549; x=1783688349; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZpEgYLnkdRe+6URxXdbXlH7fdAucEfU8965vZ1JNkpE=;
+        b=Extu2FZqzn4ClU8L4NNnO2llwM4UFE3ZM7uCH0/92mwMN0NbafecLi6Cy7/2SomdWB
+         t+OCEV29btprJClH+4XsA/eUkIFuP5vCd3XNe4+K/k92/v4PEI/kVAL8Jq/sjRwO4MWO
+         5x/O5nV5L/0p5pQe9AomnMHEjuUZk5UoSL+0s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783083439; x=1783688239;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4MY2427j/ts83OjHXrzZDI75V9a1sPHf8LfhklDWR+k=;
-        b=NNqwdT3x4mZ++HkirfCr/zRwhNHCk94fSnDHbfC6141XubitE/WnMIox3b1jgEvzXx
-         27jGNEv7Ei3qfTp3vHcZAnE9EGyqhnAZKDT11yvh2gkX52FdRPjmLMTjuxaFwNISnVKG
-         1bD3EcxTjxI+wuzdDO5AAFtTXjkwqi4PZ9ObiuJDkOy3LV4okAnKlGm/YSPC92AfQUR6
-         C2ZjGS/vUzQn0hrqGum4/Bc6VctNZdkn/zPbUaPZWc9cb5iUNKALgsTOlPAkMhWN3O/i
-         8uShGFX2eMtA4kBzSFf80IyQXtzDKTqPFEd61D3mRFlRa9+TV6qD7bSx/ZL72YT8fYF8
-         Z6eg==
-X-Forwarded-Encrypted: i=1; AFNElJ8QCMJiSPfSKKcFxxEZ/CuZak8mo5cD2LdjCAR6y6+Z9ej1UYMiULRqt1qvi2PU2159eWW6V3Z6mtY9@vger.kernel.org
-X-Gm-Message-State: AOJu0YxOHnny/eOJMMuE6GKsVd0jP37nzrh9IOMzd9hxJfbfFoY30YED
-	kqHavHUg06pjLpQ+UygWUQDLZ5YttuunD8Q7iehLveaMn+r+I40eM/4nGcLJ75apeSZ28t4NjY6
-	q24q+a2USpxLNLvtNHzfk2PUli68JyKpHLAsFHtP+grVc+Td7DeelnJbN3wgYNJHs
-X-Gm-Gg: AfdE7cnRhDlqygewv5XJizUc3aMMEiznb63ZSgnQDJWTRqN232QDHc1Bw6XNGLMg9xY
-	FZ+5dxUMVD1qGDD9UxaWI/nZfvFuZx30H+aMuMDq8xkiRU1zYpGj4T7dRUGncrIvlEtQEuJjSwU
-	t4z5JDfYdYacg902MgpGVbLRRTfPJOBkb+zjMHZL2bYa8kymJ/lk3Rm5V0uc7gbdgLxJyRMAMo/
-	TjpbkrdA8GI8O3dxaQLbqWe3MRUi1OkM3QkZzjnScFrBDWjRAElIgKl2q1ulOD7Cp6cB96Fye09
-	cAcJYbUoUPnS8WSHqpZtfq7MNMnkuJbrRVIXmIcyRCNkQiTRVLMd/vi9tRHKKw1HEv+dlxPR46c
-	32Ki88lzqIlycVaaBfuJSnWlR6VyLwBRleus4
-X-Received: by 2002:a05:6a21:e58d:b0:39f:91e9:cada with SMTP id adf61e73a8af0-3bfed1bf7b0mr12177783637.9.1783083439383;
-        Fri, 03 Jul 2026 05:57:19 -0700 (PDT)
-X-Received: by 2002:a05:6a21:e58d:b0:39f:91e9:cada with SMTP id adf61e73a8af0-3bfed1bf7b0mr12177729637.9.1783083438782;
-        Fri, 03 Jul 2026 05:57:18 -0700 (PDT)
-Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f0bbd2362sm22192457eec.20.2026.07.03.05.57.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 05:57:18 -0700 (PDT)
-Date: Fri, 3 Jul 2026 18:27:08 +0530
-From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Luca Ceresoli <luca.ceresoli@bootlin.com>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, boss@oss.qualcomm.com,
-        qc-display-maintainer@oss.qualcomm.com
-Subject: Re: [PATCH 3/4] drm-bridge: lontium lt9611c: fixes and improvements
-Message-ID: <akexpMGzU9HDTcDb@hu-mdsor-hyd.qualcomm.com>
-References: <20260611-lt9611-b4-send-v1-0-42abbcd3bb1e@oss.qualcomm.com>
- <20260611-lt9611-b4-send-v1-3-42abbcd3bb1e@oss.qualcomm.com>
- <a64pcvbmkkszgnokarsig5gyanviqcvdxhbknkfciylpuein4u@xmn6znafguxh>
+        d=1e100.net; s=20251104; t=1783083549; x=1783688349;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ZpEgYLnkdRe+6URxXdbXlH7fdAucEfU8965vZ1JNkpE=;
+        b=jTfTu/rWdX2DH+Ko51pgMjg/o57J9mVXk614mf/FwjmU17VtkG1/HOyyLrzDoiUaRn
+         qohweVp38VpeFiUbQKcq+hugTncKXd2q8TqhVbQZRf/1lapUVAl1lPiNu2QZ68hsL0Vk
+         4HY2ZmNXU6RkHIvJvXzjewHd6BZzlm2eE4TWr5OvqyAR3jUt92H2dX4vM9DLAb9eiL26
+         8aY/ApqW6nIzj+cXSbM8rXKpr2Rf3HgexhIFvjLZO/6/sgDkBQxgX/HKO71DR4veexaA
+         5D9i292TAvGiN2SOxuFzAJWYma1IeyUnv04pcOL+yG6bVhdj50eREV3VlUKycRt9AtsB
+         gxcg==
+X-Forwarded-Encrypted: i=1; AHgh+RoOX9E3IoLT9Dk+dC1yRSECG6+pmYmTKkyQrHlHMsTpRKE2aELVfD8GMc1t4B5+yVhDB8XEiAR198H8@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfVi8+HGJNLMp8fZXxJ7vneywDnSyjy4DskDkmFtsxwXvUMjrM
+	Cvf0HrDTJTJ+Fj2p54A62bXxlCsJ8fiAeXsPlx1H/1uKKaaZ5EeCq1ePMMmsQlFfz0rLVChr1aK
+	nY0g1jcZYz54LXkbXcc+9MN691l0RxAOnvJl1xZnm
+X-Gm-Gg: AfdE7cmmReqVGCZxsr7uxE1AXfSOb73wDxR9b84EX2BJkwGjaGtQeyDQZarDryxJw0X
+	kilYKVj/Y0Qst31pqclRnRADFEdfIDrrGrhtwUW/WOUG8sMuz3vMBVLciAigJW8IDzB8/Ro6syP
+	jYk5YHH5fJssLrLXdGgV7APXyLroX1nPKqxcshK9ZBtS5LNsdjw9VEthcBBFktmnqGQvoUNTdB2
+	6CZEPNyc9+jFUQSzBbifiKMVmAKDAO1uT/DEbO08ngXvIVt/R6fWw8Riz3YKNJaZKrwTDffweSp
+	NZ5L20M4PewOe7fCzkQH5CDjVqs=
+X-Received: by 2002:a05:690e:1908:b0:664:ef34:33 with SMTP id
+ 956f58d0204a3-66521d1c65emr9453570d50.74.1783083548882; Fri, 03 Jul 2026
+ 05:59:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a64pcvbmkkszgnokarsig5gyanviqcvdxhbknkfciylpuein4u@xmn6znafguxh>
-X-Proofpoint-GUID: TB8uIciITiRgUuB5pDar8PInFQYWy1y-
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDEyNiBTYWx0ZWRfX1o610yAPDKIe
- bCA7onfMhpv+XLBALg5vJCq7biYlElz1EaTf0ciCe/GaCVTPN8CjzZc3Iw6YKtg1Mo4N1wrNdWM
- JFErHAA/ZuV09YnjWyayKq63XxXdn5g=
-X-Authority-Analysis: v=2.4 cv=a6QAM0SF c=1 sm=1 tr=0 ts=6a47b1b0 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=K1nJ1lxNh3oVjQTzV4IA:9 a=CjuIK1q_8ugA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDEyNiBTYWx0ZWRfX7u46eZkNyETR
- FFAvhoOVJJoiZx1pBY/Fwkrydag6hNo49NEOoHORSVHxtAYtbD7Mc8XBzTZimagOsppQUYGSGwl
- H9ut4AUV0w3fog/oyTggYo4/rs6fsxrb6VA8RaiVYlAZPfTct8EULSrzLYYiTB25MR370TR0xAZ
- pKFmaAG0wbQoBmguau3/cv/HzIK0MotIc2Bjx70oqmAkrj+RLXIwjNSwhWwfkyY1DGD8BV8PB2J
- nvimbqrfpe9AIOfeeOKgyUJg5tOW5eFUs8Od84/asfg5C7bAbHju65/iAv6+LUyfPp1+xddDiJo
- sQUPOAyXF7GUUBFlwnii2NXcrEPiFM9z9HhyxGwam6BxfCqkQhyi0onF5f6g2B/TFAOUmVOhzJq
- RTJVcytmuhOKZnLu3P8VVAQno0ocMgLxx18u+d5Mykj05BI0j70lgDcrTvsDl8PtiLyi5MKxNz6
- cCv/RshI0iWak0M0tXQ==
-X-Proofpoint-ORIG-GUID: TB8uIciITiRgUuB5pDar8PInFQYWy1y-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0
- bulkscore=0 impostorscore=0 phishscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030126
+References: <20260703110317.1283411-1-wenst@chromium.org> <20260703110317.1283411-9-wenst@chromium.org>
+ <CAMRc=MdMhr6qAnAtUePbuBbsH=3MzRC+BrL5GssbNTwGjp_ayA@mail.gmail.com>
+In-Reply-To: <CAMRc=MdMhr6qAnAtUePbuBbsH=3MzRC+BrL5GssbNTwGjp_ayA@mail.gmail.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Fri, 3 Jul 2026 20:58:56 +0800
+X-Gm-Features: AVVi8CeKAFgvldQwkCHupVnLS-0_fUDpMC-9BOMhYWR8u-1abjmchaeDfiY7p3M
+Message-ID: <CAGXv+5GHFnMj3qr5BcpLCQk25rWYOgnMKUX079ScELs4uqEdVg@mail.gmail.com>
+Subject: Re: [PATCH v3 08/13] usb: hub: Power on connected M.2 E-key
+ connectors with power sequencing API
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Manivannan Sadhasivam <mani@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jun 26, 2026 at 11:30:56PM +0300, Dmitry Baryshkov wrote:
-> On Thu, Jun 11, 2026 at 02:44:58AM +0530, Mohit Dsor wrote:
-> > Remove two redundant lt9611c_reset() calls:
-> > 
-> > 1. In lt9611c_bridge_atomic_pre_enable(): a reset is already performed
-> >    during probe and resume; calling it again on every display enable
-> >    adds ~440ms of unnecessary latency.
-> > 
-> > 2. At the end of lt9611c_probe(): a reset was already performed earlier
-> >    in probe before lt9611c_lock(). The second reset is redundant.
-> > 
-> > Also, the DRM HDMI bridge framework requires hdmi_write_hdmi_infoframe and
-> > hdmi_clear_hdmi_infoframe callbacks for HDMI vendor-specific infoframe
-> > (VSI) support, used for features such as HDR metadata signalling.
-> > 
-> > This patch add stub implementations that return success. Wire them into the bridge
-> > function table.
-> > 
-> > Also, Store the chip variant enum value in the of_match_table .data field and
-> > retrieve it via of_device_get_match_data() when probing from a DT node.
-> > Fall back to i2c_device_id.driver_data for non-DT (e.g. ACPI) probe
-> > paths.
-> > 
-> > This is the standard kernel pattern for passing per-compatible data
-> > through the OF match table, and avoids relying solely on the I2C device
-> > ID table for chip type detection when DT is available.
-> > 
-> > Populate bridge.vendor and bridge.product so the DRM HDMI framework can
-> > report the correct manufacturer and product name in the HDMI connector
-> > properties (visible via xrandr --prop and related sysfs entries).
-> 
-> I was going to write that this should be split into several commits, but
-> then... I stumbled upon a fact that the driver is not a part of the
-> drm-misc. So, instead of posting an update for the not-yet-merged
-> driver, please post new iteration of the LT9611C series. Don't forget to
-> drop the R-B tags where applicable.
-> 
-We will merge these changes in base patch only.
-> > 
-> > Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+On Fri, Jul 3, 2026 at 8:41=E2=80=AFPM Bartosz Golaszewski <brgl@kernel.org=
+> wrote:
+>
+> On Fri, 3 Jul 2026 13:03:09 +0200, Chen-Yu Tsai <wenst@chromium.org> said=
+:
+> > The new M.2 E-key connector can have a USB connection. For the USB devi=
+ce
+> > on this connector to work, its power must be enabled and the W_DISABLE2=
+#
+> > signal deasserted. The connector driver handles this and provides a
+> > toggle over the power sequencing API.
+> >
+> > This feature currently only supports a directly connected (no mux in
+> > between) M.2 E-key connector. Existing USB connector types are not
+> > covered. The USB A connector was recently added to the onboard devices
+> > driver. USB B connectors have historically been managed by the USB
+> > gadget or dual-role device controller drivers. USB C connectors are
+> > handled by TCPM drivers.
+> >
+> > The power sequencing API does not know whether a power sequence provide=
+r
+> > is not needed or not available yet, so we only request it for connector=
+s
+> > that we know need it, which at this time is just the E-key connector.
+> >
+> > On the USB side, the port firmware node (if present) is tied to the
+> > usb_port device. This device is used to acquire the power sequencing
+> > descriptor. This allows the provider to tell the different ports on one
+> > hub apart.
+> >
+> > This feature is not implemented in the onboard USB devices driver. The
+> > power sequencing API expects the consumer device to make the request,
+> > but there is no device node to instantiate a platform device to tie
+> > the driver to. The connector is not a child node of the USB host or
+> > hub, and the graph connection is from a USB port to the connector.
+> > And the connector itself already has a driver.
+> >
+> > Power sequencing is not directly enabled in the connector driver as
+> > that would completely decouple the timing of it from the USB subsystem.
+> > It would not be possible for the USB subsystem to toggle the power
+> > for a power cycle or to disable the port.
+> >
+> > Also rewrite the existing set_bit() and clear_bit() branches with
+> > assign_bit() to make it cleaner.
+> >
+> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 > > ---
-> >  drivers/gpu/drm/bridge/lontium-lt9611c.c | 31 ++++++++++++++++++++++++++-----
-> >  1 file changed, 26 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> > index b0402726367e..fe51f4978546 100644
-> > --- a/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> > +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> > @@ -622,7 +622,6 @@ static void lt9611c_bridge_atomic_pre_enable(struct drm_bridge *bridge,
-> >  	ret = regulator_bulk_enable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies);
-> >  	if (ret)
-> >  		dev_err(lt9611c->dev, "regulator bulk enable failed.\n");
-> > -	lt9611c_reset(lt9611c);
+> > Changes since v2:
+> > - Expanded subject to mention power sequencing API
+> > - Dropped commit message bit about power sequencing Kconfig symbol chan=
+ge
+> >   to bool
+> > - Added optional dependency on POWER_SEQUENCING to USB
+> > - Split out pwrseq_power_*() calls into separate helpers
+> > - Rewrote set_bit() and clear_bit() branches with assign_bit()
+> > - Dropped the pwrseq_power_off() before pwrseq_put(): pwrseq_put() does=
+ it
+> >   automatically.
+> > - Removed pwrseq_power_on() from usb_hub_create_port_device(); it will
+> >   get called through usb_hub_set_port_power() in hub_activate().
+> > - Added checks for port->pwrseq in hub_is_port_power_switchable()
+> >
+> > - Use separate pwrseq descriptors for HighSpeed and SuperSpeed ports.
+> >   This makes things simpler. On the other hand to power cycle a port
+> >   userspace needs to toggle it on both the HS and SS ports together.
+> > - Dropped pwrseq state tracking again
+> >   The power sequencing consumer API already tracks the state internally=
+;
+> >   doing it again in |struct usb_port| is not necessary especially now
+> >   that the descriptors aren't shared.
+> >
+> > It's unclear to me how actual hubs reconcile USB_PORT_FEAT_POWER settin=
+gs
+> > from the HS side and SS side. One hub chip vendor said that VBUS_EN for
+> > a port is on if the flag is set on either side; however actually testin=
+g
+> > on one of their hubs showed that VBUS was cut as soon as the flag is
+> > cleared on the HS port. Maybe it could be different if a SS device was
+> > connected? That scenario was not tested. Testing on another retail
+> > bought hub seemed to work exactly as described though: USB_PORT_FEAT_PO=
+WER
+> > needed to be clear on both HS and SS ports to turn off VBUS.
+> >
+> > Under this scheme, I'm not sure how the power cycle in hub_port_connect=
+()
+> > would work correctly.
+> >
+> > - Link to v2:
+> >   https://lore.kernel.org/all/20260610084053.2059858-1-wenst@chromium.o=
+rg/
+> >
+> > Changes since v1:
+> > - Switch to fwnode instead of OF
+> > - Tie port@ fwnode to usb_port device
+> > - Move remote node compatible checking to separate helper
+> > - Use usb_port device to request power sequencing descriptor
+> > - Drop "index" parameter from pwrseq_get()
+> > - Do not get pwrseq descriptor for SuperSpeed port; share one for one
+> >   physical port
+> > - Add pwrseq state tracking
+> > - Link to v1:
+> >   https://lore.kernel.org/all/20260515090149.3169406-1-wenst@chromium.o=
+rg/
+> > ---
+> >  drivers/usb/Kconfig     |  1 +
+> >  drivers/usb/core/hub.c  | 44 +++++++++++++++++++++++++++++-----
+> >  drivers/usb/core/hub.h  | 10 +++++++-
+> >  drivers/usb/core/port.c | 52 ++++++++++++++++++++++++++++++++++++++++-
+> >  4 files changed, 99 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/drivers/usb/Kconfig b/drivers/usb/Kconfig
+> > index abf8c6cdea9e..ef1959363fb1 100644
+> > --- a/drivers/usb/Kconfig
+> > +++ b/drivers/usb/Kconfig
+> > @@ -44,6 +44,7 @@ config USB_ARCH_HAS_HCD
+> >  config USB
+> >       tristate "Support for Host-side USB"
+> >       depends on USB_ARCH_HAS_HCD
+> > +     depends on POWER_SEQUENCING if POWER_SEQUENCING
+> >       select GENERIC_ALLOCATOR
+> >       select USB_COMMON
+> >       select NLS  # for UTF-8 strings
+> > diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+> > index 8ae97e8c26aa..dfa0f5dd75e8 100644
+> > --- a/drivers/usb/core/hub.c
+> > +++ b/drivers/usb/core/hub.c
+> > @@ -32,6 +32,7 @@
+> >  #include <linux/mutex.h>
+> >  #include <linux/random.h>
+> >  #include <linux/pm_qos.h>
+> > +#include <linux/pwrseq/consumer.h>
+> >  #include <linux/kobject.h>
+> >
+> >  #include <linux/bitfield.h>
+> > @@ -871,6 +872,30 @@ static void hub_tt_work(struct work_struct *work)
+> >       spin_unlock_irqrestore(&hub->tt.lock, flags);
 > >  }
-> >  
-> >  static void lt9611c_bridge_atomic_enable(struct drm_bridge *bridge,
-> > @@ -777,6 +776,17 @@ static int lt9611c_hdmi_clear_avi_infoframe(struct drm_bridge *bridge)
-> >  	return 0;
-> >  }
-> >  
-> > +static int lt9611c_hdmi_write_hdmi_infoframe(struct drm_bridge *bridge,
-> > +					     const u8 *buffer, size_t len)
+> >
+> > +static int usb_hub_set_port_pwrseq(struct usb_port *port, bool set)
 > > +{
-> > +	return 0;
+> > +     int ret =3D 0;
+> > +
+> > +     if (set)
+> > +             ret =3D pwrseq_power_on(port->pwrseq);
+> > +     else
+> > +             ret =3D pwrseq_power_off(port->pwrseq);
+> > +
+> > +     return ret;
 > > +}
 > > +
-> > +static int lt9611c_hdmi_clear_hdmi_infoframe(struct drm_bridge *bridge)
+> > +static int usb_hub_restore_port_pwrseq(struct usb_port *port, bool set=
+)
 > > +{
-> > +	return 0;
-> > +}
-> 
-> Definite NAK. The purpose of the callbacks is to write the infoframe.
-> Purpose of the check in the DRM framework is to ensure that the frame is
-> actually written. Please work with Lontium and find a way to write HDMI
-> / HVS, SPD and HDR infoframes.
-> 
-We will implement these callbaks.
+> > +     int ret =3D 0;
 > > +
-> >  static int lt9611c_hdmi_write_audio_infoframe(struct drm_bridge *bridge,
-> >  					      const u8 *buffer, size_t len)
+> > +     if (set)
+> > +             ret =3D pwrseq_power_off(port->pwrseq);
+> > +     else
+> > +             ret =3D pwrseq_power_on(port->pwrseq);
+> > +
+> > +     return ret;
+> > +}
+> > +
+> >  /**
+> >   * usb_hub_set_port_power - control hub port's power state
+> >   * @hdev: USB device belonging to the usb hub
+> > @@ -886,20 +911,24 @@ static void hub_tt_work(struct work_struct *work)
+> >  int usb_hub_set_port_power(struct usb_device *hdev, struct usb_hub *hu=
+b,
+> >                          int port1, bool set)
 > >  {
-> > @@ -895,6 +905,8 @@ static const struct drm_bridge_funcs lt9611c_bridge_funcs = {
-> >  	.hdmi_tmds_char_rate_valid = lt9611c_hdmi_tmds_char_rate_valid,
-> >  	.hdmi_write_avi_infoframe = lt9611c_hdmi_write_avi_infoframe,
-> >  	.hdmi_clear_avi_infoframe = lt9611c_hdmi_clear_avi_infoframe,
-> > +	.hdmi_write_hdmi_infoframe = lt9611c_hdmi_write_hdmi_infoframe,
-> > +	.hdmi_clear_hdmi_infoframe = lt9611c_hdmi_clear_hdmi_infoframe,
-> >  	.hdmi_write_audio_infoframe = lt9611c_hdmi_write_audio_infoframe,
-> >  	.hdmi_clear_audio_infoframe = lt9611c_hdmi_clear_audio_infoframe,
-> >  
-> > @@ -1025,6 +1037,13 @@ static int lt9611c_probe(struct i2c_client *client)
-> >  	lt9611c->dev = dev;
-> >  	lt9611c->client = client;
-> >  	lt9611c->chip_type = id->driver_data;
+> > +     struct usb_port *pwrseq_port =3D hub->ports[port1 - 1];
+> >       int ret;
+> >
+> > +     ret =3D usb_hub_set_port_pwrseq(pwrseq_port, set);
+> > +     if (ret)
+> > +             return ret;
 > > +
-> > +	if (dev->of_node) {
-> > +		lt9611c->chip_type = (uintptr_t)of_device_get_match_data(dev);
-> > +	} else {
-> > +		lt9611c->chip_type = id->driver_data;
-> > +	}
-> 
-> Use i2c_get_match_data(). But, also, why? The driver will likely not
-> work w/o the OF in place, there is little point in doing something else.
-> 
-we will use i2c_get_match_data. id->driver_data is in base patch, we
-will check with lontium for this.
+
+As Sashiko pointed out, the stub function returns -ENOSYS. I need to add
+something to handle that case properly in the helper functions above.
+
+    if (!IS_ENABLED(POWER_SEQUENCING))
+        return 0;
+
+seems to be more straightforward.
+
+> >       if (set)
+> >               ret =3D set_port_feature(hdev, port1, USB_PORT_FEAT_POWER=
+);
+> >       else
+> >               ret =3D usb_clear_port_feature(hdev, port1, USB_PORT_FEAT=
+_POWER);
+> >
+> > -     if (ret)
+> > +     if (ret) {
+> > +             usb_hub_restore_port_pwrseq(pwrseq_port, set);
+> >               return ret;
+> > +     }
+> >
+> > -     if (set)
+> > -             set_bit(port1, hub->power_bits);
+> > -     else
+> > -             clear_bit(port1, hub->power_bits);
+> > +     assign_bit(port1, hub->power_bits, set);
+> >       return 0;
+> >  }
+> >
+> > @@ -3249,7 +3278,10 @@ int usb_port_is_power_on(struct usb_port *port, =
+unsigned int portstatus)
+> >                       ret =3D 1;
+> >       }
+> >
+> > -     return ret;
+> > +     if (!port->pwrseq)
+> > +             return ret;
 > > +
-> >  	ret = devm_mutex_init(dev, &lt9611c->ocm_lock);
-> >  	if (ret)
-> >  		return dev_err_probe(dev, ret, "failed to init mutex\n");
-> 
-> -- 
-> With best wishes
-> Dmitry
+> > +     return ret && pwrseq_power_is_on(port->pwrseq);
+>
+> So this is only needed to not have to track the state in a separate field=
+?
+
+Correct. Reading the field is not the problem. Updating it is, as the
+fields are packed bitfields, and Sashiko suggested that locking would
+be needed, though it may have been for the peer port, which has since
+been removed.
+
+[...]
+
+> Looks good to me.
+>
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
+Thanks
+ChenYu
