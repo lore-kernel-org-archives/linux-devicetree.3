@@ -1,188 +1,287 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF31417363
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 15:27:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413F7417362
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 15:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783092461; cv=none; b=FlE6VrvYCsZokUfISsnnVvAIddehJK9nKY8EsP4pMaT9Un7Z3+b1VLljHVTYruOS7rjTeLeDeZ5lqWU4lgKr8dMoGb2InFWK9AMAYVmMKWFqiw0NX61pwbKRpQ7qnb8o9mPqrmqwpnSiAyb14I2kBsYRJNtsCNR/aaYH18uZv9A=
+	t=1783092515; cv=none; b=BwxpJ550ZL2lXnmaypbr0DBXzwNDP0h9uhOGQ/bv+vej3xP/Q76U4UY0vF9LbrGU5qUFMax6CaMCW9LMD0fjKMcIr0f6Hxyf2RYR4tMQX/Oa7uNV7eJlkFGsc1OGOPb6Y5RDO/rOt7sV3mFTgfeIeQO6q6XwtyfJjV0DTdqD7q8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783092461; c=relaxed/simple;
-	bh=3IRI+0YZ89YfdI6eLFQJsGv8r3K38cc+bhDF8g2QYh0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Lm8J8gxISrmfpqv+iscfFbt1eyWjpOwwwshYyco5sGov4JAoYPrqPP8oGlOBZVviEHMxjNKw9Q4ysjleHzuuO0BpohxQa27sbLPx0Nxj55H29MdHLJWlP8g1qnSFehLPlL9F6kXphrbM1+QMnYWJxY6G0Vk29ZF0G8n8K5prkQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iSUEWpfm; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783092515; c=relaxed/simple;
+	bh=150+8HL6LJJfiLHm6ieX1zJrqRUok0x5WkQYbkbbdqA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AuyrJosY2kQZp+u1/QZn/fHRwzkzVw7SSAodgfdnq+KsVWHvNGoyoPOugPLxwqLGL6e2w0fMuqzmWL8WslS53/sNF2SU1gchvq0UoPdd0kJCQB5OY9pfB+o17ckX+yKCoMPdIhphQfciHiMoE8ybvxCa7jluu0XR3McahanggAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZdK3Urio; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZC03+r+l; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iSUEWpfm"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-46ed4f66256so627719f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 08:27:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZdK3Urio";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZC03+r+l"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663D197R053953
+	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 15:28:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	AciCzvVuG7PhBcPDjsdU+1dVF4U7pvIIGAG3L/zLdWM=; b=ZdK3UriohUzLsGQr
+	5AveQQAoU94llCIcFaCL3Wu8pEcTKGxM/6gPAFu5dNuw8QUzL054/shX4W9G+WzY
+	2FMFGmAiIE3e3lO5DDhmkOtAPvC7pNv/4CZsxKF75AoITtxisT5n0ifqsW4nXFFj
+	m+8D9MErpMheDOY3Zq+sq4fiNkdMW2n1QnHSdv3hQZWXCXGg/4n8RoN9iZp+2DEO
+	wcimnjxg4wHoTQ5GVpAQYPWaIlKNa/Ipshp+3AwCd7bEfTiEE1mwnPopU/dYZQuv
+	+wIeouFUfZ5nzPF0avG4nr8s8vLFsXrPhaWM/eQwNLMkLQCz00uYvFG8b5VC2G2c
+	5dlJuw==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6dkkgfsy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 15:28:31 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5bda012e304so202201e0c.2
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 08:28:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783092458; x=1783697258; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=QGZm4+XMD1ngU96wT2Oojs/SHdS870fkpgs5aUT2QU0=;
-        b=iSUEWpfmf9AjL2WOzmmPEZlrvfWF+48/6x8Qi1T2pbkvtchYx4e3/yfut1tC+J005d
-         fYM1Y4kVKUf0/gKcn9CuEgMZKzRxPFFFIfvniH8RL6NLH8NHISxYjKVri3tuE9Qcjsxi
-         lzVL6JE+r6UuaDkj7hqqcvXMn84loqihtoKpUZIiouJb9p3iRhyqKjavsfAC65mkyw1R
-         1txSGG3fngpdYXceCf9yYT9anB21MtweTQ9ipUgXPAeGaylkU8RFOQeytuja41WfPQHX
-         cmlSbxWSzPAZsoQYCzWXkebXCewYoM/yDBtmOw/JhPSh4xzYthQ6UXB1FQzoTet8JYZf
-         udSQ==
+        d=oss.qualcomm.com; s=google; t=1783092511; x=1783697311; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=AciCzvVuG7PhBcPDjsdU+1dVF4U7pvIIGAG3L/zLdWM=;
+        b=ZC03+r+lY+oyH3rfvj+HwKmomPznc2Zg7DH6TNQAo0KX2xNSzcLzBHDnHf7mZ4+aP9
+         ow5pzcX4ct9+U/j/Z+oAJQeJl99ADm2twM24faTVfFyhOQUae/lU6MWjpQgzQQaNL6T5
+         OVCPmxOXQkz33IMtPYnh+lpy9XxXl0EY5GEicc295UAyUV20fw++ERJo12afQf0/duAQ
+         G1GU9FwIgnALop/lKP4iUzYoxQfOY7Jp8VfeXeiG3bt6sSG2+ZTMqdu8V0dyDHobC7Tt
+         JMfoHI6sO7etGEY4/4LFu9fYdb4QEPFcDYFqbUvCWvIUIECjYA2pVXY1J1zZBXbiJg8X
+         MWrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783092458; x=1783697258;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QGZm4+XMD1ngU96wT2Oojs/SHdS870fkpgs5aUT2QU0=;
-        b=a/4mPJSp0NkY6tP1vaHnAqQHSFmSdu4j4PugECVgv6selwBpXDSdyS42NZv+UxteEs
-         /KD0Z7o+Z7BdblmUPAOaAmoN7zp8IyqkKUvUG80woznkhvpq0HBigl0JHLVXc+qQ6uHs
-         NxU/N62a9Q+vN4i8/FrcZyPoh2wTCfgelYfwuYNOD8Ie30ABsguUP2N4pDlTJv3e7t4X
-         R0Hg7xYcu2cKS+x17T6/Q/UvIcDXtikDuhkAmYLT7G5Dsyzw7F5iicntc53SBUy/lt6E
-         HTObwM2eZIWnZEQaEvtcoYd6gTae26fThX30g84y6uOhIALNsQVJxnTUzew3MQ3D4r8s
-         g7cQ==
-X-Forwarded-Encrypted: i=1; AHgh+RofHDW6tvKgG7e1Khd4JgW4hHWNAMyLnrBgZE5faiXkYAhTpfY28ItkZEt8CVgMoIbevIVtRSut8NVD@vger.kernel.org
-X-Gm-Message-State: AOJu0YxraHsw9faKCgAEoRRj2Mj+q30RnrzKlga7D9dfVs0rHUUqmLYp
-	Yaaa0GvCoDAy1A+1DNbzJ129BSFm07p3bTcrpsWYgOzjAi+VKtq8KJCo
-X-Gm-Gg: AfdE7cnylyRgQScljr6p6VtVBrkSCVx+XgWPeMbWhD3n201jtGhJB8059z3sFOILySy
-	4By+AJEp0GnHnivklDpL0TYHfvZ/BuII/Ivao0QkS8XEl+ZyswsGf8LKBbtEQMUEvZzn2hN17US
-	nBAlW/LOPhA/E62R15SKuh9LcqRG/wJxJcxYOr1AKIsSSDvEetAhKoM7c8EpKPbP8H08ZQaWd4k
-	9V/X/m9vDaJccaGsLAPzx56oIywREa1Z5r9Uir1z0V2oDuNVsjOWv3sVdcz1rfWpmMyI5kH7fmS
-	ljksQug3H/lgACJritoLE7Y2o+q5cQIgJEUfbvMKSS/PiqqQVJhj0l607RSIVPZC566Kodi3RRL
-	SCsvHoYr6oGQ/XEKha6ECx73MrNmWWLzSn/GjSFcQoqM8/dW5Uq054icplW8R5K1Dd9mhzM3gwW
-	kVFm2nXocOCvjTt4md6eSJEDTW4QU7Bfae6APP8baxz/k0enOQctw7zJx8hpId24grEE5Ik1cAO
-	KB9RLAKyJpES3ucbaItcfOElRs=
-X-Received: by 2002:a05:6000:52:b0:46f:f12b:e44b with SMTP id ffacd0b85a97d-4775be03161mr11748719f8f.31.1783092458177;
-        Fri, 03 Jul 2026 08:27:38 -0700 (PDT)
-Received: from Lord-Beerus.station (net-93-144-65-248.cust.vodafonedsl.it. [93.144.65.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0960b06sm85460f8f.28.2026.07.03.08.27.37
+        d=1e100.net; s=20251104; t=1783092511; x=1783697311;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=AciCzvVuG7PhBcPDjsdU+1dVF4U7pvIIGAG3L/zLdWM=;
+        b=h8TO/X12dIhEfTaq8ekpkqQwV3ZIJe67BjTqomGA8D+RrQTfcl5Z6HhSAk9SX2XN0Z
+         7dE+FEfW8kFM8g3qHLl9NLCcjEDgxUOyZBM/J1TNQX2q92S3ok+vTw44eNVEAo4r+eBO
+         VmTJkZ/D1xy3qG/pXl1sZbucUmVmnhnEtLFnDuR7ybzOZRtDvqA4Kw9AevnikJmQhGR2
+         fMfgFnt5TuktvV+vRzc16Gh9ASd7iZcO7k5Us0ZXgjJZYd5rHRbvKQxICYR8CU97uMQ+
+         o6MlCfrOuaPTjhLW5J48lz2XrmY2RbNOtZZaXlu1yAwbNGpbEQ8zw9CL531AU9nrXNij
+         RzCQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoKflG6KzDjcXdMTT8Z3Pn7DNvF1afY+qtGQLz6fYbAQjDkea63NFxuwmf6oV1PJ/FGJmtZYEAWNs40@vger.kernel.org
+X-Gm-Message-State: AOJu0YyUx3eTWALt5YRPU9MxUWoVsHWcmDjUkG6Xd/vJjVkIFpdny37O
+	B9sCr5jZ0a/DcgGK41KnzRsjhSwc4p1G7y9hee3cNvI2rtZau/jwKPpbp0ebTQ0YXBYeQAqil6C
+	1ovaOPi1JsoRAlTP1aYT4Iqgirmbiva6Rzy5V0A0nUYyQA+pWSl3g+dj3u+UDikWH
+X-Gm-Gg: AfdE7clNodkO7QGn2MhW1dADh5Q+Id47KCoxC25WRU0Hzbe+WJFsaTdavJ3M8NPTqga
+	FQUOWxv36vujVOMHdO55UzDqxB1CLriN5Kwf47dyYV4p5zIzay+vvblJ/U/nlqn0SPXUdp0Kg6K
+	8Y5qDhrhuk36yHhFTZCc/5JzYaMX5Zsd4WEDtRVwC6vprh8o8d5VUiyzFQUupbNyOb0OZ4/2o9c
+	0ilaZbA8gUufG+wJeSqm0JBwDXKp9HuSpyy30yWjoxa7nAY1noRAEw7ACuUHgcBE6LiVEU9O64o
+	bNBqLCBldU59s8BEE+p4VmOAQVISgbH4eZooZYd7SvkNalj6LAOGvCz1lPBIrpRMfu20Eq31xMs
+	RAMYrX8mCNmExafK68HwvFhSLxJN8mTj95IpxtrH1c+Ti+zvMc//DEdabl2l0FXYYzOESRcOzRv
+	uT6+5xM1mM1bYMB19UiUbxvaP2
+X-Received: by 2002:a05:6122:896:b0:5a0:5805:c8ba with SMTP id 71dfb90a1353d-5be1028b9f8mr177e0c.11.1783092511234;
+        Fri, 03 Jul 2026 08:28:31 -0700 (PDT)
+X-Received: by 2002:a05:6122:896:b0:5a0:5805:c8ba with SMTP id 71dfb90a1353d-5be1028b9f8mr167e0c.11.1783092510604;
+        Fri, 03 Jul 2026 08:28:30 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed13c8c3asm548295e87.82.2026.07.03.08.28.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 08:27:37 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v1 1/1] arm64: dts: freescale: imx9-var-dart-sonata: fix Ethernet PHY configuration
-Date: Fri,  3 Jul 2026 17:27:31 +0200
-Message-ID: <20260703152731.236793-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+        Fri, 03 Jul 2026 08:28:29 -0700 (PDT)
+Date: Fri, 3 Jul 2026 18:28:27 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+Cc: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+        sashiko-reviews@lists.linux.dev,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>, robh@kernel.org,
+        linux-phy@lists.infradead.org, neil.armstrong@linaro.org,
+        vkoul@kernel.org, olteanv@gmail.com, krzk+dt@kernel.org,
+        conor+dt@kernel.org, devicetree@vger.kernel.org,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: Add Shikra CQM SoM platform
+Message-ID: <sfilvfwibse2vpi74vownkx32kz2dhkkvriphtti5jn2p32ffx@2q4p7nahzoxz>
+References: <t2sw6owdxy5iyodjqsldbw6bfaqnezhgvc4hhylxuyrrbjkjto@iwf4dr5nmot3>
+ <20260513142936.kauwa3czigfs7qs5@hu-kotarake-hyd.qualcomm.com>
+ <0ac665bb-1a21-4077-aa9e-97162f7f4784@oss.qualcomm.com>
+ <20260514103918.cs5m5kcxcrcgukvx@hu-kamalw-hyd.qualcomm.com>
+ <obdxony34ckfbtsqj66siszw44sgieskcye5hg66ulkisctpwl@fyqczpze5tnw>
+ <20260518114927.edxbzvklqatlntv2@hu-kamalw-hyd.qualcomm.com>
+ <CAO9ioeVMieo8HtpRw+n4ZU9uV-_RQM061q5XfAA1Dtk2fnp4+g@mail.gmail.com>
+ <bvankzuazswuigrm7hvyjqigzfaru5o43wi3zvyphgme2pgqwz@pyspqky3u6cn>
+ <5idu4ljmcvcvzqsr5g73h2roxzs36l6xxc5ju6ovc5aitt3gx4@wmfqueyf2rj6>
+ <20260630124220.4lja4zshpf66kwj3@hu-kotarake-hyd.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260630124220.4lja4zshpf66kwj3@hu-kotarake-hyd.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE1MiBTYWx0ZWRfX3x7TdK6HLN6S
+ Ohvz7I46BrgVOEn0giN61M30gVWo2hnKG2qo5e4EzKgupbDu3vup0sighWf4kLEdOoizP9RuJbl
+ 1l8XnjJtN5uAjJEJ0QiC2qeQAj2NB5xjNcamZOqOYp250n7k5dPaoq1085vz5QMj51W3J8YU90p
+ TufwyUuj1pR1n8H0nr2h+1OpsHbffvXlFB7/uvh3W9ntgwewX664QRaHPCmUVAWq0kNZh1sm1AK
+ WlxfGGwJOo1EjRMbVmubMEXVaau6VN/bZJ1J2WNnQHWZb2j2PZ/9NiD2Y5pBwOppQBoK//zHrUb
+ IOAY/Y84z94VVh+F1iPOrpKMPRowpU3DbCKOD4Yy+RG5+3wQMnNRh6+G7LZx8Eb5gtBmT01Ozdn
+ kE2l+M132IzLOtgoBfS+Enb+wV1vjnDaYHG3a9k4s0IeBzHUilZykba8V0RGdmo192p1/uwU68g
+ eFnCGXgFFiyhw7/tWJA==
+X-Authority-Analysis: v=2.4 cv=LeUMLDfi c=1 sm=1 tr=0 ts=6a47d520 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=DumtbP4wScXUqnNUUE4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-ORIG-GUID: 9kYKYGDuOn_7GZGfbyyLTC_I5Bv0PkbU
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE1MiBTYWx0ZWRfX0e4xVI0MDF00
+ WIyGfKHukB0ZLt90vUl4wOrczRNHBRzCQjngJ99YIqb2kJnKws+N1bmwt9enrHA0nb0VUcRFl1h
+ JBRz5Tx4ZE6hMnUOCsel6Fdq4h0B+UQ=
+X-Proofpoint-GUID: 9kYKYGDuOn_7GZGfbyyLTC_I5Bv0PkbU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
+ suspectscore=0 bulkscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030152
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+On Tue, Jun 30, 2026 at 06:12:20PM +0530, Rakesh Kota wrote:
+> On Sun, Jun 28, 2026 at 03:33:23PM +0300, Dmitry Baryshkov wrote:
+> > On Thu, Jun 25, 2026 at 09:11:19PM +0530, Kamal Wadhwa wrote:
+> > > On Wed, Jun 17, 2026 at 03:48:14PM +0300, Dmitry Baryshkov wrote:
+> > > > On Mon, 18 May 2026 at 14:49, Kamal Wadhwa
+> > > > <kamal.wadhwa@oss.qualcomm.com> wrote:
+> > > > >
+> > > > > On Sun, May 17, 2026 at 08:18:15PM +0300, Dmitry Baryshkov wrote:
+> > > > > > On Thu, May 14, 2026 at 04:09:18PM +0530, Kamal Wadhwa wrote:
+> > > > > > > On Wed, May 13, 2026 at 06:14:20PM +0300, Dmitry Baryshkov wrote:
+> > > > > > > > On 13/05/2026 17:29, Rakesh Kota wrote:
+> > > > > > > > > On Wed, May 13, 2026 at 03:01:47PM +0300, Dmitry Baryshkov wrote:
+> > > > > > > > > > On Wed, May 13, 2026 at 04:28:35AM +0000, sashiko-bot@kernel.org wrote:
+> > > > > > > > > > > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> > > > > > > > > > > - [High] The PMIC regulator definitions omit their required input supply dependencies (e.g., `vdd_s2-supply`, `vdd_l3-supply`), breaking the power hierarchy.
+> > > > > > > > > > > - [Medium] The device tree inaccurately hardcodes the `compatible` string to a different PMIC model (`qcom,rpm-pm2250-regulators`) instead of explicitly identifying the actual hardware (PM4125).
+> > > > > > > > > > > --
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +         pm4125_s2: s2 {
+> > > > > > > > > > > > +                 regulator-min-microvolt = <1000000>;
+> > > > > > > > > > > > +                 regulator-max-microvolt = <1200000>;
+> > > > > > > > > > > > +         };
+> > > > > > > > > > >
+> > > > > > > > > > > Do these regulators need to explicitly define their input supply dependencies
+> > > > > > > > > > > such as vdd_s2-supply?
+> > > > > > > > > > >
+> > > > > > > > > > > Without these properties, the regulator framework might be unaware that the
+> > > > > > > > > > > PMIC regulators draw power from upstream supplies.
+> > > > > > > > > > >
+> > > > > > > > > > > If the kernel dynamically manages the upstream supply and its reference count
+> > > > > > > > > > > drops to zero, could it be disabled, causing an unexpected power loss for
+> > > > > > > > > > > downstream components?
+> > > > > > > > > >
+> > > > > > > > > > And this is a correct comment. Please provide missing supplies.
+> > > > > > > > > >
+> > > > > > > > > As per the Qualcomm system design, the parent-child supply relationship
+> > > > > > > > > is managed by the RPM firmware, not the Linux regulator framework. The
+> > > > > > > > > RPM ensures the parent supply is never disabled until all subsystem
+> > > > > > > > > votes are cleared.
+> > > > > > > >
+> > > > > > > > How is this different from other, previous platforms?
+> > > > > > >
+> > > > > > > This is not different. In the previous platforms too this is taken care from the
+> > > > > > > RPM/RPMH firmware side, the only case where we may need explicit vote to parent
+> > > > > > > is for non-rpmh/rpm regulator rails (like i2c based regulator pm8008), which
+> > > > > > > may have a RPM/RPMH regulator as a parent.
+> > > > > > >
+> > > > > > > Even on those previous targets the parent rail of all RPM/RPMH regulators are
+> > > > > > > internally voted by RPM/RPMH FW at proper voltage with required headroom
+> > > > > > > calculated based on the active child rails. This was done for all the
+> > > > > > > subsystems (including APPS) regulators.
+> > > > > > >
+> > > > > > > So no explicit handling from the APPS is required for parent supply.
+> > > > > >
+> > > > > > You are explaining the driver behaviour. But the question is about the
+> > > > > > hardware description. If there is no difference, please add necessary
+> > > > > > supplies back.
+> > > > >
+> > > > > I understand your concern about descibing the parent-child relation in the
+> > > > > devicetree, and given that we have been almost always followed this for all
+> > > > > the previous targets, it will expected of us to add them.
+> > > > 
+> > > > Yes.
+> > > > 
+> > > > >
+> > > > > However, we want to avoid the unnecessary access to the parent from APPS.
+> > > > 
+> > > > Why? What is the reason? Do we want to do the same for all the
+> > > > platforms? Only for Shikra? Something else?
+> > > > 
+> > > > > At the moment, I do not see a way to avoid that, if we add the parent
+> > > > > regulators.
+> > > > 
+> > > > That depend on the answer to the previous question. In the end, we can
+> > > > make the driver ignore the parents by removing them from the regulator
+> > > > desc.
+> > > 
+> > > Ok, this seems like a good suggestion, so you mean its ok if we define the
+> > > regulator desc's supply column with NULL? And only keep that in the DT?
+> > > 
+> > > you mean like this?
+> > > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/regulator/qcom-rpmh-regulator.c?h=v7.1#n1453
+> > > 
+> > > (please let me know if i got that right. thanks)
+> > 
+> > Yes. Don't forget to explain in the commit message, why you are doing
+> > so.
+> 
+> Currently, Agatti uses the same PMIC, so we cannot set the driver
+> supply name reference to NULL. Since it's an older target,
+> we'll need to run a regression before making any driver-level changes.
 
-Fix the Ethernet PHY description on the DART-MX9 Sonata boards.
+Sure, just do it please.
 
-The GPIO previously described as the PHY reset line is actually a
-board-level enable signal required by the PHY. Model it accordingly and
-remove the incorrect reset GPIO description from the PHY nodes.
+> Additionally, the child-to-parent regulator ganging differs between
+> Shikra and Agatti:
+> 
+>  - On Agatti, l3 regulator is ganged with vdd_l13_l14_l15_l16
+>  - On Shikra, l3 is ganged with vdd_l2_l3
 
-On i.MX91 and i.MX93 the signal is described as a fixed regulator,
-whereas the existing regulator description on i.MX95 is reused.
+Well, somebody tried to be too smart when contributing Agatti. Now that
+needs to be fixed. Be sure to keep backwards compatibility with the
+existing DTs.
 
-Keeping the PHY enable asserted during boot ensures that Ethernet
-initialization completes successfully.
+From the schematics that I see, the pins are:
 
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
- .../boot/dts/freescale/imx91-var-dart-sonata.dts   | 14 +++++++++++---
- .../boot/dts/freescale/imx93-var-dart-sonata.dts   | 14 +++++++++++---
- .../boot/dts/freescale/imx95-var-dart-sonata.dts   |  3 ---
- 3 files changed, 22 insertions(+), 9 deletions(-)
+- vin_l1
+- vin_l2_l3
+- vin_l5_l6_l7_l11_l12
+- vin_l8_l9
+- vin_l10
+- vin_l13_l14
+- vin_l15_l16
+- vin_l17_l22
+- vin_l18_l19
+- vin_l4_l20_l21
+- vin_xo_rf
 
-diff --git a/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
-index 3f0fd321d95f..f7e32f9375f5 100644
---- a/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
-+++ b/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
-@@ -97,6 +97,17 @@ reg_rgb_sel: regulator-rgb-enable {
- 		enable-active-high;
- 	};
- 
-+	reg_phy1_supply: regulator-phy1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "SUPPLY_PHY1";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpio = <&pca6408_2 0 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		startup-delay-us = <10000>;
-+		regulator-always-on;
-+	};
-+
- 	reg_usdhc2_vmmc: regulator-vmmc-usdhc2 {
- 		compatible = "regulator-fixed";
- 		pinctrl-names = "default";
-@@ -139,9 +150,6 @@ mdio {
- 		ethphy1: ethernet-phy@1 {
- 			compatible = "ethernet-phy-ieee802.3-c22";
- 			reg = <1>;
--			reset-gpios = <&pca6408_2 0 GPIO_ACTIVE_LOW>;
--			reset-assert-us = <15000>;
--			reset-deassert-us = <100000>;
- 
- 			leds {
- 				#address-cells = <1>;
-diff --git a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
-index 5513d3b148a2..1ca3ec8330d0 100644
---- a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
-+++ b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
-@@ -103,6 +103,17 @@ reg_vref_1v8: regulator-adc-vref {
- 		regulator-min-microvolt = <1800000>;
- 	};
- 
-+	reg_phy1_supply: regulator-phy1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "SUPPLY_PHY1";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpio = <&pca6408_2 0 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		startup-delay-us = <10000>;
-+		regulator-always-on;
-+	};
-+
- 	reg_usdhc2_vmmc: regulator-vmmc-usdhc2 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "VDD_SD2_3V3";
-@@ -180,9 +191,6 @@ mdio {
- 		ethphy1: ethernet-phy@1 {
- 			compatible = "ethernet-phy-ieee802.3-c22";
- 			reg = <1>;
--			reset-assert-us = <15000>;
--			reset-deassert-us = <100000>;
--			reset-gpios = <&pca6408_2 0 GPIO_ACTIVE_LOW>;
- 
- 			leds {
- 				#address-cells = <1>;
-diff --git a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-index 7a58ad38ffb4..ccf7e77016e4 100644
---- a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-+++ b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-@@ -346,9 +346,6 @@ &netc_emdio {
- 	ethphy1: ethernet-phy@1 {
- 		compatible = "ethernet-phy-ieee802.3-c22";
- 		reg = <1>;
--		reset-gpios = <&pca6408_2 0 GPIO_ACTIVE_LOW>;
--		reset-assert-us = <10000>;
--		reset-deassert-us = <100000>;
- 
- 		leds {
- 			#address-cells = <1>;
+Please correct the bindings and adjust the driver.
+
+> Since vdd_l2_l3 is not present as a supply name in the driver, it will
+> be skipped by the driver and would only serve as a representational
+> reference in the DT.
+> 
+> We have two options to consider:
+> 
+> Option 1: Skip adding the child/parent relationship for Shikra for now,
+> since the DT bindings are not enforcing it. (Ref:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/regulator/qcom,smd-rpm-regulator.yaml?h=v7.1)
+> 
+> Option 2: Go ahead and add the Shikra-specific ganging in DT now. Since
+> the supply name (vdd_l2_l3) does not match what the driver expects
+> (Agatti's mapping), it will be gracefully skipped by the driver — making
+> it safe to add for documentation/representation purposes without any
+> functional impact.
+> 
+> So,Please share your thoughts on above options ?
+
+Option 3. The PMIC is not Shikra-specific. You've spotted an error.
+Correct the way it is described an used while adding support for Shikra.
+
+
 -- 
-2.47.3
-
+With best wishes
+Dmitry
