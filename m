@@ -1,265 +1,339 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E97233937
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 15:32:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52104279917;
+	Fri,  3 Jul 2026 15:33:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783092737; cv=none; b=D0GXwHqbm7WcHHQjNAgxF+wgsxoO1xalMMCd4BjCYq+sDCmkTdrsw75jfgA7JBic1DqxCvzvA9KNkp5miGQ3BF/bMR8xTjkNrQQXEpHmLpKF7u8Pd1ZwopXFZ+r7ZHgOQXtzG1DlsXw3sOXPE2Y39rI7o56QQ/XwF6MfsK85Fx4=
+	t=1783092819; cv=none; b=mqp811NjKKiXVdW98MBmpOVnJfLHDokep7bIQW/gKeVW3aZcgoHt+J9bnb95ykvhO2Wwq1s62InSx010XlME6ZHkWNLLxl1C5qKGdJ/PCXsQDo2ss8hHy41BHbX8VU97GyUfXv9qE0bQz+ZBl0xKSOLvuP/TnsL5R1nYehKoqu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783092737; c=relaxed/simple;
-	bh=QgII9ryv9JQCJcDtGueopEHukhohDkW/MVfV9fMe9Nk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LuHu1bieLBfqYKnxwpfhT6FW/KGmPlrefAJzDD/NaTa2J41CYsenXCoUs48TmiTdlDs6baL6Y5M02q7qx3ABaIyNIHXvN0dpGdlRpaPHGdiBCYoMTVVhAGbfjifKQFDiVnnZawFzgVm50yBRcTY3ikvKPbpDibGCRaSGZGESs+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PvuuOkQ9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UuvIWIZJ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783092819; c=relaxed/simple;
+	bh=Kqx9wUCFM9/qBWSQCRYrQ/6Nmh3G78kJwf4apec+VQY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rPyw20i5LvXGzUVUs9rDjW2K4L46gJUs+PWG5bvKYy8/TEg/kEeiRb4NxjDDtg79dZWqnPVP7AGwhd8PFMgwaLtI50Mvwm+bn095YBW2mBrTwFE27cpHispS7NU/SfbTadGnZgKhfkXlner8Udkwycw0B0XRH7yHDkJXMWj8oEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c2Q8yKTb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PvuuOkQ9";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UuvIWIZJ"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663A2uFR3772711
-	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 15:32:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	U7M4A5A2q632Eb9taEhCM1j2UptjxaJBaXty1useesM=; b=PvuuOkQ9jArDku98
-	wI9EVQqMPtbkUAZlu34MQpj0+knqxy5mndEPC3FBq6dg0O0KfNo3YnW79t8Yojb4
-	gVXee8ejfgDZ5iheGvhnMpGGSvRKHai8Q+4fTYBiF/pPNbmrVCIeGl/Bxe4nuGsm
-	vJASGILm2isKIXB8Ets7LxlXzg8kERTLOx3Ca65IQzO/vqjDpQvhcuThnadQl0X6
-	XbxkuttmZrhQQk7qctiwyRQA++zZqe+Y1AJOsXYwB+qZ/kNQYhoOz6CwhFueZoHY
-	Frf4HKEzw1LYoJg1cllFhkacdjmpWs9sIkIvp9nplCWBuHD06BYhz8uVavRWayaq
-	B6BikA==
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6b0396kc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 15:32:15 +0000 (GMT)
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-48f5afc9692so608965b6e.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 08:32:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783092735; x=1783697535; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U7M4A5A2q632Eb9taEhCM1j2UptjxaJBaXty1useesM=;
-        b=UuvIWIZJFfrc52LuI7FrmFYOuW0QrBoirTdGx9PXPo6TvWK0gK4vmaQo7EaFsMOL6t
-         QhjoBTjgS5I0nD/GNS201GtEd4DG/m7/C6tW3ybjKmyUXXvnGeRESXfzX4U1aszKrb7C
-         0hJ7xUhccdsB912WIUQ50MUU2kzSAtZgNu8vda70qWuAl+TPV//XC52q75Tk11u/7ehP
-         c8jJwQxooeY1oqiHfkHRds1jbd/n9PIhV2fvHwU6h+6dulhA6Nxgvneza4NjTmzjCLt8
-         NzGjPKrbQ0IOlWBtpiqJxMZLb1yiMgsDgMO5qD1P/Wgos6ujCyyJZTWZdxnJMMJm10Oc
-         0GcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783092735; x=1783697535;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=U7M4A5A2q632Eb9taEhCM1j2UptjxaJBaXty1useesM=;
-        b=reLzywLJWjP6Cgwk9sZT/jxNSBPw8B2m2RoDosuFIFvergyjT7lNahENBzo2Pf35ZC
-         XtOB8EOzeFd4ZN66KZ2QWtYrtgXk+iMAvfqf0tKP6z6mQtPKoumejZcgFR6VBhe7W7ii
-         1+dvtEv1CcWWrHj4oxPFoL3yF99zowZOnjKaBn7lrYT41XwnN1Q03UZfC7t91tNdruqr
-         ifkQ5Fvgkqh7vqCwAA0/ax3fq6wvwg3uoBCAeqWiUeC65cZX16jIuKJmeRN6f2AJUBeB
-         gYD/hkcvef+yYK/Y9SWYenCh3d9HP/AVcvXwisl7ZgU5w3n4R8pvis+U2n4Q+K82vCTB
-         b17Q==
-X-Forwarded-Encrypted: i=1; AFNElJ+6g7Xhzs5xnwcUBDEAH7z45bFcMCjC67ZJDgc/3ONb5O3yHAM/T2fZcSYvQVrJ6J2qsXHt3fCoDwAr@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWwu2ZcYsNIYPdcgxYUX5OrD7alRryQzzU7iz/FA+HTsMzgG0+
-	zJ/VzLdjEWgkCyq4OgrW3l3vbKt9SXojhOar0UhEHXgTIitmirHcGMoOxO0YN7WTefupScC4hae
-	BvZnCg5HA+N5W/PREs3fyoUAtcjgI4BfhvokZcOTVftp/I0S+QCbXzdaANihHRNWX
-X-Gm-Gg: AfdE7cmspLF+tR4mvQ6w0agd5k5q+yNDNJwXOY+QqEkZUEDU/80DOJLQTwByMxOIoTh
-	mfuhNycukFhMUQ/Q0bEGK0yIC/4SFzrBKsX2EgxnKHwo/BPESbWbYUwnVu9e6xrWtSnyoBdEj3E
-	PXrJfYngZkFaFn7KH+qjRb9IJVCNBUZOatMGFX7DG+n0KIT+dqsZd5CGEuCv9mLMOq6AZQ5a7MA
-	490ae5DiS8JcZcgytDfvwwEW7RdlOtiyvDCck/IU9GPRwK50Mw5a/Sd7V2D2vSUw7WpiDIZXYX+
-	0i+jgMOpCViV6d7wSMQ29zgw6vB/HgSVyDfEEzDaChBhUJo/zwHMlNtaU+xc11vdUkdEyesoHBa
-	Y6ywOQIIDvkx+Nv0fp+8t9MzMuz8REZZcMTEcE5B5DGPK36q90tvUh6ygP+kF1iV72mljS6Zn7g
-	qqLgO23vLszE0XJ0oFOXx/WI8J
-X-Received: by 2002:a05:6808:8412:b0:497:8ca:a8fc with SMTP id 5614622812f47-49708cab015mr5568048b6e.19.1783092734565;
-        Fri, 03 Jul 2026 08:32:14 -0700 (PDT)
-X-Received: by 2002:a05:6808:8412:b0:497:8ca:a8fc with SMTP id 5614622812f47-49708cab015mr5568021b6e.19.1783092734107;
-        Fri, 03 Jul 2026 08:32:14 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39b4ae59a10sm3852541fa.33.2026.07.03.08.32.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 08:32:12 -0700 (PDT)
-Date: Fri, 3 Jul 2026 18:32:10 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        linux-arm-msm <linux-arm-msm@vger.kernel.org>,
-        sashiko-reviews@lists.linux.dev,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>, robh@kernel.org,
-        linux-phy@lists.infradead.org, neil.armstrong@linaro.org,
-        vkoul@kernel.org, olteanv@gmail.com, krzk+dt@kernel.org,
-        conor+dt@kernel.org, devicetree@vger.kernel.org,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: Add Shikra CQM SoM platform
-Message-ID: <fku5jad6op5upobwvrphbqteg76zukbovsifzarizz4m3ofuka@gdpaxzzuraee>
-References: <0ac665bb-1a21-4077-aa9e-97162f7f4784@oss.qualcomm.com>
- <20260514103918.cs5m5kcxcrcgukvx@hu-kamalw-hyd.qualcomm.com>
- <obdxony34ckfbtsqj66siszw44sgieskcye5hg66ulkisctpwl@fyqczpze5tnw>
- <20260518114927.edxbzvklqatlntv2@hu-kamalw-hyd.qualcomm.com>
- <CAO9ioeVMieo8HtpRw+n4ZU9uV-_RQM061q5XfAA1Dtk2fnp4+g@mail.gmail.com>
- <bvankzuazswuigrm7hvyjqigzfaru5o43wi3zvyphgme2pgqwz@pyspqky3u6cn>
- <5idu4ljmcvcvzqsr5g73h2roxzs36l6xxc5ju6ovc5aitt3gx4@wmfqueyf2rj6>
- <20260630124220.4lja4zshpf66kwj3@hu-kotarake-hyd.qualcomm.com>
- <33c74e59-076a-4877-9e62-83a8ebbf2d54@oss.qualcomm.com>
- <20260703093035.q5xgljuigpt6zqt6@hu-kotarake-hyd.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c2Q8yKTb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5AFF1F000E9;
+	Fri,  3 Jul 2026 15:33:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783092818;
+	bh=EP6db0OmqHcY3WIp3R5BB2pZGmx1sQSCAis9bZ4x3vs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=c2Q8yKTbdY2TItKN6Mko/CZCOuS/WWais9AY2lx7eyRMpCQ3R0Ivna3koCmkqflGd
+	 lldPHrloQssSZnZcodixz0aXiFiFYNUKHDJLSaC41k0zmJxkw9g6pz/zbkBN+lP+QZ
+	 2Z1XdX9oJGoQdNv7Y0d3oe0pVuaxWTkJMj/IuzxuqdgmwJKULMv8BD0zcqmktHMQgC
+	 UfBFy7CwIOyE6Vl2uS8VhiNC9EOPUgEzz1xhiiAjH/nxmbCaADK3Xvp6iHD6siZu6q
+	 HHv4Q60/NslYV0hZg4dnEoGThHvhypRPW2oJvR0XfIkMhgHshURi+9MF7Ooo4Hxr9Y
+	 ascqc5CNpohww==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/4] pwm: sun8i: Add H616 PWM support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Richard Genoud" <richard.genoud@bootlin.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org
+In-Reply-To: <20260703152215.192859-3-richard.genoud@bootlin.com>
+References: <20260703152215.192859-1-richard.genoud@bootlin.com>
+ <20260703152215.192859-3-richard.genoud@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 03 Jul 2026 15:33:37 +0000
+Message-Id: <20260703153337.B5AFF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260703093035.q5xgljuigpt6zqt6@hu-kotarake-hyd.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE1MiBTYWx0ZWRfX8Xb5wcO5z58/
- pyioZpv3gMVX+kPogerEMg5+GUJLKEfYZMst3XbFK/HOme1aHLZfLNNybDwPvkHL6iByGoKVua5
- 8IISB/Jv+nuUwMgDFzUtDBdxio5IKeY=
-X-Proofpoint-GUID: PDWV4nx9MMN-elSXt-Vu5m16ym4ZnVfo
-X-Authority-Analysis: v=2.4 cv=FoY1OWrq c=1 sm=1 tr=0 ts=6a47d5ff cx=c_pps
- a=WJcna6AvsNCxL/DJwPP1KA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=eBmASph2dt7FLklNJeEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=_Y9Zt4tPzoBS9L09Snn2:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE1MiBTYWx0ZWRfX9lSozi8Nj7eO
- MbPZVUeAzW/7mDpm3WpezyllwNxG3rUx53DYIQrDD0NFNpmUV2WXr6qHkotY0CrNSu6dkKlxvwT
- 61RcH94UKi61uePRpSDCcdl92FtMWhyRyiG0R4YYdtbk3yFHhi8+QXuAqbUJBEoAGVanDKhv6k4
- 9/UiyvyD+YPtLxf0bVsuyIqoFtj8kFXeK6sfHw9d2iJSh5PRuNXs6kyYAObPRu0/lDrzGhL8vvx
- kIgAxAs3+hb5EzkLBKijkliaPYAipW71KkWugfpIqzJykjmVjXGmaTxhXk/LZjOuzjcv7035M4U
- bYVHJxvxSPIDLbl+K5g7sPF4lJYlWC7ARHPRBAPvR3XWY2bEqJfZWa5+4eMYSOYltKP3cx2Io/l
- tVFziAg2ulvvmDuvoSUi9SbJydCSAgZoHQ1Jqm8LuVQfIdj9Acy9vNlMGgFU9wSDEP+wND47rZR
- abmpbz60COZTvNBDVGg==
-X-Proofpoint-ORIG-GUID: PDWV4nx9MMN-elSXt-Vu5m16ym4ZnVfo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 malwarescore=0 adultscore=0 suspectscore=0
- spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030152
 
-On Fri, Jul 03, 2026 at 03:00:35PM +0530, Rakesh Kota wrote:
-> On Tue, Jun 30, 2026 at 03:50:16PM +0200, Konrad Dybcio wrote:
-> > On 6/30/26 2:42 PM, Rakesh Kota wrote:
-> > > On Sun, Jun 28, 2026 at 03:33:23PM +0300, Dmitry Baryshkov wrote:
-> > >> On Thu, Jun 25, 2026 at 09:11:19PM +0530, Kamal Wadhwa wrote:
-> > >>> On Wed, Jun 17, 2026 at 03:48:14PM +0300, Dmitry Baryshkov wrote:
-> > >>>> On Mon, 18 May 2026 at 14:49, Kamal Wadhwa
-> > >>>> <kamal.wadhwa@oss.qualcomm.com> wrote:
-> > >>>>>
-> > >>>>> On Sun, May 17, 2026 at 08:18:15PM +0300, Dmitry Baryshkov wrote:
-> > >>>>>> On Thu, May 14, 2026 at 04:09:18PM +0530, Kamal Wadhwa wrote:
-> > >>>>>>> On Wed, May 13, 2026 at 06:14:20PM +0300, Dmitry Baryshkov wrote:
-> > >>>>>>>> On 13/05/2026 17:29, Rakesh Kota wrote:
-> > >>>>>>>>> On Wed, May 13, 2026 at 03:01:47PM +0300, Dmitry Baryshkov wrote:
-> > >>>>>>>>>> On Wed, May 13, 2026 at 04:28:35AM +0000, sashiko-bot@kernel.org wrote:
-> > >>>>>>>>>>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> > >>>>>>>>>>> - [High] The PMIC regulator definitions omit their required input supply dependencies (e.g., `vdd_s2-supply`, `vdd_l3-supply`), breaking the power hierarchy.
-> > >>>>>>>>>>> - [Medium] The device tree inaccurately hardcodes the `compatible` string to a different PMIC model (`qcom,rpm-pm2250-regulators`) instead of explicitly identifying the actual hardware (PM4125).
-> > >>>>>>>>>>> --
-> > >>>>>>>>>>>> +
-> > >>>>>>>>>>>> +         pm4125_s2: s2 {
-> > >>>>>>>>>>>> +                 regulator-min-microvolt = <1000000>;
-> > >>>>>>>>>>>> +                 regulator-max-microvolt = <1200000>;
-> > >>>>>>>>>>>> +         };
-> > >>>>>>>>>>>
-> > >>>>>>>>>>> Do these regulators need to explicitly define their input supply dependencies
-> > >>>>>>>>>>> such as vdd_s2-supply?
-> > >>>>>>>>>>>
-> > >>>>>>>>>>> Without these properties, the regulator framework might be unaware that the
-> > >>>>>>>>>>> PMIC regulators draw power from upstream supplies.
-> > >>>>>>>>>>>
-> > >>>>>>>>>>> If the kernel dynamically manages the upstream supply and its reference count
-> > >>>>>>>>>>> drops to zero, could it be disabled, causing an unexpected power loss for
-> > >>>>>>>>>>> downstream components?
-> > >>>>>>>>>>
-> > >>>>>>>>>> And this is a correct comment. Please provide missing supplies.
-> > >>>>>>>>>>
-> > >>>>>>>>> As per the Qualcomm system design, the parent-child supply relationship
-> > >>>>>>>>> is managed by the RPM firmware, not the Linux regulator framework. The
-> > >>>>>>>>> RPM ensures the parent supply is never disabled until all subsystem
-> > >>>>>>>>> votes are cleared.
-> > >>>>>>>>
-> > >>>>>>>> How is this different from other, previous platforms?
-> > >>>>>>>
-> > >>>>>>> This is not different. In the previous platforms too this is taken care from the
-> > >>>>>>> RPM/RPMH firmware side, the only case where we may need explicit vote to parent
-> > >>>>>>> is for non-rpmh/rpm regulator rails (like i2c based regulator pm8008), which
-> > >>>>>>> may have a RPM/RPMH regulator as a parent.
-> > >>>>>>>
-> > >>>>>>> Even on those previous targets the parent rail of all RPM/RPMH regulators are
-> > >>>>>>> internally voted by RPM/RPMH FW at proper voltage with required headroom
-> > >>>>>>> calculated based on the active child rails. This was done for all the
-> > >>>>>>> subsystems (including APPS) regulators.
-> > >>>>>>>
-> > >>>>>>> So no explicit handling from the APPS is required for parent supply.
-> > >>>>>>
-> > >>>>>> You are explaining the driver behaviour. But the question is about the
-> > >>>>>> hardware description. If there is no difference, please add necessary
-> > >>>>>> supplies back.
-> > >>>>>
-> > >>>>> I understand your concern about descibing the parent-child relation in the
-> > >>>>> devicetree, and given that we have been almost always followed this for all
-> > >>>>> the previous targets, it will expected of us to add them.
-> > >>>>
-> > >>>> Yes.
-> > >>>>
-> > >>>>>
-> > >>>>> However, we want to avoid the unnecessary access to the parent from APPS.
-> > >>>>
-> > >>>> Why? What is the reason? Do we want to do the same for all the
-> > >>>> platforms? Only for Shikra? Something else?
-> > >>>>
-> > >>>>> At the moment, I do not see a way to avoid that, if we add the parent
-> > >>>>> regulators.
-> > >>>>
-> > >>>> That depend on the answer to the previous question. In the end, we can
-> > >>>> make the driver ignore the parents by removing them from the regulator
-> > >>>> desc.
-> > >>>
-> > >>> Ok, this seems like a good suggestion, so you mean its ok if we define the
-> > >>> regulator desc's supply column with NULL? And only keep that in the DT?
-> > >>>
-> > >>> you mean like this?
-> > >>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/regulator/qcom-rpmh-regulator.c?h=v7.1#n1453
-> > >>>
-> > >>> (please let me know if i got that right. thanks)
-> > >>
-> > >> Yes. Don't forget to explain in the commit message, why you are doing
-> > >> so.
-> > > 
-> > > Currently, Agatti uses the same PMIC, so we cannot set the driver
-> > > supply name reference to NULL. Since it's an older target,
-> > > we'll need to run a regression before making any driver-level changes.
-> > > 
-> > > Additionally, the child-to-parent regulator ganging differs between
-> > > Shikra and Agatti:
-> > > 
-> > >  - On Agatti, l3 regulator is ganged with vdd_l13_l14_l15_l16
-> > >  - On Shikra, l3 is ganged with vdd_l2_l3
-> > 
-> > Is it configurable on the PMIC level? I was under the impression the
-> > supply maps are fixed in hardware.  Is there a chance the agatti
-> > description is just wrong?
-> 
-> The supply ganging between child LDOs and parent supplies is not fixed
-> at the PMIC hardware level — it varies per platform based on system
-> design requirements. The same LDO can have a different parent supply on
-> different SoCs.
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+s) to consider:
+- [High] Insufficient memory is allocated for the `parent_names` array, cau=
+sing a heap buffer overflow when the clock has multiple parents.
+- [High] The driver mutates statically allocated global clock templates dur=
+ing probe, causing MMIO address corruption and Use-After-Free.
+- [High] Computed PWM duty cycle suffers from integer truncation, resulting=
+ in a 0% duty cycle when 100% is requested at the maximum period.
+- [High] Composite clocks manually registered during probe are leaked on er=
+ror paths.
+- [High] The driver registers clocks with the CCF before deasserting the ha=
+rdware reset control, risking MMIO accesses to a reset block.
+- [High] Error in `sun8i_pwm_request` leaks channel state, and `sun8i_pwm_f=
+ree` has a data race.
+- [High] Direct hardware modification inside the clock framework's `of_xlat=
+e` callback.
+- [High] Missing error check for `clk_round_rate()` return value assigned t=
+o an unsigned variable.
+- [High] Shared parent clock rate can be arbitrarily modified by sibling ch=
+annels, disrupting active waveforms.
+--
 
-It can have different power supplies, but the supply is provided through
-a fixed pin of the PMIC. Please correct me if I'm wrong.
+commit 0552ac994a2720884880e2f7a90a1ceb9b7e36e6
+Author: Richard Genoud <richard.genoud@bootlin.com>
 
-> I have verified the Agatti parent-child supply mappings and they are
-> correct. The difference between Agatti and Shikra is a legitimate
-> platform-level design difference, not an error in the Agatti DT.
+pwm: sun8i: Add H616 PWM support
+   =20
+Add driver for Allwinner H616 PWM controller, supporting up to 6
+channels.
+Those channels output can be either a PWM signal output or a clock
+output, thanks to the bypass.
 
-There is an error in the DT. It uses fake PMIC supply names.
+[ ... ]
 
--- 
-With best wishes
-Dmitry
+> diff --git a/drivers/pwm/pwm-sun8i.c b/drivers/pwm/pwm-sun8i.c
+> new file mode 100644
+> index 0000000000000..8f1023e3a2e5a
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-sun8i.c
+> @@ -0,0 +1,938 @@
+
+[ ... ]
+
+> +static int sun8i_pwm_request(struct pwm_chip *chip, struct pwm_device *p=
+wm)
+> +{
+> +	struct sun8i_pwm_chip *sun8i_chip =3D sun8i_pwm_from_chip(chip);
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[pwm->hwpwm];
+> +
+> +	scoped_guard(spinlock_irqsave, &sun8i_chip->clk_pdata->lock) {
+> +		if (chan->mode =3D=3D SUN8I_PWM_MODE_CLK)
+> +			return -EBUSY;
+> +		chan->mode =3D SUN8I_PWM_MODE_PWM;
+> +	}
+> +
+> +	return clk_prepare_enable(chan->pwm_clk);
+> +}
+
+[Severity: High]
+If clk_prepare_enable() fails and returns an error, does this leave the
+channel permanently marked as SUN8I_PWM_MODE_PWM? This could prevent future
+use of the channel.
+
+> +static void sun8i_pwm_free(struct pwm_chip *chip, struct pwm_device *pwm)
+> +{
+> +	struct sun8i_pwm_chip *sun8i_chip =3D sun8i_pwm_from_chip(chip);
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[pwm->hwpwm];
+> +
+> +	clk_disable_unprepare(chan->pwm_clk);
+> +	chan->mode =3D SUN8I_PWM_MODE_NONE;
+> +}
+
+[Severity: High]
+Is there a data race here?
+
+The chan->mode state is modified without holding clk_pdata->lock, but it is=
+=20
+read and written concurrently under the lock in sun8i_pwm_request() and=20
+sun8i_pwm_of_clk_get().
+
+[ ... ]
+
+> +static int sun8i_pwm_write_waveform(struct pwm_chip *chip,
+> +				    struct pwm_device *pwm, const void *_wfhw)
+> +{
+> +	const struct sun8i_pwm_waveform *wfhw =3D _wfhw;
+> +	struct sun8i_pwm_chip *sun8i_chip =3D sun8i_pwm_from_chip(chip);
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[pwm->hwpwm];
+> +	unsigned long flags;
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret =3D clk_set_rate(chan->pwm_clk, wfhw->clk_rate);
+> +	if (ret)
+> +		return ret;
+
+[Severity: High]
+Since the channel clocks are registered with the CLK_SET_RATE_PARENT flag,
+they share paired parent clocks. If clk_set_rate() changes the frequency of
+the shared parent to satisfy this request, will it transparently corrupt the
+active PWM waveform output of the sibling channel?
+
+[ ... ]
+
+> +static int sun8i_pwm_round_waveform_tohw(struct pwm_chip *chip,
+> +					 struct pwm_device *pwm,
+> +					 const struct pwm_waveform *wf,
+> +					 void *_wfhw)
+> +{
+
+[ ... ]
+
+> +	max_rate =3D clk_round_rate(chan->pwm_clk, U32_MAX);
+
+[Severity: High]
+Since clk_round_rate() returns a long that can contain a negative error
+code, will assigning it directly to the unsigned long max_rate cause issues=
+?=20
+
+If an error is returned, this would cast to a massive unsigned value and
+corrupt the subsequent period_ratio calculations.
+
+[ ... ]
+
+> +	wfhw->duty_ticks =3D mul_u64_u64_div_u64(calc_rate, duty_cycle,
+> +					       NSEC_PER_SEC);
+> +
+> +	if (wfhw->duty_ticks > wfhw->period_ticks)
+> +		wfhw->duty_ticks =3D wfhw->period_ticks;
+
+[Severity: High]
+Does this calculation suffer from integer truncation?
+
+The wfhw->duty_ticks field is declared as a u16. If the period is at its
+maximum (65536) and a 100% duty cycle is requested, the 64-bit calculation
+yields 65536. When assigned to the u16 field, this will silently truncate
+to 0.
+
+The subsequent bounds check:
+    if (wfhw->duty_ticks > wfhw->period_ticks)
+
+would evaluate as 0 > 65536, which is false, resulting in the hardware
+being programmed with a 0% duty cycle instead of 100%.
+
+[ ... ]
+
+> +static struct clk_hw *sun8i_pwm_of_clk_get(struct of_phandle_args *clksp=
+ec,
+> +					   void *data)
+> +{
+
+[ ... ]
+
+> +	if (IS_ERR(ret_clk))
+> +		goto out;
+> +
+> +	sun8i_pwm_set_bypass(sun8i_chip, idx, true);
+> +out:
+> +	return ret_clk;
+> +}
+
+[Severity: High]
+Is it safe to directly mutate hardware registers via sun8i_pwm_set_bypass()
+inside the clock framework's translation callback?
+
+Clock translation can happen speculatively or multiple times (for example,
+when a client driver defers probe). Mutating hardware state during
+translation bypasses standard clock lifecycle semantics (prepare/enable)
+and might leave the hardware in an unexpected state if the translation
+doesn't proceed to activation.
+
+[ ... ]
+
+> +static int sun8i_add_composite_clk(struct clk_pwm_data *data,
+> +				   void __iomem *reg, spinlock_t *lock,
+> +				   struct device *dev, struct clk_hw **hw)
+> +{
+> +	const struct clk_ops *mux_ops =3D NULL, *gate_ops =3D NULL, *rate_ops =
+=3D NULL;
+> +	struct clk_hw *mux_hw =3D NULL, *gate_hw =3D NULL, *rate_hw =3D NULL;
+> +	struct device_node *node =3D dev->of_node;
+> +
+> +	if (data->mux_hw) {
+> +		struct clk_mux *mux;
+> +
+> +		mux_hw =3D data->mux_hw;
+> +		mux =3D to_clk_mux(mux_hw);
+> +		mux->lock =3D lock;
+> +		mux_ops =3D mux_hw->init->ops;
+> +		mux->reg =3D (uintptr_t)mux->reg + reg;
+> +	}
+
+[Severity: High]
+Does this code mutate statically allocated global clock templates during pr=
+obe?
+
+The pwmcc_data array and its referenced clock component objects (like
+mux_xy_01) are globally static. Modifying these instances with per-device
+state (such as adding the current MMIO base via mux->reg) means if the
+driver probes multiple instances, or unbinds and rebounds, the global MMIO
+pointers will be offset multiple times, leading to bad memory accesses.
+
+[ ... ]
+
+> +	/*
+> +	 * Retrieve the parent clock names from DTS for pwm-clk-srcxy
+> +	 */
+> +	if (!data->parent_names) {
+> +		data->num_parents =3D of_clk_get_parent_count(node);
+> +		if (data->num_parents =3D=3D 0)
+> +			return -ENOENT;
+> +
+> +		data->parent_names =3D devm_kzalloc(dev,
+> +						  sizeof(*data->parent_names),
+> +						  GFP_KERNEL);
+> +		for (unsigned int i =3D 0; i < data->num_parents; i++)
+> +			data->parent_names[i] =3D of_clk_get_parent_name(node, i);
+> +	}
+
+[Severity: High]
+Is there a heap buffer overflow here if the device tree specifies multiple
+clocks?
+
+The allocation size is sizeof(*data->parent_names), which evaluates to the
+size of a single pointer (8 bytes on 64-bit systems). However, the loop
+writes data->num_parents pointers into this allocation.=20
+
+Also, as mentioned above, modifying data->parent_names mutates the static
+global template. If the device unbinds and rebounds, data->parent_names
+will hold a dangling pointer to freed devm memory, leading to a
+use-after-free on the next probe.
+
+[ ... ]
+
+> +static int sun8i_pwm_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	ret =3D sun8i_pwm_init_clocks(pdev, sun8i_chip);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (unsigned int i =3D 0; i < data->npwm; i++) {
+> +		struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[i];
+> +		struct clk_hw **hw =3D &sun8i_chip->clk_pdata->hw_data->hws[i];
+> +
+> +		chan->pwm_clk =3D devm_clk_hw_get_clk(dev, *hw, NULL);
+> +		if (IS_ERR(chan->pwm_clk)) {
+> +			ret =3D dev_err_probe(dev, PTR_ERR(chan->pwm_clk),
+> +					    "Failed to register PWM clock %d\n", i);
+> +			return ret;
+> +		}
+> +		chan->mode =3D SUN8I_PWM_MODE_NONE;
+> +	}
+> +
+> +	ret =3D devm_of_clk_add_hw_provider(dev, sun8i_pwm_of_clk_get, sun8i_ch=
+ip);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to add HW clock provider\n");
+> +
+> +	ret =3D devm_add_action_or_reset(dev, sun8i_pwm_unregister_clk,
+> +				       sun8i_chip->clk_pdata->hw_data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to add devm action\n");
+
+[Severity: High]
+Are the composite clocks leaked on early return paths?
+
+sun8i_pwm_init_clocks() manually registers clock objects with the CCF, but
+the teardown action (sun8i_pwm_unregister_clk) is only hooked up to devres
+much later. If an error occurs in the interim (like devm_clk_hw_get_clk()
+or devm_of_clk_add_hw_provider() failing), the probe routine returns early
+and the registered clocks are permanently leaked into the CCF.
+
+> +	/* Deassert reset */
+> +	sun8i_chip->rst =3D devm_reset_control_get_shared_deasserted(dev, NULL);
+> +	if (IS_ERR(sun8i_chip->rst))
+> +		return dev_err_probe(dev, PTR_ERR(sun8i_chip->rst),
+> +				     "Failed to get reset control\n");
+
+[Severity: High]
+Is it safe to register the clocks with the CCF before deasserting the
+hardware reset control?
+
+The CCF may read hardware registers immediately upon registration to query
+clock parents or rates. Accessing a peripheral's MMIO space while it is
+held in reset can cause synchronous external aborts, bus stalls, or kernel
+panics.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703152215.1928=
+59-1-richard.genoud@bootlin.com?part=3D2
