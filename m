@@ -1,258 +1,182 @@
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029A81F94F
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 21:04:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783112659; cv=none; b=H8roV+2KLfUrVWr2DHeJziLG591ucej97bQjgT2nl7o4J8D37XDFOyV8pOMqSqDc3QoMThsfhj9nLxD8oSdO5oGSK6RDHMed5TLtrUp5JrDBglAHVrZWBlI8hPBEy+oW0lbmxIB7CMvDHb+i+e+x9zMJ4BzPwohvDNLxIfY2vfY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783112659; c=relaxed/simple;
-	bh=MQy31eRIJfry7Mo9HLrWsPnb0wqDDcV/DtFzKv2+j7E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Is+VssoGlNgFKLeTml7k+h40XqeBJIHJipemK6hpN38uCsU20ZEsfhllHTbtk4NDXn+7FPumjKOphtcVw6SNMWOa7uJ2Ibvd5+/34INNEKu29YbT/McZ9Z8k/FGga1MZHGE2kCAujHPMG9qdotF8Cbq9sLCcdT86C3HQcEeYi50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=S2Y1tGNU; arc=none smtp.client-ip=209.85.167.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE51433E81
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 22:18:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783117094; cv=pass; b=gwXF0p3O8wQgPiBS8fMLus5yNWf5uKnFzQldGi2Y+H49sl2CtwwmliWjnRyWRRHjr6ENhJnVvO67eEeQ56AaHZarsxVf3HaXR6Azk+e3mVlR4ht0A1iKvSwKYWIjbjC4W2XpYgGu+TC7rMfi1qPSXfb7pc+mVdmN7c7V3T9uLTA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783117094; c=relaxed/simple;
+	bh=mjwuQ3N0OVI+o56jIG+twM3faktMneyLA7TDmjbcSuo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pyqecrEu9jA8d/zG1qkr+2doohPzixv7gsDU4nnnkk2r143By4a2slCbfoPY85NvozGqhhnnrgsC9MxST67P7BAU5+BqWyJxVE1cN/Wq3pSMYH1anTcnRbQ6LzIfAYpwaZ/XEn2BGJW3YhmDl88AHM3qQyA6E6JZvdy2iX6KBkw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tJiLhY7U; arc=pass smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="S2Y1tGNU"
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4960fb63c75so545307b6e.2
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 14:04:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tJiLhY7U"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-698a9f11776so1425587a12.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 15:18:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783117091; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kKImh+6ZHZ9Uz1G3rYapELcrmgdSPND3UWFJEIysFyJwvM+nOK1T25yxppkgjXSri8
+         KX/C6jjAADHzJPj+T7rwPSzjij0xySfX/y/ueyaRpNfV7UDlvj/2O/ihIphWfilaJJGT
+         4QHatQ4Winfhfa85aSlp5W4GnnJa5EybRrFQeC1Ancz6bvf9/MihOxi3A/3BwHjE2KA1
+         HgH5cEx+cGETPT3c576qQBnpAqWptvzWRTfLm9FUev+J4zAkPc3/lxCoIoKXCI+cGc0f
+         el/3BksvHTxS7vqbJVniAkFvNYIn4gezhEq2xtSjZ3MBaASMp4BCIrBjKaFAe1W/0yC/
+         L4AA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+xHnip0cuaNSCAQMubL1LiIso9IuG6Ch3oOSD+V/3cA=;
+        fh=53qvJawqK0TJTsq+MaD47KBMEtgXQmC582XHmZ7TrbI=;
+        b=jBTZQvA1vt2B5hZEpp3KhDDKGOZfsvILS6HcTkaIzOqFh4jqeDbeLXA190wOvztnr3
+         EZItX+Xk1iJCAcoV37bcnJtUUf5Qu0n2aHXBTBylQofQX/QGNZfPi0in/BQEewR+zln8
+         iXAI46fTikgDHZ6h8YUJateAJe+M/2QPOnCRUlqBy2irdxnzKwkfOof7iGlT1vdR9Up5
+         QN22yfKtiSjuPOZER9cAWN49Mu278Zo6vxrDeuGwRk4tgWTJhXXffy2KZ8wrBkqfAJkx
+         d44ryt8o/nS5G8By7fFfFsSzXCpK8lTkc7ZTk16KsmWP9tRHYupuD/hIDNOVVWJ7/gKN
+         Snjg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783112656; x=1783717456; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BLvAnZoezxC+9vK/RWbW1DG6Jw4oqR7pajbloqOy9bs=;
-        b=S2Y1tGNUMnKdnQfMqQZJklgskkJfEM2wmhYmXs4ZwxBYMRlIkvXIV1xCHDufJ8cuOi
-         HX8wuDsSXC8yBHPZD0ou32r/ZMo94c4ftaCOntNPujVPQ68qgkWYPy3ZIkzVpajULx4u
-         jV5qjRNEII2yF+WV3uHDMdr1bYzmlCoRBBqUzNygXa3a922fnd8oDI7wps/Gc0S3BAGX
-         cngpQZggZ2p6cf9rO7oHcY7gI0B0joPA/dihoVqUpz80CGJj/KAgAIOp5BIMSYRD4x5B
-         COgdWPzuatsDJg9O8V1wAhkfUv1X/NVa2TWQupeiBYAk/CRZ0ngqkn0b0SLlpBmLqB71
-         TzuQ==
+        d=gmail.com; s=20251104; t=1783117091; x=1783721891; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+xHnip0cuaNSCAQMubL1LiIso9IuG6Ch3oOSD+V/3cA=;
+        b=tJiLhY7UROJgkT39RCbPd6kU9+H7N/Nrk76TKXyQvt1Oqu0i8RikB48bsOy1PMLZI7
+         9ab1WCztSvNFk/eTUvDtUPXNtceop0D5diU5640YYu4TYeRSXkfbjQkSDAI8R7UCXuAx
+         PK/J7khdPHO2e5js8q+Jr8v6JxW5uGhZi8aVAqRgP3DJHzKNQqOl/qqa+ZMcDA1TNVz+
+         Y9a7Ky6bGulce7BhkAULppKzLQRDJMnN/DuWk7QbiKOD7TvjvKmLHoD8IPQxv3eHu9ZW
+         1Vr1xX26HJgq7wAqc6YaIRMkKpAjiR7otUlYAV6upiUE6weKNpqiyj9RTAkKKK9T9n2e
+         NIlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783112656; x=1783717456;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BLvAnZoezxC+9vK/RWbW1DG6Jw4oqR7pajbloqOy9bs=;
-        b=KXM/rJZafl5aOMc4eHktchb26SO1rrWVbufJtPIoIFDAhh+tEDmrGlotEwfx8IMi4h
-         cp2U6oCkmkL+udK91on4W0YrVbklGfHI8xQ2DYS+wrx82Iw3Tt3jHfQy0jLRJFJNKmpo
-         XTVjEA8MmgGR6Ky6BJbX6EcEeQfl1jm/niSoa+nYtcvi5Nc0Y7/gCegjQGRrzWuzeeT/
-         jT7KFCRVbsxuAyIJr77uA4EaXZz+Det5HlurQUF2xjaJSdAGPOnoUeRTzLCa1dwuCEca
-         YiXBnI4X5puxIbZVYbelyc01uqJHNTSpJ/8qgPXu7WjUGjv/FvnpbP/kDEARc//Ntyha
-         RJfA==
-X-Forwarded-Encrypted: i=1; AFNElJ+ddVGwXptge72SfGh7H5BFn9pJGLjZmm2oqZpzHiwGnE1xsW3kYABNscgRGhOTKrjlYx5S6evKG1tI@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxqafkl5P+mdMvYBXMnSX3s6GFWoBtkFHeBswxKVMy+ujLJraRm
-	UG0pHou6cZV6ZEzoTMxew2jUsi4Ew69PSGlXzJ/fEnCWeNYhwvRuQT8FfLfMQ+ECKQI=
-X-Gm-Gg: AfdE7ckCckAERZmTewLnC9Yvgn5Q1+JFH+kjtQSNBMrc4gSnTZ0dIRU01FQPyT90x6z
-	Lw2seIjcLru4I6mAedHjo45hDSdk7HR7dALb+wnJcgE2/hiW3ZQ7RArr9ZNfc3mWeIR4u3E8If+
-	gfOkBFodai+jhcz+mDGUsflwNe1IuaV2DlhOeGAs+lzg9KxNdnVq6+JvT1QOefyLijxxPuJ9M8C
-	q2TWJHI3VbbHAog24LZQIgNRsWC0cSL8pVCsFTYl6t6ix3753jFO8aJHe1dvsgt79JxY6C36CoV
-	VuZoRXVV+Qa2kHRazSTmRlHNZZre3CbgL5HL4mKB0z5cBdM0h4tkKaO4vnrGrp4MeRiyWtVx9ZH
-	I77Dhj0XOIV6QAnSaw3aPEd1ujGcCpiFurlr/I6LIUJSD5FlEdexsHUGYyOQVMMjGZqtuGDSJbX
-	4MP0F9BzZRPuUe1SelXDvF2TEfzbNRnOXAiiBIRfk1G01OPzffIqRPsL2+M7P9oTI=
-X-Received: by 2002:a05:6808:1510:b0:496:a36:b5e5 with SMTP id 5614622812f47-499b79f805dmr422098b6e.17.1783112655990;
-        Fri, 03 Jul 2026 14:04:15 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:6af9:a9d7:17b5:2644? ([2600:8803:e7e4:500:6af9:a9d7:17b5:2644])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-497d1af5a51sm4927539b6e.10.2026.07.03.14.04.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Jul 2026 14:04:15 -0700 (PDT)
-Message-ID: <d78d5f30-7f32-4998-8dc4-f17c61a5f81b@baylibre.com>
-Date: Fri, 3 Jul 2026 16:04:14 -0500
+        d=1e100.net; s=20251104; t=1783117091; x=1783721891;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+xHnip0cuaNSCAQMubL1LiIso9IuG6Ch3oOSD+V/3cA=;
+        b=glE1FamTGgo/BXHzjrmZAXpM/37O01nsXyHmOqv1WreTzx+aPdXdgFGnsaclGYQXtA
+         w1WYV6gKP2YgwmESmSTkxBvHV8kCiARY849wO1FNnkewlXhurpgsTt94iZRxX/j1oTQY
+         sY5A6B/dlBM+nPOv9kABMnEXQtuC+RrRvCMa5fp+HP9vDHtEqzexHNvrFhdbyzsZZeRK
+         YiBteG8N1Kv9e/Arrb0VtDgS/ViTt/furCHJJQf39dbFsa1NfHB3DgK9RAHsradZsqyD
+         vPTyJGuRzfg9tOJcjvsy60EGsR7bN2PnXlR/upGm0vPLJgtmZaLqMCrATQhD0bpjihhc
+         GcOw==
+X-Gm-Message-State: AOJu0Yx/pEtW7+LJqSTx/zQG+HJCC1bgfKps6VMdaWVFO5Hhqv2I1Q6l
+	Kvv5WZAPuX7L49uL8CVXoBWvUcB4j/aWmDYgrAVEQ66+LD158mATIQrHfaL8rwaqZ909gNyLO99
+	D35CzWeGao3sQj440NsHRuEuRJoIAW/lfSAIu
+X-Gm-Gg: AfdE7ckMm6HMi0ugpIqD80D1mj+rX5RRT2kLydSPTJNcS1PKH1BfL8x6ki8i5loa7jr
+	sj+k06OxJ8MyQyYc+cAVFNHOTukJ2GdzV//SG9G9SgSCUBl50NVzvId9N6oCfS59q+DnQ2l4GnS
+	2MgTlNb+S/lpQUAF9+OWyly8rUJefE/XiiS9IWOqJ5Jk155QXhN+1ruC8AhHNAUvPsT1PLzjdel
+	wSvv06HYeilhGbT29QVhA33l0+4/k1Be4qKdctDUNhpVthh5kPGE9zik/YiF2/SZpDCNta4KI+l
+	FqPJsaaKT7JKlUVTC/cCaUCyrdmiT0WCeBqOoG0KusSevY6zKgVWLliG+tQ1oXlOwpraGcGsneB
+	VScyd9s0zB0CJIwZ67VWbyg6ZgTU=
+X-Received: by 2002:a05:6402:4014:b0:697:e8d9:6bcd with SMTP id
+ 4fb4d7f45d1cf-69a1a3ad585mr390450a12.28.1783117091262; Fri, 03 Jul 2026
+ 15:18:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] iio: adc: add MAX40080 current-sense amplifier
- driver
-To: Stefan Popa <stefan.popa@analog.com>, Jonathan Cameron <jic23@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ciprian Hegbeli <ciprian.hegbeli@analog.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260703102941.1141341-1-stefan.popa@analog.com>
- <20260703102941.1141341-3-stefan.popa@analog.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260703102941.1141341-3-stefan.popa@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260628231156.1254012-1-rosenp@gmail.com> <20260628232714.BD9581F000E9@smtp.kernel.org>
+In-Reply-To: <20260628232714.BD9581F000E9@smtp.kernel.org>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Fri, 3 Jul 2026 15:17:59 -0700
+X-Gm-Features: AVVi8CevX4VTz70uK7iuU8f26JnXOHvs7xu2YZvdFO5ofn9wxQlXZIu9UGROBOA
+Message-ID: <CAKxU2N-3zVUM6A-fQnYWud4O7M55Ghc-wnTCG+8DD6_nh2827g@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: BCM5301X: drop extra AXI bus ranges that break PCIe
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 7/3/26 5:29 AM, Stefan Popa wrote:
-> The MAX40080 is a bidirectional current-sense amplifier with an
-> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
-> voltage across an external shunt resistor and the input bus voltage,
-> storing the results in an internal FIFO.
-> 
-> Add a direct-mode IIO driver exposing the current and voltage channels
-> with raw, scale and hardware-gain attributes, a configurable
+On Sun, Jun 28, 2026 at 4:27=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] Removing the PCI memory ranges from the parent `axi@18000000` bu=
+s breaks outbound PCIe memory mapping because the child `pcie` nodes can no=
+ longer translate their addresses to CPU physical addresses.
+> --
+>
+> commit 4f061464281d4964ce46dab60d36a09328f14862
+> Author: Rosen Penev <rosenp@gmail.com>
+>
+> ARM: dts: BCM5301X: drop extra AXI bus ranges that break PCIe
+>
+> This commit removes extra AXI bus ranges that overlap with DRAM on
+> BCM5301X/BCM470X SoCs. The intention is to restore the original
+> single-entry mapping and fix PCIe routing issues.
+>
+> > diff --git a/arch/arm/boot/dts/broadcom/bcm-ns.dtsi b/arch/arm/boot/dts=
+/broadcom/bcm-ns.dtsi
+> > index 392a257136696..a1062245e5a01 100644
+> > --- a/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
+> > +++ b/arch/arm/boot/dts/broadcom/bcm-ns.dtsi
+> > @@ -95,10 +95,7 @@ L2: cache-controller@22000 {
+> >       axi@18000000 {
+> >               compatible =3D "brcm,bus-axi";
+> >               reg =3D <0x18000000 0x1000>;
+> > -             ranges =3D <0x00000000 0x18000000 0x00100000>,
+> > -                      <0x08000000 0x08000000 0x08000000>,
+> > -                      <0x20000000 0x20000000 0x08000000>,
+> > -                      <0x28000000 0x28000000 0x08000000>;
+> > +             ranges =3D <0x00000000 0x18000000 0x00100000>;
+>
+> [Severity: High]
+> Does removing these PCI memory ranges from the parent axi@18000000 bus br=
+eak
+> outbound PCIe memory mapping?
+>
+> During system boot, when the PCI core calls
+> devm_of_pci_get_host_bridge_resources() to parse the pcie child node's ra=
+nges
+> property, it translates the PCI memory addresses to CPU physical addresse=
+s using
+> of_translate_address().
+>
+> Since the pcie nodes are children of the axi@18000000 bus, the translatio=
+n
+> must pass through the parent's ranges property. Without the mappings for
+> 0x08000000, 0x20000000, and 0x28000000, the translation fails.
+>
+> This would cause the PCI core to drop these memory windows, resulting in
+> pci_assign_unassigned_root_bus_resources() failing to allocate memory BAR=
+s,
+> and endpoint drivers failing at pci_enable_device_mem().
+Different AI says:
 
-Patch does not implemnt hardware-gain attribute (which is correct,
-so just fix the commit message).
-
-> oversampling (digital averaging) ratio, and PEC-protected register
-> access. The current scale is derived from the shunt resistor value
-> described in the device tree.
-> 
-> +static int max40080_update_bits(struct max40080_state *st, u8 reg,
-> +				u16 mask, u16 val)
-> +{
-> +	int ret;
-> +	int tmp;
-> +
-> +	guard(mutex)(&st->lock);
-
-Usually we don't want the lock at this level in case anything needs to
-update more than one register in an atomic operation.
-
-> +
-> +	tmp = i2c_smbus_read_word_data(st->client, reg);
-> +	if (tmp < 0)
-> +		return tmp;
-> +
-> +	tmp &= ~mask;
-> +	tmp |= val & mask;
-> +
-> +	ret = i2c_smbus_write_word_data(st->client, reg, tmp);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-
-...
-
-> +static int max40080_read_raw(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan,
-> +			     int *val,
-> +			     int *val2,
-> +			     long mask)
-> +{
-> +	struct max40080_state *st = iio_priv(indio_dev);
-> +	unsigned int range;
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		if (chan->type == IIO_CURRENT) {
-> +			ret = max40080_get_current(st, val);
-> +			if (ret)
-> +				return ret;
-> +		} else if (chan->type == IIO_VOLTAGE) {
-> +			ret = max40080_get_voltage(st, val);
-> +			if (ret)
-> +				return ret;
-> +		}
-
-Se usually use switch statement in IIO instead of else if.
-
-> +
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		if (chan->type == IIO_CURRENT) {
-> +			/*
-> +			 * The selectable current-sense range is exposed through
-> +			 * scale: each RANGE setting has its own precomputed
-> +			 * mA-per-code value. Userspace picks the range by writing
-> +			 * the matching scale.
-> +			 */
-> +			ret = max40080_get_range(st, &range);
-> +			if (ret)
-> +				return ret;
-> +
-> +			*val = st->current_scale[range][0];
-> +			*val2 = st->current_scale[range][1];
-> +			return IIO_VAL_INT_PLUS_NANO;
-> +		}
-> +		/* voltage[mV] = raw * Vref[mV] * buffer_gain / ADC_RES */
-> +		*val = MAX40080_INTER_VREF_MV * MAX40080_V_BUFF_GAIN;
-> +		*val2 = MAX40080_ADC_RES;
-> +		return IIO_VAL_FRACTIONAL;
-> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-> +		ret = max40080_get_oversampling_ratio(st, val);
-> +		if (ret)
-> +			return ret;
-> +		return IIO_VAL_INT;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-
-...
-
-> +static int max40080_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct iio_dev *indio_dev;
-> +	struct max40080_state *st;
-> +	int ret;
-> +
-> +	if (!i2c_check_functionality(client->adapter,
-> +				     I2C_FUNC_SMBUS_WORD_DATA |
-> +				     I2C_FUNC_SMBUS_I2C_BLOCK |
-> +				     I2C_FUNC_SMBUS_QUICK))
-> +		return -EOPNOTSUPP;
-> +
-> +	client->flags |= I2C_CLIENT_PEC;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	i2c_set_clientdata(client, indio_dev);
-> +
-> +	st = iio_priv(indio_dev);
-> +	st->client = client;
-> +
-> +	ret = devm_mutex_init(dev, &st->lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (device_property_read_u32(dev, "shunt-resistor-micro-ohms",
-> +				     &st->shunt_resistor_uohm))
-> +		st->shunt_resistor_uohm = 1000000; /* default 1 ohm */
-> +
-> +	if (!st->shunt_resistor_uohm)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "shunt-resistor-micro-ohms must be non-zero\n");
-> +
-> +	max40080_calc_current_scale(st);
-> +
-> +	indio_dev->name = "max40080";
-> +	indio_dev->info = &max40080_info;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->channels = max40080_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(max40080_channels);
-> +
-> +	/* No averaging by default; configurable at runtime via sysfs. */
-> +	ret = max40080_init(st, 1);
-
-Why have a paramter if it is always the same value? Can just move
-this comment into the init function and drop the arg.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-> +
-> +static const struct i2c_device_id max40080_i2c_ids[] = {
-> +	{ "max40080" },
-
-Include `.name = `
-
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, max40080_i2c_ids);
-> +
-
+The review's analysis is wrong because it assumes PCI MMIO windows at
+these addresses must translate successfully to be usable. Here's why
+the commit actually fixes things:
+The problem was that the translation succeeded.
+On BCM5301X, 0x08000000, 0x20000000, and 0x28000000 are DRAM
+addresses, not PCIe MMIO space. The old AXI bus ranges created 1:1
+mappings for these addresses, so of_translate_address() returned them
+as-is. The PCI core registered valid-looking resources pointing at
+DRAM =E2=80=94 MMIO accesses went to memory instead of the PCI bus, corrupt=
+ing
+data.
+With need_ob_cfg =3D false (no brcm,pcie-ob in bcm-ns.dtsi),
+iproc_pcie_map_ranges() is never called. The bootloader has already
+configured the PCIe controller's outbound windows correctly. By
+removing the extra AXI bus ranges, of_translate_address() fails, those
+bogus resources are skipped (the OF_BAD_ADDR check at
+drivers/pci/of.c:377), and the kernel stops registering DRAM addresses
+as PCI MMIO windows. The hardware continues working with its
+pre-configured outbound windows.
+So the review's objection at https://lore.kernel.org/all/... is
+incorrect =E2=80=94 the translation was producing wrong resources, and the =
+fix
+is to stop producing them.
+>
+> >               #address-cells =3D <1>;
+> >               #size-cells =3D <1>;
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628231156.12=
+54012-1-rosenp@gmail.com?part=3D1
