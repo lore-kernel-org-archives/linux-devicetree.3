@@ -1,382 +1,134 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1714301486
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 16:39:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D3530B51D;
+	Fri,  3 Jul 2026 16:59:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783096795; cv=none; b=ecyyuWOP1tB5w+MJK/Kcv0uitIIfFt0OXE7IkVLMrEg6gXC8kYo4BgqZBXpqi2tFljPoRlUIMY30APJ0o55GlnwT/mEZWcbJDDuaqlQTHPORMaxs4q0IlgOYSm5tunZNqp2ii1/xzSipTzc3FxIMLTAhW3UZv/Ljl+wdd75uA+Y=
+	t=1783097989; cv=none; b=iNLPmvP7XulN0smVZqPgLrFqhnGodyGzv8PjP49AIYxLm8rZOui0vq4nPrErLZ7EJ59CSjhSuMo08QreSzBWUybdcy7+ggoo7zGBbD+FSh8QUQyHxIpOoyhVVfA1ft0bFur9wA3UiB1X3ZCsW2xrXXHbDny+PaN9N6tXSN5CgnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783096795; c=relaxed/simple;
-	bh=LKxYQdMO3xIVUXEfa8wh12+/MzspUqSyzGM3N1ZJ1E0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EuMPuaQR3v+89SQdjYaRic2Sh3tDf0cD38NQu1JgmijjU3y0rGCFyubL1ePhdQ5qUTYcq6xZacUhLPJfuiZ0iBP8HQsf2tlfgoWRjeq3l7ZJ7RverRCaQqAf02/Zn6IZZBLGFrY2O1cZYsqtoSrqX8OWhpvNu4xZv172H2A1f9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=LgrytPUW; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1783097989; c=relaxed/simple;
+	bh=Dhy4gvLT0RAnGvm4Qciq67SI7sUn4Qp1DNRguSA4Rcs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gRUjKG6hEdgREr/ILmGizO/1KE471iq7WNIXK3THiE1cPsBN90bAcIZhMO34sIgD8rliCt3vquE+dqrKpfbrwEgPIA1R7K4EL3pUZdf0kSQ6yN0wV7Xshzj34QOI8TtIoDNsMN+x8HlFmwxj0LvaoRcSN39zVVF9wTwCvoIiAiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=nJd6/ih4; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="LgrytPUW"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2caed617615so3473545ad.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 09:39:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783096793; x=1783701593; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=FpObt3Bc3TYpwm8R/YBWw43ULoUW+dnc9dBb5ROKkRI=;
-        b=LgrytPUW1CZ5IMCJUB3nEduWPxoKJAdPUu9hiuWDYNcTY7ZM4DAxSEXq+zzNinju8l
-         QBOLbhmsPLKEBTiCkTLX1bTf3QwJqGXBIjft/hd2Ek+75waKQPf3zp1VQ+Dd0rCXC7ki
-         kKUFhLNXuwH7VDptFF2p9Hsg1Mj2zPL3Mc8KOt7hYDIuyW8kA+TrbPc2jmwHsrWI4ORQ
-         s/kMC/46IIVDk4bL5VGZriJ/wBSTP5Giw6B4iJZyghAXRnDbpSJhrl1RW99/TBu+xpGE
-         A16tb3hvaxYqb6/zL2T6HB+DZr7wH38faSKmRvm7xLijuQcah0gnc5npzOrMhcGEUoTV
-         bFug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783096793; x=1783701593;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FpObt3Bc3TYpwm8R/YBWw43ULoUW+dnc9dBb5ROKkRI=;
-        b=XeTGWakYoPV34sVJqNTXvAf5ciprIwQ8UkMYUNdhLfZT7SHfEUsu8FWJ8bBAKn/mX3
-         DY1qAMn21DXgToDzO+ze66UEEK2jVvuqq5WSb9jhOTVcr2+UUK4rLfNESHraqaQjkjBP
-         6L/bcSEtH5vV5NrtZpYqsNQb38NlehsB+f1AVpP5gd2/QEIAMOisdYFQ47h/jLpSERIe
-         +IFCJw7RNQU4aehaI7QvHhOjzbJkpiYyXAbebKTRRYqm9CFsbmCna8VMU09BM4iq4JiT
-         FVsnEP8TQGnSAJdUFY5WBCR5DtS3UiP5LBh74XP9rBxjhm2OA/ta+rVR532PkoaBTQ/Z
-         7a4A==
-X-Forwarded-Encrypted: i=1; AHgh+RqaRtBnpN/pioSP8YLNLwyjKnQMWPrvXp6BtegS4sdc3bHFfvXIDPQQMZhk0FLJGjhWKkkojYnlCjoB@vger.kernel.org
-X-Gm-Message-State: AOJu0YzD4+cwBnJXFL+HwzI+n/Ovd8EbPRmqO5KxAHFB86hZzFDAZVX9
-	99fVVgSphHDLFG2zLHZOsGnL/teDlgBGRISLqi97w/yieAGbiWh6S0cVKr76E72jw9E=
-X-Gm-Gg: AfdE7clloK/rjQYg4yJDI0zkSgJBWtmn8waNolLkJ3NoOwrpocRODoj0jBSzlTEdHt5
-	22HKsEgq6h3Kmdbc8Yr84M9nu2MuZcSmiHw5NUN0TPMbooV5YcsX434hQOJ+SoPxXGQ7SeKDQvL
-	DXIgf6yvLEaH8HlTo9a7lrxxoGxphw301SaYPcf89xbrTiWrYf6+akN2bzaQUscK/57XuxxM+Rt
-	XRVm4g0hbmTD/uZQuouSH1KU/RkLYCrkPHc/3TxSgs0CeTIuT5FjXApojgt3FXJ7aD6AYGcP+TH
-	E61ro/CHVDchLTiiK9RKFd80YY6G/Ta8qRJIKEp21N2PAm3nmcQVFYtkpSGwvF4WeIqbDPkK50d
-	V69es458N1Asg/EArhR9+FBIQFgdJg80K6u+vxB8EZ7Ok8c8inGzYKq6S0ox798xggWyqW56cAn
-	QroiWADiaNXIRt07XMQbqSQd3tN6s=
-X-Received: by 2002:a17:903:3bcb:b0:2c8:1f56:9fc5 with SMTP id d9443c01a7336-2cbb9ec70a6mr364975ad.35.1783096792703;
-        Fri, 03 Jul 2026 09:39:52 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:9267:5e0f:f6d7:b6d0])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad7144e1asm12149005ad.31.2026.07.03.09.39.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 09:39:52 -0700 (PDT)
-Date: Fri, 3 Jul 2026 10:39:49 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Ben Levinsky <ben.levinsky@amd.com>
-Cc: andersson@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-remoteproc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	tanmay.shah@amd.com, michal.simek@amd.com
-Subject: Re: [PATCH v4 2/2] remoteproc: add AMD BRAM-based remote processor
- driver
-Message-ID: <akfl1Uhn9QHRwE6n@p14s>
-References: <20260629164003.3940208-1-ben.levinsky@amd.com>
- <20260629164003.3940208-3-ben.levinsky@amd.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="nJd6/ih4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783097985;
+	bh=Dhy4gvLT0RAnGvm4Qciq67SI7sUn4Qp1DNRguSA4Rcs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=nJd6/ih40hiWEhn4ndj338VwFyT5SxADffzqSTjv1GQ5me0AH4Mj17WymraBfs+t/
+	 r5GGKZ4aL8Tow2C+NPSJhmYYVE5jc8dNI+pq7pn2xeqyIqZaFc0+AT+VP4hhrndqmx
+	 RZH5/XifxgE5MXgQvzXY0bL00xaiScLbPsKviaa4biXtRCgtTWQ1LRbKxdaAO8vh4c
+	 vFeEhuh52yIuwJ9INcJJC/MsS0C0gxf7stzwfxbLzKvut59k3ZLy5XdVxXX7PCQpbq
+	 CBgkhxWhD17uony3610weO3dBkZHxQph+StpRo70GCInYK0K4cKEHlrvZ/jxJI/Bqj
+	 IFdD4qkXS6vNg==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id F3DB217E0521;
+	Fri,  3 Jul 2026 18:59:44 +0200 (CEST)
+Message-ID: <deb7bdd8-f9d0-43cd-9de0-82e80351a739@collabora.com>
+Date: Fri, 3 Jul 2026 19:59:44 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260629164003.3940208-3-ben.levinsky@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/9] dt-bindings: display: vop2: Add missing reset
+ properties
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Diederik de Haas <diederik@cknow-tech.com>, Sandy Huang
+ <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
+ <DJC0L3CRJ0WL.IZEYVLPROMM1@cknow-tech.com>
+ <fe8038fe-940a-4c61-a551-082534ef9c51@collabora.com>
+ <8183064.gsGJI6kyIV@diego>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <8183064.gsGJI6kyIV@diego>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Ben,
-
-On Mon, Jun 29, 2026 at 09:40:03AM -0700, Ben Levinsky wrote:
-> Add a remoteproc driver for AMD soft-core processor subsystems
-> instantiated in programmable logic and using dual-port BRAM for
-> firmware storage and execution.
+On 7/3/26 7:37 PM, Heiko Stübner wrote:
+> Am Donnerstag, 18. Juni 2026, 10:39:14 Mitteleuropäische Sommerzeit schrieb Cristian Ciocaltea:
+>> Hi Diederik,
+>>
+>> On 6/18/26 10:58 AM, Diederik de Haas wrote:
+>>> Hi Cristian,
+>>>
+>>> Thanks for this series :-) Just 1 nit (at the end) ...
+>>>
+>>> On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
+>>>> Document the VOP2 resets corresponding to the AXI, AHB and DCLK_VP0..2
+>>>> clocks, which are common to all supported SoCs, plus DCLK_VP3 which is
+>>>> provided only on RK3588.
+>>>>
+>>>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>>>> ---
+>>>>  .../bindings/display/rockchip/rockchip-vop2.yaml   | 42 ++++++++++++++++++++++
+>>>>  1 file changed, 42 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
+>>>> index 93da1fb9adc4..d3bc5380f910 100644
+>>>> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
+>>>> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
+>> [...]
+>>
+>>>> @@ -289,6 +321,16 @@ examples:
+>>>>                                "dclk_vp0",
+>>>>                                "dclk_vp1",
+>>>>                                "dclk_vp2";
+>>>> +                resets = <&cru SRST_A_VOP>,
+>>>> +                         <&cru SRST_H_VOP>,
+>>>> +                         <&cru SRST_VOP0>,
+>>>> +                         <&cru SRST_VOP1>,
+>>>> +                         <&cru SRST_VOP2>;
+>>>> +                reset-names = "axi",
+>>>> +                              "ahb",
+>>>> +                              "dclk_vp0",
+>>>> +                              "dclk_vp1",
+>>>> +                              "dclk_vp2";
+>>>>                  power-domains = <&power RK3568_PD_VO>;
+>>>
+>>> Place reset* props below power-domains (like in patch 9) ?
+>>> So everyone who copies your example has the correct sorting order.
+>>
+>> The example doesn't strictly follow that ordering either — see e.g. the iommus
+>> property — so I placed the resets right after the clocks, which keeps the
+>> related properties grouped together.
+>>
+>> That said, I don't have a strong preference. 
+>>
+>> Heiko, is there a convention you'd like the Rockchip bindings to follow here?
+>> Happy to reorder if so.
 > 
-> The driver parses the firmware memory window from the remoteproc device
-> node's reg property, interprets that address and size in the
-> processor-local address space, and then uses standard devicetree
-> address translation through the parent bus ranges property to obtain
-> the corresponding Linux-visible system physical address.
-> 
-> The resulting translated region is registered as the executable
-> remoteproc carveout and coredump segment.
-> 
-> The processor is controlled through an active-low reset GPIO and a
-> subsystem clock. The clock is enabled before reset is released, and the
-> processor is kept in reset until firmware loading completes.
-> 
-> The firmware-name property is optional, allowing firmware to be
-> assigned later through the remoteproc framework. Firmware images
-> without a resource table are also accepted.
->
-> Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
-> ---
->  drivers/remoteproc/Kconfig          |  11 ++
->  drivers/remoteproc/Makefile         |   1 +
->  drivers/remoteproc/amd_bram_rproc.c | 213 ++++++++++++++++++++++++++++
->  3 files changed, 225 insertions(+)
->  create mode 100644 drivers/remoteproc/amd_bram_rproc.c
-> 
-> diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
-> index c521c744e7db..58fa566b609f 100644
-> --- a/drivers/remoteproc/Kconfig
-> +++ b/drivers/remoteproc/Kconfig
-> @@ -23,6 +23,17 @@ config REMOTEPROC_CDEV
->  
->  	  It's safe to say N if you don't want to use this interface.
->  
-> +config AMD_BRAM_REMOTEPROC
-> +	tristate "AMD BRAM-based remoteproc support"
-> +	depends on OF && COMMON_CLK && (GPIOLIB || COMPILE_TEST)
-> +	help
-> +	  Say y or m here to support a BRAM-based remote processor managed
-> +	  through the remoteproc framework.
-> +
-> +	  The processor is controlled through a reset GPIO and clock.
-> +
+> Please just use standard devicetree ordering, as described in the
+> documentation. We generally don't want to invent new diverging things :-)
 
-This last sentence doesn't belong here - please remove.
+Ack. For consistency, let's also move the iommus property up into the expected
+position.
 
-Looking at the bindings and this Kconfig I wonder why the emphasis of the naming
-convention, i.e "BRAM-based remoteproc" is placed on the kind of memory the
-remote processor is connected to rather than the remote processor itself.
-
-Wouldn't it be better to have something like "AMD MicroBlaze/V remote
-processor"?  What happens when we get another AMD softcore that is completely
-different than MicroBlaze/V that is also connected to the same type of memory?
-
-I'm good with the implemenation, I just wonder about the name...
-
-> +	  If unsure, say N.
-> +
->  config IMX_REMOTEPROC
->  	tristate "i.MX remoteproc support"
->  	depends on ARCH_MXC
-> diff --git a/drivers/remoteproc/Makefile b/drivers/remoteproc/Makefile
-> index 1c7598b8475d..5c39664b50c3 100644
-> --- a/drivers/remoteproc/Makefile
-> +++ b/drivers/remoteproc/Makefile
-> @@ -11,6 +11,7 @@ remoteproc-y				+= remoteproc_sysfs.o
->  remoteproc-y				+= remoteproc_virtio.o
->  remoteproc-y				+= remoteproc_elf_loader.o
->  obj-$(CONFIG_REMOTEPROC_CDEV)		+= remoteproc_cdev.o
-> +obj-$(CONFIG_AMD_BRAM_REMOTEPROC)	+= amd_bram_rproc.o
->  obj-$(CONFIG_IMX_REMOTEPROC)		+= imx_rproc.o
->  obj-$(CONFIG_IMX_DSP_REMOTEPROC)	+= imx_dsp_rproc.o
->  obj-$(CONFIG_INGENIC_VPU_RPROC)		+= ingenic_rproc.o
-> diff --git a/drivers/remoteproc/amd_bram_rproc.c b/drivers/remoteproc/amd_bram_rproc.c
-> new file mode 100644
-> index 000000000000..a595875f9ce8
-> --- /dev/null
-> +++ b/drivers/remoteproc/amd_bram_rproc.c
-> @@ -0,0 +1,213 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * AMD BRAM-based Remote Processor driver
-> + *
-> + * Copyright (C) 2026 Advanced Micro Devices, Inc.
-> + *
-> + * This driver supports soft-core processors (MicroBlaze, MicroBlaze-V, or
-> + * similar) instantiated in AMD programmable logic, using dual-port BRAM
-> + * for firmware storage and execution.
-> + *
-> + * The firmware memory (BRAM) is described in the processor-local address
-> + * space and translated to the Linux-visible system physical address with
-> + * standard devicetree address translation.
-> + *
-> + * Reset is controlled via GPIO connected to Processor System Reset IP.
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/dma-mapping.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_address.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/remoteproc.h>
-> +
-> +#include "remoteproc_internal.h"
-> +
-> +/**
-> + * struct amd_bram_rproc - AMD BRAM-based remoteproc private data
-> + * @dev: device pointer
-> + * @reset: GPIO descriptor for reset control (active-low)
-> + * @clk: processor clock
-> + */
-> +struct amd_bram_rproc {
-> +	struct device *dev;
-> +	struct gpio_desc *reset;
-> +	struct clk *clk;
-> +};
-> +
-> +static int amd_bram_rproc_prepare(struct rproc *rproc)
-> +{
-> +	struct amd_bram_rproc *priv = rproc->priv;
-> +	struct rproc_mem_entry *mem;
-> +	struct resource res;
-> +	u64 da, size;
-> +	int ret;
-> +
-> +	ret = of_property_read_reg(priv->dev->of_node, 0, &da, &size);
-> +	if (ret) {
-> +		dev_err(priv->dev, "failed to parse executable memory reg\n");
-> +		return ret;
-> +	}
-> +
-> +	if (!size || size > U32_MAX) {
-> +		dev_err(priv->dev, "invalid executable memory size\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (da > U32_MAX) {
-> +		dev_err(priv->dev, "invalid executable memory address\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = of_address_to_resource(priv->dev->of_node, 0, &res);
-> +	if (ret) {
-> +		dev_err(priv->dev, "failed to translate executable memory reg\n");
-> +		return ret;
-> +	}
-> +
-> +	mem = rproc_mem_entry_init(priv->dev, NULL, (dma_addr_t)res.start,
-> +				   resource_size(&res), da,
-> +				   rproc_mem_entry_ioremap_wc,
-> +				   rproc_mem_entry_iounmap,
-> +				   dev_name(priv->dev));
-> +	if (!mem)
-> +		return -ENOMEM;
-> +
-> +	rproc_add_carveout(rproc, mem);
-> +	rproc_coredump_add_segment(rproc, da, resource_size(&res));
-> +
-> +	return 0;
-> +}
-> +
-> +static int amd_bram_rproc_start(struct rproc *rproc)
-> +{
-> +	struct amd_bram_rproc *priv = rproc->priv;
-> +	int ret;
-> +
-> +	/* Enable clock before releasing reset */
-> +	ret = clk_prepare_enable(priv->clk);
-> +	if (ret) {
-> +		dev_err(priv->dev, "failed to enable clock: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* Deassert reset and let the processor run. */
-> +	ret = gpiod_set_value_cansleep(priv->reset, 0);
-> +	if (ret) {
-> +		dev_err(priv->dev, "failed to deassert reset: %d\n", ret);
-> +		clk_disable_unprepare(priv->clk);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int amd_bram_rproc_stop(struct rproc *rproc)
-> +{
-> +	struct amd_bram_rproc *priv = rproc->priv;
-> +	int ret;
-> +
-> +	/* Assert reset before disabling the processor clock. */
-> +	ret = gpiod_set_value_cansleep(priv->reset, 1);
-> +	if (ret) {
-> +		dev_err(priv->dev, "failed to assert reset: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* Disable clock after asserting reset */
-> +	clk_disable_unprepare(priv->clk);
-> +
-> +	return 0;
-> +}
-> +
-> +static int amd_bram_rproc_parse_fw(struct rproc *rproc,
-> +				   const struct firmware *fw)
-> +{
-> +	rproc_elf_load_rsc_table_optional(rproc, fw, dev_dbg,
-> +					  "no resource table found\n");
-> +	return 0;
-> +}
-> +
-> +static const struct rproc_ops amd_bram_rproc_ops = {
-> +	.prepare	= amd_bram_rproc_prepare,
-> +	.start		= amd_bram_rproc_start,
-> +	.stop		= amd_bram_rproc_stop,
-> +	.load		= rproc_elf_load_segments,
-> +	.sanity_check	= rproc_elf_sanity_check,
-> +	.get_boot_addr	= rproc_elf_get_boot_addr,
-> +	.parse_fw	= amd_bram_rproc_parse_fw,
-> +};
-> +
-> +static int amd_bram_rproc_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct amd_bram_rproc *priv;
-> +	const char *fw_name = NULL;
-> +	struct rproc *rproc;
-> +	int ret;
-> +
-> +	ret = rproc_of_parse_firmware(dev, 0, &fw_name);
-> +	if (ret < 0 && ret != -EINVAL)
-> +		return dev_err_probe(dev, ret,
-> +				     "failed to parse firmware-name property\n");
-> +
-> +	rproc = devm_rproc_alloc(dev, dev_name(dev), &amd_bram_rproc_ops,
-> +				 fw_name, sizeof(*priv));
-> +	if (!rproc)
-> +		return -ENOMEM;
-> +
-> +	priv = rproc->priv;
-> +	priv->dev = dev;
-> +
-> +	/* Get the processor clock */
-> +	priv->clk = devm_clk_get(dev, NULL);
-> +	if (IS_ERR(priv->clk))
-> +		return dev_err_probe(dev, PTR_ERR(priv->clk),
-> +				     "failed to get clock\n");
-> +
-> +	/*
-> +	 * Keep the processor in reset until remoteproc has finished loading
-> +	 * firmware into the executable memory window described by reg and
-> +	 * translated through the parent bus ranges property.
-> +	 */
-> +	priv->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(priv->reset))
-> +		return dev_err_probe(dev, PTR_ERR(priv->reset),
-> +				     "failed to get reset gpio\n");
-> +
-> +	rproc->auto_boot = false;
-> +
-> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to set DMA mask\n");
-> +
-> +	platform_set_drvdata(pdev, rproc);
-> +
-> +	ret = devm_rproc_add(dev, rproc);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to register rproc\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id amd_bram_rproc_of_match[] = {
-> +	{ .compatible = "xlnx,zynqmp-bram-rproc" },
-> +	{ /* sentinel */ },
-> +};
-> +MODULE_DEVICE_TABLE(of, amd_bram_rproc_of_match);
-> +
-> +static struct platform_driver amd_bram_rproc_driver = {
-> +	.probe = amd_bram_rproc_probe,
-> +	.driver = {
-> +		.name = "amd-bram-rproc",
-> +		.of_match_table = amd_bram_rproc_of_match,
-> +	},
-> +};
-> +module_platform_driver(amd_bram_rproc_driver);
-> +
-> +MODULE_DESCRIPTION("AMD BRAM-based Remote Processor driver");
-> +MODULE_AUTHOR("Ben Levinsky <ben.levinsky@amd.com>");
-> +MODULE_LICENSE("GPL");
-> -- 
-> 2.34.1
-> 
+Thanks,
+Cristian
