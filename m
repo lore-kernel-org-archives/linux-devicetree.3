@@ -1,60 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out203-205-221-239.mail.qq.com (out203-205-221-239.mail.qq.com [203.205.221.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48AC330301;
-	Fri,  3 Jul 2026 05:41:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E7C344DA2;
+	Fri,  3 Jul 2026 05:42:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783057280; cv=none; b=PHERi1ZdlmuE5eGraiCcQKafu9kVi+4C5Y/VQQxV4IjgMcznPBWYQKczboStDrKQIgldmDHdJt/8j1QTYyi/gEN4BZHnNxz8VeWjVZe4dmNu97u1wmHrDadp05HFQHMghi70cpRjgGeXzEeUryougFvGd+OxrP40QhztxhDPJKk=
+	t=1783057326; cv=none; b=rqSoEPn9hIW/63HgITjZtOo6wcuONaMKveOowdMoY9tO2o8IHVQwdtmePtZU1FtFoJa3rMoeF9YpBOyEZFPk3jgecEo2+6dL5Eu0qvZ/AZ+SLCWxJAd/UqK2g1d+oE0V4Lk4acql8h6lPjVBXDgOvYPUjcbyQA39Jr/+yun7kKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783057280; c=relaxed/simple;
-	bh=SAusHHRBW1hkD4b3dBmjaQiaHUKiEJMrPz8gQkykIgk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gZNBNFA9GR3+oExDbbwPpK0u9Hr1I19ws5GKFxwAYClrCbqjX5TQZyA4wrXZDQWIKAk2krWMsMcj9GAHx5h4nG45EmZoYG6Lj/gjWqrJjpBHEKcHF7yxAH0P1h9RJmYfeM1lpsTdszWYKvoWm0SA8do2GaP4wMb/U7F1sjdCRUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yMg8Lfao; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783057326; c=relaxed/simple;
+	bh=ViqeHQLIZm0HWnSQexz4QSSM3m74KlPcBjrXGGI/Zew=;
+	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
+	 References:In-Reply-To; b=u/OuaMFzFCUnDfnCVUhJ7QJvZ7L55O8ZplY8V4dv2ZFHTgR5Njm7sfTwEoNT761S2VyWx3dUalItmQHoeLA/xktgVdxCv1NbbnWhHoWK+vYq3ErGmahwsNbzzFQlu8AWeClrI5pZrJuRFOh1II0bxbsSq/hu+nIi73gTFSLh4vI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=CQWXqKrY; arc=none smtp.client-ip=203.205.221.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yMg8Lfao"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AED521F000E9;
-	Fri,  3 Jul 2026 05:41:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783057279;
-	bh=K1dUUsyk6rfusf74RsE3HlTSEHwrqILFgZJ4BkGvnSY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=yMg8LfaoM0vwIGg0rhTmu7UjJzj0k1D95WoTIGuTVrjb0whhqRSu+Z3W8KBZdAnUA
-	 7TnMDwftKw9iZXXuNUkG9lVE69FaHdqgJiY9xJV6EtT52erQgSyVBiNyikKbm8axLZ
-	 KDJ0N67mOfrvPlJk/8pMsBqYXZL/sCnkKMs/INy0=
-Date: Fri, 3 Jul 2026 07:41:29 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Zane Leung <liangzhen@linux.spacemit.com>
-Cc: anup.patel@oss.qualcomm.com, adrian.hunter@intel.com, alex@ghiti.fr,
-	alexander.shishkin@linux.intel.com, andrew.jones@oss.qualcomm.com,
-	anup@brainfault.org, atish.patra@linux.dev, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, irogers@google.com, jolsa@kernel.org,
-	krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, mark.rutland@arm.com,
-	mayuresh.chitale@oss.qualcomm.com, mchitale@gmail.com,
-	mingo@redhat.com, namhyung@kernel.org, palmer@dabbelt.com,
-	peterz@infradead.org, pjw@kernel.org, robh@kernel.org,
-	sunilvl@oss.qualcomm.com
-Subject: Re: [PATCH v4 02/12] rvtrace: Initial implementation of driver
- framework
-Message-ID: <2026070316-surgery-unneeded-bceb@gregkh>
-References: <20260429125135.1983498-3-anup.patel@oss.qualcomm.com>
- <BDD9553502347B02+ee3069d3-eb04-4a37-b364-107cf8d0653c@linux.spacemit.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="CQWXqKrY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1783057321; bh=ViqeHQLIZm0HWnSQexz4QSSM3m74KlPcBjrXGGI/Zew=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=CQWXqKrY4WQhgdQBLj533cjlb+QPOFKlA+nk7B29YRJpZHOzSGQ5UwbsSvwogneYp
+	 QCxKZhizxjkhHXVSQQn7BGj3npq5XMTr0FiJeiTUN3gvWB/7SWdGdefwMlEM3HiwBX
+	 Wx6E7mvv1ZbTej5eiu2+j4EF/yjJtMc168HVlB8I=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-XMAILINFO: NBGkhoQ8491PceFq1cOFzrfl6cKUIB8C33gPhPjpIur5KR6W4qQ36+vEohq5KR
+	 bGdPokva9jQxNFgyFb/Zf7kJsbkoCTODLj1Ke5p61gsjsGiPaOtkQRAoy8rTCxyxhTQBeyF4FyekY
+	 73uyxaZdMdqFI7Jl2f5fEXgEpQ7iHLRhj8RYcUPHTcgRxcUeW9fRW1PTfkFEyRana+WCTkY59rzDR
+	 g6UrARgeeGGpdn0MnE2YlkwPNTAlY00I+LWHGJ8px+WsUjOPZ6HWKHOgVfP+IMuX6uf3BE2sFRvGS
+	 neN000bWmA4Wij4iPe40l6Ws6vXyQdJb7uXiXK0oHo95zQX8OdXrnfPkwiKtZPPJqZHlMckh01EYC
+	 ucInO8HwwMzap+1YxiYdIn/7045WcXw10f4K5giaLoQYOuV3+jRo4yvqGQn1gFQR99zcY66QLSFE7
+	 20jumZIl0hj9PZAaROjipkFpJkO7egEuVUYVCqwn/tT6XaohVH7uEHQz9CiGMSBpNfNnIBB2ui0qs
+	 cmPeL91PvOzPlTzOvm1c3pTE1WPFRkQxoYaOM8KAuaLlasY5ka+a1wUZYLZ4HTr3PDAF5DLZ1MBtm
+	 kinXWMzb/vk70AAncpcacO2fP3L+Dik6eoFOqOiCbrvATDNGMnyx2IjidKt9zDNNte8Iz3+QXQY9n
+	 sbBZKvq4koPVTzwCrQRVxMa3SYIbrnm239E5uLbcUoHZ0p58gIzrNbHhTSI8yEsbzKzmEHcPETB6r
+	 4IxMDbcPNnMViUec9Imsp3INKPJB0XILlV1tJNTuPSK/FPLdRr61NRuQ8JxE8lO1mFqy7AZ8ZaLi2
+	 0Ot49k1RHzqYSc3R/6sINM4QRtUCHGVuwiKecEBQnJr9LbmuHAsSy0MR1UEO/IYSg0lCjGNaoHQIf
+	 VWzhEtLME08xFBylTHtFCPSVjlwDAgUZFE3oON548mTfQM+pznObBLQqvf8hz1zOYNsnwG879O6Mc
+	 zByhMCrKwY0j6yEU/5C3APaP83efQcIBh2A3clfa5z//GdGkpYRLoWoQ5gdDWMCXVXxZERPF9nvnL
+	 1eNJgVWsctkAx9cQxC9j3D9aeYihMb7ZVDXIg
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>, "=?utf-8?B?aGVpa28=?=" <heiko@sntech.de>
+Cc: "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?cm9iaA==?=" <robh@kernel.org>, "=?utf-8?B?a3J6aytkdA==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Y29ub3IrZHQ=?=" <conor+dt@kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] can: rockchip: add RK3588 CAN-FD support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <BDD9553502347B02+ee3069d3-eb04-4a37-b364-107cf8d0653c@linux.spacemit.com>
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Fri, 3 Jul 2026 13:41:59 +0800
+X-Priority: 3
+Message-ID: <tencent_358CC86827C08D8405142316F9053629D00A@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <tencent_C422347432620914231601BC882C7E604D08@qq.com>
+	<20260702-accelerated-shoebill-of-elevation-76f536-mkl@pengutronix.de>
+In-Reply-To: <20260702-accelerated-shoebill-of-elevation-76f536-mkl@pengutronix.de>
+X-QQ-mid: xmsezb41-0t1783057319tq7q6pl5z
 
-On Thu, Jul 02, 2026 at 04:19:53PM +0800, Zane Leung wrote:
-> Hi, 
-> 
-> Based on the current framework, I am concerned about how to support RISC-V ATB and reuse the Coresight component (ETB/tmc/TPIU) in the future.
+SGkgTWFyYywKCj4gVGhlbiBDQU4tRkQgaXMgYnJva2VuLiA6Lwo+Cj4gTWF5YmUgaW4gYSBs
+YXRlciBwYXRjaCB3ZSBjYW4gaGFjayBzb21ldGhpbmcsIHRvIGFsbG93IHdvcmtpbmcKPiBj
+b25maWd1cmF0aW9ucy4KCkkgZGlkIHNvbWUgbW9yZSB0ZXN0cyBhbmQgZm91bmQgdGhhdCB0
+aGUgaW1tZWRpYXRlIGJ1cy1vZmYgd2l0aCBCUlMgaXMKcmVsYXRlZCB0byB0aGUgdHJhbnNt
+aXQgZGVsYXkgY29tcGVuc2F0aW9uIHNldHRpbmcuCgpBZnRlciBzZXR0aW5nIFJLQ0FORkRf
+UkVHX1RSQU5TTUlUX0RFTEFZX0NPTVBFTlNBVElPTiB0byAwLCBpLmUuCmRpc2FibGluZyBU
+REMsIENBTi1GRCB3aXRoIEJSUyB3b3JrcyBvbiBSSzM1ODggaW4gbXkgc2V0dXAuIEkgdGVz
+dGVkIHRoZQpzYW1lIGNvbW1hbmQgd2l0aCA1MDAga2JpdC9zIGFyYml0cmF0aW9uIGJpdHJh
+dGUgYW5kIDEsIDMgYW5kIDUgTWJpdC9zCmRhdGEgYml0cmF0ZS4KClRoZSA1IE1iaXQvcyBk
+YXRhIHBoYXNlIHRlc3Qgc2V0dXAgd2FzOgoKICBDQU4gY2xvY2s6IDMwMCBNSHoKICBjYW4w
+IDwtPiBjYW4xIGRpcmVjdGx5IGNvbm5lY3RlZAogIG5vIG90aGVyIGRldmljZXMgb24gdGhl
+IGJ1cwogIGJ1cyB0ZXJtaW5hdGlvbjogNjAgT2htCgogIGlwIGxpbmsgc2V0IGNhbjAgdHlw
+ZSBjYW4gYml0cmF0ZSA1MDAwMDAgc2FtcGxlLXBvaW50IDAuOCBkYml0cmF0ZSA1MDAwMDAw
+IGRzYW1wbGUtcG9pbnQgMC44IGZkIG9uIGJlcnItcmVwb3J0aW5nIG9uCiAgaXAgbGluayBz
+ZXQgY2FuMSB0eXBlIGNhbiBiaXRyYXRlIDUwMDAwMCBzYW1wbGUtcG9pbnQgMC44IGRiaXRy
+YXRlIDUwMDAwMDAgZHNhbXBsZS1wb2ludCAwLjggZmQgb24gYmVyci1yZXBvcnRpbmcgb24K
+CiAgY2FuZ2VuIGNhbjAgLUkgMiAtTGkgLURpIC1wIDEwIC1mIC1nIDEgLWMzMiAtYgogIGNh
+bnNlcXVlbmNlIC1ydiBjYW4xIC1mCgpUaGUgdGVzdCByYW4gZm9yIDE1IG1pbnV0ZXMuIFRo
+ZSByZWNlaXZlciByZXBvcnRlZCBjb250aW51b3VzIHNlcXVlbmNlCndyYXAtYXJvdW5kIG1l
+c3NhZ2VzLCBlLmcuOgoKICBzZXF1ZW5jZSB3cmFwIGFyb3VuZCAoMCkKICBzZXF1ZW5jZSB3
+cmFwIGFyb3VuZCAoMSkKICAuLi4KICBzZXF1ZW5jZSB3cmFwIGFyb3VuZCAoMzcyMTgpCiAg
+c2VxdWVuY2Ugd3JhcCBhcm91bmQgKDM3MjE5KQoKVGhlIGludGVyZmFjZSBzdGF0aXN0aWNz
+IGFmdGVyIHRoZSB0ZXN0IHdlcmU6CgogIGNhbjA6CiAgICAgICAgICAgIHJlLXN0YXJ0ZWQg
+YnVzLWVycm9ycyBhcmJpdC1sb3N0IGVycm9yLXdhcm4gZXJyb3ItcGFzcyBidXMtb2ZmCiAg
+ICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAg
+MCAgICAgICAgICAwCiAgICAgIFJYOiAgYnl0ZXMgcGFja2V0cyBlcnJvcnMgZHJvcHBlZCAg
+bWlzc2VkICAgbWNhc3QKICAgICAgIDE1MDY2NzM1NiA5NTI4Mzc3ICAgICAgMCAgICAgICAw
+ICAgICAgIDAgICAgICAgMAogICAgICBUWDogIGJ5dGVzIHBhY2tldHMgZXJyb3JzIGRyb3Bw
+ZWQgY2FycmllciBjb2xsc25zCiAgICAgICAxNTA2NjczNTYgOTUyODM3NyAgICAgIDAgICAg
+ICAgMCAgICAgICAwICAgICAgIDAKCiAgY2FuMToKICAgICAgICAgICAgcmUtc3RhcnRlZCBi
+dXMtZXJyb3JzIGFyYml0LWxvc3QgZXJyb3Itd2FybiBlcnJvci1wYXNzIGJ1cy1vZmYKICAg
+ICAgICAgICAgMCAgICAgICAgICAwICAgICAgICAgIDAgICAgICAgICAgMCAgICAgICAgICAw
+ICAgICAgICAgIDAKICAgICAgUlg6ICBieXRlcyBwYWNrZXRzIGVycm9ycyBkcm9wcGVkICBt
+aXNzZWQgICBtY2FzdAogICAgICAgMTUwNjY3MzU2IDk1MjgzNzcgICAgICAwICAgICAgIDAg
+ICAgICAgMCAgICAgICAwCiAgICAgIFRYOiAgYnl0ZXMgcGFja2V0cyBlcnJvcnMgZHJvcHBl
+ZCBjYXJyaWVyIGNvbGxzbnMKICAgICAgICAgICAgICAgMCAgICAgICAwICAgICAgMCAgICAg
+ICAwICAgICAgIDAgICAgICAgMAoKVGhlcmUgd2VyZSBubyBidXMgZXJyb3JzIGFuZCBubyBi
+dXMtb2ZmIGV2ZW50cyBpbiB0aGlzIHRlc3QuCgo+IENhbiB5b3UgdXBkYXRlIHRoZSBkZXNj
+cmlwdGlvbiBvZiB0aGUgcXVpcmsgZm9yIHRoZSByazM1ODggYW5kIGFkZCBob3cKPiB0byBy
+ZXByb2R1Y2UgaXQ/CgpXaXRoIFREQyBkaXNhYmxlZCBJIGNhbm5vdCByZXByb2R1Y2UgdGhl
+IEJSUyBidXMtb2ZmIHByb2JsZW0gYW55bW9yZS4KVGhpcyBhbHNvIGxvb2tzIGRpZmZlcmVu
+dCBmcm9tIFJLQ0FORkRfUVVJUktfQ0FORkRfQlJPS0VOLCBzbyBJIGRvIG5vdAp0aGluayBS
+SzM1ODggc2hvdWxkIHVzZSB0aGF0IHF1aXJrLgoKPiBQbGVhc2Uga2VlcCBpdCBkaXNhYmxl
+ZCBmb3Igbm93LgoKR2l2ZW4gdGhlIG5ldyB0ZXN0IHJlc3VsdCwgSSBwbGFuIHRvIHNlbmQg
+djQgd2l0aCB0aGUgUkszNTg4IFREQyByZWdpc3RlcgpzZXQgdG8gMCBhbmQgQ0FOLUZEIGVu
+YWJsZWQgZm9yIFJLMzU4OC4KClJlZ2FyZHMsCkN1bmhhbw==
 
-That is very vague.  Please provide specific examples.
