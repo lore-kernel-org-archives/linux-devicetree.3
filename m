@@ -1,172 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95E13242D4
-	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 07:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20182F39AB
+	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 08:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783151508; cv=none; b=diZZzVLc9RLU/g5p7x9Qdg3kSBawQA2JfIHU/+DmEiLXNVIJKVvfqZUI/xvv8LGispovp0BgQdwHc1ZHCSTemchx2LuF2pFS+xHBAnBU1JyFOeokUP/GLIP+A69Y86FgZzFjLpdFJSUzGP0sQtz17Xdvpmbz98QKJn6/SDkSqI4=
+	t=1783152071; cv=none; b=n55HPfYgxz3Pb5bhCvwd9dlMEDbbeC5zmkYMRM2yqL6fppgSrlPUdieDxFKTdDGJkBk/B9ujDFZuhhJuv1lnw41hatOcH2V5NVIKf3ceerYe9BEhKZDzMgrASWDJcDaJEBQNBAABXWi3CP1zgA9GbaxTRIZMXn14HTvJQ9gqu9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783151508; c=relaxed/simple;
-	bh=WJQPXoV4CX9FxNljrf47UReCgG1FN5PZTqN96BiaKQc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pmHkUDwrFQo2A7t/L7BIHqv8KeDVkSrOKpiEAGzMbLdbvq3c7JuwEqm/Ka4ml9cbFgc9iYxS0x+ig5c9UKq9RyTsxiyaiqEx0n6BZWdGjfkeDEFFf9xP11klnAx7SdkonZOqLHiS7phow4AjXkRqS7KFr2vN8GBYy90MJVSexHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c+BDokhp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783152071; c=relaxed/simple;
+	bh=Pt0KvgzaLOtI/52syeBWo/uhuDDfxiNq5+gR6yEj3NU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hcPqZbxvbvWACdPPQ+q3FisAy3Cg5SXGhEoM818YHgNpYKXSeHzGsPkKAC8rWFUJ5PM9j82+lvd3gYDpq0KLtALTaLiqGslBXDjB5e501blaKd8ugwKc/II53s6OQaJXQ8MucDQt5LMcU+wYzXm7TUP/ppmIsNBt1mMYsnRIYZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NB3qv7Y/; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c+BDokhp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0014E1F000E9;
-	Sat,  4 Jul 2026 07:51:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783151496;
-	bh=nk6nP7hmKCgBnsx+MNVD61Cm7aZyuBzkUCKBoY7kSj0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=c+BDokhpWiPzgGP+7wIiERr9pI7Jx51Fed5Hpd0TFL8FVQIwTTuuSwF1aqzi3L4mf
-	 D9feTB1bOJkXweUq7zKEmTCBqLxjTNVdxmqHEYCFK6JRvHUdqHK1JFIJHme2/aKTR5
-	 kvLrycknJl9EByuxn856hP/pDHNp1qsmDK8Z4Nrn7Gj8qmZQQAmmPpz0MHb2jQax+z
-	 VvkPN50n3bYSmSFMSgWRvp3h9Rc03p5yoEyl3lz9XR/QNJf3CXAiUo9u4UqtHH3hnm
-	 Pg2QWNX54zkRdbze2+ubfb6HRp8ExleIo7ZRBcRR8EJJngVhwbljtJgjUfomEHlfkw
-	 0Ixhx2JocRXog==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/5] phy: cpcap-usb: add extcon support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ivaylo Dimitrov" <ivo.g.dimitrov.75@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, olteanv@gmail.com
-In-Reply-To: <20260704073843.1750458-6-ivo.g.dimitrov.75@gmail.com>
-References: <20260704073843.1750458-1-ivo.g.dimitrov.75@gmail.com>
- <20260704073843.1750458-6-ivo.g.dimitrov.75@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 04 Jul 2026 07:51:35 +0000
-Message-Id: <20260704075136.0014E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NB3qv7Y/"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-471eeac43bfso1406185f8f.3
+        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 01:01:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783152063; x=1783756863; darn=vger.kernel.org;
+        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=bncZdAxiyDhHVEptV1GKmJZO/emo/e4qlZdeehgb6v0=;
+        b=NB3qv7Y/q/XHEt7Vzze1PThMp87fc1r4WINGaUbvLgsg599F0vjRkRn+zBdpklQYRs
+         0P4WSuO0KPesRIelpFNOwIkNd6OHNM4NHdA8NH3gS16CF/8G1PCQSaf4ryJdErDnzS5J
+         h12wvISBXnkD/5j8oZDdqBLrtOPyRasy97NoV0YplQKmK+h3GAYr7WnN+xiJGjU/MmyL
+         WImVtdvWSvv/AlyPyoJtJntLLkwRowWcoMZMLbUJOq3DIdW3vSrp2FHYGCYQhy9iz+U0
+         BmriAYVAcN/SWWRXZqi/GvGMKuIoAU1P0ctipcpCI48ZSRPwfYmrNtChKBywR5d7gle1
+         7M6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783152063; x=1783756863;
+        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=bncZdAxiyDhHVEptV1GKmJZO/emo/e4qlZdeehgb6v0=;
+        b=QlxuFTe33Jpn7EBhr88ymXyxiSQh4pUU7yKLSO0ojUkbhgrHCAuMjNwpsFNBS+Rt7h
+         KgXVCYoa7JNew8RCjVf7qYLHet1lZ8Jszmsy3WeG2OYx81cg+ytaxDxSGXsji2z2P9vE
+         3RjQEco2gvbkP25zrWrjWeRNqugzJj6KElhxMg25zpJJ4YQcY/23wtdRaU/wK+Q+To4K
+         NrYqujmmfFEITkxbwsrP8sODv2MvUR5YvvqgIRLgaXhBvjmUFKkrznnSMQj+4Eq8Dj38
+         gqgVBVAN4PN4/pH+tk9PAOMvB0/olenaL4eH9As3dxz9+cxRDghPy/vY+CJ/3y9X9ib+
+         sWiw==
+X-Forwarded-Encrypted: i=1; AHgh+RpsknqpBgk6ULamdmNZrhUmJ3S5gz9QideLoSrd4kTZsZArJw+D1wfViLuqZSUq6T1OpOcmIF5hSLIq@vger.kernel.org
+X-Gm-Message-State: AOJu0YzPtclDv6ztVP8RibgHVHXVSVKzpa2QDwkJ5RG9JOONs3c9lb2r
+	RnucevrhXnGZiww9B+XTY8LRc6aQNTLdzoZKD5Jz7cSp9PLrcZ7i4VB7dM58/f3NEfk=
+X-Gm-Gg: AfdE7cntsbI2wgsSPOvrpz8tNES1c34P0gEddOvF8vXaYeoXyI2GA4E39a5MnwtzMqW
+	JJJp27LJVLiRAlltbS5KSGdVTe21yVW/wM/qiEMDdWEf+qEhuPitBDgV72+HSeGOBfApvmNmfpC
+	SveRZPgK+MDc0OElew2QFm84i8cXtLBsULoALuaEoxaoDUvjbW7C5JG52cxhKu6WTotZh67m804
+	NocOTh/ZNp4XWUgRtLhFoooU8LVOxzsuZfrBzOWMQYIQdXJm1o1yoOw5tHH/rHeeQ3RoKzrAuiy
+	lIv41dEGO8Wnki6XYUamSMJDHBJI95PFNZrxEpIXubkQaNJAq9J6XN2Ca0cQcQTNxt3afWVwW3f
+	ojultC2pM0mEmlCBimNFgsSQhD35/9h3OVF/zIimGtDWkA9ch9rvU0MtgOHJqrdXnq/rECjr7CD
+	DfS4hKD+n4pjOWGBMLPeOHkHCZ
+X-Received: by 2002:a05:6000:2086:b0:472:f8b5:aaca with SMTP id ffacd0b85a97d-47aaa60d3cemr2987044f8f.15.1783152062911;
+        Sat, 04 Jul 2026 01:01:02 -0700 (PDT)
+Received: from strix.localnet ([197.250.51.120])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa039ad21sm5967457f8f.20.2026.07.04.01.00.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 04 Jul 2026 01:01:01 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Brian Masney <bmasney@redhat.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject:
+ Re: [PATCH v6 01/12] dt-bindings: soc: zte: Add zx297520v3 top clock and
+ reset bindings
+Date: Fri, 03 Jul 2026 20:20:58 +0300
+Message-ID: <az-AzRTTT8qfUWysHYig6Q@gmail.com>
+In-Reply-To: <387ff0d7-256e-4b18-b864-37a0ec3c9d9d@kernel.org>
+References:
+ <20260702-zx29clk-v6-0-377b704f80c4@gmail.com>
+ <20260702-zx29clk-v6-1-377b704f80c4@gmail.com>
+ <387ff0d7-256e-4b18-b864-37a0ec3c9d9d@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="nextPartQJbA9XBiSfGFnWS6QAvhhA";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+--nextPartQJbA9XBiSfGFnWS6QAvhhA
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+Date: Fri, 03 Jul 2026 20:20:58 +0300
+Message-ID: <az-AzRTTT8qfUWysHYig6Q@gmail.com>
+In-Reply-To: <387ff0d7-256e-4b18-b864-37a0ec3c9d9d@kernel.org>
+MIME-Version: 1.0
 
-New issues:
-- [High] The EXTCON_USB state is updated using `extcon_set_state` without a=
- corresponding `extcon_set_state_sync` or `extcon_sync`, preventing registe=
-red listeners from receiving state change notifications.
-- [Medium] Extcon state can become permanently desynchronized from the hard=
-ware/software state when regmap updates fail.
+Am Freitag, 3. Juli 2026, 09:26:43 Ostafrikanische Zeit schrieb Krzysztof 
+Kozlowski:
 
-Pre-existing issues:
-- [High] The driver's remove path races with the devres-managed threaded IR=
-Q handler, leading to a Use-After-Free of the driver data structure.
---
+> Also, this cannot be placed in soc. Clock and reset controllers DO NOT
+> go to the soc directory. Place in it clocks.
 
-commit 5e21d209058ee93304da0e1964b84339cf8709c2
-Author: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Even when they contain other functionality like hwlock, usb phy and reboot? 
+Here is the previous discussion that made me move it to soc:
 
-phy: cpcap-usb: add extcon support
+https://lore.kernel.org/linux-arm-kernel/20260621-plywood-straddle-b01f0c45f27c@spud/
 
-Register an Extcon device and report the detected cable state.
-The driver already determines the type of cable attached during USB cable
-detection. Export the detected state through the Extcon framework so
-other drivers can consume it using a standard kernel interface.
+Likewise, what about the node name: syscon@ or clock-controller@ ? Conor 
+advised me to go with syscon@
 
-> diff --git a/drivers/phy/motorola/phy-cpcap-usb.c b/drivers/phy/motorola/=
-phy-cpcap-usb.c
-> index 3be2b3afaaf4d..8978a95c1c199 100644
-> --- a/drivers/phy/motorola/phy-cpcap-usb.c
-> +++ b/drivers/phy/motorola/phy-cpcap-usb.c
-> @@ -123,6 +124,7 @@ struct cpcap_phy_ddata {
->  	struct regmap *reg;
->  	struct device *dev;
->  	struct usb_phy phy;
-> +	struct extcon_dev *edev;
->  	struct delayed_work detect_work;
+Cheers,
+Stefan
 
-[Severity: High]
-This is a pre-existing issue, but does the remove path race with the
-devres-managed threaded IRQ handler, leading to a use-after-free of this
-driver data structure?
+--- Quoting the relevant parts from the above link:
 
-If the devres-managed IRQ thread cpcap_phy_irq_thread() fires and reads
-ddata->active as 1, but is preempted before calling schedule_delayed_work():
+> At what point does it make sense to move the bindings from bindings/clock to 
+> bindings/mfd? The controllers are still very clock-heavy. allwinner,*-
+> prcm.yaml look like clock, reset, misc controllers in mfd/ whereas 
+> ingenic,cgu.yaml, sprd,sc9863a-clk.yaml and da8xx-cfgchip.txt are clock + 
+misc 
+> drivers in clock/.
 
-And then the driver remove path cpcap_usb_phy_remove() executes, sets
-ddata->active to 0, cancels any pending work, and returns.
+Yeah, to bindings/mfd or bindings/soc/<vendor>. Which I think is mostly
+a judgement call. Two of your devices have at least three functions,
+which I think is enough to make the claim that it's not just a clock
+controller.
 
-Devres cleanup then begins, calling devm_irq_release() -> free_irq() ->
-synchronize_irq(), which blocks waiting for the preempted IRQ thread.
+> Likewise for the node names: syscon@ or clock-controller@?
 
-When the IRQ thread resumes, it successfully queues the delayed work and
-returns.
+If you have syscon in the compatible, then I think it should be syscon
+in the node name as it's more general and makes it clear the device
+isn't just a clock controller.
 
-Once devm_irq_release() finishes, devres proceeds to free ddata.
-The delayed work timer expires and executes cpcap_usb_detect() on the freed
-ddata memory.
+--nextPartQJbA9XBiSfGFnWS6QAvhhA
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
-> [ ... ]
-> @@ -226,6 +239,43 @@ static void cpcap_usb_try_musb_mailbox(struct cpcap_=
-phy_ddata *ddata,
-> [ ... ]
-> +static void cpcap_usb_set_extcon(struct cpcap_phy_ddata *ddata)
-> +{
-> [ ... ]
-> +	if (ddata->cable =3D=3D EXTCON_CHG_USB_SDP)
-> +		extcon_set_state(ddata->edev, EXTCON_USB, false);
-> +	else if (cable =3D=3D EXTCON_CHG_USB_SDP)
-> +		extcon_set_state(ddata->edev, EXTCON_USB, true);
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: High]
-Does this prevent registered listeners from receiving state change
-notifications for EXTCON_USB?
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmpH73obFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoiNJIP/juwHA8X9RyBoj+10iQ7
+1g4HaZ2WplDlaXdAXFSUIIPLnRJ1FaxeR/c67EHaFB1UhOCsxGydBunolYNm0ywm
+WcWWVIwLVVEYJK1F4y7klFT+WXmxpxKy+cvUqPE8PTJVSElYKWDIeMlTEpqRsqmM
+rHT8kD85FcYJOKC7LWqwsyc/SvOuG6090G8ST6Says/wbMRgOcndTSWcAOaRy7GA
+hTajEqu9SWKZj9FQhh77k7y52eQO1DQroEJZHANSuy5CFX82VZdJYjIzMEBf395v
+nNCDWMemXUX6Nwn6XoE8BfLcQIoqiReuwtcpqCnndeJsOnNEh7cUQ18B2h+JbBpH
+Ri0Y06+3/aJxcWviyC4R1WuZxs4+8mjHRrRiXmz5oFYoO/I1ySh+ndujzDdF/lQG
+63RgX+idYIgZUNq4fgVq/IpnrVC8fbWvj2XeyRA+mXUx58xWgFLeEcv2iOLux1Bi
+uXgsWzLAjccxDBOKeu1589RFQAC4rnVjlZ0KTmKdhw3IkuNspUEeocm0QBHZZJD8
+/R1aRtSYtfaibMbhn1Cb9lUzYmGwJoNSmrXQ0GIidNtfSjsE7CxbWm074UpAl8qG
+B79r7ULixFkF5pnFr5ExarCVWt93lKOKoOTcUgtFyuBLTVduNR47qfGY2fJd1WiB
+iZ8IMly+LgRwX1l76oyj/IHD
+=s2ps
+-----END PGP SIGNATURE-----
 
-The EXTCON_USB state is updated here using extcon_set_state() without a
-corresponding extcon_set_state_sync() or extcon_sync(). When the driver
-changes the state to or from CPCAP_USB (which maps to EXTCON_CHG_USB_SDP),
-the subsequent extcon_set_state_sync() calls only target the charger cable
-ID and its specific notifier chain.
+--nextPartQJbA9XBiSfGFnWS6QAvhhA--
 
-The notifier chain for EXTCON_USB might never be fired.
 
-> +
-> +	if (ddata->cable !=3D EXTCON_NONE)
-> +		extcon_set_state_sync(ddata->edev, ddata->cable, false);
-> +
-> +	if (cable !=3D EXTCON_NONE)
-> +		extcon_set_state_sync(ddata->edev, cable, true);
-> +
-> +	ddata->cable =3D cable;
-> +}
-> [ ... ]
-> @@ -356,6 +411,8 @@ static void cpcap_usb_detect(struct work_struct *work)
-> [ ... ]
->  	if (ddata->mode =3D=3D CPCAP_IDLE)
->  		return;
-> =20
->  	ddata->mode =3D CPCAP_IDLE;
->  	cpcap_usb_try_musb_mailbox(ddata, MUSB_VBUS_OFF);
-> =20
->  	error =3D cpcap_usb_set_idle_mode(ddata);
->  	if (error)
->  		goto out_err;
-> =20
-> +	cpcap_usb_set_extcon(ddata);
-> +
->  	return;
-> =20
->  out_err:
 
-[Severity: Medium]
-Can the extcon state become permanently desynchronized from the hardware and
-software state if a regmap update fails?
-
-Earlier in cpcap_usb_detect(), the internal software state ddata->mode is
-updated prior to hardware configuration. If the hardware register update
-fails, the code branches to out_err and skips calling
-cpcap_usb_set_extcon().
-
-Because ddata->mode is already modified, subsequent executions of
-cpcap_usb_detect() will take the early return path and will never retry
-updating the extcon state, leaving it stale indefinitely.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260704073843.1750=
-458-1-ivo.g.dimitrov.75@gmail.com?part=3D5
