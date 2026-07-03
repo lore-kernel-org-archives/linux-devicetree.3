@@ -1,167 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C2EF3BCD33
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 11:16:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9B43C2761
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 11:17:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783077374; cv=none; b=UJuJ+zolQfQzcom4h5B/swJpKq4CaQhYM/7ZrWV+LrpI709lu7gbuMAzrPur37CSvBUFvV7spYrnr7iXxWX2tQKfN3CuSxD5UZCcCEs37z1a35bRMr4GHRim1uPCJfdEjlqX2Jm7oPKhwNUzPTRyu93jBH+INTZ7HCGcu+lKptc=
+	t=1783077475; cv=none; b=V+efWky65U/ErXy9x69pCQ6rubRPGEWEhn5dUQOGPndvxeaGQrXN/L6eQ1StTVYVVG7K/us1vHiUMUH5orwKcibmEUtnXsUR9t1+4YoD0qppS84cBzOymfhexw3yQiOh7gKBRTL9AvSKFnUGZH5jmye4999RGR+DzUUscg31DGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783077374; c=relaxed/simple;
-	bh=qR8Z8mfcCWpOhOHlVB6udkXseW1bEhKnL/HnKmin5Yo=;
+	s=arc-20240116; t=1783077475; c=relaxed/simple;
+	bh=23WjWVGUcKQbznWndFyqarhxCj1Czuf1d7pPqTuxMho=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Q+QTigpvYCEwzhfEcbrsBEILfVaaG4n96igCXeGbFr6apCJId/rYwWi8KxyGNn5NWo+kZwHbXbm2driu8z5LPFzHHBKw1+yMikAsC8h5amR7U3ZWMEMQhyZIjSgG6Xfeh55MPGUNeKruSXQtrLKM9lG+iaWDmpRwkTwgBf/HV7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V5zJaOBS; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HYPfzErvVRUgyyN/+iH9oinZn8nA2/KFWUcX3QhQptxvs7odFqqygGyKi0pBelKeiicWGjquRFm9DFGFwAXN3DWRmZU2AEx/rWL04zW126l5btYu1T9BpxYUlMtTjDpn3WAwinDBeR+DxLkSD2mzjgEYeF3FYkofi0nicD2roIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UUH/uk67; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V5zJaOBS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EA471F000E9;
-	Fri,  3 Jul 2026 11:16:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UUH/uk67"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAB3F1F000E9;
+	Fri,  3 Jul 2026 11:17:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783077372;
-	bh=sWQ5ukA7crvN7Xofjd6i1sjzuHAF/KO53nOPnpW5xK8=;
+	s=k20260515; t=1783077472;
+	bh=lDA17M0X+hspqXdrjjAxpSBK1FR2pkbleEQNM27ThaQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V5zJaOBS2uKhFE2vLGkpUgFy45CyJsYRtslnLCj7MOjpax4l23ANyD8x9quOxRI/s
-	 i3kFIflq76jHh4PMBsyVOrqqJtMtNe4PCqcq88VoSvcd/nB0a1rS2ISIQuXVLhbcb+
-	 MLqjNL8GLjWDAj8gIDPnVglifK47Cz1MTaJ76q+vf0xPMMpYdS0/kQuC+C2oxad1kg
-	 +5Pqj/gxP2y2vaXa8IZ/T3CW56Fm1TuZquitxP7RSeDsCFMIRqT5xYT+JaQcAtwkQP
-	 pbA6+bcG9l6RRVkWe2kUiOhWrZBaou3fhJW5iNfVxpdQVDngY3gQTsc7tGFuhBu2XS
-	 ZoXwu8JrtDV4Q==
+	b=UUH/uk67Slv64iyeCPz9NjVuwQQzuIB8hGbey80mHHqnRMwBx4AMGyabTDeK95iJM
+	 eiInlIWzwDeRARF/kB7hgjqzJqUKh2BLLxPS/IGXmybkmRo3BKiQU3tGrcCFjX+rE2
+	 eaHmqq2wQN1Ty2bhU4LE/4k1vDmEGHTms/6dCkEHXoEhXfiPMRctMAIroMozLIkjmZ
+	 WnE/8qQCvsx7+1m2FeoxEed62kGDuwES/2i/HUzxxa7qeqFtegFDyaSMzSsK6hN8Vh
+	 Xj4T/x4YrqHOH7qFl2GNjfSQ7C1OSAhHQ5P75vyZGwRZ12y4rprmIUhYhh/DOC3JFu
+	 R31vRRjijC2kA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 03/13] power: sequencing: Add pwrseq_power_is_on()
+Subject: Re: [PATCH v3 02/13] device property: Add
+ fwnode_graph_get_next_port_endpoint()
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260703110317.1283411-4-wenst@chromium.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260703110317.1283411-3-wenst@chromium.org>
 References: <20260703110317.1283411-1-wenst@chromium.org>
- <20260703110317.1283411-4-wenst@chromium.org>
+ <20260703110317.1283411-3-wenst@chromium.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 11:16:11 +0000
-Message-Id: <20260703111612.5EA471F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 11:17:51 +0000
+Message-Id: <20260703111751.EAB3F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] pwrseq_power_is_on() returns -EINVAL for a NULL descriptor, whic=
-h evaluates to true in a boolean context and breaks the optional resource p=
-attern.
-- [Low] The patch forgets to add the dummy implementation of pwrseq_power_i=
-s_on() for when CONFIG_POWER_SEQUENCING is disabled.
-- [Low] Lockless read of desc->powered_on introduces a data race.
+
+New issues:
+- [High] fwnode_graph_get_next_port_endpoint() breaks graph abstraction by =
+hardcoding name matching, which fails for ACPI nodes.
+
+Pre-existing issues:
+- [High] Preexisting bug in fwnode_get_next_child_node() causing Use-After-=
+Free and infinite loops when crossing from primary to secondary fwnodes.
 --
 
-commit c1fd36a14061ff4c3c20d9f5699bb342ce2b052d
+commit 94e97ca138e57ff4e7c6032a05de92b5aec2bd3d
 Author: Chen-Yu Tsai <wenst@chromium.org>
 
-power: sequencing: Add pwrseq_power_is_on()
+device property: Add fwnode_graph_get_next_port_endpoint()
 
-The power sequencing consumer API already does power on state tracking
-internally. Expose the state to consumers through pwrseq_power_is_on()
-so that they don't have to reimplement it locally.
+This introduces a helper function to get the endpoint under a known port
+firmware node. It is intended to be used in USB power sequencing to check
+whether a graph connection exists and if the other side is a supported
+connector type.
 
-> diff --git a/drivers/power/sequencing/core.c b/drivers/power/sequencing/c=
-ore.c
-> index 02f42da915985..72b96d36920e5 100644
-> --- a/drivers/power/sequencing/core.c
-> +++ b/drivers/power/sequencing/core.c
-> @@ -968,6 +968,24 @@ int pwrseq_power_off(struct pwrseq_desc *desc)
->  }
->  EXPORT_SYMBOL_GPL(pwrseq_power_off);
-> =20
+diff --git a/drivers/base/property.c b/drivers/base/property.c
+index c5e7e00f1b0cd..7f1fff3b55c74 100644
+--- a/drivers/base/property.c
++++ b/drivers/base/property.c
+[ ... ]
+@@ -1099,6 +1099,31 @@ int fwnode_irq_get_byname(const struct fwnode_handle=
+ *fwnode, const char *name)
+ }
+ EXPORT_SYMBOL(fwnode_irq_get_byname);
+=20
 > +/**
-> + * pwrseq_power_is_on() - Queries the last requested state of the power =
-sequencer.
-> + * @desc: Descriptor referencing the power sequencer.
+> + * fwnode_graph_get_next_port_endpoint - Get next endpoint firmware node=
+ in port
+> + * @port: Pointer to the target port firmware node
+> + * @prev: Previous endpoint node or %NULL to get the first
 > + *
-> + * This returns the last requested state of the power sequencer.
+> + * The caller is responsible for calling fwnode_handle_put() on the retu=
+rned
+> + * fwnode pointer. Note that this function also puts a reference to @prev
+> + * unconditionally.
 > + *
-> + * Returns:
-> + * On success, 1 for on and 0 for off; negative error number on failure.
+> + * Return: an endpoint firmware node pointer or %NULL if no more endpoin=
+ts
+> + * are available.
 > + */
-> +int pwrseq_power_is_on(struct pwrseq_desc *desc)
+> +struct fwnode_handle *fwnode_graph_get_next_port_endpoint(const struct f=
+wnode_handle *port,
+> +							  struct fwnode_handle *prev)
 > +{
-> +	if (!desc)
-> +		return -EINVAL;
+> +	do {
+> +		prev =3D fwnode_get_next_child_node(port, prev);
 
-[Severity: Medium]
-Since pwrseq_power_on() gracefully handles an optional sequencer by
-returning 0 when desc is NULL, should pwrseq_power_is_on() also handle a NU=
-LL
-descriptor without returning an error?
+[Severity: High]
+This is a pre-existing issue, but does calling fwnode_get_next_child_node()
+here expose a use-after-free and infinite loop when the parent has both
+primary and secondary fwnodes?
 
-Because -EINVAL is non-zero, returning it for a NULL descriptor will
-evaluate to true in a boolean context. Consumers querying the state of an
-optional sequencer using if (pwrseq_power_is_on(desc)) could falsely
-evaluate this as powered on.
+When the primary iterator completes, it drops its reference to the child
+node and returns NULL. The fwnode_get_next_child_node() function then passes
+this already freed primary child directly to the secondary iterator:
 
+drivers/base/property.c:fwnode_get_next_child_node() {
+    ...
+    next =3D fwnode_call_ptr_op(fwnode, get_next_child_node, child);
+    if (next)
+        return next;
+
+    /* When no more children in primary, continue with secondary */
+    return fwnode_call_ptr_op(fwnode->secondary, get_next_child_node, child=
+);
+}
+
+Would the secondary iterator drop the reference again and cause a double
+free?=20
+
+Could this also create an infinite loop where the secondary iterator treats
+the invalid node as missing, returns its first child, and passes it back to
+the primary iterator on the next loop iteration?
+
+> +		if (fwnode_name_eq(prev, "endpoint"))
+
+[Severity: High]
+Does this hardcoded string match cause a regression for ACPI-based devices
+relying on this API?
+
+ACPI graph endpoint nodes are natively identified by the endpoint property,
+and their names often do not directly match "endpoint" (as seen in
+is_acpi_graph_node).
+
+By bypassing the graph fwnode abstractions like graph_get_next_endpoint,
+will this silently fail to find graph endpoints on ACPI platforms?
+
+> +			break;
+> +	} while (prev);
 > +
-> +	return desc->powered_on;
-
-[Severity: Low]
-Is it safe to read desc->powered_on locklessly here?
-
-Because desc->powered_on is mutated dynamically by pwrseq_power_on() and
-pwrseq_power_off() under pwrseq->state_lock, concurrent calls to
-pwrseq_power_is_on() could result in a data race. Could this read use
-READ_ONCE() (along with WRITE_ONCE() during updates) or be protected
-by the state_lock?
-
+> +	return prev;
 > +}
-> +EXPORT_SYMBOL_GPL(pwrseq_power_is_on);
-> +
->  /**
->   * pwrseq_to_device() - Get the pwrseq device pointer from a descriptor.
->   * @desc: Descriptor referencing the power sequencer.
-
-[ ... ]
-
-> diff --git a/include/linux/pwrseq/consumer.h b/include/linux/pwrseq/consu=
-mer.h
-> index 3c907c9e1885d..5a5eaf85d5db9 100644
-> --- a/include/linux/pwrseq/consumer.h
-> +++ b/include/linux/pwrseq/consumer.h
-> @@ -22,6 +22,7 @@ devm_pwrseq_get(struct device *dev, const char *target);
-> =20
->  int pwrseq_power_on(struct pwrseq_desc *desc);
->  int pwrseq_power_off(struct pwrseq_desc *desc);
-> +int pwrseq_power_is_on(struct pwrseq_desc *desc);
-> =20
->  struct device *pwrseq_to_device(struct pwrseq_desc *desc);
-
-[ ... ]
-
->  #else /* CONFIG_POWER_SEQUENCING */
-
-[ ... ]
-
->  static inline int pwrseq_power_on(struct pwrseq_desc *desc)
->  {
->  	return -ENOSYS;
->  }
-> =20
->  static inline int pwrseq_power_off(struct pwrseq_desc *desc)
->  {
->  	return -ENOSYS;
->  }
-> =20
->  static inline struct device *pwrseq_to_device(struct pwrseq_desc *desc)
->  {
->  	return NULL;
->  }
-> =20
->  #endif /* CONFIG_POWER_SEQUENCING */
-
-[Severity: Low]
-Does this patch miss a dummy implementation of pwrseq_power_is_on() for when
-CONFIG_POWER_SEQUENCING is disabled?
-
-Any consumer driver using this function when the config is disabled will
-cause a build failure due to an undeclared function.
+> +EXPORT_SYMBOL_GPL(fwnode_graph_get_next_port_endpoint);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703110317.1283=
-411-1-wenst@chromium.org?part=3D3
+411-1-wenst@chromium.org?part=3D2
