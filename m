@@ -1,42 +1,42 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA173D813C;
-	Fri,  3 Jul 2026 13:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C223D952B;
+	Fri,  3 Jul 2026 13:30:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783085441; cv=none; b=obOrV+DEOYVPXv0Awgs5vVJvD64jx1DN9yN5joKFI/5+o/beYQiMRLSb4MxlKIP4+WA2NlIDUwWtwoZ0f7KvYscGRuqZovpMO7OYSq8VadINUF8VKIvJiYXpLXDwC7R6hgW22zR3v3p5GbZHxsgAIz3nnkFc8wj1G9taclPd44s=
+	t=1783085443; cv=none; b=YlyOZ84PXIIuGwaddpBco7WvWXH5yRLd/WzSZ8sx/vW/LjuDDcAoXjOquCl5+wq+uLw5ls36VpkhkM0M8XlZ+ICj+Jn0rGDWxEtgByFzBpz83p9YTvzxXFXIH9yJ8JDPXB2agy8NyYI9A2HMDgtUn2fCN5lHorIqRGCdtsLrR+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783085441; c=relaxed/simple;
-	bh=u2OI4R1W+E/iv5KABbr1+V9qLAGTjN5S6T+vBdfluz0=;
+	s=arc-20240116; t=1783085443; c=relaxed/simple;
+	bh=+jkkvPCCKjh7ZaI+1VoXZ0vON5WrLxvcDsm31VeIbGw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cfqREwYukuy1ObXCFIJ7gp63KuZGeu0D9vjuiOLL7itDo8h2DnJUFoLhi9KWdnI+Xz4b5A4XR2hImtgggrMBxlNq6/ZHvCnsedSWI4lhn1e8wdekuh3RbQBFustFz8MOCjnlMcsSAHXLyiSng3XEXEVpzkv7FrlHekAeAmNP/b4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jN8TEer6; arc=none smtp.client-ip=185.171.202.116
+	 In-Reply-To:To:Cc; b=gzcLw5S8fdH8jL1GoGGDSZ8QV0h2IoAsRpyrQjl/0ffY3rnQPOw7UdQdo7kghNS+2MI8Tz63NdyrO80BxYTaIqDhDkTHdd6TwlS9RhyijZBD9SXQKsyF/NUiRLZ7c0TNPCWEfTN/XprEz+6/LSv4IY88/gNwj1d25YhHNZi6fSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tDCOxZDq; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jN8TEer6"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tDCOxZDq"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 5911AC49F5B;
-	Fri,  3 Jul 2026 13:30:47 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C001D1A0E1D;
+	Fri,  3 Jul 2026 13:30:37 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 890A460300;
-	Fri,  3 Jul 2026 13:30:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9F80C104C94BE;
-	Fri,  3 Jul 2026 15:30:32 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 95ABA60300;
+	Fri,  3 Jul 2026 13:30:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CC44B104C957A;
+	Fri,  3 Jul 2026 15:30:34 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783085434; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1783085436; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=LmnXo/SGWrO/0KnyVsTxFSdDOehbwdkTiN/8lyKC2Wc=;
-	b=jN8TEer6pMg3T7nnq0YZjEsSdj/+zVY4l8CSpnQOrNFHFGWd2ODAYqNKZQjDfre2ry2PVW
-	SWoNP7gKjxOKzUKBXsVJn1jgtYQV9llMzEkXKtERApFS5HhW4TLgx/SXTVDzl2ZLju/pfl
-	jORvR67cnY1rcE7Y23noxfWhU570AvyrQCzm5Q1PnP2uaX5wKkegFJCuJjDVzaBioNJpRG
-	jTJl1A+gLUPqq7+5D+uhUQJP9kizM/lkTJskZE39QzGylB4bjsJyROOGta17VRJCh/u5rI
-	JrDpOCsxlHqk2KPxbmt8tLIpnz71NDqmHjDccMXRy1x1B+2RR0bHFsi02EQGZQ==
+	bh=E52SW4XqtJoq9qS1jAqfgrmebSDwDyOVpfeH7ZNhlUE=;
+	b=tDCOxZDqVXARAuKzMXuq3kiXCmEhFB7JegdyyYato/C4JbHy7/oGi8CB8v8+jLrUo0Fh+P
+	CjtJ9J+OmCqQ58fn1IGWPQWY1FVCtwRHlGqEymkEeZGcuxMLvPbl+MaLeugzldvI+bCg10
+	cd3G+fmfvWDT0HZLy35Tfw1f/cjXgk+XuhFwyqH4+5pJrPEzikkLvLfOO9da0v4dT5hEAv
+	p019ZS6Qa+ZttQHObeldd3Zv5uoAjRwcjpBmuUpmEZSMOJNXCwhPbB167MbIX/PHn0eKSy
+	5uM7wpikjxccpDUP7f5mvAT7OLiVWlCWeFwLNxaR71J529cRUrKs1N1eWgrtZA==
 From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Fri, 03 Jul 2026 15:30:11 +0200
-Subject: [PATCH 03/12] dt-bindings: soc: fsl: qe: Convert QE GPIO to DT
- schema
+Date: Fri, 03 Jul 2026 15:30:12 +0200
+Subject: [PATCH 04/12] dt-bindings: soc: fsl: qe: Add support of IRQ in QE
+ GPIO
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260703-qe-pic-gpios-v1-3-6c3e706e27dc@bootlin.com>
+Message-Id: <20260703-qe-pic-gpios-v1-4-6c3e706e27dc@bootlin.com>
 References: <20260703-qe-pic-gpios-v1-0-6c3e706e27dc@bootlin.com>
 In-Reply-To: <20260703-qe-pic-gpios-v1-0-6c3e706e27dc@bootlin.com>
 To: Qiang Zhao <qiang.zhao@nxp.com>, 
@@ -59,114 +59,131 @@ To: Qiang Zhao <qiang.zhao@nxp.com>,
 Cc: linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-gpio@vger.kernel.org, Paul Louvel <paul.louvel@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Christophe Leroy <chleroy@kernel.org>
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783085423; l=3008;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783085423; l=4322;
  i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=jPv6+oN1PNk0jOvDo2iXLOgR5gbYEBnEM8QFOo50bqM=;
- b=VCPFVzIwNRAJPE9evATrbiCIMKdY9LW1EHW+KdKc1YaMr0Aqb9sPAn3QotJLSlybF/gEITCxi
- O+f1q0+qAROCwF6br4ZfROh/CvnhvjTnOaQygueMjYSp60nsHABNBhL
+ bh=+jkkvPCCKjh7ZaI+1VoXZ0vON5WrLxvcDsm31VeIbGw=;
+ b=nLIzbXGRyeN1pfqKgkrV+BDJiN+CFCw+/qtSDWeh1TZG9ruG2ogd+zu7Dg0DrAhpCOI93couN
+ 22aKR5ewAM4Dv9Izhv9SgtaUDR1HQO6l1urXfO/ntBBEhwxNIl2dHTN
 X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
  pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
 X-Last-TLS-Session-Version: TLSv1.3
 
-From: Christophe Leroy <christophe.leroy@csgroup.eu>
+Some QE GPIO pins have an associated interrupt line in the QE PIC to
+signal state changes on the pin.  Add the corresponding
+interrupt-controller / nexus properties to the QE GPIO binding.
 
-Convert QE GPIO devicetree binding to DT schema.
+Because the GPIO controller does not perform any interrupt handling
+itself, a nexus node (interrupt-map) is used to map each GPIO line
+supporting IRQ to the parent QE PIC interrupt domain.
 
-Signed-off-by: Christophe Leroy <christophe.leroy@csgroup.eu>
+As the QE PIC can be configured to generate an interrupt on either a
+high-to-low transition or any change in signal state, three
+interrupt-map entries are needed per GPIO pin that can yield an
+interrupt (falling, both, and the "none" case which defaults to both in
+QE PIC).  This overhead is necessary because the interrupt-map-pass-thru
+property is not part of the DT specification.
+
+The interrupt-map property is optional: it is not required for GPIO
+banks that have no interrupt capable GPIO line (e.g. port D on MPC8323),
+or when interrupt functionality is not used.
+
+Update the example to show a scenario where each bank supports a
+different numbers of IRQs, or no IRQs at all.
+
 Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
 ---
- .../bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml   | 45 ++++++++++++++++++++++
- .../bindings/soc/fsl/cpm_qe/qe/par_io.txt          | 26 +------------
- 2 files changed, 46 insertions(+), 25 deletions(-)
+ .../bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml   | 69 +++++++++++++++++++++-
+ 1 file changed, 66 insertions(+), 3 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml b/Documentation/devicetree/bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml
-new file mode 100644
-index 000000000000..1af99339ff40
---- /dev/null
+index 1af99339ff40..0c849a5698f4 100644
+--- a/Documentation/devicetree/bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml
 +++ b/Documentation/devicetree/bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml
-@@ -0,0 +1,45 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/gpio/fsl,mpc8323-qe-pario-bank.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+@@ -27,6 +27,17 @@ properties:
+   "#gpio-cells":
+     const: 2
+ 
++  "#address-cells":
++    const: 0
 +
-+title: Freescale QUICC Engine Parallel I/O (QE PARIO) GPIO Bank
-+
-+maintainers:
-+  - Christophe Leroy <christophe.leroy@csgroup.eu>
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - enum:
-+              - fsl,mpc8360-qe-pario-bank
-+              - fsl,mpc8569-qe-pario-bank
-+          - const: fsl,mpc8323-qe-pario-bank
-+      - const: fsl,mpc8323-qe-pario-bank
-+
-+  reg:
-+    maxItems: 1
-+
-+  gpio-controller: true
-+
-+  "#gpio-cells":
++  "#interrupt-cells":
 +    const: 2
 +
-+required:
-+  - compatible
-+  - reg
-+  - gpio-controller
-+  - "#gpio-cells"
++  interrupt-map:
++    description: |
++      Specifies the mapping of GPIO lines to the parent interrupt controller, as the
++      GPIO controller does not do interrupt handling itself.
 +
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    gpio-controller@1400 {
-+        compatible = "fsl,mpc8360-qe-pario-bank", "fsl,mpc8323-qe-pario-bank";
-+        reg = <0x1400 0x18>;
-+        gpio-controller;
-+        #gpio-cells = <2>;
-+    };
-diff --git a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/qe/par_io.txt b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/qe/par_io.txt
-index 09b1b05fa677..782699c14567 100644
---- a/Documentation/devicetree/bindings/soc/fsl/cpm_qe/qe/par_io.txt
-+++ b/Documentation/devicetree/bindings/soc/fsl/cpm_qe/qe/par_io.txt
-@@ -24,28 +24,4 @@ par_io@1400 {
+ required:
+   - compatible
+   - reg
+@@ -37,9 +48,61 @@ additionalProperties: false
  
- Note that "par_io" nodes are obsolete, and should not be used for
- the new device trees. Instead, each Par I/O bank should be represented
--via its own gpio-controller node:
--
--Required properties:
--- #gpio-cells : should be "2".
--- compatible : should be "fsl,<chip>-qe-pario-bank",
--  "fsl,mpc8323-qe-pario-bank".
--- reg : offset to the register set and its length.
--- gpio-controller : node to identify gpio controllers.
--
--Example:
--	qe_pio_a: gpio-controller@1400 {
--		#gpio-cells = <2>;
--		compatible = "fsl,mpc8360-qe-pario-bank",
--		"fsl,mpc8323-qe-pario-bank";
--		reg = <0x1400 0x18>;
--		gpio-controller;
--	  };
--
--	qe_pio_e: gpio-controller@1460 {
--		#gpio-cells = <2>;
--		compatible = "fsl,mpc8360-qe-pario-bank",
--			     "fsl,mpc8323-qe-pario-bank";
--		reg = <0x1460 0x18>;
--		gpio-controller;
--	  };
-+via its own gpio-controller node.
+ examples:
+   - |
+-    gpio-controller@1400 {
+-        compatible = "fsl,mpc8360-qe-pario-bank", "fsl,mpc8323-qe-pario-bank";
+-        reg = <0x1400 0x18>;
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    pic: interrupt-controller {
++      interrupt-controller;
++      #address-cells = <0>;
++      #interrupt-cells = <2>;
++    };
++
++    gpio-controller@1418 {
++        #gpio-cells = <2>;
++        #address-cells = <0>;
++        #interrupt-cells = <2>;
++        compatible = "fsl,mpc8323-qe-pario-bank";
++        reg = <0x1418 0x18>;
+         gpio-controller;
++        interrupt-map = <
++          7 IRQ_TYPE_EDGE_FALLING  &pic 4 IRQ_TYPE_EDGE_FALLING
++          7 IRQ_TYPE_EDGE_BOTH     &pic 4 IRQ_TYPE_EDGE_BOTH
++          7 0                      &pic 4 IRQ_TYPE_NONE
++
++          9 IRQ_TYPE_EDGE_FALLING  &pic 5 IRQ_TYPE_EDGE_FALLING
++          9 IRQ_TYPE_EDGE_BOTH     &pic 5 IRQ_TYPE_EDGE_BOTH
++          9 0                      &pic 5 IRQ_TYPE_NONE
++
++          25 IRQ_TYPE_EDGE_FALLING &pic 6 IRQ_TYPE_EDGE_FALLING
++          25 IRQ_TYPE_EDGE_BOTH    &pic 6 IRQ_TYPE_EDGE_BOTH
++          25 0                     &pic 6 IRQ_TYPE_NONE
++
++          27 IRQ_TYPE_EDGE_FALLING &pic 7 IRQ_TYPE_EDGE_FALLING
++          27 IRQ_TYPE_EDGE_BOTH    &pic 7 IRQ_TYPE_EDGE_BOTH
++          27 0                     &pic 7 IRQ_TYPE_NONE
++        >;
++    };
++
++    gpio-controller@1430 {
+         #gpio-cells = <2>;
++        #address-cells = <0>;
++        #interrupt-cells = <2>;
++        compatible = "fsl,mpc8323-qe-pario-bank";
++        reg = <0x1430 0x18>;
++        gpio-controller;
++        interrupt-map = <
++          24 IRQ_TYPE_EDGE_FALLING &pic 8 IRQ_TYPE_EDGE_FALLING
++          24 IRQ_TYPE_EDGE_BOTH    &pic 8 IRQ_TYPE_EDGE_BOTH
++          24 0                     &pic 8 IRQ_TYPE_NONE
++
++          29 IRQ_TYPE_EDGE_FALLING &pic 9 IRQ_TYPE_EDGE_FALLING
++          29 IRQ_TYPE_EDGE_BOTH    &pic 9 IRQ_TYPE_EDGE_BOTH
++          29 0                     &pic 9 IRQ_TYPE_NONE
++        >;
++    };
++
++    gpio-controller@1448 {
++        #gpio-cells = <2>;
++        compatible = "fsl,mpc8323-qe-pario-bank";
++        reg = <0x1448 0x18>;
++        gpio-controller;
+     };
 
 -- 
 2.55.0
