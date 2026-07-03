@@ -1,63 +1,63 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7D23793CE
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 08:42:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8633793B8
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 08:42:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783068150; cv=none; b=LmAlxgkVpFTrNVEDWl/RRNPxOtDH9PgS7foTPayjoSimLS8YofJrq8gMPxB+5aMsPcdSIf38TG8d3MrbPzjv/gcQJ9Opk+WSdZeP0mEAPb+OM0KkTd5UuogNvfMUVpnwQizH26tgrhAOVnfxIoxqkuy6dt1Mu0J8gYihuRDNsXg=
+	t=1783068150; cv=none; b=Y1R0Z/9QFgdtWvP736A/OCn22ZNgn3g5bB+d/nXh3caNxyKViGtufJZFZCWwu6vIvdHo++44HgcUrxDEPe4F1QIIvJJgImbeRdXhEkcaNi5BKp/1plE7y6zdu1HsChu+QTuUFeISSWW18RzRyr/D2z72YsJuI9I3Wa4Yw+nR/xU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783068150; c=relaxed/simple;
-	bh=+YCmrkr62ImlHnOn240RCni/4FJZ9LXyVf7QtvrN5Tg=;
+	bh=x+hF6cksfI3/bvnsU93PkG7h4HttSPYkRpLHTklFAIM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=DFJp6MG5IAUDmBdapyOZk2MznZo5sv4lNOdqdYjmWIBgxSQWg8dRy4wftx6KuVjuW4rZ1Qt58wi2/4+Rf5T4xeWuT87/a9v20ZwztMP1RJCSBSX/33wRtRPD7zNho5AopBVxDrmQTFKy40B5CbGs4mQJyuWheCxMcKQZVYtLD/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=trRlDV5X; arc=none smtp.client-ip=209.85.128.53
+	 MIME-Version:Content-Type; b=M1v3ejvLc/LlUcnWBCLXf5qS/1QMICjfU/jkz6o4f1lKMLHKcZYWC5sjt3kMrYBMrTqGbCf5vyHqfbKDlHHlpzrKtsoG7WUk1xc5eLf01ul2hT/z6sRrumEkZJMqNKOWUlmFTgSpSevUYn7dwZ9MahuoZbwr0MJs112e94Dbi1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dzZz2YBX; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="trRlDV5X"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-493bc8fda98so2892035e9.0
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dzZz2YBX"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493c52cde9eso3107025e9.3
         for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 01:42:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783068145; x=1783672945; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1783068143; x=1783672943; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=E2BvWoVYKkcPj1zcFMdBoaWfsieqjtxdGGOhjIbmmoc=;
-        b=trRlDV5Xy7d8q4OnPQeoc5aJAdbXaGFqZRQCQx3mja/pAHBFAJGdJppLsrOdxQyubD
-         f4YiL5Kd5izSn6VvcwUrTMxUpCBjFkAdr2wKhyOE6bI3cHNP23fuXHqfkMMc26+PhMNg
-         M+SdVRM1zHxMv9RQlsIGz88CPTB1omkyjXEI14Q56EP4k67fr9G/PkFjUF6+c+vVgfUU
-         +TM8F1/k5uPEvzezZ4DLSkaBHI//q0JUkHYKvmhEBt5JWEpfRQl861B2NkgXZttfAA3Y
-         tMIM4NsSd91O6NR3dNyp+PAI3NkZBwGVGoyjSdhGvRUgiaBKFjD7hBg/a/xDq9l4HWRP
-         Eb6Q==
+        bh=rMSN/w8D8c3Ml2NelVlRwSQRShVwiaFWi/GCztB5J24=;
+        b=dzZz2YBXlc8gg0yRe3EtMSku6hPMdwgYSbiQpZz9WxI7C7WfAC3jdbzcgrO5bmtDnE
+         5SN9GDsoC7vWfrU6lfV5F0r0NlSGUMOWunKaaYJ3j8boyvwQ9cFzzQoKzly1w9fH0/tK
+         2TrW9e1nSmY4RIKc6Z7wBNkukelyycNZeZMAzDOI3EuAUElGGrZVRPwXNKdJ76IEQI2F
+         Um8UYuG7SOk12idi4QvdzOx+GhsCmli2NDVwvC1taU8oA8I+oYncL0VkXedtRUwGAf3P
+         lPbWdq3d9Y0giq5lucWXxhU87qfwTn3PKSrXX9zgZ1TftmS7q/+hBFAJ37YTK96aGvBU
+         ZcXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783068145; x=1783672945;
+        d=1e100.net; s=20251104; t=1783068143; x=1783672943;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=E2BvWoVYKkcPj1zcFMdBoaWfsieqjtxdGGOhjIbmmoc=;
-        b=f02iHjKqVaEpwZdAAX/dAQb0j6J+P6qdJR7LYNAgxMknoigCoGX22pTQe7r8hgQvyk
-         8vzNsy0xncisk3k35nlg/0OdUd3T+8XJdwNdICmLCCmt3Jye54T/00B2PEtXfNp9n/ZI
-         6vKHRtgSJfx7ASCwSrfxJircBDoPOnskPwM96VW0GiLJRCzYN69mnWUGwgWGuRjd2as5
-         5kAy8QIZWqwmpqIBLq412HsHms4b0c0UGI5pVuJiBuQYKoZXiuaL+mjUy/aTwiKlBKXc
-         06bYrD8xyuqJ2hacruTBrlfTOmW7sbRm4x6c9VDRo96Tedk9lOsAo33MyLh2zSP22xwZ
-         Lyjw==
-X-Forwarded-Encrypted: i=1; AFNElJ/nRmNZuZyHHl/IVY0cW/bqTlEWZztbp73Gt7APT2WvcrYBj0L/vshsa7dTFZX/cTqVwdMtkVIOMFNx@vger.kernel.org
-X-Gm-Message-State: AOJu0YxkxNDYJQVeFVcYa5/8+UYEeQZBgT8x9A2T4Wu6ngty7GfcDOe1
-	bHB/5SNp4LZlGTJNTe/zYBDopd6vsKtv9IW2TmlUm4HKf4GX4bGAqohrAQ6QUJ7TrUE=
-X-Gm-Gg: AfdE7cnP8JubHx6WBnUZRVERuc8H0NE8HP7lLCCDpvVwDnEQuAVWNOsEUuSOZL4eHJ5
-	D84eDF/T2vacA6YGZhTNtr2Qw7uns1P67uPWYe9NHWC9tp+Z5Q14+cynbYDMd5IfEFTWVd4YR2t
-	dLexYFibXbZ9a1mrg/lKQmoCizr+PN5pX6PR7keqwzgzBqie5+7MBl4M3ogbVu/2BBLzYhlaUMk
-	/AuTryn690rNm3BpiFiL9IUCvyPNOPlEV72Eya1bZLzgV3LromRmtHMtRbtFAFebOvsIWjYE6YY
-	SkF1Zbk9EuvmMppIg5pDYzpRFOS2hHVKjc/9BMIwIPaRfhoU4i3bA1UPHxI8SwPB878IEB2+pfu
-	W4ZP267FmshOltm7zBFcfep9KjPyYLl0HWjrtSQA0aCRmMTifBuM0IKs5XO5I6L4ieCaufiEV3r
-	iAnedsjm7/2UytMiCu1VA02gb49P11sNewuQ==
-X-Received: by 2002:a05:600c:64c6:b0:493:c337:db18 with SMTP id 5b1f17b1804b1-493c3e135a9mr113800625e9.16.1783068144642;
-        Fri, 03 Jul 2026 01:42:24 -0700 (PDT)
+        bh=rMSN/w8D8c3Ml2NelVlRwSQRShVwiaFWi/GCztB5J24=;
+        b=UaoJzPVRrLgBk23aez6x5DECXmGcd0QQvuUNkfZlBXXbVvqEuqy9HQmaNoUXvkUkCZ
+         znvoUfsjxse45zxa6fO65tR6abOXmA2ya1YJSLBphsw7NC0m8zVCd/KBuYb4EPnmpoJn
+         gQ4T0ZwIEl2oTeuBC7Uw0yuZxt1DImmd9PheZd6W15vYP0TATS/XB0fOVqwtcRjo1eEP
+         rq151ng+AhsWMAx1aYN4Txnss1dtG3jJOsluRxyHsfvNzy6wu4KAsHhk/ZCnmEbdgKtq
+         tr9ugpqide2ZRyOgpf6UnA650+NudyoH+CkV8Y3qfvKNpoBWm5rmOM3vE/G1Nc9vokVJ
+         P3+g==
+X-Forwarded-Encrypted: i=1; AFNElJ8re1B9wcU4C8kZgMpYkWjiCkVYygp2B6+aLOnbtqeztm1yB0kZ4+RAdj/D5+eBGMCmEcT02eZoorst@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx52HoP5I80fcOz6A7F8RtX/J64IVv61Y0HW+U79HeEcWvCvhrT
+	5bpuUkFN4oqIOntccxS+9iH7KlEOPRzmrxsxhXEqw4Sv5Z7qHtV57NTmzhnbvMNKGtg=
+X-Gm-Gg: AfdE7ck9UMcgUrplY+gZzL3ZmoAWILK+Huxg90Etbes4Q6JSyHXBKmooXFksxARbxYW
+	m7lkilqQgd25bl+JQIXzXz+ECPGSps14u7EQB04AimqrRUd+d19T1bJLpXahUIonbh7ew0KGW2T
+	gZ0nMZvStk6KYU5QGWw1qwRRAwoTLL4oLoYBY5rSiBQrwGqNJZK7Ee2Ms95aazDpfcnF8je+w7E
+	j8h0/P9UZbhIxPG9Z2m7e+/PWK+G0E9x1QZywDdPpOak7y3Hvkdsfrl5j7cLu2L4EvZd4f/pTr3
+	afituxWDxYiQHPic/978NPdhU05Uo3LhiZk5dM9vm/xeeG4ANOAuUGBg9w/CQJLzKYIP4Pru7pK
+	zwuMu8IUNtspxx4rSvYuj2hKuYRIPUlq6R+UzEg/tlzOpZJK0UOHdSTiudBKUhXLHN0OCtFzmF3
+	y/311zFNNVDf0VcyFRPU+v0YPAv/Yo+6wZVg==
+X-Received: by 2002:a05:600d:8649:10b0:492:6eff:7d02 with SMTP id 5b1f17b1804b1-493c2b974bamr115602665e9.30.1783068143284;
+        Fri, 03 Jul 2026 01:42:23 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493ccdab27dsm30001575e9.4.2026.07.03.01.42.23
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493ccdab27dsm30001575e9.4.2026.07.03.01.42.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 01:42:24 -0700 (PDT)
+        Fri, 03 Jul 2026 01:42:22 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
 To: Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -65,20 +65,17 @@ To: Jessica Zhang <jesszhan0024@gmail.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Doug Anderson <dianders@chromium.org>, 
- Conor Dooley <conor.dooley@microchip.com>, KancyJoe <kancy2333@outlook.com>
-In-Reply-To: <20260625-topic-sm8650-ayaneo-pocket-s2-r63419-v8-0-8570e692143e@linaro.org>
-References: <20260625-topic-sm8650-ayaneo-pocket-s2-r63419-v8-0-8570e692143e@linaro.org>
-Subject: Re: [PATCH v8 0/2] drm: panel: support the R63419 based dual-DSI
- video mode Display Panels
-Message-Id: <178306814343.3165305.11547200028737735771.b4-ty@b4>
-Date: Fri, 03 Jul 2026 10:42:23 +0200
+ Arpit Saini <arpit.saini@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ ayushi.makhija@oss.qualcomm.com, rajeevny@qti.qualcomm.com, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260701-ili7807s-v4-0-c7d76d4780a5@oss.qualcomm.com>
+References: <20260701-ili7807s-v4-0-c7d76d4780a5@oss.qualcomm.com>
+Subject: Re: [PATCH v4 0/2] drm/panel: add support for Ilitek ILI7807S DSI
+ panels
+Message-Id: <178306814218.3165305.10784888600083150493.b4-ty@b4>
+Date: Fri, 03 Jul 2026 10:42:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,16 +88,33 @@ X-Mailer: b4 0.15.1
 
 Hi,
 
-On Thu, 25 Jun 2026 11:29:06 +0200, Neil Armstrong wrote:
-> Add support for the Renesas 63419 based dual-DSI video mode
-> Display Panels found in the Ayaneo gaming handled devices.
+On Wed, 01 Jul 2026 16:42:48 +0530, Arpit Saini wrote:
+> Add DT bindings and a DRM panel driver for panels based on the Ilitek
+> ILI7807S display controller. The first supported panel is the DLC
+> DLC0697 1080x1920@60Hz MIPI DSI panel.
+> 
+> Changes in v4:
+> - Use active-low reset GPIO semantics: define reset-gpios as active-low
+>   in DT and use hold=1/drop=0 in the driver (Dmitry Baryshkov)
+> - Replace raw DCS writes with proper helpers: mipi_dsi_dcs_set_tear_on_multi(),
+>   MIPI_DCS_SET_CABC_MIN_BRIGHTNESS, MIPI_DCS_WRITE_CONTROL_DISPLAY,
+>   MIPI_DCS_WRITE_POWER_SAVE (Dmitry Baryshkov)
+> - Use mipi_dsi_dcs_set_display_brightness_multi() with 0x1fff initial
+>   brightness (Dmitry Baryshkov)
+> - Move MIPI_DSI_MODE_LPM to probe(), drop toggling in on()/off()
+>   (Dmitry Baryshkov)
+> - Express .clock as arithmetic expression for clarity (Dmitry Baryshkov)
+> - Update panel physical dimensions width_mm/height_mm (Dmitry Baryshkov)
+> - Link to v3: https://lore.kernel.org/r/20260624-ili7807s-v3-0-ddf37052a289@oss.qualcomm.com
+> 
+> [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/2] dt-bindings: display: panel: document the Renesas R63419 based dual-DSI video mode Display Panels
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/9c04ecc893f07d001e484e6c420af19a970f755c
-[2/2] drm: panel: add support for the Renesas R63419 based dual-DSI video mode Display Panels
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/1190fc8d7b8a9cebea8dcbd2e544e43990ae81d0
+[1/2] dt-bindings: display: panel: add Ilitek ILI7807S panel controller
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/447a76a99e242fd04eaea33ecd9a6d73992e49a0
+[2/2] drm/panel: add Ilitek ILI7807S panel driver
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/dd7ec83f456734de8efc115eac671e5add82777a
 
 -- 
 Neil
