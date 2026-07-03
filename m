@@ -1,67 +1,67 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B382D5937
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 15:51:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7424D2D6E5A
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 15:51:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783093915; cv=none; b=Xx0L/+uOS8DaIpst5DLKZfTc25JJWG38hoAPnXZxw0oeRvkYOvHruaFo8rhqz3MmLVedWEZAzIR2JPwW9aFwUHmwAhHAOLYpZEnLTdKq5MAGHo76cvpLZNKZgXUnRI3RA5SlAoDRVskcZXuzNiEHhAcntUDYHM1FHCcs+H6K/pk=
+	t=1783093916; cv=none; b=Ak4xxnCWZpwCOgorDNIau6TjmShAdxkg4QpoB3N8aub44mwt3zX773PP7qhQjfcfsEel/TCeEbAUax5T2GHkDchp3f8atSVzNit+ETm7PGBuNAZfjRZ9EpbWHg7r4tpxOfKCGriKS0EmMVSV+QXkYpYXDR8XVkm96qFgFkNmC+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783093915; c=relaxed/simple;
-	bh=ZCx6qP1lmZfVMYjvzFCAoZUtXdJ2YSWsQt2fa8HD81E=;
+	s=arc-20240116; t=1783093916; c=relaxed/simple;
+	bh=AWNdcWNoO0K/4Dz81ubcB66iaZ7bQRNg/Xv4aHd0AIU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZODifdy3NQivqsXPGEGEUdLG3GR5uqEePZlb38VjKG2lomipzP3fvizEt6aUNZxzDPPUfFZ9x4niD2uto6FS4mmvGUwikQ8BLyPIFprKm4GxIHLTqKmmPbH64bGgR0KFJkzsIqnmDsW86uu9/oS7lQFWsozmajk9iIXYs2JRT0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xDagRRgY; arc=none smtp.client-ip=209.85.128.54
+	 In-Reply-To:To:Cc; b=WavOiwcTOJFc/J/+ol1sBGHtKbajB3HzKT1ohBvdR7djZqs2TOE4mYj7+J4cU5kZ6+Movfqc8oijrpAUKyR0XWFexwSwQV6O5cCYVyoVJsSVmxvGLrQDNCYzWB9xiiyzBILoe/oxolfX2RMokd+u9XbT1+iKInT0DYzpRzzugkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=yjiNcwQo; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xDagRRgY"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-493bb510ce4so5279005e9.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 08:51:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="yjiNcwQo"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493c55d5c7aso6390965e9.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 08:51:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783093912; x=1783698712; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1783093913; x=1783698713; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=0B5cvNATVNpF+B31kgabQD31W93tRfITznE+mSWo7FQ=;
-        b=xDagRRgY/Sni2AGc86ycv4ZafqbVqgDUHnMlHShMY79I5hQtX4UR9kaapsiVDHlydM
-         SSeDlj481NU8DbrKm7WEE8qE1mPJJpXn9RNL3Yz0I2QX1u1PnB/16K3azn2Ojzm8uHcO
-         6e8F6a/HFwasuZdr9fG97oa1y2RGUaHJWEfyCQod8OM0D45osNHNww6Xcy7OpECJCAEC
-         ENw5F0ErUxNXJpCoU0j1hkiwmySILfrv+Yh8iPGy5uo4JOH4HkCQnUOQLKIWZawYeHcZ
-         XIBgRNOfTCoPU6nvF8qtrqqOe9iXJnsj+9ua60uWQbY5UnXniTtHpTrr73PXpETSyph2
-         vZkQ==
+        bh=VTtyezqOtvqZjLO782drXUWeSl+rKs7UQO/GpaFditA=;
+        b=yjiNcwQo/yMGQfecmtvWh6EAICn8WMfINjA0fsIhMh1F0UxNTBH1WOcztDN9NGdcEz
+         uM/YnacFtxM6vws1JSCP9keRrQ2O4gogKRXKe/4KsYilUO+X7kcl941+hjL95euo90xa
+         VR2zm+nO5hhTgpNYqDYgWzlVUr/3/CQy8GWUANlYDfiyTgtU3y3/TPW4OjyRf/ssGOPZ
+         FfYhDzaH3Tw3Ht0mxMyB3GNq9g3CplKTcj0fayP8yu+fpW1wxCUulXg3+2D1WJ8nmq/C
+         PBduil88C3xaCtZh++G3f5DD+W8wnezaNGW6Y9k8IBccq9qOO3BgwITV4604zCAT0EoU
+         +xPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783093912; x=1783698712;
+        d=1e100.net; s=20251104; t=1783093913; x=1783698713;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=0B5cvNATVNpF+B31kgabQD31W93tRfITznE+mSWo7FQ=;
-        b=gfypOgHu0g7G59fsaIrm6ApsCrdG1kOycNshnHv64rsdWS3k1hgenuuj5/qj3g4Q+1
-         lXnLifCGgAkvp6jNPhAflTIYm4Kx8yF6QRuf4K83mAznb1UR9vYAxfmIHgpAsnarAx8k
-         321WEWh1d3y5028Mq9X15EnwU6wgpua7PfD9T7JiZ0gF4rxVJT/9qzBVo8gpbP9Co39l
-         FLErJUYM4YD7mIz1JXFgTImigKjC5rfMLxkxR3SVWD4y4JwU2moEP6FIWzvk6DzPFp/A
-         oTwygrwivFZkYyQSZsxXx9OaECeVKv6Feq86PIgfiahC1LGndkHk7zWFdnA3kybBvRSU
-         wrfQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+1bqHdCaH+AIsKn6oGaoxbkG10AmhwhbpSbtRb72evho8nufriW5TocYirIp8s82yQYpxIGG8OZcEo@vger.kernel.org
-X-Gm-Message-State: AOJu0YzKoeoYWemZlbMrubaBFwHGFA3BjLRQkXQ/fmEpe9zaFegznjHu
-	6rIKmxgkDsH9bpD3xq+wQbCsUR0HADOdsjxVKbqyhMn7ex6LqskGeKD+gcH8g+SzH6I=
-X-Gm-Gg: AfdE7ckygg/3RzgrTW4pPyQT796vKmgZHw3+RD7orNJ8qaqKLPRIRN7t9B4tI+ctE6X
-	+nzKc2ncqvwTE+89bruD4o5UMUABuinH9Rzv2/oT8YCJzz9GTN5KucwzLB3hb+Ekc0Yxsm2Hufv
-	mJp4Xy/x5X2rTE7KMW52OwEJsiXrj3XxRJRlb8okA4AcmjRSlsLM/yW4GlgdE8vVo5fev4dP8ER
-	NXfXqCRmUPgdQtEkLiy+TWp9EdRAjXf5EEH0stvNci33lGXI/vaJA+4tBRnPusYQAgNRilx3nxG
-	XZrw0xdf1WyHBtTuJsu7vHRGlISsRpaiuLwhzk0QUYJhVrC5pBOJlo7JQYrPt3jsB1dBN/xHME0
-	6TDAN2frQ/sqOUcO1dPZNkOxNQu11BIHu+aJXmxPxZcVhrTTmtX8DYobM0wFLtmjXmpac1MxY6q
-	fD/y3BkA==
-X-Received: by 2002:a05:600c:c16d:b0:493:a5da:e5d2 with SMTP id 5b1f17b1804b1-493d0f3c14cmr3998955e9.26.1783093911819;
-        Fri, 03 Jul 2026 08:51:51 -0700 (PDT)
+        bh=VTtyezqOtvqZjLO782drXUWeSl+rKs7UQO/GpaFditA=;
+        b=q7Gippf5hAg9QN1glVJVpBHD8Y/Y3c5CHKUHtDc2BmD+UezTt9K0rZOnwaG+J77yDV
+         0KK30sePKFRPiyp6sXHkML4XO112Mm51BxfjhfH2lvI8AiZep40B9LvZ9MqVzaGnJGX4
+         JL7kSz0pniGsrapgKNoilOssoCAr44CtMoG6Aq3quGLZ6IJddk78JyFGe/TnDB7slhvC
+         My8p9weNuDNvYWMCvOoiS6IC6q60PysIqVtSsFYQYj1Cg1hlfweav2gvirrcUz7wW38I
+         8TCR+zksx6hqVv91hssthdOuC1Xrtti5gVIzUn4vLmKssBrcOD1d8pC6cU6vj+pdNIs6
+         uWow==
+X-Forwarded-Encrypted: i=1; AFNElJ//vV7+M7W2mUc2MmyAgWkDk87bsutDAULxwtsGOsPKEuwfL3Lrrw8S/YqWSvSTFSJJujmTYu87fx82@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxq1RfzoFV94tgJ5McZg4uZMfT/vQhxAXrWnkvr8VdoBzZg0PS8
+	yHsfQNppLhrRg6ENVqffiZ2aIdW7M8RM9gsrEQsLlTX0K19DPh4mkIMTqwXMvCZoME8=
+X-Gm-Gg: AfdE7ckg91vhEfXfNDhZAYOZgHJnW+0PCAa1Qra1v3XS0EysfqV7Ehs9VvuO9rk3zgO
+	wOnQm8dlU4RbnzdmPrdtMqDOFw/otqeFcxJ/q4hKmEhYz6vmeltw8JjzdXzV7bnjapLhGUEo8V1
+	q+0R6MGDEPFT6Z2omFRvqP2IAqV1mo0A/AQQCE6oOyk5L6lBGvc8UYtIbxpOHNoaTkp7s8tNNWs
+	DvyZ/72IYXA0VNKDGo4g86IU8EI5P2BPCm+US91rknc7iMJm1Ik/a1zPT71sKiIaY2lzLS/2p/r
+	reD7db8HkufOeuiuhygJFc9sAbEi4mc3jNK2k88Ae1SzZHSiY4xHP7OqJaZar+hYvHQ8r1qfeAU
+	xvfmN5XJzgvJ/sZeFNemNksS4GyQMDQfy8uXEITNL5ENDXnc/StJhf+Z5GusGR/9V3/sakcAyMo
+	uTP+XZ8A==
+X-Received: by 2002:a05:600c:4c97:b0:490:52fb:12dd with SMTP id 5b1f17b1804b1-493d0f0f406mr3259965e9.10.1783093912871;
+        Fri, 03 Jul 2026 08:51:52 -0700 (PDT)
 Received: from [127.0.0.1] ([78.152.220.181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c63ba97csm141294655e9.12.2026.07.03.08.51.50
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c63ba97csm141294655e9.12.2026.07.03.08.51.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 08:51:51 -0700 (PDT)
+        Fri, 03 Jul 2026 08:51:52 -0700 (PDT)
 From: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
 X-Google-Original-From: Bryan O'Donoghue <bod@kernel.org>
-Date: Fri, 03 Jul 2026 16:51:45 +0100
-Subject: [PATCH 1/7] arm64: dts: qcom: x1e80100: Add ICP/BPS/IPE nodes
+Date: Fri, 03 Jul 2026 16:51:46 +0100
+Subject: [PATCH 2/7] media: qcom: camss: Launch ICP from CAMSS
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260703-qcom-laptops-v6-18-rc4-camss-icp-bps-ipe-icp-boots-stats-b4-v1-1-595df9e67790@kernel.org>
+Message-Id: <20260703-qcom-laptops-v6-18-rc4-camss-icp-bps-ipe-icp-boots-stats-b4-v1-2-595df9e67790@kernel.org>
 References: <20260703-qcom-laptops-v6-18-rc4-camss-icp-bps-ipe-icp-boots-stats-b4-v1-0-595df9e67790@kernel.org>
 In-Reply-To: <20260703-qcom-laptops-v6-18-rc4-camss-icp-bps-ipe-icp-boots-stats-b4-v1-0-595df9e67790@kernel.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -85,323 +85,91 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
  Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9427; i=bod@kernel.org;
- h=from:subject:message-id; bh=ZCx6qP1lmZfVMYjvzFCAoZUtXdJ2YSWsQt2fa8HD81E=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqR9qSpiq4hnorAkWniu1feJvwcGyq1WRnXVnKS
- pwGap4S/YaJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCakfakgAKCRAicTuzoY3I
- OmpcD/sGaVGvjKmdql8vVuVJCEMY1712FU1uF7gt8sEwJFu2xnRmb5m59TaW777HWnBOsr3tUhd
- gyqlDWMCCSrdQaa/32g45+/3QNhK3j5TrYO80NXVEXz7AEIj4h6iQjstZho7sFzMvByZHa/Ku63
- 0WnLV9Gk2veYPx0G1Ov6hXg7wh/1da0tVQzDOHQ6G5FxLMX7avX5hsIvD3Ou8w9/UOdHSnnKyVm
- HPPJFV58vfr7jwFn85Vagj0qzyWIMg2MlgkVtVS3Fa0uW6ZGRthUeJRYqUstS9GHF2dpQpsAICN
- DUH7FJmdHViugDOb7yEwUOY2rpqMln/gT3sxAp1QCzbN/Ts3sIa1ZueG8VpE21Y+bpFNwdPrdm5
- TBFLYhEn1a8ymUDbO40i1WMZ2A2a9emdn+R1VTI3ilKLu+xmQ9myEW7G69G/IlPOV4NwryTPmO4
- qOnN7HQ3yFmgdixrl2hFegKjeIvuLYxT3JV/QC9VxninuYTc8FT9MVt7B0Vz43LiA+KDKIMEnWt
- ZQKbPhxlLTYIhS6m+NSzB0aeOm3x7u2MQO9J6PMbhLhX4DkAJ9JvnzzXUTTkSj9pW1y/gi7q99j
- lF1IBFXIVXvJUjJEi8hTomeh6DYNkCUK08kdRmDk+JRXbI6t4wVrVwDY1aRbnxl+T/okeVOxf8Z
- +aDcUvIEWQbOIZQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2301; i=bod@kernel.org;
+ h=from:subject:message-id; bh=AWNdcWNoO0K/4Dz81ubcB66iaZ7bQRNg/Xv4aHd0AIU=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqR9qTLhQZXtVwPg5ioGs5M+J83wpyvYvCSE79J
+ tuIY5NO/gqJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCakfakwAKCRAicTuzoY3I
+ Opa+D/9PRXVkg+cgf4LLsRa0XMrBKj6AU3EA9ubS9ReF3r59bMcKWaOJD12W40yC1M6Mwh0EuhL
+ FbIT5RT0fRsZFZDf5Mn1/uDmrbGsKjXeInLVBE5UK12Q/B/g8urS4rQkLAK0WeKZDi8AdcHUk0i
+ 5W/aDtHQi+MkeDgcFTFNOgx4FgzFQRmMQvyW/noecLz7EFIxL6V3S8t2AFyD0K/qagP+FttZPPn
+ TkkutgWeIJHVaDUN/g62f/EReaqnbRyaZ3gyD4IUpGw0BN2sjykEoyU0IZbnFdFLmczqdMEHJzA
+ n/lQjWVwCsOJX7uHEJp1LX1HrIM5mK8ypXP/ddQk1mQVj54EDEFqk6hEOdh/m8NWGgQGw/L41/R
+ RhsoYrouIJ9fNDqOW5kY2TFhT0Fo7e3soTlJa6gXKcE0otN04oaK94qkIcuugLLdW9mqnR/Oy0v
+ vk5laIa3wUIpuuJWcDdMRQ9NO514oSD+aDmLGxQAoxFVCa11RCdDsF0Ce295hSINf+aJT2pTkxs
+ aWPqPBY7zoKrOTG8xGX02CckCrcijV+73xcbWwdwugeOHcKKZ2Rs5YeIBeDj2eR+yOEU0JFncUE
+ s1M/oBLTXn1fk9meoEndd7E2OYGNYcTtvQ66XuTVLah9HEt4+RST0YxxMTExguNz4C/fwAomGt8
+ 20Gi3U4Rl5toIUQ==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-This is a very rough outline of adding the ICP, BPS and IPE to Hamoa. It
-does so assuming the relevant devices are sub-nodes of the existing
-binding.
-
-Yaml for this binding has not been made yet.
+Launch ICP from CAMSS.
 
 Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- arch/arm64/boot/dts/qcom/hamoa.dtsi | 250 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 243 insertions(+), 7 deletions(-)
+ drivers/media/platform/qcom/camss/camss.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-index 5c7f86005e824..40ab1c649dc6e 100644
---- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-+++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-@@ -645,7 +645,7 @@ cvp_mem: cvp@8da00000 {
- 			no-map;
- 		};
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 499e349aa4929..eafa8a1eaaa36 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -16,6 +16,7 @@
+ #include <linux/of.h>
+ #include <linux/of_device.h>
+ #include <linux/of_graph.h>
++#include <linux/of_platform.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/pm_domain.h>
+ #include <linux/slab.h>
+@@ -4962,6 +4963,15 @@ static void camss_genpd_cleanup(struct camss *camss)
+ 	dev_pm_domain_detach(camss->genpd, true);
+ }
  
--		camera_mem: camera@8e100000 {
-+		camera_fw_mem: camera@8e100000 {
- 			reg = <0x0 0x8e100000 0x0 0x800000>;
- 			no-map;
- 		};
-@@ -706,6 +706,13 @@ smem_mem: smem@ffe00000 {
- 			hwlocks = <&tcsr_mutex 3>;
- 			no-map;
- 		};
++/*
++ * Match table for child nodes that camss.c registers as platform devices.
++ * This includes existing nodes (csiphy, csid, vfe) plus the new ICP node.
++ */
++static const struct of_device_id camss_child_match[] = {
++	{ .compatible = "qcom,x1e80100-camss-icp" },	/* NEW: ICP node */
++	{ }
++};
 +
-+		camera_icp_mem: camera_icp_mem {
-+			compatible = "shared-dma-pool";
-+			reusable;
-+			size = <0x0 0x11000000>;
-+			alignment = <0x0 0x00100000>;
-+		};
- 	};
+ /*
+  * camss_probe - Probe CAMSS platform device
+  * @pdev: Pointer to CAMSS platform device
+@@ -5043,6 +5053,23 @@ static int camss_probe(struct platform_device *pdev)
  
- 	qup_opp_table_100mhz: opp-table-qup100mhz {
-@@ -5495,7 +5502,10 @@ cci1_i2c1: i2c-bus@1 {
- 		};
+ 	pm_runtime_enable(dev);
  
- 		camss: isp@acb6000 {
--			compatible = "qcom,x1e80100-camss";
-+			compatible = "qcom,x1e80100-camss", "simple-mfd";
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			ranges;
- 
- 			reg = <0 0x0acb6000 0 0x1000>,
- 			      <0 0x0acb7000 0 0x2000>,
-@@ -5602,11 +5612,11 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 					     "sf_mnoc",
- 					     "sf_icp_mnoc";
- 
--			iommus = <&apps_smmu 0x800 0x60>,
--				 <&apps_smmu 0x860 0x60>,
--				 <&apps_smmu 0x1860 0x60>,
--				 <&apps_smmu 0x18e0 0x00>,
--				 <&apps_smmu 0x19a0 0x20>;
-+			iommus = <&apps_smmu 0x800 0x60>, //IFE0/1 IFE_LITE 0/1 non-protected stream read - S1 IFE HLOS
-+				 <&apps_smmu 0x820 0x60>, //IFE0/1 IFE_LITE 0/1 non-protected stream write - S1 IFE HLOS
-+				 <&apps_smmu 0x840 0x60>, //SFE0 non-protected read - S1 IFE HLOS
-+				 <&apps_smmu 0x860 0x60>, //SFE0 non-protected write - S1 IFE HLOS
-+				 <&apps_smmu 0x18a0 0x0>; //CDM IFE non-protected stream - S1 IFE HLOS
- 
- 			phys = <&csiphy0 PHY_TYPE_DPHY>, <&csiphy1 PHY_TYPE_DPHY>,
- 			       <&csiphy2 PHY_TYPE_DPHY>, <&csiphy4 PHY_TYPE_DPHY>;
-@@ -5662,6 +5672,232 @@ camss_csiphy4_inep0: endpoint@0 {
- 					};
- 				};
- 			};
++	/*
++	 * Register child nodes as platform devices.
++	 *
++	 * This includes:
++	 * - Existing: csiphy, csid, vfe
++	 * - New: icp
++	 *
++	 * Note: IPE and BPS are NOT registered here. They are siblings
++	 * of ICP in the device tree, but are registered by the ICP
++	 * driver since ICP needs to probe first to provide HFI.
++	 */
++	ret = of_platform_populate(dev->of_node, camss_child_match, NULL, dev);
++	if (ret) {
++		dev_err(dev, "Failed to populate child devices: %d\n", ret);
++		goto err_of_platform_depopulate;
++	}
 +
-+			icp: icp@ac01000 {
-+				compatible = "qcom,x1e80100-camss-icp";
-+
-+				reg = <0 0xac01000 0 0x400>,
-+				      <0 0xac01800 0 0x400>,
-+				      <0 0xac04000 0 0x1000>;
-+				reg-names = "csr", "cirq", "wd";
-+
-+				interrupts = <GIC_SPI 463 IRQ_TYPE_EDGE_RISING>;
-+
-+				/*
-+				 * ICP clocks plus BPS/IPE clocks.
-+				 * ICP firmware expects BPS/IPE to be clocked before boot.
-+				 */
-+				clocks = <&camcc CAM_CC_ICP_AHB_CLK>,
-+					 <&camcc CAM_CC_ICP_CLK>,
-+					 <&camcc CAM_CC_QDSS_DEBUG_XO_CLK>,
-+					 <&gcc GCC_CAMERA_HF_AXI_CLK>,
-+					 <&gcc GCC_CAMERA_SF_AXI_CLK>,
-+					 <&camcc CAM_CC_CPAS_AHB_CLK>,
-+					 <&camcc CAM_CC_CPAS_FAST_AHB_CLK>,
-+					 <&camcc CAM_CC_CORE_AHB_CLK>,
-+					 <&camcc CAM_CC_CAMNOC_AXI_RT_CLK>,
-+					 <&camcc CAM_CC_CAMNOC_AXI_NRT_CLK>,
-+					 /* BPS clocks */
-+					 <&camcc CAM_CC_BPS_AHB_CLK>,
-+					 <&camcc CAM_CC_BPS_FAST_AHB_CLK>,
-+					 <&camcc CAM_CC_BPS_CLK>,
-+					 <&camcc CAM_CC_CPAS_BPS_CLK>,
-+					 /* IPE clocks */
-+					 <&camcc CAM_CC_IPE_NPS_AHB_CLK>,
-+					 <&camcc CAM_CC_IPE_NPS_FAST_AHB_CLK>,
-+					 <&camcc CAM_CC_IPE_PPS_FAST_AHB_CLK>,
-+					 <&camcc CAM_CC_IPE_NPS_CLK>,
-+					 <&camcc CAM_CC_IPE_PPS_CLK>,
-+					 <&camcc CAM_CC_CPAS_IPE_NPS_CLK>;
-+
-+				clock-names = "ahb", "core", "debug_xo",
-+					      "gcc_hf_axi", "gcc_sf_axi",
-+					      "cpas_ahb", "cpas_fast_ahb", "core_ahb",
-+					      "camnoc_axi_rt", "camnoc_axi_nrt",
-+					      "bps_ahb", "bps_fast_ahb", "bps", "cpas_bps",
-+					      "ipe_ahb", "ipe_nps_fast_ahb", "ipe_pps_fast_ahb",
-+					      "ipe_nps", "ipe_pps", "cpas_ipe";
-+
-+				/* Set operational clock rates to enable PLLs */
-+				assigned-clocks = <&camcc CAM_CC_BPS_CLK_SRC>,
-+						  <&camcc CAM_CC_IPE_NPS_CLK_SRC>,
-+						  <&camcc CAM_CC_ICP_CLK_SRC>;
-+				assigned-clock-rates = <480000000>,   /* BPS: 480 MHz */
-+						       <480000000>,   /* IPE: 480 MHz */
-+						       <480000000>;   /* ICP: 480 MHz */
-+
-+				/*
-+				 * Power domains: TITAN_TOP plus BPS and IPE GDSCs.
-+				 * ICP firmware expects BPS/IPE powered before boot.
-+				 */
-+				power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
-+						<&camcc CAM_CC_BPS_GDSC>,
-+						<&camcc CAM_CC_IPE_0_GDSC>;
-+				power-domain-names = "top", "bps", "ipe";
-+
-+				resets = <&camcc CAM_CC_ICP_BCR>,
-+					 <&camcc CAM_CC_BPS_BCR>,
-+					 <&camcc CAM_CC_IPE_0_BCR>;
-+				reset-names = "icp", "bps", "ipe";
-+
-+				/*
-+				 * ICP SMMU contexts
-+				 * Multiple stream IDs for processor and DMA
-+				 */
-+				iommus = <&apps_smmu 0x1900 0x0>;	// S1 ICP_IPE_BPS_CDM CPU shared stream
-+
-+				interconnect-names = "ahb",
-+						     "hf_0",
-+						     "sf_0",
-+						     "sf_icp";
-+				interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ALWAYS
-+						 &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ALWAYS>,
-+						<&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
-+						 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-+						<&mmss_noc MASTER_CAMNOC_SF QCOM_ICC_TAG_ALWAYS
-+						 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-+						<&mmss_noc MASTER_CAMNOC_ICP QCOM_ICC_TAG_ALWAYS
-+						 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+
-+				memory-region = <&camera_fw_mem>, <&camera_icp_mem>;
-+				firmware-name = "qcom/x1e80100/CAMERA_ICP";
-+
-+				operating-points-v2 = <&icp_opp_table>;
-+
-+				icp_opp_table: opp-table {
-+					compatible = "operating-points-v2";
-+
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					opp-400000000 {
-+						opp-hz = /bits/ 64 <400000000>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
-+					};
-+
-+					opp-480000000 {
-+						opp-hz = /bits/ 64 <480000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+
-+					opp-600000000 {
-+						opp-hz = /bits/ 64 <600000000>;
-+						required-opps = <&rpmhpd_opp_svs_l1>;
-+					};
-+				};
-+			};
-+
-+			ipe: ipe@ac42000 {
-+				compatible = "qcom,x1e80100-camss-ipe";
-+
-+				reg = <0 0xac42000 0 0x16000>;
-+
-+				qcom,icp = <&icp>;
-+
-+				clocks = <&camcc CAM_CC_IPE_NPS_AHB_CLK>,
-+					 <&camcc CAM_CC_IPE_NPS_FAST_AHB_CLK>,
-+					 <&camcc CAM_CC_IPE_PPS_FAST_AHB_CLK>,
-+					 <&camcc CAM_CC_IPE_NPS_CLK>,
-+					 <&camcc CAM_CC_IPE_PPS_CLK>,
-+					 <&camcc CAM_CC_CPAS_IPE_NPS_CLK>;
-+				clock-names = "ahb", "nps_fast_ahb", "pps_fast_ahb",
-+					      "nps", "pps", "cpas";
-+
-+				power-domains = <&camcc CAM_CC_IPE_0_GDSC>;
-+
-+				iommus = <&apps_smmu 0x1980 0x20>,	// S1_ICP_IPE_BPS_CDM non-protected CMD IPE0 read
-+					 <&apps_smmu 0x1820 0x60>,	// S1_ICP_IPE_BPS_CDM non-protected IPE0 write
-+					 <&apps_smmu 0x1800 0x60>;	// S1_ICP_IPE_BPS_CDM non-protected IPE0 read
-+				dma-coherent;
-+
-+				interconnects = <&mmss_noc MASTER_CAMNOC_SF 0
-+						 &mc_virt SLAVE_EBI1 0>;
-+				interconnect-names = "mem";
-+
-+				ubwc-fetch-cfg = <0x7083>;
-+				ubwc-write-cfg = <0x1620f>;
-+
-+				operating-points-v2 = <&ipe_opp_table>;
-+
-+				ipe_opp_table: opp-table {
-+					compatible = "operating-points-v2";
-+
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					opp-364000000 {
-+						opp-hz = /bits/ 64 <364000000>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
-+					};
-+
-+					opp-500000000 {
-+						opp-hz = /bits/ 64 <500000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+
-+					opp-600000000 {
-+						opp-hz = /bits/ 64 <600000000>;
-+						required-opps = <&rpmhpd_opp_svs_l1>;
-+					};
-+
-+					opp-700000000 {
-+						opp-hz = /bits/ 64 <700000000>;
-+						required-opps = <&rpmhpd_opp_nom>;
-+					};
-+				};
-+			};
-+
-+			bps: bps@ac2c000 {
-+				compatible = "qcom,x1e80100-camss-bps";
-+
-+				reg = <0 0xac2c000 0 0x8000>;
-+
-+				qcom,icp = <&icp>;
-+
-+				clocks = <&camcc CAM_CC_BPS_AHB_CLK>,
-+					 <&camcc CAM_CC_BPS_FAST_AHB_CLK>,
-+					 <&camcc CAM_CC_BPS_CLK>,
-+					 <&camcc CAM_CC_CPAS_BPS_CLK>;
-+				clock-names = "ahb", "fast_ahb", "core", "cpas";
-+
-+				power-domains = <&camcc CAM_CC_BPS_GDSC>;
-+
-+				iommus = <&apps_smmu 0x1840 0x60>,	// S1_ICP_IPE_BPS_CDM non-protected BPS0 read
-+					 <&apps_smmu 0x1860 0x60>,	// S1_ICP_IPE_BPS_CDM non-protected BPS0 write
-+					 <&apps_smmu 0x19a0 0x20>;	// S1_ICP_IPE_BPS_CDM non-protected BPS0 CMD read
-+				dma-coherent;
-+
-+				interconnects = <&mmss_noc MASTER_CAMNOC_SF 0
-+						 &mc_virt SLAVE_EBI1 0>;
-+				interconnect-names = "mem";
-+
-+				ubwc-fetch-cfg = <0x7083>;
-+				ubwc-write-cfg = <0x1620f>;
-+
-+				operating-points-v2 = <&bps_opp_table>;
-+
-+				bps_opp_table: opp-table {
-+					compatible = "operating-points-v2";
-+
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					opp-200000000 {
-+						opp-hz = /bits/ 64 <200000000>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
-+					};
-+
-+					opp-400000000 {
-+						opp-hz = /bits/ 64 <400000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+
-+					opp-600000000 {
-+						opp-hz = /bits/ 64 <600000000>;
-+						required-opps = <&rpmhpd_opp_nom>;
-+					};
-+				};
-+			};
- 		};
- 
- 		csiphy_opp_table: opp-table-csiphy {
+ 	ret = camss_parse_ports(camss);
+ 	if (ret < 0)
+ 		goto err_v4l2_device_unregister;
+@@ -5079,6 +5106,8 @@ static int camss_probe(struct platform_device *pdev)
+ 	v4l2_device_unregister(&camss->v4l2_dev);
+ 	v4l2_async_nf_cleanup(&camss->notifier);
+ 	pm_runtime_disable(dev);
++err_of_platform_depopulate:
++	of_platform_depopulate(&pdev->dev);
+ err_media_device_cleanup:
+ 	media_device_cleanup(&camss->media_dev);
+ err_genpd_cleanup:
 
 -- 
 2.54.0
