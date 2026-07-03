@@ -1,247 +1,187 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1FE3D952E
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 14:08:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB56C3D3314
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 14:09:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783087706; cv=none; b=dARErRkNG6WokUYsB2iFu9N9GKql6hwS1WenTCA3GbohPYGhUK4saHjzBYRZv68sQ+ctbir7oUyssoGAMmbkR3dGfMtBz7B7Pwk2/Mk5JNXFm/dd1ejDxh01I21YIegpXQFM5Ls5fgeuNO8ECmtASuDwYggFSXD5MdAAulQgPTs=
+	t=1783087759; cv=none; b=J2oCeqIRzVj58N+HWtvfsoj+VEBeV/z4TgYkUzz2NRq5pI/5ALbSAjHKEKl7axY5h+F1giQ6fbmKn7aGGUsf+UQdlg/r6Txt3KNPSFfyjBRfsaDHTqZfSiDzpRmL8UF7J9N0WiZllWaorr7p6lzu6w05GDZKHP1k/oFGxgZr4PE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783087706; c=relaxed/simple;
-	bh=sxt78hW/PsWxFDCcSOLlFJjgkvoHFNRhW6v7oBKogR4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FNHcS1XbDDu4kYNzYZ+AUucdMPsWoAA35hjXjdD3wmdLG26KZkFJ6BO7JFfeVf+YbouYfWgpV35d2FdPSwpMjDWKBF/fUUE1/9DONM5Hb6DE11Egejnqa6TelkUxirBDyyuOLkiI4VL/Mf2ZGTBxefJ8fQOOtUDFfBK7zJBMUnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q+4u8vnx; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783087759; c=relaxed/simple;
+	bh=d+OXytV2ebkUyD2yp+ya6NCaRMIez7CYGr9oi6b7Unc=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Mqg5dxlSSDmrVkZLj8mxf9eJte184c91txCSkfyU3oQaE5pxGYZOJv2ytWUizqkfiTVGBVoY1Cr4xNvfOdBdvq4+uI4dxasv2FlYgOo3Poey4yQFhHWROTqh19DxyF70g8F/ODvMJvBMCvmPcsqIVwJviYBTR5APRcGOX8Rseh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=C6brIbdR; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q+4u8vnx"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-46ed4f66256so561758f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 07:08:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="C6brIbdR"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so4393055e9.0
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 07:09:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783087703; x=1783692503; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Ff/YHnBqJa7Fo45VaTkgV0Ahz6JMeo4m1RJIBiXmpRg=;
-        b=q+4u8vnxsIhU8W4cb6MxioztC1t5YtdadvtxxnTYqwq7gZZtqFy8rhqN5gOD3iJQ19
-         DzQT3yv2NU1/R7armS+fI8RXXgtIeiogzz0yaJ9DeQusmRfZze5waXXEGpORwtVLf7si
-         BkBTajDyPz2q9xZlblsl/lnTtNKlEFjR5n8HR+jLO7C5CxdoHQD2RD7+TfYGGWZ5J3KA
-         mssgN8UreyxZUJCA3dyBPV/lXX3ASslA7BQxz+LEhbqrWdN/KtdseM1Nn1ckuOTJ4sBJ
-         SQ0MilkYJkqjzEqI1VT160eto5kDgb/dkEU+WWZgCQuil6OXpVgK675+k7DDB+xDpdng
-         cuwA==
+        d=linaro.org; s=google; t=1783087756; x=1783692556; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:from:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=lfO1X26POMkNONMKCAH4khlnd1ko4GHBpFbhLRAY8BA=;
+        b=C6brIbdR7AaVCl3n4ymNz7qiHFQms2ygBgyAqoD0Qj+NQ56i2dZqz/1EbqsEe9rhxV
+         FqXke+oQ0Hr28SM4pZDf9nXXU+/JAQzjCXpvNqtejxgpfAu5DxIW9hYNcyoyynGGT69Q
+         JJrWWeIMw4NZAKcdGbM4nybU1pW3d0lcaFM6eXKNodNcCNz4vCZbNaDTEeaKzOfO2ZDH
+         kWTU3k29ZJCjU8aq21o4hpGi1OtHmVppVH8AnL48nrdscASHN+Fl54FFe0OkUZfHs3f2
+         /r7W7RKjnMQURaG38Ot/XZJpT59uDGMvsnuiCMSXqbvGBQ0Bhl6UvXK3bbhZEdImRXPF
+         jcDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783087703; x=1783692503;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ff/YHnBqJa7Fo45VaTkgV0Ahz6JMeo4m1RJIBiXmpRg=;
-        b=UugvXkcoNRJ3vBQSvtKURhr/UhPkPkFXj5G43G6mzwkPM7Ya/19lVY31FZ/ymHlQV/
-         2EAc7wmzG8UGcjhNeFxORAVesPt7CMOljjHEOI14Frg+o3JAf/AmTYneJyQZKF2jJB4m
-         7xOjkPnkmPFvfS7ESA4Hainr7CB2CbDHK7LHPhd6jmbiYXAyIPmduuK1O3JyvzIrVReP
-         x4I5Sieo5LPFYf9L4j2hLRVxBOC0FZSl6cR6nJsBpZfGIDu2odw2IiiBJeppT+xa0KsG
-         ViaAM1108qZIL1UK6oIUNbGFvvfYDSl5P//czRmg9utk3R9Mvw7Sa/a2AirX2nR2O9He
-         WbNQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrCy2986UMXhfa3D5MdHKDH7C6wc0i8hsAnEb8dYrBcj2+FRwf4eRhBE0E9m6pCigJQlMTOrFlJniaW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+Yo3mVPJQXkRpHU8p/iNk/I1NdiLUtvvR0EfPQ0tuN+n/mTic
-	K87Bq8yij9Y1NmN2Sd0V7dAd4S4Z7Knae2RI/IQRfl9M6kLA7gZeayfZ
-X-Gm-Gg: AfdE7clztj3f68q+jjJm6JriwPdiTNz7eYsduYGxRnGorCTXEeAOTRm9FoEmRs92kPh
-	/nHP/q7sIUAmI6tSJ9USbuhkpRtMV9eebOsFiXIGM5r/YEhJoerzvjSAQBMgFRP+wnSobRxHpZq
-	Y4onzPPBKHieKS5pkAGdkg420WxJ40Ap8ze5N/Rz2a1e9gTVeflrgMDTi0k34l76a5pfd27Rcya
-	Xj1q4+KCiwZP5uRyBr0WF2mn6k8TpD9mpL9egaPhsAdOqQnfLMzyKZH3n/WRdUPog84WkaqnCrG
-	lmgZ7jEc08dA09ju5aaBb58ukIrgQNVj5BY5DiAfws+QZV9Jo1sgMVgO4AXl/5tUokClc5hV+qD
-	MpEYM0VIQSt3dQ92gDl7dtsVSSSNAiH4pCzvrqi+BYQFgvcYlqtzYbRNBvPbJND384Lv2JXibhb
-	/xsZ+g
-X-Received: by 2002:adf:e012:0:10b0:474:18d9:8371 with SMTP id ffacd0b85a97d-4775bd0ed70mr11785200f8f.28.1783087702435;
-        Fri, 03 Jul 2026 07:08:22 -0700 (PDT)
-Received: from nsa ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477de3dd46asm19665003f8f.36.2026.07.03.07.08.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 07:08:22 -0700 (PDT)
-Date: Fri, 3 Jul 2026 15:09:26 +0100
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, 
-	rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v6 12/16] iio: frequency: ad9910: add RAM mode support
-Message-ID: <ake_YWfvVC9RQ3wu@nsa>
-References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
- <20260618-ad9910-iio-driver-v6-12-79125ffbe430@analog.com>
- <20260703040544.08a8ea5e@jic23-huawei>
+        d=1e100.net; s=20251104; t=1783087756; x=1783692556;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:from:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=lfO1X26POMkNONMKCAH4khlnd1ko4GHBpFbhLRAY8BA=;
+        b=SKwooWjizXmuscpI6DoajT+RjPNhIdgcwfEquygYLjE06sHvWFB7q8ic6ZV+Qj0xLi
+         rZpuzBaA06CxifqLr2lgXfw7rvjeN+EowhcwZvLhuo5/5CsSAr7+9seMlI/pEsYhJcZu
+         R+xuzmpYiEgYsbbbWLFCzVYiEBc3zJaK7WV6/Qr1pKWi0+hOXPWTgWAu6v4b5joDJnTW
+         fydVUr1l+cufoE7Biz418mCnMdeVo76eJpAZ9suMpgiYzDK2BKcDMZasLT9keOX6KB4d
+         RHo49Gfg0y6OC4348qXxGKm5WmwWXqUHyEYTO4ElML0MAdwwahvIVbBtUpG+3ZMrBqYk
+         F5vw==
+X-Forwarded-Encrypted: i=1; AFNElJ+8b/09+AotT/fuHPy0EUr9S6+ZYPxTuvrcrSrgFzS6LjiZWfFeK1Ia9HM7s7JJt5a/OkunuybXVJyV@vger.kernel.org
+X-Gm-Message-State: AOJu0YyfhDB2+Md7hzET4rKUHU3vIZhJDWkOwVxeW4y4YBSenwaI3bcf
+	yCFYxK2fd8nrL/mDakMnZchZjK0YKYcgkvurIPCQmM3BE4rcPKTEc4ra2syS+RKc5OA=
+X-Gm-Gg: AfdE7cm0V/lg5EoPoa/16H/9Xe3b0BgaXOu4KTaN4NZlOidMvbquJZzHGwRRLYH7AOA
+	/T7/+jIV0fy8BTAgY/ymWwLn5t6w2beWco9DWaptu4gCJeksrGGkdokKaOpP+aZe6i1t8XIorVg
+	5Z2AOh44W8apuT8n71Gn9xnVjnGl2eoqSg7xvqJdvdBfyVQsCMj2L/5WrYoWf3PAI6h3/SnPGFz
+	VoC4iMmScn3jyFVNmP8ZsOhQi5vOm2D2svtDAVBmqbYOwTQcwOe9SCNc+pru+K2SBYoQ5OQF61P
+	I7oxjKBtAuD01I1eIfVvyxVXe6feo19LUMWEHirFCEGb3WA58Z80jKMX3CmJNds8SeJ58+KiCVq
+	MFko6Rz0F/c1mz7Qo/yxwjlPacr/ZScqb2YHqwwlkAHx1JNnxiYPeRk8G33WK7nnvCsYBKaje0x
+	2pEl7JmgG8bu7n2H0k3C6sjKirb6ATZFaUxRRiL5gq4xOMq5VWfo61f90wnQyXUx7uX3Di
+X-Received: by 2002:a05:600c:c3c1:20b0:492:4363:e7eb with SMTP id 5b1f17b1804b1-493d0f3ca40mr3345e9.32.1783087755967;
+        Fri, 03 Jul 2026 07:09:15 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:9b13:921f:4f13:6cbb? ([2a01:e0a:106d:1080:9b13:921f:4f13:6cbb])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477ddf0fb15sm16668205f8f.29.2026.07.03.07.09.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 03 Jul 2026 07:09:15 -0700 (PDT)
+Message-ID: <45736af3-cdd4-4398-8509-a3593af989e1@linaro.org>
+Date: Fri, 3 Jul 2026 16:09:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 0/2] Lenovo ThinkPad T14s EC thermal monitoring and
+ thermal zone integration
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, sre@kernel.org,
+ hansg@kernel.org, ilpo.jarvinen@linux.intel.com, linux@roeck-us.net,
+ andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: bryan.odonoghue@linaro.org, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260701103714.22583-1-daniel.lezcano@oss.qualcomm.com>
+ <5edfa760-b5b1-4f0e-8a14-2a39d2b99090@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <5edfa760-b5b1-4f0e-8a14-2a39d2b99090@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260703040544.08a8ea5e@jic23-huawei>
 
-On Fri, Jul 03, 2026 at 04:05:44AM +0100, Jonathan Cameron wrote:
-> On Thu, 18 Jun 2026 14:27:28 +0100
-> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+On 7/3/26 12:32, Neil Armstrong wrote:
+> On 7/1/26 12:37, Daniel Lezcano wrote:
+>> Hi,
+>>
+>> This series extends the Lenovo ThinkPad T14s embedded controller driver
+>> with environmental monitoring capabilities and integrates the exposed
+>> sensors into the Linux thermal framework.
+>>
+>> The EC provides access to several platform temperature sensors
+>> covering the SoC, keyboard area, bottom cover, charging circuitry, QTM
+>> module and SSD. These sensors are currently used by the firmware for
+>> thermal management but are not exposed to Linux.
+>>
+>> The first patch adds hwmon support for the EC temperature sensors.
+>>
+>> The second patch exposes the EC as a thermal sensor provider in the
+>> device tree and defines thermal zones for the keyboard skin
+>> temperature and the charging circuitry temperature. This allows the
+>> generic thermal framework to react to EC-reported temperatures and
+>> apply standard Linux thermal mitigation policies.
+>>
+>> As the EC protocol is not fully decoded, the passive trip points
+>> get/set actions are missing, so it is not possible to program a
+>> threshold and receive an interrupt when crossed the way up or
+>> down. Consequently, the thermal zone related to the charging circuitry
+>> is polled every two seconds until we can set the trip points in the
+>> EC.
+>>
+>> This series fixes critical thermal issues happening on this platform
+>> where a kernel compilation, or heavy workloads, lead to a system
+>> reboot.
+>>
+>> Tested on a Lenovo ThinkPad T14s Gen 6 (Snapdragon X Elite).
+>>
+>> Thanks,
+>>
+>> Daniel
+>>
+>> ---
+>>   Changelog:
+>>     v3:
+>>      - Removed event based because trip point are not yet well supported
+>>      - Added an empty line after variable declaration (Ilpo Järvinen)
+>>      - Used MILLIDEGREE_PER_DEGREE from units.h (Ilpo Järvinen)
+>>      - Made switch consistent (Ilpo Järvinen)
+>>     v2:
+>>      - Fixed patch 1 subject prefix
+>>      - Removed the fan information part
+>>      - Added HWMON_T_ALARM
+>>      - Fixed DT change description to reflect what it does really
+>>
+>> Daniel Lezcano (2):
+>>    platform: arm64: lenovo-thinkpad-t14s-ec: Add hwmon support for
+>>      temperatures
+>>    arm64: dts: qcom: x1e78100-t14s: Add thermal zones for keyboard skin
+>>      and charging sensors
+>>
+>>   .../qcom/x1e78100-lenovo-thinkpad-t14s.dtsi   |  68 ++++++++-
+>>   drivers/platform/arm64/lenovo-thinkpad-t14s.c | 130 ++++++++++++++++++
+>>   2 files changed, 197 insertions(+), 1 deletion(-)
+>>
 > 
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > 
-> > Add RAM control channel, which includes:
-> > - RAM data loading via firmware upload interface;
-> > - Per-profile configuration and DDS core parameter destination as firmware
-> >   metadata;
-> > - Profile switching relying on profile channels;
-> > - Sampling frequency control of the active profile;
-> > - ram-enable-aware read/write paths that redirect single tone
-> >   frequency/phase/amplitude access through reg_profile cache when RAM is
-> >   active;
-> > 
-> > When RAM is enabled, the DDS profile parameters (frequency, phase,
-> > amplitude) for the single tone mode are sourced from a shadow register
-> > cache (reg_profile[]) since the profile registers are repurposed for RAM
-> > control.
-> > 
-> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> > diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
-> > index 3fe97aa887c3..c4e179dda715 100644
-> > --- a/drivers/iio/frequency/ad9910.c
-> > +++ b/drivers/iio/frequency/ad9910.c
-> 
-> > +static enum fw_upload_err ad9910_ram_fwu_write(struct fw_upload *fw_upload,
-> > +					       const u8 *data, u32 offset,
-> > +					       u32 size, u32 *written)
-> > +{
-> > +	const struct ad9910_ram_fw *fw_data = (const struct ad9910_ram_fw *)data;
-> > +	struct ad9910_state *st = fw_upload->dd_handle;
-> > +	int ret, ret2, idx, wcount;
-> > +	u64 tmp64, backup;
-> > +
-> > +	if (offset != 0)
-> > +		return FW_UPLOAD_ERR_INVALID_SIZE;
-> > +
-> > +	guard(mutex)(&st->lock);
-> > +
-> > +	if (st->ram_fwu_cancel)
-> > +		return FW_UPLOAD_ERR_CANCELED;
-> > +
-> > +	if (AD9910_RAM_ENABLED(st))
-> > +		return FW_UPLOAD_ERR_HW_ERROR;
-> > +
-> > +	for (idx = 0; idx < AD9910_NUM_PROFILES; idx++)
-> > +		st->reg_profile[idx] = get_unaligned_be64(&fw_data->profiles[idx]) |
-> > +				       AD9910_PROFILE_RAM_OPEN_MSK;
-> > +
-> > +	ret = ad9910_reg32_update(st, AD9910_REG_CFR1,
-> > +				  AD9910_CFR1_RAM_PLAYBACK_DEST_MSK |
-> > +				  AD9910_CFR1_INT_PROFILE_CTL_MSK,
-> > +				  get_unaligned_be32(&fw_data->cfr1), true);
-> > +	if (ret)
-> > +		return FW_UPLOAD_ERR_RW_ERROR;
-> > +
-> > +	wcount = get_unaligned_be16(&fw_data->wcount);
-> > +	if (!wcount) {
-> > +		*written = size;
-> > +		return FW_UPLOAD_ERR_NONE; /* nothing else to write */
-> > +	}
-> > +
-> > +	ret = ad9910_profile_set(st, st->profile);
-> > +	if (ret)
-> > +		return FW_UPLOAD_ERR_HW_ERROR;
-> > +
-> > +	/* backup profile register and update it with required address range */
-> > +	backup = st->reg[AD9910_REG_PROFILE(st->profile)].val64;
-> > +	tmp64 = AD9910_PROFILE_RAM_STEP_RATE_MSK |
-> > +		FIELD_PREP(AD9910_PROFILE_RAM_START_ADDR_MSK, 0) |
-> > +		FIELD_PREP(AD9910_PROFILE_RAM_END_ADDR_MSK, wcount - 1);
-> > +	ret = ad9910_reg64_write(st, AD9910_REG_PROFILE(st->profile), tmp64, true);
-> > +	if (ret)
-> > +		return FW_UPLOAD_ERR_RW_ERROR;
-> > +
-> > +	memcpy(&st->tx_buf[1], fw_data->words, wcount * AD9910_RAM_WORD_SIZE);
-> > +
-> > +	/* write ram data and restore profile register */
-> > +	ret = ad9910_spi_write(st, AD9910_REG_RAM,
-> > +			       wcount * AD9910_RAM_WORD_SIZE, false);
-> > +	ret2 = ad9910_reg64_write(st, AD9910_REG_PROFILE(st->profile), backup, true);
-> > +	if (ret || ret2)
-> > +		return FW_UPLOAD_ERR_RW_ERROR;
-> > +
-> > +	*written = size;
-> 
-> I'd like a blank line here. Mostly to make that 'good' return more obvious.
-> 
-> > +	return FW_UPLOAD_ERR_NONE;
-> > +}
-> 
-> >  
-> > +static inline void ad9910_debugfs_init(struct ad9910_state *st,
-> > +				       struct iio_dev *indio_dev)
-> > +{
-> > +	struct dentry *d = iio_get_debugfs_dentry(indio_dev);
-> > +	char buf[64];
-> > +
-> > +	/*
-> > +	 * symlinks are created here so iio userspace tools can refer to them
-> > +	 * as debug attributes.
-> 
-> Maybe worth a reference to appropriate ABI doc here (even if it is introduced
-> in a later patch)
+> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on T14s OLED
 
-I'm not so sure about these links. I mean, I definitely agree we should
-make it easy for userspace tools like libiio to be able to handle
-these kind of attributes but using debugfs is questionable to me. Pretty
-much because this is not a debug thing. It is a real setting for the
-driver so ideally we would be able to control it (using the existent
-tools) without enforcing one to mount debugfs (I know that most of the
-times it's always mounted but still feels wrong to tie "real
-functionality" to debugfs). 
+The charging sensor can go very high aswell and when cpu load is high the charging
+is throttled down, so perhaps it would be nice to also have a thermal zone for the
+charging sensors.
 
-Having said the above, some suggestions:
+On my setup when charging the battery at 60W the charging sensor reports ~63C but
+goes up to 80C when building a kernel, but stays around ~70C if the charger is not
+connected.
 
-1. Make the iio_dev the parent so that the attr name is just "ram" and
-it will be a subdir /sys/bus/iio/iio:deviceN/ram/.
-2. Propose a new helper for the firmware_loader code so we can get
-struct device from struct fw_upload then we can easily create a sysfs
-symlink.
-3. Name the attr as dev_name(iio_dev):attr so that it becomes
-iio:deviceN:attr_name.
-
-Now that I think about it, 2. does not make much sense when compared to
-1. And If I'm not missing anything both 1. and 3. can be sanely parsable
-from userspace (being 3. maybe a bit more reliable). And yes, both require
-user space tools (in this case libiio) to support a new type of
-attribute (firmware) but that is another problem.
-
-- Nuno Sá
-> 
-> > +	 */
-> > +	snprintf(buf, sizeof(buf), "/sys/class/firmware/%s/loading", st->ram_fwu_name);
-> > +	debugfs_create_symlink("ram_loading", d, buf);
-> > +
-> > +	snprintf(buf, sizeof(buf), "/sys/class/firmware/%s/data", st->ram_fwu_name);
-> > +	debugfs_create_symlink("ram_data", d, buf);
-> > +}
-> > +
-> >  static int ad9910_probe(struct spi_device *spi)
-> >  {
-> >  	static const char * const supplies[] = {
-> > @@ -1561,7 +1876,25 @@ static int ad9910_probe(struct spi_device *spi)
-> ...
-> 
-> > +	ad9910_debugfs_init(st, indio_dev);
-> 
-> Blank line preferred before a simple return like this one.
-> 
-> > +	return 0;
-> >  }
-> >  
-> >  static const struct spi_device_id ad9910_id[] = {
-> > 
-> 
+Neil
