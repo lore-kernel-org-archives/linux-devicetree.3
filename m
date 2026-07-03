@@ -1,87 +1,291 @@
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F30B61A6816
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 01:50:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB4E22D792
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 01:51:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783043449; cv=none; b=lpsx4B5C+O6RgssYL8xgjwst8/McvzbnVC7QMvBhUdYhMCNKWfGldSIqLCRbuOG3YuSrBXks9mVtyuSQwOprKXN3MZDTJ3y9T0TBboOWNz+eM2OWOcJx5aecse06yYNWNElN/3sgnG7HOPR+p3T9OGhFYnYHEaOd/WAyI7ZDRqY=
+	t=1783043501; cv=none; b=Ui0G/jXbGi0j+Ug1f81fX3mJGEj8Q5mXNx4fhhIG4w2xgBCGrrWTNOOTixmRliv4ZWyFOOxb4TBLW0ZOxINlN4CnVDRBw8RYqcjmZfXTL7lVpj3MTZ+K6kX/AblAVO/PqIm7T5IZX2S+KlnRBbtETJUxXk1tBP8baF3r6oiszJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783043449; c=relaxed/simple;
-	bh=lmAqZhL8QCdehwLCHoufegfJomn7yDKioG8ZT5KJbIQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=JDiu2r8INnLSMOieNlMogqjyxtX32W7RctpHG8vN/+RZ5RrWZLm/Fn5kyjJGpiv+ScVDDhNZIozXs8Pe87X93yeOme2J1ToasLvSWDPvVW2mwVV4r99gn7C4FR02AsCwG9C2g+s/0umnaoY+KZexr2Rv4Dn3r7FuZTrmIZ83OCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=206.189.21.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
- ajax-webmail-app1 (Coremail) ; Fri, 3 Jul 2026 09:50:36 +0800 (GMT+08:00)
-Date: Fri, 3 Jul 2026 09:50:36 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-To: "Andrew Lunn" <andrew@lunn.ch>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org,
-	devicetree@vger.kernel.org, "Min Lin" <linmin@eswincomputing.com>
-Subject: Re: Re: Re: [PATCH net-next v9 6/6] riscv: dts: eswin:
- eic7700-hifive-premier-p550: enable Ethernet controller
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <58532b95-bb74-4d87-acae-e67b41dd7d57@lunn.ch>
-References: <20260630063123.1118-1-lizhi2@eswincomputing.com>
- <20260630063445.1226-1-lizhi2@eswincomputing.com>
- <20260701063512.9ED051F000E9@smtp.kernel.org>
- <5de09a24.a11e.19f2207d7d2.Coremail.lizhi2@eswincomputing.com>
- <58532b95-bb74-4d87-acae-e67b41dd7d57@lunn.ch>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1783043501; c=relaxed/simple;
+	bh=b5whjc3gJgzLr/xpZRDwWBd8d15pv5MvoPIhIx6ndbQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lKtWhGMzIvUl1tO1VQ/Hism6wBzzYbwJZYj3x/zp8UlkV29DsFk72gx7eooGDiuR3VGoT8az0l0BcKC2e80U0u/X7HD2TTZRMaINvOSRfDN2lBYkO343UGlb/bcp25hGFR/dxuDw5tXuipRi9A4ZMVhn8BXh/2mMnQOcoIifo1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=euOBhVEN; arc=none smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="euOBhVEN"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-845537740ddso35306b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 18:51:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783043499; x=1783648299; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uucYeY9/tilSu22+Lvc2ys3l48BWNkemNgiDbDRjkc8=;
+        b=euOBhVENJxd+cDJRjEkAVOav2ELJ++qZAqrh+eNxjPKcQVcui/ybDK6YRmoaSMKDX+
+         /gl7ZoQC41TQ5d3SrJiEAi5T6QEocQ2pW7DfDkMmZ4a3J/LcBg+MbMMH7SYVFjJKA3Ud
+         WLkh8vpGRsUwI9s5Kdch5WZGRzVQtpOwdu6ZNufO4p9/GzaCl0WQN0SwtVLSSFixmhL4
+         SIPRMaFEwCZUT5Ssjf8JTaytIJteB802JeLeX38ALUh3BDBRwrbQGUgCJM/RROr6rrSL
+         HnOGXNv+DPDE9u6oqc8Kse2uy1+bbI0K1JvH00WnxSHn7r49Jec1YPKDDCL3whoD/Q3J
+         APNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783043499; x=1783648299;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uucYeY9/tilSu22+Lvc2ys3l48BWNkemNgiDbDRjkc8=;
+        b=ZPcb4dvyYbJSLVKhTbc3NPtYaa3MbabeboSO8tS3B/SXOvQ0fTGBB7La+AJVGc1+AQ
+         RaxXd58Z7xXhipB3beedxIHZ13lfsS+Ols3zZjEth7p9kBv6LUTjf4nbDDHZmuHH4x8x
+         AOpn5HeGowxQg2nMVYDFzN6JxrHGANBcA6qqiZebaHyMTtwZ6VAdxLJ3Xmt255bG+zsm
+         rUC/EPyl0s6v1bptsNjBELuIAamsikEtw5YR9+pV7RFK0L4ok39JMFW14842j4JtTc2/
+         iXMWdmfhDu2P0U7iP/TkOlzwV6V5BTqP7yYEquoG0uLVth38dUf7ht4gmDf1CG0sAbAW
+         1RHg==
+X-Forwarded-Encrypted: i=1; AFNElJ/Hebk0UL3UzDW4JYEvKp0wg4fRoGiYuVEMIdjQdBCB5XCccKxQnMwaA9/rerhx0ZXw7bc4Q0DOqRGF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw14jZu/7d6krmOaShLFvvDw29Na9ViH0rZicb1OcHDHP42PDme
+	EJX/muJTJrX0Ss+S7HI0qGW+bWjejBfdXeoBwKnRo+9z0HHFk4b6vAG2
+X-Gm-Gg: AfdE7cn4nWyhvEzJWevfDEAxUVvAVXxdhnnHQCaVJwhDwi+L0DRi2yEbOXBWoiiP6Hd
+	f4JdhC0T4nFtQC7MdM4PCY415IWU2SvFyGoUhe2jN9GCd2gNSAmaKLB8T6wkJVAbfgojYCBHGyw
+	Tr7WpbWaMVOK3dRnnHrUbw2XhO6KYIy8Jqbk1e1WNtPTcDkZWxDPbhreDS2lChGlvlsNYjTU9NT
+	zSStNYvu4IWWxgMElyzKK7iNaAj5yfYmkxKHiuVhahQIAALxTAfhiykf1B29cLfqfOxcbVNnGHo
+	Ahd+vKgpHfYi0Pm/41MCwhv0rftwJ1AeVAmWcB2PivMkQfDUqZnmOSOBjiYk6XDvR/rVsiw1HaT
+	VkyraGON1jgkHGWazhF8MJ+P8kK2XAbjPLNtXTIcge3YtsbrOAd9n08nz2vihgrKfZ1raVz/rvX
+	o=
+X-Received: by 2002:a05:6a00:4388:b0:847:1013:f8e0 with SMTP id d2e1a72fcca58-847c4ffbc14mr7392325b3a.7.1783043498765;
+        Thu, 02 Jul 2026 18:51:38 -0700 (PDT)
+Received: from localhost ([2001:da8:7001:11::cb])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847cb9d80c0sm2123471b3a.54.2026.07.02.18.51.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jul 2026 18:51:38 -0700 (PDT)
+Date: Fri, 3 Jul 2026 09:51:08 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Alex Elder <elder@riscstar.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Inochi Amaoto <inochiama@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Christian Bruel <christian.bruel@foss.st.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Senchuan Zhang <zhangsenchuan@eswincomputing.com>, 
+	Nam Cao <namcao@linutronix.de>, Siddharth Vadapalli <s-vadapalli@ti.com>, 
+	Randolph Lin <randolph@andestech.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Vidya Sagar <vidyas@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v2 4/5] dt-bindings: PCI: spacemit: Introduce Spacemit K3
+ PCIe host controller
+Message-ID: <akcVSzsJmLs-YNRG@inochi.infowork>
+References: <20260517014841.254085-1-inochiama@gmail.com>
+ <20260517014841.254085-5-inochiama@gmail.com>
+ <kwan2ci7umcckod2623tt2ebwaz6v7ypczz3bqmhfxc6awrkfc@jrjf73wzehcc>
+ <8010bb91-77e1-42b4-9f19-d9e70e385d00@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <f21ffca.a15e.19f25abaea6.Coremail.lizhi2@eswincomputing.com>
-X-Coremail-Locale: en_US
-X-CM-TRANSID:TAJkCgBnCXNtFUdqIDIxAA--.11249W
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAQERDGpGkqQZhAABsb
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8010bb91-77e1-42b4-9f19-d9e70e385d00@riscstar.com>
 
-CgoKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2VzLS0tLS0KPiBGcm9tOiAiQW5kcmV3IEx1bm4iIDxh
-bmRyZXdAbHVubi5jaD4KPiBTZW5kIHRpbWU6VGh1cnNkYXksIDAyLzA3LzIwMjYgMjE6MjI6MzQK
-PiBUbzog5p2O5b+XIDxsaXpoaTJAZXN3aW5jb21wdXRpbmcuY29tPgo+IENjOiBzYXNoaWtvLXJl
-dmlld3NAbGlzdHMubGludXguZGV2LCBjb25vcitkdEBrZXJuZWwub3JnLCByb2JoQGtlcm5lbC5v
-cmcsIGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnLCAiTWluIExpbiIgPGxpbm1pbkBlc3dpbmNv
-bXB1dGluZy5jb20+Cj4gU3ViamVjdDogUmU6IFJlOiBbUEFUQ0ggbmV0LW5leHQgdjkgNi82XSBy
-aXNjdjogZHRzOiBlc3dpbjogZWljNzcwMC1oaWZpdmUtcHJlbWllci1wNTUwOiBlbmFibGUgRXRo
-ZXJuZXQgY29udHJvbGxlcgo+IAo+ID4gSGkgQW5kcmV3LAo+ID4gCj4gPiBPbmUgcXVlc3Rpb24g
-YmVmb3JlIEkgcHJlcGFyZSB0aGUgbmV4dCByZXZpc2lvbi4KPiA+IAo+ID4gQXMgZGlzY3Vzc2Vk
-IHByZXZpb3VzbHksIHRoZSBEVFMgcGF0Y2ggd2FzIGluY2x1ZGVkIG9ubHkgdG8gcHJvdmlkZSB0
-aGUgb3ZlcmFsbAo+ID4gRXRoZXJuZXQgZGVzaWduIGNvbnRleHQgZHVyaW5nIHRoZSByZXZpZXcg
-b2YgdGhlIGJpbmRpbmcgYW5kIGRyaXZlciBwYXRjaGVzOgo+ID4gCj4gPiBodHRwczovL2xvcmUu
-a2VybmVsLm9yZy9sa21sLzY0YmY2YjQwLWI5NDctNGZmYS04ZDQ4LTRkNjM0MTkzMTMyN0BsdW5u
-LmNoLwo+ID4gCj4gPiBGb3IgdGhlIG5leHQgcmV2aXNpb24sIHdvdWxkIGl0IGJlIGFjY2VwdGFi
-bGUgdG8gZHJvcCB0aGUgRFRTIHBhdGNoIGZyb20gdGhpcwo+ID4gc2VyaWVzIGFuZCBwb3N0IG9u
-bHkgdGhlIGJpbmRpbmcgYW5kIGRyaXZlciBwYXRjaGVzPyBUaGUgY29tcGxldGUgRFRTCj4gPiBl
-bmFibGVtZW50IGlzIHBsYW5uZWQgdG8gYmUgc3VibWl0dGVkIGxhdGVyIGFzIGEgc2VwYXJhdGUg
-c2VyaWVzIGFmdGVyIHRoZQo+ID4gYmluZGluZyBhbmQgZHJpdmVyIGhhdmUgYmVlbiBtZXJnZWQu
-Cj4gCj4gV2hhdCBub3JtYWxseSBoYXBwZW5zIGlzIHRoYXQgSSBnaXZlIGFuIEFja2VkLWJ5OiBv
-ciBhIFJldmlld2VkLWJ5Ogo+IGZvciB0aGUgRFQgcGF0Y2gsIGFuZCB5b3Ugc3VibWl0IGl0IGZv
-ciBtZXJnaW5nIHZpYSB0aGUgRFQgTWFpbnRhaW5lci4KPiBFdmVyeXRoaW5nIHRoZW4gbWVldHMg
-dXAgaW4gbGludXgtbmV4dC4KPiAKPiBXaHkgZG8geW91IG5lZWQgdG8gZG8gdGhpcyBsYXRlcj8g
-V2h5IG5vdCBub3c/Cj4gCgpUaGVyZSBpcyBhbiBhbm90aGVyIHNlcGVyYXRlIERUIHBhdGNoIHNl
-cmllcwpbaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjYwNjE1MTIyMDE2LjExMTAyMDYt
-MS1waW5rZXNoLnZhZ2hlbGFAZWluZm9jaGlwcy5jb20vXQp3aGljaCBpcyB1bmRlciByZXZpZXcu
-Ckl0IGFsc28gaW50cm9kdWNlcyBEVCBub2RlcyBmb3IgcmVzZXQsIGNsb2NrLCBwaW5jdHJsLCBI
-U1AgcG93ZXIgZG9tYWluLgoKVGhlcmVmb3JlLCBvdXIgcGxhbm5lZCBzdGVwcyBhcmUgYXMgZm9s
-bG93czoKMS4gSW4gdGhlIG5leHQgbmV0LW5leHQgdjEw4oCLIHBhdGNoIHNlcmllcywgZHJvcCB0
-aGUgRFRTIHBhdGNoZXMsIGFuZCBzdWJtaXQgb25seQogICB0aGUgYmluZGluZ3MgYW5kIGRyaXZl
-ci4KMi4gV2FpdCBmb3IgUGlua2VzaOKAmXMgRFQgcGF0Y2ggc2VyaWVz4oCLIHRvIGJlIG1lcmdl
-ZC4KMy4gT25jZSB0aGUgSFNQQ1JHIHBhdGNoIHNlcmllc+KAiwogICBbaHR0cHM6Ly9sb3JlLmtl
-cm5lbC5vcmcvYWxsLzIwMjYwNjA1MDYwNzMwLjE2MDUtMS1kb25neHV5YW5nQGVzd2luY29tcHV0
-aW5nLmNvbS9dCiAgIGlzIG1lcmdlZCwgc3VibWl0IGEgbmV3IERUIHBhdGNoIHNlcmllc+KAiyB0
-byBleHRlbmQgRVNXSU4gRUlDNzcwMCBTb0Mgc3VwcG9ydOKAiwogICBmb3IgYWxsIEhTUCBtb2R1
-bGVz4oCUaW5jbHVkaW5nIFVTQiwgZU1NQywgU0QsIGFuZCBFdGhlcm5ldCwgc2luY2UgdGhleSBh
-cmUgYWxsCiAgIHVuZGVyIHRoZSBIU1AgYnVzIG5vZGUgZXZlbnRob3VnaCBldGhlcm5ldCBkb2Vz
-ZSBub3QgZGVwZW5kIG9uIEhTUENSRyBwYXRjaC4K
+On Tue, Jun 09, 2026 at 11:11:20AM -0500, Alex Elder wrote:
+> On 6/9/26 9:03 AM, Manivannan Sadhasivam wrote:
+> > On Sun, May 17, 2026 at 09:48:39AM +0800, Inochi Amaoto wrote:
+> > > Add binding support for the PCIe controller on the SpacemiT K3 SoC.
+> > > This controller is almost a standard Synopsys DesignWare PCIe IP,
+> > > with some extra link and reset state control.
+> > > 
+> > > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> > 
+> > Why can't you reuse the existing spacemit,k1-pcie-host.yaml binding? I see very
+> > few differences which could be added using conditionals. Also, this binding
+> > defines the PHY property in the controller node, which is a way backwards as we
+> > now prefer to define these in Root Port node as spacemit,k1-pcie-host.yaml does.
+> 
+> I agree.  I have another couple of comments below, including several
+> things that just point out what's the same and what's different.
+> 
+> 					-Alex
+> 
+
+A good caught, I have confirmed, they share the same topology so it can
+be reused.
+
+Regards,
+Inochi
+
+> > 
+> > - Mani
+> > 
+> > > ---
+> > >   .../bindings/pci/spacemit,k3-pcie-host.yaml   | 135 ++++++++++++++++++
+> > >   1 file changed, 135 insertions(+)
+> > >   create mode 100644 Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml
+> > > 
+> > > diff --git a/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml b/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml
+> > > new file mode 100644
+> > > index 000000000000..46147a37a9ce
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml
+> > > @@ -0,0 +1,135 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/pci/spacemit,k3-pcie-host.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: SpacemiT K3 PCI Express Host Controller
+> > > +
+> > > +maintainers:
+> > > +  - Inochi Amaoto <inochiama@gmail.com>
+> 
+> If you would like to maintain the (common) SpacemiT K1 host
+> controller binding I'd be OK with that.
+> 
+> > > +
+> > > +description:
+> > > +  The SpacemiT K3 SoC PCIe host controller is based on the Synopsys
+> > > +  DesignWare PCIe IP. The controller uses the external MSI interrupt
+> > > +  controller.
+> > > +
+> > > +allOf:
+> > > +  - $ref: /schemas/pci/pci-host-bridge.yaml#
+> > > +  - $ref: /schemas/pci/snps,dw-pcie.yaml#
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    const: spacemit,k3-pcie
+> > > +
+> > > +  reg:
+> > > +    items:
+> > > +      - description: DesignWare PCIe registers
+> > > +      - description: Data Bus Interface (DBI) shadow registers
+> 
+> The above is new (different from K1), as is "dbi2" as its name.
+> 
+> > > +      - description: ATU address space
+> > > +      - description: PCIe configuration space
+> > > +      - description: Link control registers
+> > > +
+> > > +  reg-names:
+> > > +    items:
+> > > +      - const: dbi
+> > > +      - const: dbi2
+> > > +      - const: atu
+> > > +      - const: config
+> > > +      - const: link
+> > > +
+> > > +  clocks:
+> 
+> Clocks and resets are the same as K1.
+> 
+> > > +    items:
+> > > +      - description: DWC PCIe Data Bus Interface (DBI) clock
+> > > +      - description: DWC PCIe application AXI-bus master interface clock
+> > > +      - description: DWC PCIe application AXI-bus slave interface clock
+> > > +
+> > > +  clock-names:
+> > > +    items:
+> > > +      - const: dbi
+> > > +      - const: mstr
+> > > +      - const: slv
+> > > +
+> > > +  resets:
+> > > +    items:
+> > > +      - description: DWC PCIe Data Bus Interface (DBI) reset
+> > > +      - description: DWC PCIe application AXI-bus master interface reset
+> > > +      - description: DWC PCIe application AXI-bus slave interface reset
+> > > +
+> > > +  reset-names:
+> > > +    items:
+> > > +      - const: dbi
+> > > +      - const: mstr
+> > > +      - const: slv
+> > > +
+> > > +  msi-parent: true
+> 
+> msi-parent and phys are not present in the K1 binding.
+> 
+> > > +
+> > > +  phys:
+> > > +    description:
+> > > +      PHY phandle from the Combo PHY, the lane number does not depends
+> > > +      on this, since the number of lanes provided by Combo PHY can be
+> > > +      1 or 2.
+> > > +    minItems: 1
+> > > +    maxItems: 6
+> > > +
+> > > +  phy-names:
+> > > +    minItems: 1
+> > > +    maxItems: 6
+> > > +
+> 
+> The following property is the same as K1.
+> 
+> > > +  spacemit,apmu:
+> > > +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> > > +    description:
+> > > +      A phandle that refers to the APMU system controller, whose regmap is
+> > > +      used in managing resets and link state, along with and offset of its
+> > > +      reset control register.
+> > > +    items:
+> > > +      - items:
+> > > +          - description: phandle to APMU system controller
+> > > +          - description: register offset
+> > > +
+> > > +required:
+> > > +  - clocks
+> > > +  - clock-names
+> > > +  - resets
+> > > +  - reset-names
+> > > +  - msi-parent
+> > > +  - spacemit,apmu
+> > > +
+> > > +unevaluatedProperties: false
+> > > +
+> > > +examples:
+> > > +  - |
+> > > +    #include <dt-bindings/interrupt-controller/irq.h>
+> > > +
+> > > +    soc {
+> > > +      #address-cells = <2>;
+> > > +      #size-cells = <2>;
+> > > +
+> > > +      pcie@80000000 {
+> > > +        compatible = "spacemit,k3-pcie";
+> > > +        reg = <0x0  0x80000000 0x0 0x00001000>,
+> > > +              <0x0  0x80100000 0x0 0x00001000>,
+> > > +              <0x0  0x80300000 0x0 0x00003f20>,
+> > > +              <0x11 0x00000000 0x0 0x00010000>,
+> > > +              <0x0  0x82900000 0x0 0x00001000>;
+> > > +        reg-names = "dbi", "dbi2", "atu", "config", "link";
+> > > +        device_type = "pci";
+> > > +        #address-cells = <3>;
+> > > +        #size-cells = <2>;
+> > > +        clocks = <&syscon_apmu 89>,
+> > > +                 <&syscon_apmu 56>,
+> > > +                 <&syscon_apmu 57>;
+> > > +        clock-names = "dbi", "mstr", "slv";
+> > > +        msi-parent = <&simsic>;
+> > > +        ranges = <0x01000000 0x00 0x00010000 0x11 0x00010000 0x0 0x00100000>,
+> > > +                 <0x02000000 0x0  0x00110000 0x11 0x00110000 0x0 0x7fef0000>,
+> > > +                 <0x43000000 0x18 0x00000000 0x18 0x00000000 0x1 0x00000000>;
+> > > +        resets = <&syscon_apmu 76>,
+> > > +                 <&syscon_apmu 78>,
+> > > +                 <&syscon_apmu 77>;
+> > > +        reset-names = "dbi", "mstr", "slv";
+> > > +        linux,pci-domain = <0>;
+> > > +        spacemit,apmu = <&syscon_apmu 0x1f0>;
+> > > +      };
+> > > +    };
+> > > +
+> > > -- 
+> > > 2.54.0
+> > > 
+> > 
+> 
