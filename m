@@ -1,230 +1,725 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB94A371D15;
-	Fri,  3 Jul 2026 08:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D783375AC6
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 08:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783065629; cv=none; b=nbPoIdxYkObCroxtqAePWbTCjILhIxRUmjQFqlvpOR07ct+CX24MnLlafpPtZP75aYC7F08fflt5yoAth8jJ/BPmXCP8PaoWUDlPayQ/XfYNw12x4bw0J1vKiE9eDq7BgXWAjo/3p/VkjOPxDf0HC2SyF8ZLBdZW045/96FNqNc=
+	t=1783065629; cv=none; b=TkuPk8OblvlcioJSgjsQPn38cwK/Uj2Bo8+J+AHGldE6m1o2ijsnSFFxT1pOglb/3ZMA5DNqz7OE+GXfgCehBvN8FWamLtIrHcKA2dhz6kvgw9nqBCdbKOt0NrCzU20F37PBBITsW1b657l31VnbbBLFjyGRHwvBjMpj96K4dsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783065629; c=relaxed/simple;
-	bh=g4JQuhHD/RK6GHrhnwml/L/+nYMSlIjvihkKG4F2kk4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZcyYWGtHvE4k5YB59HcW//bqvdnESLX9egooHOqIdLzSiKhMpKYqB39ujyn1x9x3+nGRGWzgvChroV8WZralYiue9Wvn3ZLj6ch7KgjPrVmbLc3QW7hw8mtX2ryhgfdvAQGQh3Nw8fexNB9B6Kk1bVL653F2LG5DPH/NZPL7op0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gF2rbx1p; arc=none smtp.client-ip=100.103.45.18
+	bh=zyQnCIpiwA1G1bfLfsX0CaXBeUS4R2CdpRsjGd5y53Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=LuZ+Is/Y00gE+rQp0rDKBakU7rgG4tLRUFBw7bvtezPFfgnK/UnpqeceiUtxvUBVms1ITQrY4Kmg4vx+dgtnfx7OyaE7M1dFeONNfRhokyQ6HLavHO/FKjMDuzVI6rC1gLGuByzcLwywL3wQK+7ZXcyRK029tHy5OoCa9oCrL50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q3fsz0xN; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gF2rbx1p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D01171F000E9;
-	Fri,  3 Jul 2026 08:00:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783065627;
-	bh=N6cvB6ilYfXF9Z+EldI441PSyI9lUhF0hrtl69qJt7g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gF2rbx1ppjqa9+2qsNeLPi+Dr2B6uYU5jU8z5gb2wDPgIeKuRlItYFkeO0++ERkLy
-	 WPvyzPIjbipYpLrP67Ua4EXeUGGJAARcis1cpcHOZ7OgxypilI6yvDTW/4Os0pCDTR
-	 Z7GmHDUQMB7BLPxVBNMicUYmFuqzJF9mbFZU+6XCsunk4+/GlRX7snOL6wXVMWrnE5
-	 YWq6SdeWTqgCc8LOAZ9uRPf43Ho1otnVSXVTUDl4WKTMh60V2Wrn2HJ60Jy3GJ+43u
-	 Wi1jX8hHDHYsBtIgrVL7mAbyxfChNsCoFG0jZBO4T3eCLC05Ig28n1JXtNZtyECWN7
-	 aKPO4wDGwEZ+A==
-Date: Fri, 3 Jul 2026 01:00:25 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Fenghua Yu <fenghuay@nvidia.com>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Atish Kumar Patra <atishp@rivosinc.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Tony Luck <tony.luck@intel.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v3 5/8] riscv_cbqri: resctrl: Add cache allocation via
- capacity block mask
-Message-ID: <akdsGZm8e9w5idhn@x1>
-References: <20260628-dfustini-atl-sc-cbqri-dt-v3-0-c9c1342fe3cf@kernel.org>
- <20260628-dfustini-atl-sc-cbqri-dt-v3-5-c9c1342fe3cf@kernel.org>
- <473da771-b711-457b-b9ad-491fee111b16@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q3fsz0xN"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-476d8e647e9so254768f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 01:00:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783065626; x=1783670426; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=MhSdx4e6KgiK4bNzKVUhqsC2XUXxE91ABS8UkbuUIc0=;
+        b=q3fsz0xNGRjiK+P4t07Z4jqxQ4Tk5oSyLYDVo7ZHy75GDXjtng7PuQtyaDHpwolvM+
+         JDjlLTgPUtel/Sd7EC3SI7vVMtgAwXgRWyatAoTH7RUtke5fTUNajmijNObUM+Ceyxp/
+         nuK8Si80PiBBw6p8Z/sMHBfNGkMp5rIiLi6ig9yHmdo8rz8ZGOfpPxPh3UO/RbxpKj2W
+         /pAg7ytC+rxcM2mzGTtk6/yzauinu0US3kbxGykQx374Bru7qFspw9CgLPD5ZQCNLl1w
+         llHMRo6S4VryKLj7hunckLEiPWt6F5c/va8j+1GNNJvd9O4F3DtTFEFE2Z79vhyhiVXe
+         6sKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783065626; x=1783670426;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=MhSdx4e6KgiK4bNzKVUhqsC2XUXxE91ABS8UkbuUIc0=;
+        b=DMdWtXo9yc9VDhC34e7LJubNkbs+iDSJgcXGcsZzE6YvOme3kSQwu+Gk8GkRuUexXn
+         pCVLnpy9Rri5gbNX6rlzVG/RoIODKi4qmthKCIBEkGK0v5cYQzaPrHcQazU9ihEoF3sa
+         kA+XFr2tcFXTbw/iXqFpCQq+QqMD8bi+nBS4E9OwBvIBj4ispnzox7xSxyBAkfxMGOhD
+         y/4zRGa474C0qeTWTTY2lIgEeu4MLVHoZ/chpmh1Y9bf0gSPUNchR5FTbs/JbRXyaehC
+         fxoju+6WgUBLcBM1jWIzTXBDnlG5TmqZ17POp2sBrfqND6vUKFtJzaX461ufYr4B10eb
+         xMOw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq7fk9vwbu7eI8txgtZbLdP+suP9aw7ig8NCGCp8SEGAex+TXF6kHnxtgDAA7vlWSxMfsSxB4laVGTp@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRgxuLO2WsB3pMH+Rj55ldNISBgyl2/zSw5IOz0Tvoxokq7yEH
+	FWqNwDPLI4jTBqTACsC/uqNeLB07aSlvV47Bq1iOvG4wkohWhBShUv9J
+X-Gm-Gg: AfdE7cmiLVy2ZaQSYEUAkqFvikWr2Bx/jfPAahzsxgnkp0Tqk0E6z7zCiTweKdNLO+r
+	MIRrLvlwgUTxNamHyhj2GYLPL1gW8Zzxd6OPoLoFhQDSwutwkXENR4TNM9hg2diRQYBfij46Qjb
+	D3sW8pJdWVuAakY0qFlR+j3wf4sZ6/viQpmO1gpMUjdzdJvNgHom2gOcI5t4r1Xd/eAO9ZECOeV
+	Dv7/YISJdctK8KAzuEXwevzIyKuexCd9l+PSX5ILEpj/n6o6FhGy5c1ao7i2D7NAZ0IjXvDO8wP
+	IJQ1bMvdX9BOuB/+gME8drXAxkJMMLC5d4maPWNHZsDNwv7PD5RvFlP+jXcpuehJAk1GWW4rYNn
+	tuErzsFxRIRuAs+OkQttQp35AwApUyfyq0aCnuJ5Ir91PqB3A+WZpOtuxfDm27Qh00g54XIfAil
+	Xbi9V0T1k+wQZ/wgpRbM1Ov/u6FfGN
+X-Received: by 2002:a05:6000:2911:b0:475:f0d1:eb63 with SMTP id ffacd0b85a97d-4775ca8380cmr14234694f8f.48.1783065625694;
+        Fri, 03 Jul 2026 01:00:25 -0700 (PDT)
+Received: from [192.168.8.79] ([2a00:f502:160:cb6f:2cd6:80ba:ca9:891c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477d766e0b4sm15116051f8f.0.2026.07.03.01.00.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jul 2026 01:00:24 -0700 (PDT)
+From: Erikas Bitovtas <xerikasxx@gmail.com>
+Date: Fri, 03 Jul 2026 10:59:40 +0300
+Subject: [PATCH 3/3] arm64: dts: qcom: sm7125-samsung: add initial device
+ tree
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <473da771-b711-457b-b9ad-491fee111b16@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260703-sm7125-samsung-v1-3-3e5f752048c1@gmail.com>
+References: <20260703-sm7125-samsung-v1-0-3e5f752048c1@gmail.com>
+In-Reply-To: <20260703-sm7125-samsung-v1-0-3e5f752048c1@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Stefan Hansson <newbyte@postmarketos.org>, 
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ Erikas Bitovtas <xerikasxx@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Wed, Jul 01, 2026 at 01:18:41PM -0700, Fenghua Yu wrote:
-> Hi, Drew,
+Samsung Galaxy A52/A72 are devices released on atoll (SM7125) platform
+in 2021. Add initial device tree for SM7125 Samsung platform with
+support for:
+- Framebuffer
+- GPIO keys
+- Hall sensor
+- Vibrator
+- Regulators
+- Reset input
+- Real-time clock
+- SD card
+- UFS
+- USB
 
-Hi, thanks for reviewing.
+Tested-by: Stefan Hansson <newbyte@postmarketos.org>
+Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/Makefile                  |   2 +
+ arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts   |  31 ++
+ arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts   |  31 ++
+ .../arm64/boot/dts/qcom/sm7125-samsung-common.dtsi | 518 +++++++++++++++++++++
+ 4 files changed, 582 insertions(+)
 
-> Could you please change my email address to my NVIDIA email
-> fenghuay@nvidia.com?
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 6f33c4e2f09c..d90311806e21 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -344,6 +344,8 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm6125-xiaomi-laurel-sprout.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm6125-xiaomi-willow.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm6350-sony-xperia-lena-pdx213.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm6375-sony-xperia-murray-pdx225.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm7125-samsung-a52q.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm7125-samsung-a72q.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm7125-xiaomi-curtana.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm7125-xiaomi-joyeuse.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm7225-fairphone-fp4.dtb
+diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts b/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts
+new file mode 100644
+index 000000000000..e4d005054b00
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts
+@@ -0,0 +1,31 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * SM7125 Samsung Galaxy A52 (a52q) specific device tree source
++ *
++ * Copyright (c) 2026, The Linux Foundation. All rights reserved.
++ */
++
++/dts-v1/;
++
++#include "sm7125-samsung-common.dtsi"
++
++/ {
++	model = "Samsung Galaxy A52";
++	compatible = "samsung,a52q", "qcom,sm7125";
++	qcom,board-id = <0x22 0x6>;
++
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		rmtfs_mem: memory@f4f01000 {
++			compatible = "qcom,rmtfs-mem";
++			reg = <0 0xf4f01000 0 0x200000>;
++			no-map;
++
++			qcom,client-id = <1>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
++		};
++	};
++};
+diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts b/arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts
+new file mode 100644
+index 000000000000..df8d637ef16f
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts
+@@ -0,0 +1,31 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * SM7125 Samsung Galaxy A72 (a72q) specific device tree source
++ *
++ * Copyright (c) 2026, The Linux Foundation. All rights reserved.
++ */
++
++/dts-v1/;
++
++#include "sm7125-samsung-common.dtsi"
++
++/ {
++	model = "Samsung Galaxy A72";
++	compatible = "samsung,a72q", "qcom,sm7125";
++	qcom,board-id = <0x22 0x5>;
++
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		rmtfs_mem: memory@f3701000 {
++			compatible = "qcom,rmtfs-mem";
++			reg = <0 0xf3701000 0 0x200000>;
++			no-map;
++
++			qcom,client-id = <1>;
++			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
++		};
++	};
++};
+diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi b/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi
+new file mode 100644
+index 000000000000..836dc9b8b1a5
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi
+@@ -0,0 +1,518 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * SM7125 Samsung common device tree source
++ *
++ * Copyright (c) 2026, The Linux Foundation. All rights reserved.
++ */
++
++#include <dt-bindings/arm/qcom,ids.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
++#include "sm7125.dtsi"
++#include "pm6150.dtsi"
++#include "pm6150l.dtsi"
++
++/delete-node/ &rmtfs_mem;
++/delete-node/ &ipa_fw_mem;
++/delete-node/ &tz_mem;
++
++/ {
++	chassis-type = "handset";
++
++	qcom,msm-id = <QCOM_ID_SM7125 0>;
++
++	chosen {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		framebuffer@9c000000 {
++			compatible = "simple-framebuffer";
++			reg = <0x0 0x9c000000 0x0 (1080 * 2400 * 4)>;
++			width = <1080>;
++			height = <2400>;
++			stride = <(1080 * 4)>;
++			format = "a8r8g8b8";
++			clocks = <&gcc GCC_DISP_HF_AXI_CLK>;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&key_vol_up_default>, <&hall_sensor_default>;
++
++		vol-up {
++			label = "Volume up";
++			gpios = <&pm6150l_gpios 8 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEUP>;
++			debounce-interval = <15>;
++		};
++
++		event-hall-sensor {
++			label = "Hall Effect Sensor";
++			gpios = <&pm6150_gpios 10 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_LID>;
++			debounce-interval = <15>;
++		};
++	};
++
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		tz_mem: memory@80b00000 {
++			reg = <0x0 0x80b00000 0x0 0x7100000>;
++			no-map;
++		};
++
++		mpss_mem: memory@8b000000 {
++			reg = <0x0 0x8b000000 0x0 0x8900000>;
++			no-map;
++		};
++
++		wlan_mem: memory@93900000 {
++			reg = <0x0 0x93900000 0x0 0x200000>;
++			no-map;
++		};
++
++		ipa_fw_mem: memory@93b00000 {
++			reg = <0x0 0x93b00000 0x0 0x10000>;
++			no-map;
++		};
++
++		ipa_gsi_region: memory@93b10000 {
++			reg = <0x0 0x93b10000 0x0 0x5000>;
++			no-map;
++		};
++
++		gpu_mem: memory@93b15000 {
++			reg = <0x0 0x93b15000 0x0 0x2000>;
++			no-map;
++		};
++
++		adsp_mem: memory@93c00000 {
++			reg = <0x0 0x93c00000 0x0 0x3e00000>;
++			no-map;
++		};
++
++		camera_region: memory@97a00000 {
++			reg = <0x0 0x97a00000 0x0 0x500000>;
++			no-map;
++		};
++
++		pil_npu_region: memory@97f00000 {
++			reg = <0x0 0x97f00000 0x0 0x500000>;
++			no-map;
++		};
++
++		venus_mem: memory@98400000 {
++			reg = <0x0 0x98400000 0x0 0x500000>;
++			no-map;
++		};
++
++		cdsp_mem: memory@98900000 {
++			reg = <0x0 0x98900000 0x0 0x1e00000>;
++			no-map;
++		};
++
++		cont_splash_mem: memory@9c000000 {
++			reg = <0x0 0x9c000000 0x0 (1080 * 2400 * 4)>;
++			no-map;
++		};
++
++		qseecom_region: memory@9e000000 {
++			reg = <0x0 0x9e000000 0x0 0x2000000>;
++			no-map;
++		};
++
++		pstore_mem: ramoops@b4600000 {
++			compatible = "ramoops";
++			reg = <0x0 0xb4600000 0x0 0x100000>;
++			record-size = <0x40000>;
++			console-size = <0x40000>;
++			ftrace-size = <0x40000>;
++			pmsg-size = <0x40000>;
++		};
++	};
++
++	vibrator {
++		compatible = "gpio-vibrator";
++		enable-gpios = <&tlmm 57 GPIO_ACTIVE_HIGH>;
++		pinctrl-names = "default";
++	};
++};
++
++&apps_rsc {
++	pm6150-rpmh-regulators {
++		compatible = "qcom,pm6150-rpmh-regulators";
++		qcom,pmic-id = "a";
++
++		vreg_s1a_1p1: smps1 {
++			regulator-min-microvolt = <1128000>;
++			regulator-max-microvolt = <1128000>;
++		};
++
++		vreg_s4a_1p0: smps4 {
++			regulator-min-microvolt = <824000>;
++			regulator-max-microvolt = <1120000>;
++		};
++
++		vreg_s5a_2p0: smps5 {
++			regulator-min-microvolt = <1744000>;
++			regulator-max-microvolt = <2040000>;
++		};
++
++		vreg_l1a_1p2: ldo1 {
++			regulator-min-microvolt = <1178000>;
++			regulator-max-microvolt = <1256000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2a_1p0: ldo2 {
++			regulator-min-microvolt = <944000>;
++			regulator-max-microvolt = <1056000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3a_1p0: ldo3 {
++			regulator-min-microvolt = <968000>;
++			regulator-max-microvolt = <1064000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l4a_0p9: ldo4 {
++			regulator-min-microvolt = <824000>;
++			regulator-max-microvolt = <928000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l5a_2p7: ldo5 {
++			regulator-min-microvolt = <3304000>;
++			regulator-max-microvolt = <3304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l6a_0p6: ldo6 {
++			regulator-min-microvolt = <568000>;
++			regulator-max-microvolt = <648000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vdd_cx_wlan:
++		vreg_l9a_0p8: ldo9 {
++			regulator-min-microvolt = <488000>;
++			regulator-max-microvolt = <800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l10a_1p8: ldo10 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1832000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l11a_1p8: ldo11 {
++			regulator-min-microvolt = <1696000>;
++			regulator-max-microvolt = <1904000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l12a_1p8: ldo12 {
++			regulator-min-microvolt = <1696000>;
++			regulator-max-microvolt = <1952000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l13a_1p8: ldo13 {
++			regulator-min-microvolt = <1696000>;
++			regulator-max-microvolt = <1904000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l14a_1p8: ldo14 {
++			regulator-min-microvolt = <1728000>;
++			regulator-max-microvolt = <1832000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l15a_1p8: ldo15 {
++			regulator-min-microvolt = <1696000>;
++			regulator-max-microvolt = <1904000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l16a_2p7: ldo16 {
++			regulator-min-microvolt = <2496000>;
++			regulator-max-microvolt = <3304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l17a_3p1: ldo17 {
++			regulator-min-microvolt = <2920000>;
++			regulator-max-microvolt = <3232000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l18a_3p0: ldo18 {
++			regulator-min-microvolt = <2496000>;
++			regulator-max-microvolt = <3304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l19a_2p85: ldo19 {
++			regulator-min-microvolt = <2696000>;
++			regulator-max-microvolt = <3304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	pm6150l-rpmh-regulators {
++		compatible = "qcom,pm6150l-rpmh-regulators";
++		qcom,pmic-id = "c";
++
++		vreg_s8c_1p3: smps8 {
++			regulator-min-microvolt = <1120000>;
++			regulator-max-microvolt = <1408000>;
++		};
++
++		vreg_l1c_1p8: ldo1 {
++			regulator-min-microvolt = <1616000>;
++			regulator-max-microvolt = <1984000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2c_1p3: ldo2 {
++			regulator-min-microvolt = <1168000>;
++			regulator-max-microvolt = <1304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3c_1p2: ldo3 {
++			regulator-min-microvolt = <1144000>;
++			regulator-max-microvolt = <1304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++
++		vreg_l4c_1p8: ldo4 {
++			regulator-min-microvolt = <1648000>;
++			regulator-max-microvolt = <3304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l5c_1p8: ldo5 {
++			regulator-min-microvolt = <1648000>;
++			regulator-max-microvolt = <3304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l6c_3p0: ldo6 {
++			regulator-min-microvolt = <1648000>;
++			regulator-max-microvolt = <3304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l7c_3p0: ldo7 {
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l8c_1p8: ldo8 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l9c_2p95: ldo9 {
++			regulator-min-microvolt = <2952000>;
++			regulator-max-microvolt = <3304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l10c_3p3: ldo10 {
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3400000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l11c_3p3: ldo11 {
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3400000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_bob: bob {
++			regulator-min-microvolt = <3008000>;
++			regulator-max-microvolt = <3960000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
++		};
++	};
++};
++
++&dispcc {
++	/* HACK: disable until a panel driver is ready to retain simplefb */
++	status = "disabled";
++};
++
++&pm6150l_gpios {
++	key_vol_up_default: key-vol-up-default-state {
++		pins = "gpio8";
++		function = "normal";
++		input-enable;
++		bias-pull-up;
++		power-source = <0>;
++	};
++};
++
++&pm6150_gpios {
++	hall_sensor_default: hall-sensor-default-state {
++		pins = "gpio10";
++		function = "normal";
++		output-disable;
++		bias-disable;
++		power-source = <0>;
++	};
++};
++
++&pm6150_pon {
++	/* LinuxLoader fastboot implementation has most of it's commands removed
++	 * by Samsung, making it useless. So reboot to Odin download mode instead.
++	 */
++	mode-bootloader = <0x15>;
++};
++
++&pm6150_resin {
++	linux,code = <KEY_VOLUMEDOWN>;
++	status = "okay";
++};
++
++&pm6150_rtc {
++	status = "okay";
++};
++
++&qfprom {
++	vcc-supply = <&vreg_l11a_1p8>;
++};
++
++&sdhc_2 {
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&sdc2_on>;
++	pinctrl-1 = <&sdc2_off>;
++	vmmc-supply = <&vreg_l9c_2p95>;
++	vqmmc-supply = <&vreg_l6c_3p0>;
++
++	cd-gpios = <&tlmm 69 GPIO_ACTIVE_LOW>;
++	status = "okay";
++};
++
++&tlmm {
++	gpio-reserved-ranges = <59 4>;
++
++	sdc2_on: sdc2-on-state {
++		pinconf-clk {
++			pins = "sdc2_clk";
++			bias-disable;
++			drive-strength = <16>;
++		};
++
++		pinconf-cmd {
++			pins = "sdc2_cmd";
++			bias-pull-up;
++			drive-strength = <10>;
++		};
++
++		pinconf-data {
++			pins = "sdc2_data";
++			bias-pull-up;
++			drive-strength = <10>;
++		};
++
++		pinconf-sd-cd {
++			pins = "gpio69";
++			bias-pull-up;
++			drive-strength = <2>;
++		};
++	};
++
++	sdc2_off: sdc2-off-state {
++		pinconf-clk {
++			pins = "sdc2_clk";
++			bias-disable;
++			drive-strength = <2>;
++		};
++
++		pinconf-cmd {
++			pins = "sdc2_cmd";
++			bias-pull-up;
++			drive-strength = <2>;
++		};
++
++		pinconf-data {
++			pins = "sdc2_data";
++			bias-pull-up;
++			drive-strength = <2>;
++		};
++
++		pinconf-sd-cd {
++			pins = "gpio69";
++			bias-pull-up;
++			drive-strength = <2>;
++		};
++	};
++};
++
++&ufs_mem_hc {
++	vcc-supply = <&vreg_l19a_2p85>;
++	vcc-max-microamp = <600000>;
++	vccq2-supply = <&vreg_l12a_1p8>;
++	vccq2-max-microamp = <600000>;
++	status = "okay";
++};
++
++&ufs_mem_phy {
++	vdda-phy-supply = <&vreg_l4a_0p9>;
++	vdda-pll-supply = <&vreg_l3c_1p2>;
++	status = "okay";
++};
++
++&usb_1 {
++	qcom,select-utmi-as-pipe-clk;
++	status = "okay";
++};
++
++&usb_1_dwc3 {
++	dr_mode = "peripheral";
++	maximum-speed = "high-speed";
++	status = "okay";
++};
++
++&usb_1_hsphy {
++	vdd-supply = <&vreg_l4a_0p9>;
++	vdda-pll-supply = <&vreg_l11a_1p8>;
++	vdda-phy-dpdm-supply = <&vreg_l17a_3p1>;
++	status = "okay";
++};
++
++&usb_1_qmpphy {
++	vdda-phy-supply = <&vreg_l4a_0p9>;
++	vdda-pll-supply = <&vreg_l3c_1p2>;
++	status = "okay";
++};
 
-No problem.
+-- 
+2.55.0
 
-> On 6/28/26 14:18, Drew Fustini wrote:
-> > Wire CBQRI capacity controllers into resctrl as RDT_RESOURCE_L2 and
-> > RDT_RESOURCE_L3 schemata.
-> > 
-> > Mismatched CC caps at the same cache level are treated as a fatal
-> > configuration error since fs/resctrl exposes a single per-rid cap
-> > set. Domains are created lazily in the cpuhp online callback so
-> > cpu_mask reflects only currently online CPUs.
-> > 
-> > Assisted-by: Claude:claude-opus-4-7
-> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Drew Fustini <fustini@kernel.org>
-> > ---
-> >   MAINTAINERS                      |   2 +
-> >   arch/riscv/include/asm/resctrl.h | 147 ++++++++
-> >   drivers/resctrl/Kconfig          |   4 +
-> >   drivers/resctrl/Makefile         |   1 +
-> >   drivers/resctrl/cbqri_resctrl.c  | 787 +++++++++++++++++++++++++++++++++++++++
-> >   5 files changed, 941 insertions(+)
-> [SNIP]
-> 
-> > +/*
-> > + * Walk cbqri_controllers and pick one capacity controller (CC) per cache
-> > + * level (L2/L3) to back the corresponding RDT_RESOURCE_L*. When more than
-> > + * one CC sits at the same level (e.g. one per socket), they must agree on
-> > + * rcid_count / ncblks / alloc_capable. A mismatch is fatal because resctrl
-> > + * exposes a single set of caps per rid. The first matching controller wins.
-> > + */
-> > +static int cbqri_resctrl_pick_caches(void)
-> > +{
-> > +	struct cbqri_controller *ctrl;
-> > +	int ret = 0;
-> > +
-> > +	mutex_lock(&cbqri_controllers_lock);
-> 
-> Is it better to change mutex_lock()/mutex_unlock() to
->  guard(mutex)(&cbqri_controllers_lock)?
-> 
-> 1. This code is simpler and can avoid potential missing unlock issue.
-> 2. This matches mpam code.
-
-Good point, I will switch cbqri_controllers_lock lock/unlock to
-guard(mutex).
-
-> 
-> > +
-> > +	list_for_each_entry(ctrl, &cbqri_controllers, list) {
-> > +		struct cbqri_resctrl_res *cbqri_res;
-> > +		int rid;
-> > +
-> > +		if (ctrl->type != CBQRI_CONTROLLER_TYPE_CAPACITY)
-> > +			continue;
-> > +		if (!ctrl->alloc_capable)
-> > +			continue;
-> > +
-> > +		rid = cbqri_cache_level_to_rid(ctrl->cache.cache_level);
-> > +		if (rid < 0) {
-> > +			pr_info("skipping controller at unsupported cache level %u\n",
-> > +				ctrl->cache.cache_level);
-> > +			continue;
-> > +		}
-> > +
-> > +		cbqri_res = &cbqri_resctrl_resources[rid];
-> > +		if (cbqri_res->ctrl) {
-> > +			/*
-> > +			 * CCs at the same cache level must agree on every cap
-> > +			 * resctrl exposes globally. Reject mismatches at pick
-> > +			 * time so the inconsistency is visible at boot.
-> > +			 */
-> > +			if (cbqri_res->ctrl->rcid_count != ctrl->rcid_count ||
-> > +			    cbqri_res->ctrl->cc.ncblks != ctrl->cc.ncblks ||
-> > +			    cbqri_res->ctrl->cc.supports_alloc_at_code !=
-> > +				    ctrl->cc.supports_alloc_at_code ||
-> > +			    cbqri_res->ctrl->alloc_capable != ctrl->alloc_capable) {
-> > +				pr_err("L%d controllers have mismatched capabilities\n",
-> > +				       ctrl->cache.cache_level);
-> > +				ret = -EINVAL;
-> > +				break;
-> 
-> Is it possible to support cbqri on both L2 and L3 on the same machine?
-> Failure on one controller will stop picking another other controller here.
-> 
-> If both L2 and L3 can be supported on the same machine, does it make sense
-> to pr_err() (fatal for this controller) and continue to go to the next
-> controller? So failure on L2 won't impact L3?
-> 
-> If that's the case, does it make sense not to return error for
-> pick_caches()? So pick_caches() failure is not fatal?
-
-Yes, both L2 and L3 can be present at once, and you're right that this
-approach was too strict. I will change it so that it drops only the
-offending cache level. I will make pick_caches() clear that rid so it is
-not exposed and continue to the next controller. It no longer returns an
-error, so an L2 mismatch leaves L3, and any future QoS feature untouched.
-
-[..]
-> > +static int cbqri_attach_cpu_to_all_ctrls(unsigned int cpu)
-> > +{
-> > +	struct cbqri_controller *ctrl;
-> > +	int err = 0;
-> > +
-> > +	lockdep_assert_held(&cbqri_domain_list_lock);
-> > +
-> > +	/*
-> > +	 * Hold cbqri_controllers_lock across the walk so a controller
-> > +	 * registered after boot cannot corrupt it. The register path takes
-> > +	 * it as a leaf and never cbqri_domain_list_lock, so this nesting
-> > +	 * cannot invert.
-> > +	 */
-> > +	mutex_lock(&cbqri_controllers_lock);
-> 
-> guard(mutex)(&cbqri_controllers_lock)?
-
-Ack.
-
-> > +static int cbqri_resctrl_setup(void)
-> > +{
-> > +	int rid;
-> > +	int err;
-> > +
-> > +	for (rid = 0; rid < RDT_NUM_RESOURCES; rid++)
-> > +		cbqri_resctrl_resources[rid].resctrl_res.rid = rid;
-> > +
-> > +	err = cbqri_resctrl_pick_caches();
-> > +	if (err)
-> > +		return err;
-> 
-> Failure in pick_caches() will abort any future cbqri features e.g. memory bw
-> allocation/monitoring. Is it possible to ignore the pick_caches() failure
-> and continue to setup other cbqri features? Failed caches won't impact other
-> QoS features, right?
-
-You're right, and this is the same change as the L2/L3 mismatch above. I
-will drop the error return from pick_caches() so that a cache problem can
-no longer abort setup or block other QoS features. Cache capacity and
-memory bandwidth are separate controller types that will be picked
-independently, so a failed cache will not gate bandwidth alloc/mon when
-those land. The only early return I will keep is the -ENODEV for when
-nothing at all is exposable.
-
-Thanks,
-Drew
