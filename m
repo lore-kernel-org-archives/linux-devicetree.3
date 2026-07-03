@@ -1,144 +1,101 @@
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A1A1D9A5F
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 17:04:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD5B305E28
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 17:09:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783098246; cv=none; b=Uw8V27Z+VB8fuuBg0CnCKnHVGZ7dF6mb0LBlclYpBhGa5a2RHyvQTx++aYx2vgc6Z/pLRIPib797dVnyol0BiCen6Inor9G4Mlp3QO1aR/O5c9R72mdVYWCdRpe/v6JE8KX+/4T1dNfGDSNGLKJz4aq+b+utE03QidY7eHM3yuM=
+	t=1783098599; cv=none; b=mytaNxCQdjvEMj4iDeDXDFv1yjWWeOsrqOtRPPX8fJnkKy2YUIIIQuv2tNPqD4xBkd1vKJMrXjbgc+mnm3i1dgG+IvXB9wLNZy076uoOB4nogNyU7GU/ajRIMGV/X4ShktSrq0xE/mYbs8XMM98k+p4rT9VQz08sBVK4i/XDGGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783098246; c=relaxed/simple;
-	bh=xfVxg6gl5w+u7tV6leMRJg88uDbrZR+IfArPfW8E5/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NZBMeXWboadjDZCvkL+YuDtGZ2p77CXMrWbkomK7gnnhNa7G4WlnjuHUBDpDfh7Rol8Af7MSBpRMFax7YVnMMtCNGYP+nBFIBK+RsZXovp3oHszwiLEhxxAPq1CFh68p3efG7xRL3xFiJgNQaGjF4xLoyTb9HkdHdY3OB8z6KrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eCUn/T8i; arc=none smtp.client-ip=209.85.210.43
+	s=arc-20240116; t=1783098599; c=relaxed/simple;
+	bh=emGfKnmIZb6rCs8OZKzdZXrwFmAuQEq6nMNa9HGSfnk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Zx7C3nyo7/t6cV9/VdddMmNgINqc16QtB9WVMJToonLqaDbxcdxUnZktb00l91dZ3aMkeh09a/YaPbsevmrN/w74q9AWeSjSdAnK5nPLsL+rBHTuuu8hcS8puXW8mRgqouW35tnQHGwsFxWijoslEY3+FWIhsalhKsgmnw7j0Rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RBHB2g/e; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eCUn/T8i"
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7e9f69ee6f4so594735a34.2
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 10:04:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RBHB2g/e"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493be1b9682so6601515e9.2
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 10:09:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783098244; x=1783703044; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dmaz70Zg8+nbLWCKBtz/pZ0mkbLi/T/8RKd4bWX5wQs=;
-        b=eCUn/T8i+nUhnmBbIaXGoCrMjMcwxuPIEPKdoN/ryD0hGyeiFdm4he9hehPIOirGLw
-         igfsJbvHXbNLz5lz38nhkHIiYNLIthb7xBs9FlHTBVw/axNUqLX7/xIHppw+W8lna+db
-         H2ePAkmj1IW1PVtFF5g437w3H+CqBa2D4QN3DBPoj0Pffz4he3NKCJtZ2mQG4OaAsevU
-         FCflTZoLWR6+GUpp/dajMeqAHYc1O8HJ4z7HXglTBaUWSvdBXxgp+1w/pM0dgTHeO+c0
-         ES1TdYYd1u9ukidgREwXYNWbpHr/WAq9ZoSu+PPW3D09TtNoup6pm9nSiF2lBGrSZEue
-         l+Yw==
+        d=gmail.com; s=20251104; t=1783098597; x=1783703397; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=BVVBWacKQnUKHRJ/kNMwnkPuIh3dvCLwl9oDeRFKEKI=;
+        b=RBHB2g/e6ijufvET+gxYBqY51EkljKeCzobdWq//vxzxbADtOt1DHtWiD1jn62kxeh
+         jg/sH1hNIXd2mcTRz8ZNnxRBcWrVOgZVpzjPNBCGTLXUI0C0AcdmCQ7s0hdNxeI3FNby
+         j00JDfMXgQ4JADKOWr4kttn0twUAdl5Inpza4aSS+FGSJGcVBhqnXiD1k2ZbK/QjrM9Z
+         5kBAsToJ5naREClrrcd9whva+qBwOpS8ehAulz5Gy4sHLyCP+JrcRF5QkeCwYlL9+gb+
+         OGf0r4YVxAur1xQNYJwVrUhYZD33y7F3UnOmmd08vOrko9GurdPZCkC5Ewu/WFT9lbhi
+         XohQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783098244; x=1783703044;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Dmaz70Zg8+nbLWCKBtz/pZ0mkbLi/T/8RKd4bWX5wQs=;
-        b=ojcb52JKsWSgH9KoZHkeSm8Ghyt8Uaa4N+8L41qWyo30lx0u9L9ljAETIyPqxReLCn
-         3jWFBOi2V3avhlP17zyuqbwDL4fYmrH50V+Nu4wvxfv+IiZHJhPQ5iqMWGObV9zC/FeP
-         y+nM5c7UCPxaMTGSPi8KZnsZmFCibfY/H9+ZRI2N8YKYm/ot0coTXeYXnY2gmqxmkgZ8
-         2qAlVmXUjjHhtrrKLF20lOnAvjrUNANtPodq6mflL9ntS+LsGLXdyEO04IzP4OfCGy80
-         31RxlPTb5ClBkLCpbpqn0tJUo7uOW25D5ydnPzeeQOVmDReeqsMh5E+Sq+pdz26HFcne
-         qaAw==
-X-Forwarded-Encrypted: i=1; AFNElJ+72Sr1kSvcYiza7QaX7eNuns3AsUkM68Ir9erRANf3Cg+mG9MCyUm1IP7w5XhD2/5Q6nlFNpwuh72x@vger.kernel.org
-X-Gm-Message-State: AOJu0YzVrX5ARwTSDKki6f4at7LL8TV0oQI8URnH+HBMu5rql8qrl2+d
-	HKZVofxvJUHDPEZw7VS96fhYj+JbBlCnwyel77I+ymmvJYGGFiy06Giz
-X-Gm-Gg: AfdE7clqn7nsLfpj7GHn2VgX5353A/yRuWffg4VLbQ4Q6ntXdnYZCAfOmye0UDJmkEJ
-	oyuu+Pt3uLt5542oW5eDjcNJ8pTtbPJv7CgVh2MTkUs1C64hVqVWI2aaMsMrUu0B6RGiDnYTc19
-	O2SrXnGGGU4RmqOGYiViveOI+sS6ednED+ATuiRu1cWCjFKs8uijm00pcnbGc606G+VAzZYyWIN
-	xxDMFagPRvDJ3oZbQJ/uJp/Ul37z31AD0RoUaeQ44EgCQYTUy4FluugvxQSlRe3S3g0wYz3vfJS
-	BopTDDCb6hU4fJn1mK/tZfGQY5xqJZMq5VzGiRjCtKyInwZaM34OBOvsuoLLNKWvGcuZX6ASM32
-	oEORjiDy7qQ0sHvkeNSsZo6/brVq/WIKHY1jFd3s51JGkvuByqQ+hatAPTcf2OAuDvhtgS54nMO
-	E4W+JPL8dKrCF/AkEWNqbv3w==
-X-Received: by 2002:a05:6830:838d:b0:7eb:3af8:8c1a with SMTP id 46e09a7af769-7eb7fda9ef3mr199373a34.9.1783098243743;
-        Fri, 03 Jul 2026 10:04:03 -0700 (PDT)
-Received: from localhost ([2804:30c:1618:8400:e838:86ad:21d4:de00])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7eb54534789sm5378744a34.26.2026.07.03.10.04.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 10:04:02 -0700 (PDT)
-Date: Fri, 3 Jul 2026 14:04:51 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, robh@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org, marcelo.schmitt1@gmail.com
-Subject: Re: [PATCH v5 1/4] dt-bindings: iio: adc: Add ltc2378
-Message-ID: <akfrs7OtamEIoVxE@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1783028033.git.marcelo.schmitt@analog.com>
- <fa15b8fe33541fa2e8c7a3f124b2482872fdcf26.1783028033.git.marcelo.schmitt@analog.com>
- <20260702215235.517FC1F000E9@smtp.kernel.org>
+        d=1e100.net; s=20251104; t=1783098597; x=1783703397;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BVVBWacKQnUKHRJ/kNMwnkPuIh3dvCLwl9oDeRFKEKI=;
+        b=Rqub/D/CJdnOmg9mmZRIng/5nRhQa76PhVx95cUAjogIcPAK9OeTCuAKoLPvkJBe69
+         OIk/FOg4wu9MPjjQ4D0Tb1TiRDa4QaA7gs7WDEieqAPZjEIuMHrLLJCC9pxcXT+A6YXU
+         xxVgXGqgp+k8vasMIXisCgDQBtR0Sm+zdbiqeXJcGUS9tv73AMBI8ZHDSR0iXDHqH665
+         b1WNej+4/KUk2OWifbmCbfwtbd5X5H1+NC1S70TGBGTYI0IMtQBq3lXZZnUiDoUBT0Vd
+         lkqd/yAhqQY6d71r/Ixm1SEPz15hmsODJBPJH/RsOBM6EVr/DNvXAD7e2IZPrq+4F5Qn
+         LzQw==
+X-Forwarded-Encrypted: i=1; AFNElJ94z+61nk8NQvNtbHggbg1GfNCFdkHmRMcu0snUXYiSWg5kAcovgESqe44WhFpIh6nB4gQ/5WXEYJ+b@vger.kernel.org
+X-Gm-Message-State: AOJu0YztFRkE3N2ylSGkOzEv9WfmEjLtc7tZVInP5TwgCow7i/h5hzhE
+	7RxTVega3PI07MqrWxKMgF96hP5109ohFSUE3l+kQBMi9RbWhjfTfoym
+X-Gm-Gg: AfdE7cmGke6lVNx+Wx4AxFY1k1S+Gu8cU9B+Lc/vkiz4Wl4TZMj70EUd4v+myckEiFC
+	M728LabukdOAoIqqI+7H7i6wWJUI5UmXTh6Rn7w5TuC0s19R54gNW1K3Q4L1SRq6ye+ipkuj+CW
+	FxQsLKmzsubTxqpCv+39A8Z9AisJCtqLvRsBSP4jtjGBI1uoiNIUom1fNsdpthgn3V0KoiIXa5c
+	gBfMSM1M45W9Dmn1WyBCgKVvFr38J0n1JL1dfphcCtifxXoXuZv69o/dppLOA9bmv6GhKIp8l3w
+	Fqx8zhPT4fWCEWuuKXeCeGkT69Fef0WCkyyFdWFiK0vX5435nIE1Xj1xpc/GVSwdIk1uy/ScG4A
+	drtNaEbKY7ZDIcZFY+UR7K7aM9ASXA0aPY6KbmzmvvvGz8Mo/icBYoMGHlaBmUjEKZbciRP1Bnw
+	gUHv9a1j7em3Hqc0jaNSxcGtlAs9R+vk3QkILReDYJsTymtjoHpNkKEhq3G3nSON462tRRKXWv8
+	pvv5Cm+
+X-Received: by 2002:a05:600c:6087:b0:492:58d6:2565 with SMTP id 5b1f17b1804b1-493d11f2920mr1870605e9.25.1783098596625;
+        Fri, 03 Jul 2026 10:09:56 -0700 (PDT)
+Received: from [10.128.11.240] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9de1d91bsm919323f8f.4.2026.07.03.10.09.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 03 Jul 2026 10:09:56 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <297d28ae-78ff-4a15-a4a8-0de6a9e2cfa5@gmail.com>
+Date: Fri, 3 Jul 2026 18:09:54 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260702215235.517FC1F000E9@smtp.kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/7] media: qcom: camss: Switch on ICP and BPS as make
+ options
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Todor Tomov <todor.too@gmail.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ Bryan O'Donoghue <bod@kernel.org>
+References: <20260703-qcom-laptops-v6-18-rc4-camss-icp-bps-ipe-icp-boots-stats-b4-v1-0-595df9e67790@kernel.org>
+ <20260703-qcom-laptops-v6-18-rc4-camss-icp-bps-ipe-icp-boots-stats-b4-v1-6-595df9e67790@kernel.org>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20260703-qcom-laptops-v6-18-rc4-camss-icp-bps-ipe-icp-boots-stats-b4-v1-6-595df9e67790@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 07/02, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] Compatible strings with required fallbacks are incorrectly allowed as standalone strings.
-> --
-> 
-> commit fff47614872c95c6a481f63da8b14dfcedd0bb53
-> Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> 
-> dt-bindings: iio: adc: Add ltc2378
-> 
-> Document how to describe LTC2378-20 and similar ADCs in device tree.
-> 
-> > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
-> > new file mode 100644
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
-> [ ... ]
-> > +properties:
-> > +  compatible:
-> > +    oneOf:
-> > +      # Single compatible string match.
-> > +      - enum:
-> > +          - adi,ltc2338-18
-> > +          - adi,ltc2364-16
-> > +          - adi,ltc2364-18
-> > +          - adi,ltc2367-16
-> > +          - adi,ltc2367-18
-> > +          - adi,ltc2368-16
-> > +          - adi,ltc2368-18
-> > +          - adi,ltc2369-18
-> > +          - adi,ltc2370-16
-> 
-> [Severity: Low]
-> Does this standalone enum allow devices that should require a fallback
-> to pass schema validation with only a single compatible string?
-> 
-> Because parts like "adi,ltc2370-16" and "adi,ltc2367-16" are listed here in
-> the single enum match, a device tree node specifying only
-> compatible = "adi,ltc2370-16" will satisfy this block and successfully pass
-> schema validation.
-> 
-> This seems to bypass the fallback requirements defined below in the items
-> blocks:
-> 
-> [ ... ]
-> > +      # Low sample rate fallback for 16-bit unipolar sensors.
-> > +      - items:
-> > +          - enum:
-> > +              - adi,ltc2370-16 # 2 MSPS
-> > +              - adi,ltc2368-16 # 1 MSPS
-> > +              - adi,ltc2367-16 # 500 kSPS
-> > +          - const: adi,ltc2364-16 # fallback (250 kSPS)
-> 
-> Should the parts that require a fallback be removed from the single
-> compatible string enum so the schema correctly enforces the fallback?
+Hi Bryan,
 
-Why? Should users be prevented to specify a single specific compatible string?
+On 7/3/26 16:51, Bryan O'Donoghue wrote:
+> +	  be called camss-icp, camss-ipe, and camss-bps, respecitvely.
 
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/cover.1783028033.git.marcelo.schmitt@analog.com?part=1
+Small thing: typo in your kconfig help text.
+
+- Julian Braha
