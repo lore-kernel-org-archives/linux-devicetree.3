@@ -1,39 +1,66 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEEF7378814;
-	Fri,  3 Jul 2026 09:59:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 088833B47F0
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 10:01:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783072789; cv=none; b=QCzsSEQLYZ4huAh3ew7p595PIg9Za/WtKS4Lq2sw+vw6dWadckl/lOCKFcU74I0DgLw1H9z6TXQyet5XSw45iJ3Z5E9rhZ+72qsKFNi/KbIY2ae7zmK1CvuON6Thv7ww55iu8TxJXxnlOh71sK+nqd6k6r4WI37bm1hchtjDfQA=
+	t=1783072905; cv=none; b=CISU4rfiRUKJmd/0MTrsAIRm0yBqQofaTRy8uJme8GIvpdsAzjF5m37CuaUePRHoiCtCHB97niCGgt3JQw7TrnN2+fcUIZaqJD+eIpy9+QaecvGJNCdQH/vn5P8JcegF1QoUl2JE4hJ7hHBL5pY4wB8yQMrtfpdsTfWs3nmA1gA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783072789; c=relaxed/simple;
-	bh=lRAPNRrf9SXx4z9dhLk337tvdNqy6xswS6CPp6bIVE0=;
+	s=arc-20240116; t=1783072905; c=relaxed/simple;
+	bh=RYeeLX2JG8dp87oYPPrNDLM4wRbMmmAVowH6Gs/X6vw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e1nLp5Qc2pbs39qtofkeH2WkOrDVLq2JPZNlkkNzOIdm7dtET23Ile6uA1TLd+peoJq5r2lZCfkfs7c1Qpq0V2IYRkyj7+7Jt338CAFzr+FLWM1XnQyGMJ40Ls39nnRtHtMu4RbfijOL6h7LVjy8c0ieFBrU3fE2Jo2lC+uckLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=AyK54OEF; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	 In-Reply-To:Content-Type; b=Dd+WZULQ0etCyG8i3Dii3fzM4IdsCNQvwQtylEHUWnmTEtz/57Y6RB2C28AktTP62pM8AJz7bS3P+5IXkJcUq9nOFICOk/JxYsyaerWAfwVXxlstsauHeO2IwaZc3wotepG161eW5i1v76YiwtnOS6+ddeYhWNUKs+Cvd4gO950=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A7V9YHX/; arc=none smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="AyK54OEF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1783072672;
-	bh=7wKH1xnMpdQTYs1GgGEhEsEEfpRsGdlMmEvMsie1aI0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=AyK54OEF08ZrxaQE9bv7rQRp2XLdD9ZthtzFfsoezJ3XkyVViT0djjEhdSKDNU7W/
-	 Q0xEB4d3k8K33utHxJnK17LAv5zXegrFwdA3t2cOBY/yzCpBRvZSxeNw9igCS3Phqo
-	 hOgOTkK8P5f8WU2SvJwUB8VuvWNNzqBImtMqwvE0=
-X-QQ-mid: esmtpsz19t1783072670t860bd952
-X-QQ-Originating-IP: yQeUo0oBNZiyozxrn5J6mXe/g0vxOwLg8q2rE5Nai50=
-Received: from [127.0.0.1] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 03 Jul 2026 17:57:47 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 1894719642677403996
-EX-QQ-RecipientCnt: 26
-Message-ID: <D233CE7F52A8953C+2120e7be-66e5-4cab-9543-05591eccfd76@linux.spacemit.com>
-Date: Fri, 3 Jul 2026 17:57:46 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A7V9YHX/"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-698aa7ba320so287170a12.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 03:01:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783072899; x=1783677699; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=iphKavMyEGyoKkZ7flBVPKctJFRcurdGeTwbxLH/hOs=;
+        b=A7V9YHX/6P5OlAht23tj0RMGPFoSinD9l1uXNrDG4TPTQp7WTHxT8tXxV+iZlehnoa
+         lPLc48BQEtflxSDW3TSmiC2M3IoGKKqoI8Wr1qollpaU81PrGqSz+Qr7AMC06BMOK+BL
+         R1rYxp0yzuGoHOnWQjQrMqJ+0MBwn/aMKS8iGmuVDhdxtDTVLz5JrH+QXfJmvwnudQAo
+         yLcriQBv8FQy7WbBR8+K7UH/35OSk3PAqDSdcBZ8qKgg1wumB/gX20RXu6xb9thFeZzM
+         d0RIaLgusB8tjNciytWwZmzyX8va4aT4orP2S7LqxVeTpWHBURkm4S5y6WrCopp1c308
+         GhZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783072899; x=1783677699;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=iphKavMyEGyoKkZ7flBVPKctJFRcurdGeTwbxLH/hOs=;
+        b=P6WAoJVPGHjOtVAfg3THk5LlyFkcSxBI6Gf04qqThfYpapYw34fJMPGTSp94ha0GNe
+         JPwdIyVRe345KuRudLVkXq0TlLHsxyDK5zdmzWckjpa2OzxX2t8GypUXae0bkE1cbQ4V
+         sgPEFLm3CUOxYWLHiEJbAPGnnMUKuIrUoGowdxLEowbi9Dp2BQ7UlpyVPvko633FMnaR
+         Ay7Z6SJL1x3vSXEjyn7VcA+30IxCMM0X6my34iZ6pAXPsSM8dNqEHaS9YcnfXwdLB5EM
+         twxRYafSmVtlV4Dd7pP4qhBMi1c/X7VwSWgdV3KYfV9dMjoIHmrViBUIGG0tWEzq3HMC
+         FzFg==
+X-Forwarded-Encrypted: i=1; AHgh+RoTTEuO3m1bxmqt7Wi/3bQsW8tIU/L2NI2t0ORoVuCcJipSHLvV5uAc/s/tn0FYuLQzeRe36nz9qxCN@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXLdm+xcBe04D7yJVLSU1mYVbCpFU6TjkYG+bxtDDXLTA9gjYi
+	UmeMnXYdJxRUUt0ZsDQqTpIXKs+AZh61t7BBVqIKyhXeP4Ouw07MYdTN
+X-Gm-Gg: AfdE7ckSd/eGbwbZRdDhNeo0uy7cR9Iyf/8HdFeVW/PXFG8lXbRUdPE4bxAatMZrGK9
+	HWqW6/7MGNaKyY79sPB4RhB7C5TFQDg+WvmnUlm9Zk8OuCUsuhtZolsvTAn4miSfNx8egmr4XWf
+	JBf0VW9V804hVA7SbR4zIIpivrKl3qIwiHwdTg4SR1j7Z7m44f7d/ISVgnzU8vrGgPsW5CYSiIJ
+	RXDBsFK9l+0maJFGYn+GGaICGjC56bMHIZvYQD5S6IqyOuYzdNaE9IahruxWHrXbHMvdAZrX0Ua
+	PFIIDdntw5m9AF9GItAnBW0OUh9FdfO3sOymFrjLZb0qyS6LGUNic2/RpY8CxrHFUeFHkIcblKM
+	bipsG6w9JAlXYCKbpwAsy7e7Ky4wPb89fV3dEhp9JLKYeMGZwIVbqevLCqUorKrj9cvzKOSLuPS
+	YkeZpKtnEcZpjql/Zz0yEFRMqiTX74IheisyZAJGEJU7YfXer+Ug5G1A==
+X-Received: by 2002:aa7:c68e:0:b0:698:ff3:85ea with SMTP id 4fb4d7f45d1cf-698c104c5f8mr1030271a12.5.1783072898947;
+        Fri, 03 Jul 2026 03:01:38 -0700 (PDT)
+Received: from ?IPV6:2a00:1e:db84:b301:ed61:1b51:c39f:49c? ([2a00:1e:db84:b301:ed61:1b51:c39f:49c])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-698ad118f43sm2162762a12.25.2026.07.03.03.01.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 03 Jul 2026 03:01:37 -0700 (PDT)
+Message-ID: <3e094744-8603-443e-8027-8fc2f2817879@gmail.com>
+Date: Fri, 3 Jul 2026 12:01:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,142 +68,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/12] rvtrace: Initial implementation of driver
- framework
-To: Zane Leung <liangzhen@linux.spacemit.com>,
- Greg KH <gregkh@linuxfoundation.org>
-Cc: anup.patel@oss.qualcomm.com, adrian.hunter@intel.com, alex@ghiti.fr,
- alexander.shishkin@linux.intel.com, andrew.jones@oss.qualcomm.com,
- anup@brainfault.org, atish.patra@linux.dev, conor+dt@kernel.org,
- devicetree@vger.kernel.org, irogers@google.com, jolsa@kernel.org,
- krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, mark.rutland@arm.com,
- mayuresh.chitale@oss.qualcomm.com, mchitale@gmail.com, mingo@redhat.com,
- namhyung@kernel.org, palmer@dabbelt.com, peterz@infradead.org,
- pjw@kernel.org, robh@kernel.org, sunilvl@oss.qualcomm.com
-References: <20260429125135.1983498-3-anup.patel@oss.qualcomm.com>
- <BDD9553502347B02+ee3069d3-eb04-4a37-b364-107cf8d0653c@linux.spacemit.com>
- <2026070316-surgery-unneeded-bceb@gregkh>
- <138BCDE3F4A1D624+2488a822-cf77-4155-8492-b8a1c47d5589@linux.spacemit.com>
- <2026070300-submitter-humbly-833a@gregkh>
- <4A32964890BBF288+37eaa5a2-eaff-49c4-8501-2b02736f3584@linux.spacemit.com>
-Content-Language: en-GB
-From: Mark Zhuang <zhuangqiubin@linux.spacemit.com>
-In-Reply-To: <4A32964890BBF288+37eaa5a2-eaff-49c4-8501-2b02736f3584@linux.spacemit.com>
+Subject: Re: [PATCH v5 2/3] dt-bindings: iio: dac: Add AD5529R
+To: Jonathan Cameron <jic23@kernel.org>,
+ Janani Sunil <janani.sunil@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-spi@vger.kernel.org
+References: <20260701-ad5529r-driver-v5-0-ed087900e642@analog.com>
+ <20260701-ad5529r-driver-v5-2-ed087900e642@analog.com>
+ <20260701194103.45541cbe@jic23-huawei>
+Content-Language: en-US
+From: Janani Sunil <jan.sun97@gmail.com>
+In-Reply-To: <20260701194103.45541cbe@jic23-huawei>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: Od6jZKO+x2eu/KM2BHPrr3J6Q76bSwwbvkfaP4v6OAa8rYnImonGH2qY
-	CCbubjoqh7jeQAbNVABWR3kRQAGRjLwIOvnXdV8f2wUH4Kqhi+10OJ2fAs/FIzie3fMdS/z
-	J2izY9oI95PEc1XNmxlesb1u3g8G5TNqdmdCUKfVifRw9GM2tCC5n5d1YjQm6FWc3USlaW+
-	dVj4aVo0TxG91MTgcLYcViyvFnOIfDwkquskvyNaXwpuxPJsND1KoRavVomd7YkCCtR+VAr
-	74HjnkZOkhJCRNw0fRRvjiKB6kuV+Pxyp/fCDuUNadtNsA/35dnvLEbKtgifq5Pidr4nwS8
-	2IyeBQLcGnCEqudhlwEuyDNA7yMmBzqOGSApZODq0BDc6CDzpPf9RRNpYE220t34/YVGXbL
-	MPVqMVA1ySJcBGoaRqPAIOen8IP48Q4RqYEEmfHBna8HszPLyC5czNb0exYRSJBU6auP8Hu
-	f5ZUFGhYMPKW24ZbznykwLDF5na5BpUNs8h/zEkqEEM5ymZNeIdWy/xbH5ImtRAlNozICON
-	TfKgDYVA58ofm5HGRClVqUGAriL7AeTFL3jjEpMKs19CRCCZtHp+DBwzxtWZM+CO+apsBrW
-	SW+H4U9kcf/8X9N3lB3NvFXSCvlPVSro9vZViLPVCVXY8vIvyN5wJVSOX+6Rpxq8OKBtYoX
-	Um9XvOG7Qnucl1fvDUWSt4PPSObtgCEUNcLrjxSxek2883bT4z6WGjqOG7sfa10QVuSsdU9
-	CbwOBd5Fg9L/BlzBhX8XVPmmvVPgAPBKIS+VQQM4T4jaSS4+V1pylhKVCyqNR9Q/aKZMqal
-	+ioPwcZVqo8lRbPjh4V+rdgnbM8mj9rnyaxfNK/uXbk4XufZwOsOnzU119/+TFTaRqZScua
-	bIn7Oc3jJ0G9W74gPYTHfTh8sNHvaZ2Drl1U8ek3JNGYq1+9R5Vo5lu52G8w1l4J/KtKwbw
-	MsHsOLhkGkGoLD7/B87ntAKVMaLcX6YC88sD1bamqEIjEG90+OftuWYZE2ZDSeuSomCpSlq
-	c/C2FIPIFTrpWOtq7Cqi6A7NxvVA0qKTmNUqR78UqHfRzrNUgrQVHDKDOkrcp+QO73OP/f5
-	UN+C2bp1TimzZ5oFi12XLVxuC+/XLJ4BA==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 7bit
 
 
+On 7/1/26 20:41, Jonathan Cameron wrote:
+> On Wed, 1 Jul 2026 08:40:40 +0200
+> Janani Sunil <janani.sunil@analog.com> wrote:
+>
+>
+>> +      adi,output-range-microvolt:
+>> +        description: |
+>> +          Output voltage range for this channel as [min, max] in microvolts.
+>> +          If not specified, defaults to 0V to 5V range.
+> No way to specify the default as part of the binding rather than a comment?
+> I haven't checked but does
+>         default: [0 5000000]
+> not work?
 
-On 03/07/2026 17:00, Zane Leung wrote:
-> 
-> On 7/3/2026 3:41 PM, Greg KH wrote:
->> On Fri, Jul 03, 2026 at 03:32:50PM +0800, Zane Leung wrote:
->>> On 7/3/2026 1:41 PM, Greg KH wrote:
->>>> On Thu, Jul 02, 2026 at 04:19:53PM +0800, Zane Leung wrote:
->>>>> Hi,
->>>>>
->>>>> Based on the current framework, I am concerned about how to support RISC-V ATB and reuse the Coresight component (ETB/tmc/TPIU) in the future.
->>>> That is very vague.  Please provide specific examples.
->>> According to the /trace control interface/ [1] spec: "The ATB Bridge allows sending RISC-V trace to Arm CoreSight
->>>
->>> infrastructure (instead of RISC-V compliant sink defined in this document) as an ATB initiator. ATB Bridge is not
->>>
->>> needed for RISC-V only systems."
->>>
->>> For ATB Bridge, read trace using Coresight components (ETB/TMC/TPIU),  so we need also ARM coresight driver in
->>> RISC-V trace systems. Current framework seems to only be applicable to RISC-V only systems, and does not support
->>> ATB and  ARM coresight use case like the K3 (K3 SoC contains RISC-V Encoder, Funnel, ATB, CoreSight Funnel, and
->>>
->>> CoreSight TMC components). For more discussion, please refer to [2].
->>>
->>>
->>> [1]: https://docs.riscv.org/reference/trace-control-interface/v1.0/tci_system_overview.html#atb-bridge
->>> [2]: https://lore.kernel.org/all/20260414034153.3272485-1-liangzhen@linux.spacemit.com/
->> So, what specifically does this mean?  Please provide review comments
->> for the code itself.
-> 
-> The issue I pointed out is not about specific lines of code, but about the entire Riscv trace driver registration and building a path from source ->
-> sink did not take into account the application of arm_comesight. the current patch set assumes a rigid, homogeneous RISC-V-only topology.
-> 
-> Specifically, if we have ARM coresight components, how can we reuse them like, funnel (drivers/hwtracing/coresight/coresight-funnel.c) ,
-> 
-> TMC (drivers/hwtracing/coresight/coresight-funnel.c) , TPIU (drivers/hwtracing/coresight/coresight-tpiu.c) and so on based on the current
-> 
-> framework.
-> 
-> 
->>
->> We write code for stuff we have now, today.  If future needs change, we
->> change the code to handle that then.
-
-SpacemiT K3 is a concrete, shipping example of exactly this topology: 
-its RISC‑V trace encoders generate N‑Trace messages, which are then 
-forwarded to Arm CoreSight components via an ATB bridge.
-
-Documentation: [1]
-
-Given that K3 is a commercially available RISC‑V SoC today, I believe it 
-qualifies as "stuff we have now, today" rather than a hypothetical 
-future case.
-
-It would be ideal if we could reconcile this series with Zane's 
-patchset[2], so that trace works on both QEMU and real hardware such as 
-the K3.
-
-The main friction point at present appears to be CoreSight compatibility.
-
-[1]https://github.com/spacemit-com/docs-tool/blob/main/en/user_guide/trace_user_guide.md
-[2]https://lore.kernel.org/all/20260414034153.3272485-1-liangzhen@linux.spacemit.com/
-
-> 
-> I believe that if the basic framework for RISC-V does not consider compatibility with ARM Coresight, once the framework is fixed, there will be greater resistance to future modifications.
-> 
->> The only problem is with user/kernel apis, those need to be nailed down
->> so that they don't change.  I can't tell here if you are only referring
->> to the in-kernel stuff, or user/kernel apis, sorry.
-
->>
->> thanks,
->>
->> greg k-h
-> 
-> 
-> I believe that RISC-V tracing is coresight-alike, where have encoders/funnel/sink/bridge+coresight_comp.
-> I think we should abstract some of CoreSight's core logic so that it can Both coresight and rvtrace can be reused.
-> General logic for building paths from source -> Sink and perf_pmu should be universal in coresight/rvtrace and
-> 
-> future architectures.
-> 
-> 
-> thanks,
-> 
-> Zane
-> 
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+Tried that approach. But the dt binding check does not accept default for this DT cell-array property.
 
