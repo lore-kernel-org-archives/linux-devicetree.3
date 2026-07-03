@@ -1,176 +1,118 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891C93D952A
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 10:32:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007383EF0C9
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 10:35:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783074758; cv=none; b=AcpoYbZe1HGJpjGrchWMFujJWS+t2fpRdpFyX/jERSbxNJeK0tXBiSFnwD+M3Is2TDovzbcsvqCL5PAndjIYaNfpxPK3y5ZAlpfdzcEI2M0P+Dp5nh2n+f0jFiMyg1cdHhCCLcDDDX5vInYcTBuH0Lsc7hr76X7RUB9Kk0oO7M0=
+	t=1783074920; cv=none; b=gPNnO2PXsw0zpVjVVQENWaX+IKUGePA8NNmIwKF3McPkr1jnX9OzexO5rDHHB6SJpfoGMAYgKW7YGUknZti4aexvsuokrVK4squZqMcYDwLadeEY2jl2TIHSVmkm9xogZxcb9cFDCvTZLipbPrlpF/uX+clS8+hPb2jo7GB1Q7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783074758; c=relaxed/simple;
-	bh=D5ijQV3bUdGx6RAeOYDDyhV2oxFHO7V4Y7ge4JRyKaw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h1Zv57PO+hjzu5jerJDodn5vCFbwCg+C92CSpKTfLlJVao6Y+BrV2Lq6JOM0ePmI8Zc6oPVIe/U7O5v1h14Uhu3F/BYPdtOE8KVSqC0On1htc1LQslvArV6+9BiCzufselbILy6/YQkVf7WrzG7E37Yp1BueSpoTktlTWd2UgX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oGbcWFTh; arc=none smtp.client-ip=209.85.221.45
+	s=arc-20240116; t=1783074920; c=relaxed/simple;
+	bh=D9xZD89AFQxQZaMA47uckOTpOnR7IRhfK9Ps5nQGCtk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ZJJ/zO8mjC2LAf3fyiJIAhyWEUypDc7FMyqMiCMmWGuLCaHMYxVfC8sKg60k53M6V3hMxX4KNvD5t9r3VyjwWWrHgfI1IgmGEXd9a7T9TLFADsT8cQRavkER+mjQ0xwElFOSkUmdoXW2is4/QG2L//a9FeY5Upfl3dI5dmFaEJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=roKBdB7r; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oGbcWFTh"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-474bf35cccdso127254f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 03:32:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="roKBdB7r"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-45fd464d51fso225812f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 03:35:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783074754; x=1783679554; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xXqnKE5BVSq5meuyy3aSxrzRU5PavHRibtLm4NqA0hs=;
-        b=oGbcWFTheGuatgzxnFFH6wuCsl5Qb0XbSOH9emVtGr4Wp/p5s+9UGaT95T1+QNp7ON
-         OjOMktfU4yUNmVI4+pIrLqLCBkk0FE6P4Ta8ytqAkknc2s4WZtR6c7+C0imbjlcez0X8
-         dASoyUvGlF1CG5/vebFc49OJPPn9VTc5aabfhIRDhy/GDoAyyIWjFAI+P5FQzJ9B60nZ
-         cqVW28q5hG/KiFo1ghr7nsW6YugyyvvIqIvRN86V9ioulgmGEL7vt/p/LuKHkfsYfxtB
-         RyvccYfrVkfssvIPiALGePd+e2g2UY8nuXHA9rk48upBsR+KjS3nV6PCFR1ckRIp3CpU
-         +nXA==
+        d=linaro.org; s=google; t=1783074917; x=1783679717; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9aa5VRYjwfcBa4J0ha82pG4RI9w9o+IbdPuBnZ7LdEE=;
+        b=roKBdB7rIA3wqv8wauR3UzV4vHO1ba6+zmtqndw/VSlBY6I6NhwkNmV8g8OMCTLfYP
+         pv1/tidv2BcuAAU6iYBjofEaEGkoAnBlM7m5rEBP+dAqojeNAAhRSr5ndxEkJ2gSzWBV
+         0UiFGrXRwVUl/vsze5+lkLHsDb4jWyFSwxXSW7iluDMilTP4MQTeKFni29/CcNmZk/4q
+         MOAK46TCFoq06ZT8NHMoAs8ohQPOFiKTAwgCqviooPvUYJDV9nwOuWgV7WvtEXw2NOoZ
+         iAKFrHa21QEJIbDDuSYKYaOjovWvNV0x5eiA0B8eUlU+f5YAiavIctuqkZ2BXwJ76bnt
+         06sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783074754; x=1783679554;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xXqnKE5BVSq5meuyy3aSxrzRU5PavHRibtLm4NqA0hs=;
-        b=cBD/nPAsZKL4+7uzB0GxHd8og1hD9e6uBUwauszMs9+sdTCAQpkm4BWtStfyeady2r
-         vmiKdq3FhJQhjIEp44XO1M1xTZuuXxK9B73gsYAJaJbdsjrqZHuLbZJZieRtqfc4939C
-         16dD9KmypRxKZM+zla8e/mQ7C5H0pGHEipTR68p6beywm2cTzaJQq4wK+ovDLp0kg/95
-         PTFt6Xd2XyPO0xyAYxvFQ3Ig4eY3spiOy5UjWS2wXYnenKSjfD3QLuh9bPbXyip13vSK
-         kgj+upwmnHI9TY5DA6dv8O+B7JCQo4q/Kt0ddB4QsWRSiLQ5ld4ba6eho8vkHPGWI169
-         zi+g==
-X-Forwarded-Encrypted: i=1; AHgh+Rr7IoowDYGwwZSWZkE+0PQUiuTRxTGKr1UKu49VYcBqNL2oO6FQ6PIqM6X6AbWDzGySLjxy12o+zEGj@vger.kernel.org
-X-Gm-Message-State: AOJu0YzceLyN3j0qNqQPRAUFVseJWKG6hhfEKysAVrlV4JpRU0UsZVjy
-	G9rz84Qd5Pk2hnHFpuk1fcuoCE9BhRAbQpcmBOoAoTRpZEaN+UFiQrFC4DvApGoqbss=
-X-Gm-Gg: AfdE7cmPraIP3EqXSNNEC4PBAbzevlMUzqUwSTvy7okGPgwvFMZ0aRzALEPPb71oglA
-	nKg+cbzbTbq+E8dE9vMqBX9UgwgVnfloHYVobnxaIMm9RdDo9b6/2eps7pABXT9BMTl6HoYZYWC
-	STYDr1oEART9jZ+3eSs4xt3qRTmpUAENyOfdxizBxb9ZQJ6qH78AfVXl5iPaVOscTDxCN4J/mU5
-	tE6OrgDWv78e+y6xRBRJP8RO3A/BQGTvO9Gk8B/4ZQS62SNRgwebI3bScU9iNHMQFvziVJPYKwf
-	tjqWhFykjk6MBOa4kgN/3EXuYc1gU4HCUq/J6y9SWlGtPWcmxVwONew7McT1IdX6mrHNYYcu8ee
-	edRRxzcqeJHlhFopuM+dABo2bEqWC9iSAxbrBe0RGSUJtCaKv/8IX0bVLRECptIzfLRyJI9uv/Q
-	LyqA7dm/xWzZ6vU7AqzPZudNIDNe9Y1sx8H7exEAG0ndObsBoWYDkVAx6Vf6o1h3Bto+i4Na0IO
-	ScnAr0=
-X-Received: by 2002:a05:6000:601:b0:476:5eec:309c with SMTP id ffacd0b85a97d-4775a7cb888mr13583163f8f.24.1783074753843;
-        Fri, 03 Jul 2026 03:32:33 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:9b13:921f:4f13:6cbb? ([2a01:e0a:106d:1080:9b13:921f:4f13:6cbb])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db8a4ad4sm18103306f8f.11.2026.07.03.03.32.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Jul 2026 03:32:33 -0700 (PDT)
-Message-ID: <5edfa760-b5b1-4f0e-8a14-2a39d2b99090@linaro.org>
-Date: Fri, 3 Jul 2026 12:32:32 +0200
+        d=1e100.net; s=20251104; t=1783074917; x=1783679717;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9aa5VRYjwfcBa4J0ha82pG4RI9w9o+IbdPuBnZ7LdEE=;
+        b=kcjrB2xxUCv2EUt5QaLOpqPvQVDDdodPYnmc6rJae/n8MxPfwX7DcSeCn3rzeX2yna
+         YhyM4AOViUGHmMwk1TcUFSDHCj0ahnaaLTPsG0auf798sxvHfTTHhlz80UdjKw+tvSiB
+         tUMEqugwjnQ1u7nw+iDiHqqB2RDNoKBhjcKfNhHJSBkPVUqEj/LwfrpBliQQAG5LQrKJ
+         SbOlJskT3MjoLTUnX+LmK6VoUPix3jov1ton6g3B04iu/VJj7bVjh45OJDffcDXknPfB
+         yeymVhNFx6El0imAAqgQXpx4JRuw0v5C0Zv+25rsNlm9o65JYo32mU3om+sRIZlarkVJ
+         yk/Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrN3M4fzSrTCfWvIWtQo9uQgeBcbCpGsKn3XEMuW56ZnlVs3j3QvFWgcTgN2Owv9OBngcDQ2Z5J5fog@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwGZmtHUuTuA5vFSakijQ5gpaj7VZOGchSGUbhychL2roHOAY4
+	h6LNpL8VcFr60u/Sncv4wNAUuIo5shEJsvRQNa0Np8u7vUdp/VbzdRYD08VruFSC718=
+X-Gm-Gg: AfdE7cnQACWIiy466v0xlTpK5I6mX06G+0hkibhv959i52WtTbbhV9ifmBszzazYvWj
+	qeILCpHzoWXYkuGsecv0ej2sCP+l+UumeHVhWQcQdmcnR0uMTuw5KAjI9Zwq+G2lxVF3JY4s5q3
+	ygXy/tOP6xlqGyrCYT8fIMJf9oy9WITRYwwf2e61SjSCPXKnAmMuLW/912OguIg+4D+4T7orPvF
+	fg/APv/WTgj5A/aMvy+XphncseIeEG8xho+PSUzATLnabAcNsxSVV3arj0x534RLrt0MQXFeH5k
+	2ZSTJq8nKrGvJA+wDa7nzqOfkzytVarnjicmXzn3Q0MZRgs4fbt4xv0cxj/ZPO2ihefHVmQLAbI
+	anLg8udKbO1IvR83awMAJvzFbbBVmKehc2blQyM+eoleE62mLEncwzHEy/8PMqlQHmyDkB3HugD
+	zBL6Ykf75L+fMHlo64dvCGDnl0iJIfeJXolkMpwZcfsXpg
+X-Received: by 2002:a5d:5d82:0:b0:473:fe94:9bf1 with SMTP id ffacd0b85a97d-47757f4c487mr15276685f8f.26.1783074917112;
+        Fri, 03 Jul 2026 03:35:17 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db8a450bsm18149405f8f.10.2026.07.03.03.35.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jul 2026 03:35:16 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Xianwei Zhao <xianwei.zhao@amlogic.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260629-a9-node-v2-1-dadd3401fccb@amlogic.com>
+References: <20260629-a9-node-v2-1-dadd3401fccb@amlogic.com>
+Subject: Re: [PATCH v2] arm64: dts: amlogic: add some device nodes for A9
+Message-Id: <178307491598.3384545.582524500298213361.b4-ty@b4>
+Date: Fri, 03 Jul 2026 12:35:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 0/2] Lenovo ThinkPad T14s EC thermal monitoring and
- thermal zone integration
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, sre@kernel.org,
- hansg@kernel.org, ilpo.jarvinen@linux.intel.com, linux@roeck-us.net,
- andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: bryan.odonoghue@linaro.org, platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260701103714.22583-1-daniel.lezcano@oss.qualcomm.com>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260701103714.22583-1-daniel.lezcano@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
 
-On 7/1/26 12:37, Daniel Lezcano wrote:
-> Hi,
-> 
-> This series extends the Lenovo ThinkPad T14s embedded controller driver
-> with environmental monitoring capabilities and integrates the exposed
-> sensors into the Linux thermal framework.
-> 
-> The EC provides access to several platform temperature sensors
-> covering the SoC, keyboard area, bottom cover, charging circuitry, QTM
-> module and SSD. These sensors are currently used by the firmware for
-> thermal management but are not exposed to Linux.
-> 
-> The first patch adds hwmon support for the EC temperature sensors.
-> 
-> The second patch exposes the EC as a thermal sensor provider in the
-> device tree and defines thermal zones for the keyboard skin
-> temperature and the charging circuitry temperature. This allows the
-> generic thermal framework to react to EC-reported temperatures and
-> apply standard Linux thermal mitigation policies.
-> 
-> As the EC protocol is not fully decoded, the passive trip points
-> get/set actions are missing, so it is not possible to program a
-> threshold and receive an interrupt when crossed the way up or
-> down. Consequently, the thermal zone related to the charging circuitry
-> is polled every two seconds until we can set the trip points in the
-> EC.
-> 
-> This series fixes critical thermal issues happening on this platform
-> where a kernel compilation, or heavy workloads, lead to a system
-> reboot.
-> 
-> Tested on a Lenovo ThinkPad T14s Gen 6 (Snapdragon X Elite).
-> 
-> Thanks,
-> 
-> Daniel
-> 
-> ---
->   Changelog:
-> 	v3:
-> 	 - Removed event based because trip point are not yet well supported
-> 	 - Added an empty line after variable declaration (Ilpo Järvinen)
-> 	 - Used MILLIDEGREE_PER_DEGREE from units.h (Ilpo Järvinen)
-> 	 - Made switch consistent (Ilpo Järvinen)
-> 	v2:
-> 	 - Fixed patch 1 subject prefix
-> 	 - Removed the fan information part
-> 	 - Added HWMON_T_ALARM
-> 	 - Fixed DT change description to reflect what it does really
-> 
-> Daniel Lezcano (2):
->    platform: arm64: lenovo-thinkpad-t14s-ec: Add hwmon support for
->      temperatures
->    arm64: dts: qcom: x1e78100-t14s: Add thermal zones for keyboard skin
->      and charging sensors
-> 
->   .../qcom/x1e78100-lenovo-thinkpad-t14s.dtsi   |  68 ++++++++-
->   drivers/platform/arm64/lenovo-thinkpad-t14s.c | 130 ++++++++++++++++++
->   2 files changed, 197 insertions(+), 1 deletion(-)
-> 
+Hi,
 
-Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on T14s OLED
+On Mon, 29 Jun 2026 07:52:53 +0000, Xianwei Zhao wrote:
+> Add pinctrl and irqchip-gpio device nodes for A9 SoC.
+
+Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.3/arm64-dt)
+
+[1/1] arm64: dts: amlogic: add some device nodes for A9
+      https://git.kernel.org/amlogic/c/3ecd66ea250b81dcc847253efa6e4d691e6523c8
+
+These changes has been applied on the intermediate git tree [1].
+
+The v7.3/arm64-dt branch will then be sent via a formal Pull Request to the Linux SoC maintainers
+for inclusion in their intermediate git branches in order to be sent to Linus during
+the next merge window, or sooner if it's a set of fixes.
+
+In the cases of fixes, those will be merged in the current release candidate
+kernel and as soon they appear on the Linux master branch they will be
+backported to the previous Stable and Long-Stable kernels [2].
+
+The intermediate git branches are merged daily in the linux-next tree [3],
+people are encouraged testing these pre-release kernels and report issues on the
+relevant mailing-lists.
+
+If problems are discovered on those changes, please submit a signed-off-by revert
+patch followed by a corrective changeset.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+
+-- 
+Neil
+
