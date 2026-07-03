@@ -1,90 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5A038888E;
-	Fri,  3 Jul 2026 09:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5149B38AC75;
+	Fri,  3 Jul 2026 09:01:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783069252; cv=none; b=OYUBiKB+XC51PnbHKw05TQ/x1Rbto9Xq4j7fyGqgGpvURM0HnPB9ArFVxliFA32qBCsCAD9J1pWDfqUhPETE8URrIwdtLjYSuPnvXLvVi7JLk+g6fxOvOBVJLN+XXWVcxHBYGpOYJtVple52K9lveRMZKvfVndU86TrbNV26LGQ=
+	t=1783069274; cv=none; b=KDzLCUAdeSrO/kV2HSVaaESXyu63bNR8CDk1P4JCBkW/OqM96BFS6G0REyvobKwbVSKM/BL+syiRTLPagQUF7suiLlpvlRotb6jCm4roaDtjvEXqaeJ+3G1/iFKbieNQYnbWdXAli1r/Qcs1iX/l+HHGhq5WavMYv8tay0+fsjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783069252; c=relaxed/simple;
-	bh=tdOlXp1vDONftqxfu295xMIvJ+7AhFdAxUSnxAEthPE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oOkgNYUP8quGJ5bJP6mBHhtbiVL+fikZI8WXGk4vOFALtqPyS+y6/GC5WYaBT5N1u5kVLV3Mh2oKioAb/iWSUlG6YeuQT2ZM6Pt+KRm+phgrfWiYgMeJ7S5lQZ7Sd7JVNKC9kk5DgZVrsh+gj/Bk2nfHwta7kHD8XmB4hSDVbKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCto8EmN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783069274; c=relaxed/simple;
+	bh=r7Nbx3Y7x0QogCqOEUzreQ3mfyeZE7uweJBeHx5FDuY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BDPnINMf+9tv1zF93DuOqsWyJy83Vmiv0IjQL2Ag83YnCU1zhrkF0gmj92v7Sx1mfdNL8IavNSlMn1rQx+jVsKr0ZD7285vwVwp9zRB7/eY/T39FuoPYuUmT3PZtLL4/49nR7usxhg+kwKlxY3SdVh6xzS00l/R0zZWUUFQJPuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fS95DitT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCto8EmN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1E0A1F00A3A;
-	Fri,  3 Jul 2026 09:00:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783069251;
-	bh=tdOlXp1vDONftqxfu295xMIvJ+7AhFdAxUSnxAEthPE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YCto8EmNz41upJ5qOzhHUGrD5Iu3qnytr8KsbKECkZjCVsWvyvtkfIGyipo1jdhw7
-	 ebgP7rtAQT4nlaWJlYEKX2aKf4J1EQ6GS1mJ2GfcvQGgTZ8X883WSa28+r0ioIfli+
-	 6rkjZ6LQNw4AGA+glmNNCSSAJRcbZsWWXlWIdaWsul1Y3aQoh9P8HBX7YSyqT7FioS
-	 gXU54TfxuCxe53uTCVUczQeR+a9Dypb5mFg7kGEIeQJLMAi1k6kiwmVXpHPM6nxwNu
-	 xMjXHKgDPb05UP+AguXLFRywsWOIoLhygb9pYpN0EFpaeAJWqeOVCionz2r3hN7YgT
-	 xGjk0hL/ZeGxA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 10/15] arm64: dts: imx8mn-var-som-symphony: Add TPM2
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <fb9bfa8584a608e9ba8179b2749593bc23c040ea.1783067947.git.stefano.r@variscite.com>
-References: <cover.1783067947.git.stefano.r@variscite.com>
- <fb9bfa8584a608e9ba8179b2749593bc23c040ea.1783067947.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 09:00:50 +0000
-Message-Id: <20260703090050.F1E0A1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fS95DitT"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6635rdMJ3087983;
+	Fri, 3 Jul 2026 09:01:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bmUZLa21nL3TGIck9RU9XTxalcGaUnCDCdTupty31C8=; b=fS95DitT6reTUhyZ
+	X2gZiXSKjqnTrqy/wSSuBLR6W5FOU6R+ubutN9HznaOtbJMsaWk8xGsdzJYFuIMq
+	9ZcIJ6YQzR046rFATifAIHQk2y+qUQNFYVOCTpkOEJeH87bm0WO8RtLIqPgYzbKW
+	0HqquTQ7AAuCIk3Yxi/f7RIm6l8QGKreEbQ3OUPaB9ro46gW1Qmo5Fxr/WGrw/MB
+	LtOkciNTNyiJD/icVQmy5Qlnn0B0gqTHPCLxcurmeCIDMxh22chKZxaluPH7KOme
+	1Wcf0DvzrO7E+ssQ1nxU5VQYcsGkYGRJ1KS9NqUarqziDYhx/IjSK94ueU2E7wXQ
+	n8rZQg==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5s2546tt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 03 Jul 2026 09:01:07 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 6638xiX2030850;
+	Fri, 3 Jul 2026 09:01:04 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4f27kkw6e9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 03 Jul 2026 09:01:04 +0000 (GMT)
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66390DQ3031538;
+	Fri, 3 Jul 2026 09:00:13 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 66390D1s031469
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 03 Jul 2026 09:00:13 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id 16B9EB3B; Fri,  3 Jul 2026 14:30:12 +0530 (+0530)
+Date: Fri, 3 Jul 2026 14:30:12 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: Fix pm4125 vbus regulator
+ compatible and constraints
+Message-ID: <20260703090012.wqpepzr24iaehpmr@hu-kotarake-hyd.qualcomm.com>
+References: <20260701-add_pm4125-vbus-reg-v2-0-6bac2bac7131@oss.qualcomm.com>
+ <F11CmcSG0NfJxCD_094ercweXNrSY-fxOnTpyBxukPPcM3UdumRt4yZahLT-uKJabq_1WaDBldjbgUvBxpeAQA==@protonmail.internalid>
+ <20260701-add_pm4125-vbus-reg-v2-3-6bac2bac7131@oss.qualcomm.com>
+ <3a0e3c81-b559-4961-8e58-cad8dc171578@kernel.org>
+ <HNlPJm_ENIaW7IC8zj9-9_SMwvX1l-pyFmJnf3dt53XeHI82XgSFYyD4obb2AEIe_2c-ev0MRppu3gYKgAU_LA==@protonmail.internalid>
+ <20260702080228.tegosnl6uwt5hy7c@hu-kotarake-hyd.qualcomm.com>
+ <4de2970b-884d-47e2-ba52-514f973f14b9@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4de2970b-884d-47e2-ba52-514f973f14b9@kernel.org>
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=U7uiy+ru c=1 sm=1 tr=0 ts=6a477a53 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=pxVi1GPwOGoSIhTSctoA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: Tg9LyLOOpqF7lfZbw_Lc1qJ1a8FbxyRK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA4NSBTYWx0ZWRfXxE5kdvBH5Bcq
+ CwN9y4443Wib9YijHq4DqciLFt09taGjAz7nQ2/RYZc/q3i/81LFfoA/EQbWwGcWj/xohHureAr
+ UtGrRE8TMEXwmT9E99Fba1Su4s7XSXInZX2yqXR/D7rP+Eg0ku0zKM0bDCIZGwgA14mcSpIbonL
+ 5S168eOnLmfVUYjQooIw+uN8n+mWBr7A7PPVf6TRXgflKq6kmFhYUINKKK58REGuppXmCfnc6Go
+ BkNCj7UP+eEP5qLB+exVQpplBBeBCDahM6AbEA1jWur3vbRPdTgQNCh/QLh/FpEEKIl9zKs5B7F
+ HEgNlnlJZKgjhOXcekCIaasQTI2fgWey3O8JjflXEvOUm4t7YsCRbotE7Rwvjweudr/ECCH5Bsg
+ yi4oQfQmfWK92YpnoXPV8QcJeqK/Q5cYo0CAOwRUCJDGhiO7ZNrVhkr5w+KYdOy8tVXRhs5Sjro
+ XvjCHNkCenGkTxr//vg==
+X-Proofpoint-GUID: Tg9LyLOOpqF7lfZbw_Lc1qJ1a8FbxyRK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA4NSBTYWx0ZWRfX9ouZJnkDX4kT
+ PjsMdxd4JPxZCV6cnGAWXUt4fl5RGWHXKTmCg9lqj2eh9NEGGUYc5o+k95YfL6dECikjgV1k8/v
+ BygVf/6gxlTUCyE4UUMZmG7P1jWuYWk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
+ spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030085
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incomplete hardware initialization for the TPM device due to mis=
-sing `reset-gpios` driver handling.
---
+On Thu, Jul 02, 2026 at 05:10:08PM +0100, Bryan O'Donoghue wrote:
+> On 02/07/2026 09:02, Rakesh Kota wrote:
+> > > Break this patch up at the and
+> > > 
+> > > - Remove compatible
+> > > - Fix the voltages
+> > > 
+> > > Separate things should be separate patches.
+> > > 
+> > Thanks for the review.
+> > 
+> > We kept these together to avoid intermediate breakage since the .yaml
+> > compatible removal and voltage fix are coupled. Happy to split if you
+> > have a suggestion on how to do so cleanly.
+> > 
+> > regards
+> > Rakesh Kota
+> 
+> You can add the register abstraction logic, then add the new compatible no ?
+>
 
-Note: The format of this review is altered and does not include direct quot=
-es=20
-of the patch code due to recitation restrictions. I am providing a free-for=
-m=20
-summary of the review findings instead.
+Are you talking about the driver change ? if yes, for the driver change
+I can split it into:
+  - Patch 1: Add register abstraction logic + PM8150B support
+  - Patch 2: Add PM4125 compatible
 
-commit 752fc746ff7ba94f6473f1446bfe64ae3aa4003c
-Author: Stefano Radaelli <stefano.r@variscite.com>
-Subject: arm64: dts: imx8mn-var-som-symphony: Add TPM2 support
+However, splitting the DT change is not straightforward — the PM4125
+compatible and its voltage constraints live in the same .yaml
+file. If we split them, dtbs_check will fail on intermediate states
+since the compatible would reference voltage properties that aren't yet
+defined (or vice versa).
 
-This commit adds support for the ST33K TPM2 device on the VAR-SOM Symphony=
-=20
-carrier board. It introduces device tree nodes for the ST33K TPM2 connected=
-=20
-over I2C and a PCA6408 GPIO expander intended to control the TPM reset sign=
-al.
-
-[Severity: Medium]
-In the newly added st33ktpm2xi2c node, there is a reset-gpios property
-referencing pin 4 of the pca6408 GPIO expander. Will this actually bring
-the TPM out of reset during boot?
-
-Looking at the tpm_tis_i2c driver, it does not appear to contain code to
-request and drive the reset-gpios property.
-
-Furthermore, the pca6408 node does not declare a gpio-hog to statically
-configure the pin state. This implies the GPIO expander pin will default to=
- a
-high-impedance input when the kernel boots.
-
-Unless the board has a hardware pull-up resistor or the bootloader
-specifically configures this pin as an active output before handing off to
-Linux, won't the TPM remain held in reset and fail to probe?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783067947.gi=
-t.stefano.r@variscite.com?part=3D10
+regards
+Rakesh Kota
