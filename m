@@ -1,149 +1,156 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB8A38E12B;
-	Fri,  3 Jul 2026 09:01:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB834393DE2;
+	Fri,  3 Jul 2026 09:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783069282; cv=none; b=YBywZZJdFWl5+PC8z7VwWuh6/XvwFUpQ+YvnPAQDtaT8CV2M4lyXEqJryWUeHhZHEjHt42L4Ql6BqowicweJE854pGbV0APXofRZusKKjsPVcIJ2vkXrbcb3VeHaf9p2fQo99mVHHEMMGs+VyMJ4aV5xM9yEdiCgL83sObmxbPc=
+	t=1783069329; cv=none; b=bYDEW0XXsdOiKqfJliU/WhCp+ErTpCLrjBfNqj+ywJ+WDKn1M70bT+yHFvnQVF6NiET+vVp5dEMd5uRv2vu5RyZEEZE2pdKD/B7fF/WIfVayOeMA0t9A/d6dYec71zaoGI6ZJRYkuoCxXEuU6ePbvTXyPLwpJsPeTjNvGsU9G7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783069282; c=relaxed/simple;
-	bh=RrrmauAQf4cZMagioBXyLu9xRexizpcZ1MKEVQk0U0E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rNkgyr/Va/bOLyFv23zyu1D+vEqe2VN4gUk7DxeYRUe7VuydJSwWMJVNrogX6LhJ2CLqG729FyJtRdU7WW6YB51ltxsgU+VIXpXuJwejc7sSBjzqg3ZCQobysFOfjP1Q70sTuXna9ga4e5gL/zCU/pmnT4g4v0E8wL/v2VdsLKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=rXf6EsKh; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1783069329; c=relaxed/simple;
+	bh=eJrBuGFZgZF4RMf6yqEsQ9Rx/ltrIOc1uLak+lOCyv0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JcjsaKsqRn5rnUpzko9QFWYdRNPTceN2v4ZE5cqWWtN35ft1kzw9JwWa6/denO5RJtUSV0/euWXmg1s0KOIzT+6nPmTVdrvZOHeQ9+6Zoy+R0qH4nHGtA+rpn/JDoFc7wPBTWOQ+5NmUCajA7DqlqY8yOeILPFdIVgQKAReq5pA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KbEiP3JP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="rXf6EsKh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1783069258;
-	bh=ACCEUgrf7Rylr7BySb8msq185wHVdSwdN7rECIYWapc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=rXf6EsKhnRNRwEDTiMGCIzJnkKHBwIIBK0VEtl79Q5Nv5C95Z5duGqffJL+IZ2auV
-	 WtMo4/dQqmBciVLb95kbyRVjAUNTtRi9KhqmmIP6hgeCGDtXJwH693XNF2USmyI9kk
-	 F55b5VGoCAuBfnOOFDNAQK++7VTUfvQFJ5GadYCI=
-X-QQ-mid: esmtpsz19t1783069256t01806f06
-X-QQ-Originating-IP: n1xI3+mPy6w337/zDxtCYOgr7wkg4ok/SuMAWtj5fe4=
-Received: from [127.0.0.1] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 03 Jul 2026 17:00:52 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12710147850900718341
-Message-ID: <4A32964890BBF288+37eaa5a2-eaff-49c4-8501-2b02736f3584@linux.spacemit.com>
-Date: Fri, 3 Jul 2026 17:00:51 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KbEiP3JP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329CF1F00A3A;
+	Fri,  3 Jul 2026 09:01:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783069319;
+	bh=YlOVBhdreTsAciXP5T3TjsYCUGA/iw3YUOyeUBoEIdQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KbEiP3JPlz5rhL5bdGNkD2uU/KkJVRHjl1b64jaoAjTKWcnadOmoLdqPXZMHB5u8g
+	 ztbV5x07P5AVRPM8g1/evjUNzwJ7DlnGlqDtAvcEfTgIF371MNfGUV0Rnv8sIlor/t
+	 bZJoEqqvNh2ej2FjQTKEW5/QfdSd6ESE5oP7Nm1iFduWWnrs1yfP5LgZM0BhYs4xRE
+	 UDKrvMzUC3ZUzJD/yl44/OV0LWw8mphtI9RqzXIEoHMmgwgCgHQOy0GqNmMdHIRmsf
+	 T0UFgLvoheKXxd6i9ZKtWNt2gi7g+KAEOVsrEb7WvIilPa7WJv4pDQRBCWppB04ZYm
+	 i3kpD+nxJbcsw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 04/15] arm64: dts: freescale: imx8mn-var-som: Update
+ FEC support with MaxLinear PHY
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <bd2a524c39372518dcdf128220f3bb210afa290b.1783067947.git.stefano.r@variscite.com>
+References: <cover.1783067947.git.stefano.r@variscite.com>
+ <bd2a524c39372518dcdf128220f3bb210afa290b.1783067947.git.stefano.r@variscite.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 03 Jul 2026 09:01:58 +0000
+Message-Id: <20260703090159.329CF1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/12] rvtrace: Initial implementation of driver
- framework
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: anup.patel@oss.qualcomm.com, adrian.hunter@intel.com, alex@ghiti.fr,
- alexander.shishkin@linux.intel.com, andrew.jones@oss.qualcomm.com,
- anup@brainfault.org, atish.patra@linux.dev, conor+dt@kernel.org,
- devicetree@vger.kernel.org, irogers@google.com, jolsa@kernel.org,
- krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, mark.rutland@arm.com,
- mayuresh.chitale@oss.qualcomm.com, mchitale@gmail.com, mingo@redhat.com,
- namhyung@kernel.org, palmer@dabbelt.com, peterz@infradead.org,
- pjw@kernel.org, robh@kernel.org, sunilvl@oss.qualcomm.com
-References: <20260429125135.1983498-3-anup.patel@oss.qualcomm.com>
- <BDD9553502347B02+ee3069d3-eb04-4a37-b364-107cf8d0653c@linux.spacemit.com>
- <2026070316-surgery-unneeded-bceb@gregkh>
- <138BCDE3F4A1D624+2488a822-cf77-4155-8492-b8a1c47d5589@linux.spacemit.com>
- <2026070300-submitter-humbly-833a@gregkh>
-From: Zane Leung <liangzhen@linux.spacemit.com>
-In-Reply-To: <2026070300-submitter-humbly-833a@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: Mjc5Shoq7MT/4EGhXsKs4qSg404ndkgjzrqJlGv9tFS3je0PoKRUwqF6
-	WhBJEk0aH+T/bKcPJ5jzK2PDUS2Xf9ZXUq65Qd2cZaJ23yFO1An1rLKOPEMct0dzwZjhAbf
-	uYdfnZbr9bW2iKvKv1Pk4uO5vHjVDFgS+xaBZFP4+rVyAKhIY8u4zbaTld254ed7dTEHP8V
-	KTEyX9izSLXfo5eRdXmoZE5WdbvY92P09NpDT5f7WrRLalbeoZpuK3noLX7ogXJzOBWAtXj
-	WzhfoaM4vb4YxkoLto2WpRY1HsP4cIpONfK7r6PYMpFVeBosqnVZBlY0p+F61HIx7ZrWtJj
-	vEgVrfGO5pNg/94E5iGvkfOf+PnY/XOYsZj0xIy5VUXQQAn33LoukgFONR8XOSxaRNoYjxK
-	7OAHMDyg7gJq7SIyEDVq9FTPc5wMJDaB2zLf9SRB2lHF6LDW8JgAQRgzOPWHDSnby3zY0rK
-	ZPFOCUO5yugBk/jmooST9q/W29LQdIiX28wTjZ7CJdPfLVIi9ZHMWcK9OmEJUZaiDqGlals
-	9nrNfIuNrGuFTQtbD2iuP4JTB6IUlCftVqtZKtfZC8LyG4V9+eV932HwWa1LIiq57XHRgXm
-	/jNZq6rE1UwVU/odEmp9vf6pMr3TZs171FNkwlUHWaybK5W/AdEwhYAFc2rhqYH1GpZ9NU9
-	uU0DQUjAYDMdUrwahG+Nvrr6QGJ+RKhIBltJjR3Ee8R4Tl4oizt4um2kibja2ymoWUTBuTj
-	zlEcLicTmQcLuk9Ktv78ESVXM29OqiXr72tHcGbIntZa2p6G18lmsp1jLlJJkQWGoFBf9v0
-	CqPKIPwzuGz0iw+Qe/gUrslJfWwyNUppfnhRTgR9lcOGml03GHsK5a5I3bVLIUZgbWqdTH4
-	bzfXYx8aw1xJxCp+kVDJkDnu6gMYswRd5P4zUfh0iOy0BOCz5N7Vzt2AsG8fN2dYlndlGWQ
-	gW3xdGr1JHhRwfZd5wvll6vz69hfDFROn6dYyIHpUoYBmOKAIANI1bSPjsp6Ou4KwGRrkRl
-	262ydHOO0pu/xGhGvXo7CB+QCMyTI9TwOekFE/gABx/cgrD2LPZwGp00q7qW73dKYcviqpL
-	L2jnoR2jKkiuYTF473mw06SkbreR6H5sW+7bGHyRHVTVz5v4FVThx5QuWIa53pJJTHwkGXY
-	FrN1neJ5U0Y5eYtYh/yUUwTtWlbtbrH2YOmoksKxh0ol3xE=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Modifying the shared SOM `.dtsi` and carrier `.dts` in-place to su=
+pport the latest hardware revision breaks backwards compatibility with olde=
+r deployed SOMs and carrier boards.
+- [Medium] The commit message claims to add a pinctrl sleep state for low-p=
+ower operation, but the patch modifies the default active pinctrl state ins=
+tead, and the sleep state already existed.
+--
 
-On 7/3/2026 3:41 PM, Greg KH wrote:
-> On Fri, Jul 03, 2026 at 03:32:50PM +0800, Zane Leung wrote:
->> On 7/3/2026 1:41 PM, Greg KH wrote:
->>> On Thu, Jul 02, 2026 at 04:19:53PM +0800, Zane Leung wrote:
->>>> Hi, 
->>>>
->>>> Based on the current framework, I am concerned about how to support RISC-V ATB and reuse the Coresight component (ETB/tmc/TPIU) in the future.
->>> That is very vague.  Please provide specific examples.
->> According to the /trace control interface/ [1] spec: "The ATB Bridge allows sending RISC-V trace to Arm CoreSight 
->>
->> infrastructure (instead of RISC-V compliant sink defined in this document) as an ATB initiator. ATB Bridge is not 
->>
->> needed for RISC-V only systems."
->>
->> For ATB Bridge, read trace using Coresight components (ETB/TMC/TPIU),  so we need also ARM coresight driver in
->> RISC-V trace systems. Current framework seems to only be applicable to RISC-V only systems, and does not support
->> ATB and  ARM coresight use case like the K3 (K3 SoC contains RISC-V Encoder, Funnel, ATB, CoreSight Funnel, and 
->>
->> CoreSight TMC components). For more discussion, please refer to [2].
->>
->>
->> [1]: https://docs.riscv.org/reference/trace-control-interface/v1.0/tci_system_overview.html#atb-bridge
->> [2]: https://lore.kernel.org/all/20260414034153.3272485-1-liangzhen@linux.spacemit.com/
-> So, what specifically does this mean?  Please provide review comments
-> for the code itself.
+commit 5e21026bff4a0a2d4def4c7f976bcf398976eb95
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-The issue I pointed out is not about specific lines of code, but about the entire Riscv trace driver registration and building a path from source ->
-sink did not take into account the application of arm_comesight. the current patch set assumes a rigid, homogeneous RISC-V-only topology.
+arm64: dts: freescale: imx8mn-var-som: Update FEC support with MaxLinear PHY
 
-Specifically, if we have ARM coresight components, how can we reuse them like, funnel (drivers/hwtracing/coresight/coresight-funnel.c) , 
+Update the FEC Ethernet controller on the i.MX8MN VAR-SOM to match the
+latest SOM hardware revision using the integrated MaxLinear MXL86110 PHY.
 
-TMC (drivers/hwtracing/coresight/coresight-funnel.c) , TPIU (drivers/hwtracing/coresight/coresight-tpiu.c) and so on based on the current
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dts b/=
+arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dts
+> index 7308613a48b2b..520aff23e5872 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dts
+[ ... ]
+> @@ -74,7 +75,24 @@ reg_per_3v3: regulator-peripheral-3v3 {
+>  };
+> =20
+>  &ethphy {
+> -	reset-gpios =3D <&pca9534 5 GPIO_ACTIVE_HIGH>;
+> +	leds {
+> +		#address-cells =3D <1>;
 
-framework.
+[Severity: High]
+Does removing the carrier board reset GPIO override break backwards
+compatibility with older deployed SOMs and carrier boards?
 
+Booting a new kernel on older hardware (using AR8033 or ADIN1300 PHYs) will
+use the new MaxLinear PHY configuration and drop the carrier board's pca9534
+reset GPIO line.
 
->
-> We write code for stuff we have now, today.  If future needs change, we
-> change the code to handle that then.
+While later patches in this series add a legacy DTB to restore legacy Wi-Fi
+configuration, it includes imx8mn-var-som-symphony.dts without overriding
+the Ethernet configuration. Legacy boards might still receive the broken
+Ethernet bindings and lose networking.
 
-I believe that if the basic framework for RISC-V does not consider compatibility with ARM Coresight, once the framework is fixed, there will be greater resistance to future modifications. 
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi b/arch/arm=
+64/boot/dts/freescale/imx8mn-var-som.dtsi
+> index 71a2f0866822f..09146ab763858 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi
+[ ... ]
+> @@ -96,24 +103,19 @@ &fec1 {
+>  	phy-mode =3D "rgmii";
+>  	phy-handle =3D <&ethphy>;
+>  	phy-supply =3D <&reg_eth_phy>;
+> -	fsl,magic-packet;
+>  	status =3D "okay";
+> =20
+>  	mdio {
+>  		#address-cells =3D <1>;
+>  		#size-cells =3D <0>;
+> =20
+> -		ethphy: ethernet-phy@4 { /* AR8033 or ADIN1300 */
+> +		ethphy: ethernet-phy@4 {
+>  			compatible =3D "ethernet-phy-ieee802.3-c22";
+>  			reg =3D <4>;
+>  			reset-gpios =3D <&gpio1 9 GPIO_ACTIVE_LOW>;
+>  			reset-assert-us =3D <10000>;
+> -			/*
+> -			 * Deassert delay:
+> -			 * ADIN1300 requires 5ms.
+> -			 * AR8033   requires 1ms.
+> -			 */
+> -			reset-deassert-us =3D <20000>;
+> +			reset-deassert-us =3D <100000>;
+> +			vddio-supply =3D <&reg_phy_vddio>;
+>  		};
+>  	};
+>  };
 
-> The only problem is with user/kernel apis, those need to be nailed down
-> so that they don't change.  I can't tell here if you are only referring
-> to the in-kernel stuff, or user/kernel apis, sorry.
->
-> thanks,
->
-> greg k-h
+[Severity: High]
+Similarly, overwriting the shared SOM description in-place for the new
+hardware revision effectively drops Ethernet support for older models.
 
+Will older revisions of the SOM that use the AR8033 or ADIN1300 PHYs fail
+to probe the Ethernet PHY after this change?
 
-I believe that RISC-V tracing is coresight-alike, where have encoders/funnel/sink/bridge+coresight_comp. 
-I think we should abstract some of CoreSight's core logic so that it can Both coresight and rvtrace can be reused.
-General logic for building paths from source -> Sink and perf_pmu should be universal in coresight/rvtrace and 
+[ ... ]
+> @@ -342,7 +344,7 @@ MX8MN_IOMUXC_ENET_TXC_ENET1_RGMII_TXC		0x1f
+>  			MX8MN_IOMUXC_ENET_RXC_ENET1_RGMII_RXC		0x91
+>  			MX8MN_IOMUXC_ENET_RX_CTL_ENET1_RGMII_RX_CTL	0x91
+>  			MX8MN_IOMUXC_ENET_TX_CTL_ENET1_RGMII_TX_CTL	0x1f
+> -			MX8MN_IOMUXC_GPIO1_IO09_GPIO1_IO9		0x159
+> +			MX8MN_IOMUXC_GPIO1_IO09_GPIO1_IO9		0x19
+>  		>;
+>  	};
 
-future architectures. 
+[Severity: Medium]
+The commit message states this patch will "add a pinctrl sleep state for
+low-power operation." Is this description accurate?
 
+The patch modifies the default active pinctrl state, rather than adding or
+updating a sleep state, which already existed. Could the commit message be
+clarified to reflect that the pull-up configuration on the reset pin in the
+default state is being altered?
 
-thanks,
-
-Zane
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783067947.gi=
+t.stefano.r@variscite.com?part=3D4
