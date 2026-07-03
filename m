@@ -1,71 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF6230B521;
-	Fri,  3 Jul 2026 18:13:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D3830F92E;
+	Fri,  3 Jul 2026 18:13:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783102398; cv=none; b=vFJdHKIRsNuhdxUsZopcW2KWcGRJYkFArtTGPjrARoxgckTzHvQvyp/UTYUUMXy7zS6k87lX5oZFSL13rYLMAPenQE8q9piUJTqDgkVvxehsJDeX/5L/ka4cbScf1MlaBbhzO+T0KNbdZ7WQz0yeDG5QVR8ClD0I4m0yUGdXHxc=
+	t=1783102416; cv=none; b=Eyn0aOLhD53NTzGVlF6L2vTpbGRpO3ex0vA59RD+nyDxVg9GYNGIW8ZkrjXWzSV5qjEWeAGVxT/hspKbm0tqFQqDseDDcSPJaaEmFEXQ8AL7owc6rXv3w/gQHmRWV8VQpYtNOL7CqDEXzV9QFmb8G7uswzdJMh3fVTbNYlO3lfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783102398; c=relaxed/simple;
-	bh=Jgin/Up43+rF9n7r0HbdVGmg9CyUuwJdU+EeB14yaNw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kqSSWKyoURDdXi+oIXoTVg5C6vDlmPOmszq07vmePYmY2yez/yluOsG1lMiz1oo4pNGAM5RcfEagXzJj1pLbemdtmgx5TqMbwlypAvJzdhO4qkUYfgXysVxngp5P8q3d+/PgudVkc+OmOxGiPQ7gU686g/WqQGTjPZD67/nf/FQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nil4zVL+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783102416; c=relaxed/simple;
+	bh=ou2OeHe9NiTPGYgMcRzTUBwKmURTgL5/azZ1wBtlGvM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WexmY6yybRA0WHpXiDb97FXsI4j7sU79+XvpzHUbnFgrCVggh9dYB72r3aHKp0vSyAr271viyKPsPlQMPT70378Jg5mun2xVp5aUeWeUsFGXvu4FaEdm8gejihSBN5dpMo73BAmNUSs/Sx5jHSIo6ji3db4r0l8g6gpTG8U0NX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=MH07THUh; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nil4zVL+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B372B1F000E9;
-	Fri,  3 Jul 2026 18:13:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783102397;
-	bh=IVx85WXWWwgHI9VTL+/1tSl/8fEO7XaO0adc8WNrdqA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nil4zVL+29wlQCVZtxOXW7KMhvTHsLPWXDqfC9i3qJACoP+rNURuo98lzLlTkrYJT
-	 UP73oNqNUYGqJHbEIC8uVY9jopV8F/PKrtInT1bNP8jk2noY2evVf20a22KUiWnBWI
-	 OPWcTcZipQfnKmDVTGMec1d7FSgEXOJoGHHkPbUwhC9bHUiDhf/QEYQz1gwys13fls
-	 zxJHYVpPyTK+6F1ZIlBGA44Hp5LKQf7h9iUfbFocMSUIcbJDQJeOdw2qnpszm24LyB
-	 wJGMfghlQKbvNcAqmdGRX8JBR8xJi9nhcp4NcNATxzmJSb2ulIOMIetBH9qNo4sl3o
-	 2hAwEGDJ8QgFQ==
-Date: Fri, 3 Jul 2026 19:13:10 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
- Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
- Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
- R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v6 15/16] iio: ABI: add docs for ad9910 sysfs entries
-Message-ID: <20260703191310.0731e237@jic23-huawei>
-In-Reply-To: <20260618-ad9910-iio-driver-v6-15-79125ffbe430@analog.com>
-References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
-	<20260618-ad9910-iio-driver-v6-15-79125ffbe430@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="MH07THUh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783102413;
+	bh=ou2OeHe9NiTPGYgMcRzTUBwKmURTgL5/azZ1wBtlGvM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=MH07THUhUs7SvDVQHOL3pFfgOkOEbcqChlo6RygIxx8ot0zOmK3q2VRYJHXPwAMNb
+	 XGHY/kMscTUwCN2KzwcbJrekgghosDEDBoZ1/i7wzgdlKt2beIAq3adIFzXTnD2tVt
+	 zOfXsQ1PcjJLpb9xigGHNiZciK+WCE7J5z91iqzMHFhlo8oeEN3L+W8GS1/rdCNV75
+	 yyTgfnHd/AAJ+6MVuHTHhOg4gbA8uuTxTLx3p+KqSq8iv/PyGbscTgXT07Zsj3aoKF
+	 /8SlgutXOn3Gt9nHk9yTUf95RE/pQaIJSgwCMwoykU4DobUxVnIJZbz5nimLkVD2rk
+	 SsGZXShJwobFw==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C579517E1006;
+	Fri,  3 Jul 2026 20:13:32 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 7D50648002F; Fri, 03 Jul 2026 20:13:32 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 03 Jul 2026 20:13:19 +0200
+Subject: [PATCH v10 03/36] phy: rockchip: usbdp: Do not lose USB3 PHY
+ status
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260703-rockchip-usbdp-cleanup-v10-3-a392711ca8a9@collabora.com>
+References: <20260703-rockchip-usbdp-cleanup-v10-0-a392711ca8a9@collabora.com>
+In-Reply-To: <20260703-rockchip-usbdp-cleanup-v10-0-a392711ca8a9@collabora.com>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Yubing Zhang <yubing.zhang@rock-chips.com>, 
+ Alexey Charkov <alchark@flipper.net>, linux-phy@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, kernel@collabora.com, 
+ devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1409;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=ou2OeHe9NiTPGYgMcRzTUBwKmURTgL5/azZ1wBtlGvM=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpH+8t/DdYlmTMIp6xxMySosmRXJYiswxuj2
+ Zj8ckaWM3uTsIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqR/vLAAoJENju1/PI
+ O/qaL+oP/jmlJP3yOdSPrKrMnR2aBkqYZa0FdQEU8gxCJLy7T8BQT11561d8QJejZymgSmtCBHV
+ hRJMbJUdTUN0L7Bg88uRK+vhgX6JXljF/qCElguVc9wgksg5lTpFL4ys/PFrIi7RNZTpuS4/SUA
+ PEZqcyI5W3g2yq/hPeJngTeqgZbb5pn7JtWFFyBTN1d5EaXwjT0V1uxlBA2Y00WjdA9pJ+57uM+
+ gdPZXZx4FUrqgiS1fCGeUpG/MyjzIeZyh3mUSmFmwbaIkuPXyfXKh0Ydl1nPvhHdvTsBe4S4m7h
+ XCdMXhac+juNcRQ9us7a/C+SHQIPpvcPnY8JjyniXXYRhOdCi7IDKsqRrwt9vJ/zG3c0R/l3pp5
+ b+sWCvHtTlU64jA11U2YHmiduGVx6xlvNYf+UTnGJKP/GW2KO9y0zH/EKuLDP7pc6OKSCyjuZct
+ Tn8q4Kdg2/G9GDHDf/YyxhpC2+BOrk3tx3J6UvEJC1bGKjmtaxicdC5X7U2Op3RgfgzeT+Na20Z
+ q9cjDPxLLAIAmFTQ9bNUd8h0AD4F0JPkJCwkdygl8Y8iulSuG0H4CdB+swJ/vuegYPeyDMcjP0m
+ nwuyE5WB/4PS5j1j6NPL/OXucM66npC0CkniuWHIdMGyNb9uWtBJCs1NJdxxbzLC9LVDRaeYh60
+ xmlx+D+fromNlF68pDVos8Q==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On Thu, 18 Jun 2026 14:27:31 +0100
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+By default (i.e. without manually enabling runtime PM) DWC3 requests the
+USB3 PHY once and keeps it enabled all the time. When DisplayPort is
+being requested later on, a mode change is needed. This re-initializes
+the PHY. During re-initialization the status variable has incorrectly
+been cleared, which means the tracking information for USB3 is lost.
 
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Add custom ABI documentation file for the DDS AD9910 with sysfs entries to
-> control some parameters from the Digital Ramp Generator and OSK engine.
-> 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-This looks fine to me, but I would like to also see ABI docs for the debugfs.
+This is not an immediate problem, since the DP side keeps the PHY
+enabled. But once DP is toggled off, the whole PHY will be disabled.
+This is a problem, because the USB side still needs it powered.
 
-Thanks,
+Fix things by not clearing the status flags.
 
-Jonathan
+Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+index a5ffdf7a6e76..12dfdd470a78 100644
+--- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
++++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+@@ -1008,7 +1008,6 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 			rk_udphy_u3_port_disable(udphy, false);
+ 		udphy->mode_change = false;
+ 	} else if (udphy->mode_change) {
+-		udphy->status = UDPHY_MODE_NONE;
+ 		if (udphy->mode == UDPHY_MODE_DP)
+ 			rk_udphy_u3_port_disable(udphy, true);
+ 
+
+-- 
+2.53.0
+
