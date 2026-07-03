@@ -1,146 +1,149 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5149B38AC75;
-	Fri,  3 Jul 2026 09:01:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB8A38E12B;
+	Fri,  3 Jul 2026 09:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783069274; cv=none; b=KDzLCUAdeSrO/kV2HSVaaESXyu63bNR8CDk1P4JCBkW/OqM96BFS6G0REyvobKwbVSKM/BL+syiRTLPagQUF7suiLlpvlRotb6jCm4roaDtjvEXqaeJ+3G1/iFKbieNQYnbWdXAli1r/Qcs1iX/l+HHGhq5WavMYv8tay0+fsjY=
+	t=1783069282; cv=none; b=YBywZZJdFWl5+PC8z7VwWuh6/XvwFUpQ+YvnPAQDtaT8CV2M4lyXEqJryWUeHhZHEjHt42L4Ql6BqowicweJE854pGbV0APXofRZusKKjsPVcIJ2vkXrbcb3VeHaf9p2fQo99mVHHEMMGs+VyMJ4aV5xM9yEdiCgL83sObmxbPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783069274; c=relaxed/simple;
-	bh=r7Nbx3Y7x0QogCqOEUzreQ3mfyeZE7uweJBeHx5FDuY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BDPnINMf+9tv1zF93DuOqsWyJy83Vmiv0IjQL2Ag83YnCU1zhrkF0gmj92v7Sx1mfdNL8IavNSlMn1rQx+jVsKr0ZD7285vwVwp9zRB7/eY/T39FuoPYuUmT3PZtLL4/49nR7usxhg+kwKlxY3SdVh6xzS00l/R0zZWUUFQJPuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fS95DitT; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1783069282; c=relaxed/simple;
+	bh=RrrmauAQf4cZMagioBXyLu9xRexizpcZ1MKEVQk0U0E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rNkgyr/Va/bOLyFv23zyu1D+vEqe2VN4gUk7DxeYRUe7VuydJSwWMJVNrogX6LhJ2CLqG729FyJtRdU7WW6YB51ltxsgU+VIXpXuJwejc7sSBjzqg3ZCQobysFOfjP1Q70sTuXna9ga4e5gL/zCU/pmnT4g4v0E8wL/v2VdsLKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=rXf6EsKh; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fS95DitT"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6635rdMJ3087983;
-	Fri, 3 Jul 2026 09:01:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bmUZLa21nL3TGIck9RU9XTxalcGaUnCDCdTupty31C8=; b=fS95DitT6reTUhyZ
-	X2gZiXSKjqnTrqy/wSSuBLR6W5FOU6R+ubutN9HznaOtbJMsaWk8xGsdzJYFuIMq
-	9ZcIJ6YQzR046rFATifAIHQk2y+qUQNFYVOCTpkOEJeH87bm0WO8RtLIqPgYzbKW
-	0HqquTQ7AAuCIk3Yxi/f7RIm6l8QGKreEbQ3OUPaB9ro46gW1Qmo5Fxr/WGrw/MB
-	LtOkciNTNyiJD/icVQmy5Qlnn0B0gqTHPCLxcurmeCIDMxh22chKZxaluPH7KOme
-	1Wcf0DvzrO7E+ssQ1nxU5VQYcsGkYGRJ1KS9NqUarqziDYhx/IjSK94ueU2E7wXQ
-	n8rZQg==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5s2546tt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 03 Jul 2026 09:01:07 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 6638xiX2030850;
-	Fri, 3 Jul 2026 09:01:04 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4f27kkw6e9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 03 Jul 2026 09:01:04 +0000 (GMT)
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66390DQ3031538;
-	Fri, 3 Jul 2026 09:00:13 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 66390D1s031469
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 03 Jul 2026 09:00:13 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id 16B9EB3B; Fri,  3 Jul 2026 14:30:12 +0530 (+0530)
-Date: Fri, 3 Jul 2026 14:30:12 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: Fix pm4125 vbus regulator
- compatible and constraints
-Message-ID: <20260703090012.wqpepzr24iaehpmr@hu-kotarake-hyd.qualcomm.com>
-References: <20260701-add_pm4125-vbus-reg-v2-0-6bac2bac7131@oss.qualcomm.com>
- <F11CmcSG0NfJxCD_094ercweXNrSY-fxOnTpyBxukPPcM3UdumRt4yZahLT-uKJabq_1WaDBldjbgUvBxpeAQA==@protonmail.internalid>
- <20260701-add_pm4125-vbus-reg-v2-3-6bac2bac7131@oss.qualcomm.com>
- <3a0e3c81-b559-4961-8e58-cad8dc171578@kernel.org>
- <HNlPJm_ENIaW7IC8zj9-9_SMwvX1l-pyFmJnf3dt53XeHI82XgSFYyD4obb2AEIe_2c-ev0MRppu3gYKgAU_LA==@protonmail.internalid>
- <20260702080228.tegosnl6uwt5hy7c@hu-kotarake-hyd.qualcomm.com>
- <4de2970b-884d-47e2-ba52-514f973f14b9@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="rXf6EsKh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1783069258;
+	bh=ACCEUgrf7Rylr7BySb8msq185wHVdSwdN7rECIYWapc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=rXf6EsKhnRNRwEDTiMGCIzJnkKHBwIIBK0VEtl79Q5Nv5C95Z5duGqffJL+IZ2auV
+	 WtMo4/dQqmBciVLb95kbyRVjAUNTtRi9KhqmmIP6hgeCGDtXJwH693XNF2USmyI9kk
+	 F55b5VGoCAuBfnOOFDNAQK++7VTUfvQFJ5GadYCI=
+X-QQ-mid: esmtpsz19t1783069256t01806f06
+X-QQ-Originating-IP: n1xI3+mPy6w337/zDxtCYOgr7wkg4ok/SuMAWtj5fe4=
+Received: from [127.0.0.1] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 03 Jul 2026 17:00:52 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 12710147850900718341
+Message-ID: <4A32964890BBF288+37eaa5a2-eaff-49c4-8501-2b02736f3584@linux.spacemit.com>
+Date: Fri, 3 Jul 2026 17:00:51 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/12] rvtrace: Initial implementation of driver
+ framework
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: anup.patel@oss.qualcomm.com, adrian.hunter@intel.com, alex@ghiti.fr,
+ alexander.shishkin@linux.intel.com, andrew.jones@oss.qualcomm.com,
+ anup@brainfault.org, atish.patra@linux.dev, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, irogers@google.com, jolsa@kernel.org,
+ krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, mark.rutland@arm.com,
+ mayuresh.chitale@oss.qualcomm.com, mchitale@gmail.com, mingo@redhat.com,
+ namhyung@kernel.org, palmer@dabbelt.com, peterz@infradead.org,
+ pjw@kernel.org, robh@kernel.org, sunilvl@oss.qualcomm.com
+References: <20260429125135.1983498-3-anup.patel@oss.qualcomm.com>
+ <BDD9553502347B02+ee3069d3-eb04-4a37-b364-107cf8d0653c@linux.spacemit.com>
+ <2026070316-surgery-unneeded-bceb@gregkh>
+ <138BCDE3F4A1D624+2488a822-cf77-4155-8492-b8a1c47d5589@linux.spacemit.com>
+ <2026070300-submitter-humbly-833a@gregkh>
+From: Zane Leung <liangzhen@linux.spacemit.com>
+In-Reply-To: <2026070300-submitter-humbly-833a@gregkh>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4de2970b-884d-47e2-ba52-514f973f14b9@kernel.org>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=U7uiy+ru c=1 sm=1 tr=0 ts=6a477a53 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=pxVi1GPwOGoSIhTSctoA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: Tg9LyLOOpqF7lfZbw_Lc1qJ1a8FbxyRK
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA4NSBTYWx0ZWRfXxE5kdvBH5Bcq
- CwN9y4443Wib9YijHq4DqciLFt09taGjAz7nQ2/RYZc/q3i/81LFfoA/EQbWwGcWj/xohHureAr
- UtGrRE8TMEXwmT9E99Fba1Su4s7XSXInZX2yqXR/D7rP+Eg0ku0zKM0bDCIZGwgA14mcSpIbonL
- 5S168eOnLmfVUYjQooIw+uN8n+mWBr7A7PPVf6TRXgflKq6kmFhYUINKKK58REGuppXmCfnc6Go
- BkNCj7UP+eEP5qLB+exVQpplBBeBCDahM6AbEA1jWur3vbRPdTgQNCh/QLh/FpEEKIl9zKs5B7F
- HEgNlnlJZKgjhOXcekCIaasQTI2fgWey3O8JjflXEvOUm4t7YsCRbotE7Rwvjweudr/ECCH5Bsg
- yi4oQfQmfWK92YpnoXPV8QcJeqK/Q5cYo0CAOwRUCJDGhiO7ZNrVhkr5w+KYdOy8tVXRhs5Sjro
- XvjCHNkCenGkTxr//vg==
-X-Proofpoint-GUID: Tg9LyLOOpqF7lfZbw_Lc1qJ1a8FbxyRK
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA4NSBTYWx0ZWRfX9ouZJnkDX4kT
- PjsMdxd4JPxZCV6cnGAWXUt4fl5RGWHXKTmCg9lqj2eh9NEGGUYc5o+k95YfL6dECikjgV1k8/v
- BygVf/6gxlTUCyE4UUMZmG7P1jWuYWk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
- spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030085
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: Mjc5Shoq7MT/4EGhXsKs4qSg404ndkgjzrqJlGv9tFS3je0PoKRUwqF6
+	WhBJEk0aH+T/bKcPJ5jzK2PDUS2Xf9ZXUq65Qd2cZaJ23yFO1An1rLKOPEMct0dzwZjhAbf
+	uYdfnZbr9bW2iKvKv1Pk4uO5vHjVDFgS+xaBZFP4+rVyAKhIY8u4zbaTld254ed7dTEHP8V
+	KTEyX9izSLXfo5eRdXmoZE5WdbvY92P09NpDT5f7WrRLalbeoZpuK3noLX7ogXJzOBWAtXj
+	WzhfoaM4vb4YxkoLto2WpRY1HsP4cIpONfK7r6PYMpFVeBosqnVZBlY0p+F61HIx7ZrWtJj
+	vEgVrfGO5pNg/94E5iGvkfOf+PnY/XOYsZj0xIy5VUXQQAn33LoukgFONR8XOSxaRNoYjxK
+	7OAHMDyg7gJq7SIyEDVq9FTPc5wMJDaB2zLf9SRB2lHF6LDW8JgAQRgzOPWHDSnby3zY0rK
+	ZPFOCUO5yugBk/jmooST9q/W29LQdIiX28wTjZ7CJdPfLVIi9ZHMWcK9OmEJUZaiDqGlals
+	9nrNfIuNrGuFTQtbD2iuP4JTB6IUlCftVqtZKtfZC8LyG4V9+eV932HwWa1LIiq57XHRgXm
+	/jNZq6rE1UwVU/odEmp9vf6pMr3TZs171FNkwlUHWaybK5W/AdEwhYAFc2rhqYH1GpZ9NU9
+	uU0DQUjAYDMdUrwahG+Nvrr6QGJ+RKhIBltJjR3Ee8R4Tl4oizt4um2kibja2ymoWUTBuTj
+	zlEcLicTmQcLuk9Ktv78ESVXM29OqiXr72tHcGbIntZa2p6G18lmsp1jLlJJkQWGoFBf9v0
+	CqPKIPwzuGz0iw+Qe/gUrslJfWwyNUppfnhRTgR9lcOGml03GHsK5a5I3bVLIUZgbWqdTH4
+	bzfXYx8aw1xJxCp+kVDJkDnu6gMYswRd5P4zUfh0iOy0BOCz5N7Vzt2AsG8fN2dYlndlGWQ
+	gW3xdGr1JHhRwfZd5wvll6vz69hfDFROn6dYyIHpUoYBmOKAIANI1bSPjsp6Ou4KwGRrkRl
+	262ydHOO0pu/xGhGvXo7CB+QCMyTI9TwOekFE/gABx/cgrD2LPZwGp00q7qW73dKYcviqpL
+	L2jnoR2jKkiuYTF473mw06SkbreR6H5sW+7bGHyRHVTVz5v4FVThx5QuWIa53pJJTHwkGXY
+	FrN1neJ5U0Y5eYtYh/yUUwTtWlbtbrH2YOmoksKxh0ol3xE=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-On Thu, Jul 02, 2026 at 05:10:08PM +0100, Bryan O'Donoghue wrote:
-> On 02/07/2026 09:02, Rakesh Kota wrote:
-> > > Break this patch up at the and
-> > > 
-> > > - Remove compatible
-> > > - Fix the voltages
-> > > 
-> > > Separate things should be separate patches.
-> > > 
-> > Thanks for the review.
-> > 
-> > We kept these together to avoid intermediate breakage since the .yaml
-> > compatible removal and voltage fix are coupled. Happy to split if you
-> > have a suggestion on how to do so cleanly.
-> > 
-> > regards
-> > Rakesh Kota
-> 
-> You can add the register abstraction logic, then add the new compatible no ?
+
+On 7/3/2026 3:41 PM, Greg KH wrote:
+> On Fri, Jul 03, 2026 at 03:32:50PM +0800, Zane Leung wrote:
+>> On 7/3/2026 1:41 PM, Greg KH wrote:
+>>> On Thu, Jul 02, 2026 at 04:19:53PM +0800, Zane Leung wrote:
+>>>> Hi, 
+>>>>
+>>>> Based on the current framework, I am concerned about how to support RISC-V ATB and reuse the Coresight component (ETB/tmc/TPIU) in the future.
+>>> That is very vague.  Please provide specific examples.
+>> According to the /trace control interface/ [1] spec: "The ATB Bridge allows sending RISC-V trace to Arm CoreSight 
+>>
+>> infrastructure (instead of RISC-V compliant sink defined in this document) as an ATB initiator. ATB Bridge is not 
+>>
+>> needed for RISC-V only systems."
+>>
+>> For ATB Bridge, read trace using Coresight components (ETB/TMC/TPIU),  so we need also ARM coresight driver in
+>> RISC-V trace systems. Current framework seems to only be applicable to RISC-V only systems, and does not support
+>> ATB and  ARM coresight use case like the K3 (K3 SoC contains RISC-V Encoder, Funnel, ATB, CoreSight Funnel, and 
+>>
+>> CoreSight TMC components). For more discussion, please refer to [2].
+>>
+>>
+>> [1]: https://docs.riscv.org/reference/trace-control-interface/v1.0/tci_system_overview.html#atb-bridge
+>> [2]: https://lore.kernel.org/all/20260414034153.3272485-1-liangzhen@linux.spacemit.com/
+> So, what specifically does this mean?  Please provide review comments
+> for the code itself.
+
+The issue I pointed out is not about specific lines of code, but about the entire Riscv trace driver registration and building a path from source ->
+sink did not take into account the application of arm_comesight. the current patch set assumes a rigid, homogeneous RISC-V-only topology.
+
+Specifically, if we have ARM coresight components, how can we reuse them like, funnel (drivers/hwtracing/coresight/coresight-funnel.c) , 
+
+TMC (drivers/hwtracing/coresight/coresight-funnel.c) , TPIU (drivers/hwtracing/coresight/coresight-tpiu.c) and so on based on the current
+
+framework.
+
+
 >
+> We write code for stuff we have now, today.  If future needs change, we
+> change the code to handle that then.
 
-Are you talking about the driver change ? if yes, for the driver change
-I can split it into:
-  - Patch 1: Add register abstraction logic + PM8150B support
-  - Patch 2: Add PM4125 compatible
+I believe that if the basic framework for RISC-V does not consider compatibility with ARM Coresight, once the framework is fixed, there will be greater resistance to future modifications. 
 
-However, splitting the DT change is not straightforward — the PM4125
-compatible and its voltage constraints live in the same .yaml
-file. If we split them, dtbs_check will fail on intermediate states
-since the compatible would reference voltage properties that aren't yet
-defined (or vice versa).
+> The only problem is with user/kernel apis, those need to be nailed down
+> so that they don't change.  I can't tell here if you are only referring
+> to the in-kernel stuff, or user/kernel apis, sorry.
+>
+> thanks,
+>
+> greg k-h
 
-regards
-Rakesh Kota
+
+I believe that RISC-V tracing is coresight-alike, where have encoders/funnel/sink/bridge+coresight_comp. 
+I think we should abstract some of CoreSight's core logic so that it can Both coresight and rvtrace can be reused.
+General logic for building paths from source -> Sink and perf_pmu should be universal in coresight/rvtrace and 
+
+future architectures. 
+
+
+thanks,
+
+Zane
+
