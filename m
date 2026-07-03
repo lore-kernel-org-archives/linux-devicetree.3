@@ -1,101 +1,163 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1137141C6A
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 00:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61FE92E63C;
+	Fri,  3 Jul 2026 00:16:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783037542; cv=none; b=AUl7sqzj3NVzuJnjO6ZqL/jTrzlfFHFqaLoYDDL+FCye6EMt2QMmoOyKmyfr1SnkNdNK384MVmgUG2q1V2nQUbq8nK7UE2umyVImQcXk2DnmDJnxBgh3x3tbNRSHmWx374PS7+W5X7rYeZQV4hHiNEhusAZwdc3vmdhI2g9kjo8=
+	t=1783037817; cv=none; b=F81VeSgnwq25uZm9ME4TexznnBAtwXXmV4kmA+6W9+91KtXTNb+WMGWadgHBQ0Tl4zoTbwEuJeP0ETgZgwJdQqUYS7wdlS/1KW8v6GSrog4aSnIXHNKBpbXzszp/2M4zzGazxtNvVhXDAWeCuijvUXmxcbzyWI74TMsN64z6XA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783037542; c=relaxed/simple;
-	bh=DBT8QbiXPV791Ei75jZRE+bdrb5rv+oRxEtX04MEBMM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eyPy5822Zq5hJCcpH3VONtdcMSFHfYKnpK1OHft502dF309cBKv6YHwr+v2zwMy6MBCCURQTiJwT9axkyTkH9Ke5aB6OQa9tA1bEypQCpTYNLwqccuNuR8KnfqQdcEYY7Hgwx+rsJwD2a1tLxVTDf10LvtVgObbbROZzPoMHIoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eUGaKjW/; arc=none smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783037817; c=relaxed/simple;
+	bh=69FQsKX3+4/1yrf/5KTMcmvdnr3ijU3Jo92ghzSu3z8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mBrmzzELupBFuWWqYXldqy8/Xo79pdond/bLdkWq8/+3lso4FaCnl/zydFN8UpG/36RjIKjXeC28qVXo2BDASnTZa5cMZbSZ7HDTULFD1frh3SmSoP4k3fQnLIdfcvS0s+HBsu/fh7+WMEZYR7YpTEp/8HQJe97oPMX+K8AKJ9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DuxZiwoV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eUGaKjW/"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-51c1d487f2cso314921cf.1
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 17:12:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783037540; x=1783642340; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DBT8QbiXPV791Ei75jZRE+bdrb5rv+oRxEtX04MEBMM=;
-        b=eUGaKjW/PlpMqqXbBu7yiI6FKgvcpKROzSnkbNU5x203TTb/GBazkrWcIuMTjfBN45
-         7YD31crDKq7AM3LfmjENZG/VCD+Lt991KYg1y1ITjZQLLILBuvYWFDgSOgajbFBrYQM+
-         3TQRsGGU+0YuTTGRAYpxN6Mfm8s4SUyeXXVQxmuIgLRDPav8CLxD6tyiQrPWOPvNfYAp
-         eEgAzjpRstnkxyhrRzWGiT/lRvj7EKDbYBq533uXnhCyssiSDn3z20SIyI3of1SBAUzX
-         nv8gdgK/TkJnkPYGZXLv0STia0HuHleiMk4qlpfPD0X7OEFrO8xw0G5rqNJmhkdIrZeE
-         JcBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783037540; x=1783642340;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DBT8QbiXPV791Ei75jZRE+bdrb5rv+oRxEtX04MEBMM=;
-        b=lzwaHy6xmL7hEWCIo/A9TY3ytXQpUZtBiWtCO7KUtWVZ7BuolUdAiNALTuJHAIXPie
-         RruSZiGW+HUdgG6ZEdhRJScS9Au9mZks4CElK3J1f3z1ejeVlIyWUJhM/yBuq0y+WpYK
-         PcB7MktJonW+cp72Z+Ul6p6YigxHhkuuQMnaf7MbiQ/9RM9l1ef5gnQnOowBwgq0NkAx
-         2lyyVQRdXvrCF3NJEJIYotEs58w1fOmUjmJEafVbq5vwQWCH8SPlyp4IbSw2/6viGlrA
-         P92EzCAUkslkBjNYopL3Zq4aNoYNWhvzBN1YFzZpdD6btYeNA/0OS1QuNOxoOZbVKBk8
-         hXIw==
-X-Forwarded-Encrypted: i=1; AFNElJ/whh+xiiW5LP/14ahUsymhdZxdsMW7ASLe842KqDEJueqZvZ21LsllTosoJQYyHHnKCe/FyTS29+Ni@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBa7e5ltvxgqyhWDYn5mL9nQVOaAfLR4g5URTlj2gxMsfXkqHO
-	AbdN/JgopFvq8sWAYw0/xBiq24UorkOhdUp+2qZ0Ej2eQ2K/r0XBtsw8
-X-Gm-Gg: AfdE7ckOdo9cketVonWwRuVobfg5xg6ED9qQxKgGcRkxd0ZQUQt6rkifB72BNK2zkVl
-	NTiFTfusxHxjXkh9DYsupCmq9+to0k1fRpl2B+1Vm+qDt5wfvSU8A0WEHTY87DFxuBPVSmzQdne
-	lMYs+ANOSlkDcjWw1Gj2oRJj2f841rr7Rfx0xPHIosQraoIFhme0Y4YalpUylP5YtviQHSbgq+T
-	Wh3/juCwv9gIHjPIqv7pXmU1ZO9Z82MVNrHTzvmjgxG7kIso8GIhHaIA9ziifnz7twPgqeEQU7K
-	0pMDgt0M/2idbnzMbIMbLBNQttSU2AGRrjoaGxyV9BroY15dUuAylOa/w9oKFvjs2S714cpWKZ7
-	lpmLIq1bsbX+k5EXH6fBJ7taGOT0mOFCyDbc5VnnFb8W6Nxjo3TZUkFim2YMzVFyZeiC6im0bgx
-	9HaRKuzhvT/8y4iSHuvlymXkgistQsDKsWQbkBaGyDJF0knHXaIlSekrfsVZtWJctXhP2bKhc=
-X-Received: by 2002:ac8:7f43:0:b0:51a:88f8:bef2 with SMTP id d75a77b69052e-51c2ad4803amr90244191cf.28.1783037540068;
-        Thu, 02 Jul 2026 17:12:20 -0700 (PDT)
-Received: from AMD.home.local (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8f471de87e3sm40289776d6.35.2026.07.02.17.12.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 17:12:19 -0700 (PDT)
-From: Enzo Adriano <enzo.adriano.code@gmail.com>
-To: Yuanshen Cao <alex.caoys@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <frank.li@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DuxZiwoV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 801741F000E9;
+	Fri,  3 Jul 2026 00:16:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783037816;
+	bh=/LVC6Hmw6zMzHK5fUXwnxznVg9uaG7qwXcwGvD26sKI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DuxZiwoVDzLb+2WqWHJo4iFuN5oSe2E+SNo5krcuygPlnGgdmVQ/Mc5Fe2zJiBadm
+	 DW2np4Cl9iUluvG/cJYBiDs6+KPeX0GKHNrtm8S75QlOdOZEvreSnuqQuRi3dBU2Fk
+	 EcGvPn1j+kOFTBbEnfChUNLvj60buJ7PAcfNdLIALjFVQKStya+VO10YCUb7GQNgAI
+	 r8GnFzlevfDRZ3O6FwHyJND1Yeo8sRjGGbApD6QAS1Xy8TcWft+JODRLkw+dmp8vbs
+	 kasKyK7y/2Hk4cyFjH7HWPFw6AI7YwIgSiBdRE0JXje8qc+VdSLzbynUxxziUeU+R1
+	 FjAIuyOex/Hwg==
+Date: Fri, 3 Jul 2026 00:16:53 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Subject: Re: [PATCH v3 0/5] dmaengine: sun6i-dma: Add support for Allwinner A733 DMA controller
-Date: Thu,  2 Jul 2026 20:12:18 -0400
-Message-ID: <20260703001218.1243244-1-enzo.adriano.code@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260622-sun60i-a733-dma-v3-0-f697ef296cbc@gmail.com>
-References: <20260622-sun60i-a733-dma-v3-0-f697ef296cbc@gmail.com>
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] scsi: ufs: spacemit: k3: Add UFS Host Controller
+ driver
+Message-ID: <20260703001653-GKB35811@kernel.org>
+References: <20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org>
+ <20260702-08-k3-ufs-support-v1-2-1a64a3ab128f@kernel.org>
+ <c49d9bea7f9a172a97d0acfaa9680bdac80f75e1.camel@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <c49d9bea7f9a172a97d0acfaa9680bdac80f75e1.camel@pengutronix.de>
 
-Hi Yuanshen,
+Hi Philipp,
+ Thanks for your review
 
-Following up on my earlier note on patch 1: I have Cubie A7S hardware
-on hand and boot test kernels over serial routinely. If runtime
-confirmation of the DMA controller would help the next revision, say
-what you would like exercised and I will run it.
+On 09:53 Thu 02 Jul     , Philipp Zabel wrote:
+> On Do, 2026-07-02 at 02:31 +0000, Yixun Lan wrote:
+> > SpacemiT K3 SoC consist of UFS (Universal Flash Storage) Host Controller
+> > which has features compatible with JEDEC UFS 2.2, MIPI UniPro v1.61 and
+> > M-PHY v3.0 standard.
+> > 
+> > Signed-off-by: Yixun Lan <dlan@kernel.org>
+> > ---
+> >  drivers/ufs/host/Kconfig        |  12 +
+> >  drivers/ufs/host/Makefile       |   1 +
+> >  drivers/ufs/host/ufs-spacemit.c | 931 ++++++++++++++++++++++++++++++++++++++++
+> >  drivers/ufs/host/ufs-spacemit.h |  90 ++++
+> >  4 files changed, 1034 insertions(+)
+> > 
+> [...]
+> > --- /dev/null
+> > +++ b/drivers/ufs/host/ufs-spacemit.c
+> > @@ -0,0 +1,931 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
+> > + */
+> > +
+> > +#include <linux/clk.h>
+> > +#include <linux/clk-provider.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/io.h>
+> > +#include <linux/module.h>
+> > +#include <linux/of.h>
+> > +#include <linux/platform_device.h>
+> 
+> Missing #include <linux/reset.h> for
+> devm_reset_control_get_optional_exclusive_deasserted() below.
+> Don't rely on indirect includes.
+> 
+Will add in next version
 
-(AI-assisted, as before.)
+> [...]
+> > +/**
+> > + * ufs_spacemit_init - init phy and prepare clk
+> > + * @hba: host controller instance
+> > + */
+> > +static int ufs_spacemit_init(struct ufs_hba *hba)
+> > +{
+> > +	int err = 0;
+> > +	struct device *dev = hba->dev;
+> > +	struct ufs_spacemit_host *host;
+> > +
+> > +	host = devm_kzalloc(dev, sizeof(*host), GFP_KERNEL);
+> > +	if (!host)
+> > +		return -ENOMEM;
+> > +
+> > +	host->rst = devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
+> 
+> Why is this stored in struct ufs_spacemit_host at all? As far as I can
+> see it is never used again, so this could be a local variable.
+> 
+Ok, will make it a local variable
 
-Thanks,
-Enzo
+> [...]
+> > diff --git a/drivers/ufs/host/ufs-spacemit.h b/drivers/ufs/host/ufs-spacemit.h
+> > new file mode 100644
+> > index 000000000000..6ae3c263a360
+> > --- /dev/null
+> > +++ b/drivers/ufs/host/ufs-spacemit.h
+> > @@ -0,0 +1,90 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > +/*
+> > + * SpacemiT UFS Host Controller driver
+> > + *
+> > + * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
+> > + */
+> > +
+> > +#ifndef _UFS_SPACEMIT_H_
+> > +#define _UFS_SPACEMIT_H_
+> > +
+> > +#include <linux/reset-controller.h>
+> 
+> Drop this, we are not implementing a reset controller driver here.
+> 
+Ok
+
+> > +#include <linux/reset.h>
+> 
+> You could replace this with a struct reset_control forward declaration.
+> Or drop it ...
+> 
+Will drop it
+
+> [...]
+> > +struct ufs_spacemit_host {
+> > +	struct ufs_hba *hba;
+> > +	struct ufs_pa_layer_attr dev_req_params;
+> > +	struct reset_control *rst;
+> 
+> ... if you end up removing the rst field entirely.
+> 
+Yes, I will remove it
+
+-- 
+Yixun Lan (dlan)
