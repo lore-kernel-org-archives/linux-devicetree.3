@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F5B148850
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 08:16:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E58309F1D
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 08:17:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783066584; cv=none; b=onom9PzxwbTgmhMLVHSTkcJNN0gV5dt/yTm78qmU03uk27KYnLAc2ZI2yL2mOzFRB1Plq7dBPjOMTJsTxKQyTHVk9euMnIW+koCZj1Zp1PEULNCkx0478z3G4ULtQ8f/YgFm3QBLV6n6sHn7E9+sXJD6JGAMcf+FdK9benT2vLQ=
+	t=1783066622; cv=none; b=aIT8nRVb2fCA2eXAl4GIW0BlAQy5+mm6yI7/riWoDnndR5NoChX7lYnwSGkJFwF6j3P80HHYO2eBVNQeOo/9iv/HZEJsKCJBOaZztZVcJ7i+Y5d4LYIJuRDbzUfmWbsmbE/2yy5fWtiX7Lp3ANWF2NBTMIC37YFitTcMlVEG8Xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783066584; c=relaxed/simple;
-	bh=qQC6pzd7ZW+6w81nTceX1afYorhY8BSlJVG/W/7Y+l4=;
+	s=arc-20240116; t=1783066622; c=relaxed/simple;
+	bh=QJOcXfmw20X5sZI1Ono6LvDxifMpmngxepAYTJs53a8=;
 	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tSKl5OuNBxOFOpmm62PR72Bd9W4RLo7OeCIgKQCDOQG3/Db5aTl0Gj+iCn0/v9tALehOnwQo4+hKT+OFUgYPiq5RDGLEM4CVHCCjhQjnhMtAlfCVYC5PhCoQ/c1dJ5QX/D+J7jVqzN4I1OpH5bOtf1XP+pEhQ+6Nrp5PFIhVKis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnxsbFRr; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=Z2seOaBuFpE4SqiIcVvz9wINwJvsAH3sdNmL8pgS2dTi5uIUootMXFyBnz2lHCtKtSGYpX4bgLMeU0G4Kw+l8Cz0vMpOXnDipznWzOes6ciZCAkClCnqWme9mMKnaDTng/9sm1fRZWbAErA7rvdd3pOJjYTGfsAvMmMW859nVTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e1vaKw6K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnxsbFRr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 640E61F00ADF
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 08:16:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e1vaKw6K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 917CF1F0155E
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 08:17:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783066583;
-	bh=qQC6pzd7ZW+6w81nTceX1afYorhY8BSlJVG/W/7Y+l4=;
+	s=k20260515; t=1783066620;
+	bh=9mjoepdP5rHShQlZQEVaNo366/uL16tDjhpeYdGMYXs=;
 	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=SnxsbFRrKsb107wQrvD0J/wnqyeeG0qlWaTxooQGjbvtWgOPp2ppKVs9iugUO2dIe
-	 PTNpGIajPjxxqrbrVu9/tjuZpDcg+HEXephaY0hvvu1Y2hG0w+tx85iCYK7SNF5TiN
-	 FcMMg9FnoqszzXErKQliIWqgLkOybc9CE0oM919hCCrUDMrBh6xuwtl0Qedz+HYQAR
-	 l1tG7yeaRNe4dh5ialvoF80Y20+ydDEDMeiP7gbSj4KS9bSpb9VtTdofdwypWESm7k
-	 NY+wknY2PT8YhPtrcSzsNSTW0lHRCUcRSB4xuagsJlWcXuX9ZOKBXQnQSb3QG5MUSL
-	 PfrTX3WZqfSQw==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-39b3931e259so2228171fa.2
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 01:16:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rrd3qCycic5dd8TuyFZ9+TH8t62qaCENCCbGjBZPeDuZJwf8cTrURhNPQMPaSOTaSIwD2Vfd00OKZna@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywad93VLms2DXKhkYjvxR7j2iy5yIA9uficFe8JaI+QURJQ8twK
-	IacCqv6bJs01Nfg7M8+e4A5fXojI49w5+2DA/BiL74uHfuGC5/vhcYkCq5HFI8R7yGntw2uOw2z
-	+OipsSzl1hdK67eBgpxR5j24ZZ6ud+b13ivAO37HawQ==
-X-Received: by 2002:a05:6512:124d:b0:5ae:c542:33ef with SMTP id
- 2adb3069b0e04-5aec6795b43mr2021138e87.8.1783066582095; Fri, 03 Jul 2026
- 01:16:22 -0700 (PDT)
+	b=e1vaKw6K9h/y8VO5RRvyut08Kboa4zul4Tm5ZIEPg7FaOHHQ2+Inu2gzQYIM/t3ec
+	 Ys5lsVKTKGKS0ymcRkOKc+JoEagGKnHgx9wG4asNx6k3iRcjS5NfZ0XwyW02IMkUXS
+	 PXhKfrB7itfAIxmolPUX2p9HDvSYLWbZ1JhUyIa2LcZj6hd4Bv0gvkBFl0i+HtpKhg
+	 wxlr1XqpFclJ1XecCJc/N70lRxE5Qz0byUvztSNtqPVA8L3Nr+3I26rxVf8WR/ESqz
+	 nuHXpHhkxTMNjnWbsTem5zNF8BJdTrZNDt4NpEUqD9cGKJqw+YnWwCX3Suk9nCjgpd
+	 KHbBjQYryeodg==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aeb77b3afbso333061e87.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 01:17:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoJmtd/2pws7ykqhKmcjZ+bVjSk7UyKcXjjqx364p4c95j3xa5RO9n7ycobSmL1VyOyiTQl/rJBy90h@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzbc7cfLcRc6N9vCKJV6LsengR5hcKBE9ynY99L03eky0R5FCpw
+	FuTtvwaD3OaV48WaFoeb2MF2pLg9BFaHfuGUW+jMZ/caAmfKOqdCLrSQU8HjvZ3znLf2v5nTjWi
+	c+bYva4nPucYaRfuhc8XGjTH+w/ZivyO/L0PuAg9V1Q==
+X-Received: by 2002:a05:6512:4cd:b0:5ae:b792:7f21 with SMTP id
+ 2adb3069b0e04-5aec68b78ffmr1306749e87.33.1783066619248; Fri, 03 Jul 2026
+ 01:16:59 -0700 (PDT)
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 3 Jul 2026 03:16:21 -0500
+ HTTPREST; Fri, 3 Jul 2026 04:16:57 -0400
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 3 Jul 2026 03:16:21 -0500
+ HTTPREST; Fri, 3 Jul 2026 04:16:57 -0400
 From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260702-b4-shikra_crypto_changse-v2-6-66173f2f28b3@qti.qualcomm.com>
+In-Reply-To: <20260702-b4-shikra_crypto_changse-v2-4-66173f2f28b3@qti.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,43 +48,50 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260702-b4-shikra_crypto_changse-v2-0-66173f2f28b3@qti.qualcomm.com>
- <20260702-b4-shikra_crypto_changse-v2-6-66173f2f28b3@qti.qualcomm.com>
-Date: Fri, 3 Jul 2026 03:16:21 -0500
-X-Gmail-Original-Message-ID: <CAMRc=MdNrdAJmD-mgP0wXaiKid5pE8m4_9rOpXcrLk+T35sFgA@mail.gmail.com>
-X-Gm-Features: AVVi8Cc4AXtmTJ4dPWDBNLruLtcz6tHIZccf9Ba9r0GLPfEhItZNEGvR8CW_x68
-Message-ID: <CAMRc=MdNrdAJmD-mgP0wXaiKid5pE8m4_9rOpXcrLk+T35sFgA@mail.gmail.com>
-Subject: Re: [PATCH v2 6/6] arm64: dts: qcom: shikra: Add ICE, TRNG and QCE nodes
+ <20260702-b4-shikra_crypto_changse-v2-4-66173f2f28b3@qti.qualcomm.com>
+Date: Fri, 3 Jul 2026 04:16:57 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MfhJC+vu9z7kM=GXqL_qCCErNHWir5egCgtpNkUukZHEA@mail.gmail.com>
+X-Gm-Features: AVVi8Cei73cWpjCQ-R6oBZCjYMW8r8RT5ymwAfiTuyKjGde9dm5eFMMvLXxKO5Q
+Message-ID: <CAMRc=MfhJC+vu9z7kM=GXqL_qCCErNHWir5egCgtpNkUukZHEA@mail.gmail.com>
+Subject: Re: [PATCH v2 4/6] dt-bindings: crypto: qcom-qce: Document the Shikra
+ crypto engine
 To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
 	Bjorn Andersson <andersson@kernel.org>, Harshal Dev <harshal.dev@oss.qualcomm.com>, 
 	Vinod Koul <vkoul@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
 	Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Andy Gross <agross@kernel.org>
+	Andy Gross <agross@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 1 Jul 2026 22:17:16 +0200, Kuldeep Singh
+On Wed, 1 Jul 2026 22:17:14 +0200, Kuldeep Singh
 <kuldeep.singh@oss.qualcomm.com> said:
-> Add device tree nodes describing the crypto hardware blocks present
-> on the Qualcomm Shikra platform:
->
-> - BAM DMA controller used by the Qualcomm crypto engine
-> - QCE (crypto) engine with DMA support
-> - TRNG hardware random number generator
-> - Inline crypto engine (ICE)
->
-> Also connect the SDHC controller to ICE via "qcom,ice" property to
-> support inline encryption.
->
-> On Shikra, different BAM pipe pairs (for example 0x84/0x94 and
-> 0x86/0x96) may still resolve to the same resulting SID due SMMU-side
-> optimization. They are still distinct pipe pairs and therefore require
-> separate DT IOMMU entries.
+> Document the crypto engine on the Qualcomm Shikra platform.
 >
 > Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
 > ---
+>  Documentation/devicetree/bindings/crypto/qcom-qce.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/crypto/qcom-qce.yaml b/Documentation/devicetree/bindings/crypto/qcom-qce.yaml
+> index 08febd66c22b..5a653757ee75 100644
+> --- a/Documentation/devicetree/bindings/crypto/qcom-qce.yaml
+> +++ b/Documentation/devicetree/bindings/crypto/qcom-qce.yaml
+> @@ -54,6 +54,7 @@ properties:
+>                - qcom,qcs8300-qce
+>                - qcom,sa8775p-qce
+>                - qcom,sc7280-qce
+> +              - qcom,shikra-qce
+>                - qcom,sm6350-qce
+>                - qcom,sm8250-qce
+>                - qcom,sm8350-qce
+>
+> --
+> 2.34.1
+>
+>
 
 Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
