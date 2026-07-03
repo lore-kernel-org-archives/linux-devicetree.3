@@ -1,165 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6603CE0A7
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 12:02:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DC83CC315
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 12:02:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783080171; cv=none; b=d4PjfLt9JZ+8ChFrBvckXULstwyccxiolK5HNzyEKPugr5Jwfk2QtICtGEuZC1GQTnoAnf9Jb2IE0Iixxk5e7LBeR7lJOsM8Y8TTEahKzZIVAueu5cbt7g1J9QUT2xVhkqS88FUYrN5RwxShj1B1ziX6ZpcG8v5jXpW6FmHDxyw=
+	t=1783080172; cv=none; b=mensBEUVSdR1Mwgm12NbHuImdrjw0OHV3mMHtyWPF8Ae1eTpz9qo/OF151P6Nq7tEB95C0If4D7Z8YvudfuT2ZV9XfYEKXtzeBAC6tr6HLI/XHVB/hlQAwaF1kdsVOfOe+sX5ZsFR1A30/tL9aYnN5rTkQui035224kXR0S0ANY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783080171; c=relaxed/simple;
-	bh=K+22N5QNem3oYUNic5Z8mcCmryAkIyRebVmJGJw2alQ=;
+	s=arc-20240116; t=1783080172; c=relaxed/simple;
+	bh=ggRStb4HgUJvhugFGDYMmK6PVC19pawPQOW6T9gR8lE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=s1MkTssNxdy8Q/m5x4ix/rK1kV/3AqSL5i0UFDhTeim6FGUE0tJqINafQJDLaYTihcwakLfkMHBEZWGqplfuSm/ZmyjQiIy66fyIVycBppm0scIvul9b9YDjc4jQv4rJzWbxP/kaQjTJ00SuMkYnNWVS/UkVGQBr1MY9XapA184=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XKg3NE+s; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=FqOMCfRbDbrLcHWMLlxAoCjpv2qt0oRc7+sgmziKU4MvhEGa4FBWH/GAV4WhWXaB5uItbnM8w5e2yNqzvUAdAswJSXfwzllhRz7kHuIJd0S2fmZPTeLireAHduKKFcM7if2dK+2RTfL+IQ5RdJXgG1J2RS1u/aooQxeiuSbuKCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LEaz75B7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XKg3NE+s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C3F01F00ADF;
-	Fri,  3 Jul 2026 12:02:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LEaz75B7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E049F1F00A3A;
+	Fri,  3 Jul 2026 12:02:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783080169;
-	bh=asUIZDCImopbEA17USCN5Bp2Yjq3+sttD5kvlQ4J9SE=;
+	s=k20260515; t=1783080171;
+	bh=TsrwiKW1voSugbsio658mK865DCUVG5jBEiRTvO/Alc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XKg3NE+sU+7b/8f4ynImM3c4ubTzunUsFHAvNKKAJKRzViz8JHn7rqKi/9ZukRJZH
-	 VDuDZrZQ0gw5m9vpphp6bIbn47W9wBEMwMZ19TKpEGnXWKPgSFaf+pHxfcjuDgQODN
-	 jwPZSG7uZkWRREZnlTOJZiEwsRNo06YfKgZxirPWgBgzs9grjcARHRc6pSNGFgwdIr
-	 +8/M6vey8d948rcry9ibh9umdmZE8T4GMKPouo5MkZ1DrZD0fxhbKAojrRaiGzijhg
-	 oIKuvYDsKc9PYRfTIYLPGKjpMYDLAfP9WhZApR6CiZbN7spY+Dk88X3yZW/XJRuXXh
-	 Kn4nu8GhtfFHg==
+	b=LEaz75B7S5FbOve8FF+U/ffc/KWfrQzj8IAYtKVRU6CtF/sBLHKETpocDLzwGpq6i
+	 7X1Nu4SngW9eAuSEGqdDVcOPAmRNXiZXjg3PtyMoJShxg8yOKn2QJMayci2KafY40X
+	 n4YtoKYxrRTI2C7yQDcE31uvy1fXZYmWdHu5g+J+S1+tamgkg9uQ0X31Rh22/0xPCR
+	 /L3qdK//jkXDc6cz249Ysi2JEs+bwD1unSjj1pKJhYYflGMhJ1DZGKApPMrKATbeoE
+	 DASbjfE8MUvFBaXSHNmfg8/vd3uP9qRzMzsZxFOfoOJdPaEiDNQfQjfOdXwLyWiV14
+	 TU7BZ254ZN0Ag==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 12/14] wifi: ath12k: Switch to generic PAS TZ APIs
+Subject: Re: [PATCH v9 13/14] firmware: qcom_scm: Remove SCM PAS wrappers
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sumit Garg" <sumit.garg@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260702115835.167602-13-sumit.garg@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260702115835.167602-14-sumit.garg@kernel.org>
 References: <20260702115835.167602-1-sumit.garg@kernel.org>
- <20260702115835.167602-13-sumit.garg@kernel.org>
+ <20260702115835.167602-14-sumit.garg@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 12:02:49 +0000
-Message-Id: <20260703120249.6C3F01F00ADF@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 12:02:50 +0000
+Message-Id: <20260703120250.E049F1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Lockless double-read of global ops_ptr causes TOCTOU NULL pointer =
-dereference.
-
 Pre-existing issues:
-- [High] Repeated calls to devm_memremap() cause memory/vmap leaks during f=
-irmware recovery.
-- [High] Missing qcom_pas_shutdown() on error paths leaves remote processor=
- running.
+- [High] Time-of-check to time-of-use (TOCTOU) race condition in PAS API wr=
+appers leading to potential NULL pointer dereference.
 --
 
-commit e338489a518c55193a64126b6633cfb19d87e0ba
+commit 979ccc647befac000888b4c5f41818fc1037d4ff
 Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-wifi: ath12k: Switch to generic PAS TZ APIs
+firmware: qcom_scm: Remove SCM PAS wrappers
 
-This commit switches the ath12k client driver over to generic PAS TZ APIs
-to support multiple TZ implementation backends.
+Now since all the Qcom SCM client drivers have been migrated over to
+generic PAS TZ service, let's drop the exported SCM PAS wrappers.
 
-> diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless=
-/ath/ath12k/ahb.c
-> index 30733a244454e..69e21214e6290 100644
-> --- a/drivers/net/wireless/ath/ath12k/ahb.c
-> +++ b/drivers/net/wireless/ath/ath12k/ahb.c
+> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qco=
+m_scm.c
+> index 7933e55803dc2..1deee6aea3874 100644
+> --- a/drivers/firmware/qcom/qcom_scm.c
+> +++ b/drivers/firmware/qcom/qcom_scm.c
+
 [ ... ]
-> @@ -420,7 +420,7 @@ static int ath12k_ahb_power_up(struct ath12k_base *ab)
-> =20
->  	if (ab_ahb->scm_auth_enabled) {
->  		/* Authenticate FW image using peripheral ID */
-> -		ret =3D qcom_scm_pas_auth_and_reset(pasid);
-> +		ret =3D qcom_pas_auth_and_reset(pasid);
 
 [Severity: High]
-This is a pre-existing issue, but does ath12k_ahb_power_up() leak memory
-during firmware recovery?
+This isn't a bug introduced by this patch, but while reviewing the new
+generic PAS TZ service usage, I noticed a potential race condition in the
+API wrappers in drivers/firmware/qcom/qcom_pas.c:
 
-Earlier in this function, devm_memremap() is used:
-
-    mem_region =3D devm_memremap(dev, mem_phys, mem_size, MEMREMAP_WC);
-
-When the ath12k device undergoes a firmware crash recovery or reset,
-ath12k_core_reset() calls ath12k_hif_power_up(), which calls
-ath12k_ahb_power_up(). Because devm_memremap() allocates device-managed mem=
-ory,
-and the device itself is not destroyed or unbound during a reset, the memory
-mapping is permanently leaked into the device's resource list.
-
-[Severity: High]
-Does calling this new API introduce a TOCTOU NULL pointer dereference?
-
-Looking at qcom_pas_auth_and_reset() in drivers/firmware/qcom/qcom_pas.c:
-
-int qcom_pas_auth_and_reset(u32 pas_id)
-{
+drivers/firmware/qcom/qcom_pas.c:qcom_pas_init_image() {
+    ...
 	if (!ops_ptr)
 		return -ENODEV;
 
-	return ops_ptr->auth_and_reset(ops_ptr->dev, pas_id);
+	return ops_ptr->init_image(ops_ptr->dev, pas_id, metadata, size, ctx);
 }
 
-If a concurrent module unload of the PAS backend occurs, ops_ptr could be s=
-et
-to NULL between the check and the dereference. Even with READ_ONCE(), the l=
-ack
-of module reference counting allows the backend to be unloaded while its
-functions are executing. The same issue exists in qcom_pas_shutdown().
+Since ops_ptr is a global pointer and isn't accessed with READ_ONCE() or
+protected by a lock, could the compiler generate multiple loads?
 
->  		if (ret) {
->  			ath12k_err(ab, "failed to boot the remote processor %d\n", ret);
->  			goto err_fw2;
+If a PAS backend is unbound and qcom_pas_ops_unregister() sets ops_ptr to
+NULL concurrently, can this lead to a NULL pointer dereference when
+accessing ops_ptr->init_image or ops_ptr->dev?
 
-[Severity: High]
-This is a pre-existing issue, but does this error path leave the remote
-processor running?
+The same pattern appears in other wrappers as well:
 
-If qcom_pas_auth_and_reset() succeeds, but a subsequent step like updating
-the SMEM state or waiting for completion fails, the code jumps to err_fw2 a=
-nd
-returns an error without shutting down the PAS. This can lead to memory
-corruption if the driver unloads and the remote processor continues to DMA
-into freed kernel memory.
+drivers/firmware/qcom/qcom_pas.c:qcom_pas_metadata_release() {
+    ...
+	if (!ops_ptr || !ctx || !ctx->ptr)
+		return;
 
-[ ... ]
-> @@ -485,10 +485,10 @@ static void ath12k_ahb_power_down(struct ath12k_bas=
-e *ab, bool is_suspend)
->  		pasid =3D (u32_encode_bits(ab_ahb->userpd_id, ATH12K_USERPD_ID_MASK)) |
->  			 ATH12K_AHB_UPD_SWID;
->  		/* Release the firmware */
-> -		ret =3D qcom_scm_pas_shutdown(pasid);
-> +		ret =3D qcom_pas_shutdown(pasid);
+	ops_ptr->metadata_release(ops_ptr->dev, ctx);
+}
 
-[Severity: High]
-This is also a pre-existing issue, but does ath12k_ahb_power_down() skip
-shutting down the PAS on timeout?
-
-If the wait for userpd_stopped times out earlier in this function:
-
-    if (!time_left) {
-        ath12k_err(ab, "UserPD stop wait timed out\n");
-        return;
-    }
-
-The function returns early without invoking qcom_pas_shutdown(), which can
-also leave the remote processor running.
-
->  		if (ret)
-> -			ath12k_err(ab, "scm pas shutdown failed for userPD%d\n",
-> -				   ab_ahb->userpd_id);
-> +			ath12k_err(ab, "PAS shutdown failed for userPD%d: %d\n",
-> +				   ab_ahb->userpd_id, ret);
->  	}
->  }
+Should these wrappers use READ_ONCE() or some form of synchronization to
+ensure safe dereferencing of ops_ptr?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702115835.1676=
-02-1-sumit.garg@kernel.org?part=3D12
+02-1-sumit.garg@kernel.org?part=3D13
