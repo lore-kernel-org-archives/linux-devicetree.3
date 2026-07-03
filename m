@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5B6304976;
-	Fri,  3 Jul 2026 16:19:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8181304976;
+	Fri,  3 Jul 2026 16:20:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783095554; cv=none; b=Yi2h1hAV+m0/+S8ZCCaHGRDRBoDDrPoLzbyvwl4jt8wmQUdspDfyXOD+QCu7pSCoo+V2KnhH4uOPBZ3JMze+yudvZ4Qt5WmZQkgAk1PdZgK4LhgN/Zwr1z0nteBLY1Dxn4WeYYEaO7aVVRXEWVUzGKlWCietnAFRdnyZMwPxiJo=
+	t=1783095657; cv=none; b=LbImny1sq6jk8RpykjwCIXguhB30hg8pum+nFTno6GV4F02dSmoJLm6gHcz8rVSy/hrFSB+9SRIxq++/K9KN0/y8oHloCl6Xs6q3MkfUZEVhH4I3XdNra0lgR6BPCvasj590GPXPnUuZjutIFVxXCpXvqEin/dOTpIJU3Hzs9I8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783095554; c=relaxed/simple;
-	bh=MDqV3FE/QURKj47Ug9qhhO3Rw6xeNdaWbeaJ1FuMeXg=;
+	s=arc-20240116; t=1783095657; c=relaxed/simple;
+	bh=OM5LeX7Z3zehI7Br7kaR6AJOzvkDGU+AsyY3eqD986Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qlvc9EHGRmHzPlHq6our5QsaZNu5Af1YQf9rCYln36WggZX7dfppw17D5mUBgIsnGSIVOhu6erulRtrfjgM4x0KRYl8v9oHuwgabMhptlBgREeeF7Na60u+afTf/KpXZChZSAhkt6f7z3Z/l0f00dZoA1NRvrV+2Xj8GL0XUy2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/j4ZWUr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=rp9tJbhDWNHnn1mwdl8QTdJG9lfhmmOArEeGWUTxZfYGkDFEDZCslICTdWUoRMcZKhdSBWAbuhReR4sjCZGPUhiCrKi8Vx0HrbiokWALRRoT8HRaXfphJGk6CAvy2SIIGTOxnzECRBDWg5jaWu7tpSQ8pArn2wWf5A/JbFocXok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ob47GSok; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/j4ZWUr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD6131F000E9;
-	Fri,  3 Jul 2026 16:19:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ob47GSok"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D0271F000E9;
+	Fri,  3 Jul 2026 16:20:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783095553;
-	bh=MDqV3FE/QURKj47Ug9qhhO3Rw6xeNdaWbeaJ1FuMeXg=;
+	s=k20260515; t=1783095655;
+	bh=OM5LeX7Z3zehI7Br7kaR6AJOzvkDGU+AsyY3eqD986Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d/j4ZWUrtxifnX8y919J8kuQuU5DEj1oB14B6kihoAoypJZRemNaeQiPADNdNsyYm
-	 BKOCus/eZWIPGtPhqVi4YPlgvopBcbw1dilQiwOzO/FYzr0DfSHgaj6yNVGY3XW+U0
-	 u2IKQRCJPgCVFB7HMRVp8Bms73PRBDjuC+Jna+HUsDOJXbhlxA74ZekbcfutiNkFO1
-	 QMGAOrkyEpsVLwoDKqWVEIEFA7qYSS+i8Ns2MdC5hJfWNfyRAZwHLzOYxKigfjn3NN
-	 M1Gp70mq4T9ehJKkvaOroeS6O8RhG5l456YtAHQcErARJxNPRQZCjY5+Ne1fQyXTuk
-	 C4ZZaF2jOLRag==
-Date: Fri, 3 Jul 2026 17:19:08 +0100
+	b=Ob47GSokjsPQlNeF1DRo+w36Qqk3j9a2jBm2ZRPypV82dDcgEhaMtpO8cg1FfNnEk
+	 So4PGlSpvzqisjpgfs3gCKJ3Lf+Qq/pk/iPRWtk6uGoM8Nmi5lp4yvTgXxYwC7n8d2
+	 eN1pkTjnnb+767W300paAMsO5lA91HdlzkEUw0C4wrQ5yy+OuEtgOtn/D9dFkWjyMW
+	 PDYuVtgy2xN4HU7XRkh8tj2q4rFjBn/guryMnTHZ7rCW4wZT/Z0BGyfS2ZQq7Rf2OS
+	 BunNP/qYhgPuCDlWWzPjUHhKbugT0jBAVgStCALqGoFUKc4qld1OyGLc2UO9l/mvQ2
+	 c4ysojZEQUTLQ==
+Date: Fri, 3 Jul 2026 17:20:51 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Sasha Finkelstein <k@chaosmail.tech>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: soc: apple: Add Apple PMGR misc
- controls
-Message-ID: <20260703-acre-buffalo-815de034999e@spud>
-References: <20260703-pmgr-misc-v2-0-4b26ba10c5a4@chaosmail.tech>
- <20260703-pmgr-misc-v2-1-4b26ba10c5a4@chaosmail.tech>
+To: Udaya Kiran Challa <challauday369@gmail.com>
+Cc: alexandre.belloni@bootlin.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, skhan@linuxfoundation.org,
+	me@brighamcampbell.com, linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: rtc: microchip,pic32mzda-rtc: Convert to DT
+ schema
+Message-ID: <20260703-identify-cringe-ef88079923cd@spud>
+References: <20260703110442.205026-1-challauday369@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,26 +44,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Ew3fU/QzK+CdPJ5y"
+	protocol="application/pgp-signature"; boundary="OaoQxJwKPRf9lloS"
 Content-Disposition: inline
-In-Reply-To: <20260703-pmgr-misc-v2-1-4b26ba10c5a4@chaosmail.tech>
+In-Reply-To: <20260703110442.205026-1-challauday369@gmail.com>
 
---Ew3fU/QzK+CdPJ5y
+--OaoQxJwKPRf9lloS
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---Ew3fU/QzK+CdPJ5y
+--OaoQxJwKPRf9lloS
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakfg/AAKCRB4tDGHoIJi
-0jYaAP0aSmWIipYQoz1Y9zbqOWoAnynQ5pXZqcKDuusK7Hf54gD/SC1++acH8F08
-FMU2DVs0tWppBFT9gNOmErqDtSCT+QA=
-=K5Z3
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakfhYwAKCRB4tDGHoIJi
+0jHsAQDdBhJEQFSxOsFL/90Eml086rure97kHVAlfSAso8DvAAD/VYDXUUP+IoQ3
+WCNQ+7brY8b5e9u3ctKoD/7ml02CngA=
+=Wmta
 -----END PGP SIGNATURE-----
 
---Ew3fU/QzK+CdPJ5y--
+--OaoQxJwKPRf9lloS--
