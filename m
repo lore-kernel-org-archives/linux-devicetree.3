@@ -1,246 +1,373 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from out-184.mta0.migadu.com (out-184.mta0.migadu.com [91.218.175.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036FE3264D8
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 19:43:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593F63090D7
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 19:43:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783107785; cv=none; b=hn7W40DBT+mvebq2E7pUztcEtOTOnbM8vhhhVA0e5M2bshDy/ZplvBu6226I/6Fb1hixPrY2QVoCYB486zfgSmc8JRK4eXPYtclrInTGLXysR34y3z7DlIz6hKHR7fjdo+qRC5RtfkT7s8BuzBhp0mqUYuGvBKLgWrC5ImQfxSA=
+	t=1783107796; cv=none; b=Hxf3QdIm/FJjufllJ4Kx6vdGoxfCKm5o5kbzbYAG5YZLjU02G+eHovwN6D7qCZgKi2OXpAJDD//XXprhqSxZtOwFFM2st0s4bTL+UjFubtq1Aj1jMq0Vd7g7Vo4tLaGcye62APR8OzXyoz87tJNbRf7c3RzRes6wGQvkrXGmUA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783107785; c=relaxed/simple;
-	bh=EDsJOkMjiYiz6OkhRTOBP+Vv9glaMIUvzF16vJsaLys=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pz6T1XlT2rgUgAmBK+W31FA16PHRFZ0GcX0ZMGJQEam2KS+AKLsn+BRq2rhp/eMFrkpRLAS3tbaXC7P1prUzjD+dZ1iAIxITn9fDzeNwROccpcfYemqhlX6yOqlejPgPw6E/xC7E6/Uet1YyL7GMGiHVbBU1VloAttLzL/hGWB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dBy/JQfo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=duQr2h9T; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783107796; c=relaxed/simple;
+	bh=b0GF0Br8yanUhjxYGdPnTvzJRVaR6Wg2hft+j3NEYfY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IC9Ro2vikZrJ2USUwBU/VmuaEVbZj8m/7Fxg8sqZnZ8mSiYphkLgbPuVTEFe8hWFvonBZYLIuUnR/lyRMwZW17MJM7A8W9MPhH0EPseSdbq817rO9s9znLVeJ4V7emz/B7SoyJCsBi7hFLg6ZW2VvgLAT+y0c1dZW2JYSbgAdH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dXM1TfMJ; arc=none smtp.client-ip=91.218.175.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dBy/JQfo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="duQr2h9T"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663HiOWv684032
-	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 19:43:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Z1EEVIKsLJK
-	Ugc5TxRSkb+8QfAsvTDn+685DsfCzyOg=; b=dBy/JQfo/vmPcUgd+SG5C/HFppQ
-	VQPpo60m5XuLLe8IZz9VmkujdeOWKORaedTIbeEBXY3MrqaFrb5buG/dtNw1flVa
-	gmLIGrbmt1RBL2AacXvRap654MDBA4a6SeaUuliy+gHrr788pt04eMSI9xpgs33+
-	R5AZgG4+5VHgVaE2/+1DnI3BIA5lvOsSyAeCDfw9UMvsglqVfpNNovb5N7PeoTwg
-	ln+ebK3WQ+ukRC6+S/3BEacZiLuSKmeNDsLRfTMLfQIiHJVlcehaxynQlPbJBxiI
-	lA6TlzgWIpcuF6cQsHlG+pIWLBg20HuTazq1cz/Ht4OmvhKuWxEpUIEngyw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f64b5bs21-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 19:43:03 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38096521198so1450349a91.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 12:43:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783107783; x=1783712583; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z1EEVIKsLJKUgc5TxRSkb+8QfAsvTDn+685DsfCzyOg=;
-        b=duQr2h9Ticy2uQDCb8Ub4gcdN31PT7fD/Q5vPMc8pJPKHPLwqotNqvPS+yJbzss4sm
-         symuZgxGS23uqjxGs2o5RP+K9iaOXnPsfOUVCJPC1NrwdiMPSz/jODGif0SQG3Xp9Sdo
-         S5EB1ETlyP2xgwHVoN6gebZWJGGtLE1ZujzHspyReMewOR1XPo8kGHHmCPGo+kbG0FKC
-         U/g1G8vCDKdTG04Hgy6t9R2WlvwY8JNBTq6bmnQx15rwWecyAktn09SQBWbV5ifoIrrd
-         o6wbhuDfOnx9T9bQ8SN0CgYbbk8uNe7K/3pQ0wLDeI275Vl7vaAKl4g5xOjui7t1+q1S
-         Mn+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783107783; x=1783712583;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z1EEVIKsLJKUgc5TxRSkb+8QfAsvTDn+685DsfCzyOg=;
-        b=Lym1QA2eR4JfA4P8TaVudKAgw9D0jAqmefNVf0nXVyCjutgc8nI3Zuv717WuPZrqxA
-         LQ5QjgjTo10XeomYEI5UUqOYRzEhZu2X3XLOC01jH0uOUQudcTvOD9/J4iAfT+h3tc2i
-         g6+9BlxVYyMsDNa564rIaJ5OKWlZIVsxtZ/1LU2ZkStlMyu1wG7oNvXEYnpnRUCD1c9s
-         NWSh2zL8LuJR+vtc2k8xkNjsfSdmO+6aM2v9tUfYtEl2wm9xkOlpEVs1H6s0siMGclm9
-         bUdr0Lg2XULSuRgzl2NwjHPRwdLTIx1CmmL77eA8wpgtYnaE4HYGFy/lFR26B5HD3qbt
-         nNOw==
-X-Forwarded-Encrypted: i=1; AHgh+RryrNroOzcq7t0qf8+2AqXIffej0Q3eLvkTP9nDTbN+P6liuzXJSWKE9P34gky0nzsEd6Wj1Po2cVHZ@vger.kernel.org
-X-Gm-Message-State: AOJu0YxYgMqyfnmpKAN+2mC//yPpSMwLNhH1sksl7Wk2FE9JiU5PHJVM
-	wM5+FcIlE3e0wr+viNcI4YQJFuqkF4bWXZMryQ3Sqt/k6X6KpB7aFBCOXq83A700o9HTdwDgtlx
-	e92UZooKeH3kwoWB1Z+KNh0zb/GeegWwdig+YboKxriI92OpuWI52sLUMht7o63fP
-X-Gm-Gg: AfdE7cni1lFd7HwqURNHgxsMJQwnJQqj8kpYCc5TBGdC/FdjWVZcB4XHxQC/vamDZA3
-	+AiY/5Z1N6/9F7YDYCKig6OLFuf5iZLC7R6tzXeBJKvPYhDXG83YtiJgFzmIt3spaIC5Jkv60xG
-	yzpt7V8+w6ADvW0+2RDXPJJwHUg+h2TUU6VYsr6QEO0ELUPvlcMtZdi7JI8D/h/cWeJSnSQMmwf
-	ve51IPdGRJU5rrkConcYyZdMX6BSCuPOvuOqNOwWQxFTbl3OoBaL62A1MSJ0Se8LQft4EEovyUi
-	wKNz28+i6uM+Uo3jFJ8yOffjWI9E62Sk40bY6OatH6YzBIxFBE3ag/uLFGqedgb8FCDPPW0Ags+
-	yltkjNQK20BQZLG6MPlS5FpsRlQMzEP+Bax0+cg==
-X-Received: by 2002:a17:90a:d40f:b0:36a:a16b:5f6d with SMTP id 98e67ed59e1d1-382807aa1b0mr732954a91.7.1783107782573;
-        Fri, 03 Jul 2026 12:43:02 -0700 (PDT)
-X-Received: by 2002:a17:90a:d40f:b0:36a:a16b:5f6d with SMTP id 98e67ed59e1d1-382807aa1b0mr732847a91.7.1783107781822;
-        Fri, 03 Jul 2026 12:43:01 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f290b6bc2sm10065845eec.27.2026.07.03.12.42.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 12:43:01 -0700 (PDT)
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Liviu Dudau <liviu.dudau@arm.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Joel Stanley <joel@jms.id.au>,
-        Andrew Jeffery <andrew@codeconstruct.com.au>,
-        Paul Cercueil <paul@crapouillou.net>,
-        Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
-        Paul Kocialkowski <paulk@sys-base.io>,
-        Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Samuel Holland <samuel@sholland.org>,
-        Alexey Brodkin <abrodkin@synopsys.com>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-        Michal Simek <michal.simek@amd.com>,
-        Daniel Scally <dan.scally@ideasonboard.com>,
-        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Eddie James <eajames@linux.ibm.com>,
-        Tiffany Lin <tiffany.lin@mediatek.com>,
-        Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-        Yunfei Dong <yunfei.dong@mediatek.com>,
-        Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
-        Houlong Wei <houlong.wei@mediatek.com>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
-        Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Thierry Reding <thierry.reding@kernel.org>,
-        Jonathan Hunter <jonathanh@nvidia.com>,
-        Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Ge Gordon <gordon.ge@bst.ai>, Adrian Hunter <adrian.hunter@intel.com>,
-        Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Shengjiu Wang <shengjiu.wang@gmail.com>,
-        Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-        Bard Liao <yung-chuan.liao@linux.intel.com>,
-        Daniel Baluta <daniel.baluta@nxp.com>,
-        Orson Zhai <orsonzhai@gmail.com>,
-        Baolin Wang <baolin.wang@linux.alibaba.com>,
-        Peter Chen <peter.chen@cixtech.com>,
-        Fugang Duan <fugang.duan@cixtech.com>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
-        Fabio Estevam <festevam@gmail.com>,
-        Nicolin Chen <nicoleotsuka@gmail.com>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-        Chunyan Zhang <zhang.lyra@gmail.com>,
-        CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
-        linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-        linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
-        openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
-        kernel@collabora.com, linux-tegra@vger.kernel.org,
-        linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
-        linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        imx@lists.linux.dev, sound-open-firmware@alsa-project.org,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH 09/42] drm: hdlcd: Use devm_of_reserved_mem_device_init()
-Date: Sat,  4 Jul 2026 01:08:22 +0530
-Message-ID: <20260703193855.110619-10-mukesh.ojha@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dXM1TfMJ"
+Message-ID: <9878f042f424bfbd7fab24175298224b58e87779.camel@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1783107782;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uZO1sX8QbjOMl063nzq/2Es6qmjh1VUaSD7dIek0KBs=;
+	b=dXM1TfMJOVV+eFjwie5jESveDPenwpqM1E7utBLzbiEQTaQhNaoaqs07WIfWpV2C+ocdH7
+	IlL5uV/56J4tlCQ7kfUHeWIXFXsJ1hwrtIQB6JQqTpqSaI6ZhMplJKdpvG0yZCkntDkVwT
+	+0/okuDEhvwcTdOh9q6aDRa6tiRSW7Y=
+Subject: Re: [PATCH v1 2/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Siratul Islam <siratul.islam@linux.dev>
+To: Stefan Popa <stefan.popa@analog.com>, Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
+	 <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	 <conor+dt@kernel.org>, Ciprian Hegbeli <ciprian.hegbeli@analog.com>, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Sat, 04 Jul 2026 01:42:39 +0600
+In-Reply-To: <20260703102941.1141341-3-stefan.popa@analog.com>
+References: <20260703102941.1141341-1-stefan.popa@analog.com>
+	 <20260703102941.1141341-3-stefan.popa@analog.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE5OSBTYWx0ZWRfX5pIYZWM2xNqW
- 9Svctfqv6cROF4xKyS8YOoPj9ZYhFtVi518kqe1twpr6L676sZiVafiBWkuYwob9onHJhx49QgU
- 0ovQV5ldHGylEmTB0B/livuWTepgOmg=
-X-Authority-Analysis: v=2.4 cv=FOQrAeos c=1 sm=1 tr=0 ts=6a4810c7 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=zu8Q1U5i7KxegdXecekA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: dVUBbECbUArxDmWgyRGgBsDPDSCVJ2rE
-X-Proofpoint-GUID: dVUBbECbUArxDmWgyRGgBsDPDSCVJ2rE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE5OSBTYWx0ZWRfXzNt5upN1EjRi
- FYZ6bCVMkSMm63tboTiNtfbuEivguOaZUnZJgdh9eUZYwINBJXf8WUyYPF9d3cU61VD9BVvJcQf
- S0a85z+TxfLzOUfcx9fueJMWqpqcO84MBzYe2RsUuEdnhQ3FmFm4YjpdWoFXsEcEwuwkMPo40aa
- EQ/EATj8wwsJmfjVFZBqGHNxPF2Qu4J8PvwDWRh+Ww+Ja222onp8Lm7Jjjb7PU7cDG3FLhmFkfG
- tWaGS0DhbVqHE8kNW/KuqsD53lK+rmJB8U9ArQuv3gs8mVUklhjf0Hot6SK6VCBsa/BPp5EVz/S
- 4U1cdT//xj5d6nxcptv5vsVbvjdKJJpqdrQClyiB6ylZHHaC2mNE6i5HbtgwUQuVA4/szmetmYS
- Nqaxc43RjtmYOAwxIivnSY/qROD3QxN9JPopD6554e1BHnyPAu8D6efEDuQg5YVe6fswkSJXDGo
- uus7w61qrE81ZInzJeg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_03,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
- bulkscore=0 adultscore=0 clxscore=1015 malwarescore=0 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607030199
+X-Migadu-Flow: FLOW_OUT
 
-Switch to devm_of_reserved_mem_device_init() so the reserved memory
-region is released automatically on probe failure or device unbind.
-Remove the three explicit of_reserved_mem_device_release() calls in
-the setup_fail error path, the bind error path, and hdlcd_drm_unbind().
+On Fri, 2026-07-03 at 13:29 +0300, Stefan Popa wrote:
+> The MAX40080 is a bidirectional current-sense amplifier with an
+> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
+> voltage across an external shunt resistor and the input bus voltage,
+> storing the results in an internal FIFO.
+>=20
+>=20
+Hi! I already looked at Andy's review and decided to add a few more stuff.
+...
+> =C2=A0
+> +MAXIM MAX40080 CURRENT SENSE AMPLIFIER DRIVER
+> +M:	Ciprian Hegbeli <ciprian.hegbeli@analog.com>
+> +M:	Stefan Popa <stefan.popa@analog.com>
+> +L:	linux-iio@vger.kernel.org
+> +S:	Supported
+> +W:	https://ez.analog.com/linux-software-drivers
+> +F:	Documentation/devicetree/bindings/iio/adc/maxim,max40080.yaml
+The Maintainer entry for binding should be in the binding patch,
+> +F:	drivers/iio/adc/max40080.c
+With the driver entry added in this patch.
+> +
+...
++ array_size.h
+> +#include <linux/bitfield.h>
+> +#include <linux/bitops.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/i2c.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/math64.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/property.h>
+> +#include <linux/unaligned.h>
+> +#include <linux/units.h>
+> +
+> +#include <linux/iio/iio.h>
+> +
+> +#define MAX40080_REG_CFG		0x00
+> +#define=C2=A0 MAX40080_MODE_MSK		GENMASK(2, 0)
+> +#define=C2=A0 MAX40080_PEC_EN_MSK		BIT(5)
+> +#define=C2=A0 MAX40080_RANGE_MSK		BIT(6)
+> +#define=C2=A0 MAX40080_FILTER_MSK		GENMASK(14, 12)
+Should be one space after #define, like the first one.
+> +
+> +#define MAX40080_REG_FIFO_CFG		0x0A
+Here too
+> +#define=C2=A0 MAX40080_STORE_IV_MSK		GENMASK(1, 0)
+> +
+> +#define MAX40080_REG_IV			0x10
+> +/* Current is a 13-bit two's-complement value (magnitude + sign bit). */
+> +#define=C2=A0 MAX40080_IV_I_MSK		GENMASK(12, 0)
+> +#define=C2=A0 MAX40080_IV_I_SIGN_BIT		12
+> +#define=C2=A0 MAX40080_IV_V_MAG_MSK		GENMASK(27, 16)
+> +#define=C2=A0 MAX40080_IV_VALID_MSK		BIT(31)
+> +
+> +/* CFG.mode field */
+> +#define MAX40080_STDBY_MODE		0x00
+> +#define MAX40080_SINGLE_MODE		0x02	/* one conversion per Quick Command *=
+/
+> +
+> +/* FIFO_CFG.store_iv field */
+> +#define MAX40080_STORE_I_V		0x02
+> +
+> +#define MAX40080_ADC_RES		4096
+> +#define MAX40080_INTER_VREF_MV		1250
+> +#define MAX40080_V_BUFF_GAIN		30
+Maybe sort by value? just a nit.
+> +#define MAX40080_CSA_50MV_GAIN		25
+> +#define MAX40080_CSA_10MV_GAIN		125
+> +
+> +/*
+> + * The RANGE field (CFG bit 6) selects one of two current-sense full-sca=
+le
+> + * ranges (the MAX40080 supports exactly two: +/-50 mV and +/-10 mV). Or=
+dered
+> + * so that the array index equals the RANGE field value: index 0 =3D 50 =
+mV range
+> + * (gain 25 V/V), index 1 =3D 10 mV range (gain 125 V/V).
+> + */
+> +static const int max40080_csa_gain[] =3D {
+> +	MAX40080_CSA_50MV_GAIN, MAX40080_CSA_10MV_GAIN,
+Maybe 1 item per line since it's a macro?=20
+> +};
+> +
+> +#define MAX40080_NUM_RANGES	ARRAY_SIZE(max40080_csa_gain)
+> +
+> +struct max40080_state {
+> +	struct i2c_client *client;
+> +	/* Serializes read-modify-write access to the CFG register. */
+> +	struct mutex lock;
+> +	u32 shunt_resistor_uohm;
+> +	/*
+> +	 * Precomputed current scale (mA per code) for each RANGE setting, as
+> +	 * {integer, nano} pairs for IIO_VAL_INT_PLUS_NANO. The range is
+> +	 * selected by writing the corresponding scale.
+> +	 */
+> +	int current_scale[MAX40080_NUM_RANGES][2];
+> +};
+> +
+> +static const int max40080_oversampling_avail[] =3D { 1, 8, 16, 32, 64, 1=
+28 };
+> +
+> +static int max40080_update_bits(struct max40080_state *st, u8 reg,
+> +				u16 mask, u16 val)
+This can fit in 1 line.
+static int max40080_update_bits(struct max40080_state *st, u8 reg, u16 mask=
+, u16 val)
 
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
----
- drivers/gpu/drm/arm/hdlcd_drv.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlcd_drv.c
-index 81d45f2dd6a7..67466fd441d5 100644
---- a/drivers/gpu/drm/arm/hdlcd_drv.c
-+++ b/drivers/gpu/drm/arm/hdlcd_drv.c
-@@ -134,7 +134,7 @@ static int hdlcd_load(struct drm_device *drm, unsigned long flags)
- 		version & HDLCD_VERSION_MINOR_MASK);
- 
- 	/* Get the optional framebuffer memory resource */
--	ret = of_reserved_mem_device_init(drm->dev);
-+	ret = devm_of_reserved_mem_device_init(drm->dev);
- 	if (ret && ret != -ENODEV)
- 		return ret;
- 
-@@ -164,8 +164,6 @@ static int hdlcd_load(struct drm_device *drm, unsigned long flags)
- irq_fail:
- 	drm_crtc_cleanup(&hdlcd->crtc);
- setup_fail:
--	of_reserved_mem_device_release(drm->dev);
--
- 	return ret;
- }
- 
-@@ -316,7 +314,6 @@ static int hdlcd_drm_bind(struct device *dev)
- 	of_node_put(hdlcd->crtc.port);
- 	hdlcd->crtc.port = NULL;
- 	hdlcd_irq_uninstall(hdlcd);
--	of_reserved_mem_device_release(drm->dev);
- err_free:
- 	dev_set_drvdata(dev, NULL);
- 	return ret;
-@@ -338,7 +335,6 @@ static void hdlcd_drm_unbind(struct device *dev)
- 	pm_runtime_put(dev);
- 	if (pm_runtime_enabled(dev))
- 		pm_runtime_disable(dev);
--	of_reserved_mem_device_release(dev);
- 	dev_set_drvdata(dev, NULL);
- }
- 
--- 
-2.53.0
-
+> +{
+> +	int ret;
+> +	int tmp;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+...
+> + */
+> +static int max40080_read_iv_once(struct max40080_state *st, u32 *iv)
+> +{
+> +	u8 buf[4];
+> +	int ret;
+> +
+> +	ret =3D i2c_smbus_read_i2c_block_data(st->client, MAX40080_REG_IV,
+> +					=C2=A0=C2=A0=C2=A0 sizeof(buf), buf);
+This also fits in 1 line but it would go 92 cols, so not sure which one is =
+preferred.
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret !=3D sizeof(buf))
+> +		return -EIO;
+> +
+> +	*iv =3D get_unaligned_le32(buf);
+> +
+> +	return 0;
+> +}
+> +
+>=20
+...
+> +
+> +static int max40080_get_current(struct max40080_state *st, int *val)
+> +{
+> +	u32 iv;
+> +	int ret;
+> +
+> +	ret =3D max40080_read_iv(st, &iv);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val =3D sign_extend32(FIELD_GET(MAX40080_IV_I_MSK, iv),
+> +			=C2=A0=C2=A0=C2=A0=C2=A0 MAX40080_IV_I_SIGN_BIT);
+This can also be 1 line if you are going for that.
+> +
+> +	return 0;
+> +}
+> +
+> +static int max40080_get_voltage(struct max40080_state *st, int *val)
+> +{
+> +	u32 iv;
+> +	int ret;
+> +
+> +	ret =3D max40080_read_iv(st, &iv);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val =3D FIELD_GET(MAX40080_IV_V_MAG_MSK, iv);
+> +
+> +	return 0;
+> +}
+> +
+> +static int max40080_get_range(struct max40080_state *st, unsigned int *r=
+ange)
+> +{
+> +	int tmp;
+> +
+> +	tmp =3D i2c_smbus_read_word_data(st->client, MAX40080_REG_CFG);
+I think tmp can be initialized, since it is only assigned once.
+> +	if (tmp < 0)
+> +		return tmp;
+> +
+> +	*range =3D FIELD_GET(MAX40080_RANGE_MSK, tmp);
+> +
+> +	return 0;
+> +}
+> +
+...
+> +
+> +/*
+> + * The FILTER field selects digital averaging of N consecutive conversio=
+ns
+> + * (no averaging, 8, 16, 32, 64 or 128), which maps directly to the IIO
+> + * oversampling ratio. Averaging reduces the effective output data rate =
+by the
+> + * same factor; the conversion rate itself is set by the separate ADC_RA=
+TE
+> + * field.
+> + */
+> +static int max40080_get_oversampling_ratio(struct max40080_state *st, in=
+t *val)
+> +{
+> +	int tmp;
+> +	u8 filter;
+Reverse xmas tree.
++ u8 filter;
++ int tmp;
+While you are at it, and since you are already using u8, tmp can be s32.
+> +
+> +	tmp =3D i2c_smbus_read_word_data(st->client, MAX40080_REG_CFG);
+> +	if (tmp < 0)
+> +		return tmp;
+> +
+> +	filter =3D FIELD_GET(MAX40080_FILTER_MSK, tmp);
+> +	*val =3D (filter =3D=3D 0) ? 1 : (8 << (filter - 1));
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * max40080_oversampling_avail[] is ordered so that its index is the FIL=
+TER
+> + * field value (index 0 =3D no averaging, index 1 =3D 8x, ...). Return t=
+hat index
+> + * for an exact match, or -EINVAL for a value that is not on the list.
+> + */
+> +static int max40080_oversampling_to_filter(int val)
+> +{
+> +	int i;
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(max40080_oversampling_avail); i++)
+> +		if (max40080_oversampling_avail[i] =3D=3D val)
+> +			return i;
+Since this for is multiline, it could use scope, {}.
+> +
+> +	return -EINVAL;
+> +}
+> +
+...
+> +}
+> +
+> +static int max40080_read_avail(struct iio_dev *indio_dev,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct iio_chan_spec const *chan=
+,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const int **vals, int *type, int=
+ *length,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 long info)
+> +{
+> +	struct max40080_state *st =3D iio_priv(indio_dev);
+> +
+> +	switch (info) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		if (chan->type !=3D IIO_CURRENT)
+> +			return -EINVAL;
+> +
+> +		*vals =3D (int *)st->current_scale;
+> +		*length =3D MAX40080_NUM_RANGES * 2;
+> +		*type =3D IIO_VAL_INT_PLUS_NANO;
+I think a space between the assignments and the return would read better. P=
+ersonal preference. Your call.
+> +		return IIO_AVAIL_LIST;
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		*vals =3D max40080_oversampling_avail;
+> +		*length =3D ARRAY_SIZE(max40080_oversampling_avail);
+> +		*type =3D IIO_VAL_INT;
+> +		return IIO_AVAIL_LIST;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int max40080_reg_access(struct iio_dev *indio_dev,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int reg,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int write_val,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int *read_val)
+> +{
+> +	struct max40080_state *st =3D iio_priv(indio_dev);
+> +
+> +	if (read_val) {
+> +		int val =3D i2c_smbus_read_word_data(st->client, reg);
+> +
+> +		if (val < 0)
+> +			return val;
+> +		*read_val =3D val;
+Here too.
+> +		return 0;
+> +	}
+> +
+> +	return i2c_smbus_write_word_data(st->client, reg, write_val);
+> +}
+...
+>=20
+> +}
+> +
+> +static const struct i2c_device_id max40080_i2c_ids[] =3D {
+> +	{ "max40080" },
+.name =3D "max40080"
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, max40080_i2c_ids);
+> +
+> +static const struct of_device_id max40080_of_match[] =3D {
+> +	{ .compatible =3D "maxim,max40080" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, max40080_of_match);
+> +
+> +static struct i2c_driver max40080_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "max40080",
+> +		.of_match_table =3D max40080_of_match,
+> +	},
+> +	.probe =3D max40080_probe,
+> +	.id_table =3D max40080_i2c_ids,
+> +};
+> +module_i2c_driver(max40080_driver);
+> +
+> +MODULE_AUTHOR("Ciprian Hegbeli <ciprian.hegbeli@analog.com>");
+> +MODULE_AUTHOR("Stefan Popa <stefan.popa@analog.com>");
+> +MODULE_DESCRIPTION("Analog Devices MAX40080 current-sense amplifier driv=
+er");
+> +MODULE_LICENSE("GPL");
