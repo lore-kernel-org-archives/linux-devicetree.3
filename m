@@ -1,753 +1,149 @@
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CEC643B27FB;
-	Fri,  3 Jul 2026 09:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBF63B0AD6
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 09:35:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783071291; cv=none; b=cmPBzSY1JWCYkucBxi7ofmdVW2CX8s/+v5Hwfsr/mLnzF/62t4mXnecyqXcSfBiWDe6uQBBh5Lb1IsTb4tbGAD3kN8jokUUIi5gLutoLsdOWNAyOXV+j+J9BgUrbolsXUDad/LUucyorPU8ql/46s13+QeOIrqdDyjoR2z3+U10=
+	t=1783071344; cv=none; b=HXRvYm0g1tWYWUYF08bh2mhO85qwmTDosFXfvyWv0aC3+eMMAMeS2k8MJvAe1Qq0kuoYXRk1TIrunw+Gi+wMorcUTwEd4VaCfCs/C6jR639LyNFk2pCu6e02NO/cbc8/xESCdzz2gML1OecL//bdMtgA7i+mMcsxd7dFn5T9GFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783071291; c=relaxed/simple;
-	bh=V7uVQW1KNqXdWoGwd9A4cEmorEXCyBKG9+6KqbRDFR0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=TpGCBiOljMAsU4e33QDZSyWkzzivkBD7f8DoP8AOX6h080g64HOk9K+yxM4yPpwT4I1vVmAhb5y+DEJu1Yxr+siHRnssem8TDWEPd/MsjzIoeiiVDE4/xnYyO3AJjlStVuEUXVPfKok7GH1cER/UglpIAMutv7gAj+B7+JSUXI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=206.189.21.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
-	by app2 (Coremail) with SMTP id TQJkCgDX7aAogkdqjjsxAA--.39003S2;
-	Fri, 03 Jul 2026 17:34:34 +0800 (CST)
-From: dongxuyang@eswincomputing.com
-To: ukleinek@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ben-linux@fluff.org,
-	ben.dooks@codethink.co.uk,
-	p.zabel@pengutronix.de,
-	linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com,
-	wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	Xuyang Dong <dongxuyang@eswincomputing.com>
-Subject: [PATCH v10 3/3] pwm: dwc: add of/platform support
-Date: Fri,  3 Jul 2026 17:34:30 +0800
-Message-Id: <20260703093430.699-1-dongxuyang@eswincomputing.com>
-X-Mailer: git-send-email 2.31.1.windows.1
-In-Reply-To: <20260703093308.482-1-dongxuyang@eswincomputing.com>
-References: <20260703093308.482-1-dongxuyang@eswincomputing.com>
+	s=arc-20240116; t=1783071344; c=relaxed/simple;
+	bh=YVhN7ogufptzOgMejP7+2gAOpGLDTeGVby2qhlEC3g0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uG5/jcBDuyBbvsoTUdmHJFo1ubLJoLEh0yHHkVAvJlp+amT1wKQoLYYWatTwlvZh5PJ3ei7jKh4qE/cIUCCIBTFth+tnwxZMZ5cliOqqu1nTQpaq9BfV/lxZeXVUl/K1KmhkEakHusA3/bXUhrSQ5yaUaowWEI3xYOf77kVwivY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ToNRTLFO; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ToNRTLFO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B657A1F000E9;
+	Fri,  3 Jul 2026 09:35:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783071339;
+	bh=QyLSkU+TlpKs4kkAhey/11cODFfCs91Gj+x9HD8mK68=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ToNRTLFOcHXpK1IlW9uTnobNiBx8fzi8biyxgALSTVnE3EBy9kbwewI5uQhoHPG0j
+	 aUbFtxROA5zKW3ap1ZZNsXOTi6c8KUDMa+DcLkOM8oD5BZdu9ncgcehyLTnjpWtJ9m
+	 EIY+rL7XGtP+lgmVIzGSFb4aJnBaXQUnhAT+XqWw4vzudWOg53vreVV63DcZXJ8KJM
+	 ke/8JXLFmM2ColLbSLX4G+GtXXm5EKdsJ7iTDD10bat4cm6UwDhF9QHElVG+lZW1fn
+	 U6OX8oUYM2KZglZ16tlcNOtJ77xRgjZJyexTImVFiu0fx+Z4hKOVMn41wSus4tDXnm
+	 J3zsgjs4UZ4Yw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] media: i2c: imx678: Add driver for Sony IMX678
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jai Luthra" <jai.luthra@ideasonboard.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260703-imx678-v5-2-0523dbed0dad@ideasonboard.com>
+References: <20260703-imx678-v5-0-0523dbed0dad@ideasonboard.com>
+ <20260703-imx678-v5-2-0523dbed0dad@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 03 Jul 2026 09:35:36 +0000
+Message-Id: <20260703093537.B657A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TQJkCgDX7aAogkdqjjsxAA--.39003S2
-X-Coremail-Antispam: 1UD129KBjvAXoWfCrW8JF4kWrWDJFyfuFyDWrg_yoW8ur1UGo
-	WfKr1fXw18KF95A397Ca42kayjvw4ktas3ur1rWF4DCFn8Z3W5Aa4UKw4Ygryxtw1YkFWf
-	Ar4xXr1fAF4fJ3W8n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUYN7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4v20xva
-	j40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2
-	x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8
-	Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7M4kE6xkIj40Ew7xC0wCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42
-	xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWU
-	GwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI4
-	8JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4U
-	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
-	C2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbQJ57UUUUU==
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
-From: Xuyang Dong <dongxuyang@eswincomputing.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Sensor is left in STREAMING mode after model identification, lea=
+ding to power drain and potential hardware state issues.
+- [Low] Incompatible pointer type warning when passing `const u64 *` to `v4=
+l2_ctrl_new_int_menu()` and `v4l2_link_freq_to_bitmap()` which expect `cons=
+t s64 *`.
+--
 
-The dwc pwm controller can be used in non-PCI systems, so allow
-either platform or OF based probing.
+commit faaa0977c251c6b8135131c5875cd627b67a4017
+Author: Jai Luthra <jai.luthra@ideasonboard.com>
+Subject: media: i2c: imx678: Add driver for Sony IMX678
 
-The controller is reset only when no PWM channel is enabled.
-Otherwise, clocks are enabled and the runtime PM state is updated
-to reflect the active hardware configuration.
+This commit adds a V4L2 subdev driver for the Sony IMX678 image sensor. It
+provides support for MIPI RAW12 output, various clock and link frequencies,
+along with basic V4L2 controls.
 
-The DWC PWM controller does not provide a hardware polarity bit.
-Currently, the driver only supports active-low output, which is
-incompatible with devices requiring active-high waveforms (e.g.,
-backlight controllers, fan speed regulators).
+> diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/imx678.c
+> new file mode 100644
+> index 0000000000000..83626c3eb744b
+> --- /dev/null
+> +++ b/drivers/media/i2c/imx678.c
 
-Implement polarity control by exploiting the timer's dual load
-registers. The hardware uses:
-- LD_CNT:  LOW period count
-- LD_CNT2: HIGH period count
+[ ... ]
 
-The total period is defined as (LD_CNT + LD_CNT2). By swapping the
-duty cycle between these registers, we invert the polarity while
-keeping the period unchanged:
-- PWM_POLARITY_NORMAL:  write duty_cycle to LD_CNT2 (HIGH period)
-- PWM_POLARITY_INVERSED: write duty_cycle to LD_CNT  (LOW period)
+> +static const u64 link_freqs[] =3D {
+> +	[IMX678_LINK_FREQ_297MHZ]  =3D 297000000,
+> +	[IMX678_LINK_FREQ_360MHZ]  =3D 360000000,
+> +	[IMX678_LINK_FREQ_445MHZ]  =3D 445500000,
+> +	[IMX678_LINK_FREQ_594MHZ]  =3D 594000000,
+> +	[IMX678_LINK_FREQ_720MHZ]  =3D 720000000,
+> +	[IMX678_LINK_FREQ_891MHZ]  =3D 891000000,
+> +	[IMX678_LINK_FREQ_1039MHZ] =3D 1039500000,
+> +	[IMX678_LINK_FREQ_1188MHZ] =3D 1188000000,
+> +};
 
-Implementation:
-Update both apply() and get_state() to handle state->polarity
-consistently. Since the hardware does not store polarity, get_state()
-returns the last successfully applied software state, ensuring that
-read-back matches what was originally set.
+[ ... ]
 
-Co-developed-by: Ben Dooks <ben.dooks@codethink.co.uk>
-Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
-Signed-off-by: Xiang Xu <xuxiang@eswincomputing.com>
-Signed-off-by: Guosheng Wang <wangguosheng@eswincomputing.com>
-Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
----
- drivers/pwm/Kconfig        |  10 ++
- drivers/pwm/Makefile       |   1 +
- drivers/pwm/pwm-dwc-core.c | 161 +++++++++++++++----
- drivers/pwm/pwm-dwc-of.c   | 316 +++++++++++++++++++++++++++++++++++++
- drivers/pwm/pwm-dwc.h      |  25 ++-
- 5 files changed, 474 insertions(+), 39 deletions(-)
- create mode 100644 drivers/pwm/pwm-dwc-of.c
+> +static int imx678_init_controls(struct imx678 *imx678)
+> +{
 
-diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
-index e8886a9b64d9..fd1d68beab67 100644
---- a/drivers/pwm/Kconfig
-+++ b/drivers/pwm/Kconfig
-@@ -249,6 +249,16 @@ config PWM_DWC
- 	  To compile this driver as a module, choose M here: the module
- 	  will be called pwm-dwc.
- 
-+config PWM_DWC_OF
-+	tristate "DesignWare PWM Controller (OF bus)"
-+	depends on HAS_IOMEM && (OF || COMPILE_TEST)
-+	select PWM_DWC_CORE
-+	help
-+	  PWM driver for Synopsys DWC PWM Controller on an OF bus or
-+	  a platform bus.
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called pwm-dwc-of.
-+
- config PWM_EP93XX
- 	tristate "Cirrus Logic EP93xx PWM support"
- 	depends on ARCH_EP93XX || COMPILE_TEST
-diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
-index 5630a521a7cf..acd7dfe98dff 100644
---- a/drivers/pwm/Makefile
-+++ b/drivers/pwm/Makefile
-@@ -20,6 +20,7 @@ obj-$(CONFIG_PWM_CRC)		+= pwm-crc.o
- obj-$(CONFIG_PWM_CROS_EC)	+= pwm-cros-ec.o
- obj-$(CONFIG_PWM_DWC_CORE)	+= pwm-dwc-core.o
- obj-$(CONFIG_PWM_DWC)		+= pwm-dwc.o
-+obj-$(CONFIG_PWM_DWC_OF)	+= pwm-dwc-of.o
- obj-$(CONFIG_PWM_EP93XX)	+= pwm-ep93xx.o
- obj-$(CONFIG_PWM_FSL_FTM)	+= pwm-fsl-ftm.o
- obj-$(CONFIG_PWM_GPIO)		+= pwm-gpio.o
-diff --git a/drivers/pwm/pwm-dwc-core.c b/drivers/pwm/pwm-dwc-core.c
-index 6dabec93a3c6..49f0657d4ad4 100644
---- a/drivers/pwm/pwm-dwc-core.c
-+++ b/drivers/pwm/pwm-dwc-core.c
-@@ -12,8 +12,10 @@
- #define DEFAULT_SYMBOL_NAMESPACE "dwc_pwm"
- 
- #include <linux/bitops.h>
-+#include <linux/clk.h>
- #include <linux/export.h>
- #include <linux/kernel.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/pci.h>
- #include <linux/pm_runtime.h>
-@@ -39,26 +41,76 @@ static int __dwc_pwm_configure_timer(struct dwc_pwm *dwc,
- 				     struct pwm_device *pwm,
- 				     const struct pwm_state *state)
- {
--	u64 tmp;
-+	u64 tmp, period_cyc;
- 	u32 ctrl;
- 	u32 high;
- 	u32 low;
- 
--	/*
--	 * Calculate width of low and high period in terms of input clock
--	 * periods and check are the result within HW limits between 1 and
--	 * 2^32 periods.
--	 */
--	tmp = DIV_ROUND_CLOSEST_ULL(state->duty_cycle, dwc->clk_ns);
--	if (tmp < 1 || tmp > (1ULL << 32))
--		return -ERANGE;
--	low = tmp - 1;
--
--	tmp = DIV_ROUND_CLOSEST_ULL(state->period - state->duty_cycle,
--				    dwc->clk_ns);
--	if (tmp < 1 || tmp > (1ULL << 32))
--		return -ERANGE;
--	high = tmp - 1;
-+	if (dwc->clk)
-+		dwc->clk_rate = clk_get_rate(dwc->clk);
-+
-+	if (dwc->features & DWC_TIM_CTRL_0N100PWM_EN) {
-+		/*
-+		 * Calculate the total period in clock cycles first, then the
-+		 * duty cycle. Derive the complementary half as the remainder to
-+		 * avoid compounding two independent floor-truncation errors:
-+		 * floor(duty) + floor(period - duty) can be one cycle short of
-+		 * floor(period). The PWM core requires the maximal achievable
-+		 * period not exceeding the requested value.
-+		 */
-+		period_cyc = mul_u64_u64_div_u64(state->period, dwc->clk_rate,
-+						 NSEC_PER_SEC);
-+		if (!period_cyc || period_cyc >= (1ULL << 32))
-+			return -ERANGE;
-+
-+		tmp = mul_u64_u64_div_u64(state->duty_cycle, dwc->clk_rate,
-+					  NSEC_PER_SEC);
-+		/* tmp <= period_cyc since duty_cycle <= period */
-+
-+		/*
-+		 * The hardware has no polarity register. Polarity inversion is
-+		 * achieved by swapping the low and high load-count registers:
-+		 * NORMAL (active-high): duty_cycle ->
-+		 *				HIGH period (DWC_TIM_LD_CNT2)
-+		 * INVERSED (active-low): duty_cycle ->
-+		 *				LOW period (DWC_TIM_LD_CNT)
-+		 */
-+		if (state->polarity == PWM_POLARITY_NORMAL) {
-+			high = tmp;
-+			low = period_cyc - tmp;
-+		} else {
-+			low = tmp;
-+			high = period_cyc - tmp;
-+		}
-+	} else {
-+		/*
-+		 * Calculate width of low and high period in terms of input
-+		 * clock periods and check are the result within HW limits
-+		 * between 1 and 2^32 periods.
-+		 * Polarity inversion uses the same register-swap technique as
-+		 * the 0N100 path above.
-+		 * Derive the complementary half from the total period to avoid
-+		 * compounding two independent floor-truncation errors.
-+		 */
-+		tmp = mul_u64_u64_div_u64(state->duty_cycle, dwc->clk_rate,
-+					  NSEC_PER_SEC);
-+		if (tmp < 1 || tmp > (1ULL << 32))
-+			return -ERANGE;
-+
-+		period_cyc = mul_u64_u64_div_u64(state->period, dwc->clk_rate,
-+						 NSEC_PER_SEC);
-+		/* period_cyc - tmp: complementary half; tmp <= period_cyc */
-+		if (period_cyc - tmp < 1 || period_cyc - tmp > (1ULL << 32))
-+			return -ERANGE;
-+
-+		if (state->polarity == PWM_POLARITY_NORMAL) {
-+			high = tmp - 1;
-+			low = period_cyc - tmp - 1;
-+		} else {
-+			low = tmp - 1;
-+			high = period_cyc - tmp - 1;
-+		}
-+	}
- 
- 	/*
- 	 * Specification says timer usage flow is to disable timer, then
-@@ -74,6 +126,7 @@ static int __dwc_pwm_configure_timer(struct dwc_pwm *dwc,
- 	 * width of low period and latter the width of high period in terms
- 	 * multiple of input clock periods:
- 	 * Width = ((Count + 1) * input clock period).
-+	 * Width = (Count * input clock period) : supported 0% and 100%.
- 	 */
- 	dwc_pwm_writel(dwc, low, DWC_TIM_LD_CNT(pwm->hwpwm));
- 	dwc_pwm_writel(dwc, high, DWC_TIM_LD_CNT2(pwm->hwpwm));
-@@ -85,6 +138,9 @@ static int __dwc_pwm_configure_timer(struct dwc_pwm *dwc,
- 	 * periods are set by Load Count registers.
- 	 */
- 	ctrl = DWC_TIM_CTRL_MODE_USER | DWC_TIM_CTRL_PWM;
-+	if (dwc->features & DWC_TIM_CTRL_0N100PWM_EN)
-+		ctrl |= DWC_TIM_CTRL_0N100PWM_EN;
-+
- 	dwc_pwm_writel(dwc, ctrl, DWC_TIM_CTRL(pwm->hwpwm));
- 
- 	/*
-@@ -99,14 +155,18 @@ static int dwc_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
- 			 const struct pwm_state *state)
- {
- 	struct dwc_pwm *dwc = to_dwc_pwm(chip);
--
--	if (state->polarity != PWM_POLARITY_INVERSED)
--		return -EINVAL;
-+	int ret;
- 
- 	if (state->enabled) {
--		if (!pwm->state.enabled)
--			pm_runtime_get_sync(pwmchip_parent(chip));
--		return __dwc_pwm_configure_timer(dwc, pwm, state);
-+		if (!pwm->state.enabled) {
-+			ret = pm_runtime_resume_and_get(pwmchip_parent(chip));
-+			if (ret < 0)
-+				return ret;
-+		}
-+		ret = __dwc_pwm_configure_timer(dwc, pwm, state);
-+		if (ret && !pwm->state.enabled)
-+			pm_runtime_put_sync(pwmchip_parent(chip));
-+		return ret;
- 	} else {
- 		if (pwm->state.enabled) {
- 			__dwc_pwm_set_enable(dwc, pwm->hwpwm, false);
-@@ -121,10 +181,23 @@ static int dwc_pwm_get_state(struct pwm_chip *chip, struct pwm_device *pwm,
- 			     struct pwm_state *state)
- {
- 	struct dwc_pwm *dwc = to_dwc_pwm(chip);
--	u64 duty, period;
-+	unsigned long clk_rate;
- 	u32 ctrl, ld, ld2;
-+	u64 duty, period;
-+	int ret;
- 
--	pm_runtime_get_sync(pwmchip_parent(chip));
-+	ret = pm_runtime_resume_and_get(pwmchip_parent(chip));
-+	if (ret < 0)
-+		return ret;
-+
-+	if (dwc->clk)
-+		dwc->clk_rate = clk_get_rate(dwc->clk);
-+
-+	clk_rate = dwc->clk_rate;
-+	if (!clk_rate) {
-+		pm_runtime_put_sync(pwmchip_parent(chip));
-+		return -EINVAL;
-+	}
- 
- 	ctrl = dwc_pwm_readl(dwc, DWC_TIM_CTRL(pwm->hwpwm));
- 	ld = dwc_pwm_readl(dwc, DWC_TIM_LD_CNT(pwm->hwpwm));
-@@ -132,22 +205,46 @@ static int dwc_pwm_get_state(struct pwm_chip *chip, struct pwm_device *pwm,
- 
- 	state->enabled = !!(ctrl & DWC_TIM_CTRL_EN);
- 
-+	/*
-+	 * The hardware has no polarity status register; polarity is encoded
-+	 * implicitly by which of DWC_TIM_LD_CNT / DWC_TIM_LD_CNT2 holds the
-+	 * duty-cycle period (see __dwc_pwm_configure_timer). Report the
-+	 * polarity that was last programmed by apply(). On the initial read
-+	 * (before any apply call), pwm->state.polarity defaults to
-+	 * PWM_POLARITY_NORMAL, which is the natural zero-initialised value.
-+	 */
-+	state->polarity = pwm->state.polarity;
-+
- 	/*
- 	 * If we're not in PWM, technically the output is a 50-50
- 	 * based on the timer load-count only.
- 	 */
- 	if (ctrl & DWC_TIM_CTRL_PWM) {
--		duty = (ld + 1) * dwc->clk_ns;
--		period = (ld2 + 1)  * dwc->clk_ns;
--		period += duty;
-+		if (dwc->features & DWC_TIM_CTRL_0N100PWM_EN) {
-+			/*
-+			 * NORMAL: duty_cycle was written to DWC_TIM_LD_CNT2.
-+			 * INVERSED: duty_cycle was written to DWC_TIM_LD_CNT.
-+			 */
-+			if (state->polarity == PWM_POLARITY_NORMAL)
-+				duty = ld2;
-+			else
-+				duty = ld;
-+			period = (u64)ld + ld2;
-+		} else {
-+			if (state->polarity == PWM_POLARITY_NORMAL)
-+				duty = ld2 + 1;
-+			else
-+				duty = ld + 1;
-+			period = (u64)ld + ld2 + 2;
-+		}
- 	} else {
--		duty = (ld + 1) * dwc->clk_ns;
-+		duty = ld + 1;
- 		period = duty * 2;
-+		state->polarity = PWM_POLARITY_INVERSED;
- 	}
- 
--	state->polarity = PWM_POLARITY_INVERSED;
--	state->period = period;
--	state->duty_cycle = duty;
-+	state->period = mul_u64_u64_div_u64(period, NSEC_PER_SEC, clk_rate);
-+	state->duty_cycle = mul_u64_u64_div_u64(duty, NSEC_PER_SEC, clk_rate);
- 
- 	pm_runtime_put_sync(pwmchip_parent(chip));
- 
-@@ -169,7 +266,7 @@ struct pwm_chip *dwc_pwm_alloc(struct device *dev)
- 		return chip;
- 	dwc = to_dwc_pwm(chip);
- 
--	dwc->clk_ns = 10;
-+	dwc->clk_rate = NSEC_PER_SEC / 10;
- 	chip->ops = &dwc_pwm_ops;
- 
- 	return chip;
-diff --git a/drivers/pwm/pwm-dwc-of.c b/drivers/pwm/pwm-dwc-of.c
-new file mode 100644
-index 000000000000..7bbbf98d7697
---- /dev/null
-+++ b/drivers/pwm/pwm-dwc-of.c
-@@ -0,0 +1,316 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * DesignWare PWM Controller driver OF
-+ *
-+ * Copyright (C) 2026 SiFive, Inc.
-+ */
-+
-+#define DEFAULT_SYMBOL_NAMESPACE "dwc_pwm_of"
-+
-+#include <linux/clk.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/pwm.h>
-+#include <linux/reset.h>
-+
-+#include "pwm-dwc.h"
-+
-+struct dwc_pwm_plat_data {
-+	bool reset_required;
-+};
-+
-+static int dwc_pwm_plat_probe(struct platform_device *pdev)
-+{
-+	const struct dwc_pwm_plat_data *pdata;
-+	struct device *dev = &pdev->dev;
-+	struct dwc_pwm_drvdata *data;
-+	u32 ctrl[DWC_TIMERS_TOTAL];
-+	struct pwm_chip *chip;
-+	struct dwc_pwm *dwc;
-+	bool pwm_en = false;
-+	u32 nr_pwm, tim_id;
-+	unsigned int i;
-+	int ret;
-+
-+	data = devm_kzalloc(dev, struct_size(data, chips, 1), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	chip = dwc_pwm_alloc(dev);
-+	if (IS_ERR(chip))
-+		return dev_err_probe(dev, PTR_ERR(chip),
-+				     "failed to alloc pwm\n");
-+
-+	dwc = to_dwc_pwm(chip);
-+
-+	dwc->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(dwc->base))
-+		return PTR_ERR(dwc->base);
-+
-+	if (!device_property_read_u32(dev, "snps,pwm-number", &nr_pwm)) {
-+		if (nr_pwm > DWC_TIMERS_TOTAL)
-+			dev_warn(dev, "too many PWMs (%u), capping at %u\n",
-+				 nr_pwm, chip->npwm);
-+		else
-+			chip->npwm = nr_pwm;
-+	}
-+
-+	dwc->bus_clk = devm_clk_get(dev, "bus");
-+	if (IS_ERR(dwc->bus_clk))
-+		return dev_err_probe(dev, PTR_ERR(dwc->bus_clk),
-+				     "failed to get bus clock\n");
-+
-+	dwc->clk = devm_clk_get(dev, "timer");
-+	if (IS_ERR(dwc->clk))
-+		return dev_err_probe(dev, PTR_ERR(dwc->clk),
-+				     "failed to get timer clock\n");
-+
-+	ret = devm_clk_rate_exclusive_get(dev, dwc->clk);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to get exclusive rate\n");
-+
-+	dwc->clk_rate = clk_get_rate(dwc->clk);
-+	if (!dwc->clk_rate)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "failed to get a valid clock rate\n");
-+
-+	pdata = device_get_match_data(dev);
-+	if (pdata && pdata->reset_required)
-+		dwc->rst = devm_reset_control_get_exclusive(dev, NULL);
-+	else
-+		dwc->rst = devm_reset_control_array_get_optional_exclusive(dev);
-+
-+	if (IS_ERR(dwc->rst))
-+		return dev_err_probe(dev, PTR_ERR(dwc->rst),
-+				     "failed to get reset control\n");
-+
-+	ret = clk_prepare_enable(dwc->bus_clk);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to enable bus clock\n");
-+
-+	ret = clk_prepare_enable(dwc->clk);
-+	if (ret) {
-+		dev_err(dev, "failed to enable timer clock\n");
-+		goto disable_busclk;
-+	}
-+
-+	/*
-+	 * On module reload, remove() leaves the device in reset via
-+	 * reset_control_assert().
-+	 * Ensure the device is out of reset before accessing MMIO registers.
-+	 */
-+	ret = reset_control_deassert(dwc->rst);
-+	if (ret) {
-+		dev_err(dev, "failed to deassert reset\n");
-+		goto disable_clk;
-+	}
-+
-+	/*
-+	 * Check all channels to see if any channel is enabled.
-+	 * Read the control register of each channel and extract the enable bit
-+	 */
-+	for (i = 0; i < chip->npwm; i++) {
-+		ctrl[i] = dwc_pwm_readl(dwc, DWC_TIM_CTRL(i)) & DWC_TIM_CTRL_EN;
-+		if (ctrl[i])
-+			pwm_en = true;
-+	}
-+
-+	/*
-+	 * Only issue a reset pulse when all channels are disabled, so a PWM
-+	 * channel already running (e.g. configured by firmware before Linux
-+	 * took over) is left undisturbed.
-+	 */
-+	if (!pwm_en) {
-+		ret = reset_control_reset(dwc->rst);
-+		if (ret) {
-+			dev_err(dev, "failed to reset\n");
-+			goto disable_clk;
-+		}
-+	}
-+
-+	/* init PWM feature */
-+	dwc->features = 0;
-+	/*
-+	 * Support for 0% and 100% duty cycle mode was added in version 2.11a
-+	 * and later.
-+	 */
-+	tim_id = dwc_pwm_readl(dwc, DWC_TIMERS_COMP_VERSION);
-+	if (tim_id >= DWC_TIM_VERSION_ID_2_11A)
-+		dwc->features |= DWC_TIM_CTRL_0N100PWM_EN;
-+
-+	data->chips[0] = chip;
-+	dev_set_drvdata(dev, data);
-+
-+	/*
-+	 * If any PWM channel is enabled, mark device active and hold runtime PM
-+	 * references for each enabled channel. Otherwise, gate the clocks.
-+	 *
-+	 * When CONFIG_PM is disabled, pm_runtime callbacks are stubs that never
-+	 * re-enable clocks, so keep clocks on unconditionally in that case.
-+	 */
-+	if (pwm_en) {
-+		pm_runtime_set_active(dev);
-+		for (i = 0; i < chip->npwm; i++) {
-+			if (ctrl[i])
-+				pm_runtime_get_noresume(dev);
-+		}
-+	} else if (IS_ENABLED(CONFIG_PM)) {
-+		clk_disable_unprepare(dwc->clk);
-+		clk_disable_unprepare(dwc->bus_clk);
-+	}
-+
-+	pm_runtime_enable(dev);
-+
-+	ret = pwmchip_add(chip);
-+	if (ret) {
-+		dev_err(dev, "failed to add pwm chip\n");
-+		goto pm_disable;
-+	}
-+
-+	return 0;
-+
-+pm_disable:
-+	pm_runtime_disable(dev);
-+	if (pwm_en) {
-+		for (i = 0; i < chip->npwm; i++) {
-+			if (ctrl[i])
-+				pm_runtime_put_noidle(dev);
-+		}
-+		goto disable_clk;
-+	}
-+	/*
-+	 * When CONFIG_PM is disabled, clocks were never gated and must be
-+	 * disabled here.
-+	 */
-+	if (!IS_ENABLED(CONFIG_PM))
-+		goto disable_clk;
-+
-+	return ret;
-+
-+disable_clk:
-+	clk_disable_unprepare(dwc->clk);
-+disable_busclk:
-+	clk_disable_unprepare(dwc->bus_clk);
-+
-+	return ret;
-+}
-+
-+static void dwc_pwm_plat_remove(struct platform_device *pdev)
-+{
-+	struct dwc_pwm_drvdata *data = platform_get_drvdata(pdev);
-+	struct pwm_chip *chip = data->chips[0];
-+	struct dwc_pwm *dwc = to_dwc_pwm(chip);
-+	unsigned int idx;
-+	int ret;
-+
-+	pwmchip_remove(chip);
-+
-+	ret = pm_runtime_resume_and_get(&pdev->dev);
-+	if (ret < 0) {
-+		dev_warn(&pdev->dev, "failed to resume device: %d\n", ret);
-+	} else {
-+		for (idx = 0; idx < chip->npwm; idx++) {
-+			if (dwc_pwm_readl(dwc, DWC_TIM_CTRL(idx)) &
-+					  DWC_TIM_CTRL_EN)
-+				pm_runtime_put_noidle(&pdev->dev);
-+		}
-+		pm_runtime_put_sync(&pdev->dev);
-+	}
-+
-+	if (!pm_runtime_status_suspended(&pdev->dev)) {
-+		clk_disable_unprepare(dwc->clk);
-+		clk_disable_unprepare(dwc->bus_clk);
-+	}
-+	pm_runtime_disable(&pdev->dev);
-+
-+	if (dwc->rst) {
-+		ret = reset_control_assert(dwc->rst);
-+		if (ret)
-+			dev_warn(&pdev->dev, "failed to assert reset: %d\n",
-+				 ret);
-+	}
-+}
-+
-+static int dwc_pwm_runtime_suspend(struct device *dev)
-+{
-+	struct dwc_pwm_drvdata *data = dev_get_drvdata(dev);
-+	struct pwm_chip *chip = data->chips[0];
-+	struct dwc_pwm *dwc = to_dwc_pwm(chip);
-+	unsigned int idx;
-+
-+	for (idx = 0; idx < chip->npwm; idx++) {
-+		dwc->ctx[idx].cnt = dwc_pwm_readl(dwc, DWC_TIM_LD_CNT(idx));
-+		dwc->ctx[idx].cnt2 = dwc_pwm_readl(dwc, DWC_TIM_LD_CNT2(idx));
-+		dwc->ctx[idx].ctrl = dwc_pwm_readl(dwc, DWC_TIM_CTRL(idx));
-+	}
-+
-+	clk_disable_unprepare(dwc->clk);
-+	clk_disable_unprepare(dwc->bus_clk);
-+
-+	return 0;
-+}
-+
-+static int dwc_pwm_runtime_resume(struct device *dev)
-+{
-+	struct dwc_pwm_drvdata *data = dev_get_drvdata(dev);
-+	struct pwm_chip *chip = data->chips[0];
-+	struct dwc_pwm *dwc = to_dwc_pwm(chip);
-+	unsigned int idx;
-+	int ret;
-+
-+	ret = clk_prepare_enable(dwc->bus_clk);
-+	if (ret) {
-+		dev_err(dev, "failed to enable bus clock: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = clk_prepare_enable(dwc->clk);
-+	if (ret) {
-+		dev_err(dev, "failed to enable timer clock: %d\n", ret);
-+		clk_disable_unprepare(dwc->bus_clk);
-+		return ret;
-+	}
-+
-+	for (idx = 0; idx < chip->npwm; idx++) {
-+		dwc_pwm_writel(dwc, dwc->ctx[idx].cnt, DWC_TIM_LD_CNT(idx));
-+		dwc_pwm_writel(dwc, dwc->ctx[idx].cnt2, DWC_TIM_LD_CNT2(idx));
-+		dwc_pwm_writel(dwc, dwc->ctx[idx].ctrl, DWC_TIM_CTRL(idx));
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops dwc_pwm_pm_ops = {
-+	RUNTIME_PM_OPS(dwc_pwm_runtime_suspend, dwc_pwm_runtime_resume, NULL)
-+	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
-+};
-+
-+static const struct dwc_pwm_plat_data pwm_eic7700_pdata = {
-+	.reset_required = true,
-+};
-+
-+static const struct of_device_id dwc_pwm_dt_ids[] = {
-+	{ .compatible = "snps,dw-apb-timers-pwm2" },
-+	{ .compatible = "eswin,eic7700-pwm", .data = &pwm_eic7700_pdata },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, dwc_pwm_dt_ids);
-+
-+static struct platform_driver dwc_pwm_plat_driver = {
-+	.driver = {
-+		.name = "dwc-pwm",
-+		.pm = pm_ptr(&dwc_pwm_pm_ops),
-+		.of_match_table = dwc_pwm_dt_ids,
-+	},
-+	.probe = dwc_pwm_plat_probe,
-+	.remove = dwc_pwm_plat_remove,
-+};
-+
-+module_platform_driver(dwc_pwm_plat_driver);
-+
-+MODULE_ALIAS("platform:dwc-pwm-of");
-+MODULE_AUTHOR("Ben Dooks <ben.dooks@codethink.co.uk>");
-+MODULE_DESCRIPTION("DesignWare PWM Controller");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/pwm/pwm-dwc.h b/drivers/pwm/pwm-dwc.h
-index 1562594e7f85..75f7c2d031c4 100644
---- a/drivers/pwm/pwm-dwc.h
-+++ b/drivers/pwm/pwm-dwc.h
-@@ -26,12 +26,19 @@ MODULE_IMPORT_NS("dwc_pwm");
- #define DWC_TIMERS_TOTAL	8
- 
- /* Timer Control Register */
--#define DWC_TIM_CTRL_EN		BIT(0)
--#define DWC_TIM_CTRL_MODE	BIT(1)
--#define DWC_TIM_CTRL_MODE_FREE	(0 << 1)
--#define DWC_TIM_CTRL_MODE_USER	(1 << 1)
--#define DWC_TIM_CTRL_INT_MASK	BIT(2)
--#define DWC_TIM_CTRL_PWM	BIT(3)
-+#define DWC_TIM_CTRL_EN			BIT(0)
-+#define DWC_TIM_CTRL_MODE		BIT(1)
-+#define DWC_TIM_CTRL_MODE_FREE		(0 << 1)
-+#define DWC_TIM_CTRL_MODE_USER		BIT(1)
-+#define DWC_TIM_CTRL_INT_MASK		BIT(2)
-+#define DWC_TIM_CTRL_PWM		BIT(3)
-+#define DWC_TIM_CTRL_0N100PWM_EN	BIT(4)
-+
-+/*
-+ * The version 2.11a and later add "Pulse Width Modulation with
-+ * 0% and 100% Duty Cycle".
-+ */
-+#define DWC_TIM_VERSION_ID_2_11A	0x3231312a
- 
- struct dwc_pwm_info {
- 	unsigned int nr;
-@@ -52,8 +59,12 @@ struct dwc_pwm_ctx {
- 
- struct dwc_pwm {
- 	void __iomem *base;
--	unsigned int clk_ns;
-+	struct clk *bus_clk;
-+	struct clk *clk;
-+	unsigned long clk_rate;
-+	struct reset_control *rst;
- 	struct dwc_pwm_ctx ctx[DWC_TIMERS_TOTAL];
-+	u32 features;
- };
- 
- static inline struct dwc_pwm *to_dwc_pwm(struct pwm_chip *chip)
--- 
-2.34.1
+[ ... ]
 
+> +	/* LINK_FREQ is also read only */
+> +	link_freq =3D v4l2_ctrl_new_int_menu(ctrl_hdlr, &imx678_ctrl_ops,
+> +					   V4L2_CID_LINK_FREQ,
+> +					   ARRAY_SIZE(link_freqs) - 1,
+> +					   __ffs(imx678->link_freq_bitmap),
+> +					   link_freqs);
+
+[Severity: Low]
+Will this cause a build failure due to incompatible pointer types?
+
+The array link_freqs is defined as u64, but v4l2_ctrl_new_int_menu() expects
+a const s64 pointer for its qmenu_int parameter. A similar issue exists bel=
+ow=20
+where link_freqs is passed to v4l2_link_freq_to_bitmap() in=20
+imx678_check_hwcfg(), which also expects an s64 array.
+
+Should link_freqs be defined as s64 instead?
+
+[ ... ]
+
+> +static int imx678_identify_model(struct imx678 *imx678)
+> +{
+> +	struct i2c_client *client =3D v4l2_get_subdevdata(&imx678->sd);
+> +	const struct imx678_model_info *info;
+> +	enum imx678_type detected;
+> +	int ret =3D 0;
+> +	u64 val =3D 0;
+> +
+> +	info =3D device_get_match_data(&client->dev);
+> +
+> +	/*
+> +	 * This sensor's ID registers become accessible 80ms after coming out
+> +	 * of STANDBY mode.
+> +	 */
+> +	cci_write(imx678->cci, IMX678_REG_MODE_SELECT, 0, &ret);
+> +	fsleep(IMX678_MODULE_ID_DELAY);
+> +
+> +	cci_read(imx678->cci, IMX678_REG_MODULE_ID, &val, &ret);
+
+[Severity: Medium]
+Is the sensor left in STREAMING mode after model identification completes?
+
+The code writes 0 to IMX678_REG_MODE_SELECT to wake the sensor to read the
+ID registers, but it doesn't appear to write 1 back to return it to STANDBY
+mode before exiting the imx678_identify_model() function.
+
+Could this leave the sensor streaming indefinitely on the bus if PM is
+disabled, or cause configuration issues later when s_stream(1) is called
+since the driver will be writing configuration while actively streaming?
+
+> +
+> +	if (ret) {
+> +		dev_err(&client->dev,
+> +			"I2C transaction failed ret =3D %d\n", ret);
+> +		return ret;
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703-imx678-v5-=
+0-0523dbed0dad@ideasonboard.com?part=3D2
