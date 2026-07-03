@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9608D233134
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 05:10:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7822343D75
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 05:13:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783055448; cv=none; b=slm9njuetRubn/h8KaklBzoE4WULQyWh3paMVdneOub6A3Vbti4a7hoCkgP7tYWWem7rwPNCsDtgUCaMtHW51KkFfqsmKIKuYpd/Z5GjaHwXCM6vSX0hD6hcpl7Fmy36b8RFZt8cYtbYr8isPIh38KtHBZvXQNcvHx7IoYhUbT0=
+	t=1783055596; cv=none; b=uq1312CB0y/S9hGm0vFc/ZYUjBkjyBxVSbeeNfmGiq2GlWfByLMeimMYuKd7KbC5SZfLQp8ueftDgf9TGmpuGJbl4XwelxYXWqjDvofhHbaZhbnGwuryomLHFApRGGXhaXOmCdQY3hm1pPNEhCwODsv+4Hejq6pauOT4YZwz27g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783055448; c=relaxed/simple;
-	bh=S8OrYcn614sp/cWgjmVymd1l4nxBKw+kN8XfEg13vkY=;
+	s=arc-20240116; t=1783055596; c=relaxed/simple;
+	bh=YpFunbjV7PfVz8Sjpp5aJQVPbfHR8VkpiCmktcMl7Lk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Km6YCaJJypW5hD6WxGvO504PA3FSQLwARtrhfU150mCt5lwD8bvaD5rVMJHb92z13MDfxpEqYeHwkdbttN5HKsDcCGkUCZkxGq8YAus/ZjN8ecIGyfd/Sdxufs5zvgVbQVj8nGCFjkW28FSlj+KWsa7GQIwnuuTxlUMyBUAVXhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZ9/vb5V; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=KT4q3zfmRxm24uBWMs5eOQMkJu6XT9byqmrnddvlLMM9jld5d/h3RHXh8gxrxvzRGPL1d/8AnwaSjU5nb1sahF50ij5Wl5i7l8dJayRzPyzmHEHXNtBLsB0Q9RvJUci9cY8Qwzt8790njJ8hRKRJap1S7+kFoNK4KMHBQAMJkww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JdIduJzl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZ9/vb5V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F28241F000E9;
-	Fri,  3 Jul 2026 05:10:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JdIduJzl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AB3E1F00A3A;
+	Fri,  3 Jul 2026 05:13:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783055434;
-	bh=QZ2CO3jLVy9ZaRH74FxPea8ve1av0ZDaH6dxrvYn27k=;
+	s=k20260515; t=1783055584;
+	bh=aL7rmoFGVRNoQgQ+mtuauFF58DYvAVjR+oWP/ixKLV8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HZ9/vb5VRKYaoEXd92qkzwvWgn9szJ3xwEqCi7EkSBw0vnHjavJqu92jKBs8m7vt9
-	 Eu06ToTbUN209MYqZK0B3HmlQBXdfaxWH7mvRbumoQ9xG1kJi5PVHL6EZZOrP8B5kc
-	 XbumAcwZDPMgrirNuEZu6FTtnm1XhW56LicQ5e5TEHLgJ6xsDS+woI/fBvonxAmB96
-	 Jc2KwnVFmYDNqt9w9P7zR2+jea0dGEHNSN4xi2rbHg50l9iCk65/WKjQIUiDGAn3bi
-	 6jCKHrh4xyQYu/kHV3wKd995OqNrOK/kFrj9TaeCp57/loKKcXn7ZK0DncF9VdUi7S
-	 s1GfVlwYt6PjQ==
+	b=JdIduJzljao61mlwzMy0gxXyizzcgYarEht4yfoqlW3SpVAHL8SYcAOfNoiwFMsZ6
+	 8JGknsall32uEpn/x9mCM7rOSGYcj27PEW3vH45gbG96P/oj5BGrOVVn90cHWNWRsE
+	 U84AUa2tsmAzlmxlK5zPV/DFui92oJu2XRi96niDALrPmQ+uajbfBqEZrHHku90qzb
+	 CAoQQN3yCvDaMLnEAJEabmXN1evS4J5TTVHHVlZzTAP/H9UYOH4W94XLl1owd9AC7M
+	 lXy/+2/vW8JguL+gdP40hiSxgEKF2wRoFmOFA64/7YV3ZFqoZXO0GAaZAUckx+gzl4
+	 z7Pc1RwEO17Lg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/6] arm64: dts: qcom: ipq5018: add nodes required
- for Bluetooth support
+Subject: Re: [PATCH v3 3/6] firmware: qcom: scm: Add support for setting
+ Bluetooth power modes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "George Moussalem" <george.moussalem@outlook.com>
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260703-ipq5018-bluetooth-v3-5-62da72818ab3@outlook.com>
+In-Reply-To: <20260703-ipq5018-bluetooth-v3-3-62da72818ab3@outlook.com>
 References: <20260703-ipq5018-bluetooth-v3-0-62da72818ab3@outlook.com>
- <20260703-ipq5018-bluetooth-v3-5-62da72818ab3@outlook.com>
+ <20260703-ipq5018-bluetooth-v3-3-62da72818ab3@outlook.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 05:10:33 +0000
-Message-Id: <20260703051033.F28241F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 05:13:03 +0000
+Message-Id: <20260703051304.2AB3E1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,63 +47,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Adding the 'syscon' compatible string to the 'apcs_glb' node withou=
-t updating the device tree binding schema violates the schema and causes dt=
-bs_check failures.
+- [Critical] Command ID collision in TrustZone SMC calls causing potential =
+physical memory corruption
 --
 
-commit 8f9212782ff3d8470d83aca03720126dc8c3c25b
+commit 26b3bd594fb013254f8ba044e310cbb49348c961
 Author: George Moussalem <george.moussalem@outlook.com>
 
-arm64: dts: qcom: ipq5018: add nodes required for Bluetooth support
+firmware: qcom: scm: Add support for setting Bluetooth power modes
 
-This commit adds device tree nodes for the reserved memory carveout and
-Bluetooth on the ipq5018 platform. It also modifies the apcs_glb
-mailbox node to include "syscon" in its compatible list.
+This commit adds support for configuring the Bluetooth subsystem power modes
+on IPQ5018 through a new Secure Channel Manager call. It includes an
+availability check to ensure the call is supported by the QSEE image.
 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5018.dtsi b/arch/arm64/boot/dts/=
-qcom/ipq5018.dtsi
-> index 6f8004a22a1ff..65a47ba7d3a34 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
+> diff --git a/drivers/firmware/qcom/qcom_scm.h b/drivers/firmware/qcom/qco=
+m_scm.h
+> index caab80a73e17f..5579df5a2aca7 100644
+> --- a/drivers/firmware/qcom/qcom_scm.h
+> +++ b/drivers/firmware/qcom/qcom_scm.h
+> @@ -105,6 +105,7 @@ int qcom_scm_shm_bridge_enable(struct device *scm_dev=
+);
+>  #define QCOM_SCM_PIL_PAS_SHUTDOWN	0x06
+>  #define QCOM_SCM_PIL_PAS_IS_SUPPORTED	0x07
+>  #define QCOM_SCM_PIL_PAS_MSS_RESET	0x0a
+> +#define QCOM_SCM_PIL_PAS_BT_PWR_MODE	0x21
+>  #define QCOM_SCM_PIL_PAS_GET_RSCTABLE	0x21
 
-[ ... ]
+[Severity: Critical]
+Does this new macro collide with the existing QCOM_SCM_PIL_PAS_GET_RSCTABLE
+command? Both are defined as 0x21 within the QCOM_SCM_SVC_PIL service.
 
-> @@ -647,7 +669,8 @@ watchdog: watchdog@b017000 {
-> =20
->  		apcs_glb: mailbox@b111000 {
->  			compatible =3D "qcom,ipq5018-apcs-apps-global",
-> -				     "qcom,ipq6018-apcs-apps-global";
-> +				     "qcom,ipq6018-apcs-apps-global",
-> +				     "syscon";
-                     ^^^^^^^^
+Because GET_RSCTABLE is widely supported on Qualcomm platforms, the
+availability check in qcom_scm_pas_set_bluetooth_power_mode() will pass
+even if the firmware does not actually support the new Bluetooth power mode
+command:
 
-[Severity: Low]
-Will adding "syscon" here without updating the device tree binding schema
-cause a make dtbs_check validation failure?
+drivers/firmware/qcom/qcom_scm.c:qcom_scm_pas_set_bluetooth_power_mode() {
+    ...
+    if (!__qcom_scm_is_call_available(__scm->dev, QCOM_SCM_SVC_PIL,
+                                      QCOM_SCM_PIL_PAS_BT_PWR_MODE))
+        return -EOPNOTSUPP;
+    ...
+}
 
-Looking at Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.=
-yaml,
-the schema currently restricts the compatible list for this hardware to exa=
-ctly
-two items:
-
-      - items:
-          - enum:
-              - qcom,ipq5018-apcs-apps-global
-              - qcom,ipq5332-apcs-apps-global
-              - qcom,ipq5424-apcs-apps-global
-              - qcom,ipq8074-apcs-apps-global
-              - qcom,ipq9574-apcs-apps-global
-          - const: qcom,ipq6018-apcs-apps-global
-
-Does the yaml binding need to be updated alongside this patch to permit
-"syscon" as a third compatible string for this device?
-
->  			reg =3D <0x0b111000 0x1000>;
->  			#clock-cells =3D <1>;
->  			clocks =3D <&a53pll>, <&xo_board_clk>, <&gcc GPLL0>;
+When the SMC call is subsequently issued with only 2 arguments, TrustZone's
+GET_RSCTABLE handler will receive the call but expect 5 arguments. Could
+this cause TrustZone to treat the uninitialized remaining arguments as
+physical addresses, resulting in an attempt to write the resource table to
+physical address 0x0?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703-ipq5018-bl=
-uetooth-v3-0-62da72818ab3@outlook.com?part=3D5
+uetooth-v3-0-62da72818ab3@outlook.com?part=3D3
