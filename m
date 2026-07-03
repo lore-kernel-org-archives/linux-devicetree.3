@@ -1,87 +1,68 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230453C8C7C
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 10:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891C93D952A
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 10:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783074683; cv=none; b=r6KpM532uMsLhGKsZSmRq/CF/iFUDuz5aTJERoMWo441BdVoAyoDGmZGvb7qpafmCPXf+iOoS/Ox72kt0l17CWIQsqU38HtbTF1QARDuM/1WkGIPz9FbWyO3+lSc+nt6xSR04ivxpWtODuvGA+Xq57v3sPAJnmPuQDkme0CP0F0=
+	t=1783074758; cv=none; b=AcpoYbZe1HGJpjGrchWMFujJWS+t2fpRdpFyX/jERSbxNJeK0tXBiSFnwD+M3Is2TDovzbcsvqCL5PAndjIYaNfpxPK3y5ZAlpfdzcEI2M0P+Dp5nh2n+f0jFiMyg1cdHhCCLcDDDX5vInYcTBuH0Lsc7hr76X7RUB9Kk0oO7M0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783074683; c=relaxed/simple;
-	bh=qiyzgDhFBvLQBInbQdAPGyL8srSytSEX42oOuQxiCH4=;
+	s=arc-20240116; t=1783074758; c=relaxed/simple;
+	bh=D5ijQV3bUdGx6RAeOYDDyhV2oxFHO7V4Y7ge4JRyKaw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ws+AjlsHQ81c+vHe1bCqpQPS+zhokQNB0vGrOp3A68eDJk/NlPx1YKlOh8c8J9WskLjmTss4dxvXTU6lhLBqzkpTs6jks0VcCgv+8l5vZCF7Z1blUzMJA7I2wjmMrwtC8xY8zSbLTGLuuANnQz9Xni3Bk79+SwUyjKsWwLRRSnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XF25VBTj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HkKlrQqr; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=h1Zv57PO+hjzu5jerJDodn5vCFbwCg+C92CSpKTfLlJVao6Y+BrV2Lq6JOM0ePmI8Zc6oPVIe/U7O5v1h14Uhu3F/BYPdtOE8KVSqC0On1htc1LQslvArV6+9BiCzufselbILy6/YQkVf7WrzG7E37Yp1BueSpoTktlTWd2UgX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oGbcWFTh; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XF25VBTj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HkKlrQqr"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6639BlW53694322
-	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 10:31:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8sg/ld/I8qbw7uUnUsVl9AhVTb+2HSc9O79hpsKVLY8=; b=XF25VBTjXdW4rzLs
-	Cv50XV/XSKIHVl2NDbWOZikEIzSts9CaNge1SdaskXgT77lLHZQRySRLceuSZw6w
-	sjAzZuLbAQD7FDUUL/epyOXp7Ncz3eN8p3Olhq6f/Q/Dkm4dOdQZvpi7ALh3/drh
-	hVifuvuDLxvcV2e3bfWznaqF1cFQ1GpktvjIn6Nspw5yZEpzzIPZ/lghhkTIjFrP
-	rOxRC8MV55xl/RoDnQUUBN4BDqwTTU7jrwS88RV045BJEncNAdLoRDG9FG9A1gSE
-	z8DXzKw5GEJ06tndCi1ST5hffPxVPH/zm3qfOUmd8rtPKoI6u4EgzzH7Fk633T2V
-	wS+fdA==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6a848949-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 10:31:21 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c890bac374eso823923a12.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 03:31:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oGbcWFTh"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-474bf35cccdso127254f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 03:32:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783074681; x=1783679481; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8sg/ld/I8qbw7uUnUsVl9AhVTb+2HSc9O79hpsKVLY8=;
-        b=HkKlrQqrBMdzBN6+NVhyBsbfGgnL6ph7UyOPJSl7ZXDHjrWVR7qq41L+SAHP7hQ478
-         lvjIkJsbACA6u/oCwrBp0gYJJ8kuCRskgbMgRUgMuufnDhgDVxgILMLoh3Z19YApN8+Y
-         6qTtCZImnkvGqXs7+ZR9MxMYIoP7XolbnYr7c9E8utarakkHyGJvgKSFMg5jCkCDfHTG
-         pGzLZLsJb3JemIrDJ+c8/qQdZ7GKvFN+pi70bQ+dY0CDUsN2VToZ6qbdG5JjQG0hOFlF
-         jbS3fgLnI/rZFp1+9Xnw3XkFubV0IVJcE+Do/lQY79NoXkCaiazklJLGrrbFKf+1ZeWt
-         tkdQ==
+        d=linaro.org; s=google; t=1783074754; x=1783679554; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xXqnKE5BVSq5meuyy3aSxrzRU5PavHRibtLm4NqA0hs=;
+        b=oGbcWFTheGuatgzxnFFH6wuCsl5Qb0XbSOH9emVtGr4Wp/p5s+9UGaT95T1+QNp7ON
+         OjOMktfU4yUNmVI4+pIrLqLCBkk0FE6P4Ta8ytqAkknc2s4WZtR6c7+C0imbjlcez0X8
+         dASoyUvGlF1CG5/vebFc49OJPPn9VTc5aabfhIRDhy/GDoAyyIWjFAI+P5FQzJ9B60nZ
+         cqVW28q5hG/KiFo1ghr7nsW6YugyyvvIqIvRN86V9ioulgmGEL7vt/p/LuKHkfsYfxtB
+         RyvccYfrVkfssvIPiALGePd+e2g2UY8nuXHA9rk48upBsR+KjS3nV6PCFR1ckRIp3CpU
+         +nXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783074681; x=1783679481;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8sg/ld/I8qbw7uUnUsVl9AhVTb+2HSc9O79hpsKVLY8=;
-        b=BExedNvpfz6eYH99xIzZWMUcMrzKpjKgMu/2R3B6hdyBVmSdozB8GAJiSSt/VreFZa
-         Lsf6KhFrGyAMIFdPeoScGkCP742bAM4o5FzusMr/oeIcX/9hEffEUJyRl8MuI5D8R/Cd
-         I/ORK4S8IyBhVTtm7oj40M1v3TwGLh3D5D6okGIa8rMkKLW/XXNwQsVY560UgDfo8U2/
-         X3JskZL0ktPFlWtWR5+PF1PqTM0KXxG0vSUtD9xqP8LFYqZ3KbGXEv2wVh/adnU0Unk7
-         4GYHB7ldhNF9qN+odW1vPYeMOZbs5E/DI3jfIAtnP5Vi7tgnhmyCaYUFfYQrfCZtuje7
-         BuMw==
-X-Forwarded-Encrypted: i=1; AHgh+RrjT7oF4vurBJeegPtsSyj0nqebZLOfXUAamPviHBn1toBF/NM7UbVB+QDPs6xGzbphxzhgtKIRQ3+H@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQfjQon2cM+p/iiGy/b0wRO5iEda7f3G9bXr/hpA/3m9tzpfV4
-	we+zvUusXBbpB2BQ8CIV5LeSCGcTBxxyZ4koN7qVLQ1gzkOEGY0neCxU4NiFFBA8TyfmZYBDEF0
-	rULYkHYHewKmqMoLNlUVbUYlBhvWnj2q+HlwlTdSfSSHIH37K2uqaNUF/l75bA+b9
-X-Gm-Gg: AfdE7ckwlx+ZHKw9i4oSwxudQd5a8bpTTFtkHeoyWX1TGnwoABmeqUmCnjlzWqNluo+
-	WcYXGZnIKrL+33v52ItrQn2/rZuOVvQlo4CzYDxdLBZR3RGNCMV01dDI5b54sKTel/W4MNptBzN
-	gR+iX8vy1SdXdjqdcStJiko6vLTB4PqkjKnr7uxOuQp2IxfZ2TeviC9tZ48qVyXkcYJy8Mx087x
-	TSLY1uqEuYUkWcDA0FDlCV+Ht6SAHrB+1mXCB+qgwI20tombJxl6rwuODfE2/HwhIUsvK9UJf6a
-	VgSO5GkRnapMC1mYA8W1CKVXhC0/sX9Usp6WtUevZ9qx+hlLbhcPHa7qJ1gUw4YabWR8/ebMXJK
-	DHV3zj/0gLCLpo1stlchQpla0a6MF0awJb4Y4DEHJtg==
-X-Received: by 2002:a17:902:da89:b0:2c9:e6d7:fbb4 with SMTP id d9443c01a7336-2ca7e85a856mr102663285ad.31.1783074680709;
-        Fri, 03 Jul 2026 03:31:20 -0700 (PDT)
-X-Received: by 2002:a17:902:da89:b0:2c9:e6d7:fbb4 with SMTP id d9443c01a7336-2ca7e85a856mr102662705ad.31.1783074680012;
-        Fri, 03 Jul 2026 03:31:20 -0700 (PDT)
-Received: from [10.217.199.117] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad71328d8sm7377295ad.29.2026.07.03.03.31.14
+        d=1e100.net; s=20251104; t=1783074754; x=1783679554;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=xXqnKE5BVSq5meuyy3aSxrzRU5PavHRibtLm4NqA0hs=;
+        b=cBD/nPAsZKL4+7uzB0GxHd8og1hD9e6uBUwauszMs9+sdTCAQpkm4BWtStfyeady2r
+         vmiKdq3FhJQhjIEp44XO1M1xTZuuXxK9B73gsYAJaJbdsjrqZHuLbZJZieRtqfc4939C
+         16dD9KmypRxKZM+zla8e/mQ7C5H0pGHEipTR68p6beywm2cTzaJQq4wK+ovDLp0kg/95
+         PTFt6Xd2XyPO0xyAYxvFQ3Ig4eY3spiOy5UjWS2wXYnenKSjfD3QLuh9bPbXyip13vSK
+         kgj+upwmnHI9TY5DA6dv8O+B7JCQo4q/Kt0ddB4QsWRSiLQ5ld4ba6eho8vkHPGWI169
+         zi+g==
+X-Forwarded-Encrypted: i=1; AHgh+Rr7IoowDYGwwZSWZkE+0PQUiuTRxTGKr1UKu49VYcBqNL2oO6FQ6PIqM6X6AbWDzGySLjxy12o+zEGj@vger.kernel.org
+X-Gm-Message-State: AOJu0YzceLyN3j0qNqQPRAUFVseJWKG6hhfEKysAVrlV4JpRU0UsZVjy
+	G9rz84Qd5Pk2hnHFpuk1fcuoCE9BhRAbQpcmBOoAoTRpZEaN+UFiQrFC4DvApGoqbss=
+X-Gm-Gg: AfdE7cmPraIP3EqXSNNEC4PBAbzevlMUzqUwSTvy7okGPgwvFMZ0aRzALEPPb71oglA
+	nKg+cbzbTbq+E8dE9vMqBX9UgwgVnfloHYVobnxaIMm9RdDo9b6/2eps7pABXT9BMTl6HoYZYWC
+	STYDr1oEART9jZ+3eSs4xt3qRTmpUAENyOfdxizBxb9ZQJ6qH78AfVXl5iPaVOscTDxCN4J/mU5
+	tE6OrgDWv78e+y6xRBRJP8RO3A/BQGTvO9Gk8B/4ZQS62SNRgwebI3bScU9iNHMQFvziVJPYKwf
+	tjqWhFykjk6MBOa4kgN/3EXuYc1gU4HCUq/J6y9SWlGtPWcmxVwONew7McT1IdX6mrHNYYcu8ee
+	edRRxzcqeJHlhFopuM+dABo2bEqWC9iSAxbrBe0RGSUJtCaKv/8IX0bVLRECptIzfLRyJI9uv/Q
+	LyqA7dm/xWzZ6vU7AqzPZudNIDNe9Y1sx8H7exEAG0ndObsBoWYDkVAx6Vf6o1h3Bto+i4Na0IO
+	ScnAr0=
+X-Received: by 2002:a05:6000:601:b0:476:5eec:309c with SMTP id ffacd0b85a97d-4775a7cb888mr13583163f8f.24.1783074753843;
+        Fri, 03 Jul 2026 03:32:33 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:9b13:921f:4f13:6cbb? ([2a01:e0a:106d:1080:9b13:921f:4f13:6cbb])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db8a4ad4sm18103306f8f.11.2026.07.03.03.32.32
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Jul 2026 03:31:19 -0700 (PDT)
-Message-ID: <faa65875-0aee-4a12-a751-084459edd4a7@oss.qualcomm.com>
-Date: Fri, 3 Jul 2026 16:01:13 +0530
+        Fri, 03 Jul 2026 03:32:33 -0700 (PDT)
+Message-ID: <5edfa760-b5b1-4f0e-8a14-2a39d2b99090@linaro.org>
+Date: Fri, 3 Jul 2026 12:32:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,95 +70,107 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/10] dt-bindings: firmware: qcom: tmd: add TMD device
- type constants
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-References: <20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com>
- <20260703-qmi-tmd-v4-1-3882189c1f83@oss.qualcomm.com>
- <20260703-bizarre-abiding-spoonbill-dcc142@quoll>
-Content-Language: en-US
-From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-In-Reply-To: <20260703-bizarre-abiding-spoonbill-dcc142@quoll>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 0/2] Lenovo ThinkPad T14s EC thermal monitoring and
+ thermal zone integration
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, sre@kernel.org,
+ hansg@kernel.org, ilpo.jarvinen@linux.intel.com, linux@roeck-us.net,
+ andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: bryan.odonoghue@linaro.org, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260701103714.22583-1-daniel.lezcano@oss.qualcomm.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260701103714.22583-1-daniel.lezcano@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: D3WIpWsoL51HEquDTd39KZ0EAKxe7pa4
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDEwMSBTYWx0ZWRfX6WHgyhGZOqi2
- EAgj2hn4CwY/av4rnKQ7bXLM0ZuLaURjo8d6TvplWKePB/ZglZSFPy9FwfXEoBRcnalWmvL9v4L
- vW7REDCvCVfsXvWagBLTgl+g5Pxt9lk=
-X-Authority-Analysis: v=2.4 cv=a6QAM0SF c=1 sm=1 tr=0 ts=6a478f79 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=Ac_jkr_iY3tVM05H0rEA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDEwMSBTYWx0ZWRfX1dvAe/oYhao6
- mWcji+ohlNrDZDoZY0TPyQuA46BEvQ9AF95VEOwoKCQjWVGkrXumzGWzNpb2ewuyRKiZWd7HZyu
- dL8M4ZEryIp3aklcAcOOZ1/iAtbZmd+Gv58Z31WrM19xuoamdtA+FZXupM1N3nEQA7wMjP463pd
- ahbp8iPJmVEah9kQr198plf7f00oehwmqlT7ORVDBIV71ZjRKgaWr69ui01ZJGFgJQ6hPnfe2j1
- yVxzv91Kajig6eDYmot1mBF8Avq4/bisuxwjHiC0ZVXsmq1HlDKH+QCbn3I0QsF8NRDHj5IpQtz
- TEi2huxeQixxFF3BsNb7XODi3cBpkrA1TpsnSFG4MTdEmiDgEHL3eAOyR0huNlLSWPbMoXuoPH/
- Y05RZdGJR74ChVM03w/nO+V5s+dJOGmnS/bTQYgVdndZeHKTpZ7QUtARsccxn1PrVExLBzKz/UA
- cTp0LVHwquhg0IrGLbQ==
-X-Proofpoint-ORIG-GUID: D3WIpWsoL51HEquDTd39KZ0EAKxe7pa4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0
- bulkscore=0 impostorscore=0 phishscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030101
+Content-Transfer-Encoding: 8bit
 
-
-
-On 7/3/2026 1:22 PM, Krzysztof Kozlowski wrote:
-> On Fri, Jul 03, 2026 at 10:33:04AM +0530, Gaurav Kohli wrote:
->> Add Device Tree binding constants for Qualcomm Thermal Mitigation
->> Device (TMD) types used by remoteproc-backed thermal cooling devices.
->>
->> Qualcomm remote processors expose thermal mitigation endpoints
->> through QMI. These endpoints can be registered with the thermal
->> framework via the `#cooling-cells` property on the remoteproc node.
->>
->> The QMI TMD protocol identifies devices using string names (for example,
->> "pa", "modem", and "cdsp_sw"), while the DT cooling-device binding with
->> `#cooling-cells = <3>` requires numeric device id in the form:
->>
->>    <&phandle device_id min_state max_state>
->>
->> Define common TMD device index constants shared across currently
->> supported platforms. If a future target requires a different mapping,
->> additional target-specific constants can be introduced while preserving
->> existing DT ABI.
->>
->> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
->> ---
->>   MAINTAINERS                                 |  1 +
->>   include/dt-bindings/firmware/qcom,qmi-tmd.h | 20 ++++++++++++++++++++
+On 7/1/26 12:37, Daniel Lezcano wrote:
+> Hi,
 > 
-> Why is it put into firmware? What part of firmware are you describing?
-> To me it looks like thermal thing and even you wrote: Thermal Mitigation Device
-
-Ack, it looks better under thermal. Will move to
-include/dt-bindings/thermal/qcom,qmi-tmd.h in the next version.
+> This series extends the Lenovo ThinkPad T14s embedded controller driver
+> with environmental monitoring capabilities and integrates the exposed
+> sensors into the Linux thermal framework.
 > 
-> Best regards,
-> Krzysztof
+> The EC provides access to several platform temperature sensors
+> covering the SoC, keyboard area, bottom cover, charging circuitry, QTM
+> module and SSD. These sensors are currently used by the firmware for
+> thermal management but are not exposed to Linux.
+> 
+> The first patch adds hwmon support for the EC temperature sensors.
+> 
+> The second patch exposes the EC as a thermal sensor provider in the
+> device tree and defines thermal zones for the keyboard skin
+> temperature and the charging circuitry temperature. This allows the
+> generic thermal framework to react to EC-reported temperatures and
+> apply standard Linux thermal mitigation policies.
+> 
+> As the EC protocol is not fully decoded, the passive trip points
+> get/set actions are missing, so it is not possible to program a
+> threshold and receive an interrupt when crossed the way up or
+> down. Consequently, the thermal zone related to the charging circuitry
+> is polled every two seconds until we can set the trip points in the
+> EC.
+> 
+> This series fixes critical thermal issues happening on this platform
+> where a kernel compilation, or heavy workloads, lead to a system
+> reboot.
+> 
+> Tested on a Lenovo ThinkPad T14s Gen 6 (Snapdragon X Elite).
+> 
+> Thanks,
+> 
+> Daniel
+> 
+> ---
+>   Changelog:
+> 	v3:
+> 	 - Removed event based because trip point are not yet well supported
+> 	 - Added an empty line after variable declaration (Ilpo Järvinen)
+> 	 - Used MILLIDEGREE_PER_DEGREE from units.h (Ilpo Järvinen)
+> 	 - Made switch consistent (Ilpo Järvinen)
+> 	v2:
+> 	 - Fixed patch 1 subject prefix
+> 	 - Removed the fan information part
+> 	 - Added HWMON_T_ALARM
+> 	 - Fixed DT change description to reflect what it does really
+> 
+> Daniel Lezcano (2):
+>    platform: arm64: lenovo-thinkpad-t14s-ec: Add hwmon support for
+>      temperatures
+>    arm64: dts: qcom: x1e78100-t14s: Add thermal zones for keyboard skin
+>      and charging sensors
+> 
+>   .../qcom/x1e78100-lenovo-thinkpad-t14s.dtsi   |  68 ++++++++-
+>   drivers/platform/arm64/lenovo-thinkpad-t14s.c | 130 ++++++++++++++++++
+>   2 files changed, 197 insertions(+), 1 deletion(-)
 > 
 
+Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on T14s OLED
