@@ -1,147 +1,278 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BD123BD1D;
-	Fri,  3 Jul 2026 18:29:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E28211A09;
+	Fri,  3 Jul 2026 18:31:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783103364; cv=none; b=PuQqxA5LAJFQq8uDob4THuuTfuyPYDF27laN7Wc/wABw9l6v/HAQ9AqYfVKNVrRP5HVwI8NPP9gKB9ysT+iXQi0BvJtrHbXxxoR7O0N/oZWj95XaZOcA5wL+nzI644mvscTmJphiG9PME8Yv4x93RbUl4LA8VSF/dMFbXwnva4U=
+	t=1783103465; cv=none; b=ke0lzUYj3q+V4a8rpcXiDguVgbcvBAL5IZZck6qs4YLaOpBarPqvq+uSiGlka1677Po2ZJtSUwmUYXus44SIhLgTVBeQnjtw4ty+qFBxG8AIHRLhdhVquaICA2Pdyx/L4BuAoG3ZNIwXvlAsMMkynyGKLn0U0gggBxfnaKvbcYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783103364; c=relaxed/simple;
-	bh=Xl9CUYMIhXkFBk952nuPiNR2NtJxqNcKi1GiIwILJRc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MH0efoD3ws42RqkVFlmeFIoWOpteaTRe/vTesEhy8gd2h9XbyP4QgI+G8l9jrvq7zty3IHzbLTDHp6qfyyrE/EeLXMAL2XsBiiEa/8p0y+3N67u/vZUMJU/64NxS9Afdi5R0iOcRce/wwa+ecexSA311HBZyCZnShYcNgDlgqRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bj8wiXFD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783103465; c=relaxed/simple;
+	bh=yhdnVhATfUwD1M3Ikk0EG9oJWo47ExKIa5EBNyHKoiA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mNJMdQv1m3COBTFkQpGfyyRm4g9C26TlJMtps8oTv1xApHoVHM0dO3byXLQXnvenrm82sTFWYV9jeuWpdDEZoj0U6FBJDH9JQ9jNFNEXTv9GRdo8XnkNLZf3mNpvi/g7RL0aj008zfWce2cu+zkLrQDrUwVR7ErlgbZ4xVgv5cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hh7LE2Bx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bj8wiXFD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0081F000E9;
-	Fri,  3 Jul 2026 18:29:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hh7LE2Bx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E874B1F000E9;
+	Fri,  3 Jul 2026 18:31:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783103362;
-	bh=cDUa7qAvGQxAqsninsYf1imnrLZa/8omKlfZyOjK/p4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Bj8wiXFDw1AEwJAJzWMHcoHUzUnO5RSLUrrdbPDDtrmHvICV4zvluTNYGrCKNReo+
-	 V2VHecn6G9LIfWRUYhHviazaY5SPs+PD1M5UTv6w3boNcTB2kk7c8VZ81fqK1AbmAd
-	 57RAJvDkiTHqnE5bsKAh+rQSmEVuCAEs9yrQTdJVFl4TPsOQ6fqSkVKiMM138D6+Rf
-	 Twkdgzz2OvoRegKiZIkL8IHSmlKgnE/rg5/I6C9SHJU0zH1mL5dkYJmbH1CiVSrtWD
-	 pBboBrk2Smc/JfNU6pSXBek5e4iYD0aLFYqs7FYnuViAFirbZ/UiaEVn+QUB9L+tsG
-	 bcf6WGk9oP15Q==
-Message-ID: <58458578-a6fb-40c8-838f-9a06a7371f76@kernel.org>
-Date: Fri, 3 Jul 2026 20:29:06 +0200
+	s=k20260515; t=1783103463;
+	bh=KN5gnCrTvXlQKADtvfFNfjZWzryi8/4lXgAOtCX+ku8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Hh7LE2BxsISAzUMxnMRULUY6kWlb20xxmjlyKM50W1ZgFaRK1dDZ5/Z1Zi1M4mnWJ
+	 SZFMTPwH8by+yiGQQb98T/Te5OMVPHKS9932Tn2aZuQZp1py9dcSVPXOZ5dUsAlRNq
+	 u2ANd4HGKHel/vm4hqFSoK4fnZuQ5k6s1b+IVEQfmq3TL/lXmDsAhPWCH5jDYhiE1f
+	 S+y1i6J2i/5pkiGQLJey7u1sxahFR+TdWwF45UXxSnJ/4iJ8VyH8rVhHw766gerB4+
+	 BCXe1ogJFIFhssFCnLJQzP6N3rdfJBLbC/b8sySgiMo/JK60EtYJh2zI84ghLlzVe/
+	 yaAkoCs8n1a3Q==
+Date: Fri, 3 Jul 2026 19:30:59 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
+ Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
+ R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v6 16/16] docs: iio: add documentation for ad9910 driver
+Message-ID: <20260703193059.4deda617@jic23-huawei>
+In-Reply-To: <20260618-ad9910-iio-driver-v6-16-79125ffbe430@analog.com>
+References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
+	<20260618-ad9910-iio-driver-v6-16-79125ffbe430@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 7/1/26 18:08, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
-> 
-> There is no technical reason why there should be a limited number of CMA
-> regions, so extract some code into helpers and use them to create extra
-> functions (cma_create() and cma_free()) that allow creating and freeing,
-> respectively, CMA regions dynamically at runtime.
-> 
-> The static array of CMA areas cannot be replaced by dynamically created
-> areas because for many of them, allocation must not fail and some cases
-> may need to initialize them before the slab allocator is even available.
-> To account for this, keep these "early" areas in a separate list and
-> track the dynamic areas in a separate list.
+On Thu, 18 Jun 2026 14:27:32 +0100
+Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org=
+> wrote:
 
-I want MM maintainers to review/ack this before this gets merged.
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+>=20
+> Add documentation for the AD9910 DDS IIO driver, which describes channels,
+> DDS modes, attributes and ABI usage examples.
+>=20
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> ---
+>  Documentation/iio/ad9910.rst | 759 +++++++++++++++++++++++++++++++++++++=
+++++++
+>  Documentation/iio/index.rst  |   1 +
+>  MAINTAINERS                  |   1 +
+>  3 files changed, 761 insertions(+)
+>=20
+> diff --git a/Documentation/iio/ad9910.rst b/Documentation/iio/ad9910.rst
+> new file mode 100644
+> index 000000000000..113521fead3e
+> --- /dev/null
+> +Single Tone mode
+> +----------------
+> +
+> +Single tone is the baseline operating mode. The ``profileY`` channels
+> +provide enable, frequency, phase and amplitude control:
+> +
+> +.. flat-table::
+> +   :header-rows: 1
+> +
+> +   * - Attribute
+> +     - Unit
+> +     - Description
+> +
+> +   * - ``en``
+> +     - boolean (0 or 1)
+> +     - Enable/disable profile Y. Only one profile can be active at a
+> +       time. When enabling a profile it disables the current active prof=
+ile.
+> +       Disabling an active profile brings the device to a powered down s=
+tate.
+> +
+> +   * - ``frequency``
+> +     - Hz
+> +     - Output frequency. Range :math:`[0, f_{SYSCLK}/2)`. Stored in the
 
-I'm putting it on my todo list for next week (please ping me if it falls down
-the cracks and nobody else ends up reviewing it in the meantime).
+Probably spaces around the / for consistency.
 
--- 
-Cheers,
+> +       profile's frequency tuning word (FTW).
+> +
+> +   * - ``phase``
+> +     - rad
+> +     - Phase offset. Range :math:`[0, 2\pi)`. Stored in the profile's ph=
+ase
+> +       offset word (POW).
+> +
+> +   * - ``raw``
+> +     - integer
+> +     - Amplitude scale factor code. Range :math:`[0, 16383]`. Stored in =
+the
+> +       profile's amplitude scale factor (ASF) register. The physical out=
+put
+> +       amplitude is ``raw * scale`` where ``scale`` is read from the ``p=
+hy``
+> +       channel.
 
-David
+...
+
+> +Digital ramp generator (DRG)
+> +----------------------------
+> +
+> +The DRG produces linear frequency, phase or amplitude sweeps using dedic=
+ated
+> +hardware. The active ramp target (destination) is selected by enabling t=
+he
+> +corresponding typed channel at channel number 130:
+> +
+> +- ``out_frequency130`` (label ``drg_frequency``) =E2=80=94 ramp targets =
+frequency
+> +- ``out_phase130`` (label ``drg_phase``) =E2=80=94 ramp targets phase
+> +- ``out_altcurrent130`` (label ``drg_amplitude``) =E2=80=94 ramp targets=
+ amplitude
+> +
+> +Writing ``en=3D1`` to one of these channels enables the DRG and switches=
+ its
+> +destination. Writing ``en=3D0`` disables the DRG if the channel is the c=
+urrent
+> +active destination; writing to an already-inactive destination is a no-o=
+p.
+> +
+> +Each destination channel also exposes a read-only ``scale`` attribute
+> +reporting the physical quantity per ramp register LSB, which allows conv=
+erting
+> +raw limit codes to physical values.
+> +
+> +The two ramp channels ``out_altcurrent131`` (``drg_rising``) and
+> +``out_altcurrent132`` (``drg_falling``) configure ascending and descendi=
+ng
+> +ramp parameters independently.
+> +
+> +Destination channel attributes
+> +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> +
+> +.. flat-table::
+> +   :header-rows: 1
+> +
+> +   * - Attribute
+> +     - Unit
+> +     - Description
+> +
+> +   * - ``en``
+> +     - boolean
+> +     - Enable the DRG with this channel as the active destination. Only =
+one
+> +       destination can be active at a time.
+> +
+> +   * - ``scale``
+> +     - Hz/LSB, rad/LSB or mA/LSB
+> +     - Read-only. Physical quantity per raw units. Multiply a ramp
+> +       rising/falling channel ``raw`` value by this scale to get the phy=
+sical
+> +       ramp target.
+> +
+> +Ramp channel attributes
+> +^^^^^^^^^^^^^^^^^^^^^^^
+> +
+> +.. flat-table::
+> +   :header-rows: 1
+> +
+> +   * - Attribute
+> +     - Unit
+> +     - Description
+> +
+> +   * - ``dwell_en``
+> +     - boolean
+> +     - Enable dwell at the ramp limit. When disabled, the ramp
+> +       auto-transitions at this limit without waiting for the DRCTL pin.
+> +       Disabling both creates a bidirectional continuous ramp (triangular
+> +       pattern). Other combinations create single-shot ramps at the DRCTL
+> +       pin transition.
+> +
+> +   * - ``raw``
+> +     - integer (64-bit)
+> +     - Ramp limit expressed as a raw DRG register code in
+> +       :math:`[0, 2^{32}-1]`. The physical value is ``raw * scale`` where
+> +       ``scale`` is read from the active destination channel.
+> +
+> +   * - ``sampling_frequency``
+> +     - Hz
+> +     - Ramp clock rate. Controlled by an integer divider; the written va=
+lue
+> +       is adjusted to the nearest supported rate.
+> +
+> +   * - ``raw_roc``
+> +     - /s
+> +     - Rate of change. Number of register codes advanced per second, com=
+puted
+> +       from the hardware step size and the current ramp clock. Writing
+> +       requires ``sampling_frequency`` to be configured first.
+> +
+> +Usage examples
+> +^^^^^^^^^^^^^^
+> +
+> +Configure a frequency sweep from 40 MHz to 60 MHz with a rate of change =
+of
+> +25 GHz/s:
+> +
+> +.. code-block:: bash
+> +
+> +  # Disable dwell on both limits for a bidirectional continuous ramp
+> +  echo 0 > /sys/bus/iio/devices/iio\:device0/out_altcurrent131_dwell_en
+> +  echo 0 > /sys/bus/iio/devices/iio\:device0/out_altcurrent132_dwell_en
+> +
+> +  # Set ramp rate at 250 MHz
+> +  echo 250000000 > /sys/bus/iio/devices/iio\:device0/out_altcurrent131_s=
+ampling_frequency
+> +  echo 250000000 > /sys/bus/iio/devices/iio\:device0/out_altcurrent132_s=
+ampling_frequency
+> +
+> +  # read the frequency scale to convert physical values to raw units
+> +  cat /sys/bus/iio/devices/iio\:device0/out_frequency130_scale
+> +  0.232830643650
+> +
+> +  # 40 MHz / 0.232830643650 =3D 171798692
+> +  echo 171798692 > /sys/bus/iio/devices/iio\:device0/out_altcurrent131_r=
+aw
+> +  # 60 MHz / 0.232830643650 =3D 257698038
+> +  echo 257698038 > /sys/bus/iio/devices/iio\:device0/out_altcurrent132_r=
+aw
+
+Why is this writing frequencies to altcurrent channels? Shouldn't this be t=
+he
+frequency ones?
+
+> +
+> +  # 25 GHz/s / 0.232830643650 =3D 107374182402
+> +  echo 107374182402 > /sys/bus/iio/devices/iio\:device0/out_altcurrent13=
+1_raw_roc
+> +  echo 107374182402 > /sys/bus/iio/devices/iio\:device0/out_altcurrent13=
+2_raw_roc
+> +
+> +  # Enable the DRG with frequency as the destination
+> +  echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency130_en
+> +
+> +RAM mode
+> +--------
+
+...
+
+
+
+> +
+> +.. code-block:: bash
+> +
+> +  echo 1 > /sys/bus/iio/devices/iio\:device0/out_altcurrent100_powerdown
+> \ No newline at end of file
+Tidy that up.
+
+Thanks,
+
+Jonathan
