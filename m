@@ -1,130 +1,67 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1C2389E04
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 06:51:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89DAA38D402;
+	Fri,  3 Jul 2026 06:51:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783061507; cv=none; b=AjKaebE2zCTpz9eV2Sp1W5Wup+inlKAnJA61TuTqKv5DEO93YctxyExqp1i6d9HU7lTlTrlimpZE1BcML5VCCdIO5ZKZyhfMLuD6ywLt7k1W6kx6xo0fe63VTYu/FlekD6HTa1lXsvd8i1OqKp1fcQPd6lZ+ZfkBgo3Az43bVLw=
+	t=1783061509; cv=none; b=rJuGkX1MQ/Yx9whZVHk330LqgI5eCRs8nrxJCNoQLMA2yd0MasbhI5AGIkemqKSF4d7s5wLgWyhT9N+SqUlkmDstp6I9hpVxvZPtvC1GykHdwWySDNRCcW1//k70bO7ESo/iV8JzGnj2zG2CjdkGYO5EtFl7Du41mQKOskiKrBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783061507; c=relaxed/simple;
-	bh=97KY9yD7aJyeFaO9lx3/aKKgODbzwtq99a/1TuTW0pI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=matT+jtVtfbevOdeTZfQwgZJ4QSJaJXkiXFwYyrtbsoXa38vvXoldTkl4Xs28lVia6Su9HyAG0IW7s4VFOO8YcggsfC2gCwXbkA8muYRHXb3j87UCph4kmsA0VPYMNTCCOsZksS7pQc8JxMioLbg4YYoc5ZstBdgEyvf9IUTL4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=AlvI6ZHY; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	s=arc-20240116; t=1783061509; c=relaxed/simple;
+	bh=1XhX0LrF9byzEfWtJovnXc7IDO1WDINvI7+uUz8r4r4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZTLAlhjc4TSSShUO2O6/8Qi6KDOxxF55cytkl81F62+o492n1Nd+cQ67UBDnyNs9zkNekH/a8cu8fphEAT0Bg9UyR21AI8GCqxp86b8S4Mi4i3DLhB0taiOssYfkCL2kTvp6Q2tp+nRn3vW4DQ+mfKVukAAKpMtf3dQz39O01qQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cRCAJEQn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="AlvI6ZHY"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-691c5776f35so351842a12.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Jul 2026 23:51:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1783061504; x=1783666304; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=p6RQlMNeIE75J/aKW5bH4o7BGOBdS+5uo3qC0b6eFZs=;
-        b=AlvI6ZHYljx/CZfYqwjlqlgCs9Xn9J6fyRNIZv61uW3qwsAlTuH1dnNptf1JTsEWxy
-         RKCVEXnDCdL6RtsmWAeG5OeVjW5liHwoi6Uk/s1UNpG3xRBodXEcKM8qqGxcf0Ij3LmE
-         ShbB2na8ekgb2v4ePnZqHXEARqfcMjH/EPwtw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783061504; x=1783666304;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=p6RQlMNeIE75J/aKW5bH4o7BGOBdS+5uo3qC0b6eFZs=;
-        b=mUL/l6sPuWzkDJa7LzNdWM2RJBF8HKTVjX3/Cvmjx6OHWnwHohAqt9WmcIPDwieDrT
-         o2JExW6NWo+cyKPhm4BmfkkIEM3+DrdogPfM3Uyxv1bQCr/c3kV8Xpfb0xVCjODPelbu
-         mYuA3sNrrlDIXKSffPm0/15w3nwmBjp6beHfE+cMqOV2xBxSVpQmxan+MkeZSy7uiU6y
-         V8gAYNJPd8ZvNKw2+DGXEFNxPl7zadZboGJj05/UbCoDeMe9lvFwG4N00QZ6NzeUbwQt
-         CCTExOCpCA0+KTROhBDp4GD4vIpeEY9pdjE5ae19ASKfRVOqAQGm+/9pYJd97OoUtlXh
-         PsZA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro9F+hBB/apG5uk6yLf53LtAof4/mxg5EslqsDUq4rHs2P4wZkCfxqZ7+vhUgByQV+lSdtZsKcmd/95@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzpsj5nrLwBUcWG6t6iS6xxRUEMGQTGJsQl4L8IH51hBqa8B3Y3
-	6i6VPvHy/WwYC3h8MPX/0qOOOYGbQT/g163eX3QmAQKzE4L8MfXAMoMzuzrMN1wtWko=
-X-Gm-Gg: AfdE7cmbFh46cZgnZNlz1O5lQnqeV7nelRaeolJNzXp8i1052JcTTzs6S828JlUNhS3
-	nBlLpiZ2WjuRAXGHxRlVS7wDsqAoG5YwYF8Lse83kPLvd8Q2acrnx0V9bahJA5afTdLQo0xhsv9
-	Yh0zfVl7lfJmXLtdLn2Vn/tNzb3UV/bw80qA1PEuSHKBz4+eq2r3fkxYOWpHzr1hHLi34fpWaZw
-	6Qqs4oyfQVh2LjiJjHcJokpP62B7kHfZIG+jb4WlizeLZ7BBYsU6KLMoEEhZgwZMorRTUO/VHV4
-	vj1Nigo43LZLHqkZQ3iSFn26KIAqviFIDwoDcuKV9ZDXEyY/skDzJfRy2/KK+l+PbCSPCXlImy4
-	GK9Ap8iLjmd2x2I/06PCWLH4aNOl1j10wn0UGgEAggJfNqriDKPOBZYcF/5YnURm2QE5EPeKad9
-	RLRCTKZg7TfAfTyowAltkz8KAZXbG+b3QgYOx0NT/DNW1sMmxN31YHmphwNRa8PrbibTfF/Faok
-	0IVBwP1SpI=
-X-Received: by 2002:a17:906:dd1:b0:c0f:cbe8:7830 with SMTP id a640c23a62f3a-c12aa13733dmr276973166b.38.1783061504135;
-        Thu, 02 Jul 2026 23:51:44 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.. ([2.196.43.95])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c12b62c4695sm235462866b.44.2026.07.02.23.51.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jul 2026 23:51:43 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: michael@amarulasolutions.com,
-	linux-amarula@amarulasolutions.com,
-	francesco.utel@engicam.com,
-	domenico.acri@engicam.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v7 06/16] arm64: dts: st: add i2c1 pins for stm32mp25
-Date: Fri,  3 Jul 2026 08:48:56 +0200
-Message-ID: <20260703065110.1433283-7-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260703065110.1433283-1-dario.binacchi@amarulasolutions.com>
-References: <20260703065110.1433283-1-dario.binacchi@amarulasolutions.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cRCAJEQn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A6F1F00A3D;
+	Fri,  3 Jul 2026 06:51:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783061508;
+	bh=/nA3hq1mogFPt8PGvXGr1NdrMGRkkNaJQmZ4OwtklcQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cRCAJEQna2kQub4QtVjHdM8ATLRZfSoPKLYxkrjd2LvD93vnC3WibzYgbY3L3LVti
+	 koB0usHw01V5O9OJMFRk9589hJVKiWW8dT4RWiw79zBcZU2UYaXEqfrTGZpG05EV5N
+	 2n3geq8BzWI02bptUvICtcz7oJQJQODy7pJ21zTdr5F6F84rPVObkaeetkzr3ob8tH
+	 vmLMItQiNustJR9IIT1gawSc/7io4Dd7BY5X/QwMNrT+WZDlRRYtyg2mWuzGv/4qg/
+	 j50HxeSAIfWiWcvx7S3V7qZfLhCOk01QZjZVkx/DYqdNRH+5+yBjeok1m28aYy7EUM
+	 LxCgnl24Dbqqg==
+Date: Fri, 3 Jul 2026 08:51:42 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Harshal Dev <harshal.dev@oss.qualcomm.com>, 
+	Vinod Koul <vkoul@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org
+Subject: Re: [PATCH v2 2/6] dt-bindings: crypto: qcom,inline-crypto-engine:
+ Document Shikra ICE
+Message-ID: <20260703-sceptical-cherubic-poodle-7d5b6b@quoll>
+References: <20260702-b4-shikra_crypto_changse-v2-0-66173f2f28b3@qti.qualcomm.com>
+ <20260702-b4-shikra_crypto_changse-v2-2-66173f2f28b3@qti.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260702-b4-shikra_crypto_changse-v2-2-66173f2f28b3@qti.qualcomm.com>
 
-Add the i2c1 pins used on MicroGEA-STM32MP257-RMM board.
+On Thu, Jul 02, 2026 at 01:47:12AM +0530, Kuldeep Singh wrote:
+> Document the Inline Crypto Engine (ICE) on the Qualcomm Shikra platform.
+> 
+> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
----
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-(no changes since v1)
-
- arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-index 456ece7f8ebc..db485b9ed904 100644
---- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-@@ -203,6 +203,25 @@ pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	i2c1_pins_a: i2c1-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('G', 13, AF9)>, /* I2C1_SCL */
-+				 <STM32_PINMUX('A', 2, AF10)>; /* I2C1_SDA */
-+			bias-disable;
-+			drive-open-drain;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	i2c1_sleep_pins_a: i2c1-sleep-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('G', 13, ANALOG)>, /* I2C1_SCL */
-+				 <STM32_PINMUX('A', 2, ANALOG)>; /* I2C1_SDA */
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	i2c2_pins_a: i2c2-0 {
- 		pins {
--- 
-2.43.0
+Best regards,
+Krzysztof
 
