@@ -1,178 +1,86 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25273C108F
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 11:04:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB30375F83;
+	Fri,  3 Jul 2026 11:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783076694; cv=none; b=JsFEIgxP51P/PtNuYi/wCxIr4cyFZZvyLK2yGFdL62vScfc0sm1/7bBB5RF2yHdm/4aK09kX0+NYP6ufxfzLe6eyBsl5o+0OJtomIYTm3pmGD950PRHi8OCv96B0aL86QIjFHCLFl3h2uOBJ7O4yXPVwdTwhskyVyEJOpP1PHhs=
+	t=1783076957; cv=none; b=W92MX6EP3hQpE8HqHuPkOVDYRDJdMrZ+83KaeJuPk74kOwDuBoSyv4j5Y+iL47fn5N2GuYjvyTH0dZ6FQxK3Er4KOoY0RXHHgD24hzSi4fKJyOY7PzSALL0MNXd2JUDyzDs0GGz4c5vPdOr/Jxqnw81gX986gnu+PgETg9tTfiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783076694; c=relaxed/simple;
-	bh=2bwIeurjrwcJ7Zm3CalIaF4vxwIad5ELnF8kDfq5LLc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EfXRR2Wc3/2zWFtuwNXLpEoK5cNQKpyuaVbb5QpgSmh3SF6Nj+qnvkMlHTj7aLnHmbkcD1W+F7QhZfHOV39b2exAOIB1ZVQLy+tXCgsCG/ibMBx03FB0tS6fb65BApGoDXRDiEG8i2EFGP9p55wMpxr5ApjGrSY7lh6sgOUwc14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IsBQMecf; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783076957; c=relaxed/simple;
+	bh=J4lbIewbp//OWqVawc0kwzLxFyB+WGnSs2Zv7Dy6SeQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GYrR2dC1jCUYmfziCLau4qDgRAqixlXz+JZWM/CR8QbaV8Ftu4VzXi2QoGxOxtUTXQZeCYj9rnwrY5ecPnfAQyTl8Ou8wwOpHrEmKVRL1flHZ2EOMfByi3u2QKEW9/pthLb9sDCIuG19T0kh9j+S9c710kmMg3Y1BoVZFR7dvqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LM3BmMC7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IsBQMecf"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cad225673bso3771755ad.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 04:04:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783076692; x=1783681492; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=jpsnXMJdrQZ8qB1ySVBl+GeO+mABbCy+9MxVxzg46jE=;
-        b=IsBQMecfnBvhccLxP1hg6/H1lU2qOcAefy/70/QF166C4FKPWzQg8WJlYTq0WJoDu3
-         6jSMKO6+WEYmzEf6rztaZW4WQpmcz4ke7hcCx4YVYcGzWJpWyhQGIlwsGAU+q7ou455o
-         jMxlNuzsIJlEzAXBm8xMb1Tav7BmGVv37Z/2LhjR1IsQvxP5Fgg4QgIHi0HV9maBBI/r
-         faaUruVsr7JMKZs7MGvHuewalrzOxVO0fXMONu/lMo9VHUvd5urUBgMxPq6oGxT77qhf
-         p/S9eLHHknvOGbOT3D8/aUK7wuwOan8nVvgc5iiRCCsyFNQDwBjLFOsm7qsb4mrwgaYI
-         TlpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783076692; x=1783681492;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jpsnXMJdrQZ8qB1ySVBl+GeO+mABbCy+9MxVxzg46jE=;
-        b=YJLJpU/C+kEi6lXLp/IJxk3gtmZcMLx2o/Ab/VSwuF5FTbjlNY6MqcBxTYDYn9rA1J
-         LlOsIk0yfxxlEUzJA3CrinWuNWImlEu0ROjRtC63pLtQT48kByoDKxY+TZtQbW/KiOeE
-         LT5wnENsaNo0iSIxpOh4g9rUH1a+W/bfAaxK4eoR7PsuOTnbnaKZuaDWnZvhX972K4eN
-         FtCEbb7VBhKIDGeTme9jJaStYeg+uZ4lN7jeCFREbwj4t1gcTMV6VA0iGw7JPcnW2uf9
-         vr1PQOOAypL9GCj6V8KDyzo4Qg+LOnKnJ6ArAQwjxtzsIb55JGvwTWC7xU+pvZkNXrQi
-         KuCw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr3BberGxODrDpqwttQYWUtM2m7wFSWYIiKFdVYZHeW0OAIjUmN1tB1DwYE1uBq4rWHs0uVNLOLAsMS@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkNeIWfMyHsVFGiiPNg9FkydAuO4avxT/3gXwap70jQ8VMf0P4
-	llg7L+R7y9unbOkQpVLgYacpTeKe527rsKBn3L24bt6mau7ZkMKYASGN
-X-Gm-Gg: AfdE7cn7NrGTqN5z3jM4ZSqt2VoLSOxlw1zntQcxZ3nxjPGqGm13kdWlE1k+njXpxvU
-	BXdD/1NzzYdXOlJbj7n9gsLpTlDBI5PJ6zSJvDMrfb1KQl2msvXbC061VGSSCeB5CixkS7w/VX5
-	8DZeWMc4ynXmirP2VWabqZ3IIDT8YvrP32zeoCUzyUbCptx0RIoBNPPAdG8xFlJkJOPwKVE8mbs
-	9pMwl4Q8FGGH0l/2lAQLWJpgJvZx3WOu9KKejqerCpVrXRV2EKfjnqgfL/6ANvfsokF9W+teIcu
-	EyztNF7jKIGHh0JU6EUwk6Oearo+ndG2ECea5Fu8DDBsgSDMrPsQyApsLkRlCHpxWFDrDc+KbOK
-	uhDmPmF2xFcwAcUll+vyvRGXRTG4WpfX30B6fvVLsbgYQ8/GpaIbZJIU15yTzYtPcWJQ97zTzGJ
-	k56+lBuXBrqs3jDgoKA3Noo23Qn2TxRaiC/RJdiRK6DQ==
-X-Received: by 2002:a17:902:b40d:b0:2c9:c95e:5836 with SMTP id d9443c01a7336-2ca911121c4mr63685395ad.5.1783076692114;
-        Fri, 03 Jul 2026 04:04:52 -0700 (PDT)
-Received: from inhnjlux1020.ls.ege.ds ([49.204.164.119])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad789bf65sm7765165ad.79.2026.07.03.04.04.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 04:04:51 -0700 (PDT)
-From: Udaya Kiran Challa <challauday369@gmail.com>
-To: alexandre.belloni@bootlin.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Udaya Kiran Challa <challauday369@gmail.com>
-Subject: [PATCH] dt-bindings: rtc: microchip,pic32mzda-rtc: Convert to DT schema
-Date: Fri,  3 Jul 2026 16:34:42 +0530
-Message-Id: <20260703110442.205026-1-challauday369@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LM3BmMC7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96BA1F000E9;
+	Fri,  3 Jul 2026 11:09:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783076955;
+	bh=tuWJc8imFqb5FUwYOIHT8S1/CiCKvV///7YUxzwmiDA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LM3BmMC7MgYSpIzMfpzB+fFYNAhMe9wIo1o0OJLC1Kel2K2ZP/+VYxOAC9ivUroRz
+	 e4JPeoPiFFfqZ1qhYtgHkZfsdaJh8zcFkZV/66zPWGhUzxzaFzlF4vJpkPovVJSOtI
+	 lwj3dqu+64Kj8tRzc145Qxd72W41qMMdgRzcTAa273NCEWWlyJtiJvPgXzbS3Dgy7H
+	 MoZ72HwHtFSy9sa/vMxx7hgMY28svlczu2j7TqHWvEhRlnhjNiIsYAZQu4yNqsXE4d
+	 nuCScM8ZI10umNXmDNle0KarbBqoXiOd0UIayfbNh22N3Bes3fi6oQgXyA+zQkFa33
+	 pLJ/aYI5MisIg==
+Received: from johan by xi.lan with local (Exim 4.99.3)
+	(envelope-from <johan@kernel.org>)
+	id 1wfblh-00000000jBK-1vKA;
+	Fri, 03 Jul 2026 13:09:13 +0200
+Date: Fri, 3 Jul 2026 13:09:13 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v5 09/14] mfd: lm3533: Add support for VIN power supply
+Message-ID: <akeYWRF-wIlrHTF5@hovoldconsulting.com>
+References: <20260617080031.99156-1-clamor95@gmail.com>
+ <20260617080031.99156-10-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260617080031.99156-10-clamor95@gmail.com>
 
-Convert Microchip PIC32 Real Time Clock and Calendar devicetree binding
-from legacy text format to DT schema.
+On Wed, Jun 17, 2026 at 11:00:26AM +0300, Svyatoslav Ryhel wrote:
+> Add support for 2.7V-5.5V VIN power supply.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+ 
+> -static void lm3533_enable(struct lm3533 *lm3533)
+> +static int lm3533_enable(struct lm3533 *lm3533)
+>  {
+> +	int ret;
+> +
+> +	ret = regulator_enable(lm3533->vin_supply);
+> +	if (ret) {
+> +		dev_err(lm3533->dev, "failed to enable vin power supply\n");
+> +		return ret;
+> +	}
+> +
 
-Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
----
- .../bindings/rtc/microchip,pic32-rtc.txt      | 21 --------
- .../bindings/rtc/microchip,pic32mzda-rtc.yaml | 50 +++++++++++++++++++
- 2 files changed, 50 insertions(+), 21 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/rtc/microchip,pic32-rtc.txt
- create mode 100644 Documentation/devicetree/bindings/rtc/microchip,pic32mzda-rtc.yaml
+No delay needed?
 
-diff --git a/Documentation/devicetree/bindings/rtc/microchip,pic32-rtc.txt b/Documentation/devicetree/bindings/rtc/microchip,pic32-rtc.txt
-deleted file mode 100644
-index 180b7144bfcc..000000000000
---- a/Documentation/devicetree/bindings/rtc/microchip,pic32-rtc.txt
-+++ /dev/null
-@@ -1,21 +0,0 @@
--* Microchip PIC32 Real Time Clock and Calendar
--
--The RTCC keeps time in hours, minutes, and seconds, and one half second. It
--provides a calendar in weekday, date, month, and year. It also provides a
--configurable alarm.
--
--Required properties:
--- compatible: should be: "microchip,pic32mzda-rtc"
--- reg: physical base address of the controller and length of memory mapped
--    region.
--- interrupts: RTC alarm/event interrupt
--- clocks: clock phandle
--
--Example:
--
--	rtc: rtc@1f8c0000 {
--		compatible = "microchip,pic32mzda-rtc";
--		reg = <0x1f8c0000 0x60>;
--		interrupts = <166 IRQ_TYPE_EDGE_RISING>;
--		clocks = <&PBCLK6>;
--	};
-diff --git a/Documentation/devicetree/bindings/rtc/microchip,pic32mzda-rtc.yaml b/Documentation/devicetree/bindings/rtc/microchip,pic32mzda-rtc.yaml
-new file mode 100644
-index 000000000000..481ee28c06e3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/rtc/microchip,pic32mzda-rtc.yaml
-@@ -0,0 +1,50 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/rtc/microchip,pic32mzda-rtc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Microchip PIC32 Real Time Clock and Calendar
-+
-+maintainers:
-+  - Alexandre Belloni <alexandre.belloni@bootlin.com>
-+
-+description: |
-+  The Microchip PIC32 Real Time Clock and Calendar (RTCC) keeps time in hours,
-+  minutes, seconds, and one half second. It also provides a calendar with
-+  weekday, date, month, and year, along with a configurable alarm.
-+
-+allOf:
-+  - $ref: rtc.yaml#
-+
-+properties:
-+  compatible:
-+    const: microchip,pic32mzda-rtc
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    rtc@1f8c0000 {
-+        compatible = "microchip,pic32mzda-rtc";
-+        reg = <0x1f8c0000 0x60>;
-+        interrupts = <166 IRQ_TYPE_EDGE_RISING>;
-+        clocks = <&PBCLK6>;
-+    };
--- 
-2.34.1
+>  	gpiod_set_value(lm3533->hwen, 1);
+> +
+> +	return 0;
+>  }
 
+Johan
