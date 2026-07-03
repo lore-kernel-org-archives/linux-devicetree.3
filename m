@@ -1,184 +1,247 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011024.outbound.protection.outlook.com [40.107.130.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBC33C5552;
-	Fri,  3 Jul 2026 14:05:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783087529; cv=fail; b=aDlCLwDqJWGN8mO9GlPqCl/HClIldlJWjTSmmCbKZVsR6c3mCsJmcgFPc+0UmlXVC8533NN2G6PfjCa8yn2otxcKNeAC4oF6XALGnIWQzpiqLBhEJvzQVR/+osIUL47f7AVJdotGhYRT9q6vOc0f2zcTUCf48MK3hJUQo9L5HlQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783087529; c=relaxed/simple;
-	bh=r/e6jFlrj31GtzYEt+0ijgmsoQgn5RPIhaYpUeEmQ/w=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=sSLGdPYweEMg+Nmk1Ao+88qZbIaZDeszEzzIWzsbABO9Kot7aeSjukz4pCM3XDjjccMenaCfue1jZjajXlpfkVF7f8iUaoqkmvRSKbXrMuA5Z8IsL9lszrKp3vOQ1+r/H/v5RyrYUQwcrD6usjKTTlhx9FRbR4bQPaRDazWOgmY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de; spf=pass smtp.mailfrom=cherry.de; dkim=pass (1024-bit key) header.d=cherry.de header.i=@cherry.de header.b=SWcLvvKN; arc=fail smtp.client-ip=40.107.130.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherry.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1FE3D952E
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 14:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783087706; cv=none; b=dARErRkNG6WokUYsB2iFu9N9GKql6hwS1WenTCA3GbohPYGhUK4saHjzBYRZv68sQ+ctbir7oUyssoGAMmbkR3dGfMtBz7B7Pwk2/Mk5JNXFm/dd1ejDxh01I21YIegpXQFM5Ls5fgeuNO8ECmtASuDwYggFSXD5MdAAulQgPTs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783087706; c=relaxed/simple;
+	bh=sxt78hW/PsWxFDCcSOLlFJjgkvoHFNRhW6v7oBKogR4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FNHcS1XbDDu4kYNzYZ+AUucdMPsWoAA35hjXjdD3wmdLG26KZkFJ6BO7JFfeVf+YbouYfWgpV35d2FdPSwpMjDWKBF/fUUE1/9DONM5Hb6DE11Egejnqa6TelkUxirBDyyuOLkiI4VL/Mf2ZGTBxefJ8fQOOtUDFfBK7zJBMUnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q+4u8vnx; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cherry.de header.i=@cherry.de header.b="SWcLvvKN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M0EFyvk0yQKuDbfDrogB6mQKmtDsJnlUUZoflwL2jt6XI1NP+exPa9OqAc/7HnXIrT9jtWyUNH6JeYcW5uwmeAuz5OLZkZN1ETSG8v5zTdBIYD8P340AC6y1tghn8DM02cYTs+ZW+sZGYeXfvGQB1t+4NOcMfZDDz6safrQ1DifIKi9QU8u8p/DJWhELKC0EQOuyd8KKIK+gFtJtuTTlTQNt1oca5IVaSM/0xOsj5mNi4eiWRtApJ3a4gfq89UqS3hLl2EusXmrRu4k8ozm9evVwJGqtdQvEBG67ONxtmynq8oBkvVevqhG7KtIjqdT2eoP0bWrB9JAa24jZFpJwbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tnigVu7A6Eur55kca0znXTn0z1z6fhbjZbMpypzdNZI=;
- b=VNpTOy0PRgN841+N9B3T8AR0Aw/0WjwReCu6JFRJeFbJv/adhavYXIWQ+3L0oTDnu9EnwXYkgW17V1GnfK4LkIyc4dZv7OQ/U5DEMaZe7cDrPqlTqZYN/d9HXTDck0uF4tBsHtRX1ytCSfoU8qn6FbxGB3NJtTFfbu7RBBrJ2M/G6P959h4l96QhLyF7pWjSGjP2t5/zW+JftEagN/kiT97wid5+yQQKUa8+RKRUrxgzw/0ujGY+wEkbxJEyK/jIenON5rBja9zN8s6Qyr9zkFKsz1Fqx9JOKdw3gO3foF5VFI3j7CoL+XAeS0hgLJJXHYkaHitRYzKwucfwYvVjkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cherry.de; dmarc=pass action=none header.from=cherry.de;
- dkim=pass header.d=cherry.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cherry.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tnigVu7A6Eur55kca0znXTn0z1z6fhbjZbMpypzdNZI=;
- b=SWcLvvKNK3iXTFl3H8vMz+lk0yMbvRDOfeBP5fSw2nF9Rfhhn5gvEQo0TuOJxM6grsFd49P9OrjgSiPMBDvNMf5WiYHkZvDqvYbKGXffZY1QteIAosYm03fI2w+5PQrJ1SztJGQr/W3Bn+IsmFrW0uqjC9uOhbh8A4MEFr7tI2s=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cherry.de;
-Received: from DBBPR04MB7737.eurprd04.prod.outlook.com (2603:10a6:10:1e5::22)
- by DBAPR04MB7414.eurprd04.prod.outlook.com (2603:10a6:10:1a0::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Fri, 3 Jul 2026
- 14:05:20 +0000
-Received: from DBBPR04MB7737.eurprd04.prod.outlook.com
- ([fe80::5960:fb4b:9313:2b00]) by DBBPR04MB7737.eurprd04.prod.outlook.com
- ([fe80::5960:fb4b:9313:2b00%5]) with mapi id 15.21.0181.009; Fri, 3 Jul 2026
- 14:05:20 +0000
-Message-ID: <e03fcd5c-de56-4f39-90c2-3ba0636a1cca@cherry.de>
-Date: Fri, 3 Jul 2026 16:05:18 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/4] arm64: dts: rockchip: Enable CAN controller on
- RK3588-Tiger-Haikou
-To: Cunhao Lu <1579567540@qq.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
- kernel@pengutronix.de, Vincent Mailhol <mailhol@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Heiko Stuebner <heiko.stuebner@cherry.de>
-References: <20260703-master-v4-0-47d40bbf5fda@qq.com>
- <tencent_F79E849B11AF805A4401BF9F263B1A469907@qq.com>
-Content-Language: en-US
-From: Quentin Schulz <quentin.schulz@cherry.de>
-In-Reply-To: <tencent_F79E849B11AF805A4401BF9F263B1A469907@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: WA1PEPF00005B8F.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d8::626) To DBBPR04MB7737.eurprd04.prod.outlook.com
- (2603:10a6:10:1e5::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q+4u8vnx"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-46ed4f66256so561758f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 07:08:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783087703; x=1783692503; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Ff/YHnBqJa7Fo45VaTkgV0Ahz6JMeo4m1RJIBiXmpRg=;
+        b=q+4u8vnxsIhU8W4cb6MxioztC1t5YtdadvtxxnTYqwq7gZZtqFy8rhqN5gOD3iJQ19
+         DzQT3yv2NU1/R7armS+fI8RXXgtIeiogzz0yaJ9DeQusmRfZze5waXXEGpORwtVLf7si
+         BkBTajDyPz2q9xZlblsl/lnTtNKlEFjR5n8HR+jLO7C5CxdoHQD2RD7+TfYGGWZ5J3KA
+         mssgN8UreyxZUJCA3dyBPV/lXX3ASslA7BQxz+LEhbqrWdN/KtdseM1Nn1ckuOTJ4sBJ
+         SQ0MilkYJkqjzEqI1VT160eto5kDgb/dkEU+WWZgCQuil6OXpVgK675+k7DDB+xDpdng
+         cuwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783087703; x=1783692503;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ff/YHnBqJa7Fo45VaTkgV0Ahz6JMeo4m1RJIBiXmpRg=;
+        b=UugvXkcoNRJ3vBQSvtKURhr/UhPkPkFXj5G43G6mzwkPM7Ya/19lVY31FZ/ymHlQV/
+         2EAc7wmzG8UGcjhNeFxORAVesPt7CMOljjHEOI14Frg+o3JAf/AmTYneJyQZKF2jJB4m
+         7xOjkPnkmPFvfS7ESA4Hainr7CB2CbDHK7LHPhd6jmbiYXAyIPmduuK1O3JyvzIrVReP
+         x4I5Sieo5LPFYf9L4j2hLRVxBOC0FZSl6cR6nJsBpZfGIDu2odw2IiiBJeppT+xa0KsG
+         ViaAM1108qZIL1UK6oIUNbGFvvfYDSl5P//czRmg9utk3R9Mvw7Sa/a2AirX2nR2O9He
+         WbNQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrCy2986UMXhfa3D5MdHKDH7C6wc0i8hsAnEb8dYrBcj2+FRwf4eRhBE0E9m6pCigJQlMTOrFlJniaW@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+Yo3mVPJQXkRpHU8p/iNk/I1NdiLUtvvR0EfPQ0tuN+n/mTic
+	K87Bq8yij9Y1NmN2Sd0V7dAd4S4Z7Knae2RI/IQRfl9M6kLA7gZeayfZ
+X-Gm-Gg: AfdE7clztj3f68q+jjJm6JriwPdiTNz7eYsduYGxRnGorCTXEeAOTRm9FoEmRs92kPh
+	/nHP/q7sIUAmI6tSJ9USbuhkpRtMV9eebOsFiXIGM5r/YEhJoerzvjSAQBMgFRP+wnSobRxHpZq
+	Y4onzPPBKHieKS5pkAGdkg420WxJ40Ap8ze5N/Rz2a1e9gTVeflrgMDTi0k34l76a5pfd27Rcya
+	Xj1q4+KCiwZP5uRyBr0WF2mn6k8TpD9mpL9egaPhsAdOqQnfLMzyKZH3n/WRdUPog84WkaqnCrG
+	lmgZ7jEc08dA09ju5aaBb58ukIrgQNVj5BY5DiAfws+QZV9Jo1sgMVgO4AXl/5tUokClc5hV+qD
+	MpEYM0VIQSt3dQ92gDl7dtsVSSSNAiH4pCzvrqi+BYQFgvcYlqtzYbRNBvPbJND384Lv2JXibhb
+	/xsZ+g
+X-Received: by 2002:adf:e012:0:10b0:474:18d9:8371 with SMTP id ffacd0b85a97d-4775bd0ed70mr11785200f8f.28.1783087702435;
+        Fri, 03 Jul 2026 07:08:22 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477de3dd46asm19665003f8f.36.2026.07.03.07.08.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jul 2026 07:08:22 -0700 (PDT)
+Date: Fri, 3 Jul 2026 15:09:26 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, 
+	rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v6 12/16] iio: frequency: ad9910: add RAM mode support
+Message-ID: <ake_YWfvVC9RQ3wu@nsa>
+References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
+ <20260618-ad9910-iio-driver-v6-12-79125ffbe430@analog.com>
+ <20260703040544.08a8ea5e@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DBBPR04MB7737:EE_|DBAPR04MB7414:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19dfd7a8-6257-432b-025a-08ded90c1e1a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	nUmGJKV8CIgWTqZTPyIwMgEdaB26sH+DtHEDdHjF5L0saDrNrGjIBONhJngZjVFLzTtVxJEGMWWJR/heZEairWjZKIw5ZgIWAzTilFu0ahSlKfVCoNHO7JAnttEXdnIkzPBjtebt/H3NzXMgwb1Pn/BAL/Jv5k4wd/A5l0B5gfFOB0dcqPixXECJk0uF1uhKg3m19Os+B0Fq0TW8KejcZWXBkouKmKne4KppzvVRRJfsT606wbQxaC+EmtZ/hnaAK0u8cCT/8F8J8Iwe+UUNpZPztlVpoLHavWdUKUUE7HsOHLVZH519VZ7g2wouaXv6X1deqMmLYIdWUt8O6yrANCeQLkJ5CGUak9Ab3RNjckYMH99EnXxY1dzqVqU5Ui0WWX2Q2T5SNjgzmCVApjBRzgsjntXkLehOpAGLJle/epjIIpOHAg9gUf/DwKkPr2TVKBSksIiHJdmhlY4iaHGNUX6zGm2sm6edYH1aDxE6spkB717df3VwDo9AHNQ/Zq3q7s2s3A30wcICQ/A8J0UW5hf4fwPQpVs9JWCZsXeHiYTIpcAwVbGIPQDP1YiHGi8GUPRUzk0N/rDk2/KqahQwdIjDM5+tBkpl84MbvVoKTBX343KF3jbgIEtIEkzwMd7UwoHqDdl5eFSnq2ul2G97re0SgNgALaG1Ph4WhcraGzg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7737.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UFhMVDhCMDR3eEhLOGN6RDFjRkFlb1ZPSWxNMzdZbW56azBXQmNjRFNvYnNI?=
- =?utf-8?B?OWhHSXZOMGp5clpPVUo1VFNtMld0elRDRDEvbGZrUU5nSFQ5cFpJc1Brbjl6?=
- =?utf-8?B?TSt6bzdnUlZzbk43eUpmbE1TbDd2NStId3BEaXRzSXZQMnJueVFrL2ZSWHRo?=
- =?utf-8?B?dFJ3VGNwZHp5WEFYV2loc3ZicDdrWEUwVzFtRCtBd1FvRzBMYlJmK2JrSXJM?=
- =?utf-8?B?YXMxcUNVYjI5clpMU2ZGU2VkN2QvQmc5UzhlYWtjR0pTMkRQblFsZmVLRHZ5?=
- =?utf-8?B?MVlhSUkxMDQvcFZKY2JrRGhlL1gxVHM5QzB5NjBoZ1l4eEpBa0VmaTR5a3NF?=
- =?utf-8?B?TjlkVTk2TUhsUkRrZld6Z25WVTZRZkFBMlg1Tm9QcWI1SDVUVTNha2Uyd3Bw?=
- =?utf-8?B?azg4Q0dhZ3JQaDBUNWdmWjY2UDB2ZmhkME14Z1FqL1JWQjY0RDFEVzBWT3FD?=
- =?utf-8?B?TFoxSW95ZjMvb3FQek9pdlAvU2dtZDR0UG9INlZUTkFoNjE2ZGZRZjNVMmx4?=
- =?utf-8?B?TWJnbjkzN0JiY1YyLzh5M0w2dUVrMUVmdUtvK0JlUXp5VUx5M09sYlBEd0VF?=
- =?utf-8?B?RGh0azB3TU9QNWhTTWlkeVVJdGJwZklXVUxlWUNPaU5IVHp1ay9jVGJTRGQw?=
- =?utf-8?B?dmI5WFRVQ1hJVWh1TUJMT2tQUklLa2V4WTJteFVLcEN1YksrL2dDQ2dLN2lk?=
- =?utf-8?B?dGtET3k3bjN3ZWorTEttRUxuVjdNYzA1VkpZZkhsWE9IcHROaGRwL2dNT2t4?=
- =?utf-8?B?ZUpqNWpRS0JjZS9vbHI0UVdMZ3FXM09lcElTSkE3RDdaM01CYVF2MkhuelVP?=
- =?utf-8?B?ZzdoWDg1VkdmY3FPbHIweFRXMFNlUWYvckNoUzRZcVNaR29JS0Y0UXIxZXEx?=
- =?utf-8?B?K3FVQUtXaG9ZbkFjNTlMdE5BOG9mSzhWaStZa3N4K3Rtd2VIeTlXbFVGWFVo?=
- =?utf-8?B?cGlob3VESkU1S0ZEQTM1bEhuRkdHUlZSNWFueUVsWkdEcWgzRUg0ZUxVOVhz?=
- =?utf-8?B?dXVFTm5jbFNzMm9ZS2V0ZUJzbFRDc0JGTHhmZFJyTmdoQTlIZmJHWVpTTnI3?=
- =?utf-8?B?QUYxN00wNHRTcXhWL2cxS0cxUXdyRWVDY2JOVTNQclhvUmdETFg2OUFjRkdB?=
- =?utf-8?B?eE44TnVzTWYwdU5nMGROd0tVWWIwSmQ3UE5BVjRSZTlNdHZTQTIwUkxRZXh1?=
- =?utf-8?B?NTFCNk9hSUtrbUxMblU2L0llTlZDa0QyUzkra1lnRGI4MitCOWZFTXFqcWdr?=
- =?utf-8?B?Q1dWd1FZZHhDTSt0a1c5V1BsWVFITTA5dy9UQUhpRm9UY3NuaEJLTXdmRVky?=
- =?utf-8?B?UmN3MDJQZmptUUh3RUV4T3ljL2VVTk5Fb29BZ01uOVE3U3ppSGhPYkJEUEZk?=
- =?utf-8?B?MTRNeUZSWmdjbHlYTFYrNXozcFFTU1FYUXhiMDVET0lmbGU1bENFNDB1QSth?=
- =?utf-8?B?SERIZzVHK3lHNEhJMm9rSWRuZGt3RC9qZjF0Qndjc3NlWVd3KzR4SFdYVlkx?=
- =?utf-8?B?L2wyMlVaOS9Sb2hxMi9CQytjUUlwWGFGQ2xhOGhySklpdnR4Z3JyY0RoQnNv?=
- =?utf-8?B?OTJoZStXMXJHTmJEa1VOaEFDUEptUVJlZXNTQm1Sb1o3WTZ5RkNGc3VOTm15?=
- =?utf-8?B?d2dGNnl5UDFycGcyQjNKT2JUUVpLWUVEd3pUR2d4aE5hSzY2d3JqYklqQWhI?=
- =?utf-8?B?b0ROZFJPQlVlUVViZUpqQWtNdUlvVnlHVkdXaG0rYmlYc1g2ZGRBUm9yK1Y4?=
- =?utf-8?B?TmQ0L2E2TTBCMXFmU3FLUzlKbnFMcHdMTXcyQmdpQkNZWGFuanJEUGdYVHpH?=
- =?utf-8?B?M3BKaU04aHhlZnQ3UG4xL2I3TEpzZVJ3enAzSXBxMHJQWDhodjFNQjNWdzFu?=
- =?utf-8?B?bE5kWGZqNENZVVJYQmZxZm5yM2ErZ2RMMnJKR1MzWWViZEpQeFFSZzQwT2xW?=
- =?utf-8?B?Y3V2c2VVMDNuLzZCUG1wWjl2d0pyVXZQZnNQeEdZYnE1Y2V0c2t2MVduR0p4?=
- =?utf-8?B?emo3b0JUNytGQldtNmhQUGFxWTBVN0s3c3RKeDBvUVBKNWFoeFJCaFhSOElV?=
- =?utf-8?B?cml2SEpnQ05vckN2NGFHVFFneEgyYUt2bkZ2cnpEK2NPOTM3VFN2dnBzYksz?=
- =?utf-8?B?SUhZaVhvK3Q2RFRqWEZRdmxWUlZMVXRiM1VzNDF1cDNCTlNFZjZ1bjNGYWFR?=
- =?utf-8?B?ZkRoK1ZlMVhNcGFwS1lZUmlldnR2YW1HcHNUZ3pFY09RK255VkdQTTZuWURV?=
- =?utf-8?B?alhPTVJVdmR4OUFrenJ4anp5NVNMT0ExZjhEYzZNMnhOQWJpYzJkTkkrcUhm?=
- =?utf-8?B?VTNBSzdhcTRsVzdpTmVUaFlhMFp2QUZPRmNkYWYrdGhxb2JYS2Nndz09?=
-X-OriginatorOrg: cherry.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19dfd7a8-6257-432b-025a-08ded90c1e1a
-X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7737.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 14:05:20.3375
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5e0e1b52-21b5-4e7b-83bb-514ec460677e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jOUpcHPQSVHfcEMGZe49cUk07/lWd3B0iQLMORiJ5bR1ep54BxvGuA0bdBJDOQDkKtgp+9AYH4rabGA77X1GpMP5spu64BIRVyB/Sl4S3nk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7414
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260703040544.08a8ea5e@jic23-huawei>
 
-Hi Heiko, Cunhao,
-
-On 7/3/26 10:01 AM, Cunhao Lu wrote:
-> From: Heiko Stuebner <heiko.stuebner@cherry.de>
+On Fri, Jul 03, 2026 at 04:05:44AM +0100, Jonathan Cameron wrote:
+> On Thu, 18 Jun 2026 14:27:28 +0100
+> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 > 
-> CAN0 is piped through the Q7-connector to the CAN-Header on the Haikou
-> base-board, so enable support for it there.
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Add RAM control channel, which includes:
+> > - RAM data loading via firmware upload interface;
+> > - Per-profile configuration and DDS core parameter destination as firmware
+> >   metadata;
+> > - Profile switching relying on profile channels;
+> > - Sampling frequency control of the active profile;
+> > - ram-enable-aware read/write paths that redirect single tone
+> >   frequency/phase/amplitude access through reg_profile cache when RAM is
+> >   active;
+> > 
+> > When RAM is enabled, the DDS profile parameters (frequency, phase,
+> > amplitude) for the single tone mode are sourced from a shadow register
+> > cache (reg_profile[]) since the profile registers are repurposed for RAM
+> > control.
+> > 
+> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 > 
-> At least on RK3588-Tiger, the CAN clocks default to 99MHz, limiting
-> usable CAN bitrates without skew. Errata documentation mentions
-> 300MHz as the default frequency on RK3568, so replicate this here
-> to allow more bitrates.
+> > diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
+> > index 3fe97aa887c3..c4e179dda715 100644
+> > --- a/drivers/iio/frequency/ad9910.c
+> > +++ b/drivers/iio/frequency/ad9910.c
 > 
-> Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
-> ---
->   arch/arm64/boot/dts/rockchip/rk3588-tiger-haikou.dts | 6 ++++++
->   1 file changed, 6 insertions(+)
+> > +static enum fw_upload_err ad9910_ram_fwu_write(struct fw_upload *fw_upload,
+> > +					       const u8 *data, u32 offset,
+> > +					       u32 size, u32 *written)
+> > +{
+> > +	const struct ad9910_ram_fw *fw_data = (const struct ad9910_ram_fw *)data;
+> > +	struct ad9910_state *st = fw_upload->dd_handle;
+> > +	int ret, ret2, idx, wcount;
+> > +	u64 tmp64, backup;
+> > +
+> > +	if (offset != 0)
+> > +		return FW_UPLOAD_ERR_INVALID_SIZE;
+> > +
+> > +	guard(mutex)(&st->lock);
+> > +
+> > +	if (st->ram_fwu_cancel)
+> > +		return FW_UPLOAD_ERR_CANCELED;
+> > +
+> > +	if (AD9910_RAM_ENABLED(st))
+> > +		return FW_UPLOAD_ERR_HW_ERROR;
+> > +
+> > +	for (idx = 0; idx < AD9910_NUM_PROFILES; idx++)
+> > +		st->reg_profile[idx] = get_unaligned_be64(&fw_data->profiles[idx]) |
+> > +				       AD9910_PROFILE_RAM_OPEN_MSK;
+> > +
+> > +	ret = ad9910_reg32_update(st, AD9910_REG_CFR1,
+> > +				  AD9910_CFR1_RAM_PLAYBACK_DEST_MSK |
+> > +				  AD9910_CFR1_INT_PROFILE_CTL_MSK,
+> > +				  get_unaligned_be32(&fw_data->cfr1), true);
+> > +	if (ret)
+> > +		return FW_UPLOAD_ERR_RW_ERROR;
+> > +
+> > +	wcount = get_unaligned_be16(&fw_data->wcount);
+> > +	if (!wcount) {
+> > +		*written = size;
+> > +		return FW_UPLOAD_ERR_NONE; /* nothing else to write */
+> > +	}
+> > +
+> > +	ret = ad9910_profile_set(st, st->profile);
+> > +	if (ret)
+> > +		return FW_UPLOAD_ERR_HW_ERROR;
+> > +
+> > +	/* backup profile register and update it with required address range */
+> > +	backup = st->reg[AD9910_REG_PROFILE(st->profile)].val64;
+> > +	tmp64 = AD9910_PROFILE_RAM_STEP_RATE_MSK |
+> > +		FIELD_PREP(AD9910_PROFILE_RAM_START_ADDR_MSK, 0) |
+> > +		FIELD_PREP(AD9910_PROFILE_RAM_END_ADDR_MSK, wcount - 1);
+> > +	ret = ad9910_reg64_write(st, AD9910_REG_PROFILE(st->profile), tmp64, true);
+> > +	if (ret)
+> > +		return FW_UPLOAD_ERR_RW_ERROR;
+> > +
+> > +	memcpy(&st->tx_buf[1], fw_data->words, wcount * AD9910_RAM_WORD_SIZE);
+> > +
+> > +	/* write ram data and restore profile register */
+> > +	ret = ad9910_spi_write(st, AD9910_REG_RAM,
+> > +			       wcount * AD9910_RAM_WORD_SIZE, false);
+> > +	ret2 = ad9910_reg64_write(st, AD9910_REG_PROFILE(st->profile), backup, true);
+> > +	if (ret || ret2)
+> > +		return FW_UPLOAD_ERR_RW_ERROR;
+> > +
+> > +	*written = size;
 > 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-tiger-haikou.dts b/arch/arm64/boot/dts/rockchip/rk3588-tiger-haikou.dts
-> index 873fbeb8daa1..6273e695b039 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-tiger-haikou.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-tiger-haikou.dts
-> @@ -155,6 +155,12 @@ vddd_audio_1v6: regulator-vddd-audio-1v6 {
->   	};
->   };
->   
-> +&can0 {
-> +	assigned-clocks = <&cru CLK_CAN0>;
-> +	assigned-clock-rates = <300000000>;
+> I'd like a blank line here. Mostly to make that 'good' return more obvious.
+> 
+> > +	return FW_UPLOAD_ERR_NONE;
+> > +}
+> 
+> >  
+> > +static inline void ad9910_debugfs_init(struct ad9910_state *st,
+> > +				       struct iio_dev *indio_dev)
+> > +{
+> > +	struct dentry *d = iio_get_debugfs_dentry(indio_dev);
+> > +	char buf[64];
+> > +
+> > +	/*
+> > +	 * symlinks are created here so iio userspace tools can refer to them
+> > +	 * as debug attributes.
+> 
+> Maybe worth a reference to appropriate ABI doc here (even if it is introduced
+> in a later patch)
 
-Why is this not SoC-specific? We are only routing the signal from the 
-SoC after all.
+I'm not so sure about these links. I mean, I definitely agree we should
+make it easy for userspace tools like libiio to be able to handle
+these kind of attributes but using debugfs is questionable to me. Pretty
+much because this is not a debug thing. It is a real setting for the
+driver so ideally we would be able to control it (using the existent
+tools) without enforcing one to mount debugfs (I know that most of the
+times it's always mounted but still feels wrong to tie "real
+functionality" to debugfs). 
 
-If it cannot be put into rk3588-base.dtsi for some reason and is 
-product-specific... Why is this in the baseboard DTS and not in the SoM 
-DTSI? I would like to avoid our customers to have to copy things over if 
-they should just work on their baseboard too if they don't do crazy 
-things there.
+Having said the above, some suggestions:
 
-I'll try to find time to test the three CAN controllers on RK3588 Jaguar 
-with the CAN1-CAN2-UART4 Mezzanine adapter board and will contribute an 
-overlay for that if it goes well. I don't have a CAN-FD adapter though 
-but I hope they reused the exact same IP for the three controllers in 
-the SoC :)
+1. Make the iio_dev the parent so that the attr name is just "ram" and
+it will be a subdir /sys/bus/iio/iio:deviceN/ram/.
+2. Propose a new helper for the firmware_loader code so we can get
+struct device from struct fw_upload then we can easily create a sysfs
+symlink.
+3. Name the attr as dev_name(iio_dev):attr so that it becomes
+iio:deviceN:attr_name.
 
-Cheers,
-Quentin
+Now that I think about it, 2. does not make much sense when compared to
+1. And If I'm not missing anything both 1. and 3. can be sanely parsable
+from userspace (being 3. maybe a bit more reliable). And yes, both require
+user space tools (in this case libiio) to support a new type of
+attribute (firmware) but that is another problem.
+
+- Nuno Sá
+> 
+> > +	 */
+> > +	snprintf(buf, sizeof(buf), "/sys/class/firmware/%s/loading", st->ram_fwu_name);
+> > +	debugfs_create_symlink("ram_loading", d, buf);
+> > +
+> > +	snprintf(buf, sizeof(buf), "/sys/class/firmware/%s/data", st->ram_fwu_name);
+> > +	debugfs_create_symlink("ram_data", d, buf);
+> > +}
+> > +
+> >  static int ad9910_probe(struct spi_device *spi)
+> >  {
+> >  	static const char * const supplies[] = {
+> > @@ -1561,7 +1876,25 @@ static int ad9910_probe(struct spi_device *spi)
+> ...
+> 
+> > +	ad9910_debugfs_init(st, indio_dev);
+> 
+> Blank line preferred before a simple return like this one.
+> 
+> > +	return 0;
+> >  }
+> >  
+> >  static const struct spi_device_id ad9910_id[] = {
+> > 
+> 
