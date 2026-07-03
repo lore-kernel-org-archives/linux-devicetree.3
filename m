@@ -1,169 +1,145 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1B82E22B5
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 16:05:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E42E2E8DEB
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 16:06:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783094742; cv=none; b=sKlgkSZ9ohSZy5Gf2b5kpeRn50e79spdx6Lzm5rXP8kxVDsPERzt64hcdo1y3OFxUn4yFGc1/3oM+PaRGE8NS2p0xjjceVhHXd+KmMrBd0Ph6l2/C6gIXxvatqsiSz+Rv+2944lFrTuLCeqeUnqTWwYhMYDrYYrVNrPcOb8d8pY=
+	t=1783094782; cv=none; b=QDKTSEH5dtGW3wbwlDMa/+awS5kW+o5PDZOjC4AjsowUiO019SZ94i2a/JohZEzlKKgjP8lGazfeLj24UcpYBrwC6gG0mC1IuhRiW94E3tID/TacqasGXuyx3YXPWpRDA5R1HvQGcuEwFeBtDbwDiBVoP4+ivgz3FdcqeSI6Fv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783094742; c=relaxed/simple;
-	bh=nxkcFikcEeVEtozP6ZBj6n7TjnOotZnihpA5wQ6V/A4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=egYnm3gbm8vwiP9p/69FcSATwlKhLL3OMA2DnfKrhAR+bllZZCGPOGDNinXXHo6B88u10kdA9dk0Dgbh2Bi4eGwUA0GJlzV5RH/7yNaxVfyQXGeEMrFQEpyndyXp0srp3TaHxnub3kWnUacsobkcwLHL4R5AqstBe4WRredZRco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sSVjO4NA; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783094782; c=relaxed/simple;
+	bh=hMWqUTIAU8G998BCS9HztTdOjVZu+N1wXMmpnGGv230=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tQOVN5yPzsbJW0Hm0ExhyALJG85MEjNiLOL3xcHB5qvQt/ViwCAww0R/K6Vk6b9MS+fRhkGm3dyRTF0ijDIwmHuDydvzvZFZQ800LsesdmtcGFMSHZMchpUU8Z6onnO/OnHAg7FH5urfhFwzh41lyJWzl9y658hZITIqe1YFkv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oZG+ND7+; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sSVjO4NA"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47122683cf3so519994f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 09:05:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oZG+ND7+"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493c7902f47so4634395e9.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 09:06:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783094736; x=1783699536; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=uoqOq6Ohkp4UDA6vDyVnbIPla9jVgl3DiZga84x8Hms=;
-        b=sSVjO4NAjiUSGh3cYeL5dK8KpgFbzmWFpjbB6UcxF7y+hi3RegBusl1G8gdICP4bSC
-         3UFVj11L0lpTEuFpyr9A7tG/lGH+eTlcah0vhcLml962VuMCQxpN57DXx+2WzxPPqrwt
-         pPW5d6qp36llmWs1FzlYQ4OvcHu14vV1Wzd5cco78mrSCOXMU8KFVYvalXW4zqRiHjFP
-         yz1pjd7TYWqwDmvnvuPDTa0HUbQYuRKfwBxT8DtlmIUjbtTHUmP9kP144Pqp4MbLFzIE
-         B5X1piInPaPt1884oZ3XRsKSy4nK3cm0X96J0dv3zNbFFlg7bKCOFSzG0QwJ3wW8TtSu
-         Ufag==
+        d=linaro.org; s=google; t=1783094777; x=1783699577; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=hMWqUTIAU8G998BCS9HztTdOjVZu+N1wXMmpnGGv230=;
+        b=oZG+ND7+ERyX3bjgMBdk+Z7HV2o2wmMvcoPtFA+D5X6jwI66aidDR7iiJ3mSe58kUW
+         YaPe4ba+GZYr3t0b6IoB4owLBbtzYFhSYhvOz0HcOs/ajtWQEX0q0dX15npWMItv/opu
+         k1gBB79gaGLlcl5F86ea+7QMHFOrjVMJGa6BdoosYK5Sa0CzVdmgR4CyTxEM8RX7mOju
+         USjj6SKHsgjSNMl86ErdJW0vVopgB8owXXgFWlrGaTcF3lwhYid94hxLb7FlS2tfJJyo
+         Xh2n7uwkLvn6f0uImIPFaksBFObH6dfBsASQiUTp/tVQz42DFUosxwVmZXK5XwjNN4Ft
+         /Zjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783094736; x=1783699536;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=uoqOq6Ohkp4UDA6vDyVnbIPla9jVgl3DiZga84x8Hms=;
-        b=Z8n9wJ0mCRH7bNVAFGs2mhnyj572Z2TGZ1zFR6xo4idaBxTuAXffG30qYaFRuXwy2I
-         yH/KO4SmrKU65hEZjGfAnoHk92SqTMwnTYhzYbINLn1OX2QIj4I6CUgCjMKRfOXyTqKF
-         5aEmVOmY5JbIIzCccvZ0T/ycFIB4Y0XLNxHR4Y70I2L9d9rBYkJkmlgWyDo52nR4xIY8
-         l6L/1xH+OyomvnR20+RTxgmWEE61kc2ISnlEcI+5eKMfPbNLHkgb//jonFTjd8IV0Hxu
-         WZtNOglwPCYgEwN2gYjM+aUar1vBdaz58Yy1CJLTnSgQV20l8/msAA+6c+1cvne3OPVP
-         df4A==
-X-Gm-Message-State: AOJu0YxpxmYglAr1LaDrHjrOFMoEb/eIJYsu7I9yomv6d3EnQTL7nTz4
-	T1uDhDqyE9fhwD82yqfM8XlCC9gPV2pLBqrBjjhZOtKbTUc4HG9umYSL
-X-Gm-Gg: AfdE7cniks4kd5Bgw/4+O8HTLxlMephJkRik7yw6EPkEZ8V1G4P7BNP/s19GM3fST2E
-	WsSSPNbD7dRTRmzf/htlrI+w0dHXCXnfenMcdwwfrXkX/YE7IyRnxdLULCZCJ//WlGCshv08KN1
-	eoot/M2fsrjiXEGmmgyJYzBm5mUhH4HWjChI3bIWbQHP9g60VxB1DkjUjMxfbimFzfHsgQjhuWF
-	n2c4SKxgGSW2ldXwt8yClvrXSp8zBEBgkQzgb1YdheglSKwq1R+kerAzz0pQELGIQ+qLxrDj//+
-	vix6V2i2d43khknlWDk91YaSsiDdgjslq9SJl2pLj8w1OHEBEpVO8ZO4E8A06MXC/yO2nSSTF92
-	kh2B/Xfm1lzQCBLUhj8NzWEVR+IrZyH2Ae7lPLXIEOSy66UOIIWDQQqd/H3emkQWDiGJHsL1/MM
-	cXTMHelzCivZR4CVAzWjOdc925yf8GIYMFTawx4V5AhM73RpXbGamfFXx7f26gNiMw9XPGPuEAk
-	0AwovkASh6HEvsxAOyrvvBwpB510mNYl58nNToaMe/8
-X-Received: by 2002:adf:e00b:0:20b0:477:47c6:36e5 with SMTP id ffacd0b85a97d-47758cbf3c6mr11636302f8f.25.1783094735669;
-        Fri, 03 Jul 2026 09:05:35 -0700 (PDT)
-Received: from Lord-Beerus.station (net-93-144-65-248.cust.vodafonedsl.it. [93.144.65.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0f21328sm316945f8f.32.2026.07.03.09.05.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 09:05:35 -0700 (PDT)
-Date: Fri, 3 Jul 2026 18:05:32 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org,
-	robh@kernel.org, imx@lists.linux.dev
-Subject: Re: [PATCH v1 1/1] arm64: dts: freescale: imx9-var-dart-sonata: fix
- Ethernet PHY configuration
-Message-ID: <akfdzMdw56G0A3UU@Lord-Beerus.station>
-References: <20260703152731.236793-1-stefano.r@variscite.com>
- <20260703154139.8AF511F000E9@smtp.kernel.org>
+        d=1e100.net; s=20251104; t=1783094777; x=1783699577;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hMWqUTIAU8G998BCS9HztTdOjVZu+N1wXMmpnGGv230=;
+        b=YFq41e4QOf9eRPC7olr16uaWD8vwC8ZF5w1sAWdmPak+bNXgbW29TrGU/YzfKN176G
+         acCU4xiJW0YGlRP4xVGSMfxCEIL6/Yy0z494s0Dg6vcgPnapgYaFLFfhCVh+woAmdsQY
+         xc0eQXY39t83Y3DEe0LA7FKdiDrp+eY4Mc9to0hHy09uNr0WncWwGUF5mGEELSOr9I+d
+         EBwUY4gHHbRqhb5jmXkk6eJ6pbzgiDUGkCZ8zCfLrbHeFvZUGfUDIiqLeNzQXgyzhI2Q
+         42BzffAwAn6rs82550EyTXdPmngww86MwM8z3Eo3vBjPCbXuTy4jP6XfVNRIMbv5gC4w
+         SURA==
+X-Forwarded-Encrypted: i=1; AFNElJ8ekmB9nmn1x59iN40Edr3/gT4vNiXhXDrhZw49cp1H1cJxZy+TPzSwnoQRFrdDONLGk9Ie2+JwOifk@vger.kernel.org
+X-Gm-Message-State: AOJu0YwruOF+XBoFB/1J0yLCSHMAmR+Yuhgn+kLFpGquX2vCVmR2AUN6
+	gcU6lRFHerwWowhXUHT55kUIEqKrZpsYIxGn53N+ceKssAhWmF7YCAvnzMR+XOJdldugaOsTvqC
+	AJrZI
+X-Gm-Gg: AfdE7clAxZ2ZPhpTyFrK7WB6OMOugKluHOYNxmarfQL0qf3YRxeTk54iQvh9W2yGRvN
+	1BjJM97L56gBO7zzw8JkjCmHM9aq9/9s4zHo2XIXuVdw1cHU91aPQcCY51G5TWvH5Y5awQiDe66
+	bs6mwsIgwrEHd5ERiBfyl16V1Xt6jps0o7wv5SnILyv7zUSUncTTcf3ulqHGTSV9aXLhrNJMJ6C
+	oNaIMe8qKnMF9APvlCoezyanrSJy+F285F6mkHruzEgCWLebod4ZEMbuL7dzQizaQr0tb3cNeiu
+	YMYUApGn6MQW1XcJNrkflpI4JtAgKtWRAl+c+BTac142eiIQ9x2nHVfqawBwOLh7XjmzXH8RguZ
+	9VIQqr3GzcG17ENhieXPk7rW9P6Yliy88uXHcznSvf8gX642e9mafzReJft3hoLDH8j1269qVzU
+	rPi+/cT7BL2K9546fxIonqngXz6dsh3jjPB+t+ow==
+X-Received: by 2002:a05:600c:6099:b0:493:c8a6:b517 with SMTP id 5b1f17b1804b1-493d0f54802mr4622835e9.38.1783094777502;
+        Fri, 03 Jul 2026 09:06:17 -0700 (PDT)
+Received: from [192.168.0.101] ([78.152.220.181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0f2186bsm286379f8f.36.2026.07.03.09.06.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 03 Jul 2026 09:06:16 -0700 (PDT)
+Message-ID: <2d10dd09-13c8-49fe-a5e8-1c1ec1a56b05@linaro.org>
+Date: Fri, 3 Jul 2026 17:06:15 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260703154139.8AF511F000E9@smtp.kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/7] media: qcom: camss: icp: Add HFI/ICP v4l m2m driver
+ for x1e80100 BPS/IPE
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Todor Tomov <todor.too@gmail.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+References: <w94ETgA980W0Endv5HbqmfhQ2P9OKvdDKCK0cG7r6NWTt9iDZNMZWm900gZoKHs8Pu3gj91rUQeZVH4M-WclDA==@protonmail.internalid>
+ <20260703-qcom-laptops-v6-18-rc4-camss-icp-bps-ipe-icp-boots-stats-b4-v1-0-595df9e67790@kernel.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260703-qcom-laptops-v6-18-rc4-camss-icp-bps-ipe-icp-boots-stats-b4-v1-0-595df9e67790@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On 03/07/2026 16:51, Bryan O'Donoghue wrote:
+> Speaking/listening to several people at the media summit in Nice this year
+> got me to thinking v4l2 m2m might be a another solution for an offline
+> engine like this one,
 
-On Fri, Jul 03, 2026 at 03:41:38PM +0000, sashiko-bot@kernel.org wrote:
+got me to thinking drm/accel might be another solution
 
-> > +		regulator-always-on;
-> > +	};
-> [ ... ]
-> > @@ -139,9 +150,6 @@ mdio {
-> >  		ethphy1: ethernet-phy@1 {
-> >  			compatible = "ethernet-phy-ieee802.3-c22";
-> >  			reg = <1>;
-> 
-> [Severity: High]
-> Since the explicitly linked reset-gpios property was removed below, shouldn't
-> there be a corresponding phy-supply = <&reg_phy1_supply>; link here to maintain
-> the device link dependency?
-> 
-> Without this link, fw_devlink no longer sees any dependency between the
-> Ethernet subsystem and the GPIO expander. Could the MAC driver probe and scan
-> the MDIO bus before the I2C GPIO expander (pca6408_2) and the new always-on
-> regulator are initialized, resulting in get_phy_device() failing with -ENODEV?
+proof read your stuff please.
 
-I did try modelling this GPIO as a PHY supply using phy-supply, but
-that configuration does not work correctly on these boards.
-The PHY is still not detected reliably during boot.
-
-> [Severity: Medium]
-> Does this same reduction to a 10ms startup delay also risk initialization
-> failure here?
-> 
-
-the startup-delay-us value is intentionally set to 10 ms.
-This delay reflects the enable timing of the board-level signal and is
-not intended to match the previous reset-deassert-us delay, as the
-signal is no longer being used as a reset.
-
-> > +		regulator-always-on;
-> > +	};
-> [ ... ]
-> > @@ -180,9 +191,6 @@ mdio {
-> >  		ethphy1: ethernet-phy@1 {
-> >  			compatible = "ethernet-phy-ieee802.3-c22";
-> >  			reg = <1>;
-> 
-> [Severity: High]
-> Does this node also need a phy-supply = <&reg_phy1_supply>; property to prevent
-> the probe race condition described above?
-
-I did try modelling this GPIO as a PHY supply using phy-supply, but
-that configuration does not work correctly on these boards.
-The PHY is still not detected reliably during boot.
-
-> 
-> > -			reset-assert-us = <15000>;
-> > -			reset-deassert-us = <100000>;
-> > -			reset-gpios = <&pca6408_2 0 GPIO_ACTIVE_LOW>;
-> >  
-> >  			leds {
-> >  				#address-cells = <1>;
-> [ ... ]
-> > diff --git a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-> > index 7a58ad38ffb46..ccf7e77016e48 100644
-> > --- a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-> > +++ b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-> [ ... ]
-> > @@ -346,9 +346,6 @@ &netc_emdio {
-> >  	ethphy1: ethernet-phy@1 {
-> >  		compatible = "ethernet-phy-ieee802.3-c22";
-> >  		reg = <1>;
-> 
-> [Severity: High]
-> Does this PHY node also require a phy-supply property to maintain its
-> dependency ordering after the reset-gpios removal?
-> 
-
-I did try modelling this GPIO as a PHY supply using phy-supply, but
-that configuration does not work correctly on these boards.
-The PHY is still not detected reliably during boot.
-
-> > -		reset-gpios = <&pca6408_2 0 GPIO_ACTIVE_LOW>;
-> > -		reset-assert-us = <10000>;
-> > -		reset-deassert-us = <100000>;
-> >  
-> >  		leds {
-> >  			#address-cells = <1>;
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260703152731.236793-1-stefano.r@variscite.com?part=1
+---
+bod
