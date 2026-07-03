@@ -1,189 +1,130 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA77C375F69
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 14:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6163D3314;
+	Fri,  3 Jul 2026 14:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783090134; cv=none; b=OoZzOYP/UzhtNXdGLJGy/Jhcclu9QtEsyt+uj9S1tRn0F9MxcvUfV9qAfBfRSD5TU/nXRNos/Q+3/iklSXn7lWoJAqTACbOxUUHCnVMQty2ZFHg7CO/RsBkgWFERRZiurwxmREmCfHdmwKS/noGp/Y4H008NY9EVBcjO5ynfgBA=
+	t=1783090237; cv=none; b=RL2v6eUGQwV80D1Bs0LpvK7C7Ea2Nv0v2SIRmLrSf3RjTtwzIGM/NwjF5pkEZivhlROIwCEo04vpGijVR51oFrs3gowNfoexfNIJErxsoKY/PO9EW+HW7LM1L23GptRH6XYc98xwcGim3KcKMjRKSX0Ut9P3OqaIBpp01rpHD9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783090134; c=relaxed/simple;
-	bh=HqK0apG2WBVp9keeHQN4EfAdivjOtfyBmEcKP8064hw=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=riRQIpcselYotoLBdJr7x1aHKzADeDkZvljjPEuRGuEKB9irJ/CtHpsaDMTPBsaL63zFn0+28om6Qv2/xJCwZD8cm/sAFnxFlPh4Xkdb3tJU9EeTKb1I0/6h8icWS4603wnnCtHuwLG2Y8Kty5ZB6DW5I5hs/tzzpLePhVcr018=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=e+7lz/PP; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1783090237; c=relaxed/simple;
+	bh=q2CGUFcxSt5wM3GRAK9pYeCmqT/KkAzEKexF8M/gt18=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lzWJeZjmyg7yZhpQF5kl7r1vN4yGE7TOP1djq2ZptFMqDnk+fl/Y2CbLwY3P9etRiw2y+qSDEcbuMeaGFUpF0PNPTCd7KPsX0eBJS45Vz2BKpvbGJkfmUrLqkJlTTrJLbvKsn/Z+E3PCb7GDj+8Qegt/IqXikmzBJKheT96hE0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O3DFNwtI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="e+7lz/PP"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490cf3000f0so5798275e9.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 07:48:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1783090131; x=1783694931; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=RtbeAb4anjju2Gg5Hr2svmQH8LAj1CgUb05x/8fx3ZI=;
-        b=e+7lz/PPnTzecXOAHSvZyU3R8gflwVZHQobEZRvjqS0VJt1OD2OxEdy7uypE1VSXhW
-         Wo2KlJRzSCCadbsZ3g6xor/zF/CAXgJy6mmpT3K1jfMsg8F79YWpFcfLzyeZzCUsqyAv
-         Z38B0wbs9LazAhImGpTwxhyrRbFe+rB6YqhnWSPxRIwvZ6bxF6qt9zg6794DgkVcD8GA
-         2QwPxfSpHgUdlj55ugttafXDrD1xYpkTFOjhBZqJZtQDe+jOxlrDvErQrG0kxvvBIxxJ
-         L7A0zCVWI1NwbNMbs4zpW+/VO1jsEH50fgePG27cYspi5SJLTDHDEESLHvoSWn3LNgj3
-         +ruQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783090131; x=1783694931;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=RtbeAb4anjju2Gg5Hr2svmQH8LAj1CgUb05x/8fx3ZI=;
-        b=qnZBrPJPoQTL11eeSXogx3cyt9ly/Mvtsm8Ma0ZYckSEb7z9RWKEhAUzD4v+U1xlpu
-         38PiB++PFHZD0ZnVzhlhRdZdrWuojAkDw97HxXfhSJtSACVyH6hzD3ipQOW+/HzllxoX
-         ESUrMwx2FSs+g6u3o5wwtJOnJ7V9UOYi8gOppuvboM54PVog/vuIfsSiBi96vJdry5PF
-         76nxtpeNeKp4zVfMR4TLxH77frQEUcn1VyQbfPhfcSG7u2yxIVqYIAU+WK9/11ZAHDwN
-         glZK/1zmB0R3PhxCgYezLcpzCho+NNPjpSbw+9TczVzlfGU1s1GiAyoXWJZkMToPZxwN
-         wy3w==
-X-Forwarded-Encrypted: i=1; AFNElJ+lBlhJrEyku9QrMlGy6zqXvzV0xHxPRArtwP/WKSQ7kLBxGubsvMfTVqTa18lTb7uG3ROI9kj7x+rH@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw4lBxEeptTWnCi7SBvfTprmxThsGhKw5IWXmztoaHouany4xlN
-	YAdcnGl1hpglBK4DBvKLOyUk3Qauqd2uyglTPGmLIhdTPdgbE9WQxGU9Z4vcat7BXxs=
-X-Gm-Gg: AfdE7ck2FqyqreoyOHvyLY+hele6RG8eXRxdAO2LSJK+24HyR/42vlt/DtnqXFtqUCM
-	v6tgeMVWkLm0PQn1apr/CpyGHgJ9l3fhgx3j5FZ3TC2HNp2GMtpR5N8BnJBVyR48u0X1rTjZbbH
-	V/kELHzFax6H10uRTYjviJTq5K/6xYvXx3Uc+p3f9A47FaBW7n2N3SKNXairHp7sj1R08e6ngr3
-	wHBrUkqT1oyCPc4mOq51srB2iQ+tn4kYYrQ38RKKUJhoXJ9pfJQM7sWpmDP6Dm1sMPZi0mIHA3M
-	q6Vy80qU0gwlnf8SvB/P0rHIs14CkmVM5tz3QGpdcUeJwRnoqxWm54Z5qf3m2bWbeqUjDkqimDO
-	bIDUOhwWG5wyuuuXftaQoBtooKZCV0oudqq9TCT2ZPOCUSjQriZzMEq5s14JxvPRwW6ZAIW5aBc
-	Z5YqsgHzxJEzQ=
-X-Received: by 2002:a05:600c:34c5:b0:493:bc4a:e7d3 with SMTP id 5b1f17b1804b1-493d0f4efa6mr1735385e9.39.1783090131280;
-        Fri, 03 Jul 2026 07:48:51 -0700 (PDT)
-Received: from localhost ([195.94.145.62])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c637568dsm149767675e9.4.2026.07.03.07.48.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 07:48:50 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Fri, 3 Jul 2026 16:52:17 +0200
-To: Sean Young <sean@mess.org>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com
-Subject: Re: [PATCH v5 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <akfMoQfzmEEiH9VC@apocalypse>
-References: <cover.1780670224.git.andrea.porta@suse.com>
- <f8dd46a553351adaf9d29fbba9f98e803b672fe7.1780670224.git.andrea.porta@suse.com>
- <aiwX2YWVJnDNTNiu@extorris.mess.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O3DFNwtI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 614561F000E9;
+	Fri,  3 Jul 2026 14:50:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783090235;
+	bh=q2CGUFcxSt5wM3GRAK9pYeCmqT/KkAzEKexF8M/gt18=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=O3DFNwtIgINAhnfGispxniSCsLZ+iUYBvCj8vmeEqyca+oiJSasw6VucE5nkfsvGW
+	 1LN36w+UOk0T8pItZKJfeRl5XVGXB+BK+cpM7rCTQ5AYQDsSS0f/k0hMwFjN13ctLM
+	 7tXa0xTg4EktJ/gLHrDFFSYMg+iFT1iuOGx3bQn4k8ozVpc417iu4vdsXAg6kHGLVH
+	 CLWIXtGxy97o2t/UxTgGTQe9qqOqHKh2fmitdQSeIjErbXYmXM7jYqtJLFVEo89z71
+	 aN/Y/nNuWAAoIcFSceRRsLwz6LL8fQEuhKLtLVxK8MydHT5rC2JAcquHaQytByHtk8
+	 F1aSdKqSL/OxA==
+Message-ID: <6d23a482-4d5c-4444-a533-d89a4602a4dc@kernel.org>
+Date: Fri, 3 Jul 2026 16:50:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aiwX2YWVJnDNTNiu@extorris.mess.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/7] dt-bindings: clock: qcom: Move glymur TCSR to own
+ binding
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Taniya Das
+ <taniya.das@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ krishna.chundru@oss.qualcomm.com
+References: <20260702-tcsr_qref_0702-v7-0-776f2811b7af@oss.qualcomm.com>
+ <20260702-tcsr_qref_0702-v7-1-776f2811b7af@oss.qualcomm.com>
+ <20260703-godlike-artificial-coyote-3e9ba9@quoll>
+ <akeoHGv905FTOiy9@hu-qianyu-lv.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <akeoHGv905FTOiy9@hu-qianyu-lv.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Sean,
+On 03/07/2026 14:16, Qiang Yu wrote:
+> On Fri, Jul 03, 2026 at 07:58:00AM +0200, Krzysztof Kozlowski wrote:
+>> On Thu, Jul 02, 2026 at 12:36:11AM -0700, Qiang Yu wrote:
+>>> The QREF block supplies reference clocks to PCIe PHYs and requires
+>>> dedicated LDO supplies to operate. The digital control interface for QREF
+>>> (clkref_en registers) resides in TCSR on glymur. Since QREF has no
+>>> dedicated DT node of its own, these supply properties are placed in the
+>>> TCSR node which acts as the control interface for QREF.
+>>>
+>>> Add a dedicated binding file for qcom,glymur-tcsr and document the supply
+>>> properties. As this binding will grow to cover more SoCs, mark the
+>>> required supplies per compatible using an allOf/if/then conditional.
+>>>
+>>> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+>>
+>> So you dropped the tag because? Where is the explanation?
+>>
+> Sorry for the confusion. The patch was substantially reworked in v7
+> based on your v6 review comments on patch 2: the compatible was changed
+> from const to an enum, and the allOf/if/then block was moved into this
+> patch upfront. Since the diff changed significantly from what you
+> reviewed, I dropped the tag rather than carry it forward silently.
 
-On 15:29 Fri 12 Jun     , Sean Young wrote:
-> On Fri, Jun 12, 2026 at 04:01:27PM +0200, Andrea della Porta wrote:
-> > From: Naushir Patuck <naush@raspberrypi.com>
-> > 
-> > The Raspberry Pi RP1 southbridge features an embedded PWM
-> > controller with 4 output channels, alongside an RPM interface
-> > to read the fan speed on the Raspberry Pi 5.
-> > 
-> > Add the supporting driver.
-> > 
+Dropping tag is fine, but what do the submitting patches say when you
+drop someone's tag?
 
-<...snip...>
-> 
-> I don't understand the point of the clk_enabled field. If the probe
-> function succeeds, then clk_enabled = true. It is set to false during
-> suspend, but after suspend the only thing which can follow is resume,
-> I think. In resume, we set it in to true again unconditionally. So
-> it is always true, no?
-
-It's true unless enabling the clock again in rp1_pwm_resume() will fail.
-That will trap the unbalanced condition mentioned by Uwe in:
-https://lore.kernel.org/all/adiW1tBC8Imd14LD@monoceros/
-
-> 
-> > +};
-> > +
-> > +struct rp1_pwm_waveform {
-> > +	u32 period_ticks;
-> > +	u32 duty_ticks;
-> > +	bool enabled;
-> > +	bool inverted_polarity;
-> > +};
-> > +
-
-<...snip...>
-
-> > +
-> > +	/*
-> > +	 * The period is limited to U32_MAX, and it will be decremented by one later
-> > +	 * to allow 100% duty cycle.
-> > +	 */
-> > +	if (period_ticks > U32_MAX) {
-> > +		period_ticks = U32_MAX;
-> > +	} else if (period_ticks < 2) {
-> > +		period_ticks = 2;
-> > +		ret = 1;
-> > +	}
-> 
-> period_ticks = clamp(period_ticks, 2, U32_MAX);
-> 
-> Although that misses out the `ret = 1;` which I am not sure about anyway.
-
-But we need that ret = 1 to announce that values have been rounded.
-
-> 
-> > +
-> > +	duty_ticks = mul_u64_u64_div_u64(wf->duty_length_ns, clk_rate, NSEC_PER_SEC);
-> > +	duty_ticks = min(duty_ticks, period_ticks);
-> > +	offset_ticks = mul_u64_u64_div_u64(wf->duty_offset_ns, clk_rate, NSEC_PER_SEC);
-> > +	if (offset_ticks >= period_ticks)
-> > +		offset_ticks %= period_ticks;
-> > +	if (duty_ticks && offset_ticks &&
-> > +		ret = dev_err_probe(dev, -EINVAL, "Clock rate > 1 GHz is not supported\n");
-
-<...snip...>
-
-> > +		goto err_disable_clk;
-> > +	}
-> > +	rp1->clk_rate = clk_rate;
-> > +
-> > +	chip->ops = &rp1_pwm_ops;
-> 
-> Can we add the following please:
-> 
-> 	 chip->atomic = true; 
-> 
-> This means that the pwm can be controlled from atomic context (not process
-> context) using pwm_apply_atomic(). This is very helpful for the pwm-ir-tx
-> driver, which produces a much more faithful IR signal in atomic context.
-> 
-> Using pwm for infrared tx is much nicer than using gpio which bit bangs
-> the IR signal and holds the CPU with interrupts disabled for upto one second.
-> 
-> As far as I can see there is no sleeping code in these code paths, so we
-> should be fine.
-
-Sure, added.
-
-Many thanks,
-Andrea
-
-> 
-> Thanks,
-> 
-> Sean
->
-
-<...snip...>
+Best regards,
+Krzysztof
