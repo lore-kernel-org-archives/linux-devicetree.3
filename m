@@ -1,67 +1,87 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36C6368D71
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 07:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B5FB369D40
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 07:40:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783064360; cv=none; b=kodCAbtFJ2yAHw4J7/qYvCnVe/0DebSh+SJb7CvEYc4Y2Y6DEUKe9UAfGI0QQ5oJj7V8o32EVDZviAkUKrsUCzrJ9Q0TY1X/J5SltEB/97BD1bzUesJBtbpH4OQsgMQ3G0lzSgHegq2468iYFWOgK9TKAzo7E4jGEfpteaabJ+Q=
+	t=1783064439; cv=none; b=moC2O0NdHyRLopnwnvk+1BbuS9pxnojWntQV+vXjuF/y5xOU3rxYardZXFEdkZSDMqJ4+KFTNT/Q6f30oKsqvHNEczKdyMcmwYQsxDWg3+3VEW+W47D0EbCJtyt3IBl+NLDudkn/URm46skTy2Quwq9C9WCClnEDFZLwAnyDLI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783064360; c=relaxed/simple;
-	bh=I2IHKwKaiSFySvragJ8MrSWWBZJqduGkGIIiaxdqnxQ=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=PMsO7zvY7BpMY4EMehmllT0B6YsMvj9ivJZNhpq8uAmV88itWEWfToxm2z/KUTVFyrDbxYbOxUs7bg+8LUpDmDHVXJkwkV0z2MAiATpI3mSTI8iIXlhxNPEgR2e0Tl1NjcVKKPTQ3qJ53jG/qlKb9mztR7Mj28N9HhTQhp1g8hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=F+ega10t; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1783064439; c=relaxed/simple;
+	bh=M7na0t4nNmsWcWw8gALyPoBT0+6yZi9dTf+T9WdIh84=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q0R1JdeOMSa0BOU8qfXHkNBHtuGfCaARw7JEoeYulu/OCo7dvNRgJ4InSEZSGG3L16b5q0VJfm7sOZLCVvx0e5ryAenYveuEdvo69USfatOh14Oz2IHLatyshXNS7qAxKpW9C7aARL96APFApamfRdLNlC2WsILf/K7UMK5gKxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I1kmviXm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aIPInoUW; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="F+ega10t"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-479b7aada85so272450f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 00:39:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I1kmviXm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aIPInoUW"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6635rhfg3147314
+	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 07:40:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ahWXncPWGfiDGqR+LWTOu8pR2UuYY74gbbZD9oX3OsQ=; b=I1kmviXm+WTo8yo0
+	ANpXEkYrcYIEnYtZxRlagsBzRO+nGos3SyPFyhpSPVO1Lfkwyn8o186NPeJjuQgC
+	nmmMhqBVmibdXoee7SOuQzPdUjxVKKL7S6tZjdecpWjvIhFFsJ2f0wPcAF1j5oiu
+	1ScAc8zBVskCSIsvKteqX2Ko27V3K+ht3amzH16TaCJ/tPj4FJH46BZ8wCe18uat
+	PuTUwczla/Cz2bI5VWNhGuVcy+4SDTTl2DYmLaTIxXTicXtpNqAztXYSu9t7z4jz
+	8ZZClM+B2wUFq2FWXDDgWTXjZSn144ma2teZy6nvACUnuZn1SfjVsUe3YvuwAvp5
+	o4HHjQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5mvww3va-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 07:40:37 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-37fccad2b01so1196169a91.2
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 00:40:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783064357; x=1783669157; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5HQ4m4li8i0Yt4qUsB4ghqhwVC3QDvJYWSIBsCGk0lM=;
-        b=F+ega10t7J3yz+/2IDtY6q6xseoyx2vCD6sYtiMYnAhi3LMpB9YDbaNaJdTI7VOx5C
-         aI0MzzDr1UL6JHkm+de2aRqzUANkvqXN09/bYxYcd11HXy2E9AwpFUAybxCElaqazQK5
-         pEBoiNt1+Ib8gPBLR9r16oQtCG65d/NB79woKISGTsQjHO1b9PHfr0N743yfYI8PvswL
-         uIiRi4WSAAADxvTmy2Z0L/RRhb/v0bLyMyxNeDThbYF9fJRGE7UmjvcdU+FeH/0rSdxS
-         ltEWZaflWneiSs2keA4mKGfLrLPM+uDP1QGS/jX1QBL0k/fzCdEmMtMg6jzlVI54JVHi
-         0olw==
+        d=oss.qualcomm.com; s=google; t=1783064437; x=1783669237; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ahWXncPWGfiDGqR+LWTOu8pR2UuYY74gbbZD9oX3OsQ=;
+        b=aIPInoUWkaGOuElU6hgVGhap4qvX0nNgXPye6papxFiiB6B/kBRjbzHoTh/x1VmQMu
+         PFpvyR39OFzbhYLW97ruDlydQZMp+CQUHsKmivHaSZi85ur3CZmb47ww1jBhKJjFGq81
+         f/192G94sDGxpeB4FnLWHyoR6nbGHiCNjjmHzYCCPNlKDNjqrcY9HgWJ6zLFo3CdfOuX
+         tH+lCJuO5YwjYICMdwAxDWmLHIL7P38EUdR5m5/eIUCmFxP6ILd9e0RoniEIrww/0jnR
+         dB+DIeyFFzncPOr5SAurykzMaUhPpWkRw3CBxfodDKy2JGL4c4b/s5iavhsxEWu339fm
+         P6RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783064357; x=1783669157;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5HQ4m4li8i0Yt4qUsB4ghqhwVC3QDvJYWSIBsCGk0lM=;
-        b=HUrJqR6QZu4gRf38x92IATwG3U2ZKNAkZ2o/ajLgeQAZJNRbzguwhCyETulrufhe8/
-         +Mf/2JNf7nRp3chBN/KF1koepZUdfmRTs6dJEMfmpDub//HO5Jc5xPAHVS8h73cp3Z18
-         mWaDFLcIoQw0QIz3QGucomyt8sT+8ovbGQJLkK/lHAtmCNn4HomSBVCVKCSANCToZuCc
-         XqD5Ll2pYEAjX53/O3EFzvG/CxP09PDHJBY8PTNMqD3Qrpys5Y6wotLJxEQk0Wqe64EK
-         qGoK+S+4wXn/UscbK9HE1Y2gnub0aQNPo7WuPb/213DqVdC05wZmTkv8R88fiJ9VN6bc
-         eYDw==
-X-Forwarded-Encrypted: i=1; AHgh+RpOD6l1k08C+z+cFWU/M9Gxqd//tgn6yFoKhkh67c1o3fXaM6yGuCqHG35mBTOWxPWCYappHN5gqO7B@vger.kernel.org
-X-Gm-Message-State: AOJu0YxhmQM7S8T68uSpJ8V5rNRc5tGjMQW0SA5uLEArYcOREt6ApYRM
-	yqFJU/rNsjp5bEKd9UsIXivGICRqOvjVt4erwoDOvXAXvfrgZAoyIs/VXCfwWbPlSKk=
-X-Gm-Gg: AfdE7cncn/RMVdfnFEK8VMeBJYt6F4Jmaxo3B2DghBDAEjTErTs1HM69WPOFNHlysd3
-	dMyrQB+NoLzj691H2D6MdCePOUer3vR/w5wPveilMnsu1ZpzKiAoSs/E7aZdv7XeKP3qCkshH03
-	iulQhW1cE/epCGXc0MxmDIovnM/YOmNugCl+GmcSVtIslxy0tyQCA+UXcStq/pGv/8hZqwteRoo
-	0jp0f1jLbNb4rIysiRH9obJUWZ1iRpljtG7fYkny4XACnLH0eiiVL0wwilnAU027GEsEZntlfEX
-	9aH4l98jDrvNDM2gY6Ji+I0j52wPTYy2/bkyWGQeG4Ck8wxxx9KiJffYbNGpqVSKLZRNRIO3a1s
-	oWt478viQetCGNx7gqfXL2i7TylmhU1tmiGyh7aWQA9fbCI0L0L584gzBkpeUs8ns170B87lVfr
-	wLCcdTBTLjc+s6LZ+IoofwG0ix9v3TyQ4aNLS4vpVMO/nY5W58ByR9OdKvZm4RgVrXiOQx
-X-Received: by 2002:a5d:4e48:0:b0:46d:8169:bb39 with SMTP id ffacd0b85a97d-477b52968cemr8198754f8f.37.1783064357093;
-        Fri, 03 Jul 2026 00:39:17 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:e9e1:7bf9:472f:c4d8? ([2a01:e0a:106d:1080:e9e1:7bf9:472f:c4d8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db3dbb79sm15346261f8f.2.2026.07.03.00.39.16
+        d=1e100.net; s=20251104; t=1783064437; x=1783669237;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ahWXncPWGfiDGqR+LWTOu8pR2UuYY74gbbZD9oX3OsQ=;
+        b=QVToa33JHX2FzrWdHuRudvdK7PAVWLav5pnSWxpPs6bkFx3Zq6igcV00VnrnyH65Jt
+         b0T+lBvojOeYxBtQPSpFTE2uJnzFxt5PeU0KL2GmNiuSl+sjdrhGFar9oWGltnHv9tF4
+         9TZ9eUIi375hG5cffxh6H8ftzVdl5OM9gYGPAzGOjlT3JpO6tcH21CC1+Os18HV+/wZP
+         rY2+wziDDTyN1aFyGtoPNzy4p/w+1VjayXmV/6Duvu5gWo2xN/ORpYm2lzVAQbF/rHbe
+         IxLL1XeqbZHo/54Bx7BsJJcWMbCHIkvaTT+P+6w9qiL6PtR5+ZVVsVAyBzx017zOz5Wx
+         3SLA==
+X-Forwarded-Encrypted: i=1; AHgh+RoD7SBBPEyPTH2xWIzmAMW7w1IEM3TaHJz2PBg6qxXAeVclUUHAqZPMnckDnL9WnHvQwPrD3B3SXdBu@vger.kernel.org
+X-Gm-Message-State: AOJu0YwJM6sTYLkwrspp+QhhCbTMiYDKFIANDvXOvWRGj6lCeTmJu+7k
+	0TDg/g+LPvrtB86yNWyLLTVL0BOAi5ikc609U+Uo6yCJkkhA+rk0VONNTGFDsAmb2RESEFp1ZTD
+	otRoETJFCEWRZfDuKhCbp4qQOIp6R0/9rDjxVLVPs274jySmupzLIMNaaQWIK7ucZC3b5tkx5
+X-Gm-Gg: AfdE7cmZiBW9lO2QlgFYD/hbVyCrCpFZ730R8+JLnS4SasvfvHUajVDVQk7S2JoJg/c
+	1zh+OKCV3dD8sBaWOinuebrdmT6yaduAHrqcHd/I4EPe6X6Z6cYYxOAwt38L3PcE/Vi1K9UOECT
+	jVWumFtwEhkpsRNKbbDPA5OHwwid7Cxq128nauPw7bwb7WYGqQwwq7JE36AQZfLEYk2Dzw9OwyH
+	aiMNemHeSR8dfE1WGFpbOhTQ0bzGk90YjiUuLOE2p8HL6sCDB7eL0nebNqI3y5ExwlFFbBkO2B0
+	E6v57kT7f0021XPdGFXvB5EfdAar3vfCrUIAK7fEmztxDWXQY+aX8/HZUZTVMfit8OrlKaB5TLc
+	EC0+McE/sD+4ILW4a1qzFCccFAysfffFibwqLtHOhcDQrq3Ezq3WOXfrDoAt16qENo/dzCNasoO
+	D6X/BB
+X-Received: by 2002:a17:90b:534e:b0:366:52fe:e749 with SMTP id 98e67ed59e1d1-380ba84bbadmr9770728a91.5.1783064436827;
+        Fri, 03 Jul 2026 00:40:36 -0700 (PDT)
+X-Received: by 2002:a17:90b:534e:b0:366:52fe:e749 with SMTP id 98e67ed59e1d1-380ba84bbadmr9770689a91.5.1783064436245;
+        Fri, 03 Jul 2026 00:40:36 -0700 (PDT)
+Received: from [10.133.33.80] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38127ae6e2bsm579618a91.2.2026.07.03.00.40.34
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Jul 2026 00:39:16 -0700 (PDT)
-Message-ID: <95cb51ee-3261-4595-ac75-6f1e0e4dc7ea@linaro.org>
-Date: Fri, 3 Jul 2026 09:39:16 +0200
+        Fri, 03 Jul 2026 00:40:35 -0700 (PDT)
+Message-ID: <080fb007-e441-402e-a384-7cadab2121c5@oss.qualcomm.com>
+Date: Fri, 3 Jul 2026 15:40:33 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,114 +89,106 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm8650: fix soundwire ports
- properties
+Subject: Re: [PATCH v2] dt-bindings: arm-smmu: qcom: Add compatible for Maili
+ SoC
 To: sashiko-reviews@lists.linux.dev
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-References: <20260615-topic-sm8650-upstream-cpu-props-v3-3-eeb6e9fa7581@linaro.org>
- <20260615170553.4953E1F000E9@smtp.kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260615170553.4953E1F000E9@smtp.kernel.org>
+References: <20260628-maili-smmu-v2-1-87448a7678ec@oss.qualcomm.com>
+ <20260629070306.E29141F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+In-Reply-To: <20260629070306.E29141F000E9@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 5iPjMUdlba8mwX8Yw-cLKwJzhsbChl7a
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA3MSBTYWx0ZWRfX2hfaCgWX7ke/
+ Omm0/n5leAnYjuDTxVAFTPp+71tzGl+tl5a8ttMV1t65YUJ03NhZVp4jLzkmY7OeJZoSS9cTx8b
+ zTSQ/nB7i3T6BFPBYPJZ0T6hdvQcg2Wt8OCtGmH0qSXiMEG+o0nKjlBm2MqqA32sXDpEyL8GHaS
+ +9mUiamgrrQxzbOA6nFe+cjogW74WMPg8abSjkAA4s18Dadsz+7cwSN3mHexeOyrBVQ6jTqMLgs
+ MsAdNZAYfhWADXxy/t2CpLXSrutxMrMVd1DZY0qqwOzaNCn7+Gea5/Fs91nJ26WMy0Lryu9lIO1
+ H9VniUbU4wptNcLptLUfJf99tjbu5/2+ZEUAYOGUDxRMeL0mJ8RucaThRyC+AlNKMvxzWL5/TRy
+ yCUjk8Si/Y8ml53hCpSV03ZPz3WR2Q7Hbl9pVdnu1WnlfhuI0ArW8B03wViWoo2ZhYYgKARFLuh
+ dTbCPO6y1I3ntKqf0mw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA3MSBTYWx0ZWRfX4BPqOuXzxS0+
+ Va2mcOlSJ4DgHqT9gck7gznsOAynwlac9fm7ekgsqDXEJNo1646EKb5/bRSlxwWSrON00q7Wb+2
+ Hk++XyBxd6PqamwozBWlTpxqmW6qvTc=
+X-Authority-Analysis: v=2.4 cv=N+UZ0W9B c=1 sm=1 tr=0 ts=6a476775 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=2SfD81yUdUcrJK8MhtQA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: 5iPjMUdlba8mwX8Yw-cLKwJzhsbChl7a
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ priorityscore=1501 phishscore=0 adultscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030071
 
-On 6/15/26 19:05, sashiko-bot@kernel.org wrote:
+
+
+On 6/29/2026 3:03 PM, sashiko-bot@kernel.org wrote:
 > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Prepending an element to the `qcom,ports-*` arrays for `swr2` shifts the configuration indices, corrupting the SoundWire Master Port configurations for the TX codec.
+> - [Low] The new compatible string `qcom,maili-smmu-500` was added to the main list but omitted from the `allOf` conditional block that disallows clocks.
 > --
 > 
-> commit a1c9b1d54073d838cfb9e5474d5c6e26f81803b9
-> Author: Neil Armstrong <neil.armstrong@linaro.org>
+> commit 5d07ecfd0f829393f9b6baedb17d072c42c1deab
+> Author: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
 > 
-> arm64: dts: qcom: sm8650: fix soundwire ports properties
+> dt-bindings: arm-smmu: qcom: Add compatible for Maili SoC
+>      
+> Qualcomm Maili SoC includes apps smmu that implements arm,mmu-500,
+> which is used to translate device-visible virtual addresses to
+> physical addresses. Add compatible for it.
 > 
-> This commit updates the soundwire port counts and properties to match the
-> actual hardware configuration, addressing deprecation warnings for din/out
-> ports.
+>> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+>> index a701dec2fa0a4..c48e9de1a2bd5 100644
+>> --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+>> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+>> @@ -39,6 +39,7 @@ properties:
+>>                 - qcom,glymur-smmu-500
+>>                 - qcom,hawi-smmu-500
+>>                 - qcom,kaanapali-smmu-500
+>> +              - qcom,maili-smmu-500
+>                 ^^^^^^^^^^^^^^^^^^^^^^^
 > 
->> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> index 090a4739ebc1d..b1293fdb1481c 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
+> [Severity: Low]
+> Does the new compatible string also need to be added to the allOf conditional
+> block that disallows clocks?
 > 
-> [ ... ]
-> 
->> @@ -4831,17 +4831,17 @@ swr2: soundwire@6d30000 {
->>   			pinctrl-names = "default";
->>   
->>   			qcom,din-ports = <4>;
->> -			qcom,dout-ports = <0>;
->> -
->> -			qcom,ports-sinterval-low =	/bits/ 8 <0x01 0x01 0x03 0x03>;
->> -			qcom,ports-offset1 =		/bits/ 8 <0x00 0x00 0x01 0x01>;
->> -			qcom,ports-offset2 =		/bits/ 8 <0x00 0x00 0x00 0x00>;
->> -			qcom,ports-hstart =		/bits/ 8 <0xff 0xff 0xff 0xff>;
->> -			qcom,ports-hstop =		/bits/ 8 <0xff 0xff 0xff 0xff>;
->> -			qcom,ports-word-length =	/bits/ 8 <0xff 0xff 0xff 0xff>;
->> -			qcom,ports-block-pack-mode =	/bits/ 8 <0xff 0xff 0xff 0xff>;
->> -			qcom,ports-block-group-count =	/bits/ 8 <0xff 0xff 0xff 0xff>;
->> -			qcom,ports-lane-control =	/bits/ 8 <0x01 0x02 0x00 0x00>;
->> +			qcom,dout-ports = <1>;
->> +
->> +			qcom,ports-sinterval-low =	/bits/ 8 <0x00 0x01 0x01 0x03 0x03>;
-> 
-> [Severity: High]
-> Does prepending an element to the qcom,ports-* arrays in swr2 shift the
-> absolute index mapping expected by the TX codec's qcom,tx-port-mapping?
-> 
-> The soundwire driver maps these array elements sequentially to pconfig[1]
-> through pconfig[nports]. Slave devices, such as the WCD9395 TX codec, rely
-> on absolute Master Port indices defined in their board-level tx-port-mapping
-> properties to directly index pconfig and program fixed hardware registers.
-> 
-> By prepending a new element to account for dout-ports = 1, it appears all
-> subsequent configurations are shifted. As a result, pconfig[2] might now
-> receive data from array index 0 instead of index 1 (for example, lane_control
-> would change from 0x02 to 0x01).
-> 
-> Will this misconfigure the active TX SoundWire ports and break capture audio
-> functionality on SM8650 boards?
 
-No
+No, we should not do that, it will conflict with the following up gpu smmu binding
+that fallbacks to "qcom,adreno-smmu" and requires clock.
 
+Thanks,
+Jingyi
+
+> When qcom,maili-smmu-500 is missing from the conditional block that matches
+> other similar platforms:
 > 
->> +			qcom,ports-offset1 =		/bits/ 8 <0x00 0x00 0x00 0x01 0x01>;
->> +			qcom,ports-offset2 =		/bits/ 8 <0x00 0x00 0x00 0x00 0x00>;
->> +			qcom,ports-hstart =		/bits/ 8 <0xff 0xff 0xff 0xff 0xff>;
->> +			qcom,ports-hstop =		/bits/ 8 <0xff 0xff 0xff 0xff 0xff>;
->> +			qcom,ports-word-length =	/bits/ 8 <0xff 0xff 0xff 0xff 0xff>;
->> +			qcom,ports-block-pack-mode =	/bits/ 8 <0xff 0xff 0xff 0xff 0xff>;
->> +			qcom,ports-block-group-count =	/bits/ 8 <0xff 0xff 0xff 0xff 0xff>;
->> +			qcom,ports-lane-control =	/bits/ 8 <0xff 0x01 0x02 0x00 0x00>;
->>   
->>   			#address-cells = <2>;
->>   			#size-cells = <0>;
+>    - if:
+>        properties:
+>          compatible:
+>            items:
+>              - enum:
+>                  - qcom,eliza-smmu-500
+>                  [ ... ]
+>                  - qcom,kaanapali-smmu-500
+>              - const: qcom,smmu-500
+>              - const: arm,mmu-500
+>      then:
+>        properties:
+>          clock-names: false
+>          clocks: false
+> 
+> Device trees defining qcom,maili-smmu-500 that incorrectly include clocks
+> might silently pass schema validation during dt_binding_check.
+> 
+>>                 - qcom,milos-smmu-500
+>>                 - qcom,nord-smmu-500
+>>                 - qcom,qcm2290-smmu-500
 > 
 
