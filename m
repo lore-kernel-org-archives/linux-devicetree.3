@@ -1,172 +1,169 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 734B82C0296;
-	Fri,  3 Jul 2026 16:00:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1B82E22B5
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 16:05:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783094458; cv=none; b=rvIJqr6QEcUv1MT3fj9T61WC6IRLOFSxaSYbT52Z0gJUhoJrZw02e3IAh4Mmwf8OIQDRT4cYPaEkSHGjsnEe6J2rh0SFPKyAL1YVigGx9RNJGOWawOW06HTYit4gLgq/yMCalLppWgEm7VzjnT3VMSVwWhpl6ivUpBLjl6DEt/U=
+	t=1783094742; cv=none; b=sKlgkSZ9ohSZy5Gf2b5kpeRn50e79spdx6Lzm5rXP8kxVDsPERzt64hcdo1y3OFxUn4yFGc1/3oM+PaRGE8NS2p0xjjceVhHXd+KmMrBd0Ph6l2/C6gIXxvatqsiSz+Rv+2944lFrTuLCeqeUnqTWwYhMYDrYYrVNrPcOb8d8pY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783094458; c=relaxed/simple;
-	bh=6hagPdbe22KiMs/rgwFE/aaU5MN8++BzsZdpTEe46yI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MvD660M2NDZ2yvfB6tsJHW/FyHFpOAt1pjBnajwEjOQkRb81kI0rgqDtQHYHhNi+qXrz30ieaVE2ZEznam5Lf9qaiNa8RtACxT8qO9cMzviG7fnNraNXsYDOZbXK6wf53hcxjCB1A3ATtUHfrhLNN6rGeyLudaCVJD/aHdVUEVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D67FE20094B;
-	Fri, 03 Jul 2026 18:00:46 +0200 (CEST)
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wfgJq-005wDU-2X;
-	Fri, 03 Jul 2026 18:00:46 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wfgJq-00000000GYt-2okH;
-	Fri, 03 Jul 2026 18:00:46 +0200
-Message-ID: <3926e4b7ebde9d0fa83c6b4fa15256eab0c7d9e6.camel@pengutronix.de>
-Subject: Re: [PATCH v7 2/4] pwm: sun8i: Add H616 PWM support
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Richard Genoud <richard.genoud@bootlin.com>, Uwe
- =?ISO-8859-1?Q?Kleine-K=F6nig?=	 <ukleinek@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai	 <wens@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland	 <samuel@sholland.org>, Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian
- Masney <bmasney@redhat.com>
-Cc: Paul Kocialkowski <paulk@sys-base.io>, Thomas Petazzoni	
- <thomas.petazzoni@bootlin.com>, John Stultz <jstultz@google.com>, Joao
- Schim	 <joao@schimsalabim.eu>, bigunclemax@gmail.com,
- linux-pwm@vger.kernel.org, 	devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 	linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, 	linux-clk@vger.kernel.org
-Date: Fri, 03 Jul 2026 18:00:46 +0200
-In-Reply-To: <20260703152215.192859-3-richard.genoud@bootlin.com>
-References: <20260703152215.192859-1-richard.genoud@bootlin.com>
-	 <20260703152215.192859-3-richard.genoud@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1783094742; c=relaxed/simple;
+	bh=nxkcFikcEeVEtozP6ZBj6n7TjnOotZnihpA5wQ6V/A4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=egYnm3gbm8vwiP9p/69FcSATwlKhLL3OMA2DnfKrhAR+bllZZCGPOGDNinXXHo6B88u10kdA9dk0Dgbh2Bi4eGwUA0GJlzV5RH/7yNaxVfyQXGeEMrFQEpyndyXp0srp3TaHxnub3kWnUacsobkcwLHL4R5AqstBe4WRredZRco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sSVjO4NA; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sSVjO4NA"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47122683cf3so519994f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 09:05:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783094736; x=1783699536; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=uoqOq6Ohkp4UDA6vDyVnbIPla9jVgl3DiZga84x8Hms=;
+        b=sSVjO4NAjiUSGh3cYeL5dK8KpgFbzmWFpjbB6UcxF7y+hi3RegBusl1G8gdICP4bSC
+         3UFVj11L0lpTEuFpyr9A7tG/lGH+eTlcah0vhcLml962VuMCQxpN57DXx+2WzxPPqrwt
+         pPW5d6qp36llmWs1FzlYQ4OvcHu14vV1Wzd5cco78mrSCOXMU8KFVYvalXW4zqRiHjFP
+         yz1pjd7TYWqwDmvnvuPDTa0HUbQYuRKfwBxT8DtlmIUjbtTHUmP9kP144Pqp4MbLFzIE
+         B5X1piInPaPt1884oZ3XRsKSy4nK3cm0X96J0dv3zNbFFlg7bKCOFSzG0QwJ3wW8TtSu
+         Ufag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783094736; x=1783699536;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=uoqOq6Ohkp4UDA6vDyVnbIPla9jVgl3DiZga84x8Hms=;
+        b=Z8n9wJ0mCRH7bNVAFGs2mhnyj572Z2TGZ1zFR6xo4idaBxTuAXffG30qYaFRuXwy2I
+         yH/KO4SmrKU65hEZjGfAnoHk92SqTMwnTYhzYbINLn1OX2QIj4I6CUgCjMKRfOXyTqKF
+         5aEmVOmY5JbIIzCccvZ0T/ycFIB4Y0XLNxHR4Y70I2L9d9rBYkJkmlgWyDo52nR4xIY8
+         l6L/1xH+OyomvnR20+RTxgmWEE61kc2ISnlEcI+5eKMfPbNLHkgb//jonFTjd8IV0Hxu
+         WZtNOglwPCYgEwN2gYjM+aUar1vBdaz58Yy1CJLTnSgQV20l8/msAA+6c+1cvne3OPVP
+         df4A==
+X-Gm-Message-State: AOJu0YxpxmYglAr1LaDrHjrOFMoEb/eIJYsu7I9yomv6d3EnQTL7nTz4
+	T1uDhDqyE9fhwD82yqfM8XlCC9gPV2pLBqrBjjhZOtKbTUc4HG9umYSL
+X-Gm-Gg: AfdE7cniks4kd5Bgw/4+O8HTLxlMephJkRik7yw6EPkEZ8V1G4P7BNP/s19GM3fST2E
+	WsSSPNbD7dRTRmzf/htlrI+w0dHXCXnfenMcdwwfrXkX/YE7IyRnxdLULCZCJ//WlGCshv08KN1
+	eoot/M2fsrjiXEGmmgyJYzBm5mUhH4HWjChI3bIWbQHP9g60VxB1DkjUjMxfbimFzfHsgQjhuWF
+	n2c4SKxgGSW2ldXwt8yClvrXSp8zBEBgkQzgb1YdheglSKwq1R+kerAzz0pQELGIQ+qLxrDj//+
+	vix6V2i2d43khknlWDk91YaSsiDdgjslq9SJl2pLj8w1OHEBEpVO8ZO4E8A06MXC/yO2nSSTF92
+	kh2B/Xfm1lzQCBLUhj8NzWEVR+IrZyH2Ae7lPLXIEOSy66UOIIWDQQqd/H3emkQWDiGJHsL1/MM
+	cXTMHelzCivZR4CVAzWjOdc925yf8GIYMFTawx4V5AhM73RpXbGamfFXx7f26gNiMw9XPGPuEAk
+	0AwovkASh6HEvsxAOyrvvBwpB510mNYl58nNToaMe/8
+X-Received: by 2002:adf:e00b:0:20b0:477:47c6:36e5 with SMTP id ffacd0b85a97d-47758cbf3c6mr11636302f8f.25.1783094735669;
+        Fri, 03 Jul 2026 09:05:35 -0700 (PDT)
+Received: from Lord-Beerus.station (net-93-144-65-248.cust.vodafonedsl.it. [93.144.65.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0f21328sm316945f8f.32.2026.07.03.09.05.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jul 2026 09:05:35 -0700 (PDT)
+Date: Fri, 3 Jul 2026 18:05:32 +0200
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org,
+	robh@kernel.org, imx@lists.linux.dev
+Subject: Re: [PATCH v1 1/1] arm64: dts: freescale: imx9-var-dart-sonata: fix
+ Ethernet PHY configuration
+Message-ID: <akfdzMdw56G0A3UU@Lord-Beerus.station>
+References: <20260703152731.236793-1-stefano.r@variscite.com>
+ <20260703154139.8AF511F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260703154139.8AF511F000E9@smtp.kernel.org>
 
-On Fr, 2026-07-03 at 17:22 +0200, Richard Genoud wrote:
-> Add driver for Allwinner H616 PWM controller, supporting up to 6
-> channels.
-> Those channels output can be either a PWM signal output or a clock
-> output, thanks to the bypass.
->=20
-> The channels are paired (0/1, 2/3 and 4/5) and each pair has a
-> prescaler/mux/gate.
-> Moreover, each channel has its own prescaler and bypass.
->=20
-> The clock provider part of this driver is needed not only because the
-> H616 PWM controller provides also clocks when bypass is enabled, but
-> really because pwm-clock isn't fit to handle all cases here.
-> pwm-clock would work if the 100MHz clock is requested, but if a lower
-> clock is requested (like 24MHz), it will request a 42ns period to the
-> PWM driver which will happily serve, with the 100MHz clock as input a
-> 25MHz frequency and a duty cycle adjustable in the range [0-4]/4,
-> because that is a sane thing to do for a PWM.
-> The information missing is that a real clock is resquested, not a PWM.
->=20
-> Tested-by: John Stultz <jstultz@google.com>
-> Tested-by: Joao Schim <joao@schimsalabim.eu>
-> Signed-off-by: Richard Genoud <richard.genoud@bootlin.com>
-> ---
->  drivers/pwm/Kconfig     |  12 +
->  drivers/pwm/Makefile    |   1 +
->  drivers/pwm/pwm-sun8i.c | 938 ++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 951 insertions(+)
->  create mode 100644 drivers/pwm/pwm-sun8i.c
->=20
-[...]
-> diff --git a/drivers/pwm/pwm-sun8i.c b/drivers/pwm/pwm-sun8i.c
-> new file mode 100644
-> index 000000000000..8f1023e3a2e5
-> --- /dev/null
-> +++ b/drivers/pwm/pwm-sun8i.c
-> @@ -0,0 +1,938 @@
-[...]
-> +struct sun8i_pwm_chip {
-> +	struct clk_pwm_pdata *clk_pdata;
-> +	struct sun8i_pwm_channel *channels;
-> +	struct clk *bus_clk;
-> +	struct reset_control *rst;
+Hi,
 
-The rst field is unused, I suggest you remove it.
+On Fri, Jul 03, 2026 at 03:41:38PM +0000, sashiko-bot@kernel.org wrote:
 
-> +	void __iomem *base;
-> +	const struct sun8i_pwm_data *data;
-> +};
-[...]
-> +static int sun8i_pwm_probe(struct platform_device *pdev)
-> +{
-[...]
-> +	ret =3D sun8i_pwm_init_clocks(pdev, sun8i_chip);
-> +	if (ret)
-> +		return ret;
-> +
-> +	for (unsigned int i =3D 0; i < data->npwm; i++) {
-> +		struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[i];
-> +		struct clk_hw **hw =3D &sun8i_chip->clk_pdata->hw_data->hws[i];
-> +
-> +		chan->pwm_clk =3D devm_clk_hw_get_clk(dev, *hw, NULL);
-> +		if (IS_ERR(chan->pwm_clk)) {
-> +			ret =3D dev_err_probe(dev, PTR_ERR(chan->pwm_clk),
-> +					    "Failed to register PWM clock %d\n", i);
-> +			return ret;
+> > +		regulator-always-on;
+> > +	};
+> [ ... ]
+> > @@ -139,9 +150,6 @@ mdio {
+> >  		ethphy1: ethernet-phy@1 {
+> >  			compatible = "ethernet-phy-ieee802.3-c22";
+> >  			reg = <1>;
+> 
+> [Severity: High]
+> Since the explicitly linked reset-gpios property was removed below, shouldn't
+> there be a corresponding phy-supply = <&reg_phy1_supply>; link here to maintain
+> the device link dependency?
+> 
+> Without this link, fw_devlink no longer sees any dependency between the
+> Ethernet subsystem and the GPIO expander. Could the MAC driver probe and scan
+> the MDIO bus before the I2C GPIO expander (pca6408_2) and the new always-on
+> regulator are initialized, resulting in get_phy_device() failing with -ENODEV?
 
-If this returns ...
+I did try modelling this GPIO as a PHY supply using phy-supply, but
+that configuration does not work correctly on these boards.
+The PHY is still not detected reliably during boot.
 
-> +		}
-> +		chan->mode =3D SUN8I_PWM_MODE_NONE;
-> +	}
-> +
-> +	ret =3D devm_of_clk_add_hw_provider(dev, sun8i_pwm_of_clk_get, sun8i_ch=
-ip);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to add HW clock provider\n");
+> [Severity: Medium]
+> Does this same reduction to a 10ms startup delay also risk initialization
+> failure here?
+> 
 
-... or this returns ...
+the startup-delay-us value is intentionally set to 10 ms.
+This delay reflects the enable timing of the board-level signal and is
+not intended to match the previous reset-deassert-us delay, as the
+signal is no longer being used as a reset.
 
-> +
-> +	ret =3D devm_add_action_or_reset(dev, sun8i_pwm_unregister_clk,
-> +				       sun8i_chip->clk_pdata->hw_data);
+> > +		regulator-always-on;
+> > +	};
+> [ ... ]
+> > @@ -180,9 +191,6 @@ mdio {
+> >  		ethphy1: ethernet-phy@1 {
+> >  			compatible = "ethernet-phy-ieee802.3-c22";
+> >  			reg = <1>;
+> 
+> [Severity: High]
+> Does this node also need a phy-supply = <&reg_phy1_supply>; property to prevent
+> the probe race condition described above?
 
-... the clk_hw registered in sun8i_pwm_init_clocks() are never cleaned
-up, so this devres action should be set up right after
-sun8i_pwm_init_clocks().
+I did try modelling this GPIO as a PHY supply using phy-supply, but
+that configuration does not work correctly on these boards.
+The PHY is still not detected reliably during boot.
 
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to add devm action\n");
-> +
-> +	/* Deassert reset */
-> +	sun8i_chip->rst =3D devm_reset_control_get_shared_deasserted(dev, NULL)=
-;
+> 
+> > -			reset-assert-us = <15000>;
+> > -			reset-deassert-us = <100000>;
+> > -			reset-gpios = <&pca6408_2 0 GPIO_ACTIVE_LOW>;
+> >  
+> >  			leds {
+> >  				#address-cells = <1>;
+> [ ... ]
+> > diff --git a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
+> > index 7a58ad38ffb46..ccf7e77016e48 100644
+> > --- a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
+> > +++ b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
+> [ ... ]
+> > @@ -346,9 +346,6 @@ &netc_emdio {
+> >  	ethphy1: ethernet-phy@1 {
+> >  		compatible = "ethernet-phy-ieee802.3-c22";
+> >  		reg = <1>;
+> 
+> [Severity: High]
+> Does this PHY node also require a phy-supply property to maintain its
+> dependency ordering after the reset-gpios removal?
+> 
 
-rst is never used again. It should be a local variable.
+I did try modelling this GPIO as a PHY supply using phy-supply, but
+that configuration does not work correctly on these boards.
+The PHY is still not detected reliably during boot.
 
-> +	if (IS_ERR(sun8i_chip->rst))
-> +		return dev_err_probe(dev, PTR_ERR(sun8i_chip->rst),
-> +				     "Failed to get reset control\n");
-> +
-> +	ret =3D devm_pwmchip_add(dev, chip);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to add PWM chip\n");
-> +
-> +	platform_set_drvdata(pdev, chip);
-> +
-> +	return 0;
-> +}
-
-regards
-Philipp
+> > -		reset-gpios = <&pca6408_2 0 GPIO_ACTIVE_LOW>;
+> > -		reset-assert-us = <10000>;
+> > -		reset-deassert-us = <100000>;
+> >  
+> >  		leds {
+> >  			#address-cells = <1>;
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260703152731.236793-1-stefano.r@variscite.com?part=1
