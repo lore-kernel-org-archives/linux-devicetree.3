@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49936282F05;
-	Fri,  3 Jul 2026 09:52:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77302357CF3;
+	Fri,  3 Jul 2026 09:52:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783072334; cv=none; b=h2Iqcqr9Tz1lLyLLmcGOCYOlc/vTDrutU9raVV4Xd+3NXJNxfJPKHGnLX8P6F+G5kdJwzhHxFE7zN/Hl1hWY32LHST1v2wqk4nzy+PY/JuZ1MSzFkNNYhImfpDVUJzZrWaAtH2bQq/5PVIV4skGWGn7Kf4fig1b9nwFU+NTxcR8=
+	t=1783072353; cv=none; b=Xwx+MUuSx3pAyqG/HpUDCM4NwU3pVS/K55HixhRJhekqNk4fWPtNMbUF/QT8/8HOjW//+hgHa8gWd6NMmFRbF7HRqlXHuA5QqlZ18cxlYkgit7Jg26eITOauDs/gM6yRhJrcw5PfZmIJrkAM6SSj0pdAKuiB5jjM1XpZeJLrs6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783072334; c=relaxed/simple;
-	bh=aYhfIFavK+1hKnLZufQaPwNtSrp5cpBxxYWlNUIOlxg=;
+	s=arc-20240116; t=1783072353; c=relaxed/simple;
+	bh=In9mHBJL5kcrpADTCBfoelxuVGzVNFiPc0OoZMq5eL4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XystzmlVDA8NmK8XeitOx9Cdzs89WtPOkoEEmSrrftGnSatPVCtVS/c6rHNxZG4r/lU41SAYNJ9YiiAd4IG/sd2WjEBq/TFdwg5CSi0IHA2zn0o16gRUQSc0I5wzh2gAmdjuBg3YcgiX1ZnlGmnVlrn4KtrS1oj0VJ4qb4oY1bQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YtUbTTQ3; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=OxMt93ucSIRbWpJq0C95YXsHfLiGyBIN2iiEZUvujOKIp0R/c9qrSWRhm8InfELL5UzpGgW72zBadPvqFdF/eb6asXo5AmjpgxqUmSalN7RuVgxiSck8uOmAfAplBkHuaefp8p0bq7hHz+CDQlUJTrII56Jey7Ac/7e2rJuWLqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xcv7NoB9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YtUbTTQ3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6CEB1F00A3A;
-	Fri,  3 Jul 2026 09:52:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xcv7NoB9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63E3F1F000E9;
+	Fri,  3 Jul 2026 09:52:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783072332;
-	bh=zbH6EOaxJJwCRaD9Scc4jGAt/kQtlCmPLiShqgjHmu0=;
+	s=k20260515; t=1783072352;
+	bh=GKEsNOedviw9g/4cQlmclfv8VVYF3FHxpuZoJOIlKeg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YtUbTTQ3YcY991mOo25WNvGwKaUMGOgMXJtkYRzWNIqaO3m9busfvfeIgVVSegEpe
-	 VLK1OyZtwnzS8g9JKKmn6OrOHH+Nt7+pA/I+0l+rcKAShqA+nt9XKUWCvHKhV9cFXB
-	 71b4JlWf0DbrPtl0FxbVLN9MnclG5c7n3ZBA1rsyO67B0ZI+PalTS2PE2Hf2GMPq16
-	 meqBprpcQAJ+kgGFGUj5SutsD1m2zFhJ0QyOwOEvtP/ifv38+kvvKlwR1c3pei2bUd
-	 pmZQcU/TvosCWqsfPSSbCAHUuckJhomayHQPOnTIthay1HjLNJ3oaU5/Ls8npaWkAd
-	 hKny2xpSoaW8A==
-Date: Fri, 3 Jul 2026 11:52:08 +0200
+	b=Xcv7NoB9dWDICdJH7Zmx1qdxndTSrCEdI5rFcOUWYAeyLCTvqi7Bh2XZLgBb7VAqs
+	 loylffvgv5wbLH/csdbg/lZ2dLeOWGi1MnY/p6y6PEuboKaEifao0IaXfkpE36seh4
+	 4l/CkYblQwGC6PyXsvXHVqn0rnYWIsgnbDQ0UZYwxKqP9CsQQMBs5bDG+WXMF6rVrx
+	 S6hcecZD8fgXaBOy/ahwWrorBeYT8SwOA+svrqIwlUE01VSIqPwaDyPQWjZtIxw2Iz
+	 qVEgZbXZ9WaN7UHXq+AeCOS1VJe9jCe/A05VA92F1b7uA5vF0NXNBzSytOzbjMm/yr
+	 p+5knsIq9hJkA==
+Date: Fri, 3 Jul 2026 11:52:28 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sasha Finkelstein <k@chaosmail.tech>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
-	Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: soc: apple: Add bindings for apple PMGR
- misc controls
-Message-ID: <20260703-spotted-silver-nyala-b39ec4@quoll>
-References: <20260702-pmgr-misc-v1-0-4f075a3a95c1@chaosmail.tech>
- <20260702-pmgr-misc-v1-1-4f075a3a95c1@chaosmail.tech>
+To: Jacky Huang <jackyhuang@nvidia.com>
+Cc: Andrew Jeffery <andrew@codeconstruct.com.au>, 
+	Joel Stanley <joel@jms.id.au>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: arm: aspeed: Add NVIDIA VR-NVL BMC
+Message-ID: <20260703-prodigious-coyote-of-culture-11ddcb@quoll>
+References: <20260702165524.2168091-1-jackyhuang@nvidia.com>
+ <20260702165524.2168091-2-jackyhuang@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,21 +46,16 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260702-pmgr-misc-v1-1-4f075a3a95c1@chaosmail.tech>
+In-Reply-To: <20260702165524.2168091-2-jackyhuang@nvidia.com>
 
-On Thu, Jul 02, 2026 at 02:06:26PM +0200, Sasha Finkelstein wrote:
-> Certain Apple SoCs include additional PMGR power states that are
-> controlled via a different "misc" control block. On existing SoCs, this
-> includes the fabric and memory controller state.
+On Fri, Jul 03, 2026 at 01:55:23AM +0900, Jacky Huang wrote:
+> Add NVIDIA's VR-NVL BMC board compatible.
 > 
-> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> Signed-off-by: Jacky Huang <jackyhuang@nvidia.com>
+> ---
+>  Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
 
-Just a nit on top of Conor's review, if there is a new version:
-
-A nit, subject: drop second/last, redundant "bindings for". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
