@@ -1,91 +1,33 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C7C207DF7;
-	Fri,  3 Jul 2026 06:25:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783059930; cv=fail; b=QOui688m2BWCKGfcYfjJrV0bd8EJLB6TTj7mJtYBY85S3mEzIQOWEevqGEOUlshn2+UghytT5pMrv9ZF2dmC0C+sMzepkRGRtmyaf+PFz9vybSjZg4KmgKrp33rbIzm6t5po1TM+Fbt3QucNVmhOgVrH2/EJo/PUrka/i2oGIek=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783059930; c=relaxed/simple;
-	bh=+fRo8U7wJfWAp4F3szNl6+aM717Wk+E/UIFWWZczI/s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=jWQ0KlTQi7w3Vzhnao2wN11swAfLTsiZhYTj0t2I+Gi2cqTPhtDd7OeHMU6jTgyT1NfgtY2wNQU4EpTlJA+G0pfAOhjIDzjRgTeDqrtX+b/xmCfedfCDHiU84bBlHTVOiCybjWVXv+aVH/dbOXniYaanLZGAOm3hJHG3t9sZ3wo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=ZGpSIUzi; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=PkCaXc8f; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A821F2F7EF7;
+	Fri,  3 Jul 2026 06:26:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783060012; cv=none; b=ukzlammV3i6tvPu3oHvCDk9jYfJm1hiX/wFcrCqxfq2rG3SQRD7/Q8HC5rblKMs3enXcE6LqpV4wKd/9GNtpN8ulnBTDxH0eQtO+4+85TudR/Jh9lasExT/aWnshdJ8YNiuantesINkpf7jFCtgG3C9H2xefrLGSf2YiDMStYWU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783060012; c=relaxed/simple;
+	bh=PwfMhtL+eOlDTa+uAjkuvpHphWEcJWsfI0fKLweKKyI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ju5qh5DxGpft6S+/Q89eA/eBVJLic0+L5s/krgt8cItuphWn9F1S0cg2QiM4LpOzpws7KZFSvoguJeeJ9k9HGhpGhypH3UF71aD42VfjBYCUy2xtSQW5gO6vRpuqOpXNDSepVwLiV1IBVeK2ra5ZXP9myMZMRK0frFzLzTm/dxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VgN11bcR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="ZGpSIUzi";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="PkCaXc8f"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6635tlHi292838;
-	Fri, 3 Jul 2026 01:24:34 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=J4L6JHvYCSiubCAWVj62c7+C1+W/vF0FZaQTPMpuc
-	xc=; b=ZGpSIUziQ6GrtVG8NaQNGLV5ZjcPSDFKfIv/ElcIXnPGJ2nAiuBCrrZzz
-	3QkmDWQ5M2CL+DknNKePUpeE5gY2wZ0fIFShUXPUK57sFC7rhoh9TxNCo+Q8N0PE
-	mv6KskNa+4ro18jtc+uqR8fDODdDOvb35n+ll9ZYP1hRMu4Z/sN2NEqeIrNLo7VR
-	gFVErb/Q4+fbfBJi3/ZVMwcVBBpG9dyngbWQrJmTxYr05Dg9nlzodc+/jrqXjw9U
-	g/eowo0lQ0G28Y70xS8XjDyn3I3w+UNeJaesiG95AG+am8U/h7LdRpkD5xgQaMcy
-	PoDo4SHy0A0mqUfIoOZ5I24HCFs4w==
-Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azon11011071.outbound.protection.outlook.com [40.107.208.71])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4f63a71gp1-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 03 Jul 2026 01:24:34 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kFFiGD55r7YWwCCn0rwsmJrXy5CfErENAXGcJDlblDsQ9DwSkJHCvOsPbR0p017nkce1W8TsDDLKTvzsr1tlz5pt6+IPVk6sBiN1HPAi7EW70dgjGR2cisVhu6/1vQafgoDaSc8Mxe/2iBCb9BSPYJcX2W6HAJqofCLC+GgYvYOrAVFc6dG/1qP/AcrB8OCM3pkAP07V6gBH8CxDw4X6Zv4yvwWuukXTkhTj2dSDbCmCLj9/Dkc8YobIHXeDOkPX4NKtBbwWs8Vv/9Nskro782tdqmCwOgKKz8Rht4QQMZ/cqpboxixo4mRfDGGYk6ePeopZ1fn7NkdcaOiz+HKO1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J4L6JHvYCSiubCAWVj62c7+C1+W/vF0FZaQTPMpucxc=;
- b=FrTMwgicrhcT1O+9WeuQyged2YgNyV0JfD6qt8AZR7RXTlIy+Ign3VytEqVe2K7Npgx8FlnkGhdOldo3kWrhuOK1h6feROo2gvedcRM55Itp2CtQ5/xd64v2uYSYchuB9zbGKFUdhjDSSDnXefLc8loRmruM9cswPhrmtFLR/gwTQo2DcnnL15CCbsSmQXWoGBS1SXe9nmY0440xp+PXl3DNOljBEYJzgbl6BsSj/3Vyg9i91ikRX6ORHzq+AGTAcgtjaEebmvCDMrf0dsMFbt2T00EExAAD7UX7NbIWZrEQ7w3NgqxGwYa4YXdXiaY8v/w77wNapwj+/4swiJgIEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J4L6JHvYCSiubCAWVj62c7+C1+W/vF0FZaQTPMpucxc=;
- b=PkCaXc8fbjoOTVvznqMtIvr1dSrR62jAm13/vaq1NLe07G4V9hxVMpebZnpYCrOLtOPVMvlPGKV0K2xap/31PdBijNyRrZxRsAi5BQ/+y9m3wdYabKB23B3Mjp+pE8BOqy6e0xM6hmxwQNsAk0o3QZLt9B+9JlV3+NwVGthTxhE=
-Received: from BL1PR13CA0171.namprd13.prod.outlook.com (2603:10b6:208:2bd::26)
- by DS0PR10MB8031.namprd10.prod.outlook.com (2603:10b6:8:200::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Fri, 3 Jul 2026
- 06:24:27 +0000
-Received: from BN2PEPF000055DB.namprd21.prod.outlook.com
- (2603:10b6:208:2bd:cafe::11) by BL1PR13CA0171.outlook.office365.com
- (2603:10b6:208:2bd::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Fri, 3
- Jul 2026 06:24:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- BN2PEPF000055DB.mail.protection.outlook.com (10.167.245.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.202.0 via Frontend Transport; Fri, 3 Jul 2026 06:24:26 +0000
-Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 3 Jul
- 2026 01:23:52 -0500
-Received: from DFLE203.ent.ti.com (10.64.6.61) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 3 Jul
- 2026 01:23:52 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE203.ent.ti.com
- (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Fri, 3 Jul 2026 01:23:52 -0500
-Received: from [10.24.53.80] (yashas.dhcp.ti.com [10.24.53.80])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6636NhCj1368320;
-	Fri, 3 Jul 2026 01:23:44 -0500
-Message-ID: <4851c6a5-f056-4a73-969c-51985ced637e@ti.com>
-Date: Fri, 3 Jul 2026 11:53:43 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VgN11bcR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0841F000E9;
+	Fri,  3 Jul 2026 06:26:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783060011;
+	bh=SSDpIKdc9KFNJYo6OB/lyw6kWfRv+7YvtWzJeQyNp50=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VgN11bcR5iNSut0IP3G/sxsx1nT/rw0o3PK+DUrmLm84w8osacOg+hsgMFOCztnFj
+	 3/MYWUDOCYjBlnG0MRUIEibl+rUc/RBpK5Gj+i16uFtCbJ/F8nRPa93v35J0txqNT3
+	 jAJX+bqXlvpdwGdOsF1vZCqPv+r/ZsHqLDxj9nHvfPhpJRNbwC749rCwYQFw6eBe0g
+	 57kDWjD8FJRZ84lCWwQrL791mPc2dXyIT5+LIJeHDZUuc7rp94ny3KFAxF+7XVMtQE
+	 9IEASN3l43CkLH4AiLjFqZKiigaaqu9kIKznbwoM2miaxU+ilODq+QCMnsZ6P0pkKq
+	 cuiCNgmzxs9qA==
+Message-ID: <387ff0d7-256e-4b18-b864-37a0ec3c9d9d@kernel.org>
+Date: Fri, 3 Jul 2026 08:26:43 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -93,120 +35,150 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] dt-bindings: display/bridge: cdns-mhdp8546: Add
- no-hpd property to the cadence bridge
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
-        <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
-        <jernej.skrabec@gmail.com>, <luca.ceresoli@bootlin.com>,
-        <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
-        <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
-        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <tomi.valkeinen@ideasonboard.com>, <dmitry.baryshkov@oss.qualcomm.com>,
-        <kees@kernel.org>, <xiqi2@huawei.com>, <r-ravikumar@ti.com>,
-        <sjakhade@cadence.com>, <yamonkar@cadence.com>,
-        <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>, <devarsht@ti.com>,
-        <s-jain1@ti.com>, <d-mittal@ti.com>, <b-padhi@ti.com>
-References: <20260630102610.1849902-1-y-d@ti.com>
- <20260630102610.1849902-2-y-d@ti.com>
- <20260701-red-nautilus-of-masquerade-8fea13@quoll>
+Subject: Re: [PATCH v6 01/12] dt-bindings: soc: zte: Add zx297520v3 top clock
+ and reset bindings
+To: =?UTF-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Brian Masney <bmasney@redhat.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20260702-zx29clk-v6-0-377b704f80c4@gmail.com>
+ <20260702-zx29clk-v6-1-377b704f80c4@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Yashas D <y-d@ti.com>
-In-Reply-To: <20260701-red-nautilus-of-masquerade-8fea13@quoll>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|DS0PR10MB8031:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42072d50-0e33-442b-988c-08ded8cbbb3b
-X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|7416014|23010399003|1800799024|376014|13003099007|18002099003|56012099006|4143699003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	s5pYVIKosldhjkvPh9JVjHBszd4NQ/dpDPla8cs6lmQtjgtHwOWIzhG+bnEkWnmdhi9GH2mAMRi1Md6EwEecquQ+Dx0sWnf5Do8V2InOndWLzU2pZTqstebGsP/UK7Yh3KE51OJGUEA+UNFexdi+ExPmZyu3sHow8o7jKt+ogFKXSY8WFihzhH/Heil3reTknXvezKp2RUiAtUBZdAIYi0X9cl0NNJoK80kbdGUTIQHxCm5I7EI+uHbunK3djSe92/F2b5BDRowsDqenptuXD+NFOPUzZm5RAg0MQ8+LSuhXg3OxFynM7i6Hfiassj2y5sEJfjDwPsKWVBhYRIe4R9gR5jLyIcCqM2tkli+8a82/gwxRZ6GrGQbjVHMICbCJQU40D/P6utfzQgHGYI5Z9pKXy+5ci95F1tth6AZZSab4BEOQ1FhKEec5R1qb7k/ZDtQOyCIIV3LA1Jh1ab504CBcMwXw0y9junXmvcmuARk9ka48+20XMFv/1nMITYYuYRBo8IkyeprmWxTuwuyETV/JGgm/b7QlsJHC/Est812e6XWyHQ36T/bS3GzuzS+luKXgnN1H68hPAq4Tg+HkO9O8cOEC0e6VH6rlWDjCmmsKDdhIp2yEOhb0Tsn+Yo1DdGD+VnmdK2otXsU6whRkm5ydt+QszLeKdnqk8XrHvkV/cQIZgXNU7OpS0v5HG1zXedae/HBvHk9u/LTdg5md2A==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(7416014)(23010399003)(1800799024)(376014)(13003099007)(18002099003)(56012099006)(4143699003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	XQGwipVxlabHaGVSbDMpPD+XtdtGoL6LOwag6z7JOKVSyj/eX6zfYA9Cv/00wQawbg+4IzWgTs/AGgwytIaeQtVt6LoqMaz8dQ1mzjw+JOJRq1N6KF0+aunvUGKXliX/winOyR6CgZrjDQMlk3zOMy5pght/9SidPk98uBPHEgqwoJgI6XHZsYXWH7UCprKZCn/GuhFD/YF19U8A3XnX1c0EtmOG6pe3oAEOPUL6OdKeU+AgCW6FGPez/TC+MUebYEFZ+rvWCZoVYKLZAWwAJaqy9jb2gzNcw21uVQCqr6bZc3rFJr5cu0tjKFXLuRy9TLVxwqxhz5vqDXB3q6YJeEytarPObd3fxVr+lsKWC2iAPteeHQOohFKuWDuhQDPlj+hNYAj+h7DNwI2Ur8OF2QcY1eG8VQeXyDGxNc0UHy9A6nEhFmUsTU6BdL5s5vfP
-X-Exchange-RoutingPolicyChecked:
-	mMEnCsWyWnynbo5Z+8XPOrgPcM13ffh1dxxoUH5tqB45TVwRhsNmMn7EQlYWdaV83YyX2wO+ykZaSOPYry5xtxHqcgf4botkJx9N4fbOXOLVWjP0RtP5bXJIq7qN+aoIeN5cXGrTfs2WEZRXaQPsorePMhYO9JNaHMQSIBywR9oD/tZ44wkarG21V6ITOnbkp6k4PjWe43dwcYf7KqTZhSf+q7xou/hO0IL4Hb2CahRIDzpLJV7iFVl6TK/9Pew/8QjHPCa0Dw23TlgGP5kVjMvHSe+Z9bJYMf76SjdRJvW101rywzyUMrKC1TkY5VkPhPVH72J8BkGocANQR9voQQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 06:24:26.3118
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42072d50-0e33-442b-988c-08ded8cbbb3b
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DB.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB8031
-X-Authority-Analysis: v=2.4 cv=BMGDalQG c=1 sm=1 tr=0 ts=6a4755a2 cx=c_pps
- a=cgmL7KMsZDthlzKGM6UXqw==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=5Ea2T7kVNC1aPIGrf7cA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: ndv3VA9SsfS5m3Yud1QBxC6UKUK6Dz9P
-X-Proofpoint-ORIG-GUID: ndv3VA9SsfS5m3Yud1QBxC6UKUK6Dz9P
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA1OCBTYWx0ZWRfX9mSYnPkCqcEZ
- Y2BS8dnOz5hdm0DAcss2vtpy1oNh2y3gNaJBNINUDCGHrgtGXnC/onqbPNdruoUpDpskZskXtZx
- JtO20lWDgevZdBu/S2u1XEkePT/+nFI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA1OCBTYWx0ZWRfXzMEAcnqn1sHF
- Z0AE5t/6nZC7ucK++NqwbpGl1Gl83idQptZE7CAsGvm9QQyWX5CJqaFurxZMVsh0qcwt3emw0k9
- bqC4vEOhsF5R4dCRyxedlUznuoI+4FK4fRBAuPfqq4PJ68/B2eoyf/wexaWW6Ik432ysKCvXw09
- Xu7trv8Hgy9BapEcfjByfDh8liWUhqDEgPAOAeuD2/30aonNm+lv1Gq3twvueTQfvvxy0x5N04g
- TLJl3vvvvYqrLJRQ51/LNQts2dJ5JJoUyRrR2hbNi3I2JoQfgjYDrTymC+JQKAZ1vn8mOwV52JT
- S9zdQq/HDFAI7+uIXoZz+iije4jboiemWijGCx/evThwKNeI0Toh2E92OmrlYEQlySzjic3dLNU
- Wpc9Laacve/3GC1047cWcNh2k/hv2zImzgB1jaIH6EUL25k5zxYGuaLvxynm8ao3iVRFa13JIPB
- loWgamRdLi/0p4cgBrA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 phishscore=0
- malwarescore=0 adultscore=0 lowpriorityscore=0 spamscore=0 clxscore=1011
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030058
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260702-zx29clk-v6-1-377b704f80c4@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 01/07/26 12:23, Krzysztof Kozlowski wrote:
-> On Tue, Jun 30, 2026 at 03:56:09PM +0530, Yashas D wrote:
->> From: Rahul T R <r-ravikumar@ti.com>
->>
->> The mhdp bridge can work without its HPD pin hooked up to the connector,
->> but the current bridge driver throws an error when hpd line is not
->> connected to the connector. For such cases, we need an indication for
->> no-hpd, using which we can bypass the hpd detection and instead use the
->> auxiliary channels connected to the DP connector to confirm the
->> connection.
->> So add no-hpd property to the bindings, to disable hpd when not
->> connected or cannot be used for hotplug detection.
+On 02/07/2026 22:27, Stefan Dösinger wrote:
+> These SoCs have 3 clock and reset controllers: Top, Matrix and LSP. The
+> separation of concerns between Top and Matrix and the interface between
+> them is poorly defined in the hardware, so the bindings list all
+> potential PLL clocks that might be passed between them.
 > 
-> Subject prefixes: There is no such file cdns-mhdp8546. I already pointed
-> this out at v2. This is a nit, but I do not understand why the same
-> feedback has to be repeated third time (v3 also ignored it).
+> Generally every device has two clocks (one work clock, and one that
+> connects it to the bus, I call it PCLK), two reset bits (I don't know
+> what the difference is - sometimes asserting one is enough to reset the
+> device, sometimes both need to be asserted). PCLK and WCLK are
+> controlled by individual gates. Some devices have a mux and/or a
+> divider for their work clock. Some devices, like the GPIO controller,
+> only have reset bits and no clocks.
 > 
-> Please use subject prefixes matching the subsystem. You can get them for
-> example with 'git log --oneline -- DIRECTORY_OR_FILE' on the directory
-> your patch is touching. For bindings, the preferred subjects are
-> explained here:
-> https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
+> The top clock controller is fed by a 26mhz external oscillator and has 4
+> PLLs to generate other clock rates. ZTE's kernel mostly relies on the
+> boot ROM to set up PLLs, but one LTE-Related PLL is not configured
+> on some boards. Therefore my driver contains code to program PLLs. It
+> produces identical settings as the boot ROM for the pre-programmed
+> frequencies.
 > 
-Hi Krzysztof,
-Will correct it in the next version.
-Please let me know if anything else has to be changed.
-
-Regards,
-Yashas D
-
-> Best regards,
-> Krzysztof
+> Not all clocks will have an explicit user in the end. I am defining a
+> lot of them simply to shut them off. The boot loader sets up a few of
+> the proprietary timers, which will send regular IRQs (although the
+> kernel of course doesn't need to listen to them). I don't plan to add a
+> driver for the proprietary timer as I see no use for them - the ARM arch
+> timer works just fine. I will add a driver for the very similar
+> proprietary watchdog though.
 > 
+> The clock list in this patch is pretty complete but not exhaustive.
+> There are other bits that are enabled, but I couldn't deduce what they
+> are controlling by trial and error. Some of them seem to do nothing.
+> Others cause an instant hang of the board when disabled. It is quite
+> likely that a handful more clocks will be added in the future, but not a
+> large number.
+> 
+> Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
+> 
+> ---
+> 
+> Changes v5->v6:
+> Set value for syscon-reboot example (Sashiko). It was my intention to
+> set only the lowest bit, and I think Sashiko is right that without
+> 'value' being set, all other bits are actively set to 0. It shouldn't
+> matter given my understanding of the hardware (afaics all other bits are
+> ignored), but actively clearing bits was not my intention.
+> 
+> I haven't changed the name match for "syscon-reboot". I see plenty of
+> examples of hardcoding this string as opposed to having a regex for
+> syscon-reboot@12345678 in other bindings.
+> 
+> Changes v4->v5:
+> 
+> Rename from zte,zx297520v3-topclk to zte,zx297520v3-topcrm and move to
+> soc/zte
+> Fix path in MAINTAINERS
+> Add syscon-reboot node to the binding
+> Give the USB and HSIC PHY resets their own reset control
+> ---
+>  .../bindings/soc/zte/zte,zx297520v3-topcrm.yaml    | 86 +++++++++++++++++++
+>  MAINTAINERS                                        |  3 +
+>  include/dt-bindings/clock/zte,zx297520v3-clk.h     | 97 ++++++++++++++++++++++
+>  include/dt-bindings/reset/zte,zx297520v3-reset.h   | 32 +++++++
+>  4 files changed, 218 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/soc/zte/zte,zx297520v3-topcrm.yaml b/Documentation/devicetree/bindings/soc/zte/zte,zx297520v3-topcrm.yaml
+> new file mode 100644
+> index 000000000000..5a5d97120056
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/zte/zte,zx297520v3-topcrm.yaml
+> @@ -0,0 +1,86 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/soc/zte/zte,zx297520v3-topcrm.yaml#
 
+Also, this cannot be placed in soc. Clock and reset controllers DO NOT
+go to the soc directory. Place in it clocks.
+
+A nit, subject: drop second/last, redundant "bindings". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+
+Best regards,
+Krzysztof
