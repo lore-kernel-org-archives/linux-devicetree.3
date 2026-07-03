@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E6A21CC59
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 13:37:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E4A3C13EF
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 13:40:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783085841; cv=none; b=MCCdH38dUS0tqZbO5X4P+itlLGMMhKNHmKs+jPvK0srCkNDt7cqwFNH6uOR8cHbyEkdq54/i3C5vl1TMVYmz4NxKGkTGlE751pO3KnCZjNB/XcbOoMp+4CVeeBO+fNkS7LqtISKkMvBQBzhqbf0sZZqNeWBCTFYfNUNx9QZsVwA=
+	t=1783086004; cv=none; b=kRLXOUXHNylgbHlcuPj5BoSN41kR0y/COfU45p30a9UOdtQpPWjBLW5yw9OjpBmH2vEWG7Obsj54Tb7h00pEyist0Bt9Ytrf8zVX817oUtjbLZ8XqDWciXtrIyw9XcNJA6BBsmNvKi5gT6tpAhgOHlcBs745DNTttwJDX+66r5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783085841; c=relaxed/simple;
-	bh=8c04k3aH/EBIcfcZkh5zgjIRFujBuWvoSkYjVr1EG2I=;
+	s=arc-20240116; t=1783086004; c=relaxed/simple;
+	bh=U0FCz6i/tMdzQZ+HXrWlxJ15RZVfGdN4tppqiNMYVV8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=N8H4ubZOQanINZFPmgMnhs1c+64/ArlErEYDnHfa8Tladw6GA0vGbTfieQb8TiAN7MGRVjTuov1Z/TDET2ApXQtnBAkbGipl0JZKC45zzqIRZzsVZ+/o7TIzHN4JagR+6ByNXAyiOR/zt9VUoSLYxEmAZmaWHDSS5yO4V6oh+jo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IjGkwVEm; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=iYxHkHWuF/qV0rgB89R52h/0w4a/nEYYjy1wXAg2axSHSGkfYhSSE1uLlbVrxwUMkg1Fn73iPD55Jn/8e8qbcjhsMRjBmk2utUklGugCq9eQzb6mObHTdfZ8rEEaWhOZX8huSNKC4y/rhm4pwM9UtYAkNSMnMLBrwvLeRWXSgMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HVwZVVj1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IjGkwVEm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ADCC1F000E9;
-	Fri,  3 Jul 2026 13:37:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HVwZVVj1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5DF51F000E9;
+	Fri,  3 Jul 2026 13:40:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783085839;
-	bh=yLa4Rz2Uzg6jwMfEkISucVeOTImn4JVgXgN4R14Bhp8=;
+	s=k20260515; t=1783086003;
+	bh=v40E2tgbiCyYO6K8eYLvN7TQlgmv6mV+9l/WsUCS1rE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IjGkwVEm8M9ximN64UpVjLhAlNnKXNBX1zU3QZfYb5HFbggWoyw8WtQvbAiIn601n
-	 /X79DiU5aIhsgJ5ruwtfD8iJG3ZEGGVnlTwQnP0tMcE6BjMA5gnuJzpoJad5OdHTO3
-	 0mcLPzSWha/EP6vMKzRclVLEQp/91jztFVuMSmGatuHS3E/Ydb4cBhwRmgr8i2c4sG
-	 nyp558CUVUOwjtG5Eorychz/1E0dgvhhHW78TjR5i1tM2n4RebagxEqMWmiMB3cBdV
-	 gLcmtOwHbKOmW0Agg1jsD9fQbzhZt5vDhkydPQB0UfV7vTQR28IQVD4xfXhpIymcmY
-	 GYzamint1V/EA==
+	b=HVwZVVj1mNktLboX+hZpDwliqoQJZHMoX7fKT6OBhzqobxz66oIquO7VrZ0y4Udfg
+	 CCogsL4sDFBt6kMsqRfy7O8VkTgs4ErQX9sA4PQwk+f15V0gQ27KsWewwBIvfOP7X9
+	 zFLFVAS4bL+kLU0YJqGLEkyc5WoBw7pJKGqmnUMb0rbAXHsRP7cnItkswfKU9eJ5iJ
+	 psUFcuVjU2k8y8il3VEwDTxGn0QX/MI8LH6dbKmeWO3dQ5qGdfgPZDILBI6aVMYhrC
+	 lU1qIbd2F0aT+qf6TwUZWI3+u3iGzR7kK7BnPq6DJuL3QRRe+75FLFoInspnLLtRN4
+	 B8cz8wpWAWcdA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 06/12] soc: fsl: qe: Iterate over all pending interrupts
- in cascade handler
+Subject: Re: [PATCH 02/12] dt-bindings: soc: fsl: qe: Set #interrupt-cells
+ to 2 to support interrupt type encoding
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Paul Louvel" <paul.louvel@bootlin.com>
 Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260703-qe-pic-gpios-v1-6-6c3e706e27dc@bootlin.com>
+In-Reply-To: <20260703-qe-pic-gpios-v1-2-6c3e706e27dc@bootlin.com>
 References: <20260703-qe-pic-gpios-v1-0-6c3e706e27dc@bootlin.com>
- <20260703-qe-pic-gpios-v1-6-6c3e706e27dc@bootlin.com>
+ <20260703-qe-pic-gpios-v1-2-6c3e706e27dc@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 13:37:17 +0000
-Message-Id: <20260703133719.7ADCC1F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 13:40:02 +0000
+Message-Id: <20260703134002.C5DF51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,74 +47,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Off-by-one error in hardware IRQ calculation causes out-of-bounds =
-domain resolution and misrouted/dropped interrupts.
+- [Medium] Schema unconditionally changes `#interrupt-cells` from 1 to 2, b=
+reaking backward compatibility with existing single-cell device trees.
 --
 
-commit 151384fe21d3660403f9ea1eecce7c7057939a64
+commit ea9fdfe75d38976a589a83706c16b469e2657dbe
 Author: Paul Louvel <paul.louvel@bootlin.com>
 
-soc: fsl: qe: Iterate over all pending interrupts in cascade handler
+dt-bindings: soc: fsl: qe: Set #interrupt-cells to 2 to support interrupt t=
+ype encoding
 
-This commit updates the chained interrupt handler for the QE PIC to process
-all pending interrupts in a single run. It replaces a single-interrupt read
-using ffs() with a loop over all set bits in the event register.
+This commit updates the #interrupt-cells property constraint in the FSL QE
+ports interrupt controller binding to support interrupt type encoding. It
+changes the required value from 1 to 2.
 
-> diff --git a/drivers/soc/fsl/qe/qe_ports_ic.c b/drivers/soc/fsl/qe/qe_por=
-ts_ic.c
-> index 3bca116fd2f5e..27b62f4e3afb1 100644
-> --- a/drivers/soc/fsl/qe/qe_ports_ic.c
-> +++ b/drivers/soc/fsl/qe/qe_ports_ic.c
-[ ... ]
-> @@ -67,25 +68,17 @@ static struct irq_chip qepic =3D {
-[ ... ]
-> -static int qepic_get_irq(struct irq_desc *desc)
-> -{
-> -	struct qepic_data *data =3D irq_desc_get_handler_data(desc);
-> -	u32 event =3D in_be32(data->reg + CEPIER);
-> -
-> -	if (!event)
-> -		return -1;
-> -
-> -	return 32 - ffs(event);
-> -}
-> -
->  static void qepic_cascade(struct irq_desc *desc)
->  {
->  	struct qepic_data *data =3D irq_desc_get_handler_data(desc);
->  	struct irq_chip *chip =3D irq_desc_get_chip(desc);
-> +	unsigned long event, bit;
+> diff --git a/Documentation/devicetree/bindings/interrupt-controller/fsl,q=
+e-ports-ic.yaml b/Documentation/devicetree/bindings/interrupt-controller/fs=
+l,qe-ports-ic.yaml
+> index 2b8e7b9c6d7a4..2b7c6b4f03892 100644
+> --- a/Documentation/devicetree/bindings/interrupt-controller/fsl,qe-ports=
+-ic.yaml
+> +++ b/Documentation/devicetree/bindings/interrupt-controller/fsl,qe-ports=
+-ic.yaml
+> @@ -23,7 +23,7 @@ properties:
+>      const: 0
 > =20
->  	chained_irq_enter(chip, desc);
-> =20
-> -	generic_handle_domain_irq(data->host, qepic_get_irq(desc));
-> +	event =3D in_be32(data->reg + CEPIER);
-> +	for_each_set_bit(bit, &event, 32)
-> +		generic_handle_domain_irq(data->host, 32 - bit);
+>    '#interrupt-cells':
+> -    const: 1
+> +    const: 2
 
-[Severity: High]
-Will this calculation map to the correct hardware IRQ?
+[Severity: Medium]
+Does this unconditional change to const: 2 break backward compatibility with
+existing device trees?
 
-The original qepic_get_irq() code used ffs(event), which is 1-indexed and
-returns a value from 1 to 32. With for_each_set_bit(), the bit variable is
-0-indexed and returns a value from 0 to 31.
+Device tree bindings are generally considered ABI. By removing const: 1,
+schema validation (dtbs_check) will fail for any existing device tree blobs
+that use #interrupt-cells =3D <1>.
 
-Because bit is 0-indexed, if bit 0 is set, the new calculation evaluates to
-32 - 0 =3D 32, which is out of bounds for the 0-31 hwirq range. All other m=
-apped
-interrupts appear to be shifted by +1.
-
-Could this result in misrouted interrupts and leave the actual pending hard=
-ware
-interrupt unserviced? If the interrupt is not cleared, would it cause an
-interrupt storm as soon as the parent IRQ handler exits and unmasks it?
-
-Should this subtraction be 31 - bit instead?
-
-> =20
->  	chained_irq_exit(chip, desc);
->  }
+Should this be updated to allow both values (e.g., enum: [1, 2]) to safely
+expand the cell counts while maintaining compatibility with older device
+trees?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703-qe-pic-gpi=
-os-v1-0-6c3e706e27dc@bootlin.com?part=3D6
+os-v1-0-6c3e706e27dc@bootlin.com?part=3D2
