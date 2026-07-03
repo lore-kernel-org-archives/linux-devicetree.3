@@ -1,116 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109AC374A03
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 14:58:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E6231CD1E4;
+	Fri,  3 Jul 2026 15:00:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783090709; cv=none; b=HWxGlBH4Kwx1Ww2oILIXLNyifTNvEI7aGFQxcCqrF4Fq4F18wnldQsypch9kY3ysELRKa2eA1XbkM6B8lxKJUgGyRlU/2glnQusEdiNKdiEJazKPGj5kp7Kt0jHVKxVHTdD//VKcvTVzvpBvRdDP/KJ1JnZXRVJEWCBsvBo4BYg=
+	t=1783090847; cv=none; b=hlNRwt2Cvei7Wqf4ATmlQsCj8FyRnzUJoEz44nmHDeCxPvX6eSxFiD4ehozDiOf11M8Mvje5ydq9GrAn9tNJAhFXs+pIH/SoLUFpQVAe3m6dxoGSyN2UpctaJ4Yc13+5TTkZQpQpM401DM1c/6H9ZxS/KFxjt8q0i+Sl8iNz2cQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783090709; c=relaxed/simple;
-	bh=pYpYiqZ84jTXGXuySY4iYWw4iJlpR/Iq/n280XX5kXY=;
-	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ntrRKgaItgRJ/DuLwKFeco4cTEyw0Eo8PN2fUdZioJAcv1lDxC5qpUM+ZBB9o2jZEQpDl1RMFMHPVIgepmaXGYTD8nl4Xr7nT51X40aDGGMg4ir26CYunjL+sHydV8SEabR885n+Erdg62ZUYnlVGA+nRswMGq4WD7KKQckMO04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUbm3HzH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783090847; c=relaxed/simple;
+	bh=sNrXTrOlExO1YdFrGnDjUpRBIy/Zo5hygxKbO575b1A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ju8fn0D/L2IQNclktcafNBG7j66HziGrYXy6PnWsU996rwPN3+sAQ2V0HtihKp7V9uQrcS3Co4hbPl4mLhE90BzoF29W6DxHk1gdNvTDApJg52Mw0CzEBhosCntCUPJTYFKGCLvlYpv83DHMFe1Qco+pV9MRFCSNHQY5YypllHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C5xE219E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUbm3HzH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09AA01F00A3A;
-	Fri,  3 Jul 2026 14:58:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C5xE219E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971DB1F000E9;
+	Fri,  3 Jul 2026 15:00:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783090706;
-	bh=DvrpvqGblID0rS++1Ub8v0LgvCo3/roEmjPgZqzuH4I=;
-	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
-	b=JUbm3HzH6+aLyYQrAOsDFNHakjwJIQmJn26TWpvgPJPr2fQ5Ls35GIRFiLwuLQ2wF
-	 0kWSm46NumbWHZW1aya31FnrS9IhfPEI6X+ikYhI6JjSCZ8UUPGYz54Wl0PgBqZRWO
-	 Ew7XPsPBi+pBTsVraeiAzTCrqsz76tj8cVEmPx2ccsKGMKPDUNh5nxNY9NAjeJisGa
-	 3LE8CWxBGWjSeZxky5Z94mW8g6r0DqLhC76N13SmH97Hd+qwCDkR7uRtLkTXi2nY4h
-	 Ii0aS5dJAiWOtSAketLzwanunYCwOvCzDpQ1iiis73k+gjgVMGGJJ9WPDJt6Io1Qm3
-	 7TDRGNZQLm46A==
+	s=k20260515; t=1783090846;
+	bh=TfcbdupBAy3B/BO8CtatzQ/bunBeI+zhBkmksX3kLSs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=C5xE219EAA5v8yXvL8HFv2lx3YP4pKKLLFIOJhjjwfKG7zzfwPmg82K0JecJIDuTd
+	 SZdnn4UcVpnWG95fnQpCKwtlAfjyjJnezLRLns9HIskgvKGCmRZ7eVY145C7CjHUN5
+	 sC8W7hZoQbpheW/nXx/uoEVFajAQ/b0lqdg6IFuJc3jMe88SOFgK5SSFh3yzdkfjok
+	 gTyYC7N2iNR/jF/9XUU3HO+2tt6nIS4IyYTJ0dD3zzinWvSsGVs56RY33dqUPbCbzy
+	 BVNIqOizERq219y1X3RglyF3TBj0FAspP5TWn7LetSkFO/XuXB4lREC7ez4VK8VH/U
+	 pA4r64Hfw6Ucg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/6] arm64: dts: ti: k3-j742s2-ti-ipc-firmware:
- Reserve memory for LPM metadata
+Subject: Re: [PATCH v1 1/1] arm64: dts: freescale: imx95-var-dart: enable
+ NETC block control
 Reply-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260703143717.177362-7-richard.genoud@bootlin.com>
-References: <20260703143717.177362-1-richard.genoud@bootlin.com>
- <20260703143717.177362-7-richard.genoud@bootlin.com>
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260703144922.231608-1-stefano.r@variscite.com>
+References: <20260703144922.231608-1-stefano.r@variscite.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 14:58:25 +0000
-Message-Id: <20260703145826.09AA01F00A3A@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 15:00:45 +0000
+Message-Id: <20260703150045.971DB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Adding the firewalled LPM metadata region to the R5 core's `memory=
--region` array causes the Linux remoteproc driver to unconditionally map it=
- as Normal Non-Cacheable memory, creating a risk of speculative access viol=
-ations.
-- [Low] Typo in the device tree header comment: 'J42S2' instead of 'J742S2'.
+- [High] Missing dependency for `netc_blk_ctrl` causing a potential system =
+hang on boot.
 --
 
-commit c8beda67fe9ff009082210810a32125f13239503
-Author: Richard Genoud (TI) <richard.genoud@bootlin.com>
+commit 14e353bd1da7516058662c0b4b79b720409b4211
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-arm64: dts: ti: k3-j742s2-ti-ipc-firmware: Reserve memory for LPM metadata
+arm64: dts: freescale: imx95-var-dart: enable NETC block control
 
-This commit declares a carveout memory region to store LPM metadata on
-J742S2. The memory region is firewalled to be accessed only by TIFS, and
-is used by U-Boot R5 SPL to save and restore context during suspend/resume.
+This commit enables the NETC block control node on the DART-MX95 SoM,
+which is necessary for the NETC Ethernet ports to function.
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-j742s2-ti-ipc-firmware.dtsi b/arch=
-/arm64/boot/dts/ti/k3-j742s2-ti-ipc-firmware.dtsi
-> new file mode 100644
-> index 0000000000000..d66bcd2f4e194
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-j742s2-ti-ipc-firmware.dtsi
-> @@ -0,0 +1,24 @@
-> +// SPDX-License-Identifier: GPL-2.0-only OR MIT
-> +/**
-> + * Device Tree Source for enabling IPC using TI SDK firmware on J42S2 So=
-Cs
-
-[Severity: Low]
-This isn't a bug, but there's a typo in the SoC name.
-Should this be J742S2 instead of J42S2?
-
-> + *
-> + * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.co=
-m/
-> + * Copyright (C) 2026 Bootlin
-> + */
-
-[ ... ]
-
-> +&mcu_r5fss0_core0 {
-> +	memory-region =3D <&mcu_r5fss0_core0_dma_memory_region>,
-> +			<&mcu_r5fss0_core0_memory_region>,
-> +			<&lpm_memory_region>;
-
-[Severity: High]
-Does adding the firewalled lpm_memory_region to the mcu_r5fss0_core0
-memory-region list risk speculative access violations?
-
-During probe in ti_k3_r5_remoteproc.c, k3_r5_cluster_rproc_init() iterates
-over all memory-region entries past index 0 and unconditionally maps them
-using devm_ioremap_resource_wc().
-
-This establishes a Normal Non-Cacheable memory mapping, which allows the
-architecture's prefetcher to issue speculative reads to the region.
-
-Since the commit message notes this memory is firewalled to be accessed
-only by TIFS, wouldn't a speculative read from Linux be blocked by the
-hardware firewall and trigger a fatal abort?
-
-> +	memory-region-names =3D "dma", "firmware", "lpm-metadata";
-> +	bootph-pre-ram;
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi b/arch/arm=
+64/boot/dts/freescale/imx95-var-dart.dtsi
+> index a20fadacaa6d8..7c29082a40c5b 100644
+> --- a/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi
+> @@ -176,6 +176,10 @@ &mu7 {
+>  	status =3D "okay";
+>  };
+> =20
+> +&netc_blk_ctrl {
 > +	status =3D "okay";
 > +};
+> +
+
+[Severity: High]
+Does missing the netcmix_blk_ctrl dependency here risk a system hang on boo=
+t?
+
+The nxp,imx95-netc-blk-ctrl driver maps the netcmix memory block and writes
+to it unconditionally during probe. Accessing this region safely requires
+the IMX95_CLK_BUSNETCMIX bus clock to be enabled.
+
+Since that clock is exclusively requested and managed by the
+nxp,imx95-netcmix-blk-ctrl clock controller driver, leaving netcmix_blk_ctrl
+disabled means the kernel won't enable the required bus clock.
+
+If the bootloader leaves the clock off, this will crash with an SError /
+asynchronous external abort during netc_blk_ctrl_probe(). Even if the
+bootloader leaves it on, clk_disable_unused() might turn it off later,
+crashing the system on any subsequent accesses.
+
+Should netcmix_blk_ctrl be enabled alongside netc_blk_ctrl to satisfy this
+hardware dependency?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703143717.1773=
-62-1-richard.genoud@bootlin.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703144922.2316=
+08-1-stefano.r@variscite.com?part=3D1
