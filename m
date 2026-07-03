@@ -1,80 +1,82 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A690B35675B
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 07:34:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDB636A01D
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 07:34:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783064091; cv=none; b=dp1AwiBt5MkEnE2wsXSDOvnPVy++wPxNU7YZEryrB0u3csYKYePeMkJHG5l98uG5N+CFCoGidHObJD70/MfvOwt8vlvXYFv7q9UzXUF2Uadt4sNdQxCSmCRCZDzTMfgd6Yf0JOaSzpT0z59jvKY9G9QO73G3JWADfz8Itc0TCNw=
+	t=1783064095; cv=none; b=bLrglXiHDeI5pd3xRm6Xbx7qWCuz9nRX1mOqezutKUexPls1XizZq1BrmwCGfQzWVTtGqfuD1PKp0tW0LKPlnzY5OAVuHlUDC5fQIJYv3o3tOi8KCxal8RdpKLeV5GUlptBjPY1xh9MeQYd5DsleRbDGwIyiLfuT5CRoI8GSOWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783064091; c=relaxed/simple;
-	bh=eauUBeRESJvunQL23izSm7fxSNDrylBGuqp7cFk566U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iDxt6+R5uhIau06DT76Di9hdm59K7pks7ibGngY8erERYpKz6aRum1dQV7Cnjk+cCUmG/QkQT11CT/N+NoibeC3bfpuZ0CfvJwsiLQ3vMxntWu9YmdE8UYtzcC8k7t3745A087Dky5XWy90wQ9pX6sUOpjDAq7QJxJFUC92YoMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q0laT08N; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FXHqXhH/; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1783064095; c=relaxed/simple;
+	bh=99u5Gx55RAHeBQae4JhGigWI76pAnkMT525MBFVpwUk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=HE51PJGMW1yOlZLAAg7soWP2dUqkZv4YcHdjwg/cvwg81zmOOIHRbcIBx/cB0B5mrU38iACt/m+u/lfLEoGiMvfEm/00Q/Y+t+McsjQHIM3SXvCe4OSZCSRH5YqYw6K7QzaZZX1aokSQGvLzJlhoQXQb3dWdYcPe3FH1CIT/cqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RB02tYsJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eVyE3Keg; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q0laT08N";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FXHqXhH/"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6635rm7B3129346
-	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 07:34:49 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RB02tYsJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eVyE3Keg"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663683lH3053230
+	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 07:34:54 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=EHyUhwDmcLAxlYD1aeefz89XCxrIqpex0Tz
-	eDf8erJg=; b=Q0laT08NyimY/Qfr8Mhm5jGuxmePCQLZSjG7hoeWuOAijhPz5XT
-	OMncWBvE/i6shCCdbyi9eiy0kLhPYH+kqVmx5V4KgqjHneJI7ydRB85rTxNj1XSm
-	mZ03AJQs+IzO4s7oramstsZVOfpsryc4lRKFJnAIkx3NdmN4wi8gPZwLZdUpG6Hr
-	6fF0T1TUVIChSo46Er341RL7bFl3wd0+mLi4Oq9MG+tor3qitq+isI1YXMSKWu85
-	ZyJz4LFQaVnh1D5HZt7/2eVUr708YpVjEo1d16LYAbpl0RbWL1DmUPIVRBaYc7zx
-	QccpDr8O+YsmeMqhDp+QVmPzdyu2P96SjQQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5qfc4fhj-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=WLvbWjfvxJB
+	eH1l3LGJwlfv6v3165+AmquAxv/c+yWI=; b=RB02tYsJl/ZkWaTrT6fp9a152h+
+	54A3bRkewFgQNXTCD71OP1t8TBGYK029kS+Wv9eO4KgxDLJICJz//2tu7Zx9Ajbw
+	hBVsPegKjAKZ3vbxNOEMBG5eZmnC/Z2jLjMhKOQiChSvZ68whU40o2aDC8A638Dd
+	lwzcCzjfHE9VOeg0KJedFyvzvTjDU7yfUVG6qQxD/ruorG/fjhtkOOEL8RfyyXil
+	9yAMoKEl3QXVJKpFnHgvODtx7fMdLflz+NO1aOF2Fayl8emgQoAQqsZVVgVJBrYq
+	/qdn/AKqb2i89BHC5oEnLjTZwQd90ScMtA/1qyc+KPrxhKULiSIJ2/VH1qA==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f67j00aw8-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 07:34:49 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ca0481106cso4386835ad.0
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 00:34:48 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 07:34:53 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c890bac374eso569057a12.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 00:34:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783064088; x=1783668888; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EHyUhwDmcLAxlYD1aeefz89XCxrIqpex0TzeDf8erJg=;
-        b=FXHqXhH/HxG7He5i56S1nvr6iLMf8MPhCtR8sUgL+rgY+28v8tSmn5y2RbPLfJkjic
-         /zqkqwDWH0EIyLK7DBXN452Eie3Mh/gXRskVx5Wf7HXEoOsmJTy+mA2gyzOkWMi9wFL2
-         zTmR4D/genWs8dm4FpOm6o4lq8ZhQI9qRfTTQCLmnt4KdonKBiizIRIj2aeHXVQlxePF
-         7MEasOS+Gtsj63gIlIqsMLuk75oxjuGFx0lDz0urWGlQTEjBEhG0tqeBJv31901SaJVQ
-         wsBOFh+Ue6fq7icRp4lYDSPUZ9xabdQqgylXX5zopSbNPTo/jO77xNg4yD73TCKpYIGj
-         ippA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783064088; x=1783668888;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1783064093; x=1783668893; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EHyUhwDmcLAxlYD1aeefz89XCxrIqpex0TzeDf8erJg=;
-        b=q4J60OZn+rMaurt679+u8nMYt1jLOPntf24kaYnjH/dAB+qKs81UL+sH5eLyuaj0QL
-         5x0LXB/PuethbAn8SlrwHI6s7AipFVnWJXVUoDeK4ZCkkWIs/YvfyzO3R+Qw6gvAjBh/
-         Rvjo9V/Gcicwufhdxng4Lg4MrzsOMLykTbn/4VF2bc3W+RctYxQ7tCaqwBT26pg70b3/
-         EFjCu3N8WUWVLLHiE6ODgeuAG8kiVchQISAnONVcR2Nwf/OPlmC+xQ6SUQCOoGPJ1MSz
-         zfXe2xE5uEVb0wSGr9UUaC5ngcleKP04YdKlSmp1jvzNt2QJmYd68lfV2R0wikAHoRfJ
-         SY3A==
-X-Forwarded-Encrypted: i=1; AHgh+RqUe7nPb6dAXskPNbq6b9Q/nYtzw5w3wb1QVYf+xVvR8x9km534RwYU1+bxMutAflvRN73y0m9I2D9P@vger.kernel.org
-X-Gm-Message-State: AOJu0YwcGZQhRc+Blpk6c5MniQw3Yi5o17XEPy8EJL3LxFnrkjWKa9m3
-	H+Yk29KJIM1itzMZXsVHmfGCvk1mnCS1eaQgEWVm8E8wmK+di3rtgebNWLQgOo/bKCbtMl8XvAL
-	OpffhVfVxBEGzjnEd2eRZQ68SIMmBifYRT2ufg06yZwehl0xOSdsL7b3YIMns4/lHpo4G4hPt
-X-Gm-Gg: AfdE7cm/NVisaUqUVdZDYrwOwd77FWC0TC+hhhWbAqRM5Bd/jQ075COm7iNkZnb+IbU
-	GZoPxknZzCmA5GeI37Aqvy5XM8K/bDkz2fpwQU95X4F/EM9qLVEiM0JE2NsC4uNPqZkcuZdhSAO
-	C8pPssdTsof/Cer45Ch1Fw9Cx6mIQERein4LtWb54/jH8U7cz4v008FdT+mCec3VU5X3hkoms3l
-	O6ANRMcMHV1Nas8H0sqk4N1cxE78+MxBdBvQCO7AVV6DOMwfa2KXz7guIBcOBEIlrXORon1bwg3
-	EWjnyrf/jrAr/+Bep6d+SnSnq8uhcXMewh34LNgrTlFNvn2kaw3mkN3brX8FYp8r9kQAeV8LNLN
-	F4HfjK+nEaPjjl3JgXQCtTlurwjm+ipRz2BqxRiua
-X-Received: by 2002:a17:903:32c3:b0:2c9:ed16:8d8d with SMTP id d9443c01a7336-2ca911fe692mr84498725ad.38.1783064088276;
-        Fri, 03 Jul 2026 00:34:48 -0700 (PDT)
-X-Received: by 2002:a17:903:32c3:b0:2c9:ed16:8d8d with SMTP id d9443c01a7336-2ca911fe692mr84498455ad.38.1783064087753;
-        Fri, 03 Jul 2026 00:34:47 -0700 (PDT)
+        bh=WLvbWjfvxJBeH1l3LGJwlfv6v3165+AmquAxv/c+yWI=;
+        b=eVyE3KegiiH97gYjPODb/C7Hi3j+4OzwDFS6OB5gu3OphLwvoEApDpB3AQUH3Yd+dH
+         2lsunpOFi2q19wWp2AN00G5R1MJeGZXWVo7FkKDDzsQ72LsP7b6RezBgQXJocIZDp2e7
+         DiHpz3AwNn3bUxj/AdhpSxibOXMcC0DeKloogG1/eNhunmi8MZb4aQATdIcEayRMQL7r
+         eE3kLk8cTDE48uSLYmKh3cI97ft0bzGjcJp9CiUXVvgjLu7hKsyxlUFPfVZYFB5nZKpP
+         5BTzFFgw5YekoIp7dbOaSHTMCRi5rlc15sBn/zT2/DEv3/udxXH13t2ySmlzPt8Y065m
+         qF3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783064093; x=1783668893;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WLvbWjfvxJBeH1l3LGJwlfv6v3165+AmquAxv/c+yWI=;
+        b=ch0YgRT0+LJpTQtRyGBAeXu20Akud9VtPbjAweVmsvhzv2F/FVRtGcJFjcnEiMxo+K
+         lVZw+qKmP7wmwXpbjZIbMTiAYSlqf8tDAajyMfsa6fHdN2V/hHwA/PpYNCgPlBn3bNqJ
+         z+yNR+om+P4oiIBbyC6bMkB6J//Wza7K7KN1oERlX30iX9wAiSRvY2/xa60EC3PJRNhw
+         SZvxzQ3tm4YIZ3roUikyyByudamkWUw3DYQNk/E8bAAIT2hkelgC1eW1mDmvSnZ2Uo8I
+         rMXoFt//ah7hSTjqG33gmO0FAt0aAxb8yaIMwveSqPC2b4TCGoKCQKaUB8r5BBaqbc62
+         7F0A==
+X-Forwarded-Encrypted: i=1; AHgh+RrRb1bX0fBD6kCA3Zv83iujDVUVslCtz2b55ItZ8EvAjy656gaqfPc1P2dpAy1hFSZXMAkwtyV7pxOn@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKnESvYtUHQhbihHxsqb3Il/AQAyo8oNv1FFDDJlUogMlNZS/p
+	/63b+UwRVXtNlnDA1FRA7m/yiMFAMOPmuIZ5IXCYXGn5/X1WduqAwPTrQ0k89JPf3n6mNOMTyAe
+	K12J140qDWo/jpIuYe102sdnNageSMGmoKsrMbr9aR++5ecIWW6gOs21K76TcrWhj
+X-Gm-Gg: AfdE7cklwlD+WQxz02yI/S+Mdbsg2uUu/a7MFUqUS3UlCuC/m6G/NwQHZft6PiQQ87D
+	EEvCmfh6/w6wMS9MyoU1QkB9a2wU/7cXHO3j4Lno1M1U6sELJ/czC5b1pvzu8nwvNLPsVqQM1fs
+	AJhqTaasZkdqm8lrjXWuHpEt3dnlL7PIFuclXjooWM7SR+GOmxvKgmv9PQESidtgi3UwOg1Dy8p
+	Do+fInyxWSqem3fUBg3dzMfed6p2yyUsj/5G3FB+iBSUOZCXVjxWLwASJQl/mIDsI36DCbjVPwk
+	ZEcwJrILzZ2gokzwq4jCxSr5ekZ1X1CMWeWRxWO1anQWh0sBUWtbTAGqHCeb2FWUQeYjERTp/0R
+	PlwDu4q73l57FpnvFIP74R9sWGDCHgmPAuMXb3abF
+X-Received: by 2002:a17:903:1245:b0:2ca:f4d:eff0 with SMTP id d9443c01a7336-2ca7e675bbbmr95990985ad.7.1783064092996;
+        Fri, 03 Jul 2026 00:34:52 -0700 (PDT)
+X-Received: by 2002:a17:903:1245:b0:2ca:f4d:eff0 with SMTP id d9443c01a7336-2ca7e675bbbmr95990675ad.7.1783064092535;
+        Fri, 03 Jul 2026 00:34:52 -0700 (PDT)
 Received: from hu-raviravi-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad6f25e15sm5225465ad.13.2026.07.03.00.34.43
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad6f25e15sm5225465ad.13.2026.07.03.00.34.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 00:34:47 -0700 (PDT)
+        Fri, 03 Jul 2026 00:34:52 -0700 (PDT)
 From: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
         Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -85,10 +87,12 @@ To: Srinivas Kandagatla <srini@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         mohammad.rafi.shaik@oss.qualcomm.com, ajay.nandam@oss.qualcomm.com
-Subject: [PATCH v1 0/3] ASoC: qcom: Add Eliza audio support
-Date: Fri,  3 Jul 2026 13:04:31 +0530
-Message-Id: <20260703073434.2589657-1-ravi.hothi@oss.qualcomm.com>
+Subject: [PATCH v1 1/3] ASoC: dt-bindings: qcom: Add Eliza LPASS macro codecs
+Date: Fri,  3 Jul 2026 13:04:32 +0530
+Message-Id: <20260703073434.2589657-2-ravi.hothi@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260703073434.2589657-1-ravi.hothi@oss.qualcomm.com>
+References: <20260703073434.2589657-1-ravi.hothi@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -96,59 +100,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: bGwL1jFCxxodV0a9cjxyAs7DsCPEJH0x
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA3MCBTYWx0ZWRfXxZNHc3gkJXL7
- BChGXfECaHUiF7H6GtamnjQER9gx1Z5H7yisJF6b3tr/93NV2JV1q2ht93dW/5ldmXmGLzqlMbh
- wuh5384GLEEqZbBIQqcpFTaHjUIFDHdPkyUGuO2N03IN+HoK8ryDcYBSWllfvI6P9ZpFOP+nreF
- TPZQngP9RyqQlPsmSttRWTkgEl+1nkEpiUw5Gy99xJhberAt59PH2eizOhEIjUKqDVF4/LJQmHI
- +g2vJybLQoBXHLl4AZpI5enimJ9UmcTeJHmD5WrIuT9CKaR/BVj5rJjnwAMUIorElHlDrnfWdQ+
- aBb0/Qxyg4NQVWSTBHLz5v28HHH9DOwdjlxrMzy93YoHJFNBILEnotzQAIEeowV4Y6jN/abC8M7
- 1tvGt7JkxP6g7e3oM7glr443M4BKbTgVr/sEYIx1x1aEUl2FXP2XS08CK0QaiTxS6HyVo0Bjr1y
- 730v+VAA6SolAf+q0Jg==
-X-Authority-Analysis: v=2.4 cv=dvXrzVg4 c=1 sm=1 tr=0 ts=6a476619 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: EcEoar52aHFhQQb5fzE5PW2Hf_v_NZ9U
+X-Proofpoint-ORIG-GUID: EcEoar52aHFhQQb5fzE5PW2Hf_v_NZ9U
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA3MCBTYWx0ZWRfX3RCYtyUNLteO
+ TOZkrG6I5tKKUnOWQcQNzMsWGdGc6oWM+dA0evVPIwiNz2PaXFoMiNaqkEzzbiEQq7aQEKQc3zR
+ owaTvN9Etdhr4SrmP/K66yRztG9ZVC8=
+X-Authority-Analysis: v=2.4 cv=Yuc/gYYX c=1 sm=1 tr=0 ts=6a47661d cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=TcntpH_QWam1UtUSv7EA:9
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: bGwL1jFCxxodV0a9cjxyAs7DsCPEJH0x
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA3MCBTYWx0ZWRfX+lpFsXJvSkcC
- V1VaGLfw0XUaXrEs489hbtmOMBPaKOE97vsgNXtimtb0T3xxAyV3SWBGigsms0m32vl0hI0Y3cr
- yplKFBSzITO0cNZ0dkGILRQ0M3WgldE=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=l1jcosV-81OWBb0gcykA:9 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA3MCBTYWx0ZWRfX9/zRuT7dLd/t
+ ngnVwLK5zvJtXaJalVefSAU1mw12HnGL9DLQaynYQ0hYJ2wkgts0vPCHXn4LBZmd3OwPMphdHW9
+ PN2DD9yNgroNyYGTfq862YpT+gsoTPM2jF6DgG3AUDsxo0oKfFoxjJ+OvNk75rk3iFZujER9pPe
+ BahAkAng/lSrHlNK1W5IA0gIKwP6dvMztmBjUQh1Sb3ZJvPFsIzlQxPE3aaPncvrZ25ZvSqHWWR
+ Kcd678yoRUh/IQOlyl1v6vscGSgX4iMu4xJACivEzLArhmsEDLU9YIvNjZo9TWJlSA4XcY82n4O
+ JO0F2cJ33KpTVjZTk8rrQrFrgynUvtStOoq6LwJSdgEb28Dani9i7OtngR/paX5xm3DXSDX9380
+ b6PPp46E0KJCGHd7J4mbF4jCc4DgXrlftoE19wYTIfiB8ucWAVlHh05PWToid2lPPoP8e6jzq/A
+ 3iECiKLxAMlSW+lT6Xg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 priorityscore=1501 adultscore=0 impostorscore=0
- bulkscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0 spamscore=0
+ spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0
+ bulkscore=0 clxscore=1011 adultscore=0 priorityscore=1501 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030070
 
-This series adds audio support for the Qualcomm Eliza SoC. Eliza uses
-the same LPASS macro codec hardware as SM8550, so the existing SM8550
-fallback compatible is reused for all four macro codecs (RX, TX, VA,
-WSA). The sound card is compatible with the SM8450 generation machine
-driver.
+Add bindings for Qualcomm Eliza LPASS RX, TX, VA and WSA macro codecs,
+which are compatible with the existing SM8550 generation.
 
-Patch 1 documents the Eliza LPASS macro codec compatibles in the
-dt-bindings for RX, TX, VA and WSA macros.
-Patch 2 documents the Eliza sound card compatible.
-Patch 3 adds the Eliza sound card entry to the machine driver.
-
-Ravi Hothi (3):
-  ASoC: dt-bindings: qcom: Add Eliza LPASS macro codecs
-  ASoC: dt-bindings: qcom,sm8250: Add Eliza sound card
-  ASoC: qcom: sc8280xp: Add support for Eliza
-
+Signed-off-by: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+---
  Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml | 1 +
  Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml | 1 +
  Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml | 1 +
  .../devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml          | 1 +
- Documentation/devicetree/bindings/sound/qcom,sm8250.yaml         | 1 +
- sound/soc/qcom/sc8280xp.c                                        | 1 +
- 6 files changed, 6 insertions(+)
+ 4 files changed, 4 insertions(+)
 
-
-base-commit: 7de6ae9e12207ec146f2f3f1e58d1a99317e88bc
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+index 2eed2277511f..4988e7ed6e34 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-rx-macro.yaml
+@@ -21,6 +21,7 @@ properties:
+           - qcom,sc8280xp-lpass-rx-macro
+       - items:
+           - enum:
++              - qcom,eliza-lpass-rx-macro
+               - qcom,kaanapali-lpass-rx-macro
+               - qcom,sm8650-lpass-rx-macro
+               - qcom,sm8750-lpass-rx-macro
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
+index e5e65e226a02..d8682ff2e82c 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-tx-macro.yaml
+@@ -21,6 +21,7 @@ properties:
+           - qcom,sc8280xp-lpass-tx-macro
+       - items:
+           - enum:
++              - qcom,eliza-lpass-tx-macro
+               - qcom,kaanapali-lpass-tx-macro
+               - qcom,sm8650-lpass-tx-macro
+               - qcom,sm8750-lpass-tx-macro
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+index 5c42b2b323ee..aea31fbdad37 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
+@@ -21,6 +21,7 @@ properties:
+           - qcom,sc8280xp-lpass-va-macro
+       - items:
+           - enum:
++              - qcom,eliza-lpass-va-macro
+               - qcom,glymur-lpass-va-macro
+               - qcom,kaanapali-lpass-va-macro
+               - qcom,sm8650-lpass-va-macro
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
+index d5f22b5cf021..9fedd80532e2 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
+@@ -20,6 +20,7 @@ properties:
+           - qcom,sc8280xp-lpass-wsa-macro
+       - items:
+           - enum:
++              - qcom,eliza-lpass-wsa-macro
+               - qcom,glymur-lpass-wsa-macro
+               - qcom,kaanapali-lpass-wsa-macro
+               - qcom,sm8650-lpass-wsa-macro
 -- 
 2.34.1
 
