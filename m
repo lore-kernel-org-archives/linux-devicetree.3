@@ -1,91 +1,76 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6A03CF20A
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 11:04:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25273C108F
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 11:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783076675; cv=none; b=hAenITynLvuolBWhkSbdTZeuRnMFOVDajWXgL07ivh/BnMGkxfswHFuqhbe/qaQ3/yyiZzgXZ+ARL1WzD8LyAOWg0WcWmDllBhUF4cAy5F12fpMeDncJ4jqxpaN7VrLYA8ib1Bah5flA0vTNYkO1mpFHA1qJAdTwWEkBHnKcR+o=
+	t=1783076694; cv=none; b=JsFEIgxP51P/PtNuYi/wCxIr4cyFZZvyLK2yGFdL62vScfc0sm1/7bBB5RF2yHdm/4aK09kX0+NYP6ufxfzLe6eyBsl5o+0OJtomIYTm3pmGD950PRHi8OCv96B0aL86QIjFHCLFl3h2uOBJ7O4yXPVwdTwhskyVyEJOpP1PHhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783076675; c=relaxed/simple;
-	bh=h2KtqdCw91jXcrcEtBdWKqxtEMrPwR1BFhKp6/mntxw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BWc6BOqJtdL8pj3BFYCABbhxOd3d4jrlpyCjPTu2XilwoaJj1SQHjABIS+YJCz9oXrl6/5AluieiO+zjMg7Q7isiYkB2zaYQ7vi+pc+7cFo18Bwl6ULSCAU8nxperrvMvp2dbGqEOLaARXCPBes08H3yPpXJ5Sdoopn7rkTNgj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=F/fb6+0r; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1783076694; c=relaxed/simple;
+	bh=2bwIeurjrwcJ7Zm3CalIaF4vxwIad5ELnF8kDfq5LLc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EfXRR2Wc3/2zWFtuwNXLpEoK5cNQKpyuaVbb5QpgSmh3SF6Nj+qnvkMlHTj7aLnHmbkcD1W+F7QhZfHOV39b2exAOIB1ZVQLy+tXCgsCG/ibMBx03FB0tS6fb65BApGoDXRDiEG8i2EFGP9p55wMpxr5ApjGrSY7lh6sgOUwc14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IsBQMecf; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="F/fb6+0r"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2c9e89fded0so3615615ad.2
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 04:04:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IsBQMecf"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cad225673bso3771755ad.3
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 04:04:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1783076673; x=1783681473; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tsnzo2At2D22M9h7H+DZqNmRRrbT1zORZI6ZvXqk3jI=;
-        b=F/fb6+0rHG3WAe41QDmcv3rZlH7PGOltyMUV18ViBex56KL2rl5GUOMAi7lXvdeO1y
-         3YGvrEmX/dfKWMEdK5W2S52masfORCql1v1R84UrYnl/Jqwchqy03mNYtZU/cVyTVv6W
-         Yzu8805GaiViOOwXTmkCkMhQIoXSfHNGU6gFY=
+        d=gmail.com; s=20251104; t=1783076692; x=1783681492; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=jpsnXMJdrQZ8qB1ySVBl+GeO+mABbCy+9MxVxzg46jE=;
+        b=IsBQMecfnBvhccLxP1hg6/H1lU2qOcAefy/70/QF166C4FKPWzQg8WJlYTq0WJoDu3
+         6jSMKO6+WEYmzEf6rztaZW4WQpmcz4ke7hcCx4YVYcGzWJpWyhQGIlwsGAU+q7ou455o
+         jMxlNuzsIJlEzAXBm8xMb1Tav7BmGVv37Z/2LhjR1IsQvxP5Fgg4QgIHi0HV9maBBI/r
+         faaUruVsr7JMKZs7MGvHuewalrzOxVO0fXMONu/lMo9VHUvd5urUBgMxPq6oGxT77qhf
+         p/S9eLHHknvOGbOT3D8/aUK7wuwOan8nVvgc5iiRCCsyFNQDwBjLFOsm7qsb4mrwgaYI
+         TlpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783076673; x=1783681473;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tsnzo2At2D22M9h7H+DZqNmRRrbT1zORZI6ZvXqk3jI=;
-        b=j+gFGcgh0yot40HubtQeTLvjuBm1RgX3DV3Uk1h7L64QvrfgSFZ8Lyc842huTyn9an
-         BXkEKwLeG3BukUR4xhF2SSQHD9ebB7Ki7LdlASproj4heQPzJOXZ0mYSUOQFhmR8s8O0
-         BchkD+Ukl/qc3VVthHS+IX5RJcFvtaxRI79B/U040UzLLKyps7T4nsSv3wK62uokz+J5
-         qJq69D6LsAdY75C0Ecd6ATZdDaisJxLJf/FkXc4qeHRU2ry827rkB//XARw8D3Ql0EOS
-         zuUwj0dIZ+D0ET0MBFjmznL0FzBfJKuTMcCURhB9yo3+Jg3i9z0dD4zUmBdsdrCWelSZ
-         3ZdA==
-X-Forwarded-Encrypted: i=1; AHgh+RrDyhK9bnZRAS+Z42ppZ+LUWe4pzoKa8wFSoURwsqfySwNXL1mk9wujAwVsYy0D+8vDRc6D2leTRv4C@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUn7bQA4Ue1EjZ6SgU5EKdwnTIEYQz0J6LY1gNMSSWvYCfHa/7
-	yxRKfhc/3+n9/O+Ylj7d6TsRlpDYzoEf8K8HkInSxl36zSFvfOUT7CaSHMOnk7yvxQ==
-X-Gm-Gg: AfdE7ck25VQzEzfJXwwPV9WhxhdMtl4y861feZr/dLAc5jfomz9I6bGTI6muTSL56Oo
-	5oWBoqP/2AYRtepzDKwHNFICNQ+dxkkSQjlHjw9/In9ij0zWz4MLMYB4YGdjtOS44tNiyTNJMR0
-	5CWdhJUv5oSjMIg6Takqq9GWPSWzNltAn7zu4OtLDp/Y1IvPuvhxtTOcJ18raGyomhEhre9VpHa
-	xIIYa7WsxDMOerERS4obNCji4KjDf/1tVxkprEg6Ygsg31UY0dT7FtjPG7mmwVbVAuvaiWdHH4b
-	ZgtLgNW5YVHZfnKgS9/S5ukemh5tQrjk7Xo2Ho7DuELmsbrslchIb49nr/XavaX6Uhviw3Ih1tE
-	COPWqp4UfT/FgJLP3bsrxvpv2hNk9RXmIkBa6ZchsMV13YvQaX5fMDi22aLFoi6Ri5JS3w22nAy
-	SmgrBfAEnKRAFC9Bh/b1gNd+F5BmN6OtCVBcFdiO2Gt/ISabq7fjXbY1bEX0P2ayaZSRXvOQ==
-X-Received: by 2002:a17:903:2987:b0:2c9:97a7:f540 with SMTP id d9443c01a7336-2ca9120fef1mr94980545ad.38.1783076673338;
-        Fri, 03 Jul 2026 04:04:33 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:7bc5:6c83:76cd:cbd6])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad6f25e15sm7785315ad.13.2026.07.03.04.04.29
+        d=1e100.net; s=20251104; t=1783076692; x=1783681492;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jpsnXMJdrQZ8qB1ySVBl+GeO+mABbCy+9MxVxzg46jE=;
+        b=YJLJpU/C+kEi6lXLp/IJxk3gtmZcMLx2o/Ab/VSwuF5FTbjlNY6MqcBxTYDYn9rA1J
+         LlOsIk0yfxxlEUzJA3CrinWuNWImlEu0ROjRtC63pLtQT48kByoDKxY+TZtQbW/KiOeE
+         LT5wnENsaNo0iSIxpOh4g9rUH1a+W/bfAaxK4eoR7PsuOTnbnaKZuaDWnZvhX972K4eN
+         FtCEbb7VBhKIDGeTme9jJaStYeg+uZ4lN7jeCFREbwj4t1gcTMV6VA0iGw7JPcnW2uf9
+         vr1PQOOAypL9GCj6V8KDyzo4Qg+LOnKnJ6ArAQwjxtzsIb55JGvwTWC7xU+pvZkNXrQi
+         KuCw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr3BberGxODrDpqwttQYWUtM2m7wFSWYIiKFdVYZHeW0OAIjUmN1tB1DwYE1uBq4rWHs0uVNLOLAsMS@vger.kernel.org
+X-Gm-Message-State: AOJu0YzkNeIWfMyHsVFGiiPNg9FkydAuO4avxT/3gXwap70jQ8VMf0P4
+	llg7L+R7y9unbOkQpVLgYacpTeKe527rsKBn3L24bt6mau7ZkMKYASGN
+X-Gm-Gg: AfdE7cn7NrGTqN5z3jM4ZSqt2VoLSOxlw1zntQcxZ3nxjPGqGm13kdWlE1k+njXpxvU
+	BXdD/1NzzYdXOlJbj7n9gsLpTlDBI5PJ6zSJvDMrfb1KQl2msvXbC061VGSSCeB5CixkS7w/VX5
+	8DZeWMc4ynXmirP2VWabqZ3IIDT8YvrP32zeoCUzyUbCptx0RIoBNPPAdG8xFlJkJOPwKVE8mbs
+	9pMwl4Q8FGGH0l/2lAQLWJpgJvZx3WOu9KKejqerCpVrXRV2EKfjnqgfL/6ANvfsokF9W+teIcu
+	EyztNF7jKIGHh0JU6EUwk6Oearo+ndG2ECea5Fu8DDBsgSDMrPsQyApsLkRlCHpxWFDrDc+KbOK
+	uhDmPmF2xFcwAcUll+vyvRGXRTG4WpfX30B6fvVLsbgYQ8/GpaIbZJIU15yTzYtPcWJQ97zTzGJ
+	k56+lBuXBrqs3jDgoKA3Noo23Qn2TxRaiC/RJdiRK6DQ==
+X-Received: by 2002:a17:902:b40d:b0:2c9:c95e:5836 with SMTP id d9443c01a7336-2ca911121c4mr63685395ad.5.1783076692114;
+        Fri, 03 Jul 2026 04:04:52 -0700 (PDT)
+Received: from inhnjlux1020.ls.ege.ds ([49.204.164.119])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad789bf65sm7765165ad.79.2026.07.03.04.04.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 04:04:32 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
+        Fri, 03 Jul 2026 04:04:51 -0700 (PDT)
+From: Udaya Kiran Challa <challauday369@gmail.com>
+To: alexandre.belloni@bootlin.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	linux-rtc@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>
-Subject: [PATCH v3 13/13] arm64: dts: mediatek: mt8188-geralt: Add WiFi/BT as M.2 E-key slot
-Date: Fri,  3 Jul 2026 19:03:14 +0800
-Message-ID: <20260703110317.1283411-14-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
-In-Reply-To: <20260703110317.1283411-1-wenst@chromium.org>
-References: <20260703110317.1283411-1-wenst@chromium.org>
+	Udaya Kiran Challa <challauday369@gmail.com>
+Subject: [PATCH] dt-bindings: rtc: microchip,pic32mzda-rtc: Convert to DT schema
+Date: Fri,  3 Jul 2026 16:34:42 +0530
+Message-Id: <20260703110442.205026-1-challauday369@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -94,183 +79,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MT8188 Geralt design features a chip-on-board WiFi/BT solution. This
-is a M.2 E-key WiFi/BT board layout directly inserted into the mainboard
-design. The connections to the rest of the board are almost the same as
-if it were a separate M.2 card. The only addition is the PMU_EN pin on
-the chip; on M.2 cards this would be tied to the primary power source.
+Convert Microchip PIC32 Real Time Clock and Calendar devicetree binding
+from legacy text format to DT schema.
 
-Model the chip-on-board WiFi/BT solution as a M.2 E-key slot with PCIe,
-USB and auxiliary signals. The PMU_EN pin, which enables the internal
-power controls and regulators, is modeled as a regulator fed by the
-pp3300_wlan regulator. Since power sequencing is now correctly modeled
-using the M.2 E-key slot, drop the "regulator-always-on" property one
-pp3300_wlan regulator. Also drop the comment in xhci2 saying "MT7921's
-power is controlled by PCIe".
-
-Also drop the voltage range on the pp3300_wlan regulator. This
-"regulator" is just a load switch and does not provide any regulation.
-
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
 ---
-Changes since v2:
-- Drop default GPIO output state from kill pins pinconfig
----
- .../boot/dts/mediatek/mt8188-geralt.dtsi      | 92 ++++++++++++++++++-
- 1 file changed, 88 insertions(+), 4 deletions(-)
+ .../bindings/rtc/microchip,pic32-rtc.txt      | 21 --------
+ .../bindings/rtc/microchip,pic32mzda-rtc.yaml | 50 +++++++++++++++++++
+ 2 files changed, 50 insertions(+), 21 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/rtc/microchip,pic32-rtc.txt
+ create mode 100644 Documentation/devicetree/bindings/rtc/microchip,pic32mzda-rtc.yaml
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-index f382f90c48f5..8316dd41ba23 100644
---- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-@@ -86,13 +86,11 @@ pp3300_z1: regulator-pp3300-z1 {
- 	pp3300_wlan: regulator-pp3300-wlan {
- 		compatible = "regulator-fixed";
- 		regulator-name = "pp3300_wlan";
--		regulator-always-on;
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
- 		enable-active-high;
- 		gpio = <&pio 12 GPIO_ACTIVE_HIGH>;
- 		pinctrl-0 = <&wlan_en>;
- 		pinctrl-names = "default";
-+		/* load switch */
- 		vin-supply = <&pp3300_z1>;
- 	};
- 
-@@ -159,6 +157,17 @@ ppvar_mipi_disp_avee: regulator-ppvar-mipi-disp-avee {
- 		vin-supply = <&pp5000_z1>;
- 	};
- 
-+	/* PMU_EN pin controls internal regulators and power sequence */
-+	wlan_pmu: regulator-wlan-pmu {
-+		compatible = "regulator-fixed";
-+		regulator-name = "wlan-pmu";
-+		enable-active-high;
-+		gpio = <&pio 145 GPIO_ACTIVE_HIGH>;
-+		pinctrl-0 = <&wlan_pmu_en>;
-+		pinctrl-names = "default";
-+		vin-supply = <&pp3300_wlan>;
-+	};
+diff --git a/Documentation/devicetree/bindings/rtc/microchip,pic32-rtc.txt b/Documentation/devicetree/bindings/rtc/microchip,pic32-rtc.txt
+deleted file mode 100644
+index 180b7144bfcc..000000000000
+--- a/Documentation/devicetree/bindings/rtc/microchip,pic32-rtc.txt
++++ /dev/null
+@@ -1,21 +0,0 @@
+-* Microchip PIC32 Real Time Clock and Calendar
+-
+-The RTCC keeps time in hours, minutes, and seconds, and one half second. It
+-provides a calendar in weekday, date, month, and year. It also provides a
+-configurable alarm.
+-
+-Required properties:
+-- compatible: should be: "microchip,pic32mzda-rtc"
+-- reg: physical base address of the controller and length of memory mapped
+-    region.
+-- interrupts: RTC alarm/event interrupt
+-- clocks: clock phandle
+-
+-Example:
+-
+-	rtc: rtc@1f8c0000 {
+-		compatible = "microchip,pic32mzda-rtc";
+-		reg = <0x1f8c0000 0x60>;
+-		interrupts = <166 IRQ_TYPE_EDGE_RISING>;
+-		clocks = <&PBCLK6>;
+-	};
+diff --git a/Documentation/devicetree/bindings/rtc/microchip,pic32mzda-rtc.yaml b/Documentation/devicetree/bindings/rtc/microchip,pic32mzda-rtc.yaml
+new file mode 100644
+index 000000000000..481ee28c06e3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/rtc/microchip,pic32mzda-rtc.yaml
+@@ -0,0 +1,50 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/rtc/microchip,pic32mzda-rtc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	reserved_memory: reserved-memory {
- 		#address-cells = <2>;
- 		#size-cells = <2>;
-@@ -193,6 +202,39 @@ adsp_dma_mem: memory@61000000 {
- 			no-map;
- 		};
- 	};
++title: Microchip PIC32 Real Time Clock and Calendar
 +
-+	wifi-bt-connector {
-+		compatible = "pcie-m2-e-connector";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&m2_e_key_kill_pins>;
-+		vpcie1v8-supply = <&mt6359_vcn18_ldo_reg>;
-+		vpcie3v3-supply = <&wlan_pmu>;
-+		w-disable1-gpios = <&pio 13 GPIO_ACTIVE_LOW>;
-+		w-disable2-gpios = <&pio 14 GPIO_ACTIVE_LOW>;
++maintainers:
++  - Alexandre Belloni <alexandre.belloni@bootlin.com>
 +
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
++description: |
++  The Microchip PIC32 Real Time Clock and Calendar (RTCC) keeps time in hours,
++  minutes, seconds, and one half second. It also provides a calendar with
++  weekday, date, month, and year, along with a configurable alarm.
 +
-+			/* PCIe for WiFi */
-+			port@0 {
-+				reg = <0>;
++allOf:
++  - $ref: rtc.yaml#
 +
-+				wifi_ep: endpoint {
-+					remote-endpoint = <&pcie_ep>;
-+				};
-+			};
++properties:
++  compatible:
++    const: microchip,pic32mzda-rtc
 +
-+			/* USB for Bluetooth */
-+			port@2 {
-+				reg = <2>;
++  reg:
++    maxItems: 1
 +
-+				bt_ep: endpoint {
-+					remote-endpoint = <&usb2_ep>;
-+				};
-+			};
-+		};
-+	};
- };
- 
- &adsp {
-@@ -657,6 +699,22 @@ &pcie {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie_pins>;
- 	status = "okay";
++  interrupts:
++    maxItems: 1
 +
-+	pcie@0 {
-+		compatible = "pciclass,0604";
-+		reg = <0 0 0 0 0>;
-+		device_type = "pci";
-+		num-lanes = <1>;
-+		#address-cells = <3>;
-+		#size-cells = <2>;
-+		ranges;
++  clocks:
++    maxItems: 1
 +
-+		port {
-+			pcie_ep: endpoint {
-+				remote-endpoint = <&wifi_ep>;
-+			};
-+		};
-+	};
- };
- 
- &pciephy {
-@@ -1000,6 +1058,13 @@ pins-bus {
- 		};
- 	};
- 
-+	m2_e_key_kill_pins: m2-e-key-kill-pins {
-+		pins-kill {
-+			pinmux = <PINMUX_GPIO13__FUNC_B_GPIO13>,
-+				 <PINMUX_GPIO14__FUNC_B_GPIO14>;
-+		};
-+	};
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
 +
- 	mipi_disp_avdd_en: mipi-disp-avdd-en-pins {
- 		pins-en-ppvar-mipi-disp {
- 			pinmux = <PINMUX_GPIO3__FUNC_B_GPIO3>;
-@@ -1164,6 +1229,13 @@ pins-bus {
- 		};
- 	};
- 
-+	wlan_pmu_en: wlan-pmu-en-pins {
-+		pins-wlan-pmu-en {
-+			pinmux = <PINMUX_GPIO145__FUNC_B_GPIO145>;
-+			output-low;
-+		};
-+	};
++additionalProperties: false
 +
- 	wlan_en: wlan-en-pins {
- 		pins-en-pp3300-wlan {
- 			pinmux = <PINMUX_GPIO12__FUNC_B_GPIO12>;
-@@ -1343,10 +1415,22 @@ vdosys1_ep_ext: endpoint@1 {
- };
- 
- &xhci2 {
--	/* no power supply since MT7921's power is controlled by PCIe */
- 	/* MT7921's USB BT has issues with USB2 LPM */
- 	usb2-lpm-disable;
- 	status = "okay";
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
 +
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			usb2_ep: endpoint {
-+				remote-endpoint = <&bt_ep>;
-+			};
-+		};
-+	};
- };
- 
- #include <arm/cros-ec-keyboard.dtsi>
++    rtc@1f8c0000 {
++        compatible = "microchip,pic32mzda-rtc";
++        reg = <0x1f8c0000 0x60>;
++        interrupts = <166 IRQ_TYPE_EDGE_RISING>;
++        clocks = <&PBCLK6>;
++    };
 -- 
-2.55.0.rc0.799.gd6f94ed593-goog
+2.34.1
 
