@@ -1,177 +1,133 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2698936EA80
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 07:47:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11978377ED9;
+	Fri,  3 Jul 2026 07:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783064843; cv=none; b=Qz6weVZflOXvY10vqYLqWSte0u2WZthlyNCM4SnXCotypLKEsWKNBxJrLPuPDf7vYjGhg/gXdFL0KROFX+OOwIo5SUzxh0LE+ROeynWMfCPZ+pYrZTR98ZFy4w/GZUuWLvM0BAl3x3k6fBgUa0XQBtm68HvpBKutqYDy/DZ2Zsw=
+	t=1783064857; cv=none; b=NGBB001zw8ePJg0rxrqkbE2HpzOAM2xtKAkYJSfcu6h5Jc3P7oP+vgmnUOOztx86Zay23rmY02mFs9j4Y8uF3NueC80WbyAz49vvGP8ukio7bABTVwNI2K9iZtDxP7tG9lYRcmOWp7ZkCfx0ie0deCgOIv2BLXLS1h4n4TV8Ohc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783064843; c=relaxed/simple;
-	bh=7IVWCHfP5MwVTCA3fIsaCAaolAt/KSw/x8IVH8+NdoQ=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=XufvTnQ/GQNhXv7a8lBKzVk0qrok6YulgWACLYN+l+8INicbIz94qoFF6xDpMgM/ribkyhmFRFjciUFLRCys48y0dQTl6+toopqBKpJph8BPiWKMXkSnHoSssaZBzhFHsAUtb+VXoa1mHalrzk84L0AnIZBMsiJDshnO9EsFr20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=B4DUz/10; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1783064857; c=relaxed/simple;
+	bh=8yj8IlnLJj9l6V6xHBhPYzBCdxDwypwwDMc75/R7tBY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hEFM7LeHcq5Tv1dt+95OmjF5wINNKB0UAEz6bLluKKKMAcpfLUyny7d+hwEdWOYKGSbXnReaLrQJSNDxl5ZM9qw670KmqxTVjm12A+AtB4DgKs2CJBuzAB/ZY2+D1kAhvnPUOttzLMK2blZBgbBvMI3SPKXSWLv8tt38UtPhWkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jMtsHq4e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="B4DUz/10"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-476a130c138so280981f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 00:47:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783064839; x=1783669639; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0p62SZWRaW03RXCqUmh0+MOM6FMNGTWsoP+vgWvFmoQ=;
-        b=B4DUz/10MLZA7P/uVUOQZx3qdKl/h1c0DgNqTQyIJIsIYSpbd+/7kOkQn0W6M/no9u
-         VCztok+nzdX7H5TQq88rY7649BQamTl9sZLbm0iuuurXyMD6hqJbKEohJ3vbJiFKMedb
-         0HTta3pvS6ZlUECw2k9+qKSuN2kGAe+rFOT2rNlEIi29qK2aOVSLf8Iu7KXzRBElO/Tr
-         236dL2OhxoNBWaj3pVergAeGkwyLYoYsbPyHQrn3snvLb+g+v5NZVe9pDwYZpPxwn2Ps
-         ZoPA3akbsK5ou9A8yvEBcXRs8rRnS4Sk3oDzsdUBDvS7MLU4MkGWqTARdS13ibIV4QsS
-         9Thg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783064839; x=1783669639;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0p62SZWRaW03RXCqUmh0+MOM6FMNGTWsoP+vgWvFmoQ=;
-        b=mVRnMghXLDPG97cDHanO1CSsIB7fQkc9r3OdmUCYN4wMHYeyXOaf6OByUixxkmWScr
-         KENVDRmFR1tfJtxW275BP1lqoj9eDD/gJSAhYh2v9gn+TOyi7NEqnFewzEs8g510qTqq
-         bSUtdJkzuvZ4XWJNQXOt3hCkqBun2mwq/w5+t/MEWcbGUO9A54H+nH5JW3NFIjn3o+Zd
-         9b1n4PGmvg75h3GrlUHS9DE/j94/hIxjEvhPrrxrHHUK7rX6lefJQd9+eJUcBgmgiW7F
-         WFxHpOUt52uTJHrc9LA2LiImph67Wf4h0c+JHFXnhrdSEAmive5Va+TSLM6NOP+pnEGF
-         UXvA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp6diQOSXguAokB74u73qoMDBkYDxBkfkmABHsW6ApcZXOAEDi2F3N7qa8e8LMs7lv1+ZF6l85OlESw@vger.kernel.org
-X-Gm-Message-State: AOJu0YzDrJ2wHoLw4e1Uc9HalP2BvjJeabzIK1/MRAmtlDnNuNXpCd2d
-	jYSCEfhmsO+73tXo/YEJUoSUp8eTZ0DHgmGLGXZ0P5/qNxIo1AXhgB7r0oWrgo1Qf6k=
-X-Gm-Gg: AfdE7cnSpNhpvND1mwD7wBBzvWG/p6z6hhDCbCq7Z0HyP8w/8M0+U73TsBTzmqVPS1h
-	Ccx8bKBcGYm40Im0jEKi/bCGqdVjQi15sPsE6fxlSsarTiGSAFQptUa5I4F/+QYrG1goSJZNJJx
-	zBgPMndntGC6jrb3qOYyMpgcgdS12uKCJFourSVmme3HrS0KhfP8eKDHOG0qw9oNx/5b6lhXy5w
-	N1HTbHt288g17n2nb7ayT67LxvHNQhpM6Jjq0jO3NP1lxbjZF4BF1ftz2VIRyF3xMJHjV9lhDUQ
-	nruMuLBJctYc7VZR/oDuKZv4cHaWcnts5HKG7Vzd0RARqx5G/w1wnE3HUw7Uhdqv9cZkV+wjxSK
-	/1VY6dcKyCQNj1qiWn7UllQS3c0HWr0bPW3J/xM8Lqg+q+spZqKQScKS3/AYvMZ3oseVnV4nrKv
-	mopxB0g2BANUtF2WcE0uz6M/3ajtIT8ljzHyCptk9eqYU2/LhFwXEfP5l0DTvHVn2bqHVE
-X-Received: by 2002:adf:ed42:0:b0:477:80fa:f44d with SMTP id ffacd0b85a97d-477b5677843mr9598440f8f.40.1783064839203;
-        Fri, 03 Jul 2026 00:47:19 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:e9e1:7bf9:472f:c4d8? ([2a01:e0a:106d:1080:e9e1:7bf9:472f:c4d8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-477db3dbc75sm16621817f8f.5.2026.07.03.00.47.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Jul 2026 00:47:18 -0700 (PDT)
-Message-ID: <446be9c1-b9a6-485a-b21b-ec812c163e8a@linaro.org>
-Date: Fri, 3 Jul 2026 09:47:18 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jMtsHq4e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA8571F000E9;
+	Fri,  3 Jul 2026 07:47:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783064855;
+	bh=z08ZstRUnMDlGm6RwGZUBt7AxpDYvvssQmc/mCoyhHY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jMtsHq4e0KqWBASHBeX0eW7P8Hr5k89wnB3Ia2cuNHshgiMjIf9I4uaId0gl6xl4B
+	 5NMP3WUb59rjlGlM/Z/kVIhLdDd6n2Xynq/Qi9fzX1eOAbWuO/qOUxwI3t5OrWu2DB
+	 RAYywA9STroVf9BVyeHjpemNwUsOqcgmvXBrqNPB46LjUP62y94Rd6yfcQ8RJ5A4es
+	 HW87GaDvMbHWz7R7NwIU/h4DV7i80m2prjw2vVCmUMuFeUJPcabTCmN2e1b2v6FmGU
+	 ZvhFy8Mb48vnQfkvszasOClb0r8Ok3YNx0encIk5k5/HTmOl7XE5K2bqJ3jU5yWH+w
+	 qp8E1uPL9ccXw==
+Date: Fri, 3 Jul 2026 09:47:31 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, Amit Kucheria <amit.kucheria@oss.qualcomm.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, 
+	Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Subject: Re: [PATCH v4 01/10] dt-bindings: firmware: qcom: tmd: add TMD
+ device type constants
+Message-ID: <20260703-humorous-blue-agama-4b668a@quoll>
+References: <20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com>
+ <20260703-qmi-tmd-v4-1-3882189c1f83@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 2/3] arm64: dts: qcom: sm8650: add CPU cache size
- properties
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-References: <20260615-topic-sm8650-upstream-cpu-props-v3-2-eeb6e9fa7581@linaro.org>
- <20260615165606.ABC8B1F000E9@smtp.kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260615165606.ABC8B1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260703-qmi-tmd-v4-1-3882189c1f83@oss.qualcomm.com>
 
-On 6/15/26 18:56, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The L1 data cache size for the Cortex-A520 cores (cpu0 and cpu1) is incorrectly set to 64KB (`<65536>`) instead of 32KB (`<32768>`).
-> --
+On Fri, Jul 03, 2026 at 10:33:04AM +0530, Gaurav Kohli wrote:
+> Add Device Tree binding constants for Qualcomm Thermal Mitigation
+> Device (TMD) types used by remoteproc-backed thermal cooling devices.
 > 
-> commit e69e8fc4f3866077641d02b02b7f11554b632507
-> Author: Neil Armstrong <neil.armstrong@linaro.org>
+> Qualcomm remote processors expose thermal mitigation endpoints
+> through QMI. These endpoints can be registered with the thermal
+> framework via the `#cooling-cells` property on the remoteproc node.
 > 
-> arm64: dts: qcom: sm8650: add CPU cache size properties
+> The QMI TMD protocol identifies devices using string names (for example,
+> "pa", "modem", and "cdsp_sw"), while the DT cooling-device binding with
+> `#cooling-cells = <3>` requires numeric device id in the form:
 > 
-> This commit adds L1, L2, and L3 cache size and line size properties to the
-> CPU and cache nodes in the sm8650 device tree. It splits the unified L1
-> cache properties into instruction and data cache sizes based on clidr_el1.
+>   <&phandle device_id min_state max_state>
 > 
->> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> index e8e43ddc3032a..090a4739ebc1d 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> @@ -75,6 +75,11 @@ cpu0: cpu@0 {
->>   			compatible = "arm,cortex-a520";
->>   			reg = <0 0>;
->>   
->> +			i-cache-size = <65536>;
->> +			i-cache-line-size = <64>;
->> +			d-cache-size = <65536>;
+> Define common TMD device index constants shared across currently
+> supported platforms. If a future target requires a different mapping,
+> additional target-specific constants can be introduced while preserving
+> existing DT ABI.
 > 
-> [Severity: Medium]
-> Is the d-cache-size for the Cortex-A520 correct here?
-> 
-> According to the ARM Cortex-A520 Technical Reference Manual, the L1 data cache
-> is strictly fixed at 32KB (<32768>), even though the instruction cache can be
-> configured to 32KB or 64KB.
-> 
-> This misrepresentation of the hardware topology could potentially lead to
-> suboptimal scheduling decisions or misguide userspace optimization algorithms.
+> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> ---
+>  MAINTAINERS                                 |  1 +
+>  include/dt-bindings/firmware/qcom,qmi-tmd.h | 20 ++++++++++++++++++++
 
-Just looked into https://developer.arm.com/documentation/102517/0004/L1-data-memory-system, and no it clearly states:
+As explained many times: Header file is not a separate commit. You need
+binding using this.
 
-L1 data cache	32KB or 64KB
+>  2 files changed, 21 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 57656ec0e9d5..ffd85fd1dd80 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3410,6 +3410,7 @@ F:	drivers/firmware/qcom/
+>  F:	drivers/soc/qcom/
+>  F:	drivers/watchdog/gunyah_wdt.c
+>  F:	include/dt-bindings/arm/qcom,ids.h
+> +F:	include/dt-bindings/firmware/qcom,qmi-tmd.h
+>  F:	include/dt-bindings/firmware/qcom,scm.h
+>  F:	include/dt-bindings/soc/qcom*
+>  F:	include/linux/firmware/qcom
+> diff --git a/include/dt-bindings/firmware/qcom,qmi-tmd.h b/include/dt-bindings/firmware/qcom,qmi-tmd.h
+> new file mode 100644
+> index 000000000000..73efecef0f3c
+> --- /dev/null
+> +++ b/include/dt-bindings/firmware/qcom,qmi-tmd.h
+> @@ -0,0 +1,20 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
+> +/*
+> + * Qualcomm QMI TMD (Thermal Mitigation Device) cooling device indices
+> + *
+> + * These indices are used in device tree cooling-maps to reference
+> + * specific TMD devices provided by remote processors via QMI.
+> + *
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +#ifndef _DT_BINDINGS_FIRMWARE_QCOM_QMI_TMD_H
+> +#define _DT_BINDINGS_FIRMWARE_QCOM_QMI_TMD_H
+> +
+> +/* CDSP thermal mitigation device id */
+> +#define QCOM_CDSP_TMD_CDSP_SW	0
 
-This is AI slop
+QCOM_TMD_CDSP
 
-Neil
+> +
+> +/* Modem thermal mitigation device id */
+> +#define QCOM_MODEM_TMD_PA	0
 
-> 
->> +			d-cache-line-size = <64>;
->> +
->>   			clocks = <&cpufreq_hw 0>;
-> 
-> [ ... ]
-> 
->> @@ -117,6 +126,11 @@ cpu1: cpu@100 {
->>   			compatible = "arm,cortex-a520";
->>   			reg = <0 0x100>;
->>   
->> +			i-cache-size = <65536>;
->> +			i-cache-line-size = <64>;
->> +			d-cache-size = <65536>;
-> 
-> [Severity: Medium]
-> Does this node also need to be updated to <32768> for the 32KB fixed L1 data
-> cache on the Cortex-A520, similar to cpu0?
-> 
->> +			d-cache-line-size = <64>;
->> +
->>   			clocks = <&cpufreq_hw 0>;
-> 
+QCOM_TMD_MODEM_PA
+
+> +#define QCOM_MODEM_TMD_MODEM	1
+
+QCOM_TMD_MODEM
+
+Best regards,
+Krzysztof
 
