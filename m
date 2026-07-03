@@ -1,575 +1,113 @@
-Received: from MTA-14-3.privateemail.com (mta-14-3.privateemail.com [198.54.127.110])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3D833439A;
-	Fri,  3 Jul 2026 20:26:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44EA3348445
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 20:29:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783110421; cv=none; b=nyo+D2phmsSTNuXWoe92x/C3yYncv3dlzYBufd4Sq7Eo0STAXMxStw1XnL20gYdWeYyn4nrsTFRF9H7mb5A29mpWVgemWUGfe/FHSmg/g+RLCQzX21jdqoP2PurmEI5B2FrQvMnsksrWF8OVqxV0EGwbfkNM07/gUnWfwCj8Ny4=
+	t=1783110596; cv=none; b=t1NTNZPTr77ew6OrRrLCjGHyj7heCqS5Mes2R86kdUnGl71Un2GdWb/lChhrgeZ2lI5d9yxrGlaUf8pGevyKgmhj54NFr2Avfs/16VPXMGdKvneXIGnhQ7CGMl2e1nANmt5U17jvYBMzFv9+cN2FYLV8oJaqucwg2Wv7UH7XEvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783110421; c=relaxed/simple;
-	bh=DqIyi2K8zCLznI+vKoSWIbXKNPCK1isywCJJlsSipsY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HYMwuTz1h4yhNJRYQZUWuPeTmWbU1b+cN26Q7GbTpAFW9qV/IsWE9GVklIUWemG/PQ00T16B6JUE2cqMuCKKXfHvhXIlR8kzdGjy0N8dhMakVOeNXllKJBrapE4aaa6Ga1rTz9MenPCfSl/7SQTlYwG46XCWwSzkzqt/6vAaz9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
-Received: from mail.privateemail.com (K8S-PROD-WORKER-02 [87.215.145.39])
-	by mta-14.privateemail.com (Postfix) with ESMTPA id 4gsQJg0tCQz3hhTK;
-	Fri,  3 Jul 2026 16:26:41 -0400 (EDT)
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: David Heidelberg <david@ixit.cz>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Subject: [PATCH net-next 2/2] nfc: s3fwrn5: support the S3NRN4V variant
-Date: Fri,  3 Jul 2026 22:26:01 +0200
-Message-ID: <20260703202601.78563-3-jorijnvdgraaf@catcrafts.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260703202601.78563-1-jorijnvdgraaf@catcrafts.net>
-References: <20260703202601.78563-1-jorijnvdgraaf@catcrafts.net>
+	s=arc-20240116; t=1783110596; c=relaxed/simple;
+	bh=TJ1Yp+Qwil//MuisP32HdTlaRDeb8Set3TLhKZIhdN0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IwIrKWzqF24aMQ1kzWL1JGIzg5Z+gxwVNFWHeDbo50Wm70q5812MLzyY1jcza3IqL2DqvDQhq5NuLUYWpQwLvHL3LFTwdTXHEfh1p7yA5pr4qGdzcLZ/XXAEw7F/ISlyIb3T1UdVEELOgePcbvRt4rl5ZVXYJSldUEOt/SyAhmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=oV3DrLZ+; arc=none smtp.client-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="oV3DrLZ+"
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7e9f6b94a49so476082a34.3
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 13:29:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1783110593; x=1783715393; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Gw65i8xoQ4Rdi81NgA4DFcrACy+bTuTMIx3V9X+aMLw=;
+        b=oV3DrLZ+enF+1OpejGNA+zZ9DyoawFqu0KnsySh3cZzAdNPuJsZr4r7cq3Vh/oXevc
+         J+jcF0V9yV/Ej+klr3zbkcbqPzYyboz9W9/aEH0Kd/QJlZY0uZ2U0TlcVUUo80MWrl5J
+         i6aZAUNTtXFvWzMe5sLl6UM8KrNxrRkIkaeAMV7TQabGNihvml5on4GPA19vpBl2JIPc
+         qpy/OilSxfFJuuzuLVk+ai0It1pXTCzWQxytZqfCfxOxlI2Eo3ZNY368khcMhiYFXq2s
+         XqlcGzVeIZYwP60XLgEv3MZObb5b4LuqS2KHUBbb4U2ahydRmmmdr/r2cVseB1KykT4s
+         cS+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783110593; x=1783715393;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Gw65i8xoQ4Rdi81NgA4DFcrACy+bTuTMIx3V9X+aMLw=;
+        b=FcT9MccpMqG0xtm0QqCK3l0IWCEAmLifJmaH+tuyhkM8y2bAkw5M896AIwpk4ZzR6o
+         kvqk83jmygXZBiUgvAaniSBSWai2utt3ILbeVpt2+oAONqVJiDoEsfxoKXVUgGD3l7G5
+         CS96bGJScYpRDuhb+58HfjE+bsEDmaDqV772Zzp3+uPuoHivBE3D8ueeMl7CfYxSVJ33
+         1DtUqqBbqnOC7jDvnBpZywOeAN6QsUzTbuKvsxaMDU01IJv3glcBYEXaSVd3heavQfch
+         yvjspmnmMK+NL4xHpOUL2+OCL9BflJzdcPLfr4qS6F8NC8bDhtixMWneUUh4IqwEa3nN
+         jK9w==
+X-Forwarded-Encrypted: i=1; AFNElJ8n5WrTEiNui8WNVw3azxmSuzBEu8DCfZLGFhA60EX3ZFoXvD5uljtFk2v/k4FavNDnmJtuXTqLu0EF@vger.kernel.org
+X-Gm-Message-State: AOJu0YzWra/7/wbYW8hdcDFbYQgNCNoT48IYi2sJ2uf9aoIRLJy82hD/
+	UdnOPM1xgYpitrAyx8zGPsSqxiCru8EXt71PtCRVvbJn0c0Z7t5RomqpF7kFjfR7tk0=
+X-Gm-Gg: AfdE7cmZYM4PHQbqsa7kaz2Vq2c8eE71raqYiUxchRw6apA+tWTxASJySg4m/YNt86S
+	l23tAv0HsnU6OauyDUc9ICg6hXSMSLi1WA3rRvLAj4fLlB5engQ0ysQiQmoyixoNkys3JgVtSqC
+	0qU3FamGHK+IyaBmQJ85WkK5mMk93L1Jj+04VxH+3bGU/BeNrCPb9WHzUqs8oHq4Piy8CK7d3zF
+	vjwtXr0D4hk/nMbcxW9lTimnsxKWP1/Q2MJgy1VR2CGQvLZKdi89W6IApGUCaD3Azvs/Vi54tBy
+	l5JvJGBNC47gIFRJC6Ubxmls9FqJm9jhHKXjfj1PsDafAsGJQAbPXdx7bvXGwCbmKlb10n2KcmP
+	ms65IgVssh7qChvpuI0REYq2Cyd+KjSgOrX2vO/OwplEfIX04FH9NijQnl32e0trWQecSnplvZN
+	HxHdAo7rWW0C2LJRC9bMq1/KhUqiJbxqZ0GZzIIyLhNQBj1YOBcSQFqN1960Q6AJo=
+X-Received: by 2002:a05:6830:2e07:b0:7e9:b4cf:683d with SMTP id 46e09a7af769-7eb7ff7c01cmr704096a34.29.1783110593167;
+        Fri, 03 Jul 2026 13:29:53 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:6af9:a9d7:17b5:2644? ([2600:8803:e7e4:500:6af9:a9d7:17b5:2644])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7eb54292d5fsm5785830a34.6.2026.07.03.13.29.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 03 Jul 2026 13:29:52 -0700 (PDT)
+Message-ID: <b88ae0de-fb87-4812-98b7-59459ed7cf39@baylibre.com>
+Date: Fri, 3 Jul 2026 15:29:51 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+To: Siratul Islam <siratul.islam@linux.dev>,
+ Stefan Popa <stefan.popa@analog.com>, Jonathan Cameron <jic23@kernel.org>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Ciprian Hegbeli <ciprian.hegbeli@analog.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260703102941.1141341-1-stefan.popa@analog.com>
+ <20260703102941.1141341-3-stefan.popa@analog.com>
+ <9878f042f424bfbd7fab24175298224b58e87779.camel@linux.dev>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <9878f042f424bfbd7fab24175298224b58e87779.camel@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The S3NRN4V (e.g. on the Fairphone 6, SM7635) is an S3FWRN5-family NFC
-controller that needs different bring-up, selected with a new
-samsung,s3nrn4v-i2c compatible:
+On 7/3/26 2:42 PM, Siratul Islam wrote:
+> On Fri, 2026-07-03 at 13:29 +0300, Stefan Popa wrote:
+>> The MAX40080 is a bidirectional current-sense amplifier with an
+>> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
+>> voltage across an external shunt resistor and the input bus voltage,
+>> storing the results in an internal FIFO.
+>>
+>>
+> Hi! I already looked at Andy's review and decided to add a few more stuff.
+> ...
 
- - It ships with working firmware behind a bootloader protocol this
-   driver does not implement (GET_BOOTINFO times out), so the firmware
-   download step is skipped. Its RF registers are (re)loaded with the
-   proprietary DUAL_OPTION command (the HW and SW register blobs merged
-   into a single stream) instead of the START/SET/STOP_RFREG sequence.
+>> +#define MAX40080_REG_CFG		0x00
+>> +#define  MAX40080_MODE_MSK		GENMASK(2, 0)
+>> +#define  MAX40080_PEC_EN_MSK		BIT(5)
+>> +#define  MAX40080_RANGE_MSK		BIT(6)
+>> +#define  MAX40080_FILTER_MSK		GENMASK(14, 12)
+> Should be one space after #define, like the first one.
+>> +
+Actually, Jonathan likes to have the extra space to group the
+fields of the register under the register address like this.
 
- - Its reference clock speed is configured with the single-byte FW_CFG
-   form, sent from the ->setup hook (after CORE_RESET, before CORE_INIT).
-   The selector value (0x11) is taken from the vendor configuration for
-   this part; its encoding is not documented.
-
- - It gates its XI clock through a CLK_REQ line: the chip drives it high
-   when it needs the clock, notably to synthesise the 13.56 MHz poll
-   carrier. Left always-on, the free-running clock never lets the chip's
-   TX PLL lock on a fresh start and it cannot poll (it falls back to
-   listen only). Service the handshake when a clk-req GPIO is described,
-   gating the clock on it; without one the clock stays always-on.
-
-The error policy differs between the two configuration steps on purpose:
-a clock misconfiguration is fatal (a ->setup failure aborts CORE_INIT),
-whereas an RF-register update failure is only warned about and bring-up
-continues, since the chip falls back to the RF registers programmed in
-its flash and NFC may still work.
-
-Unlike the host-endian word read in the legacy rfreg path, the
-DUAL_OPTION checksum is accumulated with get_unaligned_le32() and emitted
-little-endian explicitly, so it is correct regardless of CPU endianness.
-
-Existing S3FWRN5 / S3FWRN82 setups keep the firmware-download path and
-the always-on clock, unchanged.
-
-Assisted-by: Claude:claude-opus-4-8
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
----
- drivers/nfc/s3fwrn5/core.c    |  40 +++++++++++-
- drivers/nfc/s3fwrn5/i2c.c     | 114 +++++++++++++++++++++++++++++++---
- drivers/nfc/s3fwrn5/nci.c     | 111 ++++++++++++++++++++++++++++++++-
- drivers/nfc/s3fwrn5/nci.h     |  32 +++++++++-
- drivers/nfc/s3fwrn5/s3fwrn5.h |  14 ++++-
- drivers/nfc/s3fwrn5/uart.c    |   2 +-
- 6 files changed, 299 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/nfc/s3fwrn5/core.c b/drivers/nfc/s3fwrn5/core.c
-index af0fa8bd9..59317eaad 100644
---- a/drivers/nfc/s3fwrn5/core.c
-+++ b/drivers/nfc/s3fwrn5/core.c
-@@ -122,11 +122,47 @@ static int s3fwrn5_nci_send(struct nci_dev *ndev, struct sk_buff *skb)
- 	return 0;
- }
- 
-+static int s3fwrn5_nci_setup(struct nci_dev *ndev)
-+{
-+	struct s3fwrn5_info *info = nci_get_drvdata(ndev);
-+
-+	/*
-+	 * Runs after CORE_RESET, before CORE_INIT. The S3NRN4V needs its
-+	 * reference clock configured here (the downstream stack does it in the
-+	 * bootloader, before CORE_RESET, but this is the earliest hook the NCI
-+	 * core offers and the chip accepts it).
-+	 */
-+	if (info->variant == S3FWRN5_VARIANT_S3NRN4V)
-+		return s3fwrn5_nci_clk_cfg(info);
-+
-+	return 0;
-+}
-+
- static int s3fwrn5_nci_post_setup(struct nci_dev *ndev)
- {
- 	struct s3fwrn5_info *info = nci_get_drvdata(ndev);
- 	int ret;
- 
-+	if (info->variant == S3FWRN5_VARIANT_S3NRN4V) {
-+		/*
-+		 * The S3NRN4V ships with working firmware behind a bootloader
-+		 * protocol this driver does not implement, so there is no
-+		 * download step; the NCI core has already done CORE_RESET +
-+		 * CORE_INIT. Just (re)load the RF registers via DUAL_OPTION.
-+		 */
-+		ret = s3fwrn5_nci_rf_configure_dual(info, "sec_s3nrn4v_hwreg.bin",
-+						    "sec_s3nrn4v_swreg.bin");
-+		/*
-+		 * Keep going even if the blobs could not be loaded: the chip
-+		 * still enumerates and falls back to the RF registers programmed
-+		 * in its flash, so NFC may work anyway.
-+		 */
-+		if (ret < 0)
-+			dev_warn(&ndev->nfc_dev->dev,
-+				 "rfreg configure failed (%d)\n", ret);
-+		return 0;
-+	}
-+
- 	if (s3fwrn5_firmware_init(info)) {
- 		//skip bootloader mode
- 		return 0;
-@@ -152,13 +188,14 @@ static const struct nci_ops s3fwrn5_nci_ops = {
- 	.open = s3fwrn5_nci_open,
- 	.close = s3fwrn5_nci_close,
- 	.send = s3fwrn5_nci_send,
-+	.setup = s3fwrn5_nci_setup,
- 	.post_setup = s3fwrn5_nci_post_setup,
- 	.prop_ops = s3fwrn5_nci_prop_ops,
- 	.n_prop_ops = ARRAY_SIZE(s3fwrn5_nci_prop_ops),
- };
- 
- int s3fwrn5_probe(struct nci_dev **ndev, void *phy_id, struct device *pdev,
--	const struct s3fwrn5_phy_ops *phy_ops)
-+	const struct s3fwrn5_phy_ops *phy_ops, enum s3fwrn5_variant variant)
- {
- 	struct s3fwrn5_info *info;
- 	int ret;
-@@ -170,6 +207,7 @@ int s3fwrn5_probe(struct nci_dev **ndev, void *phy_id, struct device *pdev,
- 	info->phy_id = phy_id;
- 	info->pdev = pdev;
- 	info->phy_ops = phy_ops;
-+	info->variant = variant;
- 	mutex_init(&info->mutex);
- 
- 	s3fwrn5_set_mode(info, S3FWRN5_MODE_COLD);
-diff --git a/drivers/nfc/s3fwrn5/i2c.c b/drivers/nfc/s3fwrn5/i2c.c
-index e9a34d27a..88a498879 100644
---- a/drivers/nfc/s3fwrn5/i2c.c
-+++ b/drivers/nfc/s3fwrn5/i2c.c
-@@ -23,9 +23,53 @@ struct s3fwrn5_i2c_phy {
- 	struct i2c_client *i2c_dev;
- 	struct clk *clk;
- 
-+	/*
-+	 * Optional hardware clock-request handshake. When a CLK_REQ GPIO is
-+	 * wired, the chip drives it high while it needs its XI clock -- notably
-+	 * to generate the poll/reader carrier -- and the clock is gated on it
-+	 * instead of being left always-on (which never lets the chip's TX PLL
-+	 * lock on a fresh clock start, leaving it unable to poll).
-+	 */
-+	struct gpio_desc *gpio_clk_req;
-+	bool clk_on;
-+	struct mutex clk_lock;	/* serialises clk_on against the CLK_REQ irq */
-+
- 	unsigned int irq_skip:1;
- };
- 
-+static void s3fwrn5_i2c_clk_set(struct s3fwrn5_i2c_phy *phy, bool on)
-+{
-+	mutex_lock(&phy->clk_lock);
-+	if (on && !phy->clk_on) {
-+		int ret = clk_prepare_enable(phy->clk);
-+
-+		if (ret == 0)
-+			phy->clk_on = true;
-+		else
-+			dev_warn_once(&phy->i2c_dev->dev,
-+				      "failed to enable clock (%d); NFC may not poll\n",
-+				      ret);
-+	} else if (!on && phy->clk_on) {
-+		clk_disable_unprepare(phy->clk);
-+		phy->clk_on = false;
-+	}
-+	mutex_unlock(&phy->clk_lock);
-+}
-+
-+static void s3fwrn5_i2c_clk_disable_action(void *data)
-+{
-+	s3fwrn5_i2c_clk_set(data, false);
-+}
-+
-+static irqreturn_t s3fwrn5_i2c_clk_req_thread(int irq, void *phy_id)
-+{
-+	struct s3fwrn5_i2c_phy *phy = phy_id;
-+
-+	s3fwrn5_i2c_clk_set(phy, gpiod_get_value_cansleep(phy->gpio_clk_req) > 0);
-+
-+	return IRQ_HANDLED;
-+}
-+
- static void s3fwrn5_i2c_set_mode(void *phy_id, enum s3fwrn5_mode mode)
- {
- 	struct s3fwrn5_i2c_phy *phy = phy_id;
-@@ -146,6 +190,7 @@ static irqreturn_t s3fwrn5_i2c_irq_thread_fn(int irq, void *phy_id)
- 
- static int s3fwrn5_i2c_probe(struct i2c_client *client)
- {
-+	enum s3fwrn5_variant variant;
- 	struct s3fwrn5_i2c_phy *phy;
- 	int ret;
- 
-@@ -172,15 +217,63 @@ static int s3fwrn5_i2c_probe(struct i2c_client *client)
- 	 * S3FWRN5 depends on a clock input ("XI" pin) to function properly.
- 	 * Depending on the hardware configuration this could be an always-on
- 	 * oscillator or some external clock that must be explicitly enabled.
--	 * Make sure the clock is running before starting S3FWRN5.
-+	 *
-+	 * If a CLK_REQ GPIO is wired, the chip gates the clock itself (driving
-+	 * CLK_REQ high when it needs XI); service that handshake. Otherwise just
-+	 * make sure the clock is running before starting S3FWRN5.
- 	 */
--	phy->clk = devm_clk_get_optional_enabled(&client->dev, NULL);
--	if (IS_ERR(phy->clk))
--		return dev_err_probe(&client->dev, PTR_ERR(phy->clk),
--				     "failed to get clock\n");
-+	mutex_init(&phy->clk_lock);
-+	phy->gpio_clk_req = devm_gpiod_get_optional(&client->dev, "clk-req",
-+						    GPIOD_IN);
-+	if (IS_ERR(phy->gpio_clk_req))
-+		return PTR_ERR(phy->gpio_clk_req);
-+
-+	if (phy->gpio_clk_req) {
-+		int clk_req_irq;
-+
-+		phy->clk = devm_clk_get_optional(&client->dev, NULL);
-+		if (IS_ERR(phy->clk))
-+			return dev_err_probe(&client->dev, PTR_ERR(phy->clk),
-+					     "failed to get clock\n");
-+
-+		/*
-+		 * Unlike the always-on branch below, this clock is enabled by
-+		 * hand from the CLK_REQ handler, so devm will not disable it on
-+		 * unbind. Gate it off explicitly if it is still on at teardown.
-+		 */
-+		ret = devm_add_action_or_reset(&client->dev,
-+					       s3fwrn5_i2c_clk_disable_action,
-+					       phy);
-+		if (ret)
-+			return ret;
-+
-+		clk_req_irq = gpiod_to_irq(phy->gpio_clk_req);
-+		if (clk_req_irq < 0)
-+			return clk_req_irq;
-+
-+		ret = devm_request_threaded_irq(&client->dev, clk_req_irq, NULL,
-+						s3fwrn5_i2c_clk_req_thread,
-+						IRQF_TRIGGER_RISING |
-+						IRQF_TRIGGER_FALLING |
-+						IRQF_ONESHOT,
-+						"s3fwrn5_clk_req", phy);
-+		if (ret)
-+			return ret;
-+
-+		/* Seed the clock state from the current CLK_REQ level. */
-+		s3fwrn5_i2c_clk_set(phy,
-+				    gpiod_get_value_cansleep(phy->gpio_clk_req) > 0);
-+	} else {
-+		phy->clk = devm_clk_get_optional_enabled(&client->dev, NULL);
-+		if (IS_ERR(phy->clk))
-+			return dev_err_probe(&client->dev, PTR_ERR(phy->clk),
-+					     "failed to get clock\n");
-+	}
- 
-+	/* No match data (e.g. i2c_device_id binding) means the default FWDL. */
-+	variant = (uintptr_t)i2c_get_match_data(client);
- 	ret = s3fwrn5_probe(&phy->common.ndev, phy, &phy->i2c_dev->dev,
--			    &i2c_phy_ops);
-+			    &i2c_phy_ops, variant);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -210,8 +303,11 @@ static const struct i2c_device_id s3fwrn5_i2c_id_table[] = {
- };
- MODULE_DEVICE_TABLE(i2c, s3fwrn5_i2c_id_table);
- 
--static const struct of_device_id of_s3fwrn5_i2c_match[] __maybe_unused = {
--	{ .compatible = "samsung,s3fwrn5-i2c", },
-+static const struct of_device_id of_s3fwrn5_i2c_match[] = {
-+	{ .compatible = "samsung,s3fwrn5-i2c",
-+	  .data = (void *)S3FWRN5_VARIANT_FWDL, },
-+	{ .compatible = "samsung,s3nrn4v-i2c",
-+	  .data = (void *)S3FWRN5_VARIANT_S3NRN4V, },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, of_s3fwrn5_i2c_match);
-@@ -219,7 +315,7 @@ MODULE_DEVICE_TABLE(of, of_s3fwrn5_i2c_match);
- static struct i2c_driver s3fwrn5_i2c_driver = {
- 	.driver = {
- 		.name = S3FWRN5_I2C_DRIVER_NAME,
--		.of_match_table = of_match_ptr(of_s3fwrn5_i2c_match),
-+		.of_match_table = of_s3fwrn5_i2c_match,
- 	},
- 	.probe = s3fwrn5_i2c_probe,
- 	.remove = s3fwrn5_i2c_remove,
-diff --git a/drivers/nfc/s3fwrn5/nci.c b/drivers/nfc/s3fwrn5/nci.c
-index 5a9de11bb..04f4c3626 100644
---- a/drivers/nfc/s3fwrn5/nci.c
-+++ b/drivers/nfc/s3fwrn5/nci.c
-@@ -8,6 +8,9 @@
- 
- #include <linux/completion.h>
- #include <linux/firmware.h>
-+#include <linux/minmax.h>
-+#include <linux/slab.h>
-+#include <linux/unaligned.h>
- 
- #include "s3fwrn5.h"
- #include "nci.h"
-@@ -20,7 +23,7 @@ static int s3fwrn5_nci_prop_rsp(struct nci_dev *ndev, struct sk_buff *skb)
- 	return 0;
- }
- 
--const struct nci_driver_ops s3fwrn5_nci_prop_ops[4] = {
-+const struct nci_driver_ops s3fwrn5_nci_prop_ops[5] = {
- 	{
- 		.opcode = nci_opcode_pack(NCI_GID_PROPRIETARY,
- 				NCI_PROP_SET_RFREG),
-@@ -41,6 +44,11 @@ const struct nci_driver_ops s3fwrn5_nci_prop_ops[4] = {
- 				NCI_PROP_FW_CFG),
- 		.rsp = s3fwrn5_nci_prop_rsp,
- 	},
-+	{
-+		.opcode = nci_opcode_pack(NCI_GID_PROPRIETARY,
-+				NCI_PROP_DUAL_OPTION),
-+		.rsp = s3fwrn5_nci_prop_rsp,
-+	},
- };
- 
- #define S3FWRN5_RFREG_SECTION_SIZE 252
-@@ -117,3 +125,104 @@ int s3fwrn5_nci_rf_configure(struct s3fwrn5_info *info, const char *fw_name)
- 	release_firmware(fw);
- 	return ret;
- }
-+
-+/*
-+ * Configure the reference clock. The S3NRN4V expects the single-byte FW_CFG
-+ * form (just the clock-speed selector). The downstream stack sends this in the
-+ * bootloader before CORE_RESET; the earliest the mainline NCI core lets us in
-+ * is the ->setup hook (after CORE_RESET, before CORE_INIT), which works.
-+ */
-+int s3fwrn5_nci_clk_cfg(struct s3fwrn5_info *info)
-+{
-+	u8 clk_speed = NCI_PROP_FW_CFG_CLK_SPEED;
-+
-+	return nci_prop_cmd(info->ndev, NCI_PROP_FW_CFG, 1, &clk_speed);
-+}
-+
-+/*
-+ * S3NRN4V RF register update. The HW and SW register blobs are merged into a
-+ * single stream (HW first) and pushed via the DUAL_OPTION command:
-+ * START_UPDATE, one SET_OPTION per 252-byte section, then STOP_UPDATE carrying
-+ * a 16-bit checksum (running sum of the merged stream as 32-bit words).
-+ */
-+int s3fwrn5_nci_rf_configure_dual(struct s3fwrn5_info *info,
-+				  const char *hw_name, const char *sw_name)
-+{
-+	const struct firmware *hw_fw = NULL, *sw_fw = NULL;
-+	struct nci_prop_dual_set_option_cmd set_option;
-+	struct device *dev = &info->ndev->nfc_dev->dev;
-+	size_t merged_size, i, len;
-+	u8 *merged = NULL;
-+	u8 stop_cmd[3];
-+	u32 checksum;
-+	u8 sub_oid;
-+	int ret;
-+
-+	ret = request_firmware(&hw_fw, hw_name, dev);
-+	if (ret < 0)
-+		return ret;
-+	ret = request_firmware(&sw_fw, sw_name, dev);
-+	if (ret < 0)
-+		goto out_hw;
-+
-+	merged_size = hw_fw->size + sw_fw->size;
-+	merged = kmalloc(merged_size, GFP_KERNEL);
-+	if (!merged) {
-+		ret = -ENOMEM;
-+		goto out;
-+	}
-+	memcpy(merged, hw_fw->data, hw_fw->size);
-+	memcpy(merged + hw_fw->size, sw_fw->data, sw_fw->size);
-+
-+	/*
-+	 * Running sum of the merged stream as little-endian 32-bit words. The
-+	 * rfreg blobs are word-aligned, so the loop consumes the whole stream;
-+	 * should a future blob not be a multiple of 4 bytes its tail would be
-+	 * ignored here.
-+	 */
-+	checksum = 0;
-+	for (i = 0; i + 4 <= merged_size; i += 4)
-+		checksum += get_unaligned_le32(merged + i);
-+
-+	dev_dbg(dev, "rfreg dual-option update: %s + %s\n", hw_name, sw_name);
-+
-+	/* START_UPDATE */
-+	sub_oid = NCI_PROP_DUAL_SUB_START_UPDATE;
-+	ret = nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 1, &sub_oid);
-+	if (ret < 0) {
-+		dev_err(dev, "Unable to start rfreg update\n");
-+		goto out;
-+	}
-+
-+	/* SET_OPTION per section */
-+	set_option.sub_oid = NCI_PROP_DUAL_SUB_SET_OPTION;
-+	set_option.index = 0;
-+	for (i = 0; i < merged_size; i += NCI_PROP_DUAL_SECTION_SIZE) {
-+		len = min_t(size_t, merged_size - i, NCI_PROP_DUAL_SECTION_SIZE);
-+		memcpy(set_option.data, merged + i, len);
-+		ret = nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION,
-+				   len + 2, (__u8 *)&set_option);
-+		if (ret < 0) {
-+			dev_err(dev, "rfreg update error (code=%d)\n", ret);
-+			goto out;
-+		}
-+		set_option.index++;
-+	}
-+
-+	/* STOP_UPDATE with checksum */
-+	stop_cmd[0] = NCI_PROP_DUAL_SUB_STOP_UPDATE;
-+	put_unaligned_le16(checksum, &stop_cmd[1]);
-+	ret = nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 3, stop_cmd);
-+	if (ret < 0) {
-+		dev_err(dev, "Unable to stop rfreg update\n");
-+		goto out;
-+	}
-+
-+	dev_dbg(dev, "rfreg dual-option update: success\n");
-+out:
-+	kfree(merged);
-+	release_firmware(sw_fw);
-+out_hw:
-+	release_firmware(hw_fw);
-+	return ret;
-+}
-diff --git a/drivers/nfc/s3fwrn5/nci.h b/drivers/nfc/s3fwrn5/nci.h
-index bc4bce2bb..23179ba09 100644
---- a/drivers/nfc/s3fwrn5/nci.h
-+++ b/drivers/nfc/s3fwrn5/nci.h
-@@ -40,6 +40,13 @@ struct nci_prop_stop_rfreg_rsp {
- 
- #define NCI_PROP_FW_CFG		0x28
- 
-+/*
-+ * Single-byte FW_CFG payload (clock-speed selector) for the S3NRN4V reference
-+ * clock. Taken from the vendor configuration for this part (the encoding is
-+ * not documented).
-+ */
-+#define NCI_PROP_FW_CFG_CLK_SPEED	0x11
-+
- struct nci_prop_fw_cfg_cmd {
- 	__u8 clk_type;
- 	__u8 clk_speed;
-@@ -50,7 +57,30 @@ struct nci_prop_fw_cfg_rsp {
- 	__u8 status;
- };
- 
--extern const struct nci_driver_ops s3fwrn5_nci_prop_ops[4];
-+/*
-+ * The S3NRN4V updates its RF registers through a single "dual option" command
-+ * (a sub-OID selects the operation) instead of the START/SET/STOP_RFREG
-+ * opcodes above, and expects the HW and SW register blobs merged into one
-+ * stream.
-+ */
-+#define NCI_PROP_DUAL_OPTION		0x2a
-+
-+#define NCI_PROP_DUAL_SUB_START_UPDATE	0x01
-+#define NCI_PROP_DUAL_SUB_SET_OPTION	0x02
-+#define NCI_PROP_DUAL_SUB_STOP_UPDATE	0x03
-+
-+#define NCI_PROP_DUAL_SECTION_SIZE	252
-+
-+struct nci_prop_dual_set_option_cmd {
-+	__u8 sub_oid;	/* NCI_PROP_DUAL_SUB_SET_OPTION */
-+	__u8 index;
-+	__u8 data[NCI_PROP_DUAL_SECTION_SIZE];
-+};
-+
-+extern const struct nci_driver_ops s3fwrn5_nci_prop_ops[5];
- int s3fwrn5_nci_rf_configure(struct s3fwrn5_info *info, const char *fw_name);
-+int s3fwrn5_nci_rf_configure_dual(struct s3fwrn5_info *info,
-+				  const char *hw_name, const char *sw_name);
-+int s3fwrn5_nci_clk_cfg(struct s3fwrn5_info *info);
- 
- #endif /* __LOCAL_S3FWRN5_NCI_H_ */
-diff --git a/drivers/nfc/s3fwrn5/s3fwrn5.h b/drivers/nfc/s3fwrn5/s3fwrn5.h
-index 2b4922360..2d8c12091 100644
---- a/drivers/nfc/s3fwrn5/s3fwrn5.h
-+++ b/drivers/nfc/s3fwrn5/s3fwrn5.h
-@@ -21,6 +21,17 @@ enum s3fwrn5_mode {
- 	S3FWRN5_MODE_FW,
- };
- 
-+enum s3fwrn5_variant {
-+	/* S3FWRN5 / S3FWRN82: firmware is downloaded by this driver */
-+	S3FWRN5_VARIANT_FWDL,
-+	/*
-+	 * S3NRN4V: ships with working firmware behind a bootloader protocol
-+	 * this driver does not implement; skip the download, configure the
-+	 * clock (FW_CFG) and update the RF registers via the DUAL_OPTION cmd.
-+	 */
-+	S3FWRN5_VARIANT_S3NRN4V,
-+};
-+
- struct s3fwrn5_phy_ops {
- 	void (*set_wake)(void *id, bool sleep);
- 	void (*set_mode)(void *id, enum s3fwrn5_mode);
-@@ -36,6 +47,7 @@ struct s3fwrn5_info {
- 	const struct s3fwrn5_phy_ops *phy_ops;
- 
- 	struct s3fwrn5_fw_info fw_info;
-+	enum s3fwrn5_variant variant;
- 
- 	struct mutex mutex;
- };
-@@ -78,7 +90,7 @@ static inline int s3fwrn5_write(struct s3fwrn5_info *info, struct sk_buff *skb)
- }
- 
- int s3fwrn5_probe(struct nci_dev **ndev, void *phy_id, struct device *pdev,
--	const struct s3fwrn5_phy_ops *phy_ops);
-+	const struct s3fwrn5_phy_ops *phy_ops, enum s3fwrn5_variant variant);
- void s3fwrn5_remove(struct nci_dev *ndev);
- 
- int s3fwrn5_recv_frame(struct nci_dev *ndev, struct sk_buff *skb,
-diff --git a/drivers/nfc/s3fwrn5/uart.c b/drivers/nfc/s3fwrn5/uart.c
-index 540a4ddb0..47172d739 100644
---- a/drivers/nfc/s3fwrn5/uart.c
-+++ b/drivers/nfc/s3fwrn5/uart.c
-@@ -137,7 +137,7 @@ static int s3fwrn82_uart_probe(struct serdev_device *serdev)
- 	}
- 
- 	ret = s3fwrn5_probe(&phy->common.ndev, phy, &phy->ser_dev->dev,
--			    &uart_phy_ops);
-+			    &uart_phy_ops, S3FWRN5_VARIANT_FWDL);
- 	if (ret < 0)
- 		goto err_serdev;
- 
--- 
-2.55.0
+And even better is to include the register name in the field
+macros too, e.g. MAX40080_CFG_MODE_MSK.
 
