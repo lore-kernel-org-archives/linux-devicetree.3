@@ -1,179 +1,276 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D87277007;
-	Fri,  3 Jul 2026 15:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417B83D9541
+	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 15:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783093301; cv=none; b=YCFlSp2cp4O20I63U+UBJdVnqnRZv4E5+5IVwKxzeYFPP3uwZ+S/c9gjpjpe6UjSNnVpamarfLwEE4pkPE9fla8+XzKrgxqNzvuMI05auKEYc8kQk6v27/XSZbmvhXQ5NFyWyiq8kXHHy2Hncx3m/4vH/diP7EfibzUXRLxvi7M=
+	t=1783093371; cv=none; b=s+lsIX/guuuo/8CdZH2SHiVIW8zBcON4R4ydbq2FFuVo9iNhv97iUKPOH9j9m+Hpz/FEq6YnJPtGQhN27RYqaSXPt+fwWiI0sfdD0Y17sPOTiOKo57oud4ngtPBWDmozKWmO8U91eiEL8dX3qWcMJRk6j6xT7/pZaFbiX40Po4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783093301; c=relaxed/simple;
-	bh=Fjo3cuWbsbC2T9TQ0UvPaekvgFSg1eYre8uhD4+fErg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=exzibRY8QV/aSWrgpDKH0dPSL6j2KnmoK1WStvmn7ux4TnupDuM4meRuxEfC2Hta6ZZT7muuR/KHM86DGoBqXelecNahvxEaYp9wibT66d0U8vMS1ypUL7dH/Afzz3RbnEuPVz2c3Et7+VgK15OEV3gggK+iZAkh9dHtCQecDLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2/MAfq6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783093371; c=relaxed/simple;
+	bh=dGpqlOqSR01XHv3OV+Dnkr1uupemNZ2RhLc1o8MWR6o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YkxELoNuU94p4K5QQmNM0l7DVxsJTVy+Etty/wAGd2CxYJAFVsnGzziFqRvbJMcbxElDBACZrRLw3kzoIBOzNl1fv/XyjgRb1fHWHGJW4WuiMM2XMz3/DiVYnjJ1Tzk1xIblJiYqhLnsFyz/4e0CYht+0YdZYvCUMTGe7cHe9pI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HS+QXMBg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Lf/VWm2o; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2/MAfq6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AF511F000E9;
-	Fri,  3 Jul 2026 15:41:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783093299;
-	bh=/qI+sP7d0y35kQBQDwCk76FmL/JdgN+0O6MrtOfev9E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e2/MAfq6t3WGKI/fZ/7c6eoNSqm53IfGpyI6djtlUjgfmxjx8gRv377mq9dG54HQF
-	 iY6Na8CYwZV2xwRrtabwSBE2vcTeJLpouUZDvFSHxr9g6cEZsVkMZd1zzRHK617UQn
-	 ks8kaKcr0PD1PuucvImns0n70wwOvuzNG6svppM9UYHyP3wh8Qcdp/C29zjAfo6x3d
-	 DFyegwpE/VZDfIRg/Ws5VvGFYVJIaC18zFc85jSasK4bRICc1sRGCppyS3Db+Et5G/
-	 kzV+8E+m1M/Zp/Y0vXXqYajKio/cUDl/9/Sn9B4lv1wDMg6IlYtP7dq7DSlQdz/eNk
-	 bs+3W/+/bSotw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 1/1] arm64: dts: freescale: imx9-var-dart-sonata: fix
- Ethernet PHY configuration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260703152731.236793-1-stefano.r@variscite.com>
-References: <20260703152731.236793-1-stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 15:41:38 +0000
-Message-Id: <20260703154139.8AF511F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HS+QXMBg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Lf/VWm2o"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663D16xo053890
+	for <devicetree@vger.kernel.org>; Fri, 3 Jul 2026 15:42:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=/uhlRmvz/WQjjbKiBFfgMn1G
+	5ciXJwRFCcXq2LAY/Kg=; b=HS+QXMBgorYfQjx4nRPZii7yBz4DHXo1HQ2Sy2Ro
+	rrmh9xWGHf8+peR+g7CzGfBd5iWLeAdPj7nvLE2Wxd4DKpC66uGuT6RyDVbiYagH
+	mxbiKKOj0pA/0Y8aVS974AuJbvmz4t4BWDaLhSfFbh0NsjtQ8AGswe41W6fK/2/R
+	F1Kcm56cpSK+imcs4mWRW5mAMSNSGPLDzVUoFOduRNBhrguhdl15uuc+0WoN04Lm
+	YHNy9gNtwbmuaBvvng0B1A2TroJUwvLGSqILXgbPzlSEOov/5NB7sOfiruBB4Lec
+	MwpjLwuiKJ/GWPpc19essRL1vnvF3AMoPez5pbDopGH3oQ==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6dkkgh7e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 15:42:48 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5954c5fbcc7so525270e0c.0
+        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 08:42:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783093367; x=1783698167; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=/uhlRmvz/WQjjbKiBFfgMn1G5ciXJwRFCcXq2LAY/Kg=;
+        b=Lf/VWm2oyr1p06nhaEDvq10SNZkgr74dP7N58zP7Ql5zKelTAs0rrHsmk5orCAnnu6
+         FYXIN4DU8GrHYPkOzK5LZlpD1iv7wXFOfk+BRIdN6cNSOvKIFScmi6YoD8AvFXOPCBK7
+         QTrqN6UJjO0GOXAoogqYThLfTzzbNy4mhG2kl0JjK3SzTuX0ZBPDE/JhH6op0TZVdAhS
+         FKfqoSySSYSwjIl/Gl8EiAeY2ascVh+q7EcOCuaG22bYTbWTL7ImNC3x0rkW52BHFnf7
+         qQEVJe+xARQISJ96Jvb/t4tHWaBF8gWmrk4CoKnp8A6tN6mEBamGa/zoTK629mxaIJbT
+         XAkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783093367; x=1783698167;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/uhlRmvz/WQjjbKiBFfgMn1G5ciXJwRFCcXq2LAY/Kg=;
+        b=doik03Rb4aLlpMqv3hsvzhTOx5/53uOc50ur4jnqkfbLSd6dcQP8Gz50kwQtS5WSv6
+         qAez7KT78MDhvpjCXgw88iZajY1ysQ3CwVp+dqjiMK0jyF52gS9kkmEpCo8VaBZZkY+B
+         YZnktoUAy6SPmv38mQnv2SR48Op0076i6ZlskiLPyNErusyKT7VpFTuY4acrC3BnAzT6
+         Icr1tUdYe/MaLhmChstVXpEKoKxpLHxpdiuFEUU+hjKJ3i4IBmjbCMRXSAdJjza3iUx0
+         ksEBDNS16hqQ58wl0yELobQzf89JQfvq9bhl4G2YmdBhOr4VAl0gz+14LL7dgW3vx0k2
+         qiUA==
+X-Forwarded-Encrypted: i=1; AHgh+Roov0O5wchcEOXbXF7SdI/98h8WNIJZlLjWzNSZyk5Sb4G2rmQXclA4yq85wOPKc7sUtu5O358NKdt2@vger.kernel.org
+X-Gm-Message-State: AOJu0YyZm+Ji0feIl+0hOpSM6xN77coQF5kTvVyKjWEGw3inMUeUD/tq
+	GTWYDvAEMgClV/wvC+If9NX3xkX2NIE5rYqcT1ZmgeyPlfHO/I2wmGCS7HirpGF9eUXpiMm4ZEB
+	dOHvfpUu/P2NnocEyZrk16iIq5DkIra+ncvGDyoSPeLYaFy+X3s7JcHhzEDlgPy8w
+X-Gm-Gg: AfdE7ckbbL0T1j+xEQH9Kl2pjd7ZOI/rMthYagWCupzU+sz0gAbMYytrOf4mOrPM5Bc
+	b2uQwmiWhvekQEwocOMyi7eBgLzdsUfGHQenfwmvCoIE6SZBAnBuqDJCm3ZzrTHRLsGnPfo+YoR
+	FuheGT6Zgw3HsGIDPACUPkQc3pWAEwT/hHvoZKU8kIhJIQ6NUFZNXINnJx76RKACr2hc/txkCQ7
+	c7HqwCsxbtmlEOaV7h1PsBS9HaXQBKwVrlo3yYKMm94dqu2eFoCNKTqoUrcH8+LIG+UvNnVZQs9
+	QD90EiJQybBSEYwq/570UbyF4lkgx99iS28maTKmeVfzF5pOSIKnao6XM9ce7Wjc+PJB3azYvWY
+	VIk1ggT6Hg8VsWjSP8GnngA5GYvo+oSJGBDkB9Sts8FSfvbLZtvGFS0g+JNVL+52mrQZ4LGramz
+	xBzQjbhT/DouFRtgClXyLpm3aF
+X-Received: by 2002:a05:6122:3a0c:b0:5bd:95ab:fcf7 with SMTP id 71dfb90a1353d-5be0fecac1cmr95845e0c.0.1783093367300;
+        Fri, 03 Jul 2026 08:42:47 -0700 (PDT)
+X-Received: by 2002:a05:6122:3a0c:b0:5bd:95ab:fcf7 with SMTP id 71dfb90a1353d-5be0fecac1cmr95816e0c.0.1783093366681;
+        Fri, 03 Jul 2026 08:42:46 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed13bb768sm565664e87.52.2026.07.03.08.42.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jul 2026 08:42:45 -0700 (PDT)
+Date: Fri, 3 Jul 2026 18:42:42 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-hardening@vger.kernel.org,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Subject: Re: [PATCH v4 01/10] dt-bindings: firmware: qcom: tmd: add TMD
+ device type constants
+Message-ID: <yvggh2zs6qkuyuzvwydkecswnjoyba2d7t27br6xpk6d2csp53@i25g6okdktz5>
+References: <20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com>
+ <20260703-qmi-tmd-v4-1-3882189c1f83@oss.qualcomm.com>
+ <977711ef-c1fb-4735-b82a-4ca2f4797f51@oss.qualcomm.com>
+ <8ad14017-bce7-485e-9677-9cbf8ecb2742@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8ad14017-bce7-485e-9677-9cbf8ecb2742@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE1NSBTYWx0ZWRfX1Vblg83YxO2w
+ xnBlQSnDvMXNfRHjDj437aBkT7arWU2oMVAR442oXdtWfyDRTBOQ7WFBfpySBk4PFceK9/jR+Vf
+ hgRsv8N9b+i26lRysWwPgMf3SY5XjXJl9zzBwMEBX1ivAO4rwkRimkLjpsJ+SdmrZ/wzwFUp6Ji
+ HahrROtaUs2UVm0hnevzizwbvP/jaF6lHG84R236Z2i675ThkGCR4SkR+zJKrU1cs+kv7KXvvvf
+ 3CMlGIK8azU/VTW5VTMNhykl1gpQtkCVUAp9Yzsxa84oxoqARSr12qdiGGcMLaKnyOrc0V9jvtq
+ xDiCGKG5k9Q/IBbFg9aj7x9NaT/t4qMdz+wPjw+X92iI1j/9V+UfjzUcGxQeRMtW0Q1dJ1t9Mec
+ JO3G9LG8oR2OZnYkOjjvvcNM01PMrQZNtqxmnTDkMEa2e/8rZIrkGirVrcdDABWaV0lvzxoMLyv
+ jnEeT9CSesVWDPvmONg==
+X-Authority-Analysis: v=2.4 cv=LeUMLDfi c=1 sm=1 tr=0 ts=6a47d878 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=0Hel9obb22bScKhzErkA:9 a=CjuIK1q_8ugA:10
+ a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-ORIG-GUID: jxs0HlCCy5457Hi2PqcZWbO3ghqHZU0t
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE1NSBTYWx0ZWRfXwLKlKB5O/x8J
+ 7snOXUGAAIJR3bW/kPndnr0VwqTcHceJgfY9bwlO8aNhovamJajFqpOld0GyQLX/6lNCICkRELR
+ hXLPI0KumgSiEinogmFninwvNSMgKEc=
+X-Proofpoint-GUID: jxs0HlCCy5457Hi2PqcZWbO3ghqHZU0t
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
+ suspectscore=0 bulkscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030155
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Removing the explicitly linked `reset-gpios` property from the PHY=
- nodes without adding a corresponding `-supply` reference breaks `fw_devlin=
-k` dependency ordering, creating a probe race condition.
-- [Medium] Replacing the PHY reset configuration with a fixed regulator red=
-uces the post-enable delay from 100ms to 10ms, which may violate the PHY's =
-initialization timing requirements.
---
+On Fri, Jul 03, 2026 at 07:43:39PM +0530, Gaurav Kohli wrote:
+> 
+> 
+> On 7/3/2026 1:23 PM, Konrad Dybcio wrote:
+> > On 7/3/26 7:03 AM, Gaurav Kohli wrote:
+> > > Add Device Tree binding constants for Qualcomm Thermal Mitigation
+> > > Device (TMD) types used by remoteproc-backed thermal cooling devices.
+> > > 
+> > > Qualcomm remote processors expose thermal mitigation endpoints
+> > > through QMI. These endpoints can be registered with the thermal
+> > > framework via the `#cooling-cells` property on the remoteproc node.
+> > > 
+> > > The QMI TMD protocol identifies devices using string names (for example,
+> > > "pa", "modem", and "cdsp_sw"), while the DT cooling-device binding with
+> > > `#cooling-cells = <3>` requires numeric device id in the form:
+> > > 
+> > >    <&phandle device_id min_state max_state>
+> > > 
+> > > Define common TMD device index constants shared across currently
+> > > supported platforms. If a future target requires a different mapping,
+> > > additional target-specific constants can be introduced while preserving
+> > > existing DT ABI.
+> > > 
+> > > Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> > > ---
+> > >   MAINTAINERS                                 |  1 +
+> > >   include/dt-bindings/firmware/qcom,qmi-tmd.h | 20 ++++++++++++++++++++
+> > >   2 files changed, 21 insertions(+)
+> > > 
+> > > diff --git a/MAINTAINERS b/MAINTAINERS
+> > > index 57656ec0e9d5..ffd85fd1dd80 100644
+> > > --- a/MAINTAINERS
+> > > +++ b/MAINTAINERS
+> > > @@ -3410,6 +3410,7 @@ F:	drivers/firmware/qcom/
+> > >   F:	drivers/soc/qcom/
+> > >   F:	drivers/watchdog/gunyah_wdt.c
+> > >   F:	include/dt-bindings/arm/qcom,ids.h
+> > > +F:	include/dt-bindings/firmware/qcom,qmi-tmd.h
+> > >   F:	include/dt-bindings/firmware/qcom,scm.h
+> > >   F:	include/dt-bindings/soc/qcom*
+> > >   F:	include/linux/firmware/qcom
+> > > diff --git a/include/dt-bindings/firmware/qcom,qmi-tmd.h b/include/dt-bindings/firmware/qcom,qmi-tmd.h
+> > > new file mode 100644
+> > > index 000000000000..73efecef0f3c
+> > > --- /dev/null
+> > > +++ b/include/dt-bindings/firmware/qcom,qmi-tmd.h
+> > > @@ -0,0 +1,20 @@
+> > > +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
+> > > +/*
+> > > + * Qualcomm QMI TMD (Thermal Mitigation Device) cooling device indices
+> > > + *
+> > > + * These indices are used in device tree cooling-maps to reference
+> > > + * specific TMD devices provided by remote processors via QMI.
+> > > + *
+> > > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > > + */
+> > > +#ifndef _DT_BINDINGS_FIRMWARE_QCOM_QMI_TMD_H
+> > > +#define _DT_BINDINGS_FIRMWARE_QCOM_QMI_TMD_H
+> > > +
+> > > +/* CDSP thermal mitigation device id */
+> > > +#define QCOM_CDSP_TMD_CDSP_SW	0
+> > > +
+> > > +/* Modem thermal mitigation device id */
+> > > +#define QCOM_MODEM_TMD_PA	0
+> > > +#define QCOM_MODEM_TMD_MODEM	1
+> > 
+> > What about the dozens other ones that Dmitry's laptop reports?Ri
+> > 
+> 
+> Thanks for the review, Konrad.
+> 
+> We are only defining constants for the TMD devices that are actually used
+> for thermal mitigation on the platforms supported by this series.
 
-commit aa29283e1adc330c15b9cab63314f0eec59e0b65
-Author: Stefano Radaelli <stefano.r@variscite.com>
-arm64: dts: freescale: imx9-var-dart-sonata: fix Ethernet PHY configuration
+Why are you using only those TMD devices?
 
-This commit corrects the Ethernet PHY description on DART-MX9 Sonata boards=
- by
-modeling the PHY reset line as a fixed regulator instead. It removes the
-reset-gpios property from the PHY nodes and asserts the enable signal during
-boot to ensure initialization completes successfully.
+> More constants can be added as needed.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts b/ar=
-ch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
-> index 3f0fd321d95f0..f7e32f9375f50 100644
-> --- a/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
-[ ... ]
-> +	reg_phy1_supply: regulator-phy1 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "SUPPLY_PHY1";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		gpio =3D <&pca6408_2 0 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +		startup-delay-us =3D <10000>;
+Kodiak is one of the supported platforms.
 
-[Severity: Medium]
-Could reducing the post-enable delay from 100ms (originally in
-reset-deassert-us) to 10ms violate the PHY's initialization timing
-requirements?
+Running the same tool produces:
 
-> +		regulator-always-on;
-> +	};
-[ ... ]
-> @@ -139,9 +150,6 @@ mdio {
->  		ethphy1: ethernet-phy@1 {
->  			compatible =3D "ethernet-phy-ieee802.3-c22";
->  			reg =3D <1>;
+TMD service: instance=0x00 (modem) node=0 port=20
+  29 mitigation device(s):
+    [ 0] pa                       max_mitigation_level=3
+    [ 1] pa_fr1                   max_mitigation_level=3
+    [ 2] modem                    max_mitigation_level=3
+    [ 3] cpuv_restriction_cold    max_mitigation_level=1
+    [ 4] modem_current            max_mitigation_level=3
+    [ 5] vbatt_low                max_mitigation_level=3
+    [ 6] charge_state             max_mitigation_level=3
+    [ 7] modem_skin               max_mitigation_level=3
+    [ 8] modem_bw                 max_mitigation_level=5
+    [ 9] mmw0                     max_mitigation_level=3
+    [10] mmw1                     max_mitigation_level=3
+    [11] mmw2                     max_mitigation_level=3
+    [12] mmw3                     max_mitigation_level=3
+    [13] mmw_skin0                max_mitigation_level=3
+    [14] mmw_skin1                max_mitigation_level=3
+    [15] mmw_skin2                max_mitigation_level=3
+    [16] mmw_skin3                max_mitigation_level=3
+    [17] mmw_skin0_dsc            max_mitigation_level=15
+    [18] mmw_skin1_dsc            max_mitigation_level=15
+    [19] mmw_skin2_dsc            max_mitigation_level=15
+    [20] mmw_skin3_dsc            max_mitigation_level=15
+    [21] wlan                     max_mitigation_level=4
+    [22] wlan_bw                  max_mitigation_level=1
+    [23] modem_skin_lte_dsc       max_mitigation_level=255
+    [24] modem_skin_nr_dsc        max_mitigation_level=255
+    [25] pa_dsc                   max_mitigation_level=255
+    [26] pa_fr1_dsc               max_mitigation_level=255
+    [27] modem_bw_backoff         max_mitigation_level=255
+    [28] cpr_cold                 max_mitigation_level=3
 
-[Severity: High]
-Since the explicitly linked reset-gpios property was removed below, shouldn=
-'t
-there be a corresponding phy-supply =3D <&reg_phy1_supply>; link here to ma=
-intain
-the device link dependency?
+TMD service: instance=0x01 (adsp) node=5 port=8
+  1 mitigation device(s):
+    [ 0] cpuv_restriction_cold    max_mitigation_level=1
 
-Without this link, fw_devlink no longer sees any dependency between the
-Ethernet subsystem and the GPIO expander. Could the MAC driver probe and sc=
-an
-the MDIO bus before the I2C GPIO expander (pca6408_2) and the new always-on
-regulator are initialized, resulting in get_phy_device() failing with -ENOD=
-EV?
+TMD service: instance=0x43 (cdsp) node=10 port=9
+  3 mitigation device(s):
+    [ 0] cpuv_restriction_cold    max_mitigation_level=1
+    [ 1] cdsp_hw                  max_mitigation_level=1
+    [ 2] cdsp_sw                  max_mitigation_level=7
 
-> -			reset-gpios =3D <&pca6408_2 0 GPIO_ACTIVE_LOW>;
-> -			reset-assert-us =3D <15000>;
-> -			reset-deassert-us =3D <100000>;
-> =20
->  			leds {
->  				#address-cells =3D <1>;
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts b/ar=
-ch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
-> index 5513d3b148a2f..1ca3ec8330d07 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx93-var-dart-sonata.dts
-[ ... ]
-> +	reg_phy1_supply: regulator-phy1 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "SUPPLY_PHY1";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		gpio =3D <&pca6408_2 0 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +		startup-delay-us =3D <10000>;
 
-[Severity: Medium]
-Does this same reduction to a 10ms startup delay also risk initialization
-failure here?
+> 
+> > https://lore.kernel.org/linux-arm-msm/4gs664zboaqgpok33x7bgorfmhh3f2fahjkt4jjl6fbzpwixnm@hxzz2xeogd4k/
+> > 
+> > Konrad
+> 
 
-> +		regulator-always-on;
-> +	};
-[ ... ]
-> @@ -180,9 +191,6 @@ mdio {
->  		ethphy1: ethernet-phy@1 {
->  			compatible =3D "ethernet-phy-ieee802.3-c22";
->  			reg =3D <1>;
-
-[Severity: High]
-Does this node also need a phy-supply =3D <&reg_phy1_supply>; property to p=
-revent
-the probe race condition described above?
-
-> -			reset-assert-us =3D <15000>;
-> -			reset-deassert-us =3D <100000>;
-> -			reset-gpios =3D <&pca6408_2 0 GPIO_ACTIVE_LOW>;
-> =20
->  			leds {
->  				#address-cells =3D <1>;
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts b/ar=
-ch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-> index 7a58ad38ffb46..ccf7e77016e48 100644
-> --- a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-[ ... ]
-> @@ -346,9 +346,6 @@ &netc_emdio {
->  	ethphy1: ethernet-phy@1 {
->  		compatible =3D "ethernet-phy-ieee802.3-c22";
->  		reg =3D <1>;
-
-[Severity: High]
-Does this PHY node also require a phy-supply property to maintain its
-dependency ordering after the reset-gpios removal?
-
-> -		reset-gpios =3D <&pca6408_2 0 GPIO_ACTIVE_LOW>;
-> -		reset-assert-us =3D <10000>;
-> -		reset-deassert-us =3D <100000>;
-> =20
->  		leds {
->  			#address-cells =3D <1>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703152731.2367=
-93-1-stefano.r@variscite.com?part=3D1
+-- 
+With best wishes
+Dmitry
