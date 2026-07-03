@@ -1,132 +1,92 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDFE63CC33D
-	for <devicetree@vger.kernel.org>; Fri,  3 Jul 2026 12:17:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783081053; cv=pass; b=jn1vlrP0ENAUix0w6brLKpjhNxswOoMI0LOTf2prA6r5RTh4J4ssU+y5lD33JIv0mBicECoY8GsMz6etsaVoJmOv6JWciXGdoJOduOgz3AgeCzSdNERLr1wf62KhZmonyZE4MlOETo07xBcTxw+3chhOJsKg9tp89BSIq2aMdQA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783081053; c=relaxed/simple;
-	bh=wKIP/2g7MTxmMgVnWjjRdFjs9hik6bQNvbKXHobNWdc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CfYz5ajsFrmvU3GJo4VoABHj5z7eSiUk6zSy8ZFhirCPK7/V01DTTTpQAvJVMf9weBFQ3JinWTPEeJ/rft3ZFTg+9mFbHsWGIGTtDFb7AL1wzmHYx0FGtRLaFIFS3WCpa17f7hGcXC6nBQXVcQYr+YBj4TjLablGQc3wqv/WLk4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=La4rLw5G; arc=pass smtp.client-ip=74.125.224.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D80432AAA0;
+	Fri,  3 Jul 2026 12:25:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783081513; cv=none; b=adev5HtwgEhAr55HEFJcfp+wh+9E0OYsUMhr7agWcnZdgvSBp7vjyZ/pazgSehXeZkprahsOvMpyXMd6i8VlnWq06pewWpjTfjWj92RJNpvC+IzHJhGzk9FnmGhMrPbt6QlTn/t952JcQMCkwY9kXKVWFlXIHDiXjd+/BrhBces=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783081513; c=relaxed/simple;
+	bh=e1nuJFUrHXMqYPp1Om3pEOEhsrVbohkdZMw63EKJXbo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JVAlKcx6R4Rs9h3ZOqcPlo7nZgKXi1R+l6HYD4ib0hHbWBuK83UXsLBYBUsIMsQPP2xqLlwpMOqmVpGxwYK3Z9fiIeP2mAsTjjwPEWjm5UAL5adhKgpj1HNb19T/0EAWiuHq6Zn8HsgvDbh17A24P9Oyh4y2cLETx4V3JDtHpTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RfUcXudw; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="La4rLw5G"
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-664d35b4777so573782d50.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Jul 2026 05:17:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783081051; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YQNpIwpmmjBJg5RSwlHi2FvSyn1erOzjVPzlAc4/buH0fMsYAb2QPRPKTo8bfqHbPu
-         aM2o0vIyunKWFeQtQA/38RwHQFk6pJApzQ0bfG4NOk8Xz3pR3pZlstIkgSNWJ7hePSxp
-         /KIlNjcztp6pNPFqrab5K5QKXxc8qt/3mhXU8nC+m8nae5+HqBuUVTefH8Gpa5eLWYlQ
-         HfL4SJzQGWXw/ZTBx1phu5KIBUIDgXIdCm05mN/8QZJmEu0wqoNCknQ8B26G1VekyloG
-         Tb1cCjJgmlkncpdUJKuLXRizh3q5LmDI42p3G84ln0cIShcwySIL/QQGhwL4/DWFF6Tv
-         k4OA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wKIP/2g7MTxmMgVnWjjRdFjs9hik6bQNvbKXHobNWdc=;
-        fh=/kuGQRHrqG4qXA604g3OZhBlCoy0MCL4a89bcIci198=;
-        b=BtINlCO2RF0/aZS6FLChWwesEDOh1e9Fw0BU0r5pLFdQN9nId8YUx0YQZ6b3PQ0doQ
-         ruTom2vTWeC7VmY0EkFqvi1ImMOorxGDRAgaqyngjsDqEKfxSSaWIxxmzz/VzlbZJ5vb
-         i8LPdDEXZhII1xB1LPf+b/Mi7eVb9VEsjYlcMbIslB2zNubfuDerKE+9YF/V2H+kyyFI
-         yNSj3npEc/jwUXA9o2mTGk4bH41Q1g2rnwyyB8FkGq/+F4s+ZUAKcRmpVLmBeNQC4l7t
-         T92D+nSizwHev6RTa5qmnXrZPPkB0DDku7QFT8Hxhx2bzNxpo1JIFhyRUzIqxcJRR5K7
-         ezTQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1783081051; x=1783685851; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wKIP/2g7MTxmMgVnWjjRdFjs9hik6bQNvbKXHobNWdc=;
-        b=La4rLw5Gf5gqClv10KJUzRgbRZWpkKExtGoirU0CX9a9jrQYpre1JYB5m/lZqJPlf0
-         3cYEc+cCqrXzelFvrandfTJ1HTW1qcjS4V28uWSp/W6eKpaaI5WeEngCHPnPmiZ1hWWd
-         iGuEVo1TxLdpP8k9+6p9LSymgO+vPjFK4hGRk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783081051; x=1783685851;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wKIP/2g7MTxmMgVnWjjRdFjs9hik6bQNvbKXHobNWdc=;
-        b=jlr/HQtSE3oBWwCCzVorCRs5RjqkeuL8l44XgLUtKzu4E2eYLz0KLdZeSkDcv05AZe
-         LTLZEwUj3a50OI1KtGJVpJyN/Ux79QeIm2LLdGyiKxj7OKtI5gHzuH3kRHSxhZvBZoSW
-         p4eeQNJ5QOFyuMHAVwJE2nHDyTzKN0JCxfXM0tP5o9QY4eR9njHhDQUfPO7h2eEyzcji
-         krMtTODCCOobEOx/bGxuRbnKOMUwov2M845kOMwn7LZH7kya/VaZL6vFosZJeAyuC5i1
-         3Q2dOHenSm04Jpd83+w+mE4iU820AmXDXIk5xLC8Fb4q8A+E8HqYDu0L9R5QvYEPLe2L
-         F+0w==
-X-Forwarded-Encrypted: i=1; AHgh+RqmtJCsW51NxisE/5cmoUwGw+R3Z52Vnsmuez0CvYF/mwNxl0oUk3iGF5dCCPYit++1Ewf7w3hvc4OP@vger.kernel.org
-X-Gm-Message-State: AOJu0YxT7G24rwmFleF04maYCmTcmuid4DKIsSRatf6HROeRyY+LccA1
-	oY/4gsObRKrHEz56Ilskm5N+9/dsfxvxSQl8DYK1Kzb8yt7tQNu7u4K7EiPnHSR1mMNviWeVvsB
-	SLs0IIBw1FJpcxuhs+DSG21YZZGWWAfm0xQjTJjpw
-X-Gm-Gg: AfdE7cnVFrkrNSOARj62JE4W99+MER5005Y5VgSEDZtPp02msFTQn+CaB20TnxTfguj
-	i9g966UtXqVZpM1wRcfBHzDmTQP1WkIHEQtwIMjJyZad/nZyDIacyxfFgTGU4F8+JcTCIG96yC3
-	Pj9x5Kzs++t6Idwix4+bdjqykgnoCAyX8eNT1a+LfXOo3kSeA6IItbv2sKhal5iA25SY/7VVXC+
-	rqXAq1G3zHEzsIbBZJlprCHKQmzkkc0MGXs3f6et75VhK3sP8fqcd/x8BbNDgLm5gFM2sMgxveL
-	1cWsANQttvmzkMgHLJ8UtdL3B9I=
-X-Received: by 2002:a05:690e:bcd:b0:664:ae03:524e with SMTP id
- 956f58d0204a3-6652195244emr9486423d50.6.1783081050982; Fri, 03 Jul 2026
- 05:17:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RfUcXudw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783081511; x=1814617511;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=e1nuJFUrHXMqYPp1Om3pEOEhsrVbohkdZMw63EKJXbo=;
+  b=RfUcXudwyw1TZKEg3M4kOMinWmBjMedi+7twg2tqnU6vwZFZBfwGM+nz
+   3iWZqGc7NvkTZUH4I/nLADEmL8pRLqRmkTtFH/MBKJRTUqio23cENtBox
+   lKBn1xIYhnPnJDW4IByHo58HNL6yMNofhGU4iRvSWWQ7t0II/2P3i4TZP
+   +knL6cK8+SYe+wSPtvDHX0hiJW3NriMW49wrQj+znwNXyhjFdOlFgaLVc
+   nleVFQ566V5291lByEhEFsIt1x9V5t8A2by+DMpn/7wMrXcNAfe3cfODf
+   tDyJDUi+5bLsncZmBIBNdxWhBb6pbtTufUJT5HMbeXqRWGXyCSG7Qawzx
+   g==;
+X-CSE-ConnectionGUID: V2M6UINaTB+ZowNXs3d66Q==
+X-CSE-MsgGUID: xPXd5qUXRnKCPINFJpvOSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="84025596"
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; 
+   d="scan'208";a="84025596"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jul 2026 05:25:10 -0700
+X-CSE-ConnectionGUID: iNPxtoVzTEKEebHT+8Duaw==
+X-CSE-MsgGUID: p06MYZFKTeShTzSljCHreQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; 
+   d="scan'208";a="255020015"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.80])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jul 2026 05:25:07 -0700
+Date: Fri, 3 Jul 2026 15:25:05 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kim Seer Paller <kimseer.paller@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 3/6] iio: dac: ad3530r: Convert sw_ldac_trig_reg to a
+ function pointer
+Message-ID: <akeqIffrdSE4bZO-@ashevche-desk.local>
+References: <20260703-iio-ad3532r-support-v4-0-69d9a336f4e8@analog.com>
+ <20260703-iio-ad3532r-support-v4-3-69d9a336f4e8@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260703110317.1283411-1-wenst@chromium.org> <20260703110317.1283411-4-wenst@chromium.org>
- <CAMRc=MfPC=Jm6RFkCYG6vsYQiWHxBeNq0L59rwahF_6Fu2Ledw@mail.gmail.com>
-In-Reply-To: <CAMRc=MfPC=Jm6RFkCYG6vsYQiWHxBeNq0L59rwahF_6Fu2Ledw@mail.gmail.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Fri, 3 Jul 2026 20:17:19 +0800
-X-Gm-Features: AVVi8CdRG77FVnl6YqrCOnoh5pU554e35My8Xh7iayyOJ32J-OMwjYcWxPxxPu4
-Message-ID: <CAGXv+5HMVaERvte8YJDJ0fq0zoMvO7-7caAGQhsAB-9sUHoGtQ@mail.gmail.com>
-Subject: Re: [PATCH v3 03/13] power: sequencing: Add pwrseq_power_is_on()
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Manivannan Sadhasivam <mani@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260703-iio-ad3532r-support-v4-3-69d9a336f4e8@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Jul 3, 2026 at 8:07=E2=80=AFPM Bartosz Golaszewski <brgl@kernel.org=
-> wrote:
->
-> On Fri, 3 Jul 2026 13:03:04 +0200, Chen-Yu Tsai <wenst@chromium.org> said=
-:
-> > The power sequencing consumer API already does power on state tracking
-> > internally. Expose the state to consumers through pwrseq_power_is_on()
-> > so that they don't have to reimplement it locally.
-> >
->
-> They wouldn't be able to do it as the field is private to pwrseq core any=
-way.
+On Fri, Jul 03, 2026 at 06:10:08PM +0800, Kim Seer Paller wrote:
+> The software LDAC trigger register is stored in the chip_info table as a
+> fixed register address. Devices with a multi-bank register architecture
+> select the trigger register based on the channel being updated, which a
+> single static address cannot express.
+> 
+> Convert sw_ldac_trig_reg into a function pointer that returns the
+> trigger register for a given channel, mirroring the input_ch_reg
+> callback.
 
-Which is why a helper is added? Note this is returning the requested state
-on the consumer side, not the actual state.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-> In what situation would consumers need this? Typically you know what stat=
-e the
-> handle is in if you control it.
-
-Mostly just to avoid extra tracking in the USB port device. For the hub's
-port power feature flag, the hub driver actually queries the hub for the
-current state; no in-kernel tracking is involved, i.e. the consumer doesn't
-actually know what state it is currently in.
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-ChenYu
