@@ -1,208 +1,246 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2D639AD55
-	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 08:25:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A3439D3FC
+	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 08:26:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783153517; cv=none; b=o5GP8ygaws+gNmgrJLqiK6W+qlQGO9Hb8GK/pEj0oHMtqN0veh71rjYqQMe8dD4UpQR5GePWTtdoAegsSuKYymKuOvrFqrBzQ6Nluk/dL2OaIOuoNyNQwrD4vXJapZfpT8UrNSxIwR/BvPZsvToBYjjyR3r9qKSXM2bQzUYsJ3M=
+	t=1783153576; cv=none; b=Ze+Nx+ggHOq7Td3iXB21EOkxYy4k9WG5zMugII5NRUvhRqX1Tg1w7dasS25A77ab3lvTK2VddWNVOUe3HAD/q2OYgrbJTKb54RTjnAPrAD3aK1UswVTxhdlSRM2uZ/oM8oOVmSBnT2w0m7hrnOPCXeBYdOw+8EwuFjjo5o0p8l0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783153517; c=relaxed/simple;
-	bh=kcg7KVCWy+NnC+VfCf9xytGdC2NFAJGaOzW5jvhcj1g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ae0Ldb4OY5lrI/OHizUXnJCSO56JCpIdSgcUXFaStfOiMfNZHymVXnYgimzGfiyltESmWXpIz4G6UvRbmjdBHLsRcRXoUUKmMD5zlv7pUM95MDorawLLf5StPKRoIpXWqDd7jreM/L+X571RxX7QJ6whqWSINV2hoPbvIB4Us8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AhmNjmDr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783153576; c=relaxed/simple;
+	bh=DyCgGvjmZcZN2OFztcnoTYXDeUsiP8J/yzmQbV2XlIo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fOUNCgh3AdUlClymPP2mlKJNAvCK/YKAunyt8aP8dXzMCpHDaCRABfLmglPRPTKz1ZrqW0RVlxmfyGZhyl+FD3UZ+2CrHw9m6kky5c//9DjzRMs9Gpcn/LwlusMDdt5cqh5GE1jBK3LQ2ef6iX1ru2I5bSZOV1G22NeFfqPpZvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I1eyELId; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AhmNjmDr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16A291F00ADE
-	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 08:25:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I1eyELId"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E9111F000E9;
+	Sat,  4 Jul 2026 08:26:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783153515;
-	bh=Fs2AiFoC/uXi7Y3GxLDQdbdL/aEwooLIt1/0w5YrmTY=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=AhmNjmDrvXUIm6qq1QCLqnCOerLJyDhayVscWRp+pfxFlPNRVhDN7FxAEBUNoNMvv
-	 fX29jiShaD+xLYEqR7ds9oASvt4gBXubcEqIEeeSZCjmi3wT9+gWWpA4MGRGG+Uvwt
-	 mvJWckTAhYPw6RWzQe0tmkPrR3mUDBDsmlKP77VOdcSvJMAX5+xPyr5ol32ly0rNVT
-	 LsT22Ht/ajL5O29l+rtTZjt3uzQXj++OBIe01iL26GOWmLzFWxhaPXrvtTvlF5Dlx7
-	 6inn3nzqPF18/AmMG8zg21CDbttnRU5OLYRAYvQg7oYedlXUqccE4GDPbIzz1LhTBE
-	 r3Ho1aegqR+Sg==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39b293079d1so10945481fa.3
-        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 01:25:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rq94uIOUh667LCeWo+jhlnnZgjyZ1Cn8Hs4JParfbnEzdE3pDKcp0wtDPCOniAbzO29qhl1NvR2dIA2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw6lnJPaTxDpp8RNQ6eKLHJNBzd+WO1uR+oEn1kgGyca4mV7pGe
-	7SXUUC6WcRFz49uOrahin0H7XvZEQUx9yHW6l4+JSn7/miH3uYVGWIrrwMwZLNmbyMeRdeLPY49
-	RxqngJzRcwL0T2e4PNv4JHpnHs87PdI0=
-X-Received: by 2002:a2e:bcc5:0:b0:39b:35bd:e704 with SMTP id
- 38308e7fff4ca-39b53c3ffd6mr4690261fa.7.1783153513431; Sat, 04 Jul 2026
- 01:25:13 -0700 (PDT)
+	s=k20260515; t=1783153566;
+	bh=YxqvQQX6Lq97cMdZO81UApnB6lRqvkhDvcrmnJjRl3U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=I1eyELIdoBR3uJo+4OJ0iDRVNSuCH1ru0/J1/JGRNeIR+lahawoxe+i50bSCHIZqJ
+	 FZ4OHnGdW3Kf7lWaGY8bHWGDc68bRllzEqAn+AsyhVz53NaT089Pzuzh4nVVq+0JNX
+	 CdwuG8khG8UZPYgyjXav/bedstsVoesBuMs58UgeJizRbTLS4qCNk93G+wkulp9vfm
+	 j0HqF8bKIXY+uQmE1bKNA6zbegFn6jYCxapc4zYFJNMAa7SbuRz6Uv+QpkibjOgImK
+	 awNYIMNecMyWB667mZDwt0OK2t+D7Hg/7kryyD79L/JwuzuteL1WZDT5s+ON9RFPTb
+	 6YnJq9yN+g35Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] drm/ssd130x: Add SSD135X_FAMILY and SSD1351
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Amit Barzilai" <amit.barzilai22@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260704080925.75113-4-amit.barzilai22@gmail.com>
+References: <20260704080925.75113-1-amit.barzilai22@gmail.com>
+ <20260704080925.75113-4-amit.barzilai22@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 04 Jul 2026 08:26:06 +0000
+Message-Id: <20260704082606.7E9111F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260702-a733-rtc-v3-0-eb2580374de6@baylibre.com> <20260702-a733-rtc-v3-6-eb2580374de6@baylibre.com>
-In-Reply-To: <20260702-a733-rtc-v3-6-eb2580374de6@baylibre.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sat, 4 Jul 2026 16:25:07 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64C4Xn=V5NQcqZQa=v0KsemsVh+_6g7ed0kHz6C_bzmww@mail.gmail.com>
-X-Gm-Features: AVVi8Cco2rDKRY4RtRBz1e78QgPbRDMEhgem8aNt-eUIdWMg4uPicNKKdtWJM8A
-Message-ID: <CAGb2v64C4Xn=V5NQcqZQa=v0KsemsVh+_6g7ed0kHz6C_bzmww@mail.gmail.com>
-Subject: Re: [PATCH v3 6/8] clk: sunxi-ng: div: add read-only operation support
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Junhui Liu <junhui.liu@pigmoral.tech>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Maxime Ripard <mripard@kernel.org>, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 2, 2026 at 4:11=E2=80=AFPM Jerome Brunet <jbrunet@baylibre.com>=
- wrote:
->
-> Add support for sunxi-ng read-only dividers. This will be
-> useful to the a733 oscillator detection logic.
->
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-> ---
->  drivers/clk/sunxi-ng/ccu_div.c | 42 ++++++++++++++++++++++++++++++++++++=
-++++++
->  drivers/clk/sunxi-ng/ccu_div.h |  1 +
->  drivers/clk/sunxi-ng/ccu_mux.c |  3 ++-
->  drivers/clk/sunxi-ng/ccu_mux.h |  4 ++++
->  4 files changed, 49 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/clk/sunxi-ng/ccu_div.c b/drivers/clk/sunxi-ng/ccu_di=
-v.c
-> index 62d680ccb524..d1c8c7baa12d 100644
-> --- a/drivers/clk/sunxi-ng/ccu_div.c
-> +++ b/drivers/clk/sunxi-ng/ccu_div.c
-> @@ -84,6 +84,36 @@ static int ccu_div_determine_rate(struct clk_hw *hw,
->                                              req, ccu_div_determine_rate_=
-helper, cd);
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+
+Pre-existing issues:
+- [High] Encoder atomic enable and disable callbacks invoke sleepable kerne=
+l functions from atomic context.
+- [High] Incorrect end address calculation for column and row ranges during=
+ partial display updates.
+- [High] Screen clear operations fail to reset the hardware column and row =
+address ranges to the full display, leaving previous partial updates unclea=
+red.
+- [High] Missing format conversion state preallocation in `ssd133x_primary_=
+plane_atomic_check` leads to forbidden `GFP_KERNEL` allocations in atomic c=
+ontext.
+- [High] `ERR_PTR` dereference in `ssd130x_power_off` if `pwm_get` fails du=
+ring display enable.
+--
+
+commit 28391e97ee3411b1213256c23b42e73a4550eba0
+Author: Amit Barzilai <amit.barzilai22@gmail.com>
+Subject: drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
+
+This commit introduces support for the Solomon SSD1351 RGB color OLED
+controller. It adds a new SSD135X_FAMILY which reuses existing SSD133X
+helpers while providing a custom initialization sequence and an explicit
+Write RAM command path.
+
+> diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/=
+ssd130x.c
+> index 3f09977d227b0..f7f0a74a297e2 100644
+> --- a/drivers/gpu/drm/solomon/ssd130x.c
+> +++ b/drivers/gpu/drm/solomon/ssd130x.c
+
+[ ... ]
+
+> @@ -826,7 +927,7 @@ static int ssd133x_update_rect(struct ssd130x_device =
+*ssd130x,
+>  		return ret;
+> =20
+>  	/* Write out update in one go since horizontal addressing mode is used =
+*/
+> -	ret =3D ssd130x_write_data(ssd130x, data_array, pitch * rows);
+> +	ret =3D ssd133x_write_pixels(ssd130x, data_array, pitch * rows);
+> =20
+>  	return ret;
+
+[Severity: High]
+This is a pre-existing issue, but does ssd133x_update_rect() correctly
+calculate the end address for the column and row ranges?
+
+When calculating the hardware active window boundaries, the driver currently
+sets the range width and height directly rather than adding them to the sta=
+rt
+coordinates:
+
+drivers/gpu/drm/solomon/ssd130x.c:ssd133x_update_rect() {
+    ...
+    ret =3D ssd130x_write_cmd(ssd130x, 3, SSD133X_SET_COL_RANGE, x, columns=
+ - 1);
+    if (ret < 0)
+        return ret;
+
+    ret =3D ssd130x_write_cmd(ssd130x, 3, SSD133X_SET_ROW_RANGE, y, rows - =
+1);
+    ...
+}
+
+For a partial update starting at offset x and y, would this program an
+incorrect end address relative to 0 instead of the start coordinate, result=
+ing
+in corrupted partial updates? (The same appears to be true in
+ssd132x_update_rect()).
+
+[ ... ]
+
+> @@ -896,7 +997,7 @@ static void ssd133x_clear_screen(struct ssd130x_devic=
+e *ssd130x, u8 *data_array)
+>  	memset(data_array, 0, pitch * ssd130x->height);
+> =20
+>  	/* Write out update in one go since horizontal addressing mode is used =
+*/
+> -	ssd130x_write_data(ssd130x, data_array, pitch * ssd130x->height);
+> +	ssd133x_write_pixels(ssd130x, data_array, pitch * ssd130x->height);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does ssd133x_clear_screen()
+fail to reset the address window before clearing the display?
+
+When writing a full frame of zeros, if the previous operation was a partial
+update, the controller's address window might remain restricted.
+
+Could pushing a full screen of data simply overwrite that small rectangle
+repeatedly while leaving the rest of the display uncleared?
+
 >  }
->
-> +static int ccu_rodiv_determine_rate(struct clk_hw *hw,
-> +                                   struct clk_rate_request *req)
-> +{
-> +       struct ccu_div *cd =3D hw_to_ccu_div(hw);
-> +       unsigned long val;
-> +       u32 reg;
-> +       int ret;
-> +
-> +       reg =3D readl(cd->common.base + cd->common.reg);
-> +       val =3D reg >> cd->div.shift;
-> +       val &=3D (1 << cd->div.width) - 1;
-> +
-> +       req->rate =3D ccu_mux_helper_unapply_prediv(&cd->common, &cd->mux=
-, -1,
-> +                                                 req->rate);
-> +
-> +       if (cd->common.features & CCU_FEATURE_FIXED_POSTDIV)
-> +               req->rate *=3D cd->fixed_post_div;
-> +
-> +       ret =3D divider_ro_determine_rate(hw, req, cd->div.table,
-> +                                       cd->div.width, cd->div.flags, val=
-);
-> +
-> +       if (cd->common.features & CCU_FEATURE_FIXED_POSTDIV)
-> +               req->rate /=3D cd->fixed_post_div;
-> +
-> +       req->rate =3D ccu_mux_helper_apply_prediv(&cd->common, &cd->mux, =
--1,
-> +                                               req->rate);
-> +
-> +       return ret;
-> +}
-> +
->  static int ccu_div_set_rate(struct clk_hw *hw, unsigned long rate,
->                            unsigned long parent_rate)
->  {
-> @@ -143,3 +173,15 @@ const struct clk_ops ccu_div_ops =3D {
->         .set_rate       =3D ccu_div_set_rate,
+
+[ ... ]
+
+> @@ -1356,7 +1457,13 @@ static const struct drm_plane_helper_funcs ssd130x=
+_primary_plane_helper_funcs[]
+>  		.atomic_check =3D ssd133x_primary_plane_atomic_check,
+>  		.atomic_update =3D ssd133x_primary_plane_atomic_update,
+>  		.atomic_disable =3D ssd133x_primary_plane_atomic_disable,
+> -	}
+> +	},
+> +	[SSD135X_FAMILY] =3D {
+> +		DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
+> +		.atomic_check =3D ssd133x_primary_plane_atomic_check,
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is the format conversion sta=
+te
+preallocated during the atomic check phase?
+
+Unlike the other plane check routines, ssd133x_primary_plane_atomic_check()
+returns early without calling drm_format_conv_state_reserve().
+
+During the non-blocking commit phase, ssd133x_primary_plane_atomic_update()
+calls drm_fb_xrgb8888_to_rgb565be(), which then falls back to dynamically
+allocating memory via krealloc with GFP_KERNEL since the state size is 0.
+
+Can this trigger forbidden sleeping allocations in the atomic update path?
+
+> +		.atomic_update =3D ssd133x_primary_plane_atomic_update,
+> +		.atomic_disable =3D ssd133x_primary_plane_atomic_disable,
+> +	},
 >  };
->  EXPORT_SYMBOL_NS_GPL(ccu_div_ops, "SUNXI_CCU");
-> +
-> +const struct clk_ops ccu_rodiv_ops =3D {
-> +       .disable        =3D ccu_div_disable,
-> +       .enable         =3D ccu_div_enable,
-> +       .is_enabled     =3D ccu_div_is_enabled,
-> +
-> +       .get_parent     =3D ccu_div_get_parent,
-> +
-> +       .determine_rate =3D ccu_rodiv_determine_rate,
-> +       .recalc_rate    =3D ccu_div_recalc_rate,
-> +};
-> +EXPORT_SYMBOL_NS_GPL(ccu_rodiv_ops, "SUNXI_CCU");
-> diff --git a/drivers/clk/sunxi-ng/ccu_div.h b/drivers/clk/sunxi-ng/ccu_di=
-v.h
-> index be00b3277e97..a30a92780a05 100644
-> --- a/drivers/clk/sunxi-ng/ccu_div.h
-> +++ b/drivers/clk/sunxi-ng/ccu_div.h
-> @@ -300,5 +300,6 @@ static inline struct ccu_div *hw_to_ccu_div(struct cl=
-k_hw *hw)
+
+[ ... ]
+
+> @@ -1597,6 +1708,31 @@ static void ssd133x_encoder_atomic_enable(struct d=
+rm_encoder *encoder,
+>  	ssd130x_power_off(ssd130x);
 >  }
->
->  extern const struct clk_ops ccu_div_ops;
-> +extern const struct clk_ops ccu_rodiv_ops;
->
->  #endif /* _CCU_DIV_H_ */
-> diff --git a/drivers/clk/sunxi-ng/ccu_mux.c b/drivers/clk/sunxi-ng/ccu_mu=
-x.c
-> index 766f27cff748..e2d6833a6d33 100644
-> --- a/drivers/clk/sunxi-ng/ccu_mux.c
-> +++ b/drivers/clk/sunxi-ng/ccu_mux.c
-> @@ -68,13 +68,14 @@ unsigned long ccu_mux_helper_apply_prediv(struct ccu_=
-common *common,
->  }
->  EXPORT_SYMBOL_NS_GPL(ccu_mux_helper_apply_prediv, "SUNXI_CCU");
->
-> -static unsigned long ccu_mux_helper_unapply_prediv(struct ccu_common *co=
-mmon,
-> +unsigned long ccu_mux_helper_unapply_prediv(struct ccu_common *common,
->                                             struct ccu_mux_internal *cm,
->                                             int parent_index,
->                                             unsigned long parent_rate)
->  {
->         return parent_rate * ccu_mux_get_prediv(common, cm, parent_index)=
-;
->  }
-> +EXPORT_SYMBOL_NS_GPL(ccu_mux_helper_unapply_prediv, "SUNXI_CCU");
+> =20
+> +static void ssd135x_encoder_atomic_enable(struct drm_encoder *encoder,
+> +					  struct drm_atomic_commit *state)
+> +{
+> +	struct drm_device *drm =3D encoder->dev;
+> +	struct ssd130x_device *ssd130x =3D drm_to_ssd130x(drm);
+> +	int ret;
+> +
+> +	ret =3D ssd130x_power_on(ssd130x);
 
-This does not need to be exported since all the base clocks build into
-one module. And maybe it shouldn't as we probably don't want individual
-clock drivers implementing ops.
+[Severity: High]
+This is a pre-existing issue in the driver, but does this newly added callb=
+ack
+also execute sleepable kernel functions from an atomic context?
 
+The DRM subsystem rules state that encoder atomic enable and disable callba=
+cks
+run in an atomic context where sleeping is forbidden. This newly added
+callback calls ssd130x_power_on(), which in turn invokes regulator_enable()
+and pwm_apply_might_sleep() (via ssd130x_pwm_enable()). It also calls
+backlight_enable() later in this function, which acquires a mutex.
 
-Otherwise,
+Could these sleeping functions cause kernel warnings or deadlocks when call=
+ed
+from the atomic commit path?
 
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+> +	if (ret)
+> +		return;
+> +
+> +	ret =3D ssd135x_init(ssd130x);
+> +	if (ret)
+> +		goto power_off;
+> +
+> +	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
+> +
+> +	backlight_enable(ssd130x->bl_dev);
+> +
+> +	return;
+> +
+> +power_off:
+> +	ssd130x_power_off(ssd130x);
 
->  int ccu_mux_helper_determine_rate(struct ccu_common *common,
->                                   struct ccu_mux_internal *cm,
-> diff --git a/drivers/clk/sunxi-ng/ccu_mux.h b/drivers/clk/sunxi-ng/ccu_mu=
-x.h
-> index c94a4bde5d01..272a2c36a8f2 100644
-> --- a/drivers/clk/sunxi-ng/ccu_mux.h
-> +++ b/drivers/clk/sunxi-ng/ccu_mux.h
-> @@ -134,6 +134,10 @@ unsigned long ccu_mux_helper_apply_prediv(struct ccu=
-_common *common,
->                                           struct ccu_mux_internal *cm,
->                                           int parent_index,
->                                           unsigned long parent_rate);
-> +unsigned long ccu_mux_helper_unapply_prediv(struct ccu_common *common,
-> +                                           struct ccu_mux_internal *cm,
-> +                                           int parent_index,
-> +                                           unsigned long parent_rate);
->  int ccu_mux_helper_determine_rate(struct ccu_common *common,
->                                   struct ccu_mux_internal *cm,
->                                   struct clk_rate_request *req,
->
-> --
-> 2.47.3
->
+[Severity: High]
+This is a pre-existing issue, but what happens during the teardown sequence=
+ if
+ssd130x_pwm_enable() previously failed?
+
+If pwm_get() fails in ssd130x_pwm_enable(), it returns an error pointer whi=
+ch
+is stored in ssd130x->pwm. The atomic enable aborts, but because it has a v=
+oid
+return type, the DRM core treats the encoder as successfully enabled.
+
+When the display is later disabled or the power_off label is reached,
+ssd130x_power_off() unconditionally calls pwm_disable(ssd130x->pwm).
+
+Since pwm_disable() does not handle error pointers, could this dereference =
+the
+invalid error pointer and cause a kernel panic?
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260704080925.7511=
+3-1-amit.barzilai22@gmail.com?part=3D3
