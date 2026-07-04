@@ -1,128 +1,217 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2089A279DC9;
-	Sat,  4 Jul 2026 17:06:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2654936E494
+	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 17:14:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783184766; cv=none; b=aFxzW5J4WqwZEy34UX5ZSZZ4WX8mj1yZnifwVWVzQri/LfNnYaf3v1BCKhWY3P9pWCBxu1hDgVdjRXsvqaaGCL8/3hhGu1AMHhk8FRcMg/dMz5DcyHIJaJu2TDUZiM4oGk3G8OLc3M/z2d6zhWz0b9dhUiwSsK6qMkZab+B7o2o=
+	t=1783185281; cv=none; b=JFDiRWo6tBBw63Sd96jYpj+tiD3ebNaOCl6Q5PrlwrywGy3oQfhRAsLhq89YYovLRnimVMvUOZiLjeiJcyulDoi8ouU1xBQA4c6uasDQiD2IquA9r5RQSVLqD6kzYXyfA6Qwv8pt5Q+XayPiHP14fVYPyeDZ2NEv5MtsX2BGb4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783184766; c=relaxed/simple;
-	bh=S1rTVlnC+OJLu5zeLuUrwP29zeQmW+jHInRpCh4cSb4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QgaFRQFQb8ii8YOStPfpcaYYzNJNhWslljW6sJa0kWNgRmUsYsHCtQzepndNTA1zYmXw7Gui6hoCOZcPIfn+Swgwe8L7/q9F+xcqrX2gs+Ra+LdYpuX/V8YNh+cjljR66i9WJEEF/QHELFIvsTjtF6IrFuVjGbsxXP7L0LhO4fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cuCvMFS5; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783185281; c=relaxed/simple;
+	bh=iiokSlZfLnf8dlWNcbww5/0TbRCZJN8q+3FsBY/mPN4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HFUj4qS/zEhzF+qP8/rjvy6E8dJQmN1XkxzTb9iYLbGN8qHnv+/qechYuXKx9AnX3iJTk2hFw99/IH0AOXIQRzsY9DZM/p64ZYGVpxO6gd+kKW8mMlyEvaHpDRVE7C7D3l7bJ0jKGq5koj5paL+AsR1yndTagwMVwWZrwsLnGt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XnEbUP2F; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cuCvMFS5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783184765; x=1814720765;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=S1rTVlnC+OJLu5zeLuUrwP29zeQmW+jHInRpCh4cSb4=;
-  b=cuCvMFS5WfFNfZLRbWHUpzNFj/ncS5SLlMXGbI5lYip3/0Ie/rfJZrhX
-   GejuVjfOEPJ8uKJcCsD+vH5EfaoycgvgqcJdF84hMMyCnh89l1jOQ9pM5
-   ivFB3IBu5/8bSZ+FI5zOOnBXcAUV+nk2Sn7sYqBldbxexvAd+cF8ETxPE
-   s+Ntb2M04E1FesInReMOzlFRxPZHM58/h0KsAvoVnskh0Zq7RuwVgZdDm
-   zQu4ptEu12xYmU5b264aFHnVnoy9WfffKDvFsFTnL7CuncsYNv0vXLuVP
-   4vA/C5IYXYrVn2xV2mP8k3YeqNcVY/XQQcNXawGyBbVvijnVfPS2iev9W
-   A==;
-X-CSE-ConnectionGUID: OPlXxuM1TFmhMAw2jgRFqQ==
-X-CSE-MsgGUID: h4rAv5fUSJiq94q6MC1Lpg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11837"; a="101431781"
-X-IronPort-AV: E=Sophos;i="6.25,147,1779174000"; 
-   d="scan'208";a="101431781"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jul 2026 10:06:04 -0700
-X-CSE-ConnectionGUID: tCKMggPtTWSGRKfCPg6hiQ==
-X-CSE-MsgGUID: 3RkDQhuCQa+/xFITm+/ikQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,147,1779174000"; 
-   d="scan'208";a="249988383"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.241])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jul 2026 10:06:01 -0700
-Date: Sat, 4 Jul 2026 20:05:59 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Siratul Islam <siratul.islam@linux.dev>
-Cc: Stefan Popa <stefan.popa@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XnEbUP2F"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-847968ca62fso1595483b3a.2
+        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 10:14:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783185279; x=1783790079; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=W/CI0T+kn1yp9pQC8EXUf58GcP8gv1PF56nfEe5TT6E=;
+        b=XnEbUP2FecbFHvbyEOtXE/BEquQ/2B7tLp1XHwNY+vDbaTyOobNx3uYqxSIPQ87Y+9
+         RmfXGBx2cW6yHItoCEtl0T0ehO6UkMO6UZ+N5IkPxJtuyT0g4ZwiTCc1zYxCQPhcrbLm
+         EMOO+G3aZX244Q3QgWZfPEYvGfQFvB3xmFsXewrqBuULafGB8g9mA/W7EoEu3O1wunK4
+         yhiGm0pIDfupOAjASkgxSQ1m3AXLT7+HIOm/sRWDu5y76Xb3QreOHQsw3FUK5juA1jnf
+         Xuck1L9/d6NXSQZsQxyuWPmfeEa3eJ6A74BD5NhmsH6sE4dPnqSISAf9bEoxhQ6r7mF2
+         ryRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783185279; x=1783790079;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W/CI0T+kn1yp9pQC8EXUf58GcP8gv1PF56nfEe5TT6E=;
+        b=BTo6TKvmR6H9hon2qfvhYjRdcCHUeqV3RA8lSHjnoxp7U5uBsYLwmvxOc/lh32/2ce
+         DfB2Jje5k/uSjhz+78eQM2s7t35uI6W1WHSswfUDGBOzHXyKLFZexouH5oJ9zCv/fUGA
+         BBCRHDPPJ3GILpifue7f07WF+yQ7TaZDpILnvOsfx+NzPqjjvOmJqpeVwh6fFsEM+eGx
+         zPGo2hbwmUpCg2c1mHCzF2gJuteP0LeczEEpdR81MmCNSSe4PJba6JMHIMXfd9cs+5wI
+         qFkxUllYlFmJ8vlWU1xo8sX0P2kTAKaOPQ2EBX5hPKcDt4JNksIDZdmm5AaxZMqPJse4
+         Eyaw==
+X-Forwarded-Encrypted: i=1; AHgh+RpkFuK7j21pt/pUYu1L7wYcBcfbyMP9vd9KyFj5UoxCKQhVWGXxrJXQw5qp3SKyKVST/CX+MdHSjrLZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzGf6vQIDxLupRbzwyNhq+c+D2+OBZPJQpb0udfcIiu6wlI3kn5
+	9wBGyHOXmSNB7pecB1KqpjTUX9l4dyRK28zIRd7sd+aOux7GdtqmiPZ+
+X-Gm-Gg: AfdE7clgN6nBNC+CmjvG61cJcwee0HGVKHiI4pUPZ4evkM7OV9CIKqLFR7jkQOovcbk
+	2nUMMNjr3/JORjYn8iQJR4mXS5NRXSvgclPB6xh9zBIPqr6NWO4nPckgZRB2qgUn/jK0Mdpm+I4
+	fzLCwiK7FaUwYx4V/alnRM1BYCbE3h/o9335RvWZpPsfrabvsbTVGuu9ZLpoOiTRPA4tkAzW7Qi
+	bnXrJO0bAPGLUGE/yT+7hpo7MRgG0nUO70eaHOLYGwqvUPCuwXVIobhu+Z9N+Xt/2tQLVzg6Ajl
+	EN4drYi8LjkQ/EI+MybW5GvkFMiFZjTaz0cSSuxGfsXTbEqqn0UXw+5WksJ9xmUTFWIcTi+E4MC
+	t26UEONpLrXIzyLVujwLTtwyR0V1dRrURCr09SWTJkPdzlTdZKPqNoucKGJ0mdv86e8sYQ3hNmh
+	LhVeYyenC0OfZUqvk=
+X-Received: by 2002:a05:6a00:439a:b0:847:904c:8452 with SMTP id d2e1a72fcca58-847f6ef68b4mr3914684b3a.38.1783185279250;
+        Sat, 04 Jul 2026 10:14:39 -0700 (PDT)
+Received: from archlinux ([212.192.12.80])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847f6d498adsm1379101b3a.32.2026.07.04.10.14.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 04 Jul 2026 10:14:38 -0700 (PDT)
+From: Mikhail Kalashnikov <iuncuim@gmail.com>
+To: Vasily Khoruzhick <anarsoul@gmail.com>,
+	Yangtao Li <tiny.windzz@gmail.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Ciprian Hegbeli <ciprian.hegbeli@analog.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/2] iio: adc: add MAX40080 current-sense amplifier
- driver
-Message-ID: <akk9d-Zrx52C674x@ashevche-desk.local>
-References: <20260703102941.1141341-1-stefan.popa@analog.com>
- <20260703102941.1141341-3-stefan.popa@analog.com>
- <9878f042f424bfbd7fab24175298224b58e87779.camel@linux.dev>
- <akj3Ay8mwemRj-9U@ashevche-desk.local>
- <akkwWxCf10rfThMk@fedora>
+Subject: [PATCH v5 0/5] Allwinner: A523: add support for A523 THS0/1 controllers
+Date: Sun,  5 Jul 2026 01:14:06 +0800
+Message-ID: <20260704171411.1413349-1-iuncuim@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akkwWxCf10rfThMk@fedora>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Sat, Jul 04, 2026 at 10:32:32PM +0600, Siratul Islam wrote:
-> On 26/07/04 03:05PM, Andy Shevchenko wrote:
-> > On Sat, Jul 04, 2026 at 01:42:39AM +0600, Siratul Islam wrote:
-> > > On Fri, 2026-07-03 at 13:29 +0300, Stefan Popa wrote:
+This patch series adds temperature sensor support for the Allwinner A523
+family of processors (same die with H728/A527/T527)
 
-...
+Based on 7.2-rc1.
 
-> > > This can fit in 1 line.
-> > > static int max40080_update_bits(struct max40080_state *st, u8 reg, u16 mask, u16 val)
-> > 
-> > Here...
-> Keeping this function single line results in 86 cols, which is just a
-> little more than 80. So I thought splitting here was avoidable. But if
-> you think it's an acceptable split then so be it.
+Changes v5~v4:
+1) dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
+ - added empty line between what and context
+ - clarified description
+ - added missing period
 
-Split is a safe choice. No split is a slippery slope depending on some factors.
+2) thermal/drivers/sun8i: replace devm_reset_control_get to...
+ - updated Reviewed-by tag
 
-...
+3) thermal/drivers/sun8i: get calibration data from two nvmem cells
+ - removed dead IS_ERR(caldata) check
+ - replaced NULL/IS_ERR check with IS_ERR_OR_NULL()
 
-> > > > +static int max40080_get_range(struct max40080_state *st, unsigned int *range)
-> > > > +{
-> > > > +	int tmp;
-> > > > +
-> > > > +	tmp = i2c_smbus_read_word_data(st->client, MAX40080_REG_CFG);
-> > > I think tmp can be initialized, since it is only assigned once.
-> > 
-> > I don't get this comment. You mean switching to ret?
-> > 
-> I meant tmp is assigned only once so the indirection here, i.e.
-> declaring and assigning in two steps doesn't buy us anything. Instead,
-> it could be initialized like "int tmp = i2c_smbus_read_word_data()."
+4) thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
+ - clarified description
+ - added Reviewed-by tag
 
-Ah, definitely no to this suggestion. It makes code harder to maintain
-and the pattern you proposed is actually discouraged. You can search in
-mail archive and find like ~1-2 year old message from me with the detailed
-explanation why.
+5) arm64: dts: allwinner: sun55i: add thermal sensors
+ - fixed patch subject prefix
+ - clarified description
+ - sorted thermal-sensor nodes by base address
+ - added empty lines between trip nodes (DT coding style)
 
-> > > > +	if (tmp < 0)
-> > > > +		return tmp;
-> > > > +
-> > > > +	*range = FIELD_GET(MAX40080_RANGE_MSK, tmp);
-> > > > +
-> > > > +	return 0;
-> > > > +}
+v4 https://lore.kernel.org/linux-sunxi/20260504050245.646078-1-iuncuim@gmail.com/
+Changes v4~v3:
+1) dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
+ - gpadc replaced to mod clock
+
+x) thermal/drivers/sun8i: add gpadc clock
+ - removed
+
+2) thermal/drivers/sun8i: replace devm_reset_control_get to
+ - no functional changes
+
+3) thermal/drivers/sun8i: get calibration data from two nvmem cells
+ - no functional changes
+
+4) thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
+ - gpadc replaced to mod clock
+
+5) arm64: dts: allwinner: A523: Add thermal sensors and zones
+ - gpadc replaced to mod clock
+
+v3 https://lore.kernel.org/linux-sunxi/20251025043129.160454-1-iuncuim@gmail.com
+Changes v3~v2:
+x) dt-bindings: nvmem: SID: Add binding for A523 SID controller
+ - previously accepted, therefore removed from this version
+
+1) dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
+ - added changes as requested by Rob
+
+2) thermal/drivers/sun8i: add gpadc clock
+ - removed undescribed changes spaces to tabs
+
+3) thermal/drivers/sun8i: replace devm_reset_control_get to
+ - changed the commit description to the version suggested by wens
+ - added reviewed-by tag
+
+4) thermal/drivers/sun8i: get calibration data from two nvmem cells
+ - added spaces in the description block before "*"
+
+5) thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
+ - added alignment of functions in compliance with open parenthesis
+
+x) arm64: dts: allwinner: A523: Add SID controller node
+ - previously accepted, therefore removed from this version
+
+6) arm64: dts: allwinner: A523: Add thermal sensors and zones
+ - no functional changes
+
+Changes v2~v1:
+1) dt-bindings: nvmem: SID: Add binding for A523 SID controller
+ - added new patch
+
+2) dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
+ - changed clock order
+ - added additional nvmem cell with calibration data
+ - added requirements for new controllers
+ - added description
+
+3) thermal/drivers/sun8i: add gpadc clock
+ - removed unnecessary call to clk_prepare_enable() since
+ devm_clk_get_enabled()includes this
+
+4) thermal/drivers/sun8i: replace devm_reset_control_get to
+ - original function replaced with devm_reset_control_get_shared_deasserted()
+ - removed some of the repetitive code executed by 
+ devm_reset_control_get_shared_deasserted()
+
+5) thermal/drivers/sun8i: get calibration data from two nvmem cells
+ - added possibility to get calibration data from two independent cells
+
+6) thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
+ - removed magic digits
+ - changed description of calibration data procedure for A523
+ - changed numbers of array elements with calibration data
+
+7) arm64: dts: allwinner: A523: Add SID controller node
+ - fix typo (sun50i->sun55i)
+
+8) arm64: dts: allwinner: A523: Add thermal sensors and zones
+ - cell with calibration data divided into two
+ - added passive trips for gpu
+ - added information that information obtained from BSP
+
+v1: https://lore.kernel.org/linux-sunxi/20250411003827.782544-1-iuncuim@gmail.com
+
+Mikhail Kalashnikov (5):
+  dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
+  thermal/drivers/sun8i: replace devm_reset_control_get to
+    devm_reset_control_get_shared_deasserted
+  thermal/drivers/sun8i: get calibration data from two nvmem cells
+  thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
+  arm64: dts: allwinner: sun55i: add thermal sensors
+
+ .../thermal/allwinner,sun8i-a83t-ths.yaml     |  54 ++++-
+ .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 160 ++++++++++++
+ drivers/thermal/sun8i_thermal.c               | 227 ++++++++++++++----
+ 3 files changed, 395 insertions(+), 46 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
