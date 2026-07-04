@@ -1,233 +1,127 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-187.mta1.migadu.com (out-187.mta1.migadu.com [95.215.58.187])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632F13AC0F2
-	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 09:34:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110D0331EBC
+	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 09:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783157690; cv=none; b=TJZrbfvrfUbc3FXxyE6j+AhMfXLDmpKl5XOpDee9WQwGYLixSFAqLnC9+6z/J1AiMZvoysMHFMYLyfWmnd/9mNzyoRe7hhXecsC/9dNETbBga6ddQsvETtfpUuLl8+5kaUH7sAET6q+Ip8NhL+nxfyTFKrJU+GH40+EHRU2SVWA=
+	t=1783158888; cv=none; b=XvIog7xbud7/tJUs41Tgtizv7wXrfgKxuQhDhGo0HA410tLSk20GqzxZgW1XRMSvsD/afEyGt0HsPceYWaopUpLTFpuJM6XDqTQ+L3lwDW+iRmI0qp6mlLTK5fEvOTcJOyWSZ9La5RGXFpMfYgVGhkNAxe5Eb/tWaRe8ik9mjN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783157690; c=relaxed/simple;
-	bh=/aN6uaSQj/8FS5r8g+m5tHs5QyQlIL4jy+BMqlM6jKo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EtyZV3tVLQqkOUfdebIH6iaUoqSO6bKeQSWVf7IgOAYgleYF5wHE/vjl9pN2+P0EDI+ChSedQ+CzBw8xNeIVMumTCFZiUvf6A6OFPKSiROQNX7LbQd16Mrq9c/SzhuabvJkrL86cFgcTy/vvwZTFw4m06dRY1lWZ7hisUs59jfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r9w3sJzZ; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783158888; c=relaxed/simple;
+	bh=d4FzgPzMAfTw3eD2clLSz3kLvxePfHTw3NTAXiGBYZ8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=DJ32etlEVvSyW4epxh5VLS1E89DUKC+8IuzxP1pGLVE8ajHHM9P+IC2OGjHBQ9yuGjiOrohSzJdpIAz1jJMD8Gl8o46UJ4tt6LDpc2nwoxYraG1WiMkd0nzyiHCgJK5/eboM5clEpwVubqUdkjovxGyq+llmEZ0PeVKxj0B/a7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=Kas5S/+E; arc=none smtp.client-ip=95.215.58.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r9w3sJzZ"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493c00f74baso8345115e9.0
-        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 02:34:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783157687; x=1783762487; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WYNSHEzVW0nDKeEfCsSbkX43OIX3CfckevyBxmFpXHY=;
-        b=r9w3sJzZ+oLCcEFaJ+bG+s4O7nOsRzlzoSfZscQinO2lzQU1ZmFGodu6mpOpyWtt2D
-         UcLzy1LOvfzvMN4P3gbWuU4ChJLXnn5F2tWsmRp5KHDM97NK+vhJIOI8ixX20HjsNRSO
-         W5FfJ5zdzAx2u07wkfjlvKO1/H0tYJuXzlDkh3KvrWCQQxEGCmMTgKO6dXbU3W27aF80
-         gKcSY8Gx9dOALYp4hgU18ACdDyhryh6jjtpF89zH2vMzLb1MmzEp5T2GCowVUaLZHIvK
-         kmSAYHUFzI4U4vexSnZKF5FXpNBb1kQN3dgc49IeqsyK4eapNdU4SG7bYUVh4ljf7ts6
-         uxnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783157687; x=1783762487;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=WYNSHEzVW0nDKeEfCsSbkX43OIX3CfckevyBxmFpXHY=;
-        b=SrUEb9Le3PQsEqi3odd92/ThE6b/PP/HJbv5epedS38DLjgnf+pdR2SAUu7XGDk4Ns
-         WYj+YGe7nTdyV51mTHEWJH3LklsOS9MNpqPFB0M6I9Et7rZeAHf5dC/LHFJsSbyerb5+
-         n0+ry+kvi6uHsAze30HosmWrVdEZKMzdo1H9dWDNxni9gaEa4uyh6C2Yoj2QSRCSbtZX
-         jydQ3ZjbJDdAvy6pHuag7qGN+CN6jlmktn2rU7brJEadSWysMbPMAyAwQsg5XEOxaofh
-         ZmHr4C5kKYAt+qpaUwESzM8vqVMp2NMy3M0TRyW4OJx2++AEm7YARjsCQYhr6bt5Y6UW
-         mIyg==
-X-Forwarded-Encrypted: i=1; AFNElJ8r9NS45XkYyMIU8b0eJtlvFijpcyJae/1/qDZBPbbJyzlJdq7Api8xij4zyJSfVD+Qhw+r/U65AebW@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywg8XFKuOmVSuLjF/3gJ9c7FAykgVXCzvybKiZzdBreqmkxcpYG
-	pzQju66vaw60RyKZRVNaHba6Cdbh1vvS59ix8zmINkf+PojEQhnTvAArkmX1bWOU
-X-Gm-Gg: AfdE7cmzPY5mGgXdjlMmWksp3XJ8ILcFJW2fl4ED8cAoVT1CLR+i+4zK+1erhF7+P8e
-	xP4J2wLaJWYXmX0NcwiKBI/UmVlLr1gQN8H1qWppkwYFBog7W9YpEo6M587042TDHSHYHv82lz7
-	44h06v71hG2+woQphgIJUHW+5nuQhriMW6Cwt5LoZFpaNH+nvkNHyvJ9avO0ofWZWan/ViDBiiY
-	BEQQC7LIY1/76ZfK/VAGxp8ldoWpuOPYN7OEZWDBBaNkNrqBNxnbyoFcW5LOAvFr4q2bNa4tVAh
-	fmywwunCs/UD+bTLWyAegUHZ+9eeeMGX460BT6muYWEPt29ylgzwkV5n9LKn0cFiPTKHAjqxvk4
-	LfpSk3BDRIISig7G6WFBGtzRMK8pQfyYluxlEBvtAK5aA9MjuFGixU+BFZncdT03c5e7fOdIH0o
-	ASq+I3x1pV0ochFjDpHCTk
-X-Received: by 2002:a05:600c:154b:b0:493:b6c2:cd96 with SMTP id 5b1f17b1804b1-493d11d9d42mr28370855e9.12.1783157686705;
-        Sat, 04 Jul 2026 02:34:46 -0700 (PDT)
-Received: from biju.lan ([2a00:23c4:a702:d301:8c5b:5b11:f6a5:9bc9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493cce040b4sm153180235e9.10.2026.07.04.02.34.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 04 Jul 2026 02:34:46 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH 16/16] arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with ITE6263
-Date: Sat,  4 Jul 2026 10:34:26 +0100
-Message-ID: <20260704093433.273672-17-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260704093433.273672-1-biju.das.jz@bp.renesas.com>
-References: <20260704093433.273672-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="Kas5S/+E"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+	s=key1; t=1783158883;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gwSOPRwPe16md58gxuRwvnrh/zOt3EcNn/2KFaD5eL4=;
+	b=Kas5S/+E5faZ6tGsC3Od6zFmgPLB0QI5dwtnD9T+vrUTRkUxkwYhbQX09vex7b+YyLFpso
+	DCLLST39THRf9qOm/obiooOuvpjt15Nh7bjLPsWaU5YIB/ZfS+5SyuYWGxvHGC7LgoGfG6
+	t+tpHKTDTc14LXDhr2HqkVKUW9v6YHYjhTMaGyGVDXIjuHqAXxg3K5SM7d4BcUFUXfVMA8
+	bA4+/yA/oEYLPdJRDOcIMeVAxOG4ZssKcQH4q0sxvvEQ4eXvUtb5l+YmnTR39o4cnFD7xz
+	WQYmrM7B0zG345JVEKb4D1zPKr+JufARpjpcvprEfbweF2HqmF6gmR1eESoT/g==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 04 Jul 2026 11:54:36 +0200
+Message-Id: <DJPP2F4YRQGN.1CR6HUGTXDYKK@cknow-tech.com>
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Heiko
+ Stuebner" <heiko@sntech.de>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>
+Subject: Re: [PATCH 00/12] arm64: dts: rockchip: Add NanoPi M6 board
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Joachim Eastwood" <joachim.eastwood@gmail.com>, "Diederik de Haas"
+ <diederik@cknow-tech.com>
+References: <20260703-nanopi-m6-v1-0-8344a1559519@gmail.com>
+ <DJOWHH5K7P76.3JPJVO47K1SZE@cknow-tech.com>
+ <CAPSPb=tZ1FenNfEM5P+DWcksKvpQjyQQjAWTRdyxb7=YYxY_rw@mail.gmail.com>
+In-Reply-To: <CAPSPb=tZ1FenNfEM5P+DWcksKvpQjyQQjAWTRdyxb7=YYxY_rw@mail.gmail.com>
+X-Migadu-Flow: FLOW_OUT
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+Hi Joachim,
 
-Add a Device Tree overlay (r9a08g046l48-smarc-lvds-ite6263.dtso) for the
-RZ/G3L (R9A08G046) SMARC EVK board to support LVDS-to-HDMI output via the
-ITE 6263 HDMI transmitter.
+On Fri Jul 3, 2026 at 10:23 PM CEST, Joachim Eastwood wrote:
+> On Fri, 3 Jul 2026 at 13:30, Diederik de Haas <diederik@cknow-tech.com> w=
+rote:
+>> On Fri Jul 3, 2026 at 12:07 AM CEST, Joachim Eastwood via B4 Relay wrote=
+:
+>> > This patch series add support for the NanoPi M6. This board is very
+>> > similar to the NanoPi R6C and R6S boards which are already supported.
+>> >
+>> > Main differences:
+>> > * M.2 M-key slot with PCIe (Also present on R6C)
+>> > * M.2 E-key slot with PCIe and USB (from hub)
+>> > * 1 additional USB 2.0 port from an on-board USB hub
+>> > * RT5616 audio CODEC
+>>
+>> This seems to be the M6 (2405 aka 'V1')?
+> Yes, correct. This patch set is for the original M6 board. V1 if you like=
+.
+>
+>> Because there is now also a M6V2 (2603), which uses an ES8389 CODEC:
+>> https://www.friendlyelec.com/index.php?route=3Dproduct/product&path=3D69=
+&product_id=3D319
+> I did notice there was a new version, but I hadn't given it much thought.
+>
+>> Is it useful to already take the 2 M6 variants into account with this pa=
+tch set?
+> Yes, I think you are right.
+>
+> How about this setup:
+> rk3588s-nanopi-m6.dtsi
+> rk3588s-nanopi-m6v1.dts
+> rk3588s-nanopi-m6v2.dts
+> This mimics the setup for the R6 series boards with rk3588s-nanopi-r6.dts=
+i
+> and rk3588s-nanopi-r6[cs].dts.
 
-The overlay enables the LVDS controller and the display unit (DU/LCDC),
-and configures the ITE6263 on I2C2.
+Seems fine. You could drop the 'v1' as I only used that to differentiate wi=
+th
+the V2. OTOH, I'm always 'struggling' how to identify the original NanoPC-T=
+6.
+I do like consistency, so mimicing the setup for R6 is nice :-)
 
-Update the Makefile to build the overlay as both a standalone .dtbo and
-a composite .dtb (base DTB + overlay).
+> Note that I will not make the v2 board part of this patchset since I
+> am unable to test it. But as you said we can take it into account now.
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
- arch/arm64/boot/dts/renesas/Makefile          |   3 +
- .../r9a08g046l48-smarc-lvds-ite6263.dtso      | 104 ++++++++++++++++++
- 2 files changed, 107 insertions(+)
- create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
+Agreed. My concern was about trying to prevent another complete reorganizat=
+ion
+once someone decides to upstream support for V2 (2603).
 
-diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
-index 8c6a44890715..3cecc40204e9 100644
---- a/arch/arm64/boot/dts/renesas/Makefile
-+++ b/arch/arm64/boot/dts/renesas/Makefile
-@@ -190,6 +190,9 @@ dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc.dtb
- dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-dsi-adv7535.dtbo
- r9a08g046l48-smarc-dsi-adv7535-dtbs := r9a08g046l48-smarc.dtb r9a08g046l48-smarc-dsi-adv7535.dtbo
- dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-dsi-adv7535.dtb
-+dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-lvds-ite6263.dtbo
-+r9a08g046l48-smarc-lvds-ite6263-dtbs := r9a08g046l48-smarc.dtb r9a08g046l48-smarc-lvds-ite6263.dtbo
-+dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-lvds-ite6263.dtb
- 
- dtb-$(CONFIG_ARCH_R9A09G011) += r9a09g011-v2mevk2.dtb
- 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
-new file mode 100644
-index 000000000000..95e1f411fa04
---- /dev/null
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
-@@ -0,0 +1,104 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Device Tree overlay for the RZ/G3L SMARC EVK with ITE6263
-+ * connected to LVDS and LCDC enabled.
-+ *
-+ * Copyright (C) 2026 Renesas Electronics Corp.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/pinctrl/renesas,r9a08g046-pinctrl.h>
-+
-+&{/} {
-+	lvds-to-hdmi-out {
-+		compatible = "hdmi-connector";
-+		type = "d";
-+
-+		port {
-+			lvds_to_hdmi_con_out: endpoint {
-+				remote-endpoint = <&it6263_out>;
-+			};
-+		};
-+	};
-+
-+	reg_1v8: regulator-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "fixed-1.8V";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+
-+	reg_3v3: regulator-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "fixed-3.3V";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+};
-+
-+&du {
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	it6263: it6263@4c {
-+		compatible = "ite,it6263";
-+		reg = <0x4c>;
-+		data-mapping = "vesa-24";
-+		ivdd-supply = <&reg_1v8>;
-+		ovdd-supply = <&reg_3v3>;
-+		txavcc18-supply = <&reg_1v8>;
-+		txavcc33-supply = <&reg_3v3>;
-+		pvcc1-supply = <&reg_1v8>;
-+		pvcc2-supply = <&reg_1v8>;
-+		avcc-supply = <&reg_3v3>;
-+		anvdd-supply = <&reg_1v8>;
-+		apvdd-supply = <&reg_1v8>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				bridge_in: endpoint {
-+					remote-endpoint = <&lvds_out>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+				it6263_out: endpoint {
-+					remote-endpoint = <&lvds_to_hdmi_con_out>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&lvds {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@1 {
-+			reg = <1>;
-+			lvds_out: endpoint {
-+				remote-endpoint = <&bridge_in>;
-+			};
-+		};
-+	};
-+};
--- 
-2.43.0
+>> https://wiki.friendlyelec.com/wiki/index.php/NanoPi_M6#Schematic.2C_PCB_=
+CAD_File
+>> https://wiki.friendlyelec.com/wiki/index.php/NanoPi_M6V2#Schematic.2C_PC=
+B_CAD_File
+> I did a quick comparison of the schematics and noticed the following
+> differences:
+> * New CODEC; ES8389
+> * A new "User" button connected to a gpio line.
+> * Different USB 2.0 hub: CH334P (may not be relevant for DT)
+> * Different USB PD power solution (not relevant for DT)
 
+At the end of the M6V2 product page, there's also a comparison with 'V1':
+https://www.friendlyelec.com/image/catalog/description/M6V2_en_13.jpg
+
+It's under the heading 'Comparison', but it's part of the picture so you ca=
+n't
+search for it. Dunny why FriendlyElec does that, but they do it consistentl=
+y.
+
+Cheers,
+  Diederik
