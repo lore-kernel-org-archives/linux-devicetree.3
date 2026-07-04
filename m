@@ -1,160 +1,128 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EFB382F1F;
-	Sat,  4 Jul 2026 04:08:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10EAE2FFDD6
+	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 07:39:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783138106; cv=none; b=pkP3iKIgdc+VPf3Uf9z5Sv3gNuL9hnOWe+ykn4E4jQdIcvDrcp+ZK8PJC2gniRTb7qFoUxiXrIpNvm8b/Cplbi/e4TKmsubXtAxaal8jIxQZMf3juf5amawljSsYuk75PXtA6RJcAn6oye/qkYKKNi3Eo23qKvrOle/QSt5C63U=
+	t=1783150765; cv=none; b=Gttm3PWJHH3+uBrAvUjmHGkfALrkdZqdk56yyNYIBXx3OfRmYNuwspezU4R9UP/naK6QHgHsHFblhSW2FK+KaL6YyDTNrnADoNmnEA8CLQ8uY2ipA5d8zAwtuzFaTfP8/zSgNbk0Jh22YALJOfv7t8pGQd0ETwl0OutPppfeDxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783138106; c=relaxed/simple;
-	bh=nXymSW/VcDeMtmXhKW0zT1XxT85EAUSLbI6y+AmpCMI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I/oXpZ7+9S/awztvWwh9DGjrLyOVYpgfRQIZLABEBGYPcqwnMt3ohCxJ7d/xyJG5diI5oAA/7T8F1QRAzUL9RRVVlHonmhh/eNBW3gjGcy5bWyUDhWgA9m+UzklXRTIueNWvstLvcftksShWVJNAYE2g/sYyEB0vHE7Vu76dUrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.254.200.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: esmtpsz10t1783138057t5d0dfb99
-X-QQ-Originating-IP: Dagi/XUOgU2h5qBFe9Smlbn5jn2uD2jIEPlXcDV7yKU=
-Received: from [127.0.0.1] ( [119.98.234.251])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sat, 04 Jul 2026 12:07:35 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6974827005784446003
-Message-ID: <926681E76F71D6A7+5482f550-9a97-4a01-95dd-6d4083bcf5aa@radxa.com>
-Date: Sat, 4 Jul 2026 12:07:34 +0800
+	s=arc-20240116; t=1783150765; c=relaxed/simple;
+	bh=Vjk92yj5SDGwYHyFOT9M2fcaGNwel5+hRD7zUCCZF0w=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hoLZ1VzzoiUZaxFqM6XR84r4Sln69PfdHIsEQOjvPZPuJIHbPXS9gEhe9ho0WtPMPWTx3RdhF5ZhbYfxccpSdVV0aWG+b+DfVE6jn+uXjevLcwU6eH5kArJDCuK/x5qL8dAqBMHrNyNun02lgRR0xSyIG2AsV39cOu6x7uFc+CI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ErK/Q5cD; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ErK/Q5cD"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493b7612475so11534885e9.3
+        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 00:39:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783150755; x=1783755555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=DVufXZv3C9nTTbjjeAadD32Z+/uBgkpYSXQtGIeK46U=;
+        b=ErK/Q5cDjePjjQ+3jJbWHqKVm2FdbCH8kCT1T6dAr8EfQxd0yNy0NWz8ATR6cH2x8w
+         oTKbiEPe2ZruITE+0vY3nHSJQ097nL23HQklI04UgA4/AVAP1uJ6W/AGGPcyq2PAl+EH
+         0VeWHfegRPJ+81ogUs5tM272IppDRoC/yrVbcV6NY9Bmp0XGo5PU3gAO0AFGSQybiWJM
+         JLIubHiBPyOD8nRL5hNFbiP7mEqloJffr/Y16sJLqr4meANOICUlrEh/+Jm5X2mYGBxl
+         Wh3/Huqp7ReU+QlEPSLjFLUF1y0YjgXent1EKgMtt/lVuAw7aqZuAsmmd38dmcWLsnnZ
+         k23A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783150755; x=1783755555;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DVufXZv3C9nTTbjjeAadD32Z+/uBgkpYSXQtGIeK46U=;
+        b=J2iKIoaT9yALJAuAifz3bJgxopJV9/qYbI/y5O0GiLtSaU79icL+lcPq6WkCID/12g
+         gW6n8mppniFFuIuat1wo6fWfhEFn+U1W9hgjypq0v5WwkW1KAvVKLIrbAXQdW76Jr1C8
+         dJnAgdhjGAw2baoZ/Tb9m1qtLBGq+nOePiP4D0ZSiGOiZbu6/yvHNRg3HwUhO/cUtkWm
+         eiHH8frbMZmLfHNmeii5stjnXoS9e/0iVhifKr7TbPxMC0HJ17ID6FY0GzraSP8DVX3c
+         VH4eSVgotfvZMU2YgsIpcaKIhmX3Rc9CpUG4vpMDldC2Di1x+26KEVWN56jE6dxHFzCy
+         iseg==
+X-Forwarded-Encrypted: i=1; AFNElJ+4IPaAiMFhFm9yNiDp3QOB6Adzo5LanCQD7vGOSbg6Dkd0Ixhygzp5AmXv7e8D/B8q/WXYThzd+3dL@vger.kernel.org
+X-Gm-Message-State: AOJu0YzXNu3JlY/ShYzmlw7mB4io7FXYasyRfQ0ZeTOtEcTQvsb26Q/z
+	yIBP585BORN86dKqEVzyYE7G1IQeIdqDjbX9cFmSHkmIJKHiCPxyFZNr
+X-Gm-Gg: AfdE7cnuuFAgQ2HXzhH6fSR5or2rKqQe5eGNF65kTNWAS191upmNeEYduCTyeFQnsyr
+	czPUgdpr31r/PGUIDjqcDuwFOPqMe0RidwW5yjn9uKlpKJSl+UrHB6xw6GK8/KbaziLjHvXO8N6
+	pR6/tO/KVpx2TtPOOWUERTFBWUvDTKIK1a5QcvmMpDZBrF6oY/UphU8zlfHCrS5qZZ0tETxwiUr
+	wO3d/bItGNz0lu+oGUjQ6osSzg7TH759RNczuslKpuDQlZiXpoDWeuQFtEw/6GcFuMfov+m3G7P
+	RYur7Uu2kevTYwl7y6cMRe1HtEflMS2Jwfsw1ZeQXbO61LLS2GlzZ8FHwckRPmicWG3FKNie4FC
+	AxAwUlpFh1q37KbtE4vzzyuBzBzj+lvl9YGmIux/VVbml3gmeWxCogLWAhXkFSMpXmFMNjFySoE
+	gxdohkOQVJ6mTebq2sKUfpCItKEzI1+YPvgQ==
+X-Received: by 2002:a05:600c:c166:b0:492:63c3:8eeb with SMTP id 5b1f17b1804b1-493d11fe04cmr24840475e9.35.1783150755151;
+        Sat, 04 Jul 2026 00:39:15 -0700 (PDT)
+Received: from localhost.localdomain ([95.43.220.235])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9de1e736sm6565488f8f.7.2026.07.04.00.39.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 04 Jul 2026 00:39:14 -0700 (PDT)
+From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Subject: [PATCH 0/5] phy: cpcap-usb: improve charger detection and export cable state
+Date: Sat,  4 Jul 2026 10:38:38 +0300
+Message-Id: <20260704073843.1750458-1-ivo.g.dimitrov.75@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: eliza-evk: Add PCIe1 with TC9563
- PCIe switch
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20260703-eliza_evk-v1-0-7624440bd76d@oss.qualcomm.com>
- <20260703-eliza_evk-v1-2-7624440bd76d@oss.qualcomm.com>
-Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <20260703-eliza_evk-v1-2-7624440bd76d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: Mnff/9wu0oJYqWtcVqD8otk0vkTiqqiNAovR6/gQr3QwaN0k7a3zlmLW
-	VIZiiMS6l4M5wUxOYpGS1bBFuRlvgNj09EHpqjkyOhoNdysPfp1N654pJt2xBTKFaYqNfh2
-	xMta4LEXJDu6faOl722wkHAyQU6Rtah+Q3FZnH67U83764RSbVgrDnkggy2UMllRVXZac8C
-	iMlIgLyouM3dYjeGc/ddmUIae2PRmt6FVBPHFQKQ9V5OCtbG691Q70E52wRRpEvWBrAb6MY
-	86TI7u0gPTnm0EVZOUpU63rwB2IoW/kYn19/WADTct+NEyxVaBK7n3Hl8wH6VNY4A1kub6b
-	Nv5p55IuCC4NrrHuQvY2fK1qbc5r0JQTxoMGkOUas+tCUU+7Ed/0P/PqPLwP/xfaWm0yaad
-	EQDK17w6TNZoWTB2XtOhv//vWxq8YloUJgFT0Y3oqaPMpA/rCm3+vUpICdFsMvjwoB2FEHn
-	hRG9z1vX43B29svBOsI1F8l7RPwABWzOpQxTz/prxe8JA1549//o1KcuNFfx6T7l/u4uRBs
-	ZAL0Ds09XT9RY/JGEz6FB0O4zzRt2dQfn4PSM2Gf9rsRGPccXfCyjrWyEnJbqOXWpDFTiUL
-	aRExQrK/dHC7sninmQOhx9rcgzolfjhT4xVLRImXz8/maj27Xx/IMd87iFMsHiaZTSNxd1W
-	Dj/2T5CGoGibX/PiR3UK5FBoHUOYF3eAt1MuAm57Na5aiT9jdD63EEKKD2UikZMyzVml1Nm
-	ZtoDHxVNy6ZLj2cfaJytuE8CIt6i/nqqGqDHx1/XS9+4unpmZNTavgQ8Dw5CdSJUn7Mn7OW
-	/cWpVWWMB8UKcTuPbCW68ypOMWoHFu8RSTSLJXZKKnbUNpNC91lPtS5yA6p7A6uPhYtiuPs
-	XmN4Udaj9YFMSAfGl2a5JgfL4/YoW3pJt6odt9csPGOp1UG5sRJUropIj6r5VRbRow8I35D
-	MjmAqKsz9I7hYgCIXmRHAV036DCgIo5Rp3nDIMsLdCUwvuzHRawDBmz5M6dDZcghSJp67Uy
-	Q3Om1AS8O1t1YJZGfGcIcgqDUuUuY9ealNRUWhUchzqcMRPREi
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 
-On 7/3/2026 8:38 PM, Krishna Chaitanya Chundru wrote:
-> The Eliza EVK board connects PCIe1 (8GT/s x2) to a Toshiba TC9563
-> PCIe switch. Enable PCIe1 and its QMP PHY nodes.
-> 
-> TC9563 uses I2C (at address 0x77 on I2C4) for its management interface.
-> 
-> Override the base iommu-map with the expanded set covering all the
-> switch's downstream ports (0x1400-0x1408 SID range).
-> 
-> The TC9563 RESX# and PERST# are OR-ed internally to assert reset on the
-> switch. Use TC9563 RESX# pin via a TLMM GPIO and skip wiring PERST#
-> from the PCIe controller.
-> 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> ---
->   arch/arm64/boot/dts/qcom/eliza-evk.dtsi | 141 ++++++++++++++++++++++++++++++++
->   1 file changed, 141 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-> index ba41dbc34b81..c2afb8372ab7 100644
-> --- a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-> @@ -12,6 +12,26 @@ chosen {
->   		stdout-path = "serial0:115200n8";
->   	};
->   
-> +	vreg_0p9: regulator-0v9 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "VREG_0P9";
-> +
-> +		regulator-min-microvolt = <900000>;
-> +		regulator-max-microvolt = <900000>;
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-> +
-> +	vreg_1p8: regulator-1v8 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "VREG_1P8";
-> +
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <1800000>;
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-> +
->   	vreg_pcie_m_3p3: regulator-3p3 {
->   		compatible = "regulator-fixed";
->   
-> @@ -102,6 +122,104 @@ pcieport0_ep: endpoint {
->   	};
->   };
->   
-> +&pcie1 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pcie1_default_state>;
-> +
-> +	iommu-map = <0x0 &apps_smmu 0x1400 0x1>,
-> +		    <0x100 &apps_smmu 0x1401 0x1>,
-> +		    <0x208 &apps_smmu 0x1402 0x1>,
-> +		    <0x210 &apps_smmu 0x1403 0x1>,
-> +		    <0x218 &apps_smmu 0x1404 0x1>,
-> +		    <0x300 &apps_smmu 0x1405 0x1>,
-> +		    <0x400 &apps_smmu 0x1406 0x1>,
-> +		    <0x500 &apps_smmu 0x1407 0x1>,
-> +		    <0x501 &apps_smmu 0x1408 0x1>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&pcie1_phy {
-> +	vdda-phy-supply = <&vreg_l1k>;
-> +	vdda-pll-supply = <&vreg_l3k>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&pcie1port0 {
-> +	wake-gpios = <&tlmm 53 GPIO_ACTIVE_LOW>;
-> +
+The Motorola CPCAP USB PHY contains the hardware state machine used for
+USB cable detection. Besides distinguishing USB peripheral and host
+connections, it can also detect dedicated charging ports (DCP).
 
-Just wondering, is there any side effect if PERST# is described here as 
-well?
+This series starts with a prerequisite fix from Tony Lindgren to prevent
+spurious SysRq events when switching between USB and UART modes. It then
+adds DCP detection support to the CPCAP USB PHY, updates the Device Tree
+binding and corresponding mapphone Device Tree to use the charger
+detection interrupt, and finally exports the detected cable state through
+the Extcon framework.
 
+The existing driver already interprets the CPCAP USB detection state
+machine to determine the attached cable type. This series extends that
+logic to distinguish DCP connections and exposes the detected cable state
+through Extcon using a standard kernel interface. It also makes the idle
+UART mode optional, allowing the PHY to remain in its default USB
+detection configuration unless UART support is explicitly requested.
+
+The series has been tested on Motorola Droid 4 hardware.
+
+Ivaylo Dimitrov (4):
+  phy: cpcap-usb: add DCP detection and make UART idle mode optional
+  dt-bindings: phy: motorola,cpcap-usb: replace se1 interrupt with
+    chrg_det
+  ARM: dts: ti: cpcap-mapphone: use charger detection interrupt for
+    CPCAP USB PHY
+  phy: cpcap-usb: add extcon support
+
+Tony Lindgren (1):
+  phy: cpcap-usb: Prevent line glitches from triggering sysrq
+
+ .../bindings/phy/motorola,cpcap-usb-phy.yaml  |   8 +-
+ .../dts/ti/omap/motorola-cpcap-mapphone.dtsi  |   4 +-
+ drivers/phy/motorola/phy-cpcap-usb.c          | 312 +++++++++++++++---
+ 3 files changed, 274 insertions(+), 50 deletions(-)
 
 -- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+2.25.1
+
