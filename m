@@ -1,163 +1,96 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3DC25B099
-	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 18:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783191185; cv=pass; b=FcANs85y508S8oCIH7aAM7T/DB1Te1F9+i7y2m8D061rWdOts8dxblNFHcqSBWlPj5yU4z1Xym3XxEEVXSzHWP4vw0rRVbbPRvn39PhXwX/2HE1xgiuF3kGqAjUce2s+Tgk6Bu4M81iB4iWyLYAK3T25YzolpeJwxV8aTFMQCkg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783191185; c=relaxed/simple;
-	bh=GfnlmAFvUSAqS3ZrwBAbcQ1Hx67x/lz6NtI32WD2Khc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZJ6A2Bwg4vp76acxWT21t5btoFdBWYeYMzhaJWIMl208WStLfS0D1NzMg0xNxMJFApTLxXyOLbdNHtwbt4NR32M/3+6mSf1yLUtR6KBcsZTAUhB9QIVCORYoVtobeHa1tGr8dzwLYSxZUWXNXwTQ5OfgZViSCVRoHtjVpjK7D2E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MBl9N54m; arc=pass smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7032264CA;
+	Sat,  4 Jul 2026 19:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783192906; cv=none; b=j6+hlWk6TE+XKUr0YCHFEzDAjnS5elQF16JR8HpXwTze9jmd9S1ir9UtIqU7BLXJ5mrMbdqYuwwH8TzE+06V/jbrlMUnnb4bSnjP4hGgJ4T88qOUjqqz1sV0d9UQyVF/1UV65bHFmjUGgSrdGBXBdoH1RA+jmzPArTAz1cQe0KU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783192906; c=relaxed/simple;
+	bh=DrmEnoWmyWcxAHLbfs449WCtfzaKrN+jtcI2xYUq4jM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VF38d9Oas+VVjFb4ihq8r17an2CZEAbKM2t8/G63zDYt9dubUnOLvxIQGDF01yxki0GBkBIOefAPOExUxTZZ+oxrrZW9+wIht0aC0z+MNxYmibu99Xxj5sR+B/vOIRSCQTfStg3g80TvFy3hG6r5Zwyzi5gTdcQCoxQ/kfvJuIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s2h+J/PX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MBl9N54m"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c12620ed112so210313066b.3
-        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 11:53:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783191182; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AHd7tYBhXgLEHzWctf6MKArAfXJjn+7rZBT2JF5qw2qL+JQhV+necIQ7Q7pl8mKNbR
-         +COnRIFYV74m33CRaMAam//0ZqQWChXBQzUMlqfWqLJ38eLSZXtECi+B2S5O4PSpaOJx
-         RB2L4tpfY4TcNDoXoXMN/R/DzLSwr3lInCS5lDPb5r3wlqpOgxX4YLwz4u84awdS1vc1
-         OrNcGQYwwlUZvbAwm7NnA1+pBLFNQ9V0shDILKITtauVaPOw6b+eK1In6mHa/oyS+zf+
-         WBAflVH/iAG4j3NLeN6RPxLZV9xUgHeIEmXVWJwX7NwrAdCmHrz1jfhzjFSaLKnZ40em
-         YOog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=f+BkGnn82LQN6bHnpZs3JGZAnAhIdCPQEanxeSEyBEM=;
-        fh=dOU234rnuwVCi+kEp3S6aMyQLTLw/IeSulgGVgIq/aI=;
-        b=H4CAaBOhGHDfK1ZFonj5c2EltMTKmWd35SaixVYrJMf8bLPVZjchd9Nmzzs0BL56xl
-         dqZDpnALKelyJzRkeZ0xS021ProcAXiqCLpc1llEOQ0SqkKh2sLzmU8+g8QMLoAPkwF6
-         g/u6JXB1cwYV+YEFOVnwoD+dFfsD6/p9Oc4lmiqZA48nmgHxRTgE+k543ZRJzS8nYkHZ
-         mhEE94e1aRqcP2MLPvJF9ySregMQLbb156LB2OIewEfGz++3kBd5kxZs2adzCW5yBXM+
-         cT23NH0BcrhIA4gNBX8mOvJryAzPQlbSuqA8Z3+omsA440a1l7vniJR3e/7H7nQNf+SO
-         TZSQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783191182; x=1783795982; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=f+BkGnn82LQN6bHnpZs3JGZAnAhIdCPQEanxeSEyBEM=;
-        b=MBl9N54mjc4tJuE+tFBvEd21jYVWHVytcvHI3UUdy0vRjod+8RGxgJSj2mj9Bjf5B2
-         1MzS6BUJIPVKkEIz3RCrv1gsjEmHV+wyyMSvx8ZKbtKRsIEcjFifKHgIpn7GisHN6OIa
-         7LUkwvuvLFCuqgQm46lUxhKnBUoHIJupc5pYcxYXiPIzhO3zyxSP9nEyQKL63Ud6/K3L
-         LLILucDyS0kbVc3Koicepfk87PUcKTnnsdgzuokgj1LH2Fpdv/ERRnKhYMq4gFpBooAp
-         MHISeat7T7+qJg0OxfCrkvMfVBI5wYb0D2Wmjb6XxW+pTLTCMlIAfp65uT2QYkim5lNr
-         lGkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783191182; x=1783795982;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=f+BkGnn82LQN6bHnpZs3JGZAnAhIdCPQEanxeSEyBEM=;
-        b=JUnq5+Gsf36ja1BgH2tL2jsdP0XkbE7U64FXeUGdNZF7QjckxOj5e9XpIcgjAukJl1
-         LBVWpQbfnn6fp9s7VQgWtuLuQM2I0ZHi3u5r2HlM+k+9+QQrV2DZIOMx+c1dxYA5TWsR
-         6f/whIOOdPCXUckWMO2uDLwPTjm/5+vFpX2fbsDhRVODHLsJ5fww5sOz9vIWBAS26khk
-         8xceIwMuXV/KPiGO+env96AA4UMEcAZfXO3kAWoTw4Obrisj5tztC/+lOV23CcVJQ0FU
-         i+lG9a/wOYXn+coKyHMBlUF0SDpuZwzCSp1dkdmtGtySJpcdyxep6W+iC7KKAPzj3K7e
-         5mfQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rok9IOf5zH79qdAnUH4vrJA+f8BKrclRA2AnJF+4SmYQ4jKqX7UeZIaKtqndbFwPjpwMKpgxjozcOFp@vger.kernel.org
-X-Gm-Message-State: AOJu0YyP2F35Inzqs6iYG15zPKD1KXi7ta6Q3IkmS/Cbf+NSuJQ5WGhu
-	220W4s2N15jN0om73XIS8ameK6UdLYcGVjCxQsOpcpqivzdp+XFoy/26vlvxU9kRFjduW3D56jk
-	hE4zsDOzqRCXsKiDrwTlpxy3AUkTtjp8=
-X-Gm-Gg: AfdE7cnDbd4EFTvGwR/hTNEllRB52heh0awDEl5EXvjMWFZGgg6WwnNmXEpp/aiI1yf
-	wxxZ22WGJGMVVFa69aCElnpsE/Aub48NccnMdVlZeseaPqPjBj6pXa9I1acj5eiL49fTpyyC8sp
-	Is+bJEr1yeyPaAivhLTIQW5wdN8uZ8PQ1xB2B7V44evuADCHaT0yAaRdEw6L1sn1w2y5TsxKoeB
-	nPQ+pV8DykOR5FbAZOKqkcQWeYbHrQBp9DgJbELZpY1plobwRgE9wfFfQ0XHh6WKo8K5Ff4RwRA
-	lueVK3XHj5J1HdzfaxluPVCm7OOibvVkwFC66Mg6hRU+ZTGbRTRzmt7KEVK/XUnNp/bG8vxHljj
-	c5teouI3Z/K6sDltdisgZEnOJYxlDlXpsJ2Sy7JIP2QsMwKzSUGcMDP+1EYJm4vBXlQlW
-X-Received: by 2002:a17:907:25c3:b0:c12:45fc:c44 with SMTP id
- a640c23a62f3a-c12e6bff31emr137459066b.62.1783191181998; Sat, 04 Jul 2026
- 11:53:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s2h+J/PX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E73C1C19425;
+	Sat,  4 Jul 2026 19:21:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783192906;
+	bh=DrmEnoWmyWcxAHLbfs449WCtfzaKrN+jtcI2xYUq4jM=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=s2h+J/PXSLPoVCq5HoZTcJWZRH1TyzEPI1fBa+lUbkvKpeQ/NWU+exS23rgQz7aMQ
+	 WpOVKdlRcl+UqJnX1PVFgWzykvpOWO6KwqSyqRwmHEoJj52Rk0nYj9OJi42o3n+TeY
+	 8WIOBZ9zYUxytb+hjtyGGqWYbNt7qHipnHuGcdvHaXFRFB0FF9RgVS6RMqKMdrC46i
+	 Q04QiOw5CUK4EpGPFNoorpG/p7iBzCGQfnF+ANTiI5/HkyLkCzcFVc6/MKS5G77cy8
+	 OoHmT7YmCGh9uF/ABrS9Duz5rKQruZQZHlLFvAeLx5xrArJAS0czltsB/3OdRIG/+G
+	 JxRPrkaXntVDg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C05C3C43458;
+	Sat,  4 Jul 2026 19:21:45 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Subject: [PATCH 0/2] ARM: dts: mediatek: mt6572 DT cleanup + cache info
+Date: Sat, 04 Jul 2026 22:21:41 +0300
+Message-Id: <20260704-6572-phase1-v1-0-61c2fe6be19c@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260703102941.1141341-1-stefan.popa@analog.com>
- <20260703102941.1141341-3-stefan.popa@analog.com> <9878f042f424bfbd7fab24175298224b58e87779.camel@linux.dev>
- <akj3Ay8mwemRj-9U@ashevche-desk.local> <akkwWxCf10rfThMk@fedora>
- <akk9d-Zrx52C674x@ashevche-desk.local> <f7aba67831fbee343c105bba4bb531ce6f1c1c50@linux.dev>
-In-Reply-To: <f7aba67831fbee343c105bba4bb531ce6f1c1c50@linux.dev>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Sat, 4 Jul 2026 21:52:25 +0300
-X-Gm-Features: AVVi8CdyAnuqpwp7HErpmAcpd3YTiWdAQ5q92MiljKmxpMmIe5DU0ndquU9wm84
-Message-ID: <CAHp75Ve_98MSB-RrSWV7J5yH39c6gus4eUBjXondo1=hue9pyg@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] iio: adc: add MAX40080 current-sense amplifier driver
-To: Siratul Islam <siratul.islam@linux.dev>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Stefan Popa <stefan.popa@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ciprian Hegbeli <ciprian.hegbeli@analog.com>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqAIBBA4avErBNUMqGrRIt+xpwWFk5FEN49q
+ +W3eO8GxkjI0BQ3RDyJaQ0Zqixg9H2YUdCUDVrqWlpZidpYLTbfMyohVTUZowZnnYZcbBEdXd+
+ t7X7zMSw47u8CUnoAi2ZjYW8AAAA=
+X-Change-ID: 20260704-6572-phase1-014d551bf7f2
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Roman Vivchar <rva333@protonmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783192904; l=1091;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=DrmEnoWmyWcxAHLbfs449WCtfzaKrN+jtcI2xYUq4jM=;
+ b=nNNWxh6dknyQMeqBS+KrQhlN0NrksqTdzm8NiuX/by9b77T9D8qEXOtuC8k79UQS8ERkyIADj
+ qgfY6gpSNb8CKCHewkxtdNFWWAFO1ei7BN4q//uqqMkR2wju2Q+JzwK
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
-On Sat, Jul 4, 2026 at 8:30=E2=80=AFPM Siratul Islam <siratul.islam@linux.d=
-ev> wrote:
-> July 4, 2026 at 11:05 PM, "Andy Shevchenko" <andriy.shevchenko@intel.com =
-mailto:andriy.shevchenko@intel.com?to=3D%22Andy%20Shevchenko%22%20%3Candriy=
-.shevchenko%40intel.com%3E > wrote:
-> > On Sat, Jul 04, 2026 at 10:32:32PM +0600, Siratul Islam wrote:
-> > > On 26/07/04 03:05PM, Andy Shevchenko wrote:
-> > >  On Sat, Jul 04, 2026 at 01:42:39AM +0600, Siratul Islam wrote:
-> > >  > On Fri, 2026-07-03 at 13:29 +0300, Stefan Popa wrote:
+This series replaces legacy clock naming like uart_clk, system_clk and
+rtc_clk with clk-*FREQ* equivalents. It also adds L1 and L2 cache info
+to properly describe hardware.
 
-...
+Note that patch 1 doesn't break DT ABI. The changed clock node names
+and labels are consumed only by phandles, and there are no drivers
+relying on the legacy names.
 
-> > > > > +static int max40080_get_range(struct max40080_state *st, unsigne=
-d int *range)
-> > >  > > +{
-> > >  > > + int tmp;
-> > >  > > +
-> > >  > > + tmp =3D i2c_smbus_read_word_data(st->client, MAX40080_REG_CFG)=
-;
-> > >  > I think tmp can be initialized, since it is only assigned once.
-> > >
-> > >  I don't get this comment. You mean switching to ret?
-> > >
-> > >  I meant tmp is assigned only once so the indirection here, i.e.
-> > >  declaring and assigning in two steps doesn't buy us anything. Instea=
-d,
-> > >  it could be initialized like "int tmp =3D i2c_smbus_read_word_data()=
-."
-> > >
-> > Ah, definitely no to this suggestion. It makes code harder to maintain
-> > and the pattern you proposed is actually discouraged. You can search in
-> > mail archive and find like ~1-2 year old message from me with the detai=
-led
-> > explanation why.
-> >
-> Thanks! I'll look into it. Learning a lot of stuff. But I'm trying to und=
-erstand where to draw the line though.
-> Like "struct xxx* data =3D iio_priv(indio_dev);" and "s64 ts =3D iio_get_=
-time_ns(indio_dev);" are pretty common.
-> Do these calls make a special case for it?
+As a brief heads-up, this series is a small part of an ongoing effort
+to upstream mt6572 support. In my kernel tree, I have brought up clocks,
+pinctrl, eMMC/microSD, cpufreq, thermal, DRM, GPU and more. I plan to
+send those series in the near future.
 
-When the assigned value is coupled with a (validation) check,
-definitely do not assign and define simultaneously. When it's used as
-a counter, it's better to assign it closer to the user (meaning the
-counters that can't be folded into a for-loop). This is the rough rule
-of thumb. Plus use common sense.
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+Roman Vivchar (2):
+      ARM: dts: mediatek: mt6572: rename fixed clocks
+      ARM: dts: mediatek: mt6572: add cache data
 
-> > > > > + if (tmp < 0)
-> > >  > > + return tmp;
-> > >  > > +
-> > >  > > + *range =3D FIELD_GET(MAX40080_RANGE_MSK, tmp);
-> > >  > > +
-> > >  > > + return 0;
-> > >  > > +}
+ arch/arm/boot/dts/mediatek/mt6572.dtsi | 35 ++++++++++++++++++++++++++++------
+ 1 file changed, 29 insertions(+), 6 deletions(-)
+---
+base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+change-id: 20260704-6572-phase1-014d551bf7f2
 
---=20
-With Best Regards,
-Andy Shevchenko
+Best regards,
+--  
+Roman Vivchar <rva333@protonmail.com>
+
+
