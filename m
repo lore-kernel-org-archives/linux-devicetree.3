@@ -1,189 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5433502A6;
-	Sat,  4 Jul 2026 17:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E09C348C65
+	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 17:30:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783186166; cv=none; b=Lg3VNgYRi5ktMWiG7Dddu7nBiakO22oYXkH1Goxg4MMnOLXmsKE0lBIie31AYSPHMCWzTLGtu0ktWYeYtPYRsOaXftHSCdi5Uc32XlF87OC4CCyy18nl2QkBpP7QGsr451LPN7BarsCG681pp/5z279LsWc14SZy+sAHY2L4Uc8=
+	t=1783186240; cv=none; b=CF6km+W1iKhdLBQe8KOhlZUz+quYMP7jW3riX7ZGaDN3nMb+3TWwPd0ybz66C6hbu2DlocdKZ9k3y0iPB+mPn8nK4zkzc0CdyMQzwy7HhHfZ9hcb29B5Pvf1ze9u9thsDTuw7Ua4nHkNM8rtM6hCQe2e2OTyOpE44XSEa3fdsHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783186166; c=relaxed/simple;
-	bh=5T7A4d2YaZPHMcb6dQBzmy9eowheXtARtObUoukwPs4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=THBjkj9RzhMJMeG/2NQp9q1oKYuQzELbKrE7kVAIsWWSN5pWkwh4RG96yswYdKm1hxLG8/qMEwFvmTGy6TX4/WjJ1ny8YHHhnQd1SKJxKpM461NZVnC3askXDPWHT16x6EzWZDtLGUlcHVQrMKnLo+dXwBy6KVPnUOc2iAZUiCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oshOd3ZJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783186240; c=relaxed/simple;
+	bh=QTFOXL/7uxf5Vhh2+P3ga7eNXu/yhxwvoCw8hBStYkM=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=Ansdr2nB0SM99oLd0MabvWdNbumKtm0j0Axp80w32ZvCZxotFu2shXI3tjLQ/hVwjMflCkha/HdpjJFTI049ei1HR+bDdB9rA4irVVW+xhNEdUR9NZCBWmiAxmtATbn31qDm4T/FYNeAwlugmJFmGm/ylTjUCB7O6NFCEDqyrWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TUpm/wbp; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oshOd3ZJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 474C71F000E9;
-	Sat,  4 Jul 2026 17:29:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783186164;
-	bh=ZLObji7vKNpj+qigrJiSF/az+7555U8AS/8ZK96zicg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oshOd3ZJlwtLJwjrYJqcJFtBJHnobgIDjkOexYnULmxWyxlY4z2NGT/i8Gh1zuxen
-	 2YNkwgyxTwnAfsvOpBNp9jiSdgy3Pe2dXX/n8PMOp3G11iCSOEw1JyO4FqXHQ1lNU2
-	 4dzkI/p43yxzsuDdaR1koZHOaYJ16LPr6jpcA7pmdrwAsfbQliryizj2+U42INPoHw
-	 82DiK2wCTUYn5k81zJ3hMnEurVZSxgF/1eAggFX3We8RxstsVEXCJ7Jn7MkOWgC7Fk
-	 CD9zT6BMwO2tDR2cCc9p/Fj7JSKUhEbobs/r51LzhMys0IoPnzHB4cpoXqQY2pxH9w
-	 390BkWUVUlmBA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/5] thermal/drivers/sun8i: Add support for A523
- THS0/1 controllers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikhail Kalashnikov" <iuncuim@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260704171411.1413349-5-iuncuim@gmail.com>
-References: <20260704171411.1413349-1-iuncuim@gmail.com>
- <20260704171411.1413349-5-iuncuim@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 04 Jul 2026 17:29:23 +0000
-Message-Id: <20260704172924.474C71F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TUpm/wbp"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1783186225;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=njzJqdpKKKXqA0+a5qBHy09jk5HzWBDgE2/TwwrdOYA=;
+	b=TUpm/wbpG3Alc1Qo+pQ7NuVKHtgH44+IAwikQGyv0ATrmjWkMJlpyrmKIQ7ZnnRqCpMTl2
+	t/UHXts6aUv/w9hV5O3CjlL398fqHeXz1AiEXctEd1sz9geS7tUs1xJm5pLE5i3o+yDoet
+	oXgd/xFJOAc9EX4MI0FKuwehQr4dhRw=
+Date: Sat, 04 Jul 2026 17:30:23 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Siratul Islam" <siratul.islam@linux.dev>
+Message-ID: <f7aba67831fbee343c105bba4bb531ce6f1c1c50@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v1 2/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
+Cc: "Stefan Popa" <stefan.popa@analog.com>, "Jonathan Cameron"
+ <jic23@kernel.org>, "David Lechner" <dlechner@baylibre.com>,
+ "=?utf-8?B?TnVubyBTw6E=?=" <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Ciprian
+ Hegbeli" <ciprian.hegbeli@analog.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <akk9d-Zrx52C674x@ashevche-desk.local>
+References: <20260703102941.1141341-1-stefan.popa@analog.com>
+ <20260703102941.1141341-3-stefan.popa@analog.com>
+ <9878f042f424bfbd7fab24175298224b58e87779.camel@linux.dev>
+ <akj3Ay8mwemRj-9U@ashevche-desk.local> <akkwWxCf10rfThMk@fedora>
+ <akk9d-Zrx52C674x@ashevche-desk.local>
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] The calibration check `if (!caldata[0])` will always fail and abor=
-t calibration if bits 0-15 of the A523 eFuse are zero.
-- [High] NULL pointer dereference if the `nvmem-cell-names` property is mis=
-sing from the Device Tree.
-- [Medium] Out-of-bounds heap read due to missing `callen` validation in `s=
-un55i_a523_ths_calibrate`.
-- [Medium] Calibration logic incorrectly hardcodes `SUN55I_A523_SCALE_ABOVE=
-` to convert temperature error into a register offset.
---
+July 4, 2026 at 11:05 PM, "Andy Shevchenko" <andriy.shevchenko@intel.com =
+mailto:andriy.shevchenko@intel.com?to=3D%22Andy%20Shevchenko%22%20%3Candr=
+iy.shevchenko%40intel.com%3E > wrote:
 
-commit ed04dff3819d46435d0d0c6fa95dfd782738eb1e
-Author: Mikhail Kalashnikov <iuncuim@gmail.com>
 
-thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
-
-The A523 processor has two temperature controllers, THS0 and THS1.
-THS0 has only one temperature sensor, which is located in the DRAM
-controller. THS1 does have 3 sensors:
-ths1_0 - "big" cores
-ths1_1 - "little" cores
-ths1_2 - gpu
-
-The datasheet mentions a fourth sensor in the NPU, but lacks any registers
-for operation other than calibration registers. The vendor code reads the
-value from ths1_2, but uses separate calibration data, so we get two
-different values from real one.
-
-> diff --git a/drivers/thermal/sun8i_thermal.c b/drivers/thermal/sun8i_ther=
-mal.c
-> index 3bdd62aa8bdf1..f48ed9eae6c4f 100644
-> --- a/drivers/thermal/sun8i_thermal.c
-> +++ b/drivers/thermal/sun8i_thermal.c
-
-[ ... ]
-
-> @@ -299,6 +314,97 @@ static int sun50i_h6_ths_calibrate(struct ths_device=
- *tmdev,
-
-[ ... ]
-
-> +static int sun55i_a523_ths_calibrate(struct ths_device *tmdev,
-> +				     u16 *caldata, int callen)
-> +{
-> +	struct device *dev =3D tmdev->dev;
-> +	int i, ft_temp;
-> +
-> +	if (!caldata[0])
-
-[Severity: High]
-If the device tree lacks the nvmem-cell-names property, the loop inside
-sun8i_ths_calibrate() will be skipped entirely. This leaves caldata as
-NULL when it is passed to the chip-specific calibrate callback:
-
-sun8i_ths_calibrate() {
-    ...
-    of_property_for_each_string(...) {
-        ...
-    }
-    tmdev->chip->calibrate(tmdev, (u16 *)caldata, callen);
-    ...
-}
-
-Will checking !caldata[0] here cause a NULL pointer dereference in that
-scenario?
-
-[Severity: High]
-According to the eFuse layout diagram in the comment block just above this
-function, bits 0-15 are empty/unused, while the actual factory temperature
-is stored in bits 24-35 (caldata[1] and caldata[2]).
-
-If those unused eFuse bits are typically zero, will this check silently
-abort the calibration process on the A523?
-
-> +		return -EINVAL;
-> +
-> +	ft_temp =3D (((caldata[2] << 8) | (caldata[1] >> 8)) & FT_TEMP_MASK) * =
-100;
-> +
-> +	for (i =3D 0; i < tmdev->chip->sensor_num; i++) {
-> +		int sensor_reg, sensor_temp, cdata, offset;
-> +		/*
-> +		 * Chips ths0 and ths1 have common parameters for value
-> +		 * calibration. To separate them we can use the number of
-> +		 * temperature sensors on each chip.
-> +		 * For ths0 this value is 1.
-> +		 */
-> +		if (tmdev->chip->sensor_num =3D=3D 1) {
-> +			sensor_reg =3D ((caldata[5] >> 8) | (caldata[6] << 8)) & TEMP_CALIB_M=
-ASK;
-
-[Severity: Medium]
-Is there a chance we might read out of bounds here if the provided nvmem
-data is smaller than expected?
-
-If the device tree or nvmem cell provides fewer bytes than the 14 bytes
-required to access caldata[6], this could result in an out-of-bounds heap
-read.
-
-Should we validate callen before accessing these offsets?
-
-> +		} else {
-> +			switch (i) {
-> +			case 0:
-> +				sensor_reg =3D (caldata[2] >> 4) & TEMP_CALIB_MASK;
-> +				break;
-
-[ ... ]
-
-> +		sensor_temp =3D tmdev->chip->calc_temp(tmdev, i, sensor_reg);
-> +
-> +		/*
-> +		 * Calibration data is CALIBRATE_DEFAULT - (calculated
-> +		 * temperature from sensor reading at factory temperature
-> +		 * minus actual factory temperature) * X (scale from
-> +		 * temperature to register values)
-> +		 */
-> +		cdata =3D CALIBRATE_DEFAULT -
-> +			((sensor_temp - ft_temp) / SUN55I_A523_SCALE_ABOVE);
-
-[Severity: Medium]
-The sun55i_a523_calc_temp() function uses a piecewise formula depending
-on the register value, applying either SUN55I_A523_SCALE_ABOVE or
-SUN55I_A523_SCALE_BELOW.
-
-However, the calibration offset calculation here unconditionally divides
-the temperature error by SUN55I_A523_SCALE_ABOVE.
-
-If the factory temperature corresponds to a register value in the
-SUN55I_A523_SCALE_BELOW region, will dividing by the SCALE_ABOVE
-value result in an inaccurate calibration offset?
-
-> +
-> +		if (cdata & ~TEMP_CALIB_MASK) {
-> +			/*
-> +			 * Calibration value more than 12-bit, but calibration
-> +			 * register is 12-bit. In this case, ths hardware can
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260704171411.1413=
-349-1-iuncuim@gmail.com?part=3D4
+>=20
+>=20On Sat, Jul 04, 2026 at 10:32:32PM +0600, Siratul Islam wrote:
+>=20
+>=20>=20
+>=20> On 26/07/04 03:05PM, Andy Shevchenko wrote:
+> >  On Sat, Jul 04, 2026 at 01:42:39AM +0600, Siratul Islam wrote:
+> >  > On Fri, 2026-07-03 at 13:29 +0300, Stefan Popa wrote:
+> >=20
+>=20...
+>=20
+...
+>=20
+> >=20
+>=20> > > +static int max40080_get_range(struct max40080_state *st, unsig=
+ned int *range)
+> >  > > +{
+> >  > > + int tmp;
+> >  > > +
+> >  > > + tmp =3D i2c_smbus_read_word_data(st->client, MAX40080_REG_CFG)=
+;
+> >  > I think tmp can be initialized, since it is only assigned once.
+> >=20=20
+>=20>  I don't get this comment. You mean switching to ret?
+> >=20=20
+>=20>  I meant tmp is assigned only once so the indirection here, i.e.
+> >  declaring and assigning in two steps doesn't buy us anything. Instea=
+d,
+> >  it could be initialized like "int tmp =3D i2c_smbus_read_word_data()=
+."
+> >=20
+>=20Ah, definitely no to this suggestion. It makes code harder to maintai=
+n
+> and the pattern you proposed is actually discouraged. You can search in
+> mail archive and find like ~1-2 year old message from me with the detai=
+led
+> explanation why.
+>=20
+Thanks!=20I'll look into it. Learning a lot of stuff. But I'm trying to u=
+nderstand where to draw the line though.
+Like "struct xxx* data =3D iio_priv(indio_dev);" and "s64 ts =3D iio_get_=
+time_ns(indio_dev);" are pretty common.=20
+Do=20these calls make a special case for it?
+> >=20
+>=20> > > + if (tmp < 0)
+> >  > > + return tmp;
+> >  > > +
+> >  > > + *range =3D FIELD_GET(MAX40080_RANGE_MSK, tmp);
+> >  > > +
+> >  > > + return 0;
+> >  > > +}
+> >=20
+>=20--=20
+>=20With Best Regards,
+> Andy Shevchenko
+>
