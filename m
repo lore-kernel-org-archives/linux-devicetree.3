@@ -1,84 +1,225 @@
-Received: from mail-m16.yeah.net (mail-m16.yeah.net [220.197.32.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C19339061C;
-	Sat,  4 Jul 2026 08:22:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369F784039
+	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 08:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783153381; cv=none; b=AXTLpOtbtUlZ/cEolSWPuQaqIRyxlEkS6tCy540j2vzc1HXU4+ow7ff/JNOCJ97yzwvcRvi1+/Av0yjrZWmOmxKonqX0Mvy4NtRAjga40+PNbAVjJbCcBocjYrYC0CQc5zTzPrmsiWGJ1u9W1baA8ynSljAx460CCh4AoOAnAVo=
+	t=1783153425; cv=none; b=O3OYH/GD453oOrL/G6aCmlkOGefNDE7NdYU10wtO/JQkXuE1Il+8Ngb9HHfUhY3rlR7C3acNINprtA50XOeEHPgKKTUVushBXkq66r9gcvFkuB/kOgwR5oXKo68Uo1aDFrk+7+it/kCEGK+Gny+1y+zFOlKdJmsyGUMXHxfjJDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783153381; c=relaxed/simple;
-	bh=cRn7m7brK78nGuXGnSYGpDMbZJ5hnbiW6pjZObSP6sM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rmSktW2hmBQjykyVU3v95X1DGMn7Q5mTpq+SX3+RHJA7KBau4Ll41XoWEH7Jm/QBgZgSUoEVIicQZUsoU5Mk2mCOmEDuvLCvVDod+OvmGuAPaxkkd3N2kjD8SbF1eQxpvukoeia4UwLnzo76O58qwDGsaPzuh7WvXDzIZl8lLpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yeah.net; spf=pass smtp.mailfrom=yeah.net; dkim=pass (1024-bit key) header.d=yeah.net header.i=@yeah.net header.b=oN3HF1WB; arc=none smtp.client-ip=220.197.32.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yeah.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yeah.net
+	s=arc-20240116; t=1783153425; c=relaxed/simple;
+	bh=BWcegXQ9M0TX2I6dEzzWDDgYlDlH///nCsIb/iJTEGE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nsy6lhXnpFBy0LXJ4GW29aODcwm6thNZa0kjM5m5LtvXxIrzUWeYfQnYQq/v+mGK+4fksUdAgcuRW8Vk6JgJoo2Vlowp/sis13m7l/ZNUN+t5y0VOdOa/cRd5TafNh2jY3tNQ1YX8bnsuYo1N6vHPQIE0D9bK9Cbr5OHXkZMACU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GW/hPYiv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yeah.net header.i=@yeah.net header.b="oN3HF1WB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yeah.net;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=F8
-	7PwsKShk0cL752xeSe+Mho3WGWHLs8rWeZWmjsF2E=; b=oN3HF1WBPzCg79vsTO
-	w+KMtadumlsr522WyclWT13/WTzALLxoOQS7lKHqUC4npLzI+HKn5aiSw7ywy+Uv
-	DtggskyD6FQmYk3rsooNhQw27PhAB8icckI/1snql2zYVJ8+xPJ1hOoK7b3UyLC5
-	TBj4CwpH7Q/kI702ShfNFqViU=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with UTF8SMTPA id Ms8vCgD3308rwkhqyJoLAQ--.13660S2;
-	Sat, 04 Jul 2026 16:19:55 +0800 (CST)
-From: wenswang@yeah.net
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux@roeck-us.net,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Wensheng Wang <wenswang@yeah.net>
-Subject: [PATCH 1/2] dt-bindings: hwmon: Add MPS mpq82d00
-Date: Sat,  4 Jul 2026 16:19:51 +0800
-Message-Id: <20260704081952.1701914-1-wenswang@yeah.net>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260704081810.1701587-1-wenswang@yeah.net>
-References: <20260704081810.1701587-1-wenswang@yeah.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GW/hPYiv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33A061F000E9;
+	Sat,  4 Jul 2026 08:23:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783153423;
+	bh=Ax6N8Gojza5MvF7k+ktY/i6Sih5FQmzOwRO9mIOFaw0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GW/hPYivWUL1JJV/vQmIpF4ZRlBUI+HTMro39av0UWMHjOUFj0qXBMoHUtgk43lRL
+	 gfsySYbnJ5wJeDKxHy67a+mQZX5ANZb5zC4fX61XMqBk7l9HIChrl3GHZ8hVbmiWTL
+	 3Ny+xhmjUoblqwjblLV9ygf7+9I7fhMmSxpR90X+sm/IMY5xs/SMqepaWaBZHsHLD+
+	 c6iIUZ6WLqAG9pnqlyOlaKdmsL0Z07cSAqOdX0KUXAA2Lr4QqZEbej67zQG0nJH5Pg
+	 /IKRmaFLVz77O1hJYqF0jbH3fCEJhQQI9RsOroiC0ZV1Z+q2Etd9vGePVg8tDou26a
+	 caZng3gp5ITeQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] drm/ssd130x: Change SSD133X color format to
+ RGB565 from RGB332
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Amit Barzilai" <amit.barzilai22@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260704080925.75113-3-amit.barzilai22@gmail.com>
+References: <20260704080925.75113-1-amit.barzilai22@gmail.com>
+ <20260704080925.75113-3-amit.barzilai22@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 04 Jul 2026 08:23:42 +0000
+Message-Id: <20260704082343.33A061F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:Ms8vCgD3308rwkhqyJoLAQ--.13660S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7JryrXrWkGryUWFWfWFy7Awb_yoWfCFg_Cw
-	1xZw4qkrykJF1Sy3WYkr4kJF1UZ3W2kF4UCw1ktF1kZ34S9FZ0gFyvq343J34xWF47ur15
-	urnaqrZ5XrnrGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_UUUUUUUUU==
-X-CM-SenderInfo: 5zhq24xdqjq5hhdkh0dhw/1tbiIgxoDWpIwixbhgAA3a
 
-From: Wensheng Wang <wenswang@yeah.net>
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-Add support for MPS mpq82d00 controller.
+New issues:
+- [High] Red and Blue colors will be swapped on SSD133X panels due to a mis=
+match between the controller's expected color sequence and the output of `d=
+rm_fb_xrgb8888_to_rgb565be`.
 
-Signed-off-by: Wensheng Wang <wenswang@yeah.net>
----
- Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+Pre-existing issues:
+- [High] Incorrect column and row end coordinates are sent to the SSD132X/S=
+SD133X controllers during partial screen updates.
+- [High] The `ssd133x_clear_screen` and `ssd132x_clear_screen` functions fa=
+il to reset the hardware column and row ranges before clearing the screen.
+- [High] Missing format conversion buffer reservation in atomic_check cause=
+s a `GFP_KERNEL` allocation to be attempted during `atomic_update`.
+- [High] Plane disable function returns early and fails to clear the screen=
+ when a plane is detached.
+--
 
-diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
-index 435c4baab436..8116f21bf8be 100644
---- a/Documentation/devicetree/bindings/trivial-devices.yaml
-+++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-@@ -362,6 +362,8 @@ properties:
-           - mps,mp9941
-             # Monolithic Power Systems Inc. digital step-down converter mp9945
-           - mps,mp9945
-+            # Monolithic Power Systems Inc. digital step-down converter mpq82d00
-+          - mps,mpq82d00
-             # Murata D1U74T-W power supply unit
-           - murata,d1u74t
-             # Temperature sensor with integrated fan control
--- 
-2.25.1
+commit 0636086c3e6d41d22249a2602bc27600caf69b06
+Author: Amit Barzilai <amit.barzilai22@gmail.com>
 
+drm/ssd130x: Change SSD133X color format to RGB565 from RGB332
+
+SSD133X screens were driven at 8bpp RGB332 despite supporting 16bpp RGB565.
+Switch the SSD133X data path to RGB565.
+
+> diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/=
+ssd130x.c
+> index 04da4f2f7d087..3f09977d227b0 100644
+> --- a/drivers/gpu/drm/solomon/ssd130x.c
+> +++ b/drivers/gpu/drm/solomon/ssd130x.c
+[ ... ]
+> @@ -584,6 +589,12 @@ static int ssd132x_init(struct ssd130x_device *ssd13=
+0x)
+> =20
+>  static int ssd133x_init(struct ssd130x_device *ssd130x)
+>  {
+> +	/*
+> +	 * Horizontal address increment, normal SA,SB,SC (e.g. RGB) sub-pixel
+> +	 * order, COM split odd even and 65k (RGB565) color depth.
+> +	 */
+> +	u8 remap =3D SSD133X_SET_REMAP_COM_SPLIT |
+> +		   FIELD_PREP(SSD133X_SET_REMAP_COLOR_DEPTH_MASK, SSD133X_COLOR_DEPTH_=
+65K);
+>  	const u8 cmds[] =3D {
+[ ... ]
+> -		2, SSD13XX_SET_SEG_REMAP, 0x20,
+> +		2, SSD13XX_SET_SEG_REMAP, remap,
+
+[Severity: High]
+Does this result in the Red and Blue color channels being swapped?
+
+Later in the update path, ssd133x_fb_blit_rect() uses=20
+drm_fb_xrgb8888_to_rgb565be(), which places Red in the MSB and Blue in the =
+LSB
+of the 16-bit pixel.
+
+However, without the Color Remap bit (bit 2) set in SSD13XX_SET_SEG_REMAP,=
+=20
+doesn't the SSD133X hardware expect Color C (Blue) in the MSB (D15-D11) and=
+=20
+Color A (Red) in the LSB (D4-D0)?
+
+[ ... ]
+> @@ -794,14 +799,20 @@ static int ssd133x_update_rect(struct ssd130x_devic=
+e *ssd130x,
+>  	 *
+> -	 * Each Segment has a 8-bit pixel and each Common output has a
+> -	 * row of pixels. When using the (default) horizontal address
+> -	 * increment mode, each byte of data sent to the controller has
+> -	 * a Segment (e.g: SEG0).
+> +	 * Each Segment holds one pixel and each Common output has a row
+> +	 * of pixels. A pixel is 8 bits (one byte) in the 256 color
+> +	 * (RGB332) format or 16 bits (two bytes) in the 65k color
+> +	 * (RGB565) format. When using the (default) horizontal address
+> +	 * increment mode, the pixel data is sent Segment by Segment
+> +	 * (e.g: SEG0 first).
+>  	 *
+>  	 * When using the 256 color depth format, each pixel contains 3
+> -	 * sub-pixels for color A, B and C. These have 3 bit, 3 bit and
+> -	 * 2 bits respectively.
+> +	 * sub-pixels for color A, B and C. These have 3, 3 and 2 bits
+> +	 * respectively.
+> +	 *
+> +	 * When using the 65k color depth format, each pixel contains 3
+> +	 * sub-pixels for color A, B and C. These have 5, 6 and 5 bits
+> +	 * respectively.
+>  	 */
+> =20
+>  	/* Set column start and end */
+
+[Severity: High]
+This is a pre-existing issue, but does this configure the hardware with
+incorrect end coordinates when x > 0 or y > 0?
+
+When ssd133x_update_rect() is called for a partial screen update, it passes
+columns - 1 and rows - 1 as the end coordinates instead of x + columns - 1
+and y + rows - 1.
+
+Could this configure the hardware with an end coordinate smaller than the
+start coordinate, causing memory wrapping and corruption?
+
+(Note that the identical coordinate calculation bug also exists in
+ssd132x_update_rect()).
+
+[ ... ]
+> @@ -874,7 +885,7 @@ static void ssd132x_clear_screen(struct ssd130x_devic=
+e *ssd130x, u8 *data_array)
+> =20
+>  static void ssd133x_clear_screen(struct ssd130x_device *ssd130x, u8 *dat=
+a_array)
+>  {
+> -	const struct drm_format_info *fi =3D drm_format_info(DRM_FORMAT_RGB332);
+> +	const struct drm_format_info *fi =3D drm_format_info(DRM_FORMAT_RGB565);
+
+[Severity: High]
+This is a pre-existing issue, but does this function clear the screen
+properly if a partial update happened previously?
+
+Because ssd133x_clear_screen() writes a full-size buffer of clearing data
+without first issuing the column and row range setup commands, if a prior
+atomic plane update constrained the hardware window (for a damage clip),
+won't the zeroes loop continuously within the small constrained window inst=
+ead
+of clearing the full screen?
+
+(Note that this same omission exists for ssd132x_clear_screen()).
+
+[ ... ]
+> @@ -945,7 +956,7 @@ static int ssd133x_fb_blit_rect(struct drm_framebuffe=
+r *fb,
+>  				struct drm_format_conv_state *fmtcnv_state)
+>  {
+[ ... ]
+>  	iosys_map_set_vaddr(&dst, data_array);
+> -	drm_fb_xrgb8888_to_rgb332(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_stat=
+e);
+> +	drm_fb_xrgb8888_to_rgb565be(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_st=
+ate);
+
+[Severity: High]
+This is a pre-existing issue, but will this trigger a sleeping allocation
+in atomic context?
+
+The atomic commit phase calls drm_fb_xrgb8888_to_rgb565be() here, which
+internally calls drm_fb_xfrm() and dynamically allocates memory using
+GFP_KERNEL.
+
+Since ssd133x_primary_plane_atomic_check() does not call
+drm_format_conv_state_reserve() to preallocate this buffer, won't this resu=
+lt
+in an illegal sleeping allocation during the atomic update?
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but does the plane disable function fail to
+clear the screen when a plane is detached?
+
+In ssd130x_primary_plane_atomic_disable():
+
+    struct drm_plane_state *plane_state =3D=20
+        drm_atomic_get_new_plane_state(state, plane);
+    ...
+    if (!plane_state->crtc)
+        return;
+
+When a plane is explicitly disabled or detached, the new plane state's crtc
+pointer is NULL.
+
+Doesn't this early return bypass the screen clearing logic, causing the
+display to freeze on the last rendered frame instead of clearing to black?
+Should the old plane state be used instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260704080925.7511=
+3-1-amit.barzilai22@gmail.com?part=3D2
