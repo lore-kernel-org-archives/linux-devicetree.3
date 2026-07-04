@@ -1,149 +1,122 @@
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3DC3B27DE;
-	Sat,  4 Jul 2026 12:47:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548C629408
+	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 13:45:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783169231; cv=none; b=kVjeLcDy8th/+t8A7HQSLt2idnTMzzJ7JEgXJPVdtbU1AnOuL3etn7iiSXyQHl1+sD6LEnfANcULDbaiyT1miikjQdapweJvyBrsJTuIo5JjwNRhtbCWJYqVTc6/aRcVC1oLWxCdkfmEYgacwQYj+ll4EqMMQOlUj8F1juW5pRE=
+	t=1783172755; cv=none; b=jCgBuMzxHaUg0QSWO5Rw3XLrdBxtsfWK7HP7d7IG4Gaxuu4hv90OwuXGsGh5EbBr295GAXSja/syZdUWRJa9KRYi27hhOjJ69kdS0hkmlCaiT4dllu/te1JpYMpLKx0W+SjMLEJ0W/FQJE68AMjLrXKwoj0ZwZvfRGoiwnSqHls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783169231; c=relaxed/simple;
-	bh=ziuyR55W+h2otLyuwKE5T8P+RLr06IgeGcVWwMZ+AOo=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=uljLeeQCKkmTY9zta+HVk9UnJ7WtRadQfIpk0kxb9c+oYrN/wPbm5vsW4WloshkkUdBo7M5YSwqdldoW2JNxFX9pPIvh9UGJjmYm+iusIhK+zEFk6y+eVCJb+dCNQv1IRLN7ueqX71IJ8g6IJoVEZZq/0yomrYcjGFGMXV+kYrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mm.st; spf=pass smtp.mailfrom=mm.st; dkim=pass (2048-bit key) header.d=mm.st header.i=@mm.st header.b=eMsI5LtM; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=MgRylLIg; arc=none smtp.client-ip=202.12.124.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mm.st
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mm.st
+	s=arc-20240116; t=1783172755; c=relaxed/simple;
+	bh=XX0rlxQKlC72XbF8JJPz0j0CDcsiZ9Mng6bJ0nwlZqA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=X3Ko2FfBosTyPEDqUwQIp3aMxdf3oaoZ7MPveqGl510C1b3tXZ2hCObAVpGAUuy/VmiP10yyOJygivvs/U1jcM4aZ1awdRjXkNvotflVtEkIDcvPjTqJJlCv8NYq2BUCsEuMNkzMkuGKV2lE4TQjmlH35CAiRbpEwIjuZySspkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e33lS//5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mm.st header.i=@mm.st header.b="eMsI5LtM";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="MgRylLIg"
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfout.stl.internal (Postfix) with ESMTP id 4F6A41D00066;
-	Sat,  4 Jul 2026 08:46:57 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-07.internal (MEProxy); Sat, 04 Jul 2026 08:46:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mm.st; h=cc:cc
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
-	 t=1783169217; x=1783255617; bh=DSopaZRgPpL0KY92Lt0HxUz65nngHTif
-	/3wvnAu5v0w=; b=eMsI5LtMgPSmOZR9XlwDS73uj1zvGaPqDbCFB6Wk+DmtX5GI
-	4osRs+h2KoSrKs0ZeWM31185xOgVHWYryCp3NqGmjJklbcGVUlu9ZEDZHN9THo91
-	aKt69TslCHE8q2tsX0Ya/nxNPYhZahdiQ7CGEke2bgTXMl+fYdO+8CcRU6/dkLbM
-	bbOJ4qXUncVAToM31AUT7v8aXhqAeY87iXsNQBdrn1EYIuIKM39TUj8zMiX2v7dZ
-	au6hzxkopqM+hxbC7bH6ID6SypPJXmhiQ1HnfK4kpEc8TNdBnaiy77gVhnqxvhtX
-	4Yhj0mqukZoCojCClgTSAcE7g6Vj0xfoY+lpSg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1783169217; x=
-	1783255617; bh=DSopaZRgPpL0KY92Lt0HxUz65nngHTif/3wvnAu5v0w=; b=M
-	gRylLIgIByTJQQH8oJsO+H+QaYuJoU43hSBCS8RKrtRCZ0Tqgi3KUI0HU2+Oob8G
-	U/GRB97cVKpQO6iVWzn4aKqyYnDuuxAKlDHYnTjKGiFxEr0A6PmvLYq/KbG3wISL
-	UdBlmp6pDV1QXE7JONwdY5db0fWRr+h0LGW9isZ2w7C4PzyippxlLCSQbFamOv9e
-	88MhYX1XxjUg5+AuXa47XstSPFokkiPfGBi/4EBIzHzSZLzy8FYpOZjpKaGF7Xco
-	SMBNomO48E4Sj3SDHPqp1lcRZyvXqExC5n8BDU5Sk4u3HKpTYNgAOBM3GW561jNv
-	3oX9dXlbyVyktgdjnmPQA==
-X-ME-Sender: <xms:wABJaiFtrN-UwK_mBD5BCoRn_wVufERpJyodcWfRW0Ng7qZqK0eb_A>
-    <xme:wABJargtVCG2zee3WOvnv_VMcf1RTVjZBSaLEQUUQoLlESRTKAnCnD_4EnCltAwwC
-    h3fqyXQPNab7ctvTINfLOFRm0bqsEAGSOPXDGGkCiJFCE0RuqtT4g>
-X-ME-Received: <xmr:wABJanuJBRES_74U_fiQe3IeV1-t6wwv5SNzLe4iCjpyGSDfnx1j9DSE2ZKTKUYpKgWbdZf6NT756Ll4QQ>
-X-ME-Proxy-Cause: dmFkZTFr3i3xkzXRpTDUGWiH0crRTBA4ga4Wskl6XzSwqcORPAWlvCH6ez+ye+BrZRSPRy
-    DNQY6ViUjFBZd1tkQjeVlXy5FVwQiCSafw/OoUDdznp10hgACBRGZJUa0TZNyBeUnjb7nU
-    zrB2tZjGr3sZIq17zYcT3iL4Roe2mF3K/xcWf8y1ZGhkLXTs8dkpUJrR6uVntvy/+FV8jd
-    xP/HhVmnHlip6SqPBd7U4H9VVEf9TfB6Ryni5TVgWJn7K3Ckcz3auvRJfo4+oQEsa5ZZFg
-    mjVFj2gXHWdl/Zc4g5jCASsTC7/fEA3oN+gnq2jlzt0GalADbg/0sV8lrdNSgp9HCgV2nJ
-    uV1YASE7z7xho27iC0zHR1bpvF8DFYF0RZ2c298pIQvv+aeb2f5urf2yhQ2iwQmOfG1FE6
-    DLtL+D77Ex3AvFPoknNrFvYLe2bQ9PSXjXFL+KCllF5qG/hYBhnb0fVg8bmWrrOVcco5N7
-    HFxkGzCFdcTV/s8msB0v6zLcr06/A5MQG8Yu7IRepibf0hVcjTeLTpKWKL6Osg5FCVQ467
-    FlSfRch3vwAlTRuaqwV+ACXyN9/5WE+QDLHHaWIrdUkFYXJsHdci5RPVRfhv02JOyvFoV9
-    2Flw7hY5T1ttj+cRhytF15MwtVS5oqrH0JJwKYD4PMAAxmIRhBjr/bBJpCog
-X-ME-Proxy: <xmx:wABJamuRvAK97eBZ1gduVR6IjlYyKoNm2OjDgY1lDt9M9hdekCc9Gw>
-    <xmx:wABJakFQ4mQlfUNBe6Y7bLAU-Ho0pLuhMNQgNoMolCVDSPQOJ8A7UQ>
-    <xmx:wABJapNkR5lBnQDwratSsoFfgVgO7xOCGiPJYYax1HUvpn_X8Mxs-Q>
-    <xmx:wABJarL_EGmO2LMTngk8FxMGm9XbvvPaSGtwtIO4nopYFlRoffdofA>
-    <xmx:wQBJan3GDxjRwzPw8M42UB9Ni777O_LUW1BFgW3z4_cnd3AXhjdzM8V6>
-Feedback-ID: i4e034308:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 4 Jul 2026 08:46:55 -0400 (EDT)
-Date: Sat, 4 Jul 2026 15:46:52 +0300
-From: Vsevolod Kozlov <zaba@mm.st>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, David Petry <petry103@gmail.com>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: rockchip: fan speed control for FriendlyELEC
- CM3588 NAS
-Message-ID: <akkAvJap-MtbKp8B@Vsevolods-MacBook-Pro.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e33lS//5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 979031F000E9;
+	Sat,  4 Jul 2026 13:45:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783172753;
+	bh=c5Kz2dfxCpYzCiMfFQfjMy4crys0bea2FZsaF1RX92k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=e33lS//5u3UjOArJhg0VTkx5KnY4o82rQ/XVhK+t2Po0T/EW/HEFI9na2ahdsBlsR
+	 zfxEyPoWLhrShsGp0wU6Ve9KpTgHNkWXmK9ln2DdzFylJYFX/9bwe6yz+xSMLXUdzB
+	 pnk/8sA2IPXg1+gdReIZA6dg3upN/QwyCr6CHILR0Rtp0dBBQaZoXSL9wKirnf+Zxm
+	 JCaLTvPvfpz+ZvrCtw8ETrUK/ihi0Bw2Em3KezJQ3NBsT09XKUc8/EAPcoE/e5fmIk
+	 XvlhFqsjv704gsIlpPUYA70nL6yzWoysJ9VT4q9S+hFNMBgQ6LRkneB9MQuB9XOrnn
+	 dxjkcVBe4mseg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 4/9] nvmem: layouts: Support fixed-layout as the
+ nvmem device node itself
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260703-block-as-nvmem-v8-4-98ae32bfc49a@oss.qualcomm.com>
+References: <20260703-block-as-nvmem-v8-0-98ae32bfc49a@oss.qualcomm.com>
+ <20260703-block-as-nvmem-v8-4-98ae32bfc49a@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 04 Jul 2026 13:45:53 +0000
+Message-Id: <20260704134553.979031F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 
-The FriendlyELEC CM3588 NAS kit is often supplied with a case and a fan.
-Enable control of the speed of the fan using the trip points and cooling
-maps from rk3588-nanopc-t6.dtsi as a reference.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Double parsing of NVMEM cells leading to duplicate sysfs entries=
+ and device probe failure when a legacy provider adds the `fixed-layout` co=
+mpatible string.
+--
 
-Signed-off-by: Vsevolod Kozlov <zaba@mm.st>
----
- .../rk3588-friendlyelec-cm3588-nas.dts        | 31 +++++++++++++++++++
- 1 file changed, 31 insertions(+)
+commit 5ae6267ddd6db9a2a2626cb61243805bccbca0b9
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts b/arch/arm64/boot/dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts
-index 0dce96ca8c28..f4c34da61c4d 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-friendlyelec-cm3588-nas.dts
-@@ -12,6 +12,7 @@
- #include <dt-bindings/input/input.h>
- #include <dt-bindings/pinctrl/rockchip.h>
- #include <dt-bindings/soc/rockchip,vop2.h>
-+#include <dt-bindings/thermal/thermal.h>
- #include <dt-bindings/usb/pd.h>
- #include "rk3588-friendlyelec-cm3588.dtsi"
- 
-@@ -457,6 +458,36 @@ &i2c8 {
- 	status = "okay";
- };
- 
-+&package_thermal {
-+	polling-delay = <1000>;
-+
-+	trips {
-+		package_warm: package-warm {
-+			temperature = <55000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+
-+		package_hot: package-hot {
-+			temperature = <65000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+	};
-+
-+	cooling-maps {
-+		map0 {
-+			trip = <&package_warm>;
-+			cooling-device = <&fan THERMAL_NO_LIMIT 1>;
-+		};
-+
-+		map1 {
-+			trip = <&package_hot>;
-+			cooling-device = <&fan 2 THERMAL_NO_LIMIT>;
-+		};
-+	};
-+};
-+
- &pcie2x1l0 {
- 	/* 2. M.2 socket, CON14: pcie30phy port0 lane1, @fe170000 */
- 	max-link-speed = <3>;
--- 
-2.47.3
+nvmem: layouts: Support fixed-layout as the nvmem device node itself
 
+This commit modifies of_nvmem_layout_get_container() to return the nvmem
+device node itself if it lacks an "nvmem-layout" child but has the
+"fixed-layout" compatible string.
+
+> diff --git a/drivers/nvmem/layouts.c b/drivers/nvmem/layouts.c
+> index b90584e1b99ea..efa631ce7283b 100644
+> --- a/drivers/nvmem/layouts.c
+> +++ b/drivers/nvmem/layouts.c
+> @@ -167,7 +167,18 @@ static int nvmem_layout_bus_populate(struct nvmem_de=
+vice *nvmem,
+> =20
+>  struct device_node *of_nvmem_layout_get_container(struct nvmem_device *n=
+vmem)
+>  {
+> -	return of_get_child_by_name(nvmem->dev.of_node, "nvmem-layout");
+> +	struct device_node *np;
+> +
+> +	/* Search for nvmem-layout child */
+> +	np =3D of_get_child_by_name(nvmem->dev.of_node, "nvmem-layout");
+> +	if (np)
+> +		return np;
+> +
+> +	/* The nvmem of_node is itself a fixed-layout node */
+> +	if (of_device_is_compatible(nvmem->dev.of_node, "fixed-layout"))
+> +		return of_node_get(nvmem->dev.of_node);
+
+[Severity: Medium]
+Could this lead to double parsing of NVMEM cells and device probe failures
+for legacy providers?
+
+If a legacy provider (which sets config->add_legacy_fixed_of_cells =3D true
+in its driver) updates its device tree node to include the "fixed-layout"
+compatible string, it looks like nvmem_register() might parse the cells
+twice:
+
+drivers/nvmem/core.c:nvmem_register() {
+        ...
+        if (config->add_legacy_fixed_of_cells) {
+                rval =3D nvmem_add_cells_from_legacy_of(nvmem);
+                if (rval)
+                        goto err_remove_cells;
+        }
+
+        rval =3D nvmem_add_cells_from_fixed_layout(nvmem);
+        if (rval)
+                goto err_remove_cells;
+        ...
+}
+
+Because of_nvmem_layout_get_container() now returns the nvmem device node
+itself, both functions would process the same child nodes.
+
+Would nvmem_populate_sysfs_cells() then fail with -EEXIST due to duplicate
+sysfs entries and abort the device registration?
+
+> +
+> +	return NULL;
+>  }
+>  EXPORT_SYMBOL_GPL(of_nvmem_layout_get_container);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703-block-as-n=
+vmem-v8-0-98ae32bfc49a@oss.qualcomm.com?part=3D4
