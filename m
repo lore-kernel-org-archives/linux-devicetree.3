@@ -1,93 +1,89 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E903B38F934
-	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 09:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486D43A59A3
+	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 09:34:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783157679; cv=none; b=DZ5oLAx/CR/AfhCNxjPaq0YWBGlk9bMI9FO3riMNr2zmIMajFXxIsY3iCDeN8SBm2s001rmzEQOGl4Hi5cIKtv8TAZ18RdFnNpKCQreQsL58ZmLxlAXIWSQPQ9iqV8fLIfcdk0xP1VdmWkvO0j1oKHji3NDgBzLU/oWGoH70VAA=
+	t=1783157683; cv=none; b=P5+3vAHG8pTeHrhi80YYxdM3hHKecnFebHj66f1t6VIs9EZVJu+kjaeXuESbUDCzgKlg5Th3YVGoqryZ/J8Pxu47Q21bviK0S4aFHlqeC2X7yvdZXS4tT0WcWgaArq92YI9BU1QmPkG08Usqf1G7DSXodaKO5w1vSXNx69OpqIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783157679; c=relaxed/simple;
-	bh=/DOBJX7XFLWsDwnUI1HlUrDG/cRXSQ6uEuBQgCsasgQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BlW3oyMMrXTsI2O57Mqwnlg7v6EFBxkQhL4AaxpQzfN7jjjBn5Va9GrJObo+DVmF8V4XsAyTG+ktKz5ANu6Rz4p685a8Z7NP0o5AFrcUqTPNRuViCwTTLTJaxjChW9j5TbGlmlmv4fvWYZFKnM3sA15z1xTEXM4gXaTxidc3Wl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ao5Ii7V7; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1783157683; c=relaxed/simple;
+	bh=BbYLJhEgdSoWZo4IzbOnYd4Pb5An1UxlxVaJpXJ+EQw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YZnfBUq2oaj3Lb9SpoPSem72vG/f03woxpDN344SWohsoIZPqEsWifmsqCK9HIvmEzEXDcexnEkSDwv3UtqBE0Vj06zGS+qdodlhe1ha/r+sXTrW6iHe/bmUKvs4WA86IgQ+mOPuNncdXPyKl9PuvXw4F0gTOVBLNUdOle6oBH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lnQY0cfo; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ao5Ii7V7"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493bc8fda98so14293815e9.0
-        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 02:34:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lnQY0cfo"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493c2c0b9a8so11496525e9.1
+        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 02:34:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783157675; x=1783762475; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=7v5Pm7hcHoKncuVk3HS0rjh4rfNcOYchDGYsTPk7k5s=;
-        b=ao5Ii7V7pnQJlQJEINRqnhH2jdHfvGrF2u1C5jyRFVmViu5/wU7GdDYiBrHpc3WcX/
-         ZZM+kx1KTLfka8VSWD1v2i3ML0Cz/6qGYJE8TJnOL5Yz2itxgLJT4Pg8lWtatwA8prkw
-         mWCIUoxzbuF0g71/QGCeeJ/2pUVLjuFhQ/OSI5NgMsDEIToA6ntpAUt3RQ6PsarjpHA/
-         sHUxSirAn+8tyYgNhLE5u9ZUkwTbUL0jhZdoTrhR+Zb3zX1Iv2H5YwSfmC5QpLW1+5nO
-         BvlpXwgwAUt4kA3RYlLPi6SVMbS/0WLeUK+oU4kHXFxhO18CukMupPVeZ3BgOVwe/YYg
-         e9dw==
+        d=gmail.com; s=20251104; t=1783157680; x=1783762480; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q9vf76BqIuQO+oLK9NNkHBXuVK+BkmRkVD8Sg2pJCJU=;
+        b=lnQY0cfoq832O6rCLuYXLvIQxmp2dw0ewrB6hGbGoWBQ5vucAViErqwssm+vevGLkT
+         KZXyTuqLQ0wAEXhVMbpfPh6aNxUy8+kUo08g0R0TgaNvc1jWSJakuBaQ0airSDxW3HAA
+         yi5dYMS6T1wtQyEwP+UWEi7hSXphSmFxMrPwX574orZObT7FPmic91GzE2SUWk4R4LH8
+         NENHxXlDnh4tlXcfOmTZ3waWkozqPMmhucV+Kz1MARdAs3vMuqFnW2giXXp4Yc7GZUtZ
+         17awrmn+GBE81NEq4P0jLnp4rS/TjNZCcwOSv2um/vJdeZbco3w1u58vCZQITx20UxIZ
+         yW3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783157675; x=1783762475;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7v5Pm7hcHoKncuVk3HS0rjh4rfNcOYchDGYsTPk7k5s=;
-        b=SVhv0UBnei/ziRBHnKa/HEMUT4zbMiss6DK1IkXIBQqPFmmyqRJTaR7d/q3bgmzk3i
-         IaPOp4bPgN0fyuWrvDCjgwJ+JfWUdYrTbAyVPwllrDnUIiswv/tJ4FhTWayZMW3frFkZ
-         Dxw6ih4BT9ywcN5bS+dHWnUXDiwqwWio+1qTUqIPoSHxUPspXFdidCgYakNKfkXPYXSw
-         KyZuMOGbjSqW/YO+OUk7N8HVQbCraP9SP26at4BwbMOrsTXRTtjaqJS7LZdObiw9OcNa
-         xPm60Do9P4+JyzHYy9ygXZKee9kOLowkXPQ2wdbtEb3J2WD3kzYsrMCtHeWKpc3TP7wd
-         4shA==
-X-Forwarded-Encrypted: i=1; AFNElJ/DQ//aAHGeX3BCJmAlfNurVIZSEsmPCpnXzLu/MRXTu2jpvmeCZ9PCQW8i5C4z+uVJkif0GHSYIuX4@vger.kernel.org
-X-Gm-Message-State: AOJu0YxxCkEoP16oW/yNmkGFFRJLaAYRDb+vh9N4K3cvLj02rR17OnRF
-	2CbNPqZ4K6+7dZXRg7jVdkC4cFF1mM1CW02iDpoO++wFKQbyZ+64hHPP
-X-Gm-Gg: AfdE7ck+7Yo9OLuegJACN0nK7E/6UGVZfFrjqYdEfCLXZR4Bub4cxh0KWaIEs1H72OC
-	7CuSFOUwKCr7XxCmTywyte1bGlqqNQ3gLx4978DPvrDSpWX/noM+CVP+ohF92u+UCAmeu7GL/VE
-	zN/MuOP3nsVjeqGn6pnm+XcqoEeQCAVAlF5Z8xDQrlHmuyiFRnKNDLeWWenAKjk/oay4eZgnFIv
-	JemsTjUDpbsdN90lf5sIYDxLvJHQMtnrrPaMZ3ntrOmTh9mFDpnMgeOLHRSWYwSayow5LWw9FXn
-	wMniu5I4gKCuUTf+2d6sBhpngHnRSlfwlU45jIuWahZlp5hGMpI0j+SuXtbjXiGL660SlxlCdVs
-	dOTkQSymUAlColCNH4K9OuF9qjfV2r8LspFjohgzhV9Po6D9KtsqZIFsAczMB3HRfZO0Z1UBRER
-	zjKKhdaZdBmHkzW+Jh8Qu4
-X-Received: by 2002:a05:600c:8b76:b0:493:d21f:8f98 with SMTP id 5b1f17b1804b1-493d21f9075mr19743205e9.36.1783157675277;
-        Sat, 04 Jul 2026 02:34:35 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783157680; x=1783762480;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q9vf76BqIuQO+oLK9NNkHBXuVK+BkmRkVD8Sg2pJCJU=;
+        b=EqgtnnOBd951cjWX/eDFUYeZZ06FuV8UsDx0jh+YIfOHQ8XFP78BEgu/RjENuJ7IgZ
+         qvZ/3Z7CCKgkMO1Qo5E+yhEFMzFiimuyXG4+ZmjxK8Lg3OusXvQy23jxhaAcHCUYNZWw
+         iBuqNApjEz5rB+YaOKStUzmg3xSPdLonHRIRLUFrBADUnNxXlV6dMOsU+v0FyAmkz6Uz
+         B3XpZGqtB315CpF+cuUvdTrZKCyzRtFH2LN9L2PGCssp8H//6tOsUweemi3r6Pqw7xI0
+         lkM+2KDQSpK5brceKa03LekwV8Tb4EQETP5RoHmT8Il9J6pPzrZUHtezmXr1QmYAhKKo
+         FcBQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/arfOzekPro6XhFsvpsZ1qqF5p+uJZcH5tPWapRUJNNk+OR7vB5MFwo2ysu36XXnRpHisUnEniTc2P@vger.kernel.org
+X-Gm-Message-State: AOJu0YzrQaT4wLkFskxkpjnWXsw4jHp0Q474Z3RGXDRDNFfBFMwkLBYE
+	T3P+4sydApUu56sHfQ/oWmJHIy169OMuA4vIRvL9j0id1BGdS1PbsbcF
+X-Gm-Gg: AfdE7ckMIiCgyWyyV4aUe+gBdvIO1DVnKitcWe40BU/jotENx5BwwU7C1bNc0dW3C1R
+	ART915y6UiJhPM0ulRTpQveZw4kBJk/NDJAear0nxbksg6qlxPen5LuyKA5mAwhSogMhpYMpgM9
+	8ZlbMfRLBP9pXhV88D5lPOUvDbAX62pongszkIL5D0OsFezXNcmMx8xaAiq4MwK+NbuF1SLy4+5
+	DzvDmWgomKtoeEi/k+m0SnSc4V9hVMeIBsHpOmbCnv2EKXVnFXTwLm6y+sd2XC65h47KcSRshij
+	HjhphJwPK7+3EdBQY3gMEzCAZJIz19iQgHhycxNY5YVrg9hJSSYtEY5Mp8Q04ZMCGEReeD0zWzz
+	GTE9Pwfn9nKNfLq3hn45Ex7inByYQdxotf4PfVdfvsTwivMwpPXgEy18ZlAmuuL0A7Z1DVVnquy
+	kn04c+N3nI5dV0vRjhzZQC
+X-Received: by 2002:a05:600c:3515:b0:493:c42e:5be0 with SMTP id 5b1f17b1804b1-493d11894f7mr32349275e9.0.1783157679621;
+        Sat, 04 Jul 2026 02:34:39 -0700 (PDT)
 Received: from biju.lan ([2a00:23c4:a702:d301:8c5b:5b11:f6a5:9bc9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493cce040b4sm153180235e9.10.2026.07.04.02.34.34
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493cce040b4sm153180235e9.10.2026.07.04.02.34.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 04 Jul 2026 02:34:35 -0700 (PDT)
+        Sat, 04 Jul 2026 02:34:39 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
+To: Biju Das <biju.das.jz@bp.renesas.com>,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Geert Uytterhoeven <geert+renesas@glider.be>,
 	Magnus Damm <magnus.damm@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
 	dri-devel@lists.freedesktop.org,
+	linux-renesas-soc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
 	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH 00/16] Add support for DU, LVDS and DSI on the Renesas RZ/G3L SoC
-Date: Sat,  4 Jul 2026 10:34:10 +0100
-Message-ID: <20260704093433.273672-1-biju.das.jz@bp.renesas.com>
+Subject: [PATCH 07/16] dt-bindings: display: renesas,rzg2l-du: Document RZ/G3L SoC
+Date: Sat,  4 Jul 2026 10:34:17 +0100
+Message-ID: <20260704093433.273672-8-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260704093433.273672-1-biju.das.jz@bp.renesas.com>
+References: <20260704093433.273672-1-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -98,65 +94,95 @@ Content-Transfer-Encoding: 8bit
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Hi All,
+The DU block on the RZ/G3L SoC is identical to the one found on the RZ/G2L
+SoC. However, it supports the DSI, DPI, and LVDS interfaces, while the
+RZ/G2L supports only the DSI and DPI interfaces.
 
-This patch series aims to add DSI, LVDS and LCD support for the RZ/G3L
-SMARC EVK. The RZ/G3L LCDC is similar to the one found on RZ/G2L, but has
-LVDS support. It is simpler compared to RZ/G3E [1], hence sending
-this series to get review feedback. Based on the discussion on [1],
-will rebase this later.
+Due to this difference, a SoC-specific compatible string,
+'renesas,r9a08g046-du', is added for the RZ/G3L SoC.
 
-This patch series has a dependency on [2].
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+ .../bindings/display/renesas,rzg2l-du.yaml    | 27 +++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
 
-Also, the LVDS series [3] is merged here to get an overall picture.
-
-[1] https://lore.kernel.org/all/cover.1770996493.git.tommaso.merciai.xr@bp.renesas.com
-[2] https://lore.kernel.org/all/20260619164030.380098-1-biju.das.jz@bp.renesas.com/
-[3] https://lore.kernel.org/all/20260625172359.292631-1-biju.das.jz@bp.renesas.com/
-
-Biju Das (16):
-  dt-bindings: display: bridge: renesas,dsi: Document RZ/G3L
-  drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val to hw_info
-  drm: renesas: rzg2l_mipi_dsi: Add activation_dly to hw_info
-  drm: renesas: rzg2l_mipi_dsi: Move global timings into hardware info
-    struct
-  drm: renesas: rzg2l_mipi_dsi: Add support for DSI PWRRDY
-  drm: renesas: rzg2l_mipi_dsi: Add RZ/G3L MIPI DSI support
-  dt-bindings: display: renesas,rzg2l-du: Document RZ/G3L SoC
-  drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU support
-  dt-bindings: display: bridge: Document Renesas RZ/G3L LVDS encoder
-  drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
-  arm64: dts: renesas: r9a08g046: Add fcpvd node
-  arm64: dts: renesas: r9a08g046: Add vspd node
-  arm64: dts: renesas: r9a08g046: Add DU and DSI nodes
-  arm64: dts: renesas: r9a08g046: Add LVDS node
-  arm64: dts: renesas: Add DSI overlay for RZ/G3L SMARC EVK with ADV7535
-  arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with
-    ITE6263
-
- .../bindings/display/bridge/renesas,dsi.yaml  |  15 +
- .../bridge/renesas,r9a08g046-lvds.yaml        | 120 +++++++
- .../bindings/display/renesas,rzg2l-du.yaml    |  27 +-
- arch/arm64/boot/dts/renesas/Makefile          |   6 +
- arch/arm64/boot/dts/renesas/r9a08g046.dtsi    | 140 ++++++++
- .../r9a08g046l48-smarc-dsi-adv7535.dtso       |  95 ++++++
- .../r9a08g046l48-smarc-lvds-ite6263.dtso      | 104 ++++++
- drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
- drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  |  22 +-
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |   4 +
- .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |   4 +
- .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.h  |   1 +
- .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 206 +++++++++++-
- drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 299 ++++++++++++++++++
- .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  25 ++
- 16 files changed, 1072 insertions(+), 10 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
- create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso
- create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
-
+diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+index 7c84a9ecc7a7..65368649fe77 100644
+--- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
++++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+@@ -20,6 +20,7 @@ properties:
+       - enum:
+           - renesas,r9a07g043u-du # RZ/G2UL
+           - renesas,r9a07g044-du # RZ/G2{L,LC}
++          - renesas,r9a08g046-du # RZ/G3L
+           - renesas,r9a09g057-du # RZ/V2H(P)
+           - renesas,r9a09g077-du # RZ/T2H
+       - items:
+@@ -65,7 +66,7 @@ properties:
+       model-dependent. Each port shall have a single endpoint.
+ 
+     patternProperties:
+-      "^port@[0-1]$":
++      "^port@[0-2]$":
+         $ref: /schemas/graph.yaml#/properties/port
+         unevaluatedProperties: false
+ 
+@@ -88,7 +89,6 @@ required:
+   - clocks
+   - clock-names
+   - power-domains
+-  - ports
+   - renesas,vsps
+ 
+ additionalProperties: false
+@@ -108,6 +108,7 @@ allOf:
+             port@0:
+               description: DPI
+             port@1: false
++            port@2: false
+ 
+           required:
+             - port@0
+@@ -124,10 +125,31 @@ allOf:
+               description: DSI
+             port@1:
+               description: DPI
++            port@2: false
+ 
+           required:
+             - port@0
+             - port@1
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: renesas,r9a08g046-du
++    then:
++      properties:
++        port:
++          properties:
++            endpoint@0:
++              description: DSI
++            endpoint@1:
++              description: DPI
++            endpoint@2:
++              description: LVDS
++
++          required:
++            - port@0
++            - port@1
++            - port@2
+   - if:
+       properties:
+         compatible:
+@@ -140,6 +162,7 @@ allOf:
+             port@0:
+               description: DSI
+             port@1: false
++            port@2: false
+ 
+           required:
+             - port@0
 -- 
 2.43.0
 
