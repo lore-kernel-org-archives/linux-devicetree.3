@@ -1,151 +1,229 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5526318CBE1;
-	Sat,  4 Jul 2026 15:06:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593C635DA7F;
+	Sat,  4 Jul 2026 15:15:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783177619; cv=none; b=VaQGdPyeNIPn3Bz3CTuuEPikKtKowdthm3hr2iIdASxa/hVZdQkmIjvyIEeJkxQSniOjYwaSrcyAyYRtoa3Ao9Y3htn2K9evpHrZtpY1bwBmvtptzMkW/VUJy++WJvXkwr7Ehl3xKuDQ34UYdxNR6Sj3ku4dvJf1FSJOT33TRFI=
+	t=1783178149; cv=none; b=MHXC5hCAm359734JhbA/nSTPjaiLeaIJvMfM8xVHofSsVwjcujZ/Vd9CdAGQ0XqFmEatCf6tPiz8X889O8I4iDghaTZnaLvmBQ/N3i4uPJyptIFu+6SoLhQp4N5jDBop8C4wO6BXiZRyoLJ4R/e3AlWqWobQghkVFiq8E14iXq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783177619; c=relaxed/simple;
-	bh=Z9l9EfRDenyYxHcM+BCBaqaiRrKlyyyYDV58SrskrA8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tMTHGzc8IUWz8adZRS7UilNgEcv0MV0H4jCHN86VOm4DXMJE/OfIYIWh9e45Mh7Q81bPjLfBvxa2vZtbn+TPVD3XxCt9evz5CeNubEUUyjPa3NMrERiE5nVm8coIocoxBiibgrQIsgROP4uWOEk0u9NxepB9sRDGtBAiqxdf+Q0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=GNXDJf9w; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1783178149; c=relaxed/simple;
+	bh=VX9EksxBnbq2GrUQJTSEi9rVGmclI8+xnc31hAmTEtY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A9J8uLonysVQCFjAiakbPP22CV7Ii0DD5/btwXsP5TQJZfkrWjvMLgMBs/YQPo8/n24wouZCNT++ih3mnQtMfnq3N9lJYvFxRN+wCh4EIo+aoo9WxeHZGCECeNpdGhFye4lEUi/ksiG78td24mHGVgAbovKDFjwFqDNqjH8ccoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=X0v4DRUy; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=tY79+LLs; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="GNXDJf9w"
-Received: from [172.20.10.2] (78-80-20-180.customers.tmcz.cz [78.80.20.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="X0v4DRUy";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="tY79+LLs"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 533325341B78;
-	Sat, 04 Jul 2026 17:06:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1783177610;
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gsvMC4BNQz9vCX;
+	Sat,  4 Jul 2026 17:15:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1783178135;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=YchiOn0aIhurw2DMYPSvRHYrkDyW/1Rfmj7bTE1YKUI=;
-	b=GNXDJf9wNS36qP5xkPoszwq3xtJthZbo5JN99nfrNmSxY7Szp0o9AGE0qNE0Ms33V6qnY0
-	eQuNgPWK2cc4scdH1Y09GHVJe9aE+b40gwMmzIAtMC3VpGhjsA7hEqb/klMXFNUK3nN8dR
-	fdwzPvt+ezt/6Ce8cRYkc/yyC2LT5g4=
-Message-ID: <d63230b5-2665-4d32-9587-e47846821555@ixit.cz>
-Date: Sat, 4 Jul 2026 17:06:48 +0200
+	 in-reply-to:in-reply-to:references:references;
+	bh=PE29dZpCaxKqRSw/w3IwZJZkkAzbhBe5GREsJCk9pHE=;
+	b=X0v4DRUy++cZ13/PgA5W2sLEf00SuGBv6H6usKPlvqudoyQtx6q9yZHPD5fDQ4Tncau8xr
+	sk0csfL5hfIHSbFwDOAbAjsilbyVc7wqlJ40jbs+FsyTG1OZkR+J1VXvw9Ix4TGHXMfVS1
+	00Us8Ed6s7MMpBDXlctgao8tDJw/lYtWLbciDyJccu669kj5CeWgf9PhFGYefpY38oPFIY
+	3Q2SNP1LDWGuDV5bg9LWXElBPA6JdyUrg8BF+T+g6Qoapol+z7SmWvxDijz4PE++fGosP6
+	WyauRkJ4CS5kcdRu6AyMKdm8+SFWMwsCcN6BFuRxFkJj2Gahr21f25hmRzzGQw==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1783178134;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PE29dZpCaxKqRSw/w3IwZJZkkAzbhBe5GREsJCk9pHE=;
+	b=tY79+LLsxrr8uPC84V2NyJZwapCuUl1BqsJTu9gwfhzVP1ILDX/fZ5kZwrcJ+unfrszklf
+	Fq5YotvV4NkjmS5bjsBlrctJctVjXIVxjR89BDTpZkfVokrGZGB7JNaIlWelTQzeKLcBi4
+	lFttJgwxxdw7TqI0KmRj15MCeBLdi+HaX1U6CMR7br27NbultFwy/NkKiccJicbn9GY3Fq
+	5whUF/Rb6HOPmXSTVHXG+EOeZ0VvryyQlgiYXg4ss3ZQkqb+FKebi56e8WcqUD91flBxIs
+	HAIi44hKgmCZEQ5qMIL3o50m8jaZ0nPVZc/kn0u2wLYVYsIIDOr9RiST+3GQQg==
+To: linux-gpio@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
+Date: Sat,  4 Jul 2026 17:13:47 +0200
+Message-ID: <20260704151521.211335-2-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
+References: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sdm845-oneplus: Update
- compatible to include model
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- phone-devel@vger.kernel.org, Vincent Huang <vincent.huang@tw.synaptics.com>,
- "Jason A. Donenfeld" <Jason@zx2c4.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Conor Dooley <conor+dt@kernel.org>
-References: <20260523-synaptics-rmi4-dt-v2-0-0645122babdc@ixit.cz>
- <20260523-synaptics-rmi4-dt-v2-2-0645122babdc@ixit.cz>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260523-synaptics-rmi4-dt-v2-2-0645122babdc@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: uk8n5i7h33rhjyu96fy5pa34d46nogs7
+X-MBO-RS-ID: 5d8af0c748bd7cc1393
 
-On 23/05/2026 11:45, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> We know the driver is reporting s3706b, introduce the compatible so we
-> can more easily introduce quirks for weird touchscreen replacements in
-> followup series.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+R-Car X5H (R8A78000) is the first member of the R-Car Gen5 family.
+Add support for R-Car X5H, which has slightly different GPIO block
+register layout compared to previous generations. Introduce offset
+remap function which performs 1:1 remap for R-Car Gen1..4 and a bit
+more complex remap for R-Car Gen5.
 
-Bjorn,
+The GPIO block register offsets on R-Car Gen5 changed and the change
+can be divided into five groups, registers which remained at the
+same offset, INDT register shifted by +0x10, OUTDTSEL register
+shifted by -0x34, INEN register shifted by -0x38 and the rest of
+the registers used by the driver shifted by +0x70 .
 
-please pick me $subj, counterpart got in (or if u want I can resend).
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ drivers/gpio/gpio-rcar.c | 61 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 61 insertions(+)
 
-David
-> ---
->   arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-> index 6b7378cf4d493..148164d456a5a 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-> @@ -475,17 +475,17 @@ bq27441_fg: bq27441-battery@55 {
->   	};
->   };
->   
->   &i2c12 {
->   	status = "okay";
->   	clock-frequency = <400000>;
->   
->   	synaptics-rmi4-i2c@20 {
-> -		compatible = "syna,rmi4-i2c";
-> +		compatible = "syna,rmi4-s3706b", "syna,rmi4-i2c";
->   		reg = <0x20>;
->   		#address-cells = <1>;
->   		#size-cells = <0>;
->   		interrupts-extended = <&tlmm 125 IRQ_TYPE_EDGE_FALLING>;
->   
->   		pinctrl-names = "default";
->   		pinctrl-0 = <&ts_default_pins>;
->   
-> 
+diff --git a/drivers/gpio/gpio-rcar.c b/drivers/gpio/gpio-rcar.c
+index 09bebde5c4260..a22112d9dce0f 100644
+--- a/drivers/gpio/gpio-rcar.c
++++ b/drivers/gpio/gpio-rcar.c
+@@ -36,6 +36,7 @@ struct gpio_rcar_info {
+ 	bool has_both_edge_trigger;
+ 	bool has_always_in;
+ 	bool has_inen;
++	bool has_layout_gen5;
+ };
+ 
+ struct gpio_rcar_priv {
+@@ -65,14 +66,59 @@ struct gpio_rcar_priv {
+ 
+ #define RCAR_MAX_GPIO_PER_BANK		32
+ 
++static inline int gpio_rcar_remap_offset(struct gpio_rcar_priv *p, int *offs)
++{
++	/* R-Car Gen4 and older do not need any offset remap. */
++	if (!p->info.has_layout_gen5)
++		return 0;
++
++	/*
++	 * R-Car Gen5 register layout is slightly different and the offsets
++	 * that have to be added to or subtracted from each register offset
++	 * can be divided into five groups, listed below.
++	 */
++	switch (*offs) {
++	case IOINTSEL...OUTDT:
++		return 0;
++	case INDT:
++		*offs += 0x10;
++		return 0;
++	case INTDT...EDGLEVEL:
++		fallthrough;
++	case BOTHEDGE:
++		*offs += 0x70;
++		return 0;
++	case OUTDTSEL:
++		*offs -= 0x34;
++		return 0;
++	case INEN:
++		*offs -= 0x38;
++		return 0;
++	default:
++		/*
++		 * This here must never be reached, if this is reached, that
++		 * means there is a catastrophic failure in the driver. Skip
++		 * any IO read/write to prevent further damage.
++		 */
++		WARN_ON(1);
++		return -EINVAL;
++	}
++}
++
+ static inline u32 gpio_rcar_read(struct gpio_rcar_priv *p, int offs)
+ {
++	if (gpio_rcar_remap_offset(p, &offs))
++		return 0;
++
+ 	return ioread32(p->base + offs);
+ }
+ 
+ static inline void gpio_rcar_write(struct gpio_rcar_priv *p, int offs,
+ 				   u32 value)
+ {
++	if (gpio_rcar_remap_offset(p, &offs))
++		return;
++
+ 	iowrite32(value, p->base + offs);
+ }
+ 
+@@ -399,6 +445,7 @@ static const struct gpio_rcar_info gpio_rcar_info_gen1 = {
+ 	.has_both_edge_trigger = false,
+ 	.has_always_in = false,
+ 	.has_inen = false,
++	.has_layout_gen5 = false,
+ };
+ 
+ static const struct gpio_rcar_info gpio_rcar_info_gen2 = {
+@@ -406,6 +453,7 @@ static const struct gpio_rcar_info gpio_rcar_info_gen2 = {
+ 	.has_both_edge_trigger = true,
+ 	.has_always_in = false,
+ 	.has_inen = false,
++	.has_layout_gen5 = false,
+ };
+ 
+ static const struct gpio_rcar_info gpio_rcar_info_gen3 = {
+@@ -413,6 +461,7 @@ static const struct gpio_rcar_info gpio_rcar_info_gen3 = {
+ 	.has_both_edge_trigger = true,
+ 	.has_always_in = true,
+ 	.has_inen = false,
++	.has_layout_gen5 = false,
+ };
+ 
+ static const struct gpio_rcar_info gpio_rcar_info_gen4 = {
+@@ -420,6 +469,15 @@ static const struct gpio_rcar_info gpio_rcar_info_gen4 = {
+ 	.has_both_edge_trigger = true,
+ 	.has_always_in = true,
+ 	.has_inen = true,
++	.has_layout_gen5 = false,
++};
++
++static const struct gpio_rcar_info gpio_rcar_info_gen5 = {
++	.has_outdtsel = true,
++	.has_both_edge_trigger = true,
++	.has_always_in = true,
++	.has_inen = true,
++	.has_layout_gen5 = true,
+ };
+ 
+ static const struct of_device_id gpio_rcar_of_table[] = {
+@@ -438,6 +496,9 @@ static const struct of_device_id gpio_rcar_of_table[] = {
+ 	}, {
+ 		.compatible = "renesas,rcar-gen4-gpio",
+ 		.data = &gpio_rcar_info_gen4,
++	}, {
++		.compatible = "renesas,rcar-gen5-gpio",
++		.data = &gpio_rcar_info_gen5,
+ 	}, {
+ 		.compatible = "renesas,gpio-rcar",
+ 		.data = &gpio_rcar_info_gen1,
+-- 
+2.53.0
+
