@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15CE2DEA64
-	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 07:47:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F8C23535E
+	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 07:49:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783151251; cv=none; b=k7ettVMwODhVxm7wcpEePmHKUNLz7NJAc+8QrihmHHu69pDY177Hk7B6/orBV1V9aP5sb/ZNqdZgalfn6HYpk+izYhoWD2i1tguJXSNExh0wZXGLkcxBHbF7C5AXkShC2WTBmAvCn5KtCYR5H4BvUDhvA65hhLgmc+0l7M7mmCY=
+	t=1783151350; cv=none; b=KbsbNcIYs3SN73alZLU8fzEy5XyDtydp1yBE05ylHFUz7rYTWt4qMcVId4QG2T02qW1TiYQr3gL+ViJdgY2tHmupEe68TDluK4lDonRK0qNemsJ3jecd1VhVU3bHaql5B5RGXtFwlmFM4SsGHYT+QtQrKHE1dbX5pJD6JvCxioI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783151251; c=relaxed/simple;
-	bh=0OATkkDWp9veuMDYpSUmeH+tWw1ome6OjiD0dqc70dk=;
+	s=arc-20240116; t=1783151350; c=relaxed/simple;
+	bh=r0MsJrdXT+XMsm+NFn4nwRplGNrJvyXWIVxDlQiHpXA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Yw7XTtx+A9FrQmRGf9AxGERiCthLBkmy8tKlWfHnh+POY4e/eWhT/LfBHdBAHhpphn+aCBjoqQ2K/nkmCdjxxcz2+gbTSrp18BgdO3AX9gciz1kDb3SviYJHMmMTmti1m8kDRwJ4rX7ooAVJIzWC/dvP9T74NHKVSbT7a49Gffs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=derLkDQc; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=kb3quOdEzLskU7GSRGwvSk6Iu47zpElUGXxjdaNw4rWzeF8qI9EPRCBqUHoMiwo81upgm6BOrwm0RBwGpiKenCuqGh3tBSmajreZXnlPlFfLGb4gjTHX3bbK3HMhSwjEmZthM3PODzNJAA3z3BvXmoIt/o1NR0tW4aMguw+JKs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Umma+8FX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="derLkDQc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D29E81F000E9;
-	Sat,  4 Jul 2026 07:47:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Umma+8FX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 410CA1F000E9;
+	Sat,  4 Jul 2026 07:48:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783151245;
-	bh=2ZlEqYHlxV635tgf86j0RXWU9JLveQzZciEPDdxrRgU=;
+	s=k20260515; t=1783151337;
+	bh=lvQ+W0D0bVolYcy14VMa78HZr+Y/H6iEiHSczYmunyc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=derLkDQcX3up4lcF0amOaw2dRwnFFwSM+51AOCTEiTlnVr3uh9FLi+wNkjZQp1Zi+
-	 L/nkfEGp6F8HlUxlZ3GvQS1tyjg9WHyvnK47eqOwSqn8FgqCEKzSMhoaOxx+uBE24H
-	 O/K+oO0CSAtM1TStLhEeelEye2VcbX3pSTEHoDDd6AAXJtgC8SJTEtI6kFKh+yZveF
-	 kJ7ZK0i1szl7s+5XyjzWZjjJqUYe2Y38XkbrCnvIz4/FZEOwUuFc0NBn5hynNzRjDD
-	 lJE1NZtBKi3vtLCfM/TteGtkWJxvE2rRW6WzBObGNLuBrAVbZJE9ZOpZQs8hkbVbz8
-	 ym0/toJAzjoQg==
+	b=Umma+8FXN0SWIehkTSGTYeApy5NviiGXnHqUWQ1e8dgQvFbO+NL+XKP73Ea61PmTH
+	 NQJHtsmHqAf9kn0VB57D00emDWQb5+LXeoaSJoq9L+W7xgrSM19Vs0LfUBL4/7u7yn
+	 GzdPheW9/PE5VcbHBJzx/zihMUmOvK2WC7Dz6HAQws6U+2AjVKRnKZ9rFWsdEyMtPQ
+	 lzlzjUx00kiMnDLo3/+XQCFCeXawPj1PTUJOuuzDBilEpEHS+kLsYv+RBeflswdF3F
+	 C+UfERvn0uVMhj5m5ZpTmFvkB8uOY9eoweAHZSdZm1K2hEaPigwgds7ZsbrtqGcKRK
+	 z6DK4zJFpHz6Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] dt-bindings: phy: motorola,cpcap-usb: replace se1
- interrupt with chrg_det
+Subject: Re: [PATCH 4/5] ARM: dts: ti: cpcap-mapphone: use charger detection
+ interrupt for CPCAP USB PHY
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ivaylo Dimitrov" <ivo.g.dimitrov.75@gmail.com>
-Cc: vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, olteanv@gmail.com, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260704073843.1750458-4-ivo.g.dimitrov.75@gmail.com>
+Cc: vkoul@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, linux-phy@lists.infradead.org
+In-Reply-To: <20260704073843.1750458-5-ivo.g.dimitrov.75@gmail.com>
 References: <20260704073843.1750458-1-ivo.g.dimitrov.75@gmail.com>
- <20260704073843.1750458-4-ivo.g.dimitrov.75@gmail.com>
+ <20260704073843.1750458-5-ivo.g.dimitrov.75@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 04 Jul 2026 07:47:24 +0000
-Message-Id: <20260704074724.D29E81F000E9@smtp.kernel.org>
+Date: Sat, 04 Jul 2026 07:48:56 +0000
+Message-Id: <20260704074857.410CA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,119 +47,110 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-New issues:
-- [Critical] Device Tree ABI breakage: replacing 'se1' interrupt with 'chrg=
-_det' breaks probe on older DTBs.
-- [Medium] Global SysRq state is permanently disabled on error paths.
-
-Pre-existing issues:
-- [High] Race condition in driver removal allows the threaded IRQ handler t=
-o schedule work on freed memory (Use-After-Free).
+- [High] Backward Compatibility Breakage in DT interrupt name change
+- [High] Missing Cleanup / Error Handling causes permanent sysrq disablement
+- [Medium] Data Race on `cpcap_enable_uart` module parameter leads to mixed=
+ hardware state
 --
 
-commit d7b2a51c3f82ebdb2f326313f13ddf2d3edde1a7
+commit 657e07c7931cc99eefeab1abc1d21d20f3271aa2
 Author: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 
-dt-bindings: phy: motorola,cpcap-usb: replace se1 interrupt with chrg_det
+ARM: dts: ti: cpcap-mapphone: use charger detection interrupt for CPCAP USB=
+ PHY
 
-The CPCAP USB PHY driver uses the CPCAP charger detection interrupt for DCP
-detection rather than the SE1 interrupt. This commit updates the binding and
-example DTS to use the corresponding "chrg_det" interrupt name.
+This commit updates the CPCAP USB PHY interrupt mapping in the device tree
+to use the charger detection interrupt. It replaces the "se1" interrupt name
+with "chrg_det", which matches driver and binding updates for DCP detection.
 
-> diff --git a/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy=
-.yaml b/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
-> index dd345cbd0a0b4..d54cf7fbf11a7 100644
-> --- a/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
-> @@ -27,7 +27,7 @@ properties:
->        - description: vbusvld interrupt
->        - description: sessvld interrupt
->        - description: sessend interrupt
-> -      - description: se1 interrupt
-> +      - description: charger detection interrupt
->        - description: dm interrupt
->        - description: dp interrupt
-> =20
-> @@ -40,7 +40,7 @@ properties:
->        - const: vbusvld
->        - const: sessvld
->        - const: sessend
-> -      - const: se1
-> +      - const: chrg_det
-
-[Severity: Critical]
-Does replacing 'se1' with 'chrg_det' break probe for older device trees?
-
-Since cpcap_usb_init_irq() in drivers/phy/motorola/phy-cpcap-usb.c fails the
-probe if an expected interrupt is not found, updating the binding to require
-'chrg_det' instead of 'se1' means booting a new kernel with an older DTB
-(which only provides 'se1') could fail to probe the USB PHY.
-
->        - const: dm
->        - const: dp
-> =20
-
+> diff --git a/arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi b/arc=
+h/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi
+> index 73e27b95105e1..f3ec85d73a16f 100644
+> --- a/arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi
+> +++ b/arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi
 [ ... ]
-
-While reviewing this, I noticed a few other regressions in
-drivers/phy/motorola/phy-cpcap-usb.c:
-
-[Severity: Medium]
-Can this error path in cpcap_usb_set_idle_mode() leave the global SysRq sta=
-te
-permanently disabled?
-
-drivers/phy/motorola/phy-cpcap-usb.c:cpcap_usb_set_idle_mode() {
-    ...
-    sysrq =3D sysrq_mask();
-    if (sysrq & 1)
-        sysrq_toggle_support(sysrq & ~1);
-    ...
-out_err:
-    dev_err(ddata->dev, "%s failed with %i\n", __func__, error);
-
-    return error;
-}
-
-If an error occurs (e.g., during pinctrl_select_state), the function jumps =
-to
-out_err and returns without calling sysrq_toggle_support(sysrq) to restore =
-it.
-
+> @@ -106,11 +106,11 @@ cpcap_usb2_phy: phy {
+>  			interrupts-extended =3D
+>  				<&cpcap 15 0>, <&cpcap 14 0>, <&cpcap 28 0>,
+>  				<&cpcap 19 0>, <&cpcap 18 0>, <&cpcap 17 0>,
+> -				<&cpcap 16 0>, <&cpcap 49 0>, <&cpcap 48 0>;
+> +				<&cpcap 13 0>, <&cpcap 49 0>, <&cpcap 48 0>;
+>  			interrupt-names =3D
+>  				"id_ground", "id_float", "se0conn",
+>  				"vbusvld", "sessvld", "sessend",
+> -				"se1", "dm", "dp";
+> +				"chrg_det", "dm", "dp";
 
 [Severity: High]
-This is a pre-existing issue, but could there be a race condition during
-driver removal that allows the threaded IRQ handler to schedule work on fre=
-ed
-memory?
+Does replacing the "se1" interrupt name outright instead of appending it
+break backward compatibility?
 
-During driver removal, cpcap_usb_phy_remove() cancels the work without
-disabling the IRQ first:
+If a new kernel boots with an older device tree (which provides "se1"
+instead of "chrg_det"), probe aborts. The driver strictly requires all
+interrupts to be present:
 
-drivers/phy/motorola/phy-cpcap-usb.c:cpcap_usb_phy_remove() {
-    ...
-    atomic_set(&ddata->active, 0);
-    ...
-    cancel_delayed_work_sync(&ddata->detect_work);
-    regulator_disable(ddata->vusb);
-}
+drivers/phy/motorola/phy-cpcap-usb.c:cpcap_phy_irqs:
+	/* REG_INT1 */
+	"se0conn", "vbusvld", "sessvld", "sessend", "chrg_det",
 
-Concurrently, if an IRQ fires and cpcap_phy_irq_thread() checks 'active' but
-is preempted before scheduling the work:
+And in cpcap_usb_init_irq():
+	irq =3D platform_get_irq_byname(pdev, name);
+	if (irq < 0)
+		return -ENODEV;
 
-drivers/phy/motorola/phy-cpcap-usb.c:cpcap_phy_irq_thread() {
-    ...
-    if (!atomic_read(&ddata->active))
-        return IRQ_NONE;
+Probe is aborted if "chrg_det" is not found, without attempting to fall
+back to "se1".
 
-    schedule_delayed_work(&ddata->detect_work, msecs_to_jiffies(1));
-    ...
-}
+[Severity: High]
+Can a transient error during PHY mode switching in the driver permanently
+disable sysrq?
 
-Could the IRQ thread resume after cancel_delayed_work_sync() has completed,
-scheduling the delayed work on a freed 'ddata' object?
+In drivers/phy/motorola/phy-cpcap-usb.c:cpcap_usb_set_idle_mode(), sysrq is
+disabled at the start:
+
+	sysrq =3D sysrq_mask();
+	if (sysrq & 1)
+		sysrq_toggle_support(sysrq & ~1);
+
+	error =3D cpcap_usb_gpio_set_mode(ddata, CPCAP_UNKNOWN_DISABLED);
+	if (error)
+		goto out_err;
+
+If hardware configuration fails, the function skips the restoration block:
+
+	if (sysrq & 1)
+		sysrq_toggle_support(sysrq);
+
+	return 0;
+
+out_err:
+	dev_err(ddata->dev, "%s failed with %i\n", __func__, error);
+	return error;
+
+Does this silently strip the system of its diagnostic capabilities on a
+single I2C/SPI bus error?
+
+[Severity: Medium]
+Could a concurrent modification to the cpcap_enable_uart module parameter
+cause a mixed hardware state?
+
+In drivers/phy/motorola/phy-cpcap-usb.c:cpcap_usb_set_idle_mode(), the glob=
+al
+cpcap_enable_uart is queried independently multiple times:
+
+	if (cpcap_enable_uart && ddata->pins_uart) {
+		error =3D pinctrl_select_state(ddata->pins,  ddata->pins_uart);
+...
+	if (cpcap_enable_uart)
+		val |=3D (CPCAP_BIT_UARTMUX0 | CPCAP_BIT_EMUMODE0);
+...
+	if (!cpcap_enable_uart)
+		val |=3D CPCAP_BIT_SUSPEND_SPI;
+
+If modified during execution, could this read true during the pinctrl check
+and false during the regmap bitmask construction, leaving the hardware in an
+inconsistent configuration?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260704073843.1750=
-458-1-ivo.g.dimitrov.75@gmail.com?part=3D3
+458-1-ivo.g.dimitrov.75@gmail.com?part=3D4
