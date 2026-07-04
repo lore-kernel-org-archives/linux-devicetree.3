@@ -1,127 +1,160 @@
-Received: from out-187.mta1.migadu.com (out-187.mta1.migadu.com [95.215.58.187])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110D0331EBC
-	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 09:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7C030AAA6
+	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 10:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783158888; cv=none; b=XvIog7xbud7/tJUs41Tgtizv7wXrfgKxuQhDhGo0HA410tLSk20GqzxZgW1XRMSvsD/afEyGt0HsPceYWaopUpLTFpuJM6XDqTQ+L3lwDW+iRmI0qp6mlLTK5fEvOTcJOyWSZ9La5RGXFpMfYgVGhkNAxe5Eb/tWaRe8ik9mjN4=
+	t=1783162687; cv=none; b=Ktl0uUbrelf1YaohpTKwv5zzFUJHxe9MTfRRg/H7MUC1pvLTwhsoNehoLcFv6Ft3m9rOZmqLOE42zLW9AQKahcRhiNXxEsqUmZRTN4K3IT61f55K6YocwaEWPP7wZIlj/BeOskRvPEYp8tm70+2HKyi1FHux/jZkbncvOEKLudc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783158888; c=relaxed/simple;
-	bh=d4FzgPzMAfTw3eD2clLSz3kLvxePfHTw3NTAXiGBYZ8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=DJ32etlEVvSyW4epxh5VLS1E89DUKC+8IuzxP1pGLVE8ajHHM9P+IC2OGjHBQ9yuGjiOrohSzJdpIAz1jJMD8Gl8o46UJ4tt6LDpc2nwoxYraG1WiMkd0nzyiHCgJK5/eboM5clEpwVubqUdkjovxGyq+llmEZ0PeVKxj0B/a7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=Kas5S/+E; arc=none smtp.client-ip=95.215.58.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1783162687; c=relaxed/simple;
+	bh=roVdftBqIYhxa7kuVflyNAGcTrgVRdhZgEMn2djRRN0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ShpjGZ4K6dqvnSCvWnw4OWq53+IYDZyNCOQKlrZjKgEDhprprL/YSffFK2Oue5FwZnbYAaQaSMShKyeSlSp++DQ4o5vAYz84msiacJG+u+9VXWYOftulpNc9yAwpQ9nCvMAu+/8a1iwdUWUMjAmRxY6m/hd8jyoixiQXlJYS4Hk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=cD3JK2v4; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=cDgc2nWG; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="Kas5S/+E"
+	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="cD3JK2v4";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="cDgc2nWG"
+Authentication-Results: purelymail.com; auth=pass
+DKIM-Signature: a=rsa-sha256; b=cD3JK2v4Pg/6wUm8q+yTY4o9p9OKU2BJKARVgkRNcgNjjSb+r3FxZt3yVTcLl62J0Skl2MJfee3KeVFEjjIgsTO8UVnFm1KY60fWASYBZ/kaKg/CKzX6X9G9OwISUUyeTsDTDSxgZcteqNHOjwwiiK1P7H3bft30aDVrJuHYRQt+MiwwIk/slpnX+jqGf0V8aHOfo/u4g5hyKPdTm/jLkYnJ3cQnS6LTVDFyo2R5BNodZ9kR8LvRlBCp39VRKFH+XrNXmNsmY8AZgZyFa9Z/BnuOjRoNYbNMK8Q6ITfScy/c7sZ5Qisg85yoOWHFRQtrcgr96q59lRjuLJUDL4sdnQ==; s=purelymail3; d=tinyisr.com; v=1; bh=roVdftBqIYhxa7kuVflyNAGcTrgVRdhZgEMn2djRRN0=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=cDgc2nWGE1e1TKDEe3bnd203JU2rnHN1CEx/mJbwy+8V81fC4U2Z7xj4MuWThoteC4aO0F907P2cqlGE/0iD4i0/EZrr/55v7fDih2PyfjFpVtMvKRPJi7iwKZu/hlcTOKodZxywKplvxM9/uecE0Fd3T50FhNjPkZd3xh5RtpR3NGTicQlJHkZbeZIEmwFVI8lOvi1WQVbCAZgUSZ2lfwwVga3xXZGaCo8EDRAX0+u/d32AVuFDNxZRTPee5MLnPSQqkx80GnNwUzJwIrhnosysjwvNL5Ffws4GZtrkpTpEWwOGqQyvcWKzb/3Yp9JH2lhKaH/VjQBZMaN+RhjOvg==; s=purelymail3; d=purelymail.com; v=1; bh=roVdftBqIYhxa7kuVflyNAGcTrgVRdhZgEMn2djRRN0=; h=Feedback-ID:Received:From:To:Subject:Date;
+Feedback-ID: 99681:12517:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1846076314;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Sat, 04 Jul 2026 10:57:39 +0000 (UTC)
+From: Joris Vaisvila <joey@tinyisr.com>
+To: netdev@vger.kernel.org
+Cc: horms@kernel.org,
+	pabeni@redhat.com,
+	kuba@kernel.org,
+	edumazet@google.com,
+	davem@davemloft.net,
+	olteanv@gmail.com,
+	Andrew Lunn <andrew@lunn.ch>,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	=?UTF-8?q?Ar=C4=B1n=C3=A7=20=C3=9CNAL?= <arinc.unal@arinc9.com>,
+	Landen Chao <Landen.Chao@mediatek.com>,
+	DENG Qingfang <dqfext@gmail.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Joris Vaisvila <joey@tinyisr.com>
+Subject: [PATCH net-next v6 0/4] net: dsa: mt7628 embedded switch initial support
+Date: Sat,  4 Jul 2026 13:56:55 +0300
+Message-ID: <20260704105659.140970-1-joey@tinyisr.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
-	s=key1; t=1783158883;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gwSOPRwPe16md58gxuRwvnrh/zOt3EcNn/2KFaD5eL4=;
-	b=Kas5S/+E5faZ6tGsC3Od6zFmgPLB0QI5dwtnD9T+vrUTRkUxkwYhbQX09vex7b+YyLFpso
-	DCLLST39THRf9qOm/obiooOuvpjt15Nh7bjLPsWaU5YIB/ZfS+5SyuYWGxvHGC7LgoGfG6
-	t+tpHKTDTc14LXDhr2HqkVKUW9v6YHYjhTMaGyGVDXIjuHqAXxg3K5SM7d4BcUFUXfVMA8
-	bA4+/yA/oEYLPdJRDOcIMeVAxOG4ZssKcQH4q0sxvvEQ4eXvUtb5l+YmnTR39o4cnFD7xz
-	WQYmrM7B0zG345JVEKb4D1zPKr+JufARpjpcvprEfbweF2HqmF6gmR1eESoT/g==
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 Content-Type: text/plain; charset=UTF-8
-Date: Sat, 04 Jul 2026 11:54:36 +0200
-Message-Id: <DJPP2F4YRQGN.1CR6HUGTXDYKK@cknow-tech.com>
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Heiko
- Stuebner" <heiko@sntech.de>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>
-Subject: Re: [PATCH 00/12] arm64: dts: rockchip: Add NanoPi M6 board
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Joachim Eastwood" <joachim.eastwood@gmail.com>, "Diederik de Haas"
- <diederik@cknow-tech.com>
-References: <20260703-nanopi-m6-v1-0-8344a1559519@gmail.com>
- <DJOWHH5K7P76.3JPJVO47K1SZE@cknow-tech.com>
- <CAPSPb=tZ1FenNfEM5P+DWcksKvpQjyQQjAWTRdyxb7=YYxY_rw@mail.gmail.com>
-In-Reply-To: <CAPSPb=tZ1FenNfEM5P+DWcksKvpQjyQQjAWTRdyxb7=YYxY_rw@mail.gmail.com>
-X-Migadu-Flow: FLOW_OUT
 
-Hi Joachim,
+This patch series adds initial support for the MediaTek MT7628 Embedded
+Switch.
 
-On Fri Jul 3, 2026 at 10:23 PM CEST, Joachim Eastwood wrote:
-> On Fri, 3 Jul 2026 at 13:30, Diederik de Haas <diederik@cknow-tech.com> w=
-rote:
->> On Fri Jul 3, 2026 at 12:07 AM CEST, Joachim Eastwood via B4 Relay wrote=
-:
->> > This patch series add support for the NanoPi M6. This board is very
->> > similar to the NanoPi R6C and R6S boards which are already supported.
->> >
->> > Main differences:
->> > * M.2 M-key slot with PCIe (Also present on R6C)
->> > * M.2 E-key slot with PCIe and USB (from hub)
->> > * 1 additional USB 2.0 port from an on-board USB hub
->> > * RT5616 audio CODEC
->>
->> This seems to be the M6 (2405 aka 'V1')?
-> Yes, correct. This patch set is for the original M6 board. V1 if you like=
-.
->
->> Because there is now also a M6V2 (2603), which uses an ES8389 CODEC:
->> https://www.friendlyelec.com/index.php?route=3Dproduct/product&path=3D69=
-&product_id=3D319
-> I did notice there was a new version, but I hadn't given it much thought.
->
->> Is it useful to already take the 2 M6 variants into account with this pa=
-tch set?
-> Yes, I think you are right.
->
-> How about this setup:
-> rk3588s-nanopi-m6.dtsi
-> rk3588s-nanopi-m6v1.dts
-> rk3588s-nanopi-m6v2.dts
-> This mimics the setup for the R6 series boards with rk3588s-nanopi-r6.dts=
-i
-> and rk3588s-nanopi-r6[cs].dts.
+The driver implements the basic functionality required to operate the
+switch using DSA. The hardware provides five internal Fast Ethernet user
+ports and one Gigabit port connected internally to the CPU MAC.
 
-Seems fine. You could drop the 'v1' as I only used that to differentiate wi=
-th
-the V2. OTOH, I'm always 'struggling' how to identify the original NanoPC-T=
-6.
-I do like consistency, so mimicing the setup for R6 is nice :-)
+Bridge offloading is not yet supported.
 
-> Note that I will not make the v2 board part of this patchset since I
-> am unable to test it. But as you said we can take it into account now.
+Tested on an MT7628NN-based board.
 
-Agreed. My concern was about trying to prevent another complete reorganizat=
-ion
-once someone decides to upstream support for V2 (2603).
+Changes since v5:=20
+=09- updated tag_mt7628 to kfree_skb() on error in receive path
+=09- removed Reviewed-by tags from tag_mt7628
+=09- removed mmio base pointer from mt7628_esw since it's only used to
+=09  initialize the regmap
+=09- rebased on net-next
 
->> https://wiki.friendlyelec.com/wiki/index.php/NanoPi_M6#Schematic.2C_PCB_=
-CAD_File
->> https://wiki.friendlyelec.com/wiki/index.php/NanoPi_M6V2#Schematic.2C_PC=
-B_CAD_File
-> I did a quick comparison of the schematics and noticed the following
-> differences:
-> * New CODEC; ES8389
-> * A new "User" button connected to a gpio line.
-> * Different USB 2.0 hub: CH334P (may not be relevant for DT)
-> * Different USB PD power solution (not relevant for DT)
+Changes since v4:
+=09mt7628 dsa driver:
+=09=09- updated mdiobus allocation to use ds->dev instead of esw->dev,
+=09=09  matching other DSA drivers (no functional change)
+=09mt7628 phy driver:
+=09=09- replaced phy_write() with phy_modify() when setting PHY init
+=09=09  bit (no functional change)
+=09mt7628 dt binding:
+=09=09- moved unevaluatedProperties after required block
+=09=09- removed blank line between compatible and reg in example
+Link: https://lore.kernel.org/netdev/20260608192948.289745-1-joey@tinyisr.c=
+om/t/#u
 
-At the end of the M6V2 product page, there's also a comparison with 'V1':
-https://www.friendlyelec.com/image/catalog/description/M6V2_en_13.jpg
+Changes since v3:
+=09- rebased on latest net-next
+=09mt7628 dsa driver:
+=09=09- simplified vlan_add hardware vlan slot search
+=09=09- fixed vlan_del not removing vid from port pvid
+=09=09- separated mii_read/mii_write error handling from return
+=09=09  value parsing. Updated RD_DONE/WT_DONE bit checking
+=09=09  with clearer logic and a comment.
+=09=09- moved NET_DSA_MT7628 after NET_DSA_MT7530 in Kconfig
+=09=09- added missing reset return value checks in probe
+=09=09- fixed mt7628_switch_ops missing const specifier
+=09=09- removed mdio node parsing from of, as there is nothing
+=09=09  to configure
+=09mt7628 dt binding:
+=09=09- updated description to be more clear about port count
+=09=09- dropped optional mdio subnode. the switch does not
+=09=09  expose an external MDIO bus and all integrated PHY
+=09=09  access is handled by the driver.
+=09=09- removed unused switch0 label in example
+Link: https://lore.kernel.org/netdev/20260428185510.261521-1-joey@tinyisr.c=
+om/t/#u
 
-It's under the heading 'Comparison', but it's part of the picture so you ca=
-n't
-search for it. Dunny why FriendlyElec does that, but they do it consistentl=
-y.
+Changes since v2:
+=09- fix binding issues found in review
+=09- fix ignored dsa_tag_8021q_register return value
+=09- add switch teardown to clean up tag_8021q
+=09- fix ordering issue where mdio probe fail would leak tag_8021q
+Link: https://lore.kernel.org/netdev/20260330184017.766200-1-joey@tinyisr.c=
+om/t/#u
 
-Cheers,
-  Diederik
+Changes since v1:
+=09- changed port 6 phy-mode to internal
+=09- cleaned up tag_mt7628 rcv function and mask defines
+=09- fixed sorting error in drivers/net/dsa/ Kconfig and Makefile
+=09- fixed sorting error in net/dsa/ Kconfig and Makefile
+=09- fixed mt7628_mii_read/write return values on error
+Link: https://lore.kernel.org/netdev/20260326204413.3317584-1-joey@tinyisr.=
+com/t/#u
+
+Thanks,
+Joris
+
+Joris Vaisvila (4):
+  dt-bindings: net: dsa: add MT7628 ESW
+  net: phy: mediatek: add phy driver for MT7628 built-in Fast Ethernet
+    PHYs
+  net: dsa: initial MT7628 tagging driver
+  net: dsa: initial support for MT7628 embedded switch
+
+ .../bindings/net/dsa/mediatek,mt7628-esw.yaml |  96 +++
+ drivers/net/dsa/Kconfig                       |   8 +
+ drivers/net/dsa/Makefile                      |   1 +
+ drivers/net/dsa/mt7628.c                      | 649 ++++++++++++++++++
+ drivers/net/phy/mediatek/Kconfig              |  10 +-
+ drivers/net/phy/mediatek/Makefile             |   1 +
+ drivers/net/phy/mediatek/mtk-fe-soc.c         |  50 ++
+ include/net/dsa.h                             |   2 +
+ net/dsa/Kconfig                               |   6 +
+ net/dsa/Makefile                              |   1 +
+ net/dsa/tag_mt7628.c                          |  93 +++
+ 11 files changed, 916 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/net/dsa/mediatek,mt76=
+28-esw.yaml
+ create mode 100644 drivers/net/dsa/mt7628.c
+ create mode 100644 drivers/net/phy/mediatek/mtk-fe-soc.c
+ create mode 100644 net/dsa/tag_mt7628.c
+
+--=20
+2.54.0
+
