@@ -1,63 +1,63 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A4B39C019
-	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 07:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49769397E89
+	for <devicetree@vger.kernel.org>; Sat,  4 Jul 2026 07:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783150779; cv=none; b=YSLcPSuxDE/9veNYkuEvWuWTvBbQGDJ+x3ej8KKgQkCbm6nwa/AOtHAABS3pDcHMfFyt9OUwkXBVAJZDOGIo2rXb0xqnEft6bQxMqq4VJrVB5s4ARHO97cWmdytZDEut0gDcgp2zhksV2AYsPUGc138W5xLMBVqYgvY36V7w9z0=
+	t=1783150777; cv=none; b=q1xNDNpe8yQ0qoZv024CUiGk1Rlp8kRnyWonhQSlqkfpCLp5x7u5NrtKOObHfwjpk7z1+6+9fbiiuYcjv1D+IrWrV8/BTBuVt+ScnNhuVa63YNZT2qap5fUK7Lbf8JnAioa8OgokEImQ0SYkzBlB1bNDEXyLoprwk9I9qpR560s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783150779; c=relaxed/simple;
-	bh=b4iUr65hHHCVaSWsSZyZa4GjL3PiNleLinM59ZwAh08=;
+	s=arc-20240116; t=1783150777; c=relaxed/simple;
+	bh=p0nFlcc0G71zRK9tMWoufvLKeY4JW3NRg9nSuniWkNo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=pWkrk40VMe6aCl4Lnr4WmdkUiIuMjloqD7qiUqNyfTEH/ESRcgaDynXBANMa3BcHmIh18stxjkeeRbhBaqSly+MRs81VVUlDTpHg+fEFfU5tu7zlePBXO4YiwsUTM0V9LfB5JeMzUsJg1dRSqIuAOqG1pASAxDLAFWsP6rdwPhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pfkEtWfM; arc=none smtp.client-ip=209.85.128.50
+	 MIME-Version; b=scIiYBpoPqFWqw2Z2BzDxIKbIsUpL8GEDqutENWBeAshFDpWut3JVNyEBPfHSF/71I/2aKYtbTs8jXfgz59ORZi6oomJszVOs+64WN1+LYhHFLqKLxRTbM2kBT/YJtvegI+3vCsYU9w3WGdiU0nlymIkAnYQpTHBp4z24HqOGfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GCFz9/1A; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pfkEtWfM"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-493c52cde9eso12816045e9.3
-        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 00:39:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GCFz9/1A"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-493c59f740cso8613235e9.3
+        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 00:39:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783150763; x=1783755563; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783150760; x=1783755560; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OzRzJB6u7MYAPuTB3vZnPlGmNDCrN8auNwAuOBFkv0c=;
-        b=pfkEtWfMdWOZ4rgCiLjwkzLdw9CwciDYT9ggt3HuEpmidlqDOqQkEad+ZDTtmKUA3/
-         SvLay/yqTBRIwHpkxkVTLrmgUInhGKvaMw+k2IzYfo+j4Njh0o31cL7LG8xVNJt6RiE9
-         M26cLLOUH8VrbL4Xi5mnULrb0STBC5wuPw0zs8y6Q7ceN8tRovCf1/xiCQxn6vu9fxlU
-         uJWfEKkpKccImwIdRazm2T7Fsb5dzIWmui5MLQEiW1w6ubsesPr9Uv+Df0xCjWV+oe/Y
-         7xE/Ff+UnmeuZfQCeRmt+PAL4VZGXcXwbO/Y0s8ysPyTXKjBoI0MTth0CqKTB5Yei2B2
-         IntQ==
+        bh=0Ujun7RB7FUF9dZLPZwQwz/fZN6r2PvMJI73ZhiW7os=;
+        b=GCFz9/1AVAEbAgluk2yKp9vZrPjb9yAg2b200Fg6rEGXLy0/PhKUaphFocoHbZvJfO
+         XYJ0Jazq/YnytfwelmGG3snlwIuiHtHLeHUOJUO+eDbZQquzKT48aqK7itkj+UUW4lXJ
+         c1oDJEucmQ0GtlCQnfx+dM+CrphtsOJBy3Q5m+OYComWZoFd96nArcYEgIK5QQ3QJr3y
+         2PKHLl5HB9Tnt2Ypuxu1msWKfS5w9islgTZKiEOdWfY9TvoCebThXme6ISbRBMkHwyLI
+         Jgs7bBRxHhklFUPLScaSwJ6sCASXDE6uwOI+iJcFfewXX8t+EWobAfV2GzHBYFhXbz4C
+         E/pQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783150763; x=1783755563;
+        d=1e100.net; s=20251104; t=1783150760; x=1783755560;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=OzRzJB6u7MYAPuTB3vZnPlGmNDCrN8auNwAuOBFkv0c=;
-        b=TMVpaGRQtFPy4/56J0oG1DErY+WtF0IMM3sQHi5tR0q7eN19WUpbE4T2mHICbaiq6A
-         5GUp5+IS2v82GYMsAmbgN6ZVZMTxGS2VsHI3B88LjFdzgf5mZh2jS6rrw/qlapIWCjlK
-         +Ph9wbm99bI6NPsSt11kjLw4v2lhJEkckTouOLDUUMdX3yJxWK2ALGmD0TdNdUmhnK2s
-         9sosWlS2uOECZYL6GKyyj9HD+xaflQs09d4mOkEXgwrNTvS+86Jog5b+coYSj7bOOUxs
-         OPfdCaJyPibE9/7G7iL/xlbd6RN2m9QwNlLaMPwGZEGQoyueY7N7I6TWpwqG576MuoBh
-         /9KQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+iPowzxQlczyTOFk+bPRy5mb0MueaNUesKku8W0A5FoYmTtwwpe8ZFKkHXcB2KbvTacn1HSlA5kggp@vger.kernel.org
-X-Gm-Message-State: AOJu0YzTvpNFUrRmLbqUV+kocdtv30rvtkMOAwWea0vU0cdbj4i48WlB
-	qaDelk+Yvu+QTOJCkWEc31K6iytmUYttZ6jbKfWwGpSsSCO/L+j2lDWL
-X-Gm-Gg: AfdE7cnwptM2OXaXJoEcqz6WNcExGd/BU0uBMdDjQS+Oqyzac/uf0MFbiaCv/uolfQf
-	vX6o3X0+XcUaEqot3yM+hZbR2EVu7FPXs2O7HcXN5wJ1RhXh9II54hvar0QbWTinxh5/WoWQ77m
-	rqR895ooouXFkiNTUsQc3aSsO7JUzQYv9Y5b8lnh3Aia6WjzDI34iZr6ja5iw+92V+gomIcu3SU
-	KKrz75r3wVk86zH4LRS/owK+aMarenAovzhjTt7CkBs5wbPqef/oqtegX1xwbd/+M8nwJaRiXeL
-	onoccsJI9l95i9dAApIc633CQ0zXCbgaJe4EIkkuYeWlEwQE5OtqgLQBmiNhRucjn9kfj36ZDjk
-	kvaUMACA2HC+cvJ1tXvM1hEkeBj4p1XLY9ICFNYyOjajXIg9Ff57KheCdi6GjLIKLd1wPJQDAA0
-	HvlPonehZZGb7l0fy511krXCkPKoXZMaHAxw==
-X-Received: by 2002:a05:600c:314f:b0:493:b2c1:b2f9 with SMTP id 5b1f17b1804b1-493d11cf274mr24679345e9.8.1783150762899;
-        Sat, 04 Jul 2026 00:39:22 -0700 (PDT)
+        bh=0Ujun7RB7FUF9dZLPZwQwz/fZN6r2PvMJI73ZhiW7os=;
+        b=HspFEnitnTma0F8pz5FifcanTH9gYZXq5N4KCdRxFjT4RkM6Z2XICmcYsJPDl0oLbx
+         kiwxaOGCA2eOMmNAByo27Ug0L1lk8mSD0z/mnIpfVkJm1FP2FOuahoOOJ5Qvb/0YpR3Y
+         A+yuJmL2FgufihlGrd1D0hjElaRoFamtBI2+EDjrcHAr/UZyVXkZBXQG2yt3zhFymFIH
+         cXDhJR65RhSiIW0cqxYLt9VJNREnjiM8GsMTNZ3/VyNIdt3bDQ3dNWdnZhbG2IgkoDb6
+         sNWAPjwz9IeQQVUbTEoEkZGV4VNpx+woUoB2CnSqM11Fxa03w1AGGvR6DB6zVCJM5PhS
+         tFyQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9v7i1FNSMbB+xa1L1oq+scDVi17Su/NvUloj6ucXYqqbhJQTaGBsiGKjuZUIWKGVDjYZ/OQ8az43Js@vger.kernel.org
+X-Gm-Message-State: AOJu0YyzTve2jxUUhcGcL1GskyTuW8varlo/SD7xMQvg1mtMvkZLExtw
+	cYU3CPfGz2f+d/mDqsGYgMJ9May3on3p0oG3asF81YKGfraxeF7yCk4y
+X-Gm-Gg: AfdE7cmTM8YePINyLmPAAXlxG1PRuDg7TID0Hy4XPTEuqSvreJKmC1T+pXXSABdta5S
+	Zk4vLCBSwAlkhq2GmOmMJkOP4jhJ4QgCPm9A0nQcSTSNXOEWhhd5PjVFSv1bTKrzBQieBicjj/E
+	oxbUCF05ionpsReB8LzBzRzGn+swgTZmKymBMk9mj3JGQExU869Nidy4ybhLQ9dTo0gFAEpM/pU
+	BsSQdXR1xDTZzv+VHtLoqONehRMrq8SmcjMMb6cgklRP1XbSF9ZiV3vtE5lZJJvXbPs68RXxUmw
+	LH1pBziI+ZVQjAH0xhk9js1YGT/bgpaiyiF0bRB6YyGAGryGAN2FAN5tGp5cZXs749pOe7PlWpk
+	islK6d5bZBK/W/PA6MMRoKUeWnEMC/9aQF89cUL5qV3JVOaq4a9vuzyQvyJj+NcstlXCDF/O1wC
+	CU+EaUoS6QDzHeaooLVW0I7mH9KU1ONQHER7/32Lfhh1hP
+X-Received: by 2002:a05:600c:a00c:b0:490:d38c:7836 with SMTP id 5b1f17b1804b1-493d11d26d5mr25933205e9.3.1783150759893;
+        Sat, 04 Jul 2026 00:39:19 -0700 (PDT)
 Received: from localhost.localdomain ([95.43.220.235])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9de1e736sm6565488f8f.7.2026.07.04.00.39.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9de1e736sm6565488f8f.7.2026.07.04.00.39.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 04 Jul 2026 00:39:22 -0700 (PDT)
+        Sat, 04 Jul 2026 00:39:19 -0700 (PDT)
 From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -77,9 +77,9 @@ Cc: linux-phy@lists.infradead.org,
 	linux-omap@vger.kernel.org,
 	linux-gpio@vger.kernel.org,
 	Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Subject: [PATCH 5/5] phy: cpcap-usb: add extcon support
-Date: Sat,  4 Jul 2026 10:38:43 +0300
-Message-Id: <20260704073843.1750458-6-ivo.g.dimitrov.75@gmail.com>
+Subject: [PATCH 3/5] dt-bindings: phy: motorola,cpcap-usb: replace se1 interrupt with chrg_det
+Date: Sat,  4 Jul 2026 10:38:41 +0300
+Message-Id: <20260704073843.1750458-4-ivo.g.dimitrov.75@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260704073843.1750458-1-ivo.g.dimitrov.75@gmail.com>
 References: <20260704073843.1750458-1-ivo.g.dimitrov.75@gmail.com>
@@ -91,163 +91,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Register an Extcon device and report the detected cable state.
+The CPCAP USB PHY driver uses the CPCAP charger detection interrupt
+for DCP detection rather than the SE1 interrupt.
 
-The driver already determines the type of cable attached during USB cable
-detection. Export the detected state through the Extcon framework so
-other drivers can consume it using a standard kernel interface.
+Update the binding and example DTS to use the corresponding
+"chrg_det" interrupt name.arch: arm: dts: cpcap-mapphone: xxx
 
 Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 ---
- drivers/phy/motorola/phy-cpcap-usb.c | 68 ++++++++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
+ .../devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml   | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/phy/motorola/phy-cpcap-usb.c b/drivers/phy/motorola/phy-cpcap-usb.c
-index 3be2b3afaaf4..8978a95c1c19 100644
---- a/drivers/phy/motorola/phy-cpcap-usb.c
-+++ b/drivers/phy/motorola/phy-cpcap-usb.c
-@@ -12,6 +12,7 @@
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/err.h>
-+#include <linux/extcon-provider.h>
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/of.h>
-@@ -123,6 +124,7 @@ struct cpcap_phy_ddata {
- 	struct regmap *reg;
- 	struct device *dev;
- 	struct usb_phy phy;
-+	struct extcon_dev *edev;
- 	struct delayed_work detect_work;
- 	struct pinctrl *pins;
- 	struct pinctrl_state *pins_ulpi;
-@@ -134,12 +136,23 @@ struct cpcap_phy_ddata {
- 	struct regulator *vusb;
- 	atomic_t active;
- 	enum cpcap_mode mode;
-+	int cable;
- };
+diff --git a/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml b/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
+index 0febd04a61f4..81c5f3b5997b 100644
+--- a/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
+@@ -27,7 +27,7 @@ properties:
+       - description: vbusvld interrupt
+       - description: sessvld interrupt
+       - description: sessend interrupt
+-      - description: se1 interrupt
++      - description: charger detection interrupt
+       - description: dm interrupt
+       - description: dp interrupt
  
- static bool cpcap_enable_uart;
- module_param_named(enable_uart, cpcap_enable_uart, bool, 0644);
- MODULE_PARM_DESC(enable_uart,
- 		 "Enable UART on the USB connector while idle (increases power consumption)");
-+
-+/* List of detectable cables */
-+static const unsigned int cpcap_extcon_cables[] = {
-+	EXTCON_USB,
-+	EXTCON_USB_HOST,
-+	EXTCON_CHG_USB_SDP,
-+	EXTCON_CHG_USB_DCP,
-+	EXTCON_NONE,
-+};
-+
- static bool cpcap_usb_vbus_valid(struct cpcap_phy_ddata *ddata)
- {
- 	int error, value = 0;
-@@ -226,6 +239,43 @@ static void cpcap_usb_try_musb_mailbox(struct cpcap_phy_ddata *ddata,
- 		__func__, error);
- }
+@@ -40,7 +40,7 @@ properties:
+       - const: vbusvld
+       - const: sessvld
+       - const: sessend
+-      - const: se1
++      - const: chrg_det
+       - const: dm
+       - const: dp
  
-+static void cpcap_usb_set_extcon(struct cpcap_phy_ddata *ddata)
-+{
-+	int cable;
-+
-+	switch (ddata->mode) {
-+	case CPCAP_CHARGER:
-+		cable = EXTCON_CHG_USB_DCP;
-+		break;
-+	case CPCAP_USB:
-+		cable = EXTCON_CHG_USB_SDP;
-+		break;
-+	case CPCAP_USB_HOST:
-+	case CPCAP_DOCK:
-+		cable = EXTCON_USB_HOST;
-+		break;
-+	case CPCAP_IDLE:
-+		cable = EXTCON_NONE;
-+		break;
-+	}
-+
-+	if (cable == ddata->cable)
-+		return;
-+
-+	if (ddata->cable == EXTCON_CHG_USB_SDP)
-+		extcon_set_state(ddata->edev, EXTCON_USB, false);
-+	else if (cable == EXTCON_CHG_USB_SDP)
-+		extcon_set_state(ddata->edev, EXTCON_USB, true);
-+
-+	if (ddata->cable != EXTCON_NONE)
-+		extcon_set_state_sync(ddata->edev, ddata->cable, false);
-+
-+	if (cable != EXTCON_NONE)
-+		extcon_set_state_sync(ddata->edev, cable, true);
-+
-+	ddata->cable = cable;
-+}
-+
- static void cpcap_usb_detect(struct work_struct *work)
- {
- 	struct cpcap_phy_ddata *ddata;
-@@ -276,6 +326,7 @@ static void cpcap_usb_detect(struct work_struct *work)
- 			goto out_err;
- 
- 		cpcap_usb_try_musb_mailbox(ddata, MUSB_ID_GROUND);
-+		cpcap_usb_set_extcon(ddata);
- 
- 		/*
- 		 * Force check state again after musb has reoriented,
-@@ -306,6 +357,8 @@ static void cpcap_usb_detect(struct work_struct *work)
- 		if (error)
- 			goto out_err;
- 
-+		cpcap_usb_set_extcon(ddata);
-+
- 		return;
- 	}
- 
-@@ -343,6 +396,8 @@ static void cpcap_usb_detect(struct work_struct *work)
- 		if (ddata->mode == CPCAP_USB)
- 			cpcap_usb_try_musb_mailbox(ddata, MUSB_VBUS_VALID);
- 
-+		cpcap_usb_set_extcon(ddata);
-+
- 		return;
- 	}
- 
-@@ -356,6 +411,8 @@ static void cpcap_usb_detect(struct work_struct *work)
- 	if (error)
- 		goto out_err;
- 
-+	cpcap_usb_set_extcon(ddata);
-+
- 	return;
- 
- out_err:
-@@ -781,11 +838,22 @@ static int cpcap_usb_phy_probe(struct platform_device *pdev)
- 	if (!otg)
- 		return -ENOMEM;
- 
-+	ddata->edev = devm_extcon_dev_allocate(&pdev->dev, cpcap_extcon_cables);
-+	if (IS_ERR(ddata->edev)) {
-+		return dev_err_probe(&pdev->dev, PTR_ERR(ddata->edev),
-+				     "failed to allocate extcon device\n");
-+	}
-+
-+	error = devm_extcon_dev_register(&pdev->dev, ddata->edev);
-+	if (error < 0)
-+		return error;
-+
- 	ddata->dev = &pdev->dev;
- 	ddata->phy.dev = ddata->dev;
- 	ddata->phy.label = "cpcap_usb_phy";
- 	ddata->phy.otg = otg;
- 	ddata->phy.type = USB_PHY_TYPE_USB2;
-+	ddata->cable = EXTCON_NONE;
- 	otg->set_host = cpcap_usb_phy_set_host;
- 	otg->set_peripheral = cpcap_usb_phy_set_peripheral;
- 	otg->usb_phy = &ddata->phy;
+@@ -90,11 +90,11 @@ examples:
+         #phy-cells = <0>;
+         interrupts-extended = <
+             &cpcap 15 0 &cpcap 14 0 &cpcap 28 0 &cpcap 19 0
+-            &cpcap 18 0 &cpcap 17 0 &cpcap 16 0 &cpcap 49 0
++            &cpcap 18 0 &cpcap 17 0 &cpcap 13 0 &cpcap 49 0
+             &cpcap 48 1
+         >;
+         interrupt-names = "id_ground", "id_float", "se0conn", "vbusvld",
+-                          "sessvld", "sessend", "se1", "dm", "dp";
++                          "sessvld", "sessend", "chrg_det", "dm", "dp";
+         io-channels = <&cpcap_adc 2>, <&cpcap_adc 7>;
+         io-channel-names = "vbus", "id";
+         vusb-supply = <&vusb>;
 -- 
 2.25.1
 
