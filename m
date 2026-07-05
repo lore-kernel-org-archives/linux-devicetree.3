@@ -1,239 +1,134 @@
-Received: from mail-08.mail-europe.com (mail-08.mail-europe.com [57.129.93.249])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1333905F9;
-	Sun,  5 Jul 2026 10:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.129.93.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07FB37DEBA
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 10:11:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783246252; cv=none; b=SndgbPnlVT2/UJOn9yKVi9sZe06hZ/UCb1ekrq3jfQlQdcZgiJ4PK0HGF7IsM4oVsg1MVbKmMyv92jxvd2fgPvYIRnyA1aWBJNzzVOQUO55q9NJqkRqbwFBnPvkTGi5yGo7YtZ/nSaYPk8oUla1VWFKd18giieu0SaEr72c9ccc=
+	t=1783246284; cv=none; b=XtjEEWdIKTe+4QhWnoRMjxHINYEDmJzCBlsLaCFokYtkrSrw64LFEBekr9IhtjFpym4+PtiL81cja1+aVBPFskTNWHU1FNUDTr8S+Aq6gWnVGaIXtzrE8ZBAMYqZBAfyAu3M1fNX8hxCXGQXV/v7oIpqiwfmhw+NivJOtt5TWxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783246252; c=relaxed/simple;
-	bh=d+1veSMMNhmMknc4U5tBLbwBt8Cc5m4SNqcJtqh3z/c=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TBVvqc/stm1BZkEa+KgVBeaD/ozWwDVnIstMRlPl+WHF3zgO+urf1KeqXatPRDS35gATNHBnhyRKIWfgc+udBHtYUVr7YXW4vSKo0KGebjsmqE3H06JYsqj+uVRSJgJCP7/QpUfZeomKucX/rDYtrU0ghRg7/lttB394FpHWWco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Kk57kR7J; arc=none smtp.client-ip=57.129.93.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1783246284; c=relaxed/simple;
+	bh=1+urWhTzQMUH0oiAjedVIldEW714w2feNRJ/RVDNWTw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tGUeaYcTxOiHkB3NVG0y+eEG5QBkx8OuvLR/Jbz+j4py0YZ0Thqv2AAs8FpMqEU4op+3j4vWdRJKGjdoDe5IHL7jzseMnDdgPt4YwP0qfqaN+LfTnHHg0DAE3NbNPxXHmW5IeVtmAgsajor442tr5EuStMSeiwaZyXVVdu8WoCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ff1qHjLG; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Kk57kR7J"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1783246234; x=1783505434;
-	bh=NwhQeFqh/lqgtoLPEMKrAqFCbpgQgElRtomSXFaHFkM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Kk57kR7JktrwEId5dWM6aqDKo20iwe8MwT67jEOfMvjfswfOjavgRSzmh/6Sgid7k
-	 o9Xf5f0r+SiIXYKLhSTV13RAhclQczcgc5gK7PPgiYfq9mVgxNPycUsuYHVCArYFWN
-	 4ZZk1f/cOggPSjI213sv2rcFG5VEsFAd59JCyI/ghYsVE9AodbF2GHcxEzBBnBZ/J8
-	 86AAfAvsYHC0OU8FEclPwt1HWwdWGil5EqPw/+ooBABRsm4bGRwq2ndnl6pvKSMgmd
-	 RRCWMNL9TFkmp2VdBjPQo1k2hvFuWtDsCHj/O2IVtyWB/H7xUDv0GaZPmLujlajOka
-	 +KAOLyDf2HXag==
-Date: Sun, 05 Jul 2026 10:10:27 +0000
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Alexander Koskovich <akoskovich@pm.me>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 1/3] dt-bindings: media: qcom,milos-iris: Add Milos video codec
-Message-ID: <20260705-milos-iris-v3-1-8c1353530f24@pm.me>
-In-Reply-To: <20260705-milos-iris-v3-0-8c1353530f24@pm.me>
-References: <20260705-milos-iris-v3-0-8c1353530f24@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 689114ff202948a983f967a93ea5944e50dcc115
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ff1qHjLG"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493d92b7db3so791135e9.2
+        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 03:11:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783246281; x=1783851081; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=KosFoYH7JPzJbGxiLDLiAcfUT9wevKTSADbKnE7NxIU=;
+        b=Ff1qHjLGsmFKCgVdZOH+PEgrUAHHONaG+X8cOYDTZWd1IIvjCqj0nMr8FVE2Lh5B5c
+         Hn9JAfvq6tkblvQR3gbbonHpaSCsUsK76QVYWj87PXTbx2QfmySMwm7F6E/cxqTkUMxQ
+         RLDB0Tk0JRoGU2cteJt0TImzAMpfNd27K4eOI8RDom1oBg9YnkfICxDXBcFH8J3brmZH
+         sZBJtd7YtubI7LyeMWmakotpABKpYCCVX8Bx/IrKeT0uqqi7CunO1lAcd2DAfYCZVg3g
+         M8ssymFrwr9Hs0GBL9cngdSHnJxEF+FTw3EDcwy37TdX7PKbCSRs5tIEuonKAlnz0NMi
+         0EZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783246281; x=1783851081;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KosFoYH7JPzJbGxiLDLiAcfUT9wevKTSADbKnE7NxIU=;
+        b=RO8/NbuK+X/iGwa/U6aRDEw8zmbcgJ+o1jDm3ebRPEem9DbuU4lfEef5/2Ru23Xklq
+         CIvHT516nqdIRgQn2WHi8HjRUgvDKYGNExtjgYkiNKHIzrx16akoKxJxOHmJS2d9qEcR
+         ubZ3Hfm1jPuf9+2w49fhjHF35z5Cc8IGTcHqEes5uDZEqkVOlguJueJMlBDgViNcdd0A
+         WXK0kiEwDqkjgt1H9CHp8Gw0KfAXbk0fxSLXS4fBSCWuIQW7335VkuoARkST5draj9Xm
+         OnQns+3RvNIeKlb+8XNnpyepd/r5c/7kXMS1NqliH4qhNm1rjfmRXAUfy7BAm2csCF+T
+         3Mbw==
+X-Forwarded-Encrypted: i=1; AFNElJ+0S8weyqicU5xoNPdOyZ4WXauHdd3D+0Z3ZQMybvGzJxEqkn28T4zSGHnUsVcb9cQXlIOeJPSw5gVh@vger.kernel.org
+X-Gm-Message-State: AOJu0YxV9QrKHhy6zooYYcfqJOix2hZQM7ouqv6JI037x4El+9l/glsn
+	cHaVWhK4SqvOXYiOmgzkuKZPmQmPRLWUH4FokHxKWzOKTFlx9Q5djN43P4dIzZeN
+X-Gm-Gg: AfdE7cknDufx/IvinriNZCcFuQA0DDbi+R/x0qr2cT8mhS093xiTyAdXiu+giqlBsrc
+	0eUeJf75zpTY4nsYkfeOUuA6kENwFzTcw6dKaC5QL7rdGcZGgSSO/lTdVGvdO2yASH81Fls9ZPb
+	M8lmbItqdJjp5imOSGwpDyDxhyZ6yMy4sWs/XDeVyUBLhgqrMbaqggd439wLy69tHfmbbh84SBc
+	grgnFJiYMWnBlpJLcuqhhsDRiTPSQYM+g+P4fya1q6uU52dVNVcsJikS1oxIvxcKjEeWtFoS1p+
+	Q5Jb2k/GxyfdXT24W/j3MDOEcf5kS+WCWrEziur+Uvs2Pygn4aIA8usKO+PfsCmU9ceLkGBCWPl
+	lo/jD16TpuW/vr0EcgD8l00wbqf61CgLBmUsfRkejpt8YH2JgHfwc3EhNn4kfXD9GNwQJlRdMcE
+	UuOZFJrPEogXO/L+bhDjkBw53KrBTiMl7iCw==
+X-Received: by 2002:a05:600c:3493:b0:493:d115:d835 with SMTP id 5b1f17b1804b1-493d22abbd8mr58420125e9.8.1783246281032;
+        Sun, 05 Jul 2026 03:11:21 -0700 (PDT)
+Received: from localhost.localdomain ([95.43.220.235])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c637bbcfsm261382715e9.6.2026.07.05.03.11.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 05 Jul 2026 03:11:20 -0700 (PDT)
+From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Subject: [PATCH v3 0/4] phy: cpcap-usb: improve charger detection and export cable state
+Date: Sun,  5 Jul 2026 13:11:01 +0300
+Message-Id: <20260705101105.1798069-1-ivo.g.dimitrov.75@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Add binding for Qualcomm Milos Iris video codec.
+The Motorola CPCAP USB PHY contains the hardware state machine used for
+USB cable detection. Besides distinguishing USB peripheral and host
+connections, it can also detect dedicated charging ports (DCP).
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
----
- .../devicetree/bindings/media/qcom,milos-iris.yaml | 166 +++++++++++++++++=
-++++
- 1 file changed, 166 insertions(+)
+This series updates the Device Tree binding and corresponding mapphone
+Device Tree to use the charger detection interrupt, adds DCP detection
+support to the CPCAP USB PHY and finally exports the detected cable state
+through the Extcon framework.
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,milos-iris.yaml b=
-/Documentation/devicetree/bindings/media/qcom,milos-iris.yaml
-new file mode 100644
-index 000000000000..b0b0355ad52e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/qcom,milos-iris.yaml
-@@ -0,0 +1,166 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/qcom,milos-iris.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm Milos SoC Iris video encoder and decoder
-+
-+maintainers:
-+  - Alexander Koskovich <akoskovich@pm.me>
-+
-+description:
-+  The Iris video processing unit on Qualcomm Milos SoC is a video encode a=
-nd
-+  decode accelerator.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,milos-iris
-+
-+  clocks:
-+    maxItems: 3
-+
-+  clock-names:
-+    items:
-+      - const: iface
-+      - const: core
-+      - const: vcodec0_core
-+
-+  dma-coherent: true
-+
-+  interconnects:
-+    maxItems: 2
-+
-+  interconnect-names:
-+    items:
-+      - const: cpu-cfg
-+      - const: video-mem
-+
-+  iommus:
-+    maxItems: 2
-+
-+  operating-points-v2: true
-+  opp-table:
-+    type: object
-+
-+  power-domains:
-+    maxItems: 4
-+
-+  power-domain-names:
-+    items:
-+      - const: venus
-+      - const: vcodec0
-+      - const: cx
-+      - const: mx
-+
-+  resets:
-+    maxItems: 2
-+
-+  reset-names:
-+    items:
-+      - const: bus
-+      - const: core
-+
-+required:
-+  - compatible
-+  - dma-coherent
-+  - interconnects
-+  - interconnect-names
-+  - iommus
-+  - power-domain-names
-+  - resets
-+  - reset-names
-+
-+allOf:
-+  - $ref: qcom,venus-common.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,rpmh.h>
-+    #include <dt-bindings/clock/qcom,milos-gcc.h>
-+    #include <dt-bindings/clock/qcom,milos-videocc.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interconnect/qcom,icc.h>
-+    #include <dt-bindings/interconnect/qcom,milos-rpmh.h>
-+    #include <dt-bindings/power/qcom-rpmpd.h>
-+    #include <dt-bindings/power/qcom,rpmhpd.h>
-+
-+    video-codec@aa00000 {
-+        compatible =3D "qcom,milos-iris";
-+        reg =3D <0x0aa00000 0xf0000>;
-+
-+        clocks =3D <&gcc GCC_VIDEO_AXI0_CLK>,
-+                 <&videocc VIDEO_CC_MVS0C_CLK>,
-+                 <&videocc VIDEO_CC_MVS0_CLK>;
-+        clock-names =3D "iface",
-+                      "core",
-+                      "vcodec0_core";
-+
-+        dma-coherent;
-+        iommus =3D <&apps_smmu 0x1960 0>,
-+                 <&apps_smmu 0x1967 0>;
-+
-+        interconnects =3D <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_=
-ONLY
-+                         &cnoc_cfg SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONL=
-Y>,
-+                        <&mmss_noc MASTER_VIDEO QCOM_ICC_TAG_ALWAYS
-+                         &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+        interconnect-names =3D "cpu-cfg",
-+                             "video-mem";
-+
-+        interrupts =3D <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
-+
-+        operating-points-v2 =3D <&iris_opp_table>;
-+
-+        memory-region =3D <&video_mem>;
-+
-+        power-domains =3D <&videocc VIDEO_CC_MVS0C_GDSC>,
-+                        <&videocc VIDEO_CC_MVS0_GDSC>,
-+                        <&rpmhpd RPMHPD_CX>,
-+                        <&rpmhpd RPMHPD_MX>;
-+        power-domain-names =3D "venus",
-+                             "vcodec0",
-+                             "cx",
-+                             "mx";
-+
-+        resets =3D <&gcc GCC_VIDEO_AXI0_CLK_ARES>,
-+                 <&videocc VIDEO_CC_MVS0C_CLK_ARES>;
-+        reset-names =3D "bus",
-+                      "core";
-+
-+        iris_opp_table: opp-table {
-+            compatible =3D "operating-points-v2";
-+
-+            opp-240000000 {
-+                opp-hz =3D /bits/ 64 <240000000>;
-+                required-opps =3D <&rpmhpd_opp_low_svs>,
-+                                <&rpmhpd_opp_svs>;
-+            };
-+
-+            opp-338000000 {
-+                opp-hz =3D /bits/ 64 <338000000>;
-+                required-opps =3D <&rpmhpd_opp_svs>,
-+                                <&rpmhpd_opp_svs>;
-+            };
-+
-+            opp-366000000 {
-+                opp-hz =3D /bits/ 64 <366000000>;
-+                required-opps =3D <&rpmhpd_opp_svs_l1>,
-+                                <&rpmhpd_opp_svs>;
-+            };
-+
-+            opp-444000000 {
-+                opp-hz =3D /bits/ 64 <444000000>;
-+                required-opps =3D <&rpmhpd_opp_nom>,
-+                                <&rpmhpd_opp_svs_l1>;
-+            };
-+
-+            opp-552000000 {
-+                opp-hz =3D /bits/ 64 <552000000>;
-+                required-opps =3D <&rpmhpd_opp_turbo>,
-+                                <&rpmhpd_opp_nom>;
-+            };
-+        };
-+    };
+The existing driver already interprets the CPCAP USB detection state
+machine to determine the attached cable type. This series extends that
+logic to distinguish DCP connections and exposes the detected cable state
+through Extcon using a standard kernel interface. It also makes the idle
+UART mode optional, allowing the PHY to remain in its default USB
+detection configuration unless UART support is explicitly requested.
 
---=20
-2.53.0
+The series has been tested on Motorola Droid 4 hardware.
 
+Changes in v3:
+- Drop "phy: cpcap-usb: Prevent line glitches from triggering sysrq"
+- Fix DT schema interrupts order
+- Fix boot cable detection
+
+Changes in v2:
+- add chrg_det interrupt instead of replacing se1
+- Fix remove() race by cancelling detect_work before hardware teardown
+- Restore SysRq state on all error paths
+- Introduce CPCAP_UNKNOWN initial mode
+- Snapshot enable_uart module parameter
+
+Ivaylo Dimitrov (4):
+  dt-bindings: phy: motorola,cpcap-usb: add chrg_det interrupt
+  ARM: dts: ti: cpcap-mapphone: use charger detection interrupt for
+    CPCAP USB PHY
+  phy: cpcap-usb: add DCP detection and make UART idle mode optional
+  phy: cpcap-usb: add extcon support
+
+ .../bindings/phy/motorola,cpcap-usb-phy.yaml  |   6 +-
+ .../dts/ti/omap/motorola-cpcap-mapphone.dtsi  |   6 +-
+ drivers/phy/motorola/phy-cpcap-usb.c          | 320 +++++++++++++++---
+ 3 files changed, 279 insertions(+), 53 deletions(-)
+
+-- 
+2.39.5
 
