@@ -1,89 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1271335F193
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 22:22:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705832FE56E;
+	Sun,  5 Jul 2026 22:26:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783290140; cv=none; b=D6jL16hV8t7tA8r20YGVGT9dA1m0dOF6Va7l7+bPezVSrspLSZtib8GBck+ITsm6QiJETvc/DA3/juPStIXsL8EQijJV2uCzkFlqWCDuoZ0AOpAqdkajwR0YQCdyYa98YBnrGGERKifW1vTu+zCAOhcaTfpWagH6tzgZCbaDRgI=
+	t=1783290386; cv=none; b=PJD7No+Xc00xiNdxNwL8WZBjk5rL8HIfA6czZeD0vunUoqcrWGPld3pgr6kNUdeUB7dWbWW8BRLgR10mdSevxOZSMYZfE4uTESZD30um9mmk86MFG8zGp+TjsQMqT7gNoevyZPLzN/jqyZ/T+lOey6TVXRx8Uz0opGEmiBzZIuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783290140; c=relaxed/simple;
-	bh=OX+ZuhPjr75T9RCZBamD6tUUb8aD8CI7de/7FHw0KbE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mdZcSQhFkWzOPLfOIzzxuoKtGbeT4ebXep2rKYdojG4Mt1hRGRlQuVbrUHXx8hSV4yHY0GFQcRXrshKa0bOMD4SnMIEoZHwIRysLIM2UGAJGusT0Ssv2KSCMmCVhkD5AVxNcLmlSFq1YYTifG4FnOQcryKsG7eg6FXYyGCHX4WE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RAkR0DCX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783290386; c=relaxed/simple;
+	bh=Li3zyx8I9449OSxEiPYCCAq4TNpMSTfm3cYi6CSjwgA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mkxhO7+Rru0SqSQ3JmcZ7j2/j2qGPTCkyg6XFEGhBaLpUdsgBM6b4gZlOwvdtXHFGRHPPgpR4ddauQoHvN51n/NA1Eo56KQW0mQGaWHJLz758492fF3li5zLJbj91ZiXYph/pQU6KFUkhVcBDs0Nn0V+LbZv+acn94RVttPEQwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oc2EpdS/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RAkR0DCX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B9D51F000E9;
-	Sun,  5 Jul 2026 22:22:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oc2EpdS/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962BF1F000E9;
+	Sun,  5 Jul 2026 22:26:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783290138;
-	bh=3sBYWWWqf9qwpVsVygkFRY7ZzJ9A/aOZ6wRTm8bZSC0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RAkR0DCXdBBNyobeljKe+frU82bWlmCSR4IrYXRIcRHwpJD6o+B9d92kULJKMF2Xk
-	 qVFmZM9du5Dp0+aa4OZMqNrFrXvEcS2SjmEZ6u7YzTjSDVoZz4t7uAMGT/r+YVD1KG
-	 K7VfhgMQIqU0usygrHfFqJNZcI0jtRr8E8EjFgl7txqm/dt+ZvE5Wba804HEPTrH0A
-	 F7uI8MfnLXKAp0MMr29lFSeoUK9uE+nv8/Nxs0h2AvE8TWExQ4QjaIUCf3E5mPcVq4
-	 zM6tOL32OsbogA9LYGPsq1rhnELyuRu5z4Vu1QKle90LgPw/oimHMnekqvDD9Dh2mF
-	 buEiqsBAlKCUQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] RFC: ARM: dts: ixp4xx: Fix interrupt-map weirdness
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260706-ixp4xx-dts-gpio-cells-v1-1-98fa3ba0ad2d@kernel.org>
-References: <20260706-ixp4xx-dts-gpio-cells-v1-1-98fa3ba0ad2d@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 05 Jul 2026 22:22:18 +0000
-Message-Id: <20260705222218.7B9D51F000E9@smtp.kernel.org>
+	s=k20260515; t=1783290385;
+	bh=XKHn5GQOs/hGw34f8hdEnhHa/THNjs4DDuEXGF5lsqA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Oc2EpdS/geufNhuSK4NmGv7bWrgjd9DJc7x51qAPx9dNV6ia5q5wqCtITDwGlyUKP
+	 ZbtHI8Em5dCRc7smQWqeIIhO6ofKmxHQ1PdtoHcuoQwFit59qzq7ggCfojcTJDsF83
+	 HJ722qdrGmep31f6roZbTdBovtbU4gnqndn7c6Jeqb2hm7YYJwpVpaPKvrtk1JECBl
+	 rHim1LVUbpfllt0U8eK0iu0I2Uof2Z2/xxieKtYEXS9yextu7V0z689SRcjoCB3DPx
+	 6yhNt3ob+z0mPl+mymYiLRZXwDEmlyMuFNrouFycSbtCEwOw6O9hKYQoa3k4607YaD
+	 7yJPHDNPDk5Dw==
+Date: Sun, 5 Jul 2026 17:26:22 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] remoteproc: qcom: pas: add needs_tzmem flag to
+ force shmbridge creation
+Message-ID: <akrWGWtPpIJhL0pF@baldur>
+References: <20260703-glymur-soccp-v4-0-b706c4c9b3e2@oss.qualcomm.com>
+ <20260703-glymur-soccp-v4-1-b706c4c9b3e2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260703-glymur-soccp-v4-1-b706c4c9b3e2@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Adding `#address-cells =3D <0>;` to the GPIO node breaks dt-schema =
-validation because the binding schema uses `additionalProperties: false` an=
-d does not define `#address-cells`.
---
+On Fri, Jul 03, 2026 at 05:31:11AM -0700, Ananthu C V wrote:
+> Most Qualcomm platforms feature Gunyah hypervisor, which typically
+> handles Stage 2 IOMMU configuration.
 
-commit 41571606070d7063df98228dc5614c488e017fdc
-Author: Linus Walleij <linusw@kernel.org>
+This statement is true, but the IOMMU isn't involved in the interaction
+between OS and TZ, so it doesn't add value to your problem description.
 
-RFC: ARM: dts: ixp4xx: Fix interrupt-map weirdness
+> Additionally, SHM bridge setup is required to enable memory protection
+> for both remoteproc metadata and its memory regions.
 
-This commit adds #address-cells =3D <0>; to the GPIO node in the IXP4xx=20
-device tree to fix a dtc warning related to interrupt-map.
+"Additionally"? Isn't this the entire problem?
 
-> diff --git a/arch/arm/boot/dts/intel/ixp/intel-ixp4xx.dtsi b/arch/arm/boo=
-t/dts/intel/ixp/intel-ixp4xx.dtsi
-> index 0adeccabd4fef..b6ef98a88c4e5 100644
-> --- a/arch/arm/boot/dts/intel/ixp/intel-ixp4xx.dtsi
-> +++ b/arch/arm/boot/dts/intel/ixp/intel-ixp4xx.dtsi
-> @@ -114,6 +114,7 @@ gpio0: gpio@c8004000 {
->  			reg =3D <0xc8004000 0x1000>;
->  			gpio-controller;
->  			#gpio-cells =3D <2>;
-> +			#address-cells =3D <0>;
+> When the aforementioned hypervisor is absent, the operating system
+> must perform these configurations instead.
 
-[Severity: Low]
-Will this cause a schema validation error during make dtbs_check?
+Please rephrase these three sentences to make sure we have a clear
+problem description.
 
-The corresponding YAML schema for this node
-(Documentation/devicetree/bindings/gpio/intel,ixp4xx-gpio.yaml) enforces
-additionalProperties: false and does not define #address-cells.
+Then, at this point in the text you have established the problem, so
+break the paragraph with an empty line.
 
-Without updating the YAML binding to explicitly permit=20
-"#address-cells": { const: 0 }, the dt-schema validation will report an
-unrecognized property error.
+> We've been relying on the iommu property being present for this, but
+> for remoteprocs that are already running like SoCCP the mappings are
+> already in place, and any attempt to recreate them while active would
+> lead to smmu faults and a non-functional remoteproc.
 
->  			interrupt-controller;
->  			#interrupt-cells =3D <2>;
->  		};
+This is a significant detail. Please expand the description around
+"attempt to recreate them while active" to ensure that it's clear to the
+reader what the problem (what does it mean that mappings are already in
+place).
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-ixp4xx-dts=
--gpio-cells-v1-1-98fa3ba0ad2d@kernel.org?part=3D1
+Then another </p><p> here, as we're once again in need of some breathing
+and thinking-room.
+
+> Fix this by adding a needs_tzmem
+> flag which ensures tzmem and SHM bridge setup is performed independent to
+> the iommu property being present.
+
+"flag which ensures...", the flag doesn't ensure anything, it is
+propagates as an alternative trigger to the PAS helpers to ensure that
+the shmbridge is established.
+
+Regards,
+Bjorn
+
+> 
+> Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+> ---
+>  drivers/remoteproc/qcom_q6v5_pas.c | 24 ++++++++++++++++++++++--
+>  1 file changed, 22 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+> index 60a4337d9e51..cd7273fbcf98 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> @@ -61,6 +61,7 @@ struct qcom_pas_data {
+>  	bool region_assign_shared;
+>  	int region_assign_vmid;
+>  	bool early_boot;
+> +	bool needs_tzmem;
+>  };
+>  
+>  struct qcom_pas {
+> @@ -914,8 +915,8 @@ static int qcom_pas_probe(struct platform_device *pdev)
+>  		goto remove_ssr_sysmon;
+>  	}
+>  
+> -	pas->pas_ctx->use_tzmem = rproc->has_iommu;
+> -	pas->dtb_pas_ctx->use_tzmem = rproc->has_iommu;
+> +	pas->pas_ctx->use_tzmem = desc->needs_tzmem || rproc->has_iommu;
+> +	pas->dtb_pas_ctx->use_tzmem = desc->needs_tzmem || rproc->has_iommu;
+>  
+>  	if (desc->early_boot)
+>  		pas->rproc->state = RPROC_DETACHED;
+> @@ -1657,8 +1658,27 @@ static const struct qcom_pas_data kaanapali_soccp_resource = {
+>  	.early_boot = true,
+>  };
+>  
+> +static const struct qcom_pas_data glymur_soccp_resource = {
+> +	.crash_reason_smem = 656,
+> +	.firmware_name = "soccp.mbn",
+> +	.dtb_firmware_name = "soccp_dtb.mbn",
+> +	.pas_id = 51,
+> +	.dtb_pas_id = 0x41,
+> +	.proxy_pd_names = (char*[]){
+> +		"cx",
+> +		"mx",
+> +		NULL
+> +	},
+> +	.ssr_name = "soccp",
+> +	.sysmon_name = "soccp",
+> +	.auto_boot = true,
+> +	.early_boot = true,
+> +	.needs_tzmem = true,
+> +};
+> +
+>  static const struct of_device_id qcom_pas_of_match[] = {
+>  	{ .compatible = "qcom,eliza-adsp-pas", .data = &sm8550_adsp_resource },
+> +	{ .compatible = "qcom,glymur-soccp-pas", .data = &glymur_soccp_resource },
+>  	{ .compatible = "qcom,kaanapali-soccp-pas", .data = &kaanapali_soccp_resource },
+>  	{ .compatible = "qcom,milos-adsp-pas", .data = &sm8550_adsp_resource },
+>  	{ .compatible = "qcom,milos-cdsp-pas", .data = &milos_cdsp_resource },
+> 
+> -- 
+> 2.43.0
+> 
