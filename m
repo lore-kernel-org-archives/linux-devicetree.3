@@ -1,67 +1,65 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E010C26FA5A
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 03:22:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA7320FA81
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 06:32:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783221753; cv=none; b=QHb8Y5ssUj61IvtmONIXhj9HacxqWGKPdjpILGLfvrZmi6l0lJHiuR7uwDcy1MPrthPu9++Y1CIeGN/16pS3XTMNK2t57LvK8r2rNtRJQ/gzMwoSSOUKYnwTHFzu6eVmvKmZkAJdXaQG/JVT3e11BdLkczLxmyZUwlr0gbzTwOU=
+	t=1783233167; cv=none; b=ApdZ7EyuFINYsKWEVP6u8Ecj6C7QpT5zOdYeu8v2xTD6eLfN38rTUSecSkO7oTFVeyxmWdkd2NwopC6q5KZ2uUgrSa/hiD+P87WYwIuzvKlgQ57IDJvEYL9Zc4gVZmVUo7c1cqoUHrCM6coMr2vuOP7Xm6HQxt83LKHET0qunVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783221753; c=relaxed/simple;
-	bh=3u0A2gwxFXYOlnIJgDKwAvSekMlFDFOvb5kcUbNprEU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=p3OkbtHHisc3L1zeixJIzjhQngrUdObo2k/w+etbZ+mbAe2guMIBkSAPlfH+xF4nMgSLXn0ygD0ZIS6ushd48B5OqmXTVuwG0TdyA4Jqf3G6T92jYrkm7QQOTLwuQ8zMDz9s5TjAnpTdRX+vrGtIDZEezQN6TVZvQ1tgN8lXl7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h4HcTWRz; arc=none smtp.client-ip=209.85.214.176
+	s=arc-20240116; t=1783233167; c=relaxed/simple;
+	bh=Uy9t3i/+5/iZQkr0cD2zFs06fHLnmgjxIp6Ka4JbEvE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=en4xRqbLOHok7N1OIaLiB0DwJUBiZy0OkdCtLES/laRxnkigaStnVM3AyVoL2cRZAoboUqa2keVkqsTkHuRG2BVm8+JVYBy8HQIhL8ZC0R/SRhDM4iMEw3dR3NJgwALN/Is14e7lvHPZu3qSSzieUNdoh72M0q7toiNtLIaUA1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p296X9r/; arc=none smtp.client-ip=209.85.210.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h4HcTWRz"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc61541f8cso9541645ad.0
-        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 20:22:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p296X9r/"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-84780c95e2eso1392295b3a.3
+        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 23:32:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783221750; x=1783826550; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=RAKXpUMhX8LQmfLkDdSQ/PaH0aT54KJOiDF5BXQMXeU=;
-        b=h4HcTWRz9juqorDXCzgFHBrT8WA2z/y35WsfVRpKcn9hwDOOWyYsVAbZ6ysshHlKR5
-         hZSkUBwyp0XxDg0Q6FnyuewfgX+samXV+bRDN2zsEDibBDyWNRcMKac0upmUfIiHcpB3
-         YwqcSnlCx5qE1W58WhwnE32GVEJoITiqY27kvZvLTqJajI6zl8MF/Ag83KGWaazhfdrF
-         xqL4o6uY+w5V7GZQlgV8BpubCqOlKMen5X3zh/Xftlw1TMWi9mOY7tRasmiwNeITsL8E
-         6O+s6dOc0d5JjaT0DJJu4BJu/6QWxhd8q7GYT4aXjLAWnwfwcmnXarcWm1G62VuQ06TG
-         s10Q==
+        d=gmail.com; s=20251104; t=1783233164; x=1783837964; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=GJggn43oD/0VX63t4A/m6JnBIAg53KRXM9fkagzEJ6k=;
+        b=p296X9r/GsfbqSiR+PK0iM+qfoTvRquFTYtT1v2UupclHvwlPsm+m0zpYuDgL0a3JX
+         kC1xEAclvxUruGE4XB1E8mC9HLfKIwrFstgwecjAfYIE+qU6BMG4Sdv9Q2IPRn4OOdz3
+         n0A6s9XhVfJaVFNcglk8W9xIxShJ23CWWOCtINPWI2xjQ0hUiFFe4BWRabBgZDvy/Wwv
+         wBcSR4irZMc/2WL6DPbv5iSNOcVkgvhD8vV2f0T1V+VhKypDBdBSvC4MkhFQvAG06PoT
+         PDMnBs4H/UT/qqQ9v4r4gZEv+XQbVCxJ103nxPb/WhjSveoA9+PPUtSKc0LkVbLKwckR
+         n1LA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783221750; x=1783826550;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=RAKXpUMhX8LQmfLkDdSQ/PaH0aT54KJOiDF5BXQMXeU=;
-        b=LLjHbxtebXNaYLTHRJw/m1bVnGKiQl10oIm78Qz82dovVOLzpg0P6OX3UiYFA6IH/S
-         uyIYWpBzRtHWq0kxZ1A8Gbx6ZFn6tAR+AUQtshP0SZgEyM8jESmTJgrq/bq+mVyOoUu5
-         NoHehKAYVf/7aLYl8TKQ94JnE53djWVH4aOu8JUQR7ugxqdZ6i/hKuwFbU7ldTWLShD2
-         FjvqVVNgzZcuXyinxy3vkACyeiRd4oCfjD2bWx0ZycEuDjl7Tg68KyZiJQnkr3WXe6oF
-         FZqRNZmIUiHqnlFNTc8cqPLgxZgLhM8phxpyEEcjBjIie2dQd6DYxWTdlBXIGJNz6a9K
-         OfZQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr06kpBBYtbLMfrIDk4vyDT/Tx6dLiHUkTME+PMU+tw63ATh00k1CEic9WEq3fkT2Vz8pIjF1NKz6We@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEim7jBBjDPwF/W+3EUR+948uUa4mkMeT97P5VPmyc+wl6sHbi
-	zz9OF2CuOuTLvAkwQUc328EI/9RA8a8sWikAOdaMfOex+xBD0rsFSDClm/f37HsT
-X-Gm-Gg: AfdE7clVNu6cAiKJhNQBQjtBZkySuE0dTzmGBsOJkFWrN8GYs1ZcIdSKf5bdvr3AOsw
-	6Op5aJd9dVSHXuD6Q+S1hkwHeyBFWd9AWAGBMH+88CFbKkYxpZtRUuxDojB2Jo3iey24ZN6RkEL
-	nQsv/uowrLM9h+gxOhRKMrCRYh9d7BfOl4XgfN/uN1KU2X7YQSKA4O38OLID8JVfeOptJ6JjS4j
-	1W3GlxHTMAu8RdaPUA1SKT4A6RKb7MhCeHEDuJvd7tDcfZiKWULxaqCIMAeHsHKevOo/AnqmVPj
-	11p1PhX6gyyoMrk1cs8P49U7oCcU4D+4QYaBYoK8Rh57cjIVJaafEczJNRQToQX0GnFfmR/p55Y
-	DxRirS/fQ+XHCXGuldLkYIfAzegOl38tb1zjefYg0PhlZFK3PtIOtfI3sBWj78lGjfZ5olMDHIw
-	bbGAFpgYs7PKXiBDey
-X-Received: by 2002:a17:90b:3943:b0:37f:fda5:8d98 with SMTP id 98e67ed59e1d1-383364e2d9fmr4064524a91.0.1783221750115;
-        Sat, 04 Jul 2026 20:22:30 -0700 (PDT)
-Received: from [127.0.1.1] ([2401:4900:8900:e54d:68b:5bba:3eab:6b41])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f0b813c4dsm35139723eec.7.2026.07.04.20.22.25
+        d=1e100.net; s=20251104; t=1783233164; x=1783837964;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GJggn43oD/0VX63t4A/m6JnBIAg53KRXM9fkagzEJ6k=;
+        b=WTBACX9McfRaMwGlO91my5aHi24YWcQO/G0hvAwkxaBtz7AjxosIC1euky1Q3oGtcW
+         owow8/ZZFhxz5MU5NUSCqFeCoykIeG44z+8KmDHswtYbx5fepLmdiA5blvDKnlzthtgp
+         7FDBa03/YZ2WNtabUD7Anpgnw3VNaey6md4By+3P410/U1hpBjbEugTbf/iPKs3sMp6E
+         TOfKxekUEXwLjLrEhFrYqC+Og49AH2hhnbQWlPVBU8N53O0dklXUkBe3mXHzmPaRx7aA
+         sRLfMuCPDuirHHeS5bsWhZHuCEMKtLGOD4NkfiQ7pZ7jAc225jTmLTA3E58/I22OXdRX
+         ZWHQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+FPPTGMcmFrsV/empOyNZDGhW30xsprv2y61KDRsSaP3jNcJhjxKyCL6JNkBs8OMOHx8xTdfKWkhbV@vger.kernel.org
+X-Gm-Message-State: AOJu0Yys2WhFCvB6cEcffwaxkzz70XWHDUO+gQWQruT9sbokLgeH5gbf
+	BmAJmk5hNQbbcgS/WRsoqTtE0GY2Z1q282pdVvmN6/jUl4xny8Nvkjas
+X-Gm-Gg: AfdE7cm+0gaI4Ak9wsg7Z1YJevj2GMw6PK/hZULcI054O+pcOr4S6WJOMNm8mHDOJNp
+	Op0/lSkYaudtNKXclArls/K24ZAe/aZjggxQoSZssIn/1xIjp1Kz3BBp7BNGvhNWCr8PpVHrwq6
+	pGu2csziY9oeo040FpRttDJaBLQpvMINedfEHXk6UbL4Qxnn26QeafIT1P7lsMpgws/rBE8BG/U
+	L2Ld8aon5nhjmZib+9mmURWiVlgnRH+S06LpNQExPAoYF/Jh7CkXP0K2WNqQXSDvs0DNrhSjl2D
+	wOkJ3x/OOSvX9VQz3P4QULD390E8Pe+RELIiWsY5D4Xbi0wWnDIhgGYuQ7eHHPtd1hMgqEcAPHV
+	fcJiBPgNxqXGrfD9zrdpVLM8x15ISV8VZVLTAWmK33kOw8/fH7R+xZYzRsrnJ3HqqONgr6eh7yv
+	UfnuNCfchWRvBLsRoBpD90OJoXEmEsvINRKbM=
+X-Received: by 2002:a05:6a20:9185:b0:3b4:8300:7019 with SMTP id adf61e73a8af0-3c03e2a2ab7mr6036863637.18.1783233164068;
+        Sat, 04 Jul 2026 23:32:44 -0700 (PDT)
+Received: from Black-Pearl.localdomain ([49.207.62.139])
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-13b3c85b345sm58164478c88.10.2026.07.04.23.32.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 04 Jul 2026 20:22:29 -0700 (PDT)
-From: Ramshouriesh R <rshouriesh@gmail.com>
-Date: Sun, 05 Jul 2026 08:43:35 +0530
-Subject: [PATCH v4 2/2] media: i2c: hm1092: add Himax HM1092 mono NIR
- sensor driver
+        Sat, 04 Jul 2026 23:32:43 -0700 (PDT)
+From: Charan Pedumuru <charan.pedumuru@gmail.com>
+Date: Sun, 05 Jul 2026 06:32:32 +0000
+Subject: [PATCH v3] ASoC: dt-bindings: sound: nvidia,tegra30-ahub: Convert
+ to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,839 +68,463 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260705-hm1092-driver-v4-2-0a13ec274d89@gmail.com>
-References: <20260705-hm1092-driver-v4-0-0a13ec274d89@gmail.com>
-In-Reply-To: <20260705-hm1092-driver-v4-0-0a13ec274d89@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ramshouriesh R <rshouriesh@gmail.com>
+Message-Id: <20260705-nvidia-ahub-v3-1-bacb7e05bf68@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAH/6SWoC/1WOzQ6DIBAGX8VwLg0s+JOe+h5ND4Co21RtQEkb4
+ 7sX9KLHSb6Z3YV469B6cssW4mxAj+MQQVwyYjo1tJZiHZkAg4JJADoErFFR1c2a1mCsZqKEUko
+ SjY+zDX632uO5s5/1y5opJdKiQz+N7redCzzt9nLBxakcOOU016WtcsF4KYp72yt8X83Yk1QOc
+ HAhP7sQ3fiX5EawhjfV0V3X9Q+AD0mM9AAAAA==
+X-Change-ID: 20260422-nvidia-ahub-d2ceb0372744
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Charan Pedumuru <charan.pedumuru@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=23014; i=rshouriesh@gmail.com;
- h=from:subject:message-id; bh=3u0A2gwxFXYOlnIJgDKwAvSekMlFDFOvb5kcUbNprEU=;
- b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBqSc3mHvqir2s8sugBkxY7/DtXzTfkfn6tIVrAv
- WX9lO5151GJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCaknN5gAKCRAVlYpeERwF
- 3uhGD/9/JyK/SfURPa535E888mcUzEEX/Gy6K7vFRWWa7NPpUcH4Fo/SLkwYjgNUumnNGmSuecN
- 30svTaHhh+EJ0oVqNudSZGB4bAahiF0sd6kfJ5o5SBLQIXVynkp2JQ7qtMWEjpr1IyOngAGew7Q
- RxMduNBMptDiYa64+8cfRG/VdlKxBIDVhZ7aHcwEMy3FOhEEgd6AK50MmF08OifTHXxMZRg2J5e
- dnHR8dehWZu9Fsw+8vA5eWCBBgg+h7pnCG+e8rGagVSnN23nmpCY8so7ynCDuBUQKdP1xrsFGgN
- 4PB+2DxQiaixTKZpJc7KCNAly11C3ombok7XB9o7By27+86FkaNeYGApDOdXDS58nHlul6zoJry
- Av9UJ8xz0wlAMng4GUNuRBN9ec+5T/ckz8OH6B+UfwrQx4N5PxAw1DOg5p/YlzTbVTzzMTtuTzN
- NwIuoJM658oWwVR1tERuv+LokPqIGlbOHV+i+eAas290jcPOdL2vFzy4eOmKeDCvK4uS5K8Nyz/
- QW/Kthn9a/HXbltTMkk91+NFDWbgIeB7tl+LAx1FnyiCpLzT9B9l4VmTHaVGzcYA2t83chQaz2H
- SRQX8+w9XfMzWy6pAZVgjCx4eW89IMdsxlqgVFBl+t8Py3kigsfc/79536n8IGcbsW4UtymTfOG
- Fdv10ryF9fwoO3w==
-X-Developer-Key: i=rshouriesh@gmail.com; a=openpgp;
- fpr=BFD10BB334A55FBD4365340915958A5E111C05DE
 
-Add a V4L2 subdev driver for the Himax HM1092, a 1 megapixel monochrome
-near-infrared image sensor with a single-lane MIPI CSI-2 interface,
-typically used as the face-authentication IR camera on laptops.
+Convert NVIDIA Tegra Audio Hub (AHUB) binding to DT schema.
 
-The driver supports the sensor's native 560x360 10-bit mono mode, a test
-pattern control and the standard fwnode properties (orientation,
-rotation).
+Per-SoC differences in reg, reset-names, and dma-names are enforced
+via allOf conditionals.
 
-Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
+Add patternProperties for i2s child nodes referencing
+nvidia,tegra30-i2s.yaml, reflecting actual DTSI usage where i2s
+controllers are placed directly under ahub. nvidia,ahub-cif-ids is
+not redeclared here as it is defined in the child i2s schema.
+
+Signed-off-by: Charan Pedumuru <charan.pedumuru@gmail.com>
 ---
- MAINTAINERS                |   7 +
- drivers/media/i2c/Kconfig  |  11 +
- drivers/media/i2c/Makefile |   1 +
- drivers/media/i2c/hm1092.c | 728 +++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 747 insertions(+)
+Changes in v3:
+- Added reg-names to document what each reg entry represents.
+- Removed redundant minItems/maxItems in the per-SoC allOf blocks
+  where the value just repeated what the top-level schema already
+  set (reg, resets, reset-names, dmas, dma-names).
+- Added missing blank line between #include lines and the node body
+  in the example.
+- Link to v2: https://patch.msgid.link/20260625-nvidia-ahub-v2-1-eb041c30f1f8@gmail.com
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5e11dd741d9f..4d9a4991ca2b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11652,6 +11652,13 @@ L:	linux-kernel@vger.kernel.org
- S:	Maintained
- F:	drivers/misc/hisi_hikey_usb.c
- 
-+HIMAX HM1092 SENSOR DRIVER
-+M:	Ramshouriesh R <rshouriesh@gmail.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
-+F:	drivers/media/i2c/hm1092.c
-+
- HIMAX HX83112B TOUCHSCREEN SUPPORT
- M:	Job Noorman <job@noorman.info>
- L:	linux-input@vger.kernel.org
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 5d173e0ecf42..f94621edbe1a 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -137,6 +137,17 @@ config VIDEO_HI847
-           To compile this driver as a module, choose M here: the
-           module will be called hi847.
- 
-+config VIDEO_HM1092
-+	tristate "Himax HM1092 sensor support"
-+	select V4L2_CCI_I2C
-+	help
-+	  This is a Video4Linux2 sensor driver for the Himax HM1092
-+	  monochrome near-infrared CMOS image sensor, used as the
-+	  face-authentication IR camera on laptops.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called hm1092.
-+
- config VIDEO_IMX111
- 	tristate "Sony IMX111 sensor support"
- 	select V4L2_CCI_I2C
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index e45359efe0e4..6507c173d0fa 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -45,6 +45,7 @@ obj-$(CONFIG_VIDEO_GC2145) += gc2145.o
- obj-$(CONFIG_VIDEO_HI556) += hi556.o
- obj-$(CONFIG_VIDEO_HI846) += hi846.o
- obj-$(CONFIG_VIDEO_HI847) += hi847.o
-+obj-$(CONFIG_VIDEO_HM1092) += hm1092.o
- obj-$(CONFIG_VIDEO_I2C) += video-i2c.o
- obj-$(CONFIG_VIDEO_IMX111) += imx111.o
- obj-$(CONFIG_VIDEO_IMX208) += imx208.o
-diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c
+Changes in v2:
+- Modify the subject line to match with upstreaming standards and change
+  commit message to exaplin the changes.
+- compatible: collapsed three standalone const entries into an enum,
+  sorted alphanumerically (tegra114 < tegra124 < tegra30)
+- reset-names: moved per-SoC ordered items lists from a top-level oneOf
+  into the allOf if/then blocks; top-level now has only minItems/maxItems
+- dma-names: dropped oneOf, kept single 20-item items list with minItems: 8;
+  per-SoC min/maxItems constraints moved into allOf if/then blocks
+- "#address-cells": replaced $ref: types with enum: [1, 2] at top level;
+  added const: 1 in tegra30 and tegra114 if/then blocks, const: 2 in
+  tegra124 if/then block to match actual dtsi values
+- "#size-cells": same treatment as #address-cells
+- patternProperties i2s child: replaced allOf + $ref wrapper with direct
+  $ref; removed properties/required block (nvidia,ahub-cif-ids belongs in
+  the i2s schema).
+- Link to v1: https://patch.msgid.link/20260613-nvidia-ahub-v1-1-5b7e85301736@gmail.com
+---
+ .../bindings/sound/nvidia,tegra30-ahub.txt         |  88 -------
+ .../bindings/sound/nvidia,tegra30-ahub.yaml        | 292 +++++++++++++++++++++
+ 2 files changed, 292 insertions(+), 88 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.txt b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.txt
+deleted file mode 100644
+index 0e9a1895d7fb..000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.txt
++++ /dev/null
+@@ -1,88 +0,0 @@
+-NVIDIA Tegra30 AHUB (Audio Hub)
+-
+-Required properties:
+-- compatible : For Tegra30, must contain "nvidia,tegra30-ahub".  For Tegra114,
+-  must contain "nvidia,tegra114-ahub".  For Tegra124, must contain
+-  "nvidia,tegra124-ahub".  Otherwise, must contain "nvidia,<chip>-ahub",
+-  plus at least one of the above, where <chip> is tegra132.
+-- reg : Should contain the register physical address and length for each of
+-  the AHUB's register blocks.
+-  - Tegra30 requires 2 entries, for the APBIF and AHUB/AUDIO register blocks.
+-  - Tegra114 requires an additional entry, for the APBIF2 register block.
+-- interrupts : Should contain AHUB interrupt
+-- clocks : Must contain an entry for each entry in clock-names.
+-  See ../clocks/clock-bindings.txt for details.
+-- clock-names : Must include the following entries:
+-  - d_audio
+-  - apbif
+-- resets : Must contain an entry for each entry in reset-names.
+-  See ../reset/reset.txt for details.
+-- reset-names : Must include the following entries:
+-  Tegra30 and later:
+-  - d_audio
+-  - apbif
+-  - i2s0
+-  - i2s1
+-  - i2s2
+-  - i2s3
+-  - i2s4
+-  - dam0
+-  - dam1
+-  - dam2
+-  - spdif
+-  Tegra114 and later additionally require:
+-  - amx
+-  - adx
+-  Tegra124 and later additionally require:
+-  - amx1
+-  - adx1
+-  - afc0
+-  - afc1
+-  - afc2
+-  - afc3
+-  - afc4
+-  - afc5
+-- ranges : The bus address mapping for the configlink register bus.
+-  Can be empty since the mapping is 1:1.
+-- dmas : Must contain an entry for each entry in clock-names.
+-  See ../dma/dma.txt for details.
+-- dma-names : Must include the following entries:
+-  - rx0 .. rx<n>
+-  - tx0 .. tx<n>
+-  ... where n is:
+-  Tegra30: 3
+-  Tegra114, Tegra124: 9
+-- #address-cells : For the configlink bus. Should be <1>;
+-- #size-cells : For the configlink bus. Should be <1>.
+-
+-AHUB client modules need to specify the IDs of their CIFs (Client InterFaces).
+-For RX CIFs, the numbers indicate the register number within AHUB routing
+-register space (APBIF 0..3 RX, I2S 0..5 RX, DAM 0..2 RX 0..1, SPDIF RX 0..1).
+-For TX CIFs, the numbers indicate the bit position within the AHUB routing
+-registers (APBIF 0..3 TX, I2S 0..5 TX, DAM 0..2 TX, SPDIF TX 0..1).
+-
+-Example:
+-
+-ahub@70080000 {
+-	compatible = "nvidia,tegra30-ahub";
+-	reg = <0x70080000 0x200 0x70080200 0x100>;
+-	interrupts = < 0 103 0x04 >;
+-	nvidia,dma-request-selector = <&apbdma 1>;
+-	clocks = <&tegra_car 106>, <&tegra_car 107>;
+-	clock-names = "d_audio", "apbif";
+-	resets = <&tegra_car 106>, <&tegra_car 107>, <&tegra_car 30>,
+-		<&tegra_car 11>, <&tegra_car 18>, <&tegra_car 101>,
+-		<&tegra_car 102>, <&tegra_car 108>, <&tegra_car 109>,
+-		<&tegra_car 110>, <&tegra_car 10>;
+-	reset-names = "d_audio", "apbif", "i2s0", "i2s1", "i2s2",
+-		"i2s3", "i2s4", "dam0", "dam1", "dam2",
+-		"spdif";
+-	dmas = <&apbdma 1>, <&apbdma 1>;
+-	       <&apbdma 2>, <&apbdma 2>;
+-	       <&apbdma 3>, <&apbdma 3>;
+-	       <&apbdma 4>, <&apbdma 4>;
+-	dma-names = "rx0", "tx0", "rx1", "tx1", "rx2", "tx2", "rx3", "tx3";
+-	ranges;
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-};
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml
 new file mode 100644
-index 000000000000..d82e7d4000f2
+index 000000000000..348e32c1ed92
 --- /dev/null
-+++ b/drivers/media/i2c/hm1092.c
-@@ -0,0 +1,728 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Himax HM1092 monochrome near-infrared image sensor driver.
-+ *
-+ * Copyright (c) 2026 Ramshouriesh R <rshouriesh@gmail.com>
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regulator/consumer.h>
-+#include <media/v4l2-cci.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
-+#include <media/v4l2-fwnode.h>
-+
-+#define HM1092_LINK_FREQ_400MHZ		400000000ULL
-+#define HM1092_MCLK			24000000
-+#define HM1092_BITS_PER_SAMPLE		10
-+
-+#define HM1092_REG_STREAM		CCI_REG8(0x0100)
-+#define HM1092_STREAM_STANDBY		0x00
-+#define HM1092_STREAM_ON		0x01
-+
-+#define HM1092_REG_TEST_PATTERN		CCI_REG8(0x0601)
-+#define HM1092_TEST_PATTERN_MAX		4
-+
-+static const struct cci_reg_sequence hm1092_init_regs[] = {
-+	{ CCI_REG8(0x0103), 0x00 },
-+	{ CCI_REG8(0x030a), 0x05 },
-+	{ CCI_REG8(0x030d), 0x0c },
-+	{ CCI_REG8(0x030f), 0x5a },
-+	{ CCI_REG8(0x0307), 0x00 },
-+	{ CCI_REG8(0x0309), 0x01 },
-+	{ CCI_REG8(0x0387), 0x01 },
-+	{ CCI_REG8(0x0100), 0x02 },
-+	{ CCI_REG8(0x4265), 0x02 },
-+	{ CCI_REG8(0x4002), 0x2b },
-+	{ CCI_REG8(0x4001), 0x00 },
-+	{ CCI_REG8(0x0101), 0x03 },
-+	{ CCI_REG8(0x4024), 0x40 },
-+	{ CCI_REG8(0x0203), 0xbe },
-+	{ CCI_REG8(0x0202), 0x00 },
-+	{ CCI_REG8(0x0341), 0xee },
-+	{ CCI_REG8(0x0340), 0x02 },
-+	{ CCI_REG8(0x0343), 0x50 },
-+	{ CCI_REG8(0x0342), 0x06 },
-+	{ CCI_REG8(0x0345), 0x30 },
-+	{ CCI_REG8(0x0344), 0x00 },
-+	{ CCI_REG8(0x0349), 0xad },
-+	{ CCI_REG8(0x0348), 0x04 },
-+	{ CCI_REG8(0x0347), 0x08 },
-+	{ CCI_REG8(0x0346), 0x00 },
-+	{ CCI_REG8(0x034b), 0xd5 },
-+	{ CCI_REG8(0x034a), 0x02 },
-+	{ CCI_REG8(0x5015), 0xb3 },
-+	{ CCI_REG8(0x0350), 0x53 },
-+	{ CCI_REG8(0x0361), 0x30 },
-+	{ CCI_REG8(0x0360), 0x00 },
-+	{ CCI_REG8(0x034d), 0x30 },
-+	{ CCI_REG8(0x034c), 0x02 },
-+	{ CCI_REG8(0x034f), 0x68 },
-+	{ CCI_REG8(0x034e), 0x01 },
-+	{ CCI_REG8(0x0390), 0x03 },
-+	{ CCI_REG8(0x0383), 0x00 },
-+	{ CCI_REG8(0x0387), 0x10 },
-+	{ CCI_REG8(0x50dd), 0x01 },
-+	{ CCI_REG8(0x50cb), 0x21 },
-+	{ CCI_REG8(0x5005), 0x28 },
-+	{ CCI_REG8(0x5004), 0x40 },
-+	{ CCI_REG8(0x5007), 0x28 },
-+	{ CCI_REG8(0x5006), 0x40 },
-+	{ CCI_REG8(0x5011), 0x00 },
-+	{ CCI_REG8(0x501d), 0x4c },
-+	{ CCI_REG8(0x5013), 0x03 },
-+	{ CCI_REG8(0x4131), 0x01 },
-+	{ CCI_REG8(0x5283), 0x03 },
-+	{ CCI_REG8(0x5282), 0xff },
-+	{ CCI_REG8(0x5010), 0x20 },
-+	{ CCI_REG8(0x4132), 0x20 },
-+	{ CCI_REG8(0x50d5), 0xe0 },
-+	{ CCI_REG8(0x50d7), 0x12 },
-+	{ CCI_REG8(0x50bb), 0x14 },
-+	{ CCI_REG8(0x50b7), 0x00 },
-+	{ CCI_REG8(0x50b9), 0xff },
-+	{ CCI_REG8(0x50b8), 0x70 },
-+	{ CCI_REG8(0x50ba), 0xff },
-+	{ CCI_REG8(0x50fa), 0x02 },
-+	{ CCI_REG8(0x50b4), 0x00 },
-+	{ CCI_REG8(0x50a2), 0x0b },
-+	{ CCI_REG8(0x50ad), 0x07 },
-+	{ CCI_REG8(0x50ac), 0x24 },
-+	{ CCI_REG8(0x50af), 0x40 },
-+	{ CCI_REG8(0x50ae), 0x20 },
-+	{ CCI_REG8(0x50ab), 0x07 },
-+	{ CCI_REG8(0x50aa), 0x22 },
-+	{ CCI_REG8(0x50a7), 0x00 },
-+	{ CCI_REG8(0x50a6), 0x00 },
-+	{ CCI_REG8(0x5099), 0x11 },
-+	{ CCI_REG8(0x509b), 0x03 },
-+	{ CCI_REG8(0x50b3), 0x04 },
-+	{ CCI_REG8(0x50a0), 0x30 },
-+	{ CCI_REG8(0x5098), 0x00 },
-+	{ CCI_REG8(0x52f2), 0x53 },
-+	{ CCI_REG8(0x5209), 0x0c },
-+	{ CCI_REG8(0x5216), 0x02 },
-+	{ CCI_REG8(0x521e), 0x01 },
-+	{ CCI_REG8(0x50e8), 0x00 },
-+	{ CCI_REG8(0x5200), 0x60 },
-+	{ CCI_REG8(0x5202), 0x00 },
-+	{ CCI_REG8(0x5201), 0x80 },
-+	{ CCI_REG8(0x5203), 0x01 },
-+	{ CCI_REG8(0x5208), 0x0b },
-+	{ CCI_REG8(0x520d), 0x40 },
-+	{ CCI_REG8(0x520c), 0x15 },
-+	{ CCI_REG8(0x5215), 0x04 },
-+	{ CCI_REG8(0x50ea), 0x74 },
-+	{ CCI_REG8(0x5214), 0x28 },
-+	{ CCI_REG8(0x5218), 0x07 },
-+	{ CCI_REG8(0x5217), 0x01 },
-+	{ CCI_REG8(0x0310), 0x00 },
-+	{ CCI_REG8(0x4b31), 0x06 },
-+	{ CCI_REG8(0x4b3b), 0x02 },
-+	{ CCI_REG8(0x4b45), 0x01 },
-+	{ CCI_REG8(0x4b44), 0x0c },
-+	{ CCI_REG8(0x4b47), 0x00 },
-+	{ CCI_REG8(0x5101), 0x13 },
-+	{ CCI_REG8(0x5100), 0x03 },
-+	{ CCI_REG8(0x5103), 0x33 },
-+	{ CCI_REG8(0x5102), 0x23 },
-+	{ CCI_REG8(0x5105), 0x42 },
-+	{ CCI_REG8(0x5104), 0x43 },
-+	{ CCI_REG8(0x5106), 0x40 },
-+	{ CCI_REG8(0x5119), 0x00 },
-+	{ CCI_REG8(0x5118), 0x00 },
-+	{ CCI_REG8(0x511b), 0x00 },
-+	{ CCI_REG8(0x511a), 0x00 },
-+	{ CCI_REG8(0x511d), 0x00 },
-+	{ CCI_REG8(0x511c), 0x00 },
-+	{ CCI_REG8(0x511e), 0x00 },
-+	{ CCI_REG8(0x5131), 0x23 },
-+	{ CCI_REG8(0x5130), 0x13 },
-+	{ CCI_REG8(0x5133), 0x43 },
-+	{ CCI_REG8(0x5132), 0x33 },
-+	{ CCI_REG8(0x5135), 0x40 },
-+	{ CCI_REG8(0x5134), 0x42 },
-+	{ CCI_REG8(0x5136), 0x40 },
-+	{ CCI_REG8(0x5149), 0x01 },
-+	{ CCI_REG8(0x5148), 0x01 },
-+	{ CCI_REG8(0x514b), 0x01 },
-+	{ CCI_REG8(0x514a), 0x01 },
-+	{ CCI_REG8(0x514d), 0x01 },
-+	{ CCI_REG8(0x514c), 0x01 },
-+	{ CCI_REG8(0x514e), 0x01 },
-+	{ CCI_REG8(0x51c0), 0x00 },
-+	{ CCI_REG8(0x51c6), 0x00 },
-+	{ CCI_REG8(0x51cc), 0x00 },
-+	{ CCI_REG8(0x51d2), 0x00 },
-+	{ CCI_REG8(0x51d8), 0x00 },
-+	{ CCI_REG8(0x51c1), 0x81 },
-+	{ CCI_REG8(0x51c7), 0x81 },
-+	{ CCI_REG8(0x51cd), 0x81 },
-+	{ CCI_REG8(0x51d3), 0x81 },
-+	{ CCI_REG8(0x51d9), 0x81 },
-+	{ CCI_REG8(0x51c2), 0xec },
-+	{ CCI_REG8(0x51c8), 0xec },
-+	{ CCI_REG8(0x51ce), 0xec },
-+	{ CCI_REG8(0x51d4), 0xec },
-+	{ CCI_REG8(0x51da), 0xec },
-+	{ CCI_REG8(0x51c3), 0x00 },
-+	{ CCI_REG8(0x51c9), 0x00 },
-+	{ CCI_REG8(0x51cf), 0x00 },
-+	{ CCI_REG8(0x51d5), 0x00 },
-+	{ CCI_REG8(0x51db), 0x00 },
-+	{ CCI_REG8(0x51c4), 0x55 },
-+	{ CCI_REG8(0x51ca), 0x55 },
-+	{ CCI_REG8(0x51d0), 0x54 },
-+	{ CCI_REG8(0x51d6), 0x53 },
-+	{ CCI_REG8(0x51dc), 0x53 },
-+	{ CCI_REG8(0x51c5), 0x44 },
-+	{ CCI_REG8(0x51cb), 0x24 },
-+	{ CCI_REG8(0x51d1), 0x24 },
-+	{ CCI_REG8(0x51d7), 0x14 },
-+	{ CCI_REG8(0x51dd), 0x14 },
-+	{ CCI_REG8(0x51e0), 0x09 },
-+	{ CCI_REG8(0x51e2), 0x04 },
-+	{ CCI_REG8(0x51e4), 0x08 },
-+	{ CCI_REG8(0x51e6), 0x08 },
-+	{ CCI_REG8(0x51e1), 0x03 },
-+	{ CCI_REG8(0x51e3), 0x03 },
-+	{ CCI_REG8(0x51e5), 0x07 },
-+	{ CCI_REG8(0x51e8), 0x04 },
-+	{ CCI_REG8(0x51e7), 0x07 },
-+	{ CCI_REG8(0x51e9), 0x46 },
-+	{ CCI_REG8(0x51eb), 0x62 },
-+	{ CCI_REG8(0x51ea), 0x43 },
-+	{ CCI_REG8(0x51ed), 0x00 },
-+	{ CCI_REG8(0x51ec), 0x61 },
-+	{ CCI_REG8(0x51ee), 0x00 },
-+	{ CCI_REG8(0x5206), 0x80 },
-+	{ CCI_REG8(0x3110), 0x02 },
-+	{ CCI_REG8(0x3704), 0x02 },
-+	{ CCI_REG8(0x3704), 0x02 },
-+	{ CCI_REG8(0x4b20), 0x9e },
-+	{ CCI_REG8(0x4b18), 0x00 },
-+	{ CCI_REG8(0x4b3e), 0x00 },
-+	{ CCI_REG8(0x4b0e), 0x0e },
-+	{ CCI_REG8(0x4800), 0xac },
-+	{ CCI_REG8(0x0104), 0x01 },
-+	{ CCI_REG8(0x0104), 0x00 },
-+	{ CCI_REG8(0x4801), 0xae },
-+	{ CCI_REG8(0x0000), 0x00 },
-+	{ CCI_REG8(0x0037), 0x30 },
-+};
-+
-+struct hm1092_mode {
-+	u32 width;
-+	u32 height;
-+	u32 hts;
-+	u32 vts;
-+};
-+
-+static const struct hm1092_mode hm1092_mode_560x360 = {
-+	.width = 560,
-+	.height = 360,
-+	.hts = 0x0650,
-+	.vts = 0x02ee,
-+};
-+
-+static const char * const hm1092_supply_names[] = {
-+	"dovdd",
-+	"avdd",
-+	"dvdd",
-+};
-+
-+/*
-+ * The available HM1092 documentation does not describe the test patterns.
-+ * Their names are based on observed output from hardware testing; the
-+ * register and mode values were reverse-engineered from the Windows driver.
-+ */
-+static const char * const hm1092_test_pattern_menu[] = {
-+	"Disabled",
-+	"Solid Color Fill",
-+	"Standard Color Bars",
-+	"Fade To Grey Color Bars",
-+	"Pseudorandom data",
-+};
-+
-+static const s64 hm1092_link_freq_menu[] = {
-+	HM1092_LINK_FREQ_400MHZ,
-+};
-+
-+struct hm1092 {
-+	struct device *dev;
-+	struct v4l2_subdev sd;
-+	struct media_pad pad;
-+	struct v4l2_ctrl_handler ctrl_handler;
-+	struct regmap *regmap;
-+	struct clk *img_clk;
-+	struct gpio_desc *reset;
-+	struct regulator_bulk_data supplies[ARRAY_SIZE(hm1092_supply_names)];
-+	struct v4l2_ctrl *link_freq;
-+	struct v4l2_ctrl *pixel_rate;
-+	struct v4l2_ctrl *hblank;
-+	struct v4l2_ctrl *vblank;
-+	u8 mipi_lanes;
-+};
-+
-+static inline struct hm1092 *to_hm1092(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct hm1092, sd);
-+}
-+
-+static int hm1092_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct hm1092 *hm1092 = container_of(ctrl->handler, struct hm1092,
-+					     ctrl_handler);
-+	int ret;
-+
-+	/*
-+	 * The control value is cached by the framework and (re)applied from
-+	 * hm1092_enable_streams() once the device is powered up for streaming.
-+	 */
-+	if (pm_runtime_get_if_in_use(hm1092->dev) == 0)
-+		return 0;
-+
-+	switch (ctrl->id) {
-+	case V4L2_CID_TEST_PATTERN:
-+		ret = cci_write(hm1092->regmap, HM1092_REG_TEST_PATTERN,
-+				ctrl->val, NULL);
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	pm_runtime_put(hm1092->dev);
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops hm1092_ctrl_ops = {
-+	.s_ctrl = hm1092_set_ctrl,
-+};
-+
-+static int hm1092_init_controls(struct hm1092 *hm1092)
-+{
-+	struct v4l2_ctrl_handler *ctrl_hdlr = &hm1092->ctrl_handler;
-+	const struct hm1092_mode *mode = &hm1092_mode_560x360;
-+	struct v4l2_fwnode_device_properties props;
-+	s64 hblank, pixel_rate;
-+	int ret;
-+
-+	ret = v4l2_fwnode_device_parse(hm1092->dev, &props);
-+	if (ret)
-+		return ret;
-+
-+	v4l2_ctrl_handler_init(ctrl_hdlr, 6);
-+
-+	hm1092->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr,
-+						   &hm1092_ctrl_ops,
-+						   V4L2_CID_LINK_FREQ,
-+						   0, 0,
-+						   hm1092_link_freq_menu);
-+
-+	pixel_rate = div_u64(HM1092_LINK_FREQ_400MHZ * 2 * hm1092->mipi_lanes,
-+			     HM1092_BITS_PER_SAMPLE);
-+	hm1092->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-+					       V4L2_CID_PIXEL_RATE, 0,
-+					       pixel_rate, 1, pixel_rate);
-+
-+	hblank = mode->hts - mode->width;
-+	hm1092->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-+					   V4L2_CID_HBLANK, hblank, hblank, 1,
-+					   hblank);
-+
-+	hm1092->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-+					   V4L2_CID_VBLANK,
-+					   mode->vts - mode->height,
-+					   0xffff - mode->height, 1,
-+					   mode->vts - mode->height);
-+
-+	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &hm1092_ctrl_ops,
-+				     V4L2_CID_TEST_PATTERN,
-+				     ARRAY_SIZE(hm1092_test_pattern_menu) - 1,
-+				     0, 0, hm1092_test_pattern_menu);
-+
-+	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &hm1092_ctrl_ops, &props);
-+
-+	if (ctrl_hdlr->error) {
-+		ret = ctrl_hdlr->error;
-+		goto err_free;
-+	}
-+
-+	hm1092->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	hm1092->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	hm1092->vblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+
-+	hm1092->sd.ctrl_handler = ctrl_hdlr;
-+
-+	return 0;
-+
-+err_free:
-+	v4l2_ctrl_handler_free(ctrl_hdlr);
-+
-+	return ret;
-+}
-+
-+static void hm1092_update_pad_format(struct v4l2_mbus_framefmt *fmt)
-+{
-+	fmt->width = hm1092_mode_560x360.width;
-+	fmt->height = hm1092_mode_560x360.height;
-+	fmt->code = MEDIA_BUS_FMT_Y10_1X10;
-+	fmt->field = V4L2_FIELD_NONE;
-+	fmt->colorspace = V4L2_COLORSPACE_RAW;
-+	fmt->ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
-+	fmt->quantization = V4L2_QUANTIZATION_DEFAULT;
-+	fmt->xfer_func = V4L2_XFER_FUNC_NONE;
-+}
-+
-+static int hm1092_enable_streams(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state,
-+				 u32 pad, u64 streams_mask)
-+{
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(hm1092->dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = cci_multi_reg_write(hm1092->regmap, hm1092_init_regs,
-+				  ARRAY_SIZE(hm1092_init_regs), NULL);
-+	if (ret) {
-+		dev_err(hm1092->dev, "failed to write init registers\n");
-+		goto out;
-+	}
-+
-+	ret = __v4l2_ctrl_handler_setup(hm1092->sd.ctrl_handler);
-+	if (ret)
-+		goto out;
-+
-+	ret = cci_write(hm1092->regmap, HM1092_REG_STREAM,
-+			HM1092_STREAM_ON, NULL);
-+	if (ret)
-+		dev_err(hm1092->dev, "failed to start streaming\n");
-+
-+out:
-+	if (ret)
-+		pm_runtime_put(hm1092->dev);
-+
-+	return ret;
-+}
-+
-+static int hm1092_disable_streams(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state,
-+				  u32 pad, u64 streams_mask)
-+{
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+	int ret;
-+
-+	ret = cci_write(hm1092->regmap, HM1092_REG_STREAM,
-+			HM1092_STREAM_STANDBY, NULL);
-+	pm_runtime_put(hm1092->dev);
-+
-+	return ret;
-+}
-+
-+static int hm1092_enum_mbus_code(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state,
-+				 struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	if (code->index)
-+		return -EINVAL;
-+
-+	code->code = MEDIA_BUS_FMT_Y10_1X10;
-+
-+	return 0;
-+}
-+
-+static int hm1092_enum_frame_size(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state,
-+				  struct v4l2_subdev_frame_size_enum *fse)
-+{
-+	if (fse->index)
-+		return -EINVAL;
-+
-+	if (fse->code != MEDIA_BUS_FMT_Y10_1X10)
-+		return -EINVAL;
-+
-+	fse->min_width = hm1092_mode_560x360.width;
-+	fse->max_width = hm1092_mode_560x360.width;
-+	fse->min_height = hm1092_mode_560x360.height;
-+	fse->max_height = hm1092_mode_560x360.height;
-+
-+	return 0;
-+}
-+
-+static int hm1092_init_state(struct v4l2_subdev *sd,
-+			     struct v4l2_subdev_state *state)
-+{
-+	hm1092_update_pad_format(v4l2_subdev_state_get_format(state, 0));
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_video_ops hm1092_video_ops = {
-+	.s_stream = v4l2_subdev_s_stream_helper,
-+};
-+
-+static const struct v4l2_subdev_pad_ops hm1092_pad_ops = {
-+	.set_fmt = v4l2_subdev_get_fmt,
-+	.get_fmt = v4l2_subdev_get_fmt,
-+	.enum_mbus_code = hm1092_enum_mbus_code,
-+	.enum_frame_size = hm1092_enum_frame_size,
-+	.enable_streams = hm1092_enable_streams,
-+	.disable_streams = hm1092_disable_streams,
-+};
-+
-+static const struct v4l2_subdev_ops hm1092_subdev_ops = {
-+	.video = &hm1092_video_ops,
-+	.pad = &hm1092_pad_ops,
-+};
-+
-+static const struct media_entity_operations hm1092_entity_ops = {
-+	.link_validate = v4l2_subdev_link_validate,
-+};
-+
-+static const struct v4l2_subdev_internal_ops hm1092_internal_ops = {
-+	.init_state = hm1092_init_state,
-+};
-+
-+static int hm1092_check_hwcfg(struct hm1092 *hm1092)
-+{
-+	struct v4l2_fwnode_endpoint bus_cfg = {
-+		.bus = {
-+			.mipi_csi2 = {
-+				.num_data_lanes = 1,
-+			},
-+		},
-+		.bus_type = V4L2_MBUS_CSI2_DPHY,
-+	};
-+	struct device *dev = hm1092->dev;
-+	struct fwnode_handle *ep, *fwnode = dev_fwnode(dev);
-+	unsigned long link_freq_bitmap;
-+	int ret;
-+
-+	ep = fwnode_graph_get_endpoint_by_id(fwnode, 0, 0, 0);
-+	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
-+	fwnode_handle_put(ep);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "parsing endpoint failed\n");
-+
-+	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
-+				       bus_cfg.nr_of_link_frequencies,
-+				       hm1092_link_freq_menu,
-+				       ARRAY_SIZE(hm1092_link_freq_menu),
-+				       &link_freq_bitmap);
-+	if (ret)
-+		goto out;
-+
-+	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 1) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "only 1 data lane is supported, got %u\n",
-+				    bus_cfg.bus.mipi_csi2.num_data_lanes);
-+		goto out;
-+	}
-+
-+	hm1092->mipi_lanes = bus_cfg.bus.mipi_csi2.num_data_lanes;
-+
-+out:
-+	v4l2_fwnode_endpoint_free(&bus_cfg);
-+	return ret;
-+}
-+
-+static int hm1092_get_pm_resources(struct hm1092 *hm1092)
-+{
-+	hm1092->reset = devm_gpiod_get_optional(hm1092->dev, "reset",
-+						GPIOD_OUT_HIGH);
-+	if (IS_ERR(hm1092->reset))
-+		return dev_err_probe(hm1092->dev, PTR_ERR(hm1092->reset),
-+				     "failed to get reset gpio\n");
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(hm1092_supply_names); i++)
-+		hm1092->supplies[i].supply = hm1092_supply_names[i];
-+
-+	return devm_regulator_bulk_get(hm1092->dev,
-+				       ARRAY_SIZE(hm1092_supply_names),
-+				       hm1092->supplies);
-+}
-+
-+static int hm1092_power_off(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+
-+	gpiod_set_value_cansleep(hm1092->reset, 1);
-+	clk_disable_unprepare(hm1092->img_clk);
-+	regulator_bulk_disable(ARRAY_SIZE(hm1092_supply_names),
-+			       hm1092->supplies);
-+
-+	return 0;
-+}
-+
-+static int hm1092_power_on(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+	int ret;
-+
-+	/*
-+	 * Power-up sequence:
-+	 *   1. enable all rails (~3 ms ramp)
-+	 *   2. hold reset asserted
-+	 *   3. start MCLK and let the sensor clock for ~1 ms
-+	 *   4. release reset and wait 18 ms for the sensor to come up
-+	 */
-+	ret = regulator_bulk_enable(ARRAY_SIZE(hm1092_supply_names),
-+				    hm1092->supplies);
-+	if (ret)
-+		return ret;
-+	fsleep(3000);
-+
-+	gpiod_set_value_cansleep(hm1092->reset, 1);
-+
-+	ret = clk_prepare_enable(hm1092->img_clk);
-+	if (ret) {
-+		regulator_bulk_disable(ARRAY_SIZE(hm1092_supply_names),
-+				       hm1092->supplies);
-+		return ret;
-+	}
-+	fsleep(1000);
-+
-+	gpiod_set_value_cansleep(hm1092->reset, 0);
-+	fsleep(18000);
-+
-+	return 0;
-+}
-+
-+static void hm1092_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	v4l2_subdev_cleanup(sd);
-+	media_entity_cleanup(&sd->entity);
-+	v4l2_ctrl_handler_free(sd->ctrl_handler);
-+	pm_runtime_disable(hm1092->dev);
-+	if (!pm_runtime_status_suspended(hm1092->dev)) {
-+		hm1092_power_off(hm1092->dev);
-+		pm_runtime_set_suspended(hm1092->dev);
-+	}
-+}
-+
-+static int hm1092_probe(struct i2c_client *client)
-+{
-+	struct hm1092 *hm1092;
-+	unsigned long freq;
-+	int ret;
-+
-+	hm1092 = devm_kzalloc(&client->dev, sizeof(*hm1092), GFP_KERNEL);
-+	if (!hm1092)
-+		return -ENOMEM;
-+
-+	hm1092->dev = &client->dev;
-+
-+	hm1092->img_clk = devm_v4l2_sensor_clk_get(hm1092->dev, NULL);
-+	if (IS_ERR(hm1092->img_clk))
-+		return dev_err_probe(hm1092->dev, PTR_ERR(hm1092->img_clk),
-+				     "failed to get imaging clock\n");
-+
-+	freq = clk_get_rate(hm1092->img_clk);
-+	if (freq != HM1092_MCLK)
-+		return dev_err_probe(hm1092->dev, -EINVAL,
-+				     "external clock %lu is not supported\n",
-+				     freq);
-+
-+	v4l2_i2c_subdev_init(&hm1092->sd, client, &hm1092_subdev_ops);
-+
-+	ret = hm1092_check_hwcfg(hm1092);
-+	if (ret)
-+		return ret;
-+
-+	ret = hm1092_get_pm_resources(hm1092);
-+	if (ret)
-+		return ret;
-+
-+	hm1092->regmap = devm_cci_regmap_init_i2c(client, 16);
-+	if (IS_ERR(hm1092->regmap))
-+		return PTR_ERR(hm1092->regmap);
-+
-+	ret = hm1092_power_on(hm1092->dev);
-+	if (ret)
-+		return dev_err_probe(hm1092->dev, ret, "failed to power on\n");
-+
-+	ret = hm1092_init_controls(hm1092);
-+	if (ret)
-+		goto err_power_off;
-+
-+	hm1092->sd.internal_ops = &hm1092_internal_ops;
-+	hm1092->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	hm1092->sd.entity.ops = &hm1092_entity_ops;
-+	hm1092->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-+	hm1092->pad.flags = MEDIA_PAD_FL_SOURCE;
-+	ret = media_entity_pads_init(&hm1092->sd.entity, 1, &hm1092->pad);
-+	if (ret)
-+		goto err_ctrls;
-+
-+	hm1092->sd.state_lock = hm1092->ctrl_handler.lock;
-+	ret = v4l2_subdev_init_finalize(&hm1092->sd);
-+	if (ret)
-+		goto err_entity;
-+
-+	pm_runtime_set_active(hm1092->dev);
-+	pm_runtime_enable(hm1092->dev);
-+
-+	ret = v4l2_async_register_subdev_sensor(&hm1092->sd);
-+	if (ret)
-+		goto err_subdev;
-+
-+	pm_runtime_idle(hm1092->dev);
-+
-+	return 0;
-+
-+err_subdev:
-+	pm_runtime_disable(hm1092->dev);
-+	pm_runtime_set_suspended(hm1092->dev);
-+	v4l2_subdev_cleanup(&hm1092->sd);
-+
-+err_entity:
-+	media_entity_cleanup(&hm1092->sd.entity);
-+
-+err_ctrls:
-+	v4l2_ctrl_handler_free(hm1092->sd.ctrl_handler);
-+
-+err_power_off:
-+	hm1092_power_off(hm1092->dev);
-+
-+	return ret;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(hm1092_pm_ops, hm1092_power_off,
-+				 hm1092_power_on, NULL);
-+
-+static const struct of_device_id hm1092_of_match[] = {
-+	{ .compatible = "himax,hm1092" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, hm1092_of_match);
-+
-+static struct i2c_driver hm1092_i2c_driver = {
-+	.driver = {
-+		.name = "hm1092",
-+		.pm = pm_ptr(&hm1092_pm_ops),
-+		.of_match_table = hm1092_of_match,
-+	},
-+	.probe = hm1092_probe,
-+	.remove = hm1092_remove,
-+};
-+
-+module_i2c_driver(hm1092_i2c_driver);
-+
-+MODULE_DESCRIPTION("Himax HM1092 monochrome NIR image sensor driver");
-+MODULE_LICENSE("GPL");
++++ b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml
+@@ -0,0 +1,292 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/nvidia,tegra30-ahub.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NVIDIA Tegra Audio Hub (AHUB)
++
++maintainers:
++  - Jonathan Hunter <jonathanh@nvidia.com>
++
++description:
++  The NVIDIA Tegra AHUB (Audio Hub) is an audio interconnect block used to
++  route data between various audio clients such as I2S, DAM, SPDIF, and
++  APBIF. It exposes multiple register regions and supports different
++  configurations depending on the Tegra SoC generation. The AHUB also
++  provides a configlink bus for child audio components, which use CIF
++  (Client Interface) IDs to identify their data paths. The number of DMA
++  channels, reset lines, and additional modules varies across Tegra30,
++  Tegra114, and Tegra124 platforms.
++
++properties:
++  compatible:
++    oneOf:
++      - enum:
++          - nvidia,tegra114-ahub
++          - nvidia,tegra124-ahub
++          - nvidia,tegra30-ahub
++      - items:
++          - const: nvidia,tegra132-ahub
++          - const: nvidia,tegra124-ahub
++
++  reg:
++    minItems: 2
++    items:
++      - description: APBIF register region
++      - description: AHUB register region
++      - description: AHUB configlink register region (Tegra114/Tegra124 only)
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Clock for the D_AUDIO domain
++      - description: Clock for the APBIF interface
++
++  clock-names:
++    items:
++      - const: d_audio
++      - const: apbif
++
++  resets:
++    minItems: 11
++    maxItems: 21
++
++  reset-names:
++    minItems: 11
++    maxItems: 21
++
++  dmas:
++    minItems: 8
++    maxItems: 20
++
++  dma-names:
++    minItems: 8
++    items:
++      - const: rx0
++      - const: tx0
++      - const: rx1
++      - const: tx1
++      - const: rx2
++      - const: tx2
++      - const: rx3
++      - const: tx3
++      - const: rx4
++      - const: tx4
++      - const: rx5
++      - const: tx5
++      - const: rx6
++      - const: tx6
++      - const: rx7
++      - const: tx7
++      - const: rx8
++      - const: tx8
++      - const: rx9
++      - const: tx9
++
++  "#address-cells":
++    enum: [1, 2]
++
++  "#size-cells":
++    enum: [1, 2]
++
++  ranges: true
++
++patternProperties:
++  "^i2s@[0-9a-f]+$":
++    $ref: /schemas/sound/nvidia,tegra30-i2s.yaml#
++    unevaluatedProperties: false
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: nvidia,tegra30-ahub
++    then:
++      properties:
++        reg:
++          maxItems: 2
++
++        resets:
++          maxItems: 11
++
++        reset-names:
++          items:
++            - const: d_audio
++            - const: apbif
++            - const: i2s0
++            - const: i2s1
++            - const: i2s2
++            - const: i2s3
++            - const: i2s4
++            - const: dam0
++            - const: dam1
++            - const: dam2
++            - const: spdif
++
++        dmas:
++          maxItems: 8
++
++        dma-names:
++          maxItems: 8
++
++        "#address-cells":
++          const: 1
++
++        "#size-cells":
++          const: 1
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: nvidia,tegra114-ahub
++    then:
++      properties:
++        reg:
++          minItems: 3
++          maxItems: 3
++
++        resets:
++          minItems: 13
++          maxItems: 13
++
++        reset-names:
++          items:
++            - const: d_audio
++            - const: apbif
++            - const: i2s0
++            - const: i2s1
++            - const: i2s2
++            - const: i2s3
++            - const: i2s4
++            - const: dam0
++            - const: dam1
++            - const: dam2
++            - const: spdif
++            - const: amx
++            - const: adx
++
++        dmas:
++          minItems: 20
++
++        dma-names:
++          minItems: 20
++
++        "#address-cells":
++          const: 1
++
++        "#size-cells":
++          const: 1
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: nvidia,tegra124-ahub
++    then:
++      properties:
++        reg:
++          minItems: 3
++          maxItems: 3
++
++        resets:
++          minItems: 21
++
++        reset-names:
++          items:
++            - const: d_audio
++            - const: apbif
++            - const: i2s0
++            - const: i2s1
++            - const: i2s2
++            - const: i2s3
++            - const: i2s4
++            - const: dam0
++            - const: dam1
++            - const: dam2
++            - const: spdif
++            - const: amx
++            - const: amx1
++            - const: adx
++            - const: adx1
++            - const: afc0
++            - const: afc1
++            - const: afc2
++            - const: afc3
++            - const: afc4
++            - const: afc5
++
++        dmas:
++          minItems: 20
++
++        dma-names:
++          minItems: 20
++
++        "#address-cells":
++          const: 2
++
++        "#size-cells":
++          const: 2
++
++required:
++  - reg
++  - compatible
++  - interrupts
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - dmas
++  - dma-names
++  - "#address-cells"
++  - "#size-cells"
++  - ranges
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/tegra30-car.h>
++
++    ahub@70080000 {
++        compatible = "nvidia,tegra30-ahub";
++        reg = <0x70080000 0x200>, <0x70080200 0x100>;
++        interrupts = <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&tegra_car TEGRA30_CLK_D_AUDIO>,
++                 <&tegra_car TEGRA30_CLK_APBIF>;
++        clock-names = "d_audio", "apbif";
++        resets = <&tegra_car 106>, <&tegra_car 107>,
++                 <&tegra_car 30>, <&tegra_car 11>,
++                 <&tegra_car 18>, <&tegra_car 101>,
++                 <&tegra_car 102>, <&tegra_car 108>,
++                 <&tegra_car 109>, <&tegra_car 110>,
++                 <&tegra_car 10>;
++        reset-names = "d_audio", "apbif",
++                      "i2s0", "i2s1", "i2s2", "i2s3", "i2s4",
++                      "dam0", "dam1", "dam2",
++                      "spdif";
++        dmas = <&apbdma 1>, <&apbdma 1>,
++               <&apbdma 2>, <&apbdma 2>,
++               <&apbdma 3>, <&apbdma 3>,
++               <&apbdma 4>, <&apbdma 4>;
++        dma-names = "rx0", "tx0", "rx1", "tx1",
++                    "rx2", "tx2", "rx3", "tx3";
++        ranges;
++        #address-cells = <1>;
++        #size-cells = <1>;
++
++        i2s@70080300 {
++            compatible = "nvidia,tegra30-i2s";
++            reg = <0x70080300 0x100>;
++            nvidia,ahub-cif-ids = <4 4>;
++            clocks = <&tegra_car TEGRA30_CLK_I2S0>;
++            resets = <&tegra_car 30>;
++            reset-names = "i2s";
++        };
++    };
++...
 
--- 
-2.53.0
+---
+base-commit: db7efce4ae23ad5e42f5f55428f529ff62b86fab
+change-id: 20260422-nvidia-ahub-d2ceb0372744
+
+Best regards,
+--  
+Charan Pedumuru <charan.pedumuru@gmail.com>
 
