@@ -1,161 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF332D77E6
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 20:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B32718BBAE;
+	Sun,  5 Jul 2026 20:46:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783283107; cv=none; b=bXFttDLVcb7GXZ76HVu6/JDl7tlBRWEH0ofy9e+LRTokoZyTU29IZmL3JrRyaigaSsdYh/yVv4dReuUUHo4TQjGmo73xLyUOsf076fVubA4FRkp9KVCq40YtVXi4unPfHByHcD1uRs0g4xWOEnXXqOafmbWkwfWwuDjS1ANgJpg=
+	t=1783284371; cv=none; b=j95zySKmMz1rlMiDKaqTdCFiJpF5Ppa4WpmFq3nz19rp6XSmO1AVdJzuYYc8wyj3pG3eYo5PWffOdQmko8jHuVJ2i+B2BqYjfAndIpDNwa5tknPtIcUz81wbIQkG/FchlT5IIzgt5MiiwEgtLZKV4nD0p3Db3egiSXnMT3KC2q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783283107; c=relaxed/simple;
-	bh=7YHJMcp4E/DgLuuJlEnjDMAdAwm7aM+GzJcvH0l/e3k=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=L1UVWqt/wO1jVm2xmsnsM+0D72h+PejjIsEaR+xr6Y/zV/WieJMq/X8sadcpqrvkNTPaETc/vgarqcD2i4a7ybY1nvFDlbsRa1XSMYacu7vNMNpWYxKtKvJIrktb7dIFXFCY0eimJZZLt/aYVQlyztFcjedPY9gZaqpKbl+KftU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WTBwXafu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783284371; c=relaxed/simple;
+	bh=OaQusKv3rXYsBNCL7bbmIiPHTJUbxK+t+RRHDhKEW9Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mJLCrCjHxaVs/bfns+MqI8RX96qBSmjFdeZV3YWzhXt0MTY4iXSDz4Yy2jLPWq3tAAAWzTwqD/f+As4v8mqr8hsqFNuWR+MG1EH0etEQ0CJO30GpQ9lqmXV6dTRWnPO+2xAd+W+XjLnAadjTj8IvpkaNom2f1x4hu1r5++163Ok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=lL230xXc; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WTBwXafu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1F71F000E9;
-	Sun,  5 Jul 2026 20:25:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783283106;
-	bh=cAj7F2+zosF+lzg/oeuSOFAaFv5KVxrvIDuPlAZDyvk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WTBwXafuMx0RDkrErR0y/Tx7k0MVt1zA7DRcjodtRRepUPXl0I6K4f1vbG/Zq09me
-	 lVSnPf+ExY2qUNL8zv+6ZNEpK66bLc7IhZRdxmrC7epWBbqr0I9oFT7L8w4X3L7VaN
-	 Nbv7UGRHY+sQKGhsolDzKE1EgBSRzBxWKtCqaeUsFz9ch6Ew63/9RijWmt35dLvnY/
-	 aVbRmS9O2tadFMRemix65z+jKneo1qf1HNUO07OcKa8/Kmy/wYWE0EmXxQc1kdmmtT
-	 NGvpGZ0xSGXCtSUasURIvtz9oHekpvLTwOwUncV00rkDaM42d71Ijd5CM2YzQCbNHa
-	 hTarJ/xl6D3Bw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 3/6] ASoC: qcom: sdm845: Use per-speaker RX masks
- for TDM slot assignment
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg" <david@ixit.cz>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260705-pixel3-audio-v1-3-3b66f33859f1@ixit.cz>
-References: <20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz>
- <20260705-pixel3-audio-v1-3-3b66f33859f1@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 05 Jul 2026 20:25:05 +0000
-Message-Id: <20260705202505.EB1F71F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="lL230xXc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783284368;
+	bh=OaQusKv3rXYsBNCL7bbmIiPHTJUbxK+t+RRHDhKEW9Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=lL230xXckdYvbMdcv6VvPfggSMJt4NKuO+UichDEAFAiEOXbiKsWUP7Cq4EuSPr+n
+	 zt6n2WmBg+/z95DyxHqpc0Cm7kZqJEPz1bQSlMPCPbdFIZJVKypLfV5g1m0yeOvK74
+	 mYZaKU5LaRRtbJyIt8ONOpFk4LV7eiywCjFQC4TGYKHUV+SY+wlDd7YwzL9ODHKjQL
+	 DzJF68rnwWrFaDw8YkIGRnmzzhOwyRjoW0EEyQDEgmbUt+q8lA8XQpcie0x8XinT1X
+	 kkzZTDknZ2VF9gFMDb150EY1SbsJq8gYG0zQC+5+tVLfpQPymDbv89e8NVfyRMDHzq
+	 IqMTxsmxqsxUA==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 28E3917E0177;
+	Sun, 05 Jul 2026 22:46:07 +0200 (CEST)
+Message-ID: <c8242f5c-ec74-489e-b378-f225ec3a0135@collabora.com>
+Date: Sun, 5 Jul 2026 23:46:06 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/9] drm/rockchip: vop2: Reset AXI and DCLK to improve
+ robustness
+To: Diederik de Haas <diederik@cknow-tech.com>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
+ <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
+ <DJQO8Q4J2LDP.1G8I4FVF6J7TK@cknow-tech.com>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <DJQO8Q4J2LDP.1G8I4FVF6J7TK@cknow-tech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Hi Diederik,
 
-New issues:
-- [Medium] Changing the TDM `rx_mask` reduces the codec's capture stream ch=
-annel count fixup to 1, mismatching the 2 TX slots.
+On 7/5/26 4:28 PM, Diederik de Haas wrote:
+> Hi Cristian,
+> 
+> On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
+>> Assert the AXI reset in the CRTC disable path, and the VP DCLK reset in
+>> the enable path.
+>>
+>> These resets are intended to leave the hardware in a clean state for the
+>> next use, helping recover from exceptions such as IOMMU page faults, as
+>> well as to prevent random display output glitches, such as a blank
+>> image, observed when switching modes that also change the color format,
+>> e.g. from RGB to YUV420 and vice versa.
+>>
+>> For now this seems to affect only the RK3588, hence the resets are
+>> optional and will be provided in the device tree for this SoC only.
+> 
+> Why do you think it only effect RK3588? 
 
-Pre-existing issues:
-- [High] Unsafe use of `strcmp` with potentially NULL `codec_dai->component=
-->name_prefix`.
-- [High] Incorrect TDM slot mapping offset for CPU DAI drops right channel =
-audio.
-- [High] Mismatch between CPU DAI TDM capture mask and Codec TX masks.
---
+My findings are exclusively in the context of validating YUV support for DW HDMI
+QP, hence targeting RK3588 and RK3576.  Since RK3576 didn't exhibit any
+anomalies, I concluded the resets are needed just for RK3588.
 
-commit a3245c8cb8ad225800a041e09ecebd46b152d459
-Author: David Heidelberg <david@ixit.cz>
-ASoC: qcom: sdm845: Use per-speaker RX masks for TDM slot assignment
+> I reported about my RK3568 test here:
+> https://lore.kernel.org/linux-rockchip/DFRU6ODDM71P.3NQGLRK8IVDUY@cknow-tech.com/
+> "I then went on to try LibreELEC's builds. The artifacts I (sometimes)
+> saw, were gone :-D OTOH, I did get several major issues 'in return',
+> like rk_iommu Page fault resulting in a black screen and the only way to
+> 'recover' from it, was a reboot."
+> 
+> And I reported some more test results here:
+> https://forum.libreelec.tv/thread/29953-le13-testing-for-rk3288-rk3328-rk3399-rk3566-rk3568-rk3576-rk3588/?postID=204691#post204691
+> 
+> That seems to me a (strong) indication it also affects RK3566/RK3568?
 
-This commit splits the playback receive mask into per-speaker masks for the
-Left and Right codec DAIs. This ensures that the Left codec gets assigned
-to slot 0 and the Right codec gets slot 1, addressing an issue where both
-were mapped to slot 0.
+If coincidentally this helps improve the reliability of some of the older SoCs
+as well, the resets can easily be added to the corresponding DTs and submitted
+as a follow-up series.
 
-> diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-> index 9de3282bda4be..8b65aa3982d47 100644
-> --- a/sound/soc/qcom/sdm845.c
-> +++ b/sound/soc/qcom/sdm845.c
-> @@ -155,7 +155,7 @@ static int sdm845_tdm_snd_hw_params(struct snd_pcm_su=
-bstream *substream,
->  		if (!strcmp(codec_dai->component->name_prefix, "Left")) {
-
-[Severity: High]
-This is a pre-existing issue, but is it possible for the name_prefix to be
-null here?
-
-If the device tree is misconfigured and lacks a sound-name-prefix property
-for any of the codecs on this DAI link, the name_prefix string will be null.
-When unprivileged userspace opens the ALSA PCM stream, this function iterat=
-es
-over the codec DAIs and directly dereferences name_prefix via the standard
-kernel strcmp function.
-
-Could this lead to a kernel panic, and should there be a check to ensure
-the prefix is valid before comparison?
-
->  			ret =3D snd_soc_dai_set_tdm_slot(
->  					codec_dai, LEFT_SPK_TDM_TX_MASK,
-> -					SPK_TDM_RX_MASK, NUM_TDM_SLOTS,
-> +					LEFT_SPK_TDM_RX_MASK, NUM_TDM_SLOTS,
-
-[Severity: Medium]
-Does passing this 1-bit receive mask into snd_soc_dai_set_tdm_slot() cause
-issues with capture streams?
-
-The ASoC core unilaterally maps the receive mask parameter to the capture
-stream mask. By splitting the playback mask and passing the 1-bit
-LEFT_SPK_TDM_RX_MASK here, soc_pcm_codec_params_fixup() uses this mask to
-override the capture channel count to 1.=20
-
-Since the codecs transmit on 2 slots using LEFT_SPK_TDM_TX_MASK, could this
-mismatch lead to incorrect channel count parameters being passed to the
-codec hardware parameters and DAPM widgets?
-
->  					slot_width);
->  			if (ret < 0) {
->  				dev_err(rtd->dev,
-> @@ -167,7 +167,7 @@ static int sdm845_tdm_snd_hw_params(struct snd_pcm_su=
-bstream *substream,
->  		if (!strcmp(codec_dai->component->name_prefix, "Right")) {
->  			ret =3D snd_soc_dai_set_tdm_slot(
->  					codec_dai, RIGHT_SPK_TDM_TX_MASK,
-> -					SPK_TDM_RX_MASK, NUM_TDM_SLOTS,
-> +					RIGHT_SPK_TDM_RX_MASK, NUM_TDM_SLOTS,
-
-[Severity: High]
-This is a pre-existing issue, but does the CPU DAI capture mask match the
-codec transmit masks?
-
-The CPU DAI is configured earlier in this function with a capture mask of
-SPK_TDM_RX_MASK | BIT(2) | BIT(3), which evaluates to 0x0F, instructing
-the DSP to capture on TDM slots 0-3.
-
-However, the left and right codecs are configured to transmit on
-LEFT_SPK_TDM_TX_MASK (0x30, slots 4-5) and RIGHT_SPK_TDM_TX_MASK (0xC0,
-slots 6-7).
-
-Since the CPU does not listen on the slots that the codecs are actively
-transmitting on, is speaker protection feedback data being permanently lost
-during capture streams?
-
-[Severity: High]
-This is another pre-existing issue, but is the TDM slot mapping offset for
-the CPU DAI dropping the right channel audio?
-
-Looking at the tdm_slot_offset array definition:
-
-static unsigned int tdm_slot_offset[8] =3D {0, 4, 8, 12, 16, 20, 24, 28};
-
-This array maps the left channel to offset 0 and the right channel to offset
-4. When passed to snd_soc_dai_set_channel_map() for the CPU DAI, the S16_LE
-format forces the slot width to 16.
-
-Whether the DSP interprets 4 as a slot index or a byte offset (which for
-16-bit slots evaluates to slot 2), channel 1 is placed outside the active
-CPU DAI transmit mask SPK_TDM_RX_MASK (0x03) that only enables slots 0 and =
-1.
-
-Does this cause the DSP to drop the right channel audio entirely during
-standard stereo playback?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-pixel3-aud=
-io-v1-0-3b66f33859f1@ixit.cz?part=3D3
+Cristian
