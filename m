@@ -1,155 +1,139 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [185.100.197.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F1125A640
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 18:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC59279DC3;
+	Sun,  5 Jul 2026 18:41:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783275635; cv=none; b=bpwrlHya8N6JhvBzcwEZQErM7n215cmeGVVBSG8G7ZUzKku+wx3DmiyCCuC+mhsOhn6lsazHtaOwWPjdNfppg3iD3NFxB7mB/WHr/MKxxFkgrfkHQz261VxrS/xSaHTINWKUOo+/Xr///0xEWHbqX8GmGHsY/W/q27FkUMmicIc=
+	t=1783276901; cv=none; b=H9EIR/N+2iyMv46a0s0YvqfIcgK6/XHy7pXfTnjYdQ57STEvRB9RCpsSrxwFXmI/ic39ccKu5wi8eyD+Xcz1n8Xmt/2mtTaf1njnfMKZBmuRFRIfO6eW7OuhWGgu0SurFoucJdgF0aKi2dMz2mk4txkvSwbPk2rbGmYjI1KUBNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783275635; c=relaxed/simple;
-	bh=EI9UCqFX8AnFnWZVWcuTgFyMvYFMxTWSiGnFuv5jyWQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rgkRS4TvNKu60enr1FHBDFHnrigSFVRl1T7SLV/OClFLiFx391OWOZxYPYrihN9Uz5hLUkRYGZnloY5jYDQDGGWVxxk8nO+ApnjLFE2zBzo574j9yCVc4kGn7RDlFq7XC0KiKsbYv1oQmjPEuryQEepMNaOmChV9r2FVQ0vc4Ic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K8Uyv2GT; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783276901; c=relaxed/simple;
+	bh=qBFJ02Wo20d4cHaReMF6Ki5+cZVq85DJNAv84rGn+5w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dL3DiaYp2iEu3pNWYY6n99JBXQPzF3ZmlX1x7yWfvl8m1qLiUAuqjVYvk6wFkD2sTkQ2V9ZPdpEJg0Q/KjfyJasFz02qXOvikA8HCF6m69m0ohm67Qq4vHL0wbwlAcL4NXLf4HCf90LSN+1a4A9CwTj5xzhNcIKjEipj1jpcopw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=siYMG+vn; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K8Uyv2GT"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2c9bd2f8bf7so32156925ad.1
-        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 11:20:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783275633; x=1783880433; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uGtsisFYQ3ZsoB2jg7Gl9tLznZoCpOpVvTrcNSu1WWg=;
-        b=K8Uyv2GTgJ4UC50xUhbBuvD1aAdIaQKVzfZmkV/fbrdY73xt7DY0Y3R4tfTeNJgcdw
-         wEzbU+vfddYz80aPT5D2q3ajvnsUed/YRABHoq49aa8jJ3Pmhqrc1D1qV0I81Pw5H326
-         EqnsRRRoG2879CLBuC6T5oGsm5O2ROb09RTXY5LGX/iFH2BY0mxf7aWfTMtiwsHeGAgN
-         GZok/H6I4Pt7KU53NDWWyTt4Q3uEamgrinrodtPpuqrk6pJuB27y7RwDwNyo9dHODZiP
-         2h25OV27OWNkw23w1+5v1lyaKlvQKwlj+Te3987c6pycEkGj0L1rYn0/4lIWwappON7i
-         +dJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783275633; x=1783880433;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=uGtsisFYQ3ZsoB2jg7Gl9tLznZoCpOpVvTrcNSu1WWg=;
-        b=Urn0MGlpXGpng3xT2xPA0Qj+pFKn0HJH7npflUFCMuHOc3KXwxPQoJQG1uWNqF2sVP
-         xzIAFK85FtwxzMjxQx3ZXBA2tsdAC7GgsQNV/3vqNdZQq1gSBVR9pRWZfmQBbm/3VZou
-         o81VRi+nXNhePD05IYjkHfrLxcfRZAgML8ncuPRSFATcJ+1qM8EEkFkrTGDn0AXAHJDt
-         PEEeq9l9IaJMMcIx6MHQ9yzPmz3bE68aOv2UAthXPXiEihApPVbgITCtZLJ718MaMBiX
-         MEbme7x1FE2ABB7EjWV93Ve1CVxdV+RqXhWNUVateTnKc/muZEzql4OfTY32MrL6PDDa
-         h4UA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqsae+s90grHGuvdJ8AhazsVH06IjAFTog66VHah9gYafHPBkl64k+9tdUA09FDb7Poav81b3VzFjI7@vger.kernel.org
-X-Gm-Message-State: AOJu0YzHoWIG5KZJuv7SXr8Qfp+hg8DjY5vdyFMiRzh0PsOwfdjzmi3D
-	l1Lb6Xw1+4FFKY2MJ6sHvmSvQKaYyG1IrZuM+H1G9F3oT+N0zgRp8caE
-X-Gm-Gg: AfdE7cl99zAWQpYGi/siOl3RGAXtfqVBY1TbuN/ahvGCjG7Cbh6sUxIFzbgUOOjpsXI
-	6U2aQOOqt4aQgg9JTBgAYg5EolDbwxz5ysQ3W37LMCqW4KMmhQ+4le8VuO4IIv9PUg8r3x7Ax4J
-	Wr77pCFuXoHAAWByWqOYhRHUFhTQsXRiWhkcs/9Vd0m6LsJj97/5PXga4M6BGaQsQffxCytBWia
-	o1dMX9QFQAYBkoYPh1KnD0D3gQkLFJTjAcAo8m9EzVr9atnAfVwgZDv2Bw93dbEbcz6uUPfZwG2
-	ZbPVb5B6DNIw256YvYLLa0dTOGlHJIymH1SrWbUy6zPCRD2GCBtE3UeVnFpXcDSf6sk/mNNJHQx
-	xwd3vSbKVuwm2DwzbeKyxnexgKNQ4WVxL0OcTYXbTWkMKr0frMWBAjsNTScb3GIEW7yh/d+LjJB
-	kWc3byxK4Va86wq6Svm4tuQqYLyq1ZVndHNfTZ2tOmmj+mQIwMLcKmN3WCghgD76iHwJBo/9WuE
-	rFSCJRXmg2fReJd
-X-Received: by 2002:a17:90b:528e:b0:380:9699:ae98 with SMTP id 98e67ed59e1d1-381120f7aeamr13586199a91.8.1783275633209;
-        Sun, 05 Jul 2026 11:20:33 -0700 (PDT)
-Received: from MacBookPro.tail6abcb.ts.net ([2804:7f0:460:b8cc:e161:f046:ac0f:f27f])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f0bb7fe46sm51230319eec.14.2026.07.05.11.20.30
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 05 Jul 2026 11:20:32 -0700 (PDT)
-From: Brian Mayer <bleemayer@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v2] arm64: dts: rockchip: add HYM8563 RTC to Radxa CM5 IO board
-Date: Sun,  5 Jul 2026 15:19:19 -0300
-Message-ID: <20260705181920.8633-1-bleemayer@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2960762.AiC22s8V5E@diego>
-References: <2960762.AiC22s8V5E@diego>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="siYMG+vn"
+Received: from [172.20.10.2] (78-80-16-106.customers.tmcz.cz [78.80.16.106])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 80ABE53403EF;
+	Sun, 05 Jul 2026 20:41:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1783276888;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=OZp1RmlB8ZrOajx18YfnrqY8nVUI51YeTdlUm4fAkrA=;
+	b=siYMG+vnpsmI6Ilne0QrAOSQ/6NfB7ZwZkYkrUFZ+KMAYyiTcavEc8IQf/bBF+Y0pWpfBT
+	QO9tNFXG4eD/gckHCVFLGt5+7lG97s7jmMmZUg2HBEB5QDajTPoKx87si9YImuXslbmoxu
+	RRGO22fBSR32L+CINnps0o4RrAtVCWE=
+Message-ID: <a89e90e8-a1d3-4e70-8714-c9862044a62d@ixit.cz>
+Date: Sun, 5 Jul 2026 20:41:26 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm7125-samsung: add initial
+ device tree
+To: Erikas Bitovtas <xerikasxx@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stefan Hansson <newbyte@postmarketos.org>,
+ phone-devel@vger.kernel.org
+References: <20260705-sm7125-samsung-v2-0-d3b17005ecb3@gmail.com>
+ <20260705-sm7125-samsung-v2-3-d3b17005ecb3@gmail.com>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260705-sm7125-samsung-v2-3-d3b17005ecb3@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello again, to clarify: I tested the v1 patch in my radxa cm5, but since
-this v2 only contains name changes I didn't test. I added the missing
-agent tag and am sending the patch inline. Thanks.
+On 05/07/2026 12:30, Erikas Bitovtas wrote:
+> Samsung Galaxy A52/A72 are devices released on atoll (SM7125) platform
+> in 2021. Add initial device tree for SM7125 Samsung platform with
+> support for:
+> - Framebuffer
+> - GPIO keys
+> - Hall sensor
+> - Vibrator
+> - Regulators
+> - Reset input
+> - Real-time clock
+> - SD card
+> - UFS
+> - USB
+> 
+> Tested-by: Stefan Hansson <newbyte@postmarketos.org>
+> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+> ---
+>   arch/arm64/boot/dts/qcom/Makefile                  |   2 +
+>   arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts   |  20 +
+>   arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts   |  20 +
+>   .../arm64/boot/dts/qcom/sm7125-samsung-common.dtsi | 536 +++++++++++++++++++++
+>   4 files changed, 578 insertions(+)
+> 
 
-The Radxa CM5 IO carrier has a Haoyu HYM8563 real-time clock on I2C6 at
-address 0x51, with its interrupt line on GPIO0_B0 and a CR1220 backup
-battery holder. Without a device tree node, no /dev/rtc* appears even
-when CONFIG_RTC_DRV_HYM8563 is enabled.
+Nice,
 
-Describe the RTC, wire the interrupt pin with a pull-up, mark it as a
-wakeup source, and point the rtc0 alias at it so RTC_HCTOSYS/SYSTOHC use
-the external clock. Wiring matches Radxa's downstream board support and
-uses schematic names for the rtc_int_l pinctrl entry.
+Reviewed-by: David Heidelberg <david@ixit.cz>
 
-Assisted-by: Grok:grok-build
-Signed-off-by: Brian Mayer <bleemayer@gmail.com>
----
- .../dts/rockchip/rk3588s-radxa-cm5-io.dts     | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+small nitpick, the Copyright inside the files should be yours, at least unless 
+you giving up your contributions or you been paid by LF ;-) .
 
-Changes in v2:
-- Rename pinctrl to rtc_int_l / rtc-int-l to match schematics
-- Drop Tested-by (covered by Signed-off-by)
-- Add Assisted-by: Grok:grok-build
-- Send inline with git send-email (not as attachment)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-radxa-cm5-io.dts b/arch/arm64/boot/dts/rockchip/rk3588s-radxa-cm5-io.dts
-index af4a9bc01..d22db4d18 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-radxa-cm5-io.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-radxa-cm5-io.dts
-@@ -19,6 +19,7 @@ / {
- 	aliases {
- 		ethernet0 = &gmac1;
- 		mmc1 = &sdmmc;
-+		rtc0 = &hym8563;
- 	};
- 
- 	chosen {
-@@ -198,6 +199,18 @@ usbc0_dp_altmode_mux: endpoint {
- 			};
- 		};
- 	};
-+
-+	hym8563: rtc@51 {
-+		compatible = "haoyu,hym8563";
-+		reg = <0x51>;
-+		#clock-cells = <0>;
-+		clock-output-names = "hym8563";
-+		interrupt-parent = <&gpio0>;
-+		interrupts = <RK_PB0 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&rtc_int_l>;
-+		wakeup-source;
-+	};
- };
- 
- &i2s5_8ch {
-@@ -221,6 +234,12 @@ usbc0_int: usbc0-int {
- 		};
- 	};
- 
-+	hym8563 {
-+		rtc_int_l: rtc-int-l {
-+			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
- 	hdmi {
- 		hdmi0_tx_on_h: hdmi0-tx-on-h {
- 			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
-
-base-commit: 87320be9f0d24fce67631b7eef919f0b79c3e45c
--- 
-2.54.0
-
+David
