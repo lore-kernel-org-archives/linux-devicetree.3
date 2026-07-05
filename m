@@ -1,142 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EE5233721;
-	Sun,  5 Jul 2026 20:24:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF332D77E6
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 20:25:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783283080; cv=none; b=kaIHRC5+7yAxf26U20kfFcZomkN5U84kUWiiZknaaVY601qzhhIFObq5KK9yzrfdL4O1Z3fuuB/Lkpt8/76/865+NnOQAb14hWC0lJLrm5ckNZhXCoVzjCrPG8ayKiJOHmyHm1z4/tv3v7lMptr6+10EkW5DWyLSuxOJNbl7TF8=
+	t=1783283107; cv=none; b=bXFttDLVcb7GXZ76HVu6/JDl7tlBRWEH0ofy9e+LRTokoZyTU29IZmL3JrRyaigaSsdYh/yVv4dReuUUHo4TQjGmo73xLyUOsf076fVubA4FRkp9KVCq40YtVXi4unPfHByHcD1uRs0g4xWOEnXXqOafmbWkwfWwuDjS1ANgJpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783283080; c=relaxed/simple;
-	bh=GuPpKtrhP3c1xZA/Qlo7ta6FzkmLcUsye5lm8ZoSweI=;
+	s=arc-20240116; t=1783283107; c=relaxed/simple;
+	bh=7YHJMcp4E/DgLuuJlEnjDMAdAwm7aM+GzJcvH0l/e3k=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lR1c/XFTqZtVfunCuBtqvU65t4RuWqM6nj/JlfgJZXe+PVDILMtPVrIT08gPl+rWIBYIvo2fYI9zGe6cLO/97/mTDqvGSl4XqsbOabYrlaJFDwYerqk667zyuNpzhTgRWM+mUgfel1oOarMr4P6rbLvN+c9x8WIFfxdm14gBq+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nGL9KXzm; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=L1UVWqt/wO1jVm2xmsnsM+0D72h+PejjIsEaR+xr6Y/zV/WieJMq/X8sadcpqrvkNTPaETc/vgarqcD2i4a7ybY1nvFDlbsRa1XSMYacu7vNMNpWYxKtKvJIrktb7dIFXFCY0eimJZZLt/aYVQlyztFcjedPY9gZaqpKbl+KftU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WTBwXafu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nGL9KXzm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F5771F000E9;
-	Sun,  5 Jul 2026 20:24:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WTBwXafu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1F71F000E9;
+	Sun,  5 Jul 2026 20:25:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783283079;
-	bh=tpeECkUNRsF6XjObolx1xq/lzAcJcqA5oGlQhEokzU4=;
+	s=k20260515; t=1783283106;
+	bh=cAj7F2+zosF+lzg/oeuSOFAaFv5KVxrvIDuPlAZDyvk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nGL9KXzme48IRsw8tnnD8wRK1Mn2vCaJGngRvmupMM0n/UtgpzGwQZ4dhNxtyHh50
-	 Xin8NchpxgQJ14+47YVfz1K6QovFKTm2840ysuDrwvWNcqGG0Hnyou6dAzuk4T08Qr
-	 QlSBmIodqoPUY9W+8pENqJwnvPn1OJxTxrq6aUmow8mtY+uXAUzmtER0JZDhAFyeS0
-	 2JedYq+2DzriT9Dw/U4FYp+E4Dh0x5Pe6Rsfaxmu/618WTDOjDx7u8lyuYyOW+Apam
-	 p3FIysPkZ6sfkCEfJRrN9H7E4VLzhDvdv13rcK+ZezJZGt2uHYz5qxs+o0IS8/xJ16
-	 J5nty9G2HjBdg==
+	b=WTBwXafuMx0RDkrErR0y/Tx7k0MVt1zA7DRcjodtRRepUPXl0I6K4f1vbG/Zq09me
+	 lVSnPf+ExY2qUNL8zv+6ZNEpK66bLc7IhZRdxmrC7epWBbqr0I9oFT7L8w4X3L7VaN
+	 Nbv7UGRHY+sQKGhsolDzKE1EgBSRzBxWKtCqaeUsFz9ch6Ew63/9RijWmt35dLvnY/
+	 aVbRmS9O2tadFMRemix65z+jKneo1qf1HNUO07OcKa8/Kmy/wYWE0EmXxQc1kdmmtT
+	 NGvpGZ0xSGXCtSUasURIvtz9oHekpvLTwOwUncV00rkDaM42d71Ijd5CM2YzQCbNHa
+	 hTarJ/xl6D3Bw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/6] arm64: dts: imx8mm: imx8mp: Add CM DTOs for Data
- Modul i.MX8M Mini and Plus eDM SBC
+Subject: Re: [PATCH RFC 3/6] ASoC: qcom: sdm845: Use per-speaker RX masks
+ for TDM slot assignment
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marex@nabladev.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260705200534.151803-4-marex@nabladev.com>
-References: <20260705200534.151803-1-marex@nabladev.com>
- <20260705200534.151803-4-marex@nabladev.com>
+To: "David Heidelberg" <david@ixit.cz>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260705-pixel3-audio-v1-3-3b66f33859f1@ixit.cz>
+References: <20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz>
+ <20260705-pixel3-audio-v1-3-3b66f33859f1@ixit.cz>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 05 Jul 2026 20:24:38 +0000
-Message-Id: <20260705202439.3F5771F000E9@smtp.kernel.org>
+Date: Sun, 05 Jul 2026 20:25:05 +0000
+Message-Id: <20260705202505.EB1F71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] The virtio device buffer node is named `vdevbuffer` instead of `=
-vdev0buffer`, bypassing the driver's carveout exclusion logic.
+
+New issues:
+- [Medium] Changing the TDM `rx_mask` reduces the codec's capture stream ch=
+annel count fixup to 1, mismatching the 2 TX slots.
+
+Pre-existing issues:
+- [High] Unsafe use of `strcmp` with potentially NULL `codec_dai->component=
+->name_prefix`.
+- [High] Incorrect TDM slot mapping offset for CPU DAI drops right channel =
+audio.
+- [High] Mismatch between CPU DAI TDM capture mask and Codec TX masks.
 --
 
-commit b1e78cbda66a659316ae8170db75a75bd2d9d9d2
-Author: Marek Vasut <marex@nabladev.com>
+commit a3245c8cb8ad225800a041e09ecebd46b152d459
+Author: David Heidelberg <david@ixit.cz>
+ASoC: qcom: sdm845: Use per-speaker RX masks for TDM slot assignment
 
-arm64: dts: imx8mm: imx8mp: Add CM DTOs for Data Modul i.MX8M Mini and Plus=
- eDM SBC
+This commit splits the playback receive mask into per-speaker masks for the
+Left and Right codec DAIs. This ensures that the Left codec gets assigned
+to slot 0 and the Right codec gets slot 1, addressing an issue where both
+were mapped to slot 0.
 
-This commit adds device tree overlays for the CM4/CM7 cores on the Data
-Modul i.MX8M Mini and Plus eDM SBCs. The overlays allow CM4/CM7 firmware
-to be used with remoteproc and rpmsg without imposing the overhead on
-every user of the platform.
+> diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
+> index 9de3282bda4be..8b65aa3982d47 100644
+> --- a/sound/soc/qcom/sdm845.c
+> +++ b/sound/soc/qcom/sdm845.c
+> @@ -155,7 +155,7 @@ static int sdm845_tdm_snd_hw_params(struct snd_pcm_su=
+bstream *substream,
+>  		if (!strcmp(codec_dai->component->name_prefix, "Left")) {
 
-[ ... ]
+[Severity: High]
+This is a pre-existing issue, but is it possible for the name_prefix to be
+null here?
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-over=
-lay-cm4.dtso b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-over=
-lay-cm4.dtso
-> new file mode 100644
-> index 0000000000000..8d681c0eff0d4
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-cm4=
-.dtso
-> @@ -0,0 +1,56 @@
-[ ... ]
-> +		rsc_table: rsc-table@b80ff000 {
-> +			reg =3D <0 0xb80ff000 0 0x1000>;
-> +			no-map;
-> +		};
-> +
-> +		vdevbuffer: vdevbuffer@b8400000 {
-> +			compatible =3D "shared-dma-pool";
-> +			reg =3D <0 0xb8400000 0 0x100000>;
+If the device tree is misconfigured and lacks a sound-name-prefix property
+for any of the codecs on this DAI link, the name_prefix string will be null.
+When unprivileged userspace opens the ALSA PCM stream, this function iterat=
+es
+over the codec DAIs and directly dereferences name_prefix via the standard
+kernel strcmp function.
 
-[Severity: Medium]
-Will this node name bypass the driver's carveout exclusion logic?
+Could this lead to a kernel panic, and should there be a check to ensure
+the prefix is valid before comparison?
 
-Looking at imx_rproc_prepare(), it iterates over memory-regions and checks
-specifically for the name "vdev0buffer" to skip processing the vdev buffer:
-
-	if (!strcmp(it.node->name, "rsc-table") ||
-	    !strcmp(it.node->name, "vdev0vring0") ||
-	    !strcmp(it.node->name, "vdev0vring1") ||
-	    strstarts(res.name, "vdev0buffer"))
-		continue;
-
-Because this node is named "vdevbuffer" instead of "vdev0buffer", it appears
-it will be mapped as a generic carveout via ioremap_wc() and unintentionally
-included in the remoteproc coredump.=20
-
-Could this node be renamed to "vdev0buffer" to avoid wasting vmalloc space
-and bloating the coredump?
-
-> +			no-map;
-> +		};
-> +	};
-> +
-> +	imx8mm-cm4 {
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-over=
-lay-cm7.dtso b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-over=
-lay-cm7.dtso
-> new file mode 100644
-> index 0000000000000..21e2a8c0bab0a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-cm7=
-.dtso
-> @@ -0,0 +1,57 @@
-[ ... ]
-> +		rsc_table: rsc-table@550ff000 {
-> +			reg =3D <0 0x550ff000 0 0x1000>;
-> +			no-map;
-> +		};
-> +
-> +		vdevbuffer: vdevbuffer@55400000 {
-> +			compatible =3D "shared-dma-pool";
-> +			reg =3D <0 0x55400000 0 0x100000>;
+>  			ret =3D snd_soc_dai_set_tdm_slot(
+>  					codec_dai, LEFT_SPK_TDM_TX_MASK,
+> -					SPK_TDM_RX_MASK, NUM_TDM_SLOTS,
+> +					LEFT_SPK_TDM_RX_MASK, NUM_TDM_SLOTS,
 
 [Severity: Medium]
-As with the CM4 overlay, will naming this node "vdevbuffer" instead of
-"vdev0buffer" cause the 1MB buffer to be unintentionally mapped as a generic
-carveout and dumped on a crash?
+Does passing this 1-bit receive mask into snd_soc_dai_set_tdm_slot() cause
+issues with capture streams?
 
-> +			no-map;
-> +		};
-> +	};
-[ ... ]
+The ASoC core unilaterally maps the receive mask parameter to the capture
+stream mask. By splitting the playback mask and passing the 1-bit
+LEFT_SPK_TDM_RX_MASK here, soc_pcm_codec_params_fixup() uses this mask to
+override the capture channel count to 1.=20
+
+Since the codecs transmit on 2 slots using LEFT_SPK_TDM_TX_MASK, could this
+mismatch lead to incorrect channel count parameters being passed to the
+codec hardware parameters and DAPM widgets?
+
+>  					slot_width);
+>  			if (ret < 0) {
+>  				dev_err(rtd->dev,
+> @@ -167,7 +167,7 @@ static int sdm845_tdm_snd_hw_params(struct snd_pcm_su=
+bstream *substream,
+>  		if (!strcmp(codec_dai->component->name_prefix, "Right")) {
+>  			ret =3D snd_soc_dai_set_tdm_slot(
+>  					codec_dai, RIGHT_SPK_TDM_TX_MASK,
+> -					SPK_TDM_RX_MASK, NUM_TDM_SLOTS,
+> +					RIGHT_SPK_TDM_RX_MASK, NUM_TDM_SLOTS,
+
+[Severity: High]
+This is a pre-existing issue, but does the CPU DAI capture mask match the
+codec transmit masks?
+
+The CPU DAI is configured earlier in this function with a capture mask of
+SPK_TDM_RX_MASK | BIT(2) | BIT(3), which evaluates to 0x0F, instructing
+the DSP to capture on TDM slots 0-3.
+
+However, the left and right codecs are configured to transmit on
+LEFT_SPK_TDM_TX_MASK (0x30, slots 4-5) and RIGHT_SPK_TDM_TX_MASK (0xC0,
+slots 6-7).
+
+Since the CPU does not listen on the slots that the codecs are actively
+transmitting on, is speaker protection feedback data being permanently lost
+during capture streams?
+
+[Severity: High]
+This is another pre-existing issue, but is the TDM slot mapping offset for
+the CPU DAI dropping the right channel audio?
+
+Looking at the tdm_slot_offset array definition:
+
+static unsigned int tdm_slot_offset[8] =3D {0, 4, 8, 12, 16, 20, 24, 28};
+
+This array maps the left channel to offset 0 and the right channel to offset
+4. When passed to snd_soc_dai_set_channel_map() for the CPU DAI, the S16_LE
+format forces the slot width to 16.
+
+Whether the DSP interprets 4 as a slot index or a byte offset (which for
+16-bit slots evaluates to slot 2), channel 1 is placed outside the active
+CPU DAI transmit mask SPK_TDM_RX_MASK (0x03) that only enables slots 0 and =
+1.
+
+Does this cause the DSP to drop the right channel audio entirely during
+standard stereo playback?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705200534.1518=
-03-1-marex@nabladev.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-pixel3-aud=
+io-v1-0-3b66f33859f1@ixit.cz?part=3D3
