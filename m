@@ -1,96 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0532FE56E;
-	Sun,  5 Jul 2026 22:27:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EED27A107
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 22:40:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783290474; cv=none; b=ET3gOqGIhlbGHieEeCJAqqUac6rlrpwp5jmc+ewVDxGqUg+aX14WuStpTDtyQC7WXfYMNj46ldP969r9tJ3C8RtwwkZ1kPYDzF+0xtAZ5/KzUVu+DjcvzPMXx/V6lonmByZ4DoQFGfz8JetOrmar3hzjHh2jgqNv0WN12uJ9iZM=
+	t=1783291245; cv=none; b=ZGUiF233Va9u0CJJRXyIBa6XMT0q+OTZf0Etxui40kSnocsNFmBS8vdhSrQpE30epMOD70qFhACaNM73JaZrn2z9OlVotJ/PJLfkleak81szS/uBnrb8PuU33a3tGWPEE0EndbExQWqe/x0/VfWQnl+bi5aTIRo8mr99oSVzhP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783290474; c=relaxed/simple;
-	bh=wnwfn0itXQqF4lAfzF0kkcrD3IsXi6LMP1l5ZnCqviI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ldflw0mcQ/kOOHL/Yx5WT8Wv+XEwAL2uYHabI1Kj0a20VlhQBSEr8xSnLolTynrvXsUcLXBMqEPy903F2kcF4C25XzSQvSSz0QzmZUJBo5pFokq+1ONvEh2Wy4cFD4x/ubp8p/gQT+Z6Xs1p0+KbyKVl5ya3tai+lAiFrdFhyOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F6JeEaOT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783291245; c=relaxed/simple;
+	bh=o6tKcjSGL3hmAoOfrQ72FhjNH6OcQ99PKzW3pQ6hb58=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rzHlte4CccfTPczWh/pyJnY44JlR9Mc8gnDfvmVXKqsSuL/AbfaDpqTtWDfPFx1nZykLJMyeC6cUcWON3VEogMMrpW4hcOxsMdrTGA5T7HTZ/qrz2e5/kJV4kl0NdvOpi1IMj9vcozFjZkGBbt3aMGsl4EElqUs3/V0pdqRb7cE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IZzyVtOT; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F6JeEaOT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 164DB1F000E9;
-	Sun,  5 Jul 2026 22:27:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783290473;
-	bh=7k/DZf/BFptIPxHIul4Wz5wKNd0rMsNKb4fOGcMur3w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F6JeEaOTSIdEKgBbz9ErXGAo4X1MYmXHzIVrUM54SyII9pn129l5QEpaWGTEVdLat
-	 wWwox3PJKDoyiiSt6/VFIRs/nQtJATPwJQ8zraOHgumOlPvOSP6gw7YxZF8Tm1MZnF
-	 ZfaSlQFHOeco7bSXbhaAvvfqzQB6yj7QqlT4cNacNhbB/GIKVHavMv955ieemUFB+r
-	 ERfExnt4n031u/FcvdXhrJa6f1STPH22uBFQdl5aR02ozdfI0m4ZXVlktQGDGNVI3D
-	 SLHooChSBD6QbGrvovZD/uFKiq3YkuNdpdWd/d7GbrFlErRbjyR9Ft6yTggXLb9HWp
-	 nTQMlNZSw+oxg==
-Date: Sun, 5 Jul 2026 17:27:50 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] arm64: dts: qcom: fix SoCCP memory mappings for
- Glymur
-Message-ID: <akraIZWuQlYvPW8v@baldur>
-References: <20260703-glymur-soccp-v4-0-b706c4c9b3e2@oss.qualcomm.com>
- <20260703-glymur-soccp-v4-2-b706c4c9b3e2@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IZzyVtOT"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493c2c0b9a8so21524035e9.1
+        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 15:40:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783291243; x=1783896043; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=veU2IZXpTiLRV+FUCeAbLnHfRb1mcReExg9kWOUDBqA=;
+        b=IZzyVtOTFcv7PRBDHD9/w92l8TEWp9nBHTccefnzhmj9va1ldhieCIOA4T5vb27jRC
+         0VeUky/pI8uCWNc817jEiSCSARdtbltKuTVdAPevc9pJMqZE82DnCmGDG2zIWOkED+3M
+         33CT7zxRAOsUYKwLUJ4XSVBOHIPK9QqUctQRp0UmLSudRhuwPDl9+Kknt1CBUUl2J446
+         4LiIhHZt7mMZJs5ivy7SMxRpoiiBmNXNU6W2cnCx05ADuomxMSstPwPoSaj5qpPIflBq
+         sZSbcILeHpQu8bzaNzM+SWcLClgqrj6AIN9yTh/cY84Mf5UXEqirx5JU2HFRlys7g1xz
+         xBHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783291243; x=1783896043;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=veU2IZXpTiLRV+FUCeAbLnHfRb1mcReExg9kWOUDBqA=;
+        b=HHCY8jAiaCngro82mYvispahxRwCFKOgXhSWhrfHMuzDaodGT3Mk7imayWqTopcrvm
+         L6k3w0J7f938SxgpG2HAHt4ftMxBMm47dYleucm5dQWP+Ke3SHdon2Zi3L8dBCJoJzHp
+         N6CVa+K5EESSw/aUv2CCEbbMQynrTJbhN0DxsZyouX1RyMVyMG/Zlvowt6BqWgdNxZvf
+         x57NOUYI5H6zpFs0EhyUuz29VbD8r+sDPRD0yXxgxD1keCOxhZ8M61h4M/Vuo5LgpyXv
+         O7JTObZWuKpQfRnZYzIOJJul+IpDYHD5m+PQ3FTHkHX/pEQ7imt+IVgnS8Ud86sZe1xh
+         NNgA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpwd8ujrU61Fhf60oFPnyH5n1Uo30bMgNe7S4bERrKeKhDbgBT3hYGk+4qnNK1IGjuxFpwCS422z5JK@vger.kernel.org
+X-Gm-Message-State: AOJu0YwjjNuT4o2K779ZhiXdNFX+MywMRU98rHXkcYizlpwlfra8gy/y
+	cjJcpGOztfvgHC9G83woEYnJYVY6ZyDAI/LDAaVSVipn1AZJIaF9a3Gf
+X-Gm-Gg: AfdE7cn1+YJwFoEqYWfZMiVsuGTkQ9xzjHogqYO7FgWqtuLeCzsim8tZfbM4ahwW8Ko
+	J1az3pBRnm3j/hR7/OJvuinEQQyKHlEGL23nimUqo16bV4MGYyP00Yq4GZRzdSX0oTQzKFAodjO
+	dzkhHaZpPml7Q6WVUlMq1e4GvKK9IiQmqkQKCWeDC/sSNweA+jpKn++KnUg3golZcUluzcpDokW
+	XzzHu9Gk4yQZX+TU9LwmyDIxCsNLlCjGHgLKHokN9kRaa2k1hzBmaizZwqrkcNNvQhE+bD88nvz
+	VdhH+JYNTFwrV7g2HijiUHG8fLKZgF5TH2xHRpIc6b0rw1jVvrdA24Ww/hIthoqoHKfC3/P/qpt
+	FX68KE6QOaRAOzNTMMbj+COb70J9xDNdSWxejn/xxj4ZNKFImpsdqdlOSAQTzi3OfIfwzDnNi34
+	23PJilyExJnSgxqkuY2UL2dgDgaxpJ+IUpbVl1wBO+xshMN0KCEFiT0Q7PT8M=
+X-Received: by 2002:a05:600c:314f:b0:493:cfd2:cd06 with SMTP id 5b1f17b1804b1-493d11cef20mr85595145e9.6.1783291242828;
+        Sun, 05 Jul 2026 15:40:42 -0700 (PDT)
+Received: from [192.168.1.109] (87-126-128-216.ip.btc-net.bg. [87.126.128.216])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493bef1807asm289906045e9.1.2026.07.05.15.40.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 05 Jul 2026 15:40:41 -0700 (PDT)
+Message-ID: <4df9f388-2dc7-47b6-afc0-7a0cc6d15ca3@gmail.com>
+Date: Mon, 6 Jul 2026 01:40:40 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260703-glymur-soccp-v4-2-b706c4c9b3e2@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/6] dt-binding: ARM: samsung: Add Samsung Exynos8855
+To: Alim Akhtar <alim.akhtar@samsung.com>, krzk@kernel.org,
+ peter.griffin@linaro.org, robh@kernel.org, conor+dt@kernel.org,
+ linusw@kernel.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ hajun.sung@samsung.com
+References: <20260627171228.2687857-1-alim.akhtar@samsung.com>
+ <CGME20260627165406epcas5p1be75af2010edfc57cad0f668a8e3568d@epcas5p1.samsung.com>
+ <20260627171228.2687857-2-alim.akhtar@samsung.com>
+Content-Language: en-US
+From: Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>
+In-Reply-To: <20260627171228.2687857-2-alim.akhtar@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jul 03, 2026 at 05:31:12AM -0700, Ananthu C V wrote:
-> Fixup the SoCCP/SoCCP DTB memory regions to reflect the memory
-> region requirements of the SoCCP firmware, as described in the
-> Glymur v21 memory map release.
-
-Please change your commit message to start with a problem description,
-not the action taken by the patch.
-
+On 6/27/26 20:12, Alim Akhtar wrote:
+> Add Samsung Exynos8855 smdk board to documentation
 > 
-> Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
 > ---
->  arch/arm64/boot/dts/qcom/glymur.dtsi | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+>  .../devicetree/bindings/arm/samsung/samsung-boards.yaml     | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> index 20b49af7298e..5f44f68efde2 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> @@ -602,13 +602,13 @@ spss_region_mem: spss@88a00000 {
->  			no-map;
->  		};
+> diff --git a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
+> index 753b3ba1b607..273464400477 100644
+> --- a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
+> +++ b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
+> @@ -235,6 +235,12 @@ properties:
+>                - winlink,e850-96                 # WinLink E850-96
+>            - const: samsung,exynos850
 >  
-> -		soccpdtb_mem: soccpdtb@892e0000 {
-> -			reg = <0x0 0x892e0000 0x0 0x20000>;
-> +		soccpdtb_mem: soccpdtb@89200000 {
-> +			reg = <0x0 0x89200000 0x0 0x20000>;
->  			no-map;
->  		};
->  
-> -		soccp_mem: soccp@89300000 {
-> -			reg = <0x0 0x89300000 0x0 0x400000>;
-> +		soccp_mem: soccp@88e00000 {
+> +      - description: Exynos8855 based boards
+> +        items:
+> +          - enum:
+> +              - samsung,exynos8855-smdk         # Samsung SMDK
+> +          - const: samsung,exynos8855
 
-Now the sort order is wrong.
+Is there any particular reason for using "exynos8855" rather than the commercial
+name - exynos1580? We've already established using the latter naming scheme as a
+convention (e.g. exynos3830 -> exynos850, exynos9830 -> exynos990) rather than
+the development model numbers, so I don't think breaking that will help anyone
+with the already painful model number confusion.
 
-Regards,
-Bjorn
+Best regards,
+Ivaylo
 
-> +			reg = <0x0 0x88e00000 0x0 0x400000>;
->  			no-map;
->  		};
->  
-> 
-> -- 
-> 2.43.0
-> 
+> +
+>        - description: Exynos8895 based boards
+>          items:
+>            - enum:
+
