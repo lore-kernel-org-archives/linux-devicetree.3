@@ -1,530 +1,431 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA7320FA81
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 06:32:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D138B17A2FB
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 06:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783233167; cv=none; b=ApdZ7EyuFINYsKWEVP6u8Ecj6C7QpT5zOdYeu8v2xTD6eLfN38rTUSecSkO7oTFVeyxmWdkd2NwopC6q5KZ2uUgrSa/hiD+P87WYwIuzvKlgQ57IDJvEYL9Zc4gVZmVUo7c1cqoUHrCM6coMr2vuOP7Xm6HQxt83LKHET0qunVo=
+	t=1783233270; cv=none; b=IubdVeodJCmKtP4fvMR1k4gVXLz9HkTkCSUybQY31wbWml2jNs88LW0Dyw88D4lJK74EnCx/cNpny0CiOwesfnRy2k4Dpb5qbnYy8HrADH6zjttPzgkI51epoKVlPwL2KiO1sIL/dBDZ4Hq+NPcVbvNLdp2jcEf5a92A07BxyuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783233167; c=relaxed/simple;
-	bh=Uy9t3i/+5/iZQkr0cD2zFs06fHLnmgjxIp6Ka4JbEvE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=en4xRqbLOHok7N1OIaLiB0DwJUBiZy0OkdCtLES/laRxnkigaStnVM3AyVoL2cRZAoboUqa2keVkqsTkHuRG2BVm8+JVYBy8HQIhL8ZC0R/SRhDM4iMEw3dR3NJgwALN/Is14e7lvHPZu3qSSzieUNdoh72M0q7toiNtLIaUA1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p296X9r/; arc=none smtp.client-ip=209.85.210.182
+	s=arc-20240116; t=1783233270; c=relaxed/simple;
+	bh=mI6JpstHq79ss97RLmBW5ZMpjBAldYlYI48eUjPaURs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=B82oCNMBPKhEXk01HmY/9DAFuPUE6eELf9u6ZKWzHxLHCp6e95XCI8nxYvg9ZvxtZCqDirUU1VU8BhZyCOVeGY05rx28jwC1624urF6Oeo0m538qqey6S7UZBFoL57KwNGMSPxMhUcOIXUY9OmSiW7k5xYRk+il/KunmtyCpYVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O0lXJCDY; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p296X9r/"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-84780c95e2eso1392295b3a.3
-        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 23:32:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O0lXJCDY"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493c00f74baso11643585e9.0
+        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 23:34:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783233164; x=1783837964; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=GJggn43oD/0VX63t4A/m6JnBIAg53KRXM9fkagzEJ6k=;
-        b=p296X9r/GsfbqSiR+PK0iM+qfoTvRquFTYtT1v2UupclHvwlPsm+m0zpYuDgL0a3JX
-         kC1xEAclvxUruGE4XB1E8mC9HLfKIwrFstgwecjAfYIE+qU6BMG4Sdv9Q2IPRn4OOdz3
-         n0A6s9XhVfJaVFNcglk8W9xIxShJ23CWWOCtINPWI2xjQ0hUiFFe4BWRabBgZDvy/Wwv
-         wBcSR4irZMc/2WL6DPbv5iSNOcVkgvhD8vV2f0T1V+VhKypDBdBSvC4MkhFQvAG06PoT
-         PDMnBs4H/UT/qqQ9v4r4gZEv+XQbVCxJ103nxPb/WhjSveoA9+PPUtSKc0LkVbLKwckR
-         n1LA==
+        d=gmail.com; s=20251104; t=1783233266; x=1783838066; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=zmdu4l5oC2o3xpqXR0SLxS3RQTGeyS4u8caych2t6oU=;
+        b=O0lXJCDYWg3lf+Tp3gyKl7D/VuzGpbh58Ugl+haEuBuREvjyRa3PGAQgnDe1J8r6YL
+         1yBquZWH7tBwKsUSLZVKGzxv4Joaiwtv8i2bDY2M4KTePRJghDz2JV3uzS47Y8zLiPcI
+         pz6+AUwTq1lt2mSpH8aEMWnhnaCAZgImUFKzEDMfeUd8sl5lPpONN1DyT+MpzLm5NQhZ
+         ywg0e8X4XgprHsNBR7qQwbcNwKXd3zrhVbdyQ3M3lvAChU8rSNEbS+pfGv/iOODI1tQ9
+         Cupj/gN9X8UUe+v8k+uV7uVOtGZBCXtxS5GTE1tvAKwCPoPmVEHEzcXGgbwH9aFGGR2g
+         a+AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783233164; x=1783837964;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1783233266; x=1783838066;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GJggn43oD/0VX63t4A/m6JnBIAg53KRXM9fkagzEJ6k=;
-        b=WTBACX9McfRaMwGlO91my5aHi24YWcQO/G0hvAwkxaBtz7AjxosIC1euky1Q3oGtcW
-         owow8/ZZFhxz5MU5NUSCqFeCoykIeG44z+8KmDHswtYbx5fepLmdiA5blvDKnlzthtgp
-         7FDBa03/YZ2WNtabUD7Anpgnw3VNaey6md4By+3P410/U1hpBjbEugTbf/iPKs3sMp6E
-         TOfKxekUEXwLjLrEhFrYqC+Og49AH2hhnbQWlPVBU8N53O0dklXUkBe3mXHzmPaRx7aA
-         sRLfMuCPDuirHHeS5bsWhZHuCEMKtLGOD4NkfiQ7pZ7jAc225jTmLTA3E58/I22OXdRX
-         ZWHQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+FPPTGMcmFrsV/empOyNZDGhW30xsprv2y61KDRsSaP3jNcJhjxKyCL6JNkBs8OMOHx8xTdfKWkhbV@vger.kernel.org
-X-Gm-Message-State: AOJu0Yys2WhFCvB6cEcffwaxkzz70XWHDUO+gQWQruT9sbokLgeH5gbf
-	BmAJmk5hNQbbcgS/WRsoqTtE0GY2Z1q282pdVvmN6/jUl4xny8Nvkjas
-X-Gm-Gg: AfdE7cm+0gaI4Ak9wsg7Z1YJevj2GMw6PK/hZULcI054O+pcOr4S6WJOMNm8mHDOJNp
-	Op0/lSkYaudtNKXclArls/K24ZAe/aZjggxQoSZssIn/1xIjp1Kz3BBp7BNGvhNWCr8PpVHrwq6
-	pGu2csziY9oeo040FpRttDJaBLQpvMINedfEHXk6UbL4Qxnn26QeafIT1P7lsMpgws/rBE8BG/U
-	L2Ld8aon5nhjmZib+9mmURWiVlgnRH+S06LpNQExPAoYF/Jh7CkXP0K2WNqQXSDvs0DNrhSjl2D
-	wOkJ3x/OOSvX9VQz3P4QULD390E8Pe+RELIiWsY5D4Xbi0wWnDIhgGYuQ7eHHPtd1hMgqEcAPHV
-	fcJiBPgNxqXGrfD9zrdpVLM8x15ISV8VZVLTAWmK33kOw8/fH7R+xZYzRsrnJ3HqqONgr6eh7yv
-	UfnuNCfchWRvBLsRoBpD90OJoXEmEsvINRKbM=
-X-Received: by 2002:a05:6a20:9185:b0:3b4:8300:7019 with SMTP id adf61e73a8af0-3c03e2a2ab7mr6036863637.18.1783233164068;
-        Sat, 04 Jul 2026 23:32:44 -0700 (PDT)
-Received: from Black-Pearl.localdomain ([49.207.62.139])
-        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-13b3c85b345sm58164478c88.10.2026.07.04.23.32.39
+        bh=zmdu4l5oC2o3xpqXR0SLxS3RQTGeyS4u8caych2t6oU=;
+        b=EQlI9nu7B1azu9HCxHFn0zekfclZoidWxeh3cxh55YrCt1OyPSlnc25Q9bl/mIKxwX
+         2P1ia2xZ9B//SYW75c/qnrxT3Zm3F2oGhcC/5ra4bKqZuTHSkZW9PQ8gnCe3k5UeVN5i
+         C9w5MhJuN0EneRSQF3ESGGEIDTv/9H6fJ6ICEcTenJZlHzDA+dzfYrWauhum2fNLkQgh
+         VHXz3zZtLZP6RObu9fqx2aDi0RhjDG2EFf1lJrp37FpsrBkJ6aj/uSVkDTJAS/+VHNvD
+         zwpha0l0khJ28QnLW7NfOM+qJIr5etol/KbukqSCU2vVx81qBd2mG05UaouTRi3qN7B6
+         74VA==
+X-Forwarded-Encrypted: i=1; AFNElJ93wvUHox67jqOLLagQmnDsAli9g2AKv2zlvyf6Erz3Lc1p2Nd5667+4g8A/zNJadGxXY0iRM8cCHf5@vger.kernel.org
+X-Gm-Message-State: AOJu0YydklY/fwAB3oaJ2PUxcASK74mSt2ldjoW9c28JOdSdQvWyavuO
+	wV0t8DnSeqoiC0ik50BxaBumCWXcv5Zo5B5IQleU7ysuMB+wxsg9rdTX
+X-Gm-Gg: AfdE7cmnt8BnBThw0GtS96/iZ2NQ4mJquGgPP1+Y4zEqSbIx6ooaIojZ9RDRZTRXPZx
+	skl60ECdcpGRfwxFBlh/RD3oSovUwoVe2eEBn+WhMzhRgS37Yozr7Fx4Dz6VYdSc7dRfABsaBOS
+	xNr0neXeYyxmxHzal2iXY2OMLJNuREgULncgeXegM4Y07Z1vvdj0klYbNjhGuU8ewYjfkWCXS6B
+	ArNtEdZ/ZYcf0lUyElyhiWIUu0xWhFr/ajya7uL5wLNnq0ys659+SART8gaXM/v/lBaRyt5wPcL
+	wF28OmxVjOssYjTjE//fKI3zSaZAuseEd1K0RWS6p2moXui5n6ivpJIdPUhay0CdBmQKjuKN5aM
+	t1R4GMAyiON+wdg4GdP7yp/siLnvJezDL6N2FccOf9CVBjLZsFuOiDJ+Q4tHaEO9s1wDzvjoIV3
+	/YsP7ZvQ==
+X-Received: by 2002:a05:600c:a20c:b0:490:bd1d:4732 with SMTP id 5b1f17b1804b1-493d11f19f2mr33697475e9.23.1783233265840;
+        Sat, 04 Jul 2026 23:34:25 -0700 (PDT)
+Received: from avermoal ([185.13.176.155])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0960af0sm12728592f8f.30.2026.07.04.23.34.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 04 Jul 2026 23:32:43 -0700 (PDT)
-From: Charan Pedumuru <charan.pedumuru@gmail.com>
-Date: Sun, 05 Jul 2026 06:32:32 +0000
-Subject: [PATCH v3] ASoC: dt-bindings: sound: nvidia,tegra30-ahub: Convert
- to DT schema
+        Sat, 04 Jul 2026 23:34:25 -0700 (PDT)
+From: Avermoal <avermoal@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Avermoal <avermoal@gmail.com>
+Subject: [PATCH] dt-bindings: iio: adc: convert Xilinx XADC bindings to YAML
+Date: Sun,  5 Jul 2026 12:34:13 +0600
+Message-ID: <20260705063415.33076-1-avermoal@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260705-nvidia-ahub-v3-1-bacb7e05bf68@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAH/6SWoC/1WOzQ6DIBAGX8VwLg0s+JOe+h5ND4Co21RtQEkb4
- 7sX9KLHSb6Z3YV469B6cssW4mxAj+MQQVwyYjo1tJZiHZkAg4JJADoErFFR1c2a1mCsZqKEUko
- SjY+zDX632uO5s5/1y5opJdKiQz+N7redCzzt9nLBxakcOOU016WtcsF4KYp72yt8X83Yk1QOc
- HAhP7sQ3fiX5EawhjfV0V3X9Q+AD0mM9AAAAA==
-X-Change-ID: 20260422-nvidia-ahub-d2ceb0372744
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Charan Pedumuru <charan.pedumuru@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Convert NVIDIA Tegra Audio Hub (AHUB) binding to DT schema.
+Convert the Xilinx XADC binding documentation from .txt to YAML format.
+This conversion is part of the ongoing effort to migrate all DT bindings
+to a machine-verifiable schema.
 
-Per-SoC differences in reg, reset-names, and dma-names are enforced
-via allOf conditionals.
+The new xilinx-xadc.yaml file was created from the original .txt and
+includes all necessary properties, descriptions, and examples. The
+conversion also fixes a minor typo in the 'xlnx,channels' property name.
 
-Add patternProperties for i2s child nodes referencing
-nvidia,tegra30-i2s.yaml, reflecting actual DTSI usage where i2s
-controllers are placed directly under ahub. nvidia,ahub-cif-ids is
-not redeclared here as it is defined in the child i2s schema.
-
-Signed-off-by: Charan Pedumuru <charan.pedumuru@gmail.com>
+Signed-off-by: Avermoal <avermoal@gmail.com>
 ---
-Changes in v3:
-- Added reg-names to document what each reg entry represents.
-- Removed redundant minItems/maxItems in the per-SoC allOf blocks
-  where the value just repeated what the top-level schema already
-  set (reg, resets, reset-names, dmas, dma-names).
-- Added missing blank line between #include lines and the node body
-  in the example.
-- Link to v2: https://patch.msgid.link/20260625-nvidia-ahub-v2-1-eb041c30f1f8@gmail.com
+ .../bindings/iio/adc/xilinx-xadc.txt          | 141 --------------
+ .../bindings/iio/adc/xilinx-xadc.yaml         | 174 ++++++++++++++++++
+ 2 files changed, 174 insertions(+), 141 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.yaml
 
-Changes in v2:
-- Modify the subject line to match with upstreaming standards and change
-  commit message to exaplin the changes.
-- compatible: collapsed three standalone const entries into an enum,
-  sorted alphanumerically (tegra114 < tegra124 < tegra30)
-- reset-names: moved per-SoC ordered items lists from a top-level oneOf
-  into the allOf if/then blocks; top-level now has only minItems/maxItems
-- dma-names: dropped oneOf, kept single 20-item items list with minItems: 8;
-  per-SoC min/maxItems constraints moved into allOf if/then blocks
-- "#address-cells": replaced $ref: types with enum: [1, 2] at top level;
-  added const: 1 in tegra30 and tegra114 if/then blocks, const: 2 in
-  tegra124 if/then block to match actual dtsi values
-- "#size-cells": same treatment as #address-cells
-- patternProperties i2s child: replaced allOf + $ref wrapper with direct
-  $ref; removed properties/required block (nvidia,ahub-cif-ids belongs in
-  the i2s schema).
-- Link to v1: https://patch.msgid.link/20260613-nvidia-ahub-v1-1-5b7e85301736@gmail.com
----
- .../bindings/sound/nvidia,tegra30-ahub.txt         |  88 -------
- .../bindings/sound/nvidia,tegra30-ahub.yaml        | 292 +++++++++++++++++++++
- 2 files changed, 292 insertions(+), 88 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.txt b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.txt
+diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
 deleted file mode 100644
-index 0e9a1895d7fb..000000000000
---- a/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.txt
+index f42e18078376..000000000000
+--- a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
 +++ /dev/null
-@@ -1,88 +0,0 @@
--NVIDIA Tegra30 AHUB (Audio Hub)
+@@ -1,141 +0,0 @@
+-Xilinx XADC device driver
+-
+-This binding document describes the bindings for the Xilinx 7 Series XADC as well
+-as the UltraScale/UltraScale+ System Monitor.
+-
+-The Xilinx XADC is an ADC that can be found in the Series 7 FPGAs from Xilinx.
+-The XADC has a DRP interface for communication. Currently two different
+-frontends for the DRP interface exist. One that is only available on the ZYNQ
+-family as a hardmacro in the SoC portion of the ZYNQ. The other one is available
+-on all series 7 platforms and is a softmacro with a AXI interface. This binding
+-document describes the bindings for both of them since the bindings are very
+-similar.
+-
+-The Xilinx System Monitor is an ADC that is found in the UltraScale and
+-UltraScale+ FPGAs from Xilinx. The System Monitor provides a DRP interface for
+-communication. Xilinx provides a standard IP core that can be used to access the
+-System Monitor through an AXI interface in the FPGA fabric. This IP core is
+-called the Xilinx System Management Wizard. This document describes the bindings
+-for this IP.
 -
 -Required properties:
--- compatible : For Tegra30, must contain "nvidia,tegra30-ahub".  For Tegra114,
--  must contain "nvidia,tegra114-ahub".  For Tegra124, must contain
--  "nvidia,tegra124-ahub".  Otherwise, must contain "nvidia,<chip>-ahub",
--  plus at least one of the above, where <chip> is tegra132.
--- reg : Should contain the register physical address and length for each of
--  the AHUB's register blocks.
--  - Tegra30 requires 2 entries, for the APBIF and AHUB/AUDIO register blocks.
--  - Tegra114 requires an additional entry, for the APBIF2 register block.
--- interrupts : Should contain AHUB interrupt
--- clocks : Must contain an entry for each entry in clock-names.
--  See ../clocks/clock-bindings.txt for details.
--- clock-names : Must include the following entries:
--  - d_audio
--  - apbif
--- resets : Must contain an entry for each entry in reset-names.
--  See ../reset/reset.txt for details.
--- reset-names : Must include the following entries:
--  Tegra30 and later:
--  - d_audio
--  - apbif
--  - i2s0
--  - i2s1
--  - i2s2
--  - i2s3
--  - i2s4
--  - dam0
--  - dam1
--  - dam2
--  - spdif
--  Tegra114 and later additionally require:
--  - amx
--  - adx
--  Tegra124 and later additionally require:
--  - amx1
--  - adx1
--  - afc0
--  - afc1
--  - afc2
--  - afc3
--  - afc4
--  - afc5
--- ranges : The bus address mapping for the configlink register bus.
--  Can be empty since the mapping is 1:1.
--- dmas : Must contain an entry for each entry in clock-names.
--  See ../dma/dma.txt for details.
--- dma-names : Must include the following entries:
--  - rx0 .. rx<n>
--  - tx0 .. tx<n>
--  ... where n is:
--  Tegra30: 3
--  Tegra114, Tegra124: 9
--- #address-cells : For the configlink bus. Should be <1>;
--- #size-cells : For the configlink bus. Should be <1>.
+-	- compatible: Should be one of
+-		* "xlnx,zynq-xadc-1.00.a": When using the ZYNQ device
+-		  configuration interface to interface to the XADC hardmacro.
+-		* "xlnx,axi-xadc-1.00.a": When using the axi-xadc pcore to
+-		  interface to the XADC hardmacro.
+-		* "xlnx,system-management-wiz-1.3": When using the
+-		  Xilinx System Management Wizard fabric IP core to access the
+-		  UltraScale and UltraScale+ System Monitor.
+-	- reg: Address and length of the register set for the device
+-	- interrupts: Interrupt for the XADC control interface.
+-	- clocks: When using the ZYNQ this must be the ZYNQ PCAP clock,
+-	  when using the axi-xadc or the axi-system-management-wizard this must be
+-	  the clock that provides the clock to the AXI bus interface of the core.
 -
--AHUB client modules need to specify the IDs of their CIFs (Client InterFaces).
--For RX CIFs, the numbers indicate the register number within AHUB routing
--register space (APBIF 0..3 RX, I2S 0..5 RX, DAM 0..2 RX 0..1, SPDIF RX 0..1).
--For TX CIFs, the numbers indicate the bit position within the AHUB routing
--registers (APBIF 0..3 TX, I2S 0..5 TX, DAM 0..2 TX, SPDIF TX 0..1).
+-Optional properties:
+-	- xlnx,external-mux:
+-		* "none": No external multiplexer is used, this is the default
+-		  if the property is omitted.
+-		* "single": External multiplexer mode is used with one
+-		   multiplexer.
+-		* "dual": External multiplexer mode is used with two
+-		  multiplexers for simultaneous sampling.
+-	- xlnx,external-mux-channel: Configures which pair of pins is used to
+-	  sample data in external mux mode.
+-	  Valid values for single external multiplexer mode are:
+-		0: VP/VN
+-		1: VAUXP[0]/VAUXN[0]
+-		2: VAUXP[1]/VAUXN[1]
+-		...
+-		16: VAUXP[15]/VAUXN[15]
+-	  Valid values for dual external multiplexer mode are:
+-		1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
+-		2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
+-		...
+-		8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
 -
--Example:
+-	  This property needs to be present if the device is configured for
+-	  external multiplexer mode (either single or dual). If the device is
+-	  not using external multiplexer mode the property is ignored.
+-	- xnlx,channels: List of external channels that are connected to the ADC
+-	  Required properties:
+-		* #address-cells: Should be 1.
+-		* #size-cells: Should be 0.
 -
--ahub@70080000 {
--	compatible = "nvidia,tegra30-ahub";
--	reg = <0x70080000 0x200 0x70080200 0x100>;
--	interrupts = < 0 103 0x04 >;
--	nvidia,dma-request-selector = <&apbdma 1>;
--	clocks = <&tegra_car 106>, <&tegra_car 107>;
--	clock-names = "d_audio", "apbif";
--	resets = <&tegra_car 106>, <&tegra_car 107>, <&tegra_car 30>,
--		<&tegra_car 11>, <&tegra_car 18>, <&tegra_car 101>,
--		<&tegra_car 102>, <&tegra_car 108>, <&tegra_car 109>,
--		<&tegra_car 110>, <&tegra_car 10>;
--	reset-names = "d_audio", "apbif", "i2s0", "i2s1", "i2s2",
--		"i2s3", "i2s4", "dam0", "dam1", "dam2",
--		"spdif";
--	dmas = <&apbdma 1>, <&apbdma 1>;
--	       <&apbdma 2>, <&apbdma 2>;
--	       <&apbdma 3>, <&apbdma 3>;
--	       <&apbdma 4>, <&apbdma 4>;
--	dma-names = "rx0", "tx0", "rx1", "tx1", "rx2", "tx2", "rx3", "tx3";
--	ranges;
--	#address-cells = <1>;
--	#size-cells = <1>;
--};
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml
+-	  The child nodes of this node represent the external channels which are
+-	  connected to the ADC. If the property is no present no external
+-	  channels will be assumed to be connected.
+-
+-	  Each child node represents one channel and has the following
+-	  properties:
+-		Required properties:
+-			* reg: Pair of pins the channel is connected to.
+-				0: VP/VN
+-				1: VAUXP[0]/VAUXN[0]
+-				2: VAUXP[1]/VAUXN[1]
+-				...
+-				16: VAUXP[15]/VAUXN[15]
+-			  Note each channel number should only be used at most
+-			  once.
+-		Optional properties:
+-			* xlnx,bipolar: If set the channel is used in bipolar
+-			  mode.
+-
+-
+-Examples:
+-	xadc@f8007100 {
+-		compatible = "xlnx,zynq-xadc-1.00.a";
+-		reg = <0xf8007100 0x20>;
+-		interrupts = <0 7 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&pcap_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-			};
+-			channel@1 {
+-				reg = <1>;
+-			};
+-			channel@8 {
+-				reg = <8>;
+-			};
+-		};
+-	};
+-
+-	xadc@43200000 {
+-		compatible = "xlnx,axi-xadc-1.00.a";
+-		reg = <0x43200000 0x1000>;
+-		interrupts = <0 53 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+-
+-	adc@80000000 {
+-		compatible = "xlnx,system-management-wiz-1.3";
+-		reg = <0x80000000 0x1000>;
+-		interrupts = <0 81 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.yaml
 new file mode 100644
-index 000000000000..348e32c1ed92
+index 000000000000..a32b712d8485
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml
-@@ -0,0 +1,292 @@
++++ b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.yaml
+@@ -0,0 +1,174 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/sound/nvidia,tegra30-ahub.yaml#
++$id: http://devicetree.org/schemas/iio/adc/xilinx-xadc.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: NVIDIA Tegra Audio Hub (AHUB)
++title: Xilinx 7 Series XADC and UltraScale/UltraScale+ System Monitor
 +
 +maintainers:
-+  - Jonathan Hunter <jonathanh@nvidia.com>
++  - Avermoal <avermoal@gmail.com>
 +
-+description:
-+  The NVIDIA Tegra AHUB (Audio Hub) is an audio interconnect block used to
-+  route data between various audio clients such as I2S, DAM, SPDIF, and
-+  APBIF. It exposes multiple register regions and supports different
-+  configurations depending on the Tegra SoC generation. The AHUB also
-+  provides a configlink bus for child audio components, which use CIF
-+  (Client Interface) IDs to identify their data paths. The number of DMA
-+  channels, reset lines, and additional modules varies across Tegra30,
-+  Tegra114, and Tegra124 platforms.
++description: |
++  The Xilinx XADC is an ADC that can be found in the Series 7 FPGAs from Xilinx.
++  The XADC has a DRP interface for communication. Currently two different
++  frontends for the DRP interface exist. One that is only available on the ZYNQ
++  family as a hardmacro in the SoC portion of the ZYNQ. The other one is
++  available on all series 7 platforms and is a softmacro with an AXI interface.
++  This binding document describes the bindings for both of them since the
++  bindings are very similar.
++
++  The Xilinx System Monitor is an ADC that is found in the UltraScale and
++  UltraScale+ FPGAs from Xilinx. The System Monitor provides a DRP interface
++  for communication. Xilinx provides a standard IP core that can be used to
++  access the System Monitor through an AXI interface in the FPGA fabric.
++  This IP core is called the Xilinx System Management Wizard. This document
++  describes the bindings for this IP.
 +
 +properties:
 +  compatible:
-+    oneOf:
-+      - enum:
-+          - nvidia,tegra114-ahub
-+          - nvidia,tegra124-ahub
-+          - nvidia,tegra30-ahub
-+      - items:
-+          - const: nvidia,tegra132-ahub
-+          - const: nvidia,tegra124-ahub
++    description: |
++      Specifies the interface type and the target device.
++      - "xlnx,zynq-xadc-1.00.a"
++      for ZYNQ device configuration interface (hardmacro in SoC)
++      - "xlnx,axi-xadc-1.00.a"
++      for AXI pcore softmacro on all Series 7 FPGAs
++      - "xlnx,system-management-wiz-1.3"
++      for UltraScale/UltraScale+ System Monitor via AXI
++    enum:
++      - xlnx,zynq-xadc-1.00.a
++      - xlnx,axi-xadc-1.00.a
++      - xlnx,system-management-wiz-1.3
 +
 +  reg:
-+    minItems: 2
-+    items:
-+      - description: APBIF register region
-+      - description: AHUB register region
-+      - description: AHUB configlink register region (Tegra114/Tegra124 only)
++    description: Address and length of the register set for the device.
++    maxItems: 1
 +
 +  interrupts:
++    description: Interrupt for the XADC control interface.
 +    maxItems: 1
 +
 +  clocks:
-+    items:
-+      - description: Clock for the D_AUDIO domain
-+      - description: Clock for the APBIF interface
++    description: |
++      When using the ZYNQ this must be the ZYNQ PCAP clock,
++      when using the axi-xadc or the axi-system-management-wizard this must be
++      the clock that provides the clock to the AXI bus interface of the core.
++    maxItems: 1
 +
-+  clock-names:
-+    items:
-+      - const: d_audio
-+      - const: apbif
++  xlnx,external-mux:
++    description: |
++      External multiplexer mode. If omitted, defaults to "none".
++      - "none" – no external multiplexer (default)
++      - "single" – one external multiplexer
++      - "dual" – two external multiplexers for simultaneous sampling
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [none, single, dual]
++    default: none
 +
-+  resets:
-+    minItems: 11
-+    maxItems: 21
++  xlnx,external-mux-channel:
++    description: |
++      Configures which pair of pins is used to sample data in external mux mode.
++      For single mode: 0 (VP/VN) or 1..16 (VAUXP[0..15]/VAUXN[0..15]).
++      For dual mode: 1..8, where the value n corresponds to the pair
++      (VAUXP[n-1]/VAUXN[n-1] and VAUXP[n+7]/VAUXN[n+7]).
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 0
++    maximum: 16
 +
-+  reset-names:
-+    minItems: 11
-+    maxItems: 21
-+
-+  dmas:
-+    minItems: 8
-+    maxItems: 20
-+
-+  dma-names:
-+    minItems: 8
-+    items:
-+      - const: rx0
-+      - const: tx0
-+      - const: rx1
-+      - const: tx1
-+      - const: rx2
-+      - const: tx2
-+      - const: rx3
-+      - const: tx3
-+      - const: rx4
-+      - const: tx4
-+      - const: rx5
-+      - const: tx5
-+      - const: rx6
-+      - const: tx6
-+      - const: rx7
-+      - const: tx7
-+      - const: rx8
-+      - const: tx8
-+      - const: rx9
-+      - const: tx9
-+
-+  "#address-cells":
-+    enum: [1, 2]
-+
-+  "#size-cells":
-+    enum: [1, 2]
-+
-+  ranges: true
-+
-+patternProperties:
-+  "^i2s@[0-9a-f]+$":
-+    $ref: /schemas/sound/nvidia,tegra30-i2s.yaml#
-+    unevaluatedProperties: false
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: nvidia,tegra30-ahub
-+    then:
-+      properties:
-+        reg:
-+          maxItems: 2
-+
-+        resets:
-+          maxItems: 11
-+
-+        reset-names:
-+          items:
-+            - const: d_audio
-+            - const: apbif
-+            - const: i2s0
-+            - const: i2s1
-+            - const: i2s2
-+            - const: i2s3
-+            - const: i2s4
-+            - const: dam0
-+            - const: dam1
-+            - const: dam2
-+            - const: spdif
-+
-+        dmas:
-+          maxItems: 8
-+
-+        dma-names:
-+          maxItems: 8
-+
-+        "#address-cells":
-+          const: 1
-+
-+        "#size-cells":
-+          const: 1
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: nvidia,tegra114-ahub
-+    then:
-+      properties:
-+        reg:
-+          minItems: 3
-+          maxItems: 3
-+
-+        resets:
-+          minItems: 13
-+          maxItems: 13
-+
-+        reset-names:
-+          items:
-+            - const: d_audio
-+            - const: apbif
-+            - const: i2s0
-+            - const: i2s1
-+            - const: i2s2
-+            - const: i2s3
-+            - const: i2s4
-+            - const: dam0
-+            - const: dam1
-+            - const: dam2
-+            - const: spdif
-+            - const: amx
-+            - const: adx
-+
-+        dmas:
-+          minItems: 20
-+
-+        dma-names:
-+          minItems: 20
-+
-+        "#address-cells":
-+          const: 1
-+
-+        "#size-cells":
-+          const: 1
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: nvidia,tegra124-ahub
-+    then:
-+      properties:
-+        reg:
-+          minItems: 3
-+          maxItems: 3
-+
-+        resets:
-+          minItems: 21
-+
-+        reset-names:
-+          items:
-+            - const: d_audio
-+            - const: apbif
-+            - const: i2s0
-+            - const: i2s1
-+            - const: i2s2
-+            - const: i2s3
-+            - const: i2s4
-+            - const: dam0
-+            - const: dam1
-+            - const: dam2
-+            - const: spdif
-+            - const: amx
-+            - const: amx1
-+            - const: adx
-+            - const: adx1
-+            - const: afc0
-+            - const: afc1
-+            - const: afc2
-+            - const: afc3
-+            - const: afc4
-+            - const: afc5
-+
-+        dmas:
-+          minItems: 20
-+
-+        dma-names:
-+          minItems: 20
-+
-+        "#address-cells":
-+          const: 2
-+
-+        "#size-cells":
-+          const: 2
++  xlnx,channels:
++    description: |
++      Container for external channels that are connected to the ADC.
++      If this property is not present, no external channels will be assumed.
++    type: object
++    properties:
++      "#address-cells":
++        const: 1
++      "#size-cells":
++        const: 0
++    patternProperties:
++      "^channel@[0-9a-f]+$":
++        type: object
++        description: Each child node represents one external channel.
++        properties:
++          reg:
++            description: |
++              Pair of pins the channel is connected to.
++              0: VP/VN
++              1..16: VAUXP[0..15]/VAUXN[0..15]
++            $ref: /schemas/types.yaml#/definitions/uint32
++            minimum: 0
++            maximum: 16
++          xlnx,bipolar:
++            description: If present, the channel is used in bipolar mode.
++            type: boolean
++        required:
++          - reg
++        additionalProperties: false
++    additionalProperties: false
 +
 +required:
-+  - reg
 +  - compatible
++  - reg
 +  - interrupts
 +  - clocks
-+  - clock-names
-+  - resets
-+  - reset-names
-+  - dmas
-+  - dma-names
-+  - "#address-cells"
-+  - "#size-cells"
-+  - ranges
 +
-+additionalProperties: false
++unevaluatedProperties: false
 +
 +examples:
 +  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/tegra30-car.h>
++    xadc@f8007100 {
++        compatible = "xlnx,zynq-xadc-1.00.a";
++        reg = <0xf8007100 0x20>;
++        interrupts = <0 7 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&pcap_clk>;
 +
-+    ahub@70080000 {
-+        compatible = "nvidia,tegra30-ahub";
-+        reg = <0x70080000 0x200>, <0x70080200 0x100>;
-+        interrupts = <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&tegra_car TEGRA30_CLK_D_AUDIO>,
-+                 <&tegra_car TEGRA30_CLK_APBIF>;
-+        clock-names = "d_audio", "apbif";
-+        resets = <&tegra_car 106>, <&tegra_car 107>,
-+                 <&tegra_car 30>, <&tegra_car 11>,
-+                 <&tegra_car 18>, <&tegra_car 101>,
-+                 <&tegra_car 102>, <&tegra_car 108>,
-+                 <&tegra_car 109>, <&tegra_car 110>,
-+                 <&tegra_car 10>;
-+        reset-names = "d_audio", "apbif",
-+                      "i2s0", "i2s1", "i2s2", "i2s3", "i2s4",
-+                      "dam0", "dam1", "dam2",
-+                      "spdif";
-+        dmas = <&apbdma 1>, <&apbdma 1>,
-+               <&apbdma 2>, <&apbdma 2>,
-+               <&apbdma 3>, <&apbdma 3>,
-+               <&apbdma 4>, <&apbdma 4>;
-+        dma-names = "rx0", "tx0", "rx1", "tx1",
-+                    "rx2", "tx2", "rx3", "tx3";
-+        ranges;
-+        #address-cells = <1>;
-+        #size-cells = <1>;
++        xlnx,channels {
++            #address-cells = <1>;
++            #size-cells = <0>;
++            channel@0 {
++                reg = <0>;
++            };
++            channel@1 {
++                reg = <1>;
++            };
++            channel@8 {
++                reg = <8>;
++            };
++        };
++    };
++  - |
++    xadc@43200000 {
++        compatible = "xlnx,axi-xadc-1.00.a";
++        reg = <0x43200000 0x1000>;
++        interrupts = <0 53 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&fpga1_clk>;
 +
-+        i2s@70080300 {
-+            compatible = "nvidia,tegra30-i2s";
-+            reg = <0x70080300 0x100>;
-+            nvidia,ahub-cif-ids = <4 4>;
-+            clocks = <&tegra_car TEGRA30_CLK_I2S0>;
-+            resets = <&tegra_car 30>;
-+            reset-names = "i2s";
++        xlnx,channels {
++            #address-cells = <1>;
++            #size-cells = <0>;
++            channel@0 {
++                reg = <0>;
++                xlnx,bipolar;
++            };
++        };
++    };
++  - |
++    adc@80000000 {
++        compatible = "xlnx,system-management-wiz-1.3";
++        reg = <0x80000000 0x1000>;
++        interrupts = <0 81 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&fpga1_clk>;
++
++        xlnx,channels {
++            #address-cells = <1>;
++            #size-cells = <0>;
++            channel@0 {
++                reg = <0>;
++                xlnx,bipolar;
++            };
 +        };
 +    };
 +...
-
----
-base-commit: db7efce4ae23ad5e42f5f55428f529ff62b86fab
-change-id: 20260422-nvidia-ahub-d2ceb0372744
-
-Best regards,
---  
-Charan Pedumuru <charan.pedumuru@gmail.com>
+-- 
+2.52.0
 
