@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54453357D08;
-	Sun,  5 Jul 2026 15:39:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85355433E71;
+	Sun,  5 Jul 2026 15:42:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783265976; cv=none; b=Q0eWERAG3UuW8i7HQ/2kit/ENKwwLFPPojW8565mr2GGmxMCfGSbymgdZTUIkxp6MExLl2clAALYUxyQAhf2IE8SCRd1b2k8YXTtT1ykLH6YpPs3lnJ5/+Y19kGNDWZQPKQ6UkTVyp2LgpxvZsskV/WlXrA2XHGEknj5Ogk6MFk=
+	t=1783266160; cv=none; b=NFRGOyzQZqfNCAa2vC77/EMHqfBmjguaTnf0oEad4/7/HqEP1ocrkwTQr9LmueCUbwpX6jL1bbq4+i+irdfNZ9S8Jw3eNUX+vhQowRzkRqGkDfipDxZ8lwuSf8Lndowzy6OD+o+gWXXrCKFICjR+Z8sJPToaou21LLp3XsXj8YQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783265976; c=relaxed/simple;
-	bh=Ztv7XBugNgvHIDMFuwQqtJbP+aCw1Pf+o+IMT3Ctbjs=;
+	s=arc-20240116; t=1783266160; c=relaxed/simple;
+	bh=NrNDIfAHHXT3S66vsUdWTbxrZiVC/jmBZuzurGDuGp0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vBjMXhLIVRW/jVN/ARaYmfZn8l1p7+v55X7K9y96u//e+enO/ZMKAR6V8n7d0xtEmMILTrytJmEy5ve/WZN94eOkOBvC53qA7ggX4ducYRwwEdJxL0JTXzEo0P4CP9DMLw0vi1El23jh3pnsk/3W05onIpbX+YxHbN/rTrZXS40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OO60nRwj; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=fGZKKweQMg4/Tqc9CsB4XoPfuFOJ5nYqfVFngZJWckWSCxqeiwytUnQ8nkv3rkoRjgW1NHmntxWkZjVucP2zQkeqHc355Ll0xuCpyFvtLxKXXsK62dcviUqS/yj85m8M82iCMVC5Z+UXPX+GqKmTvPSY+LM3pF2ue6n0wr8ECRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9qJAark; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OO60nRwj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D18521F000E9;
-	Sun,  5 Jul 2026 15:39:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9qJAark"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E2141F000E9;
+	Sun,  5 Jul 2026 15:42:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783265975;
-	bh=fPFv6wrmFhvEO9FsjYFBiyfFxiZykbqBmyRffHnAoo0=;
+	s=k20260515; t=1783266159;
+	bh=NrNDIfAHHXT3S66vsUdWTbxrZiVC/jmBZuzurGDuGp0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OO60nRwjnJcARAgoaalIWDAWJZK0DLyawG3EUvndofyYhxMSvl5L4M/5OQAW5sgdG
-	 L+CVdYOQ3XznJb+Ps4RMv0g2J4k+UJ/c9Tqbprky88S7NlpzdtxdPXXe72FdRn624J
-	 0GRDXGD5vGS9zmajxmzXorxWRsF1MjpWy2jnFtVn7cQsBfKKoaMzstQZ0vlxPql8Yl
-	 ehm2mt3KR7S3ufX/kElxhGCFWeEZrsMLOQpW3LkF7mWcA3WrbBchuMN3iL0mqg8Yf0
-	 QpdUXIOhsERx9SGNm1H6/ZX/ZVUz9OZwebvmr4Zo/F+y2esdm8xJ80rJNjOylULkST
-	 V/RPOOpuEdgYQ==
-Message-ID: <2392702d-d2e9-4537-ae51-9c6b619ec334@kernel.org>
-Date: Sun, 5 Jul 2026 17:39:29 +0200
+	b=G9qJAark9D7p0hniMStO1bCaQhtn6oXca0FxU0o22okYqO290pXjQYrePZum/IXom
+	 cRmYFeWmvCjUoqsPujCRkTwaSO0vrPxS3DRegqrvG81jU2Bbzz0knh0ggdhxVIi+q4
+	 n7SZjDqa7Kci9i2J0iJoF9cdibEPJLwsOLk8rjgboCaJR5E+MiOuY8klq8gGXP267l
+	 VWko4sbWVF/QNgfKIYSdaMBtbgLZSrrX+ZmBSth/kHWCe6FAKdIUpsLXv25UH/GGfh
+	 St0o49GVMd7Crm5be85RZpjVaaqrNiKvgfC750fkchpNkxufE0CxYp7StUOtS+UOi+
+	 4XxFYQb6wlQvA==
+Message-ID: <d7607a98-f5e1-417f-ad64-d0029c9de662@kernel.org>
+Date: Sun, 5 Jul 2026 17:42:31 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,18 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom: Add Acer Swift Go Pro AI
- (SFA14-11)
-To: Kaipeng Zeng <kaipeng94@gmail.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org,
- robh@kernel.org, konradybcio@kernel.org, andersson@kernel.org
-References: <20260702063156.35169-1-kaipeng94@gmail.com>
- <20260702063156.35169-2-kaipeng94@gmail.com>
- <9d9645e5-2e63-4c22-8b5f-b0f4368c581f@kernel.org>
- <bdac77fc-41a2-4c89-9f60-3a8eefc9b9a4@oss.qualcomm.com>
- <a15ae7ec-4a83-4d14-b187-738f5006008a@kernel.org>
- <68b83361-42a5-45ac-8441-f0661b005f85@gmail.com>
+Subject: Re: [PATCH] dt-bindings: iio: adc: convert Xilinx XADC bindings to
+ YAML
+To: Avermoal <avermoal@gmail.com>, Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260705085308.8819-2-avermoal@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,32 +90,20 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <68b83361-42a5-45ac-8441-f0661b005f85@gmail.com>
+In-Reply-To: <20260705085308.8819-2-avermoal@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05/07/2026 17:34, Kaipeng Zeng wrote:
->>> e.g. microsoft,denali that you mentioned is a MS codename for the
->>> Surface Pro something something
->>
->> I am fine with mixing (swift-go-sfa14-11), but the model number alone is
->> very hard to parse by humans.
->>
->> Best regards,
->> Krzysztof
-> 
-> Initially, I chose the model number because Acer has several QCOM 
-> powered laptops with similar product names:
->   - Acer Swift Go Pro AI (SFA14-11)
->   - Acer Swift Go 14 AI (SFG14-*)
->   - Acer Swift Spin 14 AI (SFSP14-Q51T)
->   - Acer Swift 14 AI (SF14-11*)
-> 
-> Using the product name directly here can be confusing.
-> I think using a mixed name (swift-go-sfa14-11) is better, too.
-> 
+On 05/07/2026 10:53, Avermoal wrote:
+> Convert the Xilinx XADC binding documentation from .txt to YAML format.
+> This conversion is part of the ongoing effort to migrate all DT bindings
+> to a machine-verifiable schema.
 
-All the names are different, so I do not see confusion.
+Sorry, but what effort exactly? Where is this effort documented? Do you
+have a mentor if this is some sort of mentorship effort?
+
+And if this is ongoing effort then don't duplicate:
+https://lore.kernel.org/all/?q=dfn%3Axilinx-xadc.txt
 
 Best regards,
 Krzysztof
