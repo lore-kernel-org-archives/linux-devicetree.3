@@ -1,322 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D720238C40B;
-	Sun,  5 Jul 2026 20:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBFB233721
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 20:18:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783282063; cv=none; b=uqAQBOj7kPoU5jJrCBZd/mYbEcrCAlCjFpJ7QUOMKCS6HMpOoz90azvZTqYzYD/mBh4sUf95xGb4F/UJqORIFQgSfVFzLOkS4PC45JLrDgzSheaQS/6J3tRC3GaDNlSnH3TURgQMkH9iUVHTgftrpkEDFuCV33Z4T0zOzJUkHsI=
+	t=1783282690; cv=none; b=DeSTET415PinijTDRp/8NiBBdyhXb17RJ48dBJTx6cbYEdvlsKp4L26U2T9f+u1IJpaRA6G11SmD9CCALtI/A/DXxifQmKhAncPFcrN2bfjujHiMFlI8focKt4qHUcTcJZzvqATG7OMVFYedY2Q18ipx1quyC5UGRFXwLeICucE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783282063; c=relaxed/simple;
-	bh=tbtseEtGFnodhyICSjw8aAbiexEhRo/kUfwBK98RQr4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZFssEuuuDH1eDZ6n2tLJp4/D10p5sdCTGu7R9mQ55rzQ17+9Fa8eVFGEe30+Jv908MBH8fBocSktsuLAtSRj8jpz6PTJw2xpzZgj40A1A2f3S2yWMVU0WDdzjwDxNlUOF8Iis0SIYttJ7c0GONAjKxh4EbWLWrdKbmZa6gnQ4Fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n/U+aKnp; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1783282690; c=relaxed/simple;
+	bh=gGnndCmb7p6i9YdaOhYsnKc3RPfmFy4uC6AOaZselB8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=j3AVeE0KaxVECGe8gTEpVbPv4N4GAU2Fgfk0oaO6WZUTjyXJaB5xqL3141lQmAH2fEQdAo7TDbNgvu5tN1LBk2KNz8Onv4tC+Pycnnsa4wZ4jJIX87fYsR3usyJnlKQ3EauHcsU+mIzFKXKEffBk7d5lYn6OFu1LE/RNmtdERr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GvlVrcwr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n/U+aKnp"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9FE7FC4AF19;
-	Sun,  5 Jul 2026 20:07:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783282063;
-	bh=tbtseEtGFnodhyICSjw8aAbiexEhRo/kUfwBK98RQr4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=n/U+aKnpyx3Soj4fLgBXbwM+u11x0WnfTZYt1n7c68wNVQoj/EkKlMtGl0vqzFed+
-	 d0UHh+P+fyCOUVPEhV4hv2Z4LSwrAAvpYCkuZFh2AuKZIjiENVTGEIovfv19ZVRK70
-	 NG0oc+1I8n4EM80lRAEPLHb/7+5V4OiGdt0FRG32nr2FA+ba1tT3a0BPEYm5L2E0Yb
-	 DMdSFjtVGvCo1xtsD5pufGKkf8K3B9K3pLBULR/lH7zDTw0snAHA0TrziGWvk9hyry
-	 KcRIxgAOt2HGYHOyuwv1+5d+YNg/hqNGppszgqXRtCVkz9zqU1aup5n355FkiNZGcP
-	 ppgDnW/gxHGow==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 893BFC44500;
-	Sun,  5 Jul 2026 20:07:43 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sun, 05 Jul 2026 22:06:56 +0200
-Subject: [PATCH RFC 6/6] arm64: dts: qcom: sdm845-google: Add basic audio
- support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GvlVrcwr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B82201F000E9;
+	Sun,  5 Jul 2026 20:18:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783282689;
+	bh=3Dvrp8rnyzNBMfqqtEKtN0dYsXCIrJspCBt8S2QdLf4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GvlVrcwrubrNKvJsVJV3YjZjjg0943lQyPpRIBPOW36gAC0gV+31oDEKC+45u2REJ
+	 rgztStcHr55VwTfE1N4DioiY3O8cO4v9hVa1MmYtRmAQ9OzOjX/89VH+T19t5x3xL/
+	 QVnzIzCX3GNiMgQlAKhWnEzfzZBKsgDrCZQkj/g7c65Was+nDy0dnLSr/X/iBUPHtE
+	 6bVR26FVHkD72dsTRk4vtAYk/WTha2yHLiuCGXtwjpPiBf8GHkgfwUQttn+otgCk75
+	 fT3p+4aerhX7GXNdR7N0SsrmeQgtiklCWvM2Gkw5DheVnjRJd1dNxCqY2ti6Duhl+W
+	 QV3xvdLBUU0hw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 6/6] arm64: dts: qcom: sdm845-google: Add basic
+ audio support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260705-pixel3-audio-v1-6-3b66f33859f1@ixit.cz>
+References: <20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz>
+ <20260705-pixel3-audio-v1-6-3b66f33859f1@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 05 Jul 2026 20:18:08 +0000
+Message-Id: <20260705201808.B82201F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260705-pixel3-audio-v1-6-3b66f33859f1@ixit.cz>
-References: <20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz>
-In-Reply-To: <20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- David Rhodes <drhodes@opensource.cirrus.com>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5530; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=4QT6MbVMdh9DemMmlyZeKTtLW9oQ3lZJrUSa/kP3wr4=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqSrmN3xSuGutBrlsGqBqsGNkmGGhdWNLbEMAHo
- uPVwc80SHKJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCakq5jQAKCRBgAj/E00kg
- csC9D/0fTr88ve2WlRdxwYh+Ph9+nrZTk6fiM515YqY7e9kB5k2FRQvR4F8IoUC1KJIRroqnfM9
- dXAPmrg15STlkI8vWJo9cNVFH7PAEDM9trK8FXyCMEJOs3cFgXNHmovrpx2ddHM3/1l1X/FYxY5
- JA3tgHoe7hSwJXMNigLFCJmQ5HHYIgMyJ/za6ZTYMqA5vbnmGM/mWiQYGDfSHosJv8zFFdzZQZ1
- pgkO6S+dWA3Vm0Fzejoc97fibQncdOsIEWoXsJ3NFoZLYrjeLyxLEBTYfMKBiBK25S5fuCGl7Vu
- dmqyOI5iC7OakjI8xJjF2rZCMGfQXPvHOsJO6TNsE2WWtqZQ18VQ/fYeQU56Tk19ex7rKEooDsN
- qqoWK0jWhn86PXVWkWi4cm9Xyg92F8yuypRr3ZjmxT1YE7dIKXujCJUNgqd/yNV2MBNtGcQDL+p
- gtPUpVtGmh3wItP2Lq+ivbLLjzgjUdMlCQtrUABw6r37Wyjdq9ZL/gkQZhdux14HRhZZiO467Ns
- qsNZtXF+YB/cN4NK8Pqk2Pi3c43eyyQSICBXVrJ6q9ivx9NMTSABf+BqGqTHWaB9lskfBvLvwmM
- aH17+TDPYhloslVO+idZAm4xtOHHe9y6r0pPV35heOKbwbOYktpQQ15B2TTwagTvSRpCSBgac4D
- OPTGYKxuZ3hHTrQ==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
 
-From: David Heidelberg <david@ixit.cz>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The `reset-gpios` property for the CS35L36 codecs incorrectly speci=
+fies `GPIO_ACTIVE_HIGH` to work around a logical bug in the CS35L36 driver.
+--
 
-Introduce support for sound card and wire two CS35L36 audio codecs for
-top and bottom speakers.
+commit 380e434eaeea6507428e5e193d27e7812369af1c
+Author: David Heidelberg <david@ixit.cz>
 
-Inspired by commit from Joel Selvaraj.
+arm64: dts: qcom: sdm845-google: Add basic audio support
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 133 ++++++++++++++++++++-
- 1 file changed, 131 insertions(+), 2 deletions(-)
+This commit introduces audio support for the sdm845-google devices. It adds
+the sound card and wires up two CS35L36 audio codecs for the top and bottom
+speakers.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index b2dc0327dff85..d00fee7ebd424 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -2,16 +2,18 @@
- 
- /dts-v1/;
- 
- #include <dt-bindings/arm/qcom,ids.h>
- #include <dt-bindings/dma/qcom-gpi.h>
- #include <dt-bindings/input/linux-event-codes.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
-+#include <dt-bindings/sound/qcom,q6asm.h>
- 
- #include "sdm845.dtsi"
- #include "pm8998.dtsi"
- #include "pmi8998.dtsi"
- 
- /delete-node/ &mpss_region;
- /delete-node/ &venus_mem;
- /delete-node/ &cdsp_mem;
-@@ -404,19 +406,63 @@ nfc@28 {
- 		firmware-gpios = <&tlmm 79 GPIO_ACTIVE_HIGH>;
- 
- 		pinctrl-0 = <&nfc_int_default &nfc_enable_default>;
- 		pinctrl-names = "default";
- 	};
- };
- 
- &i2c12 {
--	/* Bottom spkr (right) CS35L36 @ 40 */
-+	status = "okay";
-+
-+	/* CS35L36, Bottom Speaker */
-+	cs35l36_bottom: audio-codec@40 {
-+		compatible = "cirrus,cs35l36";
-+		reg = <0x40>;
-+		reset-gpios = <&tlmm 112 GPIO_ACTIVE_HIGH>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "Right"; /* Bottom */
-+		VA-supply = <&vreg_s4a_1p8>;
-+		interrupts-extended = <&tlmm 115 IRQ_TYPE_LEVEL_LOW>;
-+
-+		pinctrl-0 = <&cs35l36_bottom_default_state>;
-+		pinctrl-names = "default";
-+
-+		cirrus,boost-ind-nanohenry = <1000>;
-+		cirrus,boost-ctl-select = <1>;
-+		cirrus,boost-ctl-millivolt = <10000>;
-+		cirrus,boost-peak-milliamp = <3700>;
-+		cirrus,temp-warn-threshold = <1>;
-+		cirrus,multi-amp-mode;
-+		cirrus,irq-drive-select = <0>;
-+		cirrus,irq-gpio-select = <0>;
-+	};
- 
--	/* Top spkr (left) CS35L36 @ 41 */
-+	/* CS35L36, Top Speaker */
-+	cs35l36_top: audio-codec@41 {
-+		compatible = "cirrus,cs35l36";
-+		reg = <0x41>;
-+		reset-gpios = <&tlmm 75 GPIO_ACTIVE_HIGH>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "Left"; /* Top */
-+		VA-supply = <&vreg_s4a_1p8>;
-+		interrupts-extended = <&tlmm 40 IRQ_TYPE_LEVEL_LOW>;
-+
-+		pinctrl-0 = <&cs35l36_top_default_state>;
-+		pinctrl-names = "default";
-+
-+		cirrus,boost-ind-nanohenry = <1000>;
-+		cirrus,boost-ctl-select = <0x01>;
-+		cirrus,boost-ctl-millivolt = <10000>;
-+		cirrus,boost-peak-milliamp = <3700>;
-+		cirrus,temp-warn-threshold = <1>;
-+		cirrus,multi-amp-mode;
-+		cirrus,irq-drive-select = <0>;
-+		cirrus,irq-gpio-select = <0>;
-+	};
- };
- 
- &ipa {
- 	firmware-name = "qcom/sdm845/Google/blueline/ipa_fws.mbn";
- 	memory-region = <&ipa_fw_mem>;
- 
- 	status = "okay";
- };
-@@ -449,16 +495,35 @@ &pm8998_resin {
- };
- 
- &pmi8998_charger {
- 	monitored-battery = <&battery>;
- 
- 	status = "okay";
- };
- 
-+&q6afedai {
-+	dai@72 {
-+		reg = <QUATERNARY_TDM_RX_0>;
-+
-+		qcom,tdm-sync-mode = <0>;
-+		qcom,tdm-sync-src = <1>;
-+		qcom,tdm-data-out = <0>;
-+		qcom,tdm-invert-sync = <0>;
-+		qcom,tdm-data-delay = <1>;
-+		qcom,tdm-data-align = <0>;
-+	};
-+};
-+
-+&q6asmdai {
-+	dai@0 {
-+		reg = <MSM_FRONTEND_DAI_MULTIMEDIA1>;
-+	};
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
- };
- 
- &qupv3_id_1 {
- 	status = "okay";
- };
- 
-@@ -467,16 +532,48 @@ &qup_uart9_rx {
- 	bias-pull-up;
- };
- 
- &qup_uart9_tx {
- 	drive-strength = <2>;
- 	bias-disable;
- };
- 
-+&sound {
-+	compatible = "qcom,sdm845-sndcard";
-+	model = "Google Pixel 3";
-+	pinctrl-0 = <&quat_mi2s_active>, <&quat_mi2s_sd0_active>,
-+		    <&quat_mi2s_sd1_active>;
-+	pinctrl-names = "default";
-+
-+	mm1-dai-link {
-+		link-name = "MultiMedia1";
-+
-+		cpu {
-+			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
-+		};
-+	};
-+
-+	cs35l36-dai-link {
-+		link-name = "Speaker Playback";
-+
-+		cpu {
-+			sound-dai = <&q6afedai QUATERNARY_TDM_RX_0>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6routing>;
-+		};
-+
-+		codec {
-+			sound-dai = <&cs35l36_bottom>, <&cs35l36_top>;
-+		};
-+	};
-+};
-+
- &tlmm {
- 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
- 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
- 
- 	nfc_int_default: nfc-int-default-state {
- 		pins = "gpio63";
- 		function = "gpio";
- 		drive-strength = <2>;
-@@ -505,16 +602,48 @@ touchscreen_pins: ts-pins-gpio-state {
- 	};
- 
- 	touchscreen_i2c_pins: qup-i2c2-gpio-state {
- 		pins = "gpio27", "gpio28";
- 		function = "gpio";
- 		drive-strength = <2>;
- 		bias-disable;
- 	};
-+
-+	cs35l36_bottom_default_state: cs35l36-bottom-default-state {
-+		reset-pins {
-+			pins = "gpio112";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+
-+		irq-pins {
-+			pins = "gpio115";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	cs35l36_top_default_state: cs35l36-top-default-state {
-+		irq-pins {
-+			pins = "gpio40";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-pull-up;
-+		};
-+
-+		reset-pins {
-+			pins = "gpio75";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
- };
- 
- &uart6 {
- 	pinctrl-0 = <&qup_uart6_4pin>;
- 
- 	status = "okay";
- 
- 	bluetooth {
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/ar=
+m64/boot/dts/qcom/sdm845-google-common.dtsi
+> index b2dc0327dff85..d00fee7ebd424 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
 
--- 
-2.53.0
+[ ... ]
 
+> @@ -409,9 +411,53 @@ nfc@28 {
+>  };
+> =20
+>  &i2c12 {
+> -	/* Bottom spkr (right) CS35L36 @ 40 */
+> +	status =3D "okay";
+> +
+> +	/* CS35L36, Bottom Speaker */
+> +	cs35l36_bottom: audio-codec@40 {
+> +		compatible =3D "cirrus,cs35l36";
+> +		reg =3D <0x40>;
+> +		reset-gpios =3D <&tlmm 112 GPIO_ACTIVE_HIGH>;
 
+[Severity: Low]
+Is this reset-gpios polarity intentionally set to GPIO_ACTIVE_HIGH to work
+around the cs35l36 driver bug?
+
+Since the CS35L36 hardware reset pin is active-low, shouldn't devicetree
+accurately describe the hardware rather than encode a software workaround?
+
+The driver in sound/soc/codecs/cs35l36.c currently treats the GPIO as an
+enable signal, requesting it with GPIOD_OUT_LOW and writing a logical 1
+to run. Setting GPIO_ACTIVE_HIGH in the DT translates this into a physical
+high voltage, taking the device out of reset.=20
+
+Would it be better to specify this as active-low to match the hardware and
+address the bug in the driver instead?
+
+> +		#sound-dai-cells =3D <0>;
+
+[ ... ]
+
+> +	/* CS35L36, Top Speaker */
+> +	cs35l36_top: audio-codec@41 {
+> +		compatible =3D "cirrus,cs35l36";
+> +		reg =3D <0x41>;
+> +		reset-gpios =3D <&tlmm 75 GPIO_ACTIVE_HIGH>;
+
+[Severity: Low]
+Are we encoding the same driver workaround in the devicetree here for the
+top speaker?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-pixel3-aud=
+io-v1-0-3b66f33859f1@ixit.cz?part=3D6
