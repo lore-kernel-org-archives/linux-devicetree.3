@@ -1,113 +1,85 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B32718BBAE;
-	Sun,  5 Jul 2026 20:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1112C3A6EEC;
+	Sun,  5 Jul 2026 20:58:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783284371; cv=none; b=j95zySKmMz1rlMiDKaqTdCFiJpF5Ppa4WpmFq3nz19rp6XSmO1AVdJzuYYc8wyj3pG3eYo5PWffOdQmko8jHuVJ2i+B2BqYjfAndIpDNwa5tknPtIcUz81wbIQkG/FchlT5IIzgt5MiiwEgtLZKV4nD0p3Db3egiSXnMT3KC2q0=
+	t=1783285093; cv=none; b=dqwoMGxL5FFYQ1rjaRMTUqju6TcxOW9mwhgTABBd1i+E25qu4+9xAQnT5SgJUHGfTKC0KqDMdn83nJdVZKVosKh2VvKtyqV5FVfIvejB/UQOYVRWJRHCYrwnesvVkH/mwsA4ld4t975wwyHvlhJ4eD/c1q9KR0Ivhb08L2mADJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783284371; c=relaxed/simple;
-	bh=OaQusKv3rXYsBNCL7bbmIiPHTJUbxK+t+RRHDhKEW9Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mJLCrCjHxaVs/bfns+MqI8RX96qBSmjFdeZV3YWzhXt0MTY4iXSDz4Yy2jLPWq3tAAAWzTwqD/f+As4v8mqr8hsqFNuWR+MG1EH0etEQ0CJO30GpQ9lqmXV6dTRWnPO+2xAd+W+XjLnAadjTj8IvpkaNom2f1x4hu1r5++163Ok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=lL230xXc; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783285093; c=relaxed/simple;
+	bh=fPLjtqTdfUwvKv45UkaXvC5ZiYor7iKNrdtWIDVWnaE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TFl0GjLQZ5tUFQinBjV6/6u/GR/r7gxyp6uS9Uq8jNnOmR78JMe/B2ahTsRZg2CZNDaT8lNptrJLGO6NT1H8aqYULLHUm20U5ybz6cTPsvU290TcuVAwhvny0rvf6oxieA3QywNLUMGdVjw7E0e8RVSj55kjZ94pgALNpzwGG5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LRi1Owkn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="lL230xXc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783284368;
-	bh=OaQusKv3rXYsBNCL7bbmIiPHTJUbxK+t+RRHDhKEW9Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lL230xXckdYvbMdcv6VvPfggSMJt4NKuO+UichDEAFAiEOXbiKsWUP7Cq4EuSPr+n
-	 zt6n2WmBg+/z95DyxHqpc0Cm7kZqJEPz1bQSlMPCPbdFIZJVKypLfV5g1m0yeOvK74
-	 mYZaKU5LaRRtbJyIt8ONOpFk4LV7eiywCjFQC4TGYKHUV+SY+wlDd7YwzL9ODHKjQL
-	 DzJF68rnwWrFaDw8YkIGRnmzzhOwyRjoW0EEyQDEgmbUt+q8lA8XQpcie0x8XinT1X
-	 kkzZTDknZ2VF9gFMDb150EY1SbsJq8gYG0zQC+5+tVLfpQPymDbv89e8NVfyRMDHzq
-	 IqMTxsmxqsxUA==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 28E3917E0177;
-	Sun, 05 Jul 2026 22:46:07 +0200 (CEST)
-Message-ID: <c8242f5c-ec74-489e-b378-f225ec3a0135@collabora.com>
-Date: Sun, 5 Jul 2026 23:46:06 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LRi1Owkn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 968E81F00A3A;
+	Sun,  5 Jul 2026 20:58:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783285091;
+	bh=bt3Qq+H8uaYIqm5V40DzeXFpBOHpi7xmdNGZHdJuHUg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LRi1Owkn0mw/4PFM1S+RyPv8Wm+vBTfqw3RKki6DMEMhcdMNeh8bb6cabdQRlmPw9
+	 R12FDSJvUOKg+LmrVGs/5cx3CnGMdKWGUqdLvgIytkNR80GdmhcPl01JG7AwUHtmPj
+	 0fqRmaip9/2R2iR5g4gwG+o/IXovdZPV8p8nWRAJojFksOT8QaCEEkBnWJSkf03Q+j
+	 zftgYbiOOdYfoy77CQPnD24qx+wk+YPWaY+8xR+aMixgT0B/gzKdhcbIoEI2Kxbu0t
+	 VNdOkbNcLFFqtII0RW7fhgp1wVxfE7EsyKoWMZOO4MX1cTnQvFj/KgQSTonYv1UOC2
+	 ZTa3FzfXFwR2Q==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Alexandre Messier <alex@me.ssier.org>
+Cc: Luca Weiss <luca@lucaweiss.eu>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	linux-leds@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/4] Describe more hardware of the HTC One (M8)
+Date: Sun,  5 Jul 2026 15:57:50 -0500
+Message-ID: <178328508264.1157743.6203884354809743670.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260406-m8-dts-additions-v2-0-c4c4bd50af48@me.ssier.org>
+References: <20260406-m8-dts-additions-v2-0-c4c4bd50af48@me.ssier.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/9] drm/rockchip: vop2: Reset AXI and DCLK to improve
- robustness
-To: Diederik de Haas <diederik@cknow-tech.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
- <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
- <DJQO8Q4J2LDP.1G8I4FVF6J7TK@cknow-tech.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <DJQO8Q4J2LDP.1G8I4FVF6J7TK@cknow-tech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Diederik,
 
-On 7/5/26 4:28 PM, Diederik de Haas wrote:
-> Hi Cristian,
+On Mon, 06 Apr 2026 01:16:56 -0400, Alexandre Messier wrote:
+> Add hardware description for these parts of the HTC One (M8):
 > 
-> On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
->> Assert the AXI reset in the CRTC disable path, and the VP DCLK reset in
->> the enable path.
->>
->> These resets are intended to leave the hardware in a clean state for the
->> next use, helping recover from exceptions such as IOMMU page faults, as
->> well as to prevent random display output glitches, such as a blank
->> image, observed when switching modes that also change the color format,
->> e.g. from RGB to YUV420 and vice versa.
->>
->> For now this seems to affect only the RK3588, hence the resets are
->> optional and will be provided in the device tree for this SoC only.
+>  - Notification LEDs
+>  - Bluetooth
+>  - NFC
+>  - Touchscreen
 > 
-> Why do you think it only effect RK3588? 
+> [...]
 
-My findings are exclusively in the context of validating YUV support for DW HDMI
-QP, hence targeting RK3588 and RK3576.  Since RK3576 didn't exhibit any
-anomalies, I concluded the resets are needed just for RK3588.
+Applied, thanks!
 
-> I reported about my RK3568 test here:
-> https://lore.kernel.org/linux-rockchip/DFRU6ODDM71P.3NQGLRK8IVDUY@cknow-tech.com/
-> "I then went on to try LibreELEC's builds. The artifacts I (sometimes)
-> saw, were gone :-D OTOH, I did get several major issues 'in return',
-> like rk_iommu Page fault resulting in a black screen and the only way to
-> 'recover' from it, was a reboot."
-> 
-> And I reported some more test results here:
-> https://forum.libreelec.tv/thread/29953-le13-testing-for-rk3288-rk3328-rk3399-rk3566-rk3568-rk3576-rk3588/?postID=204691#post204691
-> 
-> That seems to me a (strong) indication it also affects RK3566/RK3568?
+[1/4] ARM: dts: qcom: msm8974pro-htc-m8: add status LEDs
+      commit: c11865aa07e8a1b1b3c50b995f7175312a4045a8
+[2/4] ARM: dts: qcom: msm8974pro-htc-m8: add NFC support
+      commit: 858e8a50ba0c0c9caa45f25dfbbb8b6bb26154b0
+[3/4] ARM: dts: qcom: msm8974pro-htc-m8: add Bluetooth pins
+      commit: 132a69d4092737d35470adc0f9c89fc68caf6288
+[4/4] ARM: dts: qcom: msm8974pro-htc-m8: add touchscreen
+      commit: 811a24b0ec0c3ec74dbe324c390b75a2b92571ea
 
-If coincidentally this helps improve the reliability of some of the older SoCs
-as well, the resets can easily be added to the corresponding DTs and submitted
-as a follow-up series.
-
-Cristian
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
