@@ -1,122 +1,165 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EED27A107
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 22:40:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA21347521;
+	Sun,  5 Jul 2026 22:41:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783291245; cv=none; b=ZGUiF233Va9u0CJJRXyIBa6XMT0q+OTZf0Etxui40kSnocsNFmBS8vdhSrQpE30epMOD70qFhACaNM73JaZrn2z9OlVotJ/PJLfkleak81szS/uBnrb8PuU33a3tGWPEE0EndbExQWqe/x0/VfWQnl+bi5aTIRo8mr99oSVzhP0=
+	t=1783291283; cv=none; b=qbfv+aIU9FLNcRa3fmC0mmwzWkrEuVR8uoQBQutICo1jzUk/oZg7ml7p9HYYuJBa9CL/HOYRCKbSYke74bQPfdaYiC9XRQvTgdxGJLS9MvHn+aqIVi/8bqTTHCW+Mv/i9IWTHlshSzmYoxYA+pYlERME27rVdwSZzeE1H4wuNe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783291245; c=relaxed/simple;
-	bh=o6tKcjSGL3hmAoOfrQ72FhjNH6OcQ99PKzW3pQ6hb58=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rzHlte4CccfTPczWh/pyJnY44JlR9Mc8gnDfvmVXKqsSuL/AbfaDpqTtWDfPFx1nZykLJMyeC6cUcWON3VEogMMrpW4hcOxsMdrTGA5T7HTZ/qrz2e5/kJV4kl0NdvOpi1IMj9vcozFjZkGBbt3aMGsl4EElqUs3/V0pdqRb7cE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IZzyVtOT; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783291283; c=relaxed/simple;
+	bh=kba8kSwdTckBwN1tVe0dcvcMljaqLJccycGXKRptzqA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lyjJvUfabLOmB/tgrhBGQ7tjtQMP+9uwkkDfq0blqe8k9gCL4jx5FgiYeFA1Kcd6OziT6wDnF45RbRPObCIpDuUvimR00eYjwHnZR97o43go9xELQ4gJRMR6ts3GMGtvuo7TdvyO9TY10x1yjenfNVkCVbdMefHVNH3WQr2xiRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HzgEiX44; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IZzyVtOT"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493c2c0b9a8so21524035e9.1
-        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 15:40:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783291243; x=1783896043; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=veU2IZXpTiLRV+FUCeAbLnHfRb1mcReExg9kWOUDBqA=;
-        b=IZzyVtOTFcv7PRBDHD9/w92l8TEWp9nBHTccefnzhmj9va1ldhieCIOA4T5vb27jRC
-         0VeUky/pI8uCWNc817jEiSCSARdtbltKuTVdAPevc9pJMqZE82DnCmGDG2zIWOkED+3M
-         33CT7zxRAOsUYKwLUJ4XSVBOHIPK9QqUctQRp0UmLSudRhuwPDl9+Kknt1CBUUl2J446
-         4LiIhHZt7mMZJs5ivy7SMxRpoiiBmNXNU6W2cnCx05ADuomxMSstPwPoSaj5qpPIflBq
-         sZSbcILeHpQu8bzaNzM+SWcLClgqrj6AIN9yTh/cY84Mf5UXEqirx5JU2HFRlys7g1xz
-         xBHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783291243; x=1783896043;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=veU2IZXpTiLRV+FUCeAbLnHfRb1mcReExg9kWOUDBqA=;
-        b=HHCY8jAiaCngro82mYvispahxRwCFKOgXhSWhrfHMuzDaodGT3Mk7imayWqTopcrvm
-         L6k3w0J7f938SxgpG2HAHt4ftMxBMm47dYleucm5dQWP+Ke3SHdon2Zi3L8dBCJoJzHp
-         N6CVa+K5EESSw/aUv2CCEbbMQynrTJbhN0DxsZyouX1RyMVyMG/Zlvowt6BqWgdNxZvf
-         x57NOUYI5H6zpFs0EhyUuz29VbD8r+sDPRD0yXxgxD1keCOxhZ8M61h4M/Vuo5LgpyXv
-         O7JTObZWuKpQfRnZYzIOJJul+IpDYHD5m+PQ3FTHkHX/pEQ7imt+IVgnS8Ud86sZe1xh
-         NNgA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpwd8ujrU61Fhf60oFPnyH5n1Uo30bMgNe7S4bERrKeKhDbgBT3hYGk+4qnNK1IGjuxFpwCS422z5JK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjjNuT4o2K779ZhiXdNFX+MywMRU98rHXkcYizlpwlfra8gy/y
-	cjJcpGOztfvgHC9G83woEYnJYVY6ZyDAI/LDAaVSVipn1AZJIaF9a3Gf
-X-Gm-Gg: AfdE7cn1+YJwFoEqYWfZMiVsuGTkQ9xzjHogqYO7FgWqtuLeCzsim8tZfbM4ahwW8Ko
-	J1az3pBRnm3j/hR7/OJvuinEQQyKHlEGL23nimUqo16bV4MGYyP00Yq4GZRzdSX0oTQzKFAodjO
-	dzkhHaZpPml7Q6WVUlMq1e4GvKK9IiQmqkQKCWeDC/sSNweA+jpKn++KnUg3golZcUluzcpDokW
-	XzzHu9Gk4yQZX+TU9LwmyDIxCsNLlCjGHgLKHokN9kRaa2k1hzBmaizZwqrkcNNvQhE+bD88nvz
-	VdhH+JYNTFwrV7g2HijiUHG8fLKZgF5TH2xHRpIc6b0rw1jVvrdA24Ww/hIthoqoHKfC3/P/qpt
-	FX68KE6QOaRAOzNTMMbj+COb70J9xDNdSWxejn/xxj4ZNKFImpsdqdlOSAQTzi3OfIfwzDnNi34
-	23PJilyExJnSgxqkuY2UL2dgDgaxpJ+IUpbVl1wBO+xshMN0KCEFiT0Q7PT8M=
-X-Received: by 2002:a05:600c:314f:b0:493:cfd2:cd06 with SMTP id 5b1f17b1804b1-493d11cef20mr85595145e9.6.1783291242828;
-        Sun, 05 Jul 2026 15:40:42 -0700 (PDT)
-Received: from [192.168.1.109] (87-126-128-216.ip.btc-net.bg. [87.126.128.216])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493bef1807asm289906045e9.1.2026.07.05.15.40.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 05 Jul 2026 15:40:41 -0700 (PDT)
-Message-ID: <4df9f388-2dc7-47b6-afc0-7a0cc6d15ca3@gmail.com>
-Date: Mon, 6 Jul 2026 01:40:40 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HzgEiX44"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35D051F000E9;
+	Sun,  5 Jul 2026 22:41:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783291281;
+	bh=11NQSXvFm50O+jiNQyv3kvtaXCMRUb1E6joMQYk9qvk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HzgEiX44FIAtGxEh/18gXxfOFHeRGmLbsYpjadwumKeHp/XzRXJSNLDyYAcQ7hMkv
+	 Du6rTdjulPOlbs4gnxnuX48Q3Gr6E7/TGMmxNOH3fq0vU5qZIgPDpONEel25D6DkED
+	 Ny+wjcWJ+dfIM+4X7Z9wqCVajeFYLkZX621j5g4WKc8ZkvFkVYMLAWR05OW5xxj6dN
+	 xZHUr1Q6tjJzjiaoFaJ84K0xPkGLzha6O7zzup/AhGQNh8YuEGSvhBLgU7BbDBG4kl
+	 2n//RvjyfucAjrUngI44E+uuyJ7/9FvL16eau19BLL4OWR7plHyl5XrlVgVtt8SkcP
+	 FUl7qrjHFUVww==
+Date: Sun, 5 Jul 2026 17:41:18 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Subject: Re: [PATCH v4 3/3] arm64: dts: qcom: add SoCCP DT node for Glymur
+Message-ID: <akra6zR_Z5_D0xi8@baldur>
+References: <20260703-glymur-soccp-v4-0-b706c4c9b3e2@oss.qualcomm.com>
+ <20260703-glymur-soccp-v4-3-b706c4c9b3e2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/6] dt-binding: ARM: samsung: Add Samsung Exynos8855
-To: Alim Akhtar <alim.akhtar@samsung.com>, krzk@kernel.org,
- peter.griffin@linaro.org, robh@kernel.org, conor+dt@kernel.org,
- linusw@kernel.org
-Cc: linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- hajun.sung@samsung.com
-References: <20260627171228.2687857-1-alim.akhtar@samsung.com>
- <CGME20260627165406epcas5p1be75af2010edfc57cad0f668a8e3568d@epcas5p1.samsung.com>
- <20260627171228.2687857-2-alim.akhtar@samsung.com>
-Content-Language: en-US
-From: Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>
-In-Reply-To: <20260627171228.2687857-2-alim.akhtar@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260703-glymur-soccp-v4-3-b706c4c9b3e2@oss.qualcomm.com>
 
-On 6/27/26 20:12, Alim Akhtar wrote:
-> Add Samsung Exynos8855 smdk board to documentation
+On Fri, Jul 03, 2026 at 05:31:13AM -0700, Ananthu C V wrote:
+> From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
 > 
-> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+> The SoC Control Processor (SoCCP) is a small RISC-V MCU that controls
+> USB Type-C, battery charging and various other functions on Qualcomm SoCs.
+
+This sounds like a good description of the SoCCP, excellent start of the
+commit message.
+
+> It provides a solution for control-plane processing, reducing per-subsystem
+> microcontroller reinvention.
+
+But, not only did the first sentence come to a full stop, this sentence
+is also trying to describe the purpose of the SoCCP - but the scope
+doesn't seem to overlap, so this seems to hint that there's more to it
+than what was first established...
+
+Please fix.
+
+> Add PAS loader for SoCCP on Glymur DT.
+
+And once you have established the problem description across multiple
+sentences, break the paragraph to give the reader some
+breathing/thinking room, before documenting the "user-visible change" of
+the patch.
+
+Regards,
+Bjorn
+
+> 
+> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> Co-developed-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+> Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
 > ---
->  .../devicetree/bindings/arm/samsung/samsung-boards.yaml     | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi |  7 +++++
+>  arch/arm64/boot/dts/qcom/glymur.dtsi     | 44 ++++++++++++++++++++++++++++++++
+>  2 files changed, 51 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-> index 753b3ba1b607..273464400477 100644
-> --- a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-> +++ b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-> @@ -235,6 +235,12 @@ properties:
->                - winlink,e850-96                 # WinLink E850-96
->            - const: samsung,exynos850
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> index e784b538f42e..328eb513140f 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> @@ -585,6 +585,13 @@ &remoteproc_cdsp {
+>  	status = "okay";
+>  };
 >  
-> +      - description: Exynos8855 based boards
-> +        items:
-> +          - enum:
-> +              - samsung,exynos8855-smdk         # Samsung SMDK
-> +          - const: samsung,exynos8855
-
-Is there any particular reason for using "exynos8855" rather than the commercial
-name - exynos1580? We've already established using the latter naming scheme as a
-convention (e.g. exynos3830 -> exynos850, exynos9830 -> exynos990) rather than
-the development model numbers, so I don't think breaking that will help anyone
-with the already painful model number confusion.
-
-Best regards,
-Ivaylo
-
+> +&remoteproc_soccp {
+> +	firmware-name = "qcom/glymur/soccp.mbn",
+> +			"qcom/glymur/soccp_dtb.mbn";
 > +
->        - description: Exynos8895 based boards
->          items:
->            - enum:
-
+> +	status = "okay";
+> +};
+> +
+>  &tlmm {
+>  	gpio-reserved-ranges = <4 4>, /* EC TZ Secure I3C */
+>  			       <10 2>, /* OOB UART */
+> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> index 5f44f68efde2..bc259dfbaf0e 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> @@ -2297,6 +2297,50 @@ &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
+>  			};
+>  		};
+>  
+> +		remoteproc_soccp: remoteproc@d00000 {
+> +			compatible = "qcom,glymur-soccp-pas";
+> +			reg = <0x0 0x00d00000 0x0 0x200000>;
+> +
+> +			interrupts-extended = <&intc GIC_SPI 167 IRQ_TYPE_EDGE_RISING>,
+> +					      <&soccp_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
+> +					      <&soccp_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
+> +					      <&soccp_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
+> +					      <&soccp_smp2p_in 3 IRQ_TYPE_EDGE_RISING>,
+> +					      <&soccp_smp2p_in 9 IRQ_TYPE_EDGE_RISING>;
+> +			interrupt-names = "wdog",
+> +					  "fatal",
+> +					  "ready",
+> +					  "handover",
+> +					  "stop-ack",
+> +					  "pong";
+> +
+> +			clocks = <&rpmhcc RPMH_CXO_CLK>;
+> +			clock-names = "xo";
+> +
+> +			power-domains = <&rpmhpd RPMHPD_CX>,
+> +					<&rpmhpd RPMHPD_MX>;
+> +			power-domain-names = "cx",
+> +					     "mx";
+> +
+> +			memory-region = <&soccp_mem>,
+> +					<&soccpdtb_mem>;
+> +
+> +			qcom,smem-states = <&soccp_smp2p_out 0>,
+> +					   <&soccp_smp2p_out 8>;
+> +			qcom,smem-state-names = "stop",
+> +						"ping";
+> +
+> +			glink-edge {
+> +				interrupts-extended = <&ipcc IPCC_MPROC_SOCCP
+> +							     IPCC_MPROC_SIGNAL_GLINK_QMP
+> +							     IRQ_TYPE_EDGE_RISING>;
+> +				mboxes = <&ipcc IPCC_MPROC_SOCCP
+> +						IPCC_MPROC_SIGNAL_GLINK_QMP>;
+> +				qcom,remote-pid = <19>;
+> +				label = "soccp";
+> +			};
+> +		};
+> +
+>  		usb_hs_phy: phy@fa0000 {
+>  			compatible = "qcom,glymur-m31-eusb2-phy",
+>  				     "qcom,sm8750-m31-eusb2-phy";
+> 
+> -- 
+> 2.43.0
+> 
