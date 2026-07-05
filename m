@@ -1,139 +1,183 @@
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3199B36C0CE;
-	Sun,  5 Jul 2026 08:16:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556893672B5
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 08:17:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783239409; cv=none; b=kymReDoZ2NpjnPy0Oq2D0zaonoY7gIZ7apHtVFpQl7Rcko+u2hEFowhnm59onPzPfsVfScPDD8I2DSdUrW2fTYPa5KFXjOwP/ArN/NtsgF7ekdpz+7pEANe1FBu9R82JvdRTozi8wWmeggclcZ842sv1X09dx42xaBAPiq2RpTY=
+	t=1783239445; cv=none; b=rcF9BjZRVjZEIPPH548SjuoyCRss10164Z3GplTFcEdSy87B8BNrmRDKhn8Tm1h5c5W1qphDfbtbOEqhf3EGz1GwYrUL0W9289uGfDAZHXzwqyapc8Z9g4ox1tggv+G+2dlrR4VQypSzhR9WVOmij1aIuituFv8cl3oWQXVVf2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783239409; c=relaxed/simple;
-	bh=P24n1VnjIAcMi/bOzGDdsOVAqL1wKs/zn7VIp+SXEA0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WG0AvkK8GAKkVUWhsAHEzr+rgTsjBUNuni5R2hSM2GCH3qtyS6THs8AA0qrfBjQxyiAZWVXWPUFmzYS0/CVOHFEQjOlHXlohiBRBgy1b8/3wDNrIDPsxz/aCSLmD8/P/XVOpZKoYUl9RkkRLhFZACgiamClkxJmSJH52SmEH8Ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=rNPxMRq3; arc=none smtp.client-ip=77.81.229.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	s=arc-20240116; t=1783239445; c=relaxed/simple;
+	bh=OIOpxYIwCK7tMGtmAtcSVRrunLaNLo9r6kGxQ04NaAU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PbhMhl/n6+Joc8zfBuqLTAt+3wzdH7wbFiirMBufqAsqgiXkUvjG3c8gzJvfldNNIv1k1Gr6AM2bRhCz+KUkWbl/cTHlEfUXJh9fPvrYBc2V56wVU3RxANtXIkOZHDcC5VHg7eAficl/pnG1FTatk9pgggLtPAR/+wbeeMOZaKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MVj2HJbB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="rNPxMRq3"
-Received: by chaosmail.tech (Postfix) id 6A2B71CC220;
-	Sun, 05 Jul 2026 08:16:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1783239399;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FY5V3ybuTyP3BCRlKYUCOlT9nQq4kQeCRIYQZC7cP8A=;
-	b=rNPxMRq37Gd5Jk+HFJ18Ai2gtJZXgxNd5DLMGUbQaqmV5spNOEE29KqHrJwRsu/YgGKF9D
-	YmzmDLZN5kSHUNZ+tti1zIlczbVvw8QkBbldI8UXh3rtKFcPGPQJc3It+VHOoC8gBZOUIT
-	qZQ5TDiQwplpFR2tbKohmMEnnEWZZYo=
-From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Sun, 05 Jul 2026 10:16:30 +0200
-Subject: [PATCH v3 1/3] dt-bindings: soc: apple: Add Apple PMGR misc
- controls
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MVj2HJbB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC071F000E9;
+	Sun,  5 Jul 2026 08:17:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783239444;
+	bh=IReY2qpkTZ9HFmy4i2itPiMHAlBWzg9RKPPI+b+wRhk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MVj2HJbBoMda3jmDw4ueruIWlYJ52sSrEUivOC27AVb8OdXpHAj+YftlqNmG3XE4g
+	 N+gFDviN86uSYVHieBDp610EBido4Xjhv/cOiUwflgs29gjGleyUSzkQbF26DXqvFf
+	 YZpLKLJ0D3qFpWzKNlN5Wn62vS+/zM8KNpoZWAdwtxUuWkv0TflmuAyMRKTPVCE5Uv
+	 JYT+xj3xB8SL9kEPHy//1eY1DHEDTEY18W1iHVJ8aapmEy+21rTpgWD9LPzZ/WwMWA
+	 RLFEZWmA/WHo72RjRtjmKdMidTQYhC/+enhvVkBeFOistjO6/8y49hnBPJUfojUAvP
+	 2WGHWqYRvoNkw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/8] drm/msm/a6xx: Increase HFI GX perf level limit
+ to 24
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Akhil P Oommen" <akhilpo@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260705-kaana-gpu-dt-v2-1-6ac53de56314@oss.qualcomm.com>
+References: <20260705-kaana-gpu-dt-v2-0-6ac53de56314@oss.qualcomm.com>
+ <20260705-kaana-gpu-dt-v2-1-6ac53de56314@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 05 Jul 2026 08:17:23 +0000
+Message-Id: <20260705081723.BDC071F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260705-pmgr-misc-v3-1-51b75fed6f73@chaosmail.tech>
-References: <20260705-pmgr-misc-v3-0-51b75fed6f73@chaosmail.tech>
-In-Reply-To: <20260705-pmgr-misc-v3-0-51b75fed6f73@chaosmail.tech>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Sasha Finkelstein <k@chaosmail.tech>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783239397; l=2590;
- i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=P24n1VnjIAcMi/bOzGDdsOVAqL1wKs/zn7VIp+SXEA0=;
- b=f3FzkoBSxFnmOl7AZ/a6oqgJaBjg6PUUGT37JaMOMChlcglgwqrKx2e0aj1PAvce/Qef+rT7I
- mNnFr+4ejaaBqDNhUCDcpGZvmhVRKI9vGDdPV9mE0CzrfH2DtkXsL+X
-X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
- pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-Certain Apple SoCs include additional PMGR power states that are
-controlled via a different "misc" control block. On existing SoCs, this
-includes the fabric and memory controller state.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
----
- Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml | 45 +++++++++++++++++++++++++++++++++++++++++++++
- MAINTAINERS                                                            |  1 +
- 2 files changed, 46 insertions(+)
+New issues:
+- [High] Expanding fixed-size arrays in packed HFI structures silently shif=
+ts the offsets of subsequent fields, breaking communication with older GMU =
+firmwares.
 
-diff --git a/Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml b/Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml
-new file mode 100644
-index 000000000000..588100222f89
---- /dev/null
-+++ b/Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml
-@@ -0,0 +1,45 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/soc/apple/apple,t6000-pmgr-misc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Apple SoC PMGR Misc Power States
-+
-+maintainers:
-+  - Sasha Finkelstein <k@chaosmail.tech>
-+
-+description: |
-+  Certain Apple SoCs include additional PMGR power states that are controlled
-+  via a different "misc" control block. This includes the fabric and memory
-+  controller states.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - apple,t6000-pmgr-misc
-+      - apple,t6020-pmgr-misc
-+
-+  reg:
-+    maxItems: 2
-+
-+  reg-names:
-+    items:
-+      - const: fabric-ps
-+      - const: dcs-ps
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    power-management@8e20c000 {
-+        compatible = "apple,t6000-pmgr-misc";
-+        reg = <0x8e20c000 0x400>,
-+              <0x8e20c800 0x400>;
-+        reg-names = "fabric-ps", "dcs-ps";
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 15011f5752a9..5a29bb86499f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2607,6 +2607,7 @@ F:	Documentation/devicetree/bindings/power/apple*
- F:	Documentation/devicetree/bindings/power/reset/apple,smc-reboot.yaml
- F:	Documentation/devicetree/bindings/pwm/apple,s5l-fpwm.yaml
- F:	Documentation/devicetree/bindings/rtc/apple,smc-rtc.yaml
-+F:	Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml
- F:	Documentation/devicetree/bindings/spi/apple,spi.yaml
- F:	Documentation/devicetree/bindings/spmi/apple,spmi.yaml
- F:	Documentation/devicetree/bindings/usb/apple,dwc3.yaml
+Pre-existing issues:
+- [Critical] Out-of-bounds stack write in `a6xx_hfi_send_perf_table` and `a=
+6xx_hfi_send_perf_table_v1` due to a mismatch between `GMU_MAX_CX_FREQS` an=
+d the `cx_votes` array size.
+--
 
--- 
-2.55.0
+commit b7dcd380638139f2d4f6982c947797f34b9ff256
+Author: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 
+drm/msm/a6xx: Increase HFI GX perf level limit to 24
+
+Newer Adreno GPUs expose more than 16 GX frequency levels. Introduce
+HFI_MAX_GX_LEVELS and use it to size the perf-table and bandwidth-table
+GX vote arrays, and to derive GMU_MAX_GX_FREQS, so these levels are not
+truncated.
+
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/=
+adreno/a6xx_gmu.h
+> index 3f96b10b5f61a..62e3fb230cd3a 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+> @@ -20,7 +20,7 @@ struct a6xx_gmu_bo {
+>  	u64 iova;
+>  };
+> =20
+> -#define GMU_MAX_GX_FREQS	32
+> +#define GMU_MAX_GX_FREQS	HFI_MAX_GX_LEVELS
+>  #define GMU_MAX_CX_FREQS	6
+>  #define GMU_MAX_BCMS		3
+> =20
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h b/drivers/gpu/drm/msm/=
+adreno/a6xx_hfi.h
+> index e10d32ce93e0c..f4da73a555c65 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
+> @@ -5,6 +5,7 @@
+>  #define _A6XX_HFI_H_
+> =20
+>  #define HFI_MAX_QUEUES 3
+> +#define HFI_MAX_GX_LEVELS 24
+> =20
+>  struct a6xx_hfi_queue_table_header {
+>  	u32 version;
+
+[ ... ]
+
+> @@ -119,7 +120,7 @@ struct a6xx_hfi_msg_perf_table_v1 {
+>  	u32 num_gpu_levels;
+>  	u32 num_gmu_levels;
+> =20
+> -	struct perf_level gx_votes[16];
+> +	struct perf_level gx_votes[HFI_MAX_GX_LEVELS];
+>  	struct perf_level cx_votes[4];
+
+[Severity: High]
+Does expanding this fixed-size array in a packed structure break compatibil=
+ity
+with older GMU firmwares?
+
+Because a6xx_hfi_msg_perf_table_v1 is a packed structure, increasing the si=
+ze
+of gx_votes from 16 to 24 elements shifts the offset of cx_votes. During dr=
+iver
+initialization on older Adreno GPUs, firmwares expecting the previous fixed=
+-size
+v1 performance tables might read cx_votes at the old offset and receive
+uninitialized zeros instead of the actual frequencies, which can cause syst=
+em
+instability.
+
+This same offset shift appears to happen below in struct a6xx_hfi_msg_perf_=
+table
+as well.
+
+[Severity: Critical]
+This is a pre-existing issue, but can this cause a stack buffer overflow?
+
+The cx_votes array is hardcoded to a size of 4 here. However, in
+drivers/gpu/drm/msm/adreno/a6xx_gmu.h, GMU_MAX_CX_FREQS is defined as 6.
+
+During initialization, a6xx_hfi_send_perf_table_v1() iterates up to
+gmu->nr_gmu_freqs (which can be up to 6 on newer platforms with more OPPs)
+and writes to msg.cx_votes[i] on the stack:
+
+drivers/gpu/drm/msm/adreno/a6xx_hfi.c:a6xx_hfi_send_perf_table_v1() {
+	...
+	for (i =3D 0; i < gmu->nr_gmu_freqs; i++) {
+		msg.cx_votes[i].vote =3D gmu->cx_arc_votes[i];
+		msg.cx_votes[i].freq =3D gmu->gmu_freqs[i] / 1000;
+	}
+	...
+}
+
+If gmu->nr_gmu_freqs exceeds 4, this loop appears to write out-of-bounds on
+the stack, which can corrupt memory. This identical loop is also present in
+a6xx_hfi_send_perf_table().
+
+>  } __packed;
+> =20
+> @@ -128,7 +129,7 @@ struct a6xx_hfi_msg_perf_table {
+>  	u32 num_gpu_levels;
+>  	u32 num_gmu_levels;
+> =20
+> -	struct perf_gx_level gx_votes[16];
+> +	struct perf_gx_level gx_votes[HFI_MAX_GX_LEVELS];
+>  	struct perf_level cx_votes[4];
+>  } __packed;
+> =20
+> @@ -144,7 +145,7 @@ struct a6xx_hfi_msg_bw_table {
+>  	u32 cnoc_cmds_addrs[6];
+>  	u32 cnoc_cmds_data[2][6];
+>  	u32 ddr_cmds_addrs[8];
+> -	u32 ddr_cmds_data[16][8];
+> +	u32 ddr_cmds_data[HFI_MAX_GX_LEVELS][8];
+
+[Severity: High]
+Does increasing the size of ddr_cmds_data risk breaking length validation
+on older firmwares?
+
+Expanding this array increases the overall message size by 256 bytes, which
+older GMU firmwares might reject if they strictly validate the length of the
+bandwidth table message.
+
+>  } __packed;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-kaana-gpu-=
+dt-v2-0-6ac53de56314@oss.qualcomm.com?part=3D1
