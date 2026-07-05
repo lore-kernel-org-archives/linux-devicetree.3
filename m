@@ -1,61 +1,63 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB8A357D08
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 15:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A51368D73
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 15:37:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783265818; cv=none; b=cgYQVAivHKyupCtXFj1f9XXqMxy5vL28/UNdqUWfLHH22JvOdfirTP5KEBkUdoPz/R+U9O71RLTFCfZNWTlt8++xSR7UTY2D5Qgw2EGuCK7HZVGdinszfjRWD24Xlwn4A/IUb/58XIDDMawsVe5nXbXYaN1MQDHJWWfNeqtJCPA=
+	t=1783265825; cv=none; b=BNrqS8E7Wk/EYOmIt+jpq9BSfPCtLfE4kPEh68mCGxZDmhy4ofiig0dOaggbDfcPTU/5pfbbpsn9+KQ74Uf+6LEGn8r68jSGuAIMzBf+i7l2GPs5Mz5si6bz3YjQvmLc7bBkQyX+63u7yT4yU3E3Zktea9BDToZjK8ywY/5/jKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783265818; c=relaxed/simple;
-	bh=0jQ3bwT0aFc1TCUDUPvcyprkqgouMiNNdG0wIVaWAIk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fItMeplQjId0GsJuOhx0lAqZCmHrMoP6f5kUBHrFYmo+myIhJPG9EEYbmR2doLPLcxrAZnB2rS7ktdzhJ1usU1HTkMuOlFEd3IuzjvfoMlUJ7xEttiyMPj5JYRjgAmIgZ+CAHa8rxJ6XVwm51Xp5M39zqTMN5HXF4UdcvNL7k2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rK3afPjF; arc=none smtp.client-ip=209.85.210.181
+	s=arc-20240116; t=1783265825; c=relaxed/simple;
+	bh=E3VeMurdvuO9lZQpxy9ngIKPz0EtT6qzRP5NTYYMJrA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fAgD6S5+C4gHyQ43hcLbH6PdTz6CvoTTWPIaWPuAituV8nMB4NhKZs2ehElUSaEcofPVNbLW4+P+OBgv8BvOflJmXy2vx5RI45V31V3nbmL/c9HkJVtb5p5Y4LT9Rx3YtGH023zWbl4QSscqI3Ij4JYJNstRWYVGms51xtQOltM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j/Pay0Pj; arc=none smtp.client-ip=209.85.210.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rK3afPjF"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-847aa193d98so1715153b3a.3
-        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 08:36:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j/Pay0Pj"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-847e6f03df8so2765034b3a.0
+        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 08:37:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783265816; x=1783870616; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OXCZCCGOyqe2xRMAN5jliT8u+ao8sWXmCdGqqZO2Sz4=;
-        b=rK3afPjFkTiFmvDGo5odwkVUrRxL0+Y0mWANJieJlRKmLstGQKbqGodnvB+MekDOLv
-         AvtwVKnyVEeBkYSBuvj2bfGHYCHUbpSCH71qTT3rt01G+RlKf/Rx3tYZhlo3RyhIv01i
-         /8dQSqU/jYctoQK2p91W6TLzPb6NzamhmDw6yjHY+MqUnGUfZF7CMCtULbH3Z6iqo4PW
-         HqTfUnxF9dEnF3gtLIKQo2IujrBEvFjpLhaTKYM5LX/Cn4XskaNIyjHKfaFd70BoB4sM
-         3nIoprbkcduc3UhoqzA35U+cY7Sc6he5VYtm29s67Ft9XfUXxAxedDlhBe4IpVHehaxf
-         hnPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783265816; x=1783870616;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1783265824; x=1783870624; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OXCZCCGOyqe2xRMAN5jliT8u+ao8sWXmCdGqqZO2Sz4=;
-        b=oMOJY3cqyf63sMj201pQzXZgSn4/hzmZj+7TtoLLZKDqXpcTZmR5AGSyJB0tr2zD5V
-         7IFaE8xHNMk3fjdcgwpk9/tSmyysH2DBmfarriXE/g4kO/Upd5T51uPPALESC4BZ1Etx
-         3LpqPYVlzUH3jqNBWDyUyUGIaCXwv13X5DSPN4rVbawmX0Y9J63zZmTqKXAxS67Uu2KG
-         qRYsx4itoT+csAdILbVFSkKOlJmsbSp5Cve2Sgl9GiaS9nWsAXXskojRwzPTxVYsaiev
-         iAybMIXdWUNBHp1YIn2OEKczv087NnOGs4gBtFmpPEYioGTzLI1ZVZifP2W3Ke4RoFOG
-         8uDA==
-X-Forwarded-Encrypted: i=1; AHgh+RpbaoLmyPWWWn/3CB9ffu6Z9NKT0Zp6M71cvG4DfJEfxfa/pZLdqQeTGVzEHPIvaRdpglx3OPHxriSw@vger.kernel.org
-X-Gm-Message-State: AOJu0YxhwES8QVU8eKqcR04fcEcTHdOl0ZG6xNtUDAQhZg3GrVoPdRf7
-	b6XMehWyEzP781BR4IGYhj4zyZ3l4Mlxf6Gt4Np3C/H00OblbidI4xLB
-X-Gm-Gg: AfdE7clkQlqf9lViso7/iZIyf0Ajwrk/hWV333LmvEKN2njMWb+3SPSvsfykApZir50
-	MnoKhuL04l7+cLEIlGD48EWZZgsPHfGZcKKU7H0sxruDY7345L9lkRfLocM8QZ65rNEriB7KpJW
-	565gYo+tW1K9y8hBbrkwNFjEC8E7UPuYUAsv9VwgZuySDsAquIK6QLBuzuNLtU3gCwyN8Wxq7Rn
-	GOmziFHXSPPkecCzQqIxnAjCZ54/lDz+b4zC5eyDsqqS878VNO6P1dKi4k+aL/FLB8DedvKc5Py
-	5ZiaKRZMWULELbaEmLJ7y7l/fp5fJLXhbwkTzcaJ8kpsh4kdgVTm246l9FAq/cwJAmpnt2Xgu4H
-	aMAa3JmLPXl7QD9cvVUn1ulT3Z1vvMpysNqD3OoqFp2d+olc1LvKDo0p44ptp8kOIy1Jv6mKwdP
-	TWuF1UToKrctDhaalmvAw5ObwoE5SExz3Kw9jX1vU=
-X-Received: by 2002:aa7:9304:0:b0:847:8b1d:22fe with SMTP id d2e1a72fcca58-847f6f67796mr5581254b3a.50.1783265816442;
-        Sun, 05 Jul 2026 08:36:56 -0700 (PDT)
+        bh=OMHOwB1gJgFIEhx9jNa5p0baI/PKUY5J0BR5RvxnEJA=;
+        b=j/Pay0PjfZawx3+yMahR2PcRlFrlmQSdGRXW8paprJeWMyBAy8HWYM5lZFeA1GrLda
+         hRYL1f0DylgxH1vOB7WscrHwMGp6JmDVT6k742jUG2Y1engefwL2Y/GFIu+lVeJLul7E
+         VjCvWovg9JACZbfJl1u/GnLhX4fgAKDGnZR4VfSV+2Yt/Ffe8j7o9VfvBc2vCnzKAc5z
+         HQwqZapBXikVoEFZg17zgIIEeVAb/H2nLzLCH7diL/rsmw2gFGSmvKuCT3oK1ztb0MaE
+         BFoMZjBTwYYykbIxVhZkMuwpCZ+3OPPXWiFImGlu9/jy/byPWzd0aSrRJTdUd4XyM9Zk
+         ljgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783265824; x=1783870624;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=OMHOwB1gJgFIEhx9jNa5p0baI/PKUY5J0BR5RvxnEJA=;
+        b=hwJJta+/6J1lffjTWIA9N3sF6JpUKXQJdmLpDNMvXXRBEWYfvUNlHdVx3cOa++MeZC
+         kmbmUwJLIG88npeNcievqZT7SU8kuBUgvKcbKC60FPggsIATpSdiAtiMUJtQRiKdqZIV
+         dvwsRLFDLruTI5Rkv5Gd+P6vNTGIeql3Mfr57p2PkPEBlC47g4ZiTXyDqv4blZkl+sxa
+         HNS7lmrjvZAiClFdnOxC8ieC/QeWgkogUQXN7RVm8GIPQQ9KPBvMdeOM14RtrvZE6191
+         WxPRSCDvuxqbjjIWV0thF1Kpnf+XPpO2Owto65zrd8115nEVUOKeofkJ5QAlsv5p2BrW
+         jtiA==
+X-Forwarded-Encrypted: i=1; AHgh+RoHtfFBODgaT9yuPVkjjahOoYqn1vSjwzMFYDZ3ooBv/Y1zDO0jjt+fI1CArAIzTbZkdmKXN+N2eGN4@vger.kernel.org
+X-Gm-Message-State: AOJu0YxUgZc9vUtZWWtaQKx4r63la8nOv7Dh8zzOgPcqx6PA0DAmWgMO
+	NmQGylhLUhTMgoATvJ8Y5xaFqHb7IsXZbkQLffpuAARjILf6B5Pw0sZW
+X-Gm-Gg: AfdE7cmCz5eOTUrBKaG/Jh/12Y9DuXwzY+4yqaJN2nLLX0OO7Svn5XjX5M7EPrC5uhb
+	R2ZfiujnxUjek4exr9sbNVU0zDHRGilbEPoN6YPaciJBpZibs9RfBZDVxhoRqkp1EWd1T4pBgGx
+	nq3HoQJ2/P4bOmbxk7Uq2GJ8MSYEl4v6HFRoJSzTZvDgUyLgOarF6CVvRSfWQrTZYSDjEaQN4C8
+	oxi2c/0agDNBt5Af3UJoutfqBTX2gfRONNqmoS8C1MiIy67YIz59NkQrTjAPFQMRGioZpNnZQbv
+	Bb+9Gzz2TW/HZImV+41W5NWLgFSUSkErVHWjHaKdefGY4j9r55uIRxrYOKeHcXRK6OTQcNnQKDf
+	Ze/XCHVdGbLCaGTM3+ZJDS1sM6IUEgsvyv0yNaYeq/e3/CTwWnulv9/tVh0Hl7rilvQAXgmv6el
+	l+Nzl5dSfOCYljEAwnQkm40H4ro9B1KdLjpZO8Yk8=
+X-Received: by 2002:a05:6a00:44c6:b0:847:8d56:1f71 with SMTP id d2e1a72fcca58-847f6dc2c53mr5948118b3a.21.1783265823618;
+        Sun, 05 Jul 2026 08:37:03 -0700 (PDT)
 Received: from nuvole ([144.202.86.13])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847f6db29d1sm2402076b3a.53.2026.07.05.08.36.49
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847f6db29d1sm2402076b3a.53.2026.07.05.08.36.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 05 Jul 2026 08:36:55 -0700 (PDT)
+        Sun, 05 Jul 2026 08:37:02 -0700 (PDT)
 From: Pengyu Luo <mitltlatltl@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Jessica Zhang <jesszhan0024@gmail.com>,
@@ -70,11 +72,14 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH v2 0/2] drm/panel: Add Novatek NT36536 panel driver
-Date: Sun,  5 Jul 2026 23:35:13 +0800
-Message-ID: <20260705153515.46147-1-mitltlatltl@gmail.com>
+	Pengyu Luo <mitltlatltl@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2 1/2] dt-bindings: display: panel: Add Novatek NT36536
+Date: Sun,  5 Jul 2026 23:35:14 +0800
+Message-ID: <20260705153515.46147-2-mitltlatltl@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260705153515.46147-1-mitltlatltl@gmail.com>
+References: <20260705153515.46147-1-mitltlatltl@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,30 +88,117 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a driver for panels using the Novatek NT36536 Display Driver IC,
-including support for the CSOT PP8807HB1-1, a dual-link 10-bit panel
-found in LENOVO Legion Y700 Gen4.
+NT36536 is a driver IC used to drive MIPI-DSI panels. It is found in
+LENOVO Legion Y700 Gen4 with a dual-link 10-bit CSOT panel.
 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
 ---
-Changes in v2:
+v2:
 - Collect tags
 - Mention the CSOT PP8807HB1-1 is a dual-link panel (Krzysztof)
-- Use devm_drm_panel_add() (Neil)
-- Link to v1: https://lore.kernel.org/dri-devel/20260630023439.248861-1-mitltlatltl@gmail.com
-
-Pengyu Luo (2):
-  dt-bindings: display: panel: Add Novatek NT36536
-  drm/panel: Add Novatek NT36536 panel driver
-
- .../display/panel/novatek,nt36536.yaml        |  91 ++++
- drivers/gpu/drm/panel/Kconfig                 |  11 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt36536.c | 488 ++++++++++++++++++
- 4 files changed, 591 insertions(+)
+---
+ .../display/panel/novatek,nt36536.yaml        | 91 +++++++++++++++++++
+ 1 file changed, 91 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36536.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36536.c
 
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36536.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36536.yaml
+new file mode 100644
+index 000000000000..0862998cc6ef
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36536.yaml
+@@ -0,0 +1,91 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/novatek,nt36536.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Novatek NT36536 based DSI display Panels
++
++maintainers:
++  - Pengyu Luo <mitltlatltl@gmail.com>
++
++description:
++  The Novatek NT36536 is a generic DSI Panel IC used to drive dsi
++  panels. Support video mode panels from China Star Optoelectronics
++  Technology (CSOT), such as PP8807HB1-1 which is a dual-link 10-bit
++  panel.
++
++allOf:
++  - $ref: panel-common-dual.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - csot,pp8807hb1-1
++      - const: novatek,nt36536
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++
++  vddio-supply:
++    description: I/O source voltage rail
++
++  vsp-supply:
++    description: Positive source voltage rail
++
++  vsn-supply:
++    description: Negative source voltage rail
++
++  backlight: true
++  ports: true
++
++required:
++  - compatible
++  - reg
++  - vddio-supply
++  - reset-gpios
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "csot,pp8807hb1-1", "novatek,nt36536";
++            reg = <0>;
++
++            vddio-supply = <&vreg_iovdd_1p8>;
++            reset-gpios = <&tlmm 98 GPIO_ACTIVE_LOW>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    panel_in_0: endpoint {
++                        remote-endpoint = <&dsi0_out>;
++                    };
++                };
++
++                port@1{
++                    reg = <1>;
++                    panel_in_1: endpoint {
++                        remote-endpoint = <&dsi1_out>;
++                    };
++                };
++            };
++        };
++    };
++
++...
 -- 
 2.54.0
 
