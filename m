@@ -1,227 +1,160 @@
-Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2A537FF7A
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 13:28:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A65BE433E7A
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 13:31:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783258132; cv=none; b=TswCgb7ECY0iLTIgm/2bia5PBZ1diMw9Pw2x7mZT649HQPUnZt/QmTLz0Xpf2Ypzm8W2oBNURyzKo9mKmLe3BR7+DpyED+g/9JHNmlc6dhpqPmXQOgNtyBn0qR7pU+RmWmORAtBESw2ticdWhkbiMpVAmRVI661VkThsdHopYG0=
+	t=1783258318; cv=none; b=ZndJwFWX3XP57yyvOFFWVBbl9CIO/Lil6+sypsGNhiBZlQKiwif5IdIForUGAxIs2nDpBKNdnFh3zhqSYnrrSWDfvIOUziKtD9CYSP8gLPwo2+KHsbyFXN9ftBephUDyPi8vASU8pUV6llbwGcxTBpji3c/bSEWv7cpNBVuSzEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783258132; c=relaxed/simple;
-	bh=FEFBL9I+goMukC5uUaNbyT9kN5k+BRYQLzcVJLWjSkE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=USbgO3Rd/YQlaaBpCOHOvh3Xn3lzlTIXfIraylTMYqK4N5ZAGjy1mOSGhWGBDFBp5qhJHH+3N5vAvHVhPGBYrQCnrW6vDoKaCYm5U6vGjiuMHGrQ2/2LDr2qtQ7yr7/v1PD0yn/6jFCHUWYfLGyU4Q6b+YntDa4J0oz0bE9Uygs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=XYHKqX4R; arc=none smtp.client-ip=91.218.175.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1783258318; c=relaxed/simple;
+	bh=PszMH/G350UZYSUvhTRtv5txKIcdX/LvEHKJ/TSt+EM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OmJHphcRRob1mBA/E6f7G4CzpvEQU6/64rSKLIvo2rDz10rTIxQ8fjnmKWdTVjwqQoWS7Kf1SzYqkypEzNypF2xdYSvY9xbby6EuHHuTIMBkXYtE+qcSabxXR97IQW1WywgM7naQYW4rTWAI8vHEEZCumATQBJ3JqyNTdIvuDKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g7YqnInk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="XYHKqX4R"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g7YqnInk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490111F000E9;
+	Sun,  5 Jul 2026 13:31:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783258317;
+	bh=j186fY07091gVQ/n2m9ceU8j8O46i3P6VRpJMUna2ys=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=g7YqnInkHsRGzr47Cw0pf9Q706qdyLM17PExD+5/zI4YrZIXYl3/IUh4ncxYEB7cM
+	 KL02xB12L7PlRh9XrnFoWVeG8EouSpDfZlafIQ3ZU8mAiaddqYRjuYK0WvwenStadl
+	 WUvoQONZIUtrE0YkEfxeWZmKzpf93gEjy3iMKpX6BG1Bn7UH5B5XRAvaSMYUTzk9v8
+	 zdTrpNx/n0eMdbBlvXghvvrO8ZQDLL+RYFwEyFXVTXgo7an9RAdmWZqCG7uO40fd4B
+	 /NHLbOyfih8snINQYj7iSjkhPKeIqrCq6Gmt7yYBUsA3/TqRFaepBgIIdYLIP2JuVr
+	 NSqnbhjLQqxuw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: pinctrl: microchip,pic32mzda-pinctrl:
+ Convert to DT schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Udaya Kiran Challa" <challauday369@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260705132521.159522-1-challauday369@gmail.com>
+References: <20260705132521.159522-1-challauday369@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 05 Jul 2026 13:31:56 +0000
+Message-Id: <20260705133157.490111F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
-	s=key1; t=1783258116;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=75Oki2p9+J8O5hmX2u7GRFERo3z7tGNIzsRExUr/bFI=;
-	b=XYHKqX4RHFHTovZ8pNtZLcq0rLACm9xJXFqbwJadyOVHCIPZGKc340EjYgwtr8jzMiCqpM
-	FTE1me1ac8Sj5P+yTb2aq1yzr9cKfh92pVudKInUov6vZoym/NbPUb/9ion90ZoFu/onOG
-	6iLkpfc7/oQjKX5VhNUIVz1cdChdwL/MQYvkqlyIZMZecKkc3TCzIFiFtYCoJ9kGFlXD+l
-	KmpxNXjy5uMJNtnuwQ/FHQxLEhbfI6rlR7gibAmgU+Q7Gei1zu67zYcuBxq9Tp+ZLTRwyp
-	N/sNzDjIVGAb2QvXG0qBZhSnUN1xbYJwnzSxK2XV07BeUEq6u1QccegmuE6kwg==
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 05 Jul 2026 15:28:29 +0200
-Message-Id: <DJQO8Q4J2LDP.1G8I4FVF6J7TK@cknow-tech.com>
-Cc: <kernel@collabora.com>, "Andy Yan" <andyshrk@163.com>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/9] drm/rockchip: vop2: Reset AXI and DCLK to improve
- robustness
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>, "Sandy Huang"
- <hjc@rock-chips.com>, =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- "Andy Yan" <andy.yan@rock-chips.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Philipp Zabel" <p.zabel@pengutronix.de>, "Andrzej
- Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>
-References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
- <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
-In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
-X-Migadu-Flow: FLOW_OUT
 
-Hi Cristian,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The `function` property enum restricts the allowed mux functions t=
+o only four UART-related values (`U2TX`, `U2RX`, `U4TX`, `U4RX`), breaking =
+validation for all other hardware peripherals.
+- [High] The `function` property is missing from the top-level pin configur=
+ation node's properties, preventing its use on direct, single-level configu=
+ration nodes.
+- [High] The regular expressions used in `patternProperties` enforce non-st=
+andard, brittle naming conventions and will incorrectly reject valid device=
+ tree node names.
+--
 
-On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
-> Assert the AXI reset in the CRTC disable path, and the VP DCLK reset in
-> the enable path.
->
-> These resets are intended to leave the hardware in a clean state for the
-> next use, helping recover from exceptions such as IOMMU page faults, as
-> well as to prevent random display output glitches, such as a blank
-> image, observed when switching modes that also change the color format,
-> e.g. from RGB to YUV420 and vice versa.
->
-> For now this seems to affect only the RK3588, hence the resets are
-> optional and will be provided in the device tree for this SoC only.
+commit bc456fcb7e299ea733020d3953dfb0867baf36ff
+Author: Udaya Kiran Challa <challauday369@gmail.com>
 
-Why do you think it only effect RK3588? I reported about my RK3568 test her=
-e:
-https://lore.kernel.org/linux-rockchip/DFRU6ODDM71P.3NQGLRK8IVDUY@cknow-tec=
-h.com/
-"I then went on to try LibreELEC's builds. The artifacts I (sometimes)
-saw, were gone :-D OTOH, I did get several major issues 'in return',
-like rk_iommu Page fault resulting in a black screen and the only way to
-'recover' from it, was a reboot."
+dt-bindings: pinctrl: microchip,pic32mzda-pinctrl: Convert to DT schema
+   =20
+Convert Microchip PIC32 Pin Controller devicetree binding
+from legacy text format to DT schema.
 
-And I reported some more test results here:
-https://forum.libreelec.tv/thread/29953-le13-testing-for-rk3288-rk3328-rk33=
-99-rk3566-rk3568-rk3576-rk3588/?postID=3D204691#post204691
+> diff --git a/Documentation/devicetree/bindings/pinctrl/microchip,pic32mzd=
+a-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/microchip,pic32m=
+zda-pinctrl.yaml
+> new file mode 100644
+> index 0000000000000..87ac5aace5e36
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/microchip,pic32mzda-pinct=
+rl.yaml
+> @@ -0,0 +1,141 @@
+[ ... ]
+> +patternProperties:
+> +  '^[a-z0-9]+[_-].*$':
 
-That seems to me a (strong) indication it also affects RK3566/RK3568?
+[Severity: High]
+Does this regular expression inappropriately reject valid and standard
+device tree node names?=20
 
-Cheers,
-  Diederik
+By requiring an underscore or hyphen, this outer regex prevents generic
+single-word node names like "spi0" for a pin group container.
 
-> Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
-> Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> ---
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 35 ++++++++++++++++++++++=
-++++++
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  4 ++++
->  2 files changed, 39 insertions(+)
->
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
-rm/rockchip/rockchip_drm_vop2.c
-> index 4cce3e336f5b..2833fb49ad81 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> @@ -17,6 +17,7 @@
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/regmap.h>
-> +#include <linux/reset.h>
->  #include <linux/swab.h>
-> =20
->  #include <drm/drm.h>
-> @@ -860,6 +861,26 @@ static int vop2_core_clks_prepare_enable(struct vop2=
- *vop2)
->  	return ret;
->  }
-> =20
-> +static void vop2_clk_reset(struct vop2 *vop2, struct reset_control *rstc=
-)
-> +{
-> +	int ret;
+> +    type: object
+> +    description: |
+> +      Pin configuration node with pin muxing and configuration propertie=
+s.
+> +      Can be either a direct pin configuration node or a container node
+> +      with child pin configuration nodes.
 > +
-> +	if (!rstc)
-> +		return;
+> +    properties:
+> +      pins:
+> +        description: |
+> +          List of pins to which the configuration applies.
+> +        items:
+> +          type: string
+> +        minItems: 1
 > +
-> +	ret =3D reset_control_assert(rstc);
-> +	if (ret < 0) {
-> +		drm_warn(vop2->drm, "failed to assert reset: %d\n", ret);
-> +		return;
-> +	}
-> +
-> +	udelay(10);
-> +
-> +	ret =3D reset_control_deassert(rstc);
-> +	if (ret < 0)
-> +		drm_err(vop2->drm, "failed to deassert reset: %d\n", ret);
-> +}
-> +
->  static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
->  {
->  	u32 pd;
-> @@ -938,6 +959,8 @@ static void vop2_disable(struct vop2 *vop2)
->  {
->  	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
-> =20
-> +	vop2_clk_reset(vop2, vop2->axi_rst);
-> +
->  	pm_runtime_put_sync(vop2->dev);
-> =20
->  	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
-> @@ -1948,6 +1971,8 @@ static void vop2_crtc_atomic_enable(struct drm_crtc=
- *crtc,
-> =20
->  	vop2_crtc_atomic_try_set_gamma(vop2, vp, crtc, crtc_state);
-> =20
-> +	vop2_clk_reset(vop2, vp->dclk_rst);
-> +
->  	drm_crtc_vblank_on(crtc);
-> =20
->  	vop2_unlock(vop2);
-> @@ -2531,6 +2556,11 @@ static int vop2_create_crtcs(struct vop2 *vop2)
->  			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk),
->  					     "failed to get %s\n", dclk_name);
-> =20
-> +		vp->dclk_rst =3D devm_reset_control_get_optional(vop2->dev, dclk_name)=
-;
-> +		if (IS_ERR(vp->dclk_rst))
-> +			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk_rst),
-> +					     "failed to get %s reset\n", dclk_name);
-> +
->  		np =3D of_graph_get_remote_node(dev->of_node, i, -1);
->  		if (!np) {
->  			drm_dbg(vop2->drm, "%s: No remote for vp%d\n", __func__, i);
-> @@ -2890,6 +2920,11 @@ static int vop2_bind(struct device *dev, struct de=
-vice *master, void *data)
->  		return dev_err_probe(drm->dev, PTR_ERR(vop2->pll_hdmiphy1),
->  				     "failed to get pll_hdmiphy1\n");
-> =20
-> +	vop2->axi_rst =3D devm_reset_control_get_optional(vop2->dev, "axi");
-> +	if (IS_ERR(vop2->axi_rst))
-> +		return dev_err_probe(drm->dev, PTR_ERR(vop2->axi_rst),
-> +				     "failed to get axi reset\n");
-> +
->  	vop2->irq =3D platform_get_irq(pdev, 0);
->  	if (vop2->irq < 0)
->  		return dev_err_probe(drm->dev, vop2->irq, "cannot find irq for vop2\n"=
-);
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/d=
-rm/rockchip/rockchip_drm_vop2.h
-> index ffcb39c130aa..14b437d2d088 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-> @@ -165,6 +165,8 @@ enum vop2_win_regs {
->  	VOP2_WIN_MAX_REG,
->  };
-> =20
-> +struct reset_control;
-> +
->  struct vop2_regs_dump {
->  	const char *name;
->  	u32 base;
-> @@ -238,6 +240,7 @@ struct vop2_video_port {
->  	struct vop2 *vop2;
->  	struct clk *dclk;
->  	struct clk *dclk_src;
-> +	struct reset_control *dclk_rst;
->  	unsigned int id;
->  	const struct vop2_video_port_data *data;
-> =20
-> @@ -329,6 +332,7 @@ struct vop2 {
->  	struct clk *pclk;
->  	struct clk *pll_hdmiphy0;
->  	struct clk *pll_hdmiphy1;
-> +	struct reset_control *axi_rst;
-> =20
->  	/* optional internal rgb encoder */
->  	struct rockchip_rgb *rgb;
+> +      bias-pull-up: true
+> +      bias-pull-down: true
+> +      input-enable: true
+> +      output-low: true
+> +      output-high: true
 
+[Severity: High]
+Is the "function" property missing from this properties block?=20
+
+Because the patternProperties node defines additionalProperties: false
+later on, omitting "function" here forces all users to use a nested
+container structure. This seems to contradict the description which states
+the node can be a direct pin configuration node.
+
+> +
+> +      microchip,digital:
+> +        description: Enable digital I/O.
+> +        type: boolean
+> +
+> +      microchip,analog:
+> +        description: Enable analog I/O.
+> +        type: boolean
+> +
+> +    patternProperties:
+> +      '^[a-z]+[0-9]+-[a-z]+$':
+
+[Severity: High]
+Could this inner regular expression impose a brittle naming structure?=20
+
+Because it requires a strict "<alpha><num>-<alpha>" pattern, it will
+reject valid node names like "i2c-sda" (no number) or "tx" (no hyphen).
+
+> +        type: object
+> +        description: |
+> +          Child pin configuration node.
+> +
+> +        properties:
+> +          pins:
+> +            items:
+> +              type: string
+> +            minItems: 1
+> +
+> +          function:
+> +            description: |
+> +              A string containing the name of the function to mux pin.
+> +            enum: [ U2TX, U2RX, U4TX, U4RX ]
+
+[Severity: High]
+Is it intentional to restrict the allowed mux functions to only these
+four UART-related values?=20
+
+This enum arbitrarily limits the allowed strings and will break
+validation for other hardware peripherals like IC3, SDI1, and OC3 which
+are supported by the driver.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705132521.1595=
+22-1-challauday369@gmail.com?part=3D1
