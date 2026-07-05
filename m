@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4426F369206
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 08:09:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C756735DA68
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 08:10:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783238942; cv=none; b=Ae+mGeuvlR8+bDOkyt4WNoIL4b4XtFLbOl181OrJCW1zWLfDDYYy9o7u0D+U5hHY5zDH5uBnv6joK0ZSGzlo1ZRpzAAg6gWE3YuX1BoNdsPrB7mbQBWlip5za8DmhV7lEJe9OXGAuylbpQ/TflyU/xeZlN1cJpqcr1gZ7PBZ8l0=
+	t=1783239013; cv=none; b=r0M0jHizkkuJwvkQP0OQTWLGcH8MdItFmjBLysWIM748SBbq1rN5KdX+e9fBJ03EjZ1ztjzoRY8Y26Tn2t6+WXup8vrWKU4xJzY83Nca5b6tCAuoW7e6p6Cl1OPXY+AN4K66r3AGap1Z6i5pYuJv6F99gCuFZKh5PRaBckaU02E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783238942; c=relaxed/simple;
-	bh=7GONWWBpF9tw8q6WLtt5cVGf5yjrMbE8mcJHNTI++mM=;
+	s=arc-20240116; t=1783239013; c=relaxed/simple;
+	bh=GREFFB11AA+5UkGPzPPLfvnhwEQ22eyyzXYUqTDmcjY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CQDLLpVz41hNzDFf+lyAC7+kp0Og/n5qKo65VRwu3t4f64m978YBjNc7GrHC3bH5+jiLHByFthaWCINLkZ7nngRvQhcj+r+uXvdzLzZL2GFci2A2GqcQ2ZJ6vAx+rIl9R1mZDuvfpqGIK4R4JKbbA42LMQS7OCVcChowM3L2zzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKVWJJBg; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=cvEEp2AgIXEmKa9z7zUrRnUR+wHaizhGHiIFyELUav2LgS6HmNdIHKIVefZ7ijYEm7xYLRJ73Q9vYFQMYQfzccvkKXg8SW8zVilZ53VQJOFUtWT6QExf+VRXaW9T9u0zXp9+5qVbFfL809UppgpfpwvURP2PVqA5CKT0KBhp6Sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BvlLbze6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKVWJJBg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CF541F000E9;
-	Sun,  5 Jul 2026 08:09:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BvlLbze6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3F861F000E9;
+	Sun,  5 Jul 2026 08:10:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783238940;
-	bh=Bm49Kmwpt3bZ2ktWJdVGNo8ZXSv+LvGOuBljF4ICPzk=;
+	s=k20260515; t=1783239012;
+	bh=TuJljFV6aHebHFgH7z9AaaGFr8qGcZa30IuzI8E3B1Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jKVWJJBgunsIbEZbkWXSBdRvBtUGhkIj3UxM7qdov7mkVRABl5X8ZjukoDPjyqi54
-	 Tab4HLuwZ6n9zv9KZ/vtk7vCQDCra/xEwln4AMBsCdEdWt6fueNL3fsvieWj7Vcn4k
-	 AxQNciodOUVC78fviXvgaiybqdAtuGi8AJBN/ixWdqxq57z6JiAHKTFuHRLHMZuMkY
-	 ktvamc5MdPKR/QFw1XWyixJ4VtW9FKkHZHSksBn1CHwq1jt4X1V8EclXYv1f2UVp/F
-	 mbFfsl6bFq7FzhXi+z9LX5Gjl8hf95j1BshzfzQHfvl1IXwMynMLgwD9VNjCJlXENm
-	 cvfhqkSo/QFtA==
+	b=BvlLbze6teX+eUaqg9fRWsAkN5iCYvyldIGLmav+F8VqvOBIEmJrlrTpJHtQsZrFy
+	 RCd6JT96aToCrJVXTGVYAxAmYYHFQPhOEV7V49zxsKaiMXA5TzR5tiWtGl4yYcWWt6
+	 XmLv7xvEBYubQsrj4Y4UWW3V5dnoNp8xHKjQOD4k2a8yavGRuJir+zX2nqN2UKMLq/
+	 8a5l4avzFJNcneJ1AOSui4pNlFi4wZqAXWh7YFuF25lUOUxcbOD3Qe5p7jyzNTPgHs
+	 kOFN+FRAzODUJ+ruclSZwvLzL8nNPd2mjJuIKqtbGQM7gc5ZRpOg+UbluRmf8clKAI
+	 rnIfskOCB6dGA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/5] phy: cpcap-usb: Prevent line glitches from
- triggering sysrq
+Subject: Re: [PATCH v2 4/5] phy: cpcap-usb: add DCP detection and make UART
+ idle mode optional
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ivaylo Dimitrov" <ivo.g.dimitrov.75@gmail.com>
-Cc: robh@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, conor+dt@kernel.org, vkoul@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260705075809.1793784-2-ivo.g.dimitrov.75@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, robh@kernel.org
+In-Reply-To: <20260705075809.1793784-5-ivo.g.dimitrov.75@gmail.com>
 References: <20260705075809.1793784-1-ivo.g.dimitrov.75@gmail.com>
- <20260705075809.1793784-2-ivo.g.dimitrov.75@gmail.com>
+ <20260705075809.1793784-5-ivo.g.dimitrov.75@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 05 Jul 2026 08:08:59 +0000
-Message-Id: <20260705080900.5CF541F000E9@smtp.kernel.org>
+Date: Sun, 05 Jul 2026 08:10:11 +0000
+Message-Id: <20260705081011.F3F861F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,86 +47,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Modifying system-wide SysRq state from a leaf PHY driver is a seve=
-re layer violation, and the implementation fails to disable SysRq in many c=
-onfigurations while also overwriting administrative changes.
-- [High] Lockless manipulation of the global SysRq state introduces a data =
-race that corrupts the input subsystem's handler list, leading to a kernel =
-panic.
+
+New issues:
+- [High] The USB PHY state machine gets permanently stuck in CPCAP_UNKNOWN =
+if a USB host or charger is connected during boot.
+
+Pre-existing issues:
+- [High] A Time-Of-Check to Time-Of-Use (TOCTOU) race condition allows a de=
+layed work timer to be queued just before the driver's data structure is fr=
+eed.
 --
 
-commit 1e47bb3741a2d7707b55cf24510e851f11fad240
+commit c15ba246412946a134691c79cf0b6023882d635b
 Author: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 
-phy: cpcap-usb: Prevent line glitches from triggering sysrq
+phy: cpcap-usb: add DCP detection and make UART idle mode optional
 
-This commit temporarily disables sysrq support when switching between
-USB and debug serial port modes to prevent line glitches from
-triggering spurious sysrq events.
+Handle DCP separately from USB host connections based on CPCAP charger
+detection status. Make the existing idle UART mode optional and initialize
+the PHY into the baseline configuration. Fix a race in removal.
 
 > diff --git a/drivers/phy/motorola/phy-cpcap-usb.c b/drivers/phy/motorola/=
 phy-cpcap-usb.c
-> index 7cb020dd3423c..d1c70c7153466 100644
+> index d1c70c7153466..e776e54bbfd56 100644
 > --- a/drivers/phy/motorola/phy-cpcap-usb.c
 > +++ b/drivers/phy/motorola/phy-cpcap-usb.c
+[ ... ]
+> @@ -293,38 +302,61 @@ static void cpcap_usb_detect(struct work_struct *wo=
+rk)
+[ ... ]
+>  	vbus =3D cpcap_usb_vbus_valid(ddata);
+> =20
+> -	/* Otherwise assume we're connected to a USB host */
+> -	if (vbus) {
+> -		dev_dbg(ddata->dev, "connected to USB host\n");
+> -		error =3D cpcap_usb_set_usb_mode(ddata);
+> +	/* Check if we're connected to a USB host */
+> +	if (vbus && ddata->mode !=3D CPCAP_USB_HOST) {
+> +		enum cpcap_mode new_mode;
+> +
+> +		if (!s.chrg_det || !s.sessvld || ddata->mode !=3D CPCAP_IDLE)
+> +			return;
+
+[Severity: High]
+Does this early return prevent the PHY from ever initializing if a cable
+is connected during boot?
+
+During cpcap_usb_phy_probe(), ddata->mode is initialized to CPCAP_UNKNOWN.
+If a charger or host is already connected, vbus is true, and this block is
+entered in cpcap_usb_detect(). Because ddata->mode is CPCAP_UNKNOWN, the
+condition ddata->mode !=3D CPCAP_IDLE is unconditionally true, which causes
+an immediate return without transitioning the state.
 
 [ ... ]
-
-> @@ -413,7 +414,12 @@ static int cpcap_usb_gpio_set_mode(struct cpcap_phy_=
-ddata *ddata,
-> =20
->  static int cpcap_usb_set_uart_mode(struct cpcap_phy_ddata *ddata)
+> @@ -694,17 +853,13 @@ static int cpcap_usb_phy_probe(struct platform_devi=
+ce *pdev)
+>  static void cpcap_usb_phy_remove(struct platform_device *pdev)
 >  {
+>  	struct cpcap_phy_ddata *ddata =3D platform_get_drvdata(pdev);
 > -	int error;
-> +	int old_sysrq_mask, error;
-> +
-> +	/* Disable sysrq to prevent random sysrq events on line glitches */
-> +	old_sysrq_mask =3D sysrq_mask();
-> +	if (old_sysrq_mask & 1)
-> +		sysrq_toggle_support(old_sysrq_mask & ~1);
-
-[Severity: High]
-Is it safe to modify the global sysrq state from a leaf PHY driver?
-Arbitrarily toggling global SysRq state affects all input devices (keyboard,
-network, etc.) system-wide.
-
-Also, checking (old_sysrq_mask & 1) assumes bit 0 is always set when sysrq
-is enabled. If the system uses a custom mask without bit 0 (like 0x01b6),
-would this fail to disable sysrq and leave the system vulnerable to the
-glitch panic?
-
-Additionally, calling sysrq_toggle_support() locklessly from this background
-worker path can race with administrative sysctl changes or other drivers.
-If this races with another thread calling sysrq_toggle_support(), couldn't
-both threads observe that sysrq_on() is false and concurrently call
-sysrq_register_handler()?
-
-Since sysrq_register_handler() uses input_register_handler() on a single
-statically allocated sysrq_handler, registering it twice would corrupt the
-input_handler_list and lead to a crash.
-
->  	/* Disable lines to prevent glitches from waking up mdm6600 */
->  	error =3D cpcap_usb_gpio_set_mode(ddata, CPCAP_UNKNOWN_DISABLED);
-
-[ ... ]
-
->  out_err:
-> -	dev_err(ddata->dev, "%s failed with %i\n", __func__, error);
-> +	if (old_sysrq_mask & 1)
-> +		sysrq_toggle_support(old_sysrq_mask);
-
-[Severity: High]
-By unconditionally restoring the old mask here, could this accidentally
-clobber concurrent administrative changes made via sysctl kernel.sysrq while
-the mode switch was happening?
-
-> +
-> +	if (error)
-> +		dev_err(ddata->dev, "%s failed with %i\n", __func__, error);
 > =20
->  	return error;
->  }
+>  	atomic_set(&ddata->active, 0);
+> -	error =3D cpcap_usb_set_uart_mode(ddata);
+> -	if (error)
+> -		dev_err(ddata->dev, "could not set UART mode\n");
+> -
+> +	cancel_delayed_work_sync(&ddata->detect_work);
+
+[Severity: High]
+This is a pre-existing issue, but does moving cancel_delayed_work_sync()
+here still leave a window for a use-after-free if the IRQ thread is
+preempted?
+
+Looking at cpcap_phy_irq_thread():
+
+    if (!atomic_read(&ddata->active))
+        return IRQ_NONE;
+
+    schedule_delayed_work(&ddata->detect_work, msecs_to_jiffies(1));
+
+If the IRQ handler checks ddata->active and sees 1, but is then preempted
+before scheduling the work, cpcap_usb_phy_remove() can run, set active to 0,
+and cancel the currently empty workqueue.
+
+When the IRQ handler resumes, it queues the work, which then fires after
+devres has freed ddata.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705075809.1793=
-784-1-ivo.g.dimitrov.75@gmail.com?part=3D1
+784-1-ivo.g.dimitrov.75@gmail.com?part=3D4
