@@ -1,49 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7200C3AFAE0;
-	Sun,  5 Jul 2026 20:58:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27303B14C4;
+	Sun,  5 Jul 2026 20:58:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783285097; cv=none; b=hzFHcI5sOJMaUflejEOWPGfIcVDvM19TEjZ2rRvbNjgxhgWwcupPMD2gMoccfi04xtebhybpRhwNU96bhcK0/UdVCEemIgtqMcaY51+uR6QytWPHizv1Gh7IdXk0+/ljtUfBS7m57ZH891vWfuQZ0C0R4IK/hjB32GFLxu6SxZQ=
+	t=1783285100; cv=none; b=Mafw97AYrWuyBQ5V8CiOgtU/hAZMbAgthgN2/dmrvhg9KPWMsWptT3Ce1FW3W1Afnh3HZnS88oP55NnEeOGjUmjmgHcXxkVntoDWr+zQXrRShI5UcCwWgiLBEYgy72h8UZ/teJBWyqAGsojB4fRBGpYXHbXyCDFxG43iYZ/uadg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783285097; c=relaxed/simple;
-	bh=SnzMY4GeOULQDWGh9MY4DqNlK6BtUy+8ep7qqtAi1ck=;
+	s=arc-20240116; t=1783285100; c=relaxed/simple;
+	bh=mTPgiBX4dVkJ57KaC/YAdzW+b0nCig0nU5t6fVFhkUE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rhAUNwars3Y77uH8zkLYkV83jnPDsOCkoagC5KLGRYwHr3pqLRWgMDRMq1WSDLkZ9JAyQeoLktFB4zEbQ3MPoGyLcBQT74upfx0n94CRpwoyznEY+gyE6SL7nLUyzyjoS2gVr4pMc2bk2V19rwTkLnDbxQan4t2TB7BllUIbdbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XY7rzHzT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=QOMppdN1cqGwJtVTEPUvpPbiKK1L5yv8Hzzo3Wt99sivRc53y40/xQyVcZ2G06vkkYwPDmj7g9lkgsRisJ/8+eaAuauPBcml2bFaofwWKcyuRaIxU5x6xhGtHzz+daaAGCYPotf3hIpER/SuiDyJDaqZXcn+SiFeCkEK6m+77WI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dMyNsLgY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XY7rzHzT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344EE1F00A3D;
-	Sun,  5 Jul 2026 20:58:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dMyNsLgY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7254C1F000E9;
+	Sun,  5 Jul 2026 20:58:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783285096;
-	bh=zCq6X1dlbF+t+eqnnLurf/o0DayEF3TCPF87L8CKbW4=;
+	s=k20260515; t=1783285098;
+	bh=E8Omg9VpqUJQkuh4f6JRLyZJV36bh9EAZ1uJ3toWuNg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XY7rzHzT/9XkZVvLosxNYcGKOHDM1RZiCn5FcyRZbh4nibpnmWpVurTI+sYZ+qqlW
-	 uF9DITfi7ihZTXRyMfZKbGlecBp0e2pZSOGFqn/+q/LbX1oXaCBEUspT+lHOQPw2Nh
-	 Nn1x1BZPlKt/MoAb2aQ9MvAggjZ9NSL+hBZFFHCcprKBnLL7fjFgTexSLFTclCFrLy
-	 D51os1xMt9SgIzp4WLsS7BW4OTxKmd+3+LzBcfrb0hqNE50/IV0XJQl2NDBoelvoSK
-	 0eYsYZySGB1arPI8kiXoNZm/mM+k7xM2OkRCPgAMlSfp9hNBBVopj2HQLAqyTEz8qz
-	 eeKV1Yz7mDovw==
+	b=dMyNsLgYfQ56xs4xbl0OgHC1t+VzfGeR7yh/FEclnbvh5biuaoMJyB18VD1nweS9r
+	 NoHlIr5L3eueua/a9ZPxK6UtUyi/5UmDeKbxEhR/jp78zSKqbOHvyqbVS10372CU/T
+	 I/sLskfJGfaKX8EpVDvt8YKQo+5iV+RT7/EJcqUhluw8cmBimSkCLKkvnRu0Xo5Yye
+	 cuZ0wLvbu3y6F1fU0LZd/8C1JoZDOMmTT7mebZ/1LdO4aUX6N6vNdPuzxvMPIiqOyF
+	 qBZE9h+J3wraWvV2MEdzXS6u3YomnmIC+pu5oyPLanzfuG7iKaSaAy+0728FQhPTss
+	 zXBUyk88BnzVg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: linux-arm-msm@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Alex Elder <elder@riscstar.com>,
-	cros-qcom-dts-watchers@chromium.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Cc: Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+	linux-gpio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Stanislav Zaikin <zstaseg@gmail.com>
-Subject: Re: (subset) [PATCH 0/7] arm64: dts: qcom: consolidate IPA properties
-Date: Sun,  5 Jul 2026 15:57:54 -0500
-Message-ID: <178328508284.1157743.15860736623678958445.b4-ty@kernel.org>
+	David Collins <david.collins@oss.qualcomm.com>,
+	kamal.wadhwa@oss.qualcomm.com,
+	kernel@oss.qualcomm.com
+Subject: Re: (subset) [PATCH 0/3] pinctrl: qcom: spmi-gpio: Add pm8010 GPIO support
+Date: Sun,  5 Jul 2026 15:57:56 -0500
+Message-ID: <178328508287.1157743.556759656826877879.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260517-ipa-loader-v1-0-3c3764c1b4a3@oss.qualcomm.com>
-References: <20260517-ipa-loader-v1-0-3c3764c1b4a3@oss.qualcomm.com>
+In-Reply-To: <20260507-pm8010_gpio-v1-0-3bce9da8d2ba@oss.qualcomm.com>
+References: <20260507-pm8010_gpio-v1-0-3bce9da8d2ba@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,18 +57,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sun, 17 May 2026 17:56:06 +0300, Dmitry Baryshkov wrote:
-> For most of the platforms the IPA uses qcom,gsi-loader set to "self" and
-> requires a corresponding memory region. Move those properties to the
-> SoC DTSI files, handling the outcasts (mostly from the Kodiak world) on
-> a per-device bases.
+On Thu, 07 May 2026 22:34:06 -0700, Fenglin Wu wrote:
+> Add compatible string for pm8010 GPIO in the binding and driver. Also
+> add GPIO device nodes in the existing pm8010*.dtsi files.
 > 
 > 
 
 Applied, thanks!
 
-[7/7] ARM: dts: qcom: sdx55: consolidate IPA properties
-      commit: 273cec70d297885181977ad37a2192f73bfe373d
+[3/3] arm64: dts: qcom: Add gpio device node for pm8010
+      commit: 9f41cb88adfe769a87762eff1a7d0d8a2df42560
 
 Best regards,
 -- 
