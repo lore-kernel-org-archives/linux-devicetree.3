@@ -1,63 +1,63 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E2E391845
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 10:11:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B22D392C2C
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 10:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783246291; cv=none; b=p+dAx99pTPnDnXZka0IFtSwPhKrKywrs/yuQaJ2Ny/vpnuyJ3gHkExgJfZFOPG+23BlqrvrFrLBpSxPAxFVWNFoTd+0vvgz5UxyYSna4l1wv508503v7WvVcMExN/ILlheU75MXltssntNetpuUihUI93Vrc4c9mwxVI5jcYHN4=
+	t=1783246293; cv=none; b=ngfkdC+jtO5QzQiH7KObO4Qvkk6c/+JfjKbbt1GZ/35lH5blORXDzAYjrhbxgH28g66rfMpfVExvbIsqlq60WdUCOh6KpXUVC2GuP4Z2M2VDP/jWbHJukHQoVis9WrHj2ViG0hPFJ/nK8eZLWfp+zGtdxHRtURob7I85NwI4tTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783246291; c=relaxed/simple;
-	bh=IEmSU/by2VzFwJwSteAX1qEHitxDHjCToChDeMiGOtg=;
+	s=arc-20240116; t=1783246293; c=relaxed/simple;
+	bh=7LwXmr2SCgNU84hgm+9QLDRJywZRB+ORHSEp3a0T/KA=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Q2oVON2UKDHPVhjALhxZ7qaUPzL9l9opP5tRxZ4HBz4YhUoKkeriZXYcFwhHgNvVZ3obk2Oi0PCkTU4uVdTa+sU0SpoWa6dMmAB7Xn8VrwP3vKqvQsFJYGsE60wNRHcplAIybcuf6+SB71PKnvYHhcF81OhtkBw/0P3eLHMA+dY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z394v9XR; arc=none smtp.client-ip=209.85.128.51
+	 MIME-Version; b=M+HGWgwLY/n3HnFicY1a/qg1IVxAGwKldwq6KC4wy8wX7Ar9hb+R37hFAxAb5bWVnRkqhNMnVOnWAJ/dy0Ha2HfT6ipt2LCrdeOC9gkT+miJmo5nopg/psQRwPWjV0705pVp2UGPhtflJ8c7aYQLY8Q1BTdsmoNCtpAv2LzVKDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ib1iuNhj; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z394v9XR"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493d1e8aa46so7874805e9.0
-        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 03:11:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ib1iuNhj"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so12467325e9.1
+        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 03:11:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783246288; x=1783851088; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783246287; x=1783851087; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NMf0EghcO1wU7SDI12QaKU3M5UeL2s+v1847s1Xy9Ew=;
-        b=Z394v9XRdQ8NWpUu0n6MohPys3M07cbQ9CydneUv0xl6sNauWiCYxDLIBuZ1ThIUZq
-         qxvW+0vcSUKSPBKdXbiTFEKEmI1mHSqDb5hb4GKzu55dkFKy+jo6ys7H4ejLjfx6quZw
-         sifIsUeBpUzWdh8Y7vHcWt5j2T6V8xi4hUDJk7J1CFyujyBsoqPxRl2hp+el/Cy9XKSB
-         a2vxFVVBwDfKz8uTwZ9iNV3zW0Q9E4WTANSSaXW+J4QZ6N0lTOS6CLpZHmBJcCwwVsrf
-         WWTIRD6E+TZTjpiyT8hQri74y2mFGtCfhU0fzjXDxtl8S0I0YLzvFex9XuvP54OGDJnK
-         PlSw==
+        bh=u8uaQW6+/JgA7WIaJUKENODODPd1YofJcWQi3/LKlyg=;
+        b=ib1iuNhjupjHc/ExPwU3pOaUUhVt5nro8EToPNMT9p+dnpzOU2KjGXbbO3AGgxf9QF
+         PbTB11WwYq5VT04A/RD4J95g3U+Q791Ajk2kV7udpGZp0y2Ynb8pruDrn0p31zBHEcZj
+         qqFEWz0Ftv2kNlc7mvsAv+kWTnB3dJ4grTioIPp40Wszrr/9NFdiQ+8tzDwMsb6YYhso
+         y17ybdb49pxHk0SkRZNpUytbpSYw67bWq08cs4IcBlLRJ7Eg1E1ou/D45s3If7ZbpYu2
+         H5GfqOdfli1MfTh3cAjDlg6bZl8WpVE8c/TpPZTWNqAxXShl9jCvrD953Szxp9OWlv/K
+         MoGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783246288; x=1783851088;
+        d=1e100.net; s=20251104; t=1783246287; x=1783851087;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=NMf0EghcO1wU7SDI12QaKU3M5UeL2s+v1847s1Xy9Ew=;
-        b=VN1Ja7cWizcfbR9iZanBAVTXNb2xVnmEUATwWYQ73UHfRLW/iAloIaE6ISHCyJL0Qp
-         EcvrZfiVhCvLEL8VvtMwEw+oiPf06cW5Zves5ELHC0PWhJKhNwZbRI6PaB2HCzo3uGSw
-         fd+mMxQ2XUYb/CnWtHeCBm+5Llkyw/IlJSMxRFzSzQAJ2skH05XazNYDwEJ6522KklTj
-         GajzfpNNihlnm+mKhIpgkhRutMoAEuxgTzKW++qUvHcQYLvzKpyjViHa9bmGLlR8TJdP
-         82jIRJq8fMyMzuLECL+0WohOP9sQURjgI8HoxAmDaD5NMGWGF+99ezkQHaq+FKOBerwc
-         NMDQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+hD49KKcAR9/+lyBWbB6yDrf92Tnr7nvPzH+rlX/xSlj6keMqVqDeTrQmdMC7VIKdEApdrWOcSX0FO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7wSiBHzYaIaoNvtluXwuhXLlOF36gF6BQgeCGhSYKTUQjgm4Z
-	rHab4JGYG+i28z9oze4iFhA1fNZhSxdBu/BCv0GIL+EUTiYlzNM8Ppk+
-X-Gm-Gg: AfdE7ckiUW/C0mNKVD35HtmQlEibWClBr6d9uJCJxkXUspOMRgtw6UeOTMl47k0FC5I
-	KC9VPDFghvlUV4LLeX2ubcHW+XIuEaXeScVTUiLz5UjlzpR1KW40pvapPeN/OjeePRGvRL9vcKT
-	xEqiLPliOIKlHv/Z/CqX0J5zbqZtxnUdZ8NWF9RvP5rGE+thfchrJeObLewFCSdJmsfmvCMIYMB
-	nUNFp3jjTh7IQkt3hg5EIKmQCYBxL0YeFtL8akQhjNInl1aWcrMJSMOlDBnNhIKfXaH2fxIFq+a
-	Ts6p2UUX7VvqG2WDeH5ExYwA3wdng8UNq+pUhBJfhhc05odfsF5zlq433zgz4pl/tIpi8rtAkeW
-	ynu+6jUBsjPleQL7PTW11X0D89A0JUNP2RnFqDN8Hrg06ak63FsWxW58Bs+pfVnDRsV7gAJWD5b
-	xZRkZWfriMYPLG4XQIZqO9pco1mZ2Xj6vivV3ntFTBvYIR
-X-Received: by 2002:a05:600d:844f:10b0:493:c1bc:79bd with SMTP id 5b1f17b1804b1-493d11f03acmr45744445e9.20.1783246288368;
-        Sun, 05 Jul 2026 03:11:28 -0700 (PDT)
+        bh=u8uaQW6+/JgA7WIaJUKENODODPd1YofJcWQi3/LKlyg=;
+        b=WxXdElD8zg2aCfwvwO2YMDJXSH7fVvV6uITbRxwafUwpPgveDqdTCFP9Ypx5ItwzJR
+         NI1u6XCXLHoaAt8hx5JMRl74PsNkqfBLC6XWs9n+t/V1kVDvcMltud4A0RP1BjG8Bwgb
+         XY49T2Liua2TPgTRMTIJyixXG1EmKZovPw8bPLKZcSoe2A0ICaCEfveNH5rKN4fiPNov
+         GJI7cHXeDGGe4RO7RNQF4ZmBphx7xuJlcUHYTJAZ+5UrJR0pa9oHwVYCFSOebBManw+q
+         vGumUYCKsOVeWvLSjAUV5viB+6lTRkedZCih1Q3GK/UIJrfQTdIAZL8UTqg4QUVMJuEB
+         jdQw==
+X-Forwarded-Encrypted: i=1; AFNElJ+g+8SkgQmwrB1wMhQ/0QRoy/7LaTjFfZBG9GlrWb/uHXRnvGtzX69vYxZJV9NF7h1WirQH/m09mdIb@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJZf9KmMQeCyLp3uaiaoVC6o98A2hEz2TQYNL9NrJ8VUBPBa57
+	VQK2rFj/fRGyQGLrSSuBDPr77puH2IZ/LonXVx76Rj2KTtrVvDIE3Loj
+X-Gm-Gg: AfdE7cmPARQ/VA7iTHApxyCY9sBeAuJEth66jvw2YyYPdRYZ9WO3XUR5KAoE7soOhj8
+	jjRdTMZQc0250sCqE7ftNDbn2ip6uwJ7H9aDdnyHMEFY+jymuNwd42t/J+UuLqRMxDoyQ2vewxc
+	LQGN8V9iAxOPii5wHkSW28OVqGzwOTzkFin7fuRd5nUZ8SH6PPOqAdYXbZDyrDijbBIaiPgZwJJ
+	wlVTLtgV+cgjnB67v1orK5jyQl8ZBWpGLh6NifdGWaPSk7ftc6wivrx6JkpkPgMQ07eSUJM3/sW
+	K5zBo1B+gZ4FcTaIJiV4q04oYNXRMbdUJVX88xIrhhiIpMYpgOxH+fClf2NCbyOMj7a/lbhPKa2
+	GCIDZ5AONrc+yEwcOlF5VB4SbVxerHwgd9WSj3i6xP6iJhffYj3Q87Ks8IBkNYU+TCtNljoGFRd
+	7hEs9/tpOA0rWIM7Ex0TJXiI78pA8ESDZSMQ==
+X-Received: by 2002:a05:600c:528c:b0:492:454c:347c with SMTP id 5b1f17b1804b1-493d11d3bc2mr73993375e9.7.1783246286882;
+        Sun, 05 Jul 2026 03:11:26 -0700 (PDT)
 Received: from localhost.localdomain ([95.43.220.235])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c637bbcfsm261382715e9.6.2026.07.05.03.11.26
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c637bbcfsm261382715e9.6.2026.07.05.03.11.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 05 Jul 2026 03:11:27 -0700 (PDT)
+        Sun, 05 Jul 2026 03:11:25 -0700 (PDT)
 From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -77,9 +77,9 @@ Cc: linux-phy@lists.infradead.org,
 	linux-omap@vger.kernel.org,
 	linux-gpio@vger.kernel.org,
 	Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Subject: [PATCH v3 4/4] phy: cpcap-usb: add extcon support
-Date: Sun,  5 Jul 2026 13:11:05 +0300
-Message-Id: <20260705101105.1798069-5-ivo.g.dimitrov.75@gmail.com>
+Subject: [PATCH v3 3/4] phy: cpcap-usb: add DCP detection and make UART idle mode optional
+Date: Sun,  5 Jul 2026 13:11:04 +0300
+Message-Id: <20260705101105.1798069-4-ivo.g.dimitrov.75@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260705101105.1798069-1-ivo.g.dimitrov.75@gmail.com>
 References: <20260705101105.1798069-1-ivo.g.dimitrov.75@gmail.com>
@@ -91,160 +91,463 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Register an Extcon device and report the detected cable state.
+Handle DCP separately from USB host connections based on CPCAP charger
+detection status.
 
-The driver already determines the type of cable attached during USB cable
-detection. Export the detected state through the Extcon framework so
-other drivers can consume it using a standard kernel interface.
+Make the existing idle UART mode optional via the "enable_uart" module
+parameter. When disabled, the PHY remains in its USB/charger detection
+configuration while idle. This reduces power usage in idle by 25mW.
+
+Also initialize the PHY into the baseline configuration required for
+reliable charger detection during probe.
+
+Fix possible race where HW setup in cpcap_usb_phy_remove() can be run
+in parallel with cpcap_usb_detect().
+
+Note: Enabling UART idle mode increases idle power consumption.
 
 Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 ---
- drivers/phy/motorola/phy-cpcap-usb.c | 69 ++++++++++++++++++++++++++++
- 1 file changed, 69 insertions(+)
+ drivers/phy/motorola/phy-cpcap-usb.c | 251 +++++++++++++++++++++------
+ 1 file changed, 202 insertions(+), 49 deletions(-)
 
 diff --git a/drivers/phy/motorola/phy-cpcap-usb.c b/drivers/phy/motorola/phy-cpcap-usb.c
-index 78bb1773e537..ba36d110df41 100644
+index 7cb020dd3423..78bb1773e537 100644
 --- a/drivers/phy/motorola/phy-cpcap-usb.c
 +++ b/drivers/phy/motorola/phy-cpcap-usb.c
-@@ -12,6 +12,7 @@
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/err.h>
-+#include <linux/extcon-provider.h>
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/of.h>
-@@ -123,6 +124,7 @@ struct cpcap_phy_ddata {
- 	struct regmap *reg;
- 	struct device *dev;
- 	struct usb_phy phy;
-+	struct extcon_dev *edev;
- 	struct delayed_work detect_work;
- 	struct pinctrl *pins;
- 	struct pinctrl_state *pins_ulpi;
-@@ -134,12 +136,23 @@ struct cpcap_phy_ddata {
- 	struct regulator *vusb;
- 	atomic_t active;
- 	enum cpcap_mode mode;
-+	int cable;
+@@ -110,6 +110,15 @@ enum cpcap_gpio_mode {
+ 	CPCAP_OTG_DM_DP,
  };
  
- static bool cpcap_enable_uart;
- module_param_named(enable_uart, cpcap_enable_uart, bool, 0644);
- MODULE_PARM_DESC(enable_uart,
- 		 "Enable UART on the USB connector while idle (increases power consumption)");
-+
-+/* List of detectable cables */
-+static const unsigned int cpcap_extcon_cables[] = {
-+	EXTCON_USB,
-+	EXTCON_USB_HOST,
-+	EXTCON_CHG_USB_SDP,
-+	EXTCON_CHG_USB_DCP,
-+	EXTCON_NONE,
++enum cpcap_mode {
++	CPCAP_UNKNOWN,
++	CPCAP_IDLE,
++	CPCAP_CHARGER,
++	CPCAP_USB,
++	CPCAP_USB_HOST,
++	CPCAP_DOCK,
 +};
 +
+ struct cpcap_phy_ddata {
+ 	struct regmap *reg;
+ 	struct device *dev;
+@@ -124,10 +133,13 @@ struct cpcap_phy_ddata {
+ 	struct iio_channel *id;
+ 	struct regulator *vusb;
+ 	atomic_t active;
+-	unsigned int vbus_provider:1;
+-	unsigned int docked:1;
++	enum cpcap_mode mode;
+ };
+ 
++static bool cpcap_enable_uart;
++module_param_named(enable_uart, cpcap_enable_uart, bool, 0644);
++MODULE_PARM_DESC(enable_uart,
++		 "Enable UART on the USB connector while idle (increases power consumption)");
  static bool cpcap_usb_vbus_valid(struct cpcap_phy_ddata *ddata)
  {
  	int error, value = 0;
-@@ -226,6 +239,46 @@ static void cpcap_usb_try_musb_mailbox(struct cpcap_phy_ddata *ddata,
- 		__func__, error);
+@@ -175,6 +187,7 @@ static int cpcap_phy_get_ints_state(struct cpcap_phy_ddata *ddata,
+ 
+ 	s->id_ground = val & BIT(15);
+ 	s->id_float = val & BIT(14);
++	s->chrg_det = val & BIT(13);
+ 	s->vbusov = val & BIT(11);
+ 
+ 	error = regmap_read(ddata->reg, CPCAP_REG_INTS2, &val);
+@@ -196,8 +209,9 @@ static int cpcap_phy_get_ints_state(struct cpcap_phy_ddata *ddata,
+ 	return 0;
  }
  
-+static void cpcap_usb_set_extcon(struct cpcap_phy_ddata *ddata)
-+{
-+	int cable;
-+
-+	switch (ddata->mode) {
-+	case CPCAP_CHARGER:
-+		cable = EXTCON_CHG_USB_DCP;
-+		break;
-+	case CPCAP_USB:
-+		cable = EXTCON_CHG_USB_SDP;
-+		break;
-+	case CPCAP_USB_HOST:
-+	case CPCAP_DOCK:
-+		cable = EXTCON_USB_HOST;
-+		break;
-+	case CPCAP_IDLE:
-+		cable = EXTCON_NONE;
-+		break;
-+	case CPCAP_UNKNOWN:
-+		dev_warn_once(ddata->dev, "called with unknown PHY mode\n");
-+		return;
-+	}
-+
-+	if (cable == ddata->cable)
-+		return;
-+
-+	if (ddata->cable == EXTCON_CHG_USB_SDP)
-+		extcon_set_state_sync(ddata->edev, EXTCON_USB, false);
-+	else if (cable == EXTCON_CHG_USB_SDP)
-+		extcon_set_state_sync(ddata->edev, EXTCON_USB, true);
-+
-+	if (ddata->cable != EXTCON_NONE)
-+		extcon_set_state_sync(ddata->edev, ddata->cable, false);
-+
-+	if (cable != EXTCON_NONE)
-+		extcon_set_state_sync(ddata->edev, cable, true);
-+
-+	ddata->cable = cable;
-+}
-+
- static void cpcap_usb_detect(struct work_struct *work)
- {
- 	struct cpcap_phy_ddata *ddata;
-@@ -275,6 +328,7 @@ static void cpcap_usb_detect(struct work_struct *work)
+-static int cpcap_usb_set_uart_mode(struct cpcap_phy_ddata *ddata);
++static int cpcap_usb_set_idle_mode(struct cpcap_phy_ddata *ddata);
+ static int cpcap_usb_set_usb_mode(struct cpcap_phy_ddata *ddata);
++static int cpcap_usb_set_dcp_mode(struct cpcap_phy_ddata *ddata);
  
- 		ddata->mode = CPCAP_DOCK;
+ static void cpcap_usb_try_musb_mailbox(struct cpcap_phy_ddata *ddata,
+ 				       enum musb_vbus_id_status status)
+@@ -228,7 +242,7 @@ static void cpcap_usb_detect(struct work_struct *work)
+ 	vbus = cpcap_usb_vbus_valid(ddata);
+ 
+ 	/* We need to kick the VBUS as USB A-host */
+-	if (s.id_ground && ddata->vbus_provider) {
++	if (s.id_ground && ddata->mode == CPCAP_USB_HOST) {
+ 		dev_dbg(ddata->dev, "still in USB A-host mode, kicking VBUS\n");
+ 
  		cpcap_usb_try_musb_mailbox(ddata, MUSB_ID_GROUND);
-+		cpcap_usb_set_extcon(ddata);
+@@ -243,7 +257,7 @@ static void cpcap_usb_detect(struct work_struct *work)
+ 		return;
+ 	}
+ 
+-	if (vbus && s.id_ground && ddata->docked) {
++	if (vbus && s.id_ground && ddata->mode == CPCAP_DOCK) {
+ 		dev_dbg(ddata->dev, "still docked as A-host, signal ID down\n");
+ 
+ 		cpcap_usb_try_musb_mailbox(ddata, MUSB_ID_GROUND);
+@@ -252,15 +266,14 @@ static void cpcap_usb_detect(struct work_struct *work)
+ 	}
+ 
+ 	/* No VBUS needed with docks */
+-	if (vbus && s.id_ground && !ddata->vbus_provider) {
++	if (vbus && s.id_ground && ddata->mode != CPCAP_USB_HOST) {
+ 		dev_dbg(ddata->dev, "connected to a dock\n");
+ 
+-		ddata->docked = true;
+-
+ 		error = cpcap_usb_set_usb_mode(ddata);
+ 		if (error)
+ 			goto out_err;
+ 
++		ddata->mode = CPCAP_DOCK;
+ 		cpcap_usb_try_musb_mailbox(ddata, MUSB_ID_GROUND);
  
  		/*
- 		 * Force check state again after musb has reoriented,
-@@ -303,6 +357,7 @@ static void cpcap_usb_detect(struct work_struct *work)
- 
- 		ddata->mode = CPCAP_USB_HOST;
- 		cpcap_usb_try_musb_mailbox(ddata, MUSB_ID_GROUND);
-+		cpcap_usb_set_extcon(ddata);
- 
+@@ -274,17 +287,13 @@ static void cpcap_usb_detect(struct work_struct *work)
  		return;
  	}
-@@ -346,6 +401,8 @@ static void cpcap_usb_detect(struct work_struct *work)
- 		if (ddata->mode == CPCAP_USB)
- 			cpcap_usb_try_musb_mailbox(ddata, MUSB_VBUS_VALID);
  
-+		cpcap_usb_set_extcon(ddata);
+-	if (s.id_ground && !ddata->docked) {
++	if (s.id_ground && ddata->mode != CPCAP_DOCK) {
+ 		dev_dbg(ddata->dev, "id ground, USB host mode\n");
+ 
+-		ddata->vbus_provider = true;
+-
+ 		error = cpcap_usb_set_usb_mode(ddata);
+ 		if (error)
+ 			goto out_err;
+ 
+-		cpcap_usb_try_musb_mailbox(ddata, MUSB_ID_GROUND);
+-
+ 		error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC3,
+ 					   CPCAP_BIT_VBUSSTBY_EN |
+ 					   CPCAP_BIT_VBUSEN_SPI,
+@@ -292,38 +301,63 @@ static void cpcap_usb_detect(struct work_struct *work)
+ 		if (error)
+ 			goto out_err;
+ 
++		ddata->mode = CPCAP_USB_HOST;
++		cpcap_usb_try_musb_mailbox(ddata, MUSB_ID_GROUND);
 +
  		return;
  	}
  
-@@ -358,6 +415,7 @@ static void cpcap_usb_detect(struct work_struct *work)
+-	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC3,
+-				   CPCAP_BIT_VBUSSTBY_EN |
+-				   CPCAP_BIT_VBUSEN_SPI, 0);
+-	if (error)
+-		goto out_err;
+-
+ 	vbus = cpcap_usb_vbus_valid(ddata);
  
- 	ddata->mode = CPCAP_IDLE;
- 	cpcap_usb_try_musb_mailbox(ddata, MUSB_VBUS_OFF);
-+	cpcap_usb_set_extcon(ddata);
+-	/* Otherwise assume we're connected to a USB host */
+-	if (vbus) {
+-		dev_dbg(ddata->dev, "connected to USB host\n");
+-		error = cpcap_usb_set_usb_mode(ddata);
++	/* Check if we're connected to a USB host */
++	if (vbus && ddata->mode != CPCAP_USB_HOST) {
++		enum cpcap_mode new_mode;
++
++		if (!s.chrg_det || !s.sessvld ||
++		    !(ddata->mode == CPCAP_IDLE ||
++		      ddata->mode == CPCAP_UNKNOWN))
++			return;
++
++		if (s.se1)
++			new_mode = CPCAP_CHARGER;
++		else if (!s.dm && !s.dp)
++			new_mode = CPCAP_USB;
++		else
++			return;
++
++		dev_dbg(ddata->dev, "connected to %s\n",
++			s.se1 ? "DCP" : "USB host");
++
++		error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC3,
++					   CPCAP_BIT_VBUSSTBY_EN |
++					   CPCAP_BIT_VBUSEN_SPI, 0);
+ 		if (error)
+ 			goto out_err;
+-		cpcap_usb_try_musb_mailbox(ddata, MUSB_VBUS_VALID);
++
++		if (new_mode == CPCAP_CHARGER)
++			error = cpcap_usb_set_dcp_mode(ddata);
++		else
++			error = cpcap_usb_set_usb_mode(ddata);
++
++		if (error)
++			goto out_err;
++
++		ddata->mode = new_mode;
++		if (ddata->mode == CPCAP_USB)
++			cpcap_usb_try_musb_mailbox(ddata, MUSB_VBUS_VALID);
+ 
+ 		return;
+ 	}
+ 
+-	ddata->vbus_provider = false;
+-	ddata->docked = false;
+-	cpcap_usb_try_musb_mailbox(ddata, MUSB_VBUS_OFF);
++	if (ddata->mode == CPCAP_IDLE)
++		return;
+ 
+-	/* Default to debug UART mode */
+-	error = cpcap_usb_set_uart_mode(ddata);
++	error = cpcap_usb_set_idle_mode(ddata);
+ 	if (error)
+ 		goto out_err;
+ 
+-	dev_dbg(ddata->dev, "set UART mode\n");
++	ddata->mode = CPCAP_IDLE;
++	cpcap_usb_try_musb_mailbox(ddata, MUSB_VBUS_OFF);
  
  	return;
  
-@@ -777,7 +835,18 @@ static int cpcap_usb_phy_probe(struct platform_device *pdev)
+@@ -373,7 +407,7 @@ static const char * const cpcap_phy_irqs[] = {
+ 	"id_ground", "id_float",
+ 
+ 	/* REG_INT1 */
+-	"se0conn", "vbusvld", "sessvld", "sessend", "se1",
++	"se0conn", "vbusvld", "sessvld", "sessend", "chrg_det",
+ 
+ 	/* REG_INT_3 */
+ 	"dm", "dp",
+@@ -411,43 +445,69 @@ static int cpcap_usb_gpio_set_mode(struct cpcap_phy_ddata *ddata,
+ 	return 0;
+ }
+ 
+-static int cpcap_usb_set_uart_mode(struct cpcap_phy_ddata *ddata)
++static int cpcap_usb_set_idle_mode(struct cpcap_phy_ddata *ddata)
+ {
+ 	int error;
++	unsigned int val;
++	bool enable_uart = cpcap_enable_uart;
+ 
+ 	/* Disable lines to prevent glitches from waking up mdm6600 */
+ 	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_UNKNOWN_DISABLED);
+ 	if (error)
+ 		goto out_err;
+ 
+-	if (ddata->pins_uart) {
+-		error = pinctrl_select_state(ddata->pins, ddata->pins_uart);
++	if (enable_uart && ddata->pins_uart) {
++		error = pinctrl_select_state(ddata->pins,  ddata->pins_uart);
++		if (error)
++			goto out_err;
++	} else if (!enable_uart && ddata->pins_ulpi) {
++		error = pinctrl_select_state(ddata->pins, ddata->pins_ulpi);
+ 		if (error)
+ 			goto out_err;
+ 	}
+ 
+ 	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC1,
++				   CPCAP_BIT_DP150KPU |
++				   CPCAP_BIT_DP1K5PU |
++				   CPCAP_BIT_DM1K5PU |
++				   CPCAP_BIT_DPPD |
++				   CPCAP_BIT_DMPD |
+ 				   CPCAP_BIT_VBUSPD,
++				   CPCAP_BIT_DP150KPU |
+ 				   CPCAP_BIT_VBUSPD);
+ 	if (error)
+ 		goto out_err;
+ 
+-	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC2,
+-				   0xffff, CPCAP_BIT_UARTMUX0 |
+-				   CPCAP_BIT_EMUMODE0);
++	val = CPCAP_BIT_USBSUSPEND;
++
++	if (enable_uart)
++		val |= (CPCAP_BIT_UARTMUX0 | CPCAP_BIT_EMUMODE0);
++
++	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC2, 0xffff, val);
+ 	if (error)
+ 		goto out_err;
+ 
+-	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC3, 0x7fff,
+-				   CPCAP_BIT_IDPU_SPI);
++	val = CPCAP_BIT_VBUSSTBY_EN |
++	      CPCAP_BIT_VBUSPD_SPI |
++	      CPCAP_BIT_DMPD_SPI |
++	      CPCAP_BIT_DPPD_SPI |
++	      CPCAP_BIT_PU_SPI |
++	      CPCAP_BIT_IDPU_SPI |
++	      CPCAP_BIT_ULPI_SPI_SEL;
++
++	if (!enable_uart)
++		val |= CPCAP_BIT_SUSPEND_SPI;
++
++	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC3, 0x7fff, val);
+ 	if (error)
+ 		goto out_err;
+ 
+-	/* Enable UART mode */
+ 	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_DM_DP);
+ 	if (error)
+ 		goto out_err;
+ 
++	dev_dbg(ddata->dev, "set %s mode\n", enable_uart ? "UART" : "IDLE");
++
+ 	return 0;
+ 
+ out_err:
+@@ -508,6 +568,42 @@ static int cpcap_usb_set_usb_mode(struct cpcap_phy_ddata *ddata)
+ 	return error;
+ }
+ 
++static int cpcap_usb_set_dcp_mode(struct cpcap_phy_ddata *ddata)
++{
++	int error = 0;
++
++	/* Disable lines to prevent glitches from waking up mdm6600 */
++	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_UNKNOWN_DISABLED);
++	if (error)
++		return error;
++
++	if (ddata->pins_ulpi) {
++		error = pinctrl_select_state(ddata->pins, ddata->pins_ulpi);
++		if (error) {
++			dev_err(ddata->dev, "could not set usb mode: %i\n",
++				error);
++
++			return error;
++		}
++	}
++
++	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC3,
++				   CPCAP_BIT_SUSPEND_SPI, 0);
++	if (error)
++		goto out_err;
++
++	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_DM_DP);
++	if (error)
++		goto out_err;
++
++	return 0;
++
++out_err:
++	dev_err(ddata->dev, "%s failed with %i\n", __func__, error);
++
++	return error;
++}
++
+ static int cpcap_usb_init_optional_pins(struct cpcap_phy_ddata *ddata)
+ {
+ 	ddata->pins = devm_pinctrl_get(ddata->dev);
+@@ -537,9 +633,6 @@ static int cpcap_usb_init_optional_pins(struct cpcap_phy_ddata *ddata)
+ 		ddata->pins_uart = NULL;
+ 	}
+ 
+-	if (ddata->pins_uart)
+-		return pinctrl_select_state(ddata->pins, ddata->pins_uart);
+-
+ 	return 0;
+ }
+ 
+@@ -592,6 +685,65 @@ static int cpcap_usb_init_iio(struct cpcap_phy_ddata *ddata)
+ 	return error;
+ }
+ 
++static int cpcap_usb_init_usb(struct cpcap_phy_ddata *ddata)
++{
++	struct cpcap_usb_ints_state s;
++	int error;
++	int mask;
++
++	error = cpcap_phy_get_ints_state(ddata, &s);
++	if (error)
++		return error;
++
++	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_UNKNOWN_DISABLED);
++	if (error)
++		return error;
++
++	if (ddata->pins_ulpi) {
++		error = pinctrl_select_state(ddata->pins, ddata->pins_ulpi);
++		if (error)
++			return error;
++	}
++
++	/*
++	 * Do not touch DM/DP PD as this will break charger detection if charger
++	 * is connected before we detect it.
++	 */
++	if (s.se1) {
++		mask = CPCAP_BIT_VBUSEN_SPI | CPCAP_BIT_VBUSPU_SPI |
++		       CPCAP_BIT_SUSPEND_SPI | CPCAP_BIT_ULPI_SPI_SEL;
++	} else {
++		mask = CPCAP_BIT_VBUSEN_SPI | CPCAP_BIT_VBUSPU_SPI |
++		       CPCAP_BIT_DMPD_SPI | CPCAP_BIT_DPPD_SPI |
++		       CPCAP_BIT_SUSPEND_SPI | CPCAP_BIT_PU_SPI |
++		       CPCAP_BIT_ULPI_SPI_SEL;
++	}
++
++	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC3, mask,
++				   CPCAP_BIT_ULPI_SPI_SEL);
++	if (error)
++		return error;
++
++	/*
++	 * Configure safe DP/DM termination state.
++	 *
++	 * Vendor kernel uses:
++	 *   DP150KPU = enabled
++	 *   all USB pullups/pulldowns = disabled
++	 */
++	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC1,
++				   CPCAP_BIT_DP150KPU |
++				   CPCAP_BIT_DP1K5PU |
++				   CPCAP_BIT_DM1K5PU |
++				   CPCAP_BIT_DPPD |
++				   CPCAP_BIT_DMPD,
++				   CPCAP_BIT_DP150KPU);
++	if (error)
++		return error;
++
++	return cpcap_usb_gpio_set_mode(ddata, CPCAP_DM_DP);
++}
++
+ #ifdef CONFIG_OF
+ static const struct of_device_id cpcap_usb_phy_id_table[] = {
+ 	{
+@@ -625,6 +777,7 @@ static int cpcap_usb_phy_probe(struct platform_device *pdev)
  	if (!otg)
  		return -ENOMEM;
  
-+	ddata->edev = devm_extcon_dev_allocate(&pdev->dev, cpcap_extcon_cables);
-+	if (IS_ERR(ddata->edev)) {
-+		return dev_err_probe(&pdev->dev, PTR_ERR(ddata->edev),
-+				     "failed to allocate extcon device\n");
-+	}
-+
-+	error = devm_extcon_dev_register(&pdev->dev, ddata->edev);
-+	if (error < 0)
-+		return error;
-+
- 	ddata->mode = CPCAP_UNKNOWN;
-+	ddata->cable = EXTCON_NONE;
++	ddata->mode = CPCAP_UNKNOWN;
  	ddata->dev = &pdev->dev;
  	ddata->phy.dev = ddata->dev;
  	ddata->phy.label = "cpcap_usb_phy";
+@@ -669,6 +822,10 @@ static int cpcap_usb_phy_probe(struct platform_device *pdev)
+ 	if (error)
+ 		goto out_reg_disable;
+ 
++	error = cpcap_usb_init_usb(ddata);
++	if (error)
++		goto out_reg_disable;
++
+ 	error = cpcap_usb_init_interrupts(pdev, ddata);
+ 	if (error)
+ 		goto out_reg_disable;
+@@ -688,17 +845,13 @@ static int cpcap_usb_phy_probe(struct platform_device *pdev)
+ static void cpcap_usb_phy_remove(struct platform_device *pdev)
+ {
+ 	struct cpcap_phy_ddata *ddata = platform_get_drvdata(pdev);
+-	int error;
+ 
+ 	atomic_set(&ddata->active, 0);
+-	error = cpcap_usb_set_uart_mode(ddata);
+-	if (error)
+-		dev_err(ddata->dev, "could not set UART mode\n");
+-
++	cancel_delayed_work_sync(&ddata->detect_work);
++	cpcap_usb_set_idle_mode(ddata);
+ 	cpcap_usb_try_musb_mailbox(ddata, MUSB_VBUS_OFF);
+ 
+ 	usb_remove_phy(&ddata->phy);
+-	cancel_delayed_work_sync(&ddata->detect_work);
+ 	regulator_disable(ddata->vusb);
+ }
+ 
 -- 
 2.39.5
 
