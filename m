@@ -1,127 +1,120 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395EF33F8D9;
-	Sun,  5 Jul 2026 12:53:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16F733DEE5;
+	Sun,  5 Jul 2026 13:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783256025; cv=none; b=H6mhokFI2Dk+4w7JvGPDWfCSw4GZVxysTw/jZosH5907RJTNAPSmeLPouXvzFfRv4Q0DHk33vBvoH/B8WR/AsYKDlMZ4IJx1sh0FtzPCZzLsvEeRVPTh9pFy/CgQ/aMkhNu/wtXLF+wa8476mX6maSDouH/eKR8JaesRHaZhbsU=
+	t=1783257455; cv=none; b=Sc20VlDjdNc3fGVBNWWhYgIfYhI+uzshNhZ6bHijEjrj9C4/pILGaR0apoUEh3j6eUV62Dluy1PibSJaUVJXTuKDYHtOzuCWiM1YW3IMkqagTQNv+05fSiWPVBg6yUdV15jCuI0lGtsVMNZDIfgRP0w8wYuwtH2EFoK9zqVlvKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783256025; c=relaxed/simple;
-	bh=TTtNzHArwyUcJ6V6T3vEECmYy4VQ8v4+vftXgVVxzqg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gJyPikxIWTJ9+KVp/kX1fhE+FTTRECcCCThSCg9/pfpI1oSP5Rhm/raOmjEUU2FAGjpnMeSQwvQdXBkIMEzKlbKmkn/JODELpCSoEVEWCuMNaIJZZxqWN1MLWdQYoxriGq2O5jlWzlh/h1AFC1d1CbpZ7ZMPkXlDPvu2845ORtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=HkyBt8GE; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=yb6Gz8Hz; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1783257455; c=relaxed/simple;
+	bh=88WgTcQxIELrgXPhwOATMVGnRfncHW3z2HCk1A3KENI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TeeNNtTfLLdpr05gVn1B5OJJbdMoXOze9+qORasKUYN5m0oZ6jwB/LoggLzxpI1tOnRRQXjLiqvPdlIMgVuxQKrEXpkNMJDUgS05tHnKFcwbuhWufS4VWPAiHQsGOHlfyGeXmyVbo8NqSRZrij8r1tnvNtNsok8bgzI0iSsaAtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=BAs3Kohd; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="HkyBt8GE";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="yb6Gz8Hz"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gtS8v0dlpz9ttN;
-	Sun,  5 Jul 2026 14:53:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1783256015;
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="BAs3Kohd"
+From: Yureka Lilian <yureka@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1783257451;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=wz4aJVJnm03NmMAAn4VkW1gKrEfbr09NM4rUeKWhQuI=;
-	b=HkyBt8GEUigNtYGx6Kz76fT31Q/i00IxuN97Ba/amJhBbRD7umdCMp8M9VQk1RNcR+Ek0B
-	Ng2DrdPyslID+ksmOfHfRJXT8UTEwmplHHYNGMebeZYmRlQCBDM0jWjam2MuIHTJI4Y77c
-	Z6SGg+B4YcfPNpg8ZbMC5WedEOpsPct5c1vLIEy7Y6KhSH3KoN3TmvrkqyHgsZnzHG9nbK
-	y7kc7dn775jLiKYx5D7ZYQDhj38mTGdddGOKx4IOI7YYTonzrlUdMfmQahdu0xaZPzbrty
-	cjVldQdIbaf/6kY70UQ3+VR9zRlkLd17hkcIkKjAGfacDW6dJpebKAtEzz+h0g==
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1783256013;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=wz4aJVJnm03NmMAAn4VkW1gKrEfbr09NM4rUeKWhQuI=;
-	b=yb6Gz8HzZ4qBR8B8XAh8DqJSK+H6pMi8Oth+TdB5DelXAbIaTsG2kwo2qlpszBF4DGrwsD
-	FRCEFeYkNKB2dAdev2GSr/NE5c9y04aa7axnycOWWb1bl1hk9Gn96zaa6aSq/XRtR1Hi5x
-	oob95xfTkCkE6ceZEnIkYqBM9UVFW/ezLD7jX1lPy/qk2rL/klp9NwIVXE1s6HzUCIEooH
-	Y3XuB+sQtstK2OCF8/jfyuRRjQxblZe2UETsBTdkdsVBDE6lObJvdOv1aTNdrarQ910L8e
-	LB7hwN5QTR0hOiw/bft+SeIPexbI+Y0k7ttFLZXVSyRK7U0s3+PSAS+L/81uew==
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH] arm64: dts: renesas: sparrow-hawk: Always enable edge connector I2C busses
-Date: Sun,  5 Jul 2026 14:52:46 +0200
-Message-ID: <20260705125324.13519-1-marek.vasut+renesas@mailbox.org>
+	bh=D0MLfQhNF8T8fO41cpmP1lSHVOxzxRNWuMtKqBQpmUg=;
+	b=BAs3Kohd3hdgr7zm9DPxh/rwI1TJQFF7YgEngCz1wn5FVQaLh3UP7Mv7zrm4SpvEGY7qk7
+	0/3afM36i3+YsE9e1rLlkjDCiS83e+f3aggkQD8qSKpA/SxRuLAcv52W0PBpaPARycOdb0
+	RE8q4aQgQ/XxRhtp8/+gdSi2ngdAIDg=
+Subject: [PATCH 00/10] Initial Apple silicon M4 device trees and
+ dt-bindings
+Date: Sun, 05 Jul 2026 15:17:19 +0200
+Message-Id: <20260705-apple-m4-initial-devicetrees-v1-0-e5655ee56523@cyberchaos.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: kyf8qh67uftqszxe71j5suhbdm8fs1bz
-X-MBO-RS-ID: 88e8264257d96620000
+X-B4-Tracking: v=1; b=H4sIAF9ZSmoC/yXMywrCMBBG4Vcps3YgDbYFX0Vc5PJXR2oMmShC6
+ bs36vJbnLOSogiUTt1KBW9ReaaG/tBRuLl0BUtsJmvsaCYzsMt5AT+OLEmquIVjqwJqAZTnEd7
+ 3YXI2RGqLXDDL57c/X/7Wl78j1O+Ttm0HefPGwIAAAAA=
+X-Change-ID: 20260705-apple-m4-initial-devicetrees-f6ebb1c7a2cd
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Sven Peter <sven@kernel.org>, 
+ Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Hector Martin <marcan@marcan.st>, 
+ Linus Walleij <linusw@kernel.org>, Mark Kettenis <kettenis@openbsd.org>, 
+ Andi Shyti <andi.shyti@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Sasha Finkelstein <k@chaosmail.tech>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-i2c@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ Yureka Lilian <yureka@cyberchaos.dev>
 
-The interfaces on the edge connector of Retronix R-Car V4H Sparrow Hawk
-board may be controlled from userspace using matching userspace tooling
-that includes e.g. i2c-tools. Enable the edge connector I2C busses I2C3
-and I2C4 to allow userspace applications to use those busses and access
-peripherals attached to those busses.
+Hi,
 
-Co-developed-by: Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
-Signed-off-by: Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+This series adds initial device trees and dt-bindings for the Apple
+Silicon devices using the M4 (t8132) SoC. For the most part it mirrors
+Janne's M3 (t8122) bringup series as it was merged in the 7.2 cycle.
+
+This series covers only a minimal amount of hardware, which is useful
+as a basis for future developments. The hardware added here has remained
+largely unchanged between the M3 and M4 generations.
+
+Most of the changes for bringing these M4 devices into a bootable state
+have been happening in the m1n1 bootloader, which is no longer
+responsible for setting the configuration bits (🐔-bits) of the CPU,
+since these are now set and locked by iBoot.  
+
+Additionally, SMP boot depends on the idle=nop patches I sent out earlier
+today, and is still unstable, even with those.
+
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 ---
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
- .../boot/dts/renesas/r8a779g3-sparrow-hawk-fan-argon40.dtso     | 1 -
- arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts           | 2 ++
- 2 files changed, 2 insertions(+), 1 deletion(-)
+Yureka Lilian (10):
+      dt-bindings: arm: cpus: Add Apple M4 CPU core compatibles
+      dt-bindings: interrupt-controller: apple,aic2: Add apple,t8132 compatible
+      dt-bindings: watchdog: apple,wdt: Add t8132 compatible
+      dt-bindings: arm: apple: apple,pmgr: Add t8132 compatible
+      dt-bindings: power: apple,pmgr-pwrstate: Add t8132 compatible
+      dt-bindings: pinctrl: apple,pinctrl: Add t8132 compatible
+      dt-bindings: i2c: apple,i2c: Add t8132 compatible
+      dt-bindings: pwm: apple,s5l-fpwm: Add t8132 compatible
+      dt-bindings: arm: apple: Add M4 based devices
+      arm64: dts: apple: Add minimal t8132 (M4) device trees
 
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-fan-argon40.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-fan-argon40.dtso
-index c730ef39c7d7d..6f10310140b9b 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-fan-argon40.dtso
-+++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-fan-argon40.dtso
-@@ -41,7 +41,6 @@ &i2c3 {
- 	#address-cells = <1>;
- 	#size-cells = <0>;
- 	clock-frequency = <400000>;
--	status = "okay";
- 
- 	pwmhat: pwm@1a {
- 		compatible = "argon40,fan-hat";
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
-index af680290ce817..a6294fd32daee 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
-+++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
-@@ -498,6 +498,7 @@ &i2c3 {
- 	#size-cells = <0>;
- 	pinctrl-0 = <&i2c3_pins>;
- 	pinctrl-names = "default";
-+	status = "okay";
- };
- 
- /* Page 31 / IO_CN */
-@@ -506,6 +507,7 @@ &i2c4 {
- 	#size-cells = <0>;
- 	pinctrl-0 = <&i2c4_pins>;
- 	pinctrl-names = "default";
-+	status = "okay";
- };
- 
- /* Page 18 / POWER_CORE and Page 19 / POWER_PMIC */
--- 
-2.53.0
+ Documentation/devicetree/bindings/arm/apple.yaml   |   12 +
+ .../devicetree/bindings/arm/apple/apple,pmgr.yaml  |    1 +
+ Documentation/devicetree/bindings/arm/cpus.yaml    |    2 +
+ .../devicetree/bindings/i2c/apple,i2c.yaml         |    1 +
+ .../bindings/interrupt-controller/apple,aic2.yaml  |    1 +
+ .../devicetree/bindings/pinctrl/apple,pinctrl.yaml |    1 +
+ .../bindings/power/apple,pmgr-pwrstate.yaml        |    1 +
+ .../devicetree/bindings/pwm/apple,s5l-fpwm.yaml    |    1 +
+ .../devicetree/bindings/watchdog/apple,wdt.yaml    |    1 +
+ arch/arm64/boot/dts/apple/Makefile                 |    6 +
+ arch/arm64/boot/dts/apple/t8132-j604.dts           |   35 +
+ arch/arm64/boot/dts/apple/t8132-j623.dts           |   18 +
+ arch/arm64/boot/dts/apple/t8132-j624.dts           |   18 +
+ arch/arm64/boot/dts/apple/t8132-j713.dts           |   35 +
+ arch/arm64/boot/dts/apple/t8132-j715.dts           |   35 +
+ arch/arm64/boot/dts/apple/t8132-j773g.dts          |   25 +
+ arch/arm64/boot/dts/apple/t8132-jxxx.dtsi          |   48 +
+ arch/arm64/boot/dts/apple/t8132-pmgr.dtsi          | 1125 ++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t8132.dtsi               |  440 ++++++++
+ 19 files changed, 1806 insertions(+)
+---
+base-commit: 2b763db0c2763d6bf73d7d3e69665222d1f377cf
+change-id: 20260705-apple-m4-initial-devicetrees-f6ebb1c7a2cd
+
+Best regards,
+--  
+Yureka Lilian <yureka@cyberchaos.dev>
 
