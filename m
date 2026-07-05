@@ -1,216 +1,146 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E861C84A2
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 01:53:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0218013A3F7
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 01:57:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783216396; cv=none; b=SUB9VEWIkwYUsNvCqgimvc7S9qZzf8RuLjE/fzaLp/pLocDhYHy0vA5GjTZpXRkDDB2q4xet2wZDO3P7pRC5inlWnw6cgKFw7ZksQ9lJLEEOT9MO/LwS//gwO5X6l5lxemUtPhTasbmEOgx+b94aQXk4OICngJE/v26cZKYdLUw=
+	t=1783216642; cv=none; b=qMmOGN/F5rzwhaQWCmvQS8lLweRnzzfi95UEj7UlT7CObxBn0xOQ968cc9hA9ScR+BjFdLapY09EOpd6YSoQNEBrgsmD7wd3v7mwBOXNvoZYHqQ9uLeBsV+YPUb9r7kZjcoMd+U/vYMv3zB1wGvImXX588lKcI0V2gMkjdETwjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783216396; c=relaxed/simple;
-	bh=2HWg0oST1IiXTqUM6qiNbG9g7AItoDJP2s+ptaWWz10=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=huoIXaFfMTovxsqEViZaF4eXetLQsmucAP31RSjipKwe1m7OVc7EwcSsSe2vrctC8vVTh2QOHojJbXOYL+EqT/Iq13bfBrRkH5MCgHHamfdssZwNhr/7it1RdjrbNLCzGArcGgeHep3Nd2SlByYFZIzu4J9NDO+i2thH1OLi3+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=agEPGyaN; arc=none smtp.client-ip=209.85.210.179
+	s=arc-20240116; t=1783216642; c=relaxed/simple;
+	bh=Uc1UeSgXcLQisE331Fx/w4AxESxEfcZ/fW5sTxYv6NE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NDwOOdG9vj8edR3QS60atsen78hwlJrBYSo8/XWZo2kCKjGi1q+74R//M/Oa0qNhzTvjk9kzcVicbhtQyS3QE7/wu3GiCCg8irFmRqN+n/jV8iBqByMl+BqRnCHPBduPSxytoFi2oZUB8z1ka79ycMKl+SknHmVfmlw31ftNrN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H3oOCAHr; arc=none smtp.client-ip=209.85.160.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="agEPGyaN"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-845b6d9bf39so1459959b3a.1
-        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 18:53:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H3oOCAHr"
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-44856d185bcso984207fac.3
+        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 18:57:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783216394; x=1783821194; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=mmBarBS2P3KqburN5n4cfJE0l/iJod9d0iroSCl5SmE=;
-        b=agEPGyaNFX6bJlwJvZUyxO81YiVwSbF9T1/D0KY/8Z3ytuRhtAIIytRNNhtXzQO0wf
-         t50DxY+5HcZd8fbpDXH6gegfVsgTxO9tcfTikz4r4ES7IoVGBAH2ng348lX4/dEKhcJP
-         awmj5Z5IKnqYEPBpeDazFhySHLilq0zZwRkZwDDAC/jdFfdW2XG91biCMo6BnG59qJlf
-         6m2Juxkvtv6X12Y3cjpHMekGXi+bBg5i8q+3xUeYif31rcboQnxn0KxyVaoNj914HH2d
-         vOaLku3HBxxkaCFYK+fFGuoeUvgrB2Qp1+qnh57iuN2cPLCiukpbOfCX7eLsTkMbPSFS
-         Dr0A==
+        d=gmail.com; s=20251104; t=1783216640; x=1783821440; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g8dZZ0ezVRB2v/8tDo+4cmpTy+MFf1s9r33Lw4vpQWw=;
+        b=H3oOCAHrySC2Fm01dzULXMt2eDdGPgfwTLrACNGpiCu2gUByxo9N4spJqLyDY4IKQf
+         TYIoliWnbD1u3myJ4G6vUYBk3hr5P1c7koz2I4FO4Ut/d2qRuOr14vKZM441PQO1Y6wZ
+         iRHnJrvrvNaS766bROy+KU9qYdT5nr7WOeOBL6kLLT0B4vfZ3sdRIelSXLFX2iA8TWNd
+         mBAQB5LMnJZto7XWroghP0ZJ7RYMJHgl7/aiewv7Izdkv11W0xC5HGaFTq03ZyfLP3z/
+         8DM/IdiR5m5TmqBCLs1ZtI9rhYudzdDnzsxodrK91IL9Wxjg4mdDStSDXSgB1jIRkul4
+         X/CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783216394; x=1783821194;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mmBarBS2P3KqburN5n4cfJE0l/iJod9d0iroSCl5SmE=;
-        b=WMWh6SCzfcSr9OLi++g7zQ/IMDUn33kn1jVP4qhSS/dxuHRpBxU9Kskq0fYXsBQrzd
-         i/F1ae+IncvMmvzNn+nT7fLbjSPCEc/TC0ovdBhA6gWrDJns48rUArzykcGcLEcjDQvV
-         UsPJpgvvMok1oZNtPflhEyl0UMoiMY7881W1BFSwuHIZNJeT2FbrNaCWaiy+/3rHCdry
-         8sQoGeWd+Dpz4NWBGcOWgqiy9AICMndPCZH0vxmFPPHaev8i/iuj9SOk1Cg+jAXxmeGT
-         MZx40YTkcG88CYAtUDcTtD5dtwa7hDzZTYvGEunADEUD8azJYtuwJO38P/E18LFJWyZU
-         tI3Q==
-X-Forwarded-Encrypted: i=1; AHgh+Ro5YWCNasNEs1YiflKFtv9EgfvhgFW0e0j2Vp9JIKmxMpIFIjGih+yuJsUptT0d3L8B04zExRi8rTk0@vger.kernel.org
-X-Gm-Message-State: AOJu0YyrN2tWAPQ2A2OozZ0ZHygXE69g7fyUQrRjTvcfLSZUEDCYhikt
-	dICiaewl+RYYlf/VyuKDU4m+qvrD/ZwNNJIEBqP3qefZsY9ghJG5A6Yj
-X-Gm-Gg: AfdE7ckgjgi+ywVDA0M2/RmE2D/uRnFD6ys6PQncHE4HqXEP1YxGzuPVEpP/J1wUIo1
-	B5BkjyvtAIOijM9y4J4ccM/VIwY29mijWTrehu6waW3eSggjAruCI/jGGfdvnOszRF6xO60eUfx
-	fh5do47h4x6DryAPX+cOCHLz8L6jioYF7lk60HfFTYenT13IyaRR4dw60smhCyKz9hzPs7+Rm8s
-	aVH55DBiMHHJFueswFrpxFAwL9aegVNSSBVBXf+JrZnOr/6ztrfczOBvz0AYNFj25YEcRUZ7pjH
-	t8Ay6a8zVYmCCVRs7iz+FXBQe4fSae0Bx4ezoXN3FtcloIY+YyG28WE1ZSgDxGF2NPnAFSYgnBJ
-	PtUDNWd0LzyXA+kTfZJeS1c/fA9cAs0BI0IuDTcXvPhzv2ppYpfyqgPyPFKIwwFtZ
-X-Received: by 2002:a05:6a00:94c6:b0:847:9223:9726 with SMTP id d2e1a72fcca58-847e186de64mr8695417b3a.18.1783216393864;
-        Sat, 04 Jul 2026 18:53:13 -0700 (PDT)
-Received: from localhost ([2001:da8:7001:11::cb])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847f6bb2753sm1790716b3a.23.2026.07.04.18.53.12
+        d=1e100.net; s=20251104; t=1783216640; x=1783821440;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g8dZZ0ezVRB2v/8tDo+4cmpTy+MFf1s9r33Lw4vpQWw=;
+        b=dVJiQ51KjTml/O+0LM3UbSPBp/cE8PffziXn0LyebaS68sERlld29PM0q5q9is7pwq
+         sP6w8pt0RjLc6Kb6+Nrh4rcYB2SGXBNec3qchuwPB+hjVAX0ZanV/Wu/FTK1ujKHgpQk
+         iXihOcWvs6XpUl5xQ7cU391fMxTojognzE68HTkMNn3yGeZeQTSBkphnHVdXYoKVL60z
+         s0TAWxUsHfPWT8ZaORspsglX7agzDqUFPZJTBuSnpQHrt8O4RH+dLVSh0jBQffJdPSKT
+         uCwry9A562UxSt+42r34ROtswNsNVryaaE4ZwNm4dB15mCkxJeHJafbK3z6h232e8ey7
+         SVjQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/aD1JNFjcEK9TuRWn8PBa9SZnGmC+kD/BagJTukfHVzpEVHOe9AEYpYGJM+wqeX9NHzX/olbGmBojX@vger.kernel.org
+X-Gm-Message-State: AOJu0YyWS+p+tou5zmx3tty7k3SNe8he3Our0bI0CHc1KE9tx6QyhJME
+	lLq0EwA4PkPvVS4LFPVR9BB44IZQvEAbN3Xk9DRah82Y7jBdif3cnoTO
+X-Gm-Gg: AfdE7cnsENF6zg4lzC7O9wNK8+jI/lr0nrHyfgpwgDfATcfnWKDMLGXtfXBJjIuB3MJ
+	tHD8mYn4gMJL2CLbFthtX3bsHrjBeF+4bp7Mc/qXTzqaS2LMIV7pxl+cLFvTgQhsubeaaRsBuOH
+	W+79Kvesc2XbqDWretsN3cWzqKp+V4Jv4nxp7LUpIPtTCRBxe8zG0DuEB6ZsAD1s/LAjESzmebr
+	FYmEOCJHT7Je+FYwYPQQ3agv167GXPEk2u2EChsx56IsXk7xZD/BXL/oFudb9cgZnOQgEuvMwHe
+	HXMnA6JZMTCWEZUo5cfGdnC5IgeiOtrs9kj1WDJD/Kl9hcW+Hm/0NMoAHpWcAaHUKv0yy5IupLH
+	i/Lpxp38SwJzw8L0BNVS787uaCjUv7Dj84YAxVzJeMDUaLGy1BaLDjwYDf0LDq+Zw09t03fdKcq
+	tN9EZCJGiqwW+gWedpZE+ftf8fnJQI0sFH1uP1Lwf1s/tk1DJq0exf
+X-Received: by 2002:a05:6870:8a29:b0:448:5591:15d8 with SMTP id 586e51a60fabf-44d18442248mr2902707fac.36.1783216639884;
+        Sat, 04 Jul 2026 18:57:19 -0700 (PDT)
+Received: from linuxescape (23-88-128-2.fttp.usinternet.com. [23.88.128.2])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44cfb1d011asm6467451fac.8.2026.07.04.18.57.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 04 Jul 2026 18:53:13 -0700 (PDT)
-Date: Sun, 5 Jul 2026 09:52:40 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: sashiko-reviews@lists.linux.dev, Inochi Amaoto <inochiama@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
-	linux-pci@vger.kernel.org
-Subject: Re: [PATCH v3 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
- controller support
-Message-ID: <akm4VHY-BRikbF2v@inochi.infowork>
-References: <20260703020003.485436-1-inochiama@gmail.com>
- <20260703020003.485436-7-inochiama@gmail.com>
- <20260703022058.1FD001F000E9@smtp.kernel.org>
+        Sat, 04 Jul 2026 18:57:19 -0700 (PDT)
+Date: Sat, 4 Jul 2026 20:57:17 -0500
+From: Maxwell Doose <m32285159@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM
+ AND DRIVERS), devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND
+ FLATTENED DEVICE TREE BINDINGS), linux-kernel@vger.kernel.org (open list)
+Subject: Re: [PATCH v2 2/2] iio: temperature: Add STS30 temperature sensor
+ driver
+Message-ID: <20260704205717.137c506e@linuxescape>
+In-Reply-To: <20260705000053.6e8fc3f0@jic23-huawei>
+References: <20260621004626.66629-1-m32285159@gmail.com>
+	<20260621004626.66629-3-m32285159@gmail.com>
+	<20260703010532.4fc0f46b@jic23-huawei>
+	<20260704144503.2347331b@linuxescape>
+	<20260705000053.6e8fc3f0@jic23-huawei>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260703022058.1FD001F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jul 03, 2026 at 02:20:57AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
-> - [High] Unclocked MMIO access during probe triggers a synchronous bus abort.
-> - [High] Incorrect `.deinit` callback for K3 prevents PERST# assertion on teardown.
-> - [High] AXI cache coherency initialization is bypassed when MSIs are disabled.
-> - [Medium] Misleading comment and potential missing initialization for Root Complex mode.
-> --
-> 
-> commit 93fac4ee5b6c6ef1d779cae9b2ff5efed7a8fb39
-> Author: Inochi Amaoto <inochiama@gmail.com>
-> 
-> PCI: spacemit-k1: Add Spacemit K3 PCIe host controller support
-> 
-> The PCIe controller on Spacemit K3 is almost a standard Synopsys
-> DesignWare PCIe IP with extra link and reset control. Unlike
-> the PCIe controller on K1, this controller supports external MSI
-> interrupt controller and can use multiple PHYs at the same time.
-> 
-> Add driver to support PCIe controller on Spacemit K3 PCIe.
-> 
-> > diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> > index 31aac056b68ed..680acc93f5395 100644
-> > --- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> > +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> [ ... ]
-> > @@ -340,6 +354,109 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
-> >  	return ret;
-> >  }
-> >  
-> > +static int k3_pcie_init(struct dw_pcie_rp *pp)
-> > +{
-> [ ... ]
-> > +	/*
-> > +	 * Put the controller in root complex mode, and indicate that
-> > +	 * Vaux (3.3v) is present.
-> > +	 */
-> > +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-> > +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
-> 
-> [Severity: Medium]
-> Will this omit initializing the controller into root complex mode?
-> 
+On Sun, 5 Jul 2026 00:00:53 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-Yes
-
-> Unlike k1_pcie_init(), this code block only drives the PERST# reset pins and
-> seems to skip setting DEVICE_TYPE_RC.
+> On Sat, 4 Jul 2026 14:45:03 -0500
+> Maxwell Doose <m32285159@gmail.com> wrote:
+> 
+> > Hi Jonathan,
+> > 
+> > On Fri, 3 Jul 2026 01:05:32 +0100
+> > Jonathan Cameron <jic23@kernel.org> wrote:
+> >   
+> > > On Sat, 20 Jun 2026 19:46:24 -0500
+> > > Maxwell Doose <m32285159@gmail.com> wrote:
+> > >     
+> > > > Add a driver for the Sensirion STS30 family of temperature sensor
+> > > > drivers over I2C. The STS30 family of sensors includes the STS30, STS31,
+> > > > and STS35, all of which are supported by this driver, since they all
+> > > > share the same commands, etc. and only differ in accuracy and tolerance.
+> > > > 
+> > > > The driver currently supports single-shot non-clock stretched readings,
+> > > > by using a specified delay based on the repeatability/delay specified
+> > > > by the user. The repeatability/delay can be changed at any time through
+> > > > sysfs.
+> > > > 
+> > > > Additionally add Kconfig and Makefile entries for the driver as well as
+> > > > a MAINTAINERS entry.
+> > > > 
+> > > > Signed-off-by: Maxwell Doose <m32285159@gmail.com>      
+> > > 
+> > > Big question first.  Why IIO? These are fairly basic temperature sensors
+> > > which typically means hwmon is more appropriate.  What does it need
+> > > that hwmon doesn't provide?
+> > >     
+> > 
+> > The datasheet says that the STS30 supports continuous reads which means
+> > that we can read it into a triggered buffer (which hwmon doesn't
+> > support) and at some point I'd like to implement that.  
+> 
+> Hmm. For a temperature chip that is often more about the monitors running
+> continuously than the ability to gather signals fast.  Temperature changes
+> tend to be fairly slow when it's a physical sensor - gets less obvious when
+> infrared remote sensors are involved.
+> 
+> Even more relevant - there is an existing driver I think.
+> See drivers/hwmon/sht3x.c which supports things under the wildcard sts3x as well.
+> Check if that covers this part.
 > 
 
-> > +
-> > +	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
-> [ ... ]
-> > +static int k3_pcie_msi_host_init(struct dw_pcie_rp *pp)
-> > +{
-> > +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-> > +	u32 val;
-> > +
-> > +	dw_pcie_dbi_ro_wr_en(pci);
-> > +
-> > +	val = dw_pcie_readl_dbi(pci, COHERENCY_CONTROL_3_OFF);
-> > +	val = u32_replace_bits(val, K3_CACHE_MSTR_AWCACHE_BEHAVIOR,
-> > +			       K3_CACHE_MSTR_AWCACHE_MODE);
-> > +	dw_pcie_writel_dbi(pci, COHERENCY_CONTROL_3_OFF, val);
-> > +
-> > +	dw_pcie_dbi_ro_wr_dis(pci);
-> > +
-> > +	return 0;
-> > +}
-> 
-> [Severity: High]
-> Does this code miss initializing AXI cache coherency when MSIs are disabled?
-> 
+I think the last time I checked the sts30 series wasn't listed in the
+dt-bindings but it may have changed since then. Oh well. I'll still go
+check it out. If it's (very very) similar I would probably consider
+dropping this one, otherwise I'll improve this one and resubmit once I
+get the hardware.
 
-No
-
-> Since k3_pcie_msi_host_init() is only called if pci_msi_enabled() is true,
-> booting with pci=nomsi would skip this callback, silently skipping general
-> cache coherency initialization for the controller.
-> 
-
-The PCIe controller is broken as it does not support INTx in this driver.
-
-> > +
-> > +static const struct dw_pcie_host_ops k3_pcie_host_ops = {
-> > +	.init		= k3_pcie_init,
-> > +	.deinit		= k1_pcie_deinit,
-> 
-> [Severity: High]
-> Can reusing k1_pcie_deinit() prevent PERST# assertion on teardown?
-> 
-> During initialization, k3_pcie_init() bypasses the K1 mechanism by setting
-> PCIE_IGNORE_PERSTN in PCIE_CONTROL_LOGIC. Since k1_pcie_deinit() attempts to
-> toggle PCIE_RC_PERST, won't the K3 hardware ignore it?
-> 
-
-The K3 has handled this properly. You should treat the K3 and K1
- totally differently.
-
-> > +	.msi_init	= k3_pcie_msi_host_init,
-> > +};
-> > +
-> > +static const struct dw_pcie_ops k3_pcie_ops = {
-> > +	.link_up	= k1_pcie_link_up,
-> > +	.start_link	= k1_pcie_start_link,
-> > +	.stop_link	= k1_pcie_stop_link,
-> > +};
-> > +
-> > +static void k3_pcie_clear_irq_status(struct k1_pcie *k1,
-> > +				     u32 *status0, u32 *status1, u32 *status2)
-> > +{
-> > +	*status0 = readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> > +	*status1 = readl_relaxed(k1->link + INTR_STATUS);
-> > +	*status2 = readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
-> 
-> [Severity: High]
-> Could this read unclocked MMIO memory and trigger a synchronous bus abort?
-> 
-
-No, it is possible to access.
-
-> In k1_pcie_probe(), data->parse_port() is called before dw_pcie_host_init():
-> 
-> k1_pcie_probe() {
->     ...
->     ret = data->parse_port(k1);
->     ...
->     ret = dw_pcie_host_init(&k1->pci.pp);
-> }
-> 
-> This means k3_pcie_parse_port() and k3_pcie_clear_irq_status() are executed
-> before the required hardware clocks are enabled, accessing hardware registers
-> while their backing clocks are gated.
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260703020003.485436-1-inochiama@gmail.com?part=6
+-- 
+best regards,
+max
