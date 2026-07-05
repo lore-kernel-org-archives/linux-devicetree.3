@@ -1,108 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084503815DB
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 14:00:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CB537AA74
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 14:01:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783260060; cv=none; b=Hj1pWa3Q08dkjliwizJROc/z64Mu/bcwPD4+Ysr6ypFaRYvFsL/fedGb7RdlqqavGqXU6JtIu2EHk1ceWRseLk6GqhCzqcLyhW4yosLO8gs4xpPBItaMfBwkiGjSG2LugaBlfxIc0YICpcqzoZD0l2E08Fov69kCNO6pHLjKrms=
+	t=1783260068; cv=none; b=UhodK/Rr/IPwI2kX4orkeqgTkZuhFnErPhTlz+RTLdvZ8UXcAWR/3YQqSlhMK5QaA9GmgpBDecyvdu1M+y9e7KxtFGZKPiaZ1LRI0jT59Al9jnOX2TFSB6eLz2PZ433g6sQq0zjhYTWlGByM2y6YKjwXiWEXwjBXVXW1l4y6+qc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783260060; c=relaxed/simple;
-	bh=k14XuxHIxj+omGG5Ik0+Ij5ld0x8B24ZiWi3QN2r9mM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BcRuATSamfgdiuFRy3KmooBp/Ix9u3AZ1JFnvWt7pORDUAbzJ9JQwhfiYw49Zt3xaz09Nl4K9cyeuO/vG4pcBAHDitmb2fjlT5t1x2Z+GJFtq9QzjoXCkCVZiaxXi67bVkX+4XJfqQaNv7DpdKoul7o1ayyPmOM96KuNw2p+O4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gbvwUkJW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783260068; c=relaxed/simple;
+	bh=y91yCTn5OqFNj2gv1AniQU1l6RNsFXdk6j7Az5+Zq40=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gvtwJaTdLwzMrH06FuFOy/xXzw78eHD5V903mNoi1YABPVhKrnwWgC3b1DxEMluoHd7ONTxm7Il7t41Eo4vxOKyvQQr8fwmtfy80lg5WL8z8xPGd7syZOruIlWlUjEUtbijDV6OyuF4aF30rjiIbhHoPC6odNwBl0KGHhXiN08I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j7dr1RPB; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gbvwUkJW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D43E1F000E9;
-	Sun,  5 Jul 2026 14:00:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783260058;
-	bh=4VZNzfJU0IyxySdYvJ5boZijibGScPpmE+AX5GSBPh0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gbvwUkJWv6+H1ZSOc/I4XtldRH7MN52MkYCG85ohvwAHahim8qBzgYHbo5ZU5ctH8
-	 bTKcngpnnGpxYa5ME6CXm2neLP7rrY4Ch2oqXcsLus8npbVsy+5DWnsiq8BGo0xSj0
-	 4/3Cg82QqQEwTnt7VeJXgmCKxOr5BuapCZzwcbeNFr1b+VYqRFzXZ145RshlFILCwR
-	 QqCzprxKSJXm3qX5MvL9nKtX7zFEp1to1Xjkt5ldnKIkb7IZ/CtGs9I3pYb6x3L9cn
-	 SpAUBfUJwTGkvGzLS+CCJSoAEfup9UzU9GaXhKTOKJuS9oM85R7/yBoqhYKRoQKMKa
-	 TDhUXQXy8bXHA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: rockchip: Add EmbedFire LubanCat 4
- board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: LemonFan-maker <2254650260@qq.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <tencent_6D311DC5F405B157049538DD5B080082A10A@qq.com>
-References: <20260705135014.1004166-1-2254650260@qq.com>
- <tencent_6D311DC5F405B157049538DD5B080082A10A@qq.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 05 Jul 2026 14:00:58 +0000
-Message-Id: <20260705140058.8D43E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j7dr1RPB"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493bf73ec2aso12770945e9.2
+        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 07:01:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783260065; x=1783864865; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0Xmqz/oZ7aMrIDGMWhF1UArCU3La3CqQcUQWUOpBKws=;
+        b=j7dr1RPBDX5afDhT32SujoNH8bgZDn35LPq3ZJRpVlTfYvEZ52YSpCSv7PtS0l47dW
+         dfrEdbfeISf6mGXzkrsPibauoxelujD+dQXAav2VPZusjtpST/B9fyhCfL8fW7HK5KRX
+         nIbvejtY87K5zLenCxTXXdQLmAsGbqYsC+UDG+pAOiya89vrJG1T47INVR+klj4Nwdrt
+         cPF5xAlT6U3yuaWaTYwzPgekCumui6aNaBRZc2MRiiO1ZA7rpLgSSCfRuCsnMUsQm+zU
+         DrK2jy9OKMFbUYqiSvDDB5BIgE9DIv0UnIPn0tE0x2tqLBXxQOYrICpvFoxCFQCpCOh7
+         OgaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783260065; x=1783864865;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0Xmqz/oZ7aMrIDGMWhF1UArCU3La3CqQcUQWUOpBKws=;
+        b=bc1voppGlGUw0IqR4hvVD+XdRQT59PmJGDHoPtEskQdkrCj+c52b2Auv1fRCOTdzr9
+         pLxAee04eDSrPT+T9KUaK/McnX9EbwkuxXtTgmhnwuuOmwvCntBlcip9hDIjjmTTQixf
+         ZHPY8/AURiUdwCOwrwPFzoI9XuDQmS98Yl9L9ijM9zfiAxS2RnZMOFZHHxCG3WJK6UYd
+         Amz9D9+XBwhGZO9uCIxwWXa5lp5pEUcqBKKv3+7RS6wvQyXsxLTiaBhT5Az7W07Z0K3T
+         9ZhxDuhtFsij/p9DaE8yDSG6e0/c/D8lrvMi++dRU3ihPBsdHx2Bmaz/FqPFo27EeRHO
+         EayA==
+X-Forwarded-Encrypted: i=1; AFNElJ+1QXiyxe+Axp2nttVr0ykMyBJdPR0Wyz9sHgreQ5ci6QC+Zy1QIfYYN1Ata9kWOl3dPIvangwh4zMt@vger.kernel.org
+X-Gm-Message-State: AOJu0YyE9BoG2MjW+op3baIL/JOS01EGtdRuaWG/8TUoMmHCCsDNlbdL
+	HqTSeEqqzGT9Rq5Khnfm8nHob6Lqfz8H4IM3LsZZd0GAbqQNsh9r5xjr
+X-Gm-Gg: AfdE7cmlmf0iDlIN6OQjpCeVQXigqougJPO5rmRY8F6/YxP6wDPZgKeh0KejEQNXtGC
+	X/eyEqymN4/juh07bkdc8AtfPV4zqYXp7iOaKg5naq75k/8q7ujJ5hLK/k+bvW9SD0eYWhiLtfM
+	M4WWgV+s1YzhFdiSy/pvRxqwbLc6+q/J1bBSNYcS2UvKoUVlYTILSa7jpWHh6SPqYsRrD4b5ZGp
+	/Ao3P4n6YYrq/NqAWvtO79IO4kffdOvdTQSYS357V7x11NMcc0qNDOLlTul7cApjkKJIcodrkmL
+	IP+29NALginFjc+LsCplccnK8g6I5uUGE9OsXjZOkfaIcnn3eIMnlNOrXlLvSAjVr5FMXO6aXHS
+	Ehuy3BQNXmpMyuPNZRRcRoGW2KejY+4kIhnPDF9rDHaJnblIO/SxO6o5wj7doRGtId7K6nX4k52
+	wtaXe02CeigIpAJy8VGDm5JTw=
+X-Received: by 2002:a05:600c:524b:b0:492:40e2:358d with SMTP id 5b1f17b1804b1-493d11de9bcmr79035685e9.16.1783260065332;
+        Sun, 05 Jul 2026 07:01:05 -0700 (PDT)
+Received: from taln60.nuvoton.co.il ([212.199.177.18])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493cce040b4sm275911115e9.10.2026.07.05.07.01.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 05 Jul 2026 07:01:04 -0700 (PDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: andrew@codeconstruct.com.au,
+	wim@linux-watchdog.org,
+	linux@roeck-us.net,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: openbmc@lists.ozlabs.org,
+	linux-watchdog@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	avifishman70@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	joel@jms.id.au
+Subject: [PATCH v3 0/3] watchdog: npcm: Add reset status detection support
+Date: Sun,  5 Jul 2026 17:00:57 +0300
+Message-Id: <20260705140100.1543486-1-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Contradiction between physical PCB RX delay and RGMII PHY mode s=
-etting, risking Gigabit Ethernet instability.
---
+This series documents and implements reset indication reporting for the=0D
+NPCM watchdog driver on NPCM7xx and NPCM8xx systems, and documents the=0D
+optional GCR syscon property used by that support.=0D
+=0D
+Patch 1 updates the watchdog binding to allow the optional=0D
+``nuvoton,sysgcr`` property used for reset-cause reporting.=0D
+Patch 2 adds watchdog documentation that describes the bootstatus=0D
+mapping.=0D
+Patch 3 reads the SoC reset indication bits and maps them into the=0D
+existing watchdog bootstatus flags for NPCM750 and NPCM845, while=0D
+leaving WPCM450 unchanged.=0D
+=0D
+Addressed comments from:=0D
+- Krzysztof Kozlowski: https://patchwork.ozlabs.org/project/openbmc/patch/2=
+0260622083046.3189603-2-tmaimon77@gmail.com/=0D
+=0D
+Changes since version 2:=0D
+- reword patch 1 to explain the hardware reason for the GCR phandle and=0D
+  why it is needed for the reset-status support, per Krzysztof's review=0D
+- cache NPCM750 reset status in SCRPAD2 so later watchdog probes can=0D
+  report the same boot-time state=0D
+=0D
+Changes since version 1:=0D
+- Modify reset detection handle in the watchodg.=0D
+- reword patch 1 to use the GCR syscon-property wording from the=0D
+  applied NPCM reset binding update and drop the optional property from=0D
+  the binding example.=0D
+- reword the patch subjects and commit message bodies to match current=0D
+  kernel dt-bindings, docs, and watchdog style.=0D
 
-commit a30ca0bb9560e6ed7ecdf88333f509d579374640
-Author: LemonFan-maker <2254650260@qq.com>
+Tomer Maimon (3):
+  dt-bindings: watchdog: npcm: add GCR syscon property
+  docs: watchdog: npcm: Add reset status description
+  watchdog: npcm: add bootstatus support
 
-arm64: dts: rockchip: Add EmbedFire LubanCat 4 board
-
-This commit adds basic device tree support for the EmbedFire LubanCat 4,
-a single board computer based on the Rockchip RK3588S SoC. The enabled
-peripherals allow the board to boot via serial, eMMC, or SD card, and
-provide networking over Gigabit Ethernet.
-
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts b/arch/a=
-rm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
-> new file mode 100644
-> index 0000000000000..f8c78df4a14ba
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
-
-[ ... ]
-
-> +&gmac1 {
-> +	clock_in_out =3D "output";
-> +	phy-handle =3D <&rgmii_phy1>;
-> +	/* The board has 1.5ns delays on RX lines; TX delay is provided by the =
-MAC. */
-> +	phy-mode =3D "rgmii-rxid";
-
-[Severity: Medium]
-Is this phy-mode setting correct given the board's physical delay?
-
-The comment states the board already provides 1.5ns of physical delay on the
-RX lines. However, setting phy-mode to "rgmii-rxid" explicitly instructs the
-PHY to add its own internal RX delay (typically ~2.0ns).
-
-A total RX delay of ~3.5ns within a 4ns RGMII data window might shift the
-clock edge out of the safe sampling region, which can cause packet loss
-or link failure at Gigabit speeds.
-
-Could you clarify if the comment about the board is outdated, or if a
-different phy-mode (like "rgmii" or "rgmii-txid") was intended here?
-
-> +	pinctrl-0 =3D <&gmac1_miim
-> +		     &gmac1_tx_bus2
-> +		     &gmac1_rx_bus2
-> +		     &gmac1_rgmii_clk
-> +		     &gmac1_rgmii_bus>;
-> +	pinctrl-names =3D "default";
-> +	tx_delay =3D <0x1b>;
-> +	status =3D "okay";
-> +};
-
-[ ... ]
+ .../watchdog/nuvoton,npcm750-wdt.yaml         |   6 +
+ Documentation/watchdog/index.rst              |   1 +
+ Documentation/watchdog/npcm_wdt.rst           |  71 ++++++
+ drivers/watchdog/npcm_wdt.c                   | 217 +++++++++++++++++-
+ 4 files changed, 293 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/watchdog/npcm_wdt.rst
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705135014.1004=
-166-1-2254650260@qq.com?part=3D2
+2.34.1
+
