@@ -1,109 +1,119 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7656359A90
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 21:38:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248D53655C0
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 21:44:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783287514; cv=none; b=O1kg/VUTNBAatQdm2aBE4K5KYEOMCw+Lx4E4D88sIX7kP8/8YYszWRDfITzivY/qYHMPmHYamyInh2aI3ecUU1R/VSzRrV5+j0vDko0iEerYwzs7yYEDkw48sxQofGSO5Ey3iSQnnvN5xo0qn9uOt3hrHizt1DQSSOq9UzQkFjY=
+	t=1783287895; cv=none; b=m4qSG1FsGIIyn269Y1YcIhbUjTAZ6Da0OUBgPdkPZFw+czVl9oN1iXdUIz/y3WmgfD5xXo6pmz/mzGwuUpN/CO5/Cj0I7BTjgaAzY1MXWFergkaIyYFbiYWKcWNXb7XoKRex1vfeVaenSWcHVJFq9Sw5tGKBJGX+O7/RNUEUaO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783287514; c=relaxed/simple;
-	bh=AudKt1V8+KDEu+V2vDgxJisT/saSektGt1MIpi1jEBg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SXVMWLX+jU2nK0PVPl+uf+4MCFMDiCZPcTlPYYdPiKOoM/hap+Yi6y5tnooNDSvGT79o828kW1CZSS84B3/8u8nb5qIY5IqOwnCz8lwbsuclXOGoywMkqh6vyXFZ8u94H92WyEI0y5kbVITLuKIAlap7ATzevIyZXR9EK988Kzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=f1C3e1rN; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1783287895; c=relaxed/simple;
+	bh=4isn7coX6+qS0lMF4d5P3/Y8lVCiuTgyrMO8nqLpFs8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=si9dB+4TQz6n04XQug6pv9Sz+En3QBO2kTXBdsvAYbj49w4boBKqnq9ISCq2FNSLOnnFYrJgXKUgDZPwFnr8cPqne+rTQxlqRsL1Gq5rCKb5HTaANNhtb8ZPGyDj4BMcO90RMvmXw+rYmRSbt1W/C1nzdpGFFaqImTe+hUJgEG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UUC3O1qk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="f1C3e1rN"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 629834E40C02;
-	Sun,  5 Jul 2026 21:38:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 35EB0601A2;
-	Sun,  5 Jul 2026 21:38:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 568AF11BB95F0;
-	Sun,  5 Jul 2026 23:38:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783287510; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=Y1UXtT8BmOoe/s7y9k9MbPlbWZSkBpQj1qefN9muTjc=;
-	b=f1C3e1rNwou+Okt6VZ8A38DgopxU0B2JHBR8wohTm2+ApRM9tmAnvP+BNoCh8yQeySo1Nj
-	E6fCAYJ7JhR2CYLH/IyvaGs/RzFCzaSfyDYkkMhKjy/w3VyAuVQ+ylvTL1Z3nKmTP+TzF4
-	qGA4X61SG1NCHMBbRQs80q/WKHO8l6RheElkrckh2+SvlFJCOQv1O0T9JrxXgjNDQ7G/Dd
-	kAqulb+mG90oXfQdlJazkq6pSjj+iElLLCqg1nCcItjF0CsBhUAU6lTBFLQYrCWjrKV/XM
-	S4L/rWssIMrEblxnfGpiwc36B20dxvOs1MSDC0vtxv/RY9b+r2C7M1jYdODFuw==
-Date: Sun, 5 Jul 2026 23:38:27 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Junhui Liu <junhui.liu@pigmoral.tech>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Maxime Ripard <mripard@kernel.org>,
-	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v3 2/8] dt-bindings: rtc: sun6i: add sun60i-a733 support
-Message-ID: <202607052138277aa6b793@mail.local>
-References: <20260702-a733-rtc-v3-0-eb2580374de6@baylibre.com>
- <20260702-a733-rtc-v3-2-eb2580374de6@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UUC3O1qk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5195C1F000E9;
+	Sun,  5 Jul 2026 21:44:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783287893;
+	bh=dh3N2oIogZcdyO5Fv7nBsba8L/DMUWLRgHZHLd7VQrE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UUC3O1qkcUPl2vv/EtLof1kts8ZC0ZbpMZ4o4cWCF09WUq9R7juw6IhhzKgxnGm7r
+	 DO0FmAXqFsn/g7qPFFYznMlN5eAyeAApyq23Il+KTW0U85vuAQbWtUSPBxotAw0ohY
+	 oS77uOiTW6d8u53MoywY0f2F9tirZc0gazKoZFjnjhVwXVBfnuPirdrsIcyUoPPWaP
+	 YADg1zgC5dSDvtH6miXxc/PV/lsSMnyzL0P9miQPLm1RUXSQ/fOe/pBkSMbiHTRAlB
+	 uN0aJtFaPGsn0Cointp5al2auvCzYz2nOj8x1gZrB8M3wC29iKfUEYe0faiJwDI/GY
+	 BytRXXCLPh3Kg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] drm/bridge: display-connector: Support hardcoded
+ EDID for VGA connectors
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Laurent Pinchart" <laurent.pinchart+renesas@ideasonboard.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260705213542.28987-4-laurent.pinchart+renesas@ideasonboard.com>
+References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705213542.28987-4-laurent.pinchart+renesas@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 05 Jul 2026 21:44:52 +0000
+Message-Id: <20260705214453.5195C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260702-a733-rtc-v3-2-eb2580374de6@baylibre.com>
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 02/07/2026 10:10:01+0200, Jerome Brunet wrote:
-> Add a new rtc compatible for the sun60i-a733 SoC and new IDs for the
-> peripheral oscillator clock gates of this SoC.
-> 
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> ---
->  Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml | 1 +
->  include/dt-bindings/clock/sun6i-rtc.h                              | 4 ++++
->  2 files changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml
-> index 959a012c626f..f2b91186ed37 100644
-> --- a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml
-> @@ -33,6 +33,7 @@ properties:
->            - enum:
->                - allwinner,sun20i-d1-rtc
->                - allwinner,sun55i-a523-rtc
-> +              - allwinner,sun60i-a733-rtc
->            - const: allwinner,sun50i-r329-rtc
->  
->    reg:
-> diff --git a/include/dt-bindings/clock/sun6i-rtc.h b/include/dt-bindings/clock/sun6i-rtc.h
-> index 3bd3aa3d57ce..5132a393ca4b 100644
-> --- a/include/dt-bindings/clock/sun6i-rtc.h
-> +++ b/include/dt-bindings/clock/sun6i-rtc.h
-> @@ -6,5 +6,9 @@
->  #define CLK_OSC32K		0
->  #define CLK_OSC32K_FANOUT	1
->  #define CLK_IOSC		2
-> +#define CLK_HOSC_UFS		8
-> +#define CLK_HOSC_HDMI		9
-> +#define CLK_HOSC_SERDES0	10
-> +#define CLK_HOSC_SERDES1	11
->  
->  #endif /* _DT_BINDINGS_CLK_SUN6I_RTC_H_ */
-> 
-> -- 
-> 2.47.3
-> 
+Pre-existing issues:
+- [High] Use-After-Free of devm-managed resources and missing asynchronous =
+cleanup during device removal when the driver is unbound.
+--
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+commit 48f63e147d7554f73cd9df360e29fd0b0ddb5d8d
+Author: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+
+drm/bridge: display-connector: Support hardcoded EDID for VGA connectors
+
+This commit adds support for parsing a hardcoded EDID blob from the device =
+tree
+for VGA connectors when DDC signals are not connected. It also ensures that
+specifying both a DDC bus and a hardcoded EDID returns an error during prob=
+e.
+
+> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm=
+/bridge/display-connector.c
+> index eb3412ec30a07..225a8e987d086 100644
+> --- a/drivers/gpu/drm/bridge/display-connector.c
+> +++ b/drivers/gpu/drm/bridge/display-connector.c
+
+[ ... ]
+
+> @@ -64,6 +67,9 @@ static enum drm_connector_status display_connector_dete=
+ct(struct drm_bridge *bri
+>  	if (conn->bridge.ddc && drm_probe_ddc(conn->bridge.ddc))
+>  		return connector_status_connected;
+> =20
+> +	if (conn->edid)
+> +		return connector_status_connected;
+> +
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does device removal have a
+use-after-free vulnerability when the driver is unbound via sysfs?
+
+Looking at display_connector_detect() in=20
+drivers/gpu/drm/bridge/display-connector.c, if the driver is bound and atta=
+ched
+to a DRM encoder, and then unbound via sysfs:
+
+1. display_connector_remove() calls drm_bridge_remove() but does not call
+   disable_irq() or cancel_work_sync(&conn->hpd_work).
+2. The bridge structure is kept alive because the DRM core still holds a
+   reference count.
+3. The driver core's devres_release_all() runs and frees conn->hpd_gpio and
+   the IRQ.
+
+If the DRM core then polls detect, it will execute display_connector_detect=
+():
+
+	if (conn->hpd_gpio) {
+		if (gpiod_get_value_cansleep(conn->hpd_gpio))
+			...
+
+Will this dereference the devres-freed conn->hpd_gpio?
+
+Additionally, if the concurrent hpd_work executes, will it attempt to lock
+bridge->hpd_mutex which was already destroyed by drm_bridge_remove()?
+
+>  	switch (conn->bridge.type) {
+>  	case DRM_MODE_CONNECTOR_DVIA:
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705213542.2898=
+7-1-laurent.pinchart+renesas@ideasonboard.com?part=3D3
