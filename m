@@ -1,249 +1,449 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F7BC36E47F
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 08:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D698B2309AA
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 08:53:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783240927; cv=none; b=bk89JrXeTQLQKKN8Qo3FA5RNApkZACCpIAU/OyJ+tZOQ3gqKmXw36PPm/538+4ai2A/WUEO/Zywi2OAu1kM3iNRy33ko81tILIcCoMTWAb0hLIze6P6PVLhy6qjz48+cBl10J1P4iKxe/18/ZD14h/ldfW7hcpY0O63ifTcAEuM=
+	t=1783241618; cv=none; b=cg/mSCmeED9ei0lR7EN0umYaz9OIxjK7O/gZDdvwwwf57v/VktxpsVvkE1HXWO8dP+fT5V0ylSuh7p5/uZfXDyDla+qEbr7T7ZQ78aYofYRY5bRjNoOcly/yvdMSTEZBNm/CWvoMB73yO26TdsYGzC0Y9wAb7fM43VS6rSMTl5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783240927; c=relaxed/simple;
-	bh=yKKzPWK+/FdU/VXFVrVaqR48TggYD3+aJAhMO7AVZgM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r4WffM26U1JlPCBiwf7zLnrwOtOTRoCHLUhGjhbGsHwK8H7APBriyhl+q19ZDM3+KwgpknBNsVnH1lsOvfcbMi3Rj9gFy+Kl/NTEe+XFjxQr7lPrxXU5jRoUYnLCpXT1g5sj8I2QR/bUO2Ewuqy+3s5pvs69SLrQeNamI4j6Kew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BzdQnron; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HIzXATG0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783241618; c=relaxed/simple;
+	bh=s6HIcV4HTSFWc5vfRv4FqGcjv3OhDT70bCWryJUAz68=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nBXRuMX5sx6DIOW5yid56D2YN5aCvjtF4bF6CYIb8YmyFjWZc6itFyrea862un/FeHiDftBa+rj7lQ4Lefa6GhOdCnrPHyl+v4m4PJR8eH7xoyUjCQ7pPk4Ileaya4CcG8s5wgrwFU4fPQLLEzmYVO+pmgKeUeDbIKcmas8Eowg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SzB0sRU4; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BzdQnron";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HIzXATG0"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 664LkAHe4114535
-	for <devicetree@vger.kernel.org>; Sun, 5 Jul 2026 08:42:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jdRFpiIhdtARWUSRwfBjeoXMFG+E8udRGzwOjsDHjWE=; b=BzdQnronpobP/+PA
-	rGJLRm8/7KNZWXdLhsyatKyJxOoP+UY+lMquekjgVL5zF+S2PJnI+zsZjZn/GMNK
-	lWUnJTYSIdUrm3ynSa3H8b+kipiEb4iiDB/XGpNV4iqRwE5k+VLs6MrfK7vOFs7C
-	iFRszOuISJZRGk0OFpc9I1v8c/HymomUA07PKGfjGrDTS6ZnAiBuDnDOlx1NF9Fi
-	Xo7lUgAtrB08D49SE8saY1WEBuT1asv40kO5yJNi5/6WGdK8UogvDtgWIQY7ePBB
-	MnA8sLXibyGsTJ3ygDu89NdxxkkbcveFDqoSRb45U0MzYv/FBQRUevvav2jwAAnw
-	a000UQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6srvjdr1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 08:42:05 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-37e24235ce1so2798161a91.0
-        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 01:42:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SzB0sRU4"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-45fd464d51fso959799f8f.3
+        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 01:53:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783240924; x=1783845724; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jdRFpiIhdtARWUSRwfBjeoXMFG+E8udRGzwOjsDHjWE=;
-        b=HIzXATG0tKDX0xGhSYs2pHyW3rmdvmxAAt+fC4LGjL7IabAlD4Y/4lXMyZAym5dCYl
-         crDy1mMwuOXfc+MG+ICBXLK9tIYJ7az0hEhdlTeA+owDqC666cyckRf95BJxLfsWHPBy
-         eupOEuKbxBqCrb3Jsso+BE0HsmvodBST3XSxoO0DZn0Ag5XMbCp8mD1Z+ngroXsTYMAc
-         DyOlHBs8lQYnYvzY04NSoW3qzGcnQMv/R3BmYYKUS390c1hV3Q3ftaIpnpSxt7egmclk
-         zyF9vG012fujPCTHSqn5AZG3diUNUVDSjgj/gZRtWj5WV8On3IV0qrvUCwMM+nX54EAh
-         KSYw==
+        d=gmail.com; s=20251104; t=1783241615; x=1783846415; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ah/zRB/XuriwXpF5NOF9MEJmfk7QHzQ87OYCQjCuCrw=;
+        b=SzB0sRU4HJm9jhG1aNpcz9rnuQ1jQ2HwkXLBEhQXIKuUVaWdOUD0NpCai4Zh62AUkD
+         QahXvXnm48htWodNA97Q82ZMb/YtELutQc2cytI+Og4Cj1PK6vYIWZSmXIk6UDs/k7s6
+         UXB8pgD/ncLkGVb4M2WbtkTvJWZCR+86xoPdPl5AqQ865XMaIpsj/AmFRe+8T/+cU07Q
+         uZeZ3oIfHCvazMtNyYZQpvoX2cPfSRFlgZyQ/X9x17XzqvMKLYnfMyYbCRXf+pYAt3wM
+         t1YAOxzgCcsPUDuAE7aOxG14ldZcUjLuNQD9K/AksyNNcVPuNqoLOjfmZjrQbrwxGh1v
+         zpLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783240924; x=1783845724;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jdRFpiIhdtARWUSRwfBjeoXMFG+E8udRGzwOjsDHjWE=;
-        b=aMdWQ/uaWqW8SODyrsjCIrj/SJdB/fT950lVelAeqbwDsckLBOcKQlLMJG2Z1fWATx
-         gqqNVJcXkeeh/x7oScnLu4ByyJs0iuDKsWYuAJKP8W80xh/H8EqvBmvI7XFzz/CS3Gfm
-         m0Cc5gchEWNox39FUlljEFjXlJWY+dsxcY0P82l2HSp5TQy4Oe21hh3yHNArHk2Qk8UD
-         bWxK61QOKpltPK3V5aKhq0VJ8v9jgf6Qg1HdFVPlp4X5UCKt/4RlzB9ATK7BJAyQ6H0r
-         /NlhXiUnsCRLBL4bFAPfnW0RDnvYWCKR//Bt14Fe1kZwVVLobDDYdcvECzvGmlBmgunH
-         o9uQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoZRgXhYO0frdBOUmh9XDWda8Ih3hhZhOPE363ksBgVNhsZzY20iWsHLen6P1vIeXT2ag8jgu12XdDe@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXj29XwYR3dQCZpgBwjvvUDYW189g2BHTGusrZXkyDVZGXpHfg
-	iRQi9nWytLEEDt74TpOO5Op4jrgBYnvxiQss9qvcBSZWtipgC4Or6MCdDQS9WR5RubagCf9jbQ+
-	h2hfGqy/nfJPQPoNa9VsAMb+acJj44jac5yWIBho7OFS7axVDomw3g4Abt2vCY4PSlBs/Z/Ae
-X-Gm-Gg: AfdE7cmLsMMVYNNYagsp7iAxRoC0B9PcdSg1Tmuw9G7ngMR1qPkhcQlecQ+nNLj5upP
-	AqFF/sjb1kg/8hjZgvt2dP6U/fL/gN2fFHjCLAp/+IC9QSMGtJYCJjUnXq1LqP5GJmbwpCAMUYR
-	vsv/UKxCqmuAVyx72e7Tb5ajQ8y6EKHHaMI06lIIt7wxaM68XEXchUqyQilo4YUvcIVfeztlnHS
-	vdtE3rhewTS/3YcSHtagnxLO09vxQTSxso2UEPng+lsxckozGzODh71xnA+eYRrtn7F48aqL6FL
-	vr20ww3Vfrj3dBhb+RuyNiE4oyOY+T7lyby5gFMvpGI8WOYtcXjlBuPwHs439P7LBIcrbcvn3eI
-	eTXOHf/OYnQcfN9/01WB/xUT9UsbMENK7w0+kd/KGew==
-X-Received: by 2002:a17:90a:dfc8:b0:37f:9ce1:cdb0 with SMTP id 98e67ed59e1d1-3829f9dffe0mr5138260a91.30.1783240924030;
-        Sun, 05 Jul 2026 01:42:04 -0700 (PDT)
-X-Received: by 2002:a17:90a:dfc8:b0:37f:9ce1:cdb0 with SMTP id 98e67ed59e1d1-3829f9dffe0mr5138234a91.30.1783240923435;
-        Sun, 05 Jul 2026 01:42:03 -0700 (PDT)
-Received: from [192.168.1.13] ([106.222.231.34])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f0b7bb8fasm38382008eec.1.2026.07.05.01.41.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 05 Jul 2026 01:42:02 -0700 (PDT)
-Message-ID: <9821302b-5e14-4a8e-8b1c-f3eb1824d7a3@oss.qualcomm.com>
-Date: Sun, 5 Jul 2026 14:11:54 +0530
+        d=1e100.net; s=20251104; t=1783241615; x=1783846415;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ah/zRB/XuriwXpF5NOF9MEJmfk7QHzQ87OYCQjCuCrw=;
+        b=d+0vSg9y6s6z177mYNmfNZOWwkPTOH6B90keJY0l45g2gAQXTOArBwVwSsSro7MrKk
+         vze6sS9z/362+6A0v5ETIT+FQBwmfzOEUtXjVKTpIv3X435HOfvGF4bfUPTBGiNGD2gS
+         fBbR56ZFLagVnlTFkY6x/JiOZHCrV4mwn0HzZHn2NHbFzCWCJxMDgzM++JB/jsfeZUPY
+         IgjQH6BXJ/0v5Xy+9oUjrUTf3OLWgQdUBtoGiCqQ3zZzW1T+g2Aa84RJXO2xAC+Xjykl
+         sbC9OTpUnrMBR2G8qNoYpJytdfx6jA5oC3m9LBn6Hc4Q8zVJx4EEkIeqtMXRcRbS0vGC
+         i+Qg==
+X-Forwarded-Encrypted: i=1; AHgh+RoJY5PJ//snt0IW8JP4j6Pz282pbIjweh7ZgfB+9aqa2fJ4EX/IdcilZEemd/gKS3oF7d55CG8x283y@vger.kernel.org
+X-Gm-Message-State: AOJu0YwQhst6zJD+LNd8WHPTyziUe50sHa4EbHtZuf3rg2KqF2GD/jX4
+	OABUxn6lxn2gy8/lxs+xG31Jc9nPFTvw2Pho3NN3pf6kJmOmuVg1cO6V
+X-Gm-Gg: AfdE7cnlJfol5sNouTNl9hO7s1UYjLwWlMNrP+W29hbLk68Ms4sz0D8e8NTny+jAWWg
+	J8MSvZkFphhNCzlFBGBGjcoWQIT+fEhr9VIUuJUUOn1Jfjmx/Oqn1nv6kN0jJsRvwug1k6z3/2z
+	hDM6pd1fsBgHqcn50CYEznFjjDCLbIRQAmhg2EYXuMRJi9qb03MReI7ASLdWOb9GdmNbMWxRSCm
+	P+B3XWJWBlHLPkUD8ayfUXB6KdPJQxPvcgixHxlfSnT9yf7SjygVsBB50o53lBb150bCrY2cBFM
+	vd3REZyCHIvMvGnLgoU3Yz8XhvKs7PG/S7z5y/KJMt+ZiQ6O26FhtDMAK4YYXWUKwe/Y4tTc5yM
+	taLxYU2M6d5qTHYeXM/iJRCfuIPDLecfJu51gvheZEahyWxQFelHWqhAiRX8FW81VnStehchPtD
+	FBx1GGcw==
+X-Received: by 2002:a05:6000:1847:b0:475:e3fe:8ac3 with SMTP id ffacd0b85a97d-47aa92c0701mr7196920f8f.8.1783241614935;
+        Sun, 05 Jul 2026 01:53:34 -0700 (PDT)
+Received: from avermoal ([185.13.176.155])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d780csm14649722f8f.11.2026.07.05.01.53.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 05 Jul 2026 01:53:34 -0700 (PDT)
+From: Avermoal <avermoal@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Avermoal <avermoal@gmail.com>
+Subject: [PATCH] dt-bindings: iio: adc: convert Xilinx XADC bindings to YAML
+Date: Sun,  5 Jul 2026 14:53:08 +0600
+Message-ID: <20260705085308.8819-2-avermoal@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/10] dt-bindings: remoteproc: qcom,pas: add
- #cooling-cells property
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-References: <20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com>
- <20260703-qmi-tmd-v4-2-3882189c1f83@oss.qualcomm.com>
- <20260703-quirky-impartial-oyster-caab0d@quoll>
-Content-Language: en-US
-From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-In-Reply-To: <20260703-quirky-impartial-oyster-caab0d@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=TcamcxQh c=1 sm=1 tr=0 ts=6a4a18dd cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=JaHktJlP2QtFIg7UHuVw+g==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=V7JA6PPGWL3xxjczixMA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: -hljIdDgFbvUBMGQsFwK5kiqmDteLQtN
-X-Proofpoint-GUID: -hljIdDgFbvUBMGQsFwK5kiqmDteLQtN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA1MDA4OCBTYWx0ZWRfX9UYp5nnqeZzV
- ccrRSwg9DMb6dNwahtXwjCb5keYqgpumdkx3qOzjtmkxxE+nQnhg7DIQfV8uQ+SkmouCoFD7X9i
- 20UnjmFu6qa93I7dEVpBQLGbchtn6k9/zF7+jfuu/d9t5w0S0fRaqrirTU57b2izo3Ro15vg2dn
- c9pd9fvG0a3RGQkMNNHT6waKnqh/sBMEYpWFRVKPVVW+krTlsAWAb0SoLexWVhqmqseSIf84Agw
- IvV7uOaDiPNLGNe+cBI8Tdqv8jHq5DoOjGT9Z63uiO6x4GCNtx4TVdKv0ogzX8Uj8thAANjorxj
- NSowF6nqUiUtAeesFBWM/UWmPLZjO3ik9ytn06ND3HfNODB5FrhP1J9k08QOn/YiniNmLaQPILZ
- mJvUey6RRT9O/+xQZa6DrY/+RwFQ7jgyIQJ7vy+kMw4uPDgIqhLGrm2jTiStmMcv6leI862cu8K
- GUTEdiCyqzi3c869cvQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA1MDA4OCBTYWx0ZWRfX25ZR/0p8JUqW
- /kDXNVLnjR9I3SHOGKJpDrBXvev9aKBFInyjmoBEllGbZcGB5te6xIBrZfiMwPylOva0SE6A47I
- nKbqlW0wLbPAVQrlklOWV3Na5iW+0sQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-04_03,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 suspectscore=0 bulkscore=0 phishscore=0
- impostorscore=0 adultscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607050088
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Convert the Xilinx XADC binding documentation from .txt to YAML format.
+This conversion is part of the ongoing effort to migrate all DT bindings
+to a machine-verifiable schema.
 
+The new xilinx-xadc.yaml file was created from the original .txt and
+includes all necessary properties, descriptions, and examples. The
+conversion also fixes a minor typo in the 'xlnx,channels' property name.
 
-On 7/3/2026 1:19 PM, Krzysztof Kozlowski wrote:
-> On Fri, Jul 03, 2026 at 10:33:05AM +0530, Gaurav Kohli wrote:
->> Document the optional #cooling-cells property for Qualcomm PAS
->> remoteproc nodes so they can be used as thermal cooling devices via
->> the QMI Thermal Mitigation Device (TMD) interface.
->>
->> Qualcomm remote processors expose TMD endpoints that support thermal
->> throttling through firmware. The cooling-device specifier uses 3 cells:
->>
->>    <&phandle device_id min_state max_state>
->>
->> where device_index selects the TMD endpoint (for example PA, modem,
->> or CDSP software mitigation), with constants defined in:
->> - dt-bindings/firmware/qcom,qmi-tmd.h
-> 
-> Full path.
-> 
->>
->> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
->> ---
->>   .../bindings/remoteproc/qcom,pas-common.yaml       | 39 ++++++++++++++++++++++
->>   1 file changed, 39 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
->> index 4607b459131b..ef11371058c4 100644
->> --- a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
->> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
->> @@ -79,6 +79,14 @@ properties:
->>         channels and devices related to the ADSP.
->>       unevaluatedProperties: false
->>   
->> +  '#cooling-cells':
->> +    description: |
->> +      Cooling device with three cells:
->> +        Cell 0: Cooling device id
-> 
-> And here you provide full path with device IDs.
+Signed-off-by: Avermoal <avermoal@gmail.com>
+---
+ .../bindings/iio/adc/xilinx-xadc.txt          | 141 -------------
+ .../bindings/iio/adc/xilinx-xadc.yaml         | 186 ++++++++++++++++++
+ 2 files changed, 186 insertions(+), 141 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.yaml
 
-thanks for review, will update this.
+diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+deleted file mode 100644
+index f42e18078376..000000000000
+--- a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
++++ /dev/null
+@@ -1,141 +0,0 @@
+-Xilinx XADC device driver
+-
+-This binding document describes the bindings for the Xilinx 7 Series XADC as well
+-as the UltraScale/UltraScale+ System Monitor.
+-
+-The Xilinx XADC is an ADC that can be found in the Series 7 FPGAs from Xilinx.
+-The XADC has a DRP interface for communication. Currently two different
+-frontends for the DRP interface exist. One that is only available on the ZYNQ
+-family as a hardmacro in the SoC portion of the ZYNQ. The other one is available
+-on all series 7 platforms and is a softmacro with a AXI interface. This binding
+-document describes the bindings for both of them since the bindings are very
+-similar.
+-
+-The Xilinx System Monitor is an ADC that is found in the UltraScale and
+-UltraScale+ FPGAs from Xilinx. The System Monitor provides a DRP interface for
+-communication. Xilinx provides a standard IP core that can be used to access the
+-System Monitor through an AXI interface in the FPGA fabric. This IP core is
+-called the Xilinx System Management Wizard. This document describes the bindings
+-for this IP.
+-
+-Required properties:
+-	- compatible: Should be one of
+-		* "xlnx,zynq-xadc-1.00.a": When using the ZYNQ device
+-		  configuration interface to interface to the XADC hardmacro.
+-		* "xlnx,axi-xadc-1.00.a": When using the axi-xadc pcore to
+-		  interface to the XADC hardmacro.
+-		* "xlnx,system-management-wiz-1.3": When using the
+-		  Xilinx System Management Wizard fabric IP core to access the
+-		  UltraScale and UltraScale+ System Monitor.
+-	- reg: Address and length of the register set for the device
+-	- interrupts: Interrupt for the XADC control interface.
+-	- clocks: When using the ZYNQ this must be the ZYNQ PCAP clock,
+-	  when using the axi-xadc or the axi-system-management-wizard this must be
+-	  the clock that provides the clock to the AXI bus interface of the core.
+-
+-Optional properties:
+-	- xlnx,external-mux:
+-		* "none": No external multiplexer is used, this is the default
+-		  if the property is omitted.
+-		* "single": External multiplexer mode is used with one
+-		   multiplexer.
+-		* "dual": External multiplexer mode is used with two
+-		  multiplexers for simultaneous sampling.
+-	- xlnx,external-mux-channel: Configures which pair of pins is used to
+-	  sample data in external mux mode.
+-	  Valid values for single external multiplexer mode are:
+-		0: VP/VN
+-		1: VAUXP[0]/VAUXN[0]
+-		2: VAUXP[1]/VAUXN[1]
+-		...
+-		16: VAUXP[15]/VAUXN[15]
+-	  Valid values for dual external multiplexer mode are:
+-		1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
+-		2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
+-		...
+-		8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
+-
+-	  This property needs to be present if the device is configured for
+-	  external multiplexer mode (either single or dual). If the device is
+-	  not using external multiplexer mode the property is ignored.
+-	- xnlx,channels: List of external channels that are connected to the ADC
+-	  Required properties:
+-		* #address-cells: Should be 1.
+-		* #size-cells: Should be 0.
+-
+-	  The child nodes of this node represent the external channels which are
+-	  connected to the ADC. If the property is no present no external
+-	  channels will be assumed to be connected.
+-
+-	  Each child node represents one channel and has the following
+-	  properties:
+-		Required properties:
+-			* reg: Pair of pins the channel is connected to.
+-				0: VP/VN
+-				1: VAUXP[0]/VAUXN[0]
+-				2: VAUXP[1]/VAUXN[1]
+-				...
+-				16: VAUXP[15]/VAUXN[15]
+-			  Note each channel number should only be used at most
+-			  once.
+-		Optional properties:
+-			* xlnx,bipolar: If set the channel is used in bipolar
+-			  mode.
+-
+-
+-Examples:
+-	xadc@f8007100 {
+-		compatible = "xlnx,zynq-xadc-1.00.a";
+-		reg = <0xf8007100 0x20>;
+-		interrupts = <0 7 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&pcap_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-			};
+-			channel@1 {
+-				reg = <1>;
+-			};
+-			channel@8 {
+-				reg = <8>;
+-			};
+-		};
+-	};
+-
+-	xadc@43200000 {
+-		compatible = "xlnx,axi-xadc-1.00.a";
+-		reg = <0x43200000 0x1000>;
+-		interrupts = <0 53 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+-
+-	adc@80000000 {
+-		compatible = "xlnx,system-management-wiz-1.3";
+-		reg = <0x80000000 0x1000>;
+-		interrupts = <0 81 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.yaml
+new file mode 100644
+index 000000000000..d61635516ce2
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.yaml
+@@ -0,0 +1,186 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/xilinx-xadc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Xilinx 7 Series XADC and UltraScale/UltraScale+ System Monitor
++
++maintainers:
++  - Avermoal <avermoal@gmail.com>
++
++description: |
++  The Xilinx XADC is an ADC that can be found in the Series 7 FPGAs from Xilinx.
++  The XADC has a DRP interface for communication. Currently two different
++  frontends for the DRP interface exist. One that is only available on the ZYNQ
++  family as a hardmacro in the SoC portion of the ZYNQ. The other one is
++  available on all series 7 platforms and is a softmacro with an AXI interface.
++  This binding document describes the bindings for both of them since the
++  bindings are very similar.
++
++  The Xilinx System Monitor is an ADC that is found in the UltraScale and
++  UltraScale+ FPGAs from Xilinx. The System Monitor provides a DRP interface
++  for communication. Xilinx provides a standard IP core that can be used to
++  access the System Monitor through an AXI interface in the FPGA fabric.
++  This IP core is called the Xilinx System Management Wizard. This document
++  describes the bindings for this IP.
++
++properties:
++  compatible:
++    description: |
++      Specifies the interface type and the target device.
++      - "xlnx,zynq-xadc-1.00.a"
++      for ZYNQ device configuration interface (hardmacro in SoC)
++      - "xlnx,axi-xadc-1.00.a"
++      for AXI pcore softmacro on all Series 7 FPGAs
++      - "xlnx,system-management-wiz-1.3"
++      for UltraScale/UltraScale+ System Monitor via AXI
++    enum:
++      - xlnx,zynq-xadc-1.00.a
++      - xlnx,axi-xadc-1.00.a
++      - xlnx,system-management-wiz-1.3
++
++  reg:
++    description: Address and length of the register set for the device.
++    maxItems: 1
++
++  interrupts:
++    description: Interrupt for the XADC control interface.
++    maxItems: 1
++
++  clocks:
++    description: |
++      When using the ZYNQ this must be the ZYNQ PCAP clock,
++      when using the axi-xadc or the axi-system-management-wizard this must be
++      the clock that provides the clock to the AXI bus interface of the core.
++    maxItems: 1
++
++  xlnx,external-mux:
++    description: |
++      External multiplexer mode. If omitted, defaults to "none".
++      - "none" – no external multiplexer (default)
++      - "single" – one external multiplexer
++      - "dual" – two external multiplexers for simultaneous sampling
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [none, single, dual]
++    default: none
++
++  xlnx,external-mux-channel:
++    description: |
++      Configures which pair of pins is used to sample data in external mux mode.
++      For single mode: 0 (VP/VN) or 1..16 (VAUXP[0..15]/VAUXN[0..15]).
++      For dual mode: 1..8, where the value n corresponds to the pair
++      (VAUXP[n-1]/VAUXN[n-1] and VAUXP[n+7]/VAUXN[n+7]).
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 0
++    maximum: 16
++
++  xlnx,channels:
++    description: |
++      Container for external channels that are connected to the ADC.
++      If this property is not present, no external channels will be assumed.
++    type: object
++    properties:
++      "#address-cells":
++        const: 1
++      "#size-cells":
++        const: 0
++    patternProperties:
++      "^channel@[0-9a-f]+$":
++        type: object
++        description: Each child node represents one external channel.
++        properties:
++          reg:
++            description: |
++              Pair of pins the channel is connected to.
++              0: VP/VN
++              1..16: VAUXP[0..15]/VAUXN[0..15]
++            maxItems: 1
++          xlnx,bipolar:
++            description: If present, the channel is used in bipolar mode.
++            type: boolean
++        required:
++          - reg
++        additionalProperties: false
++    required:
++      - "#address-cells"
++      - "#size-cells"
++    additionalProperties: false
++
++allOf:
++  - if:
++      required:
++        - xlnx,external-mux
++      properties:
++        xlnx,external-mux:
++          enum: [single, dual]
++    then:
++      required:
++        - xlnx,external-mux-channel
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++additionalProperties: false
++
++examples:
++  - |
++    xadc@f8007100 {
++        compatible = "xlnx,zynq-xadc-1.00.a";
++        reg = <0xf8007100 0x20>;
++        interrupts = <0 7 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&pcap_clk>;
++
++        xlnx,channels {
++            #address-cells = <1>;
++            #size-cells = <0>;
++            channel@0 {
++                reg = <0>;
++            };
++            channel@1 {
++                reg = <1>;
++            };
++            channel@8 {
++                reg = <8>;
++            };
++        };
++    };
++  - |
++    xadc@43200000 {
++        compatible = "xlnx,axi-xadc-1.00.a";
++        reg = <0x43200000 0x1000>;
++        interrupts = <0 53 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&fpga1_clk>;
++
++        xlnx,channels {
++            #address-cells = <1>;
++            #size-cells = <0>;
++            channel@0 {
++                reg = <0>;
++                xlnx,bipolar;
++            };
++        };
++    };
++  - |
++    adc@80000000 {
++        compatible = "xlnx,system-management-wiz-1.3";
++        reg = <0x80000000 0x1000>;
++        interrupts = <0 81 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&fpga1_clk>;
++
++        xlnx,channels {
++            #address-cells = <1>;
++            #size-cells = <0>;
++            channel@0 {
++                reg = <0>;
++                xlnx,bipolar;
++            };
++        };
++    };
++...
+-- 
 
-> 
->> +        Cell 1: Minimum cooling state
->> +        Cell 2: Maximum cooling state
->> +    const: 3
->> +
->>     glink-edge:
->>       $ref: /schemas/remoteproc/qcom,glink-edge.yaml#
->>       description:
->> @@ -95,3 +103,34 @@ required:
->>     - qcom,smem-state-names
->>   
->>   additionalProperties: true
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/thermal/thermal.h>
->> +    #include <dt-bindings/firmware/qcom,qmi-tmd.h>
->> +
->> +    remoteproc: remoteproc {
->> +      #cooling-cells = <3>;
->> +    };
-> 
-> Drop, empty node.
-> 
-
-Ack, will remove this.
-
->> +
->> +    thermal-zones {
->> +      subsystem-thermal {
->> +        thermal-sensors = <&tsens 0>;
->> +
->> +        trips {
->> +          alert: alert {
->> +            temperature = <95000>;
->> +            hysteresis = <2000>;
->> +            type = "passive";
->> +          };
->> +        };
->> +
->> +        cooling-maps {
->> +          map0 {
->> +            trip = <&alert>;
->> +            cooling-device = <&remoteproc QCOM_CDSP_TMD_CDSP_SW
->> +                             THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
->> +          };
->> +        };
->> +      };
->> +    };
-> 
-> thermal-zones are not relevant to remoteproc.
-> 
-
-Ack, wanted to show by example, can i use commit message for that.
-
-> Entire example feels pointless - how is schema even applied/matched
-> against it?
-> 
-> Best regards,
-> Krzysztof
-> 
+Changes in v2:
+- Fix conditional requirement for xlnx,external-mux-channel (add if/required block)
+- Correct reg type in child nodes (use maxItems: 1 instead of items)
+- Make #address-cells and #size-cells required under xlnx,channels
+2.52.0
 
