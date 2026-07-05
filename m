@@ -1,43 +1,39 @@
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+Received: from mail-07.mail-europe.com (mail-07.mail-europe.com [188.165.51.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716AE36B044;
-	Sun,  5 Jul 2026 10:10:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19AA236492C;
+	Sun,  5 Jul 2026 10:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.165.51.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783246245; cv=none; b=JKoKG3+qCmh5qD2NEIr/Pf5MKH9fzjGIpdkL7izyoc4QsRKkdxjPcJdl2H4+52gjMn3nJZHQmLSqpClvbhDskiH0RotxklH23IZEVfAiQqgjXpZWavpV+HDpn++tMGqHEggfDzQ3d/V+kkAmA1hgkZ7W00cNujN88/4Grl6kNko=
+	t=1783246245; cv=none; b=VeEiDsnaF7V2AgzrszEUZWfURfYtEX9B4Qof27+I5Jho3XVpVdB7dCLHF50ksS+apC/V8OWpzALCO6oF7vqtdKkvoZIsESZAK2kOMLyodQvR2NvRLE3wimaWdlFlzCn4A9uvOsnGvMKyRtFOMrMv2ZFZQr842nPamg7ytnUoBRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783246245; c=relaxed/simple;
-	bh=FsmAE+PCvQvCOTSIvRv3Hy9jJA80MALyDwBkG00Ol7o=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PLtvL//CFAl+7O0ETfuAR6oIcXEoNHZTfR2ycxUWGdLLiCkR9kWg7c8Y3xbG665JdT90xX+SNm684yTifnBHmkQ3UNMMa3lgTavz9d8dmgBr6JWpKr8NPC4TPKH6SjoXoIMZT33uSQQYO5XDOBJ+y7PKW2Bzyrkc5InRfm1YG7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=JY4lbXI9; arc=none smtp.client-ip=109.224.244.16
+	bh=ti1ZQnZ3CWSskQlXEQ0fiOdRlUVL2HJItisxZtj5FPE=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=nmJNt1AU0xD2j6IHLk8Z4dlSnIg6mfpPJs7LZ9y/GqEuyyr4OC5V4PqIcmbOh8h7ydZc7O4WcGn03HIYrySudfS8y+aUXBM5WVr0mchMXC13Z1ZvbLeWQKzp2ssdNnlhS2NJfF+2yYSDaNE6lwZWQu1zxzX7fnR65U4hKrNQ+eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=DeYhQUsx; arc=none smtp.client-ip=188.165.51.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="JY4lbXI9"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="DeYhQUsx"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1783246240; x=1783505440;
-	bh=NKcFMuLEz47gVYUmJoo7f69K3786N4qolXFpSe2Kan8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=JY4lbXI9PDunvMosKmsPvlgm5uRNK9TQOo0apkRXYU55Gu6KyjkzKwT0LjDr475b9
-	 tMikbIDIUNfQxFC2s4zlJ+eGt2NPQ7y3YAiy0U99lFBjGzA6cINY5x9gWYthZVUC6P
-	 FRthmvAZr/cAjL2N8EUdZabMIv0gN27FVpDOzbcBEVPYe4gKys52H6vPfAT9ptSMk0
-	 KlFEXVeiAJ6x81pZCkuT3q5pD4BOxSoTzSf1nfyouuOLUTfUfWMDFcMJ33xWSlpv4U
-	 utv0kscCsvrUJ94vSPSb1IaFX+ek/+cTJDsDliLEP+QcrTKzmsv4dXxBMd+TRqIduA
-	 MYGEYT5vglRjg==
-Date: Sun, 05 Jul 2026 10:10:35 +0000
+	s=protonmail3; t=1783246224; x=1783505424;
+	bh=jrnsBdk/rSJRzMAclGahYxqjm09uhimSA4djDcgSbvg=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=DeYhQUsx/VkPj2c8PvX1CpcitMh/6703JEsU9ggJ+spBpRuxIPmXLa8qttbb3+iyp
+	 +Ut8LEk8aIIbt9netC/rp1+p9lDx8tXom4XD3VczdR6rH1C1L8w1Xd/2DJEgxNnY9+
+	 IRO9tF7lwjnHTudQqC9eyhjjzEQ+6CDU6zYb3auxF5fbgbDDLKJhtABM7OFC0XhMr/
+	 mV9KcfKo0eIGp3vzRb8o1ktIUv7D6dHDVW2a+79jSmwZsAcmGzVVn4Bcm6I8ObHYkg
+	 dEHg+R3zG0ULKQze0+mcJDMQKyP0dveyOrqFLQJ6/9ombCxuVshdEWlOK3P/qIHhN9
+	 yBibhnZPMDIrg==
+Date: Sun, 05 Jul 2026 10:10:18 +0000
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Alexander Koskovich <akoskovich@pm.me>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
 From: Alexander Koskovich <akoskovich@pm.me>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/3] media: iris: Add support for Milos (VPU v2.0)
-Message-ID: <20260705-milos-iris-v3-2-8c1353530f24@pm.me>
-In-Reply-To: <20260705-milos-iris-v3-0-8c1353530f24@pm.me>
-References: <20260705-milos-iris-v3-0-8c1353530f24@pm.me>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 0/3] Add support for the Iris codec on Milos
+Message-ID: <20260705-milos-iris-v3-0-8c1353530f24@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 0fe0abe578d658ef108c8ff73df5b9df636f3166
+X-Pm-Message-ID: 251031ab86d65745a358309de3586fca1040d1a1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,1050 +43,1368 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Add support for the Milos Iris codec. This only supports the variant
-found on the SM7635-AB that has half of it's pipes disabled via efuse.
+This series adds the bindings, nodes and platform data for the Milos platfo=
+rm
+for the Iris video codec, allowing Milos to use hardware=E2=80=91accelerate=
+d video
+encoding and decoding.
 
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+Ran v4l2-compliance and some fluster tests, though a concerning amount of t=
+hem
+failed. Attaching v4l2-compliance output and the full fluster results below=
+.
+
+nothing-asteroids:~$ v4l2-compliance -d /dev/video1 -s
+v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
+
+Compliance test for iris_driver device /dev/video1:
+
+Driver Info:
+=09Driver name      : iris_driver
+=09Card type        : Iris Encoder
+=09Bus info         : platform:aa00000.video-codec
+=09Driver version   : 7.2.0
+=09Capabilities     : 0x84204000
+=09=09Video Memory-to-Memory Multiplanar
+=09=09Streaming
+=09=09Extended Pix Format
+=09=09Device Capabilities
+=09Device Caps      : 0x04204000
+=09=09Video Memory-to-Memory Multiplanar
+=09=09Streaming
+=09=09Extended Pix Format
+=09Detected Stateful Encoder
+
+Required ioctls:
+=09test VIDIOC_QUERYCAP: OK
+=09test invalid ioctls: OK
+
+Allow for multiple opens:
+=09test second /dev/video1 open: OK
+=09test VIDIOC_QUERYCAP: OK
+=09test VIDIOC_G/S_PRIORITY: OK
+=09test for unlimited opens: OK
+
+Debug ioctls:
+=09test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+=09test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+=09test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+=09test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+=09test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+=09test VIDIOC_ENUMAUDIO: OK (Not Supported)
+=09test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+=09test VIDIOC_G/S_AUDIO: OK (Not Supported)
+=09Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+=09test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+=09test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+=09test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+=09test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+=09test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+=09Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+=09test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+=09test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+=09test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+=09test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+=09test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+=09test VIDIOC_QUERYCTRL: OK
+=09test VIDIOC_G/S_CTRL: OK
+=09test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+=09test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+=09test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+=09Standard Controls: 64 Private Controls: 0
+
+Format ioctls:
+=09test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+=09test VIDIOC_G/S_PARM: OK
+=09test VIDIOC_G_FBUF: OK (Not Supported)
+=09test VIDIOC_G_FMT: OK
+=09test VIDIOC_TRY_FMT: OK
+=09test VIDIOC_S_FMT: OK
+=09test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+=09test Cropping: OK
+=09test Composing: OK (Not Supported)
+=09test Scaling: OK (Not Supported)
+
+Codec ioctls:
+=09test VIDIOC_(TRY_)ENCODER_CMD: OK
+=09test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+=09test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+=09test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+=09test CREATE_BUFS maximum buffers: OK
+=09test VIDIOC_REMOVE_BUFS: OK
+=09test VIDIOC_EXPBUF: OK
+=09test Requests: OK (Not Supported)
+=09test blocking wait: OK
+
+Test input 0:
+
+Streaming ioctls:
+=09test read/write: OK (Not Supported)
+=09Video Capture Multiplanar: Captured 124 buffers  =20
+=09=09fail: v4l2-test-buffers.cpp(1750): node->streamon(q.g_type())
+=09test MMAP (select, REQBUFS): FAIL
+=09Video Capture Multiplanar: Captured 61 buffers   =20
+=09=09fail: v4l2-test-buffers.cpp(1750): node->streamon(q.g_type())
+=09test MMAP (epoll, REQBUFS): FAIL
+=09Video Capture Multiplanar: Captured 61 buffers   =20
+=09=09fail: v4l2-test-buffers.cpp(1750): node->streamon(q.g_type())
+=09test MMAP (select, CREATE_BUFS): FAIL
+=09Video Capture Multiplanar: Captured 61 buffers   =20
+=09=09fail: v4l2-test-buffers.cpp(1750): node->streamon(q.g_type())
+=09test MMAP (epoll, CREATE_BUFS): FAIL
+=09test USERPTR (select): OK (Not Supported)
+=09test DMABUF: Cannot test, specify --expbuf-device
+
+Total for iris_driver device /dev/video1: 54, Succeeded: 50, Failed: 4, War=
+nings: 0
+nothing-asteroids:~$=20
+
+nothing-asteroids:~$ v4l2-compliance -d /dev/video0 -s5 --stream-from=3D/me=
+dia/FVDO_Freeway_720p.264
+v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
+
+Compliance test for iris_driver device /dev/video0:
+
+Driver Info:
+=09Driver name      : iris_driver
+=09Card type        : Iris Decoder
+=09Bus info         : platform:aa00000.video-codec
+=09Driver version   : 7.2.0
+=09Capabilities     : 0x84204000
+=09=09Video Memory-to-Memory Multiplanar
+=09=09Streaming
+=09=09Extended Pix Format
+=09=09Device Capabilities
+=09Device Caps      : 0x04204000
+=09=09Video Memory-to-Memory Multiplanar
+=09=09Streaming
+=09=09Extended Pix Format
+=09Detected Stateful Decoder
+
+Required ioctls:
+=09test VIDIOC_QUERYCAP: OK
+=09test invalid ioctls: OK
+
+Allow for multiple opens:
+=09test second /dev/video0 open: OK
+=09test VIDIOC_QUERYCAP: OK
+=09test VIDIOC_G/S_PRIORITY: OK
+=09test for unlimited opens: OK
+
+Debug ioctls:
+=09test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+=09test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+=09test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+=09test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+=09test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+=09test VIDIOC_ENUMAUDIO: OK (Not Supported)
+=09test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+=09test VIDIOC_G/S_AUDIO: OK (Not Supported)
+=09Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+=09test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+=09test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+=09test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+=09test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+=09test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+=09Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+=09test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+=09test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+=09test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+=09test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+=09test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+=09test VIDIOC_QUERYCTRL: OK
+=09test VIDIOC_G/S_CTRL: OK
+=09test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+=09test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+=09test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+=09Standard Controls: 10 Private Controls: 0
+
+Format ioctls:
+=09test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+=09test VIDIOC_G/S_PARM: OK (Not Supported)
+=09test VIDIOC_G_FBUF: OK (Not Supported)
+=09test VIDIOC_G_FMT: OK
+=09test VIDIOC_TRY_FMT: OK
+=09test VIDIOC_S_FMT: OK
+=09test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+=09test Cropping: OK
+=09test Composing: OK
+=09test Scaling: OK (Not Supported)
+
+Codec ioctls:
+=09test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+=09test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+=09test VIDIOC_(TRY_)DECODER_CMD: OK
+
+Buffer ioctls:
+=09test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+=09test CREATE_BUFS maximum buffers: OK
+=09test VIDIOC_REMOVE_BUFS: OK
+=09test VIDIOC_EXPBUF: OK
+=09test Requests: OK (Not Supported)
+=09test blocking wait: OK
+
+Test input 0:
+
+Streaming ioctls:
+=09test read/write: OK (Not Supported)
+the input file is smaller than 7077888 bytes
+=09Video Capture Multiplanar: Captured 465 buffers  =20
+=09test MMAP (select, REQBUFS): OK
+the input file is smaller than 7077888 bytes
+=09Video Capture Multiplanar: Captured 465 buffers  =20
+=09test MMAP (epoll, REQBUFS): OK
+the input file is smaller than 7077888 bytes
+=09Video Capture Multiplanar: Captured 465 buffers  =20
+=09test MMAP (select, CREATE_BUFS): OK
+the input file is smaller than 7077888 bytes
+=09Video Capture Multiplanar: Captured 465 buffers  =20
+=09test MMAP (epoll, CREATE_BUFS): OK
+=09test USERPTR (select): OK (Not Supported)
+=09test DMABUF: Cannot test, specify --expbuf-device
+
+Total for iris_driver device /dev/video0: 54, Succeeded: 54, Failed: 0, War=
+nings: 0
+nothing-asteroids:~$=20
+
+Fluster results:
+
+nothing-asteroids:~/fluster$ ./fluster.py --no-emoji run -ts JVT-AVC_V1 -d =
+GStreamer-H.264-V4L2
+***************************************************************************=
+*************************
+Running test suite JVT-AVC_V1 with decoder GStreamer-H.264-V4L2
+Using 8 parallel job(s)
+***************************************************************************=
+*************************
+
+[TEST SUITE] (DECODER             ) TEST VECTOR              ... RESULT
+----------------------------------------------------------------------
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) BA3_SVA_C                ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) BA1_Sony_D               ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) BAMQ1_JVC_C              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) BAMQ2_JVC_C              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) BASQP1_Sony_C            ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CABA1_SVA_B              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) BA_MW_D                  ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) AUD_MW_E                 ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CABA1_Sony_D             ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) BANM_MW_D                ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) cabac_mot_fld0_full      ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CABA2_SVA_B              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CABA3_SVA_B              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) cabac_mot_mbaff0_full    ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) cabac_mot_picaff0_full   ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) cabac_mot_frm0_full      ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CABAST3_Sony_E           ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CABASTBR3_Sony_B         ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CABREF3_Sand_D           ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) BA2_Sony_F               ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) BA1_FT_C                 ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAFI1_SVA_C              ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAMA1_Sony_C             ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAMA1_TOSHIBA_B          ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CACQP3_Sony_D            ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) cama1_vtc_c              ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) cama2_vtc_b              ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAMA3_Sand_E             ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAMACI3_Sony_C           ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CABA2_Sony_E             ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) cama3_vtc_b              ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAMANL1_TOSHIBA_B        ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAMANL2_TOSHIBA_B        ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAMANL3_Sand_E           ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAMASL3_Sony_B           ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAMP_MOT_MBAFF_L30       ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAMP_MOT_MBAFF_L31       ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CABA3_Sony_C             ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CABA3_TOSHIBA_E          ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CANL1_SVA_B              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CANL2_SVA_B              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CANL3_SVA_B              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CABACI3_Sony_B           ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CANLMA2_Sony_C           ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CANL1_Sony_E             ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAPA1_TOSHIBA_B          ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CANLMA3_Sony_C           ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAPAMA3_Sand_F           ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CANL4_SVA_B              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) cavlc_mot_fld0_full_B    ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAPCM1_Sand_E            ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAPCMNL1_Sand_E          ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) cavlc_mot_mbaff0_full_B  ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAQP1_Sony_B             ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) cavlc_mot_picaff0_full_B ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) cavlc_mot_frm0_full_B    ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAWP5_TOSHIBA_E          ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAWP1_TOSHIBA_E          ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CI_MW_D                  ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CANL1_TOSHIBA_G          ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CANL2_Sony_E             ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVCANLMA2_Sony_C         ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CANL3_Sony_C             ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVFI1_Sony_D             ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVFI1_SVA_C              ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVFI2_Sony_H             ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVFI2_SVA_C              ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVMANL1_TOSHIBA_B        ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVMA1_Sony_D             ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVMA1_TOSHIBA_B          ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVMANL2_TOSHIBA_B        ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVFC1_Sony_C             ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVMAPAQP3_Sony_E         ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVMAQP3_Sony_D           ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CAPM3_Sony_D             ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVMAQP2_Sony_G           ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVMP_MOT_FLD_L30_B       ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVMP_MOT_FRM_L31_B       ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVNLFI2_Sony_H           ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVNLFI1_Sony_C           ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVPA1_TOSHIBA_B          ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVPCMNL2_SVA_C           ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVPCMNL1_SVA_C           ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CI1_FT_B                 ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVWP1_TOSHIBA_E          ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVWP3_TOSHIBA_E          ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVWP2_TOSHIBA_E          ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) FI1_Sony_E               ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVWP5_TOSHIBA_E          ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVBS3_Sony_C             ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) FM1_BT_B                 ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) FM2_SVA_C                ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVSEFDFT3_Sony_E         ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVSE3_Sony_H             ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) FM1_FT_E                 ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) CVSE2_Sony_B             ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MIDR_MW_D                ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MR1_BT_A                 ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) HCBP1_HHI_A              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) HCBP2_HHI_A              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) HCMP1_HHI_A              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MPS_MW_A                 ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MR1_MW_A                 ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MR6_BT_B                 ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MR7_BT_B                 ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MR8_BT_B                 ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MR9_BT_B                 ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) NL1_Sony_D               ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MR2_MW_A                 ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MR2_TANDBERG_E           ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) NL3_SVA_E                ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MR3_TANDBERG_B           ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) NLMQ1_JVC_C              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MR4_TANDBERG_C           ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MR5_TANDBERG_C           ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) NLMQ2_JVC_C              ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) Sharp_MP_Field_1_B       ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) Sharp_MP_Field_2_B       ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) Sharp_MP_PAFF_1r2        ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) Sharp_MP_Field_3_B       ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) Sharp_MP_PAFF_2r         ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) sp2_bt_b                 ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) SP1_BT_A                 ... Error
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) MV1_BRCM_D               ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) SL1_SVA_B                ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) SVA_BA2_D                ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) SVA_BA1_B                ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) SVA_Base_B               ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) NRF_MW_E                 ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) NL2_Sony_H               ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) SVA_NL2_E                ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) SVA_NL1_B                ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) SVA_FM1_E                ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) SVA_CL1_E                ... Success
+[JVT-AVC_V1] (GStreamer-H.264-V4L2) LS_SVA_D                 ... Success
+
+nothing-asteroids:~/fluster$ ./fluster.py --no-emoji run -ts JCT-VC-HEVC_V1=
+ -d GStreamer-H.265-V4L2
+***************************************************************************=
+*************************
+Running test suite JCT-VC-HEVC_V1 with decoder GStreamer-H.265-V4L2
+Using 8 parallel job(s)
+***************************************************************************=
+*************************
+
+[TEST SUITE    ] (DECODER             ) TEST VECTOR                     ...=
+ RESULT
+----------------------------------------------------------------------
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) AMP_E_Hisilicon_3               ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) AMP_D_Hisilicon_3               ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) AMVP_A_MTK_4                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) AMP_B_Samsung_7                 ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) AMVP_B_MTK_4                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) AMP_A_Samsung_7                 ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) CAINIT_A_SHARP_4                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) AMVP_C_Samsung_7                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) BUMPING_A_ericsson_1            ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) CAINIT_B_SHARP_4                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) CIP_A_Panasonic_3               ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) CAINIT_D_SHARP_3                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) CAINIT_C_SHARP_3                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) CAINIT_E_SHARP_3                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) CAINIT_F_SHARP_3                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) CAINIT_G_SHARP_3                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) cip_B_NEC_3                     ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) CIP_C_Panasonic_2               ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) CAINIT_H_SHARP_3                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DBLK_A_MAIN10_VIXS_4            ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DBLK_D_VIXS_2                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DBLK_E_VIXS_2                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DBLK_A_SONY_3                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) CONFWIN_A_Sony_1                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DBLK_C_SONY_3                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DBLK_B_SONY_3                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DBLK_F_VIXS_2                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DBLK_G_VIXS_2                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DELTAQP_B_SONY_3                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DELTAQP_C_SONY_3                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) ENTP_A_QUALCOMM_1               ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DSLICE_A_HHI_5                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DSLICE_B_HHI_5                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DSLICE_C_HHI_5                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) EXT_A_ericsson_4                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) ENTP_B_Qualcomm_1               ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) ENTP_C_Qualcomm_1               ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) DELTAQP_A_BRCM_4                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) ipcm_A_NEC_3                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) ipcm_B_NEC_3                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) FILLER_A_Sony_1                 ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) INITQP_A_Sony_1                 ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) ipcm_C_NEC_3                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) ipcm_E_NEC_2                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) ipcm_D_NEC_3                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) IPRED_A_docomo_2                ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) HRD_A_Fujitsu_3                 ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) INITQP_B_Main10_Sony_1          ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) IPRED_B_Nokia_3                 ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) IPRED_C_Mitsubishi_3            ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) MAXBINS_A_TI_5                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) MAXBINS_B_TI_5                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) LS_A_Orange_2                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) MAXBINS_C_TI_5                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) MERGE_A_TI_3                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) LS_B_Orange_4                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) MERGE_C_TI_3                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) MERGE_D_TI_3                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) MERGE_B_TI_3                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) MERGE_E_TI_3                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) MERGE_F_MTK_4                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) MERGE_G_HHI_4                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) MVEDGE_A_qualcomm_3             ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) MVCLIP_A_qualcomm_3             ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) NoOutPrior_A_Qualcomm_1         ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) NoOutPrior_B_Qualcomm_1         ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) NUT_A_ericsson_5                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) PICSIZE_A_Bossen_1              ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) PICSIZE_B_Bossen_1              ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) PICSIZE_C_Bossen_1              ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) PICSIZE_D_Bossen_1              ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) OPFLAG_B_Qualcomm_1             ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) PMERGE_A_TI_3                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) PMERGE_B_TI_3                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) OPFLAG_C_Qualcomm_1             ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) PMERGE_C_TI_3                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) PMERGE_E_TI_3                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) PPS_A_qualcomm_7                ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) PMERGE_D_TI_3                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) POC_A_Bossen_3                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RAP_B_Bossen_2                  ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) PS_B_VIDYO_3                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RAP_A_docomo_6                  ...=
+ Fail
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RPS_A_docomo_5                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) LTRPSPS_A_Qualcomm_1            ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RPS_C_ericsson_5                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RPS_D_ericsson_6                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RPS_F_docomo_2                  ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) MVDL1ZERO_A_docomo_4            ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RQT_A_HHI_4                     ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RQT_B_HHI_4                     ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RPLM_A_qualcomm_4               ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) OPFLAG_A_Qualcomm_1             ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RPLM_B_qualcomm_4               ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RQT_C_HHI_4                     ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RQT_F_HHI_4                     ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RQT_E_HHI_4                     ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RQT_D_HHI_4                     ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RQT_G_HHI_4                     ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SAO_C_Samsung_5                 ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SAO_E_Canon_4                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SAO_D_Samsung_5                 ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RPS_B_qualcomm_5                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SAO_B_MediaTek_5                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SAO_G_Canon_3                   ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SAO_A_MediaTek_4                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SAO_F_Canon_3                   ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SAO_H_Parabola_1                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SDH_A_Orange_4                  ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) RPS_E_qualcomm_5                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SLICES_A_Rovi_3                 ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SLIST_B_Sony_9                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SLIST_A_Sony_5                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SLPPLP_A_VIDYO_2                ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SLIST_C_Sony_4                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SLIST_D_Sony_9                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) TMVP_A_MS_3                     ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) STRUCT_B_Samsung_7              ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) STRUCT_A_Samsung_7              ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) TSKIP_A_MS_3                    ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) TILES_B_Cisco_1                 ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) TILES_A_Cisco_2                 ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) TSUNEQBD_A_MAIN10_Technicolor_2 ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) VPSSPSPPS_A_MainConcept_1       ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) TSCL_B_VIDYO_4                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) TUSIZE_A_Samsung_1              ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) TSCL_A_VIDYO_5                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) VPSID_A_VIDYO_2                 ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WPP_A_ericsson_MAIN10_2         ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WPP_A_ericsson_MAIN_2           ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WPP_B_ericsson_MAIN10_2         ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WP_A_MAIN10_Toshiba_3           ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SAODBLK_A_MainConcept_4         ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) SAODBLK_B_MainConcept_4         ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WP_B_Toshiba_3                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WP_MAIN10_B_Toshiba_3           ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WP_A_Toshiba_3                  ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WPP_B_ericsson_MAIN_2           ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WPP_D_ericsson_MAIN_2           ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WPP_C_ericsson_MAIN10_2         ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WPP_D_ericsson_MAIN10_2         ...=
+ Error
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WPP_C_ericsson_MAIN_2           ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WPP_E_ericsson_MAIN10_2         ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WPP_E_ericsson_MAIN_2           ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WPP_F_ericsson_MAIN_2           ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) WPP_F_ericsson_MAIN10_2         ...=
+ Success
+[JCT-VC-HEVC_V1] (GStreamer-H.265-V4L2) AMP_F_Hisilicon_3               ...=
+ Timeout
+
+nothing-asteroids:~/fluster$ ./fluster.py --no-emoji run -ts VP9-TEST-VECTO=
+RS -d GStreamer-VP9-V4L2 -j1
+***************************************************************************=
+*************************
+Running test suite VP9-TEST-VECTORS with decoder GStreamer-VP9-V4L2
+Using 1 parallel job(s)
+***************************************************************************=
+*************************
+
+[TEST SUITE      ] (DECODER           ) TEST VECTOR                        =
+             ... RESULT
+----------------------------------------------------------------------
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-00.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-01.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-02.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-03.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-04.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-05.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-06.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-07.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-08.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-09.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-10.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-11.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-12.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-13.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-14.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-15.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-16.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-17.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-18.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-19.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-20.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-21.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-22.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-23.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-24.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-25.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-26.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-27.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-28.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-29.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-30.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-31.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-32.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-33.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-34.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-35.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-36.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-37.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-38.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-39.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-40.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-41.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-42.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-43.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-44.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-45.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-46.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-47.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-48.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-49.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-50.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-51.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-52.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-53.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-54.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-55.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-56.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-57.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-58.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-59.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-60.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-61.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-62.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-00-quantizer-63.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-01-sharpness-1.webm         =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-01-sharpness-2.webm         =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-01-sharpness-3.webm         =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-01-sharpness-4.webm         =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-01-sharpness-5.webm         =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-01-sharpness-6.webm         =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-01-sharpness-7.webm         =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-08x08.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-08x10.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-08x16.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-08x18.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-08x32.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-08x34.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-08x64.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-08x66.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-10x08.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-10x10.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-10x16.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-10x18.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-10x32.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-10x34.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-10x64.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-10x66.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-130x132.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-132x130.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-132x132.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-16x08.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-16x10.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-16x16.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-16x18.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-16x32.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-16x34.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-16x64.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-16x66.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-178x180.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-180x178.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-180x180.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-18x08.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-18x10.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-18x16.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-18x18.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-18x32.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-18x34.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-18x64.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-18x66.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-32x08.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-32x10.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-32x16.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-32x18.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-32x32.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-32x34.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-32x64.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-32x66.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-34x08.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-34x10.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-34x16.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-34x18.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-34x32.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-34x34.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-34x64.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-34x66.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-64x08.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-64x10.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-64x16.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-64x18.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-64x32.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-64x34.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-64x64.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-64x66.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-66x08.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-66x10.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-66x16.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-66x18.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-66x32.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-66x34.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-66x64.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-66x66.webm          =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-02-size-lf-1920x1080.webm   =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-deltaq.webm              =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-196x196.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-196x198.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-196x200.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-196x202.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-196x208.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-196x210.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-196x224.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-196x226.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-198x196.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-198x198.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-198x200.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-198x202.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-198x208.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-198x210.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-198x224.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-198x226.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-200x196.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-200x198.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-200x200.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-200x202.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-200x208.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-200x210.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-200x224.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-200x226.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-202x196.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-202x198.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-202x200.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-202x202.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-202x208.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-202x210.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-202x224.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-202x226.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-208x196.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-208x198.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-208x200.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-208x202.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-208x208.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-208x210.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-208x224.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-208x226.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-210x196.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-210x198.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-210x200.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-210x202.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-210x208.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-210x210.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-210x224.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-210x226.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-224x196.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-224x198.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-224x200.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-224x202.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-224x208.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-224x210.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-224x224.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-224x226.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-226x196.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-226x198.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-226x200.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-226x202.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-226x208.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-226x210.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-226x224.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-226x226.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-03-size-352x288.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-05-resize.ivf               =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-06-bilinear.webm            =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-07-frame_parallel-1.webm    =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-07-frame_parallel.webm      =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-08-tile_1x2_frame_parallel.w=
+ebm          ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-08-tile_1x2.webm            =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-08-tile_1x4_frame_parallel.w=
+ebm          ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-08-tile_1x4.webm            =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-08-tile_1x8_frame_parallel.w=
+ebm          ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-08-tile_1x8.webm            =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-08-tile-4x1.webm            =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-08-tile-4x4.webm            =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-09-aq2.webm                 =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-09-lf_deltas.webm           =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-09-subpixel-00.ivf          =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-10-show-existing-frame2.webm=
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-10-show-existing-frame.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-11-size-351x287.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-11-size-351x288.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-11-size-352x287.webm        =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-12-droppable_1.ivf          =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-12-droppable_2.ivf          =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-12-droppable_3.ivf          =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+1-2-4-8.webm ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+1-2.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+1-4.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+1-8.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+2-1.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+2-4.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+2-8.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+4-1.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+4-2.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+4-8.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+8-1.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+8-2.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+8-4-2-1.webm ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-10frames-fp-tiles-=
+8-4.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-1-16.webm=
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-1-2-4-8-1=
+6.webm       ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-1-2.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-1-4.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-16-1.webm=
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-16-2.webm=
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-16-4.webm=
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-16-8-4-2-=
+1.webm       ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-16-8.webm=
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-1-8.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-2-16.webm=
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-2-1.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-2-4.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-2-8.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-4-16.webm=
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-4-1.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-4-2.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-4-8.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-8-16.webm=
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-8-1.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-8-2.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-14-resize-fp-tiles-8-4.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-15-segkey_adpq.webm         =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-15-segkey.webm              =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-16-intra-only.webm          =
+             ... Timeout
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-17-show-existing-frame.webm =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-18-resize.ivf               =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-19-skip-01.webm             =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-19-skip-02.webm             =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-19-skip.webm                =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-20-big_superframe-01.webm   =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-20-big_superframe-02.webm   =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_1280x720_5_1=
+-2.webm      ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_1280x720_5_3=
+-4.webm      ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_1280x720_7_1=
+-2.webm      ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_1280x720_7_3=
+-4.webm      ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_1920x1080_5_=
+1-2.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_1920x1080_5_=
+3-4.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_1920x1080_7_=
+1-2.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_1920x1080_7_=
+3-4.webm     ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_320x180_5_1-=
+2.webm       ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_320x180_5_3-=
+4.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_320x180_7_1-=
+2.webm       ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_320x180_7_3-=
+4.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_320x240_5_1-=
+2.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_320x240_5_3-=
+4.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_320x240_7_1-=
+2.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_320x240_7_3-=
+4.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_640x360_5_1-=
+2.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_640x360_5_3-=
+4.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_640x360_7_1-=
+2.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_640x360_7_3-=
+4.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_640x480_5_1-=
+2.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_640x480_5_3-=
+4.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_640x480_7_1-=
+2.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-21-resize_inter_640x480_7_3-=
+4.webm       ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-22-svc_1280x720_1.webm      =
+             ... Success
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp90-2-22-svc_1280x720_3.ivf       =
+             ... Fail
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp91-2-04-yuv422.webm              =
+             ... Error
+[VP9-TEST-VECTORS] (GStreamer-VP9-V4L2) vp91-2-04-yuv444.webm              =
+             ... Error
+
 ---
+Changes in v3:
+- Rebase onto next-20260703
+- Switched fluster tests to use gstreamer, ffmpeg ones not reproducible run=
+ to run?
+- Update milos caps to include caps introduced in tree after v2
+- Correct iris opp table to only update the MX rail values
+- Link to v2: https://lore.kernel.org/r/20260529-milos-iris-v2-0-7a763d7195=
+ae@pm.me
+
+Changes in v2:
+- Rebase onto 7.1.0-rc5
+- Change firmware name to vpu20_p2.mbn
+- Change iris reg to hex
+- Correct iris opp table
+- Update cover letter with new test run on 7.1.0-rc5, add -s arg to v4l2-co=
+mpliance
+- Link to v1: https://lore.kernel.org/r/20260406-milos-iris-v1-0-17ed0167ba=
+6f@pm.me
+
+---
+Alexander Koskovich (3):
+      dt-bindings: media: qcom,milos-iris: Add Milos video codec
+      media: iris: Add support for Milos (VPU v2.0)
+      arm64: dts: qcom: milos: Add Iris VPU v2.0
+
+ .../devicetree/bindings/media/qcom,milos-iris.yaml | 166 ++++
+ arch/arm64/boot/dts/qcom/milos.dtsi                |  85 ++
  drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 883 +++++++++++++++++=
 ++++
  .../platform/qcom/iris/iris_platform_common.h      |   2 +
  .../media/platform/qcom/iris/iris_platform_milos.h |  28 +
  .../media/platform/qcom/iris/iris_platform_vpu2.c  |  35 +
  drivers/media/platform/qcom/iris/iris_probe.c      |   4 +
- 5 files changed, 952 insertions(+)
+ 7 files changed, 1203 insertions(+)
+---
+base-commit: 2b763db0c2763d6bf73d7d3e69665222d1f377cf
+change-id: 20260406-milos-iris-d1a854e4cb75
 
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c b/drivers/med=
-ia/platform/qcom/iris/iris_hfi_gen2.c
-index acc0ed8adda1..5c88312944c9 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-@@ -11,8 +11,832 @@
- #include "iris_vpu_buffer.h"
-=20
- #define VIDEO_ARCH_LX 1
-+#define MILOS_BITRATE_MAX=09=09=09100000000
- #define BITRATE_MAX=09=09=09=09245000000
-=20
-+static const struct platform_inst_fw_cap inst_fw_cap_milos_dec[] =3D {
-+=09{
-+=09=09.cap_id =3D PROFILE_H264,
-+=09=09.min =3D V4L2_MPEG_VIDEO_H264_PROFILE_BASELINE,
-+=09=09.max =3D V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_HIGH,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_H264_PROFILE_BASELINE) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_PROFILE_MAIN) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_PROFILE_HIGH) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_HIGH),
-+=09=09.value =3D V4L2_MPEG_VIDEO_H264_PROFILE_HIGH,
-+=09=09.hfi_id =3D HFI_PROP_PROFILE,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_u32_enum,
-+=09},
-+=09{
-+=09=09.cap_id =3D PROFILE_HEVC,
-+=09=09.min =3D V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN,
-+=09=09.max =3D V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_10,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_STILL_PICTURE) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_10),
-+=09=09.value =3D V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN,
-+=09=09.hfi_id =3D HFI_PROP_PROFILE,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_u32_enum,
-+=09},
-+=09{
-+=09=09.cap_id =3D PROFILE_VP9,
-+=09=09.min =3D V4L2_MPEG_VIDEO_VP9_PROFILE_0,
-+=09=09.max =3D V4L2_MPEG_VIDEO_VP9_PROFILE_2,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_VP9_PROFILE_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_VP9_PROFILE_2),
-+=09=09.value =3D V4L2_MPEG_VIDEO_VP9_PROFILE_0,
-+=09=09.hfi_id =3D HFI_PROP_PROFILE,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_u32_enum,
-+=09},
-+=09{
-+=09=09.cap_id =3D LEVEL_H264,
-+=09=09.min =3D V4L2_MPEG_VIDEO_H264_LEVEL_1_0,
-+=09=09.max =3D V4L2_MPEG_VIDEO_H264_LEVEL_5_1,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1B) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1_2) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1_3) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_2_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_2_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_2_2) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_3_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_3_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_3_2) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_4_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_4_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_4_2) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_5_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_5_1),
-+=09=09.value =3D V4L2_MPEG_VIDEO_H264_LEVEL_5_1,
-+=09=09.hfi_id =3D HFI_PROP_LEVEL,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_u32_enum,
-+=09},
-+=09{
-+=09=09.cap_id =3D LEVEL_HEVC,
-+=09=09.min =3D V4L2_MPEG_VIDEO_HEVC_LEVEL_1,
-+=09=09.max =3D V4L2_MPEG_VIDEO_HEVC_LEVEL_5,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_2) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_2_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_3) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_3_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_4) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_4_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_5),
-+=09=09.value =3D V4L2_MPEG_VIDEO_HEVC_LEVEL_5,
-+=09=09.hfi_id =3D HFI_PROP_LEVEL,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_u32_enum,
-+=09},
-+=09{
-+=09=09.cap_id =3D LEVEL_VP9,
-+=09=09.min =3D V4L2_MPEG_VIDEO_VP9_LEVEL_1_0,
-+=09=09.max =3D V4L2_MPEG_VIDEO_VP9_LEVEL_5_0,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_1_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_1_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_2_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_2_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_3_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_3_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_4_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_4_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_5_0),
-+=09=09.value =3D V4L2_MPEG_VIDEO_VP9_LEVEL_5_0,
-+=09=09.hfi_id =3D HFI_PROP_LEVEL,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_u32_enum,
-+=09},
-+=09{
-+=09=09.cap_id =3D TIER,
-+=09=09.min =3D V4L2_MPEG_VIDEO_HEVC_TIER_MAIN,
-+=09=09.max =3D V4L2_MPEG_VIDEO_HEVC_TIER_HIGH,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_HEVC_TIER_MAIN) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_TIER_HIGH),
-+=09=09.value =3D V4L2_MPEG_VIDEO_HEVC_TIER_HIGH,
-+=09=09.hfi_id =3D HFI_PROP_TIER,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_u32_enum,
-+=09},
-+=09{
-+=09=09.cap_id =3D INPUT_BUF_HOST_MAX_COUNT,
-+=09=09.min =3D DEFAULT_MAX_HOST_BUF_COUNT,
-+=09=09.max =3D DEFAULT_MAX_HOST_BURST_BUF_COUNT,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D DEFAULT_MAX_HOST_BUF_COUNT,
-+=09=09.hfi_id =3D HFI_PROP_BUFFER_HOST_MAX_COUNT,
-+=09=09.flags =3D CAP_FLAG_INPUT_PORT,
-+=09=09.set =3D iris_set_u32,
-+=09},
-+=09{
-+=09=09.cap_id =3D STAGE,
-+=09=09.min =3D STAGE_1,
-+=09=09.max =3D STAGE_2,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D STAGE_2,
-+=09=09.hfi_id =3D HFI_PROP_STAGE,
-+=09=09.set =3D iris_set_stage,
-+=09},
-+=09{
-+=09=09.cap_id =3D PIPE,
-+=09=09/* .max, .min and .value are set via platform data */
-+=09=09.step_or_mask =3D 1,
-+=09=09.hfi_id =3D HFI_PROP_PIPE,
-+=09=09.set =3D iris_set_pipe,
-+=09},
-+=09{
-+=09=09.cap_id =3D POC,
-+=09=09.min =3D 0,
-+=09=09.max =3D 2,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D 1,
-+=09=09.hfi_id =3D HFI_PROP_PIC_ORDER_CNT_TYPE,
-+=09},
-+=09{
-+=09=09.cap_id =3D CODED_FRAMES,
-+=09=09.min =3D CODED_FRAMES_PROGRESSIVE,
-+=09=09.max =3D CODED_FRAMES_PROGRESSIVE,
-+=09=09.step_or_mask =3D 0,
-+=09=09.value =3D CODED_FRAMES_PROGRESSIVE,
-+=09=09.hfi_id =3D HFI_PROP_CODED_FRAMES,
-+=09},
-+=09{
-+=09=09.cap_id =3D BIT_DEPTH,
-+=09=09.min =3D BIT_DEPTH_8,
-+=09=09.max =3D BIT_DEPTH_10,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BIT_DEPTH_8,
-+=09=09.hfi_id =3D HFI_PROP_LUMA_CHROMA_BIT_DEPTH,
-+=09},
-+=09{
-+=09=09.cap_id =3D RAP_FRAME,
-+=09=09.min =3D 0,
-+=09=09.max =3D 1,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D 1,
-+=09=09.hfi_id =3D HFI_PROP_DEC_START_FROM_RAP_FRAME,
-+=09=09.flags =3D CAP_FLAG_INPUT_PORT,
-+=09=09.set =3D iris_set_u32,
-+=09},
-+};
-+
-+static const struct platform_inst_fw_cap inst_fw_cap_milos_enc[] =3D {
-+=09{
-+=09=09.cap_id =3D PROFILE_H264,
-+=09=09.min =3D V4L2_MPEG_VIDEO_H264_PROFILE_BASELINE,
-+=09=09.max =3D V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_HIGH,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_H264_PROFILE_BASELINE) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_HIGH) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_PROFILE_MAIN) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_PROFILE_HIGH),
-+=09=09.value =3D V4L2_MPEG_VIDEO_H264_PROFILE_HIGH,
-+=09=09.hfi_id =3D HFI_PROP_PROFILE,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_profile,
-+=09},
-+=09{
-+=09=09.cap_id =3D PROFILE_HEVC,
-+=09=09.min =3D V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN,
-+=09=09.max =3D V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_10,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_STILL_PICTURE) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_10),
-+=09=09.value =3D V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN,
-+=09=09.hfi_id =3D HFI_PROP_PROFILE,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_profile,
-+=09},
-+=09{
-+=09=09.cap_id =3D LEVEL_H264,
-+=09=09.min =3D V4L2_MPEG_VIDEO_H264_LEVEL_1_0,
-+=09=09.max =3D V4L2_MPEG_VIDEO_H264_LEVEL_5_1,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1B) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1_2) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1_3) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_2_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_2_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_2_2) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_3_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_3_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_3_2) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_4_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_4_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_4_2) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_5_0) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_LEVEL_5_1),
-+=09=09.value =3D V4L2_MPEG_VIDEO_H264_LEVEL_5_0,
-+=09=09.hfi_id =3D HFI_PROP_LEVEL,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_level,
-+=09},
-+=09{
-+=09=09.cap_id =3D LEVEL_HEVC,
-+=09=09.min =3D V4L2_MPEG_VIDEO_HEVC_LEVEL_1,
-+=09=09.max =3D V4L2_MPEG_VIDEO_HEVC_LEVEL_5,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_2) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_2_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_3) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_3_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_4) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_4_1) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_5),
-+=09=09.value =3D V4L2_MPEG_VIDEO_HEVC_LEVEL_5,
-+=09=09.hfi_id =3D HFI_PROP_LEVEL,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_level,
-+=09},
-+=09{
-+=09=09.cap_id =3D STAGE,
-+=09=09.min =3D STAGE_1,
-+=09=09.max =3D STAGE_2,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D STAGE_2,
-+=09=09.hfi_id =3D HFI_PROP_STAGE,
-+=09=09.set =3D iris_set_stage,
-+=09},
-+=09{
-+=09=09.cap_id =3D HEADER_MODE,
-+=09=09.min =3D V4L2_MPEG_VIDEO_HEADER_MODE_SEPARATE,
-+=09=09.max =3D V4L2_MPEG_VIDEO_HEADER_MODE_JOINED_WITH_1ST_FRAME,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_HEADER_MODE_SEPARATE) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEADER_MODE_JOINED_WITH_1ST_FRAME),
-+=09=09.value =3D V4L2_MPEG_VIDEO_HEADER_MODE_JOINED_WITH_1ST_FRAME,
-+=09=09.hfi_id =3D HFI_PROP_SEQ_HEADER_MODE,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_header_mode_gen2,
-+=09},
-+=09{
-+=09=09.cap_id =3D PREPEND_SPSPPS_TO_IDR,
-+=09=09.min =3D 0,
-+=09=09.max =3D 1,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D 0,
-+=09},
-+=09{
-+=09=09.cap_id =3D BITRATE,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_TOTAL_BITRATE,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_bitrate_gen2,
-+=09},
-+=09{
-+=09=09.cap_id =3D BITRATE_PEAK,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_TOTAL_PEAK_BITRATE,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_peak_bitrate,
-+=09},
-+=09{
-+=09=09.cap_id =3D BITRATE_MODE,
-+=09=09.min =3D V4L2_MPEG_VIDEO_BITRATE_MODE_VBR,
-+=09=09.max =3D V4L2_MPEG_VIDEO_BITRATE_MODE_CBR,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_BITRATE_MODE_VBR) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_BITRATE_MODE_CBR),
-+=09=09.value =3D V4L2_MPEG_VIDEO_BITRATE_MODE_VBR,
-+=09=09.hfi_id =3D HFI_PROP_RATE_CONTROL,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_bitrate_mode_gen2,
-+=09},
-+=09{
-+=09=09.cap_id =3D FRAME_SKIP_MODE,
-+=09=09.min =3D V4L2_MPEG_VIDEO_FRAME_SKIP_MODE_DISABLED,
-+=09=09.max =3D V4L2_MPEG_VIDEO_FRAME_SKIP_MODE_BUF_LIMIT,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_FRAME_SKIP_MODE_DISABLED) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_FRAME_SKIP_MODE_LEVEL_LIMIT) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_FRAME_SKIP_MODE_BUF_LIMIT),
-+=09=09.value =3D V4L2_MPEG_VIDEO_FRAME_SKIP_MODE_DISABLED,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09},
-+=09{
-+=09=09.cap_id =3D FRAME_RC_ENABLE,
-+=09=09.min =3D 0,
-+=09=09.max =3D 1,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D 1,
-+=09},
-+=09{
-+=09=09.cap_id =3D GOP_SIZE,
-+=09=09.min =3D 0,
-+=09=09.max =3D INT_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D 2 * DEFAULT_FPS - 1,
-+=09=09.hfi_id =3D HFI_PROP_MAX_GOP_FRAMES,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_u32,
-+=09},
-+=09{
-+=09=09.cap_id =3D ENTROPY_MODE,
-+=09=09.min =3D V4L2_MPEG_VIDEO_H264_ENTROPY_MODE_CAVLC,
-+=09=09.max =3D V4L2_MPEG_VIDEO_H264_ENTROPY_MODE_CABAC,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_H264_ENTROPY_MODE_CAVLC) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_ENTROPY_MODE_CABAC),
-+=09=09.value =3D V4L2_MPEG_VIDEO_H264_ENTROPY_MODE_CABAC,
-+=09=09.hfi_id =3D HFI_PROP_CABAC_SESSION,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_entropy_mode_gen2,
-+=09},
-+=09{
-+=09=09.cap_id =3D MIN_FRAME_QP_H264,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MIN_QP_8BIT,
-+=09=09.hfi_id =3D HFI_PROP_MIN_QP_PACKED,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT,
-+=09=09.set =3D iris_set_min_qp,
-+=09},
-+=09{
-+=09=09.cap_id =3D MIN_FRAME_QP_HEVC,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MIN_QP_8BIT,
-+=09=09.hfi_id =3D HFI_PROP_MIN_QP_PACKED,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT,
-+=09=09.set =3D iris_set_min_qp,
-+=09},
-+=09{
-+=09=09.cap_id =3D MAX_FRAME_QP_H264,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MAX_QP,
-+=09=09.hfi_id =3D HFI_PROP_MAX_QP_PACKED,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT,
-+=09=09.set =3D iris_set_max_qp,
-+=09},
-+=09{
-+=09=09.cap_id =3D MAX_FRAME_QP_HEVC,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MAX_QP,
-+=09=09.hfi_id =3D HFI_PROP_MAX_QP_PACKED,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT,
-+=09=09.set =3D iris_set_max_qp,
-+=09},
-+=09{
-+=09=09.cap_id =3D I_FRAME_MIN_QP_H264,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MIN_QP_8BIT,
-+=09},
-+=09{
-+=09=09.cap_id =3D I_FRAME_MIN_QP_HEVC,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MIN_QP_8BIT,
-+=09},
-+=09{
-+=09=09.cap_id =3D P_FRAME_MIN_QP_H264,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MIN_QP_8BIT,
-+=09},
-+=09{
-+=09=09.cap_id =3D P_FRAME_MIN_QP_HEVC,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MIN_QP_8BIT,
-+=09},
-+=09{
-+=09=09.cap_id =3D B_FRAME_MIN_QP_H264,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MIN_QP_8BIT,
-+=09},
-+=09{
-+=09=09.cap_id =3D B_FRAME_MIN_QP_HEVC,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MIN_QP_8BIT,
-+=09},
-+=09{
-+=09=09.cap_id =3D I_FRAME_MAX_QP_H264,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MAX_QP,
-+=09},
-+=09{
-+=09=09.cap_id =3D I_FRAME_MAX_QP_HEVC,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MAX_QP,
-+=09},
-+=09{
-+=09=09.cap_id =3D P_FRAME_MAX_QP_H264,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MAX_QP,
-+=09},
-+=09{
-+=09=09.cap_id =3D P_FRAME_MAX_QP_HEVC,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MAX_QP,
-+=09},
-+=09{
-+=09=09.cap_id =3D B_FRAME_MAX_QP_H264,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MAX_QP,
-+=09},
-+=09{
-+=09=09.cap_id =3D B_FRAME_MAX_QP_HEVC,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D MAX_QP,
-+=09},
-+=09{
-+=09=09.cap_id =3D I_FRAME_QP_H264,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D DEFAULT_QP,
-+=09=09.hfi_id =3D HFI_PROP_QP_PACKED,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_frame_qp,
-+=09},
-+=09{
-+=09=09.cap_id =3D I_FRAME_QP_HEVC,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D DEFAULT_QP,
-+=09=09.hfi_id =3D HFI_PROP_QP_PACKED,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_frame_qp,
-+=09},
-+=09{
-+=09=09.cap_id =3D P_FRAME_QP_H264,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D DEFAULT_QP,
-+=09=09.hfi_id =3D HFI_PROP_QP_PACKED,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_frame_qp,
-+=09},
-+=09{
-+=09=09.cap_id =3D P_FRAME_QP_HEVC,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D DEFAULT_QP,
-+=09=09.hfi_id =3D HFI_PROP_QP_PACKED,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_frame_qp,
-+=09},
-+=09{
-+=09=09.cap_id =3D B_FRAME_QP_H264,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D DEFAULT_QP,
-+=09=09.hfi_id =3D HFI_PROP_QP_PACKED,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_frame_qp,
-+=09},
-+=09{
-+=09=09.cap_id =3D B_FRAME_QP_HEVC,
-+=09=09.min =3D MIN_QP_8BIT,
-+=09=09.max =3D MAX_QP,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D DEFAULT_QP,
-+=09=09.hfi_id =3D HFI_PROP_QP_PACKED,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_frame_qp,
-+=09},
-+=09{
-+=09=09.cap_id =3D INPUT_BUF_HOST_MAX_COUNT,
-+=09=09.min =3D DEFAULT_MAX_HOST_BUF_COUNT,
-+=09=09.max =3D DEFAULT_MAX_HOST_BURST_BUF_COUNT,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D DEFAULT_MAX_HOST_BUF_COUNT,
-+=09=09.hfi_id =3D HFI_PROP_BUFFER_HOST_MAX_COUNT,
-+=09=09.flags =3D CAP_FLAG_INPUT_PORT,
-+=09=09.set =3D iris_set_u32,
-+=09},
-+=09{
-+=09=09.cap_id =3D OUTPUT_BUF_HOST_MAX_COUNT,
-+=09=09.min =3D DEFAULT_MAX_HOST_BUF_COUNT,
-+=09=09.max =3D DEFAULT_MAX_HOST_BURST_BUF_COUNT,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D DEFAULT_MAX_HOST_BUF_COUNT,
-+=09=09.hfi_id =3D HFI_PROP_BUFFER_HOST_MAX_COUNT,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT,
-+=09=09.set =3D iris_set_u32,
-+=09},
-+=09{
-+=09=09.cap_id =3D ROTATION,
-+=09=09.min =3D 0,
-+=09=09.max =3D 270,
-+=09=09.step_or_mask =3D 90,
-+=09=09.value =3D 0,
-+=09=09.hfi_id =3D HFI_PROP_ROTATION,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT,
-+=09=09.set =3D iris_set_rotation,
-+=09},
-+=09{
-+=09=09.cap_id =3D HFLIP,
-+=09=09.min =3D 0,
-+=09=09.max =3D 1,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D 0,
-+=09=09.hfi_id =3D HFI_PROP_FLIP,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_flip,
-+=09},
-+=09{
-+=09=09.cap_id =3D VFLIP,
-+=09=09.min =3D 0,
-+=09=09.max =3D 1,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D 0,
-+=09=09.hfi_id =3D HFI_PROP_FLIP,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_flip,
-+=09},
-+=09{
-+=09=09.cap_id =3D IR_TYPE,
-+=09=09.min =3D V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_RANDOM,
-+=09=09.max =3D V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_RANDOM,
-+=09=09.step_or_mask =3D BIT(V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_=
-RANDOM),
-+=09=09.value =3D V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_RANDOM,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09},
-+=09{
-+=09=09.cap_id =3D IR_PERIOD,
-+=09=09.min =3D 0,
-+=09=09.max =3D INT_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D 0,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_ir_period_gen2,
-+=09},
-+=09{
-+=09=09.cap_id =3D LTR_COUNT,
-+=09=09.min =3D 0,
-+=09=09.max =3D MAX_LTR_FRAME_COUNT_GEN2,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D 0,
-+=09=09.hfi_id =3D HFI_PROP_LTR_COUNT,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT,
-+=09=09.set =3D iris_set_ltr_count_gen2,
-+=09},
-+=09{
-+=09=09.cap_id =3D USE_LTR,
-+=09=09.min =3D 0,
-+=09=09.max =3D ((1 << MAX_LTR_FRAME_COUNT_GEN2) - 1),
-+=09=09.step_or_mask =3D 0,
-+=09=09.value =3D 0,
-+=09=09.hfi_id =3D HFI_PROP_LTR_USE,
-+=09=09.flags =3D CAP_FLAG_INPUT_PORT | CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_use_and_mark_ltr,
-+=09},
-+=09{
-+=09=09.cap_id =3D MARK_LTR,
-+=09=09.min =3D INVALID_DEFAULT_MARK_OR_USE_LTR,
-+=09=09.max =3D (MAX_LTR_FRAME_COUNT_GEN2 - 1),
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D INVALID_DEFAULT_MARK_OR_USE_LTR,
-+=09=09.hfi_id =3D HFI_PROP_LTR_MARK,
-+=09=09.flags =3D CAP_FLAG_INPUT_PORT | CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_use_and_mark_ltr,
-+=09},
-+=09{
-+=09=09.cap_id =3D B_FRAME,
-+=09=09.min =3D 0,
-+=09=09.max =3D 1,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D 0,
-+=09=09.hfi_id =3D HFI_PROP_MAX_B_FRAMES,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT,
-+=09=09.set =3D iris_set_u32,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER_ENABLE,
-+=09=09.min =3D 0,
-+=09=09.max =3D 1,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D 0,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER_TYPE_H264,
-+=09=09.min =3D V4L2_MPEG_VIDEO_H264_HIERARCHICAL_CODING_B,
-+=09=09.max =3D V4L2_MPEG_VIDEO_H264_HIERARCHICAL_CODING_P,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_H264_HIERARCHICAL_CODING_B) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_H264_HIERARCHICAL_CODING_P),
-+=09=09.value =3D V4L2_MPEG_VIDEO_H264_HIERARCHICAL_CODING_P,
-+=09=09.hfi_id =3D HFI_PROP_LAYER_ENCODING_TYPE,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_layer_type,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER_TYPE_HEVC,
-+=09=09.min =3D V4L2_MPEG_VIDEO_HEVC_HIERARCHICAL_CODING_B,
-+=09=09.max =3D V4L2_MPEG_VIDEO_HEVC_HIERARCHICAL_CODING_P,
-+=09=09.step_or_mask =3D BIT(V4L2_MPEG_VIDEO_HEVC_HIERARCHICAL_CODING_B) |
-+=09=09=09=09BIT(V4L2_MPEG_VIDEO_HEVC_HIERARCHICAL_CODING_P),
-+=09=09.value =3D V4L2_MPEG_VIDEO_HEVC_HIERARCHICAL_CODING_P,
-+=09=09.hfi_id =3D HFI_PROP_LAYER_ENCODING_TYPE,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-+=09=09.set =3D iris_set_layer_type,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER_COUNT_H264,
-+=09=09.min =3D 0,
-+=09=09.max =3D 5,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D 0,
-+=09=09.hfi_id =3D HFI_PROP_LAYER_COUNT,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_count_gen2,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER_COUNT_HEVC,
-+=09=09.min =3D 0,
-+=09=09.max =3D 5,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D 0,
-+=09=09.hfi_id =3D HFI_PROP_LAYER_COUNT,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_count_gen2,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER0_BITRATE_H264,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_BITRATE_LAYER1,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_bitrate,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER1_BITRATE_H264,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_BITRATE_LAYER2,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_bitrate,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER2_BITRATE_H264,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_BITRATE_LAYER3,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_bitrate,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER3_BITRATE_H264,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_BITRATE_LAYER4,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_bitrate,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER4_BITRATE_H264,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_BITRATE_LAYER5,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_bitrate,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER5_BITRATE_H264,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_BITRATE_LAYER6,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_bitrate,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER0_BITRATE_HEVC,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_BITRATE_LAYER1,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_bitrate,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER1_BITRATE_HEVC,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_BITRATE_LAYER2,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_bitrate,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER2_BITRATE_HEVC,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_BITRATE_LAYER3,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_bitrate,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER3_BITRATE_HEVC,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_BITRATE_LAYER4,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_bitrate,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER4_BITRATE_HEVC,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_BITRATE_LAYER5,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_bitrate,
-+=09},
-+=09{
-+=09=09.cap_id =3D LAYER5_BITRATE_HEVC,
-+=09=09.min =3D 1,
-+=09=09.max =3D MILOS_BITRATE_MAX,
-+=09=09.step_or_mask =3D 1,
-+=09=09.value =3D BITRATE_DEFAULT,
-+=09=09.hfi_id =3D HFI_PROP_BITRATE_LAYER6,
-+=09=09.flags =3D CAP_FLAG_OUTPUT_PORT | CAP_FLAG_INPUT_PORT |
-+=09=09=09CAP_FLAG_DYNAMIC_ALLOWED,
-+=09=09.set =3D iris_set_layer_bitrate,
-+=09}
-+};
-+
- static const struct platform_inst_fw_cap inst_fw_cap_sm8550_dec[] =3D {
- =09{
- =09=09.cap_id =3D PROFILE_H264,
-@@ -1118,3 +1942,62 @@ const struct iris_firmware_data iris_hfi_gen2_data =
-=3D {
- =09.enc_op_int_buf_tbl =3D sm8550_enc_op_int_buf_tbl,
- =09.enc_op_int_buf_tbl_size =3D ARRAY_SIZE(sm8550_enc_op_int_buf_tbl),
- };
-+
-+const struct iris_firmware_data iris_hfi_milos_data =3D {
-+=09.init_hfi_ops =3D iris_hfi_gen2_sys_ops_init,
-+
-+=09.core_arch =3D VIDEO_ARCH_LX,
-+
-+=09.inst_fw_caps_dec =3D inst_fw_cap_milos_dec,
-+=09.inst_fw_caps_dec_size =3D ARRAY_SIZE(inst_fw_cap_milos_dec),
-+=09.inst_fw_caps_enc =3D inst_fw_cap_milos_enc,
-+=09.inst_fw_caps_enc_size =3D ARRAY_SIZE(inst_fw_cap_milos_enc),
-+
-+=09.dec_input_config_params_default =3D
-+=09=09sm8550_vdec_input_config_params_default,
-+=09.dec_input_config_params_default_size =3D
-+=09=09ARRAY_SIZE(sm8550_vdec_input_config_params_default),
-+=09.dec_input_config_params_hevc =3D
-+=09=09sm8550_vdec_input_config_param_hevc,
-+=09.dec_input_config_params_hevc_size =3D
-+=09=09ARRAY_SIZE(sm8550_vdec_input_config_param_hevc),
-+=09.dec_input_config_params_vp9 =3D
-+=09=09sm8550_vdec_input_config_param_vp9,
-+=09.dec_input_config_params_vp9_size =3D
-+=09=09ARRAY_SIZE(sm8550_vdec_input_config_param_vp9),
-+=09.dec_output_config_params =3D
-+=09=09sm8550_vdec_output_config_params,
-+=09.dec_output_config_params_size =3D
-+=09=09ARRAY_SIZE(sm8550_vdec_output_config_params),
-+
-+=09.enc_input_config_params =3D
-+=09=09sm8550_venc_input_config_params,
-+=09.enc_input_config_params_size =3D
-+=09=09ARRAY_SIZE(sm8550_venc_input_config_params),
-+=09.enc_output_config_params =3D
-+=09=09sm8550_venc_output_config_params,
-+=09.enc_output_config_params_size =3D
-+=09=09ARRAY_SIZE(sm8550_venc_output_config_params),
-+
-+=09.dec_input_prop =3D sm8550_vdec_subscribe_input_properties,
-+=09.dec_input_prop_size =3D ARRAY_SIZE(sm8550_vdec_subscribe_input_propert=
-ies),
-+=09.dec_output_prop_avc =3D sm8550_vdec_subscribe_output_properties_avc,
-+=09.dec_output_prop_avc_size =3D
-+=09=09ARRAY_SIZE(sm8550_vdec_subscribe_output_properties_avc),
-+=09.dec_output_prop_hevc =3D sm8550_vdec_subscribe_output_properties_hevc,
-+=09.dec_output_prop_hevc_size =3D
-+=09=09ARRAY_SIZE(sm8550_vdec_subscribe_output_properties_hevc),
-+=09.dec_output_prop_vp9 =3D sm8550_vdec_subscribe_output_properties_vp9,
-+=09.dec_output_prop_vp9_size =3D
-+=09=09ARRAY_SIZE(sm8550_vdec_subscribe_output_properties_vp9),
-+
-+=09.dec_ip_int_buf_tbl =3D sm8550_dec_ip_int_buf_tbl,
-+=09.dec_ip_int_buf_tbl_size =3D ARRAY_SIZE(sm8550_dec_ip_int_buf_tbl),
-+=09.dec_op_int_buf_tbl =3D sm8550_dec_op_int_buf_tbl,
-+=09.dec_op_int_buf_tbl_size =3D ARRAY_SIZE(sm8550_dec_op_int_buf_tbl),
-+
-+=09.enc_ip_int_buf_tbl =3D sm8550_enc_ip_int_buf_tbl,
-+=09.enc_ip_int_buf_tbl_size =3D ARRAY_SIZE(sm8550_enc_ip_int_buf_tbl),
-+=09.enc_op_int_buf_tbl =3D sm8550_enc_op_int_buf_tbl,
-+=09.enc_op_int_buf_tbl_size =3D ARRAY_SIZE(sm8550_enc_op_int_buf_tbl),
-+};
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/driv=
-ers/media/platform/qcom/iris/iris_platform_common.h
-index c9256f2323dc..f57c08990040 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -52,7 +52,9 @@ enum pipe_type {
-=20
- extern const struct iris_firmware_data iris_hfi_gen1_data;
- extern const struct iris_firmware_data iris_hfi_gen2_data;
-+extern const struct iris_firmware_data iris_hfi_milos_data;
-=20
-+extern const struct iris_platform_data milos_data;
- extern const struct iris_platform_data qcs8300_data;
- extern const struct iris_platform_data sc7280_data;
- extern const struct iris_platform_data sm8250_data;
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_milos.h b/drive=
-rs/media/platform/qcom/iris/iris_platform_milos.h
-new file mode 100644
-index 000000000000..3b6feeda76cb
---- /dev/null
-+++ b/drivers/media/platform/qcom/iris/iris_platform_milos.h
-@@ -0,0 +1,28 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#ifndef __IRIS_PLATFORM_MILOS_H__
-+#define __IRIS_PLATFORM_MILOS_H__
-+
-+#define MILOS_MAXIMUM_FPS=09240
-+
-+static const struct icc_info iris_icc_info_milos[] =3D {
-+=09{ "cpu-cfg",    1000, 1000     },
-+=09{ "video-mem",  1000, 10000000 },
-+};
-+
-+static const char * const milos_opp_pd_table[] =3D { "cx", "mx" };
-+
-+static struct platform_inst_caps platform_inst_cap_milos =3D {
-+=09.min_frame_width =3D 96,
-+=09.max_frame_width =3D 4096,
-+=09.min_frame_height =3D 96,
-+=09.max_frame_height =3D 4096,
-+=09.max_mbpf =3D (4096 * 2176) / 256,
-+=09.mb_cycles_vpp =3D 200,
-+=09.mb_cycles_fw =3D 326389,
-+=09.mb_cycles_fw_vpp =3D 44156,
-+=09.max_frame_rate =3D MILOS_MAXIMUM_FPS,
-+=09.max_operating_rate =3D MILOS_MAXIMUM_FPS,
-+};
-+
-+#endif
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/driver=
-s/media/platform/qcom/iris/iris_platform_vpu2.c
-index 6e06a32822bb..8dce45f39d40 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-+++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-@@ -13,9 +13,16 @@
- #include "iris_vpu_common.h"
- #include "iris_instance.h"
-=20
-+#include "iris_platform_milos.h"
- #include "iris_platform_sc7280.h"
- #include "iris_platform_sm8250.h"
-=20
-+static const struct iris_firmware_desc iris_milos_desc =3D {
-+=09.firmware_data =3D &iris_hfi_milos_data,
-+=09.get_vpu_buffer_size =3D iris_vpu_buf_size,
-+=09.fwname =3D "qcom/vpu/vpu20_p2.mbn",
-+};
-+
- static const struct iris_firmware_desc iris_vpu20_p1_gen1_desc =3D {
- =09.firmware_data =3D &iris_hfi_gen1_data,
- =09.get_vpu_buffer_size =3D iris_vpu_buf_size,
-@@ -64,6 +71,34 @@ static const struct tz_cp_config tz_cp_config_vpu2[] =3D=
- {
- =09},
- };
-=20
-+const struct iris_platform_data milos_data =3D {
-+=09.firmware_desc =3D &iris_milos_desc,
-+=09.vpu_ops =3D &iris_vpu2_ops,
-+=09.icc_tbl =3D iris_icc_info_milos,
-+=09.icc_tbl_size =3D ARRAY_SIZE(iris_icc_info_milos),
-+=09.bw_tbl_dec =3D sm8250_bw_table_dec,
-+=09.bw_tbl_dec_size =3D ARRAY_SIZE(sm8250_bw_table_dec),
-+=09.pmdomain_tbl =3D iris_pmdomain_table_vpu2,
-+=09.pmdomain_tbl_size =3D ARRAY_SIZE(iris_pmdomain_table_vpu2),
-+=09.opp_pd_tbl =3D milos_opp_pd_table,
-+=09.opp_pd_tbl_size =3D ARRAY_SIZE(milos_opp_pd_table),
-+=09.clk_tbl =3D sm8250_clk_table,
-+=09.clk_tbl_size =3D ARRAY_SIZE(sm8250_clk_table),
-+=09.opp_clk_tbl =3D sm8250_opp_clk_table,
-+=09.clk_rst_tbl =3D iris_clk_reset_table_vpu2,
-+=09.clk_rst_tbl_size =3D ARRAY_SIZE(iris_clk_reset_table_vpu2),
-+=09.dma_mask =3D 0xe0000000 - 1,
-+=09.inst_iris_fmts =3D iris_fmts_vpu2_dec,
-+=09.inst_iris_fmts_size =3D ARRAY_SIZE(iris_fmts_vpu2_dec),
-+=09.inst_caps =3D &platform_inst_cap_milos,
-+=09.tz_cp_config_data =3D tz_cp_config_vpu2,
-+=09.tz_cp_config_data_size =3D ARRAY_SIZE(tz_cp_config_vpu2),
-+=09.num_vpp_pipe =3D 2,
-+=09.max_session_count =3D 16,
-+=09.max_core_mbpf =3D ((4096 * 2176) / 256) * 2,
-+=09.max_core_mbps =3D ((3840 * 2176) / 256) * 30 + ((1920 * 1088) / 256) *=
- 30,
-+};
-+
- const struct iris_platform_data sc7280_data =3D {
- =09.firmware_desc =3D &iris_vpu20_p1_gen1_desc,
- =09.vpu_ops =3D &iris_vpu2_ops,
-diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/=
-platform/qcom/iris/iris_probe.c
-index c2dcb50a2782..353cda58514c 100644
---- a/drivers/media/platform/qcom/iris/iris_probe.c
-+++ b/drivers/media/platform/qcom/iris/iris_probe.c
-@@ -360,6 +360,10 @@ static const struct dev_pm_ops iris_pm_ops =3D {
- };
-=20
- static const struct of_device_id iris_dt_match[] =3D {
-+=09{
-+=09=09.compatible =3D "qcom,milos-iris",
-+=09=09.data =3D &milos_data,
-+=09},
- =09{
- =09=09.compatible =3D "qcom,qcs8300-iris",
- =09=09.data =3D &qcs8300_data,
-
+Best regards,
 --=20
-2.53.0
+Alexander Koskovich <akoskovich@pm.me>
 
 
