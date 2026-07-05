@@ -1,139 +1,61 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from mail.mdapi.ch (mail.mdapi.ch [31.3.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC59279DC3;
-	Sun,  5 Jul 2026 18:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0982D2848A1;
+	Sun,  5 Jul 2026 18:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.3.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783276901; cv=none; b=H9EIR/N+2iyMv46a0s0YvqfIcgK6/XHy7pXfTnjYdQ57STEvRB9RCpsSrxwFXmI/ic39ccKu5wi8eyD+Xcz1n8Xmt/2mtTaf1njnfMKZBmuRFRIfO6eW7OuhWGgu0SurFoucJdgF0aKi2dMz2mk4txkvSwbPk2rbGmYjI1KUBNQ=
+	t=1783277736; cv=none; b=XTYZBE4qyz5E7gKk5gC1iwMeDPw8uLbakfqnNhjsNiDvjNIirHrTmMp88BzgNB9xinkAgy1fI36V+mOiPIzXCGP70+JmIChbjaj5WD93TVKRwTLRKvAFMULGoqUk919dCU7w7fBr4dSmoRJWuRy8GOEanE7gPa7PyyorKnnEm3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783276901; c=relaxed/simple;
-	bh=qBFJ02Wo20d4cHaReMF6Ki5+cZVq85DJNAv84rGn+5w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dL3DiaYp2iEu3pNWYY6n99JBXQPzF3ZmlX1x7yWfvl8m1qLiUAuqjVYvk6wFkD2sTkQ2V9ZPdpEJg0Q/KjfyJasFz02qXOvikA8HCF6m69m0ohm67Qq4vHL0wbwlAcL4NXLf4HCf90LSN+1a4A9CwTj5xzhNcIKjEipj1jpcopw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=siYMG+vn; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1783277736; c=relaxed/simple;
+	bh=X3s+/ParZGutlIjQLSuAI0IrbHulKPYjszcMT2PF/co=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=twSLEqpPzv5hstRNGGTvcrQCW2CgLb5wYV0zOdVD9pV5mVPkIX9quSSLEUqycTbqZ3na/dNE5Stn0xPX7cOVnKTET3oKbifDm4UIG4cNUki4cehZgrYJlBRugo3svWUNH6+sjLgzqHD+4LOuPEBszlAR3MRVxk9MuFCP7piVWLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch; spf=pass smtp.mailfrom=tillo.ch; dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b=NLMUdShJ; arc=none smtp.client-ip=31.3.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tillo.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="siYMG+vn"
-Received: from [172.20.10.2] (78-80-16-106.customers.tmcz.cz [78.80.16.106])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 80ABE53403EF;
-	Sun, 05 Jul 2026 20:41:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1783276888;
+	dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b="NLMUdShJ"
+From: Martino Dell'Ambrogio <tillo@tillo.ch>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tillo.ch; s=mail202603;
+	t=1783277730;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=OZp1RmlB8ZrOajx18YfnrqY8nVUI51YeTdlUm4fAkrA=;
-	b=siYMG+vnpsmI6Ilne0QrAOSQ/6NfB7ZwZkYkrUFZ+KMAYyiTcavEc8IQf/bBF+Y0pWpfBT
-	QO9tNFXG4eD/gckHCVFLGt5+7lG97s7jmMmZUg2HBEB5QDajTPoKx87si9YImuXslbmoxu
-	RRGO22fBSR32L+CINnps0o4RrAtVCWE=
-Message-ID: <a89e90e8-a1d3-4e70-8714-c9862044a62d@ixit.cz>
-Date: Sun, 5 Jul 2026 20:41:26 +0200
+	 in-reply-to:in-reply-to:references:references;
+	bh=X3s+/ParZGutlIjQLSuAI0IrbHulKPYjszcMT2PF/co=;
+	b=NLMUdShJ9c1NiBRPaRo29NTdt5nNsMPDmvNm11/HwY+IG8GqYFGfwmn344/jnfdUqR73XK
+	jLBGPmQKEGxQugLMvrwXUuw6l5fSwvNJyDl+mPif8clzU2Qg3xlZIt/nd0nmlyhbatfeWH
+	5WKigcKslzMfGuelVuc32QlUvRBEDalCJpBcj3nB7nEyAyyoYO9f0YSPZ2fNEV2TM56V9K
+	SG22gcmqLv0Kh0gN8um8xj4tZ0ywhmWDb6baPlFndLrp5z4pL7KZGCSUEYpWEy2C0SM31P
+	sihCXpmvzTn04S/6de8+XgeJrFNRCOiYh2n/p7uwAa9mkrjqPAAPJpPRc+3hvA==
+To: matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com
+Cc: kees@kernel.org,
+	tony.luck@intel.com,
+	gpiccoli@igalia.com,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Martino Dell'Ambrogio <tillo@tillo.ch>
+Subject: Re: [PATCH v2] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add ramoops region
+Date: Sun,  5 Jul 2026 20:55:13 +0200
+Message-ID: <20260705185513.138353-1-tillo@tillo.ch>
+In-Reply-To: <20260528123645.2650085-1-tillo@tillo.ch>
+References: <20260528123645.2650085-1-tillo@tillo.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm7125-samsung: add initial
- device tree
-To: Erikas Bitovtas <xerikasxx@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Stefan Hansson <newbyte@postmarketos.org>,
- phone-devel@vger.kernel.org
-References: <20260705-sm7125-samsung-v2-0-d3b17005ecb3@gmail.com>
- <20260705-sm7125-samsung-v2-3-d3b17005ecb3@gmail.com>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260705-sm7125-samsung-v2-3-d3b17005ecb3@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05/07/2026 12:30, Erikas Bitovtas wrote:
-> Samsung Galaxy A52/A72 are devices released on atoll (SM7125) platform
-> in 2021. Add initial device tree for SM7125 Samsung platform with
-> support for:
-> - Framebuffer
-> - GPIO keys
-> - Hall sensor
-> - Vibrator
-> - Regulators
-> - Reset input
-> - Real-time clock
-> - SD card
-> - UFS
-> - USB
-> 
-> Tested-by: Stefan Hansson <newbyte@postmarketos.org>
-> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
-> ---
->   arch/arm64/boot/dts/qcom/Makefile                  |   2 +
->   arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts   |  20 +
->   arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts   |  20 +
->   .../arm64/boot/dts/qcom/sm7125-samsung-common.dtsi | 536 +++++++++++++++++++++
->   4 files changed, 578 insertions(+)
-> 
+Gentle ping - is there anything I should improve on this one?
 
-Nice,
+The matching BPI-R3 (mt7986a) patch is at:
+https://lore.kernel.org/all/20260528123655.2650868-1-tillo@tillo.ch/
 
-Reviewed-by: David Heidelberg <david@ixit.cz>
-
-small nitpick, the Copyright inside the files should be yours, at least unless 
-you giving up your contributions or you been paid by LF ;-) .
-
-David
+Thanks!
+Martino
