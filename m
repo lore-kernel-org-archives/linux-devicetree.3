@@ -1,373 +1,104 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D646F2E173D
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 10:19:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152522472B8
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 10:19:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783246783; cv=none; b=UZ7qM6lQkrQxIi1voYS06iFGBxbyad+9rLbA4AH6AmJfo5eh0Lp4RmtbZ6tDO5Pct0GizrZy9aEEK/0KB/M/V1scDQEnsxtpk1m37tXBEEtFL4KTJJU+zhDPR77BB33XlzLLV2WWhSuxeJdyvg2G6sDK+Dox8HpoLTA7VLi6MvQ=
+	t=1783246794; cv=none; b=dniWh/cLHtmO2HblHNu8gOrGHBkTH/jJC8tQAnfsAuflE5DrW0OHfJ2aLiBRe/akrOp+pH631/5dPeuP8fVKgBTV8j9bzyA538HCgR72GTqvG/s1v1psBIKwQxuuOTFfCtyShrxhul9FnUfsKCxTMhaIuzJC92UHC6tcWvoMdRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783246783; c=relaxed/simple;
-	bh=xBY+X7nL5AZz+gzrhUliZqJVFe9VocGCCYH1oenG6VQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FBKyJsBkaunYtbwzNBWUjOz4h/YLxCVs8uiqQYb7nFSvlGstsq/VvQe68DR63/J8yN3gQ/pqjLpnoQSOJ/h2iq/EBjpjrXjyYQvJIzmYbQU9gTUsGBbnGOsGmCW0+Xx/MBJ/ToXYYjXPzIh/5GTw1xchy8BgmlsjksTrNDUWOCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d/p/r6Ck; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Pp53hrYK; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783246794; c=relaxed/simple;
+	bh=EhheuWa0B0KUsdLsS8pd7TMEJLpCf0Ci8XbU8ihqsiQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=O9sEXwyDlwMhBt8+Mr1SvL4J1WWDyuIvqK9/ZC52fxICftd2KxlTDwbGTP3NWVbnzhHTGqB47DkGDd9IG7f8x9dppVA1Jl68JJjWMoHj/iagDCfusiWUbNXnMs5PSAp/Vy6XCXjSdsnQG+p/UYF/ZUxGcmgtgcitt+vdNigm5Ys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=limaXQ4Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d/p/r6Ck";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Pp53hrYK"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6654ujVr638571
-	for <devicetree@vger.kernel.org>; Sun, 5 Jul 2026 10:19:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Xpbe7dAQLjNnNWc71nhAnTIRBBKphawt2IUV/ANXlWw=; b=d/p/r6Ckktk9AztM
-	pGL3GsxkNLlTiaAAekulPH8g6Z9lVwCHBHkqkfzqMlZc0jPDh2RUkq4r97Uh6Hry
-	bkT7G9R/Sx/AceKnkVKzXGQVqDYSzmpn4tVKuhl3JzrCrSP0Ar03ljwrYrQCPZeV
-	xIDsucmeigO5sbEFiX7dm4z/3Yk3lmgc5//ZxJYcRhQe7vn47rl8sz7y5DtgyaQF
-	pfID5+WfqrlG+FhaaTmIEZxmJxBO4GSJFd9/PMaDg45fOJqJ5CbnUugtO5jzUKJm
-	T/f1et17VY7/NQZ1AYciPCvMYDJkd+DmuX/t5CyENXMCnzlabqweu9AqHCV7FqAx
-	+WbiZA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6uf82bw3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 10:19:41 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3811279d51aso4121007a91.1
-        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 03:19:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783246780; x=1783851580; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Xpbe7dAQLjNnNWc71nhAnTIRBBKphawt2IUV/ANXlWw=;
-        b=Pp53hrYK0gv1vMVTS86dM6B3gzRWw5hiUbew1MImcTIN6D+ij7WCuuDwmXn9kdgxSv
-         hWDP2YfumHNNjcr+38Clhx1qZDvT2bg6novyuAMIyLhx+dWN1FvpjExEpKlHmn2Nvk5j
-         F4w/T7pcHOwPOnDbYnZBCQWRjDphVRT9T+yKMplUU4cB39Y4sfZEXsndiy0xRqUX8arD
-         wFdksZrv82UnWYWuuPn+vH67AG+Gbs8agpgHYuZjHuOEM9itlKJm3vjL8kzAkjwEKLAC
-         URG/jDoVR50Kb/wT1s6ci9FlEXyWbUGwHS9zRvBYRpRiCXZ26LbGbaUC+qpkNqWROlfg
-         1v/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783246780; x=1783851580;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Xpbe7dAQLjNnNWc71nhAnTIRBBKphawt2IUV/ANXlWw=;
-        b=dvc7W1lbb80HrdnFY5Ok9EC05iTc93QF2shsgJmE5H3KbuQ+YPU+xxmvAbp3ffo7SE
-         /omW12dZGgghcLhsOXY1MRiN1LmuwXXhEdFa31SR4mQkzbK4WvL7zldhkPT39QDjC3tC
-         FAMQ6edjfEOivFLWmBY0I3809TvyGhhLXTVRhiDFybuV525TiW5ZUeaBw63Y8QIgyirx
-         7I+I3iz9sy4ixIqMHQZuACLVdDfu+2Wlx6XcD6FfE3uNGA0nJP8YM+iq9uVayMZt3d1N
-         9V5XrwqbV/rG1PYIE++x2bKKEH+qdwCZyf66gVcMzs5o5BlRQ1E0anu3rU2OqbMjLUuP
-         eAVg==
-X-Forwarded-Encrypted: i=1; AHgh+RoDoYQemQPGEJ04YMs3+Muy4KTafXvwcBfA41/1fE8Fi/JJG2LQ/ECe5LlsKZvON1QdBSUeEQ1niCS8@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy1e6L7eLVb1RtuJklefKbtdONPfL8JU127sAx+nSXXVU70HU0y
-	7YFipm4Dn6R0XwFllb8F1epP7OH1M3Nc9Bh1OkdERS5emtCCmlLGQMCQN22z+rcVUony680sYgK
-	Qj2KQ4aNx2fdcXvXjjEEEyyxXVuweZrp1Efe6zOeRNzTqHUC7zZ7q3S4oosMlTACb
-X-Gm-Gg: AfdE7cnQkyq2KM3V1POvrEUXE4yRotJ27DSCMJAJSj9GEAiMarQ9uXOlEXDo+7AGAjR
-	Whzmal8sOeSB9EH5isS/QmCafQS/msegoQS0tNQwf5FEVpSWLPWlq7gIMndYTPeRKXj28H+VrHH
-	krEeW1AxVTsMhBTA9Bh51Khneun8kWq/pFT1Zl95FPj+TPHsw/1VYkNK2a3nE3qFqEuw0PngtxT
-	tTbXbS/BMwHgGALRnaAY4i6l1JKh4gctz8beS1tfiuiAEK9bItBHNBnQyvXziHsMh56Rx18ttAV
-	SHSHPRqA/D83Hi5dEcaT4wzEYEQ5XKQo6e75KMOCJE8G3vCLiqrdLwX3L0g+HTJ8bfV0BI9eeWC
-	7GchDaUylcpKn4RQq2EEA8axXwd4qeBvorIzBT9H9xA==
-X-Received: by 2002:a17:90b:3fcf:b0:368:af5c:5925 with SMTP id 98e67ed59e1d1-3829f100a13mr5642967a91.23.1783246780490;
-        Sun, 05 Jul 2026 03:19:40 -0700 (PDT)
-X-Received: by 2002:a17:90b:3fcf:b0:368:af5c:5925 with SMTP id 98e67ed59e1d1-3829f100a13mr5642945a91.23.1783246779990;
-        Sun, 05 Jul 2026 03:19:39 -0700 (PDT)
-Received: from [192.168.1.13] ([106.222.231.34])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3113c88041fsm9099831eec.15.2026.07.05.03.19.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 05 Jul 2026 03:19:39 -0700 (PDT)
-Message-ID: <49566b40-324b-4234-bb07-09e84749e666@oss.qualcomm.com>
-Date: Sun, 5 Jul 2026 15:49:31 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="limaXQ4Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D76F1F000E9;
+	Sun,  5 Jul 2026 10:19:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783246792;
+	bh=vLPkzF0A560kYNyxKCvHMFB2LDMQOoEAEr7vl1kmp7E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=limaXQ4YM89tyf4VdqFqN7YDt50eED5m2dj3QvTNv0R73pU9I7ECeuk6QoTHN0rbl
+	 jvmW4aFiG+QgmUfCbXXXrAeNJe05aDMLCqzMxVaRzWhOfK32g6pSxhWOFZjWN/OnWU
+	 XT79tCDYY1CNHavDNKLO317cl44EJDdATodoCVHaMcRi+C3aC1uOO42aNXjPccL2Bi
+	 yZY0TZKHHlhTZXN2g7DWdoZAhVYB/DhXyWRKMyfMD97TsjD3zMYcnYr0MlNyu23LRh
+	 1W9awYyf+b7nADo22HwNlQYbo7mDn6rG+0qec1EOxNRNt4+o7HQYJuymzN+6bZbQ5B
+	 sf7VKgOG7CmGg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/4] dt-bindings: phy: motorola,cpcap-usb: add
+ chrg_det interrupt
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ivaylo Dimitrov" <ivo.g.dimitrov.75@gmail.com>
+Cc: vkoul@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, neil.armstrong@linaro.org
+In-Reply-To: <20260705101105.1798069-2-ivo.g.dimitrov.75@gmail.com>
+References: <20260705101105.1798069-1-ivo.g.dimitrov.75@gmail.com>
+ <20260705101105.1798069-2-ivo.g.dimitrov.75@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 05 Jul 2026 10:19:51 +0000
+Message-Id: <20260705101952.3D76F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/10] arm64: dts: qcom: kodiak: Enable CDSP & Modem
- cooling
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-References: <20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com>
- <20260703-qmi-tmd-v4-6-3882189c1f83@oss.qualcomm.com>
- <pli4napz5xis7i24oum73wnaecvqz53nxy7ek6mftlxsq7qkyt@nc7jp6oi4fix>
-Content-Language: en-US
-From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-In-Reply-To: <pli4napz5xis7i24oum73wnaecvqz53nxy7ek6mftlxsq7qkyt@nc7jp6oi4fix>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: spFnCBam215E1oftMS75Lvj1dNtIVLJT
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA1MDEwNiBTYWx0ZWRfX94i2TIbhpipZ
- 5QSGc4z8X5qx2D5o6q2Yudecyn895lR7Ojm9rT8LGZ4PrL8Cy8LNZ01EUa4OkSg7JMEj6QdhRQU
- LhrHwZMpNQSLcrHFtZeWNG3S/G5tsQA=
-X-Authority-Analysis: v=2.4 cv=Z4Tc2nRA c=1 sm=1 tr=0 ts=6a4a2fbd cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=JaHktJlP2QtFIg7UHuVw+g==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=dzk2ctQkzv_BcHpUmM0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: spFnCBam215E1oftMS75Lvj1dNtIVLJT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA1MDEwNiBTYWx0ZWRfX5A+6mvMlRZrO
- tZZF1QUf6CrZgpt6bBY8jaTE/6APV1sqgEiiWZoBRr9a2d6OBw3WvFY5xICJAJW+LF2kjnfd6nn
- O0kLqGkd5P5avnQyu5pFOB4oZxEI71WiAB+1Qayh3sUwgVxTiq1iTmJ/fBQY2ydhoD2cHA0RYLl
- JBpCTb5DsARrgPhahDiZtS7Vn8WPXqaquCTCf3cZ/ukVgcUmwHmE10V4SCk6h2Sp4BeFezIGzKF
- M/j7jGJkUH/f2yAmWSmqnT+wFdCET4Hm+pLiJU+e/hp7yInLOuXgTspsR7O4+ByBjTWM/Ojm4QR
- vy/cvEk+Aw55Fxnknu7MrmLxHP74ME7SUy+BHVmei7El2dUMLNvqV7CnY7kDOqfYF5aIaw0uhYx
- wuWCKNaC9UmSt0UCFHjjqBX9EElsMJLtnCKKPfFLiCFkbee/AbhmQ8w8D4l1ybc0VyJdQ9TjSEp
- Js9cLWZgqX0J9UDemoQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-04_03,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 spamscore=0 priorityscore=1501 adultscore=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607050106
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] Adding a new interrupt to the items list without specifying `m=
+inItems` breaks backward compatibility for existing device trees.
+--
 
+commit 7e8931dde2ba82b58d38efd0314e63d294e5301f
+Author: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 
-On 7/3/2026 9:18 PM, Dmitry Baryshkov wrote:
-> On Fri, Jul 03, 2026 at 10:33:09AM +0530, Gaurav Kohli wrote:
->> Unlike the CPU, the CDSP/Modem does not throttle its speed automatically
->> when it reaches high temperatures in kodiak.
->>
->> Set up CDSP cooling by throttling the cdsp when it reaches 100°C and
->> for modem when it reaches to 95°C.
->>
->> Since the remoteproc_mpss node doesn't exist on non modem boards, the
->> cooling-maps that reference it cause DT compilation errors. To fix that
->> remove inherited mdmss cooling-map nodes.
->>
->> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
->> ---
->>   arch/arm64/boot/dts/qcom/kodiak.dtsi               | 134 ++++++++++++++++++++-
->>   .../boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts     |  17 +++
->>   arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts       |  17 +++
->>   .../dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts  |  17 +++
->>   .../boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts |  17 +++
->>   .../boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi    |  17 +++
->>   .../boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi   |  16 +++
->>   7 files changed, 231 insertions(+), 4 deletions(-)
->>
->> @@ -7716,6 +7722,8 @@ map0 {
->>   		};
->>   
->>   		nspss0-thermal {
->> +			polling-delay-passive = <200>;
-> 
-> Why? This applies to all added polling delays.
+dt-bindings: phy: motorola,cpcap-usb: add chrg_det interrupt
 
-Thanks for review, will update the reasoning(passive polling mode) in 
-commit message.
+This commit updates the motorola,cpcap-usb-phy binding by appending a new
+charger detection interrupt for DCP detection and updating the example.
 
-> 
->> +
->>   			thermal-sensors = <&tsens1 3>;
->>   
->>   			trips {
->> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
->> index bb5a42b038f1..400d128132fc 100644
->> --- a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
->> +++ b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
->> @@ -24,6 +24,23 @@
->>   /delete-node/ &adsp_mem;
->>   /delete-node/ &cdsp_mem;
->>   /delete-node/ &ipa_fw_mem;
->> +
->> +&mdmss0_thermal {
->> +	/delete-node/ cooling-maps;
-> 
-> Don't kill what is unnecessary to be killed. Remove only MPSS maps.
+> diff --git a/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy=
+.yaml b/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
+> index dd345cbd0a0b4..7488c46cc6193 100644
+> --- a/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
+> @@ -30,6 +30,7 @@ properties:
+>        - description: se1 interrupt
+>        - description: dm interrupt
+>        - description: dp interrupt
+> +      - description: charger detection interrupt
+> =20
+>    interrupt-names:
+>      description: Interrupt names
+> @@ -43,6 +44,7 @@ properties:
+>        - const: se1
+>        - const: dm
+>        - const: dp
+> +      - const: chrg_det
 
-Thanks for review, will change this to delete only the MPSS map entries.
+[Severity: Critical]
+Does appending these items implicitly change the required number of interru=
+pts
+from 9 to 10?
 
-> 
->> +};
->> +
->> +&mdmss1_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss2_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss3_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->>   /delete-node/ &mpss_mem;
->>   /delete-node/ &remoteproc_mpss;
->>   /delete-node/ &remoteproc_wpss;
->> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
->> index 37a3b51323ce..187bc2899191 100644
->> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
->> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
->> @@ -25,6 +25,23 @@
->>   /delete-node/ &rmtfs_mem;
->>   /delete-node/ &adsp_mem;
->>   /delete-node/ &cdsp_mem;
->> +
->> +&mdmss0_thermal {
->> +	/delete-node/ cooling-maps;
-> 
-> But MPSS is there. Why are you removing it?
+In dt-schema, defining an items list implicitly sets both minItems and maxI=
+tems
+to the length of the list unless explicitly overridden. By appending the 10=
+th
+item to interrupts and interrupt-names without adding a minItems: 9 fallbac=
+k,
+it appears schema validation will strictly mandate exactly 10 interrupts.
 
-thanks for review, Let me recheck this and fix this.
+Is this a regression that will cause existing device trees with 9 interrupts
+to fail validation?=20
 
-> 
->> +};
->> +
->> +&mdmss1_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss2_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss3_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->>   /delete-node/ &video_mem;
->>   /delete-node/ &wlan_ce_mem;
->>   /delete-node/ &wpss_mem;
->> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
->> index a5ad796cb65d..1e190ed18ae5 100644
->> --- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
->> +++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
->> @@ -22,6 +22,23 @@
->>   /delete-node/ &cdsp_mem;
->>   /delete-node/ &ipa_fw_mem;
->>   /delete-node/ &mpss_mem;
->> +
->> +&mdmss0_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss1_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss2_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss3_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->>   /delete-node/ &remoteproc_mpss;
->>   /delete-node/ &remoteproc_wpss;
->>   /delete-node/ &rmtfs_mem;
->> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
->> index f47efca42d48..8e8dd4efd8c0 100644
->> --- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
->> +++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
->> @@ -23,6 +23,23 @@
->>   /delete-node/ &adsp_mem;
->>   /delete-node/ &cdsp_mem;
->>   /delete-node/ &ipa_fw_mem;
->> +
->> +&mdmss0_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss1_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss2_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss3_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->>   /delete-node/ &mpss_mem;
->>   /delete-node/ &remoteproc_mpss;
->>   /delete-node/ &remoteproc_wpss;
->> diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
->> index b721a8546800..1e9d7e7b5fa2 100644
->> --- a/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
->> @@ -26,8 +26,25 @@ &ipa {
->>   	status = "okay";
->>   };
->>   
->> +&mdmss0_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss1_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss2_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss3_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->>   &remoteproc_mpss {
->>   	compatible = "qcom,sc7280-mss-pil";
->> +	/delete-property/ #cooling-cells;
->>   	reg = <0 0x04080000 0 0x10000>, <0 0x04180000 0 0x48>;
->>   	reg-names = "qdsp6", "rmb";
->>   
->> diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi
->> index 3ebc915f0dc2..6642076f62c4 100644
->> --- a/arch/arm64/boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi
->> @@ -7,6 +7,22 @@
->>   
->>   /* WIFI SKUs save 256M by not having modem/mba/rmtfs memory regions defined. */
->>   
->> +&mdmss0_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss1_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss2_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->> +&mdmss3_thermal {
->> +	/delete-node/ cooling-maps;
->> +};
->> +
->>   /delete-node/ &mpss_mem;
->>   /delete-node/ &remoteproc_mpss;
->>   /delete-node/ &rmtfs_mem;
->>
->> -- 
->> 2.34.1
->>
-> 
+If the driver is updated to unconditionally require this new interrupt, cou=
+ld
+this also cause the driver to fail to probe on hardware using older device
+trees?
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705101105.1798=
+069-1-ivo.g.dimitrov.75@gmail.com?part=3D1
