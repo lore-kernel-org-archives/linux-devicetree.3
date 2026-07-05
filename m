@@ -1,48 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701031E98E3;
-	Sun,  5 Jul 2026 09:24:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A521D130E;
+	Sun,  5 Jul 2026 09:30:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783243474; cv=none; b=G5QdBLaACE3E797W9bno+HXSBDAd2R30OQMIh6PJ3OJh+zgE2zymB1pQWIcC7ceDM1GmAZ8gP5v50teDGikDz6WCuxFKlkl6HyHgTELvLzZwea9qDhfVSX8sgMco5243gIDGAIwlV7VOvmZQs2Zr0HPBUUAlC1TIOXVfKN1lFfE=
+	t=1783243855; cv=none; b=sODry+lRdTDN+MDB3YrGC9OKi3RRDerIqmnM6Vd+KpKztlv2Xo+7zm24t/8DIFL/WQ3+eK/Lg4ixG0PPPQ50VNngNCEMW3U+8Ly9CU4Syd2GoxUJlojQyRlvG4CUs2kynuRqqVWops5x4jQ5LcgRnTTBIGc83tE8iRAIL7n/yZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783243474; c=relaxed/simple;
-	bh=cjIEasT95Xxy+NaTWGz2dtvC/Hav7olZad4yJO0pqLA=;
+	s=arc-20240116; t=1783243855; c=relaxed/simple;
+	bh=Sl/1zG7AA9HFCmd5cnUMTSnR1PbWF+DJjNWoFDTnRaQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A3MKVJFjp6SCNjZRvJZ07s1yw0VjfE3LgJSeP1zFLn7qylGt1pWdlXRVs1PZIKDPM6414pnFGbEs52pu9m7HEEQ0+Vsjq4/n1+9oYcMHPdkur9SjarSpV25R1TdU2ahyxWCqkB5bKsOS7y+89vDyjNXTmXKY3ZwVa6EjMnpA3Sg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BCKw8uE8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=u0MjBepQZr/s+K06DU/axwz6pr3OcXVJWrmOmvPvzy4N5GkTci3Oqyuy4Wu0UEQyLuZeoiN1B8WMCdIIzoDbUC+pm4g4Ttjr7tgtPQaViZsKMuLl4hRQbLEOoufV1Awcpx9IrmWc+/hDLnTiFY1JGudJvVSmmNkVNUjflx/h9dk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DqoiyrNv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BCKw8uE8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BDFD1F000E9;
-	Sun,  5 Jul 2026 09:24:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DqoiyrNv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CD4C1F000E9;
+	Sun,  5 Jul 2026 09:30:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783243473;
-	bh=kEQyb/LC51AZrqltCLED85HWv0m0zHup+ymLpFMfzG4=;
+	s=k20260515; t=1783243853;
+	bh=A/+7XMw6TDnawpnqLFqebmCehBIGM1AtWqgcs1tqMEI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BCKw8uE8aeaPxfe9eF1fQSsTL861gYyhSbiXpG5pH4bY2YJJkieCmsPNwUO+z6grC
-	 bIRKnNU/FaubAQkUEjecAVRT11Y/yuTTb2ZQ/axaesBbKuOSMWGwbqr7yVeCz+3GPS
-	 ReIdTYJY1vWWQ/NI3Mi9Suq94/M9F5EpjR+4KKXN16wz85f68flyWEGv/5ccclJLxT
-	 iCy7yZJW2Tb4B9kDknwVidSyEDAf42RK0BB3g70RKMwVGOsBqX+4fpvFEeGFmNIgg1
-	 9rddmR/jjV1f+k/e+f7yNnFayGe+ryD5DbWFlOdClc5vhaXw3Di3iHiXX5oWXYu9U7
-	 rY0LMCb36PrLA==
-Date: Sun, 5 Jul 2026 11:24:29 +0200
+	b=DqoiyrNvid+AYqgwh6SuXsZ2GoUUncFvMvkPNZ/v1nJuZF7Z35wRy83TuINgGriBY
+	 LiSXekLIS8JiF1eLBxhK932RBivIKUPaiCuaNR61P7qoB99C6bZsg6bSG3M8JRYNal
+	 emiX7LlwuMhq5WJfxxypPkCdf5/vlewAk4Xb+vkA0u4JyII+t7zz1EkTnThHshbTrM
+	 w5/iYJ2fjSRsxhjHRLQsJiPERxUFFaBF08MHO7l0sBKdBNHwT/QFVIWIGxv39LsjW/
+	 1oCnEWxdYpe0d6lmQaL23XhjnO098AzFW9WMW4+vtck1YTh/X40h1dSqSfWd2sjJMA
+	 oMT0fj67nPoug==
+Date: Sun, 5 Jul 2026 11:30:49 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mikhail Kalashnikov <iuncuim@gmail.com>
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>, 
-	Yangtao Li <tiny.windzz@gmail.com>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/5] dt-bindings: thermal: sun8i: Add A523 THS0/1
- controllers
-Message-ID: <20260705-agate-partridge-of-biology-1a44ae@quoll>
-References: <20260704171411.1413349-1-iuncuim@gmail.com>
- <20260704171411.1413349-2-iuncuim@gmail.com>
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>, Johan Hovold <johan+linaro@kernel.org>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	Wesley Cheng <wesley.cheng@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] dt-bindings: phy: qcs615-qmp-usb3dp: Add support
+ for Shikra SoC
+Message-ID: <20260705-perfect-spectral-bullfrog-f1bfcc@quoll>
+References: <20260701165051.4122259-1-krishna.kurapati@oss.qualcomm.com>
+ <20260701165051.4122259-3-krishna.kurapati@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,119 +51,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260704171411.1413349-2-iuncuim@gmail.com>
+In-Reply-To: <20260701165051.4122259-3-krishna.kurapati@oss.qualcomm.com>
 
-On Sun, Jul 05, 2026 at 01:14:07AM +0800, Mikhail Kalashnikov wrote:
-> Add dt-bindings description of the thermal sensors in the A523 processor.
-> 
-> The controllers require activation of the additional frequency of the
-> associated gpadc controller, so a mod clock property required.
-> 
-> The calibration data for both thermal controllers (THS0, THS1) is split
-> across two nvmem cells at different offsets, requiring the two cells
-> to be read and merged. To maintain backward compatibility, the name of
-> the old cell remains "calibration" and the new cell is named
-> "calibration-second-part".
-> 
-> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
-> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-> ---
->  .../thermal/allwinner,sun8i-a83t-ths.yaml     | 54 +++++++++++++++++--
->  1 file changed, 51 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml b/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml
-> index 3e61689f6..6f5b2f3b9 100644
-> --- a/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml
-> @@ -24,6 +24,8 @@ properties:
->        - allwinner,sun50i-h5-ths
->        - allwinner,sun50i-h6-ths
->        - allwinner,sun50i-h616-ths
-> +      - allwinner,sun55i-a523-ths0
-> +      - allwinner,sun55i-a523-ths1
+On Wed, Jul 01, 2026 at 10:20:49PM +0530, Krishna Kurapati wrote:
+> +  orientation-switch:
+> +    description:
+> +      Flag the PHY as possible handler of USB Type-C orientation switching
+> +    type: boolean
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Output endpoint of the PHY
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Incoming endpoint from the USB controller
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -78,6 +98,38 @@ required:
 >  
->    clocks:
->      minItems: 1
-> @@ -47,11 +49,16 @@ properties:
->      maxItems: 1
+>  additionalProperties: false
 >  
->    nvmem-cells:
-> -    maxItems: 1
-> -    description: Calibration data for thermal sensors
-> +    minItems: 1
-> +    items:
-> +      - description: Calibration data for thermal sensors
-> +      - description: Additional cell in case of separate calibration data
->  
->    nvmem-cell-names:
-> -    const: calibration
-> +    minItems: 1
-> +    items:
-> +      - const: calibration
-> +      - const: calibration-second-part
->  
->    allwinner,sram:
->      maxItems: 1
-> @@ -107,6 +114,7 @@ allOf:
->              enum:
->                - allwinner,sun8i-h3-ths
->                - allwinner,sun20i-d1-ths
-> +              - allwinner,sun55i-a523-ths0
->  
->      then:
->        properties:
-> @@ -132,6 +140,29 @@ allOf:
->          - clock-names
->          - resets
->  
+> +allOf:
 > +  - if:
 > +      properties:
 > +        compatible:
 > +          contains:
 > +            enum:
-> +              - allwinner,sun55i-a523-ths0
-> +              - allwinner,sun55i-a523-ths1
+> +              - qcom,shikra-qmp-usb3-dp-phy
 > +    then:
 > +      properties:
-> +        clocks:
-> +          minItems: 2
+> +        resets:
+> +          maxItems: 3
 
-Missing clock-names
+Wrong constraint, you already have maxItems set. You wanted minItems.
 
-Look at other variants here, how they did it.
+> +        reset-names:
 
-> +        nvmem-cells:
-> +          minItems: 2
-> +        nvmem-cell-names:
-> +          minItems: 2
-> +    else:
-> +      properties:
-> +        nvmem-cells:
-> +          maxItems: 1
-> +        nvmem-cell-names:
-
-maxItems instead
+minItems
 
 > +          items:
-> +            - const: calibration
+> +            - const: phy_phy
+> +            - const: dp_phy
+> +            - const: phy
 > +
->  required:
->    - compatible
->    - reg
-> @@ -176,4 +207,21 @@ examples:
->          #thermal-sensor-cells = <1>;
->      };
->  
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/sun55i-a523-ccu.h>
-> +    #include <dt-bindings/reset/sun55i-a523-ccu.h>
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,qcs615-qmp-usb3-dp-phy
+> +    then:
+> +      properties:
+> +        resets:
+> +          maxItems: 2
+> +        reset-names:
+
+maxItems.
+
+> +          items:
+> +            - const: phy_phy
+> +            - const: dp_phy
 > +
-> +    thermal-sensor@2009400 {
-
-You already have three examples, it is enough. Drop. Actually two would be
-enough already...
-
-Best regards,
-Krzysztof
-
+>  examples:
+>    - |
+>      #include <dt-bindings/clock/qcom,qcs615-gcc.h>
+> -- 
+> 2.34.1
+> 
