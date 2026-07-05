@@ -1,49 +1,46 @@
-Received: from mail.mdapi.ch (mail.mdapi.ch [31.3.128.54])
+Received: from h8.fbrelay.privateemail.com (h8.fbrelay.privateemail.com [162.0.218.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844442848A1;
-	Sun,  5 Jul 2026 18:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.3.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0D3288BA;
+	Sun,  5 Jul 2026 19:06:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.0.218.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783277742; cv=none; b=heFnfjp+RYeh12naRBaxqJc8KwSL5nYOlU9GaBXFjfMQrhqG6D4wjtMyBYB8ImNiLCkkz46eC2yguyC0sJ1bjai83s6X5T1FOkA9ag0N6oeVKu4Wek89Pc9YHsfNcciv98OJY4FpfcSoN45Vwa7ZJ0PejcndR2nzA7igjJQikGU=
+	t=1783278414; cv=none; b=Od5wvVbyp/eEvE4yQ8MY4znFc4UH4X12vT+sDvymg79ky1A3uS9DS9zVrcJ+kSw1cNltrzoZETcUAcGiI1uyywhwLUPAE8KnanHzKwez/ZOwPspamCtZMuDMXqHAt3rj/Q277PjJPyVzMWst9oxk8/dhMuHoU4hYgvpD656gZqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783277742; c=relaxed/simple;
-	bh=hIRVAbhVg74ibPgDqMroiyMfd0QBQnj3/npAxSfKpyU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lsxN12tYyDrT3+nZbujBgWMRKl/UI6AkeuQGcHazuFzzVnzgGTGLDfKp92wMxOmWPBfeNVFFNstEhKqEG1oMQG66GQpb0AEuyxwuEjPfKERAWD6ym8ie49HGvdPkQxyS9jn/sWK7H2qIL7LJC8vMzxM6SafdUq8/bbp2dt8naPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch; spf=pass smtp.mailfrom=tillo.ch; dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b=DZ53J28f; arc=none smtp.client-ip=31.3.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tillo.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b="DZ53J28f"
-From: Martino Dell'Ambrogio <tillo@tillo.ch>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tillo.ch; s=mail202603;
-	t=1783277738;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hIRVAbhVg74ibPgDqMroiyMfd0QBQnj3/npAxSfKpyU=;
-	b=DZ53J28fOH+t2GJWaDWNiWzmumVZO1A89FRjDM36zr7fT2zgsqfBfcZFb4paIoBLW6Hvps
-	Iw3w10VgxAQ2IKFOYW0zB+OdMONm78C+xbMUxuKkIM6IHX1DVeYBzZwIVnVSSBA04t/z4O
-	oM66GuOtGJ89gjUSYEP+bRQExw9mr4NWYHBylcR1s/qJA+TQ4WsSkoEeRYJLyzSwnOfRsc
-	poj/JdFTb53ZVIVHxZeYH+8QgCUGXqGnzBUcizgcB77QQjn7lZ7efa3YlC5dQBFSAi1a3/
-	2dcWZAtaQcV6NR2TcbRLkHBH537VlbuKrD7Krk5JrDvDP+zY1qKyuItQ3drUTA==
-To: matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com
-Cc: kees@kernel.org,
-	tony.luck@intel.com,
-	gpiccoli@igalia.com,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
+	s=arc-20240116; t=1783278414; c=relaxed/simple;
+	bh=lVuLe5DKccN3BSNZnJ5IgF8cRkXFuHfGfiCHhThWpdE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cizv50EIJJ+Vq3KMoCiRLNLUXvfE6s0DrrJ3bF7tVfH4xrywdFNtUDNI/MiFPhuhOySc94g//bGQWm2EdfHymLbkDYXpwiYfh+n6JOX4OX1nGdZk9f93onuEr7Ub/31HN1iY9ckZCRhr7/vz+0ZM9EO9E/iLyjlmWNZmDcQULtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=162.0.218.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from MTA-11-3.privateemail.com (mta-11.privateemail.com [198.54.118.200])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by h7.fbrelay.privateemail.com (Postfix) with ESMTPSA id 4gtcRZ6CBsz2xC6;
+	Sun,  5 Jul 2026 15:06:50 -0400 (EDT)
+Received: from mail.privateemail.com (K8S-PROD-WORKER-13 [87.215.145.39])
+	by mta-11.privateemail.com (Postfix) with ESMTPA id 4gtcR73L4Lz3hhT9;
+	Sun,  5 Jul 2026 15:06:27 -0400 (EDT)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	David Heidelberg <david@ixit.cz>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Martino Dell'Ambrogio <tillo@tillo.ch>
-Subject: Re: [PATCH v2] arm64: dts: mediatek: mt7986a-bananapi-bpi-r3: add ramoops region
-Date: Sun,  5 Jul 2026 20:55:32 +0200
-Message-ID: <20260705185532.139292-1-tillo@tillo.ch>
-In-Reply-To: <20260528123655.2650868-1-tillo@tillo.ch>
-References: <20260528123655.2650868-1-tillo@tillo.ch>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2 0/2] nfc: s3fwrn5: support the S3NRN4V variant
+Date: Sun,  5 Jul 2026 21:06:18 +0200
+Message-ID: <20260705190621.128257-1-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,10 +49,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Gentle ping - is there anything I should improve on this one?
+This adds support for the Samsung S3NRN4V, an S3FWRN5-family NFC
+controller found e.g. on the Fairphone 6 (SM7635), to the s3fwrn5
+driver.
 
-The matching BPI-R4 (mt7988a) patch is at:
-https://lore.kernel.org/all/20260528123645.2650085-1-tillo@tillo.ch/
+The S3NRN4V differs from the already-supported parts in three ways: it
+ships with working firmware behind a bootloader protocol the driver
+does not implement (so firmware download is skipped), it loads its RF
+registers through a different proprietary command (DUAL_OPTION), and it
+gates its reference clock through a CLK_REQ line that the driver must
+service for the chip to be able to generate the 13.56 MHz poll carrier.
 
-Thanks!
-Martino
+Patch 1 adds the compatible and the clk-req-gpios property to the
+binding; patch 2 implements the variant in the driver.
+
+Tested on a Fairphone 6 running a milos-mainline kernel: reader mode polls
+and reads ISO 14443-4 tags reliably, both from a fresh boot and across
+driver reloads.
+
+Changes in v2:
+ - Drop the -i2c bus suffix from the new compatible: it is now plain
+   samsung,s3nrn4v (Requested by: Conor Dooley).
+ - Close a race in the probe-time CLK_REQ seeding by reading the GPIO
+   level under clk_lock, so a stale level can never overwrite a fresher
+   state applied by the irq thread (found by the Sashiko AI review of
+   v1).
+ - Binding completeness: document the PVDD supply (required for the
+   S3NRN4V), add an S3NRN4V example exercising the new properties, make
+   clk-req-gpios depend on clocks, and describe the CLK_REQ pin in
+   hardware terms.
+ - Rework the binding commit message: justify the GPIO modelling in
+   hardware terms and explain why no fallback compatible applies.
+ - Add an s3nrn4v i2c_device_id entry carrying the variant so both
+   match paths agree, and describe the of_match_ptr() removal in the
+   driver commit message.
+ - Reject malformed rfreg blobs (word alignment, single-byte section
+   index bound) up front instead of failing at STOP_UPDATE.
+ - Handle gpiod_get_value_cansleep() failure in the CLK_REQ sync
+   instead of treating an error as "clock off".
+v1: https://lore.kernel.org/20260703202601.78563-1-jorijnvdgraaf@catcrafts.net
+
+Jorijn van der Graaf (2):
+  dt-bindings: net: nfc: samsung,s3fwrn5: add S3NRN4V and clk-req-gpios
+  nfc: s3fwrn5: support the S3NRN4V variant
+
+ .../bindings/net/nfc/samsung,s3fwrn5.yaml     |  65 ++++++++-
+ drivers/nfc/s3fwrn5/core.c                    |  40 ++++-
+ drivers/nfc/s3fwrn5/i2c.c                     | 138 ++++++++++++++++--
+ drivers/nfc/s3fwrn5/nci.c                     | 119 ++++++++++++++-
+ drivers/nfc/s3fwrn5/nci.h                     |  32 +++-
+ drivers/nfc/s3fwrn5/s3fwrn5.h                 |  14 +-
+ drivers/nfc/s3fwrn5/uart.c                    |   2 +-
+ 7 files changed, 394 insertions(+), 16 deletions(-)
+
+
+base-commit: 805185b7c7a1069e407b6f7b3bc98e44d415f484
+-- 
+2.55.0
+
