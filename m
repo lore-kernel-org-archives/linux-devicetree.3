@@ -1,134 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C19862E65D
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 10:46:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24FE25B0BC
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 10:58:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783248380; cv=none; b=UutXtui3QsEXVdjnLQo5KbNbbYODZ3RY4IRCELotf4orG7G6J5DEKHjReMiNQz07e+P3DDnDxIktFJyihRysp/YoPRiP1CApCjai+xyWJ4U+ukRRC7wEr42ha4w/4mucTc5SQUOUWttxjlZzVIAkXiusXAu4lcCFsy0sggcZesM=
+	t=1783249103; cv=none; b=YH1nh81jgGq1GlD4HyTrdEE+Kou54zpcHycp8uOO1AAlYTOJt0V70FaKEh4SvoksgGQ5PKsw1CSOBKpWrHGuC6vNwmp4e+ZXYoyTMSMSyVWhjetDj+Ib/MDsbKbaXAfM8Ne5h3cwQ8CnKkYX8PaH11pdKaJzC4Ngq/HEM3JImDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783248380; c=relaxed/simple;
-	bh=h/QQYQRd6YEM4Yo945Sf0ZEVHruemxlUjTGkZE+lJBQ=;
+	s=arc-20240116; t=1783249103; c=relaxed/simple;
+	bh=xdK2SFghiV6cycxmwMWDJBdA9eIMFKelh9AtkZGke3w=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WLpp7WGWixpCtywvQAhcwIpC1XHt7Ri4cR2qW6O8JtNBe9QcjBTTlHB9r/+/hqh6/BPlrwJApRCxgkYYNRvdjb4S72hK8GC0lVGWuUr/tZN3ujfXBIFZ3QBICxgmU07gWtDbK1sdrLNdfz3rpL5p9z0HXSuMeITC4t/Y83Oflj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oqQwfRT4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=laTQeIxKyiIL1b94j5lUfYs3vnbIlaKyX6IysyD81wik0GFfvbpee3sfsRtr1kO1zqJrb11QgiiH31W0UaEL3owtdeayqO4ADYzXGqMkQr6SzWzjGElc/vR1Aw7zh3y3/K9EEjuFQJHYrhPE7opEceRMglt6YNP6P42ujgtXqtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OW8eVUZi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oqQwfRT4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C8241F000E9;
-	Sun,  5 Jul 2026 10:46:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OW8eVUZi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D9911F000E9;
+	Sun,  5 Jul 2026 10:58:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783248379;
-	bh=o+x4Lw3GSCrutiUWGXv4a8OsGzKvjc9qQ1hjFgbEnKo=;
+	s=k20260515; t=1783249101;
+	bh=mvuaQt2XM/K6D1wxv42bK0JXwewGZ1CKS94DJTQo8YQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oqQwfRT4FsWGxi+VUdMLLd7a55AJkddVCLoy/wKQDTpqLTR/c5Aq6kuLoGe+s20kt
-	 IvmR5iKXNbi7fCVSrSW4m30b+XVr9AG6ncNJ9EcjThkFtsol8P8ZKQUOJ+SWnkTJOW
-	 fo/vr7ZdNCJT0S1h5UeEFcTsAMtCZgJnmUXfSok+6UMZg5kr6+bfV+qo1GXRC0opJd
-	 PHvlYPqOmDag2wC+AGx4WqLnkfSEn3v4bNHbZwkPWFf7IuMEdef0G2StwinJ3xrv09
-	 rwUNaMPG5ptxIrES1uF1xBdWxIJ/b+Va2oRVB8oYvmCkCc3KwuCwBDIw49iTLPr5Yu
-	 xSnAX5rODZlLA==
+	b=OW8eVUZihgJLLixpo2zef2DW7ymABzaH/yH7mNH6ruwWA/L/2bGqOk8OrZVvkwk+A
+	 rQOIH1nOMzzAPvL5iSyTvQXKc1fBMrLiIr+ok2C+IbBsOkEwPop4Opn6X8HuD+t3PP
+	 LfZApZCR/QOmFzu8cD2vsXN56RHEyKufZ/k0Hp70X9RmAGUk7SUynohbTOlpzgApfw
+	 nUiYItJtYLbM/79Q588rGNyu5r18TYLwtbzN9W/OKRQhuPPvg3eeMpNeQf/BUTpz3F
+	 5ym2D86p+aZ4yX4fy6svBInDj2xUvDpTTFmNwXjT56IaCm8c7PArYf6a5eBaFk+xmI
+	 UKN32LZNVcFew==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm7125-samsung: add initial
- device tree
+Subject: Re: [PATCH net-next v6 4/4] net: dsa: initial support for MT7628
+ embedded switch
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Erikas Bitovtas" <xerikasxx@gmail.com>
+To: "Joris Vaisvila" <joey@tinyisr.com>
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260705-sm7125-samsung-v2-3-d3b17005ecb3@gmail.com>
-References: <20260705-sm7125-samsung-v2-0-d3b17005ecb3@gmail.com>
- <20260705-sm7125-samsung-v2-3-d3b17005ecb3@gmail.com>
+In-Reply-To: <20260704105659.140970-5-joey@tinyisr.com>
+References: <20260704105659.140970-1-joey@tinyisr.com>
+ <20260704105659.140970-5-joey@tinyisr.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 05 Jul 2026 10:46:18 +0000
-Message-Id: <20260705104619.0C8241F000E9@smtp.kernel.org>
+Date: Sun, 05 Jul 2026 10:58:20 +0000
+Message-Id: <20260705105821.1D9911F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Low] Missing explicit `#include <dt-bindings/input/linux-event-codes.h>`=
- (or `input.h`), relying on fragile transitive inclusion for input macros (=
-`KEY_VOLUMEUP`, `KEY_VOLUMEDOWN`, `EV_SW`, `SW_LID`).
-- [Low] The `rmtfs_mem` node is defined without a unit-address but receives=
- a `reg` property in board-specific files, causing a `unit_address_vs_reg` =
-DTC warning.
+- [High] MDIO bus is allocated and registered using devm_* in the setup cal=
+lback, leading to resource leaks and name collisions.
+- [High] The switch hardware is not explicitly isolated immediately after r=
+eset, creating a persistent window where traffic can leak across all physic=
+al ports.
+- [Low] NET_DSA_MT7628 fails to select REGMAP_MMIO and lacks architectural/=
+IOMEM dependencies, leading to build and link failures on randconfig.
 --
 
-commit 50b01ca3bfe2c4df6217b51c5cea041f5fa4dfb9
-Author: Erikas Bitovtas <xerikasxx@gmail.com>
+commit 1fc6f79da05a91b1b381be13133c0c6902366d8f
+Author: Joris Vaisvila <joey@tinyisr.com>
 
-arm64: dts: qcom: sm7125-samsung: add initial device tree
+net: dsa: initial support for MT7628 embedded switch
 
-This patch adds the initial device tree support for the Samsung Galaxy A52
-and A72 on the Qualcomm SM7125 platform.
+Add support for the MT7628 embedded switch. The switch has 5 built-in
+100Mbps user ports and one 1Gbps CPU port.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi b/arch/a=
-rm64/boot/dts/qcom/sm7125-samsung-common.dtsi
+> diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
+> index 4ab567c5bbafc..daa1d3d4ba609 100644
+> --- a/drivers/net/dsa/Kconfig
+> +++ b/drivers/net/dsa/Kconfig
+> @@ -63,6 +63,14 @@ config NET_DSA_MT7530_MMIO
+>  	  are directly mapped into the SoCs register space rather than being
+>  	  accessible via MDIO.
+> =20
+> +config NET_DSA_MT7628
+> +	tristate "MediaTek MT7628 Embedded Ethernet switch support"
+> +	select NET_DSA_TAG_MT7628
+> +	select MEDIATEK_FE_SOC_PHY
+> +	help
+
+[Severity: Low]
+Can this lead to a build or link failure on randconfig? It looks like this
+is missing a select REGMAP_MMIO and depends on HAS_IOMEM, which might cause
+devm_regmap_init_mmio() to be unresolved when CONFIG_REGMAP_MMIO is not set.
+
+> diff --git a/drivers/net/dsa/mt7628.c b/drivers/net/dsa/mt7628.c
 > new file mode 100644
-> index 0000000000000..512a151fbff93
+> index 0000000000000..eccdb05fce9b7
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi
-> @@ -0,0 +1,536 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * SM7125 Samsung common device tree source
-> + *
-> + * Copyright (c) 2026, The Linux Foundation. All rights reserved.
-> + */
+> +++ b/drivers/net/dsa/mt7628.c
+> @@ -0,0 +1,649 @@
+> [ ... ]
+> +static int mt7628_setup_internal_mdio(struct dsa_switch *ds)
+> +{
+> +	struct mt7628_esw *esw =3D ds->priv;
+> +	struct device *dev =3D ds->dev;
+> +	struct mii_bus *bus;
 > +
-> +#include <dt-bindings/arm/qcom,ids.h>
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-> +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-> +#include "sm7125.dtsi"
-> +#include "pm6150.dtsi"
-> +#include "pm6150l.dtsi"
-
-[Severity: Low]
-Does this file need to explicitly include <dt-bindings/input/linux-event-co=
-des.h>?
-
-The gpio-keys and pm6150_resin nodes use input event macros like KEY_VOLUME=
-UP,
-SW_LID, and EV_SW further down in the file. Relying on transitive includes
-can cause build failures if the included files are refactored in the future.
-
-[ ... ]
-> +		pstore_mem: ramoops@b4600000 {
-> +			compatible =3D "ramoops";
-> +			reg =3D <0x0 0xb4600000 0x0 0x100000>;
-> +			record-size =3D <0x40000>;
-> +			console-size =3D <0x40000>;
-> +			ftrace-size =3D <0x40000>;
-> +			pmsg-size =3D <0x40000>;
-> +		};
+> +	bus =3D devm_mdiobus_alloc(dev);
+> +	if (!bus)
+> +		return -ENOMEM;
 > +
-> +		rmtfs_mem: memory {
-> +			compatible =3D "qcom,rmtfs-mem";
-> +			qcom,use-guard-pages;
-> +			no-map;
+> +	bus->name =3D "MT7628 internal MDIO bus";
+> +	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-mii", dev_name(dev));
+> +	bus->priv =3D esw;
+> +	bus->read =3D mt7628_mii_read;
+> +	bus->write =3D mt7628_mii_write;
+> +	bus->parent =3D dev;
 > +
-> +			qcom,client-id =3D <1>;
-> +			qcom,vmid =3D <QCOM_SCM_VMID_MSS_MSA>;
-> +		};
-> +	};
+> +	ds->user_mii_bus =3D bus;
+> +	bus->phy_mask =3D ~ds->phys_mii_mask;
+> +
+> +	return devm_mdiobus_register(dev, bus);
+> +}
 
-[Severity: Low]
-Does defining the base node without a unit-address here cause a warning
-when board-specific files append the reg property?
+[Severity: High]
+Does this cause a resource leak and sysfs name collision if the switch setup
+callback runs multiple times?
 
-For example, in sm7125-samsung-a52q.dts:
+If the DSA master device unbinds and rebinds, dsa_tree_teardown() and
+dsa_tree_setup() can be triggered again. Because devm_mdiobus_alloc() and
+devm_mdiobus_register() tie the resource to the platform device's lifetime
+rather than the DSA tree setup/teardown cycle, the first registration will
+leak, and the second might fail with -EEXIST.
 
-&rmtfs_mem {
-	reg =3D <0x0 0xf4f00000 0x0 0x202000>;
-};
+> [ ... ]
+> +static void mt7628_switch_init(struct dsa_switch *ds)
+> +{
+> +	struct mt7628_esw *esw =3D ds->priv;
+> +
+> +	regmap_write(esw->regmap, MT7628_ESW_REG_FCT0,
+> +		     FIELD_PREP(MT7628_ESW_FCT0_DROP_SET_TH, 0x50) |
+> +		     FIELD_PREP(MT7628_ESW_FCT0_DROP_RLS_TH, 0x78) |
+> +		     FIELD_PREP(MT7628_ESW_FCT0_FC_SET_TH, 0xa0) |
+> +		     FIELD_PREP(MT7628_ESW_FCT0_FC_RLS_TH, 0xc8));
 
-Injecting a reg property into a node named "memory" (without an @address
-suffix) usually triggers a unit_address_vs_reg dtc warning during compilati=
-on.
-Should the base node be given a unit-address placeholder to avoid this?
+[Severity: High]
+Can traffic leak across isolated ports (like WAN and LAN) during boot?
+
+It looks like mt7628_switch_init() resets the switch but fails to explicitly
+set the MT7628_ESW_POC0_PORT_DISABLE bits for the user ports. Since the
+DSA core relies on port_disable during ndo_close and doesn't automatically
+disable ports upon initialization, does the hardware default to acting as
+an unmanaged switch, bridging all networks until the interfaces are brought
+up administratively?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-sm7125-sam=
-sung-v2-0-d3b17005ecb3@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260704105659.1409=
+70-1-joey@tinyisr.com?part=3D4
