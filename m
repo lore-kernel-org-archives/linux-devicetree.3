@@ -1,83 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D4D171CD;
-	Sun,  5 Jul 2026 23:30:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44BA370D7B
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 23:38:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783294239; cv=none; b=JYPgznSPH43IKh296/hE6JilaIV/UVUnCGhrw7hSov+DE/r5rsY1bjB5tZpiD33a1YeougvE9o9mTOUJ+6wRPc72MGjGSkI+dKj1RQxtZiRA0oOAGWWSo2+oC8+sjhPWMtycjHoI7rYedyG3BoLX9fF8okeAS2OlyARdlZKz2+Q=
+	t=1783294731; cv=none; b=YgcaprFD1Za7Rs+Lmdt9N0kBW8UJGWSH06+bMrEijlobrsK09vRjEHMz39B2jbA+EJLsFnRHGJ9ykwVZHF2TTIel4RAh7W18lCBnlhgyWOxlQPryPa2OVjVigTJdUrjlZNfS1cEJdqz5etqeA7/u1V5vt/xtVzogNcUsTyrAsK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783294239; c=relaxed/simple;
-	bh=5AcIbcuFtEUyP6sxFFKcgr89AoygcfdorTaXzY09l2M=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PanXgCJZYYYBkFVNex7fVq45KE+53JMJj1L3VdXhNLVeGtti7+tgbQOCajOQHbyNtq2nnyEPvjrOIHITI2UI4okBazvFrGeeKHPyfwl4DkUxAz0qLmzJHL4UJoPOJGIC/lux/sAqPkRwZAePVRSfQR8wM7gFv7X4WXrpz/95Ssc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XUsf7Kpw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783294731; c=relaxed/simple;
+	bh=94ZGNpcgMFcHz7V/t7ZLK6w6YKEaAwrUVIrOqlV0goE=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=urq/D3aEa1Kj3aLdK7W2tgCyMwYxP2tJ8crcmdYH0OgmhL3te0ZKcA6nXNzsKbCh3FC1zrSxtMZ+xdH1kcrfTKGiCrjkHbEZjDdjTSBToDt/LTIgygkh/vCPIWBrnZrMSxRGHu0+jPrzqtuRc+P3Y+MjpX8/VM6yis5sU5xuBt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uCjoqEZh; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XUsf7Kpw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 934771F000E9;
-	Sun,  5 Jul 2026 23:30:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783294238;
-	bh=zZTwoaHjkB6vZT3sgfawcpSUPTBYtrajEoyeIMSHMjc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XUsf7KpwmQxX/I7vwRcYGzaqlI+rg5IZ/e1c1nM5FNJ6qk3T53oKZfjDGQOxBCNNs
-	 G1CSs2EPpj0lKQ6r4C56SSD8JGUWt51p2y0psZ9K3lkJY99Kc/CDZVQmhKsmnfl6Ul
-	 p4gLLS2OXhg8Yopdr8c+vmUkM1d4oz9lvnaGUAPHF9s1TFrT1pNvOgfwhzfcRCv2Mo
-	 rCs4OdhHLPtej644h8itWF6FPC0K5/LUPrIZ82UJGTqlFsLkKnn33YdMUd3yrvEFhb
-	 YS7MVPUeQVIVkRGOxZmIeU9/kDWN7ijjpwCaESXNkOrR/YzU9UYfuWs1UYohjnsWfu
-	 L9n8iJZDzHOOw==
-Date: Mon, 6 Jul 2026 00:30:31 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
- linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, Michael
- Hennerich <Michael.Hennerich@analog.com>, David Lechner
- <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook
- <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, Maxwell
- Doose <m32285159@gmail.com>, Joshua Crofts <joshua.crofts1@gmail.com>
-Subject: Re: [PATCH v6 0/6] New features for the AD5686 IIO driver
-Message-ID: <20260706003031.0556b685@jic23-huawei>
-In-Reply-To: <20260705-ad5686-new-features-v6-0-269594c7aae5@analog.com>
-References: <20260705-ad5686-new-features-v6-0-269594c7aae5@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uCjoqEZh"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 921FEBE;
+	Mon,  6 Jul 2026 01:37:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1783294678;
+	bh=94ZGNpcgMFcHz7V/t7ZLK6w6YKEaAwrUVIrOqlV0goE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=uCjoqEZhusctEsIdiLEgNu7Tjcwo93hV7ipdLqS76J2mo+/ZzONDbKtA6j2U+2lEv
+	 3fPjM79J5kcEOnpCU8jeJv1Ej6QIwO55DQZtmjQsrbXF9pViGu5hrFD24NQiHnKtrZ
+	 J5NpwH4mrnfKhCxDM7ja8qglLsfqbhHJpfBBiGxw=
+Message-ID: <7f42593b8a35e68960f2f6570ea3d948@killaraus.ideasonboard.com>
+From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
+ wsa+renesas@sang-engineering.com, robh@kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject:
+ Re: [PATCH 2/4] drm/bridge: display-connector: Fix I2C adapter resource leak
+Date: Mon, 06 Jul 2026 02:38:43 +0300
+In-Reply-To: <20260705214826.628831F000E9@smtp.kernel.org>
+References:
+ <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705214826.628831F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Sun, 05 Jul 2026 12:38:55 +0100
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+Hello,
 
-> This is the second series of three on updating the AD5686 driver.
-> 
-> Initially, a big patch series was sent:
-> https://lore.kernel.org/r/20260422-ad5313r-iio-support-v1-0-ed7dca001d1b@analog.com
-> 
-> Then, the first patch series added fixes and cleanups:
-> https://lore.kernel.org/linux-iio/20260524-ad5686-fixes-v7-0-b6bf395d08bd@analog.com/
-> 
-> This one is introducing new features:
-> - Consume optional reset and correct power supplies;
-> - LDAC GPIO handling (active-low, held low when unused);
-> - SPI bus sync() implementation for batching multiple transfers;
-> - Triggered buffer support, leveraging LDAC and sync() to flush
->   all channel writes atomically;
-> - Gain control support through the scale property.
-> 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-I took another look through and also checked Sashiko output.
-https://sashiko.dev/#/patchset/20260705-ad5686-new-features-v6-0-269594c7aae5%40analog.com
-The i2c short access thing seems real so would be a nice additional trivial patch.
+This is the friendly mail bot of Laurent Pinchart. You have sent him
+what appears to be an e-mail generated by an LLM. In order to preserve
+his mental health, the e-mail has been automatically ignored.
 
-The other report is a false positive but I can see we have a naming
-convention that is less than clear after the changes in patch 1.
+Thank you,
 
-Jonathan
+Laurent's spam bot
+
+On Sun, 05 Jul 2026 21:48:25 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+>=20
+> Pre-existing issues:
+> - [High] Use-After-Free of devm-managed resources due to DRM bridge lifetim=
+e mismatch
+> - [Medium] Hardware state leak of `ddc_en` GPIO on probe error paths
+> --
+>=20
+> commit 9c76898e592dfddd3f50beaa692cc32ae295e2c7
+> Author: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+>=20
+> drm/bridge: display-connector: Fix I2C adapter resource leak
+>=20
+> If the probe function returns an error after getting the I2C adapter for
+> DDC, the reference to the adapter is never released. Fix it by releasing
+> it in the bridge .destroy() handler.
+>=20
+> > diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm=
+/bridge/display-connector.c
+> > index d1e74dd2e0518..eb3412ec30a07 100644
+> > --- a/drivers/gpu/drm/bridge/display-connector.c
+> > +++ b/drivers/gpu/drm/bridge/display-connector.c
+> > @@ -43,6 +43,13 @@ static int display_connector_attach(struct drm_bridge =
+*bridge,
+> >  	return flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR ? 0 : -EINVAL;
+> >  }
+> > =20
+> > +static void display_connector_destroy(struct drm_bridge *bridge)
+> > +{
+> > +	struct display_connector *conn =3D to_display_connector(bridge);
+> > +
+> > +	i2c_put_adapter(conn->bridge.ddc);
+> > +}
+> > +
+> >  static enum drm_connector_status display_connector_detect(struct drm_bri=
+dge *bridge)
+> >  {
+> >  	struct display_connector *conn =3D to_display_connector(bridge);
+>=20
+> [ ... ]
+>=20
+> > @@ -439,9 +447,6 @@ static void display_connector_remove(struct platform_=
+device *pdev)
+> >  		regulator_disable(conn->supply);
+> > =20
+> >  	drm_bridge_remove(&conn->bridge);
+> > -
+> > -	if (!IS_ERR(conn->bridge.ddc))
+> > -		i2c_put_adapter(conn->bridge.ddc);
+> >  }
+> > =20
+> >  static const struct of_device_id display_connector_match[] =3D {
+>=20
+> [Severity: High]
+> This isn't a bug introduced by this patch, but does the bridge lifetime=20
+> mismatch with devm resources cause a use-after-free?
+>=20
+> In display_connector_probe(), the bridge is allocated with=20
+> devm_drm_bridge_alloc(), tying its lifetime to the DRM bridge kref:
+>=20
+> display_connector_probe() {
+>     ...
+>     conn =3D devm_drm_bridge_alloc(&pdev->dev, struct display_connector, br=
+idge,
+>                                  &display_connector_bridge_funcs);
+>     ...
+> }
+>=20
+> However, devm-managed resources like the HPD GPIO and IRQ are tied to the=20
+> platform device unbind. If the device is unbound via sysfs while the DRM=20
+> core still holds a reference to the bridge, devres will free the GPIO and=20
+> IRQ resources.
+>=20
+> If the DRM core later invokes callbacks like detect or hpd_disable, would i=
+t=20
+> dereference the freed GPIO or attempt to disable the freed IRQ?
+>=20
+> display_connector_detect() {
+>     ...
+>     if (gpiod_get_value_cansleep(conn->hpd_gpio))
+>     ...
+> }
+>=20
+> display_connector_hpd_disable() {
+>     ...
+>     disable_irq(conn->hpd_irq);
+>     ...
+> }
+>=20
+> [Severity: Medium]
+> This is a pre-existing issue, but is there a hardware state leak on the=20
+> probe error path?
+>=20
+> In display_connector_probe(), the DDC enable GPIO is acquired and=20
+> immediately asserted high:
+>=20
+> display_connector_probe() {
+>     ...
+>     if (type =3D=3D DRM_MODE_CONNECTOR_HDMIA) {
+>         ...
+>         conn->ddc_en =3D devm_gpiod_get_optional(&pdev->dev, "ddc-en",
+>                                                GPIOD_OUT_HIGH);
+>=20
+>         if (IS_ERR(conn->ddc_en)) {
+>             ...
+>         }
+>=20
+>         ret =3D display_connector_get_supply(pdev, conn, "hdmi-pwr");
+>         if (ret < 0)
+>             return dev_err_probe(...);
+>     ...
+> }
+>=20
+> If a subsequent step like display_connector_get_supply() or=20
+> regulator_enable() fails, the function returns an error. While devres will =
+
+> free the GPIO descriptor, it doesn't revert the physical pin state.
+>=20
+> Unlike display_connector_remove() which explicitly sets the GPIO to 0, does=
+=20
+> this error path leave the DDC bus permanently enabled?
+>=20
