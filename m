@@ -1,89 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6CB3655C0
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 22:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4717E370D41
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 22:20:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783289729; cv=none; b=la8BDMIiO6UFLaN9pCbz+ulF7fwZZXjoiBirca+ouhx/gU2ccM/WPJ/5h10XqLqynh/rdmuV/tgEhB+vPaDlgHDt25vVpAshfcuuKPTVnuaQBgsBJz7h/XMr1Kp1aYGBoWAAjj55+swk9S/HB2jHtw0gyxK05SH5LIzqtZUUC3Q=
+	t=1783290036; cv=none; b=Zx6oE5n3XqaXvOy/ZVPNiI9YKtSdatl2xAmHT8CHJpZSFfbqQ0m0GkuP3hAdmwCsQJ+WwLM3lqsS5tTv7YHQQAvvEC3II/XPvbjQiiNE0l4AiSFNjpimmeLXSfXDmQw+waCq9v1NIM5TRa+yF7GVCh1KvIVkcekZVWBEywMmByA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783289729; c=relaxed/simple;
-	bh=3S7J3C9AUAVhaQdzzRNumvmD1FlvDPDlEtTiruPs6iY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=s3F1tg0GpTUwWW1NpMde14DNmdlJj9foe2nJSXPa66b4IIVWJlEZ3Dq8YbvhgvSiKzF0+zwSl4d2dmg4W2edxIM7FMtnv4Xq0HF+ZUcpc6T/MAeqEEgVrnaCXlyGHx9AqXY4GkQtu8MBhrO+x6oEIXDo/FdniFOohfpYv5rmA4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C5ImS2oD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783290036; c=relaxed/simple;
+	bh=YTIoM9s1EZH0t7j8ClTFL/oz2+dcipFDszTgT2onH9E=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=MwH9QfZ7/Dk3ITrlGjuxZIZbbe17cqLS72b/vUR/4nLpCuoPksaHY/0bFEs2iDuE9Tat+NLI7kc9cmD8wnBBQn/7I/5/42GJj2gPhtQJScnnPq7p3saokw7GxzF77xDNFtuniNIP9K14sAyu2DPpT040k+tGFr7o7/eL6hTtK4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=N1Wvfg7D; arc=none smtp.client-ip=91.218.175.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C5ImS2oD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81DFB1F000E9;
-	Sun,  5 Jul 2026 22:15:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783289728;
-	bh=11yOC0xBtLrR48kPHbjyx49hKbhUR9JVSCNhFRbbv1M=;
-	h=From:Date:Subject:To:Cc;
-	b=C5ImS2oDsK4ztlCK2n2lRz5+vFc6Vm+tWzW8kDPfGJ5yjM5XKgpmAVI95O33T3TsV
-	 6ead3aHOLsMYqRLCiXh2fXD+j99UYzkTIQraZVgg5dT7+DYlEUI1MrNX+FczN93eQ+
-	 3JPDywXkTs8LIVYT4ML1cW0xNiXT5jyZf1HTnAI8LxgTxmf2L+ByIWiD8kzunm08IP
-	 xK0RhS6uDV7zRqDZdbhNRRWgKrp+tGQuX7+TMOafytzZUOIPRoNjIYeedEfvNiPaJd
-	 LUPVRWB83FjYE4Vca5h8wdB5ym46SE48xslcGa4kbJY9hvtkj5yzXzRbBfO2Rz5q4o
-	 B9qhEshmlenVA==
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 06 Jul 2026 00:15:24 +0200
-Subject: [PATCH] RFC: ARM: dts: ixp4xx: Fix interrupt-map weirdness
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="N1Wvfg7D"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-ixp4xx-dts-gpio-cells-v1-1-98fa3ba0ad2d@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTtJKYjiVQwLbH9hDIGmg6QJ4
- e5WXX6L93ZSRIHSrdgpYhOVZc4oTwW5sZ8HsPhsssY25mLOLCnUKbFflYcgCztMkzK8Lau69bD
- tlXIbIp6Sft9797e+Hy+49Tuj4/gAioL1bXkAAAA=
-X-Change-ID: 20260705-ixp4xx-dts-gpio-cells-ed21349de298
-To: Imre Kaloz <kaloz@openwrt.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.15.2
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+	s=key1; t=1783290019;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XzP4IrwF64OOqXOnzQR9aMpiMXv9vAON16c9GzABhuU=;
+	b=N1Wvfg7Dq10Z/RxZQ+tgS9JhIQqoRQ/28Z90K5duhdeFQNuVR5zMBM40gudTQDrMhxZ7By
+	99luTqRHljddy0yN7kDEVVODul5MmXZ0Uk/umkixPZuR/JQP0GcTx6grrwAFFJ8H+92Qud
+	NHeYbi0IRDMV1X1WiE+MtmFnDrwzcO3pz7B6+aGvZ5yX2hPsrYHk0zISLnGdLAzwZ8p2Gp
+	U/3NBKqeu5uQnzizL+j2E/L1JKsk2V7tqtyepoHi0YC2+tsD9L9UxlXW56LCoC5ojWgnvh
+	mJoSMHesEs9hbaQRUHuS6v6hSc8LxMfaXpQYzyChEttuAJ7VGnujAOLH2OSIyA==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 06 Jul 2026 00:20:13 +0200
+Message-Id: <DJQZJUFLM425.2J87266L7CGT8@cknow-tech.com>
+Subject: Re: [PATCH 2/9] drm/rockchip: vop2: Reset AXI and DCLK to improve
+ robustness
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>, "Diederik de
+ Haas" <diederik@cknow-tech.com>, "Sandy Huang" <hjc@rock-chips.com>,
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, "Andy Yan"
+ <andy.yan@rock-chips.com>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Philipp Zabel" <p.zabel@pengutronix.de>, "Andrzej
+ Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>
+Cc: <kernel@collabora.com>, "Andy Yan" <andyshrk@163.com>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
+ <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
+ <DJQO8Q4J2LDP.1G8I4FVF6J7TK@cknow-tech.com>
+ <c8242f5c-ec74-489e-b378-f225ec3a0135@collabora.com>
+In-Reply-To: <c8242f5c-ec74-489e-b378-f225ec3a0135@collabora.com>
+X-Migadu-Flow: FLOW_OUT
 
-Building the DTBs for IXP4xx results in a few thousand lines
-of this:
+Hi Cristian,
 
-arch/arm/boot/dts/intel/ixp/intel-ixp42x-adi-coyote.dts:68.4-78.31:
-  Warning (interrupt_map): /soc/pci@c0000000:interrupt-map:
-  Missing property '#address-cells' in node /soc/gpio@c8004000,
-  using 0 as fallback
-(...)
+On Sun Jul 5, 2026 at 10:46 PM CEST, Cristian Ciocaltea wrote:
+> On 7/5/26 4:28 PM, Diederik de Haas wrote:
+>> On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
+>>> Assert the AXI reset in the CRTC disable path, and the VP DCLK reset in
+>>> the enable path.
+>>>
+>>> These resets are intended to leave the hardware in a clean state for th=
+e
+>>> next use, helping recover from exceptions such as IOMMU page faults, as
+>>> well as to prevent random display output glitches, such as a blank
+>>> image, observed when switching modes that also change the color format,
+>>> e.g. from RGB to YUV420 and vice versa.
+>>>
+>>> For now this seems to affect only the RK3588, hence the resets are
+>>> optional and will be provided in the device tree for this SoC only.
+>>=20
+>> Why do you think it only effect RK3588?=20
+>
+> My findings are exclusively in the context of validating YUV support for =
+DW HDMI
+> QP, hence targeting RK3588 and RK3576.  Since RK3576 didn't exhibit any
+> anomalies, I concluded the resets are needed just for RK3588.
 
-I don't understand why an *interrupt* map needs address-cells, but
-I suppose I am missing something. I have not seen this before but
-it started appearing.
+Ok, that's indeed a different technology stack.
 
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
- arch/arm/boot/dts/intel/ixp/intel-ixp4xx.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+>> I reported about my RK3568 test here:
+>> https://lore.kernel.org/linux-rockchip/DFRU6ODDM71P.3NQGLRK8IVDUY@cknow-=
+tech.com/
+>> "I then went on to try LibreELEC's builds. The artifacts I (sometimes)
+>> saw, were gone :-D OTOH, I did get several major issues 'in return',
+>> like rk_iommu Page fault resulting in a black screen and the only way to
+>> 'recover' from it, was a reboot."
+>>=20
+>> And I reported some more test results here:
+>> https://forum.libreelec.tv/thread/29953-le13-testing-for-rk3288-rk3328-r=
+k3399-rk3566-rk3568-rk3576-rk3588/?postID=3D204691#post204691
+>>=20
+>> That seems to me a (strong) indication it also affects RK3566/RK3568?
+>
+> If coincidentally this helps improve the reliability of some of the older=
+ SoCs
+> as well, the resets can easily be added to the corresponding DTs and subm=
+itted
+> as a follow-up series.
 
-diff --git a/arch/arm/boot/dts/intel/ixp/intel-ixp4xx.dtsi b/arch/arm/boot/dts/intel/ixp/intel-ixp4xx.dtsi
-index 0adeccabd4fe..b6ef98a88c4e 100644
---- a/arch/arm/boot/dts/intel/ixp/intel-ixp4xx.dtsi
-+++ b/arch/arm/boot/dts/intel/ixp/intel-ixp4xx.dtsi
-@@ -114,6 +114,7 @@ gpio0: gpio@c8004000 {
- 			reg = <0xc8004000 0x1000>;
- 			gpio-controller;
- 			#gpio-cells = <2>;
-+			#address-cells = <0>;
- 			interrupt-controller;
- 			#interrupt-cells = <2>;
- 		};
+Agreed. Thanks :)
 
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260705-ixp4xx-dts-gpio-cells-ed21349de298
-
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
-
+Cheers,
+  Diederik
