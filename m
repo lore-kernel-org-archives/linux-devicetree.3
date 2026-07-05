@@ -1,146 +1,165 @@
-Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0218013A3F7
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 01:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0166BB5B
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 01:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783216642; cv=none; b=qMmOGN/F5rzwhaQWCmvQS8lLweRnzzfi95UEj7UlT7CObxBn0xOQ968cc9hA9ScR+BjFdLapY09EOpd6YSoQNEBrgsmD7wd3v7mwBOXNvoZYHqQ9uLeBsV+YPUb9r7kZjcoMd+U/vYMv3zB1wGvImXX588lKcI0V2gMkjdETwjg=
+	t=1783216779; cv=none; b=hX31erPrVPecTVrPAB6Rsw3WUKvqADXGQMW5rPI1gR5SMr2+Zt+zEaZbwjferYQImeOZsfWS7/ZouHe2Zk6huLVRSApvHhIM2PhaeweMpIjTilsqE+qHetNf0+WHzg50CQ4QB+c1SX/AahWbJPtiMU/yZHZ5hhVPnr0C4MPIoWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783216642; c=relaxed/simple;
-	bh=Uc1UeSgXcLQisE331Fx/w4AxESxEfcZ/fW5sTxYv6NE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NDwOOdG9vj8edR3QS60atsen78hwlJrBYSo8/XWZo2kCKjGi1q+74R//M/Oa0qNhzTvjk9kzcVicbhtQyS3QE7/wu3GiCCg8irFmRqN+n/jV8iBqByMl+BqRnCHPBduPSxytoFi2oZUB8z1ka79ycMKl+SknHmVfmlw31ftNrN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H3oOCAHr; arc=none smtp.client-ip=209.85.160.46
+	s=arc-20240116; t=1783216779; c=relaxed/simple;
+	bh=RyPz/W4S+LCDerhVSe7fYyGIUfWMUnQTAZdvf9wpZ2Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jp/N+AibEPLEwQDxYHN+3Y9Ar2vIoQM7ZVUkwC7tblWUwJF9cyp2TRxgI1Bfokj4TuO6DCAWTeP2xBJS22yF42MlOWqCpuwUTJfTghE6ZpAVR44ouTpajEZqtxuVy/O6a2qvWSiIl7TfkSs1Uq1kUnDdawxcB/If1nR+sXaTZKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vo5bRts2; arc=none smtp.client-ip=209.85.216.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H3oOCAHr"
-Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-44856d185bcso984207fac.3
-        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 18:57:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vo5bRts2"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-381216921aaso1684456a91.1
+        for <devicetree@vger.kernel.org>; Sat, 04 Jul 2026 18:59:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783216640; x=1783821440; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=g8dZZ0ezVRB2v/8tDo+4cmpTy+MFf1s9r33Lw4vpQWw=;
-        b=H3oOCAHrySC2Fm01dzULXMt2eDdGPgfwTLrACNGpiCu2gUByxo9N4spJqLyDY4IKQf
-         TYIoliWnbD1u3myJ4G6vUYBk3hr5P1c7koz2I4FO4Ut/d2qRuOr14vKZM441PQO1Y6wZ
-         iRHnJrvrvNaS766bROy+KU9qYdT5nr7WOeOBL6kLLT0B4vfZ3sdRIelSXLFX2iA8TWNd
-         mBAQB5LMnJZto7XWroghP0ZJ7RYMJHgl7/aiewv7Izdkv11W0xC5HGaFTq03ZyfLP3z/
-         8DM/IdiR5m5TmqBCLs1ZtI9rhYudzdDnzsxodrK91IL9Wxjg4mdDStSDXSgB1jIRkul4
-         X/CA==
+        d=gmail.com; s=20251104; t=1783216777; x=1783821577; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Acu2tx9xjRD3YeEyFpnpJ7uZlmuH+RrGw+/Yhe826DM=;
+        b=Vo5bRts2SGVBrlcAhUpGR04q0n0vkztMySbVz7wiFGaVMuIREWA/g5G09DHLe5nhhO
+         VuuBZvDW5f5iyvNLdE/tr6a+dCCMOarveLz3FbOFuAzAuJDdrhD24NTmMslT7YCcqH7x
+         TPJSoo6JupMT4kZL2R81KN1eL3fyS9Iyypivf7vWaR3FvRGOiWpMbtGdr/8s66YGyQ36
+         vOstFc45R+SWKzetK7QW+WzqFBXVc2c4HvIcvA17dIARvVEqPI3OFGHIs7LQlindsXMa
+         KDkwQ4uSIK6ycWu9euN21fJfSWsIgXwkuFwKjYR45iW2DeJiAsiYcDMCc4F9hlhM2g+W
+         kbyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783216640; x=1783821440;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g8dZZ0ezVRB2v/8tDo+4cmpTy+MFf1s9r33Lw4vpQWw=;
-        b=dVJiQ51KjTml/O+0LM3UbSPBp/cE8PffziXn0LyebaS68sERlld29PM0q5q9is7pwq
-         sP6w8pt0RjLc6Kb6+Nrh4rcYB2SGXBNec3qchuwPB+hjVAX0ZanV/Wu/FTK1ujKHgpQk
-         iXihOcWvs6XpUl5xQ7cU391fMxTojognzE68HTkMNn3yGeZeQTSBkphnHVdXYoKVL60z
-         s0TAWxUsHfPWT8ZaORspsglX7agzDqUFPZJTBuSnpQHrt8O4RH+dLVSh0jBQffJdPSKT
-         uCwry9A562UxSt+42r34ROtswNsNVryaaE4ZwNm4dB15mCkxJeHJafbK3z6h232e8ey7
-         SVjQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/aD1JNFjcEK9TuRWn8PBa9SZnGmC+kD/BagJTukfHVzpEVHOe9AEYpYGJM+wqeX9NHzX/olbGmBojX@vger.kernel.org
-X-Gm-Message-State: AOJu0YyWS+p+tou5zmx3tty7k3SNe8he3Our0bI0CHc1KE9tx6QyhJME
-	lLq0EwA4PkPvVS4LFPVR9BB44IZQvEAbN3Xk9DRah82Y7jBdif3cnoTO
-X-Gm-Gg: AfdE7cnsENF6zg4lzC7O9wNK8+jI/lr0nrHyfgpwgDfATcfnWKDMLGXtfXBJjIuB3MJ
-	tHD8mYn4gMJL2CLbFthtX3bsHrjBeF+4bp7Mc/qXTzqaS2LMIV7pxl+cLFvTgQhsubeaaRsBuOH
-	W+79Kvesc2XbqDWretsN3cWzqKp+V4Jv4nxp7LUpIPtTCRBxe8zG0DuEB6ZsAD1s/LAjESzmebr
-	FYmEOCJHT7Je+FYwYPQQ3agv167GXPEk2u2EChsx56IsXk7xZD/BXL/oFudb9cgZnOQgEuvMwHe
-	HXMnA6JZMTCWEZUo5cfGdnC5IgeiOtrs9kj1WDJD/Kl9hcW+Hm/0NMoAHpWcAaHUKv0yy5IupLH
-	i/Lpxp38SwJzw8L0BNVS787uaCjUv7Dj84YAxVzJeMDUaLGy1BaLDjwYDf0LDq+Zw09t03fdKcq
-	tN9EZCJGiqwW+gWedpZE+ftf8fnJQI0sFH1uP1Lwf1s/tk1DJq0exf
-X-Received: by 2002:a05:6870:8a29:b0:448:5591:15d8 with SMTP id 586e51a60fabf-44d18442248mr2902707fac.36.1783216639884;
-        Sat, 04 Jul 2026 18:57:19 -0700 (PDT)
-Received: from linuxescape (23-88-128-2.fttp.usinternet.com. [23.88.128.2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44cfb1d011asm6467451fac.8.2026.07.04.18.57.18
+        d=1e100.net; s=20251104; t=1783216777; x=1783821577;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Acu2tx9xjRD3YeEyFpnpJ7uZlmuH+RrGw+/Yhe826DM=;
+        b=XgUvvMHTuVGU/P7r8YgRNld740t/RzXwGG856Ff9uy2gTs6IQ7uus6MQhFAT8mUZTD
+         z/uJQ/gVQYr8ArYMrT6E8kfs7cq+JncvpUUA6UXGiL5UaaGeWQY2uFB/qkQ/EUkEPr8f
+         LzWT1M8J0qCpQlMAZUwfGszpU/Asd/cK4pfZ6OxAZxh9wgGG9rZzTIhYovtJd50zX/mJ
+         /E7EeQ2FstA1P8hLEfte11VP+DIf+ut530Mb8oH6L/TjPevZQ4IrfUKkq8ztU9cYOXq0
+         LBCjBUTxxmPeio4wdH86Bmf/L6dLUYNybSVNsumAaVx7m1OhFSlyUwd67RmDi0Naw3Wj
+         zU3g==
+X-Forwarded-Encrypted: i=1; AHgh+Rrpemc5q3D0YYnlw6rzW8Ht+vH6XzcBad1ndmSwujIpN4nvmB3BTYTfz0JXMmQqdtzFwwVA5o5Ex0ox@vger.kernel.org
+X-Gm-Message-State: AOJu0YxGTgK5oLx3F2OB/CHov7OkW7Qmfr63327gE7rdxpboLAWFoVW4
+	xUDfUj46gNmAc5DDBo0AE4LJJIbKyKEKMml0jDnlhiVO7v9eRjfaQRdwBJfrnfdL
+X-Gm-Gg: AfdE7ckoNa4MhnsSB3iMtRvie88/7bHVyYFW2W8d2f3M/tcSU86DRElil7z/6D3WJRl
+	1Ct+p0v6zjn32zA+LNsNL5WS9G77ThIUalcqAyl3LIPkVCqalNCN/0jc1w/AXOKcofzUDUrUUo6
+	sjD6etOC04x2rN0RAtthEgzclpt/HCFuBxAbfVlWlPtvDiASH0VTLY6/4ffsub8ZyWEuXyYCJh3
+	EDr11sJox+T7DyG68ETWbP7EAN4P4VbWN7hnDNNLfHy8aM+a5ikUjtS8uRbK7XjCLTMqK/8IsDj
+	h8CSIEBWN7Mnw+oNbYx/OlgEAUn6YiUyKMmpJ4gu9RbCPMxxxNvRHjYHM/6qui/+fzF7IZN9B6t
+	YFFP3zJPkw+aQa6m+hl03t5OGuFJfllmLSTQKk+HLnnVr+J3UJLBtT7ve+VmkyTV5
+X-Received: by 2002:a17:90b:1f8a:b0:381:41e9:32aa with SMTP id 98e67ed59e1d1-382812808d5mr4797300a91.15.1783216777198;
+        Sat, 04 Jul 2026 18:59:37 -0700 (PDT)
+Received: from localhost ([2001:da8:7001:11::cb])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3809c8c0915sm3074901a91.0.2026.07.04.18.59.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 04 Jul 2026 18:57:19 -0700 (PDT)
-Date: Sat, 4 Jul 2026 20:57:17 -0500
-From: Maxwell Doose <m32285159@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM
- AND DRIVERS), devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND
- FLATTENED DEVICE TREE BINDINGS), linux-kernel@vger.kernel.org (open list)
-Subject: Re: [PATCH v2 2/2] iio: temperature: Add STS30 temperature sensor
- driver
-Message-ID: <20260704205717.137c506e@linuxescape>
-In-Reply-To: <20260705000053.6e8fc3f0@jic23-huawei>
-References: <20260621004626.66629-1-m32285159@gmail.com>
-	<20260621004626.66629-3-m32285159@gmail.com>
-	<20260703010532.4fc0f46b@jic23-huawei>
-	<20260704144503.2347331b@linuxescape>
-	<20260705000053.6e8fc3f0@jic23-huawei>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+        Sat, 04 Jul 2026 18:59:36 -0700 (PDT)
+Date: Sun, 5 Jul 2026 09:59:03 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: sashiko-reviews@lists.linux.dev, Inochi Amaoto <inochiama@gmail.com>
+Cc: linux-phy@lists.infradead.org, vkoul@kernel.org, 
+	neil.armstrong@linaro.org, olteanv@gmail.com, robh@kernel.org, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] phy: spacemit: Add USB3/PCIe comb PHY driver for
+ Spacemit K3
+Message-ID: <akm5-xLZgFPLKeE4@inochi.infowork>
+References: <20260703021024.495433-1-inochiama@gmail.com>
+ <20260703021024.495433-3-inochiama@gmail.com>
+ <20260703021929.15FDE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260703021929.15FDE1F000E9@smtp.kernel.org>
 
-On Sun, 5 Jul 2026 00:00:53 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
-
-> On Sat, 4 Jul 2026 14:45:03 -0500
-> Maxwell Doose <m32285159@gmail.com> wrote:
+On Fri, Jul 03, 2026 at 02:19:28AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Hardware register clobbering due to missing read-modify-write operations in PHY initialization.
+> --
 > 
-> > Hi Jonathan,
-> > 
-> > On Fri, 3 Jul 2026 01:05:32 +0100
-> > Jonathan Cameron <jic23@kernel.org> wrote:
-> >   
-> > > On Sat, 20 Jun 2026 19:46:24 -0500
-> > > Maxwell Doose <m32285159@gmail.com> wrote:
-> > >     
-> > > > Add a driver for the Sensirion STS30 family of temperature sensor
-> > > > drivers over I2C. The STS30 family of sensors includes the STS30, STS31,
-> > > > and STS35, all of which are supported by this driver, since they all
-> > > > share the same commands, etc. and only differ in accuracy and tolerance.
-> > > > 
-> > > > The driver currently supports single-shot non-clock stretched readings,
-> > > > by using a specified delay based on the repeatability/delay specified
-> > > > by the user. The repeatability/delay can be changed at any time through
-> > > > sysfs.
-> > > > 
-> > > > Additionally add Kconfig and Makefile entries for the driver as well as
-> > > > a MAINTAINERS entry.
-> > > > 
-> > > > Signed-off-by: Maxwell Doose <m32285159@gmail.com>      
-> > > 
-> > > Big question first.  Why IIO? These are fairly basic temperature sensors
-> > > which typically means hwmon is more appropriate.  What does it need
-> > > that hwmon doesn't provide?
-> > >     
-> > 
-> > The datasheet says that the STS30 supports continuous reads which means
-> > that we can read it into a triggered buffer (which hwmon doesn't
-> > support) and at some point I'd like to implement that.  
+> commit c71cb5c4ebfcb4fc5aff5c18a7769949e15dae55
+> Author: Inochi Amaoto <inochiama@gmail.com>
 > 
-> Hmm. For a temperature chip that is often more about the monitors running
-> continuously than the ability to gather signals fast.  Temperature changes
-> tend to be fairly slow when it's a physical sensor - gets less obvious when
-> infrared remote sensors are involved.
+> phy: spacemit: Add USB3/PCIe comb PHY driver for Spacemit K3
 > 
-> Even more relevant - there is an existing driver I think.
-> See drivers/hwmon/sht3x.c which supports things under the wildcard sts3x as well.
-> Check if that covers this part.
+> Adds a USB3/PCIe comb PHY driver for Spacemit K3. The comb PHY requires
+> configuring a syscon device for the correct mux configuration and needs
+> calibration before usage.
+> 
+> > diff --git a/drivers/phy/spacemit/phy-k3-common.c b/drivers/phy/spacemit/phy-k3-common.c
+> > new file mode 100644
+> > index 0000000000000..0b289e63db999
+> > --- /dev/null
+> > +++ b/drivers/phy/spacemit/phy-k3-common.c
+> 
+> [ ... ]
+> 
+> > +	/* Power down 100MHz refclk buffer */
+> > +	val = readl(base + PHY_PU_CK_REG);
+> > +	val = u32_replace_bits(val, 0, PHY_PU_REFCLK_100);
+> > +	writel(val, base + PHY_PU_CK_REG);
+> > +
+> > +	/* Program PLL REG1 configure the SSC */
+> > +	val = FIELD_PREP(PHY_PLL_SSC_MODE, PHY_PLL_SSC_MODE_DOWN_SPREAD1) |
+> > +	      FIELD_PREP(PHY_PLL_SSC_DEP_SEL, PHY_PLL_SSC_5000PPM) |
+> > +	      FIELD_PREP(PHY_PLL_FREF_SEL, PHY_PLL_FREF_24M);
+> > +	writel(val, base + PHY_PLL_REG1);
+> 
+> [Severity: High]
+> Does this completely overwrite PHY_PLL_REG1 and zero out unspecified bits?
 > 
 
-I think the last time I checked the sts30 series wasn't listed in the
-dt-bindings but it may have changed since then. Oh well. I'll still go
-check it out. If it's (very very) similar I would probably consider
-dropping this one, otherwise I'll improve this one and resubmit once I
-get the hardware.
+No, All the field are filled, so no data is lost.
 
--- 
-best regards,
-max
+> Unlike the PCIe initialization path which uses a read-modify-write for this
+> register, this direct writel() in k3_usb3phy_init_single() clobbers the
+> entire register. Could this cause important default settings or calibration
+> values to be lost?
+> 
+> [ ... ]
+> 
+> > +	for (i = 0; i < lg->data->lanes; i++) {
+> > +		void __iomem *lane_base = lg->base + lg->data->offsets[i];
+> > +
+> > +		val = readl(lane_base + PCIE_RX_REG1);
+> > +		val = u32_replace_bits(val, 0, 0x3);
+> > +		writel(val, lane_base + PCIE_RX_REG1);
+> > +	}
+> > +
+> > +	val = readl(phy_base + PHY_PLL_REG2);
+> > +	val |= BIT(20);
+> > +	writel(val, phy_base + PHY_PLL_REG2);
+> > +
+> > +	/* The write is needed as clock requires renegotiation */
+> > +	val = FIELD_PREP(PCIE_RX_REFCLK_MODE, PCIE_RX_REFCLK_MODE_DRIVER) |
+> > +	      PCIE_RX_SEL_TRI_CODE |
+> > +	      FIELD_PREP(PCIE_RX_LEGACY, PCIE_RX_LEGACY_DEFAULT);
+> > +	writel(val, phy_base + PCIE_RX_REG1);
+> 
+> [Severity: High]
+> Does this clobber the entire PCIE_RX_REG1 register for lane 0?
+> 
+
+This also serves as the whole clock. If the phy has two lanes, they share some
+data and the data is store at lane 0.
+
+> The preceding loop performs a read-modify-write on PCIE_RX_REG1 for all lanes,
+> but this direct writel() on phy_base (which points to lane 0) invalidates
+> that previous work and zeroes out any bits not explicitly set here.
+> 
+> Should this also use a read-modify-write operation to preserve the register
+> state?
+> 
+
+No, it is not needed, as all the field are filled or it should be zero.
+
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260703021024.495433-1-inochiama@gmail.com?part=2
