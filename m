@@ -1,268 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D3A27CCE0
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 19:36:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32E6197A7D
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 19:40:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783280189; cv=none; b=B+cUxi6J1scNKXU+ev7+BWS5wXAPpjz1oplv3DBkGOejSV8XfHMkf0U/TU9zdzVTB8LWjcbX8zP6pPShfQ/qerG9l4x6UcTp0HicglCAWej0AWc6MNvMm3vdxgYRXM93/YUTEYH+tLY+OVBRLfYjahkt4gb1IEzx7ylrCuuX6aM=
+	t=1783280411; cv=none; b=ENrX5kQlA3QvNRNkA7GT1tIJ2Tg1qavNXrm5ZpKUgRSzTGzuyNz7go6rULlvOlHnD4/5N+fmlnmzVUH0GeEDaaPz2Jy0bzEFpAvfuzmokeshnWpiPnEU1PE/Dhyug5k/buYcpVU41vdb+dj4AKhHa83qJvar1sn3sca6B+ItU8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783280189; c=relaxed/simple;
-	bh=ZRqERP7GozwxMHjOCaJ7lnMy3nRMYinyKhdDGJkAbS4=;
+	s=arc-20240116; t=1783280411; c=relaxed/simple;
+	bh=w9k1i67Op+g2WMzfPso7Rk61Kq2xrr4k9HSu/cRmc4Y=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ugfxZLdAQJWAn/duLYdFY82sI/NZ+mhEO7snfztoq8E/jlytkC+t5KzJ+OEUysEF96AnqH3PY5fPaF6L4P+BMpo7cO8Gd2cS94plwl87Fb1BSiO6DKNq09PDd/j4e1Yx3/s+9LuWEIAJLivMe8D/dde+7lI6O75WAEKobvZTdsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l92HDg+G; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=aHA40MUIbCkmJbASpDjBtiYBYP9MNSfbhr+ZTNUfpzKi5GODf2vkL/69w+ON6L2vnOt3DCjAbJ2YuKo7LReGyI6+vaV5rEc5F11kLNA0coc+faDE24KHO7tqlpX/hbUwE/Q5rwhuU7llbcpV3+Ig2T9R502HJGZySRh4L+EAm6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kVouyh3w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l92HDg+G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31ADB1F000E9;
-	Sun,  5 Jul 2026 19:36:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kVouyh3w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EEF81F000E9;
+	Sun,  5 Jul 2026 19:40:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783280187;
-	bh=77D0XQyj/xfk1JXZh8y4vUqygGw0szn4FU5vclveBUw=;
+	s=k20260515; t=1783280410;
+	bh=ysxc7S/CtDRLf3Ao4V2rrvZQ409keLcMtHMmSdzndyo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l92HDg+GbfU4nJBFrqPeVRHKzzmyf/qwKsKEm6pak/8rExDZh4+yXhj/m8ReIVviw
-	 kNldkRvFJyCwMkdf43Y7ftQ3VGtPcc8qL/pfXcDzvv/att/GHtjZI473bDV50fxsiF
-	 /6SMNRYurHln6LvL3kvRO7TK0EUMi9qHKXRlvpXXqPvJyPKZTQLjeLFDBUAY+HrBY/
-	 XsbwDJyTPHpe6MryvYnoeo4fYVyP5iYmzelDRnV67ZjlfFPgzbi2RvkemRjd7GhhEN
-	 3MitW9tZoyoX5hV1cicYO+GUyZiwzN5JeZBKDCd1l6j8SYZk9Rf8c7CAF0CMUykxDe
-	 CW/hngjiQieUA==
+	b=kVouyh3wAmJYcR7UjYXChE2xuZzK511YjIhfJBAOIwENwgI4XvpwcHEUw88oel+KF
+	 75hON4GkHX4YaADWid5EUpWuGwqEH6AE6l6QqkVAMWANmF5ZukbsEXZmlEuLZVUYWa
+	 c+24zbMbxF27z5yjfQtLVXp6EMG0evMyvr1g7FdsWjJs3GOJXSLkTNhcVFHgXczrAT
+	 OgSLW38be+pZIP8g/saYEx2zawQlJ/Xo59O/Y6wuOhdrxhu/zHJlBuINV1eNJERVSm
+	 6wV49lXXGMV5niktsNhoqxvbI9Ic9Km95GHo7iANqxvWQ3ymwlDXVtfLvYJr2atRce
+	 dFzRPaNzTzK3g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 11/13] drm/msm: Add LPAC submitqueue
+Subject: Re: [PATCH net-next v7 1/5] net: dsa: microchip: Add fallback
+ Micrel compatibles
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anna Maniscalco" <anna.maniscalco2000@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260705-descriptive-name-lpac-upstream-v1-11-01d50c3e0c99@gmail.com>
-References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
- <20260705-descriptive-name-lpac-upstream-v1-11-01d50c3e0c99@gmail.com>
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260704-ks8995-to-ksz8-v7-1-2af0eaa545a8@kernel.org>
+References: <20260704-ks8995-to-ksz8-v7-0-2af0eaa545a8@kernel.org>
+ <20260704-ks8995-to-ksz8-v7-1-2af0eaa545a8@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 05 Jul 2026 19:36:26 +0000
-Message-Id: <20260705193627.31ADB1F000E9@smtp.kernel.org>
+Date: Sun, 05 Jul 2026 19:40:09 +0000
+Message-Id: <20260705194010.6EEF81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Critical] LPAC-specific registers and commands are programmed unconditio=
-nally for all A6XX-family GPUs, breaking hardware initialization on older c=
-hips.
-- [High] Missing error check for LPAC ringbuffer allocation leads to out-of=
--bounds array access and silent failures.
-- [High] Unconditional creation of LPAC submitqueues allows unprivileged us=
-ers to cause unrecoverable GPU hangs on hardware without LPAC support.
-- [High] The GPU hangcheck mechanism ignores the LPAC ring, meaning LPAC-ex=
-clusive hangs will never be recovered.
-- [High] In `msm_iommu_new`, failing to attach the LPAC domain causes resou=
-rce leaks and use-after-free bugs by freeing attached domains.
-- [Medium] Performance counter statistics for LPAC submissions will be corr=
-upted due to mismatched start and end register reads.
-- [Medium] When error interrupts are disabled, LPAC completion interrupts a=
-re inadvertently dropped, causing job timeouts.
+
+Pre-existing issues:
+- [High] SPI ID matching fails unconditionally because `ksz_spi_ids[]` does=
+ not populate `.driver_data`.
 --
 
-commit f42a6839003ad94fdc9d88ca88077e9fcbcda345
-Author: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+commit 3f99242404cf6d700265212085488f0c82dd5a7d
+Author: Linus Walleij <linusw@kernel.org>
 
-drm/msm: Add LPAC submitqueue
+net: dsa: microchip: Add fallback Micrel compatibles
 
-Add UAPI and infostructure to support sending submission to the LPAC
-ring.
+This commit adds legacy Micrel device tree bindings to the KSZ SPI driver so
+users can use the more capable driver. It also makes the KS8995 driver
+mutually exclusive with the KSZ SPI driver to avoid probe races.
 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.c
-> index 9f69aada9b7b7..4417a9d04d7c2 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-[ ... ]
-> @@ -493,7 +498,10 @@ static void a7xx_submit(struct msm_gpu *gpu, struct =
-msm_gem_submit *submit)
-[ ... ]
->  	get_stats_counter(ring, rbbm_perfctr_cp0, rbmemptr_stats(ring, index, c=
-pcycles_start));
-> -	get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, inde=
-x, alwayson_start));
-> +	if (is_lpac)
-> +		get_stats_counter(ring, cp_always_on_counter, rbmemptr_stats(ring, ind=
-ex, alwayson_start));
-> +	else
-> +		get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, ind=
-ex, alwayson_start));
-
-[Severity: Medium]
-Does this cause a mismatch for LPAC submissions? The start counter
-conditionally reads from cp_always_on_counter for LPAC, but the end counter
-unconditionally reads from cp_always_on_context later in the function:
-
-	get_stats_counter(ring, rbbm_perfctr_cp0, rbmemptr_stats(ring, index, cpcy=
-cles_end));
-	get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, index, =
-alwayson_end));
-
-This will cause the duration of LPAC jobs to be incorrectly calculated since
-the start and end values are read from different registers.
-
->  	OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
->  	OUT_RING(ring, CP_SET_THREAD_BOTH);
-[ ... ]
-> @@ -2030,6 +2048,9 @@ static irqreturn_t a6xx_irq(struct msm_gpu *gpu)
->  		a6xx_preempt_trigger(gpu);
->  	}
-> =20
-> +	if (status & A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS_LPAC)
-> +		msm_gpu_retire(gpu);
-> +
-
-[Severity: Medium]
-Are LPAC completion interrupts inadvertently dropped when error interrupts =
-are
-disabled?
-
-Earlier in a6xx_irq():
-	if (priv->disable_err_irq)
-		status &=3D A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS;
-
-In testing or debug modes where disable_err_irq is set, the interrupt status
-mask preserves the main ring's completion bit but drops the newly added LPAC
-completion bit (CP_CACHE_FLUSH_TS_LPAC). This causes LPAC jobs to artificia=
-lly
-time out during these tests. Should the mask be updated to include the LPAC
-bit?
-
->  	if (status & A6XX_RBBM_INT_0_MASK_CP_SW)
-[ ... ]
-> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/=
-msm_submitqueue.c
-> index 1a5a77b280163..042b4f90fb73f 100644
-> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-[ ... ]
-> @@ -211,6 +212,13 @@ int msm_submitqueue_create(struct drm_device *drm, s=
-truct msm_context *ctx,
->  		queue =3D kzalloc_obj(*queue);
->  	}
-> =20
-> +	if (flags & MSM_SUBMITQUEUE_LPAC) {
-> +		ring_nr =3D priv->gpu->nr_rings;
-> +		ring =3D priv->gpu->lpac_rb;
-> +	} else {
-> +		ring =3D priv->gpu->rb[ring_nr];
-> +	}
-> +
+> diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
+> index 4ab567c5bbafc..e704ab702c189 100644
+> --- a/drivers/net/dsa/Kconfig
+> +++ b/drivers/net/dsa/Kconfig
+> @@ -100,6 +100,7 @@ config NET_DSA_RZN1_A5PSW
+>  config NET_DSA_KS8995
+>  	tristate "Micrel KS8995 family 5-ports 10/100 Ethernet switches"
+>  	depends on SPI
+> +	depends on !NET_DSA_MICROCHIP_KSZ_SPI
 
 [Severity: High]
-Can an unprivileged user cause a GPU hang regression on hardware without LP=
-AC
-support?=20
+This is a pre-existing issue, but does making these drivers mutually exclus=
+ive
+break legacy SPI board file instantiation for ks8995 users?
 
-Because lpac_rb is exposed unconditionally here, userspace can request an L=
-PAC
-submitqueue and push commands to it even on hardware without an LPAC proces=
-sor.
-The hardware will ignore the software ringbuffer, causing the jobs to time =
-out
-and the GPU to enter a recovery loop. Should this verify if the hardware
-actually supports LPAC first?
+SPI ID matching in ksz_spi.c fails unconditionally because ksz_spi_ids[]
+omits the .driver_data pointers:
 
->  	if (!queue)
->  		return -ENOMEM;
-[ ... ]
+drivers/net/dsa/microchip/ksz_spi.c:ksz_spi_ids[] =3D {
+	{ "ksz8463" },
+	{ "ksz8765" },
+	// ... missing .driver_data pointers ...
+};
 
-I also noticed a few regressions in the broader LPAC enablement changes out=
-side
-of this specific diff:
+When the device is probed via SPI ID matching (e.g., legacy platform data or
+SPI sysfs) rather than Device Tree, device_get_match_data() falls back to
+checking spi_get_device_id(spi)->driver_data, which evaluates to NULL:
 
-[Severity: Critical]
-Is it safe to unconditionally program LPAC registers for all A6xx-family GP=
-Us?
-
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c:hw_init() {
+drivers/net/dsa/microchip/ksz_spi.c:ksz_spi_probe() {
     ...
-	/* Set the ringbuffer address for lpac */
-	gpu_write64(gpu, REG_A7XX_CP_LPAC_RB_BASE, gpu->lpac_rb->iova);
-    ...
-	ret =3D lpac_cp_init(gpu);
-	if (ret)
-		goto out;
+	chip =3D device_get_match_data(ddev);
+	if (!chip)
+		return -EINVAL;
     ...
 }
 
-Writing to A7xx-only registers and submitting initialization commands to the
-non-existent LPAC ring on older A6xx GPUs appears to cause the hardware to
-timeout during a6xx_idle() and potentially trigger AHB bus errors. This
-introduces a regression in GPU driver initialization on non-LPAC platforms.
+Since the original ks8995 driver correctly handled SPI ID matching, forcing
+ks8995 users to use the KSZ SPI driver will cause their devices to fail
+probing with -EINVAL.
 
-[Severity: High]
-Does this error check inspect the wrong variable?
+>  	select NET_DSA_TAG_NONE
+>  	help
+>  	  This driver supports the Micrel KS8995 family of 10/100 Mbit ethernet
 
-drivers/gpu/drm/msm/msm_gpu.c:msm_gpu_init() {
-    ...
-	gpu->lpac_rb =3D msm_ringbuffer_new(gpu, nr_rings, memptrs, memptrs_iova);
-
-	if (IS_ERR(gpu->rb[i])) {
-		ret =3D PTR_ERR(gpu->rb[i]);
-    ...
-}
-
-This checks gpu->rb[i] instead of gpu->lpac_rb. This accesses memory past t=
-he
-end of the initialized gpu->rb array and ignores lpac_rb allocation failure=
-s.
-If the allocation fails, gpu->lpac_rb remains an error pointer and can caus=
-e a
-panic when accessed later.
-
-[Severity: High]
-Will the GPU hangcheck mechanism fail to detect LPAC-exclusive hangs?
-
-drivers/gpu/drm/msm/msm_gpu.c:hangcheck_handler() {
-    ...
-	struct msm_ringbuffer *ring =3D gpu->funcs->active_ring(gpu);
-    ...
-}
-
-The handler only inspects progress on the main ring returned by
-active_ring(gpu), skipping the concurrent lpac_rb. If a job hangs on the LP=
-AC
-ring while the main ring is idle or progressing normally, the timer will ne=
-ver
-detect the lockup and the GPU will remain stuck.
-
-[Severity: High]
-Could this error path leak the primary domain or cause a use-after-free?
-
-drivers/gpu/drm/msm/msm_iommu.c:msm_iommu_new() {
-    ...
-	if (lpac_dev) {
-		if (!device_iommu_mapped(lpac_dev))
-			return ERR_PTR(-ENODEV);
-
-		lpac_domain =3D iommu_paging_domain_alloc(lpac_dev);
-		if (IS_ERR(lpac_domain))
-			return ERR_CAST(lpac_domain);
-    ...
-		ret =3D iommu_attach_device(lpac_domain, lpac_dev);
-		if (ret) {
-			iommu_domain_free(domain);
-			iommu_domain_free(lpac_domain);
-			kfree(iommu);
-			return ERR_PTR(ret);
-		}
-    ...
-}
-
-If device_iommu_mapped(lpac_dev) is false or domain allocation fails, it
-returns an error without freeing the primary domain, causing a memory leak.=
-=20
-
-Additionally, if iommu_attach_device() fails, it calls iommu_domain_free() =
-on
-the primary domain while it is still actively attached to dev. Freeing an
-attached domain without first calling iommu_detach_device() can lead to
-use-after-free corruption in the IOMMU subsystem.
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-descriptiv=
-e-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com?part=3D11
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260704-ks8995-to-=
+ksz8-v7-0-2af0eaa545a8@kernel.org?part=3D1
