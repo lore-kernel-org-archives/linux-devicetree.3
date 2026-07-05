@@ -1,67 +1,67 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CAC1C84DC
-	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 10:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021F62C0303
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 10:33:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783247618; cv=none; b=ShUQ9B9QGk5eO3T75eBp52qPLeWTLti55R3Si+hrQUPxQGoieq9P6bljW5cOopeCEo1Eh4iJTavf5ULdtv+LUzkvpveR6RXBB8q11bR4NSs41NwHAu4NHrrEUewauuRFupwV8SCWamvNikc9lrW9WktAZVUA+fzK6PgmMvdESec=
+	t=1783247624; cv=none; b=c3nJcQZYNptUzUMGJj6JLzzHD/PysgCAQH7oo9feA42BR0eIG1b7+Ikqnf8DGhNwt+/4wEXBDxMU46A0DIkXFXrzHMvPt8h4SuZvCEC/MucFYRz6WGDC01MZ4hY4P5Inyx9ZylkYFkjhABUSGfw0s2kObmc0gP8gNXh/Q7EoaxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783247618; c=relaxed/simple;
-	bh=IH2rmdFf68e8sbNHOLcOM1yfWLZ8oytcgcEHqnHEMxQ=;
+	s=arc-20240116; t=1783247624; c=relaxed/simple;
+	bh=lAPIbiJiqMqb5Up3h1/qudmb3tYdHGyZZmsTohHUWX8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jdeKOaMSg+CVDPhVakR3eUhhFq4M5AYA743XlHn+A0MXWHOcSHeVchsdXIDXwYGtBqw9KtaAJ1ylC8hSkTCEStyLMDaGwiA9E3VulWeAD2UiiwW1UHdvHlpOGXf6fr7MajPU6PTF62jvcaUKcWtzvgPctaBfalFA/3wczR2Yq2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pv9fKxqR; arc=none smtp.client-ip=209.85.128.176
+	 In-Reply-To:To:Cc; b=dgP9vGUd/3RcqtKQ3KIAqlqV9srhPbbDB03vTCrwFUL/uFFyrZaBfVjQPYU6SeL3ul/IUWEM19xrt6Nr5/2TowFC1X6vGxeic30JGOlX1aemoTu6sHYU6TUos4RMcxGbkutwd9nnh/AmxYbj7wF5PXbXWwCQF90u8fnoqCTql6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AipTD7R3; arc=none smtp.client-ip=209.85.128.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pv9fKxqR"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-80c8c9ae040so20399537b3.2
-        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 03:33:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AipTD7R3"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-80bab6cf5ebso39937487b3.1
+        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 03:33:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783247615; x=1783852415; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783247622; x=1783852422; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=dB/6fGjmkTqxYckhOj0WVrDKQ6UfwK7gmAtGLmYXX4o=;
-        b=Pv9fKxqRb1Kl5fU8y1gnXIgL6uVEe4I+gAxOxw3+nqxKVyjSpVzJxR6GpItRJFbhpZ
-         7nl0nVwQwZvDLJzzXQ+RafVfRiQ9cVNUPvsax4NaBjt6rcAEIXlnkNpoaD32mW2TEDd4
-         ajafBMTW5hSdRAq7Ls2QGSsouG2/Tfs+qiKh8L7iP9H0Q8XyfDZ4vTGzIy0tslvXrHyH
-         bsRTE53LvxTybQiqZFOvVkFqqSiinpt45czwKsrZtmiVeGIXinLB2YttRVTCuYRs6Mkr
-         +D/6jBqVDsdfIUVplD7mX2Broowlwvh/sdVHP9BP4GaWRsDMakCg0EprNTv99Cfz//ha
-         UaxQ==
+        bh=knFj3lxdZDwXb0bBbKTG0atYKQi/dQjB9JSBw4jJN1Q=;
+        b=AipTD7R3QgYhg0bnCRmy9wBmtkOD4eIIBwqDeYeqvCUFnSpD1PzET/t9RU+ZMWgVs7
+         +yqExB+qRO8iLdrvXaw3THKdXQJcQ9JWH3Vc8uS11xav/8jZmvl83YrxVSDzPLWSYa04
+         S2xW4D3UKVgen2J5Hgrt8/oZj7OP0uGcJEi1B14jLj0b9T0QabDiRMHWuChFrHkgfZgK
+         WBeudsZ46NIs6k84h+iBvB9XS2zAd/SH1XDX6YrORX/RAMUdLMTxBxZ3cctx00sCswcf
+         ltXoyyPU63xolyGAzPPJHiCu7gWYfiQl2cxStzzNMICSQXLoqLY9wQjmMKQcqyn+Xd9i
+         spvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783247615; x=1783852415;
+        d=1e100.net; s=20251104; t=1783247622; x=1783852422;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=dB/6fGjmkTqxYckhOj0WVrDKQ6UfwK7gmAtGLmYXX4o=;
-        b=O9F6PBg9gyf5uOq+tSy6lQRLuDwyvmtxROwI6ZIBZhZ00Q0/BfYPs71wqgtQtlU1nH
-         GndZUtznlDZU5Tn3DeJkVpADe/y0oig+45iCQ2YfsCPJM6lsJlEXn5rVIcaxc8iwfGza
-         j2YTsNkx2IKzo734B5mvfXOholBgVqZrkbMS0OZTXz0Uf5Tb9waIN19fspaI0LB60eHG
-         p/W20cn20af1L0wD7b33p7vZpWKGkRXhdyRuEZWsSY5d5dMV7CGOI/nIpJPkCvz0A0Ta
-         KlMHFIJPYpDYQ6qsUfw5poWOvl0Iv8nRCpLPJLgdlkEdBKXny41CTxOlnZe2PB3DM8Rp
-         df6A==
-X-Forwarded-Encrypted: i=1; AHgh+Rqzyp1jeQ5ceAIyI2K1qkE5JdGF9wTL/W4DKfi1LJSTWc34bb1EgUu2vjdiNgrSiaPwrc7BnKEwu11r@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMufGnWMg/rI6kwBMz0WCGDJcufYB3TqrK05nxAC2sHguzXO1c
-	RH2lVtOHS8Ej3L7PKk8IhFWK8Gj68YLC+XKC2hxgSQLa0LKK1W4tx/R/
-X-Gm-Gg: AfdE7ckdqAnOHnre5zQnpz+FAYmllNrr8TiRxB7Wtpo6S5EGz2Jd9+RzKcNz5r8/x+F
-	3Ruk8jTYxOtXouNuFpyQG/r+2W9LZK/WpAB1ZxvnjBAPfq+51P45jgYeO/laWETsPiLJdfuLgSF
-	28AGolqo4qX0zJ3Swuw+FB6gCOkj+zi+8iptAcYOUI1nOMNnLdHAaLedzhROGzmrRbNF+e/SZ1D
-	YpcTKNFje1pCiw4C8tSJXaahu1tLOWKnkKNG8m2WrPlaMrWG8Rl5g8C6X861ORLOyzgNV+EJuqr
-	vM++JykbfMcWCZK9XbgWTXXBYhvtkQM+v/Dh5n6J72JYD5n6VCVtuFWDfMN5S1Ie6S3czoqlQzw
-	gTq1/5g5H32NKVsYMDGupSwtEeTlJcmO9ePCjBm+VgSx77Ffc35gmPE0aNQcF4x8sTCCZRd9ppC
-	ecuKZtIHASIguXpRhqj/L9X8xTJDSO
-X-Received: by 2002:a05:690c:c4e7:b0:80a:9f1a:d48b with SMTP id 00721157ae682-81739bf2ec9mr69908907b3.54.1783247615583;
-        Sun, 05 Jul 2026 03:33:35 -0700 (PDT)
+        bh=knFj3lxdZDwXb0bBbKTG0atYKQi/dQjB9JSBw4jJN1Q=;
+        b=CIXf7+yU3XuI6JF41OgFTs5OQMAzkjHREJ2lJFeDELbX9a+P2XEFBps8oiVYm+PPq/
+         f43oq5fyzKRt5au4lBU11OuRsb6chgLUCANjlCdmTv2b0/9VyI0ewYxFs9nuQaKRz7AD
+         aeGxCDZIIUNlj/31pMtNNPFTcmROldTR12YvBeqZ2fopugXq291kfGzQyt2jgVW99uf4
+         2dNt1HI/yHa31oHCybT2AY7QTfS/50tvjbN/Vz08nmpXTRxGLQ3iwH8Txi8ImtBuq6F7
+         8IHGZ2A1C+OyV2KmqzC2LHCYULMgCbA8U4NJdjCsY6Pk87YfYj4zacQ29byYGlLmSEdQ
+         x6qQ==
+X-Forwarded-Encrypted: i=1; AHgh+Roz29Lyk7SUHHtFOvCD4zA/KeVUIQ6ASODp/pSbGHCHLGLArOFp/vGTBYv1cZLuuN3U8pxWItWjwhwk@vger.kernel.org
+X-Gm-Message-State: AOJu0YxEMQdh3YNoXtdqbCMdn41dLsLVMtj7kn43tWpcUg5/8HfSGE4h
+	LTtTv53OVDCdSattQEJPXCeMME/uXMGZcYY1Rf182q5fUMT6zE7fTKL0
+X-Gm-Gg: AfdE7cl2KlR54Oi7IF20sJu6l2X7bznC9krfGkpYiwo9303koZaN3V48dMaMGaCUMv8
+	aFqWu/LSpvuWAcHvydfU1dKb74yYZ54mbb25UzX/sx6q4uX7KatoBOaR7dCqXP3+Az+G2yjKqEi
+	XPxoq4VzOOLbabVvlx2ib7DNP8RPP8W2lPPAS3O+dW427AZsuK+jXzX4lA8G9++QLDusfGnF/FA
+	di14bv49CE7zFUkvkjmhYmCDTPlwJOCuKptWMQdrsdIEJgKxzkDUBMThmutiBoncojjnQLb7Dl1
+	qdEbfJ79KlJKahSq0OvxSbu4zJRqxd2j6IImfC/KmuJ1o4/XuTXtcgjyVJJu0aaUGaKeXN3E9wn
+	DouOGPN+YwwcR3osojne82y3DIrsUj5F4WQBTWRLbDKwpPYWqffEezKj2PtWZfJhKMzQhjd3Cmm
+	A4P9vXQEfh6yNa/4SaspDkSfwU+KPu
+X-Received: by 2002:a05:690c:998e:b0:80e:dc2:873b with SMTP id 00721157ae682-817424a4286mr66993537b3.16.1783247622061;
+        Sun, 05 Jul 2026 03:33:42 -0700 (PDT)
 Received: from crusty-box.local ([79.133.247.80])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8144ba2665dsm44421007b3.41.2026.07.05.03.33.29
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8144ba2665dsm44421007b3.41.2026.07.05.03.33.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 05 Jul 2026 03:33:34 -0700 (PDT)
+        Sun, 05 Jul 2026 03:33:41 -0700 (PDT)
 From: Erikas Bitovtas <xerikasxx@gmail.com>
-Date: Sun, 05 Jul 2026 13:30:27 +0300
-Subject: [PATCH v2 1/3] dt-bindings: arm: qcom: Document Samsung Galaxy
- A52/A72
+Date: Sun, 05 Jul 2026 13:30:28 +0300
+Subject: [PATCH v2 2/3] firmware: qcom: tzmem: disable SHM bridge for
+ SM7125 platform
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260705-sm7125-samsung-v2-1-d3b17005ecb3@gmail.com>
+Message-Id: <20260705-sm7125-samsung-v2-2-d3b17005ecb3@gmail.com>
 References: <20260705-sm7125-samsung-v2-0-d3b17005ecb3@gmail.com>
 In-Reply-To: <20260705-sm7125-samsung-v2-0-d3b17005ecb3@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -83,30 +83,36 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Stefan Hansson <newbyte@postmarketos.org>, 
  ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>, Erikas Bitovtas <xerikasxx@gmail.com>, 
+ Vitalii Skorkin <nikroksm@mail.ru>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
  Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
 
-Add compatibles for Samsung Galaxy A52 and A72.
+From: Vitalii Skorkin <nikroksm@mail.ru>
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Currently SHM bridge causes RCU stalls when booting. Disable it for
+SM7125 until a fix is available.
+
+Signed-off-by: Vitalii Skorkin <nikroksm@mail.ru>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
 ---
- Documentation/devicetree/bindings/arm/qcom.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/firmware/qcom/qcom_tzmem.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index 9df4074bb582..45f35141bd30 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -1036,6 +1036,8 @@ properties:
- 
-       - items:
-           - enum:
-+              - samsung,a52q
-+              - samsung,a72q
-               - xiaomi,curtana
-               - xiaomi,joyeuse
-           - const: qcom,sm7125
+diff --git a/drivers/firmware/qcom/qcom_tzmem.c b/drivers/firmware/qcom/qcom_tzmem.c
+index 0635cbeacfc8..50f500834758 100644
+--- a/drivers/firmware/qcom/qcom_tzmem.c
++++ b/drivers/firmware/qcom/qcom_tzmem.c
+@@ -81,6 +81,7 @@ static const char *const qcom_tzmem_blacklist[] = {
+ 	"qcom,sc8180x",
+ 	"qcom,sdm670", /* failure in GPU firmware loading */
+ 	"qcom,sdm845", /* reset in rmtfs memory assignment */
++	"qcom,sm7125", /* hang in rmtfs memory assignment */
+ 	"qcom,sm7150", /* reset in rmtfs memory assignment */
+ 	"qcom,sm8150", /* reset in rmtfs memory assignment */
+ 	NULL
 
 -- 
 2.55.0
