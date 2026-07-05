@@ -1,121 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7AFB2F7F0D;
-	Sun,  5 Jul 2026 20:20:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909712F7F0D
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 20:20:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783282808; cv=none; b=RqhHXoXkUZBxKLjxBIe7TE71a6ho8de+Xx14R/hlMTVdSmKdyZoN4Rup1YXBIsrGLqK9TTWVwmd04tL0FhKjoS7DvoYeQFiRkpFc22KCLX86wu/rttXExpDio70c3M8W5halS3toqK0gRxOKtGZ9OiJzl5SDFA7+Sv1X1d724p4=
+	t=1783282824; cv=none; b=HrcAf9IiaRMa5vQAaVDewfzXNWb7cJqIAJUvroG1XfKucCV2r561pkDJNjb/7xdwZwxuoVkxPSHkPVtgN4uMK1lFrBZgxyCD77fgFD23g6Qci/H3abJaZY72Aw5IGIo7x2lumqmPEaPIPtmUrgfyStcUvNRC/v2Mff053Ew2rmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783282808; c=relaxed/simple;
-	bh=OaEZaMtq4G4odncaNUhJFPtVu6XPtqpzjBRSLgjOZHc=;
+	s=arc-20240116; t=1783282824; c=relaxed/simple;
+	bh=XlyW9syjw3/UmVmRnPMpaYhWiy2GnjlAwLoHxvzCpno=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=j2JjFZg3QcjJBMG9xDWXaqXjzSgpevSyvFJheVjjuQetfftxYbmAEIchq3Z2gtddUEXTSaIJx6E2ObdaXX9KzHlUUqwLh/Ivoqw5FZbW+Q3Ty0GZgm/cMqLfTB0mwHjtTC8eG8Go4+NPrAFV1u7J7NhEG8US38wME0q9y6fM4Pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jfa4ltsk; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Gm0ObhG98eUqz8gc3/QFuw3Sjhviojn2VeDRHu0+mg3zzSUgL9obKkcScS175yGi/JEqO2hNICWGQoNGLQJ931dRymX3HREbaWh05MjCDyj8nR0ry/3ffWegOUebsqupcr0Xbir/RUGRwu/6coiM7MbqtzqYMODshXyQjjA4zAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ISua7iyx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jfa4ltsk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43AF01F000E9;
-	Sun,  5 Jul 2026 20:20:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ISua7iyx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3508A1F000E9;
+	Sun,  5 Jul 2026 20:20:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783282807;
-	bh=TmWI8EiJGS/P23xAJ4kju+fbso66aTyfHiRYxjr1ffs=;
+	s=k20260515; t=1783282823;
+	bh=/CmPH5n1yQtI1ngmwOsoL6Y10vhamkXfNWPeNIdf0P0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jfa4ltskIf7zHhWj+F5q/NacwGeumBd5QqMcfFxxo9Noi1fPxYhmtrlTPVUb2tA/j
-	 0xwgzO7WiVERmLwdq2qmlKJzRGaE42Y6mFTd0vTycNjNFgUC9yH3h9tx7CJlmNFczf
-	 7GyWUb9liq/11LRdm7LFqleaW8+XSyQDnMwlsEhjeuxv/OVnirkDrf6t3G/Aket+uv
-	 QY9KPx4Xnz0TS6m72KW1WK+z26HzcIv0BtZFvg5rJi7jWBh4Xpm/G8HLMCWly//67o
-	 XLnmh+BIUT5HoY5I+AwAqjzTg/M2iBiIvgoPrix0dggAZUIinnDfcidNqnWdJg4YBV
-	 1OZ2vUpYO9ECA==
+	b=ISua7iyxikS/9DMAFu6GvRsVnh8Qn6i+bhpqC/6SN0lL0DkCTs4u7SXDdlAIMVwth
+	 J/HsGcpzS2TMleiUXyy5IC7zLSnygfZKbar57kgLxJEBSo625LjWC9dV1yYWnzx5Ah
+	 yHNaBLRptIVJ0lYDt/jxaLw7LOMlcj3jfQJnccYfV+5jpuS7ujBnrdaNWoL5Mv+PQm
+	 i3EMtF51oURPnMhdLSQ4s2fYsKA95O8fq8JKFrHQrXbMuyRiyPpOC+08pW34Q5SwKT
+	 wZitCAVS+0UqM/stZagPI19GqAu4oYCHxi+K3g39gl4xM3JpcsKz0khXPCFKraa831
+	 OV9ARCMvN7qmA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/6] arm64: dts: imx8mm: imx8mp: Add FIO1 DTOs for
- Data Modul i.MX8M Mini and Plus eDM SBC
+Subject: Re: [PATCH RFC 5/6] ASoC: cs35l36: Implement set_tdm_slot to
+ program RX slot register
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marex@nabladev.com>
-Cc: imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org
-In-Reply-To: <20260705200534.151803-5-marex@nabladev.com>
-References: <20260705200534.151803-1-marex@nabladev.com>
- <20260705200534.151803-5-marex@nabladev.com>
+To: "David Heidelberg" <david@ixit.cz>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260705-pixel3-audio-v1-5-3b66f33859f1@ixit.cz>
+References: <20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz>
+ <20260705-pixel3-audio-v1-5-3b66f33859f1@ixit.cz>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 05 Jul 2026 20:20:06 +0000
-Message-Id: <20260705202007.43AF01F000E9@smtp.kernel.org>
+Date: Sun, 05 Jul 2026 20:20:22 +0000
+Message-Id: <20260705202023.3508A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] I2C node address collision corrupts LVDS configuration.
+- [High] The newly added set_tdm_slot function conflicts with the existing =
+DAPM 'Channel Mux' kcontrol, causing TDM slot state corruption.
+- [High] The set_tdm_slot callback silently ignores the tx_mask parameter, =
+failing to configure TX TDM slots and causing potential DOUT bus contention.
+- [Medium] The return value of regmap_update_bits is ignored, masking poten=
+tial hardware communication failures.
 --
 
-commit 24245aa090bd2ca7fbe263d45e29abf9a13de9cf
-Author: Marek Vasut <marex@nabladev.com>
+commit 0a6a2457481eab4ef7efac8df4098277de0088c1
+Author: David Heidelberg <david@ixit.cz>
 
-arm64: dts: imx8mm: imx8mp: Add FIO1 DTOs for Data Modul i.MX8M Mini and Pl=
-us eDM SBC
-   =20
-Add DT overlay for feature connector expansion module eDM-MOD-iMX8Mm-FIO1
-providing additional UARTs, CAN, PWM Beeper, I2C, SPI and GPIO breakout.
-This adapter can be optionally populated onto the eDM SBC.
+ASoC: cs35l36: Implement set_tdm_slot to program RX slot register
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-over=
-lay-edm-mod-imx8mm-fio1.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-data-mo=
-dul-edm-sbc-overlay-edm-mod-imx8mm-fio1.dtsi
-> new file mode 100644
-> index 0000000000000..7851ca73ccd8e
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-edm=
--mod-imx8mm-fio1.dtsi
-> @@ -0,0 +1,69 @@
-[ ... ]
-> +&i2c_feature {	/* Feature connector I2C */
-> +	#address-cells =3D <1>;
-> +	#size-cells =3D <0>;
-> +
-> +	gpio_feature: io-expander@20 {
-> +		compatible =3D "nxp,pca9554";
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_gpio_expander>;
-> +		reg =3D <0x20>;
+Program ASP_RX1_SLOT with the first set bit of rx_mask so the amplifier
+listens on the correct TDM slot when configured by machine drivers.
+
+> diff --git a/sound/soc/codecs/cs35l36.c b/sound/soc/codecs/cs35l36.c
+> index 89645327945f1..944f4cb5763e4 100644
+> --- a/sound/soc/codecs/cs35l36.c
+> +++ b/sound/soc/codecs/cs35l36.c
+> @@ -947,10 +947,26 @@ static const struct cs35l36_pll_config *cs35l36_get=
+_clk_config(
+>  	return NULL;
+>  }
+> =20
+> +static int cs35l36_set_tdm_slot(struct snd_soc_dai *dai,
+> +				    unsigned int tx_mask, unsigned int rx_mask,
+> +				    int slots, int slot_width)
+> +{
 
 [Severity: High]
-Does this node create an address collision on the i.MX8MP base board?
+Does this safely handle scenarios where multiple codecs share a TDM bus?
 
-The i.MX8MP base board (imx8mp-data-modul-edm-sbc.dts) already defines an L=
-VDS
-PCA9554 GPIO expander at 0x20 on i2c2 (which is aliased to i2c_feature):
+The function accepts a tx_mask parameter but doesn't use it, nor does it
+return an error if a non-default tx_mask is requested.
 
-arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts:
-i2c_feature: &i2c2 {
-	...
-	gpiolvds: io-expander@20 {
-		compatible =3D "nxp,pca9554";
-		reg =3D <0x20>;
-	...
-}
+If a machine driver sets up multiple CS35L36 codecs on a shared TDM bus and
+calls set_tdm_slot with distinct tx_mask values, the codecs will remain on
+their overlapping default TX slots. This could cause multiple codecs to dri=
+ve
+the I2S DOUT line simultaneously when the capture stream starts.
 
-Loading the imx8mp-data-modul-edm-sbc-overlay-edm-mod-imx8mm-fio1.dtso over=
-lay
-would merge this io-expander@20 node into the existing gpiolvds node. Will
-this overwrite the gpio-line-names and interrupts of the base board's LVDS
-expander, and cause a physical I2C address conflict on the bus when the FIO1
-module is populated?
+> +	struct cs35l36_private *cs35l36 =3D
+> +			snd_soc_component_get_drvdata(dai->component);
+> +
+> +	if (rx_mask)
+> +		regmap_update_bits(cs35l36->regmap, CS35L36_ASP_RX1_SLOT,
+> +				   CS35L36_ASP_RX1_SLOT_MASK,
+> +				   ffs(rx_mask) - 1);
 
-> +		#gpio-cells =3D <2>;
-> +		gpio-controller;
-> +		#interrupt-cells =3D <2>;
-> +		interrupt-controller;
-> +		interrupt-parent =3D <&gpio4>;
-> +		interrupts =3D <27 IRQ_TYPE_LEVEL_LOW>;
-> +		gpio-line-names =3D
-> +			"GPIO1_output", "GPIO1_input",
-> +			"GPIO2_output", "GPIO2_input",
-> +			"GPIO3_output", "GPIO3_input",
-> +			"PCA9511A_READY", "";
-> +	};
+[Severity: High]
+Will this conflict with the existing DAPM channel mux kcontrol?
+
+The preexisting chansel_enum DAPM mux targets the exact same register field:
+
+sound/soc/codecs/cs35l36.c:
+static SOC_ENUM_SINGLE_DECL(chansel_enum, CS35L36_ASP_RX1_SLOT, 0,
+                            cs35l36_chan_text);
+
+Since chansel_enum uses a 1-bit mask and set_tdm_slot uses a 6-bit mask
+(CS35L36_ASP_RX1_SLOT_MASK), these interfaces seem incompatible.=20
+
+If a machine driver sets the slot to 4, later toggling the DAPM kcontrol
+from userspace will flip only bit 0, corrupting the slot configuration.
+
+[Severity: Medium]
+Should the return value of regmap_update_bits be checked here?
+
+If the hardware write fails with an error like -EIO, the function still
+returns 0. This falsely reports success to the ALSA core, allowing the stre=
+am
+to proceed with the amplifier listening to the wrong TDM slot instead of
+gracefully aborting.
+
+> +
+> +	return 0;
+> +}
+> +
+>  static const struct snd_soc_dai_ops cs35l36_ops =3D {
+>  	.set_fmt =3D cs35l36_set_dai_fmt,
+>  	.hw_params =3D cs35l36_pcm_hw_params,
+>  	.set_sysclk =3D cs35l36_dai_set_sysclk,
+> +	.set_tdm_slot =3D cs35l36_set_tdm_slot,
+>  };
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705200534.1518=
-03-1-marex@nabladev.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-pixel3-aud=
+io-v1-0-3b66f33859f1@ixit.cz?part=3D5
