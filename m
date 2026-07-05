@@ -1,79 +1,102 @@
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F8E1DA57;
-	Sun,  5 Jul 2026 12:15:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D164C328B5E;
+	Sun,  5 Jul 2026 12:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783253735; cv=none; b=rq3jwyfpKyFHvFWM7EQHWLGrWV/F2Wt5T48OmdgxOsL0UucFXi/9z6RRwnh3GY3FbITLlViDbUZPimUYNJmGWcx1L3Jjn4cav+LHhRZzOk8VbkWX/94wYXi20vBFXwGLps88ombqqNBimybl3b3NvmydyorPyqLT8quIWGKYVhc=
+	t=1783254735; cv=none; b=dPrkL6tIvJe7B0vamBbefEluv6mQJ1bXvyswpAuQshCUzshcThBkLJI6E42gtXQ+tDGf99iHHDlBv5hS+jAXDhIQpjb4wqSjC8gGFcVt4NmgR+6bBX4Q5TBol6bTt/eY/rHKzdc6ZPpjWmsUTrOFyr0Kv1xVQpmpH4+/wI241Hg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783253735; c=relaxed/simple;
-	bh=k0d3xsTqQgpBEbGb1/SAc0rmOZUjpKMaQ5Y6H2hy7Rk=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jftwWEQtZQPCefbbeaBeLaFJV7c4JMEfW+CfxAzQEwG3iCaL8lsk7Oi2Gq2mXVRe/AmoeTytxyn+sj6EgxBcjkEq5Dg8k4wM5QRXueh2BqbXDTU+ZWTbYjmj9wVUjKcfTuYGu2N8IoG9ECeg7wnM7ePGxG0E+HJFuscnoxLKlE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=QhbOoXoM; arc=none smtp.client-ip=162.62.57.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1783254735; c=relaxed/simple;
+	bh=kCnFH0V5bkUOIV0fiHl29DKKYu4m94o1jAMzJXsZ7vM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jmFCLatZBMTmm5hl3KbnW+u9X/Db0U7KyUdJPLzu5Wy+RsUe3WHkXh75DLs4lXRFvolT/CHgD4g87bJGxPqXwnv5KFRHk9GZV029XgTYiyewdmyIsLUZh7rIH1dxAE1eUdbV2HnF+0RkV1H5YC/biay4HC9EPV/IyM0CF4R+fYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LnUhwDHo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="QhbOoXoM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1783253726; bh=k0d3xsTqQgpBEbGb1/SAc0rmOZUjpKMaQ5Y6H2hy7Rk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QhbOoXoMn1i3yg/5+1IusWWnec3H4zMvgSOZdPpfRmh5OPGDX1XzaA+4wWIzD0wEJ
-	 ithCVKBM0setSfwUUQUzrv+CKKixeOCzYHGM7c9mCy/1JUyO9FZONxv+EZzYWfcSUP
-	 i22iVPsGl8dKiZfpQPmjBXwv6r7W8JM5ACwVOx+Q=
-Received: from 8qyomHQF3vPjMe ([27.38.234.213])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 3D50FEDF; Sun, 05 Jul 2026 20:15:21 +0800
-X-QQ-mid: xmsmtpt1783253721tkuvf61be
-Message-ID: <tencent_5AA494D13F238A86D327D25C7CD1652C3A08@qq.com>
-X-QQ-XMAILINFO: ND6GQ3wPDKrSKxZ0//0mEyKq2UV4BqqU6lpwEEZ3mLJK0vVNT60iNxnDdbN8VO
-	 9b7fRbwIpB1gyoxzUgscmJGPKiyUuSYBGeCWKmIYF8LrHM5ZdwNZb40LQNYc/UOpPTmhW02LSO7N
-	 vIgqZCcos99fg6+vU+crB5S7GuGvw7k0HQkoY49gnzhrAdLAqq4rAZPeHZks3BDVTZsbf5ZGEx80
-	 PHCxG3RdGnItXu7jDaYR5YLycJsPGEuPG3nozm8eAOaYPbpWlFiBJwtz/uKdHS0/dfEHY/nsYqwc
-	 J6tTJcDuIKicPPXXuCtxjzxbXVS5A67iUkyJf0lUtpZCF3QqZdS1pKvzlQYHf+rHt49MN9OIVb50
-	 NFKB34lByxUaIgd/8pCawEMIVwslFgEwJEnvHO0FZv1XXK5wZh36klufniptDqQsMI34+fT5rJtw
-	 eHi7Nqr1QWMm24GWfDSi2zR9ee1ciaAVPoJvDxIi4pLUHDU3x4wyjvk+QpWMXF2NtIX6gryhVG5w
-	 woB9ZY9cUDAfq2lBFqoJaBq4cKDEmoKgwM449QXzJLB6JUXwS5Lt9vMghEqMYPx/FMYTcuGqVNkl
-	 A+S/YUL+JwM2akTVLf8VYrFgj7VVckDgJklX7Q7gimsDby5Xdt9Xni5xFsWmlEjvPlHRaWamF+LE
-	 OK2VdKUETilbUNJ+HyecJ2lcS1dMxdfw+bBeiVbhNm4ks0sTAsDnSuSfZS6+U6089GKMVpuLV+pe
-	 Olxa6dJiNhJYsckT9rx6LtVm1zi7JCIZBkcGEy0YFwXdGnNizvNdtp8QgS8wjWzjIKnpq/xZgjmw
-	 Auw5cvReQ7mTkKQrdecopUPgO7kAimMPAhuwoGbR/5W7CS/lSp6Ep4u22t4raFh1dmr710xtIq1v
-	 4U1pWUw0G5mloBhoapdZlgRHPZ2lc8ROAITfgg+s1+x4W3Cs2IjMkzZsvTWegYz7bzPD2OAbPZKE
-	 q9JVwHcsyreH0CGVmoYnTK5aMFAN/xI6KQr/IjZVPoF4Xu0YZXvuXlm8BzOdSeViKALBvEad2hOP
-	 3y4HtJTwe+tDzGWMAvczea1HQr6cd/zCQgnOpjPTwHlrGsAjV7z0MpdJPeHtNW4q8KoXDl9Q==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-From: Xin Xu <xxsemail@qq.com>
-To: konrad.dybcio@oss.qualcomm.com
-Cc: andersson@kernel.org,
-	devicetree@vger.kernel.org,
-	konradybcio@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm8250-xiaomi-elish: Add ov8856 front camera
-Date: Sun,  5 Jul 2026 20:15:19 +0800
-X-OQ-MSGID: <20260705121521.6397-1-xxsemail@qq.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <tencent_A89D858754397A68C4C830EA0487CB255A05@qq.com>
-References: <tencent_A89D858754397A68C4C830EA0487CB255A05@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LnUhwDHo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 478B71F000E9;
+	Sun,  5 Jul 2026 12:32:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783254734;
+	bh=CUmcoIH8UZfQOi92h9YHbdWwrZUGogZhLPJcSsnuaE8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LnUhwDHoT1C2NwsP2qpQUJPINDRwCgLMsyP1P9fmVkRgM/PaVZk2xVU+LWoaa6DO2
+	 hcc2s3uYQYvhPOzdIp0hohZ70JPlsjRfVandee4VUaTE4AjVmcAoMUKr6hOiJVJIIF
+	 YfPk27/06kyXvTeLhEa572sGVgW8XW7fdJGszb3+aAwR3Vi7+nMU+cM08V4kkykZDl
+	 h6ZvRz5NUzxi4qR58Pp3YLrNUqsiSLp4gGYVX5G0TAPiVPXnoGHYmQu00kw5zQr0Bv
+	 Ji83tV8I2/Y0XuiIySRHLImrNwEfxagbCGDQuhUA7sr6FqKU2GIYWWNDaqCxL6CeRU
+	 rTJOKVZYTgR+A==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id EF3E51AC5AC6; Sun, 05 Jul 2026 13:32:11 +0100 (BST)
+Date: Sun, 5 Jul 2026 13:32:11 +0100
+From: Mark Brown <broonie@kernel.org>
+To: YLCHANG2 <neo.chang70@gmail.com>
+Cc: Neo Chang <YLCHANG2@nuvoton.com>, lgirdwood@gmail.com, perex@perex.cz,
+	robh@kernel.org, krzk+dt@kernel.org, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+	kchsu0@nuvoton.com, sjlin0@nuvoton.com
+Subject: Re: [PATCH v5 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
+ amplifier
+Message-ID: <akpOy2HJsDCu7wVx@sirena.co.uk>
+References: <20260630021510.821919-1-YLCHANG2@nuvoton.com>
+ <20260630021510.821919-3-YLCHANG2@nuvoton.com>
+ <66ce56eb-95b9-4915-8658-a1e4d1eacd7f@sirena.org.uk>
+ <3b32493b-b827-e4ed-3ad1-281dc19faf40@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9OleKUcYTZwvIODp"
+Content-Disposition: inline
+In-Reply-To: <3b32493b-b827-e4ed-3ad1-281dc19faf40@gmail.com>
+X-Cookie: Absence makes the heart grow frantic.
 
-Hi Konrad,
 
-Apologies – patch 3/3 was mistakenly sent as a reply to patch 2/3.
-Here is the direct lore link to the patch in the series:
-https://lore.kernel.org/all/tencent_A89D858754397A68C4C830EA0487CB255A05@qq.com/
+--9OleKUcYTZwvIODp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Patches 1/3 and 2/3 already carry your Reviewed-by.
-Please let me know if anything still needs to be adjusted.
+On Fri, Jul 03, 2026 at 11:26:12AM +0800, YLCHANG2 wrote:
+> On 7/2/26 23:15, Mark Brown wrote:
 
-Thanks,
-Xin Xu
+> > I would expect TDM to be configured by set_tdm_slot() from the machine
+> > driver, not from userspace.  I see the driver does actually have a
+> > set_tdm_slot() operation...
 
+> Our DSP functions require specific Slot mapping (e.g., Slot 0 for AECL, Slot
+> 1 for AECR).
+> The standard set_tdm_slot() only defines active slots but doesn't handle the
+> functional mapping.
+> We originally intended to allow dynamic mapping via UCM/userspacea and then
+> apply these settings using set_tdm_slot().
+> How should we implement this mapping according to ASoC standards?
+
+This would usually be doing using DAPM routing if it's expected to be
+runtime variable, define AIF widgets for the bus slots then route to
+them.
+
+> Should we define the default mapping during the codec probe stage,
+> or is there a preferred way to handle this via the machine driver?
+
+Device properties, this is better if it's supposed to be fixed for the
+system.
+
+--9OleKUcYTZwvIODp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpKTssACgkQJNaLcl1U
+h9A/mQf/c053HM+naqdF17/uVmgb6e04rPNnqH7Us+kvxpfWyPS0bp+3vo1P6Ur0
+POHx0sPld8RauUxTig2rXk+Kt87Asn3/wm4kTQrOvOBv8airOLBViFeIQHoIrajo
+JdH678NtqoVhc3zy5W8pt+/6zeTbQK4obbfOzjtWEe6EbsrXiy3B9BUnxbe2bt5k
+E3coE4U4a587PPepJe5ue7eJfyc3xFHTHlsLxtWXsO+P0oSZXwrt2CB74Cvjvzwc
+Yt1JExI6vhfLnLt/2YR1PtTiMH9srG/xVBQo7USnxq1SxDnV2y8nelMpyE9LjkAH
+KZ9YYwMy9ji8OzML5MUqNYGiVXihiA==
+=bhKF
+-----END PGP SIGNATURE-----
+
+--9OleKUcYTZwvIODp--
