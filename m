@@ -1,110 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F6419A288;
-	Sun,  5 Jul 2026 13:28:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2A537FF7A
+	for <devicetree@vger.kernel.org>; Sun,  5 Jul 2026 13:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783258101; cv=none; b=NzRVp3+B7zIuWr+g0uJwnxTsWu1nXBi0XSz5PXpwzOiK7T2vFSD7wSB5q1emqmQ8+0AM+8i+hqpmQ6JC+CTaxxR5R0BAjkx/W2lig+29vXMWPdXdWGfQjxu3imvu7SQVFUMlrUy/XCKZyvY9GH0JvG5NCcHANPNK/RJy0u9cm5A=
+	t=1783258132; cv=none; b=TswCgb7ECY0iLTIgm/2bia5PBZ1diMw9Pw2x7mZT649HQPUnZt/QmTLz0Xpf2Ypzm8W2oBNURyzKo9mKmLe3BR7+DpyED+g/9JHNmlc6dhpqPmXQOgNtyBn0qR7pU+RmWmORAtBESw2ticdWhkbiMpVAmRVI661VkThsdHopYG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783258101; c=relaxed/simple;
-	bh=dES+qINWFOZduGnoHH4ZtYH/t4LOBY6IYerkE/LxDnM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=L/3vbJ+ZSmD0M9mrULpEufQLyEUfaSruMqMwuI9Q/MqFUSFVe2TiKB6dcAPVirvBHzY15FuKRVj0wvePXZKZ3behM54r1326xrw4sEAonNJ1qvg28tEfi1ddn2ugTEXCxtzwTsqHK5KizZNVLlWj8vN+JY4vYvIQLmS0Ahd2jj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oTYNKEsE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783258132; c=relaxed/simple;
+	bh=FEFBL9I+goMukC5uUaNbyT9kN5k+BRYQLzcVJLWjSkE=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=USbgO3Rd/YQlaaBpCOHOvh3Xn3lzlTIXfIraylTMYqK4N5ZAGjy1mOSGhWGBDFBp5qhJHH+3N5vAvHVhPGBYrQCnrW6vDoKaCYm5U6vGjiuMHGrQ2/2LDr2qtQ7yr7/v1PD0yn/6jFCHUWYfLGyU4Q6b+YntDa4J0oz0bE9Uygs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=XYHKqX4R; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oTYNKEsE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CA9C1F000E9;
-	Sun,  5 Jul 2026 13:28:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783258100;
-	bh=nwIKCzMbF3WhV0/U5Kax09BS2Yqe+Dc/s+El/RZSS0I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oTYNKEsEx4d1PsPgFGtUg4/c2OMf6yWC7/Jywz1rpOd3/zoJpJ0VssouxwCmyRlBO
-	 fQ+wX9Q0J035ffgYjSX5+8aW1PbaoVCEU3JuIR0Dr+5RdMGkdX9Bi+8oowltVx4iOr
-	 99Tbi2PGfHQbVcDuuHfS7Fe88NdbAGYAzbNk1m5xwVJ0YGT1bCDCYMb76joFsxKo5m
-	 hcZkQLOXjAtazNHi0UIj/c7uu1fXwkROnZ/0eEdmuxr77mxNkHgZH98B7SXJH7gk5U
-	 T7Fsw/Vu+mXoFnLx80sV2ZxOEd/Vb9eKncdE5/D8wOZKj4x6l4dQ2wVnRx+W2V3qnB
-	 OBlIA17QlpV1g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/10] dt-bindings: arm: apple: Add M4 based devices
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yureka Lilian" <yureka@cyberchaos.dev>
-Cc: conor+dt@kernel.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260705-apple-m4-initial-devicetrees-v1-9-e5655ee56523@cyberchaos.dev>
-References: <20260705-apple-m4-initial-devicetrees-v1-0-e5655ee56523@cyberchaos.dev>
- <20260705-apple-m4-initial-devicetrees-v1-9-e5655ee56523@cyberchaos.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 05 Jul 2026 13:28:19 +0000
-Message-Id: <20260705132819.9CA9C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="XYHKqX4R"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+	s=key1; t=1783258116;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=75Oki2p9+J8O5hmX2u7GRFERo3z7tGNIzsRExUr/bFI=;
+	b=XYHKqX4RHFHTovZ8pNtZLcq0rLACm9xJXFqbwJadyOVHCIPZGKc340EjYgwtr8jzMiCqpM
+	FTE1me1ac8Sj5P+yTb2aq1yzr9cKfh92pVudKInUov6vZoym/NbPUb/9ion90ZoFu/onOG
+	6iLkpfc7/oQjKX5VhNUIVz1cdChdwL/MQYvkqlyIZMZecKkc3TCzIFiFtYCoJ9kGFlXD+l
+	KmpxNXjy5uMJNtnuwQ/FHQxLEhbfI6rlR7gibAmgU+Q7Gei1zu67zYcuBxq9Tp+ZLTRwyp
+	N/sNzDjIVGAb2QvXG0qBZhSnUN1xbYJwnzSxK2XV07BeUEq6u1QccegmuE6kwg==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 05 Jul 2026 15:28:29 +0200
+Message-Id: <DJQO8Q4J2LDP.1G8I4FVF6J7TK@cknow-tech.com>
+Cc: <kernel@collabora.com>, "Andy Yan" <andyshrk@163.com>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/9] drm/rockchip: vop2: Reset AXI and DCLK to improve
+ robustness
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>, "Sandy Huang"
+ <hjc@rock-chips.com>, =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ "Andy Yan" <andy.yan@rock-chips.com>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Philipp Zabel" <p.zabel@pengutronix.de>, "Andrzej
+ Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>
+References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
+ <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
+In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] The top-level text description block in the binding was not updated=
- to list the new M4 devices.
-- [Low] The inline comments for the newly added M4 MacBook Air models incor=
-rectly label them as 'M3'.
---
+Hi Cristian,
 
-commit 2d1ae3586bee901cafa8ffc62c9df52d3acdcf89
-Author: Yureka Lilian <yureka@cyberchaos.dev>
+On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
+> Assert the AXI reset in the CRTC disable path, and the VP DCLK reset in
+> the enable path.
+>
+> These resets are intended to leave the hardware in a clean state for the
+> next use, helping recover from exceptions such as IOMMU page faults, as
+> well as to prevent random display output glitches, such as a blank
+> image, observed when switching modes that also change the color format,
+> e.g. from RGB to YUV420 and vice versa.
+>
+> For now this seems to affect only the RK3588, hence the resets are
+> optional and will be provided in the device tree for this SoC only.
 
-dt-bindings: arm: apple: Add M4 based devices
+Why do you think it only effect RK3588? I reported about my RK3568 test her=
+e:
+https://lore.kernel.org/linux-rockchip/DFRU6ODDM71P.3NQGLRK8IVDUY@cknow-tec=
+h.com/
+"I then went on to try LibreELEC's builds. The artifacts I (sometimes)
+saw, were gone :-D OTOH, I did get several major issues 'in return',
+like rk_iommu Page fault resulting in a black screen and the only way to
+'recover' from it, was a reboot."
 
-This commit adds compatible strings for Apple M4-based devices. It introduc=
-es
-the apple,t8132 SoC and associated platforms like the new MacBook Pro, iMac,
-MacBook Air, and Mac mini.
+And I reported some more test results here:
+https://forum.libreelec.tv/thread/29953-le13-testing-for-rk3288-rk3328-rk33=
+99-rk3566-rk3568-rk3576-rk3588/?postID=3D204691#post204691
 
-Looking at the top-level description block in this file:
+That seems to me a (strong) indication it also affects RK3566/RK3568?
 
-Documentation/devicetree/bindings/arm/apple.yaml:
-  Devices based on the "M3" SoC:
+Cheers,
+  Diederik
 
-  - MacBook Air (13-inch, M3, 2024)
-  - MacBook Air (15-inch, M3, 2024)
-  - MacBook Pro (14-inch, M3, 2023)
-  - iMac (24-inch, M3, 2023)
-
-  Devices based on the "M1 Pro", "M1 Max" and "M1 Ultra" SoCs:
-
-[Severity: Low]
-Should the new M4 devices be added to this top-level description block to
-keep the documentation in sync with the schema definition below?
-
-
-> diff --git a/Documentation/devicetree/bindings/arm/apple.yaml b/Documenta=
-tion/devicetree/bindings/arm/apple.yaml
-> index e49403c73f9d2..3262292252d25 100644
-> --- a/Documentation/devicetree/bindings/arm/apple.yaml
-> +++ b/Documentation/devicetree/bindings/arm/apple.yaml
-> @@ -315,6 +315,18 @@ properties:
->            - const: apple,t8122
->            - const: apple,arm-platform
+> Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
+> Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> ---
+>  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 35 ++++++++++++++++++++++=
+++++++
+>  drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  4 ++++
+>  2 files changed, 39 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
+rm/rockchip/rockchip_drm_vop2.c
+> index 4cce3e336f5b..2833fb49ad81 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/regmap.h>
+> +#include <linux/reset.h>
+>  #include <linux/swab.h>
 > =20
-> +      - description: Apple M4 SoC based platforms
-> +        items:
-> +          - enum:
-> +              - apple,j604  # MacBook Pro (14-inch, M4, 2024)
-> +              - apple,j623  # iMac (24-inch, 2x USB-C, M4, 2024)
-> +              - apple,j624  # iMac (24-inch, 4x USB-C, M4, 2024)
-> +              - apple,j713  # MacBook Air (13-inch, M3, 2025)
-> +              - apple,j715  # MacBook Air (15-inch, M3, 2025)
+>  #include <drm/drm.h>
+> @@ -860,6 +861,26 @@ static int vop2_core_clks_prepare_enable(struct vop2=
+ *vop2)
+>  	return ret;
+>  }
+> =20
+> +static void vop2_clk_reset(struct vop2 *vop2, struct reset_control *rstc=
+)
+> +{
+> +	int ret;
+> +
+> +	if (!rstc)
+> +		return;
+> +
+> +	ret =3D reset_control_assert(rstc);
+> +	if (ret < 0) {
+> +		drm_warn(vop2->drm, "failed to assert reset: %d\n", ret);
+> +		return;
+> +	}
+> +
+> +	udelay(10);
+> +
+> +	ret =3D reset_control_deassert(rstc);
+> +	if (ret < 0)
+> +		drm_err(vop2->drm, "failed to deassert reset: %d\n", ret);
+> +}
+> +
+>  static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+>  {
+>  	u32 pd;
+> @@ -938,6 +959,8 @@ static void vop2_disable(struct vop2 *vop2)
+>  {
+>  	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
+> =20
+> +	vop2_clk_reset(vop2, vop2->axi_rst);
+> +
+>  	pm_runtime_put_sync(vop2->dev);
+> =20
+>  	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
+> @@ -1948,6 +1971,8 @@ static void vop2_crtc_atomic_enable(struct drm_crtc=
+ *crtc,
+> =20
+>  	vop2_crtc_atomic_try_set_gamma(vop2, vp, crtc, crtc_state);
+> =20
+> +	vop2_clk_reset(vop2, vp->dclk_rst);
+> +
+>  	drm_crtc_vblank_on(crtc);
+> =20
+>  	vop2_unlock(vop2);
+> @@ -2531,6 +2556,11 @@ static int vop2_create_crtcs(struct vop2 *vop2)
+>  			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk),
+>  					     "failed to get %s\n", dclk_name);
+> =20
+> +		vp->dclk_rst =3D devm_reset_control_get_optional(vop2->dev, dclk_name)=
+;
+> +		if (IS_ERR(vp->dclk_rst))
+> +			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk_rst),
+> +					     "failed to get %s reset\n", dclk_name);
+> +
+>  		np =3D of_graph_get_remote_node(dev->of_node, i, -1);
+>  		if (!np) {
+>  			drm_dbg(vop2->drm, "%s: No remote for vp%d\n", __func__, i);
+> @@ -2890,6 +2920,11 @@ static int vop2_bind(struct device *dev, struct de=
+vice *master, void *data)
+>  		return dev_err_probe(drm->dev, PTR_ERR(vop2->pll_hdmiphy1),
+>  				     "failed to get pll_hdmiphy1\n");
+> =20
+> +	vop2->axi_rst =3D devm_reset_control_get_optional(vop2->dev, "axi");
+> +	if (IS_ERR(vop2->axi_rst))
+> +		return dev_err_probe(drm->dev, PTR_ERR(vop2->axi_rst),
+> +				     "failed to get axi reset\n");
+> +
+>  	vop2->irq =3D platform_get_irq(pdev, 0);
+>  	if (vop2->irq < 0)
+>  		return dev_err_probe(drm->dev, vop2->irq, "cannot find irq for vop2\n"=
+);
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/d=
+rm/rockchip/rockchip_drm_vop2.h
+> index ffcb39c130aa..14b437d2d088 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+> @@ -165,6 +165,8 @@ enum vop2_win_regs {
+>  	VOP2_WIN_MAX_REG,
+>  };
+> =20
+> +struct reset_control;
+> +
+>  struct vop2_regs_dump {
+>  	const char *name;
+>  	u32 base;
+> @@ -238,6 +240,7 @@ struct vop2_video_port {
+>  	struct vop2 *vop2;
+>  	struct clk *dclk;
+>  	struct clk *dclk_src;
+> +	struct reset_control *dclk_rst;
+>  	unsigned int id;
+>  	const struct vop2_video_port_data *data;
+> =20
+> @@ -329,6 +332,7 @@ struct vop2 {
+>  	struct clk *pclk;
+>  	struct clk *pll_hdmiphy0;
+>  	struct clk *pll_hdmiphy1;
+> +	struct reset_control *axi_rst;
+> =20
+>  	/* optional internal rgb encoder */
+>  	struct rockchip_rgb *rgb;
 
-[Severity: Low]
-Are these inline comments correct, or should they say M4 instead of M3 for
-the new 2025 MacBook Air models?
-
-> +              - apple,j773g # Mac mini (M4, 2024)
-> +          - const: apple,t8132
-> +          - const: apple,arm-platform
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-apple-m4-i=
-nitial-devicetrees-v1-0-e5655ee56523@cyberchaos.dev?part=3D9
