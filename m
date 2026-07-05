@@ -1,51 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDA73B8128;
-	Sun,  5 Jul 2026 20:58:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FAE83AA9E2;
+	Sun,  5 Jul 2026 20:58:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783285109; cv=none; b=dFuQ9Q1F9bl2jn/X04YTS53EQsrknFIa/nLuXLF1hhhoQhRxSyGdF3WbaAvxBtR8DAYm8qqSJJwijeURGu+8ZQgS8TLoCDwCnURBUTphWw1OTAS6j85j5EzGNkn+8rOkwEpdw5batkLoAiK7inTIp+DpT8m31KTXc93JazaYY3E=
+	t=1783285112; cv=none; b=HmJKBVNEgTTd8qQ4SMF7spuuTZAB8QZMD67Ybzzh9PsSCIvPKA1UxOgpxj3DEN7XTimxDuua3lTEjj6OIGOeteYZVcTXjh/lK3Ypsesca4MV8sbxU8tQoMWlxxz60ga69CaqB4hLEVsXOSmgkRz2BqDxBsec9hn6ih8PQOhxFtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783285109; c=relaxed/simple;
-	bh=PQ2lPTC7NpTNNgxQP3TW1oGfNbL21feBWthcc9qvV7U=;
+	s=arc-20240116; t=1783285112; c=relaxed/simple;
+	bh=RyUFxQBBqeqRHY+7uV88pXgol+yDi/IdbwacoWb8TVU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hOBiJffEY0vYKd5jOhMDbsOlOZADtdVegEM2Rq9drE/kQwiEPsLcNvj1B2zDNJx7wyAOeBOsyGYhimkeKet5sMjJ1tz+bwffxCUowoXTP8rg047NThFpQwac/KMxNeXjhdjuCmyP5/RU3sctOLRumJUrlFcti/Gxnnm1L6jfV04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eOiVejbD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=aaRp+5n4mNhaTijColCUs5oinfB1cPUZAV6kYiWLNkrq7ProT69FOyFVDH+Eciv0Inv1j0+WRaOsxIt3Fs4DU+125eKnABP5ExvXHG8unkBte3zHOKXUL0L9tyXUD6S+2EBm1zL/OiDul9mYLvJn2fpQMzfhkXbEv1C3DBf1XI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eaUmDhZB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eOiVejbD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A8F61F00A3A;
-	Sun,  5 Jul 2026 20:58:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eaUmDhZB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EECE61F00A3D;
+	Sun,  5 Jul 2026 20:58:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783285108;
-	bh=Bl1Jxdvc6GwyfXCq5ELid+03Ej5gq/wsr021ZiMEBPs=;
+	s=k20260515; t=1783285111;
+	bh=kvF20U9p4jLz7Do8a9oYX/KULoHc0Sp1lSPWWya2vuE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eOiVejbD8WPzbsh6xPCinJfU2Z1oTjVwT2f0q53XpLUqfhGrdugDoPV6bmu3AzlN7
-	 rMNC3GsmDZH8W7NNQUCsbLUzHnEn+Pln4Ki1SZIIYm7PoIDskVFISzN+Xn/7i7rO3R
-	 PRHPjAk6qxB0A1xcxTaB4JBMslTI9UmEHONPLKnK/6r6qEg+5oKR/zGX1DjO/TqJHZ
-	 ee22+3qCbFPw+MZpA2iEEDputVOjpARC1E9CON7cDQ21TEvsBpZAgdwPimdqxdLLpO
-	 SHwmiNOX2Ld8zx+lZpd2xEoW82a2/8Sf14r79pLiTfId6rqbFccA5u/ltZe7M9P9mS
-	 q7U5gYu9nc5Xg==
+	b=eaUmDhZBaFxjd09zhY3+FDSq+Px7XMxuZNvbEsF+vxHT/5hhHbqX2NAMXqtwZ9TEq
+	 dOa/9LYLOPHKBtkow15dehRwO5Eih/iEc+qnH8Eghsd69dpc3GFReQ0wiq5LNSLP0r
+	 kMSWIXfpzcE6I8Yr8wfNtXE3uLLSU9TveuPnCfDP0I4W4+xwD1yuZFBT5NQnquWd/F
+	 7/HaZknHK4/rn5EaBCBNkbOoKXhCcKR4bRiY0UWTz9KRF5j6cM6+tdD47bCKo02S8m
+	 +2omtd7EOZGi0FhEm324lZLKYt0hu8e7uvH9v8aodtNuBVEx/tpXIOZ5P+gyO6Wz/x
+	 5f/dPx4zm6iig==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Manish Pandey <quic_mapa@quicinc.com>,
-	Melody Olvera <melody.olvera@oss.qualcomm.com>,
-	Nitin Rawat <quic_nitirawa@quicinc.com>,
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Jonathan Marek <jonathan@marek.ca>,
+	Krishna Manikandan <quic_mkrishn@quicinc.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Alexander Koskovich <akoskovich@pm.me>,
+	Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sm8750: wire UFS to ice instance
-Date: Sun,  5 Jul 2026 15:58:03 -0500
-Message-ID: <178328508281.1157743.2836982929405843115.b4-ty@kernel.org>
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v3 0/9] MDSS / DPU bringup for Milos
+Date: Sun,  5 Jul 2026 15:58:04 -0500
+Message-ID: <178328508279.1157743.6279460557736699887.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260429-sm8750_ice_dt_fix-v1-1-2540dc337082@oss.qualcomm.com>
-References: <20260429-sm8750_ice_dt_fix-v1-1-2540dc337082@oss.qualcomm.com>
+In-Reply-To: <20260501-milos-mdss-v3-0-58bfc58c0e13@fairphone.com>
+References: <20260501-milos-mdss-v3-0-58bfc58c0e13@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,20 +72,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 29 Apr 2026 15:05:40 +0530, Kuldeep Singh wrote:
-> The Inline Crypto Engine (ICE) exists as a standalone DT node, but the
-> UFS node lacks the required qcom,ice phandle reference.
+On Fri, 01 May 2026 09:14:42 +0200, Luca Weiss wrote:
+> This series adds display support for the Milos SoC.
 > 
-> Add the qcom,ice property to explicitly associate the UFS controller
-> with its ICE instance.
+> This is tested on the Fairphone (Gen. 6) using the SM7635 SoC (8bit DSC
+> cmd mode), and the Nothing Phone (3a) has also been reported to work by
+> Alexander Koskovich.
 > 
+> The panel driver for Fairphone (Gen. 6) and devicetree enablement will
+> be sent later.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sm8750: wire UFS to ice instance
-      commit: ac456227d22952b656ad291ebd2d3d3e498e3d95
+[5/9] soc: qcom: ubwc: Add config for Milos
+      commit: 889ee1f4f6633f8300500b529518d30bec282762
 
 Best regards,
 -- 
