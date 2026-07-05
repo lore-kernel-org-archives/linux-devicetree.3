@@ -1,42 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8C71F4C96;
-	Sun,  5 Jul 2026 14:40:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2733347C6;
+	Sun,  5 Jul 2026 14:48:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783262454; cv=none; b=QH/WGo8FM1n4X20qVS66CDiMsrtBJcE85RYjCPO4ueO6E15MqvLEPfP0FRFJkRHgBpixFIjoSY1G/qcY8NOsfHqll+A0CdZrbbR6wkNbDQMsfzabGpVLfvEEJTJOddPO7WBH8GHdzKctPui27lltEwRSLcXEJ7kBwvIjzTIjIn8=
+	t=1783262883; cv=none; b=n67Rh+FnfzD0EkOzeM2tOx7L8cc3JMGhnc/D1paHzDzsHoNEWmS6FO+ztXkApQ/f/cO8Wq1eiEiBYC8B6nuD5GXUkqw2toer9TlUUEMuxp+illBP9g8RU4UnCUBnLoHcuLxavrSpPGfHvBIC82EUubr38NiLTBJxMAsJU9hT794=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783262454; c=relaxed/simple;
-	bh=K7ZchmKtqLw/VLeOij+5v+pzaug/zC7GnO1AFQXGn+w=;
+	s=arc-20240116; t=1783262883; c=relaxed/simple;
+	bh=IapWGt1veNqxOIcHGcw94j5cPhf1WPHsmmBl+M8Db4E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p1zL3HxV2s3ydDho5fjftU7E7Yfbeilh8fIL9VTxXdrYzgwXfa8nOmkdqnoUtJKG9xl1eWYIS1eQ00ttxFFa0wUMH6mc7f+kfqbMda0t7abLaVhGS4pkR9T4nMPOk6TlnGSrl7c4c4CAtvLF6EBRt2PfyfnxLBfnaz+n2lCQ2xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGa/7CQf; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nX5fNwx+6o4+ql16Xy7Fi216PuW6pDDpUhsGZeFBueSY2HdhtOKWtWvCbbkJFVKKMFAeNaq2Zseb+Dj+EbrSBeEdB/KuUYvISJPkZ5gpqzn/HJKFAHq+tImsc75oPDDcBTnxv/JMURkYhnUZfsYMvmODlIbD17tM/x5VS58Dtzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDUNe3Ip; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGa/7CQf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C341A1F000E9;
-	Sun,  5 Jul 2026 14:40:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDUNe3Ip"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25B881F000E9;
+	Sun,  5 Jul 2026 14:47:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783262452;
-	bh=K7ZchmKtqLw/VLeOij+5v+pzaug/zC7GnO1AFQXGn+w=;
+	s=k20260515; t=1783262881;
+	bh=UlYXU1qS0vwP6GO5xRuEl/y/r2Ay40eklzolqAObtF0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kGa/7CQf1ANNFg8pVeMouauE8RMKDJkWHsxiwJmQWjAIRzr65oWtpFtmSH/UYh5+j
-	 gw3p1WKLa80RcEmJuokxg/uNder535GHnL+V/iRLtHHI1qLRb0UqYm8crC/jnewDWM
-	 EcJwLjLTUTIcm9OQAaBSNNNLBxbUHvUkdrpI+XaG0JkDB5iMBawJ1zZnRJdzl0RtcY
-	 +9G4biQ7HckxQ+b289MCU3pIe5ctkh/1eW+X168qYtn+kW1A5qY4d/kLsJTqWEQmCG
-	 4ADqwjCB7vw3vKM7Jyq2GA49bP7ZrBc5CrfQFWJWw61+3gBnN69OXGAm0fHSvwlioW
-	 ybU4t3kic4vAw==
-Date: Sun, 5 Jul 2026 15:40:48 +0100
+	b=bDUNe3IpRspasOsPMBHBgoZ855b66W41bax3jiC36Iueoz09A5EoPkDC5Qc4epFUp
+	 qu2Q2N6vb40+k+xLSJLif37mLqpZKId3tg88JCH1C76A+CJ1cXy7BUlEAYGXq4izDx
+	 lIGtvdnOu4uPFKg99O3jFGgsRgeLY9N6tBDScvzQbvO8iqa0kNjYiB8ZXN/cTVQ638
+	 J/zJtqvuc0DdZyqjZ/LWMWu9Tyu3GgsetA5HjvtS3dba8OkDzBdNp4zeRjSd3pRnQz
+	 egA9Wu/EaGOOyj491/BrN8PvCiP0fBSOszvkQHwpsaGm1nf/PMocwHsM20GX5fjn+F
+	 dVRExXQd44rbw==
+Date: Sun, 5 Jul 2026 15:47:57 +0100
 From: Conor Dooley <conor@kernel.org>
-To: wenswang@yeah.net
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux@roeck-us.net, corbet@lwn.net, skhan@linuxfoundation.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: hwmon: Add MPS mpq82d00
-Message-ID: <20260705-panning-decompose-92295a425e60@spud>
-References: <20260704081810.1701587-1-wenswang@yeah.net>
- <20260704081952.1701914-1-wenswang@yeah.net>
+To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, David Heidelberg <david@ixit.cz>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: nfc: samsung,s3fwrn5: add
+ S3NRN4V and clk-req-gpios
+Message-ID: <20260705-panic-reviving-993142677f47@spud>
+References: <20260703202601.78563-1-jorijnvdgraaf@catcrafts.net>
+ <20260703202601.78563-2-jorijnvdgraaf@catcrafts.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,26 +49,111 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/RpRisE3gS1H3rlQ"
+	protocol="application/pgp-signature"; boundary="DwWmt+Yvmo67xykl"
 Content-Disposition: inline
-In-Reply-To: <20260704081952.1701914-1-wenswang@yeah.net>
+In-Reply-To: <20260703202601.78563-2-jorijnvdgraaf@catcrafts.net>
 
---/RpRisE3gS1H3rlQ
+--DwWmt+Yvmo67xykl
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+On Fri, Jul 03, 2026 at 10:26:00PM +0200, Jorijn van der Graaf wrote:
+> The S3NRN4V is an S3FWRN5-family NFC + eSE controller found e.g. on the
+> Fairphone 6 (SM7635). Add a compatible for it and document the optional
+> clk-req-gpios property: when wired, the controller drives this line to
+> request its reference clock (needed to generate the poll carrier), and the
+> driver gates the clock on it instead of leaving it always-on.
+>=20
+> The line is modelled as a GPIO rather than an interrupt because the driver
+> reads its level to (re)synchronise the clock state, not just react to its
+> edges. It is only meaningful on the S3NRN4V, so it is restricted to that
+> compatible.
+>=20
+> Assisted-by: Claude:claude-opus-4-8
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+> ---
+>  .../bindings/net/nfc/samsung,s3fwrn5.yaml     | 23 ++++++++++++++++++-
+>  1 file changed, 22 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/net/nfc/samsung,s3fwrn5.ya=
+ml b/Documentation/devicetree/bindings/net/nfc/samsung,s3fwrn5.yaml
+> index 12baee457..3ebcd0933 100644
+> --- a/Documentation/devicetree/bindings/net/nfc/samsung,s3fwrn5.yaml
+> +++ b/Documentation/devicetree/bindings/net/nfc/samsung,s3fwrn5.yaml
+> @@ -14,12 +14,20 @@ properties:
+>      enum:
+>        - samsung,s3fwrn5-i2c
+>        - samsung,s3fwrn82
+> +      - samsung,s3nrn4v-i2c
 
---/RpRisE3gS1H3rlQ
+Why does the compatible contain the bus? The s3frn5 device probably only
+has it because it's an old text binding, your new device shouldn't have
+that.
+
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+> =20
+>    en-gpios:
+>      maxItems: 1
+>      description:
+>        Output GPIO pin used for enabling/disabling the chip
+> =20
+> +  clk-req-gpios:
+> +    maxItems: 1
+> +    description:
+> +      Input GPIO pin connected to the controller's clock-request output.=
+ When
+> +      present, the reference clock is enabled in response to this signal
+> +      instead of being left always-on.
+> +
+>    interrupts:
+>      maxItems: 1
+> =20
+> @@ -58,12 +66,25 @@ allOf:
+>        properties:
+>          compatible:
+>            contains:
+> -            const: samsung,s3fwrn5-i2c
+> +            enum:
+> +              - samsung,s3fwrn5-i2c
+> +              - samsung,s3nrn4v-i2c
+>      then:
+>        required:
+>          - interrupts
+>          - reg
+> =20
+> +  # The clock-request handshake only exists on the S3NRN4V.
+> +  - if:
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              const: samsung,s3nrn4v-i2c
+> +    then:
+> +      properties:
+> +        clk-req-gpios: false
+> +
+>  examples:
+>    - |
+>      #include <dt-bindings/gpio/gpio.h>
+> --=20
+> 2.55.0
+>=20
+
+--DwWmt+Yvmo67xykl
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakps8AAKCRB4tDGHoIJi
-0m0pAP48+WeBMJ28PyrVs2G7B29N9fZv/4cc1n82Pz4F8hjWTwD8DXk3kfFfp4EX
-8PbZrIXzF1wKPRjaHKGJlB5rUf6fcAo=
-=2z0T
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakpunAAKCRB4tDGHoIJi
+0gVgAP4tvuqBhaZ228L0ROWRbnr758cpA1W497SNJSZp97YOfgD/Trxth7/GTRpQ
+B9ciLo62hZ3odzTxSB0TJN6vCPwdSg4=
+=SnpT
 -----END PGP SIGNATURE-----
 
---/RpRisE3gS1H3rlQ--
+--DwWmt+Yvmo67xykl--
