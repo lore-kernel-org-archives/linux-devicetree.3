@@ -1,363 +1,180 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC543C060B
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 08:57:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6E634B66F
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 08:57:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783328230; cv=none; b=rXNu9Ye9EmuJvtMpNdxO99KixZm9s8ppARZ7LACupUYsEgFWzNLCWTJj6BQ4ng4UiIYOXPielwZZFSgHLdwICu5bBOgIodfCH1xuH9Vt0NaxArnSnF8qmqdFZCkI/cEo2qtxneGsPA8vZZDVfXBQdl1G2zEuEwpxgbk52HlVwfY=
+	t=1783328257; cv=none; b=lsa9eM7k+KV47f9jQTLjWfNFbA50UWXDqwR6cHaqmMVhi/yAjIAMJLXI6ariw66sxTffsrrKqPZ03jJ1O1sCMNuyYmPHlzfmp+OXR/eK3ffNy5u2/9WW8Tv2/UHQp+aapgVZjgv94e+vJdvQBSKEJgZJKCYiR+nTxSqmKpu3cxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783328230; c=relaxed/simple;
-	bh=wORaGP4//9vVX5KYq6wgckhG1BIiCPbskHNhQHXCxF4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=H5+QvtpR+FzvbO2aDpMb7yZewYfLsDopR88fwEJOyugIhxAIvgwnJLyseP5uCIFdJ2Crcc7n8Yq8kNoIHhWy5uNM/jq6GNm4YbQDHAcUTICfzVF4TNP7kkaJv11t4U+hsioEXIQbSNvNoBjgvotSinZ1KHMZBY7e4r09AgMOhg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=226LxmgD; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1783328257; c=relaxed/simple;
+	bh=ertaPo2KfN6+JLmWIpS69H7gAWNTbsx8xyo0q5AQDO4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=paKsc9wQ0dsXE/D0TIwWVmP+2Oj+jELafU/kfiWOyrErD2zV5nQUz0AQvURsamflKia6hnYPplQQMJ1dfSA6zfGnLE3sqJoVo9864REhYlGN3UhfLBhHVLzCvbZUas5o7bcWpeNoJJKjqyhGOSO5nAGpcYYJTkOL7XVanPQwDHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dAwi0tDU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QXKD90ze; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="226LxmgD"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 3C7D6C8EC62;
-	Mon,  6 Jul 2026 08:57:12 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2C3F2601A2;
-	Mon,  6 Jul 2026 08:56:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6433611BB9BF5;
-	Mon,  6 Jul 2026 10:56:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783328218; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=kfFPiegXNTBdwL7ERGkc+qHbAJDd2t8DcXD4UdKo670=;
-	b=226LxmgDjx9k9eSuB9lzIsww26Zz8Ic9NQLh0i4uMKUs5Gns2LhFiuf3n4DK4rypNVQe6A
-	/TpEfY4XWaVCUItIlaFrreQ60DyDdR4yrIhQ7Ifkk9ediqJJ2qtvj5eNbgG2rYPxTMINl5
-	QsFHXtk2CV2yU84tHFQIqppoEDMmr6XdW0fhgucdghDZOnx/TxPtMEEUhG8myLxd0CUBa4
-	+nmESPjYRIUYipXI5FEiL+Dc7T2FY2aE/d1SC9wXNZJQ2ZpqDc3Rmj96g4Bxos7X2yrQfw
-	MoilbPUhQ3q+DMaGgK9IdAQ/+MinohXiBRAcDgWPzwvaqv3OMIbAC9w90W8ARg==
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dAwi0tDU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QXKD90ze"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6668tcNp3615008
+	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 08:57:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=hr7s0DYUE79Y/NJ7lVZGxq
+	+zF8JIOLk+qWxVTt/UsDs=; b=dAwi0tDUh4fMOkvGvPfEhPUHCGxzGUWFpUfHnT
+	jpWZ72bvEc7el762ivyml8+7LTXD2fRbpDFx/uv4swPPR9RHO029Kq7+Z1BsCG6A
+	Ji71WEJpDfzmYHo7asA6Eu+xSHAi+3BtyZjJ5UgMOC8Pl3PWVmEy0SGDURzbk97+
+	u4ZXsPe3QjP2rNz4Vwia7RAt/sA0xmLnOtrP+Icl1DBl0sk+NJjUsdzevGWdSyBi
+	23k8fWpX3Zzl5wUNgSCEedrzyxcNo4x6nxjvNFZCBuXDegKwkIeeTdH3r2bc6Ecx
+	opu6JzgMlxCGsqdHwW/QrcfojqeNOYCfhMUcPblNZ+UzogPA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6srvnfme-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 08:57:23 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2c354050c34so30220485ad.3
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 01:57:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783328243; x=1783933043; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hr7s0DYUE79Y/NJ7lVZGxq+zF8JIOLk+qWxVTt/UsDs=;
+        b=QXKD90zeO0ESzrUuQ982g93S2OvsciREJceeKQeM0khfn4auJmTXMHB47aVKppoJrs
+         geYZlBSdo34mWeqP/sDdaTEtkcm17gCkLN2GMCWqZ6QndKo+JUGJ1CBqb+7M4GvJwqJI
+         e46GWIUotpdpgqvS1gwZ2EvxY8mpEIq0Scs+AxHQNGGNPhHqRt0RB3RknfycLBeeKnOT
+         oyhTifE9YnR7yHGEBO1UVdb65tVhtfYZ3sfzX+eWkpietAW/Fm0PAW7jWsrg/LU1468m
+         +frFEwFXumyX8C8pAlgpyGx3EGJE4AIWNec9txsIPKSkmo7D7GtIZ74PuWHx/ojOmaDM
+         eAcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783328243; x=1783933043;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hr7s0DYUE79Y/NJ7lVZGxq+zF8JIOLk+qWxVTt/UsDs=;
+        b=W6Ueq21LR1p5Bra+M3JxuJazdj75vCrjqbA0Gw1oTPxSRroSLna9OfI4v1PgxC61Lp
+         6lr3XiktSx5+fkZv1aoJBry/ZVqJxe/G11ZmRm7RdU3nxTXO4UrsE0Z+Aen56Nn/8QFU
+         FomXVsn+IgLnYHr6W8gPLZE17v1UzTfZIsQs97Dol78tYdwsVFD4x+tbkXhIvhQUJqbZ
+         k2IZNLntwKAPLhupNMCT4UuejElsRpNHjIkBmP0TIpW/9ywoBpLstRFB9HrWkKVxbR/g
+         SD9JECD5YzhmqAVVTrMgTCxJPGrWZoUh3QwIqEqhg3NKh77E8HiBPzvqGmpcWFU2xwsW
+         4FBw==
+X-Forwarded-Encrypted: i=1; AHgh+Rrs8aXDx9NYQ3vK3EvX+Pjze4SMQWbpzMBQIZEEjgukRRPbKmHYU2e/Wt1f83+H2LWKSsazlpDYVuBT@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1xkV9QFw5jEeh8k7Paih8WF2sepTiBslRo4HYv+yTqCRFnSjR
+	KdSzyYAH4ZvAQANl3EKgF1MZQ6zs0FAd2qSsui1sB4aCXQ2RheJHTdz+KyTTOgUBM0FM2eCtlaS
+	AQgIBd6WRin88sjxTatMcJicupoSgfjrQt2Oo4rRoFgTRlptaI0zWwQp3qnodUnJN
+X-Gm-Gg: AfdE7ckAw7j6U4kNjYITQnj0nRhEEeDW4NC+F/W4Qt2cTzByloX8nxwJCS80jVZffLj
+	qhraoP5qF1uCPj4tw4K/7ufQQTspJalKyOHb98ysq6Fl/iGhr9EzOkg60wH+mLTjTpkFzxCb+hD
+	EuY3W22cI6kpNp0u1VPtAsr/+bgMRBGzfnkjxfniY2UYXadL7aqKC/mGQvHbbA/6PBdBgB4/n3m
+	SR6DHjLZKopDVrQiKbR70uOKwik2q7fL1kwp+VMMak9sgjE60M2lxdmHzPb/Dqecdfwe1RegO/p
+	s8zYEpn7vcOga9w9vwXyAeKK2bWbLyWYjltt2gG6OV9t3Fvxsi/1umAPq5a3XIVN/A/ExG8AoF0
+	BpiyaKGlFQk6lv17Iq6FZl5tNt8/SE4rG8u0=
+X-Received: by 2002:a17:903:2344:b0:2c9:e86e:a9f3 with SMTP id d9443c01a7336-2cbb1e32c78mr86505145ad.10.1783328242991;
+        Mon, 06 Jul 2026 01:57:22 -0700 (PDT)
+X-Received: by 2002:a17:903:2344:b0:2c9:e86e:a9f3 with SMTP id d9443c01a7336-2cbb1e32c78mr86504885ad.10.1783328242550;
+        Mon, 06 Jul 2026 01:57:22 -0700 (PDT)
+Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad6f25f87sm46463665ad.3.2026.07.06.01.57.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 01:57:22 -0700 (PDT)
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+Subject: [PATCH 0/4] clk: qcom: Add video and camera clock controller
+ support for Nord
+Date: Mon, 06 Jul 2026 14:27:12 +0530
+Message-Id: <20260706-nord_videocc_camcc-v1-0-bae3be9e9770@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 06 Jul 2026 10:56:54 +0200
-Message-Id: <DJRD3C0919EP.CTZYPXDY93HI@bootlin.com>
-Cc: <linuxppc-dev@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-gpio@vger.kernel.org>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH 08/12] soc: fsl: qe: Convert to generic IRQ chip
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>, "Qiang Zhao" <qiang.zhao@nxp.com>, "Thomas
- Gleixner" <tglx@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Linus Walleij" <linusw@kernel.org>, "Bartosz Golaszewski"
- <brgl@kernel.org>, "Madhavan Srinivasan" <maddy@linux.ibm.com>, "Michael
- Ellerman" <mpe@ellerman.id.au>, "Nicholas Piggin" <npiggin@gmail.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260703-qe-pic-gpios-v1-0-6c3e706e27dc@bootlin.com>
- <20260703-qe-pic-gpios-v1-8-6c3e706e27dc@bootlin.com>
- <34946670-2a76-47fa-af82-3d70cdc9d8f0@kernel.org>
-In-Reply-To: <34946670-2a76-47fa-af82-3d70cdc9d8f0@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOhtS2oC/x3MSwqAMAwA0atI1hZi1fq5iohoGjULW2lBBPHuF
+ pdvMfNA5CAcoc8eCHxJFO8SijwD2me3sRKbDBq1wQaNcj7Y6RLLnmii+SBSbd0uRaXLDtFACs/
+ Aq9z/dBjf9wOUpPVFZAAAAA==
+X-Change-ID: 20260706-nord_videocc_camcc-858b14239006
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Jagadeesh Kona <quic_jkona@quicinc.com>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-aa3f6
+X-Authority-Analysis: v=2.4 cv=TcamcxQh c=1 sm=1 tr=0 ts=6a4b6df3 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=I6YkWGfIfrbP7rSzwlsA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-ORIG-GUID: 21-s8fxPk2nTdh_iuFzCTv6oQ-pSmZ5z
+X-Proofpoint-GUID: 21-s8fxPk2nTdh_iuFzCTv6oQ-pSmZ5z
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDA4OSBTYWx0ZWRfX2IcoL9BCmpXj
+ xAwTit1VbSAQMduIT9k2Z7HfOdCF6zJZm+vpSBac5jkzrvlV+PDaqR37oCHrBipg54Gyydc87Bj
+ Qoz8w5Rl9bXWF2i3dJuFpkBcVnOy7X7E5dQbVyciFamAOhx3PfwOnwraIktFz9pWCRIkPphGZdM
+ pVtYfG6ls7WPmKDEpN6Bn7gZUTthwITHUMoGUzndLXoSg/1oPEOZ8BeIRmiNu7D+gwmcGmbyuwx
+ UIVGag4NZR5Q7unh4+gvvvmPlZSmaz95BeiTg7snjg+30c21BSJqhs/BlVlXqrUmau3bRU0N63a
+ L0LkLo7G+VNm/HOSixMPBQHAz4zcgvpnoOE53U37QvEi4r76Uk1xaNhx/+nMv4IItmbiEfzliXT
+ cbAJ5JqcRdXqnS1nQW3KZxBCm6UTqXaR324GVlZchCK+kAaH0ymwGFxCX8ZS1TANMcUoWtb5R86
+ ll8DNMML9kDAdl0q/0Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDA4OSBTYWx0ZWRfX3cUujcyDP4sT
+ aVkbvvtNrY2Bu1qjJYIUuZ7U7XR/Y4TUmNmyYgQFztaS5/2Uh9oDpUSeVdBQE5kAN95gDCyaw8A
+ GeodIdH6Dx//aVZS+OKcv1mKNhPAuB0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-05_02,2026-07-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 suspectscore=0 bulkscore=0 phishscore=0
+ impostorscore=0 adultscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060089
 
-On Mon Jul 6, 2026 at 9:29 AM CEST, Christophe Leroy (CS GROUP) wrote:
-> Hi Paul,
->
-> Le 03/07/2026 =C3=A0 15:30, Paul Louvel a =C3=A9crit=C2=A0:
->> The generic IRQ chip framework is available to handle IRQ chips. Using
->> this framework for the QE interrupt controller allows to simplify the
->> driver. Indeed, the framework internally handles operations coded
->> directly in the driver.
->>=20
->> Add a select dependency to GENERIC_IRQ_CHIP in the PPC platform Kconfig.
->>=20
->> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
->> ---
->>   arch/powerpc/platforms/Kconfig   |   1 +
->>   drivers/soc/fsl/qe/qe_ports_ic.c | 103 ++++++++++++++++++++++++++-----=
---------
->>   2 files changed, 70 insertions(+), 34 deletions(-)
->>=20
->> diff --git a/arch/powerpc/platforms/Kconfig b/arch/powerpc/platforms/Kco=
-nfig
->> index c4e61843d9d9..b0b3a80f8cde 100644
->> --- a/arch/powerpc/platforms/Kconfig
->> +++ b/arch/powerpc/platforms/Kconfig
->> @@ -232,6 +232,7 @@ config QE_GPIO
->>   	bool "QE GPIO support"
->>   	depends on QUICC_ENGINE
->>   	select GPIOLIB
->> +	select GENERIC_IRQ_CHIP
->>   	help
->>   	  Say Y here if you're going to use hardware that connects to the
->>   	  QE GPIOs.
->> diff --git a/drivers/soc/fsl/qe/qe_ports_ic.c b/drivers/soc/fsl/qe/qe_po=
-rts_ic.c
->> index c8b73b0aa233..d022aa224f6d 100644
->> --- a/drivers/soc/fsl/qe/qe_ports_ic.c
->> +++ b/drivers/soc/fsl/qe/qe_ports_ic.c
->> @@ -20,63 +20,65 @@ struct qepic_data {
->>   	void __iomem *reg;
->>   	struct irq_domain *host;
->>   	int irq;
->> +	struct irq_chip_generic *gc;
->>   };
->>  =20
->>   static void qepic_mask(struct irq_data *d)
->>   {
->> -	struct qepic_data *data =3D irq_data_get_irq_chip_data(d);
->> +	struct irq_chip_generic *gc =3D irq_data_get_irq_chip_data(d);
->> +	struct irq_chip_type *ct =3D irq_data_get_chip_type(d);
->>  =20
->> -	clrbits32(data->reg + CEPIMR, 1 << (31 - irqd_to_hwirq(d)));
->> +	clrbits32(gc->reg_base + ct->regs.mask, d->mask);
->
-> Is there a real added value with this change ?
->
-> Previously we had:
->
-> 00000000 <qepic_mask>:
->     0:	81 03 00 18 	lwz     r8,24(r3)
->     4:	81 28 00 00 	lwz     r9,0(r8)
->     8:	7c 00 04 ac 	hwsync
->     c:	81 29 00 10 	lwz     r9,16(r9)
->    10:	0c 09 00 00 	twi     0,r9,0
->    14:	4c 00 01 2c 	isync
->    18:	80 e3 00 08 	lwz     r7,8(r3)
->    1c:	3d 40 80 00 	lis     r10,-32768
->    20:	81 08 00 00 	lwz     r8,0(r8)
->    24:	7d 4a 3c 30 	srw     r10,r10,r7
->    28:	7d 29 50 78 	andc    r9,r9,r10
->    2c:	7c 00 04 ac 	hwsync
->    30:	91 28 00 10 	stw     r9,16(r8)
->    34:	4e 80 00 20 	blr
->
-> Now we have:
->
-> 00000000 <qepic_mask>:
->     0:	80 e3 00 18 	lwz     r7,24(r3)
->     4:	81 03 00 10 	lwz     r8,16(r3)
->     8:	81 27 00 00 	lwz     r9,0(r7)
->     c:	81 48 00 94 	lwz     r10,148(r8)
->    10:	7d 29 52 14 	add     r9,r9,r10
->    14:	7c 00 04 ac 	hwsync
->    18:	81 49 00 00 	lwz     r10,0(r9)
->    1c:	0c 0a 00 00 	twi     0,r10,0
->    20:	4c 00 01 2c 	isync
->    24:	80 c3 00 00 	lwz     r6,0(r3)
->    28:	81 27 00 00 	lwz     r9,0(r7)
->    2c:	81 08 00 94 	lwz     r8,148(r8)
->    30:	7d 4a 30 78 	andc    r10,r10,r6
->    34:	7d 29 42 14 	add     r9,r9,r8
->    38:	7c 00 04 ac 	hwsync
->    3c:	91 49 00 00 	stw     r10,0(r9)
->    40:	4e 80 00 20 	blr
->
-> We now have three more indirect loads (8x lwz instead of 5x), for=20
-> loading some value which is already known at compile time.
->
->
->>   }
->>  =20
->>   static void qepic_unmask(struct irq_data *d)
->>   {
->> -	struct qepic_data *data =3D irq_data_get_irq_chip_data(d);
->> +	struct irq_chip_generic *gc =3D irq_data_get_irq_chip_data(d);
->> +	struct irq_chip_type *ct =3D irq_data_get_chip_type(d);
->>  =20
->> -	setbits32(data->reg + CEPIMR, 1 << (31 - irqd_to_hwirq(d)));
->> +	setbits32(gc->reg_base + ct->regs.mask, d->mask);
->>   }
->>  =20
->>   static void qepic_end(struct irq_data *d)
->>   {
->> -	struct qepic_data *data =3D irq_data_get_irq_chip_data(d);
->> +	struct irq_chip_generic *gc =3D irq_data_get_irq_chip_data(d);
->> +	struct irq_chip_type *ct =3D irq_data_get_chip_type(d);
->>  =20
->> -	out_be32(data->reg + CEPIER, 1 << (31 - irqd_to_hwirq(d)));
->> +	out_be32(gc->reg_base + ct->regs.eoi, d->mask);
->> +}
->> +
->> +static void qepic_calc_mask(struct irq_data *d)
->> +{
->> +	d->mask =3D 1 << (31 - irqd_to_hwirq(d));
->>   }
->>  =20
->>   static int qepic_set_type(struct irq_data *d, unsigned int flow_type)
->>   {
->> -	struct qepic_data *data =3D irq_data_get_irq_chip_data(d);
->> -	unsigned int vec =3D (unsigned int)irqd_to_hwirq(d);
->> +	struct irq_chip_generic *gc =3D irq_data_get_irq_chip_data(d);
->> +	struct irq_chip_type *ct =3D irq_data_get_chip_type(d);
->>  =20
->>   	switch (flow_type & IRQ_TYPE_SENSE_MASK) {
->>   	case IRQ_TYPE_EDGE_FALLING:
->> -		setbits32(data->reg + CEPICR, 1 << (31 - vec));
->> +		setbits32(gc->reg_base + ct->regs.type, d->mask);
->>   		return 0;
->>   	case IRQ_TYPE_EDGE_BOTH:
->>   	case IRQ_TYPE_NONE:
->> -		clrbits32(data->reg + CEPICR, 1 << (31 - vec));
->> +		clrbits32(gc->reg_base + ct->regs.type, d->mask);
->>   		return 0;
->>   	}
->>   	return -EINVAL;
->>   }
->>  =20
->> -static struct irq_chip qepic =3D {
->> -	.name =3D "QEPIC",
->> -	.irq_mask =3D qepic_mask,
->> -	.irq_unmask =3D qepic_unmask,
->> -	.irq_eoi =3D qepic_end,
->> -	.irq_set_type =3D qepic_set_type,
->> -};
->> -
->>   static void qepic_cascade(struct irq_desc *desc)
->>   {
->>   	struct qepic_data *data =3D irq_desc_get_handler_data(desc);
->> +	struct irq_chip_type *ct =3D data->gc->chip_types;
->>   	struct irq_chip *chip =3D irq_desc_get_chip(desc);
->>   	unsigned long event, bit;
->>  =20
->>   	chained_irq_enter(chip, desc);
->>  =20
->> -	event =3D in_be32(data->reg + CEPIER);
->> +	event =3D in_be32(data->gc->reg_base + ct->regs.eoi);
->>   	if (!event) {
->>   		handle_bad_irq(desc);
->>   		goto out;
->> @@ -89,33 +91,64 @@ static void qepic_cascade(struct irq_desc *desc)
->>   	chained_irq_exit(chip, desc);
->>   }
->>  =20
->> -static int qepic_host_map(struct irq_domain *h, unsigned int virq, irq_=
-hw_number_t hw)
->> +static int qepic_chip_init(struct irq_chip_generic *gc)
->>   {
->> -	irq_set_chip_data(virq, h->host_data);
->> -	irq_set_chip_and_handler(virq, &qepic, handle_fasteoi_irq);
->> +	struct irq_chip_type *ct =3D gc->chip_types;
->> +
->> +	ct->regs.mask =3D CEPIMR;
->> +	ct->chip.irq_mask =3D qepic_mask;
->> +	ct->chip.irq_unmask =3D qepic_unmask;
->> +	ct->regs.eoi =3D CEPIER;
->> +	ct->chip.irq_eoi =3D qepic_end;
->> +	ct->regs.type =3D CEPICR;
->> +	ct->chip.irq_set_type =3D qepic_set_type;
->> +	ct->chip.irq_calc_mask =3D qepic_calc_mask;
->
-> Are ct->regs.mask, ct->regs.eoi and ct->regs.type used anywhere else=20
-> than locally in qepic_{mask/unmask/end/set_type} ?
+Add the DT bindings and clock drivers for the Video Clock Controller
+(VIDEOCC) and Camera Clock Controller (CAMCC) on the Qualcomm
+Technologies, Inc. Nord SoC.
 
-No they are not.
-The main purpose of these registers is that they are used in the generic ir=
-q
-chip framework functions like irq_gc_mask_set_bit(), which we dropped earli=
-er in
-favor of using our own hooks.
-At this stage, if you consider that the instructions overhead of the functi=
-ons
-above is already too much, it is better to get rid of the framework complet=
-ly
-then.
+The VIDEOCC driver enables video clients to request clocks required
+for video encode/decode, and the CAMCC driver enables camera clients
+to request clocks required for image capture and camera processing
+on Nord.
 
->
-> Christophe
->
->> +
->>   	return 0;
->>   }
->>  =20
->> -static const struct irq_domain_ops qepic_host_ops =3D {
->> -	.map =3D qepic_host_map,
->> -};
->> +static int qepic_domain_init(struct irq_domain *d)
->> +{
->> +	struct qepic_data *data =3D d->host_data;
->>  =20
->> -static void qepic_remove(void *res)
->> +	irq_set_chained_handler_and_data(data->irq, qepic_cascade, data);
->> +
->> +	return 0;
->> +}
->> +
->> +static void qepic_domain_exit(struct irq_domain *d)
->>   {
->> -	struct qepic_data *data =3D res;
->> +	struct qepic_data *data =3D d->host_data;
->>  =20
->>   	irq_set_chained_handler_and_data(data->irq, NULL, NULL);
->> -	irq_domain_remove(data->host);
->>   }
->>  =20
->>   static int qepic_probe(struct platform_device *pdev)
->>   {
->> +	struct irq_domain_chip_generic_info dgc_info =3D {
->> +		.name		=3D "QEPIC",
->> +		.handler	=3D handle_fasteoi_irq,
->> +		.irqs_per_chip	=3D 32,
->> +		.num_ct		=3D 1,
->> +		.init		=3D qepic_chip_init,
->> +	};
->> +	struct irq_domain_info d_info =3D {
->> +		.fwnode		=3D of_fwnode_handle(pdev->dev.of_node),
->> +		.domain_flags	=3D IRQ_DOMAIN_FLAG_DESTROY_GC,
->> +		.size		=3D 32,
->> +		.hwirq_max	=3D 32,
->> +		.ops		=3D &irq_generic_chip_ops,
->> +		.dgc_info	=3D &dgc_info,
->> +		.init		=3D qepic_domain_init,
->> +		.exit		=3D qepic_domain_exit,
->> +	};
->>   	struct device *dev =3D &pdev->dev;
->>   	struct qepic_data *data;
->>  =20
->>   	data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
->>   	if (!data)
->>   		return -ENOMEM;
->> +	d_info.host_data =3D data;
->>  =20
->>   	data->reg =3D devm_platform_ioremap_resource(pdev, 0);
->>   	if (IS_ERR(data->reg))
->> @@ -125,14 +158,16 @@ static int qepic_probe(struct platform_device *pde=
-v)
->>   	if (data->irq < 0)
->>   		return data->irq;
->>  =20
->> -	data->host =3D irq_domain_create_linear(dev_fwnode(dev), 32, &qepic_ho=
-st_ops, data);
->> -	if (!data->host)
->> -		return -ENODEV;
->> +	data->host =3D devm_irq_domain_instantiate(dev, &d_info);
->> +	if (IS_ERR(data->host))
->> +		return PTR_ERR(data->host);
->>  =20
->> -	irq_set_chained_handler_and_data(data->irq, qepic_cascade, data);
->> -
->> -	return devm_add_action_or_reset(dev, qepic_remove, data);
->> +	data->gc =3D irq_get_domain_generic_chip(data->host, 0);
->> +	if (!data->gc)
->> +		return -ENODEV;
->> +	data->gc->reg_base =3D data->reg;
->>  =20
->> +	return 0;
->>   }
->>  =20
->>   static const struct of_device_id qepic_match[] =3D {
->>=20
+The series has the following:
+  - dt-bindings: clock: qcom: Add video clock controller on Nord SoC
+  - dt-bindings: clock: qcom: Add support for Camera Clock Controller
+    for Nord
+  - clk: qcom: videocc-nord: Add video clock controller driver for
+    Nord
+  - clk: qcom: camcc: Add support for camera clock controller for
+    Nord
 
-Thanks,
-Paul.
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+---
+Taniya Das (4):
+      dt-bindings: clock: qcom: Add video clock controller on Nord SoC
+      dt-bindings: clock: qcom: Add support for Camera Clock Controller for Nord
+      clk: qcom: videocc-nord: Add video clock controller driver for Nord
+      clk: qcom: camcc: Add support for camera clock controller for Nord
 
+ .../bindings/clock/qcom,sm8450-camcc.yaml          |    2 +
+ .../bindings/clock/qcom,sm8450-videocc.yaml        |    2 +
+ drivers/clk/qcom/Kconfig                           |   22 +
+ drivers/clk/qcom/Makefile                          |    2 +
+ drivers/clk/qcom/camcc-nord.c                      | 2941 ++++++++++++++++++++
+ drivers/clk/qcom/videocc-nord.c                    |  507 ++++
+ include/dt-bindings/clock/qcom,nord-camcc.h        |  167 ++
+ include/dt-bindings/clock/qcom,nord-videocc.h      |   40 +
+ 8 files changed, 3683 insertions(+)
+---
+base-commit: 2b763db0c2763d6bf73d7d3e69665222d1f377cf
+change-id: 20260706-nord_videocc_camcc-858b14239006
 
-
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Best regards,
+-- 
+Taniya Das <taniya.das@oss.qualcomm.com>
 
