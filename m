@@ -1,66 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093FD3B7B6E;
-	Mon,  6 Jul 2026 17:54:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C032F3B7B6E;
+	Mon,  6 Jul 2026 17:54:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783360478; cv=none; b=SdwOmUz4olWDlfoVzgJfRRI5DWh16Md6bvS7a/nz2CiBtppIo5wBJcsK5HT9lu34CoLTBz+976Qaq0J2ggc83zKVmKgwVm0OLIZgoFqCDNIRDdXN/71WuF/ojwAl0waxvsM4TSXGibSxREPjXwfytNeQB+lddXeurjOaesNq6XQ=
+	t=1783360490; cv=none; b=UQ2Y3Ce3PE4SP5bkm0SgLmvjDUp9DPfDZOgpz4eXDvrUT7j09W4BD1NIJDn9xr0UAERnnH+wKgfsS90zwN/ExcG/lZRW5VfVFaRSFEr4msbh58L0lpLFddLCPG1ryCZqGla2oP75/2sveaCiqMIx3iRUEiGwhdi95BlL+/tK5Bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783360478; c=relaxed/simple;
-	bh=P13DcB7tw1CJzOHf31D+ZtgW/0sH/W1zsHNhIcaO2F8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VFNusKW5HiG6LSiKEd01zaQ7+xId+irNnjdkHWwCb2pT4M2hPTm8HfeV6KAVYygaDk/c5L52wBhQkZ+cWGC6wNUt+xdU6CQq/eX6h0aMwCp+8yjJCjOUi/iXzXwBU+/Ei3U9RwXaaSl/mjSGdzYmaSWr3xuJNHMb3w/F5m7Yja0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W2UA6o+i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783360490; c=relaxed/simple;
+	bh=20+eIpYLQSEkasLN3R4K4LhCfAn3EElc1aXK34PGfeM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=jidOBc9UoumF13PewRxL2eaiTdf5gt3mo9xE1fq+h0vFgfnfLyLQChx/QTNXRO5amvwALAUt26pls3CYCzpsgtvSlae67cFeKn0lqYgVqCJnIaPeGyYr3HmKtwvxraDRMwyoFUcXyLjXUmxV9oVd9h4oc2Vni15oP4JwOw3Oqu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d+SowUpk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W2UA6o+i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C1141F000E9;
-	Mon,  6 Jul 2026 17:54:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d+SowUpk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEDD71F01569;
+	Mon,  6 Jul 2026 17:54:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783360475;
-	bh=P13DcB7tw1CJzOHf31D+ZtgW/0sH/W1zsHNhIcaO2F8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=W2UA6o+i4WC7EYoy2HijxW6r7MwA/I7ZEVUrJFdTa8ZO680WY9z8Toomrx9u3o9RB
-	 NhuQX2l91jcfdjXUQAmwfFYKNlQ5dL6Ajns59h97NwY4yY/2vyKACtUROxYgDG6kEp
-	 LW06kcwUaIOTxTVR7SqGgVQRtKAVtff922oDlksT/m0EmfRJpDxni90uH59j6tnIMY
-	 4n35HoynxgWLKd/vNSGa1z1EIsdq0L6geeu0XjqTJ5ioAw5vLv3r0/nbdnNX54id15
-	 47jNsb7HaTvXWKei5rfdY7iRSHgieM0CIDK+hhkHQhpK5eU5zLYQayVeLEbuZWTuyV
-	 1EToJSOljm6WQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 05/12] rtc: Kconfig: Broaden RTC_DRV_RZN1 dependency
- to ARCH_RENESAS
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, linux-rtc@vger.kernel.org
-In-Reply-To: <20260706175138.12587-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260706175138.12587-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 17:54:34 +0000
-Message-Id: <20260706175435.0C1141F000E9@smtp.kernel.org>
+	s=k20260515; t=1783360489;
+	bh=WQINCmnczmAlni3GXGy8eyJvLGXu82H8ol03Ze+9DPQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=d+SowUpkIckwSko0YKcO/7h8I7BEfWGtKBC5KjvFT5cRUp6OBPvdJdVab5lnvowKj
+	 DlqRhcjVKtx53YNaL8BpzVeePuaQ4ld5EuN5nnKmbefojpGcSNm4rfqAPfjX/wYqi2
+	 TLAP2Jqin67JGzA5VGNK0N0owyxeu+J0/ACty1YJ0TzBCOHWvKgmDgK7f91hwetlUd
+	 EpJ3xHd3e3tYaTfHubQe/jZcUh2scdrhBpyYSwfDfaQnRaNqufToDT3Z8Nsc8a79hw
+	 /g9ysRF6xWra+R72Ma/mtVH3gKWfFGBuHKMTIQWlupp3Lzw4CKgCUp0IUzescGxi6d
+	 KPrSQ8GiBCsHQ==
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ bjorn.andersson@oss.qualcomm.com, 
+ Praveen Talari <praveen.talari@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ mukesh.savaliya@oss.qualcomm.com, aniket.randive@oss.qualcomm.com, 
+ chandana.chiluveru@oss.qualcomm.com, jyothi.seerapu@oss.qualcomm.com, 
+ chiluka.harish@oss.qualcomm.com, Nikunj Kela <quic_nkela@quicinc.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260618-enable-spi-on-sa8255p-v4-0-f5b5067e7e1e@oss.qualcomm.com>
+References: <20260618-enable-spi-on-sa8255p-v4-0-f5b5067e7e1e@oss.qualcomm.com>
+Subject: Re: [PATCH v4 0/4] Enable SPI on SA8255p Qualcomm platforms
+Message-Id: <178334469140.57168.9206112685644722158.b4-ty@b4>
+Date: Mon, 06 Jul 2026 14:31:31 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1727; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=20+eIpYLQSEkasLN3R4K4LhCfAn3EElc1aXK34PGfeM=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqS+vkp7Hwe2DcANos0VzJEAuUiq58voaX7Qrrz
+ 2Gwn2pl7dKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCakvr5AAKCRAk1otyXVSH
+ 0H2vB/0XE/VDIGahCwreeQoAESuuFUyTXzXlkZK9p/cL3bdPKDPscjPNq1IFOGr/mIG6t9hBfyv
+ MfGnm5jKJOgYu2WLpxmo893eqVp59K1JAcHHUQQIGXuHeQDpiePFc3pWGOP1HxRrRTOSc7JTdNj
+ h/HUsMzXKz5I75qbEhx95ai02j6qbWGmGd1Rw0h8OvLPAtKFufrLqv2YZcuYx2lWq8iAr3uYip5
+ u2Gt4awEk16NW80fkvGCAr1Rv9Umgsqzl7bRDQpvwf6Fao3O/OYiS1ywOWS2rvBuqNy+lrOx7Ks
+ RuCsADX0AQ8fZIGQhXgJOpqWLzg4UT1INA7XofedaPfvVPSz
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->=20
-> Replace the ARCH_RZN1 dependency with ARCH_RENESAS for the RTC_DRV_RZN1
-> config option to make the driver available across both ARM32 and ARM64
-> Renesas architectures.
->=20
-> The newer RZ/T2H and RZ/N2H ARM64 SoCs integrate a closely related variant
-> of the RTC IP block found on the RZ/N1 SoCs. Update the build dependency
-> and expand the Kconfig help text to allow this driver to be selected for
-> these additional platforms.
->=20
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Thu, 18 Jun 2026 14:36:38 +0530, Praveen Talari wrote:
+> Enable SPI on SA8255p Qualcomm platforms
+> 
+> The Qualcomm automotive SA8255p SoC relies on firmware to configure
+> platform resources, including clocks, interconnects and TLMM.
+> The driver requests resources operations over SCMI using power
+> and performance protocols.
+> 
+> [...]
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Applied to
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706175138.1258=
-7-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D5
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
+
+Thanks!
+
+[1/4] spi: dt-bindings: describe SA8255p
+      https://git.kernel.org/broonie/spi/c/59841dc5f6ae
+[2/4] spi: qcom-geni: Use geni_se_resources_init() for resource initialization
+      https://git.kernel.org/broonie/spi/c/647277240b36
+[3/4] spi: qcom-geni: Use resources helper APIs in runtime PM functions
+      https://git.kernel.org/broonie/spi/c/059e41aab4c8
+[4/4] spi: qcom-geni: Enable SPI on SA8255p Qualcomm platforms
+      https://git.kernel.org/broonie/spi/c/b3e1d0948ca9
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
