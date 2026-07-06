@@ -1,50 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3840D395AF7;
-	Mon,  6 Jul 2026 17:24:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905F03AA4E7;
+	Mon,  6 Jul 2026 17:26:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783358659; cv=none; b=SqWBLxe0aq+Mx8kQqKGfsoC/QIvNdwp2nm0c3ua9HfRM6J//3JgncdBhVv9smCCFFwwC/mSjU1yWJYc8KinEhc5T8ELKJLtrVadam/wIIv/qwn6YM+VFHrFQO7ENtIZLbnzFbH7v9FDloJXYAaDcU2oOKY3zdQXl0muxMfxys8M=
+	t=1783358805; cv=none; b=Lkfg0e9cfwdYTczR+onuEotRl/oeq2oKiR/bzAIU2C3uEJfs19tCBBUVvZwJ/z6xHmOY4Z9b8vCtq79Y9Fng84yda0pcwOzD1qfD917/bY3a8RF3oMfp4jGQ19ILY7Ud9RZ3RYz8wSpZfmeJHxY7C/JVh4MeRIa7wC8RbYIBABY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783358659; c=relaxed/simple;
-	bh=B0rnQdDJy+7zXLBGXoRZ59stE8KocR+LttZreSh0AcE=;
+	s=arc-20240116; t=1783358805; c=relaxed/simple;
+	bh=7IM4zAo6wp30fIKOD7ytq7OyqjlyWEMupcdMTPpFk2c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TQ5Esnq5HWlX0eDaCMIKTYiCZy5MmCxedbgS+kmrEiEy7TrRLkTsAftvmlj/Hz9UuwSS6O38mJdCsyMb5FkzaKJtF0Gbd2xQWsHsFSOPwxVTc5Im91bAo9hkhEfi9VJByozIsWp4oaYhyNT03nfWoCPAqGYkM6IGv3mSHb3hmOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WYcSAmRF; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=dgVPf43xcAN5wHmAYmQGcLYzttDmEYxOQwX55SFSZwIYNZaesgjZo8WJf/U4wKrPyQaFZeNRap/jzwDmAyy5UpSUhc1u9Cr9R5UYR6B7IwRklz2IOUhuW00j9swVhTlqSlL9daBjrlhJArvLxmC+0KMzoGLc0eJt1MTZNVB4RYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nCLYqWUv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WYcSAmRF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 744601F000E9;
-	Mon,  6 Jul 2026 17:24:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nCLYqWUv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160F11F000E9;
+	Mon,  6 Jul 2026 17:26:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783358657;
-	bh=B0rnQdDJy+7zXLBGXoRZ59stE8KocR+LttZreSh0AcE=;
+	s=k20260515; t=1783358804;
+	bh=6Q0tvr2GvB7IdKSisCRev74pEI09lUCKAJRHUpFa0u0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WYcSAmRF4wpYkC+qvf2ZwYOZxq+aHXBV/iRLYp8Bu8jXKZQP/tJKymE3A8prbULB1
-	 eH6Vl8/gzipnxCn+N8TGXrNUHywCKEE6fx6LbctDHnpkFU9VNct+2yuYf4/XKkUZXs
-	 Qck8UvhBTQr7wo674HBX3IOV66P5vZQhUUmn1Ab/gIyGfH8NEDt8uQOydojH0KTal8
-	 lR+vajehzg7t9xYp/Xok/y9KOaL232ddACIYQ0ErHcwInDo1ExU7gxD0WUXEiqcJVd
-	 re1h1k1YIN3mhUvDBout7574DFN85MFsMIZH31hfID05tnxsFXr45dMoWP/ApkmHc4
-	 teqJTaf75vZKA==
-Date: Mon, 6 Jul 2026 18:24:11 +0100
+	b=nCLYqWUvGJM2k6XDnnND9naY7BS0FeW4Fu5CyITqesk4/FYtYFs2v+CdsAT/O073Y
+	 GtZ8t7rZu7alxOIECS486DbL4kafAvJYppDKfefXQcxPJWSm50Z5xEB87XflCdnqI0
+	 dI9I5Vp+VbNytWapWIsBYtTNmQpIQ3PSkrb5u0vxywEuxj1U2BwNjyu/B89xGJdNtD
+	 G/Odw4daeVaAAUZb5GsfrnhN7yZ/7dsR9qtpRXxY65g9kYlYkQBfw49iWquOtCkMjk
+	 tJfNZXyAVgeg0oDBCZxb/20tfctRWrUO672g92oAd9zuNBOetu0kFzrqAf+966bE2y
+	 VRCYCAEaqRrlQ==
+Date: Mon, 6 Jul 2026 18:26:30 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com,
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Manuel Ebner <manuelebner@mailbox.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Lee Jones <lee@kernel.org>,
+	Thierry Reding <thierry.reding@avionic-design.de>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Doug Berger <opendmb@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Peter Chen <peter.chen@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Maximilian Luz <luzmaximilian@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 1/4] dt-bindings: regulator: qcom,usb-vbus-regulator:
- add qcom,pm4125-vbus-reg
-Message-ID: <3e5c12de-bbb6-46d7-8356-7f21a0c07a84@sirena.org.uk>
-References: <20260706-add_pm4125-vbus-reg-v3-0-999d78a87b81@oss.qualcomm.com>
- <20260706-add_pm4125-vbus-reg-v3-1-999d78a87b81@oss.qualcomm.com>
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+	driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+	iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH v3 02/20] driver core: platform: provide
+ platform_device_set_of_node()
+Message-ID: <e40d0bd0-0e3d-4c01-bffc-8e0075213c45@sirena.org.uk>
+References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
+ <20260706-pdev-fwnode-ref-v3-2-1ff028e33779@oss.qualcomm.com>
+ <fbc50f89e0c3bb148656a3b8d96974f591576dec.camel@mailbox.org>
+ <akvOo2EeERLYPh72@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,40 +92,46 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Bnb/to0nkEuMkRdp"
+	protocol="application/pgp-signature"; boundary="FWksib/oYWGW6VVm"
 Content-Disposition: inline
-In-Reply-To: <20260706-add_pm4125-vbus-reg-v3-1-999d78a87b81@oss.qualcomm.com>
+In-Reply-To: <akvOo2EeERLYPh72@ashevche-desk.local>
 X-Cookie: Did I do an INCORRECT THING??
 
 
---Bnb/to0nkEuMkRdp
-Content-Type: text/plain; charset=us-ascii
+--FWksib/oYWGW6VVm
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jul 06, 2026 at 06:01:05PM +0530, Rakesh Kota wrote:
-> The pm4125 PMIC uses a different USB VBUS register layout than pm8150b.
-> It uses a 2-bit VBOOST voltage selector supporting output voltages of
-> 4.25 V, 4.5 V, 4.75 V and 5.0 V, instead of a current-limit selector.
+On Mon, Jul 06, 2026 at 06:49:55PM +0300, Andy Shevchenko wrote:
+> On Mon, Jul 06, 2026 at 04:39:00PM +0200, Manuel Ebner wrote:
+> > On Mon, 2026-07-06 at 14:44 +0200, Bartosz Golaszewski wrote:
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+> > I removed Mark Brown <broonie@opensource.wolfsonmicro.com> from recipie=
+nts because:
+> > =E2=80=9CRCPT TO <broonie@opensource.wolfsonmicro.com> failed:
+> > <broonie@opensource.wolfsonmicro.com>: Recipient address rejected: Doma=
+in not found=E2=80=9D.
 
---Bnb/to0nkEuMkRdp
+> Perhaps he needs to send a patch to update .mailmap?
+> Cc'ed to Mark.
+
+If it's for something that old I can't imagine I actually care.  If it's
+important enough I'm sure someone can work out how to get hold of me.
+
+--FWksib/oYWGW6VVm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpL5LsACgkQJNaLcl1U
-h9Axggf/a7pSsQ520BTomyUqepzGXHQ3vU8ca316cURw1I9KNMsJCwtK0s7I1QVp
-6lc1ICaEu5WMz+iRbah21bF78HHyJWt+Bf9EsIioo31IwqtHK0mtfCc++ZszeydJ
-vohQw3FqQHztWmuJ8Enef2IPEuZXGdjDCC8ve1IszPU8HTja0wK8jFd3Tyzb2JcW
-FZ0f0V86rU8BFsvqwzBIQwb1gMDeoEyFHYhXUTL/aju+wvm22K38/VeN/MMTXud4
-wMTFY7rFvSwWNHRJfPPtEXZaO4leL9pyklSBFSCKUwAsSyMeeZkhPt/SGKffxDM4
-O4Qhuxu+IrVPCz5LRAyiG6rK00z+rw==
-=V0jx
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpL5UUACgkQJNaLcl1U
+h9D67gf9GIugTh4PUXTgcv4IEO00hqfPt914zzGolWrW61nvCfBK/txok59PvoKw
+vaWiJIxtHNcqLXDHoH9/3oPWkqxrKq0RGWEX19nr124zN/T2SihiMa5RjzAr4UAG
+G9JAS2GOF29xF1Ml9KH8x5l5WduP6RUHVJqKK9vuJFpCloREcnnpMQVxJVgKEKpI
+TrKQpiKRZtTm5InBsTccxeXVDL2+bhnLHZaD4LbIziWok/tCyYnCw9VEJ/iUb7PJ
+bFLwu3JxUS7p7Kr/hStWapPyxi5fyw+V/ZQ8u+J5GE8g493f9A3rBarS4fJCZi8e
+cIRN6GhgNtdUL6L3p77EqAzlsDTheA==
+=WSwF
 -----END PGP SIGNATURE-----
 
---Bnb/to0nkEuMkRdp--
+--FWksib/oYWGW6VVm--
