@@ -1,48 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A7C334C08;
-	Mon,  6 Jul 2026 16:00:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291B23F6C4F;
+	Mon,  6 Jul 2026 16:00:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783353649; cv=none; b=iBKMqDolnr/ecvgeWZ7SP8k8IEjZOal9Hm2Tb+p4cAzUMVH85qzSn4X/AEedoaYGMdG+v82fEFMRzVaoH15+mi8hQtdiI5Zr4/JmAnd4/GdY1JTtKyAQiAh34Pu5MNJ6xnbGBkbzJbI8VWAbkKtA5gIUUrW5BO93C8OZzNa3JDw=
+	t=1783353660; cv=none; b=j1WBbY86atO8GC5tQ3EdLmCIZSk3DwH/ABrJrWpTjTnS2BIVLWRHM4MhB0MoK6hT/ZWpH/LHHj0+dOIAxY/JRhURpjZGD+bWnI2OXeMnwxnRZcjwbisaj7hRxnCy+PeNQWO/Eb8hML2MJ9Pt2tKh+XL9J6isHetMs3wIL+Ws04I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783353649; c=relaxed/simple;
-	bh=ru9/BVkvLc8kkNDhSrt81cELJIbfxZ4aO7n6MTGARtk=;
+	s=arc-20240116; t=1783353660; c=relaxed/simple;
+	bh=CNeXdCq4YUYr/jn29WXp0/HYvFmsD6R6iES7V1e2kXU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=guQWzKcbDoUDdo/h5NF42h0AH6DPsNwBwUT1PEw4FxfBF2k26aifKxsG/D5d62HXpG5e2mY01D8AGKuQ94IrYzRHKnxdI5Hpwv2q616W/7gqloUQH9YQPO+esZPLuAfZynPkYCs4U69pmTykGbGfaFeZTv+bAVAaJPzQ6Sg+wrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vine5mIy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=sIFfLOBp2AZabJk3TQQVwmI/CG7L1zPiynmwNDeyyiwyAvS8mHxVge7uJFhc/tT8CVs8DK0uwAImVGsUzvh01i5MTRNY7MVEvwgJIa5E132RWR3rxzT4h69TNltw5EfE+7Wj0IlpTAkOspXlm7104gCk8PwSaBneZWu2tpb7C2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bbIegzf4; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vine5mIy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 611961F000E9;
-	Mon,  6 Jul 2026 16:00:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783353647;
-	bh=KvwXXsYdupx6ACDENBnJ1vKCi25iIdxSRW47q8PffTc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vine5mIy9BQ8t3HsFhxMZs8TnZvLK+rg9ZFm+TxlFbQ6wT305jT86BP8XoKNtGgOP
-	 38XImVrDFwsyhOOtI/Sma06OVT0YTIpnPBzFiFdzTeVYuoNtA2imgOE5u3I/Ww7Fro
-	 HlVpS+u1CNttbI+kq18y0KyGwh8HpfZxtr+H+UP4L9HpDkS/lkpMtefWHJp/Vyw2zb
-	 YWR+dR1Rl/XhUWjoctM+YjkDcytuY5w4uuPLXVsz/8EgdaRfyIoJ/42fm563JSOB04
-	 ljLS8yP6JppBgO9Wf8cv+j3WNU5gbtygRZBIlB2xKNZbh7JQjjxT9Pjl/HUljY+EBm
-	 odEljBLLopHAQ==
-Date: Mon, 6 Jul 2026 18:00:39 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Stephan Gerhold <stephan.gerhold@linaro.org>, 
-	Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-mtd@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] mtd: rawnand: qcom: Add MDM9607
-Message-ID: <spaihty2s3zfj7jsv63ex7elf3bwz3bbak5ubageusatdgiodd@qh5gfhhh5ppo>
-References: <20260608-qcom-nandc-mdm9607-v1-0-4639a0492274@linaro.org>
- <4kdjxrn3bxg7rhkdovidxv2b2f6evnknng7gjtbz7pahyqaakh@qkgxaz6xlav2>
- <akult0UUSSwKQ8F5@linaro.org>
- <875x2smf39.fsf@bootlin.com>
- <akus-hN7-yf4Y6XU@linaro.org>
- <v4wc36d5slcbq6vsubrpzdoz6x7iq2t2xxlg7onak7fq3bcpjz@kxoqbvi734pp>
- <87y0foji2a.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bbIegzf4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783353659; x=1814889659;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=CNeXdCq4YUYr/jn29WXp0/HYvFmsD6R6iES7V1e2kXU=;
+  b=bbIegzf4MGsxr9qRTE6ii1PNH7LpAdrOiLg2dNgpBfZ49GOVcXGLsLLz
+   fJVtvR6LW6dQBSsRBsG+IEanPUWIvezt1ntUPlkmRlqrJeQ7agbBbpMla
+   DXga+wuNuw6gA8yPMydm9lTj1+KMNgSbgBZe+7fEqp7+3SbLDAiWtG/VB
+   nMTF6pzkLtA3ySEbznXpjEyHQVsYlZFr2hu1JmxFKtb0RtshvIWhjye07
+   GNHuUzI/9ngxym3DbM9Knf0zQ/k6OLCnrWelxzxRoMOn6lBbB0sO+Tbd+
+   l2N6xtPfg8Yjl1ECV8lZuLiWPRC3iL2+XYEe0KAff209dd1xsPZhxDG4P
+   Q==;
+X-CSE-ConnectionGUID: ltA6oE6/TuaOL3y4o5xIrg==
+X-CSE-MsgGUID: iiWqcV4iSpWT/wpn4b8Pcw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="95370638"
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; 
+   d="scan'208";a="95370638"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Jul 2026 09:00:57 -0700
+X-CSE-ConnectionGUID: W+MT9vknQx+rEQ4fdWnATQ==
+X-CSE-MsgGUID: kJ90HQUOT+izFt8uG3wJzQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; 
+   d="scan'208";a="250408991"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO localhost) ([10.245.244.48])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Jul 2026 09:00:52 -0700
+Date: Mon, 6 Jul 2026 19:00:49 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 06/13] usb: hub: Pass |struct usb_port*| to
+ usb_port_is_power_on()
+Message-ID: <akvRMcGnUPxE3sxR@ashevche-desk.local>
+References: <20260703110317.1283411-1-wenst@chromium.org>
+ <20260703110317.1283411-7-wenst@chromium.org>
+ <ake09vk4fEv1D9QC@ashevche-desk.local>
+ <CAGXv+5GNucSXrhL=YxarSJHD2ezzYDK3EovFu-zy012KgZ+ZBg@mail.gmail.com>
+ <ake6FNy83LLtCs3b@ashevche-desk.local>
+ <CAGXv+5EgpizA3Pc8ScNuChPhvFKWd5F6dxB-wT4-7EwabE-9dQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,141 +82,78 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <87y0foji2a.fsf@bootlin.com>
+In-Reply-To: <CAGXv+5EgpizA3Pc8ScNuChPhvFKWd5F6dxB-wT4-7EwabE-9dQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Jul 06, 2026 at 04:42:21PM +0200, Miquel Raynal wrote:
-> On 06/07/2026 at 16:19:04 +02, Manivannan Sadhasivam <mani@kernel.org> wrote:
-> 
-> > On Mon, Jul 06, 2026 at 03:26:18PM +0200, Stephan Gerhold wrote:
-> >> On Mon, Jul 06, 2026 at 03:18:18PM +0200, Miquel Raynal wrote:
-> >> > On 06/07/2026 at 14:55:26 +02, Stephan Gerhold <stephan.gerhold@linaro.org> wrote:
-> >> > > On Mon, Jun 29, 2026 at 05:46:57PM +0200, Manivannan Sadhasivam wrote:
-> >> > >> On Mon, Jun 08, 2026 at 03:20:21PM +0200, Stephan Gerhold wrote:
-> >> > >> > MDM9607 has QPIC v1.5 that supports the OP_PAGE_READ_ONFI_READ command, but
-> >> > >> > is missing the rest of the hardware changes in QPIC v2. There is also only
-> >> > >> > a single clock that can be controlled using the RPM firmware. Document and
-> >> > >> > add the new qcom,mdm9607-nand compatible for this setup.
-> >> > >> > 
-> >> > >> > Signed-off-by: Stephan Gerhold <stephan.gerhold@linaro.org>
-> >> > >> 
-> >> > >> You could ammend patch 1's commit message with the information I shared in the
-> >> > >> reply. But nevertheless:
-> >> > >> 
-> >> > >> Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-> >> > >> 
-> >> > >
-> >> > > Do you want me to resend the series with patch 1 commit message
-> >> > > adjusted? There were no other changes requested as far as I can tell.
-> >> > 
-> >> > I was mostly waiting for answers on my questions from the DT binding
-> >> > maintainers, but I understand they must be too loaded at the moment.
-> >> > 
-> >> > > I think the current commit message there is fine, especially if you add
-> >> > > the Link: tag during applying. The extra context will be there.
-> >> > >
-> >> > > If you want me to resend, I would just replace the second paragraph in
-> >> > > patch 1 with the following:
-> >> > >
-> >> > > ---
-> >> > > On MDM9607 and other recent SoCs, the QPIC hardware requires 3 clocks
-> >> > > (ahb, core, aon). However, the access to these clocks is restricted to
-> >> > > the RPM firmware that controls the shared power resources for the whole
-> >> > > SoC. The clocks cannot be controlled separately, there is only a single
-> >> > > RPM_SMD_QPIC_CLK clock that implicitly enables all of the 3 clocks.
-> >> > > The only exception to this are some IPQ* SoC that are not using RPM,
-> >> > > there the clocks are directly controlled by the kernel via the clock
-> >> > > controller (GCC). Require only one clock in the dt-bindings for MDM9607
-> >> > > to avoid having to define dummy clock entries.
-> >> > 
-> >> > I am sorry but this is still incorrect. You don't have to define 2 dummy
-> >> > clocks. You would have to define 3 times the same clock (and that's not
-> >> > a problem). I have been working on the concept of clock nexus which
-> >> > may solve this kind of issue in a rather elegant way but that's not
-> >> > ready yet.
-> >> > 
-> >> > In my opinion the binding that you want to push (a single clock) is
-> >> > wrong, but since I've been explaining this for several weeks already,
-> >> > please at least fix the commit message and I will take it as you want.
-> >> > 
-> >> 
-> >> Thanks for your feedback!
-> >> 
-> >> Either way works for me personally, but now we have a conflict between
-> >> your requested changes and the feedback from Mani, who maintains this
-> >> driver. :-)
-> >> 
-> >> @Mani: Would you also be fine with defining all 3 clocks in the DT
-> >> ("ahb", "core", "aon") and then assigning the RPM_SMD_QPIC_CLK to all of
-> >> them?
-> >> 
+On Mon, Jul 06, 2026 at 07:08:07PM +0800, Chen-Yu Tsai wrote:
+> On Fri, Jul 3, 2026 at 9:33 PM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> > On Fri, Jul 03, 2026 at 09:17:16PM +0800, Chen-Yu Tsai wrote:
+> > > On Fri, Jul 3, 2026 at 9:11 PM Andy Shevchenko
+> > > <andriy.shevchenko@linux.intel.com> wrote:
+> > > > On Fri, Jul 03, 2026 at 07:03:07PM +0800, Chen-Yu Tsai wrote:
+
+...
+
+> > > > At a brief look this will be the only function that takes usb_port
+> > > > instead of usb_hub in the entire hub.h (I don't count container_of()
+> > > > as a function). With that being said I would rather see it to be moved
+> > > > to port.c altogether (yes, it's more invasive change, but looks more
+> > > > consistent).  I would even dare to move struct usb_port (and container_of()
+> > > > accompanied with that) and this function to port.h. This might require
+> > > > a separate patch, though.
+> > >
+> > > I agree with the reasoning, especially given the function name. However
+> > > I wonder if it would cause problems given the linking order. I'll give
+> > > it a try nevertheless and report back.
 > >
-> > AFAIU, devicetree binding should describe the "OS view of the
-> > hardware", not the
-> 
-> Like Geert pointed out in the below thread, I am equally surprised by
-> this shift but I guess SoC complexity requires adaptations.
-> 
-> > hardware itself. We have many predecents to this rule. One of them is the SCMI
-> > based resource control in Qcom Automotive SoCs, where clocks/regulators to
-> > individual IPs are controlled by the SCMI server and OS just sees a single SCMI
-> > power-domain for the IP. So we only describe the SCMI power-domain in the
-> > binding and not the physical clocks/regulators received by the IP in hardware.
+> > Thanks!
 > >
-> > We had a recent discussion around the same topic and you can see the reply from
-> > Krzk here: https://lore.kernel.org/all/c83ca485-1e2e-46ba-bd15-1168aa8955d3@kernel.org
-> >
-> > So here also, the hardware receives 3 clocks physically, but OS cannot control
-> > all 3 of them, but just a single clock from RPMh which controls the 3 real
-> > clocks. Moreover, assigning the same clock to 3 different clock sources doesn't
-> > accurately describe the hardware either, because those 3 clocks operate on
-> > different frequencies
+> > In case it won't fly (but I still think it's better to split), can you at least
+> > group usb_port APIs and struct? Means moving the proto closer to that struct
+> > usb_port followed by container_of().
 > 
-> Ah, this is a point that was missing to my understanding. You actually
-> have three *different* clocks, and you control all of them through some
-> kind of firmware proxy called RPMh with a single handle. So basically
-> the kernel just enables one clock and the firmware enables/configures
-> two other clocks differently automatically. Is that it? Feels like you
-> almost need a power domain here.
+> Looks like it works out fine. port.o is linked in after hub.o, so moving
+> the function from the latter to the former doesn't cause issues. One might
+> even say that it is the correct thing to do.
+
+That's what I say! :-)
+
+> > > > Perhaps something like: 1) "move struct usb_port and associated APIs to port.h";
+> > > > 2) "...this patch...".
 > 
-
-RPMh indeed provides power-domains, but those serve a different purpose than
-the clocks provided by it. RPMh power-domains represent an internal block that
-aggregates votes from different clients like OS, Co-processor etc... and
-controls power to various IPs inside the SoC. Likewise, RPMh also aggregates
-clock votes from various clients inside the SoC and controls clock inputs to
-various IP blocks.
-
-So both are not the same here.
-
-> > and if the driver queries the frequency of
-> > RPM_SMD_QPIC_CLK, it would just return the same frequency. This is where the
-> > dummy clock comes handy as it atleast provides a valid clock frequency to the
-> > driver. But I'm not advocating for its usage here anymore.
-> >
-> > Hence IMO, assigning the same RPM_SMD_QPIC_CLK to all 3 clocks is not the right
-> > approach and we should be assigning a single RPM_SMD_QPIC_CLK to
-> > 'core' clk.
+> There are still some left in hub.c:
 > 
-> You said using three times the same clock would be wrong because we
-> would get three times the same rate whereas in practice it's wrong. This
-> means the OS has access to these clocks somehow,
+> static void usb_lock_port(struct usb_port *port_dev)
+> static void usb_unlock_port(struct usb_port *port_dev)
+> static void port_over_current_notify(struct usb_port *port_dev)
 
-No, there is no way the OS can access these 3 clocks individually on the RPMh
-enabled platforms. But the OS indeed has access to these 3 clocks on non-RPMh
-platforms like the older IPQ ones.
+> static void hub_usb3_port_prepare_disable(struct usb_hub *hub,
+>                                           struct usb_port *port_dev)
 
-> so if we need to
-> describe what the OS sees of the hardware, as you say, defining a single
-> clock is incomplete.
+This one takes hub as well.
+
+> These are used only in hub.c and moving them probably makes things
+> messier?
+
+Perhaps better naming to each (kinda moving to usb hub namespace)?
+
+> OOTH, the following bits are in port.c but declared in hub.h:
 > 
-> Again, I am not totally opposed to the single clock idea if you all feel
-> like this is the way forward. Yet, it sounds a bit hackish.
+> int usb_hub_create_port_device(struct usb_hub *hub,
+>          int port1);
+> void usb_hub_remove_port_device(struct usb_hub *hub,
+>          int port1);
 > 
+> Any preferences for these while we're reorganizing the code?
 
-I don't see it as a hackish representation, but rather a proper one because, OS
-only sees a single clock for the NAND controller.
+These ones would be good to be in hub.c if there is no circular dependencies or
+alike.
 
-- Mani
 
 -- 
-மணிவண்ணன் சதாசிவம்
+With Best Regards,
+Andy Shevchenko
+
+
