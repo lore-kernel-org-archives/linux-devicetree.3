@@ -1,97 +1,342 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-08.mail-europe.com (mail-08.mail-europe.com [57.129.93.249])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B227835836B;
-	Mon,  6 Jul 2026 22:04:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B543A9013
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 22:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.129.93.249
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783375465; cv=none; b=DiQLav2va6J333ea32LCa7frqS1KPlILWBcu1oWg3gRVYbK6SdY75Lb8akT+wCGJ6mNtr9fc5dirchpi31nTMXVGg2C1RQ4A3fC2i4rzkXaDNTV/jxZqAR1krIHr9fmKXbei4Qq5RLTNjDjai1sy70IBpe1VkH8NmVx8eKsGXU8=
+	t=1783375562; cv=none; b=p/Jky8v5G+vk+vOEUYD9Fv0PXlTgl3BRzo6zkqGJs1BLS16DlqbV/41WEwWkqX3MGVi49K2cXBI7MJ2BvQhHcNnFt3GHcAbMbiwj4ZZ1sOvKUSTkRfoB/mzghkXumGfKhzD0muSE+Vp/C3h1jKcJ6H4S2e+X2Jy5imu12ZPFMgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783375465; c=relaxed/simple;
-	bh=4onJwKnE5CQaUEj+tNQUulsZgCAkphLTDv5KajhsFD4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Mjc1zKpGGiUhsWu+w/eJDE+jkpoOVneD/WVUieTtXARVe+FlhTEwbmryu9ETJd3PKKsdHKrE388WLcgGhukyOQ+eNiMZdVrzdbn+k6ewNrkL8ZpoE2s7l1UZYfGJRfU/RefPrh3aaaWFcTVK06JVvDu7DS2w4tUz2Pou6l1BC3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G7KVjv2G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783375562; c=relaxed/simple;
+	bh=8qBUPwBt0u3SSoYNcTeaf6PTJyTN9IpFeain1BtACVk=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=e5s6zZoota3ZJ5sO18oR+ruA/tUPy+5N2kVLAFKiPCzVPWM/xDqS73X1iBJO/eLao2gxSDD7P6R5o9ZBllDGfnVbv1V3rPxTCnlytdwVu9xOqEfrNA0zfPfp8Z4XaJXznrltzGbfbmvGLbFlBXCUetCxQI/zdDvqub53fhB7YfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=aW2oRqxn; arc=none smtp.client-ip=57.129.93.249
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G7KVjv2G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0CEE1F000E9;
-	Mon,  6 Jul 2026 22:04:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783375464;
-	bh=c4MB6edk3cDxXGN87p2A+S2ms5ifyZNAH3jki7fsAe8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G7KVjv2G7XHvQCboXX0AbuAWag0MCU0tdGg7q7NLtHuWGcJUgmJqsQW9aUmtH90d+
-	 V4ld2DCKPOVYuYFwxSxMbLq7iSr79OgsFbIJXmb3K4Y6SSMLx1oug8m1Iy9UzYiewZ
-	 NBXSD+SJF8opkzxAXj0JW0h+vK6BMVX0JrdPXNbJmPd3BMCJVKHi9aKDwekNTS/qn7
-	 YPEhwdHNLIvEi3NQnBBLoJk+/w+qdi/8uOZfXFj6WG6AWtBuA4TDvd/Ig+ixOqL9sJ
-	 NOHzNzB1QWZAsZ1sEBeOZLbxu59akxW+kg5b37gyDnJi+uscRar+GwHRI0k/STqIhf
-	 sUab9co4V3EUw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] arm64: dts: imx8qm-ss-lsio: add lsio mu6,8,8b
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Frank.Li@oss.nxp.com
-Cc: conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260706-qm_dts-v1-3-14117a48fbdb@nxp.com>
-References: <20260706-qm_dts-v1-0-14117a48fbdb@nxp.com>
- <20260706-qm_dts-v1-3-14117a48fbdb@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 22:04:23 +0000
-Message-Id: <20260706220423.D0CEE1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="aW2oRqxn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1783375550; x=1783634750;
+	bh=4N09trsfve7s8Xvwo2ELkVFWjx5c6BjMdk9I4terRNE=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=aW2oRqxnsNyKZShss5i9Xn3G01AzNMYI/77GrN2IyXbzAb00Of35s2m6ayfw4rFAU
+	 DA7xK4ZhKmc+U4qhY9+GCHgb3yywaienP4Ne0Xr2aAsLQv5ggVYL1lTa28je4y1mfH
+	 chZRKeM1qYc/gUo8Rd4d72NdLKYMwDe8qxZnYqxw3Ue26a9P/GuY7nAmI1nFrLXxeI
+	 8op4hsS25qU9rlneWRPYlUYigEmb+MQT51luXOT0V1lmTZJPDTbJjYdz/LG6Bj8gGn
+	 0k1+6xlYSw+giihDbeabCpyDbhvSyqr7yJlJJEKsboA/7t6hknOCyc1bwXRt7rrbDn
+	 qfkJhx6v/SlAg==
+Date: Mon, 06 Jul 2026 22:05:42 +0000
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Alexander Koskovich <akoskovich@pm.me>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH v4 0/3] Add support for the Iris codec on Milos
+Message-ID: <20260706-milos-iris-v4-0-119cbe0a7262@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: b499a7350ea2746088f054143f93e717bd86f937
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Redundant re-declaration of the `lsio_mu6` node and label.
---
+This series adds the bindings, nodes and platform data for the Milos platfo=
+rm
+for the Iris video codec, allowing Milos to use hardware=E2=80=91accelerate=
+d video
+encoding and decoding.
 
---- Patch [3]: [PATCH 3/4] arm64: dts: imx8qm-ss-lsio: add lsio mu6,8,8b ---
-commit e95e394180e13045095ad2b094d537158b113f5c
-Author: Frank Li <Frank.Li@nxp.com>
+Ran v4l2-compliance and some fluster tests, though a concerning amount of t=
+hem
+failed. Attaching v4l2-compliance output and the full fluster results below=
+.
 
-arm64: dts: imx8qm-ss-lsio: add lsio mu6,8,8b
+nothing-asteroids:~$ v4l2-compliance -d /dev/video1 -s
+v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
 
-This commit adds mu6, 8, and 8b mailbox nodes to the imx8qm-ss-lsio
-device tree.
+Compliance test for iris_driver device /dev/video1:
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-ss-lsio.dtsi b/arch/arm=
-64/boot/dts/freescale/imx8qm-ss-lsio.dtsi
-> index b483134f84d18..fb503c93447d1 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8qm-ss-lsio.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8qm-ss-lsio.dtsi
-> @@ -3,6 +3,35 @@
->   * Copyright 2019-2020 NXP
->   *	Dong Aisheng <aisheng.dong@nxp.com>
->   */
-> +&lsio_subsys {
-> +	lsio_mu6: mailbox@5d210000 {
-> +		compatible =3D "fsl,imx8qm-mu", "fsl,imx6sx-mu";
-> +		reg =3D <0x5d210000 0x10000>;
-> +		interrupts =3D <GIC_SPI 185 IRQ_TYPE_LEVEL_HIGH>;
-> +		#mbox-cells =3D <2>;
-> +		power-domains =3D <&pd IMX_SC_R_MU_6A>;
-> +	};
+Driver Info:
+=09Driver name      : iris_driver
+=09Card type        : Iris Encoder
+=09Bus info         : platform:aa00000.video-codec
+=09Driver version   : 7.2.0
+=09Capabilities     : 0x84204000
+=09=09Video Memory-to-Memory Multiplanar
+=09=09Streaming
+=09=09Extended Pix Format
+=09=09Device Capabilities
+=09Device Caps      : 0x04204000
+=09=09Video Memory-to-Memory Multiplanar
+=09=09Streaming
+=09=09Extended Pix Format
+=09Detected Stateful Encoder
 
-[Severity: Low]
-Is this full node definition for lsio_mu6 redundant?
+Required ioctls:
+=09test VIDIOC_QUERYCAP: OK
+=09test invalid ioctls: OK
 
-The properties defined here, such as reg, interrupts, #mbox-cells, and
-power-domains, appear to already be inherited from the base imx8-ss-lsio.dt=
-si
-file. Furthermore, the QM-specific compatibles are already applied via a
-reference at the bottom of this file.
+Allow for multiple opens:
+=09test second /dev/video1 open: OK
+=09test VIDIOC_QUERYCAP: OK
+=09test VIDIOC_G/S_PRIORITY: OK
+=09test for unlimited opens: OK
 
-Could this block be safely omitted to avoid duplication? As it currently
-stands, it also does not override the status =3D "disabled" property from t=
-he
-base file, which might mean the mailbox is still left disabled.
+Debug ioctls:
+=09test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+=09test VIDIOC_LOG_STATUS: OK (Not Supported)
 
-[ ... ]
+Input ioctls:
+=09test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+=09test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+=09test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+=09test VIDIOC_ENUMAUDIO: OK (Not Supported)
+=09test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+=09test VIDIOC_G/S_AUDIO: OK (Not Supported)
+=09Inputs: 0 Audio Inputs: 0 Tuners: 0
 
+Output ioctls:
+=09test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+=09test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+=09test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+=09test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+=09test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+=09Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+=09test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+=09test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+=09test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+=09test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+=09test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+=09test VIDIOC_QUERYCTRL: OK
+=09test VIDIOC_G/S_CTRL: OK
+=09test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+=09test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+=09test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+=09Standard Controls: 64 Private Controls: 0
+
+Format ioctls:
+=09test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+=09test VIDIOC_G/S_PARM: OK
+=09test VIDIOC_G_FBUF: OK (Not Supported)
+=09test VIDIOC_G_FMT: OK
+=09test VIDIOC_TRY_FMT: OK
+=09test VIDIOC_S_FMT: OK
+=09test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+=09test Cropping: OK
+=09test Composing: OK (Not Supported)
+=09test Scaling: OK (Not Supported)
+
+Codec ioctls:
+=09test VIDIOC_(TRY_)ENCODER_CMD: OK
+=09test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+=09test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+=09test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+=09test CREATE_BUFS maximum buffers: OK
+=09test VIDIOC_REMOVE_BUFS: OK
+=09test VIDIOC_EXPBUF: OK
+=09test Requests: OK (Not Supported)
+=09test blocking wait: OK
+
+Test input 0:
+
+Streaming ioctls:
+=09test read/write: OK (Not Supported)
+=09Video Capture Multiplanar: Captured 124 buffers  =20
+=09=09fail: v4l2-test-buffers.cpp(1750): node->streamon(q.g_type())
+=09test MMAP (select, REQBUFS): FAIL
+=09Video Capture Multiplanar: Captured 61 buffers   =20
+=09=09fail: v4l2-test-buffers.cpp(1750): node->streamon(q.g_type())
+=09test MMAP (epoll, REQBUFS): FAIL
+=09Video Capture Multiplanar: Captured 61 buffers   =20
+=09=09fail: v4l2-test-buffers.cpp(1750): node->streamon(q.g_type())
+=09test MMAP (select, CREATE_BUFS): FAIL
+=09Video Capture Multiplanar: Captured 61 buffers   =20
+=09=09fail: v4l2-test-buffers.cpp(1750): node->streamon(q.g_type())
+=09test MMAP (epoll, CREATE_BUFS): FAIL
+=09test USERPTR (select): OK (Not Supported)
+=09test DMABUF: Cannot test, specify --expbuf-device
+
+Total for iris_driver device /dev/video1: 54, Succeeded: 50, Failed: 4, War=
+nings: 0
+nothing-asteroids:~$=20
+
+nothing-asteroids:~$ v4l2-compliance -d /dev/video0 -s5 --stream-from=3D/me=
+dia/FVDO_Freeway_720p.264
+v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
+
+Compliance test for iris_driver device /dev/video0:
+
+Driver Info:
+=09Driver name      : iris_driver
+=09Card type        : Iris Decoder
+=09Bus info         : platform:aa00000.video-codec
+=09Driver version   : 7.2.0
+=09Capabilities     : 0x84204000
+=09=09Video Memory-to-Memory Multiplanar
+=09=09Streaming
+=09=09Extended Pix Format
+=09=09Device Capabilities
+=09Device Caps      : 0x04204000
+=09=09Video Memory-to-Memory Multiplanar
+=09=09Streaming
+=09=09Extended Pix Format
+=09Detected Stateful Decoder
+
+Required ioctls:
+=09test VIDIOC_QUERYCAP: OK
+=09test invalid ioctls: OK
+
+Allow for multiple opens:
+=09test second /dev/video0 open: OK
+=09test VIDIOC_QUERYCAP: OK
+=09test VIDIOC_G/S_PRIORITY: OK
+=09test for unlimited opens: OK
+
+Debug ioctls:
+=09test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+=09test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+=09test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+=09test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+=09test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+=09test VIDIOC_ENUMAUDIO: OK (Not Supported)
+=09test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+=09test VIDIOC_G/S_AUDIO: OK (Not Supported)
+=09Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+=09test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+=09test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+=09test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+=09test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+=09test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+=09Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+=09test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+=09test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+=09test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+=09test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+=09test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+=09test VIDIOC_QUERYCTRL: OK
+=09test VIDIOC_G/S_CTRL: OK
+=09test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+=09test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+=09test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+=09Standard Controls: 10 Private Controls: 0
+
+Format ioctls:
+=09test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+=09test VIDIOC_G/S_PARM: OK (Not Supported)
+=09test VIDIOC_G_FBUF: OK (Not Supported)
+=09test VIDIOC_G_FMT: OK
+=09test VIDIOC_TRY_FMT: OK
+=09test VIDIOC_S_FMT: OK
+=09test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+=09test Cropping: OK
+=09test Composing: OK
+=09test Scaling: OK (Not Supported)
+
+Codec ioctls:
+=09test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+=09test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+=09test VIDIOC_(TRY_)DECODER_CMD: OK
+
+Buffer ioctls:
+=09test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+=09test CREATE_BUFS maximum buffers: OK
+=09test VIDIOC_REMOVE_BUFS: OK
+=09test VIDIOC_EXPBUF: OK
+=09test Requests: OK (Not Supported)
+=09test blocking wait: OK
+
+Test input 0:
+
+Streaming ioctls:
+=09test read/write: OK (Not Supported)
+the input file is smaller than 7077888 bytes
+=09Video Capture Multiplanar: Captured 465 buffers  =20
+=09test MMAP (select, REQBUFS): OK
+the input file is smaller than 7077888 bytes
+=09Video Capture Multiplanar: Captured 465 buffers  =20
+=09test MMAP (epoll, REQBUFS): OK
+the input file is smaller than 7077888 bytes
+=09Video Capture Multiplanar: Captured 465 buffers  =20
+=09test MMAP (select, CREATE_BUFS): OK
+the input file is smaller than 7077888 bytes
+=09Video Capture Multiplanar: Captured 465 buffers  =20
+=09test MMAP (epoll, CREATE_BUFS): OK
+=09test USERPTR (select): OK (Not Supported)
+=09test DMABUF: Cannot test, specify --expbuf-device
+
+Total for iris_driver device /dev/video0: 54, Succeeded: 54, Failed: 0, War=
+nings: 0
+nothing-asteroids:~$=20
+
+The fluster results can be found here:
+https://github.com/linux-msm/fluster-tests/pull/1
+
+---
+Changes in v4:
+- Update firmware name to vpu20_p2_gen2_s7.mbn
+- Drop mb_cycles_fw[_vpp], unused on vpu2
+- Add mb_cycles_vsp
+- Use hex for iommus
+- Link to v3: https://lore.kernel.org/r/20260705-milos-iris-v3-0-8c1353530f=
+24@pm.me
+
+Changes in v3:
+- Rebase onto next-20260703
+- Switched fluster tests to use gstreamer, ffmpeg ones not reproducible run=
+ to run?
+- Update milos caps to include caps introduced in tree after v2
+- Correct iris opp table to only update the MX rail values
+- Link to v2: https://lore.kernel.org/r/20260529-milos-iris-v2-0-7a763d7195=
+ae@pm.me
+
+Changes in v2:
+- Rebase onto 7.1.0-rc5
+- Change firmware name to vpu20_p2.mbn
+- Change iris reg to hex
+- Correct iris opp table
+- Update cover letter with new test run on 7.1.0-rc5, add -s arg to v4l2-co=
+mpliance
+- Link to v1: https://lore.kernel.org/r/20260406-milos-iris-v1-0-17ed0167ba=
+6f@pm.me
+
+---
+Alexander Koskovich (3):
+      dt-bindings: media: qcom,milos-iris: Add Milos video codec
+      media: iris: Add support for Milos (VPU v2.0)
+      arm64: dts: qcom: milos: Add Iris VPU v2.0
+
+ .../devicetree/bindings/media/qcom,milos-iris.yaml | 166 ++++
+ arch/arm64/boot/dts/qcom/milos.dtsi                |  85 ++
+ drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 883 +++++++++++++++++=
+++++
+ .../platform/qcom/iris/iris_platform_common.h      |   2 +
+ .../media/platform/qcom/iris/iris_platform_milos.h |  27 +
+ .../media/platform/qcom/iris/iris_platform_vpu2.c  |  35 +
+ drivers/media/platform/qcom/iris/iris_probe.c      |   4 +
+ 7 files changed, 1202 insertions(+)
+---
+base-commit: 2b763db0c2763d6bf73d7d3e69665222d1f377cf
+change-id: 20260406-milos-iris-d1a854e4cb75
+
+Best regards,
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-qm_dts-v1-=
-0-14117a48fbdb@nxp.com?part=3D3
+Alexander Koskovich <akoskovich@pm.me>
+
+
