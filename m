@@ -1,60 +1,60 @@
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248CC3DD522
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 19:59:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E203DA7DF
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 19:59:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783367978; cv=none; b=GJtn6NjEH8yi1i4b9tIQXVBFz1zeB2PyMcFw9lx4h4Ztt+y1/Kn240XzTDeQrNX8YB/c6Cxk9M/PBp8pDPnrHaopVIg7+B6kC3bonRfQXXEaNrpIfH3ZE5M2Bb2V2n3pyuUxUTne7ttO8cFo3dHSxgHSWalSnCjq2Jlxi2BE3xE=
+	t=1783367984; cv=none; b=lDLyFNeG3XaXgTDTS7O50dYsekRWaTJbu84Nmsm1xlR+EmQKwHAxmwabzjoAdn59M3Uu+16wEaqf+O+XT6/OHV0s9yE9ZwpkAZDLTA2oWHZA8eJ3RovUJ2Kq3+tzeTwMjs0c8G0gZgJWz7ybCZxBh+Nw6dXqwtA4MjWQKWeOcv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783367978; c=relaxed/simple;
-	bh=VirjA61iZOQwLAxKnDe3FfGkvvDUzTvJontq24LgAoc=;
+	s=arc-20240116; t=1783367984; c=relaxed/simple;
+	bh=OVH51qzEIe3wtI9H12QfejWrtlsvqUxmDKvM531GD9U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A5tRtYwPFKZUyUKYtryOSGN0IDxa+qIHN83MJdO3rgY63UeQs6EMstcPTnO4AFWGE9KG8N/PUELESDGndHVnBVkUbsl9HdgCQzWM69yoBjR15gkjf3UtTiu5KA/rVP5j1mBmPGx/ri/5SzChHAmBDp9GKpQKksZaqPujLaOxcOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=KYfdoiSe; arc=none smtp.client-ip=209.85.210.52
+	 MIME-Version; b=CcD67CSalScMQrcujuxcupUzzirPHLy2nCyOnSbQT56vzeIC0qZK4VnMmOT4/ByCtMnwtLbeM/a6OomZ9Ie+qyw2im6Z/bw3WtaJ64G/mnUI1N3yL7mP6jwnEtj7c9v61gcip5Ow4VX2vOwirpGi4d7N+Ntajh80IgKFml53TCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=aD5mxmbU; arc=none smtp.client-ip=209.85.210.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="KYfdoiSe"
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7e9ecb1e13bso1013455a34.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 12:59:35 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="aD5mxmbU"
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7ea9c6ea7deso2560953a34.3
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 12:59:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1783367972; x=1783972772; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1783367978; x=1783972778; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HTEktTiHYW7+Tdn5y54ehrrNgsnN/rsQeRiANrKwqEE=;
-        b=KYfdoiSehR2kUJUggtks83O+EkWbETLtZhAklZ3yDyvJ98+g+BYl4x7KtUN44PT21l
-         HwEhMu8xQbWfkNj66W8QHCde4JsViXGUYVBxzKNYyn9cYBg6RoHLAnL4U3kETZE/9cAW
-         WLY0/vxa4AKUrsyw0HCGgh4nOnxabuJV7wKyg=
+        bh=uUPjVrLwJsJVzn4Q29xfovXMjcBST4SjV69WBu8CmHY=;
+        b=aD5mxmbUYhYVJjyHxbEaaox5A3OJCb8HRv1eZhb46GBGIW24pVf59a2LEFvzG+WEmg
+         SmnbfA2f/rXQbx3tLcRJ60ZbhJtq56d71QrkSJqnUSIj48cHaqjcyXqqOgKNmgtmh4+q
+         dx8wd0lbNto5ZLrBH75SW8S4fvGTKmXPyK75s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783367972; x=1783972772;
+        d=1e100.net; s=20251104; t=1783367978; x=1783972778;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=HTEktTiHYW7+Tdn5y54ehrrNgsnN/rsQeRiANrKwqEE=;
-        b=PHt4gPfq5vJYUbj6us4mwbnhU8ufvgkTxibsBMrr6eUi4nXiyyg8i75GktA78SZOOX
-         eEw6QMjWXyNL9bsPT+OrfDCFzlRG/7akQggSXyKw8YWj56rL3Jc4yfYyR0ydt2E3bmrB
-         kh/lLweeTN221pk/3l03MVGL6C1qBmBtjLp7LCBIYSiQOMWsUyKLYk41ufAd1jTMMxIo
-         WaXUq8XZCUitWHLiW2nWB/JYsmlHc9oe+ZHHakZqmQYJeAO31AzdBwBpgtbV+VaL2PsD
-         5gfPx7OxpXPi3N1KFxnb/DHSGPYbzscrU9m5c5iP0qrN1zvYY7pN83okujuX1fzxBlAY
-         k3nA==
-X-Forwarded-Encrypted: i=1; AFNElJ+J8RecVfeT0EY4/Ux3krIfcJN2hlafXhiNCYAfpuCLXj4pPQ8aey4JmGI4lO4G3Rr7ktvYHLDzm3Sh@vger.kernel.org
-X-Gm-Message-State: AOJu0YxprN0clPaaN1S2c/spW/bdLUQyGA/tXKnJdbbDSWpZm46N86Hi
-	g/CUe/vJ3spLnFiZIzzMtKCmwgRj5LiZyyX9bfpW4hS9VRQuQ1hVEFBlCxPuAl5iJg==
-X-Gm-Gg: AfdE7ckEXaDi7pt5eddrAwZzeX/s+lBp5MwCyw3M9wI1WTJDxq7wgVpcuy5p/u2+Mml
-	Z1u+1Q1L1eQzrKwuODoxI2y4UN1yO8R4S5yVM5h8Q9lOSN2ptZ+VWSAP7djkYWj9+Uge2MwB+xe
-	Cb5LPzBkmdiXsEnuAzaVlvnT6mj6OVXfBzehtvdJSaGoT8YgHoX95+qjPOdb4im/UWwLa8zedJN
-	4JpOGUtaTi398BG8Wx9chx7PeCl2bc9NtfRZ4geCptWQ9+1OOun/0gGxjbf+VgyCrgpO0QM1J57
-	OULSQVrcFk16ttSKaKh7q9r3P3wDrb53owDA0vQRKYfAB4xoLxo+w+AFM7P4wclQNAUBLFixzq3
-	Bv30c9ffmtgJBClhD7PGHMP/x7VSX+o15kAaTa/uWW+u8W4bJ+h6g5tIhUeM9uS7oJnMf3wwCjc
-	XMhzWym+Fz2MuorgsXVg==
-X-Received: by 2002:a05:6830:2588:b0:7e9:2d33:87eb with SMTP id 46e09a7af769-7ebb22625bfmr1361922a34.12.1783367972711;
-        Mon, 06 Jul 2026 12:59:32 -0700 (PDT)
+        bh=uUPjVrLwJsJVzn4Q29xfovXMjcBST4SjV69WBu8CmHY=;
+        b=pongnpHCc9YRL80kQGl7m63gr1BYIj35lfHeRrA4N6hrQdu/B28GmOFrKe0XAE8bfd
+         nGnKsPfKHKXIsPnCNNmKtpQrlLuHThNKDeWZh3jhzezsu3/c46acf6Y/7KGbgMLTHMSC
+         Ol4KOxxPbFQuf0Sbpf3ShU9UqExvfCcWc6/TnvLe0Uvdho1cZeVmUZ7Z5berqpnQO4Hf
+         DfJ80SFlg+4Tuz2dVzqSUEuF3EU3DPLYl0UcKcWwtvwUi1K08yy73vIYSYYKvzu5T6gd
+         TtMKphlfClLNwwKMN4IMnmpp4JCT4dSBzVDVdONtgR2tIFV7KXf76g4xF6O+ZjnzQ2jb
+         P4/Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/sHzhUO+ksfC27icytmNGvV9deECHWaI4aUFJUXJrfA1y8B+z6Y9zb8cP474D/XyUizZJsMROGDG9S@vger.kernel.org
+X-Gm-Message-State: AOJu0YwhE4Qqv45NbjpFjEQKDD2O5aEyxc2fV02TsqGJUhQaGJxlBVsa
+	p2uHrsov6K1yjaBgmjhTPQFR/PYCuUwqGFrNIJUbjWIV2W5GE8sCEg0ZU0EAmnzqyw==
+X-Gm-Gg: AfdE7ckSTV0jsGSM0uH0+k31c8olZwnA83GIjzpUi0CjVCmVuA18TvYA0OQP0qbhyUj
+	6F2Q+cPt2ftoxyNf/wQt4G2tCNpjJWjdQfU9n/9tIDxXWLSW63SGEAIK27AMxzy00W+wuV/NKci
+	OQ5ElWKfwpIn97JQCIXsXxCATxCxNhhW0jWfZjufvY7G+C/ybUbwa4Gw5FBnNcKYt1n4IbJlUsX
+	c/0o2Mz1trdjHVyuns/BuYCPVxzthFmPIMSjj8rq6lA+lY3Kdnba8iDqAImaxxJmfGkelIBu42/
+	aasEw3LoLBUK3TCcIQxB7oQqo2/9xpf9ap1Wgxxn6YhbSzs0FXxTRTtZOzPAvXRgLQ2bOkJEIWA
+	2+8aWMHmLnoD5YDi5olu/GyU2zKFP89IFm4843ahi/6951RA7yfKqM54vH5wcAUvZUpJQ3aU8Ns
+	LGFRlzyo8=
+X-Received: by 2002:a05:6830:82e8:b0:7d7:58b0:7685 with SMTP id 46e09a7af769-7ebb22cee36mr1427105a34.13.1783367977773;
+        Mon, 06 Jul 2026 12:59:37 -0700 (PDT)
 Received: from chromium.org ([174.51.25.52])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7eb542d017csm12161834a34.8.2026.07.06.12.59.30
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7eb542d017csm12161834a34.8.2026.07.06.12.59.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 12:59:31 -0700 (PDT)
+        Mon, 06 Jul 2026 12:59:37 -0700 (PDT)
 From: Simon Glass <sjg@chromium.org>
 To: Heiko Stuebner <heiko@sntech.de>
 Cc: linux-rockchip@lists.infradead.org,
@@ -62,19 +62,20 @@ Cc: linux-rockchip@lists.infradead.org,
 	Fabio Estevam <festevam@nabladev.com>,
 	linux-arm-kernel@lists.infradead.org,
 	Simon Glass <sjg@chromium.org>,
-	Andy Shevchenko <andy@kernel.org>,
+	Albert Aribaud <albert.u.boot@aribaud.net>,
+	Chukun Pan <amadeus@jmu.edu.cn>,
 	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
+	FUKAUMI Naoki <naoki@radxa.com>,
+	Jeffy Chen <jeffy.chen@rock-chips.com>,
 	Jonas Karlman <jonas@kwiboo.se>,
-	Jonathan Cameron <jic23@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
 	Rob Herring <robh@kernel.org>,
-	linux-iio@vger.kernel.org,
+	huang lin <hl@rock-chips.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 09/12] dt-bindings: iio: adc: rockchip-saradc: Add RV1106 compatible
-Date: Mon,  6 Jul 2026 13:58:05 -0600
-Message-ID: <20260706195818.3906949-10-sjg@chromium.org>
+Subject: [PATCH 11/12] dt-bindings: arm: rockchip: Add Luckfox Pico Mini B
+Date: Mon,  6 Jul 2026 13:58:07 -0600
+Message-ID: <20260706195818.3906949-12-sjg@chromium.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260706195818.3906949-1-sjg@chromium.org>
 References: <20260706195818.3906949-1-sjg@chromium.org>
@@ -86,29 +87,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the compatible for the SARADC of the Rockchip RV1106, which is
-compatible with the RK3588 variant.
+Add the compatible for the Luckfox Pico Mini B, a small board using
+the Rockchip RV1103 with 64MB of in-package DDR2 and a 128MB SPI NAND.
 
 Signed-off-by: Simon Glass <sjg@chromium.org>
 ---
 
- Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml
-index 6769d679c907..c3bb03dc4853 100644
---- a/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml
-@@ -24,6 +24,9 @@ properties:
-       - items:
-           - const: rockchip,rk3576-saradc
-           - const: rockchip,rk3588-saradc
-+      - items:
-+          - const: rockchip,rv1106-saradc
-+          - const: rockchip,rk3588-saradc
-       - items:
-           - enum:
-               - rockchip,px30-saradc
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index 1a9dde18626d..711029ee78af 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -813,6 +813,11 @@ properties:
+           - const: netxeon,r89
+           - const: rockchip,rk3288
+ 
++      - description: Luckfox Pico Mini B
++        items:
++          - const: luckfox,pico-mini-b
++          - const: rockchip,rv1103
++
+       - description: Onion Omega4 Evaluation board
+         items:
+           - const: onion,omega4-evb
 -- 
 2.43.0
 
