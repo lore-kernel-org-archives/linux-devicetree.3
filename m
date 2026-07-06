@@ -1,174 +1,132 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012021.outbound.protection.outlook.com [40.107.200.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D6A1A262D;
-	Mon,  6 Jul 2026 02:29:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783304958; cv=fail; b=gYEVQWBysAPh8p8631blBhpgTHoTCarBw+YyYfSZwmLUk217EVWVbS0glSrhVYdvpo2/N1ch70RzfzfXcX1xW8+W+agnyaRLpIGxWU3sGvsQIqbn6hWxNACESvaBZD8NdGC1P2Lhh406rw+fYZ7hIStBv4CAmMhrxMZ7hS6r9Vg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783304958; c=relaxed/simple;
-	bh=xEXoMog9vowiYOaTLJo3GCwlCHCRn6VlITMtX4avdC4=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=jF/tlB0MQiPmIu7SeRVqWL8oCPQPej117gNB9IGj6D33ktXLgaLsqlUF7b+s1uixaagL4yLG5avLLdwYKmbbFeTsO0AkCrjG4nb5cuDjO6GinjSBhajZnJmUgY8eZNc+ekN4MNJQCFWeIbTzgMOiFNftHJlWX3Tcm47k5QcVJ+0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=Wfw7wJ0Y; arc=fail smtp.client-ip=40.107.200.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2773A7D91;
+	Mon,  6 Jul 2026 02:43:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783305810; cv=none; b=u4bVvr1hMFVH2B7+hrodBNkoxvpvimSjl8rRges6IIBR9UVz4WNy4a7YYfKf6EzPttlCILa9DYedWKdbt4IbrO77Ybz+1oki3TnYYkRBYfAnNB5Dvwcr8s52rNTT1p/ZZ/MbqaldkxndraolpnBt005QV0q6cIq1pfuDYaEGXlA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783305810; c=relaxed/simple;
+	bh=BP3Iyfs6C5UPNFRIIV/0n+AQzmZGr/qNrx/ZTsVwliI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=fxqf2Rjpwai8Z8fctxBYwUDmgW8li1vF3s4fHFCpDva5Om8pFuq32mYENcylMDdxNCT/NwygaLy2QM4J3TbKgXgkZ+vNLKE0pSYLjRPAtJTHUKZMYm5kFVDM6orLQu3ObO7tZwAkw25VmunO3M2a4hbeJgMQMl10F9CuwVw8b58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TW4c/3oh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="Wfw7wJ0Y"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J5I/0vPHtQlBVH+PzZURip3WIkKgDjyg2zU80ZTibPmcVHDbUuZrBC1UR+epMmobwwRrnnpJCdHb6HeVuDmL8AaGMdVl7PvhZ2Jmd5bbzVLY6u77DoHkG0xasVN7QMYOyI9S66WgTVVYfdm+VUzSqOnWsUqFbLhHRlLmfS08TxYgdXXHIaPbkNzmY3G9gnEXnZi+UjcJr4chLxb7I+ojnliILfyPyVmy4i/N5nwfoeFJodJVR7Z8JtwEZhZ4iK0JnZLSpYmW0xIypDisOkESKcQ7UWGxvoWv5HZ0Nv+exweVebxtI+kmqQYPEKp+dBpEVpz73XBquEHoq32TWoNV0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9AKfjS3BNRocHTeNoBB73sKtai1Xdd6kP7O1yT/Jhss=;
- b=sKKSA42K8XMIeze5rXAAKe7wmmdgsXVOiqlFSrNT6dfnNt1mJa7A/o0mi82SO0GkHj9ZyyxILxzuF80R0rHf17zQQPd/h1Yf6rVGidR7aFiWRTYyvEdf+4mxnP8jDlqO4pvi1OFwmsgXVxyaC7u3lDv8CktH3g6j1cfGDBt1kYeLilgduWhKLOeVyqrAeItcg2byl9sscZ+SadBfLFLNO5F7E4UoH3xyv7IodlnOlJK1rKrHl8hAaT2/kFvwUhm3HIAqng3JmjdyLQu0S9XipEF4LaWklEBX/38Y+7VeV60eu5V2dJhxBIprqmQ/eeg97UoQthMXIId6MdPB3SDjrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9AKfjS3BNRocHTeNoBB73sKtai1Xdd6kP7O1yT/Jhss=;
- b=Wfw7wJ0YUYIOgNvE7waUNtvoxPwzriH5IvCXtRyskfrQqhk2K/6KrC5YcmR9CrqL5t1f3lBrR+jZotladKZJVBuhDmiTbMK0lvS6wsUmqG1kke6XpRKKxdeBirfCK0JIz5HST82zju9dD0wJFZCjtY8bmhIYh/SYyrDoLK2sU0lHCSJ4bqQQPKlECJu3lecAoa3dyGCkUthpyEE9OVoLHuzX06O/979jSg0y3V/O3+Zw3rZEBE4ucPh3Wi/LQD0BlGHb9hiASPbB34+b/XLAAiBVpQ79TyY9xF6kX+ZD4BtlayEAZIyh+pn6CohW4SR8TOP2tIiemqPnqVovcRnlpQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
- MN2PR03MB5360.namprd03.prod.outlook.com (2603:10b6:208:1e9::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.13; Mon, 6 Jul
- 2026 02:29:13 +0000
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542%3]) with mapi id 15.21.0181.012; Mon, 6 Jul 2026
- 02:29:13 +0000
-From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-To: Olivier Dautricourt <olivierdautricourt@gmail.com>,
-	Stefan Roese <sr@denx.de>,
-	Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-Subject: [PATCH v2] MAINTAINERS: replace maintainer for Altera mSGDMA driver
-Date: Mon,  6 Jul 2026 10:23:11 +0800
-Message-ID: <addaf51275355667045ec300fc8d725e2e273807.1782911845.git.adrian.ho.yin.ng@altera.com>
-X-Mailer: git-send-email 2.49.GIT
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0092.namprd03.prod.outlook.com
- (2603:10b6:a03:333::7) To DM8PR03MB6230.namprd03.prod.outlook.com
- (2603:10b6:8:3c::13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TW4c/3oh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A2E06C2BCB8;
+	Mon,  6 Jul 2026 02:43:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783305810;
+	bh=BP3Iyfs6C5UPNFRIIV/0n+AQzmZGr/qNrx/ZTsVwliI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=TW4c/3ohfU5NQEsuq/Ly/Vhkk0eX7+9PB2+7YgYVopVq/23pRYgb3Q/q7gBYIdb8Y
+	 3b/4tKHONRt4Ru0mUv+f1QFGUk5DOWUUHiZkQeW0E5UN57BKO3njSgMQhgBPCoQ7WU
+	 XUoK9iOVk9uXHYWmBalGJ0fI/9yDUjQwGTG9sHqHokdHt58aHKFuwEPUnHyflYONpg
+	 ribWNmYZy6KJq2YBvOFBI07ScjThZFM3LgUM+PU4nq+WixT3euLkeAOMiONe8/6Gt7
+	 6/0ustOxEykTUwj3XBM/JF512sY34it630JMJFhH/3ZtqBHv638i0E1PK2CWD7ixFL
+	 jya+PeX+xpyGQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 83D75C44501;
+	Mon,  6 Jul 2026 02:43:30 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Mon, 06 Jul 2026 02:43:28 +0000
+Subject: [PATCH 2/2] arm64: dts: amlogic: a9: Add IR controller support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|MN2PR03MB5360:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5c8b978-75f5-4cf7-6343-08dedb065e3f
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|921020|55112099003|3023799007|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	cMJd4X6BlUsjTaURVKK01z16OGbUtAG/LQZ7YoEXBJjCD19ZRMTEU8zHzVtu0BDmh+IxxMVW+gqkZ5/V0j8zNPlqEGILbr+F/+m2mScWEMNYB05z6qL10wNuQNqkhs3Ewn3g7bOR/81OOVscoNPhWIEJWcRor2zaSNnz8lHSyxCPlh35FZPqiMxql67eh9KwE7USBmMgYsDHT6iVW4BAVnVKTp3skvycULa6p+Lu9M2ZmC9fkAmr6/7aBecIvzU873b8NVtixInADzYc6/uiic0pv8QFcowSstlwIHMnxjFPcIJfemOhXqLYnMDK8fDVpVZB6GcCVORFTdHA9nghx8hzdtIeQVatVEdvssUdItWj25Sqq0uE8Xx51ssTgQVmde9W1VC4GbgpN6jVTzpmzcFzlcZboLoKGH6A5i2j4wGNbPD/E5vmW6a3Md0ByEqQjlF8PV8mkxxwVyEkQ0Cf0hSNdN01DAV4+seH4d5bcWef5+uB1g7vTHV4spZlZxKbjLrsOLNBXgp/aHg8LuHRnMQKyplQB0m5dN2yuT1/HMJ2r/C6D6TIeIAZX/E1uAicR9dR1L9f75eSWZWFslAJ1mHocxPs+kAlLzFZtc/tYlB/Rk9hGKkWbt8eTVAOXZn3fqsBa0rBtVWbTUecLsOF8blMELw/ul9F0AqAI83aaskYR+yk09RYsj5CEldUHBfCyWkVkubxPRYwUWnTDF1tmQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(921020)(55112099003)(3023799007)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?vudeVdsmUanyZQlwMYQOaSMKv4o+hI4XFE8IO9Bd9GHg6H0HKNNgpTz5yqkZ?=
- =?us-ascii?Q?bzPyQNQ3inO+qQ9VQIAVQyVDwdvn5BVjWHLWBdxQyKwvaxIeYZ4RiG4DouHC?=
- =?us-ascii?Q?FMtVhuvqpObjhHvbzQE0+rcQLfJ7KkeBsujHwI9NE7512JyXD0dm+VF2QvDp?=
- =?us-ascii?Q?KIeMAZClyvsvF6XB5BaaXwr6rhSxAVsxB9+oTCerp3BXjUCWgoAyMtLYkdEa?=
- =?us-ascii?Q?IPwNsq2VG8zKuVx4NUwG9Kg46JzV3CyPApl9LXGTjaS+/mXep/IkQa2GSJQV?=
- =?us-ascii?Q?iaaQgnRSo169RI0C56FdgoCVuC/p0a+26GZaHRZZ8YEkMjaYCjazojowWj4k?=
- =?us-ascii?Q?5bEHRkBqsGWhgVLYGTizL9gkW0TD7/SVdZasfu2TYTOj+FWP63jDy8Mhrt9N?=
- =?us-ascii?Q?h+3gEYJ4llW2ipiYIBQFAuYg7Gy+HJH6XvAdv8EdDzq76XLbqw7e3kK+WWWC?=
- =?us-ascii?Q?LmOGnEvagF5Gf95iXugGyoMkDVam9NFkthE+ch3AQA2fLxPfUf2zu953f5dY?=
- =?us-ascii?Q?9dJlyFK7fdWkdvd7cgX1JrogIxwhjm07TzqpQr1cm7YEz3u+R+3nDOAJgLK2?=
- =?us-ascii?Q?KUFqaNHtdws6ryVHZPhclKst3BZzjMDw4H6NVPySOfLLm1MVEdQKuQEsOsu4?=
- =?us-ascii?Q?PSKbVXEGKrKhjKZSmbxGJSb5ZDkDqR/FS1f7ZsJLAXyP6mSLKVI87x8BKaHz?=
- =?us-ascii?Q?mF3Fl/F8ihQBHl1pI7Vz0zcucSmsp06zPAvdRtI3JntHNovQME58bFg7Z74/?=
- =?us-ascii?Q?ID6jlrjOCU4oJJugY/1WuLJtJiLpqwjQPpEgg23+JPBSV7RiI8LRfyXiWG5c?=
- =?us-ascii?Q?0jXxfTZYhvEAEwaAymjXu55yZBKtEy2FetC0aKzVydU90qOd7volc7wDUpS+?=
- =?us-ascii?Q?y9bGjQqEGplresBoou4OwMbO1kcfHitMJaGVzU4Ti7stRtHIqdWlkyUtM+Wb?=
- =?us-ascii?Q?2FtX+E33I9De5v4Fb0Lnj91ohYyaO44mMJMh7ORccOHOelAOAlNZhj4R0zkH?=
- =?us-ascii?Q?FBtcDzpdOabU35Mp5jH7Kr8eS1EGVSYCPqTIJxlHRO+O74cu4OEorj+CtfLo?=
- =?us-ascii?Q?M3S9ZRM3jbaQBVsFwF8u7CIvKSVwR1ZACoIjZPt5+StBM25JQlvNVpeGxmEH?=
- =?us-ascii?Q?797Bd6Pgh/PgJ4DsfZ2nek4WetraB7zVEhYWitnIxYa49YFcpxU13SEZBJ0g?=
- =?us-ascii?Q?SJPFTeL5vKQeO9uST7wWYf8e/zrP+7m4O68gB0Jb0cbpQ/upi4jivtZZbR5G?=
- =?us-ascii?Q?zkqbW0H04q/nVsYA0igo5/p4Dt/U1I6OEqyObRbADdE6QNvBb8r7svW2ilKc?=
- =?us-ascii?Q?ONv0NMn5CBr4gfWN/lBEr77vUe0YSdpnjbrjdb3+WZbeuQoMqsHfRhUJsY02?=
- =?us-ascii?Q?W58dNQAY0bEBxQ1iP9iLc3stSddvLEDwS2PbT0+7ZiE6fV4hg4mmz9KQFT5Q?=
- =?us-ascii?Q?G4w557zqu4WzQxBYpdVd8y/kSZUhDWvMg72sipcwGw7Q91R+eRfhCMOWCF7x?=
- =?us-ascii?Q?mjoI4otB5Iw1nOG04ZJT1dXRbWi0NmbWij7kWFmo/sNCPHU7KwrQrB0Cj7Zq?=
- =?us-ascii?Q?9r7EqMkh3kIxpqY0GMkV2K41TdYY5Ba0fadqFroCElmjNCt6iIebDhKyg2RY?=
- =?us-ascii?Q?KxwW/V1K3oE2NbSOQlp66C40Y9HXabhJDgik9z+y4d0HXStCgYVKu2VDUa4H?=
- =?us-ascii?Q?QfJUabec8B7gNiHTRyuWeJIlPgVMebRG0JO2FHTL04hmWiTBcCeM8H4oWCRL?=
- =?us-ascii?Q?Y8NSTRMgdBZ8EPnHgdcyKoAjpTvABbk=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5c8b978-75f5-4cf7-6343-08dedb065e3f
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 02:29:13.4143
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DepFDJIwcyZRr6bocvsS0b9MMcvxp6RdxEKJwj/RAa2h0dlHLwRkQhU3shDsL4mlouqlVknZi6QRKEk0s25wGusPckyqnektlazRAjukKVk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB5360
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260706-a9-ir-v1-2-4f082ca8aaf1@amlogic.com>
+References: <20260706-a9-ir-v1-0-4f082ca8aaf1@amlogic.com>
+In-Reply-To: <20260706-a9-ir-v1-0-4f082ca8aaf1@amlogic.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783305808; l=1999;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=zFrCQ/4LL7v8cXwBeBaMK1lFT/U3mMj2TYJXY49GEuE=;
+ b=rFxorohK+9RKciBUQ5U2kSjVGHirLUr10V6m8Y0NbHAsF/lOl8FTZriVfx0+1BNsI7fxPqsMj
+ q0YwkUEM0A6AKT3DPhAqeHIY8Ka6J7IRoQjUG/USTxdaDKIIUZP5Dlh
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-Olivier Dautricourt has stepped down as maintainer of the Altera
-msgDMA driver as he no longer has access to the hardware. Replace him
-with Adrian Ng Ho Yin as the new maintainer and update the status
-from "Odd Fixes" to "Maintained".
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+Add the IR controller node for the Amlogic A9 SoC and describe the
+corresponding remote input pin configuration.
+
+Enable the IR controller on the Amlogic A9 A311Y3 BY401 board with the
+proper pinctrl setting.
+
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
-Changes in v2:
-- Rename subject to be more descriptive
-- Add MAINTAINERS file update (was missing in v1)
+ arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts |  6 ++++++
+ arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi             | 14 ++++++++++++++
+ 2 files changed, 20 insertions(+)
 
- Documentation/devicetree/bindings/dma/altr,msgdma.yaml | 2 +-
- MAINTAINERS                                            | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts b/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts
+index a6b380ca47a5..044d1e8e086c 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts
++++ b/arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts
+@@ -38,3 +38,9 @@ secmon_reserved: secmon@5000000 {
+ &uart_b {
+ 	status = "okay";
+ };
++
++&ir {
++	status = "okay";
++	pinctrl-0 = <&remote_pins>;
++	pinctrl-names = "default";
++};
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+index b0e0fadeed82..72d1cc88c9e6 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
++++ b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
+@@ -241,6 +241,13 @@ test_n: gpio@c0 {
+ 					#gpio-cells = <2>;
+ 					gpio-ranges = <&aobus_pinctrl 0 (AMLOGIC_GPIO_TEST_N<<8) 1>;
+ 				};
++
++				func-ir-in {
++					remote_pins: group-remote-pins {
++						pinmux = <AML_PINMUX(AMLOGIC_GPIO_D, 5, 1)>;
++						bias-disable;
++					};
++				};
+ 			};
+ 
+ 			gpio_ao_intc: interrupt-controller@4080 {
+@@ -254,6 +261,13 @@ gpio_ao_intc: interrupt-controller@4080 {
+ 					394 395 396 397 398 399 400 401 402 403>;
+ 			};
+ 
++			ir: ir@14080 {
++				compatible = "amlogic,a9-ir", "amlogic,meson-s4-ir";
++				reg = <0x0 0x14080 0x0 0x30>;
++				interrupts = <GIC_SPI 413 IRQ_TYPE_EDGE_RISING>;
++				status = "disabled";
++			};
++
+ 			uart_b: serial@1e000 {
+ 				compatible = "amlogic,a9-uart",
+ 					     "amlogic,meson-s4-uart";
 
-diff --git a/Documentation/devicetree/bindings/dma/altr,msgdma.yaml b/Documentation/devicetree/bindings/dma/altr,msgdma.yaml
-index 391bf5838602..bea302b89453 100644
---- a/Documentation/devicetree/bindings/dma/altr,msgdma.yaml
-+++ b/Documentation/devicetree/bindings/dma/altr,msgdma.yaml
-@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: Altera mSGDMA IP core
- 
- maintainers:
--  - Olivier Dautricourt <olivierdautricourt@gmail.com>
-+  - Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
- 
- description: |
-   Altera / Intel modular Scatter-Gather Direct Memory Access (mSGDMA)
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 15011f5752a9..4d294df29a0d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -952,10 +952,10 @@ S:	Maintained
- F:	drivers/mailbox/mailbox-altera.c
- 
- ALTERA MSGDMA IP CORE DRIVER
--M:	Olivier Dautricourt <olivierdautricourt@gmail.com>
-+M:	Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
- R:	Stefan Roese <sr@denx.de>
- L:	dmaengine@vger.kernel.org
--S:	Odd Fixes
-+S:	Maintained
- F:	Documentation/devicetree/bindings/dma/altr,msgdma.yaml
- F:	drivers/dma/altera-msgdma.c
- 
 -- 
-2.49.GIT
+2.52.0
+
 
