@@ -1,125 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78EB385D96;
-	Mon,  6 Jul 2026 15:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C633E3542D4
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 15:53:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783353221; cv=none; b=qfRKZEDC1x9JXvfWtP85+eE1vdVv6Pee81tjn2HDhC1zLMRmi4uju4BG/MRA52mvwoJaMfKoRasMlEzrjk/pMrFuTi9rXs4BcSURWbj8ZCh0keglBb3QaA94ijs8DgcJIjW5VlRMJsxBozMP3SgSUJXMvQpuyWv2Scai25kLs+c=
+	t=1783353234; cv=none; b=BMuCs0whsrcV3MrA0lAvUjS3Ue2uodzN5R/ahDzDcmg8QS1KiZNhgf033hsgi8xw76fVATmNclZR4zMEGLd/UsnpHB0v9SW3XA488MDObZWH+gwuOZSE+xJRrOn3gexiv3XTUQjdb9/GUsM9SKXWTqkEhNjPURkpnPo09ftLwMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783353221; c=relaxed/simple;
-	bh=m8pAczPqZzLzV5qUOrBMC0I4+j3GrtcTDWm0wv/0yq8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aHNQFAT+UgD25NmG8UcpnlgKrhwtoZ9zTeAOzIUgwbl+dn7nWZGR+RZMgQXUGdTzMX8iNoplrbpL9XO5nCS/+Vbj3IXzZTXY0FZ2XcoFS9hqbU5dR5Ws+yl6zWNt9FFOXpZISv25wLIdtczVQg2qmrhoPhL+JTzVm5eWuSlwq/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MjhbMNjP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783353234; c=relaxed/simple;
+	bh=7TggwEsxktStfDDAc17D3v6A3vYnoqhWhVUpysiHoQs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Nn/zqlJiRJennwT8mNIW9l9W7bMIJSpQdGuowO7CI1m/mSowM/y0JhpyLCYo4AUvk2LvVF53oSA93IIxdEoQK1GhcFt+kR1gWmA0KHyYVaqCFF+iQsLiRoJL77DB8Pne6jA5XTS8JRzgbn5MwjypsMSHFkqfiwkQXr5I+0CMpWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lSd46X6P; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NV+XzQGX; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MjhbMNjP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87C221F000E9;
-	Mon,  6 Jul 2026 15:53:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783353219;
-	bh=fYHgoHNpxfmjqy4JzVdhf4+6aRkfpDpDVf4d+O7L9y0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=MjhbMNjPQCrtH8R74tCnuIix5z4mt5NeP24+nLgHyWvzXKc5YpU7O4IrpCxx3cbk0
-	 JVyXxpk/k4JAHvik70j9jte92FGZAUtI0ia5VuMYlyqKtCP7H2m1xwteZCkqxsOPFo
-	 BFPVubiOr7vzBZZwi/kcDdbwJoSyP7iTrAX2jBohrSd4hkz6rz+C0qjgPQ7oPLz48X
-	 VozzBmz+8H8rCS+mweyv+P071Sq4dj6iUrHDTfEEDjh1/PLD5OEmA2joa41bRHDuH3
-	 xjdw5zPYo9Uxs0xO88JOqVjn1zu279mbfs2tPI4rQHqnKcYMD6Fje2DG1zga+TgY+8
-	 dX1uJLoBF65jg==
-Date: Mon, 6 Jul 2026 16:53:34 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Maxwell Doose <m32285159@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM
- AND DRIVERS), devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND
- FLATTENED DEVICE TREE BINDINGS), linux-kernel@vger.kernel.org (open list),
- Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: temperature: Add STS30 temperature sensor
- driver
-Message-ID: <20260706165334.69846485@jic23-huawei>
-In-Reply-To: <20260704205717.137c506e@linuxescape>
-References: <20260621004626.66629-1-m32285159@gmail.com>
-	<20260621004626.66629-3-m32285159@gmail.com>
-	<20260703010532.4fc0f46b@jic23-huawei>
-	<20260704144503.2347331b@linuxescape>
-	<20260705000053.6e8fc3f0@jic23-huawei>
-	<20260704205717.137c506e@linuxescape>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lSd46X6P";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NV+XzQGX"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666FFHDl972549
+	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 15:53:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=0LFJ/WWKTV32WaDCBr3/80
+	YhYODwSM5Lis902NHNY/Y=; b=lSd46X6P4lsA0fFqh4GHrwK5yJP422oW70DMOM
+	A+q/yAMbqzOsAixv62Zley4gTP6Dtqab9Sglpsx7N+zOkQTh8qdXN0ZnG+fWv8HK
+	gtzkDdxdOxTQY30uKc61blxcOG8byCPtPU7rANpeHqHEkBvFxfmR9AzTEF88Xb8F
+	pxcx41XOFxIK4XrrV8L7ja1AVrXIKKoSO9Z5CH/SCVYPjg9HVyUlOr8c6OjXszv3
+	iqMUHdHHJYjOl4J6rWN6vobQU7cnTEwEULRWsyPcJa1E2XmwQnrJFfVkzbVKMZ+s
+	DQRycAnntLdYeDRnYe/mTaMKPsyXYbAU32r/FGVJwKuhfYPA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8a3r1jn0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 15:53:51 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e6a2f5995so530063985a.3
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 08:53:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783353231; x=1783958031; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0LFJ/WWKTV32WaDCBr3/80YhYODwSM5Lis902NHNY/Y=;
+        b=NV+XzQGX1245NU/9Kwp57th7lzsJZPWuBCPTrD+XOwkiDKqqTMil/H6hiyCjA7LuUa
+         TkWPh0+d4BkIzm+Wf3LzH1v6pP/2Ovp0Rmk2DR03yYc4vCDSLOF/EAAIDC6nrd61MhHa
+         Hrbl6OPOTXGLdVzIJ+gZveb1SYv4VBSqkKVXW8dFqb2IacjwoLLE1tcNHJMGHIyhzwW6
+         WIeb7fYJsxLrM3kXIEqbgeEXnzsAB+v+/qG9ZOdQ5TOaud4F5tbQ2g3BmgsiF9EK+jZp
+         KoPLNadKaEwsayMOPRB2pXlGmuSuQi5PLNHT7onv+CtVV7NkLNkTivE+n/MTy2GDcEcb
+         t5HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783353231; x=1783958031;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0LFJ/WWKTV32WaDCBr3/80YhYODwSM5Lis902NHNY/Y=;
+        b=PKUnySHeREQZVOeujhjyvwnlse0p6wKwKlEBbjn3Rl1p+R6QFuCQiU384lPPydCOS8
+         GSyFlUT1THgOubFe3wnk9xSE08j3VgRbCgX5H6pqGdubn4MD+Up5GXjZ7zkA0R3MlZyu
+         5zz52w2BwLoNRZNeHjcNvelhV+2vlYZPaDyrCESRFIZS1oaHub6N76cZbPivpvWIR8Zt
+         uF29BjgHZ0l9+XsxJNJlhA6dIYNkbZXE+pdmmCqMwsZhkxa6mWFfXEd01tY40Um4k/yj
+         ljaxXwtW9pcB56nW8BNmKQRGFvlVu4Sn2AFilRYQ2vFbjzXY21rr4XwunfxRS92JxepB
+         7+Cg==
+X-Gm-Message-State: AOJu0YxmXidWkbsITHzXAPu2dZm2B3rk0WSNcnwBY3wsOKFDCQ5w5ehm
+	AvzpgPhRUDWJ1UaVEOh5Rve9ZmJTgTMZoFzGDwv/I9pW8XO8pVIP32tj5z3nxI10cJF5/dE3ZfC
+	0Dmbe68VGTFIDgBnKw8M1X+v3s5yX9IWCGusA4asli/nuljqwpNX6pSZZ1LztAMrT
+X-Gm-Gg: AfdE7cn3RWPgCdenvaR5xNL4CWfBaaBuXQVUefpuUPnmr95YHSrOBVXGbd2EooCFT2Z
+	t2P/5A5HiW6tryidyfNANTr2QbHoP5qaA32hxVlaluKtG4SgBIyFXuqOsvBOyDoibYXJReQtyhA
+	/ms99eIjcQcCU2is6xH/rIRIXWzE6gpH4XF/gCzc5SrCInSn0iqufzYeG++AYbz/vq1YhlLSC+m
+	QJ+WrTCRIiLOV5aNiRx9aU/CnvJu8xYspAOAKkbU1OL6eK85ebP0sgRbsdZrG3rHjj7iJJDIqce
+	fYYwdlodh/9t9w+ycWFNxQjYvZk8wc5XQ/j3Tq78kWpzA7enCq+qiRHcbL+KDrcdBPpZB0u0oD9
+	KfupudwOc0rHKdfnvXEet13QuiwU0Rs+IXYM=
+X-Received: by 2002:a05:620a:470a:b0:914:cb07:447e with SMTP id af79cd13be357-92ebb4b43b5mr168523585a.5.1783353231002;
+        Mon, 06 Jul 2026 08:53:51 -0700 (PDT)
+X-Received: by 2002:a05:620a:470a:b0:914:cb07:447e with SMTP id af79cd13be357-92ebb4b43b5mr168517885a.5.1783353230386;
+        Mon, 06 Jul 2026 08:53:50 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.223.174])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0a55be4sm23174169f8f.31.2026.07.06.08.53.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 08:53:49 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 0/6] dtc: dt-check-style: Improvement after using on DTS
+Date: Mon, 06 Jul 2026 17:53:39 +0200
+Message-Id: <20260706-dts-style-checker-v3-0-03ffacff9226@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NQQ6CQBAEv0Lm7CQLKmv8ivGAu42MGpSZxWgIf
+ 3dVjpVUV09kUIHRvphI8RSTe59hvSoodE1/BkvMTJWrauddzTEZW3rfwKFDuELZb11T7ny7KaO
+ nvHsoWnn9mofjn208XRDSN7QYimHMZ2nR5vkDtEwNlIoAAAA=
+X-Change-ID: 20260706-dts-style-checker-750a187f41d7
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Test User <test@example.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Daniel Golle <daniel@makrotopia.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2076;
+ i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=7TggwEsxktStfDDAc17D3v6A3vYnoqhWhVUpysiHoQs=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqS8+GWO4nET/ZEia8M7jFM3AYpF9wN+X+eDrfq
+ jaAMloBi52JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCakvPhgAKCRDBN2bmhouD
+ 1//3EACW4YLkSl5zV13hC5be4+eeOM1F96b4vGPwUPYx5L0Bcs0KrM4eHhRYN+iQeCg2VqkZoy4
+ 8jHst/4LWAzJ/aHo+j6wGpkaTisJNLnNDc3Wipeoab7oxLCVh7DwuDDTWyCq+l6yEYI/IT/Atqw
+ WWVJFWzUkoJZyol+zHsHjPoe5hwTFovZe/ClpaEtNernn4LAWelhwgZBSgOmOOPriJ9n4GcnnwO
+ 28yCLom6j1z8uM6HRAZ3iy5Rvll+LTw1w8znTmPyhMt8HOe49HaSypBJZKxyQ99IUM83Ecr15nM
+ Cog7vDYV98k1bDXcpSyzaC/+Sngq2UnDO1g85PKQhHORHITnDLANnhc4Jq//vZn7CcoHZPOWntu
+ NsGyZGaDie+XvoNJjy0GuQwK2w9273d5/dS4DeZX4Aurruf/CUjNQKTmDKagXosOiwONMlFRppb
+ x/ATzW7ls7wMgVraPQjzsemzA0QVPJ/3syAUkM1ORIZq0k4KByRzcEkMKiAPPYsYH2B0+AQVISd
+ G/mufpPhYpNO1c97cg3lCaly3Pmn1WMEciXs0tjn+fTJnYEFQgQfK9EGdgSqw04WYpf43rfAwIe
+ EgbMFT2YuGHq5Gwl2mCw+e6TWlfmyYGu2jjYCb/Pa5wyTht1WcxesHDffdbOEvDCgvsEoE2F4Qp
+ 04p+DFUjRbZUFjA==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDE2MSBTYWx0ZWRfX9YZqU1KjvC8U
+ 6yLcqPVn7/POkcMCWruOVL4zZuqfsiRcnopDzzFs9CqY3Wylt5xN+DH+7uxDjTARBf9zzAOZ5x7
+ 2FpRKoV2V/r65IARgapbt4AVLzOcN9tQJJlePOXKfBQe9m0F2jEpRI2jPAz4/pPjBm3+aqSuPAx
+ gSXxFPEqRG5UgflqZ0QBQyPV+2GOswUKoWfa0foMsaDIMZKaETlp29EOIj2ocb6DUFb4YwN28yR
+ JJ4qXU5hyZxuA4Uui+FgKqndC0cecYNm2/n/F2sK5C36IpeNq/Pnbdl1Pj+2Cci0zYCN+r+P8IK
+ IAtvU7ul8e+6qH+ZjxDppdBJxtLKAWMPjHRvlDn4hRj4LuNa3frKMNNo4QRlWbcNXYu6qyzbAxY
+ 86twWiFHmkFlkh45XqIBlFU6VCqsIhqgvs65XAXETZfHb1sksSBqugI7UU7fPjJ9/JDL57DZUzD
+ 6qZ0yC9SaSGL5knRNQA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDE2MSBTYWx0ZWRfX8lITylj6+Rdn
+ 44aw1odDnfNiokuuvwUtLSl0RWrX+AC2lthjm9xuq7UogQUZSIy88eCPZ/jSWEiGa33c0mSjAvZ
+ ZGVZiqDl8eIPH0oNElH+6aETrfFDgdM=
+X-Proofpoint-GUID: ll94ecUAbblkpsnvKXLJNddrFWF3DNMK
+X-Proofpoint-ORIG-GUID: ll94ecUAbblkpsnvKXLJNddrFWF3DNMK
+X-Authority-Analysis: v=2.4 cv=OKcXGyaB c=1 sm=1 tr=0 ts=6a4bcf8f cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=9bHp3USohIU2017ynLYA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-06_02,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 clxscore=1015 suspectscore=0
+ spamscore=0 phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060161
 
-On Sat, 4 Jul 2026 20:57:17 -0500
-Maxwell Doose <m32285159@gmail.com> wrote:
+Changes in v3:
+1. Patch #2: Use re.search
+2. Patch #2: Add dts-mixed-indent.dts test case
+3. Several new patches 3-7.
+v2: https://lore.kernel.org/r/20260706102421.343639-4-krzysztof.kozlowski@oss.qualcomm.com/
 
-> On Sun, 5 Jul 2026 00:00:53 +0100
-> Jonathan Cameron <jic23@kernel.org> wrote:
-> 
-> > On Sat, 4 Jul 2026 14:45:03 -0500
-> > Maxwell Doose <m32285159@gmail.com> wrote:
-> >   
-> > > Hi Jonathan,
-> > > 
-> > > On Fri, 3 Jul 2026 01:05:32 +0100
-> > > Jonathan Cameron <jic23@kernel.org> wrote:
-> > >     
-> > > > On Sat, 20 Jun 2026 19:46:24 -0500
-> > > > Maxwell Doose <m32285159@gmail.com> wrote:
-> > > >       
-> > > > > Add a driver for the Sensirion STS30 family of temperature sensor
-> > > > > drivers over I2C. The STS30 family of sensors includes the STS30, STS31,
-> > > > > and STS35, all of which are supported by this driver, since they all
-> > > > > share the same commands, etc. and only differ in accuracy and tolerance.
-> > > > > 
-> > > > > The driver currently supports single-shot non-clock stretched readings,
-> > > > > by using a specified delay based on the repeatability/delay specified
-> > > > > by the user. The repeatability/delay can be changed at any time through
-> > > > > sysfs.
-> > > > > 
-> > > > > Additionally add Kconfig and Makefile entries for the driver as well as
-> > > > > a MAINTAINERS entry.
-> > > > > 
-> > > > > Signed-off-by: Maxwell Doose <m32285159@gmail.com>        
-> > > > 
-> > > > Big question first.  Why IIO? These are fairly basic temperature sensors
-> > > > which typically means hwmon is more appropriate.  What does it need
-> > > > that hwmon doesn't provide?
-> > > >       
-> > > 
-> > > The datasheet says that the STS30 supports continuous reads which means
-> > > that we can read it into a triggered buffer (which hwmon doesn't
-> > > support) and at some point I'd like to implement that.    
-> > 
-> > Hmm. For a temperature chip that is often more about the monitors running
-> > continuously than the ability to gather signals fast.  Temperature changes
-> > tend to be fairly slow when it's a physical sensor - gets less obvious when
-> > infrared remote sensors are involved.
-> > 
-> > Even more relevant - there is an existing driver I think.
-> > See drivers/hwmon/sht3x.c which supports things under the wildcard sts3x as well.
-> > Check if that covers this part.
-> >   
-> 
-> I think the last time I checked the sts30 series wasn't listed in the
-> dt-bindings but it may have changed since then. Oh well. I'll still go
-> check it out. If it's (very very) similar I would probably consider
-> dropping this one, otherwise I'll improve this one and resubmit once I
-> get the hardware.
-> 
+Changes in v2:
+1. Patch #2: Rework idea.
+2. Adjust function doc/comment.
+v1: https://lore.kernel.org/r/20260706071446.87669-2-krzysztof.kozlowski@oss.qualcomm.com/
 
+(I was not using b4 for v1 and v2, so b4 diff might fail)
 
-Unless that other driver is for a very different part, then it is a non
-starter to have a driver in IIO.  Perhaps there are features missing in
-the hwmon driver though. +CC Guenter and hwmon so they are aware of
-this discussion.
+Best regards,
+Krzysztof
 
-thanks,
+---
+Krzysztof Kozlowski (6):
+      dtc: dt-check-style: Narrow disallowing of tab in DTS only to YAML
+      dtc: dt-check-style: Allow space-aligning indentation in DTS
+      dtc: dt-check-style: Rework handling YAML/DTS in rules
+      dtc: dt-check-style: Expect first device_type
+      dtc: dt-check-style: Do not sort top-level nodes in DTS by unit address
+      dtc: dt-check-style: Handle properly DTC-style includes
 
-Jonathan
+ .../devicetree/bindings/dts-coding-style.rst       | 15 ++--
+ scripts/dtc/dt-check-style                         | 84 +++++++++++++---------
+ .../dt-style-selftest/bad/dts-digit-node-order.dts | 40 +++++++++++
+ .../dtc/dt-style-selftest/bad/dts-mixed-indent.dts | 20 ++++++
+ .../dt-style-selftest/bad/dts-property-order.dts   | 36 ++++++++++
+ .../bad/yaml-prop-order-device-type.yaml           | 31 ++++++++
+ .../expected/dts-digit-node-order.dts.txt          |  2 +
+ .../expected/dts-mixed-indent.dts.txt              |  8 +++
+ .../expected/dts-property-order.dts.txt            |  5 ++
+ .../expected/yaml-mixed-indent.yaml.txt            |  1 -
+ .../expected/yaml-prop-order-device-type.yaml.txt  |  2 +
+ scripts/dtc/dt-style-selftest/good/dts-dtc.dts     | 20 ++++++
+ .../dt-style-selftest/good/dts-preprocessor.dts    | 20 ++++++
+ scripts/dtc/dt-style-selftest/good/soc.dtsi        | 40 +++++++++++
+ 14 files changed, 284 insertions(+), 40 deletions(-)
+---
+base-commit: 3190fb5798e880161c46f2a623a354b23892dc36
+change-id: 20260706-dts-style-checker-750a187f41d7
+
+Best regards,
+--  
+Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
