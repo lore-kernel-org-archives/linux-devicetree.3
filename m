@@ -1,208 +1,95 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14AD38757A
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 15:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2801388883;
+	Mon,  6 Jul 2026 15:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783351297; cv=none; b=brvcoocIz5ERI9omo2U70PNm3ZwkIPR8HAW767ty4JqWMPqCphihrSLXwGCDPNtnBitjP5t3qs2S8uH6RnzC4yAWqBUurHskmUpZrFxrX2FbN2fVlf8mcvR3dYGz9GfMZApTgpeU8jHqUBSPjstayojDq88La5Ux6JuVDYS0RAE=
+	t=1783351526; cv=none; b=lIUEiC6rZMK08MJ/10wsSNMC11tOhIAMha8EbtVmdbBvBGJ2wBZ5gnqweKtgdS6Q8Gz9DkflBTq0VuOeFLUf5Z5zCO6axB7Qe1kXV+MCk7qrqIB5WJoNLr2rraZkymI2Vj8PyD6P3RcJsb991dlWfAprJ66D55JnG06YK1T4kW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783351297; c=relaxed/simple;
-	bh=zncjsV5s6UAGBEFupoETnv3kRTq7gsHlr3o3AUla/BA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oVM45TaxRY9g4l/7BQqSdB8rG/hrl18fyIX1elNi44XIndfqSVFDEtsbLn/2bW/MGgcpZ0h+zitDNCnPK9+0Hwh0Tkim33nrGUpNcoTCY2j5v49ZIvOBg7M+bDpk70JX3ETmQUqzYuMdiaccUjyeIIMJtN2zXu5Tpp1uTkH+lCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=MaCFv/RR; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1783351526; c=relaxed/simple;
+	bh=B8qC/sOUfGgxsWgL7Xbz2l/bDzeOQmhKlWdGp8SVQic=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XmH8gYAk3zxUCaE8gyLuKfDQA8TOz5Sm/J4XK/Y1HKFruuQX6iQEVEoePoLI6aFfZeoOC8VcMyULakeiwk0G5b8Y2pAeZibQfGPzg88qW7l/2O497pTH4gNOlqP1CKdxOCXvKoFbO3Fvq4w+yYm9IQd3OVhITBn1cOcMLl03P+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=dWoyJl8M; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="MaCFv/RR"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-47c2b362ee2so1738740f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 08:21:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1783351294; x=1783956094; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8A51OX/9my7e6tIHaoARVbxZ+6ZmCrlNFfVyyluoI3Y=;
-        b=MaCFv/RRjpMEqj7DnWcGRyw2TUomxw6wtOz+fiJ5F9vk7cfpsBDl2yG2bdp0POxwr1
-         u5+8/G8SL29FaGvnpZQ2QQjPk6mlaBWmZ8b4pQiUKUaY53NteTYHG69Mx8GkcgSp6xqk
-         Q8r1zI8vH09AzlVqs27grhUEBgLEssXLOjr9i/1PqFIRnJJCGTifxuahcAtsVdJEEj5v
-         CRvMG8enJWIbflrCoz217GA2G2BLDcRlSddWLCO9nCF01QR/OBprEGTRa8X5ccFKYRCZ
-         z38kHf/xz8KAxwU8YnPLid3eAraojGRDIRjHrsKyxZ8v5FZuMIa0nDcVV2NFXqqVH5fR
-         B/4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783351294; x=1783956094;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8A51OX/9my7e6tIHaoARVbxZ+6ZmCrlNFfVyyluoI3Y=;
-        b=C417+bT+ZWxvvgY3RC97l7JG6JgckNoxtvwuMPyicG1UFlegxNd8o59sPy0JtF9Ktc
-         dIf5CfEKfW2dkTuONSVAsg9cxAMBw34JkjQqbR+twS8jxjtZeUr0z4B4UuxB8BwgsPRL
-         WioY8XAPhqHA3wgktI0cJ270QvlDWgI/Q6yoyVojc5F15WqKLiRciIfKVa6yFLoD+GQ6
-         SIo5RpfTxcOW98dIGSEV1THp1hNIkWpFqbh9268ZEBvh2d0Bx0k8RJ79760v1zoKVnWJ
-         xpByxvdvruNWBG4snL6UCURXL4tbyHA3mKnGcdzgh9kLcxMkpSBAwRiaLc1m7MsRgfp9
-         81kg==
-X-Forwarded-Encrypted: i=1; AHgh+RrYBlCZaLeLPbBiYfLDufhraSGgBrp1K9sldd0gsEWgCJYQS1FynML5h4R9fOYYjm0HcczvMHvRRRxc@vger.kernel.org
-X-Gm-Message-State: AOJu0YyyV1ERYz6b2LxmEHHAKGMQVAUGyzvGJJ4Er8BeAXkCc2COo86h
-	mNzx8imcK9543sKx0aJP0vxswhPNZBk5eRAsLziSwvOFutC7yvWl9G6HntCVX3oZduU=
-X-Gm-Gg: AfdE7clayFCFVOFQmeXwAkk0JRBa5sADyTy8+H0mBHCJVPF5P7Xwggg0muwAaUC3UFP
-	/z92evvhXdkQWdvWChgOVCEcB3DfD2reNHIRzTLOCPQB5buMj7d1bSfER9dHTOLpk9/m4vACmWK
-	j1sp+guV0KNqIENc2RNzph7QHKOZqlszSqk/Hz9tX8vfN4oVJ0k4oJrkOZmY5Zt29QudGxNOLXR
-	fsg0+Nez1XEOVQk528JgbFIBjk94A2vSiNQkRMFmpxpPAK+YDKkNbfuf0suvwD8p3Y8I9/FE0yh
-	gkEo2aqRjCIW43zgJxghW2jQfHQK1s0mVOEkLGwUevCWhLNdvyAyHqds11gb0uXw1fkcq4B8aPy
-	PV7ByVzefiXyJzkuL70SauW+rnuJQ1U/s9yZ912392PFM9DRLq75sDCzYWMv56a233Q1SgUKnYV
-	niqgWubeUY9JEPw1RfbHETvykoKZDQO5MDbHV/dDm5mJt45NA4c+P+H3cy0hV+
-X-Received: by 2002:adf:e40e:0:b0:475:f0c2:75a6 with SMTP id ffacd0b85a97d-47de66f2e70mr580585f8f.55.1783351294208;
-        Mon, 06 Jul 2026 08:21:34 -0700 (PDT)
-Received: from [192.168.1.136] (48.85-85-171.dynamic.clientes.euskaltel.es. [85.85.171.48])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa09608d4sm26469667f8f.25.2026.07.06.08.21.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2026 08:21:33 -0700 (PDT)
-Message-ID: <747bb78f-5ebf-40cf-9922-98e69920a9d8@suse.com>
-Date: Mon, 6 Jul 2026 17:21:30 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="dWoyJl8M"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=nAeEal0yordf3IkcFRL0DcicUoj11amUlNY6z/7ECI8=; b=dWoyJl8MN7X4GClEmFlywIrot0
+	UGKloY6QO4ujPa/CYnWjBpxP+01+L7cGKaTyPm1LqDlViSf4Ud0Mb+57jmNG5CkXU1TA3uCfrdMLW
+	+segjyhqZihx3MQC1axkwT1oL706yCs1aSnbSfTUfi8nZik+XBXDhM4O8E+kPNEa384U=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wglC1-00B0rI-CT; Mon, 06 Jul 2026 17:25:09 +0200
+Date: Mon, 6 Jul 2026 17:25:09 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Yanan He <grumpycat921013@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	David Wu <david.wu@rock-chips.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Frank <Frank.Sae@motor-comm.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH v2 5/5] ARM: dts: rockchip: Add Alientek DLRV1126
+Message-ID: <18acc27e-31e7-4c36-9600-a2bd8b806de5@lunn.ch>
+References: <20260706-rv1126-alientek-dlrv1126-v2-0-ff3176ca362b@gmail.com>
+ <20260706-rv1126-alientek-dlrv1126-v2-5-ff3176ca362b@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] pmdomain: mediatek: Add support for MT8196 HFRP
- DirectCTL domains
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- ulfh@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, nfraprado@collabora.com, irving-ch.lin@mediatek.com,
- macpaul.lin@mediatek.com, aford173@gmail.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- justin.yeh@mediatek.com, kernel@collabora.com
-References: <20260701121920.19347-1-angelogioacchino.delregno@collabora.com>
- <20260701121920.19347-5-angelogioacchino.delregno@collabora.com>
-Content-Language: en-US, ca-ES, es-ES
-From: Matthias Brugger <mbrugger@suse.com>
-Autocrypt: addr=mbrugger@suse.com; keydata=
- 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
- PVrr2NoUqi/bxI8fFQJD1jVj8K0=
-In-Reply-To: <20260701121920.19347-5-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260706-rv1126-alientek-dlrv1126-v2-5-ff3176ca362b@gmail.com>
 
-
-
-On 01/07/2026 14:19, AngeloGioacchino Del Regno wrote:
-> Add support for the power domains provided by the HFRPSYS Power
-> Controller of the MT8196 SoC.
-> Those control power to the eDP and DP Transmitter IPs.
-> 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
-Reviewed-by: Matthias Brugger <matthias.bgg@gmail.com>
-
-> ---
->   drivers/pmdomain/mediatek/mt8196-pm-domains.h | 27 +++++++++++++++++++
->   drivers/pmdomain/mediatek/mtk-pm-domains.c    |  4 +++
->   2 files changed, 31 insertions(+)
-> 
-> diff --git a/drivers/pmdomain/mediatek/mt8196-pm-domains.h b/drivers/pmdomain/mediatek/mt8196-pm-domains.h
-> index 2e4b28720659..d704c9fa9337 100644
-> --- a/drivers/pmdomain/mediatek/mt8196-pm-domains.h
-> +++ b/drivers/pmdomain/mediatek/mt8196-pm-domains.h
-> @@ -602,6 +602,27 @@ static const struct scpsys_hwv_domain_data hfrpsys_hwv_domain_data_mt8196[] = {
->   	},
->   };
->   
-> +static const struct scpsys_domain_data hfrpsys_domain_data_mt8196[] = {
-> +	[MT8196_POWER_DOMAIN_EDPTX] = {
-> +		.name = "edp-tx",
-> +		.sta_mask = MT8196_PWR_ACK,
-> +		.sta2nd_mask = MT8196_PWR_ACK_2ND,
-> +		.ctl_offs = 0x74,
-> +		.pwr_sta_offs = 0x74,
-> +		.pwr_sta2nd_offs = 0x74,
-> +		.caps = MTK_SCPD_SIMPLE_PWRSEQ,
-> +	},
-> +	[MT8196_POWER_DOMAIN_DPTX] = {
-> +		.name = "dp-tx",
-> +		.sta_mask = MT8196_PWR_ACK,
-> +		.sta2nd_mask = MT8196_PWR_ACK_2ND,
-> +		.ctl_offs = 0x78,
-> +		.pwr_sta_offs = 0x78,
-> +		.pwr_sta2nd_offs = 0x78,
-> +		.caps = MTK_SCPD_SIMPLE_PWRSEQ,
-> +	},
+> +&gmac {
+> +	phy-mode = "rgmii-id";
+> +	clock_in_out = "input";
+> +	assigned-clocks = <&cru CLK_GMAC_SRC>, <&cru CLK_GMAC_TX_RX>,
+> +			  <&cru CLK_GMAC_ETHERNET_OUT>;
+> +	assigned-clock-parents = <&cru CLK_GMAC_SRC_M1>,
+> +				 <&cru RGMII_MODE_CLK>;
+> +	assigned-clock-rates = <125000000>, <0>, <25000000>;
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&rgmiim1_miim &rgmiim1_bus2 &rgmiim1_bus4
+> +		     &clk_out_ethernetm1_pins>;
+> +	phy-handle = <&phy>;
+> +	status = "okay";
 > +};
 > +
->   static const struct scpsys_soc_data mt8196_scpsys_data = {
->   	.domains_data = scpsys_domain_data_mt8196,
->   	.num_domains = ARRAY_SIZE(scpsys_domain_data_mt8196),
-> @@ -616,6 +637,12 @@ static const struct scpsys_soc_data mt8196_scpsys_hwv_data = {
->   	.type = SCPSYS_MTCMOS_TYPE_HW_VOTER,
->   };
->   
-> +static const struct scpsys_soc_data mt8196_hfrpsys_data = {
-> +	.domains_data = hfrpsys_domain_data_mt8196,
-> +	.num_domains = ARRAY_SIZE(hfrpsys_domain_data_mt8196),
-> +	.type = SCPSYS_MTCMOS_TYPE_DIRECT_CTL,
+> +&mdio {
+> +	phy: ethernet-phy@1 {
+> +		compatible = "ethernet-phy-ieee802.3-c22";
+> +		reg = <0x1>;
+> +		clocks = <&cru CLK_GMAC_ETHERNET_OUT>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&eth_phy_rst>;
+> +		reset-gpios = <&gpio3 RK_PA0 GPIO_ACTIVE_LOW>;
+> +		reset-assert-us = <20000>;
+> +		reset-deassert-us = <100000>;
+> +	};
 > +};
-> +
->   static const struct scpsys_soc_data mt8196_hfrpsys_hwv_data = {
->   	.hwv_domains_data = hfrpsys_hwv_domain_data_mt8196,
->   	.num_hwv_domains = ARRAY_SIZE(hfrpsys_hwv_domain_data_mt8196),
-> diff --git a/drivers/pmdomain/mediatek/mtk-pm-domains.c b/drivers/pmdomain/mediatek/mtk-pm-domains.c
-> index 5276adea1d04..f69cf69ba0f6 100644
-> --- a/drivers/pmdomain/mediatek/mtk-pm-domains.c
-> +++ b/drivers/pmdomain/mediatek/mtk-pm-domains.c
-> @@ -1252,6 +1252,10 @@ static const struct of_device_id scpsys_of_match[] = {
->   		.compatible = "mediatek,mt8196-power-controller",
->   		.data = &mt8196_scpsys_data,
->   	},
-> +	{
-> +		.compatible = "mediatek,mt8196-hfrp-power-controller",
-> +		.data = &mt8196_hfrpsys_data,
-> +	},
->   	{
->   		.compatible = "mediatek,mt8196-hwv-hfrp-power-controller",
->   		.data = &mt8196_hfrpsys_hwv_data,
 
+For these nodes only:
+
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+
+    Andrew
