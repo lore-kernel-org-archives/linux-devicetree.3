@@ -1,108 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F9938B7D9
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 07:18:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157153F4137
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 07:18:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783322318; cv=none; b=U6fidrIyqQeNjhkTJ4un8RheGs+HpM6z+67KlrXqUeSuFevbgipkG9/WiMB/IU7b31EbgmXT3nYywPYwR3t+CQRw5xIJPNm6grEmUOCPLj/+MVlYouKYeL3PZ89eO4ZweA6Nl5Ww6GMvs2E6ot75lWGCmmal/UEdTffx2IzboI4=
+	t=1783322325; cv=none; b=KhKQNy8q3+r08bAxQPnuTVkusiycNjMuS5dbxhGeEY1xyg4Qe0SxT5CaLTYhsEc5UgB4HaeyMPtfq+1ILRhiiyQJwk3QMTxIooUecQWz4Pq8dZdCVkpgwfV3SsfsQsBLk5uF1CZHxnSN4F6ASTVqpaKPtXjVTLM2IZ0WfqKe9rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783322318; c=relaxed/simple;
-	bh=jRNpMW8CrhlRhfmjhjpxVZ6RQSMdInfKDYA3M4v4oFQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=irGcfzoKaLG9CXf6JvN4nA77BZPWZKfnPSdQlUGcDOJwDW4byX9x7RXxFYE5k6XNECL8MsWSRbOGxqkNbi2xJWvGjgWGSDzOSag2Z3yeKnqCLbRBlzDWAMcd+lFYjBGMQfVdT48oWNwD2HWrT/sXO+OVo5bMbIuZYQYjc0QaLpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L4oosB5M; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L4oosB5M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB4091F000E9;
-	Mon,  6 Jul 2026 07:18:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783322310;
-	bh=TE7JL1r3kee2eQLh9GIgE3X/tn8qDzxd84zk5ehgZrA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=L4oosB5M1zQE4C9sDGQRX80vvGpsJxJTOpwsEq4cIlxFbyCnNzRY8m0rK75LuAKVt
-	 fyEFFr88C9s7sQrtk/lg+vzaHH1sqPr1tw1uS1BxMvbYLdRVHZdF+4KXAW0RdDV9wi
-	 +CgRQQDn/5BAcY1T4CkccYSd7L4KYRlQLXzzbwt5bc4Rj9uv1HzoX/G0IqeoM76y1n
-	 /jgZgktm6pRjK9EB7f454xEGTCld4FZwWj5pe7GKYeVNsrzo7Sv1zSbirR/foStb4X
-	 uAkVXexoBqrdAArtoLnIWSzuphelrOGWJIXbuIIF64FWNZIxb6QZIrF4P7JSwfaOJW
-	 qVu8w+CQ1auXA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/5] dt-bindings: media: qcom: Add JPEG encoder
- binding
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260706071113.383215-4-atanas.filipov@oss.qualcomm.com>
-References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
- <20260706071113.383215-4-atanas.filipov@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 07:18:29 +0000
-Message-Id: <20260706071829.BB4091F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1783322325; c=relaxed/simple;
+	bh=1j5WJ4ajUI0pwRfHI7vAuHc1UpH7nNY3pM18f1GneB8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GVu/Qsy0IZC78G6TmZ46luy2sJW7Su9OGegJ6PHlL9jygeQPaXckyF53hvmBbT4mtYSMjPL4COOcoUDt37+o0+EaeCDEW/e4zYXU65bd3b0Rdsx5CZE+gYXw1Hb0d0HVuJouRezwjbX3MiWLHwxyrdst8t8TMDeMPX4yoR9VCWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.trumtrar.info)
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <s.trumtrar@pengutronix.de>)
+	id 1wgdam-0002vc-Qg; Mon, 06 Jul 2026 09:18:12 +0200
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Mon, 06 Jul 2026 09:17:57 +0200
+Subject: [PATCH v4 3/3] arm64: dts: imx8mp-skov: support new 7inch panel
+ board
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260706-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v4-3-dfc0c8827c02@pengutronix.de>
+References: <20260706-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v4-0-dfc0c8827c02@pengutronix.de>
+In-Reply-To: <20260706-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v4-0-dfc0c8827c02@pengutronix.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: Steffen Trumtrar <s.trumtrar@pengutronix.de>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3090;
+ i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
+ bh=1j5WJ4ajUI0pwRfHI7vAuHc1UpH7nNY3pM18f1GneB8=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQ5Z32Cajf3ae7ifeeJWeXNYuHuut8J95h8lGqZqZfSv0T
+ 4ln/ajpKGVhEONikBVTZFFZWMEn6vHBM3KaCBfMHFYmkCEMXJwCMJGVqgz/M9m8jX551W+aGiE0
+ acoKqwYfu+nnl7hrvEyO3XDLefPRWobf7OuLa0uyXx99oRM6b2HwfzY56cduzZfOV036465Xuam
+ OAwA=
+X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
+ fpr=24A1780E1548F0495996140A1ABD20720A5E5622
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The `power-domains` property is missing from the binding's propert=
-ies list and the example, despite being a hardware requirement and function=
-ally necessary for OPP scaling.
---
+This board is similar to the already upstream
+imx8mp-skov-revc-tian-g07017.dts but uses a different 7" panel with a
+different touch controller.
 
-commit a2cb92d2a69d2918ed65e723421db5b5ac1f0d1f
-Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm64/boot/dts/freescale/Makefile             |  1 +
+ .../imx8mp-skov-revc-jutouch-jt070tm041.dts        | 79 ++++++++++++++++++++++
+ 2 files changed, 80 insertions(+)
 
-dt-bindings: media: qcom: Add JPEG encoder binding
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index b46f452f4b988..40ede49107993 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -434,6 +434,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-lt6.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-mi1010ait-1cp1.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-bd500.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-hdmi.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt070tm041.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt101tm023.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev.dtb
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dts b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dts
+new file mode 100644
+index 0000000000000..32d22e5bcdeb7
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dts
+@@ -0,0 +1,79 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++
++/dts-v1/;
++
++#include "imx8mp-skov-reva.dtsi"
++
++/ {
++	model = "SKOV IMX8MP CPU revC - JuTouch JT070TM041";
++	compatible = "skov,imx8mp-skov-revc-jutouch-jt070tm041", "fsl,imx8mp";
++
++	panel {
++		compatible = "jutouch,jt070tm041";
++		backlight = <&backlight>;
++		power-supply = <&reg_tft_vcom>;
++
++		port {
++			in_lvds0: endpoint {
++				remote-endpoint = <&ldb_lvds_ch0>;
++			};
++		};
++	};
++};
++
++&backlight {
++	status = "okay";
++};
++
++&i2c2 {
++	clock-frequency = <100000>;
++	status = "okay";
++
++	touchscreen@2a {
++		compatible = "eeti,exc81w32", "eeti,exc80h84";
++		reg = <0x2a>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_touchscreen>;
++		interrupts-extended = <&gpio4 28 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&gpio4 29 GPIO_ACTIVE_LOW>;
++		touchscreen-size-x = <1024>;
++		touchscreen-size-y = <600>;
++		vdd-supply = <&reg_vdd_3v3>;
++	};
++};
++
++&lcdif2 {
++	status = "okay";
++};
++
++&lvds_bridge {
++	assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>,
++				 <&clk IMX8MP_VIDEO_PLL1>;
++	assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
++	/* IMX8MP_VIDEO_PLL1 = IMX8MP_CLK_MEDIA_DISP2_PIX * 7 */
++	assigned-clock-rates = <0>, <358400000>;
++	status = "okay";
++
++	ports {
++		port@1 {
++			ldb_lvds_ch0: endpoint {
++				remote-endpoint = <&in_lvds0>;
++			};
++		};
++	};
++};
++
++&pwm4 {
++	status = "okay";
++};
++
++&pwm1 {
++	status = "okay";
++};
++
++&reg_tft_vcom {
++	regulator-min-microvolt = <3160000>;
++	regulator-max-microvolt = <3160000>;
++	voltage-table = <3160000 73>;
++	status = "okay";
++};
 
-Adds a device-tree binding for the Qualcomm JPEG encoder hardware block
-present in SM8250 (Kona) SoCs.
+-- 
+2.51.0
 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.ya=
-ml b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
-> new file mode 100644
-> index 0000000000000..e4c16388ef079
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
-> @@ -0,0 +1,151 @@
-[ ... ]
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,sm8250-jenc
-
-[Severity: High]
-The commit message states the hardware has its own power domain, but the
-power-domains property is missing from this properties block.
-
-Since additionalProperties is set to false, any device tree attempting to
-specify the power-domains property will fail schema validation. Should
-power-domains be added to the properties list?
-
-[ ... ]
-> +        iommus =3D <&apps_smmu 0x2040 0x400>;
-> +
-> +        operating-points-v2 =3D <&jpeg_opp_table>;
-> +
-> +        jpeg_opp_table: opp-table {
-> +            compatible =3D "operating-points-v2";
-> +
-> +            opp-100000000 {
-> +                opp-hz =3D /bits/ 64 <400000000>,
-> +                         /bits/ 64 <100000000>;
-> +                opp-peak-kBps =3D <76800 104166 104166>;
-> +                opp-avg-kBps =3D <38400 33569 33569>;
-> +                required-opps =3D <&rpmhpd_opp_min_svs>;
-> +            };
-
-[Severity: High]
-Does this example node need to include the power-domains property?
-
-The example defines required-opps for performance states, but omits the
-power-domains property that links the device to the power domain provider.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706071113.3832=
-15-1-atanas.filipov@oss.qualcomm.com?part=3D3
