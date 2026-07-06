@@ -1,159 +1,148 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com [209.85.210.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAAAA42E8DF
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 09:14:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D773B421EFB
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 09:15:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783329302; cv=none; b=CXncR0W28KJcb6SveC6S1SxCr/PaBCSIGoQRUKX1W9estCB/S9+/05lN+OWjYZ9zlb6NHoFyeJbMT9EdJwsfe83AetTlpZSA7AYyyeDMQ9iMbZVT69FPt4h6Cf4oVJjB0ugrqhsjedRZaRhRNXjJoKvIoQtlOKs/ccnaHCcO/m8=
+	t=1783329308; cv=none; b=jkuvfaes0E6TVreVeUM0PxHxzKzYHEhKsWm5H50AxQJyS4XNwbe77ttKEwuR9P3kD7L+08Navq9tIOmv63LjE5qj+TH7Gv4H6lvnJyaf0BqqDclH0e95ylmh6vpXGNhTcqsJZjK33HL86sragaMhRzNWymz4WW1xwxCHlD6FdL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783329302; c=relaxed/simple;
-	bh=dtluOyszjaEVOB5vepSnrwx0MsVZ8OKeN7of4i90dKg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VoeiCHnwbQ5yq+g8fPwc2IBxTJMYzOdFinMT3e4LNPBNdbNG0N0NuQd4G6vW/7C4s7el+IidqPjKbXzZdoPbStM1pB5IN//NsQ1G0RZYIoTfK0dBUpr8A2Or/JNoaT5+RySisODwRgm7m0so67ZoIK/8SN68CMRTRz4Si3CGafE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kA+sWz8E; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A5Ocx+6z; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783329308; c=relaxed/simple;
+	bh=cLIYaTp8BMdNpvmeNN9IHEGffrelsNbt22peLlfH/xI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TyfkveYa4WURseohmst9rpa7SnoVr7vglV5vfUlfKPfIJTQhJEE2JO81TN/UMTLb1iZvTSuRsmVJG5aC/cM+LuqlszTtrTNon31KQVpPMpB4EPZ+1n5obU1yP/YH1INnrcptwHcLAHO1STF7iEWnjpHpxdtsIzapQMC49s6X0qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q4ff8QAL; arc=none smtp.client-ip=209.85.210.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kA+sWz8E";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A5Ocx+6z"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66694GC8142717
-	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 09:14:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+SeYPeA3On9glZXBNtzM8xrowcIm/sG9q2sr+yoOgf4=; b=kA+sWz8ECxfCB+g9
-	MM4hac2OneKBIHewOxgKvm8no/OEjSLkP6/1nMtV5yE53Nnu07LKUR3PaXwJV9L0
-	HqSclmxeAhreVSTX9uYDOYuHxpwiZu86mMGG8NdlgwVeiYDNhvLWZCpJK1Z1qDNh
-	CG7JxY3jCa++1Es5ex2tF0nDHfzdtyGkye3dUDZdRPHxJccKlAinW+qVv3Z5mqbZ
-	cwm1JvH3ft41Yh/CtkI2QUXRum6j6VASBGBnX9/Udqm0IRN3aV1gK48ubycXkvvL
-	CApSdEUxMG0MqVff3/s3Hj7/t9o5by24+A2kuYs1+z7xX3unqaUYrGNE1HRHh76V
-	030U8w==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6s4swku1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 09:14:52 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c27616421so10898541cf.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 02:14:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q4ff8QAL"
+Received: by mail-pf1-f195.google.com with SMTP id d2e1a72fcca58-8478cc93299so3054768b3a.2
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 02:14:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783329290; x=1783934090; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+SeYPeA3On9glZXBNtzM8xrowcIm/sG9q2sr+yoOgf4=;
-        b=A5Ocx+6znVH9jYT2aNceNF4BxaLv+gY+xBcLgeFCMkP24ENvmisPNTSfDzJiSD9Mxs
-         6sNh043gCmdt/rBF466GaU8ylt6J1Swci+/EPhP+UVHW9rwfhn2HoYxfOrmC/YlHNX+/
-         wwXEreZRViZg8TjNf5wBjIoMlGFTActfXEtJEWWc5qZhYnb1lN1p52r9hjBtCuzVI5Gb
-         u1SeqEGAYTEWtqF/sgoxUwgUChZPmqFrWTbEPAQ+no9FXwmVzBZ9+DmFXU6EzuFZtCvf
-         XChDcSJ2NLcFQo61aDBWm5Lq4ylKNYHw/+eGjMiyk9RdvXa80gC/lIO+L7JmRCAs0thg
-         FPuA==
+        d=gmail.com; s=20251104; t=1783329296; x=1783934096; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=lr2T/VNgeTFspDjmoHod2aovQh7y4rJk7xKdeAYkRu0=;
+        b=Q4ff8QALec9+WokpaavK5eeOuyn0r/RiKH7EFM2+n4nDACmr8DjrmitAlb7TUYax9Y
+         P4iulO7RAi9gKgt1bZrpn//mPH9jhInGCyyR6xgGTMm29KZ6EDSucyjcGvE9EdCNm5Fq
+         gaVHjYQYKf5KWwqQAhV0Rwq9moWpATbICt9PsL6GkGOLG9dN3RBKmq1pxsBQGBupo2DG
+         wswZQ8hN9KDGkNm2KS2yQW+uy8GeYd3K/XiMlX1fD7pDxIMaYd+T5wOKp/khG8vIjd91
+         kyW5+vTAhWV5F3I7NaGKn99OUdwQuAhjmoqrrKHdDKnv//gTDwpDM666MQ0DmD6fNbtZ
+         pHiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783329290; x=1783934090;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+SeYPeA3On9glZXBNtzM8xrowcIm/sG9q2sr+yoOgf4=;
-        b=VGSYfPiFcoNu8YFeftk3TPAzFBgQU83DuapcVdPpASni2ZYfAFA5RPXuWRkkEbdLiu
-         cjmJ/HAyGn3nwLBz7Y8LIrCq08h8nlSd8uc9De43WTk0merZwB74MjhByRqCdT+aUPV+
-         OITCPESj90ZRC2bwF0YIaznePxpB5Bmj7pvwfukMwfdKaXRpVkKBMEqR5fToVHyYuYGJ
-         0+GvJjDZ18HfqSm090wBVR2UFsnrNO1QTj56F4HeCEm2zaAQhWyiYpKHGN5kH+b9fywZ
-         79BOT/CZTKn8z2vArggH67tAyXvVmKkpWAtEfmjLmTxxz7Zk4/ZZ/hVv0wkxtxFUI+2d
-         q/RQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr5XNbe6iAP2oOd0RYtMoSvjns+gKYE3T7cRG0DQIlerITbVqE+TWGehBeq9L87GZjTLZXNyQ1Nm/LP@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywfi7ljEIE8Hb4aIUQjqwSHdAvrTJznEhAs7imL5sO7dguTIQ8i
-	KDt7HYIG605aINf6ULKu0Y0UgBXE/MvqmpuR5AGN0EDEg1OjzTQfPHvs0ogPMgNVSLbTRjNAARy
-	l82LlYUDhNnx3AxrP71uhlAWGbODvuDwyfnl294pALcZCL20yUrQ5kAYVhUbKag/d
-X-Gm-Gg: AfdE7cnbHBb5nsskv2ESYLS7DWNkfpL/OdFbhjJhBeG2vuKeKUQpEwKe/rkz0lcYCkV
-	ezn1lzMePvy3CXJTXVeQKGkhx0R1y77Tyv9jNi8Jw0+TzCC9oZq1hu4OqpjsqdhqW+WsNzKVFSf
-	0kwUkIHsCtLvVggmPe4IWDX1Fxj3/E7xRP2rLHq2XVZI5cZb/pi3V14HTr0F3WboZrACUy3i+2r
-	IbQW2nWtDCnXPqmQh2s4Ktw3mVEcVfkRS3Iuqn+l/1L9B+TD7WardpAaCgBasnVi9pBSCs2lIEH
-	tKVQkSp2FoJ5nxlH1MqfpIyp7eb41hItG3L+DnRtAEobx1t5bcXsFOi6/QiQYPuZY3jTgn0rboA
-	Oca4KwoRnxagef3duuVlkKx2iYpNN9hycwdc=
-X-Received: by 2002:ac8:7fc3:0:b0:51c:a85:bf91 with SMTP id d75a77b69052e-51c4bdda37cmr91899401cf.3.1783329290567;
-        Mon, 06 Jul 2026 02:14:50 -0700 (PDT)
-X-Received: by 2002:ac8:7fc3:0:b0:51c:a85:bf91 with SMTP id d75a77b69052e-51c4bdda37cmr91899191cf.3.1783329290140;
-        Mon, 06 Jul 2026 02:14:50 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c12b605506csm701001266b.6.2026.07.06.02.14.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2026 02:14:49 -0700 (PDT)
-Message-ID: <373bbf80-a874-459c-b77e-a86dc5f75d51@oss.qualcomm.com>
-Date: Mon, 6 Jul 2026 11:14:45 +0200
+        d=1e100.net; s=20251104; t=1783329296; x=1783934096;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lr2T/VNgeTFspDjmoHod2aovQh7y4rJk7xKdeAYkRu0=;
+        b=pWzsJxJ0/mx8743Dtk3105sZ4rrR70Dz/Z3I94PRS+rwQY2DUQFZB+q3b+m7316VMy
+         AVLstEBPNKJAXLZSfXnjf4+DHhxjEENvyxvOht2IyJQ2yRtNY7schFfHYURcoPJYU3wO
+         NCS/vjIh9akzsQpXCDOP+SHZd0H2A6EFml/FbTVaFdNOrCcN1WgI+PP9RTDWLoeYjrh1
+         WRTy7SvnQDvfnJpflxC2xIaK5vlDVM3WCrRGbjAcmSU1q1dWxQS5+KCaIsJscu4uDcwt
+         vH6R+7EsX1DamyngRV48U4dO4Ci4mjbecXc36uMq939AubUZn36vR9UYn6zOsG6B2mYh
+         uifQ==
+X-Gm-Message-State: AOJu0YxO0cd7wWiU/DzRBE5Pcsz44QCfMwhl1siFls/wuP2KVbZJFMG8
+	gSCr64Mse/Kb+qyU+M/NurKBeZO9jeu0eh/Wipte+0DXMYUTKB1D2FII
+X-Gm-Gg: AfdE7clRthgXmvDI9WIu17Jy0iE2nvN49LaoT1mf5IT6Sex9pd32HDnsdv/ARc7YMXW
+	CZRu5uk3Y2KEaokIdMLSuARkEzOj6yU5HGln8r//Mt9BBdWlAuzH1o/9xCL2cX1rZ8Kb7dHKR3U
+	hXcrSiu4xfBbRRNI6xGVm4fJEJ+cHxN07VLguC6++M3J5a2J6NTmH7b2sDtLSzDxJ+OrHjhmNIV
+	Xqzo2cabONAsl1IczjLi2IKcbiZWZ/9rqjGUuac1vH9f2yxdIj2qIJG+Qq3g6JUMRXs4PskyIXz
+	e/CGG7DFcxz4WWIqY/pEFFGgpSQHpv/Zg9BhZ2OFwHnnJdkd14ioPE/jcL59tkMIeUpCYvw8SHX
+	DkbrVWDKHbp0llmqdJEu1klyTUSOM4wJdfmIFPyDmxGd+6CPRNv/YuHeHyjmpJhmgzUzsCrT8na
+	SKycUDJT9TNQA4uaVj+DhVfMqB
+X-Received: by 2002:a05:6a00:928f:b0:842:80c5:c420 with SMTP id d2e1a72fcca58-847f6ef68camr8193652b3a.40.1783329295132;
+        Mon, 06 Jul 2026 02:14:55 -0700 (PDT)
+Received: from [192.168.1.101] ([218.194.36.79])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847f6db29d1sm3445963b3a.53.2026.07.06.02.14.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 02:14:54 -0700 (PDT)
+From: Yanan He <grumpycat921013@gmail.com>
+Subject: [PATCH v2 0/5] ARM: rockchip: rv1126: Add support for Alientek
+ ATK-DLRV1126
+Date: Mon, 06 Jul 2026 17:14:40 +0800
+Message-Id: <20260706-rv1126-alientek-dlrv1126-v2-0-ff3176ca362b@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 6/6] arm64: dts: qcom: sdm845-google: Add basic audio
- support
-To: david@ixit.cz, Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        David Rhodes <david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        David Rhodes <drhodes@opensource.cirrus.com>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
-        devicetree@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz>
- <20260705-pixel3-audio-v1-6-3b66f33859f1@ixit.cz>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260705-pixel3-audio-v1-6-3b66f33859f1@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDA5MyBTYWx0ZWRfX+jlr0uLzUpp0
- DjxLrG/InWuT8O8z9DS9VQfEVfxRgBtXm2uQyNVvq2YdulL5UHQHsfDB/0pnQ6wmEhCImNScB+t
- LEtwmG0ceBYOwSuGSm3+eut65Mqc4qQ=
-X-Proofpoint-ORIG-GUID: BQ2cTrXg55qszWmTJ1MxpJLRB2YUmxtd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDA5MyBTYWx0ZWRfX0KU1RS7aZ24L
- wolnnGDDs0PVzRXKl7tHUjdpkHtxw8kZMkOIx+4iL2iP1cxfkI8GF5TF4jTpZQ4ofJ8xT/ZgxaT
- MHG3MAbhMqiQOUbc79EPy8RFwz4cN9B+9tMF1en6Q0YfoFEBINfgVcrB5QQqt5m0ld6dMVii14A
- TCdmgby2KUcV64F9vBu5VPdvVuGtwUBzx9M3L5rFXf2kR3iQus8SGjugfEQlLfhK/wkz9oHjgow
- 1btaAbjP3j2ctAW9h1zOiUog35U9UOFD0JpIe465CtVEOGGZDnW7zsYih/+eBLOFyZeFdFprsG0
- ao8yoXo2vxHukVeMpdNf/0EZGZw0hD526Dc2nTpIoPC8iMQ9xRsMU7pykiBdJo1uwvyivK+qLOg
- nba6UzfPdW4MeosH3Z9U0KiY5jrwzyhOil/EX35Ypm+q6iqQwdWjDAPfF/W5p2Fs6RTrn2GpZVB
- ZHalkGt763b21pVsIkw==
-X-Proofpoint-GUID: BQ2cTrXg55qszWmTJ1MxpJLRB2YUmxtd
-X-Authority-Analysis: v=2.4 cv=ZfQt8MVA c=1 sm=1 tr=0 ts=6a4b720c cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=32KPdnK23d6YPOs0wU4A:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-06_01,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 phishscore=0
- priorityscore=1501 clxscore=1015 suspectscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060093
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHQUlJIzE
+ vPSU3UzU4B8JSMDIzMDM0ML3aIyQ0MjM93EnMzUvJLUbN2UHKhIiqVJYlJKcpqFqYWBElB7QVF
+ qWmYF2OjoWAi/uDQpKzW5BGSeUm0tAHxpGmR8AAAA
+X-Change-ID: 20260618-rv1126-alientek-dlrv1126-d94abdcf8580
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ David Wu <david.wu@rock-chips.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Frank <Frank.Sae@motor-comm.com>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ Yanan He <grumpycat921013@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783329286; l=2237;
+ i=grumpycat921013@gmail.com; s=20260618; h=from:subject:message-id;
+ bh=cLIYaTp8BMdNpvmeNN9IHEGffrelsNbt22peLlfH/xI=;
+ b=n9ZjERAhzjx2V7crs7HJzpo3tqAmQ8t8NqGgffNufU3uJAKs2gRa4YnXgybLrwGB6BscbMpTf
+ 6R7McTRg+88CmER536i37fi+k30MyFTlhzIpbLcmMPD4KH0VhdznWAN
+X-Developer-Key: i=grumpycat921013@gmail.com; a=ed25519;
+ pk=oWrY8KwXIunZWlYBV76NG2A3V4p1bJ+aD45Mr56ErTw=
 
-On 7/5/26 10:06 PM, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> Introduce support for sound card and wire two CS35L36 audio codecs for
-> top and bottom speakers.
-> 
-> Inspired by commit from Joel Selvaraj.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
+The ATK-DLRV1126 board consists of a CLRV1126F core module and a
+DLRV1126 carrier board. The core module contains the Rockchip RV1126
+SoC, eMMC and RK809 PMIC. The carrier board provides Gigabit Ethernet,
+SD card, AP6212 WiFi and Bluetooth, PCF8563 RTC, ADC keys, GPIO LEDs and
+audio connectors.
 
-This looks good, but since the binding is not YAML, it introduces:
+This series adds the Alientek vendor prefix and board compatible, updates
+the Motorcomm PHY driver to consume an optional external PHY reference
+clock, adds missing RV1126 SoC description pieces, and finally adds the
+CLRV1126F core module and DLRV1126 carrier board device trees.
 
-failed to match any schema with compatible: ['cirrus,cs35l36']
+The board was tested with Ethernet/NFS boot, eMMC, SD card, SDIO WiFi
+enumeration, Bluetooth LE scanning, RTC, ADC keys, GPIO LEDs and RK809
+audio card registration.
 
-so please also fix that up
+Changes in v2:
+- Model CLK_GMAC_ETHERNET_OUT as an external PHY clock consumed by the
+  YT8531 PHY instead of keeping it alive from dwmac-rk.
+- Add optional clock enable support to the YT8531 path in the Motorcomm
+  PHY driver.
+- Use phy-mode = "rgmii-id" for the Alientek DLRV1126 GMAC.
+- Keep the PHY reference clock in the ethernet-phy node, following the
+  rk3588-tiger.dtsi pattern.
 
-Konrad
+Signed-off-by: Yanan He <grumpycat921013@gmail.com>
+---
+Yanan He (5):
+      dt-bindings: vendor-prefixes: add alientek
+      dt-bindings: arm: rockchip: Add Alientek DLRV1126
+      net: phy: motorcomm: Enable optional clock for YT8531
+      ARM: dts: rockchip: Add RV1126 I2C5
+      ARM: dts: rockchip: Add Alientek DLRV1126
+
+ .../devicetree/bindings/arm/rockchip.yaml          |   7 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ arch/arm/boot/dts/rockchip/Makefile                |   1 +
+ .../dts/rockchip/rv1126-alientek-clrv1126f.dtsi    | 277 +++++++++++++++++++++
+ .../boot/dts/rockchip/rv1126-alientek-dlrv1126.dts | 256 +++++++++++++++++++
+ arch/arm/boot/dts/rockchip/rv1126-pinctrl.dtsi     |  10 +
+ arch/arm/boot/dts/rockchip/rv1126.dtsi             |  15 ++
+ drivers/net/phy/motorcomm.c                        |   7 +
+ 8 files changed, 575 insertions(+)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260618-rv1126-alientek-dlrv1126-d94abdcf8580
+
+Best regards,
+--  
+Yanan He <grumpycat921013@gmail.com>
+
