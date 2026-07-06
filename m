@@ -1,145 +1,194 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04867374192
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 14:02:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832B5377EC6;
+	Mon,  6 Jul 2026 14:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783346523; cv=none; b=ZqVxCRXJfbeHB2iQ+3Z9CsbYcBsgGnCOHk+d76T68lmRNiiBZbUuZ+dJZ7Qy8/GtmfWVn2BPzBRxNfTgXgT92DNyzySVNOvfGGivGZ/0UnQ3ki2oBXoHny/sqFusUslAjj5vDc3ouyK7THNfaSNfmImEsDk/gWAgMw9/aL9YOHM=
+	t=1783346530; cv=none; b=ca7PHLlBwkB29a3Z7f8FYzstbgjnIGEAukp4F9vbeGYU61r/pNAwkjxwEiRU+m4iu4ZnoURe050SBMObGJ4qgq+qXKt9Ds9TRK5tB3xIkPIvPtyv460/0OfFiq1TecL3c19i1jbMWvQ0+VuY+DX3MW4c92kI6Mw2yzqfihthfII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783346523; c=relaxed/simple;
-	bh=Oe/MLWXP8dChzX5k64XMZnBbFfYNd+emFyTl3KNJkIU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DNFAFs0a8pPVwhu1uTH19gBh4iJA8OQKZxsxgzGD6v3zRxOCDYMLQYXVHAVXEY94A4Xrgy8KRDHhBkORmq1jSGqOSus+oPBUAX2OvZcrh8ayZGN2I5PRWt39wbTExu1dI2iuMN6v6/ZtkvVmBokFlhcR5PkfiKG1KP5k5I29mbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RwCJ7qny; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783346530; c=relaxed/simple;
+	bh=kR1mcwRu68froGsjeJRT1hkq1H5uQEJ2k2olRMbQmq8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RupyLXaq984Lb4P8AorKCrxItKMNIpJngbhBy05zX8EIqL3lhKt/A4HSYIl6I/UhskDTlfJrKP3NiQ0tplCujTdHcVfaj4nhHq7MfCfVnpkp/hOkvIDAPxMKMVdIsPZe6Y7iGUODDop1TjXPZtB+gmV8UKXUlyfzxYPrOpOM5Vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=bwUzpgp1; arc=none smtp.client-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RwCJ7qny"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cc97653887so13140965ad.1
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 07:02:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783346521; x=1783951321; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=8W5+jx7bPjLG+4tJL2jHIRG3oW7oM+42HpDCfJqGjPw=;
-        b=RwCJ7qnyMny8Vxzcwf+qYHt8vY8Pq8QK+74PZZ8HVBNr181u+ID0pb5BzUkoIZ9TRh
-         XUII5n2CbmE/2wSkC42EYhHdAziVCN49WoZX0qLqFDhzkVuUOJfF2+Gtlhjo+arygzkM
-         IlZ1OnXHG9YdVJRsiHyQKOYJlkFADszaouYjhorbeUbQ3xHHuG5XISDgDCPDUKx6jQWc
-         Ncytk8Vj7VkQSEm0J3cSUxK3c8a288swVcDs7bTTMdmrUySm4NlbenA4RMmoalovC/92
-         bHixk0Ga15FiYPZa50PZ7g5NrPZTNCMUZeDhwHrGL6250nbxwIwdUVb3bh5dmHuQ3IPF
-         H6Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783346521; x=1783951321;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=8W5+jx7bPjLG+4tJL2jHIRG3oW7oM+42HpDCfJqGjPw=;
-        b=j/9eltCNgrwEX/MVZoT2c+rHSZCr84s7GVPt9Ljwj0tIjTZwNKDD6CMHDftdygxnpf
-         MQyJXDrAWfz57mM/+Z2ZT9ZwfnQqS1KJjjx2yxxiunlvZHR5S9aFxkvheiVXMG519gtL
-         fP9fQl+kf5xEC4WzgiqAQyYmjqkTDtwSexJQeooDmbJt+5WwCxzT1sGUGEICsPNHQnuh
-         PZBn6E5rc7D5C5D/NQqmbFDVhzCRgOIZ3zjtTQYlS9MrLUoFfe+uhVK/i0tGF7q6BF+v
-         YZQAOONX/gfGQutXjD5vOvDM9+cyY64SuPehBngKFsEuWMysLfN2tKdpbaVmwsQon1XW
-         j5ig==
-X-Forwarded-Encrypted: i=1; AHgh+RrlhyzR2ZqcgzSfqvoYHMrTZN4jgYckQWE8wxWq4mfBrHwhvyq+42yfNbhfUjbbt7+dRMZrz7/IDsKP@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw3sPv1/RzUgb0qddxrSTX3bNy3aBYGkPfb9X/kexA0yaOGpKUU
-	rBehP4Vw2cfr2Gn2scvnN6+ZZPMijosMUNm5HSfSn8IisNlSvkJp7wnP
-X-Gm-Gg: AfdE7cle5Rk1XcVbC2tSE/jIqvPYN6Uq/kBAHJyI6XmjIh9c9dFxFioP0sRMTP572oP
-	fRo3csR1PzM8i9GAczaLIjpwMono22X0MLMLWgY20TT3814FQbzgPrEgHnuDDARFxEk5WgiQfth
-	I2vEvwBwTUcNt+KPCaInpNPjM8+ybhobyc/1k4y3W8ksDQBGgQhAgmDfBEMkd9NFa07DzltSYdM
-	1NKErCMSS1Y0xDRhUnrXHAQx3oDA7t/76IYoJbEJI7Buk4duv0uhtLozbGTyGHM9/u/zokvdz3E
-	UxYipBDt90SJoxkvTQWKZDTTgqhRPO/0F7BPeUObXrDXCyq5FSD25sc1VBgXJQPKbZoFjec4Yot
-	quEyxAXa+7SX1JSl6TmD/NCUOxM4PxtxWyARPgE7QApSGQi6+QESbtQsZ/I4OHFspLNrfpxl+M6
-	7TsARrJRG/zMgGkSoFnqpRgTgABg==
-X-Received: by 2002:a17:902:e5c8:b0:2c9:cf5d:d9bc with SMTP id d9443c01a7336-2ccbf043d9cmr5925765ad.35.1783346520520;
-        Mon, 06 Jul 2026 07:02:00 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad7894b20sm51246705ad.78.2026.07.06.07.01.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 07:01:58 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 6 Jul 2026 07:01:57 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] dt-bindings: hwmon: (pmbus/max20830): add
- enable-gpios property and complete examples
-Message-ID: <a502e1e2-f2c3-4851-b0d5-934b18e92f84@roeck-us.net>
-References: <20260706-dev-max20830c-v2-0-37761e89bb5f@analog.com>
- <20260706-dev-max20830c-v2-1-37761e89bb5f@analog.com>
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="bwUzpgp1"
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4gv5dX75Wjz1XM6JQ;
+	Mon,  6 Jul 2026 14:02:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1783346513; x=1785938514; bh=SWQu/Y+XC68Sm5MppnTOFQED
+	FDkVGjBC+cLSsIsk2pc=; b=bwUzpgp1uLbCon5o1MbBED+9l+vJSXKRjS7vqFdB
+	Vps58b90aV/5Ou/oe2HqwU2q4Ma1JAIs6aUZhpcYy5OFC4l65LqE16uatgXMUq4x
+	aUf1Bp0H3eKAfT83gwjkLRkw5LRFFhKJgMBR3OCJz5IJ4C3REVjmhKacEn2waBoA
+	s3oJ5IeqPMPA0GLcFiivmIak/rOaijZnKMDMyqy6S1YtXT4OA8sQOwshS/lpa2s1
+	suR1jnCrq03rTk+rXVzz47LRnCum+0XMqoAraNR7AEPN5d6suH4Oyg9qXPifImOn
+	HTB15MbC1+pAbedC3AbMx8LBi+zg5IHp3NGEUqRDbftAGQ==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id 24qOXGkWAkgZ; Mon,  6 Jul 2026 14:01:53 +0000 (UTC)
+Received: from [192.168.51.14] (c-73-231-117-72.hsd1.ca.comcast.net [73.231.117.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4gv5d473bZz1XM6J4;
+	Mon,  6 Jul 2026 14:01:43 +0000 (UTC)
+Message-ID: <f46d7520-bc2e-49f7-9049-ecdba2837b5d@acm.org>
+Date: Mon, 6 Jul 2026 07:01:42 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260706-dev-max20830c-v2-1-37761e89bb5f@analog.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] scsi: ufs: spacemit: k3: Add UFS Host Controller
+ driver
+To: Yixun Lan <dlan@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Avri Altman <avri.altman@sandisk.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org>
+ <20260702-08-k3-ufs-support-v1-2-1a64a3ab128f@kernel.org>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20260702-08-k3-ufs-support-v1-2-1a64a3ab128f@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 06, 2026 at 10:08:41AM +0800, Alexis Czezar Torreno wrote:
-> Adding an entry for the MAX20830 EN (enable) pin. This pin exist but
-> was not included before. Also edited examples entry to be more complete.
-> 
-> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
 
-I still do not see the point of these properties. The driver can extract
-the power good information from its registers, and it can set the enable
-value from there as well. It does not need either.
-In practice the power good output is likely to be connected to an LED or
-to the enable pin of another power controller. Neither would need
-devicetree properties.
+On 7/1/26 7:31 PM, Yixun Lan wrote:
+> +config SCSI_UFS_SPACEMIT
+> +	tristate "SpacemiT UFS controller driver"
+> +	depends on SCSI_UFSHCD_PLATFORM && ARCH_SPACEMIT
 
-Again, please provide a use case. The mere presence of these pins (which
-exist on pretty much all PMBus chips) does not warrant devicetree
-properties for them.
+What would break if ARCH_SPACEMIT is left out?
+
+Please make sure that this driver can be compile-tested easily.
+
+> +	u32 host_reg[] = {
+> +		(UFS_PHY_MNG_BASE + UFS_MPHY_RST_CTRL),
+> +		(UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL),
+> +		(UFS_PHY_MNG_BASE + UFS_DEVICE_IO_CTRL),
+> +		0xFFF,
+> +	};
+
+Can this array be declared 'static const'?
+
+The parentheses in the above array definition are superfluous.
+Please remove these.
+
+> +	buf = kzalloc(VENDOR_DUMP_BUF_SIZE, GFP_ATOMIC);
+
+Why GFP_ATOMIC? ufs_spacemit_dump_host_regs() is never called from
+atomic context, isn't it?
+
+> +	len += scnprintf(buf + len, VENDOR_DUMP_BUF_SIZE - len, "vendor specific registers:");
+
+This function will be much easier to review and to maintain if a struct
+seq_buf instance is created for 'buf' and if seq_buf_printf() would be
+used instead of scnprintf().
+
+> +static bool is_fsm_state_valid(u32 state)
+> +{
+> +	return (state == FSM_STATE_ACTIVE || state == FSM_STATE_LS_BURST);
+> +}
+
+"return" is not a function. Please remove the superfluous parentheses.
+
+> +static int ufs_spacemit_mphy_init(struct ufs_hba *hba)
+> +{
+> +	int ret;
+> +
+> +	/* reset all mphy logical */
+> +	ufshcd_writel(hba, 0x003, UFS_PHY_MNG_BASE + 0x0);
+> +	mdelay(1);
+
+Why mdelay() instead of msleep()?
+
+> +static int ufs_spacemit_uniprov1p6_init(struct ufs_hba *hba)
+> +{
+> +	/* PA_TXHSG1SYNCLENGTH */
+> +	ufshcd_dme_set(hba, UIC_ARG_MIB(0x1552), 0x4f);
+> +
+> +	/* PA_TXHSG1PREPARELENGTH */
+> +	ufshcd_dme_set(hba, UIC_ARG_MIB(0x1553), 0xf);
+
+The code in this function is very repetitive. Please convert all the
+ufshcd_dme_set() calls into a loop over an array.
+
+> +	/*LCC_DISABLE*/
+
+Here and everywhere else in this source file, please follow the
+convention used elsewhere in the Linux kernel and change /*comment*/
+into /* comment */.
+
+> +/**
+> + * ufs_spacemit_hibern8_notify - Handle hibernate enter/exit
+> + * @hba: host controller instance
+> + * @cmd: UIC command (HIBER_ENTER or HIBER_EXIT)
+> + * @status: notification status
+> + *
+> + * Manages M-PHY power state during hibernate transitions.
+> + */
+> +static void ufs_spacemit_hibern8_notify(struct ufs_hba *hba, enum uic_cmd_dme cmd,
+> +					enum ufs_notify_change_status status)
+> +{
+> +	int ret;
+> +
+> +	dev_dbg(hba->dev, "Hibern8 notify: cmd=%d, status=%d\n", cmd, status);
+> +	if (status == PRE_CHANGE) {
+> +		if (cmd == UIC_CMD_DME_HIBER_EXIT) {
+> +			mdelay(1);
+> +
+> +			/* Enable reference clock */
+> +			ufshcd_writel(hba, MPHY_DEVICE_RESET_DEASSERT,
+> +				      UFS_PHY_MNG_BASE + UFS_DEVICE_IO_CTRL);
+> +			mdelay(1);
+> +
+> +			/* Power up all */
+> +			ufshcd_writel(hba, MPHY_PU_ALL, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> +			mdelay(1);
+> +
+> +			/* Assert ana_rx_hb8_reset */
+> +			ufshcd_writel(hba, MPHY_PU_WITH_HB8_RESET,
+> +				      UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> +			mdelay(1);
+> +
+> +			/* Deassert ana_rx_hb8_reset */
+> +			ufshcd_writel(hba, MPHY_PU_ALL, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> +
+> +			ret = ufs_spacemit_wait_mphy_pll_lock(hba);
+> +			if (ret < 0)
+> +				return;
+> +
+> +			mdelay(1);
+> +			ufshcd_dme_set(hba, UIC_ARG_MIB(0xdd), 0x57);
+> +			mdelay(1);
+> +			ufshcd_dme_set(hba, UIC_ARG_MIB(0xe8), 0x57);
+> +		}
+> +	}
+
+Please move all the code in this function that is indented by two tabs 
+into new functions to improve code readability and to reduce
+indentation. This advice comes from the Linux kernel coding style guide.
 
 Thanks,
-Guenter
 
-> ---
->  .../devicetree/bindings/hwmon/pmbus/adi,max20830.yaml         | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
-> index 1625dd59417f1b3ca689a9c86ca266da913d1217..f3ba6351aa5d657590d92a538910fd6b787e7a3a 100644
-> --- a/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
-> @@ -39,6 +39,11 @@ properties:
->      description:
->        Optional 2.5V to 5.5V LDO input supply.
->  
-> +  enable-gpios:
-> +    description:
-> +      GPIO connected to the EN (enable) pin.
-> +    maxItems: 1
-> +
->    pwr-good-gpios:
->      description:
->        GPIO connected to the power-good status output pin.
-> @@ -53,6 +58,8 @@ unevaluatedProperties: false
->  
->  examples:
->    - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
->      i2c {
->          #address-cells = <1>;
->          #size-cells = <0>;
-> @@ -61,6 +68,10 @@ examples:
->              compatible = "adi,max20830";
->              reg = <0x30>;
->              vddh-supply = <&vddh>;
-> +            avdd-supply = <&avdd>;
-> +            ldoin-supply = <&ldoin>;
-> +            enable-gpios = <&gpio 1 GPIO_ACTIVE_HIGH>;
-> +            pwr-good-gpios = <&gpio 2 GPIO_ACTIVE_HIGH>;
->          };
->      };
->  ...
+Bart.
