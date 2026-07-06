@@ -1,145 +1,133 @@
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com [209.85.210.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [185.100.197.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195B64A3404
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 09:15:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020F74252D3;
+	Mon,  6 Jul 2026 09:15:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783329333; cv=none; b=tgtMtPe2921mloYEewQALdw7cgYh6oWWN+bVTVC8sCH0MY40LqgzB12kX5e6nkui79JWQ33uXGCrfYmHZ4qIKDQl/A+DIuuY7JHVDXuxpQ0KPD51/QFJmbQmevqUIDXAjXsqUYOqbx4RR1Az5PR4TgmKUZcJQv+TL8DAfkyGwhs=
+	t=1783329335; cv=none; b=WmbU4qBZV0UDy6xDkca7QHYz1SPIK54otkaE8hnTRwLJyWHi/60Y7wgDML7k8/D+1/C+0LsEfXKafUr83QTnxpk698K8MbDG0rCyRD4FWiIL2AW+Vsbx+gTthLyCqMZNw+suGesWQFUCjfsWDoaDiRIMQGBG3TeOOAbizMoiZaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783329333; c=relaxed/simple;
-	bh=SlNqGmETJ9Q8UAkQSzGcvlMdwkMGS8oYl0+UlW2dAag=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DHFFv6lBG4hjvq32NW8zoeRerc676XT7YHG6agFAMGIPwhtKyVxmj+CifI9sqPUNRATXA4YjvDPQ6WIrMgr2oZ8upSOGTNbkkmgMd3biHACUQ2+NE6iSoHCJAP1rqyL0rn0qbSZ0lg26o60zBfwX8PUfn2dOltxW2GsohXEgcyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KthFrw6f; arc=none smtp.client-ip=209.85.210.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783329335; c=relaxed/simple;
+	bh=0hS8vw7MNSF4HOyaeNLcycdWRgFtm2Vd8D4R8NZbuyE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FcYUyJkNqACx9ua31Q897+KD2pylI0ncQy8jze8AXKf2T1UOWoaUatex74AlbHE36rCWapEGsoLD8TNbg2BiE6K5e0lqrwcLTHehp3/DV0lCmnttOPR+kOw25HvTAcABXpbhnPKCmLbiJ4HsAgkPOOMgzEoc+4D4b16W3v2fAP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=b73rt3BD; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KthFrw6f"
-Received: by mail-pf1-f195.google.com with SMTP id d2e1a72fcca58-84532e3dbf7so2869010b3a.1
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 02:15:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783329323; x=1783934123; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PO7sRlb4LngBB0NhQzK1DjshH0p/tRvHLng9mNY0Vj8=;
-        b=KthFrw6fWRNwlqAIAFn13froZPY2yRUQbS6l5u3aNoMv0BPpsc9gZ30qkmzLf67B0S
-         MONb43xRQOeNS+UNRGoV1nvV60wQ3rGMg+GcAtr7IH2wzn5sjVboqrIi9E7j5Jbzt2pD
-         6pCFJdZ+LorGCb4dvss4r9pivDhqJI1OQhWmDmt/iJPXI/E3zruy+S0iW/oWWGRLUkEF
-         rv+rrVUDN24D3kXFNb5mjxJM8InnyCHjdW+F3UUcACAsQgIolynmkNsdhRH4buwk5bfN
-         ArJl5KUf6aZHc+RQxbkw6qt8SSRKqHw9h8ua6lVCqV+8++21gzJj1ZDE8J4n4qLYrwvw
-         2yCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783329323; x=1783934123;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=PO7sRlb4LngBB0NhQzK1DjshH0p/tRvHLng9mNY0Vj8=;
-        b=mU97xr1VHDmKH3uDdAG7NnxdzKHLybf1LV6prcBsvSIWbqyDeSCPm3xjX2gadARmdv
-         BfjEFAfnTkq4xxJ6F7mdex5Dgb6KlTtXOw3ntpS2WcIp3Vw9s+ElQfZrLBkgOwzmlC1N
-         5yNr07UdkNz0+6p09k51rvWfQzfDpOWYFOJasD+oTgohPjzzbVA6AjnwU0gkdK3XyoIm
-         q4RNOiiq/wv6UNN8ChEbyuU9hs3gdaMiAPSZ3E7qMcZHS82yzF8Nqe6HBdgcrAKXv+qE
-         +aqw+UhNYfNktRl5EOMDr42eWR4abWOxqStuTCzz4KU41rloeICN5TPoj2zpppUA6ax9
-         7oJg==
-X-Gm-Message-State: AOJu0YwZP80Kg6xGKgP+4owU4DaC2yB1w6jYoXV6QQVvfmHhVHi+L2jL
-	4kezhr/omJdLITIsB6vRI7XiG9wKl7HjN2E+rizQRIArbLEWhOp0XviO
-X-Gm-Gg: AfdE7cnes+iK4FLPHnnpZyYcsPfQ/BF3GX1CrOyzZUDA/E4P0Z5vANuK0cz5vzX/8JI
-	aM1zWdkEXtO8Vdoo+2MCiCi0uTyUBIMhg/zkmtFqShspRyo7qOpa+zJHfJSV94m1ZPZn3mcavOH
-	33yYcbkDsM/Q8FoKmxeDO23aBXjUfGTcNBbds7t8oXq4K/z+qm8oqUoTeCtXdKkzwb8pGD2IUdJ
-	UGKLQMWZ/gtiYCGwvlIduNbCx7OxtU5cHsqS2A4mqqCbkmSPu+/lJy48zf5hLl6JFHoHzIre4f9
-	dZT9YLm0Fr5QkUQqoUq7RZT4w1AQQCKW7tWjHLockQsGXCULEvx9a1IwwlxHbVSNQroJ2H7PNsb
-	D0LBYRlZ2/jxn21NnspbxlvfTxuv1x7cUSwL3hZNqHSdDeeTuRRmr81JkJP4b0jRoZxSvooLHe4
-	ooLNk5/0RXk1a6TC091yQLQOsu
-X-Received: by 2002:a05:6a00:bd0c:b0:847:77f0:72af with SMTP id d2e1a72fcca58-847f6ecb888mr7926803b3a.40.1783329320787;
-        Mon, 06 Jul 2026 02:15:20 -0700 (PDT)
-Received: from [192.168.1.101] ([218.194.36.79])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847f6db29d1sm3445963b3a.53.2026.07.06.02.15.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 02:15:20 -0700 (PDT)
-From: Yanan He <grumpycat921013@gmail.com>
-Date: Mon, 06 Jul 2026 17:14:43 +0800
-Subject: [PATCH v2 3/5] net: phy: motorcomm: Enable optional clock for
- YT8531
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="b73rt3BD"
+Received: from [172.20.10.2] (78-80-16-106.customers.tmcz.cz [78.80.16.106])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 5F30A534071E;
+	Mon, 06 Jul 2026 11:15:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1783329321;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=OpymYWCMeOw0pSw3wVZrb6qM4nRKD+tybJpcb6YiwcI=;
+	b=b73rt3BDhJUcgcso25zAz9ZQNupBXcn9+NTev7icQ4zItktQVIEqeVUP20QnRkDSJZaUfr
+	dEla340i1RzUpgLndBKHNd5p/LfHR2l9RPTIGqyArPMqqcQy7SbixGB8rvY5T5hjZ5z3TD
+	YS71dhoZAWKdXWyYFUwz40eU+dQZdUk=
+Message-ID: <f71e9b9b-a023-4d07-a6ca-58714ee22d06@ixit.cz>
+Date: Mon, 6 Jul 2026 11:15:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 2/6] ASoC: qcom: sdm845: use DSP_A format for TDM
+ codec DAIs
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ David Rhodes <drhodes@opensource.cirrus.com>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ devicetree@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz>
+ <20260705-pixel3-audio-v1-2-3b66f33859f1@ixit.cz>
+ <15493c41-51ec-47f1-be1f-d211a970e487@oss.qualcomm.com>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <15493c41-51ec-47f1-be1f-d211a970e487@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-rv1126-alientek-dlrv1126-v2-3-ff3176ca362b@gmail.com>
-References: <20260706-rv1126-alientek-dlrv1126-v2-0-ff3176ca362b@gmail.com>
-In-Reply-To: <20260706-rv1126-alientek-dlrv1126-v2-0-ff3176ca362b@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- David Wu <david.wu@rock-chips.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Frank <Frank.Sae@motor-comm.com>, Andrew Lunn <andrew@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- Yanan He <grumpycat921013@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783329287; l=1439;
- i=grumpycat921013@gmail.com; s=20260618; h=from:subject:message-id;
- bh=SlNqGmETJ9Q8UAkQSzGcvlMdwkMGS8oYl0+UlW2dAag=;
- b=y6ylHRmWgT7jI86bC726VoaKX+LpK4637earqAkTGSrc4CX0YqwDp1WW/spDefa3DoiAUsZOh
- Vi4pQJYhQAiAYpVdofljX7KHjKSc3kOcTx5ju2ZdGCW3K/esm48DEaL
-X-Developer-Key: i=grumpycat921013@gmail.com; a=ed25519;
- pk=oWrY8KwXIunZWlYBV76NG2A3V4p1bJ+aD45Mr56ErTw=
 
-Some boards feed the YT8531 PHY from an SoC-provided external
-reference clock described by the common ethernet-phy "clocks" property.
+On 06/07/2026 10:33, Konrad Dybcio wrote:
+> On 7/5/26 10:06 PM, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> Before the DSP_B only worked because the only close-to-mainline consumer
+>> cs35l36 codec was patched to map both DSP_A and DSP_B to the same
+>> hardware register value (asp_fmt = 0), which is inherently DSP_A timing.
+>> Use the right codec (DSP_A) which works as expected.
+>>
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+> 
+> Fixes?
+> 
 
-Enable the optional PHY clock during probe so boards can model this
-clock as a PHY input instead of keeping the clock alive from the MAC
-driver.
+I was thinking about it, but I don't see any mainline consumer of TDM within the 
+sdm845 arch.
 
-This is needed on the Alientek DLRV1126, where the PHY reference clock
-is provided by CLK_GMAC_ETHERNET_OUT.
+If you think it make sense, I'll mark it.
 
-Signed-off-by: Yanan He <grumpycat921013@gmail.com>
----
- drivers/net/phy/motorcomm.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+David
 
-diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-index 5071605a1a11..3396a38cfc0f 100644
---- a/drivers/net/phy/motorcomm.c
-+++ b/drivers/net/phy/motorcomm.c
-@@ -6,6 +6,7 @@
-  * Author: Frank <Frank.Sae@motor-comm.com>
-  */
- 
-+#include <linux/clk.h>
- #include <linux/etherdevice.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-@@ -1180,9 +1181,15 @@ static int yt8521_probe(struct phy_device *phydev)
- static int yt8531_probe(struct phy_device *phydev)
- {
- 	struct device *dev = &phydev->mdio.dev;
-+	struct clk *clk;
- 	u16 mask, val;
- 	u32 freq;
- 
-+	clk = devm_clk_get_optional_enabled(dev, NULL);
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "failed to get and enable PHY clock\n");
-+
- 	if (device_property_read_u32(dev, "motorcomm,clk-out-frequency-hz", &freq))
- 		freq = YTPHY_DTS_OUTPUT_CLK_DIS;
- 
-
--- 
-2.54.0
-
+> Konrad
