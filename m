@@ -1,126 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F23144211B;
-	Mon,  6 Jul 2026 10:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08943D9555
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 10:12:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783332677; cv=none; b=O0pQHS03cWaYS7JEvFWIjqGBSlp5HVYKdTj6wU2vxOz0VUao3nUkM1mt14OBZNkwMz6n4P/M0HMBhKK0Tg5Sv9byDXdzlRZ9mjH9YtIIhuov13JxZjy9WMeap0pFQ2uonUl80bWRNrYQg0iPcucRau5meRGWR7DEIkHgRRuKD6Y=
+	t=1783332747; cv=none; b=I6xP1bZSNVJ7BxhBfYzc6SZKvKQNRrjERaBBpcqXnx+UW/NK0SIkOK4/wUUQ3DcgygFxaPezjO1mM6pqZIH2IyG5NGvMYvP75v0ZITQJNUKjrvEeZeGAbvojZwE3E0XlmwO83QYNu7S4E2IlMqSyp+7Tl5Gr7h6r2R6ic/rdfBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783332677; c=relaxed/simple;
-	bh=XLJCpIqyZeJR3MaC+rGwOiu/ENSVIjHHPZxnvNPL0Qc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Sz0eueiKyCIrw2TvU7L9xAXSO2NEVK/vhBFRAGjAxpcposSBkzqk4U1utnN48HJTeFYokvwfEba7OUQ0EStOpM59J6TWI6Kc2fKj1U2JgCH+H/y04TqE9RQ2CXRdTWWuKsLeS8syADou9ZIVG77q4VDhnXpeOiNVJHisPnoAYbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJgk3G6H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783332747; c=relaxed/simple;
+	bh=gqgOIGIN6sXR8VaiD0l5Q2LHm5agZmjYy0VZs9k+yjg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V1kdILxXfp1leccBl6ygR7xcwB8r6kW+8QcQwn/obQ+gTVOiMeuv9iYJRPBqSweR8hVNqAEWgcph+7Oyg6hnqmQajVDahXLWcUDmbHkkNvcpy4+WvNtAaIxpb7HGfphLUEPYVR/Qv9H1vd1NQztSo4EXS9F7Z2jIBBEe8iPpXFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=DRIBpWRj; arc=none smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJgk3G6H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 129681F000E9;
-	Mon,  6 Jul 2026 10:11:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783332675;
-	bh=MgovdVc4mJn8kTmi6osOtTdAyAEgyLg4UqymjNiprtE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nJgk3G6HsqVGeTknuTvDyn72NCeKEyEOOLvXaR8FcRu+ms1rKjj2wXUOAYgVe0b+m
-	 1y51wdj6PP1KorP/8rFd7ic+8ZDmzdlV9YScbLh9ssTttPW5aF39i/VdO/msD9FPwo
-	 8h4/H9W18COj9m/KlhqrzkljI2D9S3VW588Nm41EvFoHYTHo6vz8BoiGITB8yU3LWf
-	 22bL3U9bbql53twXhAz2CRuQHFHtrfhJnrfneYkhxy5R2d6csA2uY+hFbZL0qTGslx
-	 Ijyiyt8K03ZvKHbgMyNhjG1WbjSCBp3TpyF4Z6bzt9X/ESjWrtnP89myIJ1M4Gia54
-	 9m7QslAYyUSMw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] PCI: ultrarisc: get and enable DP1000 PCIe
- clocks
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jia Wang" <wangjia@ultrarisc.com>
-Cc: linux-pci@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260706-ultrarisc-pci-clk-v2-2-2f3fb6fba66b@ultrarisc.com>
-References: <20260706-ultrarisc-pci-clk-v2-0-2f3fb6fba66b@ultrarisc.com>
- <20260706-ultrarisc-pci-clk-v2-2-2f3fb6fba66b@ultrarisc.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 10:11:13 +0000
-Message-Id: <20260706101114.129681F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="DRIBpWRj"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c124c3c876aso384354866b.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 03:12:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1783332744; x=1783937544; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=AqdiZptSXu3ipdJWB6QZa/nDkTWEQFhlT8vnJMgKmk4=;
+        b=DRIBpWRjP6YIlMnqGcYDXJ+MeyD3nsqikVqkGuR//MWxv21DRVtdAje+7iHEXQM6wF
+         l1ecU8eqR5Ggg8MjCn80bql/csRRt2hGBTTTbSudJG5Q9Waw0CWMDsf+GALBEnUiqCPs
+         LUO+HQkplwRdHPevEt39FnHn0afp/ntUwN65pUtfgkZFFfpI22p7mb+LJxuIirRniumA
+         uiMB3VeHVALtHIssz8Sk/ZtPNoj2OyWPmAHSa5DoYANBiS8u/u0485j1Uq+CrNxwhxJe
+         6V2qABnaG8aA8nXlB11Q/s2FJ4Bv9KbzSmN01AF79BMbY25NwETuwZ/nHlGV9CAxsKjI
+         aSyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783332744; x=1783937544;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=AqdiZptSXu3ipdJWB6QZa/nDkTWEQFhlT8vnJMgKmk4=;
+        b=TUGOSdnuoywGoDqgLTQWrQAcHG35gmuYWKpXWXSiuR+BBqF4erg2s63l+7Ql8uMLp1
+         uYAV0Rk1o0purXnjYSvdZtiCVw3wranctCnbPxq3BeIf0Ycj3yJv6LVfS0X0ydj0LIbq
+         pRjRUe24/BB7XFcQ3/B/AMcSUlsga4JPZElQMz2L6V1xMnvO/7Lk0SNSstG25K+rYxOz
+         XU4zMaI+YNvuk8Sp6UXt9EV7FR0tq1H2B1KihDwsz77fpWtN9pC30p+sjuNhGXt0zXpL
+         LgUCLTNKDuUj1IJ4ICFZMOAbcuMeDB+tNp/KcW9MWfzrh43JlO+ekqJBp4bvmA2IBl44
+         NfQg==
+X-Forwarded-Encrypted: i=1; AHgh+Rrd02HkCv3wZT+q+5YlcL+4bjlrPCi8Xo7YMJ67X9dzCdjgJO8UcOfToG7l2vpufQhR9gFhuqLhhjQ/@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyp33WQWvZYYITai3Mem8XdxdQd9BFNNFki8+8Arj67m/ZYPz/r
+	uGtY2eieQkkvPt8Ao2sBdvprMH7SVB7e5u3pNlnocC8+2iYtLomVf8eIhUZmams8kPM=
+X-Gm-Gg: AfdE7cki0CYJjgLXYFwyPgKQBbTesJK4S/oBXxS0gpvBrt/AoT15BntcXpSIjaPKoVi
+	lTKcBOFSFsLE7GX2EQIc2l7K1Qb9lLA0aaB1JmhvQh9V1LH1ts2hXiVzlnff0JIrEzKIafvkI8S
+	O8Ojt/R4a4rR0xwYhKfeDod+ZYy9+KMqKOS8nGisG67QZu842e5FzFvQ3DmkE6njuMYgNZozhOG
+	BSrhkYKv2zLxHti/9eO9rBVogey8TsUhigV/cOlrfhW+SCStQ69yO17iw05Y/32gct3KEl9klCj
+	hkf3kELjz/JyD8hrwdQijDAW3VZIowGNlrO6VlNtFiUcJaNeb+KJFwJ+FGDYU2iv+50ZBrNcn9m
+	GzyysIe52rFvFS/mlFvJnbLqtZqgiNWoSr9xiBScesU9Q3frLpFU9f+kqo9xFSv8a0XvIJjxsYN
+	gZV7EurV9BI4acErditoh1KMwA0Xzbo2O1eK37
+X-Received: by 2002:a17:907:9454:b0:c0f:beeb:dbd8 with SMTP id a640c23a62f3a-c12e6b2e5ecmr395937066b.27.1783332744035;
+        Mon, 06 Jul 2026 03:12:24 -0700 (PDT)
+Received: from [192.168.0.101] ([109.77.44.220])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c12b6290972sm712364866b.41.2026.07.06.03.12.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Jul 2026 03:12:23 -0700 (PDT)
+Message-ID: <68e59764-5a10-4abc-849c-14ea2d9ef76e@linaro.org>
+Date: Mon, 6 Jul 2026 11:12:22 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/5] Add Qualcomm JPEG V4L2 encoder for SM8250
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ linux-media@vger.kernel.org
+Cc: vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
+ mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Unconditional register access in suspend after a prior resume fail=
-ure causes kernel panic.
---
+On 06/07/2026 08:11, Atanas Filipov wrote:
+> Note: The handling of shared camera subsystem resources (power domains,
+> interconnects) for child IP blocks is still an open design question.
 
-commit 91b0a79d0e5b5b1e0d3c9731fd011273f668f0a9
-Author: Jia Wang <wangjia@ultrarisc.com>
+Why ?
 
-PCI: ultrarisc: get and enable DP1000 PCIe clocks
+A device needs to vote on its own interconnect and power-domains on any 
+bus. A sub-device of another device may wish to ramp a clock for 
+whatever reason.
 
-Add the required core, dbi, and aux clocks for the DP1000 PCIe
-controller and enable them before initializing the DesignWare host.
-Also manage the clocks across system suspend and resume.
+There is no "master" device in this block of devices - save perhaps for 
+the CSID mux / wrappers on some of these parts.
 
-> diff --git a/drivers/pci/controller/dwc/pcie-ultrarisc.c b/drivers/pci/co=
-ntroller/dwc/pcie-ultrarisc.c
-> index 6ee661ceff67a..6ed244770d538 100644
-> --- a/drivers/pci/controller/dwc/pcie-ultrarisc.c
-> +++ b/drivers/pci/controller/dwc/pcie-ultrarisc.c
-[ ... ]
-> @@ -135,14 +174,31 @@ static int ultrarisc_pcie_probe(struct platform_dev=
-ice *pdev)
-> =20
->  static int ultrarisc_pcie_suspend_noirq(struct device *dev)
->  {
-> -	struct dw_pcie *pci =3D dev_get_drvdata(dev);
-> +	struct ultrarisc_pcie *ultra =3D dev_get_drvdata(dev);
-> +	struct dw_pcie *pci =3D &ultra->pci;
-> +	int ret;
-> +
-> +	ret =3D dw_pcie_suspend_noirq(pci);
+We have shared resources like camera noc, system noc and external clocks.
 
-[Severity: High]
-What happens here if a previous resume attempt failed to enable the clocks?
+Please include power-domains and interconnects.
 
-Looking at ultrarisc_pcie_resume_noirq() below, if clk_bulk_prepare_enable()
-fails, the function returns an error while the clocks remain disabled and
-pci->suspended remains true.
-
-If the system then undergoes another suspend cycle, this function will call
-dw_pcie_suspend_noirq(), which accesses hardware registers via
-dw_pcie_link_up().
-
-Since the clocks are disabled, could this register access cause a bus error
-and subsequent kernel panic?
-
-Should we check if the device is already suspended (or if the clocks are
-already off) before calling dw_pcie_suspend_noirq()?
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (pci->suspended)
-> +		clk_bulk_disable_unprepare(ARRAY_SIZE(ultra->clks), ultra->clks);
-> =20
-> -	return dw_pcie_suspend_noirq(pci);
-> +	return 0;
->  }
-> =20
->  static int ultrarisc_pcie_resume_noirq(struct device *dev)
->  {
-> -	struct dw_pcie *pci =3D dev_get_drvdata(dev);
-> +	struct ultrarisc_pcie *ultra =3D dev_get_drvdata(dev);
-> +	struct dw_pcie *pci =3D &ultra->pci;
-> +	int ret;
-> +
-> +	if (pci->suspended) {
-> +		ret =3D clk_bulk_prepare_enable(ARRAY_SIZE(ultra->clks), ultra->clks);
-> +		if (ret)
-> +			return ret;
-> +	}
-> =20
->  	return dw_pcie_resume_noirq(pci);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-ultrarisc-=
-pci-clk-v2-0-2f3fb6fba66b@ultrarisc.com?part=3D2
+---
+bod
