@@ -1,225 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A16F4DC544
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 09:19:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3106140D595;
+	Mon,  6 Jul 2026 09:20:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783329548; cv=none; b=EQtFi7WIsrb9lIxjt3uaywRuEMtlKegRT+P8a47o0F4OMPcW/t6wXIAu4hBAoLFTrhzs/8xdUs3SicZ+lkOOLIptGf2YvZOB5X3Vr75WLAorJb1Eeyqd3B9K+NoZ+uXt387FRO/izx5iUW4MBvzy3+2FUnueSnwJpGrOeVH5OL0=
+	t=1783329612; cv=none; b=oruaS8Ro23CCgu4gZrgz0KTbx50gwuaAiuGvUqvdYjOWK5ygBrajfCCIg8rhkI3i6F7a264fDWWkSiVLzH5zSO+OPZQZ6DD0Dt2mXGZMo1osND+Gk5Ndd+rRsrYxkN7iEDhw3gf2oGcXPM3FmkQbeQUdIGEaImBw/bBX2yGzaeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783329548; c=relaxed/simple;
-	bh=1P9oxnt1RR+i6Jmost3GXU/54qRAntILBoaU+gZI+Vc=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ubiyZSGYvKLtS5waTJ6356fUk4O5T5jjsMua2/sTea7pIPmwZWfNbYpPcPC9dKjm70CMigJmwnKkQ4vrXP/UTgw9xVU7SGw5iIc5uEIEg1TUeKe+lwcOGYlVY8oDGuwQyaUsXlA8lLH+DxhE1wGe90jmRzEERLF4HO6cD9jkqXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nxc4QCdX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783329612; c=relaxed/simple;
+	bh=O/zE4312VPCXdypUYJsfTTOHLEdQ2OMCnUnzj03zKuc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=p0KGEyt2p4f6NqEND7N6p7xnkie/WNNZsEZDR/+vjKUoryuW85Dphre+UJwL5Clrps8dNA/W8HaB+ApIie3TsXBt0v1trebWuPXjXYINQ6O1rW10lP/gPS3kvmPfiM7+9EHohxU2UlHuC0JlSHbUqdLjSd58nfBSC1sEsppR7q0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BhnwX4Wz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nxc4QCdX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484551F00AC4
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 09:19:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BhnwX4Wz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7621F00A3D;
+	Mon,  6 Jul 2026 09:20:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783329545;
-	bh=xqr7iCIFd2mIIDYlSLvi4QE4QRnGR4gQBpIY4BwdrK4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=Nxc4QCdXwCcc6n2//tjIJUA7/35/FqCECAXQ6wRhcxP2iBnd1RMo2n2bBwQ0ZMVxk
-	 +YESmTDojNsFcy48wgVttXwe7a9SKjTPrQugEUgYO0f5jTKoVAOSVS+FZSeBl36c35
-	 tnphUdtQGX9jsqbsR4BJqw9B0SKIGnHCd+bCtuwiSFuXLVdSG7GwZjOOAFEmmJ0INR
-	 QWG20lZbYYOlx8khl+Z4AvLrvmYciYpNCPwOXhnNzEZfnmXzk8+SojQLcqVp3WOOcI
-	 ibPWmXPTHB6P0O8NHd7NBmTSfy4bppMgQiNmta76ELA1eP1dBQ94G4IsWQ8omDqGu4
-	 wK6b4b02Qe+MA==
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39957d210f4so23385401fa.0
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 02:19:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpsIYv2ZajKIAg8/xi5BlaTrpt0RHgXV61g8zsutdYQ/BSP4hzrKd5x3HEY3wRUTZpyBhND2bMckSlh@vger.kernel.org
-X-Gm-Message-State: AOJu0YxsQn8bXw8zNhXaPEFYKZKH24NWIq0x+6NsfEuaR0AY1WlTL7fv
-	nJclg30fSoh1eeGGDyGkHRq8JHRoYbMGTR5lUa7akcEDi847Le8z2zbPuQD4YLIM/K2ST6Vf3uu
-	MiKxBcrx3+bk+7lvEVWCmcNyuoaxubfg6fj1XCud2ow==
-X-Received: by 2002:a2e:bc0e:0:b0:397:e391:c0a9 with SMTP id
- 38308e7fff4ca-39b53bb6f38mr16641141fa.10.1783329543999; Mon, 06 Jul 2026
- 02:19:03 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 6 Jul 2026 02:19:02 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 6 Jul 2026 02:19:02 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260704151521.211335-2-marek.vasut+renesas@mailbox.org>
+	s=k20260515; t=1783329606;
+	bh=NykGe/8JY6fX6uvL4ys2ldDvJJxIOLRiDyxOlhbB2m0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BhnwX4WzwMPCbDteDW4AJKnC7YEFbKto5dto8dIZyC3swvLBlzr2UfBa0GyV9kQPx
+	 iJDxmYbJEjNM4n9riJCO1+9Soxo1Tez6n0/w+c139PjRtwME4empn953scRUDfXY9x
+	 ckCQyt1/7tJSFw7SEdNUTnzva5tFc077jts1LSvbPbq1ejXig5fL4TsNOqoDpQ6Ikl
+	 Yjmvm0vDNdergQzqg/UVIQIlY6X9VYbOM7nQlvD93EpTSD0CwQjhh0rVLqBG/jSXuu
+	 VHH+tHfFYuWvBobuubD4apE56G1+mXb43oscUFFv6HUUj5OgNjm46UfroPakedDhCc
+	 WDLOg3fHza9TA==
+Message-ID: <23580f8f-ba25-4dd7-a2d3-f2df9bc7303d@kernel.org>
+Date: Mon, 6 Jul 2026 11:19:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org> <20260704151521.211335-2-marek.vasut+renesas@mailbox.org>
-Date: Mon, 6 Jul 2026 02:19:02 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MeyKGv75rTLauZuGxSfgjCPXVE_r=A7uNduRr6kAd43aA@mail.gmail.com>
-X-Gm-Features: AVVi8Cf8lfGTKX_OdhM-ELP82F_HX1LJB7zZdswu6qjGqp9698E2Ktz2Mev3i2E
-Message-ID: <CAMRc=MeyKGv75rTLauZuGxSfgjCPXVE_r=A7uNduRr6kAd43aA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] arm64: dts: qcom: shikra-cqm-evk: Enable display
+ and add ili7807s panel
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
+ Nabige Aala <nabige.aala@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260706-shikra-dt-changes-v2-0-56fcd1659ea4@oss.qualcomm.com>
+ <20260706-shikra-dt-changes-v2-2-56fcd1659ea4@oss.qualcomm.com>
+ <7815e3ac-30c7-4564-9a7a-6a1ecb9278c8@kernel.org>
+ <52b7ee6e-bd99-4555-8a49-6cdde1331714@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <52b7ee6e-bd99-4555-8a49-6cdde1331714@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, 4 Jul 2026 17:13:47 +0200, Marek Vasut
-<marek.vasut+renesas@mailbox.org> said:
-> R-Car X5H (R8A78000) is the first member of the R-Car Gen5 family.
-> Add support for R-Car X5H, which has slightly different GPIO block
-> register layout compared to previous generations. Introduce offset
-> remap function which performs 1:1 remap for R-Car Gen1..4 and a bit
-> more complex remap for R-Car Gen5.
->
-> The GPIO block register offsets on R-Car Gen5 changed and the change
-> can be divided into five groups, registers which remained at the
-> same offset, INDT register shifted by +0x10, OUTDTSEL register
-> shifted by -0x34, INEN register shifted by -0x38 and the rest of
-> the registers used by the driver shifted by +0x70 .
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: Bartosz Golaszewski <brgl@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Linus Walleij <linusw@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-gpio@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
->  drivers/gpio/gpio-rcar.c | 61 ++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 61 insertions(+)
->
-> diff --git a/drivers/gpio/gpio-rcar.c b/drivers/gpio/gpio-rcar.c
-> index 09bebde5c4260..a22112d9dce0f 100644
-> --- a/drivers/gpio/gpio-rcar.c
-> +++ b/drivers/gpio/gpio-rcar.c
-> @@ -36,6 +36,7 @@ struct gpio_rcar_info {
->  	bool has_both_edge_trigger;
->  	bool has_always_in;
->  	bool has_inen;
-> +	bool has_layout_gen5;
->  };
->
->  struct gpio_rcar_priv {
-> @@ -65,14 +66,59 @@ struct gpio_rcar_priv {
->
->  #define RCAR_MAX_GPIO_PER_BANK		32
->
-> +static inline int gpio_rcar_remap_offset(struct gpio_rcar_priv *p, int *offs)
-> +{
-> +	/* R-Car Gen4 and older do not need any offset remap. */
-> +	if (!p->info.has_layout_gen5)
-> +		return 0;
-> +
-> +	/*
-> +	 * R-Car Gen5 register layout is slightly different and the offsets
-> +	 * that have to be added to or subtracted from each register offset
-> +	 * can be divided into five groups, listed below.
-> +	 */
-> +	switch (*offs) {
-> +	case IOINTSEL...OUTDT:
-> +		return 0;
-> +	case INDT:
-> +		*offs += 0x10;
-> +		return 0;
-> +	case INTDT...EDGLEVEL:
-> +		fallthrough;
-> +	case BOTHEDGE:
-> +		*offs += 0x70;
-> +		return 0;
-> +	case OUTDTSEL:
-> +		*offs -= 0x34;
-> +		return 0;
-> +	case INEN:
-> +		*offs -= 0x38;
-> +		return 0;
-> +	default:
-> +		/*
-> +		 * This here must never be reached, if this is reached, that
-> +		 * means there is a catastrophic failure in the driver. Skip
-> +		 * any IO read/write to prevent further damage.
-> +		 */
-> +		WARN_ON(1);
-> +		return -EINVAL;
-> +	}
-> +}
-> +
->  static inline u32 gpio_rcar_read(struct gpio_rcar_priv *p, int offs)
->  {
-> +	if (gpio_rcar_remap_offset(p, &offs))
-> +		return 0;
-> +
->  	return ioread32(p->base + offs);
->  }
->
->  static inline void gpio_rcar_write(struct gpio_rcar_priv *p, int offs,
->  				   u32 value)
->  {
-> +	if (gpio_rcar_remap_offset(p, &offs))
-> +		return;
-> +
->  	iowrite32(value, p->base + offs);
->  }
->
-> @@ -399,6 +445,7 @@ static const struct gpio_rcar_info gpio_rcar_info_gen1 = {
->  	.has_both_edge_trigger = false,
->  	.has_always_in = false,
->  	.has_inen = false,
-> +	.has_layout_gen5 = false,
->  };
->
->  static const struct gpio_rcar_info gpio_rcar_info_gen2 = {
-> @@ -406,6 +453,7 @@ static const struct gpio_rcar_info gpio_rcar_info_gen2 = {
->  	.has_both_edge_trigger = true,
->  	.has_always_in = false,
->  	.has_inen = false,
-> +	.has_layout_gen5 = false,
->  };
->
->  static const struct gpio_rcar_info gpio_rcar_info_gen3 = {
-> @@ -413,6 +461,7 @@ static const struct gpio_rcar_info gpio_rcar_info_gen3 = {
->  	.has_both_edge_trigger = true,
->  	.has_always_in = true,
->  	.has_inen = false,
-> +	.has_layout_gen5 = false,
->  };
->
->  static const struct gpio_rcar_info gpio_rcar_info_gen4 = {
-> @@ -420,6 +469,15 @@ static const struct gpio_rcar_info gpio_rcar_info_gen4 = {
->  	.has_both_edge_trigger = true,
->  	.has_always_in = true,
->  	.has_inen = true,
-> +	.has_layout_gen5 = false,
+On 06/07/2026 10:52, Arpit Saini wrote:
+> Hi Krzyszto,
+> 
+> On 7/6/2026 12:03 PM, Krzysztof Kozlowski wrote:
+>> On 06/07/2026 08:04, Nabige Aala wrote:
+>>> +	lcd_bias: regulator-lcd-bias {
+>>> +		compatible = "regulator-fixed";
+>>> +		regulator-name = "lcd_bias";
+>>> +		vin-supply = <&vph_pwr>;
+>>> +		gpio = <&tlmm 151 GPIO_ACTIVE_HIGH>;
+>>> +		enable-active-high;
+>>> +		pinctrl-0 = <&lcd_bias_en>;
+>>> +		pinctrl-names = "default";
+>>> +	};
+>>> +
+>>> +	vph_pwr: vph-pwr-regulator {
+>> Why so inconsistent names?
+>>
+>> Anyway, drop the node, not used and not controllable.
+> 
+> As per the schematics of LCD display Bias driver , vph_pwr is used as 
+> vin for that.
+> 
+> So I created vph_pwr , if you want , I can drop that in next patchset.
 
-This looks good but do we really need to change these lines if it's zeroes
-anyway?
+But vph_pwr gets its own supply from main power, which gets from socket,
+which gets from building wiring, which gets from a power plant... Drop
+the node, as I said, it is redundant in DTS.
 
-Bart
-
-> +};
-> +
-> +static const struct gpio_rcar_info gpio_rcar_info_gen5 = {
-> +	.has_outdtsel = true,
-> +	.has_both_edge_trigger = true,
-> +	.has_always_in = true,
-> +	.has_inen = true,
-> +	.has_layout_gen5 = true,
->  };
->
->  static const struct of_device_id gpio_rcar_of_table[] = {
-> @@ -438,6 +496,9 @@ static const struct of_device_id gpio_rcar_of_table[] = {
->  	}, {
->  		.compatible = "renesas,rcar-gen4-gpio",
->  		.data = &gpio_rcar_info_gen4,
-> +	}, {
-> +		.compatible = "renesas,rcar-gen5-gpio",
-> +		.data = &gpio_rcar_info_gen5,
->  	}, {
->  		.compatible = "renesas,gpio-rcar",
->  		.data = &gpio_rcar_info_gen1,
-> --
-> 2.53.0
->
->
+Best regards,
+Krzysztof
