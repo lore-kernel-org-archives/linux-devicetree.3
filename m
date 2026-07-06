@@ -1,64 +1,64 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26524189AD
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 17:51:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457F342CB12
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 17:51:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783360314; cv=none; b=atblC8mQykJ/up80PA7yL/wQ5WxtuAOBV8pFgLVmDlivjnNY0jb9y/9fiUUhnNOovk1J+0Q4Y9vMP+pOu2rxxoXFLY7Pm9hG8BUEkPVPrIfSVw+kPa3UY98L+CMIbAAt0Ng3rIf+Bmjzjkv921JUw1nbgKAWEHWzDlZPNXRrCok=
+	t=1783360316; cv=none; b=DUORAsDpAUFF5jM4byl7gudykKpU/xprE5tPmLyOnS9eDSmXxdiujCCpObNc7a33TciF5Ufr9bsQFxo2EbebDOU6opzxA4ea0p0BBq3Mq0j2dhhwoyJiXgC0d9eGVFMAt8KosZlcg30m8aoIEWCTO0oAn06Ad2QrFOQJqMcIfgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783360314; c=relaxed/simple;
-	bh=Us3nB+m00XhH8cWc7W1acfoiO0j9gY5xSZ6vdTG1GQY=;
+	s=arc-20240116; t=1783360316; c=relaxed/simple;
+	bh=2etUF3O4MJaQukDckxlOUsV59G7vPFsbrP7xRDKxeJI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eKNWxMolv1ToL1ClC1+MrAUs30w661tKO+AoL++vwT7i4eiIR0qQdd650tgG/2gra7/TwrXur8zETuioOC1TirtHHXP2S7DfGZyTXO5WgvioIqYCqmLc6UXMHJ/7EkoastefuzCVYbxm8JDk4NGn9+Zj16xBtv/SeyA8+voVCVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I+MxKqQh; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=E+K5wZVkcLGnN0Gfh3mZLZGhuerjnn8sgjOfyE6+VMrQvKRPv4pHHRrXM5pYxYqoL2hj3e+ufeyrO1aIjcoxLIHLHSqhtOR8ZB2/qIh1btcjiXxPJXXxlOaBqVuck0dhLX5Fw0GiUTp5zbvCGf9168VxpuZ0EK0UBkmPOMYooi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F1bhDHJG; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I+MxKqQh"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493c19bad03so31098985e9.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 10:51:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F1bhDHJG"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493c2c0b9a8so29853045e9.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 10:51:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783360311; x=1783965111; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783360312; x=1783965112; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EaY/L/tqsPL4V6P297f/6o8QOFru2yz0N5j7fKHXKvk=;
-        b=I+MxKqQheJ4YDq7qYDn0lSFj4NVCrK266qNF3l1WY0+V82UM+eMolsDcIhPyxIWvbQ
-         pS8Eq+pgUoSXQYhFPsY2DNprVTbAcxDgNK/Jl4TZbc6xMOof7YDRUo/AweITvu2GpQtm
-         pQe4CA24EchieXVtO2baZmoH4suPcbUeZlDONWYrWxX7CztVTuiABxOVaHiOwLu+984w
-         NYNJrPHcmEVW5sg5VGQaHe92dW4b/sRQr/WUoTHzJFpkY1QclBuetXSLdlm9WCodqWj0
-         7dWj6ekWcai3UBmeEIJMESYpKC931H+wlb4kX0O8sb6/9RKihoEu3omDkilw6QfFrMIb
-         tiqw==
+         :message-id:reply-to:content-type;
+        bh=mYMkQgNYG5Y2Oort99EuINuCgWUlk2Myzb7/efCWb1k=;
+        b=F1bhDHJGzbliR2CtPbixou3100nis1bFbEnyqSwIDEa2CJYhhzRgQvzh+aLhFQVwSa
+         4VuNd+yqbxXkT0FHp7SZ4FI02Zw5BfTkcdanIz900VtezMljjy2KMTB2rkDzz3+bflJ8
+         8Lugo0KSMRSltWKwtCFDfacgQbrn3fgilh/hU2cGzUdpNEH5JYVbkJlkE+Y6647OMYag
+         YkRzkrD3AqUcWusCg5DO2cpfXp+Aq+vy87wM/MVkJLkkbvAQYrpIwv3mKVWZZJJV+lwi
+         mCUQOmzOHvOPZAPH1kOR1y6r1Hm/3GrxqpkYJBmdZ8rAYDgmumSzK9lsNptdTROi4+3p
+         Klrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783360311; x=1783965111;
+        d=1e100.net; s=20251104; t=1783360312; x=1783965112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=EaY/L/tqsPL4V6P297f/6o8QOFru2yz0N5j7fKHXKvk=;
-        b=QO+mCn9MV17GZn7GZOZWbFbdE4LHDHqOesMqcmq5AfNktC3tXNotbGo749IsDHVRP6
-         YudLmpOFv781GSaxREa1a2ptEy1Kut9D0WeGLeurtkdKrcvuZPxxmUVIj3cwFmylKHJN
-         f3+a9hryhu2A65tbo4nDfH2T/eqUdx0vmzHGICpR+15IvzJWHfYHzvYp+FrkARtImEgj
-         v/1Vg+eLzHRLpjaK8t+cVAXq7xWpLH8qZTO30U3MH7uh5mboU4152J6UzMN8nafQfhyw
-         hVycUYsMYxnwjKGeN6VIWCjoE1pOnG+GflRZ2NMRtVbpxy3BbJ+U+T/NsKj2Gk2tiggU
-         YpfQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro2epYuOipQG3sVqBRr+MEHQzWKfz/62h84MxYu4d6brfHW5LTdPZsGEdhTcuk5IKGA3xYUlB6ssjqS@vger.kernel.org
-X-Gm-Message-State: AOJu0YzCEsOy3Y8/bo2Akm+nxB0L/CMnzJF3dNp5RZNHnw35dY6MG0MF
-	PQoZesJm88NElASSJ4OlWbcaUqFLBblL56CFdacLYWMSJNbu7qykMjcR
-X-Gm-Gg: AfdE7clYT+fU5hcrrGfJg2Wcccc3L/k9kfN5fxyB01ae9x94qyYSLYaX1PsUUmpeOrw
-	dnkICDfx27EUMBcpFd0LYMo5cwoQIHlBZQzj6DulSDBKbX+4cD3bO0lLAHYWxXVY9myJfzmXI/d
-	EaI5S1F5AjzOmUagv3GEbjedKqj/tX2NvwHofWFcf1aT5ImLq2zcDP+/jPuDugjkUFzS6Q6XXzC
-	Vzq+bG+3HO9eYk/1KmD+g2PN19y7Hm8XB76bSS5tIgPZiIOPAMdTElQ9ckoJgjvUzoa8IXcHIps
-	Wj4bJDs3mej7gjIh+bW8UQF5EUusPEdYd8f4Fo0chYNKjaSoTv6NRvx+bnxL+mNLcP6g8aWkk/R
-	r6PkU6FFFZtw2Sj/OUtMn3q9OlUcWtRTXTGLxnvw6U0jDEv95LxWgkrvLH/xsx9/YO+pvM3Rr1z
-	nsYqAkIDLiwDKQaZqII+ngWRzpnUO6SmeQpXSvEjZZ6vpNaNsuXhRX6SLi4RDFlgxdW46V+rMi9
-	sH6uB55g/4aQzoWyjNStrt0aY4ZoTGTxjcK5A==
-X-Received: by 2002:a05:600c:628d:b0:490:e5c1:b8bf with SMTP id 5b1f17b1804b1-493df04a9ddmr18480595e9.13.1783360311257;
-        Mon, 06 Jul 2026 10:51:51 -0700 (PDT)
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mYMkQgNYG5Y2Oort99EuINuCgWUlk2Myzb7/efCWb1k=;
+        b=C7TdcrA6ahwL4ErbhpZXKhk23v27ytBTnoIXpk5qwXDqXsQuuHIgxhw9cBIsbBjm1h
+         6vQwf/VZHGi9abaCvXTVV0yIGi2zFbCoQfxWW580AJ+1EKDcBf3IYgzOaLveT4rkkvcb
+         qgQKe6x59Ok0ZBbqMuwoFf3qKg7VB9d8ZSnyjzZeuhM5bj45gzhMJuND6aU3ctq10QbW
+         993W4sDBwAQARSVFEexSrVb3+bNOXeHx9gMwa/gvRCFzDOsaR0/oUIncKbvt/qsZNUKf
+         F95qP2Bmp6fuy+fDSg0Llqzsgdp7lwpzzSG6MmyDnGSZKl8vdaZ6mqqGWAs5Hqu6eAYW
+         BfmA==
+X-Forwarded-Encrypted: i=1; AHgh+RpiBkMF/EQHNQeutsYTBMYBTVEF2+SR49zkBQSNYbeLaUVre+vxF+GO1dbJ5K1yYyD+e0Ys0Z9Ic7RI@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywi8Eze1fQHRiZum4Wq5jfRb1mlz3JWIefHEhA7ndZw0eHPO0Cy
+	XqIGTtNUrxpA38Z5bdf3jMgUWhPC3IawqD5T0gZLEZcTmCz2IK8teIEN
+X-Gm-Gg: AfdE7cng2eMS1/2zVKVo+9ZMgzl6JWdrHGMdqsr8QrGK9Ir3nuWHYi4L7LFuaVVuLsr
+	HVBkS/P3KsVk5PhArCtEPbSj3paASEjlBEc90YqyRUZnktLd13jrTcFUKlizXgd3V34kzHejUrR
+	FQPEtoHjsjV8JVLSdkTjlQLsD/IzsoxXmzO31r2cy4hqSzWQRi/3i3kxtfq1fHz2HU9r+xNOQTH
+	R4RALTvIGlmrsIrT6NJ7EZrdbabLiOmmmRz+lukxsVQH3Oq5n9IeQ/t+Cy0AHyydAo/e86FfNDT
+	+a+ig6Ze8DS1r1Vp4QajnXzpHamw/YC+EnWcqdnEoryVyi1UNfhhxBVhI0iUSONJmRliuJIdTQs
+	HVQGHevAJdu6Rwsub1kc9gRGzQWjrtN5Lg+5Vb4iq3wMGgGN15fZ6T68/Yp7pLCHgqedZylh0++
+	knSYi/sHkL6m2sDPTlDh/jNppPYbTu2FdGMitI3riVZ95etBOAAX2C6IQZq3iOjKYKCFfEuDDvZ
+	3TLdhSnSTNMSqo6SK9PBQSerUI=
+X-Received: by 2002:a05:600c:19cc:b0:492:5145:f054 with SMTP id 5b1f17b1804b1-493df0930a6mr19635715e9.26.1783360312313;
+        Mon, 06 Jul 2026 10:51:52 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:8e02:886d:c345:c5e2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0078d49sm1263145e9.0.2026.07.06.10.51.50
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0078d49sm1263145e9.0.2026.07.06.10.51.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 10:51:50 -0700 (PDT)
+        Mon, 06 Jul 2026 10:51:51 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -77,9 +77,9 @@ Cc: linux-rtc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v3 05/12] rtc: Kconfig: Broaden RTC_DRV_RZN1 dependency to ARCH_RENESAS
-Date: Mon,  6 Jul 2026 18:51:31 +0100
-Message-ID: <20260706175138.12587-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v3 06/12] rtc: rzn1: Fix alarm range check truncation on 32-bit systems
+Date: Mon,  6 Jul 2026 18:51:32 +0100
+Message-ID: <20260706175138.12587-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -93,44 +93,58 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Replace the ARCH_RZN1 dependency with ARCH_RENESAS for the RTC_DRV_RZN1
-config option to make the driver available across both ARM32 and ARM64
-Renesas architectures.
+alarm and farest were declared as unsigned long, but
+rtc_tm_to_time64() returns time64_t (s64). On 32-bit systems where
+unsigned long is 32 bits, the assignment silently truncates the upper
+32 bits of the timestamp.
 
-The newer RZ/T2H and RZ/N2H ARM64 SoCs integrate a closely related variant
-of the RTC IP block found on the RZ/N1 SoCs. Update the build dependency
-and expand the Kconfig help text to allow this driver to be selected for
-these additional platforms.
+Fix by declaring alarm and farest as time64_t and replacing
+time_after() with a direct signed comparison, which is correct for
+time64_t values that will never realistically overflow.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 ---
 v2->v3:
 - No changes.
 
 v1->v2:
-- Updated help text to keep it generic and not specific to RZ/N1 SoCs.
+- Added Reviewed-by tag.
 ---
- drivers/rtc/Kconfig | 5 +++--
+ drivers/rtc/rtc-rzn1.c | 5 +++--
  1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-index 01def8231873..d23a0fbe8d89 100644
---- a/drivers/rtc/Kconfig
-+++ b/drivers/rtc/Kconfig
-@@ -1635,10 +1635,11 @@ config RTC_DRV_RS5C313
+diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
+index 2a0f0362dd52..a5283e680e36 100644
+--- a/drivers/rtc/rtc-rzn1.c
++++ b/drivers/rtc/rtc-rzn1.c
+@@ -20,6 +20,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/rtc.h>
+ #include <linux/spinlock.h>
++#include <linux/time64.h>
  
- config RTC_DRV_RZN1
- 	tristate "Renesas RZ/N1 RTC"
--	depends on ARCH_RZN1 || COMPILE_TEST
-+	depends on ARCH_RENESAS || COMPILE_TEST
- 	depends on OF && HAS_IOMEM
- 	help
--	  If you say yes here you get support for the Renesas RZ/N1 RTC.
-+	  If you say yes here you get support for the RTC initially found on
-+	  Renesas RZ/N1 SoCs.
+ #define RZN1_RTC_CTL0 0x00
+ #define   RZN1_RTC_CTL0_SLSB_SCMP BIT(4)
+@@ -259,8 +260,8 @@ static int rzn1_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
+ {
+ 	struct rzn1_rtc *rtc = dev_get_drvdata(dev);
+ 	struct rtc_time *tm = &alrm->time, tm_now;
+-	unsigned long alarm, farest;
+ 	struct rtc_time alarm_tm;
++	time64_t alarm, farest;
+ 	unsigned int wday;
+ 	int ret;
  
- config RTC_DRV_GENERIC
- 	tristate "Generic RTC support"
+@@ -271,7 +272,7 @@ static int rzn1_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
+ 	/* We cannot set alarms more than one week ahead */
+ 	farest = rtc_tm_to_time64(&tm_now) + rtc->rtcdev->alarm_offset_max;
+ 	alarm = rtc_tm_to_time64(tm);
+-	if (time_after(alarm, farest))
++	if (alarm > farest)
+ 		return -ERANGE;
+ 
+ 	/* Convert alarm day into week day */
 -- 
 2.54.0
 
