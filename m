@@ -1,191 +1,302 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013047.outbound.protection.outlook.com [52.101.72.47])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA848381E95
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 16:11:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783354267; cv=fail; b=mLfXKaoBpVcxcTDgf0iQ6T2LzdB8IC5NT4vKEMWi0ZgkbySNwQl8ANfSPahW/FQxy4Jo0Nphbi/v0pjNeX+KmDjTyjbnS4T5eOMvJAdI/+CIBgsUQTRg1LZ+s8yaex50pbJ4YhQnAosTIfRRmlaDXf6JZYoJDGkDwlaNG13pSIU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783354267; c=relaxed/simple;
-	bh=ffhrStA65xB5BJcLhVDlMkE9SlRwgBLOHmwJ+oY9l5s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=E7kkObH0fe6BdkkHlSlNHFZCMMkZiu7XL2I8swgXTH4UdWGyU9P+cyuG7XJ165km7bIJgtU2YSAfOM9AUjR/PbszZco8F4DkG8S4Vt8ImubIpu3tZdipx6wIMRuMasxXjmvuzN4r5wXCW+QQyhh3GF1D7kzCZrN46A/NLkSPEkI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=co5c9lOl reason="signature verification failed"; arc=fail smtp.client-ip=52.101.72.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D94F3BBFD7;
+	Mon,  6 Jul 2026 16:12:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783354344; cv=none; b=MK0Z5MTaf3F3snoxIguhUBAwqutcbkyjDMd1aWIbPndMxPR0NlEYpQlbh73zPJTI17pn/UhDVRVfipAHsMaKx0iTdcsyUuzcvcsb2/hZn0rz5wUFB6FVR0Tl+OIRxOPSKNvhJAUMnH3KVOilToIAnh/0qi4hXDzEiHXncpzNfg4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783354344; c=relaxed/simple;
+	bh=9y9AnzA8elN53Bv3CegBb4VkUsDiKKoF6V+JECsDJe4=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=J5WqYJaGwI7YMPFhN1lDn03rbTTDx9vz/BMsZ+QHHRzDTaw25z2b8JARUYTHcRQPoqB1Rk4GL8dLY97IvHLTvxh3Rd0QaSIQX+KPpDdL2H7dGsOG5VQc/RTNgP6tlyrVaUwVexJXe4B7QgFlVozgQn+dDMZYoEkwtObqhTQ5sLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UI9ih44v; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="co5c9lOl"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lfkhGAAUa+AfL4kH1ROVSpTahuEVUpPaO/pSJaXhtblB9WcJjIxbNs3X20Q/3LnK+BH0ifClDH+XUkJ2UbzOmWlhqFe3Kj3t9kO0TdwcPVhlMyKt+gqKp0iWk8+ktT5P/KqfiV9s6SeiBlYfF4u0DKjtOOOyJYLmdA3BdmY6mgGeS48MW4IUxQWe2cIyNqGEU42vZpKGZezUGio33E6iaaxgPceXvhhLxYWyMqcVyjwpmHqZZlW0bWp22wpxtZgYtcdiyDQeKMkdMcunHwvg0P2VP6vX3GQWT+M4kdaaltafvlRdqG9yo5qbydTL7+reeV8N3zJ45cG+M+5LaJUXFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OaxbOvQd+U0sFUApSWHiatjrBNlLOhQfBX/EwL17Iag=;
- b=oowM0dHnx1cZQEmYCWOMJ4+fFCmG9O8+NKvRN+JDeo5Q1H5kC7DYjhKAxtb04HSxOiepRYLikvNVNopOVaqrhKJxeshzptlu3nSvgLV+Lvx8zq9dY43cdIWcL1FT0c6tEZnVZS1iLOCqH9yjn6TJ2X6U7PvHAFObimwxOZPHPDuHySxMQERhfPLRiXUJr3FEJO00W2wPcqHs5mpQKAN5Vd41gkLySKxOS1b7yvjU2bRbOhzG8dLfv2T6bFkISXVe2Bm5nbuwh38K5lCS0bFYzq9D2G00zd/BNhfRRBufhZ8Do5VDV9rZ4yUz7DxCrkvyYVFKpaWGal/cPFwvo7yo3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OaxbOvQd+U0sFUApSWHiatjrBNlLOhQfBX/EwL17Iag=;
- b=co5c9lOlWE7luOqrBvHFF/1crfakyJvTKrNM9LBEGOsLcl8cdkhermKBBxUR21bnDua99ZnzioT9QpWNKYlShvLrqhj17JmEwEU4siE8GkcocIa8kZ3yMPVqWtHjq9xz0mwaW1iqBc6QiUtxbPX/ql9vYpIKmFeSVPXegtV1OUakPp9wEdCYxCqcx1dzEiAArQT3qQ8ClmvHJ5nFOM+w2mnVAsB47ZzhnWWm1eNcOg+LY80k95BjWemg0WPKxyLCLAfG+K0kPii0gVDRxV4UyBLz9AVILhsodiG4Lp+7mOgtZUT05+G1BoBaCnN7pNY32vDjftunBKD71z4/cPcaHg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU2PR04MB8839.eurprd04.prod.outlook.com (2603:10a6:10:2e2::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.13; Mon, 6 Jul
- 2026 16:10:58 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 6 Jul 2026
- 16:10:58 +0000
-Date: Mon, 6 Jul 2026 12:10:51 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: sashiko-reviews@lists.linux.dev, Frank.Li@kernel.org, robh@kernel.org,
-	devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com,
-	imx@lists.linux.dev, conor+dt@kernel.org
-Subject: Re: [PATCH v6 1/1] arm64: dts: add tqma9596la-mba95xxca
-Message-ID: <akvTizjmx2dMSYBi@lizhi-Precision-Tower-5810>
-References: <20260701082611.3126036-1-alexander.stein@ew.tq-group.com>
- <15795907.O9o76ZdvQC@steina-w>
- <akUsE6A6lX0mgM5g@SMW015318>
- <7985027.31r3eYUQgx@steina-w>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7985027.31r3eYUQgx@steina-w>
-X-ClientProxiedBy: SA1PR03CA0001.namprd03.prod.outlook.com
- (2603:10b6:806:2d3::12) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UI9ih44v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783354344; x=1814890344;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=9y9AnzA8elN53Bv3CegBb4VkUsDiKKoF6V+JECsDJe4=;
+  b=UI9ih44vvJ/ptXStyU1rBmKC3jNMfmFGuESeHCj6ltVY7h7QR7lATlY6
+   A+xppMtV6ury3IskP30bLUWwOy/qrioWdxxK7dOh1iGZEL+fxV8dLlydh
+   dmBf24dO3rt1rLl0Qahq1+f2lvgQhdRiEJWrOYDUbVqhRyBSLfmUdUvuj
+   z9gfyyPmxZwePwKRNaY8A2lWWBlvB+Vajm3y6qwquC4zcbIzENxgT+j13
+   p1koahxnD+bEzeEUAm9bKaOCeXaQghp/2+SBr0d+i8MO3mfzYiygEPK+6
+   noj63JMmz9cfBizNS8/U58tAVGYpUxxh+PgDMxzkWny6J7DhfK0Q4+Er3
+   A==;
+X-CSE-ConnectionGUID: Ol0D6uMNSLmrRLqA1PeuOg==
+X-CSE-MsgGUID: n4S/dAkTTs+3znUXY68W1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="94351137"
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; 
+   d="scan'208";a="94351137"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Jul 2026 09:12:23 -0700
+X-CSE-ConnectionGUID: yjHmDXoAQhaG1HMBMr+2Ug==
+X-CSE-MsgGUID: ozGKKmB0Qiy8pAeHPZ1aPQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; 
+   d="scan'208";a="249308266"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.95])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Jul 2026 09:12:16 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 6 Jul 2026 19:12:13 +0300 (EEST)
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+cc: sre@kernel.org, Hans de Goede <hansg@kernel.org>, linux@roeck-us.net, 
+    andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, 
+    krzk+dt@kernel.org, conor+dt@kernel.org, bryan.odonoghue@linaro.org, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+    devicetree@vger.kernel.org, neil.armstrong@linaro.org, 
+    gaurav.kohli@oss.qualcomm.com, manaf.pallikunhi@oss.qualcomm.com, 
+    priyansh.jain@oss.qualcomm.com
+Subject: Re: [PATCH v4 1/2] platform: arm64: lenovo-thinkpad-t14s-ec: Add
+ hwmon support for temperatures
+In-Reply-To: <20260706160830.17698-2-daniel.lezcano@oss.qualcomm.com>
+Message-ID: <eb7ebc45-f76a-4d5d-31f5-46f95e6977e6@linux.intel.com>
+References: <20260706160830.17698-1-daniel.lezcano@oss.qualcomm.com> <20260706160830.17698-2-daniel.lezcano@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU2PR04MB8839:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4824e6e0-937c-45e1-075f-08dedb792a17
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|366016|23010399003|376014|22082099003|18002099003|5023799004|11063799006|4143699003|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	BpCcWSqg8xUpr2ClhU9rVXz3w7mIbgqFm7SnqX9bdHJWSxI+8Ybybg3tMJcgTTiPPo4uVK0FS2I0lGOHF6EQ3Iwjx78lnR5QPjd9Wity7luE8pi212uByvTS8OY2OeagT+7S8wOQNqJpI/d1CEz77zLJa7bZbXzWRKSdSdL9VmlyzHN4txe7GSAGxB9UbPPG69yDQi7pTTq/aMbuKbrdc1s8zvZhx1EXIJ0q1kMmipQFhv4zFSSJc8v8CAN5IFKzc574UDI6/GB0cPC0YTfE+Eza8F+uszlteMIRJ5C1XjcgJbk59rdul6NG+kmct5zByxje9trPnsrs8QLdoT6B9niQ8oanqxXZ4NAv8yxUPD+vTFu0F4Gn7krJG5NGqAMNSuAyV+X4vPjX5XYyjaJ5/qtUtja3h+W9YjPYTjmZigmuuWc5yih6dhBcbv4D1zAzxOXonnIGqw5hslg5IU3t5mJCIj5tyBNOb7DF4m1MRkSV0zduW5dTNyz7hZQlAi50sLLMD0tzLlaTE5IJVso1sd0c3Qr4ncZaYbiz901uA5DEPZtKjhibKF+Ok7PbeV3/Bu0G3ezyxLFX/G4U3mfCnH+5h+O7b5SpDgyUwzv3ZPU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(23010399003)(376014)(22082099003)(18002099003)(5023799004)(11063799006)(4143699003)(56012099006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?8MnFKQvGXFjaV3Pv0zY4S+b8BucE63mjTbiW5VDP18Palco75h3d+cruTw?=
- =?iso-8859-1?Q?EV0Ci6IAqpAZY22xfN2zlQbjdp60K97Dx8UkfRcx2tr3GzHnPC69QV6YI+?=
- =?iso-8859-1?Q?PmvlSSGvTspo7Cw6YJM2OZQHELCHEJvga6ZgwR6Vd/salBnjaj4IXu8TJ5?=
- =?iso-8859-1?Q?x8BCE1Lh5kq+uyfy+kxcMTl5JefEQY+fYofAYxffcjQ/Lc63Nczy6A/mty?=
- =?iso-8859-1?Q?xjJKsqqx72+ZZnnY5inQm/Cs9QIok8oxAcNP26ar/ce2WdRpafy7ELo/V2?=
- =?iso-8859-1?Q?B1cQkZmI8RgEASRgpOoHh+C8TB7tjuYAp3EMMVBJVeGyEFV6pJXJpeT3l+?=
- =?iso-8859-1?Q?wcNZmqPp2gm4o6QJNp2y0nwRxmHwnd1FwgI2cNKDdiB0YWvNCZMSMCJcTD?=
- =?iso-8859-1?Q?jjr+i21ZZFopAmH4/gYzyGNeN24DxrPSsKYK0nQFH6bvybuWPdCXDBJmXH?=
- =?iso-8859-1?Q?zHfrodWCkwY9cn4d6Ic4ZpFRVTq7SL+OQjljZN29qEwl8u8qnRrkzdqtji?=
- =?iso-8859-1?Q?fI9r2FboFlep9BOsfU0AESkpd1sSjG27B8lO/mMxNgq8Cg3I+f8fZPiQot?=
- =?iso-8859-1?Q?hfD3RSGg1oODhA6Han+jSXJlefRQgQrze8YjGV+S4d4g+IRiz1VfkaQZ/T?=
- =?iso-8859-1?Q?e50Lcyn9pu2+nWaAcAABEKj6/JheZyJEyoZooqL0fnaAZqH18z7G+v2pcn?=
- =?iso-8859-1?Q?oMx4EfkwR2Of9fNdFf0mh6zfQJqN+V3oAle5sPBOLXUoXr14EINWSw2q2j?=
- =?iso-8859-1?Q?7ZFEObF50HsGIRZWj5cmHG4caA3kDrqBUKynmQTZg/6+Iu+TQ2qE0DlRNX?=
- =?iso-8859-1?Q?NmNzAKNzNnktp0r+lD+5YPoZ+cD8he2Otv+f9z1sXmHaffsT8eiV5TOKG3?=
- =?iso-8859-1?Q?kkTU4xx7SaZJ4tlatWvPN7Rr7RqeefbsdGJFw6uKfOH2qJgV+iqY+B/i44?=
- =?iso-8859-1?Q?20eKXSWI8iQsYA2OWC0BS6TOXr3PyETf32TPL5NsjWUjOsFoCRmQRoqDPP?=
- =?iso-8859-1?Q?W2uQFcWUw7dkBR2kJGpkm58JGNH7hJKoBPTlnAPu+H26dG9HtRkI39XVM5?=
- =?iso-8859-1?Q?8OA7ivl23l05lCkswIYP5iBL4LGU3YkJpMN4QphWREsZmHSR/SjjuDO7zm?=
- =?iso-8859-1?Q?wJUDY7CAONIqx8Fb64wdGPRb4V3IVFMwZRxErt/sqHlqO7r83qxP/RA4wh?=
- =?iso-8859-1?Q?PcWwQXu8+nhqWKgC12zc/ReQSby0Vu3nlICTqLb5m2ywJH/5F8VjhKJ6G9?=
- =?iso-8859-1?Q?ayzCgPK8NAp+eFPwBc0/uLuPVx2JazXYwO0r4WZxpmK7IKvKmbNym7TsNK?=
- =?iso-8859-1?Q?u88y2vAf9whw/rox2tpd+UnpzdHC3KSrmRxCjmktCigyxvOhTLbxTM4GZ6?=
- =?iso-8859-1?Q?XnwIwmTU5lGHZj+a53sn7sUaLA7twmjWFXaEznrh8q/W1tJuNtjTWp4EvF?=
- =?iso-8859-1?Q?gxONiYvWf9wXO1UwjcAGmYYczVr9lOv0zrV+Ln+nJrmBaSo62NKt4bCoyg?=
- =?iso-8859-1?Q?DxOla5oVC9OtdvyC47OiC6nYLw3FCPNRIV0bSGkOhvBgER5voNO9DJ7Zji?=
- =?iso-8859-1?Q?BDlTaVc0499edZpKX9FNpNwqAsb8wRtsRepQapSSi1j6i//Xh6KhA98e75?=
- =?iso-8859-1?Q?IyZBpS12ik1DdhBJf/xX8q90PfnuMKHY/Mcf/Iz4IlnnjY3VqmrzxlbkFe?=
- =?iso-8859-1?Q?2wv0m6etByOcOJYiKzFril81K6WZWqYMnXEMsQi9F6f1KlEd0sJ22Ud73j?=
- =?iso-8859-1?Q?zkikbegxVk+6cMR1on/0TTNY2Ezstbe4nJWfiSOgfCm+0Q4Zz/m1xtcoFG?=
- =?iso-8859-1?Q?bsveIdQ6cL12hxJa2l8rLdT6Ru6i/d2tJEVaLv2YUkt4xhp4GvUg?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4824e6e0-937c-45e1-075f-08dedb792a17
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 16:10:58.0252
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0y2MDGi+Dn+jXckLoPyrBI9rePp8GKeyIICxcAJ2c0W2nwXbsWEmbbFuTdef0nEomdYGCJv1TaYNkzRTuHhJyV/UisLpLlmnDlkHMjIWRzvw+qAyBRG1dUffev2IjRlA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8839
+Content-Type: multipart/mixed; boundary="8323328-1175465363-1783354333=:1195"
 
-On Wed, Jul 01, 2026 at 05:37:33PM +0200, Alexander Stein wrote:
-> Hi, Frank,
->
-> Am Mittwoch, 1. Juli 2026, 17:02:43 CEST schrieb Frank Li:
-> > On Wed, Jul 01, 2026 at 10:50:11AM +0200, Alexander Stein wrote:
-> > > Hi,
-> > >
-> > > here some comments about the findings.
-> > >
-> > > Am Mittwoch, 1. Juli 2026, 10:45:22 CEST schrieb sashiko-bot@kernel.org:
-> > > > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> > > > - [High] Hardware components (PWM fan and 10G SFP) remain permanently unpowered due to disabled regulators
-> > > > - [Low] Dead code: Unreferenced `pinctrl_ethphy0` node
-> > > > --
-> > > >
-> > > > commit f54617810555494fd6b435aa3ac070a14b264e01
-> > > > Author: Markus Niebel <Markus.Niebel@ew.tq-group.com>
-> > > >
-> > > > arm64: dts: add tqma9596la-mba95xxca
-> > > >
-> > > > This adds support for TQMa95xxLA modules, designed to be soldered
-> > > > on a carrier board. MBa95xxCA is a carrier reference board / starter kit
-> > > > design. Enable the external accessible PCIe controllers as host, add
-> > > > clocking and reset GPIO.
-> > > >
-> > > > > diff --git a/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts b/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts
-> > > > > new file mode 100644
-> > > > > index 0000000000000..e90f37bbdcd80
-> > > > > --- /dev/null
-> > > > > +++ b/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts
-> > > >
-> > ...
-> > > >
-> > > > > +	pinctrl_ethphy0: ethphy0grp {
-> > > > > +		fsl,pins = <IMX95_PAD_PDM_BIT_STREAM0__AONMIX_TOP_GPIO1_IO_BIT9		0x1100>;
-> > > > > +	};
-> > > >
-> > > > [Severity: Low]
-> > > > Is this pinctrl group missing a reference?
-> > > >
-> > > > It defines pin configuration for the ethphy0 IRQ pin, but doesn't seem to be
-> > > > referenced by the ethphy0 node (e.g., via pinctrl-0) or any other node.
-> > >
-> > > This pad is connected to gpio1 which is under control of the system manager,
-> > > so Cortex-A55 (Linux) has no access to it.
-> >
-> > If not one refer it, it will never be set to GPIO at all.
->
-> At on Linux side. But this pad is owned by System manager (SM) and will be
-> set and used there exclusively.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-But leave ethphy0grp here, if no reference to pinctrl_ethphy0, nothing
-happen at all.  It will be the same as without it at all.
+--8323328-1175465363-1783354333=:1195
+Content-Type: text/plain; charset=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Frank
+On Mon, 6 Jul 2026, Daniel Lezcano wrote:
 
->
-> Best regards,
-> Alexander
-> --
-> TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
-> Amtsgericht München, HRB 105018
-> Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
-> http://www.tq-group.com/
->
->
+> Expose the Lenovo ThinkPad T14s EC environmental sensors through
+> the hwmon subsystem.
+>=20
+> The driver now registers a hwmon device providing access to six EC
+> temperature sensors corresponding to the SoC, keyboard area, base
+> cover, PMIC/charging circuitry, QTM module and SSD. Sensor labels
+> are exported to allow user space to identify each measurement.
+>=20
+> This allows standard monitoring tools such as lm-sensors to report
+> platform temperatures.
+>=20
+> Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on T14s OLED
+> Signed-off-by: Daniel Lezcano daniel.lezcano@oss.qualcomm.com
+> ---
+>  drivers/platform/arm64/Kconfig                |   1 +
+>  drivers/platform/arm64/lenovo-thinkpad-t14s.c | 131 ++++++++++++++++++
+>  2 files changed, 132 insertions(+)
+>=20
+> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kcon=
+fig
+> index 10f905d7d6bf..121043348740 100644
+> --- a/drivers/platform/arm64/Kconfig
+> +++ b/drivers/platform/arm64/Kconfig
+> @@ -75,6 +75,7 @@ config EC_LENOVO_THINKPAD_T14S
+>  =09depends on ARCH_QCOM || COMPILE_TEST
+>  =09depends on I2C
+>  =09depends on INPUT
+> +=09depends on HWMON
+>  =09select INPUT_SPARSEKMAP
+>  =09select LEDS_CLASS
+>  =09select NEW_LEDS
+> diff --git a/drivers/platform/arm64/lenovo-thinkpad-t14s.c b/drivers/plat=
+form/arm64/lenovo-thinkpad-t14s.c
+> index 5590302a5694..fc480f093238 100644
+> --- a/drivers/platform/arm64/lenovo-thinkpad-t14s.c
+> +++ b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/delay.h>
+>  #include <linux/dev_printk.h>
+>  #include <linux/err.h>
+> +#include <linux/hwmon.h>
+>  #include <linux/i2c.h>
+>  #include <linux/input.h>
+>  #include <linux/input/sparse-keymap.h>
+> @@ -21,6 +22,7 @@
+>  #include <linux/regmap.h>
+>  #include <linux/slab.h>
+>  #include <linux/pm.h>
+> +#include <linux/units.h>
+> =20
+>  #define T14S_EC_CMD_ECRD=090x02
+>  #define T14S_EC_CMD_ECWR=090x03
+> @@ -67,6 +69,13 @@
+>  #define T14S_EC_EVT_KEY_FN_F11=09=09=090x7a
+>  #define T14S_EC_EVT_KEY_FN_G=09=09=090x7e
+> =20
+> +#define T14S_EC_SYS_THERM0 0x78 /* SoC (CPU+GPU)  */
+> +#define T14S_EC_SYS_THERM1 0x79 /* Keyboard       */
+> +#define T14S_EC_SYS_THERM2 0x7a /* Back cover     */
+> +#define T14S_EC_SYS_THERM3 0x7b /* Charger / PMIC */
+> +#define T14S_EC_SYS_THERM6 0x7c /* QTM West       */
+> +#define T14S_EC_SYS_THERM7 0x7d /* SSD            */
+> +
+>  /* Hardware LED blink rate is 1 Hz (500ms off, 500ms on) */
+>  #define T14S_EC_BLINK_RATE_ON_OFF_MS=09=09500
+> =20
+> @@ -93,9 +102,19 @@ struct t14s_ec_led_classdev {
+>  =09struct t14s_ec *ec;
+>  };
+> =20
+> +struct t14s_ec_hwmon_sys_thermx {
+> +=09const char *label;
+> +=09int reg;
+> +};
+> +
+> +struct t14s_ec_hwmon {
+> +=09struct t14s_ec_hwmon_sys_thermx *sys_thermx;
+> +};
+> +
+>  struct t14s_ec {
+>  =09struct regmap *regmap;
+>  =09struct device *dev;
+> +=09struct t14s_ec_hwmon ec_hwmon;
+>  =09struct t14s_ec_led_classdev led_pwr_btn;
+>  =09struct t14s_ec_led_classdev led_chrg_orange;
+>  =09struct t14s_ec_led_classdev led_chrg_white;
+> @@ -555,6 +574,114 @@ static irqreturn_t t14s_ec_irq_handler(int irq, voi=
+d *data)
+>  =09return IRQ_HANDLED;
+>  }
+> =20
+> +static umode_t t14s_ec_hwmon_is_visible(const void *drvdata,
+> +=09=09=09=09=09enum hwmon_sensor_types type,
+> +=09=09=09=09=09u32 attr, int channel)
+> +{
+> +=09switch (type) {
+> +=09case hwmon_temp:
+> +=09=09if (attr =3D=3D hwmon_temp_input ||
+> +=09=09    attr =3D=3D hwmon_temp_label)
+> +=09=09=09return 0444;
+> +=09=09break;
+> +=09default:
+> +=09=09return 0;
+> +=09}
+> +
+> +=09return 0;
+> +}
+> +
+> +static int t14s_ec_hwmon_read_string(struct device *dev, enum hwmon_sens=
+or_types type,
+> +=09=09=09=09     u32 attr, int channel, const char **str)
+> +{
+> +=09struct t14s_ec *ec =3D dev_get_drvdata(dev);
+> +
+> +=09switch (type) {
+> +=09case hwmon_temp:
+> +=09=09if (attr =3D=3D hwmon_temp_label) {
+> +=09=09=09*str =3D ec->ec_hwmon.sys_thermx[channel].label;
+> +=09=09=09return 0;
+> +=09=09}
+> +=09=09break;
+> +=09default:
+> +=09=09return -EOPNOTSUPP;
+> +=09}
+> +
+> +=09return -EOPNOTSUPP;
+> +}
+> +
+> +static int t14s_ec_hwmon_read(struct device *dev, enum hwmon_sensor_type=
+s type,
+> +=09=09=09      u32 attr, int channel, long *val)
+> +{
+> +=09struct t14s_ec *ec =3D dev_get_drvdata(dev);
+> +=09unsigned int value;
+> +=09int ret;
+> +
+> +=09switch (type) {
+> +=09case hwmon_temp:
+> +=09=09if (attr =3D=3D hwmon_temp_input) {
+> +=09=09=09ret =3D t14s_ec_read(ec, ec->ec_hwmon.sys_thermx[channel].reg, =
+&value);
+> +=09=09=09if (ret)
+> +=09=09=09=09return ret;
+> +=09=09=09*val =3D value * MILLIDEGREE_PER_DEGREE;
+> +
+> +=09=09=09return 0;
+> +=09=09}
+> +=09=09break;
+> +=09default:
+> +=09=09return -EOPNOTSUPP;
+> +=09}
+> +
+> +=09return -EOPNOTSUPP;
+> +}
+> +
+> +static const struct hwmon_ops t14s_ec_hwmon_ops =3D {
+> +=09.is_visible =3D t14s_ec_hwmon_is_visible,
+> +=09.read =3D t14s_ec_hwmon_read,
+> +=09.read_string =3D t14s_ec_hwmon_read_string,
+> +};
+> +
+> +static const struct hwmon_channel_info *t14s_ec_hwmon_info[] =3D {
+> +=09HWMON_CHANNEL_INFO(chip, HWMON_C_REGISTER_TZ),
+> +=09HWMON_CHANNEL_INFO(temp,
+> +=09=09=09   HWMON_T_INPUT | HWMON_T_LABEL,
+> +=09=09=09   HWMON_T_INPUT | HWMON_T_LABEL,
+> +=09=09=09   HWMON_T_INPUT | HWMON_T_LABEL,
+> +=09=09=09   HWMON_T_INPUT | HWMON_T_LABEL,
+> +=09=09=09   HWMON_T_INPUT | HWMON_T_LABEL,
+> +=09=09=09   HWMON_T_INPUT | HWMON_T_LABEL),
+> +=09NULL
+> +};
+> +
+> +static const struct hwmon_chip_info t14s_ec_chip_info =3D {
+> +=09.ops =3D &t14s_ec_hwmon_ops,
+> +=09.info =3D t14s_ec_hwmon_info,
+> +};
+> +
+> +static int t14s_ec_hwmon_probe(struct t14s_ec *ec)
+> +{
+> +=09struct device *dev;
+> +=09struct t14s_ec_hwmon_sys_thermx sys_thermx[] =3D {
+> +=09=09{ .label =3D "soc",=09.reg =3D T14S_EC_SYS_THERM0 },
+> +=09=09{ .label =3D "keyboard",=09.reg =3D T14S_EC_SYS_THERM1 },
+> +=09=09{ .label =3D "base",=09.reg =3D T14S_EC_SYS_THERM2 },
+> +=09=09{ .label =3D "charging",=09.reg =3D T14S_EC_SYS_THERM3 },
+> +=09=09{ .label =3D "qtm",=09.reg =3D T14S_EC_SYS_THERM6 },
+> +=09=09{ .label =3D "ssd",=09.reg =3D T14S_EC_SYS_THERM7 },
+> +=09};
+> +
+> +=09ec->ec_hwmon.sys_thermx =3D devm_kmemdup_array(ec->dev, sys_thermx,
+> +=09=09=09=09=09=09     ARRAY_SIZE(sys_thermx),
+> +=09=09=09=09=09=09     sizeof(sys_thermx[0]), GFP_KERNEL);
+> +=09if (!ec->ec_hwmon.sys_thermx)
+> +=09=09return -ENOMEM;
+> +
+> +=09dev =3D devm_hwmon_device_register_with_info(ec->dev, "t14s_ec", ec,
+> +=09=09=09=09=09=09   &t14s_ec_chip_info, NULL);
+> +
+> +=09return PTR_ERR_OR_ZERO(dev);
+> +}
+> +
+>  static int t14s_ec_probe(struct i2c_client *client)
+>  {
+>  =09struct device *dev =3D &client->dev;
+> @@ -590,6 +717,10 @@ static int t14s_ec_probe(struct i2c_client *client)
+>  =09if (ret < 0)
+>  =09=09return ret;
+> =20
+> +=09ret =3D t14s_ec_hwmon_probe(ec);
+> +=09if (ret < 0)
+> +=09=09return ret;
+> +
+>  =09ret =3D devm_request_threaded_irq(dev, client->irq, NULL,
+>  =09=09=09=09=09t14s_ec_irq_handler,
+>  =09=09=09=09=09IRQF_ONESHOT, dev_name(dev), ec);
+>=20
+
+Reviewed-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
+
+--=20
+ i.
+
+--8323328-1175465363-1783354333=:1195--
