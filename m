@@ -1,64 +1,64 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E161435AB6
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 17:51:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE5F436BE1
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 17:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783360317; cv=none; b=rwwVYBfXtisCpmQ/Bp0rdHf3Ww8HdAKx/SomQFca3nJLZ+A7Zos/Zev9rnd3LH/TU2UDcwAyTb4O4kd1ROnoqfP6Ckm9EbNLbFmL/as7H0lqYxtjO+1cBhu1KuS0wiG6d+Va7CEbP8M9ATvBiVSTCvRff35jNds2lv9zqbBipnU=
+	t=1783360318; cv=none; b=bEbiy1Epi0a60EUfnohXlGqaQp8UyjZ04BxOei/cbPenUbSpoBEUU2FV+CUMlZhHHgVUDnofoRhyRmDZ1lC6jAxkxeuRNBlsLOR81d7OTEJDOebJ7+J3VY6iRv4s3LPMCzYngGPqgueWhAthNnij8VIEfEh5JGTSGcihIaE7t/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783360317; c=relaxed/simple;
-	bh=1Ee8nZmSJ3L29r+OJFo3suta0pD8PXMZVf4X0sAqyEI=;
+	s=arc-20240116; t=1783360318; c=relaxed/simple;
+	bh=7SQfvoAKpxxcRH2D3b0YwhqWQ+wCJTbaacxzePFv7Xo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=snQ9DpOuCbAoYK40VHaRphwPIVBm/RMU8MBGgDN5dQI6IIzHbtKgO3IxzuBGc5Tc3nb0yEZd/yZ20R0M35RjDzi3ufMtUpG5ig5eMYokMy/et2y+7leKFzufOF/Bm9ewr3yHe0ChHfNfeaYUKzN0zQYn1hVqQCNkDIih5aM5M5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qs2+alxI; arc=none smtp.client-ip=209.85.128.48
+	 MIME-Version; b=f2Osa052JyY9K+823lLeW6XtyfoacBfqX2VPJYKsJZHRMC5fjw6cFaw2yV4Zk0zrUoMxy5v79tZGEWeS14az3Ukt77vNEAoa8MuW+dbBGMrTOIfXF4TakfZ/zlYBySBXM7dlEaNfTRTud3qkTUpX6m8UZFM1ZQphjiV5wciQvkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bD56281P; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qs2+alxI"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493c00f74baso20532505e9.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bD56281P"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-493bc8fda98so36696775e9.0
         for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 10:51:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1783360314; x=1783965114; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yp0vLf5KoweydvqbpTIiIXXIIq2wJj4VTBhY9AKqs00=;
-        b=qs2+alxI7ZMllJZ2ONWIkFFz5GKYv/hy8SGiGv3Gr8l020cJYbhXXTdANU82+6fEP1
-         O9A9eCf0P4CP3VHyKjJxG9YzuulXGE26Xhem1GAgAkE3FnAMfF5kfhTmmUCx69xPRhY+
-         KFThBuGoGH4eIIQvPpkoa9Wbwh98EWSPOiGZamAltToXXeNCW6Sl5r2WCJTkwMXadRKj
-         1u7G4/wzl2nOtIaUGCBY/5hpwezgNjAAKKCmE7gGLF2w+5wGP11xwkrqZjPFI6w9I1+Y
-         91oI0r0EASHAMhhR9+5b2wyze18duyL0vqzr07RyjQDiVbq84rWYVtFeQoGYaJgwS1VW
-         8HXQ==
+         :message-id:reply-to:content-type;
+        bh=0u2G4/GxAoX4gvsvblL6lG8z4Mian34nOC2cqXqU6mo=;
+        b=bD56281Pi+yTK3YeMkXD6JXXQ4FyTQZPPv1hPdR87IKsixFkvH+uDNVVBYBstPc1p9
+         pPRMr/BaMwp9v4GHH9uGghLqE/2zUDQa4Egr+qlXJXRofZTYNFvKif+rKkfIVshFvk+b
+         piVn92Z/f+Z9qdQIQ/gN5gXF6R1UN+iTQzufcfLaROx376Cbop7hpC9B2gXHIR5ZnKKu
+         LbeM7i4GfTboskHpouIvPo/iSi5a5EmoquSPX7wu4mbqAs93eJVdLCv8l+4NWXpJZPIN
+         0hZWiil9nUTJB9vkARjIQ27GL3cU68Lp8w5NBTCi+1aAFSwb7KhncmdmQue4zQCUNXCX
+         lnNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1783360314; x=1783965114;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=yp0vLf5KoweydvqbpTIiIXXIIq2wJj4VTBhY9AKqs00=;
-        b=NKRN4fI4VyGPpcHvTDuVDFL+Nzka8W1AQ1gOAsYR0KtUSjGtDB236X1EgY7s2gF8ZM
-         raLNlcPt88Y8Pf4EPn4p5oTS0lLYXj2ZoMhpWDc0Amp8BkVBaZm98+lBQ3kTT064AAPI
-         W+B8nUm7/O/rX2sf4SI7FLyKUp8xzSDrIf9mQtO8oZZBCVHEYp/QSgsbvoWIXww7bdJu
-         ftFarkzvQJRjUwZn8a3nz6IHGpBdTz5ZpEMX3j+izpsVRR4B9LTrdMD7abmyYGSLCNcJ
-         Rkvi3mGqF/uoy9ypjWL/CRor0dZrrt4RVqcZyEvQCgmia+BEM4aPQBqoQZwS0BwxDpYQ
-         oS2Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrSOhqR/Y1fjMV4SEpWRAu6VYSUVqeonnH4EX29/KhnrhsHOE+wCvCbFmDGsZaHSQM7RjAXuYj80BPC@vger.kernel.org
-X-Gm-Message-State: AOJu0YxwyTHRJmo+bcgErpaIJH7UDAjOP6hFgcbsw2aq53WcQ16ZhbYp
-	xDZo4MvV56fGbCvIoOWdD7TOfbZDveRm0XvhZmbFAGZX86ckzspaMc6G
-X-Gm-Gg: AfdE7ck87c/RUZUmddfQTMghpNd5J0Hp5l0LnbDUt7zLz2kfaEAwepRoNQo+yZpVvv+
-	dKfB15FQQH939EHd1hNmZ5AdR5o0fyxzmWeA12mbO5KJUCALThJJj3sYQ7lH4LSVxCWMK8732oY
-	Zl4lto9/p2dglTgsMY61Ztc9UFJB6KChe2JutXf6GG29ZRsooGrId+T3Ka6wgsd2T/nuDMzJX5s
-	/3ItnMu/KSm3rh74IO6bQStWteZhic+W0OHsrn+x4u0Zfk8QpN4LNagSKwt/VeTNJcR9A3tFiSX
-	WGRNW5z0Zgi44m/1nGJeZtQZQoIxFfgEgg4M66elkNwFfBoT9RWWhgdHcWutaqd3zzKZeknpOcU
-	nmfBSxCeqpBY6LMcLVqN/vZV2m1GTNwN4Qmf3Y2/amNr4MfLd6M8V7dxJUTIMkCXyhChrMjz0z4
-	Vu5rXCO5Ou/u93Lv7XA96npI7mVPejCzYv8CnrKmkUFcNUc+GLk9tp8NF7m/49rJtDfkB/96ctr
-	dDbiyMaSTx7LoQ+ft5jr8BAMnY=
-X-Received: by 2002:a05:600c:348d:b0:490:bd1d:4732 with SMTP id 5b1f17b1804b1-493df0a758emr17001865e9.23.1783360313673;
-        Mon, 06 Jul 2026 10:51:53 -0700 (PDT)
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0u2G4/GxAoX4gvsvblL6lG8z4Mian34nOC2cqXqU6mo=;
+        b=XDDEdAS//RzuuJ8iBgKGN3Jfo6CiKzIHMc01DIlLS2Q3FNy/ua3LHqTY/d0adxf8rt
+         QrjPljLabLr6yVq1NYsC549ru1e7dh0BmL0ElU55Gb8Hvv1VbHiMIpCi0QPcyHYRiQlj
+         7Q0tmAOTtxhPrwU2hfoKkNi37jLsmqTXp9sCOvYrXbZG6FXWwoM7wE33VAGI/Wx25wtP
+         Tmr3RUOx/bQuqEiBv0Z603V8Aa7qE7iDwG399nSHSgVBlN8XpS3Efc7A6kE6B8jy+3mY
+         FiCPV3Xzwf33W5ARgxKwCozAOEAl6e6ygb2baKvfXinSiRUQ0zB1XgL7XH8uoGz87CU6
+         2YEg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5swGReeTRsh9NuWkb0EZAJg5hhzDEJNXDdXA6bQymBuLRp7A2oiCe/inbLPtVTLr7IHNmw/6Q8y2P@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyf3IIUuj5JdN/XTsxVbhj3V+UIySdQHifl0IZ39VV/ntDQfA73
+	DONo860e8IwLelWPG7+KFs/SsGsF7kOob3LHmSi+PXFPTQeyAQQoqDKP
+X-Gm-Gg: AfdE7ckSwdmXABq+NsrF92byXQddsuSD1AwMBrVZPK8WSEHJdaeYPHlGkUurZzMgluq
+	Hr+hhrcGq4f/72yeTxeghFJmMw7YgpFlMwAucJpTxpPGMhJ3b0FuzieMZIjutVIf12GwosnJU3/
+	Tc8+NVWiCePQCnFh/OBVWErkGurCFBLJmKeyKSYn/Em4yf+4rhYEuoyfYRnBzsGPPDpHUrBPFEY
+	QHhBqVXAdzkz/WoiS7aOxCQ9WcBg/jT+sDHYRYfbRN0dGK0EjrFcUV4Bxc1VkmwurcIwT0faS9/
+	V3cGK/mnwlV1G7ENNyHHEpwHDKVrfvKrgADF5Q6BjMY66NOKh+/hqhRj2jRTYMjjyUxZ4u9TG0G
+	Yi/0l8SRTHCUzCJWwWCNAbUZqe4JT3IyqOvIa1QYstdrhOvQi8AuuMQRc7CTwNg6SoCEeh81y0H
+	VSe1qafYWyF2gwQwtd8Lj6gxnPw71vCfmG9o5kI9I0+6/iDP1SpJRz1lVf6g4Oi7nbjCvBlr3U1
+	V7+wenoHVQcCMX8e/FUruamM49ZEK4pUq2YOg==
+X-Received: by 2002:a05:600c:818f:b0:493:b750:bd20 with SMTP id 5b1f17b1804b1-493df041d26mr19156285e9.15.1783360314524;
+        Mon, 06 Jul 2026 10:51:54 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:8e02:886d:c345:c5e2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0078d49sm1263145e9.0.2026.07.06.10.51.52
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0078d49sm1263145e9.0.2026.07.06.10.51.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 10:51:52 -0700 (PDT)
+        Mon, 06 Jul 2026 10:51:54 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -77,9 +77,9 @@ Cc: linux-rtc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v3 07/12] rtc: rzn1: Replace remove callback with devm_add_action_or_reset()
-Date: Mon,  6 Jul 2026 18:51:33 +0100
-Message-ID: <20260706175138.12587-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v3 08/12] rtc: rzn1: Dynamically calculate synchronization delay based on clock rate
+Date: Mon,  6 Jul 2026 18:51:34 +0100
+Message-ID: <20260706175138.12587-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -93,129 +93,90 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Simplify the driver teardown by registering a managed cleanup action with
-devm_add_action_or_reset(). This eliminates the explicit probe error path
-and allows the .remove() callback to be dropped.
+Replace the hardcoded hardware synchronization delays with a calculated
+time window derived from the operating sub-clock frequency.
+
+The driver currently hardcodes microsecond ranges assuming a fixed
+sub-clock frequency of 32.768 kHz. Newer SoC variants, such as the
+RZ/T2H, drive this hardware block using a much faster clock rate
+(~195.3 kHz). Hardcoding these wait windows forces faster blocks to
+over-sleep, introducing unnecessary delays during clock initialization
+and register configuration.
+
+Calculate the duration of the required clock cycles in microseconds based
+on the runtime clock rate, and store this value in the driver private
+structure to adjust the usleep_range() and readl_poll_timeout() boundaries
+dynamically.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
 v2->v3:
-- New patch to replace the remove callback with devm_add_action_or_reset().
+- No changes.
+
+v1->v2:
+- Initialized rate variable to 32768 to avoid timeout_us of 0.
 ---
- drivers/rtc/rtc-rzn1.c | 56 +++++++++++++++++-------------------------
- 1 file changed, 23 insertions(+), 33 deletions(-)
+ drivers/rtc/rtc-rzn1.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-index a5283e680e36..1e6d26a122b8 100644
+index 1e6d26a122b8..763d9a98fd62 100644
 --- a/drivers/rtc/rtc-rzn1.c
 +++ b/drivers/rtc/rtc-rzn1.c
-@@ -378,6 +378,17 @@ static const struct rtc_class_ops rzn1_rtc_ops_scmp = {
- 	.alarm_irq_enable = rzn1_rtc_alarm_irq_enable,
+@@ -70,6 +70,7 @@ struct rzn1_rtc {
+ 	 */
+ 	spinlock_t ctl1_access_lock;
+ 	struct rtc_time tm_alarm;
++	unsigned long sync_time;
  };
  
-+static void rzn1_rtc_disable_hardware(void *data)
-+{
-+	struct device *dev = data;
-+	struct rzn1_rtc *rtc = dev_get_drvdata(dev);
-+
-+	/* Disable all interrupts */
-+	writel(0, rtc->base + RZN1_RTC_CTL1);
-+
-+	pm_runtime_put(dev);
-+}
-+
+ static void rzn1_rtc_get_time_snapshot(struct rzn1_rtc *rtc, struct rtc_time *tm)
+@@ -120,8 +121,8 @@ static int rzn1_rtc_set_time(struct device *dev, struct rtc_time *tm)
+ 		/* Hold the counter if it was counting up */
+ 		writel(RZN1_RTC_CTL2_WAIT, rtc->base + RZN1_RTC_CTL2);
+ 
+-		/* Wait for the counter to stop: two 32k clock cycles */
+-		usleep_range(61, 100);
++		/* Wait for the counter to stop: two RTC_PCLK clock cycles */
++		usleep_range(rtc->sync_time, rtc->sync_time + 100);
+ 		ret = readl_poll_timeout(rtc->base + RZN1_RTC_CTL2, val,
+ 					 val & RZN1_RTC_CTL2_WST, 0, 100);
+ 		if (ret)
+@@ -391,10 +392,10 @@ static void rzn1_rtc_disable_hardware(void *data)
+ 
  static int rzn1_rtc_probe(struct platform_device *pdev)
  {
++	unsigned long rate = 32768;
  	struct rzn1_rtc *rtc;
-@@ -415,18 +426,19 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
- 	if (ret < 0)
+ 	u32 val, scmp_val = 0;
+ 	struct clk *xtal;
+-	unsigned long rate;
+ 	int irq, ret;
+ 
+ 	rtc = devm_kzalloc(&pdev->dev, sizeof(*rtc), GFP_KERNEL);
+@@ -444,12 +445,20 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
+ 			scmp_val = RZN1_RTC_CTL0_SLSB_SCMP;
+ 	}
+ 
++	/*
++	 * The internal clock counter operates in synchronization with the
++	 * RTC_PCLK clock. Calculate the duration of two RTC_PCLK clock
++	 * cycles in microseconds required for operations to complete.
++	 */
++	rtc->sync_time = DIV_ROUND_UP(2 * USEC_PER_SEC, rate);
++
+ 	/* Disable controller during SUBU/SCMP setup */
+ 	val = readl(rtc->base + RZN1_RTC_CTL0) & ~RZN1_RTC_CTL0_CE;
+ 	writel(val, rtc->base + RZN1_RTC_CTL0);
+-	/* Wait 2-4 32k clock cycles for the disabled controller */
++	/* Wait 2-4 RTC_PCLK clock cycles for the disabled controller to stop */
+ 	ret = readl_poll_timeout(rtc->base + RZN1_RTC_CTL0, val,
+-				 !(val & RZN1_RTC_CTL0_CEST), 62, 123);
++				 !(val & RZN1_RTC_CTL0_CEST), rtc->sync_time,
++				 rtc->sync_time * 2);
+ 	if (ret)
  		return ret;
  
-+	ret = devm_add_action_or_reset(&pdev->dev, rzn1_rtc_disable_hardware, &pdev->dev);
-+	if (ret)
-+		return ret;
-+
- 	/* Only switch to scmp if we have an xtal clock with a valid rate and != 32768 */
- 	xtal = devm_clk_get_optional(&pdev->dev, "xtal");
- 	if (IS_ERR(xtal)) {
--		ret = PTR_ERR(xtal);
--		goto dis_runtime_pm;
-+		return PTR_ERR(xtal);
- 	} else if (xtal) {
- 		rate = clk_get_rate(xtal);
- 
--		if (rate < 32000 || rate > BIT(22)) {
--			ret = -EOPNOTSUPP;
--			goto dis_runtime_pm;
--		}
-+		if (rate < 32000 || rate > BIT(22))
-+			return -EOPNOTSUPP;
- 
- 		if (rate != 32768)
- 			scmp_val = RZN1_RTC_CTL0_SLSB_SCMP;
-@@ -439,7 +451,7 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
- 	ret = readl_poll_timeout(rtc->base + RZN1_RTC_CTL0, val,
- 				 !(val & RZN1_RTC_CTL0_CEST), 62, 123);
- 	if (ret)
--		goto dis_runtime_pm;
-+		return ret;
- 
- 	/* Set desired modes leaving the controller disabled */
- 	writel(RZN1_RTC_CTL0_AMPM | scmp_val, rtc->base + RZN1_RTC_CTL0);
-@@ -462,14 +474,12 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
- 	ret = devm_request_irq(&pdev->dev, irq, rzn1_rtc_alarm_irq, 0, "RZN1 RTC Alarm", rtc);
- 	if (ret) {
- 		dev_err(&pdev->dev, "RTC alarm interrupt not available\n");
--		goto dis_runtime_pm;
-+		return ret;
- 	}
- 
- 	irq = platform_get_irq_byname_optional(pdev, "pps");
--	if (irq == -EPROBE_DEFER) {
--		ret = irq;
--		goto dis_runtime_pm;
--	}
-+	if (irq == -EPROBE_DEFER)
-+		return irq;
- 	if (irq >= 0)
- 		ret = devm_request_irq(&pdev->dev, irq, rzn1_rtc_1s_irq, 0, "RZN1 RTC 1s", rtc);
- 
-@@ -479,26 +489,7 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
- 		dev_warn(&pdev->dev, "RTC pps interrupt not available. Alarm has only minute accuracy\n");
- 	}
- 
--	ret = devm_rtc_register_device(rtc->rtcdev);
--	if (ret)
--		goto dis_runtime_pm;
--
--	return 0;
--
--dis_runtime_pm:
--	pm_runtime_put(&pdev->dev);
--
--	return ret;
--}
--
--static void rzn1_rtc_remove(struct platform_device *pdev)
--{
--	struct rzn1_rtc *rtc = platform_get_drvdata(pdev);
--
--	/* Disable all interrupts */
--	writel(0, rtc->base + RZN1_RTC_CTL1);
--
--	pm_runtime_put(&pdev->dev);
-+	return devm_rtc_register_device(rtc->rtcdev);
- }
- 
- static const struct of_device_id rzn1_rtc_of_match[] = {
-@@ -509,7 +500,6 @@ MODULE_DEVICE_TABLE(of, rzn1_rtc_of_match);
- 
- static struct platform_driver rzn1_rtc_driver = {
- 	.probe = rzn1_rtc_probe,
--	.remove = rzn1_rtc_remove,
- 	.driver = {
- 		.name	= "rzn1-rtc",
- 		.of_match_table = rzn1_rtc_of_match,
 -- 
 2.54.0
 
