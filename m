@@ -1,68 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461043EB0FE;
-	Mon,  6 Jul 2026 06:43:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0584252CF;
+	Mon,  6 Jul 2026 06:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783320235; cv=none; b=B/dEM0yXoYAtMFkA3+iSCWukwaQru26Bo3bdWXL5g8956QRUauBJEnA2ZWuk/tR5STH+92Pm+gUtyK8hjaglGMdnjpD7AxqhF18hF+cigGVJsGJuKblAQTkuMf9KSMYACEjuf8B/ZkK/BkF1ytWO4mK8fcQ1jmLdJsNWMEZOTiQ=
+	t=1783320252; cv=none; b=a3JVWy1sZLuQIHZMG4j6MNMi+vFbQYP677Q9TQCn8Wwma+edaFdJ5j3UsyeIhbr5YD+Iu5Ea6JxxbUKoyD3CfcRPeOmrPUDbPN+kSyDOWQCbhH6g/ylkL2+37TX0L2ppyQIEHLDgk0a3Zdrmdfcn0Zgn7x3VM/dQBtZQgsGcE40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783320235; c=relaxed/simple;
-	bh=+M1cAc0OUzlIoNcUnqrbzKbXqjVKjITMqA9/Swf4wSg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kzz94i0sNua6tB096H/8wc1Eet7h9T/yR9HOOiuUuzYE6o2Z1dzhekRLDEWdNvTz8MBhqggiZDdxbm1JoRYAoIx+W68TDYoO1ifEOXIUtgwMRu8Bl5TCHtSJQveOQWo9ApLcw7gEzp3oALajXzOb/UDm8vRhe4y+vbbzUMsTEF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FridrF+2; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FridrF+2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21D601F00A3D;
-	Mon,  6 Jul 2026 06:43:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783320229;
-	bh=TumID3UOwbKJByG8LTYX/LOPxNfTfe26ymFWKPV79a0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FridrF+2y1DJUyj5T8Posaa1JEK8RacQbjRY4e9lh2GoBuJMH4wcXADxHwbSslNCe
-	 5J6oaSMFkF5bRDn7dgNO8rWnth5l+KNLUO8LO0tI7eUQ8M8UonhUKp+zl13iNCyKG+
-	 ig4z+WJ0D+8sM74K+YRWahcdIqcosv70+k6c4NJyb+z8nGrjaksfSYC5rBii8LvBmd
-	 tGrhlAii0sgaXQO76r3VtbUwFOzR/ChxzqzrCC6OTbpGJbd47uC3zJAAdduA9QT/J3
-	 A6dsYz8qyuZEMmPlXb+5q0KEOh1w6hyF+CPx/tfJPDsrjNxIKP6Nl39PCNJ6AaSDMy
-	 BZBGomyAkSTBw==
-Date: Mon, 6 Jul 2026 08:43:44 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
-Cc: krzk+dt@kernel.org, robh@kernel.org, andersson@kernel.org, 
-	mani@kernel.org, alim.akhtar@samsung.com, bvanassche@acm.org, avri.altman@wdc.com, 
-	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-scsi@vger.kernel.org
-Subject: Re: [PATCH V1] scsi: ufs: dt-bindings: Document the Maili UFS
- Controller
-Message-ID: <20260706-curious-festive-ringtail-dd8fe4@quoll>
-References: <20260630220536.3803984-1-nitin.rawat@oss.qualcomm.com>
+	s=arc-20240116; t=1783320252; c=relaxed/simple;
+	bh=TlNY0EcGvrM0sj1hh7yuKBLj/ZVCWg7JlEkJjg1b3dk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ME1wmDdPxT30170UimDom2z1vIOWk4cuyHYQDtvfT5iKs1z//6k/TmKUBrIOSjeUmkEk51Qv5o2tm3vgdpbTUgYwYkdWfCUpcoQcQIh8tgKoff+WLa0F3jZq4F4xrvOTn3rjlHZdZErOuH52gkLt8SnPbTueoBtslaBaidNHFSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpgz1t1783320208t3b13217e
+X-QQ-Originating-IP: my94fDoV7dC/ybLuzi/EbUOU8875QnkU0y0oQbmSUmg=
+Received: from [127.0.0.1] ( [119.98.234.251])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 06 Jul 2026 14:43:26 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 9542639158901383598
+Message-ID: <10ACF07CBAE77BF1+7fa077d8-5041-456e-8c66-94248f253065@radxa.com>
+Date: Mon, 6 Jul 2026 14:43:26 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260630220536.3803984-1-nitin.rawat@oss.qualcomm.com>
+User-Agent: Thunderbird Daily
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: eliza-evk: Add PCIe1 with TC9563
+ PCIe switch
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-pm@vger.kernel.org
+References: <20260703-eliza_evk-v1-0-7624440bd76d@oss.qualcomm.com>
+ <20260703-eliza_evk-v1-2-7624440bd76d@oss.qualcomm.com>
+ <926681E76F71D6A7+5482f550-9a97-4a01-95dd-6d4083bcf5aa@radxa.com>
+ <797bba33-17fa-4fbc-a4b1-55735b3b5d57@oss.qualcomm.com>
+Content-Language: en-US
+From: Xilin Wu <sophon@radxa.com>
+In-Reply-To: <797bba33-17fa-4fbc-a4b1-55735b3b5d57@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: MfJtHqZtrd+O26MDlUcoaXsQjh99TDxwbU5aLcv76wrVFptgKkEejERk
+	eGtAEceT2nV3kqVrbWBfLEzoELoDK1tCpSWdW+9Uqh9QldH2oPprSX/UgMYNqRFv4B2WLzY
+	o7XDihOnnsFaYrZ/q0GSLnbZVMk/odhh2Iggsj3MaABODmKKVfduy9M4azfyYtxUlRIKIVO
+	OeKZFdyOqTkMafFHZPWZvIZmEkxAOTEvMHC/abjvwMAif60JKiSuBIwAFGIGSH8mydvz7hX
+	aBWL7AtuD23EC/2vPu4Qih4wNMI3DcGuV2nRSn/48PXgUljTbxRmUvEKcIAGMfLzYZaHxra
+	qrkv4kNbX86NUJcKljNfwscPh3TWW7f0T1LUrSLxxrjO44WQO4fXeyz1AuSmCyCTCLzNbR0
+	8qaIED/gXdLNXYpse4W8hVr50aKUCynRUZGLFvqRAiga8kiiqYSOFQF1Y3+sb5TVFhFINQp
+	azgfK1yPYrCHYYJ8HWnHvFkFs5D+jem0E0Xmf4EsNfNnBtjTGXhksYSdjyGckm1aKsP5lFH
+	hpm/8vOLpELetIG5DlE7xyVFoPRHn3BM+t4eldi0OXGRMyGDfhl53b3r0EeB+GkI2/V/LcO
+	VShfSdkQHZgdwVIFCa2HDwCmojkhrwkip9hLcBIBnbKp7eGvPjcITl++fEPADQ/DZOZyZDe
+	rn+Mkke7H8Qtu9LgiiVJRK7WJxgafN0BfCG9n2MVwzaalJjKlb5od0CVi2EV757lOFsO3x5
+	Q3XVSJDptqufAng2ahid81pjXnh6fS/HOhAL0iYjuBBlPrkA4FdcZgFIrZBbmS4BA68CnmO
+	jWnf93rhhC1MpVDFGTsFhhbs/j0AULvLluFYdwKjN4qRXc+ja6oO0k1x1DRkHslkLuhcYsM
+	bDVKc5FdYsF91+18+WG6Crcfax8kUTio+5vPhZ+V1EFkEmKsG4JzF3IHGGlwHkJVQ7NSUQb
+	sM00KjRjlLm7euF0m1WUv2AXxATylHFbaYlHATXoVATchYjvt+v814AOC0OxTd4PeRELyfx
+	gqKI6LVgZPkJrXLFLDv43GRcqWPgGEmiLXBysnhQ1bWCIhGg8N8dKqncVHgGixMuBLkygIU
+	Q==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-On Wed, Jul 01, 2026 at 03:35:36AM +0530, Nitin Rawat wrote:
-> Document the UFS Controller on Maili SoC.
+On 7/6/2026 1:24 PM, Krishna Chaitanya Chundru wrote:
 > 
-> Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+> 
+> On 7/4/2026 9:37 AM, Xilin Wu wrote:
+>> On 7/3/2026 8:38 PM, Krishna Chaitanya Chundru wrote:
+>>> The Eliza EVK board connects PCIe1 (8GT/s x2) to a Toshiba TC9563
+>>> PCIe switch. Enable PCIe1 and its QMP PHY nodes.
+>>>
+>>> TC9563 uses I2C (at address 0x77 on I2C4) for its management interface.
+>>>
+>>> Override the base iommu-map with the expanded set covering all the
+>>> switch's downstream ports (0x1400-0x1408 SID range).
+>>>
+>>> The TC9563 RESX# and PERST# are OR-ed internally to assert reset on the
+>>> switch. Use TC9563 RESX# pin via a TLMM GPIO and skip wiring PERST#
+>>> from the PCIe controller.
+>>>
+>>> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+>>> ---
+>>>    arch/arm64/boot/dts/qcom/eliza-evk.dtsi | 141
+>>> ++++++++++++++++++++++++++++++++
+>>>    1 file changed, 141 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+>>> b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+>>> index ba41dbc34b81..c2afb8372ab7 100644
+>>> --- a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+>>> @@ -12,6 +12,26 @@ chosen {
+>>>            stdout-path = "serial0:115200n8";
+>>>        };
+>>>    +    vreg_0p9: regulator-0v9 {
+>>> +        compatible = "regulator-fixed";
+>>> +        regulator-name = "VREG_0P9";
+>>> +
+>>> +        regulator-min-microvolt = <900000>;
+>>> +        regulator-max-microvolt = <900000>;
+>>> +        regulator-always-on;
+>>> +        regulator-boot-on;
+>>> +    };
+>>> +
+>>> +    vreg_1p8: regulator-1v8 {
+>>> +        compatible = "regulator-fixed";
+>>> +        regulator-name = "VREG_1P8";
+>>> +
+>>> +        regulator-min-microvolt = <1800000>;
+>>> +        regulator-max-microvolt = <1800000>;
+>>> +        regulator-always-on;
+>>> +        regulator-boot-on;
+>>> +    };
+>>> +
+>>>        vreg_pcie_m_3p3: regulator-3p3 {
+>>>            compatible = "regulator-fixed";
+>>>    @@ -102,6 +122,104 @@ pcieport0_ep: endpoint {
+>>>        };
+>>>    };
+>>>    +&pcie1 {
+>>> +    pinctrl-names = "default";
+>>> +    pinctrl-0 = <&pcie1_default_state>;
+>>> +
+>>> +    iommu-map = <0x0 &apps_smmu 0x1400 0x1>,
+>>> +            <0x100 &apps_smmu 0x1401 0x1>,
+>>> +            <0x208 &apps_smmu 0x1402 0x1>,
+>>> +            <0x210 &apps_smmu 0x1403 0x1>,
+>>> +            <0x218 &apps_smmu 0x1404 0x1>,
+>>> +            <0x300 &apps_smmu 0x1405 0x1>,
+>>> +            <0x400 &apps_smmu 0x1406 0x1>,
+>>> +            <0x500 &apps_smmu 0x1407 0x1>,
+>>> +            <0x501 &apps_smmu 0x1408 0x1>;
+>>> +
+>>> +    status = "okay";
+>>> +};
+>>> +
+>>> +&pcie1_phy {
+>>> +    vdda-phy-supply = <&vreg_l1k>;
+>>> +    vdda-pll-supply = <&vreg_l3k>;
+>>> +
+>>> +    status = "okay";
+>>> +};
+>>> +
+>>> +&pcie1port0 {
+>>> +    wake-gpios = <&tlmm 53 GPIO_ACTIVE_LOW>;
+>>> +
+>>
+>> Just wondering, is there any side effect if PERST# is described here as well?
+> one of the driver will fail as both are different drivers both are requesting
+> same GPIO.
+> 
+> - Krishna Chaitanya.
+
+Ah the board is using the same GPIO for TC9563 RESX# and PERST#. I see. 
+Thanks!
+
+>>
+>>
 > 
 
-Why is MMIO address space size flexible here?
 
-A few previous Maili bindings had the same problem - your Claude vibe
-coding just looks at one piece and you do not review but trust that LLM.
-
-So again the same comments as other Maili bindings.
-
+-- 
 Best regards,
-Krzysztof
-
+Xilin Wu <sophon@radxa.com>
