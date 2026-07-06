@@ -1,164 +1,192 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820E93DB63D
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 06:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB993FF88C;
+	Mon,  6 Jul 2026 06:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783320753; cv=none; b=nk2s+aOhsxrh3WtsA53NAl0e3/SG78Htj74VrIkmIdZh3cnTZCD3itukOxU0Ubg3hEDJ+rHFTOpXRtGPvzNeRKMyK+BZ+TguuOIsQzMpq0TLdAKts1fTbTy0ZRMKEQM7E5aOSyq19N1kLwBgVYHHbT6PIJYRGivZiKzXWU77QdU=
+	t=1783320794; cv=none; b=fd6Q/zh8NL3OkwJ2trHjne8zOQlM7c2HKrukylKUGXSuIo4J06yeZ7poHNFzBitqlyeMROcCCvS9OHxDVOOrJKmoyhV8eleGhKBIGoqBpkeYDT+69H7vzouzqx3g7r6xl2BZeFNExcYV9ba9X4ggkdFNNPlh/Jf/RfAJAfIOOvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783320753; c=relaxed/simple;
-	bh=qqmxe3ntthYAlQ7k/vISA8CLGMvMEMLypBSimLw/F3Q=;
+	s=arc-20240116; t=1783320794; c=relaxed/simple;
+	bh=izitCg9SRdQqbGJnJ0KAMXXLvPqISrhaLUFRnFyiOxg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZALdf0GKOVxN69Q6vfr7ribEZqC6D9c7tCFGGaMyT36aNXr0IkRfyYB10x/hmXfkdr1lWvjlt9JkUTpZ2z+pZIQlHNrLcPzdr66cJgqEuQmJOn2Yg6Qve3U3lgUtsxp0hcWZvZmKgO+yhPyVOSyzdC2IsQVpM2aAZ8tLWyq7aWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZlZDOFDV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UU3OKxH7; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=hQEVUq1qEX7T+P+FZoQH02vCanoIWn2rP73wl1Hlh0la+wCeTeAF8BUsKjkCv1P+9Kk0fOYp70VV+6Sjte5825XHEfxc2JzyT4gRuhMozHGlwvhcNmPH/6a/gFRiSpixqsYLYVdYLjF9YO/NdqlVL1uG1iAud5++O5+jhExExNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N61PiGho; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZlZDOFDV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UU3OKxH7"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66641nBp3624728
-	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 06:52:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=yduyzXVW89HhFsw9dnAqLvcq
-	vsISzOjplnij5DJTHWc=; b=ZlZDOFDVmf0HznMEY9kgq3erv0DgPIjglO7YLCYX
-	Iye2x6pZ3d9RdjlXdccH7dSB5kySTiElJZVEdJYBganaFk9G40gmL5bVkr7BY4ij
-	uVFiwWEErMx4nTe2/ulipIR/iZkzPe5MKizrlxnxzMcXuRraZbOVF1dyCjpbjGcy
-	7W8UrrSx/asaQb2a/OtvpTNgSa3niGxIO9VjZmqd35gLeDq3ZY5n+JNfwRDwZPbk
-	d77E7IBXfp005EGSfLa9eQC/09LhNHl+pvThEo57DQ0gMrdoCNl1/aUcaouMesBC
-	fV7kMXDjLrJt7AZP1LGpG/GqSpdyzr98CuxZ4B67feK2HA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6s4sw179-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 06:52:20 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3810fcd9adbso4080573a91.3
-        for <devicetree@vger.kernel.org>; Sun, 05 Jul 2026 23:52:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783320740; x=1783925540; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=yduyzXVW89HhFsw9dnAqLvcqvsISzOjplnij5DJTHWc=;
-        b=UU3OKxH7ccPpsB+EnYzQbUGc1ZxqwIrDSmd5y4kd2+PVuvgW48WRNEeleYqp7/QPSj
-         XWC0H1WyLoPcgAK0aMaH7yXHSSfFZXOir9DPJFOTHUp1ooN2zjTv572HQE1jxppNLlcQ
-         wyV5v4GOsnB6ZM4gcwRYtQzlidZmjJROoSjRV4uwvDpeChUSn1MflKQrytk94w6fEzwg
-         +TMFAKI/msHnQha4LNs0jl+MxSjJLh+N90WdWMtvsLIIs+EhTKdD4FbHCihXyDNcibWZ
-         DfHFVc+zM/5BoEFvtZMPAUUcE6K9sKNpZX/gkj0bvMJnTX2gMTg56uCwVZMjDttl4swC
-         U+NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783320740; x=1783925540;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=yduyzXVW89HhFsw9dnAqLvcqvsISzOjplnij5DJTHWc=;
-        b=PVVVlWK2fm/OPvp49003rn9YqLKMaEI1Mux1MWW2A+mhbROQyOP0/Yivl5V/1Sx8iq
-         I6ZYTxnsyOB1MlExgbpVkbik66DwJv9hibOoGmj8Tbub83HlW0h2S4wm4/TCleOIu8EK
-         msEhw79R00Hpn8BxWyqH2XkK+a3kyOqxDXIXmks7vVMXmDA7+vQM7j4PF+DylLViLVtK
-         ND5LBDYFzwQGo1EkYtLE1sqgdQ5+h23ByMTZMeR2csfYgCeMMI51f67o29ts0io1YcU0
-         ZoEFAhyxZAfp30Rk8R2Si4pZivlGom2S5rrBuctmI5TiwKDpIY1hh0HkQ8bYi6ulqECx
-         1e/w==
-X-Forwarded-Encrypted: i=1; AHgh+Rr37DfX7q6L+dOq7fyRATC6iRZW+GWE8RmE1ttjwYtpKtpPqsQy42Fv5BMbnN9bn3WAXKashZTY9XK2@vger.kernel.org
-X-Gm-Message-State: AOJu0YyOV07eW0pcXXrO7m/tYwzCDm4MVWlD+YJRcL1K20zh2b7q/Nw+
-	N3KlJWClbrX+CpQEmP2qx0cYkaPu3efQy7t/QX5zelD2hfrfnhQp4AXOOhIsPQW32T2kkFRWkaC
-	wIfgdNK5gpoDXwMtqlTxqA/6o4JyZG70KHHeqTfaERDuhe5AHiRwPzrAN6E8rr8Rk
-X-Gm-Gg: AfdE7clllzA2mF++1dQNKf5G34jFJInMfWcKFFZYHpSQuLy+4K3X8C1bBAefjY1U3Jv
-	frYQRhKa7dZj303OhPEZiDf+/6Ua6kYXhrME0Ov5y3HMz5AUAQ5dmIK1pjDz9ckzAAQM5NVjWJL
-	OxsDjjUs2Bq/2MIt00ehx5PVZM7XUq+m33yGEkYcSMssy3mzw7yg/6jILqNS4rIRQgnuf617VFq
-	apDAUnQ7VWhGVLUHYonQ9vg5XdOdc3pk4To/ObhgAFOqkCoSgcSAxspJlCrm72/q9kVjBWS0HNw
-	cadX2msadlLxEQvoHuDVyPJuwieupnug+q6yzHH2FvKMzbWWb6OuPNlJH6PT73UHB6nEv5o2Xdp
-	Ide2QrtKe5OzYmHeSqcOov3h6PwXo0dAdAR8NUNTniFxpdE0C7qYLQR0RWZKo
-X-Received: by 2002:a17:90b:2687:b0:381:50ab:1594 with SMTP id 98e67ed59e1d1-3829f4f060cmr8881299a91.27.1783320740088;
-        Sun, 05 Jul 2026 23:52:20 -0700 (PDT)
-X-Received: by 2002:a17:90b:2687:b0:381:50ab:1594 with SMTP id 98e67ed59e1d1-3829f4f060cmr8881270a91.27.1783320739649;
-        Sun, 05 Jul 2026 23:52:19 -0700 (PDT)
-Received: from hu-anancv-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f4453996csm25684997eec.17.2026.07.05.23.52.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 05 Jul 2026 23:52:19 -0700 (PDT)
-Date: Sun, 5 Jul 2026 23:52:17 -0700
-From: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-Subject: Re: [PATCH v4 3/3] arm64: dts: qcom: add SoCCP DT node for Glymur
-Message-ID: <aktQoeo_0IGRU9ti@hu-anancv-lv.qualcomm.com>
-References: <20260703-glymur-soccp-v4-0-b706c4c9b3e2@oss.qualcomm.com>
- <20260703-glymur-soccp-v4-3-b706c4c9b3e2@oss.qualcomm.com>
- <akra6zR_Z5_D0xi8@baldur>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N61PiGho"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 582EF1F000E9;
+	Mon,  6 Jul 2026 06:52:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783320775;
+	bh=GqJKu5gWDZ/UYtVOCDNuBOQs8FjclaKQ1yPzLTbmJLE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=N61PiGho+yEliRWsdlEhUA25Ntfh+uCc1l0dS/x9FiocKW8k7ng0kBwMbOXn88W9A
+	 nauN7Kc/AXHmucbexSQC9Cdm6cfQmVBZvikh0Jn65YTcc4ulUnoyHjNtW1j+IWO6xL
+	 spxeTlhsJKkFM9eYz3S6v2cMowYtG1NyJ9F6knEpRhxo6JR8cdilsWDIjiPclLL14O
+	 aLkyqI54Hl9n5bRKhkW5f4EDNJDvLI/wJiaUgiZUZU0vYpEvuI5uuZDY5JM48EimW2
+	 NKWsN15efn4K30evc46ELHNSqCtUAXAEDHJc3wC0I7jxp76SOOTCnD+Vndl+sWzwnn
+	 lVXILi6CroXzQ==
+Date: Mon, 6 Jul 2026 08:52:51 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Qiang Zhao <qiang.zhao@nxp.com>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH 04/12] dt-bindings: soc: fsl: qe: Add support of IRQ in
+ QE GPIO
+Message-ID: <20260706-elfish-cornflower-bullfinch-604e0a@quoll>
+References: <20260703-qe-pic-gpios-v1-0-6c3e706e27dc@bootlin.com>
+ <20260703-qe-pic-gpios-v1-4-6c3e706e27dc@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <akra6zR_Z5_D0xi8@baldur>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDA2NiBTYWx0ZWRfX23ucHYW9u2zE
- Fc6cJtQJP6u/wUJ1Pon2DUI4qB1GtN3q2cq6anRc3ZuGawQ4Ec2wot6kwAhocJIrcZNUJ2LXY0A
- ZhBVThO1czflJOW71nEotLt0B6O7HTk=
-X-Proofpoint-ORIG-GUID: x6v0zOw2aMapfrK5DOSwgdQQz-r_e_df
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDA2NiBTYWx0ZWRfX7Y7b1ptq5R88
- dnb6DfSOxoMtZsSaoeYNISEs22Rp+GsvvURFXPKa90x4TeuufQwkiejZQfsAuzTyEGJ4+cgh1UH
- 7oz53N4SDyf1xa3uYzYsKtoCmipC1KJgtYJAyqt/r9zijorClA5Y+MRUeX7TY+DAX4RkBvaJ1xT
- TTW6ZcIjpx3vAb+y1U6ID0kSTg4yUtd8sWDtz3tFTDCYB9SUHgY6WE1hGPT6nxPcGHocTibfDm4
- 4VzpcO4Gds7l8MuUbCrcCCXapBf+WvdLUd9aBHzQvG9fHGQvEf1tkV8o5t9+6a3bv36O0bq8zrX
- qlAQD8PP6Q/K4OGl1Pxp+FVIEeDvfteIOGCPxsvoJiSIRFfL0ZaZJ00ZL0bcu2qklksoXbavt3q
- urapwECWNrsvOycHxiX10o1U9nZZPWpDAPZizSoQk0inHeXC0/v5o1fRD7OE/tJOXniBM2A7LTo
- vSIkw+4ct/5RMreS4hQ==
-X-Proofpoint-GUID: x6v0zOw2aMapfrK5DOSwgdQQz-r_e_df
-X-Authority-Analysis: v=2.4 cv=ZfQt8MVA c=1 sm=1 tr=0 ts=6a4b50a4 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=e9sLxXvMBOhUzl4J0l0A:9 a=CjuIK1q_8ugA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-05_02,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 phishscore=0
- priorityscore=1501 clxscore=1015 suspectscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060066
+In-Reply-To: <20260703-qe-pic-gpios-v1-4-6c3e706e27dc@bootlin.com>
 
-On Sun, Jul 05, 2026 at 05:41:18PM -0500, Bjorn Andersson wrote:
-> On Fri, Jul 03, 2026 at 05:31:13AM -0700, Ananthu C V wrote:
-> > From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-> > 
-> > The SoC Control Processor (SoCCP) is a small RISC-V MCU that controls
-> > USB Type-C, battery charging and various other functions on Qualcomm SoCs.
+On Fri, Jul 03, 2026 at 03:30:12PM +0200, Paul Louvel wrote:
+> Some QE GPIO pins have an associated interrupt line in the QE PIC to
+> signal state changes on the pin.  Add the corresponding
+> interrupt-controller / nexus properties to the QE GPIO binding.
 > 
-> This sounds like a good description of the SoCCP, excellent start of the
-> commit message.
+> Because the GPIO controller does not perform any interrupt handling
+> itself, a nexus node (interrupt-map) is used to map each GPIO line
+> supporting IRQ to the parent QE PIC interrupt domain.
 > 
-> > It provides a solution for control-plane processing, reducing per-subsystem
-> > microcontroller reinvention.
+> As the QE PIC can be configured to generate an interrupt on either a
+> high-to-low transition or any change in signal state, three
+> interrupt-map entries are needed per GPIO pin that can yield an
+> interrupt (falling, both, and the "none" case which defaults to both in
+> QE PIC).  This overhead is necessary because the interrupt-map-pass-thru
+> property is not part of the DT specification.
 > 
-> But, not only did the first sentence come to a full stop, this sentence
-> is also trying to describe the purpose of the SoCCP - but the scope
-> doesn't seem to overlap, so this seems to hint that there's more to it
-> than what was first established...
+> The interrupt-map property is optional: it is not required for GPIO
+> banks that have no interrupt capable GPIO line (e.g. port D on MPC8323),
+> or when interrupt functionality is not used.
 > 
-> Please fix.
+> Update the example to show a scenario where each bank supports a
+> different numbers of IRQs, or no IRQs at all.
 > 
-> > Add PAS loader for SoCCP on Glymur DT.
+> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+> ---
+>  .../bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml   | 69 +++++++++++++++++++++-
+>  1 file changed, 66 insertions(+), 3 deletions(-)
 > 
-> And once you have established the problem description across multiple
-> sentences, break the paragraph to give the reader some
-> breathing/thinking room, before documenting the "user-visible change" of
-> the patch.
-> 
-> Regards,
-> Bjorn
+> diff --git a/Documentation/devicetree/bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml b/Documentation/devicetree/bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml
+> index 1af99339ff40..0c849a5698f4 100644
+> --- a/Documentation/devicetree/bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml
+> +++ b/Documentation/devicetree/bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml
+> @@ -27,6 +27,17 @@ properties:
+>    "#gpio-cells":
+>      const: 2
+>  
+> +  "#address-cells":
+> +    const: 0
+> +
+> +  "#interrupt-cells":
+> +    const: 2
+> +
 
-ACK, will improve this commit message as well.
+If this has interrupt-cells, then it is a nexus, thus why isn't this
+also a "interrupt-controller"?
 
-Best,
-Ananthu
+> +  interrupt-map:
+> +    description: |
+> +      Specifies the mapping of GPIO lines to the parent interrupt controller, as the
+> +      GPIO controller does not do interrupt handling itself.
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -37,9 +48,61 @@ additionalProperties: false
+>  
+>  examples:
+>    - |
+> -    gpio-controller@1400 {
+> -        compatible = "fsl,mpc8360-qe-pario-bank", "fsl,mpc8323-qe-pario-bank";
+> -        reg = <0x1400 0x18>;
+
+I don't get why you rewrite existing example instead of adding new one.
+
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    pic: interrupt-controller {
+> +      interrupt-controller;
+> +      #address-cells = <0>;
+> +      #interrupt-cells = <2>;
+> +    };
+
+Drop node, irrelevant.
+
+> +
+> +    gpio-controller@1418 {
+> +        #gpio-cells = <2>;
+> +        #address-cells = <0>;
+> +        #interrupt-cells = <2>;
+> +        compatible = "fsl,mpc8323-qe-pario-bank";
+> +        reg = <0x1418 0x18>;
+
+And now you are not following DTS coding style.
+
+>          gpio-controller;
+> +        interrupt-map = <
+> +          7 IRQ_TYPE_EDGE_FALLING  &pic 4 IRQ_TYPE_EDGE_FALLING
+> +          7 IRQ_TYPE_EDGE_BOTH     &pic 4 IRQ_TYPE_EDGE_BOTH
+> +          7 0                      &pic 4 IRQ_TYPE_NONE
+> +
+> +          9 IRQ_TYPE_EDGE_FALLING  &pic 5 IRQ_TYPE_EDGE_FALLING
+> +          9 IRQ_TYPE_EDGE_BOTH     &pic 5 IRQ_TYPE_EDGE_BOTH
+> +          9 0                      &pic 5 IRQ_TYPE_NONE
+> +
+> +          25 IRQ_TYPE_EDGE_FALLING &pic 6 IRQ_TYPE_EDGE_FALLING
+> +          25 IRQ_TYPE_EDGE_BOTH    &pic 6 IRQ_TYPE_EDGE_BOTH
+> +          25 0                     &pic 6 IRQ_TYPE_NONE
+> +
+> +          27 IRQ_TYPE_EDGE_FALLING &pic 7 IRQ_TYPE_EDGE_FALLING
+> +          27 IRQ_TYPE_EDGE_BOTH    &pic 7 IRQ_TYPE_EDGE_BOTH
+> +          27 0                     &pic 7 IRQ_TYPE_NONE
+> +        >;
+> +    };
+> +
+> +    gpio-controller@1430 {
+>          #gpio-cells = <2>;
+
+So two new examples? But old one was wrong?
+
+> +        #address-cells = <0>;
+> +        #interrupt-cells = <2>;
+> +        compatible = "fsl,mpc8323-qe-pario-bank";
+> +        reg = <0x1430 0x18>;
+> +        gpio-controller;
+> +        interrupt-map = <
+> +          24 IRQ_TYPE_EDGE_FALLING &pic 8 IRQ_TYPE_EDGE_FALLING
+> +          24 IRQ_TYPE_EDGE_BOTH    &pic 8 IRQ_TYPE_EDGE_BOTH
+> +          24 0                     &pic 8 IRQ_TYPE_NONE
+> +
+> +          29 IRQ_TYPE_EDGE_FALLING &pic 9 IRQ_TYPE_EDGE_FALLING
+> +          29 IRQ_TYPE_EDGE_BOTH    &pic 9 IRQ_TYPE_EDGE_BOTH
+> +          29 0                     &pic 9 IRQ_TYPE_NONE
+> +        >;
+> +    };
+> +
+> +    gpio-controller@1448 {
+> +        #gpio-cells = <2>;
+> +        compatible = "fsl,mpc8323-qe-pario-bank";
+
+Wait, three examples? But isn't this the same as previous one?
+
+> +        reg = <0x1448 0x18>;
+> +        gpio-controller;
+>      };
+> 
+> -- 
+> 2.55.0
+> 
