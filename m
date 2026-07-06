@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADAE33CBE66;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B411A3F660F;
 	Mon,  6 Jul 2026 09:59:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783331978; cv=none; b=TxzShDlTiDFWZvzjSg1wmjjh3ajaotXRbVxe4nxWBB8X37d9IBDMNju+ghKOzU2un1PLMmwbkrgc3iM+UiM8gz6NtqzlQoTaGYEr5KMKaYfoeM3fXT2zhXVgNqGK1j64tZB6Kn9lh4ReYuJVKle519Ksa4+E8mZC0A2mtACOjUs=
+	t=1783331978; cv=none; b=OfS2WA85v8tFuNoavaaN8szaoU0K+tWIB5rA3ssoR0rCKtEeMha6knmKvrE9Sx4DX2tl9EMecmaevwdg9oZ61KTGEACn0ZY45AOVXOKqkePD0FEwwwfhX+6dhD5wN2U0pptN8VYocHNlTcF4ETLHtCt95t3Aw44q0C9d1ScqL5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783331978; c=relaxed/simple;
-	bh=ARa8ZnsgdLdg/iKhWkG3xGMLOPSSmk89NzD5EyIWAbs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Y2RM0cl9skAi23UyK+wUXxXkOCBd+2GZXN7frq7qyprhQcjwx7u/C+stRYOgFSEviuRkmmmghbj5WB7z7KoODDHRGUBSZlrCkt1E1TjlVSwwYT89Ly9PtKLlJqs5UMbikmI25J9h5choBe0yfSnJj1PpoFSYliPbeGDm+nDfsrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iLmOrzh8; arc=none smtp.client-ip=10.30.226.201
+	bh=664nbVN/z/Nh13dTvS9ukzYiJiV3KLMrcH0uSAw82eY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RPIEz464uLPPGexNqmQ4ySyUGDRzlhCjOs/NFSO6lrU3IDW5XjaSNKJJmLfrCk6CZ67M5VIb8r7k42zVmnL5JMnnw0cof3yIiWjAReJ/wDiYzi907ZsioxhThXkUevwxA2MtD1sHsnhOict1wOhze2/DtLC1vNFTegUUoYt4vRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g6WhA/nt; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iLmOrzh8"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 149AAC2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g6WhA/nt"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2E03EC2BCC9;
 	Mon,  6 Jul 2026 09:59:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1783331978;
-	bh=ARa8ZnsgdLdg/iKhWkG3xGMLOPSSmk89NzD5EyIWAbs=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=iLmOrzh8fGnSQHM6W6roI4fnzHfk7thBQJApT09bhlz8eeWjlujYsbEA/pAIPX4GU
-	 iGPJKSQHKDOmKFSoDk+hrimdRq3g2ul/fNWyH3+gsgiO1ZPD0ycIJJ6sw9NRNhYBR3
-	 fk6v974sRjsj1Ml9JC1BomFRe78FH/FBGcw2836BPbQxTHg2kWJ6Ny9MnSlnuhlirZ
-	 OCpu5St6Dvw/vW4d39KkEJLg1JsSvwCi1WRv86YS4xsT/gY+JlJM0vlD0zjmPKKBw1
-	 i25CmoazoT6VurhZ35ZBHgwfAsos41eQE+2vRc5+L2NKlvp3Hj2W306zKJz98OuIrO
-	 EyMPYghxSmCVg==
+	bh=664nbVN/z/Nh13dTvS9ukzYiJiV3KLMrcH0uSAw82eY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=g6WhA/ntES7uDxPMPg5FwT7fBw9aNaGeUtJvruscp3LBAChHVME75XyES3lrOgdfv
+	 l/gpZ7/p6M3Q5iyUNeO68bvygyoaNolUFez+zRhvuihqov/Dijc7S0kCww0ZjcE8Fr
+	 1bgNkeq5CCKSJKom2NbJoTGdXTzkau9fRDyTpH0zE4Tqj7QL5kXAZ8yHh+QFEVzy7s
+	 peBzYMA/uBcm3pMIklUK9AF7sx2AQEsK82o53a1snXNmh7kTL2vi8wSbhPZMoN69bQ
+	 0Sj4wjuFIViHbD9pHmz21ZckphpzAJ7MBAQ7GeSC9ghSZl0jYoKbnmK+jlvC3QdKpz
+	 arTE/lRoaOgwA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0077CC43458;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F5C1C44500;
 	Mon,  6 Jul 2026 09:59:38 +0000 (UTC)
 From: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>
-Subject: [PATCH v2 0/3] PCI: ultrarisc: Add DP1000 PCIe clock support
-Date: Mon, 06 Jul 2026 17:58:48 +0800
-Message-Id: <20260706-ultrarisc-pci-clk-v2-0-2f3fb6fba66b@ultrarisc.com>
+Date: Mon, 06 Jul 2026 17:58:49 +0800
+Subject: [PATCH v2 1/3] dt-bindings: pci: ultrarisc: add required DP1000
+ PCIe clocks
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,12 +40,10 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAFh8S2oC/22NSw6CQBAFr0J67ZiZQUFceQ/DomkaaeWXGSAaw
- t0FNK5cVlKv3gSenbCHczCB41G8tM0CdhcAldjcWEm+MFhtIx2ZWA1V79CJJ9WRKKoeCskk+hB
- jYRhh2XWOC3luzWv6YT9kd6Z+Da1GKb5v3Ws7Hc3qffs2+dMfjdLqyBiG+lTkmIWXn7OntoZ0n
- uc3Ou1X98gAAAA=
-X-Change-ID: 20260617-ultrarisc-pci-clk-ac19047af1ea
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260706-ultrarisc-pci-clk-v2-1-2f3fb6fba66b@ultrarisc.com>
+References: <20260706-ultrarisc-pci-clk-v2-0-2f3fb6fba66b@ultrarisc.com>
+In-Reply-To: <20260706-ultrarisc-pci-clk-v2-0-2f3fb6fba66b@ultrarisc.com>
 To: Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
@@ -57,11 +56,11 @@ Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
  Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783331975; l=2442;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783331975; l=1883;
  i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=ARa8ZnsgdLdg/iKhWkG3xGMLOPSSmk89NzD5EyIWAbs=;
- b=5liZG14Wgp0p6+iNL2dfhOlq6P6dQowxxxSHIu4uQK7sAy+VOk6RH3YDFH1wPKB8Plnr7O4FC
- 3a2I2ilLYHRDGPIhmxh3pOgEYtGo1yt8PmKN9lHEGe87CgUq3CjCl8o
+ bh=MadaMzsEQt3m33Yn04ygfcyKkX6JurLuStxQ8qHRs6U=;
+ b=bEFugdScOKe825UCHTbWbXTeXm1m7URDjoD1eWjcFim0uNMQs/Gd8eUEpT2Hdmix3YnD2H+RD
+ bFJfeCVGp33CRIdk1h2c38sLXJIN2HlFqqK3nj2uhJ7L8g7Xbx1IySN
 X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
  pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
 X-Endpoint-Received: by B4 Relay for wangjia@ultrarisc.com/20260515 with
@@ -69,64 +68,62 @@ X-Endpoint-Received: by B4 Relay for wangjia@ultrarisc.com/20260515 with
 X-Original-From: Jia Wang <wangjia@ultrarisc.com>
 Reply-To: wangjia@ultrarisc.com
 
-Add clock handling for the UltraRISC DP1000 DesignWare PCIe host
-controller.
+From: Jia Wang <wangjia@ultrarisc.com>
 
-The DP1000 PCIe controller depends on three input clocks: core, dbi, and
-aux. The driver accesses DBI registers during host initialization, so the
-clocks must be enabled before the controller registers are touched.
+Require the DP1000 PCIe controller nodes to provide clocks and
+clock-names, using the standard DesignWare clock names "core",
+"dbi", and "aux".
 
-This series documents the required clocks in the device tree binding,
-enables the core, dbi, and aux clocks before DesignWare host
-initialization, and keeps them managed across probe failure, detach, and
-system suspend/resume. It also switches the driver to
-module_platform_driver() so the existing tristate Kconfig option builds
-correctly as a module.
-
-Testing:
-- Build and module build tested with ARCH=riscv.
-- Boot tested on UltraRISC DP1000.
-- Validated the PCIe binding with dt_binding_check and dtbs_check.
-
+Fixes: d9ff07f45955 ("dt-bindings: PCI: Add UltraRISC DP1000 PCIe controller")
 Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
-Changes in v2:
-- Add Fixes and Acked-by tags to the binding patch.
-- Add a Fixes tag to the driver clock handling patch.
-- Fix the suspend/resume clock handling so clocks are disabled only after a
-  successful suspend and kept enabled on resume failure.
-- Add a module build fix by switching to module_platform_driver().
-- Link to v1: https://patch.msgid.link/20260629-ultrarisc-pci-clk-v1-0-5ea3308fdab3@ultrarisc.com
+ .../devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml   | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-To: Xincheng Zhang <zhangxincheng@ultrarisc.com>
-To: Jia Wang <wangjia@ultrarisc.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Krzysztof Wilczyński <kwilczynski@kernel.org>
-To: Manivannan Sadhasivam <mani@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: linux-pci@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+diff --git a/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml b/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
+index 512b935bf5d1..d9d1488e915a 100644
+--- a/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
++++ b/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
+@@ -43,6 +43,18 @@ properties:
+       - description: Legacy INTC interrupt
+       - description: Legacy INTD interrupt
+ 
++  clocks:
++    items:
++      - description: PCIe core clock
++      - description: Data Bus Interface (DBI) clock
++      - description: Auxiliary clock
++
++  clock-names:
++    items:
++      - const: core
++      - const: dbi
++      - const: aux
++
+   interrupt-names:
+     items:
+       - const: msi
+@@ -55,6 +67,8 @@ required:
+   - compatible
+   - reg
+   - reg-names
++  - clocks
++  - clock-names
+   - interrupts
+   - interrupt-names
+ 
+@@ -71,6 +85,8 @@ examples:
+         reg = <0x0 0x21000000 0x0 0x01000000>,
+               <0x0 0x4fff0000 0x0 0x00010000>;
+         reg-names = "dbi", "config";
++        clocks = <&clkc 9>, <&clkc 7>, <&clkc 10>;
++        clock-names = "core", "dbi", "aux";
+         ranges = <0x81000000 0x0 0x4fbf0000 0x0 0x4fbf0000 0x0 0x00400000>,
+                  <0x82000000 0x0 0x40000000 0x0 0x40000000 0x0 0x0fbf0000>,
+                  <0xc3000000 0x40 0x00000000 0x40 0x00000000 0xd 0x00000000>;
 
----
-Jia Wang (3):
-      dt-bindings: pci: ultrarisc: add required DP1000 PCIe clocks
-      PCI: ultrarisc: get and enable DP1000 PCIe clocks
-      PCI: ultrarisc: allow DP1000 driver to build as module
-
- .../bindings/pci/ultrarisc,dp1000-pcie.yaml        | 16 +++++
- drivers/pci/controller/dwc/pcie-ultrarisc.c        | 70 +++++++++++++++++++---
- 2 files changed, 79 insertions(+), 7 deletions(-)
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260617-ultrarisc-pci-clk-ac19047af1ea
-
-Best regards,
---  
-Jia Wang <wangjia@ultrarisc.com>
+-- 
+2.34.1
 
 
