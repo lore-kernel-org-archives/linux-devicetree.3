@@ -1,145 +1,93 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C87403E2759
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 22:13:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE1D1FF7C5
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 22:20:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783376026; cv=none; b=sWlhtIKHV9LG8h04ICWEpu8MSSoCa+ar4bohnBB2eBERP4slNSGpWLkAo0a7z5L8rsD4k5GkbL5nIP7x0JbCP6DI/bqVZi+0StNxidAineHSt1UvZPTTblvP/FbcpldvxlpMv3UciHu1+T2yBYjYTcUA4XttpcTCqKh2G3IhMFU=
+	t=1783376411; cv=none; b=Vx2T2QV6a2uFKtiA6QgORzMY4lkzM0ygVF2N2z3enXfiZRmvJlGR3yakZB+IsasaU5QKVze352OhW4/gIE5oYwMY4Bg6LcqbPscUMzfGvNWAnVL7KSC3pkGk6BG9+IVOXQUrwW7A0r48hGioOjuWamY0Yk2sOZyB//suffsU9Ng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783376026; c=relaxed/simple;
-	bh=m3kaKDuOinnzWNHwerx5pFFY+Eflp1o8yKhTqlHb8xw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sBQyeaVNBEWfFAxJxHmt/il0dFqEvQZ2U19Ad2foV22uWUo2q+s8Ukx0KPb1I3hmxMoaaFOlYmCMmUbZU3Cy+Z2vF5AphcdaSbg2sYeNCxWUWXF6Z0J+J3caAJnCJ6zDi53Y2dl5s4LWw51QCeLC9LkEwwNB4ozB1tOENRZzCnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=leLpuzmy; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783376411; c=relaxed/simple;
+	bh=yofMlI6UDenr2gvnYPWrmLL8iI4qkpbN97SBYVOd+hY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=q7sDRyKVSGEpl4AsqOz/1MFrJKmnQIQLhCzY9rIm6guRex9ARZZ5yicPo9XgP1LpBGAh6SwG/83wRpqXAQLvzT8D1ufoPMnN7VAQryhzPqi9m1xD3OpK5cUj02ZyqnAey2OW6xAJTtJFTmVAu37Tbujb2ygAB8Msr+T+GprY9Sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kgqVSPzo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="leLpuzmy"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-475881b9a4bso3045634f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 15:13:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783376023; x=1783980823; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3VUxjcvyG7o7DixEmYl5pZcfD8TvxQHqFhtXA36U/44=;
-        b=leLpuzmy1MCQFfJQdZjSGo15S981y1FEu5PVYg8YXgkUIoQ/7LepkVujXJJoQEDxQ3
-         kU/hB7Jt8HtgcK2tnysM6bJnBKPyeJGjGTLqtl+PTliQ9XruvHi/h45L58ISLcY2zwR5
-         fOQ/DsVFFiuyTcVqC2zTT3kBu6GdXFayg0Em4vaPCUhgxUmg2FdjCwPR5WLbb+GU9MAe
-         QPBzP8wNGQLhrCbkN40ju3KgLgD1Sh7uCkzYo7wF+59QVm7EbIqFA8MGJ89j3mrvx30W
-         fUyjMyPhJ59Lov7ghR0dwlP+DfwtwKanbQDUdyY0DurTEa1dgHaxmRcnQEY3V4NHDZIY
-         xCTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783376023; x=1783980823;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3VUxjcvyG7o7DixEmYl5pZcfD8TvxQHqFhtXA36U/44=;
-        b=H1Q5CBmrtZ/bSHypDZmfDYwBgnTsDR2A2NF5jdjlDraMmHE0se636dEay1MmTQgWm4
-         5d4VX7We65xXA3f7hljJOIwpOHrKsBY795lV/UUu5pOkF95+l3usUYW85Q2vURYda4DA
-         RW4VfMvPtrdaz5d+1r+Jt77SxqaUIJ2eQcujS2/vM/FSxyRP7lz1sSeyCCdZQ5pCPjJv
-         ZTvi0pZQRS3pJLQorYMDlmbNG3Uz5zHQHy7j/VERTmdOl3u0ky4P62/AWwstGza0ajoa
-         REev4/+Z6HEzuLUP9xNL3e5nA89k+eqhXF1hfgx4SJo+dJ85L4sZ01G6nBnV7Oe4cZ4Q
-         QBcA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpu9/krPTtfNN9qVdiOgNZhpnlVDhA/c/Y+5PK2fCFnBgcluRQL6oFnRMPhatuORk6dtgDFfTUQI2TF@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfYodV/zKA2GjxSpnL5JGDcialozp0W689aBZYx4MkCZQunBDc
-	T5LqY5PFeQgjF0jEul1ifxkEKm15+18PYB/PFPSo5eLUXyFghvx5oYE=
-X-Gm-Gg: AfdE7cl6rej/5UMstqOUX5KSvkZCA+A51cKbZ8OYHUj+/dEFZ4H5VW5zC+Tvg8DNAms
-	Ad+vacZA/SyhTTbZSORRwAMZER6xw5S5sZlw9SYoY5L9CN3/iaEGtKCWg1PyII4UdCqHYjOL+Px
-	hZHYB7vFkujuwuLPUw86Y4aDz0UbTr7cHCj4qQNfuXb5PJLURGbF2G8ppqaWyInyXxKZ4sBFl0m
-	c6If4EJkZxxhVwW9NdB1Jd1nRPayH1nEnfSNIQDdvWemEirPXU7fXxq/0+rzdg6lTgh3uc3C6KV
-	CGrKBSnuxYxhACQHaBygoiEhwoOjjqLsEefuat0UZUYcCuUtSir1WdKf5v8s2Yyzqra2ZCe4pVJ
-	oXNpAJePjn3NfM8g/a7pXyvo9A57MAIP/wQlfIn+30FZ05U4ycNpXZwKYy/7rEtFAMQCFYgJcWk
-	fJSX1Twge+iuikxhbZaNFnP7toLCjwJpY3qa7g/niC3e1fok2k2CrhzfG/ewE6HhIKTgE0PQ==
-X-Received: by 2002:a5d:45ce:0:b0:476:c622:d41f with SMTP id ffacd0b85a97d-47de66dd5e9mr1597139f8f.47.1783376022918;
-        Mon, 06 Jul 2026 15:13:42 -0700 (PDT)
-Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a? ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa039afacsm26722332f8f.19.2026.07.06.15.13.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2026 15:13:42 -0700 (PDT)
-Message-ID: <ad91c7ec-83db-402b-bec3-3821dbc607f8@gmail.com>
-Date: Tue, 7 Jul 2026 00:13:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kgqVSPzo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E13571F000E9;
+	Mon,  6 Jul 2026 22:20:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783376410;
+	bh=+w/07/TtMao6nKX8q7+CBPtoQmV5Lcp4b68JV3hlwTA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kgqVSPzoo+d33oOUgld+cVkYfrBqp/gAzQ11uMsmDPqvQYk/kFOe2NURxoEVqRmQK
+	 WRow6YbKEMsydYz/+DfapbcgktjGsnQgXNtYZm3SgoajlhSacf3BDnL6UL1p0BwT5E
+	 VjCWy/G6cuomD/c4NQLdSuuCSFPSdim3idML6WPP0lr94FSkgn9ER3w1Z7xkeolIM8
+	 KokRuVGogp9b4Z+xnR8WoDuVVkLJ2iVxUr6s3OLeFNKzwB0NF6GfkAOrfSzu9eBgfd
+	 6d8bv3PeAQdwAz6YAXpzLwmGErkvD9fkP09WGXh5qVzqRO3bKIG64HWAAYDYY9itFq
+	 +dICmDpB6IA3w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/3] media: iris: Add support for Milos (VPU v2.0)
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexander Koskovich" <akoskovich@pm.me>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260706-milos-iris-v4-2-119cbe0a7262@pm.me>
+References: <20260706-milos-iris-v4-0-119cbe0a7262@pm.me>
+ <20260706-milos-iris-v4-2-119cbe0a7262@pm.me>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 06 Jul 2026 22:20:09 +0000
+Message-Id: <20260706222009.E13571F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 10/13] drm/msm: initialize LPAC ring
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
- <20260705-descriptive-name-lpac-upstream-v1-10-01d50c3e0c99@gmail.com>
- <93b78299-866f-4a3c-9423-a990d9a7d4cd@oss.qualcomm.com>
- <64a919ab-8b36-45fe-8da8-5eaaf4d55359@gmail.com>
- <2a556ca0-d276-4c56-a44e-9d8b92a3af6b@oss.qualcomm.com>
-Content-Language: en-US
-From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-In-Reply-To: <2a556ca0-d276-4c56-a44e-9d8b92a3af6b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 7/6/26 11:56 PM, Akhil P Oommen wrote:
-> On 7/6/2026 4:37 PM, Anna Maniscalco wrote:
->> On 7/6/26 10:44 AM, Konrad Dybcio wrote:
->>> On 7/5/26 9:13 PM, Anna Maniscalco wrote:
->>>> Program all the register needed to start up LPAC and send initialization
->>>> sequence.
->>>>
->>>> Additionally, now that the LPAC ring is live, make the code aware of it.
->>>>
->>>> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
->>>> ---
->>> I believe some/all of these writes need to be guarded by if (has_lpac),
->>> as many GPUs lack these registers and there may be side effects on
->>> others
->> That's correct yeah. I'm not sure what has_lpac should be though.
->>
->> Something we add to catalog? Or checking if it is a gen that has LPAC?
-> We can introduce a new QUIRK (ADRENO_QUIRK_LPAC?).
->
->>>
->>> [...]
->>>
->>>>            a6xx_gpu->shadow = msm_gem_kernel_new(gpu->dev,
->>>> -                              sizeof(u32) * gpu->nr_rings,
->>>> +                              sizeof(u32) * (gpu->nr_rings + !!gpu-
->>>>> lpac_rb),
->>> Should we rename nr_rings to something like nr_XXX_rings
->>> where XXX is some uarch-generic (i.e. not SQE because we also
->>> support pre-a6xx) name for the main number cruncher?
->> Qualcom calls it GC so nr_gc_rings perhaps?
-> How about nr_gfx_rings as those rings can handle graphics workload?
-That could be more intuitive yeah
->
-> -Akhil.
->
->>> Konrad
->>
->> Best regards,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The devicetree compatible string uses the internal codename 'milos'=
+ instead of the SoC name, violating DT naming conventions.
+--
 
+--- Patch [2]: [PATCH v4 2/3] media: iris: Add support for Milos (VPU v2.0)=
+ ---
+commit 70c032abc00c4a3de218f6fa34ded1b140a7719c
+Author: Alexander Koskovich <akoskovich@pm.me>
 
-Best regards,
--- 
-Anna Maniscalco <anna.maniscalco2000@gmail.com>
+media: iris: Add support for Milos (VPU v2.0)
 
+This commit adds support for the Milos Iris codec. It targets the variant
+found on the SM7635-AB which has half of its pipes disabled.
+
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/medi=
+a/platform/qcom/iris/iris_probe.c
+> index c2dcb50a27824..353cda58514c2 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+> @@ -360,6 +360,10 @@ static const struct dev_pm_ops iris_pm_ops =3D {
+>  };
+> =20
+>  static const struct of_device_id iris_dt_match[] =3D {
+> +	{
+> +		.compatible =3D "qcom,milos-iris",
+
+[Severity: Low]
+This isn't a bug, but should the compatible string in iris_dt_match[] use t=
+he
+SoC identifier (e.g., "qcom,sm7635-iris") instead of the internal codename
+"milos"?=20
+
+Using codenames violates standard devicetree naming conventions for Qualcomm
+blocks and creates a non-standard ABI that is difficult to deprecate once
+merged.
+
+> +		.data =3D &milos_data,
+> +	},
+>  	{
+>  		.compatible =3D "qcom,qcs8300-iris",
+>  		.data =3D &qcs8300_data,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-milos-iris=
+-v4-0-119cbe0a7262@pm.me?part=3D2
