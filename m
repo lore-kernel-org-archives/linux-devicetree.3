@@ -1,86 +1,86 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B17529D268
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 13:34:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10AA371D02
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 13:34:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783344852; cv=none; b=eqTaC8W2LK0jl/PY0TgORRywCHHXq9ODObnB0K11UfMtpR/Oqi1GZdq8lP4aa4oyB9uH4Pb2k0oovVl4+hzYGEkxlT3BkAn5NGgVmcW7BNkiKzw/jQDSYTlehFpmGstmf4BWjqToktrXtl/x7/bK4sIw07ZQdIu4MUFoyO+2y1I=
+	t=1783344866; cv=none; b=Fznc+oxlw2R4X+NionCNTjL852Tki3aYTopF57knftgQ9ZnN1hEOcvvrnL7VDHFVa42ZeftWRDlYPydJ05RW6VlWoM4N7Y78Ys5urnywAOd/mWFWChXXu19zNsMnOMv1s0oRdRDh+18VqUg+L0Hgntoj2fFZin0CyJMIGVyqaP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783344852; c=relaxed/simple;
-	bh=dOZOfz4GEcL94TAWHHP3lq/FSUgOnvQBVmqjHjw/D7U=;
+	s=arc-20240116; t=1783344866; c=relaxed/simple;
+	bh=RTLR0xRgr2hmCOmLjjg918s1c1tnmrLf+I87zh6XN1E=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=V+MxyLYKhP87jYLX8tRqT4pWZRjrQDO0WmrxcmJ/pJvPni6jVxui7c54IbzJwbuNBhKFTUPZ7CYn2h6uc4AB/Smd4yiWfWmCkn0JbEEvzCjIOeHOX/C0BIi+89k5p7i0xUoyITBGlehvzcyc0j8ISVPfy60tO/Y1mr6k+uZTOh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YxSC6EbQ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=iRnSB55V; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=aNCJCOdgoyzpmQfaHLZ1JjC58tTafDSBgjXPfjXRIZ+9OZgygBy+IM8kEjV3TUfq5KxZjxxLLj7AqjFrR4ZNs4y4uNQIdxMpREC3zK9RqQMeE7lGdPcgCA7KChMOYgjXMoe/VOc5HD+6dR8P3EKs4aAJzTFLvLD+mCorcc35WlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YmRDjrBm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=U7A4y7wQ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YxSC6EbQ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="iRnSB55V"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1783344850;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3IUhPhmdKFY/hvP+RYH3Pc2WHx3JLJjsr6cul6j9Vdw=;
-	b=YxSC6EbQRyassKLh4zE3VIKFri+ZHEXE43B1tHD4Gc0/FH14gZOsUmi42cSPBJtyk7z35l
-	QXRFcto8ZzOVQ8kpJfUKkAe0m47ZkGIiKBZjxwy/cnkDymS0+sJhMQT4T9lyvFj83kmA9/
-	zWBBX7CGhPVTsr9Weo9651PcGP8efeY=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-465-UO891fQEOuGBGhQwi6KXgw-1; Mon, 06 Jul 2026 09:34:09 -0400
-X-MC-Unique: UO891fQEOuGBGhQwi6KXgw-1
-X-Mimecast-MFC-AGG-ID: UO891fQEOuGBGhQwi6KXgw_1783344848
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-493d88406cdso10769485e9.1
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 06:34:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YmRDjrBm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="U7A4y7wQ"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666AxD5h395287
+	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 13:34:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	TTt26qQw9EQtC6S52HveKwhN5OMFsaTiLHCYa+UHr3g=; b=YmRDjrBmpXij8jHc
+	Bq6iF69hxPgknj34+oXNOikVD2FYn56rMaibSwaXXOVAHmWf34OYtxEJcUeGgNo1
+	2f6Ie1qKilAq8z/HTld1HhhHNXgXStuAa4lZUlfn81hiAHJuuqEq4uakzt58YHn7
+	+LqeRG6v+OyqCw3QVooFelPS25GWPHCfYulhwW2FEQRp5ezG/GCySbAjj/lUANzV
+	aZa8bdr4u4/3krZEDCEOJVXbVQmd8dBJ99oi9im21B00863bDnDlNbocysvAvCDC
+	WDP+gKUM3roWSYfaAZAyp84CyF9HJ2a0XX1G2h3j1qQED4m1WcSGW54lFRqKSfFt
+	bj6vLA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f89qpgxk8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 13:34:23 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92d1cae5939so301942485a.0
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 06:34:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1783344848; x=1783949648; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
+        d=oss.qualcomm.com; s=google; t=1783344863; x=1783949663; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=3IUhPhmdKFY/hvP+RYH3Pc2WHx3JLJjsr6cul6j9Vdw=;
-        b=iRnSB55VG35RyGt1WJPF9DrYaAn9a+ZrDlywdWEYetUbvRPf5om0PqyEi76GvwQ1uV
-         PFxKQep1jJ0KifQQX8X/AkofU4UxTcwj8bK1TviuV1SId3JVDG7oYUZAjNhmFwBTmQs/
-         Xw5N2Dxv/jixEPQUnKO0z8eucI9s3i6Nr1QQLX6uS3jCQq+YMGXnmlGZeMn0IC3Ip8Ib
-         0d2NcRjUl1lOPiAdaJuqfe972aomzW9S7x4Qe4fF6BKMzkJhUbkOAIyQKtKfQwcjQ5wM
-         64y6cA+I7Hf+C3YTQlo9n2/oXyeTdxEpjGFLTITY+e8BTqSevHK+KIlG20yMseHL+T5L
-         QsPQ==
+        bh=TTt26qQw9EQtC6S52HveKwhN5OMFsaTiLHCYa+UHr3g=;
+        b=U7A4y7wQRKapyP15xMcgBVCicIm9oXqh/IVONxneXwPb9ou09zjco2MAX1TxJ3m24w
+         V9lr88aEcvomCX22sJr1xr8N4dJzeM+HVSzg5VdH23Psr5SJzNuslstvOguSTPk0eX6e
+         VsHPuoyRO6O7HZ/5Bl0ANhrd97aFG2ExzMBpGu6sAuNpa/yn+LBNHpVrb3iM4fPXZSed
+         M5LzHkucmBSrv6/0EyiH/YUUdagIisQ4TOY066M2SAMR5WOjbZ/J5AE2PbiKjylHMiey
+         iO3zx6oyxupqsG05QOgDu5aI6OsSYaJ0IFWml3jEpzUDJ99uX//KI85m2TL5cYW/Z0lz
+         WNhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783344848; x=1783949648;
-        h=content-transfer-encoding:in-reply-to:content-language:from
+        d=1e100.net; s=20251104; t=1783344863; x=1783949663;
+        h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=3IUhPhmdKFY/hvP+RYH3Pc2WHx3JLJjsr6cul6j9Vdw=;
-        b=G9uRZJNqT1A85n4Bi3+1WfxT3cPcF9pHeK2wkyShhowu30h9syqY4E9Ow01xIxBNHh
-         t7C2Mj3VJJ15mgsbFlYyKn0h0BQwqGJGNPreH4vYM/dc/8GVGeH7PDOg3BHhp9qemsQD
-         qFv+CUMOIj2L/lfWrpBz4JcHnq9eOlXPZWY5GVCszxrYbZoJikiTHOlud3J34msk9Cto
-         gVyc3XIgvBP04UoQAVuJsBC5ZZyjMz1E2cuy6H2Ssy9rZ+2rhcnZ+J3yPdKrbpwOKevs
-         ROnzCf6Z7+qoiKpxZwD0G8JluFDYSTxBl3t74m87mPl+JZtuqFBAeZF8PMqJtiyqwRdu
-         meUg==
-X-Forwarded-Encrypted: i=1; AHgh+RqWL0Y41YlFuCT4fOJNubGRqjH5NpP/w2iD44b6lod6Y4cvEU4UHRmHxZwA8opYt1xtvUs5ZO3MEiwv@vger.kernel.org
-X-Gm-Message-State: AOJu0YxMS7TpVJoc5qazxQCk4LhlXTWyMiy1Ka2XGk07DM+wiRGHZkJu
-	FoVZBdM0VUPPiGB6FE7FKSqUKHD86200DVbDjPEYMQWja3tSvznXXK5K+6B6IGuoO7lSak1nF6s
-	ubhwH/DBPxZSShPkmLiBOOVQbYSYxNYj0x/9g+kpWo2OHzPUKMHAPy3Ufl6v8BZE=
-X-Gm-Gg: AfdE7cmZnuFZiFGG4rbSyxUOAzaWBsfid9+0ft2vfzTaNOFPVMTxmXJ7Y3RM8FBZj2L
-	+aVHR/oOrpcaqj3gFQdGoL6B5hiX6UOQ3Sdto8exvs9YwcftC7Xgq4eAVpnvyAXaIKwR9KCrOi9
-	2qRXFPbhMTFAOyO97Yjewq132/NHdjXb/8iklS282saN/gM+j8cBfd2XQp3FSmf1+XW4l4R1Ux5
-	40+07ijbJll6fVpEu+fiJY63jPVY4XCd6M9WJsK3OKipoza42z3Mk2KPoBmeSBMB63IlXiKMLZI
-	CooEg1T1N2RCr3yoNk9aOBm6OI3p9ICaT9nzc6Y7BV+4gqE8H0ws7yR/VTZeRlKSlYlBWrV7Ain
-	WHe15YDsdaiw6Ci3YNkTHmoDuLVluEe6OCj7irytfSdeYQ5BJilBJZJnuYlnyCY4oCDAZh/h80j
-	Dy6LoProYs17vN
-X-Received: by 2002:a05:600c:6085:b0:493:bc97:916b with SMTP id 5b1f17b1804b1-493df0929f2mr5699515e9.26.1783344847678;
-        Mon, 06 Jul 2026 06:34:07 -0700 (PDT)
-X-Received: by 2002:a05:600c:6085:b0:493:bc97:916b with SMTP id 5b1f17b1804b1-493df0929f2mr5698905e9.26.1783344847212;
-        Mon, 06 Jul 2026 06:34:07 -0700 (PDT)
-Received: from ?IPV6:2a0d:3344:5521:6b10:58fd:68f:7756:389d? ([2a0d:3344:5521:6b10:58fd:68f:7756:389d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493ccd9d607sm357583515e9.2.2026.07.06.06.34.05
+        bh=TTt26qQw9EQtC6S52HveKwhN5OMFsaTiLHCYa+UHr3g=;
+        b=Ua7jKmx/mgHosB7H6LADvv3M3uOoTcm3XMQbY6FVYgoG2dCIyY7OOFFRxClg5JszLr
+         XUNfWLiH58p2Yiv1EDBycr7tjeCIGZYUaz1CE+hE2Jw8pNlyZoXEQByfYS/q+8swpucU
+         RB5Ep1MiYCHRjB79pwjcYABotUjKztIdD3qUmJyGumxdBRt5FmHTylg91x/wj3tb4CKa
+         IJjYixfjN4CNSNXIVmoLoma+zIZIIhL/p2WTGdWZv9FCKB4LUQBOMj6M49edUJVLgMDS
+         SMrsYhvHMNIbsOtPl10y0JKTaU7LUR3+G2urSmwpx+hjQ6dg5d54evQxxigB0Ev8REH1
+         4eHg==
+X-Forwarded-Encrypted: i=1; AHgh+RqzLm85EzYC5T39YYZWzTcVvvAv2eoClWPzgSCz5RcqCafa5KxRF2norzyoXtUboLw6kHziA3sWFk5z@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz8EVbwZnYT0y3XC/3w8VqZiIwu6rNFXkuvZ/KdyHKmgNjPWMai
+	VlOuhZsMLu+IfBuJQNYYsw0UP72Kksrz1ZhivFizX7T5KnB8rjWhGqclEviso/8fnr53hz/bTLQ
+	uSIhPhatUVw7R6EeN9q3CTnSzo7sOiI/3kmysBF2rFMkA9OZ5kL9SPhgxLco7Q2Id
+X-Gm-Gg: AfdE7cmZchzcgKmKnEuA2waPNHseoLSPWtmpjhg7ibdkBLkw6N9xCK5J2vSj9K4Bbau
+	CPIp70BBjlbKZvxcLhpjaYOylkFTockyxf3La6P26Az1o/ph+lbX0/HtnMdMrL7FaOmbQfyd6aU
+	YpSa0uIMxpkfThFV5WmVmf/yLuy5SXVhS2EOP9pBnZ/aQPksgRBO3dIgUBJL6o9lbbzH5s/w9dQ
+	+HLM5alBEk5p+CSbgXyAeA0aPk2hffid6l2/Wz5Fzryz/7O0kwtXpIChxUQc84XOb49TdcFfu6i
+	yQcINaLHFOJywINW0TzxS/P6CxJOpFspY/qXSihvJjLN3G4ZplmhR2aOzdttrPva3ZxbRFddZ0E
+	x9noYOCwyrZ7GfHVlpqSMyLO771i5hwGWJevy4J9nkWOeNC2wTgdUvYQsz2dj4YeZ+VdZwYhi
+X-Received: by 2002:a05:620a:6f06:b0:92e:7973:ebd8 with SMTP id af79cd13be357-92ebb56aad1mr78075585a.37.1783344862759;
+        Mon, 06 Jul 2026 06:34:22 -0700 (PDT)
+X-Received: by 2002:a05:620a:6f06:b0:92e:7973:ebd8 with SMTP id af79cd13be357-92ebb56aad1mr78070085a.37.1783344862218;
+        Mon, 06 Jul 2026 06:34:22 -0700 (PDT)
+Received: from [10.38.242.66] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8f46e27d137sm137669596d6.9.2026.07.06.06.34.18
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2026 06:34:06 -0700 (PDT)
-Message-ID: <b95dda96-ee50-449c-9d23-3de490d3ab1f@redhat.com>
-Date: Mon, 6 Jul 2026 15:34:04 +0200
+        Mon, 06 Jul 2026 06:34:21 -0700 (PDT)
+Message-ID: <f51503c0-54ba-457f-822e-4e61b660124c@oss.qualcomm.com>
+Date: Mon, 6 Jul 2026 21:34:17 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,63 +88,399 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v9 6/6] riscv: dts: eswin:
- eic7700-hifive-premier-p550: enable Ethernet controller
-To: Conor Dooley <conor@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- ningyu@eswincomputing.com, linmin@eswincomputing.com,
- alexandre.torgue@foss.st.com, mcoquelin.stm32@gmail.com,
- pinkesh.vaghela@einfochips.com, pritesh.patel@einfochips.com,
- maxime.chevallier@bootlin.com, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-riscv@lists.infradead.org,
- palmer@dabbelt.com, pjw@kernel.org, weishangjuan@eswincomputing.com,
- horms@kernel.org, alex@ghiti.fr, lee@kernel.org, wens@kernel.org,
- lizhi2@eswincomputing.com, devicetree@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, netdev@vger.kernel.org, rmk+kernel@armlinux.org.uk,
- aou@eecs.berkeley.edu, linux-kernel@vger.kernel.org
-References: <20260630063123.1118-1-lizhi2@eswincomputing.com>
- <20260630063445.1226-1-lizhi2@eswincomputing.com>
- <8e5eb97d-dfaf-47a1-8572-b3252a2c7ed3@redhat.com>
- <20260706-confess-dagger-e60b5fad57e8@spud>
-From: Paolo Abeni <pabeni@redhat.com>
+Subject: Re: [PATCH v2 2/3] media: i2c: og0ve1b: Introduce per-sensor data
+ structure
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260702-og0va1b-v2-0-0071442caa2a@oss.qualcomm.com>
+ <20260702-og0va1b-v2-2-0071442caa2a@oss.qualcomm.com>
+ <3421134a-3aba-4c49-8810-f774a46488e8@linaro.org>
 Content-Language: en-US
-In-Reply-To: <20260706-confess-dagger-e60b5fad57e8@spud>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+In-Reply-To: <3421134a-3aba-4c49-8810-f774a46488e8@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=c6qbhx9l c=1 sm=1 tr=0 ts=6a4baedf cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=7mKEXu916kvh2nJM5y8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: NsROfoy-Qadchqh6HhEW2XdTSsgkOByJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDEzOCBTYWx0ZWRfX65f+ZjQXM4S7
+ 8hmP/TdrioawVzszyUfrXdHtIkfuOrZw/kXjTS5LpWeAAR/LNh+e9cFYCzm/MICWfmdRC5oY3I7
+ KhnteAZ8/3VOXMN/sEKy9sEKTGdPE9GFeF3Jxj+/Dv6J7hUsvIsRBGMS/lYHUHe5Pm45bdhXJt+
+ 6Gg+MK6NHMbGjOE71TUY77Z7gT8BG9V9JL3Kp2fZD/hLQabzb2vF1GtNofhUZEZEIbDMfnOQiav
+ l0q/90KbhmHk2CX9GC7gDkzrQKF7LCzDzGock3WOXPh4J0yPb0QqTgCWCysKv1l8jJ0TSVKdWuT
+ rtNU6sPI79wtmC3ipmRJsQjzZ6uVwUAnFb4edwCmYVGCoglxOY/8Q1vZ9dx5wf344l+NZWgVMvD
+ UQRMecv6sLmuC2cOw9zGunTumqWFX96WetBbasb7Upw7GB+IY6QYZPTiN4EzOx7hUnAUsBYRJD/
+ brC3EBXur+DP99crlVA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDEzOCBTYWx0ZWRfXzaTl8z6BPj7i
+ oQTNAhYG9m0DH4qu35B5UfX8Xwkxdb/AAeRhZ7Kb3YD8DmHFdUKQm2l+dMNKX31qVbsZ900SyA7
+ 22/HUbrtS1bnSwR6sJ+38z09auoKgTo=
+X-Proofpoint-GUID: NsROfoy-Qadchqh6HhEW2XdTSsgkOByJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-06_01,2026-07-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 adultscore=0
+ lowpriorityscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607060138
 
-On 7/6/26 3:21 PM, Conor Dooley wrote:
-> On Mon, Jul 06, 2026 at 03:09:37PM +0200, Paolo Abeni wrote:
->> On 6/30/26 8:34 AM, lizhi2@eswincomputing.com wrote:
->>> From: Zhi Li <lizhi2@eswincomputing.com>
->>>
->>> Enable the on-board Gigabit Ethernet controller on the
->>> HiFive Premier P550 development board.
->>>
->>> This patch is included only to provide the DTS context for reviewing the
->>> binding and driver changes in this series.
->>>
->>> The upstream DTS series will be submitted separately after the binding
->>> and driver changes are finalized.
->>>
->>> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+Hi Vladimir,
+
+On 7/2/2026 9:10 PM, Vladimir Zapolskiy wrote:
+> Hi Wenmeng.
+> 
+> On 7/2/26 13:52, Wenmeng Liu wrote:
+>> In preparation for supporting further OmniVision sensors that share most
+>> of this driver, move the sensor-specific parameters (chip id, MCLK
+>> frequency, test pattern register, link frequency menu and the list of
+>> supported modes) into a new struct og0ve1b_sensor_data, selected through
+>> i2c_get_match_data() at probe time.
 >>
->> @Rob, Krzysztof, Conor: I see this patch is not listed in the devicetree
->> PW, but I think it needs explicit acks from relevant SMEs. Could you
->> please have a look?
+>> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+>> ---
+>>   drivers/media/i2c/og0ve1b.c | 101 ++++++++++++++++++++++++++++ 
+>> +---------------
+>>   1 file changed, 67 insertions(+), 34 deletions(-)
+>>
+>> diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
+>> index 
+>> 84a28cdcade10f8fbcf945999e88f84641b9bc0d..acc06b10bf896f734926289099a70fbc2bb628d5 100644
+>> --- a/drivers/media/i2c/og0ve1b.c
+>> +++ b/drivers/media/i2c/og0ve1b.c
+>> @@ -66,10 +66,21 @@ struct og0ve1b_mode {
+>>       u32 hts;    /* Horizontal timing size */
+>>       u32 vts;    /* Default vertical timing size */
+>>       u32 bpp;    /* Bits per pixel */
+>> +    u32 code;    /* MEDIA_BUS_FMT code */
 > 
-> We do not typical provide tags from dts patches, but that's irrelevant
-> for you, because this (and effectively all other dts) patch(es) should
-> not go through the net tree to begin with.
-> Instead, the platform maintainers should review and/or apply it.
+> In this particular case of grayscale only sensors there is no need for both
+> bpp and media bus format code, since there is a natural one-to-one mapping.
 > 
-> Additionally, it seems the contributor's commit message suggests
-> that they didn't intend this patch to be applied at all?
+> I'm fine with "code" just replacing "bpp", and in og0ve1b_init_controls()
+> simply replace "bpp" with "(code == MEDIA_BUS_FMT_Y8_1X8 ? 8 : 10)".
+> 
+ACK.
 
-Thanks for the head-up.
+>>       const struct og0ve1b_reg_list reg_list;    /* Sensor register 
+>> setting */
+>>   };
+>> +struct og0ve1b_sensor_data {
+>> +    u64 chip_id;
+>> +    unsigned long mclk_freq;
+>> +    u32 test_pattern_reg;
+>> +    const s64 *link_freq_menu;
+>> +    int num_link_freqs;
+>> +    const struct og0ve1b_mode *modes;
+>> +    int num_modes;
+>> +};
+>> +
+>>   static const char * const og0ve1b_test_pattern_menu[] = {
+>>       "Disabled",
+>>       "Vertical Colour Bars",
+>> @@ -97,8 +108,7 @@ struct og0ve1b {
+>>       struct v4l2_ctrl *exposure;
+>>       struct v4l2_ctrl_handler ctrl_handler;
+>> -    /* Saved register value */
+>> -    u64 pre_isp;
+> 
+> I'm afraid this will break test pattern on og0ve1b, unfortunately it should
+> be kept as is for now.
+> 
+> The register is used for something else, and IIRC even cci_update_bits() 
+> API
+> does not work expectedly, it certainly should be read once and written 
+> later.
+> 
+Will keep pre_isp code for og0ve1b.
 
-I noticed a bit too late that part of the discussion about this patch
-did not land on the netdev ML; a new revision is expected.
+> Hence it leaves an option to keep og0ve1b_enable_test_pattern() and then
+> introduce in 3/3 a new og0va1b_enable_test_pattern() function, the 
+> selection
+> will be done in runtime similarly to other og0ve/og0va branches.
+> 
+>> +    const struct og0ve1b_sensor_data *sensor;
+> 
+> Well, the identifier name is confusing to me, it is not "sensor", it's
+> "sensor data" or just "data", no?
+> 
+ACK.
 
-/P
+>>   };
+>>   static const struct cci_reg_sequence og0ve1b_640x480_120fps_mode[] = {
+>> @@ -254,6 +264,7 @@ static const struct og0ve1b_mode supported_modes[] 
+>> = {
+>>           .hts = 792,
+>>           .vts = 568,
+>>           .bpp = 8,
+>> +        .code = MEDIA_BUS_FMT_Y8_1X8,
+>>           .reg_list = {
+>>               .regs = og0ve1b_640x480_120fps_mode,
+>>               .num_regs = ARRAY_SIZE(og0ve1b_640x480_120fps_mode),
+>> @@ -261,23 +272,39 @@ static const struct og0ve1b_mode 
+>> supported_modes[] = {
+>>       },
+>>   };
+>> +static const struct og0ve1b_sensor_data og0ve1b_data = {
+>> +    .chip_id    = OG0VE1B_CHIP_ID,
+>> +    .mclk_freq    = OG0VE1B_MCLK_FREQ_24MHZ,
+>> +    .test_pattern_reg = OG0VE1B_REG_PRE_ISP,
+>> +    .link_freq_menu    = og0ve1b_link_freq_menu,
+>> +    .num_link_freqs    = ARRAY_SIZE(og0ve1b_link_freq_menu),
+>> +    .modes        = supported_modes,
+>> +    .num_modes    = ARRAY_SIZE(supported_modes),
+> 
+> Please use tab symbols or spaces before '=' sign consistently on all lines.
+> 
+ACK.
+
+>> +};
+>> +
+>>   static int og0ve1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 
+>> pattern)
+>>   {
+>> -    u64 val = og0ve1b->pre_isp;
+>> +    u32 reg = og0ve1b->sensor->test_pattern_reg;
+>> +    u64 val;
+>> +    int ret;
+>> +
+>> +    ret = cci_read(og0ve1b->regmap, reg, &val, NULL);
+>> +    if (ret)
+>> +        return ret;
+>>       if (pattern)
+>>           val |= OG0VE1B_TEST_PATTERN_ENABLE;
+>>       else
+>>           val &= ~OG0VE1B_TEST_PATTERN_ENABLE;
+>> -    return cci_write(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP, val, NULL);
+>> +    return cci_write(og0ve1b->regmap, reg, val, NULL);
+>>   }
+> 
+> So far let's keep the function above unmodified, but call it by pointer 
+> stored
+> in the new struct.
+> 
+> Does OG0VA have also just one "Vertical Colour Bars" test pattern mode?
+> 
+> Let me test this v2 for test pattern regression to formally confirm it 
+> shortly.
+> 
+
+For og0va1b, tpg has 4 types:
+	"Standard Color Bar",
+	"Top-Bottom Darker Color Bar",
+	"Right-Left Darker Color Bar",
+	"Bottom-Top Darker Color Bar",
+will fix it in next version.
+
+>>   static int og0ve1b_set_ctrl(struct v4l2_ctrl *ctrl)
+>>   {
+>>       struct og0ve1b *og0ve1b = container_of(ctrl->handler, struct 
+>> og0ve1b,
+>>                              ctrl_handler);
+>> -    const struct og0ve1b_mode *mode = &supported_modes[0];
+>> +    const struct og0ve1b_mode *mode = &og0ve1b->sensor->modes[0];
+>>       s64 exposure_max;
+>>       int ret;
+>> @@ -333,7 +360,8 @@ static const struct v4l2_ctrl_ops og0ve1b_ctrl_ops 
+>> = {
+>>   static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
+>>   {
+>>       struct v4l2_ctrl_handler *ctrl_hdlr = &og0ve1b->ctrl_handler;
+>> -    const struct og0ve1b_mode *mode = &supported_modes[0];
+>> +    const struct og0ve1b_mode *mode = &og0ve1b->sensor->modes[0];
+>> +    const struct og0ve1b_sensor_data *sensor = og0ve1b->sensor;
+>>       s64 exposure_max, pixel_rate, h_blank, v_blank;
+>>       struct v4l2_fwnode_device_properties props;
+>>       struct v4l2_ctrl *ctrl;
+>> @@ -343,12 +371,12 @@ static int og0ve1b_init_controls(struct og0ve1b 
+>> *og0ve1b)
+>>       ctrl = v4l2_ctrl_new_int_menu(ctrl_hdlr, &og0ve1b_ctrl_ops,
+>>                         V4L2_CID_LINK_FREQ,
+>> -                      ARRAY_SIZE(og0ve1b_link_freq_menu) - 1,
+>> -                      0, og0ve1b_link_freq_menu);
+>> +                      sensor->num_link_freqs - 1,
+>> +                      0, sensor->link_freq_menu);
+>>       if (ctrl)
+>>           ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+>> -    pixel_rate = og0ve1b_link_freq_menu[0] / mode->bpp;
+>> +    pixel_rate = sensor->link_freq_menu[0] / mode->bpp;
+> 
+> Since it becomes more complex, can you please move the calculation to
+> a new inline function, like os05b10_pixel_rate()?
+> 
+
+ACK.
+
+>>       v4l2_ctrl_new_std(ctrl_hdlr, &og0ve1b_ctrl_ops, 
+>> V4L2_CID_PIXEL_RATE,
+>>                 0, pixel_rate, 1, pixel_rate);
+>> @@ -407,7 +435,7 @@ static int og0ve1b_init_controls(struct og0ve1b 
+>> *og0ve1b)
+>>   static void og0ve1b_update_pad_format(const struct og0ve1b_mode *mode,
+>>                         struct v4l2_mbus_framefmt *fmt)
+>>   {
+>> -    fmt->code = MEDIA_BUS_FMT_Y8_1X8;
+>> +    fmt->code = mode->code;
+>>       fmt->width = mode->width;
+>>       fmt->height = mode->height;
+>>       fmt->field = V4L2_FIELD_NONE;
+>> @@ -421,8 +449,8 @@ static int og0ve1b_enable_streams(struct 
+>> v4l2_subdev *sd,
+>>                     struct v4l2_subdev_state *state, u32 pad,
+>>                     u64 streams_mask)
+>>   {
+>> -    const struct og0ve1b_reg_list *reg_list = 
+>> &supported_modes[0].reg_list;
+>>       struct og0ve1b *og0ve1b = to_og0ve1b(sd);
+>> +    const struct og0ve1b_reg_list *reg_list = &og0ve1b->sensor- 
+>> >modes[0].reg_list;
+>>       int ret;
+>>       ret = pm_runtime_resume_and_get(og0ve1b->dev);
+>> @@ -484,13 +512,14 @@ static int og0ve1b_set_pad_format(struct 
+>> v4l2_subdev *sd,
+>>                     struct v4l2_subdev_state *state,
+>>                     struct v4l2_subdev_format *fmt)
+>>   {
+>> +    struct og0ve1b *og0ve1b = to_og0ve1b(sd);
+>>       struct v4l2_mbus_framefmt *format;
+>>       const struct og0ve1b_mode *mode;
+>>       format = v4l2_subdev_state_get_format(state, 0);
+>> -    mode = v4l2_find_nearest_size(supported_modes,
+>> -                      ARRAY_SIZE(supported_modes),
+>> +    mode = v4l2_find_nearest_size(og0ve1b->sensor->modes,
+>> +                      og0ve1b->sensor->num_modes,
+>>                         width, height,
+>>                         fmt->format.width,
+>>                         fmt->format.height);
+>> @@ -505,10 +534,12 @@ static int og0ve1b_enum_mbus_code(struct 
+>> v4l2_subdev *sd,
+>>                     struct v4l2_subdev_state *sd_state,
+>>                     struct v4l2_subdev_mbus_code_enum *code)
+>>   {
+>> +    struct og0ve1b *og0ve1b = to_og0ve1b(sd);
+>> +
+>>       if (code->index > 0)
+>>           return -EINVAL;
+>> -    code->code = MEDIA_BUS_FMT_Y8_1X8;
+>> +    code->code = og0ve1b->sensor->modes[0].code;
+>>       return 0;
+>>   }
+>> @@ -517,15 +548,18 @@ static int og0ve1b_enum_frame_size(struct 
+>> v4l2_subdev *sd,
+>>                      struct v4l2_subdev_state *sd_state,
+>>                      struct v4l2_subdev_frame_size_enum *fse)
+>>   {
+>> -    if (fse->index >= ARRAY_SIZE(supported_modes))
+>> +    struct og0ve1b *og0ve1b = to_og0ve1b(sd);
+>> +    const struct og0ve1b_sensor_data *sensor = og0ve1b->sensor;
+>> +
+>> +    if (fse->index >= sensor->num_modes)
+>>           return -EINVAL;
+>> -    if (fse->code != MEDIA_BUS_FMT_Y8_1X8)
+>> +    if (fse->code != sensor->modes[fse->index].code)
+>>           return -EINVAL;
+>> -    fse->min_width = supported_modes[fse->index].width;
+>> +    fse->min_width = sensor->modes[fse->index].width;
+>>       fse->max_width = fse->min_width;
+>> -    fse->min_height = supported_modes[fse->index].height;
+>> +    fse->min_height = sensor->modes[fse->index].height;
+>>       fse->max_height = fse->min_height;
+>>       return 0;
+>> @@ -534,13 +568,14 @@ static int og0ve1b_enum_frame_size(struct 
+>> v4l2_subdev *sd,
+>>   static int og0ve1b_init_state(struct v4l2_subdev *sd,
+>>                     struct v4l2_subdev_state *state)
+>>   {
+>> +    struct og0ve1b *og0ve1b = to_og0ve1b(sd);
+> 
+> struct og0ve1b_sensor_data *data = to_og0ve1b(sd)->sensor; // ->data 
+> anticipated
+> 
+ACK.
+
+>>       struct v4l2_subdev_format fmt = {
+>>           .which = V4L2_SUBDEV_FORMAT_TRY,
+>>           .pad = 0,
+>>           .format = {
+>> -            .code = MEDIA_BUS_FMT_Y8_1X8,
+>> -            .width = supported_modes[0].width,
+>> -            .height = supported_modes[0].height,
+>> +            .code = og0ve1b->sensor->modes[0].code,
+>> +            .width = og0ve1b->sensor->modes[0].width,
+>> +            .height = og0ve1b->sensor->modes[0].height,
+>>           },
+>>       };
+>> @@ -586,18 +621,13 @@ static int og0ve1b_identify_sensor(struct 
+>> og0ve1b *og0ve1b)
+>>           return ret;
+>>       }
+>> -    if (val != OG0VE1B_CHIP_ID) {
+>> -        dev_err(og0ve1b->dev, "chip id mismatch: %x!=%llx\n",
+>> -            OG0VE1B_CHIP_ID, val);
+>> +    if (val != og0ve1b->sensor->chip_id) {
+>> +        dev_err(og0ve1b->dev, "chip id mismatch: %llx!=%llx\n",
+>> +            og0ve1b->sensor->chip_id, val);
+>>           return -ENODEV;
+>>       }
+>> -    ret = cci_read(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP,
+>> -               &og0ve1b->pre_isp, NULL);
+>> -    if (ret)
+>> -        dev_err(og0ve1b->dev, "failed to read pre_isp: %d\n", ret);
+>> -
+>> -    return ret;
+>> +    return 0;
+>>   }
+>>   static int og0ve1b_check_hwcfg(struct og0ve1b *og0ve1b)
+>> @@ -624,8 +654,8 @@ static int og0ve1b_check_hwcfg(struct og0ve1b 
+>> *og0ve1b)
+>>       ret = v4l2_link_freq_to_bitmap(og0ve1b->dev,
+>>                          bus_cfg.link_frequencies,
+>>                          bus_cfg.nr_of_link_frequencies,
+>> -                       og0ve1b_link_freq_menu,
+>> -                       ARRAY_SIZE(og0ve1b_link_freq_menu),
+>> +                       og0ve1b->sensor->link_freq_menu,
+>> +                       og0ve1b->sensor->num_link_freqs,
+>>                          &freq_bitmap);
+>>       v4l2_fwnode_endpoint_free(&bus_cfg);
+>> @@ -686,6 +716,9 @@ static int og0ve1b_probe(struct i2c_client *client)
+>>           return -ENOMEM;
+>>       og0ve1b->dev = &client->dev;
+>> +    og0ve1b->sensor = i2c_get_match_data(client);
+>> +    if (!og0ve1b->sensor)
+>> +        return -ENODEV;
+>>       v4l2_i2c_subdev_init(&og0ve1b->sd, client, &og0ve1b_subdev_ops);
+>> @@ -700,7 +733,7 @@ static int og0ve1b_probe(struct i2c_client *client)
+>>                        "failed to get XVCLK clock\n");
+>>       freq = clk_get_rate(og0ve1b->xvclk);
+>> -    if (freq && freq != OG0VE1B_MCLK_FREQ_24MHZ)
+>> +    if (freq && freq != og0ve1b->sensor->mclk_freq)
+>>           return dev_err_probe(og0ve1b->dev, -EINVAL,
+>>                        "XVCLK clock frequency %lu is not supported\n",
+>>                        freq);
+>> @@ -819,7 +852,7 @@ static const struct dev_pm_ops og0ve1b_pm_ops = {
+>>   };
+>>   static const struct of_device_id og0ve1b_of_match[] = {
+>> -    { .compatible = "ovti,og0ve1b" },
+>> +    { .compatible = "ovti,og0ve1b", .data = &og0ve1b_data },
+>>       { /* sentinel */ }
+>>   };
+>>   MODULE_DEVICE_TABLE(of, og0ve1b_of_match);
+>>
+> 
+> Looks good overall, thank you.
+> 
+
+Thanks,
+Wenmeng
 
