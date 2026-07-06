@@ -1,151 +1,306 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011066.outbound.protection.outlook.com [40.107.130.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8F33D9548;
-	Mon,  6 Jul 2026 11:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783336709; cv=fail; b=iOi5IiywghTic8gkOOp6Tgwx2BhVx7257MhMiaRKTwTq+pzxdJtbjiItX/dakmwjMNg5LJrZZ96rMhrKv0XuL2fXvXSLorHIvES/Q1Es+MntXZh8xxKjWdkDe/j3etS0JxKqa2rfwOYH3RQTfGdWCZEsPP6Kihs9WTvIlikKKdM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783336709; c=relaxed/simple;
-	bh=2xXUF1+tANGO4rchO/7NUHjXRde5fmDVApNTawt8okA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=o72ECKI6r2Jf+qYA6NWvurekCD4iwTcPLJ+Gs4ZF7kEOWiHyC3Vzw6hwuAmcUnHPv6clFRGtF8+pcUzwSj6CyHsnFnu/xBe1urtImrPkWFaMDFaGK+GpbmKLBKN7lwL8uhIjHvBPAx2tQ4oWd25j9TUjsh6JpK/rph2ZEp+8Qvo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=W7HJPUdR; arc=fail smtp.client-ip=40.107.130.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBB9414A12
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 11:23:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783336987; cv=none; b=c0Rwx6L79+vA1eakSqNKZnNKF44CHMgUHhPnCcOQ47SPy532aLk1mLXZ0Lt57VlDXxtrzTi3694q+yH8/GHO+D5MPL4Z+Lhu+BONPf64ixgwXXx5UJHwSX8tnuw0LtqEIMVb9zowwYYsyQcr1bOYXWm3Xxae6NoFb09+VKnfw2E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783336987; c=relaxed/simple;
+	bh=ELILCzori+b8jvBTMiLai110i/uvSiBxlL1xehAHA1A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fMpY2GNHhSy960Oc8jz64SVoCZyFKfdF6K0vEYltM7jSsz2JRhSL6Tpc6wAEWgI7MofU3MNEbhH9N1fImfiQMUmzeBGeO5UAzkP4Xy7q7Bhf+sonZbKhu6B8ulwZrVxpigSN2i8sdDxx2uuDpsqSofCj+4Pq7lICsAgFOIIy1Dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cl9QMmKW; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="W7HJPUdR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y0BDwirRAMOB7Nk2IfAoA3bJjk89mT0dfiCcz9+rQB2PBlA9/NLmg+DPyVLehW0BJRNxcC60bIV6luaxJcxMJ/h5IWhy6zwGYN2XOIrzX8mavUnMsNUQCv9wKxd6BYfnoSAtally0Gh8yN+2JdEBKWYAiDyzOTJirECn30KkkB4uAZTZJLrfMyzxT1l7ALGbGlXgaWaoNTa9kX9re3aF/O/fIui4AUvedF0n4Y1SlqPzpwbemBC94VwKcWuZVXbi3Qic0ELzJHOV7gHZXJL0m7uGBKRLVYDMpwROFkwp/MEJG4/GZpUhnEhgl2D64nxTDpunBJ9+pCIVvtBjOV0QlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2xXUF1+tANGO4rchO/7NUHjXRde5fmDVApNTawt8okA=;
- b=W9q0NAs07FMogN7l9M77h86f05D436YD4sI9djoF3LlyyzXwi/YxQKLSD3ZaJIYylE77bgULN+EoEOl3y111uzzxejIEwCrp+rvewfp4O/D2mLrjOzhxEEEEb67CujlhC0O0ohL6Ya1OKOXytZ0agkxmjqnugYxqlUFUXlXQ8KJiJSKeH2OtKtqhWxEcnIxpRDH77RPpg+vX7AEVHDP6S/rxjxdiTWyDVng0uo1beQO2OxeFFrZq7NVyRB6eWKdhv20p2/lbH8KewdSDE4uswaizkrcjNZVKq3UW0RLO9vJzNSkRO0CIIXjwj8bJNCWjPVIgG0aSQMRtqbq86eTW3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2xXUF1+tANGO4rchO/7NUHjXRde5fmDVApNTawt8okA=;
- b=W7HJPUdRsggvyASth6Blg7v1B6oX3UJaNsAZDhCDiljfDibQS6lM3IQpcld+2ehcWMKRJQ+khyC7+2mJgZtbeF854prlXUK8Z3rl0bBg33o348kudKzz1R5FsepfVECWxfYYYnOhih5T9MDzU580uPdJaRHPfBzi2wl9tR+lvjFbfz+vhMXObP0PTO7l/bKGAjBg4XSh9MI3PvKS4gjB4SnRLuWFZTz0G3iuECvLYMbP1VqZU+Kgsjm4OyZP1x9MXPn9O+C7ByiLdIKhsMIUqrb3M5zqR0uAQIyyaFDWPVjCrQ2b7O0xGBzvgwDFLcD0ig8UQ0zGZItVTv/S50K3eg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AM0PR04MB12076.eurprd04.prod.outlook.com (2603:10a6:20b:743::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Mon, 6 Jul 2026
- 11:18:24 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%3]) with mapi id 15.21.0181.012; Mon, 6 Jul 2026
- 11:18:24 +0000
-Date: Mon, 6 Jul 2026 19:21:53 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH v2 04/15] arm64: dts: freescale: imx8mn-var-som: Update
- FEC support with MaxLinear PHY
-Message-ID: <akuP0TkjaZVuHPb2@shlinux89>
-References: <cover.1783330236.git.stefano.r@variscite.com>
- <8fdacc1d5c213685db8552460d04c44e515e85ea.1783330236.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8fdacc1d5c213685db8552460d04c44e515e85ea.1783330236.git.stefano.r@variscite.com>
-X-ClientProxiedBy: SI2PR02CA0004.apcprd02.prod.outlook.com
- (2603:1096:4:194::14) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cl9QMmKW"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4798bea72f9so1762459f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 04:23:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783336981; x=1783941781; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=J3QYfk9i+JBKL/nEl+md/FCpiGlsnbGfX+vwp8WTxuI=;
+        b=cl9QMmKWM6d0i/96wSQOaKN/5c5sXQxHTj4tIdVOp+eoAL/QsPjxb6Sp1oU08wqEB3
+         tnppDjBBGRXZnn7wY8L19IbSSpnf7xf69vOJCB1/1LsPLdD/yKdUAgXFH3PVVPEy+SoO
+         iId9aTorHRO8TWxeW/NJj54snTFOB9WofZhETNaIHLmxeROnOQQ9uAmbotBO2RgBpCS/
+         R79yL4bvo8GbXtmS2+hyHFIU9i9O2laj3fHQpa3QgzH3f/7lvNM/VY4kz8TZTZPaLuvC
+         2NMDZacRWvz+KUd00oz3H/c+y38Tf6BiawAFRrY8/ZRX45Hcd2n8kya4HZeb4IDu4rPv
+         rxjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783336981; x=1783941781;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=J3QYfk9i+JBKL/nEl+md/FCpiGlsnbGfX+vwp8WTxuI=;
+        b=l3gVBKXaPndBjLx9uiSCfbNhPqMAcWFvXcvl3aFyKQPlT5lc/MDWDYlXahM3TpoU23
+         nVZDqlc28CQRcwp4CdA5lRFG7LX+/F8F2qI9kZ3pz4etAh6miL8ggTneKZiEwgbSb4wE
+         MYCKJbsd1fL2fatq1OE8/eGsb3Kw/wBgMi5RGJq7CfxiFFwJ24F45myTtIYDlDqdCOX4
+         QFmriWtnlRET0GwUku1ro/XDL37lyqW+xidWJrX3RE6Zcl27AiGHbB5FidU6ZgQCRIpk
+         F7TbYsF3iwf9LEqGj6kRdrgk0kZ1SUSOKRMjjHvFwfWh5oB3dJ059wsAdZW/ajubBrA9
+         auhg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7kTBmz1hlXevDi4PAaY3eNO6MnjxMbr4XyXKKhw/tAeZQtV+kxkI1lACqmur22Gxkqim4s3y+Qn3P@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIwnbqOeW7JWS4X/iWqk/r0iwzgAJM4K9fIbjjEv2x/ltWIn5m
+	Qivo4QgemplLbX2VZwAGpwa2Ib4fNBdzNuQCFL6M+BGtwWk3ofQxhJau
+X-Gm-Gg: AfdE7cl7Y2N1yeguGjnRxwiYVOj2M6Uz2z5vOGONb4duGt1lvzIHZH5it/omG7kpY1O
+	WC4duMbe5pkj/v8bQpzKLgUGh4jG5sPO97GRWXSZjEKR3IzuxkYG3syCBSFw08enUzcOw9sRCvh
+	9ERPvrVtLIq8jo1lkghIG6O3TF7sh03feQUbUZN0n56wRRSrDa9mhwfRz9BqU94QoQ622zKHXbs
+	8fiUhHhIeScToxbkZR3ucseFmqKclvIcwRVlkTh7spzxEFtXza1LCMM5CU/zmUY7fNsO4mndrsz
+	MSXua2FrmI3gbuHhnIYTYLcFPOBxu2l28nDBgUuQSFjVhaaP9+toJyBFCsJBn06+FCYArmF83dC
+	455eLYhoS+/n5OknKA/lIesLMZ8d0eoBX7J++kchpnAUDjmqmVwhdO8G5S+kyqW8qGUD1YjR2zE
+	7hIMcvwj0QVjeNKdmvwJ8i/TPI1pvx9YL/TPtdn3eMkVUPKQt451ZaA+yU0m77T65kHugRZtXaR
+	Maavr+eYW9axdkz0ejjuB9LTw==
+X-Received: by 2002:adf:e3c4:0:b0:472:67de:27ca with SMTP id ffacd0b85a97d-47aace8ede7mr8638640f8f.41.1783336980997;
+        Mon, 06 Jul 2026 04:23:00 -0700 (PDT)
+Received: from ?IPV6:2001:9e8:f13c:d501:a53d:1108:c6d3:af16? ([2001:9e8:f13c:d501:a53d:1108:c6d3:af16])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d83bdsm24459120f8f.13.2026.07.06.04.23.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Jul 2026 04:23:00 -0700 (PDT)
+Message-ID: <d5e32492-0585-4b28-a277-d58b9218443a@gmail.com>
+Date: Mon, 6 Jul 2026 13:22:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AM0PR04MB12076:EE_
-X-MS-Office365-Filtering-Correlation-Id: 46958528-4f58-415e-63a6-08dedb504b60
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|1800799024|366016|18002099003|56012099006|4143699003|11063799006|6133799003|22082099003;
-X-Microsoft-Antispam-Message-Info:
- GSPU5OlzRhlAOuPch0pePGR0ZV0DrPYUc17pLKegzy/44Brt0vD2SLg8P9yB3my4TXUSY+tzo7OuW7iOw9rC8ZHGX7e0kgMIT+DxaemjoXo8/wZLM4qnFuoew7XSklnIm31FENv1CkM03AXgVYwtWr9qAPhASuLAgxhEFPI02cfBdHcdadWcpp73Vd49s2pYIMCFYfiBEE5PX9g4MtBiaBcQ1p16lmSB1B35zPI5MARbvKn5QiVsxkH6GJaeM8+78eJU1uYt73Bvkta2MLGgJxS0O7niQsrsNm8krggJ7WVZphK7zN0NhTgmDkvNUn04uUBldZpTV6T1tlGtYgMV6/6+5A5eTJkfqVOVJ627UBXDEiS7ePPZwzTuheQJxPgbAqkaj08UeFnRTAqaYiaf9vg0JzPhUDp9Wt2z7D/WnSoHSPGpFhZR/gvigL0Zr8k0w6uscpWG8c1wkkNUh0jDWak4PkU6IZtRcKiAKTac6JC7sCOYsKzKk0Xa+8ZlZLwAqqkBq/pXEUUxPHq4x4bBXpzCKkhk/k06hUz6LgUPUkr8gpeHf3aNXJ+0+QKNryqNdb3lcLGE4/uopXs8mIFwjimbUu9skVbdVuqeXT5WsAJzWCes93UQzXN/wjBOQCMZi3ORZFvtbwcFTITdQ83JH+S9WOxvDg1Yz7xOY4JpECE=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(56012099006)(4143699003)(11063799006)(6133799003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?rA8SA5687kAlmbpE+SCZvLPgG5wGanRA/Vp0qKB81E2A/tRuokBEoGYCe5jn?=
- =?us-ascii?Q?68qd5G4Dlln7TWRuMMZh02uuJmfGVkTZxFfQRbyZ55OtKa9r91MMCaor9YgN?=
- =?us-ascii?Q?YJrZBLpKr1xid3Ix8TRwwIBcEOKPThWrbpQ2LJMGoin+I520h0r68uHg3spQ?=
- =?us-ascii?Q?P6/6195gSGMyAoS/PAOyqufPuTuJgN4wqVdmxex6JtL5rpv6gLyHAafqC59l?=
- =?us-ascii?Q?r/ftmEO/EhNPkiRWM1U00jjWPBydVX/kHrw4tXobuXZ5RHi6JhhnxV6jK+IK?=
- =?us-ascii?Q?hroGgdat/n1nXvWO2QBnVeSBZG/7FFdEVS9GhNqFMwMmqgJwcjk77Z5yhAsi?=
- =?us-ascii?Q?yfBg3mC396vP9aIt3h19taXV1MCfiaPjzbxjMIEtICG7/P7eHpphsc/gbSZH?=
- =?us-ascii?Q?+tAve0H/tY0Uh4OXYpTqaOycvjz3QJ2BFCb8LPFmEmx5Kvf1O5RwhWbS2LRE?=
- =?us-ascii?Q?fZx+tXQnZXR8WWgy9+5qnDFBVpENUeM1ldwNKzPucFUFJL9KTQbQT+jR84t/?=
- =?us-ascii?Q?pkITX+ErIvA4QaWAd4E0U0DhlXz+pqp1lsqbzv6lgY2enncBLwMYwtqhb+7m?=
- =?us-ascii?Q?kfxrHjQLDEipdJBvIA03Z9OXeO7fXV0V+lyXIvaCREPrxxbQQL5MSLyiu9gX?=
- =?us-ascii?Q?Chu5kcA8aVwfBgXTPjf5KxDFcuHRQKg1DZFaN6gmwSDDhAdwMw1B1dnhcf6c?=
- =?us-ascii?Q?aAQjiNJOJ/adaqtoZs8XZnQZyHnzhOJ/F7ztN05ankqPnSKLjUzMpPaaGxbX?=
- =?us-ascii?Q?I9F5XYhoMVowSutsjnezFcYiIRk0iquhaY1sVeAZzLi+6J1D27r+it9+cZJr?=
- =?us-ascii?Q?AZL2AEQeA9nJFVR1RLL7oTtoUUWDD/tyZDVFVtFUGhhpAPkhaTUO3JF6u5as?=
- =?us-ascii?Q?KTZCAkU+jrHVEyzsQpq077w9RWqdRlTDd6OJKfZMN7944uL2JCqCO1nKLPqP?=
- =?us-ascii?Q?Dk0436fH6HHlqwLNqHqb3g8acPsZH7kYXgOc+lJ72C4RUO5E+ue5a9IX4sG4?=
- =?us-ascii?Q?tLpiszxpoJrtwRb1jrL4ahoZfF3Yi/LhEt+DbPB0Xf4uUD59QO9wd8tA0IZS?=
- =?us-ascii?Q?cXYNOYVUcQ0hCLuZ159+I25F00m8/wfgVDHD7wgHrXuVbxB270ELdqGy5yJV?=
- =?us-ascii?Q?mXDPw9dXNvuQPpvNHlLIwtcZY+e2eKy5ziEOJ3lcPEOf+babQkl1CKma8gu2?=
- =?us-ascii?Q?R6QrcgFk9+ZKnUQpxAsyVFH45+MyE0+1Dt4RklAK5efwFfMbvnwo8VHwGxmM?=
- =?us-ascii?Q?ymp3HT8vVBg1FFauDyLKgnhFbZTF6apLz0OE8VslAC4y35dkUvfsYfyO11Kb?=
- =?us-ascii?Q?HKCEAHZkybI9rWymSlidObUif3gCVBHjyr/JHG4N6w6aH7/vnrhgmuLJAmTd?=
- =?us-ascii?Q?AxMkRi9l0uQjGkYg4FTDnqQdg6mt7y3NBrSUcq4QycfE78Fy+d/OO/tG7RWU?=
- =?us-ascii?Q?eDQ6pHaQy6rtb/8pD7+MMTJx3XL+WJLLXdoOwAOJHOwd5bkq1uUw/pOpb2h1?=
- =?us-ascii?Q?Uz6TO5DHuAOug/Ubtsu/ZoL/iLTz3aFPpeENFA5+RUnCBaxzLOoHry8zyUJJ?=
- =?us-ascii?Q?pnXLOqydztfymOvAqybpaQwsZT9bCFnHK3F9m/5LIRQzevAJ70L8kJrll3zo?=
- =?us-ascii?Q?k7jbmixTaEJGhyLMQwnSPAzgaFLBQT5ETMAKkVnJsIUe/YRur6uHaFifyW9G?=
- =?us-ascii?Q?jUTx+V++WED0b3FA6EOvQNU26QYM3LynUKDUI7LwEi5+p90mWpU6yvdlsCTC?=
- =?us-ascii?Q?Onf90iGssm8w5HaySkTqyheAIpo8xe3kzdQvemfavsTE/kpEXrvC?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46958528-4f58-415e-63a6-08dedb504b60
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 11:18:24.4340
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d6y6/BR37bdAz6n31Qn0xjqoHIRvoPFVqpPwXz0Xxl5NL6vwC/Wphyw0vRrtXOzhQv2c3CtPOF3zaFiZtsmqsWc2Mqtqyssg5FgTsWNI/6LRjqDxei6fLkXONYYPoKL8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB12076
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v4 2/2] net: pse-pd: add Realtek/Broadcom PSE MCU
+ driver
+Content-Language: en-US
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Daniel Golle <daniel@makrotopia.org>,
+ =?UTF-8?Q?Bj=C3=B8rn_Mork?= <bjorn@mork.no>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, "David S . Miller" <davem@davemloft.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh@kernel.org>,
+ Kory Maincent <kory.maincent@bootlin.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>
+References: <20260630105651.756058-1-jelonek.jonas@gmail.com>
+ <20260630105651.756058-3-jelonek.jonas@gmail.com>
+ <2ee45ab5-a329-4891-8326-ac8f14b6374a@redhat.com>
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+In-Reply-To: <2ee45ab5-a329-4891-8326-ac8f14b6374a@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 06, 2026 at 11:34:34AM +0200, Stefano Radaelli wrote:
->From: Stefano Radaelli <stefano.r@variscite.com>
->
->Update the FEC Ethernet controller on the i.MX8MN VAR-SOM to match the
->latest SOM hardware revision using the integrated MaxLinear MXL86110 PHY.
->
->Add the PHY VDDIO supply regulator and adjust reset timings.
->
->The PHY LED signals originate on the SOM, but the actual LEDs are part
->of the carrier implementation (RJ45 connector). Move the LED
->configuration to the Symphony carrier device tree, matching the
->evaluation board LED wiring.
->
->Wake-on-LAN via magic packet is not supported at the VAR-SOM level and
->is therefore not enabled in the SOM device tree nor in the official
->evaluation carrier board configuration (symphony).
->Designs requiring WoL support may enable it in their own carrier-specific
->device trees if properly integrated at the hardware level.
->
->Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+Hi Paolo,
 
-Reviewed-by: Peng Fan <peng.fan@nxp.com>
+On 03.07.26 09:55, Paolo Abeni wrote:
+> On 6/30/26 12:56 PM, Jonas Jelonek wrote:
+>> A range of PoE switches use a small microcontroller on the PCB to front
+>> the actual PSE silicon. The host CPU talks to that MCU over I2C/SMBus or
+>> UART using a fixed 12-byte request/response protocol with a trailing
+>> checksum; the PSE chips are managed by the MCU and are not accessed
+>> directly. The same protocol family is spoken by Realtek and Broadcom PSE
+>> MCUs, diverging in opcode numbering and a few response layouts, which the
+>> driver abstracts behind a per-dialect opcode table and parser hooks
+>> selected by the compatible. The specific PSE chip behind the MCU is
+>> detected at runtime and only influences per-chip constants (power scaling
+>> and the per-port cap).
+>>
+>> The driver is split into a shared core and two transport modules:
+>>
+>> - PSE_REALTEK_MCU: protocol, message framing, dialect machinery, and the
+>>   pse_controller_ops glue.
+>> - PSE_REALTEK_MCU_I2C / PSE_REALTEK_MCU_UART: transport modules
+>>   registering the MCU on an I2C bus or a serdev port respectively.
+>>
+>> The realtek-pse-mcu-* files and PSE_REALTEK_MCU* symbols match the
+>> realtek,pse-mcu-rtk / realtek,pse-mcu-brcm compatibles: all name the
+>> Realtek PSE-MCU front-end, not the MCU silicon or the PSE chip behind
+>> it (see the binding for the prefix rationale). Broadcom PSE MCUs speak
+>> the same protocol family and are handled by the same shared core
+>> through the dialect abstraction selected by the '-brcm' compatible.
+>>
+>> Power budgeting is left to the MCU firmware; the driver advertises
+>> PSE_BUDGET_EVAL_STRAT_DYNAMIC (controller-managed budget) accordingly.
+>>
+>> Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+>> ---
+>>  MAINTAINERS                               |    7 +
+>>  drivers/net/pse-pd/Kconfig                |   28 +
+>>  drivers/net/pse-pd/Makefile               |    3 +
+>>  drivers/net/pse-pd/realtek-pse-mcu-core.c | 1019 +++++++++++++++++++++
+>>  drivers/net/pse-pd/realtek-pse-mcu-i2c.c  |  163 ++++
+>>  drivers/net/pse-pd/realtek-pse-mcu-uart.c |  156 ++++
+>>  drivers/net/pse-pd/realtek-pse-mcu.h      |   87 ++
+>>  7 files changed, 1463 insertions(+)
+>>  create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-core.c
+>>  create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-i2c.c
+>>  create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-uart.c
+>>  create mode 100644 drivers/net/pse-pd/realtek-pse-mcu.h
+> This is quite large, and shouls be split in smaller patches to help
+> reviewers.
+>
+> [...]
+>> +struct rtpse_mcu_dialect {
+>> +	struct rtpse_mcu_opcode opcode[RTPSE_MCU_NUM_CMDS];
+>> +
+>> +	/*
+>> +	 * Response parsers. Each dialect must supply its own; the core calls
+>> +	 * these unconditionally rather than carrying a default that would
+>> +	 * silently mis-decode bytes from a dialect that forgot to set them.
+>> +	 */
+>> +	int (*parse_system_info)(const u8 *payload, struct rtpse_mcu_info *info);
+> The 2 existing implementation always return 0; you may consider change
+> it to a void function.
+>
+>> +static int rtpse_mcu_port_get_voltage(struct pse_controller_dev *pcdev, int id)
+>> +{
+>> +	struct rtpse_mcu_ctrl *pse = to_rtpse_mcu_ctrl(pcdev);
+>> +	struct rtpse_mcu_port_measurement measurement;
+>> +	int ret;
+>> +	u32 uV;
+>> +
+>> +	ret = rtpse_mcu_port_get_measurement(pse, id, &measurement);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	/* 64.45mV per LSB */
+>> +	uV = (u32)measurement.voltage_raw * 64450U;
+> This cast    ^^^^^ should be unneeded.
+>
+>> +	return min_t(u32, uV, INT_MAX);
+>> +}
+>> +
+>> +static int rtpse_mcu_port_enable(struct pse_controller_dev *pcdev, int id)
+>> +{
+>> +	return rtpse_mcu_port_set_state(to_rtpse_mcu_ctrl(pcdev), id, true);
+>> +}
+>> +
+>> +static int rtpse_mcu_port_disable(struct pse_controller_dev *pcdev, int id)
+>> +{
+>> +	return rtpse_mcu_port_set_state(to_rtpse_mcu_ctrl(pcdev), id, false);
+>> +}
+>> +
+>> +static int rtpse_mcu_port_get_pw_limit(struct pse_controller_dev *pcdev, int id)
+>> +{
+>> +	struct rtpse_mcu_ctrl *pse = to_rtpse_mcu_ctrl(pcdev);
+>> +	struct rtpse_mcu_port_ext_config config;
+>> +	int ret;
+>> +
+>> +	ret = rtpse_mcu_port_get_ext_config(pse, id, &config);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	return config.max_power * pse->chip->pw_read_lsb_mW;
+>> +}
+>> +
+>> +static int rtpse_mcu_port_set_pw_limit(struct pse_controller_dev *pcdev, int id, int max_mW)
+>> +{
+>> +	const struct rtpse_mcu_opcode *type_opc, *val_opc;
+>> +	struct rtpse_mcu_ctrl *pse = to_rtpse_mcu_ctrl(pcdev);
+>> +	const struct rtpse_mcu_chip_info *chip = pse->chip;
+>> +	unsigned int prg_val;
+>> +	int ret;
+>> +
+>> +	if (max_mW < 0 || max_mW > chip->max_mW_per_port)
+>> +		return -ERANGE;
+>> +
+>> +	type_opc = &pse->dialect->opcode[RTPSE_MCU_CMD_PORT_SET_POWER_LIMIT_TYPE];
+>> +	val_opc = &pse->dialect->opcode[chip->pw_set_cmd];
+>> +	if (!type_opc->valid || !val_opc->valid)
+>> +		return -EOPNOTSUPP;
+>> +
+>> +	/*
+>> +	 * Switch the port to user-defined limit mode first, then program the
+>> +	 * limit value. If the second cmd fails, the port is left in
+>> +	 * user-defined mode but with the previous limit value; the next
+>> +	 * successful set_pw_limit call recovers it.
+>> +	 */
+>> +	ret = rtpse_mcu_port_cmd(pse, id, type_opc->op, RTPSE_MCU_PORT_PW_LIMIT_TYPE_USER);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	prg_val = min_t(unsigned int, max_mW / chip->pw_set_lsb_mW, 0xff);
+>> +
+>> +	return rtpse_mcu_port_cmd(pse, id, val_opc->op, prg_val);
+>> +}
+>> +
+>> +static int rtpse_mcu_port_get_pw_limit_ranges(struct pse_controller_dev *pcdev, int id,
+>> +					      struct pse_pw_limit_ranges *out)
+>> +{
+>> +	struct ethtool_c33_pse_pw_limit_range *range;
+>> +	struct rtpse_mcu_ctrl *pse = to_rtpse_mcu_ctrl(pcdev);
+>> +
+>> +	range = kzalloc_obj(*range, GFP_KERNEL);
+> or just:
+>
+> 	range = kzalloc_obj(*range);
+>
+>
+>> +static int rtpse_mcu_discover(struct rtpse_mcu_ctrl *pse, struct rtpse_mcu_info *info)
+>> +{
+>> +	struct rtpse_mcu_ext_config ext_config;
+>> +	unsigned long deadline;
+>> +	int ret;
+>> +
+>> +	/*
+>> +	 * The MCU may not answer on the bus yet right after power-up or
+>> +	 * enable-gpios assertion: depending on the transport it either stays
+>> +	 * silent (-ETIMEDOUT) or does not ACK its address at all (-ENXIO /
+>> +	 * -EREMOTEIO). Retry within a bounded wall-time window so a slow boot
+>> +	 * still probes, while a genuinely unresponsive MCU fails with its real
+>> +	 * error instead of deferring forever and masking it.
+>> +	 */
+>> +	deadline = jiffies + msecs_to_jiffies(RTPSE_MCU_BOOT_TIMEOUT_MS);
+>> +	do {
+>> +		ret = rtpse_mcu_get_info(pse, info);
+>> +		if (ret != -ETIMEDOUT && ret != -ENXIO && ret != -EREMOTEIO &&
+>> +		    ret != -EAGAIN)
+>> +			break;
+>> +		msleep(RTPSE_MCU_BOOT_RETRY_MS);
+>> +	} while (time_before(jiffies, deadline));
+>> +	if (ret)
+>> +		return dev_err_probe(pse->dev, ret, "failed to read MCU info\n");
+>> +
+>> +	switch (info->device_id) {
+>> +	case RTPSE_MCU_DEVICE_ID_RTL8238B:
+>> +		pse->chip = &rtl8238b_info;
+>> +		break;
+>> +	case RTPSE_MCU_DEVICE_ID_RTL8239:
+>> +		pse->chip = &rtl8239_info;
+>> +		break;
+>> +	case RTPSE_MCU_DEVICE_ID_RTL8239C:
+>> +		pse->chip = &rtl8239c_info;
+>> +		break;
+>> +	case RTPSE_MCU_DEVICE_ID_BCM59111:
+>> +		pse->chip = &bcm59111_info;
+>> +		break;
+>> +	case RTPSE_MCU_DEVICE_ID_BCM59121:
+>> +		pse->chip = &bcm59121_info;
+>> +		break;
+>> +	default:
+>> +		return dev_err_probe(pse->dev, -EINVAL, "unknown PSE id 0x%x\n",
+>> +				     info->device_id);
+>> +	}
+>> +
+>> +	if (!info->max_ports || info->max_ports > RTPSE_MCU_MAX_PORTS)
+>> +		return dev_err_probe(pse->dev, -EINVAL,
+>> +				     "MCU reports invalid port count %u\n", info->max_ports);
+>> +
+>> +	ret = rtpse_mcu_get_ext_config(pse, &ext_config);
+>> +	if (ret)
+>> +		return dev_err_probe(pse->dev, ret, "failed to read MCU ext config\n");
+>> +
+>> +	dev_info(pse->dev, "%s MCU, %s (id 0x%04x), %u ports across %u PSE chip(s)\n",
+>> +		 pse->dialect->mcu_type_str(info->mcu_type), pse->chip->name,
+>> +		 info->device_id, info->max_ports, ext_config.num_of_pses);
+> The general guidance is to try to avoid unneeded print on dmsg, as they
+> tend to scary admins, but I personally agree on message on modprobe.
+>
+> No strong opionion either ways.
+>
+> /P
+>
+Thanks for your remarks, I'll address them in v5.
+
+Best regards,
+Jonas
