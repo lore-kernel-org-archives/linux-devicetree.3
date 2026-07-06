@@ -1,175 +1,257 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011041.outbound.protection.outlook.com [52.101.70.41])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C5A430CC0
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 16:56:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783356965; cv=fail; b=lP0hKwJi5a9thStc78R1f37uH5I8KDzLaxF8l2IlqUf257KthpNnAiDR2Hxg/7YBIx1PuTE6xyzeUNUdSL5eiWXYYQHRHJZmCRAnX0mpNQ8lOBf6iEo6FPoq/YVxeXtuUs/O7cUop9TTXfzzYxZz26hQiJukCzI/b74XksRC0OU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783356965; c=relaxed/simple;
-	bh=N04Vh9iLgoOvJ+Nl2j6BzAJcVYnB3FbB3g2p1Gcv+ZU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=tOi4nsMY46bHMS1RPrf1UtZysRXRiGfaSW6dpavhFMtWgMbLBscnpRt/RFf8gY3H8q/lfV2Qk/9YZodhhE+Kq1kJwFXZwON8vzU63+mMUFq1RxSTPKt6klsMTI17l36JhfAJvjwfPWDT0SIQevI8kJOb+36s/9vGw69h7Z4ity0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=B80rDejK; arc=fail smtp.client-ip=52.101.70.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13882434E42;
+	Mon,  6 Jul 2026 16:56:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783357007; cv=none; b=Ix+2rK+DSBGkVXfOscMRkWHtiD+LH2khwmxSTF3on3dyup2BomkAluxHgAeUFGyNzUErd6Pc62aO2C05uuiVEItYPSyIEI3klxThpHq0dmh4omOZKpGq45LXpt6IdXrW8SEzVCN8KwRZqwZD3qcX0h1ldK1xdO8oqYtpaTHbotc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783357007; c=relaxed/simple;
+	bh=IkavAcNEz0PfF07O5rjSVXWtxZ/qVex1flxHuikSL0M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RuvHCIgJuByUPnemLTU+QEvCFFvRMFo3ieVtu6z5M7hl2ZsZrazrVCTL6YPh0699RSbQU3VaTBWmH9Q6zHZD1bTPJKGfIH6oC4/OcOva36ZYbI0wp2l8kZ9DPATY2CSbHLxYsPqAtqj+vcJ4OvqSJ1O5Q3NmOBhOzbxf/aRlU1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHs40R6G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="B80rDejK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GDrEV4fhKYC+gRmiZ1kzNQsXwu6+X9t3ht7F06aKE07g0ncVJzYE9Yl4jnioacfd6z7Ku1P+6zKtH4NUebdv1rr5Wo/p2c40U+f6JQCw39jtOUiKUb6L/JiEimyvYEjjxmku7O27Fj9WyaFGTE5cVIGPY3wDdJWE6MB3Bu/dPoEA0CBlQ11hCQJg9LWGQpiC7+PDW69Iio3DxBOmtC2I4ZYUM/SYVOuhynHcdwMlQkJdTKPQXEZebD+E4sK7DiB7W6XhIAQIsZRRDyzBPt5CXHqWgZYH7XiHQ1icHgP03wIF4QXVsjEnk94yXQnlEEPvZD6gZSKVBQe1/IO8GBAjsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dYjR00RMogkEcn0TYU32WnFq4oGsLhXs2w25U1oAqb8=;
- b=iBjn21tBTtEXgLK7FemCjyHhMdft6LmtkpiMnzmDD9yNcEIjcgBOu/blvnHiU4ua9wXqylcF5Qrb+gSvfQGnt7SQb3Z2P99lkcB6cpG+Ka6EN5OJ2os+oIYVd16wUb5u+utZIwk3RDA+oaeUid+tY5tOUmzEJ3WWNne/n8y2GRbdird2Sz5b3gcHCbZHU5cEExrxDWMe68nn2Ml6X/Y0HP8ouP96KuvIHGEj9lPqEc1IZOFAwFsetBU2jZqx+aX/61d+FBoywu/Ezvy6i9o9ye5V5/lamqESDZWhGlbG5VtAddb2rvM57fIv+u5sFyzPwDqLca6X+oGrDKMBs4lF1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dYjR00RMogkEcn0TYU32WnFq4oGsLhXs2w25U1oAqb8=;
- b=B80rDejKCI7CLVkXiefQzPr6l4eOfkzSbXJ//xM11MGQ1yksoOnXn/fKl7K7/Vy3VNUD3YpT2PcLc1iE2kk5DK1Lyq9Gdaur3BFkY3sZt9WJANCDhxB2shnZENr4I7Uo9h67pFq+UdTc65Bn77IGW9TG5ofARqCuuV0aWSzEKcPuZEByFVoqq3j5+Ge0p0WtuZFeqYw7qZEAgWKiIf2nhsa3UefO4v+0bWF1HsxfW+/RePs+wheszWzBglUwzZPijvYoZgk8RV/MNz8+P7SKkq1EL1ITgx8m7ctyzrXto1v+J32vWDDrxEgFVZ7eodJughzvOmIfJ6fDtyvb5RsqCw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU4PR04MB12010.eurprd04.prod.outlook.com (2603:10a6:10:640::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Mon, 6 Jul 2026
- 16:56:01 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 6 Jul 2026
- 16:56:01 +0000
-Date: Mon, 6 Jul 2026 12:55:54 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Lakshay Piplani <lakshay.piplani@nxp.com>
-Cc: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>,
-	"linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"Frank.Li@kernel.org" <Frank.Li@kernel.org>
-Subject: Re: [PATCH v13 5/7] i3c: hub: Add support for the I3C interface in
- the I3C hub
-Message-ID: <akveGouWzKOKLiqo@lizhi-Precision-Tower-5810>
-References: <20260701065755.2067793-1-lakshay.piplani@nxp.com>
- <20260701065755.2067793-6-lakshay.piplani@nxp.com>
- <20260701072319.165A41F000E9@smtp.kernel.org>
- <akVtnLsdN4ZEP7XN@lizhi-Precision-Tower-5810>
- <AS4PR04MB9362B88A0273E3AAD52E812DFBF42@AS4PR04MB9362.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AS4PR04MB9362B88A0273E3AAD52E812DFBF42@AS4PR04MB9362.eurprd04.prod.outlook.com>
-X-ClientProxiedBy: SA9P223CA0005.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:806:26::10) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHs40R6G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 297951F000E9;
+	Mon,  6 Jul 2026 16:56:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783357004;
+	bh=8Zb7HmMSNT0dYjvG51xeECDrIe9PtU2siXTvPJaZIg4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fHs40R6GdHgXM0M1t2EyjomJ/OwN6IwGJ1f3Wc+kjNscP0u7Eu75pHVwSaiOPLYFs
+	 u/DxzwpQ9Ugf4dcPrI4ILJ2vV8gDh+Do7I/CUwHqAkRKW1ygSxx2a0YQDKXm1d/nr8
+	 yI8cy4iVIPpYX/cqA8D4gKDCJSeRJKMEz0UpgnbD8dI5a8zbF4wgaJHXdKRSYL7fre
+	 lrW6OBrv+43jseu8WZDNkk2C3dJYUMK8/jaNVRC2uFUeEkOy80H1LiHwwuoGRBrrXH
+	 XI1FzEr8n/c8uCfsXef1vwtbBGGDditNcxEJFWrHEvdcrd+B3nkERUsqHq6VvnsL9c
+	 NlRdxgDgm2lxg==
+Date: Mon, 6 Jul 2026 17:56:40 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 2/4] dt-bindings: leds: nxp,pca963x: add multicolor
+ LED support
+Message-ID: <20260706-account-harsh-093c6354bca5@spud>
+References: <20260706-monza-leds-v3-0-37ea8c988363@oss.qualcomm.com>
+ <20260706-monza-leds-v3-2-37ea8c988363@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU4PR04MB12010:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac667623-a32d-46b3-b2f0-08dedb7f7541
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|1800799024|23010399003|376014|3023799007|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	zCSTKlScQqR9VDEYBJR0D/V7aTebmjM5JBTsPGLley1e/iLWe/3LC6QOoHNXQ/ZiGcXvVD4QS+Zskgw6jMR5N1Q8TJEdQC1m7pBeOGy+Ikm625Tft5U2yduK/L6GRur4BLznStr2UNZMhTykleNICkcV/OkmO6cL0AUgBcfK5v7lUnsM38KfD4Qhu54MfiBt2mLZKg8St9c5BXbAr/lUDa8b/M/eF3xvUYOvYxrtUHzjlLwhhHnD8d/xrm23z1TV5wQxepscb2JRDtwt6pWbxAEXnzyjXtvvJZ969FBJImWQw7UFIFONf5IguBGWiFGMI+JD+5XignePgs4E5yEi4+PA/RfwrQFgDL50AJYrXM26CdfBloZFyR4vdGZACDD3ANFIwziGUp+ku0fbvv6h84++A0UWDhI0kfxYWhxIKkjdJXu0ZjgOegdfkBsGZhmV9oSbztjnloOvUJ5IdOkElb7b8LE/NXUtHsLUH2OfqIxI3HG5fQ68NMoh8vEzPrFlJtLnXdagZzWrWa3/tgV3cYEsswpIDmEoKC5jAdu9Ix0k7UDHD87UfQmxGVAdNn8Odm3yESV8bOKNEv7QZYr+yjB66Y9DxBzMQqTdNVettqKRNDV9wsG55PHU53PtBBTVUsqDeysUm8SL7z556aV9aUGeJiA4ykNc/r211juN0EA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(23010399003)(376014)(3023799007)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ogmHA9izghzvXTDI6LH2uiHD7FqHl6YQgL2csA1flc93m/tamfX66jpXP4I0?=
- =?us-ascii?Q?BBZ2TDUCf5+aHS/zMW8kVMGYY8fqOKdx83Nh/SFmnMaC1dJkg8On0MgEuJ0i?=
- =?us-ascii?Q?M2nAwRG1GAfitPtxKjkYlNhTV1ljhBYdC+VdZY5T1A3poRvIm5pJBbpIf8U+?=
- =?us-ascii?Q?pmTOClU7Fc6Db115pggKPG4u8ZxsTuk5QxZy0O14BlvKdDOTfMtx/19Vcq+A?=
- =?us-ascii?Q?wNHK4KXhY60/mhJzS+BeLaFltxhgXrjiSov61TxJynxAVx+M/2ndGnNJV7uC?=
- =?us-ascii?Q?FfzKdy8AGhaf+OXkq9lZRTptiHk1X4oL2NUQfWO69t9Xe7Y9NoiTUvxLN/vM?=
- =?us-ascii?Q?SQ1r+n/myB76IcojKpMGIyQTMNxBvYBiEetkAnc/4kJPuNSbI28Uvp+U432A?=
- =?us-ascii?Q?rfDNNOvCNfTWgDxKyJfVFgWjo9yEDlVv5PokD1Rrq6woNTakyFXiQTdbzHmp?=
- =?us-ascii?Q?NuR/HXUmrT85feyjauJQKA2n47oNu8oVS1QFERGAaF09agPuTSanaF94riNj?=
- =?us-ascii?Q?TD/VlBnAMsDPgTVm250ByG7suIuuSurscgFuGOwH+2BBg8AWBRgMC/22rjEN?=
- =?us-ascii?Q?feRTl+ZgCUEsxoCyi5FKgruo8sBCNPmY158L1cxmQR9R+CY9VcpFu9hyCwlX?=
- =?us-ascii?Q?U9msUAmlKsHYIMvX/faTDPgMdn4dfEZnchBsEWWpJFVMqz8b30rkm3+nGqRu?=
- =?us-ascii?Q?3NRk1jyBLBDu7xA3bRKR+uly6YhyBWitfaUggHuE7boeWccvRin0mXN47ZF+?=
- =?us-ascii?Q?wFmKoWSfqAi6AcbZpZQMZw0SNjWWzu32HM08mgdoP7nNmr79y55fQ86p3KBn?=
- =?us-ascii?Q?Fko1mJoR9SSSgM6ti4eHk06EAIDM+BFP3l2EDdlqsICOIDUAoKRG12NxlQF/?=
- =?us-ascii?Q?tjPFpWOAKs9oiCnQosMT+IJO4aDLVBesbVw6K2XeuOB1uw2+xMhkQ7exXnWe?=
- =?us-ascii?Q?zX2/s0VUxuYO34aLHlbrRKgo8ZBhkIJoivtSskL2w9e+wWjqAovP+rtGsNME?=
- =?us-ascii?Q?Ct0Q4uH42ZrebMx4gYcC9ZHMWmw76TRGZa86PdVqcsP/N83owP7SjnvLxvTl?=
- =?us-ascii?Q?QurWuuZsitJHPCa/MvV2azXZ4W7EdHM4qyJcctzlmHA4N1nhPgf1HYZ6ox36?=
- =?us-ascii?Q?WQIT/ZvR/x4JKhMDndSCwj8ddLh5iRKdFG3QlJ1xfYwaH5bjEGfAXD8NAG0p?=
- =?us-ascii?Q?nfEaOSGL8nxwmZheR3vpo4BD7wsxutKRBxJReEC3MJiL1TR38wmRzT4TH/e2?=
- =?us-ascii?Q?5KryTfnP7qPkHxFq9LA2rm56Lx4AIu6lGWYSdpx1c64lwdB9YXrMAjO9pBlJ?=
- =?us-ascii?Q?r09QepZGATB1CiIQjoBwxUHMb5fEDoxuLc7gjhcynJD1P4vkONNm910m9ezl?=
- =?us-ascii?Q?T6Yijb4FGJ35WlMKm/1twnYP+kPS83a1Zj6H7UQgs72s4BMyfiVTDQs2EkqU?=
- =?us-ascii?Q?wHV+3l6mxB1OIfG9RWoJ2a0XiqrWh3Rfwuf4kw3pV24qvyZ/COORpJls02Fq?=
- =?us-ascii?Q?WiMkajpcrlO1aIJjKNqqE42w1z8u7QvxvxiJahmmY29bHQELck/9v8M0Xzqm?=
- =?us-ascii?Q?riDxqnpAK42aOg+VzzIVPAfv/PCSzKVLuTp9cEwJuheXhiwlLU+JiEaEhCzu?=
- =?us-ascii?Q?tDZjiz90ebeYhl4UP3rF+5d+D1InWQX5eQ7Gc7Iof3qlo2gDNy+JNK9HcD+o?=
- =?us-ascii?Q?5HSCIJOjcTWaJ9i9R3sAH5fmqX1Sovx5XC7IYpMhaHjkPLqE7bPSmmxpTpqR?=
- =?us-ascii?Q?Yr/VZT322il3o/TaJgQxC9GFPAxuWHhtJ2zoTSlsNkzUrpPs5Sxp?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac667623-a32d-46b3-b2f0-08dedb7f7541
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 16:56:01.1803
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qfV7rmwglErJrykOMWz/zZ9X0eg7uwRnzo/Y2It/LKeDhNd7/RWwnMGjss4XroyK3tlk/KF7I/5ntIEKju/T2wDayOQgd4COaT9AZ3qx1UfEsjWvgY48G+OsankspJNB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB12010
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/p782kKd6CXzkAlU"
+Content-Disposition: inline
+In-Reply-To: <20260706-monza-leds-v3-2-37ea8c988363@oss.qualcomm.com>
 
-On Fri, Jul 03, 2026 at 10:50:30AM +0000, Lakshay Piplani wrote:
->
->
-> > -----Original Message-----
-> > From: Frank Li (OSS) <frank.li@oss.nxp.com>
-> > Sent: Thursday, July 2, 2026 1:12 AM
-> > To: sashiko-reviews@lists.linux.dev
-> > Cc: Lakshay Piplani <lakshay.piplani@nxp.com>; linux-i3c@lists.infradead.org;
-> > robh@kernel.org; Alexandre Belloni <alexandre.belloni@bootlin.com>;
-> > devicetree@vger.kernel.org; conor+dt@kernel.org; Frank.Li@kernel.org
-> > Subject: Re: [PATCH v13 5/7] i3c: hub: Add support for the I3C interface in the
-> > I3C hub
-> >
-...
-> > > > +static int i3c_hub_request_ibi(struct i3c_dev_desc *desc,
-> > > > +			       const struct i3c_ibi_setup *req) {
-> > > > +	struct i3c_master_controller *controller = i3c_dev_get_master(desc);
-> > > > +	struct i3c_hub_controller *hub_controller;
-> > > > +	struct i3c_master_controller *orig_parent;
-> > > > +	struct i3c_master_controller *parent;
-> > > > +	struct i3c_hub *hub;
-> > > > +	int ret;
-> > >
-> > > [ ... ]
-> > >
-> > > > +	orig_parent = i3c_hub_update_desc_parent(&desc->common, parent);
-> > > > +
-> > > > +	ret = i3c_master_direct_attach_i3c_dev_locked(parent, desc);
-> >
-> > All IBI cap devices should be already attached to master bus when DAA? need
-> > attach again here?
-> > Actived port's devices logically attached to master bus?
-> >
-> > So needn't switch port.
-> >
->
-> No. During DAA, downstream devices are enumerated on the virtual controller, but they are not attached to the parent controller.
-> The virtual controller's attach_i3c_dev() callback is intentionally a no-op.
-> For private transfers, we temporarily update the hub's dynamic address to the target device's address, perform the transfer through the
-> parent controller and then restore the hub's original address. This does not establish any parent controller-specific attachment state.
->
-> Therefore, i3c_master_direct_attach_i3c_dev_locked() is still required here so the parent controller can establish its controller-private state before requesting IBI.
+--/p782kKd6CXzkAlU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Okay,
+On Mon, Jul 06, 2026 at 05:49:56PM +0200, Loic Poulain wrote:
+> Add support for grouping individual PCA963x channels into a multicolor
+> LED by introducing a multi-led@N node pattern. This follows the
+> convention established by other multicolor LED drivers such as
+> kinetic,ktd202x.
+>=20
+> This is necessary to support and model hardware setups where multiple
+> PWM channels drive a single physical RGB LED.
+>=20
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/leds/nxp,pca963x.yaml      | 104 +++++++++++++++=
++++++-
+>  1 file changed, 101 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml b/Do=
+cumentation/devicetree/bindings/leds/nxp,pca963x.yaml
+> index 4034139e3f770a1035208490a9436bdc33387279..dccdb1d9421199a51cac5c7f3=
+f7da503caa35622 100644
+> --- a/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml
+> +++ b/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml
+> @@ -74,6 +74,40 @@ patternProperties:
+>      required:
+>        - reg
+> =20
+> +  "^multi-led@[0-9a-f]+$":
+> +    type: object
+> +    $ref: leds-class-multicolor.yaml#
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        minimum: 0
 
-Frank
+I still don't understand this, minimum zero is literally useless since
+this cannot be negative.
+If anything, you should be constraining the maximum value. Remember,
+outside of conditional sections the maximum permitted values should be
+defined. Conditional sections should just narrow the constraints.
+
+Same below.
+pw-bot: changes-requested
+
+> +
+> +      "#address-cells":
+> +        const: 1
+> +
+> +      "#size-cells":
+> +        const: 0
+> +
+> +    patternProperties:
+> +      "^led@[0-9a-f]+$":
+> +        type: object
+> +        $ref: common.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          reg:
+> +            minimum: 0
+> +
+> +        required:
+> +          - reg
+> +          - color
+> +
+> +    required:
+> +      - reg
+> +      - "#address-cells"
+> +      - "#size-cells"
+> +
+>  allOf:
+>    - if:
+>        properties:
+> @@ -84,10 +118,16 @@ allOf:
+>                - nxp,pca9633
+>      then:
+>        patternProperties:
+> -        "^led@[0-9a-f]+$":
+> +        "^.*led@[0-9a-f]+$":
+>            properties:
+>              reg:
+>                maximum: 3
+> +        "^multi-led@[0-9a-f]+$":
+> +          patternProperties:
+> +            "^led@[0-9a-f]+$":
+> +              properties:
+> +                reg:
+> +                  maximum: 3
+>    - if:
+>        properties:
+>          compatible:
+> @@ -96,16 +136,28 @@ allOf:
+>                - nxp,pca9634
+>      then:
+>        patternProperties:
+> -        "^led@[0-9a-f]+$":
+> +        "^.*led@[0-9a-f]+$":
+>            properties:
+>              reg:
+>                maximum: 7
+> +        "^multi-led@[0-9a-f]+$":
+> +          patternProperties:
+> +            "^led@[0-9a-f]+$":
+> +              properties:
+> +                reg:
+> +                  maximum: 7
+>      else:
+>        patternProperties:
+> -        "^led@[0-9a-f]+$":
+> +        "^.*led@[0-9a-f]+$":
+>            properties:
+>              reg:
+>                maximum: 15
+> +        "^multi-led@[0-9a-f]+$":
+> +          patternProperties:
+> +            "^led@[0-9a-f]+$":
+> +              properties:
+> +                reg:
+> +                  maximum: 15
+
+Is this 15 the maximum for all devices?
+If so, why does your regex permit values greater than 15?
+
+Cheers,
+Conor.
+
+> =20
+>  additionalProperties: false
+> =20
+> @@ -149,4 +201,50 @@ examples:
+>          };
+>      };
+> =20
+> +  - |
+> +    #include <dt-bindings/leds/common.h>
+> +
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        led-controller@62 {
+> +            compatible =3D "nxp,pca9633";
+> +            reg =3D <0x62>;
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <0>;
+> +
+> +            /* Three channels controlling one RGB LED */
+> +            multi-led@0 {
+> +                    reg =3D <0>;
+> +                    color =3D <LED_COLOR_ID_RGB>;
+> +                    function =3D LED_FUNCTION_STATUS;
+> +                    #address-cells =3D <1>;
+> +                    #size-cells =3D <0>;
+> +
+> +                    led@0 {
+> +                            reg =3D <0>;
+> +                            color =3D <LED_COLOR_ID_RED>;
+> +                    };
+> +
+> +                    led@1 {
+> +                            reg =3D <1>;
+> +                            color =3D <LED_COLOR_ID_GREEN>;
+> +                    };
+> +
+> +                    led@2 {
+> +                            reg =3D <2>;
+> +                            color =3D <LED_COLOR_ID_BLUE>;
+> +                    };
+> +            };
+> +
+> +            /* Remaining channel used as a plain white LED */
+> +            led@3 {
+> +                    reg =3D <3>;
+> +                    color =3D <LED_COLOR_ID_WHITE>;
+> +                    function =3D LED_FUNCTION_STATUS;
+> +            };
+> +        };
+> +    };
+> +
+>  ...
+>=20
+> --=20
+> 2.34.1
+>=20
+
+--/p782kKd6CXzkAlU
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakveRwAKCRB4tDGHoIJi
+0tc+AQD1xWa8YoKk5j+v3k7ziF0N2XUvIIXdj8pFG+U/UqsfqQD/d+BCU2t5T76N
+T+yLT7v74sTvfECiMylgSuB9LSoS9go=
+=dyQW
+-----END PGP SIGNATURE-----
+
+--/p782kKd6CXzkAlU--
