@@ -1,140 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DF236F8EF;
-	Mon,  6 Jul 2026 23:20:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9728C41D4C0
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 23:29:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783380033; cv=none; b=JBe2cRSbOU7NeJm+BS0772G5yGuBYhysylZ2mtp+7z7hH0SdxVheoTvBEZphn8DZeOpqHJgLcdl0N0chPrxwfQPnp2LHb7evLsDkynOG5nf7NHm7mn/Ogt2FGvzkzBhbfbYModz/tQVUwKUhrWFUXIkQC9Q5tZWpELV1v3Nb6KQ=
+	t=1783380570; cv=none; b=Qp47dcFXg0unRHSmBPiGZVMWdchpc35FYvO2g9B7/BQHUjf45+pK8/qnBf5JjJ9nSm36KacQM5KO8YL9tw3AgKCfildUXiJ4AjexPhRaNzLnO/V8MhdJLCrWjsObM7D0uBGE4738ZH0BVAN4tvZF12sdhSlkAcFD/5vpQuHDVzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783380033; c=relaxed/simple;
-	bh=L11fIKbxV6cjmLDzzrSC3NsRoaszFTuLSQsScJVKYiQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EX7PObtVvvENX5KWz70Iz8xi8kfBe+MNAka9RWTXvooBgU0ndrNAS0F/Ff1rPnrhVwbUBybKQ8pWAdkVzCzWfdsjQlfiElo0S59iV3WIea9W2/oKo5GY9OPWwPHRuVOnrpvwPBT7dHURPWHgv4Fu0RWwN2xyb570sgS1nEOQUFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FRaoOTHY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783380570; c=relaxed/simple;
+	bh=xXx9ghtDXdcnOVa0JS+aJabtBtx0SXhjqKDY7OeXIJQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=DOsJm0JWW7eDhWbjvPq1yTuIihHkbywt4os796Q4HzWNJeFGyOv3lKfmlv02W4J5jKwAABLqoFLlRk4/X5g21wubP6XWy23JLpsiM15LyxrwWWrhNJ4tKHRv+yyrHQJHfsZF/x5etBALnoMagHRuagozaZrbbAcbu1HVq6Ygc+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=fmxVTZkv; arc=none smtp.client-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FRaoOTHY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D95C21F000E9;
-	Mon,  6 Jul 2026 23:20:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783380032;
-	bh=VVzjjowMfqFq+0+YUgUFum1Kw+bY4y+e7gFAikKWL8E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FRaoOTHYv1/jD2sraCqmyHg9ZnSGs95xYfBs3zCvKPHNRc6MUPQmWOuCZQ/MjSog9
-	 OhCe1RbVVWUSEQ+t/RIL4AHm2csyZgmRNbGkFkam+KjBxn061G3sBMM3bFJyjkKnjF
-	 TXIVp8jGF9aSSy+PJU0MPjd2d/g0ZZUarmdjRfp0qfdCSCl5nW/UI+Z6G7SPLyN9bV
-	 N6ZlFUs+G/7vntzv5jv/hKWT/6pCchsZ3fRk+ESoQNDquW5KmFnHLJRIQuyTzi+YP2
-	 3NoOZA34dZxOLIvWxXv+D56hxcfKSYz30pRyL6U34/Wjph+YQqG4iBIBF70PYdNpWs
-	 7b7M3K1zlO1CQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/8] riscv_cbqri: resctrl: Add cache allocation via
- capacity block mask
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Drew Fustini" <fustini@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-rt-devel@lists.linux.dev, robh@kernel.org
-In-Reply-To: <20260706-dfustini-atl-sc-cbqri-dt-v4-5-e75c20201d64@kernel.org>
-References: <20260706-dfustini-atl-sc-cbqri-dt-v4-0-e75c20201d64@kernel.org>
- <20260706-dfustini-atl-sc-cbqri-dt-v4-5-e75c20201d64@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 23:20:31 +0000
-Message-Id: <20260706232031.D95C21F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="fmxVTZkv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: From: Subject: Cc: To: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1783380568;
+ bh=yxU8CHzvkTqWab+IeF9EPpfT2XdfzFSqHKpwnRwHBpU=;
+ b=fmxVTZkv5pIBlof1LGfRi+DdXPkiO/3SI+YeBaCNT7vPuJTex8pm2P8HihVyXF+ostjHtzdEa
+ 3Hcqj0VzMh4V6Oyc24R+TsJh5ijdWLHl7daHMMJEMu+keZFnqp1LB8b8QGpxizbnYh7Z5TFMOf9
+ 7x63TSpoP0jn7yAEWlw2Lgir9c1AqXv2dw5E5r+hBx4mdxE2SQFHZ0poZiURLrorSNi7YJ0Iu8y
+ wOyhURWIPxU0VdmMt6S+2cF4hPAWU5K7e+HjV89ARCAem4v9bz2g2L4f0wGNaq1zeXwniCOh9lS
+ P1c0A+Y6ithPlCJgHEFj8ik3mHJlsIIhZk26AoWoz9gQ==
+X-Forward-Email-ID: 6a4c3a4e49befa328926c594
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.9.7
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Mon, 06 Jul 2026 19:29:15 -0400
+Message-Id: <DJRVN972B27A.XI5EE88SRI89@ubuntu.com>
+To: "Sasha Finkelstein" <k@chaosmail.tech>, "Sven Peter" <sven@kernel.org>,
+ "Janne Grunau" <j@jannau.net>, "Neal Gompa" <neal@gompa.dev>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>
+Cc: <asahi@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Conor
+ Dooley" <conor.dooley@microchip.com>, "Hector Martin" <marcan@marcan.st>
+Subject: Re: [PATCH v3 0/3] soc: apple: Add "PMGR misc" power controls
+ driver
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+X-Mailer: aerc 0.21.0
+References: <20260705-pmgr-misc-v3-0-51b75fed6f73@chaosmail.tech>
+In-Reply-To: <20260705-pmgr-misc-v3-0-51b75fed6f73@chaosmail.tech>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] CBQRI controllers registered after system boot are not validated f=
-or mismatched capabilities when attached to resctrl domains.
-- [Medium] Missing ARCH_HAS_CPU_RESCTRL selection in RISC-V Kconfig prevent=
-s RESCTRL_FS from being enabled.
---
+On Sun Jul 5, 2026 at 4:16 AM EDT, Sasha Finkelstein wrote:
+> Certain Apple SoCs have additional power state controls that are using
+> a separate "misc" mmio interface. Currently this includes the fabric
+> and memory controllers on pro/max/ultra SoCs.
+>
+> This series adds a driver to put those in a low power state when the
+> machine enters sleep. The power savings are SoC-dependent and are
+> around 1W.
+>
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> ---
+> Changes in v3:
+> - Remove ability to probe only one control, it is not used anyway
+> - Allow building as module
+> - Style fixes
+> - Link to v2: https://patch.msgid.link/20260703-pmgr-misc-v2-0-4b26ba10c5=
+a4@chaosmail.tech
+>
+> Changes in v2:
+> - Error handling fixes
+> - Reword binding description
+> - Link to v1: https://patch.msgid.link/20260702-pmgr-misc-v1-0-4f075a3a95=
+c1@chaosmail.tech
+>
+> ---
+> Hector Martin (1):
+>       soc: apple: Add driver for Apple PMGR misc controls
+>
+> Sasha Finkelstein (2):
+>       dt-bindings: soc: apple: Add Apple PMGR misc controls
+>       arm64: dts: apple: Add pmgr-misc nodes to t60xx
+>
+>  Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml |=
+  45 +++++++++++++++++++++++++++
+>  MAINTAINERS                                                            |=
+   1 +
+>  arch/arm64/boot/dts/apple/t600x-die0.dtsi                              |=
+   7 +++++
+>  arch/arm64/boot/dts/apple/t602x-die0.dtsi                              |=
+   7 +++++
+>  drivers/soc/apple/Kconfig                                              |=
+  10 ++++++
+>  drivers/soc/apple/Makefile                                             |=
+   2 ++
+>  drivers/soc/apple/apple-pmgr-misc.c                                    |=
+ 181 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
+++++++++++++++++++++++++++++++++++++
+>  7 files changed, 253 insertions(+)
+> ---
+> base-commit: e5d9690657844a2645a518cdf838206f6daf513e
+> change-id: 20260702-pmgr-misc-ae1cbd5bc2c7
+>
+> Best regards,
+> -- =20
+> Sasha Finkelstein <k@chaosmail.tech>
 
---- Patch [5]: [PATCH v4 5/8] riscv_cbqri: resctrl: Add cache allocation vi=
-a capacity block mask ---
-commit bf65a655f2aedc980d538dde50ae87b2b9ea72e4
-Author: Drew Fustini <fustini@kernel.org>
+Seems fine.
 
-riscv_cbqri: resctrl: Add cache allocation via capacity block mask
-
-Wire CBQRI capacity controllers into resctrl as RDT_RESOURCE_L2 and
-RDT_RESOURCE_L3 schemata. Domains are created lazily in the cpuhp online
-callback so cpu_mask reflects only currently online CPUs.
-
-> diff --git a/drivers/resctrl/Kconfig b/drivers/resctrl/Kconfig
-> index 92b9c82cf9f39..f8566c003d495 100644
-> --- a/drivers/resctrl/Kconfig
-> +++ b/drivers/resctrl/Kconfig
-> @@ -42,3 +42,7 @@ menuconfig RISCV_CBQRI
->  if RISCV_CBQRI
-> =20
->  endif
-> +
-> +config RISCV_CBQRI_RESCTRL_FS
-> +	bool
-> +	default y if RISCV_CBQRI && RESCTRL_FS
-
-[Severity: Medium]
-Will this feature ever be enabled? Since the RISC-V architecture Kconfig do=
-es
-not currently select ARCH_HAS_CPU_RESCTRL, it appears RESCTRL_FS can never =
-be
-satisfied, making this newly added support unreachable.
-
-> diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resc=
-trl.c
-> new file mode 100644
-> index 0000000000000..cb12a868561b9
-> --- /dev/null
-> +++ b/drivers/resctrl/cbqri_resctrl.c
-
-[ ... ]
-
-> +static int cbqri_attach_cpu_to_cap_ctrl(struct cbqri_controller *ctrl,
-> +					unsigned int cpu)
-> +{
-> +	struct cbqri_resctrl_res *hw_res;
-> +	struct rdt_ctrl_domain *domain;
-> +	struct rdt_resource *res;
-> +	int dom_id;
-> +	int rid;
-> +
-> +	rid =3D cbqri_cache_level_to_rid(ctrl->cache.cache_level);
-> +	if (rid < 0)
-> +		return 0;
-> +	hw_res =3D &cbqri_resctrl_resources[rid];
-> +
-> +	if (!hw_res->ctrl)
-> +		return 0;
-> +
-> +	res =3D &hw_res->resctrl_res;
-> +	dom_id =3D ctrl->cache.cache_id;
-> +
-> +	domain =3D cbqri_find_ctrl_domain(&res->ctrl_domains, dom_id);
-> +	if (domain) {
-> +		cpumask_set_cpu(cpu, &domain->hdr.cpu_mask);
-> +		return 0;
-> +	}
-> +
-> +	domain =3D cbqri_create_ctrl_domain(ctrl, res, cpu, dom_id);
-
-[Severity: High]
-Can a mismatched controller be attached here if it is probed after system b=
-oot?
-
-While cbqri_resctrl_pick_caches() verifies that all controllers agree on
-capabilities like rcid_count and ncblks during boot, this function seems to
-unconditionally create a new control domain for late-attached controllers
-without similar validation against the baseline hw_res->ctrl capabilities.
-
-If a deferred probe or late module load brings up a controller with fewer
-capabilities (such as a smaller capacity block mask or fewer RCIDs), could
-the resctrl core's use of the baseline capabilities lead to out-of-bounds
-hardware writes when programming this new controller?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-dfustini-a=
-tl-sc-cbqri-dt-v4-0-e75c20201d64@kernel.org?part=3D5
+Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
