@@ -1,67 +1,68 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A29339E6FD
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 15:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3883A3E68
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 15:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783350185; cv=none; b=m71Wr5Tp4yKcIDt+KjMhM9RrXSZfidk03FklqOFhWAQHCi8pLmpg+/czrhftglM+gVwEjQbR/PUnZqgXepGTGClJdpwjbSE6T2KEZkEVLNdw4zdu5ogv4Ic2ctILeomR8qssD20lD0TvU9N4BvZ3aDwsGFyyCWP5S4bwBXXmlMQ=
+	t=1783350186; cv=none; b=Lq0KIppogOShuLD2V/qhP+yYmf2CC/jFmO502nFxtrHIW0hG9Nq6rwbW0+Vae8BFDqFI1k2W3mmCzlo0vyux1DqRz+A1j1PouI58fT5dSnmmBygOd3YEy7Wepy1+RNL0tEOh1g4BpdMj116ljp5xesURW8abUFElfkhsIG1/yO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783350185; c=relaxed/simple;
-	bh=frWnPQsAsHwq1WTd/9q6n1j47PwQpCWFOmdGfvwQGoM=;
+	s=arc-20240116; t=1783350186; c=relaxed/simple;
+	bh=I99MGLT4D47BThz6SZfrpPwMy7BbAelylwfqI+dkqnI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pSrwJerCJ53ExEV7l2veoviTcX9e4jKa/KS+0F1gZbLiBVLIHKE4qW7kVL5zDWX6AAhpYmvRDuw07WMINHUCfJjOE4rf4q1THmOoe/WywHgLky/BpUA3v+jAmNVWZWDruazS+VqT3Nd68hCULA7FdptEbD/lL1Xqx7mtp6bgAfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Nvg67DBg; arc=none smtp.client-ip=209.85.128.42
+	 In-Reply-To:To:Cc; b=A4RgFw+IpMDwzGvT6ml3jGj8AW1f4mQjz9pohrMylYnY4gzHM+Tf1UiZfEdNJbYrJey3MHyOalVHRiiKp5IZUHaPumJB5XYuD09MkIBXcNFlaQ1DN7v0RDJ/62xVMZBu0tn9aIibB8gHqMd0Ujt+mYQe5o7bbH2eA0a3snJVM8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Lv5C1wzm; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Nvg67DBg"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493b7612475so29448125e9.3
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 08:03:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Lv5C1wzm"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493b61b52b6so21817415e9.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 08:03:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google; t=1783350182; x=1783954982; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=LoayvTOy8B3Va9ZlXEOzucZkBIfqtEfrLl72tyzTD0I=;
-        b=Nvg67DBg0VBXDZdVtcyWMSgMLnu2kznbdi4AQHqIr3ZXes/Vbg4JWWgS9RKjR5fhuB
-         L18M1dr8hbNH4FGCnIOJktYmgv7fn+nEjWWSUnkgD8k87OjlnSeLOEnIyFMXkQEWp5wK
-         /pCcfn6MTVzsGel5hhgcEouQQUgdxDQpwbqAYp4rnBZny5Z77mydJ6Gl6PN9AGaFWKkB
-         +hhxhbi1OG9ZzVDoP6oYbBVqYDeuo4jcWqoKS85u3rl0QvKau30ERcskx1JkV60xEPZV
-         v1JSTvP5cBYeCmhUbAnNd2HZJlPY9NufyiS5pxE5zJN97r5GZUlRU7k94fsEJA2pUmCI
-         rnqA==
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qyrVFx05JE+my29Owh+QhOGqArzBrtII5yeMh1a+E+o=;
+        b=Lv5C1wzmDWkdpV2A6yKDsPu84EQDMWeB2YMg+7q4/TDEDFjmHhtzUuGtkXsRUVGbJ1
+         4ODA/MFxJYwfaL/dhS5yK/AxgFC5o22f+JTQ2qL9oQVPdNkSqBqrmTrGBBGCogEfBPlt
+         X0dcEn3ppKIQHAvTMxxVBudNVDfp4s8IYjJcZ9slhSUYX67VcNTvDVMYUG3B//kkjyWv
+         cGL37liS5eUD17pnX8IF8gAqKfn3AUeQ3jvdfbr7oUMATDg+y62iPDNJRoXVd0Gxp5lT
+         9YkxRPpB4mRiS/zagxP/yP25slHKfU6+TIkxk8CT+Yo6mP/dL+/heguuKkApNV3mmR9f
+         14JQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1783350182; x=1783954982;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=LoayvTOy8B3Va9ZlXEOzucZkBIfqtEfrLl72tyzTD0I=;
-        b=U55xEbsfFDCRXLJSbxz1Mk6XfYJTQsIKs1KNGzn3T3YvV0znf3rJ8JD/3zc8LAAjgU
-         RHROlz2OyblEsWqc0JHz1lCABbUL7OUXk2+DxuDRuvoWv2zid5EW3ywy5kbvfUzrnBWm
-         /vyjCe+2lldcidHoVpmUiaMgcdtQTHCIW5OhBG0ZYuwH4bRhrLQEJC/FaXYmJo8YAjE2
-         mngu+2EkEcQTP/N5qpXQ9tQ9x3+SJWVGrXNSGG9VH9NYqXc7w2Z1mmL5Smmf6xJUT+nN
-         dS3uoNhgQKvz0KHF8fzIq54fr3/u4icK7SMUdzXKGxyW8xz1aYn0quJ37IAPK2y//QDn
-         xQbg==
-X-Forwarded-Encrypted: i=1; AHgh+RoZBKTyYsB/565Nu2ZErA8dWnmu8nW+zDODqW870hVS6rvUno38CG+41CUrwpzIN6w7yKwLsgLKEalk@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz7d9MWKSBut4WdEeXXi9mI1TBYPs+eZO8hyPbvfr4wl8JdMAeg
-	7jLWcHu9pcr+hlttlrtxgzzord8mn+HU5xmGYnXy5ly4HzR/dRLYuXqXi/UtVzCvQEg=
-X-Gm-Gg: AfdE7ckibkMjhr6fijlTaP5w/DelMg/Wd9UacusyXEoT00Od4IdzuM+rIhNDuaR0K9y
-	YB59716Du/1Tej3yNW8Lcxm/E+jVJ6kvgrsoNUpL8jZtZWM55SD8sMMtQ9OBFvIc2FaZ/RHffPj
-	/pLof8enImHpqBbARvXs5RtH0Cbz4Qu8bFEjaqyE6xzNAaYQlJNrpCkc/iyG3jB29jlkODfHixd
-	SmciSViNk3SlgBjleNmeu7uUiZZG3lTzE7Y2mXKrVCro+HcsgSNtlO8NS0BJyBR6BWUV2f4WWiR
-	CxxNPEikYv8inbHVUg8IB64Z7YsIVJZjuuYLTwK1lZ/uEl3keDLLKXeEgVVSEgbQGaVKcjEhmQB
-	u0Q755GdIiuG4QaxMsK5CQcUCP4SJpNABDjZOyZSkleWSy0/W+hX0Mz1cokRQIXAHswUDw8eOWi
-	1U06gsJkWsMW1PJSEdUchtoMB7sFWteoM1a/6c
-X-Received: by 2002:a05:600c:4a21:b0:492:63c3:8eeb with SMTP id 5b1f17b1804b1-493df09b53amr7429595e9.35.1783350181202;
-        Mon, 06 Jul 2026 08:03:01 -0700 (PDT)
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qyrVFx05JE+my29Owh+QhOGqArzBrtII5yeMh1a+E+o=;
+        b=iM2Mvqr5sEx/CTmTbOppUu4e7qoii689ODNHbckN4RGkrbgwvv4vshsdVJoQTB2Ukx
+         YzCwBF8vYSPvdprNLApI5LmK38LgRAf3ksv/2Q4ezDrBkn0PhLKk9SghbjSTknMMfhJv
+         9BotEqcle2LqA3FtxtO2858mTprMdUMcr22TPiy4mDwi9V2tm0YDRxZYwgz8gZkYg2qe
+         hilWmfEIrlaDUPibrw6NJHgPurl/KSvj1VPhhInGm+Slv8hZ2S6ZdltlCIaTleTkTFQG
+         P/Plc1OxXirn2YxCiVC+OqJlSf7D1ATRQIalYyX5g1E/pBjxjkoiYj7BBfGFs876nANE
+         Aqog==
+X-Forwarded-Encrypted: i=1; AHgh+RqUDPnzhU9teHwEo8iFc2z7fGQLJSfUCEqnmNqk95A7MWY/8DNd6CWDu8Uij4JSbYseRrSsSfZCp7NX@vger.kernel.org
+X-Gm-Message-State: AOJu0YyL0f7VRORhblF4X8VBzYdICImqqZAYJUaWiFpa2M/hF0MTfHKU
+	1vNai9HoaB5h3QDKICRnUAYmEcisrJxYJXyWlkVAqNQTgrbuA4MnZSLUxbhNGysbR54=
+X-Gm-Gg: AfdE7cmMpNaxr74cYd3kUILfDhCINBF+tmlqeJ5u/vl6dvX+rorM1xfnPSlmzHlrKQ3
+	kjzO19r4eBpeLh9rX9U56BZMcFx74SnjFGV5plNrPgOecTyZEApX/Dg+kJ1lFE3j7/83ENmmffH
+	+SMlPzByuRZvaRieh9M5GVpr80X8Txjqp6/YNkJrfVtisQZx0NBOoLae/BFIinsvAuYbMGtp0j2
+	UP6uV/YzbIOkrFl1k+iTJhcoZ75AAILdBKYKk6ZsvWxQdUrPCtNa2XivN1z3TQywwI7yGNuz0tD
+	XuAN5RrwWwwxFcCvCya+HJUp3Vrud7xCEZkyVhIj0loqKELkowqlO7ORaTyJJ0V8nCTprXLuVtJ
+	v20o6calqaIu7NgRAGwyIGPWLV6khaPLYri0Ut6DVJTYV54XTPi2ZJmoCvOS2ZIaGX2HxpQPNEp
+	yd4WUMn5i77q2DwvI9FLC9qT0qrQ==
+X-Received: by 2002:a05:600c:4747:b0:493:bb0:3b43 with SMTP id 5b1f17b1804b1-493df0559c1mr11645015e9.2.1783350182313;
+        Mon, 06 Jul 2026 08:03:02 -0700 (PDT)
 Received: from [127.0.0.2] ([2a02:2454:ff24:7210:1bb5:914d:5d25:d048])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c637568dsm397741625e9.4.2026.07.06.08.03.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c637568dsm397741625e9.4.2026.07.06.08.03.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 08:03:00 -0700 (PDT)
+        Mon, 06 Jul 2026 08:03:01 -0700 (PDT)
 From: Stephan Gerhold <stephan.gerhold@linaro.org>
-Date: Mon, 06 Jul 2026 17:02:16 +0200
-Subject: [PATCH v2 09/12] dt-bindings: clock: qcom: gcc-mdm9607: Drop
- SYSTEM_NOC_BFDCD_CLK_SRC
+Date: Mon, 06 Jul 2026 17:02:17 +0200
+Subject: [PATCH v2 10/12] dt-bindings: clock: qcom: gcc-mdm9607: Add
+ missing "clocks" property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-qcom-clk-mdm9607-fixes-v2-9-745565101869@linaro.org>
+Message-Id: <20260706-qcom-clk-mdm9607-fixes-v2-10-745565101869@linaro.org>
 References: <20260706-qcom-clk-mdm9607-fixes-v2-0-745565101869@linaro.org>
 In-Reply-To: <20260706-qcom-clk-mdm9607-fixes-v2-0-745565101869@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>
@@ -84,32 +85,57 @@ Cc: Michael Turquette <mturquette@baylibre.com>,
  Taniya Das <taniya.das@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
 
-From: Stephan Gerhold <stephan@gerhold.net>
+gcc-mdm9607.c uses "fw_name", so it requires specifying the "xo" and
+"sleep_clk" clock source in the device tree. For some reason, this was
+never documented in the dt-bindings. Nowadays, qcom,gcc-mdm9607 has a
+dedicated schema, so we can just add it to the properties without any
+additional conditionals.
 
-This clock does not exist in the hardware, it has no consumers and
-reading/writing to the registers fails. Drop it from the bindings.
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+Fixes: 6faa7e4ddce6 ("dt-bindings: clock: Add MDM9607 GCC clock bindings")
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Stephan Gerhold <stephan.gerhold@linaro.org>
 ---
- include/dt-bindings/clock/qcom,gcc-mdm9607.h | 1 -
- 1 file changed, 1 deletion(-)
+ .../devicetree/bindings/clock/qcom,gcc-mdm9607.yaml        | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/include/dt-bindings/clock/qcom,gcc-mdm9607.h b/include/dt-bindings/clock/qcom,gcc-mdm9607.h
-index 357a680a40da..246bce28137e 100644
---- a/include/dt-bindings/clock/qcom,gcc-mdm9607.h
-+++ b/include/dt-bindings/clock/qcom,gcc-mdm9607.h
-@@ -13,7 +13,6 @@
- #define GPLL2							4
- #define GPLL2_EARLY						5
- #define PCNOC_BFDCD_CLK_SRC				6
--#define SYSTEM_NOC_BFDCD_CLK_SRC		7
- #define GCC_SMMU_CFG_CLK				8
- #define APSS_AHB_CLK_SRC				9
- #define GCC_QDSS_DAP_CLK				10
+diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-mdm9607.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-mdm9607.yaml
+index d7da30b0e7ee..ef4b274b5c09 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,gcc-mdm9607.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,gcc-mdm9607.yaml
+@@ -25,8 +25,20 @@ properties:
+     enum:
+       - qcom,gcc-mdm9607
+ 
++  clocks:
++    items:
++      - description: XO source
++      - description: Sleep clock source
++
++  clock-names:
++    items:
++      - const: xo
++      - const: sleep_clk
++
+ required:
+   - compatible
++  - clocks
++  - clock-names
+   - '#power-domain-cells'
+ 
+ unevaluatedProperties: false
+@@ -39,5 +51,7 @@ examples:
+       #clock-cells = <1>;
+       #reset-cells = <1>;
+       #power-domain-cells = <1>;
++      clocks = <&xo_board>, <&sleep_clk>;
++      clock-names = "xo", "sleep_clk";
+     };
+ ...
 
 -- 
 2.54.0
