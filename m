@@ -1,146 +1,101 @@
-Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from naesa05.arrow.com (naesa05.arrow.com [216.150.161.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F393DEADB
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 08:09:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1562F39B4A1;
+	Mon,  6 Jul 2026 08:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.150.161.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783325358; cv=none; b=k0tg8fESa/+NToIEU+BMxKMiUwgR2Se7rE0vVbdEt44C+3mQTcDYSdqI01D/Hs/A6hbkmvvOxP5PVr1Z8k5emU0BbMW51lJ9pS1dkwJ833RsbFh0Eura8Sa4eogzkyPMPTtFbPqA+NGOG70v8Qy/NID7C0UGk1dzm50P7jX1nEQ=
+	t=1783325477; cv=none; b=k/+Od9I53mhDgSbl24eUmkhPOJ3Y7CbZ+JIEriTMtRJBD59yZWJYA7FzVmxkUoSmrO6L6h53Xhp+Ln+vx7fAdXFMX/RjnGm6B31qAXDNOpwmpHbt3aoqcsfnkxlmx+3Jc1317H//DQMAwcbfU5z9BGShmpJphHTTfavwpZKqAGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783325358; c=relaxed/simple;
-	bh=glp/HdZjPID3k9JwT/K76pg9j++zO7I3Rw77qWLA6Kg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N3O8jELnlQBvvkEhDzrSWd/yj06EE24o2oc2bi3Q1j5+SIwbeLyyt6C/TTPVBxU4d8EkkNbloiHvU224GvZ0zH3Jv7Ab76boc9Ny53GJJd309/70MDQ5zMDg3zDKb7ws1OujHwhmlbOUw9WlrHT/xZR5LXrGTZftYjk29C1Z/OI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-736eea06c3eso751599137.0
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 01:09:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783325351; x=1783930151;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qf9yz7bHOmjN0sKgSDCZJBffOCMRQyGOU+wzNPd/KAs=;
-        b=lSTHjGhtHoDgR6uiWsUE4A4F4Q67tO0FGING3fja+PMMkwGaigkEprubnGQaMk2I93
-         hGcsc7nCh50masTlKEjOXZ54df+o/6Ksy+NO+aB9KDepxKghcDct674TB4m/U641SMzB
-         vvanbEy5hulPU7PgjSRzSL32SHLPTd3nG64jaQi6qFOQSfMLpt1mCTDNiTzpEC/6zrSb
-         1nQ9by8VE0UJt/RmCou1vVxsmIemKnDa162XyN67xmeYIsO9C7MRWkqdz5ugaDbSU+Vp
-         F6mxvorHJERp2L9srbAA3RM1I59kNrwPnP39GEtBS4y9SaWU8H3TJvM0njKpkAsXuUkz
-         xDcw==
-X-Forwarded-Encrypted: i=1; AHgh+RrYRU6hooe5u0+4kqbFV0I3Af2lul3WqufiiAu+k7oN8hIq5P2Bp+1/LsVeP3js4dVXWotOmnIKlZhV@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEH01FO55CeSA4sX4nfvS0yq9BgRnTG1j/LFGW+Lrpe7y5W83B
-	QpzpLXkLhcFEEXb4yfAuonxSBDKZTlnWQwG/gUSkOeUS//6ZGHvsNz97VS5s7iMh
-X-Gm-Gg: AfdE7ck/w7/oR49UoVsAulUaHwha+9gUUpFxNbD82O7KQsWyKQCjud1Fx127EQ2qClv
-	qIcMWKi55p5mafa1TRngFXR5fpWUY0xA8WVrA25IHdXyFs1tVUu+TcKGJi1IQPaVnq/VOX4eRCt
-	5yNMYNtApEz3pxSrKsaS4D77m0RJNI1SHQQSnKRnsy6LjdKEU6pRUpm+nLR/fqvoVilrjO3UOYA
-	YTxkbJH0GGZc3L79dvvdUSMrJzKObQ4HIqaX/Ia8VPBKdpNVCkHFyqfLvrWZalmOxu6usApexW5
-	mI3RlNztTqss27Bz6zHOsTDGt8SYnwo0fAL2Jq0HkuQG4mEbtjAr1fgGBSUmMzNSYn22W2WPsL4
-	vyHU5Ox+FuxGvAS/aW2FiYNLEle670OuIrVFe9OgcQaQrx10dhohfvc0+kc5zz2EV3m3oQaJeUE
-	ikhwqCFE+p5OOv70pg5tim5hF/uZ0TiN892AuhM6Y62Nzn9ofQ/H/8GIz0JltY
-X-Received: by 2002:a05:6102:2c8c:b0:738:8022:d74c with SMTP id ada2fe7eead31-7427e7fa3a8mr2676624137.15.1783325351356;
-        Mon, 06 Jul 2026 01:09:11 -0700 (PDT)
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com. [209.85.217.47])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-969838bb88asm4709117241.4.2026.07.06.01.09.10
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2026 01:09:10 -0700 (PDT)
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-738bcf9a573so728906137.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 01:09:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoxCmvu7ok9frMwZGd5i01JdfIosnELUhANjiYAUpJWIVNWjEYY3lWCkEW6r2LdhItrBC6ZZDhanTZW@vger.kernel.org
-X-Received: by 2002:a05:6102:32cd:b0:73a:2195:4386 with SMTP id
- ada2fe7eead31-7427f05af6fmr3257389137.24.1783325349869; Mon, 06 Jul 2026
- 01:09:09 -0700 (PDT)
+	s=arc-20240116; t=1783325477; c=relaxed/simple;
+	bh=Bm2LXbuRY2QCxWA3H2ncpvTvJY7hXCKLg8kieijRnQ0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=MwzUv6ilJ0j0YoR5LI3Z5sG+zDTT+SWjvuzxUzl2GalsR3xDe3EewqXseFGXpGTSNI0OxndjkEL5TDF9DGBGm2qbY1vqFBpHk9qNVoGA9CgGpDQuO13Ijv2WmOZvzscs+YUn7SmE8E5vQebd+TVLQfzGeodRjnwvC8z1p4zndoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com; spf=pass smtp.mailfrom=einfochips.com; dkim=pass (2048-bit key) header.d=einfochips.com header.i=@einfochips.com header.b=n58rCKtG; arc=none smtp.client-ip=216.150.161.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=einfochips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=einfochips.com header.i=@einfochips.com header.b="n58rCKtG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=einfochips.com; i=@einfochips.com; l=899; q=dns/txt;
+  s=NAESA-Selector1; t=1783325471; x=1814861471;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=MCUcGL7ydFiRV6Lo3K/hbvbkATG0RhAxhMos+kWz6oA=;
+  b=n58rCKtGpg7JqcJuh0ZtnYRqMdn1rw7rfMIZS20nhmE8Ve9NtZsJauAL
+   Dj1d8Ge/MgRI8p6p7+7Fn2nPqmt2FMxLIi9Tr1w2zEt1ZQ/59u+8rs+37
+   u8Ph7uE5D9AfeMOtOwMFGNclQl1MWCocwHht3/OyfIAJbOhEp40Llese+
+   w8sSCT3HYA52iAdoWcreaW/h4pcwxtw3iFh/nQH6TsASEPKFMfc0Hvtmk
+   IDYTI5r6RIR2YGEMRbIWI3oxPsffjk4Q29WfLOXgFXeo0PpEk8rXgZAfp
+   KiozxrzIipugICxlVrc0Lc4NnTK6JrIP2PXxpPHKCvYs2K+lkesx1T/3O
+   w==;
+X-CSE-ConnectionGUID: gNM+mqbIRpOkTBU5ziJeOw==
+X-CSE-MsgGUID: enMvyqpMSxyEqrRmy2ENhg==
+X-IronPort-AV: E=Sophos;i="6.25,149,1779170400"; 
+   d="scan'208";a="57540315"
+Received: from unknown (HELO eicahmirelay01.einfochips.com) ([10.100.49.50])
+  by naesa05out.arrow.com with ESMTP; 06 Jul 2026 02:11:07 -0600
+Received: from AHMCPU1888.localdomain ([172.25.5.100]) by eicahmirelay01.einfochips.com with Microsoft SMTPSVC(10.0.20348.1);
+	 Mon, 6 Jul 2026 13:40:56 +0530
+From: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+To: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Min Lin <linmin@eswincomputing.com>
+Cc: Yulin Lu <luyulin@eswincomputing.com>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Darshan Prajapati <darshan.prajapati@einfochips.com>,
+	Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>,
+	Pritesh Patel <pritesh.patel@einfochips.com>
+Subject: [PATCH v2 6/8] dt-bindings: i2c: dw: add ESWIN EIC7700 SoC I2C controller
+Date: Mon,  6 Jul 2026 13:40:53 +0530
+Message-Id: <20260706081055.1126275-7-pinkesh.vaghela@einfochips.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260706081055.1126275-1-pinkesh.vaghela@einfochips.com>
+References: <20260706081055.1126275-1-pinkesh.vaghela@einfochips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com> <20260705213542.28987-2-laurent.pinchart+renesas@ideasonboard.com>
-In-Reply-To: <20260705213542.28987-2-laurent.pinchart+renesas@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 6 Jul 2026 10:08:57 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUCqTQ0fWDyHJkU=0gzFe88r0hsSk9tsgfQUZq4TRcAoQ@mail.gmail.com>
-X-Gm-Features: AVVi8CeGulURzBLLfkjFzqZ7MqehawY40QKBoJDeR4KrDLoVwstpoZpBrt3N2ag
-Message-ID: <CAMuHMdUCqTQ0fWDyHJkU=0gzFe88r0hsSk9tsgfQUZq4TRcAoQ@mail.gmail.com>
-Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow hardcoding EDID
-To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-OriginalArrivalTime: 06 Jul 2026 08:10:56.0161 (UTC) FILETIME=[F893F910:01DD0D1E]
 
-Hi Laurent,
+From: Pritesh Patel <pritesh.patel@einfochips.com>
 
-On Sun, 5 Jul 2026 at 23:35, Laurent Pinchart
-<laurent.pinchart+renesas@ideasonboard.com> wrote:
-> Since DDC version 2, introduced in 1996, VGA monitors have exposed EDID
-> data over an I2C bus. The bus is also used to detect the presence of a
-> connected monitor by trying to read the EDID data.
->
-> Some devices where the VGA display is integrated in the device and
-> always connected do not connect the DDC pins. Some development boards,
-> such as the Renesas M3N Salvator-XS, also do not connect the DDC pins.
->
-> To support those, add the ability to provide hardcoded EDID data in the
-> device tree. This is mutually exclusive with specifying a DDC bus, and
-> can only be done when the VGA display is guaranteed to be always
-> connected.
->
-> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Add compatible string for the DesignWare-based I2C controllers present
+in ESWIN EIC7700 SoC.
 
-Thanks for your patch!
+Signed-off-by: Pritesh Patel <pritesh.patel@einfochips.com>
+Signed-off-by: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+---
+ Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-> --- a/Documentation/devicetree/bindings/display/connector/vga-connector.yaml
-> +++ b/Documentation/devicetree/bindings/display/connector/vga-connector.yaml
-> @@ -19,10 +19,25 @@ properties:
->      description: phandle link to the I2C controller used for DDC EDID probing
->      $ref: /schemas/types.yaml#/definitions/phandle
->
-> +  edid:
-> +    $ref: /schemas/types.yaml#/definitions/uint8-array
-> +    description:
-> +      When the DDC signals are not wired to the connector, and the connected
-> +      display is not removable, this property is used to supply a binary EDID
-> +      blob for the display.
-> +
->    port:
->      $ref: /schemas/graph.yaml#/properties/port
->      description: Connection to controller providing VGA signals
->
-> +allOf:
-> +  - if:
-> +      required:
-> +        - ddc-i2c-bus
-> +    then:
-> +      properties:
-> +        edid: false
-> +
-
-What if the DDC signals are wired to the connector on the provider side,
-but not on the consumer side?
-A DT overlay describing the consumer device can add an edid property,
-but it cannot delete the ddc-i2c-bus property in the base DTB.
-
->  required:
->    - compatible
->    - port
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
+diff --git a/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml b/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
+index 467bdcbb8538..ea3d4d4c299f 100644
+--- a/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
+@@ -40,6 +40,7 @@ properties:
+           - const: snps,designware-i2c
+       - items:
+           - enum:
++              - eswin,eic7700-i2c
+               - mobileye,eyeq6lplus-i2c
+               - mscc,ocelot-i2c
+               - sophgo,sg2044-i2c
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.34.1
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
