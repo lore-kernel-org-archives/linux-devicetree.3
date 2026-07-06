@@ -1,41 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4C432B113;
-	Mon,  6 Jul 2026 19:32:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBB132ED58;
+	Mon,  6 Jul 2026 19:32:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783366364; cv=none; b=RgqpcmfkAxgg2e5qZbbE+JdFPjuNb8twZQ/YkAtO5HniKyERhYHZBPG/x8wnHkOoC/ulWnjLADVCrfcgM+1H9Tdsdtak64i7HHJQCX0AVLEsZFrYcn9Jl/yNmONzyqYLRS5eR3o3K8SVm4mh//0WEsbzABhrLDKvtJvXCvYPsJY=
+	t=1783366366; cv=none; b=Mm+qkwFsHzXtCVAoH4ofM9/cVdztzmJCK7qLpEejldbFl7ABjjvZaM0wJuQUldkYgsoBL45oejtgiFmfmJdxU52ro2JkY5jSwkov2ss5K2L6dW9Cm2drT2IpbMW49QRuiUE2nTYXz8g8kARyIrZqTUHbm4b40NVkIgO3RpVpWMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783366364; c=relaxed/simple;
-	bh=ennCyVdUhS656w6m37dKN81VWP9UAna9bWqoj9qDZPY=;
+	s=arc-20240116; t=1783366366; c=relaxed/simple;
+	bh=G1dUqD72q2FY05PHYY6caECaecWtFD0swmYnsw623Ug=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JiIAcUmWitz9FRyIy5/0bqvHmeb+xJt5TMT8LmIAF41mO7tVYx4l9j7ICAYoAFvSna/l3ols0JD3jlI49K/LmCzB/SmyPu7qSYegfnxGcz4jwTfsq/jCthnlIYEYlFddq0VvqgHe4Ec+pgKnEADg6d4A/CZwW6gaQBdlQbhk3a0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Peg9l/Pj; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=HJmtXa7dpN7+DkIe0dRVbX8WYwNwCKJietvhm1MMQd4fp7EMjVIHtMK1ur046KHKuLPxyDCRDT+e0VqcSEXtAJYS3iLLJsOtUoFgRjgy2R8m06BGj/jahGrtyzhR520CpgHCLJYUn0fZfQBYfxGOe8oZG9/sikT7gesA/KjDhlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=AofMEOeW; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Peg9l/Pj"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="AofMEOeW"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783366360;
-	bh=ennCyVdUhS656w6m37dKN81VWP9UAna9bWqoj9qDZPY=;
+	s=mail; t=1783366361;
+	bh=G1dUqD72q2FY05PHYY6caECaecWtFD0swmYnsw623Ug=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Peg9l/PjJmAKXZOJ347YBpnbCjMlCBQBEUIyyqDylOACnrwL7SUKHCLuiymYYuQAz
-	 pY4WudXYX8e4+fgRYtWE/P8quFFVeUaeKB0G29GGlZFqXTa3ul3N1cab6o6F01wKH3
-	 UOqtr5/ZbKqO8K5FzNZTukkTBAQF4YloeKBbmyB+tHrjAbO8X6PgNU8lioYkSKZjHe
-	 GEZyWmJmkUeYZce6/q60ceKfK4LTBbGeCjeNY68DkZTXFrBDD4v9EiP5oxv2Zw4yOO
-	 Uxh7MFrkICPBOYuDnkrLbi4i3a/tr2e4jzS5RDiIEqSD19axEfPa/kEc5Q2FhnaQe4
-	 ZxZTjPQQbMJDQ==
+	b=AofMEOeWaNosIOTxIz3OLPcrKAimQBeKU99F3NNsqzRkfHvm1+iB1nGJU8Dr7HeHF
+	 5dVZJiQGmXTNZsWba7fzbPAVajEqRVH7wtc4HrAOht6/UYVC5IjyrDNb+JZdCl1H5X
+	 a9yEuFm5uBxIDHDrrugEzipbQetAdZK83ZSouCNTYM/fBnnD1xenzEYIcx/5YLwyT8
+	 xEwqsvilU00DroAfjTrk2g8xrfLIOB7O9/q3L7ksyO5UycZfiVfuxhdD/yOVkwIFd5
+	 3CK81woHJ3HEydXJt7iOcGeuqBxSi9xwoo0zYx7tnJweumnKJgJ/KRvdqWHhvI63SJ
+	 DZ8tfQpp4eTMw==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E13E717E1078;
-	Mon, 06 Jul 2026 21:32:39 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 577A617E1270;
+	Mon, 06 Jul 2026 21:32:41 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Mon, 06 Jul 2026 22:32:21 +0300
-Subject: [PATCH v2 09/13] drm/rockchip: vop2: Switch to enum vop_csc_format
+Date: Mon, 06 Jul 2026 22:32:23 +0300
+Subject: [PATCH v2 11/13] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422
+ output format
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-dw-hdmi-qp-yuv-v2-9-b91beb33dedf@collabora.com>
+Message-Id: <20260706-dw-hdmi-qp-yuv-v2-11-b91beb33dedf@collabora.com>
 References: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
 In-Reply-To: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -66,51 +67,53 @@ Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-Improve code readability in vop2_setup_csc_mode() by using enum
-vop_csc_format for the csc_mode variable, as well as for the return type
-of the vop2_convert_csc_mode() helper, which already returns CSC_*
-enumerators.
+Rockchip DW HDMI QP encoder supports YUV 4:2:2 output through
+ROCKCHIP_OUT_MODE_YUV422, but was limited to 8-bit depth via
+MEDIA_BUS_FMT_UYVY8_1X16.  Add support for its 10-bit counterpart
+MEDIA_BUS_FMT_UYVY10_1X20, which carries two 10-bit components per clock
+cycle on a 20-bit wide bus.
 
-While at it, replace the nonsensical 'csc_mode = false' assignment in
-the no-conversion branch with the equivalent CSC_BT601L, which carries
-the same value (0) but is type-correct.
+YUV 4:2:2 always transmits two 12-bit components per pixel, regardless
+of the color depth.  From a clock-rate perspective this is equivalent to
+three 8-bit RGB components, so configure the HDMI PHY with 8 bpc when
+YUV 4:2:2 is in use to keep its output clock aligned with the TMDS
+character rate.  Otherwise the PHY PLL output would be scaled by bpc/8
+for higher color depths, producing a clock rate that confuses downstream
+consumers such as the VOP2 display controller.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 718603e18da8..e7724016a0c8 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -648,7 +648,7 @@ static void vop2_setup_scale(struct vop2 *vop2, const struct vop2_win *win,
- 	}
- }
- 
--static int vop2_convert_csc_mode(int csc_mode)
-+static enum vop_csc_format vop2_convert_csc_mode(int csc_mode)
- {
- 	switch (csc_mode) {
- 	case V4L2_COLORSPACE_SMPTE170M:
-@@ -711,7 +711,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
- 	int input_csc = V4L2_COLORSPACE_DEFAULT;
- 	int output_csc = vcstate->color_space;
- 	bool r2y_en, y2r_en;
--	int csc_mode;
-+	enum vop_csc_format csc_mode;
- 
- 	if (is_input_yuv && !is_output_yuv) {
- 		y2r_en = true;
-@@ -724,7 +724,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
- 	} else {
- 		y2r_en = false;
- 		r2y_en = false;
--		csc_mode = false;
-+		csc_mode = CSC_BT601L;
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 9c4cf68d79d5..78473f9a0fce 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -215,6 +215,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+ 		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
+ 		break;
+ 	case MEDIA_BUS_FMT_UYVY8_1X16:
++	case MEDIA_BUS_FMT_UYVY10_1X20:
+ 		s->output_mode = ROCKCHIP_OUT_MODE_YUV422;
+ 		break;
+ 	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
+@@ -226,7 +227,14 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
  	}
  
- 	vop2_win_write(win, VOP2_WIN_Y2R_EN, y2r_en);
+ 	phy_cfg.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
+-	phy_cfg.hdmi.bpc = conn_state->hdmi.output_bpc;
++	/*
++	 * YUV422 always transmits two 12-bit components per clock cycle,
++	 * regardless of the color depth, which from a rate perspective is
++	 * equivalent to three 8-bit RGB components.  Force 8 bpc here to
++	 * keep the PHY PLL output aligned with the TMDS character rate.
++	 */
++	phy_cfg.hdmi.bpc = (s->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
++				8 : conn_state->hdmi.output_bpc);
+ 
+ 	ret = phy_configure(hdmi->phy, &phy_cfg);
+ 	if (!ret) {
 
 -- 
 2.54.0
