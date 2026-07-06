@@ -1,87 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3863042CAE3
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 12:31:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29023D667F
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 12:31:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783341098; cv=none; b=Wv7duswPNfOgwlSZoD+oGXHaZ1lKoAuHwI6vLuoqTshJeJBZpb7sV5UMotPS/JKFzOuhcxrxTSMoM97GXFhpQGRCYxRiPGKXxKWWjXFLQ910FGUsVAZDVNNVG8WQ7xMwi1jZs/5k4wxhLZI2XsoJi5qlgsaUhNbotTmMJv4HUW4=
+	t=1783341106; cv=none; b=TfA6RyhMcMWE551hET9khyv+24vCdH+A5kPOAO4/rTYH6CcSbkHas5HeLfYKPpJrxoBawFCeeUEcs9qGprVATGIjr03OpbADw40u71xOFbcqUGIOeF+hNtcrUwjtu8IWX+Uvp5/T+3yl+ez+nijiP7Rn0/fyHH7DYyaY21OZLeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783341098; c=relaxed/simple;
-	bh=wcaDAcJbxEOLbIDYL7Yv7cDA2DO4yoqD9dV8JvZuO34=;
+	s=arc-20240116; t=1783341106; c=relaxed/simple;
+	bh=/GzaFAOemySs/nlLPtlFiaFz3jJ0quf8oFuTtWmRDak=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=I7ixx4gY250OLym8IPR8pL4WRKSbws8qGFiSv7r4Wr8Waofhd3gUgXk0jkSRRJZP5/REgkPPmdc75P9BDkbP2LktiwIGAjoF5MFohsEY+UdiRe/y+oRr3DAireDoARtZTsCBn6+JeSPjfnObhTCR8x3E7E4oJUEe31xG4vWM5NI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=U9k/eB8n; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EJIkRm8Y; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=iQT/2UAuMjVFWgU1k7fzH7wMxxoa6AiSvqHYSZMWWXwO5yUmGZHBTuK0HlFNq93cLYUsW4VzYy8jdsmw97ZqAz7qMEcy6VI+EHpLSW4vxE3BMF05SybZsuUMWBfjHQXUaWjsmMQqEf6E1CrAEmX0IRRAwQRjuQnSpRL4RChk1qE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=a46SNaYG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fL0IogjP; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="U9k/eB8n";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EJIkRm8Y"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666AxQte218865
-	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 12:31:36 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="a46SNaYG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fL0IogjP"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666AxFnB401628
+	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 12:31:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IknsrGHJP1iQr5TspskyHtFF58EhBmo2rNT3Q8qunWY=; b=U9k/eB8nz7NfX4WC
-	A+cqPIHmGSKR7aBvDKrkW9SqKNDvLwWokaSRgnjbbXeBFAgVUqCU4xAocrM64X8T
-	jfr3XAwSJu/PYfB0mVdYTKoHuyFlo7Bk79uuOgRLEpIruU69wcOxlca7Hyu/NRkS
-	soVgLiuZ7EfqNCDACqBYFkufs0MjyC/cof0gmdfxUeu52+h0K2/F2uOMiy0ZQeIF
-	KwapRMp0J6uF00ZF1WYB6HSJEga7swR2WtVJdKK1y8SJ2aIyyXeQtU9P1BugQM3K
-	Z5W9IQklSMt/t/yJGPFhNkqpL8ol+eJOv7dnPhzKVHLL6Y4DNlmb9KvBxdWWE2qZ
-	0Zfvug==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f88hs91rf-1
+	FPtJLqoAlsxEODuiTU8suBNjHSX7SMerMst72naEVeA=; b=a46SNaYGU4uehRa6
+	yLA3lIQWlyQukrq7E1GLJ1VRhwyfbjo2mFQD4yfqytW6x5RYLu7G6J0O8KwjHYIi
+	epILVVmGYpWsY4D8CmcTNzzl7Ezm1KinwkdOaLJb+u94w80swP7D2f5yazHsxQkz
+	IF4Ce2pBc79sD+bLUTa0+9plF+T/VW1EAl/9xhftOmGD54NZ9IgKa/zLu03HKsgo
+	tnKhp3tMMPYZ/1G8bcjWEAeDJ2UBgbuo9ew9WMlL+m1aRW86ZaSP3LJVdcKPk8x9
+	Lc0leNPcYt3EPs/JDhLX7FuAlillmLqEsLHzrt5xjhCCy/gcM3WwUXRJyPPNwwc4
+	3Cskrw==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8a3grjhu-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 12:31:36 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-9692d7bee20so2397973241.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 05:31:35 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 12:31:42 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-737f663b020so1049315137.0
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 05:31:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783341095; x=1783945895; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1783341101; x=1783945901; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=IknsrGHJP1iQr5TspskyHtFF58EhBmo2rNT3Q8qunWY=;
-        b=EJIkRm8YPfV2iQYvZViFJOk2bUYD6TmCXWjaIjYf1MgnOtsY9E8NEmHBcqHPHY4ser
-         CjPXXFkS1IV8jDpbos/HJV32M1yayshRguG/0tQX/fAfvZcH1YySNYkFUnvcXANMb9ll
-         nGpVewe5bUq6cepawCQhr5OAkgeD7fW+91GfUlkBZiV58DHfCXz+uSZ0+BqAVTJNuy4C
-         GLQxfjhIEsEnusOHEyvu6X0gOARNlqNbtVL+NIJj0LXlzIW3Kl86bMEO98MrBSWp0Q7M
-         xhvLp64OEKIF7SvwN/VhlH3b0zQTOh97o6Qwp9ceXvr2ci/nEAMGxtwb/BVH0tXIVI1p
-         uThQ==
+        bh=FPtJLqoAlsxEODuiTU8suBNjHSX7SMerMst72naEVeA=;
+        b=fL0IogjPM614sFo5I/05TPlINUlAUXkjNrfgT75zebGnOtypBB3AoNEyCdL5dSb/k7
+         NZ2Hcb8OJ5lNK2lBT9Nm1c41SzgqVVFbqVL8dWy27G4gK3fy3LUCTWxcZxmo0ogvSN+V
+         7+oocxqgmq6jci2G/bIvTvQuSX6FEWYjdwzqwwXMeDh9kFk+FlKhInmfHI4etGPV06UX
+         lkgawU6l2A5RDrECgWe1SPpGxt7MHVKGD9w/z1zXljcomCaNJ9oX4gMOJYL3QJsCrcYt
+         8XIRyRAAAtD07SmuxriYmw80LsyH4vtMtcU+aXwc1IiuGNa6QM4N6xUzXHUX6oGFB2/W
+         VOEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783341095; x=1783945895;
+        d=1e100.net; s=20251104; t=1783341101; x=1783945901;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=IknsrGHJP1iQr5TspskyHtFF58EhBmo2rNT3Q8qunWY=;
-        b=ehEPQNe+4CzY1/3J/yzJsAIdYBVfZd8UJl2X0rTWM7UIuZeV87RBLQZ5AHmaGfcv8l
-         Scj/PAMtdaDr4l4x7VApQdF5iVklc4ny6IAm3x2R8SW3DVMz/iD0X8qBvjTpJGtm1WEL
-         Hwu6Y9jkCgHbIaDFSMYQsNFlEl5SK+KeoH1WSNQkha0x2FNWlo20moDRHzpM8IDpfGOk
-         mjHHSQawERTH2Y+MO+BbSjFWz+hnzG9Yucw8enWtcjAtV77bsohFD6c3oT+aMNBSGOKm
-         jLskcYYHuyi8cbwazyvDFftNDtyzePl9JN8m4FxteicnmIcKm1N9WTJ15Aj3X36OFUGg
-         NI9w==
-X-Forwarded-Encrypted: i=1; AHgh+RqvzuXFUcmInL2kld2bQFWdzQ4OS8pqIlSnVduiSla97auycb8Fb6L8d0bGlc8vvKa7odiVN+L/5rIj@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz556dwtAum5GKdeK0mZ228p6t/Ive4s3yvOkWzrks2YdqwNXkK
-	GHzBqlBzgFaWOP2L//AvhVwOspsec/y7QHTz3HF7XfIXKfVpdB2eF/l1vNteAL7gZEXoWCbUFJL
-	Q24llbOzzzeSGZjcxlQ5CaREj4f1i/YtbN6BGdxpjfiAELEQX4VYM8KA8mC4ihlY=
-X-Gm-Gg: AfdE7clR5YpVJJQhjpLrIm6q1bHnbcAb/3h7aVOc+zWmIGsTYu4fKbLuc+5Tm0y5prU
-	Ilr5Zyl2moPIDQFSNEB+4ScuscfU2toRiV9Ir0c3wfNrv/PVpeFBt3pRPm4U5etgPVGyd+YIFK0
-	xBj2IJINbMMiM0QoVbCpru2rSEODt5fhnsyE/X6KVvC4MClFh2hnKXqpkGvP8KD6WecZHVQMiib
-	5twLzJO2BZHNcDkWaIDAQas2eTjBrLQ8/j1r6O7aoty3z1NrSt/tSy+1ffrLh+J9xqSYGe6N8Sn
-	hHljNTw1e1NMFaNQavov3/amqJ1iGyT5Ot9Y/NPP5FxupWcfyUhUT53wCKPfmcCxSInHecfNHP3
-	EAIdXc330Tf45CoYaqFfuvhnGhx47DBQFX65rJFy6
-X-Received: by 2002:a05:6102:50a0:b0:737:9003:ac54 with SMTP id ada2fe7eead31-744b7855d90mr153477137.0.1783341095413;
-        Mon, 06 Jul 2026 05:31:35 -0700 (PDT)
-X-Received: by 2002:a05:6102:50a0:b0:737:9003:ac54 with SMTP id ada2fe7eead31-744b7855d90mr153429137.0.1783341094909;
-        Mon, 06 Jul 2026 05:31:34 -0700 (PDT)
+        bh=FPtJLqoAlsxEODuiTU8suBNjHSX7SMerMst72naEVeA=;
+        b=Lee2xxPsBrwvzAyHTAeUMbvpWAaCSEqRV9A8m0OOKZjsVAylKgmvDpCauN340oF9Kn
+         H5Ucuy5YC+0dzc+J1+owFv45t6xzZqJf+u2EneI93RyJO5E7C67ToTUQScAk5XaM1/5+
+         +gU/3AlqatanAJWik+PdhpDP/o/ZQBTs3I6+YxONs9GoVv2wkogxbNkyH817m8xnEd4D
+         f0kfza0BP6fr2UedzOa4dYVo+k5zIXPwRqRxOTuE5FUJI1A443jA1OdctpGdDJYQah6w
+         d3yhjhNiSI4ZBmlR9QJZ2xSH8uRjLzvuqpJtje3GTdkUw7JixrRW5m//Q8S13L2QiGJy
+         uB/w==
+X-Forwarded-Encrypted: i=1; AHgh+RoEEQ0jReMROHWG2IdErhWIocIovxxsz38eQzTIhxkHp/dYVpzfNEyXno72tttU5j0TwGe5Q/PO3vxZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxp2MIk2igkbvyrn+kIC50Zx0mvN9W524tK/USud5baxvkf0SzB
+	G5Ul669knBVGngmRzu9xEDTPBV7uRogY8wLSzDYAvi2Sfw4D5Bk9SJs5loVkbOfujI02pJEF7gR
+	4nSdlCh8d0H45p3rTLYqnYT507+7wI2z6SC/sFj2SvUlfSTgWpRDw824PwkeeyQc=
+X-Gm-Gg: AfdE7cmKK4ky80QWWDd2Mi8u2P9EAoqixazNgcUFsvWnNXcqB9iOLY1QSzDkPxmS9av
+	ax+eIZomOQSmrSpB57Kley+B0rnBaP2gT+KM3v94UlDOnKB2jQaOtmCFGqEoYbIykbq8SFrDMWq
+	ASyIpclVGqj6L52mElzkostMFkB1DSjzgMXVSmeZrQEn6QRkZ/58OM/CvMwt1B6VKGOO4IJru6a
+	7lcdw4By3mnuRN1rhhu0q9goZWhlH13HH0ru7NiICt08cZv7wGGucrLAfKyTHh6jK/OeS0nvgob
+	Mi12qxvwxCKI2ZD5QoM8qHyY7OoyczkPRsn7D+LClkrWEJAh0+LhaQ/qQVRULJaDWIu7CmzCUIh
+	K67fbMMmViDT/XqFizfBCuRUjZ8DG2g3gmWfAwTA0
+X-Received: by 2002:a05:6102:c08:b0:73a:2195:4386 with SMTP id ada2fe7eead31-744b7e4e3a8mr107857137.24.1783341101308;
+        Mon, 06 Jul 2026 05:31:41 -0700 (PDT)
+X-Received: by 2002:a05:6102:c08:b0:73a:2195:4386 with SMTP id ada2fe7eead31-744b7e4e3a8mr107806137.24.1783341100861;
+        Mon, 06 Jul 2026 05:31:40 -0700 (PDT)
 Received: from hu-kotarake-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-969838e1980sm5252990241.7.2026.07.06.05.31.29
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-969838e1980sm5252990241.7.2026.07.06.05.31.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 05:31:34 -0700 (PDT)
+        Mon, 06 Jul 2026 05:31:40 -0700 (PDT)
 From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Date: Mon, 06 Jul 2026 18:01:05 +0530
-Subject: [PATCH v3 1/4] dt-bindings: regulator: qcom,usb-vbus-regulator:
- add qcom,pm4125-vbus-reg
+Date: Mon, 06 Jul 2026 18:01:06 +0530
+Subject: [PATCH v3 2/4] regulator: qcom_usb_vbus: add register abstraction
+ and PM8150B support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-add_pm4125-vbus-reg-v3-1-999d78a87b81@oss.qualcomm.com>
+Message-Id: <20260706-add_pm4125-vbus-reg-v3-2-999d78a87b81@oss.qualcomm.com>
 References: <20260706-add_pm4125-vbus-reg-v3-0-999d78a87b81@oss.qualcomm.com>
 In-Reply-To: <20260706-add_pm4125-vbus-reg-v3-0-999d78a87b81@oss.qualcomm.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -104,147 +104,187 @@ To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
         devicetree@vger.kernel.org, jishnu.prakash@oss.qualcomm.com,
         kamal.wadhwa@oss.qualcomm.com, Krzysztof Kozlowski <krzk@kernel.org>,
-        Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+        Rakesh Kota <rakesh.kota@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783341082; l=3484;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783341082; l=4897;
  i=rakesh.kota@oss.qualcomm.com; s=20250919; h=from:subject:message-id;
- bh=wcaDAcJbxEOLbIDYL7Yv7cDA2DO4yoqD9dV8JvZuO34=;
- b=2jQ/lO3FvhUcsQ6YtlYpomVEr/QOxkX0m4JtsAFYOJdVLiMyp+w8lmsxN2zOa8l9fWF1lfOIQ
- EymZeMQUJrNCKKd9RpYiP6zVWek0dTASuLqfe726nxAOrvIo4MJjcqh
+ bh=/GzaFAOemySs/nlLPtlFiaFz3jJ0quf8oFuTtWmRDak=;
+ b=C2vCoEe5tidcdA+fabiAER2zmvmjcEDfMkbAEd1nGmJv8vRcF0zurc2NP5QsbCIPlT+ChJe4K
+ HcsBQII1k5RDTKIFokDQcvpDmt8EURZlCTyN+2oNMkRvxYb8utCcLiV
 X-Developer-Key: i=rakesh.kota@oss.qualcomm.com; a=ed25519;
  pk=dFhv9yPC8egZglsSLDMls08cOvZKZkG6QQn1a/ofwNU=
-X-Proofpoint-ORIG-GUID: Vw6U5gWpImdwE1YucWnxokNmJcO14HZR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDEyNyBTYWx0ZWRfXyqG7jU0xxiXy
- uNgdoXaMu/CfsZVxAjbzMCvmXB9O2RTrjmnemBigugXI5vhxkFA4sFKPqEEb08JAfhHu6p9w+6k
- FnwjqUsxlOhZWaDkdLI/2A47GP94aMzlfuZgMAubjyryzzPbCPidn6Pk3iErUju9tFGVX2sT3Mr
- bH0RkJYGXRGpxOh3i7By2Joveh5w9RNbN0VndVbgnAcap1wz75yvFIYCWsIYXlcCgeJY8L5tZgY
- rSwlZi5l8kII9OEPPgcf9MfD37y4APJ3RTzAoTqmZ8UpiJaXGQ/xtUESe96d92r8Y2SeHjcAqE3
- aJHPTMJAquz0qgpd/6zfz6SDLfG3OuafV+zwqWJUNJXj5RcR5Npzae63otvNfmxDY7sGe6DGlNZ
- xbl6XGFnJObLm6pIYmjwPDwpfsSGL/CpNlL5wehwcypK9ITR+0L/vUJklRRreztdi/b6AoXMPzN
- 6qVLB1yTYWuS3RBHtow==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDEyNyBTYWx0ZWRfXy2tkisevsupj
- V4ubYptOxk72OthAfs56Gg98KSuOjKQXgKYzsjd6Tok7hfZCARciXxSXIXw2cjg0NX28qAMll5t
- LVrTLc149rwo9GbE3uRnRTEPbvuCyFM=
-X-Authority-Analysis: v=2.4 cv=XIwAjwhE c=1 sm=1 tr=0 ts=6a4ba028 cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-GUID: wV6C0oQkhpg4LB2Baanty8qw5-LpLNSF
+X-Proofpoint-ORIG-GUID: wV6C0oQkhpg4LB2Baanty8qw5-LpLNSF
+X-Authority-Analysis: v=2.4 cv=CPYamxrD c=1 sm=1 tr=0 ts=6a4ba02e cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=nDMmG0lKkFKFsl1axvUA:9 a=QEXdDO2ut3YA:10
- a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-GUID: Vw6U5gWpImdwE1YucWnxokNmJcO14HZR
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=aEv-xYknOxzy9_AnOEwA:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDEyNyBTYWx0ZWRfX0p40B5bKdlaD
+ jznSFvlOMxc9PNphnaS58H3xjc5RYTBIJ4kz8rLqfs5PUx3RE6gjCWO3teRhXOdroibocv8VHae
+ z570l0eD55ikdZBqWtxK5sP+3xd4ubfN3W/UiyERtZkNiZxxPsN4H3we71WqZNhbUOmK9VVvJma
+ UKb1oa9OHh/uUVSs0yvwepeltFROZp/BkVeYo0KUHtWCfcCL2L6ocqi6ZfcSoGMMg+Hy316QVII
+ OqbDnYdSmRI6SLV3mtpE2z7DatM31q2bhjFiX73GSpQwpnC4X/h2qtRHo1OqZatVf8D3zYFfhJ0
+ cfyoLsry2hHIKD8IFpKzYWLuaVH19YWhIXzvtv/RuiVIaMrQbqZuInXdR0sQSoGIfiimedzOjjj
+ AAsJ1eA/KXJ1ag/BL0zZcKOGDwHZkBE2LCxGZAP/eY8rRnwBwSmYdLMqTbQG7VFZ/A9fITm6Kss
+ j8BLmXpzKYVoBVjA/kA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDEyNyBTYWx0ZWRfX6JxLl7/X192V
+ BzRyNoKCs4W4S/3HqJh37sz7fiZAmlfaR6iSO3L+dCXO5JRIB4UriqrPkVYHXcQeYELVj5D2pAd
+ oToi/HcOoeO99HQIvZljvSAvTDwJXKY=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-06_01,2026-07-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 bulkscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 phishscore=0 suspectscore=0
+ impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ malwarescore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060127
 
-The pm4125 PMIC uses a different USB VBUS register layout than pm8150b.
-It uses a 2-bit VBOOST voltage selector supporting output voltages of
-4.25 V, 4.5 V, 4.75 V and 5.0 V, instead of a current-limit selector.
+Introduce per-compatible regulator descriptor data via struct
+qcom_usb_vbus_reg_data to abstract register layout differences between
+PMICs. This allows the probe function to dynamically populate the
+regulator_desc fields rather than relying on compile-time constants.
 
-Move qcom,pm4125-vbus-reg from the pm8150b fallback items list into the
-standalone enum since the driver handles it with its own match-data and
-register layout.
+Refactor the existing PM8150B support to use this abstraction, wiring in
+its CMD_OTG, OTG_CFG, and current-limit registers through pm8150b_data.
+No functional change is intended for PM8150B.
 
-Make regulator-min/max-microamp conditional so they are only required
-for current-limit variants (pm8150b, pm6150, pm7250b, pmi632). Add an
-if/then condition for qcom,pm4125-vbus-reg requiring regulator-min/
-max-microvolt instead, and update the pm4125 example accordingly.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
 ---
- .../regulator/qcom,usb-vbus-regulator.yaml         | 50 +++++++++++++++++++---
- 1 file changed, 45 insertions(+), 5 deletions(-)
+ drivers/regulator/qcom_usb_vbus-regulator.c | 71 +++++++++++++++++++++++------
+ 1 file changed, 57 insertions(+), 14 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
-index fcefc722ee2a495837fedba026669de97350c566..024b34d0eb1a694b9e0ff530a35f787582caa425 100644
---- a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
-+++ b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
-@@ -14,17 +14,21 @@ description: |
-   regulator will be enabled in situations where the device is required to
-   provide power to the connected peripheral.
+diff --git a/drivers/regulator/qcom_usb_vbus-regulator.c b/drivers/regulator/qcom_usb_vbus-regulator.c
+index cd94ed67621fee9f6d7a0327054db0ebab6cc7ee..0201a3983981eec1f475d4b8cdccc9148b5e3b2e 100644
+--- a/drivers/regulator/qcom_usb_vbus-regulator.c
++++ b/drivers/regulator/qcom_usb_vbus-regulator.c
+@@ -20,6 +20,21 @@
+ #define OTG_CFG				0x53
+ #define OTG_EN_SRC_CFG			BIT(1)
  
--allOf:
--  - $ref: regulator.yaml#
-+  The pm8150b variant uses an OTG current-limit selector, supporting limits
-+  of 500 mA, 1000 mA, 1500 mA, 2000 mA, 2500 mA and 3000 mA.
++struct qcom_usb_vbus_reg_data {
++	u16 cmd_otg;
++	u16 otg_cfg;
++	u8  otg_en_src_cfg;
++	u16 csel_reg;
++	u8 csel_mask;
++	const unsigned int *curr_table;
++	unsigned int n_current_limits;
++	u16 vsel_reg;
++	u8 vsel_mask;
++	const unsigned int *volt_table;
++	unsigned int n_voltages;
++	const struct regulator_ops *ops;
++};
 +
-+  The pm4125 variant uses a different register layout with a 2-bit VBOOST
-+  voltage selector supporting output voltages of 4.25 V, 4.5 V, 4.75 V
-+  and 5.0 V.
+ static const unsigned int curr_table[] = {
+ 	500000, 1000000, 1500000, 2000000, 2500000, 3000000,
+ };
+@@ -32,19 +47,23 @@ static const struct regulator_ops qcom_usb_vbus_reg_ops = {
+ 	.set_current_limit = regulator_set_current_limit_regmap,
+ };
  
- properties:
-   compatible:
-     oneOf:
-       - enum:
-           - qcom,pm8150b-vbus-reg
-+          - qcom,pm4125-vbus-reg
-       - items:
-           - enum:
--              - qcom,pm4125-vbus-reg
-               - qcom,pm6150-vbus-reg
-               - qcom,pm7250b-vbus-reg
-               - qcom,pmi632-vbus-reg
-@@ -34,11 +38,35 @@ properties:
-     maxItems: 1
-     description: VBUS output base address
+-static struct regulator_desc qcom_usb_vbus_rdesc = {
+-	.name = "usb_vbus",
+-	.ops = &qcom_usb_vbus_reg_ops,
+-	.owner = THIS_MODULE,
+-	.type = REGULATOR_VOLTAGE,
++static const struct qcom_usb_vbus_reg_data pm8150b_data = {
++	.cmd_otg = CMD_OTG,
++	.otg_cfg = OTG_CFG,
++	.otg_en_src_cfg = OTG_EN_SRC_CFG,
++	.csel_reg = OTG_CURRENT_LIMIT_CFG,
++	.csel_mask = OTG_CURRENT_LIMIT_MASK,
+ 	.curr_table = curr_table,
+ 	.n_current_limits = ARRAY_SIZE(curr_table),
++	.ops = &qcom_usb_vbus_reg_ops,
+ };
  
-+allOf:
-+  - $ref: regulator.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,pm8150b-vbus-reg
-+              - qcom,pm6150-vbus-reg
-+              - qcom,pm7250b-vbus-reg
-+              - qcom,pmi632-vbus-reg
-+    then:
-+      required:
-+        - regulator-min-microamp
-+        - regulator-max-microamp
+ static int qcom_usb_vbus_regulator_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
++	const struct qcom_usb_vbus_reg_data *data;
+ 	struct regulator_dev *rdev;
++	struct regulator_desc *rdesc;
+ 	struct regmap *regmap;
+ 	struct regulator_config config = { };
+ 	struct regulator_init_data *init_data;
+@@ -57,27 +76,51 @@ static int qcom_usb_vbus_regulator_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
++	data = of_device_get_match_data(dev);
++	if (!data)
++		return -EINVAL;
 +
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: qcom,pm4125-vbus-reg
-+    then:
-+      required:
-+        - regulator-min-microvolt
-+        - regulator-max-microvolt
-+
- required:
-   - compatible
-   - reg
--  - regulator-min-microamp
--  - regulator-max-microamp
+ 	regmap = dev_get_regmap(dev->parent, NULL);
+ 	if (!regmap) {
+ 		dev_err(dev, "Failed to get regmap\n");
+ 		return -ENOENT;
+ 	}
  
- unevaluatedProperties: false
- 
-@@ -55,4 +83,16 @@ examples:
-             regulator-max-microamp = <3000000>;
-         };
-      };
-+  - |
-+     pmic {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
+-	init_data = of_get_regulator_init_data(dev, dev->of_node,
+-					       &qcom_usb_vbus_rdesc);
++	rdesc = devm_kzalloc(dev, sizeof(*rdesc), GFP_KERNEL);
++	if (!rdesc)
++		return -ENOMEM;
 +
-+        usb-vbus-regulator@1100 {
-+            compatible = "qcom,pm4125-vbus-reg";
-+            reg = <0x1100>;
-+            regulator-min-microvolt = <4250000>;
-+            regulator-max-microvolt = <5000000>;
-+        };
-+     };
- ...
++	rdesc->name = "usb_vbus";
++	rdesc->ops = data->ops;
++	rdesc->owner = THIS_MODULE;
++	rdesc->type = REGULATOR_VOLTAGE;
++	rdesc->enable_reg = base + data->cmd_otg;
++	rdesc->enable_mask = OTG_EN;
++
++	if (data->curr_table) {
++		rdesc->curr_table = data->curr_table;
++		rdesc->n_current_limits = data->n_current_limits;
++		rdesc->csel_reg = base + data->csel_reg;
++		rdesc->csel_mask = data->csel_mask;
++	}
++
++	if (data->volt_table) {
++		rdesc->volt_table = data->volt_table;
++		rdesc->n_voltages = data->n_voltages;
++		rdesc->vsel_reg = base + data->vsel_reg;
++		rdesc->vsel_mask = data->vsel_mask;
++	}
++
++	init_data = of_get_regulator_init_data(dev, dev->of_node, rdesc);
+ 	if (!init_data)
+ 		return -ENOMEM;
+ 
+-	qcom_usb_vbus_rdesc.enable_reg = base + CMD_OTG;
+-	qcom_usb_vbus_rdesc.enable_mask = OTG_EN;
+-	qcom_usb_vbus_rdesc.csel_reg = base + OTG_CURRENT_LIMIT_CFG;
+-	qcom_usb_vbus_rdesc.csel_mask = OTG_CURRENT_LIMIT_MASK;
+ 	config.dev = dev;
+ 	config.init_data = init_data;
+ 	config.of_node = dev->of_node;
+ 	config.regmap = regmap;
+ 
+-	rdev = devm_regulator_register(dev, &qcom_usb_vbus_rdesc, &config);
++	rdev = devm_regulator_register(dev, rdesc, &config);
+ 	if (IS_ERR(rdev)) {
+ 		ret = PTR_ERR(rdev);
+ 		dev_err(dev, "not able to register vbus reg %d\n", ret);
+@@ -85,13 +128,13 @@ static int qcom_usb_vbus_regulator_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	/* Disable HW logic for VBUS enable */
+-	regmap_update_bits(regmap, base + OTG_CFG, OTG_EN_SRC_CFG, 0);
++	regmap_update_bits(regmap, base + data->otg_cfg, data->otg_en_src_cfg, 0);
+ 
+ 	return 0;
+ }
+ 
+ static const struct of_device_id qcom_usb_vbus_regulator_match[] = {
+-	{ .compatible = "qcom,pm8150b-vbus-reg" },
++	{ .compatible = "qcom,pm8150b-vbus-reg", .data = &pm8150b_data },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, qcom_usb_vbus_regulator_match);
 
 -- 
 2.34.1
