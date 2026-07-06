@@ -1,63 +1,63 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8E13F1656
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 08:59:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4958D42B313
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 08:59:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783328397; cv=none; b=apcAvEm19cPxY7whaB5FIl8Fs7MPLZuioXsNoMHIZciE2kiEKBXhlklV8PqUvs2zzfSgC6tQmzf0+kVfy8wbSmvygvEQg/ww3lhMOsMfhNCcD4pRs4FOHMjcev2ykiNM8g4YZy1M2T4oprk9anYURqimBPyHymZi1GS1X61oG+8=
+	t=1783328398; cv=none; b=mt/iVH3RiA6aRpEm7KPtsQ9uvccmORLMaQzA/TkMryEsgEFpX2uxcpu6Nqpa71B7xtTiQ7UJWsooMF5sKQV8tehWBYUxyDPfNBZeJmE0pFw5CMizKr6cBa8Rgt4LwhdorRO4sB/zPe4nFmaUU+YuMXhThA7a1AuwkFlyzWnUo8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783328397; c=relaxed/simple;
-	bh=pXTKmQ4G0i28y4uyk6J9/QqvFfuNM1RjDMa165Aj344=;
+	s=arc-20240116; t=1783328398; c=relaxed/simple;
+	bh=LlSoRgJl8YcUzhxHX0ThopKjI5x9OeXJTi5k/sCpJyc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SfuL/uHp8xyYgMiFnwjlhbcepgQQRQNduEhUiMs0sRJt1o9e3xwouAE84fqQtdKYjGy2Bsk5Iy5BWJdUou3JzYNlmA/JYKPgCkOQ6Sj42fYSPcO8co7osN/ij5BveHfl0G141Zxkcgz4TCzIwxr96Smh2var4aaSB+UB3rhzDkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YZASHpuA; arc=none smtp.client-ip=209.85.221.41
+	 MIME-Version; b=iHViTCFP5Pc9czY3Z7oTKm51DaTms2SeFaoczEtDslfxr8FBSay4C+eKFADiQobxq1Y7vSHGXZrusxXPLgFNK/q1p11l/O6FB+C4YqXiTxgdDLI7jMZNPvzRIyu3u6N1a6dHhBgff4F4wElcpaIsWpNLqSuMut8DUV6oy1dvrsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VVjTquWQ; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YZASHpuA"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4758b2a9e2aso1664906f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 01:59:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VVjTquWQ"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47640541585so1688678f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 01:59:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783328381; x=1783933181; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783328380; x=1783933180; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0YTszGldjWkBB4DVTAoBlNb1bYzAyC5pi3ftLuhsgXc=;
-        b=YZASHpuAR4/6jGhdkrfVE9vwgCu/FQjA+Bs4MczSqJjUOQqcZg+Y/Tt4TcSb5twWxv
-         dy9vSer+5avwW8lFEUk6LLGWAhktdJldOY2nOSi+dnMn7gw29Uo9Nddmyefjg5bA1PP1
-         BFLr3V/FGib2y5HL6psns7gHk3bFvqX7+iSRrgPGtHzLpiSGtkuMiiOJ16+t62V8FutZ
-         vTLINs21K8HIMmrFTeSvsVPIQmC0jQjtxiDjMQmyLEyds0qRAN/2VWxNiMfk9rNfF0y/
-         /cF942bH11NToKoLPhq9zwwOwIILc3QU3Sovxr135XgUaxVtgZlN4LgnlKE1sVNMF0m1
-         1vhQ==
+        bh=JZkkIvDhYW6vSls/5usRzH4Z5Fg5mJ5kYBKua3+rzEY=;
+        b=VVjTquWQSMvOnF34+eZeoskwFlBpVHY4k8ZE101wb7rA1u4wg7B/bg7BDZ5RheahRm
+         iJ2RkkIzHZkZ5KFE2W7jHFWj8HX298h1sVC3FyY9mSL7YQYkT5qPecy6iUU/AcBE8jOu
+         AsfpSKYf2qv7ejZyJZjF0aOaobEE4cp71IsyWC2w69UnLhnesb7+HjbMD3Pb8kk2tq0P
+         G06p80VxmoQA3BgUAldvwHTa7wZFeXSXiLHvmoqs69aR/82OklLasrWU6XBdBmmmUHcX
+         PHZ69a+dCsna350OZX3u0zqgWnGHyd1wVNE3/CVUW2RGo4/hh3AHrEOkWkByqXbSurkw
+         ZUWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783328381; x=1783933181;
+        d=1e100.net; s=20251104; t=1783328380; x=1783933180;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=0YTszGldjWkBB4DVTAoBlNb1bYzAyC5pi3ftLuhsgXc=;
-        b=qVOhzIxr+nHN8unrJFblfOssFozJkiu3Rf9BrcTGcRMKa7DwnO/XpitcOFL8DlLRwC
-         Rvx7MU9gFen6VfHoj2Jp68xLvJ5oB7YnUYMEx8EZlm4Cf+GXtRzuWL4c2aXciedWqqgB
-         w8lbT0Y9wib/nv43p/fFGdxLe+mx7565P8XQ1ez1PF5f1gbT4T0tiq/9IlLcZNH29N00
-         JErQzkiodvUzzAt8Qdd8METLylPcPC5fQO0g2ENLV1LvmESfOhpKd6blOdBqSFvf5xHl
-         Ab+q+XnmkRCo3/xWbmDHD56Sh43gN3y+zQltUQ8KEyAAwAjfOc9ZwPiDDeS4oXHflexQ
-         9rEg==
-X-Forwarded-Encrypted: i=1; AHgh+Rozk0RkP6GwZGS6NxDoiOPYZLXeEH4R1xIF6tTc+FE6ZUGd3nuN7HbxZC+Hm21KiT0C7dJodb++wkCF@vger.kernel.org
-X-Gm-Message-State: AOJu0YxO4mf4uSawuVEPSIlNDp5dPAyWW6mUrA34YPyVQ/99UZk2+OR3
-	yBtt8/DbTnnuWNqls0xwAVkslKFFjHMAzzZx7NFNdtB7PiGVQ/0GS8zD
-X-Gm-Gg: AfdE7cmyvxvkJSxlqIaH5N/c8n2okTkiNCXfxTpClcSsw5sdYpYgP2jrhc/CNkvQJU5
-	f7ITroaBKQf6TbqIYdhaLN3YFxosG7lvF3M2qE4Uc2ZiBHg1zF5Jarz7v1w7IhfuF7bpSmZ4/ca
-	NcqjpWZD8OESOhRjAsMUjH5plo5uMUl94HEUpj4HXqEYQdgT9a904bOq0IkU290nDNMrkvnOePQ
-	ho5NR2Zmaa/oc79Xp8LRuesGnVPWHEl3xcoloCD5+QTQHNWy5DcbqSUAjD9fuA2KAGfpe/HqTin
-	0U0QY70tHWhGrPHHmedwREa8l5f9TnksS5sVt4nSVoKqswqBcJn9R+ZhxxdmxuCMBc4rtshyRbm
-	zMJbI6TNBK1ntL+8uwa9y7PtOVMlEcUVSBPJwZGoz9Qpo4GCjeGgvsEh4nxsTtSGr2B3WF+c09m
-	z+KZB2KeUJf9JM3w4cjIld/ZMkP39hrfZRhx8+DEq69HLbwOfnp/ihbe/sKEfCibnKNg==
-X-Received: by 2002:a05:6000:1448:b0:46e:27ed:6d0d with SMTP id ffacd0b85a97d-47aaa60fb60mr11168439f8f.8.1783328381143;
-        Mon, 06 Jul 2026 01:59:41 -0700 (PDT)
-Received: from localhost.localdomain ([188.26.50.173])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47aa039ae44sm22314373f8f.23.2026.07.06.01.59.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=JZkkIvDhYW6vSls/5usRzH4Z5Fg5mJ5kYBKua3+rzEY=;
+        b=aS4J6cy5x3vWeu3Y7l8LDLKfPONF9ByqJm1pvToQts+PGFiLB+UN108XDOWSIenqfd
+         3rr86ojtezpNCkszR5mJqBQvoKkzzDCo/aqoBFbtf5egZgY13rlMYlVDbHPPWHSYkXxK
+         dhyU0E0ipEIHmcCCVrffIR9GD+ygSr9PaR597hJzKFYTBJpKC3Q1YOGmhPLLT2hKfwsn
+         END2M2cTQXqu5IFDPn9+P4NIXXiwxRE36VanC9cteBE/pzpjDtddGd1AMHEYu0BTcnio
+         R/SNdv/wyTMgaqM6aEjQaDXq071pDGWoivXAHcqMSVmaG7vY8Skf4lvxVoSuBhPfEh5f
+         EGGA==
+X-Forwarded-Encrypted: i=1; AHgh+RpXm0eR7Iuy5/CH2mOXj/wamIyDRGchk93+DAIQxy9Dp1mnQSlvcNwMZTwmBNdEu/eb8eCSCBKRmGbQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YySw0t8o/IGUlr6LjwlrcXnqGm2nxfbrJ2s84U6NuQq6RCdF88i
+	5/mOTvBZ4TUBq4YLwvGnUtdesawbZgYRv7kpb9qFYnwL2WuSkVYiMmGE
+X-Gm-Gg: AfdE7ckZ7ZHmJj8xSKy1SoVlV2eQB4fAfIb3ufJhGOllEMgzzjyXE4dJNTZs5XuWg6t
+	zw9+hW9yC3TP3Z//gcqTfRoCG5SvCC5QQrqubb4SYDxWvt7aAeyvjCJXEsuCEdV7EPYDUcKNh7O
+	NVSDSRRdFGXVpJ1m3k/au6j+p/GCqN0Zyq0KiMztMp9fHicxnLVw0xWaCv3L/Rh9cdOURvfJeI8
+	+KHZ9i7JfIaLHhxccza7abDpYvuqXFml0uf5XJWAWfZWhk1vzqbhbLXqcxkr04a7Lkwzp9ydzyw
+	tisPYCNphQX6tcFIYfwZ2gfzqgjVwcOUSlJNuN95yHgBoYgdoVyymexgnPchYe6Hxy8GSPOK2hc
+	1nUZaAY+RbERV3ALpEWDgitRmrN+EzC4h6i5yo1VSTxi2UpXttArJbusLdOnfdMS92ioJfJx/pq
+	AKKPCSNylRXwpVYcWdNkyneirvf8MRC10UQNkiA46Yd+pPbrOMUGs+pHg=
+X-Received: by 2002:a05:6000:4203:b0:46f:9c9d:d7c4 with SMTP id ffacd0b85a97d-47aab29e5e5mr9751640f8f.39.1783328380102;
         Mon, 06 Jul 2026 01:59:40 -0700 (PDT)
+Received: from localhost.localdomain ([188.26.50.173])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47aa039ae44sm22314373f8f.23.2026.07.06.01.59.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 01:59:39 -0700 (PDT)
 From: Eduard Bostina <egbostina@gmail.com>
 To: Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org,
@@ -70,9 +70,9 @@ Cc: daniel.baluta@nxp.com,
 	simona.toaca@nxp.com,
 	goledhruva@gmail.com,
 	m-chawdhry@ti.com
-Subject: [PATCH v2 5/5] dt-bindings: soc: ti: omap-iva: Document DSP child node
-Date: Mon,  6 Jul 2026 08:59:17 +0000
-Message-ID: <20260706085917.835875-6-egbostina@gmail.com>
+Subject: [PATCH v2 4/5] dt-bindings: soc: ti: omap-iva: Make ti,hwmods optional
+Date: Mon,  6 Jul 2026 08:59:16 +0000
+Message-ID: <20260706085917.835875-5-egbostina@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260706085917.835875-1-egbostina@gmail.com>
 References: <20260706085917.835875-1-egbostina@gmail.com>
@@ -84,48 +84,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the DSP child node in the IVA schema to resolve dtbs_check
-warnings.
+Make the 'ti,hwmods' property optional to resolve dtbs_check warnings,
+as several in-tree device trees currently omit it.
 
-OMAP3 device tree (omap3.dtsi) models the DSP as a child of the
-IVA subsystem. This node was missing from the old iva.txt binding.
-Add it to align the schema with current ABI usage.
+A review of the ti-sysc driver (drivers/bus/ti-sysc.c) shows that the
+property is not strictly required for probing. The driver only reads
+it to populate the 'ddata->legacy_mode' flag. If the property is absent,
+the probe sequence continues normally without error.
 
 Signed-off-by: Eduard Bostina <egbostina@gmail.com>
 ---
- .../devicetree/bindings/soc/ti/ti,iva.yaml          | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ Documentation/devicetree/bindings/soc/ti/ti,iva.yaml | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/soc/ti/ti,iva.yaml b/Documentation/devicetree/bindings/soc/ti/ti,iva.yaml
-index 799461a20b04..d7168d76fdb0 100644
+index 5724b8367a15..799461a20b04 100644
 --- a/Documentation/devicetree/bindings/soc/ti/ti,iva.yaml
 +++ b/Documentation/devicetree/bindings/soc/ti/ti,iva.yaml
-@@ -22,12 +22,25 @@ properties:
-     $ref: /schemas/types.yaml#/definitions/string
-     const: iva
+@@ -24,7 +24,6 @@ properties:
  
-+  dsp:
-+    type: object
-+    $ref: /schemas/soc/ti/ti,omap3-c64.yaml#
-+    unevaluatedProperties: false
-+
  required:
    - compatible
+-  - ti,hwmods
  
  additionalProperties: false
  
- examples:
-+  - |
-+    iva {
-+        compatible = "ti,iva2.2";
-+        ti,hwmods = "iva";
-+        dsp {
-+            compatible = "ti,omap3-c64";
-+        };
-+    };
-   - |
-     iva {
-         compatible = "ti,ivahd";
 -- 
 2.43.0
 
