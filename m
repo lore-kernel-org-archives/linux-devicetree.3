@@ -1,168 +1,151 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010007.outbound.protection.outlook.com [52.101.84.7])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8988A3DA7E3;
-	Mon,  6 Jul 2026 19:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783366185; cv=fail; b=if0bDFCUTVQBtYOrZCqu+GcooNGpMpQp04wLAfr5HDCcsmf8XfaD0/9Cb2L+9B0+ePPS1McuJj3dZdF7ldnU/8Kpxo11+rymTZKe2UWty2ntm9akPIJx9rk6moh5/0V9mKLUScpRagTOeFbr44h1vMrk5s5Wz4SacL3Lra5KjOY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783366185; c=relaxed/simple;
-	bh=8d/ibULLXK0PxEgLp8IGC5MM8xfEP7NXa6HMKqeRGOI=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=DZuMSNrB5u2/6GVGNB1Pqtq7OnHtKw3qBQMOrVDdXm73oAayVrEeNtTvLufjM0qElc/qLex82t+7umOBPckbousxSlmmX2RILRoShkv/szqX9ph09IPJHI+u4H8FlemUDNym8U95KMf9/slMjOvhOyXjC3j4LZ7S9fTpKPZbW1k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=m6Ae9ilR; arc=fail smtp.client-ip=52.101.84.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72324324B31;
+	Mon,  6 Jul 2026 19:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783366357; cv=none; b=IaMZXhwByg21IMsO6bajd8ZHYkqfJbxZkm/yRaSGmttO83Wy3aCCrzPwOCq74ASJrpwnAoxT2TP8Wmz0XiBJwUx03ughEUYTFEsZb36RIkdk35LR2UiNXmlLLT3R1ba0r5WZhXAcwRHCY4AywIrjKgZ9A6uK2T29//JvRQG8w7c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783366357; c=relaxed/simple;
+	bh=sLEDu56Kyg/pJbyCXPkX43Ga6DkbHYaQlYsLWbT54mo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=N3XzDP+6vf/CJ+QCa522iI+uiVLpW2YC+dUDAzjqNs2htU5gXHT9WU75gKOKEvRveOBOJxwsz6h5WQDawH4h4qVOxvipiy1OS73cGUYh8cfuQCp2Lk/aE7NhAW5B/T3MkmU/u3/Zjsa9aj4NCSsy4XbwBa8nQ37DRaOsYdkhv+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=drJQaof6; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="m6Ae9ilR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vlq7sqCWYGkEGbwDN5lScNJ4qi2B2fv9QyiBbz2X+p2tKBaqjXqA7Syk84hadgkvJDqzmsoTRoB67XonkKNqvwYQou3Hnc6oC9GGAFwiNHldZTMggdebr3K0Qw9JSZsc8QeDW6ajSLz3g9TE1peCTZViSg5NsvxhajYukxYxtwAe4KBNQB/nmD5l4G60tDzyabu43GCvzU/jtgX+dI2DJPGQ+kBFEcn25AteyI+fLaIEyZrM73Cf7RYm3oYF5b8lRtRbrILBg7aUHlZqXAhbWcakP7WND8KN/97zw2BYHdGhacpDCBF6mBliPyrYU0E3CxM9he56INOa3Fj9bk6w7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hr2NPUTo7WR2HUFRKWBr6+C1/10nbPAmkGq80diRQC8=;
- b=a0iLWhx/Op/Ny2ba/LsNQ2C/F7vLqoehETibuAfqagcSMLebJ2dDy2AMj7PVbo45I8wFLCUZeVnYgWXtW3JjgMQTz52N+stMiBFBFtVPhUjiNFZK4mkrgQJDwTu2lNKOhteOWqhGsBoMhdkZkYoabl6n+EbkXsWB3+A/UG/owUHHWq8PGReYBfs0CjyJjHwcN9FdvDoFcu5ZLXqz87jvBx7E5Y0dnebP+kEkdkSrVxygzqaKTpNohzL7isAZwUaIl5q2v+Gx1S3OqFfE51abU6KFz/UKnAMpkBgVK1NKqzMOox82BWMUXd/jRijGlem2A5/Yw0iBkCjrN211cr4UrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hr2NPUTo7WR2HUFRKWBr6+C1/10nbPAmkGq80diRQC8=;
- b=m6Ae9ilRNfQ9jlEJZK7+s4YDsrL1JZjseKawD8lVHmbM2EdCmu2tU0A46NWMXsrBj+pak7cGPsAGobV+5/sDjrLJkN3xd51FsfwwViIjFJLmQPZPd0EwSQdD9fDLALkQMwnGr6WMjnlU5+XxxyshGGOypaRGns1tpTdoZlsis35TNm1TKyy6BdPDQ6XZMQRMkvkbPmX5anFebhyp8qYays59S7OJIBk4hSkbUK3ssvQhR/mHS8rWND3i4RwMeI9i2O9gMk56ab/MPRkYaY4hLjwZuI1PmY7oFXKnCaX7TKIVEC+JRuS9Wzx/U0NSwEqLL9yo12dSvV+32Jiw+n7PCQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI0PR04MB10832.eurprd04.prod.outlook.com (2603:10a6:800:267::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Mon, 6 Jul 2026
- 19:29:40 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 6 Jul 2026
- 19:29:40 +0000
-From: Frank.Li@oss.nxp.com
-To: Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-stm32@st-md-mailman.stormreply.com (moderated list:ARM/STM32 ARCHITECTURE),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/STM32 ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Cc: imx@lists.linux.dev,
-	Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH v3 1/1] dt-bindings: mfd: st,stmpe: fix typo st,stmpe601 (should be st,stmpe610)
-Date: Mon,  6 Jul 2026 15:29:32 -0400
-Message-ID: <20260706192932.1573584-1-Frank.Li@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PH1PEPF0001330D.namprd07.prod.outlook.com
- (2603:10b6:518:1::1c) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="drJQaof6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783366353;
+	bh=sLEDu56Kyg/pJbyCXPkX43Ga6DkbHYaQlYsLWbT54mo=;
+	h=From:Subject:Date:To:Cc:From;
+	b=drJQaof6P2w5RddzTuhQIfsOhmJXDHaRHrFWU1kH4dgeReCqESePmZuFfG0o7lYHy
+	 4cxz0qT/JkTE1FSxs1e56/O7PxI8sB44WgNcmqW4fEOWdPn8lG1OP+tJfcwSXtU0Ju
+	 mFNSfuRaInjZRZOrvKJetDs9P6FryiSW4+kKm3C070z45hEjiTTa/eAZaGNg1xM1g5
+	 PNL7G7wv+l+rNZHdinngarfZ1rmtu6eOGCstAj61J+Unn5UpwVPuC9HtE6WhsMW0a4
+	 1Ld3IgfG4oWhpjhLYB3fX1vll8wyfYPXJQgdAz9DjrUdfZi0Lrei8rpoBQyD1A5la0
+	 OVpjcy1YW/kwA==
+Received: from localhost (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8673017E0114;
+	Mon, 06 Jul 2026 21:32:33 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Subject: [PATCH v2 00/13] Support 10-bit YUV422 and 8/10-bit YUV420 color
+ format on DW HDMI QP
+Date: Mon, 06 Jul 2026 22:32:12 +0300
+Message-Id: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB10832:EE_
-X-MS-Office365-Filtering-Correlation-Id: ffd667e7-f4ce-4bdc-5fbb-08dedb94ec46
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|1800799024|366016|18002099003|56012099006|3023799007|11063799006|921020;
-X-Microsoft-Antispam-Message-Info:
-	bFaWm3eJ9vMwJkorrFlysTWa4kZBcO1lErJE/POUPCk+GyPLZoynPlX48t/cf2Ef4wmbyBl8pjrUn9pcS75ec+hjXZhnwbXQyUQ9Pym9eWOFPPVXyyT0BnHJ2axmO35NoWoipKaUvhVaXgH93fiHvkKeSxBu0EBC+aBqU5QHfub2n1L91jEDv1tHUrVoLD4rEME2W12Q/OIwNtN1S6JP+boyV4ACNM2BSgOhpKfScEGe5VrE8xX93pWRf7CtRC5qHPST7Lm1rwJwDJNKBh0xkwgH3ORJtf1Lare1VDb4y10Xwxft6PNdHAdUaMjD0Uh104vr06ZiMWxdgiffeFywjVEpgHqJsijUte2yvf5hc/0iN7jmvaKugB0HzVnI05OMPKUmRGp7K4Y9P8mMByNmkYF9+wOX5fz1D4lCINnVS90laApFG4b01RblUotvHwzavyzQ+lyBkIRsTzX9zWX6Gr7879LbEZkb7UEhJsMS6AgjiQ8yayXJahw34fsf3EXUO50vNK5x6/7oM9l9N1km/jFvxIKQ5genkigxkDWfXEMkZJLAcYpbPePe86CxA5wTgRMXrETAQ0VkJFthOvXJJcmgIPzP6k7fIrCn3YqGdDkx4vLDngeMGY+KLA+nHGyfpj7w5t8PFMakAKkYAVUUonGTsAIsi2oWxV1WiRaIsIkvnt4qXt5+TCm0gsDLtwDDtwrXqnazInAYwNT/5+agQA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(56012099006)(3023799007)(11063799006)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?6KWsn5DBMUryfFF8eR0woaWBBI6WufXLq4sUNnkrM6wxzebFlx9452c6b2la?=
- =?us-ascii?Q?WBsJxObPowmMMwdIWrH6ShxMCiLpE4fIQJIJ6vfKhCxz59xDJa7lEN8ArBOb?=
- =?us-ascii?Q?ab6CvDmELfzPvsL4xQb9mkYtSwLbjZsVQjRwZFzC8DrdHne9onL+xc7DEeon?=
- =?us-ascii?Q?Z2ZZOyi2+LfRD9xfEKjd3RAJuApzt+xK+6C3wR5RBlmKU4dHceJirqQZ8zWI?=
- =?us-ascii?Q?fVwR0PN3gDapIcV+Y2bRopd2lj59G8Vj4qyq5E9Qr3bMoXVicHbKnEzVLTaH?=
- =?us-ascii?Q?Wmvn8osiFJbTB8SexNgRFtbelu9bHHf2cYFxBPMjNs/jim5zGZoJ2R1+PKPh?=
- =?us-ascii?Q?xMhj0biFyQ61E3iH9lxolrTbIWjZDyeb/PMtG1P2eC9aE2rL9eOu31GJ9RJQ?=
- =?us-ascii?Q?bMUCQGmiDfZ4YDwFi2Htm5kMbhc+sdmJ6Fjsq6rlzc7zUPl2sS8VNbg6gUv1?=
- =?us-ascii?Q?kugYW4YgB9IdW/mH0H4nAmOmoInsQvaFTka1LqauSoUtnUbty6ngOiP4h3Mq?=
- =?us-ascii?Q?gnL9E+9gcOUEq/HPLEKx1clWX1876khueMgeoCtN5NxdNZ1WOHxBm4qnUFqe?=
- =?us-ascii?Q?Re3d3bx/IjjI0NXUyWLeUf4j+SrNbzLAdONXGFrzGbyw1PXM8n0bjia9wVGV?=
- =?us-ascii?Q?f0gaoU9eeyFqMFLekxlNatk4u0LZcCwZ0fxSEUqAWXD+iPtmFGPlxvYWnEPw?=
- =?us-ascii?Q?j45ZtvYguiWAgbjwPvHzPOr6RuhOKXfiHiNtETglYTojneha5XiehMbTcUE/?=
- =?us-ascii?Q?VQqxbj3NKwMQDGq6Dn1/Bf/9gtBCF/Dwt+FB8sYeaVtXA5Xg8BBTW6xw6Ma2?=
- =?us-ascii?Q?hUiu47kiO3ovZZwp9vSXAlb5DLH8nYh0Kq2ZhlaaotS6R4mA1HiWPG8Kyarj?=
- =?us-ascii?Q?ZBcQoCrLe0xZzx7diz2xVEyttJFgMU1gQ3AAoSyap7F6r1C8HtHKXRZ3uBKA?=
- =?us-ascii?Q?FVovLl6EmydVnvkbFiXsVUlcvBDOfBjyj1o3AaqXwDsLT+brFoCT6oPhsBSi?=
- =?us-ascii?Q?r1nlLn8SMBQ+biC6mronrqQFttpOTQuUG6xb3Wyog7VebzyTc47f5Nxqzdzu?=
- =?us-ascii?Q?JZ5Gg6JCypbMETYMvhoxCeVBFtPAAm4mHNNxkT5k8S0FpZ/GxlB3vX1YkfaG?=
- =?us-ascii?Q?tf/Zhe5nJy1mZQsWBxU8P9NU21qNNluiJkkcyWEMfFLtlBOc4Y9G8BvBLgk/?=
- =?us-ascii?Q?IQVujA+LQfEoSk6Fy9kYekf6KbCZqSYfVN+O5/5yyahMJ/Af00EIBj949H2S?=
- =?us-ascii?Q?KXoeLkovc4FHBQRxg/uN4jGsbY+utTityxY7SQOsu5eTGAhLR9ICJaFyoR5D?=
- =?us-ascii?Q?cWzJZ2qEarEfP1ugQ1vjP1Wwfpu0265l6QE09faMVzYfnEt0OS8/NLCEQBj1?=
- =?us-ascii?Q?KOeYvMYcGDMm85/N5khF1q34EnI+H1tok1IKAYNTX5by+sqDSvWuwo9p06cr?=
- =?us-ascii?Q?gpQcNhZ812XRGr4oSkxHnbTSAxuc4C28ZAhJ/s1YADzmTv3SoNF8LsCLqHqU?=
- =?us-ascii?Q?xKFBitSRMDf9YijighEjY/FZDTkuX6ur8sCCSnBSSGI8JG5OHun+RYzTzOFt?=
- =?us-ascii?Q?l9ZC9ooDGfiHPcmHFCa7RlNQ31erw2wen17jUR4ijMz5I63KMP5TxFRzRDVr?=
- =?us-ascii?Q?l4mgJU4+cjxInwFCCcwTUANYlDIVqmyqP6B50OmnWhrgJLSbiIAgof+4ayTG?=
- =?us-ascii?Q?4AwZHlLLxpxkI11+bkoViX2dsBCZiu4pcavsf44n6LTqMD3hFmCScGsvpveH?=
- =?us-ascii?Q?X2z4TziocnYC993Kha+S7RFGoJQTKnt7MEKhm9IZg6ivC4GK3Cqk?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffd667e7-f4ce-4bdc-5fbb-08dedb94ec46
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 19:29:40.0919
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EA2CVOdwo7TTAipXryCw0UlKnAZXH6tHmTyaqyQNgEr5jzVCB8s1eG/UjCBOEx8xq0Gqeq54wx6Nxtakj2VgtkLe1eiCRg7i5xQ5mALZJogUzq9QDc2xPRYjca1STLEG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10832
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2jFtE4px5X8YFn0hY4BiC1VC+
+ u8Crl2e5NxzV4gukItwLVYILlEkP2wgTgWYVg0Ph2Q3BsGEZJJXaN/Y2p7wNeIyJxSaNZXWpVY
+ XDttoDK6hzxG81z+Os346M+2V3WgpTj4sx2Piu/c3njgyVFKWprFM2srejO86pX1QZ+N7qHPOX
+ z+zc2nCAAAA
+X-Change-ID: 20260617-dw-hdmi-qp-yuv-2b0f7bb5ba81
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
 
-From: Frank Li <Frank.Li@nxp.com>
+This series extends the output color format support of the Rockchip DW
+HDMI QP controller to cover 10-bit YUV 4:2:2 and 8/10-bit YUV 4:2:0.
 
-The compatible string "st,stmpe601" is a typo and does not correspond to
-any existing STMPE device in either the driver or DTS files. The correct
-compatible string is "st,stmpe610".
+Please note this has a runtime dependency on the Rockchip Samsung HDPTX
+PHY driver bug fixes posted separately as [1].  While there is no build
+dependency, those fixes are required to address clock rate calculation
+and synchronization issues that arise when changing the color depth
+(bpc) while keeping the modeline constant.
 
-Fix the typo to ensure proper schema matching and eliminate the
-following CHECK_DTBS warning:
-  imx53-m53evk.dtb: /soc/bus@60000000/i2c@63fc4000/touchscreen@41: failed to match any schema with compatible: ['st,stmpe610']
+Patches 1, 6 & 13 improve VOP2 robustness on RK3588, helping recover from
+exceptions and preventing random display output glitches observed when
+switching modes that also change the color format, e.g. from RGB to YUV
+4:2:0 and vice versa.
 
-Fixes: e10038ce1ba9 ("dt-bindings: mfd: Convert STMPE to YAML schema")
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Patch 7 avoids an incorrect DCLK source switch for 10-bit YUV 4:2:2 by
+forcing 8 bpc in the bandwidth check.
+
+Patches 2-5 address a few vop2 related issues reported by Sashiko, while
+8-10 are additional cleanups/improvements.
+
+Patch 11 adds MEDIA_BUS_FMT_UYVY10_1X20 for 10-bit YUV 4:2:2 output,
+configuring the PHY with 8 bpc.  YUV 4:2:2 always transmits two 12-bit
+components per pixel regardless of color depth, so from a clock-rate
+perspective it is equivalent to three 8-bit RGB components.
+
+Patch 12 advertises YUV 4:2:0 output, now that the bus-format and VOP2
+support are in place.
+
+Tested on Radxa ROCK 5B (RK3588) and Radxa ROCK 4D (RK3576), up to
+4K@60Hz YUV 4:2:0 and 4K@30Hz RGB.
+
+[1] https://lore.kernel.org/all/20260612-hdptx-clk-fixes-v4-0-ce5e1d456cda@collabora.com/
+
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
-changes in v3
-- add fixes tag
-- add Linus Walleij review tags
+Changes in v2:
+- Collected R-b from Krzysztof on the binding patch, while also fixed
+  the property ordering in the example
+- Renamed vop2_clk_reset() to vop2_reset_assert_deassert() and used to
+  devm_reset_control_get_optional_exclusive() in patch 6 (Philipp Zabel)
+- Addressed several issues reported by Sashiko
+  * Reset AXI before detaching the IOMMU domain, to close a theoretical
+    window where stale or in-flight DMA transactions could fault or
+    access memory untranslated after the domain is detached (patch 6)
+  * Fixed resource leak on vop2_enable() error path (new patch 2)
+  * Balance state on atomic_enable error paths (new patch 3)
+  * Avoided division by zero when computing max_dclk (new path 4)
+  * Fixed VOP2_MAX_DCLK_RATE overflow on 32-bit (new patch 5)
+- Rebased onto latest drm-misc-next
+- Link to v1: https://patch.msgid.link/20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com
 
-changes in v2
-- fix typo st,stmpe601
 ---
- Documentation/devicetree/bindings/mfd/st,stmpe.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Cristian Ciocaltea (13):
+      dt-bindings: display: vop2: Add missing reset properties
+      drm/rockchip: vop2: Fix resource leak on vop2_enable() error path
+      drm/rockchip: vop2: Balance state on atomic_enable error paths
+      drm/rockchip: vop2: Avoid division by zero when computing max_dclk
+      drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE overflow on 32-bit
+      drm/rockchip: vop2: Reset AXI and DCLK to improve robustness
+      drm/rockchip: vop2: Avoid DCLK source switch for 10-bit YUV422 output
+      drm/rockchip: vop2: Consolidate HDMI PHY PLL clock parent switch
+      drm/rockchip: vop2: Switch to enum vop_csc_format
+      drm/bridge: dw-hdmi-qp: Log resolution and refresh rate in atomic_enable()
+      drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422 output format
+      drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
+      arm64: dts: rockchip: Add RK3588 VOP2 resets
 
-diff --git a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
-index 4bb05d544901c..ddb27ae64ba37 100644
---- a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
-+++ b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
-@@ -20,7 +20,7 @@ allOf:
- properties:
-   compatible:
-     enum:
--      - st,stmpe601
-+      - st,stmpe610
-       - st,stmpe801
-       - st,stmpe811
-       - st,stmpe1600
--- 
-2.43.0
+ .../bindings/display/rockchip/rockchip-vop2.yaml   |  46 +++++-
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |  12 ++
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       |  10 +-
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c     |  13 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       | 166 +++++++++++++++------
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h       |  10 ++
+ 6 files changed, 204 insertions(+), 53 deletions(-)
+---
+base-commit: 640c55fc147f0202365f916a1297f62d640efa3e
+change-id: 20260617-dw-hdmi-qp-yuv-2b0f7bb5ba81
 
