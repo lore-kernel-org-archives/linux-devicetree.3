@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A4A346771;
-	Mon,  6 Jul 2026 19:32:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D0B32ED24;
+	Mon,  6 Jul 2026 19:32:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783366366; cv=none; b=NxJX7eaTgAfbsFCnLhutpx3p9AoF3ZQwyYaSJMCWjBK87GyCkWSTYCjJDXUp0FdZPBtu+TbOZL4Myfx7yNbN2d0CNJ/Ha7oyaugy3RhLH6+QQc6niS0fJBprShkTkcU2au1ahV/dmBSAuIrFXEZdmX+2b72Mti7odpUj8vhVVEg=
+	t=1783366367; cv=none; b=Z6pZ4ByNugMbg7RaFpvp3Zd6BHn9J53moCkFxe94e9WV+BWMDPTArjOp9y5E0ZHIlMJ9bbEWwhGrL7+DeJrEDypdHsjN+N2MNq6cym5j/GeI62iiYRhYrDsG89KchD1dVxpT/nUHpnRtlI9Hboe/RDIv9zj6AU58xt8br2Np+ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783366366; c=relaxed/simple;
-	bh=9plGv+lce7EtVXWIsCW46kOTvzURvxmyne5/JsliDBk=;
+	s=arc-20240116; t=1783366367; c=relaxed/simple;
+	bh=bZPRTZpe5ZjtalfVUWXc14ZVW4M11P4U3Z/sdB7xUCQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eUtAaZfvi38rvxY4rD5WStaLO//y3hmCKAu/kR+LLj+FfxuuSvsQVMLOzVdGhslTXcG9zQ7lfceWWvp9bTScJ7IUbEdCPQWk6M5uejnLRaJRmwbitddo6PwyZ0I0wJcnY+pZesvF+HsCAtfMiqwdvJ6Ajp14paZiOE8+c2ck/j8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Dxmodmfb; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=q3Dc1+JCKhVNMC1+sXuA9UvESsEB/xw3twN0WwGLSG2AkfgO38UIOqpXjMDlIi/gb8H+qvXbWWikPduIuhKzpdmH/hyLn5DPgPD6kqoWK+oiXOr8wBd7vny9PsxmkF6FPWY7dGNQsij7fRgOOiZXZ/PT5PBQ34JC/XWp4IjCe0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Uo4ChzK8; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Dxmodmfb"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Uo4ChzK8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783366360;
-	bh=9plGv+lce7EtVXWIsCW46kOTvzURvxmyne5/JsliDBk=;
+	s=mail; t=1783366362;
+	bh=bZPRTZpe5ZjtalfVUWXc14ZVW4M11P4U3Z/sdB7xUCQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=DxmodmfbVeSMoNZiy/NnbqGX3f2+T0mV/knMngcIb/aD7uuj4BHYuJxQdpZAwaicM
-	 zlLcXracbYEDOF9zbemFeBlG5k20U9Kfq5OVE2ZwpTlIWrCnOj7GOchc1Gj8nhcWQP
-	 xcNuKZXbtSRwkz6SjO1WdZTzhJtKQWJEgf8zWTjOD29NuuXS2IIPnPNDPhz/eE4ge6
-	 EmbGHf3HOHkysKFxCaYWhdRpTVHqoyZTw4pot4I8Sr2IpnkQFPZVTZHfRCGzVK8udb
-	 D7zpl3TWDRi6aZeJVnbzZvFi2wC2Odg4ZVmUMXm9LR2zJiXoFF7wpveW86gMMgjoJK
-	 QuiWWYzYxtRNA==
+	b=Uo4ChzK8zl1ERgdqLL2FEfCBmjbL055MmNVs3LeLTeETKcBxNnq9WfpJHHhuPlVyV
+	 gluVRZn6S3b6OmQd0WJ16JVKj90omXE7/6+S4/T2OEDUM3HjD53S/fHYushqYfwy37
+	 4B0l95dppEtVkSl52XS8LZwq5t3QW7/U9pLxt9appkcGXNlpXNsk4oU9CZCNzZO70e
+	 +j6K09L3iN2Y54BKfNsKT8sHj45Klve01adG75kvDXXUY5lmH1b8XJJ7MjrJFec0mI
+	 sWLPKQ/Al7JEF08LOeDEXSCsO6zJu2E0c7Ad0rx2fPHJcuUbCqOVe8+pDNkTRgyo2l
+	 juMXg7Mj9PPng==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A1B0117E121E;
-	Mon, 06 Jul 2026 21:32:40 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0BA7017E1515;
+	Mon, 06 Jul 2026 21:32:42 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Mon, 06 Jul 2026 22:32:22 +0300
-Subject: [PATCH v2 10/13] drm/bridge: dw-hdmi-qp: Log resolution and
- refresh rate in atomic_enable()
+Date: Mon, 06 Jul 2026 22:32:24 +0300
+Subject: [PATCH v2 12/13] drm/rockchip: dw_hdmi_qp: Enable YUV420 output
+ format
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-dw-hdmi-qp-yuv-v2-10-b91beb33dedf@collabora.com>
+Message-Id: <20260706-dw-hdmi-qp-yuv-v2-12-b91beb33dedf@collabora.com>
 References: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
 In-Reply-To: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -67,54 +67,34 @@ Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-The debug entry in the HDMI branch of dw_hdmi_qp_bridge_atomic_enable()
-logged the mode field as the fixed 'HDMI' label, giving no information
-about the actual display timing being configured.
+Both RK3576 and RK3588 SoCs are capable of driving the YUV420 output
+color format, and the required bus-format handling and VOP2 support are
+already in place.  Advertise it via the platform supported formats so
+the HDMI core can select it.
 
-Extend it to also include the active resolution and refresh rate,
-retrieved from the CRTC mode in the incoming atomic state:
-
-  dw_hdmi_qp_bridge_atomic_enable mode=HDMI:1920x1080@50Hz fmt=RGB rate=185625000 bpc=10
-
-This makes the log line self-contained and directly useful when
-debugging mode-setting issues, format negotiation, or TMDS rate
-mismatches without having to cross-reference a separate mode dump.
+YUV420 halves the TMDS bandwidth compared to RGB/YUV444, which enables
+high-resolution modes such as 4K@60Hz on links that cannot otherwise
+carry the full-bandwidth signal.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index cfd1b18c06e6..0e6142301791 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -752,6 +752,8 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 	struct drm_connector_state *conn_state;
-+	const struct drm_display_mode *mode;
-+	struct drm_crtc_state *crtc_state;
- 	struct drm_connector *connector;
- 	unsigned int op_mode;
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 78473f9a0fce..1af29066a0a3 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -611,7 +611,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
  
-@@ -764,9 +766,15 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		return;
+ 	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
+ 				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
+-				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
  
- 	if (connector->display_info.is_hdmi) {
--		dev_dbg(hdmi->dev, "%s mode=HDMI %s rate=%llu bpc=%u\n", __func__,
-+		crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+		mode = &crtc_state->mode;
-+		dev_dbg(hdmi->dev,
-+			"%s mode=HDMI:%ux%u@%uHz fmt=%s rate=%llu bpc=%u\n",
-+			__func__, mode->hdisplay, mode->vdisplay,
-+			drm_mode_vrefresh(mode),
- 			drm_hdmi_connector_get_output_format_name(conn_state->hdmi.output_format),
- 			conn_state->hdmi.tmds_char_rate, conn_state->hdmi.output_bpc);
-+
- 		op_mode = 0;
- 		hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
- 	} else {
+ 	encoder = &hdmi->encoder.encoder;
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
 
 -- 
 2.54.0
