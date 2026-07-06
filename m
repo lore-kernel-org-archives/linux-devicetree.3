@@ -1,117 +1,73 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24427.protonmail.ch (mail-24427.protonmail.ch [109.224.244.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBCF03911AB
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 14:12:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B41A378833
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 14:13:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783347131; cv=none; b=PHHTc1WUAtH5+FL67jII1C8tELhHAWggLSfyDlUtPKKcWLWEMpzNQhtkvUJF0Z/zw7vr98KjtGOLLFYxxB9mGPwW+k2r+fCmfJPV5O4XSsL44+lgAKTXOghPj323qrziOmEnfcdroQYbkP3Qm4JvSdZ2FVUYyPUDYiRrEwDZY2U=
+	t=1783347226; cv=none; b=rRVpy/TclsSYMqBKxWMiD5E3OAs/UouwrwaUCWgJey+IsP8phIfOTqpCiPIYVBm0Pc4NR7JvWbq7EGue+nBKkbnln22ItzgeQGtcTmWkk7jkG27spedN/q9gp6GzkmgV0BACy/czp1saM4KXXasxJ0+9Q85a+zLKALVNIszP3BM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783347131; c=relaxed/simple;
-	bh=AUKedEW8L364I8JPQAlKye3yP1O85tY325vvcI429kg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZB4st4vhqmpoUX+7xUvwGxD/hzz1P4WUWImcll39O4mJcVcKTVW5STMwPzbpODsLEgz/Yk+KD1l/B9Rly4kMeX/9LK8kFF5J9T1qta79aQfKQUFk/9ggYm2etReLYkROIEhNGGbzDIrEHan5sf8Nk4rChWCHvPCkADFCcmErnww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MA+Tf+UY; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1783347226; c=relaxed/simple;
+	bh=rg3Z+pRakkzbf30JB14rO0FWuTatMEjtnrWu4Ub/HTE=;
+	h=Date:To:From:Subject:Message-ID:MIME-Version:Content-Type; b=nV/BjAPGZ8Oj1Mgkj2TE7zGymyBdhQMcKTM4qOHSYGYZfTpoeTD1uSzTEg8bugyiYHipTvpP+nEnQw69KQLqN+Af3Ck+UGHW80HXn95INBssa5v2VKJhM6LcTyYa/GS1PxD4W0LPaNFeSVK9WcPHULUv7axWJFeLPwtz3iVsFC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=gGEGkS5i; arc=none smtp.client-ip=109.224.244.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MA+Tf+UY"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-493c2b3dc8bso21467005e9.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 07:12:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783347126; x=1783951926; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=SRglC65mYb/1PKnmY3GPB+Y//IKYaoRtYD9DfcwlSuc=;
-        b=MA+Tf+UYpjIp5PwnmckYY7d65jEoi6xAkwBfJEDSFfM7S0DeC1DSCJnqYtPfxFWpK7
-         SaW37deSkncxbWk4Vjiy0TX3EVCkZaypDiNF3OV7Z0uC1JxtpzQv7VdkdqFXk+yKuKZg
-         sWo2+opfDfCtNmEqmukrcKYZWj0zfHdMUlHftTiwPTZSP3tLVkRYxObUDCypYNMJC8b0
-         NHP8iwxXSKdy4TgU8SZOPUrDEWwrhIZiwIDTcY0CePmwqtguer0l2lzA5DG/xVlKGc8e
-         T0yvlpOczcurrmZJtiApFTLgS5X8aYFgthqxcoCOu3UrBEv4hTFR0evrRCoL649V7g9F
-         BzdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783347126; x=1783951926;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SRglC65mYb/1PKnmY3GPB+Y//IKYaoRtYD9DfcwlSuc=;
-        b=Xo6LQt4a9bTGGU9D/4JUp1kxPB3aZvi3ylyvIGgzmbkXZnaZL3ZYVxw/ODeNcFn3jT
-         uIOFBL/H0GM51vEjlovhITZXN1MnXFZfKUf1h162mVaavwm7qHk/8huRGhksrzpWiOVJ
-         ZDGxEpSm1dipTxl7l3gcZ7hBgd6HGdQ41k/x7W3OKpDXFdhs2Vqz57sWiyt6KbSWuOg0
-         QV5+ESCcUyBu4F8i80XaK/LK5xgdQMn0ZvMNdd4zCI5iUToGiM3V2wOaUNcDun0565Ug
-         nO/Pq6DRz2RGtYHoW+4AYxwPlY6IVZC+0HauvAcFz7R9ZM+TkyFhTUzwoRsmfafo1mn7
-         yBhw==
-X-Forwarded-Encrypted: i=1; AHgh+Rqs88vaCPsz9Ehp4Ikm4FznGjO66sH/Z8byfLtvcFGQqCunV8KZIeDUSKXhb0wSwghotH8lpzC0TBMK@vger.kernel.org
-X-Gm-Message-State: AOJu0YyswOM+EJk0e9Gqdt/W7yY9DS2/05ah+8CUcXJdqKhavbFTK7W/
-	5y9CPSWirN3eTGNh6qZxwmDvmKGdDpDRPpWV+Icv2OMJ6Pe6I3GOXgdxp7GXK5mdFLY=
-X-Gm-Gg: AfdE7cmBRF9RVYHfuAEhvcuXdXMAiHQKYbQAs6YXfNntVHWIn4kEF6ooe3v8ZQOx4Rd
-	XHscxxjth1FbjlO54/l4BUE+vCTRwt3X2JF/+/PnLT2ltyhqYKhXSz2iW6o5tFpN++yBFAVIB4l
-	gU3TC82rZRPia0DxmL1SMiMC1eSTnl7agtrurnrIXRreBy07Xy4imjQNZZMsfgP72WvakpTAwBt
-	xNdWjeDgvVgFObW0/jAKclxj2jO0639CafhAq0tyuwxb1wMuNhhkRPe7OJd3dB2IBuwGvnFB66u
-	tzPb4/RcUqYZzt6BXoAGl8R5FF6CiZTibENbbN/dgsl9EE8WnZCOpJp0fa2vSMWWkYdOXCLvtRX
-	pfqYe9QYaydZsoIy8qn47uei6CmmuvwJOLsDGr/LwktYKE6VhnnZOcyBpntTUoghMsbb4oMLIGl
-	y3UCDFEo2yYjOJAsI51ZRGs5vH+w==
-X-Received: by 2002:a05:600c:4747:b0:493:be3e:cc3 with SMTP id 5b1f17b1804b1-493df093146mr8495275e9.21.1783347125751;
-        Mon, 06 Jul 2026 07:12:05 -0700 (PDT)
-Received: from [192.168.0.101] ([109.77.44.220])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d83bdsm25651263f8f.13.2026.07.06.07.12.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2026 07:12:05 -0700 (PDT)
-Message-ID: <f3d148cc-496d-4301-af45-51d8921d7798@linaro.org>
-Date: Mon, 6 Jul 2026 15:12:04 +0100
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="gGEGkS5i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1783347214; x=1783606414;
+	bh=uE4IWleZqdvv7KCr9CrJRzZ5cr0T6rRxWZKKOvrK1Ws=;
+	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=gGEGkS5izSCVrJStEsw/vK3WRXGpkUCg6G0Ke60Ph4BilLhEbxUTLJnAJy37on5JL
+	 BqfFTCwiOXp1Mak9l7PMheax17Ppqd8KqnJjTNGcdRJ6x89iTNB396Muv/j8ijnn5y
+	 rFtPgG1tqTCXWepRmRadWa7VFV7on4BMdNJ8N/9CW99qYEoxt9SauoBxsNXUkQPksF
+	 6pXHR1+0DTDrXP6y6MlloWV0sNMSwFdLSgGOvDUKHkvpdj5zLR6ZRkVqiRJ5vg2EJ0
+	 AyaDx3B6VF5Q29/BOtaQl2idzffiMYnYRpd5j3z39YATxXkmKEtsXGHlBkvyL0HzJY
+	 Gb3j6ANh+4pkA==
+Date: Mon, 06 Jul 2026 14:13:27 +0000
+To: Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>, Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, "Ivan T. Ivanov" <iivanov@suse.de>, Stefan Wahren <wahrenst@gmx.net>, Andrea della Porta <andrea.porta@suse.com>, Peter Robinson <pbrobinson@gmail.com>, Stanimir Varbanov <svarbanov@suse.de>, =?utf-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, Gregor Herburger <gregor.herburger@linutronix.de>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>
+From: John <therealgraysky@proton.me>
+Subject: [REGRESSION] Raspberry Pi 5 (BCM2712) hangs at boot since d87773de9efe  (arm_arch_timer: default to EL2 virtual timer under VHE)
+Message-ID: <oTZ1wsFlcf4l8zMuD8DYCCvff35nVbFn7gTb5_vrUPSJtjVBSTmGti8S3KnbVdVWJEzP1QRbWma6UYYXyi6v2J0fl61khniPROEhsdxMIz8=@proton.me>
+Feedback-ID: 47473199:user:proton
+X-Pm-Message-ID: 350a441ca159c5210a100d3d20d946c897da99d8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/5] Add Qualcomm JPEG V4L2 encoder for SM8250
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Atanas Filipov <atanas.filipov@oss.qualcomm.com>, linux-media@vger.kernel.org
-Cc: loic.poulain@oss.qualcomm.com, mchehab@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
- <68e59764-5a10-4abc-849c-14ea2d9ef76e@linaro.org>
- <d74d7839-d126-427a-b151-ca895a27a83e@linaro.org>
- <437d1eb0-4495-406a-9501-b0515cfa3151@linaro.org>
- <e04cb9dc-76dd-4fa8-92f4-be002bf7ee8b@linaro.org>
- <8116c54e-4050-4e9d-b236-59d74846bd57@linaro.org>
- <48c3ce6b-1e2a-457c-93b2-8fbc0912dc20@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <48c3ce6b-1e2a-457c-93b2-8fbc0912dc20@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 06/07/2026 14:57, Vladimir Zapolskiy wrote:
->> This debate is going nowhere. Check the downstream you don't need the
->> docs titan_top_gdsc is provided by CAMCC.
->>
-> 
-> There is no debate, since my arguments are not debated so far... Why?
+Since commit d87773de9efe ("clocksource/drivers/arm_arch_timer: Default to =
+EL2 virtual timer when running VHE"), the Raspberry Pi 5 (BCM2712, arm64) h=
+angs during boot on v7.2-rc1 and later. Reverting that commit on top of v7.=
+2-rc2 boots reliably. Found by bisection.
 
-An odd claim, since this is the fourth ? level of email reply.
+Environment: - Raspberry Pi 5 Model B, arm64, device-tree boot (no ACPI) - =
+CPUs start at EL2 with VHE - Mainline v7.2-rc1 and v7.2-rc2
 
-> And at the same time you didn't provide any support to have N identical
-> spread hardware property descriptions instead of the single one.
-> 
-> What is a good enough reason to prefer complexity over simplicity?
+Symptom: - Silent hang early in driver probe; no panic or oops. Boot banner=
+ shows
+  "arch_timer: cp15 timer running at 54.00MHz (hyp-virt)". The first blocki=
+ng, timer-backed wait during probe never returns because the EL2 virtual ti=
+mer's interrupt is not delivered on this SoC, so clockevents are dead. The =
+softlockup/hung-task detectors can't fire either, since they depend on the =
+same dead timer.
 
-I'm not sure I parse your here. The core fact is there is no "thing" in 
-the CAMSS block that can be modelled as a provider to JPEG in lieu of 
-TITAN_TOP_GDSC.
+Cause: - BCM2712's timer node lists five interrupts including the EL2 virtu=
+al
+  timer (GIC PPI 12). The new default trusts that entry and switches to the=
+ EL2 virtual timer, whose interrupt is non-functional on this board.  Befor=
+e the commit, VHE systems used the EL2 physical timer, which works.
 
-That GDSC is provided by CAMCC not by any other silicon block. So 
-omitting power-domains for individual nodes is incorrect. Best practice 
-and in fact the _only_ practice that can work is to list power-domains, 
-interconnects in the individual nodes themselves as - I've pointed out 
-multiple times now - those blocks have to ramp clocks and scale voltages 
-dependent on their particular use cases.
+Possible fix / workaround: - Removing the EL2 virtual-timer interrupt (GIC =
+PPI 12) from the BCM2712
+  timer node makes the driver fall back to the EL2 physical timer (the pre-=
+commit behavior) and boots. Whether the correct fix is in the DT or in hard=
+ening the driver's PPI selection, I'll leave to you.
 
----
-bod
+#regzbot introduced: d87773de9efe1df6fe2ba379926f9df92f1a5913
