@@ -1,194 +1,143 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FA544C81
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 10:50:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C7D3EB0FE
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 10:59:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783335030; cv=none; b=Ga0cYkPqVVR8UP4+Bmo/RQ58+qQd9UblyiMvL07csoUPkczAFnhRQ1JPh+Y5HL5w84GpQd0gqL6GqP06GuGlTAnCjKma+MWP+pkrXZRS6/jHsUymTVbfeWD6s7XygAYx/1u1LC1x/dt5flk7iqy7Tbly7A31VVXhHA3gXX+kO2s=
+	t=1783335555; cv=none; b=eIDU9dDP3090IH4ioeq/KOHF/HOf+BD3LDyxwQp4Il4D8putRGEi5NLKoDqe4o0iPPQUbfjuCSuE97J1MtHm64T2hnxD+egv4nbKvShiCL9Oey1o9nykCensluqKvts075VvSc04MQ42ebzeQjrjFuMRBV+JK/XMBU3KsrexYY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783335030; c=relaxed/simple;
-	bh=BOxCbahYeMXBie3ntQ0u/5h11UMYD4HNYtTnrFGC5LA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S65w5o/b/arMo5cGfls9U6Et0MRqHvbUJeizQ9KTKezKN3eO+dNvEZOhwej+SKEjpJ4N7kRwSAxyJiR3djHHT+vncPRrgOTq9HsvJxWahqyiwDW9PxPE8tuAmxG+jGN0EDhFtsNfCHttlCNW4v7gvs0LQ/UxjZRwtMqKpvWRpcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MHzNVtue; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1783335555; c=relaxed/simple;
+	bh=qGk4JEA9zX7+IqCMcPoW2yFwuDrGak92O0jlzYQye4Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jA5Hhb8kvDNEsb3uD50AA/bvUj/j3/cYPLJbffF3oHlSlzumZMv1eb0yz3cEKz3HE/d/u0NGr8C+3iVcpixQsTfqQ8wCBsz35TSG5Jx7E0DcqxlCkSequBoLErjLRLGFGv/d3/JiMWXbdHYyOvarzAyK7hvPvMSAqJECnXsC588=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mqXVDrH8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WCmA8Gmq; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MHzNVtue"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 607EF3297
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 03:50:23 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7C25A3F85F
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 03:50:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1783335027; bh=BOxCbahYeMXBie3ntQ0u/5h11UMYD4HNYtTnrFGC5LA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MHzNVtuePtsCHpAdQ8eKdAnoX6VSdOaYAFrGOw1zK9vI8tU0ML6PO9G6QSg4nETd9
-	 4ImYBc7ZQt3NvsYklUp4CWu/rtSn5WuVOWLR5AcNOEX7RENSYNt3dYu8/FKIkUgR8s
-	 8O44tXdi5UtfpMVw4CWI08I9LY5gvVrMvrpvu2vI=
-Date: Mon, 6 Jul 2026 11:50:17 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ARM: dts: arm: Correct indentation
-Message-ID: <akuIad1FdhC9rTqE@e142607>
-References: <20260706101942.341681-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mqXVDrH8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WCmA8Gmq"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666AxD2C366713
+	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 10:59:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	clGJ1VVkCtcn8+Xr390x8/3JkGKe7Y66Pv3Op1UX5Co=; b=mqXVDrH8BbFkOQHz
+	e6ZHFHcaIK5a1xu0dtuRQUgGS6eY+UMBVMTKymmIWLRj0vlK6Ub1wD2q2Ya/oIsg
+	HAh2/F6oQEpbcsT7O1cXHKqB3lMzko3AqRMnNytnpyBquxP9kwjlqkQYWwri0Esm
+	SxQBzQkNigQWPeBPl2lZM4z8FN1OGlBBG91d/UM0jhvkdWrEaAogdUmd6qqqhmPO
+	k/Jqdp58P995bdYIiGagdqWRxaenLb8QelPpUnw1z25nJi47S1I1h14NL7gtf0Gi
+	RIkzDsNdDMiAX6qMsqBIqtKSztAl7R3XgzIOU+odjW8rzoX85Qry9TQvLT6O9G1e
+	XKtM6A==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f891urh20-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 10:59:13 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e69a569ffso10959985a.2
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 03:59:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783335548; x=1783940348; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=clGJ1VVkCtcn8+Xr390x8/3JkGKe7Y66Pv3Op1UX5Co=;
+        b=WCmA8GmqhsIEcWdSXWVhPv7uh851gbgU6pzBUJ8S+tgVbY5+HWxKmtx4lHYzrS8HC1
+         jF/FKiXfhpsZgh/k2X3xmhn5Nvs0yB5T2W5BA002yoCvQti97AyxmBndk5rhTSBM8aV+
+         9gVIMw/TGVgv8jzPqZ1sgtScTvQg2fSLfQw6zv+NJoyPlNTrE8WP72pA3uPXeW2WsVBk
+         LdJC/uAsReUmph6nSXimLK5z6Ly7TUYJfC6rzKpFthIAK0t+/UBU6qzgyM5jjE+mi8Hj
+         SKiXmnr1/t9L+YVbLSZCTxiAyCJJ4LEaK3qI+eyy32HV+isqCz5N44JFHHqkZpzqnvVT
+         rMog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783335548; x=1783940348;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=clGJ1VVkCtcn8+Xr390x8/3JkGKe7Y66Pv3Op1UX5Co=;
+        b=SRoccg8KQzYI1qcUHRdfrhDE41IAAKeS/CYjOxARBamLrzKW8ji5wk9XYCu9Ihz8DU
+         uBILTdbxOW7d+ujfIlB0kG2/k3AxdG5GL+Tl8J9zkqvfT1E8NbSV8CYTuGiCpXI1rYz8
+         u6iO0rjviGqSszA+R8ZO5MykW7Eu5VGArIYUQkuuRMvyySJrmHea6boMg5TBo/YzYBgZ
+         zpDDbRdm5SGqAAeaL5fxeJkLX5SfK3STV5DD2COBhb/bcJziBOHZWvBsK3ICNj6iZk/B
+         ggbzky8MuxLTOx0D4y3goTIWEkV9D3Q6MlWzbi7DEvtSFpjKan94MBWmSdJrsLpkECdN
+         y+aw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp+TOy9m5j02XX/M65AgX3TllH0c7ilwT240hXJ5uCsaX08P0JqsLr9GejBJgzVC1YLTnTMin0Iqeuj@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrHzhEm7M9wbhaGlI6ZfGoloya8RbnGrDgMaJkQTqOFw/zjdI3
+	G8fLejEVtY+6pdteQnIS2mTtjW/RnxDk9H03wBKlz1DRZd9tCmgbvnVqE3PuL9d5Nv8iL/hFVOt
+	Tnpt4uARrnjPpx+j+AeUuZmb36NRplM1kwikVwrCLf3NXpZOo3yP3e7N/WTKyZkRUtpWha8n4
+X-Gm-Gg: AfdE7clJbAIyE5ySe4gI1Ss/HA6WNm2mVmCPCAP8PDYN+i8HHt492sZCC0JYIun2xHA
+	ewvaXR+APdRS20GKS788OVZq1o49adoFsM6hJWphPFk+1oIOkOd2EHNa0WfQ/0tmKnipUo0Yhtz
+	P7xvipTawpR+nFkRpxDGcPGEtLuu4cUaKTqtcVbQUrq8xTPNhCBIkAmS6hIp49j7bL0w2o0jSP3
+	2QHSKM9Kh2xAQuwzg6MV2v7YgBS6TACzYH7wcaPrV45v8oSDTF1aZMhb6n/kwYp/wvlYpDQ0hRW
+	ji7CFnHdJbqjUV7R79JeUosODDWIZOoeDWGESWvvWr/l7M9Uis+8ajTCX0E0Y/YyPfyKO+cay0o
+	xyXNglHdRI0peFF8FuzTr8Y1SajyqK4xF2Zc=
+X-Received: by 2002:a05:620a:1a18:b0:92e:5023:78b with SMTP id af79cd13be357-92e9a076fd0mr808863285a.5.1783335548144;
+        Mon, 06 Jul 2026 03:59:08 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a18:b0:92e:5023:78b with SMTP id af79cd13be357-92e9a076fd0mr808861185a.5.1783335547766;
+        Mon, 06 Jul 2026 03:59:07 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c12b629a1d4sm707084666b.39.2026.07.06.03.59.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Jul 2026 03:59:06 -0700 (PDT)
+Message-ID: <8d025adf-e943-4e99-befd-40f833d8045a@oss.qualcomm.com>
+Date: Mon, 6 Jul 2026 12:59:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260706101942.341681-2-krzysztof.kozlowski@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] arm64: dts: qcom: Use tab for indentation
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260706-dts-qcom-style-checker-v2-0-90c781ae0417@oss.qualcomm.com>
+ <20260706-dts-qcom-style-checker-v2-2-90c781ae0417@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260706-dts-qcom-style-checker-v2-2-90c781ae0417@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: _rcQhzoK-LsXVy9jGH9iFhwu8n-6pNKq
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDExMSBTYWx0ZWRfXw4LGuLwYqZDD
+ IfsitsLeYWV2bcu9+o3KntgHHUeZOQf1E6kNZCvGtWivfzYDfdiesPiOFAU9LqHEAW/u0M6Vb67
+ scRloeG1KqyGfcRNQ5PffAnWgG9jKCQ=
+X-Authority-Analysis: v=2.4 cv=Mo1iLWae c=1 sm=1 tr=0 ts=6a4b8a81 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=AZJ-QSGf8ivbqnDstL0A:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDExMSBTYWx0ZWRfXzygrZTPL1TLY
+ WhTED4K+WyCwqYnki32qA7WqeDXHNpdZM6pJvPMGT008HI3sh0We2BCksX286LWgJOjkgumgxvp
+ k6OlxiMd74Llm+RZstaGYwU0JmouD5rZ3FXENvVEp9ygd0+o3WYZ6/SnfvQN1dXezJqcYsK+sJG
+ 9tYmrzkxMHElUulUL7qJNXZ0FLDjGgqDR8GflY3YAr5RJJnnc2PqPw2QOYdqy+klg+7icYUmu40
+ xXmiROjQirfwg+GX7wMq5leTJg2w4Zm83IImrc90nMJG4x7zSwSDeCKxnufoHjvTGveuTonpgqJ
+ LuZ+V7v3nTZ39/7DN50Bvkysiw+1g1mM9nffTmsNCobX/4GKfiAwOqcc59qptQWjGvPsercU6wJ
+ IeDWijrJ0EcwPWHovIAfsBlB1aPRzzn5mY36bXf1jDXbbIA6b160t7L3bA/pg6BObq/Pn6Tgr4f
+ p5+f2oWQ85Fh3EeXe9A==
+X-Proofpoint-ORIG-GUID: _rcQhzoK-LsXVy9jGH9iFhwu8n-6pNKq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-06_01,2026-07-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0 priorityscore=1501
+ suspectscore=0 spamscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060111
 
-On Mon, Jul 06, 2026 at 12:19:43PM +0200, Krzysztof Kozlowski wrote:
-> Correct spaces or mix of tabs+spaces into proper tab-indented lines.
-> No functional impact (same DTB).
+On 7/6/26 11:39 AM, Krzysztof Kozlowski wrote:
+> Correct mix of tabs+spaces into proper tab indented lines.
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->
-
-Acked-by: Liviu Dudau <liviu.dudau@arm.com>
-
-Best regards,
-Liviu
-
 > ---
-> 
-> Ongoing bigger work for all bindings and DTS with built-in checker (dt-check-style).
-> ---
->  arch/arm/boot/dts/arm/arm-realview-eb.dtsi     | 2 +-
->  arch/arm/boot/dts/arm/arm-realview-pb1176.dts  | 2 +-
->  arch/arm/boot/dts/arm/arm-realview-pb11mp.dts  | 6 +++---
->  arch/arm/boot/dts/arm/arm-realview-pbx.dtsi    | 6 +++---
->  arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts | 4 ++--
->  5 files changed, 10 insertions(+), 10 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/arm/arm-realview-eb.dtsi b/arch/arm/boot/dts/arm/arm-realview-eb.dtsi
-> index ae370d4eb9d8..f90e28ee4cb9 100644
-> --- a/arch/arm/boot/dts/arm/arm-realview-eb.dtsi
-> +++ b/arch/arm/boot/dts/arm/arm-realview-eb.dtsi
-> @@ -51,7 +51,7 @@ vmmc: regulator-vmmc {
->  		regulator-min-microvolt = <3300000>;
->  		regulator-max-microvolt = <3300000>;
->  		regulator-boot-on;
-> -        };
-> +	};
->  
->  	xtal24mhz: mclk: kmiclk: sspclk: uartclk: wdogclk: clock-24000000 {
->  		#clock-cells = <0>;
-> diff --git a/arch/arm/boot/dts/arm/arm-realview-pb1176.dts b/arch/arm/boot/dts/arm/arm-realview-pb1176.dts
-> index a75d8b107fe1..1cd095496832 100644
-> --- a/arch/arm/boot/dts/arm/arm-realview-pb1176.dts
-> +++ b/arch/arm/boot/dts/arm/arm-realview-pb1176.dts
-> @@ -53,7 +53,7 @@ vmmc: regulator-vmmc {
->  		regulator-min-microvolt = <3300000>;
->  		regulator-max-microvolt = <3300000>;
->  		regulator-boot-on;
-> -        };
-> +	};
->  
->  	veth: regulator-veth {
->  		compatible = "regulator-fixed";
-> diff --git a/arch/arm/boot/dts/arm/arm-realview-pb11mp.dts b/arch/arm/boot/dts/arm/arm-realview-pb11mp.dts
-> index 59c78def83f2..635b09030f60 100644
-> --- a/arch/arm/boot/dts/arm/arm-realview-pb11mp.dts
-> +++ b/arch/arm/boot/dts/arm/arm-realview-pb11mp.dts
-> @@ -153,7 +153,7 @@ vmmc: regulator-vmmc {
->  		regulator-min-microvolt = <3300000>;
->  		regulator-max-microvolt = <3300000>;
->  		regulator-boot-on;
-> -        };
-> +	};
->  
->  	veth: regulator-veth {
->  		compatible = "regulator-fixed";
-> @@ -544,7 +544,7 @@ timer01: timer@10011000 {
->  			interrupts = <0 1 IRQ_TYPE_LEVEL_HIGH>;
->  			arm,sp804-has-irq = <1>;
->  			clocks = <&sp810_syscon 0>,
-> -			         <&sp810_syscon 1>,
-> +				 <&sp810_syscon 1>,
->  				 <&pclk>;
->  			clock-names = "timer0clk",
->  				    "timer1clk",
-> @@ -558,7 +558,7 @@ timer23: timer@10012000 {
->  			interrupts = <0 2 IRQ_TYPE_LEVEL_HIGH>;
->  			arm,sp804-has-irq = <1>;
->  			clocks = <&sp810_syscon 2>,
-> -			         <&sp810_syscon 3>,
-> +				 <&sp810_syscon 3>,
->  				 <&pclk>;
->  			clock-names = "timer0clk",
->  				    "timer1clk",
-> diff --git a/arch/arm/boot/dts/arm/arm-realview-pbx.dtsi b/arch/arm/boot/dts/arm/arm-realview-pbx.dtsi
-> index 0d3d96ffa6e6..366c8baefe8c 100644
-> --- a/arch/arm/boot/dts/arm/arm-realview-pbx.dtsi
-> +++ b/arch/arm/boot/dts/arm/arm-realview-pbx.dtsi
-> @@ -52,7 +52,7 @@ vmmc: regulator-vmmc {
->  		regulator-min-microvolt = <3300000>;
->  		regulator-max-microvolt = <3300000>;
->  		regulator-boot-on;
-> -        };
-> +	};
->  
->  	veth: regulator-veth {
->  		compatible = "regulator-fixed";
-> @@ -373,7 +373,7 @@ timer01: timer@10011000 {
->  			compatible = "arm,sp804", "arm,primecell";
->  			reg = <0x10011000 0x1000>;
->  			clocks = <&sp810_syscon0 0>,
-> -			         <&sp810_syscon0 1>,
-> +				 <&sp810_syscon0 1>,
->  				 <&pclk>;
->  			clock-names = "timerclk0",
->  				    "timerclk1",
-> @@ -384,7 +384,7 @@ timer23: timer@10012000 {
->  			compatible = "arm,sp804", "arm,primecell";
->  			reg = <0x10012000 0x1000>;
->  			clocks = <&sp810_syscon0 2>,
-> -			         <&sp810_syscon0 3>,
-> +				 <&sp810_syscon0 3>,
->  				 <&pclk>;
->  			clock-names = "timerclk2",
->  				    "timerclk3",
-> diff --git a/arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts b/arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts
-> index 6ef23c53d2d8..64f87e6c12bf 100644
-> --- a/arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts
-> +++ b/arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts
-> @@ -209,11 +209,11 @@ dma@7ff00000 {
->  		clock-names = "apb_pclk";
->  	};
->  
-> -        scc@7fff0000 {
-> +	scc@7fff0000 {
->  		compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
->  		reg = <0 0x7fff0000 0 0x1000>;
->  		interrupts = <0 95 4>;
-> -        };
-> +	};
->  
->  	timer {
->  		compatible = "arm,armv7-timer";
-> -- 
-> 2.53.0
-> 
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+ 
+Konrad
