@@ -1,116 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604E63C455F;
-	Mon,  6 Jul 2026 06:54:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80F23D5227;
+	Mon,  6 Jul 2026 06:54:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783320870; cv=none; b=Cjmx+P7rwABIukztN4oqEXj3j/KCKE2kah5iq3G2gGKjBGRNfsbM9816RYN/CUQ9xQYiC6tGniV9rMn8BtMydikOIoLfLSz1T+9Xjjbbm69tbeCUgsdbShRMZwKEDVuKg/1SgDhjyHL30NgXolRjzIhAFUJDWWieJu3X36uXlqk=
+	t=1783320880; cv=none; b=BUrtX2Qedi1Wk1MHZlrlmkEdaFVJ9z0cPPg8NbFVaaX4v9O5Oc5TVupqedLG9nLvLy/fbIR0Icai9fADBAqhZJO7Rjgq/GvPZaJAbvGYqztpS2VMzMyg7Iq1K+/vRFRl+NwifvM2MXyUW8IXo9ALsnSva9R2gqICL1ULULuKOwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783320870; c=relaxed/simple;
-	bh=RGuvgfcHBIeji9i++xUBCI1OTtQ+7C7jl6np//qGkHs=;
+	s=arc-20240116; t=1783320880; c=relaxed/simple;
+	bh=Udqsu6NXNtN6m2Q58o8NG1BYLDR+p/saClDM6K0NL6I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kEhXtYPyxDD88Hcj/Xwh8306LJ9JX6dk+HNjeDl2QnUMXJL05QswGnA7Dag/EV5hBNfD0ZzC+JqtKZXwLHdyxa+Omp9V9tBSZQbGCij5Y+p6wV5W0h8Ug0DTqULqkkrbkTlGVkTA0Yv+X5KnPcAk+HucabzR9wwfrqkw1v86f7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TapIVGqY; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lY4B+b55XTTTn0pz/al2RkPc7DZ2lcYyocH0pOx4w/N/DX+jtoeGvZ34EKjAOKwl3Inqk4pRaVA96FXLRTsyu2SSXyWMWci/zyLhk6zSv3GkAr7Ibk6OxTF1i4mtLliHl9Zmkl5sCsSnnJP5/8uSqwgPDp4i9Q5aLxEJmMP3Rrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y3Lsx4sT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TapIVGqY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 458191F000E9;
-	Mon,  6 Jul 2026 06:54:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y3Lsx4sT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 439951F00A3D;
+	Mon,  6 Jul 2026 06:54:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783320856;
-	bh=4gbZrWxca52Kz8Mady4m4JF6UM3wnz393E0Baw54Lf4=;
+	s=k20260515; t=1783320866;
+	bh=mIGZ46OQ8TbJpuW2HOxSd3bMhnJo3TCWU9MeYnhulcM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TapIVGqYd5BQuhx/aYrsu41WRv8VVgdPfdBuxklkgbav3gL0Fi/vamJ+5SS0ZmWm6
-	 DfsenCkHAVzBZDSTqNkVpN3Z/4+ZUQs5x5O3+L651S0cLNipT/O12YBXUp3/EcBUDl
-	 GPYBGOkP5E8XAeRx7CFct9Tr/ngSmRmv4DkjPQlFInwCsvAyXa9DOU7HCajE356DS0
-	 mw1qGbNSi9F79I6uHS3Z88419GT/FeM4edP0vr/1j4BFpfbQh9OEa0RXhhCHFpQ3Rh
-	 lHTyMKI5Id7m0F1mOMpN4IDcxHcwvCFAVO1V/Qynl3pL3JXIw3ou9PD1qOSdTHZOVf
-	 ZeVIa8toM7Mcg==
-Date: Sun, 5 Jul 2026 23:54:14 -0700
-From: Peter Chen <peter.chen@kernel.org>
-To: Elson Serrao <elson.serrao@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Souradeep Chowdhury <quic_schowdhu@quicinc.com>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v4 7/9] usb: misc: qcom_eud: fix virtual attach/detach
- event handling
-Message-ID: <aktRFi8aQ0Pe6W1A@hu-petche-lv.qualcomm.com>
-References: <20260501170635.2641748-1-elson.serrao@oss.qualcomm.com>
- <20260501170635.2641748-8-elson.serrao@oss.qualcomm.com>
+	b=Y3Lsx4sTXEj+hV/DhheT8WqDRz231vsXqKL1ZwbvyrgK5kXyhfvIrXbPAojeKeTm8
+	 SNeyK+Snw40vJpr59PBG62ow+AySBXnK11J9zXOy0YrOE7P/ppfa9z3/dX6lxfZMGb
+	 /zCVnMl12TpsZhCQCfiPuMZXUGChwcCjyc1iyYHTz9BZG47B9EPDx7YQdnGF2euynv
+	 lkJ27880r/B1JpB43rUJIZLTuMgUCTvpvu/XbM3YEkzoXb73+m2r/r6FfIHUrNUzeh
+	 UCQsUDivuOS9YEfCwPH7YW4LZiTOpZfEwoabUIvHt9yIR15MwdZ8NOvtpK9qUAZUUE
+	 PWgcCfkttjLFA==
+Date: Mon, 6 Jul 2026 08:54:22 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Harshal Dev <harshal.dev@oss.qualcomm.com>
+Subject: Re: [PATCH RESEND] dt-bindings: crypto: qcom,inline-crypto-engine:
+ Document Nord ICE
+Message-ID: <20260706-busy-grumpy-limpet-c59789@quoll>
+References: <20260704004408.2303468-1-shengchao.guo@oss.qualcomm.com>
+ <b693a9d2-4f1d-4c17-8a63-99c7ac79ed41@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260501170635.2641748-8-elson.serrao@oss.qualcomm.com>
+In-Reply-To: <b693a9d2-4f1d-4c17-8a63-99c7ac79ed41@oss.qualcomm.com>
 
-On 26-05-01 10:06:33, Elson Serrao wrote:
-> EUD provides virtual USB attach/detach events to simulate cable
-> plug/unplug while maintaining the physical debug connection. However,
-> the current implementation incorrectly sets the USB role to HOST on
-> virtual detach, which doesn't represent the disconnected state.
+On Sun, Jul 05, 2026 at 11:15:45PM +0530, Kuldeep Singh wrote:
+> On 04-07-2026 06:14, Shawn Guo wrote:
+> > Document Inline Crypto Engine (ICE) on Qualcomm Nord SoC.
+> > 
+> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > ---
+> > It was included in the Nord SA8797P DTS series [1] due to that
+> > the prerequisite changes were picked up by Bjorn for 7.2. Resend it to
+> > Herbert as the dependency is gone now with 7.2-rc1.
+> > 
+> > [1] https://lore.kernel.org/all/20260526051300.1669201-1-shengchao.guo@oss.qualcomm.com/
+> > 
+> >  .../devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml   | 2 ++
+> >  1 file changed, 2 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
+> > index db895c50e2d2..d690eff2e86d 100644
+> > --- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
+> > +++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
+> > @@ -17,6 +17,7 @@ properties:
+> >            - qcom,hawi-inline-crypto-engine
+> >            - qcom,kaanapali-inline-crypto-engine
+> >            - qcom,milos-inline-crypto-engine
+> > +          - qcom,nord-inline-crypto-engine
+> >            - qcom,qcs8300-inline-crypto-engine
+> >            - qcom,sa8775p-inline-crypto-engine
+> >            - qcom,sc7180-inline-crypto-engine
+> > @@ -63,6 +64,7 @@ allOf:
+> >              enum:
+> >                - qcom,eliza-inline-crypto-engine
+> >                - qcom,milos-inline-crypto-engine
+> > +              - qcom,nord-inline-crypto-engine
 > 
-> Fix the virtual detach handling by setting the USB role to NONE
-> instead of HOST, correctly representing the disconnected state.
-> 
-> Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> With below patch, we don't need nord entry here.
+> https://lore.kernel.org/lkml/20260702-b4-shikra_crypto_changse-v2-1-66173f2f28b3@qti.qualcomm.com/
 
-Reviewed-by: Peter Chen <peter.chen@kernel.org>
+Patch has conflict. This (Nord) should go after above one, with this
+fixed.
 
-Peter
-> ---
->  drivers/usb/misc/qcom_eud.c | 18 +++++++++++++++++-
->  1 file changed, 17 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/usb/misc/qcom_eud.c b/drivers/usb/misc/qcom_eud.c
-> index 4734b6307a85..187cbffbab13 100644
-> --- a/drivers/usb/misc/qcom_eud.c
-> +++ b/drivers/usb/misc/qcom_eud.c
-> @@ -320,10 +320,26 @@ static irqreturn_t handle_eud_irq_thread(int irq, void *data)
->  
->  	path = chip->paths[chip->port_idx];
->  
-> +	/*
-> +	 * EUD virtual attach/detach event handling for low power debugging:
-> +	 *
-> +	 * When EUD is enabled in debug mode, the device remains physically
-> +	 * connected to the PC throughout the debug session, keeping the USB
-> +	 * controller active. This prevents testing of low power scenarios that
-> +	 * require USB disconnection.
-> +	 *
-> +	 * EUD solves this by providing virtual USB attach/detach events while
-> +	 * maintaining the physical connection. These events are triggered from
-> +	 * the Host PC via the enumerated EUD control interface and delivered
-> +	 * to the EUD driver as interrupts.
-> +	 *
-> +	 * These notifications are forwarded to the USB controller through role
-> +	 * switch framework.
-> +	 */
->  	if (chip->usb_attached)
->  		ret = usb_role_switch_set_role(path->controller_sw, USB_ROLE_DEVICE);
->  	else
-> -		ret = usb_role_switch_set_role(path->controller_sw, USB_ROLE_HOST);
-> +		ret = usb_role_switch_set_role(path->controller_sw, USB_ROLE_NONE);
->  	if (ret)
->  		dev_err(chip->dev, "failed to set role switch\n");
->  
 > -- 
-> 2.34.1
+> Regards
+> Kuldeep
 > 
-> 
-
--- 
-
-Thanks,
-Peter Chen
