@@ -1,112 +1,110 @@
-Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F86423773
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 12:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3283FDBE2;
+	Mon,  6 Jul 2026 12:09:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783339396; cv=none; b=uXeBlmrp2H1aDG6lMez4Sn2BofmKzFvR1AVRFPCmxT8powEEbRWzRPQC+SvR5OXb9nGi3yrnwjG0zbhtB03Yq08NCbxlI3aapo5PFWw9lJHLR1mU5O4LsoNWxaqjC81sO2noZhNg0J+FBvqcvDoyj8Coq0581gswqXdC/kdAVJ4=
+	t=1783339796; cv=none; b=mQbi4bq5IdvwTOrWJ1+gJDaT5A38deOpbuxoN2SqBT2nKIA6pK3M95frkbXdzm5K//+0CIuKI1iq5wPhYjTZsLaZOOHQqWDIRiY2ViSDbSmjFjvhddOm94ylXukrWXE4EFuGON8PkBkA80fmcmLaVQKy6yz/fCRpr58SeHqacSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783339396; c=relaxed/simple;
-	bh=DvNWVcoUOMJllcw4xaG67Je66RGWuchYXSkBafMIYQY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=H9QMIr2bfdDphZJEXOmzPBGTG191j5sV2Ry2hk4AYnnTpcc9M3+ffD+meXo9lDV1n3rWCUUmjiSXyap33wjZGdWm9g6AaL90Jwg34NhYt31pyIEhIIsdvz3OHblpbUqiqJHOkNPvDXjZz29PisikdK94VY2BllYlPMVQAJ6VvAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=GCuj59RL; arc=none smtp.client-ip=85.9.206.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1783339796; c=relaxed/simple;
+	bh=DvPc9QqRm1LHXaDbJX26sgs2Ta2R/ToTJQ6Inhepy4o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fv5qz7cRHqwv4YuWQog6mdqLHJcjR2ZrP9/CVjcP416kdogfh07zUFAfZG0o8SOWUOPcGD+snWksLVwsxoZq2Zb2E5imUdcYzM6CnHZJBeeU7r4RKsyCcTv8Ukp90xMRajJM0OhwFHFfB18ENYdqTybvCV7+txv24ETj3QLq44k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ISTz2Nbn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="GCuj59RL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1783339375; x=1783598575;
-	bh=82x8bAf2wNBQ5QOhiP8e0is47IQ1BDz7G4Bf4Ik32/I=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=GCuj59RLs2Zs6JshFntV3StWw074ejLXvSjBIa/99p1F66DtVa8fJD4bfp6nuRl8g
-	 k6U9qxxoKzrDGHX8YvCb+lwoifLueU2A7MbJOO6fkSUfDhPNo/frQ6Gco5IbF2Kbqb
-	 gKD56ktrYTDtW8lPFGbg4rl6bF4+zNpxnJMATmTh39BJvV1nskOJNQ9GdN8FahpjiO
-	 v6yW+e2kpk2yAr8Fl5DUMrkUSUOQLFbTNxfB7NN9RK90sHkwPNLP7ywiYueO1DNLNj
-	 Snk9+Gs60NNp7wL3tM6iVtv0kc4WGZcA9D3AFpMGqnCjiSM5U04qUrR9Y7LjAvCvzm
-	 7we82K/ZiHAiQ==
-Date: Mon, 06 Jul 2026 12:02:53 +0000
-To: sashiko-reviews@lists.linux.dev
-From: cristian_ci <cristian_ci@protonmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v6 1/4] arm64: dts: qcom: msm8953-flipkart-rimob: Enable display and GPU
-Message-ID: <u25a39zbC36mvz8rp3abyH03bkExXAuUFYxKU8flfoGV3XFttpebG4sRvv3e00ObVPBhEtegUvYr0d09FnnWl9BXOfizKGlng9X2Vpalq14=@protonmail.com>
-In-Reply-To: <20260701205956.EDE121F000E9@smtp.kernel.org>
-References: <20260701-rimob-new-features-v6-0-be7d5d1e007f@protonmail.com> <20260701-rimob-new-features-v6-1-be7d5d1e007f@protonmail.com> <20260701205956.EDE121F000E9@smtp.kernel.org>
-Feedback-ID: 27475468:user:proton
-X-Pm-Message-ID: f63ffe97537f68d51dad4f445117b2d6fa51b51e
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ISTz2Nbn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FA001F000E9;
+	Mon,  6 Jul 2026 12:09:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783339795;
+	bh=iFXj9diZ+LOixsk0T0ZaJQIX3INk/Tdi8RYdMzt4pzc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ISTz2NbnE6igIuSvNFQgoRmkkp3NsyugcMLwLD0l3oJd5NGkfs9htVjyMhl3FrARC
+	 s0K3hrt9KPSqtEaxKz4bnG/e5oY9UyW43/Du9AUgIMxusFXfudcKDzIpTN84SWD8yu
+	 29lwdkCNpqIqMi52NAMFKzpsdteg5N8usalNYUTQV/TEj3n672tsWqYaKO1ICRjSLP
+	 yP5wJ5kpDdv9nM3HQdyghEklAhxCO0wKry1BNiWq0EcmF7PAOp9sKIg4ETep2Y810e
+	 4fRRX6jsKEo9KDK+xunsU/eSko8XTA1hZlT0XFcaJRAVkGY43w5NZINLEcJj2fUSck
+	 r2kIp+P095zJw==
+Message-ID: <389ff33a-b319-4f2e-9410-8ae962f2e844@kernel.org>
+Date: Mon, 6 Jul 2026 14:09:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/5] media: qcom: camss: Populate CAMSS child devices
+ via DT
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ linux-media@vger.kernel.org
+Cc: bryan.odonoghue@linaro.org, vladimir.zapolskiy@linaro.org,
+ loic.poulain@oss.qualcomm.com, mchehab@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
+ <20260706071113.383215-2-atanas.filipov@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260706071113.383215-2-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wednesday, July 1st, 2026 at 22:59, sashiko-bot@kernel.org <sashiko-bot@=
-kernel.org> wrote:
+On 06/07/2026 09:11, Atanas Filipov wrote:
+> From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> 
+> Use devm_of_platform_populate() so that child nodes declared under the
+> CAMSS device tree node (e.g. OPE) are automatically instantiated as
+> platform devices. This is required now that CAMSS is modelled as a
+> simple-bus and ISP blocks such as OPE are described as child nodes.
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Low] The panel's compatible property is missing the mandatory generic =
-fallback string.
-> --
->=20
-> commit 14ab3e4951175e1cf33309cf294f421f36606cd0
-> Author: Cristian Cozzolino <cristian_ci@protonmail.com>
->=20
-> arm64: dts: qcom: msm8953-flipkart-rimob: Enable display and GPU
->=20
-> This commit adds the description for the display panel found on the phone=
-.
-> It also enables the GPU and sets the zap shader firmware path.
->=20
-> > diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch=
-/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-> > index ef4faf7631327..5a9d71d1e4664 100644
-> > --- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-> > +++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
-> [ ... ]
-> > @@ -87,11 +94,70 @@ &hsusb_phy {
-> >  =09status =3D "okay";
-> >  };
-> >
-> [ ... ]
-> > +&mdss_dsi0 {
-> > +=09vdda-supply =3D <&pm8953_s3>;
-> > +=09vddio-supply =3D <&pm8953_l6>;
-> > +
-> > +=09status =3D "okay";
-> > +
-> > +=09panel: panel@0 {
-> > +=09=09compatible =3D "flipkart,rimob-panel-nt35532-cs";
->=20
-> [Severity: Low]
-> Is the generic fallback string missing from this compatible property?
->=20
-> The DT schema for this panel (novatek,nt35532.yaml) strictly requires two=
- items
-> for the compatible property: the device-specific string and the generic f=
-allback
-> "novatek,nt35532". Providing only the device-specific string violates the
-> binding and will trigger a dtbs_check warning.
->=20
-> > +=09=09reg =3D <0>;
-> > +
-> > +=09=09backlight =3D <&pmi8950_wled>;
-> > +=09=09reset-gpios =3D <&tlmm 61 GPIO_ACTIVE_LOW>;
-> > +=09=09avdd-supply =3D <&lab>;
-> > +=09=09avee-supply =3D <&ibb>;
-> > +=09=09vci-supply =3D <&pm8953_l17>;
-> > +=09=09vddi-supply =3D <&pm8953_l6>;
->=20
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-rimob-ne=
-w-features-v6-0-be7d5d1e007f@protonmail.com?part=3D1
+I do not understand this rationale. How is this required now? Are
+existing DTS broken and do not work? Then this needs to be explained.
 
-Please, look at: https://lore.kernel.org/all/s6kyh5wyamcxyd7xsbu5wrrpndpdb5=
-xhxapmxze2qgblng5eiq@hl36nzg2lldg/
+Best regards,
+Krzysztof
