@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358953B27F3;
-	Mon,  6 Jul 2026 05:53:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335DF2E7631;
+	Mon,  6 Jul 2026 05:56:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783317214; cv=none; b=tIP72SUWptQI1+F0W+rckQaveBF29vJZl1ZBtCtzJYW9+yO8oS/+a8R4T/0ibQabZBInXnCkYsGxYSN+GQoJPwLlXID+Vl7iySJtJoRJSlyrAi38iAayRDF19VzhxQw5Vq0AFzuwORjC4Dlp6AFMa9LNNudGL6q9dlvZ5Ks3r00=
+	t=1783317421; cv=none; b=pv/N2L2HzNaAQyifnQPOjAHuhCRcQgihbF5J7OVYFAcCjWYnGEyakLnPw1quUKE0bGDV01ghw56zyjPCarLf5YIeypQ6CuRRwr/gx/2tvhj4WHOH/ZTtEF4tfTD409f6o4ESMOxf3Hyr2QCQBXaqHIQ6Pb026x1Rs4hU9Cvi2nE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783317214; c=relaxed/simple;
-	bh=JEU0Hnw1+yy8OMuj16Q/bvY+jeDH6ZYCn+El7L1TQiE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=L4AKyCPYukKlRwBLaLPX/o19gcF67SEl7XDhWJ2I5a4GJqJF83yHjBVHhk6FJ+51Y2uJQp2P7/7Y50N2qAG6hD7uclLX6O81ZEaGcbgQqCmram7A6poXK9GD33JkAKOsJKTz0jZeYjsYX8/cCWR8b2QIiZxVkk2vhfywTJfwRpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OSk2le8V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783317421; c=relaxed/simple;
+	bh=XiJpeS8TZNVi+5d0RNDhJoZ6BqUf+HK2bK0NMX/hNtQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ax1EY3XK5BhhbXcKYwi3s7Ga2XlZxi6cVAC+EG8V2KbDy0okxkgtR5zTuyLIiFh9FFzzC4ue/yJufAX1Qr5//iSbSudL+FKVQ8OcqUTEgfm5rHdNJq3Dn0KoCQckJRKJdu5eS4m5HAzNCZgmb7lUJYBecEmfYngR0bA+KRlNbS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MPkzDKVp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OSk2le8V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50D031F000E9;
-	Mon,  6 Jul 2026 05:53:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MPkzDKVp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9112D1F000E9;
+	Mon,  6 Jul 2026 05:56:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783317212;
-	bh=ghWImcE50EACe64nXDxFKbGhA3ZLPYKrlxkXpSXimME=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=OSk2le8Vv6+wmJWG8ZqLE0L51DXM+Dsz2SCqbnsxZvvBSGHow/Oym69wSof4u4UDt
-	 YdXur/nGHTvLXtXFgCDOTFlUND3f2BImPyC7+SaDd+yhIorxMKm83qR5JtW4syj0JW
-	 l4aBcBA7tgJlEtIp24BJp3hBwhHDqd0gNsUvQppMnCD+vcJFsxyeEgzlp3n8uoELLA
-	 coAsgOaKrgaZ0hkatlyFR0d4ibn3nZ5Ch41c0fNnvCSTwj2dZV8tC1Z1LzBQek7LH7
-	 lLa3RPY0XRkE12xRIGWm9egYjsPrc4tI+PbGukoKOvs/sVfKt/aVgr795c4eAHp0eN
-	 kG6VOGPyTbjrQ==
-Message-ID: <21b22d2f-134f-4165-81d0-12f1f071d3fc@kernel.org>
-Date: Mon, 6 Jul 2026 07:53:24 +0200
+	s=k20260515; t=1783317419;
+	bh=SMcr9aZxtwESDtUViXE52gMUWOmtkD5jpNJK77DhaV8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MPkzDKVpN8sBgDcpB9hunesBHiu6H521lRekOJYQVioG1dHtlROKGJqQbNfwg+yuF
+	 RCuG1ZoBMmwHG9kfs4GALdwPvHeEYcjBVv348dc7ZLsNo9jZvLv3ZUtPE6nW3wlLyc
+	 eRVxH7Njgk1hDBBTX03psE3n+kA8niNzoMjuwsC20V1Wem0lOK5HrWa2s1w1q9y/80
+	 c7C6pt+9S7r5hiWszip/GYOxSl6UGViWlD5jZVs4BiYuf9VCVgdgvAzwbdsqerWU/O
+	 8rwDV6uH1cq+YWnqjY7y1MldUkrOWRcOVFQv2LOUtztTEJbpdBVCHWbAG8IYzET2A8
+	 f/a8G2vT8T/jw==
+Message-ID: <033ae2ef-e260-4e96-9986-ffd0db3e3caa@kernel.org>
+Date: Mon, 6 Jul 2026 07:56:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,18 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] MAINTAINERS: replace maintainer for Altera mSGDMA
- driver
-To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
- Olivier Dautricourt <olivierdautricourt@gmail.com>, Stefan Roese
- <sr@denx.de>, Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dmaengine@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <addaf51275355667045ec300fc8d725e2e273807.1782911845.git.adrian.ho.yin.ng@altera.com>
+Subject: Re: [PATCH] dt-bindings: iio: adc: convert Xilinx XADC bindings to
+ YAML
+To: Mikhail Lukianchikov <avermoal@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <d7607a98-f5e1-417f-ad64-d0029c9de662@kernel.org>
+ <20260705165620.9818-1-avermoal@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,27 +92,39 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <addaf51275355667045ec300fc8d725e2e273807.1782911845.git.adrian.ho.yin.ng@altera.com>
+In-Reply-To: <20260705165620.9818-1-avermoal@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06/07/2026 04:23, Adrian Ng Ho Yin wrote:
-> Olivier Dautricourt has stepped down as maintainer of the Altera
-> msgDMA driver as he no longer has access to the hardware. Replace him
-> with Adrian Ng Ho Yin as the new maintainer and update the status
-> from "Odd Fixes" to "Maintained".
+On 05/07/2026 18:56, Mikhail Lukianchikov wrote:
+>>> Convert the Xilinx XADC binding documentation from .txt to YAML format.
+>>> This conversion is part of the ongoing effort to migrate all DT bindings
+>>> to a machine-verifiable schema.
+>>
+>> Sorry, but what effort exactly? Where is this effort documented? Do you
+>> have a mentor if this is some sort of mentorship effort?
+>>
+>> And if this is ongoing effort then don't duplicate:
+>> https://lore.kernel.org/all/?q=dfn%3Axilinx-xadc.txt
 > 
-> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-> ---
-> Changes in v2:
-> - Rename subject to be more descriptive
-> - Add MAINTAINERS file update (was missing in v1)
+> Hello Krzyszof,
 > 
->  Documentation/devicetree/bindings/dma/altr,msgdma.yaml | 2 +-
->  MAINTAINERS                                            | 4 ++--
->  2 files changed, 3 insertions(+), 3 deletions(-)
+> Thank you for feedback.
+> 
+> I'm the newbie at Linux kernel developers community,
+> and sorry for my mistakes in sending commits.
+> 
+> I'll answer your questions.
+> I am not part of any official mentorship program,
+> I just decided to try to contribute to the development of the Linux kernel.
+> Yes, it's a ongoing effort, and to be honest, this effort is the general
+> community initiative to convert all DT bindings from .txt to .yaml. I didn't know that work
+> on this file was already underway.
+Take a look at other commits to learn how the commit msg could be written.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In any case,
+1. Do not send duplicated versions of patches (you posted same twice).
+2. Check if that binding was converted already.
 
 Best regards,
 Krzysztof
