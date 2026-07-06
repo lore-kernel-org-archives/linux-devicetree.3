@@ -1,204 +1,259 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75EF4329E5D
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 19:34:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EEA346A02
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 19:38:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783366480; cv=none; b=DE4Pf/c6ID14MH9+tq5VW+cYVB0wBgRe8OH/NyZ3GkNoVLkxAu54xui3B+CoybkxLHIQ+3x3embZh0rDh6hzfWYy8UiGAR0eVGYdF7pWwxRXXUCfeWzufZoautkizFzn+AXv2IfXReu/n0y9rZPSNQidfNOeY7AgVcJVBozNl/s=
+	t=1783366709; cv=none; b=sDA0vW5zn+lBRJ2J6zHFwvCXLdRT8vHD5uOCtp/m+XqedSzZwO1hWWjIbQP5Xs9kksySjH2fNyIWiWzLsPKVAqsCyQedMt/0FPrMGKfin9eAPbHmgWsfFO530nrT7BvMAT/vAniYvLRKk3yAzMi6UGD0zlMC4bvaausJyXM0xi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783366480; c=relaxed/simple;
-	bh=G5bzsqL7CD6Jj6kiG9Oe7kbdaoiW/kRUDknhNrluwK4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KjEgobEUc+2Z+F8tlbSQ7S0wXk5Yhq742DK9vKs9K3cvfOe8+rSfuKpInAX/4T2Y8/mKVWT0vTF/nJNqOQmJTwlVIIBnLSr5lLvhUu/fmOs5eicFr3TYlj2z2Ki2BHBwb0rMTqIdNuhAgnnHOTlWNM7MO/4jv9feDpgyMV13YHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DtDnMNsB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XvoITfgN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783366709; c=relaxed/simple;
+	bh=cfijCjbCqmM2tQGwnopCikQ43DXn4YBVUJp8mRFtTrA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Y0qE40+MKdi+wKyO+Tc/mpO06TFO5kQRCp+LHI+y/gqPh2RQLhqsL5fxoCMAIkucpXIZ1MO+e4l8ouJZy3W9NYTwMfJwwoHavv+7IKHVxxtvEOsMF1+ztxpFKvO6AD586V1XjSLLius3QSRCU7UUEcIjOtvCD8XUfsAx0zEVeno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kEFmno+P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DtDnMNsB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XvoITfgN"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666FFC1j972278
-	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 19:34:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=6DHjZemGZbGTGMEMZvfJ4XTU
-	0d57xnMw3yNqcpZYiWM=; b=DtDnMNsBzHzC0TD4SHYPpX48Eo/CijmqywYKbORt
-	vnFqEQUjKUySGwVuaSb5s/rwLCbjhpvJ5mkLUG8yaHWJ+8rMX6JhQvmji6K33H7G
-	rNe5eDeQL5l6fsGjTLT/4htEzkKJj79G8cQHMKDD0XtuTrJLaOXcrwXNVD+r7Uvk
-	FSqeeeqO86TZIxTnOxFHaKRXIBABkkhQkI9imCDPkIerqLKJCwgvny/HCoLX/owG
-	3uySDKT+8nvXyKA44v/2FeUXwvvjDyHb7V06WmewVVRq64CN7T2IsdOsDTZFfACW
-	ZNeJrRT9BCkqRAuLx1bI1xmdFRN2BQaVjGI9/JvYHw9VRw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8a3r2hys-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 19:34:37 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e55721a8cso360988285a.1
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 12:34:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783366477; x=1783971277; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=6DHjZemGZbGTGMEMZvfJ4XTU0d57xnMw3yNqcpZYiWM=;
-        b=XvoITfgNBDYYrbRyB4XXXMficpoMSqgqSJ0FYVZTxtvC8ZMTSjH9n2uiTqJws/F8kl
-         /ppgtVzFhTeOm4yM4UzchyqacCbCSzG4Gg8q+Obut30KoVhNtAVb5BfnUdqUuNnfmivO
-         r4TwNkhFL96EO9DtweC1uNLNddde8EgUyvM+RaRBoo/ntyuF3mx1+gG6Q63FgAyZhejy
-         FxcHfHbTt4MyAAHyM3EHagmlY6B2jGv1leTy50+y/gDzzBI9BKpGEbUN4ob0/JgYCKAX
-         4t18kmClfJKER2iS0dRfTths1Lf8eIqtfiesdaW1awvuvwamnbGeIX0jc0AcEkfqbNH6
-         SzEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783366477; x=1783971277;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6DHjZemGZbGTGMEMZvfJ4XTU0d57xnMw3yNqcpZYiWM=;
-        b=AcrWR3ITINYd4T6MaZZnCk4ZzfYbFhu9ihSoHDCLO8AmwWiZBk7hLZ0JhqQsff9iVY
-         Utd6xtyJox1RcOuOCwFjAwGq0/IQovLzxCbS0gF7oSbctFrnEaZHUgeiVwNE7ksXVO33
-         uKaOonKNGHMwgXer+zQeg03DAioqdMKI4CiP7pdPpA+t52hP7qHX5ug8II5i8e9RbXbH
-         tjCClUcuirCOpHJj+gyIGUlP5p0eS0coJ/9lrwWIp9IhCfi1DjOBHe9VL9QBn4/QbazT
-         ASZBsdFGjMoNyeuprg5/P1fQcsPKiR4c9rfXjikly6uDb7ebVLUa8Ob9WGccW+slZY+U
-         8WWA==
-X-Forwarded-Encrypted: i=1; AHgh+RqIwWo17jw5yIB8KSJg5gr8o3i6DENnmXVbbLEwCnEOb9ix/fMeiuoA7Etfw09LE1f1fE5ygijA8G6C@vger.kernel.org
-X-Gm-Message-State: AOJu0YxBtZ3Tl1JpqBfuNdrNhoduw60OW+sL0xFRxEFs/IyAnbcUUmu/
-	Et+A9DPT2K2T3BVK73xysl08kVBnnJBdMBer5JuXHkSIREbjwPehqmIQC1wtIAd5s2jcn78BjzE
-	tUmrQ/bQvpf1lbOPpA0TOTuGZhpP0/T9+XYK+PsACPlOrpN2typB68Kue4oxDMN2v
-X-Gm-Gg: AfdE7cn3Mmyyz8L3bTEe54qeD/FfZ1NBBpmY7MFfGlBVfTqXZsgFphRPE7gTs8ApHjs
-	B8JGtXTh2caTcytffAyRZJ8cpATrtrpk48ovEkFKWVOTAGKTQUXkytGvUsPBl+9KLKmQAiO5ee2
-	BE98E+Nk9mAOlqEscyvUMcTJC8xZ5gBw1h1B8x9HAmzUycocpbompa+2pPE6BbPmxGTy7Jlac//
-	kDhCiHIx80ewCrWUKZtzl22BS4DsvdfXsMbtbF6KcsV7pNdN54BLf5AHuuafRVUDbNNVc46bNpV
-	hSB36xnUlCpET6DTlIuUellUZ9/KQmHmSJLkGY2Q1VSzVluHnYw7r+1Yl3g2w5ifi1rzUSd8ejU
-	kelscLYCUaTlgpj/QY+NUP15K6meals2rMAFlBKia80svxzBp9fB/uMumjm0iNDmSGyYmWBeH1D
-	LMbCBa71jU/MTBo+9/Mg6URxFs
-X-Received: by 2002:a05:620a:6011:b0:92e:59b0:df08 with SMTP id af79cd13be357-92ebb4c1058mr311312385a.3.1783366476764;
-        Mon, 06 Jul 2026 12:34:36 -0700 (PDT)
-X-Received: by 2002:a05:620a:6011:b0:92e:59b0:df08 with SMTP id af79cd13be357-92ebb4c1058mr311304285a.3.1783366475990;
-        Mon, 06 Jul 2026 12:34:35 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39c63ce4e57sm1325031fa.31.2026.07.06.12.34.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 12:34:33 -0700 (PDT)
-Date: Mon, 6 Jul 2026 22:34:30 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-Subject: Re: [PATCH v4 01/10] dt-bindings: firmware: qcom: tmd: add TMD
- device type constants
-Message-ID: <e7eho7ezujbrdzgumshapf2r7hu2jaujib7lvotrqvcj5er5ut@xpd6l2kgipqu>
-References: <20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com>
- <20260703-qmi-tmd-v4-1-3882189c1f83@oss.qualcomm.com>
- <977711ef-c1fb-4735-b82a-4ca2f4797f51@oss.qualcomm.com>
- <8ad14017-bce7-485e-9677-9cbf8ecb2742@oss.qualcomm.com>
- <yvggh2zs6qkuyuzvwydkecswnjoyba2d7t27br6xpk6d2csp53@i25g6okdktz5>
- <10a346d8-fbb1-4142-a650-507c3917b8f6@oss.qualcomm.com>
- <dv4n4ntnfvhouv23asgshgs7wcolkmqs7lbuni52maexo4s44x@4bqhf33x4fr6>
- <1aca8d60-8e39-4532-9095-a5260bba76ac@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kEFmno+P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D90641F000E9;
+	Mon,  6 Jul 2026 19:38:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783366708;
+	bh=FAK5qfkwpxxOOW4AvMtMf5cGWvXiBMhNgdLVrOs/jXs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kEFmno+PIMcUlrlnLMwJJzoK7FZNIEr8tpsLXl/RrlIP5u6XIf7OeIKqZqOH+t1Ub
+	 4F+eVNUGzAawT7sCrPkEqLhtn2/zb9nVZqBavUkbStMW1jAoQkOBRiW1cRav44dcy5
+	 55YzLs0KdB5mwa+yNJc89DkGYXhWp/8sksfXq0yA6iiwhiAUhDOV6PxSRKMN5XN2Xs
+	 r7l3h9Gd3HRBqhJR6nzwiLDL0IfGK+Fh0hhGXpKONxscqKHAczn3hFdYVieVNydVE5
+	 ioWvlny3moltT94t5f+J/tTJcbM8o38iKREKa6VKlMaU23WMC2QQ6HVipIm2xXy2jB
+	 vPJipq4YdeGCQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] ASoC: codecs: wcd9378: add TX/capture codec driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260706192229.144137-4-jorijnvdgraaf@catcrafts.net>
+References: <20260706192229.144137-1-jorijnvdgraaf@catcrafts.net>
+ <20260706192229.144137-4-jorijnvdgraaf@catcrafts.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 06 Jul 2026 19:38:26 +0000
+Message-Id: <20260706193827.D90641F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1aca8d60-8e39-4532-9095-a5260bba76ac@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDE5NyBTYWx0ZWRfX4La2Zz56Gmn8
- nWAyrNGpRSeaMJnUyfHTejREKVX8hviH3VOIpvtzugOlWZTBoH/2UXaZ9mxf3lGHE7n5Qpc3BeM
- LiW6cUQcpYyULg8qgF6hxkF4UvBsSzFKGVxkTXLTHdsjaZPf9MLRH9AuN5OpGIMOvvaktAKUsvK
- Q2cdE8/ECHfA6sWuWeHSNjHTNX5bbiWTThb1hlaEsx0DtCqwOhufGDTWa+jtFtXIx83rK1/iyKT
- WS7pada/UQUmc2hGc27PDyb+C3+pTigVSpSE3YMnasL/3vlnfBAJboK047TLKkgdIbJvP8s/g5B
- KhYP6ZqUBRFAp/VSvtHUmQOeGdnKzVz4wgOSu7KfN7TUAm7E4C3ZKa1siHT9KqXuHwkWbt6axHp
- gs5vd0DvvkcW6f/EB4Q8Cj/+URUYWcKtNwNUwBssXULpRtsbY/OrGDbW1XmOuaVamZp/9acef8V
- pMoJeji3WkT9jL/pMoA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDE5NyBTYWx0ZWRfX5/awOUhlohyr
- L78D4WkYDRFcz2j6kys+2nYMByfLuZsHJ5t1c1qqzNNte4Lmu5Bqi0RhCa7m2wg1C1nHDh1GMTb
- OSip55KfM3V8AKnYerM7LHN49wbdhGs=
-X-Proofpoint-GUID: bvG5kpvKU9id1-ZQGn2ExplOBXndct9o
-X-Proofpoint-ORIG-GUID: bvG5kpvKU9id1-ZQGn2ExplOBXndct9o
-X-Authority-Analysis: v=2.4 cv=OKcXGyaB c=1 sm=1 tr=0 ts=6a4c034d cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=AjCqL75dquvNJiF6hoMA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-06_02,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 malwarescore=0 clxscore=1015 suspectscore=0
- spamscore=0 phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060197
 
-On Mon, Jul 06, 2026 at 08:11:35PM +0200, Daniel Lezcano wrote:
-> On 7/6/26 19:47, Dmitry Baryshkov wrote:
-> > On Mon, Jul 06, 2026 at 07:03:18PM +0200, Daniel Lezcano wrote:
-> > > On 7/3/26 17:42, Dmitry Baryshkov wrote:
-> > > > On Fri, Jul 03, 2026 at 07:43:39PM +0530, Gaurav Kohli wrote:
-> > > > > 
-> > > > > 
-> > > > > On 7/3/2026 1:23 PM, Konrad Dybcio wrote:
-> > > > > > On 7/3/26 7:03 AM, Gaurav Kohli wrote:
-> > > > > > > Add Device Tree binding constants for Qualcomm Thermal Mitigation
-> > > > > > > Device (TMD) types used by remoteproc-backed thermal cooling devices.
-> > > > > > > 
-> > > > > > > Qualcomm remote processors expose thermal mitigation endpoints
-> > > > > > > through QMI. These endpoints can be registered with the thermal
-> > > > > > > framework via the `#cooling-cells` property on the remoteproc node.
-> > > > > > > 
-> > > > > > > The QMI TMD protocol identifies devices using string names (for example,
-> > > > > > > "pa", "modem", and "cdsp_sw"), while the DT cooling-device binding with
-> > > > > > > `#cooling-cells = <3>` requires numeric device id in the form:
-> > > > > > > 
-> > > > > > >      <&phandle device_id min_state max_state>
-> > > > > > > 
-> > > > > > > Define common TMD device index constants shared across currently
-> > > > > > > supported platforms. If a future target requires a different mapping,
-> > > > > > > additional target-specific constants can be introduced while preserving
-> > > > > > > existing DT ABI.
-> > > > > > > 
-> > > > > > > Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-> 
-> [ ... ]
-> 
-> > > > Why are you using only those TMD devices?
-> > > > 
-> > > > > More constants can be added as needed.
-> > > > 
-> > > > Kodiak is one of the supported platforms.
-> > > 
-> > > What would be the benefit of having more than thirteen cooling devices
-> > > declared in the thermal framework and having only a couple of them mapped in
-> > > a thermal zone ?
-> > > 
-> > > I agree there are more TMDs but if they are unused for the moment, why do we
-> > > need to add them ? Can we do that incrementally ?
-> > 
-> > That's what I am trying to understand: why the implementation uses only
-> > the selected two devices, if the modem on Kodiak supports others. How
-> > can we find out, which TMDs to use on other devices.
-> 
-> My understanding is that is an initial thermal setup. Gaurav will add them
-> step by step while setting up all the thermal zones instead of sending a big
-> patchset. And TBH, that will be much easier to review.
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+s) to consider:
+- [High] Modifying a static global array during probe prevents multiple dev=
+ice instances from working correctly.
+- [High] `pm_runtime_enable()` is called after `component_master_add_with_m=
+atch()`, causing component probe to fail synchronously.
+- [High] Missing bounds check in `wcd9378_tx_mode_put()` allows out-of-boun=
+ds enum values to be written and retrieved.
+- [High] Inconsistent SoundWire bus clock scaling calculation between `wcd9=
+378_bus_config()` and `wcd9378_swr_clk_indicate()`.
+- [High] Destroying `micb_lock` in the component unbind callback leads to a=
+ use-after-destroy upon component re-bind.
+- [Medium] Off-by-one error when calculating the SoundWire channel count ca=
+uses incorrect bandwidth allocation.
+- [Medium] Missing High-Pass Filter (HPF) init pulse configuration for ADC2=
+ when routed via SmartJACK.
+- [Medium] Concurrent ALSA control puts cause read-modify-write data races =
+on shared driver channel maps.
+- [Medium] Using asynchronous `pm_runtime_put()` in `wcd9378_unbind()` caus=
+es a race condition where the TX SoundWire slave device may not be properly=
+ suspended before removal.
+--
 
-In such a case it should be noted in the commit message and/or cover
-letter.
+commit 336c5ad4fab99f2ac788ce17fc541b077bfc53c9
+Author: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Subject: ASoC: codecs: wcd9378: add TX/capture codec driver
 
+This patch adds the TX/capture driver for the Qualcomm WCD9378 audio codec
+over SoundWire. It introduces analog core configuration and SDCA-style=20
+function blocks for SmartMIC and SmartJACK sequencers.
 
--- 
-With best wishes
-Dmitry
+> diff --git a/sound/soc/codecs/wcd9378-sdw.c b/sound/soc/codecs/wcd9378-sd=
+w.c
+> --- a/sound/soc/codecs/wcd9378-sdw.c
+> +++ b/sound/soc/codecs/wcd9378-sdw.c
+[ ... ]
+> +int wcd9378_sdw_hw_params(struct wcd9378_sdw_priv *wcd,
+> +			  struct snd_pcm_substream *substream,
+> +			  struct snd_pcm_hw_params *params,
+> +			  struct snd_soc_dai *dai)
+> +{
+> +	struct sdw_port_config port_config[WCD9378_MAX_SWR_PORTS];
+> +	unsigned long ch_mask;
+> +	int i, j;
+> +
+> +	wcd->sconfig.ch_count =3D 1;
+
+[Severity: Medium]
+Does initializing the channel count to 1 here cause an off-by-one error?
+It looks like if there are two active channels, the count will become 3,
+which might lead to overallocating SoundWire bus bandwidth.
+
+[ ... ]
+> +static int wcd9378_bus_config(struct sdw_slave *slave,
+> +			      struct sdw_bus_params *params)
+> +{
+> +	u8 scale;
+> +
+> +	switch (params->curr_dr_freq) {
+> +	case 4800000:
+> +		scale =3D WCD9378_SWRS_CLK_SCALE_DIV4;
+> +		break;
+> +	case 9600000:
+> +	default:
+> +		scale =3D WCD9378_SWRS_CLK_SCALE_DIV2;
+> +		break;
+> +	}
+
+[Severity: High]
+Is there a calculation mismatch between wcd9378_bus_config() and=20
+wcd9378_swr_clk_indicate()?
+
+Here, a 9.6MHz double-rate frequency gets WCD9378_SWRS_CLK_SCALE_DIV2.
+However, in wcd9378_swr_clk_indicate() in wcd9378.c, the bus clock is=20
+calculated by dividing the DR frequency by 2, resulting in 4.8MHz. That=20
+function then evaluates 4800000 < 9600000 and assigns=20
+WCD9378_SWRS_CLK_SCALE_DIV4 instead.=20
+
+Could this stall the sequencer if the configurations conflict?
+
+[ ... ]
+> +static int wcd9378_sdw_probe(struct sdw_slave *pdev,
+> +			     const struct sdw_device_id *id)
+> +{
+[ ... ]
+> +	if (wcd->is_tx) {
+> +		pdev->prop.source_ports =3D GENMASK(WCD9378_MAX_TX_SWR_PORTS, 1);
+> +		pdev->prop.src_dpn_prop =3D wcd9378_dpn_prop;
+> +		wcd->ch_info =3D &wcd9378_sdw_tx_ch_info[0];
+> +
+> +		for (i =3D 0; i < master_ch_mask_size; i++)
+> +			wcd->ch_info[i].master_ch_mask =3D WCD9378_SWRM_CH_MASK(master_ch_mas=
+k[i]);
+
+[Severity: High]
+Will this loop permanently modify the global static array wcd9378_sdw_tx_ch=
+_info?
+Since the master_ch_mask is written directly to the shared array, probing a=
+=20
+second instance of this codec could overwrite the configuration for all act=
+ive
+devices.
+
+> diff --git a/sound/soc/codecs/wcd9378.c b/sound/soc/codecs/wcd9378.c
+> --- a/sound/soc/codecs/wcd9378.c
+> +++ b/sound/soc/codecs/wcd9378.c
+[ ... ]
+> +static const struct wcd9378_smp_fn wcd9378_smp_jack_adc2 =3D {
+> +	.usage_reg =3D WCD9378_SMP_JACK_IT31_USAGE,
+> +	.micb_reg =3D WCD9378_SMP_JACK_IT31_MICB,
+> +	.req_reg =3D WCD9378_SMP_JACK_PDE34_REQ_PS,
+> +	.act_reg =3D WCD9378_SMP_JACK_PDE34_ACT_PS,
+> +};
+
+[Severity: Medium]
+Should this struct also include the hpf_reg and hpf_mask fields?
+When ADC2 is fed from AMIC2 via SmartJACK, the missing filter configuration
+means the sequencer enable path will read zeroes, skipping the
+WCD9378_ANA_TX_CH2_HPF2_INIT pulse and potentially leaving a DC offset.
+
+[ ... ]
+> +static int wcd9378_connect_port(struct wcd9378_sdw_priv *wcd, u8 port_id=
+x,
+> +				u8 ch_id, bool enable)
+> +{
+[ ... ]
+> +	if (enable) {
+> +		port_config->ch_mask |=3D ch_mask;
+> +		wcd->master_channel_map[mstr_port_num] |=3D mstr_ch_mask;
+> +	} else {
+> +		port_config->ch_mask &=3D ~ch_mask;
+> +		wcd->master_channel_map[mstr_port_num] &=3D ~mstr_ch_mask;
+> +	}
+
+[Severity: Medium]
+Can concurrent ALSA control operations corrupt the channel masks?
+Since wcd9378_set_swr_port() is reachable via ALSA put callbacks, multiple
+userspace threads toggling switches might cause a read-modify-write data
+race on port_config->ch_mask and wcd->master_channel_map.
+
+[ ... ]
+> +static int wcd9378_tx_mode_put(struct snd_kcontrol *kcontrol,
+> +			       struct snd_ctl_elem_value *ucontrol)
+> +{
+[ ... ]
+> +	u32 mode_val =3D ucontrol->value.enumerated.item[0];
+> +
+> +	if (mode_val =3D=3D wcd9378->tx_mode[adc])
+> +		return 0;
+> +
+> +	wcd9378->tx_mode[adc] =3D mode_val;
+
+[Severity: High]
+Could this store an out-of-bounds enum value?
+Without a check verifying that mode_val is less than ARRAY_SIZE(tx_mode_mux=
+_text),
+userspace can write an invalid integer here. This value is later exposed via
+wcd9378_tx_mode_get(), which might crash userspace audio servers when used =
+as
+an array index.
+
+[ ... ]
+> +static int wcd9378_soc_codec_probe(struct snd_soc_component *component)
+> +{
+[ ... ]
+> +	ret =3D pm_runtime_resume_and_get(dev);
+> +	if (ret < 0)
+> +		return ret;
+
+[Severity: High]
+Will this pm_runtime_resume_and_get() call fail with -EACCES?
+It looks like component_master_add_with_match() in wcd9378_probe() triggers
+the component bind synchronously if all slaves are present, which in turn
+calls wcd9378_soc_codec_probe() here. Because pm_runtime_enable() hasn't
+been called yet in the master probe, the disable depth is still > 0,
+causing the resume to abort audio initialization.
+
+[ ... ]
+> +static void wcd9378_unbind(struct device *dev)
+> +{
+> +	struct wcd9378_priv *wcd9378 =3D dev_get_drvdata(dev);
+> +
+> +	snd_soc_unregister_component(dev);
+> +	pm_runtime_put(wcd9378->txdev);
+
+[Severity: Medium]
+Should this be pm_runtime_put_sync() instead?
+Using the asynchronous pm_runtime_put() queues a suspend operation that mig=
+ht
+be cancelled immediately when the driver core calls pm_runtime_disable() up=
+on
+device removal, leaving the TX SoundWire slave device powered on.
+
+> +	device_link_remove(dev, wcd9378->txdev);
+> +	device_link_remove(dev, wcd9378->rxdev);
+> +	device_link_remove(wcd9378->rxdev, wcd9378->txdev);
+> +	component_unbind_all(dev, wcd9378);
+> +	mutex_destroy(&wcd9378->micb_lock);
+
+[Severity: High]
+Does destroying micb_lock here prevent a successful re-bind?
+The component framework allows unbinding and rebinding without fully removi=
+ng
+the master platform device. Since mutex_init() is only called in wcd9378_pr=
+obe(),
+a subsequent wcd9378_bind() will leave the destroyed mutex uninitialized, l=
+eading
+to undefined behavior or a crash when wcd9378_micbias_control() tries to lo=
+ck it.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706192229.1441=
+37-1-jorijnvdgraaf@catcrafts.net?part=3D3
