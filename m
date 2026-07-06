@@ -1,110 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D044C81;
-	Mon,  6 Jul 2026 10:47:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FA544C81
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 10:50:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783334877; cv=none; b=mu4aNuxWsbjkilsr90vMa6nmpOvU5eLtiOjsiSr6iLG/HKN4bhqQkXtAJQmNP0qiLVPQkvoq15fwWyezyd0WoIKnfseVnfFzrIZINmyHCR1/RkJGpbj1Og5RrEC5uaiDmneiDL+u7srceVVsmor+7+uLLPeHhdR12O+2+leptHc=
+	t=1783335030; cv=none; b=Ga0cYkPqVVR8UP4+Bmo/RQ58+qQd9UblyiMvL07csoUPkczAFnhRQ1JPh+Y5HL5w84GpQd0gqL6GqP06GuGlTAnCjKma+MWP+pkrXZRS6/jHsUymTVbfeWD6s7XygAYx/1u1LC1x/dt5flk7iqy7Tbly7A31VVXhHA3gXX+kO2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783334877; c=relaxed/simple;
-	bh=Gtk6EHmzfHZR7gLfNLT8AhWb8J2fFiFjfs1O8Wub8ig=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SXdXPTWgqLotW9dT2HFqAcnd3sR3iqtb7hoekKLUiNS1XIStlonBE/E/UFR3AD5UAmYu76ItHoS0je4JH01Q5KQJ8db8Z8flMYAzWeTOER3XcK50GuxLxVWoEz0VMmfJtyeACUGSte7K9cKAP1I0inOp6eugmMTb4MKPkxMqOWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dXDAR4eT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783335030; c=relaxed/simple;
+	bh=BOxCbahYeMXBie3ntQ0u/5h11UMYD4HNYtTnrFGC5LA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S65w5o/b/arMo5cGfls9U6Et0MRqHvbUJeizQ9KTKezKN3eO+dNvEZOhwej+SKEjpJ4N7kRwSAxyJiR3djHHT+vncPRrgOTq9HsvJxWahqyiwDW9PxPE8tuAmxG+jGN0EDhFtsNfCHttlCNW4v7gvs0LQ/UxjZRwtMqKpvWRpcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MHzNVtue; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dXDAR4eT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B40D1F000E9;
-	Mon,  6 Jul 2026 10:47:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783334875;
-	bh=nR6lIf0xZDMLn8XpW5DtqbVhn+YcthXZqdlw6PEzE5Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dXDAR4eTgK7X+cT7KKW/VCr554GsjYiD5WXNtzo6ew+vOAVDs6VOw4iqhsZAd4eP5
-	 MXNKd71qJ0s7ORT67u5T955sKSoylTs3z/+hl9Yv8rFrWCkPLtWlz+V8UK1mQsG2oQ
-	 sid7E3rhlDUpetwWWN7tT4jbbLJtXrxqrwnGjsEdvHVE0MlUzGHYPxVn3uNb9uhSwu
-	 sb+ErMQIFlnsa48tGxU8SrGyNaYJCarS1mQ7uj4l7xTPz4wp+zlbzJpthAWftFsj0L
-	 JEMtcnbPaSt4vElD/LAjjFt/j9XCiOyp7wWSDWRQwYPnHZIfWS2pygB3ud/yh7hkbp
-	 IIurirYIz12kA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/15] arm64: dts: imx8mn-var-som-symphony: Add TPM2
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
-In-Reply-To: <7cd17d03fa70ee1f5fd5986fbb0e8a39ad7b4fbe.1783330236.git.stefano.r@variscite.com>
-References: <cover.1783330236.git.stefano.r@variscite.com>
- <7cd17d03fa70ee1f5fd5986fbb0e8a39ad7b4fbe.1783330236.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 10:47:54 +0000
-Message-Id: <20260706104755.2B40D1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MHzNVtue"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 607EF3297
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 03:50:23 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7C25A3F85F
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 03:50:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1783335027; bh=BOxCbahYeMXBie3ntQ0u/5h11UMYD4HNYtTnrFGC5LA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MHzNVtuePtsCHpAdQ8eKdAnoX6VSdOaYAFrGOw1zK9vI8tU0ML6PO9G6QSg4nETd9
+	 4ImYBc7ZQt3NvsYklUp4CWu/rtSn5WuVOWLR5AcNOEX7RENSYNt3dYu8/FKIkUgR8s
+	 8O44tXdi5UtfpMVw4CWI08I9LY5gvVrMvrpvu2vI=
+Date: Mon, 6 Jul 2026 11:50:17 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ARM: dts: arm: Correct indentation
+Message-ID: <akuIad1FdhC9rTqE@e142607>
+References: <20260706101942.341681-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260706101942.341681-2-krzysztof.kozlowski@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The device tree specifies `reset-gpios` for the TPM device, but =
-the kernel lacks support to drive this GPIO, potentially leaving the TPM st=
-uck in reset.
---
+On Mon, Jul 06, 2026 at 12:19:43PM +0200, Krzysztof Kozlowski wrote:
+> Correct spaces or mix of tabs+spaces into proper tab-indented lines.
+> No functional impact (same DTB).
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>
 
-commit 5bd051d2688db25353ab678262b0998bf9810906
-Author: Stefano Radaelli <stefano.r@variscite.com>
+Acked-by: Liviu Dudau <liviu.dudau@arm.com>
 
-arm64: dts: imx8mn-var-som-symphony: Add TPM2 support
+Best regards,
+Liviu
 
-This commit adds support for the ST33K TPM2 device on the VAR-SOM Symphony
-carrier board over I2C. It also adds the PCA6408 GPIO expander node used to
-control the TPM reset signal.
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dts b/=
-arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dts
-> index 53130b521b5b7..7d016ed5e911a 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony.dts
-
-[ ... ]
-
-> @@ -160,6 +160,20 @@ typec1_dr_sw: endpoint {
->  };
-> =20
->  &i2c3 {
-> +	pca6408: gpio@21 {
-> +		compatible =3D "nxp,pcal6408";
-> +		reg =3D <0x21>;
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
+> ---
+> 
+> Ongoing bigger work for all bindings and DTS with built-in checker (dt-check-style).
+> ---
+>  arch/arm/boot/dts/arm/arm-realview-eb.dtsi     | 2 +-
+>  arch/arm/boot/dts/arm/arm-realview-pb1176.dts  | 2 +-
+>  arch/arm/boot/dts/arm/arm-realview-pb11mp.dts  | 6 +++---
+>  arch/arm/boot/dts/arm/arm-realview-pbx.dtsi    | 6 +++---
+>  arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts | 4 ++--
+>  5 files changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/arm/arm-realview-eb.dtsi b/arch/arm/boot/dts/arm/arm-realview-eb.dtsi
+> index ae370d4eb9d8..f90e28ee4cb9 100644
+> --- a/arch/arm/boot/dts/arm/arm-realview-eb.dtsi
+> +++ b/arch/arm/boot/dts/arm/arm-realview-eb.dtsi
+> @@ -51,7 +51,7 @@ vmmc: regulator-vmmc {
+>  		regulator-min-microvolt = <3300000>;
+>  		regulator-max-microvolt = <3300000>;
+>  		regulator-boot-on;
+> -        };
 > +	};
-> +
-> +	st33ktpm2xi2c: tpm@2e {
-> +		compatible =3D "st,st33ktpm2xi2c", "tcg,tpm-tis-i2c";
-> +		reg =3D <0x2e>;
-> +		label =3D "tpm";
-> +		reset-gpios =3D <&pca6408 4 GPIO_ACTIVE_LOW>;
-
-[Severity: Medium]
-Will the kernel actually use this reset-gpios property to release the TPM?
-
-The commit message states the PCA6408 is used to control the reset signal
-to release the TPM from reset. However, neither the tpm_tis_i2c driver nor
-the TPM core appear to parse the reset-gpios property or request a reset GP=
-IO.
-There is also no gpio-hog configured in the pca6408 node to force the pin
-state.
-
-Does this setup rely entirely on the bootloader initializing the PCA6408
-and leaving the GPIO driven to the correct state?
-
-If the system goes through a suspend/resume sequence or if the PCA6408
-defaults back to an input state, could the TPM become stuck in reset and
-fail to probe?
-
+>  
+>  	xtal24mhz: mclk: kmiclk: sspclk: uartclk: wdogclk: clock-24000000 {
+>  		#clock-cells = <0>;
+> diff --git a/arch/arm/boot/dts/arm/arm-realview-pb1176.dts b/arch/arm/boot/dts/arm/arm-realview-pb1176.dts
+> index a75d8b107fe1..1cd095496832 100644
+> --- a/arch/arm/boot/dts/arm/arm-realview-pb1176.dts
+> +++ b/arch/arm/boot/dts/arm/arm-realview-pb1176.dts
+> @@ -53,7 +53,7 @@ vmmc: regulator-vmmc {
+>  		regulator-min-microvolt = <3300000>;
+>  		regulator-max-microvolt = <3300000>;
+>  		regulator-boot-on;
+> -        };
 > +	};
+>  
+>  	veth: regulator-veth {
+>  		compatible = "regulator-fixed";
+> diff --git a/arch/arm/boot/dts/arm/arm-realview-pb11mp.dts b/arch/arm/boot/dts/arm/arm-realview-pb11mp.dts
+> index 59c78def83f2..635b09030f60 100644
+> --- a/arch/arm/boot/dts/arm/arm-realview-pb11mp.dts
+> +++ b/arch/arm/boot/dts/arm/arm-realview-pb11mp.dts
+> @@ -153,7 +153,7 @@ vmmc: regulator-vmmc {
+>  		regulator-min-microvolt = <3300000>;
+>  		regulator-max-microvolt = <3300000>;
+>  		regulator-boot-on;
+> -        };
+> +	};
+>  
+>  	veth: regulator-veth {
+>  		compatible = "regulator-fixed";
+> @@ -544,7 +544,7 @@ timer01: timer@10011000 {
+>  			interrupts = <0 1 IRQ_TYPE_LEVEL_HIGH>;
+>  			arm,sp804-has-irq = <1>;
+>  			clocks = <&sp810_syscon 0>,
+> -			         <&sp810_syscon 1>,
+> +				 <&sp810_syscon 1>,
+>  				 <&pclk>;
+>  			clock-names = "timer0clk",
+>  				    "timer1clk",
+> @@ -558,7 +558,7 @@ timer23: timer@10012000 {
+>  			interrupts = <0 2 IRQ_TYPE_LEVEL_HIGH>;
+>  			arm,sp804-has-irq = <1>;
+>  			clocks = <&sp810_syscon 2>,
+> -			         <&sp810_syscon 3>,
+> +				 <&sp810_syscon 3>,
+>  				 <&pclk>;
+>  			clock-names = "timer0clk",
+>  				    "timer1clk",
+> diff --git a/arch/arm/boot/dts/arm/arm-realview-pbx.dtsi b/arch/arm/boot/dts/arm/arm-realview-pbx.dtsi
+> index 0d3d96ffa6e6..366c8baefe8c 100644
+> --- a/arch/arm/boot/dts/arm/arm-realview-pbx.dtsi
+> +++ b/arch/arm/boot/dts/arm/arm-realview-pbx.dtsi
+> @@ -52,7 +52,7 @@ vmmc: regulator-vmmc {
+>  		regulator-min-microvolt = <3300000>;
+>  		regulator-max-microvolt = <3300000>;
+>  		regulator-boot-on;
+> -        };
+> +	};
+>  
+>  	veth: regulator-veth {
+>  		compatible = "regulator-fixed";
+> @@ -373,7 +373,7 @@ timer01: timer@10011000 {
+>  			compatible = "arm,sp804", "arm,primecell";
+>  			reg = <0x10011000 0x1000>;
+>  			clocks = <&sp810_syscon0 0>,
+> -			         <&sp810_syscon0 1>,
+> +				 <&sp810_syscon0 1>,
+>  				 <&pclk>;
+>  			clock-names = "timerclk0",
+>  				    "timerclk1",
+> @@ -384,7 +384,7 @@ timer23: timer@10012000 {
+>  			compatible = "arm,sp804", "arm,primecell";
+>  			reg = <0x10012000 0x1000>;
+>  			clocks = <&sp810_syscon0 2>,
+> -			         <&sp810_syscon0 3>,
+> +				 <&sp810_syscon0 3>,
+>  				 <&pclk>;
+>  			clock-names = "timerclk2",
+>  				    "timerclk3",
+> diff --git a/arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts b/arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts
+> index 6ef23c53d2d8..64f87e6c12bf 100644
+> --- a/arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts
+> +++ b/arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts
+> @@ -209,11 +209,11 @@ dma@7ff00000 {
+>  		clock-names = "apb_pclk";
+>  	};
+>  
+> -        scc@7fff0000 {
+> +	scc@7fff0000 {
+>  		compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
+>  		reg = <0 0x7fff0000 0 0x1000>;
+>  		interrupts = <0 95 4>;
+> -        };
+> +	};
+>  
+>  	timer {
+>  		compatible = "arm,armv7-timer";
+> -- 
+> 2.53.0
+> 
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783330236.gi=
-t.stefano.r@variscite.com?part=3D10
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
