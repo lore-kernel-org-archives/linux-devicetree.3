@@ -1,68 +1,85 @@
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18FAC3ADBB4
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 16:19:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E299391832
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 16:20:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783354786; cv=none; b=Boapes2ilhvvyd1CmTeXFiQE+CkjHo7Ph6ch8goSrYdIPyQyAqB4iOSzf0lCi+PCfVtiKP7l4S1WzmZdCzjbBEPa0WqXor5g/jVbqoViugILgNMfwFxlfaGYXZsU8bagm0IQRkHaOmEfV8p8aaxoICLq75/y8ryWYtLTUeTlIQs=
+	t=1783354842; cv=none; b=FHGn8Wzg2tpgJxM0LRNQcXrwTliFhPJJ6TvPXT55kzckYBIyhnuPmCLHQ6dUx5xZechiq1zIbct/H9CWEJPgYaFUtCRLF18dcbBIkr/wUoAlRCUZwVyq9CuXtNjv8C0wimHADM/MJ45m0gc7llS0DZCRBMU6adrVJ2LP3ybaEK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783354786; c=relaxed/simple;
-	bh=vA11+14l5gSo/MhdBMFiq+ymaNF3lUVsP5h/DVioFiw=;
+	s=arc-20240116; t=1783354842; c=relaxed/simple;
+	bh=88wkV55+op7wraW1zb8kD42JmYHg90yDvFPVirI2ITM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eLIonrDo+xEzAyT/SDV80K1lteqFcKIFuLSoq/yUhOGPbokljjwqtOqcv6bn7b5qr1bNRxrwnrhqvMyukJAsmTzLhgru9skJrFN2/7qvIizZl8OlHwdGXdhixO1Ajb8HuJLujtUrPk4WqxYBdrR7IXVpjtfJncXDM8cXIX65TWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=CUkC/5I7; arc=none smtp.client-ip=209.85.210.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 In-Reply-To:Content-Type; b=INxW4csXf3umNMd1QnSMPo5e9ef6tznH2Iz7K2KlqnTri9U+DUjFhzthTvs+ZPyWDBzd+IkTEra0r83gOQkKnX1DDPMW8VbUDomtgVWyZbbXHPiCfOWsXxgVtN3+6WVw/ymDBoH0lGE/JrwAFDMwrv5gPtFITdBqthW1rcs/skE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jAvr+EqL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eS8/k2Am; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="CUkC/5I7"
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7eb64085c45so1992102a34.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 09:19:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jAvr+EqL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eS8/k2Am"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666FF6ER825900
+	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 16:20:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vj+tPjVgO4QFZGX8NX7hUas7HHKu8vOipIIcHrTeLHs=; b=jAvr+EqLq/MzzQlC
+	pR3NpeLkDx2v1idnZHHZb0G2jqjoRZIkXxFfM3I6Eoi3zBeJLr90Aj98c2gLqmzt
+	nqeUacUcDNx/INkPNqyA36hPD7K0wea5BmOaJogJCAIHXoM3O/8fFenFjvb4O3Oh
+	sXE7JM1REmHKk7m3VJNvC3adROAwTlLCUUNmU+5nDGI6puesa9ZI3Iq0rEfD+GyW
+	VDGHBeL9sYD5BZb5KoptrU5To8MXTEFjSJaAc+zZefHEdEgvo9XRizliKcfhbxOU
+	sF28ezYUuM3faJPhS5ixKCEMnsvz2Zp81l3BNvKWI5BVbmjQiK5xiJchLChE52dt
+	YAPSjQ==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f88t8a4ku-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 16:20:40 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5bebeb08c02so149526e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 09:20:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783354783; x=1783959583; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U+xEzohj9Gz6QYFWnlANkEH3cDEdCmvWNWgOEl1idZI=;
-        b=CUkC/5I7FbDOMhQI5ZrOB/6HnShu82xZM4CVYvwSnjk90XdQb2T3naNc19n2/i3UVI
-         ii+V7JK0pLp1KDtmdIsLCaWyNjZgZ0OTget8J/tMGdxfCYJ+GTyiXaF37R8w3+HI0cBa
-         E3N4p7V0Pf+Hr4C+akIGtR2yKZtwgEqiWjsljHqAVR/h1CB2fdZJQJQ/zq9aJ5F5GtBK
-         IyrVcVJC51PLGVi71LSJbE4FR+AImRHnenjYxrDsPOkxXb0iASfoyywrHRqDOHFWtgx9
-         5xBxpRBwhma2d9tD7g3nSqIS0xXGvrI7j0wLUYF0wOlPPyERLK8RCBTOXYN53zSfNRTG
-         IJQA==
+        d=oss.qualcomm.com; s=google; t=1783354839; x=1783959639; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vj+tPjVgO4QFZGX8NX7hUas7HHKu8vOipIIcHrTeLHs=;
+        b=eS8/k2Amx5LpqwYKmMEzg2DCk2uw4A2caqDmnpgBqXNLYcM4u0UWpn/ao75UefFH4q
+         Buh9MS73kS0uv3O8Ts9huqOcQDcQ5/bE9Enl+ChBXhZhgA6TgKA3jo/UfHwZ1J/TFmNW
+         lqYP82orA/FGKPaZ3vIrnZg1qEaihxCzz8oq++CTppXobczgaj4oVhW5YQ6t00Unsdhf
+         OejQElK167dyDiGIfI3h6YuhnNqc3tIQ8MvDHL4bGnxqlhWCJdTIVde17j3etP5wfzgh
+         qm3wMhgJgpo0E+/vpQds4pNYRgudzaGfsRzj3PyzGJgG6RGJ5YPC1Liqz7lBqOGLoAYg
+         NTxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783354783; x=1783959583;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1783354839; x=1783959639;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=U+xEzohj9Gz6QYFWnlANkEH3cDEdCmvWNWgOEl1idZI=;
-        b=bRApUFFbXewMRLWvg9G4wO3GxGA1rVtKXD2s00wlDxiMSKy/755KAVsegTxbbW8ZWR
-         kxworeVzeKVC7HsppmZoQEwiPp+IWSjq9pc9RtWJ1EPy3JrvPE60gf/FaXdArNpK7tDo
-         1SU3RHFaVml4bIwuHfSIdaKmN/Vy9Q1MV0Jq9h3j21bRo4S/2kypW1xeTMJCjJG2ZIXn
-         IG2o29tB2mP6JTKxX0dIJsruSyO9ENV7y/+6mHYaH93QUeWLCEL9Y1GxfICz5e1w0Wc7
-         vu6uSfhI6ezefWCu2WZ7qH/fAGilyidWDtvOLasAD4MEGuPgmdmqHE9Ni+Qy4WA24p+s
-         LGDw==
-X-Forwarded-Encrypted: i=1; AFNElJ/5hnDVhL2zKvL1wyrG+yowKbSTP3iwDazRIpeAqdXBYWawEwNOQqGVHUMEVfXN6ATL1fz5DdIM4IZ1@vger.kernel.org
-X-Gm-Message-State: AOJu0YzCUL/t6xtSAqdCW0HvEh5VQ+5rPiV9f61T8H9NxpXC3TJeJtWf
-	kyhdA9x0JkQ8x7IvFIS7g7kPESChqUGkjH1cXJF9uC3lO5NMw0gG6jAyLTg9/m5noPg=
-X-Gm-Gg: AfdE7clngshbWdh7NjIVx5jUW2ETPzQqFj3wtYJz4xrubgKTMGtpOwSWH5579bf66AR
-	lcJ7OwevOxa7ISGid/I2leD8WQAMCgjCJC6PLEKxPpIfyvqpkOlvUPl4Rr9dTe8bdyzUupdlbxn
-	S4S7YQoN70Unm0EgDizIF3HVr9iTijiwCwuy4is5eWHStgr59XVyiRdeFp/gg89oml9ZZe5tYdS
-	wCcqXrvTuxBenykF/EXOsb4VMIBkeujBbV/Rw/1S3O4UcBTManr4hPp3JUhNkZW23sp3A272uQh
-	0Fo5mryR68CIoy2sV+ZhsYk2gkI2JunfYP239uXVpVWRq0U3GNtiFHwrLN7hU3EKrRkY7aL1ctm
-	EagwjrF2bBV0qE7FohEfLL9NHubYoe/T1wCNvzsKpre56mdQTXzX2HevQ89aX0DRu2U7tsZLJSY
-	UPaxKm1rGgaQucE6KSvLuzhmO/gag91yePxz65XlbAQBMeA2Pe8fIUrnAz4bpuqyn78y5lMKL7L
-	g==
-X-Received: by 2002:a05:6830:6603:b0:7dc:4947:36a1 with SMTP id 46e09a7af769-7ebb222aba7mr768726a34.12.1783354782993;
-        Mon, 06 Jul 2026 09:19:42 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:a38a:a0af:ed1d:5c77? ([2600:8803:e7e4:500:a38a:a0af:ed1d:5c77])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7eb8a1fe31bsm5441582a34.2.2026.07.06.09.19.40
+        bh=vj+tPjVgO4QFZGX8NX7hUas7HHKu8vOipIIcHrTeLHs=;
+        b=Oqu5fwLGzSxHZJN+Jbd2hRHsQtZH9fCSUTa7jC3rO4FGUXgx6Nf1YzyoLIXS1qEHf4
+         zCB2vvJOTwz7W0N0wRU+ZdgVBz/o8dM+fAc0B8APig7p1CLZUfKqGvQ2dJn/exVCNf3X
+         Tj/DLe3jth6h/7Cr+ccMP9gyjzCBTCzGu7UIpXo4S7wpJg9OG/NYSollr/O3T4bqHnsc
+         XC1RrVb86+TIJdc9ColRda2apFF9WKr1hODA1y2DxZP111i9Vs1izDaH/7jTezigxheo
+         SP13Oglvbf4TWlwxmPs12uNFmkrAOnD0ksSSf1O0mvOBOrfBbNq9GmhqA5fCKSvvgk9t
+         PVxg==
+X-Gm-Message-State: AOJu0YyjPLp9EjFdR6W64icrMnMajCsnhLlgSWnE/d1O2fchnC4zhBBu
+	JszZ5hU56/qTxBnp3Npdj3oJRICcjfVlcBYqT98gGqN83dqmTpYICsvJt2eGnvljh94/CPYKtRt
+	q3KjCsRg/cTpQ4vlyOfn+MbG3LQxCN1BBK7FBncsmex7gFPZR0hR9ydUIucW9knuzM+8jO/5V
+X-Gm-Gg: AfdE7ckZZO+9ZuHLOVV/8kruFNyAXDB/CyPhwTFlNb4QoWr4GQZfO6mbP9qvWy1LlTb
+	J15yYOaUO2pGX/DkWc9IgtLi1I2TJWv4QZXxY3JYoFfovXvZJ5k3TMVjDdqrXYRopLo2P6jHH/i
+	M3URRQo9nETmkl21OXikeKhhMsCvSFGOayA8SfLSYLXluLK1VR5iOM/PiNh8ZwZlmYiMN0fy8Gq
+	U/PNJdRLrTnrbRg2f9CQM7Vf2wZbrbidU4TTZCdUwMwxabxrhy+T674fxxR5hfHWUfcKmctBpxW
+	u6LPQIp8ZX08mTDaDidRKAP1HBvuGtyJkK+WjrkCsbLyKFbOG0kf7Yy9wqUNmYQtZ7RDoyWIgHK
+	WHIqZ8mxonWkxt31Wf1D545mSii2ncXyukqYE6uKr
+X-Received: by 2002:a05:6122:1d48:b0:59c:b1f7:4df3 with SMTP id 71dfb90a1353d-5be908e9636mr775209e0c.12.1783354839590;
+        Mon, 06 Jul 2026 09:20:39 -0700 (PDT)
+X-Received: by 2002:a05:6122:1d48:b0:59c:b1f7:4df3 with SMTP id 71dfb90a1353d-5be908e9636mr775199e0c.12.1783354839155;
+        Mon, 06 Jul 2026 09:20:39 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.223.174])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d8410sm26100765f8f.15.2026.07.06.09.20.37
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2026 09:19:41 -0700 (PDT)
-Message-ID: <8dd4bb6b-a83d-4584-8893-b56b8aaed973@baylibre.com>
-Date: Mon, 6 Jul 2026 11:19:40 -0500
+        Mon, 06 Jul 2026 09:20:37 -0700 (PDT)
+Message-ID: <e8ea458e-1955-4086-ab1b-9599caf7368c@oss.qualcomm.com>
+Date: Mon, 6 Jul 2026 18:20:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,88 +87,54 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/7] iio: adc: ti-ads1262: Add conversion delay support
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Kurt Borja <kuurtb@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260628-ads126x-v2-0-4b1b231325ba@gmail.com>
- <20260628-ads126x-v2-5-4b1b231325ba@gmail.com>
- <20260630015027.3afdfc3a@jic23-huawei> <DJMK3NCDCHL8.1EHG93D5O7ROZ@gmail.com>
- <d8fbab77-6cb4-435d-aac9-0d72cd4a59bc@baylibre.com>
- <20260701012026.29f18bf4@jic23-huawei>
+Subject: Re: [PATCH v3 6/6] dtc: dt-check-style: Handle properly DTC-style
+ includes
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20260706-dts-style-checker-v3-0-03ffacff9226@oss.qualcomm.com>
+ <20260706-dts-style-checker-v3-6-03ffacff9226@oss.qualcomm.com>
+ <20260706161325.B76211F000E9@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260701012026.29f18bf4@jic23-huawei>
+In-Reply-To: <20260706161325.B76211F000E9@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDE2NiBTYWx0ZWRfX+r1Iv9/z5MwC
+ tl1hzybhXDO6HdqhKSv+zoxqqKEYoHdJs1FddNs11EeoECJMr83nH4sK+DYS/iwjj4CUsausued
+ eWW3tpOTT4yEOqJCKcssGyUBGqAB/TI=
+X-Proofpoint-GUID: WARq47YfLXFfdV4pKoGWJ9e5o-v4KELz
+X-Authority-Analysis: v=2.4 cv=C6zZDwP+ c=1 sm=1 tr=0 ts=6a4bd5d8 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=thh0EKpwSj0m2F0jE7sA:9 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-ORIG-GUID: WARq47YfLXFfdV4pKoGWJ9e5o-v4KELz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDE2NiBTYWx0ZWRfX2GltYAnkrXv0
+ F0KjGC7993dOv/wI8EJ5QJC+RZYYQbdqFX4cyK6XIageOEE+hos3Kb3z1v8mAPGEKCEDH8XxOVO
+ m4udoxuFWkbptsnoIhwuJ1xY7SATM89Iz0aa5bPKIE4/izddR/Vwx4A+tIZCbazCFVv+EfKvuPP
+ LoZ+umrNR6My63GFFPpE5TrbJsiq5Ae7KLIiZJZVw48UxAW2FdTDhjvQdW4wIc332fdakcAZDwA
+ 3/ue6gkUmMooEPMb0DlNBhtnLSgUSE18vG3wOsrWT0zlYv/PNs/7rn8HpLM17c21l3jT0CZwHfN
+ D2VKB67ud0D2OmmoTqvwmEdn5yCLRMyccE01lxGr+BD98deA2AKD2iNeeLCSWqWGgKMz6tv7l1V
+ iMbzTPJAPsv1P97JJahNry2aUSoE6lDMlSSD7inHqN0WvAZfL/kVYy6ZGCMrZz32zzmK09Ckji6
+ 3XNTNC220aUDmnPjioQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-06_02,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 clxscore=1015 spamscore=0 adultscore=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607060166
 
-On 6/30/26 7:20 PM, Jonathan Cameron wrote:
-> On Tue, 30 Jun 2026 13:44:49 -0500
-> David Lechner <dlechner@baylibre.com> wrote:
-> 
->> On 6/30/26 12:23 PM, Kurt Borja wrote:
->>> On Mon Jun 29, 2026 at 7:50 PM -05, Jonathan Cameron wrote:  
->>>> On Sun, 28 Jun 2026 00:36:06 -0500
->>>> Kurt Borja <kuurtb@gmail.com> wrote:
->>>>  
->>>>> Expose the programmable conversion start delay as a per-channel
->>>>> IIO_CHAN_INFO_CONVDELAY attribute.  
->>>> Coversion delay was always a somewhere weird bit of ABI.
->>>> What are the delays relative to in this case?
->>>> Is this a device that does simultaneous sampling?  Pictures
->>>> suggest otherwise, and convdelay is currently only defined
->>>> in that case.  We might be able to extend it but it needs
->>>> some thought.  
->>>
->>> The chip has a configurable internal conversion delay to allow for
->>> external settling effects. See datasheet section 9.4.3 if you'd like a
->>> bit more details.  
->>
->> Since this depends on external components, it sounds like it belongs
->> in the devicetree. I have the same feature in the chip I am working
->> on and was just looking at this and plan to add it to the ti,ads112c14
->> devicetree patch.
->>
->> This delay only applies to a "new conversion", i.e. when certain config
->> registers change, and not every conversion, so isn't like the convdelay
->> attribute.
-> 
-> See settling-time-us in adc.yaml.  I'd forgotten we had that ;)
-
-I got some more feedback on this and this may indeed be something we
-want to tune at runtime after all.
-
-I'm not really sure where it fits in though. On AD112C14 that I am working
-on, the DELAY register value adds a delay (for settling time) in addition
-to some other intrinsic delays. I'm pretty sure ADS1262 is similar.
-
-So one question is do we want a usespace control to be the total delay
-or just the additional delay?
-
-And when the delay takes effect depends on other things. Normally the
-delay only happens before the first sample after any other parameters
-change. If we read the same channel again with the same config, then
-there won't be any added delay. But if input chopping is enabled, then
-this delay happens on every conversion.
-
-I'm a bit on the fence of if we should extend the definition of convdelay
-for this or if we should propose a new settling time attribute. I'll have
-to think about it some more.
-
-Maybe something like in_voltageY_calibsettlingtime?
-
-> 
->>
->>>
->>> But you're right, I should at least also edit the ABI description of
->>> this attribute. We can postpone this discussion for a future series.
->>>   
->>>>
->>>> Jonathan  
->>>   
->>
+On 06/07/2026 18:13, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] The regular expression `re_dtc_directive` fails to match `/include/` directives that omit trailing whitespace before the quoted filename, leaving the original false-positive indent warnings unfixed for such cases.
+> --
 > 
 
+Ack
+
+Best regards,
+Krzysztof
