@@ -1,385 +1,388 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4950E41610E
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 13:20:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2558341A766
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 13:20:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783344052; cv=none; b=WRDesrhN9esHb+cP9Lsk+SoEXPP6PVSVb9BrLKCSz+Shi1UWCefSliHBixlRZnVhEwbLQAt9dzbOhGXiEdSjJY3Oejypqdxa3y1PX2P6NkMHDYGy2Ko7V1BwpiHmfbg6uvE5sEyV6qz7NAC/5brLg54RuO7YZ6j5vH2y5bF+wUo=
+	t=1783344052; cv=none; b=fQV/VsAYfEkAu8Y7ReonOnPDtfs6szfsepi4RA9YUVpaBrAganIEjlRIMRQLIHlS1w6Uz+p1Gii455FDdmaGFeTEt1p34KNMPVDSkYy4PB1gr/ElnE3Av4EC5sP/xqe1VEA4NSjr8CNY7AiTbwYiQMRqz2I7ejB0NQWfou7rr3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783344052; c=relaxed/simple;
-	bh=6hfv342IUtEPa2MU3Q4/ovah21927enc2/Hs20llxvQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=NPn7k5kxz0PZ62kOZ1RJMtSsoI/J7hsY2o5fM8It5WighjDk0UYiAb7F/jCQ8MQfUIgklSpASqmLp+w+fPPMi5VTsbCKjs3tPSjRw+spxdKruCxDX1N48XjMVWFr600QJTCncKGh+tlo90TnnmbJJGabIyo3C+TpoR+kr35spUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X0hxsFsb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dyNh4u3o; arc=none smtp.client-ip=205.220.180.131
+	bh=px3gFNalJW0myw4JO8FxOi8xC4WUF57/BsmFQdIQdYc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=uz2fCj1cpTnMkbKtcQPichf7qST9P/dgezVYrdZdmKup0JqYalvx2BqV1y+40b8XpTTxbQZ750lgz1g/JEm28tblxwUSlho7R1EvIApR3RBO1f4XjOx2J/dKK2uBjgGdlnYowgBXv+J5izlNfKfkZnqtVPk0uAMUdpA8oQOjci8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Bx6/5iA8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jQR+LPbb; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X0hxsFsb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dyNh4u3o"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666AxLxE369098
-	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 13:20:43 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Bx6/5iA8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jQR+LPbb"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666AxJ1U316458
+	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 13:20:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=hLZPZMqCkve
-	G8lA2J9FgLK3lzGJf9THVZM6g5V6qvg8=; b=X0hxsFsblrCFgFusq+8t8jHIc4w
-	rPRIKGefySlWwc8hQdlKnalIWcHQG0Fp/f9U/nYM3U/W1lUNFDG0L8zUWHRBrRhj
-	yROOgUtbCRsiasNjHQN5fdz0l/7kkFMb2LTJ7jeVI125KL1v/DRssK2gkeeuHu/g
-	4qnhkc/2NDxe9A3zGhAA+MdkvTYBlu0Im+9Y+Mod7pHJIN/kinEUrvUKvA4JgY70
-	6sLqTcAKCKpmpuTv0w3t5Xm6mBtno+R6Byt8NW8+a8eFhaO2fYDufuZPSnf7vl8e
-	CqWzYfjB7rBi94teXjpYiZJsibSyok07b4qd65SajUAeGpB6A4OVfXFEHBw==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f88h99840-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vgfh2/38B3WhwVMaRw3DoRNAiK5OOTw4W1PNnpwazmU=; b=Bx6/5iA8yJdpooEK
+	R2A+v9gulHZ0/xkiPZwpFWlwTCFG/s9Hpm1m8cPKBU5weMyM3ELRPL/80Q5Stnrx
+	iMwvKi2tOtMu0gDZ8Jxt1DODBXblbCH6zbaXbl011l19fyRsvuCS308SV4KZ1vCL
+	wiW8KzLanfWIPHYVTZrusFNdQdTaK54hkqDFTid3Ra5yu3FCJ46T6FWvzhZlTJhW
+	CU87NG3zJ7ozueEYfJ4/gAI+3b4MK/VCd1h/6fSPzvNVOxKDbulHBkPyNi3tzaIK
+	FMtZ8NewXu3R6g2Zl5hOL+oA+3+SEWa54HnCIvLSJJz1+E0+k5/92rkh9cmMxMo9
+	DzIB5w==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f87q7he3b-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 13:20:42 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cc86a9ef97so29544835ad.3
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 06:20:42 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 13:20:44 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-91931144870so241528185a.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 06:20:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783344042; x=1783948842; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hLZPZMqCkveG8lA2J9FgLK3lzGJf9THVZM6g5V6qvg8=;
-        b=dyNh4u3oMyq2Rrdl1aYPWefLtKje7sVIWQEcUk9uDVcC0usaf2/yktOrTUYCxGaeba
-         PVgTHlh5SD9uKvZUp5ZRh+fOrm4X+ISMCOrwYCKGQS1N5pUJ8y2etUSssCpCg+O0QDV+
-         BEpnZTgQ7b/sv8mMAWa0+f/Mv4Rhu6MmbMCwYZG4YAv0noteAN+cdAW74tZO83w3kZm3
-         PiEdRoTnElEBigZ16l5K45yv1gL4uCqJ15EZUR/0FPx9ssBceaiqKIQOjXDVNKo0tRse
-         A+WCLU2ykw0/V5icYR07Y5xtbw14ZJk6TDjLeP4/tkCff0VyuTwlIYYnbpXjFpenTJz3
-         0j8A==
+        d=oss.qualcomm.com; s=google; t=1783344044; x=1783948844; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vgfh2/38B3WhwVMaRw3DoRNAiK5OOTw4W1PNnpwazmU=;
+        b=jQR+LPbbVmUg6P53qtDcOPLQJ+PjwKnctc/a8+XK0s508Z3o4QJnSrZ2C/dqa+4bQ+
+         Av26bvHJ/nv6toHVQ6DuhVdyIEbIIjuObWqS5smYbqX7Tb9fvRRTTaa9KKkA5QfTt+Qv
+         xh5JKhlpSNiq2Hcb14sy3F4DeV2W1onboIypWlzGrWpEb1+mQKl3JBo7JX4mcdtE1/0+
+         KG0T7n1YUIZxVkGwd74jue2DR6l5uL5x1p5UfCVLrSDH7RseAw5g8KTkkicBZO/O05YO
+         W51f7NS7SQIUzQ5zj9+qY3mdQjnUfKlCgvhMGsnHn4ceJJ+cIKRXuooOq1y/0EILcpW5
+         uDPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783344042; x=1783948842;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=hLZPZMqCkveG8lA2J9FgLK3lzGJf9THVZM6g5V6qvg8=;
-        b=ktIYei3UkJu5HfEPvKyX8963AhnaMPIc85bN/OmP7hKW6PxapbQE5QVu+sK0zShGy5
-         TVzhnWH/sIoWc1yL7qj3et5XoiwjiFt13pTH7GJTjZ7Tmq1eTv+m/0Zuh/jXUsFyzrcM
-         rGiQw8WNArf77dtfGtQGboIPcdYnPoa9xnAmXF4N1LFYP8BRVZQ7TDzWWC9zejT0an0U
-         dS8Rgo+UEgUl5vz+CYkdjK8oJcvzkuHGQXisl2QeV8mnHsxoyHMq6/rpvlLQNedtcuy2
-         ZareWJthyqEypn9yA+v1ZBQtFAP/nnpac9LBBuJqad2PajXDdaH9Amsy9AX0Y99NajWT
-         bDeg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5Wz0eDXAAhfiYZ9cWYbUg412paCIVpYUuheBW4iFQJjcV18QAaMtBy0/0CuA/ORow8McAXHs22AM9@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPP8gQZCbnhPTrvl6bdWdSpLfncDVTaZW1Zuqryrit00Vdp70H
-	1xjkJSqrdsRs8Ua1aGOjYQDImRioeYr+4WK1mJJs9bVoysm/JkY60g/luSpHv0tX7CiwX4z3qAb
-	BcmYptb/nVD9LzTRw1R0kkqIfE6rDi+gxflr7EYZqB+ku2IGps5axdtI/eActafhW
-X-Gm-Gg: AfdE7clhy6lxgGXMfGs8PMz7egxRNHMLh4dFrewOrQbAzX58EePAclsd10wFNicoSoM
-	zdat6t0Fr7xK1APHScrEdu0xR/9RI66qMm0Qra9BeOqPwydxnZSsjJTuxDxt6YngseVIR5JM0tS
-	Xssim65pyx2YGOj8NWY5I8bZNDku8y//S1FszQYQE7LN4y0VCaszSEsRKs8IvEMLm1TqY19eDJG
-	bVPV29prT4/nfzj4A29Xros1R8SU58xo0f20XKCYlRumneP/Smgx0Y+JWCmlqDxSVFpV9PN5zlP
-	zDMJk1QXernQHxHZbnNPtYG3AVo3mOkpEEtOLQhGLeuuIrp7wjKjxK5rpx7z0B7oOGkfx5+bP4t
-	7tDGjMCgnxIscvaTomF7f2gBOqKOHKjU4y0kkvaMJqi2vkck=
-X-Received: by 2002:a17:902:dac4:b0:2c8:1c3e:9636 with SMTP id d9443c01a7336-2ccbf07a9b2mr4506245ad.25.1783344041769;
-        Mon, 06 Jul 2026 06:20:41 -0700 (PDT)
-X-Received: by 2002:a17:902:dac4:b0:2c8:1c3e:9636 with SMTP id d9443c01a7336-2ccbf07a9b2mr4505735ad.25.1783344041239;
-        Mon, 06 Jul 2026 06:20:41 -0700 (PDT)
-Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad6f260d2sm51173095ad.10.2026.07.06.06.20.35
+        d=1e100.net; s=20251104; t=1783344044; x=1783948844;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=vgfh2/38B3WhwVMaRw3DoRNAiK5OOTw4W1PNnpwazmU=;
+        b=Eb7Rys7lyWj5gjU9uTdDLXda3Nzwh2Xd4cA3Ue1iaQYdGYAPJ29HgUNN05GOdZsWep
+         y22zYoJx97ICV4SXy4O7DAPvhzTVi/vw1hbhgn51sSXJXgAKwpWLAZIRQ2IHiwvQF1Dc
+         loDF5yjilO+xRJRF36zVO+OZmrRiGMiFWoHlSDJmGjO0uYSSUdplZoDC7WKa+2jYplp8
+         ak19YZsfdJh+U6Q287GsU4WoVZoSv6/J5En7pEbDGvDudBU4Xga+GcrXBpiY/QxDVs0A
+         yOa0ZNGfFJ38ZA/JlCIgZ26X5fCa+ql6WbWJtftM429rp4QShZeOgf8i73nT+QhikfgJ
+         VVSg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp8X1F5xhSNuKO+5nt3AlBZV1wJw+daMvUnhwwog+bLD8A6LDy/sNKUcXzfdl7U/HsOf3Iz4FAa3U6M@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZgS9ArYJeHyzMEoDrn94/yElkMIItmqR3UF5KRpKJBU0oU1Ww
+	EEzhYT+v2EcEmkhU4zu6sDod3Ti5IA2qvGinTRX0L+8Nm0jcDVtK3+JT3Ky447BtDzgTJGvE3tP
+	zLo8Ymm9qOZDrOm5f0HgUcB47fMViFUE6u602u0KbtiRu4d1rZf2asixTGOLw9Mcp
+X-Gm-Gg: AfdE7cl5BhiukUBcn8cHZ1WwZNKf68nn6nb5kHw9x+3TNUsh2FgnQY8SQVtOT9H7z/L
+	Fmzc2maqe24lcHZYo7+nPGFdio98Syftya21r5oQxkrkkGS13RwIJiYoZPX3126cl0RJQo1OmgO
+	9QSc8zkGFspK2TS9dqbPduKrkkVnacFSc3D/wNW2aRjI1KbtFNJ+vjqIZBffoO0qKtyaV/JcUBq
+	sIVwSU1uBMzFxV9GzCdTjyhCxGumF4ly6op95sCXU42vTvo2rUtJMmSvkqylV23ezkZ36jRg5AS
+	xGfDRLrjqGMF5Ckw+84iD7EmsBbcPwsXXmwfFiu/cUs0BlnXJew4LWauuTxALgqrXYzVRqKyJ4a
+	l0gmxZ9+cWk+SD2aJlkqG7Ic9/bGDrcHJTCwOfbG0
+X-Received: by 2002:a05:620a:27cd:b0:92a:c203:471e with SMTP id af79cd13be357-92ebb4c940emr65802685a.9.1783344043687;
+        Mon, 06 Jul 2026 06:20:43 -0700 (PDT)
+X-Received: by 2002:a05:620a:27cd:b0:92a:c203:471e with SMTP id af79cd13be357-92ebb4c940emr65795885a.9.1783344043148;
+        Mon, 06 Jul 2026 06:20:43 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:86f0:c42b:ef4c:d3bb])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ad69519c2sm25910584f8f.37.2026.07.06.06.20.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 06:20:40 -0700 (PDT)
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>
-Subject: [PATCH v3 2/3] ASoC: qcom: q6apm-lpass-dais: Add MI2S clock control
-Date: Mon,  6 Jul 2026 18:50:08 +0530
-Message-Id: <20260706132009.1496321-3-mohammad.rafi.shaik@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260706132009.1496321-1-mohammad.rafi.shaik@oss.qualcomm.com>
-References: <20260706132009.1496321-1-mohammad.rafi.shaik@oss.qualcomm.com>
+        Mon, 06 Jul 2026 06:20:42 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Mon, 06 Jul 2026 15:20:17 +0200
+Subject: [PATCH net-next v12 2/7] phy: qcom: add the SGMII SerDes PHY
+ driver for SCMI systems
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: YhnOrA59IsAVVv3oKgOaJT1Oja02rCt5
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDEzNiBTYWx0ZWRfX/ySIeVJENPr8
- NnaLYGpyxg4UfAApIsiBggfMPf073hV2C8vfVi5k+1bORydmWnELjsXZzi3PWhgoIZRZ0SOVLZT
- bxDbmx7Gj76hXFPqU0SDXU/dy2JKVb0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDEzNiBTYWx0ZWRfX2Lz2YMKpqXCd
- 631ROTOknctYbPphCIkknkz3p57SueclzdEYgsLLYoy39Yb2ONjse10t5hHVpqkvwC7s6C7nXn6
- r4zHusMbWO9306xXhOCrh1bnUGL1q/BWxzAPAfGvdoDt8H4/nC6ZhPqm2jELKAfiO1yFw0mMbei
- cMu44tBOshVGLDeHFHCMRiohBtDOT1HjYI2Ei/moUvFFNT6KdeQG/F6v+DlKYHybwkH3x39+fOA
- e8zNCHDD84TUvDE9p8qnM8H+L6p+Is/ewP/Gh+NS4/wXiFuXB+iIToHBfYsZdoHqh8Qi3olDENZ
- F3V58sVglE5xc2/Dw9k+yEqt7X2TxCX1QIjDF6ddOfSmiBvcs0hbpU1GsqPSq6IbKF1Didp0agi
- 9IkfkHvV9mvXYUIDlYIcQvM2IvFMLu0OsaCeZ2dxEGqQ8Msb9wpzEimOqbWHbcLRT1xr+Keupr2
- ljoNd3HnQ+u/K9PP0xQ==
-X-Proofpoint-GUID: YhnOrA59IsAVVv3oKgOaJT1Oja02rCt5
-X-Authority-Analysis: v=2.4 cv=GulyPE1C c=1 sm=1 tr=0 ts=6a4babaa cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260706-qcom-sa8255p-emac-v12-2-e3ab1ecf2901@oss.qualcomm.com>
+References: <20260706-qcom-sa8255p-emac-v12-0-e3ab1ecf2901@oss.qualcomm.com>
+In-Reply-To: <20260706-qcom-sa8255p-emac-v12-0-e3ab1ecf2901@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+        Chen-Yu Tsai <wens@kernel.org>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Kevin Hilman <khilman@baylibre.com>,
+        Jerome Brunet <jbrunet@baylibre.com>, Shawn Guo <shawnguo@kernel.org>,
+        Fabio Estevam <festevam@gmail.com>,
+        Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com,
+        Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+        Romain Gantois <romain.gantois@bootlin.com>,
+        Geert Uytterhoeven <geert+renesas@glider.be>,
+        Magnus Damm <magnus.damm@gmail.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Christophe Roullier <christophe.roullier@foss.st.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Radu Rendec <rrendec@redhat.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+        linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org,
+        Drew Fustini <dfustini@tenstorrent.com>, linux-sunxi@lists.linux.dev,
+        linux-amlogic@lists.infradead.org, linux-mips@vger.kernel.org,
+        imx@lists.linux.dev, linux-renesas-soc@vger.kernel.org,
+        linux-rockchip@lists.infradead.org, sophgo@lists.linux.dev,
+        linux-riscv@lists.infradead.org, brgl@kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6726;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=px3gFNalJW0myw4JO8FxOi8xC4WUF57/BsmFQdIQdYc=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqS6uchS4csS4YIcS0mi1Ifm+LIJhbGgTUvShSf
+ ydPuYJXWmaJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCakurnAAKCRAFnS7L/zaE
+ w0zzD/9SCsUE9nshAQyInqJLWoFIM8/bv54ACwjrQ2SLcq5ghDCutaXpCzCQFH79QU3gcsV7hid
+ 9WRL1B3pvXCNlRmZMDmiPdmHymy+1cCQ2nz0kzyELvhGm19aaJyIVRajtt2qkCdUFa9rJTnrL1L
+ EHSieziZDKkw0UCo1GTEJZl4oq9Fb08FdSsJBMFI0aRlr8DrhYRVVE1Nj2qjHPRV+RWbNqmSf0K
+ 69XA2gEVSIYqykcHzGIi1V6hIoxhbwdoJsPv9KoAhoJqv7McGTZkRu2VpR31aH7rAWw1La5PFeH
+ KU96pFcBkSvy8a+lh5eJ9ES5FPv/hth4mNWQtUdjugM9b0o1GGTOXkyId2OwBA6IqbaAz4dzKtl
+ 3u/I28s1UVntXT33yfliBNrV0d3ZVUYOqNXWhDx0yRCv70fP6LJiP8fitPovwynNOlTNHdOHSVH
+ 3Q+emhc9KPvwGauW5lipa3RqCqGmcwZQsMpyqNQh66czQKWB4V+HFkls+Ao55bX83NRZHK67g4W
+ ur9Dokj/KleRMu3g2FU4zm3nR6sdWnRNacQS4MyBnxzSpdDxICRxC6udFodF0Xtw4Wk+jVZvqwX
+ ZYoqv4ylO5Kal6ukUy3bUMkLTbCdLXdXPjNekUOOOkss7LcURiWU073B59r/QQSY/BGGwersAeW
+ gWBpQTcQFWqJsaA==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDEzNiBTYWx0ZWRfX33PxPB9LwaK4
+ wnGkqeHtCxihxR1/P8cWeO2wQOVy6pLjgdkxiqB5vnUvL1V6QgHSFc/lIwPQ+vegxIc693PhnaD
+ wq++2yXZ5gVegj7isEAZEAdMYTLrosWP5QVUCh67gZIWB3Qow4eZuCS3X/oJXF82jkC98tfB7VZ
+ IPMgoS4OO920+VUiCtfQaOm99F1Ht3cqtWnS7SxaokgRvB2X1vl2XiZmEzS7FHir+/WXpsaH9dR
+ gfMlWp9QYAD0gDNLZ+dRSeKkY5A/o/0CVnoMGDcuMlf9vAGTIhnkgCrkeOCK1PXf9D7g1nq0B0c
+ KuABY14CUz/JbSMI+biFRa4JBi+f7L2AEb02IFvL7dJ5bkJkWgScvs+4hkY3/rmM5NNA3nn8Ea+
+ FlfSEUoQi7ed/r0o/OdL7RROEDKRrNmlRUl2Isw8P+LvGNIzpnQj3ER2TtHK8AfbH9sE6hl8dM1
+ Q6iKsko6GXXMVuX1ryQ==
+X-Proofpoint-ORIG-GUID: ml7Ksq9UR8yfWQrYjzeUzXWmdDPROKE9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDEzNiBTYWx0ZWRfX6xFCapmikFBM
+ vwKga1AnTgfY5w0wV+gW7VM5Fo9JJwiTldPdZuqM5Z921dl30OkeqyEmoS++1dcQHKcZSW7ycOI
+ LLlQ0kBB6aLYyFNKkqYQcz/XEypF8L8=
+X-Proofpoint-GUID: ml7Ksq9UR8yfWQrYjzeUzXWmdDPROKE9
+X-Authority-Analysis: v=2.4 cv=f9N4wuyM c=1 sm=1 tr=0 ts=6a4babac cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=KKAkSRfTAAAA:8 a=DOUKto0bFsDsfaAjmJ4A:9 a=uG9DUKGECoFWVXl0Dc02:22
- a=cvBusfyB2V15izCimMoJ:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=ZvYg6ySBQLmwDIutsxAA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-06_01,2026-07-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 malwarescore=0 impostorscore=0
- priorityscore=1501 suspectscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0
+ lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0 suspectscore=0
+ clxscore=1015 spamscore=0 phishscore=0 priorityscore=1501 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060136
 
-Add support for MI2S clock control within q6apm-lpass DAIs, including
-handling of MCLK, BCLK, and ECLK via the DAI .set_sysclk callback.
-Each MI2S port now retrieves its clock handles from the device tree,
-allowing per-port clock configuration and proper enable/disable during
-startup and shutdown.
+Implement support for the firmware-managed SGMII/SerDes PHY present on
+Qualcomm platforms. Do this as a separate driver from the HLOS-managed
+variant as they don't share almost any code.
 
-Co-developed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Tested-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- sound/soc/qcom/qdsp6/q6apm-lpass-dais.c | 154 +++++++++++++++++++++++-
- sound/soc/qcom/qdsp6/q6prm.h            |   4 +
- 2 files changed, 156 insertions(+), 2 deletions(-)
+ drivers/phy/qualcomm/Kconfig                   |  11 ++
+ drivers/phy/qualcomm/Makefile                  |   1 +
+ drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c | 161 +++++++++++++++++++++++++
+ 3 files changed, 173 insertions(+)
 
-diff --git a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-index 006b283484d9..461e65526506 100644
---- a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-+++ b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-@@ -2,10 +2,12 @@
- // Copyright (c) 2021, Linaro Limited
- 
- #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
-+#include <linux/clk.h>
- #include <linux/err.h>
- #include <linux/init.h>
- #include <linux/module.h>
- #include <linux/device.h>
+diff --git a/drivers/phy/qualcomm/Kconfig b/drivers/phy/qualcomm/Kconfig
+index 60a0ead127fa9f08749e1bc686e15cc5eb341c28..a7cf348f6a7aa18e8b3f39f109b02ea672ae4177 100644
+--- a/drivers/phy/qualcomm/Kconfig
++++ b/drivers/phy/qualcomm/Kconfig
+@@ -232,3 +232,14 @@ config PHY_QCOM_SGMII_ETH
+ 	help
+ 	  Enable this to support the internal SerDes/SGMII PHY on various
+ 	  Qualcomm chipsets.
++
++config PHY_QCOM_SGMII_ETH_SCMI
++	tristate "Qualcomm DWMAC SGMII SerDes/PHY driver (firmware managed)"
++	depends on OF && (ARCH_QCOM || COMPILE_TEST)
++	select GENERIC_PHY
++	select PM
++	select PM_GENERIC_DOMAINS
++	help
++	  Enable this to support the internal SerDes/SGMII PHY on Qualcomm
++	  chipsets where the SerDes hardware (clocks and registers) is owned
++	  by the firmware.
+diff --git a/drivers/phy/qualcomm/Makefile b/drivers/phy/qualcomm/Makefile
+index b71a6a0bed3f1489b1d07664ecd728f1db145986..032e582f2e1af96687484ce28aaba0c2ef73e754 100644
+--- a/drivers/phy/qualcomm/Makefile
++++ b/drivers/phy/qualcomm/Makefile
+@@ -25,3 +25,4 @@ obj-$(CONFIG_PHY_QCOM_USB_SS)		+= phy-qcom-usb-ss.o
+ obj-$(CONFIG_PHY_QCOM_USB_SNPS_FEMTO_V2)+= phy-qcom-snps-femto-v2.o
+ obj-$(CONFIG_PHY_QCOM_IPQ806X_USB)	+= phy-qcom-ipq806x-usb.o
+ obj-$(CONFIG_PHY_QCOM_SGMII_ETH)	+= phy-qcom-sgmii-eth.o
++obj-$(CONFIG_PHY_QCOM_SGMII_ETH_SCMI)	+= phy-qcom-sgmii-eth-scmi.o
+diff --git a/drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c b/drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..8ee62189556fe4ff0d8aa2f8b105175e08000b7c
+--- /dev/null
++++ b/drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c
+@@ -0,0 +1,161 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * Firmware-managed variant of the Qualcomm DWMAC SGMII SerDes/PHY driver.
++ */
++
++#include <linux/delay.h>
++#include <linux/ethtool.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
 +#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
- #include <sound/pcm.h>
-@@ -15,13 +17,22 @@
- #include "q6dsp-common.h"
- #include "audioreach.h"
- #include "q6apm.h"
-+#include "q6prm.h"
- 
- #define AUDIOREACH_BE_PCM_BASE	16
- 
-+struct q6apm_dai_priv_data {
-+	struct clk *mclk;
-+	struct clk *bclk;
-+	struct clk *eclk;
-+	bool mclk_enabled, bclk_enabled, eclk_enabled;
++#include <linux/phy.h>
++#include <linux/phy/phy.h>
++#include <linux/platform_device.h>
++#include <linux/pm_domain.h>
++#include <linux/pm_runtime.h>
++
++struct qcom_dwmac_sgmii_phy_scmi {
++	unsigned int perf_state;
 +};
 +
- struct q6apm_lpass_dai_data {
- 	struct q6apm_graph *graph[APM_PORT_MAX];
- 	bool is_port_started[APM_PORT_MAX];
- 	struct audioreach_module_config module_config[APM_PORT_MAX];
-+	struct q6apm_dai_priv_data priv[APM_PORT_MAX];
- };
- 
- static int q6dma_set_channel_map(struct snd_soc_dai *dai,
-@@ -251,6 +262,73 @@ static int q6apm_lpass_dai_startup(struct snd_pcm_substream *substream, struct s
- 	return 0;
- }
- 
-+static int q6i2s_dai_startup(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
++static int qcom_dwmac_sgmii_phy_scmi_power_on(struct phy *phy)
 +{
-+	return q6apm_lpass_dai_startup(substream, dai);
-+}
-+
-+static void q6i2s_lpass_dai_shutdown(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
-+{
-+	struct q6apm_lpass_dai_data *dai_data = dev_get_drvdata(dai->dev);
-+
-+	if (dai_data->priv[dai->id].mclk_enabled) {
-+		clk_disable_unprepare(dai_data->priv[dai->id].mclk);
-+		dai_data->priv[dai->id].mclk_enabled = false;
-+	}
-+
-+	if (dai_data->priv[dai->id].bclk_enabled) {
-+		clk_disable_unprepare(dai_data->priv[dai->id].bclk);
-+		dai_data->priv[dai->id].bclk_enabled = false;
-+	}
-+
-+	if (dai_data->priv[dai->id].eclk_enabled) {
-+		clk_disable_unprepare(dai_data->priv[dai->id].eclk);
-+		dai_data->priv[dai->id].eclk_enabled = false;
-+	}
-+	q6apm_lpass_dai_shutdown(substream, dai);
-+}
-+
-+static int q6i2s_set_sysclk(struct snd_soc_dai *dai, int clk_id, unsigned int freq, int dir)
-+{
-+	struct q6apm_lpass_dai_data *dai_data = dev_get_drvdata(dai->dev);
-+	struct clk *sysclk = NULL;
-+	bool *enabled = NULL;
-+	int ret = 0;
-+
-+	switch (clk_id) {
-+	case LPAIF_MI2S_MCLK:
-+		sysclk = dai_data->priv[dai->id].mclk;
-+		enabled = &dai_data->priv[dai->id].mclk_enabled;
-+		break;
-+	case LPAIF_MI2S_BCLK:
-+		sysclk = dai_data->priv[dai->id].bclk;
-+		enabled = &dai_data->priv[dai->id].bclk_enabled;
-+		break;
-+	case LPAIF_MI2S_ECLK:
-+		sysclk = dai_data->priv[dai->id].eclk;
-+		enabled = &dai_data->priv[dai->id].eclk_enabled;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (sysclk) {
-+		if (*enabled)
-+			return 0;
-+
-+		clk_set_rate(sysclk, freq);
-+		ret = clk_prepare_enable(sysclk);
-+		if (ret) {
-+			dev_err(dai->dev, "Error, Unable to prepare (%d) sysclk\n", clk_id);
-+			return ret;
-+		}
-+
-+		*enabled = true;
-+	}
-+
-+	return ret;
-+}
-+
- static int q6i2s_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- {
- 	struct q6apm_lpass_dai_data *dai_data = dev_get_drvdata(dai->dev);
-@@ -272,11 +350,12 @@ static const struct snd_soc_dai_ops q6dma_ops = {
- 
- static const struct snd_soc_dai_ops q6i2s_ops = {
- 	.prepare	= q6apm_lpass_dai_prepare,
--	.startup	= q6apm_lpass_dai_startup,
--	.shutdown	= q6apm_lpass_dai_shutdown,
-+	.startup	= q6i2s_dai_startup,
-+	.shutdown	= q6i2s_lpass_dai_shutdown,
- 	.set_channel_map  = q6dma_set_channel_map,
- 	.hw_params        = q6dma_hw_params,
- 	.set_fmt	= q6i2s_set_fmt,
-+	.set_sysclk	= q6i2s_set_sysclk,
- 	.trigger	= q6apm_lpass_dai_trigger,
- };
- 
-@@ -297,6 +376,73 @@ static const struct snd_soc_component_driver q6apm_lpass_dai_component = {
- 	.remove_order   = SND_SOC_COMP_ORDER_FIRST,
- };
- 
-+static int of_q6apm_parse_dai_data(struct device *dev,
-+				   struct q6apm_lpass_dai_data *data)
-+{
++	struct qcom_dwmac_sgmii_phy_scmi *priv = phy_get_drvdata(phy);
++	struct device *dev = phy->dev.parent;
 +	int ret;
 +
-+	for_each_child_of_node_scoped(dev->of_node, node) {
-+		struct q6apm_dai_priv_data *priv;
-+		int id;
++	ret = pm_runtime_resume_and_get(dev);
++	if (ret)
++		return ret;
 +
-+		ret = of_property_read_u32(node, "reg", &id);
-+		if (ret || id < 0 || id >= APM_PORT_MAX) {
-+			dev_err(dev, "valid dai id not found:%d\n", ret);
-+			continue;
-+		}
-+
-+		switch (id) {
-+		/* MI2S specific properties */
-+		case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
-+		case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
-+		case SENARY_MI2S_RX ... SENARY_MI2S_TX:
-+			priv = &data->priv[id];
-+			priv->mclk = of_clk_get_by_name(node, "mclk");
-+			if (IS_ERR(priv->mclk)) {
-+				if (PTR_ERR(priv->mclk) == -EPROBE_DEFER)
-+					return dev_err_probe(dev, PTR_ERR(priv->mclk),
-+							     "unable to get mi2s mclk\n");
-+				priv->mclk = NULL;
-+			}
-+
-+			priv->bclk = of_clk_get_by_name(node, "bclk");
-+			if (IS_ERR(priv->bclk)) {
-+				if (PTR_ERR(priv->bclk) == -EPROBE_DEFER) {
-+					if (priv->mclk) {
-+						clk_put(priv->mclk);
-+						priv->mclk = NULL;
-+					}
-+					return dev_err_probe(dev, PTR_ERR(priv->bclk),
-+							     "unable to get mi2s bclk\n");
-+				}
-+				priv->bclk = NULL;
-+			}
-+
-+			priv->eclk = of_clk_get_by_name(node, "eclk");
-+			if (IS_ERR(priv->eclk)) {
-+				if (PTR_ERR(priv->eclk) == -EPROBE_DEFER) {
-+					if (priv->mclk) {
-+						clk_put(priv->mclk);
-+						priv->mclk = NULL;
-+					}
-+					if (priv->bclk) {
-+						clk_put(priv->bclk);
-+						priv->bclk = NULL;
-+					}
-+					return dev_err_probe(dev, PTR_ERR(priv->eclk),
-+							     "unable to get mi2s eclk\n");
-+				}
-+				priv->eclk = NULL;
-+			}
-+			break;
-+		default:
-+			break;
-+		}
++	ret = dev_pm_genpd_set_performance_state(dev, priv->perf_state);
++	if (ret) {
++		pm_runtime_put(dev);
++		return ret;
 +	}
++
++	usleep_range(5000, 10000);
 +
 +	return 0;
 +}
 +
- static int q6apm_lpass_dai_dev_probe(struct platform_device *pdev)
- {
- 	struct q6dsp_audio_port_dai_driver_config cfg;
-@@ -304,12 +450,16 @@ static int q6apm_lpass_dai_dev_probe(struct platform_device *pdev)
- 	struct snd_soc_dai_driver *dais;
- 	struct device *dev = &pdev->dev;
- 	int num_dais;
++static int qcom_dwmac_sgmii_phy_scmi_power_off(struct phy *phy)
++{
++	struct device *dev = phy->dev.parent;
++
++	dev_pm_genpd_set_performance_state(dev, 0);
++	pm_runtime_put(dev);
++
++	return 0;
++}
++
++static int qcom_dwmac_sgmii_phy_scmi_validate(struct phy *phy, enum phy_mode mode,
++					      int submode,
++					      union phy_configure_opts *opts)
++{
++	if (mode != PHY_MODE_ETHERNET)
++		return -EINVAL;
++
++	switch (submode) {
++	case PHY_INTERFACE_MODE_SGMII:
++	case PHY_INTERFACE_MODE_1000BASEX:
++	case PHY_INTERFACE_MODE_2500BASEX:
++		return 0;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int qcom_dwmac_sgmii_phy_scmi_set_mode(struct phy *phy, enum phy_mode mode,
++					      int submode)
++{
++	struct qcom_dwmac_sgmii_phy_scmi *priv = phy_get_drvdata(phy);
 +	int ret;
- 
- 	dai_data = devm_kzalloc(dev, sizeof(*dai_data), GFP_KERNEL);
- 	if (!dai_data)
- 		return -ENOMEM;
- 
- 	dev_set_drvdata(dev, dai_data);
-+	ret = of_q6apm_parse_dai_data(dev, dai_data);
++
++	ret = qcom_dwmac_sgmii_phy_scmi_validate(phy, mode, submode, NULL);
 +	if (ret)
 +		return ret;
- 
- 	memset(&cfg, 0, sizeof(cfg));
- 	cfg.q6i2s_ops = &q6i2s_ops;
-diff --git a/sound/soc/qcom/qdsp6/q6prm.h b/sound/soc/qcom/qdsp6/q6prm.h
-index a988a32086fe..bbbe6d368a41 100644
---- a/sound/soc/qcom/qdsp6/q6prm.h
-+++ b/sound/soc/qcom/qdsp6/q6prm.h
-@@ -3,6 +3,10 @@
- #ifndef __Q6PRM_H__
- #define __Q6PRM_H__
- 
-+#define LPAIF_MI2S_MCLK 1
-+#define LPAIF_MI2S_BCLK 2
-+#define LPAIF_MI2S_ECLK 3
 +
- /* Clock ID for Primary I2S IBIT */
- #define Q6PRM_LPASS_CLK_ID_PRI_MI2S_IBIT                          0x100
- /* Clock ID for Primary I2S EBIT */
++	priv->perf_state = (submode == PHY_INTERFACE_MODE_2500BASEX) ?
++			   SPEED_2500 : SPEED_1000;
++
++	return 0;
++}
++
++static const struct phy_ops qcom_dwmac_sgmii_phy_scmi_ops = {
++	.power_on	= qcom_dwmac_sgmii_phy_scmi_power_on,
++	.power_off	= qcom_dwmac_sgmii_phy_scmi_power_off,
++	.set_mode	= qcom_dwmac_sgmii_phy_scmi_set_mode,
++	.validate	= qcom_dwmac_sgmii_phy_scmi_validate,
++	.owner		= THIS_MODULE,
++};
++
++static void qcom_dwmac_sgmii_phy_scmi_runtime_disable(void *data)
++{
++	struct device *dev = data;
++
++	pm_runtime_disable(dev);
++}
++
++static int qcom_dwmac_sgmii_phy_scmi_probe(struct platform_device *pdev)
++{
++	struct qcom_dwmac_sgmii_phy_scmi *priv;
++	struct device *dev = &pdev->dev;
++	struct phy_provider *provider;
++	struct phy *phy;
++	int ret;
++
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	priv->perf_state = SPEED_1000;
++
++	/*
++	 * Enable runtime PM on the provider before creating the PHY so that the
++	 * PHY core enables runtime PM on the PHY device too. The single SCMI
++	 * power domain has already been attached to this device by the driver
++	 * core, so runtime PM votes propagate to firmware through the genpd
++	 * device link. No register or clock access is done here - firmware owns
++	 * the SerDes.
++	 */
++	pm_runtime_enable(dev);
++
++	ret = devm_add_action_or_reset(dev, qcom_dwmac_sgmii_phy_scmi_runtime_disable, dev);
++	if (ret)
++		return ret;
++
++	phy = devm_phy_create(dev, NULL, &qcom_dwmac_sgmii_phy_scmi_ops);
++	if (IS_ERR(phy))
++		return dev_err_probe(dev, PTR_ERR(phy), "failed to create the phy\n");
++
++	phy_set_drvdata(phy, priv);
++
++	provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
++	if (IS_ERR(provider))
++		return dev_err_probe(dev, PTR_ERR(provider),
++				     "failed to register the PHY provider\n");
++
++	return 0;
++}
++
++static const struct of_device_id qcom_dwmac_sgmii_phy_scmi_of_match[] = {
++	{ .compatible = "qcom,sa8255p-dwmac-sgmii-phy" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, qcom_dwmac_sgmii_phy_scmi_of_match);
++
++static struct platform_driver qcom_dwmac_sgmii_phy_scmi_driver = {
++	.probe	= qcom_dwmac_sgmii_phy_scmi_probe,
++	.driver = {
++		.name = "qcom-dwmac-sgmii-phy-scmi",
++		.of_match_table = qcom_dwmac_sgmii_phy_scmi_of_match,
++	},
++};
++module_platform_driver(qcom_dwmac_sgmii_phy_scmi_driver);
++
++MODULE_DESCRIPTION("Qualcomm DWMAC SGMII PHY driver (firmware managed)");
++MODULE_AUTHOR("Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>");
++MODULE_LICENSE("GPL");
+
 -- 
-2.34.1
+2.47.3
 
