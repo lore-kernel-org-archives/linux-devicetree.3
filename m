@@ -1,240 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBE035839C;
-	Mon,  6 Jul 2026 03:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2971A3ACEEA
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 03:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783308723; cv=none; b=TTsSpMezr6njG94PjwdaMVHmwYpRoO9fVNLeAA/iz8/LS1LNnZmHe79q7rP8QDssWLkmsQEXhr9gpcLwUts16Cq4w9N33QH2WB+BlH/Tlu6gSxdFDp0JfIxraj5/bTSxk6ht6qT+VmLZCQwNi4yABkL0vvJ77piEQJ5r+KHTEOc=
+	t=1783309502; cv=none; b=XejE6xN5AAVkHqoTcfYSLPo+lmvc7bV0Nx/olp2w0ebrCiwZZk+ACJBILHJhUZ7749LZK1f5MZwDnELCX0dxNqkHyGvvxPrivAaD1BlCJb0HnVi5QAT8zpLuicb7hYaTQLOhOIPMEfbjfr0P/A6GXQxg+DBiy9zISrIMN2FTa+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783308723; c=relaxed/simple;
-	bh=GBaSpkX/ZWZ8FKBzWzRYdMKpcyVa+GFYiM6rKv2byGY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=maeKFvRBhg1Vyee+9JaB6WNW9L6vKPGCXfKG0tPeRyZD7ygQXgKMeogCyrBDEhiWCi9dzC2GmdNoz6RLX1UoSq3gxgQddzCf/L9sGnVTrnGaZy/K5kzbS95msoVLalqZPI6JnRrWxJB3AqpSrEMcrg5q6ru5MkwhTjIT4UA0xhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S4LLoTMg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783309502; c=relaxed/simple;
+	bh=AvoROwak15xRTdKbG7RdNFiNAcYCdcOTGAIiSi0WzW4=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=g9yNDxMxjXcj503EvZMiGZqfJIrgNUZUre0ehDKIammXW7OXkNiGlenVSntSfRhpi+RcC61ZJ5CHXlF4vXXgN+GIzIpKQyysd8/0y9O1+f76w/AqPiu+Rw/JkE4OjLfJeyUk2s+LfVPTi1eBoW94nsg0of5HKxvwPbeXvwY1sl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=MRINtwE1; arc=none smtp.client-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S4LLoTMg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E2551F000E9;
-	Mon,  6 Jul 2026 03:32:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783308722;
-	bh=pgK1AhmGSy4aon6P61BNRyRaQlwaG8JpQ/TTXfTW+so=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S4LLoTMgX5Frd4+I3ALkC1K+q2wrqr+SFmn19E3s7YcZK7/SkSaBaJFuezpe2CKwn
-	 68jnToZBcuz1mFPuMLF7YiVruGQdKS4bnpjVA/l9ufvCrUJcN44+7ca3oENHeEIY2W
-	 EXcRf54OV3/K/ClX8U2MT74Sle858zHULjxXt4PbTNKeG3BvY2E3O6ooRTuZjJfqKw
-	 wdudwo2M27+Yb134Ps/A/QvwuZTWDIyN5sXERbi+jrchqo9p/V2hwZMzejIktBo9SM
-	 i2nzN2W54jSfwuasY/DoU6fuWELExMREWxnUr4bF5Mpikf93WNAwHRGS/UUr7/ctGf
-	 jjU7GfEaiCVHw==
-Date: Sun, 5 Jul 2026 20:32:00 -0700
-From: Peter Chen <peter.chen@kernel.org>
-To: Elson Serrao <elson.serrao@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Souradeep Chowdhury <quic_schowdhu@quicinc.com>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 4/9] usb: misc: qcom_eud: add per-path role switch
- support
-Message-ID: <akshsA2VuKEoq796@hu-petche-lv.qualcomm.com>
-References: <20260501170635.2641748-1-elson.serrao@oss.qualcomm.com>
- <20260501170635.2641748-5-elson.serrao@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="MRINtwE1"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260706034451epoutp0356e5e0673c3be38372e1d9d0f5b4abe4~-lojTpVl_0418804188epoutp03W
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 03:44:51 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260706034451epoutp0356e5e0673c3be38372e1d9d0f5b4abe4~-lojTpVl_0418804188epoutp03W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1783309491;
+	bh=ouGlszysSs4gITTNUdmNxxB0sAGe7tY5xZyujefdx7s=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=MRINtwE1ktxMbJHmMhIVWzFIA0qvrTHojBdSTEnWPf4QXPiDZqwJh+WWwwE0H3PEp
+	 AfGJmeL2IFzleI3UdGAGznHGur38ACuhhh+a0zo3xggWO7+qZ1HlHpCvAwwJqT2XkB
+	 kwFfn7/WKx3cdpyPqic918AePlCwZL90cgN/yhwM=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
+	20260706034451epcas5p4a3ff71f9e76779adf0b9b9d4eb427f7d~-loi_umYg1434614346epcas5p4J;
+	Mon,  6 Jul 2026 03:44:51 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.95]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4gtqxG41F5z6B9mD; Mon,  6 Jul
+	2026 03:44:50 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260706034450epcas5p2e5d0bd1ed0a0a2bbfb02ca8c8caf2ab2~-lohrt-wE0812208122epcas5p2K;
+	Mon,  6 Jul 2026 03:44:50 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip2.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20260706034448epsmtip2b3c3ae419652599f9709ed2d98b789dd~-lof4mPPf2417824178epsmtip2O;
+	Mon,  6 Jul 2026 03:44:48 +0000 (GMT)
+From: "Alim Akhtar" <alim.akhtar@samsung.com>
+To: "'Ivaylo Ivanov'" <ivo.ivanov.ivanov1@gmail.com>, <krzk@kernel.org>,
+	<peter.griffin@linaro.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
+	<linusw@kernel.org>
+Cc: <linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+	<hajun.sung@samsung.com>
+In-Reply-To: <4df9f388-2dc7-47b6-afc0-7a0cc6d15ca3@gmail.com>
+Subject: RE: [PATCH v3 1/6] dt-binding: ARM: samsung: Add Samsung Exynos8855
+Date: Mon, 6 Jul 2026 09:14:46 +0530
+Message-ID: <08ba01dd0cf9$cbe0a4b0$63a1ee10$@samsung.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260501170635.2641748-5-elson.serrao@oss.qualcomm.com>
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQIex+rgVwEhIQu0sswQMAVV+431vwFQlI8kAbGHTCcCTSL4e7Wx5jew
+Content-Language: en-us
+X-CMS-MailID: 20260706034450epcas5p2e5d0bd1ed0a0a2bbfb02ca8c8caf2ab2
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260627165406epcas5p1be75af2010edfc57cad0f668a8e3568d
+References: <20260627171228.2687857-1-alim.akhtar@samsung.com>
+	<CGME20260627165406epcas5p1be75af2010edfc57cad0f668a8e3568d@epcas5p1.samsung.com>
+	<20260627171228.2687857-2-alim.akhtar@samsung.com>
+	<4df9f388-2dc7-47b6-afc0-7a0cc6d15ca3@gmail.com>
 
-On 26-05-01 10:06:30, Elson Serrao wrote:
-> The EUD hardware can support multiple High-Speed USB paths, each connected
-> to different USB controllers. The current implementation uses a single
-> chip-level role switch, which cannot properly handle multi-path
-> configurations where each path needs independent role management. Since
-> EUD is physically present between the USB connector and the controller,
-> it should also relay the role change requests from the connector.
-> 
-> Restructure the driver to support per-path role switches and remove the
-> chip-level role switch. Additionally, as EUD need not modify the USB
-> role upon enabling, remove the unnecessary role switch call from
-> enable_eud().
-> 
-> Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
-> ---
->  drivers/usb/misc/qcom_eud.c | 89 +++++++++++++++++++++++++++++--------
->  1 file changed, 70 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/usb/misc/qcom_eud.c b/drivers/usb/misc/qcom_eud.c
-> index a624c44d5d59..7fbb74bf1599 100644
-> --- a/drivers/usb/misc/qcom_eud.c
-> +++ b/drivers/usb/misc/qcom_eud.c
-> @@ -44,12 +44,15 @@ static const char * const eud_port_names[] = {
->  struct eud_path {
->  	struct eud_chip		*chip;
->  	struct phy		*phy;
-> +	struct usb_role_switch	*controller_sw;
-> +	struct usb_role_switch	*eud_sw;
-> +	enum usb_role		curr_role;
-> +	char			name[16];
->  	u8			num;
->  };
->  
->  struct eud_chip {
->  	struct device			*dev;
-> -	struct usb_role_switch		*role_sw;
->  	void __iomem			*base;
->  	struct eud_path			*paths[EUD_MAX_PORTS];
->  	phys_addr_t			mode_mgr;
-> @@ -123,7 +126,7 @@ static int enable_eud(struct eud_chip *priv)
->  	writel(EUD_INT_VBUS | EUD_INT_SAFE_MODE,
->  			priv->base + EUD_REG_INT1_EN_MASK);
->  
-> -	return usb_role_switch_set_role(priv->role_sw, USB_ROLE_DEVICE);
-> +	return 0;
->  }
->  
->  static int disable_eud(struct eud_chip *priv)
-> @@ -274,12 +277,15 @@ static irqreturn_t handle_eud_irq(int irq, void *data)
->  static irqreturn_t handle_eud_irq_thread(int irq, void *data)
->  {
->  	struct eud_chip *chip = data;
-> +	struct eud_path *path;
->  	int ret;
->  
-> +	path = chip->paths[chip->port_idx];
-> +
->  	if (chip->usb_attached)
-> -		ret = usb_role_switch_set_role(chip->role_sw, USB_ROLE_DEVICE);
-> +		ret = usb_role_switch_set_role(path->controller_sw, USB_ROLE_DEVICE);
->  	else
-> -		ret = usb_role_switch_set_role(chip->role_sw, USB_ROLE_HOST);
-> +		ret = usb_role_switch_set_role(path->controller_sw, USB_ROLE_HOST);
->  	if (ret)
->  		dev_err(chip->dev, "failed to set role switch\n");
->  
-> @@ -290,15 +296,36 @@ static irqreturn_t handle_eud_irq_thread(int irq, void *data)
->  	return IRQ_HANDLED;
->  }
->  
-> -static void eud_role_switch_release(void *data)
-> +static int eud_role_switch_set(struct usb_role_switch *sw, enum usb_role role)
->  {
-> -	struct eud_chip *chip = data;
-> +	struct eud_path *path = usb_role_switch_get_drvdata(sw);
-> +	int ret;
-> +
-> +	/* Forward the role request to the USB controller */
-> +	ret = usb_role_switch_set_role(path->controller_sw, role);
-> +	if (ret) {
-> +		dev_err(path->chip->dev, "failed to set role %s for port %u: %d\n",
-> +			usb_role_string(role), path->num, ret);
-> +		return ret;
-> +	}
->  
-> -	usb_role_switch_put(chip->role_sw);
-> +	path->curr_role = role;
-> +
-> +	return 0;
-> +}
-> +
-> +static void eud_path_role_switch_release(void *data)
-> +{
-> +	struct eud_path *path = data;
-> +
-> +	usb_role_switch_unregister(path->eud_sw);
-> +	usb_role_switch_put(path->controller_sw);
->  }
->  
->  static int eud_init_path(struct eud_chip *chip, struct device_node *np)
->  {
-> +	struct usb_role_switch_desc role_sw_desc;
+Hi Ivaylo,
+Thanks for your review.=20
 
-Should role_sw_desc be zero-initialized here? Otherwise, some entries
-of path->eud_sw are uncertain after calling usb_role_switch_register?
+> -----Original Message-----
+> From: Ivaylo Ivanov <ivo.ivanov.ivanov1=40gmail.com>
+> Sent: Monday, July 6, 2026 4:11 AM
+> To: Alim Akhtar <alim.akhtar=40samsung.com>; krzk=40kernel.org;
+> peter.griffin=40linaro.org; robh=40kernel.org; conor+dt=40kernel.org;
+> linusw=40kernel.org
+> Cc: linux-samsung-soc=40vger.kernel.org; linux-kernel=40vger.kernel.org;
+> devicetree=40vger.kernel.org; linux-gpio=40vger.kernel.org;
+> hajun.sung=40samsung.com
+> Subject: Re: =5BPATCH v3 1/6=5D dt-binding: ARM: samsung: Add Samsung
+> Exynos8855
+>=20
+> On 6/27/26 20:12, Alim Akhtar wrote:
+> > Add Samsung Exynos8855 smdk board to documentation
+> >
+> > Signed-off-by: Alim Akhtar <alim.akhtar=40samsung.com>
+> > ---
+> >  .../devicetree/bindings/arm/samsung/samsung-boards.yaml     =7C 6 ++++=
+++
+> >  1 file changed, 6 insertions(+)
+> >
+> > diff --git
+> > a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
+> > b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
+> > index 753b3ba1b607..273464400477 100644
+> > ---
+> > a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
+> > +++ b/Documentation/devicetree/bindings/arm/samsung/samsung-
+> boards.yam
+> > +++ l
+> > =40=40 -235,6 +235,12 =40=40 properties:
+> >                - winlink,e850-96                 =23 WinLink E850-96
+> >            - const: samsung,exynos850
+> >
+> > +      - description: Exynos8855 based boards
+> > +        items:
+> > +          - enum:
+> > +              - samsung,exynos8855-smdk         =23 Samsung SMDK
+> > +          - const: samsung,exynos8855
+>=20
+> Is there any particular reason for using =22exynos8855=22 rather than the
+> commercial name - exynos1580? We've already established using the latter
+> naming scheme as a convention (e.g. exynos3830 -> exynos850, exynos9830 -=
+>
+> exynos990) rather than the development model numbers, so I don't think
+> breaking that will help anyone with the already painful model number conf=
+usion.
+>=20
+The reason for using Exynos8855 is that it comes from the chip-id register,=
+ which is RO register.
+And in my opinion it has to be chip-id, maintaining two names is confusing =
+(as you also mentioned).
+Yes, there were couple of deviation but let's come back to the =22original=
+=22 convention (which is to use chip-id).
 
-Peter
+=40 Krzysztof, Peter=20
+Any input on this?=20
 
-> +	struct usb_role_switch *sw;
->  	struct device_node *controller_node;
->  	struct eud_path *path;
->  	u32 path_num;
-> @@ -331,11 +358,44 @@ static int eud_init_path(struct eud_chip *chip, struct device_node *np)
->  				     "failed to get controller node for path %u\n", path_num);
->  
->  	path->phy = devm_of_phy_get_by_index(chip->dev, controller_node, 0);
-> -	of_node_put(controller_node);
-> -
-> -	if (IS_ERR(path->phy))
-> +	if (IS_ERR(path->phy)) {
-> +		of_node_put(controller_node);
->  		return dev_err_probe(chip->dev, PTR_ERR(path->phy),
->  				     "failed to get PHY for path %d\n", path_num);
-> +	}
-> +
-> +	path->curr_role = USB_ROLE_NONE;
-> +
-> +	/* Fetch controller role switch if it is role switch capable */
-> +	if (of_property_read_bool(controller_node, "usb-role-switch")) {
-> +		sw = usb_role_switch_find_by_fwnode(of_fwnode_handle(controller_node));
-> +		if (!sw) {
-> +			of_node_put(controller_node);
-> +			return dev_err_probe(chip->dev, -EPROBE_DEFER,
-> +					     "Failed to get controller role switch for path %d\n",
-> +					     path_num);
-> +		}
-> +		path->controller_sw = sw;
-> +	}
-> +
-> +	of_node_put(controller_node);
-> +
-> +	role_sw_desc.fwnode = of_fwnode_handle(np);
-> +	role_sw_desc.set = eud_role_switch_set;
-> +	role_sw_desc.driver_data = path;
-> +	snprintf(path->name, sizeof(path->name), "eud-path%u", path_num);
-> +	role_sw_desc.name = path->name;
-> +
-> +	path->eud_sw = usb_role_switch_register(chip->dev, &role_sw_desc);
-> +	if (IS_ERR(path->eud_sw)) {
-> +		usb_role_switch_put(path->controller_sw);
-> +		return dev_err_probe(chip->dev, PTR_ERR(path->eud_sw),
-> +				     "Failed to register EUD role switch for path %d\n", path_num);
-> +	}
-> +
-> +	ret = devm_add_action_or_reset(chip->dev, eud_path_role_switch_release, path);
-> +	if (ret)
-> +		return ret;
->  
->  	chip->paths[path_num] = path;
->  
-> @@ -365,15 +425,6 @@ static int eud_probe(struct platform_device *pdev)
->  	if (!chip->paths[0])
->  		return dev_err_probe(chip->dev, -ENODEV, "primary path not found\n");
->  
-> -	chip->role_sw = usb_role_switch_get(&pdev->dev);
-> -	if (IS_ERR(chip->role_sw))
-> -		return dev_err_probe(chip->dev, PTR_ERR(chip->role_sw),
-> -					"failed to get role switch\n");
-> -
-> -	ret = devm_add_action_or_reset(chip->dev, eud_role_switch_release, chip);
-> -	if (ret)
-> -		return ret;
-> -
->  	chip->base = devm_platform_ioremap_resource(pdev, 0);
->  	if (IS_ERR(chip->base))
->  		return PTR_ERR(chip->base);
-> -- 
-> 2.34.1
-> 
-> 
+> Best regards,
+> Ivaylo
+>=20
+> > +
+> >        - description: Exynos8895 based boards
+> >          items:
+> >            - enum:
 
--- 
 
-Thanks,
-Peter Chen
