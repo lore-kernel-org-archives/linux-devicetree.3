@@ -1,62 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC3C36F413;
-	Mon,  6 Jul 2026 10:26:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357AD36C9EC;
+	Mon,  6 Jul 2026 10:26:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783333593; cv=none; b=qfEfZS+DU5I1aJL2jJmSk0Pr6vqHF8zulo3e2ovCFhCRPi5DiqECekxh2mORJzjO0W3lIu6SPiP9XaoW5RpDl4/LhBDKdutYn9WQvfRbfMk5ligrmlRnT8a2AKyana5uU3hjR8R+LAPsAFC1Ooiw8y0pBIvw63fI6/Kw+2i7ROo=
+	t=1783333594; cv=none; b=Q1NrkpJ/bB0wBJFXIm5fvhk01Qgv/z70E4CqboM0CUMRsPRZ0lBzZb8PVrv0wdrrVJtdR9C27VvdvoaTrxisRvANPfyfmWs2aE2mBZxuD+dcYXOk+iLBuYytoFVvfuRT8oJnvdh/WSrd7utuyEWy4CB+DZ1Ld0D38zh5BgxLogc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783333593; c=relaxed/simple;
-	bh=gRQ8gsnSlcWApYxxAO3qwcQB75QOX0tVsb90yzPP1lI=;
+	s=arc-20240116; t=1783333594; c=relaxed/simple;
+	bh=XDmuIwuJdOtznxpg+cwaOzIFgK5CCYcPv3D3OXpvFG8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=d+S+hRqpSAEAqn3T00/Rz2o+k9nTe1ruEWWBgRTXGY33PzoF6b2gim9yaKe9ENSWio14v2nu+LudFF5jU13tMoxSbo2GzxJqSqF/DeVNJhEEd3Ob1eZl34l5++0P8rqkwlJLVJhSGh72O9n5rQDIo14ynNpGc+lhIvWgnebWVsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+O60toa; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=eI301vVnwtbYGxS2zb2Q77sa7ho1hSSiQbYXGMd1fhnima4vCqMqBHpY5dsZyA7R3TpoIWpsMqbtjJxVJshcHHHUxhbRg+6aOSJVrSV4txwmSBWODsairiuKM9OabSFSe9oHs8mYvf+Q3ypFPLJyvYZCxakf+gnTdvLhDxDP0Rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IGYtTZF4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+O60toa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49E521F000E9;
-	Mon,  6 Jul 2026 10:26:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IGYtTZF4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6D71F00A3A;
+	Mon,  6 Jul 2026 10:26:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783333591;
-	bh=gRQ8gsnSlcWApYxxAO3qwcQB75QOX0tVsb90yzPP1lI=;
+	s=k20260515; t=1783333593;
+	bh=6mWpv0lhMwk3uzBmxJwjSpwXF3qzESzWiXeVpYXIPL0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Y+O60toaJHxHSOSBD2E+PQn0P5iMhH+KSvQL0OSZfhjxEd15vH0SbnYi36K30rVDU
-	 T9Y0sskUHnqnDWZu88GUqCWh/F3H2GDeB9HRQpDBZXUq9PEZAFjMDKCDuHdV08NtV0
-	 VAITwyFdVg4DbGX+jfTAXUSOWDeXsv4nT9nia/zlIXsIjnTYiwM1QG9Qp03+siDE5p
-	 kZza2uVHAskvZpICdhgrfDye2d9NtP+uvRx/gyZb9b93qDMidaNig/Saxq1OkcDWR9
-	 Uqzq96Ip0zGAc/uWtgR5Wz3THq6K9cH743ZTHH1Itxw8mBjAKtqTum20DbuxdMaj06
-	 Bw1yUBQGMsXvA==
+	b=IGYtTZF4fPloB067F9SzJJ5j4AbZ6cfpnWy3YyyjgDIoq8ef90FQG3kb8VAfcEhtf
+	 E3m8RiaaUJh9G89uHojIcGKcewkxDO5dreI3QkeCKfjEc+ooMgx+e9eBp3u7rf2zdW
+	 tl84kLlZ7VdFwCQIcDjM85aTkLqqPMMtIXiKc5viIXrqlS/dRmhQTMQu3eNiB6pJic
+	 gXvqZ6ZchggDQER9RXuR0iMMAS1ppegxGqrlqFTfTo+XogViYLzc36NuDFvqcGdW2z
+	 YSLw5nJYMV5PnvY0nD0tFkUeKu7dulL0RaZtFZt+bBOtfCi3w8+n0iDUBpx0CPhFFN
+	 V6k3Kg/8TLfmA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 9/9] clk: sunxi-ng: sun6i-rtc: add a733 support
+Subject: Re: [PATCH v2 07/15] arm64: dts: freescale: imx8mn-var-som: Rework
+ WiFi/BT and add legacy dts
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jerome Brunet" <jbrunet@baylibre.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-rtc@vger.kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260706-a733-rtc-v4-9-f330728db3d3@baylibre.com>
-References: <20260706-a733-rtc-v4-0-f330728db3d3@baylibre.com>
- <20260706-a733-rtc-v4-9-f330728db3d3@baylibre.com>
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org
+In-Reply-To: <ecf72149729d31be30e6f5bcc1cc53a5321a124d.1783330236.git.stefano.r@variscite.com>
+References: <cover.1783330236.git.stefano.r@variscite.com>
+ <ecf72149729d31be30e6f5bcc1cc53a5321a124d.1783330236.git.stefano.r@variscite.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 10:26:30 +0000
-Message-Id: <20260706102631.49E521F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 10:26:31 +0000
+Message-Id: <20260706102632.3B6D71F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> Add support for the sun60i a733 CCU RTC.
->=20
-> Compared to the a523, this SoC has a different input oscillator divider
-> which auto-detects the oscillator rate and select a divider to provide
-> a fixed 32768Hz clock. It also provides several phy reference clocks
-> with dedicated clock gates.
->=20
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The legacy Symphony device tree (`imx8mn-var-som-symphony-legacy.d=
+ts`) fails to revert the `uart2` pinctrl configuration, permanently claimin=
+g the Bluetooth enable GPIO and breaking legacy Bluetooth initialization.
+--
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+commit 31b3d797e663552df95cdacb42e55c6c3a65c79e
+Author: Stefano Radaelli <stefano.r@variscite.com>
+
+arm64: dts: freescale: imx8mn-var-som: Rework WiFi/BT and add legacy dts
+
+This moves the IW61x wireless module configuration out of the base
+imx8mn-var-som.dtsi into dedicated variant includes. It also adds a legacy
+device tree to support older SOM revisions with Broadcom WiFi.
+
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony-legacy=
+.dts b/arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony-legacy.dts
+> new file mode 100644
+> index 0000000000000..5998ebcef4740
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mn-var-som-symphony-legacy.dts
+> @@ -0,0 +1,19 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright 2026 Variscite Ltd.
+> + */
+> +
+> +#include "imx8mn-var-som-symphony.dts"
+> +#include "imx8mn-var-som-wifi-brcm-legacy.dtsi"
+> +
+> +&bluetooth_iw61x {
+> +	status =3D "disabled";
+> +};
+
+[Severity: High]
+Will this leave the pinctrl_bt group claimed by uart2?
+
+Since this legacy device tree includes imx8mn-var-som-symphony.dts (which
+includes the new IW61x setup), uart2 is initially configured with:
+
+&uart2 {
+        pinctrl-0 =3D <&pinctrl_uart2>, <&pinctrl_bt>;
+        ...
+}
+
+Disabling bluetooth_iw61x here leaves the pinctrl-0 property on uart2
+unchanged. Because the i.MX pinctrl driver uses strict pinmux claiming,
+wouldn't this permanently claim the BT enable GPIO (GPIO2_IO6) and prevent
+legacy userspace scripts or drivers from exporting or toggling it?
+
+Does uart2 need an override here to drop pinctrl_bt?
+
+> +
+> +&iw61x_pwrseq {
+> +	status =3D "disabled";
+> +};
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-a733-rtc-v=
-4-0-f330728db3d3@baylibre.com?part=3D9
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783330236.gi=
+t.stefano.r@variscite.com?part=3D7
