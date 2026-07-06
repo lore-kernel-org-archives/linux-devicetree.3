@@ -1,234 +1,152 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248FF41A76A
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 14:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F1A372EE3
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 14:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783347818; cv=none; b=BoFaMSCGIqeAUgfB2KiYB2kIB3ztYUiruveTLO8PttXYcD043ucGvEwoMpqRrOp+UDwSPpbW5Qtd3rJ9W0uW89XBt1Mh0LLrDBWIGsKbvFb6AwBO2Xix4bdK5SiFVB+UuffQu0AtOx+PatQ4C+K3dOwvpBdjhLqLodoC9aPLzyA=
+	t=1783347868; cv=none; b=LdCBEmVoQ3cFNqZEk0c9KKFrPOvoMMdiZxwGtIxKpjFeKXFDFsbW6mRbKWPFtmb/9ZvBQv6G2IWfsIzhvu1IuJmhCr7HSWuc9mvYulmkvBuE4p1i6MzfWK4SGJOa5hJXVlkXhPXvu60SunnbgA92BxB9/tqxOZfQY9KneA7ADug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783347818; c=relaxed/simple;
-	bh=8CbFWVtRpoJ/dg+s1T9+12n3yadu8+YmzUT3cFMlc3Q=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fIkGuq5HeW9sY+bj3OpQ6Isb27Cd6ZIVjFmqDX9Ay/4yulk46nRNPTf9pu/BdHA2xPGEnY4gl4wUxDVig6u28GmeTof78Hq30VjXLeRu1IFzPkiEmw4hYCAuwKy0dFI327BrRM5NT67WVnxSKP+P2h7E8Em4ob6JdecQmGubS04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k/UmHCRC; arc=none smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783347868; c=relaxed/simple;
+	bh=RqKk5FotZtKC8C4ZhewaFiPzVOmJRvPjCEVbeomkK3s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LBVD5gdILxQ3LU+vvyrl4sh4Cx1O02w3jLXKQx8PuqP5lDEWQzWSxrUUjjhKam8RT48loPIxahDZyb5d0l1y8IchRHEM5kEXhePp+IL7qCRsWhMk/Cp1lm+UwfBcD0iCr2QIz1XCD59AqrdE0vxhHIdCdq3empvkumLi2LkqDjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hgx7C2tE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JyYhxoIe; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k/UmHCRC"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c127a694ccbso402946766b.3
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 07:23:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hgx7C2tE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JyYhxoIe"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666EEIqs616656
+	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 14:24:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=yXFv2mECvN+xZKWYVmzpDkFb
+	Ja59AM6qd/7I+4lCZZw=; b=hgx7C2tEAY+nCJtHgG95o5yvkp5BfksiQo/5UGvR
+	eXxcAXeRNHE2F5H22rtuZUVravngGe7Upt8L7nt0R+0WrPurhJ57Q72U2F6VRSJX
+	LGdHiV9Kk0Lo7nbwkSpI/RrO4fTpocl6dELHgIFDfx9tZhKAaNqczQjVwNESPaH6
+	zGRQFGnkqw9tUxlKaEbnwO7e6RBenFgKJMqh6xSe8rZmV/1h3hQakqLe39NrdqnB
+	y91OtPgPCohzPYya63ivbGB0+GZPvnKMj4pAQ3z42e7U4aEKlZV2govQ3VpL5QHl
+	sqoYMiADZmBje316Zd8Ha4iDtROsOPcxyZONcXPwM6xmCA==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f87rxss40-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 14:24:25 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-96939fcd33dso445643241.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 07:24:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783347815; x=1783952615; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rb4WFEujjXzehfKuMBJOFD79jYlgZCDeugvdupzI6Yk=;
-        b=k/UmHCRClEBU8ZbQdfNAFR6+tcoJ+NIWLTd5WMlxdR6llbUVdpM75S27bNtkDIVxso
-         qg2EQEt0Y3Ugs3THhOuNG7aHVFpjeTIiWXeiODkbwnax9THfl2feFi4Q+OyTAmJC0FcT
-         CPxVkDiL34P2aes/GnlYFaIsS6ZTL39mFs7576cN8YtBpYQCpRKQSFP1OyRP6zqE0utr
-         fdYEi0r3I3jCQrd0WRY6KDuNfNBTU6H70rqt3F1I2IBM7xcq7pC5rFfEbgm8vykC04Ce
-         SzgjVPcf18nmrEQFxjnjiMByaekqN3IOgNUlRRz4ZGG1bRttp/WVeVcC3wMA2q9hx7QI
-         DL2A==
+        d=oss.qualcomm.com; s=google; t=1783347865; x=1783952665; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=yXFv2mECvN+xZKWYVmzpDkFbJa59AM6qd/7I+4lCZZw=;
+        b=JyYhxoIeXxB+TWtdmfQnc8Omo7QoXssbUct5kbhoiC8TNpbqPKoMDzJf14bdUp2fiW
+         CDPS5Dk7YGmnH8jyUd9PORc98kOPz2+n6iGlrxSJPe6aJVXbto8+LzjKM06gDcmcToSE
+         4G03xWhVQ4sdHI3InS1A3Z2jVzmu16Z4dkfV3wT3dQJxa+IWxujAb+Wqcn7nmg7y9q1t
+         29opzBclxb1tU/nsa6AWOQ2T7xUx7/imRySQhAqz9sCmyyO3Cxe2MWxc1Y/DWWgPqAAD
+         S0HfHWq5CfLVdZ90yMEuzEjOKPb7PUC20ND46OJbWMn85bBu2CBOe44WFIv7coFuEYlf
+         /J0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783347815; x=1783952615;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=rb4WFEujjXzehfKuMBJOFD79jYlgZCDeugvdupzI6Yk=;
-        b=c4YTHkWhOIOlaCh+Mjt2LnYn6dS/EPFxyPE358dv0T30eIVfyRxBRpdJOV6qZ/sWdj
-         F560jFtCb5biJRk3HDu8Act1IPV6PQ0APfHuj78UOIdqhW/yfU8PnbB5TeIx2+OCsks5
-         lQoXRj4LD7ptbqoxfTB68nIOXIvrjBa3VUYNpyK9qZksL/mGOfJd+YcskGKII4iX3Mqs
-         ZLqWo1o9d1copwlDSwysuF805UC1fQExBPMN73S73NkQylLg0Z1Xc4tMsno11G1L7DAA
-         CkpWm3E6sasCZW6EqML9OlJS9++Lzka1BMSnJfYunwAn6eMJ1mSiVAvFDiUsXK7TWpi7
-         yH6g==
-X-Forwarded-Encrypted: i=1; AHgh+RrQqWokchbC/OcI5GS4+POcDqj3HI5kSDmo7GgkQROoVhZ+PtT3IW+Aw8WHAjJojUSUu98NbCqXsxKB@vger.kernel.org
-X-Gm-Message-State: AOJu0YwsXpJfT45jWjZfaWPvtIRAh1+90NhjzuToxJAfYMoN26D2laVa
-	po5dmOCfoCyNY0Uk5pM9zIVtmBuab5xgf3+cKe4ssP0aE5xwgT8LXDPX1TFUdcpT
-X-Gm-Gg: AfdE7ckCODWAqFy5f7O+pu5pQh74qrn2vXWjUs4L05oZmSgtcyfeAiO7czAXL+l/ikw
-	UlzvHsSz0EAuQFOGl8al7rF+F9T0luqea0EsN1jHes49qJ4AyPzjjYBFXypyIVEx+AYnyl5K4hQ
-	iyvrPykLU4GQ091xxT8NXKthhsRGoqrUriYQsixZMznU2vDvCGFBDd0rqBb1tFMgD1gU2Qy0a4P
-	Ym+43qyTblR4pp90c3u9bJu4GG3zXcG7C1vmiAh/5Hn+tWnJ2jQTgjf/ZiXX16msGZOfFOIhXPd
-	B+jbjUz4TcOxTvxf3NIvvFZfyCs7sz+NMiX/EUoy6wQAkYHvNYyMbPeQZ0rAT1hl+uRfu+N2Yt9
-	odcXQJVQuSHAmYm3Ixkba4p9Z/+QirtkN9xau8u/NfHgXJET2ZCq4eVV9kKv82s3BCj8xgq8h6s
-	c1J7a8R0SzJ9B+5HUTcpCNeX7cI66sE8ExpltlPI7g2BPA5mle05T+qAmZfkwmCRt7uRo8TjDQF
-	2091dAupsXgBbsl
-X-Received: by 2002:a17:906:846b:b0:c12:45fc:c57 with SMTP id a640c23a62f3a-c15a67d8d09mr36734966b.11.1783347815101;
-        Mon, 06 Jul 2026 07:23:35 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69a19dbedf4sm4229761a12.29.2026.07.06.07.23.33
+        d=1e100.net; s=20251104; t=1783347865; x=1783952665;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=yXFv2mECvN+xZKWYVmzpDkFbJa59AM6qd/7I+4lCZZw=;
+        b=GzCvdmgWQoZYn6TjdyQvIgkmSi9g0lmEAf6Mx31Eac9odG1hdNs8rabcaFphsVkt9I
+         I25Zuj6nsnGcoSAbpOIZUwluoS5BUhjDe67KdgO16RxpQQ1uF8+Vjo9+xh24PS1rH3Sq
+         5dKTgxA5/Df/FzYTu5HCcQdYcKyeRRkbXcDp6UrBl7+vd+AvFEaBO16tQbVukrk0fUf8
+         vYLWlKExCdZYxBbNjV0Pj+hX/CDWb42tpyWzP9dsR4aoyNKJfzEsXyrEBnMpFxYx9GL7
+         6asb4GIN1mA8NGWqLXDnzmLXicfoz1lMRD6CZdz6KSDMx+L2Xo9EmabQOZaL/dfZ2Pe1
+         WX1w==
+X-Forwarded-Encrypted: i=1; AHgh+Row9EeJW19d6hl4pAY+pkECd8X5tiXLDS4Lgw6TiEV/JMcddhrOUaKF9Wo6TlrUNrOG7I4crFihacTa@vger.kernel.org
+X-Gm-Message-State: AOJu0YwCrW3F0rEng+nWN5nugs8dTuNRCcoBcH7XQ+4wa6nm3gLM+nB6
+	UHfx4D1d8bPdymW45gWbzC9IdXppm8NLelej5Z1RoqQbwr1gOX60RwlPT5MKPFJqgLmMT4BMHep
+	dJR9MzixpYgnm3e6DdL1+TgHa+awyfyLOLRSFPDR05uYA+J1ch/aweq9q0fLeheoM
+X-Gm-Gg: AfdE7clKiDwH4zqvIfHmchokaMDuHw/wK4IC6J5wI6xqS5lBpMNRJ2PXtUtAT/FEq45
+	8JTdm6P7ZA+g6u1VgH5cd3MErklOcop0TdqDrfK/g5VuOq5DrdCoktI5wreMZbLDEZ1wIgOhKnR
+	E5zomH9fa53ZA2EeBoNzF30v48knscGZ7Cj8IZF1LlNJ5VWvjGpHO973r8i2qoAgP/pz9fBmun6
+	sIMrIUmwFGdyhPFq4qQ64p+nGBFDxsPi/xp0pjoDbRkYcYNUN1FkzOCGWcQ0P2mxwn8DitvBwsl
+	rM+pnVaWIX1XKZDFVOlAaujK8BiEk5K+Zuy0w4G8KNnYsPk11J6mOQHpJUFzyfPRqRVM9vmaTpK
+	gLOtzlI3IqPNfPCmqWENdraajzNjkEUBwaLov0Lgw1hkKbEiEZcJ1VYgSZKuMRgIYvd3K+nHFl+
+	6JETT6kPMO524EySMEnUXfMahR
+X-Received: by 2002:a05:6122:4d05:b0:5a3:5938:6935 with SMTP id 71dfb90a1353d-5be90743468mr454360e0c.6.1783347864946;
+        Mon, 06 Jul 2026 07:24:24 -0700 (PDT)
+X-Received: by 2002:a05:6122:4d05:b0:5a3:5938:6935 with SMTP id 71dfb90a1353d-5be90743468mr454346e0c.6.1783347864484;
+        Mon, 06 Jul 2026 07:24:24 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed1376ffesm2968872e87.24.2026.07.06.07.24.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 07:23:34 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date: Mon, 6 Jul 2026 15:23:28 +0100
-To: Jonathan Cameron <jic23@kernel.org>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v6 16/16] docs: iio: add documentation for ad9910 driver
-Message-ID: <p77cvtvjmo7hr6i6jxhfxps3if6fyy5kdwxrwlcnsziixycyen@rf5zfchlxgt6>
-References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
- <20260618-ad9910-iio-driver-v6-16-79125ffbe430@analog.com>
- <20260703193059.4deda617@jic23-huawei>
+        Mon, 06 Jul 2026 07:24:23 -0700 (PDT)
+Date: Mon, 6 Jul 2026 17:24:21 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Alexander Koskovich <akoskovich@pm.me>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: milos: Add Iris VPU v2.0
+Message-ID: <k7dizyxxj2gk2lyz3ru4ffuckbh4vfw2z4hkn72ygjqouundhm@gwgriymkpg6b>
+References: <20260705-milos-iris-v3-0-8c1353530f24@pm.me>
+ <20260705-milos-iris-v3-3-8c1353530f24@pm.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260703193059.4deda617@jic23-huawei>
+In-Reply-To: <20260705-milos-iris-v3-3-8c1353530f24@pm.me>
+X-Proofpoint-ORIG-GUID: ZPd0MbI7vbmLNKbOGHOUyy1_OS8jewA8
+X-Authority-Analysis: v=2.4 cv=Hv1G3UTS c=1 sm=1 tr=0 ts=6a4bba99 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=_c_tBz_40JZhELx2ZhwA:9 a=CjuIK1q_8ugA:10 a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDE0NiBTYWx0ZWRfX4vY2csIfpqpA
+ I1/bMZZ8C+Jyx4u4XQcqf8oRowP7G2g8Ia840t/XsZ/KdIVjdHn699TZZVgYJaGZjvE3BhDT0WE
+ LLmon2dzi6/JK/1QCwZHVzERL4OQUfk=
+X-Proofpoint-GUID: ZPd0MbI7vbmLNKbOGHOUyy1_OS8jewA8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDE0NiBTYWx0ZWRfXy3c5lL/Mgaou
+ X3iiehIQwQh/nwUTVATA2B57xn4X5Q+7L/EaB1Nbu1b83oOYzZz1dWQ7U4Xp8HIsCafOA+iBUld
+ HjwG4BSsOe0q4hoCpqnoUtaFKiNYlCp2q8rFQ7BaKlSjPS4f6AbUisgG7It7wMQPYkg+/w4CRDc
+ 6rzD3kL3q5y00NbJoBRHqwPNhoCBSFvL8Y7FBeoKsA9+JIHxLqGMYccG5iQVBxDHGikVRXgn4tm
+ DlqDYhDRvxcM/rXWadK0kPVwyjYQUIgPBFivhEextFk5WuBsjD+S4tgLUuQQTbOJ/vF0cipHzas
+ cj59qcbmeF/VnaLgBGsOBLZBUqXd/hv6QSif8xBeNfXxVDJpojAP5NgluKDtmyUKHKqjNLEUwnk
+ ySkj4enaVBHpgzpYr7b876wtOkUP0dFCUERR9vlJYKNRht+BzEZMQcwbRtEH7PhOhCZ6Bi/u65Q
+ H03jeWCTWeeI6XwdpPg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-06_01,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 malwarescore=0 adultscore=0 priorityscore=1501
+ spamscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060146
 
-On 03/07/26 19:30, Jonathan Cameron wrote:
-> On Thu, 18 Jun 2026 14:27:32 +0100
-> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+On Sun, Jul 05, 2026 at 10:10:43AM +0000, Alexander Koskovich wrote:
+> Add devicetree nodes for the Iris codec (VPU 2.0) found on the Milos
+> platform.
 > 
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > 
-> > Add documentation for the AD9910 DDS IIO driver, which describes channels,
-> > DDS modes, attributes and ABI usage examples.
-
-...
-
-> > +Digital ramp generator (DRG)
-> > +----------------------------
-> > +
-> > +The DRG produces linear frequency, phase or amplitude sweeps using dedicated
-> > +hardware. The active ramp target (destination) is selected by enabling the
-> > +corresponding typed channel at channel number 130:
-> > +
-> > +- ``out_frequency130`` (label ``drg_frequency``) — ramp targets frequency
-> > +- ``out_phase130`` (label ``drg_phase``) — ramp targets phase
-> > +- ``out_altcurrent130`` (label ``drg_amplitude``) — ramp targets amplitude
-> > +
-> > +Writing ``en=1`` to one of these channels enables the DRG and switches its
-> > +destination. Writing ``en=0`` disables the DRG if the channel is the current
-> > +active destination; writing to an already-inactive destination is a no-op.
-> > +
-> > +Each destination channel also exposes a read-only ``scale`` attribute
-> > +reporting the physical quantity per ramp register LSB, which allows converting
-> > +raw limit codes to physical values.
-> > +
-> > +The two ramp channels ``out_altcurrent131`` (``drg_rising``) and
-> > +``out_altcurrent132`` (``drg_falling``) configure ascending and descending
-> > +ramp parameters independently.
-> > +
-> > +Destination channel attributes
-> > +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> > +
-> > +.. flat-table::
-> > +   :header-rows: 1
-> > +
-> > +   * - Attribute
-> > +     - Unit
-> > +     - Description
-> > +
-> > +   * - ``en``
-> > +     - boolean
-> > +     - Enable the DRG with this channel as the active destination. Only one
-> > +       destination can be active at a time.
-> > +
-> > +   * - ``scale``
-> > +     - Hz/LSB, rad/LSB or mA/LSB
-> > +     - Read-only. Physical quantity per raw units. Multiply a ramp
-> > +       rising/falling channel ``raw`` value by this scale to get the physical
-> > +       ramp target.
-> > +
-> > +Ramp channel attributes
-> > +^^^^^^^^^^^^^^^^^^^^^^^
-> > +
-> > +.. flat-table::
-> > +   :header-rows: 1
-> > +
-> > +   * - Attribute
-> > +     - Unit
-> > +     - Description
-> > +
-> > +   * - ``dwell_en``
-> > +     - boolean
-> > +     - Enable dwell at the ramp limit. When disabled, the ramp
-> > +       auto-transitions at this limit without waiting for the DRCTL pin.
-> > +       Disabling both creates a bidirectional continuous ramp (triangular
-> > +       pattern). Other combinations create single-shot ramps at the DRCTL
-> > +       pin transition.
-> > +
-> > +   * - ``raw``
-> > +     - integer (64-bit)
-> > +     - Ramp limit expressed as a raw DRG register code in
-> > +       :math:`[0, 2^{32}-1]`. The physical value is ``raw * scale`` where
-> > +       ``scale`` is read from the active destination channel.
-> > +
-> > +   * - ``sampling_frequency``
-> > +     - Hz
-> > +     - Ramp clock rate. Controlled by an integer divider; the written value
-> > +       is adjusted to the nearest supported rate.
-> > +
-> > +   * - ``raw_roc``
-> > +     - /s
-> > +     - Rate of change. Number of register codes advanced per second, computed
-> > +       from the hardware step size and the current ramp clock. Writing
-> > +       requires ``sampling_frequency`` to be configured first.
-> > +
-> > +Usage examples
-> > +^^^^^^^^^^^^^^
-> > +
-> > +Configure a frequency sweep from 40 MHz to 60 MHz with a rate of change of
-> > +25 GHz/s:
-> > +
-> > +.. code-block:: bash
-> > +
-> > +  # Disable dwell on both limits for a bidirectional continuous ramp
-> > +  echo 0 > /sys/bus/iio/devices/iio\:device0/out_altcurrent131_dwell_en
-> > +  echo 0 > /sys/bus/iio/devices/iio\:device0/out_altcurrent132_dwell_en
-> > +
-> > +  # Set ramp rate at 250 MHz
-> > +  echo 250000000 > /sys/bus/iio/devices/iio\:device0/out_altcurrent131_sampling_frequency
-> > +  echo 250000000 > /sys/bus/iio/devices/iio\:device0/out_altcurrent132_sampling_frequency
-> > +
-> > +  # read the frequency scale to convert physical values to raw units
-> > +  cat /sys/bus/iio/devices/iio\:device0/out_frequency130_scale
-> > +  0.232830643650
-> > +
-> > +  # 40 MHz / 0.232830643650 = 171798692
-> > +  echo 171798692 > /sys/bus/iio/devices/iio\:device0/out_altcurrent131_raw
-> > +  # 60 MHz / 0.232830643650 = 257698038
-> > +  echo 257698038 > /sys/bus/iio/devices/iio\:device0/out_altcurrent132_raw
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> ---
+>  arch/arm64/boot/dts/qcom/milos.dtsi | 85 +++++++++++++++++++++++++++++++++++++
+>  1 file changed, 85 insertions(+)
 > 
-> Why is this writing frequencies to altcurrent channels? Shouldn't this be the
-> frequency ones?
 
-All the attributes for ramp up/down channels would do the same thing in separate
-channel types: sampling_frequency, raw, raw_roc and dwell_en... do we need frequency
-and phase ones? For the DRG, right now I have:
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-* out_frequency130: en, scale
-* out_phase130: en, scale
-* out_altcurrent130: en: scale
-	* out_altcurrent131: raw, raw_roc, dwell_en, sampling_frequency
-	* out_altcurrent132: raw, raw_roc, dwell_en, sampling_frequency
- 
-> > +
-> > +  # 25 GHz/s / 0.232830643650 = 107374182402
-> > +  echo 107374182402 > /sys/bus/iio/devices/iio\:device0/out_altcurrent131_raw_roc
-> > +  echo 107374182402 > /sys/bus/iio/devices/iio\:device0/out_altcurrent132_raw_roc
-> > +
-> > +  # Enable the DRG with frequency as the destination
-> > +  echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency130_en
-> > +
-
-...
 
 -- 
-Kind regards,
-
-Rodrigo Alencar
+With best wishes
+Dmitry
