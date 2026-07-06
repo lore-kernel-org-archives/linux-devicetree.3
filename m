@@ -1,169 +1,145 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21B63F39D7
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 16:33:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0524229C5
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 16:36:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783355616; cv=none; b=l4TtIkUSrxl1SNY7d9eToqu/0mFhRLsAhoe8XoTQzAEG4aK7ieITZ48eKl/KBTho61di14ahw0+rHTlW8ZWLsDinTYHrPwDReaRKuxL77la3m1V0uHoxxnXx+8NdAW0qQ36YwoygQImMJxMVVLLJK2577wJc39VkdbpmW+zR5+0=
+	t=1783355789; cv=none; b=hbBI53l4K32loXjiftAk5IfUHTGobbX613nP3Kj/5Y5QXsUYR5m4katF9+dHgp+uPurlpWW55Lv3/yEJjEqIQIV7zP/oec5yx7n/InXAzKuQ6JzJkNo6Nrcmk5FrXsaMmvdHN2tUFH33nAJRbRQCboWSW2xfw2mduhvMYtD4ZAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783355616; c=relaxed/simple;
-	bh=6NMmYy62ZFXZlbxjQZjcsrKWVKzo16auoFFByfnuD1g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JxSG1fgHSee2BPr7af8Uo8LqYC8rUyVr7UlEE8UTYjGGfWVB+XCI67fTKH0gUifNI3pFtcamE5gWx2DqB2+quYCM9TOok9GBj3OnXPEcGzSpXdRLCVNWKVUDNh7R7QdXQnoS/YtVS5xlVqteYYQAFGV2wm5366OjAL2xXJFxpr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X/nx5YcL; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783355789; c=relaxed/simple;
+	bh=9m0p15zWci7VigIuKMnwvkyPPHkcD1Xqc2ff1CI5D8c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pfFyiEOi7ZSr6Y6Gn7pLM5LKzFTYhYZECGFu+qEOYc83W2QKDUdUIU17QxHkFRLEmQFuhHs0TaVilGjTzDXZpuU0fEYtA5/Tku4hpYa3pmmieD3ObchrT31voEQ/afV3zcXi2Q2+lmAUTfPk79Pv71Jw/BwTSntrXjgBryFh9Do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JnEXEiqi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X/nx5YcL"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2c6b67d5fa1so33422405ad.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 09:33:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783355614; x=1783960414; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=rxxY2BfHIcCLRUYump74eH/fMlKZQi/IR8VG2OQVFJ4=;
-        b=X/nx5YcL4mtmhlQ/O2jbueNc0xl8UGKK6rlU7Z+w+MJtGVz/q/WVtFUW8qkV00LdVw
-         mVNfImcOHK65jIqUp+kxUuX5lrP+S56fPA0nmnfM3iqcSYFQLJXuv3qY61aoqVgk1i5I
-         nu1EMq5W5xXCIS6k/Dl+BNAwQU2GxI3+7pagGt8W3Mhs+5CNTQ/34Pf/VKIJLSKTWfqP
-         z0zJXj4n3WwxzxQzjm7AdEsrMr+Fis/EYLgvHu1UVRSGhvubIBilQXBx13NPAdfaVAxI
-         uida0+Ehu6w8WNSb0+P7BbX9ijWWpN+Ype/8Sqz1FLlmrJP8L6aaPE/EMkqUDieRL87A
-         4/MQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783355614; x=1783960414;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=rxxY2BfHIcCLRUYump74eH/fMlKZQi/IR8VG2OQVFJ4=;
-        b=PUXAwu0utnh9ANVqNkCddELcdPPmKFM5SLkbH9tybyhY8ofS6KkB9NUvCtAXgunPxe
-         lU6hpVhmMO5oXNYL8y/+dc0ugp2ZPY52D/CbFMQckB7KA1cc/OrBeKhlEJfHTRtH3vms
-         vvGV/NiQ9b8z7+b+pBitnDfH8t/gyrXAvQsDKXDc3ll42iICVn23/XgeSW7Ww8v7tiSN
-         pFzV8FJs7PHd5rtbsmuODPirtdeQXasUVyJKm6+cBz91lSg6LMeqy5I5ekQ2wXuYMucl
-         7IQTHWmu9O5L4trd9Ukm7q1fiN2S3MNztA1mw7a9C6g1fac/1tyo4cT0fdDNFMdxVaKH
-         0pqQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpP2d9bsoB7H5uXBEkYv4kz3kNVnd4FXMgJIt54WGXIhq8fygCWBk77GuVQymXYC1/Ji8WsA0sxzXLn@vger.kernel.org
-X-Gm-Message-State: AOJu0YzfNs6DgM0ouLuq5y12rsAqcMP17+832kml+Q6fS+WChPFxIz5w
-	0DdPx+qqspgXZ0YK0BwU+KGGjh0EaHl1nHeHL9VVWki4EoObzUHTJwKS
-X-Gm-Gg: AfdE7cmm0lZfU7Gt/UqZAlf6paPd/K3XTxAP2QtRrl69YZlA6aaBvJD8bjFGq4NwBy5
-	yb6B8BgVuYakO3ShvHFxuoFIgqYCUvHAD2yEf9VoY2wcvZgCV0sM5WAwoKnThO/fNa42Q7SQmPu
-	maQN/ty0j0IMwwV8uB1XqGpjJVkj1LJLWjAtpLjwUPG9UeKxw0zRA1FRquvZ/rj9bjVCUlhPXc0
-	4fYbeVe7o2GEwULEF7y4WztvpPoGcSHUFZ5g+HlrFzhT1CQy3TQtGnpgGJ7GmCqcaGy5Bv+fHTT
-	aTYuugxpId0yEErlsK0BTUZ8F4tZgq/fLPWI3MeIUKYaSpfsX+DJAqgDjsdAxVESKoXSIDT8ENI
-	p7AkV3mb5UqXOmNVRR+y3yD7b1f9llfHKTWK+TTZO/HKWuRyl677uY/odzESoyar6brEbO0gQyk
-	yGi0I5kLf3rbyd3o93cSgVH7/5dc9qRkXf3lLrJy/WxwP4x8vOzusmfsbJ0hgHBS5HP2Ypd6rr
-X-Received: by 2002:a17:902:d2cf:b0:2cc:6329:b7ba with SMTP id d9443c01a7336-2ccbe615a2emr14691785ad.16.1783355614326;
-        Mon, 06 Jul 2026 09:33:34 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cad6f25f87sm54027575ad.3.2026.07.06.09.33.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2026 09:33:33 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <65ebf21f-5a23-43b5-b10c-684fe421b0dc@roeck-us.net>
-Date: Mon, 6 Jul 2026 09:33:32 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JnEXEiqi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A22DC1F000E9;
+	Mon,  6 Jul 2026 16:36:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783355787;
+	bh=rD4OWbGHtlYw2ul6Bv/aQU2wFe++rldArluDv4+UDg0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JnEXEiqiuFFrFSRn/ha0QhFU9cv3nrRWKN3cQUN84UpMvx0RgNfzTbBDDywMProiv
+	 FhrfOjr2yKZFXul0lmqohncbg2Y+cIoYSB9b0jkeW1F+AxUHX4XgXnUZY3k+BSF8p1
+	 m1Ik0yx4XNg/jxlguVSYgMtTMd4zqd+Zk0i3tgjyblxsPxuoXaZ5FFl8IJZAuITV4I
+	 tfQY1CVEaMT5b68Vusl7sfqklBlQl4iPKOuACG9TEAWSlGltKQZ+xEOppr2XuGATzH
+	 RUR8U6vgDpUulfjzCe0XgtEcI8FrdPXxBlUuisTj3nu7HA7F/Em5c4Z4Br05fkIYM0
+	 BOH1xzpzD8mNQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v3 3/8] net: phy: add
+ (*notify_phy_attach/detach)() hooks to struct mii_bus
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Markus Stockhausen" <markus.stockhausen@gmx.de>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260705163532.2853959-4-markus.stockhausen@gmx.de>
+References: <20260705163532.2853959-1-markus.stockhausen@gmx.de>
+ <20260705163532.2853959-4-markus.stockhausen@gmx.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 06 Jul 2026 16:36:27 +0000
+Message-Id: <20260706163627.A22DC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] dt-bindings: hwmon: (pmbus/max20830): add
- enable-gpios property and complete examples
-To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-References: <20260706-dev-max20830c-v2-0-37761e89bb5f@analog.com>
- <20260706-dev-max20830c-v2-1-37761e89bb5f@analog.com>
- <20260706-neat-perky-malamute-7518b7@quoll>
- <PH0PR03MB6351C4B212D2CCBA3F1BF113F1F12@PH0PR03MB6351.namprd03.prod.outlook.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <PH0PR03MB6351C4B212D2CCBA3F1BF113F1F12@PH0PR03MB6351.namprd03.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/6/26 00:13, Torreno, Alexis Czezar wrote:
-> 
->> On Mon, Jul 06, 2026 at 10:08:41AM +0800, Alexis Czezar Torreno wrote:
->>> Adding an entry for the MAX20830 EN (enable) pin. This pin exist but
->>> was not included before. Also edited examples entry to be more complete.
->>>
->>> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
->>> ---
->>>   .../devicetree/bindings/hwmon/pmbus/adi,max20830.yaml         | 11
->> +++++++++++
->>>   1 file changed, 11 insertions(+)
->>>
->>
->> How did you address previous feedback?
->>
-> 
-> Regarding the enable pin, I added this since I know bindings like being complete
-> and saw that I didn't add it the first time I submitted max20830.
-> I added driver code for the gpio but learned that it wasn't really a use case so
-> I simply dropped the patch for it.
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-I guess I am completely missing the point here. I can not imagine a situation
-where one would want to connect the enable pin to a driver-controlled GPIO pin,
-or why would one connect the chip's PGOOD output pin to a GPIO input pin
-and connect that back to the driver.
+New issues:
+- [Medium] The newly added `notify_phy_detach` callback is invoked uncondit=
+ionally during `phy_detach()`, violating attach/detach symmetry if attachme=
+nt fails.
 
-I think we will need guidance from devicetree maintainers explaining what
-"complete" means in such a context to avoid having to repeat this discussion
-for every driver going forward.
+Pre-existing issues:
+- [High] Calling `phy_attach_direct` on an already-attached PHY destructive=
+ly removes its existing attachment.
+--
 
-Thanks,
-Guenter
+commit 43b033c0e004225e5826f1197f795406afea2c07
+Author: Daniel Golle <daniel@makrotopia.org>
 
+net: phy: add (*notify_phy_attach/detach)() hooks to struct mii_bus
+
+This commit adds notify_phy_attach and notify_phy_detach hooks to
+struct mii_bus. This allows MDIO bus drivers to handle PHY-specific
+initialization and teardown without duplicating bus scanning logic.
+
+Link: https://github.com/openwrt/openwrt/pull/21515#discussion_r2714069716
+Link: https://lore.kernel.org/netdev/cover.1769053496.git.daniel@makrotopia=
+.org/
+
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 0615228459ef4..676cbf183350d 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -1876,6 +1876,12 @@ int phy_attach_direct(struct net_device *dev, stru=
+ct phy_device *phydev,
+>  	if (err)
+>  		goto error;
+> =20
+> +	if (phydev->mdio.bus->notify_phy_attach) {
+> +		err =3D phydev->mdio.bus->notify_phy_attach(phydev);
+> +		if (err)
+> +			goto error;
+
+[Severity: High]
+This is a pre-existing issue, but does jumping to the error label
+destructively tear down valid state if the PHY was already attached?
+
+If phy_attach_direct() is mistakenly called on a PHY that is already
+attached, it correctly catches it here:
+
+phy_attach_direct() {
+    ...
+    if (phydev->attached_dev) {
+        dev_err(&dev->dev, "PHY already attached\n");
+        err =3D -EBUSY;
+        goto error;
+    }
+    ...
+}
+
+However, by jumping to the error label, it calls phy_detach(). Since
+phy_detach() unconditionally removes sysfs links, unbinds the PHY, and
+clears phydev->attached_dev, won't this tear down the pre-existing
+attachment and leave the original caller with dangling references?
+
+> +	}
+> +
+>  	phy_resume(phydev);
+> =20
+
+[ ... ]
+
+> @@ -1919,6 +1925,9 @@ void phy_detach(struct phy_device *phydev)
+>  	struct module *ndev_owner =3D NULL;
+>  	struct mii_bus *bus;
+> =20
+> +	if (phydev->mdio.bus->notify_phy_detach)
+> +		phydev->mdio.bus->notify_phy_detach(phydev);
+> +
+
+[Severity: Medium]
+Will this result in asymmetric attach/detach notifications on error paths?
+
+If phy_init_hw() fails earlier in phy_attach_direct(), or if this new
+notify_phy_attach callback itself fails, the code jumps to the error
+label and calls phy_detach().
+
+Because phy_detach() unconditionally calls notify_phy_detach(), won't
+the bus driver receive a detach notification for a PHY that was never
+successfully attached?
+
+If future bus drivers rely on these callbacks to allocate resources or
+increment reference counts, could this cause double-frees or underflows?
+
+>  	if (phydev->devlink) {
+>  		device_link_del(phydev->devlink);
+>  		phydev->devlink =3D NULL;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705163532.2853=
+959-1-markus.stockhausen@gmx.de?part=3D3
