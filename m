@@ -1,63 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7AE8233721;
-	Mon,  6 Jul 2026 10:05:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2630347FC8;
+	Mon,  6 Jul 2026 10:06:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783332325; cv=none; b=W7YCTgel2t4hecnrLv0ikSfWdf+7hJNZoPk3C5RFNd4oqunLJ/5lyxtqgCCMuzXQwIXd6c58CNuUu8MbqWmGC/fliL4q46J640gnicaKzMQWBAr1DR5vwEuDV5OB40LW8vS3q4pog4vlvxuKOu+NCrslsNd6TP9tftwPQLiKVTw=
+	t=1783332397; cv=none; b=FcagtYfuqYXn/5F82oE9h8E3hgrEHKZEPER9OHIrprKdtRDAPiyVz8cc/m1O2MnEDRUX6YY2bsKwBBQJ7hEgN7hV1lQTkcRk4FCTHd84kvTCQg384VQgHuaQ0q3ocxIKiODJK1jTO93QjI1HpccD7AA5pXSoFf6VnjbaVl9h+CE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783332325; c=relaxed/simple;
-	bh=jZ/jeF0rqeGJmOgvFJLDOcdQYLBkfprGmEHK/lqf0cU=;
+	s=arc-20240116; t=1783332397; c=relaxed/simple;
+	bh=aKqv9iSfEHkhj931jy4Fo7+uDmj5Zz/6/Ir+S9UrMVk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZNsdbUShh1mnzhAQlxlX7c65H9BxLHQ1pasDfBpgQPeW9huxjZ2OV9jqj7l8zHY8dBaYnam4xygxZBaBWeCeSAH80KBkVZQTInVc4168+TafPXNqsI5hgl2j9mYmNVdTYATB4BndMlPfB16WkrqFw/6C6BhlV7uxbg+w740IWrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NuQ5N5rR; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=AWWBhr/S0/2hqnLUjvDi2JFcBfijSPBPXCVE2Na0xLYtOHl2DdQWoaFDL1RTzGf/VDTwVQUPUhO8ISG0F2hBvVR+rwhc7HiuVT/wztSsNOx79wnDIE7E9cv9eJyRvwmw5RoW/5KiHMet4Ekw9GMGPNkf0WSA5iGp33oDx2iXf/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oUWw7TCz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NuQ5N5rR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E93261F000E9;
-	Mon,  6 Jul 2026 10:05:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oUWw7TCz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5DC61F000E9;
+	Mon,  6 Jul 2026 10:06:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783332324;
-	bh=jZ/jeF0rqeGJmOgvFJLDOcdQYLBkfprGmEHK/lqf0cU=;
+	s=k20260515; t=1783332396;
+	bh=I22ZRASJinz7jOIvRBdEl/MHKkZMfQEw0B8gfj9RhCo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NuQ5N5rRf5wDjZWeTuWo+tq6OFFvFIUw7G9pFQRGMnRxzDTumlAnNBJG7dCYyrnb1
-	 CMW5tXlEWVgnd8wbzuU94PWub8u86BC/Y7oipzVoMvxs5FGQLIYUzhDPTbbpqin+6K
-	 xD1aoyUi3dYZvh80NYvgzusCALBlhfsx95fhFQNEvN60/I5cXhXoHxAbHg/a4nQiRQ
-	 UM3XHUCjr1xl4sRaGz5azo2Kpw3eRJ0nOZN/qTL2RznWdiI1yEDcaQPLgu1psCjp33
-	 iF9GWgTmpuY0MCVyTpxaUjAzv6qa7t7PeSPYtZtfpds0MhUaDKHaB46KSH5G2q1hgp
-	 lhMPRZgc4bTpw==
+	b=oUWw7TCzj4IObbsbmnD+wIZsXPiqunNuMbjXRXIni6S5z0VVGPDqmztX5wE439+Wh
+	 n/8ZhHl/9SqE6+mGcypHJVu9iI8sivTc0FhXlByTYWfiyfDKE4CBC8KlX5wnqvLeBT
+	 I8OBIc27IvsDaK8b69/wT/M56FYkIysLEiUPa2vLKqCwL1mkTe1U5r95Hx7saKk/xg
+	 zVq+qGbnoCZw/0eZgUiPLA9XkgjVFs8TaUMMSKHrijuVqFhNutNkjo1JicQ81dhcjU
+	 V5rpy/9tQAKb5rRfrjDyez7sKENBBbSQsJ4UA/xTMZgqyIt3dk0EFCzO5L9hh6genJ
+	 qF0pJbUs952HA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: pci: ultrarisc: add required DP1000
- PCIe clocks
+Subject: Re: [PATCH v4 6/9] clk: sunxi-ng: div: add read-only operation
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jia Wang" <wangjia@ultrarisc.com>
-Cc: conor+dt@kernel.org, linux-pci@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260706-ultrarisc-pci-clk-v2-1-2f3fb6fba66b@ultrarisc.com>
-References: <20260706-ultrarisc-pci-clk-v2-0-2f3fb6fba66b@ultrarisc.com>
- <20260706-ultrarisc-pci-clk-v2-1-2f3fb6fba66b@ultrarisc.com>
+To: "Jerome Brunet" <jbrunet@baylibre.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, linux-rtc@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260706-a733-rtc-v4-6-f330728db3d3@baylibre.com>
+References: <20260706-a733-rtc-v4-0-f330728db3d3@baylibre.com>
+ <20260706-a733-rtc-v4-6-f330728db3d3@baylibre.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 10:05:23 +0000
-Message-Id: <20260706100523.E93261F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 10:06:35 +0000
+Message-Id: <20260706100635.E5DC61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> From: Jia Wang <wangjia@ultrarisc.com>
->=20
-> Require the DP1000 PCIe controller nodes to provide clocks and
-> clock-names, using the standard DesignWare clock names "core",
-> "dbi", and "aux".
->=20
-> Fixes: d9ff07f45955 ("dt-bindings: PCI: Add UltraRISC DP1000 PCIe control=
-ler")
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Inconsistent rate calculation between `determine_rate` and `reca=
+lc_rate` due to division order.
+--
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+commit 39f872462c04ad724c3624b152234160de56a47e
+Author: Jerome Brunet <jbrunet@baylibre.com>
+
+clk: sunxi-ng: div: add read-only operation support
+
+Add support for sunxi-ng read-only dividers. This will be
+useful to the a733 oscillator detection logic.
+
+> diff --git a/drivers/clk/sunxi-ng/ccu_div.c b/drivers/clk/sunxi-ng/ccu_di=
+v.c
+> index 62d680ccb524b..d1c8c7baa12dc 100644
+> --- a/drivers/clk/sunxi-ng/ccu_div.c
+> +++ b/drivers/clk/sunxi-ng/ccu_div.c
+[ ... ]
+> @@ -84,6 +84,36 @@ static int ccu_div_determine_rate(struct clk_hw *hw,
+>  					     req, ccu_div_determine_rate_helper, cd);
+>  }
+> =20
+> +static int ccu_rodiv_determine_rate(struct clk_hw *hw,
+> +				    struct clk_rate_request *req)
+> +{
+> +	struct ccu_div *cd =3D hw_to_ccu_div(hw);
+> +	unsigned long val;
+> +	u32 reg;
+> +	int ret;
+> +
+> +	reg =3D readl(cd->common.base + cd->common.reg);
+> +	val =3D reg >> cd->div.shift;
+> +	val &=3D (1 << cd->div.width) - 1;
+> +
+> +	req->rate =3D ccu_mux_helper_unapply_prediv(&cd->common, &cd->mux, -1,
+> +						  req->rate);
+> +
+> +	if (cd->common.features & CCU_FEATURE_FIXED_POSTDIV)
+> +		req->rate *=3D cd->fixed_post_div;
+> +
+> +	ret =3D divider_ro_determine_rate(hw, req, cd->div.table,
+> +					cd->div.width, cd->div.flags, val);
+> +
+> +	if (cd->common.features & CCU_FEATURE_FIXED_POSTDIV)
+> +		req->rate /=3D cd->fixed_post_div;
+> +
+> +	req->rate =3D ccu_mux_helper_apply_prediv(&cd->common, &cd->mux, -1,
+> +						req->rate);
+
+[Severity: Medium]
+Will this division order cause inconsistent rate calculations compared to
+ccu_div_recalc_rate()?
+
+The divider_ro_determine_rate() helper applies DIV_ROUND_UP() to the unadju=
+sted
+parent rate, and then this function divides that result by fixed_post_div a=
+nd
+prediv.
+
+However, ccu_div_recalc_rate() applies prediv to the parent rate first, then
+calculates the divider rate, and finally divides by fixed_post_div.
+
+Since the Common Clock Framework requires determine_rate and recalc_rate to=
+ be
+mathematically consistent, could this discrepancy cause rate mismatches or
+warnings for clocks using a pre-divider or fixed post-divider?
+
+> +
+> +	return ret;
+> +}
+> +
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-ultrarisc-=
-pci-clk-v2-0-2f3fb6fba66b@ultrarisc.com?part=3D1
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-a733-rtc-v=
+4-0-f330728db3d3@baylibre.com?part=3D6
