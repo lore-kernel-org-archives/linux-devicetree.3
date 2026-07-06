@@ -1,308 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4756413E41A;
-	Mon,  6 Jul 2026 21:18:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE113D75A1;
+	Mon,  6 Jul 2026 21:23:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.209
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783372681; cv=none; b=LDLqGjtIdqt4lOKwqf/ncuzdj3fCQ2442HL6G68/KXKV8vuDycBcLZ0GK5s1NKdokWoKyO62/3JpR2uORBmqL4TaaoC8YQMIX9Mj/3n64t2o5wCwVqkOFTIZgV5zSdKJsYW/D5MJWMbsmER+yKu118oqd11TOnebU3XsfhwP29I=
+	t=1783373033; cv=none; b=VbqIdGfCc7TyriGWUGch18CCLboJvAr3WVSy1rw3RVRF7trhchO01yNqwT6Tatx4eMBFSq/FdRzSzHnfOBA4HKyQMnTFNrwuvrgteBVX1ur1hlACkjuWSzupjVkiTRuLYMclgJ88Y9InBXY75PZjV6mZj+mCtZlt2Kskefgsuh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783372681; c=relaxed/simple;
-	bh=dUrVwf6sxM0WYLSAl8BD81UkcOLL+/VNdM2nC3LJC9U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EvEmYR87tbpkpQA2Xp+h2akwle9aA3tRdQ1c48LSIFwjPOmZFpv6+mcZLNSb9+ay3DM6CXRIjhCZm14jCLHoEmZqK4/OO1Vu/WOoZZHb//4qKoIMqR88pOl/QMzQSy/Fchow8AzxylhcyJSWL2Sbgyu4mIMySnv1ymg2JTqFoUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YAiLRBrJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783373033; c=relaxed/simple;
+	bh=T7UcQj8BAP3IsWSNgITYkVAZ1RR2i6YGU6gGEqrKQgA=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=g4ONHGQhTxNbD7BwE8UZIBjho1nwTeMLieEj2X75kN3s1OW9SfUiIncqPr6RtcaVgAV6zP/THMlxqGWiVM2TZK7OcoBjb/X9J2SxP80GGgst9FFPca7KFLOqiUMSJ9XYPdSYKE2WhSPgkR7GHDUQwXSd9AvGTzdBuwhTYKzqZXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=b08t4qOa; arc=none smtp.client-ip=203.205.221.209
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YAiLRBrJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB4C1F000E9;
-	Mon,  6 Jul 2026 21:17:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783372679;
-	bh=IMgAEZjEAi6W+nH1kAbf0Mzc2XZ8oemMNCH3Pk07aT4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YAiLRBrJ5aOY7MV6h2chdS59GH46UEmARdzLooWz422XxYFjCGs7KT+Xuo3A2S5KS
-	 IoUlfLUJQbFG4jooagNXTQila+bHiv/bI0+nevrQs+ZQKDz2DEM1m4Fl3F/spjhuo8
-	 4WhdI5pwx8wem7ESTFFQq/MjpQK6lv+WU6kS9FhzVINCj+6AcU78NHJYYALm6UkhLI
-	 r/LhszC5rOEfVQtJBcVGWZIhZoVnghOfLdgJ/DADyYVKcOPOE8IGy+u6SqjPC/9X2Y
-	 K+wBws3bNwyuudEUDR/VcGwfvdn8a8yu7pptqX5fDSfRHbjqLSLHdGZGooeFtBVV7s
-	 zZab5yX2RoW0g==
-Message-ID: <958c9287-b606-497b-9de5-e73984b0f70b@kernel.org>
-Date: Mon, 6 Jul 2026 22:17:56 +0100
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="b08t4qOa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1783373020; bh=THuhvPYxoUVY1fyXHYjm6ybRklyzNtpCS1SAJayw/aE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=b08t4qOa7amCbULr5F/3FGFixSA4T61dvvpWpmi1mVEROAvwOlsSZa2a3j/0TyWeH
+	 trsNnOoo1xCn++fv2a+CO9fM17ngxKJsBw/syfR98Uv2Syx8TARAaWKZZpE/py3xsV
+	 gM5a8EdUIjjsC5uzG8dWPMF0UKmXt02i2jW2U5uI=
+Received: from AERO17.taila7786d.ts.net ([220.171.158.107])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 5E484855; Tue, 07 Jul 2026 05:23:36 +0800
+X-QQ-mid: xmsmtpt1783373016tfy6yz64c
+Message-ID: <tencent_BF5741F8151925AFF7A3026460204C2B3108@qq.com>
+X-QQ-XMAILINFO: No7DFzN00JnRdexOUT7KJ1j5GhTH/EFzHkmfx68KkdRR8eNizRxrO88bjOgmX/
+	 iXmRjNojHUFtGyoDpyQWfTWCfqFHSaPh7H/LczkVVW+/CfPiVFnj/hya0BdudIZEJHyVe/JKLR5G
+	 jr6F4lYn+XcAT/Bom4HFp7seyMXfXXEPHDl3E3sL+JgDVxEtsJX0P+8lZR1Glsh6dvcvkK1QuRcV
+	 ymOf/kcoFINQEMlMMmSSvM/AmAgqq4um+grCW+UnzIDneXsD0Ai4Zpcfnq47wnFIN34iyURhu3A6
+	 tjdq9oN1YpdVjZMikHMANXHqk+fIxNC345Wkm8IDxAigxef72y2RnhQZMl1FlKMQZpHMJ0SkLcD5
+	 HlkpGd6kRpXI1O07dPZfLVekrDBqsTjZGnKuiNwm8G2tyTwfykKAFXRgfJrW3qZNQLEwv9+qfOI0
+	 5ngDCAMxb3yZTw8xFs7gjWIaybSVjix0+Ee+frgensIW51SGZ/vMcsYYbSBDVo8fcy/LbYvbe9NP
+	 WWb2wV6CHn3YNwSxiOGxRjGIrov6FISex49mIBQYIbnikRb92hOVnDP5vQJKMR97G9Ad+cSZRy9P
+	 lHKJyhnIOtuP0tW1OIgjFL/zNKmQ4XOlzbdXumquzGXZUXZyoohSEYgyat1DufZPQlawKerZbFFK
+	 jsEOiCE6t4RlWXqG5unHon0Uju/Yrr8Hz6drqBCev9EwGg8Ba6+EyENwSt/8h1JW88QtsTbOMX5J
+	 2tMLz4YEv8xoBZqfFZd8rFKDO5mYrw4TiXM6uo+rPDr9TiI2UygtOntp2MOclSUC5kM28xynsBKq
+	 ewzwo/ulaZ+dNHz7inyAv3pS/1+crWOb9+ziqK1aiC8ymEFlNtOFReV+5Ha5pL5mJHRK6z8s6CVa
+	 w2zGCmVPWsaUGL4NHl+J5kmURjadZvSPOkQrwXDBMoSz4DDjoLB7BJn6600YBaEi7nMx3+Ju5iBu
+	 cOS8W9LHOtXPEsa7VPjOTZMo05C8VN7Y1w9IbnQgEI0Pwkq89ur2O2jrmEKRcqTS/m0v/nKl4Q1V
+	 WSyrQSrU+pZxTWNFx9MbPS1NjK0JBcLg7udIIU/A==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Pufan Jin <2254650260@qq.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] arm64: dts: rockchip: Add EmbedFire LubanCat 4 board
+Date: Tue,  7 Jul 2026 05:20:35 +0800
+X-OQ-MSGID: <20260706212220.688032-1-2254650260@qq.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <1ac2d0f4-e027-4633-9d34-2709cb3e43ec@lunn.ch>
+References: <20260705135014.1004166-1-2254650260@qq.com> <tencent_6D311DC5F405B157049538DD5B080082A10A@qq.com> <1ac2d0f4-e027-4633-9d34-2709cb3e43ec@lunn.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] ASoC: dt-bindings: add the Qualcomm WCD9378 audio
- codec
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
- Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Luca Weiss <luca.weiss@fairphone.com>, Conor Dooley <conor+dt@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260706192229.144137-1-jorijnvdgraaf@catcrafts.net>
- <20260706192229.144137-3-jorijnvdgraaf@catcrafts.net>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260706192229.144137-3-jorijnvdgraaf@catcrafts.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/6/26 8:22 PM, Jorijn van der Graaf wrote:
-> The Qualcomm WCD9378 is a standalone audio codec IC found on SM7635
-> boards such as the Fairphone 6. Like the WCD937x/938x/939x codecs it
-> presents RX and TX SoundWire slave devices controlled by a common
-> parent node, so the parent binding references qcom,wcd93xx-common.yaml;
-> unlike those codecs it has three ADCs and three mic bias supplies
-> rather than four, hence qcom,micbias4-microvolt is rejected.
-> 
-> The slave devices enumerate with manufacturer ID 0x0217 and part ID
-> 0x0110, hence the sdw20217011000 compatible. The TX slave carries five
-> device ports (ADC1, ADC2, ADC3, DMIC0/1 plus MBHC, DMIC2-5) and the RX
-> slave the usual five (HPH, CLSH, COMP, LO, DSD).
-> 
-> The -codec suffix in the parent compatible follows the existing
-> qcom,wcd93xx/pm4125 family compatibles and matches the compatible
-> shipped by production devicetrees for this chip.
-> 
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-> ---
->  .../bindings/sound/qcom,wcd9378-codec.yaml    |  76 +++++++++++
->  .../bindings/sound/qcom,wcd9378-sdw.yaml      | 122 ++++++++++++++++++
->  2 files changed, 198 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-codec.yaml
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-codec.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9378-codec.yaml
-> new file mode 100644
-> index 000000000000..32554541b279
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-codec.yaml
-> @@ -0,0 +1,76 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/qcom,wcd9378-codec.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm WCD9378 Audio Codec
-> +
-> +maintainers:
-> +  - Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-> +
-> +description:
-> +  The Qualcomm WCD9378 is a standalone Hi-Fi audio codec IC with three
-> +  ADCs, three mic bias supplies, headphone/earpiece/line outputs and
-> +  MBHC. It has RX and TX SoundWire slave devices; the control registers
-> +  live in the SDCA control address space accessed through the TX slave.
-> +
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +  - $ref: qcom,wcd93xx-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,wcd9378-codec
-> +
-> +  qcom,micbias4-microvolt: false
-> +
-> +required:
-> +  - compatible
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    audio-codec {
-> +        compatible = "qcom,wcd9378-codec";
-> +        reset-gpios = <&tlmm 162 GPIO_ACTIVE_LOW>;
-> +        vdd-buck-supply = <&vreg_l8b>;
-> +        vdd-rxtx-supply = <&vreg_l7b>;
-> +        vdd-io-supply = <&vreg_l7b>;
-> +        vdd-mic-bias-supply = <&vreg_bob>;
-> +        qcom,micbias1-microvolt = <1800000>;
-> +        qcom,micbias2-microvolt = <1800000>;
-> +        qcom,micbias3-microvolt = <1800000>;
-> +        qcom,rx-device = <&wcd9378_rx>;
-> +        qcom,tx-device = <&wcd9378_tx>;
-> +        #sound-dai-cells = <1>;
-> +    };
-> +
-> +    /* ... */
-> +
-> +    soundwire@3210000 {
-> +        reg = <0x03210000 0x2000>;
-> +        #address-cells = <2>;
-> +        #size-cells = <0>;
-> +
-> +        wcd9378_rx: audio-codec@0,4 {
-> +            compatible = "sdw20217011000";
-> +            reg = <0 4>;
-> +            qcom,rx-port-mapping = <1 2 3 4 5>;
-> +        };
-> +    };
-> +
-> +    soundwire@33b0000 {
-> +        reg = <0x033b0000 0x2000>;
-> +        #address-cells = <2>;
-> +        #size-cells = <0>;
-> +
-> +        wcd9378_tx: audio-codec@0,3 {
-> +            compatible = "sdw20217011000";
-> +            reg = <0 3>;
-> +            qcom,tx-port-mapping = <1 1 1 2 3>;
-> +        };
-> +    };
-> +...
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
-> new file mode 100644
-> index 000000000000..a46938338f90
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
-> @@ -0,0 +1,122 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/qcom,wcd9378-sdw.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm SoundWire Slave devices on WCD9378
-> +
-> +maintainers:
-> +  - Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-> +
-> +description:
-> +  The Qualcomm WCD9378 codec has RX and TX SoundWire slave devices.
-> +  This binding is for the slave devices.
-> +
-> +properties:
-> +  compatible:
-> +    const: sdw20217011000
+On Sun, Jul 05, 2026 at 05:11:58PM +0200, Andrew Lunn wrote:
+> > +	/* The board has 1.5ns delays on RX lines; TX delay is provided by the MAC. */
+>
+> That is pretty unusual. How is this RX delay done?
 
-Interestingly this same codec with same compatible is wiredup
-differently on compute devices like Glymur but only with one slave,
-rather than tx and rx. This is how the codec works in SDCA mode.
+You're right to question this, and I apologise -- the comment was
+inaccurate. I re-checked the board schematic and both TXC and RXC
+have ~2ns of trace delay added on the PCB (annotated as
+"TXC / RXC : delays 2ns" next to the RGMII bus). So neither the MAC
+nor the PHY should add any internal delay.
 
-So these binding would need some room to accommodate those changes.
+> Ideally, you want to the PHY adding the delay, not the MAC. 99% of
+> rockchip boards get this wrong, they have phy-mode 'rgmii', and
+> {tx|rx}_delay properties. And i tell developers to swap to 'rgmii-id'
+> and remove the delay properties.
+>
+> With the PCB adding some delays, you board is slightly
+> different. Please drop the tx_delay and adjust the phy-mode so the PHY
+> adds the delay.
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  qcom,tx-port-mapping:
-> +    description: |
-> +      Specifies static port mapping between device and host tx ports.
-> +      In the order of the device port index, which is adc1_port,
-> +      adc2_port, adc3_port, dmic01_mbhc_port, dmic25_port.
-> +
-> +      WCD9378 TX Port 1 (ADC1)             <=> SWR master Port 1
-> +      WCD9378 TX Port 2 (ADC2)             <=> SWR master Port 1
-> +      WCD9378 TX Port 3 (ADC3)             <=> SWR master Port 1
-> +      WCD9378 TX Port 4 (DMIC0,1 & MBHC)   <=> SWR master Port 2
-> +      WCD9378 TX Port 5 (DMIC2,3,4,5)      <=> SWR master Port 3
-> +
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 5
-> +    maxItems: 5
-> +    items:
-> +      enum: [1, 2, 3, 4]
-> +
-> +  qcom,rx-port-mapping:
-> +    description: |
-> +      Specifies static port mapping between device and host rx ports.
-> +      In the order of the device port index, which is hph_port,
-> +      clsh_port, comp_port, lo_port, dsd_port.
-> +
-> +      WCD9378 RX Port 1 (HPH_L/R)   <=> SWR master Port 1
-> +      WCD9378 RX Port 2 (CLSH)      <=> SWR master Port 2
-> +      WCD9378 RX Port 3 (COMP_L/R)  <=> SWR master Port 3
-> +      WCD9378 RX Port 4 (LO)        <=> SWR master Port 4
-> +      WCD9378 RX Port 5 (DSD_L/R)   <=> SWR master Port 5
-> +
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 5
-> +    maxItems: 5
-> +    items:
-> +      enum: [1, 2, 3, 4, 5]
-> +
-> +  qcom,tx-channel-mapping:
+Since the PCB already provides the required clock skew on both
+directions, for v2 I will switch to:
 
-Do you need these channel mapping(both tx and rx), are they different to
-what slave ch-map is?
+    phy-mode = "rgmii";
 
+and drop both the tx_delay property and the misleading comment.
 
-> +    description: |
-> +      Specifies static channel mapping between slave and master tx port
-> +      channels.
-> +      In the order of slave port channels, which is adc1, adc2, adc3,
-> +      dmic0, dmic1, mbhc, dmic2, dmic3, dmic4, dmic5.
-> +    $ref: /schemas/types.yaml#/definitions/uint8-array
-> +    minItems: 10
-> +    maxItems: 10
-> +    items:
-> +      enum:
-> +        - 1  # WCD9378_SWRM_CH1
-> +        - 2  # WCD9378_SWRM_CH2
-> +        - 3  # WCD9378_SWRM_CH3
-> +        - 4  # WCD9378_SWRM_CH4
+I also need to correct the cover letter: the PHY on the shipping
+board revision (20241026) is a Realtek RTL8211F, not a JLSemi JL21xx.
+An earlier revision (20240221) used JL21xx, but the current hardware
+uses RTL8211F. The cover letter and binding commit message will be
+updated accordingly in v2.
 
-What is this enum imply? channel mask? or ch-index?
-> +
-> +  qcom,rx-channel-mapping:
-> +    description: |
-> +      Specifies static channel mapping between slave and master rx port
-> +      channels.
-> +      In the order of slave port channels, which is hph_l, hph_r, clsh,
-> +      comp_l, comp_r, lo, dsd_l, dsd_r.
-> +    $ref: /schemas/types.yaml#/definitions/uint8-array
-> +    minItems: 8
-> +    maxItems: 8
-> +    items:
-> +      enum:
-> +        - 1  # WCD9378_SWRM_CH1
-> +        - 2  # WCD9378_SWRM_CH2
-> +        - 3  # WCD9378_SWRM_CH3
-> +        - 4  # WCD9378_SWRM_CH4
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    soundwire@3210000 {
-> +        reg = <0x03210000 0x2000>;
-> +        #address-cells = <2>;
-> +        #size-cells = <0>;
-> +
-> +        wcd9378_rx: audio-codec@0,4 {
-> +            compatible = "sdw20217011000";
-> +            reg = <0 4>;
-> +            qcom,rx-port-mapping = <1 2 3 4 5>;
-> +        };
-> +    };
-> +
-> +    soundwire@33b0000 {
-> +        reg = <0x033b0000 0x2000>;
-> +        #address-cells = <2>;
-> +        #size-cells = <0>;
-> +
-> +        wcd9378_tx: audio-codec@0,3 {
-> +            compatible = "sdw20217011000";
-> +            reg = <0 3>;
-> +            qcom,tx-port-mapping = <1 1 1 2 3>;
-> +        };
-> +    };
-> +...
+I will collect the remaining reviewer feedback before sending v2 and
+will re-test the link on hardware with the corrected phy-mode before
+posting.
+
+Thanks for the pointer to ethernet-controller.yaml.
+
+Pufan Jin
 
