@@ -1,174 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E542F3600
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 17:09:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB9A3019D8
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 17:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783357750; cv=none; b=Ja/5Dc3vR6VYP/QCSebmfpkq8Ya2MxDpD6iQnQP4keXVwqbYmhFAJzMsvWer2hukCWuYZO9tzTcXWX1iQLdthfRh6jkZsVLIJ7Z3Qog7sNZsfF7fl00nADxt8PCTQOZHMVmg+30y/DFBysiTCh37F6UzNvLzl7eovqD64UoQkzQ=
+	t=1783357841; cv=none; b=eVp+0BFLwUW+4EK04dChLq4JvDBnR2mchOdHDqVkJs/PV8uRjy/JQw0cH9XSzgi5GgrwU/VszkJqF8RkOihyUL2fOMkfGXTO0J+e/2hKkAdZfF1eTPYmOg0qdEIavlLlm/ppwsi0aZajLBI/PX2GU57pmTkDtU0OzD35XDZOTFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783357750; c=relaxed/simple;
-	bh=G31djdIAA6URrmnGa7RmvFd2u2dmwUmzhajEN5sOLIA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GaYivty5+Wf2bPy0EFgYDrfRH/jWwguGNOodjSHKfbOKl5crFZFp4ZeBu8u0ZZsWLQ1petXX9kY2ZbdsoA+BFcKrLshbqX0CdSbcsUZQi8XoVPlJnkLi+720CwLP96M2oTlSerFMRBJh5DvTWUqHfQEd9Z2b3p2ydasBWE0j294=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oxx72mog; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783357841; c=relaxed/simple;
+	bh=YwUdG1I8kJNunEWTpdhFYSiUn8LDq7cMo60LuGY0n18=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZQ69Fi/6+5YSsjDgy8WRUAMJgyo8yv+bIm335GKxGrrgp9vAhxhkkin8i+okmx1dBJPJ1aXynkC50o3SNANQozZY4S5GGUnbaekwJvNOSDcwV5W5nwHmTCI24+wNl3YllwHdcufL1X05FFAoiVvh5vFkUQlQedFl0UukPIAF1SI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=juxdu8pD; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oxx72mog"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81FC31F000E9;
-	Mon,  6 Jul 2026 17:09:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783357747;
-	bh=ropOOXGyC7IpjcyCSUNiDWXLjJMntSLZfEkFt8Vlqzs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Oxx72mogBghHDkEfO1uBh1jiY5GxagySaCrXtGG3vzUzylL6vZOqoYKYyJ2awWHLC
-	 k6z1PEy7LoUJK90rt/39tWxvg8MwG0BNsf+ZPjBzF9k3V1EsGxuZZzM/rB8yA89Fl4
-	 dQsafrLmb2dD4Xi8JBuLDRURmBkTfCEq8HfRQH59AUB6yjnJCSlv8E2iusZLhtzh8d
-	 SLTxnCXKEZW5Haw05ZCQjnfgdySb3MgYpe7yQQgRVAbF5zAxmsqc7MS7fN3xV5bkXs
-	 5MB0D0B6WCw/IA+ERJ3wvq6SYPmMGyor30/fjBeA54264Px8mqXLx/l4cJbpUMvqds
-	 KGWqtLx8IZ1Nw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/6] iommu/arm-smmu: Add interconnect bandwidth
- voting support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bibek Kumar Patro" <bibek.patro@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260706-smmu_interconnect_addition-v3-2-afdca0125a65@oss.qualcomm.com>
-References: <20260706-smmu_interconnect_addition-v3-0-afdca0125a65@oss.qualcomm.com>
- <20260706-smmu_interconnect_addition-v3-2-afdca0125a65@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 17:09:07 +0000
-Message-Id: <20260706170907.81FC31F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="juxdu8pD"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-493bb510ce4so24959315e9.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 10:10:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1783357837; x=1783962637; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=YwUdG1I8kJNunEWTpdhFYSiUn8LDq7cMo60LuGY0n18=;
+        b=juxdu8pD2AEmX4JXz9DmYETSYkWMa2bZGpCVvCKoJPK0ZGAv0548w+WplHh7m/xasa
+         bfV0SwHv2B92WnWJ32KyM0OP6NVYfND0ksKrqHMgBoTFOxk6T8Lhx+PfiKf+BECSLJJ1
+         HmS7AD61p5N2ox3/Hqc+UcXvX+b68NyJ82/1yTiXBJ9usnVgyMKp/syTnSUNBrjHhhGi
+         yTSbB5hbbiDbqaDKuTdy2/x0XuhB9x44yOOxXaKGSdrie/3I3Ul2LgiZ2OzRabueWhFx
+         PM+BPeNQ6Q7rNG7Bsw0eeaDRJnYNc8+RAbA9roZVZeGaPooeVsgxepIL5ziMkYJA8/J0
+         qV4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783357837; x=1783962637;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=YwUdG1I8kJNunEWTpdhFYSiUn8LDq7cMo60LuGY0n18=;
+        b=K2bl3kD3hmsfbLtH+xhj/alNdoeqs4O9hac44GC1J75Sj3EcDZfAgweClevPjl7y9I
+         91zhwsAKoILqZ7rT2UiXp6T0QZY5vz8KYw3OpTrolSjMZgKKCpMWYwypfNy5XV9Rmgz2
+         UytTlsZNaVkI8gpbPkr7dElZR2frsaiqr9oPC1SS1ATBr9F8rtvoPKlzLjcjv+xt1Mz1
+         BbdVZcKTiNr9RwTmTJRRjtixavlStTh/FRftla9RGSM5NRiLk7I4NnxXJaMsqF+Ko2VY
+         lbUWjKV9HHL16DpBkHG01A+WpjX4W8WTZE7aDz0IS+QnN1cr6I1t5beZBO5yPDeBeFZZ
+         xGNA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1GgLgNZTFix+DriVWA9M2Sv4+TP8sLz558P66wRhUqyIjVkWFixvnsmSsj2WRfAPws/jJHNjT/eID@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzd8eAxaMrphfSf4gp+yhlEOsIi6HMuzQn08T7u1lBHWTgyfSI3
+	JrzuFj8wtqzjfjS6Y1kd7FDv/DaXnB/7PSsRE0lics+Rah/U9Si+0fFX/kG8sBNLJWg=
+X-Gm-Gg: AfdE7cnig1MyqWjOhUho2UzT+Q1WLdyD8pV30tt072TUlCKaAFP7hOOrDgvnKeNmRmY
+	Le1ueyjIXY3nXU66z7O8QXF4uK+PTwgRUPS25n1Ulv58hgQFerZohf+jmTJPk+8debxcFj6C8f4
+	8HbJe/YO0vNPCm3UoT3k0k8Mqv800yLiuuj+4xEe2OgnNMYFzM5Kb9+v+cZlNCgf3MOVQyF8Npt
+	8NpGLb9hiUZmKXhmpGtAgDzD2PlLWODwuw0q3wVnXpEbUtlpgFAsx1Y0Jf0fQPQaxwY+vitaIHO
+	i3UyMZMREZpuwE8XHxkQoZNuGj0E+9/o+UoEBz1HKnwlQttLQf8Z9/VMsFqbzDg3XxzNX8kkJ6O
+	tpjsxX/EsCEaMSTKfAN16k9W/baeWd6OlvYGW3pIMLQulrhmw+u+fhOSLqZrVhbUNoSvLcDepjM
+	yqQWMjOshYwjJ5nWm/9iaEuyDSRDVXE1NmGPH9H0Ssk8ydNqBhTR5aNCmTbLo3tGdKyQjlxiS8A
+	9w=
+X-Received: by 2002:a05:600c:548d:b0:493:c478:8744 with SMTP id 5b1f17b1804b1-493df0644a7mr17176475e9.18.1783357837297;
+        Mon, 06 Jul 2026 10:10:37 -0700 (PDT)
+Received: from localhost (p200300f65f47db0404eb41111570ffdc.dip0.t-ipconnect.de. [2003:f6:5f47:db04:4eb:4111:1570:ffdc])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-493df703391sm6037585e9.0.2026.07.06.10.10.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 10:10:36 -0700 (PDT)
+Date: Mon, 6 Jul 2026 19:10:34 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Vinod Koul <vkoul@kernel.org>, 
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>, 
+	Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com, Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, 
+	Romain Gantois <romain.gantois@bootlin.com>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
+	Christophe Roullier <christophe.roullier@foss.st.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Radu Rendec <rrendec@redhat.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, Drew Fustini <dfustini@tenstorrent.com>, 
+	linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org, linux-mips@vger.kernel.org, 
+	imx@lists.linux.dev, linux-renesas-soc@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, sophgo@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Subject: Re: [PATCH net-next v12 2/7] phy: qcom: add the SGMII SerDes PHY
+ driver for SCMI systems
+Message-ID: <akvhUwQ_FFSJYICA@monoceros>
+References: <20260706-qcom-sa8255p-emac-v12-0-e3ab1ecf2901@oss.qualcomm.com>
+ <20260706-qcom-sa8255p-emac-v12-2-e3ab1ecf2901@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hya7dxqb4rmwvjro"
+Content-Disposition: inline
+In-Reply-To: <20260706-qcom-sa8255p-emac-v12-2-e3ab1ecf2901@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
 
-New issues:
-- [High] If `smmu->impl->runtime_suspend()` fails, `arm_smmu_runtime_suspen=
-d()` returns the error to the PM core after clocks have already been disabl=
-ed, leaving the device logically active but physically unclocked.
-- [Medium] Inconsistent power sequencing between probe and runtime PM regar=
-ding the enablement of clocks and the interconnect bandwidth vote.
+--hya7dxqb4rmwvjro
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH net-next v12 2/7] phy: qcom: add the SGMII SerDes PHY
+ driver for SCMI systems
+MIME-Version: 1.0
 
-Pre-existing issues:
-- [High] The use of `devm_krealloc()` in `qcom_smmu_create()` leaves append=
-ed struct fields uninitialized, resulting in random hardware configuration.
-- [High] Shared interrupt handlers access SMMU hardware without verifying P=
-M runtime state, and runtime suspend lacks `synchronize_irq()`.
---
+On Mon, Jul 06, 2026 at 03:20:17PM +0200, Bartosz Golaszewski wrote:
+> +#include <linux/mod_devicetable.h>
 
-commit ca13a0dc53feec15c5946623eccfe70dcf798821
-Author: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+Please only include those <linux/device-id/*.h> that you actually need.
+I'm actively working on deprecating <linux/mod_devicetable.h>.
 
-iommu/arm-smmu: Add interconnect bandwidth voting support
-   =20
-On some SoCs the SMMU registers require an active interconnect
-bandwidth vote to be accessible. While other clients typically
-satisfy this requirement implicitly, certain corner cases (e.g.
-during sleep/wakeup transitions) can leave the SMMU without a
-vote, causing intermittent register access failures.
+Thanks
+Uwe
 
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/a=
-rm/arm-smmu/arm-smmu-qcom.c
-> index e2c914fccd6fc..5133d3ab023a2 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+--hya7dxqb4rmwvjro
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[ ... ]
+-----BEGIN PGP SIGNATURE-----
 
-> @@ -691,6 +738,12 @@ static struct arm_smmu_device *qcom_smmu_create(stru=
-ct arm_smmu_device *smmu,
->  	qsmmu->smmu.impl =3D impl;
->  	qsmmu->data =3D data;
-> =20
-> +	if (is_adreno_smmu) {
-> +		ret =3D qcom_adreno_smmu_icc_init(&qsmmu->smmu);
-> +		if (ret)
-> +			return ERR_PTR(ret);
-> +	}
-> +
->  	return &qsmmu->smmu;
->  }
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpL4YcACgkQj4D7WH0S
+/k57CAf/UgOJNneAcYY3lQuZ+RhwSluKHlS9kU+LP6KfWURj/Pj78uMbougI/MWm
+NOPHFAV0gOZPyox4TK4XImoVNCHq9wWJVtMM0UMCguoEBhrqgoeV/Esik9YncvIc
+INlZjmDSd0r0OJd9oMZmIM7O1eIZxLQugbLTCT2WK9eW0OCT+20CmmtgHzGHZ7eU
+krIfDqpfq0wJOa70OZmh/lowgwbJIjabcxyyCGiY0Scvf4F31ClocQmot5e6gabR
+OcwHOulxqkUKBtOVZtPrt5lRsawYjY+ZslpAnnZvlrbrqmj2M9IuVyQGMqEW6kkC
+CFP1TQBoEVajey5oRSMzdQ2ZlvM/wA==
+=Sskc
+-----END PGP SIGNATURE-----
 
-[Severity: High]
-This is a pre-existing issue, but I noticed devm_krealloc() is used in
-qcom_smmu_create() without passing __GFP_ZERO. Does this leave newly
-appended fields in the struct (like qsmmu->stall_enabled) uninitialized?
-
-When qcom_adreno_smmu_write_sctlr() later checks
-if (qsmmu->stall_enabled & BIT(idx)), could it read uninitialized memory
-and unpredictably enable stall-on-fault behavior?
-
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/ar=
-m-smmu/arm-smmu.c
-> index 0bd21d206eb3e..a27804e15738c 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-
-[ ... ]
-
-> @@ -2189,6 +2189,14 @@ static int arm_smmu_device_probe(struct platform_d=
-evice *pdev)
->  	if (err)
->  		return err;
-> =20
-> +	if (smmu->impl && smmu->impl->runtime_resume) {
-> +		err =3D smmu->impl->runtime_resume(smmu);
-> +		if (err) {
-> +			clk_bulk_disable_unprepare(smmu->num_clks, smmu->clks);
-> +			return err;
-> +		}
-> +	}
-> +
->  	err =3D arm_smmu_device_cfg_probe(smmu);
-
-[Severity: Medium]
-In arm_smmu_runtime_resume(), the interconnect bandwidth vote is
-established before the clocks are enabled. However, in this probe
-sequence, clk_bulk_prepare_enable() runs just before this runtime_resume
-callback.
-
-Could this sequence inversion cause hardware instability during probe if
-clocks are enabled without the required active bandwidth vote?
-
-[ ... ]
-
-> @@ -2309,6 +2329,9 @@ static int __maybe_unused arm_smmu_runtime_suspend(=
-struct device *dev)
-> =20
->  	clk_bulk_disable(smmu->num_clks, smmu->clks);
-> =20
-> +	if (smmu->impl && smmu->impl->runtime_suspend)
-> +		return smmu->impl->runtime_suspend(smmu);
-> +
->  	return 0;
->  }
-
-[Severity: High]
-If smmu->impl->runtime_suspend() fails here (for example, if icc_set_bw
-returns an error), the error is propagated to the PM core. The PM core
-reacts to a failed suspend by leaving the device in the RPM_ACTIVE state.
-
-Since the clocks were already disabled by clk_bulk_disable() right above
-this, does this leave the device logically active but physically
-unclocked? Could subsequent hardware accesses then trigger a synchronous
-external abort?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since the driver requests
-IRQF_SHARED for its fault interrupts, shouldn't synchronize_irq() be
-called here during runtime suspend to wait for any in-flight shared IRQs?
-
-Since the interrupt handlers (like arm_smmu_context_fault()) do not use
-pm_runtime_get_if_active() to verify the device is powered before reading
-hardware registers, could a shared interrupt firing while the SMMU is
-fully suspended cause a crash when it accesses unclocked hardware?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-smmu_inter=
-connect_addition-v3-0-afdca0125a65@oss.qualcomm.com?part=3D2
+--hya7dxqb4rmwvjro--
