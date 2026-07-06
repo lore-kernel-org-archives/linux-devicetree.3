@@ -1,33 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3106140D595;
-	Mon,  6 Jul 2026 09:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 200B541DEE4;
+	Mon,  6 Jul 2026 09:21:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783329612; cv=none; b=oruaS8Ro23CCgu4gZrgz0KTbx50gwuaAiuGvUqvdYjOWK5ygBrajfCCIg8rhkI3i6F7a264fDWWkSiVLzH5zSO+OPZQZ6DD0Dt2mXGZMo1osND+Gk5Ndd+rRsrYxkN7iEDhw3gf2oGcXPM3FmkQbeQUdIGEaImBw/bBX2yGzaeI=
+	t=1783329696; cv=none; b=XGpQ4uo8UHEPG31NyqduDw9+2RMpdSEgS9yL2ZGMj3rPoCB+gJfJtBwZClmloEjPMZr4wBsdKCAfcFxiLYVMc6ET6y0y6quO8+/gjnIxC1F+XSBeBWwPP/vWSLHAuRl/hwymj8L4jEO7YC1+fe2XBoP7WyiFEJaxGl6D/YwsCYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783329612; c=relaxed/simple;
-	bh=O/zE4312VPCXdypUYJsfTTOHLEdQ2OMCnUnzj03zKuc=;
+	s=arc-20240116; t=1783329696; c=relaxed/simple;
+	bh=1JBo9aYBrCOqV4k9LD/HWHclWEQxNqoysZ2Aob1Jdtk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p0KGEyt2p4f6NqEND7N6p7xnkie/WNNZsEZDR/+vjKUoryuW85Dphre+UJwL5Clrps8dNA/W8HaB+ApIie3TsXBt0v1trebWuPXjXYINQ6O1rW10lP/gPS3kvmPfiM7+9EHohxU2UlHuC0JlSHbUqdLjSd58nfBSC1sEsppR7q0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BhnwX4Wz; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Z43QRkCt3vy2i1jYkZ0pLNt+twh9pfNel3k0wHQGuiDPzPTzWP9Emtj/puNFQRtoHczkZDnE0FY9Vz/E22ta2v3B1BSZY+5syWnFCxPunWKlnMOwpy/zKPX06tGfV2/jPnB/p5tJrB8/dvnS4xojMKpIfAJHGnOU2aPY4dPXqk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bhpNUUzz; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BhnwX4Wz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7621F00A3D;
-	Mon,  6 Jul 2026 09:20:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783329606;
-	bh=NykGe/8JY6fX6uvL4ys2ldDvJJxIOLRiDyxOlhbB2m0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BhnwX4WzwMPCbDteDW4AJKnC7YEFbKto5dto8dIZyC3swvLBlzr2UfBa0GyV9kQPx
-	 iJDxmYbJEjNM4n9riJCO1+9Soxo1Tez6n0/w+c139PjRtwME4empn953scRUDfXY9x
-	 ckCQyt1/7tJSFw7SEdNUTnzva5tFc077jts1LSvbPbq1ejXig5fL4TsNOqoDpQ6Ikl
-	 Yjmvm0vDNdergQzqg/UVIQIlY6X9VYbOM7nQlvD93EpTSD0CwQjhh0rVLqBG/jSXuu
-	 VHH+tHfFYuWvBobuubD4apE56G1+mXb43oscUFFv6HUUj5OgNjm46UfroPakedDhCc
-	 WDLOg3fHza9TA==
-Message-ID: <23580f8f-ba25-4dd7-a2d3-f2df9bc7303d@kernel.org>
-Date: Mon, 6 Jul 2026 11:19:59 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bhpNUUzz"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B61E228C7;
+	Mon,  6 Jul 2026 02:21:27 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CEDE33F7B4;
+	Mon,  6 Jul 2026 02:21:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1783329692; bh=1JBo9aYBrCOqV4k9LD/HWHclWEQxNqoysZ2Aob1Jdtk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bhpNUUzzt7h988FqRrP93aumvnNVwYOtonMg08GWB5J4D2QYAtvsZbkUt66scOHwj
+	 ixJ3LsVaTnTKR2mM8yIrdRGyh0Di9+GPvIAxUO0+LvWPjK0YNmPtGZuJoVtJB7DLf9
+	 E7alh2RhRaJMc+GFTWlk490rDd51ivOycSXaDojU=
+Message-ID: <97a674a3-4833-4aa6-a9a2-3ab5472ee4b3@arm.com>
+Date: Mon, 6 Jul 2026 11:21:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,96 +35,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] arm64: dts: qcom: shikra-cqm-evk: Enable display
- and add ili7807s panel
-To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
- Nabige Aala <nabige.aala@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260706-shikra-dt-changes-v2-0-56fcd1659ea4@oss.qualcomm.com>
- <20260706-shikra-dt-changes-v2-2-56fcd1659ea4@oss.qualcomm.com>
- <7815e3ac-30c7-4564-9a7a-6a1ecb9278c8@kernel.org>
- <52b7ee6e-bd99-4555-8a49-6cdde1331714@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <52b7ee6e-bd99-4555-8a49-6cdde1331714@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 3/4] arm64: dts: allwinner: a523: add IR receiver node
+To: Justin Suess <utilityemal77@gmail.com>, Sean Young <sean@mess.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20260702214750.3428694-1-utilityemal77@gmail.com>
+ <20260702214750.3428694-4-utilityemal77@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260702214750.3428694-4-utilityemal77@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 06/07/2026 10:52, Arpit Saini wrote:
-> Hi Krzyszto,
-> 
-> On 7/6/2026 12:03 PM, Krzysztof Kozlowski wrote:
->> On 06/07/2026 08:04, Nabige Aala wrote:
->>> +	lcd_bias: regulator-lcd-bias {
->>> +		compatible = "regulator-fixed";
->>> +		regulator-name = "lcd_bias";
->>> +		vin-supply = <&vph_pwr>;
->>> +		gpio = <&tlmm 151 GPIO_ACTIVE_HIGH>;
->>> +		enable-active-high;
->>> +		pinctrl-0 = <&lcd_bias_en>;
->>> +		pinctrl-names = "default";
->>> +	};
->>> +
->>> +	vph_pwr: vph-pwr-regulator {
->> Why so inconsistent names?
->>
->> Anyway, drop the node, not used and not controllable.
-> 
-> As per the schematics of LCD display Bias driver , vph_pwr is used as 
-> vin for that.
-> 
-> So I created vph_pwr , if you want , I can drop that in next patchset.
+Hi Justin,
 
-But vph_pwr gets its own supply from main power, which gets from socket,
-which gets from building wiring, which gets from a power plant... Drop
-the node, as I said, it is redundant in DTS.
+I checked the numbers below against the manual, they match up: MMIO base 
+address, interrupt number, clocks and resets.
 
-Best regards,
-Krzysztof
+One thing I figured is that the A523/T527 contains another CIR-RX 
+instance, in the "CPUX" domain. That's used for instance on the 
+Avaota-A1. So we need another node describing this instance.
+
+Some more below...
+
+On 7/2/26 23:47, Justin Suess wrote:
+> The A523 has a CIR receiver in the RTC power domain, clocked from the
+> R-CCU, with its RX signal available on PL11.
+> 
+> Clock the module directly from the 24 MHz host oscillator; the driver
+> selects a /256 sample divider on this SoC, giving a sample period
+> close to the legacy 8 MHz / 64 configuration of older SoCs.
+> 
+> Keep the node disabled by default; boards with an IR receiver can
+> enable it.
+> 
+> Signed-off-by: Justin Suess <utilityemal77@gmail.com>
+> ---
+>   .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 19 +++++++++++++++++++
+>   1 file changed, 19 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> index ca6a16807049..5e46c4b1ee61 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+> @@ -927,6 +927,25 @@ r_i2c_pins: r-i2c-pins {
+>   				allwinner,pinmux = <2>;
+>   				function = "r_i2c0";
+>   			};
+> +
+> +			r_ir_rx_pin: r-ir-rx-pin {
+> +				pins = "PL11";
+> +				allwinner,pinmux = <2>;
+> +				function = "s_cir";
+> +			};
+> +		};
+> +
+> +		r_ir: ir@7040000 {
+> +			compatible = "allwinner,sun55i-a523-ir";
+
+As mentioned in the other email, I think we can use the fallback 
+compatible, so add this here.
+
+> +			reg = <0x07040000 0x400>;
+> +			interrupts = <GIC_SPI 167 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&r_ccu CLK_BUS_R_IR_RX>, <&r_ccu CLK_R_IR_RX>;
+> +			clock-names = "apb", "ir";
+> +			clock-frequency = <24000000>;
+
+As said in the other email, I think this property is misnamed and 
+misleading, just drop it, and let the driver select the sample rate.
+
+> +			resets = <&r_ccu RST_BUS_R_IR_RX>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&r_ir_rx_pin>;
+
+There is another pin which carries the R-IR-RX signal, on pin PM8. In 
+those cases we do not add the pinctrl properties to the .dtsi DT node, 
+but let each board add it, right next to where they enable the IP.
+So please drop those two lines from here.
+
+Cheers,
+Andre
+
+> +			status = "disabled";
+>   		};
+>   
+>   		pck600: power-controller@7060000 {
+
