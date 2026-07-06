@@ -1,215 +1,280 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950F83F1ACA;
-	Mon,  6 Jul 2026 09:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783331144; cv=fail; b=jFesAoip9Q7/aHlGHaMRfYoQQkn5v7h1WjPfGzr8CVjxRokK96CMSevx33JPu2E9vykKHBoq8hMIq3Ea+JeYzP407t0JU44G+E+R10jBlDOUSDaYkgAlDcDdH8DKpaGWVPKzFMhDAXTkO6pbSCiRvCD47uHBubXOVLTlDAgJHpE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783331144; c=relaxed/simple;
-	bh=2ZFIxU1QFljDWeQAvXUokqqYFpgtG0HZxesEKEVRxBc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=SXoBF89yH9/phupZDrT4QCo55Pd0T6M2VeZlq8QhUA1FmjfQLjrBd5dmEtGiBIro74JONNiOIWm1WUGoqlafuOegbemOw+73D9mUGScSoYs7dXkdCEkEk3dymp7XopKxf+KEzb+Cf+S2L5Feew73cwKZasvQxyv91vMc9g+1AD8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=dDvANXax; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=FDTWUyKf; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98418477E4B
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 09:46:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783331166; cv=none; b=JJu7LgjyHpYLBhtyWFYu/wCbbkrkzpbDX6jT65brWR0Z7zPEqs+lZMD1nnXdujB75lk14/k+pzL3aaFKfs86tGANDsk0P6I3I920K83pEZfu5p21iCJJNlvBRKqWLVET9IAiN7cZK0Z/dEeyXQr/xqlzBDrOmM9BoB25WAmB6GI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783331166; c=relaxed/simple;
+	bh=zDw0ABLub0kgFm+IA9IE6NYszy3Pq95vEScWSA+dnhs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LsqyfmXF0VWmZObSRP29DRzQ34MJakMnHIlO7EEmm26WHAn2kZB7Cgq85tLcGD92/nAWFVSL5MEOkNxKfp1AGdpdDUggOFbJusj8rhouyHN2mzgkRrov5BWOsZPSHWup8mBfXYc+IbZTtu2lb1lA0Hk0N9fGslTWQTyqm9knJlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m7HKNewx; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="dDvANXax";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="FDTWUyKf"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66696qJW321638;
-	Mon, 6 Jul 2026 04:45:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=O0WPRCFQgXjM1Rhmf/WjzWWxEXNRy28Tha66G1O6k
-	Gc=; b=dDvANXaxdVQXuvCuEszD126IYttsAeb/kW0YmnRyEJ+OXBYa3HuGY4D+o
-	yW8bSSx8tl/nvZrypIf8k0U51vtizoAmvKBF8O9RinVWqFcXiKnl3IzJaL6iU9pH
-	hMIIPpdlkZd1YgSA/AgkA9iW9YVTF97mR4MMHKD7O+0Bky30kdRZz5I7oc+1sOoe
-	xAwGc+kxL1z66naeZHVli+pcAcuYJRUwxGU4oEUrZyx6HLw9R5kGCQye7J4eOupb
-	u9JRu/c8Og3maFEzRSeUl8vtxRirtdtrCWxK+aeT8RhNVW6LysxUOw1H9dVxsXp/
-	1jpwzCPpCl8FwgzesQigUsLQdxXWQ==
-Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010012.outbound.protection.outlook.com [52.101.46.12])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4f7hakwn5v-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 06 Jul 2026 04:45:15 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qv07f2ttLmJDI/1mHmc09sLmMiNfymRHsHlmMeBigc4CyuiB5A05NbFUBm6hkBR6NHReBwlQK//9t7AThEZuXcxTC3Ez0EH1kROYaBrTQZObNfNavR8woZ2KxypbhWg0l9wjYwoK/f2nPIyCIQyIzi3z80jwDnnSeYONZmd35z60xLVSkVoccg5yuKexwiV6YhGHhO/wtDvMLpkXXfV4/SBGzP8oR057R6gczPLzvQ8xFtQ72rQPKnuApOOJKGp35T34igdPWolfMsuIIdEmDBAE6tMWJfdvfJI56AdTYyjax3x0EU87rehP220YbC4rA7tVTdgP6N0JAPnRg8dBBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O0WPRCFQgXjM1Rhmf/WjzWWxEXNRy28Tha66G1O6kGc=;
- b=H+sGn1bzsl6L9x8tjrSF4le/kczQpOh7bOfsEjcPUtmJsruVe4RRHTMFr3zgs0Y0FSCPUnftB3jhyONFlcTUIjluFoKLOY99lQpbDEGdQOZs/p/iN/mX8iuYf9P6+LdSItPAZnIEh9IHMeFMLV7fK9ctnAUByesqaC8Mnedht+lKoeFk1fuh+kzi8UbQW/dPSITF1GJczzjbgWGZA/sG0DtPN+qfImjUmf3XVj9u6sZndyG09rf4FW37MPDq2mMU/izaKCjnp7Hhvxsun4OqDuSfK0noLxvf+MZmsxrjXvEEX9kGxGFP9jWu4fWOcZOOxI/Ua++WIDRWpOpjlwOwng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O0WPRCFQgXjM1Rhmf/WjzWWxEXNRy28Tha66G1O6kGc=;
- b=FDTWUyKffGTVo9Hs2oj89WCwae31ucSWDFUObwQ6WWI/GpjV5maIoBvwC+npsHl4XDzm0DDhanyP0JD3WDQyAtuTUQXiCylaBzjMFomkRXrowHSN3f+gEbQwaLTHG6ubZMwD+meuRKwTQwqW2o1Hd9KHHFMjEAv/HEAgxjkISM4=
-Received: from CH5P222CA0006.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::27)
- by PH7PR10MB6033.namprd10.prod.outlook.com (2603:10b6:510:1ff::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
- 2026 09:45:11 +0000
-Received: from CH3PEPF0000000E.namprd04.prod.outlook.com
- (2603:10b6:610:1ee:cafe::3a) by CH5P222CA0006.outlook.office365.com
- (2603:10b6:610:1ee::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.13 via Frontend Transport; Mon, 6
- Jul 2026 09:45:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- CH3PEPF0000000E.mail.protection.outlook.com (10.167.244.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Mon, 6 Jul 2026 09:45:09 +0000
-Received: from DFLE201.ent.ti.com (10.64.6.59) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 6 Jul
- 2026 04:45:08 -0500
-Received: from DFLE213.ent.ti.com (10.64.6.71) by DFLE201.ent.ti.com
- (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 6 Jul
- 2026 04:45:08 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Mon, 6 Jul 2026 04:45:08 -0500
-Received: from [10.24.51.219] (abhilash-hp.dhcp.ti.com [10.24.51.219])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6669j1vI1577284;
-	Mon, 6 Jul 2026 04:45:01 -0500
-Message-ID: <9d8b9ab7-2a71-4ea2-a991-21079a0bfd48@ti.com>
-Date: Mon, 6 Jul 2026 15:15:00 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m7HKNewx"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493c486f012so11419795e9.3
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 02:45:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783331158; x=1783935958; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/ujYMuu1OWSnbiAmz8ZNXJGcWE93aVNWAdKELmlJkJw=;
+        b=m7HKNewxSSGBmTzR2gmUA2UURsCEGjhjxl1YFk1AshqSNelnllxGkY9DWE9k73czMD
+         XfdGaggCpBHapMRsd5bsQVOcypEYJE5tmIqjfTIJdZK/d4rs89r8JnmFoKCFYC3osd1c
+         K0zPADhcB6719Lnm1TKCturvMyH+4pQsm706814f8lj5Tt7fhyOzcYcAueVPGNvFJDjx
+         wPlNlDpkKwoNJ6lgj3huhQmXXSaYtG/MkvcXP4zEt/KmXiIk0VJf3HtrV+OEswkN2Y+V
+         cf/Jm5wOQ1P7aR9H84U45ytMcquN66X2OtAfjIh5qS2Rm+sj/apFuRa5gHoCQhI/TC7Q
+         JyJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783331158; x=1783935958;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/ujYMuu1OWSnbiAmz8ZNXJGcWE93aVNWAdKELmlJkJw=;
+        b=ZSIPK9cuzhpKQebVwAe6qIaNcarTs1lCrR12+rThuSDclXy876lVGVvPw6nlRMxe1+
+         3pspLQowXgFGkTnWV8Iv6JHysamaHVcPAPTwHyb/gLyAmrdj3wJpO7jAs7WNPIqqO4eB
+         OC5OGsLsM4Hy6xzqf2F1dYW1qaFO2ILus4+63ZLv6dbX8RDrZ7UaOMK+kUDsaG5ELKPR
+         bT+u61CESAB+UzBK21JZfnQ82HgWzwa5vYbElFlE13zTDjYUUazok5AsgcrQIQSQpxq4
+         eibyTilx6uburghGkEhdw61StWUStvuKkR0VfCS9Dk7w6i2QD0qInj0HuP67TrUZwqyB
+         a0Og==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/K5wZE97R7R8hR40vmTOZk02/kMAUeM97w1yais02A3iaR32HlzAvwBjsKrEEJKn5DELkR1rJYXXO@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyjfoq6klHAZ6Gtb8rmg6fOnyOa/Cu/erFwJ14MwOU+O6wiBZQ9
+	BBPTcfnDXNRopiYYnoGgsX5XDFwYUiZ2JDnP5c35OzZ+zWgwuFnERrhx
+X-Gm-Gg: AfdE7clttnLFNFcHLJrcwjUXdwzeM7IPHouZ4ewu5SBII67mKhAmQ/JBRqMmlUrD0S2
+	1j40W6n6lBvLl6Ld8ROE9TjuMy4svDftuJWWieuycmFW5RpiRHZaBU6s1WNsGWaoN1o3sI3rWsm
+	HGJLTMFdg0gj3Fh36Rfrd03huKEhXozVOJ828sokNYBkCJrqh5jjLbnZJgKRWNtJGvF9HrJCsRh
+	nhGaLxZfsWtErG8EXPw+TC0bUs4h7AcwAPUdWmtqF5YLSBi7JLqGpHkqnGG6w9jWW1X6ellUhKs
+	kLVT1zEPVf46qJdL6J4DbsShC5HI5HWOWRbe+VV2evSJuZoJE8xvRQ45BF1KRnrLS0yMt634oOK
+	lHX6ZNKXKbuZnJwWhg5nYCkQ2sZRIfhzA2JVOq3pXCn4Wa010AuvF/N05qYJSi+XT283WNcOOjd
+	fj/ZTj
+X-Received: by 2002:a05:600c:848c:b0:493:c862:3f2d with SMTP id 5b1f17b1804b1-493d11d3bf6mr110310105e9.5.1783331158069;
+        Mon, 06 Jul 2026 02:45:58 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493c637bc21sm645014455e9.7.2026.07.06.02.45.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 02:45:57 -0700 (PDT)
+Date: Mon, 6 Jul 2026 10:47:02 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v6 12/16] iio: frequency: ad9910: add RAM mode support
+Message-ID: <akt3i_YxG-jF3IdJ@nsa>
+References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
+ <20260618-ad9910-iio-driver-v6-12-79125ffbe430@analog.com>
+ <20260703040544.08a8ea5e@jic23-huawei>
+ <ake_YWfvVC9RQ3wu@nsa>
+ <1493eed5-5bb8-4a2c-8f2d-8b4bc5dde157@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 18/18] arm64: defconfig: Enable DS90UB960 deserializer and
- DS90UB953 serializer
-To: Krzysztof Kozlowski <krzk@kernel.org>, <nm@ti.com>, <vigneshr@ti.com>,
-        <kristo@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>
-CC: <Frank.Li@nxp.com>, <s.hauer@pengutronix.de>, <kernel@pengutronix.de>,
-        <festevam@gmail.com>, <andersson@kernel.org>, <geert@linux-m68k.org>,
-        <dmitry.baryshkov@oss.qualcomm.com>, <arnd@arndb.de>,
-        <ebiggers@kernel.org>, <luca.weiss@fairphone.com>,
-        <michal.simek@amd.com>, <sven@kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
-        <r-donadkar@ti.com>, <devarsht@ti.com>, <u-kumar1@ti.com>
-References: <20260702093123.1048575-1-y-abhilashchandra@ti.com>
- <20260702093123.1048575-19-y-abhilashchandra@ti.com>
- <1a4a7967-e1d0-41e5-9c53-5f91f4e13ef0@kernel.org>
-Content-Language: en-US
-From: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
-In-Reply-To: <1a4a7967-e1d0-41e5-9c53-5f91f4e13ef0@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000E:EE_|PH7PR10MB6033:EE_
-X-MS-Office365-Filtering-Correlation-Id: 135a44dd-45bb-494b-5a1d-08dedb434491
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|36860700016|82310400026|13003099007|18002099003|22082099003|56012099006|4143699003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	6rknFn6d0fyi9WTBkCtyaMUmNjQahK5izOHgQNgY5YWPQaxIdeBGvzt3K3wDV2qrlMFNdvk6fuYnG0dogW3enVsIenpcQNZSFTri4fn+JRWiGVBrz6+kvTr+e1fJdNEzcf1xL2n9HNjnr67mW9JvWsWn7MC5AvlzDEaORyKVs4dY7t37vDZOYp8vXToUqXLltj8+LgKv2m4DGHd2Qjz0/YqhQJTFENAsxcE0HBuiNuBkY/PI1TiBke69QwzPAD78cieJprL6JqGYSsX981t3EQc9tJHPbmeTMaADjMJWPMvwsp6rs5/2RsL100R33z2/bzV5JpugYyXcYJUK7dhd3PBh8GaAKr3WaGZ8V0dButlbJjYe8dCjH4umzrt05ZtyfiG8wNJpGrAPXhRL5p0tqphBQaFN37BZl1/YPd5oBPyn6Q2t0TfzFY3T90cVqkA0AilA0O88rXX8cThl+D96vLGaFHsul5PbYlT6C4F5DgwYEardOfdne9l97OTa3EzOG9FgqHAgxX4LUDjqdMD23gRb0uFuPYZ1juEJXeQCThNu+dEijnghMSWy19lIzll16gcHdtDUKXCRoDX1hLfOlsXhoq6SBBNvqRgSEicoRPCreidOqEKY0ijnvRpdE77PjLEVpJPxZJ1Xkx3mB9HF/W47PeGVMpkTl/mQsCAIG1y/F8X2bh1Vo6DMwt1sobHs3vUopfysRP4ygPW26TTz5g==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(36860700016)(82310400026)(13003099007)(18002099003)(22082099003)(56012099006)(4143699003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	oGDoHD+JChA9sJt0qpbx2t10ffoaCCK2lUs1UA5U3zeDya5rSbGTDkrbK+6DOghug/4bQ2jM/UXl3hiBRyAOBjLUtTpL0r7SncOuVWIlHTTw7Z0/u1e7+wGygdSB/k3woUB11UgXSzQMADRPeNyJKDx986k9OXqLif66/E+7RdaOd5bfP9ZmV5mSxclHzbeaeOI3ouvx7nRm0pGswbiMzf9W9zeXJ9bYZJsL0L8HJTk15kOLat6p9zH9E6GlXaKYyFqoroZ+Y6boJDBoymhsV76M9yxMhObZrZ7UtL8twYoKTm7ymBxCTLBvJj1FyBdThsej3NMuPMft25gtN/PFJFqXmCbrl2s/QUIHjVd6GtSTRS44eD4/FrU+ISC+hwDI2Kh5kFQcumRRxX6fp2El67VAQwxSRgjjhsUGsyyxmMcevNtJ9EopbNuPCBEgPYuJ
-X-Exchange-RoutingPolicyChecked:
-	CRKM7tTP0sBKYwFFcD45bmy20ZlLhiy1x4X0J+MWTmhXODERi7eQ9SAqcDYlqxGvYQdixs5EXQbu9tW/LQ+ObnKQb1qQOed1tZXB2t38i2Lr9xxYmd4dqyuPt1GBRzlI1Hzm8QT36RmTrx1RCzsdA9GlcLgY7iA2DmHsf67v52HMARjA31+r8pVLGvQGN5pOVOYRs7CVF9m4QJRvr2bHwJUcbwGZMRxAfm406JxftWOIax6To6krckSS+4dv/HYWsRWBQhj/5N2EZ8OScqtbPnbJivayjFITtWSmag26t3/7jnN4dofDldYd9gbqw+WCV9VLJxx2GBk1dO4zw8YjEw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 09:45:09.1870
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 135a44dd-45bb-494b-5a1d-08dedb434491
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF0000000E.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB6033
-X-Authority-Analysis: v=2.4 cv=BpatB4X5 c=1 sm=1 tr=0 ts=6a4b792b cx=c_pps
- a=QD3RM0NeKQHimiaxCRpEvg==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=jwouBfj2j3NM8CExmVVE:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=nre1ShAAXU8_lLh8bw4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDA5OCBTYWx0ZWRfX17B7UPOTjD+6
- 490X60cp39BU5954N29xYMe3iUOX+U5TdyIcsm3lFGYeRHQhfjVrMnoFZTUMi/fRLJowjvOzbi5
- bVbv5SYba6OFrbAkR7EZ5DYt7zw/arc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDA5OCBTYWx0ZWRfX5d4Zk+gAamCm
- ptFE89ZaxoWGmLTSO2g3zbR3zAkeh8Z8Rv0lxXtMX4EJelQj5a0ZfWrxJQ0mOICusWGFUy97c/N
- bGQLYejf3pAMQn2KWH9BcXSvR57c+fy9b82pi8Q1ytYdRlt1hs2skGNtvFt7Kwopo4wUt4r3Tnk
- n54vm9TPGvnabNcAF4vX3sluNoQSY/tkqph43oDI+3SPAQMhZYXnR6xcVPRQJUHTbtI3O/OHCUR
- cCC2LeUlHVcIcSMRB/cPE1iu/vpqPnENJR6SGARc9OxKK1CpCSdmFBc+TStZ3Hm/Y2KyYb+W/3y
- zdiVbQS+QHJpSfVg09RVDKBpAU7MOGrMZUEkN+NQlikiow+vyMqsKxZZ8vrv1QiHJdjujTSj8vN
- 1oWvrfsKxWQtCHw2Jc8F/UMRxqwqaJyxyvNeak8Nnj6HD1MRkYtMcmQNNeioK3GaL6q/Uhxoh4M
- yNkkFvUuRyHH2xfxXPw==
-X-Proofpoint-GUID: GXXyC9GlkB7rlxlnStWNtq57NADDGrtQ
-X-Proofpoint-ORIG-GUID: GXXyC9GlkB7rlxlnStWNtq57NADDGrtQ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-06_01,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 lowpriorityscore=0 clxscore=1011 phishscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060098
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1493eed5-5bb8-4a2c-8f2d-8b4bc5dde157@baylibre.com>
 
-Hi Krzysztof,
-
-Thanks for the quick review.
-
-On 02/07/26 16:24, Krzysztof Kozlowski wrote:
-> On 02/07/2026 11:31, Yemike Abhilash Chandra wrote:
->> Enable building Texas Instruments DS90UB960 deserializer and
->> DS90UB953 serializer drivers as modules.
+On Sat, Jul 04, 2026 at 11:50:35AM -0500, David Lechner wrote:
+> On 7/3/26 9:09 AM, Nuno Sá wrote:
+> > On Fri, Jul 03, 2026 at 04:05:44AM +0100, Jonathan Cameron wrote:
+> >> On Thu, 18 Jun 2026 14:27:28 +0100
+> >> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> >>
+> >>> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> >>>
+> >>> Add RAM control channel, which includes:
+> >>> - RAM data loading via firmware upload interface;
+> >>> - Per-profile configuration and DDS core parameter destination as firmware
+> >>>   metadata;
+> >>> - Profile switching relying on profile channels;
+> >>> - Sampling frequency control of the active profile;
+> >>> - ram-enable-aware read/write paths that redirect single tone
+> >>>   frequency/phase/amplitude access through reg_profile cache when RAM is
+> >>>   active;
+> >>>
+> >>> When RAM is enabled, the DDS profile parameters (frequency, phase,
+> >>> amplitude) for the single tone mode are sourced from a shadow register
+> >>> cache (reg_profile[]) since the profile registers are repurposed for RAM
+> >>> control.
+> >>>
+> >>> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> >>
+> >>> diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
+> >>> index 3fe97aa887c3..c4e179dda715 100644
+> >>> --- a/drivers/iio/frequency/ad9910.c
+> >>> +++ b/drivers/iio/frequency/ad9910.c
+> >>
+> >>> +static enum fw_upload_err ad9910_ram_fwu_write(struct fw_upload *fw_upload,
+> >>> +					       const u8 *data, u32 offset,
+> >>> +					       u32 size, u32 *written)
+> >>> +{
+> >>> +	const struct ad9910_ram_fw *fw_data = (const struct ad9910_ram_fw *)data;
+> >>> +	struct ad9910_state *st = fw_upload->dd_handle;
+> >>> +	int ret, ret2, idx, wcount;
+> >>> +	u64 tmp64, backup;
+> >>> +
+> >>> +	if (offset != 0)
+> >>> +		return FW_UPLOAD_ERR_INVALID_SIZE;
+> >>> +
+> >>> +	guard(mutex)(&st->lock);
+> >>> +
+> >>> +	if (st->ram_fwu_cancel)
+> >>> +		return FW_UPLOAD_ERR_CANCELED;
+> >>> +
+> >>> +	if (AD9910_RAM_ENABLED(st))
+> >>> +		return FW_UPLOAD_ERR_HW_ERROR;
+> >>> +
+> >>> +	for (idx = 0; idx < AD9910_NUM_PROFILES; idx++)
+> >>> +		st->reg_profile[idx] = get_unaligned_be64(&fw_data->profiles[idx]) |
+> >>> +				       AD9910_PROFILE_RAM_OPEN_MSK;
+> >>> +
+> >>> +	ret = ad9910_reg32_update(st, AD9910_REG_CFR1,
+> >>> +				  AD9910_CFR1_RAM_PLAYBACK_DEST_MSK |
+> >>> +				  AD9910_CFR1_INT_PROFILE_CTL_MSK,
+> >>> +				  get_unaligned_be32(&fw_data->cfr1), true);
+> >>> +	if (ret)
+> >>> +		return FW_UPLOAD_ERR_RW_ERROR;
+> >>> +
+> >>> +	wcount = get_unaligned_be16(&fw_data->wcount);
+> >>> +	if (!wcount) {
+> >>> +		*written = size;
+> >>> +		return FW_UPLOAD_ERR_NONE; /* nothing else to write */
+> >>> +	}
+> >>> +
+> >>> +	ret = ad9910_profile_set(st, st->profile);
+> >>> +	if (ret)
+> >>> +		return FW_UPLOAD_ERR_HW_ERROR;
+> >>> +
+> >>> +	/* backup profile register and update it with required address range */
+> >>> +	backup = st->reg[AD9910_REG_PROFILE(st->profile)].val64;
+> >>> +	tmp64 = AD9910_PROFILE_RAM_STEP_RATE_MSK |
+> >>> +		FIELD_PREP(AD9910_PROFILE_RAM_START_ADDR_MSK, 0) |
+> >>> +		FIELD_PREP(AD9910_PROFILE_RAM_END_ADDR_MSK, wcount - 1);
+> >>> +	ret = ad9910_reg64_write(st, AD9910_REG_PROFILE(st->profile), tmp64, true);
+> >>> +	if (ret)
+> >>> +		return FW_UPLOAD_ERR_RW_ERROR;
+> >>> +
+> >>> +	memcpy(&st->tx_buf[1], fw_data->words, wcount * AD9910_RAM_WORD_SIZE);
+> >>> +
+> >>> +	/* write ram data and restore profile register */
+> >>> +	ret = ad9910_spi_write(st, AD9910_REG_RAM,
+> >>> +			       wcount * AD9910_RAM_WORD_SIZE, false);
+> >>> +	ret2 = ad9910_reg64_write(st, AD9910_REG_PROFILE(st->profile), backup, true);
+> >>> +	if (ret || ret2)
+> >>> +		return FW_UPLOAD_ERR_RW_ERROR;
+> >>> +
+> >>> +	*written = size;
+> >>
+> >> I'd like a blank line here. Mostly to make that 'good' return more obvious.
+> >>
+> >>> +	return FW_UPLOAD_ERR_NONE;
+> >>> +}
+> >>
+> >>>  
+> >>> +static inline void ad9910_debugfs_init(struct ad9910_state *st,
+> >>> +				       struct iio_dev *indio_dev)
+> >>> +{
+> >>> +	struct dentry *d = iio_get_debugfs_dentry(indio_dev);
+> >>> +	char buf[64];
+> >>> +
+> >>> +	/*
+> >>> +	 * symlinks are created here so iio userspace tools can refer to them
+> >>> +	 * as debug attributes.
+> >>
+> >> Maybe worth a reference to appropriate ABI doc here (even if it is introduced
+> >> in a later patch)
+> > 
+> > I'm not so sure about these links. I mean, I definitely agree we should
+> > make it easy for userspace tools like libiio to be able to handle
+> > these kind of attributes but using debugfs is questionable to me. Pretty
+> > much because this is not a debug thing. It is a real setting for the
+> > driver so ideally we would be able to control it (using the existent
+> > tools) without enforcing one to mount debugfs (I know that most of the
+> > times it's always mounted but still feels wrong to tie "real
+> > functionality" to debugfs). 
+> > 
+> > Having said the above, some suggestions:
+> > 
+> > 1. Make the iio_dev the parent so that the attr name is just "ram" and
+> > it will be a subdir /sys/bus/iio/iio:deviceN/ram/.
+> > 2. Propose a new helper for the firmware_loader code so we can get
+> > struct device from struct fw_upload then we can easily create a sysfs
+> > symlink.
+> > 3. Name the attr as dev_name(iio_dev):attr so that it becomes
+> > iio:deviceN:attr_name.
+> > 
+> > Now that I think about it, 2. does not make much sense when compared to
+> > 1. And If I'm not missing anything both 1. and 3. can be sanely parsable
+> > from userspace (being 3. maybe a bit more reliable). And yes, both require
+> > user space tools (in this case libiio) to support a new type of
+> > attribute (firmware) but that is another problem.
 > 
-> Standard question: why... Use lore.kernel.org for past discussions.
+> I would say that udev should be used to find the firmware device from
+> userspace rather than creating symlinks. And you probably don't even
+> need udev if you already have the `iio-device:<ID>` value. The path
+
+Just one note. If you mean <ID> as the attr name the above will fail for
+multiple instances of the same device. That's is why a proposed
+dev_name(iio_dev) which I think it should reliable be iio:deviceN. 
+
+I guess N might change so anyone hardcoding it might have surprises. But
+properly done and we have a sane way to match the above with anything on
+/sys/class/firmware/iio:deviceN:<attr>/
+
+> is always going to be `/sys/class/firmware/iio-device:<ID>:ram/`. It
+> seems like the same amount of work for usespace to computer the path
+> either way, so might as well keep it simple and leave out the symlink
+> stuff.
+
+Yes, at least for libiio, `iio:deviceN` is already what we call the
+device ID so we can match fw attrs against it and everything after the
+last ':' is treated as the attr_name. 
+
+We just need to keep in mind that if a second user of this stuff pops
+up, we should add a new helper to enforce the ABI.
+
+- Nuno Sá
 > 
-
-After reading some of the past discussions (like [0]) on lore.kernel.org,
-I believe the question is, why we want these drivers to be enabled in
-defconfig, e.g. by saying which upstream board uses/needs this.
-
-And to answer that, the DS90UB960 deserializer and DS90UB953 serializer
-can facilitate capturing through multiple camera sensors on the J7x and AM6x
-upstream platforms.
-
-Through this series we are adding support for these on various upstream
-platforms like J784S4-EVM[1], J722S-EVM[2], J721E, etc.
-
-Hence we need these drivers enabled as modules in the arm64 defconfig.
-
-I understand these details should also go in to the commit message. I will
-update the commit message with these details in v2. Apologies for 
-missing that.
-
-Please let me know if you have any any further questions.
-
-[0]: 
-https://lore.kernel.org/all/394eea31-2573-4b9c-b6f0-0ac47780a285@kernel.org/
-[1]: https://www.ti.com/lit/zip/sprr458
-[2]: https://www.ti.com/lit/zip/sprr495
-
-Thanks and Regards,
-Yemike Abhilash Chandra
-
-> Best regards,
-> Krzysztof
-
+> > 
+> > - Nuno Sá
+> >>
+> >>> +	 */
+> >>> +	snprintf(buf, sizeof(buf), "/sys/class/firmware/%s/loading", st->ram_fwu_name);
+> >>> +	debugfs_create_symlink("ram_loading", d, buf);
+> >>> +
+> >>> +	snprintf(buf, sizeof(buf), "/sys/class/firmware/%s/data", st->ram_fwu_name);
+> >>> +	debugfs_create_symlink("ram_data", d, buf);
+> >>> +}
+> >>> +
+> >>>  static int ad9910_probe(struct spi_device *spi)
+> >>>  {
+> >>>  	static const char * const supplies[] = {
+> >>> @@ -1561,7 +1876,25 @@ static int ad9910_probe(struct spi_device *spi)
+> >> ...
+> >>
+> >>> +	ad9910_debugfs_init(st, indio_dev);
+> >>
+> >> Blank line preferred before a simple return like this one.
+> >>
+> >>> +	return 0;
+> >>>  }
+> >>>  
+> >>>  static const struct spi_device_id ad9910_id[] = {
+> >>>
+> >>
+> 
