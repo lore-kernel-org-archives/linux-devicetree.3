@@ -1,119 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF372F5491
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 17:13:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E53346A1C
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 17:13:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783358003; cv=none; b=EQuTuwIOX5yvZYUPX39duDznSiDX/iS7hs0fogvxZNDQ7pLbQikBuLyASBZjdGj1L7nXcRbc9zSyHrWzyrk7vapXl26eQRXnKdXtSbcslIk1Cg+T3qzoc0DsdIU75Y1u9gralinxr/Jvr+TBfMmnK2UZSph2pHEX353HG64NuB8=
+	t=1783358021; cv=none; b=m6uN0gURKCju7Vcrk+pBPQwtxzOhCsJi+ZMfQ2Vg4a0ElbPHO+M0A2u1GJIseaCN8Skzw6FCyE3TgFu6X23uRgMSw31NyZtUsltxttvco1Kba5UqniYADtwcDOHBhb+SYNd3cmjk/Vy9/KyI7ohgpneFRqwNYLUDQY0r+OX0oCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783358003; c=relaxed/simple;
-	bh=e6qWc66kU+xXDmvKGlirsKMaIbvc1QxArJkePbV+wf4=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BC0YR0O2PmSVhxDS5SW+eaaCgGZPTJgUQtCYrVt65UHB2SdW9nTO5fsajoXxtXiva1URuzFXPP4A5Ryg0WnftvIgBetdyoxx4JDx/2t3KxnhiFTslh0Xrxz2KGC5O3Lp5uKgw961JzEaeFqTf/3NG2puE7dhz58cA/gmRl7LNHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aUwJ1iel; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783358021; c=relaxed/simple;
+	bh=MCc729RJhXwcN6DQHcIMn7v24UelBx5SMI5SMzKcwRQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nZ60URad8OAG1nxOJ9j4TaV8+Q0MZ6YH4LTlAcH9zEWcE5ID17AAGKVlMgHvzka/XinIwRMjtcH+bmMle0PKql39AZgTpHCgJwc5U+rjJrSWFZ/rAkycvkY8WJ+nwyeLWoNESPQ9YOwYGpvowUoJWrePdfTItLZn5MKb8Xov3xA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=VPp/K7mp; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aUwJ1iel"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60D941F00A3F
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 17:13:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783358002;
-	bh=mpqsxHTdNQuABlRbSrSTXdX6rgBTyZ1QRwkSHQqkvs8=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=aUwJ1ielEp9fKqMoRpbf7+KlsAEkx1ItUo/4tUkjlvyTMT/NZIU/Sfs9aLmDyh/pU
-	 dws1njqufItlb4Ts99FlfeGkNaAmFAP7jmRVp9CFbufRmxNFLiMPUqN9dVeeQezBJp
-	 27WL0AcS7DIU9vkvih713YctIfY+JQ6QonKsU8skRLVL5z/6z3EAp4XBXQsVEryUe5
-	 hYHk5hc4FyjFw8sKxD7w8NaMdcn3Hn0U7HTHVjCh6VhngzLmp3012I/7OCSheRIjY7
-	 cDatDpx7O8gSH3cDoY+eDfHzEnfSJhGwNxBdfiyXteiz3VS3hxmUmZKRt3SHYb3CXI
-	 wA/fAxKf5T3GA==
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39af6402933so27299701fa.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 10:13:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrH7twanhbsLk5smORHVKMwkRIwv56i/UrETNuUZajvdBmVM/3I1wAPQeUK/Yyv0+LqCTiGwA9ZvEL8@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJ2qqVUziAdtcxE3ovzo1OS8ioq5AMMQFUPC6BDdlkiKd4JsCL
-	B3ijhndqKvi7uN7q1xqo+fjuzoyMOBZeHaT4uZipL3qgJotmTxJk9TUZO3c4q3jvA6XKbgclWFP
-	s+6FjjTJ3pIfCLoYiciJyIdoOi2dbgVnkuR9NCKo6qw==
-X-Received: by 2002:a05:651c:546:b0:39b:32b3:b31f with SMTP id
- 38308e7fff4ca-39c5fd2f09bmr3944171fa.5.1783358001073; Mon, 06 Jul 2026
- 10:13:21 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 6 Jul 2026 13:13:19 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 6 Jul 2026 13:13:19 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260706-busy-grumpy-limpet-c59789@quoll>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="VPp/K7mp"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-472326ca506so2185284f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 10:13:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1783358018; x=1783962818; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=MCc729RJhXwcN6DQHcIMn7v24UelBx5SMI5SMzKcwRQ=;
+        b=VPp/K7mpu7oCEV5wS9BkjoY+PcSrSVOlvvMuCd+yKet0r0lgrAauN9X7zyFriLlCUC
+         fdVZlV11MYTjaRhXu2wmxOGs4TKiQv1AKPtsAxQehxLdzcriW26UJJ6A3PL/4HwO1RZU
+         EN0miJgog40UbZtw7F0WnXmztiWIfi0WMbMVuDEBE5nMOHpnEQVtgdVrsYwBzvw6KtTX
+         997P3nl1MsANQeVRnfNbN8adC6GZpW6xN4PujZ3FMXSvbJ8+FBxs4t1QhNBhFvPZIRwj
+         bvKJUBnA5HhKOTV8UqfiMUwS+sHDc54cQCoOqj12wR94VToLrAJQ9pINNd0zqbF6c2O4
+         FyFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783358018; x=1783962818;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=MCc729RJhXwcN6DQHcIMn7v24UelBx5SMI5SMzKcwRQ=;
+        b=sNF3uIxuljuCfLIeOxuPvCXaqSZgUX9YMMLIHksD78KavYvX22jEz+56ZhrlURLh0M
+         Cz2J+B1KwVRJ4oINSqdpwoC0NzJsy4KWPyjMBkaFvN1kddRkl5i56qu2SYCUQOSKdxYQ
+         1d2DXLsmkmheAosQ9BaNTfvk6lmEllR0SYOT8otjTVqTK3q4IeZXjJt48o6o2NeZXA47
+         kAYbFqi3iUj3QFJ8hcdWwcWPqRnf9MIxKGVpv3Ad2DOzicptlOZd7Lnz9lnAhclCIP+g
+         jHI2dR9wAwNpqos58kq0IzUnHhgsV6IShuyzjaEJCwvqtXwUNFJXg2micfDNENnV8w4b
+         D7gA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqy+6UNhdhPFXOWVr0hShtHrpSSTVPA58TYzLq0siKf4QVVF3BWBoVKTXQGkTVqPHvdXpqKfwwRL5iQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMSj8Ik38V94Ts1w7RKJoUSQkK8RGFHwn8f/H82HFaxNyBXhz1
+	vg3ghNhAnOvDJfhf4Pj9Wyt+hvQ5on3uYOqnjidYY+CSbjwM4ldZ+AD5dtijV2JNL4o=
+X-Gm-Gg: AfdE7clEfww/LDrOhCS9kwscQeNBY/4KNdpsZ84SYFTLGLIMHYFgJd1QW1gcDtbdMnT
+	gg3ifD3EWN6UNpXDF0zTY4QUvueIGaMuaNo5EMvbuqM9vEO2cmiDsdK7g4zj+lRR9VCgb41mxfq
+	EwuFfq4P2YB1In1V+JjhbNZrCkF+Xcg7P0JElQMzy0Rk6QwfVw9dMzv7UEaYKxfI3sQqx+YFhiU
+	Ibb2LCwg1FBGyTNO8bomjTy1z9WQelFrZkCEScAj7zTH+10LU4hP2tDWI8ucxmXYbZjLMmsQIqz
+	o25dL11WslOd1T4U5AM/SEOS+f4Se89I7I6z27UE/Q7Q0P8m3ZgzERs+QCcscfJvNANYSrBQHLI
+	O3QMd1Oz+xi8tP3y8wULFoba2+OvYlRnrDboOuxs/B2e7JPdXIEqbnhR6g2s19ruh/TYZRnFCsk
+	B3ZLzlLZBL3LK+zDb1w8cHeP4EtQI0t9gdx5rJKK5wXj1kwc3g2BZl+EGjTMSjYUt5KN0YoYKj7
+	8zwveOioBJZQQ==
+X-Received: by 2002:a5d:4951:0:b0:46e:6210:ad4a with SMTP id ffacd0b85a97d-47de66678camr1240284f8f.5.1783358018039;
+        Mon, 06 Jul 2026 10:13:38 -0700 (PDT)
+Received: from localhost (p200300f65f47db0404eb41111570ffdc.dip0.t-ipconnect.de. [2003:f6:5f47:db04:4eb:4111:1570:ffdc])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47aa0960816sm25028351f8f.29.2026.07.06.10.13.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 10:13:37 -0700 (PDT)
+Date: Mon, 6 Jul 2026 19:13:36 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, bryan.odonoghue@linaro.org, 
+	vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com, mchehab@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org, 
+	konradybcio@kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 5/5] media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+Message-ID: <akviE-ANATfFPdYZ@monoceros>
+References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
+ <20260706071113.383215-6-atanas.filipov@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260704004408.2303468-1-shengchao.guo@oss.qualcomm.com>
- <b693a9d2-4f1d-4c17-8a63-99c7ac79ed41@oss.qualcomm.com> <20260706-busy-grumpy-limpet-c59789@quoll>
-Date: Mon, 6 Jul 2026 13:13:19 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Mcg-6XajFJCjTDgGACQ7YLGggw5TEtHv4QMEA=dFLOhTg@mail.gmail.com>
-X-Gm-Features: AVVi8Ce2TYLFYmgt3xidz5HirHvkB2ef9twCkJ6HFyZf4MtkHSN7YtUE_SSftbg
-Message-ID: <CAMRc=Mcg-6XajFJCjTDgGACQ7YLGggw5TEtHv4QMEA=dFLOhTg@mail.gmail.com>
-Subject: Re: [PATCH RESEND] dt-bindings: crypto: qcom,inline-crypto-engine:
- Document Nord ICE
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Dmitry Baryshkov <lumag@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-crypto@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	Harshal Dev <harshal.dev@oss.qualcomm.com>, 
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2f7b3wyhcc726iyd"
+Content-Disposition: inline
+In-Reply-To: <20260706071113.383215-6-atanas.filipov@oss.qualcomm.com>
 
-On Mon, 6 Jul 2026 08:54:22 +0200, Krzysztof Kozlowski <krzk@kernel.org> said:
-> On Sun, Jul 05, 2026 at 11:15:45PM +0530, Kuldeep Singh wrote:
->> On 04-07-2026 06:14, Shawn Guo wrote:
->> > Document Inline Crypto Engine (ICE) on Qualcomm Nord SoC.
->> >
->> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> > Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
->> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
->> > ---
->> > It was included in the Nord SA8797P DTS series [1] due to that
->> > the prerequisite changes were picked up by Bjorn for 7.2. Resend it to
->> > Herbert as the dependency is gone now with 7.2-rc1.
->> >
->> > [1] https://lore.kernel.org/all/20260526051300.1669201-1-shengchao.guo@oss.qualcomm.com/
->> >
->> >  .../devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml   | 2 ++
->> >  1 file changed, 2 insertions(+)
->> >
->> > diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
->> > index db895c50e2d2..d690eff2e86d 100644
->> > --- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
->> > +++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
->> > @@ -17,6 +17,7 @@ properties:
->> >            - qcom,hawi-inline-crypto-engine
->> >            - qcom,kaanapali-inline-crypto-engine
->> >            - qcom,milos-inline-crypto-engine
->> > +          - qcom,nord-inline-crypto-engine
->> >            - qcom,qcs8300-inline-crypto-engine
->> >            - qcom,sa8775p-inline-crypto-engine
->> >            - qcom,sc7180-inline-crypto-engine
->> > @@ -63,6 +64,7 @@ allOf:
->> >              enum:
->> >                - qcom,eliza-inline-crypto-engine
->> >                - qcom,milos-inline-crypto-engine
->> > +              - qcom,nord-inline-crypto-engine
->>
->> With below patch, we don't need nord entry here.
->> https://lore.kernel.org/lkml/20260702-b4-shikra_crypto_changse-v2-1-66173f2f28b3@qti.qualcomm.com/
->
-> Patch has conflict. This (Nord) should go after above one, with this
-> fixed.
->
 
-The other series still hasn't made its way upstream. This one's simple, can we
-queue it now and rebase the other one?
+--2f7b3wyhcc726iyd
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v4 5/5] media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+MIME-Version: 1.0
 
-Bart
+Hello,
+
+On Mon, Jul 06, 2026 at 10:11:13AM +0300, Atanas Filipov wrote:
+> +#include <linux/mod_devicetable.h>
+
+Please don't add new users of this header. Only use the
+<linux/device-id/*.h> that you actually need.
+
+Best regards
+Uwe
+
+--2f7b3wyhcc726iyd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpL4j0ACgkQj4D7WH0S
+/k59LwgAuTiKtFSft7ryJWgTp3oj8ijK3Ahhq+yQEbS4uMyOKNsstXY+Elk8JMCx
+FxyXJEnGG2j+ygfRTonPe5nJ+MVypDKFkgwAw+Hh7enMUP6zOm57qLiVXH7B7EvG
+PwFhKh58/IZjfVKTSQlqFg3+x2eC5YO9oYB+TdIxb8ZhWw1TPJAtJICLzcDQpZZC
+NKDKzgQvTq6/x4i9Gio1RGSOHDlqMgKVkcDOWXhVNzZa1aETjAX4GsfiPciZEv4Q
+MLhDaFZAj+kLgm6AjvvD4CM2/C2gBYXFXB7vHJBgVMBl6Mb/iJi/zltvGj069aHM
+5+sMK+vEVq0oT22WbjohX9omeLDU4Q==
+=WLCe
+-----END PGP SIGNATURE-----
+
+--2f7b3wyhcc726iyd--
