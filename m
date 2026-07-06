@@ -1,723 +1,127 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10254229DB
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 18:03:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BA4422542;
+	Mon,  6 Jul 2026 18:03:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783360997; cv=none; b=Ibq6kDaNQ4T4AO2gGq8nvaoY5FnJbUHhTuURGlDenhiWEqW+5iKyVcOq4M8U6bLBknWpFOOrbKIukhcwjX44GIh3MWzxDN1py3lLze30Rrc+kXfINMqen9t48OiMiZlDQKQP039IxDMVVv1cNEBw3lpZF/zKSRsgtLpu9Au6R5I=
+	t=1783361013; cv=none; b=U22qZ1mW3zLn9UUnSnSdTFp7xnu7rpJBsa962XZ9SrQJ6Vy46b+ZprL4KBDqEWYy8QNAXTSIE3VUU0CrXwqcdOyJWwWg6qP7ADXxSuOKXPknmgAS6Suz2xIhpz0g6OLDBC1eVtFyelEh0yVqOEwy7wpWa5kjRrJssaXlP1D1Vuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783360997; c=relaxed/simple;
-	bh=LdhjOdTRiwYN1T2j9SwCfs17Qi6jkgIysZsTMSeCB6I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YzDSaQ3yVXi+Uu83dsIpxt2aYIjbvu/BzrnnKMLZ2PsQNKAM7q9nqw17aM+T9WuabE0+NM9r4xXhEaQ2gSM0aoeLA6riOq2Moqxj0VMZDsxJO3+frwz2rtS5JsTB37xrQ1uNDxbmGF4TqdrqbHW7BK2jT1MLwdL6vIIIOznXR3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=giDj9PJ9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QwNME03A; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783361013; c=relaxed/simple;
+	bh=lc86k8LJPtnt1pVwLPrhPdn1daKMEwUiCJuv1fq0zWA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=k44E/SAyYKCe5fA0GMKk7sPYWpuJInsusOKPcTlq4vixl/+GkbFSltR2+LwckfpZV4+7N1ngPhqnShbo7vVMJ0BX6LQsqwp9uW2iPH9PJ/q5T4eRMWRutja/VX7rr/ClTbA5RV14AwPhGIN5IJ1ADiDwKn1iAYxKEFtUIPxZ/jg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a93N3rHn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="giDj9PJ9";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QwNME03A"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666FFIZl809958
-	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 18:03:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=Gt1vxrCSNrq7y97Hv08uirOBPw/48mufLTo
-	bNvyzlTU=; b=giDj9PJ9BabyIlHd/8JLoqHNzisAjKoD89j+xblWLHWKkuhKLfJ
-	taYJtwL+pERpKqRr8B40no+92AM7AFkIePyjq04RKbNpdF1MulaR0DthtZHnA64m
-	lNuwEul026dzZgo2CVW5+EUoRtL8edXYnKvPr4RQbV2+F+T10G/HqYYftbg7837m
-	wbpR2XWOM/rxC0Ul+5ugVl6ITXxmrcydZhHRLNfPlOACJDoWQCNg+TxBCusv/us1
-	w+Sz1M0zUqbOzYIMGCJkzrbspc0cvXMbFKK9SlKEq1mIZu4M4j3JDqCnb6GxaJAi
-	2GUHFpu3bzou24UcAznr5o1atnZqiW3i6Fw==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f88hsaqj0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 18:03:14 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5be0cfa2ebbso385515e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 11:03:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783360994; x=1783965794; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gt1vxrCSNrq7y97Hv08uirOBPw/48mufLTobNvyzlTU=;
-        b=QwNME03ArSqeGr4A+rRRizJTGQtrEMcxz1XtstjvuoX0muaESIpnYg4XcgARpIm7Z4
-         hx1FWsASobamPsYSAy5J2LG7U3pLau8Vr2oO3L90skTV/ysxSBr1Dui0QBB3oIBBADMy
-         yShh852TvPAk6GhJUsq90pzWUAAZlpMBY3TXG4rGPvbxjXBvPsbw0ejp5b+oTO7fnebV
-         j6Iokz1YEjwZFc0VucqjoyRrHzfaKdOTZn32bjlBXLom//6mmOhfmg7lNKBBQSRhXAW1
-         DxTBUYynVQgO5g+xGqufhJBY3s4aQ0nLFaMFAwOoq5XMSD9FBhBmaqUeD5b9R4/QBCk8
-         VPUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783360994; x=1783965794;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Gt1vxrCSNrq7y97Hv08uirOBPw/48mufLTobNvyzlTU=;
-        b=XlJ3lo3Ers6OWb9St7v7mHW0u+goLWPPdzTDIWGgkSQWA+yO8yoYJ7HxLhZRJCq4Lo
-         MD07nOqU7z9kYHSdJAqLqghAZl1Ob0AHAsWckPOG7YiC3nG9deWmv6I4aCDLGLdW1sq9
-         YTGcQkEoC55mekOOEIj2fkPLTSWDoVjjSjzK/cZA+2OTHKOqGw/fwBNXXOeNVtLzMfrt
-         x6gOKaRY8Vl8LvPi5diRSahsM43zInaDFX+5980KHeCh1S3Zm31rwcvToo3tmczzVDNg
-         6qZ380BCccfS02gbanPogfLulyrSo5wFf6p/mSUHFmXfJgG7MhB940M81oL341EPQS1F
-         uaxQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrckP9r4yJ0FBTK7TXb+NJ+0/9eO6IBOcAVmIf/zN7jdtFvPeSBL0v29s/9M8CDS1iy2vgME6Ntu/L3@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1tM0Euh7Z2t6Qtp6MaHeOsrspFHJtAIZtPhtGJSif3+DFyE0k
-	Zbonvsh0KFWJBB5R6RulY5TKutDpeH+TgGU/bZXGihIfUlMW03+qc5Vfd/W5CdF9wS6PVhbQ5tW
-	sae2ow8CcSHT1m/yvHz0Y2vsh/i3ogvXxux/QPJTKROclaxlSyg6+KqPAeL5+94b2
-X-Gm-Gg: AfdE7cm2TYmJZBbR92dYKj1+uZrT15M8a9lbY8fWJRl6JfH8DaRZaXvbezQVWiceN0I
-	rt0xho2Uyq0h4+hn/CwaFrK0ixzem2Th9Rpmed3MXQ+67J8zz0qIV3SgZudW+iaiPf2QuUDr4hW
-	TJikFWPcU42kxZ+rFou/f+3MuEcCX37fRzZKpLgW4mIEGNdLAyCQePTUMq10CRs3tP5kAAlottB
-	nYnXQa9fCRtYF4JHNHnpGdkXJgwM+wIT7XHWondSsZXDNo+3ZkhH3/USnW0Kbi2/R3b7TC3akpe
-	dgKt1LSg4A7lORALwViG1TqERJwc84cXl4rsie0H4PZMb6Y1DTu+bK5wG4pVVWHNy+ARTcWOZoB
-	qX/9WQB44KcdAzKR//OiQrTPgOAE=
-X-Received: by 2002:a05:6122:e44a:b0:5bd:c27a:dafd with SMTP id 71dfb90a1353d-5be89e1543amr904421e0c.3.1783360993858;
-        Mon, 06 Jul 2026 11:03:13 -0700 (PDT)
-X-Received: by 2002:a05:6122:e44a:b0:5bd:c27a:dafd with SMTP id 71dfb90a1353d-5be89e1543amr904332e0c.3.1783360992942;
-        Mon, 06 Jul 2026 11:03:12 -0700 (PDT)
-Received: from quoll ([178.197.223.174])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d780csm27356538f8f.11.2026.07.06.11.03.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 11:03:12 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-        Andrew Jeffery <andrew@codeconstruct.com.au>,
-        devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2] ARM: dts: aspeed: Correct indentation
-Date: Mon,  6 Jul 2026 20:03:08 +0200
-Message-ID: <20260706180307.635369-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a93N3rHn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AD811F000E9;
+	Mon,  6 Jul 2026 18:03:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783361011;
+	bh=lTT3WYy1RsizBvu2AujamAPkPp1IK1VWhyMe0S+EAQU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=a93N3rHnwZI/chozvKNqhJkoCc6VtpB6AV7dFv/qDsn3WJVZiZL2tHciYkNDVJ15X
+	 z0QFgG/UxU92RqfEEt/+lOdPoTLR1+guP27Dwe3dp1oFZOHvtCarU7xo3m2Dh/+h0i
+	 GJOnrPiSsO/zrnoY3R27FMWKiUnR+iIqbUNz/gEHcQ1A5VM0fRErNUd+qA499bN0Ex
+	 UL8NhSfjf/Jr4VUKFkiORNVyr3RfIW14yQv7DGqXkv2HQNMWCwppILzRXXMCbK9/Fy
+	 Q0gIrRrszTpJjf7I8YZ5zj4FLh93OGDXwy6a0OZHWZtaFCtfXTkzmOn40KKK36tjiG
+	 +i8ANxWBDVqew==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 12/12] rtc: rzn1: Add support for Renesas RZ/T2H and
+ RZ/N2H SoCs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: linux-rtc@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260706175138.12587-13-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260706175138.12587-13-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 06 Jul 2026 18:03:30 +0000
+Message-Id: <20260706180331.3AD811F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15384; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=LdhjOdTRiwYN1T2j9SwCfs17Qi6jkgIysZsTMSeCB6I=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqS+3bzaoCGnhqEtDlbcaXCaGjDv3ej/HylA87L
- 9qGEpCaeeyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCakvt2wAKCRDBN2bmhouD
- 1wVXD/0XwHSBVLnre+wUfDtHq73rhECaCtvpphs+di9tMlTnHNoGaUK79LZ6cyNfpeE7YlQ/hfV
- SS8yDulpkOmnV9EE8nDp3tfgFWmmjFcQWpOc2yS2DCd7FieT/VH1+AzY7fOuRyyfyjXshWQaGuK
- r+aziQbxvNlSAc124vLbX44DvsN9dVomyNIFc2llisb03yALRgm9w/K+ZT8jKfIxfneZou5r7IV
- 0h4yEXV4jfAzmicPci4wfbu/DTmTcYPZxanYa0FGSr45tXT/irdL72murxQRLkPbYl9yk+Hiamh
- +yxlj23yk0YJKHEzMSBYebr4Ay7SUpcsz+Nb/eCKAxNu5Y7nP2d9CH2yCcV7sHZJJ26Kwd6S1p0
- yPfWSSec7kHMElqFmbBGmvcdKYV4ZtoHFwUW5Ip0qJYHjxPsa73IMg1lwuTvgkPT5WIgH9C7G/y
- 4VsCktVQuNrLZERzhn1gqYYdYzr+kSv6DuuZj3zkGn4m55avw8B4aGREe6O8Mr22eqdkkWU1MDu
- +ftCZVUo5krjQopsXQWOEsF5+OHQrI/45qyrnpa2INwukNzYkYFj0OkkUlC4ylbFyT/IO7XkULQ
- +Xdu7Y/1j4QONfFjhcLvzbmgYqQYeWuPEDePg8/qkP/ePIln2vAU8VkRuUVYRAhRGlcuwGCfSAh sRDD2WMu6Cgnpwg==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: JuJSYHp28CXryuI1AZ1EHsKnuyKmydVG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDE4MiBTYWx0ZWRfX9owa57J0IrpA
- yvyiYHSKKGEowhRFF9vEMQInR2ALpM/EDRG4CRKGy+rtkCMRwtZ/fP1+qLG9HcAfxHi+3yYNiQ6
- 6D4XN77YXkiXxxaHxkJ5R9RUjuiY9DbAo+v0V9cIeA+LRxB4fyiVxLvaLSv8ma3arMEnlIZCZNQ
- 2aUo7yzlwDwJIBzashtZxnwB03gURK7+WAf/OvOWgnOzcDiUk1zR1B5mn42z5mkwuc5W4lKXelN
- 3hVi1th6r9161hbY8WstpunVbLVTgnDv9SUJWZUR/d5EsMW6Nt6rJuPXmWl1maH+rNVSpDgoDbq
- CjKg2+VUVE37wwUEtkwCazZk1YUmzKjqB52KtAukddhN9FcEuH2hLSM8Geg5NQa5uWA/KqSA4eX
- wpv9POQ0GkKK8gC0ilzf/bcmihI3s317VYe+tRobBb+NT1+1MDSJLoFotgMcyIOLyuf9qmRIl+1
- 4rZX6s7e2Lh0B3ZcxQg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDE4MiBTYWx0ZWRfX/5CrHmCtdvrB
- 3z714qjB+9TviflUfmEWEV2tSBH52GI50cDr4TiH4lC+qORdEVB6sp2qeA8EhXr+DVgFGfCABLB
- f3OYVgWfQRkMqteTZMutXyTtRmVPsgw=
-X-Authority-Analysis: v=2.4 cv=XIwAjwhE c=1 sm=1 tr=0 ts=6a4bede2 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=EdFd9dCIzGFzXepkhT4A:9 a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-GUID: JuJSYHp28CXryuI1AZ1EHsKnuyKmydVG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-06_02,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 bulkscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060182
 
-Correct spaces or mix of tabs+spaces into proper tab-indented lines.
-No functional impact (same DTB).
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The driver may incorrectly fall back to SUBU mode on RZ/T2H and RZ=
+/N2H SoCs, leading to accesses of the non-existent RTCA0SUBU register and a=
+ potential kernel panic.
+--
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit ee14aa230b364e5ad7677d78cb0c0a8599351c1c
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
----
+rtc: rzn1: Add support for Renesas RZ/T2H and RZ/N2H SoCs
+   =20
+This commit adds support for the RTC block on Renesas RZ/T2H and RZ/N2H SoCs
+using a new compatible string. It notes that the variants lack the RTCA0SUBU
+register, but rely on the existing SCMP mode to function without it.
 
-Ongoing bigger work for all bindings and DTS with built-in checker (dt-check-style).
+> diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
+> index d1a974c6b8bbe..1d4d8d01749d3 100644
+> --- a/drivers/rtc/rtc-rzn1.c
+> +++ b/drivers/rtc/rtc-rzn1.c
+> @@ -508,6 +508,7 @@ static int rzn1_rtc_probe(struct platform_device *pde=
+v)
+>  }
+> =20
+>  static const struct of_device_id rzn1_rtc_of_match[] =3D {
+> +	{ .compatible	=3D "renesas,r9a09g077-rtc" },
 
-Changes in v2:
-1. Fix also arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-transformers.dts
----
- .../aspeed-bmc-inventec-transformers.dts      | 432 +++++++++---------
- .../boot/dts/aspeed/aspeed-bmc-opp-vesnin.dts |   2 +-
- arch/arm/boot/dts/aspeed/aspeed-g6.dtsi       |   2 +-
- 3 files changed, 218 insertions(+), 218 deletions(-)
+[Severity: High]
+If the devicetree for this SoC omits the "xtal" clock or specifies a standa=
+rd
+32768 Hz frequency, will the driver inadvertently fall back to SUBU mode?
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-transformers.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-transformers.dts
-index c713cb7a6187..45ee0f2cc2bb 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-transformers.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-inventec-transformers.dts
-@@ -9,320 +9,320 @@
- #include <dt-bindings/gpio/aspeed-gpio.h>
- 
- / {
--       model = "TRANSFORMERS BMC";
--       compatible = "inventec,transformer-bmc", "aspeed,ast2600";
-+	model = "TRANSFORMERS BMC";
-+	compatible = "inventec,transformer-bmc", "aspeed,ast2600";
- 
--       aliases {
--               serial4 = &uart5;
--       };
-+	aliases {
-+		serial4 = &uart5;
-+	};
- 
--       chosen {
--               stdout-path = &uart5;
--               bootargs = "console=ttyS4,115200n8";
--       };
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "console=ttyS4,115200n8";
-+	};
- 
--       memory@80000000 {
--               device_type = "memory";
--               reg = <0x80000000 0x80000000>;
--       };
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x80000000>;
-+	};
- 
--       leds {
--               compatible = "gpio-leds";
-+	leds {
-+		compatible = "gpio-leds";
- 
--               // UID led
--               uid {
--                       label = "UID_LED";
--                       gpios = <&gpio0 ASPEED_GPIO(X, 0) GPIO_ACTIVE_LOW>;
--               };
-+		// UID led
-+		uid {
-+			label = "UID_LED";
-+			gpios = <&gpio0 ASPEED_GPIO(X, 0) GPIO_ACTIVE_LOW>;
-+		};
- 
--               // Heart beat led
--               heartbeat {
--                       label = "HB_LED";
--                       gpios = <&gpio0 ASPEED_GPIO(P, 7) GPIO_ACTIVE_LOW>;
--               };
--       };
-+		// Heart beat led
-+		heartbeat {
-+			label = "HB_LED";
-+			gpios = <&gpio0 ASPEED_GPIO(P, 7) GPIO_ACTIVE_LOW>;
-+		};
-+	};
- };
- 
- &mdio0 {
--       status = "okay";
-+	status = "okay";
- 
--       ethphy0: ethernet-phy@0 {
--               compatible = "ethernet-phy-ieee802.3-c22";
--               reg = <1>;
--       };
-+	ethphy0: ethernet-phy@0 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <1>;
-+	};
- };
- 
- &mac3 {
--       status = "okay";
--       phy-mode = "rgmii";
--       phy-handle = <&ethphy0>;
--       pinctrl-names = "default";
--       pinctrl-0 = <&pinctrl_rgmii4_default>;
-+	status = "okay";
-+	phy-mode = "rgmii";
-+	phy-handle = <&ethphy0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rgmii4_default>;
- };
- 
- &fmc {
--       status = "okay";
-+	status = "okay";
- 
--       flash@0 {
--               status = "okay";
--               m25p,fast-read;
--               label = "bmc";
--               spi-max-frequency = <33000000>;
--               spi-tx-bus-width = <2>;
--               spi-rx-bus-width = <2>;
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "bmc";
-+		spi-max-frequency = <33000000>;
-+		spi-tx-bus-width = <2>;
-+		spi-rx-bus-width = <2>;
- #include "openbmc-flash-layout.dtsi"
--       };
-+	};
- 
--       flash@1 {
--               status = "okay";
--               m25p,fast-read;
--               label = "bmc2";
--               spi-max-frequency = <33000000>;
--               spi-tx-bus-width = <2>;
--               spi-rx-bus-width = <2>;
--       };
-+	flash@1 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "bmc2";
-+		spi-max-frequency = <33000000>;
-+		spi-tx-bus-width = <2>;
-+		spi-rx-bus-width = <2>;
-+	};
- };
- 
- &spi1 {
--       status = "okay";
--       pinctrl-names = "default";
--       pinctrl-0 = <&pinctrl_spi1_default>;
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
- 
--       flash@0 {
--               status = "okay";
--               m25p,fast-read;
--               label = "bios";
--               spi-max-frequency = <33000000>;
--               spi-tx-bus-width = <1>;
--               spi-rx-bus-width = <1>;
--       };
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "bios";
-+		spi-max-frequency = <33000000>;
-+		spi-tx-bus-width = <1>;
-+		spi-rx-bus-width = <1>;
-+	};
- };
- 
- &wdt1 {
--       status = "okay";
-+	status = "okay";
- };
- 
- &uart1 {
--       status = "okay";
-+	status = "okay";
- };
- 
- &uart5 {
--       status = "okay";
-+	status = "okay";
- };
- 
- &i2c0 {
--       status = "okay";
-+	status = "okay";
- 
--       //Set bmc' slave address;
--       bmc_slave@10 {
--               compatible = "ipmb-dev";
--               reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
--               i2c-protocol;
--       };
-+	//Set bmc' slave address;
-+	bmc_slave@10 {
-+		compatible = "ipmb-dev";
-+		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-+		i2c-protocol;
-+	};
- };
- 
- &i2c2 {
--       status = "okay";
-+	status = "okay";
- };
- 
- &i2c3 {
--       // FRU AT24C512C-SSHM-T
--       status = "okay";
--       eeprom@50 {
--               compatible = "atmel,24c512";
--               reg = <0x50>;
--               pagesize = <128>;
--       };
-+	// FRU AT24C512C-SSHM-T
-+	status = "okay";
-+	eeprom@50 {
-+		compatible = "atmel,24c512";
-+		reg = <0x50>;
-+		pagesize = <128>;
-+	};
- };
- 
- &i2c5 {
--       status = "okay";
-+	status = "okay";
- };
- 
- &i2c6 {
--       status = "okay";
-+	status = "okay";
- 
--       tmp75@49 {
--               compatible = "ti,tmp75";
--               reg = <0x49>;
--       };
-+	tmp75@49 {
-+		compatible = "ti,tmp75";
-+		reg = <0x49>;
-+	};
- 
--       tmp75@4f {
--               compatible = "ti,tmp75";
--               reg = <0x4f>;
--       };
-+	tmp75@4f {
-+		compatible = "ti,tmp75";
-+		reg = <0x4f>;
-+	};
- 
--       tmp468@48 {
--               compatible = "ti,tmp468";
--               reg = <0x48>;
--       };
-+	tmp468@48 {
-+		compatible = "ti,tmp468";
-+		reg = <0x48>;
-+	};
- };
- 
- &i2c7 {
--       status = "okay";
--       adm1278@40 {
--               compatible = "adi,adm1278";
--               reg = <0x40>;
--       };
-+	status = "okay";
-+	adm1278@40 {
-+		compatible = "adi,adm1278";
-+		reg = <0x40>;
-+	};
- };
- 
- 
- &i2c8 {
--       // FRU AT24C512C-SSHM-T
--       status = "okay";
-+	// FRU AT24C512C-SSHM-T
-+	status = "okay";
- 
--       eeprom@51 {
--               compatible = "atmel,24c512";
--               reg = <0x51>;
--               pagesize = <128>;
--       };
-+	eeprom@51 {
-+		compatible = "atmel,24c512";
-+		reg = <0x51>;
-+		pagesize = <128>;
-+	};
- 
--       eeprom@53 {
--               compatible = "atmel,24c512";
--               reg = <0x53>;
--               pagesize = <128>;
--       };
-+	eeprom@53 {
-+		compatible = "atmel,24c512";
-+		reg = <0x53>;
-+		pagesize = <128>;
-+	};
- };
- 
- &i2c9 {
--       // M.2
--       status = "okay";
-+	// M.2
-+	status = "okay";
- };
- 
- &i2c10 {
--       // I2C EXPANDER
--       status = "okay";
-+	// I2C EXPANDER
-+	status = "okay";
- 
--       i2c-mux@71 {
--               compatible = "nxp,pca9544";
--               #address-cells = <1>;
--               #size-cells = <0>;
--               reg = <0x71>;
--       };
-+	i2c-mux@71 {
-+		compatible = "nxp,pca9544";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		reg = <0x71>;
-+	};
- 
--       i2c-mux@73 {
--               compatible = "nxp,pca9544";
--               #address-cells = <1>;
--               #size-cells = <0>;
--               reg = <0x73>;
--       };
-+	i2c-mux@73 {
-+		compatible = "nxp,pca9544";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		reg = <0x73>;
-+	};
- };
- 
- &i2c11 {
--       // I2C EXPANDER
--       status = "okay";
-+	// I2C EXPANDER
-+	status = "okay";
- 
--       i2c-mux@70 {
--               compatible = "nxp,pca9544";
--               #address-cells = <1>;
--               #size-cells = <0>;
--               reg = <0x70>;
-+	i2c-mux@70 {
-+		compatible = "nxp,pca9544";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		reg = <0x70>;
- 
--               pcie_eeprom_riser1: i2c@0 {
--                       #address-cells = <1>;
--                       #size-cells = <0>;
--                       reg = <0>;
-+		pcie_eeprom_riser1: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
- 
--                       eeprom@55 {
--                               compatible = "atmel,24c512";
--                               reg = <0x55>;
--                               pagesize = <128>;
--                       };
--               };
-+			eeprom@55 {
-+				compatible = "atmel,24c512";
-+				reg = <0x55>;
-+				pagesize = <128>;
-+			};
-+		};
- 
--               pcie_eeprom_riser2: i2c@1 {
--                       #address-cells = <1>;
--                       #size-cells = <0>;
--                       reg = <1>;
-+		pcie_eeprom_riser2: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
- 
--                       eeprom@55 {
--                               compatible = "atmel,24c512";
--                               reg = <0x55>;
--                               pagesize = <128>;
--                       };
--               };
-+			eeprom@55 {
-+				compatible = "atmel,24c512";
-+				reg = <0x55>;
-+				pagesize = <128>;
-+			};
-+		};
- 
--               pcie_eeprom_riser3: i2c@2 {
--                       #address-cells = <1>;
--                       #size-cells = <0>;
--                       reg = <2>;
-+		pcie_eeprom_riser3: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
- 
--                       eeprom@55 {
--                               compatible = "atmel,24c512";
--                               reg = <0x55>;
--                               pagesize = <128>;
--                       };
--               };
--       };
-+			eeprom@55 {
-+				compatible = "atmel,24c512";
-+				reg = <0x55>;
-+				pagesize = <128>;
-+			};
-+		};
-+	};
- };
- 
- &i2c12 {
--       status = "okay";
-+	status = "okay";
- 
--       psu0:psu0@58 {
--               compatible = "pmbus";
--               reg = <0x58>;
--       };
-+	psu0:psu0@58 {
-+		compatible = "pmbus";
-+		reg = <0x58>;
-+	};
- };
- 
- &gpio0 {
--       status = "okay";
--       gpio-line-names =
--       /*A0-A7*/   "","","","","","","","",
--       /*B0-B7*/   "presence-ps0","power-chassis-good","","","","","presence-ps1","",
--       /*C0-C7*/   "","","","","","","","",
--       /*D0-D7*/   "","","","","","","","",
--       /*E0-E7*/   "","","","","","","","",
--       /*F0-F7*/   "","","","","power-chassis-control","","","",
--       /*G0-G7*/   "","","jtag-mux","","","","","",
--       /*H0-H7*/   "","","","","reset-button","power-button","","",
--       /*I0-I7*/   "","","","","","","","",
--       /*J0-J7*/   "","","","","","","","",
--       /*K0-K7*/   "","","","","","","","",
--       /*L0-L7*/   "","","","","","","","",
--       /*M0-M7*/   "","","","","","","","",
--       /*N0-N7*/   "","","","","","","","",
--       /*O0-O7*/   "","","","","","","","",
--       /*P0-P7*/   "","","","tck-mux","","","","",
--       /*Q0-Q7*/   "","","","","","","","",
--       /*R0-R7*/   "","","","","","","","",
--       /*S0-S7*/   "","","","","","","","",
--       /*T0-T7*/   "","","","","","","","",
--       /*U0-U7*/   "","nmi-button","","","","","","",
--       /*V0-V7*/   "","","","","power-config-full-load","","","",
--       /*W0-W7*/   "","","","","","","","",
--       /*X0-X7*/   "","","","","","","","",
--       /*Y0-Y7*/   "","","","","","","","",
--       /*Z0-Z7*/   "","","","","","","","",
--       /*AA0-AA7*/ "","","","","","","","",
--       /*AB0-AB7*/ "","","","","","","","",
--       /*AC0-AC7*/ "","","","","","","","";
-+	status = "okay";
-+	gpio-line-names =
-+	/*A0-A7*/   "","","","","","","","",
-+	/*B0-B7*/   "presence-ps0","power-chassis-good","","","","","presence-ps1","",
-+	/*C0-C7*/   "","","","","","","","",
-+	/*D0-D7*/   "","","","","","","","",
-+	/*E0-E7*/   "","","","","","","","",
-+	/*F0-F7*/   "","","","","power-chassis-control","","","",
-+	/*G0-G7*/   "","","jtag-mux","","","","","",
-+	/*H0-H7*/   "","","","","reset-button","power-button","","",
-+	/*I0-I7*/   "","","","","","","","",
-+	/*J0-J7*/   "","","","","","","","",
-+	/*K0-K7*/   "","","","","","","","",
-+	/*L0-L7*/   "","","","","","","","",
-+	/*M0-M7*/   "","","","","","","","",
-+	/*N0-N7*/   "","","","","","","","",
-+	/*O0-O7*/   "","","","","","","","",
-+	/*P0-P7*/   "","","","tck-mux","","","","",
-+	/*Q0-Q7*/   "","","","","","","","",
-+	/*R0-R7*/   "","","","","","","","",
-+	/*S0-S7*/   "","","","","","","","",
-+	/*T0-T7*/   "","","","","","","","",
-+	/*U0-U7*/   "","nmi-button","","","","","","",
-+	/*V0-V7*/   "","","","","power-config-full-load","","","",
-+	/*W0-W7*/   "","","","","","","","",
-+	/*X0-X7*/   "","","","","","","","",
-+	/*Y0-Y7*/   "","","","","","","","",
-+	/*Z0-Z7*/   "","","","","","","","",
-+	/*AA0-AA7*/ "","","","","","","","",
-+	/*AB0-AB7*/ "","","","","","","","",
-+	/*AC0-AC7*/ "","","","","","","","";
- };
- 
- &lpc_snoop {
--       status = "okay";
--       snoop-ports = <0x80>;
-+	status = "okay";
-+	snoop-ports = <0x80>;
- };
- 
- &emmc_controller {
--       status = "okay";
-+	status = "okay";
- };
- 
- &emmc {
--       status = "okay";
--       non-removable;
--       max-frequency = <52000000>;
--       bus-width = <8>;
-+	status = "okay";
-+	non-removable;
-+	max-frequency = <52000000>;
-+	bus-width = <8>;
- };
- 
- &vhub {
--       status = "okay";
--       aspeed,vhub-downstream-ports = <7>;
--       aspeed,vhub-generic-endpoints = <21>;
--       pinctrl-names = "default";
--       pinctrl-0 = <&pinctrl_usb2ad_default>;
-+	status = "okay";
-+	aspeed,vhub-downstream-ports = <7>;
-+	aspeed,vhub-generic-endpoints = <21>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_usb2ad_default>;
- };
- 
- &rtc {
--       status = "okay";
-+	status = "okay";
- };
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-opp-vesnin.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-opp-vesnin.dts
-index 8a7fb55ab489..5a3e8a3941d4 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-opp-vesnin.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-opp-vesnin.dts
-@@ -82,7 +82,7 @@ &fmc {
- 	flash@0 {
- 		status = "okay";
- 		m25p,fast-read;
--        label = "bmc";
-+		label = "bmc";
- #include "openbmc-flash-layout.dtsi"
- 	};
- 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-index 56bb3b0444f7..edf4b74f5aba 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-+++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-@@ -517,7 +517,7 @@ timer: timer@1e782000 {
- 				clocks = <&syscon ASPEED_CLK_APB1>;
- 				clock-names = "PCLK";
- 				status = "disabled";
--                        };
-+			};
- 
- 			uart1: serial@1e783000 {
- 				compatible = "ns16550a";
--- 
-2.53.0
+Looking at rzn1_rtc_probe(), the driver sets scmp_val =3D 0 for 32768 Hz
+crystals or when the clock is absent:
 
+drivers/rtc/rtc-rzn1.c:rzn1_rtc_probe() {
+    ...
+	xtal =3D devm_clk_get_optional(dev, "xtal");
+	if (IS_ERR(xtal)) {
+		return PTR_ERR(xtal);
+	} else if (xtal) {
+		rate =3D clk_get_rate(xtal);
+        ...
+		if (rate !=3D 32768)
+			scmp_val =3D RZN1_RTC_CTL0_SLSB_SCMP;
+	}
+    ...
+	if (scmp_val) {
+        ...
+	} else {
+		rtc->rtcdev->ops =3D &rzn1_rtc_ops_subu;
+	}
+    ...
+}
+
+If this happens on the RZ/T2H, rzn1_rtc_ops_subu exposes the .read_offset
+and .set_offset callbacks. Any userspace read of the offset sysfs node
+would then trigger a hardware access to the missing register:
+
+drivers/rtc/rtc-rzn1.c:rzn1_rtc_read_offset() {
+    ...
+	val =3D readl(rtc->base + RZN1_RTC_SUBU);
+    ...
+}
+
+Can this lead to a synchronous external abort (kernel panic) when an
+unprivileged user reads /sys/class/rtc/rtc0/offset?
+
+Should we add match data to this compatible string to identify the variant
+and explicitly reject probe with -EOPNOTSUPP if the clock configuration
+would require the unsupported SUBU mode?
+
+>  	{ .compatible	=3D "renesas,rzn1-rtc" },
+>  	{},
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706175138.1258=
+7-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D12
