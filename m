@@ -1,75 +1,53 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E53346A1C
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 17:13:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1B137C11E;
+	Mon,  6 Jul 2026 17:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783358021; cv=none; b=m6uN0gURKCju7Vcrk+pBPQwtxzOhCsJi+ZMfQ2Vg4a0ElbPHO+M0A2u1GJIseaCN8Skzw6FCyE3TgFu6X23uRgMSw31NyZtUsltxttvco1Kba5UqniYADtwcDOHBhb+SYNd3cmjk/Vy9/KyI7ohgpneFRqwNYLUDQY0r+OX0oCo=
+	t=1783358103; cv=none; b=C/5e1SBWRv4DhC6sANmdhPKZe9DeGrBUA61uSzqj6FbDUKVwMOxbVS7uKnqaIGXphzIqVK4iDZ/bDhYXgbnMBv9NLGEQNunjYhNhH/VRFvRE15Dsk1QQwoUJxIVdyVIUj40W781vnVDBFFuG6os+2QYKN5kKvCJFyBHbhXF4G0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783358021; c=relaxed/simple;
-	bh=MCc729RJhXwcN6DQHcIMn7v24UelBx5SMI5SMzKcwRQ=;
+	s=arc-20240116; t=1783358103; c=relaxed/simple;
+	bh=Cyrg0grsaRMPFMVwBK5PCRBknfGqtG3jJSiGJhjJh10=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nZ60URad8OAG1nxOJ9j4TaV8+Q0MZ6YH4LTlAcH9zEWcE5ID17AAGKVlMgHvzka/XinIwRMjtcH+bmMle0PKql39AZgTpHCgJwc5U+rjJrSWFZ/rAkycvkY8WJ+nwyeLWoNESPQ9YOwYGpvowUoJWrePdfTItLZn5MKb8Xov3xA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=VPp/K7mp; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=pBvUM7zHwdpaZQe+DCYR2pZRNgHqDdXmT3w1RP2UmBCiK5c7iMuCh5/fcJeptWyI3pCqMpFdEJ4uC9rTEfW5o4BFvXIlMDdlERuL5KkzSCluZSQITmu4rxK09IrAY5NRG2j1tLClnc3wnkHYEKLFV1nFUiq+xOWgT7lhJq3i3Wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VJFrGpJJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="VPp/K7mp"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-472326ca506so2185284f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 10:13:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783358018; x=1783962818; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=MCc729RJhXwcN6DQHcIMn7v24UelBx5SMI5SMzKcwRQ=;
-        b=VPp/K7mpu7oCEV5wS9BkjoY+PcSrSVOlvvMuCd+yKet0r0lgrAauN9X7zyFriLlCUC
-         fdVZlV11MYTjaRhXu2wmxOGs4TKiQv1AKPtsAxQehxLdzcriW26UJJ6A3PL/4HwO1RZU
-         EN0miJgog40UbZtw7F0WnXmztiWIfi0WMbMVuDEBE5nMOHpnEQVtgdVrsYwBzvw6KtTX
-         997P3nl1MsANQeVRnfNbN8adC6GZpW6xN4PujZ3FMXSvbJ8+FBxs4t1QhNBhFvPZIRwj
-         bvKJUBnA5HhKOTV8UqfiMUwS+sHDc54cQCoOqj12wR94VToLrAJQ9pINNd0zqbF6c2O4
-         FyFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783358018; x=1783962818;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=MCc729RJhXwcN6DQHcIMn7v24UelBx5SMI5SMzKcwRQ=;
-        b=sNF3uIxuljuCfLIeOxuPvCXaqSZgUX9YMMLIHksD78KavYvX22jEz+56ZhrlURLh0M
-         Cz2J+B1KwVRJ4oINSqdpwoC0NzJsy4KWPyjMBkaFvN1kddRkl5i56qu2SYCUQOSKdxYQ
-         1d2DXLsmkmheAosQ9BaNTfvk6lmEllR0SYOT8otjTVqTK3q4IeZXjJt48o6o2NeZXA47
-         kAYbFqi3iUj3QFJ8hcdWwcWPqRnf9MIxKGVpv3Ad2DOzicptlOZd7Lnz9lnAhclCIP+g
-         jHI2dR9wAwNpqos58kq0IzUnHhgsV6IShuyzjaEJCwvqtXwUNFJXg2micfDNENnV8w4b
-         D7gA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqy+6UNhdhPFXOWVr0hShtHrpSSTVPA58TYzLq0siKf4QVVF3BWBoVKTXQGkTVqPHvdXpqKfwwRL5iQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMSj8Ik38V94Ts1w7RKJoUSQkK8RGFHwn8f/H82HFaxNyBXhz1
-	vg3ghNhAnOvDJfhf4Pj9Wyt+hvQ5on3uYOqnjidYY+CSbjwM4ldZ+AD5dtijV2JNL4o=
-X-Gm-Gg: AfdE7clEfww/LDrOhCS9kwscQeNBY/4KNdpsZ84SYFTLGLIMHYFgJd1QW1gcDtbdMnT
-	gg3ifD3EWN6UNpXDF0zTY4QUvueIGaMuaNo5EMvbuqM9vEO2cmiDsdK7g4zj+lRR9VCgb41mxfq
-	EwuFfq4P2YB1In1V+JjhbNZrCkF+Xcg7P0JElQMzy0Rk6QwfVw9dMzv7UEaYKxfI3sQqx+YFhiU
-	Ibb2LCwg1FBGyTNO8bomjTy1z9WQelFrZkCEScAj7zTH+10LU4hP2tDWI8ucxmXYbZjLMmsQIqz
-	o25dL11WslOd1T4U5AM/SEOS+f4Se89I7I6z27UE/Q7Q0P8m3ZgzERs+QCcscfJvNANYSrBQHLI
-	O3QMd1Oz+xi8tP3y8wULFoba2+OvYlRnrDboOuxs/B2e7JPdXIEqbnhR6g2s19ruh/TYZRnFCsk
-	B3ZLzlLZBL3LK+zDb1w8cHeP4EtQI0t9gdx5rJKK5wXj1kwc3g2BZl+EGjTMSjYUt5KN0YoYKj7
-	8zwveOioBJZQQ==
-X-Received: by 2002:a5d:4951:0:b0:46e:6210:ad4a with SMTP id ffacd0b85a97d-47de66678camr1240284f8f.5.1783358018039;
-        Mon, 06 Jul 2026 10:13:38 -0700 (PDT)
-Received: from localhost (p200300f65f47db0404eb41111570ffdc.dip0.t-ipconnect.de. [2003:f6:5f47:db04:4eb:4111:1570:ffdc])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47aa0960816sm25028351f8f.29.2026.07.06.10.13.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 10:13:37 -0700 (PDT)
-Date: Mon, 6 Jul 2026 19:13:36 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, bryan.odonoghue@linaro.org, 
-	vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com, mchehab@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org, 
-	konradybcio@kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 5/5] media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
-Message-ID: <akviE-ANATfFPdYZ@monoceros>
-References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
- <20260706071113.383215-6-atanas.filipov@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VJFrGpJJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69C1D1F000E9;
+	Mon,  6 Jul 2026 17:14:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783358101;
+	bh=FLCkRFY/xZawZM4IfpyQEQBqFJQifdjTe2UFwHN+pbw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VJFrGpJJi0WdJNBZtw4v4b+k6Zqo9dKSW5u3hd7vNaqe7DRoSA3roX+lo8tzwWPFZ
+	 K1TViY4xZvQQiOF8+PF4HjiGkJfplG5LjYwmIzsFKVRG+XxlGYomGz5Vkwq95amvdx
+	 4zKPi5OQvVVaTlisaZtCHrIUvXLxnkqOzbxAnmv8h9TVZgfseJbA5cDFYpTDEV+ySc
+	 5VBBboakFE94TO9Hs6IKFdMnD6xRpVR7ac94ZnKkZ1pzArVTbiuCwyb/j5aliMrWeY
+	 b7Zsl7te9dxAspf/EMLA7iwGhksS8dopDR+/KyNe1c+kH8K7eK3tQ/NojTG/Iq6BMT
+	 7oMlJvppDzAnQ==
+Date: Mon, 6 Jul 2026 18:14:56 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] dt-bindings: phy: motorola,cpcap-usb: add
+ chrg_det interrupt
+Message-ID: <20260706-visitor-calorie-b805ac5af970@spud>
+References: <20260705101105.1798069-1-ivo.g.dimitrov.75@gmail.com>
+ <20260705101105.1798069-2-ivo.g.dimitrov.75@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -77,41 +55,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2f7b3wyhcc726iyd"
+	protocol="application/pgp-signature"; boundary="EHPotJN9Y/7sp6ZZ"
 Content-Disposition: inline
-In-Reply-To: <20260706071113.383215-6-atanas.filipov@oss.qualcomm.com>
+In-Reply-To: <20260705101105.1798069-2-ivo.g.dimitrov.75@gmail.com>
 
-
---2f7b3wyhcc726iyd
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--EHPotJN9Y/7sp6ZZ
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [PATCH v4 5/5] media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
-MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Sun, Jul 05, 2026 at 01:11:02PM +0300, Ivaylo Dimitrov wrote:
+> The CPCAP USB PHY driver uses the CPCAP charger detection interrupt
+> for DCP detection.
 
-On Mon, Jul 06, 2026 at 10:11:13AM +0300, Atanas Filipov wrote:
-> +#include <linux/mod_devicetable.h>
+This is not currently true, the driver does not look for this interrupt
+at the time of this patch.
 
-Please don't add new users of this header. Only use the
-<linux/device-id/*.h> that you actually need.
+> Update the binding and example DTS to use the corresponding
+> "chrg_det" interrupt name.
 
-Best regards
-Uwe
+Sounds to me like this new interrupt is optional, since until now it has
+not been needed? The patch however makes it mandatory. I think your
+driver patch also makes it mandatory, which will break older
+devicetrees.
 
---2f7b3wyhcc726iyd
-Content-Type: application/pgp-signature; name="signature.asc"
+What makes this ABI break okay?
+
+Thanks,
+Conor.
+
+>=20
+> Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+> ---
+>  .../devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml     | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy=
+=2Eyaml b/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
+> index 0febd04a61f4..523a8f8480d0 100644
+> --- a/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
+> @@ -30,6 +30,7 @@ properties:
+>        - description: se1 interrupt
+>        - description: dm interrupt
+>        - description: dp interrupt
+> +      - description: charger detection interrupt
+> =20
+>    interrupt-names:
+>      description: Interrupt names
+> @@ -43,6 +44,7 @@ properties:
+>        - const: se1
+>        - const: dm
+>        - const: dp
+> +      - const: chrg_det
+> =20
+>    io-channels:
+>      description: IIO ADC channels used by the USB PHY
+> @@ -91,10 +93,10 @@ examples:
+>          interrupts-extended =3D <
+>              &cpcap 15 0 &cpcap 14 0 &cpcap 28 0 &cpcap 19 0
+>              &cpcap 18 0 &cpcap 17 0 &cpcap 16 0 &cpcap 49 0
+> -            &cpcap 48 1
+> +            &cpcap 48 1 &cpcap 13 0
+>          >;
+>          interrupt-names =3D "id_ground", "id_float", "se0conn", "vbusvld=
+",
+> -                          "sessvld", "sessend", "se1", "dm", "dp";
+> +                          "sessvld", "sessend", "se1", "dm", "dp", "chrg=
+_det";
+>          io-channels =3D <&cpcap_adc 2>, <&cpcap_adc 7>;
+>          io-channel-names =3D "vbus", "id";
+>          vusb-supply =3D <&vusb>;
+> --=20
+> 2.39.5
+>=20
+
+--EHPotJN9Y/7sp6ZZ
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpL4j0ACgkQj4D7WH0S
-/k59LwgAuTiKtFSft7ryJWgTp3oj8ijK3Ahhq+yQEbS4uMyOKNsstXY+Elk8JMCx
-FxyXJEnGG2j+ygfRTonPe5nJ+MVypDKFkgwAw+Hh7enMUP6zOm57qLiVXH7B7EvG
-PwFhKh58/IZjfVKTSQlqFg3+x2eC5YO9oYB+TdIxb8ZhWw1TPJAtJICLzcDQpZZC
-NKDKzgQvTq6/x4i9Gio1RGSOHDlqMgKVkcDOWXhVNzZa1aETjAX4GsfiPciZEv4Q
-MLhDaFZAj+kLgm6AjvvD4CM2/C2gBYXFXB7vHJBgVMBl6Mb/iJi/zltvGj069aHM
-5+sMK+vEVq0oT22WbjohX9omeLDU4Q==
-=WLCe
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakvikAAKCRB4tDGHoIJi
+0v+aAP9LtdSSmr/h68scZGIFlgV6ysH5j3UmXqH1E2gDLiQUNwEA3nVaHeU2gU7A
+6DvEFs8Okg6Y6JMPXLUM2uDUSeiDOwY=
+=kZwB
 -----END PGP SIGNATURE-----
 
---2f7b3wyhcc726iyd--
+--EHPotJN9Y/7sp6ZZ--
