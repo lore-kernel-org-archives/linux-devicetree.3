@@ -1,120 +1,178 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF70397B15
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 08:23:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559E63BD659
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 08:23:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783326222; cv=none; b=Nm68Hby6IJx+al18Ec5/vbwg0Hz2NXX8nyxOiAPLljfYnhWbCS2AyvT8mELtj0u4YJyp08X1gatbY2CgLHcjDdhAMPuOtIUTg5pCiFNwM0y4DuY61K/AvmL7KQBXNW330dfmtRXe2cljt/0wgNfp7qsNtuQrkWTQ0fc39LyZzSc=
+	t=1783326231; cv=none; b=DnKEO2z11F96+bU6ba1x85dOxVPgAwhZPXPPigiZsFxxKvd5JWlL95aTSrvFjsvrqMxAcCfE2XABCZQUeWayMBtIw0bijHw3P7bqvS4knB1+4W8lI+5hwfcD3KjqecKSuftJ5Q404lQJFJf0xSL5b6QP2V2GTUR8x9gX5NrQU4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783326222; c=relaxed/simple;
-	bh=aLRbGLcgt67L0CDYqnkih3RXxFWhp37dSTQfKT88sQc=;
+	s=arc-20240116; t=1783326231; c=relaxed/simple;
+	bh=LP5aeHnFATJ9jVdO2KpnDTUE5NrouQG6YAE/SUlQb9o=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=f/1TG9rqjoDGRKcrs0qHQzKwjfG4m32YwvGLiUo7sFgYF559BzWwidT2wa7dzSp5S9xecSSA+nKGEXUttKoLC4sl1cKBgPHB49ghbWswsLGBh8bOilBAmXIfrQhEIEl9VH7JzZ4LrV1dN9FIMljviC6gwhr2mnuls64dlDA6Dhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BI3RJE1t; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=B4JPpOa4CR/40zIxeaSAyWEfeXeK0kPHJaJv9ec7gll6MidD+/42SIP94rUq6Hg4/7GHdaQ/GNNu9GgIPKOc95cjZ2vLxDuvYgnDXH3gVlKAuKilG8qVCJ2eleilZMRnXjvtHM0DUYgoOXRDQ4KffmotBct8XQ7j11ZG8ZhD9aw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZwzcuQIG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BI3RJE1t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C4351F000E9;
-	Mon,  6 Jul 2026 08:23:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZwzcuQIG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D74B1F00A3A;
+	Mon,  6 Jul 2026 08:23:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783326215;
-	bh=PRx24CXn/f9P1lyD8pdLj94DsvEIZsUykREthp7GDNE=;
+	s=k20260515; t=1783326221;
+	bh=juUSfPHaCvAqWDXNZEBTfZ4wcxSpqVebu419tlEi9/8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BI3RJE1t+7JSsx+w/1XD81DAsQA1WtiuUJOAchJeTIS1LFn0jj0la9+k+ucCcSWCP
-	 VtHPsJj1df60+5MLjyKxbjPoF7HdW36kdjOrFPjinQRVXY6fcDwFyKKZ1ZhDsccVOr
-	 EgGtLPMnX4M8/heLnE/lo/mca8xtgoEqBlu7dy1JUa6frjyoEVWJsFqjBwdKWew0Iw
-	 dVeo/KfksA7tDYzMJJBNJBqM8hn338EFX0ovlINgcw6TBI71RurIxcKaQZ00OEtxcf
-	 9z0LhSozZE9542EMW2wyfAycMqUfjh0dH50ErODBosRIcC5HTt4Zd9QxbwSd41MM0y
-	 izGdcxItc/vIQ==
+	b=ZwzcuQIGvVg9RKSnnrqjPQP8M5Ui6GFlObwcbAyB7U7FT7wMTRM4/3spbCwoKApqd
+	 bAZ0LwSdYBVSzodajPgx+Tqzzd4uBWjbyYqMRBIfLVJheR8WF2wDXYWoPvB/PEgAN4
+	 WYkXot+kI4b8eYkA5jRBC5k+wWFvaj+vGC3BSbZ0xcAQc9s0aNP0d2RzSE2pzc/URC
+	 ZeGw4wIL4NgFcAU07mYg5kQMFIhYVU8PikAGJcEV4zq8Bk4F4jOA1bQRFZxSVghVw5
+	 dzFevuuBzY0saKH6DxtborodqGN0r346pp6WdVrbvo6oj7S3pI4U383QfpC025MTr3
+	 CnYoYHFKaSiIw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/8] riscv: dts: eswin: add hsp bus node
+Subject: Re: [PATCH v2 3/8] riscv: dts: eswin: eic7700: add pinctrl support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Pinkesh Vaghela" <pinkesh.vaghela@einfochips.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260706081055.1126275-6-pinkesh.vaghela@einfochips.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260706081055.1126275-4-pinkesh.vaghela@einfochips.com>
 References: <20260706081055.1126275-1-pinkesh.vaghela@einfochips.com>
- <20260706081055.1126275-6-pinkesh.vaghela@einfochips.com>
+ <20260706081055.1126275-4-pinkesh.vaghela@einfochips.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 08:23:34 +0000
-Message-Id: <20260706082335.4C4351F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 08:23:40 +0000
+Message-Id: <20260706082341.1D74B1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The `hsp_sp_csr` syscon node lacks a `clocks` property, causing un=
-clocked MMIO accesses that can crash the system.
-- [Low] Non-generic node name for syscon device.
+
+New issues:
+- [Medium] Board-specific GPIO pin configurations are defined but never ref=
+erenced via `pinctrl-0`, rendering them inert.
+- [Medium] Peripheral nodes do not reference their newly added pinctrl conf=
+igurations.
+
+Pre-existing issues:
+- [High] The SoC device tree lacks `gpio-ranges` properties linking the DW =
+APB GPIO controllers to the newly introduced pinctrl controller, bypassing =
+GPIO muxing logic.
 --
 
-commit 2f5171ba39f634bc5960f8f8754a5b822bc8c76b
-Author: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+commit 92abe836b11b6b811731ac872e0c01dccbccefd0
+Author: Yulin Lu <luyulin@eswincomputing.com>
 
-riscv: dts: eswin: add hsp bus node
+riscv: dts: eswin: eic7700: add pinctrl support
 
-Add an HSP bus node to manage the HSP CFG clock used by HSP
-peripherals. This clock is required for accessing both the HSP CSR
-registers and the register spaces of HSP peripheral devices.
+This commit adds pinctrl nodes and related pin configurations for the EIC77=
+00
+SoC. It also provides the specific pin states for the HiFive Premier P550
+board.
+
+> diff --git a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts b/=
+arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
+> index 1266762dfcd8c..743dedbdb081a 100644
+> --- a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
+> +++ b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
+[ ... ]
+> @@ -25,6 +35,105 @@ &clock_24m {
+>  	clock-output-names =3D "clock_24m";
+>  };
+> =20
+> +&gpio0_pins {
+> +	bias-disable;
+> +	input-enable;
+> +};
+> +
+> +&gpio5_pins {
+> +	bias-disable;
+> +	input-enable;
+> +};
+
+[Severity: Medium]
+Will these board-specific GPIO pin configurations ever be applied?
+
+The board DTS overrides properties like bias-pull-up for various GPIO nodes=
+=20
+(&gpio0_pins, &gpio14_pins, etc.), but these pin configurations are never=20
+referenced by any pinctrl-0 property in a consumer device or as a pinctrl h=
+og.
+
+Without being referenced via pinctrl-names =3D "default"; and pinctrl-0 =3D=
+ <...>;
+within the &pinctrl node, the pinctrl subsystem will parse them as templates
+but never commit the hardware configurations.
+
+This could leave the hardware lacking required electrical configurations.
+
+[ ... ]
+> +&pinctrl {
+> +	vrgmii-supply =3D <&vcc_1v8>;
+> +};
+> +
+>  &uart0 {
+>  	status =3D "okay";
+>  };
+
+[Severity: Medium]
+Should this peripheral node reference its newly added pinctrl configuration=
+s?
+
+The eic7700-pinctrl.dtsi file defines extensive pinmux configurations, such=
+ as
+uart0_pins and i2c0_pins, and the board DTS enables these peripherals here.=
+=20
+
+However, the board DTS fails to assign these pinmux configurations to the=20
+peripherals using pinctrl-names =3D "default"; and pinctrl-0 =3D <&uart0_pi=
+ns>;.
+
+As a result, peripheral pin multiplexing is not applied by the kernel, rely=
+ing=20
+entirely on the bootloader's initial state.
 
 > diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts=
 /eswin/eic7700.dtsi
+> index af9e40d8739ad..a0fb82f4adca9 100644
 > --- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
 > +++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
 [ ... ]
-> @@ -252,6 +252,19 @@ plic: interrupt-controller@c000000 {
->  			#interrupt-cells =3D <1>;
+> @@ -349,6 +349,11 @@ gpioD: gpio-port@3 {
+>  			};
 >  		};
 > =20
-> +		hsp: bus@50400000 {
-> +			compatible =3D "simple-pm-bus";
-> +			ranges =3D <0x0 0x50400000 0x0 0x50400000 0x0 0xa0000>;
-> +			clocks =3D <&clk EIC7700_CLK_GATE_HSP_CFG_CLK>;
-> +			#address-cells =3D <2>;
-> +			#size-cells =3D <2>;
-> +
-> +			hsp_sp_csr: hsp-sp-top-csr@50440000 {
-
-[Severity: Low]
-Does this node name violate standard Device Tree naming conventions?
-
-According to the Devicetree Specification, node names should be generic and
-reflect the function of the device rather than its precise programming mode=
-l.
-
-Should this be named syscon@50440000 instead of hsp-sp-top-csr@50440000?
-
-> +				compatible =3D "eswin,eic7700-syscfg", "syscon";
-> +				reg =3D <0x0 0x50440000 0x0 0x2000>;
-> +			};
-
-[Severity: High]
-Will accessing this syscon node cause a synchronous external abort?
-
-Since this syscon node is placed under a simple-pm-bus, and syscon nodes
-do not bind to standard platform drivers, no pm_runtime_get_sync() is ever
-called on behalf of the syscon.=20
-
-This means the parent bus remains runtime-suspended, leaving the
-EIC7700_CLK_GATE_HSP_CFG_CLK clock disabled.
-
-The syscon regmap implementation can manage its own clock explicitly during
-IO accesses via regmap_mmio_attach_clk(), but it requires the clocks proper=
-ty
-to be present in the syscon node itself.
-
-Because this is missing the clocks property, neither the bus nor the regmap
-will enable the clock prior to the MMIO access, which could crash the system
-if accessed via debugfs or a consumer driver.
-
-Should the clocks property be added directly to this node as well?
-
+> +		pinctrl: pinctrl@51600080 {
+> +			compatible =3D "eswin,eic7700-pinctrl";
+> +			reg =3D <0x0 0x51600080 0x0 0x1fff80>;
 > +		};
 > +
 
+[Severity: High]
+This isn't a bug introduced by this patch, but does the SoC device tree lack
+gpio-ranges properties linking the DW APB GPIO controllers to the newly
+introduced pinctrl controller?
+
+The eic7700.dtsi defines GPIO controllers using the snps,dw-apb-gpio driver:
+
+			gpioA: gpio-port@0 {
+				compatible =3D "snps,dw-apb-gpio-port";
+
+This driver unconditionally sets .request =3D gpiochip_generic_request.=20
+
+When a GPIO is requested, gpiochip_generic_request checks if the
+gc->gpiodev->pin_ranges list is empty.=20
+
+Because eic7700.dtsi fails to define gpio-ranges mapping the gpio-port subn=
+odes
+to the pinctrl controller, the pin_ranges list is empty. As a result,
+gpiochip_generic_request() returns 0 early and never calls
+pinctrl_gpio_request().=20
+
+This bypasses the pinctrl driver's hardware muxing logic entirely, meaning
+GPIO hardware muxing will not occur when a GPIO is requested, leaving the p=
+ins
+in their default or peripheral state.
+
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706081055.1126=
-275-1-pinkesh.vaghela@einfochips.com?part=3D5
+275-1-pinkesh.vaghela@einfochips.com?part=3D3
