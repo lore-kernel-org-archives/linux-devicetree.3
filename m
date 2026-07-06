@@ -1,210 +1,137 @@
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A0C436BCD;
-	Mon,  6 Jul 2026 22:38:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A081436BCD
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 22:39:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783377531; cv=none; b=c5nwcyUlUn+qYBetT7OvtbKLHgpGoGC4cxRMVQZX4TCvbR5MCpu8V4IpyGXd4ldsxDMlIYiFT8akjxerZfSfdO9frKmVCiklb2lsUFdEBLVv3ajBA6eEj99iWJPK5/xKPlpUZOPuXR7AGZD25ZuJylVsAjfJvc5no9JxKerqgvU=
+	t=1783377577; cv=none; b=F/Fbn5hiklit1OJ5zDO9dGibt1WXm+CWVTAw35wM7hOs7xleoWgdKJME/hyA3ZTej8fr6Lk6sJ6I5zu3MPAwtCjjNJCsrtt5Cj7ZCCEAI38RwLlLonB/ea8mXpNYEFbf86EOVHw97RvEEmRJon11iYX0LURexLaMehwuw1NLHPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783377531; c=relaxed/simple;
-	bh=bRgfs9ShIxfVOO8/0MKdtw0wiqFFApzCj5xKPcw+2F4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WZQeR91YPGYm+g9EaHocqHR9gjYKaRCvSWkKF+XWTMbUHdiUFNZQistdqzrOuE+fy7XuWeC5MC0hF1ZkSPed1lwB5yTIOOlI4k4z7MVv2oZRqhv/XIqNVmGS427t13Xx07lKE5DEkPbHhwf9bJ5zxOi/543MekfoURb+3UdYdYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=ogXyt1qe; arc=none smtp.client-ip=195.39.247.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	s=arc-20240116; t=1783377577; c=relaxed/simple;
+	bh=RPRuDGmOMHUJ4tbd/0+a596WkyjB/l3lQ5aGvDb6b/E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dH1jyBfVl0GPpq+A7ZUIMC6Doirj1uxg8XMY4woseZl+/qvgYD1jDxeENeCRhbTAhFizDLzqKfd6DXuZo9ahXBTAXfUCpbG0QJiYumvcDaT1kwSNsuSCzHV4NtlagaZL8ArH7M6zjy8n4jg2KSyjVpADYRvVJYVbZaV4GZPagmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sCjc3Lin; arc=none smtp.client-ip=209.85.208.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="ogXyt1qe"
-From: Yureka Lilian <yureka@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1783377522;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2MYdzoSewcFcQWVr1xi0SARyuuH/Y7lXURwUtog43pY=;
-	b=ogXyt1qeaC0mL0e/L8Uq+VzkHdS7iKaPeWOctmTgKN4+XG+0TRitSM359QiWNzhBDfA9Td
-	IoaXjAe+NJ04ZV2xVxK0VRqaexmDFiPis0Le4g7gAd8qhfuatgVL5ICvRJm387y/gzh1pi
-	9l+NQxDg9U984Yh6P4dDezjV5bDJXCY=
-Date: Tue, 07 Jul 2026 00:38:28 +0200
-Subject: [PATCH 2/2] arm64: dts: apple: t600x: Add PCIe pwren gpios
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sCjc3Lin"
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-39c610a7ab9so4865281fa.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 15:39:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783377574; x=1783982374; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=d5cayZp9W67MGxKrNsRCGwdEmrQ3OB5DSTp2GrdSHiQ=;
+        b=sCjc3LinGyiuWcFrdMNsUSupyjopcLxUxfdWb6BcaRSNosk1X0Fm4ZVB4ViOrOOyhY
+         iWFi2WH1VIiSWEYSPW7yaM4ZJuwd1nvK2MGxzGrR0lG7vL/MW29IO1AWcX0BeqAJqUhu
+         hvcZrn+tnzTutZMTFvHKVrhMGA6e4/ndpdq0Gcllhzxh1fJLL5yH6HNLBxaiNXddDqeT
+         WfpCmNH4awuh6+gZamlio1E87K0VLlKWAQlsQ5mTA+7RcoI54icJuznXDHzFNPkfZJJC
+         V6u7FngBNsjMVAERUmd7EnRLhr1VCyDtVM2e2GJzDnBmjEwSLnw8/yTM53KhPcjP0TQG
+         awQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783377574; x=1783982374;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=d5cayZp9W67MGxKrNsRCGwdEmrQ3OB5DSTp2GrdSHiQ=;
+        b=jhFespguax3DqeNxe98XhqwEUTHpemZvAaFFrvb9BRSfOnrVYXwl7YrLg2twdHhg9b
+         u52+OGCe39I+SlzK/OveLYP54Q/sImMBbutStN3QyrkpP7wsd0SFHwm4RaMW5QcI4Lnf
+         lgNPRY1/YjScdd9noNmow5ThBzZlQeI5gs3S6CSGncw+KT0Nc1d2f7ZYoaNBIDGY0Avp
+         xP2RTKjh81jszm2WwIyQO1k8JoF9IR3qGWJjm6jGVKgQ+o3KZvLbouisQLstxJV0k96a
+         G3WA1rfJxvO0MAayBu27CpSAuFKzIir2+IFxDhrpEqODmSHVgWawRCO3nh+XBRUpvuDP
+         nTEg==
+X-Forwarded-Encrypted: i=1; AHgh+RpCxo/Se3HoO5/abwq6D5DktiCx320rdDXlLnwCiQTOmF2fxVyjKfU33hfRTAPETef0ObqQ3+xHM8P7@vger.kernel.org
+X-Gm-Message-State: AOJu0YwmjTP2wA4gs3qyzRhs+zEjB4oYWn+EMmPpQm+zHpio/lFCs/83
+	FsUFjN6PjzIV1PYCgDjMS55GryJcpaYEzPJcD9PJHQrPPzctM/QE1p6D
+X-Gm-Gg: AfdE7ckO4s0eJl/okjgcOhNEKqnvthgNLW3bkelDXEvxM6FsVov0RnvGT5qoJIufNeO
+	Qii6Md4DM3WogWgbuUYNjuP2eN0CU/iLjTQ0rQQ9i+EzpcLhpENwfxjj57XTGVH+N0IpnM/CIAL
+	fLxU1hBN+a4RHhWZISXPNNkBsNcX4f2MDdreyiZu0KfIm9SHli9n5wd/1pCEOelGfz6+hqr8cXe
+	TYEopWAeJOELqR2An0PAWVyt9Iv0HZIlv6PXuQpy5ouu8yQDNgIDn0dZzZUNqFNrm7c4hYOaoxF
+	kDj9u7N8wYTsUHKlipWrfTCf1dfeMXIRgeGMkl0v3WexDQ+Gq1MOikx8DNGdP+DNALCFBUyY4Nv
+	3vDdDBM5XbB2oOqIh8WJXju71+Z03rAH8yb3iTDy4Ij7egez44aUae1mvfcV/0TB3LCvMZ55g98
+	SldTU2BhRqjCLE0NK/kUBlogW3kJe2H2B4Sj9anbc6YszI7A==
+X-Received: by 2002:a2e:bcc5:0:b0:39a:cfe8:dcbd with SMTP id 38308e7fff4ca-39c600386b8mr5719571fa.30.1783377574045;
+        Mon, 06 Jul 2026 15:39:34 -0700 (PDT)
+Received: from Shofiq.home (87-92-251-137.rev.dnainternet.fi. [87.92.251.137])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39c6631e1ebsm965691fa.42.2026.07.06.15.39.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 15:39:32 -0700 (PDT)
+From: Md Shofiqul Islam <shofiqtest@gmail.com>
+To: jic23@kernel.org,
+	lars@metafoo.de
+Cc: linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7 0/3] iio: health: add MAX86150 ECG and PPG biosensor driver
+Date: Tue,  7 Jul 2026 01:39:27 +0300
+Message-ID: <20260706223930.1807714-1-shofiqtest@gmail.com>
+X-Mailer: git-send-email 2.51.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-apple-pcie-pwren-v1-2-5a281b182fe2@cyberchaos.dev>
-References: <20260707-apple-pcie-pwren-v1-0-5a281b182fe2@cyberchaos.dev>
-In-Reply-To: <20260707-apple-pcie-pwren-v1-0-5a281b182fe2@cyberchaos.dev>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Marc Zyngier <maz@kernel.org>, 
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, Yureka Lilian <yureka@cyberchaos.dev>
+Content-Transfer-Encoding: 8bit
 
-For the MacBook Pro and Mac Studio devices using the M1 Pro/Max/Ultra
-SoCs, add the appropriate fixed regulators for enabling the peripherals
-connected to the PCIe ports (WiFi, SD card reader and USB xHCI), which
-are controlled by GPIOs connected to the SMC.
-Set the regulators as the power-supply of the respective PCIe port, so
-that the endpoints are powered on before probing the ports.
+Changes in v7 (Jonathan Cameron's review of v5 driver):
+- Switch from triggered buffer to kfifo buffer (like MAX30100/MAX30102)
+  and remove the IIO trigger framework from this driver entirely
+- Remove spurious 'select IIO_TRIGGER' added to AFE4403, AFE4404,
+  MAX30100, MAX30102 in the Kconfig patch
+- Rename all register field macros to include the parent register name
+  and a _MASK suffix (e.g. MAX86150_PPG_CONFIG1_ADC_RGE_MASK)
+- Use IIO_DMA_MINALIGN instead of ARCH_DMA_MINALIGN
+- Use IIO_DECLARE_BUFFER_WITH_TS() macro for the push buffer
+- Fix regmap_noinc_read() length: use MAX86150_SAMPLE_BYTES (9) not
+  sizeof(fifo_raw) (64) -- the padded size is for DMA alignment only;
+  using it would over-read the FIFO by 7 extra samples per call
+- Use get_unaligned_be24() with a single mask for 24-bit FIFO reads
+- Use regmap_set_bits() / regmap_clear_bits() instead of regmap_update_bits
+- Use iio_push_to_buffers_with_ts() (new name)
+- Use fsleep() instead of usleep_range() after software reset
+- Use 10 * NSEC_PER_MSEC instead of bare 10000000
+- Replace if (!ret) chains with goto-based error handling
+- Remove all code-section comments (/* Trigger */, /* Probe */, etc.)
+- Remove forced variable declaration alignment
+- Print a warning (not -ENODEV) for unexpected part ID
+- Remove IRQ trigger type fallback; honour DT specification only
+- Remove memset of push buffer before packing
+- Drop overflow timestamp reconstruction; flush FIFO and discard samples
+- Remove struct device *dev field (unused after removing trigger)
+- Rename LED_PA_DEFAULT to LED_PA_50MA to make the value self-describing
+- Remove vref regulator (not a supply pin per the datasheet); keep vdd
+  and vled; change to non-optional devm_regulator_get_enable()
 
-Add the 'pciclass,0604' compatible string to the PCIe bridge nodes in
-the SoC to allow the pci-pwrctrl-generic driver to bind to them.
+Changes in v6 (Jonathan Cameron's review of v5 DT binding):
+- Remove "SoC" from description; spell out "photoplethysmography (PPG)"
+  and "electrocardiogram (ECG)" in full
+- Remove the I2C fast-mode (400 kHz) line
+- Simplify interrupt description to a single sentence
 
-Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
----
- arch/arm64/boot/dts/apple/t600x-die0.dtsi      |  4 ++++
- arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi | 16 +++++++++++++++
- arch/arm64/boot/dts/apple/t600x-j375.dtsi      | 27 ++++++++++++++++++++++++++
- 3 files changed, 47 insertions(+)
+Changes in v5:
+- Rebase on iio/testing
+- Adjust FIFO slot descriptor defines
+- Fix scan_type for ECG (signed 18-bit)
 
-diff --git a/arch/arm64/boot/dts/apple/t600x-die0.dtsi b/arch/arm64/boot/dts/apple/t600x-die0.dtsi
-index f715b19efd16..53a633a3c652 100644
---- a/arch/arm64/boot/dts/apple/t600x-die0.dtsi
-+++ b/arch/arm64/boot/dts/apple/t600x-die0.dtsi
-@@ -449,6 +449,7 @@ pcie0: pcie@590000000 {
- 		pinctrl-names = "default";
- 
- 		port00: pci@0,0 {
-+			compatible = "pciclass,0604";
- 			device_type = "pci";
- 			reg = <0x0 0x0 0x0 0x0 0x0>;
- 			reset-gpios = <&pinctrl_ap 4 GPIO_ACTIVE_LOW>;
-@@ -468,6 +469,7 @@ port00: pci@0,0 {
- 		};
- 
- 		port01: pci@1,0 {
-+			compatible = "pciclass,0604";
- 			device_type = "pci";
- 			reg = <0x800 0x0 0x0 0x0 0x0>;
- 			reset-gpios = <&pinctrl_ap 5 GPIO_ACTIVE_LOW>;
-@@ -487,6 +489,7 @@ port01: pci@1,0 {
- 		};
- 
- 		port02: pci@2,0 {
-+			compatible = "pciclass,0604";
- 			device_type = "pci";
- 			reg = <0x1000 0x0 0x0 0x0 0x0>;
- 			reset-gpios = <&pinctrl_ap 6 GPIO_ACTIVE_LOW>;
-@@ -507,6 +510,7 @@ port02: pci@2,0 {
- 		};
- 
- 		port03: pci@3,0 {
-+			compatible = "pciclass,0604";
- 			device_type = "pci";
- 			reg = <0x1800 0x0 0x0 0x0 0x0>;
- 			reset-gpios = <&pinctrl_ap 7 GPIO_ACTIVE_LOW>;
-diff --git a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi b/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
-index fee84f809a9c..7954cbbe4514 100644
---- a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
-+++ b/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
-@@ -55,6 +55,20 @@ led-0 {
- 			default-state = "keep";
- 		};
- 	};
-+
-+	vreg_pcie0_port0: regulator-pcie0-port0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "pwren-pcie0-port0";
-+		gpio = <&smc_gpio 13 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	vreg_pcie0_port1: regulator-pcie0-port1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "pwren-pcie0-port1";
-+		gpio = <&smc_gpio 26 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
- };
- 
- &serial0 {
-@@ -176,6 +190,7 @@ &nco_clkref {
- /* PCIe devices */
- &port00 {
- 	/* WLAN */
-+	power-supply = <&vreg_pcie0_port0>;
- 	bus-range = <1 1>;
- 	wifi0: wifi@0,0 {
- 		compatible = "pci14e4,4433";
-@@ -195,6 +210,7 @@ bluetooth0: bluetooth@0,1 {
- 
- &port01 {
- 	/* SD card reader */
-+	power-supply = <&vreg_pcie0_port1>;
- 	bus-range = <2 2>;
- 	sdhci0: mmc@0,0 {
- 		compatible = "pci17a0,9755";
-diff --git a/arch/arm64/boot/dts/apple/t600x-j375.dtsi b/arch/arm64/boot/dts/apple/t600x-j375.dtsi
-index 8a1494949e4c..412b2fe109be 100644
---- a/arch/arm64/boot/dts/apple/t600x-j375.dtsi
-+++ b/arch/arm64/boot/dts/apple/t600x-j375.dtsi
-@@ -42,6 +42,30 @@ memory@10000000000 {
- 		device_type = "memory";
- 		reg = <0x100 0 0x2 0>; /* To be filled by loader */
- 	};
-+
-+	/* WLAN/BT */
-+	vreg_pcie0_port0: regulator-pcie0-port0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "pwren-pcie0-port0";
-+		gpio = <&smc_gpio 13 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	/* SD card reader */
-+	vreg_pcie0_port1: regulator-pcie0-port1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "pwren-pcie0-port1";
-+		gpio = <&smc_gpio 26 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	/* USB xHCI */
-+	vreg_pcie0_port3: regulator-pcie0-port3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "pwren-pcie0-port3";
-+		gpio = <&smc_gpio 20 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
- };
- 
- &serial0 {
-@@ -356,6 +380,7 @@ &nco_clkref {
- /* PCIe devices */
- &port00 {
- 	/* WLAN */
-+	power-supply = <&vreg_pcie0_port0>;
- 	bus-range = <1 1>;
- 	wifi0: wifi@0,0 {
- 		compatible = "pci14e4,4433";
-@@ -375,6 +400,7 @@ bluetooth0: bluetooth@0,1 {
- 
- &port01 {
- 	/* SD card reader */
-+	power-supply = <&vreg_pcie0_port1>;
- 	bus-range = <2 2>;
- 	sdhci0: mmc@0,0 {
- 		compatible = "pci17a0,9755";
-@@ -397,6 +423,7 @@ ethernet0: ethernet@0,0 {
- 
- &port03 {
- 	/* USB xHCI */
-+	power-supply = <&vreg_pcie0_port3>;
- 	bus-range = <4 4>;
- 	status = "okay";
- };
+v4 and earlier: initial submission and review iterations
 
--- 
-2.54.0
+Md Shofiqul Islam (3):
+  dt-bindings: iio: health: add adi,max86150
+  iio: health: add MAX86150 ECG and PPG biosensor driver
+  MAINTAINERS: add entry for MAX86150 IIO health driver
+
+ .../bindings/iio/health/adi,max86150.yaml     |  65 +++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/health/Kconfig                    |  18 +
+ drivers/iio/health/Makefile                   |   1 +
+ drivers/iio/health/max86150.c                 | 533 ++++++++++++++++++
+ 5 files changed, 624 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/health/adi,max86150.yaml
+ create mode 100644 drivers/iio/health/max86150.c
+
+--
+2.51.1
 
