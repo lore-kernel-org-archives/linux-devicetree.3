@@ -1,131 +1,63 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028EE41D4EC;
-	Mon,  6 Jul 2026 10:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7AE8233721;
+	Mon,  6 Jul 2026 10:05:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783332212; cv=none; b=EQQbNKrMHXnKzzLj20k6UxBxlm7qtrgMLNWl6fGzk/fghKnSYIEGlF0p2rlumxeUh9ardNOYCCIEZGChLnXX2rws+Slffn8kudJLoqiJVAWwdqez35XZ/+swmVzfH1UBwmyHp82Bwm3EHs+rVnwe/vs2bSU7DrWbu4OifR2u4A4=
+	t=1783332325; cv=none; b=W7YCTgel2t4hecnrLv0ikSfWdf+7hJNZoPk3C5RFNd4oqunLJ/5lyxtqgCCMuzXQwIXd6c58CNuUu8MbqWmGC/fliL4q46J640gnicaKzMQWBAr1DR5vwEuDV5OB40LW8vS3q4pog4vlvxuKOu+NCrslsNd6TP9tftwPQLiKVTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783332212; c=relaxed/simple;
-	bh=Sb4iMYjbedO64WmPLzaRf05zqar0z8v+EnBWdzETtUg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hbw2DJGbqz7FyENRjnT8QFUjypl3mnbWUA7A2xEEmNkZi7DHgFPRUlHglMkSpATakyGVwO/WofBNyoP88sAtNjuTafYK2msJmyEgQ2yQWEm5weGt3OX2liJIj1YjSV7pSrG4g0VxFj5/2F8DTiiP2IU5PHLK3e+qGMQGdN4jBR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=BWFu4YUB; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1783332325; c=relaxed/simple;
+	bh=jZ/jeF0rqeGJmOgvFJLDOcdQYLBkfprGmEHK/lqf0cU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZNsdbUShh1mnzhAQlxlX7c65H9BxLHQ1pasDfBpgQPeW9huxjZ2OV9jqj7l8zHY8dBaYnam4xygxZBaBWeCeSAH80KBkVZQTInVc4168+TafPXNqsI5hgl2j9mYmNVdTYATB4BndMlPfB16WkrqFw/6C6BhlV7uxbg+w740IWrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NuQ5N5rR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="BWFu4YUB"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 21E8133D;
-	Mon,  6 Jul 2026 12:02:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1783332160;
-	bh=Sb4iMYjbedO64WmPLzaRf05zqar0z8v+EnBWdzETtUg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BWFu4YUBI/IcrAAjTK1CItkEH1FftGsDP7SOEZp9j02bgYinuypdBO11soxkSjvA8
-	 JUrJ6PgZHVkFxO+iKj0vkdfTPhpMH+TELU8hb9oTM7V4LqPJlqsFhllXBAvv0UE3x3
-	 +f97cTPme7hAI5ubiZRfwQDMmQ5h8WotKuUDjX6M=
-Date: Mon, 6 Jul 2026 13:03:27 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
- hardcoding EDID
-Message-ID: <20260706100327.GA66892@killaraus.ideasonboard.com>
-References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260705213542.28987-2-laurent.pinchart+renesas@ideasonboard.com>
- <CAMuHMdUCqTQ0fWDyHJkU=0gzFe88r0hsSk9tsgfQUZq4TRcAoQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NuQ5N5rR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E93261F000E9;
+	Mon,  6 Jul 2026 10:05:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783332324;
+	bh=jZ/jeF0rqeGJmOgvFJLDOcdQYLBkfprGmEHK/lqf0cU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NuQ5N5rRf5wDjZWeTuWo+tq6OFFvFIUw7G9pFQRGMnRxzDTumlAnNBJG7dCYyrnb1
+	 CMW5tXlEWVgnd8wbzuU94PWub8u86BC/Y7oipzVoMvxs5FGQLIYUzhDPTbbpqin+6K
+	 xD1aoyUi3dYZvh80NYvgzusCALBlhfsx95fhFQNEvN60/I5cXhXoHxAbHg/a4nQiRQ
+	 UM3XHUCjr1xl4sRaGz5azo2Kpw3eRJ0nOZN/qTL2RznWdiI1yEDcaQPLgu1psCjp33
+	 iF9GWgTmpuY0MCVyTpxaUjAzv6qa7t7PeSPYtZtfpds0MhUaDKHaB46KSH5G2q1hgp
+	 lhMPRZgc4bTpw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: pci: ultrarisc: add required DP1000
+ PCIe clocks
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jia Wang" <wangjia@ultrarisc.com>
+Cc: conor+dt@kernel.org, linux-pci@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260706-ultrarisc-pci-clk-v2-1-2f3fb6fba66b@ultrarisc.com>
+References: <20260706-ultrarisc-pci-clk-v2-0-2f3fb6fba66b@ultrarisc.com>
+ <20260706-ultrarisc-pci-clk-v2-1-2f3fb6fba66b@ultrarisc.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 06 Jul 2026 10:05:23 +0000
+Message-Id: <20260706100523.E93261F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdUCqTQ0fWDyHJkU=0gzFe88r0hsSk9tsgfQUZq4TRcAoQ@mail.gmail.com>
 
-On Mon, Jul 06, 2026 at 10:08:57AM +0200, Geert Uytterhoeven wrote:
-> On Sun, 5 Jul 2026 at 23:35, Laurent Pinchart wrote:
-> > Since DDC version 2, introduced in 1996, VGA monitors have exposed EDID
-> > data over an I2C bus. The bus is also used to detect the presence of a
-> > connected monitor by trying to read the EDID data.
-> >
-> > Some devices where the VGA display is integrated in the device and
-> > always connected do not connect the DDC pins. Some development boards,
-> > such as the Renesas M3N Salvator-XS, also do not connect the DDC pins.
-> >
-> > To support those, add the ability to provide hardcoded EDID data in the
-> > device tree. This is mutually exclusive with specifying a DDC bus, and
-> > can only be done when the VGA display is guaranteed to be always
-> > connected.
-> >
-> > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> 
-> Thanks for your patch!
-> 
-> > --- a/Documentation/devicetree/bindings/display/connector/vga-connector.yaml
-> > +++ b/Documentation/devicetree/bindings/display/connector/vga-connector.yaml
-> > @@ -19,10 +19,25 @@ properties:
-> >      description: phandle link to the I2C controller used for DDC EDID probing
-> >      $ref: /schemas/types.yaml#/definitions/phandle
-> >
-> > +  edid:
-> > +    $ref: /schemas/types.yaml#/definitions/uint8-array
-> > +    description:
-> > +      When the DDC signals are not wired to the connector, and the connected
-> > +      display is not removable, this property is used to supply a binary EDID
-> > +      blob for the display.
-> > +
-> >    port:
-> >      $ref: /schemas/graph.yaml#/properties/port
-> >      description: Connection to controller providing VGA signals
-> >
-> > +allOf:
-> > +  - if:
-> > +      required:
-> > +        - ddc-i2c-bus
-> > +    then:
-> > +      properties:
-> > +        edid: false
-> > +
-> 
-> What if the DDC signals are wired to the connector on the provider side,
-> but not on the consumer side?
-> A DT overlay describing the consumer device can add an edid property,
-> but it cannot delete the ddc-i2c-bus property in the base DTB.
+> From: Jia Wang <wangjia@ultrarisc.com>
+>=20
+> Require the DP1000 PCIe controller nodes to provide clocks and
+> clock-names, using the standard DesignWare clock names "core",
+> "dbi", and "aux".
+>=20
+> Fixes: d9ff07f45955 ("dt-bindings: PCI: Add UltraRISC DP1000 PCIe control=
+ler")
+> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
 
-As the use case is devices where the VGA display is an integral part of
-the device, I don't this this is a big issue. I would be quite surprised
-if a manufacturer wanted to support different SKUs with multiple VGA
-display overlays, with the DDC signals wired up in the base board on all
-SKUs, and on the VGA display side in some SKUs only. If that happened,
-they could set the ddc-i2c-bus property in the overlays that wire the
-signals, implement /delete-property/ support for overlays (would be an
-interesting feature in my opinion), or as a very last resort propose
-relaxing the constraint here.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-> >  required:
-> >    - compatible
-> >    - port
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-ultrarisc-=
+pci-clk-v2-0-2f3fb6fba66b@ultrarisc.com?part=3D1
 
--- 
-Regards,
-
-Laurent Pinchart
