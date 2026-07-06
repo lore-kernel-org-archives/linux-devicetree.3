@@ -1,60 +1,60 @@
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F163D4112
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 19:59:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2976E3DC4BD
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 19:59:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783367973; cv=none; b=KdwM61bBruVN4ABuSnJU9eNgNmVYvV1WABnfk3/aOhY7WWrKEND5lZ1Ey50XazUon9hK7/vhlRKbK6c4lG2IjlE+Zz/ynHiAySUKT3lssUUQDOvz7mdFAuorjvwxMsgD1fIc1b+NNP6EwsGocL0Gv0QbwSKKu2/kd2YRAblpk9E=
+	t=1783367973; cv=none; b=k2JpmocJCcKTopEAW4xPD97PMoyz0DBeVLX2JBfAzRnv4v+6Qn1aUMTbm8xJKKWj8UWvPwtIKfbj3Enu3ZbnltvKROUnUEN/oy/vkiKV8tiDQGyjGR/t9yRk5np8qg6zchrnNiVV4GTPV+9dDbYAE9UyYGUELerphmIMpPxIaTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783367973; c=relaxed/simple;
-	bh=djaG/NGurBf4ZQsNMptxWQoa3v2kz8PFn1TmQ/FGVSo=;
+	bh=ZcGfbAq4udlMGUkHha973st5OT0QKeuHdOkUwEkoq5M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LjgDcsK97stqQXahSiSheIRDfjvkYOIZD68bIDlnmcuM91cgi2zVf7JeQiHkli5zzqRM+vs94nsOsOfl7jF+/0K8sfLodRU+LsoxYo4tv5F9YoT8ra/4b7cFLWUR8f9NnK2KMhCZhTQHsMxFilqjSAs3I3lTshFHDQkRN4uPrtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=UhcRMvXG; arc=none smtp.client-ip=209.85.210.54
+	 MIME-Version; b=SSDS6b7gOiaBIg7dECOS0Swc2mTibUMa3cmO8rLooksq8U6xMeLNVvn4FyZX2UXEh+guhxiK3M/kIdGJfyb8F5u4VZjiOMlVpV9wV1M1+vwalh5AJJVr5BNW2IDPkbqpfFuoNG+6S+peIckRkWVZlN/Q1LT182p7Pst5CvGU83Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=nJsIkTBE; arc=none smtp.client-ip=209.85.210.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="UhcRMvXG"
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7e9f6e7846bso1487209a34.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 12:59:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="nJsIkTBE"
+Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7e9eaf04bfaso773589a34.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 12:59:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1783367968; x=1783972768; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1783367965; x=1783972765; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9pR1b7+xzGSlhQK0IQGnCFDCaN1WTfnJWTFTWbY2IVA=;
-        b=UhcRMvXGwqRzLiR2Lc1EtHG6ypGarDeP/HfiuiB1nzhIC/oLfL3rnlhLsOXpC0F9eh
-         bTgXghJHUYCwOlvH87WWXt9sRN5LuT3hH91UDczaPFFEuhArVKk1kQe/p/IajiJtPO1I
-         +Z1e/OrUuX8sW0++kz0aQcIKrExBn7lZD9DPQ=
+         :message-id:reply-to;
+        bh=OhHQ34ucfgP3gbwbph5XNn7ZzhoehEkZZGHdIdb2gNk=;
+        b=nJsIkTBEdWhOoxc3JlwmBGOMm6QH6YMBIFXC74JG/YVphHxMbKrkv+CmORgzAl4n6+
+         T9wFfiaSeXg8PEO7RoNzxHi8702BGNHM/e994BFTv8S1yaWgtYS0KfRr273fO5uDzcOd
+         qxbZJaQbcwHG5qsRw8a/wqcLpyiyk3ACxYJLg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783367968; x=1783972768;
+        d=1e100.net; s=20251104; t=1783367965; x=1783972765;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9pR1b7+xzGSlhQK0IQGnCFDCaN1WTfnJWTFTWbY2IVA=;
-        b=VRyOUV/zoOEppy+HNp+FiCMhm7BK0unJGRxqiPP/rq4yTnikJnPwtlqzC294+98yP6
-         ynb9xtqX8fKcBf0Q3ZXxxA/QjzJQXu+USH8eNSXXJAHcyzwDKJqhnYo3D1DiGiZ3QwPg
-         L0Vm57FhJeabT9FPJUx6yAk6cCtYnZO3T5QrQDsLeUNXMXXlcC6sSmYtly1tcVxoq+wi
-         4OUJ0v3iUDoZxRc3FfKrzaGI9lTW/vnqZDMOLsr8C3u9gJFgiWvQb6ySd1bRFugrSRjh
-         W610xKl+/X+qWS97QF/yV5eUf1t7u43eM65SKmnBzxe63KCFclKsv7dBPVhobbrw6LVe
-         GQ/g==
-X-Forwarded-Encrypted: i=1; AFNElJ+oCavqqU9UR0dWet7glfFW7ujhhZDXli8alMFGNVj6dS1mS/O+cXHIbkayD/kY3FtN4ElWmOUM1re4@vger.kernel.org
-X-Gm-Message-State: AOJu0Yya5MKAr0mAKuLJusInk07ubQeqwxwxnWRI+twiWgX5QP8+fZQT
-	OyPDdRokhDlOegxVN+UQqMOspfgS7rQWTmote/NQuoFNfsMdIiSDzmYL83NckeBdzw==
-X-Gm-Gg: AfdE7cntDJewyCNXj4LZxYfHww47cf6ZwepQAvz7yA6JnuGKhGhdBEBMwfYS0bJzHLt
-	KEv1yc0SG9N1o0Jf/YXXRQucxJz7luPgH/D1gjGs0FV7ZPHvLGR9DIVcaKougSzC9+P+OaK9gJC
-	7859EJYNuoj14VV+uEoZluMiiFQqCd5QM7PTkZ71yBp983aEeiZkc5NQVCjdErjgC9cxGH+X3tm
-	KaxfyVqrpIcEhDSeGge5Yz02FLlHe7rJmsBWkrFREVvPM0Ew030hBBZFQBJCIHpAe+IoABlXiHj
-	j9dclviCwQoQvBnzLvwJ4VKVLPmGyugtR5zqtdzd0AA9IUDBrkp3dMiEGFjWRbUVm152cIyyGu6
-	PWCYLfc1Hpqy9e0+Z13y5/jzOSRTOeoyOeY2j35aFznerfz+Psu/pDVkYzT3pLAbGLXCUQoLarW
-	ZC1eryToI=
-X-Received: by 2002:a05:6830:3887:b0:7e9:b4d0:53a2 with SMTP id 46e09a7af769-7ebb23a11b0mr1118805a34.27.1783367967800;
-        Mon, 06 Jul 2026 12:59:27 -0700 (PDT)
+         :to:cc:subject:date:message-id:reply-to;
+        bh=OhHQ34ucfgP3gbwbph5XNn7ZzhoehEkZZGHdIdb2gNk=;
+        b=buX6uFJ4NVAaLtkvHSH5IV9RW0Rh4n5wKuA39BI9lqT3P9vNIzI8zfSsqfxkcLAlsE
+         ustHyg8MuTjCbc27bYfMakJV7gQn5ii/FH03TigvfQVn9M2waEFhFHWO4dkk3FnFUHFe
+         u1zoi/FAQsRvsZaUbPOwipShYm4aBtEh3mIavhOmGlbe1q22bmF+1AExAdITXy7usnQb
+         MAsC/SqBYpYvt59A+xMsCyBgjAkojvkZ/rAFZrxuTbOOlOBXH5To5KIzzH0uOWYhjTKN
+         DGONGDn8T9RJ+MFwCyHVlXfwpzf0Pmo71NXXLyEtAbGALKpJk5sNp/NJmONMVDvc3Xav
+         wBew==
+X-Forwarded-Encrypted: i=1; AFNElJ+xO8707cfb3w92iAf+PInS7NgKPcjrgTrqKZ47upw/5klMl1f/PgIRsCq7FHpdOb2tggrKACmLKIF4@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx2KHQJWNVtfjLA8jfkJ6Mj/YFwiTX5mjACuLJ+djmsKl/o2f29
+	ZFaf11xd0ijsDtUd9j+3CXPsBYradGaXbDtIvo+xZY3IpdcuiYssAigN8KXinStNjA==
+X-Gm-Gg: AfdE7cnACwahr8iZM16Ig1buRIzZFbEGTG5GW7TXS2ri9Nut1wVv9a4PBoPR+PUx2nB
+	564EcpjgGdIzu9NoG25wn6XwQ36knOucOj40duOg6SHhA8QXt4PQBHwV3Wn2Tpq3huGQuG2p6A7
+	lj5Hc96/sEHZ92JWjLuQdNJ2uGaW3AwFM8jcSE0rwGO+xf1p89SaELGDdMeCx6YLCHZ1tc+lIkA
+	DViZ3XtlGV2V0Pz+WIZCGnrTh0yWCqnXeF9oG7IKWphAeyziqxv0CHA6mFf/vSZcoTk/p81VuNs
+	MqVw8lOL6n8M1kiCzVn7R3zMqYWVuQOjmGDwBIPWX7ncyTEAwS5wjxMoDVHienahY9HBhJj8W5B
+	TiJXp6VQwvNkvp4S4K5GStpoRsuCpaac/zvFTq33qL+mchxh84OH2CYG0nAwe36WbQisGLkhin2
+	U1vIkelaI=
+X-Received: by 2002:a05:6830:82c4:b0:7e9:fc62:1e0d with SMTP id 46e09a7af769-7ebb233afd1mr1278586a34.18.1783367965005;
+        Mon, 06 Jul 2026 12:59:25 -0700 (PDT)
 Received: from chromium.org ([174.51.25.52])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7eb542d017csm12161834a34.8.2026.07.06.12.59.25
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7eb542d017csm12161834a34.8.2026.07.06.12.59.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 12:59:27 -0700 (PDT)
+        Mon, 06 Jul 2026 12:59:23 -0700 (PDT)
 From: Simon Glass <sjg@chromium.org>
 To: Heiko Stuebner <heiko@sntech.de>
 Cc: linux-rockchip@lists.infradead.org,
@@ -63,14 +63,15 @@ Cc: linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
 	Simon Glass <sjg@chromium.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	linux-mmc@vger.kernel.org
-Subject: [PATCH 07/12] dt-bindings: mmc: rockchip-dw-mshc: Add RV1106 compatible
-Date: Mon,  6 Jul 2026 13:58:03 -0600
-Message-ID: <20260706195818.3906949-8-sjg@chromium.org>
+	linux-serial@vger.kernel.org
+Subject: [PATCH 06/12] dt-bindings: serial: snps-dw-apb-uart: Add RV1106 compatible
+Date: Mon,  6 Jul 2026 13:58:02 -0600
+Message-ID: <20260706195818.3906949-7-sjg@chromium.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260706195818.3906949-1-sjg@chromium.org>
 References: <20260706195818.3906949-1-sjg@chromium.org>
@@ -82,32 +83,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the compatible for the MMC controllers of the Rockchip RV1106,
-which are compatible with the RK3288 variant.
-
-Unlike the newer controller in the RV1103B, which uses the RK3576
-fallback, the RV1106 controller is the older IP whose drive and sample
-phases are set through clocks provided by the GRF, so the RK3288
-fallback is the correct one here.
+Add the compatible for the UARTs of the Rockchip RV1106, which are
+compatible with the Synopsys DesignWare APB UART.
 
 Signed-off-by: Simon Glass <sjg@chromium.org>
 ---
 
- Documentation/devicetree/bindings/mmc/rockchip-dw-mshc.yaml | 1 +
+ Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/mmc/rockchip-dw-mshc.yaml b/Documentation/devicetree/bindings/mmc/rockchip-dw-mshc.yaml
-index 4965bb518c54..21ecfaa454f4 100644
---- a/Documentation/devicetree/bindings/mmc/rockchip-dw-mshc.yaml
-+++ b/Documentation/devicetree/bindings/mmc/rockchip-dw-mshc.yaml
-@@ -43,6 +43,7 @@ properties:
-               - rockchip,rk3562-dw-mshc
-               - rockchip,rk3568-dw-mshc
-               - rockchip,rk3588-dw-mshc
-+              - rockchip,rv1106-dw-mshc
-               - rockchip,rv1108-dw-mshc
-               - rockchip,rv1126-dw-mshc
-           - const: rockchip,rk3288-dw-mshc
+diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+index 49f51b002879..c0d0524458c1 100644
+--- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
++++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+@@ -72,6 +72,7 @@ properties:
+               - rockchip,rk3576-uart
+               - rockchip,rk3588-uart
+               - rockchip,rv1103b-uart
++              - rockchip,rv1106-uart
+               - rockchip,rv1108-uart
+               - rockchip,rv1126-uart
+               - sophgo,sg2044-uart
 -- 
 2.43.0
 
