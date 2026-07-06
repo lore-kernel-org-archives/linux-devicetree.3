@@ -1,157 +1,308 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9255A2EEE6C;
-	Mon,  6 Jul 2026 17:33:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ADAB3ACA65;
+	Mon,  6 Jul 2026 17:35:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783359227; cv=none; b=UxxqdkF5N3Brisk63AHj2cBkyJ3uw8rNEXSC6v4yKCRSsdPy/rxrezDMBq5NDcpuy7UIApr0UJ+Sewj5ihZ8VoiR/Ke+UlbF2L6KNSojW8bk3SvbliF+WhXXWek8f6R+fJo3+4lAPEqllv3OxKBmMpixeHa83J1LtRScFnYThKM=
+	t=1783359360; cv=none; b=MxlFKzSwbaZzuyrtWP9286aqy08O+v5T66gjxmdITWWa4W+WrA2DH080Zft4LYuaKDkMJcD2+fVECCyFkVJCsrRmga7O0sjTneKUrsIljPKNrQmBpMfivJfAivQ/OL19qNuZPVmEMCVB8VTljxd8NW6JOW59WYW28787o/gd40Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783359227; c=relaxed/simple;
-	bh=gOY8Q86uM/Zk+74GMjD7OybSWUIMP9sunYXT6qrs0bQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PHupjhj0eVBzhhPHihqR6CvIBYcpfi0jPSVKX+E+owgJWOPj5fFBcVp3WvFPdwNe4y3r/U3PHhtpumYFf98JUjussXTnbkVJwm0YCAEcIWN4ItibsIndS21vpfwVpY9JGNbKLK9D7l0K3GWoJJQW6p+4/b5mxBp6NwTPlv5uDT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZzyUVoZT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783359360; c=relaxed/simple;
+	bh=uf9k0lwi4OR9Ahwj7N6pv5lJVtG1ItErD4ZRXKHHX5s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kiPjLponld6Gh6AfOiukw90rQxcjPAzdkaJfM5jdehZFAV0vQaWb+UXrrIa3+HjOEDfOlIJTLsXWW2YRO1yGuCLlT1MwuKuW7/FAQMd0iQpSOJvM/4IV5S6wcYxlJ+zT8hVSEohXB7xKP/RwcVtzA+fbgkwXG9b8Eop75+oEd8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XsVpgY3Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZzyUVoZT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25AE11F000E9;
-	Mon,  6 Jul 2026 17:33:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XsVpgY3Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 119A51F00A3A;
+	Mon,  6 Jul 2026 17:35:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783359226;
-	bh=VrY40nC2sEAC7pHLNVK+hWJob25lrd9yzaHazRkBI0w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZzyUVoZTLU2k0ka9yPOVTzpVS2+/c64QiJiBQiN0Z0jz458/AqrRtslQq5KgtjDKe
-	 AxrFTssC100Euge4Uo9R2iCEmYtHTC6BgowxEOep7+c8iAsHjP1+0u7tOqJgFghSrZ
-	 4iog1VwUJTcAeTAJWvgI3Rt9dEfmdVGiVWhuyl7lo8X2zeqbLyuWmPI5P8O+gLsXKs
-	 DwQLRfBlvGaejmqNmvNbgzzGUWA8fDpyf2u/vpZYtWZKEmdcMQGwPXpOaMffRXdoOz
-	 jOOjP54VLiJUzsV8dt8v2iVMbQHZae8yc9dNn1qB6zySRWiqTvAxkuMG+eSB4HDBEH
-	 ZLnahuMlqFgfg==
-Message-ID: <549ff994-6b6d-49c3-a764-4c1e134a4a14@kernel.org>
-Date: Mon, 6 Jul 2026 19:33:37 +0200
+	s=k20260515; t=1783359359;
+	bh=zRpw/4G81Ngpv3cHDhu/5hiK4+GxmEEf2lmP3foOJQY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XsVpgY3QEgW+wkQpXnwd+tM6hqF6fjg5KUIt4Y3YdhcUFSrokZCiHKA60irFAIGIp
+	 AoOvfRk4TNLzVeLY0cS/8/IRJMVFuDmeP49iroeQMfp2U+YnpC/NwWGPBngvB+moyZ
+	 b1k5nvQk2oCWgzcgiUGI8MMFK0vBt+X3RM4ADBKO2i1IfZJxv94Wc+M2L2mgaavDjz
+	 uZ/bad/hGjuuTDgfdpape4KOhvDzAaUEPU+GCoRbKA0gnLy9VRzvbzreaQoHp/yRuU
+	 Ebsc3ZnquCRvdjHKZRzEkfksjKnOYXwaQqrsEe3LgsaEgeJBli9ut/exKStF8/aU0D
+	 ND1gi46rVlfhA==
+Date: Mon, 6 Jul 2026 18:35:53 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jonas Jelonek <jelonek.jonas@gmail.com>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Daniel Golle <daniel@makrotopia.org>,
+	=?iso-8859-1?Q?Bj=F8rn?= Mork <bjorn@mork.no>
+Subject: Re: [PATCH net-next v5 1/4] dt-bindings: net: pse-pd: add bindings
+ for Realtek/Broadcom PSE MCU
+Message-ID: <20260706-player-handwash-0a3fe95cf5ec@spud>
+References: <20260706112425.3149226-1-jelonek.jonas@gmail.com>
+ <20260706112425.3149226-2-jelonek.jonas@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] dt-bindings: crypto: qcom,inline-crypto-engine:
- Document Nord ICE
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-crypto@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Harshal Dev <harshal.dev@oss.qualcomm.com>,
- Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-References: <20260704004408.2303468-1-shengchao.guo@oss.qualcomm.com>
- <b693a9d2-4f1d-4c17-8a63-99c7ac79ed41@oss.qualcomm.com>
- <20260706-busy-grumpy-limpet-c59789@quoll>
- <CAMRc=Mcg-6XajFJCjTDgGACQ7YLGggw5TEtHv4QMEA=dFLOhTg@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAMRc=Mcg-6XajFJCjTDgGACQ7YLGggw5TEtHv4QMEA=dFLOhTg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1GUQUF22i6sgqNzV"
+Content-Disposition: inline
+In-Reply-To: <20260706112425.3149226-2-jelonek.jonas@gmail.com>
 
-On 06/07/2026 19:13, Bartosz Golaszewski wrote:
-> On Mon, 6 Jul 2026 08:54:22 +0200, Krzysztof Kozlowski <krzk@kernel.org> said:
->> On Sun, Jul 05, 2026 at 11:15:45PM +0530, Kuldeep Singh wrote:
->>> On 04-07-2026 06:14, Shawn Guo wrote:
->>>> Document Inline Crypto Engine (ICE) on Qualcomm Nord SoC.
->>>>
->>>> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->>>> Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
->>>> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
->>>> ---
->>>> It was included in the Nord SA8797P DTS series [1] due to that
->>>> the prerequisite changes were picked up by Bjorn for 7.2. Resend it to
->>>> Herbert as the dependency is gone now with 7.2-rc1.
->>>>
->>>> [1] https://lore.kernel.org/all/20260526051300.1669201-1-shengchao.guo@oss.qualcomm.com/
->>>>
->>>>  .../devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml   | 2 ++
->>>>  1 file changed, 2 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
->>>> index db895c50e2d2..d690eff2e86d 100644
->>>> --- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
->>>> +++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
->>>> @@ -17,6 +17,7 @@ properties:
->>>>            - qcom,hawi-inline-crypto-engine
->>>>            - qcom,kaanapali-inline-crypto-engine
->>>>            - qcom,milos-inline-crypto-engine
->>>> +          - qcom,nord-inline-crypto-engine
->>>>            - qcom,qcs8300-inline-crypto-engine
->>>>            - qcom,sa8775p-inline-crypto-engine
->>>>            - qcom,sc7180-inline-crypto-engine
->>>> @@ -63,6 +64,7 @@ allOf:
->>>>              enum:
->>>>                - qcom,eliza-inline-crypto-engine
->>>>                - qcom,milos-inline-crypto-engine
->>>> +              - qcom,nord-inline-crypto-engine
->>>
->>> With below patch, we don't need nord entry here.
->>> https://lore.kernel.org/lkml/20260702-b4-shikra_crypto_changse-v2-1-66173f2f28b3@qti.qualcomm.com/
->>
->> Patch has conflict. This (Nord) should go after above one, with this
->> fixed.
->>
-> 
-> The other series still hasn't made its way upstream. This one's simple, can we
-> queue it now and rebase the other one?
+--1GUQUF22i6sgqNzV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This is not point of rebase, but conflicting work.
+On Mon, Jul 06, 2026 at 11:24:21AM +0000, Jonas Jelonek wrote:
+> Add a binding for the microcontroller (MCU) that fronts the PSE silicon
+> on a range of managed switches. The host talks only to the MCU, over
+> I2C/SMBus or UART, using a fixed message-based protocol; the PSE chips
+> behind it never appear on the bus.
+>=20
+> The compatible names the MCU front-end, not a specific part. These
+> boards front the PSE silicon with an MCU that presents a stable
+> message protocol Realtek documents. The PSE chip behind it varies
+> - Broadcom on older boards, Realtek on newer - and is detected at
+> runtime; the arrangement appears to be a Realtek MCU-based PoE design
+> carried across those PSE-chip generations. So the 'realtek' prefix
+> names that front-end (Realtek's protocol and firmware), not the
+> general-purpose MCU silicon or the PSE chip - the google,cros-ec-*
+> model. The '-rtk'/'-brcm' suffix selects the Realtek or Broadcom dialect.
+>=20
+> A single compatible per dialect covers both the I2C/SMBus and UART
+> attachments: the wire protocol is identical across them and the transport
+> is expressed by the node's parent bus, so it is not encoded in the
+> compatible.
+>=20
+> Both dialects share one protocol family and one device tree contract, so
+> they are documented in a single binding under the one 'realtek' prefix,
+> with the '-rtk'/'-brcm' suffix distinguishing the dialect.
+>=20
+> Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+> ---
+>  .../bindings/net/pse-pd/realtek,pse-mcu.yaml  | 154 ++++++++++++++++++
+>  1 file changed, 154 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/pse-pd/realtek,=
+pse-mcu.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu=
+=2Eyaml b/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu.yaml
+> new file mode 100644
+> index 000000000000..d0dfae220dc1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu.yaml
+> @@ -0,0 +1,154 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/pse-pd/realtek,pse-mcu.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Realtek/Broadcom PSE MCU
+> +
+> +maintainers:
+> +  - Jonas Jelonek <jelonek.jonas@gmail.com>
+> +
+> +description: |
+> +  Microcontroller (MCU) that fronts the PSE hardware on switches using
+> +  Realtek (RTL8238B, RTL8239, RTL8239C) or Broadcom (BCM59111, BCM59121)
+> +  PSE chips. The MCU exposes a small message-based protocol over either
+> +  I2C/SMBus or UART; the actual PSE silicon is not accessed directly. The
+> +  Realtek and Broadcom variants share this device tree contract but use
+> +  different protocol opcodes, selected by the compatible.
+> +
+> +  The compatible identifies the PSE-MCU protocol dialect, not a specific
+> +  part. The device here is the MCU: it presents a stable message protocol
+> +  documented by Realtek, with the PSE silicon behind it - Broadcom on
+> +  older boards, Realtek on newer - detected at runtime and not described
+> +  here. The MCU's own silicon is general-purpose and varies across
+> +  boards, so the 'realtek' vendor prefix names the protocol front-end
+> +  (following the google,cros-ec pattern); the '-rtk'/'-brcm' suffix
+> +  selects the Realtek or Broadcom dialect.
+> +
+> +  A single compatible per dialect covers both the I2C/SMBus and UART
+> +  attachments: the wire protocol is identical across them and the
+> +  transport is already expressed by the node's parent bus, so it is not
+> +  encoded in the compatible. Transport-specific properties differ
+> +  accordingly - the I2C attachment carries 'reg' (and, for Realtek,
+> +  'realtek,i2c-protocol'), while the UART attachment carries the serial
+> +  peripheral properties such as 'current-speed'.
+
+I'm not really convinced by the arguments here.
+
+If the switch vendors are running different software on their MCUs to
+the point that they behave differently, then yes it makes sense to have
+different compatibles.
+
+The first thing I don't understand is why realtek is considered the
+main vendor here? Is it their MCU that broadcom are re-using with some
+protocol tweaks?
+If it is, then having the vendor as a suffix like wheel reinvention to
+me, and if the MCU and/or protocol aren't something that broadcom
+borrowed from realtek then having a realtek vendor prefix is strange
+altogether. The mention of old boards being broadcom while the protocol
+is documented by realtek is confusing me.
+
+Either way, encoding the vendor without using the vendor prefix seems
+very odd me to.
+
+Secondly, the compatibles you do provide seem too generic. Is it really
+possible for a given board to use smbus AND i2c, or do specific boards
+only ever use i2c OR smbus (or uart for that matter).
+I find it more believable that a board would support i2c and uart than
+supporting both i2c and smbus fwiw.
+
+Can you provide a link to the actual devices somewhere? It is
+completely non-obvious to me what the binding actually represents.
+
+Cheers,
+Conor.
 
 
-Best regards,
-Krzysztof
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - realtek,pse-mcu-rtk
+> +      - realtek,pse-mcu-brcm
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  power-supply:
+> +    description: Regulator supplying the PoE power rail.
+> +
+> +  enable-gpios:
+> +    maxItems: 1
+> +
+> +  realtek,i2c-protocol:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum: [ i2c, smbus ]
+> +    description: |
+> +      Wire framing the MCU firmware expects on the I2C bus. "smbus" means
+> +      reads carry a leading command byte (0x00) and a repeated start; "i=
+2c"
+> +      means bare 12-byte writes and reads with no command prefix. Only
+> +      applies to the Realtek I2C attachment.
+> +
+> +required:
+> +  - compatible
+> +
+> +allOf:
+> +  - $ref: pse-controller.yaml#
+> +  - $ref: /schemas/serial/serial-peripheral-props.yaml#
+> +  # The I2C attachment (identified by 'reg') cannot carry serial bus pro=
+ps.
+> +  - if:
+> +      required: [reg]
+> +    then:
+> +      properties:
+> +        current-speed: false
+> +        max-speed: false
+> +  # 'realtek,i2c-protocol' is meaningful only for the Realtek I2C attach=
+ment;
+> +  # the Broadcom variant and any UART attachment must not carry it.
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: realtek,pse-mcu-rtk
+> +      required: [reg]
+> +    then:
+> +      required:
+> +        - realtek,i2c-protocol
+> +    else:
+> +      properties:
+> +        "realtek,i2c-protocol": false
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  # Realtek PSE chip, I2C attachment (SMBus framing).
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        ethernet-pse@20 {
+> +            compatible =3D "realtek,pse-mcu-rtk";
+> +            reg =3D <0x20>;
+> +            realtek,i2c-protocol =3D "smbus";
+> +
+> +            pse-pis {
+> +                #address-cells =3D <1>;
+> +                #size-cells =3D <0>;
+> +
+> +                pse-pi@0 {
+> +                    reg =3D <0>;
+> +                    #pse-cells =3D <0>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +  # Broadcom PSE chip, I2C attachment.
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        ethernet-pse@20 {
+> +            compatible =3D "realtek,pse-mcu-brcm";
+> +            reg =3D <0x20>;
+> +
+> +            pse-pis {
+> +                #address-cells =3D <1>;
+> +                #size-cells =3D <0>;
+> +
+> +                pse-pi@0 {
+> +                    reg =3D <0>;
+> +                    #pse-cells =3D <0>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +  # Realtek PSE chip, UART attachment.
+> +  - |
+> +    serial {
+> +        ethernet-pse {
+> +            compatible =3D "realtek,pse-mcu-rtk";
+> +            current-speed =3D <115200>;
+> +
+> +            pse-pis {
+> +                #address-cells =3D <1>;
+> +                #size-cells =3D <0>;
+> +
+> +                pse-pi@0 {
+> +                    reg =3D <0>;
+> +                    #pse-cells =3D <0>;
+> +                };
+> +            };
+> +        };
+> +    };
+> --=20
+> 2.51.0
+>=20
+
+--1GUQUF22i6sgqNzV
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakvneQAKCRB4tDGHoIJi
+0v68AQCZWdQajqx/aJaQN57kMtKybmti7bHapdjulp0RucHc/gD+OnJj3pQDIoMU
+hUU3VqfbSdYUCcM+N6ctaZPht90THwQ=
+=if7B
+-----END PGP SIGNATURE-----
+
+--1GUQUF22i6sgqNzV--
