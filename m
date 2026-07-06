@@ -1,105 +1,57 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F40239A4B8;
-	Mon,  6 Jul 2026 14:44:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273C3225775;
+	Mon,  6 Jul 2026 14:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783349090; cv=none; b=MwR8kk6QjTjBNWXZpJcv414amylEeHLrmwwCWKCYf94R1qZ6IOTRb+15cuEId4oidb2lpNDAQkFBfbgEpHHjEHXfYkvMBhQezPCjkkZ6yt026DWmgfUV2jNOn5YD6Q13L9OJmGJt4dmYdG/1BcY8dCQ2LUQ3viKTm2w5xkijOr4=
+	t=1783349110; cv=none; b=C38/wEIxo5NiKX1VMjlkI5rTET9mg6cnc4fwLRuujiRoCJOKtcRGLMRToj/dMh8E4qNPOvBJY8VoK9uygN+tGhWC7WN+X2iBNzjshi1FfP4sroMEMNscC94txZs5hBJYQlyCzFWupGxTl1wzGHEIU+QjzfotkamQy/IvoWX09Fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783349090; c=relaxed/simple;
-	bh=BQrPLArvukHrTNc6K2WMCKooW5UPCtf/2sRpWXuOGNY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YJmfITwB3MiPD757Ps1UAX4MPu/Dftk2xHFsRxTLkJMnJmjRoGJJuJVbNx9KusQ+zGvAYq6quJEquWTYK8/JRJsw4qtmjgcc+GPV5/bxRioQxxwWzfF+xQTfCZXuLRV2NXq9DGy4wX/LshJaD1hpukOyOjbHzWrfi5vTdlDA0eU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=qMKxiTzD; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1783349110; c=relaxed/simple;
+	bh=AsCqUSepLV1EVCdAVb1gjnK16IGOCWPNy8kXiha5vOI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SfFogNiTb29OiIo3XOxW15tm0G5iMSroHIz7guQosTavvIlxTeC7T6XFeI5ntHB8rfst3Q82TKmK//e1WknE0gYRe5PUmqHAL5AaN7ZUMRo2C/9uKnhqMzmR7x7nrWvsmt1Fz4Ai2Cy21WQWaTc8ckdx9vY7nDpEHN4Xnyde/vM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=VipuLJ4u; arc=none smtp.client-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="qMKxiTzD"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=j1ASJD5fqsAwFFcUNYkquGQJiBfSwiDNs8HIU4aL3mY=; b=qMKxiTzDxT45/y2B52wZlFx2pB
-	Ny1/wun9aae6xoqGdZy0DDB6cmfye4eAQu0zDMlYYJjuBTL+bSKWq00Bi7FlDmuuDlP3FehcG2O4J
-	64dupi/y9rRVQDFIo4lfiT583f46AWVv1eq3tPjRPOPRRLSCvj0i1x9d7mNG9JBQOIcr/j6qziypE
-	I6ZhXdyixzjUbu6QZAFR3tMY4jEZcSlVkuIaALUGdCOGJfzsWktaGcPDVHPIUm/CAiVu64nAHjI1R
-	E46n2GEeCYN0AA9VlcA3wSOPzAq9BodL1KBGTgo6qQxcMEHq5ZwoEbTRW+3UHhBbTaS8nrT9Lyz0O
-	uPHtVO0w==;
-Received: from sslproxy07.your-server.de ([78.47.199.104])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1wgkYu-000K6q-2c;
-	Mon, 06 Jul 2026 16:44:44 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1wgkYu-0006Gb-1W;
-	Mon, 06 Jul 2026 16:44:44 +0200
-From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-To: Nishanth Menon <nm@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux@ew.tq-group.com,
-	Alexander Feilke <Alexander.Feilke@ew.tq-group.com>,
-	Nora Schiffer <nora.schiffer@ew.tq-group.com>
-Subject: [PATCH v2 2/2] arm64: dts: ti: k3-am642-tqma64xxl-mbax4xxl: add icssg1 ti,pa-stats
-Date: Mon,  6 Jul 2026 16:43:59 +0200
-Message-ID: <a03189aa138f74955a03b9fe6018a17bf7e2ce8c.1783348781.git.nora.schiffer@ew.tq-group.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <aaec2ddf7cecb58ca0af37d4f03afec571804757.1783348781.git.nora.schiffer@ew.tq-group.com>
-References: <aaec2ddf7cecb58ca0af37d4f03afec571804757.1783348781.git.nora.schiffer@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="VipuLJ4u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1783349097; x=1783608297;
+	bh=AsCqUSepLV1EVCdAVb1gjnK16IGOCWPNy8kXiha5vOI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=VipuLJ4un5PyrPcU0KPcGiK0xJEfiUV3xhrpBqr6mg8Mps1BbtBjxAM5646uVOKIy
+	 SlksiiSCQ4zT91kZrt2NMczhh5luxT2AaTiVzcPgJFBMOQkWgrhjcTPhaVxRzqJAuX
+	 iF/4etLGMFunrq4FAQ5Dq13xGej6umdPTOu+JTsxCWybEDAk/+Vl+3gkCr/4gQtmqD
+	 MY4lCSXXMGSjQgsHN+hWWv1d7NbqwLMzz0bJw+JnB+eSGjRfgt1aCO0qX9GMDWITnT
+	 qC5d5gzcCEqZL+J3mqXcDsGcx2iqvZgwEMJiTm3gWploRJZijlDPERGrnjggRphVZS
+	 /tpVlyzwY0cLQ==
+Date: Mon, 06 Jul 2026 14:44:51 +0000
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+From: Esteban Urrutia <esteuwu@proton.me>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH 7/8] phy: qcom: qmp-combo: Correct pre-emphasis table for QMP v4 DP PHYs
+Message-ID: <9a203e5e-5d16-400d-a507-8b68df8eb017@proton.me>
+In-Reply-To: <4635a665-f605-4647-810d-c9d83a271a86@oss.qualcomm.com>
+References: <20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me> <20260622-sm8450-qol-v1-7-37e2ee8df9da@proton.me> <4635a665-f605-4647-810d-c9d83a271a86@oss.qualcomm.com>
+Feedback-ID: 147889766:user:proton
+X-Pm-Message-ID: 4d9a7c56b233fd2d39549ef51db60aa12ffaa5e3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28052/Mon Jul  6 08:24:35 2026)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Alexander Feilke <Alexander.Feilke@ew.tq-group.com>
+On 6/23/26 7:36 AM, Konrad Dybcio wrote:
+> It seems like 8350/8450 should be using what this driver calls
+> v5 tables, with this fixup:
+Any updates on this?
 
-Add missing ti,pa-stats syscon phandle. In addition to providing
-additional ethtool stats, this avoids a "icssg-prueth icssg1-eth:
-couldn't get ti,pa-stats syscon regmap" error message.
-
-Signed-off-by: Alexander Feilke <Alexander.Feilke@ew.tq-group.com>
-[Nora Schiffer: edited commit description]
-Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
----
-
-v2: update commit message to correctly describe the error message this
-avoids.
-
- arch/arm64/boot/dts/ti/k3-am642-tqma64xxl-mbax4xxl.dts | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/arm64/boot/dts/ti/k3-am642-tqma64xxl-mbax4xxl.dts b/arch/arm64/boot/dts/ti/k3-am642-tqma64xxl-mbax4xxl.dts
-index 46be6824dd163..b9e52d8bc8524 100644
---- a/arch/arm64/boot/dts/ti/k3-am642-tqma64xxl-mbax4xxl.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am642-tqma64xxl-mbax4xxl.dts
-@@ -110,6 +110,7 @@ icssg1_eth: icssg1-eth {
- 		ti,mii-g-rt = <&icssg1_mii_g_rt>;
- 		ti,mii-rt = <&icssg1_mii_rt>;
- 		ti,iep = <&icssg1_iep0>,  <&icssg1_iep1>;
-+		ti,pa-stats = <&icssg1_pa_stats>;
- 
- 		ethernet-ports {
- 			#address-cells = <1>;
--- 
-TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht München, HRB 105018
-Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
-https://www.tq-group.com/
+Regards,
+Esteban
 
