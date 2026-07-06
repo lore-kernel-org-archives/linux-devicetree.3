@@ -1,91 +1,250 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6907D382371
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 16:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517CA382371;
+	Mon,  6 Jul 2026 16:13:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783354407; cv=none; b=OnPJ1cpVXklGTTwN7lFRYoIvpX/LsZ2I9rK/F91kPinxWokR48n41Q4RSKW3/AiKMuZNrFOG2jPyhAJ2OvlioqVpGz561zwi77SF5pvd6fKLAwd7UfWP8G1fTlQkSqSbMLQFeBmQJjFJ/Rb4LQU2aL1qWE3tjThA5xWwwpwx9no=
+	t=1783354440; cv=none; b=ViC8VlC4uhyRzxBppOt19y7uCFrCAy+yqUWK8nr5QDzn1rf0Nexu2nOd5L+vdIOhGMJQj9aDwCcTY70tipd1UGWSabdM1d/5wJQqPoej6JfshBw2AltlzJwR0Mt4FSMj2dcx0qmAAvF7ggwrmjLH+RSpl0Tl76AF8eG2PznlyyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783354407; c=relaxed/simple;
-	bh=JWmayvficvx8Axlsca87ISrL3QSl2gPcK3gJ38qhsSU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Lzfo0Wlti4hn/Y1xPXz2egV6rTCLp24wTMhtdglhjmRNTJtCY6FT/11py85kXzG5fVbEWH9Lp/fo6Wv53Wm6JNwygpYPJoSNWwZ4ZAqpR/sZBDbIGiFsniWi04TYErFn8WmHNkZmM1HZSfnSqVAgcyBCw4Y+whotx9y6MGC1DOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kHygkCo+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783354440; c=relaxed/simple;
+	bh=fSkiMpVUEYl3XEopipwR05J7PwTHPUwofPO4hOYN9Gs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=NmTFc9HnbfDi03AMrtfUxje1IrjqBQlkuvZHDxFyWvBCw9gJMUG885yUuZhyllaEsicbH4aOhsPckvHgMHW886y9nbxIaWCErs5fsvTOeDQMbUdSUp9EM/FoLpA5KrBDK9eWMk54lAN+E7qGSQ0zgW07Cm6sdLsTH69cgqRSUdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BcbDZ7jC; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kHygkCo+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B76211F000E9;
-	Mon,  6 Jul 2026 16:13:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783354406;
-	bh=n4XD2d2ZPHfCs63SWUSe6mBaVISo0+wshmSC9FqfbXU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kHygkCo+RTrmi9fZNwoVwy6vBPBv24HlJgMSsB/bJ8asIZvFqtCN+gLvWGVW5cpm7
-	 Egi1GZioI6oOaLyWtqI9XKJuQu/PhcU0sqo93pu+dzrzmwCeIO93LQE4WaNnZ8Hz9v
-	 QNM8oW1W60fZ2IPAro8jxDTxMVUw3hFCso8GjQOG2m0WlOWiyzktU79v1g9tAVmqXJ
-	 8oiDcX34zEdtfd/8OH7wqQPFNl++H5px7QYjxijDAucFT2PwtfQ1mmsnRmdzdTA7/W
-	 q0VzqVatJlp+hwECTTwOVYTIccr+b2zQCY2rA9NOWx/oe4XAPRpYf/Gxv6dq9f7+W4
-	 QwyKYqGSznX7A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/6] dtc: dt-check-style: Handle properly DTC-style
- includes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260706-dts-style-checker-v3-6-03ffacff9226@oss.qualcomm.com>
-References: <20260706-dts-style-checker-v3-0-03ffacff9226@oss.qualcomm.com>
- <20260706-dts-style-checker-v3-6-03ffacff9226@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 16:13:25 +0000
-Message-Id: <20260706161325.B76211F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BcbDZ7jC"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id C1695C8EC7D;
+	Mon,  6 Jul 2026 16:14:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9139E601A2;
+	Mon,  6 Jul 2026 16:13:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5CC9D11BC0389;
+	Mon,  6 Jul 2026 18:13:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783354434; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=fSkiMpVUEYl3XEopipwR05J7PwTHPUwofPO4hOYN9Gs=;
+	b=BcbDZ7jCRDzTLgEyTmzujpQpst13yNJWuoy1LH0y4GbTMIyi67opMNuEsqqW9C2XLf72BR
+	a34XJaYDfm3GgnUJYsgMVEoheV+AJ+fjew2fHKidHgGeFDwJhBKzNe1lqMPNTlpRSazQzK
+	+Rpv8FdoLPjlgmyjEZYiFocJ7KZM7pun7pZMTlo41NnXkV6/xiNptIcT9BB4880f7iruec
+	tcr44yik6ItLzgC7U4Odey8SJ5WbJbnJKQ34Fqi9JJBDeP8Fk7SFQ8G+CUF3u42LPDb+PY
+	R5fNMi+7Uv5phwpv9yYDbUTr5x4blfzKzhm2AJnyqKUHRVH6f5sNoK0MB6hc0w==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Stephan Gerhold <stephan.gerhold@linaro.org>,  Richard Weinberger
+ <richard@nod.at>,  Vignesh Raghavendra <vigneshr@ti.com>,  Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
+ Dooley <conor+dt@kernel.org>,  linux-mtd@lists.infradead.org,
+  linux-arm-msm@vger.kernel.org,  devicetree@vger.kernel.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] mtd: rawnand: qcom: Add MDM9607
+In-Reply-To: <spaihty2s3zfj7jsv63ex7elf3bwz3bbak5ubageusatdgiodd@qh5gfhhh5ppo>
+	(Manivannan Sadhasivam's message of "Mon, 6 Jul 2026 18:00:39 +0200")
+References: <20260608-qcom-nandc-mdm9607-v1-0-4639a0492274@linaro.org>
+	<4kdjxrn3bxg7rhkdovidxv2b2f6evnknng7gjtbz7pahyqaakh@qkgxaz6xlav2>
+	<akult0UUSSwKQ8F5@linaro.org> <875x2smf39.fsf@bootlin.com>
+	<akus-hN7-yf4Y6XU@linaro.org>
+	<v4wc36d5slcbq6vsubrpzdoz6x7iq2t2xxlg7onak7fq3bcpjz@kxoqbvi734pp>
+	<87y0foji2a.fsf@bootlin.com>
+	<spaihty2s3zfj7jsv63ex7elf3bwz3bbak5ubageusatdgiodd@qh5gfhhh5ppo>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Mon, 06 Jul 2026 18:13:50 +0200
+Message-ID: <878q7ojdtt.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The regular expression `re_dtc_directive` fails to match `/include/=
-` directives that omit trailing whitespace before the quoted filename, leav=
-ing the original false-positive indent warnings unfixed for such cases.
---
+On 06/07/2026 at 18:00:39 +02, Manivannan Sadhasivam <mani@kernel.org> wrot=
+e:
 
-commit d544e9f7ca01b23db8faca49c7b36dba2a77d032
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> On Mon, Jul 06, 2026 at 04:42:21PM +0200, Miquel Raynal wrote:
+>> On 06/07/2026 at 16:19:04 +02, Manivannan Sadhasivam <mani@kernel.org> w=
+rote:
+>>=20
+>> > On Mon, Jul 06, 2026 at 03:26:18PM +0200, Stephan Gerhold wrote:
+>> >> On Mon, Jul 06, 2026 at 03:18:18PM +0200, Miquel Raynal wrote:
+>> >> > On 06/07/2026 at 14:55:26 +02, Stephan Gerhold <stephan.gerhold@lin=
+aro.org> wrote:
+>> >> > > On Mon, Jun 29, 2026 at 05:46:57PM +0200, Manivannan Sadhasivam w=
+rote:
+>> >> > >> On Mon, Jun 08, 2026 at 03:20:21PM +0200, Stephan Gerhold wrote:
+>> >> > >> > MDM9607 has QPIC v1.5 that supports the OP_PAGE_READ_ONFI_READ=
+ command, but
+>> >> > >> > is missing the rest of the hardware changes in QPIC v2. There =
+is also only
+>> >> > >> > a single clock that can be controlled using the RPM firmware. =
+Document and
+>> >> > >> > add the new qcom,mdm9607-nand compatible for this setup.
+>> >> > >> >=20
+>> >> > >> > Signed-off-by: Stephan Gerhold <stephan.gerhold@linaro.org>
+>> >> > >>=20
+>> >> > >> You could ammend patch 1's commit message with the information I=
+ shared in the
+>> >> > >> reply. But nevertheless:
+>> >> > >>=20
+>> >> > >> Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+>> >> > >>=20
+>> >> > >
+>> >> > > Do you want me to resend the series with patch 1 commit message
+>> >> > > adjusted? There were no other changes requested as far as I can t=
+ell.
+>> >> >=20
+>> >> > I was mostly waiting for answers on my questions from the DT binding
+>> >> > maintainers, but I understand they must be too loaded at the moment.
+>> >> >=20
+>> >> > > I think the current commit message there is fine, especially if y=
+ou add
+>> >> > > the Link: tag during applying. The extra context will be there.
+>> >> > >
+>> >> > > If you want me to resend, I would just replace the second paragra=
+ph in
+>> >> > > patch 1 with the following:
+>> >> > >
+>> >> > > ---
+>> >> > > On MDM9607 and other recent SoCs, the QPIC hardware requires 3 cl=
+ocks
+>> >> > > (ahb, core, aon). However, the access to these clocks is restrict=
+ed to
+>> >> > > the RPM firmware that controls the shared power resources for the=
+ whole
+>> >> > > SoC. The clocks cannot be controlled separately, there is only a =
+single
+>> >> > > RPM_SMD_QPIC_CLK clock that implicitly enables all of the 3 clock=
+s.
+>> >> > > The only exception to this are some IPQ* SoC that are not using R=
+PM,
+>> >> > > there the clocks are directly controlled by the kernel via the cl=
+ock
+>> >> > > controller (GCC). Require only one clock in the dt-bindings for M=
+DM9607
+>> >> > > to avoid having to define dummy clock entries.
+>> >> >=20
+>> >> > I am sorry but this is still incorrect. You don't have to define 2 =
+dummy
+>> >> > clocks. You would have to define 3 times the same clock (and that's=
+ not
+>> >> > a problem). I have been working on the concept of clock nexus which
+>> >> > may solve this kind of issue in a rather elegant way but that's not
+>> >> > ready yet.
+>> >> >=20
+>> >> > In my opinion the binding that you want to push (a single clock) is
+>> >> > wrong, but since I've been explaining this for several weeks alread=
+y,
+>> >> > please at least fix the commit message and I will take it as you wa=
+nt.
+>> >> >=20
+>> >>=20
+>> >> Thanks for your feedback!
+>> >>=20
+>> >> Either way works for me personally, but now we have a conflict between
+>> >> your requested changes and the feedback from Mani, who maintains this
+>> >> driver. :-)
+>> >>=20
+>> >> @Mani: Would you also be fine with defining all 3 clocks in the DT
+>> >> ("ahb", "core", "aon") and then assigning the RPM_SMD_QPIC_CLK to all=
+ of
+>> >> them?
+>> >>=20
+>> >
+>> > AFAIU, devicetree binding should describe the "OS view of the
+>> > hardware", not the
+>>=20
+>> Like Geert pointed out in the below thread, I am equally surprised by
+>> this shift but I guess SoC complexity requires adaptations.
+>>=20
+>> > hardware itself. We have many predecents to this rule. One of them is =
+the SCMI
+>> > based resource control in Qcom Automotive SoCs, where clocks/regulator=
+s to
+>> > individual IPs are controlled by the SCMI server and OS just sees a si=
+ngle SCMI
+>> > power-domain for the IP. So we only describe the SCMI power-domain in =
+the
+>> > binding and not the physical clocks/regulators received by the IP in h=
+ardware.
+>> >
+>> > We had a recent discussion around the same topic and you can see the r=
+eply from
+>> > Krzk here: https://lore.kernel.org/all/c83ca485-1e2e-46ba-bd15-1168aa8=
+955d3@kernel.org
+>> >
+>> > So here also, the hardware receives 3 clocks physically, but OS cannot=
+ control
+>> > all 3 of them, but just a single clock from RPMh which controls the 3 =
+real
+>> > clocks. Moreover, assigning the same clock to 3 different clock source=
+s doesn't
+>> > accurately describe the hardware either, because those 3 clocks operat=
+e on
+>> > different frequencies
+>>=20
+>> Ah, this is a point that was missing to my understanding. You actually
+>> have three *different* clocks, and you control all of them through some
+>> kind of firmware proxy called RPMh with a single handle. So basically
+>> the kernel just enables one clock and the firmware enables/configures
+>> two other clocks differently automatically. Is that it? Feels like you
+>> almost need a power domain here.
+>>=20
+>
+> RPMh indeed provides power-domains, but those serve a different purpose t=
+han
+> the clocks provided by it. RPMh power-domains represent an internal block=
+ that
+> aggregates votes from different clients like OS, Co-processor etc... and
+> controls power to various IPs inside the SoC. Likewise, RPMh also aggrega=
+tes
+> clock votes from various clients inside the SoC and controls clock inputs=
+ to
+> various IP blocks.
+>
+> So both are not the same here.
+>
+>> > and if the driver queries the frequency of
+>> > RPM_SMD_QPIC_CLK, it would just return the same frequency. This is whe=
+re the
+>> > dummy clock comes handy as it atleast provides a valid clock frequency=
+ to the
+>> > driver. But I'm not advocating for its usage here anymore.
+>> >
+>> > Hence IMO, assigning the same RPM_SMD_QPIC_CLK to all 3 clocks is not =
+the right
+>> > approach and we should be assigning a single RPM_SMD_QPIC_CLK to
+>> > 'core' clk.
+>>=20
+>> You said using three times the same clock would be wrong because we
+>> would get three times the same rate whereas in practice it's wrong. This
+>> means the OS has access to these clocks somehow,
+>
+> No, there is no way the OS can access these 3 clocks individually on the =
+RPMh
+> enabled platforms. But the OS indeed has access to these 3 clocks on non-=
+RPMh
+> platforms like the older IPQ ones.
+>
+>> so if we need to
+>> describe what the OS sees of the hardware, as you say, defining a single
+>> clock is incomplete.
+>>=20
+>> Again, I am not totally opposed to the single clock idea if you all feel
+>> like this is the way forward. Yet, it sounds a bit hackish.
+>>=20
+>
+> I don't see it as a hackish representation, but rather a proper one becau=
+se, OS
+> only sees a single clock for the NAND controller.
 
-dtc: dt-check-style: Handle properly DTC-style includes
+Ok then, I'll go for the new 'not the hardware but what the OS has
+access to' motto. I'll wait for v2 with the commit log updated then.
 
-This commit updates dt-check-style to properly handle DTC-style include
-directives to avoid false positive indent warnings.
-
-> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-> index 3c1aa9e28347e..b8ba6dbee86d5 100755
-> --- a/scripts/dtc/dt-check-style
-> +++ b/scripts/dtc/dt-check-style
-> @@ -49,6 +49,9 @@ re_cpp_directive =3D re.compile(
->      r'^#\s*(include|define|undef|ifdef|ifndef|if|else|elif|endif|'
->      r'pragma|error|warning)\b')
-> =20
-> +re_dtc_directive =3D re.compile(
-> +    r'^/(dts-v1|include)/[;\s]')
-
-[Severity: Low]
-Does this regular expression miss valid /include/ directives that omit trai=
-ling
-whitespace before the quoted filename?
-
-If a .dts file contains a directive without a space, such as
-/include/"file.dtsi", it is not matched by re_dtc_directive because it lack=
-s a
-space or semicolon. This could cause the script to treat it as an incomplete
-property, bypassing the brace depth tracking and triggering the exact false
-positive this patch aims to fix.
-
-Should the character class be expanded to include double quotes, such as
-[;\s"]?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-dts-style-=
-checker-v3-0-03ffacff9226@oss.qualcomm.com?part=3D6
+Thanks,
+Miqu=C3=A8l
