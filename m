@@ -1,386 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFE83B47CD
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 17:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A943AFB1B
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 17:47:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783359780; cv=none; b=ujYpWRCe5qZ2Yl3ZzbqG+fF8mxD1RhJujZxR2oglJFXxT9h6m5XwX5mjOi9rOlhI7zh4IB1KyZEBmSoVq8pGMJXO7kJjCqO/Q1486XLbRbmg4R69t6QEw+6V5CcC+/HxQDlAY+JoNa6Q+qsdayMUl1Qq9P+b4KGE2RSRrRV6Ocg=
+	t=1783360039; cv=none; b=rPuaJsu7OtC1t9+6N+MKh0ukVhwF6ShxJaX2kktVk7mbl5xIfOhmGdb2Ow0zis8uOdUV+n1ahNn4jJeRD8AvLOiP1wgitAPWzpYocDBY6xY9YvNQQ0gSY0PC/aFrEg7FENZ2HnuXlD+Wzzl+Y/zmQYbdOh5WM1P3uyt78EfavOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783359780; c=relaxed/simple;
-	bh=7jeGb6sr6Bzqn/u1zKG/vUZ4uWQ6QXiec/19Hv1d7/o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=O6IqS19bfNLE5gGDpw7tXp+/z7lHOhoZtlveTa6/3RFVv6wuHw4SDyb5GooXDx749som/uUOnSB2B9wXYrCiL+QQMeuV3UJZFEDYjHy5jIPwTDnJPylP1vNEZvXXr2nhrMoI6+sL0mfEIu6qo4LmGs4yKvXTNXRETNGFS7eEvVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j3/EW+fF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783360039; c=relaxed/simple;
+	bh=5bOmYD47KumyTOb+Y1qYhZXDQ6MEozeWdEp60mgsnpE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NeO/fQisrBejY5ATFHF6PF5xnZXGG+mHo1GtzxK7sgW4JmHMGszdSF5Cv3NkNvp4fEJx0xkoSPpcJNE36XDuTX1W1cTUXNDYWPc2GJqoUA6o+LJd/Owbon4PxM+niBBOFsWgCmxAz46CFCkGiNrOWdT4h44P897Z7m1VqmLrxRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PhfPQC3/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NyMjbkY0; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j3/EW+fF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE20F1F000E9;
-	Mon,  6 Jul 2026 17:42:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783359778;
-	bh=ttRWZQghMqm1H/Q/ZwAlM5xOOX4/Jz+2lHCrVc4Bi2M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=j3/EW+fF7z8fX2ecvg+jSaxcs2ZFRnk/HC4DpCoAqtjCXIqXTAumpB6hFtKDhq5Xf
-	 fn8GfOuxpUMUxzIsNj+VROQ0hNVBIS4AyoVu/EGOFRQxSmuEocvr+GApdlU7koJ0dv
-	 JwMPwc8gCik5sOiNtZeeER/ZlwuMg1ed2TBP9PqkBdfySfmTmzqpZa7hvxbCChQdBY
-	 d0Clyf3+NRUmNLhADgADhu1GT1nqvnTJjU3g2xp2Ixmi6/prCdNxobWcrcaxyDAjbn
-	 iTkRdAFD/tT/+ajuOBoBNmGm986PyT9EZ3rs/ZOOw+UH4hHt28NQXkt8ARUsFv/koj
-	 CNki979dhuCjg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/6] Bluetooth: Introduce Qualcomm IPQ5018 IPC based
- HCI driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "George Moussalem" <george.moussalem@outlook.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260706-ipq5018-bluetooth-v4-4-350262a30959@outlook.com>
-References: <20260706-ipq5018-bluetooth-v4-0-350262a30959@outlook.com>
- <20260706-ipq5018-bluetooth-v4-4-350262a30959@outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 17:42:58 +0000
-Message-Id: <20260706174258.AE20F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PhfPQC3/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NyMjbkY0"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666FFDeU762357
+	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 17:47:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=apmFEM59O0B61gJ5WxH6Ae7z
+	ChxrAAcQn15+cvRZUhw=; b=PhfPQC3/q9NiNTgCQvS1BiHAdQ8HBNaOXp5VPl1Z
+	J82gW6T2BnNDO2cMfYvSJci955vGMEiY4Tt3NbL4hgjlIc5kPcQioYOl/tz0Hsh+
+	pvqvsxTv0pOCaEDc+vwhEGcHvt0U8lJ1LG7dMM0V2PvUy8woIG+EpNrMDCZZydcd
+	WuuHNvvUNI1KvaWm7zQj6ztz2DIbXPjaF1PZHMOa3dintSRMwMoUJFJHUEsrFNJx
+	y3ARG47UrJ2rghFb+DOydUsWspQzZlwSbfFnhx34+qIY0deFjjiE6Wu9bx7i0lqM
+	jCz17NaUvpezMIKQA20EoHD0cweURIhUDNoyXqgmReBvGA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f87rxtu5b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 17:47:16 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e66f9e2baso333974785a.0
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 10:47:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783360036; x=1783964836; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=apmFEM59O0B61gJ5WxH6Ae7zChxrAAcQn15+cvRZUhw=;
+        b=NyMjbkY0FapE+sQkOAkx6As1D7z4KerhqY7GM9Qy63Ytpoip9EIKz9yF+rHCPIeP9T
+         HUCXqw21tf7qmz5okYfV+11z69umw70WAXDpBTR7/j9QV8OBW6WPfAhWLxNpmoQcIHu6
+         pnrhHgg+l4SSt3AhaXchuJGVC4zh6EUBBNB+mlGsc+TeWFzfl6IN7MNcuZ2IRoP8jwAZ
+         oy6ujKJxLl2XnV2ZkGMDy4jsYkZLSuLEc+CjSBaTek1RHrfa2hqrzYuBcSq4qz66asre
+         C5AsBCPmuU6T4sCUmlppq3ErFxbNhkMm0r8XGyoC2t7E6baMzYk5qSzrQTW8AdIf2AFw
+         9Few==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783360036; x=1783964836;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=apmFEM59O0B61gJ5WxH6Ae7zChxrAAcQn15+cvRZUhw=;
+        b=E4eUKMlPZKIG/t+gmPH6XYtMXlxoiE0PkWosFSNTJJD/SlTsrY5/dT8oaIA6pLTma/
+         cNvDNcFNR9okb7rFVO3/CGPsIshrX5kEag0QMJ4bo9GV1P43iKJVdHxB+8jf+PdTQE3y
+         kxlGK3yZI6JAch96AxEkIBr78gPIrH1y4CdWxzyxVVKcLrd5qqBsYnridBAO4rH3wIDg
+         BhEVrjdMMyYqV/9WRqDPAFcOMSs9suDhJLklOHJCHDy12gaBfAu9xFRmPS2UN1Taycho
+         oF0KutVGwsa8XgTTJblbnCEjOrkrXVqWAmJwvjA5jYRidtmE9mN3m15SAaafngYigTEe
+         9gvA==
+X-Forwarded-Encrypted: i=1; AHgh+RrzXMT93opiGSI+qZvAKKha7Az7hJP9DuiAXoq94+yGO2SJLMqHTthFGpu3/UggTVAkPEx4H8cBGFDn@vger.kernel.org
+X-Gm-Message-State: AOJu0YxnpXEKapepXmECjUKbuuksbWq/1nTEom6XtP2+/gKDvHK7uPT9
+	bWhku4TUjk9hZsSJwbrqaoOYQFs/ycs54/C1MhI3WGYubSGMJNk0H++xizYzJ4ezyPa5/f6kzuX
+	BIV6Dns8dxKWC+qEj8BY7RvPpnawKSZIx6He/d9sLLzF+H5CdhiNVzYZIiZHqx4nw
+X-Gm-Gg: AfdE7cknOcFw/jjS0TG9aBN6Dk0/wft3QP5FHZymfGzQcEVf3JoxqBPEXNCA119EsXx
+	Sr15C8g6JY0ddBYvE1WGPVB/OXujPjTZqBu0wrYF1oTIMYHgqxmL1umj+jaFYIXn82nbRB2b/7p
+	o4eWncoS/p6WYoWMHgxThA+PS//VDoBvwqK16Yfpxy0pb0npgOWdS7iXQiwgK+Or1dL7kOqvVfZ
+	DQ4YTZCogcTV/LoqfDi950F/QMwDoQ6eqs9XqlyPWzI15VJnMbYpUqqfnmVfuakeVTsU3+YBdZU
+	jdTUKio675jrbkD+eSWzY+wDIie9EfU3jG8TWB/JMdFKyM1BiO5Oqwh9+0MwMQIxOKtRE8xl8Jg
+	YPAM6rzijskLcR3mIn72RnG4ypZd/ENqUUvYD2MJMYnywhMvoyG2mxWxhruceGKjuxUMJ6Qwn19
+	dDUc5RUuWR3JuGjpCeCIYrKYnF
+X-Received: by 2002:a05:620a:4412:b0:915:b852:4361 with SMTP id af79cd13be357-92ebb4d57d6mr203279585a.20.1783360035667;
+        Mon, 06 Jul 2026 10:47:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:4412:b0:915:b852:4361 with SMTP id af79cd13be357-92ebb4d57d6mr203274985a.20.1783360035123;
+        Mon, 06 Jul 2026 10:47:15 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39b4ae5c8ecsm19731901fa.35.2026.07.06.10.47.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 10:47:13 -0700 (PDT)
+Date: Mon, 6 Jul 2026 20:47:10 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-hardening@vger.kernel.org,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Subject: Re: [PATCH v4 01/10] dt-bindings: firmware: qcom: tmd: add TMD
+ device type constants
+Message-ID: <dv4n4ntnfvhouv23asgshgs7wcolkmqs7lbuni52maexo4s44x@4bqhf33x4fr6>
+References: <20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com>
+ <20260703-qmi-tmd-v4-1-3882189c1f83@oss.qualcomm.com>
+ <977711ef-c1fb-4735-b82a-4ca2f4797f51@oss.qualcomm.com>
+ <8ad14017-bce7-485e-9677-9cbf8ecb2742@oss.qualcomm.com>
+ <yvggh2zs6qkuyuzvwydkecswnjoyba2d7t27br6xpk6d2csp53@i25g6okdktz5>
+ <10a346d8-fbb1-4142-a650-507c3917b8f6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <10a346d8-fbb1-4142-a650-507c3917b8f6@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: 5Zy6T8fYwpK56b5p0BtP8CN6ya2aDWUs
+X-Authority-Analysis: v=2.4 cv=Hv1G3UTS c=1 sm=1 tr=0 ts=6a4bea24 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=2pRoOLr91VfmbNnP4VsA:9 a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDE3OSBTYWx0ZWRfXzvhr6Xm3FNDO
+ w+g7us5PZsJmyrQhTwx7gp9GOtHvjXvhwjmUuH29D+yjJ+AsMhEpi4DSRzsguN0L8njLAzoyOP1
+ Fe/aOp0q9YSIXETsvpj/5MDy+2VxK+Q=
+X-Proofpoint-GUID: 5Zy6T8fYwpK56b5p0BtP8CN6ya2aDWUs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDE3OSBTYWx0ZWRfXyGg0Wn3Q7kQL
+ D6I0cgOlyjy3Ry9S3fethd05CKmq4PQPbuzBoaI8fd7RmGkHLEP2UP54IsRI3GnZC6Ylx1ttqed
+ Q3kq3+S1gbxLazTkky4F9DMRVcX9aViXQVX9QMA6ExKhnN9l7flJhHV/nsj7AcIHL8HXDXIbZTs
+ rC+0d/3uaqDehqejSniKjNKWkHG+nyf+kTJlVc7Nz1Vv1XsYpAZiIgIJHgM4OiOgDj9CiIC6xIF
+ 9JK9P436enzaTWqhh0rh/Any96F8GtmulvTMEdD9Gac16kwqDS0j6tNH4YMeDGuFvY4zUqPc7Uh
+ cxRryCjAfKn716nfhRpsU2JcnEpnXeUp+ZhUxBPJ9vsQ5W5NPsIYJdoDJ7Go6fK++D9KLgKzom7
+ iAN9DGFbFKOASxtU/ZEPO/flIKBEXGThVMhlAWFYvxU3wmTJYn1Szl9ppJXDcvnxOad75lZHEQZ
+ ilLURIJgvc4N8jB+TPg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-06_02,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 malwarescore=0 adultscore=0 priorityscore=1501
+ spamscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060179
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
-- [Critical] Unchecked failure of `request_firmware()` leads to a guarantee=
-d NULL pointer dereference.
-- [High] Missing bounds check on split firmware segment size allows out-of-=
-bounds memory reads.
-- [High] Use-After-Free of `hci_dev` during module removal due to incorrect=
- teardown order.
-- [High] The `desc->running` flag is never reset on shutdown, breaking subs=
-equent device opens.
-- [High] Race condition in `btqcomipc_send` strands packets in the TX queue=
- indefinitely.
-- [High] Endianness bugs in ring buffer macros cause memory corruption on b=
-ig-endian architectures.
-- [High] Missing validation of shared memory values allows division-by-zero=
- and heap overflow.
-- [High] Spurious interrupt before firmware boot causes garbage memory dere=
-ference.
-- [High] Invalid direct dereference of packed structs mapped as I/O memory.
-- [Medium] Missing read memory barrier (`dma_rmb`) in RX ring buffer proces=
-sing.
---
+On Mon, Jul 06, 2026 at 07:03:18PM +0200, Daniel Lezcano wrote:
+> On 7/3/26 17:42, Dmitry Baryshkov wrote:
+> > On Fri, Jul 03, 2026 at 07:43:39PM +0530, Gaurav Kohli wrote:
+> > > 
+> > > 
+> > > On 7/3/2026 1:23 PM, Konrad Dybcio wrote:
+> > > > On 7/3/26 7:03 AM, Gaurav Kohli wrote:
+> > > > > Add Device Tree binding constants for Qualcomm Thermal Mitigation
+> > > > > Device (TMD) types used by remoteproc-backed thermal cooling devices.
+> > > > > 
+> > > > > Qualcomm remote processors expose thermal mitigation endpoints
+> > > > > through QMI. These endpoints can be registered with the thermal
+> > > > > framework via the `#cooling-cells` property on the remoteproc node.
+> > > > > 
+> > > > > The QMI TMD protocol identifies devices using string names (for example,
+> > > > > "pa", "modem", and "cdsp_sw"), while the DT cooling-device binding with
+> > > > > `#cooling-cells = <3>` requires numeric device id in the form:
+> > > > > 
+> > > > >     <&phandle device_id min_state max_state>
+> > > > > 
+> > > > > Define common TMD device index constants shared across currently
+> > > > > supported platforms. If a future target requires a different mapping,
+> > > > > additional target-specific constants can be introduced while preserving
+> > > > > existing DT ABI.
+> > > > > 
+> > > > > Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> > > > > ---
+> > > > >    MAINTAINERS                                 |  1 +
+> > > > >    include/dt-bindings/firmware/qcom,qmi-tmd.h | 20 ++++++++++++++++++++
+> > > > >    2 files changed, 21 insertions(+)
+> > > > > 
+> > > > > diff --git a/MAINTAINERS b/MAINTAINERS
+> > > > > index 57656ec0e9d5..ffd85fd1dd80 100644
+> > > > > --- a/MAINTAINERS
+> > > > > +++ b/MAINTAINERS
+> > > > > @@ -3410,6 +3410,7 @@ F:	drivers/firmware/qcom/
+> > > > >    F:	drivers/soc/qcom/
+> > > > >    F:	drivers/watchdog/gunyah_wdt.c
+> > > > >    F:	include/dt-bindings/arm/qcom,ids.h
+> > > > > +F:	include/dt-bindings/firmware/qcom,qmi-tmd.h
+> > > > >    F:	include/dt-bindings/firmware/qcom,scm.h
+> > > > >    F:	include/dt-bindings/soc/qcom*
+> > > > >    F:	include/linux/firmware/qcom
+> > > > > diff --git a/include/dt-bindings/firmware/qcom,qmi-tmd.h b/include/dt-bindings/firmware/qcom,qmi-tmd.h
+> > > > > new file mode 100644
+> > > > > index 000000000000..73efecef0f3c
+> > > > > --- /dev/null
+> > > > > +++ b/include/dt-bindings/firmware/qcom,qmi-tmd.h
+> > > > > @@ -0,0 +1,20 @@
+> > > > > +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
+> > > > > +/*
+> > > > > + * Qualcomm QMI TMD (Thermal Mitigation Device) cooling device indices
+> > > > > + *
+> > > > > + * These indices are used in device tree cooling-maps to reference
+> > > > > + * specific TMD devices provided by remote processors via QMI.
+> > > > > + *
+> > > > > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > > > > + */
+> > > > > +#ifndef _DT_BINDINGS_FIRMWARE_QCOM_QMI_TMD_H
+> > > > > +#define _DT_BINDINGS_FIRMWARE_QCOM_QMI_TMD_H
+> > > > > +
+> > > > > +/* CDSP thermal mitigation device id */
+> > > > > +#define QCOM_CDSP_TMD_CDSP_SW	0
+> > > > > +
+> > > > > +/* Modem thermal mitigation device id */
+> > > > > +#define QCOM_MODEM_TMD_PA	0
+> > > > > +#define QCOM_MODEM_TMD_MODEM	1
+> > > > 
+> > > > What about the dozens other ones that Dmitry's laptop reports?Ri
+> > > > 
+> > > 
+> > > Thanks for the review, Konrad.
+> > > 
+> > > We are only defining constants for the TMD devices that are actually used
+> > > for thermal mitigation on the platforms supported by this series.
+> > 
+> > Why are you using only those TMD devices?
+> > 
+> > > More constants can be added as needed.
+> > 
+> > Kodiak is one of the supported platforms.
+> 
+> What would be the benefit of having more than thirteen cooling devices
+> declared in the thermal framework and having only a couple of them mapped in
+> a thermal zone ?
+> 
+> I agree there are more TMDs but if they are unused for the moment, why do we
+> need to add them ? Can we do that incrementally ?
 
-commit b919a0d9e5de552fc0f99dc627213c500aff5dac
-Author: George Moussalem <george.moussalem@outlook.com>
-Date:   Mon Jul 6 17:26:20 2026 +0000
+That's what I am trying to understand: why the implementation uses only
+the selected two devices, if the modem on Kodiak supports others. How
+can we find out, which TMDs to use on other devices.
 
-    Bluetooth: Introduce Qualcomm IPQ5018 IPC based HCI driver
-   =20
-    Add support for the Bluetooth controller found in the IPQ5018 SoC.
-    This driver implements firmware loading and the transport layer between
-    the HCI core and the Bluetooth controller.
-
-> diff --git a/drivers/bluetooth/btqcomipc.c b/drivers/bluetooth/btqcomipc.c
-> new file mode 100644
-> index 0000000000000..bea3b83d9f2e1
-> --- /dev/null
-> +++ b/drivers/bluetooth/btqcomipc.c
-[ ... ]
-> +#define IS_RX_MEM_NON_CONTIGIOUS(buf, len, sz)		\
-> +	((buf + len) > (desc->rx_ctxt->lring_buf +	\
-> +	(sz * desc->rx_ctxt->lmsg_buf_cnt)))
-
-[Severity: High]
-Does this perform native host arithmetic on a little-endian value?
-
-Looking at struct context_info, lring_buf is defined as __le32, but it
-is being used in macros like IS_RX_MEM_NON_CONTIGIOUS and
-GET_RX_INDEX_FROM_BUF without a le32_to_cpu() conversion.
-
-Could this cause memory corruption or incorrect bounds checking on
-big-endian architectures?
-
-[ ... ]
-> +static inline u32 btss_lbuf_size(struct qcom_btss *desc,
-> +				 const struct context_info *ctxt)
-> +{
-> +	u32 total_size =3D le16_to_cpu(ctxt->total_size);
-> +	u32 lring_buf =3D le32_to_cpu(ctxt->lring_buf);
-> +
-> +	return ((TO_BT_ADDR((void *)ctxt) + total_size) -
-> +		lring_buf) / ctxt->lmsg_buf_cnt;
-> +}
-
-[Severity: High]
-Is it possible for ctxt->lmsg_buf_cnt to be zero here?
-
-Since this value is read directly from shared memory, a buggy or
-compromised firmware providing a zero value would cause a division by zero
-panic.
-
-Could we add validation for these shared memory values before using them?
-
-[ ... ]
-> +static int btqcomipc_send(struct hci_dev *hdev, struct sk_buff *skb)
-> +{
-> +	u16 hdr =3D FIELD_PREP(IPC_HDR_PKT_TYPE_MASK, IPC_HDR_PKT_TYPE_HCI);
-> +	struct qcom_btss *desc =3D hci_get_drvdata(hdev);
-> +	unsigned long flags;
-> +	int ret;
-> +
-> +	spin_lock_irqsave(&desc->lock, flags);
-> +
-> +	if (unlikely(!READ_ONCE(desc->running))) {
-> +		spin_unlock_irqrestore(&desc->lock, flags);
-> +		bt_dev_err(hdev,
-> +			   "BTSS not initialized, failed to send message");
-> +		ret =3D -ENODEV;
-> +		goto free_skb;
-> +	}
-> +
-> +	ret =3D btss_send(desc, hdr, skb);
-> +	spin_unlock_irqrestore(&desc->lock, flags);
-> +	if (ret) {
-> +		if (ret =3D=3D -EAGAIN) {
-> +			if (skb_queue_len(&desc->tx_q) >=3D IPC_TX_QSIZE) {
-> +				bt_dev_err(hdev,
-> +					   "TX queue full, dropping message");
-> +				hdev->stat.err_tx++;
-> +				ret =3D -ENOBUFS;
-> +			} else {
-> +				skb_queue_tail(&desc->tx_q, skb);
-> +				return 0;
-> +			}
-
-[Severity: High]
-Can this sequence strand packets in the TX queue indefinitely?
-
-If btss_send() returns -EAGAIN, the driver releases desc->lock and then
-queues the SKB via skb_queue_tail().
-
-If a hardware ACK interrupt fires between the lock release and the queue
-enqueue, btss_worker() could acquire the lock, free space in the ring
-buffer, and call btss_process_tx_queue() while the queue still appears
-empty.
-
-Would it be safer to enqueue the packet before releasing the lock?
-
-[ ... ]
-> +static inline int btss_process_rx(struct qcom_btss *desc,
-> +				  struct ring_buffer_info *rinfo,
-> +				  bool *ack, u8 *rx_count)
-> +{
-> +	u8 ridx, lbuf_idx, blks_consumed, pkt_type, cmd;
-> +	struct ipc_aux_ptr aux_ptr =3D { };
-> +	struct ring_buffer *rbuf;
-> +	uint8_t *rxbuf =3D NULL;
-> +	unsigned char *buf;
-> +	u16 msg_hdr;
-> +	u16 msg_len;
-> +	u32 lsz;
-> +	int ret;
-> +
-> +	ridx =3D rinfo->ridx;
-> +
-> +	while (ridx !=3D rinfo->widx) {
-> +		rbuf =3D &((struct ring_buffer *)(TO_APPS_ADDR(le32_to_cpu(rinfo->rbuf=
-))))[ridx];
-> +		msg_hdr =3D le16_to_cpu(rbuf->msg_hdr);
-
-[Severity: Medium]
-Is a read memory barrier needed here?
-
-The driver reads the producer index (rinfo->widx) which is updated by
-hardware, and then immediately dereferences rbuf->msg_hdr and rbuf->len
-from the ring buffer.
-
-Without a dma_rmb() between reading the index and the payload, could
-the CPU speculatively fetch stale payload data before the device's write
-is guaranteed visible?
-
-[Severity: High]
-Does this code safely access I/O memory on ARM64?
-
-The memory region is mapped as Device memory via devm_ioremap(), but
-the code casts offsets to struct ring_buffer (which is __packed) and
-directly dereferences fields like rbuf->msg_hdr.
-
-Since the compiler can optimize packed struct accesses using unaligned
-load instructions, could this trigger synchronous external aborts on
-ARM64 systems? Should standard I/O accessors like readw() be used instead?
-
-[ ... ]
-> +		if (msg_hdr & IPC_HDR_LONG_MSG) {
-> +			rxbuf =3D TO_APPS_ADDR(le32_to_cpu(rbuf->payload.lmsg_data));
-> +			lsz =3D btss_lbuf_size(desc, desc->rx_ctxt);
-> +
-> +			if (IS_RX_MEM_NON_CONTIGIOUS(le32_to_cpu(rbuf->payload.lmsg_data),
-> +					     msg_len, lsz)) {
-> +				lbuf_idx =3D GET_RX_INDEX_FROM_BUF(
-> +						le32_to_cpu(rbuf->payload.lmsg_data), lsz);
-> +
-> +				blks_consumed =3D desc->rx_ctxt->lmsg_buf_cnt -
-> +					lbuf_idx;
-> +				aux_ptr.len =3D msg_len - (blks_consumed * lsz);
-
-[Severity: High]
-Can this subtraction underflow and cause a heap overflow later?
-
-The values from the shared memory context are used to calculate
-blks_consumed and then aux_ptr.len. If a compromised firmware provides
-values where (blks_consumed * lsz) is greater than msg_len, aux_ptr.len
-will wrap to a huge integer.
-
-Could this huge length then cause the subsequent memcpy_fromio() to
-overflow the allocated SKB buffer?
-
-[ ... ]
-> +static int btcomqipc_firmware_load(struct qcom_btss *desc)
-> +{
-[ ... ]
-> +		/* Check if firmware is split across multiple segment files */
-> +		if (phdr->p_offset > fw->size ||
-> +		    phdr->p_filesz > fw->size - phdr->p_offset) {
-> +			seg_name =3D kasprintf(GFP_KERNEL, "%.*sb%02d",
-> +					     (int)stem_len, desc->firmware, i);
-> +			if (!seg_name) {
-> +				ret =3D -ENOMEM;
-> +				goto release_fw;
-> +			}
-> +
-> +			ret =3D request_firmware(&seg_fw, seg_name,
-> +					       desc->dev);
-> +			if (ret)
-> +				dev_err(desc->dev,
-> +					"Could not find split segment binary: %s\n",
-> +					seg_name);
-> +
-> +			/*
-> +			 * Use the virtual instead of the physical address as
-> +			 * the offset
-> +			 */
-> +			memcpy_toio(desc->mem_region + phdr->p_vaddr, seg_fw->data,
-> +				    phdr->p_filesz);
-> +
-> +			release_firmware(seg_fw);
-> +			kfree(seg_name);
-> +			seg_name =3D NULL;
-> +
-> +			if (ret)
-> +				goto release_fw;
-
-[Severity: Critical]
-If request_firmware() fails, is seg_fw left uninitialized?
-
-The error is logged with dev_err(), but execution falls through to
-memcpy_toio() which will dereference the uninitialized or NULL seg_fw
-pointer, causing a kernel panic.
-
-Should the code jump out or abort immediately if request_firmware() fails?
-
-[Severity: High]
-Does this memcpy_toio() trust the ELF header size blindly?
-
-It copies phdr->p_filesz bytes from seg_fw->data, but it doesn't verify
-that the requested firmware file actually contains that many bytes
-(seg_fw->size).
-
-If a truncated or modified firmware file is loaded, could this result in
-an out-of-bounds memory read?
-
-[ ... ]
-> +static int btqcomipc_close(struct hci_dev *hdev)
-> +{
-> +	int ret;
-> +
-> +	/*
-> +	 * Trigger the controller to shutdown. Once the FW has completed its
-> +	 * shutdown sequence, it will send an IPC_CMD_STOP message to the host
-> +	 * upon which the desc->running flag is set to false.
-> +	 */
-> +	ret =3D qcom_scm_pas_shutdown(BTSS_PAS_ID);
-> +	if (ret) {
-> +		bt_dev_err(hdev, "Failed to stop firmware: %d", ret);
-> +		return ret;
-> +	}
-> +
-> +	msleep(BTSS_PWR_CTRL_DELAY_MS);
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Is desc->running reliably reset to false when the device is closed?
-
-The comment mentions that the firmware will send an IPC_CMD_STOP message
-which clears desc->running. However, qcom_scm_pas_shutdown() forcefully
-halts the peripheral, which might prevent it from sending that final messag=
-e.
-
-If desc->running remains true, a subsequent call to btqcomipc_open()
-will bypass initialization and leave pointers like desc->rx_ctxt in a
-stale or invalid state. Should this explicitly reset desc->running?
-
-[ ... ]
-> +static int btqcomipc_init(struct qcom_btss *desc)
-> +{
-> +	struct device *dev =3D desc->dev;
-> +	int ret;
-> +
-> +	init_waitqueue_head(&desc->wait_q);
-> +	spin_lock_init(&desc->lock);
-> +	skb_queue_head_init(&desc->tx_q);
-> +
-> +	desc->wq =3D devm_alloc_ordered_workqueue(dev, "btss_wq", 0);
-> +	if (!desc->wq) {
-> +		dev_err(dev, "Failed to initialize workqueue\n");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	INIT_WORK(&desc->work, btss_worker);
-> +
-> +	ret =3D devm_request_threaded_irq(dev, desc->irq, NULL, btss_irq_handle=
-r,
-> +					IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-> +					"btss_irq", desc);
-
-[Severity: High]
-Could a spurious interrupt cause a crash before firmware initialization?
-
-The IRQ is enabled here during probe, before the firmware is loaded and
-the controller is booted in btqcomipc_open().
-
-If a spurious interrupt fires, btss_worker() will run, see that
-desc->running is false, and attempt to read offsets from the uninitialized
-desc->mem_region to setup desc->rx_ctxt.
-
-Would it be safer to request the IRQ later, or keep it disabled until
-the firmware is actually booted?
-
-[ ... ]
-> +static void btqcomipc_remove(struct platform_device *pdev)
-> +{
-> +	struct qcom_btss *desc =3D platform_get_drvdata(pdev);
-> +
-> +	if (desc->hdev) {
-> +		hci_unregister_dev(desc->hdev);
-> +		hci_free_dev(desc->hdev);
-> +		desc->hdev =3D NULL;
-> +	}
-> +
-> +	btqcomipc_deinit(desc);
-> +}
-
-[Severity: High]
-Is the HCI device freed before the background workqueue is stopped?
-
-hci_free_dev() is called and desc->hdev is set to NULL before
-btqcomipc_deinit() flushes the workqueue and disables IRQs.
-
-If btss_worker() is still running or pending, it could attempt to access
-desc->hdev (e.g., logging an error or updating stats), leading to a NULL
-pointer dereference or use-after-free.
-
-Should btqcomipc_deinit() be called before tearing down the HCI device?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-ipq5018-bl=
-uetooth-v4-0-350262a30959@outlook.com?part=3D4
+-- 
+With best wishes
+Dmitry
