@@ -1,155 +1,106 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D78542379F
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 14:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1FB426434;
+	Mon,  6 Jul 2026 14:40:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783348851; cv=none; b=ZaLSj0wKKKTC777Jykysh6tBjM49moNrB5bDsCki+IAOvYCRp3yqVBmPlGzfYj3CLSYC/wryQ0Th9PscbYZTbk/6NH4X4PIDOrkpK/CVWJT/eLjCZkkxHonhOqXIDhJZNTrzWWASLjk9ycPz/uygwbFw8Aa47f1uFQh9eEQpTY4=
+	t=1783348853; cv=none; b=jFBWF3uDI5/zuhF6QyNvNAESg3K/CyiQGwqhVyK3WsbyGK75o3kohLNFMy/0mRgGQM/8lEWxzKfSF4CThN/MABtdr6QQ2J/4iksvmoSXnD1XUwP5maulyGYyf1uhq//NWJeCg2GbMXF0uPPHDVGehOvuGa0Xm3Lm/3w1Y1Qn7Lw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783348851; c=relaxed/simple;
-	bh=c8ATsYZUarDFeBqoYlDvFG/Y5KQ0FdsdVPsvH68dptE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DyeLspaic2Hxg1DaFKfe4LAfciLYplBi5Mi/acNVAKPxSTrT3KQOVE9SGAK2y9zqWEfCUAwC3jvR4EkzxukMlGER1w/aBo63cZxAxdlLoDnU4x0yGTRbVJ2Bgi1K15NdCI5EF0tIT0bJKTEUbkLfojJ2E9XgIPAE94kUbJerfow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o65x5f+4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a676ZJbM; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783348853; c=relaxed/simple;
+	bh=rVtCEER8Zv55C3z12mG3pFt/a10oWYJYqHUibywEGHc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N3Dt+imSbY1kudtOZPFxNYWo9VOhSlCVakddUnsw6Xt3l8Lng10wrRcAFjjxLJxjUwiHgTvSIG19JYcLb7lGHpxxyCJh5qmCNdJBsBURn//EOuw9y9IwtWzk/dHvfEhq3sggjm4nVDJjbZh1bY/ud/4R4qlIyq+xAGdpW+PkGLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUztyQzn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o65x5f+4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a676ZJbM"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666EE6xm680514
-	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 14:40:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=1YXelcpMQyjjqfxAH5A3yTNz
-	T1Wua4sYEO1lqx6kVXs=; b=o65x5f+4NZPanmYwqNS94I7vdzPdP9qW60/M3cVn
-	os1yKG92mdOmzrsV+lhvRobK2pIITSb9mGgYFcXeKzMei9fVuuencaFw4tiBpW72
-	y/TPARkcA+iPAdnx7Tg0SzYfH5VTjIrOG/m1IUM9+NgGgOf6OOKoq9CfNedxO774
-	MafP6ONjIAvAWS6emjWRLzReOssZuhk1Kq6Rtl1rRxdU8yuVvty3153HfT3hJecg
-	0n7JtbONr046VR3i9jcOwSGfOFGVyLMYHjZvzVq3Z6kpYEXASDynkcHcHGRHnZJ6
-	6Lb63vHqd1kB3ugvhvBXM8oSFb3k7BzbpXaRNQIunClPrQ==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f88t89jy0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 14:40:48 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5be0de8bf7cso248128e0c.1
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 07:40:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783348847; x=1783953647; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=1YXelcpMQyjjqfxAH5A3yTNzT1Wua4sYEO1lqx6kVXs=;
-        b=a676ZJbMRPKXCiLxKweawh4RKZFRhFFSO46ciP4iBvbenxdmr41YePBvLXytbkSTik
-         kUqCh7gc++hC7K00vXS0IAmkSOM5lACPJKA9knXgJfF+bZ+66vtNYSXNdTL9ULjmIYD/
-         fmNFw/zrK/WoDQUvIMQ4mMe1KwkqqVA7XkjfZ8SdKV/bF+81TQtk+AmHrx00yB77k25Q
-         Ck0isJDOb8rrJSMNAKtfZ2K2eaF0HGdsQ6ri157rQaoP6j8xSriBrm5f3p23yj8jhSly
-         X+uqyLfxc6OOvYGi4mEkJYIZieaAMSFvRAtQARdNdGEq0wxr2C8Fq/Ofqkhkv5PT/npO
-         JNAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783348847; x=1783953647;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=1YXelcpMQyjjqfxAH5A3yTNzT1Wua4sYEO1lqx6kVXs=;
-        b=dVPuJdfob2C3+E08jGuqlPI+6NlAlHMPANXKoFHz1PYq3T0REMw+KXvQx/8/ek9h/L
-         Z47flNT2kKQ9YRNdeY3DmnzQBQieGIBMEcywDf3MoRuTPHrmEXEyeDtpIRYV2dgob5DZ
-         SCMk2ZF1atOYJkVy9AE93wxO6xu2O3uV61OEOyKeT5/n+UffefRM/xhL2d99Imzf41fg
-         BK1xquPHUXLqw97GDEHSopsMAFSVJcmy/q1zL5sexa8FUxGCQEc4ljgHeKk3mBb3fCd+
-         yET4UWMZqF5N5A0YRgTaFewU1HLbf3vPWEbB8wygoLfYsbhdg6mJG9KjGtWZCfZxlfde
-         zltg==
-X-Forwarded-Encrypted: i=1; AHgh+RpA8NAaJGstwycZBz4kWlU1PatjprZfpDk9HksGhh/I2A2FEH3FMtC4ChUzhidlczUy+/LVXGFR4hOA@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw/lNw7LCg0QI6tHL5JXp4jP0O1Srecuxuj3rhZ3T5N5I1TcXy0
-	8uvdItSFWoC381gmeAxe/XjPqhNYDRivnyuqpw3Fl0sEQbHC7zTjR0BwrlDBPaAYpnEe3SgW5aI
-	GNyTfuP3Wx8OI+hji58a1Hu8kOPWLXzpIsCYIVPiZWGtqjM1wdTKeNk7YwFRnUZSr
-X-Gm-Gg: AfdE7ckgMy19F/4M3ozT/O/XWHNQA1HbirAZsp6KNRWKhr6S7PQMSMOUR70dlP5AOaF
-	KtyCqklgOsfVGcmzdkAZdjcqLLVhTaMjSUHJS/AAAliwQ76nz1w//6Nxaz5aQnKV1u6ITlWA1qa
-	AdGj3stMhE1MqDVJ/++I5/WJ4gGrpC9znqgDJFKjxkJ3lEJtxLUhd+RlSan19aSVzQPjUJiSphx
-	fXwlJKAhXGr2qOn1ABofaUjgqdu5UrLE6MWkAayRM30PMdWwR+hjBnlzQP4nuRiahHajwzNkw8Q
-	dXr+c+swN0XqYJSrw42+avZPpTwiYM6wMiOk4w7Au7qjSy6bK1c9LPo1iqkkF/Nl1NCZGBcd0jW
-	QALdD6rJQvGtffEBv7FL11JN4BZEwwxQtvRUn9MHxqnDZa3jLO8jOd89fI6hAVOhmt10z/vnDNw
-	k/uwb+s5eRaHoG7AaaTAbZk56v
-X-Received: by 2002:a05:6122:219f:b0:5bd:c11d:ecd8 with SMTP id 71dfb90a1353d-5be8c624393mr453071e0c.1.1783348847431;
-        Mon, 06 Jul 2026 07:40:47 -0700 (PDT)
-X-Received: by 2002:a05:6122:219f:b0:5bd:c11d:ecd8 with SMTP id 71dfb90a1353d-5be8c624393mr453050e0c.1.1783348846933;
-        Mon, 06 Jul 2026 07:40:46 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed136f908sm2893565e87.8.2026.07.06.07.40.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 07:40:45 -0700 (PDT)
-Date: Mon, 6 Jul 2026 17:40:43 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Jagadeesh Kona <quic_jkona@quicinc.com>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] clk: qcom: camcc: Add support for camera clock
- controller for Nord
-Message-ID: <bokzk3fqi4mvlx5bhbmrkeqc6rfjpjmcuswdkji5g5si2x3lxh@ryshvgru2mzz>
-References: <20260706-nord_videocc_camcc-v1-0-bae3be9e9770@oss.qualcomm.com>
- <20260706-nord_videocc_camcc-v1-4-bae3be9e9770@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUztyQzn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 290791F000E9;
+	Mon,  6 Jul 2026 14:40:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783348852;
+	bh=6LQ/y2h2nRLqXndWDULBhi5T2/R+6kxG1jgo+nng0ys=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kUztyQznOqnePq7LBXwgCSWm5zm9g6MDIagM+6IdV1x6BK9DBKuhX0LrKVsSrEGam
+	 WYvaHbd0Q4Wpeg3JrtnM+M8416mwrwRC1pZ5Jypy04pLUhZqyGBHbKpDDi3L7aaW6T
+	 Yhz+IpKrpCzn27tyC4EK9QFUhPVYa1kdak1B9nl/rwvxCEreddXw8g6QHjBIuM2S6K
+	 4ayXYcO/J9hPIuwA6EhoczTMbUJEq8Ben4k/3xeZNXVnGnypNct+xXFHeaKTrhOK9C
+	 9Px7McL3QjUBdcuNaHBYiNKnjkEBjjn8rD6RPzwXo71k8jmvLtkpYeIAzvRQtah4kW
+	 vkaaaxep/aSsA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wgkV7-00000001zbL-3IFG;
+	Mon, 06 Jul 2026 14:40:49 +0000
+Date: Mon, 06 Jul 2026 15:40:49 +0100
+Message-ID: <86h5mcp4em.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: John <therealgraysky@proton.me>
+Cc: Mark Rutland <mark.rutland@arm.com>,	Daniel Lezcano
+ <daniel.lezcano@kernel.org>,	Thomas Gleixner <tglx@kernel.org>,	Rob Herring
+ <robh@kernel.org>,	Krzysztof Kozlowski <krzk+dt@kernel.org>,	Conor Dooley
+ <conor+dt@kernel.org>,	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,	"Ivan T. Ivanov"
+ <iivanov@suse.de>,	Stefan Wahren <wahrenst@gmx.net>,	Andrea della Porta
+ <andrea.porta@suse.com>,	Peter Robinson <pbrobinson@gmail.com>,	Stanimir
+ Varbanov <svarbanov@suse.de>,	=?UTF-8?B?TWHDrXJh?= Canal
+ <mcanal@igalia.com>,	Gregor Herburger <gregor.herburger@linutronix.de>,
+	"linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,	"linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>,	"devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>,	"linux-rpi-kernel@lists.infradead.org"
+ <linux-rpi-kernel@lists.infradead.org>
+Subject: Re: [REGRESSION] Raspberry Pi 5 (BCM2712) hangs at boot since d87773de9efe  (arm_arch_timer: default to EL2 virtual timer under VHE)
+In-Reply-To: <oTZ1wsFlcf4l8zMuD8DYCCvff35nVbFn7gTb5_vrUPSJtjVBSTmGti8S3KnbVdVWJEzP1QRbWma6UYYXyi6v2J0fl61khniPROEhsdxMIz8=@proton.me>
+References: <oTZ1wsFlcf4l8zMuD8DYCCvff35nVbFn7gTb5_vrUPSJtjVBSTmGti8S3KnbVdVWJEzP1QRbWma6UYYXyi6v2J0fl61khniPROEhsdxMIz8=@proton.me>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260706-nord_videocc_camcc-v1-4-bae3be9e9770@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDE0OSBTYWx0ZWRfXy1NPkiXOyzdF
- OsTBQ/WTtvATGACo6u8b/hT0O/sW9M8d7+7QpF+IYgDKf1oBlBepHktKQvLweOtPSxibfqHlbVI
- nJCKPxNe/YKJxhx8G9FiiqSP0pdfjuE=
-X-Proofpoint-GUID: Osx7NGLP0-JfY-wNpUbElTF7D49A2B1c
-X-Authority-Analysis: v=2.4 cv=C6zZDwP+ c=1 sm=1 tr=0 ts=6a4bbe70 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=7Mhvcmd6cMb-wOCvpSkA:9 a=CjuIK1q_8ugA:10 a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-ORIG-GUID: Osx7NGLP0-JfY-wNpUbElTF7D49A2B1c
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDE0OSBTYWx0ZWRfXzxA4yqhGKPnM
- Z1DwRPh+fRAki7qd8CgAN7hOPfwxVbjQZ6jUmiBfpzjTRZVBa16pUv2U6Xrfm/1KS1PgSowJvyn
- uoioTK/Df4js5hnsCpAc01RKk04X0N5h3BzhIx+4625H5oEACFdRLzaBgMFkF6gxzVDPnNzZFzx
- NH5s0dbQ0gQiC1yUL5INdtaAulNBNKoC4omastvxPRuI0k07NipHnPuxndzcn/IcqKR9eUuJd6S
- 47X304F4nNu8MQ+Ds2FxuUsvuXr8GNunNtCcX/roDfzt1WPzoYFJ4ulnhXBeGR/EOraKpO9TNSc
- hPdWjLBC74pshutaaJYnacUd+k+HMibAp1ZoDnyjWnF0QTiznkX772CtiVzmrAorgWEKVSHsjCM
- q8/T4lDUG5TKIHbB4WVXSQZITNC2y7cjUMMqYScvbaIm/k8selep4A9ykJ7WqrczxcxA2xFtBcp
- 5bqvAwVB5DBXSbd7TMw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-06_01,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 clxscore=1015 spamscore=0 adultscore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607060149
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: therealgraysky@proton.me, mark.rutland@arm.com, daniel.lezcano@kernel.org, tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, florian.fainelli@broadcom.com, bcm-kernel-feedback-list@broadcom.com, iivanov@suse.de, wahrenst@gmx.net, andrea.porta@suse.com, pbrobinson@gmail.com, svarbanov@suse.de, mcanal@igalia.com, gregor.herburger@linutronix.de, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, Jul 06, 2026 at 02:27:16PM +0530, Taniya Das wrote:
-> Add support for the Camera Clock Controller (CAMCC) on the Nord
-> platform for camera SW drivers to request for these clocks.
+On Mon, 06 Jul 2026 15:13:27 +0100,
+John <therealgraysky@proton.me> wrote:
 > 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
->  drivers/clk/qcom/Kconfig      |   11 +
->  drivers/clk/qcom/Makefile     |    1 +
->  drivers/clk/qcom/camcc-nord.c | 2941 +++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 2953 insertions(+)
+> Since commit d87773de9efe ("clocksource/drivers/arm_arch_timer: Default to EL2 virtual timer when running VHE"), the Raspberry Pi 5 (BCM2712, arm64) hangs during boot on v7.2-rc1 and later. Reverting that commit on top of v7.2-rc2 boots reliably. Found by bisection.
 > 
+> Environment: - Raspberry Pi 5 Model B, arm64, device-tree boot (no ACPI) - CPUs start at EL2 with VHE - Mainline v7.2-rc1 and v7.2-rc2
+> 
+> Symptom: - Silent hang early in driver probe; no panic or oops. Boot banner shows
+>   "arch_timer: cp15 timer running at 54.00MHz (hyp-virt)". The first blocking, timer-backed wait during probe never returns because the EL2 virtual timer's interrupt is not delivered on this SoC, so clockevents are dead. The softlockup/hung-task detectors can't fire either, since they depend on the same dead timer.
+>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Is that a guess? Or do you know something we don't? Or worse, is this
+report entirely AI generated?
 
+> Cause: - BCM2712's timer node lists five interrupts including the EL2 virtual
+>   timer (GIC PPI 12). The new default trusts that entry and switches to the EL2 virtual timer, whose interrupt is non-functional on this board.  Before the commit, VHE systems used the EL2 physical timer, which works.
+>
+
+Again, how do you know it isn't functional? Could it be, for example,
+that the firmware has not configured the interrupt correctly?
+
+> Possible fix / workaround: - Removing the EL2 virtual-timer interrupt (GIC PPI 12) from the BCM2712
+>   timer node makes the driver fall back to the EL2 physical timer (the pre-commit behavior) and boots. Whether the correct fix is in the DT or in hardening the driver's PPI selection, I'll leave to you.
+> 
+> #regzbot introduced: d87773de9efe1df6fe2ba379926f9df92f1a5913
+
+A proposed fix has been posted at [1]. Until we hear from the
+implementer about the state of the HW, it is difficult to do anything.
+
+	M.
+
+[1] https://lore.kernel.org/all/878q898ulx.wl-maz@kernel.org/
 
 -- 
-With best wishes
-Dmitry
+Without deviation from the norm, progress is not possible.
