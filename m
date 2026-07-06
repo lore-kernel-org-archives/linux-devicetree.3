@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D01395AF1
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 08:22:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF70397B15
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 08:23:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783326174; cv=none; b=pEQDHVKncP90ob0WT3clB+2ha5OPfam0Gqwdtd/UliS5XEcSrizhd3nCugJ7e4NuscP053PdbZIKKjV3JxE14g2uL1EXyv3QdkZzVNVM1lxD85OINNt0fKulDzWDblJWRf45fBVu3Rtp0/ASVbyU5L5kqbDYZk+S4/Px+F9FN48=
+	t=1783326222; cv=none; b=Nm68Hby6IJx+al18Ec5/vbwg0Hz2NXX8nyxOiAPLljfYnhWbCS2AyvT8mELtj0u4YJyp08X1gatbY2CgLHcjDdhAMPuOtIUTg5pCiFNwM0y4DuY61K/AvmL7KQBXNW330dfmtRXe2cljt/0wgNfp7qsNtuQrkWTQ0fc39LyZzSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783326174; c=relaxed/simple;
-	bh=Z45fnCeYiqgbNtqv2FhepjB1EC6A5GgOg0KG3+1Q4pE=;
+	s=arc-20240116; t=1783326222; c=relaxed/simple;
+	bh=aLRbGLcgt67L0CDYqnkih3RXxFWhp37dSTQfKT88sQc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=B+J24CJtE0VHQli4veuw7PJFlMnSWChslePGleQeqdTR1eGvUoca9W9nCh9spWNMGUsEX/ZKUJSLaeVe/8x8YQbYevo8ObbTHwUB8aBOLNtabl1MHYAZoiBRclI9548JGmQ/4OEOCDe8UoJCaa4LABOx3P28OFtbT5VPE/dod2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GNiSlbWG; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=f/1TG9rqjoDGRKcrs0qHQzKwjfG4m32YwvGLiUo7sFgYF559BzWwidT2wa7dzSp5S9xecSSA+nKGEXUttKoLC4sl1cKBgPHB49ghbWswsLGBh8bOilBAmXIfrQhEIEl9VH7JzZ4LrV1dN9FIMljviC6gwhr2mnuls64dlDA6Dhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BI3RJE1t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GNiSlbWG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8C891F000E9;
-	Mon,  6 Jul 2026 08:22:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BI3RJE1t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C4351F000E9;
+	Mon,  6 Jul 2026 08:23:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783326159;
-	bh=moPErxptzMoFitn4NCYWOwu7PQBkbJROla6/+YkgVVo=;
+	s=k20260515; t=1783326215;
+	bh=PRx24CXn/f9P1lyD8pdLj94DsvEIZsUykREthp7GDNE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GNiSlbWGx9vZxeFVLlNwctHw9YSkGjZAgmUCNEdw4CmHsQQ696wy/jAi7x2rOaRyI
-	 0+ftiTBPm3ihli2Qiq6cE2kxNCBl5CaQETl5p+C4Grflurk7L+6VJCbQfKDJlETKA9
-	 jvxBI4j2ZcdUBF32OGBt456ZzhaKAScumzOZsMqRNVOO93qOtou56ruCjq/LMcobi3
-	 J5b7Nk9dZM/vuIes8dCYRBxY2eg9Eec5Eb6GC0/+pJAV8Qu5a245cTU9vaSjoosmvZ
-	 RHnXkfEfkKViv9AfE2+67eZ7hzf+EPHvugI5MpjDDB60RLX5zC3N6wy8YdKFTus6JG
-	 +/E6eBgTEwJ2Q==
+	b=BI3RJE1t+7JSsx+w/1XD81DAsQA1WtiuUJOAchJeTIS1LFn0jj0la9+k+ucCcSWCP
+	 VtHPsJj1df60+5MLjyKxbjPoF7HdW36kdjOrFPjinQRVXY6fcDwFyKKZ1ZhDsccVOr
+	 EgGtLPMnX4M8/heLnE/lo/mca8xtgoEqBlu7dy1JUa6frjyoEVWJsFqjBwdKWew0Iw
+	 dVeo/KfksA7tDYzMJJBNJBqM8hn338EFX0ovlINgcw6TBI71RurIxcKaQZ00OEtxcf
+	 9z0LhSozZE9542EMW2wyfAycMqUfjh0dH50ErODBosRIcC5HTt4Zd9QxbwSd41MM0y
+	 izGdcxItc/vIQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 8/8] riscv: dts: eswin: add watchdog support
+Subject: Re: [PATCH v2 5/8] riscv: dts: eswin: add hsp bus node
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Pinkesh Vaghela" <pinkesh.vaghela@einfochips.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260706081055.1126275-9-pinkesh.vaghela@einfochips.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260706081055.1126275-6-pinkesh.vaghela@einfochips.com>
 References: <20260706081055.1126275-1-pinkesh.vaghela@einfochips.com>
- <20260706081055.1126275-9-pinkesh.vaghela@einfochips.com>
+ <20260706081055.1126275-6-pinkesh.vaghela@einfochips.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 08:22:38 +0000
-Message-Id: <20260706082238.C8C891F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 08:23:34 +0000
+Message-Id: <20260706082335.4C4351F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,117 +46,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Incorrect mapping of the APB clock (PCLK) to the timer reference c=
-lock (tclk), omitting the actual reference clock.
-- [Low] Missing space after the '=3D' sign in the 'clocks' properties.
+- [High] The `hsp_sp_csr` syscon node lacks a `clocks` property, causing un=
+clocked MMIO accesses that can crash the system.
+- [Low] Non-generic node name for syscon device.
 --
 
-commit e654cdc83801a14778ef2783efed381807629c6f
-Author: Pritesh Patel <pritesh.patel@einfochips.com>
+commit 2f5171ba39f634bc5960f8f8754a5b822bc8c76b
+Author: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
 
-riscv: dts: eswin: add watchdog support
+riscv: dts: eswin: add hsp bus node
 
-This commit adds watchdog nodes for the ESWIN EIC7700 SoC and enables them
-for the HiFive Premier P550 board.
-
-[ ... ]
+Add an HSP bus node to manage the HSP CFG clock used by HSP
+peripherals. This clock is required for accessing both the HSP CSR
+registers and the register spaces of HSP peripheral devices.
 
 > diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts=
 /eswin/eic7700.dtsi
-> index 6d328befc623d..d079bb337ecbb 100644
 > --- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
 > +++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-> @@ -265,6 +265,46 @@ hsp_sp_csr: hsp-sp-top-csr@50440000 {
->  			};
+[ ... ]
+> @@ -252,6 +252,19 @@ plic: interrupt-controller@c000000 {
+>  			#interrupt-cells =3D <1>;
 >  		};
 > =20
-> +		wdt0: watchdog@50800000 {
-> +			compatible =3D "snps,dw-wdt";
-> +			reg =3D <0x0 0x50800000 0x0 0x4000>;
-> +			interrupts =3D <87>;
-> +			clocks =3D<&clk EIC7700_CLK_GATE_LSP_WDT0_PCLK>;
-                                ^^^^
+> +		hsp: bus@50400000 {
+> +			compatible =3D "simple-pm-bus";
+> +			ranges =3D <0x0 0x50400000 0x0 0x50400000 0x0 0xa0000>;
+> +			clocks =3D <&clk EIC7700_CLK_GATE_HSP_CFG_CLK>;
+> +			#address-cells =3D <2>;
+> +			#size-cells =3D <2>;
+> +
+> +			hsp_sp_csr: hsp-sp-top-csr@50440000 {
 
 [Severity: Low]
-This isn't a bug, but there appears to be a missing space after the '=3D' s=
-ign.
+Does this node name violate standard Device Tree naming conventions?
 
-> +			clock-names =3D "tclk";
+According to the Devicetree Specification, node names should be generic and
+reflect the function of the device rather than its precise programming mode=
+l.
+
+Should this be named syscon@50440000 instead of hsp-sp-top-csr@50440000?
+
+> +				compatible =3D "eswin,eic7700-syscfg", "syscon";
+> +				reg =3D <0x0 0x50440000 0x0 0x2000>;
+> +			};
 
 [Severity: High]
-Are we assigning the APB clock (PCLK) to the timer reference clock (tclk)
-while omitting the actual reference clock (NOC_WDREF)?
+Will accessing this syscon node cause a synchronous external abort?
 
-The snps,dw-wdt driver retrieves tclk to determine the frequency for TOP
-calculations and to enable the clock. Because EIC7700_CLK_GATE_LSP_WDT0_PCLK
-is assigned to tclk here instead of the explicit watchdog reference clock
-(EIC7700_CLK_GATE_NOC_WDREF), the driver might calculate timeouts using the
-wrong rate and fail to enable NOC_WDREF entirely.
+Since this syscon node is placed under a simple-pm-bus, and syscon nodes
+do not bind to standard platform drivers, no pm_runtime_get_sync() is ever
+called on behalf of the syscon.=20
 
-> +			resets =3D <&reset EIC7700_RESET_WDT0>;
-> +			status =3D "disabled";
+This means the parent bus remains runtime-suspended, leaving the
+EIC7700_CLK_GATE_HSP_CFG_CLK clock disabled.
+
+The syscon regmap implementation can manage its own clock explicitly during
+IO accesses via regmap_mmio_attach_clk(), but it requires the clocks proper=
+ty
+to be present in the syscon node itself.
+
+Because this is missing the clocks property, neither the bus nor the regmap
+will enable the clock prior to the MMIO access, which could crash the system
+if accessed via debugfs or a consumer driver.
+
+Should the clocks property be added directly to this node as well?
+
 > +		};
 > +
-> +		wdt1: watchdog@50804000 {
-> +			compatible =3D "snps,dw-wdt";
-> +			reg =3D <0x0 0x50804000 0x0 0x4000>;
-> +			interrupts =3D <88>;
-> +			clocks =3D<&clk EIC7700_CLK_GATE_LSP_WDT1_PCLK>;
-                                ^^^^
-
-[Severity: Low]
-This isn't a bug, but there is a missing space after the '=3D' sign here as
-well.
-
-> +			clock-names =3D "tclk";
-
-[Severity: High]
-Could this result in similar incorrect timeout calculations for wdt1 due to
-omitting NOC_WDREF?
-
-> +			resets =3D <&reset EIC7700_RESET_WDT1>;
-> +			status =3D "disabled";
-> +		};
-> +
-> +		wdt2: watchdog@50808000 {
-> +			compatible =3D "snps,dw-wdt";
-> +			reg =3D <0x0 0x50808000 0x0 0x4000>;
-> +			interrupts =3D <89>;
-> +			clocks =3D<&clk EIC7700_CLK_GATE_LSP_WDT2_PCLK>;
-                                ^^^^
-
-[Severity: Low]
-This isn't a bug, but there is a missing space after the '=3D' sign.
-
-> +			clock-names =3D "tclk";
-
-[Severity: High]
-Does this node also need NOC_WDREF to avoid incorrect timeout calculations?
-
-> +			resets =3D <&reset EIC7700_RESET_WDT2>;
-> +			status =3D "disabled";
-> +		};
-> +
-> +		wdt3: watchdog@5080c000 {
-> +			compatible =3D "snps,dw-wdt";
-> +			reg =3D <0x0 0x5080c000 0x0 0x4000>;
-> +			interrupts =3D <90>;
-> +			clocks =3D<&clk EIC7700_CLK_GATE_LSP_WDT3_PCLK>;
-                                ^^^^
-
-[Severity: Low]
-This isn't a bug, but there is a missing space after the '=3D' sign.
-
-> +			clock-names =3D "tclk";
-
-[Severity: High]
-Is the explicit watchdog reference clock (NOC_WDREF) missing for wdt3 as
-well?
-
-> +			resets =3D <&reset EIC7700_RESET_WDT3>;
-> +			status =3D "disabled";
-> +		};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706081055.1126=
-275-1-pinkesh.vaghela@einfochips.com?part=3D8
+275-1-pinkesh.vaghela@einfochips.com?part=3D5
