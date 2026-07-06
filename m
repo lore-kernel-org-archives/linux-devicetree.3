@@ -1,120 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92C153AB286
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 16:05:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A907638944D
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 16:07:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783353941; cv=none; b=ozJbyonco9Tiiek4VRFzZ8WHpxTNR9M/uXG44/f0HbY0m6oCFrmXa8Oonxf79uXIXBvAdZdEdnf1IyCRntpK+JmrT9vlUIjPvPIVJAMWxtnw6ujB+rLoARgDmWN4cXwBvRp/Ot4x8PpNBWhEhGs2s7xSH2iEb4EPmzNyK7MJddI=
+	t=1783354046; cv=none; b=VFKEdzM3RIKSJL/6Ka1ydklB9NYs9LLen7SjozBZt8VHc6OHPhrs75zmxfzt/Y952K8dFR4jo+MV6PecDTesI2vv5hMONN08tTNsMCUXlz9o+irY7zg68dXkoHiU6dZsjZ0f55a8YiFczbkL35GkunDS52wuZpmNgonVwDRXqSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783353941; c=relaxed/simple;
-	bh=zTWAR+Cdhqhlmu97CRG/Pk8g0ERzpYqvgtXxCmUwsHg=;
+	s=arc-20240116; t=1783354046; c=relaxed/simple;
+	bh=I/AZO73UZ7EcZcDoC2eJ4b8WDbkCrj0XYORZOeMoNOk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=X+qJJknDM9usYTGjl2cUfjMf1jEn9+18s/hgiTBrP+2N5eLqNT5U3bYFkV8ZkjK4jVT9epsfwz9l5sgwWzWJvuBkaVVZd+Y2oNPSqLYXIU/AhmG68cvAoiJ+pxC7t3Vv/6sPKCMJxcaJhiHZLQd5xc42J5k6QEapAYPaVGLrvj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TPxy9Gy1; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=T81J9Ig4D2wfp70bnDg5Bfl3PDaKzyQ21mIlE/1H4xQT+S9VGsbAVX5mpiJkEy3MwzAPj1Ef0TMYg1YjlurjCyh0617R8dyIlDgM7Jl28XKEqtuCje/BHh0nx82YbnVKmgN1bSLThCFqVeFWuBOVNDM97x7acA25ymb7xJEBHac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gh3oqjnk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TPxy9Gy1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 032001F000E9;
-	Mon,  6 Jul 2026 16:05:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gh3oqjnk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07FD11F000E9;
+	Mon,  6 Jul 2026 16:07:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783353940;
-	bh=3xwWhENRMos9Ji2xwlF+9ZwPlDmwdndufmW/L+/skOY=;
+	s=k20260515; t=1783354045;
+	bh=uFuBX1Gor0zOuk8xrHXesm4EZpTsZ4iu69Jv2H6SuS0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TPxy9Gy11XoL2NhOr8FEdFQqzkrdoZPxTpfvepEbDM4+xvj5SeM/VTUJsQC7jY26u
-	 2tU9uLVdwcZ6Eu03VIEZ9cPw1LFPQZcYqP5CIgbQsZfwXUyPsg2Vy+N3zHoG7BjvHp
-	 UOIZMhOvANVD0epZUoeS0wiZWme1UTXotpc09aPd+GoQjquiq9ZlrIHZDyhtCtczwL
-	 +vwk/aveOXO+OgcDDR/Uasjbk83RroIi6TzOYgGnPIZbcbJTa0AxR/1WIwwyiJzTzK
-	 1YmHDCwCSrG//zyOEmq3Tdlm/kSypuBhqGBJxpJwD+qobFjuK0oBaqz5gczZWkdoqZ
-	 5LfgayuuMlQBg==
+	b=gh3oqjnkptwz97NFKdz4/Hd5BGNmc8s/yHpp0OJuyzk/jV54KI8DAh1nfudObGYEL
+	 bz3rlYCaexZi9ZZ/iikzx8jaw6IAsDtCXgukkLKTQ6UPwt9JIvdUFEFNGFmKC1JH5S
+	 8hF4dcQwFPmLpIDqUHbD5i301kN82FLIQxw9yw92drhzSZgWm+paRkYhel2CsFQ+ln
+	 uEw44a+uvG7kxdwc5lQkMa37w/p633TDi6EUrjJyHizUs8At2fqvgyEG3BaDaMKJDM
+	 cTdrjFzUo4p/mY/m8fZ5uOUq8angSe5jNyfBZst6LXhUadFktaHPKZzv5w2kU1m/b9
+	 r21ijulXF7J/w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/6] dtc: dt-check-style: Do not sort top-level nodes
- in DTS by unit address
+Subject: Re: [PATCH v3 4/6] dtc: dt-check-style: Expect first device_type
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260706-dts-style-checker-v3-5-03ffacff9226@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260706-dts-style-checker-v3-4-03ffacff9226@oss.qualcomm.com>
 References: <20260706-dts-style-checker-v3-0-03ffacff9226@oss.qualcomm.com>
- <20260706-dts-style-checker-v3-5-03ffacff9226@oss.qualcomm.com>
+ <20260706-dts-style-checker-v3-4-03ffacff9226@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 16:05:39 +0000
-Message-Id: <20260706160540.032001F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 16:07:24 +0000
+Message-Id: <20260706160725.07FD11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The checker script inadvertently disables unit address sorting v=
-alidation for all immediate children of top-level reference nodes.
-- [Medium] Top-level nodes with unit addresses are completely excluded from=
- both address-based and name-based sorting checks.
+- [Low] Docstrings in `dt-check-style` were not fully updated to reflect th=
+e new `device_type` canonical order.
 --
 
-commit 52ef4b5728a3b53330c7623fdea74a0e2eddd12d
+commit bb6e224694e154bb051ff9fc5122693c0b1a4366
 Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-dtc: dt-check-style: Do not sort top-level nodes in DTS by unit address
+dtc: dt-check-style: Expect first device_type
 
-This commit modifies the dt-check-style script to stop enforcing unit
-address sorting for top-level nodes in DTS files. It notes that top-level
-nodes with unit addresses are typically sorted by node name instead.
+A few nodes do have "device_type" property which is mostly, but not always,
+the first property in a device node, when applicable. Adjust the DTS
+coding style rules to actually expect the device_type first and improve
+the dt-check-style to handle this correctly.
 
 > diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-> index d9080297bd4db..3c1aa9e28347e 100755
+> index cf61e92d0568e..d9080297bd4db 100755
 > --- a/scripts/dtc/dt-check-style
 > +++ b/scripts/dtc/dt-check-style
-> @@ -515,12 +515,18 @@ def _natural_sort_key(s):
+> @@ -558,28 +558,31 @@ def check_child_name_order(ctx):
 > =20
->  def check_child_address_order(ctx):
->      """Addressed siblings (foo@N) must appear in ascending address
-> -    order within their parent node body."""
-> +    order within their parent node body.
-> +    Exception: Top-level in DTS follows name order, regardless of unit a=
-ddress
-> +    in memory@N and soc@N nodes
-> +    """
->      for children in _walk_bodies(ctx.lines):
->          addressed =3D []
->          for c in children:
->              if c.node_addr is None:
->                  continue
-> +            if (ctx.file_type =3D=3D 'dts') and (c.depth < 2):
-> +                # Top-level does not use unit address sorting usually
-> +                continue
+>  def _property_bucket(name):
+>      """Return the canonical bucket index for a property:
+> -       0 compatible
+> -       1 reg / reg-names
+> -       2 ranges
+> -       3 standard properties (no vendor comma in #-stripped name)
+> -       4 vendor-specific properties
+> -       5 status
+> +       0 device_type
+> +       1 compatible
+> +       2 reg / reg-names
+> +       3 ranges
+> +       4 standard properties (no vendor comma in #-stripped name)
+> +       5 vendor-specific properties
+> +       6 status
+>      Plus a sub-key inside the bucket for fixed slots (compatible, reg,
+>      reg-names, ranges, status). 'standard' and 'vendor' return None for
+>      the sub-key, signalling that the within-bucket key is computed by
+>      the pairing rules."""
 
-[Severity: Medium]
-Does this unintentionally disable address-order validation for the vast
-majority of peripheral nodes added in board files?
+[Severity: Low]
+This isn't a bug, but the explanatory text directly below the list wasn't
+updated. Should "device_type" also be added to the enumerated list of
+fixed slots in the "(compatible, reg, reg-names, ranges, status)" text?
 
-When using top-level reference nodes (e.g., &i2c0 { sensor@50 { ... }; };)
-in a .dts or .dtso file, the lexical depth of &i2c0 is 0. This makes the
-depth of sensor@50 equal to 1. Since c.depth < 2 is true here, won't this
-skip the unit address validation for all immediate children of top-level
-references?
+Also, in check_property_order() further down the file, the docstring
+describing the overall canonical property order still starts with
+"compatible, reg(/reg-names)..." and misses "device_type". Should that
+be updated as well?
 
-[Severity: Medium]
-The commit message states that the DTS usually chooses sorting by node
-name for the top-level part. However, does this change leave top-level
-nodes with unit addresses completely unvalidated?
-
-Looking at check_child_name_order() elsewhere in this script, it explicitly
-skips all nodes with a unit address:
-
-scripts/dtc/dt-check-style:check_child_name_order() {
-    for children in _walk_bodies(ctx.lines):
-        for c in children:
-            if c.node_addr is not None:
-                continue
-...
-}
-
-Since check_child_name_order() bypasses nodes with unit addresses, and
-this new logic skips them in check_child_address_order(), will nodes like
-memory@0 and soc@0 bypass both sorting checks?
+>      stripped =3D name.lstrip('#')
+> -    if name =3D=3D 'compatible':
+> +    if name =3D=3D 'device_type':
+>          return (0, 0)
+> -    if name =3D=3D 'reg':
+> +    if name =3D=3D 'compatible':
+>          return (1, 0)
+> +    if name =3D=3D 'reg':
+> +        return (2, 0)
+>      if name =3D=3D 'reg-names':
+> -        return (1, 1)
+> +        return (2, 1)
+>      if name =3D=3D 'ranges':
+> -        return (2, 0)
+> +        return (3, 0)
+>      if name =3D=3D 'status':
+> -        return (5, 0)
+> -    return (4 if ',' in stripped else 3, None)
+> +        return (6, 0)
+> +    return (5 if ',' in stripped else 4, None)
+> =20
+> =20
+>  # Declarative pairing rules: each is a callable
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-dts-style-=
-checker-v3-0-03ffacff9226@oss.qualcomm.com?part=3D5
+checker-v3-0-03ffacff9226@oss.qualcomm.com?part=3D4
