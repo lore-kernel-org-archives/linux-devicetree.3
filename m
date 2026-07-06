@@ -1,133 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C432349CFC
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 19:43:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FE737DAD5;
+	Mon,  6 Jul 2026 19:44:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783367022; cv=none; b=Azg2O+cbh/GVsKUmXSPds0rnMignaOy8YsVuIwOdRsgk/Y6Cx2cOzbjyG4YVwz2yC6+LeMYexha5GPUA9L6YsyC+9rv0il7feqaCJKnQH5ifLoYH90JwBGwsRIQKL+1d9UMRMDAWSO8SYEcxLvVMQrd3BIOVijzXoTW3GzgxPI8=
+	t=1783367082; cv=none; b=TVBykELa9otTtuqc68czB9znpPUB2+RCywiw/7thLzW4O2iZC8eTDhb7DrhwZAKbnw5wIi1/ln/wxj+F4cMB4cMT9b6/1NGTG3ZBwesX5fF/mUM7+vqHCgi3MkQcD6afb+U6Toe+keWRFZZBrLAnSkIJcN+JyBVK9NLwEeex5sQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783367022; c=relaxed/simple;
-	bh=k+3LE+ilgPc/TesO6X6mRjg/1RdEVpsXmuvOWBp3wL4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dA9uFVQvjFWD+pBsJMboUnNLOL2sqDF0CUWGpX/nmkDddEc1CYc0DN9mlfoO4zJxo9fPdq3Ro5fdvs4Ylra0HZMDcD2rbOrumuyCWzVKifEN7yjQvWoIKFhuCvGyRvjs2rXdYlflWjsq/KKpCcqVdSktxPgkLWrZOlYoxEzJYvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CA5ly8zC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783367082; c=relaxed/simple;
+	bh=CWZhUJcYoDkhoYtK1iatbsomPrNsu3GgiD409MrmM4g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mQf85VJJ+qxpHy9q2iyUCJ2CfE3b7YSHwZaPXu1gwfEse9Uturd2vu06ClUC7oH4VArkvpN4W9yEcpHBjGYG/jZaGRPV/aKtLTTT+K2uoJjfvMBDDKdCUWKX8TUVTkfR5+Rp5E/0/ShKdMfeji5g6+gpttyjiI7WOlfoxNYUnVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=VO2c7dgq; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CA5ly8zC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68D871F000E9;
-	Mon,  6 Jul 2026 19:43:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783367018;
-	bh=LpYBDzzTpttvxZ5Prf6UTUzPZ6dzUGSbel8XI7kLx+c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CA5ly8zCxElI0S9SwfsRdKOPley0dGdAR4UN/USh7CXrLnT7DufZzWgpPo4f3VBwT
-	 oEoXXCQhH0IkSuVMGO3+zLxy37q6dTyt1SxU8ta6wGhmQKk6tsOpWucJiww8fvwWn8
-	 q7nBJnQDRLGC3XxVcyxPC1i/k8x0XgunsaUK7WFFOZ2HmnQ/ro3qdMZu328lsbPI9d
-	 DW22fhWhkAyExxKGm+qO+PV2ysz+ehLCLgme+UOEfjYXTPDURMBBGLdDX+R2eGSISY
-	 ejY4Chzb6siLy+GfhGG1P+kS15rCgAmvXIBreSeuK2l6FNPUDfPV33CZd6FZ+xavAk
-	 q/B6AzlWL/FGg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 11/13] drm/rockchip: dw_hdmi_qp: Support 10-bit
- YUV422 output format
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260706-dw-hdmi-qp-yuv-v2-11-b91beb33dedf@collabora.com>
-References: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
- <20260706-dw-hdmi-qp-yuv-v2-11-b91beb33dedf@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 19:43:37 +0000
-Message-Id: <20260706194338.68D871F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="VO2c7dgq"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gvFDZ4ZGxzMl25;
+	Mon, 06 Jul 2026 21:44:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1783367070;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yYL7G2us8L1A+ywgdNGttIZPW1DvpTtJ3gvCDvIiAEc=;
+	b=VO2c7dgq1MlQPUau1AxNghnke1EnVjyqyONihaOOagbxdtH7hnbBl0ef44m9glBZA9MnBQ
+	Bf0sAgfdYvLUGJZKMAx5vyLPknKXvEeapulY06qgaRv/U0BirpZWU0G7r9eNLlxvHyb2KZ
+	4TD/ogmzgIMmGzrMldg5gjBneQt+9EkGzCD2z7tuDLMYbXqClgf981BbmWPJoBiXixh/NS
+	GgPyVtexk1r082Q/xjJMUmNzJBiIAOCtP7sLubSirZJKLPUs/A12/GsO0vtu8OZLv5t8JO
+	xptbQjHsXSOVZNpmGV0iVCPAs2o3znZQ2+uQje1hsytLY+T2dNQz43ryIabXww==
+Message-ID: <edc7505e-1103-42d7-b88d-013ca10753b3@mailbox.org>
+Date: Mon, 6 Jul 2026 15:06:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Subject: Re: [PATCH 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+References: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
+ <20260704151521.211335-2-marek.vasut+renesas@mailbox.org>
+ <CAMRc=MeyKGv75rTLauZuGxSfgjCPXVE_r=A7uNduRr6kAd43aA@mail.gmail.com>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <CAMRc=MeyKGv75rTLauZuGxSfgjCPXVE_r=A7uNduRr6kAd43aA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: e5aod8a9sremupnu97iu3hz4ksycwump
+X-MBO-RS-ID: c857a6e774d5f1b558b
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 7/6/26 11:19 AM, Bartosz Golaszewski wrote:
 
-Pre-existing issues:
-- [High] The `atomic_check` callback incorrectly modifies driver private ha=
-rdware state (`hdmi->tmds_char_rate`) and invokes PHY configuration functio=
-ns (`phy_configure`), violating the stateless nature of atomic checks.
---
+Hello Bartosz,
 
-commit 6a5a6d9518ed6863c0bd7d0093aee570c295458a
-Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>> +static inline int gpio_rcar_remap_offset(struct gpio_rcar_priv *p, int *offs)
+>> +{
 
-drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422 output format
+I am hoping to get some input on this remap function.
 
-This commit adds support for 10-bit YUV 4:2:2 output to the DW HDMI QP
-encoder by configuring the PHY with 8 bpc when YUV 4:2:2 is in use. This
-keeps the output clock aligned with the TMDS character rate.
+>> +	/* R-Car Gen4 and older do not need any offset remap. */
+>> +	if (!p->info.has_layout_gen5)
+>> +		return 0;
+>> +
+>> +	/*
+>> +	 * R-Car Gen5 register layout is slightly different and the offsets
+>> +	 * that have to be added to or subtracted from each register offset
+>> +	 * can be divided into five groups, listed below.
+>> +	 */
+>> +	switch (*offs) {
+>> +	case IOINTSEL...OUTDT:
+>> +		return 0;
+>> +	case INDT:
+>> +		*offs += 0x10;
+>> +		return 0;
+>> +	case INTDT...EDGLEVEL:
+>> +		fallthrough;
+>> +	case BOTHEDGE:
+>> +		*offs += 0x70;
+>> +		return 0;
+>> +	case OUTDTSEL:
+>> +		*offs -= 0x34;
+>> +		return 0;
+>> +	case INEN:
+>> +		*offs -= 0x38;
+>> +		return 0;
+>> +	default:
+>> +		/*
+>> +		 * This here must never be reached, if this is reached, that
+>> +		 * means there is a catastrophic failure in the driver. Skip
+>> +		 * any IO read/write to prevent further damage.
+>> +		 */
+>> +		WARN_ON(1);
+>> +		return -EINVAL;
+>> +	}
+>> +}
+>> +
 
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
-/drm/rockchip/dw_hdmi_qp-rockchip.c
-> index 9c4cf68d79d50..78473f9a0fce3 100644
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> @@ -215,6 +215,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_e=
-ncoder *encoder,
->  		s->output_mode =3D ROCKCHIP_OUT_MODE_AAAA;
->  		break;
->  	case MEDIA_BUS_FMT_UYVY8_1X16:
-> +	case MEDIA_BUS_FMT_UYVY10_1X20:
->  		s->output_mode =3D ROCKCHIP_OUT_MODE_YUV422;
->  		break;
->  	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-> @@ -226,7 +227,14 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_=
-encoder *encoder,
->  	}
-> =20
->  	phy_cfg.hdmi.tmds_char_rate =3D conn_state->hdmi.tmds_char_rate;
-> -	phy_cfg.hdmi.bpc =3D conn_state->hdmi.output_bpc;
-> +	/*
-> +	 * YUV422 always transmits two 12-bit components per clock cycle,
-> +	 * regardless of the color depth, which from a rate perspective is
-> +	 * equivalent to three 8-bit RGB components.  Force 8 bpc here to
-> +	 * keep the PHY PLL output aligned with the TMDS character rate.
-> +	 */
-> +	phy_cfg.hdmi.bpc =3D (s->output_mode =3D=3D ROCKCHIP_OUT_MODE_YUV422 ?
-> +				8 : conn_state->hdmi.output_bpc);
-> =20
->  	ret =3D phy_configure(hdmi->phy, &phy_cfg);
->  	if (!ret) {
->  		hdmi->tmds_char_rate =3D conn_state->hdmi.tmds_char_rate;
+[...]
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this violate the DRM
-atomic API contract?
+>> @@ -399,6 +445,7 @@ static const struct gpio_rcar_info gpio_rcar_info_gen1 = {
+>>   	.has_both_edge_trigger = false,
+>>   	.has_always_in = false,
+>>   	.has_inen = false,
+>> +	.has_layout_gen5 = false,
+>>   };
+>>
+>>   static const struct gpio_rcar_info gpio_rcar_info_gen2 = {
+>> @@ -406,6 +453,7 @@ static const struct gpio_rcar_info gpio_rcar_info_gen2 = {
+>>   	.has_both_edge_trigger = true,
+>>   	.has_always_in = false,
+>>   	.has_inen = false,
+>> +	.has_layout_gen5 = false,
+>>   };
+>>
+>>   static const struct gpio_rcar_info gpio_rcar_info_gen3 = {
+>> @@ -413,6 +461,7 @@ static const struct gpio_rcar_info gpio_rcar_info_gen3 = {
+>>   	.has_both_edge_trigger = true,
+>>   	.has_always_in = true,
+>>   	.has_inen = false,
+>> +	.has_layout_gen5 = false,
+>>   };
+>>
+>>   static const struct gpio_rcar_info gpio_rcar_info_gen4 = {
+>> @@ -420,6 +469,15 @@ static const struct gpio_rcar_info gpio_rcar_info_gen4 = {
+>>   	.has_both_edge_trigger = true,
+>>   	.has_always_in = true,
+>>   	.has_inen = true,
+>> +	.has_layout_gen5 = false,
+> 
+> This looks good but do we really need to change these lines if it's zeroes
+> anyway?
 
-Modifying physical PHY hardware state and persistent driver state
-(hdmi->tmds_char_rate) during the stateless atomic check phase could cause
-problems if userspace issues a test-only atomic commit.
+I'm just following the pattern in the driver, which does full assignment 
+of all fields for all generations of the controller. See .has_inen = 
+false in Gen1 for example. We don't have to do the assignment, but maybe 
+doing so is more comprehensible ?
 
-If a compositor issues DRM_MODE_ATOMIC_TEST_ONLY, phy_configure() will prog=
-ram
-the PHY hardware and hdmi->tmds_char_rate will be mutated. When the test-on=
-ly
-commit is discarded, the PHY is left in an unexpected state.
-
-A subsequent real commit might then hit the fast-path check earlier in this
-function:
-
-    if (hdmi->tmds_char_rate =3D=3D conn_state->hdmi.tmds_char_rate &&
-        s->output_bpc =3D=3D conn_state->hdmi.output_bpc &&
-        s->bus_format =3D=3D ingest_fmt)
-            return 0;
-
-and skip PHY configuration entirely, leaving the hardware incorrectly
-configured.
-
-Could this lead to hardware misconfiguration, visual glitches, or black
-screens?
-
->  		s->output_type =3D DRM_MODE_CONNECTOR_HDMIA;
->  		s->output_bpc =3D conn_state->hdmi.output_bpc;
->  		s->bus_format =3D ingest_fmt;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-dw-hdmi-qp=
--yuv-v2-0-b91beb33dedf@collabora.com?part=3D11
+-- 
+Best regards,
+Marek Vasut
