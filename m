@@ -1,220 +1,188 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747EF376BEA
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 14:08:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783346914; cv=pass; b=YHLPr+uhyW5FLZPJnsIgrRMoGTKT8vDh1xB+l89i0VnoLhg/Wwk0+LDpC0OxRulnZvoLd2QVI2uUXpnyLMMC+aZUb7svo8BcfJ/PtciymOBGqLE/q+o3ca4J8UlhzDTvh/NvwPJeuQ+O8IN5rPLyLyp7Q95wvD7wSWCMk9cYu1k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783346914; c=relaxed/simple;
-	bh=ANwWX/awSG4OoMeEHmBku3xc6bNHerEHyEoJpAywXKc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JlBdbBX56ANLntfcIuE8KR3XdxtLug2RJI7onIdnqekyV9S0bXmfDq5rWkN6WyU7jBvymKR5GJe8OtrqY8oL6/GuwgMgvcsWhEGKrNLVS8UglBjCtYRM8tYwjHyLNKKVxyc51yfkuEU8ii/2OFIGCINXANGRAvOE++wQqpHCkmc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VXabOkOa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DmXEmm4B; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF5E376BEA
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 14:10:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783347027; cv=none; b=ffUpIO8a3NtN2OPJEfkiyg+lxNy+T9Pqjpc3VVKn6ISmPio3yWRD65E/CLIDNJ9zZdhT1PYAhWljN3qFLgbzlQTjl/msBg7VAzvIzHFIin5D2ywuzvf0RqLnU3k928ojkCVZJDVYE4u7rMmbBx8lvYdITggvpe8GE245ZrcfOgQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783347027; c=relaxed/simple;
+	bh=YOsYyrc/bitTU9Vwq6vnx2DmxDDwMmLL4M4U3a7xGto=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QEDWpm/nP8zsbtW4ec2q4nofSEaZc+pcDlgXSa3qZDqhKTvPg5fE+bJJ56MutZSfim9Yc790abN5ctSaWiS4sxIO3VEMOYidAnzkMxzGenYvngEmgKj5lvb/VRdiPT1f8y3ENfharGRCmdueoBGxNNbfKdxQLh+o8K2XgTLFrgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=BemTA9d+; arc=none smtp.client-ip=209.85.160.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VXabOkOa";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DmXEmm4B"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666AxEEZ395311
-	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 14:08:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	mz5L7xz1m+0nebaAnB8y/P0s4St8SiS01Tir9C+YcO8=; b=VXabOkOaPUWLw7as
-	0gTDE/OWPn8J6R6Z6nP/esOJc2az2bjzwO6S3yxPBoZEqQt+H937ZQzBfQyNRgf0
-	CShBdG5/8PlHZq4zbstr6j10keeUEfjj18HlRzX+RG3gh/AXr0ifxHhfRdEIdejH
-	Z0DMfa6wIIpPZw4pUxpoKi44xlRdyTptWR5/zucXWWIR5/7frlTMaCtjlUc9AQOh
-	7GVO3scwWIujl7dy2dfWi7f6tHF84UpI1gWTV5aeEN/BlR0Ud6TfY22z4eBLgNd0
-	B2nDqAJXGW4SFqSLFzkWn4H8wIWNZkPsi8Pt7WXETOttmU6dafG+aeTvSfdBGCVn
-	ucitRQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f89qph45a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 14:08:32 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e68cb7a3eso568650285a.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 07:08:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783346912; cv=none;
-        d=google.com; s=arc-20260327;
-        b=STguV8UgK8DoQmUx3sH2n918bKU5nfbE+C4yCos/2tA9UzmquRUwBMJE+Oxyr2sb/6
-         7MKYjrpBVvHU4M+8pEUyN+byN1oMeYujuFOfzUTKLIOuD5MZbpZUpTCAw+06kmY644Fo
-         BocFX6frPk5yeuGmwz3N6VWRr7WAq6roTjxt12tiO4ZdBTNavivGMuNwg4e9UpWjSyqj
-         muatm21PdY1wE6ke7MN2oGY2OYz5t/c9xQjgw0689n+ras7/GvmUYgLBbYycw0S2uURY
-         NQ+HbdP5Nk8NJv5LAqtGzPodpfjk1kxxI5spSKbpAbkTIedh8gLpsEn1osQCgNGuCk71
-         CPrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mz5L7xz1m+0nebaAnB8y/P0s4St8SiS01Tir9C+YcO8=;
-        fh=+Kn94FVzl6rE7mDhn4pFvEHlRshbQ57dQ5o19v04Oyg=;
-        b=YszT/V6gYQX2dhd2Oqgca5vCFpIewf5vGsghdkNtpTFleIg0Yuhr89Lmhn2XIIoGzX
-         WQ012IKe8NgcMIFer3Z8jOnKeGEQPuSelSrJ1MLdS+A1yFhmXX4znzRrNP7y8Oh4suK5
-         mTsNZ54vbAb2H8IfGsu1a42MX2pWqFmZU4sEiemyfxF8cH+Wgqp557xTb4npy1iHTrSR
-         GyRSVPpHdnJ2pmsPwh8fqWGisphpkSQkZVtlwwzMka1lAWYK7NYgSs6Ed+kMSNzpz/H5
-         56CPXbzvk5bKhGm19COcHerothLCgdsKlm+QmpaGTdp2e26ZeMzibY6CSV+dldWS4M5a
-         wZ8Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="BemTA9d+"
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-4472500e25fso1316992fac.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 07:10:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783346912; x=1783951712; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mz5L7xz1m+0nebaAnB8y/P0s4St8SiS01Tir9C+YcO8=;
-        b=DmXEmm4BkESHYCebfOVfuSXP7P1KkURGCwwahyXILTEJTcmNfvdSYKpKof+uOclkhR
-         l0nUwC0pYMMXSwObhwwWDBz7J+EboN0DR9O83M2tjmFBZzU/6/2Kk9UTQ+Xeo0xVo8LW
-         5CXK5r/6GnbLmcazRfTX5J9CoayLnI/msNhXCKbfPXi4pG0noI4k2X/akeu4YS2kv4Hm
-         0JnuAJKGjX3gHuMn822hP/+U/HfOX9hatfoVIP3PRTCBNsiLU6OUOi4jREScIPkbLv0l
-         7tIts44JAB7W0Pzs171qt04Eo8ytNWRyDbigWq5Orc+9+Jzd+dq+yGYX3qb0RfwPRu3J
-         Af2Q==
+        d=baylibre.com; s=google; t=1783347024; x=1783951824; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8Q13oMYkW312woQm68JTsMT/EHUSwSrALmbtYHd4pkc=;
+        b=BemTA9d+p0hVaw+VZWUV9RDD8Tmrcy8wb0aKRfBZYWTL+6d+v9nTaMMF/+R1Iorf61
+         vS1c9imyQ34K6uPtXHR9XTuVOSuWwzWd1BxzqQR65Nmn5Z14MWn8d9RMn2iStcZ4WoKO
+         pK0i8QoEQrZGkrdeZ9nLReGOzL52FS3Q8pqAdZiAlASXXy8v/cMApyNrDzW6RC+Tm4KC
+         4JWGl0Ln/0QHxLwfEABPd7e3KtkvviPRTd1pcnPEyT50oGLHoUNr1CBr4wWUFolqQUoq
+         XDoSq8LnY7Kt8sSATQgPi8lcNBFjQhsTlDmLTnMMA1yx3wSX/PTIXgHPZCYOLEwmwPKm
+         XQRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783346912; x=1783951712;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=mz5L7xz1m+0nebaAnB8y/P0s4St8SiS01Tir9C+YcO8=;
-        b=TOcKHsPmjdkLkZOpBnGDF6fzNJ0pluyU5GMSYt5s+Z+fubQOoKwUWEBH13q52sEKVi
-         ZkU1afF4OkfU3b9gWgGWax3AeeoZEE9eZCwGgU0eo235+QbJA4/Whrts+85CKFMNDNAB
-         M57TsNub+IvwQ0eVRG9etOwXRCvlHbCMNuI62DFhNVx5IarDj0137Va7iNUmTlumhvbb
-         GgptuIlwrQQyhS3z9GzuiLhK4mAwyMKYaQPiVWIxcugOrsnIx8jg5fOQqAxZZzGeEHx/
-         raw3B22IYLgL+YDy7NOSMQNV9qS9NctDmq++cPNvKeOmOoc1edfnFPME31EkNroA0G7L
-         hK3w==
-X-Gm-Message-State: AOJu0YyqVtYbwxpZV3GK2ifr+XVXnNTf+INF9jmmlmceb4QXfw65mDoL
-	cIBxF2pwyKN6dHH+LGUCVSxtoFsem/wnKdyoqfw+3HESxC2l51oeuFXumeWWeYP+4fy2r9muhzE
-	f7iynNhMv/3BBwKNQfXcPX7nLxmetCyTZ4xqDgFTB1dXPD9CV29T46ke3hts0+K8jGP7G3My04H
-	NW4guWOFFIAUQDVjEVzncmemwrC46gJY9eGIBdRsU=
-X-Gm-Gg: AfdE7clopeBxo9sm4rVsTSffR+F+ksyCCmy3vAXa0W52K1T7eti0FpbesMqhbNAx04K
-	Fa14DiV1pJ4PtDS2cM3E2KMbRTGnjrRJ42hHe1Bofq3pu0Sxs7pIaZJ0ohpnFQw2C0xGUExnm8Q
-	ua76C9/59NIgppcymyTTeewVPaMzbl9Mukxgj5XEwrFpyNGCAnyRsNMb/6LbbQyREtZDl494gTo
-	MBP0a8m3JReSOfA5sirW1QORCN/bd5vFopcuG+ZPF3idZfwXUQxW71ju/NVgLcYzUaxpAPVmPOW
-	tWER98TDjsE=
-X-Received: by 2002:a05:620a:1d0c:b0:92e:6b95:237a with SMTP id af79cd13be357-92ebb505f08mr99512085a.32.1783346911569;
-        Mon, 06 Jul 2026 07:08:31 -0700 (PDT)
-X-Received: by 2002:a05:620a:1d0c:b0:92e:6b95:237a with SMTP id
- af79cd13be357-92ebb505f08mr99506385a.32.1783346911118; Mon, 06 Jul 2026
- 07:08:31 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783347024; x=1783951824;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8Q13oMYkW312woQm68JTsMT/EHUSwSrALmbtYHd4pkc=;
+        b=s3lxOAYJ2chixlyimlkK/enpPY6+gqrHOR4avK204aawAX6qQwBrLC1u2Gh4N3kLQc
+         JIlPTYvB8xFzVxh4b/DgO7VY0R6cR0CtVR888MFbACZiPjzqhaCP4IMlPr6C/SI6dIwA
+         gT+di0/d4NFSj2ExhtvSX0EtrRtWLjXkvxZN4WPhO97mRHQkyQCU0F8Irj2vyzQpF/eS
+         oZcOaYI7OUbjVS6Rl5cU7DDJjg3oijlKQGOMNt3PNtX9QB8FsLI+FI3LTbwep5naIM4d
+         gRzNdg9E0QP74uSAyLr5o/EVKetlHcJUZE6XGda8eZ92nCTGbWJYZcgl9BRTZ9fp7ZFN
+         mHig==
+X-Forwarded-Encrypted: i=1; AFNElJ8kGuC1ET36PNDzSnNw8lt8pkX6czATD+bEvI4L41OrUiO9LrWBbaIzt5/X1xAJB26QgOdYkDdS+Obo@vger.kernel.org
+X-Gm-Message-State: AOJu0YzhyPDZmhHMQvt/CHVq8d2mov+rq9g8/pmRHgzM60uLos4Hgrsl
+	swFBkglyPiyEqQnDovmrbd5PCOTYxZXcd72Pw3KK/lWb5e27YqsR5Uwt+AZXqYqGJ1s=
+X-Gm-Gg: AfdE7ckqIk3oVxEGboPrXOE3UEPbfgYxQXro1ZwdQm18YSNkbKk3au/lBACSsMQFqQy
+	i0asC1YgSx2yrWQ1oPu2eEf9TQZtFpu0ysB9jDQ9IeoQPJeS8yh7gl8qfjKTh06kWqdUt1VvwE5
+	dfu7a4LnGbHbQJGdGfQBqhOzMa0eQjrzH/iGb0+3p8fAJtXJiMwqyLOXZpnDrJjw/qE6HoNpvrH
+	ziHje6LjZ0liuNtv+cJUtorRvfi96hubOY8v7WCZOL/l/72Z6g3l8vwbq5plrBPX9XXBX882xid
+	zG6oROk/72NbhhewIaDtXzAh5oRVsz0jfU77nPid1yCsyeectuzk4qIzcUL+ZAPRNO0QSn7hEyE
+	YmTB8l7MFyF1cP77dGwRSVcsSKvHX1oKiD1tGBijronp9Q9irKO4CHKG3BmY3vLYpX1PVrMTlS+
+	TV2CSZDgGIeQBb7bt4lMIopWzSZynvxxhw1KmWy/kdJD3/Oh3/bJvoR8Fl+GeZqE0=
+X-Received: by 2002:a05:6871:820a:b0:43b:58a4:cc33 with SMTP id 586e51a60fabf-451065bccf8mr348850fac.22.1783347024487;
+        Mon, 06 Jul 2026 07:10:24 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:a38a:a0af:ed1d:5c77? ([2600:8803:e7e4:500:a38a:a0af:ed1d:5c77])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44cfb6691d1sm10542741fac.17.2026.07.06.07.10.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Jul 2026 07:10:22 -0700 (PDT)
+Message-ID: <2d84950f-c56a-48f5-ab7c-c7b7ccb3b28d@baylibre.com>
+Date: Mon, 6 Jul 2026 09:10:21 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260703-block-as-nvmem-v8-0-98ae32bfc49a@oss.qualcomm.com>
- <20260703-block-as-nvmem-v8-5-98ae32bfc49a@oss.qualcomm.com> <20260704134554.D6C411F00A3A@smtp.kernel.org>
-In-Reply-To: <20260704134554.D6C411F00A3A@smtp.kernel.org>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Mon, 6 Jul 2026 16:08:20 +0200
-X-Gm-Features: AVVi8Cf4y-UzXQaofe6s9LCv8tELszbF5_LVcMZ06_qZWzpG2wpn6piYqqoSY1M
-Message-ID: <CAFEp6-1mjx74Z12noBZOVu8mBk6+nbqMxxtZLYYqHvJ=qSaPNw@mail.gmail.com>
-Subject: Re: [PATCH v8 5/9] block: implement NVMEM provider
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=c6qbhx9l c=1 sm=1 tr=0 ts=6a4bb6e0 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=VT4XjZGOAAAA:8
- a=Rk-JEQ0JuZRAwbGkdHcA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
- a=6CpsfURP9XNmmWg3j1mJ:22
-X-Proofpoint-ORIG-GUID: 1Mi5fhltJygrO0ZRFZdGcWPLlvLXlM8i
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDE0NCBTYWx0ZWRfXz1F1ylotomtv
- 6AoXuoTmJ6HDvexYHj7skrexQgM4Tsba4mwEqquzP+9NO5J+8rGvbuNn/BJsnKPIsBSTi6cE1C6
- JkcbAidD0RCKa+EiqtlA5PUQepbgy3lRJpG0rkiHF7u7yTI7we7v3WyF1y5qGpTRYvMlx2TJtW7
- phA5N1x52xDe6phZUmS8tqq1XiA1IMzib8ynsGGTlPxn8qCTgUevev8c69fTEjizky3QfuYmSU8
- Xe2iKU0zO8OKSwgqyxB02BKBWI6tKLkZ/d7qbFSKgIqT5wfeA8Ps2rUN8gc+ewsBwpTAvBIpu2w
- ikWqH3HnSyU1hXU5+6mjedZ2lb7DKaoCWmFEzOWsWoV4lnvIZ/oeDla1dtLTLr21exbvRbTG6/h
- +pX6Ja8/e0i9dXh4DLURr7qH2TebsohtMaCTwqXKspcvDGx+O8XXMDx75wgQszJlDmVpYLXKqZy
- dLwtjMrzhnh8VeGlS1Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDE0NCBTYWx0ZWRfX6LxBVbpO77Ur
- jxVxlis/hpjnKExZntiB1QtoxABqAibdePI9juU/mW90XvvViQ0HRvr0NNKW+6ickSQlrITQA78
- rdIYhcIEPaLyzUKdlIGpBV40EECImFM=
-X-Proofpoint-GUID: 1Mi5fhltJygrO0ZRFZdGcWPLlvLXlM8i
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-06_01,2026-07-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 adultscore=0
- lowpriorityscore=0 priorityscore=1501 clxscore=1015 spamscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607060144
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 12/16] iio: frequency: ad9910: add RAM mode support
+To: =?UTF-8?Q?Nuno_S=C3=A1?= <noname.nuno@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+ Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-hardening@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
+ <20260618-ad9910-iio-driver-v6-12-79125ffbe430@analog.com>
+ <20260703040544.08a8ea5e@jic23-huawei> <ake_YWfvVC9RQ3wu@nsa>
+ <1493eed5-5bb8-4a2c-8f2d-8b4bc5dde157@baylibre.com> <akt3i_YxG-jF3IdJ@nsa>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <akt3i_YxG-jF3IdJ@nsa>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Jul 4, 2026 at 3:45=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] The NVMEM provider incorrectly sets `config.owner =3D THIS_MODUL=
-E`, failing to pin the underlying block device driver module and causing a =
-Use-After-Free if the driver module is unloaded while a consumer holds an N=
-VMEM cell.
-> --
->
-> commit 658c388a96462e54e252d777f2fc96dcf4f36d59
-> Author: Daniel Golle <daniel@makrotopia.org>
->
-> block: implement NVMEM provider
->
-> This patch allows block devices or partitions to act as NVMEM providers,
-> exposing factory-provisioned data such as MAC addresses or Wi-Fi calibrat=
-ion
-> blobs. It introduces blk_nvmem_add to register the block device with the
-> NVMEM framework when the appropriate device tree nodes are present.
->
-> > diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
-> > new file mode 100644
-> > index 0000000000000..642a12f8a8b1c
-> > --- /dev/null
-> > +++ b/block/blk-nvmem.c
->
-> [ ... ]
->
-> > +int blk_nvmem_add(struct block_device *bdev)
-> > +{
-> > +     struct device *dev =3D &bdev->bd_device;
-> > +     struct nvmem_config config =3D {};
-> > +     struct nvmem_device *nvmem;
->
-> [ ... ]
->
-> > +     config.id =3D NVMEM_DEVID_NONE;
-> > +     config.dev =3D dev;
-> > +     config.name =3D dev_name(dev);
-> > +     config.owner =3D THIS_MODULE;
->
-> [Severity: High]
-> Should this owner be set to the block device driver's module, such as
-> bdev->bd_disk->fops->owner, instead of THIS_MODULE?
->
-> By setting config.owner to THIS_MODULE, it seems we pin the block core
-> module but fail to protect the actual block device driver (like mmc_block=
-)
-> from being unloaded while a consumer still holds a reference to the NVMEM
-> cell.
->
-> If the driver module is unloaded, its module memory is freed. When the
-> consumer later releases the cell and the bd_device refcount drops to zero=
-,
-> could disk_release() end up calling disk->fops->free_disk on a now-unmapp=
-ed
-> driver module pointer and cause a crash?
->
-> > +     config.priv =3D (void *)(uintptr_t)dev->devt;
-> > +     config.reg_read =3D blk_nvmem_reg_read;
-> > +     config.size =3D bdev_nr_bytes(bdev);
->
+On 7/6/26 4:47 AM, Nuno Sá wrote:
+> On Sat, Jul 04, 2026 at 11:50:35AM -0500, David Lechner wrote:
+>> On 7/3/26 9:09 AM, Nuno Sá wrote:
+>>> On Fri, Jul 03, 2026 at 04:05:44AM +0100, Jonathan Cameron wrote:
+>>>> On Thu, 18 Jun 2026 14:27:28 +0100
+>>>> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+>>>>
+>>>>> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+>>>>>
 
-The use-after-free you describe does not occur: this is already handled by =
-the
-Bartosz nvmem core rework [1], specifically "nvmem: protect nvmem_device::o=
-ps
-with SRCU". So when e.g. mmc_block is removed, nvmem is properly unregister=
-ed,
-and its ops are nullified. A consumer reading a cell afterwards gets -ENODE=
-V,
-not a crash.
+..
 
-[1] https://lore.kernel.org/all/20260629-nvmem-unbind-v5-0-233212f241c4@oss=
-.qualcomm.com/
+>>>>> +static inline void ad9910_debugfs_init(struct ad9910_state *st,
+>>>>> +				       struct iio_dev *indio_dev)
+>>>>> +{
+>>>>> +	struct dentry *d = iio_get_debugfs_dentry(indio_dev);
+>>>>> +	char buf[64];
+>>>>> +
+>>>>> +	/*
+>>>>> +	 * symlinks are created here so iio userspace tools can refer to them
+>>>>> +	 * as debug attributes.
+>>>>
+>>>> Maybe worth a reference to appropriate ABI doc here (even if it is introduced
+>>>> in a later patch)
+>>>
+>>> I'm not so sure about these links. I mean, I definitely agree we should
+>>> make it easy for userspace tools like libiio to be able to handle
+>>> these kind of attributes but using debugfs is questionable to me. Pretty
+>>> much because this is not a debug thing. It is a real setting for the
+>>> driver so ideally we would be able to control it (using the existent
+>>> tools) without enforcing one to mount debugfs (I know that most of the
+>>> times it's always mounted but still feels wrong to tie "real
+>>> functionality" to debugfs). 
+>>>
+>>> Having said the above, some suggestions:
+>>>
+>>> 1. Make the iio_dev the parent so that the attr name is just "ram" and
+>>> it will be a subdir /sys/bus/iio/iio:deviceN/ram/.
+>>> 2. Propose a new helper for the firmware_loader code so we can get
+>>> struct device from struct fw_upload then we can easily create a sysfs
+>>> symlink.
+>>> 3. Name the attr as dev_name(iio_dev):attr so that it becomes
+>>> iio:deviceN:attr_name.
+>>>
+>>> Now that I think about it, 2. does not make much sense when compared to
+>>> 1. And If I'm not missing anything both 1. and 3. can be sanely parsable
+>>> from userspace (being 3. maybe a bit more reliable). And yes, both require
+>>> user space tools (in this case libiio) to support a new type of
+>>> attribute (firmware) but that is another problem.
+>>
+>> I would say that udev should be used to find the firmware device from
+>> userspace rather than creating symlinks. And you probably don't even
+>> need udev if you already have the `iio-device:<ID>` value. The path
+> 
+> Just one note. If you mean <ID> as the attr name the above will fail for
+> multiple instances of the same device. That's is why a proposed
+> dev_name(iio_dev) which I think it should reliable be iio:deviceN. 
+
+My <ID> is the same as your N. It looks like I just had a typo of
+an extra : in there.
+
+> 
+> I guess N might change so anyone hardcoding it might have surprises. But
+
+That is why I mentioned udev.
+
+> properly done and we have a sane way to match the above with anything on
+> /sys/class/firmware/iio:deviceN:<attr>/
+> 
+>> is always going to be `/sys/class/firmware/iio-device:<ID>:ram/`. It
+>> seems like the same amount of work for usespace to computer the path
+>> either way, so might as well keep it simple and leave out the symlink
+>> stuff.
+> 
+> Yes, at least for libiio, `iio:deviceN` is already what we call the
+> device ID so we can match fw attrs against it and everything after the
+> last ':' is treated as the attr_name. 
+> 
+> We just need to keep in mind that if a second user of this stuff pops
+> up, we should add a new helper to enforce the ABI.
+> 
+> - Nuno Sá
+>>
+>>>
+>>> - Nuno Sá
+>>>>
+>>>>> +	 */
+>>>>> +	snprintf(buf, sizeof(buf), "/sys/class/firmware/%s/loading", st->ram_fwu_name);
+>>>>> +	debugfs_create_symlink("ram_loading", d, buf);
+>>>>> +
+>>>>> +	snprintf(buf, sizeof(buf), "/sys/class/firmware/%s/data", st->ram_fwu_name);
+>>>>> +	debugfs_create_symlink("ram_data", d, buf);
+>>>>> +}
+>>>>> +
