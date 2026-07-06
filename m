@@ -1,191 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAE1409132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D3842089F
 	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 13:09:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783343385; cv=none; b=ZueXe6zDYZHf9WHw2hB0SqqxNZoCrX/NcdcCwjqTdVLxOaVRmpTK3UB0XxzO+iBfRE8SFrQJ76fMYzeym39iVYiK9RjrOJGFFP+7rLHUA1sKpzlyhevygis6iA+BSl+SkAyLglLkmlijtyF8BnfTxTGmtqkF/TmbJArxnsTgdXo=
+	t=1783343386; cv=none; b=WWiw9txaDP5Jn9xISITBIEBnyyRHsNbVxxdf1xGA2w2rqQdljmiZZ1KWZy94S3z5gwHfr+4qpNs0NSSF8K9mRxcbhV0Omjy4oMPYvahqLPze27nbkb+ymMv8zJf54nsYHdGf+WuTL6mqmcVXronFWx3nUePCTawABe7ElT24Tuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783343385; c=relaxed/simple;
-	bh=m6vNbfcTFMDJTCUe+imERKqcuZmnxBqvDavG7Tef+eM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Bkw8PFF0WTreJBa1uSQVONWpaihdprnMk7L2wQ3jE/NzEK0MpFJ4rue1f9k2RIUcfMWjRt4t6iElHmxmqh6wq+WcvjwKR0gP0RUfscSnRA8yjMqP9cVaAqy9JoAuY/sIw5+DF+nydwKHSN+9/tj8QCl6Fspl3TRkJiLavs2r+yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nG9BOKVt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783343386; c=relaxed/simple;
+	bh=l41RXQvXBkxvYTzqq2rFLxtUAbzHPMY4/jExtvAtGoM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s7ehlAczblsxOupNclYzYHWLTctqpipD5sWdCH6a6kqELNRsweuttDQAWg2r/m3Qt0EH2qfPPCoW7pl5P6QS4oBNAqUno7kJb1CSp+KXAP0Nw1aI8aKut+lAjr9jLXaVZ/JlFPdtd8gs3Kvq83uZLbBVitluUtfrfWcVS1N3D5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eAEuPb/H; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ac2vAY7y; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nG9BOKVt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 886D31F00A3A
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 13:09:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783343384;
-	bh=oSBhOhh94uibX703mDFvpSfIFzkXKtVz7iv2dM/6XNU=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=nG9BOKVtFvHTtF5EG1uWQ+KEaKnEW2OB6MxagwctBUYuw2VZak6lsUmDit5WozB2c
-	 jfdOmhi76mPrVgDpXK5qgaAmTime2Rv3oUBZYqtRz2iSz7OSl2TA73l7/ueYCX/r38
-	 jZrkf/keykU5REK2ovdAg7UKfXewQAMxSXH9HZwE52/Q3Nt8Bka6ixH4I6ma1SCk7p
-	 ThxUmWqcUqUlD4n4Q1csU2ZSaCX5sY/RoXZl1VEnBBxBnrk8pWv9ihEUf3uCtP95pX
-	 hL2iNrucKM57cXsVR8cyClSJYhui99/f4TwwOHXYOpDDQcQHRNy3MAb/N97ozsG2zU
-	 BQTz/E8kXiQEw==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5aebd77cbb4so2534790e87.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 06:09:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqC3tQCDxlTrWOc8BT2Tpf24vqsQpTPp9o2EcBiVtGBbrnHpIzEY5XAkzPKDkUuPr1lOTOvl3EoFVAu@vger.kernel.org
-X-Gm-Message-State: AOJu0YwPKkMqbhZIKRfUNEZF8vKjOQEaoTz3tBAoTTNQzuovLstTAsk4
-	RJaom/KVQqHTxYcImLAAt0m73f2fz1uXtG+sju0FCSk5NGsVve+klM9Ap4uucExY3KlIyaZWze7
-	AaSSbW1V9y5VbK1ploPexLA66NZ6Yegk=
-X-Received: by 2002:a05:6512:61a:b0:5ae:9b04:dbb0 with SMTP id
- 2adb3069b0e04-5b007bbcfffmr78794e87.0.1783343381196; Mon, 06 Jul 2026
- 06:09:41 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eAEuPb/H";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ac2vAY7y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783343383;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tUHCisuScEtc1kpgEniw1SQHEHnjG8D0qhIWEGCMudA=;
+	b=eAEuPb/HBJe8Z1MJte8FD1wpEArskyr3PCLV6pcm1rgC9zodqjJ3VgxpE1URF++mCLUE0w
+	M5Oc/u6itehPacQUzrEJveweTZlk0cg5B/15Q+wfKmNEGPNznikb9cao92oGMFotkb+PFA
+	5/GFs3FivE63EFQSsMYquLKZraCrL9I=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-329-mOz2EU-fN9O4LSddg6FpjA-1; Mon, 06 Jul 2026 09:09:42 -0400
+X-MC-Unique: mOz2EU-fN9O4LSddg6FpjA-1
+X-Mimecast-MFC-AGG-ID: mOz2EU-fN9O4LSddg6FpjA_1783343381
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-490a767c7dcso24222755e9.2
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 06:09:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1783343381; x=1783948181; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=tUHCisuScEtc1kpgEniw1SQHEHnjG8D0qhIWEGCMudA=;
+        b=Ac2vAY7yfmxQbyWeQvPtdzzMOm0k8nRC+Luvqdjzg0WrAC5SZuMmiOeA81AgE17UVY
+         5MXaKKU+Xho4YSscxth7UFM8yBnc+E08tgHykdfq8bFSA9t9WcVxozypA0We/C9vxt5E
+         2wD8yI2Mli4lyjajve0Dj6Nnepsj3qGz/ixlmqakSPi+P5D+JuxiHBio7celn5yXJCXK
+         M5lMSO2vHl38UIzZk/kURmZ0Qlcf09E4lAUTsxIwbJ8MOKgx2T/xuxswl8W7qzihtAuA
+         2anZBGU0d3OkoNxC8CEpui8heMnkG6cM2FRxJ3C66qwpk4Jl2zkYs/z0h6VesK+gajSI
+         SYww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783343381; x=1783948181;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=tUHCisuScEtc1kpgEniw1SQHEHnjG8D0qhIWEGCMudA=;
+        b=U4bqgICNfjcefamREyzCxz0+WfMIhDUW8IsMApGJwQD0jKGD0OGD9grPaapt5QmlmX
+         SpLs/KDWTPMnAOrCI5xdDZROAdKfGHwKg6GWf5Iwco7byWa6XjcjHLq6IbWo07s+EJEv
+         RIjPrQl7frpQS19xZzbW3sDVCAlDuQi1GaEro0Yd+IcBSbW9mlGvfwCh/TxBXqEB8fer
+         bf5xTWrDttHVwm6BGmbF5wXw3+SxJQchFJNZ0d/8r/lkqfLYnKtG2H43tlHKgQkU6bJQ
+         vAiq3WpeYU6aeG2AM59ih1oMjWZTt1bR8gU7Fb5ZukcnM/TVBrJamWTaBRwjM7UOHkX2
+         l9Rw==
+X-Forwarded-Encrypted: i=1; AHgh+Rpd1ckUU/wwYbhs63NNM6jyjw/mej4pUMQhVemM7PSKa3Eu3x7dn69fBAXdMw9jx8xmUnGbspVSUtkG@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy5psbD82l0oal5p8iKE+lhq3+UZe/scd8gYdP12sZS9qN1Qox2
+	0MBy9Kq/6YMAUsHd8sXfWAU5qJlLeD6KGJMFwzVTSEalKN7UstFx0S0CDaVGk6W3e8ydUEGL/4S
+	ztS6z0YMyc1Gm16wXlWqCZwoQ3L6tE72bZCZcNP3qKSe002YO52wLsg2jDebFygw=
+X-Gm-Gg: AfdE7cmlJZhr7pibE6fyvbivkg1z77uHbAzHuQscoiPEjBnwSAihkl0Ea9qNH3QNhtC
+	PhAB7HxO5mga5nBcGKwY1ZW8pIlMhxVApjbppIQ5yJtqL3xUL5a97lv89jcmj+bhzsujUmMnPwS
+	fNMNN4Zmc5hLaKwkwL/7458PJ0z2Ldy7ESP/2JXrvnb9jiMTkdw15ldyejI8+haUaTBvbPfTvoA
+	Y3b6sDkc1gSBufcvJHqNAwFGIFl8C3XpuuJ6DFJPPQTsOk+oZBpKAj30G9O2xN8Vxlw581ONXo8
+	unjsNRTxZrdd3+cyVONRZkIZwn8tX1yykonPVAom8z1t7nz9quDA8Oc/j7+bOCsWprBC4brWHvR
+	H9Art7Fnq/sx96d+Lum5w+83uqtVWsIgWRCDhR5RUfkYqCh2niuisq7HnZzxqjfLxOt+EkEllcc
+	bJdpXi/2gFypxx
+X-Received: by 2002:a05:600c:3f16:b0:492:454c:347c with SMTP id 5b1f17b1804b1-493df066413mr4850915e9.7.1783343381410;
+        Mon, 06 Jul 2026 06:09:41 -0700 (PDT)
+X-Received: by 2002:a05:600c:3f16:b0:492:454c:347c with SMTP id 5b1f17b1804b1-493df066413mr4850375e9.7.1783343380895;
+        Mon, 06 Jul 2026 06:09:40 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:5521:6b10:58fd:68f:7756:389d? ([2a0d:3344:5521:6b10:58fd:68f:7756:389d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ad69519c2sm25839803f8f.37.2026.07.06.06.09.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Jul 2026 06:09:40 -0700 (PDT)
+Message-ID: <8e5eb97d-dfaf-47a1-8572-b3252a2c7ed3@redhat.com>
+Date: Mon, 6 Jul 2026 15:09:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260706-a733-rtc-v4-0-f330728db3d3@baylibre.com>
- <20260706-a733-rtc-v4-6-f330728db3d3@baylibre.com> <20260706100635.E5DC61F000E9@smtp.kernel.org>
- <1jv7asguqu.fsf@starbuckisacylon.baylibre.com>
-In-Reply-To: <1jv7asguqu.fsf@starbuckisacylon.baylibre.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Mon, 6 Jul 2026 21:09:29 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67zgADhe+PG4UJke0r-1eQrXKhZ9PbqWfY9JNZ8cBxMeA@mail.gmail.com>
-X-Gm-Features: AVVi8CfXtsQWXmbgCdreOulPhQzwv9AjubtuzL3ZucIy6oiHmmXq6hOpzzZI_Bk
-Message-ID: <CAGb2v67zgADhe+PG4UJke0r-1eQrXKhZ9PbqWfY9JNZ8cBxMeA@mail.gmail.com>
-Subject: Re: [PATCH v4 6/9] clk: sunxi-ng: div: add read-only operation support
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev, 
-	conor+dt@kernel.org, robh@kernel.org, linux-rtc@vger.kernel.org, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, 
-	linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v9 6/6] riscv: dts: eswin:
+ eic7700-hifive-premier-p550: enable Ethernet controller
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ningyu@eswincomputing.com, linmin@eswincomputing.com,
+ alexandre.torgue@foss.st.com, mcoquelin.stm32@gmail.com,
+ pinkesh.vaghela@einfochips.com, pritesh.patel@einfochips.com,
+ maxime.chevallier@bootlin.com, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-riscv@lists.infradead.org,
+ palmer@dabbelt.com, pjw@kernel.org, weishangjuan@eswincomputing.com,
+ horms@kernel.org, alex@ghiti.fr, lee@kernel.org, wens@kernel.org,
+ lizhi2@eswincomputing.com, devicetree@vger.kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, netdev@vger.kernel.org, rmk+kernel@armlinux.org.uk,
+ aou@eecs.berkeley.edu, linux-kernel@vger.kernel.org
+References: <20260630063123.1118-1-lizhi2@eswincomputing.com>
+ <20260630063445.1226-1-lizhi2@eswincomputing.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260630063445.1226-1-lizhi2@eswincomputing.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 6, 2026 at 8:36=E2=80=AFPM Jerome Brunet <jbrunet@baylibre.com>=
- wrote:
->
-> On lun. 06 juil. 2026 at 10:06, sashiko-bot@kernel.org wrote:
->
-> > Thank you for your contribution! Sashiko AI review found 1 potential is=
-sue(s) to consider:
-> > - [Medium] Inconsistent rate calculation between `determine_rate` and `=
-recalc_rate` due to division order.
-> > --
-> >
-> > commit 39f872462c04ad724c3624b152234160de56a47e
-> > Author: Jerome Brunet <jbrunet@baylibre.com>
-> >
-> > clk: sunxi-ng: div: add read-only operation support
-> >
-> > Add support for sunxi-ng read-only dividers. This will be
-> > useful to the a733 oscillator detection logic.
-> >
-> >> diff --git a/drivers/clk/sunxi-ng/ccu_div.c b/drivers/clk/sunxi-ng/ccu=
-_div.c
-> >> index 62d680ccb524b..d1c8c7baa12dc 100644
-> >> --- a/drivers/clk/sunxi-ng/ccu_div.c
-> >> +++ b/drivers/clk/sunxi-ng/ccu_div.c
-> > [ ... ]
-> >> @@ -84,6 +84,36 @@ static int ccu_div_determine_rate(struct clk_hw *hw=
-,
-> >>                                           req, ccu_div_determine_rate_=
-helper, cd);
-> >>  }
-> >>
-> >> +static int ccu_rodiv_determine_rate(struct clk_hw *hw,
-> >> +                                struct clk_rate_request *req)
-> >> +{
-> >> +    struct ccu_div *cd =3D hw_to_ccu_div(hw);
-> >> +    unsigned long val;
-> >> +    u32 reg;
-> >> +    int ret;
-> >> +
-> >> +    reg =3D readl(cd->common.base + cd->common.reg);
-> >> +    val =3D reg >> cd->div.shift;
-> >> +    val &=3D (1 << cd->div.width) - 1;
-> >> +
-> >> +    req->rate =3D ccu_mux_helper_unapply_prediv(&cd->common, &cd->mux=
-, -1,
-> >> +                                              req->rate);
-> >> +
-> >> +    if (cd->common.features & CCU_FEATURE_FIXED_POSTDIV)
-> >> +            req->rate *=3D cd->fixed_post_div;
-> >> +
-> >> +    ret =3D divider_ro_determine_rate(hw, req, cd->div.table,
-> >> +                                    cd->div.width, cd->div.flags, val=
-);
-> >> +
-> >> +    if (cd->common.features & CCU_FEATURE_FIXED_POSTDIV)
-> >> +            req->rate /=3D cd->fixed_post_div;
-> >> +
-> >> +    req->rate =3D ccu_mux_helper_apply_prediv(&cd->common, &cd->mux, =
--1,
-> >> +                                            req->rate);
-> >
-> > [Severity: Medium]
-> > Will this division order cause inconsistent rate calculations compared =
-to
-> > ccu_div_recalc_rate()?
-> >
-> > The divider_ro_determine_rate() helper applies DIV_ROUND_UP() to the un=
-adjusted
-> > parent rate, and then this function divides that result by fixed_post_d=
-iv and
-> > prediv.
-> >
-> > However, ccu_div_recalc_rate() applies prediv to the parent rate first,=
- then
-> > calculates the divider rate, and finally divides by fixed_post_div.
-> >
-> > Since the Common Clock Framework requires determine_rate and recalc_rat=
-e to be
-> > mathematically consistent, could this discrepancy cause rate mismatches=
- or
-> > warnings for clocks using a pre-divider or fixed post-divider?
->
-> I think the RO side is correct and RW one is not.
->
-> The RO part correctly walk back the tree by un-applying the predivider
-> so, whatever CCF does with the parent rate value will be correct.
->
-> The RW part query the parent rate then applies the prediv. This
-> will be thrown away when/if clk_divider_bestdiv() calls
-> clk_hw_round_rate() on the parent. If that happens, the subsequent
-> un-apply of the prediv would make the matter even worse. So (if I
-> understand all this correctly) this case does not happen yet, otherwise
-> we would have noticed, and it can be fixed separately.
+On 6/30/26 8:34 AM, lizhi2@eswincomputing.com wrote:
+> From: Zhi Li <lizhi2@eswincomputing.com>
+> 
+> Enable the on-board Gigabit Ethernet controller on the
+> HiFive Premier P550 development board.
+> 
+> This patch is included only to provide the DTS context for reviewing the
+> binding and driver changes in this series.
+> 
+> The upstream DTS series will be submitted separately after the binding
+> and driver changes are finalized.
+> 
+> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
 
-Looking at the history, ccu_div_determine_rate_helper() used to be
-ccu_div_round_rate(), so it wouldn't have tried all the parents. Looks
-like I missed this when looking at the conversion patches back in
-January.
+@Rob, Krzysztof, Conor: I see this patch is not listed in the devicetree
+PW, but I think it needs explicit acks from relevant SMEs. Could you
+please have a look?
 
-The fix is easy though: just reimplement divider_round_rate_parent().
-Somehow we did this already for the multiplier but not the divider.
+Thanks!
 
-BTW, would it make sense to implement ccu_rodiv_determine_rate() using
-ccu_mux_helper_determine_rate() as well? That would make both RW and RW
-consistent, but it would mean another rewrite for you ...
+Paolo
 
-> Side Note: I've not followed the sunxi history behind all those
-> prediv/postdiv but I find them a bit confusing. It seems like inserting
-> some fixed factor clocks in the clock trees would accomplish the same
-> thing while simplifying mux/divider quite a lot by droping these quirks ?
-
-I think the whole idea was that we didn't want all those extra intermediate
-clocks. If you look at drivers/clk/sunxi/ you can see that we came from a
-one device node per clock design, which was messy and bloated. The second
-try ended up being the "one clock per useful hardware clock unit" design
-you see now..
-
-And we somehow tied the list of clks to the exported list of clks,
-which probably made it worse for adding intermediates.
-
-> Side Note #2: I feel that while sashiko is pointing out valid things but =
-we
-> are slowly getting off topic and down the rabbit hole with it ...
-
-Yeah. That's the downside of Sashiko.
-
-
-Thanks
-ChenYu
