@@ -1,82 +1,83 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA7734E741
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 18:47:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0799535BDA4
+	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 18:47:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783363640; cv=none; b=GZ4rpv3ttgAaJw+b/Y2kBi3J9nf4vxvWQq3JSVoQsclgKn+/lSyFsw3IcMwFR5xbuG9Kl0llXsePYVwb++WT+pEFhmvqPkLTeqX1wpPtBb06Cft1M1l1wVcBPMgWHfA8zAUJRNEgtgv8ODCeiTXeqCnDlt1SabX4IDEGphBgmrI=
+	t=1783363646; cv=none; b=iPoBrk1w2MwU1Og/acnvrgQWYucKkwySmqF4zBuL97CJeUlh5vMUbCLFkvcyxRk9s4BahKm954+ZGpOEHuIp+cTbQUWKcXC+KlxcVBAcoX7xTzoVz7dlALrp8cDI9ZVyIidf92y4KltbbrCU34fgL47wmITmmv400zjiIbdjT3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783363640; c=relaxed/simple;
-	bh=qL9Yfw+uc5wo1DAwxzgU/wU7crRPW50fgGfVTdimoUk=;
+	s=arc-20240116; t=1783363646; c=relaxed/simple;
+	bh=XuDp4kjrw2H2fUuAHg/ju4C6RQwwi7eFtM44uQ+mQv4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u6HM7YmZM7DUKKa8hPXvpVuep8w9ZFIXLXv0pAjevDbWW274LifPsWR2LD7M/77aFKsRzy9CYrbSn1hCnvldNT3T//EkaFeriiB4ntIoiG4raKbOfSM5DysqXFdsMAPKqNTch1+s4/kzw9YfPbzSvHpoq0VBz0rP5nlUZUhUH9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VlLc2xdd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=br91QniJ; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version:Content-Type; b=oBzP9tY7A58DZVmsubZYfzgfdOZR7itS37OWR4B+tEuksqkDc719jG15OUlGrWbEqunaJWp12JcKOp/9g9cU4pOiELU7TOBAElDUBg6CdqEQRElERLNW5ouSzgB0BHtRrPbIM/0ysv/wDIIecsd0lrdMV6qIRXiilIMjFQ33D4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iIyO2zBs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UmrBZyAt; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VlLc2xdd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="br91QniJ"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666FFC18762338
-	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 18:47:14 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iIyO2zBs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UmrBZyAt"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 666FFAbJ833222
+	for <devicetree@vger.kernel.org>; Mon, 6 Jul 2026 18:47:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=EVhvcgnKY9L
-	yRKg+mffxnRd38kGleBy0v6Ff7TCPbc4=; b=VlLc2xddVMH1DBuG7s4kdeTIyoP
-	Za3yAMH+EL2nFHRwzCF69oo/wQ9MuFIdWpHteL/m4KWzH33zEfYBzqpYW6PkLUtY
-	NilSAJ0e6OD/JtLPYKrPE6U1HniJ59IGn9CpRV7va2FgAunPXhHlqn1OtdoE/W2a
-	UqME0Znd5dky0XsBOIMQh5G8Omv4Z+2nCDWYCxE9A4O6gQvm6NH5Uy2kghnhqVVW
-	e3lT5l7O5GhRh7D+EpyvhyXm73Cr7Z3Ga42/NI3gVVfKOToGBRwwzbdXaoDNw47A
-	TGIemXWE8E0NNYp6XN2llYd/CnZrHrP9vGI0JXQXbAh+VzavWw2MnQjOmhQ==
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ophF+H15iaR5xZlG1rhaTri3f/JAUP8K4yYfGyQM8lE=; b=iIyO2zBsGUILNrc8
+	U+zsszSvlCo2x43np3cPiD29bktjqmzhwbaOcuZusb8KrqWo2bjvSotaVMYBtfoc
+	bMynGcj3dh/AX0oVLkVt/fo08EKj66f80xrqqvghTBFsLAQv6jdQ9evCnxJ+tazz
+	syrYTk6AnePC+gViZgVX30TH+T8cHCjs03yFyqbtFqBqvkTHfQU4M2Tgv8hnwTHE
+	ptyjqkXQBtYQHLPcfLLujqARo8+bUoapr9OIF76vvAsrqcUQ+0/KFqNkrx7iPReC
+	IAsRuPcP0JUkT2MPuIT9RhbN4TyFihIV2MizeruoRFrkk97PtrEhfDEdzHNEXC4c
+	hpGyPw==
 Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f87rxu2mq-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8a98jb8r-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 18:47:14 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e62e3459fso288609185a.0
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 11:47:13 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 18:47:16 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e5e38fbc5so302871185a.2
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 11:47:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783363633; x=1783968433; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1783363635; x=1783968435; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EVhvcgnKY9LyRKg+mffxnRd38kGleBy0v6Ff7TCPbc4=;
-        b=br91QniJxRD6R7C3gB3JJHtw0MHvO+UTPL2L3A8GseArWM485ETQCqtufC6mf8Y7we
-         5XR2cAkkChV1hYgjCRewy/UxDKHfCw2tA7wfi+tYK9Ijhzk+HmnIDI2bQmM2f6ApA6hZ
-         Y85i9j9vI40vCdHmteSt8d/c/4D5zPa9qduo9U/k4UIbopQBImhjgVV5op/Xb2B5GtHD
-         esGQy/olIkxfvTzlMIjqqkV7K1okBxXW86FfeMSZh2nM3N8wwBNzAxDk3eO9VEZufMsI
-         NxxrfQyTIcFuiQO4j8U79VYBTOx5QK3POv0n8Lq+g0/Hk3kvUI12M/C9itCzvWeaQDwi
-         ciiA==
+        bh=ophF+H15iaR5xZlG1rhaTri3f/JAUP8K4yYfGyQM8lE=;
+        b=UmrBZyAtG+E8EF8tCYu5gHKhtyL/enipx7q3iGhkp9OSU8zL7tdxOwfA9cUzm2Bp2x
+         v9KW/s9QtHSGMGFusvCbjGLtbg1qY6sfUhOW+YQvWDibVW6n54K+quRBhaTJDMwzb4vk
+         alPnprIdRj/DjecZzy9MaLxgP9oPkh6WPQTUTz9ffCbPnIh2mdFk6BgyZGdR4PBwHNrE
+         Vu1K7WHyeTWoHGkpjEoBU5h4fCoaCWrJqZ4jc/pjY2icU2U5OPC6KXqsjv3sNl/ytbVD
+         1LCypyqBUwHSBl1MoDhFPCXmRWyoWVRuxiWFHOpkyDAklMcXRk500Gczr23enFufiyjd
+         DVcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783363633; x=1783968433;
+        d=1e100.net; s=20251104; t=1783363635; x=1783968435;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=EVhvcgnKY9LyRKg+mffxnRd38kGleBy0v6Ff7TCPbc4=;
-        b=qlKKlEsdEQCJtFzCWyA7P4U4M+i7gL9aM6DzsNdivgZ3OENKhSoFoRAUx42yzIIoBP
-         hq9xGHB/BfKJrnqj2uTdmKdVkTL0x1ABv6z0H6NIxjI5Y0ks9uElz09FB8snGpHTaOfx
-         L0Sbj+o+RwIr9N/joeA0CPj5Pe63O2z59joifacU4unW/Su8fi9TO7f9fwtZXFbSyjXg
-         COKjUlgQiK4kiSuSM5Tg8B8NF4UVAOaH7YEh43lViv9ng6CBK0RKaFVyNXt+kXKPvhbZ
-         ECE1PVhFPkcaIgDQ7aEtf93hyhb5EIlL1MA6NjAFID81v2rlSNIE0dRu2gUfYwthuKae
-         6xvw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq+YE8btpvE9R2hLuJNeD8hB4pVhJMG99c/NIUo+3pGuNxHpPsOeGwNjNz+zy1oqIpzUZSyN8fDb3YE@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMIZ8NpK1MQ9EyiUwXaXmy9Nagfb+K18kZyMRjoFOyzcoM33ZU
-	PecioR0PmSm4yksU6tNAfF5e/kRme24yC+xT6pjAKrG/vBVyTCmuuYnSdpj86uhvBITPl8TBgl2
-	sr1itamlUmQVvrQ93W6lo+2WWKKSY7XEydS2AoYJ/oI/MUvkvYj8NcAJrgxQ6FSGR
-X-Gm-Gg: AfdE7cmu0wjkkgtWKoXwfAQy30SCCcHwtEYto3WoaCfO9a3cl0v7rmR3vTpR0OFPjuE
-	dIvjPRprIAI+2urrcZVgXrW2clTyX8mXM0eI6MLamo9ut+NHuVS1LCg9mod7yBtRC0z7u7MTFuO
-	482309lnP0kim/8uNtxYM9+exK7wdb5rM7HOxQS2b66BgoBbbsZvom7KiFugnk/ocmd4M4xT65F
-	BFLXHnW92stECDcEkdzDODYbDSfHKkCNRgSvIX9zZzxpIURHkLihK2r5/P4tm9QWznzvHt41BRx
-	uhN0XetZVofYXKiPpSOOwpZ5seC/A9KlrETAFHYq2DRiULWF0f6LJw2r1/dz7lGXXrzRi7tkoUZ
-	kN4kMiYvcYjNu+gC+XZoJ/t94SlwpxvvVuSsqEa64iXDWQA==
-X-Received: by 2002:a05:620a:40c7:b0:92e:4a4a:4478 with SMTP id af79cd13be357-92ebb575ad4mr257500385a.31.1783363632918;
-        Mon, 06 Jul 2026 11:47:12 -0700 (PDT)
-X-Received: by 2002:a05:620a:40c7:b0:92e:4a4a:4478 with SMTP id af79cd13be357-92ebb575ad4mr257495985a.31.1783363632460;
-        Mon, 06 Jul 2026 11:47:12 -0700 (PDT)
+        bh=ophF+H15iaR5xZlG1rhaTri3f/JAUP8K4yYfGyQM8lE=;
+        b=UuCXStRMvTWzjbBu/hWTPmzA9sIiAmVEI39P4Kd6w0ttloAGqkZoY6vyQIkGmv1V9x
+         hA9ENursN+4S0gA5ULVqQL6ZvJiUKJctOXozqPHCiZxYzkXZVYqz1C+416tp44xHtYfj
+         bfRfMSMXVEfQJCbAum79w3sfLVoBw010826phtnJBPAAEWRpYjUaGL5bKCTWRFRTWp4n
+         w7cx3jXXy4uiRmkpmBr8oMMKTp0ADxnTzu7KxZkiIE5gcFwirNyH/hSjWGttAx6hnYop
+         SbJ7Dnecw5itqraqhFX3agFNOxSOVFuyObFpduuaCY6LiNmDBi1WHzpziIJrrePxhSoI
+         qoQg==
+X-Forwarded-Encrypted: i=1; AHgh+RobfChdxGOzMnebmEaPYbwaqRp+r6FTUylWHdqJ7VOxhaUuRNMYhJxzgzGbWeUwiMc3IV3obB9DPRSX@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx62ObmpuD41TkvPdpYF4Cb39w81EDO32KIpUw5QK7P9G3Lnt6G
+	typ2HYU/jrQh8A5BHExZ+UsPsFJ4MKlgQppGJsfnTcQHVPRayU8RS4hYbeLVRrpoIv1NEAnhbdX
+	yfW9kmRcGI9mpgM9sw0O2LplNPONrg/WJlgKOouYiXfbxDVUonr0n0t5ZlpiSpB+5
+X-Gm-Gg: AfdE7cm3wwb3CYhzPZu9yhTPi5aEsiYXNhecrxfESGMYyJvKgh3t7e9+++TjJL2+0sz
+	R8EJDjkAzf6PBvU9KiV2QuZpklGgovWcK+oRigdnq31XIuSZh2nbMrx5dFIWyzYfNxJvHPoeBa0
+	335BT0Z4xY84RbjiGH4YUd7p6WPI8C+KIEZTW89dYuD6STNPhLHBnFxVYUKkHxpHGjYQW381AF6
+	bbaoLpTVP7m1ALHXDQcAXNrTXkAzstKSBLlR1fjtyK253k9FX5KKWbUf19+HToHkZTXgJ27PhKl
+	Hvu3apC5NPS81ZqZYq3k97x92WOojRW/WPUw9LQQAUXdIY0nOXLVeYpMcD2QFkTvqsUT9Hczkf4
+	aSJ8OIG517jB5ChmSnwPkpf6uK4sUOcitxdlU635nXTSrzA==
+X-Received: by 2002:a05:620a:4710:b0:92e:7745:9a3a with SMTP id af79cd13be357-92ebb4c9064mr250099385a.18.1783363635365;
+        Mon, 06 Jul 2026 11:47:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:4710:b0:92e:7745:9a3a with SMTP id af79cd13be357-92ebb4c9064mr250094885a.18.1783363634763;
+        Mon, 06 Jul 2026 11:47:14 -0700 (PDT)
 Received: from juillet.box.freepro.com ([2a05:6e02:1041:c10:b077:843a:5587:be05])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0078d56sm3858625e9.8.2026.07.06.11.47.09
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0078d56sm3858625e9.8.2026.07.06.11.47.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Jul 2026 11:47:09 -0700 (PDT)
+        Mon, 06 Jul 2026 11:47:13 -0700 (PDT)
 From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
 To: sre@kernel.org, hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
         linux@roeck-us.net, andersson@kernel.org, konradybcio@kernel.org,
@@ -86,9 +87,9 @@ Cc: bryan.odonoghue@linaro.org, platform-driver-x86@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         neil.armstrong@linaro.org, gaurav.kohli@oss.qualcomm.com,
         manaf.pallikunhi@oss.qualcomm.com, priyansh.jain@oss.qualcomm.com
-Subject: [PATCH v5 1/3] dt-bindings: embedded-controller: Add Lenovo ThinkPad T14s thermal sensor provider support
-Date: Mon,  6 Jul 2026 20:46:46 +0200
-Message-ID: <20260706184648.35613-2-daniel.lezcano@oss.qualcomm.com>
+Subject: [PATCH v5 2/3] platform: arm64: lenovo-thinkpad-t14s-ec: Add hwmon support for temperatures
+Date: Mon,  6 Jul 2026 20:46:47 +0200
+Message-ID: <20260706184648.35613-3-daniel.lezcano@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260706184648.35613-1-daniel.lezcano@oss.qualcomm.com>
 References: <20260706184648.35613-1-daniel.lezcano@oss.qualcomm.com>
@@ -98,72 +99,247 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 9s2KU6viyDHaQ6lHZClnnmrGLOIXgmEc
-X-Authority-Analysis: v=2.4 cv=Hv1G3UTS c=1 sm=1 tr=0 ts=6a4bf832 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=RAioF0-LDSMA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=s6oxFZdllmZqp78XS98A:9
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDE4OSBTYWx0ZWRfX1sCC3WZ/Rphl
- z8G0vUZ+geQMSwN/JXaYQBQUT4HsO+8sHFR7lA5tZ7IwTSf8DBiYJ1MvjNAOg0LGxvluEuzWEb4
- rfn/E8wf6d+i6x0mBpLSyHISVi1N9vg=
-X-Proofpoint-GUID: 9s2KU6viyDHaQ6lHZClnnmrGLOIXgmEc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDE4OSBTYWx0ZWRfX4irxvyC7u7eG
- 9R4LIk8eNgoh2L51Fwett/p3IHwnd7zL9BbCyCKXiJB84IRSb+Jzo1GqKAvholRU8eW13p/AceK
- T8HVMmOUTjtytMu37iZs+PWOmYeHo5f1fxQ7N0jIoHwXnpD1aRe7CljbaUGTFNPEo952oVsvrw4
- +jBf0GFuUmYa3y/h3nWaxTkRJplhTFjCa1srGjh5kiyiEwHoXmJ2gKbV+bE4LTBPfrS51q9g5wA
- 7JSMAOBpyccoVOlBg80qKetOTLgWZwHRjxkwzfwoa0v3nszq5iD686tqxYMJiYF0vuYs4SKxq/d
- MTlByLV6FITCW+s6mffbhPkLsYY34IoMqyvro8J5xNa4S0eSKhKRvZTPIwe4UDKOiZ9ORU3jAgW
- Ba55TS+ZrWgZM3VVJq78vtP2EPfmKcL+cPdWagxCRmrpxlrCCkuMp1gRAO6re7ar2DD7VSemAr/
- b4pk4EKvPBSfegCXWLQ==
+X-Authority-Analysis: v=2.4 cv=SpigLvO0 c=1 sm=1 tr=0 ts=6a4bf834 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=QyXUC8HyAAAA:8
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=9Fj74KSAFJAma6AI3IUA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDE4OSBTYWx0ZWRfX9NrOzTUIsa/V
+ Ze9sygDLvgPKz4VTehlX5NyIiUPGXDif8W2e/pr7QWufULWS3osjgHOlj41VxHsRGnjAVqtnRhk
+ dnG6d6uzJJv7XeyojZ4YxrTatFsJLh/HLP9QHipAlbE7bSEjifrAAsvEF6wkWCuznsgWCedlqWm
+ IMKNiVyt1HaIi2t8PLKv/K8i/+UqIyotl0KNyx5HX2sXuxA8ZWsdfumgE7Wx0WK4rRMMQXa3Fa5
+ fW7dLX9hEXpHusu0IjoUa2mqt5phIuD4GtsHH9DQ3taJHDdIVhuD5zO8T654OUKHCacLt9WKsbP
+ t2JltfyF52sq8rSHIaXQrg7jU/I3YOHs+N1FKlydDYcmrBJ9yMDSyDzzCtpcIUPlopgFNrysvF7
+ niuLT1c2gEe7trZcOTPBxG/Z0pj7miAsl3G8PNk8Csoa1pUMgMQeH0tiLCq/tsR08XziFwdZbPw
+ DpTSkYm9uwNJcEH6xqw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDE4OSBTYWx0ZWRfX174LcKutqtv2
+ sZOJWO7ypQTBGjP6+Ho8waRdrL5zE1HgEOOguUJ7AYqqb8e1xSo3npT54jDtbhaYIu6ibTPkgz4
+ pp6AXxSf4Yt0s0xqHHAzGwpfrnUEPGg=
+X-Proofpoint-GUID: 7SjZvgYE3FmXAI7MSYWnkNtJucL47N2X
+X-Proofpoint-ORIG-GUID: 7SjZvgYE3FmXAI7MSYWnkNtJucL47N2X
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-06_02,2026-07-06_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 malwarescore=0 adultscore=0 priorityscore=1501
- spamscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0
+ malwarescore=0 priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0
+ bulkscore=0 adultscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060189
 
-Document the Lenovo ThinkPad T14s Embedded Controller as a thermal
-sensor provider by adding the '#thermal-sensor-cells' property.
+Expose the Lenovo ThinkPad T14s EC environmental sensors through
+the hwmon subsystem.
 
-This allows the EC temperature sensors to be referenced from thermal
-zones in the device tree.
+The driver now registers a hwmon device providing access to six EC
+temperature sensors corresponding to the SoC, keyboard area, base
+cover, PMIC/charging circuitry, QTM module and SSD. Sensor labels
+are exported to allow user space to identify each measurement.
 
-Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+This allows standard monitoring tools such as lm-sensors to report
+platform temperatures.
+
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on T14s OLED
+Signed-off-by: Daniel Lezcano daniel.lezcano@oss.qualcomm.com
 ---
- .../embedded-controller/lenovo,thinkpad-t14s-ec.yaml         | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/platform/arm64/Kconfig                |   1 +
+ drivers/platform/arm64/lenovo-thinkpad-t14s.c | 131 ++++++++++++++++++
+ 2 files changed, 132 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
-index c87ccb5b3086..0d049979e35b 100644
---- a/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
-+++ b/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
-@@ -26,10 +26,14 @@ properties:
+diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
+index 10f905d7d6bf..121043348740 100644
+--- a/drivers/platform/arm64/Kconfig
++++ b/drivers/platform/arm64/Kconfig
+@@ -75,6 +75,7 @@ config EC_LENOVO_THINKPAD_T14S
+ 	depends on ARCH_QCOM || COMPILE_TEST
+ 	depends on I2C
+ 	depends on INPUT
++	depends on HWMON
+ 	select INPUT_SPARSEKMAP
+ 	select LEDS_CLASS
+ 	select NEW_LEDS
+diff --git a/drivers/platform/arm64/lenovo-thinkpad-t14s.c b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
+index 5590302a5694..fc480f093238 100644
+--- a/drivers/platform/arm64/lenovo-thinkpad-t14s.c
++++ b/drivers/platform/arm64/lenovo-thinkpad-t14s.c
+@@ -11,6 +11,7 @@
+ #include <linux/delay.h>
+ #include <linux/dev_printk.h>
+ #include <linux/err.h>
++#include <linux/hwmon.h>
+ #include <linux/i2c.h>
+ #include <linux/input.h>
+ #include <linux/input/sparse-keymap.h>
+@@ -21,6 +22,7 @@
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
+ #include <linux/pm.h>
++#include <linux/units.h>
  
-   wakeup-source: true
+ #define T14S_EC_CMD_ECRD	0x02
+ #define T14S_EC_CMD_ECWR	0x03
+@@ -67,6 +69,13 @@
+ #define T14S_EC_EVT_KEY_FN_F11			0x7a
+ #define T14S_EC_EVT_KEY_FN_G			0x7e
  
-+  "#thermal-sensor-cells":
-+    const: 1
++#define T14S_EC_SYS_THERM0 0x78 /* SoC (CPU+GPU)  */
++#define T14S_EC_SYS_THERM1 0x79 /* Keyboard       */
++#define T14S_EC_SYS_THERM2 0x7a /* Back cover     */
++#define T14S_EC_SYS_THERM3 0x7b /* Charger / PMIC */
++#define T14S_EC_SYS_THERM6 0x7c /* QTM West       */
++#define T14S_EC_SYS_THERM7 0x7d /* SSD            */
 +
- required:
-   - compatible
-   - reg
-   - interrupts
-+  - "#thermal-sensor-cells"
+ /* Hardware LED blink rate is 1 Hz (500ms off, 500ms on) */
+ #define T14S_EC_BLINK_RATE_ON_OFF_MS		500
  
- additionalProperties: false
+@@ -93,9 +102,19 @@ struct t14s_ec_led_classdev {
+ 	struct t14s_ec *ec;
+ };
  
-@@ -45,6 +49,7 @@ examples:
-             reg = <0x28>;
-             interrupts-extended = <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
-             wakeup-source;
-+            #thermal-sensor-cells = <1>;
-         };
-     };
- ...
++struct t14s_ec_hwmon_sys_thermx {
++	const char *label;
++	int reg;
++};
++
++struct t14s_ec_hwmon {
++	struct t14s_ec_hwmon_sys_thermx *sys_thermx;
++};
++
+ struct t14s_ec {
+ 	struct regmap *regmap;
+ 	struct device *dev;
++	struct t14s_ec_hwmon ec_hwmon;
+ 	struct t14s_ec_led_classdev led_pwr_btn;
+ 	struct t14s_ec_led_classdev led_chrg_orange;
+ 	struct t14s_ec_led_classdev led_chrg_white;
+@@ -555,6 +574,114 @@ static irqreturn_t t14s_ec_irq_handler(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
+ 
++static umode_t t14s_ec_hwmon_is_visible(const void *drvdata,
++					enum hwmon_sensor_types type,
++					u32 attr, int channel)
++{
++	switch (type) {
++	case hwmon_temp:
++		if (attr == hwmon_temp_input ||
++		    attr == hwmon_temp_label)
++			return 0444;
++		break;
++	default:
++		return 0;
++	}
++
++	return 0;
++}
++
++static int t14s_ec_hwmon_read_string(struct device *dev, enum hwmon_sensor_types type,
++				     u32 attr, int channel, const char **str)
++{
++	struct t14s_ec *ec = dev_get_drvdata(dev);
++
++	switch (type) {
++	case hwmon_temp:
++		if (attr == hwmon_temp_label) {
++			*str = ec->ec_hwmon.sys_thermx[channel].label;
++			return 0;
++		}
++		break;
++	default:
++		return -EOPNOTSUPP;
++	}
++
++	return -EOPNOTSUPP;
++}
++
++static int t14s_ec_hwmon_read(struct device *dev, enum hwmon_sensor_types type,
++			      u32 attr, int channel, long *val)
++{
++	struct t14s_ec *ec = dev_get_drvdata(dev);
++	unsigned int value;
++	int ret;
++
++	switch (type) {
++	case hwmon_temp:
++		if (attr == hwmon_temp_input) {
++			ret = t14s_ec_read(ec, ec->ec_hwmon.sys_thermx[channel].reg, &value);
++			if (ret)
++				return ret;
++			*val = value * MILLIDEGREE_PER_DEGREE;
++
++			return 0;
++		}
++		break;
++	default:
++		return -EOPNOTSUPP;
++	}
++
++	return -EOPNOTSUPP;
++}
++
++static const struct hwmon_ops t14s_ec_hwmon_ops = {
++	.is_visible = t14s_ec_hwmon_is_visible,
++	.read = t14s_ec_hwmon_read,
++	.read_string = t14s_ec_hwmon_read_string,
++};
++
++static const struct hwmon_channel_info *t14s_ec_hwmon_info[] = {
++	HWMON_CHANNEL_INFO(chip, HWMON_C_REGISTER_TZ),
++	HWMON_CHANNEL_INFO(temp,
++			   HWMON_T_INPUT | HWMON_T_LABEL,
++			   HWMON_T_INPUT | HWMON_T_LABEL,
++			   HWMON_T_INPUT | HWMON_T_LABEL,
++			   HWMON_T_INPUT | HWMON_T_LABEL,
++			   HWMON_T_INPUT | HWMON_T_LABEL,
++			   HWMON_T_INPUT | HWMON_T_LABEL),
++	NULL
++};
++
++static const struct hwmon_chip_info t14s_ec_chip_info = {
++	.ops = &t14s_ec_hwmon_ops,
++	.info = t14s_ec_hwmon_info,
++};
++
++static int t14s_ec_hwmon_probe(struct t14s_ec *ec)
++{
++	struct device *dev;
++	struct t14s_ec_hwmon_sys_thermx sys_thermx[] = {
++		{ .label = "soc",	.reg = T14S_EC_SYS_THERM0 },
++		{ .label = "keyboard",	.reg = T14S_EC_SYS_THERM1 },
++		{ .label = "base",	.reg = T14S_EC_SYS_THERM2 },
++		{ .label = "charging",	.reg = T14S_EC_SYS_THERM3 },
++		{ .label = "qtm",	.reg = T14S_EC_SYS_THERM6 },
++		{ .label = "ssd",	.reg = T14S_EC_SYS_THERM7 },
++	};
++
++	ec->ec_hwmon.sys_thermx = devm_kmemdup_array(ec->dev, sys_thermx,
++						     ARRAY_SIZE(sys_thermx),
++						     sizeof(sys_thermx[0]), GFP_KERNEL);
++	if (!ec->ec_hwmon.sys_thermx)
++		return -ENOMEM;
++
++	dev = devm_hwmon_device_register_with_info(ec->dev, "t14s_ec", ec,
++						   &t14s_ec_chip_info, NULL);
++
++	return PTR_ERR_OR_ZERO(dev);
++}
++
+ static int t14s_ec_probe(struct i2c_client *client)
+ {
+ 	struct device *dev = &client->dev;
+@@ -590,6 +717,10 @@ static int t14s_ec_probe(struct i2c_client *client)
+ 	if (ret < 0)
+ 		return ret;
+ 
++	ret = t14s_ec_hwmon_probe(ec);
++	if (ret < 0)
++		return ret;
++
+ 	ret = devm_request_threaded_irq(dev, client->irq, NULL,
+ 					t14s_ec_irq_handler,
+ 					IRQF_ONESHOT, dev_name(dev), ec);
 -- 
 2.53.0
 
