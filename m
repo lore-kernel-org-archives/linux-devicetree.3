@@ -1,46 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4C53939CE;
-	Tue,  7 Jul 2026 03:22:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E4B37266D;
+	Tue,  7 Jul 2026 03:22:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783394530; cv=none; b=dAQrQcmspPIplOEK4Vn5uclHDOvur7y2CB79883UBRg2tzvZ7tT5sXgGuSpfiYUyR/l7vRZvvUPJj6wpV5yMwNUOA7888xdZLcjqbDwdXyhy3AktUrQEV6OmrbaRPh3y7YkegPoWvd7LPO3CRkZgCieBrT5JViWpLvecZqahM1E=
+	t=1783394530; cv=none; b=MbATW9+i0lD8MxJeY0EbNoeGKN0xme0gYpPMsgn2hPu+6fSD2QDAVs+Vqwdgx+aLQGN9PwAxzISECb8yyJnyIn4ZXYpJcfqD8YSBO8z3+aQeA3G+6KUi/6zy0Sx+guCLBI5VQKuoQtdb67HEwRD4QHRBjrTLARW5PTsokUvO3m8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783394530; c=relaxed/simple;
-	bh=alD8ixMGRxbs1Hk1JLHgYGriAC3javRRISp62eklITM=;
+	bh=uifYgKU3HWleDJ1V51l/6/3x0LKaVLQJVdYJHTT2Nk8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=q5hqSOpnaJ30Fg/cC2JjbZsfUR0YPt0emvBTICAEWzL8ekn613fD6ULqK1jiTqBi3E9+dEa8Df5tw4Sq2UQZjNneiVYiPqhcUzu00vF5l85yhMz1GzWX0MmxMCAe6dZ3A5/5V59OHsqa29GgDNmG/XDT6FJWPO0kOZQUoBWOaq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XeuqV41J; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=RHHqrIhvUCat7whvIXYwexeG+0GzRhCVRv0rSq/DFxXwwpGdbVdD3UaGNOIBfSmfQ/yBvZmLSbOCYqkT4xrnq/L4D7kDX/g6ZuIMGCzF7tVYZv5yg4GHVMSBvQqxwkKVTVt4UL34B3j919IPOwxSbbzrABFej78qQuVwk1NFa74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GkGBTtwg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XeuqV41J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BB3B1F00A3F;
-	Tue,  7 Jul 2026 03:22:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GkGBTtwg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3B901F00A3A;
+	Tue,  7 Jul 2026 03:21:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783394522;
-	bh=HA7N9KpHswcKpQqz8xf8UbkRciS9EUGzhWxKHcOyI9Y=;
+	s=k20260515; t=1783394520;
+	bh=Pp3QGx4MI0wMm1/tu5AIhwHgnRl0wO+oCUAfozdxYPU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XeuqV41JHUNuQJSPYPXlDeE9eSy8+bmMatSD/CvVpJ5RUXw1Ao2AAFU+s6YVehmxH
-	 xO+xk6Em1CkplcYAd+jEtte3HeCY/lV3gwtsIbHqBA6g89z9K3cuBoaDK+vaW6TL7R
-	 DNJRc8Dzc2SWgURZ6FZ58pYL/fTu1hR7hfXBiE0YweD+I7b2SxavOzvuaOX4UAwDr9
-	 fjOFjMcTtvSHG3Mmz5g7Sn4c3o0kOEvR4y51zLyCnaWP1JvgHxW9UKuxMTxz4HWbbG
-	 Eu1NOOts22h1h5PVXxzrpyewv3CvTP++EUwYVKrvxoBIJuruhbUnwHN2ApSajI0r6+
-	 gtQlwYBgxPFcA==
+	b=GkGBTtwg3fkvelnnB9ePsx319TKYpkyY120ukz7J9mXwDL3F2SzlhOQXOykAPNXSt
+	 T9hTCoVaRJNePFrs/NDXVp9wnzqatoW7OMOdbknTQe4P2M33cfbuNxRW1tDwUvEfYl
+	 nBCh0bG1DBfJOf5Xg7RmIxDkxQUIeZnxvrZQsCAOCC2QNoSqb067N2oG8Yl7LQIwer
+	 usfq7vYi3tzceYNHbKDJblKy4Z9Q7q2t3rW9isJVflPWzWU90TN5g6OHh4KHeiQe1O
+	 FB814nrxxka8MCU/ItGGi5evHQqyZLk7NJMLo5TpplcLD+OcCau2vm+UB1jehnriqH
+	 5OBWbiPk5xgew==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Pradyot Kumar Nayak <pradyot.nayak@oss.qualcomm.com>
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Sean Young <sean@mess.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Martin Botka <martin.botka@somainline.org>,
+	Biswapriyo Nath <nathbappai@gmail.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: glymur: add CPU capacity-dmips-mhz
-Date: Mon,  6 Jul 2026 22:21:35 -0500
-Message-ID: <178339449924.1938770.12997475707179403824.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	kernel test robot <lkp@intel.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v3 0/7] Add vibrator, IR transmitter and USB-C handling in xiaomi-ginkgo
+Date: Mon,  6 Jul 2026 22:21:33 -0500
+Message-ID: <178339449904.1938770.3052050232768803324.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260706-add-cpu-capacity-dmips-mhz-v1-1-85deced44b20@oss.qualcomm.com>
-References: <20260706-add-cpu-capacity-dmips-mhz-v1-1-85deced44b20@oss.qualcomm.com>
+In-Reply-To: <20260330-ginkgo-add-usb-ir-vib-v3-0-c4b778b0d7f8@gmail.com>
+References: <20260330-ginkgo-add-usb-ir-vib-v3-0-c4b778b0d7f8@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,24 +65,29 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 06 Jul 2026 12:25:59 +0530, Pradyot Kumar Nayak wrote:
-> The Glymur SoC has two distinct core types within the same Oryon
-> microarchitecture generation:
+On Mon, 30 Mar 2026 10:13:47 +0000, Biswapriyo Nath wrote:
+> This patch series add support for various components in Xiaomi Redmi
+> Note 8.
 > 
->   - qcom,oryon-2-2 (cpu0-cpu5, cluster 0)
->   - qcom,oryon-2-1 (cpu6-cpu11, cluster 1; cpu12-cpu17, cluster 2)
-> 
-> Without capacity-dmips-mhz the Energy Aware Scheduler treats all 18
-> cores as equal, leading to suboptimal task placement and frequency
-> selection. In particular, heavy tasks may be pinned to cluster 0  driving
-> them to maximum frequency/voltage while cluster 1/2 sit idle.
+> Most notably:
+> - IR transmitter
+> - USB-C OTG
+> - Vibrator
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: glymur: add CPU capacity-dmips-mhz
-      commit: e1a6af9411568dd4b135892d0f0905d676816196
+[1/7] arm64: dts: qcom: sm6125: Use 64 bit addressing
+      commit: 88f8e2ca76ee9999c1f21d020362e6588a6d5ef5
+[3/7] arm64: dts: qcom: sm6125-xiaomi-ginkgo: Enable vibrator
+      commit: 222f161a873f198301497f22ae0dd089f30e9b75
+[4/7] arm64: dts: qcom: sm6125: Enable USB-C port handling
+      commit: 3df39679bfcb46a3475b0e8d0b31cfcb07def9c4
+[5/7] arm64: dts: qcom: sm6125-xiaomi-ginkgo: Add PMI632 Type-C property
+      commit: c1da9374c3e08c6eb06106256cac3875fb5c467f
+[7/7] arm64: dts: qcom: sm6125-xiaomi-ginkgo: Add IR transmitter
+      commit: 474dedd7f653be26ce5385f46ff2b7a3282a359f
 
 Best regards,
 -- 
