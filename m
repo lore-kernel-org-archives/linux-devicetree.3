@@ -1,118 +1,141 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B97423A9B
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 14:17:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79CD93F39ED;
+	Tue,  7 Jul 2026 14:19:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783433845; cv=none; b=JdiaeL05B6J69OEAui5gkKE1u76k9GqJLtOmhLhT7CH3fFiWKZjyyBTvrDwtV4aQapA+3YH8vU+6zvkBg40NLA7LotLSsB2TU1Px3CH5XTvu9rQc5wLzzCkjktZy7VBEbAm/8B+OZr/UQk91V48WDasa6ilIvvxoV+Y0ZPVv8DE=
+	t=1783433984; cv=none; b=ZGuGD4pqWUHVaK7vgFkKiWpdVi6w6E2Pc3cLROYojGqKKgW50ccSW+7sWt0kSXL7TrlKGrUQc1GL6gFCM/IpTiV1JICQDIm8FqcntbyoO+yKw/uF6WrFfFd8ZxcqfF+YxtRSnLKHNtdYZFt915kwB2pvg+sAGugD3lwRuFhx7ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783433845; c=relaxed/simple;
-	bh=jm3Q89ETvzF3BJNtBW1Xhay9s9laR0o6hISDLguLBB8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UrfwM2yzjoXOCYpV7+G0LzOWzDiX/MqyuujPEyCyym6Df00meYfM5zF7ieu0XR9jxMLg7o7Tti1LpbenQtWVNWS1zOl4Ag3MDkIpvQvnplFPZ3aKVslRkWrDkk6hkabXDfSqtBzv6QfPsIXkbKKJY/ocvqYe8/w/bro0FKPWWfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Z1UxS7Pa; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1783433984; c=relaxed/simple;
+	bh=X99KKDPKDM77EUe/K6IwQ6N3jw1s5gDXs0w54CvjxZ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IbsDEaBvAF9gQ/b9x9pYanIUH6V0RA3OKw9DTe8fhNEH0Bf9i2vGyVAHBmdntN+gbdlkyN1Ooz1bPtMAt63CHw/zgiUXsJGsl645CoCZ+fbjENe31LQFrEEXUtqZGvLVnOlESlLnPNOdeEWZtFBcW5UGcgizoKkVAwNDoR71P1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=IpN4sGTR; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Z1UxS7Pa"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so29671635e9.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 07:17:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783433838; x=1784038638; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=jm3Q89ETvzF3BJNtBW1Xhay9s9laR0o6hISDLguLBB8=;
-        b=Z1UxS7Pa82INkm3qovtHzJB9fTkcMedyqBiPw71I0vVNMIVmnLgzA99veEk/h84Bke
-         /gSKzc6jUFSOq4qDjVnUfxThgNg7soiFq/n5/dULIqZVCuvoumoJwM2HdG9f0IvQQ18F
-         yP3yGHT9c/oGIfkPc6iP25xiCqPTReSXj22wRluOXt3mxZy+UmAzcsmMYAO98KgFM7lB
-         kikoC3++2mcTmx9MBdYKXQ9FvX4s9B4vrq4x7s1W4igqZ4UJkzG2B8I0pmH/d2JWnYyY
-         WIMUGyFlm1e7IqoCDdExexSxOsA7/08NtjQz3qpYAUYS9bh+d4ehfnBjSvr3xP+sb8XV
-         MIhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783433838; x=1784038638;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jm3Q89ETvzF3BJNtBW1Xhay9s9laR0o6hISDLguLBB8=;
-        b=XvZnb1RbbujlQ8M/gJv9vRMXwfR9r6Ay4BKe6HyI05LzTJyK8nyCIGiMn1mVM7gNJP
-         j/XAjz4UoJo+4snHP4K77+3DCae7rfSVt6vH6laojxTthZEkFyeeOHucSv6lNkszAiOO
-         riM5zg/WOYzu2TXVBV+uPF/62YZxwrrmFdydciwEfdmIVHcSzsn/BkUN1JbZxRCTeuWx
-         pKJTVLo1srWjLkCnqvaTvg7ssuCOaMdNvyelYk/jTl6C/bYwDpPvood+BrQANFXGU6TO
-         5Ih1xvhuljeCHD0CC+Cdr6pH50sGhZdEVkJvYvVvX1uUGQHNI1VrVLmN1PrXbTMFTCek
-         pHzw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr1hWIIvF4uCEEOjBExmz2VHdVttg6g8ncYOk3yumapbUt9KtR9rq04I1qGQABGSCq+JaTTh7W9W6Co@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUGYHDWt03MQalA4/+OLMZ0QPGpzKrV5fUXMaUhFkcwcdyM04y
-	c1am6AJwYHYqBlh+EPFrCOaCgcyNIKsaAtOe1ACU/QaNm4A3NptoojzXdpl2ISJeIow=
-X-Gm-Gg: AfdE7cm7O4Vrh3BINDcbH+8mUSZp06iuFly24UL28n1CkyJqaAOBXMmnElGnhgAnp9P
-	enXfv7taCWFqY8KsrF2fbsR99cJUU7jcTZAqvYFyCrexcPaFPMVBWOACJuXnG5IhNn7fMvRIgYJ
-	CqNBO7346qcoy9vXHeH4Jp1hyprhSt052WcENwbHhQLpnGMH8zmn/sS01LFqESTcJ2ftUJPnJiW
-	gR5kGB/vKWoCNr3uP0cyvqPGkkknyGIWEWkW7SvyPtIdZhilw/xTYPubgw/bUPFEPP8EeciR5d7
-	vfbBAr2wu7RBM8fzlf9Sub9IwXjy9KOHFvTvfb3QH7bXMXKov05YQFUMMiDOKCo7dhsQ801YZP5
-	owYHNSb2R9STBk8WFiQI0SUhcKGxH1DsvD/eM/4yzWFufDOEMy4WgZUSlKHttn/fYuGQQyHZOkg
-	wEBwLA3H84wLEtKcByJ38AX+IpHgc9CqHF1ep9+3oowNxKOtc71rJ+Y4Kwhvt57zRiFTCZCK37J
-	gO3hVB3TcXoG/U=
-X-Received: by 2002:a05:600c:5297:b0:493:d1e0:a4f1 with SMTP id 5b1f17b1804b1-493deffbf21mr62810545e9.0.1783433837670;
-        Tue, 07 Jul 2026 07:17:17 -0700 (PDT)
-Received: from localhost (p200300f65f47db045364d369605955d5.dip0.t-ipconnect.de. [2003:f6:5f47:db04:5364:d369:6059:55d5])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-493e4ece328sm1454885e9.1.2026.07.07.07.17.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 07:17:16 -0700 (PDT)
-Date: Tue, 7 Jul 2026 16:17:14 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, 
-	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH v3 3/4] powercap: qcom: Add SPEL powercap driver
-Message-ID: <ak0J9enIwkxSCZqy@monoceros>
-References: <20260702-qcom_spel_driver_upstream-v3-0-434d50f0c5b0@oss.qualcomm.com>
- <20260702-qcom_spel_driver_upstream-v3-3-434d50f0c5b0@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="IpN4sGTR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783433981;
+	bh=X99KKDPKDM77EUe/K6IwQ6N3jw1s5gDXs0w54CvjxZ4=;
+	h=From:To:Cc:Subject:Date:From;
+	b=IpN4sGTRbigL3LEZNRe+mqGHxT8wFbKvRLsqh0ZAz/EyFvhA1cCX/D8gB17qhdB0f
+	 l/Iht+L5Y7/EJ81L5B1FTSB6z2CKWtBEBPFa+bZrO9RArYmAmZej7ehEGnRa7dg8kQ
+	 ukBwj66jefpWIt30+R9pLxYPW97g1qPKXZqQiDjcS54II2ODPyywBH2fE09XN6oYYJ
+	 FejvJSgL5mtEDipmqlie7U3UvCm/t5PgNmGOTdW2HWw2/nuNyAyQueGhI4fYCN4qTd
+	 wvoK9IqJYlu4YAh1VSwFc4SFKBon/nWQW3Yd+ZtScB1HXp399HSYfYnpx2otIaTW/+
+	 IySYs4MvxWyEA==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 270A417E003B;
+	Tue, 07 Jul 2026 16:19:41 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunfeng.yun@mediatek.com
+Cc: vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	chunkuang.hu@kernel.org,
+	p.zabel@pengutronix.de,
+	justin.yeh@mediatek.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	kernel@collabora.com
+Subject: [PATCH v2 00/12] PHY: MediaTek DP PHY refactor and MT8196 eDP
+Date: Tue,  7 Jul 2026 16:19:19 +0200
+Message-ID: <20260707141931.191172-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="it4ah3j67tlrz7ah"
-Content-Disposition: inline
-In-Reply-To: <20260702-qcom_spel_driver_upstream-v3-3-434d50f0c5b0@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+
+Changes in v2:
+ - Fixed register offsets for ANA phy in MT8196
+ - Set/clear FORCE_VOLT_SWING_EN bit when configuring and resetting
+   the voltage swing registers
+ - Fixed endianness issue in call to nvmem_read_u16 (Sashiko)
+ - Added early exit during lanes disablement if none are enabled to
+   avoid out-of-bounds bitwise shift (Sashiko)
+ - Removed useless call to pm_runtime_get_sync() in probe(), which
+   also fixes issues pointed out by Sashiko
+ - Fixed wrong dig vs ana register array usage in power_on/off (Sashiko)
 
 
---it4ah3j67tlrz7ah
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v3 3/4] powercap: qcom: Add SPEL powercap driver
-MIME-Version: 1.0
+This series performs major refactoring on the MediaTek DisplayPort PHY
+driver, makes it probe with devicetree instead of getting registered
+by the mtk_dp DRM driver, adds power_on/off() callbacks, and honors
+the phy configure opts' set_lanes and set_voltages for, respectively,
+varying the number of lanes and setting the voltage pre-emphasis and
+swing on the PHY, for each lane.
 
-Hello,
+This driver now also properly gets the PHY (EYE) Calibration Data from
+NVMEM (eFuse array) if provided, instead of getting it (improperly)
+injected by the mtk_dp driver.
 
-On Thu, Jul 02, 2026 at 10:52:56PM +0530, Manaf Meethalavalappu Pallikunhi wrote:
-> +#include <linux/mod_devicetable.h>
+Additionally, all of the driving parameters calculations and most of
+the other register definitions were refactored to greatly enhance the
+human readability of this code.
 
-Please don't add new users for this header file. Only use those
-<linux/device-id/*.h> that you actually need (if any).
+As a last step, this also transfers the register offsets for both the
+digital and analog phy registers in arrays assigned to soc specific
+data, in an effort to both introduce support for new minor revisions
+of the MediaTek DisplayPort PHY and to have a clearer view of the
+register related differences between those (for example, it is easily
+understandable that the analog part remained exactly the same between
+MT8195 and MT8196, but the digital part gets a slight update).
 
-Thanks
-Uwe
+Speaking of which, as a last step, this also adds support for the
+MT8196 SoC (and its derivatives), which uses this PHY only for its
+Embedded DisplayPort (eDP) IP (spoiler: the DP one seems to be way
+too different and requiring an entirely new PHY driver).
 
---it4ah3j67tlrz7ah
-Content-Type: application/pgp-signature; name="signature.asc"
+In this state, this driver can also easily support the MT8189 SoC
+with a few lines of code: even though I do have clean code to add
+support for this one, I was not (*yet*) able to test it on upstream
+based kernels, and for this reason I decided to leave that one out
+for now (but it's coming later for sure).
 
------BEGIN PGP SIGNATURE-----
+NOTE!
+Despite all the apparently breaking changes in the refactoring, full
+compatibility with older MTK_DP driver and with old devicetrees was
+retained and carefully tested on multiple platforms!
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpNCmgACgkQj4D7WH0S
-/k6ebQgAqj6vA+XM2rEqVOYDBn8xem4ZERrerDT/s1o5DbAjXKSiNq8TSWSupaVR
-kxH+C+z+g6ad529Q++GsHBZBrFDd7TtUVOk55PS+MSgL8dabDHpX1D/tB3J0IAKM
-766n6r1Xl4f5A2Ub1TdAcNQeoTKslYlIIMSYbdFly2vFzSHUBjlKaAC++9V7qGOx
-OW05sKc7v7ugnUblleS3RsYh6Q5ntCZ7eEmFcZbv9q7eSLRhLlbDW92gRCvircyl
-d7JCaiQNKPiz3ByWdDwnRh52UZfhlShQLnd6aXlA7Tdida2LACin1+x7ADM5oKfC
-YBiHpN8wPiN/xC08/qm1aFg30+/G6A==
-=MTaX
------END PGP SIGNATURE-----
+P.S.: I am aware of the BUILD_DRIVING_PARAM_0( 0, 2, 4, 7) checkpatch
+warning and I didn't fix it in bigger favor of human readability.
 
---it4ah3j67tlrz7ah--
+AngeloGioacchino Del Regno (12):
+  dt-bindings: phy: Document MT8195 and MT8196 DisplayPort PHYs
+  phy: phy-mtk-dp: Rename regs to regmap in struct mtk_dp_phy
+  phy: phy-mtk-dp: Allow probing with devicetree match
+  phy: phy-mtk-dp: Migrate register offsets to SoC specific pdata
+  phy: phy-mtk-dp: Implement power_on and power_off PHY callbacks
+  phy: phy-mtk-dp: Support set_lanes in configure and properly cleanup
+  phy: phy-mtk-dp: Support setting volt swing and preemphasis values
+  phy: phy-mtk-dp: Add support for digital and analog calibration
+  phy: phy-mtk-dp: Rewrite and document default driving param macros
+  phy: phy-mtk-dp: Add bitrate register val definitions to SoC data
+  phy: phy-mtk-dp: Add PHYD Lane EN register mask to SoC data
+  phy: phy-mtk-dp: Add support for MT8196 eDP PHY
+
+ .../bindings/phy/mediatek,mt8195-dp-phy.yaml  |  77 ++
+ drivers/phy/mediatek/phy-mtk-dp.c             | 863 ++++++++++++++++--
+ 2 files changed, 843 insertions(+), 97 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
+
+-- 
+2.54.0
+
