@@ -1,279 +1,346 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD62436BE6
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 16:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC8F4302E9
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 17:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783443557; cv=none; b=sMeBNLR1Y6GsSW7dQeTyMf7IS9uD3YXiKjBpyOFfpqX+PZMXwwCpCcHvi5Mnaf8zMuUEXS9CWBT66KrxVNi6I016dbHv/9BSkrVBCJWvtigAdNNTaIME4DS0xcJTtR0Z1WZurLRbl5m0wUDFATPIpfyDcN9KRMcGZcigEl6hcyA=
+	t=1783443979; cv=none; b=mwzjOuQNcy+NfoX9ojE/t2fQjtstbOzghcpjr8zYyop7AXdzTyOAtfSE7ylJCwhgqpoUlv+KPcl37r1a9wpdfVuXyanabhfkfG3mMeHl/ykHgdvaU/bmtyK1zOORxfNVxFcAvIGFIvqImnUgo+si34VQwfQ9lWbeTa6EoKUm6wQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783443557; c=relaxed/simple;
-	bh=rLTIXsUFvhE4fPJRyCHtI/YdnYDF2SJFC4itsl7RNIA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p8luEO1p8Sj0dXE/kZR0ORkJC0eKw6UXUWvtYDFvZkzeptDhLHF3aBx2mdCby1BmG8q0EEfbaoq4Uhjm9SMq+tWOLjgIrP0OidHoc8nr55h6Twk/KW+q7V0esUwFC6GMh7XMNl0iIS+FeW1GiGiSgFRZtPWvOJOcsmmbLSy7z3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jaHkNRUq; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783443979; c=relaxed/simple;
+	bh=FZflqWVIXRCruuWP6g2ExyXMwReUCGhn7A4b9MiKxTM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GvnCotcVKiSJaAfxtBJavVxtuXm+n2Av8iyE3f4yPW1zpdZpJFwBdlj5p+cHvfHYp4AgKdSpZYeB736aIrbqFMq5+lzbrF5qtoBXuob3FJq8zIp0UxM0oVEAsUKI4i2vThhYTwFYLQOD5CmPkJPQjrJ6tbyL/alCnEp2oDx8URg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=gXg0affb; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jaHkNRUq"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-476a130c138so4600416f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 09:59:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="gXg0affb"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-493bc8fda98so46981885e9.0
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 10:06:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783443554; x=1784048354; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O3xHqpT60AQCS9WwSt5iUYZRKfih6DmjUlC/H1ZF5ck=;
-        b=jaHkNRUqjLF/kIZi2OftbUiE6Dy+Uh+TrRvgwmROaA1ZDPhRpUNcdV9H/DbMhO0SyW
-         bt7WKNXjwzxkO3YPJm1svxtVm9hBH6s3+mmDyH44uQqCSa8JAgNBqRo+3n4ogD0HmiFI
-         1N2rTMoj/FeyR7AY+sP+4bzb2umLEjKCOHNGDCjIKdQ/6Hk1mGJWMcoHt3k4x+G/+KSh
-         BvMErCdmr1OZ9VdQh2TE+DWCejMHn2rzuMGTWIUE4lwYxkb4Swf1QkUWkejdg0zy/QU5
-         geSs9zOyhoSdW2SS6OdjtYvR2D8/WsiZNwz+CSn5zEtzLHX2ZbPx2KVo6SYHPxC8PTyH
-         +TrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783443554; x=1784048354;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=raspberrypi.com; s=google; t=1783443975; x=1784048775; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O3xHqpT60AQCS9WwSt5iUYZRKfih6DmjUlC/H1ZF5ck=;
-        b=kzid2eChfVn9ez810tiWPG/Ul+ITREMStlilqH3hDUdxRLW6q5+QejnAjnahuqf6jV
-         7mxYFgrt+5nL1vTxRNzfebcDNjuewh4IuKQmiKJi2ewj/kNSYngySySKDrdH7EwH5Uws
-         55YBvVJ7NObwFcacsBJDnNJ+ZHd5tFm2ZhWrCWgDsqsRa18EuW7+LUe0qiuIibn1dqOz
-         LbXyDuUS3xi9LDlrgUH+g7W0R/2w9wCM/9IjPScsZhiiDQOnw6pnVfGQy+xjXuiG1BiY
-         lCUhYRg8yK1mYYvDoQNKaU6GqvkfZ/09uhjXMHHOq2jsaufo7yh9LRjgmpuVJu6er+2u
-         SxVw==
-X-Forwarded-Encrypted: i=1; AHgh+RpeRZWvJMYn7JsgfTL1kPncpytjGjuNAkbKyr1z71rp7zmFopNNRaDh3elCyyiVtPId5qqctjnGS9g6@vger.kernel.org
-X-Gm-Message-State: AOJu0YwMC4QcH9HoOvxlOO0UjBDdu58B18yhdS1/PI6ywst1yswN15QV
-	t14k232Pd296/M51tQMpbpYXy4hedURj07iU86+BlzafAaPFhvu2hGwB
-X-Gm-Gg: AfdE7cnbmMt6qghn5uw4wVgMJuo1MWGdylxMIAUAfGwJ/9JkW0Cb7FMP5eI4ev6tJYs
-	lyk9vEZJqbapWr4+wq78ddevU7SkimYCD8ivvjQKJB85umwSOnZn9QlFjTG94zIpk5NtjvCvbRx
-	j8ykaLzcWIMfTjrgkUvVmlgK4IakXBl4uMxXnCZAJ48W9D7a5PDGkeb/BOj8xttB+qBv8/0rjgO
-	a/SnhNRR8C0+ttobSWBHLXkINcU+bqCVbnndRJ+zGi6E7JxXcrXO/YkOzyFY3WSaHni8qSBHNyP
-	CBT2geJkqPHds0kbIUWElA/rcrNhL5x1bsNZfUVP0AME/YWS74wxIxlheNdFfmxsIegmE7Hb3L0
-	7amaG6tk897+4L3xoPxa+kBNuxdeW2wGIWzz3cK4n43FaOIvbJma5lkiorbDb9NTzxmLj/yZV9v
-	QYK9uZ/zbv7Q==
-X-Received: by 2002:a05:6000:25e8:b0:477:6874:5413 with SMTP id ffacd0b85a97d-47de66fb84fmr6725303f8f.58.1783443553932;
-        Tue, 07 Jul 2026 09:59:13 -0700 (PDT)
-Received: from avermoal ([2a00:1fa2:c26a:61e7:59d1:ea98:4610:84d1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa039af67sm41069300f8f.17.2026.07.07.09.59.09
+        bh=NAB/TZ4h8IUmeg+tgDmUhADP6t4/HyOBMb86upV86GM=;
+        b=gXg0affbw9gmuZOz27OVSq7zxSxIUmR2YiewJ2V873Z1N3FRLvX8SOqrrwb1LZiUF8
+         1yYp826XA5WTcsRYlI1V4LdwACYj12EINsXLLOls1fcLzMU8UMB0CAhpe+0cbHGOzc2Q
+         k0MJZ9jEzLsP4FBTzGM5hqiPF7/sCOOeACiM2ReKRJ+jJ3XT/28pVn+40t+zrco34+Fr
+         hf0/nEkY4s22WqzxcgvviyKeq69eLJO/jOJQsX/vZ7zJLY2Irc9918cKH/UaYRs8CvSD
+         X5VrbcbYN1GEiL5Esxpge6qYQ6KB9H7BC179NvidsR0/T1hnmo9zK3hd+hGW1L48cVui
+         faVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783443975; x=1784048775;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NAB/TZ4h8IUmeg+tgDmUhADP6t4/HyOBMb86upV86GM=;
+        b=dA2mZY5Zsx4nj7Z4YURGgqES6dnGluGc5oYSbXAzRjrvUMtsQDluxxhqoL6IzRburx
+         pxyBAtPdsmfB/xGSr1pfIQqb1P/sp+Y3YmpRtaPLj0MAEPIKtMa/taX4mltQfGVSJc7r
+         0G0DfxCFbNSG3g4DgOMoV3mSMppp+VDjkQycRGGVYK/d0Vs/dqUpIblvgYwgZACEb0hI
+         Q6GWoezT3+zso19kabqckm6mbsILtzgeGBrGDCUIOn/ORsJe9GHs1sLHRbYlMl00/6NH
+         Ek31KjzIt+pD6NZKROULJ/GKcE+F1rWV28eSR4hVgrW/dtzUPFzHEhhLeX+VDyEQS2zY
+         gCtw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr0UxTACqn3bKuCcDXePgCJnGpiU08d97fzOTOb4fn+lpbw213iauAZ7Vuj5yB3APmd5sp0fFP3TfJo@vger.kernel.org
+X-Gm-Message-State: AOJu0YzZx7QN5THeR8HzYjkKtKzpoSi9Rxe4W7sz0JcBVPo7uioWp+px
+	59f5XefWbwCMJue2wQuhCD6ycR2Csp1TpRs7xIsLinkWF/toJ/+YAyNqSSwur7clwNI=
+X-Gm-Gg: AfdE7clU1zQDUgUS/hiNz6Qv0YDI2GiXXB3ZUbn6/oyDE6yfyU5vhp9WaEyLZQnOVjc
+	ENzXwDPKu6W3NK/p7YiatIAGyUwwCLJVaUHd8gG91tD6Mo4xmHox0JwyngQyMW7vO3r755tokDa
+	YJnA4uvJPALJz4aVvQtEJdlnHcY6Z6XMUvPvLANzeJvHBSsROIUAin/u0ZO6jYn3kzotpbIaYMK
+	tcLUA3/xu1JMriWLV9Afy7Yx2xbsrRSVi2WHG0H9lLTdNMp/fIRxkeH9Gww4tOTrNqtq2jccXZ5
+	s+nan5w9l0akZmWZTTnvWHHl4/I/dA9HY9+h4CL49Fb31nSOrAJR1j8jcOsqbKQLksg4R3YvExP
+	a2fU2krEdU9UYqWoGkyR3C2jYvG9PtCRjlPFAYoG9kTnQ6P9us80WUDah7HY1kV0hs16tCr3BgI
+	pypIn+Wu9fpU4B1eF42tJoRL6EhO+2sBoMuaLU8ca3X53ppnSTkM48y3NU1iMCr/9S
+X-Received: by 2002:a05:600c:4f81:b0:493:c55e:9fa1 with SMTP id 5b1f17b1804b1-493df07d7cbmr71043875e9.39.1783443975360;
+        Tue, 07 Jul 2026 10:06:15 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47aa0f21543sm33644487f8f.35.2026.07.07.10.06.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 09:59:13 -0700 (PDT)
-From: Mikhail Lukianchikov <avermoal@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rengarajan Sundararajan <Rengarajan.S@microchip.com>,
-	UNGLinuxDriver <UNGLinuxDriver@microchip.com>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mikhail Lukianchikov <avermoal@gmail.com>
-Subject: [PATCH] dt-bindings: net: convert microchip,lan78xx.txt to YAML schema
-Date: Tue,  7 Jul 2026 22:58:40 +0600
-Message-ID: <20260707165840.107409-1-avermoal@gmail.com>
-X-Mailer: git-send-email 2.52.0
+        Tue, 07 Jul 2026 10:06:14 -0700 (PDT)
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 07 Jul 2026 18:04:33 +0100
+Subject: [PATCH v2 01/20] media: i2c: imx355: Add support for 24 MHz
+ external clock
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260707-media-imx355-v2-1-1683ec07b897@raspberrypi.com>
+References: <20260707-media-imx355-v2-0-1683ec07b897@raspberrypi.com>
+In-Reply-To: <20260707-media-imx355-v2-0-1683ec07b897@raspberrypi.com>
+To: Tianshu Qiu <tian.shu.qiu@intel.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Richard Acayan <mailingradian@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, devicetree@vger.kernel.org, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+X-Mailer: b4 0.14.1
 
-Convert the Microchip LAN78xx family (LAN7800, LAN7801, LAN7850) binding
-documentation from plain text to DT schema format using YAML.
+From: David Heidelberg <david@ixit.cz>
 
-The conversion was validated with 'make dt_binding_check'
+The IMX355 sensor supports multiple external clock frequencies,
+including 19.2 MHz and 24 MHz. The driver currently supports only
+fixed 19.2 MHz input clock.
 
-Signed-off-by: Mikhail Lukianchikov <avermoal@gmail.com>
+Refactor the clock handling to make the PLL configuration dependent
+on the external clock frequency and add support for 24 MHz. Introduce
+a table of clock parameter sets and program the corresponding EXTCLK
+frequency and PLL multipliers to maintain consistent internal VCO
+frequencies across supported inputs.
+
+The PLL settings are adjusted so that OP VCO remains at 720 MHz
+
+This preserves existing timing characteristics while allowing systems
+using a 24 MHz clock to operate correctly.
+
+No functional change for existing 19.2 MHz users.
+
+Assisted-by: Claude:claude-opus-4-6
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 ---
- .../bindings/net/microchip,lan78xx.txt        |  53 --------
- .../bindings/net/microchip,lan78xx.yaml       | 113 ++++++++++++++++++
- 2 files changed, 113 insertions(+), 53 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/net/microchip,lan78xx.txt
- create mode 100644 Documentation/devicetree/bindings/net/microchip,lan78xx.yaml
+ drivers/media/i2c/imx355.c | 77 +++++++++++++++++++++++++++-------------------
+ 1 file changed, 45 insertions(+), 32 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/microchip,lan78xx.txt b/Documentation/devicetree/bindings/net/microchip,lan78xx.txt
-deleted file mode 100644
-index 11a679530ae6..000000000000
---- a/Documentation/devicetree/bindings/net/microchip,lan78xx.txt
-+++ /dev/null
-@@ -1,53 +0,0 @@
--Microchip LAN78xx Gigabit Ethernet controller
--
--The LAN78XX devices are usually configured by programming their OTP or with
--an external EEPROM, but some platforms (e.g. Raspberry Pi 3 B+) have neither.
--The Device Tree properties, if present, override the OTP and EEPROM.
--
--Required properties:
--- compatible: Should be one of "usb424,7800", "usb424,7801" or "usb424,7850".
--
--The MAC address will be determined using the optional properties
--defined in ethernet.txt.
--
--Optional properties of the embedded PHY:
--- microchip,led-modes: a 0..4 element vector, with each element configuring
--  the operating mode of an LED. Omitted LEDs are turned off. Allowed values
--  are defined in "include/dt-bindings/net/microchip-lan78xx.h".
--
--Example:
--
--/* Based on the configuration for a Raspberry Pi 3 B+ */
--&usb {
--	usb-port@1 {
--		compatible = "usb424,2514";
--		reg = <1>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		usb-port@1 {
--			compatible = "usb424,2514";
--			reg = <1>;
--			#address-cells = <1>;
--			#size-cells = <0>;
--
--			ethernet: ethernet@1 {
--				compatible = "usb424,7800";
--				reg = <1>;
--				local-mac-address = [ 00 11 22 33 44 55 ];
--
--				mdio {
--					#address-cells = <0x1>;
--					#size-cells = <0x0>;
--					eth_phy: ethernet-phy@1 {
--						reg = <1>;
--						microchip,led-modes = <
--							LAN78XX_LINK_1000_ACTIVITY
--							LAN78XX_LINK_10_100_ACTIVITY
--						>;
--					};
--				};
--			};
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/net/microchip,lan78xx.yaml b/Documentation/devicetree/bindings/net/microchip,lan78xx.yaml
-new file mode 100644
-index 000000000000..743667c1e761
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/microchip,lan78xx.yaml
-@@ -0,0 +1,113 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/microchip,lan78xx.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+index 27a5c212a527..ad9a9464175b 100644
+--- a/drivers/media/i2c/imx355.c
++++ b/drivers/media/i2c/imx355.c
+@@ -25,6 +25,10 @@
+ #define IMX355_REG_CHIP_ID		0x0016
+ #define IMX355_CHIP_ID			0x0355
+ 
++/* PLL registers that depend on the external clock frequency */
++#define IMX355_REG_EXTCLK_FREQ		0x0136
++#define IMX355_REG_PLL_OP_MUL		0x030e
 +
-+title: Microchip LAN78xx Gigabit Ethernet controller
+ /* V_TIMING internal */
+ #define IMX355_REG_FLL			0x0340
+ #define IMX355_FLL_MAX			0xffff
+@@ -63,7 +67,6 @@
+ 
+ /* default link frequency and external clock */
+ #define IMX355_LINK_FREQ_DEFAULT	360000000LL
+-#define IMX355_EXT_CLK			19200000
+ #define IMX355_LINK_FREQ_INDEX		0
+ 
+ /* number of data lanes */
+@@ -100,6 +103,29 @@ struct imx355_mode {
+ 	struct imx355_reg_list reg_list;
+ };
+ 
++struct imx355_clk_params {
++	u32 ext_clk;
++	u16 extclk_freq; /* External clock (MHz) in 8.8 fixed point) */
++	u16 pll_op_mpy;	/* OP system PLL multiplier */
++};
 +
-+maintainers:
-+  - Rengarajan Sundararajan <Rengarajan.S@microchip.com>
-+  - UNGLinuxDriver <UNGLinuxDriver@microchip.com>
++/*
++ * The clock tree is in single PLL mode, so PREDIV_VT and MPY_IVT do nothing.
++ * All modes use the same PLL setup for OP, with IOPCK being 720MHz.
++ */
++static const struct imx355_clk_params imx355_clk_params[] = {
++	{
++		.ext_clk = 19200000,
++		.extclk_freq = 0x1333,	/* 19.2 MHz */
++		.pll_op_mpy = 75,	/* 19.2 / 2 * 75  = 720 MHz */
++	},
++	{
++		.ext_clk = 24000000,
++		.extclk_freq = 0x1800,	/* 24.0 MHz */
++		.pll_op_mpy = 60,	/* 24.0 / 2 * 60  = 720 MHz */
++	},
++};
 +
-+description:
-+  The LAN78XX devices are usually configured by programming their OTP or with
-+  an external EEPROM, but some platforms (e.g. Raspberry Pi 3 B+) have neither.
-+  The Device Tree properties, if present, override the OTP and EEPROM.
+ struct imx355_hwcfg {
+ 	unsigned long link_freq_bitmap;
+ };
+@@ -125,6 +151,7 @@ struct imx355 {
+ 	const struct imx355_mode *cur_mode;
+ 
+ 	struct imx355_hwcfg *hwcfg;
++	const struct imx355_clk_params *clk_params;
+ 
+ 	/*
+ 	 * Mutex for serialized access:
+@@ -144,8 +171,6 @@ static const struct regulator_bulk_data imx355_supplies[] = {
+ };
+ 
+ static const struct imx355_reg imx355_global_regs[] = {
+-	{ 0x0136, 0x13 },
+-	{ 0x0137, 0x33 },
+ 	{ 0x304e, 0x03 },
+ 	{ 0x4348, 0x16 },
+ 	{ 0x4350, 0x19 },
+@@ -235,8 +260,6 @@ static const struct imx355_reg mode_3268x2448_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -284,8 +307,6 @@ static const struct imx355_reg mode_3264x2448_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -333,8 +354,6 @@ static const struct imx355_reg mode_3280x2464_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -382,8 +401,6 @@ static const struct imx355_reg mode_1940x1096_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -431,8 +448,6 @@ static const struct imx355_reg mode_1936x1096_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -480,8 +495,6 @@ static const struct imx355_reg mode_1924x1080_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -529,8 +542,6 @@ static const struct imx355_reg mode_1920x1080_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -578,8 +589,6 @@ static const struct imx355_reg mode_1640x1232_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -627,8 +636,6 @@ static const struct imx355_reg mode_1640x922_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -676,8 +683,6 @@ static const struct imx355_reg mode_1300x736_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -725,8 +730,6 @@ static const struct imx355_reg mode_1296x736_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -774,8 +777,6 @@ static const struct imx355_reg mode_1284x720_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -823,8 +824,6 @@ static const struct imx355_reg mode_1280x720_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -872,8 +871,6 @@ static const struct imx355_reg mode_820x616_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x02 },
+ 	{ 0x0701, 0x78 },
+@@ -1422,6 +1419,16 @@ static int imx355_start_streaming(struct imx355 *imx355)
+ 		return ret;
+ 	}
+ 
++	/* Set PLL registers for the external clock frequency */
++	ret = imx355_write_reg(imx355, IMX355_REG_EXTCLK_FREQ, 2,
++			       imx355->clk_params->extclk_freq);
++	if (ret)
++		return ret;
++	ret = imx355_write_reg(imx355, IMX355_REG_PLL_OP_MUL, 2,
++			       imx355->clk_params->pll_op_mpy);
++	if (ret)
++		return ret;
 +
-+allOf:
-+  - $ref: /schemas/usb/usb-device.yaml#
-+  - $ref: /schemas/net/ethernet-controller.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - usb424,7800
-+      - usb424,7801
-+      - usb424,7850
-+  reg:
-+    maxItems: 1
-+    description: USB port number
-+  local-mac-address:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    minItems: 6
-+    maxItems: 6
-+    description:
-+      MAC address to use if not stored in OTP or EEPROM. If present,
-+      overrides OTP/EEPROM.
-+  mdio:
-+    $ref: /schemas/net/mdio.yaml#
-+    unevaluatedProperties: false
-+
-+patternProperties:
-+  "^ethernet-phy(@[0-9a-f]+)?$":
-+    type: object
-+    description: |
-+      PHY node for the embedded or external PHY. The PHY address is
-+      given by the 'reg' property.
-+    properties:
-+      reg:
-+        maxItems: 1
-+        description: PHY address.
-+      microchip,led-modes:
-+        $ref: /schemas/types.yaml#/definitions/uint32-array
-+        minItems: 1
-+        maxItems: 4
-+        description:
-+          Array of LED mode values for each of up to 4 LEDs.
-+          Omitted LEDs are turned off. Allowed values are defined
-+          in include/dt-bindings/net/microchip-lan78xx.h.
-+    required:
-+      - reg
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/net/microchip-lan78xx.h>
-+    / {
-+        usb: usb {
-+            compatible = "usb-host";
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+        };
-+    };
-+    &usb {
-+        usb-port@1 {
-+            compatible = "usb424,2514";
-+            reg = <1>;
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            usb-port@1 {
-+                compatible = "usb424,2514";
-+                reg = <1>;
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                ethernet@1 {
-+                    compatible = "usb424,7800";
-+                    reg = <1>;
-+                    local-mac-address = [00 11 22 33 44 55];
-+
-+                    mdio {
-+                        #address-cells = <1>;
-+                        #size-cells = <0>;
-+                        ethernet-phy@1 {
-+                            reg = <1>;
-+                            microchip,led-modes = <
-+                                LAN78XX_LINK_1000_ACTIVITY
-+                                LAN78XX_LINK_10_100_ACTIVITY
-+                            >;
-+                        };
-+                    };
-+                };
-+            };
-+        };
-+    };
-+...
+ 	/* set digital gain control to all color mode */
+ 	ret = imx355_write_reg(imx355, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, 1);
+ 	if (ret)
+@@ -1749,7 +1756,13 @@ static int imx355_probe(struct i2c_client *client)
+ 				     "failed to get clock\n");
+ 
+ 	freq = clk_get_rate(imx355->clk);
+-	if (freq != IMX355_EXT_CLK)
++	for (unsigned int i = 0; i < ARRAY_SIZE(imx355_clk_params); i++) {
++		if (freq == imx355_clk_params[i].ext_clk) {
++			imx355->clk_params = &imx355_clk_params[i];
++			break;
++		}
++	}
++	if (!imx355->clk_params)
+ 		return dev_err_probe(imx355->dev, -EINVAL,
+ 				     "external clock %lu is not supported\n",
+ 				     freq);
+
 -- 
-2.52.0
+2.34.1
 
