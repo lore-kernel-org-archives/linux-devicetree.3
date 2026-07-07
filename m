@@ -1,123 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49238.qiye.163.com (mail-m49238.qiye.163.com [45.254.49.238])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699CB3909BC
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 06:26:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A8933F377;
+	Tue,  7 Jul 2026 06:29:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.238
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783405600; cv=none; b=l4Dd7UI5hG/MKE/t5O0G2C9tMamZmGbmiLTWpj1JXgiJLIEfGSaaBZXXtp+O9nXunK2yncbnk5hXF7mIKBe1J+AGQpbXPaixU90v5FW8yRU4IQLYirTZkQyRlDm84ej4nL2oDFA7Kdyu41FaHb2XRO4VQINXQJCdNggacm/xYIg=
+	t=1783405795; cv=none; b=MpVhyI9jTzvwnpgTTSrBNUWYmgmgpE3fQ7zWwKFnMReRCB3xq7qbfQT0Ll8Bk9U0izv+gQcdRIzfQ1kouW8lOWrWMQUhjQZBPCBtmBzRhGaP5+4XQ2slJunXr/XdUt07yQTar4szs2IrjTOJsRoWSh4sLgr6I8xeMZ8KjZe7F20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783405600; c=relaxed/simple;
-	bh=jXAQUNirnMY33eDAiOEtZ67C0ozklX9/YVTXmVmwmqo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NqhpbxkQDu27UWpRJyzuyY0l94qYt6HPwHXp/IfUH0C1aKPhYJ4bY0GiAPma2iP+jDHPGLZTYJK1GwFwDEalwb4TwzHHoFrYvH6vu8RZnV2Vskf+nrdCs8UKGdG81cWjbVH71o7UWLY7qd0QYNU2/76uN9sBfAVA611rCenrBAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AYFDaPqa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783405795; c=relaxed/simple;
+	bh=oOk/FBDpeTeb+T07zVCJJSLL4f+3EswxKkjSuLDBkRQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=oCt9kukiJPpDL/TI4EcjcW1YIKnFTq8kYalRsMo5ofscIHLa01A+m0c8bGLhJZ0kZ8RHPxxZj5HIqbpkk1DzP2OSO+7EUAZ0fmeeaugytOKKJ2yyxj1m+dtHCi+QSoXDE6795uOmHkyTTzw0HCkROgNDiJJ2ceCoPCdrVm/EAYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=koHL70Yy; arc=none smtp.client-ip=45.254.49.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AYFDaPqa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D81181F00A3A;
-	Tue,  7 Jul 2026 06:26:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783405599;
-	bh=c9EENQYI0galjYid2sX8n3lxiNpXxCKrkXLWup5+YEI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AYFDaPqavP43j7MGx7VBWI5J3r/w3VxKgB4VBLKlixkwXIr/F223MCxRdUFr08dNr
-	 yO2A9ZGZ5KbPZ6HT97HGcPQdc6N2c6ppElPA4fdvIq4LTBn+OlIIrG5ncLOUXvT+Si
-	 ACMxfMx40KtTudIFO5c/FytLRP7rMt+4UKrjE0qVVq2aZOX/Pd0Dxfz1YM6/glsaBa
-	 tgOP2oEgiTq6mtSloquAtvg92N7L8omIholrhJA0e4kEZQx66lpD+wAoBlRG3W6fzd
-	 QWiwm1OyojidLNOY0F9ocM0cVwYbPTcX1nhVjvMyjpwfmcnIzjzgXu/IO+5pshQeN/
-	 tfi8INrFikEnQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: usb: Add Aspeed AST2700 DWC3 controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ryan Chen" <ryan_chen@aspeedtech.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260707-xhci-v1-1-b202b9b3274e@aspeedtech.com>
-References: <20260707-xhci-v1-1-b202b9b3274e@aspeedtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 06:26:38 +0000
-Message-Id: <20260707062638.D81181F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="koHL70Yy"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 452ef5832;
+	Tue, 7 Jul 2026 12:07:19 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sandy Huang <hjc@rock-chips.com>,
+	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v6 2/5] drm/dp: Add helper to validate DP lane counts
+Date: Tue,  7 Jul 2026 12:06:10 +0800
+Message-Id: <20260707040613.1992841-3-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260707040613.1992841-1-damon.ding@rock-chips.com>
+References: <20260707040613.1992841-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9f3ac2496a03a8kunme8126cdf5bc75
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSx5IVkpLShhJTx8aSUlLQ1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=koHL70Yy2rbsbm3CZpRjj1j7EvlqXB+rZQYjLgINLySwtAydfj4S9JTkFzxf/5EJlc+Swz77+y9xAcP5ImC6cAShrhGRV7xfwA2AvixN3v8RmxyYLNbwyDOTkY7X2bAH97IVc0fLNb7RX8bLHRqmQE7TWqPkujYnCmTvL9sGewU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=lWH0Sk73+0p13PY6uyYH4gl84FiS6O5rP+nrrrsCjNY=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The AST2700 DWC3 binding lists `clocks` and `clock-names` as requir=
-ed properties but fails to explicitly define strict constraints for them in=
- the `properties:` block, relying on a loose generic schema.
---
+Add a generic helper function drm_dp_lane_count_is_valid() to check
+if a DisplayPort lane count is valid. According to the DP specification,
+only 1, 2, or 4 lanes are supported.
 
---- Patch [1]: [PATCH] dt-bindings: usb: Add Aspeed AST2700 DWC3 controller=
- ---
-commit e94cba741ea120f96563c784f28513d593ede326
-Author: Ryan Chen <ryan_chen@aspeedtech.com>
+This helper avoids duplicating DP lane count validation logic across
+individual DisplayPort drivers.
 
-dt-bindings: usb: Add Aspeed AST2700 DWC3 controller
+Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-This commit adds a new device tree binding for the Aspeed AST2700 DWC3
-controller. It uses a dedicated YAML file that references the generic
-snps,dwc3.yaml schema and adds SoC-specific constraints such as a
-mandatory USB3 PHY.
+---
 
-> Because reg, clocks and clock-names are only defined indirectly through
-> the $ref, they still appear in the required list, the same approach as
-> apple,dwc3.yaml.
+Changes in v6:
+- Add Reviewed-by tag.
+---
+ include/drm/display/drm_dp_helper.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-[Severity: Low]
-This isn't a bug, but is this description of apple,dwc3.yaml accurate?
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index 8c2d77a032f0..c904cb480d84 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -138,6 +138,12 @@ bool drm_dp_as_sdp_supported(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_C
+ 
+ int drm_dp_psr_setup_time(const u8 psr_cap[EDP_PSR_RECEIVER_CAP_SIZE]);
+ 
++static inline bool
++drm_dp_lane_count_is_valid(int lane_count)
++{
++	return lane_count == 1 || lane_count == 2 || lane_count == 4;
++}
++
+ static inline int
+ drm_dp_max_link_rate(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+ {
+-- 
+2.34.1
 
-Looking at apple,dwc3.yaml, it explicitly overrides reg in its properties:
-block to enforce strict bounds, rather than relying on an indirect
-definition through the $ref.
-
-> diff --git a/Documentation/devicetree/bindings/usb/aspeed,dwc3.yaml b/Doc=
-umentation/devicetree/bindings/usb/aspeed,dwc3.yaml
-> new file mode 100644
-> index 0000000000000..976f80b87e24c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/aspeed,dwc3.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: aspeed,ast2700-xhci
-> +      - const: snps,dwc3
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  phys:
-> +    maxItems: 1
-> +
-> +  phy-names:
-> +    const: usb3-phy
-
-[Severity: Low]
-Since clocks and clock-names are listed as required properties below, should
-they be explicitly constrained here in the properties: block?
-
-Without strict constraints defined here, device trees with an incorrect
-number of clocks or invalid clock names for the AST2700 could silently pass
-schema validation by falling back to the loosely defined generic schema in
-snps,dwc3.yaml.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - resets
-> +  - phys
-> +  - phy-names
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-xhci-v1-1-=
-b202b9b3274e@aspeedtech.com?part=3D1
