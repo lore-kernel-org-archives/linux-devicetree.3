@@ -1,57 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55421B3925;
-	Tue,  7 Jul 2026 03:21:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1CF35292A;
+	Tue,  7 Jul 2026 03:21:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783394507; cv=none; b=BL7ZoI8VooCKyOnc16wLf5pxI14ZpNVjUiU0QACJkas5p+MyXBpbKVNei0Hn2dthM0sWMcbpU+VTxujnBF6tjqu6aWmVWdS4by3aTjaHsrbS+kMcrc/f9bdvABgyUh7Nbh5flD73vU0Lkdf0J3uiDOj9qfg89oLbRYOcz7GbUHk=
+	t=1783394509; cv=none; b=jA0BaxXxAY/LLl23VvNC2mGosR1EWsjbVbXZfKw0wMHPESXLiuwNB1CmUbXUIXUN8IiA5gLe+Czdp1a0JVF8vVKp/Z+XEF8pKQjXBD2oADd2q7Y1jD0ysP7V3ApHef6jQAKLGg7aCJI7jUIsaCQjxOnzBddS5jFSgVuVrWAPBeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783394507; c=relaxed/simple;
-	bh=SACH1iT5zxIbInPsb/B4IL5zPsUjX9g0oxe8DXBmoyg=;
+	s=arc-20240116; t=1783394509; c=relaxed/simple;
+	bh=E7FnRCmSP9uiFKLqM64j7ytnN4fGFUPEDo8T6q0v1ec=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PDAL60WR51Vz/t9YYRPvAlOrsGCFrO4Tx8yNSe0rdrGF0MH8shtlUSnDpji9mMhNmftW5bTyTIO6geGtOMyhphlCNKQQlzl0y1f9PFJAiajc3WSa8L4aryvPjB/lZteD4mdOru5Jybv0GP4fhymLMe+7O0ec1jZWKn15CCq8y3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IkXGRVJd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=UiBE5z/NitMz0/XrurYYSSLV23itnuFgMYV05vHddCwn25p0lr1fvA/eVBX2cfQqWyGo1/D2Se54oJEIz0xo1Kk1/7YJAjEMebZXx7Xsznfd8yQ+Szl9kDlBbyJ3ZXk4I8Y9sOdCsDW4ng3polc0xHDteHmpntte4cisj8tjwrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fgu7b5/O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IkXGRVJd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 345B31F000E9;
-	Tue,  7 Jul 2026 03:21:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fgu7b5/O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25811F00A3A;
+	Tue,  7 Jul 2026 03:21:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783394506;
-	bh=z/+ZF3g9h+Uvae25foKta8fTkAbMBje+j4tPX6IArmU=;
+	s=k20260515; t=1783394507;
+	bh=P6UuuCij1HZCrkXCkw7PPJgANHocPuImc+fUzBa1NJ8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IkXGRVJd01W7u8JyKyUzrElA9gDeLg1gEmyY5hUez4Vs64bWo/SjceqA99/wj1/uP
-	 2NfjwHNjY0Je/W6M8mBnQXMNqp/q1TXrLYb8rJo/DSQ3k+kxkJmgfXu1Rclu63aiql
-	 wFlanhjJS+zmkBReFkz50JnwscrU4yFsw0Guy0VebXoz+1qK/tUcRlYO5++rClsNng
-	 fk/NlpV7ZQiYO6bGjDj4csqP4tpNuznuc2p1MYHMcL4JCmfkpwSjbMQXp8uI4Y+O5L
-	 tvo4zEuztvSkSCtj+lorp+SWJufP8T9TV8iALMAiwKNIdnN0nJjkRXGmwyMW4Mb9b3
-	 nuIkOEsaei/aA==
+	b=fgu7b5/ODvrVmwnImwk7Wl6m/E5Kn7r+SWVA0pGtnsIipgD8gbO12ElpYwTahnEtW
+	 t+OAnBCZpMXOapOFJ1Xl95XwMQQWHIlQZ6hMU3Fi8oKVcNlGZmTy08JxHlaQOLbkht
+	 ewT2R7chMTF/5txcnve3ptJHWrPRGIEcMxzqN2EMvxd+mZkKod8gr44DT71MLKSa8E
+	 cHmOL8c09jEnOv38n1stTUYi57kjDmF3lJeWwpBA35vmzG43evuvRUWOlm8SHSMab4
+	 pGW1D22n3TUYojAuzvqP54mDi3eYegclrKTOBTW8JMpO1vSShgKO4FVxR+N9+7/uIS
+	 n7wdB7aRoRhoQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	David Heidelberg <david@ixit.cz>,
-	Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org,
+	Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Johan Hovold <johan+linaro@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Subject: Re: (subset) [PATCH v7 0/6] media: iris: enable SM8350 and SC8280XP support
-Date: Mon,  6 Jul 2026 22:21:22 -0500
-Message-ID: <178339449932.1938770.18155527921257532285.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Fix gcc clock specifier for usb_mp_qmpphy nodes
+Date: Mon,  6 Jul 2026 22:21:23 -0500
+Message-ID: <178339449918.1938770.9769683134904668212.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260515-iris-sc8280xp-v7-0-2e21f6db1897@oss.qualcomm.com>
-References: <20260515-iris-sc8280xp-v7-0-2e21f6db1897@oss.qualcomm.com>
+In-Reply-To: <20260602-glymur-fix-usb-mp-qmpphy-clock-specifier-v1-1-19c6f44d5655@oss.qualcomm.com>
+References: <20260602-glymur-fix-usb-mp-qmpphy-clock-specifier-v1-1-19c6f44d5655@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -62,31 +58,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 15 May 2026 13:56:34 +0300, Dmitry Baryshkov wrote:
-> In order to enable wider testing of the Iris driver on the HFI Gen1
-> platforms enable support for Qualcomm SM8350 and SC8280XP platforms.
+On Tue, 02 Jun 2026 09:51:35 -0700, Gopikrishna Garmidi wrote:
+> usb_mp_qmpphy0 and usb_mp_qmpphy1 have #clock-cells set to 0 so they take
+> no specifier. Drop the erroneous QMP_USB43DP_USB3_PIPE_CLK argument.
 > 
-> Note, this has been tested only with the Iris driver. Venus driver fails
-> to boot the Iris core on SM8350 pointing out the UC_REGION error.
-> 
-> Note, the firmware for SM8250 isn't compatible with SM8350 (nor with
-> SC8280XP). Please use corresponding firmware, extracted from the Windows
-> / Android data.
+> This fixes the following dtbs_check warning:
+> clock-controller@100000 (qcom,glymur-gcc): clocks: [[59, 0], ..... [0]]
+> is too long
+> from schema $id: http://devicetree.org/schemas/clock/qcom,glymur-gcc.yaml
 > 
 > [...]
 
 Applied, thanks!
 
-[2/6] arm64: dts: qcom: sc8280xp: sort reserved memory regions
-      commit: 53275adfb07d416a32004612227265939d0df00d
-[3/6] arm64: dts: qcom: sc8280xp: Add Iris core
-      commit: 3a52eef16b979617156fa6e2ead24ca4d1336f0b
-[4/6] arm64: dts: qcom: sc8280xp-x13s: Enable Iris
-      commit: 595eb4144f2ecc58e8e56e07ae94407b5a696031
-[5/6] arm64: dts: qcom: sm8350: add Iris device
-      commit: a2b0c5eba7431e914c85ce9b2c14a4f23e577874
-[6/6] arm64: dts: qcom: sm8350-hdk: enable Iris core
-      commit: 4a59255c6318881fdad69f8ba62a6003cc2a989f
+[1/1] arm64: dts: qcom: glymur: Fix gcc clock specifier for usb_mp_qmpphy nodes
+      commit: eca50d95b60cdcabb82a8e1b727fad2547e52f1d
 
 Best regards,
 -- 
